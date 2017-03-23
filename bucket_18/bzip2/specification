@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://www.bzip.org/${PORTVERSION}/
 DISTFILE[1]=		bzip2-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	shared static docs
+SPKGS[standard]=	complete shared static docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,6 +29,7 @@ do-install:
 	${INSTALL_MAN} ${WRKSRC}/bzip2.1 ${STAGEDIR}${PREFIX}/share/man/man1
 	${INSTALL_MAN} ${WRKSRC}/bzgrep.1 ${STAGEDIR}${PREFIX}/share/man/man1
 	${INSTALL_MAN} ${WRKSRC}/bzmore.1 ${STAGEDIR}${PREFIX}/share/man/man1
+	${LN} -sf bzmore ${STAGEDIR}${PREFIX}/bin/bzless
 	${LN} -sf libbz2.so.1 ${STAGEDIR}${PREFIX}/lib/libbz2.so
 .for nf in bunzip2 bzcat bz2cat
 	${LN} -sf bzip2 ${STAGEDIR}${PREFIX}/bin/${nf}
