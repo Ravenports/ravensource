@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	2.4.6
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libtool
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Generic shared library support script
+HOMEPAGE=		https://www.gnu.org/software/libtool/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/libtool
+DISTFILE[1]=		libtool-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# requires gm4 for both build and run time, but that's the version of m4
+# used by raven-sysroot.  There could be an issue if somebody tries to
+# use libtool outside of ravenports when they have an older m4 on their
+# system.  For now, don't worry about it and assume it's a build only tool.
+# Accordingly, don't install INFO=libtool which requires makeinfo which
+# has a huge dependency chain.
+
+USES=			cpe
+MUST_CONFIGURE=		gnu
+CPE_VENDOR=		gnu
+CPE_PRODUCT=		libtool
+CONFIGURE_ARGS=		--disable-ltdl-install
+
+post-patch:
+	@${RM} ${WRKSRC}/doc/*.info*
+	@${TOUCH} ${WRKSRC}/doc/libtool.1
+	${REINPLACE_CMD} -e "/INFO_DEPS =/d" ${WRKSRC}/Makefile.in
