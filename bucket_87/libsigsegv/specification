@@ -1,0 +1,28 @@
+DEF[PORTVERSION]=	2.10
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libsigsegv
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Handling page faults in user mode
+HOMEPAGE=		http://www.gnu.org/software/libsigsegv/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/libsigsegv
+DISTFILE[1]=		libsigsegv-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete static shared
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+USES=			libtool
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		AWK="{{AWK}}" --enable-shared
+INSTALL_TARGET=		install-strip
+
+do-test:
+	@(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_FLAGS} \
+		${MAKEFILE} ${MAKE_ARGS} check)

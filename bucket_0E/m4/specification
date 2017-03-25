@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	1.4.18
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		m4
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	GNU implementation of the Unix macro processor
+HOMEPAGE=		https://www.gnu.org/software/m4/m4.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/m4
+DISTFILE[1]=		m4-1.4.18.tar.xz:main
+
+SPKGS[standard]=	complete primary examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+BUILD_DEPENDS=		libsigsegv:static:standard
+
+INFO=			m4
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-libsigsegv-prefix={{LOCALBASE}}
+			--program-prefix=g
+
+post-patch:
+	@${REINPLACE_CMD} -e '/^install-exec-am: / s| .*||' ${WRKSRC}/lib/Makefile.in
+
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/examples/m4
+	${INSTALL_DATA} ${WRKSRC}/examples/*.m4 ${STAGEDIR}${PREFIX}/share/examples/m4
