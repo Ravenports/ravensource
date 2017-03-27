@@ -28,8 +28,12 @@ CPE_VENDOR=		gnu
 DISTNAME=		make-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--program-prefix=g --without-guile
+INFO=			single:make
+
+LICENSE=		GPLv3:single
+LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
 
 [NLS].USES_ON=				gettext iconv
 [NLS].CONFIGURE_ARGS_ON=		{{ICONV_CONFIGURE_ARG}} --with-libintl-prefix={{LOCALBASE}}
 [NLS].CONFIGURE_ENABLE_BOTH=		nls
-[NLS].INFO_ON=				make

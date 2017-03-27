@@ -25,6 +25,10 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-libsigsegv-prefix={{LOCALBASE}}
 			--program-prefix=g
 
+LICENSE=		GPLv3:primary
+LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
 post-patch:
 	@${REINPLACE_CMD} -e '/^install-exec-am: / s| .*||' ${WRKSRC}/lib/Makefile.in
 
