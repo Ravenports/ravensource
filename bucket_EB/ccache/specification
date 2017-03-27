@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	3.3.4
+DEF[CC_COMPILERS]=	cc c++ CC gcc g++
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ccache
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Fast C/C++ compiler cache tool
+HOMEPAGE=		https://ccache.samba.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.samba.org/ftp/ccache/
+DISTFILE[1]=		ccache-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3:primary
+LICENSE_SCHEME=		solo
+LICENSE_FILE=		GPLv3:{{WRKSRC}}/GPL-3.0.txt
+
+SKIP_CCACHE=		yes
+MUST_CONFIGURE=		gnu
+CPPFLAGS=		-DCC_IS_GCC
+
+# ccache will build its own zlib since it can't find a suitable one.
+# We want this (as opposed to adding zlib as buildrun depends).
+# ccache needs to be dependency-free for Ravenports' purposes.
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/ccache ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/ccache.1 ${STAGEDIR}${PREFIX}/share/man/man1
+
+	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${WRKSRC}/MANUAL.html ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${WRKSRC}/MANUAL.txt  ${STAGEDIR}${STD_DOCDIR}
