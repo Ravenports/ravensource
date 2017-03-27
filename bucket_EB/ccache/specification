@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	3.3.4
+DEF[CCLINKDIR]=		libexec/ccache
 DEF[CC_COMPILERS]=	cc c++ CC gcc g++
 # ----------------------------------------------------------------------------
 
@@ -26,6 +27,7 @@ LICENSE_FILE=		GPLv3:{{WRKSRC}}/GPL-3.0.txt
 SKIP_CCACHE=		yes
 MUST_CONFIGURE=		gnu
 CPPFLAGS=		-DCC_IS_GCC
+PLIST_SUB=		CCLINKDIR="${CCLINKDIR}"
 
 # ccache will build its own zlib since it can't find a suitable one.
 # We want this (as opposed to adding zlib as buildrun depends).
@@ -34,6 +36,10 @@ CPPFLAGS=		-DCC_IS_GCC
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/ccache ${STAGEDIR}${PREFIX}/bin
 	${INSTALL_MAN} ${WRKSRC}/ccache.1 ${STAGEDIR}${PREFIX}/share/man/man1
+	@${MKDIR} ${STAGEDIR}${PREFIX}/${CCLINKDIR}
+.for compiler in ${CC_COMPILERS}
+	${LN} -sf ${PREFIX}/bin/ccache ${STAGEDIR}${PREFIX}/${CCLINKDIR}/${compiler}
+.endfor
 
 	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 	${INSTALL_DATA} ${WRKSRC}/MANUAL.html ${STAGEDIR}${STD_DOCDIR}
