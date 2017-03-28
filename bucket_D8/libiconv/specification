@@ -1,0 +1,54 @@
+DEF[PORTVERSION]=	1.14
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libiconv
+VERSION=		${PORTVERSION}
+KEYWORDS=		converters devel
+VARIANTS=		standard
+SDESC[standard]=	Character set conversion library
+HOMEPAGE=		http://www.gnu.org/software/libiconv/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main patch
+SITES[main]=		GNU/libiconv
+SITES[patch]=		http://apolloron.org/software/libiconv-${PORTVERSION}-ja
+DISTFILE[1]=		libiconv-${PORTVERSION}.tar.gz:main
+DISTFILE[2]=		libiconv-${PORTVERSION}-ja-1.patch.gz:patch
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	ENCODINGS PATCHES
+OPTIONS_STANDARD=	ENCODINGS PATCHES
+OPT_ON[all]=		ENCODINGS
+
+USES=			libtool
+
+LICENSE=		GPLv3:single
+LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+PATCHFILES_STRIP=	-p1
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-static
+			--disable-nls
+			--docdir={{STD_DOCDIR}}
+			am_cv_func_iconv=no
+CFLAGS=			-std=gnu89
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+SINGLE_JOB=		yes
+
+[PATCHES].DESCRIPTION=			Apply patches to fix CP932, add EUCJP-MS
+[PATCHES].PATCHFILES_ON=		2
+
+[ENCODINGS].DESCRIPTION=		Include extra character sets
+[ENCODINGS].CONFIGURE_ENABLE_BOTH=	extra-encodings
+
+post-patch:
+	@${REINPLACE_CMD} -e 's:ei_ksc5601:ei_euc_kr:g' ${WRKSRC}/lib/aliases.h
+	@${REINPLACE_CMD} -e 's:gawk:awk:g' ${WRKSRC}/configure \
+		${WRKSRC}/libcharset/configure \
+		${WRKSRC}/preload/configure
+
+post-install:
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}
