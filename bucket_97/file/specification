@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	5.29
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		file
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	Utility to determine file type
+HOMEPAGE=		http://darwinsys.com/file
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		ftp://ftp.astron.com/pub/file/
+			ftp://ftp.fu-berlin.de/unix/tools/file/
+DISTFILE[1]=		file-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		zlib:static:standard
+
+USES=			libtool
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-fsect-man5
+			--enable-shared=no
+MAKE_ENV=		INSTALL_STRIP_FLAG="{{STRIP}}"
+
+do-test:
+	@(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} check)
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|$$(datadir)/misc|$$(datadir)/file|g' \
+		${WRKSRC}/configure
