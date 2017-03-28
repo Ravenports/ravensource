@@ -1,0 +1,100 @@
+DEF[PORTVERSION]=	6.0
+DEF[LOCAL_UNZIP]=	{{CFLAGS}} -DACORN_FTYPE_NFS -DWILD_STOP_AT_DIR -DUNICODE_SUPPORT -DUTF8_MAYBE_NATIVE -D_MBCS -DLARGE_FILE_SUPPORT
+DEF[FEDORA]=		http://pkgs.fedoraproject.org/repo/pkgs/unzip/unzip60.tar.gz/62b490407489521db863b523a7f86375/
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		unzip
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers
+VARIANTS=		standard chinese korean russian
+SDESC[standard]=	Extraction utility for .zip format archives
+SDESC[chinese]=		Chinese extraction utility for .zip archives
+SDESC[korean]=		Korean extraction utility for .zip archives
+SDESC[russian]=		Russian extraction utility for .zip archives
+HOMEPAGE=		http://www.info-zip.org/UnZip.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		${FEDORA}
+DISTFILE[1]=		unzip${PORTVERSION:S/.//}.tar.gz:main
+
+SPKGS[standard]=	complete core docs
+SPKGS[chinese]=		core
+SPKGS[russian]=		core
+SPKGS[korean]=		core
+
+OPTIONS_AVAILABLE=	CHINESE KOREAN RUSSIAN ICONV
+OPTIONS_STANDARD=	ICONV
+VOPTS[chinese]=		CHINESE=ON KOREAN=OFF RUSSIAN=OFF ICONV=OFF
+VOPTS[korean]=		CHINESE=OFF KOREAN=ON RUSSIAN=OFF ICONV=OFF
+VOPTS[russian]=		CHINESE=OFF KOREAN=OFF RUSSIAN=ON ICONV=OFF
+
+LICENSE=		CUSTOM1:core
+LICENSE_NAME=		CUSTOM1:"Info-ZIP license"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+DISTNAME=		unzip${PORTVERSION:S/.//}
+BUILD_DEPENDS=		bzip2:static:standard
+			zlib:static:standard
+USES=			cpe
+
+CPE_VENDOR=		info-zip
+BUILD_TARGET=		generic_zlib unzipsfx
+# bsd
+MAKEFILE=		unix/Makefile
+MAKE_ARGS=		LF2="{{STRIP}} {{LDFLAGS}}"
+			CF="{{CPPFLAGS}} {{CFLAGS}}"
+MAKE_ENV=		LOCAL_UNZIP="${LOCAL_UNZIP}"
+			D_USE_BZ2=-DUSE_BZIP2
+			L_BZ2={{LOCALBASE}}/lib/libbz2.a
+CPPFLAGS=		-DUNIX -Dunix -DUSE_UNSHRINK -I.
+VAR_OPSYS[dragonfly]=	CPPFLAGS=-DBSD
+VAR_OPSYS[freebsd]=	CPPFLAGS=-DBSD
+VAR_OPSYS[netbsd]=	CPPFLAGS=-DBSD
+VAR_OPSYS[openbsd]=	CPPFLAGS=-DBSD
+			CPPFLAGS=-DNO_LCHMOD
+VAR_OPSYS[linux]=	CPPFLAGS=-DNO_LCHMOD
+VAR_OPSYS[sunos]=	CPPFLAGS=-DNO_LCHMOD
+VAR_OPSYS[darwin]=	CPPFLAGS=-DBSD
+
+[ICONV].USES_ON=			iconv
+[ICONV].CFLAGS_ON=			-I{{LOCALBASE}}/include -DNATIVE
+[ICONV].MAKE_ARGS_ON=			LFLAGS1="-L{{LOCALBASE}}/lib {{ICONV_LIB}}"
+[ICONV].EXTRA_PATCHES_ON=		extra-iconv-patch-unix_unix.c
+					extra-iconv-patch-unix_unxcfg.h
+					extra-iconv-patch-unzip.c
+					extra-iconv-patch-unzpriv.h
+					extra-iconv-patch-zipinfo.c
+
+[CHINESE].KEYWORDS_ON=			chinese
+[CHINESE].EXTRA_PATCHES_ON=		extra-zh-patch-fileio.c
+
+[KOREAN].KEYWORDS_ON=			korean
+[KOREAN].EXTRA_PATCHES_ON=		extra-ko-patch-fileio.c
+					extra-ko-patch-unzip.c
+					extra-ko-patch-unzip.h
+
+[RUSSIAN].KEYWORDS_ON=			russian
+[RUSSIAN].EXTRA_PATCHES_ON=		extra-ru-patch-ebcdic.h
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/unzip ${STAGEDIR}${PREFIX}/bin
+	(cd ${WRKSRC} && \
+		${INSTALL_PROGRAM} funzip unzipsfx ${STAGEDIR}${PREFIX}/bin)
+	${LN} -sf unzip ${STAGEDIR}${PREFIX}/bin/zipinfo
+	${INSTALL_SCRIPT} ${WRKSRC}/unix/zipgrep ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/man/unzip.1 ${STAGEDIR}${PREFIX}/share/man/man1
+	(cd ${WRKSRC}/man && ${INSTALL_MAN} funzip.1 unzipsfx.1 zipgrep.1 \
+		zipinfo.1 ${STAGEDIR}${PREFIX}/share/man/man1)
+	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	(cd ${WRKSRC} && ${INSTALL_DATA} README WHERE ${STAGEDIR}${STD_DOCDIR})
+
+post-install-CHINESE-ON:
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}
+
+post-install-KOREAN-ON:
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}
+
+post-install-RUSSIAN-ON:
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}

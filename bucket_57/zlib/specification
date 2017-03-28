@@ -1,0 +1,23 @@
+DEF[PORTVERSION]=	1.2.11
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		zlib
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers
+VARIANTS=		standard
+SDESC[standard]=	Ubiquitous compression library
+HOMEPAGE=		http://www.zlib.net
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.zlib.net/
+DISTFILE[1]=		zlib-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete static shared
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+MUST_CONFIGURE=		yes
+CONFIGURE_ENV=		prefix="{{PREFIX}}"
+			cflags="{{CFLAGS}}"
