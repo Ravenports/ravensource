@@ -1,6 +1,5 @@
 DEF[PORTVERSION]=	6.0
 DEF[LOCAL_UNZIP]=	{{CFLAGS}} -DACORN_FTYPE_NFS -DWILD_STOP_AT_DIR -DUNICODE_SUPPORT -DUTF8_MAYBE_NATIVE -D_MBCS -DLARGE_FILE_SUPPORT
-DEF[FEDORA]=		http://pkgs.fedoraproject.org/repo/pkgs/unzip/unzip60.tar.gz/62b490407489521db863b523a7f86375/
 DEF[ICONV_LINK]=	-L{{ICONV_LIBRARY_PATH}} {{ICONV_LIB}} -Wl,-rpath,{{ICONV_LIBRARY_PATH}}
 # ----------------------------------------------------------------------------
 
@@ -16,7 +15,7 @@ HOMEPAGE=		http://www.info-zip.org/UnZip.html
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		${FEDORA}
+SITES[main]=		SF/infozip/UnZip%206.x%20%28latest%29/UnZip%20${PORTVERSION}/
 DISTFILE[1]=		unzip${PORTVERSION:S/.//}.tar.gz:main
 
 SPKGS[standard]=	complete core docs
