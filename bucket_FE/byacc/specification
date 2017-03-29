@@ -1,0 +1,28 @@
+DEF[PORTVERSION]=	20170201
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		byacc
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Best yacc variant available
+HOMEPAGE=		http://invisible-island.net/byacc/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		ftp://invisible-island.net/byacc/
+DISTFILE[1]=		byacc-${PORTVERSION}.tgz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		PUBDOM:single
+LICENSE_FILE=		PUBDOM:{{WRKSRC}}/README
+LICENSE_SCHEME=		solo
+
+MUST_CONFIGURE=		gnu
+MAKE_ARGS=		DEFINES="-DMAXTABLE=INT_MAX"
+MAKEFILE=		makefile
+TEST_TARGET=		check
