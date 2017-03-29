@@ -1,0 +1,52 @@
+DEF[PORTVERSION]=	20170201
+DEF[OSDEFINE]=		-DOSNAME=\\\"{{OPSYS}}\\\" -DOSARCH=\\\"{{ARCH}}\\\"
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		bmake
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Portable version of NetBSD 'make' utility
+HOMEPAGE=		http://www.crufty.net/help/sjg/bmake.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		ftp://ftp.netbsd.org/pub/NetBSD/misc/sjg/
+DISTFILE[1]=		bmake-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKDIR}}/LICENSE
+LICENSE_SCHEME=		solo
+
+DISTNAME=		bmake
+BUILDRUN_DEPENDS=	bmake-mk-files:single:standard
+CONFIGURE_ARGS=		--with-default-sys-path="/xports/Mk:{{PREFIX}}/share/mk"
+			--with-machine-arch={{ARCH}}
+			--with-mksrc=no
+MUST_CONFIGURE=		gnu
+
+post-extract:
+	${AWK} '/make.h --/ {exit}; {print $$0}' ${WRKSRC}/make.h \
+		> ${WRKDIR}/LICENSE
+
+post-patch:
+	${REINPLACE_CMD} 's/^\.Nx/NetBSD/' ${WRKDIR}/bmake/bmake.1
+.for F in OSVERSION OSRELEASE OSMAJOR STDARCH
+	newval=$$(${CAT} /usr/share/${F}); \
+	${SED} -i.${F}.bak -e "s|@CFLAGS@|-D${F}=\\\\\"$${newval}\\\\\" @CFLAGS@|" \
+	${WRKDIR}/bmake/make-bootstrap.sh.in
+.endfor
+	${REINPLACE_CMD} -e 's|@CFLAGS@|${OSDEFINE} @CFLAGS@|' \
+		${WRKDIR}/bmake/make-bootstrap.sh.in
+
+do-build:
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${SH} make-bootstrap.sh)
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/bmake ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/bmake.1 ${STAGEDIR}${MAN1PREFIX}/man/man1
