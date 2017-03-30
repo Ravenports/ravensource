@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	3.5
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		diffutils
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard nls
+SDESC[standard]=	GNU diff utilities
+SDESC[nls]=		GNU diff utilities with native language support
+HOMEPAGE=		http://www.gnu.org/software/diffutils/diffutils.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/diffutils
+DISTFILE[1]=		diffutils-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+SPKGS[nls]=		single
+
+OPTIONS_AVAILABLE=	NLS
+OPTIONS_STANDARD=	none
+VOPTS[nls]=		NLS=ON
+
+BUILD_DEPENDS=		libsigsegv:static:standard
+
+USES=			charsetfix
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--program-prefix=g
+INFO=			single:diffutils
+
+[NLS].USES_ON=				gettext iconv
+[NLS].CONFIGURE_ENABLE_BOTH=		nls
+
+post-patch:
+	@${REINPLACE_CMD} -e '/^mkdir/s:@mkdir_p@:${MKDIR}:' \
+		${WRKSRC}/po/Makefile.in.in
