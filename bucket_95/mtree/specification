@@ -1,0 +1,29 @@
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mtree
+VERSION=		201404
+KEYWORDS=		sysutils raven
+VARIANTS=		standard
+SDESC[standard]=	NetBSD mtree (from DragonFly)
+HOMEPAGE=		none
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	none
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+BUILD_DEPENDS=		libressl:single:static
+CFLAGS=			-DUSE_SHA1
+
+do-extract:
+	${MKDIR} ${WRKSRC}
+	${CP} ${FILESDIR}/* ${WRKSRC}
+
+do-build:
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE} mtree)
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/mtree ${STAGEDIR}${PREFIX}/bin/
