@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	487
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		less
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard color
+SDESC[standard]=	Popular open-source file pager
+SDESC[color]=		Popular file pager with color sequence support
+HOMEPAGE=		http://www.greenwoodsoftware.com/less/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.greenwoodsoftware.com/less/
+DISTFILE[1]=		less-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+SPKGS[color]=		single
+
+OPTIONS_AVAILABLE=	COLOR
+OPTIONS_STANDARD=	none
+VOPTS[color]=		COLOR=ON
+
+LICENSE=		GPLv3:single CUSTOM1:single
+LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING
+			CUSTOM1:{{WRKSRC}/LICENSE
+LICENSE_NAME=		CUSTOM1:"Less License"
+LICENSE_SCHEME=		dual
+
+USES=			cpe ncurses:static
+CPE_VENDOR=		gnu
+MUST_CONFIGURE=		gnu
+
+[COLOR].CPPFLAGS_ON=			-DCOLOR_LESS
+
+post-patch:
+	${REINPLACE_CMD} -e 's|-lcurses|-lncurses|' ${WRKSRC}/configure

@@ -10,9 +10,9 @@ DEF[EXAMPLES_CPP]=	Makefile NEWS PROBLEMS README-first cursesapp.cc cursesapp.h 
 NAMEBASE=		ncurses
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		standard ravensys
+VARIANTS=		standard static
 SDESC[standard]=	Terminal-independent lib for full-screen output
-SDESC[ravensys]=	Static ncurses with relocated terminfo database
+SDESC[static]=		Minimal static-only version of ncurses
 HOMEPAGE=		http://invisible-island.net/ncurses/ncurses.html
 CONTACT=		nobody
 
@@ -22,11 +22,11 @@ SITES[main]=		http://invisible-mirror.net/archives/ncurses/
 DISTFILE[1]=		ncurses-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	complete primary examples docs
-SPKGS[ravensys]=	primary
+SPKGS[static]=		primary
 
-OPTIONS_AVAILABLE=	RAVENSYS
+OPTIONS_AVAILABLE=	STATIC
 OPTIONS_STANDARD=	none
-VOPTS[ravensys]=	RAVENSYS=ON
+VOPTS[static]=		STATIC=ON
 
 LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
@@ -60,16 +60,17 @@ CONFIGURE_ARGS=		--datadir={{PREFIX}}/share/misc
 			--without-manpage-renames
 			--mandir={{MANPREFIX}}/man
 			--with-hashed-db
+			--datadir={{PREFIX}}/share/misc
+			--with-default-terminfo-dir={{PREFIX}}/share/misc/terminfo
+			--with-terminfo-dirs={{PREFIX}}/share/misc/terminfo
 CONFIGURE_ENV=		gnat_exists="no"
 BUILD_WRKSRC=		${NOWIDEC_WRKSRC}
 INSTALL_WRKSRC=		${NOWIDEC_WRKSRC}
 PLIST_SUB=		ABI_VER=${PORTVERSION:R}
 			REL_VER=${PORTVERSION}
 
-[RAVENSYS].CONFIGURE_ARGS_ON=		--enable-shared=no
-					--datadir=/usr/share
-[RAVENSYS].CONFIGURE_ARGS_OFF=		--with-shared=yes
-					--datadir={{PREFIX}}/share/misc
+[STATIC].CONFIGURE_ARGS_ON=		--enable-shared=no
+[STATIC].CONFIGURE_ARGS_OFF=		--with-shared=yes
 
 post-extract:
 	@${MKDIR} ${WIDEC_WRKSRC}
@@ -98,12 +99,12 @@ post-build:
 	(cd ${.CURDIR} && ${MAKE} ${.MAKEFLAGS} \
 		INSTALL_WRKSRC=${WIDEC_WRKSRC} do-install)
 
-post-install-RAVENSYS-ON:
-	${MV} ${STAGEDIR}/usr/share/terminfo.db \
+post-install-STATIC-ON:
+	${MV} ${STAGEDIR}${PREFIX}/share/misc/terminfo.db \
 		${STAGEDIR}${PREFIX}/share/misc/terminfo.db.default
-	${MV} ${STAGEDIR}/usr/share/tabset ${STAGEDIR}${PREFIX}/share/misc/
+	${RM} -r ${STAGEDIR}${MANPREFIX}/man
 
-post-install-RAVENSYS-OFF:
+post-install-STATIC-OFF:
 	${RM} ${STAGEDIR}${PREFIX}/lib/libncurses.so \
 		${STAGEDIR}${PREFIX}/lib/libncursesw.so
 	${ECHO} "INPUT(libncurses.so.${PORTVERSION:R} AS_NEEDED(-ltinfo))" > ${STAGEDIR}${PREFIX}/lib/libncurses.so
