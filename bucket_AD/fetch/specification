@@ -1,0 +1,27 @@
+DEF[PORTVERSION]=	1.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		fetch
+VERSION=		${PORTVERSION}
+KEYWORDS=		ftp
+VARIANTS=		standard
+SDESC[standard]=	Tool to retrieve file by Uniform Resource Locator
+HOMEPAGE=		https://www.freebsd.org/cgi/man.cgi?fetch(1)
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	none
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+BUILD_DEPENDS=		libressl:single:static
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+do-extract:
+	${MKDIR} ${WRKSRC}
+	cp ${FILESDIR}/* ${WRKSRC}/
