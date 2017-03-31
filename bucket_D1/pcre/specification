@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	8.40
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		pcre
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel textproc
+VARIANTS=		standard
+SDESC[standard]=	Perl Compatible Regular Expressions library
+HOMEPAGE=		http://www.pcre.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/
+			ftp://ftp.fu-berlin.de/unix/misc/pcre/
+			ftp://ftp.tin.org/pub/libs/pcre/
+DISTFILE[1]=		pcre-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete static shared docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:static
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+USES=			cpe libtool
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-utf
+			--enable-unicode-properties
+			--enable-pcre8
+			--enable-pcre16
+			--enable-pcre32
+			--enable-stack-for-recursion
+			--enable-jit
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+TEST_TARGET=		check
+
+# TODO: shared package requires libstdc++/libgcc_s runtime
+
+post-patch:
+	@${REINPLACE_CMD} -e "/^\.rs/d" ${WRKSRC}/doc/*.3 ${WRKSRC}/doc/*.1
+	@${REINPLACE_CMD} -e "s/??//g" ${WRKSRC}/doc/pcre_compile2.3

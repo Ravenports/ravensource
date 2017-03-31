@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	2.27
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gnugrep
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard nls
+SDESC[standard]=	GNU implementation of grep
+SDESC[nls]=		GNU grep with native language support
+HOMEPAGE=		http://www.gnu.org/software/grep/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/grep
+DISTFILE[1]=		grep-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+SPKGS[nls]=		single
+
+OPTIONS_AVAILABLE=	NLS
+OPTIONS_STANDARD=	none
+VOPTS[nls]=		NLS=ON
+
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		pcre:static:standard
+
+USES=			charsetfix cpe
+DISTNAME=		grep-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+INFO=			single:grep
+CPE_VENDOR=		gnu
+CONFIGURE_ARGS=		--enable-perl-regexp
+
+[NLS].USES_ON=				gettext-runtime
+[NLS].CONFIGURE_ENABLE_BOTH=		nls
+[NLS].CONFIGURE_ARGS_ON=		--with-libintl-prefix={{LOCALBASE}}
+[NLS].CONFIGURE_ARGS_OFF=		--without-libintl-prefix
+
+post-patch:
+	@${REINPLACE_CMD} 's:@grep@:${LOCALBASE}/bin/&:' \
+		${WRKSRC}/src/egrep.sh
+	@${REINPLACE_CMD} 's|mkinstalldirs = .*|mkinstalldirs = ${MKDIR}|g' \
+		${WRKSRC}/po/Makefile.in.in
+
+post-patch-NLS-OFF:
+	@${REINPLACE_CMD} '/install-exec-local:/s/install-exec-localcharset//' \
+		${WRKSRC}/lib/Makefile.in
