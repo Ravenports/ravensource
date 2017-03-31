@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	4.6.0
+DEF[LOCALSTATEDIR]=	/var/db
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		findutils
+VERSION=		${PORTVERSION}
+KEYWORDS=		misc
+VARIANTS=		standard nls
+SDESC[standard]=	GNU find utilities (static)
+SDESC[nls]=		GNU find utilities with native language support
+HOMEPAGE=		http://www.gnu.org/software/findutils/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/findutils
+DISTFILE[1]=		findutils-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+SPKGS[nls]=		single
+
+OPTIONS_AVAILABLE=	NLS
+OPTIONS_STANDARD=	none
+VOPTS[nls]=		NLS=ON
+
+LICENSE=		GPLv3:single
+LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+USES=			charsetfix cpe gmake
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--program-prefix=g
+			--localstatedir="${LOCALSTATEDIR}"
+MAKE_ARGS=		INSTALL_SCRIPT="{{INSTALL_SCRIPT}}"
+INFO=			single:find single:find-maint
+CPE_VENDOR=		gnu
+
+[NLS].USES_ON=				gettext-runtime
+[NLS].CONFIGURE_ENABLE_BOTH=		nls
+
+post-install:
+	${RM} -r ${STAGEDIR}/var
