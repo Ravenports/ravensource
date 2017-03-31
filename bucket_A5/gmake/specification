@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	4.2.1
 NAMEBASE=		gmake
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		standard lite
+VARIANTS=		standard nls
 SDESC[standard]=	GNU variant of 'make' utility
-SDESC[lite]=		GNU make without NLS dependencies
+SDESC[nls]=		GNU make with native language support
 HOMEPAGE=		https://www.gnu.org/software/make/
 CONTACT=		nobody
 
@@ -15,12 +15,11 @@ SITES[main]=		GNU/make
 DISTFILE[1]=		make-${PORTVERSION}.tar.bz2:main
 
 SPKGS[standard]=	single
-SPKGS[lite]=		single
+SPKGS[nls]=		single
 
 OPTIONS_AVAILABLE=	NLS
-OPTIONS_STANDARD=	NLS
-VOPTS[lite]=		NLS=OFF
-OPT_ON[all]=		NLS
+OPTIONS_STANDARD=	none
+VOPTS[nls]=		NLS=ON
 
 USES=			cpe
 CPE_VENDOR=		gnu
@@ -35,5 +34,6 @@ LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
 [NLS].USES_ON=				gettext-runtime
-[NLS].CONFIGURE_ARGS_ON=		{{ICONV_CONFIGURE_ARG}} --with-libintl-prefix={{LOCALBASE}}
+[NLS].CONFIGURE_ARGS_ON=		{{ICONV_CONFIGURE_ARG}}
+					--with-libintl-prefix={{LOCALBASE}}
 [NLS].CONFIGURE_ENABLE_BOTH=		nls
