@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	4.2.2
+DEF[PATCH_SUBDIRS]=	. doc lib sed
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		sed
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard nls
+SDESC[standard]=	GNU stream editor
+SDESC[nls]=		GNU stream editor with native language support
+HOMEPAGE=		http://www.gnu.org/software/sed/sed.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/sed
+DISTFILE[1]=		sed-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+SPKGS[nls]=		single
+
+OPTIONS_AVAILABLE=	NLS
+OPTIONS_STANDARD=	none
+VOPTS[nls]=		NLS=ON
+
+LICENSE=		GPLv3:single
+LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+USES=			charsetfix gmake
+INFO=			single:sed
+MUST_CONFIGURE=		gnu
+
+[NLS].USES_ON=				gettext-runtime
+[NLS].CONFIGURE_ENABLE_BOTH=		nls
+
+post-configure:
+.for subdir in ${PATCH_SUBDIRS}
+	@${REINPLACE_CMD} -e 's|s,x,x,|s,^,g,|' -e 's|^doc_DATA|#doc_DATA|' \
+		${WRKSRC}/${subdir}/Makefile
+.endfor
+
+do-test:
+	@(cd ${WRKSRC}/testsuite && ${MAKE} check)
