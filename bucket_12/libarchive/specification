@@ -1,0 +1,59 @@
+DEF[PORTVERSION]=	3.2.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libarchive
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers
+VARIANTS=		standard static
+SDESC[standard]=	Library to handle many streaming archive formats
+SDESC[static]=		Static build of libarchive
+HOMEPAGE=		http://libarchive.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://libarchive.org/downloads/
+DISTFILE[1]=		libarchive-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+SPKGS[static]=		single
+
+OPTIONS_AVAILABLE=	STATIC
+OPTIONS_STANDARD=	none
+VOPTS[static]=		STATIC=ON
+
+LICENSE=		BSD2CLAUSE:single BSD3CLAUSE:single PUBDOM:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
+			BSD3CLAUSE:{{WRKSRC}}/COPYING
+			PUBDOM:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		multi
+
+USES=			cpe libtool
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+CONFIGURE_ARGS=		--without-xml2
+			--with-lzo2
+			--with-lz4
+
+BUILD_DEPENDS=		bzip2:static:standard
+			zlib:static:standard
+			expat:static:standard
+			lzo:static:standard
+			lz4:static:standard
+
+[STATIC].USES_OFF=			iconv
+[STATIC].BUILD_DEPENDS_OFF=		libressl:single:standard
+					xz:single:standard
+					bzip2:shared:standard
+					zlib:shared:standard
+					expat:shared:standard
+					lzo:shared:standard
+					lz4:shared:standard
+[STATIC].BUILD_DEPENDS_ON=		libressl:single:static
+					xz:single:static
+[STATIC].CONFIGURE_ARGS_OFF=		--enable-shared=yes
+[STATIC].CONFIGURE_ARGS_ON=		--enable-shared=no
+					--enable-static=yes
+					--without-iconv
+
+do-test:
+	@(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} check)
