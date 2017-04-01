@@ -1,0 +1,27 @@
+DEF[PORTVERSION]=	2.2.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		expat
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	XML 1.0 parser written in C
+HOMEPAGE=		https://sourceforge.net/projects/expat/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/expat/expat/${PORTVERSION}
+DISTFILE[1]=		expat-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete static shared
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:static
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+USES=			libtool
+MUST_CONFIGURE=		gnu
+BUILD_TARGET=		default

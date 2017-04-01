@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	2.10
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		lzo
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers devel
+VARIANTS=		standard
+SDESC[standard]=	Portable speedy, lossless data compression library
+HOMEPAGE=		http://www.oberhumer.com/opensource/lzo/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.oberhumer.com/opensource/lzo/download/
+DISTFILE[1]=		lzo-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete static shared docs examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:static
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+USES=			libtool
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-shared
+			--docdir={{STD_DOCDIR}}
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${REINPLACE_CMD} -e 's,doc/,,' ${WRKSRC}/NEWS
+.for i in AUTHORS BUGS NEWS
+	${INSTALL_DATA} ${WRKSRC}/${i} ${STAGEDIR}${STD_DOCDIR}/
+.endfor
+	${INSTALL_DATA}	${WRKSRC}/doc/* ${STAGEDIR}${STD_DOCDIR}/
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/examples/lzo
+	${INSTALL_DATA}	${WRKSRC}/examples/[a-z]*.[ch] \
+		${STAGEDIR}${PREFIX}/share/examples/lzo/
+
+do-test:
+	@${ECHO_MSG} "===>  Running self-tests (can take a few minutes)"
+	#: override MALLOC_OPTIONS, else tests take excessively long
+	(cd ${WRKSRC} && ${SETENV} MALLOC_OPTIONS=jz \
+		${MAKE} check test SHELL="${SH} -x")
