@@ -4,9 +4,10 @@ DEF[PORTVERSION]=	3.2.2
 NAMEBASE=		libarchive
 VERSION=		${PORTVERSION}
 KEYWORDS=		archivers
-VARIANTS=		standard static
+VARIANTS=		standard static extended
 SDESC[standard]=	Library to handle many streaming archive formats
 SDESC[static]=		Static build of libarchive
+SDESC[extended]=	Extended libarchive with lzo and lz4 capability
 HOMEPAGE=		http://libarchive.org/
 CONTACT=		nobody
 
@@ -16,10 +17,12 @@ DISTFILE[1]=		libarchive-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	single
 SPKGS[static]=		single
+SPKGS[extended]=	single
 
-OPTIONS_AVAILABLE=	STATIC
+OPTIONS_AVAILABLE=	STATIC EXTENDED
 OPTIONS_STANDARD=	none
-VOPTS[static]=		STATIC=ON
+VOPTS[static]=		STATIC=ON EXTENDED=OFF
+VOPTS[extended]=	STATIC=OFF EXTENDED=ON
 
 LICENSE=		BSD2CLAUSE:single BSD3CLAUSE:single PUBDOM:single
 LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
@@ -31,29 +34,29 @@ USES=			cpe libtool
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
 CONFIGURE_ARGS=		--without-xml2
-			--with-lzo2
-			--with-lz4
-
 BUILD_DEPENDS=		bzip2:static:standard
 			zlib:static:standard
 			expat:static:standard
-			lzo:static:standard
-			lz4:static:standard
 
 [STATIC].USES_OFF=			iconv
-[STATIC].BUILD_DEPENDS_OFF=		libressl:single:standard
+[STATIC].BUILDRUN_DEPENDS_OFF=		libressl:single:standard
 					xz:single:standard
 					bzip2:shared:standard
 					zlib:shared:standard
 					expat:shared:standard
-					lzo:shared:standard
-					lz4:shared:standard
 [STATIC].BUILD_DEPENDS_ON=		libressl:single:static
 					xz:single:static
 [STATIC].CONFIGURE_ARGS_OFF=		--enable-shared=yes
 [STATIC].CONFIGURE_ARGS_ON=		--enable-shared=no
 					--enable-static=yes
 					--without-iconv
+
+[EXTENDED].BUILD_DEPENDS_ON=		lzo:static:standard
+					lz4:static:standard
+[EXTENDED].BUILDRUN_DEPENDS_ON=		lzo:shared:standard
+					lz4:shared:standard
+[EXTENDED].CONFIGURE_ARGS_ON=		--with-lzo2
+					--with-lz4
 
 do-test:
 	@(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} check)

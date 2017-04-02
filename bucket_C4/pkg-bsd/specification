@@ -1,0 +1,56 @@
+DEF[PORTVERSION]=	1.10.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		pkg-bsd
+VERSION=		${PORTVERSION}
+KEYWORDS=		raven
+VARIANTS=		standard
+SDESC[standard]=	BSD binary package manager
+HOMEPAGE=		https://github.com/freebsd/pkg/blob/master/README.md
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://files.etoilebsd.net/pkg/
+			http://mirror.shatow.net/freebsd/pkg/
+DISTFILE[1]=		pkg-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+BUILDRUN_DEPENDS=	libarchive:single:standard
+BUILD_DEPENDS=		zlib:static:standard
+			bzip2:static:standard
+
+USES=			libtool
+DISTNAME=		pkg-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-maintainer-mode
+			--mandir={{MANPREFIX}}/man
+CONFIGURE_ENV=		LIBS="-lpthread"
+INSTALL_TARGET=		install-strip
+CFLAGS=			-Wno-error
+SINGLE_JOB=		yes
+
+post-patch:
+	${REINPLACE_CMD} -e '/mandir = / s|/man|/share/man|' \
+		${WRKSRC}/docs/Makefile.in
+
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/sbin/pkg2ng
+	${MV} ${STAGEDIR}${PREFIX}/lib/libpkg_static.a \
+		${STAGEDIR}${PREFIX}/lib/libpkg.a
+	${INSTALL_SCRIPT} ${WRKSRC}/scripts/periodic/411.pkg-backup \
+		${WRKSRC}/scripts/periodic/490.status-pkg-changes \
+		${STAGEDIR}${PREFIX}/etc/periodic/daily/
+	${INSTALL_SCRIPT} ${WRKSRC}/scripts/periodic/460.pkg-checksum \
+		${WRKSRC}/scripts/periodic/410.pkg-audit \
+		${STAGEDIR}${PREFIX}/etc/periodic/security/
+	${INSTALL_SCRIPT} ${WRKSRC}/scripts/periodic/400.status-pkg \
+		${STAGEDIR}${PREFIX}/etc/periodic/weekly/
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/pkg/repos
