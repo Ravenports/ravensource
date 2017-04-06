@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	6.1.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gmp
+VERSION=		${PORTVERSION}
+KEYWORDS=		math devel
+VARIANTS=		standard
+SDESC[standard]=	Free library for arbitrary precision arithmetic
+HOMEPAGE=		http://gmplib.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/gmp
+DISTFILE[1]=		gmp-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete static shared
+
+OPTIONS_AVAILABLE=	ASSEMBLY
+OPTIONS_STANDARD=	ASSEMBLY
+
+LICENSE=		LGPL3:static
+LICENSE_FILE=		LGPL3:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+USES=			libtool
+MUST_CONFIGURE=		yes
+CONFIGURE_ARGS=		--prefix={{PREFIX}}
+			--infodir={{PREFIX}}/share/info
+			--mandir={{MANPREFIX}}/man
+			--build={{CONFIGURE_TARGET}}
+			--enable-cxx
+INFO=			static:gmp
+INSTALL_REQ_TOOLCHAIN=	yes
+INSTALL_TARGET=		install-strip
+TEST_TARGET=		check
+
+[ASSEMBLY].CONFIGURE_ENABLE_BOTH=	assembly
+
+do-test:
+	@(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE} check)

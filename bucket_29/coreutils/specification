@@ -1,0 +1,48 @@
+DEF[PORTVERSION]=	8.25
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		coreutils
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils textproc
+VARIANTS=		standard nls
+SDESC[standard]=	Free Software Foundation core utilities
+SDESC[nls]=		FSF core utilities with native language support
+HOMEPAGE=		http://www.gnu.org/software/coreutils/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/coreutils
+DISTFILE[1]=		coreutils-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+SPKGS[nls]=		single
+
+OPTIONS_AVAILABLE=	NLS
+OPTIONS_STANDARD=	none
+VOPTS[nls]=		NLS=ON
+
+LICENSE=		GPLv3:single
+LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		gmp:static:standard
+
+USES=			cpe gmake iconv:build perl:build charsetfix
+SINGLE_JOB=		yes
+INFO=			single:coreutils
+CPE_VENDOR=		gnu
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--program-prefix=g
+			--with-gmp
+CONFIGURE_ENV=		FORCE_UNSAFE_CONFIGURE=1
+INSTALL_REQ_TOOLCHAIN=	yes
+
+[NLS].USES_ON=				gettext-runtime
+[NLS].CONFIGURE_ENABLE_BOTH=		nls
+
+post-build:
+	@${REINPLACE_CMD} -e "s/ lib / /g" ${WRKSRC}/Makefile
+
+post-install:
+	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/g* \
+		${STAGEDIR}${PREFIX}/libexec/coreutils/libstdbuf.so
