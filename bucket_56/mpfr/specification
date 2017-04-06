@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	3.1.5
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mpfr
+VERSION=		${PORTVERSION}
+KEYWORDS=		math devel
+VARIANTS=		standard
+SDESC[standard]=	Multiple-precision floating-point number library
+HOMEPAGE=		http://www.mpfr.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.mpfr.org/mpfr-${PORTVERSION}/
+DISTFILE[1]=		mpfr-${PORTVERSION}.tar.xz:main
+DISTFILE[2]=		patch01:main
+DISTFILE[3]=		patch02:main
+DIST_SUBDIR=		mpfr-${PORTVERSION}
+DF_INDEX=		1
+
+SPKGS[standard]=	complete static shared docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL3:static
+LICENSE_FILE=		LGPL3:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+PATCHFILES=		2 3
+PATCH_STRIP=		-p1
+
+BUILD_DEPENDS=		gmp:static:standard
+EXRUN[shared]=		gmp:shared:standard
+
+USES=			libtool
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-gmp={{LOCALBASE}}
+INSTALL_TARGET=		install-strip
+TEST_TARGET=		check
+INFO=			static:mpfr
+
+do-test:
+	 @(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE} check)
