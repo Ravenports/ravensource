@@ -1,0 +1,110 @@
+DEF[PORTVERSION]=	5.3.28
+DEF[BDBVER]=		${PORTVERSION:R}
+DEF[BDBMAJ]=		${BDBVER:R}
+DEF[DBLIBS]=		libdb libdb_cxx libdb_stl libdb_sql
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		db5
+VERSION=		${PORTVERSION}
+KEYWORDS=		databases java
+VARIANTS=		standard
+SDESC[standard]=	Oracle Berkeley DB, revision 5
+HOMEPAGE=		http://www.oracle.com/us/products/database/berkeley-db/db/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://download.oracle.com/berkeley-db/
+DISTFILE[1]=		db-${PORTVERSION}.tar.gz:main
+DIST_SUBDIR=		bdb
+
+SPKGS[standard]=	complete shared static docs
+
+OPTIONS_AVAILABLE=	CRYPTO TCL
+OPTIONS_STANDARD=	CRYPTO TCL
+OPT_ON[all]=		CRYPTO
+
+LICENSE=		CUSTOM1:shared
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE
+LICENSE_NAME=		CUSTOM1:"Sleepycat License"
+LICENSE_SCHEME=		solo
+
+USES=			gmake libtool
+DISTNAME=		db-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_OUTSOURCE=	yes
+CONFIGURE_WRKSRC=	{{WRKSRC}}/build_unix
+CONFIGURE_SCRIPT=	dist/configure
+CONFIGURE_ARGS=		--enable-cxx
+			--enable-stl
+			--enable-compat185
+			--enable-dump185
+			--enable-sql
+			--enable-sql_codegen
+			--includedir={{PREFIX}}/include/db5
+			--libdir={{PREFIX}}/lib/db5
+			--bindir={{PREFIX}}/bin/db5
+INSTALL_TARGET=		install_include
+			install_lib
+			install_utilities
+			install_docs
+PLIST_SUB=		BDBMAJ=${BDBMAJ}
+			BDBVER=${BDBVER}
+MAKE_ARGS=		docdir={{STD_DOCDIR}}
+
+VAR_ARCH[aarch64]=	CONFIGURE_ARGS=--enable-posixmutexes
+			CONFIGURE_ARGS=--with-mutex=POSIX/pthreads
+VAR_ARCH[i386]=		CONFIGURE_ARGS=--with-mutex=x86/gcc-assembly
+
+[CRYPTO].DESCRIPTION=			Cryptography support
+[CRYPTO].CONFIGURE_WITH_BOTH=		cryptography=yes
+
+# [TCL].USES_ON=			tcl:85+
+[TCL].CONFIGURE_ARGS_ON=		--with-tcl={{TCL_LIBDIR}}
+[TCL].CONFIGURE_ARGS_OFF=		--disable-tcl
+
+post-patch:
+	${REINPLACE_CMD} -e '/^DOCLIST/{s/csharp//;}' \
+		${WRKSRC}/dist/Makefile.in
+	${REINPLACE_CMD} -Ee 's/([^[:alnum:]])atomic_init([^[:alnum:]])/\1db_atomic_init\2/g' \
+		${WRKSRC}/src/mp/mp_fget.c \
+		${WRKSRC}/src/mp/mp_mvcc.c \
+		${WRKSRC}/src/mp/mp_region.c \
+		${WRKSRC}/src/mutex/mut_*
+
+post-install:
+.for i in ${DBLIBS}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/db5/${i}-${BDBVER}.so.0
+	${LN} -s -f db5/${i}-${BDBVER}.so.0 ${STAGEDIR}${PREFIX}/lib
+	${LN} -s -f db5/${i}-${BDBMAJ}.so ${STAGEDIR}${PREFIX}/lib
+	${LN} -s -f ${i}-${BDBVER}.so.0 \
+		${STAGEDIR}${PREFIX}/lib/${i}-${BDBVER}.so
+	${LN} -s -f ${i}-${BDBVER}.so.0 \
+		${STAGEDIR}${PREFIX}/lib/${i}-${BDBMAJ}.so.0
+	${LN} -s -f ${i}-${BDBVER}.a ${STAGEDIR}${PREFIX}/lib/db5/${i}.a
+.endfor
+	cd ${STAGEDIR}${PREFIX}/bin/db5; \
+	for i in *; do ${LN} -s -f db5/$$i ../$$i-${BDBVER} ; \
+		       ${LN} -s -f db5/$$i ../$$i-${BDBMAJ} ; done
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}/java
+.for i in gsg gsg_db_rep gsg_txn
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}/${i}/JAVA
+.endfor
+
+post-install-TCL-ON:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/db5/libdb_tcl-${BDBVER}.so.0
+	${LN} -s -f db5/libdb_tcl-${BDBVER}.so.0 ${STAGEDIR}${PREFIX}/lib
+	${LN} -s -f db5/libdb_tcl-${BDBMAJ}.so ${STAGEDIR}${PREFIX}/lib
+	${LN} -s -f libdb_tcl-${BDBVER}.so.0 \
+		${STAGEDIR}${PREFIX}/lib/libdb_tcl-${BDBVER}.so
+	${LN} -s -f libdb_tcl-${BDBVER}.so.0 \
+		${STAGEDIR}${PREFIX}/lib/libdb_tcl-${BDBMAJ}.so.0
+	${LN} -s -f libdb_tcl-${BDBVER}.a \
+		${STAGEDIR}${PREFIX}/lib/db5/libdb_tcl.a
+	echo "package ifneeded Db_tcl ${BDBVER} \
+	      [list load [file join $$dir libdb_tcl-${BDBVER}.so]] \
+	     " > ${STAGEDIR}${PREFIX}/lib/db5/pkgIndex.tcl
+
+post-install-TCL-OFF:
+.for i in api_reference/TCL
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}/${i}
+.endfor
