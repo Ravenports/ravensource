@@ -1,0 +1,55 @@
+DEF[PORTVERSION]=	2.6.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		flex
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard nls
+SDESC[standard]=	Fast lexical analyzer generator
+SDESC[nls]=		Fast lexical generator with native lang support
+HOMEPAGE=		http://flex.sourceforge.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/westes/flex/releases/download/v${PORTVERSION}/
+DISTFILE[1]=		flex-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary examples
+SPKGS[nls]=		primary
+
+OPTIONS_AVAILABLE=	NLS
+OPTIONS_STANDARD=	none
+VOPTS[nls]=		NLS=ON
+
+LICENSE=		BSD2CLAUSE:primary
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		help2man:single:standard
+BUILDRUN_DEPENDS=	m4:primary:standard
+
+USES=			bison gmake libtool
+INFO=			primary:flex
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--includedir={{PREFIX}}/include/flex
+			--disable-shared
+CONFIGURE_ENV=		M4={{LOCALBASE}}/bin/gm4
+INSTALL_TARGET=		install-strip
+
+[NLS].USES_ON=				gettext-runtime
+[NLS].CONFIGURE_ENABLE_BOTH=		nls
+
+post-patch:
+	${REINPLACE_CMD} -Ee 's/tests//' \
+		-e '/mode=compile ..CC/s/\\$$/-fPIC -DPIC &/' \
+		${WRKSRC}/Makefile.in
+
+post-install:
+	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+	(cd ${WRKSRC}/examples \
+		&& ${COPYTREE_SHARE} . ${STAGEDIR}${STD_EXAMPLESDIR})
+	${RM} ${STAGEDIR}${STD_EXAMPLESDIR}/Makefile.am
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}
+
+post-install-NLS-ON:
+	${RM} -r ${STAGEDIR}${STD_EXAMPLESDIR}
