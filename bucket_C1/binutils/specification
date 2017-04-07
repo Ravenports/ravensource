@@ -1,0 +1,84 @@
+DEF[PORTVERSION]=	2.28
+DEF[BUREMOVE]=		coffdump dlltool dllwrap nlmconv srconv sysdump windmc windres
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		binutils
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard nls ravensys
+SDESC[standard]=	GNU binary tools
+SDESC[nls]=		GNU binary tools with native language support
+SDESC[ravensys]=	GNU binary tools for Ravenports system root
+HOMEPAGE=		http://sources.redhat.com/binutils/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SOURCEWARE/binutils/releases
+DISTFILE[1]=		binutils-${PORTVERSION}.tar.bz2:main
+
+SPKGS[ravensys]=	single
+SPKGS[standard]=	single
+SPKGS[nls]=		single
+
+OPTIONS_AVAILABLE=	NLS RELRO RAVENSYS
+OPTIONS_STANDARD=	RELRO
+VOPTS[ravensys]=	NLS=OFF RELRO=ON RAVENSYS=ON
+VOPTS[nls]=		NLS=ON RELRO=ON RAVENSYS=OFF
+OPT_ON[all]=		RELRO
+
+LICENSE=		GPLv3:single LGPL3:single
+LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING3
+			LGPL3:{{WRKSRC}}/COPYING3.LIB
+LICENSE_SCHEME=		multi
+
+BUILD_DEPENDS=		zlib:static:standard
+			mpfr:static:standard
+			gmp:static:standard
+
+USES=			bison gmake libtool
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-werror
+			--disable-shared
+			--with-gmp={{LOCALBASE}}
+			--with-mpfr={{LOCALBASE}}
+			--with-system-zlib
+			--with-lib-path=/usr/lib
+			--enable-targets=all
+			--enable-x86-relax-relocations=no
+INFO=			single:as
+			single:binutils
+			single:gprof
+			single:bfd
+			single:ld
+VAR_ARCH[x86_64]=	CONFIGURE_ARGS=--enable-gold
+			CONFIGURE_ARGS=--enable-plugins
+			PLIST_SUB=GOLD=""
+VAR_ARCH[aarch64]=	CONFIGURE_ARGS=--enable-gold
+			CONFIGURE_ARGS=--enable-plugins
+			PLIST_SUB=GOLD=""
+VAR_ARCH[i386]=		PLIST_SUB=GOLD="@comment "
+
+[RELRO].DESCRIPTION=			enable -z relro in ELF linker by default
+[RELRO].CONFIGURE_ARGS_ON=		--enable-relro
+[RELRO].CONFIGURE_ARGS_OFF=		--enable-relro=no
+
+[NLS].USES_ON=				gettext-runtime
+[NLS].CONFIGURE_ENABLE_BOTH=		nls
+
+[RAVENSYS].DESCRIPTION=			Static binutils for Ravenports system-root
+[RAVENSYS].MAKEFILE_ON=			PREFIX=/raven/toolchain
+
+post-install:
+	${INSTALL_DATA} ${WRKSRC}/include/plugin-api.h \
+		${STAGEDIR}${PREFIX}/include/
+	@${FIND} ${STAGEDIR}${PREFIX}/${CONFIGURE_TARGET} ! -type d | \
+		${SED} -e 's,^${STAGEDIR}${PREFIX}/,,' \
+		>> ${WRKDIR}/.manifest.single.mktmp
+	${RM} ${STAGEDIR}${PREFIX}/include/ansidecl.h
+	${SED} -i'' '/#include "ansidecl.h"/d' \
+		${STAGEDIR}${PREFIX}/include/bfd.h
+.for tool in ${BUREMOVE}
+	@${RM} ${STAGEDIR}${PREFIX}/bin/${BUTARGET}-${tool} \
+		${STAGEDIR}${MANPREFIX}/man/man1/${BUTARGET}-${tool}.1 \
+		${STAGEDIR}${PREFIX}/${BUTARGET}/bin/${tool}
+.endfor
