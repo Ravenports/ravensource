@@ -1,0 +1,51 @@
+DEF[PORTVERSION]=	6.1.20160425
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		texinfo
+VERSION=		${PORTVERSION}
+KEYWORDS=		print
+VARIANTS=		standard nls
+SDESC[standard]=	Typeset documentation system, multiple formats
+SDESC[nls]=		GNU Typeset doc system with native lang support
+HOMEPAGE=		http://www.gnu.org/software/texinfo/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/texinfo
+DISTFILE[1]=		texinfo-6.1.tar.xz:main
+DISTFILE[2]=		htmlxref.cnf:main
+DISTFILE[3]=		texinfo.tex:main
+DISTFILE[4]=		texi2dvi:main
+DIST_SUBDIR=		texinfo/${PORTVERSION}
+
+SPKGS[standard]=	single
+SPKGS[nls]=		single
+
+OPTIONS_AVAILABLE=	NLS
+OPTIONS_STANDARD=	none
+VOPTS[nls]=		NLS=ON
+
+BUILD_DEPENDS=		help2man:single:standard
+EXTRACT_ONLY=		1
+
+USES=			charsetfix cpe gmake ncurses perl
+DISTNAME=		texinfo-${PORTVERSION:R}
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install install-tex
+CPE_VENDOR=		gnu
+CPE_VERSION=		${PORTVERSION:R}
+PLIST_SUB=		TEXMF=share/texmf
+INFO=			single:texinfo
+			single:info-stnd
+MAKE_ARGS=		TEXMF={{LOCALBASE}}/share/texmf
+			PERL={{LOCALBASE}}/bin/perl
+
+[NLS].USES_ON=				gettext-runtime
+[NLS].CONFIGURE_ENABLE_BOTH=		nls
+
+post-patch:
+	${CHMOD} 755 ${WRKSRC}/build-aux/install-sh
+	${CP} ${DISTDIR}/${DIST_SUBDIR}/texinfo.tex ${WRKSRC}/doc/
+	${INSTALL_SCRIPT} ${DISTDIR}/${DIST_SUBDIR}/texi2dvi ${WRKSRC}/util/
+	${REINPLACE_CMD} '/rm -f ..DESTDIR/s:$$: $$(DESTDIR)$$(xsdir)/XSParagraph.*:' \
+		${WRKSRC}/tp/Texinfo/Convert/XSParagraph/Makefile.in

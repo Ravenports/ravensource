@@ -43,7 +43,7 @@ BUILD_DEPENDS=		gmp:static:standard
 			zlib:static:standard
 BUILDRUN_DEPENDS=	binutils:single:ravensys
 
-USES=			cpe gmake iconv:build libtool perl:build
+USES=			cpe gmake iconv:build libtool makeinfo perl:build
 DISTNAME=		${IDENTIFICATION}
 MUST_CONFIGURE=		gnu
 CPE_VENDOR=		gnu
@@ -68,20 +68,19 @@ CONFIGURE_ARGS=		--enable-languages="c,c++,ada,fortran"
 			--with-ld=${TOOLCHAIN}/bin/ld
 			--with-as=${TOOLCHAIN}/bin/as
 			--with-pkgversion="Ravenports"
-			--disable-libgomp
-			--disable-libmudflag
-			--disable-bootstrap
-# remove --disable-bootstrap when finished
-# allow other libs to build if possible
+
 INFO=			infopages:cpp
 			infopages:cppinternals
 			infopages:gcc
 			infopages:gccinstall
 			infopages:gccint
 			infopages:gfortran
+			infopages:gnat-style
+			infopages:gnat_rm
+			infopages:gnat_ugn
 			infopages:libquadmath
-# infopages:libitm
-# infopages:libgomp
+			infopages:libitm
+			infopages:libgomp
 
 post-patch:
 	# Update LINK_SPEC to add gcc-aux lib runpath in every binary
