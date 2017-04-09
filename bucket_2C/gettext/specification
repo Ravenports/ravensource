@@ -23,7 +23,7 @@ LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING
 			LGPL21:{{WRKSRC}}/gettext-runtime/intl/COPYING.LIB
 LICENSE_SCHEME=		multi
 
-USES=			charsetfix cpe iconv libtool
+USES=			charsetfix cpe c++:asprintf iconv libtool
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-csharp
 			--disable-java
@@ -43,9 +43,6 @@ INFO=			runtime:autosprintf runtime:gettext
 CPE_PRODUCT=		gettext
 CPE_VENDOR=		gnu
 
-# TODO: document the asprintf dependency of gcc-c++/gcc_s libraries
-# TODO: To provide ability for subpackage specific run dependencies.
-
 post-patch:
 	# Do not install csharp and java documentation.
 	@${REINPLACE_CMD} -E '/^SUBDIRS =/s/(intl-csharp|intl-java)//g' \
@@ -59,5 +56,6 @@ post-patch:
 		${WRKSRC}/gettext-runtime/man/Makefile.in
 
 post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libintl.so
 	${MV} ${STAGEDIR}${PREFIX}/share/gettext-${PORTVERSION:R} \
 		${STAGEDIR}${PREFIX}/share/gettext/${PORTVERSION:R}

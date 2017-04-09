@@ -24,7 +24,7 @@ LICENSE=		BSD3CLAUSE:static
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
-USES=			cpe libtool
+USES=			cpe cclibs:shared libtool
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-utf
 			--enable-unicode-properties
@@ -36,8 +36,6 @@ CONFIGURE_ARGS=		--enable-utf
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 TEST_TARGET=		check
-
-# TODO: shared package requires libstdc++/libgcc_s runtime
 
 post-patch:
 	@${REINPLACE_CMD} -e "/^\.rs/d" ${WRKSRC}/doc/*.3 ${WRKSRC}/doc/*.1
