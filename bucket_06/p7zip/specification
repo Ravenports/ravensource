@@ -1,0 +1,59 @@
+DEF[PORTVERSION]=	16.02
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		p7zip
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers
+VARIANTS=		standard
+SDESC[standard]=	File archiver with high compression ratio
+HOMEPAGE=		http://p7zip.sourceforge.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/p7zip/p7zip/${PORTVERSION:S/.//}
+DISTFILE[1]=		p7zip_${PORTVERSION}_src_all.tar.bz2:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21:primary CUSTOM1:primary CUSTOM2:primary
+LICENSE_FILE=		LGPL21:{{WRKSRC}}/DOC/copying.txt
+			CUSTOM1:{{WRKSRC}}/DOC/unRarLicense.txt
+			CUSTOM2:{{WRKSRC}}/DOC/License.txt
+LICENSE_NAME=		CUSTOM1:"unRAR Restriction"
+			CUSTOM2:"Combined license summary"
+LICENSE_SCHEME=		multi
+
+USES=			cpe
+CPE_VENDOR=		7-zip
+SINGLE_JOB=		yes
+BUILD_TARGET=		all3
+MAKEFILE=		makefile
+MAKE_ARGS=		OPTFLAGS="{{CXXFLAGS}}"
+DISTNAME=		p7zip_${PORTVERSION}
+
+post-patch:
+	${REINPLACE_CMD} -e 's|{DEST_SHARE_DOC}|${STD_DOCDIR}|' \
+		${WRKSRC}/man1/*
+	${MV} ${WRKSRC}/README ${WRKSRC}/DOC/readme.unix
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/libexec/p7zip
+.for BINARY in 7z 7za 7zr 7zCon.sfx
+	${INSTALL_PROGRAM} ${WRKSRC}/bin/${BINARY} ${STAGEDIR}${PREFIX}/libexec/p7zip
+.endfor
+	${INSTALL_LIB} ${WRKSRC}/bin/7z.so ${STAGEDIR}${PREFIX}/libexec/p7zip
+
+	${INSTALL_SCRIPT} ${FILESDIR}/7z ${STAGEDIR}${PREFIX}/bin
+	${LN} -sf 7z ${STAGEDIR}${PREFIX}/bin/7za
+	${LN} -sf 7z ${STAGEDIR}${PREFIX}/bin/7zr
+
+	(cd ${WRKSRC}/man1 && \
+		${INSTALL_MAN} 7z*.1 ${STAGEDIR}${MAN1PREFIX}/man/man1)
+	(cd ${WRKSRC}/DOC && \
+		${COPYTREE_SHARE} . ${STAGEDIR}${STD_DOCDIR})
+.for LIC in Licence.txt copying.txt unRarLicense.txt
+	${RM} ${STAGEDIR}${STD_DOCDIR}/${LIC}
+.endfor

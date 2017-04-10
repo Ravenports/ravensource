@@ -4,8 +4,9 @@ DEF[PORTVERSION]=	5.29
 NAMEBASE=		file
 VERSION=		${PORTVERSION}
 KEYWORDS=		sysutils
-VARIANTS=		standard
+VARIANTS=		standard ravensys
 SDESC[standard]=	Utility to determine file type
+SDESC[ravensys]=	Static file type utility based at /usr
 HOMEPAGE=		http://darwinsys.com/file
 CONTACT=		nobody
 
@@ -15,9 +16,11 @@ SITES[main]=		ftp://ftp.astron.com/pub/file/
 DISTFILE[1]=		file-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	single
+SPKGS[ravensys]=	single
 
-OPTIONS_AVAILABLE=	none
+OPTIONS_AVAILABLE=	RAVENSYS
 OPTIONS_STANDARD=	none
+VOPTS[ravensys]=	RAVENSYS=ON
 
 LICENSE=		BSD2CLAUSE:single
 LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
@@ -27,9 +30,15 @@ BUILD_DEPENDS=		zlib:static:standard
 
 USES=			libtool
 MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
 CONFIGURE_ARGS=		--enable-fsect-man5
-			--enable-shared=no
+			--enable-static
 MAKE_ENV=		INSTALL_STRIP_FLAG="{{STRIP}}"
+
+[RAVENSYS].BUILD_DEPENDS_OFF=		zlib:shared:standard
+[RAVENSYS].CONFIGURE_ARGS_OFF=		--enable-shared=yes
+[RAVENSYS].CONFIGURE_ARGS_ON=		--enable-shared=no
+					--datarootdir=/usr/share
 
 do-test:
 	@(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} check)
@@ -37,3 +46,8 @@ do-test:
 post-patch:
 	@${REINPLACE_CMD} -e 's|$$(datadir)/misc|$$(datadir)/file|g' \
 		${WRKSRC}/configure
+
+post-install-RAVENSYS-ON:
+	${MV} ${STAGEDIR}/usr/share/file ${STAGEDIR}${PREFIX}/share/
+	${RMDIR} ${STAGEDIR}/usr/share
+	${RMDIR} ${STAGEDIR}/usr
