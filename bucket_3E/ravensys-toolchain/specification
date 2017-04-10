@@ -1,0 +1,33 @@
+DEF[COMPILER_VER]=	EXTRACT_INFO(GCC6_PORTVERSION)
+DEF[GCC_VERSION]=	EXTRACT_INFO(GCC6_VERSION)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ravensys-toolchain
+VERSION=		1.0
+KEYWORDS=		raven
+VARIANTS=		standard
+SDESC[standard]=	Compiler and binutils toolchain for Ravenports
+HOMEPAGE=		none
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	none
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+BUILD_DEPENDS=		binutils:single:ravensys
+
+PREFIX=			{{LOCALBASE}}/share/raven/toolchain
+SKIP_BUILD=		yes
+
+INVALID_RPATH=		yes
+PLIST_SUB=		COMPVER=${COMPILER_VER}
+			GCCVER=${GCC_VERSION}
+			TARGET={{CONFIGURE_TARGET}}
+MAKE_ENV=		COMPVER=${COMPILER_VER}
+
+do-extract:
+	${MKDIR} ${WRKSRC}
+	${CP} ${FILESDIR}/Makefile ${WRKSRC}/
