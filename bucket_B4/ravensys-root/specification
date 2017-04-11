@@ -1,0 +1,120 @@
+DEF[DF_RELEASE]=	4.8.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ravensys-root
+VERSION=		1.0
+KEYWORDS=		raven
+VARIANTS=		standard dragonfly freebsd64
+SDESC[standard]=	OS-specific system root for Ravenports build env
+SDESC[dragonfly]=	DragonFly64 system root for Ravenports build env
+SDESC[freebsd64]=	FreeBSD64 system root for Ravenports build env
+HOMEPAGE=		none
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main avalon
+SITES[main]=		http://dummy.org
+SITES[avalon]=		http://mirror-master.dragonflybsd.org/iso-images/
+DISTFILE[1]=		dfly-x86_64-${DF_RELEASE}_REL.iso.bz2:avalon
+
+SPKGS[standard]=	single
+SPKGS[dragonfly]=	single
+SPKGS[freebsd64]=	single
+
+OPTIONS_AVAILABLE=	STD DRAGONFLY FREEBSD
+OPTIONS_STANDARD=	STD
+VOPTS[dragonfly]=	STD=OFF DRAGONFLY=ON FREEBSD=OFF
+VOPTS[freebsd64]=	STD=OFF DRAGONFLY=OFF FREEBSD=ON
+OPT_ON[all]=		STD
+
+INVALID_RPATH=		yes
+
+BUILD_DEPENDS=		nawk:single:standard
+			bzip2:static:standard
+			diffutils:single:standard
+			libarchive:single:static
+			sha256:single:standard
+			gnugrep:single:standard
+			fetch:single:standard
+			file:single:ravensys
+			findutils:single:standard
+			flex:primary:standard
+			gzip:single:standard
+			xz:single:static
+			unzip:core:standard
+			m4:primary:standard
+			bmake:single:standard
+			patch:single:standard
+			sed:single:standard
+			byacc:single:standard
+			libdl:single:standard
+			ravensys-uname:single:standard
+			less:single:standard
+			nvi:single:standard
+			mtree:single:standard
+			coreutils:single:standard
+			binutils:single:standard
+			ncurses:primary:static
+			pkg-bsd:static:standard
+
+SKIP_BUILD=		yes
+EXTRACT_DIRTY=		1
+
+PLIST_SUB=		SONAME_LIBM={{Libm_{{OPSYS}}}}
+			SONAME_LIBC={{Libc_{{OPSYS}}}}
+			SONAME_LIBUTIL={{Libutil_{{OPSYS}}}}
+			SONAME_LIBUSB={{Libusb_{{OPSYS}}}}
+			SONAME_LIBUSBHID={{Libusbhid_{{OPSYS}}}}
+			BASE=share/raven/sysroot/{{OPSYS}}
+
+MAKE_ENV=		OPSYS="{{OPSYS}}"
+			MKDIR="{{MKDIR}}"
+			libm={{Libm_{{OPSYS}}}}
+			libc={{Libc_{{OPSYS}}}}
+			libutil={{Libutil_{{OPSYS}}}}
+			libusb={{Libusb_{{OPSYS}}}}
+			libusbhid={{Libusbhid_{{OPSYS}}}}
+MAKE_ARGS=		BASE={{RSYS}}
+
+[STD].DESCRIPTION=			Dummy option to mark standard variant unused
+[STD].BROKEN_ON=			Only build non-standard variants
+
+[DRAGONFLY].DESCRIPTION=		Ravenports system root for DragonFly
+[DRAGONFLY].DF_INDEX_ON=		1
+
+[FREEBSD].DESCRIPTION=			Ravenports system root for FreeBSD
+# [FREEBSD].DF_INDEX_ON=		2
+
+post-extract-DRAGONFLY-ON:
+	${MV} ${WRKDIR}/${NAMEBASE}_1 ${WRKDIR}/dragonfly
+	@${MKDIR} ${WRKSRC}
+	${INSTALL_DATA} ${FILESDIR}/Makefile ${WRKSRC}/
+
+post-install-DRAGONFLY-ON:
+	${INSTALL_DATA} ${FOS}/etc/group \
+		${STAGEDIR}${RSYS}/usr/share/group
+	${INSTALL_DATA} ${FOS}/etc/master.passwd \
+		${STAGEDIR}${RSYS}/usr/share/master.passwd
+	${INSTALL_DATA} ${FOS}/etc/defaults/rc.conf \
+		${STAGEDIR}${RSYS}/usr/share/rc.conf
+	${FOS}/usr/sbin/pwd_mkdb -p -d ${STAGEDIR}${RSYS}/usr/share \
+		${STAGEDIR}${RSYS}/usr/share/master.passwd
+	${MKDIR} ${STAGEDIR}${RSYS}/var/run
+	# handle ldconfig hints
+	${INSTALL_PROGRAM} ${FOS}/sbin/ldconfig \
+		${STAGEDIR}${RSYS}/usr/bin/ldconfig
+	${FOS}/usr/sbin/chroot ${STAGEDIR}${RSYS} /usr/bin/ldconfig /usr/lib
+	${RM} ${STAGEDIR}${RSYS}/usr/bin/ldconfig
+	${MV} ${STAGEDIR}${RSYS}/var/run/ld-elf.so.hints \
+		${STAGEDIR}${RSYS}/usr/share/
+	${RM} -r ${STAGEDIR}${RSYS}/var
+	# create termcap.db
+	${INSTALL_DATA} ${FILESDIR}/termcap.src \
+		${STAGEDIR}${RSYS}/usr/share/termcap
+	(cd ${STAGEDIR}${RSYS}/usr/share && \
+		${FOS}/usr/bin/cap_mkdb -f termcap ./termcap)
+
+	# Approach only works for DragonFly.
+	${FOS}/usr/bin/make -V .MAKE.DF.OSREL   > ${STAGEDIR}${RSYS}/usr/share/OSRELEASE
+	${FOS}/usr/bin/make -V .MAKE.DF.OSREL   > ${STAGEDIR}${RSYS}/usr/share/OSMAJOR
+	${FOS}/usr/bin/make -V .MAKE.DF.VERSION > ${STAGEDIR}${RSYS}/usr/share/OSVERSION
+	echo "x86_64"                           > ${STAGEDIR}${RSYS}/usr/share/STDARCH
