@@ -27,7 +27,13 @@ PLIST_SUB=		COMPVER=${COMPILER_VER}
 			GCCVER=${GCC_VERSION}
 			TARGET={{CONFIGURE_TARGET}}
 MAKE_ENV=		COMPVER=${COMPILER_VER}
+			TARGET={{CONFIGURE_TARGET}}
 
 do-extract:
 	${MKDIR} ${WRKSRC}
 	${CP} ${FILESDIR}/Makefile ${WRKSRC}/
+
+post-install:
+	@${FIND} ${STAGEDIR}${PREFIX}/lib ! -type d | \
+		${SED} -e 's,^${STAGEDIR}${PREFIX}/,,' \
+		>> ${WRKDIR}/.manifest.single.mktmp

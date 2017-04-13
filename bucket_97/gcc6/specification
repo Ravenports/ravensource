@@ -22,8 +22,9 @@ DISTFILE[1]=		${IDENTIFICATION}.tar.bz2:main
 
 SPKGS[standard]=	complete compilers ada_run cxx_run fortran_run libs infopages
 
-OPTIONS_AVAILABLE=	none
+OPTIONS_AVAILABLE=	ALLSTAGES
 OPTIONS_STANDARD=	none
+OPT_ON[all]=		ALLSTAGES
 
 LICENSE=		GPLv2+:compilers
 			LGPL21:compilers
@@ -85,6 +86,9 @@ INFO=			infopages:cpp
 			infopages:libquadmath
 			infopages:libitm
 			infopages:libgomp
+
+[ALLSTAGES].DESCRIPTION=		Three stage build (full bootstrap)
+[ALLSTAGES].CONFIGURE_ARGS_OFF=		--disable-bootstrap
 
 post-patch:
 	# Update LINK_SPEC to add gcc-aux lib runpath in every binary

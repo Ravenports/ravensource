@@ -335,7 +335,7 @@ install:
 	cp ${LOCALBASE}/bin/${item} ${DESTDIR}${BASE}/bin/
 .endfor
 	cp ${LOCALBASE}/bin/gcat ${DESTDIR}${BASE}/bin/cat
-.for item in bzip2 bunzip2 bzcat bzgrep bzegrep bzfgrep egrep fgrep \
+.for item in bzip2 bunzip2 bzcat bzgrep bzegrep bzfgrep \
 	grep fetch file flex flex++ gzip gunzip zcat zcmp zdiff zegrep \
 	zfgrep zgrep lzcat lzcmp lzdiff lzegrep lzfgrep lzgrep lzma \
 	unlzma unxz xz xzcat xzcmp xzdiff xzegrep xzfgrep xzgrep yacc \
@@ -358,6 +358,12 @@ install:
 	cp ${LOCALBASE}/share/misc/terminfo.db.default ${DESTDIR}${BASE}/usr/share/terminfo.db
 	cp ${LOCALBASE}/sbin/pkg-static ${DESTDIR}${BASE}/usr/bin/
 	cp ${LOCALBASE}/share/file/magic.mgc ${DESTDIR}${BASE}/usr/share/file/
+	sed -e "s|${LOCALBASE}|/usr|g" ${LOCALBASE}/bin/egrep \
+		> ${DESTDIR}${BASE}/usr/bin/egrep
+	sed -e "s|${LOCALBASE}|/usr|g" ${LOCALBASE}/bin/fgrep \
+		> ${DESTDIR}${BASE}/usr/bin/fgrep
+	chmod 755 ${DESTDIR}${BASE}/usr/bin/egrep \
+		${DESTDIR}${BASE}/usr/bin/fgrep
 
 extra-includes:
 .for item in ${headers_${OPSYS}}
