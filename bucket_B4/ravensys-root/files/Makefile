@@ -98,6 +98,7 @@ Usr_Bin_DragonFly= \
 		/usr/bin/mkfifo \
 		/usr/bin/mktemp \
 		/usr/bin/printenv \
+		/usr/bin/printf \
 		/usr/bin/readlink \
 		/usr/bin/stat \
 		/usr/bin/tail \

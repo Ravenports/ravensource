@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	17.1.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gprbuild
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel ada
+VARIANTS=		standard
+SDESC[standard]=	Adacore multi-language software build tool
+HOMEPAGE=		http://www.adacore.com/home/products/gnatpro/toolsuite/gprbuild/
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/Adacore:gprbuild:226dcbe
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3:primary
+LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING3
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		xmlada:primary:standard
+# sphinx
+
+MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
+BUILD_WRKSRC=		{{WRKSRC}}/construction
+INSTALL_WRKSRC=		{{BUILD_WRKSRC}}
+INSTALL_TARGET=		install
+# BUILD_TARGET+= gen-docs
+# INSTALL_TARGET+= install-docs
+
+post-patch:
+	@${MKDIR} ${WRKDIR}/trash ${BUILD_WRKSRC}
+	${INSTALL_DATA} ${FILESDIR}/Makefile.BSD ${BUILD_WRKSRC}/Makefile
+	${SED} -i"" -e "s|@LOCALBASE@|${LOCALBASE}|" \
+		${WRKSRC}/share/gprconfig/compilers.xml
+	@${MV} ${WRKSRC}/share/gprconfig/*.orig ${WRKDIR}/trash
