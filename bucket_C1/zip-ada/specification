@@ -1,0 +1,58 @@
+DEF[PORTVERSION]=	52
+DEF[ZTOOLS]=		zipada comp_zip find_zip rezip za_gnat rz_gnat bunzip lz lzma_dec lzma_enc lz77_stats random_data several_sizes
+DEF[DEMOS]=		demo_csv_into_zip demo_zip demo_unzip test_unz_streams test_chunk ziptest zip_with_many_files test_zip_info_timing test_stream_performance test_extract test_extract_tb test_lz_scramble test_llhc test_lz77
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		zip-ada
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers ada
+VARIANTS=		standard
+SDESC[standard]=	Zip compression library written in Ada
+HOMEPAGE=		http://unzip-ada.sourceforge.net/
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/unzip-ada/
+DISTFILE[1]=		zipada${PORTVERSION}.zip:main
+
+SPKGS[standard]=	complete primary examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/zip_lib/zip.ads
+LICENSE_SCHEME=		solo
+
+USES=			ada dos2unix gprbuild perl:build
+DISTNAME=		zip-ada
+MAKE_ENV=		Build_Mode=Fast
+
+do-build:
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -p -P zipada.gpr)
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/bin \
+		  ${STAGEDIR}${STD_EXAMPLESDIR} \
+		  ${STAGEDIR}${PREFIX}/include/zip-ada \
+		  ${STAGEDIR}${PREFIX}/lib/zip-ada \
+		  ${STAGEDIR}${PREFIX}/lib/gnat
+	@${MKDIR} ${WRKSRC}/obj_tools ${WRKSRC}/obj_demos
+.for F in ${ZTOOLS}
+	${INSTALL_PROGRAM} ${WRKSRC}/${F} ${STAGEDIR}${PREFIX}/bin/
+	${MV} ${WRKSRC}/obj_opt/${F}.* ${WRKSRC}/obj_tools/
+.endfor
+.for F in ${DEMOS}
+	${INSTALL_PROGRAM} ${WRKSRC}/${F} ${STAGEDIR}${STD_EXAMPLESDIR}/
+	${MV} ${WRKSRC}/obj_opt/${F}.* ${WRKSRC}/obj_demos/
+.endfor
+	(cd ${WRKSRC}/obj_opt && ${AR} rcs libzip-ada.a *.o)
+	${MV} ${STAGEDIR}${PREFIX}/bin/bunzip \
+		${STAGEDIR}${PREFIX}/bin/debzip2
+	${INSTALL_DATA} ${WRKSRC}/zip_lib/*.ad[sb] \
+		${STAGEDIR}${PREFIX}/include/zip-ada/
+	${INSTALL_DATA} ${WRKSRC}/obj_opt/*.ali \
+		${STAGEDIR}${PREFIX}/lib/zip-ada/
+	${RM} ${STAGEDIR}${PREFIX}/lib/zip-ada/b__*.ali
+	${INSTALL_DATA} ${WRKSRC}/obj_opt/*.a ${STAGEDIR}${PREFIX}/lib/zip-ada/
+	${INSTALL_DATA} ${FILESDIR}/zip-ada.gpr ${STAGEDIR}${PREFIX}/lib/gnat/

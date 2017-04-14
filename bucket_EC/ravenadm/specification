@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/jrmarino/ravenadm
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/jrmarino:ravenadm:53802dd
+SITES[main]=		GITHUB/jrmarino:ravenadm:9f268a7
 DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
@@ -23,10 +23,10 @@ LICENSE=		ISCL:single
 LICENSE_FILE=		ISCL:{{WRKSRC}}/License.txt
 LICENSE_SCHEME=		solo
 
-MAKE_ENV=		NCURSES_LINK=static
+BUILD_DEPENDS=		adacurses:primary:standard
 
-BUILD_DEPENDS=		gprbuild:primary:standard
-			adacurses:primary:standard
+USES=			gprbuild
+MAKE_ENV=		NCURSES_LINK=static
 
 post-extract:
 	@${REINPLACE_CMD} -e "s|/raven|${LOCALBASE}|" \
