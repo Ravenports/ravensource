@@ -1,0 +1,19 @@
+--- src/library.gpr.orig	2014-06-01 01:13:09 UTC
++++ src/library.gpr
+@@ -43,7 +43,6 @@ project Library is
+   for Source_Dirs use (Source_Dir & "/src",
+                        Source_Dir2,
+                        Build_Dir & "/src");
+-  for Library_Options use ("-lncurses", "-lpanel", "-lmenu", "-lform");
+   package Compiler is
+      for Default_Switches ("Ada") use
+        ("-g",
+@@ -53,4 +52,8 @@ project Library is
+         "-gnatwa");  -- Activate all optional errors
+   end Compiler;
+   for Languages use ("C", "Ada");
++  package Linker is
++    for Linker_options use ("-L@PREFIX@/lib", "-Wl,-R,@PREFIX@/lib",
++                            "-lncurses", "-lpanel", "-lmenu", "-lform");
++  end Linker;
+ end Library;

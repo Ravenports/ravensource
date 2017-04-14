@@ -22,6 +22,8 @@ LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/README
 LICENSE_SCHEME=		solo
 
+BUILD_DEPENDS=		gprbuild:primary:standard
+
 USES=			gmake pkgconfig ncurses
 DISTNAME=		AdaCurses-${PORTVERSION}
 SINGLE_JOB=		yes
@@ -35,8 +37,8 @@ CONFIGURE_ARGS=		--with-ada-include={{PREFIX}}/include/adacurses
 PLIST_SUB=		atic=adacurses/terminal_interface-curses
 
 post-patch:
-	@${REINPLACE_CMD} -e '/(INSTALL_PROG)/d' -e 's|@ADAGEN_LDFLAGS@||' \
-		${WRKSRC}/gen/Makefile.in
+	@${REINPLACE_CMD} -e '/(INSTALL_PROG)/d' \
+		-e 's|@ADAGEN_LDFLAGS@||' ${WRKSRC}/gen/Makefile.in
 	@${REINPLACE_CMD} -e '/pragma Linker_Options/d' \
 		${WRKSRC}/gen/terminal_interface-curses.ads.m4 \
 		${WRKSRC}/gen/terminal_interface-curses-menus.ads.m4 \
@@ -44,6 +46,8 @@ post-patch:
 		${WRKSRC}/gen/terminal_interface-curses-panels.ads.m4
 	@${REINPLACE_CMD} -e 's|@LIBS@|@LIBS@ -lmenu -lform -lpanel|' \
 		${WRKSRC}/samples/Makefile.in
+	@${REINPLACE_CMD} -e "s|@PREFIX@|${NCURSESBASE}|g" \
+		${WRKSRC}/src/library.gpr
 
 post-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/gen/adacurses-config \
