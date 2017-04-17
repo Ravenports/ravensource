@@ -340,7 +340,7 @@ install:
 	grep fetch file flex flex++ gzip gunzip zcat zcmp zdiff zegrep \
 	zfgrep zgrep lzcat lzcmp lzdiff lzegrep lzfgrep lzgrep lzma \
 	unlzma unxz xz xzcat xzcmp xzdiff xzegrep xzfgrep xzgrep yacc \
-	unzip less mtree bsdcat
+	unzip less mtree bsdcat makewhatis
 	cp ${LOCALBASE}/bin/${item} ${DESTDIR}${BASE}/usr/bin/
 .endfor
 	cp ${LOCALBASE}/lib/libdl.a ${DESTDIR}${BASE}/usr/lib/
