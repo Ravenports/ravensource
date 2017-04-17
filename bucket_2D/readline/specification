@@ -1,0 +1,53 @@
+DEF[PATCHLEVEL]=	8
+DEF[PORTVERSION]=	6.3.${PATCHLEVEL}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		readline
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Library for editing command lines during typing
+HOMEPAGE=		https://cnswww.cns.cwru.edu/php/chet/readline/rltop.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main patches
+SITES[main]=		GNU/readline
+SITES[patches]=		GNU/readline/readline-${PORTVERSION:R}-patches
+DISTFILE[1]=		readline-${PORTVERSION:R}.tar.gz:main
+DISTFILE[2]=		readline${PORTVERSION:R:S/.//}-001:patches
+DISTFILE[3]=		readline${PORTVERSION:R:S/.//}-002:patches
+DISTFILE[4]=		readline${PORTVERSION:R:S/.//}-003:patches
+DISTFILE[5]=		readline${PORTVERSION:R:S/.//}-004:patches
+DISTFILE[6]=		readline${PORTVERSION:R:S/.//}-005:patches
+DISTFILE[7]=		readline${PORTVERSION:R:S/.//}-006:patches
+DISTFILE[8]=		readline${PORTVERSION:R:S/.//}-007:patches
+DISTFILE[9]=		readline${PORTVERSION:R:S/.//}-008:patches
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3:single
+LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+USES=			cpe ncurses
+DISTNAME=		readline-${PORTVERSION:R}
+PATCHFILES=		2 3 4 5 6 7 8 9
+CPE_VENDOR=		gnu
+CPE_VERSION=		${PORTVERSION:R}
+CPE_UPDATE=		${PATCHLEVEL}
+INFO=			single:history
+			single:readline
+			single:rluserman
+MUST_CONFIGURE=		gnu
+
+post-patch:
+	${REINPLACE_CMD} "s/SHOBJ_LDFLAGS =/SHOBJ_LDFLAGS = -lncurses/" \
+		${WRKSRC}/shlib/Makefile.in
+
+post-install:
+	 ${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libhistory.so.6 \
+		${STAGEDIR}${PREFIX}/lib/libreadline.so.6
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}
