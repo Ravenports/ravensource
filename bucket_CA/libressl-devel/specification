@@ -1,7 +1,7 @@
-DEF[PORTVERSION]=	2.4.5
+DEF[PORTVERSION]=	2.5.3
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		libressl
+NAMEBASE=		libressl-devel
 VERSION=		${PORTVERSION}
 KEYWORDS=		security devel
 VARIANTS=		standard static
@@ -27,8 +27,10 @@ LICENSE_FILE=		OpenSSL:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		multi
 
 USES=			cpe libtool pkgconfig
+DISTNAME=		libressl-${PORTVERSION}
 CPE_VENDOR=		openbsd
 MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-nc
 INSTALL_TARGET=		install-strip
 TEST_TARGET=		check
 INSTALL_REQ_TOOLCHAIN=	yes
