@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	3.2.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libffi
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Foreign Function Interface
+HOMEPAGE=		http://sources.redhat.com/libffi/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SOURCEWARE/libffi
+DISTFILE[1]=		libffi-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+USES=			libtool
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+INFO=			single:libffi
+PLIST_SUB=		PORTVERSION=${PORTVERSION}
+
+post-install:
+	@${LN} -sf ../lib/libffi-${PORTVERSION}/include/ffi.h \
+	    ${STAGEDIR}${PREFIX}/include/
+	@${LN} -sf ../lib/libffi-${PORTVERSION}/include/ffitarget.h \
+	    ${STAGEDIR}${PREFIX}/include/
