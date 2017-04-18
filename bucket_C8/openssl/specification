@@ -1,0 +1,110 @@
+DEF[PORTVERSION]=	1.0.2k
+DEF[OPENSSL_SHLIBVER]=	9
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		openssl
+VERSION=		${PORTVERSION}
+KEYWORDS=		security devel
+VARIANTS=		standard
+SDESC[standard]=	SSL and crypto library
+HOMEPAGE=		http://www.openssl.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.openssl.org/source/
+DISTFILE[1]=		openssl-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	SKIP_MANPAGES ASM EC SHARED SSE2 SSL2 SSL3 I386 THREADS
+OPTIONS_STANDARD=	SKIP_MANPAGES ASM EC SHARED SSE2 SSL2 SSL3 I386 THREADS
+OPT_ON[all]=		SHARED SSE2 SSL2 SSL3 THREADS
+OPT_ON[x86_64]=		ASM EC
+OPT_ON[i386]=		I386
+
+LICENSE=		OpenSSL:single
+LICENSE_FILE=		OpenSSL:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+USES=			cpe perl:build
+DISTNAME=		openssl-${PORTVERSION}
+SINGLE_JOB=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+CONFIGURE_ARGS=		no-md2
+			no-rc5
+			no-rfc3779
+			no-sctp
+			no-gmp
+MAKE_ARGS=		WHOLE_ARCHIVE_FLAG=--whole-archive
+MAKE_ENV=		LIBRPATH="{{PREFIX}}/lib"
+			GREP_OPTIONS=
+TEST_TARGET=		test
+
+[SKIP_MANPAGES].DESCRIPTION=		Avoid installing OpenSSL manpages
+
+[ASM].DESCRIPTION=			Optimized Assembler code
+[ASM].CONFIGURE_ARGS_OFF=		no-asm
+
+[EC].DESCRIPTION=			Optimize NIST elliptic curves
+[EC].CONFIGURE_ARGS_OFF=		no-ec_nistp_64_gcc_128
+[EC].CONFIGURE_ARGS_ON=			enable-ec_nistp_64_gcc_128
+
+[SHARED].DESCRIPTION=			Build shared libs
+[SHARED].CONFIGURE_ARGS_ON=		shared
+[SHARED].MAKE_ENV_ON=			SHLIBVER=${OPENSSL_SHLIBVER}
+[SHARED].PLIST_SUB_ON=			SHLIBVER=${OPENSSL_SHLIBVER}
+
+[SSE2].DESCRIPTION=			Runtime SSE2 detection
+[SSE2].CONFIGURE_ARGS_OFF=		no-sse2
+
+[SSL2].DESCRIPTION=			SSLv2 protocol support
+[SSL2].CONFIGURE_ARGS_OFF=		no-ssl2
+[SSL2].CONFIGURE_ARGS_ON=		enable-ssl2
+
+[SSL3].DESCRIPTION=			SSLv3 protocol support
+[SSL3].CONFIGURE_ARGS_OFF=		no-ssl3 no-ssl3-method
+[SSL3].CONFIGURE_ARGS_ON=		enable-ssl3
+
+[THREADS].DESCRIPTION=			Threading support
+[THREADS].CONFIGURE_ARGS_OFF=		no-threads
+[THREADS].CONFIGURE_ARGS_ON=		threads
+
+[I386].DESCRIPTION=			Optimize for i386 (instead of i486+)
+[I386].CONFIGURE_ARGS_ON=		386
+
+post-patch:
+	${REINPLACE_CMD} -e 's|m4 -B 8192|m4|g' \
+		${WRKSRC}/crypto/des/Makefile
+	${REINPLACE_CMD} -e 's|SHLIB_VERSION_NUMBER "1.0.0"|SHLIB_VERSION_NUMBER "${OPENSSL_SHLIBVER}"|' \
+		${WRKSRC}/crypto/opensslv.h
+	${REINPLACE_CMD} -e 's|ERR_R_MALLOC_ERROR|ERR_R_MALLOC_FAILURE|' \
+		${WRKSRC}/crypto/bio/bss_dgram.c
+
+post-patch-SKIP_MANPAGES-ON:
+	${GREP} -L openssl_manual_section ${WRKSRC}/doc/crypto/*.pod | ${XARGS} ${RM}
+	${RM} -r ${WRKSRC}/doc/ssl/*.pod
+	${REINPLACE_CMD} -e 's|pod doc/ssl/\*\.pod|pod|' ${WRKSRC}/Makefile.org
+
+do-configure:
+	${REINPLACE_CMD} -e "s|options 386|options|" ${WRKSRC}/config
+	(cd ${WRKSRC} && ${SETENV} CC="${CC}" FREEBSDCC="${CC}" \
+		CFLAGS="${CFLAGS}" PERL="${PERL}" \
+		./config --prefix=${PREFIX} --openssldir=openssl \
+		--install_prefix=${STAGEDIR} -L${PREFIX}/lib \
+		${CONFIGURE_ARGS})
+
+post-configure:
+	${REINPLACE_CMD} \
+		-e 's|^MANDIR=.*$$|MANDIR=$$(MANPREFIX)/man|' \
+		-e 's|LIBVERSION=[^ ]* |LIBVERSION=${OPENSSL_SHLIBVER} |' \
+		${WRKSRC}/Makefile
+
+post-install-SHARED-ON:
+.for i in libcrypto libssl
+	${INSTALL_LIB} ${WRKSRC}/$i.so.${OPENSSL_SHLIBVER} ${STAGEDIR}${PREFIX}/lib
+	${LN} -sf $i.so.${OPENSSL_SHLIBVER} ${STAGEDIR}${PREFIX}/lib/$i.so
+.endfor
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/engines/*.so
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/openssl
