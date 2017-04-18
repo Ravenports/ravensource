@@ -34,11 +34,11 @@ USES=			cpe libtool
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
 CONFIGURE_ARGS=		--without-xml2
+			--without-iconv
 BUILD_DEPENDS=		bzip2:static:standard
 			zlib:static:standard
 			expat:static:standard
 
-[STATIC].USES_OFF=			iconv
 [STATIC].BUILDRUN_DEPENDS_OFF=		libressl:single:standard
 					xz:single:standard
 					bzip2:shared:standard
@@ -49,7 +49,6 @@ BUILD_DEPENDS=		bzip2:static:standard
 [STATIC].CONFIGURE_ARGS_OFF=		--enable-shared=yes
 [STATIC].CONFIGURE_ARGS_ON=		--enable-shared=no
 					--enable-static=yes
-					--without-iconv
 
 [EXTENDED].BUILD_DEPENDS_ON=		lzo:static:standard
 					lz4:static:standard
