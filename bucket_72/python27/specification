@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	EXTRACT_VERSION(PYTHON_3.5_VERSION)
+DEF[PORTVERSION]=	EXTRACT_VERSION(PYTHON_2.7_VERSION)
 DEF[PYTHON_VER]=	${PORTVERSION:R}
 DEF[PYTHON_VERSION]=	python${PYTHON_VER}
 DEF[PYTHON_SUFFIX]=	${PYTHON_VER:S/.//g}
@@ -29,6 +29,10 @@ BUILDRUN_DEPENDS=	libffi:single:standard
 			xz:single:standard
 BROKEN_SSL=		openssl-devel
 
+LICENSE=		PSFL:single
+LICENSE_FILE=		PSFL:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
 USES=			cpe ncurses pkgconfig readline ssl shebangfix
 DISTNAME=		Python-${PORTVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
@@ -37,17 +41,44 @@ CPE_VENDOR=		python
 CPE_PRODUCT=		python
 CPE_VERSION=		${PORTVERSION}
 SHEBANG_NEW_PYTHON=	{{PREFIX}}/bin/python${PYTHON_VER}
-SHEBANG_FILES=		Lib/lib2to3/tests/data/*.py
-			Lib/encodings/*.py
-
+SHEBANG_FILES=		Lib/smtplib.py
+			Lib/keyword.py
+			Lib/quopri.py
+			Lib/mimify.py
+			Lib/pydoc.py
+			Lib/profile.py
+			Lib/symbol.py
+			Lib/test/re_tests.py
+			Lib/test/regrtest.py
+			Lib/test/pystone.py
+			Lib/test/curses_tests.py
+			Lib/webbrowser.py
+			Lib/platform.py
+			Lib/pdb.py
+			Lib/base64.py
+			Lib/tabnanny.py
+			Lib/UserString.py
+			Lib/cProfile.py
+			Lib/trace.py
+			Lib/timeit.py
+			Lib/uu.py
+			Lib/smtpd.py
+			Lib/lib2to3/tests/data/different_encoding.py
+			Lib/lib2to3/tests/data/false_encoding.py
+			Lib/lib2to3/tests/pytree_idempotency.py
+			Lib/lib2to3/pgen2/token.py
+			Lib/encodings/rot_13.py
+			Lib/idlelib/PyShell.py
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-system-ffi
 			--with-system-expat
 			--enable-shared
 			--without-ensurepip
 			--enable-ipv6
+			--enable-unicode=ucs4
 CONFIGURE_ENV=		OPT=""
-			DISABLED_EXTENSIONS="_sqlite3 _tkinter _gdbm"
+			ac_cv_opt_olimit_ok=no
+			ac_cv_posix_semaphores_enabled=yes
 CFLAGS=			-I{{NCURSESINC}}
 INSTALL_TARGET=		altinstall
 TEST_TARGET=		buildbottest
@@ -60,7 +91,9 @@ PLIST_SUB=		XYDOT=${PYTHON_VER}
 			XYZDOT=${PORTVERSION}
 			LOW_OPSYS={{OPSYS:tl}}
 			OSMAJOR={{MAJOR:R}}
-			ABI={{ABIFLAGS}}
+VAR_ARCH[i386]=		PLIST_SUB=I386-ON=""
+VAR_ARCH[x86_64]=	PLIST_SUB=I386-ON="@comment "
+VAR_ARCH[aarch64]=	PLIST_SUB=I386-ON="@comment "
 
 [THREADS].DESCRIPTION=			Enable threading support
 [THREADS].CONFIGURE_WITH_BOTH=		threads
@@ -68,15 +101,16 @@ PLIST_SUB=		XYDOT=${PYTHON_VER}
 
 [DEBUG].DESCRIPTION=			Build with debugging support
 [DEBUG].CONFIGURE_WITH_BOTH=		pydebug
-[DEBUG].MAKEFILE_ON=			ABIFLAGS:=d{{ABIFLAGS}}
 
 [PYMALLOC].DESCRIPTION=			Enable specialized mallocs
 [PYMALLOC].CONFIGURE_WITH_BOTH=		pymalloc
-[PYMALLOC].MAKEFILE_ON=			ABIFLAGS:=m{{ABIFLAGS}}
 
 post-patch:
 	${REINPLACE_CMD} -e 's|/usr/local/bin/python|${python_CMD}|' \
 		${WRKSRC}/Lib/cgi.py
+	@${REINPLACE_CMD} -e \
+		's,/usr/doc/python-docs-,${PREFIX}/share/doc/python,g' \
+		${PATCH_WRKSRC}/Lib/pydoc.py
 
 post-install-DEBUG-OFF:
 	# Upstream Issue: http://bugs.python.org/issue17975
