@@ -1,0 +1,76 @@
+DEF[PORTVERSION]=	1.5.5
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-Sphinx
+VERSION=		${PORTVERSION}
+KEYWORDS=		python devel textproc
+VARIANTS=		py27 py34 py35
+SDESC[py27]=		Python documentation generator (PY 27)
+SDESC[py34]=		Python documentation generator (PY 34)
+SDESC[py35]=		Python documentation generator (PY 35)
+HOMEPAGE=		http://sphinx-doc.org/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/S/Sphinx
+DISTFILE[1]=		Sphinx-${PORTVERSION}.tar.gz:main
+
+SPKGS[py27]=		single
+SPKGS[py34]=		single
+SPKGS[py35]=		single
+
+OPTIONS_AVAILABLE=	PY27 PY34 PY35
+OPTIONS_STANDARD=	none
+VOPTS[py27]=		PY27=ON PY34=OFF PY35=OFF
+VOPTS[py34]=		PY27=OFF PY34=ON PY35=OFF
+VOPTS[py35]=		PY27=OFF PY34=OFF PY35=ON
+
+LICENSE=		BSD2CLAUSE:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+# install_requires extracted from setup.py
+# six>=1.5
+# Jinja2>=2.3
+# Pygments>=2.0
+# docutils>=0.11
+# snowballstemmer>=1.1
+# babel>=1.3,!=2.0
+# alabaster>=0.7,<0.8
+# imagesize
+# requests>=2.0.0
+
+DISTNAME=		Sphinx-${PORTVERSION}
+
+[PY27].USES_ON=				python:py27
+[PY27].BUILDRUN_DEPENDS_ON=		python-six:single:py27
+					python-Jinja2:single:py27
+					python-Pygments:single:py27
+					python-docutils:single:py27
+					python-snowballstemmer:single:py27
+					python-Babel:single:py27
+					python-alabaster:single:py27
+					python-imagesize:single:py27
+					python-requests:single:py27
+
+[PY34].USES_ON=				python:py34
+[PY34].BUILDRUN_DEPENDS_ON=		python-six:single:py34
+					python-Jinja2:single:py34
+					python-Pygments:single:py34
+					python-docutils:single:py34
+					python-snowballstemmer:single:py34
+					python-Babel:single:py34
+					python-alabaster:single:py34
+					python-imagesize:single:py34
+					python-requests:single:py34
+
+[PY35].USES_ON=				python:py35
+[PY35].BUILDRUN_DEPENDS_ON=		python-six:single:py35
+					python-Jinja2:single:py35
+					python-Pygments:single:py35
+					python-docutils:single:py35
+					python-snowballstemmer:single:py35
+					python-Babel:single:py35
+					python-alabaster:single:py35
+					python-imagesize:single:py35
+					python-requests:single:py35

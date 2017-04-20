@@ -34,6 +34,8 @@ PYPITWO=$(echo ${PYPINAME} | awk '{ print substr ($1, 1, 1) "/" $1 }')
 setup=unset
 raw_deps=unset
 raven_req=unset
+pathtoexec=$(realpath $0)
+thisdir=$(dirname ${pathtoexec})
 
 acquire_tarball_and_version() {
    local www url summd5
@@ -45,10 +47,9 @@ acquire_tarball_and_version() {
       exit 1;
    fi
    VERSION=$(awk -F'"' '/"version":/ { print $4 }' ${JSONFILE})
-   MD5SUM=$(awk -v version=${VERSION} -v seek="md5_digest" -f md5.awk ${JSONFILE})
-   tarball=$(awk -v version=${VERSION} -v seek="filename" -f md5.awk ${JSONFILE})
-   
-   
+   MD5SUM=$(awk -v version=${VERSION} -v seek="md5_digest" -f ${thisdir}/md5.awk ${JSONFILE})
+   tarball=$(awk -v version=${VERSION} -v seek="filename" -f ${thisdir}/md5.awk ${JSONFILE})
+
    if [ -f "${distfiles}/${tarball}" ]; then
       summd5=$(md5 -q "${distfiles}/${tarball}")
       if [ "${summd5}" == "${MD5SUM}" ]; then
@@ -174,7 +175,7 @@ handle_licenses() {
    for lic in ${all_lic}; do
    case "${lic}" in
       BSD*) 
-        specified=$(awk "/${PYPINAME} / { print \$2 }" pypi_bsd_licenses.txt)
+        specified=$(awk "/${PYPINAME} / { print \$2 }" ${thisdir}/pypi_bsd_licenses.txt)
         case "${specified}" in
           2) licname="BSD2CLAUSE" ;;
           3) licname="BSD3CLAUSE" ;;
@@ -231,8 +232,7 @@ set_keywords() {
    keywords=python
    if [ -n "`echo ${topics} | grep ':: Utilities'`" ]; then
       keywords="${keywords} devel"
-   fi
-   if [ -n "`echo ${topics} | grep ':: Software Devel'`" ]; then
+   elif [ -n "`echo ${topics} | grep ':: Software Devel'`" ]; then
       keywords="${keywords} devel"
    fi
    if [ -n "`echo ${topics} | grep ':: Text Processing'`" ]; then
@@ -308,6 +308,26 @@ BEGIN {\
    done
 }
 
+replace_port() {
+	# 1. Create bucket directory
+	# 2. copy over:
+	#    specification
+	#    descriptions/desc.single
+	#    distinfo
+	# Any other materials like files/*, patches/*, etc. remain
+	local raw=$(/raven/bin/ravenadm locate python-${PYPINAME})
+	local bucket=$(echo ${raw} | awk -F '/' \
+	   '{ for (x=1;x<=NF;x++) if (substr($x,1,7) == "bucket_") print $x}')
+	local buckdir="${thisdir}/../${bucket}/python-${PYPINAME}"
+	mkdir -p ${buckdir}/descriptions
+	mv ${SPEC} ${buckdir}
+	mv ${NEWPORT}/descriptions/desc.single ${buckdir}/descriptions
+	mv ${NEWPORT}/distinfo ${buckdir}
+	rmdir ${NEWPORT}/descriptions
+	rmdir ${NEWPORT}
+	/raven/bin/ravenadm dev buildsheet ${buckdir} save
+}
+
 generate_port() {
    rm -rf ${NEWPORT} /tmp/expand
    mkdir -p ${NEWPORT} /tmp/expand
@@ -357,5 +377,6 @@ EOF
 
 acquire_tarball_and_version
 generate_port
+replace_port
 
 rm -f ${JSONFILE}
