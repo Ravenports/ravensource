@@ -8,9 +8,9 @@
 [ -n "${DEBUG_MK_SCRIPTS}" -o -n "${DEBUG_MK_SCRIPTS_MAKESUM}" ] && set -x
 
 usage() {
-   echo "Usage: $0 PyPI-name [confirm]"
-   echo "If the second argument is not 'confirm', a dry-run is executed."
-   echo "If second argument is exactly 'confirm', the source port is created/updated."
+   echo "Usage: $0 PyPI-name [version]"
+   echo "If the second argument exists, it is considered the version"
+   echo "to use rather than querying for the latest"
    exit 1
 }
 
@@ -37,6 +37,10 @@ raven_req=unset
 pathtoexec=$(realpath $0)
 thisdir=$(dirname ${pathtoexec})
 
+if [ $# -gt 1 ]; then
+VERSION=$2
+fi
+
 acquire_tarball_and_version() {
    local www url summd5
 
@@ -46,7 +50,9 @@ acquire_tarball_and_version() {
       echo "'${PYPINAME}' doesn't seem to be a valid package name"
       exit 1;
    fi
-   VERSION=$(awk -F'"' '/"version":/ { print $4 }' ${JSONFILE})
+   if [ "${VERSION}" == "unset" ]; then
+      VERSION=$(awk -F'"' '/"version":/ { print $4 }' ${JSONFILE})
+   fi
    MD5SUM=$(awk -v version=${VERSION} -v seek="md5_digest" -f ${thisdir}/md5.awk ${JSONFILE})
    tarball=$(awk -v version=${VERSION} -v seek="filename" -f ${thisdir}/md5.awk ${JSONFILE})
 
@@ -240,6 +246,9 @@ set_keywords() {
    fi
    if [ -n "`echo ${topics} | grep ':: Multimedia :: Graphics'`" ]; then
       keywords="${keywords} graphics"
+   fi
+   if [ -n "`echo ${topics} | grep ':: System :: Systems Administration'`" ]; then
+      keywords="${keywords} sysutils"
    fi
    echo $keywords
 }
