@@ -20,13 +20,15 @@ SPKGS[standard]=	complete
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+BUILD_DEPENDS=		python-Sphinx:single:python_default
+
 USES=			cclibs:primary
 
 LICENSE=		GPLv3:primary
 LICENSE_SCHEME=		solo
 LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING3
 
-BUILD_TARGET=		schema_libs
+BUILD_TARGET=		schema_libs gen-docs
 MAKEFILE=		Makefile.bsd
 MAKE_ARGS=		LIBVER=${PORTVERSION}
 			PROCESSORS={{MAKE_JOBS_NUMBER}}
