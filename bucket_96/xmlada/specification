@@ -1,19 +1,40 @@
-# DEF[PORTVERSION]=	1.00
+DEF[PORTVERSION]=	17.1.0
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		...
+NAMEBASE=		xmlada
 VERSION=		${PORTVERSION}
-KEYWORDS=		...
+KEYWORDS=		textproc
 VARIANTS=		standard
-SDESC[standard]=	...
-HOMEPAGE=		none
-CONTACT=		Jay_Leno[jay@aarp.org]
+SDESC[standard]=	Adacore XML suite for the Ada language
+HOMEPAGE=		http://libre.adacore.com/libre/tools/xmlada/
+CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://www.example.com/
-DISTFILE[1]=		something.tar.gz:main
-
-SPKGS[standard]=	single
+SITES[main]=		GITHUB/AdaCore:xmlada:1de3aae
+DISTFILE[1]=		generated:main
+DF_INDEX=		1
+SPKGS[standard]=	complete
+			primary
+			docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
+
+USES=			cclibs:primary
+
+LICENSE=		GPLv3:primary
+LICENSE_SCHEME=		solo
+LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING3
+
+BUILD_TARGET=		schema_libs
+MAKEFILE=		Makefile.bsd
+MAKE_ARGS=		LIBVER=${PORTVERSION}
+			PROCESSORS={{MAKE_JOBS_NUMBER}}
+
+PLIST_SUB=		LIBVER=${PORTVERSION}
+
+post-patch:
+	@${INSTALL_DATA} ${FILESDIR}/Makefile.bsd ${WRKSRC}
+	@${INSTALL_DATA} ${FILESDIR}/generic_gpr.in ${WRKSRC}
+	# Since we want to pull in all 5 libs, we only need to specify schema
+	${REINPLACE_CMD} -e '/unicode/d' ${WRKSRC}/distrib/xmlada.gpr
