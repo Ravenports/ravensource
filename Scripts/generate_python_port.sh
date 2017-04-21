@@ -59,7 +59,7 @@ acquire_tarball_and_version() {
    if [ -f "${distfiles}/${tarball}" ]; then
       summd5=$(md5 -q "${distfiles}/${tarball}")
       if [ "${summd5}" == "${MD5SUM}" ]; then
-         echo "Tarball already fetched and digest-verified"
+         echo "${tarball} already fetched and digest-verified"
          return;
       fi
    fi
@@ -364,7 +364,7 @@ CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/${PYPITWO}
-DISTFILE[1]=		${PYPINAME}-\${PORTVERSION}.tar.gz:main
+DISTFILE[1]=		${tarball}:main
 
 $(dump_subpackages)
 
