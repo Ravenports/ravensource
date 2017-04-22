@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	2016
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		florist
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	POSIX Ada binding, IEEE Standards 1003.5(b,c)
+HOMEPAGE=		http://libre.adacore.com/
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://downloads.dragonlace.net/src/
+DISTFILE[1]=		florist-gpl-${PORTVERSION}-src.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3:single
+LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING3
+LICENSE_SCHEME=		solo
+
+USES=			gprbuild gmake
+DISTNAME=		florist-gpl-${PORTVERSION}-src
+MUST_CONFIGURE=		gnu
+SUB_FILES=		florist.gpr
+
+post-extract:
+.if "${OPSYS}" != "FreeBSD"
+	(cd ${WRKSRC}/configs && ${CP} pconfig.FreeBSD pconfig.${OPSYS})
+.endif

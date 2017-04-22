@@ -1,0 +1,53 @@
+DEF[PORTVERSION]=	1.97F
+DEF[GNATMAKE]=		{{SETENV}} {{MAKE_ENV}} gnatmake
+DEF[WORDSDIR]=		{{PREFIX}}/share/words
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		words
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	Latin-English Dictionary Program
+HOMEPAGE=		http://archives.nd.edu/whitaker/wordsdoc.htm
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://archives.nd.edu/whitaker/
+DISTFILE[1]=		wordsall.zip:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		PUBDOM:primary
+LICENSE_FILE=		PUBDOM:{{FILESDIR}/LICENSE
+LICENSE_SCHEME=		solo
+
+EXTRACT_DIRTY=		1
+SUB_FILES=		words
+
+do-build:
+	@cd ${WRKSRC} && \
+		${GNATMAKE} -O3 words ${GNATLINK_ARGS} && \
+		${GNATMAKE} makedict && \
+		${GNATMAKE} makestem && \
+		${GNATMAKE} makeefil && \
+		${GNATMAKE} makeinfl && \
+		${ECHO_CMD} G | ./makedict DICTLINE.GEN && \
+		${ECHO_CMD} G | ./makestem STEMLIST.GEN && \
+		./makeefil EWDSLIST.GEN && \
+		./makeinfl INFLECTS.LAT
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${WORDSDIR} ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_PROGRAM} ${WRKSRC}/words ${STAGEDIR}${WORDSDIR}
+	${INSTALL_DATA} ${WRKSRC}/DICTFILE.GEN ${STAGEDIR}${WORDSDIR}
+	${INSTALL_DATA} ${WRKSRC}/STEMFILE.GEN ${STAGEDIR}${WORDSDIR}
+	${INSTALL_DATA} ${WRKSRC}/INDXFILE.GEN ${STAGEDIR}${WORDSDIR}
+	${INSTALL_DATA} ${WRKSRC}/EWDSFILE.GEN ${STAGEDIR}${WORDSDIR}
+	${INSTALL_DATA} ${WRKSRC}/INFLECTS.SEC ${STAGEDIR}${WORDSDIR}
+	${INSTALL_DATA} ${WRKSRC}/ADDONS.LAT ${STAGEDIR}${WORDSDIR}
+	${INSTALL_DATA} ${WRKSRC}/UNIQUES.LAT ${STAGEDIR}${WORDSDIR}
+	${INSTALL_SCRIPT} ${WRKDIR}/words ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_DATA} ${WRKSRC}/wordsdoc.htm ${STAGEDIR}${STD_DOCDIR}

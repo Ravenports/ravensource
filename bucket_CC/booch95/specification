@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	20160321
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		booch95
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Ada95 Booch Components
+HOMEPAGE=		https://sourceforge.net/projects/booch95/
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/booch95/booch95/${PORTVERSION}
+DISTFILE[1]=		bc-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:primary GMGPL:primary
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+			GMGPL:{{WRKDIR}}/LICENSE
+LICENSE_SCHEME=		multi
+
+USES=			gmake gprbuild ada:primary
+DISTNAME=		bc-${PORTVERSION}
+BUILD_TARGET=		libs
+
+post-extract:
+	 ${AWK} '/^package / {exit}; {print $$0}' ${WRKSRC}/src/bc.ads \
+		> ${WRKDIR}/LICENSE
+post-patch:
+	${SED} -e 's|@PREFIX@|${PREFIX}|' ${WRKSRC}/Makefile.in \
+		> ${WRKSRC}/Makefile
+	${REINPLACE_CMD} -e '/LDFLAGS/d' ${WRKSRC}/bc.gpr
+
+# Demos are available but require that the libraries are already installed
+# In other words, adabooch demos requires a separate port to do correctly
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/bc/lib-relocatable/libbc.so
+	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${WRKSRC}/html/* ${STAGEDIR}${STD_DOCDIR}/
+	${RM} ${STAGEDIR}${STD_DOCDIR}/Makefile
