@@ -94,6 +94,7 @@ Usr_Bin_DragonFly= \
 		/usr/bin/head \
 		/usr/bin/id \
 		/usr/bin/install \
+		/usr/bin/join \
 		/usr/bin/ldd \
 		/usr/bin/mkfifo \
 		/usr/bin/mktemp \
@@ -334,7 +335,8 @@ install:
 	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/libdata/pkgconfig/${item} \
 		${DESTDIR}${BASE}/usr/lib/pkgconfig/
 .endfor
-
+	${BSD_INSTALL_SCRIPT} ../${OPSYS:tl}/usr/bin/lorder \
+		${DESTDIR}${BASE}/usr/bin/
 .for item in md5 sha256 
 	cp ${LOCALBASE}/bin/${item} ${DESTDIR}${BASE}/bin/
 .endfor

@@ -1,0 +1,58 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(GCC6_PORTVERSION)
+DEF[MS_SUBDIR]=		EXTRACT_INFO(GCC6_MS_SUBDIR)
+DEF[IDENTIFICATION]=	EXTRACT_INFO(GCC6_IDENTIFICATION)
+DEF[PORTREVISION]=	EXTRACT_INFO(GCC6_GNAT_UTIL_REVISION)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gnat-util
+VERSION=		${PORTVERSION}
+REVISION=		${PORTREVISION}
+KEYWORDS=		lang
+VARIANTS=		standard
+SDESC[standard]=	Library used to build GNAT tools such as ASIS
+HOMEPAGE=		http://libre.adacore.com
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GCC/${MS_SUBDIR}
+DISTFILE[1]=		${IDENTIFICATION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:single
+			LGPL21:single
+			GPLv3+:single
+			LGPL3:single
+			GPLv3RLE:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+			LGPL21:{{WRKSRC}}/COPYING.LIB
+			GPLv3+:{{WRKSRC}}/COPYING3
+			LGPL3:{{WRKSRC}}/COPYING3.LIB
+			GPLv3RLE:{{WRKSRC}}/COPYING.RUNTIME
+LICENSE_SCHEME=		multi
+
+DISTNAME=		${IDENTIFICATION}
+BUILD_WRKSRC=		{{WRKDIR}}/gnat-util
+PATCH_WRKSRC=		{{BUILD_WRKSRC}}
+INSTALL_WRKSRC=		{{BUILD_WRKSRC}}
+MAKE_ENV=		MAJEOBJDIR={{WRKSRC}}/obj
+
+post-extract:
+	@${MKDIR} ${BUILD_WRKSRC}/obj
+.for F in Makefile gnat-util.gpr sdefault_adb.gnat-util osint_scars.c
+	@${CP} ${FILESDIR}/${F} ${BUILD_WRKSRC}/
+.endfor
+	@(cd ${WRKSRC}/gcc/ada && \
+		${CP} ${GNAT_SRCS} ${BUILD_WRKSRC}/)
+
+post-install:
+	# impunit is needed for GPS menus, just provide the source files
+	${INSTALL_DATA} ${WRKSRC}/gcc/ada/impunit.* \
+		${STAGEDIR}${PREFIX}/include/gnat-util
+	# gnat_ugn.texi is used to generate gnat_switches.py for GPS
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/gnat-util
+	${INSTALL_DATA} ${WRKSRC}/gcc/ada/gnat_ugn.texi \
+		${STAGEDIR}${PREFIX}/share/gnat-util/

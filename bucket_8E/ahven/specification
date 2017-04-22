@@ -1,0 +1,51 @@
+DEF[PORTVERSION]=	2.6
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ahven
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Ada unit test framework
+HOMEPAGE=		http://ahven.stronglytyped.org/
+CONTACT=		Jay_Leno[jay@aarp.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.example.com/
+DISTFILE[1]=		something.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	TRACE
+OPTIONS_STANDARD=	TRACE
+SET_ON[all]=		TRACE
+
+LICENCE=		ISCL:primary
+LICENSE_FILE=		ISCL:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		python-sphinxcontrib-adadomain:single:default_python
+# adacontrol
+
+USES=			gprbuild gmake
+MAKE_ENV=		OS_VERSION=unix
+
+[TRACE].EXTRA_PATCHES_ON=	extra-src_ahven-framework.adb
+
+do-build:
+	(cd ${WRKSRC} && ${MKDIR} lib objects)
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -Pgnat/ahven_lib)
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		${MAKE_CMD} -C doc/manual/en html)
+
+do-install:
+	(cd ${STAGEDIR}${PREFIX} && ${MKDIR} lib/gnat lib/ahven include/ahven)
+	${INSTALL_DATA} ${WRKSRC}/src/*.ad[bs] \
+		${STAGEDIR}${PREFIX}/include/ahven
+	${INSTALL_DATA} ${WRKSRC}/lib/*.ali ${STAGEDIR}${PREFIX}/lib/ahven
+	${INSTALL_DATA} ${WRKSRC}/lib/libahven.a ${STAGEDIR}${PREFIX}/lib/ahven
+	${INSTALL_DATA} ${FILESDIR}/ahven.gpr ${STAGEDIR}${PREFIX}/lib/gnat
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	(cd ${WRKSRC}/doc/manual/en/build && \
+		${COPYTREE_SHARE} html ${STAGEDIR}${STD_DOCDIR});
+	${RM} -r ${STAGEDIR}${DOCSDIR}/html/_sources
+	${RM} ${STAGEDIR}${DOCSDIR}/html/.buildinfo
