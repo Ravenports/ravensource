@@ -1,0 +1,54 @@
+DEF[PORTVERSION]=	1.06
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		XML_EZ_Out
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc ada
+VARIANTS=		standard
+SDESC[standard]=	Library for emitting XML from Ada programs
+HOMEPAGE=		http://www.mckae.com/xmlEz.html
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.mckae.com/xml_ezout/
+DISTFILE[1]=		xml_ez_out_${PORTVERSION}.tgz:main
+
+SPKGS[standard]=	complete primary docs examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary GMGPL:primary
+LICENSE_FILE=		GPLv2+:{{WRKDIR}}/LICENSE
+			GMGPL:{{WRKDIR}}/LICENSE
+LICENSE_SCHEME=		multi
+
+USES=			dos2unix gprbuild
+DISTNAME=		xml_ez_out
+BUILD_WRKSRC=		{{WRKSRC}}/mckae
+
+post-extract:
+	${AWK} '/^package/ {exit}; {print}' ${BUILD_WRKSRC}/mckae-xml.ads \
+		> ${WRKDIR}/LICENSE
+	${CP} ${FILESDIR}/xezo_bld.gpr ${WRKSRC}
+	${SED} -e "s,@PREFIX@,${LOCALBASE},g" ${FILESDIR}/runme.sh.in \
+		> ${WRKSRC}/runme.sh
+
+do-build:
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -p -Pxezo_bld)
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gnat \
+		${STAGEDIR}${PREFIX}/lib/xml_ez_out \
+		${STAGEDIR}${PREFIX}/include/xml_ez_out \
+		${STAGEDIR}${STD_EXAMPLESDIR} \
+		${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${FILESDIR}/xml_ez_out.gpr \
+		${STAGEDIR}${PREFIX}/lib/gnat
+	${INSTALL_DATA} ${BUILD_WRKSRC}/mckae* \
+		${STAGEDIR}${PREFIX}/include/xml_ez_out
+	${INSTALL_DATA} ${WRKSRC}/lib/* ${STAGEDIR}${PREFIX}/lib/xml_ez_out
+	${INSTALL_DATA} ${BUILD_WRKSRC}/README ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_SCRIPT} ${WRKSRC}/runme.sh ${STAGEDIR}${STD_EXAMPLESDIR}
+	${INSTALL_DATA} ${BUILD_WRKSRC}/tmeztf.adb \
+		${FILESDIR}/example.gpr ${STAGEDIR}${STD_EXAMPLESDIR}

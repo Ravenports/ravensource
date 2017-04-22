@@ -1,0 +1,70 @@
+DEF[PORTVERSION]=	4.21
+DEF[DEST]=		{{STAGEDIR}}{{PREFIX}}
+DEF[C]=			components
+DEF[CS]=		connections_server
+DEF[ISC]=		include/${C}
+DEF[SV]=		${ISC}-connections_server
+DEF[CCS]=		${C}-${CS}
+DEF[HS]=		${SV}-http_server
+DEF[PROJECT_LIST]=	${CCS}-http_server-sqlite_browser ${CCS}-secure ${CCS}-smtp ${CCS}-mqtt ${CCS}-modbus ${CCS}-elv_max_cube ${C}-odbc
+DEF[INSTALL_PROJECTS]=	${PROJECT_LIST} strings_edit tables ${C} ${C}-gnutls ${C}-sqlite ${CCS} ${CCS}-http_server
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		simple_components
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel ada
+VARIANTS=		standard
+SDESC[standard]=	Simple Ada Components
+HOMEPAGE=		http://www.dmitry-kazakov.de/ada/components.htm
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.dmitry-kazakov.de/ada/
+DISTFILE[1]=		components_${PORTVERSION:S/./_/}.tgz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:single GMGPL:single
+LICENSE_FILE=		GPLv2+:{{WRKDIR}}/LICENSE
+			GMGPL:{{WRKDIR}}/LICENSE
+LICENSE_SCHEME=		multi
+
+USES=			gprbuild
+EXTRACT_DIRTY=		1
+INSTALL_REQ_TOOLCHAIN=	yes
+PLIST_SUB=		ISC=include/components
+			LSC=lib/components
+			SV=${SV}
+			HS=${HS}
+			SSM=gnat-sockets-connection_state_machine
+			SE=strings_edit
+			CS=${CS}
+
+post-extract:
+	${AWK} '/^--___/ {exit}; {print}' ${WRKSRC}/sqlite.ads \
+		> ${WRKDIR}/LICENSE
+
+do-build:
+.for PROJECT in ${PROJECT_LIST}
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -P${PROJECT})
+.endfor
+
+do-install:
+	# Work around gprbuild's inability to handle separate package bodies
+	# Create a dummy file, otherwise none of strings_edit gets installed
+	${TOUCH} ${WRKSRC}/strings_edit-text_edit.o
+.for PROJECT in ${INSTALL_PROJECTS}
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprinstall -p \
+		--prefix=${DEST} \
+		--project-subdir=${DEST}/lib/gnat \
+		--sources-subdir=${DEST}/include/${PORTNAME}/${PROJECT} \
+		--lib-subdir=${DEST}/lib/${PORTNAME}/${PROJECT} \
+		${PROJECT}.gpr)
+.endfor
+	# end of workaround: remove dummy object file
+	${RM} ${WRKSRC}/strings_edit-text_edit.o
+	# Eject manifests, we don't use them
+	${RM} -r ${DEST}/lib/gnat/manifests

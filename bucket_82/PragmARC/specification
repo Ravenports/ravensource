@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	20170406
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		PragmARC
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel ada
+VARIANTS=		standard
+SDESC[standard]=	PragmAda Reusable Components
+HOMEPAGE=		http://pragmada.x10hosting.com/pragmarc.htm
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/jrcarter:PragmARC:91dcac6
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:single GMGPL:single
+LICENSE_FILE=		GPLv2+:{{WRKDIR}}/LICENSE
+			GMGPL:{{WRKDIR}}/LICENSE
+LICENSE_SCHEME=		multi
+
+post-extract:
+	@${CP} ${FILESDIR}/buildlib.gpr ${WRKSRC}/
+	${RM} ${WRKSRC}/compile_all.adb
+	${AWK} '/^-- / {print}' ${WRKSRC}/pragmarc.ads > ${WRKDIR}/LICENSE
+
+do-build:
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gnatmake -p -Pbuildlib)
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/include/pragmarcs \
+		${STAGEDIR}${PREFIX}/lib/pragmarcs \
+		${STAGEDIR}${PREFIX}/lib/gnat
+	${INSTALL_DATA} ${WRKSRC}/library/* ${STAGEDIR}${PREFIX}/lib/pragmarcs
+	${INSTALL_DATA} ${WRKSRC}/*.ad[bs] \
+		${STAGEDIR}${PREFIX}/include/pragmarcs
+	${INSTALL_DATA} ${FILESDIR}/pragmarcs.gpr ${STAGEDIR}${PREFIX}/lib/gnat

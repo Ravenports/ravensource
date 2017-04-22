@@ -1,0 +1,71 @@
+DEF[PORTVERSION]=	15r2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		excel-writer
+VERSION=		${PORTVERSION}
+KEYWORDS=		misc ada
+VARIANTS=		standard
+SDESC[standard]=	Create Excel files with basic formats (Ada lib)
+HOMEPAGE=		http://excel-writer.sourceforge.net
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/excel-writer/excel-writer
+DISTFILE[1]=		excel_writer_15_r2.zip:main
+
+SPKGS[standard]=	complete primary docs examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKDIR}}/LICENSE
+LICENSE_SCHEME=		solo
+
+USES=			dos2unix gprbuild
+DISTNAME=		Excel_Writer
+
+post-extract:
+	${CP} ${FILESDIR}/construct.gpr ${FILESDIR}/biff_dump.gpr ${WRKSRC}
+	${MKDIR} ${WRKSRC}/src ${WRKDIR}/data
+	${MV} "${WRKSRC}/Big [BIFF4].xls" ${WRKDIR}/data/Big.xls
+	(cd ${WRKSRC}; ${MV} excel_out.ad[bs] ieee* extras/csv.* src)
+	${SED} -e "s,@PREFIX@,${LOCALBASE},g" ${FILESDIR}/runme.sh.in \
+		> ${WRKSRC}/runme.sh
+	${AWK} '/^--  Follow/ {exit}; {print}' ${WRKSRC}/src/excel_out.ads \
+		> ${WRKDIR}/LICENSE
+
+post-patch:
+	@${REINPLACE_CMD} -e "s|Big.xls|${DATADIR}/Big.xls|" \
+		-e 's|\$$Dump\$$|_dump_|g' ${WRKSRC}/extras/biff_dump.adb
+	${REINPLACE_CMD} -e 's/"\(.*\.xls\)"/"\/tmp\/\1"/g' \
+		${WRKSRC}/excel_out_demo.adb
+
+do-build:
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -p -Pconstruct)
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -p -Pbiff_dump)
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gnat \
+		${STAGEDIR}${PREFIX}/lib/excel_writer \
+		${STAGEDIR}${PREFIX}/include/excel_writer \
+		${STAGEDIR}${PREFIX}/share/excel-writer \
+		${STAGEDIR}${STD_DOCDIR} \
+		${STAGEDIR}${STD_EXAMPLESDIR}
+	${INSTALL_DATA} ${FILESDIR}/excel_writer.gpr \
+		${STAGEDIR}${PREFIX}/lib/gnat
+	${INSTALL_DATA} ${WRKSRC}/src/* \
+		${STAGEDIR}${PREFIX}/include/excel_writer
+	${INSTALL_DATA} ${WRKSRC}/lib/*  \
+		${STAGEDIR}${PREFIX}/lib/excel_writer
+	${INSTALL_PROGRAM} ${WRKSRC}/bin/biff_dump \
+		${STAGEDIR}${PREFIX}/bin
+	${INSTALL_DATA} ${WRKDIR}/data/Big.xls \
+		${STAGEDIR}${PREFIX}/share/excel-writer
+	${INSTALL_DATA} ${WRKSRC}/excel_writer.txt \
+		${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_SCRIPT} ${WRKSRC}/runme.sh \
+		${STAGEDIR}${STD_EXAMPLESDIR}
+	${INSTALL_DATA} ${WRKSRC}/excel_out_demo.adb \
+		${FILESDIR}/example.gpr \
+		${STAGEDIR}${STD_EXAMPLESDIR}
