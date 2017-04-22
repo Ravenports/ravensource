@@ -3,33 +3,33 @@ DEF[PORTVERSION]=	2.6
 
 NAMEBASE=		ahven
 VERSION=		${PORTVERSION}
-KEYWORDS=		devel
+KEYWORDS=		devel ada
 VARIANTS=		standard
 SDESC[standard]=	Ada unit test framework
 HOMEPAGE=		http://ahven.stronglytyped.org/
-CONTACT=		Jay_Leno[jay@aarp.org]
+CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://www.example.com/
-DISTFILE[1]=		something.tar.gz:main
+SITES[main]=		http://www.ahven-framework.com/releases/
+DISTFILE[1]=		ahven-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	complete primary docs
 
 OPTIONS_AVAILABLE=	TRACE
 OPTIONS_STANDARD=	TRACE
-SET_ON[all]=		TRACE
+OPT_ON[all]=		TRACE
 
-LICENCE=		ISCL:primary
+LICENSE=		ISCL:primary
 LICENSE_FILE=		ISCL:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		python-sphinxcontrib-adadomain:single:default_python
-# adacontrol
+BUILD_DEPENDS=		python-sphinxcontrib-adadomain:single:py27
+			adacontrol:primary:standard
 
 USES=			gprbuild gmake
 MAKE_ENV=		OS_VERSION=unix
 
-[TRACE].EXTRA_PATCHES_ON=	extra-src_ahven-framework.adb
+[TRACE].EXTRA_PATCHES_ON=		extra-src_ahven-framework.adb
 
 do-build:
 	(cd ${WRKSRC} && ${MKDIR} lib objects)
@@ -47,5 +47,5 @@ do-install:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	(cd ${WRKSRC}/doc/manual/en/build && \
 		${COPYTREE_SHARE} html ${STAGEDIR}${STD_DOCDIR});
-	${RM} -r ${STAGEDIR}${DOCSDIR}/html/_sources
-	${RM} ${STAGEDIR}${DOCSDIR}/html/.buildinfo
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}/html/_sources
+	${RM} ${STAGEDIR}${STD_DOCDIR}/html/.buildinfo

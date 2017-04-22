@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	1.10.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		adasockets
+VERSION=		${PORTVERSION}
+KEYWORDS=		net ada
+VARIANTS=		standard
+SDESC[standard]=	IPv4 socket library (TCP, UDP, and multicast)
+HOMEPAGE=		http://www.rfc1149.net/devel/adasockets.html
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.rfc1149.net/download/adasockets/
+DISTFILE[1]=		adasockets-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:single GMGPL:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+			GMGPL:{{WRKSRC}}/GMGPL
+LICENSE_SCHEME=		multi
+
+USES=			gmake libtool
+INSTALL_REQ_TOOLCHAIN=	yes
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-doc
+			--disable-shared
+
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/include/adasockets \
+		${STAGEDIR}${PREFIX}/lib/gnat
+	${MV} ${STAGEDIR}${PREFIX}/lib/libadasockets.* \
+		${STAGEDIR}${PREFIX}/lib/adasockets/
+	${MV} ${STAGEDIR}${PREFIX}/lib/adasockets/*.ad[bs] \
+		${STAGEDIR}${PREFIX}/include/adasockets/
+	${INSTALL_DATA} ${FILESDIR}/adasockets.gpr \
+		${STAGEDIR}${PREFIX}/lib/gnat/

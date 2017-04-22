@@ -1,0 +1,61 @@
+DEF[PORTVERSION]=	2016
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		asis
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang ada
+VARIANTS=		standard
+SDESC[standard]=	Ada Semantic Interface Specification (GNAT)
+HOMEPAGE=		http://www.sigada.org/wg/asiswg/
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://downloads.dragonlace.net/src/
+DISTFILE[1]=		asis-gpl-${PORTVERSION}-src.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		xmlada:primary:standard
+			python-Sphinx:single:python_default
+BUILDRUN_DEPENDS=	gnat-util:single:standard
+
+USES=			gmake gprbuild
+DISTNAME=		asis-gpl-${PORTVERSION}-src
+MAKE_ENV=		PROCESSORS={{MAKE_JOBS_NUMBER}}
+
+post-extract:
+	@${REINPLACE_CMD} -e 's|OPSYS|ASISOPSYS|g' \
+		-e 's|(prefix)|(DESTDIR)$$(prefix)|g' \
+		${WRKSRC}/Makefile \
+		${WRKSRC}/Makefile.stub \
+		${WRKSRC}/common.gpr
+	@${RM} -r ${WRKSRC}/gnat
+
+do-build:
+	# This target is recreated because -j cannot be set, but
+	# MAKE_JOBS_UNSAFE=yes would break PROCESSORS value
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} all)
+	(cd ${WRKSRC}/doc && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} html-all)
+
+do-install:
+	# gprinstall seems to be malfunctioning, just install manually
+	${MKDIR} ${STAGEDIR}${PREFIX}/bin \
+		${STAGEDIR}${PREFIX}/include/asis \
+		${STAGEDIR}${PREFIX}/lib/asis \
+		${STAGEDIR}${PREFIX}/lib/gnat \
+		${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_PROGRAM} ${WRKSRC}/tools/asistant/asistant \
+		${STAGEDIR}${PREFIX}/bin
+	${INSTALL_DATA} ${WRKSRC}/asis/*.ad[bs] \
+		${STAGEDIR}${PREFIX}/include/asis
+	${INSTALL_DATA} ${WRKSRC}/lib/*.ali ${STAGEDIR}${PREFIX}/lib/asis
+	${INSTALL_DATA} ${WRKSRC}/lib/*.a ${STAGEDIR}${PREFIX}/lib/asis
+	${INSTALL_DATA} ${FILESDIR}/asis.gpr ${STAGEDIR}${PREFIX}/lib/gnat
+	(cd ${WRKSRC}/doc/html && ${COPYTREE_SHARE} . ${STAGEDIR}${STD_DOCDIR})

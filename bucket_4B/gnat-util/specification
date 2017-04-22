@@ -7,7 +7,7 @@ DEF[PORTREVISION]=	EXTRACT_INFO(GCC6_GNAT_UTIL_REVISION)
 NAMEBASE=		gnat-util
 VERSION=		${PORTVERSION}
 REVISION=		${PORTREVISION}
-KEYWORDS=		lang
+KEYWORDS=		lang ada
 VARIANTS=		standard
 SDESC[standard]=	Library used to build GNAT tools such as ASIS
 HOMEPAGE=		http://libre.adacore.com
@@ -42,7 +42,7 @@ MAKE_ENV=		MAJEOBJDIR={{WRKSRC}}/obj
 
 post-extract:
 	@${MKDIR} ${BUILD_WRKSRC}/obj
-.for F in Makefile gnat-util.gpr sdefault_adb.gnat-util osint_scars.c
+.for F in Makefile gnat_util.gpr sdefault_adb.gnat-util osint_scars.c
 	@${CP} ${FILESDIR}/${F} ${BUILD_WRKSRC}/
 .endfor
 	@(cd ${WRKSRC}/gcc/ada && \
