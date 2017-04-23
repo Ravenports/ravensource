@@ -1,0 +1,62 @@
+DEF[PORTVERSION]=	4.5
+DEF[OASIS]=		http://www.oasis-open.org/docbook/sgml
+DEF[ISOCAT]=		share/sgml/iso8879/catalog
+DEF[DBKDIR]=		share/sgml/docbook
+DEF[DBCAT]=		{{PREFIX}}/${DBKDIR}/catalog
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		docbook-sgml
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	DocBook SGML DTD
+HOMEPAGE=		http://www.oasis-open.org/docbook/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main db30 db31 db40 db41 db42 db43 db44 db45
+SITES[main]=		${OASIS}/2.4.1/
+SITES[db30]=		${OASIS}/3.0/
+SITES[db31]=		${OASIS}/3.1/
+SITES[db40]=		${OASIS}/4.0/
+SITES[db41]=		${OASIS}/4.1/
+SITES[db42]=		${OASIS}/4.2/
+SITES[db43]=		${OASIS}/4.3/
+SITES[db44]=		${OASIS}/4.4/
+SITES[db45]=		${OASIS}/4.5/
+DISTFILE[1]=		docbk241.zip:main
+DISTFILE[2]=		docbk30.zip:db30
+DISTFILE[3]=		docbk31.zip:db31
+DISTFILE[4]=		docbk40.zip:db40
+DISTFILE[5]=		docbk41.zip:db41
+DISTFILE[6]=		docbook-4.2.zip:db42
+DISTFILE[7]=		docbook-4.3.zip:db43
+DISTFILE[8]=		docbook-4.4.zip:db44
+DISTFILE[9]=		docbook-4.5.zip:db45
+DF_INDEX=		1 2 3 4 5 6 7 8 9
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+RUN_DEPENDS=		ISO_8879:single:standard
+			xmlcatmgr:single:standard
+
+SKIP_BUILD=		yes
+EXTRACT_DIRTY=		1 2 3 4 5 6 7 8 9
+PLIST_SUB=		DBKDIR=${DBKDIR}
+
+pre-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/${DBKDIR}
+	${ECHO_CMD} "CATALOG \"${LOCALBASE}/${ISOCAT}\"" \
+	    > ${STAGEDIR}${DBCAT}
+
+do-install:
+.for DF in ${DF_INDEX}
+	D=${DL_SITES_${DISTFILE_${DF}:C/.*://}:H:T}; \
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/sgml/docbook/$$D; \
+	(cd ${WRKDIR}/docbook-sgml_${DF} && \
+	${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/share/sgml/docbook/$$D); \
+	${ECHO_CMD} "CATALOG \"${PREFIX}/share/sgml/docbook/$$D/docbook.cat\"" \
+		>> ${STAGEDIR}${DBCAT}
+.endfor
