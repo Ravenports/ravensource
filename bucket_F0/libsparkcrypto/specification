@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	0.1.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libsparkcrypto
+VERSION=		${PORTVERSION}
+KEYWORDS=		security ada
+VARIANTS=		standard
+SDESC[standard]=	Cryptographic library implemented in SPARK
+HOMEPAGE=		http://senier.net/libsparkcrypto/
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://senier.net/libsparkcrypto/
+DISTFILE[1]=		libsparkcrypto-${PORTVERSION}.tgz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WKRSRC}}/README
+LICENSE_SCHEME=		solo
+
+BROKEN[aarch64]=	fails to compile: unsupported architecture: aarch64
+
+BUILD_DEPENDS=		AdaBrowse:primary:standard
+
+USES=			dos2unix gmake
+INSTALL_REQ_TOOLCHAIN=	yes
+BUILD_TARGET=		all build
+MAKE_ENV=		SPARKARCH={{ARCH_STANDARD:S/i386/i686/}}
+			SPARK_DIR={{WRKSRC}}/src/spark
+			MODE=release
+			RUNTIME=native
+			NO_TESTS=true
+			NO_PROOF=true
+
+post-patch:
+	#ports passed unwanted ARCH definition to Makefile
+	@${REINPLACE_CMD} -e 's|ARCH|SPARKARCH|g' ${WRKSRC}/Makefile

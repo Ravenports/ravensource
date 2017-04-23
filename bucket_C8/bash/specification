@@ -1,0 +1,96 @@
+DEF[PORTVERSION]=	4.4
+DEF[PATCHLEVEL]=	12
+DEF[STANDARD_PATH]=	/sbin:/bin:/usr/sbin:/usr/bin
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		bash
+VERSION=		${PORTVERSION}.${PATCHLEVEL}
+KEYWORDS=		shells
+VARIANTS=		standard static nls
+SDESC[standard]=	GNU Bourne Again SHell
+SDESC[nls]=		GNU Bourne Again SHell with native lang support
+SDESC[static]=		Static GNU Bourne Again SHell
+HOMEPAGE=		http://www.gnu.org/software/bash/bash.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main patches
+SITES[main]=		GNU/bash
+SITES[patches]=		GNU/bash/bash-${PORTVERSION}-patches
+DISTFILE[1]=		bash-${PORTVERSION}.tar.gz:main
+DISTFILE[2]=		bash44-001:patches
+DISTFILE[3]=		bash44-002:patches
+DISTFILE[4]=		bash44-003:patches
+DISTFILE[5]=		bash44-004:patches
+DISTFILE[6]=		bash44-005:patches
+DISTFILE[7]=		bash44-006:patches
+DISTFILE[8]=		bash44-007:patches
+DISTFILE[9]=		bash44-008:patches
+DISTFILE[10]=		bash44-009:patches
+DISTFILE[11]=		bash44-010:patches
+DISTFILE[12]=		bash44-011:patches
+DISTFILE[13]=		bash44-012:patches
+DIST_SUBDIR=		bash
+
+SPKGS[standard]=	complete primary docs
+SPKGS[static]=		primary
+SPKGS[nls]=		primary
+
+OPTIONS_AVAILABLE=	STATIC NLS NOTSTD
+OPTIONS_STANDARD=	STATIC NLS
+VOPTS[static]=		STATIC=ON NLS=OFF NOTSTD=ON
+VOPTS[nls]=		STATIC=OFF NLS=ON NOTSTD=ON
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+PATCHFILES=		2 3 4 5 6 7 8 9 10 11 12
+
+USES=			bison cpe makeinfo
+DISTNAME=		bash-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CPE_VENDOR=		gnu
+INFO=			primary:bash
+INSTALL_REQ_TOOLCHAIN=	yes
+CONFIGURE_ARGS=		--enable-readline
+			--enable-progcomp
+			--enable-process-substitution
+			--enable-history
+			--enable-help-builtin
+			--enable-extended-glob
+			--enable-dparen-arithmetic
+			--enable-directory-stack
+			--enable-debugger
+			--enable-cond-regexp
+			--enable-alias
+			--enable-brace-expansion
+			--enable-array-variables
+			--without-bash-malloc
+CPPFLAGS=		-DDEFAULT_PATH_VALUE='\"{{STANDARD_PATH}}:{{LOCALBASE}}/sbin:{{LOCALBASE}}/bin\"'
+			-DSTANDARD_UTILS_PATH='\"{{STANDARD_PATH}}\"'
+
+[NLS].USES_ON=				gettext-runtime iconv
+[NLS].CONFIGURE_ENABLE_BOTH=		nls
+[NLS].CONFIGURE_ARGS_ON=		--with-libiconv-prefix={{ICONV_PREFIX}}
+
+[STATIC].CONFIGURE_ENABLE_BOTH=		static-link
+[STATIC].CFLAGS_OFF=			-Wl,-export-dynamic
+[STATIC].USES_OFF=			readline
+[STATIC].BUILD_DEPENDS_ON=		readline:single:standard
+
+post-patch:
+	# Ensure y.tab.c is regenerated
+	${TOUCH} ${WRKSRC}/parse.y
+	${RM} ${WRKSRC}/y.tab.c
+	@${REINPLACE_CMD} -e "s|%%PREFIX%%|${PREFIX}|g" ${WRKSRC}/doc/bash.1
+
+post-configure:
+	@${FIND} ${WRKSRC} -name Makefile -print0 | ${XARGS} -0 \
+		${REINPLACE_CMD} -e "s|^DESTDIR *=|& ${DESTDIR}|"
+
+post-install:
+	${LN} -sf bash ${STAGEDIR}${PREFIX}/bin/rbash
+	${RM} ${STAGEDIR}${STD_DOCDIR}/CHANGES
+
+post-install-NOTSTD-ON:
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}

@@ -1,0 +1,70 @@
+DEF[PORTVERSION]=	041111
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		aflex-ayacc
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel ada
+VARIANTS=		standard
+SDESC[standard]=	Ada95 scanner and parser generators
+HOMEPAGE=		http://thiberlog.free.fr/
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://thiberlog.free.fr/src/
+DISTFILE[1]=		afay_thiberlog_${PORTVERSION}.tgz:main
+
+SPKGS[standard]=	complete primary docs examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:primary
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/afay/aflex/README
+LICENSE_NAME=		CUSTOM1:"Arcadia Project, U.C. Irvine"
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		bash:primary:static
+
+EXTRACT_DIRTY=		1
+
+USES=			shebangfix
+SHEBANG_GLOB=		tognat
+SHEBANG_OLD_BASH=	/bin/sh
+
+do-build:
+	@(cd ${WRKSRC}/afay/aflex/src/gnat_unix && \
+		${SETENV} ${MAKE_ENV} ${SH} ./README)
+	@(cd ${WRKSRC}/afay/ayacc/src/gnat_unix && \
+		${SETENV} ${MAKE_ENV} ${SH} ./README)
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${STD_DOCDIR} \
+		${STAGEDIR}${STD_EXAMPLESDIR}/ada_parser \
+		${STAGEDIR}${STD_EXAMPLESDIR}/calc
+	${INSTALL_PROGRAM} ${WRKSRC}/afay/aflex/src/aflex \
+		${WRKSRC}/afay/ayacc/src/ayacc ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_DATA} ${WRKSRC}/afay/aflex/doc/aflex.man \
+		${STAGEDIR}${MANPREFIX}/man/man1/aflex.1
+	${INSTALL_DATA} ${WRKSRC}/afay/ayacc/doc/old_docs/ayacc.manpage \
+		${STAGEDIR}${MANPREFIX}/man/man1/ayacc.1
+
+	${INSTALL_DATA} ${WRKSRC}/afay/aflex/doc/READ_ME \
+		${STAGEDIR}${STD_DOCDIR}/READ_ME.aflex
+	(cd ${WRKSRC}/afay/aflex/doc && ${INSTALL_DATA} aflex.html \
+		aflex_user_man.* ${STAGEDIR}${STD_DOCDIR})
+	${INSTALL_DATA} ${WRKSRC}/afay/ayacc/doc/READ_ME \
+		${STAGEDIR}${STD_DOCDIR}/READ_ME.ayacc
+	(cd ${WRKSRC}/afay/ayacc/doc && ${INSTALL_DATA} ayacc.html \
+		ayacc_user_man.tex ${STAGEDIR}${STD_DOCDIR})
+
+	(cd ${WRKSRC}/afay/aflex/doc && ${INSTALL_DATA} example.l test95.l \
+		${STAGEDIR}${STD_EXAMPLESDIR})
+	${INSTALL_SCRIPT} ${WRKSRC}/afay/ayacc/examples/ada_parser/COMPILE \
+		${STAGEDIR}${STD_EXAMPLESDIR}/ada_parser
+	(cd ${WRKSRC}/afay/ayacc/examples/ada_parser && \
+		${INSTALL_DATA} READ.ME ada.y ada_lex.l driver.a \
+		${STAGEDIR}${STD_EXAMPLESDIR}/ada_parser)
+	${INSTALL_SCRIPT} ${WRKSRC}/afay/ayacc/examples/calc/COMPILE \
+		${STAGEDIR}${STD_EXAMPLESDIR}/calc
+	(cd ${WRKSRC}/afay/ayacc/examples/calc && ${INSTALL_DATA} \
+		READ.ME calc* driver.a ${STAGEDIR}${STD_EXAMPLESDIR}/calc)
