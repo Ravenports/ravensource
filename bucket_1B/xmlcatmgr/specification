@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	2.2
+DEF[CAT_MASTER_SGML]=	{{PREFIX}}/share/sgml/catalog
+DEF[CAT_PORTS_SGML]=	{{PREFIX}}/share/sgml/catalog.ports
+DEF[CAT_MASTER_XML]=	{{PREFIX}}/share/xml/catalog
+DEF[CAT_PORTS_XML]=	{{PREFIX}}/share/xml/catalog.ports
+DEF[XMLCATMGR]=		{{PREFIX}}/bin/xmlcatmgr
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xmlcatmgr
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	SGML and XML catalog manager
+HOMEPAGE=		http://xmlcatmgr.sourceforge.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/xmlcatmgr/xmlcatmgr/${PORTVERSION}
+DISTFILE[1]=		xmlcatmgr-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-docs
+			DEFAULT_CATALOG_SGML=${CAT_PORTS_SGML}
+			DEFAULT_CATALOG_XML=${CAT_PORTS_XML}
+SUB_LIST=		CATALOG_MASTER_SGML=${CAT_MASTER_SGML}
+			CATALOG_MASTER_XML=${CAT_MASTER_XML}
+			CATALOG_PORTS_SGML=${CAT_PORTS_SGML}
+			CATALOG_PORTS_XML=${CAT_PORTS_XML}
+			XMLCATMGR=${XMLCATMGR}
+SUB_FILES=		pkg-install-single
+			pkg-deinstall-single
+			pkg-message-single
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/sgml \
+		${STAGEDIR}${PREFIX}/share/xml
