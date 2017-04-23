@@ -1,0 +1,56 @@
+DEF[PORTVERSION]=	03
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ini_file_manager
+VERSION=		${PORTVERSION}
+KEYWORDS=		misc ada
+VARIANTS=		standard
+SDESC[standard]=	Ini configuration file manipulator for Ada
+HOMEPAGE=		https://sourceforge.net/projects/ini-files/
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/ini-files/ini-files/ini-files-${PORTVERSION}
+DISTFILE[1]=		ini-files-${PORTVERSION}.zip:main
+
+SPKGS[standard]=	complete primary docs examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKDIR}}/LICENSE
+LICENSE_SCHEME=		solo
+
+USES=			gprbuild dos2unix
+EXTRACT_DIRTY=		1
+
+post-extract:
+	${CP} ${FILESDIR}/construct.gpr ${WRKSRC}
+	${MKDIR} ${WRKSRC}/src
+	${MV} ${WRKSRC}/config.ad[bs] ${WRKSRC}/src
+	${SED} -e "s,@PREFIX@,${LOCALBASE},g" ${FILESDIR}/runme.sh.in \
+		> ${WRKSRC}/runme.sh
+	${AWK} '/^-- Change/ {exit}; {print}' ${WRKSRC}/src/config.ads \
+		> ${WRKDIR}/LICENSE
+
+do-build:
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -p -Pconstruct)
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gnat \
+		${STAGEDIR}${PREFIX}/lib/ini_file_manager \
+		${STAGEDIR}${PREFIX}/include/ini_file_manager \
+		${STAGEDIR}${STD_EXAMPLESDIR} \
+		${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${FILESDIR}/ini_file_manager.gpr \
+		${STAGEDIR}${PREFIX}/lib/gnat
+	${INSTALL_DATA} ${WRKSRC}/src/* \
+		${STAGEDIR}${PREFIX}/include/ini_file_manager
+	${INSTALL_DATA} ${WRKSRC}/lib/*  \
+		${STAGEDIR}${PREFIX}/lib/ini_file_manager
+	${INSTALL_DATA} ${WRKSRC}/ini_file_manager.txt \
+		${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_SCRIPT} ${WRKSRC}/runme.sh ${STAGEDIR}${STD_EXAMPLESDIR}
+	${INSTALL_DATA} ${WRKSRC}/test_config.adb \
+		${FILESDIR}/example.gpr ${STAGEDIR}${STD_EXAMPLESDIR}
