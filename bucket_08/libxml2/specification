@@ -1,0 +1,54 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(LIBXML2_VERSION)
+DEF[PORTREVISION]=	EXTRACT_INFO(LIBXML2_REVISION)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libxml2
+VERSION=		${PORTVERSION}
+REVISION=		${PORTREVISION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	XML parser library for GNOME
+HOMEPAGE=		http://xmlsoft.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://xmlsoft.org/sources/
+			ftp://xmlsoft.org/libxml2/
+			ftp://gd.tuwien.ac.at/pub/libxml/
+DISTFILE[1]=		libxml2-${PORTVERSION}.tar.gz:main
+DIST_SUBDIR=		gnome2
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+USES=			cpe gmake iconv libtool pkgconfig shebangfix
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-schemas
+			--with-threads
+			--with-iconv={{ICONV_PREFIX}}
+			--with-html-dir={{PREFIX}}/share/doc
+			--with-html-subdir=libxml2
+			--without-icu
+			--with-lzma=/usr
+			--without-python
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+SHEBANG_GLOB=		*.py
+PLIST_SUB=		LIBVERSION=${PORTVERSION}
+
+post-patch:
+.for d in . doc doc/devhelp doc/examples
+	@${REINPLACE_CMD} -e '/^install-data-am:/ s|install-data-local||' \
+		${WRKSRC}/${d}/Makefile.in
+.endfor
+.for f in catalog.c xmlcatalog.c xmllint.c doc/xmllint.1
+	@${REINPLACE_CMD} -e \
+		's|/etc/xml/catalog|${LOCALBASE}/share/xml/catalog|g; \
+		 s|/etc/sgml/catalog|${LOCALBASE}/share/sgml/catalog|g' \
+		${WRKSRC}/${f}
+.endfor
+
+post-install:
+	@${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc

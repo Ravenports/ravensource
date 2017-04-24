@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	1.27
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libgpg-error
+VERSION=		${PORTVERSION}
+KEYWORDS=		security devel
+VARIANTS=		standard
+SDESC[standard]=	Common error values for all GnuPG components
+HOMEPAGE=		https://gnupg.org/software/libgpg-error/index.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNUPG/libgpg-error
+DISTFILE[1]=		libgpg-error-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:single LGPL21:single
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+			LGPL21:{{WRKSRC}}/COPYING.LIB
+LICENSE_SCHEME=		multi
+
+USES=			gmake libtool gettext-runtime iconv
+MUST_CONFIGURE=		gnu
+SINGLE_JOB=		yes
+INFO=			single:gpgrt
+CPPFLAGS=		-P
+CONFIGURE_ARGS=		--enable-static=yes
+			--with-libintl-prefix={{LOCALBASE}}
+			{{ICONV_CONFIGURE_ARG}}
+INSTALL_TARGET=		install-strip

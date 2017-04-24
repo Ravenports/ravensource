@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(LIBXSLT_VERSION)
+DEF[PORTREVISION]=	EXTRACT_INFO(LIBXSLT_REVISION)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libxslt
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	XSLT C library for GNOME
+HOMEPAGE=		http://xmlsoft.org/XSLT/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		ftp://xmlsoft.org/libxml2/
+			http://xmlsoft.org/sources/
+			ftp://gd.tuwien.ac.at/pub/libxml/
+DISTFILE[1]=		libxslt-${PORTVERSION}.tar.gz:main
+DIST_SUBDIR=		gnome2
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+BUILDRUN_DEPENDS=	libgcrypt:single:standard
+
+USES=			cpe gmake libtool
+GNOME_COMPONENTS=	libxml2
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-html-dir={{PREFIX}}/share/doc
+			--with-crypto
+			--without-python
+INSTALL_REQ_TOOLCHAIN=	yes
+INSTALL_TARGET=		install-strip
+CPE_VENDOR=		xmlsoft
+
+post-patch:
+	@${REINPLACE_CMD} -e '/^install-data-am:/ s|install-data-local||' \
+		${WRKSRC}/doc/Makefile.in
+	@${REINPLACE_CMD} -e 's|[$$](bindir)/xsltproc|../xsltproc/xsltproc|g ; \
+		s|[$$](bindir)/xmllint|../xmllint/xmllint|g' \
+		${WRKSRC}/doc/Makefile.in

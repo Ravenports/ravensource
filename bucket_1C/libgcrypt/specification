@@ -1,0 +1,47 @@
+DEF[PORTVERSION]=	1.7.6
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libgcrypt
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		standard
+SDESC[standard]=	General purpose crypto library based on GnuPG
+HOMEPAGE=		https://www.gnupg.org/software/libgcrypt/index.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNUPG/libgcrypt
+DISTFILE[1]=		libgcrypt-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:single LGPL21+:single BSD3CLAUSE:single
+			PUBDOM:single CUSTOM1:single CUSTOM2:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+			LGPL21+:{{WRKSRC}}/COPYING.LIB
+			BSD3CLAUSE:{{WRKSRC}}/LICENSES
+			PUBDOM:{{WRKSRC}}/LICENSES
+			CUSTOM1:{{WRKSRC}}/LICENSES
+			CUSTOM2:{{WRKSRC}}/LICENSES
+LICENSE_NAME=		CUSTOM1:"X Consortium License"
+			CUSTOM2:"OCB License"
+LICENSE_SCHEME=		multi
+
+BUILDRUN_DEPENDS=	libgpg-error:single:standard
+
+USES=			cpe libtool makeinfo
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-drng-support
+			--enable-static=yes
+CONFIGURE_ENV=		MAKEINFO="makeinfo --no-split"
+INFO=			single:gcrypt
+CPE_VENDOR=		gnupg
+INSTALL_TARGET=		install-strip
+TEST_TARGET=		check
+
+post-patch:
+	${RM} ${WRKSRC}/doc/gcrypt.info*
+	${REINPLACE_CMD} -e 's|ALIGN (3)|ALIGN (2)|g' ${WRKSRC}/mpi/i386/*.S
