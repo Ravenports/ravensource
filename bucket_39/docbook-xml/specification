@@ -1,0 +1,69 @@
+DEF[PORTVERSION]=	5.0
+DEF[OASIS]=		http://docbook.org/xml
+DEF[DBKDIR]=		share/xml/docbook
+DEF[DBCAT_SGML]=	{{PREFIX}}/${DBKDIR}/catalog
+DEF[DBCAT_XML]=		{{PREFIX}}/${DBKDIR}/catalog.xml
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		docbook-xml
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	DocBook XML DTD
+HOMEPAGE=		http://www.oasis-open.org/docbook/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main db42 db43 db44 db45 db50
+SITES[main]=		${OASIS}/4.1.2/
+SITES[db42]=		${OASIS}/4.2/
+SITES[db43]=		${OASIS}/4.3/
+SITES[db44]=		${OASIS}/4.4/
+SITES[db45]=		${OASIS}/4.5/
+SITES[db50]=		${OASIS}/5.0/
+DISTFILE[1]=		docbkx412.zip:main
+DISTFILE[2]=		docbook-xml-4.2.zip:db42
+DISTFILE[3]=		docbook-xml-4.3.zip:db43
+DISTFILE[4]=		docbook-xml-4.4.zip:db44
+DISTFILE[5]=		docbook-xml-4.5.zip:db45
+DISTFILE[6]=		docbook-5.0.zip:db50
+DF_INDEX=		1 2 3 4 5 6
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+BUILDRUN_DEPENDS=	xmlcharent:single:standard
+			xmlcatmgr:single:standard
+
+SKIP_BUILD=		yes
+EXTRACT_DIRTY=		1 2 3 4 5
+PLIST_SUB=		DBKDIR=${DBKDIR}
+
+post-extract:
+	${MV} ${WRKDIR}/docbook-5.0 ${WRKDIR}/docbook-xml_6
+
+pre-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/${DBKDIR}
+	${ECHO_CMD} "CATALOG \"${LOCALBASE}/share/xml/xmlcharent/catalog\"" \
+	    > ${STAGEDIR}${DBCAT_SGML}
+	xmlcatmgr -c ${STAGEDIR}${DBCAT_XML} create
+	xmlcatmgr -c ${STAGEDIR}${DBCAT_XML} \
+	    add nextCatalog "${LOCALBASE}/share/xml/xmlcharent/catalog.xml"
+
+do-install:
+.for DF in ${DF_INDEX}
+	D=${DL_SITES_${DISTFILE_${DF}:C/.*://}:H:T}; \
+	${MKDIR} ${STAGEDIR}${PREFIX}/${DBKDIR}/$$D; \
+	(cd ${WRKDIR}/docbook-xml_${DF} && \
+	${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/${DBKDIR}/$$D); \
+	xmlcatmgr -c ${STAGEDIR}${DBCAT_XML} \
+	    add nextCatalog "${PREFIX}/${DBKDIR}/$D/catalog.xml"; \
+	test "$D" = 5.0 || test "$D" = 4.1.2 || \
+	    ${ECHO_CMD} "CATALOG \"${PREFIX}/${DBKDIR}/$D/docbook.cat\"" \
+	    >> ${STAGEDIR}${DBCAT_SGML}
+.endfor
+
+post-install:
+	${INSTALL_DATA} ${FILESDIR}/catalog412.xml \
+	    ${STAGEDIR}${PREFIX}/${DBKDIR}/4.1.2/catalog.xml

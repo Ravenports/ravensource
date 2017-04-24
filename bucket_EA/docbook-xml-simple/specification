@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	1.1
+DEF[CATALOG_FILES]=	catalog catalog.xml
+DEF[DTDDIR]=		share/xml/sdocbook/${PORTVERSION}/dtd
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		docbook-xml-simple
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	"Simplified" DocBook XML DTD
+HOMEPAGE=		http://www.oasis-open.org/docbook/xml/simple/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.oasis-open.org/docbook/xml/simple/${PORTVERSION}/
+DISTFILE[1]=		docbook-simple-${PORTVERSION}.zip:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+RUN_DEPENDS=		xmlcatmgr:single:standard
+
+EXTRACT_DIRTY=		1
+SKIP_BUILD=		yes
+SUB_FILES=		${CATALOG_FILES}
+SUB_LIST=		DTDDIR={{PREFIX}}/${DTDDIR}
+PLIST_SUB=		DTDDIR=${DTDDIR}
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/${DTDDIR}
+	cd ${WRKSRC} && ${COPYTREE_SHARE} "*.css *.dtd *.mod" \
+		${STAGEDIR}${PREFIX}/${DTDDIR}
+.for f in ${CATALOG_FILES}
+	${INSTALL_DATA} ${WRKDIR}/${f} ${STAGEDIR}${PREFIX}/${DTDDIR}
+.endfor

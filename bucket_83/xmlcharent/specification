@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	0.3
+DEF[XMLDIR]=		{{PREFIX}}/share/xml/xmlcharent
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xmlcharent
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	XML character entities
+HOMEPAGE=		http://www.oasis-open.org/docbook/xmlcharent/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.oasis-open.org/docbook/xmlcharent/${PORTVERSION}/
+DISTFILE[1]=		xmlcharent-0.3.zip:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+RUN_DEPENDS=		xmlcatmgr:single:standard
+
+SKIP_BUILD=		yes
+EXTRACT_DIRTY=		1
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${XMLDIR}
+	${INSTALL_DATA} ${WRKSRC}/*.ent \
+		${FILESDIR}/catalog \
+		${FILESDIR}/catalog.xml \
+		${STAGEDIR}${XMLDIR}
