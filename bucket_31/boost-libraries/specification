@@ -19,9 +19,9 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/boost/boost/${PORTVERSION}
 DISTFILE[1]=		boost_${BOOSTVER}.tar.bz2:main
 
-SPKGS[py27]=		complete rest regex python
-SPKGS[py34]=		complete rest regex python
-SPKGS[py35]=		complete rest regex python
+SPKGS[py27]=		complete rest python
+SPKGS[py34]=		complete rest python
+SPKGS[py35]=		complete rest python
 
 OPTIONS_AVAILABLE=	PY27 PY34 PY35
 OPTIONS_STANDARD=	none
@@ -32,9 +32,10 @@ VOPTS[py35]=		PY27=OFF PY34=OFF PY35=ON
 BUILD_DEPENDS=		boost-jam:single:standard
 			bzip2:complete:standard
 BUILDRUN_DEPENDS=	zlib:complete:standard
+			icu:single:standard
 EXRUN[python]=		python35:single:standard
 
-USES=			iconv c++:rest,regex,python
+USES=			iconv c++:rest,python
 DISTNAME=		boost_${BOOSTVER}
 BUILD_TARGET=		stage
 PLIST_SUB=		BOOST_SHARED_LIB_VER=${PORTVERSION}
@@ -48,7 +49,7 @@ MAKE_ARGS=		--layout=system
 			threading=multi
 			link=shared,static
 			-sICONV_PATH={{ICONV_PREFIX}}
-			boost.locale.icu=off
+			-sICU_PATH={{LOCALBASE}}
 MAKE_ENV=		PYTHON_ROOT="{{LOCALBASE}}"
 			PYTHON_VERSION="{{PYTHON_VERSION}}"
 			PYTHON_INCLUDES="{{PYTHON_INCLUDEDIR}}"

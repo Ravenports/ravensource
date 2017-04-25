@@ -1,0 +1,58 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(ICU_VERSION)
+DEF[PORTREVISION]=	EXTRACT_INFO(ICU_REVISION)
+DEF[NAMEDVERSION]=	${PORTVERSION:S/./_/g}
+DEF[ICUMAJOR]=		${PORTVERSION:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		icu
+VERSION=		${PORTVERSION}
+REVISION=		${PORTREVISION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	International Components for Unicode (from IBM)
+HOMEPAGE=		http://site.icu-project.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://download.icu-project.org/files/icu4c/${PORTVERSION}/
+DISTFILE[1]=		icu4c-${NAMEDVERSION}-src.tgz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:single
+LICENSE_FILE=		CUSTOM1:{{WRKDIR}}/icu/LICENSE
+LICENSE_NAME=		CUSTOM1:"ICU License"
+LICENSE_SCHEME=		solo
+
+# ------------------------------------------------------
+# The layoutex option induces a circular dependency.
+# It requires HarfBuzz which in turn requires ICU.
+# Thus it's impossible to implement lx as a subpackage
+# ------------------------------------------------------
+
+USES=			gmake c++:single
+DISTNAME=		icu/source
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-static
+			--with-data-packaging=archive
+			--disable-renaming
+			--disable-samples
+			--disable-layoutex
+CPPFLAGS=		-DICU_NO_USER_DATA_OVERRIDE
+MAKE_ARGS=		VERBOSE=1
+TEST_TARGET=		check
+PLIST_SUB=		ICUMAJOR=${ICUMAJOR}
+			ICUVER=${PORTVERSION}
+			ENDIAN="l"
+
+post-install:
+	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/g* \
+		${STAGEDIR}${PREFIX}/bin/*conv \
+		${STAGEDIR}${PREFIX}/bin/icuinfo \
+		${STAGEDIR}${PREFIX}/bin/derb \
+		${STAGEDIR}${PREFIX}/bin/pkgdata \
+		${STAGEDIR}${PREFIX}/sbin/*
+	${RM} ${STAGEDIR}${PREFIX}/share/icu/${PORTVERSION}/LICENSE

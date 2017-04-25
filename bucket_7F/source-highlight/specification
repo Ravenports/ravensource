@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	3.1.8
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		source-highlight
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	C/C++ and Java sources to HTML converter
+HOMEPAGE=		http://www.gnu.org/software/src-highlite/source-highlight.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/src-highlite
+DISTFILE[1]=		source-highlight-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		ctags:single:standard
+BUILDRUN_DEPENDS=	boost-libraries:rest:python_default
+
+USES=			gmake libtool
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-bash-completion
+			--with-boost-regex=boost_regex
+INSTALL_TARGET=		install-strip
+INFO=			primary:source-highlight
+			primary:source-highlight-lib
+TEST_TARGET=		check
+
+post-install:
+	${RM} ${STAGEDIR}${STD_DOCDIR}/[A-Z][A-Z]*
+	${RM} ${STAGEDIR}${STD_DOCDIR}/Changelog
