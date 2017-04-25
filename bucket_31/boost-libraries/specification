@@ -1,0 +1,89 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(BOOST_VERSION)
+DEF[REVISION]=		EXTRACT_INFO(BOOST_LIBRARIES_REVISION)
+DEF[BOOSTVER]=		${PORTVERSION:S/./_/g}
+DEF[HARDCODE_RPATH]=	{{LOCALBASE}}/lib
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		boost-libraries
+VERSION=		${PORTVERSION}
+REVISION=		${REVISION}
+KEYWORDS=		devel c++
+VARIANTS=		py27 py34 py35
+SDESC[py27]=		Free portable C++ libraries (PY 27)
+SDESC[py34]=		Free portable C++ libraries (PY 34)
+SDESC[py35]=		Free portable C++ libraries (PY 35)
+HOMEPAGE=		http://www.boost.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/boost/boost/${PORTVERSION}
+DISTFILE[1]=		boost_${BOOSTVER}.tar.bz2:main
+
+SPKGS[py27]=		complete rest regex python
+SPKGS[py34]=		complete rest regex python
+SPKGS[py35]=		complete rest regex python
+
+OPTIONS_AVAILABLE=	PY27 PY34 PY35
+OPTIONS_STANDARD=	none
+VOPTS[py27]=		PY27=ON PY34=OFF PY35=OFF
+VOPTS[py34]=		PY27=OFF PY34=ON PY35=OFF
+VOPTS[py35]=		PY27=OFF PY34=OFF PY35=ON
+
+BUILD_DEPENDS=		boost-jam:single:standard
+			bzip2:complete:standard
+BUILDRUN_DEPENDS=	zlib:complete:standard
+EXRUN[python]=		python35:single:standard
+
+USES=			iconv c++:rest,regex,python
+DISTNAME=		boost_${BOOSTVER}
+BUILD_TARGET=		stage
+PLIST_SUB=		BOOST_SHARED_LIB_VER=${PORTVERSION}
+			PYLIB_SUFFIX={{PYTHON_VER:R:S/2//}}
+MAKE_ARGS=		--layout=system
+			--prefix={{PREFIX}}
+			-d2
+			toolset=gcc
+			--without-mpi
+			{{_MAKE_JOBS}}
+			threading=multi
+			link=shared,static
+			-sICONV_PATH={{ICONV_PREFIX}}
+			boost.locale.icu=off
+MAKE_ENV=		PYTHON_ROOT="{{LOCALBASE}}"
+			PYTHON_VERSION="{{PYTHON_VERSION}}"
+			PYTHON_INCLUDES="{{PYTHON_INCLUDEDIR}}"
+			PYTHON_LIB_PATH="{{PYTHON_LIBDIR}}"
+			ZLIB_INCLUDE="{{LOCALBASE}}/include"
+			ZLIB_LIBPATH="{{LOCALBASE}}/lib"
+			BZIP2_INCLUDE="{{LOCALBASE}}/include"
+			BZIP2_LIBPATH="{{LOCALBASE}}/lib"
+SUB_FILES=		pkg-message-python
+SUB_LIST=		PYTHON_INCLUDEDIR="{{PYTHON_INCLUDEDIR}}"
+			PYTHON_LIBDIR="{{PYTHON_LIBDIR}}"
+			PYTHON_VERSION="{{PYTHON_VERSION}}"
+INSTALL_REQ_TOOLCHAIN=	yes
+
+[PY27].USES_ON=				python:py27,build
+[PY34].USES_ON=				python:py34,build
+[PY35].USES_ON=				python:py35,build
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|$$(RPATH)|${HARDCODE_RPATH}|' \
+		${WRKSRC}/tools/build/src/tools/gcc.jam
+
+pre-build:
+	@${ECHO_CMD} "using python : " ${PYTHON_VER} " : " ${PYTHON_CMD} " : " ${PYTHON_INCLUDEDIR} ";" \
+		>> ${WRKSRC}/tools/build/src/site-config.jam
+
+do-build:
+	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		bjam ${MAKE_ARGS:C,^${DESTDIRNAME}=.*,,g} ${BUILD_TARGET})
+
+do-install:
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		bjam ${MAKE_ARGS:NDESTDIR=*:S,^--prefix=,&${STAGEDIR},} \
+		${INSTALL_TARGET})
+	# For some reasons BJAM forget about the links
+	@cd ${WRKSRC}/stage/ && ${FIND} lib -type l | \
+		${PAX} -rw -p p ${STAGEDIR}${PREFIX}
+	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so

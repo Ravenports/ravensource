@@ -1,0 +1,24 @@
+DEF[PORTVERSION]=	5.8
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ctags
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Tagfile generator for vi and emacs clones
+HOMEPAGE=		http://ctags.sourceforge.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/ctags/ctags/${PORTVERSION}
+DISTFILE[1]=		ctags-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+USES=			destdirfix
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-macro-patterns
+			--with-readlib
