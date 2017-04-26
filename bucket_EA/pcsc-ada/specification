@@ -1,0 +1,71 @@
+DEF[PORTVERSION]=	0.7.3
+DEF[GPRLINK]=		"-L{{LOCALBASE}}/lib", "-Wl,-rpath,{{LOCALBASE}}/lib",
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		pcsc-ada
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Ada binding to Smart card interface (PC/SC)
+HOMEPAGE=		http://www.codelabs.ch/pcscada
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.codelabs.ch/download/
+DISTFILE[1]=		libpcscada-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary docs examples
+
+OPTIONS_AVAILABLE=	TESTED INTF_TEST
+OPTIONS_STANDARD=	TESTED INTF_TEST
+OPT_ON[all]=		TESTED
+
+BUILD_DEPENDS=		asciidoc:single:py27
+			source-highlight:primary:standard
+BUILDRUN_DEPENDS=	pcsc-lite:primary:standard
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+USES=			gprbuild gmake
+DISTNAME=		libpcscada-${PORTVERSION}
+BUILD_TARGET=		all doc examples
+MAKE_ARGS=		NUM_CPUS={{MAKE_JOBS_NUMBER}}
+			LIBRARY_KIND=static
+
+[TESTED].DESCRIPTION=			Run unit test suite before installation
+[TESTED].BUILD_DEPENDS_ON=		ahven:primary:standard
+[TESTED].BUILD_TARGET_ON=		utests
+
+[INTF_TEST].DESCRIPTION=		Run interface tests against installed smart card after build
+[INTF_TEST].BUILD_DEPENDS_ON=		ahven:primary:standard
+[INTF_TEST].BUILD_TARGET_ON=		itests
+
+post-patch:
+	${REINPLACE_CMD} -e 's|@LINK_OPTIONS@|${GPRLINK} |' \
+		${WRKSRC}/pcscada_common.gpr
+
+do-build:
+	# We cannot use a redefined ALL_TARGET because MAKE_JOBS_SAFE is set
+	# for PROCESSORS, but that also sets -j for gmake can break build
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		${MAKE_CMD} ${MAKE_ARGS:NDESTDIR=*} ${BUILD_TARGET})
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/gnat \
+		${STAGEDIR}${PREFIX}/lib/pcscada \
+		${STAGEDIR}${PREFIX}/include/pcscada \
+		${STAGEDIR}${STD_EXAMPLESDIR}/src \
+		${STAGEDIR}${STD_EXAMPLESDIR}/bin \
+		${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${WRKSRC}/src/* ${STAGEDIR}${PREFIX}/include/pcscada
+	${INSTALL_DATA} ${WRKSRC}/lib/static/* \
+		${STAGEDIR}${PREFIX}/lib/pcscada
+	${INSTALL_DATA} ${FILESDIR}/pcscada.gpr ${STAGEDIR}${PREFIX}/lib/gnat
+	(cd ${WRKSRC}/doc && ${COPYTREE_SHARE} html ${STAGEDIR}${STD_DOCDIR})
+	(cd ${WRKSRC}/examples && ${COPYTREE_SHARE} . \
+		${STAGEDIR}${STD_EXAMPLESDIR}/src)
+	${RM} ${STAGEDIR}${STD_EXAMPLESDIR}/src/*/*.bak
+	(cd ${WRKSRC}/obj/examples && ${INSTALL_PROGRAM} cardd pinpad \
+		thin_example ${STAGEDIR}${STD_EXAMPLESDIR}/bin)
