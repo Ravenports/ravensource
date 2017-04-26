@@ -1,0 +1,51 @@
+DEF[PORTVERSION]=	3.18.0
+DEF[LONGVERSION]=	${PORTVERSION:S/.//g}000
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		sqlite
+VERSION=		${PORTVERSION}
+KEYWORDS=		databases
+VARIANTS=		standard
+SDESC[standard]=	SQL database engine in a C library
+HOMEPAGE=		https://www.sqlite.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.sqlite.org/2017/
+			http://www2.sqlite.org/2017/
+			http://www3.sqlite.org/2017/
+DISTFILE[1]=		sqlite-autoconf-${LONGVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		PUBDOM:single
+LICENSE_FILE=		PUBDOM:{{WRKDIR}}/LICENSE
+LICENSE_SCHEME=		solo
+
+USES=			libtool ncurses readline
+DISTNAME=		sqlite-autoconf-${LONGVERSION}
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+SINGLE_JOB=		yes
+
+CPPFLAGS=		-DSQLITE_ENABLE_DBSTAT_VTAB=1
+			-DSQLITE_ENABLE_FTS3_TOKENIZER=1
+			-DSQLITE_ENABLE_FTS3_PARENTHESIS=1
+			-DSQLITE_ENABLE_FTS4=1
+			-DSQLITE_ENABLE_COLUMN_METADATA=1
+			-DSQLITE_SECURE_DELETE=1
+			-DSQLITE_ENABLE_UNLOCK_NOTIFY=1
+			-DSQLITE_USE_URI=1
+			-DSQLITE_TEMP_STORE=2
+CONFIGURE_ARGS=		--enable-dynamic-extensions
+			--enable-static-shell
+			--enable-threadsafe
+			--enable-readline
+LDFLAGS=		-lpthread
+
+post-extract:
+	${AWK} '/^#ifndef/ {exit}; {print}' ${WRKSRC}/sqlite3.h \
+		> ${WRKDIR}/LICENSE
