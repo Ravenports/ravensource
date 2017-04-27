@@ -1,0 +1,53 @@
+DEF[PORTVERSION]=	1.2.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		jade
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	SGML/XML parser toolkit and DSSSL engine
+HOMEPAGE=		http://www.jclark.com/jade/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main patches
+SITES[main]=		ftp://ftp.jclark.com/pub/jade/
+			http://dist.bsdlab.org/
+SITES[patches]=		http://dist.bsdlab.org/
+DISTFILE[1]=		jade-${PORTVERSION}.tar.gz:main
+DISTFILE[2]=		jade_1.2.1-35.diff.gz:patches
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+RUN_DEPENDS=		xmlcatmgr:single:standard
+
+USES=			destdirfix gmake libtool c++:primary
+PATCHFILES=		2
+PATCHFILES_STRIP=	-p1
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-default-catalog={{PREFIX}}/share/sgml/catalog
+SINGLE_JOB=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+pre-install:
+	@${FIND} ${WRKSRC} \( -name \*.orig -o -name \*~ \) \
+		-exec ${RM} \{} \;
+
+post-install:
+.for i in jade nsgmls sgmlnorm spam spent sx
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/$i
+.endfor
+.for i in grove sp spgrove style
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib${i}.so
+.endfor
+	@${MKDIR} ${STAGEDIR}${PREFIX}/include/sp \
+		${STAGEDIR}${PREFIX}/share/doc/jade \
+		${STAGEDIR}${PREFIX}/share/sgml/jade \
+		${STAGEDIR}${PREFIX}/share/xml/jade
+	${INSTALL_DATA} ${WRKSRC}/include/* ${STAGEDIR}${PREFIX}/include/sp
+	${INSTALL_DATA} ${WRKSRC}/doc/*.htm ${STAGEDIR}${PREFIX}/share/doc/jade
+	${INSTALL_DATA} ${WRKSRC}/dsssl/* ${STAGEDIR}${PREFIX}/share/sgml/jade
+	${INSTALL_DATA} ${WRKSRC}/pubtext/xml* ${STAGEDIR}${PREFIX}/share/xml/jade
