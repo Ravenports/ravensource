@@ -1,0 +1,68 @@
+DEF[PORTVERSION]=	8.5.19
+DEF[TCL_VER]=		${PORTVERSION:R}
+DEF[SUFFIX]=		${TCL_VER:S/.//g}
+DEF[NAMEBASE]=		tcl${SUFFIX}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		${NAMEBASE}
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		standard
+SDESC[standard]=	Tool Command Language
+HOMEPAGE=		http://www.tcl.tk/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/tcl/Tcl/${PORTVERSION}
+DISTFILE[1]=		tcl${PORTVERSION}-src.tar.gz:main
+
+SPKGS[standard]=	complete primary tzdata manpages
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:primary
+LICENSE_NAME=		CUSTOM1:"Tcl/Tk License"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/license.terms
+LICENSE_SCHEME=		solo
+
+DISTNAME=		tcl${PORTVERSION}
+BUILD_WRKSRC=		{{WRKSRC}}/unix
+INSTALL_WRKSRC=		{{BUILD_WRKSRC}}
+CONFIGURE_WRKSRC=	{{BUILD_WRKSRC}}
+BUILD_TARGET=		all
+INSTALL_TARGET=		install-strip
+			install-libraries
+			install-tzdata
+			install-tm
+			install-doc
+TEST_TARGET=		do-test
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-shared
+			--enable-man-suffix=.${NAMEBASE}
+			--includedir={{PREFIX}}/include/tcl${TCL_VER}
+MAKE_ENV=		TCL_VER=${TCL_VER}
+			SHORT_TCL_VER=${SUFFIX}
+			MAN_SUFFIX=.${NAMEBASE}
+PLIST_SUB=		TCL_VER=${TCL_VER}
+			SUFFIX=${SUFFIX}
+
+post-patch:
+	${REINPLACE_CMD} -e \
+	    's|@TCL_BUILD_LIB_SPEC@|@TCL_LIB_SPEC@|; \
+	     s|@TCL_BUILD_STUB_LIB_SPEC@|@TCL_STUB_LIB_SPEC@|; \
+	     s|@TCL_BUILD_STUB_LIB_PATH@|@TCL_STUB_LIB_PATH@|; \
+	     s|@TCL_SRC_DIR@|${PREFIX}/include/tcl${TCL_VER}|' \
+	     ${PATCH_WRKSRC}/unix/tclConfig.sh.in
+
+post-configure:
+	${REINPLACE_CMD} \
+		-e 's,-DNO_MEMMOVE=1,,' -e 's,-DNO_STRING_H=1,,' \
+		-e 's,^COMPAT_OBJS.*,,' ${BUILD_WRKSRC}/Makefile
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib${NAMEBASE}.so
+
+do-test:
+	${SETENV} ${MAKE_ENV} ${MAKE} -C ${BUILD_WRKSRC} test
