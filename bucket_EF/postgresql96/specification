@@ -30,7 +30,18 @@ BUILD_DEPENDS=		docbook-sgml:single:standard
 			docbook-dsssl:single:standard
 			openjade:single:standard
 			OpenSP:single:standard
-BUILDRUN_DEPENDS=	zlib:complete:standard
+			zlib:complete:standard
+			libxslt:single:standard
+BUILDRUN_DEPENDS=	libxml2:single:standard
+
+EXRUN[server]=		postgresql96:client:standard
+EXRUN[client]=		gettext:runtime:standard
+			ssl
+EXRUN[contrib]=		postgresql96:client:standard
+			libxml2:single:standard
+			zlib:complete:standard
+			gettext:runtime:standard
+			ssl
 
 # PG_USER=pgsql
 # PG_GROUP=pgsql
@@ -38,22 +49,25 @@ BUILDRUN_DEPENDS=	zlib:complete:standard
 # USERS
 # GROUPS
 
-USES=			bison gmake perl ssl python
-GNOME_COMPONENTS=	libxslt
+USES=			bison gmake perl:build tcl:build ssl python:build
 DISTNAME=		postgresql-${PORTVERSION}
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-libraries={{PREFIX}}/lib
-			--with-includes={{PREFIX}}/include
+CONFIGURE_ARGS=		--with-libraries="{{PREFIX}}/lib"
+			--with-includes="{{PREFIX}}/include:{{TCL_INCLUDEDIR}}"
+			--with-tclconfig="{{TCL_LIBDIR}}"
 			--with-openssl
 			--with-libxml
 			--with-libxslt
 			--with-perl
 			--with-python
+			--with-tcl
 			--without-gssapi
 			{{TEMPLATE_ARG}}
 			{{UUID_ARG}}
 CONFIGURE_ENV=		PTHREAD_LIBS="-lpthread"
+			TCLSH="{{TCLSH}}"
 			pgac_cv_path_stylesheets={{PREFIX}}/share/sgml/docbook/dsssl/modular
+MAKE_ENV=		TCL_INCDIR="{{TCL_INCLUDEDIR}}"
 BUILD_TARGET=		world
 INSTALL_TARGET=		install-world
 LDFLAGS=		-lpthread
@@ -67,3 +81,9 @@ post-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/periodic/daily
 	${INSTALL_SCRIPT} ${WRKDIR}/502.pgsql \
 		${STAGEDIR}${PREFIX}/etc/periodic/daily
+	# install-world doesn't strip (and install-strip won't install enough)
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/postgresql/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/postgresql/pgxs/src/test/regress/pg_regress
+	list=$$(${LS} ${STAGEDIR}${PREFIX}/bin/* | ${GREP} -v pltcl_); \
+		${STRIP_CMD} $${list}
