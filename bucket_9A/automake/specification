@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	1.15
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		automake
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	GNU Standards-compliant Makefile generator
+HOMEPAGE=		https://www.gnu.org/software/automake/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/automake
+DISTFILE[1]=		automake-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+BUILDRUN_DEPENDS=	autoconf:single:standard
+
+USES=			cpe makeinfo perl
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--program-suffix=-${PORTVERSION}
+MAKE_ENV=		MAKEINFOFLAGS=--no-split
+CPE_VENDOR=		gnu
+PLIST_SUB=		AMVER=${PORTVERSION}
+INFO=			single:automake
+
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/aclocal

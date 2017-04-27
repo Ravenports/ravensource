@@ -1,0 +1,49 @@
+DEF[PORTVERSION]=	2.69
+DEF[GENERIC_TOOLS]=	config.guess config.sub	elisp-comp install-sh mdate-sh missing
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		autoconf
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Unix platform automatic configuration tool
+HOMEPAGE=		http://www.gnu.org/software/autoconf/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/autoconf
+DISTFILE[1]=		autoconf-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+BUILD_DEPENDS=		help2man:single:standard
+BUILDRUN_DEPENDS=	m4:primary:standard
+RUN_DEPENDS=		autotools-wrappers:autoconf:standard
+
+USES=			gmake makeinfo perl
+PLIST_SUB=		ACVER=${PORTVERSION}
+INFO=			single:autoconf
+MUST_CONFIGURE=		gnu
+CONFIGURE_ENV=		M4={{LOCALBASE}}/bin/gm4
+			AWK={{AWK}}
+			ac_cv_prog_TEST_EMACS=no
+CONFIGURE_ARGS=		--program-suffix=-${PORTVERSION}
+			--without-lispdir
+
+post-patch:
+	@(cd ${WRKSRC}/man && \
+		for file in *.[1x]; do \
+			${REINPLACE_CMD} -E 's,([^-]auto)(conf|make|reconf|update|header|scan),\1\2-${PORTVERSION},g ; \
+						s,(config\.guess|config\.sub|ifnames),\1-${PORTVERSION},g' $$file ; \
+		done)
+	@(cd ${WRKSRC}/doc && ${RM} *.info)
+	@${FIND} ${WRKSRC} -name Makefile.in | ${XARGS} ${REINPLACE_CMD} -e \
+		's|@PACKAGE@$$|@PACKAGE@-@VERSION@|'
+
+post-install:
+.for FILE in ${GENERIC_TOOLS}
+	@${INSTALL_SCRIPT} ${WRKSRC}/build-aux/${FILE} ${STAGEDIR}${PREFIX}/share/autoconf-${PORTVERSION}
+.endfor

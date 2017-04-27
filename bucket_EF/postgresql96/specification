@@ -1,0 +1,60 @@
+DEF[PORTVERSION]=	9.6.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		postgresql96
+VERSION=		${PORTVERSION}
+KEYWORDS=		databases
+VARIANTS=		standard
+SDESC[standard]=	Powerful, open source object-relational database
+HOMEPAGE=		http://www.postgresql.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PGSQL/source/v${PORTVERSION}
+DISTFILE[1]=		postgresql-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		postgresql
+
+SPKGS[standard]=	complete server client contrib plperl plpython pltcl docs
+
+OPTIONS_AVAILABLE=	NLS
+OPTIONS_STANDARD=	NLS
+OPT_ON[all]=		NLS
+
+LICENSE=		PostgreSQL:server
+LICENSE_FILE=		PostgreSQL:{{WRKSRC}}/COPYRIGHT
+LICENSE_SCHEME=		solo
+
+BROKEN_SSL=		openssl-devel
+
+BUILD_DEPENDS=		docbook-sgml:single:standard
+			docbook-dsssl:single:standard
+BUILDRUN_DEPENDS=	zlib:complete:standard
+
+# PG_USER=pgsql
+# PG_GROUP=pgsql
+# PG_UID=70
+# USERS
+# GROUPS
+
+USES=			bison gmake perl ssl python
+GNOME_COMPONENTS=	libxslt
+DISTNAME=		postgresql-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-libraries={{PREFIX}}/lib
+			--with-includes={{PREFIX}}/include
+			--with-openssl
+			--with-libxml
+			--with-libxslt
+			--with-perl
+			--with-python
+			--without-gssagi
+			{{TEMPLATE_ARG}}
+			{{UUID_ARG}}
+CONFIGURE_ENV=		PTHREAD_LIBS="-lpthread"
+BUILD_TARGET=		world
+LDFLAGS=		-lpthread
+RC_SUBR=		postgresql:server
+SUB_FILES=		502.pgsql
+
+[NLS].CONFIGURE_ENABLE_BOTH=		nls
+[NLS].USES_ON=				gettext-runtime gettext-tools
