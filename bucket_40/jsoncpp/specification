@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	1.8.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		jsoncpp
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	JSON reader and writer library for C++
+HOMEPAGE=		https://github.com/open-source-parsers/jsoncpp
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/open-source-parsers:jsoncpp:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+USES=			dos2unix scons
+MAKE_ARGS=		platform=linux-gcc
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/include/jsoncpp
+	(cd ${WRKSRC}/include/ && \
+		${COPYTREE_SHARE} json/ ${STAGEDIR}${PREFIX}/include/jsoncpp/)
+	${INSTALL_DATA} ${WRKSRC}/libs/linux-gcc-Raven/libjsoncpp.a \
+		${STAGEDIR}${PREFIX}/lib
+	${INSTALL_LIB} ${WRKSRC}/libs/linux-gcc-Raven/libjsoncpp.so.${PORTVERSION} \
+		${STAGEDIR}${PREFIX}/lib
+	${LN} -s libjsoncpp.so.${PORTVERSION} \
+		${STAGEDIR}${PREFIX}/lib/libjsoncpp.so.1
+	${LN} -s libjsoncpp.so.${PORTVERSION} \
+		${STAGEDIR}${PREFIX}/lib/libjsoncpp.so
+	${SED}  -e 's|@CMAKE_INSTALL_PREFIX@|${PREFIX}|g' \
+		-e 's|@CMAKE_INSTALL_LIBDIR@|lib|g' \
+		-e 's|@CMAKE_INSTALL_INCLUDEDIR@|include/jsoncpp|g' \
+		-e 's|@JSONCPP_VERSION@|${PORTVERSION}|g' \
+		${WRKSRC}/pkg-config/jsoncpp.pc.in \
+		> ${STAGEDIR}${PREFIX}/lib/pkgconfig/jsoncpp.pc
