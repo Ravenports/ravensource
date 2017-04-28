@@ -1,0 +1,95 @@
+DEF[PORTVERSION]=	9.3.16
+DEF[SUFFIX]=		${PORTVERSION:R:S/.//}
+DEF[PG_USER]=		pgsql
+DEF[PG_GROUP]=		pgsql
+DEF[PG_UID]=		60000
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		postgresql${SUFFIX}
+VERSION=		${PORTVERSION}
+KEYWORDS=		databases
+VARIANTS=		standard
+SDESC[standard]=	Powerful, open source object-relational database
+HOMEPAGE=		http://www.postgresql.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PGSQL/source/v${PORTVERSION}
+DISTFILE[1]=		postgresql-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		postgresql
+
+SPKGS[standard]=	complete server client contrib plperl plpython pltcl docs
+
+OPTIONS_AVAILABLE=	NLS
+OPTIONS_STANDARD=	NLS
+OPT_ON[all]=		NLS
+
+LICENSE=		PostgreSQL:server
+LICENSE_FILE=		PostgreSQL:{{WRKSRC}}/COPYRIGHT
+LICENSE_SCHEME=		solo
+
+BROKEN_SSL=		openssl-devel
+
+BUILD_DEPENDS=		docbook-sgml:single:standard
+			docbook-dsssl:single:standard
+			openjade:single:standard
+			OpenSP:single:standard
+			zlib:complete:standard
+			libxslt:single:standard
+BUILDRUN_DEPENDS=	libxml2:single:standard
+
+EXRUN[server]=		postgresql${SUFFIX}:client:standard
+EXRUN[client]=		gettext:runtime:standard
+			ssl
+EXRUN[contrib]=		postgresql${SUFFIX}:client:standard
+			libxml2:single:standard
+			zlib:complete:standard
+			gettext:runtime:standard
+			ssl
+
+USERS=			${PG_USER}
+GROUPS=			${PG_GROUP}
+USERGROUP_SPKG=		server
+
+USES=			bison gmake perl:build tcl:build ssl python:build
+DISTNAME=		postgresql-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-libraries="{{PREFIX}}/lib"
+			--with-includes="{{PREFIX}}/include:{{TCL_INCLUDEDIR}}"
+			--with-tclconfig="{{TCL_LIBDIR}}"
+			--with-openssl
+			--with-libxml
+			--with-libxslt
+			--with-perl
+			--with-python
+			--with-tcl
+			--without-gssapi
+			{{TEMPLATE_ARG}}
+			{{UUID_ARG}}
+CONFIGURE_ENV=		PTHREAD_LIBS="-lpthread"
+			TCLSH="{{TCLSH}}"
+			pgac_cv_path_stylesheets={{PREFIX}}/share/sgml/docbook/dsssl/modular
+MAKE_ENV=		TCL_INCDIR="{{TCL_INCLUDEDIR}}"
+BUILD_TARGET=		world
+INSTALL_TARGET=		install-world
+LDFLAGS=		-lpthread
+RC_SUBR=		postgresql:server
+PLIST_SUB=		PGVER=${PORTVERSION:R}
+SUB_FILES=		502.pgsql
+SUB_LIST=		PG_GROUP=${PG_GROUP}
+			PG_USER=${PG_USER}
+			PG_UID=${PG_UID}
+
+[NLS].CONFIGURE_ENABLE_BOTH=		nls
+[NLS].USES_ON=				gettext-runtime gettext-tools
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/periodic/daily
+	${INSTALL_SCRIPT} ${WRKDIR}/502.pgsql \
+		${STAGEDIR}${PREFIX}/etc/periodic/daily
+	# install-world doesn't strip (and install-strip won't install enough)
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/postgresql/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/postgresql/pgxs/src/test/regress/pg_regress
+	list=$$(${LS} ${STAGEDIR}${PREFIX}/bin/* | ${GREP} -v pltcl_); \
+		${STRIP_CMD} $${list}
