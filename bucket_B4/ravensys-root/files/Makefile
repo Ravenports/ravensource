@@ -113,7 +113,13 @@ Usr_Bin_DragonFly= \
 		/usr/bin/which \
 		# end
 
+Usr_Sbin_DragonFly= \
+		/usr/sbin/pw \
+		/usr/sbin/pwd_mkdb
+		# end
+
 Usr_Bin_FreeBSD=	${Usr_Bin_DragonFly}
+Usr_Sbin_FreeBSD=	${Usr_Sbin_DragonFly}
 
 static_lib_generic=	/usr/lib/libc.a \
 			/usr/lib/libm.a \
@@ -304,12 +310,16 @@ install:
 		${DESTDIR}${BASE}/usr/include/netinet6 \
 		${DESTDIR}${BASE}/usr/include/machine \
 		${DESTDIR}${BASE}/usr/include/xlocale \
+		${DESTDIR}${BASE}/usr/sbin \
 		# end
 .for item in ${Bin_${OPSYS}}
 	${BSD_INSTALL_PROGRAM} ../${OPSYS:tl}${item} ${DESTDIR}${BASE}/bin/
 .endfor
 .for item in ${Usr_Bin_${OPSYS}}
 	${BSD_INSTALL_PROGRAM} ../${OPSYS:tl}${item} ${DESTDIR}${BASE}/usr/bin/
+.endfor
+.for item in ${Usr_Sbin_${OPSYS}}
+	${BSD_INSTALL_PROGRAM} ../${OPSYS:tl}${item} ${DESTDIR}${BASE}/usr/sbin/
 .endfor
 .for item in ${Libexec_${OPSYS}}
 	${BSD_INSTALL_PROGRAM} ../${OPSYS:tl}${item} ${DESTDIR}${BASE}/libexec/

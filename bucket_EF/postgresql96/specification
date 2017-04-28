@@ -1,4 +1,7 @@
 DEF[PORTVERSION]=	9.6.2
+DEF[PG_USER]=		pgsql
+DEF[PG_GROUP]=		pgsql
+DEF[PG_UID]=		80000
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		postgresql96
@@ -43,11 +46,9 @@ EXRUN[contrib]=		postgresql96:client:standard
 			gettext:runtime:standard
 			ssl
 
-# PG_USER=pgsql
-# PG_GROUP=pgsql
-# PG_UID=70
-# USERS
-# GROUPS
+USERS=			${PG_USER}
+GROUPS=			${PG_GROUP}
+USERGROUP_SPKG=		server
 
 USES=			bison gmake perl:build tcl:build ssl python:build
 DISTNAME=		postgresql-${PORTVERSION}
@@ -73,6 +74,9 @@ INSTALL_TARGET=		install-world
 LDFLAGS=		-lpthread
 RC_SUBR=		postgresql:server
 SUB_FILES=		502.pgsql
+SUB_LIST=		PG_GROUP=${PG_GROUP}
+			PG_USER=${PG_USER}
+			PG_UID=${PG_UID}
 
 [NLS].CONFIGURE_ENABLE_BOTH=		nls
 [NLS].USES_ON=				gettext-runtime gettext-tools
