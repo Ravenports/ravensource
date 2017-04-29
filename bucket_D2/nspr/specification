@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	4.14
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		nspr
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Platform-neutral API for system-like functions
+HOMEPAGE=		http://www.mozilla.org/projects/nspr/index.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		MOZILLA/nspr/releases/v${PORTVERSION}/src
+DISTFILE[1]=		nspr-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+USES=			cpe gmake
+DISTNAME=		nspr-${PORTVERSION}/nspr
+MUST_CONFIGURE=		gnu
+CPE_VENDOR=		mozilla
+CPE_PRODUCT=		netscape_portable_runtime
+
+post-patch:
+	# Do not install tools to build itself
+	@${REINPLACE_CMD} -e '/RELEASE_BINS/d' \
+		${WRKSRC}/pr/src/misc/Makefile.in
+
+post-install:
+	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so

@@ -1,0 +1,20 @@
+--- lib/freebl/Makefile.orig	2017-04-20 14:25:50 UTC
++++ lib/freebl/Makefile
+@@ -212,7 +212,7 @@ ifeq ($(CPU_ARCH),x86)
+ endif
+ endif # Darwin
+ 
+-ifeq ($(OS_TARGET),Linux)
++ifeq (,$(filter-out Linux DragonFly FreeBSD, $(OS_TARGET)))
+ ifeq ($(CPU_ARCH),x86_64)
+     ASFILES  = arcfour-amd64-gas.s mpi_amd64_gas.s
+     ASFLAGS += -fPIC -Wa,--noexecstack
+@@ -295,7 +295,7 @@ endif
+ # to bind the blapi function references in FREEBLVector vector
+ # (ldvector.c) to the blapi functions defined in the freebl
+ # shared libraries.
+-ifeq (,$(filter-out BSD_OS FreeBSD Linux NetBSD OpenBSD, $(OS_TARGET)))
++ifeq (,$(filter-out BSD_OS DragonFly FreeBSD Linux NetBSD OpenBSD, $(OS_TARGET)))
+     MKSHLIB += -Wl,-Bsymbolic
+ endif
+ 

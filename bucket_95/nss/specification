@@ -1,0 +1,104 @@
+DEF[PORTVERSION]=	3.30.2
+DEF[DIST]=		{{WRKDIR}}/nss-${PORTVERSION}/dist
+DEF[BINS_A]=		certcgi certutil cmsutil crlutil derdump makepqg mangle
+DEF[BINS_B]=		modutil ocspclnt oidcalc p7content p7env p7sign p7verify
+DEF[BINS_C]=		pk12util rsaperf shlibsign signtool signver ssltap
+DEF[BINS_D]=		strsclnt symkeyutil vfychain vfyserv
+DEF[INSTALL_BINS]=	${BINS_A} ${BINS_B} ${BINS_C} ${BINS_D}
+DEF[BINS]=		${DIST}/{{OPSYS}}{{OSREL}}_DBG.OBJ
+DEF[CERTDIR]=		share/certs
+DEF[CERTDATA_PATH]=	{{WRKSRC}}/lib/ckfw/builtins/certdata.txt
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		nss
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		standard
+SDESC[standard]=	Application security development libraries
+HOMEPAGE=		http://www.mozilla.org/projects/security/pki/nss/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		MOZILLA/security/nss/releases/NSS_${PORTVERSION:S/./_/g}_RTM/src
+DISTFILE[1]=		nss-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary caroot
+
+OPTIONS_AVAILABLE=	ETCSYMLINK
+OPTIONS_STANDARD=	ETCSYMLINK
+OPT_ON[all]=		ETCSYMLINK
+
+LICENSE=		MPL:primary
+LICENSE_FILE=		MPL:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		libressl:single:static
+BUILDRUN_DEPENDS=	nspr:single:standard
+			sqlite:single:standard
+			zlib:complete:standard
+
+USES=			cpe gmake perl:build
+DISTNAME=		nss-${PORTVERSION}/nss
+SINGLE_JOB=		yes
+CPE_VENDOR=		mozilla
+CPE_PRODUCT=		network_security_services
+MAKE_ENV=		LIBRARY_PATH="{{LOCALBASE}}/lib"
+			SQLITE_INCLUDE_DIR="{{LOCALBASE}}/include"
+			FREEBL_LOWHASH=1
+			NSS_DISABLE_GTESTS=1
+			NSS_USE_SYSTEM_SQLITE=1
+CFLAGS=			-I{{LOCALBASE}}/include/nspr
+LDFLAGS=		-Wl,-rpath,{{PREFIX}}/lib/nss
+SUB_FILES=		nss-config
+			nss.pc
+			pkg-message-caroot
+			MAca-bundle.pl
+SUB_LIST=		VERSION_NSS=${PORTVERSION}
+PLIST_SUB=		CERTDIR=${CERTDIR}
+
+[ETCSYMLINK].DESCRIPTION=		Add symlink to /etc/ssl/cert.pem
+
+
+post-patch:
+	@${REINPLACE_CMD} '/NSS_DEFAULT_SYSTEM/s,/etc,${PREFIX}&,' \
+		${WRKSRC}/lib/sysinit/nsssysinit.c
+	@cd ${WRKSRC} && \
+		${FIND} . -name "*.c" -o -name "*.h" | \
+		${XARGS} ${REINPLACE_CMD} -e 's|"nspr.h"|<nspr.h>|'
+	${FIND} ${WRKSRC}/tests -name '*.sh' | ${XARGS} ${GREP} -l -F '/bin/bash' | \
+		${XARGS} ${REINPLACE_CMD} -e 's|#! */bin/bash|#!${SH}|'
+	${REINPLACE_CMD} -e 's/@OS_RELEASE@/${OSREL}/' ${WRKSRC}/coreconf/arch.mk
+
+post-build:
+	${SETENV} ${MAKE_ENV} ${PERL} ${WRKDIR}/MAca-bundle.pl \
+		< ${CERTDATA_PATH} > ${WRKDIR}/ca-root-nss.crt
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/include/nss/nss \
+		${STAGEDIR}${PREFIX}/lib/nss \
+		${STAGEDIR}${PREFIX}/${CERTDIR} \
+		${STAGEDIR}${PREFIX}/etc/ssl \
+		${STAGEDIR}${PREFIX}/openssl
+	${FIND} ${DIST}/public/nss -type l \
+		-exec ${INSTALL_DATA} {} ${STAGEDIR}${PREFIX}/include/nss/nss \;
+	${INSTALL_LIB} ${BINS}/lib/*.so \
+		${STAGEDIR}${PREFIX}/lib/nss
+	${INSTALL_DATA} ${BINS}/lib/libcrmf.a \
+		${STAGEDIR}${PREFIX}/lib/nss
+.for bin in ${INSTALL_BINS}
+	${INSTALL_PROGRAM} ${BINS}/bin/${bin} \
+		${STAGEDIR}${PREFIX}/bin
+.endfor
+	${INSTALL_SCRIPT} ${WRKDIR}/nss-config ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_DATA} ${WRKDIR}/nss.pc ${STAGEDIR}${PREFIX}/lib/pkgconfig
+	# CA ROOT CERT
+	${INSTALL_DATA} ${WRKDIR}/ca-root-nss.crt ${STAGEDIR}${PREFIX}/${CERTDIR}
+	${LN} -sf ../../${CERTDIR}/ca-root-nss.crt \
+		${STAGEDIR}${PREFIX}/etc/ssl/cert.pem.sample
+	${LN} -sf ../${CERTDIR}/ca-root-nss.crt \
+		${STAGEDIR}${PREFIX}/openssl/cert.pem.sample
+
+post-install-ETCSYMLINK-ON:
+	@${MKDIR} ${STAGEDIR}/etc/ssl
+	${LN} -sf ${PREFIX}/${CERTDIR}/ca-root-nss.crt \
+		${STAGEDIR}/etc/ssl/cert.pem

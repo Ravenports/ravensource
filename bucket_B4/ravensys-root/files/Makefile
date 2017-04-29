@@ -24,6 +24,7 @@ Bin_DragonFly=	/bin/[ \
 		/bin/mkdir \
 		/bin/mv \
 		/bin/pax \
+		/bin/pwd \
 		/bin/realpath \
 		/bin/rm \
 		/bin/rmdir \
@@ -47,6 +48,7 @@ Bin_FreeBSD=	/bin/[ \
 		/bin/mkdir \
 		/bin/mv \
 		/bin/pax \
+		/bin/pwd \
 		/bin/realpath \
 		/bin/rm \
 		/bin/rmdir \
@@ -111,6 +113,7 @@ Usr_Bin_DragonFly= \
 		/usr/bin/uniq \
 		/usr/bin/wc \
 		/usr/bin/which \
+		/usr/bin/whoami \
 		# end
 
 Usr_Sbin_DragonFly= \
