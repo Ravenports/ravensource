@@ -1,0 +1,29 @@
+DEF[PORTVERSION]=	1.00
+DEF[ETCVER]=		0.7.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libexecinfo
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Backtrace Information Library
+HOMEPAGE=		none
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/elftoolchain/Sources/elftoolchain-${ETCVER}
+DISTFILE[1]=		elftoolchain-${ETCVER}.tgz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+USES=			cclibs:single
+
+DISTNAME=		libexecinfo
+MAKE_ENV=		TOOLCHAINDIR={{WRKDIR}}/elftoolchain-${ETCVER}
+
+post-extract:
+	@${MKDIR} ${WRKSRC}
+	${CP} ${FILESDIR}/* ${WRKSRC}

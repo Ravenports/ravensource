@@ -1,0 +1,28 @@
+DEF[PORTVERSION]=	2.1.8
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libevent
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	API for executing callbacks on events and timeouts
+HOMEPAGE=		http://libevent.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/libevent:libevent:release-${PORTVERSION}-stable
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+USES=			autoreconf libtool ssl
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-openssl
+			--enable-thread-support
+INSTALL_TARGET=		install-strip
+TEST_TARGET=		check
+LDFLAGS=		-L{{OPENSSLLIB}}
+CPPFLAGS=		-I{{OPENSSLINC}}

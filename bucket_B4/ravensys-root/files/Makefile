@@ -128,6 +128,7 @@ static_lib_generic=	/usr/lib/libc.a \
 			/usr/lib/libm.a \
 			/usr/lib/libutil.a \
 			/usr/lib/libcrypt.a \
+			/usr/lib/libkvm.a \
 			/usr/lib/libpthread.a
 static_lib_FreeBSD=	${static_lib_generic} \
 			/usr/lib/libusb.a \
@@ -142,6 +143,7 @@ dynamic_generic=	/lib/${libc} \
 			/lib/${libm} \
 			/lib/${libutil} \
 			/lib/${libcrypt} \
+			/lib/${libkvm} \
 			/usr/lib/libpthread.so
 dynamic_lib_FreeBSD=	${dynamic_generic} \
 			/usr/lib/${libusb} \
@@ -337,6 +339,7 @@ install:
 	(cd ${DESTDIR}${BASE}/usr/lib && \
 		ln -s ${libc} libc.so && \
 		ln -s ${libm} libm.so && \
+		ln -s ${libkvm} libkvm.so && \
 		ln -s ${libcrypt} libcrypt.so && \
 		ln -s ${libutil} libutil.so)
 .if ${OPSYS} == DragonFly || ${OPSYS} == FreeBSD

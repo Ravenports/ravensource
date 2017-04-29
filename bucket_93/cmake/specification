@@ -1,0 +1,79 @@
+DEF[PORTVERSION]=	3.8.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		cmake
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Cross-platform Makefile generator
+HOMEPAGE=		http://www.cmake.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.cmake.org/files/v${PORTVERSION:R}/
+DISTFILE[1]=		cmake-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/Copyright.txt
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		python-Sphinx:single:python_default
+BUILDRUN_DEPENDS=	curl:primary:standard
+			expat:complete:standard
+			jsoncpp:single:standard
+			libarchive:single:standard
+			libuv:single:standard
+			rhash:single:standard
+
+USES=			execinfo ncurses c++:single
+MUST_CONFIGURE=		yes
+CONFIGURE_ENV=		MAKE=make
+CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
+			--datadir="/share/cmake"
+			--docdir="/share/doc/cmake"
+			--mandir="/share/man"
+			--system-libs
+			--parallel={{MAKE_JOBS_NUMBER}}
+			--init="{{FILESDIR}}/InitialCache.cmake"
+			--sphinx-man
+INSTALL_TARGET=		install/strip
+
+post-patch:
+	${REINPLACE_CMD} -e "s@CYGWIN@true@g" \
+		${WRKSRC}/Modules/FindCurses.cmake
+	${REINPLACE_CMD} -e "s@<form.h>@<ncurses/form.h>@g" \
+		${WRKSRC}/Source/CursesDialog/ccmake.cxx \
+		${WRKSRC}/Source/CursesDialog/cmCursesStandardIncludes.h
+	@(${FIND} ${WRKSRC}/Modules -name "*.cmake" -print0; \
+		${FIND} ${WRKSRC}/Tests -name "CMakeLists.txt" -print0 ) | \
+		${XARGS} -0 -n 100 ${REINPLACE_CMD} -e 's,/usr/local,${LOCALBASE},g; \
+			s,/usr/X11R6,${LOCALBASE},g'
+	@${REINPLACE_CMD} -e 's,/usr/local,${LOCALBASE},g' \
+		${WRKSRC}/Source/cmLocalGenerator.cxx \
+		${WRKSRC}/Source/CPack/cmCPackGenerator.cxx \
+		${WRKSRC}/bootstrap
+	@${REINPLACE_CMD} -e 's,/opt/kde4,${PREFIX},g' \
+		${WRKSRC}/Modules/FindKDE4.cmake
+	@${REINPLACE_CMD} -e 's,/usr/include,${LOCALBASE}/include,' \
+		${WRKSRC}/Modules/FindDCMTK.cmake
+	@${FIND} ${WRKSRC} -name "*.bak" -delete -o -name "*.orig" -delete
+
+	# cmake-gui(1) will be installed by a separate port.  Remove the man page's
+	# source to prevent it from being built/installed by devel/cmake.
+	${RM} ${WRKSRC}/Help/manual/cmake-gui.1.rst
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/cmake \
+		${STAGEDIR}${PREFIX}/share/emacs/site-lisp
+	(cd ${WRKSRC} && \
+		${COPYTREE_SHARE} Modules ${STAGEDIR}${PREFIX}/share/cmake)
+	(cd ${WRKSRC} && \
+		${COPYTREE_SHARE} Templates ${STAGEDIR}${PREFIX}/share/cmake)
+	${INSTALL_DATA} ${WRKSRC}/Auxiliary/cmake-mode.el \
+		${STAGEDIR}${PREFIX}/share/emacs/site-lisp/
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}
