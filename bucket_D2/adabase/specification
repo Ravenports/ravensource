@@ -1,0 +1,72 @@
+DEF[PORTVERSION]=	3.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		adabase
+VERSION=		${PORTVERSION}
+KEYWORDS=		databases ada
+VARIANTS=		standard
+SDESC[standard]=	Thick database bindings for Ada
+HOMEPAGE=		http://jrmarino.github.io/AdaBase/
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/jrmarino:AdaBase:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	MYSQL SQLITE PGSQL DEBUG
+OPTIONS_STANDARD=	MYSQL SQLITE PGSQL DEBUG
+OPT_ON[all]=		MYSQL SQLITE PGSQL
+
+LICENSE=		ISCL:single
+LICENSE_FILE=		ISCL:{{WRKSRC}}/License.txt
+LICENSE_SCHEME=		solo
+
+BROKEN[aarch64]=	fails to install: digits value out of range, maximum is 15
+
+USES=			gprbuild
+MAKE_ENV=		OS_VERSION=unix
+
+[MYSQL].DESCRIPTION=			MySQL database support
+[PGSQL].DESCRIPTION=			PostgreSQL database support
+[SQLITE].DESCRIPTION=			SQLite database support
+[DEBUG].DESCRIPTION=			Build with debugging support
+
+[SQLITE].MAKE_ENV_ON=			SQLITE=yes
+[SQLITE].USES_ON=			sqlite
+[SQLITE].MAKEFILE_ON=			DRVSQLITE=yes
+[SQLITE].MAKEFILE_OFF=			DRVSQLITE=no
+
+[MYSQL].MAKE_ENV_ON=			MYSQL=yes
+[MYSQL].USES_ON=			mysql
+[MYSQL].MAKEFILE_ON=			DRVMYSQL=yes
+[MYSQL].MAKEFILE_OFF=			DRVMYSQL=no
+
+[PGSQL].MAKE_ENV_ON=			POSTGRESQL=yes
+[PGSQL].USES_ON=			pgsql
+[PGSQL].MAKEFILE_ON=			DRVPGSQL=yes
+[PGSQL].MAKEFILE_OFF=			DRVPGSQL=no
+
+[DEBUG].MAKE_ENV_ON=			DEBUGSYM=yes
+
+post-patch:
+	${RM} ${WRKSRC}/src/drivers/adabase-driver-base-firebird.ad?
+	${REINPLACE_CMD} -e '/Driver_MySQL/ s/yes/no/' \
+		${WRKSRC}/adabase.gpr
+
+do-build:
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -p -P adabase)
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/include/adabase \
+		${STAGEDIR}${PREFIX}/lib/adabase \
+		${STAGEDIR}${PREFIX}/lib/gnat
+	${INSTALL_DATA} ${WRKSRC}/lib/* ${STAGEDIR}${PREFIX}/lib/adabase
+	${INSTALL_DATA} ${WRKSRC}/src/*/*.ad[bs] ${WRKSRC}/src/adabase.ads \
+		${STAGEDIR}${PREFIX}/include/adabase
+	${SED} -e "s|@PREFIX@|${PREFIX}|" \
+	       -e "s|@MYSQL@|${DRVMYSQL}|" \
+	       -e "s|@PGSQL@|${DRVPGSQL}|" \
+	       -e "s|@SQLITE@|${DRVSQLITE}|" ${WRKSRC}/adabase.gpr.in > \
+		${STAGEDIR}${PREFIX}/lib/gnat/adabase.gpr
