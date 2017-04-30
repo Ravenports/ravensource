@@ -97,15 +97,11 @@ post-extract:
 	@${RM} -rv ${WRKSRC}/sql/sql_hints.yy.cc ${WRKSRC}/sql/sql_hints.yy.h
 
 post-install:
-# ${REINPLACE_CMD} -i "" -e "s|-lssl|-L${LOCALBASE}/lib -lssl|" \
-# ${STAGEDIR}${PREFIX}/bin/mysql_config
-
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/mysql/keyring \
 		${STAGEDIR}${MY_SECDIR} \
 		${STAGEDIR}${MY_TMPDIR}
 	${INSTALL_DATA} ${WRKDIR}/my.cnf.sample \
 		${STAGEDIR}${PREFIX}/etc/mysql/my.cnf.sample
-	${RM} -r ${STAGEDIR}${PREFIX}/data
 
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/lib*.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/plugin/*.so
