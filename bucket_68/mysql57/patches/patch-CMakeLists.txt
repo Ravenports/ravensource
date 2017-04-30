@@ -1,0 +1,34 @@
+--- CMakeLists.txt.orig	2016-11-28 13:32:52 UTC
++++ CMakeLists.txt
+@@ -622,7 +622,6 @@ IF(NOT WITHOUT_SERVER)
+   OPTION (WITH_EMBEDDED_SERVER "Compile MySQL with embedded server" OFF)
+   IF(WITH_EMBEDDED_SERVER) 
+    ADD_SUBDIRECTORY(libmysqld)
+-   ADD_SUBDIRECTORY(libmysqld/examples)
+   ENDIF(WITH_EMBEDDED_SERVER)
+ ENDIF()
+ 
+@@ -680,7 +679,6 @@ ELSE()
+   SET(CPACK_GENERATOR "TGZ")
+ ENDIF() 
+ ADD_SUBDIRECTORY(packaging/WiX)
+-ADD_SUBDIRECTORY(packaging/solaris)
+ 
+ IF(UNIX)
+   INSTALL(FILES Docs/mysql.info DESTINATION ${INSTALL_INFODIR} OPTIONAL COMPONENT Info)
+@@ -688,6 +686,7 @@ ENDIF()
+ #
+ # RPM installs documentation directly from the source tree
+ #
++IF(FALSE)
+ IF(NOT INSTALL_LAYOUT MATCHES "RPM")
+   INSTALL(FILES COPYING LICENSE.mysql 
+   DESTINATION ${INSTALL_DOCREADMEDIR} 
+@@ -710,6 +709,7 @@ IF(NOT INSTALL_LAYOUT MATCHES "RPM")
+     PATTERN "sp-imp-spec.txt" EXCLUDE
+   )
+ ENDIF()
++ENDIF()
+ 
+ INCLUDE(CPack)
+ 

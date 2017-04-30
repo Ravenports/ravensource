@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	20170329-3.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libedit
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Command line editor library
+HOMEPAGE=		http://thrysoee.dk/editline/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://thrysoee.dk/editline/
+DISTFILE[1]=		libedit-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+USES=			libtool ncurses
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-widec
+INSTALL_TARGET=		install-strip
+CPPFLAGS=		-I{{NCURSESINC}}
+LDFLAGS=		-L{{NCURSESLIB}}
+
+post-patch:
+	${REINPLACE_CMD} -e 's|LIBS="-lncurses |LIBS="-lncurses -ltinfo|' \
+		${WRKSRC}/configure
+
+post-install:
+	${MV} ${STAGEDIR}${MANPREFIX}/man/man3/history.3 \
+		${STAGEDIR}${MANPREFIX}/man/man3/el_history.3
