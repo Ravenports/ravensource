@@ -1,0 +1,119 @@
+DEF[PORTVERSION]=	EXTRACT_VERSION(MYSQL_oracle-5.6_VERSION)
+DEF[MYSQL_RELEASE]=	${PORTVERSION:R}
+DEF[SUFFIX]=		${MYSQL_RELEASE:S/.//g}
+DEF[MY_DBDIR]=		/var/db/mysql
+DEF[MY_SECDIR]=		/var/db/mysql_secure
+DEF[MY_TMPDIR]=		/var/db/mysql_tmpdir
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mysql${SUFFIX}
+VERSION=		${PORTVERSION}
+KEYWORDS=		databases
+VARIANTS=		standard
+SDESC[standard]=	Multithreaded SQL database (server)
+HOMEPAGE=		http://www.mysql.com/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		MYSQL/MySQL-${MYSQL_RELEASE}
+DISTFILE[1]=		mysql-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete server client
+
+OPTIONS_AVAILABLE=	ARCHIVE BLACKHOLE EXAMPLE FEDERATED INNOBASE PARTITION PERFSCHEMA PERFORMANCE
+OPTIONS_STANDARD=	ARCHIVE BLACKHOLE EXAMPLE FEDERATED INNOBASE PARTITION PERFSCHEMA PERFORMANCE
+OPT_ON[all]=		PERFORMANCE
+
+LICENSE=		GPLv2:server
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/README
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		libevent:single:standard
+			libedit:single:standard
+EXRUN[client]=		libedit:single:standard
+
+USES=			bison cmake:outsource perl:run shebangfix ssl:build c++:server,client
+DISTNAME=		mysql-${PORTVERSION}
+SHEBANG_FILES=		scripts/*.pl*
+			scripts/*.sh
+CMAKE_BUILD_TYPE=	Release
+CMAKE_ARGS=		-DINSTALL_DOCDIR="share/doc/mysql"
+			-DINSTALL_DOCREADMEDIR="share/doc/mysql"
+			-DINSTALL_INCLUDEDIR="include/mysql"
+			-DINSTALL_INFODIR="share/info"
+			-DINSTALL_LIBDIR="lib/mysql"
+			-DINSTALL_MANDIR="share/man"
+			-DINSTALL_MYSQLDATADIR="${MY_DBDIR}"
+			-DINSTALL_MYSQLSHAREDIR="share/mysql"
+			-DINSTALL_MYSQLTESTDIR="share/mysql/tests"
+			-DINSTALL_PLUGINDIR="lib/mysql/plugin"
+			-DINSTALL_SBINDIR="libexec"
+			-DINSTALL_SCRIPTDIR="bin"
+			-DINSTALL_SECURE_FILE_PRIVDIR="${MY_SECDIR}"
+			-DINSTALL_SHAREDIR="share"
+			-DINSTALL_SUPPORTFILESDIR="share/mysql"
+			-DWITH_EDITLINE=system
+			-DWITH_LIBEVENT=system
+			-DWITH_ZLIB=system
+			-DWITH_SSL={{OPENSSLBASE}}
+			-DWITH_EMBEDDED_SERVER="ON"
+			-DINSTALL_MYSQLTESTDIR=0
+CFLAGS=			-Wno-deprecated-declarations
+SUB_FILES=		my.cnf.sample
+SUB_LIST=		MY_DBDIR=${MY_DBDIR}
+			MY_SECDIR=${MY_SECDIR}
+			MY_TMPDIR=${MY_TMPDIR}
+PLIST_SUB=		MY_DBDIR=${MY_DBDIR}
+			MY_SECDIR=${MY_SECDIR}
+			MY_TMPDIR=${MY_TMPDIR}
+RC_SUBR=		mysql-server:server
+USERS=			mysql
+GROUPS=			mysql
+USERGROUP_SPKG=		server
+
+[ARCHIVE].DESCRIPTION=			Compile "Archive Storage" statically in server
+[BLACKHOLE].DESCRIPTION=		Compile "Blackhole Storage" statically in server
+[EXAMPLE].DESCRIPTION=			Compile "Example Storage" statically in server
+[FEDERATED].DESCRIPTION=		Compile "Federated Storage" statically in server
+[INNOBASE].DESCRIPTION=			Compile "InnoDB Storage" statically in server
+[PARTITION].DESCRIPTION=		Compile "Partitioning support Storage" statically in server
+[PERFSCHEMA].DESCRIPTION=		Compile "Performance Schema Storage" statically in server
+[PERFORMANCE].DESCRIPTION=		Enable "Performance Schema" by default (High RAM usage)
+
+[ARCHIVE].CMAKE_ARGS_ON=		-DWITH_ARCHIVE_STORAGE_ENGINE=1
+[BLACKHOLE].CMAKE_ARGS_ON=		-DWITH_BLACKHOLE_STORAGE_ENGINE=1
+[EXAMPLE].CMAKE_ARGS_ON=		-DWITH_EXAMPLE_STORAGE_ENGINE=1
+[FEDERATED].CMAKE_ARGS_ON=		-DWITH_FEDERATED_STORAGE_ENGINE=1
+[INNOBASE].CMAKE_ARGS_ON=		-DWITH_INNOBASE_STORAGE_ENGINE=1
+[PARTITION].CMAKE_ARGS_ON=		-DWITH_PARTITION_STORAGE_ENGINE=1
+[PERFSCHEMA].CMAKE_ARGS_ON=		-DWITH_PERFSCHEMA_STORAGE_ENGINE=1
+
+[PERFORMANCE].SUB_LIST_ON=		PERFSCHEMRC=""
+[PERFORMANCE].SUB_LIST_OFF=		PERFSCHEMRC="--skip-performance-schema"
+[FEDERATED].SUB_LIST_ON=		FEDER="--federated"
+[FEDERATED].SUB_LIST_OFF=		FEDER=""
+
+post-extract:
+	@${RM} -rv ${WRKSRC}/sql/sql_hints.yy.cc ${WRKSRC}/sql/sql_hints.yy.h
+
+post-install:
+# ${REINPLACE_CMD} -i "" -e "s|-lssl|-L${LOCALBASE}/lib -lssl|" \
+# ${STAGEDIR}${PREFIX}/bin/mysql_config
+
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/mysql/keyring \
+		${STAGEDIR}${MY_SECDIR} \
+		${STAGEDIR}${MY_TMPDIR}
+	${INSTALL_DATA} ${WRKDIR}/my.cnf.sample \
+		${STAGEDIR}${PREFIX}/etc/mysql/my.cnf.sample
+	${RM} -r ${STAGEDIR}${PREFIX}/data
+
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/lib*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/plugin/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/mysqld
+.for dossier in innochecksum my_print_defaults myisam_ftdump myisamchk \
+	myisamlog myisampack mysql_plugin mysql_tzinfo_to_sql mysql_upgrade \
+	mysqltest perror replace resolve_stack_dump resolveip mysql \
+	mysql_config_editor mysql_waitpid mysqladmin mysqlbinlog mysqlcheck \
+	mysqldump mysqlimport mysqlshow mysqlslap
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${dossier}
+.endfor
