@@ -1,0 +1,31 @@
+DEF[PORTVERSION]=	1.50
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		genpatch
+VERSION=		${PORTVERSION}
+KEYWORDS=		raven devel
+VARIANTS=		standard
+SDESC[standard]=	Single patch generator tool for Ravenports
+HOMEPAGE=		none
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		none
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+SKIP_BUILD=		yes
+
+do-install:
+	${INSTALL_SCRIPT} ${FILESDIR}/portfix  ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_SCRIPT} ${FILESDIR}/genpatch ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_SCRIPT} ${FILESDIR}/dupe     ${STAGEDIR}${PREFIX}/bin
+	(cd ${FILESDIR} && ${INSTALL_MAN} dupe.1 genpatch.1 portfix.1 \
+		${STAGEDIR}${MANPREFIX}/man/man1)

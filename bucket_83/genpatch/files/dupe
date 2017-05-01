@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# Usage: dupe origfile
+#
+# This will make a duplicate of the file indicate by the first argument.
+# If <origfile>.orig does not exist, the duplicate will have this name,
+# otherwise it will be called <origfile>.intermediate.
+# This is a complementary tool of genpatch
+
+if [ $# -eq 1 ]; then
+	old=${1}
+	if [ ! -f ${old} ]; then
+		echo "${0}: '${old}' does not exist! aborting..."
+		exit 1;
+	fi
+	if [ -f "${old}.orig" ]; then
+		new="${old}.intermediate"
+	else
+		new="${old}.orig"
+	fi
+else
+	echo "${0}: need exactly one argument"
+	echo "${0} <path/to/original/file>"
+	exit 1;
+fi
+
+cp -p ${old} ${new}
