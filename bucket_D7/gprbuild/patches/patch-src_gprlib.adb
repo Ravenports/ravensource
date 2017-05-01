@@ -1,6 +1,6 @@
---- src/gprlib.adb.orig	2016-12-23 15:59:49.000000000 +0000
-+++ src/gprlib.adb	2017-04-13 22:45:53.000000000 +0000
-@@ -413,6 +413,11 @@
+--- src/gprlib.adb.orig	2016-12-23 15:59:49 UTC
++++ src/gprlib.adb
+@@ -413,6 +413,11 @@ procedure Gprlib is
  
     Separate_Run_Path_Options : Boolean := False;
  
@@ -12,7 +12,7 @@
     Rpath : String_List_Access := null;
     --  Allocated only if Path Option is supported
  
-@@ -908,7 +913,7 @@
+@@ -908,7 +913,7 @@ procedure Gprlib is
           Library_Switches_Table.Append
             (new String'("-L" & Imported_Library_Directories.Table (J).all));
  
@@ -21,7 +21,18 @@
              Add_Rpath (Imported_Library_Directories.Table (J));
           end if;
  
-@@ -2160,7 +2165,12 @@
+@@ -1720,10 +1725,6 @@ procedure Gprlib is
+ 
+                if Is_Regular_File (Object_Path.all) then
+                   Object_Files.Append (Object_Path);
+-               else
+-                  Fail_Program
+-                    (null,
+-                     "unknown object file """ & Object_Path.all & """");
+                end if;
+             end;
+          end loop;
+@@ -2160,7 +2161,12 @@ procedure Gprlib is
                    Use_GNAT_Lib := False;
                 end if;
  
@@ -35,7 +46,7 @@
  
              when Gprexch.Library_Rpath_Options =>
                 Library_Rpath_Options_Table.Append
-@@ -2295,10 +2305,10 @@
+@@ -2295,10 +2301,10 @@ procedure Gprlib is
  
                       Libgnat :=
                         new String'
