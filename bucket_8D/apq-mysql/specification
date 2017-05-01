@@ -1,0 +1,71 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(APQ_VERSION)
+DEF[PORTREVISION]=	EXTRACT_INFO(APQ_MYSQL_REVISION)
+DEF[WRKPATH]=		{{WRKDIR}}/build
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		apq-mysql
+VERSION=		${PORTVERSION}
+REVISION=		${PORTREVISION}
+KEYWORDS=		databases ada
+VARIANTS=		standard
+SDESC[standard]=	APQ Ada95 MySQL database driver
+HOMEPAGE=		https://bitbucket.org/kowframework/apq-mysql
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		FREELOCAL/marino
+DISTFILE[1]=		apq-mysql-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:single GMGPL:single
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/GMPGL_LICENSE
+			GMGPL:{{WRKSRC}}/GMGPL_LICENSE
+LICENSE_SCHEME=		multi
+
+# BROKEN_MYSQL=		oracle-5.5 oracle-5.7
+# Since this is broken on 2 of the 3 supported MySQL-oracle releases,
+# just hardcode a build dependency on mysql 5.6 rather than USES=mysql
+
+BUILD_DEPENDS=		bash:primary:standard
+			mysql56:client:standard
+BUILDRUN_DEPENDS=	apq-base:single:standard
+
+USES=			gprbuild
+MUST_CONFIGURE=		yes
+CONFIGURE_ARGS=		--prefix={{PREFIX}}
+			--disable-relocatable
+			--work-path=${WRKPATH}
+			--processors={{MAKE_JOBS_NUMBER}}
+
+post-extract:
+	${AWK} '/^$$/ {exit}; {print}' ${WRKSRC}/src/apq-mysql-client.ads \
+		> ${WRKDIR}/GMGPL_LICENSE
+
+post-patch:
+	@${REINPLACE_CMD} -e '/for Object_Dir/d' \
+		${WRKSRC}/src-in/apq-mysql.gpr.in
+	${REINPLACE_CMD} -e 's|processors=2|gprbuild_params="--autoconf=apq.cgpr"|' \
+		${WRKSRC}/configure
+	${REINPLACE_CMD} -e 's|-ws|-ws --autoconf=dummy.cgpr|' \
+		${WRKSRC}/scripts/buildutil.sh
+
+post-configure:
+	# The header generated with MySQL 5.6 comes with two instances of
+	# double underscore variables, which is illegal in Ada
+	${SED} -i'' -e 's|__|_|' \
+		${WRKDIR}/build/include/apq-mysql/apq-mysql.ads
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gnat \
+		${STAGEDIR}${PREFIX}/lib/apq-mysql/static \
+		${STAGEDIR}${PREFIX}/include/apq-mysql
+	${INSTALL_DATA} ${WRKPATH}/include/apq-mysql/* \
+		${STAGEDIR}${PREFIX}/include/apq-mysql
+	${INSTALL_DATA} ${WRKPATH}/lib/apq-mysql/static/*.a* \
+		${STAGEDIR}${PREFIX}/lib/apq-mysql/static
+	${INSTALL_DATA} ${WRKPATH}/lib/gnat/apq-mysql.gpr \
+		${STAGEDIR}${PREFIX}/lib/gnat

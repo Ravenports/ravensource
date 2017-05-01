@@ -1,0 +1,61 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(APQ_VERSION)
+DEF[PORTREVISION]=	EXTRACT_INFO(APQ_PGSQL_REVISION)
+DEF[WRKPATH]=		{{WRKDIR}}/build
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		apq-pgsql
+VERSION=		${PORTVERSION}
+REVISION=		${PORTREVISION}
+KEYWORDS=		databases ada
+VARIANTS=		standard
+SDESC[standard]=	APQ Ada95 MySQL database driver
+HOMEPAGE=		https://bitbucket.org/kowframework/apq-postgresql
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		FREELOCAL/marino
+DISTFILE[1]=		apq-pgsql-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:single GMGPL:single
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/GMPGL_LICENSE
+			GMGPL:{{WRKSRC}}/GMGPL_LICENSE
+LICENSE_SCHEME=		multi
+
+BUILD_DEPENDS=		bash:primary:standard
+BUILDRUN_DEPENDS=	apq-base:single:standard
+
+USES=			gprbuild pgsql:client,build
+MUST_CONFIGURE=		yes
+CONFIGURE_ARGS=		--prefix={{PREFIX}}
+			--disable-relocatable
+			--work-path=${WRKPATH}
+			--processors={{MAKE_JOBS_NUMBER}}
+
+post-extract:
+	${AWK} '/^$$/ {exit}; {print}' ${WRKSRC}/src/apq-postgresql-client.ads \
+		> ${WRKDIR}/GMGPL_LICENSE
+
+post-patch:
+	${RM} ${WRKSRC}/src/*.orig
+	@${REINPLACE_CMD} -e '/for Object_Dir/d' \
+		${WRKSRC}/src-in/apq-postgresql.gpr.in
+	${REINPLACE_CMD} -e 's|processors=2|gprbuild_params="--autoconf=apq.cgpr"|' \
+		${WRKSRC}/configure
+	${REINPLACE_CMD} -e 's|-ws|-ws --autoconf=dummy.cgpr|' \
+		${WRKSRC}/scripts/buildutil.sh
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gnat \
+		${STAGEDIR}${PREFIX}/lib/apq-postgresql/static \
+		${STAGEDIR}${PREFIX}/include/apq-postgresql
+	${INSTALL_DATA} ${WRKPATH}/include/apq-postgresql/* \
+		${STAGEDIR}${PREFIX}/include/apq-postgresql
+	${INSTALL_DATA} ${WRKPATH}/lib/apq-postgresql/static/*.a* \
+		${STAGEDIR}${PREFIX}/lib/apq-postgresql/static
+	${INSTALL_DATA} ${WRKPATH}/lib/gnat/apq-postgresql.gpr \
+		${STAGEDIR}${PREFIX}/lib/gnat

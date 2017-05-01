@@ -1,0 +1,64 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(APQ_VERSION)
+DEF[PORTREVISION]=	EXTRACT_INFO(APQ_ODBC_REVISION)
+DEF[WRKPATH]=		{{WRKDIR}}/build
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		apq-odbc
+VERSION=		${PORTVERSION}
+REVISION=		${PORTREVISION}
+KEYWORDS=		databases ada
+VARIANTS=		standard
+SDESC[standard]=	APQ Ada95 ODBC database driver
+HOMEPAGE=		https://bitbucket.org/kowframework/apq-odbc
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		FREELOCAL/marino
+DISTFILE[1]=		apq-odbc-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:single GMGPL:single
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/GMPGL_LICENSE
+			GMGPL:{{WRKSRC}}/GMGPL_LICENSE
+LICENSE_SCHEME=		multi
+
+BUILD_DEPENDS=		bash:primary:standard
+BUILDRUN_DEPENDS=	apq-base:single:standard
+			unixODBC:primary:standard
+
+USES=			gprbuild
+MUST_CONFIGURE=		yes
+CONFIGURE_ARGS=		--prefix={{PREFIX}}
+			--disable-relocatable
+			--work-path=${WRKPATH}
+			--processors={{MAKE_JOBS_NUMBER}}
+
+post-extract:
+	${RM} ${WRKSRC}/src/test.adb
+	${ECHO} ${PORTVERSION} > ${WRKSRC}/version
+	${AWK} '/^$$/ {exit}; {print}' ${WRKSRC}/src/apq-odbc.ads \
+		> ${WRKDIR}/GMGPL_LICENSE
+
+post-patch:
+	${RM} ${WRKSRC}/src/*.orig
+	${REINPLACE_CMD} -e 's|"-march=x86-64",||g' -e '/for Object_Dir/d' \
+		${WRKSRC}/gnat/apq-odbc.gpr.in
+	${REINPLACE_CMD} -e 's|processors=2|gprbuild_params="--autoconf=apq.cgpr"|' \
+		${WRKSRC}/configure
+	${REINPLACE_CMD} -e 's|-ws|-ws --autoconf=dummy.cgpr|' \
+		${WRKSRC}/scripts/buildutil.sh
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gnat \
+		${STAGEDIR}${PREFIX}/lib/apq-odbc/static \
+		${STAGEDIR}${PREFIX}/include/apq-odbc
+	${INSTALL_DATA} ${WRKPATH}/src/apq-odbc/* \
+		${STAGEDIR}${PREFIX}/include/apq-odbc
+	${INSTALL_DATA} ${WRKPATH}/lib/apq-odbc/static/*.a* \
+		${STAGEDIR}${PREFIX}/lib/apq-odbc/static
+	${INSTALL_DATA} ${WRKPATH}/lib/gnat/apq-odbc.gpr \
+		${STAGEDIR}${PREFIX}/lib/gnat
