@@ -1,0 +1,11 @@
+--- src/src.gpr.orig	2015-06-22 10:52:10 UTC
++++ src/src.gpr
+@@ -68,7 +68,7 @@ library project Src is
+             when "Windows_NT" =>
+                for Library_Options use ("-lwsock32", "-lws2_32");
+             when others =>
+-               null;
++               for Library_Options use ("-R", "-Wl,-R,@ADDITIONAL_RPATH@");
+          end case;
+ 
+          case Shared.LDAP is

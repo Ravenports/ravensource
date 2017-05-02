@@ -1,0 +1,95 @@
+DEF[PORTVERSION]=	17.1
+DEF[ADDL_RPATH]=	{{LOCALBASE}}/lib:{{LOCALBASE}}/lib/aws/native/relocatable
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		aws
+VERSION=		${PORTVERSION}
+KEYWORDS=		www ada
+VARIANTS=		standard
+SDESC[standard]=	Adacore Ada Web Server and framework
+HOMEPAGE=		http://libre.adacore.com/libre/tools/aws/
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main tparser
+SITES[main]=		GITHUB/Adacore:aws:${PORTVERSION}
+SITES[tparser]=		GITHUB/Adacore:templates-parser:${PORTVERSION}:templates_parser
+DISTFILE[1]=		generated:main
+DISTFILE[2]=		generated:tparser
+DF_INDEX=		1 2
+
+SPKGS[standard]=	complete primary examples docs
+
+OPTIONS_AVAILABLE=	SHARED IPV6 DEBUG
+OPTIONS_STANDARD=	SHARED IPV6 DEBUG
+OPT_ON[all]=		SHARED
+
+BUILD_DEPENDS=		python-Sphinx:single:python_default
+			python-GNATPython:single:py27
+			asis:primary:standard
+BUILDRUN_DEPENDS=	xmlada:primary:standard
+			zlib:complete:standard
+
+USES=			ada:primary gmake gprbuild python:py27,build shebangfix ssl
+SHEBANG_FILES=		tools/awsascb
+INSTALL_REQ_TOOLCHAIN=	yes
+MUST_CONFIGURE=		yes
+CONFIGURE_ARGS=		prefix={{PREFIX}}
+			DEFAULT_LIBRARY_TYPE=static
+			PROCESSORS={{MAKE_JOBS_NUMBER}}
+			GCC=ada
+			PYTHON=python{{PYTHON_VER}}
+			XMLADA=true
+			SOCKET=openssl
+			LPATH={{OPENSSLLIB}}
+			ZPATH={{LOCALBASE}}/lib
+			ZLIB=true
+			ASIS=true
+
+[SHARED].DESCRIPTION=			Build shared libraries in addition to static ones
+[IPV6].DESCRIPTION=			Support IPv6 instead of IPv4
+[DEBUG].DESCRIPTION=			Build as development project rather than release
+
+[SHARED].CONFIGURE_ARGS_ON=		ENABLE_SHARED=true
+[SHARED].CONFIGURE_ARGS_OFF=		ENABLE_SHARED=false
+[DEBUG].CONFIGURE_ARGS_ON=		DEBUG=true
+[IPV6].CONFIGURE_ARGS_ON=		IPv6=true
+[IPV6].MAKEFILE_ON=			NAME_IP6=
+					NAME_IP4=--
+[IPV6].MAKEFILE_OFF=			NAME_IP6=--
+					NAME_IP4=
+
+post-patch:
+	@${REINPLACE_CMD} \
+		-e 's|@ADDITIONAL_RPATH@|${ADDL_RPATH}|' \
+		${WRKSRC}/src/src.gpr \
+		${WRKSRC}/include/include.gpr
+	@${REINPLACE_CMD} -e 's|latexpdf||' ${WRKSRC}/Makefile
+
+do-configure:
+	(cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} \
+		${MAKE_CMD} setup ${CONFIGURE_ARGS})
+
+do-build:
+	# We cannot use a redefined ALL_TARGET because MAKE_JOBS_SAFE is set
+	# for PROCESSORS, but that also sets -j for gmake which breaks build
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		${MAKE_CMD} ${MAKE_ARGS} build build-doc)
+
+post-install:
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
+	${RM} ${STAGEDIR}${PREFIX}/include/aws.relocatable/Makefile
+	${RM} ${STAGEDIR}${PREFIX}/include/aws/Makefile
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gnat \
+		${STAGEDIR}${PREFIX}/share/gps/plug-ins
+	${CAT} ${FILESDIR}/aws.gpr.in | ${SED} -e 's|@PREFIX@|${PREFIX}|g' \
+		-e 's|@SSL@||g' \
+		-e 's|@TLS@|--|g' \
+		-e 's|@LDP@|--|g' \
+		-e 's|@STD@|--|g' \
+		-e 's|@IP4@|${NAME_IP4}|g' \
+		-e 's|@IP6@|${NAME_IP6}|g' \
+		> ${STAGEDIR}${PREFIX}/lib/gnat/aws.gpr
+	cd ${WRKSRC}/gps && ${INSTALL_DATA} *.xml aws.py \
+		${STAGEDIR}${PREFIX}/share/gps/plug-ins
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libaws.so \
+		${STAGEDIR}${PREFIX}/lib/aws.relocatable/libaws.so
