@@ -21,18 +21,18 @@
              Add_Rpath (Imported_Library_Directories.Table (J));
           end if;
  
-@@ -1720,10 +1725,6 @@ procedure Gprlib is
- 
+@@ -1721,9 +1726,7 @@ procedure Gprlib is
                 if Is_Regular_File (Object_Path.all) then
                    Object_Files.Append (Object_Path);
--               else
+                else
 -                  Fail_Program
 -                    (null,
 -                     "unknown object file """ & Object_Path.all & """");
++                  Put_Line ("WARNING: unknown object """ & Object_Path.all & """");
                 end if;
              end;
           end loop;
-@@ -2160,7 +2161,12 @@ procedure Gprlib is
+@@ -2160,7 +2163,12 @@ procedure Gprlib is
                    Use_GNAT_Lib := False;
                 end if;
  
@@ -46,7 +46,7 @@
  
              when Gprexch.Library_Rpath_Options =>
                 Library_Rpath_Options_Table.Append
-@@ -2295,10 +2301,10 @@ procedure Gprlib is
+@@ -2295,10 +2303,10 @@ procedure Gprlib is
  
                       Libgnat :=
                         new String'

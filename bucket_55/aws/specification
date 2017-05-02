@@ -70,10 +70,15 @@ do-configure:
 		${MAKE_CMD} setup ${CONFIGURE_ARGS})
 
 do-build:
-	# We cannot use a redefined ALL_TARGET because MAKE_JOBS_SAFE is set
+	# We cannot use a redefined BUILD_TARGET because MAKE_JOBS_SAFE is set
 	# for PROCESSORS, but that also sets -j for gmake which breaks build
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${MAKE_CMD} ${MAKE_ARGS} build build-doc)
+
+do-test:
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		GPR_PROJECT_PATH="${STAGEDIR}${PREFIX}/lib/gnat:${LOCALBASE}/lib/gnat" \
+		${MAKE_CMD} ${CONFIGURE_ARGS} run_regtests)
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
