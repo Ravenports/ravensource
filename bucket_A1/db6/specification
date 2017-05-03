@@ -27,7 +27,7 @@ LICENSE=		AGPLv3:shared
 LICENSE_FILE=		AGPLv3:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
-USES=			gmake libtool
+USES=			gmake libtool cclibs:shared
 DISTNAME=		db-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 CONFIGURE_OUTSOURCE=	yes
@@ -57,7 +57,6 @@ MAKE_ARGS=		docdir={{STD_DOCDIR}}
 [TCL].CONFIGURE_ARGS_ON=		--with-tcl={{TCL_LIBDIR}}
 [TCL].CONFIGURE_ARGS_OFF=		--disable-tcl
 
-[JAVA].DESCRIPTION=			Java support
 [JAVA].CONFIGURE_ENABLE_BOTH=		java
 [JAVA].CPPFLAGS_ON=			-I"{{JAVA_HOME}}/include"
 [JAVA].CONFIGURE_ENV_ON=		JAVAC="{{JAVAC}}"

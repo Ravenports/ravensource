@@ -23,11 +23,11 @@ SPKGS[chinese]=		core
 SPKGS[russian]=		core
 SPKGS[korean]=		core
 
-OPTIONS_AVAILABLE=	CHINESE KOREAN RUSSIAN ICONV
+OPTIONS_AVAILABLE=	LANG_CN LANG_KO LANG_RU ICONV
 OPTIONS_STANDARD=	ICONV
-VOPTS[chinese]=		CHINESE=ON KOREAN=OFF RUSSIAN=OFF ICONV=ON
-VOPTS[korean]=		CHINESE=OFF KOREAN=ON RUSSIAN=OFF ICONV=ON
-VOPTS[russian]=		CHINESE=OFF KOREAN=OFF RUSSIAN=ON ICONV=ON
+VOPTS[chinese]=		LANG_CN=ON LANG_KO=OFF LANG_RU=OFF ICONV=ON
+VOPTS[korean]=		LANG_CN=OFF LANG_KO=ON LANG_RU=OFF ICONV=ON
+VOPTS[russian]=		LANG_CN=OFF LANG_KO=OFF LANG_RU=ON ICONV=ON
 
 LICENSE=		CUSTOM1:core
 LICENSE_NAME=		CUSTOM1:"Info-ZIP license"
@@ -67,16 +67,16 @@ VAR_OPSYS[darwin]=	CPPFLAGS=-DBSD
 					extra-iconv-patch-unzpriv.h
 					extra-iconv-patch-zipinfo.c
 
-[CHINESE].KEYWORDS_ON=			chinese
-[CHINESE].EXTRA_PATCHES_ON=		extra-zh-patch-fileio.c
+[LANG_CN].KEYWORDS_ON=			chinese
+[LANG_CN].EXTRA_PATCHES_ON=		extra-zh-patch-fileio.c
 
-[KOREAN].KEYWORDS_ON=			korean
-[KOREAN].EXTRA_PATCHES_ON=		extra-ko-patch-fileio.c
+[LANG_KO].KEYWORDS_ON=			korean
+[LANG_KO].EXTRA_PATCHES_ON=		extra-ko-patch-fileio.c
 					extra-ko-patch-unzip.c
 					extra-ko-patch-unzip.h
 
-[RUSSIAN].KEYWORDS_ON=			russian
-[RUSSIAN].EXTRA_PATCHES_ON=		extra-ru-patch-ebcdic.h
+[LANG_RU].KEYWORDS_ON=			russian
+[LANG_RU].EXTRA_PATCHES_ON=		extra-ru-patch-ebcdic.h
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/unzip ${STAGEDIR}${PREFIX}/bin
@@ -90,11 +90,11 @@ do-install:
 	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 	(cd ${WRKSRC} && ${INSTALL_DATA} README WHERE ${STAGEDIR}${STD_DOCDIR})
 
-post-install-CHINESE-ON:
+post-install-LANG_CN-ON:
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
 
-post-install-KOREAN-ON:
+post-install-LANG_KO-ON:
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
 
-post-install-RUSSIAN-ON:
+post-install-LANG_RU-ON:
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
