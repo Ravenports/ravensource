@@ -22,6 +22,9 @@ SPKGS[standard]=	complete server client
 
 OPTIONS_AVAILABLE=	ARCHIVE BLACKHOLE EXAMPLE FEDERATED INNOBASE PARTITION PERFSCHEMA PERFORMANCE
 OPTIONS_STANDARD=	ARCHIVE BLACKHOLE EXAMPLE FEDERATED INNOBASE PARTITION PERFSCHEMA PERFORMANCE
+OPTGROUP_UNLIMITED=	STORAGE
+OPTDESCR[STORAGE]=	Storage engines statically compiled into server
+OPTGROUP[STORAGE]=	ARCHIVE BLACKHOLE EXAMPLE FEDERATED INNOBASE PARTITION PERFSCHEMA
 OPT_ON[all]=		PERFORMANCE
 
 LICENSE=		GPLv2:server
@@ -71,14 +74,14 @@ USERS=			mysql
 GROUPS=			mysql
 USERGROUP_SPKG=		server
 
-[ARCHIVE].DESCRIPTION=			Compile "Archive Storage" statically in server
-[BLACKHOLE].DESCRIPTION=		Compile "Blackhole Storage" statically in server
-[EXAMPLE].DESCRIPTION=			Compile "Example Storage" statically in server
-[FEDERATED].DESCRIPTION=		Compile "Federated Storage" statically in server
-[INNOBASE].DESCRIPTION=			Compile "InnoDB Storage" statically in server
-[PARTITION].DESCRIPTION=		Compile "Partitioning support Storage" statically in server
-[PERFSCHEMA].DESCRIPTION=		Compile "Performance Schema Storage" statically in server
-[PERFORMANCE].DESCRIPTION=		Enable "Performance Schema" by default (High RAM usage)
+[ARCHIVE].DESCRIPTION=			Provide "Archive Storage" engine
+[BLACKHOLE].DESCRIPTION=		Provide "Blackhole Storage" engine
+[EXAMPLE].DESCRIPTION=			Provide "Example Storage" engine
+[FEDERATED].DESCRIPTION=		Provide "Federated Storage" engine
+[INNOBASE].DESCRIPTION=			Provide "InnoDB Storage" engine
+[PARTITION].DESCRIPTION=		Provide "Partitioning support Storage" engine
+[PERFSCHEMA].DESCRIPTION=		Provide "Performance Schema Storage" engine
+[PERFORMANCE].DESCRIPTION=		Enable "Performance Schema" (High RAM use)
 
 [ARCHIVE].CMAKE_ARGS_ON=		-DWITH_ARCHIVE_STORAGE_ENGINE=1
 [BLACKHOLE].CMAKE_ARGS_ON=		-DWITH_BLACKHOLE_STORAGE_ENGINE=1
