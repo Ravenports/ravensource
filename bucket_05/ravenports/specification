@@ -1,0 +1,26 @@
+DEF[PORTVERSION]=	20170509.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ravenports
+VERSION=		${PORTVERSION}
+KEYWORDS=		raven
+VARIANTS=		standard
+SDESC[standard]=	Latest versions of Ravenports
+HOMEPAGE=		https://github.com/jrmarino/Ravenports
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/jrmarino:Ravenports:b55d66b
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+SKIP_BUILD=		yes
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/raven/ports
+	(cd ${WRKSRC} && \
+		${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/share/raven/ports)
