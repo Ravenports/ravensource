@@ -4,7 +4,7 @@ DEF[GPR]=		{{LOCALBASE}}/lib/gnat
 
 NAMEBASE=		ravenadm
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		4
 KEYWORDS=		raven
 VARIANTS=		standard
 SDESC[standard]=	Ravenports administration utility
@@ -12,7 +12,7 @@ HOMEPAGE=		https://github.com/jrmarino/ravenadm
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/jrmarino:ravenadm:3619430
+SITES[main]=		GITHUB/jrmarino:ravenadm:45239f4
 DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
@@ -42,8 +42,9 @@ do-build:
 
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/ravenadm \
-		${STAGEDIR}/var/ravenports/logs \
-		${STAGEDIR}/var/ravenports/distfiles
+		${STAGEDIR}/var/ravenports/primary \
+		${STAGEDIR}/var/ravenports/distfiles \
+		${STAGEDIR}/var/ravenports/conspiracy
 	${INSTALL_PROGRAM} ${WRKSRC}/build/ravenadm \
 		${STAGEDIR}${PREFIX}/bin
 	${INSTALL_PROGRAM} ${WRKSRC}/build/ravenexec \
