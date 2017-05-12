@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	20170512
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ravenports
+VERSION=		${PORTVERSION}
+KEYWORDS=		raven
+VARIANTS=		dragonfly freebsd64
+SDESC[dragonfly]=	Install turnkey Ravenports on DragonFly
+SDESC[freebsd64]=	Install turnkey Ravenports on FreeBSD/amd64
+HOMEPAGE=		https://github.com/jrmarino/Ravenports
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	none
+
+SPKGS[dragonfly]=	single
+SPKGS[freebsd64]=	single
+
+OPTIONS_AVAILABLE=	DRAGONFLY FREEBSD64
+OPTIONS_STANDARD=	none
+VOPTS[dragonfly]=	DRAGONFLY=ON FREEBSD64=OFF
+VOPTS[freebsd64]=	DRAGONFLY=OFF FREEBSD64=ON
+
+RUN_DEPENDS=		pkg-bsd:static:standard
+			ravenadm:single:standard
+			ravensys-toolchain:single:standard
+
+SKIP_BUILD=		yes
+SKIP_INSTALL=		yes
+
+[DRAGONFLY].DESCRIPTION=		DragonFly support
+[DRAGONFLY].RUN_DEPENDS_ON=		ravensys-root:single:dragonfly
+
+[FREEBSD64].DESCRIPTION=		FreeBSD/amd64 support
+[FREEBSD64].RUN_DEPENDS_ON=		ravensys-root:single:freebsd64
