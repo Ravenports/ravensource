@@ -259,6 +259,7 @@ headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
 			floatingpoint.h \
 			fts.h \
 			getopt.h \
+			ieeefp.h \
 			link.h \
 			memory.h \
 			osreldate.h \
@@ -397,11 +398,11 @@ install:
 .endfor
 	cp ${LOCALBASE}/lib/libdl.a ${DESTDIR}${BASE}/usr/lib/
 .for item in ${headers_${OPSYS}}
-	${BSD_INSTALL_DATA} /usr/include/${item} ${DESTDIR}${BASE}/usr/include/${item}
+	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/include/${item} ${DESTDIR}${BASE}/usr/include/${item}
 .endfor
-	${BSD_INSTALL_DATA} /usr/include/cpu/*.h ${DESTDIR}${BASE}/usr/include/cpu/
-	${BSD_INSTALL_DATA} /usr/include/machine/*.h ${DESTDIR}${BASE}/usr/include/machine/
-	${BSD_INSTALL_DATA} /usr/include/sys/*.h ${DESTDIR}${BASE}/usr/include/sys/
+	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/include/cpu/*.h ${DESTDIR}${BASE}/usr/include/cpu/
+	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/include/machine/*.h ${DESTDIR}${BASE}/usr/include/machine/
+	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/include/sys/*.h ${DESTDIR}${BASE}/usr/include/sys/
 .for item in gsort/sort nawk/awk objdump/objdump-sysroot less/more \
 	bmake/make bsdcpio/cpio bsdtar/tar gcmp/cmp gdiff/diff \
 	gdiff3/diff3 gsdiff/sdiff gfind/find gxargs/xargs gm4/m4 \
