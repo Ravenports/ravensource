@@ -271,9 +271,39 @@ headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
 			netinet/ip.h \
 			netinet6/in6.h \
 			readpassphrase.h \
+			rpc/auth.h \
+			rpc/auth_des.h \
+			rpc/auth_kerb.h \
+			rpc/auth_unix.h \
+			rpc/clnt.h \
+			rpc/clnt_soc.h \
+			rpc/clnt_stat.h \
+			rpc/des.h \
+			rpc/des_crypt.h \
+			rpc/key_prot.h \
+			rpc/nettype.h \
+			rpc/pmap_clnt.h \
+			rpc/pmap_prot.h \
+			rpc/pmap_rmt.h \
+			rpc/raw.h \
+			rpc/rpc.h \
+			rpc/rpc_com.h \
+			rpc/rpc_msg.h \
+			rpc/rpcb_clnt.h \
+			rpc/rpcb_prot.h \
+			rpc/rpcb_prot.x \
+			rpc/rpcent.h \
+			rpc/svc.h \
+			rpc/svc_auth.h \
+			rpc/svc_dg.h \
+			rpc/svc_soc.h \
+			rpc/types.h \
+			rpc/xdr.h \
 			runetype.h \
+			stringlist.h \
 			sysexits.h \
 			ttyent.h \
+			ucontext.h \
 			xlocale.h \
 			xlocale/_ctype.h \
 			xlocale/_inttypes.h \
@@ -309,6 +339,7 @@ install:
 		${DESTDIR}${BASE}/usr/local \
 		${DESTDIR}${BASE}/usr/include/arpa \
 		${DESTDIR}${BASE}/usr/include/cpu \
+		${DESTDIR}${BASE}/usr/include/rpc \
 		${DESTDIR}${BASE}/usr/include/sys \
 		${DESTDIR}${BASE}/usr/include/net \
 		${DESTDIR}${BASE}/usr/include/netinet \
