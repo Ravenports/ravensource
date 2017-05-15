@@ -260,14 +260,18 @@ headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
 			fts.h \
 			getopt.h \
 			ieeefp.h \
+			ifaddrs.h \
+			kvm.h \
 			link.h \
 			memory.h \
+			nlist.h \
 			osreldate.h \
 			paths.h \
 			resolv.h \
 			util.h \
 			vis.h \
 			libusb.h \
+			net/if_dl.h \
 			net/if_var.h \
 			netconfig.h \
 			netinet/in_systm.h \
@@ -355,6 +359,21 @@ headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
 			sysexits.h \
 			ttyent.h \
 			ucontext.h \
+			uuid.h \
+			vm/pmap.h \
+			vm/swap_pager.h \
+			vm/vm.h \
+			vm/vm_extern.h \
+			vm/vm_kern.h \
+			vm/vm_map.h \
+			vm/vm_object.h \
+			vm/vm_page.h \
+			vm/vm_page2.h \
+			vm/vm_pageout.h \
+			vm/vm_pager.h \
+			vm/vm_param.h \
+			vm/vm_zone.h \
+			vm/vnode_pager.h \
 			xlocale.h \
 			xlocale/_ctype.h \
 			xlocale/_inttypes.h \
@@ -397,6 +416,7 @@ install:
 		${DESTDIR}${BASE}/usr/include/netinet \
 		${DESTDIR}${BASE}/usr/include/netinet6 \
 		${DESTDIR}${BASE}/usr/include/machine \
+		${DESTDIR}${BASE}/usr/include/vm \
 		${DESTDIR}${BASE}/usr/include/xlocale \
 		${DESTDIR}${BASE}/usr/sbin \
 		# end
