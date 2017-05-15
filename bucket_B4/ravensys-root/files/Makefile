@@ -267,6 +267,7 @@ headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
 			resolv.h \
 			util.h \
 			vis.h \
+			libusb.h \
 			net/if_var.h \
 			netconfig.h \
 			netinet/in_systm.h \

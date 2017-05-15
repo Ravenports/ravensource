@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	6.1.20160425
 
 NAMEBASE=		texinfo
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		print
 VARIANTS=		standard nls
 SDESC[standard]=	Typeset documentation system, multiple formats
@@ -17,6 +18,7 @@ DISTFILE[2]=		htmlxref.cnf:main
 DISTFILE[3]=		texinfo.tex:main
 DISTFILE[4]=		texi2dvi:main
 DIST_SUBDIR=		texinfo/${PORTVERSION}
+DF_INDEX=		1 2 3 4
 
 SPKGS[standard]=	single
 SPKGS[nls]=		single
@@ -49,3 +51,4 @@ post-patch:
 	${INSTALL_SCRIPT} ${DISTDIR}/${DIST_SUBDIR}/texi2dvi ${WRKSRC}/util/
 	${REINPLACE_CMD} '/rm -f ..DESTDIR/s:$$: $$(DESTDIR)$$(xsdir)/XSParagraph.*:' \
 		${WRKSRC}/tp/Texinfo/Convert/XSParagraph/Makefile.in
+
