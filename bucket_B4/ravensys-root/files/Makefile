@@ -268,6 +268,7 @@ headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
 			util.h \
 			vis.h \
 			net/if_var.h \
+			netconfig.h \
 			netinet/in_systm.h \
 			netinet/ip.h \
 			netinet6/in6.h \
@@ -300,6 +301,54 @@ headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
 			rpc/svc_soc.h \
 			rpc/types.h \
 			rpc/xdr.h \
+			rpcsvc/bootparam_prot.h \
+			rpcsvc/bootparam_prot.x \
+			rpcsvc/crypt.h \
+			rpcsvc/crypt.x \
+			rpcsvc/key_prot.h \
+			rpcsvc/key_prot.x \
+			rpcsvc/klm_prot.h \
+			rpcsvc/klm_prot.x \
+			rpcsvc/mount.h \
+			rpcsvc/mount.x \
+			rpcsvc/nfs_prot.h \
+			rpcsvc/nfs_prot.x \
+			rpcsvc/nis.h \
+			rpcsvc/nis.x \
+			rpcsvc/nis_cache.h \
+			rpcsvc/nis_cache.x \
+			rpcsvc/nis_callback.h \
+			rpcsvc/nis_callback.x \
+			rpcsvc/nis_db.h \
+			rpcsvc/nis_object.x \
+			rpcsvc/nis_tags.h \
+			rpcsvc/nislib.h \
+			rpcsvc/nlm_prot.h \
+			rpcsvc/nlm_prot.x \
+			rpcsvc/rex.h \
+			rpcsvc/rex.x \
+			rpcsvc/rnusers.h \
+			rpcsvc/rnusers.x \
+			rpcsvc/rquota.h \
+			rpcsvc/rquota.x \
+			rpcsvc/rstat.h \
+			rpcsvc/rstat.x \
+			rpcsvc/rwall.h \
+			rpcsvc/rwall.x \
+			rpcsvc/sm_inter.h \
+			rpcsvc/sm_inter.x \
+			rpcsvc/spray.h \
+			rpcsvc/spray.x \
+			rpcsvc/yp.h \
+			rpcsvc/yp.x \
+			rpcsvc/yp_prot.h \
+			rpcsvc/ypclnt.h \
+			rpcsvc/yppasswd.h \
+			rpcsvc/yppasswd.x \
+			rpcsvc/ypupdate_prot.h \
+			rpcsvc/ypupdate_prot.x \
+			rpcsvc/ypxfrd.h \
+			rpcsvc/ypxfrd.x \
 			runetype.h \
 			stringlist.h \
 			sysexits.h \
@@ -341,6 +390,7 @@ install:
 		${DESTDIR}${BASE}/usr/include/arpa \
 		${DESTDIR}${BASE}/usr/include/cpu \
 		${DESTDIR}${BASE}/usr/include/rpc \
+		${DESTDIR}${BASE}/usr/include/rpcsvc \
 		${DESTDIR}${BASE}/usr/include/sys \
 		${DESTDIR}${BASE}/usr/include/net \
 		${DESTDIR}${BASE}/usr/include/netinet \
