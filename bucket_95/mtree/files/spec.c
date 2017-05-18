@@ -41,7 +41,12 @@
 #include <pwd.h>
 #include <stdio.h>
 #include <unistd.h>
+#ifdef __linux__
+#include <bsd/vis.h>
+#include <bsd/unistd.h>
+#else
 #include <vis.h>
+#endif
 #include "mtree.h"
 #include "extern.h"
 
@@ -201,12 +206,14 @@ set(char *t, NODE *ip)
 				errx(1, "strdup");
 			}
 			break;
+#ifndef __linux__
 		case F_FLAGS:
 			if (strcmp("none", val) == 0)
 				ip->st_flags = 0;
 			else if (strtofflags(&val, &ip->st_flags, NULL) != 0)
 				errx(1, "line %d: invalid flag %s",lineno, val);
  			break;
+#endif /* __linux__ */
 		case F_GID:
 			ip->st_gid = strtoul(val, &ep, 10);
 			if (*ep)

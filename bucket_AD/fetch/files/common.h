@@ -14,6 +14,16 @@
 #include <openssl/err.h>
 #endif
 
+#ifndef __unused
+#define	__unused	__attribute__((__unused__))
+#endif
+
+#ifdef __linux__
+#define EAUTH		80	/* Authentication error */
+#define ENEEDAUTH	81	/* Need authenticator */
+#define MAXLOGNAME	17
+#endif
+
 /* Connection */
 typedef struct fetchconn conn_t;
 struct fetchconn {

@@ -22,6 +22,52 @@
 #define MINBUFSIZE	16384
 #define TIMEOUT		120
 
+#ifdef __linux__
+#include <stdarg.h>
+#include <bsd/unistd.h>
+#include <sys/ioctl.h>
+
+#define	TCSASOFT	0
+
+static int
+vasprintf(char **strp, const char *fmt, va_list args)
+{
+    va_list args_copy;
+    int status, needed;
+
+    va_copy(args_copy, args);
+    needed = vsnprintf(NULL, 0, fmt, args_copy);
+    va_end(args_copy);
+    if (needed < 0) {
+        *strp = NULL;
+        return needed;
+    }
+    *strp = malloc(needed + 1);
+    if (*strp == NULL)
+        return -1;
+    status = vsnprintf(*strp, needed + 1, fmt, args);
+    if (status >= 0)
+        return status;
+    else {
+        free(*strp);
+        *strp = NULL;
+        return status;
+    }
+}
+
+static int
+asprintf(char **strp, const char *fmt, ...)
+{
+    va_list args;
+    int status;
+
+    va_start(args, fmt);
+    status = vasprintf(strp, fmt, args);
+    va_end(args);
+    return status;
+}
+#endif
+
 /* Option flags */
 static int	 A_flag;	/*    -A: do not follow 302 redirects */
 static int	 a_flag;	/*    -a: auto retry */
@@ -146,7 +192,11 @@ sig_handler(int sig)
 	case SIGALRM:
 		sigalrm = 1;
 		break;
+#ifdef __linux__
+	case SIGPWR:
+#else
 	case SIGINFO:
+#endif
 		siginfo = 1;
 		break;
 	case SIGINT:
@@ -685,7 +735,11 @@ fetch(char *URL, const char *path)
 
 	/* suck in the data */
 	setvbuf(f, NULL, _IOFBF, B_size);
+#ifdef __linux__
+	signal(SIGPWR, sig_handler);
+#else
 	signal(SIGINFO, sig_handler);
+#endif
 	while (!sigint) {
 		if (us.size != -1 && us.size - count < B_size &&
 		    us.size - count >= 0)
@@ -720,7 +774,11 @@ fetch(char *URL, const char *path)
 	}
 	if (!sigalrm)
 		sigalrm = ferror(f) && errno == ETIMEDOUT;
+#ifdef __linux__
+	signal(SIGPWR, SIG_DFL);
+#else
 	signal(SIGINFO, SIG_DFL);
+#endif
 
 	stat_end(&xs);
 
@@ -832,7 +890,7 @@ usage(void)
  * Entry point
  */
 int
-main(int argc, char *argv[])
+main(int argc, char *argv[], char *envp[])
 {
 	struct stat sb;
 	struct sigaction sa;
@@ -840,6 +898,9 @@ main(int argc, char *argv[])
 	char *end, *q;
 	int c, e, r;
 
+#ifdef __linux__
+	setproctitle_init(argc, argv, envp);
+#endif
 
 	while ((c = getopt_long(argc, argv,
 	    "146AaB:bc:dFf:Hh:i:lMmN:nPpo:qRrS:sT:tUvw:",

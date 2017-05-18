@@ -35,6 +35,9 @@
 #ifdef __NetBSD__
 #define _NETBSD_SOURCE
 #endif
+#ifdef __linux__
+#define __USE_XOPEN
+#endif
 #include <sys/param.h>
 #include <sys/socket.h>
 #include <sys/time.h>
@@ -66,6 +69,49 @@
 #include "fetch.h"
 #include "common.h"
 #include "httperr.h"
+
+#ifdef __linux__
+#include <bsd/stdio.h>
+#include <bsd/stdlib.h>
+
+static int
+vasprintf(char **strp, const char *fmt, va_list args)
+{
+    va_list args_copy;
+    int status, needed;
+
+    va_copy(args_copy, args);
+    needed = vsnprintf(NULL, 0, fmt, args_copy);
+    va_end(args_copy);
+    if (needed < 0) {
+        *strp = NULL;
+        return needed;
+    }
+    *strp = malloc(needed + 1);
+    if (*strp == NULL)
+        return -1;
+    status = vsnprintf(*strp, needed + 1, fmt, args);
+    if (status >= 0)
+        return status;
+    else {
+        free(*strp);
+        *strp = NULL;
+        return status;
+    }
+}
+
+static int
+asprintf(char **strp, const char *fmt, ...)
+{
+    va_list args;
+    int status;
+
+    va_start(args, fmt);
+    status = vasprintf(strp, fmt, args);
+    va_end(args);
+    return status;
+}
+#endif
 
 /* Maximum number of redirects to follow */
 #define MAX_REDIRECT 20
@@ -1458,9 +1504,10 @@ http_print_html(FILE *out, FILE *in)
 	size_t len;
 	char *line, *p, *q;
 	int comment, tag;
+	ssize_t chars_read;
 
 	comment = tag = 0;
-	while ((line = fgetln(in, &len)) != NULL) {
+	while ((chars_read = getline(&line, &len, in)) != -1) {
 		while (len && isspace((unsigned char)line[len - 1]))
 			--len;
 		for (p = q = line; q < line + len; ++q) {

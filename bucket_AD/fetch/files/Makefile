@@ -9,6 +9,10 @@ CFLAGS+=	-I${PREFIX}/include -I.
 LIBS=		${PREFIX}/lib/libssl.a \
 		${PREFIX}/lib/libcrypto.a \
 
+.if "${OPSYS}" == "Linux"
+LIBS+=		${PREFIX}/lib/libbsd.a
+.endif
+
 all: fetch
 
 clean:

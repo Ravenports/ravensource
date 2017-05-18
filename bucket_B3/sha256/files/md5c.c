@@ -31,9 +31,14 @@
 #include <sys/types.h>
 #include <string.h>
 
+#ifdef __linux__
+#include <endian.h>
+#include "md5.h"
+#else
 #include <machine/endian.h>
 #include <sys/endian.h>
 #include <sys/md5.h>
+#endif
 
 #if (BYTE_ORDER == LITTLE_ENDIAN)
 #define Encode memcpy

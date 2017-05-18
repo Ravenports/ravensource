@@ -219,9 +219,11 @@ miss(NODE *p, char *tail)
 		if (chmod(path, p->st_mode))
 			printf("%s: permissions not set: %s\n",
 			    path, strerror(errno));
+#ifndef __linux__
 		if ((p->flags & F_FLAGS) && p->st_flags &&
 		    chflags(path, p->st_flags))
 			printf("%s: file flags not set: %s\n",
 			    path, strerror(errno));
+#endif /* __linux__ */
 	}
 }

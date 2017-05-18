@@ -67,12 +67,13 @@ read_excludes_file(const char *name)
 	char *line, *str;
 	struct exclude *e;
 	size_t len;
+	ssize_t chars_read;
 
 	fp = fopen(name, "r");
 	if (fp == NULL)
 		err(1, "%s", name);
 
-	while ((line = fgetln(fp, &len)) != NULL) {
+	while ((chars_read = getline(&line, &len, fp)) != -1) {
 		if (line[len - 1] == '\n')
 			len--;
 		if (len == 0)

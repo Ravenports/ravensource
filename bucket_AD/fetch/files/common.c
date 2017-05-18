@@ -30,6 +30,14 @@
 #define INFTIM (-1)
 #endif
 
+#ifndef __DECONST
+#define __DECONST(type, var)    ((type)(uintptr_t)(const void *)(var))
+#endif
+
+#ifdef __linux__
+#include <bsd/string.h>
+#endif
+
 /*** Local data **************************************************************/
 
 /*

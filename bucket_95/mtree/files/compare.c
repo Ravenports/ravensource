@@ -154,7 +154,7 @@ typeerr:		LABEL;
 	    s->st_nlink != p->fts_statp->st_nlink) {
 		LABEL;
 		printf("%slink_count expected %u found %u\n",
-		    tab, s->st_nlink, p->fts_statp->st_nlink);
+		    tab, (unsigned int)s->st_nlink, (unsigned int)p->fts_statp->st_nlink);
 		tab = "\t";
 	}
 	if (s->flags & F_SIZE && s->st_size != p->fts_statp->st_size &&
@@ -169,6 +169,16 @@ typeerr:		LABEL;
 	 * Catches nano-second differences, but doesn't display them.
 	 */
 	if ((s->flags & F_TIME) &&
+#ifdef __linux__
+	     ((s->st_mtimespec.tv_sec != p->fts_statp->st_mtim.tv_sec) ||
+	     (s->st_mtimespec.tv_nsec != p->fts_statp->st_mtim.tv_nsec))) {
+		LABEL;
+		printf("%smodification time expected %.24s ",
+		    tab, ctime(&s->st_mtimespec.tv_sec));
+		printf("found %.24s\n",
+		    ctime(&p->fts_statp->st_mtim.tv_nsec));
+		tab = "\t";
+#else
 	     ((s->st_mtimespec.tv_sec != p->fts_statp->st_mtimespec.tv_sec) ||
 	     (s->st_mtimespec.tv_nsec != p->fts_statp->st_mtimespec.tv_nsec))) {
 		LABEL;
@@ -177,6 +187,7 @@ typeerr:		LABEL;
 		printf("found %.24s\n",
 		    ctime(&p->fts_statp->st_mtimespec.tv_sec));
 		tab = "\t";
+#endif
 	}
 	if (s->flags & F_CKSUM) {
 		if ((fd = open(p->fts_accpath, O_RDONLY, 0)) < 0) {
@@ -200,6 +211,7 @@ typeerr:		LABEL;
 			}
 		}
 	}
+#ifndef __linux__
 	/*
 	 * XXX
 	 * since chflags(2) will reset file times, the utimes() above
@@ -226,6 +238,7 @@ typeerr:		LABEL;
 			printf("\n");
 		tab = "\t";
 	}
+#endif /* __linux__ */
 #ifdef USE_MD5
 	if (s->flags & F_MD5) {
 		char *new_digest, buf[33];

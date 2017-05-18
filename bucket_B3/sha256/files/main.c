@@ -33,6 +33,10 @@
 #include <unistd.h>
 #include <sysexits.h>
 
+#ifdef __linux__
+#include <bsd/stdlib.h>
+#endif /* __linux__ */
+
 #include "md5.h"
 #include "sha256.h"
 
@@ -159,7 +163,11 @@ digestfile(const char *fname, char *buf, const Algorithm_t *alg,
 		else
 			size = end - begin;
 
+#ifdef __linux__
+		map = mmap(NULL, size, PROT_READ, 0, fd, begin);
+#else
 		map = mmap(NULL, size, PROT_READ, MAP_NOCORE, fd, begin);
+#endif
 		if (map == MAP_FAILED) {
 			warn("mmaping of %s between %jd and %jd ",
 			    fname, (intmax_t)begin, (intmax_t)begin + size);

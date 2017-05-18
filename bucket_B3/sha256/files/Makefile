@@ -6,6 +6,10 @@ PREFIX?=	/usr/local
 LIBS=		${PREFIX}/lib/libcrypto.a
 CFLAGS=		-I${PREFIX}/include -I.	
 
+.if "${OPSYS}" == "Linux"
+LIBS+=		${PREFIX}/lib/libbsd.a
+.endif
+
 all:	program
 
 ${OBJS}: ${.TARGET:.o=.c}

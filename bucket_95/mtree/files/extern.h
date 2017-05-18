@@ -30,6 +30,8 @@
  * $FreeBSD: src/usr.sbin/mtree/extern.h,v 1.3.2.2 2000/06/28 02:33:17 joe Exp $
  */
 
+#include <stdint.h>
+
 #ifdef MAXPATHLEN
 extern char fullpath[MAXPATHLEN];
 #endif
@@ -42,7 +44,9 @@ extern u_int keys;
 int	 compare(NODE *, FTSENT *);
 int	 crc(int, u_long *, u_long *);
 void	 cwalk(void);
+#ifndef __linux__
 char	*flags_to_string(u_long);
+#endif
 
 const char *inotype(u_int);
 u_int	 parsekey(char *, int *);

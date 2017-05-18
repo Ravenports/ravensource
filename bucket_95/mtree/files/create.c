@@ -53,9 +53,19 @@
 #include <time.h>
 #include <unistd.h>
 #include <stdarg.h>
+#ifdef __linux__
+#include <bsd/vis.h>
+#else
 #include <vis.h>
+#endif
 #include "mtree.h"
 #include "extern.h"
+
+#ifndef __printflike
+#define	__printflike(fmtarg, firstvararg) \
+            __attribute__((__nonnull__(fmtarg), \
+			  __format__ (__printf__, fmtarg, firstvararg)))
+#endif
 
 #define	INDENTNAMELEN	15
 #define	MAXLINELEN	80
@@ -188,14 +198,19 @@ statf(int indent, FTSENT *p)
 	if (keys & F_MODE && (p->fts_statp->st_mode & MBITS) != mode)
 		output(indent, &offset, "mode=%#o", p->fts_statp->st_mode & MBITS);
 	if (keys & F_NLINK && p->fts_statp->st_nlink != 1)
-		output(indent, &offset, "nlink=%u", p->fts_statp->st_nlink);
+		output(indent, &offset, "nlink=%u", (unsigned int)p->fts_statp->st_nlink);
 	if (keys & F_SIZE)
 		output(indent, &offset, "size=%jd",
 		    (uintmax_t)p->fts_statp->st_size);
 	if (keys & F_TIME)
 		output(indent, &offset, "time=%ld.%ld",
+#ifdef __linux__
+		    p->fts_statp->st_mtim.tv_sec,
+		    p->fts_statp->st_mtim.tv_nsec);
+#else
 		    p->fts_statp->st_mtimespec.tv_sec,
 		    p->fts_statp->st_mtimespec.tv_nsec);
+#endif
 	if (keys & F_CKSUM && S_ISREG(p->fts_statp->st_mode)) {
 		if ((fd = open(p->fts_accpath, O_RDONLY, 0)) < 0 ||
 		    crc(fd, &val, &len))
@@ -242,11 +257,13 @@ statf(int indent, FTSENT *p)
 	if (keys & F_SLINK &&
 	    (p->fts_info == FTS_SL || p->fts_info == FTS_SLNONE))
 		output(indent, &offset, "link=%s", rlink(p->fts_accpath));
+#ifndef __linux__
 	if (keys & F_FLAGS && p->fts_statp->st_flags != flags) {
 		fflags = flags_to_string(p->fts_statp->st_flags);
 		output(indent, &offset, "flags=%s", fflags);
 		free(fflags);
 	}
+#endif /* __linux__ */
 	putchar('\n');
 }
 
@@ -306,6 +323,7 @@ statd(FTS *t, FTSENT *parent, uid_t *puid, gid_t *pgid, mode_t *pmode,
 				maxuid = u[suid];
 			}
 
+#ifndef __linux__
 			/*
 			 * XXX
 			 * note that the below will break when file flags
@@ -319,6 +337,7 @@ statd(FTS *t, FTSENT *parent, uid_t *puid, gid_t *pgid, mode_t *pmode,
 				saveflags = sflags;
 				maxflags = f[FLAGS2IDX(sflags)];
 			}
+#endif /* __linux__ */
 		}
 	}
 	/*
@@ -329,7 +348,9 @@ statd(FTS *t, FTSENT *parent, uid_t *puid, gid_t *pgid, mode_t *pmode,
 	if ((((keys & F_UNAME) | (keys & F_UID)) && (*puid != saveuid)) ||
 	    (((keys & F_GNAME) | (keys & F_GID)) && (*pgid != savegid)) ||
 	    ((keys & F_MODE) && (*pmode != savemode)) || 
+#ifndef __linux__
 	    ((keys & F_FLAGS) && (*pflags != saveflags)) ||
+#endif /* __linux__ */
 	    (first)) {
 		first = 0;
 		if (dflag)
@@ -360,11 +381,13 @@ statd(FTS *t, FTSENT *parent, uid_t *puid, gid_t *pgid, mode_t *pmode,
 			printf(" mode=%#o", savemode);
 		if (keys & F_NLINK)
 			printf(" nlink=1");
+#ifndef __linux__
 		if (keys & F_FLAGS) {
 			fflags = flags_to_string(saveflags);
 			printf(" flags=%s", fflags);
 			free(fflags);
 		}
+#endif /* __linux__ */
 		printf("\n");
 		*puid = saveuid;
 		*pgid = savegid;
