@@ -23,7 +23,7 @@ DISTFILE[1]=		${IDENTIFICATION}.tar.bz2:main
 SPKGS[standard]=	complete compilers ada_run cxx_run fortran_run libs infopages
 
 OPTIONS_AVAILABLE=	ALLSTAGES
-OPTIONS_STANDARD=	none
+OPTIONS_STANDARD=	ALLSTAGES
 OPT_ON[all]=		ALLSTAGES
 
 LICENSE=		GPLv2+:compilers
@@ -54,6 +54,7 @@ MUST_CONFIGURE=		gnu
 CPE_VENDOR=		gnu
 PLIST_SUB=		GCCVER=${GCC_VERSION}
 			TARGET={{CONFIGURE_TARGET}}
+			ASLIB={{ASLIB}}
 PREFIX=			{{LOCALBASE}}/toolchain/{{NAMEBASE}}
 INSTALL_TARGET=		install-strip
 CONFIGURE_OUTSOURCE=	yes
@@ -70,6 +71,10 @@ CONFIGURE_ARGS=		--enable-languages="c,c++,ada,fortran"
 			--enable-checking=release
 			--enable-libquadmath
 			--disable-nls
+			--disable-multilib
+			--disable-libsanitizer
+			--disable-libvtv
+			--disable-libmpx
 			--with-ld=${TOOLCHAIN}/bin/ld
 			--with-as=${TOOLCHAIN}/bin/as
 			--with-pkgversion="Ravenports"
@@ -98,6 +103,7 @@ post-patch:
 		${WRKSRC}/gcc/config/dragonfly.h \
 		${WRKSRC}/gcc/config/i386/freebsd64.h \
 		${WRKSRC}/gcc/config/i386/freebsd.h \
+		${WRKSRC}/gcc/config/i386/gnu-user64.h \
 		${WRKSRC}/gcc/config/aarch64/aarch64-freebsd.h
 	# Ensure dwarf4-compatible addr2line
 	${REINPLACE_CMD} -e 's|/usr/bin/addr2line|${PREFIX:H}/bin/addr2line|g'\
@@ -109,4 +115,6 @@ post-install:
 	${RM} ${STAGEDIR}${MANPREFIX}/man/man7/*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/adalib/libgnarl.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/adalib/libgnat.so
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgcc_s.so
+# ${STRIP_CMD} ${STAGEDIR}${PREFIX}/${ASLIB}/libgcc_s.so.1
+	-[ -d ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/include-fixed/x86_64-linux-gnu ] && \
+		${RMDIR} ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/include-fixed/x86_64-linux-gnu
