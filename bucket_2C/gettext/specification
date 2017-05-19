@@ -56,6 +56,11 @@ post-patch:
 		${WRKSRC}/gettext-runtime/man/Makefile.in
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libintl.so
 	${MV} ${STAGEDIR}${PREFIX}/share/gettext-${PORTVERSION:R} \
 		${STAGEDIR}${PREFIX}/share/gettext/${PORTVERSION:R}
+
+post-install-dragonfly:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libintl.so
+
+post-install-linux:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/preloadable_libintl.so
