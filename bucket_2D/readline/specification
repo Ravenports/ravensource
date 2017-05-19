@@ -42,9 +42,13 @@ INFO=			single:history
 			single:readline
 			single:rluserman
 MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-curses
+CFLAGS=			-I{{NCURSESINC}}
 
 post-patch:
-	${REINPLACE_CMD} "s/SHOBJ_LDFLAGS =/SHOBJ_LDFLAGS = -lncurses/" \
+# ${REINPLACE_CMD} "s|@SHOBJ_LDFLAGS@|@SHOBJ_LDFLAGS@ -Wl,--no-as-needed
+# -L${NCURSESLIB} -lncurses|" \
+	${REINPLACE_CMD} "s|@SHOBJ_LDFLAGS@|@SHOBJ_LDFLAGS@ -L${NCURSESLIB} -lncurses|" \
 		${WRKSRC}/shlib/Makefile.in
 
 post-install:

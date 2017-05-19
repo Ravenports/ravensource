@@ -1,0 +1,20 @@
+--- support/shlib-install.orig	2012-07-10 19:58:08.000000000 +0000
++++ support/shlib-install	2017-05-18 20:58:47.492075412 +0000
+@@ -119,16 +119,10 @@
+ #
+ case "$host_os-$host_vendor" in
+ *linux*|freebsd*-gentoo)
+-	# libname.so.M -> libname.so.M.N
+-	${echo} ${RM} ${INSTALLDIR}/$LINK2
+-	if [ -z "$uninstall" ]; then
+-		eval $INSTALL_LINK2
+-	fi
+-
+ 	# libname.so -> libname.so.M
+ 	${echo} ${RM} ${INSTALLDIR}/$LINK1
+ 	if [ -z "$uninstall" ]; then
+-		${echo} cd $INSTALLDIR && ${echo} ${LN} $LINK2 $LINK1
++		eval $INSTALL_LINK1
+ 	fi
+ 	;;
+ 
