@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	1.13
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gdbm
+VERSION=		${PORTVERSION}
+KEYWORDS=		databases
+VARIANTS=		standard nls
+SDESC[standard]=	GNU database manager
+SDESC[nls]=		GNU database manager with native language support
+HOMEPAGE=		http://www.gnu.org/software/gdbm/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/gdbm
+DISTFILE[1]=		gdbm-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+SPKGS[nls]=		single
+
+OPTIONS_AVAILABLE=	NLS
+OPTIONS_STANDARD=	none
+VOPTS[nls]=		NLS=ON
+
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
+LICENSE_SCHEME=		solo
+
+USES=			gmake libtool:keepla readline
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-libgdbm-compat
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+INFO=			single:gdbm
+
+[NLS].CONFIGURE_ENABLE_BOTH=		nls
+[NLS].USES_ON=				gettext-runtime
+
+post-patch:
+	@${REINPLACE_CMD} -e "s|LIBS = @LIBS@ -lc|LIBS = @LIBS@|" \
+		-e "s|BINOWN = bin|BINOWN = root|" \
+		-e "s|BINGRP = bin|BINGRP = wheel|" \
+		-e "s|libgdbm.la libgdbm_compat.la|& gdbm.info|" \
+			${WRKSRC}/Makefile.in
