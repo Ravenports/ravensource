@@ -24,7 +24,7 @@ SPKGS[standard]=	complete compilers ada_run cxx_run fortran_run libs infopages
 
 OPTIONS_AVAILABLE=	ALLSTAGES
 OPTIONS_STANDARD=	ALLSTAGES
-OPT_ON[all]=		ALLSTAGES
+# OPT_ON[all]=		ALLSTAGES
 
 LICENSE=		GPLv2+:compilers
 			LGPL21:compilers
@@ -92,7 +92,7 @@ INFO=			infopages:cpp
 			infopages:libgomp
 
 [ALLSTAGES].DESCRIPTION=		Three stage build (full bootstrap)
-[ALLSTAGES].CONFIGURE_ARGS_OFF=		--disable-bootstrap
+[ALLSTAGES].CONFIGURE_ARGS_OFF=		--disable-bootstrap --disable-libcc1
 
 post-patch:
 	# Update LINK_SPEC to add gcc-aux lib runpath in every binary
