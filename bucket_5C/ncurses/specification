@@ -32,6 +32,8 @@ LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
+BUILDRUN_DEPENDS=	db5:complete:standard
+
 USES=			pkgconfig terminfo:primary shebangfix
 SHEBANG_FILES=		test/tracemunch
 
@@ -59,7 +61,8 @@ CONFIGURE_ARGS=		--datadir={{PREFIX}}/share/misc
 			--without-debug
 			--without-manpage-renames
 			--mandir={{MANPREFIX}}/man
-			--with-hashed-db
+			--with-hashed-db=db5
+			--with-shlib-version=rel
 			--datadir={{PREFIX}}/share/misc
 			--with-default-terminfo-dir={{PREFIX}}/share/misc/terminfo
 			--with-terminfo-dirs={{PREFIX}}/share/misc/terminfo
