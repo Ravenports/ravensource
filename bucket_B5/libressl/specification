@@ -43,6 +43,8 @@ INSTALL_REQ_TOOLCHAIN=	yes
 
 post-install:
 	${RM} -r ${STAGEDIR}/${PREFIX}/etc/ssl/cert.pem
+
+post-install-dragonfly:
 	${INSTALL_SCRIPT} ${WRKSRC}/apps/nc/nc ${STAGEDIR}${PREFIX}/bin/nc
 
 post-install-SKIP_MANPAGES-OFF:
