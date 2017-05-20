@@ -6,7 +6,7 @@ DEF[DBLIBS]=		libdb libdb_cxx libdb_stl libdb_sql
 
 NAMEBASE=		db5
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		databases java
 VARIANTS=		standard
 SDESC[standard]=	Oracle Berkeley DB, revision 5
@@ -50,6 +50,7 @@ INSTALL_TARGET=		install_include
 PLIST_SUB=		BDBMAJ=${BDBMAJ}
 			BDBVER=${BDBVER}
 MAKE_ARGS=		docdir={{STD_DOCDIR}}
+CFLAGS=			-fPIC
 
 VAR_ARCH[aarch64]=	CONFIGURE_ARGS=--enable-posixmutexes
 			CONFIGURE_ARGS=--with-mutex=POSIX/pthreads
@@ -83,6 +84,7 @@ post-install:
 	${LN} -s -f db5/${i}-${BDBVER}.so.0.0.0 \
 		${STAGEDIR}${PREFIX}/lib/${i}-${BDBMAJ}.so
 	${LN} -s -f ${i}-${BDBVER}.a ${STAGEDIR}${PREFIX}/lib/db5/${i}.a
+	${LN} -s -f ${i}-${BDBVER}.a ${STAGEDIR}${PREFIX}/lib/db5/${i}-${BDBMAJ}.a
 .endfor
 	cd ${STAGEDIR}${PREFIX}/bin/db5; \
 	for i in *; do ${LN} -s -f db5/$$i ../$$i-${BDBVER} ; \
