@@ -9,6 +9,7 @@ DEF[EXAMPLES_CPP]=	Makefile NEWS PROBLEMS README-first cursesapp.cc cursesapp.h 
 
 NAMEBASE=		ncurses
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard static
 SDESC[standard]=	Terminal-independent lib for full-screen output
@@ -32,7 +33,7 @@ LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-USES=			bdb pkgconfig terminfo:primary shebangfix
+USES=			bdb:static pkgconfig terminfo:primary shebangfix
 SHEBANG_FILES=		test/tracemunch
 
 MUST_CONFIGURE=		gnu
@@ -99,6 +100,7 @@ post-build:
 	# compiler even there.
 	(cd ${.CURDIR} && ${MAKE} ${.MAKEFLAGS} \
 		INSTALL_WRKSRC=${WIDEC_WRKSRC} do-install)
+	# Remove -ldb-5 from pc files.  It's been statically linked in
 
 post-install-STATIC-ON:
 	${MV} ${STAGEDIR}${PREFIX}/share/misc/terminfo.db \
@@ -124,3 +126,8 @@ post-install-STATIC-OFF:
 .for f in ${DOCS}
 	${INSTALL_DATA} ${WRKSRC}/${f} ${STAGEDIR}${STD_DOCDIR}/
 .endfor
+
+post-stage:
+	${SED} -i'' -e 's|-ldb-5||' -e 's|-Wl,.*/db5||' \
+		${STAGEDIR}${PREFIX}/lib/pkgconfig/*.pc \
+		${STAGEDIR}${PREFIX}/bin/ncurse*-config
