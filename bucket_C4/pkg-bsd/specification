@@ -24,6 +24,7 @@ LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
 BUILDRUN_DEPENDS=	libarchive:single:standard
+			libbsd:single:standard
 BUILD_DEPENDS=		zlib:static:standard
 			bzip2:static:standard
 
@@ -37,9 +38,13 @@ INSTALL_TARGET=		install-strip
 CFLAGS=			-Wno-error
 SINGLE_JOB=		yes
 
+VAR_OPSYS[linux]=	CONFIGURE_ENV=LIBS="-ldl"
+
 post-patch:
 	${REINPLACE_CMD} -e '/mandir = / s|/man|/share/man|' \
 		${WRKSRC}/docs/Makefile.in
+	${REINPLACE_CMD} -e '/OS_STATIC/ s/false/true/' \
+		${WRKSRC}/configure
 
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/sbin/pkg2ng
