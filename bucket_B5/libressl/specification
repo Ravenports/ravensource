@@ -32,9 +32,14 @@ CPE_VENDOR=		openbsd
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-nc
 			--disable-hardening
+CONFIGURE_ENV=		ac_cv_search_b64_ntop=no
+			ac_cv_search___b64_ntop=no
 INSTALL_TARGET=		install-strip
 TEST_TARGET=		check
 INSTALL_REQ_TOOLCHAIN=	yes
+
+# disable conftest on b64_ntop to prevent it from finding libresolv
+# on linux.  It will fall back to a local compat version.
 
 [STATIC].CFLAGS_OFF=			-fpic -DPIC
 [STATIC].CONFIGURE_ARGS_ON=		--enable-shared=no
