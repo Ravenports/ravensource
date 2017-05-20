@@ -27,7 +27,7 @@ LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING
 LICENSE_NAME=		CUSTOM1:"Less License"
 LICENSE_SCHEME=		dual
 
-USES=			cpe ncurses:static
+USES=			cpe ncurses:static bdb:static
 CPE_VENDOR=		gnu
 MUST_CONFIGURE=		gnu
 
@@ -35,4 +35,4 @@ MUST_CONFIGURE=		gnu
 [COLOR].CPPFLAGS_ON=			-DCOLOR_LESS
 
 post-patch:
-	${REINPLACE_CMD} -e 's|-lcurses|-lncurses|' ${WRKSRC}/configure
+	${REINPLACE_CMD} -e 's|-lcurses|-lncurses -ltinfo -ldb|' ${WRKSRC}/configure
