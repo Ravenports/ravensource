@@ -2,7 +2,13 @@
  * $FreeBSD: src/usr.bin/makewhatis/makewhatis.c,v 1.9 2002/09/04 23:29:04 dwmalone Exp $
  */
 
+#ifdef __linux__
+#include <bsd/sys/tree.h>
+#include <bsd/stringlist.h>
+#else
 #include <sys/tree.h>
+#include <stringlist.h>
+#endif
 #include <sys/types.h>
 #include <sys/param.h>
 #include <sys/queue.h>
@@ -14,9 +20,55 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stringlist.h>
 #include <unistd.h>
 #include <zlib.h>
+
+#ifndef __unused
+#define __unused	__attribute__((__unused__))
+#endif
+
+#ifdef __linux__
+#include <bsd/stdio.h>
+#include <bsd/stdlib.h>
+
+static int
+vasprintf(char **strp, const char *fmt, va_list args)
+{
+    va_list args_copy;
+    int status, needed;
+
+    va_copy(args_copy, args);
+    needed = vsnprintf(NULL, 0, fmt, args_copy);
+    va_end(args_copy);
+    if (needed < 0) {
+        *strp = NULL;
+        return needed;
+    }
+    *strp = malloc(needed + 1);
+    if (*strp == NULL)
+        return -1;
+    status = vsnprintf(*strp, needed + 1, fmt, args);
+    if (status >= 0)
+        return status;
+    else {
+        free(*strp);
+        *strp = NULL;
+        return status;
+    }
+}
+
+static int
+asprintf(char **strp, const char *fmt, ...)
+{
+    va_list args;
+    int status;
+
+    va_start(args, fmt);
+    status = vasprintf(strp, fmt, args);
+    va_end(args);
+    return status;
+}
+#endif
 
 #define DEFAULT_MANPATH		"/usr/share/man"
 #define LINE_ALLOC		4096
