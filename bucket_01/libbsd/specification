@@ -1,0 +1,29 @@
+DEF[PORTVERSION]=	0.8.3
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libbsd
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel raven
+VARIANTS=		standard
+SDESC[standard]=	Utility functions from BSD systems
+HOMEPAGE=		https://cgit.freedesktop.org/libbsd
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://libbsd.freedesktop.org/releases/
+DISTFILE[1]=		libbsd-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSDGROUP:single
+LICENSE_FILE=		BSDGROUP:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+ONLY_FOR_OPSYS=		linux
+
+USES=			gmake libtool
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
