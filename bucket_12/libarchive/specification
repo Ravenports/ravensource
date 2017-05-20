@@ -30,14 +30,16 @@ LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
 			PUBDOM:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		multi
 
+BUILD_DEPENDS=		bzip2:static:standard
+			zlib:static:standard
+			expat:static:standard
+
 USES=			cpe libtool
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
 CONFIGURE_ARGS=		--without-xml2
 			--without-iconv
-BUILD_DEPENDS=		bzip2:static:standard
-			zlib:static:standard
-			expat:static:standard
+LDFLAGS=		-lpthread
 
 [STATIC].BUILDRUN_DEPENDS_OFF=		libressl:single:standard
 					xz:single:standard
