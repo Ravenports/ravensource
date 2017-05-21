@@ -60,7 +60,6 @@ Bin_FreeBSD=	/bin/[ \
 
 Bin_Linux=	/bin/hostname \
 		/bin/pax \
-		/bin/bash \
 		/bin/dash \
 		/bin/sh \
 		# rest comes form coreutils
@@ -998,6 +997,8 @@ install:
 	# ldd and which are scripts, can't be stripped
 	${BSD_INSTALL_SCRIPT} ../linux/usr/bin/ldd ${DESTDIR}${BASE}/usr/bin/
 	${BSD_INSTALL_SCRIPT} ../linux/bin/which ${DESTDIR}${BASE}/usr/bin/
+	# convert ldd from bash to dash
+	sed -i'' -e "s|/bin/bash|/bin/dash|" ${DESTDIR}${BASE}/usr/bin/ldd
 .endif
 .for item in ${pcfiles_${OPSYS}}
 	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/libdata/pkgconfig/${item} \

@@ -1,4 +1,8 @@
 DEF[DF_RELEASE]=	4.8.0
+DEF[LINUX_KERNEL]=	4.4.0-53
+DEF[LINUX_OSREL]=	${LINUX_KERNEL:DL="-":H}
+DEF[LINUX_MAJOR]=	${LINUX_OSREL:R}
+DEF[LINUX_VERSION]=	${LINUX_KERNEL:S/-//:S/.//:S/./0/}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravensys-root
@@ -12,8 +16,7 @@ SDESC[linux]=		Linux system root for Ravenports build env
 HOMEPAGE=		none
 CONTACT=		John_Marino[draco@marino.st]
 
-DOWNLOAD_GROUPS=	main avalon ubuntu1 ubuntu2 ubuntu3 ubuntu4 ubuntu5
-			ubuntu6 ubuntu7
+DOWNLOAD_GROUPS=	main avalon ubuntu1 ubuntu2 ubuntu3 ubuntu4 ubuntu5 ubuntu6
 SITES[main]=		https://leaf.dragonflybsd.org/~marino/dports-src/
 SITES[avalon]=		http://avalon.dragonflybsd.org/snapshots/x86_64/images/
 SITES[ubuntu1]=		http://security.ubuntu.com/ubuntu/pool/main/g/glibc/
@@ -22,7 +25,6 @@ SITES[ubuntu3]=		UBUNTU/d/dash
 SITES[ubuntu4]=		UBUNTU/p/pax
 SITES[ubuntu5]=		UBUNTU/d/debianutils
 SITES[ubuntu6]=		UBUNTU/b/bsdmainutils
-SITES[ubuntu7]=		http://security.ubuntu.com/ubuntu/pool/main/b/bash/
 
 DISTFILE[1]=		dummy-tarball.tar.gz:main
 DISTFILE[2]=		DragonFly-x86_64-20170412-DEV-v4.9.0.157.g88cde.iso.bz2:avalon
@@ -34,7 +36,6 @@ DISTFILE[7]=		pax_20151013-1_amd64.deb:ubuntu4
 DISTFILE[8]=		debianutils_4.7_amd64.deb:ubuntu5
 DISTFILE[9]=		libc-bin_2.23-0ubuntu7_amd64.deb:ubuntu1
 DISTFILE[10]=		bsdmainutils_9.0.6ubuntu3_amd64.deb:ubuntu6
-DISTFILE[11]=		bash_4.3-14ubuntu1.2_amd64.deb:ubuntu7
 
 SPKGS[dragonfly]=	single
 SPKGS[freebsd64]=	single
@@ -79,8 +80,8 @@ BUILD_DEPENDS=		nawk:single:standard
 			genpatch:single:standard
 
 SKIP_BUILD=		yes
-EXTRACT_DIRTY=		2 3 4 5 6 7 8 9 10 11
-EXTRACT_DEB_PACKAGE=	3 4 5 6 7 8 9 10 11
+EXTRACT_DIRTY=		2 3 4 5 6 7 8 9 10
+EXTRACT_DEB_PACKAGE=	3 4 5 6 7 8 9 10
 
 PLIST_SUB=		SONAME_LIBM={{Libm_{{OPSYS}}}}
 			SONAME_LIBC={{Libc_{{OPSYS}}}}
@@ -108,7 +109,7 @@ MAKE_ARGS=		BASE={{RSYS}}
 
 [LINUX].DESCRIPTION=			Ravenports system root for Linux
 [LINUX].ONLY_FOR_OPSYS_ON=		linux
-[LINUX].DF_INDEX_ON=			3 4 5 6 7 8 9 10 11
+[LINUX].DF_INDEX_ON=			3 4 5 6 7 8 9 10
 
 [FREEBSD].DESCRIPTION=			Ravenports system root for FreeBSD
 [FREEBSD].ONLY_FOR_OPSYS_ON=		freebsd
@@ -151,7 +152,7 @@ post-install-DRAGONFLY-ON:
 
 post-extract-LINUX-ON:
 	${MV} ${WRKDIR}/${NAMEBASE}_3 ${WRKDIR}/linux
-.for NDX in 4 5 6 7 8 9 10 11
+.for NDX in 4 5 6 7 8 9 10
 	cp -a ${WRKDIR}/${NAMEBASE}_${NDX}/* ${WRKDIR}/linux/
 	${RM} -r ${WRKDIR}/${NAMEBASE}_${NDX}
 .endfor
@@ -159,4 +160,11 @@ post-extract-LINUX-ON:
 	${INSTALL_DATA} ${FILESDIR}/Makefile ${WRKSRC}/
 
 post-install-LINUX-ON:
-	@echo TO BE IMPLEMENTED
+	${INSTALL_DATA} ${FILESDIR}/linux-group \
+		${STAGEDIR}${RSYS}/usr/share/group
+	${INSTALL_DATA} ${FILESDIR}/linux-passwd \
+		${STAGEDIR}${RSYS}/usr/share/passwd
+	echo "${LINUX_OSREL}"   > ${STAGEDIR}${RSYS}/usr/share/OSRELEASE
+	echo "${LINUX_MAJOR}"   > ${STAGEDIR}${RSYS}/usr/share/OSMAJOR
+	echo "${LINUX_VERSION}" > ${STAGEDIR}${RSYS}/usr/share/OSVERSION
+	echo "x86_64"           > ${STAGEDIR}${RSYS}/usr/share/STDARCH
