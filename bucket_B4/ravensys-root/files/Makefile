@@ -128,13 +128,14 @@ Usr_Bin_FreeBSD=	${Usr_Bin_DragonFly}
 Usr_Bin_Linux=	# all come from coreutils except two
 		# /bin/which and /usr/bin/ldd are scripts, special handling
 
-Usr_Sbin_DragonFly= \
-		/usr/sbin/pw \
-		/usr/sbin/pwd_mkdb
-		# end
-
+Usr_Sbin_DragonFly= 	/usr/sbin/pw \
+			/usr/sbin/pwd_mkdb \
+			# end
 Usr_Sbin_FreeBSD=	${Usr_Sbin_DragonFly}
-Usr_Sbin_Linux=		# empty
+Usr_Sbin_Linux=		/usr/sbin/useradd \
+			/usr/sbin/usermod \
+			/usr/sbin/groupadd \
+			#end
 
 static_lib_generic=	/usr/lib/libc.a \
 			/usr/lib/libm.a \
