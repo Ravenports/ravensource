@@ -16,8 +16,7 @@ UUID_ARG=	--with-uuid=e2fs
 .elif ${OPSYS:MSunOS}
 TEMPLATE_ARG=	--with-template=solaris
 # UUID?
-.elif ${OPSYS:Linux}
+.elif ${OPSYS:MLinux}
 TEMPLATE_ARG=	--with-template=linux
 UUID_ARG=	--with-uuid=e2fs
 .endif
-
