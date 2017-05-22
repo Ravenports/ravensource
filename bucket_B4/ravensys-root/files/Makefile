@@ -153,8 +153,7 @@ static_lib_DragonFly=	${static_lib_generic} \
 			/usr/lib/crt1.o \
 			/usr/lib/crti.o \
 			/usr/lib/crtn.o
-static_lib_Linux=	# Linux doesn't use /usr/lib, needs special list
-			# /usr/lib/x86_64-linux-gnu => /usr/lib64
+static_lib_Linux=	# Linux doesn't use /usr/lib but a sudirectory, needs special list
 Linux_static_libs=	libc.a \
 			libc_nonshared.a \
 			libm.a \
@@ -192,15 +191,17 @@ dynamic_lib_DragonFly=	${dynamic_generic} \
 			/usr/lib/${libusb} \
 			/usr/lib/${libusbhid}
 dynamic_lib_Linux=	# Linux doesn't use /usr/lib, needs special list
-Linux_RTLD=		ld-linux-x86-64.so.2/ld-2.23.so
+Linux_RTLD=		ld-2.23.so/ld-linux-x86-64.so.2
+Linux_C_lib=		libc-2.23.so/libc.so.6
+Linux_thread_lib=	libpthread-2.23.so/libpthread.so.0
 			# /lib/x86_64-linux-gnu => /lib64
 			# real file / soname (also symlink)
 			# use to create /usr/lib64/<lib>.so => /lib64/soname
-Linux_shared_libs=	libc-2.23.so/libc.so.6 \
+Linux_shared_libs=	${Linux_C_lib} \
+			${Linux_thread_lib} \
 			libm-2.23.so/libm.so.6 \
 			libutil-2.23.so/libutil.so.1 \
 			libcrypt-2.23.so/libcrypt.so.1 \
-			libpthread-2.23.so/libpthread.so.0 \
 			libdl-2.23.so/libdl.so.2 \
 			libnsl-2.23.so/libnsl.so.1 \
 			librt-2.23.so/librt.so.1 \
@@ -214,6 +215,15 @@ Linux_shared_libs=	libc-2.23.so/libc.so.6 \
 			libnss_nis-2.23.so/libnss_nis.so.2 \
 			libnss_nisplus-2.23.so/libnss_nisplus.so.2 \
 			# end
+Linux_extra_libs1=	libaudit.so.1.0.0/libaudit.so.1 \
+			# end (/lib)
+Linux_extra_libs2=	libustr-1.0.so.1.0.4/libustr-1.0.so.1 \
+			# end (/usr/lib)
+Linux_single_libs1=	libselinux.so.1 \
+			libsepol.so.1 \
+			# end (/lib)
+Linux_single_libs2=	libsemanage.so.1 \
+			# end (/usr/lib)
 posix_headers=		aio.h \
 			arpa/inet.h \
 			assert.h \
@@ -451,18 +461,35 @@ headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
 			xlocale/_uchar.h \
 			# end
 
-headers_Linux=		aio.h \
+headers_Linux_dirs=	arpa \
+			asm-generic \
+			drm \
+			linux \
+			net \
+			netash \
+			netatalk \
+			netax25 \
+			neteconet \
+			netinet \
+			netipx \
+			netiucv \
+			netpacket \
+			netrom \
+			netrose \
+			nfs \
+			protocols \
+			rpc \
+			rpcsvc \
+			scsi \
+			x86_64-linux-gnu \
+			#end
+headers_Linux=		_G_config.h \
+			aio.h \
 			aliases.h \
 			alloca.h \
 			ar.h \
 			argp.h \
 			argz.h \
-			arpa/ftp.h \
-			arpa/inet.h \
-			arpa/nameser.h \
-			arpa/nameser_compat.h \
-			arpa/telnet.h \
-			arpa/tftp.h \
 			assert.h \
 			byteswap.h \
 			complex.h \
@@ -510,50 +537,13 @@ headers_Linux=		aio.h \
 			mntent.h \
 			monetary.h \
 			mqueue.h \
-			net/ethernet.h \
-			net/if.h \
-			net/if_arp.h \
-			net/if_packet.h \
-			net/if_ppp.h \
-			net/if_shaper.h \
-			net/if_slip.h \
-			net/ppp-comp.h \
-			net/ppp_defs.h \
-			net/route.h \
-			netash/ash.h \
-			netatalk/at.h \
-			netax25/ax25.h \
 			netdb.h \
-			neteconet/ec.h \
-			netinet/ether.h \
-			netinet/icmp6.h \
-			netinet/if_ether.h \
-			netinet/if_fddi.h \
-			netinet/if_tr.h \
-			netinet/igmp.h \
-			netinet/in.h \
-			netinet/in_systm.h \
-			netinet/ip.h \
-			netinet/ip6.h \
-			netinet/ip_icmp.h \
-			netinet/tcp.h \
-			netinet/udp.h \
-			netipx/ipx.h \
-			netiucv/iucv.h \
-			netpacket/packet.h \
-			netrom/netrom.h \
-			netrose/rose.h \
-			nfs/nfs.h \
 			nl_types.h \
 			nss.h \
 			obstack.h \
 			paths.h \
 			poll.h \
 			printf.h \
-			protocols/routed.h \
-			protocols/rwhod.h \
-			protocols/talkd.h \
-			protocols/timed.h \
 			pthread.h \
 			pty.h \
 			pwd.h \
@@ -561,66 +551,7 @@ headers_Linux=		aio.h \
 			regex.h \
 			regexp.h \
 			resolv.h \
-			rpc/auth.h \
-			rpc/auth_des.h \
-			rpc/auth_unix.h \
-			rpc/clnt.h \
-			rpc/des_crypt.h \
-			rpc/key_prot.h \
-			rpc/netdb.h \
-			rpc/pmap_clnt.h \
-			rpc/pmap_prot.h \
-			rpc/pmap_rmt.h \
-			rpc/rpc.h \
-			rpc/rpc_des.h \
-			rpc/rpc_msg.h \
-			rpc/svc.h \
-			rpc/svc_auth.h \
-			rpc/types.h \
-			rpc/xdr.h \
-			rpcsvc/bootparam.h \
-			rpcsvc/bootparam_prot.h \
-			rpcsvc/bootparam_prot.x \
-			rpcsvc/key_prot.h \
-			rpcsvc/key_prot.x \
-			rpcsvc/klm_prot.h \
-			rpcsvc/klm_prot.x \
-			rpcsvc/mount.h \
-			rpcsvc/mount.x \
-			rpcsvc/nfs_prot.h \
-			rpcsvc/nfs_prot.x \
-			rpcsvc/nis.h \
-			rpcsvc/nis.x \
-			rpcsvc/nis_callback.h \
-			rpcsvc/nis_callback.x \
-			rpcsvc/nis_object.x \
-			rpcsvc/nis_tags.h \
-			rpcsvc/nislib.h \
-			rpcsvc/nlm_prot.h \
-			rpcsvc/nlm_prot.x \
-			rpcsvc/rex.h \
-			rpcsvc/rex.x \
-			rpcsvc/rquota.h \
-			rpcsvc/rquota.x \
-			rpcsvc/rstat.h \
-			rpcsvc/rstat.x \
-			rpcsvc/rusers.h \
-			rpcsvc/rusers.x \
-			rpcsvc/sm_inter.h \
-			rpcsvc/sm_inter.x \
-			rpcsvc/spray.h \
-			rpcsvc/spray.x \
-			rpcsvc/yp.h \
-			rpcsvc/yp.x \
-			rpcsvc/yp_prot.h \
-			rpcsvc/ypclnt.h \
-			rpcsvc/yppasswd.h \
-			rpcsvc/yppasswd.x \
-			rpcsvc/ypupd.h \
 			sched.h \
-			scsi/scsi.h \
-			scsi/scsi_ioctl.h \
-			scsi/sg.h \
 			search.h \
 			semaphore.h \
 			setjmp.h \
@@ -660,219 +591,6 @@ headers_Linux=		aio.h \
 			wchar.h \
 			wctype.h \
 			wordexp.h \
-			x86_64-linux-gnu/a.out.h \
-			x86_64-linux-gnu/bits/a.out.h \
-			x86_64-linux-gnu/bits/auxv.h \
-			x86_64-linux-gnu/bits/byteswap-16.h \
-			x86_64-linux-gnu/bits/byteswap.h \
-			x86_64-linux-gnu/bits/cmathcalls.h \
-			x86_64-linux-gnu/bits/confname.h \
-			x86_64-linux-gnu/bits/dirent.h \
-			x86_64-linux-gnu/bits/dlfcn.h \
-			x86_64-linux-gnu/bits/elfclass.h \
-			x86_64-linux-gnu/bits/endian.h \
-			x86_64-linux-gnu/bits/environments.h \
-			x86_64-linux-gnu/bits/epoll.h \
-			x86_64-linux-gnu/bits/errno.h \
-			x86_64-linux-gnu/bits/error.h \
-			x86_64-linux-gnu/bits/eventfd.h \
-			x86_64-linux-gnu/bits/fcntl-linux.h \
-			x86_64-linux-gnu/bits/fcntl.h \
-			x86_64-linux-gnu/bits/fcntl2.h \
-			x86_64-linux-gnu/bits/fenv.h \
-			x86_64-linux-gnu/bits/fenvinline.h \
-			x86_64-linux-gnu/bits/huge_val.h \
-			x86_64-linux-gnu/bits/huge_valf.h \
-			x86_64-linux-gnu/bits/huge_vall.h \
-			x86_64-linux-gnu/bits/hwcap.h \
-			x86_64-linux-gnu/bits/in.h \
-			x86_64-linux-gnu/bits/inf.h \
-			x86_64-linux-gnu/bits/initspin.h \
-			x86_64-linux-gnu/bits/inotify.h \
-			x86_64-linux-gnu/bits/ioctl-types.h \
-			x86_64-linux-gnu/bits/ioctls.h \
-			x86_64-linux-gnu/bits/ipc.h \
-			x86_64-linux-gnu/bits/ipctypes.h \
-			x86_64-linux-gnu/bits/libio-ldbl.h \
-			x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
-			x86_64-linux-gnu/bits/link.h \
-			x86_64-linux-gnu/bits/local_lim.h \
-			x86_64-linux-gnu/bits/locale.h \
-			x86_64-linux-gnu/bits/math-finite.h \
-			x86_64-linux-gnu/bits/math-vector.h \
-			x86_64-linux-gnu/bits/mathcalls.h \
-			x86_64-linux-gnu/bits/mathdef.h \
-			x86_64-linux-gnu/bits/mathinline.h \
-			x86_64-linux-gnu/bits/mman-linux.h \
-			x86_64-linux-gnu/bits/mman.h \
-			x86_64-linux-gnu/bits/monetary-ldbl.h \
-			x86_64-linux-gnu/bits/mqueue.h \
-			x86_64-linux-gnu/bits/mqueue2.h \
-			x86_64-linux-gnu/bits/msq.h \
-			x86_64-linux-gnu/bits/nan.h \
-			x86_64-linux-gnu/bits/netdb.h \
-			x86_64-linux-gnu/bits/param.h \
-			x86_64-linux-gnu/bits/poll.h \
-			x86_64-linux-gnu/bits/poll2.h \
-			x86_64-linux-gnu/bits/posix1_lim.h \
-			x86_64-linux-gnu/bits/posix2_lim.h \
-			x86_64-linux-gnu/bits/posix_opt.h \
-			x86_64-linux-gnu/bits/printf-ldbl.h \
-			x86_64-linux-gnu/bits/pthreadtypes.h \
-			x86_64-linux-gnu/bits/resource.h \
-			x86_64-linux-gnu/bits/sched.h \
-			x86_64-linux-gnu/bits/select.h \
-			x86_64-linux-gnu/bits/select2.h \
-			x86_64-linux-gnu/bits/sem.h \
-			x86_64-linux-gnu/bits/semaphore.h \
-			x86_64-linux-gnu/bits/setjmp.h \
-			x86_64-linux-gnu/bits/setjmp2.h \
-			x86_64-linux-gnu/bits/shm.h \
-			x86_64-linux-gnu/bits/sigaction.h \
-			x86_64-linux-gnu/bits/sigcontext.h \
-			x86_64-linux-gnu/bits/siginfo.h \
-			x86_64-linux-gnu/bits/signalfd.h \
-			x86_64-linux-gnu/bits/signum.h \
-			x86_64-linux-gnu/bits/sigset.h \
-			x86_64-linux-gnu/bits/sigstack.h \
-			x86_64-linux-gnu/bits/sigthread.h \
-			x86_64-linux-gnu/bits/sockaddr.h \
-			x86_64-linux-gnu/bits/socket.h \
-			x86_64-linux-gnu/bits/socket2.h \
-			x86_64-linux-gnu/bits/socket_type.h \
-			x86_64-linux-gnu/bits/stab.def \
-			x86_64-linux-gnu/bits/stat.h \
-			x86_64-linux-gnu/bits/statfs.h \
-			x86_64-linux-gnu/bits/statvfs.h \
-			x86_64-linux-gnu/bits/stdio-ldbl.h \
-			x86_64-linux-gnu/bits/stdio.h \
-			x86_64-linux-gnu/bits/stdio2.h \
-			x86_64-linux-gnu/bits/stdio_lim.h \
-			x86_64-linux-gnu/bits/stdlib-bsearch.h \
-			x86_64-linux-gnu/bits/stdlib-float.h \
-			x86_64-linux-gnu/bits/stdlib-ldbl.h \
-			x86_64-linux-gnu/bits/stdlib.h \
-			x86_64-linux-gnu/bits/string.h \
-			x86_64-linux-gnu/bits/string2.h \
-			x86_64-linux-gnu/bits/string3.h \
-			x86_64-linux-gnu/bits/stropts.h \
-			x86_64-linux-gnu/bits/sys_errlist.h \
-			x86_64-linux-gnu/bits/syscall.h \
-			x86_64-linux-gnu/bits/sysctl.h \
-			x86_64-linux-gnu/bits/syslog-ldbl.h \
-			x86_64-linux-gnu/bits/syslog-path.h \
-			x86_64-linux-gnu/bits/syslog.h \
-			x86_64-linux-gnu/bits/termios.h \
-			x86_64-linux-gnu/bits/time.h \
-			x86_64-linux-gnu/bits/timerfd.h \
-			x86_64-linux-gnu/bits/timex.h \
-			x86_64-linux-gnu/bits/types.h \
-			x86_64-linux-gnu/bits/typesizes.h \
-			x86_64-linux-gnu/bits/uio.h \
-			x86_64-linux-gnu/bits/unistd.h \
-			x86_64-linux-gnu/bits/ustat.h \
-			x86_64-linux-gnu/bits/utmp.h \
-			x86_64-linux-gnu/bits/utmpx.h \
-			x86_64-linux-gnu/bits/utsname.h \
-			x86_64-linux-gnu/bits/waitflags.h \
-			x86_64-linux-gnu/bits/waitstatus.h \
-			x86_64-linux-gnu/bits/wchar-ldbl.h \
-			x86_64-linux-gnu/bits/wchar.h \
-			x86_64-linux-gnu/bits/wchar2.h \
-			x86_64-linux-gnu/bits/wordsize.h \
-			x86_64-linux-gnu/bits/xopen_lim.h \
-			x86_64-linux-gnu/bits/xtitypes.h \
-			x86_64-linux-gnu/fpu_control.h \
-			x86_64-linux-gnu/gnu/lib-names-64.h \
-			x86_64-linux-gnu/gnu/lib-names.h \
-			x86_64-linux-gnu/gnu/libc-version.h \
-			x86_64-linux-gnu/gnu/stubs-64.h \
-			x86_64-linux-gnu/gnu/stubs.h \
-			x86_64-linux-gnu/ieee754.h \
-			x86_64-linux-gnu/sys/acct.h \
-			x86_64-linux-gnu/sys/auxv.h \
-			x86_64-linux-gnu/sys/bitypes.h \
-			x86_64-linux-gnu/sys/cdefs.h \
-			x86_64-linux-gnu/sys/debugreg.h \
-			x86_64-linux-gnu/sys/dir.h \
-			x86_64-linux-gnu/sys/elf.h \
-			x86_64-linux-gnu/sys/epoll.h \
-			x86_64-linux-gnu/sys/errno.h \
-			x86_64-linux-gnu/sys/eventfd.h \
-			x86_64-linux-gnu/sys/fanotify.h \
-			x86_64-linux-gnu/sys/fcntl.h \
-			x86_64-linux-gnu/sys/file.h \
-			x86_64-linux-gnu/sys/fsuid.h \
-			x86_64-linux-gnu/sys/gmon.h \
-			x86_64-linux-gnu/sys/gmon_out.h \
-			x86_64-linux-gnu/sys/inotify.h \
-			x86_64-linux-gnu/sys/io.h \
-			x86_64-linux-gnu/sys/ioctl.h \
-			x86_64-linux-gnu/sys/ipc.h \
-			x86_64-linux-gnu/sys/kd.h \
-			x86_64-linux-gnu/sys/klog.h \
-			x86_64-linux-gnu/sys/mman.h \
-			x86_64-linux-gnu/sys/mount.h \
-			x86_64-linux-gnu/sys/msg.h \
-			x86_64-linux-gnu/sys/mtio.h \
-			x86_64-linux-gnu/sys/param.h \
-			x86_64-linux-gnu/sys/pci.h \
-			x86_64-linux-gnu/sys/perm.h \
-			x86_64-linux-gnu/sys/personality.h \
-			x86_64-linux-gnu/sys/poll.h \
-			x86_64-linux-gnu/sys/prctl.h \
-			x86_64-linux-gnu/sys/procfs.h \
-			x86_64-linux-gnu/sys/profil.h \
-			x86_64-linux-gnu/sys/ptrace.h \
-			x86_64-linux-gnu/sys/queue.h \
-			x86_64-linux-gnu/sys/quota.h \
-			x86_64-linux-gnu/sys/raw.h \
-			x86_64-linux-gnu/sys/reboot.h \
-			x86_64-linux-gnu/sys/reg.h \
-			x86_64-linux-gnu/sys/resource.h \
-			x86_64-linux-gnu/sys/select.h \
-			x86_64-linux-gnu/sys/sem.h \
-			x86_64-linux-gnu/sys/sendfile.h \
-			x86_64-linux-gnu/sys/shm.h \
-			x86_64-linux-gnu/sys/signal.h \
-			x86_64-linux-gnu/sys/signalfd.h \
-			x86_64-linux-gnu/sys/socket.h \
-			x86_64-linux-gnu/sys/socketvar.h \
-			x86_64-linux-gnu/sys/soundcard.h \
-			x86_64-linux-gnu/sys/stat.h \
-			x86_64-linux-gnu/sys/statfs.h \
-			x86_64-linux-gnu/sys/statvfs.h \
-			x86_64-linux-gnu/sys/stropts.h \
-			x86_64-linux-gnu/sys/swap.h \
-			x86_64-linux-gnu/sys/syscall.h \
-			x86_64-linux-gnu/sys/sysctl.h \
-			x86_64-linux-gnu/sys/sysinfo.h \
-			x86_64-linux-gnu/sys/syslog.h \
-			x86_64-linux-gnu/sys/sysmacros.h \
-			x86_64-linux-gnu/sys/termios.h \
-			x86_64-linux-gnu/sys/time.h \
-			x86_64-linux-gnu/sys/timeb.h \
-			x86_64-linux-gnu/sys/timerfd.h \
-			x86_64-linux-gnu/sys/times.h \
-			x86_64-linux-gnu/sys/timex.h \
-			x86_64-linux-gnu/sys/ttychars.h \
-			x86_64-linux-gnu/sys/ttydefaults.h \
-			x86_64-linux-gnu/sys/types.h \
-			x86_64-linux-gnu/sys/ucontext.h \
-			x86_64-linux-gnu/sys/uio.h \
-			x86_64-linux-gnu/sys/ultrasound.h \
-			x86_64-linux-gnu/sys/un.h \
-			x86_64-linux-gnu/sys/unistd.h \
-			x86_64-linux-gnu/sys/user.h \
-			x86_64-linux-gnu/sys/ustat.h \
-			x86_64-linux-gnu/sys/utsname.h \
-			x86_64-linux-gnu/sys/vfs.h \
-			x86_64-linux-gnu/sys/vlimit.h \
-			x86_64-linux-gnu/sys/vm86.h \
-			x86_64-linux-gnu/sys/vt.h \
-			x86_64-linux-gnu/sys/vtimes.h \
-			x86_64-linux-gnu/sys/wait.h \
-			x86_64-linux-gnu/sys/xattr.h \
 			xlocale.h \
 			# end
 
@@ -889,6 +607,7 @@ sysroot:
 install:
 	${MKDIR} \
 		${DESTDIR}${BASE}/bin \
+		${DESTDIR}${BASE}/lib \
 		${DESTDIR}${BASE}/usr/bin \
 		${DESTDIR}${BASE}/usr/include \
 		${DESTDIR}${BASE}/usr/lib/pkgconfig \
@@ -903,7 +622,6 @@ install:
 		# end
 .if "${OPSYS}" == "DragonFly"
 	${MKDIR} \
-		${DESTDIR}${BASE}/lib \
 		${DESTDIR}${BASE}/libexec \
 		${DESTDIR}${BASE}/usr/include/cpu \
 		${DESTDIR}${BASE}/usr/include/netinet6 \
@@ -915,7 +633,6 @@ install:
 .endif
 .if "${OPSYS}" == "FreeBSD"
 	${MKDIR} \
-		${DESTDIR}${BASE}/lib \
 		${DESTDIR}${BASE}/libexec \
 		${DESTDIR}${BASE}/usr/include/cpu \
 		${DESTDIR}${BASE}/usr/include/netinet6 \
@@ -928,22 +645,8 @@ install:
 .if "${OPSYS}" == "Linux"
 	${MKDIR} \
 		${DESTDIR}${BASE}/lib64 \
-		${DESTDIR}${BASE}/usr/lib64 \
-		${DESTDIR}${BASE}/usr/include/netash \
-		${DESTDIR}${BASE}/usr/include/netatalk \
-		${DESTDIR}${BASE}/usr/include/netax25 \
-		${DESTDIR}${BASE}/usr/include/neteconet \
-		${DESTDIR}${BASE}/usr/include/netipx \
-		${DESTDIR}${BASE}/usr/include/netiucv \
-		${DESTDIR}${BASE}/usr/include/netpacket \
-		${DESTDIR}${BASE}/usr/include/netrom \
-		${DESTDIR}${BASE}/usr/include/netrose \
-		${DESTDIR}${BASE}/usr/include/nfs \
-		${DESTDIR}${BASE}/usr/include/protocols \
-		${DESTDIR}${BASE}/usr/include/scsi \
-		${DESTDIR}${BASE}/usr/include/x86_64-linux-gnu/bits \
-		${DESTDIR}${BASE}/usr/include/x86_64-linux-gnu/gnu \
-		${DESTDIR}${BASE}/usr/include/x86_64-linux-gnu/sys \
+		${DESTDIR}${BASE}/lib/x86_64-linux-gnu \
+		${DESTDIR}${BASE}/usr/lib/x86_64-linux-gnu \
 		# end
 .endif
 
@@ -977,15 +680,32 @@ install:
 .endif
 .if ${OPSYS} == Linux
 .  for item in ${Linux_static_libs}
-	${BSD_INSTALL_DATA} ../linux/usr/lib/x86_64-linux-gnu/${item} ${DESTDIR}${BASE}/usr/lib64/
+	${BSD_INSTALL_DATA} ../linux/usr/lib/x86_64-linux-gnu/${item} ${DESTDIR}${BASE}/usr/lib/x86_64-linux-gnu/
 .  endfor
 .  for item in ${Linux_shared_libs}
-	${BSD_INSTALL_LIB} ../linux/lib/x86_64-linux-gnu/${item:H} ${DESTDIR}${BASE}/lib64/
-	ln -s ${item:H} ${DESTDIR}${BASE}/lib64/${item:T}
-	ln -s ../../lib64/${item:T} ${DESTDIR}${BASE}/usr/lib64/${item:T:R}
+	cp -a ../linux/lib/x86_64-linux-gnu/${item:H} ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/
+	cp -a ../linux/lib/x86_64-linux-gnu/${item:T} ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/
+	cp -a ../linux/usr/lib/x86_64-linux-gnu/${item:T:R} ${DESTDIR}${BASE}/usr/lib/x86_64-linux-gnu/
 .  endfor
-	${BSD_INSTALL_LIB} ../linux/lib/x86_64-linux-gnu/${Linux_RTLD:H} ${DESTDIR}${BASE}/lib64/
-	ln -s ${Linux_RTLD:H} ${DESTDIR}${BASE}/lib64/${Linux_RTLD:T}
+.  for item in ${Linux_extra_libs1} ${Linux_RTLD}
+	cp -a ../linux/lib/x86_64-linux-gnu/${item:H} ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/
+	cp -a ../linux/lib/x86_64-linux-gnu/${item:T} ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/
+.  endfor
+.  for item in ${Linux_extra_libs2}
+	cp -a ../linux/usr/lib/x86_64-linux-gnu/${item:H} ${DESTDIR}${BASE}/usr/lib/x86_64-linux-gnu/
+	cp -a ../linux/usr/lib/x86_64-linux-gnu/${item:T} ${DESTDIR}${BASE}/usr/lib/x86_64-linux-gnu/
+.  endfor
+.  for item in ${Linux_single_libs1}
+	cp -a ../linux/lib/x86_64-linux-gnu/${item} ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/
+.  endfor
+.  for item in ${Linux_single_libs2}
+	cp -a ../linux/usr/lib/x86_64-linux-gnu/${item} ${DESTDIR}${BASE}/usr/lib/x86_64-linux-gnu/
+.  endfor
+	ln -s /lib/x86_64-linux-gnu/${Linux_RTLD:H} ${DESTDIR}${BASE}/lib64/${Linux_RTLD:T}
+	# certain shared libraries must be executable
+	chmod 755 ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/${Linux_RTLD:H}
+	chmod 755 ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/${Linux_C_lib:H}
+	chmod 755 ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/${Linux_thread_lib:H}
 	# use coreutils that FreeBSD and DragonFly passed on (/bin)
 .  for item in [ chmod cp date echo expr kill link ln ls mkdir mv pwd realpath rm rmdir sleep test unlink
 	cp -a ${LOCALBASE}/bin/g${item} ${DESTDIR}${BASE}/bin/${item}
@@ -1000,6 +720,10 @@ install:
 	${BSD_INSTALL_SCRIPT} ../linux/bin/which ${DESTDIR}${BASE}/usr/bin/
 	# convert ldd from bash to dash
 	sed -i'' -e "s|/bin/bash|/bin/dash|" ${DESTDIR}${BASE}/usr/bin/ldd
+	# for convenience from listing hundreds of files, copy all from specific directories
+.  for hdr in ${headers_Linux_dirs}
+	cp -a ../linux/usr/include/${hdr} ${DESTDIR}${BASE}/usr/include/
+.  endfor
 .endif
 .for item in ${pcfiles_${OPSYS}}
 	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/libdata/pkgconfig/${item} \
