@@ -1501,13 +1501,13 @@ http_get_proxy(struct url * url, const char *flags)
 static void
 http_print_html(FILE *out, FILE *in)
 {
-	size_t len;
+	size_t linecap = 0;
 	char *line, *p, *q;
 	int comment, tag;
-	ssize_t chars_read;
+	ssize_t len;
 
 	comment = tag = 0;
-	while ((chars_read = getline(&line, &len, in)) != -1) {
+	while ((len = getline(&line, &linecap, in)) != -1) {
 		while (len && isspace((unsigned char)line[len - 1]))
 			--len;
 		for (p = q = line; q < line + len; ++q) {
@@ -1535,6 +1535,7 @@ http_print_html(FILE *out, FILE *in)
 			fwrite(p, q - p, 1, out);
 		fputc('\n', out);
 	}
+	free(line);
 }
 
 
