@@ -9,7 +9,6 @@
 #include <stddef.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <dlfcn.h>
 #include <elf.h>
 
 #include "execinfo.h"
@@ -20,6 +19,12 @@
 #else
 #include <sys/sysctl.h>
 #define SELF	"/proc/curproc/file"
+#endif
+
+#ifndef __printflike
+#define	__printflike(fmtarg, firstvararg) \
+            __attribute__((__nonnull__(fmtarg), \
+			  __format__ (__printf__, fmtarg, firstvararg)))
 #endif
 
 static int

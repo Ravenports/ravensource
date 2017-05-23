@@ -1,6 +1,12 @@
 #ifndef _SYMTAB_H_
 #define _SYMTAB_H_
 
+#ifdef __linux__
+#define	__USE_GNU
+#endif
+
+#include <dlfcn.h>
+
 __BEGIN_DECLS
 typedef struct symtab symtab_t;
 

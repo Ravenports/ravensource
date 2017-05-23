@@ -4,7 +4,6 @@
 #include <string.h>
 #include <stdint.h>
 #include <err.h>
-#include <dlfcn.h>
 
 #include <libelf.h>
 #include <gelf.h>

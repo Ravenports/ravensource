@@ -89,6 +89,10 @@ libelf_convert.c:	elf_types.m4 libelf_convert.m4
 libelf_fsize.c:		elf_types.m4 libelf_fsize.m4
 libelf_msize.c:		elf_types.m4 libelf_msize.m4
 
+.if ${OPSYS} == Linux
+${SRCS}: native-elf-format.h
+.endif
+
 # libexec sources
 PREFIX?=	/usr/local
 SRCS+=		backtrace.c symtab.c unwind.c
@@ -105,6 +109,9 @@ ${LIB_SHARED}: ${SOBJS}
 	${CC_LINK} ${LDFLAGS} -shared -Wl,-x \
 	    -o ${.TARGET} -Wl,-soname,${.TARGET} \
 	    `lorder ${SOBJS} | tsort -q`
+
+native-elf-format.h: ${COMMON}/native-elf-format
+	/bin/sh ${.ALLSRC} > ${.TARGET}
 
 install:
 	mkdir -p ${DESTDIR}${PREFIX}/lib ${DESTDIR}${PREFIX}/share/man/man3
