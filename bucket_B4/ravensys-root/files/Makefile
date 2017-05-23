@@ -132,10 +132,7 @@ Usr_Sbin_DragonFly= 	/usr/sbin/pw \
 			/usr/sbin/pwd_mkdb \
 			# end
 Usr_Sbin_FreeBSD=	${Usr_Sbin_DragonFly}
-Usr_Sbin_Linux=		/usr/sbin/useradd \
-			/usr/sbin/usermod \
-			/usr/sbin/groupadd \
-			#end
+Usr_Sbin_Linux=		# end
 
 static_lib_generic=	/usr/lib/libc.a \
 			/usr/lib/libm.a \
@@ -215,14 +212,14 @@ Linux_shared_libs=	${Linux_C_lib} \
 			libnss_nis-2.23.so/libnss_nis.so.2 \
 			libnss_nisplus-2.23.so/libnss_nisplus.so.2 \
 			# end
-Linux_extra_libs1=	libaudit.so.1.0.0/libaudit.so.1 \
+Linux_extra_libs1=	# libaudit.so.1.0.0/libaudit.so.1 \
 			# end (/lib)
-Linux_extra_libs2=	libustr-1.0.so.1.0.4/libustr-1.0.so.1 \
+Linux_extra_libs2=	# libustr-1.0.so.1.0.4/libustr-1.0.so.1 \
 			# end (/usr/lib)
-Linux_single_libs1=	libselinux.so.1 \
-			libsepol.so.1 \
+Linux_single_libs1=	# libsepol.so.1 \
+			# libselinux.so.1 \
 			# end (/lib)
-Linux_single_libs2=	libsemanage.so.1 \
+Linux_single_libs2=	# libsemanage.so.1 \
 			# end (/usr/lib)
 posix_headers=		aio.h \
 			arpa/inet.h \
@@ -714,6 +711,10 @@ install:
 .  for item in basename chgrp chown comm cut dirname env false head id install join mkfifo mktemp \
 	printenv printf readlink stat tail tee touch tee tr true tsort uniq wc whoami
 	cp -a ${LOCALBASE}/bin/g${item} ${DESTDIR}${BASE}/usr/bin/${item}
+.  endfor
+	# From linux-only shadow package
+.  for sbinitem in useradd usermod groupadd
+	cp -a ${LOCALBASE}/sbin/${sbinitem} ${DESTDIR}${BASE}/usr/bin/
 .  endfor
 	# ldd and which are scripts, can't be stripped
 	${BSD_INSTALL_SCRIPT} ../linux/usr/bin/ldd ${DESTDIR}${BASE}/usr/bin/
