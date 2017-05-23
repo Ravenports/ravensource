@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	1.6.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ossp-uuid
+VERSION=		${PORTVERSION}
+KEYWORDS=		misc devel
+VARIANTS=		standard
+SDESC[standard]=	Tool/Lib for generating Universally Unique IDs
+HOMEPAGE=		http://www.ossp.org/pkg/lib/uuid/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		ftp://ftp.ntua.gr/pub/utils/ossp/lib/uuid/
+			ftp://ftp.ossp.org/pkg/lib/uuid/
+DISTFILE[1]=		uuid-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+USES=			libtool c++:single
+DISTNAME=		uuid-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-cxx
+			--includedir={{PREFIX}}/include/ossp
+
+post-patch:
+	### Fixes lib conflicts with misc/e2fsprogs-libuuid ###
+	${REINPLACE_CMD} -e 's/libuuid.la/libossp-uuid.la/' \
+		-e 's/libuuid++.la/libossp-uuid++.la/' ${WRKSRC}/Makefile.in
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libossp-uuid.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libossp-uuid++.so
+
+do-test:
+	@(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_FLAGS} \
+		${MAKEFILE} ${MAKE_ARGS} check)
