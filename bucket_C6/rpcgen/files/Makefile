@@ -4,6 +4,10 @@ SRCS=		rpc_main.c rpc_clntout.c rpc_cout.c rpc_hout.c rpc_parse.c \
 OBJS=		${SRCS:.c=.o}
 PREFIX?=	/usr/local
 
+.if ${OPSYS} == Linux
+LIBS+=		${PREFIX}/lib/libbsd.a
+.endif
+
 all: ${PROG}
 
 clean:

@@ -9,6 +9,10 @@
 #define	s_print	(void) sprintf
 #define	f_print (void) fprintf
 
+#ifndef __unused
+#define __unused        __attribute__((__unused__))
+#endif
+
 struct list {
 	definition *val;
 	struct list *next;

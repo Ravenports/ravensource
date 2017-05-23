@@ -14,6 +14,10 @@
 #include "rpc_scan.h"
 #include "rpc_util.h"
 
+#ifdef __linux__
+#include <bsd/string.h>
+#endif
+
 static void	c_output(const char *, const char *, int, const char *);
 static void	h_output(const char *, const char *, int, const char *, int);
 static void	l_output(const char *, const char *, int, const char *);
