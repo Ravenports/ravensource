@@ -29,7 +29,7 @@ BUILDRUN_DEPENDS=	libffi:single:standard
 			xz:single:standard
 BROKEN_SSL=		openssl-devel
 
-USES=			cpe ncurses pkgconfig readline ssl shebangfix
+USES=			bdb cpe ncurses pkgconfig readline ssl shebangfix
 DISTNAME=		Python-${PORTVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
 SINGLE_JOB=		yes
@@ -59,8 +59,16 @@ PLIST_SUB=		XYDOT=${PYTHON_VER}
 			XY=${PYTHON_SUFFIX}
 			XYZDOT=${PORTVERSION}
 			LOW_OPSYS={{OPSYS:tl}}
-			OSMAJOR={{MAJOR:R}}
 			ABI={{ABIFLAGS}}
+VAR_OPSYS[linux]=	PLIST_SUB=SOABI=.cpython-${PYTHON_SUFFIX}m
+			PLIST_SUB=PLAT={{OPSYS:tl}}
+			PLIST_SUB=SHLIB=so.1.0
+VAR_OPSYS[dragonfly]=	PLIST_SUB=SOABI=
+			PLIST_SUB=PLAT={{OPSYS:tl}}{{MAJOR:R}}
+			PLIST_SUB=SHLIB=so.1
+VAR_OPSYS[freebsd]=	PLIST_SUB=SOABI=
+			PLIST_SUB=PLAT={{OPSYS:tl}}{{MAJOR:R}}
+			PLIST_SUB=SHLIB=so.1
 
 [THREADS].CONFIGURE_WITH_BOTH=		threads
 [THREADS].LDFLAGS_ON=			-pthread
@@ -75,6 +83,8 @@ PLIST_SUB=		XYDOT=${PYTHON_VER}
 post-patch:
 	${REINPLACE_CMD} -e 's|/usr/local/bin/python|${python_CMD}|' \
 		${WRKSRC}/Lib/cgi.py
+	${REINPLACE_CMD} -e 's|/usr/local/include/db4|${PREFIX}/include/db${BDB_VER}|' \
+		${WRKSRC}/setup.py
 
 post-install-DEBUG-OFF:
 	# Upstream Issue: http://bugs.python.org/issue17975
