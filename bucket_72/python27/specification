@@ -33,7 +33,7 @@ LICENSE=		PSFL:single
 LICENSE_FILE=		PSFL:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
-USES=			cpe ncurses pkgconfig readline ssl shebangfix
+USES=			bdb cpe ncurses pkgconfig readline ssl shebangfix
 DISTNAME=		Python-${PORTVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
 SINGLE_JOB=		yes
@@ -90,7 +90,14 @@ PLIST_SUB=		XYDOT=${PYTHON_VER}
 			XY=${PYTHON_SUFFIX}
 			XYZDOT=${PORTVERSION}
 			LOW_OPSYS={{OPSYS:tl}}
-			OSMAJOR={{MAJOR:R}}
+
+VAR_OPSYS[linux]=	PLIST_SUB=PLAT={{OPSYS:tl}}2
+			PLIST_SUB=SHLIB=so.1.0
+VAR_OPSYS[dragonfly]=	PLIST_SUB=PLAT={{OPSYS:tl}}{{MAJOR:R}}
+			PLIST_SUB=SHLIB=so.1
+VAR_OPSYS[freebsd]=	PLIST_SUB=PLAT={{OPSYS:tl}}{{MAJOR:R}}
+			PLIST_SUB=SHLIB=so.1
+
 VAR_ARCH[i386]=		PLIST_SUB=I386-ON=""
 VAR_ARCH[x86_64]=	PLIST_SUB=I386-ON="@comment "
 VAR_ARCH[aarch64]=	PLIST_SUB=I386-ON="@comment "
@@ -109,6 +116,10 @@ post-patch:
 	@${REINPLACE_CMD} -e \
 		's,/usr/doc/python-docs-,${PREFIX}/share/doc/python,g' \
 		${PATCH_WRKSRC}/Lib/pydoc.py
+	${REINPLACE_CMD} -e '/runtime_library_dirs=dblib_dir/d' \
+		-e 's|/usr/local/include/db4|${PREFIX}/include/db${BDB_VER}|' \
+		${WRKSRC}/setup.py
+	${REINPLACE_CMD} -e 's|$$$$quiet|--verbose|' ${WRKSRC}/Makefile.pre.in
 
 post-install-DEBUG-OFF:
 	# Upstream Issue: http://bugs.python.org/issue17975
