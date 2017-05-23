@@ -3,7 +3,7 @@ DEF[LINUX_KERNEL]=	4.4.0-53
 DEF[LINUX_OSREL]=	${LINUX_KERNEL:DL="-":H}
 DEF[LINUX_MAJOR]=	${LINUX_OSREL:R}
 DEF[LINUX_VERSION]=	${LINUX_KERNEL:S/-//:S/.//:S/./0/}
-DEF[EXTRA_UBUNTU]=	4 5 6 7 8 9 10 11 12
+DEF[EXTRA_UBUNTU]=	4 5 6 7 8 9 10 11 12 13
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravensys-root
@@ -42,6 +42,8 @@ DISTFILE[9]=		libc-bin_2.23-0ubuntu7_amd64.deb:ubuntu1
 DISTFILE[10]=		bsdmainutils_9.0.6ubuntu3_amd64.deb:ubuntu6
 DISTFILE[11]=		passwd_4.2-3.1ubuntu5.3_amd64.deb:ubuntu7
 DISTFILE[12]=		linux-libc-dev_4.4.0-78.99_amd64.deb:ubuntu8
+DISTFILE[13]=		libc6-dev-amd64_2.23-0ubuntu7_i386.deb:ubuntu1
+DISTFILE[14]=		libc6-dev_2.23-0ubuntu7_i386.deb:ubuntu1
 
 SPKGS[dragonfly]=	single
 SPKGS[freebsd64]=	single
@@ -87,8 +89,8 @@ BUILD_DEPENDS=		nawk:single:standard
 B_DEPS[linux]=		shadow:single:standard
 
 SKIP_BUILD=		yes
-EXTRACT_DIRTY=		2 3 ${EXTRA_UBUNTU}
-EXTRACT_DEB_PACKAGE=	3 ${EXTRA_UBUNTU}
+EXTRACT_DIRTY=		2 3 ${EXTRA_UBUNTU} 14
+EXTRACT_DEB_PACKAGE=	3 ${EXTRA_UBUNTU} 14
 
 PLIST_SUB=		SONAME_LIBM={{Libm_{{OPSYS}}}}
 			SONAME_LIBC={{Libc_{{OPSYS}}}}
@@ -116,7 +118,7 @@ MAKE_ARGS=		BASE={{RSYS}}
 
 [LINUX].DESCRIPTION=			Ravenports system root for Linux
 [LINUX].ONLY_FOR_OPSYS_ON=		linux
-[LINUX].DF_INDEX_ON=			3 ${EXTRA_UBUNTU}
+[LINUX].DF_INDEX_ON=			3 ${EXTRA_UBUNTU} 14
 
 [FREEBSD].DESCRIPTION=			Ravenports system root for FreeBSD
 [FREEBSD].ONLY_FOR_OPSYS_ON=		freebsd

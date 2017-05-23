@@ -478,6 +478,7 @@ headers_Linux_dirs=	arpa \
 			rpc \
 			rpcsvc \
 			scsi \
+			sys \
 			x86_64-linux-gnu \
 			#end
 headers_Linux=		_G_config.h \
@@ -725,6 +726,8 @@ install:
 .  for hdr in ${headers_Linux_dirs}
 	cp -a ../linux/usr/include/${hdr} ${DESTDIR}${BASE}/usr/include/
 .  endfor
+	# i386 version conflicts with amd64 version, so copy just the i386 files separately
+	cp -a ../ravensys-root_14/usr/include/i386-linux-gnu ${DESTDIR}${BASE}/usr/include/
 .endif
 .for item in ${pcfiles_${OPSYS}}
 	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/libdata/pkgconfig/${item} \
