@@ -12,7 +12,7 @@ HOMEPAGE=		https://github.com/jrmarino/ravenadm
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/jrmarino:ravenadm:9bfbaaf
+SITES[main]=		GITHUB/jrmarino:ravenadm:f66f4d9
 DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
@@ -35,6 +35,10 @@ post-extract:
 	@${REINPLACE_CMD} -e "s|/raven|${LOCALBASE}|" \
 		-e "s|:= dragonfly|:= ${OPSYS:tl}|" \
 		${WRKSRC}/src/definitions.ads
+	# ensure Tampering_Check is active
+	@${REINPLACE_CMD} -e '/pragma Suppress/ s|--  ||' \
+		${WRKSRC}/src/portscan.ads \
+		${WRKSRC}/src/port_specification.ads
 
 do-build:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
