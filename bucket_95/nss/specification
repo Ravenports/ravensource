@@ -5,7 +5,7 @@ DEF[BINS_B]=		modutil ocspclnt oidcalc p7content p7env p7sign p7verify
 DEF[BINS_C]=		pk12util rsaperf shlibsign signtool signver ssltap
 DEF[BINS_D]=		strsclnt symkeyutil vfychain vfyserv
 DEF[INSTALL_BINS]=	${BINS_A} ${BINS_B} ${BINS_C} ${BINS_D}
-DEF[BINS]=		${DIST}/{{OPSYS}}{{OSREL}}_DBG.OBJ
+DEF[BINS]=		${DIST}/{{OPSYS}}*_DBG.OBJ
 DEF[CERTDIR]=		share/certs
 DEF[CERTDATA_PATH]=	{{WRKSRC}}/lib/ckfw/builtins/certdata.txt
 # ----------------------------------------------------------------------------
@@ -46,7 +46,9 @@ MAKE_ENV=		LIBRARY_PATH="{{LOCALBASE}}/lib"
 			SQLITE_INCLUDE_DIR="{{LOCALBASE}}/include"
 			FREEBL_LOWHASH=1
 			NSS_DISABLE_GTESTS=1
+			NSS_DISABLE_DBM=1
 			NSS_USE_SYSTEM_SQLITE=1
+			USE_64=1
 CFLAGS=			-I{{LOCALBASE}}/include/nspr
 LDFLAGS=		-Wl,-rpath,{{PREFIX}}/lib/nss
 SUB_FILES=		nss-config
