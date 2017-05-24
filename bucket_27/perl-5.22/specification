@@ -19,8 +19,8 @@ DIST_SUBDIR=		perl5
 
 SPKGS[standard]=	complete primary manpages
 
-OPTIONS_AVAILABLE=	MULTIPLICITY THREADS BIT64INT DEBUG GDBM
-OPTIONS_STANDARD=	MULTIPLICITY THREADS BIT64INT DEBUG GDBM
+OPTIONS_AVAILABLE=	MULTIPLICITY THREADS BIT64INT DEBUG
+OPTIONS_STANDARD=	MULTIPLICITY THREADS BIT64INT DEBUG
 OPT_ON[all]=		MULTIPLICITY THREADS
 OPT_ON[i386]=		BIT64INT
 
@@ -32,13 +32,19 @@ LICENSE_FILE=		ART10:{{WRKSRC}}/Artistic
 			GPLv1:{{WRKSRC}}/Copying
 LICENSE_SCHEME=		dual
 
-USES=			cpe perl-interp cclibs:primary
+BUILDRUN_DEPENDS=	gdbm:single:standard
+
+USES=			bdb cpe perl-interp cclibs:primary
 
 DISTNAME=		perl-{{VERSION}}
 MUST_CONFIGURE=		yes
 CONFIGURE_SCRIPT=	Configure
 CONFIGURE_ARGS=		-Dcf_by="${MAINTAINER}"
 			-Dcf_email="${MAINT_MAIL}"
+			-Di_gdbm
+			-Dlocincpth="{{BDB_INCLUDE_DIR}} {{PREFIX}}/include"
+			-Dloclibpth="{{BDB_LIB_DIR}} {{PREFIX}}/lib"
+			-Aldflags="-Wl,-rpath,{{PREFIX}}/lib"
 INSTALL_REQ_TOOLCHAIN=	yes
 
 [MULTIPLICITY].DESCRIPTION=		Multiple interpret instances in same process
@@ -53,9 +59,9 @@ INSTALL_REQ_TOOLCHAIN=	yes
 [THREADS].CONFIGURE_ARGS_OFF=		-Dusethreads=n
 
 [DEBUG].CONFIGURE_ARGS_ON=		-Doptimize="-g" -DDEBUGGING
-[DEBUG].CONFIGURE_ARGS_OFF=		-Doptimize="{{CFLAGS}}"
+[DEBUG].CONFIGURE_ARGS_OFF=		-Doptimize="-O{{OPTIMIZER_LEVEL}}"
 
-[GDBM].DESCRIPTION=			GDBM_File extension
-[GDBM].CONFIGURE_ARGS_ON=		-Di_gdbm
-[GDBM].CONFIGURE_ARGS_OFF=		-Ui_gdbm
-[GDBM].BUILDRUN_DEPENDS_ON=		gdbm:single:standard
+post-stage:
+	# on linux, $SITE_ARCH/machine is created but not used
+	-[ -d ${STAGEDIR}${SITE_ARCH}/machine ] && \
+		${RMDIR} ${STAGEDIR}${SITE_ARCH}/machine
