@@ -28,7 +28,7 @@ BUILDRUN_DEPENDS=	gnat-util:single:standard
 
 USES=			gmake gprbuild
 DISTNAME=		asis-gpl-${PORTVERSION}-src
-MAKE_ENV=		PROCESSORS={{MAKE_JOBS_NUMBER}}
+MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
 
 post-extract:
 	@${REINPLACE_CMD} -e 's|OPSYS|ASISOPSYS|g' \

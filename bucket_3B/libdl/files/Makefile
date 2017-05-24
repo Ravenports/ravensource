@@ -16,7 +16,7 @@ dl_stub.c:
 	@echo " */" >> ${.TARGET}
 
 dl_stub.o: dl_stub.c
-	${CC} -c ${.ALLSRC} -o ${.TARGET}
+	${CC} -c ${.ALLSRC} -fPIC -o ${.TARGET}
 
 clean:
 	rm -f libdl.a dl_stub.c dl_stub.o

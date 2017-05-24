@@ -27,6 +27,12 @@ CFLAGS+=	-I. -I${SRCDIR} -I${COMMON}
 
 all: ${LIB_STATIC} ${LIB_SHARED}
 
+.if ${OPSYS} == Linux
+TSORT=		tsort 2>/dev/null
+.else
+TSORT=		tsort -q
+.endif
+
 # verbatim from Elftoolchain sourcefile
 SRCS=	elf.c							\
 	elf_begin.c						\
@@ -101,14 +107,14 @@ SOBJS=		${SRCS:.c=.So}
 
 ${LIB_STATIC}: ${OBJS}
 	@${ECHO} building static ${LIB} library
-	${AR} cq ${.TARGET} `lorder ${OBJS} | tsort -q`
+	${AR} cq ${.TARGET} `lorder ${OBJS} | ${TSORT}`
 	ranlib ${.TARGET}
 
 ${LIB_SHARED}: ${SOBJS}
 	@${ECHO} building shared ${LIB} library
 	${CC_LINK} ${LDFLAGS} -shared -Wl,-x \
 	    -o ${.TARGET} -Wl,-soname,${.TARGET} \
-	    `lorder ${SOBJS} | tsort -q`
+	    `lorder ${SOBJS} | ${TSORT}`
 
 native-elf-format.h: ${COMMON}/native-elf-format
 	/bin/sh ${.ALLSRC} > ${.TARGET}

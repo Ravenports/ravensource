@@ -13,6 +13,12 @@ C_SRCS=		link.c osint_scars.c
 LIB_SRCS+=	${C_SRCS} ${GEN_SRCS} ${ADS_SRCS} ${ADB_SRCS:Nlib-*.adb}
 LIB_OBJS=	${LIB_SRCS:R:S/$/.o/}
 
+.if ${OPSYS} == Linux
+TSORT=		tsort 2>/dev/null
+.else
+TSORT=		tsort -q
+.endif
+
 .PHONY: all
 .PHONY: generate_sources
 .PHONY: libgnat-util.a
@@ -64,6 +70,6 @@ ${GEN_SRCS:R:S/$/.o/}:
 	ada ${ADA_FLAGS} -I../ -c ../${SRC}/${.TARGET:R}.adb
 
 libgnat-util.a: ${LIB_OBJS}
-	ar cq ${.TARGET} `lorder ${LIB_OBJS} | tsort -q`
+	ar cq ${.TARGET} `lorder ${LIB_OBJS} | ${TSORT}`
 	ranlib ${.TARGET}
 	mv ${.TARGET} *.ali ../lib
