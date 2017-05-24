@@ -122,6 +122,9 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/lib*.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/plugin/*.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/mysqld
+	# Linux doesn't like -R flags
+	${SED} -i'' -e 's| -R| -Wl,-rpath,|g' \
+		${STAGEDIR}${PREFIX}/bin/mysql_config
 	list=$$(cd ${STAGEDIR}${PREFIX}/bin && ${LS} * | ${AWK} \
 		'{ if ($$1 != "mysql_config" && $$1 != "mysqld_mult" && \
 		$$1 != "mysqld_safe" && $$1 != "mysqldumpslow" && \
