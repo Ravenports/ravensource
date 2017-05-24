@@ -22,8 +22,8 @@ LICENSE_SCHEME=		solo
 do-extract:
 	${MKDIR} ${WRKSRC}
 	${SED} -e 's|@OPSYS@|${OPSYS}|g' \
-		-e 's|@ARCH@|${ARCH}|g' \
-		-e 's|@PLATFORM@|${ARCH}|g' \
+		-e 's|@ARCH@|${SET_ARCH}|g' \
+		-e 's|@PLATFORM@|${SET_PLATFORM}|g' \
 		-e 's|@RELEASE@|${OSREL}-RAVEN|g' \
 		-e 's|@USERVER@|${OSVERSION}|g' \
 		${FILESDIR}/uname.c.in > ${WRKSRC}/uname.c
