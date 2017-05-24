@@ -1,0 +1,26 @@
+DEF[PORTVERSION]=	1.0.21
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libusb
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils devel
+VARIANTS=		standard
+SDESC[standard]=	Cross-platform user library to access USB devices
+HOMEPAGE=		http://libusb.info/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/libusb:libusb:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+ONLY_FOR_OPSYS=		linux netbsd openbsd darwin
+
+USES=			autoreconf libtool
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-udev=no
