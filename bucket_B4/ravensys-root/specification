@@ -75,7 +75,6 @@ BUILD_DEPENDS=		nawk:single:standard
 			patch:single:standard
 			sed:single:standard
 			byacc:single:standard
-			libdl:single:standard
 			ravensys-uname:single:standard
 			less:single:standard
 			nvi:single:standard
@@ -87,8 +86,11 @@ BUILD_DEPENDS=		nawk:single:standard
 			makewhatis:single:standard
 			genpatch:single:standard
 B_DEPS[linux]=		shadow:single:standard
+B_DEPS[dragonfly]=	libdl:single:standard
+B_DEPS[freebsd]=	libdl:single:standard
 
 SKIP_BUILD=		yes
+SINGLE_JOB=		yes
 EXTRACT_DIRTY=		2 3 ${EXTRA_UBUNTU} 14
 EXTRACT_DEB_PACKAGE=	3 ${EXTRA_UBUNTU} 14
 

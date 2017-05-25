@@ -13,7 +13,7 @@ install:
 	tar -xf /packages/All/binutils-single-ravensys-*.txz ${LOCALBASE}
 
 	cp -a ${LOCALBASE:T}/toolchain/bin  ${DESTDIR}${PREFIX}/
-	cp -a ${LOCALBASE:T}/toolchain/${TARGET}/lib ${DESTDIR}${PREFIX}/
+	cp -a ${LOCALBASE:T}/toolchain/lib  ${DESTDIR}${PREFIX}/
 	cp -a ${LOCALBASE:T}/toolchain/gcc6 ${DESTDIR}${PREFIX}/
 	rm -rf ${DESTDIR}${PREFIX}/gcc6/share/licenses
 	cp /packages/All/gcc6-*-${COMPVER}.txz ${DESTDIR}${PREFIX}/share/
