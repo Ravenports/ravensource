@@ -6,6 +6,7 @@ DEF[MAINT_MAIL]=	draco@marino.st
 
 NAMEBASE=		perl-${PERL_VER}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		lang perl devel
 VARIANTS=		standard
 SDESC[standard]=	Practical Extraction and Report Language
@@ -57,6 +58,13 @@ INSTALL_REQ_TOOLCHAIN=	yes
 
 [DEBUG].CONFIGURE_ARGS_ON=		-Doptimize="-g" -DDEBUGGING
 [DEBUG].CONFIGURE_ARGS_OFF=		-Doptimize="-O{{OPTIMIZER_LEVEL}}"
+
+post-patch:
+	# GDBM is missing the runpath
+	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|' \
+		${WRKSRC}/ext/GDBM_File/Makefile.PL \
+		${WRKSRC}/ext/NDBM_File/Makefile.PL \
+		${WRKSRC}/ext/ODBM_File/Makefile.PL
 
 post-stage:
 	# on linux, $SITE_ARCH/machine is created but not used
