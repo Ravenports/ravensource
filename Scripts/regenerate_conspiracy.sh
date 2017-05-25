@@ -31,4 +31,10 @@ done
 /raven/bin/ravenadm dev generate-index
 
 chown -R ${maintainer} ${repo}
+
+if [ $# -lt 1 -o "${1}" != "confirm" ]; then
+   echo "add 'confirm' argument to regenerate (again) but with a commit this time"
+   exit 0;
+fi
+
 (cd ${repo} && git add * && git commit -m "${message}")
