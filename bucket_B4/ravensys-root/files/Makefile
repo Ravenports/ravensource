@@ -717,6 +717,8 @@ install:
 .  for sbinitem in useradd usermod groupadd
 	cp -a ${LOCALBASE}/sbin/${sbinitem} ${DESTDIR}${BASE}/usr/bin/
 .  endfor
+	# from linux-only bash package
+	cp -a ${LOCALBASE}/bin/bash ${DESTDIR}${BASE}/bin/	
 	# ldd and which are scripts, can't be stripped
 	${BSD_INSTALL_SCRIPT} ../linux/usr/bin/ldd ${DESTDIR}${BASE}/usr/bin/
 	${BSD_INSTALL_SCRIPT} ../linux/bin/which ${DESTDIR}${BASE}/usr/bin/
