@@ -1,0 +1,50 @@
+From 163d922772bed016de01570c71e4902ee5f75e41 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Fran=C3=A7ois=20Tigeot?= <ftigeot@wolfpond.org>
+Date: Fri, 26 May 2017 10:22:11 +0200
+Subject: [PATCH] pkg_elf.c: Only FreeBSD uses FreeBSD binaries
+
+* Only compile a check preventing non-FreeBSD binaries from being
+  recognized as valid shared libraries on FreeBSD systems
+
+* This code was preventing shlibs_provided and shlibs_required entries
+  from being put in newly created packages on non-FreeBSD systems
+
+* This commit should fix issue #1578
+---
+ libpkg/pkg_elf.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git libpkg/pkg_elf.c b/libpkg/pkg_elf.c
+index 4cda48801..c3aca4e1f 100644
+--- libpkg/pkg_elf.c
++++ libpkg/pkg_elf.c
+@@ -216,6 +216,7 @@ shlib_valid_abi(const char *fpath, GElf_Ehdr *hdr, const char *abi)
+ 	return (true);
+ }
+ 
++#ifdef __FreeBSD__
+ static bool
+ is_old_freebsd_armheader(const GElf_Ehdr *e)
+ {
+@@ -234,6 +235,7 @@ is_old_freebsd_armheader(const GElf_Ehdr *e)
+ 	}
+ 	return (false);
+ }
++#endif
+ 
+ static int
+ analyse_elf(struct pkg *pkg, const char *fpath)
+@@ -347,11 +349,13 @@ analyse_elf(struct pkg *pkg, const char *fpath)
+ 		goto cleanup; /* Invalid ABI */
+ 	}
+ 
++#ifdef __FreeBSD__
+ 	if (elfhdr.e_ident[EI_OSABI] != ELFOSABI_FREEBSD &&
+ 	    !is_old_freebsd_armheader(&elfhdr)) {
+ 		ret = EPKG_END;
+ 		goto cleanup;
+ 	}
++#endif
+ 
+ 	if ((data = elf_getdata(dynamic, NULL)) == NULL) {
+ 		ret = EPKG_END; /* Some error occurred, ignore this file */
