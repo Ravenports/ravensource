@@ -5,6 +5,7 @@ DEF[STANDARD_PATH]=	/sbin:/bin:/usr/sbin:/usr/bin
 
 NAMEBASE=		bash
 VERSION=		${PORTVERSION}.${PATCHLEVEL}
+REVISION=		1
 KEYWORDS=		shells
 VARIANTS=		standard static nls
 SDESC[standard]=	GNU Bourne Again SHell
@@ -46,6 +47,8 @@ LICENSE_SCHEME=		solo
 
 PATCHFILES=		2 3 4 5 6 7 8 9 10 11 12
 
+# readline is bundled and linked statically
+
 USES=			bison cpe makeinfo
 DISTNAME=		bash-${PORTVERSION}
 MUST_CONFIGURE=		gnu
@@ -75,8 +78,8 @@ CPPFLAGS=		-DDEFAULT_PATH_VALUE='\"{{STANDARD_PATH}}:{{LOCALBASE}}/sbin:{{LOCALB
 
 [STATIC].CONFIGURE_ENABLE_BOTH=		static-link
 [STATIC].CFLAGS_OFF=			-Wl,-export-dynamic
-[STATIC].USES_OFF=			readline
-[STATIC].BUILD_DEPENDS_ON=		readline:single:standard
+[STATIC].BUILD_DEPENDS_ON=		ncurses:primary:standard
+[STATIC].BUILDRUN_DEPENDS_OFF=		ncurses:primary:standard
 
 [NOTSTD].DESCRIPTION=			Non-standard designation
 
