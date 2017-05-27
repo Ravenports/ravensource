@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	1.10.1
 
 NAMEBASE=		pkg-bsd
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		raven
 VARIANTS=		standard
 SDESC[standard]=	BSD binary package manager
@@ -44,8 +44,16 @@ VAR_OPSYS[linux]=	CONFIGURE_ENV=LIBS="-ldl"
 post-patch:
 	${REINPLACE_CMD} -e '/mandir = / s|/man|/share/man|' \
 		${WRKSRC}/docs/Makefile.in
+
+post-patch-linux:
 	${REINPLACE_CMD} -e '/OS_STATIC/ s/false/true/' \
 		${WRKSRC}/configure
+	${REINPLACE_CMD} \
+		-e '/pkg_static_LDFLAGS =/ s/$$/ -Wl,-Bdynamic,-lc,-ldl,-Bstatic/' \
+		${WRKSRC}/src/Makefile.in
+	${REINPLACE_CMD} \
+		-e '/libpkg_static_la_LDFLAGS =/ s/$$/ -Wl,-Bdynamic,-lc,-ldl,-Bstatic/' \
+		${WRKSRC}/libpkg/Makefile.in
 
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/sbin/pkg2ng
