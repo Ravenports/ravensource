@@ -1,7 +1,7 @@
 #!/bin/sh
 
 maintainer=marino
-repo=/home/marino/github/Ravenports
+repo=/usr/raven #/home/marino/github/Ravenports
 myid=$(id -un)
 today=$(date "+%d %h %Y %H:%M")
 message="Ravenports generated: ${today}"
@@ -37,4 +37,4 @@ if [ $# -lt 1 -o "${1}" != "confirm" ]; then
    exit 0;
 fi
 
-(cd ${repo} && git add * && git commit -m "${message}")
+(cd ${repo} && git add "." && git commit -m "${message}")
