@@ -35,7 +35,7 @@ LICENSE_SCHEME=		dual
 
 BUILDRUN_DEPENDS=	gdbm:single:standard
 
-BROKEN[linux]=		Many modules silently fail to build and install
+BROKEN[all]=		Many CPAN modules silently fail to build and install
 
 USES=			bdb cpe perl-interp cclibs:primary
 
@@ -49,6 +49,10 @@ CONFIGURE_ARGS=		-Dcf_by="${MAINTAINER}"
 			-Dloclibpth="{{BDB_LIB_DIR}} {{PREFIX}}/lib"
 			-Aldflags="-Wl,-rpath,{{PREFIX}}/lib"
 INSTALL_REQ_TOOLCHAIN=	yes
+TEST_TARGET=		test_harness
+TEST_ENV=		{{MAKE_ENV}}
+			TEST_JOBS={{MAKE_JOBS_NUMBER}}
+			LD_LIBRARY_PATH={{WRKSRC}}
 
 [MULTIPLICITY].DESCRIPTION=		Multiple interpret instances in same process
 [MULTIPLICITY].CONFIGURE_ARGS_ON=	-Dusemultiplicity=y
@@ -67,6 +71,7 @@ INSTALL_REQ_TOOLCHAIN=	yes
 post-patch:
 	# GDBM is missing the runpath
 	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|' \
+		${WRKSRC}/cpan/DB_File/Makefile.PL \
 		${WRKSRC}/ext/GDBM_File/Makefile.PL \
 		${WRKSRC}/ext/NDBM_File/Makefile.PL \
 		${WRKSRC}/ext/ODBM_File/Makefile.PL
