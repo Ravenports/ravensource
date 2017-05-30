@@ -1,0 +1,47 @@
+DEF[PORTVERSION]=	2.11.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-pytest-runner
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py27 py34 py35
+SDESC[py27]=		Invoke py.test as distutils command with d (PY 27)
+SDESC[py34]=		Invoke py.test as distutils command with d (PY 34)
+SDESC[py35]=		Invoke py.test as distutils command with d (PY 35)
+HOMEPAGE=		https://github.com/pytest-dev/pytest-runner
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/p/pytest-runner
+DISTFILE[1]=		pytest-runner-2.11.1.tar.gz:main
+
+SPKGS[py27]=		single
+SPKGS[py34]=		single
+SPKGS[py35]=		single
+
+OPTIONS_AVAILABLE=	PY27 PY34 PY35
+OPTIONS_STANDARD=	none
+VOPTS[py27]=		PY27=ON PY34=OFF PY35=OFF
+VOPTS[py34]=		PY27=OFF PY34=ON PY35=OFF
+VOPTS[py35]=		PY27=OFF PY34=OFF PY35=ON
+
+LICENSE=		CUSTOM1:single
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE
+LICENSE_NAME=		CUSTOM1:"UNKNOWN"
+LICENSE_SCHEME=		solo
+
+GENERATED=		yes
+
+# install_requires extracted from setup.py
+# setuptools_scm>=1.15.0
+
+DISTNAME=		pytest-runner-${PORTVERSION}
+
+[PY27].USES_ON=				python:py27
+[PY27].BUILDRUN_DEPENDS_ON=		python-setuptools_scm:single:py27
+
+[PY34].USES_ON=				python:py34
+[PY34].BUILDRUN_DEPENDS_ON=		python-setuptools_scm:single:py34
+
+[PY35].USES_ON=				python:py35
+[PY35].BUILDRUN_DEPENDS_ON=		python-setuptools_scm:single:py35

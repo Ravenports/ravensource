@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.5.5
+DEF[PORTVERSION]=	1.6.2
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-Sphinx
@@ -13,7 +13,7 @@ CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/S/Sphinx
-DISTFILE[1]=		Sphinx-1.5.5.tar.gz:main
+DISTFILE[1]=		Sphinx-1.6.2.tar.gz:main
 
 SPKGS[py27]=		single
 SPKGS[py34]=		single
@@ -29,6 +29,8 @@ LICENSE=		BSD2CLAUSE:single
 LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
+GENERATED=		yes
+
 # install_requires extracted from setup.py
 # six>=1.5
 # Jinja2>=2.3
@@ -39,6 +41,9 @@ LICENSE_SCHEME=		solo
 # alabaster>=0.7,<0.8
 # imagesize
 # requests>=2.0.0
+# setuptools
+# sphinxcontrib-websupport
+# typing
 
 DISTNAME=		Sphinx-${PORTVERSION}
 
@@ -52,6 +57,9 @@ DISTNAME=		Sphinx-${PORTVERSION}
 					python-alabaster:single:py27
 					python-imagesize:single:py27
 					python-requests:single:py27
+					python-setuptools:single:py27
+					python-sphinxcontrib-websupport:single:py27
+					python-typing:single:py27
 
 [PY34].USES_ON=				python:py34
 [PY34].BUILDRUN_DEPENDS_ON=		python-six:single:py34
@@ -63,6 +71,9 @@ DISTNAME=		Sphinx-${PORTVERSION}
 					python-alabaster:single:py34
 					python-imagesize:single:py34
 					python-requests:single:py34
+					python-setuptools:single:py34
+					python-sphinxcontrib-websupport:single:py34
+					python-typing:single:py34
 
 [PY35].USES_ON=				python:py35
 [PY35].BUILDRUN_DEPENDS_ON=		python-six:single:py35
@@ -74,3 +85,6 @@ DISTNAME=		Sphinx-${PORTVERSION}
 					python-alabaster:single:py35
 					python-imagesize:single:py35
 					python-requests:single:py35
+					python-setuptools:single:py35
+					python-sphinxcontrib-websupport:single:py35
+					python-typing:single:py35

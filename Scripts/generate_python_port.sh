@@ -18,6 +18,7 @@ if [ $# -lt 1 ]; then
    usage;
 fi
 
+PATH=/raven/bin:${PATH}
 VERSION=unset
 MD5SUM=unset
 tarball=unset
@@ -75,7 +76,7 @@ acquire_tarball_and_version() {
 exec_setup() {
   python_program=$1
   arguments=$2
-  (cd /tmp/expand/${PYPINAME}-${VERSION}/ && ${python_program} setup.py ${arguments})
+  (cd /tmp/expand/${PYPINAME}-${VERSION}/ && ${python_program} -W ignore setup.py ${arguments})
 }
 
 determine_variants() {
@@ -155,7 +156,8 @@ dump_vopts() {
 
 create_description() {
    mkdir -p ${NEWPORT}/descriptions
-   exec_setup ${FIRST_SNAKE} --long-description \
+   # can't use head, it causes python to emit close failure message
+   exec_setup ${FIRST_SNAKE} --long-description | awk 'NR <= 100' \
    	> ${NEWPORT}/descriptions/desc.single
 }
 
@@ -191,7 +193,8 @@ handle_licenses() {
         ;;
       *)
         case "${lic}" in
-          MIT | ISC) licname="${lic}" ;;
+          MIT) licname="${lic}" ;;
+          ISC | ISCL)      licname=ISCL ;;
           "public*domain") licname=PUBDOM ;;
           "Python")        licname=PSFL ;;
           "2-Clause*BSD")  licname="BSD2CLAUSE" ;;
@@ -255,6 +258,7 @@ set_keywords() {
 
 write_buildrun() {
    local mockfile=/tmp/expand/${PYPINAME}-${VERSION}/obtain-req.py
+   local setup=/tmp/expand/${PYPINAME}-${VERSION}/setup.py
    raven_req=/tmp/expand/${PYPINAME}-${VERSION}/raven-req.list
    cat <<EOF > ${mockfile}
 import unittest.mock
@@ -263,15 +267,34 @@ import setuptools
 with unittest.mock.patch.object(setuptools, 'setup') as mock_setup:
     import setup
 
-args, kwargs = mock_setup.call_args
-print ('\n'.join(kwargs.get('install_requires', [])))
+if mock_setup.call_args is not None:
+   args, kwargs = mock_setup.call_args
+   print ('\n'.join(kwargs.get('install_requires', [])))
+   print ('\n'.join(kwargs.get('setup_requires', [])))
 EOF
 
-   (cd /tmp/expand/${PYPINAME}-${VERSION}/ && python3.4 obtain-req.py) \
-    2> /dev/null > ${raven_req}
+   check_name=$(grep -q "^if __name__ == '__main__'" ${setup})
+   if [ $? -eq 0 ]; then
+      mv ${setup} ${setup}.bak2
+      awk '/if __name__ == .__main__.*:/ { active = 1; next } \
+      { if (active) { \
+          if (substr($0,1,4) == "    ") {print substr($0,5); next}; \
+          if (substr($0,1,1) == "\t") {print substr($0,2); next}; \
+        }; \
+        active = 0; print; \
+      }' ${setup}.bak2 > ${setup}
+   fi
+   check_dist=$(grep -q "from distutils.core import setup" ${setup})
+   if [ $? -eq 0 ]; then
+      sed -i'.bak' 's/from distutils.core/from setuptools/' ${setup}
+   fi
+   (cd /tmp/expand/${PYPINAME}-${VERSION}/ && python3.4 obtain-req.py | sed '/^$/d') \
+    > ${raven_req}
    if [ $? -ne 0 ]; then
       echo "### Python script to obtain dependencies failed! ###";
+      cat ${raven_req}
    fi
+    grep "if __name__ == '__main__'" /tmp/expand/*/setup.py
 }
 
 dump_dependencies_as_comments() {
@@ -373,6 +396,8 @@ OPTIONS_STANDARD=	none
 $(dump_vopts)
 
 $(handle_licenses)
+
+GENERATED=		yes
 
 $(dump_dependencies_as_comments)
 

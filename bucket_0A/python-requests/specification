@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.13.0
+DEF[PORTVERSION]=	2.17.3
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-requests
@@ -13,7 +13,7 @@ CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/r/requests
-DISTFILE[1]=		requests-${PORTVERSION}.tar.gz:main
+DISTFILE[1]=		requests-2.17.3.tar.gz:main
 
 SPKGS[py27]=		single
 SPKGS[py34]=		single
@@ -29,12 +29,30 @@ LICENSE=		APACHE20:single
 LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
+GENERATED=		yes
+
 # install_requires extracted from setup.py
+# chardet>=3.0.2,<3.1.0
+# idna>=2.5,<2.6
+# urllib3>=1.21.1,<1.22
+# certifi>=2017.4.17
 
 DISTNAME=		requests-${PORTVERSION}
 
 [PY27].USES_ON=				python:py27
+[PY27].BUILDRUN_DEPENDS_ON=		python-chardet:single:py27
+					python-idna:single:py27
+					python-urllib3:single:py27
+					python-certifi:single:py27
 
 [PY34].USES_ON=				python:py34
+[PY34].BUILDRUN_DEPENDS_ON=		python-chardet:single:py34
+					python-idna:single:py34
+					python-urllib3:single:py34
+					python-certifi:single:py34
 
 [PY35].USES_ON=				python:py35
+[PY35].BUILDRUN_DEPENDS_ON=		python-chardet:single:py35
+					python-idna:single:py35
+					python-urllib3:single:py35
+					python-certifi:single:py35
