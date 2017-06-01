@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	6.1.20160425
+DEF[PORTVERSION]=	6.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		texinfo
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		print
 VARIANTS=		standard nls
 SDESC[standard]=	Typeset documentation system, multiple formats
@@ -11,11 +10,12 @@ SDESC[nls]=		GNU Typeset doc system with native lang support
 HOMEPAGE=		http://www.gnu.org/software/texinfo/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main sunpoet
 SITES[main]=		GNU/texinfo
-DISTFILE[1]=		texinfo-6.1.tar.xz:main
+SITES[sunpoet]=		FREELOCAL/sunpoet/texinfo/${PORTVERSION}
+DISTFILE[1]=		texinfo-${PORTVERSION}.tar.xz:main
 DISTFILE[2]=		htmlxref.cnf:main
-DISTFILE[3]=		texinfo.tex:main
+DISTFILE[3]=		texinfo.tex:sunpoet
 DISTFILE[4]=		texi2dvi:main
 DIST_SUBDIR=		texinfo/${PORTVERSION}
 DF_INDEX=		1 2 3 4
@@ -33,7 +33,7 @@ BUILD_DEPENDS=		help2man:single:standard
 EXTRACT_ONLY=		1
 
 USES=			charsetfix cpe gmake ncurses perl
-DISTNAME=		texinfo-${PORTVERSION:R}
+DISTNAME=		texinfo-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install install-tex
 CPE_VENDOR=		gnu
