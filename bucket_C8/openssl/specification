@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.0.2k
+DEF[PORTVERSION]=	1.0.2l
 DEF[OPENSSL_SHLIBVER]=	9
 # ----------------------------------------------------------------------------
 
@@ -85,6 +85,10 @@ post-patch-SKIP_MANPAGES-ON:
 	${RM} -r ${WRKSRC}/doc/ssl/*.pod
 	${REINPLACE_CMD} -e 's|pod doc/ssl/\*\.pod|pod|' ${WRKSRC}/Makefile.org
 
+post-patch-SSL3-OFF:
+	${REINPLACE_CMD} -e '/for protocol in TLSv1.2 SSLv3;/ s/ SSLv3//' \
+		${WRKSRC}/test/testssl
+
 do-configure:
 	${REINPLACE_CMD} -e "s|options 386|options|" ${WRKSRC}/config
 	(cd ${WRKSRC} && ${SETENV} CC="${CC}" FREEBSDCC="${CC}" \
@@ -102,6 +106,7 @@ post-configure:
 post-install-SHARED-ON:
 .for i in libcrypto libssl
 	${INSTALL_LIB} ${WRKSRC}/$i.so.${OPENSSL_SHLIBVER} ${STAGEDIR}${PREFIX}/lib
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/$i.so.${OPENSSL_SHLIBVER}
 	${LN} -sf $i.so.${OPENSSL_SHLIBVER} ${STAGEDIR}${PREFIX}/lib/$i.so
 .endfor
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/engines/*.so
