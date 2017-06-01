@@ -20,13 +20,15 @@ OPTIONS_AVAILABLE=	TESTED INTF_TEST
 OPTIONS_STANDARD=	TESTED INTF_TEST
 OPT_ON[all]=		TESTED
 
-BUILD_DEPENDS=		asciidoc:single:py27
-			source-highlight:primary:standard
-BUILDRUN_DEPENDS=	pcsc-lite:primary:standard
-
 LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/pcsc-ada
+
+BUILD_DEPENDS=		asciidoc:single:py27
+			source-highlight:primary:standard
+BUILDRUN_DEPENDS=	pcsc-lite:primary:standard
 
 USES=			gprbuild gmake
 DISTNAME=		libpcscada-${PORTVERSION}
