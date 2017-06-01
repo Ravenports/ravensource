@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	3.18.0
-DEF[LONGVERSION]=	${PORTVERSION:S/.//g}000
+DEF[PORTVERSION]=	3.19.2
+DEF[LONGVERSION]=	${PORTVERSION:S/.//:S/./0/}00
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		sqlite
@@ -51,3 +51,6 @@ LDFLAGS=		-lpthread
 post-extract:
 	${AWK} '/^#ifndef/ {exit}; {print}' ${WRKSRC}/sqlite3.h \
 		> ${WRKDIR}/LICENSE
+
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/include/msvc.h
