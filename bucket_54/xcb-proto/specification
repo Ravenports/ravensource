@@ -1,0 +1,27 @@
+DEF[PORTVERSION]=	1.12
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xcb-proto
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11 python
+VARIANTS=		standard
+SDESC[standard]=	X protocol C-language Binding (XCB) protocol
+HOMEPAGE=		http://xcb.freedesktop.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://xcb.freedesktop.org/dist/
+DISTFILE[1]=		xcb-proto-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xorg
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+USES=			python:build
+MUST_CONFIGURE=		gnu
