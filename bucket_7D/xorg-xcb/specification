@@ -1,0 +1,53 @@
+DEF[PORTVERSION]=	1.12
+DEF[XNAME]=		xcb
+DEF[ALTNAME]=		libxcb
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-${XNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	X protocol C-language Binding (XCB) library
+HOMEPAGE=		http://xcb.freedesktop.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://xcb.freedesktop.org/dist/
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xorg
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		check:primary:standard
+			xcb-proto:single:standard
+BUILDRUN_DEPENDS=	libpthread-stubs:single:standard
+
+USES=			cpe gmake python:build libtool
+XORG_COMPONENTS=	xau xdmcp xproto
+GNOME_COMPONENTS=	libxslt
+DISTNAME=		${ALTNAME}-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-build-docs
+			--without-doxygen
+			--enable-xinput
+			--enable-xkb
+			XPROTO_CFLAGS="-I{{LOCALBASE}}/include"
+			XPROTO_LIBS="-L{{LOCALBASE}}/lib"
+			XDMCP_CFLAGS="-I{{LOCALBASE}}/include"
+			XDMCP_LIBS="-L{{LOCALBASE}}/lib -lXdmcp"
+			NEEDED_CFLAGS="-I{{LOCALBASE}}/include"
+			NEEDED_LIBS="-L{{LOCALBASE}}/lib -lXau `pkg-config --libs pthread-stubs`"
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+CPE_VENDOR=		x
+FPC_EQUIVALENT=		x11/libxcb
+
+post-install:
+	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/${ALTNAME}
