@@ -1,13 +1,13 @@
-DEF[PORTVERSION]=	1.0.8
-DEF[XNAME]=		xau
-DEF[ALTNAME]=		libXau
+DEF[PORTVERSION]=	1.1.2
+DEF[XNAME]=		xdmcp
+DEF[ALTNAME]=		libXdmcp
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xorg-${XNAME}
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11
 VARIANTS=		standard
-SDESC[standard]=	Authentication Protocol library for X11
+SDESC[standard]=	X Display Manager Control Protocol library
 HOMEPAGE=		https://www.x.org/
 CONTACT=		nobody
 
@@ -25,7 +25,10 @@ USES=			libtool
 XORG_COMPONENTS=	xproto
 DISTNAME=		${ALTNAME}-${PORTVERSION}
 MUST_CONFIGURE=		gnu
-FPC_EQUIVALENT=		x11/libXau
+FPC_EQUIVALENT=		x11/libXdmcp
+
+post-patch:
+	@${REINPLACE_CMD} '/^SUBDIRS/,/^$$/ s/doc//' ${WRKSRC}/Makefile.in
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libXau.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libXdmcp.so
