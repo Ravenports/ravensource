@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	1.0.9
+DEF[XNAME]=		ice
+DEF[ALTNAME]=		libICE
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-${XNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Inter Client Exchange library for X11
+HOMEPAGE=		https://www.x.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		XORG/individual/lib
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xorg
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+RUN_DEPENDS=		xorg-xproto:single:standard
+
+USES=			libtool
+XORG_COMPONENTS=	xproto xtransproto
+DISTNAME=		${ALTNAME}-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+FPC_EQUIVALENT=		x11/libICE
+
+post-install:
+	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/${ALTNAME}
