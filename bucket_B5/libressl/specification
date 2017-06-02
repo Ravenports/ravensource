@@ -54,9 +54,6 @@ post-install:
 post-install-dragonfly:
 	${INSTALL_SCRIPT} ${WRKSRC}/apps/nc/nc ${STAGEDIR}${PREFIX}/bin/nc
 
-post-install-SKIP_MANPAGES-OFF:
-	${INSTALL_MAN} ${WRKSRC}/apps/nc/nc.1 \
-		${STAGEDIR}${PREFIX}/share/man/man1/nc.1
-
 post-install-SKIP_MANPAGES-ON:
 	${RM} ${STAGEDIR}${PREFIX}/share/man/man1/openssl.1
+	${RM} ${STAGEDIR}${PREFIX}/share/man/man1/nc.1
