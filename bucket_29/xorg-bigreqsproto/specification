@@ -1,7 +1,8 @@
 DEF[PORTVERSION]=	1.1.2
+DEF[XNAME]=		bigreqsproto
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		xorg-bigreqsproto
+NAMEBASE=		xorg-${XNAME}
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11
 VARIANTS=		standard
@@ -11,7 +12,7 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		XORG/individual/proto
-DISTFILE[1]=		bigreqsproto-${PORTVERSION}.tar.bz2:main
+DISTFILE[1]=		${XNAME}-${PORTVERSION}.tar.bz2:main
 DIST_SUBDIR=		xorg
 
 SPKGS[standard]=	single
@@ -19,8 +20,8 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-DISTNAME=		bigreqsproto-${PORTVERSION}
+DISTNAME=		${XNAME}-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 
 post-install:
-	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/bigreqsproto
+	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/${XNAME}
