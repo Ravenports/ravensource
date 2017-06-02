@@ -1,18 +1,19 @@
-DEF[PORTVERSION]=	0.4.2
-DEF[XNAME]=		compositeproto
+DEF[PORTVERSION]=	1.1.1
+DEF[XNAME]=		evieproto
+DEF[ALTNAME]=		evieext
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xorg-${XNAME}
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11
 VARIANTS=		standard
-SDESC[standard]=	Composite extension headers
-HOMEPAGE=		http://www.freedesktop.org/wiki/Software/xlibs/
+SDESC[standard]=	XEVIE extension headers
+HOMEPAGE=		https://www.x.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		XORG/individual/proto
-DISTFILE[1]=		${XNAME}-${PORTVERSION}.tar.bz2:main
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
 DIST_SUBDIR=		xorg
 
 SPKGS[standard]=	single
@@ -20,9 +21,6 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-DISTNAME=		${XNAME}-${PORTVERSION}
+DISTNAME=		${ALTNAME}-${PORTVERSION}
 MUST_CONFIGURE=		gnu
-FPC_EQUIVALENT=		x11/compositeproto
-
-post-install:
-	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/${XNAME}
+FPC_EQUIVALENT=		x11/evieext
