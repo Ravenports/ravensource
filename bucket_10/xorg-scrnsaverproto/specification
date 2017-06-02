@@ -1,0 +1,31 @@
+DEF[PORTVERSION]=	1.2.2
+DEF[XNAME]=		scrnsaverproto
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-${XNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	ScrnSaver extension headers
+HOMEPAGE=		https://www.x.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		XORG/individual/proto
+DISTFILE[1]=		${XNAME}-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xorg
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+DISTNAME=		${XNAME}-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-specs
+			--without-xmlto
+FPC_EQUIVALENT=		x11/scrnsaverproto
+
+post-patch:
+	@${REINPLACE_CMD} '/^SUBDIRS/,/^$$/ \
+		s/specs//' ${WRKSRC}/Makefile.in
