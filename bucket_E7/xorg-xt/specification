@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	1.1.5
+DEF[XNAME]=		xt
+DEF[ALTNAME]=		libXt
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-${XNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11 x11_toolkits
+VARIANTS=		standard
+SDESC[standard]=	X Toolkit library
+HOMEPAGE=		https://www.x.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		XORG/individual/lib
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xorg
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+USES=			cpe libtool
+XORG_COMPONENTS=	kbproto sm x11
+DISTNAME=		${ALTNAME}-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-specs
+INSTALL_TARGET=		install-strip
+CPE_PRODUCT=		libxt
+CPE_VENDOR=		x
+FPC_EQUIVALENT=		x11-toolkits/libXt
+
+post-patch:
+	@${REINPLACE_CMD} 's/test.*-traditional.*;/true;/' \
+		${WRKSRC}/configure
