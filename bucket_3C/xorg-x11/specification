@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	1.6.5
+DEF[XNAME]=		x11
+DEF[ALTNAME]=		libX11
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-${XNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	X-Window system library
+HOMEPAGE=		https://www.x.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		XORG/individual/lib
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xorg
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+RUN_DEPENDS=		xorg-xproto:single:standard
+			xorg-kbproto:single:standard
+
+USES=			cpe perl:build libtool
+XORG_COMPONENTS=	bigreqsproto kbproto inputproto
+			xcmiscproto xextproto xf86bigfontproto xproto
+			xtransproto xau xdmcp xcb
+DISTNAME=		${ALTNAME}-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--datadir={{PREFIX}}/lib
+			--without-xmlto
+			--disable-specs
+CONFIGURE_ENV=		ac_cv_path_PS2PDF=""
+INSTALL_TARGET=		install-strip
+CPE_VENDOR=		x
+FPC_EQUIVALENT=		x11/libX11
+
+post-patch:
+	@${REINPLACE_CMD} 's/test.*-traditional.*;/true;/' \
+		${WRKSRC}/configure
+	@${REINPLACE_CMD} '/^install-data-am:/,/^$$/ \
+		s/install-specDATA//' ${WRKSRC}/nls/Makefile.in
