@@ -1,0 +1,61 @@
+DEF[PORTVERSION]=	2.50.2
+DEF[LIBVERSION]=	0.5000.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		glib
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Some useful routines of C programming
+HOMEPAGE=		http://www.gtk.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/glib/${PORTVERSION:R}
+DISTFILE[1]=		glib-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome2
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/glib20
+
+BUILDRUN_DEPENDS=	pcre:complete:standard
+			libffi:single:standard
+
+USES=			gettext-tools gettext-runtime gmake libtool perl
+			pkgconfig python:build shebangfix
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-gtk-doc
+			--with-html-dir={{PREFIX}}/share/doc
+			--disable-man
+			--without-xml-catalog
+			--enable-static=yes
+			--with-pcre=system
+			--disable-fam
+			--disable-dtrace
+			--with-libiconv=gnu
+CONFIGURE_ENV=		ac_cv_header_sys_inotify_h=
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+SHEBANG_FILES=		*/*.pl
+PLIST_SUB=		LIBVERSION=${LIBVERSION}
+			RESETPREFIX={{PREFIX}}
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g ; \
+		s|/usr/share/locale/locale|${LOCALBASE}/share/locale/locale|g' \
+			${WRKSRC}/glib/gutils.c
+	@${REINPLACE_CMD} -e 's|inotify_support=yes|inotify_support=no| ; \
+		s|-Werror|| ; \
+		s|#define HAVE_SYS_INOTIFY_H 1||' ${WRKSRC}/configure
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/GConf/gsettings
+	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/gio/modules
+.for m in glib gio gobject
+	${INSTALL_MAN} ${${m}_MAN:S|^|${WRKSRC}/docs/reference/${m}/|} \
+		${STAGEDIR}${MANPREFIX}/man/man1
+.endfor
