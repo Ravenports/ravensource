@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	1.0.10
+DEF[XNAME]=		xvmc
+DEF[ALTNAME]=		libXvMC
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-${XNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	X Video Extension Motion Compensation library
+HOMEPAGE=		https://www.x.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		XORG/individual/lib
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xorg
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+USES=			cpe libtool
+XORG_COMPONENTS=	x11 xext xv
+DISTNAME=		${ALTNAME}-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+CPE_VENDOR=		x
+CPE_PRODUCT=		libxvmc
+FPC_EQUIVALENT=		x11/libXvMC
+
+post-install:
+	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/${ALTNAME}
