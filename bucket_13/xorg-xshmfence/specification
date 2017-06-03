@@ -1,0 +1,31 @@
+DEF[PORTVERSION]=	1.2
+DEF[XNAME]=		xshmfence
+DEF[ALTNAME]=		libxshmfence
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-${XNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Shared memory SyncFence synchronization primitive
+HOMEPAGE=		https://www.x.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		XORG/individual/lib
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xorg
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+USES=			libtool
+XORG_COMPONENTS=	xproto
+DISTNAME=		${ALTNAME}-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-shared-memory-dir=/tmp
+INSTALL_TARGET=		install-strip
+TEST_TARGET=		check
+FPC_EQUIVALENT=		x11/libxshmfence
