@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	1.1.4
+DEF[XNAME]=		xxf86vm
+DEF[ALTNAME]=		libXxf86vm
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-${XNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	X Vidmode Extension
+HOMEPAGE=		https://www.x.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		XORG/individual/lib
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xorg
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+RUN_DEPENDS=		xorg-xf86vidmodeproto:single:standard
+
+USES=			cpe libtool
+XORG_COMPONENTS=	xf86vidmodeproto x11 xext
+DISTNAME=		${ALTNAME}-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+CPE_VENDOR=		x
+CPE_PRODUCT=		libxxf86vm
+FPC_EQUIVALENT=		x11/libXxf86vm
