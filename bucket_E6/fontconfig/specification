@@ -1,0 +1,78 @@
+DEF[PORTVERSION]=	2.12.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		fontconfig
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_fonts
+VARIANTS=		standard
+SDESC[standard]=	XML-based font configuration API for X Windows
+HOMEPAGE=		http://www.freedesktop.org/wiki/Software/fontconfig
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.freedesktop.org/software/fontconfig/release/
+DISTFILE[1]=		fontconfig-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	HINTING_NONE HINTING_SLIGHT HINTING_MEDIUM HINTING_FULL
+OPTIONS_STANDARD=	HINTING_NONE HINTING_SLIGHT HINTING_MEDIUM HINTING_FULL
+OPTGROUP_RADIO=		HINTING
+OPTDESCR[HINTING]=	Preferred pixel hinting configuration
+OPTGROUP[HINTING]=	HINTING_NONE HINTING_SLIGHT HINTING_MEDIUM HINTING_FULL
+OPT_ON[all]=		HINTING_SLIGHT
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+BUILDRUN_DEPENDS=	freetype:primary:standard
+			expat:complete:standard
+
+USES=			cpe gmake libtool pkgconfig
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-configdir={{PREFIX}}/etc/fonts/conf.d
+			--with-templatedir={{PREFIX}}/etc/fonts/conf.avail
+			--with-xmldir={{PREFIX}}/etc/fonts
+			--with-expat-includes={{LOCALBASE}}/include
+			--with-expat-lib={{LOCALBASE}}/lib
+			--with-default-hinting={{PREFERRED_HINTING}}
+			--with-default-fonts={{PREFIX}}/share/fonts
+			--with-add-fonts={{LOCALBASE}}/lib/X11/fonts
+			--with-cache-dir=/var/db/fontconfig
+			--disable-docs
+			--enable-static
+
+# Python is not required, because fc-blanks.h is available in distfile
+CONFIGURE_ENV=		PYTHON=":"
+INSTALL_TARGET=		install-strip
+CPE_VENDOR=		fontconfig_project
+
+SUB_FILES=		pkg-install
+PLIST_SUB=		PREFERRED_HINTING={{PREFERRED_HINTING}}
+
+
+[HINTING_NONE].DESCRIPTION=		No hinting
+[HINTING_SLIGHT].DESCRIPTION=		Slight hinting
+[HINTING_MEDIUM].DESCRIPTION=		Medium hinting
+[HINTING_FULL].DESCRIPTION=		Full hinting
+
+[HINTING_NONE].MAKEFILE_ON=		PREFERRED_HINTING=none
+[HINTING_SLIGHT].MAKEFILE_ON=		PREFERRED_HINTING=slight
+[HINTING_MEDIUM].MAKEFILE_ON=		PREFERRED_HINTING=medium
+[HINTING_FULL].MAKEFILE_ON=		PREFERRED_HINTING=full
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_MAN} ${WRKSRC}/fc-*/*.1 \
+		${STAGEDIR}${MANPREFIX}/man/man1
+	${INSTALL_MAN} ${WRKSRC}/doc/*.5 \
+		${STAGEDIR}${MANPREFIX}/man/man5
+	${INSTALL_DATA} ${WRKSRC}/fonts.conf \
+		${STAGEDIR}${PREFIX}/etc/fonts/fonts.conf.sample
+.for doc in fontconfig-user.html fontconfig-user.pdf fontconfig-user.txt
+	${INSTALL_DATA} ${WRKSRC}/doc/${doc} ${STAGEDIR}${STD_DOCDIR}/
+.endfor
+# @${SED} -e 's|%%PREFIX%%|${PREFIX}| ; \
+# s|%%LOCALBASE%%|${LOCALBASE}|' < ${FILESDIR}/pkg-install.in \
+# > ${PKGINSTALL}
