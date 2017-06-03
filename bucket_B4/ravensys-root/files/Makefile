@@ -333,6 +333,7 @@ headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
 			elf.h \
 			err.h \
 			floatingpoint.h \
+			fstab.h \
 			fts.h \
 			getopt.h \
 			ieeefp.h \
