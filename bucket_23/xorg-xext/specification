@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	1.3.3
+DEF[XNAME]=		xext
+DEF[ALTNAME]=		libXext
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-${XNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	X11 Extension library
+HOMEPAGE=		https://www.x.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		XORG/individual/lib
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xorg
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+RUN_DEPENDS=		xorg-xextproto:single:standard
+
+USES=			cpe libtool
+XORG_COMPONENTS=	xextproto x11 xau
+DISTNAME=		${ALTNAME}-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-specs
+			--without-xmlto
+INSTALL_TARGET=		install-strip
+CPE_PRODUCT=		libxext
+CPE_VENDOR=		x
+FPC_EQUIVALENT=		x11/libXau
