@@ -1,0 +1,95 @@
+DEF[PORTVERSION]=	2.8
+DEF[PORTDOCS]=		reference CHANGES formats.txt LICENSE.TXT raster.txt
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		freetype
+VERSION=		${PORTVERSION}
+KEYWORDS=		print
+VARIANTS=		standard
+SDESC[standard]=	Free and portable TrueType font rendering engine
+HOMEPAGE=		http://www.freetype.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://savannah.nongnu.org/download/freetype/
+			http://sunsite.cnlab-switch.ch/ftp/mirror/freetype/freetype2/
+			http://ftp.sunet.se/pub/text-processing/freetype/freetype2/
+			ftp://ftp.freetype.org/freetype/freetype2/
+DISTFILE[1]=		freetype-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	LCD_FILTERING PNG TAB_VALIDATION TT_SZ_METRICS V38 V40 DEBUG
+OPTIONS_STANDARD=	LCD_FILTERING PNG TAB_VALIDATION TT_SZ_METRICS V38 V40 DEBUG
+OPTGROUP_UNLIMITED=	SUBPIX_HINT
+OPTDESCR[SUBPIX_HINT]=	Subpixel hinting support
+OPTGROUP[SUBPIX_HINT]=	V38 V40
+OPT_ON[all]=		LCD_FILTERING V40
+
+LICENSE=		GPLv2+:primary CUSTOM1:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/docs/GPLv2.TXT
+			CUSTOM1:{{WRKSRC}}/docs/FTL.TXT
+LICENSE_NAME=		CUSTOM1:"The FreeType Project license"
+LICENSE_SCHEME=		dual
+
+FPC_EQUIVALENT=		print/freetype2
+
+BUILDRUN_DEPENDS=	zlib:complete:standard
+			bzip2:complete:standard
+
+USES=			cpe gmake libtool
+MAKE_ENV=		TOP=""
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--without-harfbuzz
+CONFIGURE_WRKSRC=	{{WRKSRC}}/builds/unix
+CPE_PRODUCT=		freetype
+CPE_VENDOR=		freetype
+
+[LCD_FILTERING].DESCRIPTION=		Sub-pixel rendering (patented)
+[TAB_VALIDATION].DESCRIPTION=		TrueType GX/AAT and OpenType table validation
+[TT_SZ_METRICS].DESCRIPTION=		TrueType-like size metrics for V40 auto-hinting
+[PNG].DESCRIPTION=			PNG compressed OpenType embedded bitmaps support
+[V38].DESCRIPTION=			v38 mode (Infinality code)
+[V40].DESCRIPTION=			v40 mode (minimal, fast, AKA ClearType hinting)
+
+[LCD_FILTERING].CFLAGS_ON=		-DFT_CONFIG_OPTION_SUBPIXEL_RENDERING
+[V38].MAKEFILE_ON=			SUBPIXEL_HINTING_MODE+=1
+[V40].MAKEFILE_ON=			SUBPIXEL_HINTING_MODE+=2
+[PNG].CONFIGURE_WITH_BOTH=		png
+[PNG].BUILDRUN_DEPENDS_ON=		png:single:standard
+
+post-patch-TAB_VALIDATION-ON:
+	@${REINPLACE_CMD} -e '/valid$$/s|#.*\(AUX_MODULES\)|\1|' \
+		${WRKSRC}/modules.cfg
+
+post-patch-TT_SZ_METRICS-ON:
+	@${REINPLACE_CMD} -i'.metrics.bak' \
+		-e 's|.*\(#define AF_CONFIG_OPTION_TT_SIZE_METRICS\).*|\1|' \
+		${WRKSRC}/include/freetype/config/ftoption.h
+
+post-patch-DEBUG-ON:
+	@${REINPLACE_CMD} -i'.debug.bak' \
+		-e 's|.*\(#define FT_DEBUG_LEVEL_TRACE\).*|\1|' \
+		-e 's|.*\(#define FT_DEBUG_MEMORY\).*|\1|' \
+		${WRKSRC}/include/freetype/config/ftoption.h
+
+post-patch:
+.if defined(SUBPIXEL_HINTING_MODE)
+	@${REINPLACE_CMD} -i'.hinting.bak1' \
+		-e 's|^\(#define TT_CONFIG_OPTION_SUBPIXEL_HINTING\).*|\1 \
+	${SELECTED_MODE:sh}|' \
+		${WRKSRC}/include/freetype/config/ftoption.h
+.else
+	@${REINPLACE_CMD} -i'.hinting.bak2' \
+		-e 's|^\(#define TT_CONFIG_OPTION_SUBPIXEL_HINTING.*\)|/* \1 */|' \
+		${WRKSRC}/include/freetype/config/ftoption.h
+.endif
+
+post-configure:
+	(cd ${BUILD_WRKSRC}; ${SETENV} ${MAKE_ENV} \
+		${MAKE_CMD} ${MAKE_FLAGS} ${MAKEFILE} ${MAKE_ARGS} setup)
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libfreetype.so.*
+	(cd ${WRKSRC}/docs && \
+		${COPYTREE_SHARE} "${PORTDOCS}" ${STAGEDIR}${STD_DOCDIR})
