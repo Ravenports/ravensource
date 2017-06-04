@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	1.7.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ninja
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Small build system closest in spirit to Make
+HOMEPAGE=		https://ninja-build.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/ninja-build:ninja:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		APACHE20:single
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+USES=			python
+
+post-patch:
+	@${REINPLACE_CMD} "s/'-g', //" ${WRKSRC}/configure.py
+
+do-build:
+	(cd ${WRKSRC} && \
+		CXX="${CXX}" CFLAGS="${CXXFLAGS}" ${PYTHON_CMD} configure.py --bootstrap)
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/ninja ${STAGEDIR}${PREFIX}/bin
