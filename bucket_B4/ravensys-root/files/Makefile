@@ -665,7 +665,7 @@ install:
 .for item in gsort/sort nawk/awk objdump/objdump-sysroot less/more \
 	bmake/make bsdcpio/cpio bsdtar/tar gcmp/cmp gdiff/diff \
 	gdiff3/diff3 gsdiff/sdiff gfind/find gxargs/xargs gm4/m4 \
-	gpatch/patch gsed/sed ravensys-uname/uname nvi/vi
+	gpatch/patch gsed/sed ravensys-uname/uname nvi/vi god/od
 	cp ${LOCALBASE}/bin/${item:H} ${DESTDIR}${BASE}/usr/bin/${item:T}
 .endfor
 	cp ${LOCALBASE}/share/misc/terminfo.db.default ${DESTDIR}${BASE}/usr/share/terminfo.db
