@@ -1,0 +1,73 @@
+DEF[LLVM_VERSION]=	4.0.1
+DEF[RCDIR]=		rc1
+DEF[PORTVERSION]=	${LLVM_VERSION}${RCDIR}
+DEF[MAJOR]=		${PORTVERSION:R}
+DEF[SUFFIX]=		${MAJOR:S/.//}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		llvm${SUFFIX}
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel lang
+VARIANTS=		standard
+SDESC[standard]=	LLVM ${MAJOR} and Clang
+HOMEPAGE=		http://llvm.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://llvm.org/pre-releases/${LLVM_VERSION}/${RCDIR}/
+DISTFILE[1]=		llvm-${PORTVERSION}.src.tar.xz:main
+DISTFILE[2]=		cfe-${PORTVERSION}.src.tar.xz:main
+DISTFILE[3]=		clang-tools-extra-${PORTVERSION}.src.tar.xz:main
+DISTFILE[4]=		openmp-${PORTVERSION}.src.tar.xz:main
+DF_INDEX=		1 2 3 4
+
+SPKGS[standard]=	complete llvm clang
+
+OPTIONS_AVAILABLE=	GOLD OPENMP
+OPTIONS_STANDARD=	GOLD OPENMP
+OPT_ON[x86_64]=		GOLD OPENMP
+
+LICENSE=		CUSTOM1:llvm
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.TXT
+LICENSE_NAME=		CUSTOM1:"LLVM Release License"
+LICENSE_SCHEME=		solo
+
+USES=			cmake:outsource shebangfix perl:build python:build zlib
+GNOME_COMPONENTS=	libxml2
+DISTNAME=		llvm-${PORTVERSION}.src
+SHEBANG_FILES=		tools/clang/tools/scan-view/bin/scan-view
+			tools/clang/tools/clang-format/git-clang-format
+			tools/clang/tools/clang-format/clang-format-diff.py
+			tools/clang/tools/extra/clang-tidy/tool/clang-tidy-diff.py
+			tools/clang/tools/extra/clang-tidy/tool/run-clang-tidy.py
+			tools/clang/tools/extra/include-fixer/find-all-symbols/tool/run-find-all-symbols.py
+CMAKE_INSTALL_PREFIX=	{{PREFIX}}/llvm${SUFFIX}
+CMAKE_ARGS=		-DLLVM_BUILD_LLVM_DYLIB=ON
+			-DCMAKE_INSTALL_MANDIR:PATH="share/man"
+PLIST_SUB=		NAMEBASE="llvm${SUFFIX}"
+			LLVM_RELEASE="${LLVM_VERSION}"
+			LLVM_MAJOR="${MAJOR}"
+
+[GOLD].DESCRIPTION=			Build the LLVM Gold plugin for LTO
+[OPENMP].DESCRIPTION=			Install libomp, the LLVM OpenMP runtime library
+
+[GOLD].CMAKE_ARGS_ON=			-DLLVM_BINUTILS_INCDIR={{LOCALBASE}}/toolchain/include
+
+post-extract:
+	${MV} ${WRKDIR}/cfe-${PORTVERSION}.src ${WRKSRC}/tools/clang
+	${MV} ${WRKDIR}/clang-tools-extra-${PORTVERSION}.src ${WRKSRC}/tools/clang/tools/extra
+	${MV} ${WRKDIR}/openmp-${PORTVERSION}.src ${WRKSRC}/tools/openmp
+
+post-patch:
+	${REINPLACE_CMD} -e 's,/usr/local/,${LOCALBASE}/,' \
+		${WRKSRC}/CMakeLists.txt \
+		${WRKSRC}/tools/clang/lib/Driver/Tools.cpp
+
+post-patch-OPENMP-OFF:
+	${MV} ${WRKSRC}/tools/openmp ${WRKDIR}/unused-openmp-source
+
+post-install:
+	${RM} -r ${STAGEDIR}${PREFIX}/llvm${SUFFIX}/share/man
+	${RM} -r ${STAGEDIR}${PREFIX}/llvm${SUFFIX}/include/llvm/MC/MCAnalysis
+	${INSTALL_PROGRAM} ${WRKDIR}/.build/bin/clang-tblgen \
+	    ${STAGEDIR}${LLVM_PREFIX}/bin/
