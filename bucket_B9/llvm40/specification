@@ -21,7 +21,7 @@ DISTFILE[3]=		clang-tools-extra-${PORTVERSION}.src.tar.xz:main
 DISTFILE[4]=		openmp-${PORTVERSION}.src.tar.xz:main
 DF_INDEX=		1 2 3 4
 
-SPKGS[standard]=	complete llvm clang
+SPKGS[standard]=	complete clang llvm
 
 OPTIONS_AVAILABLE=	GOLD OPENMP
 OPTIONS_STANDARD=	GOLD OPENMP
@@ -32,7 +32,10 @@ LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.TXT
 LICENSE_NAME=		CUSTOM1:"LLVM Release License"
 LICENSE_SCHEME=		solo
 
-USES=			cmake:outsource shebangfix perl:build python:build zlib
+EXRUN[clang]=		ncurses:primary:standard
+
+USES=			cmake:outsource ncurses perl:build python:build
+			shebangfix zlib c++:llvm,clang
 GNOME_COMPONENTS=	libxml2
 DISTNAME=		llvm-${PORTVERSION}.src
 SHEBANG_FILES=		tools/clang/tools/scan-view/bin/scan-view
@@ -44,6 +47,7 @@ SHEBANG_FILES=		tools/clang/tools/scan-view/bin/scan-view
 CMAKE_INSTALL_PREFIX=	{{PREFIX}}/llvm${SUFFIX}
 CMAKE_ARGS=		-DLLVM_BUILD_LLVM_DYLIB=ON
 			-DCMAKE_INSTALL_MANDIR:PATH="share/man"
+			-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm${SUFFIX}/lib"
 PLIST_SUB=		NAMEBASE="llvm${SUFFIX}"
 			LLVM_RELEASE="${LLVM_VERSION}"
 			LLVM_MAJOR="${MAJOR}"
@@ -70,4 +74,8 @@ post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/llvm${SUFFIX}/share/man
 	${RM} -r ${STAGEDIR}${PREFIX}/llvm${SUFFIX}/include/llvm/MC/MCAnalysis
 	${INSTALL_PROGRAM} ${WRKDIR}/.build/bin/clang-tblgen \
-	    ${STAGEDIR}${LLVM_PREFIX}/bin/
+	    ${STAGEDIR}${PREFIX}/llvm${SUFFIX}/bin/
+	${FIND} ${STAGEDIR}${PREFIX}/llvm${SUFFIX}/bin/ -type f ! \( -name git-clang-format -o -name "scan-*" \) \
+		| ${XARGS} ${STRIP_CMD}
+	${FIND} ${STAGEDIR}${PREFIX}/llvm${SUFFIX}/lib/ -type f -name "*.so*" \
+		| ${XARGS} ${STRIP_CMD}
