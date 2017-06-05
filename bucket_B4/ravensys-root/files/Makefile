@@ -136,6 +136,7 @@ Usr_Sbin_Linux=		# end
 
 static_lib_generic=	/usr/lib/libc.a \
 			/usr/lib/libm.a \
+			/usr/lib/librt.a \
 			/usr/lib/libutil.a \
 			/usr/lib/libcrypt.a \
 			/usr/lib/libpthread.a
@@ -179,6 +180,7 @@ dynamic_generic=	/lib/${libc} \
 			/lib/${libutil} \
 			/lib/${libcrypt} \
 			/lib/${libkvm} \
+			/usr/lib/${librt} \
 			/usr/lib/libpthread.so
 dynamic_lib_FreeBSD=	${dynamic_generic} \
 			/usr/lib/${libusb} \
@@ -576,6 +578,7 @@ install:
 	(cd ${DESTDIR}${BASE}/usr/lib && \
 		ln -s ${libc} libc.so && \
 		ln -s ${libm} libm.so && \
+		ln -s ${librt} librt.so && \
 		ln -s ${libkvm} libkvm.so && \
 		ln -s ${libcrypt} libcrypt.so && \
 		ln -s ${libutil} libutil.so && \
