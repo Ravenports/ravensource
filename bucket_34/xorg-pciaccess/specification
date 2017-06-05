@@ -1,0 +1,31 @@
+DEF[PORTVERSION]=	0.13.5
+DEF[XNAME]=		pciaccess
+DEF[ALTNAME]=		libpciaccess
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-${XNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Generic PCI access library
+HOMEPAGE=		https://www.x.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		XORG/individual/lib
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xorg
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+BUILDRUN_DEPENDS=	pciids:single:standard
+
+USES=			libtool
+DISTNAME=		${ALTNAME}-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-pciids-path={{LOCALBASE}}/share/pciids
+INSTALL_TARGET=		install-strip
+FPC_EQUIVALENT=		devel/libpciaccess
