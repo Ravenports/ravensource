@@ -1,0 +1,27 @@
+DEF[PORTVERSION]=	0.8.13
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libelf
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Public ELF file access library similar to Solaris
+HOMEPAGE=		http://www.mr511.de/software/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.mr511.de/software/
+DISTFILE[1]=		libelf-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+USES=			destdirfix
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-shared
+			--enable-extended-format
+			--enable-sanity-checks
+			--disable-compat
+			--disable-nls
