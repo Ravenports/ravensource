@@ -1,0 +1,30 @@
+DEF[PORTVERSION]=	20170525
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		pciids
+VERSION=		${PORTVERSION}
+KEYWORDS=		misc
+VARIANTS=		standard
+SDESC[standard]=	Database of known IDs used in PCI devices
+HOMEPAGE=		http://pciids.sourceforge.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/pciutils:pciids:7e5229e
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:single GPLv2+:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/README
+			GPLv2+:{{WRKSRC}}/README
+LICENSE_SCHEME=		dual
+
+SKIP_BUILD=		yes
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/pciids
+	${INSTALL_DATA} ${WRKSRC}/pci.ids ${STAGEDIR}${PREFIX}/share/pciids/
