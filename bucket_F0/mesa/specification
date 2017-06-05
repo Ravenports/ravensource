@@ -1,0 +1,104 @@
+DEF[PORTVERSION]=	17.1.1
+DEF[MESA_LLVM_VER]=	40
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mesa
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Mesa 3D Graphics Library
+HOMEPAGE=		http://www.mesa3d.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://mesa.freedesktop.org/archive/
+			https://mesa.freedesktop.org/archive/${PORTVERSION}/
+			ftp://ftp.freedesktop.org/pub/mesa/${PORTVERSION}/
+DISTFILE[1]=		mesa-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete libs clover drivers osmesa
+
+OPTIONS_AVAILABLE=	X86_DRIVERS ARM_DRIVERS
+OPTIONS_STANDARD=	X86_DRIVERS ARM_DRIVERS
+OPT_ON[x86_64]=		X86_DRIVERS
+OPT_ON[i386]=		X86_DRIVERS
+OPT_ON[aarch64]=	ARM_DRIVERS
+
+BUILD_DEPENDS=		libpthread-stubs:single:standard
+BUILDRUN_DEPENDS=	expat:complete:standard
+			libdrm:single:standard
+			libelf:single:standard
+			llvm${MESA_LLVM_VER}:complete:standard
+			libvdpau:single:standard
+			libva:single:standard
+
+# placeholder for wayland support here
+
+USES=			bison gettext-tools gmake libtool pkgconfig
+			python:py27,build shebangfix
+XORG_COMPONENTS=	dri2proto dri3proto glproto presentproto x11 xcb
+			xdamage xext xfixes xshmfence xxf86vm xv xvmc
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-llvm
+			--enable-texture-float
+			--enable-vdpau
+			--enable-va
+			--enable-xvmc
+			--enable-opencl=no
+			--enable-opencl-icd=no
+			--disable-glx-tls
+			--disable-gles1
+			--disable-libunwind
+			--with-platforms=x11,drm
+			--enable-gallium-osmesa
+			--with-llvm-prefix={{LOCALBASE}}/llvm${MESA_LLVM_VER}
+			--with-dri-drivers="{{DRI_DRIVERS:tl}}"
+			--with-gallium_drivers="{{GALLIUM_DRIVERS:tl}}"
+
+# There are issues that need to be fixed to use TLS model "initial-exec"
+# So stick with "global-dynamic"'s model for now. kan@ is working on a
+# patch for rtld. We might want to backport global-dynamic or
+# pthread_setspecific which it uses now by default. But since this
+# configure switch is going away ...
+# https://lists.freebsd.org/pipermail/freebsd-arch/2016-February/017699.html
+
+LDFLAGS=		-Wl,-rpath={{LOCALBASE}}/llvm${MESA_LLVM_VER}/lib
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+SHEBANG_OLD_PYTHON=	/usr/bin/env[[:space:]]python2
+			/usr/bin/python2
+			/bin/env[[:space:]]python
+SHEBANG_FILES=		src/gallium/*/*/*.py
+			src/gallium/tools/trace/*.py
+			src/gallium/drivers/svga/svgadump/svga_dump.py
+			src/mapi/glapi/gen/*.py
+			src/mapi/mapi_abi.py
+			src/mesa/drivers/dri/common/xmlpool/gen_xmlpool.py
+			src/mesa/main/get_*.py
+			src/util/format_srgb.py
+			src/amd/*/*.py
+			src/intel/genxml/gen_pack_header.py
+
+[X86_DRIVERS].DESCRIPTION=		Build drivers for i386 and x86_64 architectures
+[ARM_DRIVERS].DESCRIPTION=		Build drivers for aarch64 architecture
+
+[X86_DRIVERS].MAKEFILE_ON=		DRI_DRIVERS+=RADEON
+					DRI_DRIVERS+=R200
+					DRI_DRIVERS+=I915
+					DRI_DRIVERS+=I965
+					GALLIUM_DRIVERS+=R300
+					GALLIUM_DRIVERS+=R600
+					GALLIUM_DRIVERS+=RADEONSI
+					GALLIUM_DRIVERS+=SVGA
+[ARM_DRIVERS].MAKEFILE_ON=		GALLIUM_DRIVERS+=FREEDRENO
+					GALLIUM_DRIVERS+=VC4
+
+post-patch-freebsd:
+	@${REINPLACE_CMD} -e 's|x86_64|amd64|' ${WRKSRC}/configure
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|/etc/|${PREFIX}/etc/|g' \
+		${WRKSRC}/src/mesa/drivers/dri/common/xmlconfig.c
+
+post-install:
+	@${RM} -r ${STAGEDIR}/etc/OpenCL
