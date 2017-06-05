@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	2.11.08
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		nasm
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel lang
+VARIANTS=		standard
+SDESC[standard]=	General-purpose x86 and amd64 assembler
+HOMEPAGE=		http://www.nasm.us/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.nasm.us/pub/nasm/releasebuilds/${PORTVERSION}/
+DISTFILE[1]=		nasm-${PORTVERSION}.tar.xz:main
+DISTFILE[2]=		nasm-${PORTVERSION}-xdoc.tar.xz:main
+DF_INDEX=		1 2
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+USES=			gmake
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		ac_cv_func_strspn=yes
+MAKE_ARGS=		INSTALLROOT={{STAGEDIR}}
+INSTALL_TARGET=		install install_rdf
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	(cd ${WRKSRC}/doc && ${COPYTREE_SHARE} html ${STAGEDIR}${STD_DOCDIR})
+	${INSTALL_DATA} ${WRKSRC}/doc/nasmdoc.txt ${STAGEDIR}${STD_DOCDIR}
