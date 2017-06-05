@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	1.5.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		jpeg-turbo
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	SIMD-accelerated JPEG codec which replaces libjpeg
+HOMEPAGE=		http://libjpeg-turbo.virtualgl.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/libjpeg-turbo/${PORTVERSION}
+DISTFILE[1]=		libjpeg-turbo-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary turbo docs examples
+
+OPTIONS_AVAILABLE=	NASM
+OPTIONS_STANDARD=	NASM
+OPT_ON[i386]=		NASM
+OPT_ON[x86_64]=		NASM
+
+LICENSE=		BSD3CLAUSE:primary CUSTOM1:primary ZLIB:primary
+LICENSE_NAME=		CUSTOM1:"Independent JPEG Group License"
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/turbojpeg.c
+			ZLIB:{{WRKSRC}}/simd/jsimdext.inc
+			CUSTOM1:{{WRKSRC}}/README.ijg
+LICENSE_SCHEME=		multi
+
+EXRUN[turbo]=		jpeg-turbo:primary:standard
+
+USES=			cpe libtool
+DISTNAME=		libjpeg-turbo-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-jpeg8
+			--with-pic
+MAKE_ARGS=		docdir="{{STD_DOCDIR}}"
+			exampledir="{{STD_EXAMPLESDIR}}"
+INSTALL_TARGET=		install-strip
+TEST_TARGET=		test
+CPE_VENDOR=		d.r.commander
+CPE_PRODUCT=		libjpeg-turbo
+
+[NASM].DESCRIPTION=			Use nasm to construct optimized assembly
+[NASM].BUILD_DEPENDS_ON=		nasm:primary:standard
