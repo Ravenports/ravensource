@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	1.1.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libvdpau
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		standard
+SDESC[standard]=	VDPAU wrapper and tracing library
+HOMEPAGE=		http://freedesktop.org/wiki/Software/VDPAU
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://cgit.freedesktop.org/~aplattner/libvdpau/snapshot/
+DISTFILE[1]=		libvdpau-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+USES=			autoreconf libtool pkgconfig c++:single
+XORG_COMPONENTS=	dri2proto xext
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-documentation
+INSTALL_TARGET=		install-strip
+
+post-patch:
+	${REINPLACE_CMD} '/^export /d' ${WRKSRC}/doc/Makefile.am
+	(cd ${WRKSRC}/src && ${MV} vdpau_wrapper.cfg vdpau_wrapper.cfg.sample)
+	${REINPLACE_CMD} 's/vdpau_wrapper.cfg/&.sample/' \
+		${WRKSRC}/src/Makefile.am
