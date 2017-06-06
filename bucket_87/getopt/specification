@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	1.1.6
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		getopt
+VERSION=		${PORTVERSION}
+KEYWORDS=		misc devel
+VARIANTS=		standard
+SDESC[standard]=	Replacement for getopt(1)
+HOMEPAGE=		http://software.frodo.looijaard.name/getopt/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://frodo.looijaard.name/system/files/software/getopt/
+DISTFILE[1]=		getopt-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		misc/getopt
+
+USES=			gmake
+MAKE_ARGS=		CC={{CC}}
+			LIBCGETOPT=0
+			WITHOUT_GETTEXT=1
+
+post-patch:
+	@${RM} ${WRKSRC}/gnu/*.o
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/getopt
