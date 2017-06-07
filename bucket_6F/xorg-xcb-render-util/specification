@@ -1,0 +1,29 @@
+DEF[PORTVERSION]=	0.3.9
+DEF[XNAME]=		xcb-render-util
+DEF[ALTNAME]=		xcb-util-renderutil
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-${XNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Convenience functions for the Render extension
+HOMEPAGE=		http://xcb.freedesktop.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://xcb.freedesktop.org/dist/
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xorg
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+USES=			gmake libtool
+XORG_COMPONENTS=	xproto xcb xcb-util
+DISTNAME=		${ALTNAME}-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+FPC_EQUIVALENT=		x11/xcb-util-renderutil
