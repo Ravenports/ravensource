@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	1.1.24.4
+DEF[SRC_VERSION]=	${PORTVERSION:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libpaper
+VERSION=		${PORTVERSION}
+KEYWORDS=		print
+VARIANTS=		standard
+SDESC[standard]=	Library for paper size management
+HOMEPAGE=		http://packages.qa.debian.org/libp/libpaper.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://ftp.debian.org/debian/pool/main/libp/libpaper/
+DISTFILE[1]=		libpaper_${SRC_VERSION}+nmu5.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		print/libpaper
+
+USES=			autoreconf libtool
+DISTNAME=		libpaper-${SRC_VERSION}+nmu5
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+
+post-extract:
+	${ECHO_CMD} a4 > ${WRKDIR}/papersize.a4
+	${ECHO_CMD} letter > ${WRKDIR}/papersize.letter
+
+post-configure:
+	@${REINPLACE_CMD} -e 's|$${prefix}|${PREFIX}|g' \
+		${WRKSRC}/config.h ${WRKSRC}/src/paperconfig
+
+post-install:
+	(cd ${WRKDIR} && \
+		${INSTALL_DATA} papersize.a4 papersize.letter \
+		${STAGEDIR}${PREFIX}/etc)
