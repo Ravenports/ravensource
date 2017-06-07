@@ -1,0 +1,59 @@
+DEF[PORTVERSION]=	7.6.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		boehm_garbage_collector
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard threaded redirect
+SDESC[standard]=	Garbage collection and memory leak detection
+SDESC[redirect]=	Garbage collection with redirected malloc
+SDESC[threaded]=	Garbage collection with posix thread support
+HOMEPAGE=		http://www.hboehm.info/gc/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.hboehm.info/gc/gc_source/
+DISTFILE[1]=		gc-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+SPKGS[redirect]=	single
+SPKGS[threaded]=	single
+
+OPTIONS_AVAILABLE=	THREADED REDIRECT
+OPTIONS_STANDARD=	none
+VOPTS[redirect]=	THREADED=OFF REDIRECT=ON
+VOPTS[threaded]=	THREADED=ON REDIRECT=OFF
+
+LICENSE=		BSD2CLAUSE:single
+LICENSE_SCHEME=		solo
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
+
+FPC_EQUIVALENT=		devel/boehm-gc
+
+BUILD_DEPENDS=		libatomic_ops:single:standard
+
+USES=			cpe libtool pkgconfig c++:single
+DISTNAME=		gc-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-cplusplus
+			--disable-static
+CPE_VENDOR=		boehm-demers-weiser
+CPE_PRODUCT=		garbage_collector
+INSTALL_REQ_TOOLCHAIN=	yes
+INSTALL_TARGET=		install-strip
+SINGLE_JOB=		yes
+
+[THREADED].DESCRIPTION=			Enable posix thread support
+[REDIRECT].DESCRIPTION=			Enable malloc redirection support
+
+[THREADED].CONFIGURE_ARGS_ON=		--enable-threads=posix
+[THREADED].CONFIGURE_ARGS_OFF=		--disable-threads
+[THREADED].CONFIGURE_ENABLE_BOTH=	parallel-mark
+[REDIRECT].CONFIGURE_ENABLE_BOTH=	redirect-malloc
+
+post-patch:
+	@${REINPLACE_CMD} -e "s|%%PREFIX%%|${PREFIX}|g" ${WRKSRC}/doc/gc.man
+	@${REINPLACE_CMD} -e "s|: install-dist_pkgdataDATA|: |" ${WRKSRC}/Makefile.in
+
+post-install:
+	${INSTALL_MAN} ${WRKSRC}/doc/gc.man ${STAGEDIR}${MANPREFIX}/man/man3/gc.3

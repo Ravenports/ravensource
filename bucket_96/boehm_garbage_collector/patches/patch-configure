@@ -1,0 +1,21 @@
+--- configure.orig	2016-08-02 20:23:32 UTC
++++ configure
+@@ -16163,6 +16163,9 @@ else
+ fi
+ 
+ case "${host}" in
++  *-freebsd*|*-dragonfly*)
++    gc_use_mmap=yes
++    ;;
+   *-linux*)
+     # FIXME: This seems to be no longer needed as configured in gcconfig.h
+     #gc_use_mmap=yes
+@@ -16416,7 +16419,7 @@ $as_echo "$as_me: WARNING: \"Only HP-UX
+         THREADDLLIBS=-pthread
+         AM_CFLAGS="$AM_CFLAGS -pthread"
+         ;;
+-     *-*-freebsd*)
++     *-*-freebsd*|*-*-dragonfly*)
+         { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: \"FreeBSD does not yet fully support threads with Boehm GC.\"" >&5
+ $as_echo "$as_me: WARNING: \"FreeBSD does not yet fully support threads with Boehm GC.\"" >&2;}
+         $as_echo "#define GC_FREEBSD_THREADS 1" >>confdefs.h
