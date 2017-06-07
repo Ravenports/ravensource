@@ -25,12 +25,15 @@ OPT_ON[i386]=		X86_DRIVERS
 OPT_ON[aarch64]=	ARM_DRIVERS
 
 BUILD_DEPENDS=		libpthread-stubs:single:standard
+			libclc:single:standard
 BUILDRUN_DEPENDS=	expat:complete:standard
 			libdrm:single:standard
 			libelf:single:standard
 			llvm${MESA_LLVM_VER}:complete:standard
 			libvdpau:single:standard
 			libva:single:standard
+			ocl-icd:primary:standard
+			opencl:single:standard
 
 # placeholder for wayland support here
 
@@ -44,8 +47,6 @@ CONFIGURE_ARGS=		--enable-llvm
 			--enable-vdpau
 			--enable-va
 			--enable-xvmc
-			--enable-opencl=no
-			--enable-opencl-icd=no
 			--disable-glx-tls
 			--disable-gles1
 			--disable-libunwind
@@ -82,6 +83,7 @@ SHEBANG_FILES=		src/gallium/*/*/*.py
 [X86_DRIVERS].DESCRIPTION=		Build drivers for i386 and x86_64 architectures
 [ARM_DRIVERS].DESCRIPTION=		Build drivers for aarch64 architecture
 
+[X86_DRIVERS].CONFIGURE_ENABLE_BOTH=	opencl opencl-icd
 [X86_DRIVERS].MAKEFILE_ON=		DRI_DRIVERS+=RADEON
 					DRI_DRIVERS+=R200
 					DRI_DRIVERS+=I915
@@ -100,5 +102,9 @@ post-patch:
 	@${REINPLACE_CMD} -e 's|/etc/|${PREFIX}/etc/|g' \
 		${WRKSRC}/src/mesa/drivers/dri/common/xmlconfig.c
 
-post-install:
-	@${RM} -r ${STAGEDIR}/etc/OpenCL
+post-install-X86_DRIVERS-OFF:
+	${RM} -r ${STAGEDIR}/etc/OpenCL
+
+post-install-X86_DRIVERS-ON:
+	${MV} ${STAGEDIR}/etc/OpenCL ${STAGEDIR}${PREFIX}/etc/
+	${RMDIR} ${STAGEDIR}/etc
