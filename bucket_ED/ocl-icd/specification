@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	2.2.11
+DEF[REVID]=		814
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ocl-icd
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Utility to regenerate the GNU info page index
+HOMEPAGE=		https://forge.imag.fr/projects/ocl-icd/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://forge.imag.fr/frs/download.php/${REVID}/
+DISTFILE[1]=		ocl-icd-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/ocl-icd
+
+BUILD_DEPENDS=		opencl:single:standard
+			asciidoc:single:py27
+			xmlto:single:standard
+
+USES=			gmake libtool ruby:build
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-official-khronos-headers
+			--enable-custom-vendordir
+INSTALL_TARGET=		install-strip
+MAKE_ARGS=		RUBY=ruby{{RUBY_SUFFIX}}
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|/etc/|${LOCALBASE}/etc/|g' \
+		${WRKSRC}/doc/libOpenCL.7.txt.in
+	${REINPLACE_CMD} -e 's|--destination-dir=$$(CURDIR)|--no-xmllint|' \
+		${WRKSRC}/doc/Makefile.in
