@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	7.4.4
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libatomic_ops
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Atomic operations access library
+HOMEPAGE=		http://www.hboehm.info/gc/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.hboehm.info/gc/gc_source/
+DISTFILE[1]=		libatomic_ops-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:single GPLv2:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
+			GPLv2:{{WRKSRC}}/doc/LICENSING.txt
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		devel/libatomic_ops
+
+USES=			libtool
+MUST_CONFIGURE=		gnu
+
+post-patch:
+	# Inhibit installation of extra copy of GPL
+	# If documentation is not wanted, just disable it instead of fixing
+	@${REINPLACE_CMD} -e 's,: install-dist_pkgdataDATA,:,' \
+		${WRKSRC}/Makefile.in
+
+	# If documentation is not wanted, just disable it instead of fixing
+	@${REINPLACE_CMD} -e 's,: install-dist_pkgdataDATA,:,' \
+		${WRKSRC}/doc/Makefile.in
