@@ -1,0 +1,58 @@
+DEF[PORTVERSION]=	0.0.28
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xmlto
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	Front-end to an XSL toolchain
+HOMEPAGE=		https://pagure.io/xmlto/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main xsl
+SITES[main]=		https://releases.pagure.org/xmlto/
+SITES[xsl]=		http://www.antennahouse.com/XSLsample/sample-xsl-xhtml2fo/
+DISTFILE[1]=		xmlto-${PORTVERSION}.tar.bz2:main
+DISTFILE[2]=		xhtml2fo.xsl:xsl
+DIST_SUBDIR=		xmlto
+DF_INDEX=		1 2
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		textproc/xmlto
+
+BUILDRUN_DEPENDS=	bash:primary:standard
+			getopt:single:standard
+			libpaper:single:standard
+			w3m:primary:standard
+			docbook-xsl:primary:standard
+			docbook-xml:single:standard
+
+EXTRACT_ONLY=		1
+GNOME_COMPONENTS=	libxslt
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		BASH={{LOCALBASE}}/bin/bash
+			GETOPT={{LOCALBASE}}/bin/getopt
+			PDFXMLTEX={{LOCALBASE}}/bin/pdftex
+MAKE_ENV=		HOME=/dev/null
+SUB_FILES=		pkg-message
+SUB_LIST=		DATADIR={{LOCALBASE}}/share/xmlto
+
+post-patch:
+	@# get rid of nonstandard "type" option -t:
+	${SED} -i'' -e 's/type -t/which/;' \
+		${WRKSRC}/format/docbook/epub \
+		${WRKSRC}/format/docbook/txt \
+		${WRKSRC}/format/fo/dvi \
+		${WRKSRC}/format/fo/pdf \
+		${WRKSRC}/format/xhtml1/txt
+	@# get rid of GNU-make-ism (BSD make defines $< only in suffix rules)
+	${REINPLACE_CMD} -e '/^GEN_MANPAGE/{s/\$$</$$>/;}' ${WRKSRC}/Makefile.in
+
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/xmlto
+	${INSTALL_DATA} ${DISTDIR}/${DIST_SUBDIR}/xhtml2fo.xsl \
+		${STAGEDIR}${PREFIX}/share/xmlto
