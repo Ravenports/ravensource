@@ -32,7 +32,7 @@
      }
  
      if (D.CCCIsCXX()) {
-@@ -10787,16 +10790,8 @@ void dragonfly::Linker::ConstructJob(Com
+@@ -10787,16 +10790,7 @@ void dragonfly::Linker::ConstructJob(Com
          CmdArgs.push_back("-lgcc");
          CmdArgs.push_back("-lgcc_eh");
      } else {
@@ -47,7 +47,6 @@
 -          CmdArgs.push_back("--no-as-needed");
 -      }
 +        CmdArgs.push_back("-lgcc_s");
-+        CmdArgs.push_back("-lgcc");
      }
    }
  

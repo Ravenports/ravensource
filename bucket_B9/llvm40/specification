@@ -7,6 +7,7 @@ DEF[TOOLCHAIN_GCC]=	gcc6
 DEF[GCC_VERSION]=	EXTRACT_INFO(GCC6_VERSION)
 DEF[GCC_LIB]=		toolchain/${TOOLCHAIN_GCC}/lib
 DEF[GXX_INCLUDE]=	toolchain/${TOOLCHAIN_GCC}/include/c++/${GCC_VERSION}
+DEF[GCC_TARGET_LIB]=	${GCC_LIB}/gcc/{{CONFIGURE_TARGET}}/${GCC_VERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		llvm${SUFFIX}
@@ -72,6 +73,7 @@ post-patch:
 		${WRKSRC}/CMakeLists.txt \
 		${WRKSRC}/tools/clang/lib/Driver/Tools.cpp
 	${REINPLACE_CMD} -e 's|@RAVEN_GCC@|${LOCALBASE}/${GCC_LIB}|' \
+		-e 's|@RAVEN_GCC_TARGET@|${LOCALBASE}/${GCC_TARGET_LIB}|' \
 		${WRKSRC}/tools/clang/lib/Driver/ToolChains.cpp \
 		${WRKSRC}/tools/clang/lib/Driver/Tools.cpp
 	${REINPLACE_CMD} \
