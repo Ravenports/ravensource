@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	2.3.2
+DEF[XNAME]=		xft
+DEF[ALTNAME]=		libXft
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-${XNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_fonts
+VARIANTS=		standard
+SDESC[standard]=	Client-sided font API for X applications
+HOMEPAGE=		https://www.x.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		XORG/individual/lib
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xorg
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+BUILDRUN_DEPENDS=	fontconfig:primary:standard
+
+USES=			cpe libtool
+XORG_COMPONENTS=	xrender
+DISTNAME=		${ALTNAME}-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+FPC_EQUIVALENT=		x11-fonts/libXft
+
+post-extract:
+	@${CP} ${FILESDIR}/xft-config.in ${WRKSRC}/xft-config.in
+
+post-patch:
+	@${REINPLACE_CMD} -e '/ac_config_files/s|xft\.pc|xft\.pc xft-config|' \
+		${WRKSRC}/configure
+
+post-install:
+	@${INSTALL_SCRIPT} ${WRKSRC}/xft-config ${STAGEDIR}${PREFIX}/bin/
