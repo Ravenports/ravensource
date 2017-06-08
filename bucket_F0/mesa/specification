@@ -28,14 +28,17 @@ FPC_EQUIVALENT=		graphics/mesa-libs
 
 BUILD_DEPENDS=		libpthread-stubs:single:standard
 			libclc:single:standard
+			llvm${MESA_LLVM_VER}:complete:standard
 BUILDRUN_DEPENDS=	expat:complete:standard
 			libdrm:single:standard
 			libelf:single:standard
-			llvm${MESA_LLVM_VER}:complete:standard
 			libvdpau:single:standard
 			libva:single:standard
 			ocl-icd:primary:standard
 			opencl:single:standard
+EXRUN[clover]=		llvm${MESA_LLVM_VER}:llvm:standard
+EXRUN[drivers]=		llvm${MESA_LLVM_VER}:llvm:standard
+EXRUN[osmesa]=		llvm${MESA_LLVM_VER}:llvm:standard
 
 # placeholder for wayland support here
 

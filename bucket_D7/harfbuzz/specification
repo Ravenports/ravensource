@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	1.4.6
+DEF[LIBVER]=		0.10400.6
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		harfbuzz
+VERSION=		${PORTVERSION}
+KEYWORDS=		print
+VARIANTS=		standard
+SDESC[standard]=	OpenType text shaping engine
+HOMEPAGE=		http://www.freedesktop.org/wiki/Software/HarfBuzz
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.freedesktop.org/software/harfbuzz/release/
+DISTFILE[1]=		harfbuzz-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		print/harfbuzz
+
+BUILD_DEPENDS=		gobject-introspection:single:standard
+BUILDRUN_DEPENDS=	graphite:single:standard
+
+USES=			gmake libtool pkgconfig python:py27,build c++:primary
+GNOME_COMPONENTS=	cairo glib
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-graphite2
+			--with-gobject=yes
+			--without-icu
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+TEST_TARGET=		check
+PLIST_SUB=		LIBVER=${LIBVER}
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/doc
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/harfbuzz \
+		${STAGEDIR}${PREFIX}/share/doc
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
