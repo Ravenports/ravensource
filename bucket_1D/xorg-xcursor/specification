@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	1.1.14
+DEF[XNAME]=		xcursor
+DEF[ALTNAME]=		libXcursor
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-${XNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	X client-side cursor loading library
+HOMEPAGE=		https://www.x.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		XORG/individual/lib
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xorg
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+USES=			cpe libtool
+XORG_COMPONENTS=	xextproto x11 xrender xfixes
+DISTNAME=		${ALTNAME}-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-icondir={{PREFIX}}/lib/X11/icons
+INSTALL_TARGET=		install-strip
+CPE_PRODUCT=		libxcursor
+CPE_VENDOR=		x
+FPC_EQUIVALENT=		x11/libXcursor
