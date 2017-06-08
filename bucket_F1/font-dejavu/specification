@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	2.37
+DEF[FCDIR]=		etc/fonts/conf.avail
+DEF[FCDIR_LINKS]=	etc/fonts/conf.d
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		font-dejavu
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_fonts
+VARIANTS=		standard
+SDESC[standard]=	Bitstream Vera Fonts clone
+HOMEPAGE=		http://dejavu.sourceforge.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/dejavu/dejavu/${PORTVERSION}
+DISTFILE[1]=		dejavu-fonts-ttf-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11-fonts/dejavu
+
+FONTNAME=		dejavu
+
+USES=			fonts
+SKIP_BUILD=		yes
+DISTNAME=		dejavu-fonts-ttf-${PORTVERSION}
+SUB_FILES=		pkg-message-single
+PLIST_SUB=		FCDIR=${FCDIR}
+			FCDIR_LINKS=${FCDIR_LINKS}
+
+do-install:
+	${MKDIR} \
+		${STAGEDIR}${PREFIX}/${FCDIR} \
+		${STAGEDIR}${PREFIX}/${FCDIR_LINKS} \
+		${STAGEDIR}${FONTSDIR}
+	${INSTALL_DATA} ${WRKSRC}/fontconfig/*.conf \
+		${STAGEDIR}${PREFIX}/${FCDIR}/
+	(cd ${STAGEDIR}${PREFIX}/${FCDIR_LINKS}/ && \
+		${LN} -fs ../conf.avail/*dejavu*.conf .)
+	${INSTALL_DATA} ${WRKSRC}/ttf/*.ttf ${STAGEDIR}${FONTSDIR}/
