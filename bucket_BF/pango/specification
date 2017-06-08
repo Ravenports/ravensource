@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	1.40.6
+DEF[PANGO_VERSION]=	1.8.0
+DEF[LIBVERSION]=	0.4000.6
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		pango
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_toolkits
+VARIANTS=		standard
+SDESC[standard]=	Open-source framework for rendering of i18n text
+HOMEPAGE=		http://www.pango.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/pango/${PORTVERSION:R}
+DISTFILE[1]=		pango-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome2
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11-toolkits/pango
+
+BUILD_DEPENDS=		gobject-introspection:single:standard
+RUN_DEPENDS=		xorg-truetype-fonts:single:standard
+BUILDRUN_DEPENDS=	freetype:primary:standard
+			harfbuzz:primary:standard
+			fontconfig:primary:standard
+
+USES=			gmake libtool pkgconfig python:py27,build
+GNOME_COMPONENTS=	cairo glib
+XORG_COMPONENTS=	x11 xft xrender
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-xft
+INSTALL_REQ_TOOLCHAIN=	yes
+INSTALL_TARGET=		install-strip
+PLIST_SUB=		VERSION=${PANGO_VERSION} LIBVERSION=${LIBVERSION}
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/doc
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/pango \
+		${STAGEDIR}${PREFIX}/share/doc
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
