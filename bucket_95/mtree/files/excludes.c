@@ -66,14 +66,22 @@ read_excludes_file(const char *name)
 	FILE *fp;
 	char *line, *str;
 	struct exclude *e;
+#ifdef __linux__
 	size_t linecap = 0;
 	ssize_t len;
+#else
+	size_t len;
+#endif
 
 	fp = fopen(name, "r");
 	if (fp == NULL)
 		err(1, "%s", name);
 
+#ifdef __linux__
 	while ((len = getline(&line, &linecap, fp)) != -1) {
+#else
+	while ((line = fgetln(fp, &len)) != NULL) {
+#endif
 		if (line[len - 1] == '\n')
 			len--;
 		if (len == 0)
@@ -92,7 +100,9 @@ read_excludes_file(const char *name)
 			e->pathname = 0;
 		LIST_INSERT_HEAD(&excludes, e, link);
 	}
+#ifdef __linux__
 	free(line);
+#endif
 	fclose(fp);
 }
 
