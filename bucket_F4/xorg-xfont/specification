@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	1.5.2
+DEF[XNAME]=		xfont
+DEF[ALTNAME]=		libXfont
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-${XNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_fonts
+VARIANTS=		standard
+SDESC[standard]=	X font library
+HOMEPAGE=		https://www.x.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		XORG/individual/lib
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xorg
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+BUILDRUN_DEPENDS=	freetype:primary:standard
+RUN_DEPENDS=		xorg-fontsproto:single:standard
+
+USES=			cpe libtool
+XORG_COMPONENTS=	xproto fontsproto xtransproto fontenc
+DISTNAME=		${ALTNAME}-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--without-xmlto
+			--disable-devel-docs
+INSTALL_TARGET=		install-strip
+CPE_PRODUCT=		libxfont
+CPE_VENDOR=		x
+FPC_EQUIVALENT=		x11-fonts/libXfont
