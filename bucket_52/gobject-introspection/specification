@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	1.50.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gobject-introspection
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Introspection data generator for GObject libraries
+HOMEPAGE=		http://live.gnome.org/GObjectIntrospection
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/gobject-introspection/${PORTVERSION:R}
+DISTFILE[1]=		gobject-introspection-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome3
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/gobject-introspection
+
+BUILD_DEPENDS=		cairo:single:standard
+BUILDRUN_DEPENDS=	libffi:single:standard
+
+USES=			bison gmake libtool pkgconfig python:py27,build
+GNOME_COMPONENTS=	glib
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-doctool
+MAKE_ENV=		HOME={{WRKDIR}}
+INSTALL_TARGET=		install-strip
+
