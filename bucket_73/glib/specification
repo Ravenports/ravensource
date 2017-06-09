@@ -22,11 +22,12 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		devel/glib20
 
-BUILDRUN_DEPENDS=	pcre:complete:standard
+BUILDRUN_DEPENDS=	pcre:static:standard
+			pcre:shared:standard
 			libffi:single:standard
 
-USES=			gettext-tools gettext-runtime gmake libtool perl
-			pkgconfig python:build shebangfix
+USES=			gettext-tools gettext-runtime gmake libtool perl:build
+			pkgconfig python:build shebangfix zlib
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-gtk-doc
 			--with-html-dir={{PREFIX}}/share/doc
