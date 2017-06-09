@@ -28,22 +28,34 @@ FPC_EQUIVALENT=		graphics/mesa-libs
 
 BUILD_DEPENDS=		libpthread-stubs:single:standard
 			libclc:single:standard
-			llvm${MESA_LLVM_VER}:complete:standard
-BUILDRUN_DEPENDS=	expat:complete:standard
-			libdrm:single:standard
+			llvm${MESA_LLVM_VER}:llvm:standard
+			llvm${MESA_LLVM_VER}:clang:standard
+			zlib:complete:standard
 			libelf:single:standard
 			libvdpau:single:standard
 			libva:single:standard
+			expat:static:standard
+BUILDRUN_DEPENDS=	expat:shared:standard
+			libdrm:single:standard
 			ocl-icd:primary:standard
 			opencl:single:standard
 EXRUN[clover]=		llvm${MESA_LLVM_VER}:llvm:standard
+			zlib:shared:standard
+			libelf:single:standard
+			expat:shared:standard
+			libdrm:single:standard
 EXRUN[drivers]=		llvm${MESA_LLVM_VER}:llvm:standard
+			mesa:libs:standard
+			zlib:shared:standard
+			libelf:single:standard
 EXRUN[osmesa]=		llvm${MESA_LLVM_VER}:llvm:standard
+			mesa:libs:standard
+			zlib:shared:standard
 
 # placeholder for wayland support here
 
 USES=			bison gettext-tools gmake libtool pkgconfig
-			python:py27,build shebangfix
+			python:py27,build shebangfix c++:clover,drivers,osmesa
 XORG_COMPONENTS=	dri2proto dri3proto glproto presentproto x11 xcb
 			xdamage xext xfixes xshmfence xxf86vm xv xvmc
 MUST_CONFIGURE=		gnu
