@@ -1,0 +1,26 @@
+DEF[PORTVERSION]=	0.0.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		minixmlto
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	Minimalistic alternative to xmlto
+HOMEPAGE=		https://github.com/bapt/minixmlto
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/bapt:minixmlto:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+RUN_DEPENDS=		html2text:single:standard
+			libxslt:single:standard
+			docbook-xsl:primary:standard
+
+MAKE_ARGS=		DOCBOOK_XSL="{{LOCALBASE}}/share/xsl/docbook"
+			PREFIX="{{PREFIX}}"
