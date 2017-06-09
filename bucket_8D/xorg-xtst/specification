@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	1.2.3
+DEF[XNAME]=		xtst
+DEF[ALTNAME]=		libXtst
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-${XNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	X Test extension
+HOMEPAGE=		https://www.x.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		XORG/individual/lib
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xorg
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+RUN_DEPENDS=		xorg-recordproto:single:standard
+
+USES=			cpe libtool
+XORG_COMPONENTS=	recordproto x11 xi xext
+DISTNAME=		${ALTNAME}-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-specs
+			--without-xmlto
+INSTALL_TARGET=		install-strip
+CPE_PRODUCT=		libxtst
+CPE_VENDOR=		x
+FPC_EQUIVALENT=		x11/${ALTNAME}
+
+post-patch:
+	@${REINPLACE_CMD} '/^SUBDIRS/,/^$$/ \
+		s/specs//' ${WRKSRC}/Makefile.in
