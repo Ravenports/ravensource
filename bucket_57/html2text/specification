@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	1.3.2a
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		html2text
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	Converts HTML documents into plain text
+HOMEPAGE=		http://www.mbayer.de/html2text/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.mbayer.de/html2text/downloads/
+DISTFILE[1]=		html2text-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+USES=			c++:single
+MUST_CONFIGURE=		yes
+CXXFLAGS=		-Wno-write-strings
+			-Wno-deprecated-declarations
+
+post-patch:
+	@${REINPLACE_CMD} -e '/echo=/s/ -e//' ${WRKSRC}/configure
+.for fle in Makefile.in libstd/Makefile.in
+	@${REINPLACE_CMD} -e '/^DEBUG/s/^/#/; \
+		 /^CXXFLAGS/s/=/+=/' ${WRKSRC}/${fle}
+.endfor
+.for fle in Area.h HTMLControl.h Properties.h format.h
+	@${REINPLACE_CMD} -e 's/<istream>/<iostream>/' ${WRKSRC}/${fle}
+.endfor
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/html2text ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/html2text.1.gz ${STAGEDIR}${MANPREFIX}/man/man1
+	${INSTALL_MAN} ${WRKSRC}/html2textrc.5.gz ${STAGEDIR}${MANPREFIX}/man/man5
