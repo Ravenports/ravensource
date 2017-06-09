@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	2.24.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		atk
+VERSION=		${PORTVERSION}
+KEYWORDS=		accessibility devel
+VARIANTS=		standard
+SDESC[standard]=	GNOME accessibility toolkit (ATK)
+HOMEPAGE=		http://developer.gnome.org/projects/gap/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/atk/${PORTVERSION:R}
+DISTFILE[1]=		atk-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome2
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		accessibility/atk
+
+BUILD_DEPENDS=		gobject-introspection:single:standard
+
+USES=			gmake libtool pkgconfig perl:build python:py27,build
+GNOME_COMPONENTS=	glib
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+
+post-patch:
+	@${REINPLACE_CMD} -e "/^SUBDIRS =/s/tests docs//" \
+		${WRKSRC}/Makefile.in
+
+	# disable html docs (gnome referencehack)
+	${FIND} ${WRKSRC} -name "Makefile.in" -type f | ${XARGS} ${REINPLACE_CMD} -e \
+		"s|test \"\$$\$$installfiles\" = '\$$(srcdir)/html/\*'|:|"
