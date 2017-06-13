@@ -1,0 +1,29 @@
+DEF[PORTVERSION]=	2.3
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gsl
+VERSION=		${PORTVERSION}
+KEYWORDS=		math
+VARIANTS=		standard
+SDESC[standard]=	GNU Scientific Library - mathematical libs
+HOMEPAGE=		http://www.gnu.org/software/gsl
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/gsl
+DISTFILE[1]=		gsl-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+USES=			libtool makeinfo
+MUST_CONFIGURE=		gnu
+CONFIGURE_ENV=		MAKEINFO='makeinfo --no-split'
+INSTALL_TARGET=		install-strip
+INFO=			single:gsl-ref
+
+post-extract:
+	@${RM} ${WRKSRC}/doc/gsl-ref.info*
+
