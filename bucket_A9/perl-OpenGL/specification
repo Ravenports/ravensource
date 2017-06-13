@@ -36,4 +36,11 @@ DISTNAME=		OpenGL-0.70
 [PERL_524].USES_ON=			perl:524,configure
 [PERL_522].USES_ON=			perl:522,configure
 
+BUILDRUN_DEPENDS=	mesa:libs:standard
+
+CONFIGURE_ARGS=		interface=FREEGLUT
+XORG_COMPONENTS=	x11 xext xmu xi ice
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g' ${WRKSRC}/Makefile.PL
 

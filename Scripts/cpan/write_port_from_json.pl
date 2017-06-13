@@ -37,7 +37,7 @@ my @perlverkeys = ("524", "522");
 my @variants    = ();
 my %reqs = ();
 my @reqs_cats   = ("runtime", "build", "configure", "test");
-my @reqs_level  = ("requires", "recommends");
+my @reqs_level  = ("requires");
 my $descriptions = "";
 my $subpackages = "";
 my $options_avail = "";
@@ -57,6 +57,8 @@ my %rdepcontainer;
 my $pinged = 0;
 
 my %cache_portname;
+
+if (! -f "${ravensource}/block_meta_recommends") { push @reqs_level, "recommends" }
 
 # given a perl module name, return the equivalent port namebase
 # requires: perl module index already in place
