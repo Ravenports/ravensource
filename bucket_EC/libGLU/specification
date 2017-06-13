@@ -1,0 +1,25 @@
+DEF[PORTVERSION]=	9.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libGLU
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	OpenGL utility library
+HOMEPAGE=		http://www.freedesktop.org/Software/xorg
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		ftp://ftp.freedesktop.org/pub/mesa/glu/
+DISTFILE[1]=		glu-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+USES=			libtool mesa pkgconfig c++:single
+DISTNAME=		glu-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-static
+INSTALL_TARGET=		install-strip

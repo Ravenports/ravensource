@@ -1,0 +1,48 @@
+DEF[PORTVERSION]=	3.0.0
+DEF[DOCS]=		download.html freeglut.html freeglut_logo.png freeglut_user_interface.html index.html ogl_sm.png progress.html structure.html
+DEF[BINS]=		CallbackMaker Fractals Fractals_random Lorenz One Resizer multi-touch shapes smooth_opengl3 spaceball subwin timer
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		freeglut
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	FOSS implementation of the GLUT library
+HOMEPAGE=		http://freeglut.sourceforge.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/freeglut/freeglut/${PORTVERSION}
+DISTFILE[1]=		freeglut-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+BUILDRUN_DEPENDS=	libGLU:single:standard
+
+USES=			cmake mesa
+XORG_COMPONENTS=	ice x11 xi xrandr
+INSTALL_TARGET=		install/strip
+
+post-patch:
+.for fract in Fractals/fractals.c Fractals_random/fractals_random.c
+	@${REINPLACE_CMD} -e "s|/usr/local|${PREFIX}|g"		\
+		${WRKSRC}/progs/demos/${fract}
+.endfor
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}  ${STAGEDIR}${STD_EXAMPLESDIR}
+.for f in ${DOCS}
+	${INSTALL_DATA} ${WRKSRC}/doc/${f} ${STAGEDIR}${STD_DOCDIR}
+.endfor
+	${INSTALL_DATA} ${WRKSRC}/progs/demos/Fractals/fractals.dat \
+		${STAGEDIR}${STD_EXAMPLESDIR}
+.for prog in ${BINS}
+	${INSTALL_PROGRAM} ${WRKSRC}/bin/${prog} ${STAGEDIR}${STD_EXAMPLESDIR}
+.endfor
