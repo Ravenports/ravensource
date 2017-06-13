@@ -1,0 +1,48 @@
+DEF[PORTVERSION]=	1.01
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Test-MockRandom
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Replaces random number generation with non- (v524)
+SDESC[522]=		Replaces random number generation with non- (v522)
+
+HOMEPAGE=		https://github.com/dagolden/Test-MockRandom
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:D/DA/DAGOLDEN
+DISTFILE[1]=		Test-MockRandom-1.01.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Test-MockRandom-1.01
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Carp (perl 5.24 core) (perl 5.22 core)
+# |      runtime : strict (perl 5.24 core) (perl 5.22 core)
+# |      runtime : warnings (perl 5.24 core) (perl 5.22 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |         test : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |         test : File::Spec::Functions (perl 5.24 core) (perl 5.22 core)
+# |         test : List::Util (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+# |         test : lib (perl 5.24 core) (perl 5.22 core)
+# |         test : version (perl 5.24 core) (perl 5.22 core)
+# |         test : CPAN::Meta (perl 5.24 core) (perl 5.22 core)
+# |         test : CPAN::Meta::Requirements (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+
+

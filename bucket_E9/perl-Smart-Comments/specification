@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	1.06
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Smart-Comments
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Comments that do more than just sit there (v524)
+SDESC[522]=		Comments that do more than just sit there (v522)
+
+HOMEPAGE=		https://github.com/neilb/Smart-Comments
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:N/NE/NEILB
+DISTFILE[1]=		Smart-Comments-1.06.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Smart-Comments-1.06
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Carp (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Data::Dumper (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Filter::Simple (perl 5.24 core) (perl 5.22 core)
+# |      runtime : List::Util (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Text::Balanced (perl 5.24 core) (perl 5.22 core)
+# |      runtime : strict (perl 5.24 core) (perl 5.22 core)
+# |      runtime : warnings (perl 5.24 core) (perl 5.22 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+
+

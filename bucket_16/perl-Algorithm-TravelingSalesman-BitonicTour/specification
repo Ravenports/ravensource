@@ -1,0 +1,64 @@
+DEF[PORTVERSION]=	0.05
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Algorithm-TravelingSalesman-BitonicTour
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Solve the euclidean traveling-salesman prob (v524)
+SDESC[522]=		Solve the euclidean traveling-salesman prob (v522)
+
+HOMEPAGE=		none
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:J/JT/JTRAMMELL
+DISTFILE[1]=		Algorithm-TravelingSalesman-BitonicTour-0.05.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Algorithm-TravelingSalesman-BitonicTour-0.05
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.yml
+# -----------------------------------------------
+# |           requires : Carp (perl 5.24 core) (perl 5.22 core)
+# |           requires : Class::Accessor::Fast
+# |           requires : List::Util (perl 5.24 core) (perl 5.22 core)
+# |           requires : Params::Validate
+# |           requires : Regexp::Common
+# |     build_requires : Data::Dumper (perl 5.24 core) (perl 5.22 core)
+# |     build_requires : Pod::Coverage
+# |     build_requires : Readonly
+# |     build_requires : Test::Exception
+# |     build_requires : Test::More (perl 5.24 core) (perl 5.22 core)
+# |     build_requires : Test::Pod
+# |     build_requires : Test::Pod::Coverage
+
+[PERL_524].USES_ON=			perl:524,buildmod
+[PERL_522].USES_ON=			perl:522,buildmod
+[PERL_524].BUILD_DEPENDS_ON=		perl-Pod-Coverage:single:524
+					perl-Readonly:single:524
+					perl-Test-Exception:single:524
+					perl-Test-Pod:single:524
+					perl-Test-Pod-Coverage:single:524
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Class-Accessor:single:524
+					perl-Params-Validate:single:524
+					perl-Regexp-Common:single:524
+[PERL_522].BUILD_DEPENDS_ON=		perl-Pod-Coverage:single:522
+					perl-Readonly:single:522
+					perl-Test-Exception:single:522
+					perl-Test-Pod:single:522
+					perl-Test-Pod-Coverage:single:522
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Class-Accessor:single:522
+					perl-Params-Validate:single:522
+					perl-Regexp-Common:single:522
+
+

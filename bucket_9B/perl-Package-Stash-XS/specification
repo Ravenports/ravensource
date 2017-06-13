@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	0.28
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Package-Stash-XS
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Faster and more correct implementation of t (v524)
+SDESC[522]=		Faster and more correct implementation of t (v522)
+
+HOMEPAGE=		https://github.com/doy/package-stash-xs
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:D/DO/DOY
+DISTFILE[1]=		Package-Stash-XS-0.28.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Package-Stash-XS-0.28
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : XSLoader (perl 5.24 core) (perl 5.22 core)
+# |      runtime : strict (perl 5.24 core) (perl 5.22 core)
+# |      runtime : warnings (perl 5.24 core) (perl 5.22 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |         test : B (perl 5.24 core) (perl 5.22 core)
+# |         test : File::Find (perl 5.24 core) (perl 5.22 core)
+# |         test : File::Temp (perl 5.24 core) (perl 5.22 core)
+# |         test : Scalar::Util (perl 5.24 core) (perl 5.22 core)
+# |         test : Symbol (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::Fatal
+# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::Requires
+# |         test : base (perl 5.24 core) (perl 5.22 core)
+# |         test : constant (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+
+

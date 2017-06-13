@@ -1,0 +1,64 @@
+DEF[PORTVERSION]=	0.50
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Test-Class
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Easily create test classes in an xUnit/JUni (v524)
+SDESC[522]=		Easily create test classes in an xUnit/JUni (v522)
+
+HOMEPAGE=		https://github.com/adrianh/test-class
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:E/ET/ETHER
+DISTFILE[1]=		Test-Class-0.50.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Test-Class-0.50
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Attribute::Handlers (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Carp (perl 5.24 core) (perl 5.22 core)
+# |      runtime : File::Find (perl 5.24 core) (perl 5.22 core)
+# |      runtime : File::Spec (perl 5.24 core) (perl 5.22 core)
+# |      runtime : MRO::Compat
+# |      runtime : Module::Runtime
+# |      runtime : Storable (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Test::Builder (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Test::Builder::Tester (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Test::Simple (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Try::Tiny
+# |      runtime : constant (perl 5.24 core) (perl 5.22 core)
+# |      runtime : strict (perl 5.24 core) (perl 5.22 core)
+# |      runtime : warnings (perl 5.24 core) (perl 5.22 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |         test : Fcntl (perl 5.24 core) (perl 5.22 core)
+# |         test : IO::File (perl 5.24 core) (perl 5.22 core)
+# |         test : Test (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::Exception
+# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+# |         test : base (perl 5.24 core) (perl 5.22 core)
+# |         test : overload (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-MRO-Compat:single:524
+					perl-Module-Runtime:single:524
+					perl-Try-Tiny:single:524
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-MRO-Compat:single:522
+					perl-Module-Runtime:single:522
+					perl-Try-Tiny:single:522
+
+

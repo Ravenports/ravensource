@@ -1,0 +1,87 @@
+DEF[PORTVERSION]=	0.80
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Algorithm-Evolutionary
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Perl module for performing paradigm-free ev (v524)
+SDESC[522]=		Perl module for performing paradigm-free ev (v522)
+
+HOMEPAGE=		none
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:J/JM/JMERELO
+DISTFILE[1]=		Algorithm-Evolutionary-0.80.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Algorithm-Evolutionary-0.80
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Algorithm::Permute
+# |      runtime : B::Deparse (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Bit::Vector
+# |      runtime : Clone
+# |      runtime : GD
+# |      runtime : Math::Random
+# |      runtime : Memoize (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Object::Array
+# |      runtime : Pod::Escapes (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Sort::Key
+# |      runtime : Statistics::Basic
+# |      runtime : String::Random
+# |      runtime : Test::More (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Test::Pod
+# |      runtime : Time::HiRes (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Tree::DAG_Node
+# |      runtime : XML::Parser
+# |      runtime : XML::Parser::Style::EasyTree
+# |      runtime : YAML
+# |      runtime : constant (perl 5.24 core) (perl 5.22 core)
+# |      runtime : version (perl 5.24 core) (perl 5.22 core)
+# |        build : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Algorithm-Permute:single:524
+					perl-Bit-Vector:single:524
+					perl-Clone:single:524
+					perl-GD:single:524
+					perl-Math-Random:single:524
+					perl-Object-Array:single:524
+					perl-Sort-Key:single:524
+					perl-Statistics-Basic:single:524
+					perl-String-Random:single:524
+					perl-Test-Pod:single:524
+					perl-Tree-DAG_Node:single:524
+					perl-XML-Parser:single:524
+					perl-XML-Parser-Style-EasyTree:single:524
+					perl-YAML:single:524
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Algorithm-Permute:single:522
+					perl-Bit-Vector:single:522
+					perl-Clone:single:522
+					perl-GD:single:522
+					perl-Math-Random:single:522
+					perl-Object-Array:single:522
+					perl-Sort-Key:single:522
+					perl-Statistics-Basic:single:522
+					perl-String-Random:single:522
+					perl-Test-Pod:single:522
+					perl-Tree-DAG_Node:single:522
+					perl-XML-Parser:single:522
+					perl-XML-Parser-Style-EasyTree:single:522
+					perl-YAML:single:522
+
+

@@ -1,0 +1,59 @@
+DEF[PORTVERSION]=	0.07
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Algorithm-CriticalPath
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Perform a critical path analysis over a Gra (v524)
+SDESC[522]=		Perform a critical path analysis over a Gra (v522)
+
+HOMEPAGE=		none
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:D/DE/DEDMEDVED
+DISTFILE[1]=		Algorithm-CriticalPath-0.07.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Algorithm-CriticalPath-0.07
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Carp (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Data::Printer
+# |      runtime : Graph
+# |      runtime : IPC::System::Simple
+# |      runtime : Mouse
+# |      runtime : Test::Deep
+# |      runtime : Test::Exception
+# |      runtime : Test::More (perl 5.24 core) (perl 5.22 core)
+# |      runtime : version (perl 5.24 core) (perl 5.22 core)
+# |        build : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Data-Printer:single:524
+					perl-Graph:single:524
+					perl-IPC-System-Simple:single:524
+					perl-Mouse:single:524
+					perl-Test-Deep:single:524
+					perl-Test-Exception:single:524
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Data-Printer:single:522
+					perl-Graph:single:522
+					perl-IPC-System-Simple:single:522
+					perl-Mouse:single:522
+					perl-Test-Deep:single:522
+					perl-Test-Exception:single:522
+
+

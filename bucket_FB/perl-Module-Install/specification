@@ -1,0 +1,78 @@
+DEF[PORTVERSION]=	1.18
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Module-Install
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Standalone, extensible Perl module installe (v524)
+SDESC[522]=		Standalone, extensible Perl module installe (v522)
+
+HOMEPAGE=		https://github.com/Perl-Toolchain-Gang/Module-Install.git
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:E/ET/ETHER
+DISTFILE[1]=		Module-Install-1.18.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Module-Install-1.18
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.yml
+# -----------------------------------------------
+# |           requires : Devel::PPPort (perl 5.24 core) (perl 5.22 core)
+# |           requires : ExtUtils::Install (perl 5.24 core) (perl 5.22 core)
+# |           requires : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |           requires : ExtUtils::ParseXS (perl 5.24 core) (perl 5.22 core)
+# |           requires : File::Path (perl 5.24 core) (perl 5.22 core)
+# |           requires : File::Remove
+# |           requires : File::Spec (perl 5.24 core) (perl 5.22 core)
+# |           requires : Module::Build
+# |           requires : Module::CoreList (perl 5.24 core) (perl 5.22 core)
+# |           requires : Module::ScanDeps
+# |           requires : Parse::CPAN::Meta (perl 5.24 core) (perl 5.22 core)
+# |           requires : YAML::Tiny
+# |         recommends : Archive::Zip
+# |         recommends : File::HomeDir
+# |         recommends : JSON
+# |         recommends : LWP::Simple
+# |         recommends : LWP::UserAgent
+# |         recommends : PAR::Dist
+# | configure_requires : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# | configure_requires : YAML::Tiny
+# |     build_requires : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |     build_requires : Test::Harness (perl 5.24 core) (perl 5.22 core)
+# |     build_requires : Test::More (perl 5.24 core) (perl 5.22 core)
+# |     build_requires : autodie (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-File-Remove:single:524
+					perl-Module-Build:single:524
+					perl-Module-ScanDeps:single:524
+					perl-YAML-Tiny:single:524
+					perl-Archive-Zip:single:524
+					perl-File-HomeDir:single:524
+					perl-JSON:single:524
+					perl-libwww-perl:single:524
+					perl-PAR-Dist:single:524
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-File-Remove:single:522
+					perl-Module-Build:single:522
+					perl-Module-ScanDeps:single:522
+					perl-YAML-Tiny:single:522
+					perl-Archive-Zip:single:522
+					perl-File-HomeDir:single:522
+					perl-JSON:single:522
+					perl-libwww-perl:single:522
+					perl-PAR-Dist:single:522
+
+

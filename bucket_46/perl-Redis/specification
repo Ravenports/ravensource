@@ -1,0 +1,59 @@
+DEF[PORTVERSION]=	1.991
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Redis
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Perl binding for Redis database (v524)
+SDESC[522]=		Perl binding for Redis database (v522)
+
+HOMEPAGE=		https://github.com/PerlRedis/perl-redis
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:D/DA/DAMS
+DISTFILE[1]=		Redis-1.991.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Redis-1.991
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : IO::Socket::Timeout
+# |      runtime : Try::Tiny
+# |    configure : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |    configure : Module::Build::Tiny
+# |         test : Digest::SHA (perl 5.24 core) (perl 5.22 core)
+# |         test : File::Spec (perl 5.24 core) (perl 5.22 core)
+# |         test : IO::Handle (perl 5.24 core) (perl 5.22 core)
+# |         test : IO::String
+# |         test : IPC::Cmd (perl 5.24 core) (perl 5.22 core)
+# |         test : IPC::Open3 (perl 5.24 core) (perl 5.22 core)
+# |         test : Pod::Coverage::TrustPod
+# |         test : Test::CPAN::Meta
+# |         test : Test::Deep
+# |         test : Test::Fatal
+# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::SharedFork
+# |         test : Test::TCP
+
+[PERL_524].USES_ON=			perl:524,buildmodtiny
+[PERL_522].USES_ON=			perl:522,buildmodtiny
+[PERL_524].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:524
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-IO-Socket-Timeout:single:524
+					perl-Try-Tiny:single:524
+[PERL_522].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:522
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-IO-Socket-Timeout:single:522
+					perl-Try-Tiny:single:522
+
+

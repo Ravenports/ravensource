@@ -1,0 +1,55 @@
+DEF[PORTVERSION]=	2017060201
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Regexp-Common
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Provide commonly requested regular expressi (v524)
+SDESC[522]=		Provide commonly requested regular expressi (v522)
+
+HOMEPAGE=		none
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:A/AB/ABIGAIL
+DISTFILE[1]=		Regexp-Common-2017060201.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Regexp-Common-2017060201
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Config (perl 5.24 core) (perl 5.22 core)
+# |      runtime : strict (perl 5.24 core) (perl 5.22 core)
+# |      runtime : vars (perl 5.24 core) (perl 5.22 core)
+# |      runtime : warnings (perl 5.24 core) (perl 5.22 core)
+# |        build : Config (perl 5.24 core) (perl 5.22 core)
+# |        build : strict (perl 5.24 core) (perl 5.22 core)
+# |        build : vars (perl 5.24 core) (perl 5.22 core)
+# |        build : warnings (perl 5.24 core) (perl 5.22 core)
+# |    configure : Config (perl 5.24 core) (perl 5.22 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |    configure : strict (perl 5.24 core) (perl 5.22 core)
+# |    configure : vars (perl 5.24 core) (perl 5.22 core)
+# |    configure : warnings (perl 5.24 core) (perl 5.22 core)
+# |         test : Config (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+# |         test : strict (perl 5.24 core) (perl 5.22 core)
+# |         test : vars (perl 5.24 core) (perl 5.22 core)
+# |         test : warnings (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::Regexp
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+
+

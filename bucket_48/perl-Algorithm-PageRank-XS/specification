@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	0.04
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Algorithm-PageRank-XS
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Fast PageRank implementation (v524)
+SDESC[522]=		Fast PageRank implementation (v522)
+
+HOMEPAGE=		none
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:A/AX/AXIAK
+DISTFILE[1]=		Algorithm-PageRank-XS-0.04.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Algorithm-PageRank-XS-0.04
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.yml
+# -----------------------------------------------
+# |           requires : Test::More (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+
+

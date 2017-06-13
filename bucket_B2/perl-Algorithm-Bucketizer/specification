@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	0.13
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Algorithm-Bucketizer
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Distribute sized items to buckets with limi (v524)
+SDESC[522]=		Distribute sized items to buckets with limi (v522)
+
+HOMEPAGE=		http://github.com/mschilli/algorithm-bucketizer-perl.git
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:M/MS/MSCHILLI
+DISTFILE[1]=		Algorithm-Bucketizer-0.13.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Algorithm-Bucketizer-0.13
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Getopt::Std (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Pod::Usage (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Sysadm::Install
+# |        build : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Sysadm-Install:single:524
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Sysadm-Install:single:522
+
+

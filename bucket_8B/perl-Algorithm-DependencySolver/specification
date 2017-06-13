@@ -1,0 +1,69 @@
+DEF[PORTVERSION]=	1.01
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Algorithm-DependencySolver
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Algorithm::DependencySolver - A dependency  (v524)
+SDESC[522]=		Algorithm::DependencySolver - A dependency  (v522)
+
+HOMEPAGE=		http://github.com/lokku/Algorithm-DependencySolver
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:K/KA/KAORU
+DISTFILE[1]=		Algorithm-DependencySolver-1.01.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Algorithm-DependencySolver-1.01
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Data::Dumper (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Graph
+# |      runtime : Graph::Convert
+# |      runtime : Graph::Easy
+# |      runtime : List::Compare
+# |      runtime : List::MoreUtils
+# |      runtime : Moose
+# |      runtime : MooseX::FollowPBP
+# |      runtime : MooseX::Method::Signatures
+# |    configure : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |         test : File::Spec::Functions (perl 5.24 core) (perl 5.22 core)
+# |         test : File::Type
+# |         test : File::Which
+# |         test : Test::Deep
+# |         test : Test::Exception
+# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::TempDir::Tiny
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Graph:single:524
+					perl-Graph-Convert:single:524
+					perl-Graph-Easy:single:524
+					perl-List-Compare:single:524
+					perl-List-MoreUtils:single:524
+					perl-Moose:single:524
+					perl-MooseX-FollowPBP:single:524
+					perl-MooseX-Method-Signatures:single:524
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Graph:single:522
+					perl-Graph-Convert:single:522
+					perl-Graph-Easy:single:522
+					perl-List-Compare:single:522
+					perl-List-MoreUtils:single:522
+					perl-Moose:single:522
+					perl-MooseX-FollowPBP:single:522
+					perl-MooseX-Method-Signatures:single:522
+
+

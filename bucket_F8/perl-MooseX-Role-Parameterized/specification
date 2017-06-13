@@ -1,0 +1,73 @@
+DEF[PORTVERSION]=	1.10
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-MooseX-Role-Parameterized
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Moose roles with composition parameters (v524)
+SDESC[522]=		Moose roles with composition parameters (v522)
+
+HOMEPAGE=		https://github.com/moose/MooseX-Role-Parameterized
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:E/ET/ETHER
+DISTFILE[1]=		MooseX-Role-Parameterized-1.10.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		MooseX-Role-Parameterized-1.10
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Carp (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Module::Runtime
+# |      runtime : Moose
+# |      runtime : Moose::Exporter
+# |      runtime : Moose::Meta::Role
+# |      runtime : Moose::Role
+# |      runtime : Moose::Util
+# |      runtime : namespace::autoclean
+# |      runtime : namespace::clean
+# |      runtime : strict (perl 5.24 core) (perl 5.22 core)
+# |      runtime : warnings (perl 5.24 core) (perl 5.22 core)
+# |    configure : Module::Build::Tiny
+# |         test : CPAN::Meta::Check
+# |         test : CPAN::Meta::Requirements (perl 5.24 core) (perl 5.22 core)
+# |         test : Data::Dumper (perl 5.24 core) (perl 5.22 core)
+# |         test : File::Spec (perl 5.24 core) (perl 5.22 core)
+# |         test : Module::Metadata (perl 5.24 core) (perl 5.22 core)
+# |         test : Moose::Util::TypeConstraints
+# |         test : MooseX::Role::WithOverloading
+# |         test : Storable (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::Fatal
+# |         test : Test::Moose
+# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::Requires
+# |         test : lib (perl 5.24 core) (perl 5.22 core)
+# |         test : overload (perl 5.24 core) (perl 5.22 core)
+# |         test : CPAN::Meta (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,buildmodtiny
+[PERL_522].USES_ON=			perl:522,buildmodtiny
+[PERL_524].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:524
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Module-Runtime:single:524
+					perl-Moose:single:524
+					perl-namespace-autoclean:single:524
+					perl-namespace-clean:single:524
+[PERL_522].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:522
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Module-Runtime:single:522
+					perl-Moose:single:522
+					perl-namespace-autoclean:single:522
+					perl-namespace-clean:single:522
+
+

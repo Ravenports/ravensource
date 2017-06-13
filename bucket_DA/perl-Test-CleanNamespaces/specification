@@ -1,0 +1,75 @@
+DEF[PORTVERSION]=	0.22
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Test-CleanNamespaces
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Check for uncleaned imports (v524)
+SDESC[522]=		Check for uncleaned imports (v522)
+
+HOMEPAGE=		https://github.com/karenetheridge/Test-CleanNamespaces
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:E/ET/ETHER
+DISTFILE[1]=		Test-CleanNamespaces-0.22.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Test-CleanNamespaces-0.22
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Exporter (perl 5.24 core) (perl 5.22 core)
+# |      runtime : File::Find (perl 5.24 core) (perl 5.22 core)
+# |      runtime : File::Spec (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Module::Runtime
+# |      runtime : Package::Stash
+# |      runtime : Sub::Identify
+# |      runtime : Test::Builder (perl 5.24 core) (perl 5.22 core)
+# |      runtime : strict (perl 5.24 core) (perl 5.22 core)
+# |      runtime : warnings (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Package::Stash::XS
+# |    configure : CPAN::Meta::Requirements (perl 5.24 core) (perl 5.22 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |    configure : Module::Metadata (perl 5.24 core) (perl 5.22 core)
+# |         test : File::Spec (perl 5.24 core) (perl 5.22 core)
+# |         test : File::Spec::Functions (perl 5.24 core) (perl 5.22 core)
+# |         test : File::pushd
+# |         test : Module::Metadata (perl 5.24 core) (perl 5.22 core)
+# |         test : Scalar::Util (perl 5.24 core) (perl 5.22 core)
+# |         test : Sub::Exporter
+# |         test : Test::Deep
+# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::Needs
+# |         test : Test::Tester (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::Warnings
+# |         test : constant (perl 5.24 core) (perl 5.22 core)
+# |         test : if (perl 5.24 core) (perl 5.22 core)
+# |         test : lib (perl 5.24 core) (perl 5.22 core)
+# |         test : namespace::clean
+# |         test : overload (perl 5.24 core) (perl 5.22 core)
+# |         test : parent (perl 5.24 core) (perl 5.22 core)
+# |         test : CPAN::Meta (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Module-Runtime:single:524
+					perl-Package-Stash:single:524
+					perl-Sub-Identify:single:524
+					perl-Package-Stash-XS:single:524
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Module-Runtime:single:522
+					perl-Package-Stash:single:522
+					perl-Sub-Identify:single:522
+					perl-Package-Stash-XS:single:522
+
+

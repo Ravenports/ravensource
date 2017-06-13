@@ -1,0 +1,52 @@
+DEF[PORTVERSION]=	0.000070
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Test2-Suite
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Distribution with a rich set of tools built (v524)
+SDESC[522]=		Distribution with a rich set of tools built (v522)
+
+HOMEPAGE=		http://github.com/Test-More/Test2-Suite/
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:E/EX/EXODIST
+DISTFILE[1]=		Test2-Suite-0.000070.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Test2-Suite-0.000070
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : B (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Carp (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Importer
+# |      runtime : Scalar::Util (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Sub::Info
+# |      runtime : Term::Table
+# |      runtime : Test2 (perl 5.24 core) (perl 5.22 core)
+# |      runtime : overload (perl 5.24 core) (perl 5.22 core)
+# |      runtime : utf8 (perl 5.24 core) (perl 5.22 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Importer:single:524
+					perl-Sub-Info:single:524
+					perl-Term-Table:single:524
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Importer:single:522
+					perl-Sub-Info:single:522
+					perl-Term-Table:single:522
+
+

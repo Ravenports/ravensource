@@ -1,0 +1,113 @@
+DEF[PORTVERSION]=	0.49
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-MooseX-Method-Signatures
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		(DEPRECATED) Method declarations with type  (v524)
+SDESC[522]=		(DEPRECATED) Method declarations with type  (v522)
+
+HOMEPAGE=		https://github.com/moose/MooseX-Method-Signatures
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:E/ET/ETHER
+DISTFILE[1]=		MooseX-Method-Signatures-0.49.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		MooseX-Method-Signatures-0.49
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : B::Hooks::EndOfScope
+# |      runtime : Carp (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Context::Preserve
+# |      runtime : Devel::Declare
+# |      runtime : Devel::Declare::Context::Simple
+# |      runtime : Eval::Closure
+# |      runtime : Module::Runtime
+# |      runtime : Moose
+# |      runtime : Moose::Meta::Class
+# |      runtime : Moose::Meta::Method
+# |      runtime : Moose::Util
+# |      runtime : Moose::Util::TypeConstraints
+# |      runtime : MooseX::LazyRequire
+# |      runtime : MooseX::Meta::TypeConstraint::ForceCoercion
+# |      runtime : MooseX::Types
+# |      runtime : MooseX::Types::Moose
+# |      runtime : MooseX::Types::Structured
+# |      runtime : MooseX::Types::Util
+# |      runtime : Parse::Method::Signatures
+# |      runtime : Parse::Method::Signatures::Param::Named
+# |      runtime : Parse::Method::Signatures::Param::Placeholder
+# |      runtime : Parse::Method::Signatures::TypeConstraint
+# |      runtime : Parse::Method::Signatures::Types
+# |      runtime : Scalar::Util (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Sub::Name
+# |      runtime : Task::Weaken
+# |      runtime : Text::Balanced (perl 5.24 core) (perl 5.22 core)
+# |      runtime : aliased
+# |      runtime : if (perl 5.24 core) (perl 5.22 core)
+# |      runtime : namespace::autoclean
+# |      runtime : strict (perl 5.24 core) (perl 5.22 core)
+# |      runtime : warnings (perl 5.24 core) (perl 5.22 core)
+# |    configure : Module::Build::Tiny
+# |         test : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |         test : File::Spec (perl 5.24 core) (perl 5.22 core)
+# |         test : Moose::Role
+# |         test : Test::Deep
+# |         test : Test::Fatal
+# |         test : Test::Moose
+# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+# |         test : attributes (perl 5.24 core) (perl 5.22 core)
+# |         test : lib (perl 5.24 core) (perl 5.22 core)
+# |         test : metaclass
+# |         test : namespace::clean
+# |         test : CPAN::Meta (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,buildmodtiny
+[PERL_522].USES_ON=			perl:522,buildmodtiny
+[PERL_524].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:524
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-B-Hooks-EndOfScope:single:524
+					perl-Context-Preserve:single:524
+					perl-Devel-Declare:single:524
+					perl-Eval-Closure:single:524
+					perl-Module-Runtime:single:524
+					perl-Moose:single:524
+					perl-MooseX-LazyRequire:single:524
+					perl-MooseX-Meta-TypeConstraint-ForceCoercion:single:524
+					perl-MooseX-Types:single:524
+					perl-MooseX-Types-Structured:single:524
+					perl-Parse-Method-Signatures:single:524
+					perl-Sub-Name:single:524
+					perl-Task-Weaken:single:524
+					perl-aliased:single:524
+					perl-namespace-autoclean:single:524
+[PERL_522].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:522
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-B-Hooks-EndOfScope:single:522
+					perl-Context-Preserve:single:522
+					perl-Devel-Declare:single:522
+					perl-Eval-Closure:single:522
+					perl-Module-Runtime:single:522
+					perl-Moose:single:522
+					perl-MooseX-LazyRequire:single:522
+					perl-MooseX-Meta-TypeConstraint-ForceCoercion:single:522
+					perl-MooseX-Types:single:522
+					perl-MooseX-Types-Structured:single:522
+					perl-Parse-Method-Signatures:single:522
+					perl-Sub-Name:single:522
+					perl-Task-Weaken:single:522
+					perl-aliased:single:522
+					perl-namespace-autoclean:single:522
+
+

@@ -1,0 +1,62 @@
+DEF[PORTVERSION]=	2.66
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-GD
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Perl interface to the gd2 graphics library (v524)
+SDESC[522]=		Perl interface to the gd2 graphics library (v522)
+
+HOMEPAGE=		http://github.com/lstein/Perl-GD
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:R/RU/RURBAN
+DISTFILE[1]=		GD-2.66.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		GD-2.66
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Math::Trig (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Class::XSAccessor
+# |      runtime : ExtUtils::Constant (perl 5.24 core) (perl 5.22 core)
+# |      runtime : List::MoreUtils
+# |      runtime : Pod::Spell::CommonMistakes
+# |      runtime : Test::Kwalitee
+# |      runtime : Test::More (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Test::Pod
+# |      runtime : Text::CSV_XS
+# |        build : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |    configure : ExtUtils::Constant (perl 5.24 core) (perl 5.22 core)
+# |    configure : ExtUtils::PkgConfig
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILD_DEPENDS_ON=		perl-ExtUtils-PkgConfig:single:524
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Class-XSAccessor:single:524
+					perl-List-MoreUtils:single:524
+					perl-Pod-Spell-CommonMistakes:single:524
+					perl-Test-Kwalitee:single:524
+					perl-Test-Pod:single:524
+					perl-Text-CSV_XS:single:524
+[PERL_522].BUILD_DEPENDS_ON=		perl-ExtUtils-PkgConfig:single:522
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Class-XSAccessor:single:522
+					perl-List-MoreUtils:single:522
+					perl-Pod-Spell-CommonMistakes:single:522
+					perl-Test-Kwalitee:single:522
+					perl-Test-Pod:single:522
+					perl-Text-CSV_XS:single:522
+
+

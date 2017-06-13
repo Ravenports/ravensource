@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	0.01
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Algorithm-IncludeExclude
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Build and evaluate include/exclude lists (v524)
+SDESC[522]=		Build and evaluate include/exclude lists (v522)
+
+HOMEPAGE=		none
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:J/JR/JROCKWAY
+DISTFILE[1]=		Algorithm-IncludeExclude-0.01.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Algorithm-IncludeExclude-0.01
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.yml
+# -----------------------------------------------
+# |           requires : Carp (perl 5.24 core) (perl 5.22 core)
+# |     build_requires : Test::Exception
+# |     build_requires : Test::More (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILD_DEPENDS_ON=		perl-Test-Exception:single:524
+[PERL_522].BUILD_DEPENDS_ON=		perl-Test-Exception:single:522
+
+

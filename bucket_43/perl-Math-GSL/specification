@@ -1,0 +1,57 @@
+DEF[PORTVERSION]=	0.39
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Math-GSL
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Interface to the GNU Scientific Library usi (v524)
+SDESC[522]=		Interface to the GNU Scientific Library usi (v522)
+
+HOMEPAGE=		http://github.com/leto/math--gsl/tree/master
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:L/LE/LETO
+DISTFILE[1]=		Math-GSL-0.39.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Math-GSL-0.39
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Scalar::Util (perl 5.24 core) (perl 5.22 core)
+# |      runtime : parent (perl 5.24 core) (perl 5.22 core)
+# |      runtime : version (perl 5.24 core) (perl 5.22 core)
+# |        build : Test::Class
+# |        build : Test::Exception
+# |        build : Test::Most
+# |        build : Test::Taint
+# |    configure : Module::Build
+# |    configure : PkgConfig
+
+[PERL_524].USES_ON=			perl:524,buildmod
+[PERL_522].USES_ON=			perl:522,buildmod
+[PERL_524].BUILD_DEPENDS_ON=		perl-Test-Class:single:524
+					perl-Test-Exception:single:524
+					perl-Test-Most:single:524
+					perl-Test-Taint:single:524
+					perl-Module-Build:single:524
+					perl-PkgConfig:single:524
+[PERL_522].BUILD_DEPENDS_ON=		perl-Test-Class:single:522
+					perl-Test-Exception:single:522
+					perl-Test-Most:single:522
+					perl-Test-Taint:single:522
+					perl-Module-Build:single:522
+					perl-PkgConfig:single:522
+
+

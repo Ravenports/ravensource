@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	0.02
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Crypt-OpenSSL-AES
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		No description provided (v524)
+SDESC[522]=		No description provided (v522)
+
+HOMEPAGE=		none
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:T/TT/TTAR
+DISTFILE[1]=		Crypt-OpenSSL-AES-0.02.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Crypt-OpenSSL-AES-0.02
+
+# This perl port has no dependencies at all.
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+
+

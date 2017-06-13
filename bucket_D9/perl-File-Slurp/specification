@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	9999.19
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-File-Slurp
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Simple and Efficient Reading/Writing/Modify (v524)
+SDESC[522]=		Simple and Efficient Reading/Writing/Modify (v522)
+
+HOMEPAGE=		none
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:U/UR/URI
+DISTFILE[1]=		File-Slurp-9999.19.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		File-Slurp-9999.19
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.yml
+# -----------------------------------------------
+# |           requires : Carp (perl 5.24 core) (perl 5.22 core)
+# |           requires : Exporter (perl 5.24 core) (perl 5.22 core)
+# |           requires : Fcntl (perl 5.24 core) (perl 5.22 core)
+# |           requires : POSIX (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+
+

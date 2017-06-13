@@ -1,0 +1,111 @@
+DEF[PORTVERSION]=	2.2005
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Moose
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Postmodern object system for Perl 5 (v524)
+SDESC[522]=		Postmodern object system for Perl 5 (v522)
+
+HOMEPAGE=		https://github.com/moose/Moose
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:E/ET/ETHER
+DISTFILE[1]=		Moose-2.2005.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Moose-2.2005
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Carp (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Class::Load
+# |      runtime : Class::Load::XS
+# |      runtime : Data::OptList
+# |      runtime : Devel::GlobalDestruction
+# |      runtime : Devel::OverloadInfo
+# |      runtime : Devel::StackTrace
+# |      runtime : Dist::CheckConflicts
+# |      runtime : Eval::Closure
+# |      runtime : List::Util (perl 5.24 core) (perl 5.22 core)
+# |      runtime : MRO::Compat
+# |      runtime : Module::Runtime
+# |      runtime : Module::Runtime::Conflicts
+# |      runtime : Package::DeprecationManager
+# |      runtime : Package::Stash
+# |      runtime : Package::Stash::XS
+# |      runtime : Params::Util
+# |      runtime : Scalar::Util (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Sub::Exporter
+# |      runtime : Sub::Identify
+# |      runtime : Sub::Name
+# |      runtime : Try::Tiny
+# |      runtime : parent (perl 5.24 core) (perl 5.22 core)
+# |      runtime : strict (perl 5.24 core) (perl 5.22 core)
+# |      runtime : warnings (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Data::OptList
+# |    configure : Dist::CheckConflicts
+# |    configure : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |         test : CPAN::Meta::Check
+# |         test : CPAN::Meta::Requirements (perl 5.24 core) (perl 5.22 core)
+# |         test : File::Spec (perl 5.24 core) (perl 5.22 core)
+# |         test : Module::Metadata (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::CleanNamespaces
+# |         test : Test::Fatal
+# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::Requires
+# |         test : CPAN::Meta (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Class-Load:single:524
+					perl-Class-Load-XS:single:524
+					perl-Data-OptList:single:524
+					perl-Devel-GlobalDestruction:single:524
+					perl-Devel-OverloadInfo:single:524
+					perl-Devel-StackTrace:single:524
+					perl-Dist-CheckConflicts:single:524
+					perl-Eval-Closure:single:524
+					perl-MRO-Compat:single:524
+					perl-Module-Runtime:single:524
+					perl-Module-Runtime-Conflicts:single:524
+					perl-Package-DeprecationManager:single:524
+					perl-Package-Stash:single:524
+					perl-Package-Stash-XS:single:524
+					perl-Params-Util:single:524
+					perl-Sub-Exporter:single:524
+					perl-Sub-Identify:single:524
+					perl-Sub-Name:single:524
+					perl-Try-Tiny:single:524
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Class-Load:single:522
+					perl-Class-Load-XS:single:522
+					perl-Data-OptList:single:522
+					perl-Devel-GlobalDestruction:single:522
+					perl-Devel-OverloadInfo:single:522
+					perl-Devel-StackTrace:single:522
+					perl-Dist-CheckConflicts:single:522
+					perl-Eval-Closure:single:522
+					perl-MRO-Compat:single:522
+					perl-Module-Runtime:single:522
+					perl-Module-Runtime-Conflicts:single:522
+					perl-Package-DeprecationManager:single:522
+					perl-Package-Stash:single:522
+					perl-Package-Stash-XS:single:522
+					perl-Params-Util:single:522
+					perl-Sub-Exporter:single:522
+					perl-Sub-Identify:single:522
+					perl-Sub-Name:single:522
+					perl-Try-Tiny:single:522
+
+

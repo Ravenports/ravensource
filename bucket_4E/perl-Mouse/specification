@@ -1,0 +1,53 @@
+DEF[PORTVERSION]=	v2.4.9
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Mouse
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Moose minus the antlers (v524)
+SDESC[522]=		Moose minus the antlers (v522)
+
+HOMEPAGE=		https://github.com/gfx/p5-Mouse
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:S/SY/SYOHEX
+DISTFILE[1]=		Mouse-v2.4.9.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Mouse-v2.4.9
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Scalar::Util (perl 5.24 core) (perl 5.22 core)
+# |      runtime : XSLoader (perl 5.24 core) (perl 5.22 core)
+# |    configure : Devel::PPPort (perl 5.24 core) (perl 5.22 core)
+# |    configure : ExtUtils::ParseXS (perl 5.24 core) (perl 5.22 core)
+# |    configure : Module::Build
+# |    configure : Module::Build::XSUtil
+# |         test : Test::Exception
+# |         test : Test::Fatal
+# |         test : Test::LeakTrace
+# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::Output
+# |         test : Test::Requires
+# |         test : Try::Tiny
+
+[PERL_524].USES_ON=			perl:524,buildmod
+[PERL_522].USES_ON=			perl:522,buildmod
+[PERL_524].BUILD_DEPENDS_ON=		perl-Module-Build:single:524
+					perl-Module-Build-XSUtil:single:524
+[PERL_522].BUILD_DEPENDS_ON=		perl-Module-Build:single:522
+					perl-Module-Build-XSUtil:single:522
+
+

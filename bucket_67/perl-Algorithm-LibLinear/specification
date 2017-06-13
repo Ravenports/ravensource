@@ -1,0 +1,53 @@
+DEF[PORTVERSION]=	0.17
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Algorithm-LibLinear
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Perl binding for LIBLINEAR, a library for c (v524)
+SDESC[522]=		Perl binding for LIBLINEAR, a library for c (v522)
+
+HOMEPAGE=		none
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:S/SE/SEKIA
+DISTFILE[1]=		Algorithm-LibLinear-0.17.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Algorithm-LibLinear-0.17
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : List::MoreUtils
+# |      runtime : Smart::Args
+# |        build : ExtUtils::CBuilder (perl 5.24 core) (perl 5.22 core)
+# |    configure : Module::Build
+# |    configure : Module::Build::XSUtil
+# |         test : Test::Deep
+# |         test : Test::Exception
+# |         test : Test::LeakTrace
+# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,buildmod
+[PERL_522].USES_ON=			perl:522,buildmod
+[PERL_524].BUILD_DEPENDS_ON=		perl-Module-Build:single:524
+					perl-Module-Build-XSUtil:single:524
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-List-MoreUtils:single:524
+					perl-Smart-Args:single:524
+[PERL_522].BUILD_DEPENDS_ON=		perl-Module-Build:single:522
+					perl-Module-Build-XSUtil:single:522
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-List-MoreUtils:single:522
+					perl-Smart-Args:single:522
+
+

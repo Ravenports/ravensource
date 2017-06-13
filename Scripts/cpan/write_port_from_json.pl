@@ -5,6 +5,7 @@
 # argument 3: tarball associated with meta file
 # argument 4: perl argument (configure, buildmod, buildmodtiny)
 # argument 5: ravensource directory
+# argument 6: location of meta.json
 #
 
 use strict;
@@ -19,8 +20,9 @@ my $port_author   = $ARGV[1];
 my $tarball       = $ARGV[2];
 my $buildmech     = $ARGV[3];
 my $ravensource   = $ARGV[4];
+my $meta_json_loc = $ARGV[5];
 
-my $json_text   = read_file('/tmp/cpan-work/meta.json');
+my $json_text   = read_file($meta_json_loc);
 my $dir_queue   = "/tmp/cpan-work/build-queue";
 my $dir_done    = "/tmp/cpan-work/completed";
 my $dir_fail    = "/tmp/cpan-work/failed-to-build";
@@ -130,9 +132,11 @@ foreach my $n (@variants) {
 
 if (exists $meta_data->{'homepage'}) {
    $homepage = $meta_data->{'homepage'}
-} elsif (exists $meta_data->{'resources'}{'repository'}{'web'}) {
+} elsif ((exists $meta_data->{'resources'}{'repository'}{'web'}) && 
+  ($meta_data->{'resources'}{'repository'}{'web'} =~ /^http/)) {
    $homepage = $meta_data->{'resources'}{'repository'}{'web'}
-} elsif (exists $meta_data->{'resources'}{'repository'}{'url'}) {
+} elsif ((exists $meta_data->{'resources'}{'repository'}{'url'}) &&
+  ($meta_data->{'resources'}{'repository'}{'url'} =~ /^http/)) {
    $homepage = $meta_data->{'resources'}{'repository'}{'url'}
 }
 

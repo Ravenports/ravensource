@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	0.00001
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Algorithm-DimReduction
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Dimension Reduction tool that relies on 'Oc (v524)
+SDESC[522]=		Dimension Reduction tool that relies on 'Oc (v522)
+
+HOMEPAGE=		none
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:M/MI/MIKI
+DISTFILE[1]=		Algorithm-DimReduction-0.00001.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Algorithm-DimReduction-0.00001
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.yml
+# -----------------------------------------------
+# |           requires : Class::Accessor::Fast
+# |           requires : File::Copy (perl 5.24 core) (perl 5.22 core)
+# |           requires : File::Temp (perl 5.24 core) (perl 5.22 core)
+# |           requires : Storable (perl 5.24 core) (perl 5.22 core)
+# |     build_requires : Test::More (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Class-Accessor:single:524
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Class-Accessor:single:522
+
+

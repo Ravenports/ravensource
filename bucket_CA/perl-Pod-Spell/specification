@@ -1,0 +1,71 @@
+DEF[PORTVERSION]=	1.20
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Pod-Spell
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Formatter for spellchecking Pod (v524)
+SDESC[522]=		Formatter for spellchecking Pod (v522)
+
+HOMEPAGE=		https://github.com/perl-pod/Pod-Spell
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:D/DO/DOLMEN
+DISTFILE[1]=		Pod-Spell-1.20.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Pod-Spell-1.20
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Carp (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Class::Tiny
+# |      runtime : File::ShareDir
+# |      runtime : Lingua::EN::Inflect
+# |      runtime : POSIX (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Path::Tiny
+# |      runtime : Pod::Escapes (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Pod::Parser (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Text::Wrap (perl 5.24 core) (perl 5.22 core)
+# |      runtime : constant (perl 5.24 core) (perl 5.22 core)
+# |      runtime : locale (perl 5.24 core) (perl 5.22 core)
+# |      runtime : parent (perl 5.24 core) (perl 5.22 core)
+# |      runtime : strict (perl 5.24 core) (perl 5.22 core)
+# |      runtime : warnings (perl 5.24 core) (perl 5.22 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |    configure : File::ShareDir::Install
+# |         test : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |         test : File::Spec (perl 5.24 core) (perl 5.22 core)
+# |         test : File::Temp (perl 5.24 core) (perl 5.22 core)
+# |         test : IO::Handle (perl 5.24 core) (perl 5.22 core)
+# |         test : IPC::Open3 (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::Deep
+# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+# |         test : utf8 (perl 5.24 core) (perl 5.22 core)
+# |         test : CPAN::Meta (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILD_DEPENDS_ON=		perl-File-ShareDir-Install:single:524
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Class-Tiny:single:524
+					perl-File-ShareDir:single:524
+					perl-Lingua-EN-Inflect:single:524
+					perl-Path-Tiny:single:524
+[PERL_522].BUILD_DEPENDS_ON=		perl-File-ShareDir-Install:single:522
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Class-Tiny:single:522
+					perl-File-ShareDir:single:522
+					perl-Lingua-EN-Inflect:single:522
+					perl-Path-Tiny:single:522
+
+

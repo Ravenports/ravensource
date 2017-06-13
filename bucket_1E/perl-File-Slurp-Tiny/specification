@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	0.004
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-File-Slurp-Tiny
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Simple, sane and efficient file slurper [DI (v524)
+SDESC[522]=		Simple, sane and efficient file slurper [DI (v522)
+
+HOMEPAGE=		https://github.com/Leont/file-slurp-tiny
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:L/LE/LEONT
+DISTFILE[1]=		File-Slurp-Tiny-0.004.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		File-Slurp-Tiny-0.004
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Carp (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Exporter (perl 5.24 core) (perl 5.22 core)
+# |      runtime : File::Spec::Functions (perl 5.24 core) (perl 5.22 core)
+# |      runtime : FileHandle (perl 5.24 core) (perl 5.22 core)
+# |      runtime : strict (perl 5.24 core) (perl 5.22 core)
+# |      runtime : warnings (perl 5.24 core) (perl 5.22 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |         test : File::Temp (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+
+

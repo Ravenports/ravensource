@@ -1,0 +1,57 @@
+DEF[PORTVERSION]=	0.26
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Graph-Easy-As_svg
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Output a Graph::Easy as Scalable Vector Gra (v524)
+SDESC[522]=		Output a Graph::Easy as Scalable Vector Gra (v522)
+
+HOMEPAGE=		https://github.com/shlomif/Graph-Easy-As_svg
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:S/SH/SHLOMIF
+DISTFILE[1]=		Graph-Easy-As_svg-0.26.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Graph-Easy-As_svg-0.26
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Graph::Easy
+# |      runtime : Image::Info
+# |      runtime : Test::More (perl 5.24 core) (perl 5.22 core)
+# |      runtime : strict (perl 5.24 core) (perl 5.22 core)
+# |      runtime : utf8 (perl 5.24 core) (perl 5.22 core)
+# |      runtime : warnings (perl 5.24 core) (perl 5.22 core)
+# |        build : Module::Build
+# |    configure : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |    configure : Module::Build
+# |         test : File::Spec (perl 5.24 core) (perl 5.22 core)
+# |         test : IO::Handle (perl 5.24 core) (perl 5.22 core)
+# |         test : IPC::Open3 (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+# |         test : blib (perl 5.24 core) (perl 5.22 core)
+# |         test : lib (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,buildmod
+[PERL_522].USES_ON=			perl:522,buildmod
+[PERL_524].BUILD_DEPENDS_ON=		perl-Module-Build:single:524
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Graph-Easy:single:524
+					perl-Image-Info:single:524
+[PERL_522].BUILD_DEPENDS_ON=		perl-Module-Build:single:522
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Graph-Easy:single:522
+					perl-Image-Info:single:522
+
+

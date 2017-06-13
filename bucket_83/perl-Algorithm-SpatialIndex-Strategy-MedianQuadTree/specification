@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	0.02
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Algorithm-SpatialIndex-Strategy-MedianQuadTree
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		QuadTree splitting on bucket medians (v524)
+SDESC[522]=		QuadTree splitting on bucket medians (v522)
+
+HOMEPAGE=		none
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:S/SM/SMUELLER
+DISTFILE[1]=		Algorithm-SpatialIndex-Strategy-MedianQuadTree-0.02.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Algorithm-SpatialIndex-Strategy-MedianQuadTree-0.02
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.yml
+# -----------------------------------------------
+# |           requires : Algorithm::SpatialIndex
+# |           requires : Statistics::CaseResampling
+# | configure_requires : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |     build_requires : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Algorithm-SpatialIndex:single:524
+					perl-Statistics-CaseResampling:single:524
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Algorithm-SpatialIndex:single:522
+					perl-Statistics-CaseResampling:single:522
+
+

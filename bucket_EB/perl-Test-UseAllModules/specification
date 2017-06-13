@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	0.17
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Test-UseAllModules
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Do use_ok() for all the MANIFESTed modules (v524)
+SDESC[522]=		Do use_ok() for all the MANIFESTed modules (v522)
+
+HOMEPAGE=		https://github.com/charsbar/test-useallmodules
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:I/IS/ISHIGAKI
+DISTFILE[1]=		Test-UseAllModules-0.17.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Test-UseAllModules-0.17
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Exporter (perl 5.24 core) (perl 5.22 core)
+# |      runtime : ExtUtils::Manifest (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Test::Builder (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Test::More (perl 5.24 core) (perl 5.22 core)
+# |        build : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+
+

@@ -1,0 +1,52 @@
+DEF[PORTVERSION]=	0.65
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Spreadsheet-ParseExcel
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Read information from an Excel file. (v524)
+SDESC[522]=		Read information from an Excel file. (v522)
+
+HOMEPAGE=		http://github.com/runrig/spreadsheet-parseexcel
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:D/DO/DOUGW
+DISTFILE[1]=		Spreadsheet-ParseExcel-0.65.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Spreadsheet-ParseExcel-0.65
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Crypt::RC4
+# |      runtime : Digest::Perl::MD5
+# |      runtime : IO::File (perl 5.24 core) (perl 5.22 core)
+# |      runtime : IO::Scalar
+# |      runtime : OLE::Storage_Lite
+# |      runtime : Scalar::Util (perl 5.24 core) (perl 5.22 core)
+# |        build : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Crypt-RC4:single:524
+					perl-Digest-Perl-MD5:single:524
+					perl-IO-stringy:single:524
+					perl-OLE-Storage_Lite:single:524
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Crypt-RC4:single:522
+					perl-Digest-Perl-MD5:single:522
+					perl-IO-stringy:single:522
+					perl-OLE-Storage_Lite:single:522
+
+

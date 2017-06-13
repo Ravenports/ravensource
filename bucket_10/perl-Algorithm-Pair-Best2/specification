@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	2.040
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Algorithm-Pair-Best2
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Select pairings (designed for Go tournament (v524)
+SDESC[522]=		Select pairings (designed for Go tournament (v522)
+
+HOMEPAGE=		none
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:R/RE/REID
+DISTFILE[1]=		Algorithm-Pair-Best2-2.040.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Algorithm-Pair-Best2-2.040
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.yml
+# -----------------------------------------------
+# |           requires : Carp (perl 5.24 core) (perl 5.22 core)
+# |           requires : strict (perl 5.24 core) (perl 5.22 core)
+# |           requires : warnings (perl 5.24 core) (perl 5.22 core)
+# | configure_requires : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |     build_requires : IO::File (perl 5.24 core) (perl 5.22 core)
+# |     build_requires : Test::More (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+
+

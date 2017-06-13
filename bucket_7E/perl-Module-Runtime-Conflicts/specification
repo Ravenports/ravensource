@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	0.003
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Module-Runtime-Conflicts
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Provide information on conflicts for Module (v524)
+SDESC[522]=		Provide information on conflicts for Module (v522)
+
+HOMEPAGE=		https://github.com/karenetheridge/Module-Runtime-Conflicts
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:E/ET/ETHER
+DISTFILE[1]=		Module-Runtime-Conflicts-0.003.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Module-Runtime-Conflicts-0.003
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Dist::CheckConflicts
+# |      runtime : Module::Runtime
+# |      runtime : strict (perl 5.24 core) (perl 5.22 core)
+# |      runtime : warnings (perl 5.24 core) (perl 5.22 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |         test : File::Spec (perl 5.24 core) (perl 5.22 core)
+# |         test : Module::Metadata (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+# |         test : if (perl 5.24 core) (perl 5.22 core)
+# |         test : CPAN::Meta (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Dist-CheckConflicts:single:524
+					perl-Module-Runtime:single:524
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Dist-CheckConflicts:single:522
+					perl-Module-Runtime:single:522
+
+

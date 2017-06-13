@@ -1,0 +1,63 @@
+DEF[PORTVERSION]=	0.03
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Algorithm-KernelKMeans
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Weighted kernel k-means clusterer (v524)
+SDESC[522]=		Weighted kernel k-means clusterer (v522)
+
+HOMEPAGE=		http://bitbucket.org/sekia/algorithm-kernelkmeans
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:S/SE/SEKIA
+DISTFILE[1]=		Algorithm-KernelKMeans-0.03.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Algorithm-KernelKMeans-0.03
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.yml
+# -----------------------------------------------
+# |           requires : Carp (perl 5.24 core) (perl 5.22 core)
+# |           requires : Exporter::Lite
+# |           requires : List::MoreUtils
+# |           requires : List::Util (perl 5.24 core) (perl 5.22 core)
+# |           requires : Moose
+# |           requires : MooseX::Types::Common::Numeric
+# |           requires : MooseX::Types::Moose
+# |           requires : POSIX (perl 5.24 core) (perl 5.22 core)
+# |           requires : UNIVERSAL::require
+# |           requires : namespace::autoclean
+# |           requires : parent (perl 5.24 core) (perl 5.22 core)
+# | configure_requires : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |     build_requires : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Exporter-Lite:single:524
+					perl-List-MoreUtils:single:524
+					perl-Moose:single:524
+					perl-MooseX-Types-Common:single:524
+					perl-MooseX-Types:single:524
+					perl-UNIVERSAL-require:single:524
+					perl-namespace-autoclean:single:524
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Exporter-Lite:single:522
+					perl-List-MoreUtils:single:522
+					perl-Moose:single:522
+					perl-MooseX-Types-Common:single:522
+					perl-MooseX-Types:single:522
+					perl-UNIVERSAL-require:single:522
+					perl-namespace-autoclean:single:522
+
+

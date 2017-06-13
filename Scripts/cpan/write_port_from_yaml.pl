@@ -1,10 +1,11 @@
-# given meta file from CPAN in json format, generate port source
+# given meta file from CPAN in yaml format, generate port source
 #
 # argument 1: port namebase
 # argument 2: author string for fetching (e.g. T/TO/TODDR)
 # argument 3: tarball associated with meta file
 # argument 4: perl argument (configure, buildmod, buildmodtiny)
 # argument 5: ravensource directory
+# argument 6: location of meta.yaml
 #
 
 use strict;
@@ -19,13 +20,14 @@ my $port_author   = $ARGV[1];
 my $tarball       = $ARGV[2];
 my $buildmech     = $ARGV[3];
 my $ravensource   = $ARGV[4];
+my $meta_yaml_loc = $ARGV[5];
 
 my $dir_queue   = "/tmp/cpan-work/build-queue";
 my $dir_done    = "/tmp/cpan-work/completed";
 my $dir_fail    = "/tmp/cpan-work/failed-to-build";
-my $meta_data   = Parse::CPAN::Meta::LoadFile('/tmp/cpan-work/meta.yaml');
+my $meta_data   = Parse::CPAN::Meta::LoadFile($meta_yaml_loc);
 my $portversion = $meta_data->{'version'};
-my $shortdesc   = $meta_data->{'abstract'};
+my $shortdesc;
 my $trunc_sdesc;
 my $distname;
 my $homepage    = "none";
@@ -83,6 +85,12 @@ sub get_namebase {
    }
 }
 
+if ((defined $meta_data->{'abstract'}) && ($meta_data->{'abstract'} ne "")) {
+   $shortdesc = $meta_data->{'abstract'};
+} else {
+   $shortdesc = "No description provided";
+}
+
 sub make_comment {
    my $copystring = $shortdesc;
    $copystring =~ s/^A perl //;
@@ -128,7 +136,8 @@ foreach my $n (@variants) {
 
 if (exists $meta_data->{'homepage'}) {
    $homepage = $meta_data->{'homepage'}
-} elsif (exists $meta_data->{'resources'}{'repository'}) {
+} elsif ((exists $meta_data->{'resources'}{'repository'}) &&
+    ($meta_data->{'resources'}{'repository'} =~ /^http/)) {
    $homepage = $meta_data->{'resources'}{'repository'}
 }
 

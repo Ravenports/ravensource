@@ -1,0 +1,58 @@
+DEF[PORTVERSION]=	0.78
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Inline-C
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		C Language Support for Inline (v524)
+SDESC[522]=		C Language Support for Inline (v522)
+
+HOMEPAGE=		https://github.com/ingydotnet/inline-c-pm
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:T/TI/TINITA
+DISTFILE[1]=		Inline-C-0.78.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Inline-C-0.78
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |      runtime : File::Spec (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Inline
+# |      runtime : Parse::RecDescent
+# |      runtime : Pegex
+# |    configure : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |    configure : File::ShareDir::Install
+# |         test : File::Copy::Recursive
+# |         test : File::Path (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::Warn
+# |         test : YAML::XS
+# |         test : autodie (perl 5.24 core) (perl 5.22 core)
+# |         test : version (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILD_DEPENDS_ON=		perl-File-ShareDir-Install:single:524
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Inline:single:524
+					perl-Parse-RecDescent:single:524
+					perl-Pegex:single:524
+[PERL_522].BUILD_DEPENDS_ON=		perl-File-ShareDir-Install:single:522
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Inline:single:522
+					perl-Parse-RecDescent:single:522
+					perl-Pegex:single:522
+
+

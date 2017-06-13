@@ -1,0 +1,47 @@
+DEF[PORTVERSION]=	1.20141117
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-SUPER
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Control superclass method dispatch (v524)
+SDESC[522]=		Control superclass method dispatch (v522)
+
+HOMEPAGE=		https://github.com/chromatic/SUPER.git
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:C/CH/CHROMATIC
+DISTFILE[1]=		SUPER-1.20141117.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		SUPER-1.20141117
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.yml
+# -----------------------------------------------
+# |           requires : Carp (perl 5.24 core) (perl 5.22 core)
+# |           requires : Scalar::Util (perl 5.24 core) (perl 5.22 core)
+# |           requires : Sub::Identify
+# |           requires : strict (perl 5.24 core) (perl 5.22 core)
+# |           requires : warnings (perl 5.24 core) (perl 5.22 core)
+# | configure_requires : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |     build_requires : Test::More (perl 5.24 core) (perl 5.22 core)
+# |     build_requires : base (perl 5.24 core) (perl 5.22 core)
+# |     build_requires : lib (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,buildmod
+[PERL_522].USES_ON=			perl:522,buildmod
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Sub-Identify:single:524
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Sub-Identify:single:522
+
+

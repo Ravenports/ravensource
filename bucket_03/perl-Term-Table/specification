@@ -1,0 +1,52 @@
+DEF[PORTVERSION]=	0.008
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Term-Table
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Format a header and rows into a table (v524)
+SDESC[522]=		Format a header and rows into a table (v522)
+
+HOMEPAGE=		http://github.com/exodist/Term-Table/
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:E/EX/EXODIST
+DISTFILE[1]=		Term-Table-0.008.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Term-Table-0.008
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Carp (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Importer
+# |      runtime : List::Util (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Scalar::Util (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Term::Size::Any
+# |      runtime : Unicode::GCString
+# |      runtime : Unicode::LineBreak
+# |    configure : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |         test : Test2::Tools::Tiny (perl 5.24 core) (perl 5.22 core)
+# |         test : utf8 (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Importer:single:524
+					perl-Term-Size-Any:single:524
+					perl-Unicode-LineBreak:single:524
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Importer:single:522
+					perl-Term-Size-Any:single:522
+					perl-Unicode-LineBreak:single:522
+
+

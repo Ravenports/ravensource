@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	2.13
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Math-MatrixReal
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Manipulate NxN matrices of real numbers (v524)
+SDESC[522]=		Manipulate NxN matrices of real numbers (v522)
+
+HOMEPAGE=		http://github.com/leto/math--matrixreal/tree/master
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:L/LE/LETO
+DISTFILE[1]=		Math-MatrixReal-2.13.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Math-MatrixReal-2.13
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |        build : File::Spec (perl 5.24 core) (perl 5.22 core)
+# |        build : Test::Most
+# |    configure : Module::Build
+
+[PERL_524].USES_ON=			perl:524,buildmod
+[PERL_522].USES_ON=			perl:522,buildmod
+[PERL_524].BUILD_DEPENDS_ON=		perl-Test-Most:single:524
+					perl-Module-Build:single:524
+[PERL_522].BUILD_DEPENDS_ON=		perl-Test-Most:single:522
+					perl-Module-Build:single:522
+
+

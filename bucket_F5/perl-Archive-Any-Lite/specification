@@ -1,0 +1,52 @@
+DEF[PORTVERSION]=	0.11
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Archive-Any-Lite
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Simple CPAN package extractor (v524)
+SDESC[522]=		Simple CPAN package extractor (v522)
+
+HOMEPAGE=		https://github.com/charsbar/archive-any-lite
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:I/IS/ISHIGAKI
+DISTFILE[1]=		Archive-Any-Lite-0.11.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Archive-Any-Lite-0.11
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Archive::Tar (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Archive::Zip
+# |      runtime : File::Spec (perl 5.24 core) (perl 5.22 core)
+# |      runtime : File::Temp (perl 5.24 core) (perl 5.22 core)
+# |      runtime : IO::Uncompress::Bunzip2 (perl 5.24 core) (perl 5.22 core)
+# |      runtime : IO::Zlib (perl 5.24 core) (perl 5.22 core)
+# |        build : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |        build : Test::More (perl 5.24 core) (perl 5.22 core)
+# |        build : Test::UseAllModules
+# |    configure : ExtUtils::MakeMaker::CPANfile
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILD_DEPENDS_ON=		perl-Test-UseAllModules:single:524
+					perl-ExtUtils-MakeMaker-CPANfile:single:524
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Archive-Zip:single:524
+[PERL_522].BUILD_DEPENDS_ON=		perl-Test-UseAllModules:single:522
+					perl-ExtUtils-MakeMaker-CPANfile:single:522
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Archive-Zip:single:522
+
+

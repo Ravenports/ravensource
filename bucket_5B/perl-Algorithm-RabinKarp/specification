@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	0.41
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Algorithm-RabinKarp
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Implementation of the Rabin-Karp rolling ha (v524)
+SDESC[522]=		Implementation of the Rabin-Karp rolling ha (v522)
+
+HOMEPAGE=		none
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:N/NN/NNUNLEY
+DISTFILE[1]=		Algorithm-RabinKarp-0.41.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Algorithm-RabinKarp-0.41
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.yml
+# -----------------------------------------------
+# |         recommends : Smart::Comments
+# |         recommends : Test::Exception
+# |         recommends : bignum (perl 5.24 core) (perl 5.22 core)
+# |     build_requires : File::Temp (perl 5.24 core) (perl 5.22 core)
+# |     build_requires : Test::More (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,buildmod
+[PERL_522].USES_ON=			perl:522,buildmod
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Smart-Comments:single:524
+					perl-Test-Exception:single:524
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Smart-Comments:single:522
+					perl-Test-Exception:single:522
+
+

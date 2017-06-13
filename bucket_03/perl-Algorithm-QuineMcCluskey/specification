@@ -1,0 +1,56 @@
+DEF[PORTVERSION]=	0.16
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Algorithm-QuineMcCluskey
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Solve sets of Boolean terms with the Quine- (v524)
+SDESC[522]=		Solve sets of Boolean terms with the Quine- (v522)
+
+HOMEPAGE=		none
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:J/JG/JGAMBLE
+DISTFILE[1]=		Algorithm-QuineMcCluskey-0.16.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Algorithm-QuineMcCluskey-0.16
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Carp (perl 5.24 core) (perl 5.22 core)
+# |      runtime : List::Compare::Functional
+# |      runtime : List::MoreUtils
+# |      runtime : Moose
+# |      runtime : Tie::Cycle
+# |      runtime : namespace::autoclean
+# |        build : Test::More (perl 5.24 core) (perl 5.22 core)
+# |    configure : Module::Build
+
+[PERL_524].USES_ON=			perl:524,buildmod
+[PERL_522].USES_ON=			perl:522,buildmod
+[PERL_524].BUILD_DEPENDS_ON=		perl-Module-Build:single:524
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-List-Compare:single:524
+					perl-List-MoreUtils:single:524
+					perl-Moose:single:524
+					perl-Tie-Cycle:single:524
+					perl-namespace-autoclean:single:524
+[PERL_522].BUILD_DEPENDS_ON=		perl-Module-Build:single:522
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-List-Compare:single:522
+					perl-List-MoreUtils:single:522
+					perl-Moose:single:522
+					perl-Tie-Cycle:single:522
+					perl-namespace-autoclean:single:522
+
+

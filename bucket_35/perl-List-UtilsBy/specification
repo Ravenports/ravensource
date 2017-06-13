@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	0.10
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-List-UtilsBy
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Higher-order list utility functions (v524)
+SDESC[522]=		Higher-order list utility functions (v522)
+
+HOMEPAGE=		none
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:P/PE/PEVANS
+DISTFILE[1]=		List-UtilsBy-0.10.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		List-UtilsBy-0.10
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Exporter (perl 5.24 core) (perl 5.22 core)
+# |    configure : Module::Build
+# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,buildmod
+[PERL_522].USES_ON=			perl:522,buildmod
+[PERL_524].BUILD_DEPENDS_ON=		perl-Module-Build:single:524
+[PERL_522].BUILD_DEPENDS_ON=		perl-Module-Build:single:522
+
+

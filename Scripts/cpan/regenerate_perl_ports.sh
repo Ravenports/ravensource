@@ -44,15 +44,20 @@ tmpdir=/tmp/cpan-work
 failed=${tmpdir}/failed-to-build
 built=${tmpdir}/completed
 queue=${tmpdir}/build-queue
-meta_json=${tmpdir}/meta.json
-meta_yaml=${tmpdir}/meta.yaml
-build_pl=${tmpdir}/Build.PL
 RAVENADM=/home/marino/ravenadm/build/ravenadm # /raven/bin/ravenadm
 # ENTRY_LIST=${tmpdir}/latest_candidates.txt
 ENTRY_LIST=${tmpdir}/02packages.details.txt
+urlstub="http://cpansearch.perl.org/src/"
+mirror_base="/mech/var/cache/cpan/"
 
 perlv1="5.24.1"
 perlv2="5.22.2"
+
+if [ "${1}" == "check-core" ]; then
+   check_core=1;
+else
+   check_core=0;
+fi
 
 # obtain the information line (avoids repeated long scans)
 extract_info()
@@ -64,11 +69,11 @@ extract_info()
 # URL to download META.json or META.yaml
 cpansearch_url()
 {
-   local urlstub="http://cpansearch.perl.org/src/"
-   echo ${1} | awk -vstub="${urlstub}" '\
+   echo ${1} | awk '\
 { \
-  split($3, ray, "/"); \
-  numparts = split(ray[4], tarball, "-"); \
+  # every now and then, the url is the 5th element, not the 4th
+  lastrock = split($3, ray, "/"); \
+  numparts = split(ray[lastrock], tarball, "-"); \
   for (x = 1; x < numparts; x++) { \
     lastdir = lastdir tarball[x] "-"; \
   } \
@@ -82,7 +87,7 @@ cpansearch_url()
     if (x > 1) { lastdir = lastdir "." }; \
     lastdir = lastdir seg[x]; \
   } \
-  print stub ray[3] "/" lastdir; \
+  print ray[3] "/" lastdir; \
 }'
 }
 
@@ -92,8 +97,10 @@ author_and_tarball()
 {
    echo ${1} | awk '\
 { \
-  split($3, ray, "/"); \
-  print ray[1] "/" ray[2] "/" ray[3] " " ray[4]; \
+  lastrock = split($3, ray, "/"); \
+  author = ray[1]; \
+  for (x = 2; x < lastrock; x++) { author = author "/" ray[x] }
+  print author " " ray[lastrock]; \
 }'
 }
 
@@ -103,8 +110,8 @@ extract_portname()
 {
    echo ${1} | awk '\
 { \
-  split($3, ray, "/"); \
-  numparts = split(ray[4], tarball, "-"); \
+  lastrock = split($3, ray, "/"); \
+  numparts = split(ray[lastrock], tarball, "-"); \
   for (x = 1; x < numparts; x++) { \
     if (x > 1) { lastdir = lastdir "-" };
     lastdir = lastdir tarball[x]; \
@@ -150,49 +157,96 @@ mark_all_modules()
 generate_ravensource()
 {
    local perl_module=${1}
-   local index_info=$(extract_info ${perl_module})
-   local base_url=$(cpansearch_url "${index_info}")
-   if [ -z "${base_url}" ]; then
-      echo "failed to find entry for ${perl_module}"
-      touch ${failed}/${perl_module}
-      continue
+
+   if [ -f ${built}/${perl_module} ]; then
+      echo "done!     ${perl_module}"
+      return;
    fi
+
    local perl_builder="configure"
-   local port_author=$(author_and_tarball "${index_info}")
+   local index_info=$(extract_info ${perl_module})
    local port_name=$(extract_portname "${index_info}")
    local bucketname=$(get_bucketname ${port_name})
    local ravsrc_dir=$(ravensource_dir ${bucketname})
-
-   rm -f ${meta_json} ${meta_yaml} ${build_pl}
-   mkdir -p ${ravsrc_dir}/descriptions
-   fetch ${base_url}/Build.PL -o ${build_pl} 2>/dev/null
-   if [ $? -eq 0 ]; then
-   	grep -q "Module::Build::Tiny" ${build_pl}
-   	if [ $? -eq 0 ]; then
-   	   perl_builder="buildmodtiny"
-   	else
-   	   perl_builder="buildmod"
-   	fi
+   local port_author=$(author_and_tarball "${index_info}")
+   
+   local url_tail=$(cpansearch_url "${index_info}")   
+   if [ -z "${url_tail}" ]; then
+      echo "failed to find entry for ${perl_module}"
+      touch ${failed}/${perl_module}
+      return
    fi
-   fetch ${base_url}/META.json -o ${meta_json} 2>/dev/null
-   if [ $? -eq 0 ]; then
-      echo "Retrieved meta.json for ${port_name}"
-      perl ${thisdir}/write_port_from_json.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir}
-      result=$?
-   else
-      fetch ${base_url}/META.yml -o ${meta_yaml} 2>/dev/null
-      if [ $? -eq 0 ]; then
-         echo "Retrieved meta.yaml for ${port_name}"
-         perl ${thisdir}/write_port_from_yaml.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir}
-         result=$?
+
+   local base_url="${urlstub}${url_tail}"
+   local mirror_url="${mirror_base}${url_tail}"
+
+   meta_json=${mirror_url}/meta.json
+   meta_yaml=${mirror_url}/meta.yaml
+   build_pl=${mirror_url}/Build.PL
+   no_build_pl=${mirror_url}/No_Perl_Build
+
+   mkdir -p ${mirror_url}
+   mkdir -p ${ravsrc_dir}/descriptions
+
+   if [ ! -f ${no_build_pl} ]; then
+      if [ -f ${build_pl} ]; then
+         fetch_result=0;
       else
-         echo "No META files found for ${perl_module} at ${base_url}"
-         touch ${failed}/${perl_module}
-         continue
+         fetch ${base_url}/Build.PL -o ${build_pl} 2>/dev/null
+         fetch_result=$?
+      fi
+      if [ ${fetch_result} -eq 0 ]; then
+         grep -q "Module::Build::Tiny" ${build_pl}
+   	   if [ $? -eq 0 ]; then
+   	      perl_builder="buildmodtiny"
+   	   else
+   	      perl_builder="buildmod"
+   	   fi
+      else
+         touch ${no_build_pl}
       fi
    fi
+
+   cached=0   
+   if [ -f ${meta_json} ]; then
+      echo "cached    meta.json for ${port_name} found"
+      perl ${thisdir}/write_port_from_json.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${meta_json}"
+      result=$?
+      cached=1
+   else
+      if [ -f ${meta_yaml} ]; then
+         echo "cached    meta.yaml for ${port_name} found"
+         perl ${thisdir}/write_port_from_yaml.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${meta_yaml}"
+         result=$?
+         cached=1
+      else
+         # We've got no meta files cached.
+         # Either this port has none, or we haven't downloaded them yet.
+         # check remotely for meta.json, then meta.yaml, then fall back to no meta files
+         fetch ${base_url}/META.json -o ${meta_json} 2>/dev/null
+         if [ $? -eq 0 ]; then
+            echo "Retrieved meta.json for ${port_name}"
+            perl ${thisdir}/write_port_from_json.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${meta_json}"
+            result=$?
+         else
+            fetch ${base_url}/META.yml -o ${meta_yaml} 2>/dev/null
+            if [ $? -eq 0 ]; then
+               echo "Retrieved meta.yaml for ${port_name}"
+               perl ${thisdir}/write_port_from_yaml.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${meta_yaml}"
+               result=$?
+            else
+               echo "No META files found for ${perl_module} at ${base_url}"
+               perl ${thisdir}/write_port_without_meta.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir}
+               result=$?
+            fi
+         fi
+      fi
+   fi
+
    if [ ${result} -eq 0 ]; then
-      silent_cmd=$(cd ${ravsrc_dir} && ${RAVENADM} dev distinfo)
+      if [ $cached -eq 0 ]; then
+         silent_cmd=$(cd ${ravsrc_dir} && ${RAVENADM} dev distinfo)
+      fi
       echo "          Gen ${bucketname}"
       mark_all_modules "${built}" ${port_author}
    else
@@ -201,14 +255,15 @@ generate_ravensource()
 }
 
 # Get filtered list of 35,000 perl ports and their latest versions
-# ${thisdir}/produce_latest_module_candidates.sh
+${thisdir}/produce_latest_module_candidates.sh
 
 # empty and recreate work directories
 rm -rf ${queue} ${built} ${failed}
 mkdir -p ${queue} ${built} ${failed}
 
 # iterate through top-level list (first time)
-while read line; do
+if [ $check_core -eq 1 ]; then
+ while read line; do
    check_core=$(corelist -d "${line}" -v "${perlv2}" | awk '{print $2}')
    if [ "${check_core}" != "undef" ]; then
       check_core=$(corelist -d "${line}" -v "${perlv1}" | awk '{print $2}')
@@ -217,7 +272,8 @@ while read line; do
          exit 1;
       fi
    fi
-done < ${thisdir}/top_ports.list
+ done < ${thisdir}/top_ports.list
+fi
 
 # iterate through top-level list (second time)
 while read line; do

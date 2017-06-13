@@ -1,0 +1,65 @@
+DEF[PORTVERSION]=	1.001002
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Test-File-ShareDir
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Create a Fake ShareDir for your modules for (v524)
+SDESC[522]=		Create a Fake ShareDir for your modules for (v522)
+
+HOMEPAGE=		https://github.com/kentnl/Test-File-ShareDir
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:K/KE/KENTNL
+DISTFILE[1]=		Test-File-ShareDir-1.001002.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Test-File-ShareDir-1.001002
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Carp (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Class::Tiny
+# |      runtime : Exporter (perl 5.24 core) (perl 5.22 core)
+# |      runtime : File::Copy::Recursive
+# |      runtime : File::ShareDir
+# |      runtime : Path::Tiny
+# |      runtime : Scope::Guard
+# |      runtime : parent (perl 5.24 core) (perl 5.22 core)
+# |      runtime : strict (perl 5.24 core) (perl 5.22 core)
+# |      runtime : warnings (perl 5.24 core) (perl 5.22 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |         test : Cwd (perl 5.24 core) (perl 5.22 core)
+# |         test : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |         test : File::Spec (perl 5.24 core) (perl 5.22 core)
+# |         test : FindBin (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::Fatal
+# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+# |         test : lib (perl 5.24 core) (perl 5.22 core)
+# |         test : CPAN::Meta (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Class-Tiny:single:524
+					perl-File-Copy-Recursive:single:524
+					perl-File-ShareDir:single:524
+					perl-Path-Tiny:single:524
+					perl-Scope-Guard:single:524
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Class-Tiny:single:522
+					perl-File-Copy-Recursive:single:522
+					perl-File-ShareDir:single:522
+					perl-Path-Tiny:single:522
+					perl-Scope-Guard:single:522
+
+

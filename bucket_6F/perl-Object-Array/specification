@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	0.060
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Object-Array
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Array references with accessors (v524)
+SDESC[522]=		Array references with accessors (v522)
+
+HOMEPAGE=		none
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:H/HD/HDP
+DISTFILE[1]=		Object-Array-0.060.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Object-Array-0.060
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.yml
+# -----------------------------------------------
+# |           requires : List::MoreUtils
+# |           requires : Module::Pluggable
+# |           requires : Scalar::Util (perl 5.24 core) (perl 5.22 core)
+# |           requires : Sub::Exporter
+# |           requires : Sub::Install
+# |     build_requires : Test::More (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-List-MoreUtils:single:524
+					perl-Module-Pluggable:single:524
+					perl-Sub-Exporter:single:524
+					perl-Sub-Install:single:524
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-List-MoreUtils:single:522
+					perl-Module-Pluggable:single:522
+					perl-Sub-Exporter:single:522
+					perl-Sub-Install:single:522
+
+

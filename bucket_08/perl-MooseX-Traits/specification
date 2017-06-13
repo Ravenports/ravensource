@@ -1,0 +1,64 @@
+DEF[PORTVERSION]=	0.13
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-MooseX-Traits
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Automatically apply roles at object creatio (v524)
+SDESC[522]=		Automatically apply roles at object creatio (v522)
+
+HOMEPAGE=		https://github.com/moose/MooseX-Traits
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:E/ET/ETHER
+DISTFILE[1]=		MooseX-Traits-0.13.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		MooseX-Traits-0.13
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Carp (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Class::Load
+# |      runtime : Moose::Role
+# |      runtime : Sub::Exporter
+# |      runtime : namespace::autoclean
+# |      runtime : strict (perl 5.24 core) (perl 5.22 core)
+# |      runtime : warnings (perl 5.24 core) (perl 5.22 core)
+# |      runtime : warnings::register (perl 5.24 core) (perl 5.22 core)
+# |    configure : Module::Build::Tiny
+# |         test : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |         test : File::Spec (perl 5.24 core) (perl 5.22 core)
+# |         test : Moose
+# |         test : MooseX::Role::Parameterized
+# |         test : Test::Fatal
+# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::Requires
+# |         test : ok (perl 5.24 core) (perl 5.22 core)
+# |         test : CPAN::Meta (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,buildmodtiny
+[PERL_522].USES_ON=			perl:522,buildmodtiny
+[PERL_524].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:524
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Class-Load:single:524
+					perl-Moose:single:524
+					perl-Sub-Exporter:single:524
+					perl-namespace-autoclean:single:524
+[PERL_522].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:522
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Class-Load:single:522
+					perl-Moose:single:522
+					perl-Sub-Exporter:single:522
+					perl-namespace-autoclean:single:522
+
+

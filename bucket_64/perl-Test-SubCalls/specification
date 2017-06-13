@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	1.09
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Test-SubCalls
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Track the number of times subs are called (v524)
+SDESC[522]=		Track the number of times subs are called (v522)
+
+HOMEPAGE=		http://svn.ali.as/cpan/trunk/Test-SubCalls
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:A/AD/ADAMK
+DISTFILE[1]=		Test-SubCalls-1.09.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Test-SubCalls-1.09
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.yml
+# -----------------------------------------------
+# |           requires : File::Spec (perl 5.24 core) (perl 5.22 core)
+# |           requires : Hook::LexWrap
+# |           requires : Test::More (perl 5.24 core) (perl 5.22 core)
+# | configure_requires : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |     build_requires : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |     build_requires : Test::Builder::Tester (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Hook-LexWrap:single:524
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Hook-LexWrap:single:522
+
+

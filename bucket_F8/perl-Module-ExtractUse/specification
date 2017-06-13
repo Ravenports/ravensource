@@ -1,0 +1,53 @@
+DEF[PORTVERSION]=	0.341
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Module-ExtractUse
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Find out what modules are used (v524)
+SDESC[522]=		Find out what modules are used (v522)
+
+HOMEPAGE=		https://github.com/domm/Module-ExtractUse
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:D/DO/DOMM
+DISTFILE[1]=		Module-ExtractUse-0.341.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Module-ExtractUse-0.341
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Carp (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Parse::RecDescent
+# |      runtime : Pod::Strip
+# |      runtime : strict (perl 5.24 core) (perl 5.22 core)
+# |      runtime : vars (perl 5.24 core) (perl 5.22 core)
+# |      runtime : warnings (perl 5.24 core) (perl 5.22 core)
+# |        build : Module::Build
+# |    configure : Module::Build
+# |         test : Test::Deep
+# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::NoWarnings
+
+[PERL_524].USES_ON=			perl:524,buildmod
+[PERL_522].USES_ON=			perl:522,buildmod
+[PERL_524].BUILD_DEPENDS_ON=		perl-Module-Build:single:524
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Parse-RecDescent:single:524
+					perl-Pod-Strip:single:524
+[PERL_522].BUILD_DEPENDS_ON=		perl-Module-Build:single:522
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Parse-RecDescent:single:522
+					perl-Pod-Strip:single:522
+
+

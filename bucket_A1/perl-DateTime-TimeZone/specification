@@ -1,0 +1,81 @@
+DEF[PORTVERSION]=	2.13
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-DateTime-TimeZone
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Time zone object base class and factory (v524)
+SDESC[522]=		Time zone object base class and factory (v522)
+
+HOMEPAGE=		https://github.com/houseabsolute/DateTime-TimeZone
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:D/DR/DROLSKY
+DISTFILE[1]=		DateTime-TimeZone-2.13.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		DateTime-TimeZone-2.13
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Class::Singleton
+# |      runtime : Cwd (perl 5.24 core) (perl 5.22 core)
+# |      runtime : File::Basename (perl 5.24 core) (perl 5.22 core)
+# |      runtime : File::Compare (perl 5.24 core) (perl 5.22 core)
+# |      runtime : File::Find (perl 5.24 core) (perl 5.22 core)
+# |      runtime : File::Spec (perl 5.24 core) (perl 5.22 core)
+# |      runtime : List::Util (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Module::Runtime
+# |      runtime : Params::ValidationCompiler
+# |      runtime : Specio::Library::Builtins
+# |      runtime : Specio::Library::String
+# |      runtime : Try::Tiny
+# |      runtime : constant (perl 5.24 core) (perl 5.22 core)
+# |      runtime : namespace::autoclean
+# |      runtime : parent (perl 5.24 core) (perl 5.22 core)
+# |      runtime : strict (perl 5.24 core) (perl 5.22 core)
+# |      runtime : warnings (perl 5.24 core) (perl 5.22 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |         test : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |         test : File::Copy (perl 5.24 core) (perl 5.22 core)
+# |         test : File::Path (perl 5.24 core) (perl 5.22 core)
+# |         test : File::Spec (perl 5.24 core) (perl 5.22 core)
+# |         test : File::Spec::Functions (perl 5.24 core) (perl 5.22 core)
+# |         test : File::Temp (perl 5.24 core) (perl 5.22 core)
+# |         test : Storable (perl 5.24 core) (perl 5.22 core)
+# |         test : Sys::Hostname (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::Fatal
+# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::Requires
+# |         test : base (perl 5.24 core) (perl 5.22 core)
+# |         test : lib (perl 5.24 core) (perl 5.22 core)
+# |         test : overload (perl 5.24 core) (perl 5.22 core)
+# |         test : CPAN::Meta (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Class-Singleton:single:524
+					perl-Module-Runtime:single:524
+					perl-Params-ValidationCompiler:single:524
+					perl-Specio:single:524
+					perl-Try-Tiny:single:524
+					perl-namespace-autoclean:single:524
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Class-Singleton:single:522
+					perl-Module-Runtime:single:522
+					perl-Params-ValidationCompiler:single:522
+					perl-Specio:single:522
+					perl-Try-Tiny:single:522
+					perl-namespace-autoclean:single:522
+
+

@@ -1,0 +1,68 @@
+DEF[PORTVERSION]=	2.003002
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Moo
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Minimalist Object Orientation (with Moose c (v524)
+SDESC[522]=		Minimalist Object Orientation (with Moose c (v522)
+
+HOMEPAGE=		https://github.com/moose/Moo
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:H/HA/HAARG
+DISTFILE[1]=		Moo-2.003002.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Moo-2.003002
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Class::Method::Modifiers
+# |      runtime : Devel::GlobalDestruction
+# |      runtime : Exporter (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Module::Runtime
+# |      runtime : Role::Tiny
+# |      runtime : Scalar::Util (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Sub::Defer
+# |      runtime : Sub::Quote
+# |      runtime : Class::XSAccessor
+# |      runtime : Sub::Name
+# |      runtime : strictures
+# |    configure : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::Fatal
+# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+# |         test : CPAN::Meta (perl 5.24 core) (perl 5.22 core)
+# |         test : CPAN::Meta::Requirements (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Class-Method-Modifiers:single:524
+					perl-Devel-GlobalDestruction:single:524
+					perl-Module-Runtime:single:524
+					perl-Role-Tiny:single:524
+					perl-Sub-Quote:single:524
+					perl-Class-XSAccessor:single:524
+					perl-Sub-Name:single:524
+					perl-strictures:single:524
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Class-Method-Modifiers:single:522
+					perl-Devel-GlobalDestruction:single:522
+					perl-Module-Runtime:single:522
+					perl-Role-Tiny:single:522
+					perl-Sub-Quote:single:522
+					perl-Class-XSAccessor:single:522
+					perl-Sub-Name:single:522
+					perl-strictures:single:522
+
+

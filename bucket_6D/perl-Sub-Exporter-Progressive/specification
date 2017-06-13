@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	0.001013
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Sub-Exporter-Progressive
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Only use Sub::Exporter if you need it (v524)
+SDESC[522]=		Only use Sub::Exporter if you need it (v522)
+
+HOMEPAGE=		https://github.com/frioux/Sub-Exporter-Progressive
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:F/FR/FREW
+DISTFILE[1]=		Sub-Exporter-Progressive-0.001013.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Sub-Exporter-Progressive-0.001013
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |    configure : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+
+
