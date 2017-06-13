@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	0.17024
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Error
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Error/exception handling in an OO-ish way (v524)
+SDESC[522]=		Error/exception handling in an OO-ish way (v522)
+
+HOMEPAGE=		https://bitbucket.org/shlomif/perl-error.pm
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:S/SH/SHLOMIF
+DISTFILE[1]=		Error-0.17024.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Error-0.17024
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Scalar::Util (perl 5.24 core) (perl 5.22 core)
+# |      runtime : strict (perl 5.24 core) (perl 5.22 core)
+# |      runtime : warnings (perl 5.24 core) (perl 5.22 core)
+# |    configure : Module::Build
+
+[PERL_524].USES_ON=			perl:524,buildmod
+[PERL_522].USES_ON=			perl:522,buildmod
+[PERL_524].BUILD_DEPENDS_ON=		perl-Module-Build:single:524
+[PERL_522].BUILD_DEPENDS_ON=		perl-Module-Build:single:522
+
+

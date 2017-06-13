@@ -159,6 +159,7 @@ if ((exists $meta_data->{'configure_requires'} && defined $meta_data->{'configur
                   $suff .= " (perl $perlver{$perlkey} core)";
                } else {
                   $depname = get_namebase ($key);
+                  if ($depname eq $port_namebase) { next; }  # can't depend on yourself
                   if (($cat eq "requires") || ($cat eq "recommends")) {
                      if (!exists ($rdepcontainer{$perlkey}{$depname})) {
                         if ($rdep{$perlkey} == 0) {

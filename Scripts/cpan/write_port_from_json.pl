@@ -54,6 +54,7 @@ my %bdependencies;
 my %rdependencies;
 my %bdepcontainer;
 my %rdepcontainer;
+my $pinged = 0;
 
 my %cache_portname;
 
@@ -155,9 +156,11 @@ if (exists $meta_data->{'prereqs'}) {
                   if (Module::CoreList::is_core ($key, undef, $perlver{$perlkey})) {
                      $suff .= " (perl $perlver{$perlkey} core)";
                   } else {
+                     $pinged = 0;
                      $depname = get_namebase ($key);
+                     if ($depname eq $port_namebase) { next; }  # can't depend on yourself
                      if ($cat eq "runtime") {
-                        if (!exists ($rdepcontainer{$perlkey}{$depname})) {
+                        if (!exists ($rdepcontainer{$perlkey}{$depname})) {                           
                            if ($rdep{$perlkey} == 0) {
                               $rdependencies{$perlkey} .= "$depname:single:$perlkey\n";
                            } else {
@@ -165,6 +168,7 @@ if (exists $meta_data->{'prereqs'}) {
                            }
                            $rdep{$perlkey}++;
                            $rdepcontainer{$perlkey}{$depname} = 1;
+                           $pinged = 1;
                         }
                      }
                      if (($cat eq "configure") || ($cat eq "build")) {
@@ -178,13 +182,16 @@ if (exists $meta_data->{'prereqs'}) {
                            }
                            $bdep{$perlkey}++;
                            $bdepcontainer{$perlkey}{$depname} = 1;
+                           $pinged = 1;
                         }
                      }
-                     if (! -f "${dir_done}/${key}") {
-                        if (! -f "${dir_queue}/${key}") {
-                           if (! -f "${dir_fail}/${key}") {
-                              open HANDLE, ">>${dir_queue}/${key}";
-                              close HANDLE;
+                     if ($pinged) {
+                        if (! -f "${dir_done}/${key}") {
+                           if (! -f "${dir_queue}/${key}") {
+                              if (! -f "${dir_fail}/${key}") {
+                                 open HANDLE, ">>${dir_queue}/${key}";
+                                 close HANDLE;
+                              }
                            }
                         }
                      }
