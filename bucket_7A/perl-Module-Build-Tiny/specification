@@ -1,0 +1,93 @@
+DEF[PORTVERSION]=	0.039
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Module-Build-Tiny
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Tiny replacement for Module::Build (v524)
+SDESC[522]=		Tiny replacement for Module::Build (v522)
+
+HOMEPAGE=		https://github.com/Leont/module-build-tiny
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:L/LE/LEONT
+DISTFILE[1]=		Module-Build-Tiny-0.039.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Module-Build-Tiny-0.039
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : CPAN::Meta (perl 5.24 core) (perl 5.22 core)
+# |      runtime : DynaLoader (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Exporter (perl 5.24 core) (perl 5.22 core)
+# |      runtime : ExtUtils::CBuilder (perl 5.24 core) (perl 5.22 core)
+# |      runtime : ExtUtils::Config
+# |      runtime : ExtUtils::Helpers
+# |      runtime : ExtUtils::Install (perl 5.24 core) (perl 5.22 core)
+# |      runtime : ExtUtils::InstallPaths
+# |      runtime : ExtUtils::ParseXS (perl 5.24 core) (perl 5.22 core)
+# |      runtime : File::Basename (perl 5.24 core) (perl 5.22 core)
+# |      runtime : File::Find (perl 5.24 core) (perl 5.22 core)
+# |      runtime : File::Path (perl 5.24 core) (perl 5.22 core)
+# |      runtime : File::Spec::Functions (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Getopt::Long (perl 5.24 core) (perl 5.22 core)
+# |      runtime : JSON::PP (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Pod::Man (perl 5.24 core) (perl 5.22 core)
+# |      runtime : TAP::Harness::Env (perl 5.24 core) (perl 5.22 core)
+# |      runtime : strict (perl 5.24 core) (perl 5.22 core)
+# |      runtime : warnings (perl 5.24 core) (perl 5.22 core)
+# |    configure : CPAN::Meta (perl 5.24 core) (perl 5.22 core)
+# |    configure : DynaLoader (perl 5.24 core) (perl 5.22 core)
+# |    configure : Exporter (perl 5.24 core) (perl 5.22 core)
+# |    configure : ExtUtils::CBuilder (perl 5.24 core) (perl 5.22 core)
+# |    configure : ExtUtils::Config
+# |    configure : ExtUtils::Helpers
+# |    configure : ExtUtils::Install (perl 5.24 core) (perl 5.22 core)
+# |    configure : ExtUtils::InstallPaths
+# |    configure : ExtUtils::ParseXS (perl 5.24 core) (perl 5.22 core)
+# |    configure : File::Basename (perl 5.24 core) (perl 5.22 core)
+# |    configure : File::Find (perl 5.24 core) (perl 5.22 core)
+# |    configure : File::Path (perl 5.24 core) (perl 5.22 core)
+# |    configure : File::Spec::Functions (perl 5.24 core) (perl 5.22 core)
+# |    configure : Getopt::Long (perl 5.24 core) (perl 5.22 core)
+# |    configure : JSON::PP (perl 5.24 core) (perl 5.22 core)
+# |    configure : Pod::Man (perl 5.24 core) (perl 5.22 core)
+# |    configure : TAP::Harness::Env (perl 5.24 core) (perl 5.22 core)
+# |    configure : strict (perl 5.24 core) (perl 5.22 core)
+# |    configure : warnings (perl 5.24 core) (perl 5.22 core)
+# |         test : Carp (perl 5.24 core) (perl 5.22 core)
+# |         test : Cwd (perl 5.24 core) (perl 5.22 core)
+# |         test : Data::Dumper (perl 5.24 core) (perl 5.22 core)
+# |         test : File::Spec (perl 5.24 core) (perl 5.22 core)
+# |         test : File::Temp (perl 5.24 core) (perl 5.22 core)
+# |         test : IO::File (perl 5.24 core) (perl 5.22 core)
+# |         test : IO::Handle (perl 5.24 core) (perl 5.22 core)
+# |         test : IPC::Open2 (perl 5.24 core) (perl 5.22 core)
+# |         test : IPC::Open3 (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+# |         test : XSLoader (perl 5.24 core) (perl 5.22 core)
+# |         test : blib (perl 5.24 core) (perl 5.22 core)
+# |         test : lib (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,buildmodtiny
+[PERL_522].USES_ON=			perl:522,buildmodtiny
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-ExtUtils-Config:single:524
+					perl-ExtUtils-Helpers:single:524
+					perl-ExtUtils-InstallPaths:single:524
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-ExtUtils-Config:single:522
+					perl-ExtUtils-Helpers:single:522
+					perl-ExtUtils-InstallPaths:single:522
+
+

@@ -1,0 +1,55 @@
+DEF[PORTVERSION]=	6.16
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Net-HTTP
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Low-level HTTP connection (client) (v524)
+SDESC[522]=		Low-level HTTP connection (client) (v522)
+
+HOMEPAGE=		https://github.com/libwww-perl/Net-HTTP
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:O/OA/OALDERS
+DISTFILE[1]=		Net-HTTP-6.16.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		Net-HTTP-6.16
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Carp (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Compress::Raw::Zlib (perl 5.24 core) (perl 5.22 core)
+# |      runtime : IO::Socket::INET (perl 5.24 core) (perl 5.22 core)
+# |      runtime : IO::Uncompress::Gunzip (perl 5.24 core) (perl 5.22 core)
+# |      runtime : URI
+# |      runtime : base (perl 5.24 core) (perl 5.22 core)
+# |      runtime : strict (perl 5.24 core) (perl 5.22 core)
+# |      runtime : vars (perl 5.24 core) (perl 5.22 core)
+# |      runtime : warnings (perl 5.24 core) (perl 5.22 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |         test : Data::Dumper (perl 5.24 core) (perl 5.22 core)
+# |         test : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |         test : File::Spec (perl 5.24 core) (perl 5.22 core)
+# |         test : IO::Select (perl 5.24 core) (perl 5.22 core)
+# |         test : Socket (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+# |         test : CPAN::Meta (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-URI:single:524
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-URI:single:522
+
+

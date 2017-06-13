@@ -1,0 +1,9 @@
+BUILD_DEPENDS=		expat:static:standard
+BUILDRUN_DEPENDS=	expat:shared:standard
+
+CONFIGURE_ARGS=		EXPATLIBPATH={{LOCALBASE}}/lib
+			EXPATINCPATH={{LOCALBASE}}/include
+
+post-patch:
+	${REINPLACE_CMD} "s|@PERL_RPATH@|${PREFIX}/lib/perl5/${PERL_VER}/${PERL_ARCH}/CORE|" \
+		${WRKSRC}/Expat/Makefile.PL

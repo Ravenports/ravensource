@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	3.72
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-HTML-Parser
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		HTML parser class (v524)
+SDESC[522]=		HTML parser class (v522)
+
+HOMEPAGE=		http://github.com/gisle/html-parser
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:G/GA/GAAS
+DISTFILE[1]=		HTML-Parser-3.72.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		HTML-Parser-3.72
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : HTML::Tagset
+# |      runtime : XSLoader (perl 5.24 core) (perl 5.22 core)
+# |      runtime : HTTP::Headers
+# |        build : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |        build : Test::More (perl 5.24 core) (perl 5.22 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-HTML-Tagset:single:524
+					perl-HTTP-Message:single:524
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-HTML-Tagset:single:522
+					perl-HTTP-Message:single:522
+
+

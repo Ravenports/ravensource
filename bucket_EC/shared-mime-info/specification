@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	1.8
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		shared-mime-info
+VERSION=		${PORTVERSION}
+KEYWORDS=		misc
+VARIANTS=		standard
+SDESC[standard]=	MIME types database from freedesktop.org project
+HOMEPAGE=		http://www.freedesktop.org/wiki/Software/shared-mime-info
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://people.freedesktop.org/~hadess/
+DISTFILE[1]=		shared-mime-info-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		misc/shared-mime-info
+
+USES=			pkgconfig gmake
+GNOME_COMPONENTS=	glib libxml2
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-update-mimedb
+SINGLE_JOB=		yes
+
+SUB_FILES=		pkg-install-single
+SUB_LIST=		MIMEDIRS="{{CLEAN_MIMEDIRS}}"
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g' \
+		${WRKSRC}/update-mime-database.c

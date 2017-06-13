@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	6.04
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-File-Listing
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Parse directory listing (v524)
+SDESC[522]=		Parse directory listing (v522)
+
+HOMEPAGE=		http://github.com/gisle/libwww-perl/tree/File-Listing/master
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:G/GA/GAAS
+DISTFILE[1]=		File-Listing-6.04.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		File-Listing-6.04
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.yml
+# -----------------------------------------------
+# |           requires : HTTP::Date
+# | configure_requires : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |     build_requires : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-HTTP-Date:single:524
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-HTTP-Date:single:522
+
+

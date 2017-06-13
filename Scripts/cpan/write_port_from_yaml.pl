@@ -27,12 +27,13 @@ my $meta_data   = Parse::CPAN::Meta::LoadFile('/tmp/cpan-work/meta.yaml');
 my $portversion = $meta_data->{'version'};
 my $shortdesc   = $meta_data->{'abstract'};
 my $trunc_sdesc;
+my $distname;
 my $homepage    = "none";
 my %perlver     = ("524" => 5.24, "522" => 5.22);
 my @perlverkeys = ("524", "522");
 my @variants    = ();
 my %reqs = ();
-my @reqs_cats   = ("configure_requires", "build_requires", "requires", "recommends");
+my @reqs_cats   = ("requires", "recommends", "configure_requires", "build_requires");
 my $descriptions = "";
 my $subpackages = "";
 my $options_avail = "";
@@ -47,14 +48,59 @@ my %bdep;
 my %rdep;
 my %bdependencies;
 my %rdependencies;
+my %bdepcontainer;
+my %rdepcontainer;
 
-sub make_comment{
+my %cache_portname;
+
+# given a perl module name, return the equivalent port namebase
+# requires: perl module index already in place
+
+sub get_namebase {
+   my $modname = shift;
+   my $modlen = (length $modname) + 1;
+   my $searchfor = $modname . " ";
+   my @parts;
+   my @subparts;
+   my $assembled = "perl";
+   my $num_subparts = 0;
+   if (exists $cache_portname{$modname}) {
+      return $cache_portname{$modname};
+   }
+
+   open my $handle, "/tmp/cpan-work/02packages.details.txt" or die "missing CPAN index";
+   while (my $line = <$handle>) {
+      if (substr($line, 0, $modlen) eq $searchfor) {
+         @parts = split(/\//, $line);
+         @subparts = split(/-/, $parts[(scalar @parts) - 1]);
+         $num_subparts = scalar @subparts;
+         for (my $x=0; $x < $num_subparts - 1; $x++) {
+            $assembled .= "-" . $subparts[$x];
+         }
+         $cache_portname{$modname} = $assembled;
+         return $assembled;
+      }
+   }
+}
+
+sub make_comment {
    my $copystring = $shortdesc;
    $copystring =~ s/^A perl //;
+   $copystring =~ s/^A //;
+   $copystring =~ s/^An //;
+   $copystring =~ s/^a //;
+   $copystring =~ s/^an //;
+   $copystring =~ s/^The //;
    $trunc_sdesc = ucfirst substr($copystring, 0, 43);
 }
 
+sub make_distname {
+   $distname = $port_namebase . "-" . $portversion;
+   $distname =~ s/^perl-//;
+}
+
 make_comment;
+make_distname;
 
 foreach my $key (@perlverkeys) {
    if (!Module::CoreList::is_core ($port_namebase, undef, $perlver{$key})) { push @variants, $key; }
@@ -96,30 +142,37 @@ if ((exists $meta_data->{'configure_requires'} && defined $meta_data->{'configur
    foreach my $cat (@reqs_cats) {
       if (exists $meta_data->{$cat} && defined $meta_data->{$cat}) {
          %reqs = %{ $meta_data->{$cat} };
-         my $suff = "";
-         foreach my $key (keys %reqs) {
+         foreach my $key (sort keys %reqs) {
             next if ($key eq "perl");
+            my $suff = "";
             foreach my $perlkey (@perlverkeys) {
                if (Module::CoreList::is_core ($key, undef, $perlver{$perlkey})) {
                   $suff .= " (perl $perlver{$perlkey} core)";
                } else {
-                  $depname = "perl-" . $key;
-                  $depname =~ s/::/-/g;
-                  if (($cat eq "configure_requires") || ($cat eq "build_requires")) {
-                     if ($bdep{$perlkey} == 0) {
-                        $bdependencies{$perlkey} .= "$depname:single:$perlkey\n";
-                     } else {
-                        $bdependencies{$perlkey} .= "\t\t\t\t\t$depname:single:$perlkey\n";
-                     }
-                     $bdep{$perlkey}++;
-                  }
+                  $depname = get_namebase ($key);
                   if (($cat eq "requires") || ($cat eq "recommends")) {
-                     if ($rdep{$perlkey} == 0) {
-                        $rdependencies{$perlkey} .= "$depname:single:$perlkey\n";
-                     } else {
-                        $rdependencies{$perlkey} .= "\t\t\t\t\t$depname:single:$perlkey\n";
+                     if (!exists ($rdepcontainer{$perlkey}{$depname})) {
+                        if ($rdep{$perlkey} == 0) {
+                           $rdependencies{$perlkey} .= "$depname:single:$perlkey\n";
+                        } else {
+                           $rdependencies{$perlkey} .= "\t\t\t\t\t$depname:single:$perlkey\n";
+                        }
+                        $rdep{$perlkey}++;
+                        $rdepcontainer{$perlkey}{$depname} = 1;
                      }
-                     $rdep{$perlkey}++;
+                  }
+                  if (($cat eq "configure_requires") || ($cat eq "build_requires")) {
+                     if (!exists ($bdepcontainer{$perlkey}{$depname}) &&
+                         !exists ($rdepcontainer{$perlkey}{$depname}))
+                     {
+                        if ($bdep{$perlkey} == 0) {
+                           $bdependencies{$perlkey} .= "$depname:single:$perlkey\n";
+                        } else {
+                           $bdependencies{$perlkey} .= "\t\t\t\t\t$depname:single:$perlkey\n";
+                        }
+                        $bdep{$perlkey}++;
+                        $bdepcontainer{$perlkey}{$depname} = 1;
+                     }
                   }
                   if (! -f "${dir_done}/${key}") {
                      if (! -f "${dir_queue}/${key}") {
@@ -169,6 +222,7 @@ OPTIONS_AVAILABLE=	$options_avail
 OPTIONS_STANDARD=	none
 $dump_vopts
 GENERATED=		yes
+DISTNAME=		$distname
 
 $dump_dependencies_as_comments
 $dump_buildrun_options

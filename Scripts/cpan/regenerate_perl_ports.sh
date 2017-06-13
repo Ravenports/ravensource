@@ -54,53 +54,63 @@ ENTRY_LIST=${tmpdir}/02packages.details.txt
 perlv1="5.24.1"
 perlv2="5.22.2"
 
-# Determines port namebase based on perl module namespace
-convert_to_port_name()
+# obtain the information line (avoids repeated long scans)
+extract_info()
 {
    local perlname=${1}
-   echo ${perlname} | awk '{ gsub(/::/,"-",$1); print "perl-" $1 }'
+   awk -vperlname=$perlname '{ if ($1 == perlname) { print; exit }}' ${ENTRY_LIST}
 }
 
 # URL to download META.json or META.yaml
 cpansearch_url()
 {
-   local perlname=${1}
    local urlstub="http://cpansearch.perl.org/src/"
-   awk -vperlname=${perlname} -vstub="${urlstub}" '\
-{ if ($1 == perlname) {\
-    split($3, ray, "/"); \
-    numparts = split(ray[4], tarball, "-"); \
-    for (x = 1; x < numparts; x++) { \
-      lastdir = lastdir tarball[x] "-"; \
-    } \
-    numseg = split (tarball[numparts], seg, "."); \
-    if ((numseg > 2) && (seg[numseg - 1] == "tar")) { \
-      last_seg = numseg - 2; \
-    } else { \
-      last_seg = numseg - 1; \
-    } \
-    for (x = 1; x <= last_seg; x++) { \
-       if (x > 1) { lastdir = lastdir "." }; \
-       lastdir = lastdir seg[x]; \
-    } \
-    print stub ray[3] "/" lastdir; \
-    exit; \
-  }\
-}' ${ENTRY_LIST}
+   echo ${1} | awk -vstub="${urlstub}" '\
+{ \
+  split($3, ray, "/"); \
+  numparts = split(ray[4], tarball, "-"); \
+  for (x = 1; x < numparts; x++) { \
+    lastdir = lastdir tarball[x] "-"; \
+  } \
+  numseg = split (tarball[numparts], seg, "."); \
+  if ((numseg > 2) && (seg[numseg - 1] == "tar")) { \
+    last_seg = numseg - 2; \
+  } else { \
+    last_seg = numseg - 1; \
+  } \
+  for (x = 1; x <= last_seg; x++) { \
+    if (x > 1) { lastdir = lastdir "." }; \
+    lastdir = lastdir seg[x]; \
+  } \
+  print stub ray[3] "/" lastdir; \
+}'
 }
 
 # suffix for CPAN/ID: master site
 # the second word is the tarball
 author_and_tarball()
 {
-   local perlname=${1}
-   awk -vperlname=${perlname} '\
-{ if ($1 == perlname) {\
-    split($3, ray, "/"); \
-    print ray[1] "/" ray[2] "/" ray[3] " " ray[4]
-    exit; \
-  }\
-}' ${ENTRY_LIST}
+   echo ${1} | awk '\
+{ \
+  split($3, ray, "/"); \
+  print ray[1] "/" ray[2] "/" ray[3] " " ray[4]; \
+}'
+}
+
+# There is a many-to-one relationship between modules
+# and tarballs, so the portname has to be based on tarball filename.
+extract_portname()
+{
+   echo ${1} | awk '\
+{ \
+  split($3, ray, "/"); \
+  numparts = split(ray[4], tarball, "-"); \
+  for (x = 1; x < numparts; x++) { \
+    if (x > 1) { lastdir = lastdir "-" };
+    lastdir = lastdir tarball[x]; \
+  } \
+  print "perl-" lastdir; \
+}'
 }
 
 # target directory in ravensource
@@ -120,21 +130,39 @@ ravensource_dir()
 	echo "${thisdir}/../../${local_bucketname}"
 }
 
+# mark all modules connected to tarball in given directory
+mark_all_modules()
+{
+   local target_dir="$1"
+   local author="$2"
+   local tarball="$3"
+   modules=$(awk -vtarball="${author}/${tarball}" '\
+{ \
+  if ($3 == tarball) { print $1 } \
+}' ${ENTRY_LIST})
+
+   for module in ${modules}; do
+      touch ${target_dir}/${module}
+   done
+}
+
 # generate ravensource port subroutine
 generate_ravensource()
 {
    local perl_module=${1}
-   base_url=$(cpansearch_url ${perl_module})
+   local index_info=$(extract_info ${perl_module})
+   local base_url=$(cpansearch_url "${index_info}")
    if [ -z "${base_url}" ]; then
       echo "failed to find entry for ${perl_module}"
       touch ${failed}/${perl_module}
       continue
    fi
-   perl_builder="configure"
-   port_author=$(author_and_tarball ${perl_module})
-   port_name=$(convert_to_port_name ${perl_module})
-   bucketname=$(get_bucketname ${port_name})
-   ravsrc_dir=$(ravensource_dir ${bucketname})
+   local perl_builder="configure"
+   local port_author=$(author_and_tarball "${index_info}")
+   local port_name=$(extract_portname "${index_info}")
+   local bucketname=$(get_bucketname ${port_name})
+   local ravsrc_dir=$(ravensource_dir ${bucketname})
+
    rm -f ${meta_json} ${meta_yaml} ${build_pl}
    mkdir -p ${ravsrc_dir}/descriptions
    fetch ${base_url}/Build.PL -o ${build_pl} 2>/dev/null
@@ -166,9 +194,9 @@ generate_ravensource()
    if [ ${result} -eq 0 ]; then
       silent_cmd=$(cd ${ravsrc_dir} && ${RAVENADM} dev distinfo)
       echo "          Gen ${bucketname}"
-      touch ${built}/${perl_module}
+      mark_all_modules "${built}" ${port_author}
    else
-      touch ${failed}/${perl_module}
+      mark_all_modules "${failed}" ${port_author}
    fi
 }
 

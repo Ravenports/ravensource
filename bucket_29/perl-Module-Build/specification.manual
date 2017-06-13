@@ -1,0 +1,4 @@
+post-patch:
+	@${RM} ${WRKSRC}/bin/config_data
+	@${REINPLACE_CMD} -e '/script_files/d' ${WRKSRC}/Build.PL
+	@${REINPLACE_CMD} -e '/^bin\/config_data/d' ${WRKSRC}/MANIFEST

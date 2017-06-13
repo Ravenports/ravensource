@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	6.01
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-HTTP-Negotiate
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Choose a variant to serve (v524)
+SDESC[522]=		Choose a variant to serve (v522)
+
+HOMEPAGE=		http://github.com/gisle/http-negotiate
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:G/GA/GAAS
+DISTFILE[1]=		HTTP-Negotiate-6.01.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+DISTNAME=		HTTP-Negotiate-6.01
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.yml
+# -----------------------------------------------
+# |           requires : HTTP::Headers
+# | configure_requires : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |     build_requires : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-HTTP-Message:single:524
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-HTTP-Message:single:522
+
+
