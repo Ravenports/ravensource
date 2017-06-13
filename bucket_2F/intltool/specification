@@ -1,0 +1,26 @@
+DEF[PORTVERSION]=	0.51.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		intltool
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	Tools to internationalize various kinds of data
+HOMEPAGE=		http://www.gnome.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://launchpad.net/intltool/trunk/${PORTVERSION}/+download/
+DISTFILE[1]=		intltool-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		textproc/intltool
+
+BUILDRUN_DEPENDS=	perl-XML-Parser:single:perl_default
+
+USES=			gmake iconv perl
+MUST_CONFIGURE=		gnu
