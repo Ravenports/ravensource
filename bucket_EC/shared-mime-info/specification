@@ -20,10 +20,11 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		misc/shared-mime-info
 
-USES=			pkgconfig gmake
-GNOME_COMPONENTS=	glib libxml2
+USES=			pkgconfig gmake intltoolfix gettext-tools
+GNOME_COMPONENTS=	glib libxml2 intltool
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-update-mimedb
+MAKE_ARGS=		pkgconfigdir={{PREFIX}}/lib/pkgconfig
 SINGLE_JOB=		yes
 
 SUB_FILES=		pkg-install-single
