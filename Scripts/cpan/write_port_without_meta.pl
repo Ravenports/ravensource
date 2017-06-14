@@ -113,6 +113,7 @@ OPTIONS_AVAILABLE=	$options_avail
 OPTIONS_STANDARD=	none
 $dump_vopts
 GENERATED=		yes
+SINGLE_JOB=		yes
 DISTNAME=		$distname
 
 $dump_dependencies_as_comments

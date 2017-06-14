@@ -24,6 +24,7 @@ VOPTS[524]=		PERL_524=ON PERL_522=OFF
 VOPTS[522]=		PERL_524=OFF PERL_522=ON
 
 GENERATED=		yes
+SINGLE_JOB=		yes
 DISTNAME=		Module-Build-0.4224
 
 # -----------------------------------------------
@@ -63,8 +64,8 @@ DISTNAME=		Module-Build-0.4224
 # |    configure : Perl::OSType (perl 5.24 core) (perl 5.22 core)
 # |    configure : version (perl 5.24 core) (perl 5.22 core)
 
-[PERL_524].USES_ON=			perl:524,buildmod
-[PERL_522].USES_ON=			perl:522,buildmod
+[PERL_524].USES_ON=			perl:524,buildmod,run
+[PERL_522].USES_ON=			perl:522,buildmod,run
 
 post-patch:
 	@${RM} ${WRKSRC}/bin/config_data

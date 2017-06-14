@@ -24,6 +24,7 @@ VOPTS[524]=		PERL_524=ON PERL_522=OFF
 VOPTS[522]=		PERL_524=OFF PERL_522=ON
 
 GENERATED=		yes
+SINGLE_JOB=		yes
 DISTNAME=		Math-GSL-0.39
 
 # -----------------------------------------------
@@ -39,8 +40,8 @@ DISTNAME=		Math-GSL-0.39
 # |    configure : Module::Build
 # |    configure : PkgConfig
 
-[PERL_524].USES_ON=			perl:524,buildmod
-[PERL_522].USES_ON=			perl:522,buildmod
+[PERL_524].USES_ON=			perl:524,buildmod,run
+[PERL_522].USES_ON=			perl:522,buildmod,run
 [PERL_524].BUILD_DEPENDS_ON=		perl-Test-Class:single:524
 					perl-Test-Exception:single:524
 					perl-Test-Most:single:524
@@ -54,4 +55,12 @@ DISTNAME=		Math-GSL-0.39
 					perl-Module-Build:single:522
 					perl-PkgConfig:single:522
 
+USES=			cclibs:single
+BUILDRUN_DEPENDS=	gsl:single:standard
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|@EXT1@|-Wl,-rpath,${PREFIX}/lib|' \
+		-e 's|@EXT2@|-Wl,-rpath,${PREFIX}/lib/perl5/${PERL_VER}/${PERL_ARCH}/CORE|' \
+		${WRKSRC}/inc/GSLBuilder.pm
 

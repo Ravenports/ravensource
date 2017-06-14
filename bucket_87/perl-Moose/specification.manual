@@ -1,0 +1,5 @@
+SINGLE_JOB=		yes
+CFLAGS=			-I.
+
+post-patch:
+	@${REINPLACE_CMD} -e '/^check_conflicts()/d' ${WRKSRC}/Makefile.PL

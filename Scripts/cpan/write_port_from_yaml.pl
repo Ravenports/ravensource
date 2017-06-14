@@ -26,7 +26,7 @@ my $dir_queue   = "/tmp/cpan-work/build-queue";
 my $dir_done    = "/tmp/cpan-work/completed";
 my $dir_fail    = "/tmp/cpan-work/failed-to-build";
 my $meta_data   = Parse::CPAN::Meta::LoadFile($meta_yaml_loc);
-my $portversion = $meta_data->{'version'};
+my $portversion;
 my $shortdesc;
 my $trunc_sdesc;
 my $distname;
@@ -107,6 +107,23 @@ sub make_distname {
    $distname =~ s/^perl-//;
 }
 
+sub set_portversion_from_tarball {
+   my @parts     = split(/\//, $tarball);
+   my @subparts  = split(/-/, $parts[(scalar @parts) - 1]);
+   my @interdots = split(/\./, $subparts[(scalar @subparts) - 1]);
+   my $caboose = (scalar @interdots) - 1;
+   if ($interdots[$caboose - 1] eq "tar") { $caboose--; }
+   $portversion = $interdots[0];
+   for (my $x = 1; $x < $caboose; $x++) {
+      $portversion .= "." . $interdots[$x];
+   }
+   if ($portversion ne $meta_data->{'version'}) {
+      print "Note:     versions don't match! tarball: $portversion " .
+          "meta: $meta_data->{'version'}\n";
+   }
+}
+
+set_portversion_from_tarball;
 make_comment;
 make_distname;
 
@@ -232,6 +249,7 @@ OPTIONS_AVAILABLE=	$options_avail
 OPTIONS_STANDARD=	none
 $dump_vopts
 GENERATED=		yes
+SINGLE_JOB=		yes
 DISTNAME=		$distname
 
 $dump_dependencies_as_comments

@@ -24,6 +24,7 @@ VOPTS[524]=		PERL_524=ON PERL_522=OFF
 VOPTS[522]=		PERL_524=OFF PERL_522=ON
 
 GENERATED=		yes
+SINGLE_JOB=		yes
 DISTNAME=		Redis-1.991
 
 # -----------------------------------------------
@@ -47,8 +48,8 @@ DISTNAME=		Redis-1.991
 # |         test : Test::SharedFork
 # |         test : Test::TCP
 
-[PERL_524].USES_ON=			perl:524,buildmodtiny
-[PERL_522].USES_ON=			perl:522,buildmodtiny
+[PERL_524].USES_ON=			perl:524,buildmodtiny,run
+[PERL_522].USES_ON=			perl:522,buildmodtiny,run
 [PERL_524].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:524
 [PERL_524].BUILDRUN_DEPENDS_ON=		perl-IO-Socket-Timeout:single:524
 					perl-Try-Tiny:single:524

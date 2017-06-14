@@ -197,11 +197,11 @@ generate_ravensource()
       fi
       if [ ${fetch_result} -eq 0 ]; then
          grep -q "Module::Build::Tiny" ${build_pl}
-   	   if [ $? -eq 0 ]; then
-   	      perl_builder="buildmodtiny"
-   	   else
-   	      perl_builder="buildmod"
-   	   fi
+           if [ $? -eq 0 ]; then
+              perl_builder="buildmodtiny,run"
+           else
+              perl_builder="buildmod,run"
+           fi
       else
          touch ${no_build_pl}
       fi

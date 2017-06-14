@@ -24,6 +24,7 @@ VOPTS[524]=		PERL_524=ON PERL_522=OFF
 VOPTS[522]=		PERL_524=OFF PERL_522=ON
 
 GENERATED=		yes
+SINGLE_JOB=		yes
 DISTNAME=		IO-Socket-Timeout-0.32
 
 # -----------------------------------------------
@@ -38,8 +39,8 @@ DISTNAME=		IO-Socket-Timeout-0.32
 # |     build_requires : Test::More (perl 5.24 core) (perl 5.22 core)
 # |     build_requires : Test::TCP
 
-[PERL_524].USES_ON=			perl:524,buildmodtiny
-[PERL_522].USES_ON=			perl:522,buildmodtiny
+[PERL_524].USES_ON=			perl:524,buildmodtiny,run
+[PERL_522].USES_ON=			perl:522,buildmodtiny,run
 [PERL_524].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:524
 					perl-Test-TCP:single:524
 [PERL_524].BUILDRUN_DEPENDS_ON=		perl-PerlIO-via-Timeout:single:524

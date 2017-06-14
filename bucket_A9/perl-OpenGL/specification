@@ -24,6 +24,7 @@ VOPTS[524]=		PERL_524=ON PERL_522=OFF
 VOPTS[522]=		PERL_524=OFF PERL_522=ON
 
 GENERATED=		yes
+SINGLE_JOB=		yes
 DISTNAME=		OpenGL-0.70
 
 # -----------------------------------------------
@@ -36,11 +37,13 @@ DISTNAME=		OpenGL-0.70
 [PERL_524].USES_ON=			perl:524,configure
 [PERL_522].USES_ON=			perl:522,configure
 
-BUILDRUN_DEPENDS=	mesa:libs:standard
+BUILDRUN_DEPENDS=	freeglut:primary:standard
 
-CONFIGURE_ARGS=		interface=FREEGLUT
+CONFIGURE_ARGS=		interface=FREEGLUT verbose
 XORG_COMPONENTS=	x11 xext xmu xi ice
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g' ${WRKSRC}/Makefile.PL
+	@${REINPLACE_CMD} -e 's|LDFLAGS=|LDFLAGS=-L${LOCALBASE}/lib -Wl,-rpath,${LOCALBASE}/lib |' \
+		${WRKSRC}/utils/Makefile
 

@@ -1,6 +1,15 @@
---- inc/GSLBuilder.pm.orig	2014-09-25 17:36:46 UTC
+--- inc/GSLBuilder.pm.orig	2016-10-01 06:24:23 UTC
 +++ inc/GSLBuilder.pm
-@@ -266,7 +266,7 @@ sub link_c {
+@@ -54,6 +54,8 @@ sub process_swig_files {
+     my $gsl_ccflags     = $self->{properties}->{extra_compiler_flags};
+     my $swig_flags      = $self->{properties}->{swig_flags};
+ 
++    push @$gsl_ldflags, ("@EXT1@", "@EXT2@");
++
+     if ($binding_ver ne $current_version) {
+         print "VERSION MISMATCH: Let's hope for the best.\n";
+     }
+@@ -300,7 +302,7 @@ sub link_c {
        }
      }
  
@@ -9,7 +18,7 @@
      my @shrp = $self->split_like_shell($cf->{shrpenv});
      my @ld = $self->split_like_shell($cf->{ld} || $Config{cc});
  
-@@ -298,7 +298,7 @@ sub compile_c {
+@@ -332,7 +334,7 @@ sub compile_c {
  
    $cf->{installarchlib} = $Config{archlib};
  
