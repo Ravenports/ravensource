@@ -1,19 +1,19 @@
-DEF[PORTVERSION]=	1.10
+DEF[PORTVERSION]=	0.71
 # ------------------------------------------------------------------------
 
-NAMEBASE=		perl-MooseX-Role-Parameterized
+NAMEBASE=		perl-MooseX-Getopt
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		524 522
-SDESC[524]=		Moose roles with composition parameters (v524)
-SDESC[522]=		Moose roles with composition parameters (v522)
+SDESC[524]=		Moose role for processing command line opti (v524)
+SDESC[522]=		Moose role for processing command line opti (v522)
 
-HOMEPAGE=		https://github.com/moose/MooseX-Role-Parameterized
+HOMEPAGE=		https://github.com/moose/MooseX-Getopt
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:E/ET/ETHER
-DISTFILE[1]=		MooseX-Role-Parameterized-1.10.tar.gz:main
+DISTFILE[1]=		MooseX-Getopt-0.71.tar.gz:main
 
 SPKGS[524]=		single
 SPKGS[522]=		single
@@ -25,50 +25,56 @@ VOPTS[522]=		PERL_524=OFF PERL_522=ON
 
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		MooseX-Role-Parameterized-1.10
+DISTNAME=		MooseX-Getopt-0.71
 
 # -----------------------------------------------
 # |   Prerequisites extracted from META.json
 # -----------------------------------------------
 # |      runtime : Carp (perl 5.24 core) (perl 5.22 core)
-# |      runtime : Module::Runtime
+# |      runtime : Getopt::Long (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Getopt::Long::Descriptive
 # |      runtime : Moose
-# |      runtime : Moose::Exporter
-# |      runtime : Moose::Meta::Role
+# |      runtime : Moose::Meta::Attribute
 # |      runtime : Moose::Role
-# |      runtime : Moose::Util
+# |      runtime : Moose::Util::TypeConstraints
+# |      runtime : MooseX::Role::Parameterized
+# |      runtime : Scalar::Util (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Try::Tiny
 # |      runtime : namespace::autoclean
-# |      runtime : namespace::clean
 # |      runtime : strict (perl 5.24 core) (perl 5.22 core)
 # |      runtime : warnings (perl 5.24 core) (perl 5.22 core)
 # |    configure : Module::Build::Tiny
-# |         test : CPAN::Meta::Check
-# |         test : CPAN::Meta::Requirements (perl 5.24 core) (perl 5.22 core)
-# |         test : Data::Dumper (perl 5.24 core) (perl 5.22 core)
 # |         test : File::Spec (perl 5.24 core) (perl 5.22 core)
 # |         test : Module::Metadata (perl 5.24 core) (perl 5.22 core)
-# |         test : Moose::Util::TypeConstraints
-# |         test : MooseX::Role::WithOverloading
-# |         test : Storable (perl 5.24 core) (perl 5.22 core)
+# |         test : Module::Runtime
+# |         test : Moose::Meta::Class
+# |         test : Moose::Util
+# |         test : Path::Tiny
+# |         test : Test::Deep
 # |         test : Test::Fatal
 # |         test : Test::Moose
 # |         test : Test::More (perl 5.24 core) (perl 5.22 core)
 # |         test : Test::Requires
-# |         test : lib (perl 5.24 core) (perl 5.22 core)
-# |         test : overload (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::Trap
+# |         test : Test::Warnings
+# |         test : if (perl 5.24 core) (perl 5.22 core)
 # |         test : CPAN::Meta (perl 5.24 core) (perl 5.22 core)
+# |         test : MooseX::ConfigFromFile
+# |         test : MooseX::SimpleConfig
 
 [PERL_524].USES_ON=			perl:524,buildmodtiny,run
 [PERL_522].USES_ON=			perl:522,buildmodtiny,run
 [PERL_524].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:524
-[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Module-Runtime:single:524
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Getopt-Long-Descriptive:single:524
 					perl-Moose:single:524
+					perl-MooseX-Role-Parameterized:single:524
+					perl-Try-Tiny:single:524
 					perl-namespace-autoclean:single:524
-					perl-namespace-clean:single:524
 [PERL_522].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:522
-[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Module-Runtime:single:522
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Getopt-Long-Descriptive:single:522
 					perl-Moose:single:522
+					perl-MooseX-Role-Parameterized:single:522
+					perl-Try-Tiny:single:522
 					perl-namespace-autoclean:single:522
-					perl-namespace-clean:single:522
 
 

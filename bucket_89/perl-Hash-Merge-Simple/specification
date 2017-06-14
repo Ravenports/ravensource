@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	0.051
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Hash-Merge-Simple
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Recursively merge two or more hashes, simpl (v524)
+SDESC[522]=		Recursively merge two or more hashes, simpl (v522)
+
+HOMEPAGE=		none
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:R/RO/ROKR
+DISTFILE[1]=		Hash-Merge-Simple-0.051.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Hash-Merge-Simple-0.051
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.yml
+# -----------------------------------------------
+# |           requires : Clone
+# |           requires : Storable (perl 5.24 core) (perl 5.22 core)
+# | configure_requires : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |     build_requires : Test::Most
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILD_DEPENDS_ON=		perl-Test-Most:single:524
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Clone:single:524
+[PERL_522].BUILD_DEPENDS_ON=		perl-Test-Most:single:522
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Clone:single:522
+
+
