@@ -161,6 +161,7 @@ if (exists $meta_data->{'prereqs'}) {
                      $pinged = 0;
                      $depname = get_namebase ($key);
                      if ($depname eq $port_namebase) { next; }  # can't depend on yourself
+                     if (-f "${ravensource}/IGNORE_$key") { next; } # bad requirement
                      if ($cat eq "runtime") {
                         if (!exists ($rdepcontainer{$perlkey}{$depname})) {                           
                            if ($rdep{$perlkey} == 0) {

@@ -1,0 +1,53 @@
+DEF[PORTVERSION]=	0.018
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-File-ConfigDir
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		524 522
+SDESC[524]=		Get directories of configuration files (v524)
+SDESC[522]=		Get directories of configuration files (v522)
+
+HOMEPAGE=		https://github.com/perl5-utils/File-ConfigDir
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:R/RE/REHSACK
+DISTFILE[1]=		File-ConfigDir-0.018.tar.gz:main
+
+SPKGS[524]=		single
+SPKGS[522]=		single
+
+OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_STANDARD=	none
+VOPTS[524]=		PERL_524=ON PERL_522=OFF
+VOPTS[522]=		PERL_524=OFF PERL_522=ON
+
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		File-ConfigDir-0.018
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Carp (perl 5.24 core) (perl 5.22 core)
+# |      runtime : File::Basename (perl 5.24 core) (perl 5.22 core)
+# |      runtime : File::Path (perl 5.24 core) (perl 5.22 core)
+# |      runtime : File::Spec (perl 5.24 core) (perl 5.22 core)
+# |      runtime : FindBin (perl 5.24 core) (perl 5.22 core)
+# |      runtime : File::HomeDir
+# |      runtime : List::MoreUtils
+# |      runtime : List::MoreUtils::XS
+# |    configure : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_522].USES_ON=			perl:522,configure
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-File-HomeDir:single:524
+					perl-List-MoreUtils:single:524
+					perl-List-MoreUtils-XS:single:524
+[PERL_522].BUILDRUN_DEPENDS_ON=		perl-File-HomeDir:single:522
+					perl-List-MoreUtils:single:522
+					perl-List-MoreUtils-XS:single:522
+
+

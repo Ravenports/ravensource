@@ -177,6 +177,7 @@ if ((exists $meta_data->{'configure_requires'} && defined $meta_data->{'configur
                } else {
                   $depname = get_namebase ($key);
                   if ($depname eq $port_namebase) { next; }  # can't depend on yourself
+                     if (-f "${ravensource}/IGNORE_$key") { next; } # bad requirement
                   if (($cat eq "requires") || ($cat eq "recommends")) {
                      if (!exists ($rdepcontainer{$perlkey}{$depname})) {
                         if ($rdep{$perlkey} == 0) {
