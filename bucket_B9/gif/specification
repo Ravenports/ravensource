@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	5.1.4
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gif
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	GIF image format library and tools
+HOMEPAGE=		https://sourceforge.net/projects/giflib/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/giflib
+DISTFILE[1]=		giflib-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/giflib
+
+USES=			libtool
+DISTNAME=		giflib-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+TEST_TARGET=		check-TESTS
+
+post-install:
+	@${INSTALL_MAN} ${WRKSRC}/doc/*.1 ${STAGEDIR}${MANPREFIX}/man/man1/

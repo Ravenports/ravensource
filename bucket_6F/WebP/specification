@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	0.6.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		WebP
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Google WebP image format library and tool
+HOMEPAGE=		https://developers.google.com/speed/webp/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://downloads.webmproject.org/releases/webp/
+DISTFILE[1]=		libwebp-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/webp
+
+BUILDRUN_DEPENDS=	freeglut:primary:standard
+			tiff:primary:standard
+			png:single:standard
+			gif:single:standard
+
+USES=			jpeg libtool
+DISTNAME=		libwebp-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-libwebpdecoder
+			--enable-libwebpdemux
+			--enable-libwebpmux
+			--with-pkgconfigdir={{PREFIX}}/lib/pkgconfig
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
