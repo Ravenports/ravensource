@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	2.21
+DEF[XNAME]=		xkeyboard-config
+DEF[ALTNAME]=		xkeyboard-config
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-${XNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	X Keyboard Configuration Database
+HOMEPAGE=		https://www.x.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		XORG/individual/data/${ALTNAME}
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xorg
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+BUILD_DEPENDS=		libxslt:single:standard
+
+USES=			gmake perl:build intltoolfix gettext-tools pkgconfig
+GNOME_COMPONENTS=	intltool
+XORG_COMPONENTS=	x11
+DISTNAME=		${ALTNAME}-${PORTVERSION}
+MAKE_ARGS=		pkgconfigdir={{PREFIX}}/lib/pkgconfig
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-xkb-base={{PREFIX}}/share/X11/xkb
+			--with-xkb-rules-symlink=xorg
+INSTALL_TARGET=		install-strip
+FPC_EQUIVALENT=		x1l/${ALTNAME}
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|/bin/bash|/bin/sh|g' -e 's|==|=|g' \
+		${WRKSRC}/rules/merge.sh
+
+post-install:
+	@${MKDIR} ${STAGEDIR}/var/lib/xkb
+	@${LN} -sf /var/lib/xkb ${STAGEDIR}${PREFIX}/share/X11/xkb/compiled
