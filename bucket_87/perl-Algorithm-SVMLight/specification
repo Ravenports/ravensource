@@ -39,3 +39,8 @@ DISTNAME=		Algorithm-SVMLight-0.09
 [PERL_522].BUILD_DEPENDS_ON=		perl-Module-Build:single:522
 
 
+BUILDRUN_DEPENDS=	svm_light:single:standard
+
+post-patch:
+	@${REINPLACE_CMD} -e "s,%%LOCALBASE%%,${LOCALBASE},g" \
+		${WRKSRC}/Build.PL
