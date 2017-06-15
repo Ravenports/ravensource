@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	2.2.4
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libGD
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Graphics library for fast creation of images
+HOMEPAGE=		http://www.libgd.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/libgd/libgd/releases/download/gd-${PORTVERSION}/
+DISTFILE[1]=		libgd-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		graphics/gd
+
+BUILDRUN_DEPENDS=	WebP:single:standard
+			fontconfig:primary:standard
+			freetype:primary:standard
+
+USES=			pkgconfig libtool:keepla shebangfix zlib
+DISTNAME=		libgd-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-xpm=no
+SHEBANG_FILES=		{{WRKSRC}}/src/bdftogd
+
+post-patch:
+	# bump shlib version
+	${REINPLACE_CMD} \
+		-e 's|^GDLIB_LT_CURRENT=3|GDLIB_LT_CURRENT=6|' \
+		${WRKSRC}/configure
+	${REINPLACE_CMD} \
+		-e 's|iconv|noiconv|' ${WRKSRC}/configure
+
+post-install:
+	${INSTALL_DATA} ${WRKSRC}/src/gdhelpers.h \
+		${STAGEDIR}${PREFIX}/include/
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgd.so.6.0.4
