@@ -1,0 +1,56 @@
+DEF[PORTVERSION]=	4.0.8
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		tiff
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	TIFF image format library and tools
+HOMEPAGE=		http://www.simplesystems.org/libtiff/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://download.osgeo.org/libtiff/
+DISTFILE[1]=		tiff-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYRIGHT
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/tiff
+
+BUILDRUN_DEPENDS=	jbigkit:single:standard
+
+USES=			cpe jpeg libtool c++:primary zlib
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-jpeg-include-dir={{LOCALBASE}}/include
+			--with-jpeg-lib-dir={{LOCALBASE}}/lib
+			--enable-ld-version-script
+			--without-x
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+TEST_TARGET=		check
+CPE_PRODUCT=		libtiff
+CPE_VERSION=		${PORTVERSION}
+
+post-patch:
+	@${REINPLACE_CMD} "/\.po 0/d" ${WRKSRC}/man/*
+
+pre-configure:
+	${REINPLACE_CMD} \
+		-e 's|tiffgt.1 ||' \
+		${WRKSRC}/man/Makefile.in
+	${REINPLACE_CMD} -e 's|^docfiles|no-docfiles|' \
+		-e 's|man html|man|' ${WRKSRC}/Makefile.in
+
+post-install:
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}/images ${STAGEDIR}${STD_DOCDIR}/man
+	${INSTALL_DATA} ${WRKSRC}/html/*.html ${STAGEDIR}${STD_DOCDIR}/
+	${INSTALL_DATA} ${WRKSRC}/html/images/*.jpg ${STAGEDIR}${STD_DOCDIR}/images/
+	${INSTALL_DATA} ${WRKSRC}/html/images/*.gif ${STAGEDIR}${STD_DOCDIR}/images/
+	${INSTALL_DATA} ${WRKSRC}/html/man/*.html ${STAGEDIR}${STD_DOCDIR}/man/
