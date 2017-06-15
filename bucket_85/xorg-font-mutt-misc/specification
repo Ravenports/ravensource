@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	1.0.3
+DEF[XNAME]=		font-mutt-misc
+DEF[ALTNAME]=		${XNAME}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-${XNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_fonts
+VARIANTS=		standard
+SDESC[standard]=	X.Org miscellaneous Mutt fonts
+HOMEPAGE=		https://www.x.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		XORG/individual/font
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xorg
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+BUILD_DEPENDS=		xorg-bdftopcf:single:standard
+
+FONTNAME=		misc
+
+USES=			fonts
+DISTNAME=		${ALTNAME}-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-fontrootdir={{FONTROOTDIR}}
+CONFIGURE_ENV=		FONTROOTDIR={{FONTROOTDIR}}
+INSTALL_TARGET=		install-strip
+FPC_EQUIVALENT=		x11-fonts/${ALTNAME}
