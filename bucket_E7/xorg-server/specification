@@ -1,0 +1,158 @@
+DEF[PORTVERSION]=	1.19.3
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-server
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_servers
+VARIANTS=		standard virtual dmx xephyr nest wayland
+SDESC[standard]=	X.Org X server and related programs
+SDESC[virtual]=		X virtual framebuffer server from X.Org
+SDESC[dmx]=		Distributed Multihead X from X.Org
+SDESC[nest]=		Nesting X server from X.Org
+SDESC[xephyr]=		X server from X.Org based on kdrive
+SDESC[wayland]=		X Clients under Wayland
+HOMEPAGE=		https://www.x.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		XORG/individual/xserver
+DISTFILE[1]=		xorg-server-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+SPKGS[virtual]=		single
+SPKGS[dmx]=		single
+SPKGS[nest]=		single
+SPKGS[xephyr]=		single
+SPKGS[wayland]=		single
+
+OPTIONS_AVAILABLE=	XORG VIRTUAL DMX XEPHYR NEST WAYLAND DEVD SUID
+OPTIONS_STANDARD=	XORG DEVD SUID
+VOPTS[virtual]=		XORG=OFF VIRTUAL=ON DMX=OFF XEPHYR=OFF NEST=OFF WAYLAND=OFF DEVD=OFF SUID=OFF
+VOPTS[dmx]=		XORG=OFF VIRTUAL=OFF DMX=ON XEPHYR=OFF NEST=OFF WAYLAND=OFF DEVD=OFF SUID=OFF
+VOPTS[xephyr]=		XORG=OFF VIRTUAL=OFF DMX=OFF XEPHYR=ON NEST=OFF WAYLAND=OFF DEVD=OFF SUID=OFF
+VOPTS[nest]=		XORG=OFF VIRTUAL=OFF DMX=OFF XEPHYR=OFF NEST=ON WAYLAND=OFF DEVD=OFF SUID=OFF
+VOPTS[wayland]=		XORG=OFF VIRTUAL=OFF DMX=OFF XEPHYR=OFF NEST=OFF WAYLAND=ON DEVD=OFF SUID=OFF
+OPT_ON[all]=		XORG SUID
+
+FPC_EQUIVALENT=		x11-servers/xorg-server
+
+BUILD_DEPENDS=		xorg-fontutil:single:standard
+			xorg-xkbfile:single:standard
+BUILDRUN_DEPENDS=	mesa:drivers:standard
+RUN_DEPENDS=		xorg-xkeyboard-config:single:standard
+			xorg-xkbcomp:single:standard
+
+USES=			gmake libtool perl:build ssl mesa
+XORG_COMPONENTS=	bigreqsproto compositeproto damageproto dri2proto
+			dri3proto fixesproto fontsproto glproto inputproto
+			kbproto pixman presentproto randrproto recordproto
+			renderproto resourceproto scrnsaverproto videoproto
+			xtransproto xcmiscproto xextproto xf86driproto
+			xineramaproto xproto xshmfence xau xdmcp
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-xkb-path={{LOCALBASE}}/share/X11/xkb
+			--with-fontrootdir={{LOCALBASE}}/share/fonts
+			--without-doxygen
+			--without-xmlto
+			--without-fop
+			--localstatedir=/var
+			--with-shared-memory-dir=/tmp
+			--disable-config-hal
+			--disable-config-udev
+			--disable-config-udev-kms
+			--disable-install-setuid
+			--without-dtrace
+			--enable-glamor
+			--enable-xcsecurity
+INSTALL_TARGET=		install-strip
+
+# dri
+
+[XORG].DESCRIPTION=			Build as X server (don't change setting!)
+[VIRTUAL].DESCRIPTION=			Build as virtual framebuffer server
+[DMX].DESCRIPTION=			Build as distributed multihead X server
+[XEPHYR].DESCRIPTION=			Build as kdrive-base X server
+[NEST].DESCRIPTION=			Build as nesting X server
+[WAYLAND].DESCRIPTION=			Build Wayland X clients
+[DEVD].DESCRIPTION=			Use devd for autoconfiguration of input devices
+[SUID].DESCRIPTION=			Install the Xorg server with setuid bit set
+
+[XORG].BUILDRUN_DEPENDS_ON=		libdrm:single:standard
+					libepoxy:single:standard
+[XEPHYR].BUILDRUN_DEPENDS_ON=		libdrm:single:standard
+					libepoxy:single:standard
+# xcb-util-image
+# xcb-util-wm
+# xcb-util-keysyms
+[WAYLAND].BUILDRUN_DEPENDS_ON=		libdrm:single:standard
+					libepoxy:single:standard
+# + libinput:single:standard
+
+[VIRTUAL].BUILD_DEPENDS_ON=		libepoxy:single:standard
+[DMX].BUILD_DEPENDS_ON=			libepoxy:single:standard
+[NEST].BUILD_DEPENDS_ON=		libepoxy:single:standard
+# [WAYLAND].BUILD_DEPENDS_ON=		wayland-protocols:single:standard
+
+[NEST].RUN_DEPENDS_ON=			xorg-keyboard-config:single:standard
+
+[DMX].CONFIGURE_ENABLE_BOTH=		dmx
+[NEST].CONFIGURE_ENABLE_BOTH=		xnest
+[VIRTUAL].CONFIGURE_ENABLE_BOTH=	xvfb
+[XEPHYR].CONFIGURE_ENABLE_BOTH=		xephyr kdrive
+[WAYLAND].CONFIGURE_ENABLE_BOTH=	xwayland
+[XORG].CONFIGURE_ENABLE_BOTH=		docs devel-docs xorg
+
+[WAYLAND].CONFIGURE_ARGS_ON=		--disable-xquartz --disable-xwin
+
+[NEST].XORG_COMPONENTS_ON=		x11 xext xfont2
+[WAYLAND].XORG_COMPONENTS_ON=		x11 xext xfont2
+[XEPHYR].XORG_COMPONENTS_ON=		x11 xcb xcb-util xcb-render-util
+[DMX].XORG_COMPONENTS_ON=		x11 xext xfixes xi xmu xrender xt xtst
+# dmx xaw (7) xpm xres
+[VIRTUAL].XORG_COMPONENTS_ON=		xfont2
+[XORG].XORG_COMPONENTS_ON=		pciaccess xf86dgaproto xf86vidmodeproto xfont2
+
+[XORG].SUB_FILES_ON=			pkg-install pkg-deinstall
+
+post-patch:
+	@${REINPLACE_CMD} 's/test.*-traditional.*;/true;/' ${WRKSRC}/configure
+	# build libglx.so but don't install it yet. (done in pre-install)
+	@${REINPLACE_CMD} -e 's|@GLX_TRUE@GLXMODS =|@GLX_BOGUS@GLXMODS =|g' \
+		-e 's|^LTLIBRARIES = |LTLIBRARIES = libglx.la |g' \
+		${WRKSRC}/hw/xfree86/dixmods/Makefile.in
+
+post-configure-DEVD-ON:
+	@${REINPLACE_CMD} -e 's|config\.c|config.c devd.c|g' \
+		-e 's|config\.lo|config.lo devd.lo|g' \
+		${WRKSRC}/config/Makefile
+	@${REINPLACE_CMD} -e 's|^/\* #undef CONFIG_UDEV \*/|#define CONFIG_DEVD 1|' \
+		${WRKSRC}/include/dix-config.h
+
+post-install-XORG-ON:
+	# The .xorg dir because else the xorg-server might not load the
+	# correct libglx module.
+	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/xorg/modules/extensions/.xorg
+	${INSTALL_LIB} ${WRKSRC}/hw/xfree86/dixmods/.libs/libglx.so \
+		${STAGEDIR}${PREFIX}/lib/xorg/modules/extensions/.xorg/
+	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/X11/xorg.conf.d
+	${RM} -r ${STAGEDIR}/var
+
+do-install-VIRTUAL-ON:
+	(cd ${WRKSRC}/hw/vfb && \
+		DESTDIR=${STAGEDIR} ${MAKE_CMD} install)
+
+do-install-XEPHYR-ON:
+	(cd ${WRKSRC}/hw/kdrive/ephyr && \
+		DESTDIR=${STAGEDIR} ${MAKE_CMD} install)
+
+do-install-DMX-ON:
+	(cd ${WRKSRC}/hw/dmx && \
+		DESTDIR=${STAGEDIR} ${MAKE_CMD} install)
+
+do-install-NEST-ON:
+	(cd ${WRKSRC}/hw/xnest && \
+		DESTDIR=${STAGEDIR} ${MAKE_CMD} install)
+
+do-install-WAYLAND-ON:
+	(cd ${WRKSRC}/hw/xwayland && \
+		DESTDIR=${STAGEDIR} ${MAKE_CMD} install)
