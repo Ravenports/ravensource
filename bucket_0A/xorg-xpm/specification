@@ -1,0 +1,30 @@
+DEF[PORTVERSION]=	3.5.12
+DEF[XNAME]=		xpm
+DEF[ALTNAME]=		libXpm
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-${XNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	X Pixmap library
+HOMEPAGE=		https://www.x.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		XORG/individual/lib
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xorg
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+USES=			libtool
+XORG_COMPONENTS=	xproto x11 xext xt
+DISTNAME=		${ALTNAME}-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ENV=		ac_cv_search_gettext=no
+INSTALL_TARGET=		install-strip
+FPC_EQUIVALENT=		x11/${ALTNAME}
