@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	1.900.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		jasper
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Implementation JPEG-2000 standard codec
+HOMEPAGE=		http://www.ece.uvic.ca/~frodo/jasper/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.ece.uvic.ca/~mdadams/jasper/software/
+			ftp://ftp.imagemagick.org/pub/ImageMagick/delegates/
+DISTFILE[1]=		jasper-${PORTVERSION}.zip:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		graphics/jasper
+
+BUILDRUN_DEPENDS=	freeglut:primary:standard
+
+USES=			jpeg libtool:keepla
+XORG_COMPONENTS=	x11 xext xi xmu
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-shared
+			--enable-static
+			--enable-opengl
+INSTALL_TARGET=		install-strip
+
+post-install:
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}/
+	${INSTALL_DATA} ${WRKSRC}/doc/* ${STAGEDIR}${STD_DOCDIR}/
