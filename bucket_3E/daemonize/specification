@@ -1,0 +1,30 @@
+DEF[PORTVERSION]=	1.7.7
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		daemonize
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	Tool to run a command as a daemon
+HOMEPAGE=		http://software.clapper.org/daemonize/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/bmc:daemonize:release-${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE.md
+LICENSE_SCHEME=		solo
+
+USES=			gmake
+MUST_CONFIGURE=		gnu
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/daemonize ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/daemonize.1 ${STAGEDIR}${MAN1PREFIX}/man/man1
