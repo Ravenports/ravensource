@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.23
 NAMEBASE=		perl-Algorithm-ConstructDFA-XS
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		524 522
+VARIANTS=		526 524
+SDESC[526]=		C++ version of Algorithm::ConstructDFA (v526)
 SDESC[524]=		C++ version of Algorithm::ConstructDFA (v524)
-SDESC[522]=		C++ version of Algorithm::ConstructDFA (v522)
 
 HOMEPAGE=		https://github.com/hoehrmann/Algorithm-ConstructDFA-XS
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
@@ -15,13 +15,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:B/BJ/BJOERN
 DISTFILE[1]=		Algorithm-ConstructDFA-XS-0.23.tar.gz:main
 
+SPKGS[526]=		single
 SPKGS[524]=		single
-SPKGS[522]=		single
 
-OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_AVAILABLE=	PERL_526 PERL_524
 OPTIONS_STANDARD=	none
-VOPTS[524]=		PERL_524=ON PERL_522=OFF
-VOPTS[522]=		PERL_524=OFF PERL_522=ON
+VOPTS[526]=		PERL_526=ON PERL_524=OFF
+VOPTS[524]=		PERL_526=OFF PERL_524=ON
 
 GENERATED=		yes
 SINGLE_JOB=		yes
@@ -31,31 +31,31 @@ DISTNAME=		Algorithm-ConstructDFA-XS-0.23
 # |   Prerequisites extracted from META.json
 # -----------------------------------------------
 # |      runtime : Algorithm::ConstructDFA
-# |      runtime : Config (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Config (perl 5.26 core) (perl 5.24 core)
 # |      runtime : Data::AutoBimap
 # |      runtime : Graph::Directed
 # |      runtime : Graph::RandomPath
 # |      runtime : List::MoreUtils
 # |      runtime : List::UtilsBy
-# |      runtime : Memoize (perl 5.24 core) (perl 5.22 core)
-# |      runtime : Storable (perl 5.24 core) (perl 5.22 core)
-# |      runtime : Test::More (perl 5.24 core) (perl 5.22 core)
-# |        build : ExtUtils::MakeMaker (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Memoize (perl 5.26 core) (perl 5.24 core)
+# |      runtime : Storable (perl 5.26 core) (perl 5.24 core)
+# |      runtime : Test::More (perl 5.26 core) (perl 5.24 core)
+# |        build : ExtUtils::MakeMaker (perl 5.26 core) (perl 5.24 core)
 
+[PERL_526].USES_ON=			perl:526,configure
 [PERL_524].USES_ON=			perl:524,configure
-[PERL_522].USES_ON=			perl:522,configure
+[PERL_526].BUILDRUN_DEPENDS_ON=		perl-Algorithm-ConstructDFA:single:526
+					perl-Data-AutoBimap:single:526
+					perl-Graph:single:526
+					perl-Graph-RandomPath:single:526
+					perl-List-MoreUtils:single:526
+					perl-List-UtilsBy:single:526
 [PERL_524].BUILDRUN_DEPENDS_ON=		perl-Algorithm-ConstructDFA:single:524
 					perl-Data-AutoBimap:single:524
 					perl-Graph:single:524
 					perl-Graph-RandomPath:single:524
 					perl-List-MoreUtils:single:524
 					perl-List-UtilsBy:single:524
-[PERL_522].BUILDRUN_DEPENDS_ON=		perl-Algorithm-ConstructDFA:single:522
-					perl-Data-AutoBimap:single:522
-					perl-Graph:single:522
-					perl-Graph-RandomPath:single:522
-					perl-List-MoreUtils:single:522
-					perl-List-UtilsBy:single:522
 
 MAKE_ARGS=		CC="c++"
 

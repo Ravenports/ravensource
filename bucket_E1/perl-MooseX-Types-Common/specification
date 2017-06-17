@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.001014
 NAMEBASE=		perl-MooseX-Types-Common
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		524 522
+VARIANTS=		526 524
+SDESC[526]=		Library of commonly used type constraints (v526)
 SDESC[524]=		Library of commonly used type constraints (v524)
-SDESC[522]=		Library of commonly used type constraints (v522)
 
 HOMEPAGE=		https://github.com/moose/MooseX-Types-Common
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
@@ -15,13 +15,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:E/ET/ETHER
 DISTFILE[1]=		MooseX-Types-Common-0.001014.tar.gz:main
 
+SPKGS[526]=		single
 SPKGS[524]=		single
-SPKGS[522]=		single
 
-OPTIONS_AVAILABLE=	PERL_524 PERL_522
+OPTIONS_AVAILABLE=	PERL_526 PERL_524
 OPTIONS_STANDARD=	none
-VOPTS[524]=		PERL_524=ON PERL_522=OFF
-VOPTS[522]=		PERL_524=OFF PERL_522=ON
+VOPTS[526]=		PERL_526=ON PERL_524=OFF
+VOPTS[524]=		PERL_526=OFF PERL_524=ON
 
 GENERATED=		yes
 SINGLE_JOB=		yes
@@ -30,27 +30,27 @@ DISTNAME=		MooseX-Types-Common-0.001014
 # -----------------------------------------------
 # |   Prerequisites extracted from META.json
 # -----------------------------------------------
-# |      runtime : Carp (perl 5.24 core) (perl 5.22 core)
+# |      runtime : Carp (perl 5.26 core) (perl 5.24 core)
 # |      runtime : MooseX::Types
 # |      runtime : MooseX::Types::Moose
-# |      runtime : if (perl 5.24 core) (perl 5.22 core)
-# |      runtime : strict (perl 5.24 core) (perl 5.22 core)
-# |      runtime : warnings (perl 5.24 core) (perl 5.22 core)
+# |      runtime : if (perl 5.26 core) (perl 5.24 core)
+# |      runtime : strict (perl 5.26 core) (perl 5.24 core)
+# |      runtime : warnings (perl 5.26 core) (perl 5.24 core)
 # |    configure : Module::Build::Tiny
-# |         test : File::Spec (perl 5.24 core) (perl 5.22 core)
-# |         test : Module::Metadata (perl 5.24 core) (perl 5.22 core)
+# |         test : File::Spec (perl 5.26 core) (perl 5.24 core)
+# |         test : Module::Metadata (perl 5.26 core) (perl 5.24 core)
 # |         test : Test::Deep
-# |         test : Test::More (perl 5.24 core) (perl 5.22 core)
+# |         test : Test::More (perl 5.26 core) (perl 5.24 core)
 # |         test : Test::Warnings
-# |         test : open (perl 5.24 core) (perl 5.22 core)
-# |         test : utf8 (perl 5.24 core) (perl 5.22 core)
-# |         test : CPAN::Meta (perl 5.24 core) (perl 5.22 core)
+# |         test : open (perl 5.26 core) (perl 5.24 core)
+# |         test : utf8 (perl 5.26 core) (perl 5.24 core)
+# |         test : CPAN::Meta (perl 5.26 core) (perl 5.24 core)
 
+[PERL_526].USES_ON=			perl:526,buildmodtiny,run
 [PERL_524].USES_ON=			perl:524,buildmodtiny,run
-[PERL_522].USES_ON=			perl:522,buildmodtiny,run
+[PERL_526].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:526
+[PERL_526].BUILDRUN_DEPENDS_ON=		perl-MooseX-Types:single:526
 [PERL_524].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:524
 [PERL_524].BUILDRUN_DEPENDS_ON=		perl-MooseX-Types:single:524
-[PERL_522].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:522
-[PERL_522].BUILDRUN_DEPENDS_ON=		perl-MooseX-Types:single:522
 
 

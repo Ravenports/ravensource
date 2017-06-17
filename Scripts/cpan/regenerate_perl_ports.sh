@@ -50,8 +50,8 @@ ENTRY_LIST=${tmpdir}/02packages.details.txt
 urlstub="http://cpansearch.perl.org/src/"
 mirror_base="/mech/var/cache/cpan/"
 
-perlv1="5.24.1"
-perlv2="5.22.2"
+perlv1="5.26.0"
+perlv2="5.24.1"
 
 if [ "${1}" == "check-core" ]; then
    check_core=1;
