@@ -92,7 +92,8 @@ INSTALL_TARGET=		install-strip
 [NEST].BUILD_DEPENDS_ON=		libepoxy:single:standard
 					mesa:drivers:standard
 [XEPHYR].BUILD_DEPENDS_ON=		mesa:drivers:standard
-# [WAYLAND].BUILD_DEPENDS_ON=		wayland-protocols:single:standard
+[WAYLAND].BUILD_DEPENDS_ON=		mesa:drivers:standard
+# wayland-protocols:single:standard
 
 [XORG].USES_ON=				mesa
 [NEST].USES_ON=				mesa
@@ -107,6 +108,7 @@ INSTALL_TARGET=		install-strip
 [XORG].CONFIGURE_ENABLE_BOTH=		docs devel-docs xorg
 
 [WAYLAND].CONFIGURE_ARGS_ON=		--disable-xquartz --disable-xwin
+[WAYLAND].BROKEN_ON=			Wayland itself not yet implemented
 
 [NEST].XORG_COMPONENTS_ON=		x11 xext
 [WAYLAND].XORG_COMPONENTS_ON=		x11 xext
