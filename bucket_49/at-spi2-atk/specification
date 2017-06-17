@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	2.24.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		at-spi2-atk
+VERSION=		${PORTVERSION}
+KEYWORDS=		accessibility x11_toolkits
+VARIANTS=		standard
+SDESC[standard]=	Assisted Technology Provider module for GTK+
+HOMEPAGE=		http://www.linuxfoundation.org/en/AT-SPI_on_D-Bus
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/at-spi2-atk/${PORTVERSION:R}
+DISTFILE[1]=		at-spi2-atk-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome3
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		accessibility/at-spi2-atk
+
+BUILDRUN_DEPENDS=	at-spi2-core:primary:standard
+
+USES=			cpe gmake libtool pkgconfig intltoolfix
+GNOME_COMPONENTS=	atk intltool
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-p2p
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+CPE_VENDOR=		gnome
