@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	2.24.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		at-spi2-core
+VERSION=		${PORTVERSION}
+KEYWORDS=		accessibility x11_toolkits
+VARIANTS=		standard
+SDESC[standard]=	Assistive Technology Service Provider Interface
+HOMEPAGE=		http://www.linuxfoundation.org/en/AT-SPI_on_D-Bus
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/at-spi2-core/${PORTVERSION:R}
+DISTFILE[1]=		at-spi2-core-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome3
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		accessibility/at-spi2-core
+
+BUILD_DEPENDS=		gobject-introspection:single:standard
+BUILDRUN_DEPENDS=	dbus:single:standard
+
+USES=			gmake libtool pkgconfig gettext-tools intltoolfix python:py27,build
+GNOME_COMPONENTS=	glib intltool
+XORG_COMPONENTS=	x11 xi xtst xext sm ice
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-xevie
+INSTALL_TARGET=		install-strip
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/doc
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/libatspi \
+		${STAGEDIR}${PREFIX}/share/doc/at-spi2-core
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/systemd
