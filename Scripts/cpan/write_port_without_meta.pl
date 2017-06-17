@@ -27,11 +27,9 @@ my $distname;
 my $portversion;
 my $homepage    = "none";
 my %perlver     = ("526" => 5.26, "524" => 5.24);
-my @perlverkeys = ("526", "524");
+my @perlverkeys = ();	# add versions below
 my @variants    = ();
 my %reqs = ();
-my @reqs_cats   = ("runtime", "build", "configure", "test");
-my @reqs_level  = ("requires", "recommends");
 my $descriptions = "";
 my $subpackages = "";
 my $options_avail = "";
@@ -44,6 +42,9 @@ my $manual_portion = "";
 my $depname = "";
 
 my %cache_portname;
+
+if (! -f "${ravensource}/broken_526") { push @perlverkeys, "526" }
+if (! -f "${ravensource}/broken_524") { push @perlverkeys, "524" }
 
 sub make_distname {
    $distname = $port_namebase . "-" . $portversion;

@@ -33,11 +33,11 @@ my $trunc_sdesc;
 my $distname;
 my $homepage    = "none";
 my %perlver     = ("526" => 5.26, "524" => 5.24);
-my @perlverkeys = ("526", "524");
+my @perlverkeys = ();   # add versions below
 my @variants    = ();
 my %reqs = ();
 my @reqs_cats   = ("runtime", "build", "configure", "test");
-my @reqs_level  = ("requires");
+my @reqs_level  = ("requires");	# add recommends below
 my $descriptions = "";
 my $subpackages = "";
 my $options_avail = "";
@@ -59,6 +59,8 @@ my $pinged = 0;
 my %cache_portname;
 
 if (! -f "${ravensource}/block_meta_recommends") { push @reqs_level, "recommends" }
+if (! -f "${ravensource}/broken_526") { push @perlverkeys, "526" }
+if (! -f "${ravensource}/broken_524") { push @perlverkeys, "524" }
 
 # given a perl module name, return the equivalent port namebase
 # requires: perl module index already in place
