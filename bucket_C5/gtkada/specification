@@ -1,0 +1,54 @@
+DEF[PORTVERSION]=	3.14.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gtkada
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_toolkits
+VARIANTS=		standard
+SDESC[standard]=	Ada graphical toolkit based on Gtk3 components
+HOMEPAGE=		http://libre.adacore.com/libre/tools/gtkada/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/AdaCore:gtkada:1688bb8
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11-toolkits/gtkada3
+
+BUILD_DEPENDS=		python-Sphinx:single:python_default
+# BUILDRUN_DEPENDS=	libGLU:single:standard
+
+USES=			gmake perl:build pkgconfig mesa gettext-tools
+			gprbuild ada:primary
+GNOME_COMPONENTS=	gtk3 cairo gdkpixbuf
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-GL=auto
+			--with-GL-prefix={{PREFIX}}
+			--enable-shared
+			--enable-static
+			--enable-build=Production
+BUILD_TARGET=		tools static relocatable docs
+MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-patch:
+	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|' \
+		${WRKSRC}/src/opengl/gtkada_gl.gpr
+
+do-build:
+	# This target is recreated because -j cannot be set, but
+	# MAKE_JOBS_SAFE=yes is needed for PROCESSORS value
+	(cd ${WRKSRC} && \
+		${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} ${BUILD_TARGET})
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gtkada-dialog
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgtkada.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgtkada_gl.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gtkada/gtkada_gl.relocatable/gtkada/libgtkada_gl.so
+	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/gtkada/gtkada_ug/_sources

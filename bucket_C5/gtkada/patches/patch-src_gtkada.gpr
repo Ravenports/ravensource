@@ -1,0 +1,16 @@
+--- src/gtkada.gpr.orig	2016-05-12 07:43:49 UTC
++++ src/gtkada.gpr
+@@ -41,7 +41,12 @@ library project GtkAda is
+    for Library_Name use "gtkada";
+    for Library_Version use
+       "lib" & Project'Library_Name & Shared.So_Ext & "." & Version;
+-   for Library_Options use Shared.Gtk_Libs;
++   case Shared.Library_Kind is
++      when "relocatable" =>
++         for Library_Options use Shared.Gtk_Libs;
++      when others =>
++         null;
++   end case;
+ 
+    package Builder  renames Shared.Builder;
+    package Naming   renames Shared.Naming;

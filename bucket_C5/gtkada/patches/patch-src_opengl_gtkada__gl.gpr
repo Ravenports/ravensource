@@ -1,0 +1,16 @@
+--- src/opengl/gtkada_gl.gpr.orig	2016-05-12 07:43:49 UTC
++++ src/opengl/gtkada_gl.gpr
+@@ -39,7 +39,12 @@ library project GtkAda_GL is
+    for Library_Dir use "../lib/" & Project'Library_Name & "/" & Project'Library_Kind;
+    for Library_Version use
+       "lib" & Project'Library_Name & Shared.So_Ext & "." & Shared.Version;
+-   for Library_Options use Shared.GL_Libs;
++   case Shared.Library_Kind is
++      when "relocatable" =>
++         for Library_Options use Shared.GL_Libs & ("-Wl,-rpath,@PREFIX@/lib");
++      when others =>
++         null;
++   end case;
+ 
+    package Builder  renames Shared.Builder;
+    package Compiler is
