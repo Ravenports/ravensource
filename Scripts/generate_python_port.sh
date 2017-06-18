@@ -57,6 +57,11 @@ acquire_tarball_and_version() {
    MD5SUM=$(awk -v version=${VERSION} -v seek="md5_digest" -f ${thisdir}/md5.awk ${JSONFILE})
    tarball=$(awk -v version=${VERSION} -v seek="filename" -f ${thisdir}/md5.awk ${JSONFILE})
 
+   if [ -z "${MD5SUM}" -o -z "${tarball}" ]; then
+      echo "No file or md5 sum for version ${VERSION} available"
+      exit 1;
+   fi
+
    if [ -f "${distfiles}/${tarball}" ]; then
       summd5=$(md5 -q "${distfiles}/${tarball}")
       if [ "${summd5}" == "${MD5SUM}" ]; then
