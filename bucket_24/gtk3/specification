@@ -1,0 +1,90 @@
+DEF[PORTVERSION]=	3.22.15
+DEF[LIBVERSION]=	0.2200.15
+DEF[GTK_VERSION]=	EXTRACT_INFO(GTK3_VERSION)
+# ----------------------------------------------------------------------------
+# Please keep gtk3 in sync with the following x11-themes ports:
+#   adwaita-icon-theme
+#   gnome-themes-standard (tbd)
+#   mate-themes (tbd)
+
+NAMEBASE=		gtk3
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_toolkits
+VARIANTS=		standard
+SDESC[standard]=	Gimp Toolkit for X11 GUI
+HOMEPAGE=		http://www.gtk.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/gtk+/${PORTVERSION:R}
+DISTFILE[1]=		gtk+-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome3
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	DBUS CUPS CLOUDPRINT COLORD BROADWAY
+OPTIONS_STANDARD=	DBUS BROADWAY
+OPT_ON[all]=		DBUS BROADWAY
+
+FPC_EQUIVALENT=		x11-toolkits/gtk30
+
+BUILD_DEPENDS=		gobject-introspection:single:standard
+			python27:single:standard
+BUILDRUN_DEPENDS=	libepoxy:single:standard
+RUN_DEPENDS=		adwaita-icon-theme:single:standard
+
+USES=			gettext-tools gmake libtool pkgconfig gnome-icons:single
+			schemas:single perl:build python:build
+GNOME_COMPONENTS=	atk cairo gdkpixbuf pango
+XORG_COMPONENTS=	xext x11 xinerama xi xrandr xcursor xfixes
+			xdamage xcomposite
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-x11-backend
+			--disable-wayland-backend
+			--enable-introspection
+CPPFLAGS=		-fno-omit-frame-pointer
+PLIST_SUB=		LIBVERSION=${LIBVERSION}
+			GTK_VERSION=${GTK_VERSION}
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+DISTNAME=		gtk+-${PORTVERSION}
+
+GLIB_SCHEMAS=		org.gtk.Demo.gschema.xml
+			org.gtk.Settings.ColorChooser.gschema.xml
+			org.gtk.Settings.Debug.gschema.xml
+			org.gtk.Settings.FileChooser.gschema.xml
+
+[DBUS].DESCRIPTION=			AT-SPI ATK bridge support (requires dbus)
+[BROADWAY].DESCRIPTION=			Backend for HTML5 and websocket support
+[CLOUDPRINT].DESCRIPTION=		Support for printing to cloud
+
+[DBUS].CONFIGURE_WITH_BOTH=		atk-bridge
+[DBUS].BUILDRUN_DEPENDS_ON=		at-spi2-atk:single:standard
+
+[CUPS].BROKEN_ON=			CUPS option not supported yet
+[CLOUDPRINT].BROKEN_ON=			CLOUDPRINT option not supported yet
+[COLORD].BROKEN_ON=			COLORD option not supported yet
+
+[CLOUDPRINT].CONFIGURE_ENABLE_BOTH=	cloudprint
+[CLOUDPRINT].BUILDRUN_DEPENDS_ON=	librest:single:standard
+					json-glib:single:standard
+
+[CUPS].CONFIGURE_ENABLE_BOTH=		cups
+[CUPS].BUILDRUN_DEPENDS_ON=		cups:single:standard
+
+[BROADWAY].CONFIGURE_ENABLE_BOTH=	broadway-backend
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|[{]libdir[}]/locale|{datadir}/locale|g' \
+		${WRKSRC}/configure
+
+pre-build:
+	@${RM} -r ${WRKSRC}/docs/gtk.info*
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/gtk-3.0/modules
+	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/gtk-3.0/${GTK_VERSION}/engines
+	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/gtk-3.0/${GTK_VERSION}/loaders
+	${RM} ${STAGEDIR}${PREFIX}/bin/gtk-update-icon-cache
+	${INSTALL_MAN} ${WRKSRC}/docs/reference/gtk/gtk-query-immodules-3.0.1 \
+		${STAGEDIR}${MANPREFIX}/man/man1
