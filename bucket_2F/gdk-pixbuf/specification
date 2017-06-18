@@ -1,0 +1,53 @@
+DEF[PORTVERSION]=	2.36.6
+DEF[GTK_VERSION]=	EXTRACT_INFO(GTK2_VERSION)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gdk-pixbuf
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Graphic library for GIMP toolkit
+HOMEPAGE=		https://developer.gnome.org/gdk-pixbuf/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/gdk-pixbuf/${PORTVERSION:R}
+DISTFILE[1]=		gdk-pixbuf-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome2
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		graphics/gdk-pixbuf2
+
+BUILD_DEPENDS=		gobject-introspection:single:standard
+BUILDRUN_DEPENDS=	tiff:primary:standard
+			png:single:standard
+			jasper:primary:standard
+
+USES=			cpe gmake jpeg pkgconfig libtool gettext-runtime
+			perl:build python:py27,build
+XORG_COMPONENTS=	x11 xi xt
+GNOME_COMPONENTS=	glib
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-introspection=yes
+			--enable-nls
+			--with-x11
+			--with-libjasper
+			--with-libjpeg
+			--with-libpng
+			--with-libtiff
+INSTALL_REQ_TOOLCHAIN=	yes
+INSTALL_TARGET=		install-strip
+PLIST_SUB=		GTK_VERSION=${GTK_VERSION}
+CPE_VENDOR=		gnome
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/doc
+	(cd ${WRKSRC}/docs/reference/gdk-pixbuf && \
+		${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} install-man1)
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/gdk-pixbuf \
+		${STAGEDIR}${PREFIX}/share/doc/
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
