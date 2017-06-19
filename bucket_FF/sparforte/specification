@@ -1,0 +1,123 @@
+DEF[PORTVERSION]=	2.0.3
+DEF[SF_SRC]=		{{WRKSRC}}/src
+DEF[SCAL]=		scanner-calendar
+DEF[PREPFILES]=		world.ads user_io-getline.adb scanner_res.ads scanner_res.adb parser.adb builtins.adb parser_db.adb parser_dbm.adb parser_mysql.adb parser_mysqlm.adb parser_sound.adb parser_pen.adb parser_gnat_cgi.adb parser_bdb.adb parser_btree_io.adb parser_hash_io.adb
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		sparforte
+VERSION=		${PORTVERSION}
+KEYWORDS=		shells lang
+VARIANTS=		standard
+SDESC[standard]=	Shell and scripting for mission-critical projects
+HOMEPAGE=		http://www.sparforte.com
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/kburtch:SparForte:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary examples docs
+
+OPTIONS_AVAILABLE=	CGI OPENGL SOUND MYSQL PGSQL
+OPTIONS_STANDARD=	CGI OPENGL SOUND MYSQL PGSQL
+OPTGROUP_RESTRICTED=	DBASE
+OPTDESCR[DBASE]=	Databases supported
+OPTGROUP[DBASE]=	MYSQL PGSQL
+OPT_ON[all]=		MYSQL PGSQL OPENGL SOUND
+
+LICENSE=		GPLv2:primary
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		shells/sparforte
+
+BROKEN[aarch64]=	fails to compile: gnat1: error: unknown value aarch64 for -march
+
+USES=			bdb gettext-runtime gmake pkgconfig readline
+SDL_COMPONENTS=		image1
+SINGLE_JOB=		yes
+MUST_CONFIGURE=		yes
+MAKE_ARGS=		RPM_BUILD_ROOT=1
+CONFIGURE_SCRIPT=	new_configure
+
+[CGI].DESCRIPTION=			Common Gateway Interface (breaks other features)
+[CGI].MAKEFILE_ON=			SFARG+=-DGCGI=true
+[CGI].MAKEFILE_OFF=			SFARG+=-DGCGI=false
+
+[MYSQL].USES_ON=			mysql:client
+[MYSQL].MAKEFILE_ON=			SFARG+=-DMYSQL=true
+					SETMYSQL=1
+[MYSQL].MAKEFILE_OFF=			SFARG+=-DMYSQL=false
+					SETMYSQL=0
+
+[PGSQL].USES_ON=			pgsql:client
+[PGSQL].MAKEFILE_ON=			SFARG+=-DPOSTGRES=true
+					SETPGSQL=1
+[PGSQL].MAKEFILE_OFF=			SFARG+=-DPOSTGRES=false
+					SETPGSQL=0
+
+[OPENGL].USES_ON=			mesa
+[OPENGL].MAKEFILE_ON=			SFARG+=-DOPENGL=true
+					SETGL=1
+[OPENGL].MAKEFILE_OFF=			SFARG+=-DOPENGL=false
+					SETGL=0
+
+[SOUND].GNOME_COMPONENTS_ON=		glib libxml2
+[SOUND].BUILDRUN_DEPENDS_ON=		gstreamer:single:standard
+[SOUND].MAKEFILE_ON=			SFARG+=-DSOUND=true
+					SETSOUND=1
+[SOUND].MAKEFILE_OFF=			SFARG+=-DSOUND=false
+					SETSOUND=0
+
+post-extract:
+	${CP} ${SF_SRC}/${SCAL}-latest.ads ${SF_SRC}/${SCAL}.ads
+	${CP} ${SF_SRC}/${SCAL}-latest.adb ${SF_SRC}/${SCAL}.adb
+	${CP} ${SF_SRC}/${OSBIND}.ads ${SF_SRC}/spar_os.ads
+	${CP} ${SF_SRC}/${CPU_SDL}.ads ${SF_SRC}/spar_os-sdl.ads
+	# Create a compact configure script for ports collection
+	${SED} -e "s|@CPU_FLAG@|${SF_CPU_FLAG}|" \
+		-e "s|@ARCH@|${SF_ARCH}|" \
+		-e "s|@MAKECMD@|${MAKE_CMD}|" \
+		-e "s|@CFLAGSTYPE@|${SF_CFLAGSTYPE}|" \
+		-e "s|@PREFIX@|${PREFIX}|" \
+		-e "s|@SETAPQ@|${SETAPQ}|" \
+		-e "s|@SETMYSQL@|${SETMYSQL}|" \
+		-e "s|@SETPGSQL@|${SETPGSQL}|" \
+		-e "s|@SETSOUND@|${SETSOUND}|" \
+		-e "s|@SETGL@|${SETGL}|" \
+		-e "s|@SED@|${SED}|" \
+		${FILESDIR}/new_configure.in > ${WRKSRC}/new_configure
+	${CHMOD} 755 ${WRKSRC}/new_configure
+
+post-patch:
+	# Use the gcc compiler associated with the ada frontend.
+	# Without this substitution, the base compiler is used instead.
+	${REINPLACE_CMD} -e "s|cc |gcc |" ${WRKSRC}/src/pegasock/Makefile
+	# Avoid use of malloc.h
+	${REINPLACE_CMD} -e "s|<malloc.h>|<stdlib.h>|" \
+		${WRKSRC}/src/bdb/c_bdb.c
+	# Use db.h from db5 and link to it
+	# Fix multi-job support
+	${REINPLACE_CMD} -e "s|BDB4|BDB4 -I${PREFIX}/include/db5|" \
+		-e "s|-ldb|-L${PREFIX}/lib/db5 -ldb|" \
+		-e "s|db: db.adb|db: bdb_constants.ads db.adb|" \
+		-e "s| -fstack-protector||" \
+		${WRKSRC}/src/bdb/GNUmakefile
+	# fix areadline linkage
+	${REINPLACE_CMD} -e "s|gnatlink.*|gnatlink rl.ali -L${PREFIX}/lib -lreadline -lhistory|" \
+		${WRKSRC}/src/areadline/Makefile
+
+post-configure:
+.for f in ${PREPFILES}
+	(cd ${WRKSRC}/src && ${SETENV} ${MAKE_ENV} \
+		gnatprep ${SFARG} ${f}.orig ${f})
+.endfor
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	@${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/spar
+	(cd ${WRKSRC}/doc && ${COPYTREE_SHARE} \* ${STAGEDIR}${STD_DOCDIR})
+	@${MV} ${WRKSRC}/examples/incomplete ${WRKDIR}/
+	(cd ${WRKSRC}/examples && \
+		${COPYTREE_SHARE} \* ${STAGEDIR}${STD_EXAMPLESDIR})
