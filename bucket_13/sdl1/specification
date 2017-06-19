@@ -1,0 +1,85 @@
+DEF[PORTVERSION]=	1.2.15
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		sdl1
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Cross-platform multimedia development API
+HOMEPAGE=		http://www.libsdl.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.libsdl.org/release/
+DISTFILE[1]=		SDL-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary examples docs
+
+# Remove NAS from AVAIL, STANDARD, AUDIO group (ancient)
+OPTIONS_AVAILABLE=	AALIB OSS SNDIO PULSEAUDIO OPENGL X11
+OPTIONS_STANDARD=	AALIB OSS SNDIO PULSEAUDIO OPENGL X11
+OPTGROUP_UNLIMITED=	AUDIO
+OPTDESCR[AUDIO]=	Audio Support
+OPTGROUP[AUDIO]=	AALIB OSS SNDIO PULSEAUDIO
+OPT_ON[all]=		AALIB OPENGL X11
+OPT_ON[linux]=		PULSEAUDIO
+OPT_ON[dragonfly]=	OSS
+OPT_ON[freebsd]=	PULSEAUDIO OSS
+
+LICENSE=		LGPL21:primary
+LICENSE_FILE=		LGPL21:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/sdl12
+
+BUILD_DEPENDS=		nasm:primary:standard
+
+USES=			gmake libtool pkgconfig iconv
+DISTNAME=		SDL-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ENV=		ac_cv_header_libusbhid_h=no
+CONFIGURE_ARGS=		--disable-alsa
+			--disable-alsatest
+			--disable-arts
+			--disable-video-directfb
+			--disable-video-ggi
+
+[AALIB].CONFIGURE_ENABLE_BOTH=		video-aalib
+[AALIB].BUILDRUN_DEPENDS_ON=		aalib:single:standard
+
+[OPENGL].CONFIGURE_ENABLE_BOTH=		video-opengl
+[OPENGL].USES_ON=			mesa
+
+# [NAS].CONFIGURE_ENABLE_BOTH=		nas
+# [NAS].BUILDRUN_DEPENDS_ON=		nas:single:standard
+
+[PULSEAUDIO].CONFIGURE_ENABLE_BOTH=	pulseaudio
+[PULSEAUDIO].BUILDRUN_DEPENDS_ON=	pulseaudio:single:standard
+[PULSEAUDIO].BROKEN_ON=			not yet implemented
+
+[SNDIO].CONFIGURE_ENABLE_BOTH=		sndio
+[SNDIO].BUILDRUN_DEPENDS_ON=		sndio:single:standard
+
+[X11].CONFIGURE_ENABLE_BOTH=		video-x11
+[X11].XORG_COMPONENTS_ON=		x11 xrender xrandr xextproto
+
+
+post-patch:
+	@${REINPLACE_CMD} -e '/EXTRA_LDFLAGS/s/-liconv/${ICONV_LIB}/' \
+		${WRKSRC}/configure
+
+post-patch-SNDIO-ON:
+	@${MKDIR} ${WRKSRC}/src/audio/sndio
+	${CP} ${FILESDIR}/SDL_sndioaudio.* ${WRKSRC}/src/audio/sndio
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${STD_DOCDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+.for doc in BUGS CREDITS README README-SDL.txt WhatsNew docs.html
+	${INSTALL_DATA} ${WRKSRC}/${doc} ${STAGEDIR}${STD_DOCDIR}/
+.endfor
+	(cd ${WRKSRC} && ${COPYTREE_SHARE} docs \
+		${STAGEDIR}${STD_DOCDIR}/ "! -regex .*/man3.*")
+.for exam in test/*.c test/*.bmp test/*.dat test/*.xbm test/*.wav
+	${INSTALL_DATA} ${WRKSRC}/${exam} ${STAGEDIR}${STD_EXAMPLESDIR}/
+.endfor
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libSDL-1.2.so.0
