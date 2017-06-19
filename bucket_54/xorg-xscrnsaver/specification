@@ -1,0 +1,31 @@
+DEF[PORTVERSION]=	1.2.2
+DEF[XNAME]=		xscrnsaver
+DEF[ALTNAME]=		libXScrnSaver
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-${XNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	The X11 screensaver library
+HOMEPAGE=		https://www.x.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		XORG/individual/lib
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xorg
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+RUN_DEPENDS=		xorg-scrnsaverproto:single:standard
+
+USES=			libtool
+XORG_COMPONENTS=	scrnsaverproto x11 xext
+DISTNAME=		${ALTNAME}-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+FPC_EQUIVALENT=		x11/${ALTNAME}
