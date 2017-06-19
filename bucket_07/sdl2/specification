@@ -1,0 +1,108 @@
+DEF[PORTVERSION]=	2.0.5
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		sdl2
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Cross-platform multimedia development API
+HOMEPAGE=		http://www.libsdl.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.libsdl.org/release/
+DISTFILE[1]=		SDL2-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+# Remove ESOUND, NAS from AVAIL, STANDARD, AUDIO group (ancient)
+OPTIONS_AVAILABLE=	OSS SNDIO PULSEAUDIO ALSA OPENGL X11 MMX 3DNOW SSE SSE2
+OPTIONS_STANDARD=	OSS SNDIO PULSEAUDIO ALSA OPENGL X11 MMX 3DNOW SSE SSE2
+OPTGROUP_UNLIMITED=	AUDIO CPUEXT
+OPTDESCR[AUDIO]=	Audio Support
+OPTDESCR[CPUEXT]=	CPU Extension Support
+OPTGROUP[AUDIO]=	OSS SNDIO PULSEAUDIO ALSA
+OPTGROUP[CPUEXT]=	MMX 3DNOW SSE SSE2
+OPT_ON[all]=		OPENGL X11
+OPT_ON[linux]=		PULSEAUDIO
+OPT_ON[dragonfly]=	OSS
+OPT_ON[freebsd]=	PULSEAUDIO OSS
+
+LICENSE=		ZLIB:single
+LICENSE_FILE=		ZLIB:{{WRKSRC}}/COPYING.txt
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/sdl20
+
+USES=			gmake libtool pkgconfig iconv
+DISTNAME=		SDL2-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ENV=		ac_cv_header_libusbhid_h=no
+CONFIGURE_ARGS=		--disable-video-opengles
+			--disable-altivec
+			--disable-arts
+			--enable-diskaudio
+			--enable-dummyaudio
+			--enable-video-dummy
+			--disable-dbus
+			--disable-input-tslib
+			--disable-rpath
+			--enable-atomic
+			--enable-gcc-atomics
+			--enable-audio
+			--enable-cpuinfo
+			--enable-events
+			--enable-filesystem
+			--enable-haptic
+			--enable-joystick
+			--enable-loadso
+			--enable-power
+			--enable-render
+			--enable-threads
+			--enable-timers
+			--enable-video
+			--enable-pthreads
+			--enable-sdl-dlopen
+			--enable-assembly
+
+[OPENGL].CONFIGURE_ENABLE_BOTH=		video-opengl
+[OPENGL].USES_ON=			mesa
+
+[PULSEAUDIO].CONFIGURE_ENABLE_BOTH=	pulseaudio pulseaudio-shared
+[PULSEAUDIO].BUILDRUN_DEPENDS_ON=	pulseaudio:single:standard
+[PULSEAUDIO].BROKEN_ON=			not yet implemented
+
+[ALSA].CONFIGURE_ENABLE_BOTH=		alsa alsa-shared
+[ALSA].BUILDRUN_DEPENDS_ON=		alsa:single:standard
+[ALSA].BROKEN_ON=			not yet implemented
+
+[SNDIO].CONFIGURE_ENABLE_BOTH=		sndio sndio-shared
+[SNDIO].BUILDRUN_DEPENDS_ON=		sndio:single:standard
+
+[OSS].CONFIGURE_ENABLE_BOTH=		oss
+
+[X11].CONFIGURE_ENABLE_BOTH=		video-x11
+					x11-shared
+					video-x11-xcursor
+					video-x11-xinerama
+					video-x11-xinput
+					video-x11-xrandr
+					video-x11-scrnsaver
+					video-x11-xshape
+					video-x11-vm
+[X11].XORG_COMPONENTS_ON=		x11 xcursor xinerama xi xrandr xscrnsaver xxf86vm xext
+
+[MMX].DESCRIPTION=			Matrix Math Extensions (MMX from Intel)
+[MMX].CONFIGURE_ENABLE_BOTH=		mmx
+
+[3DNOW].DESCRIPTION=			3DNow! x86 instruction set (from AMD)
+[3DNOW].CONFIGURE_ENABLE_BOTH=		3dnow
+
+[SSE].DESCRIPTION=			Streaming SIMD Extensions
+[SSE].CONFIGURE_ENABLE_BOTH=		sse
+
+[SSE2].DESCRIPTION=			Streaming SIMD Extensions 2
+[SSE2].CONFIGURE_ENABLE_BOTH=		sse2
+
+post-install:
+	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libSDL2.so

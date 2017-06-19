@@ -63,6 +63,7 @@ CONFIGURE_ARGS=		--disable-alsa
 [X11].CONFIGURE_ENABLE_BOTH=		video-x11
 [X11].XORG_COMPONENTS_ON=		x11 xrender xrandr xextproto
 
+[OSS].CONFIGURE_ENABLE_BOTH=		oss
 
 post-patch:
 	@${REINPLACE_CMD} -e '/EXTRA_LDFLAGS/s/-liconv/${ICONV_LIB}/' \
