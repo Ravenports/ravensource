@@ -1,0 +1,55 @@
+DEF[PORTVERSION]=	1.2.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		sndio
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		standard
+SDESC[standard]=	Small audio and MIDI framework from OpenBSD
+HOMEPAGE=		http://www.sndio.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.sndio.org/
+DISTFILE[1]=		sndio-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		ISCL:single
+LICENSE_FILE=		ISCL:{{WRKDIR}}/ISC_LICENSE
+LICENSE_SCHEME=		solo
+
+USERS=			_sndio
+GROUPS=			_sndio
+USERGROUP_SPKG=		single
+
+SINGLE_JOB=		yes
+RC_SUBR=		sndiod:single
+
+MUST_CONFIGURE=		yes
+CONFIGURE_ARGS=		--prefix={{PREFIX}}
+			--mandir={{MANPREFIX}}/man
+
+post-extract:
+	${AWK} '/^#ifndef/ {exit}; {print}' ${WRKSRC}/libsndio/sndio.h \
+		> ${WRKDIR}/ISC_LICENSE
+
+
+post-patch:
+	# Make sure sndiod can be started inside jails as root
+	@${REINPLACE_CMD} 's|err(1, "setpriority")|warn("setpriority")|' \
+		${WRKSRC}/sndiod/sndiod.c
+
+post-patch-dragonfly:
+	${REINPLACE_CMD} -e 's@\(FreeBSD\))@\1|DragonFly)@g' \
+		${WRKSRC}/configure
+
+post-install:
+	${STRIP_CMD} \
+		${STAGEDIR}${PREFIX}/lib/libsndio.so.6.1 \
+		${STAGEDIR}${PREFIX}/bin/sndiod \
+		${STAGEDIR}${PREFIX}/bin/aucat \
+		${STAGEDIR}${PREFIX}/bin/midicat

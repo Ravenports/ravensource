@@ -1,0 +1,23 @@
+#!/bin/sh
+#
+# $FreeBSD: head/audio/sndio/files/sndiod.in 427071 2016-11-25 01:11:41Z cpm $
+#
+# PROVIDE: sndiod
+# REQUIRE: NETWORKING sysctl
+# BEFORE:  DAEMON
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=sndiod
+rcvar=sndiod_enable
+
+load_rc_config $name
+
+: ${sndiod_dev="rsnd/$($SYSCTL -n hw.snd.default_unit)"}
+: ${sndiod_enable="NO"}
+: ${sndiod_flags="-f ${sndiod_dev} -c 0:7 -j off -s default -m mon -s monitor"}
+
+command="%%PREFIX%%/bin/sndiod"
+
+run_rc_command "$1"
