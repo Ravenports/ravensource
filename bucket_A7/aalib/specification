@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	1.4rc5
+DEF[WORKVERSION]=	1.4.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		aalib
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	ASCII art library
+HOMEPAGE=		http://aa-project.sourceforge.net/aalib/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/aa-project/aa-lib/${PORTVERSION}
+DISTFILE[1]=		aalib-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:single
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/aalib
+
+USES=			libtool ncurses makeinfo
+DISTNAME=		aalib-${WORKVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-x=no
+INSTALL_TARGET=		install-strip
+INFO=			single:aalib
+
+post-extract:
+	@${RM} ${WRKSRC}/doc/aalib.info*
+
+post-patch:
+	@${RM} ${WRKSRC}/config.cache
+	@${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g; \
+		s|MAKEINFO=makeinfo|MAKEINFO="makeinfo --no-split"|g' \
+		${WRKSRC}/configure
+	@${REINPLACE_CMD} \
+		-e 's|AC_DEFUN(AM_PATH_AALIB|AC_DEFUN([AM_PATH_AALIB]|g' \
+		${WRKSRC}/aalib.m4
+	@${FIND} ${WRKSRC} \( -name '*.[ch]' \! -name acconfig.h \) \
+		| ${XARGS} ${REINPLACE_CMD} -e 's|<malloc.h>|<stdlib.h>|g'
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libaa.so
