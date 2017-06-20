@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	0.6.11
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libcroco
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	CSS2 parsing library
+HOMEPAGE=		http://www.freespiders.org/projects/libcroco/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/libcroco/${PORTVERSION:R}
+DISTFILE[1]=		libcroco-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		textproc/libcroco
+
+USES=			gettext-tools gmake libtool pkgconfig
+GNOME_COMPONENTS=	glib libxml2
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-gtk-doc-html
+INSTALL_TARGET=		install-strip
+PLIST_SUB=		VERSION="${PORTVERSION:R}"
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/libcroco \
+		${STAGEDIR}${PREFIX}/share/doc/
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
