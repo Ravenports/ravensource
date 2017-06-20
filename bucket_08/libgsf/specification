@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	1.14.41
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libgsf
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Extensible I/O abstraction of file formats
+HOMEPAGE=		https://developer.gnome.org/gsf/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/libgsf/${PORTVERSION:R}
+DISTFILE[1]=		libgsf-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome2
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/libgsf
+
+BUILD_DEPENDS=		gobject-introspection:single:standard
+
+USES=			gettext-tools gmake libtool pkgconfig intltoolfix zlib
+			python:py27,build
+GNOME_COMPONENTS=	gdkpixbuf intltool libxml2
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-introspection
+INSTALL_TARGET=		install-strip
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/doc
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/gsf \
+		${STAGEDIR}${STD_DOCDIR}
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
