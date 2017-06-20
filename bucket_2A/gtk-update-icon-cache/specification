@@ -27,16 +27,14 @@ FPC_EQUIVALENT=		graphics/gtk-update-icon-cache
 
 # atk, pango, cairo are not linked in, but configure checks for them
 
-BUILD_DEPENDS=		gobject-introspection:single:standard
-			pango:primary:standard
+BUILD_DEPENDS=		pango:primary:standard
 			cairo:single:standard
 			atk:single:standard
 RUN_DEPENDS=		shared-mime-info:single:standard
 			hicolor-icon-theme:single:standard
 
-USES=			gmake gettext-tools libtool pkgconfig
-			perl:build python:py27,build
-GNOME_COMPONENTS=	gdkpixbuf
+USES=			gmake gettext-tools libtool pkgconfig perl:build
+GNOME_COMPONENTS=	gdkpixbuf introspection
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-static
 			--with-xinput=yes

@@ -23,14 +23,13 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		x11-toolkits/pango
 
-BUILD_DEPENDS=		gobject-introspection:single:standard
 RUN_DEPENDS=		xorg-truetype-fonts:single:standard
 BUILDRUN_DEPENDS=	freetype:primary:standard
 			harfbuzz:primary:standard
 			fontconfig:primary:standard
 
-USES=			gmake libtool perl:build pkgconfig python:py27,build
-GNOME_COMPONENTS=	cairo glib
+USES=			gmake libtool perl:build pkgconfig
+GNOME_COMPONENTS=	cairo glib introspection
 XORG_COMPONENTS=	x11 xft xrender
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-xft

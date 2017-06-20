@@ -22,15 +22,14 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		graphics/gdk-pixbuf2
 
-BUILD_DEPENDS=		gobject-introspection:single:standard
 BUILDRUN_DEPENDS=	tiff:primary:standard
 			png:single:standard
 			jasper:primary:standard
 
 USES=			cpe gmake jpeg pkgconfig libtool gettext-runtime
-			perl:build python:py27,build
+			perl:build
 XORG_COMPONENTS=	x11 xi xt
-GNOME_COMPONENTS=	glib
+GNOME_COMPONENTS=	glib introspection
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-introspection=yes
 			--enable-nls
