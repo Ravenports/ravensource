@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	2.40.17
+DEF[GTK_VERSION]=	EXTRACT_INFO(GTK2_VERSION)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		librsvg
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	SVG vector-graphic files rendering library
+HOMEPAGE=		http://live.gnome.org/LibRsvg
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/librsvg/${PORTVERSION:R}
+DISTFILE[1]=		librsvg-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		graphics/librsvg2
+
+BUILDRUN_DEPENDS=	png:single:standard
+			freetype:primary:standard
+
+USES=			gettext-tools gmake libtool pkgconfig perl:build
+GNOME_COMPONENTS=	cairo pango gdkpixbuf libxml2 introspection libcroco
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-vala
+			--disable-Bsymbolic
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+PLIST_SUB=		PORTVERSION=${PORTVERSION}
+			GTK_VERSION=${GTK_VERSION}
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|GTK3_REQUIRED=3.[0-9][0-9].[0-9]|GTK3_REQUIRED=9.90.0|g' \
+		${WRKSRC}/configure
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/doc
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/rsvg-2.0 ${STAGEDIR}${STD_DOCDIR}
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
