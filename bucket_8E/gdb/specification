@@ -1,0 +1,80 @@
+DEF[PORTVERSION]=	7.12.1
+DEF[SUFFIX]=		${PORTVERSION:S/.//g}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gdb
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	GNU debugger
+HOMEPAGE=		http://www.gnu.org/software/gdb/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/gdb
+DISTFILE[1]=		gdb-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/gdb
+
+NOT_FOR_ARCH=		aarch64
+
+BUILD_DEPENDS=		expat:static:standard
+BUILDRUN_DEPENDS=	expat:shared:standard
+
+USES=			cpe iconv gmake libtool readline python
+CPE_VENDOR=		gnu
+MUST_CONFIGURE=		gnu
+CONFIGURE_ENV=		CONFIGURED_M4=m4
+			CONFIGURED_BISON=byacc
+CONFIGURE_ARGS=		--program-suffix=${SUFFIX}
+			--enable-targets=all
+			--enable-64-bit-bfd
+			--enable-tui
+			--disable-build-with-cxx
+			--with-gdb-datadir={{PREFIX}}/share/gdb${SUFFIX}
+			{{ICONV_CONFIGURE_ARG}}
+			--with-system-readline
+			--with-expat=yes
+			--with-libexpat-prefix={{LOCALBASE}}
+			--without-libunwind-ia64
+			--with-python={{PYTHON_CMD}}
+CFLAGS=			-DRL_NO_COMPAT
+			-D__STDC_CONSTANT_MACROS
+			-D__STDC_LIMIT_MACROS
+			-Wno-unused-function
+			-Wno-unused-variable
+PLIST_SUB=		VER=${SUFFIX}
+EXTRACT_HEAD[1]=	{{TAR}} -xf
+EXTRACT_TAIL[1]=	--exclude dejagnu --exclude expect --exclude sim --exclude texinfo --exclude intl --exclude readline
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|$$| [GDB v${PORTVERSION} for ${OPSYS}]|' \
+		${WRKSRC}/gdb/version.in
+
+post-patch-dragonfly:
+	${CP} ${OPSYSDIR}/dfly64.mh  ${WRKSRC}/gdb/config/i386/
+	${CP} ${OPSYSDIR}/dfly-nat.* ${WRKSRC}/gdb/
+	${CP} ${OPSYSDIR}/i386*      ${WRKSRC}/gdb/
+	${CP} ${OPSYSDIR}/amd64*     ${WRKSRC}/gdb/
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/gdb/gdb \
+		${STAGEDIR}${PREFIX}/bin/gdb${SUFFIX}
+	${INSTALL_MAN} ${WRKSRC}/gdb/doc/gdb.1 \
+		${STAGEDIR}${MAN1PREFIX}/man/man1/gdb${SUFFIX}.1
+	(cd ${WRKSRC}/gdb/data-directory ; \
+		${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} install-syscalls )
+	${LN} -sf gdb${SUFFIX} ${STAGEDIR}${PREFIX}/bin/gdbtui${SUFFIX}
+	${LN} -sf gdb${SUFFIX} ${STAGEDIR}${PREFIX}/bin/gdb
+	(cd ${WRKSRC}/gdb && ${SETENV} ${MAKE_ENV} \
+		${MAKE_CMD} ${MAKE_ARGS} install-python )
+	(cd ${WRKSRC}/gdb/data-directory && ${SETENV} ${MAKE_ENV} \
+		${MAKE_CMD} ${MAKE_ARGS} install-python )
+. for f in gdb gdb/command gdb/function gdb/printer
+	@(cd ${STAGEDIR}${PREFIX}/share/gdb${SUFFIX}/python/${f} ; ${CHMOD} 644 *.py* )
+. endfor

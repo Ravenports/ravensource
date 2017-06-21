@@ -1,0 +1,24 @@
+--- gdb/configure.tgt.orig	2015-05-13 17:36:05 UTC
++++ gdb/configure.tgt
+@@ -659,6 +659,12 @@ x86_64-*-linux*)
+ 			solib-svr4.o symfile-mem.o linux-tdep.o linux-record.o"
+ 	build_gdbserver=yes
+ 	;;
++x86_64-*-dragonfly*)
++	# Target: DragonFly/amd64
++	gdb_target_obs="amd64-tdep.o amd64dfly-tdep.o i386-tdep.o \
++			i387-tdep.o i386bsd-tdep.o i386dfly-tdep.o \
++			bsd-uthread.o solib-svr4.o"
++	;;
+ x86_64-*-freebsd* | x86_64-*-kfreebsd*-gnu)
+ 	# Target: FreeBSD/amd64
+ 	gdb_target_obs="amd64-tdep.o amd64fbsd-tdep.o i386-tdep.o \
+@@ -699,6 +705,8 @@ esac
+ # map target onto default OS ABI
+ 
+ case "${targ}" in
++*-*-dragonfly*)
++		gdb_osabi=GDB_OSABI_DRAGONFLY ;;
+ *-*-freebsd* | *-*-kfreebsd*-gnu)
+ 		gdb_osabi=GDB_OSABI_FREEBSD_ELF ;;
+ *-*-linux* | *-*-uclinux*)
