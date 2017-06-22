@@ -29,3 +29,6 @@ CONFIGURE_ARGS=		--with-shared-memory-dir=/tmp
 INSTALL_TARGET=		install-strip
 TEST_TARGET=		check
 FPC_EQUIVALENT=		x11/libxshmfence
+
+# visibility issues with mkostemp, just fall back
+VAR_OPSYS[linux]=	CONFIGURE_ENV=ac_cv_func_mkostemp=no
