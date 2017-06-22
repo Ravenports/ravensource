@@ -1,0 +1,54 @@
+--- configure.orig	2017-04-29 12:00:38 UTC
++++ configure
+@@ -4045,7 +4045,7 @@ case "${host}" in
+ 
+     DEFAULT_DEFAULT_wxUSE_MOTIF=1
+   ;;
+-  *-*-freebsd*)
++  *-*-dragonfly*|*-*-freebsd*)
+     USE_BSD=1
+     USE_FREEBSD=1
+     $as_echo "#define __FREEBSD__ 1" >>confdefs.h
+@@ -22037,6 +22037,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
+ 
+ 
+ SEARCH_INCLUDE="\
++    $X11BASE/include          \
+     /usr/local/include        \
+     /usr/local/X11/include    \
+     /usr/local/include/X11    \
+@@ -32008,9 +32009,6 @@ $as_echo "$as_me: WARNING: BeOS threads
+                                         THREAD_OPTS="-pthreads $THREAD_OPTS"
+                 fi
+                 ;;
+-          *-*-freebsd*)
+-                                                THREAD_OPTS="-kthread lthread $THREAD_OPTS c_r"
+-                ;;
+           *-*-darwin* | *-*-cygwin* )
+                                                 THREAD_OPTS=""
+                 ;;
+@@ -33283,7 +33281,7 @@ else
+         fi
+     fi
+ fi
+-
++OPTIMISE_CFLAGS=
+ 
+ if test "x$WXWIN_COMPATIBILITY_2_6" = "xyes"; then
+     $as_echo "#define WXWIN_COMPATIBILITY_2_6 1" >>confdefs.h
+@@ -40150,6 +40148,7 @@ EOF
+       ;;
+ 
+       powerpc-apple-macos* | \
++      *-*-dragonfly* | \
+       *-*-freebsd* | *-*-openbsd* | *-*-netbsd* | *-*-gnu* | *-*-k*bsd*-gnu | \
+       *-*-mirbsd* | \
+       *-*-sunos4* | \
+@@ -40192,6 +40191,7 @@ EOF
+ 
+     case "${BAKEFILE_HOST}" in
+       *-*-linux* | *-*-freebsd* | *-*-openbsd* | *-*-netbsd* | \
++      *-*-dragonfly* | \
+       *-*-k*bsd*-gnu | *-*-mirbsd* | *-*-gnu* )
+         if test "x$SUNCXX" = "xyes"; then
+             SONAME_FLAG="-h "
