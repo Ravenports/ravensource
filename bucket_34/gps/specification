@@ -1,0 +1,106 @@
+DEF[PORTVERSION]=	2016
+DEF[PYCOMPILE]=		{{PREFIX}}/lib/python{{PYTHON_VER}}/compileall.py
+DEF[LLVM_VERSION]=	40
+DEF[GCCVER]=		EXTRACT_INFO(CURRENT_GCC)
+DEF[PYVER]=		py27
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gps
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	GNAT Programming Studio - IDE for Ada plus
+HOMEPAGE=		http://www.adacore.com/gnatpro/toolsuite/gps/
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://downloads.dragonlace.net/src/
+DISTFILE[1]=		gps-gpl-${PORTVERSION}-src.tar.gz:main
+
+SPKGS[standard]=	complete primary docs examples
+
+OPTIONS_AVAILABLE=	DEBUG
+OPTIONS_STANDARD=	DEBUG
+
+FPC_EQUIVALENT=		devel/gps
+
+BUILD_DEPENDS=		xmlada:primary:standard
+			gnatcoll:primary:standard
+			gnat-util:single:standard
+			python-Sphinx:single:${PYVER}
+BUILDRUN_DEPENDS=	fontconfig:primary:standard
+			freetype:primary:standard
+			llvm${LLVM_VERSION}:clang:standard
+			gtkada:primary:standard
+			python-pygobject:primary:${PYVER}
+RUN_DEPENDS=		librsvg:primary:standard
+			gdb:single:standard
+			python-pep8:single:${PYVER}
+			python-jedi:single:${PYVER}
+
+USES=			gprbuild:buildrun gettext-tools gmake pkgconfig zlib
+			perl:build python:${PYVER}
+XORG_COMPONENTS=	x11
+GNOME_COMPONENTS=	gtk3 cairo gdkpixbuf
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ENV=		AWK=/usr/bin/awk
+CONFIGURE_ARGS=		--with-gtk=3.0
+			--with-clang={{LOCALBASE}}/llvm${LLVM_VERSION}/lib
+DISTNAME=		gps-gpl-${PORTVERSION}-src
+BUILD_TARGET=		default
+MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
+			PYTHON_CMD={{PYTHON_CMD}}
+SUB_FILES=		gps
+SUB_LIST=		ADA_PATH={{PREFIX}}/toolchain/${GCCVER}/bin
+
+# note: librsvg2 is needed to display the svg icons in the menu.  Actually
+# needed is lib/gdk-pixbuf-2.0/%%GTK2_VER%%/loaders/libpixbufloader-svg.so ,
+# but it's a variable library needed only at runtime, which is obnoxious so
+# we just request the sole binary to pull in the package which effectively
+# accomplishes what is desired.
+
+[DEBUG].CONFIGURE_ARGS_ON=		Build=Debug
+[DEBUG].CONFIGURE_ARGS_OFF=		Build=Production
+
+post-extract:
+	@${MV} ${WRKSRC}/Makefile.gnat ${WRKSRC}/Makefile.gnat.ignore
+	@${FIND} ${WRKSRC}/share -name "*.pyc" -delete
+	${RM} ${WRKSRC}/share/support/core/cross_references.py
+
+post-patch:
+	@${RM} ${WRKSRC}/share/plug-ins/*.orig
+	@${ECHO} "GNAT_SOURCES=" > ${WRKSRC}/Makefile.gnat
+	@${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|g' \
+		${WRKSRC}/widgets/widgets.gpr
+	@${REINPLACE_CMD} -e '/Gdb_Command/ s|"gdb"|"${PREFIX}/bin/gdb"|' \
+		${WRKSRC}/gvd/src/debugger-gdb_mi.adb \
+		${WRKSRC}/gvd/src/debugger-gdb.adb
+	@${REINPLACE_CMD} -i'' -e 's|ISO-8859|ISO8859|' \
+		${WRKSRC}/kernel/src/gps-kernel-charsets.adb \
+		${WRKSRC}/share/support/core/os_utils.py \
+		${WRKSRC}/configure* \
+		${WRKSRC}/po/build_skeleton.pl
+	@${REINPLACE_CMD} -e 's|iso-8859|ISO8859|' \
+		${WRKSRC}/cli/src/gps-cli_scripts.adb \
+		${WRKSRC}/cli/src/gnatdoc_main.adb
+	@${REINPLACE_CMD} \
+		-e 's|-lclang|-Wl,-rpath,${LOCALBASE}/llvm${LLVM_VERSION}/lib -lclang|' \
+		${WRKSRC}/configure
+
+do-build:
+	@${CP} ${PREFIX}/include/gnat-util/impunit.* ${WRKSRC}/distrib
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		${MAKE_CMD} ${MAKE_ARGS} ${ALL_TARGET}
+	cd ${WRKSRC}/docs && ${SETENV} ${MAKE_ENV} \
+		${MAKE_CMD} ${MAKE_ARGS} all
+	${PYTHON_CMD} ${PYCOMPILE} ${WRKSRC}/share/plug-ins
+	${PYTHON_CMD} ${PYCOMPILE} ${WRKSRC}/share/library
+	${PYTHON_CMD} ${PYCOMPILE} ${WRKSRC}/share/support
+
+post-install:
+	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/gps/html/*/_sources
+	${INSTALL_SCRIPT} ${WRKDIR}/gps ${STAGEDIR}${PREFIX}/bin
+	echo "This is the GPS GPL Edition for Ravenports." \
+		> ${STAGEDIR}${PREFIX}/share/gps/about.txt
+	${FIND} ${STAGEDIR}${PREFIX} -type d -empty -delete

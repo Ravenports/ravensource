@@ -45,10 +45,10 @@ INSTALL_REQ_TOOLCHAIN=	yes
 					--without-python
 					--without-gmp
 					--without-gtk
-[PROJECT].USES_OFF=			python shebangfix
+[PROJECT].USES_OFF=			python:py27 shebangfix
 [PROJECT].MAKEFILE_OFF=			SHEBANG_FILES=src/dborm.py
 [PROJECT].BUILD_DEPENDS_OFF=		gmp:static:standard
-					python-pygobject:primary:python_default
+					python-pygobject:primary:py27
 [PROJECT].BUILDRUN_DEPENDS_OFF=		gmp:shared:standard
 					gtkada:primary:standard
 [PROJECT].CONFIGURE_ARGS_OFF=		--with-sqlite=embedded
@@ -78,6 +78,10 @@ post-patch:
 	    ${WRKSRC}/src/gnatcoll_readline.gpr.in
 	@${REINPLACE_CMD} -e 's|with "gpr"|with "${WRKDIR}/gprbuild/gpr/gpr"|' \
 		${WRKSRC}/src/gnatcoll__libgpr.gpr
+	@${REINPLACE_CMD} \
+		-e '/PYCONFIG=/ s|$${PYTHON_MAJOR_VERSION}|${PYTHON_VER}|' \
+		-e 's| -lz| -L${PREFIX}/lib -Wl,-rpath,${PREFIX}/lib -lz|g' \
+		${WRKSRC}/configure
 
 pre-build:
 	(cd ${WRKDIR}/gprbuild/gpr && ${SETENV} ${MAKE_ENV} \
