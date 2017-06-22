@@ -47,3 +47,13 @@ DISTNAME=		Alien-wxWidgets-0.69
 [PERL_524].BUILDRUN_DEPENDS_ON=		perl-Module-Pluggable:single:524
 
 
+
+BUILDRUN_DEPENDS=	wxWidgets:single:standard
+CONFIGURE_ARGS=		--wxWidgets-build=0
+			--wxWidgets-unicode=1
+CONFIGURE_ENV=		WX_CONFIG="{{LOCALBASE}}/bin/wxgtk3u-3.0-config"
+MAKE_ENV=		WX_CONFIG="{{LOCALBASE}}/bin/wxgtk3u-3.0-config"
+
+post-patch:
+	${REINPLACE_CMD} -e "s/lc_r/lpthread/" \
+		${WRKSRC}/inc/My/Build/Any_wx_config.pm
