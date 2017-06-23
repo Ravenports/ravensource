@@ -49,6 +49,7 @@ CONFIGURE_ARGS=		--enable-pthread
 			--with-gmp
 			{{RUBY_CONFIGURE_ARGS}}
 CONFIGURE_ENV=		debugflags=
+			ac_cv_build={{CONFIGURE_TARGET}}
 PLIST_SUB=		XY={{RUBY_SUFFIX}}
 			XDOTY={{RUBY_VER}}
 CPE_VENDOR=		ruby-lang
@@ -83,7 +84,7 @@ pre-install:
 post-install:
 	# strip ruby binaries
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${RUBY_NAME}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libruby${RUBY_SHLIBVER}.so.${RUBY_SHLIBVER}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libruby${RUBY_SHLIBVER}.so
 	${FIND} ${STAGEDIR}${RUBY_ARCHLIBDIR} -type f -name '*\.so' -exec ${STRIP_CMD} {} \;
 
 	# install docs
