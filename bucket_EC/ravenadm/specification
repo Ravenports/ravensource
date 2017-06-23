@@ -17,8 +17,10 @@ DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	WATCHDOG
+OPTIONS_STANDARD=	WATCHDOG
+OPT_ON[dragonfly]=	WATCHDOG
+OPT_ON[freebsd]=	WATCHDOG
 
 LICENSE=		ISCL:single
 LICENSE_FILE=		ISCL:{{WRKSRC}}/License.txt
@@ -27,6 +29,8 @@ LICENSE_SCHEME=		solo
 BUILD_DEPENDS=		adacurses:primary:standard
 
 USES=			gprbuild ncurses
+
+[WATCHDOG].DESCRIPTION=			Use "watchdog" monitor to abort stalled builds
 
 # We have to link ncurses dynamically to force the terminfo database
 # to be installed as well.  Otherwises a term error will probably occur.
@@ -39,6 +43,11 @@ post-extract:
 	@${REINPLACE_CMD} -e '/pragma Suppress/ s|--  ||' \
 		${WRKSRC}/src/portscan.ads \
 		${WRKSRC}/src/port_specification.ads
+
+post-patch-WATCHDOG-OFF:
+	@${ECHO_MSG} "Disabling watchdog monitor ..."
+	@${REINPLACE_CMD} -e "/hangmonitor :/ s|True|False|" \
+		${WRKSRC}/src/portscan-buildcycle.adb
 
 do-build:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
