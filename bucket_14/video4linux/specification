@@ -26,10 +26,10 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		multimedia/libv4l
 
-BUILD_DEPENDS=		argp-standalone:single:standard
+BR_DEPS[dragonfly]=	argp-standalone:single:standard
+BR_DEPS[freebsd]=	argp-standalone:single:standard
 
-EXRUN[utils]=		argp-standalone:single:standard
-			video4linux:primary:standard
+EXRUN[utils]=		video4linux:primary:standard
 
 USES=			gmake iconv jpeg libtool pkgconfig c++:utils
 DISTNAME=		v4l-utils-${PORTVERSION}
@@ -45,7 +45,17 @@ INSTALL_TARGET=		install-strip
 post-extract:
 	${MV} ${WRKDIR}/linux ${WRKSRC}/
 
-post-patch:
+post-patch-dragonfly:
+	# fix weird types, except a few headers which have compat code for these types.
+	@${FIND} ${WRKDIR} -type f \( -iname "*.h" ! -iname "input.h" ! -iname "videodev2.h" \) | \
+		${XARGS} -n 10 ${REINPLACE_CMD} \
+		-e 's|linux/types.h|sys/types.h|g; s|__user||g; \
+		s|__u8|uint8_t|g; s|__s8|int8_t|g; \
+		s|__u16|uint16_t|g; s|__s16|int16_t|g; \
+		s|__u32|uint32_t|g; s|__s32|int32_t|g; \
+		s|__u64|uint64_t|g; s|__s64|int64_t|g'
+
+post-patch-freebsd:
 	# fix weird types, except a few headers which have compat code for these types.
 	@${FIND} ${WRKDIR} -type f \( -iname "*.h" ! -iname "input.h" ! -iname "videodev2.h" \) | \
 		${XARGS} -n 10 ${REINPLACE_CMD} \
