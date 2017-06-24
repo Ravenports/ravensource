@@ -42,17 +42,17 @@ if [ ${SETAPQ} -eq 1 ]; then
      APQLIBSSUB="${APQLIBSSUB} ./${APQ}/c_mysql.o"
      if [ ${SETPGSQL} -eq 0 ]; then
         echo "Executing APQ's configure (skipping PostgreSQL)"
-        (cd src/${APQ} && /usr/bin/env HAVE_PG=0 ./configure)
+        (cd src/${APQ} && /usr/bin/env HAVE_MY=1 HAVE_PG=0 ./configure)
      fi
   fi
   if [ ${SETPGSQL} -eq 1 ]; then
      PGLIBSSUB="-L@PREFIX@/lib -lintl -lssl -lcrypto"
      if [ ${SETMYSQL} -eq 1 ]; then
         echo "Executing APQ's configure"
-        (cd src/${APQ} && ./configure)
+        (cd src/${APQ} && /usr/bin/env HAVE_MY=1 HAVE_PG=1 ./configure)
      else
         echo "Executing APQ's configure (skipping MySQL)"
-        (cd src/${APQ} && /usr/bin/env HAVE_MY=0 ./configure)
+        (cd src/${APQ} && /usr/bin/env HAVE_MY=0 HAVE_PG=1 ./configure)
      fi
   fi
 else

@@ -107,6 +107,9 @@ post-patch:
 	${REINPLACE_CMD} -e "s|gnatlink.*|gnatlink rl.ali -L${PREFIX}/lib -lreadline -lhistory|" \
 		${WRKSRC}/src/areadline/Makefile
 
+post-patch-linux:
+	${REINPLACE_CMD} -e "s| -lintl||" ${WRKSRC}/new_configure
+
 post-configure:
 .for f in ${PREPFILES}
 	(cd ${WRKSRC}/src && ${SETENV} ${MAKE_ENV} \
