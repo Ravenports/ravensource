@@ -49,7 +49,6 @@ post-patch:
 	@${REINPLACE_CMD} \
 		-e '/strings/s/ - / -a /' \
 		-e '/test/s/==/=/g' \
-		-e '/LIBS/s/-lrt//' \
 		-e '/LIBS/s|-ldld||' ${WRKSRC}/configure
 	@${REINPLACE_CMD} -e 's|-lcairo|-lcairo -lpthread|' \
 		${WRKSRC}/src/*.pc.in
@@ -59,3 +58,9 @@ post-patch:
 	# disable html docs (gnome referencehack)
 	${FIND} ${WRKSRC} -name "Makefile.in" -type f | ${XARGS} ${REINPLACE_CMD} -e \
 		"s|test \"\$$\$$installfiles\" = '\$$(srcdir)/html/\*'|:|"
+
+post-patch-dragonfly:
+	@${REINPLACE_CMD} -e '/LIBS/s/-lrt//' ${WRKSRC}/configure
+
+post-patch-freebsd:
+	@${REINPLACE_CMD} -e '/LIBS/s/-lrt//' ${WRKSRC}/configure
