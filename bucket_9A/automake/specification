@@ -1,9 +1,10 @@
 DEF[PORTVERSION]=	1.15.1
-DEF[AMVER]=		${PORTVERSION:R}
+DEF[BUILD_VER]=		1.15
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		automake
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	GNU Standards-compliant Makefile generator
@@ -26,11 +27,10 @@ RUN_DEPENDS=		autotools-wrappers:automake:standard
 
 USES=			cpe makeinfo perl
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--program-suffix=-${PORTVERSION}
+CONFIGURE_ARGS=		--program-suffix=-${BUILD_VER}
 MAKE_ENV=		MAKEINFOFLAGS=--no-split
 CPE_VENDOR=		gnu
-PLIST_SUB=		AMVER=${AMVER}
-			PTVER=${PORTVERSION}
+PLIST_SUB=		AMVER=${BUILD_VER}
 INFO=			single:automake
 
 post-install:
