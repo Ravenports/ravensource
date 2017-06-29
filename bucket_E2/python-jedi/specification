@@ -4,10 +4,10 @@ DEF[PORTVERSION]=	0.10.2
 NAMEBASE=		python-jedi
 VERSION=		${PORTVERSION}
 KEYWORDS=		python devel
-VARIANTS=		py27 py34 py35
+VARIANTS=		py27 py35 py36
 SDESC[py27]=		Autocompletion tool for Python that can be (PY 27)
-SDESC[py34]=		Autocompletion tool for Python that can be (PY 34)
 SDESC[py35]=		Autocompletion tool for Python that can be (PY 35)
+SDESC[py36]=		Autocompletion tool for Python that can be (PY 36)
 HOMEPAGE=		https://github.com/davidhalter/jedi
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -16,14 +16,14 @@ SITES[main]=		PYPI/j/jedi
 DISTFILE[1]=		jedi-0.10.2.tar.gz:main
 
 SPKGS[py27]=		single
-SPKGS[py34]=		single
 SPKGS[py35]=		single
+SPKGS[py36]=		single
 
-OPTIONS_AVAILABLE=	PY27 PY34 PY35
+OPTIONS_AVAILABLE=	PY27 PY35 PY36
 OPTIONS_STANDARD=	none
-VOPTS[py27]=		PY27=ON PY34=OFF PY35=OFF
-VOPTS[py34]=		PY27=OFF PY34=ON PY35=OFF
-VOPTS[py35]=		PY27=OFF PY34=OFF PY35=ON
+VOPTS[py27]=		PY27=ON PY35=OFF PY36=OFF
+VOPTS[py35]=		PY27=OFF PY35=ON PY36=OFF
+VOPTS[py36]=		PY27=OFF PY35=OFF PY36=ON
 
 LICENSE=		MIT:single
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE.txt
@@ -31,12 +31,13 @@ LICENSE_SCHEME=		solo
 
 GENERATED=		yes
 
-# install_requires extracted from setup.py
+# install_requires extracted from setup.py (using python 2.7)
 
 DISTNAME=		jedi-${PORTVERSION}
 
 [PY27].USES_ON=				python:py27
 
-[PY34].USES_ON=				python:py34
-
 [PY35].USES_ON=				python:py35
+
+[PY36].USES_ON=				python:py36
+

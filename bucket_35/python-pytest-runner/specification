@@ -4,10 +4,10 @@ DEF[PORTVERSION]=	2.11.1
 NAMEBASE=		python-pytest-runner
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py27 py34 py35
+VARIANTS=		py27 py35 py36
 SDESC[py27]=		Invoke py.test as distutils command with d (PY 27)
-SDESC[py34]=		Invoke py.test as distutils command with d (PY 34)
 SDESC[py35]=		Invoke py.test as distutils command with d (PY 35)
+SDESC[py36]=		Invoke py.test as distutils command with d (PY 36)
 HOMEPAGE=		https://github.com/pytest-dev/pytest-runner
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -16,14 +16,14 @@ SITES[main]=		PYPI/p/pytest-runner
 DISTFILE[1]=		pytest-runner-2.11.1.tar.gz:main
 
 SPKGS[py27]=		single
-SPKGS[py34]=		single
 SPKGS[py35]=		single
+SPKGS[py36]=		single
 
-OPTIONS_AVAILABLE=	PY27 PY34 PY35
+OPTIONS_AVAILABLE=	PY27 PY35 PY36
 OPTIONS_STANDARD=	none
-VOPTS[py27]=		PY27=ON PY34=OFF PY35=OFF
-VOPTS[py34]=		PY27=OFF PY34=ON PY35=OFF
-VOPTS[py35]=		PY27=OFF PY34=OFF PY35=ON
+VOPTS[py27]=		PY27=ON PY35=OFF PY36=OFF
+VOPTS[py35]=		PY27=OFF PY35=ON PY36=OFF
+VOPTS[py36]=		PY27=OFF PY35=OFF PY36=ON
 
 LICENSE=		CUSTOM1:single
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE
@@ -32,7 +32,7 @@ LICENSE_SCHEME=		solo
 
 GENERATED=		yes
 
-# install_requires extracted from setup.py
+# install_requires extracted from setup.py (using python 2.7)
 # setuptools_scm>=1.15.0
 
 DISTNAME=		pytest-runner-${PORTVERSION}
@@ -40,8 +40,9 @@ DISTNAME=		pytest-runner-${PORTVERSION}
 [PY27].USES_ON=				python:py27
 [PY27].BUILDRUN_DEPENDS_ON=		python-setuptools_scm:single:py27
 
-[PY34].USES_ON=				python:py34
-[PY34].BUILDRUN_DEPENDS_ON=		python-setuptools_scm:single:py34
-
 [PY35].USES_ON=				python:py35
 [PY35].BUILDRUN_DEPENDS_ON=		python-setuptools_scm:single:py35
+
+[PY36].USES_ON=				python:py36
+[PY36].BUILDRUN_DEPENDS_ON=		python-setuptools_scm:single:py36
+

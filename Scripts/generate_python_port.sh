@@ -22,6 +22,7 @@ PATH=/raven/bin:${PATH}
 VERSION=unset
 MD5SUM=unset
 tarball=unset
+buckdir=unset
 PYPINAME=${1}
 JSONFILE=/tmp/pypi-${PYPINAME}
 NEWPORT=/tmp/python-${PYPINAME}
@@ -34,7 +35,9 @@ PYPITWO=$(echo ${PYPINAME} | awk '{ print substr ($1, 1, 1) "/" $1 }')
 #FIRST_SNAKE=
 setup=unset
 raw_deps=unset
-raven_req=unset
+raven_req2=unset
+raven_req3a=unset
+raven_req3b=unset
 pathtoexec=$(realpath $0)
 thisdir=$(dirname ${pathtoexec})
 
@@ -91,15 +94,15 @@ determine_variants() {
       vrt="py27"
       [ -z "${FIRST_SNAKE}" ] && FIRST_SNAKE=python2.7
    fi
-   exec_setup python3.4 --name > /dev/null
-   if [ $? -eq 0 ]; then
-      vrt="${vrt} py34"
-      [ -z "${FIRST_SNAKE}" ] && FIRST_SNAKE=python3.4
-   fi
    exec_setup python3.5 --name > /dev/null
    if [ $? -eq 0 ]; then
       vrt="${vrt} py35"
       [ -z "${FIRST_SNAKE}" ] && FIRST_SNAKE=python3.5
+   fi
+   exec_setup python3.6 --name > /dev/null
+   if [ $? -eq 0 ]; then
+      vrt="${vrt} py36"
+      [ -z "${FIRST_SNAKE}" ] && FIRST_SNAKE=python3.6
    fi
    for v in ${vrt}; do
       if [ -z "${VARIANTS}" ]; then
@@ -263,8 +266,11 @@ set_keywords() {
 
 write_buildrun() {
    local mockfile=/tmp/expand/${PYPINAME}-${VERSION}/obtain-req.py
+   local mockfile2=/tmp/expand/${PYPINAME}-${VERSION}/obtain-req2.py
    local setup=/tmp/expand/${PYPINAME}-${VERSION}/setup.py
-   raven_req=/tmp/expand/${PYPINAME}-${VERSION}/raven-req.list
+   raven_req2=/tmp/expand/${PYPINAME}-${VERSION}/raven-req2.list
+   raven_req3a=/tmp/expand/${PYPINAME}-${VERSION}/raven-req3a.list
+   raven_req3b=/tmp/expand/${PYPINAME}-${VERSION}/raven-req3b.list
    cat <<EOF > ${mockfile}
 import unittest.mock
 import setuptools
@@ -277,6 +283,7 @@ if mock_setup.call_args is not None:
    print ('\n'.join(kwargs.get('install_requires', [])))
    print ('\n'.join(kwargs.get('setup_requires', [])))
 EOF
+   sed -e 's|unittest.||' ${mockfile} > ${mockfile2}
 
    check_name=$(grep -q "^if __name__ == '__main__'" ${setup})
    if [ $? -eq 0 ]; then
@@ -293,23 +300,44 @@ EOF
    if [ $? -eq 0 ]; then
       sed -i'.bak' 's/from distutils.core/from setuptools/' ${setup}
    fi
-   (cd /tmp/expand/${PYPINAME}-${VERSION}/ && python3.4 obtain-req.py | sed '/^$/d') \
-    > ${raven_req}
+
+   (cd /tmp/expand/${PYPINAME}-${VERSION}/ && python2.7 obtain-req2.py | sed '/^$/d') \
+    > ${raven_req2}
    if [ $? -ne 0 ]; then
       echo "### Python script to obtain dependencies failed! ###";
-      cat ${raven_req}
+      cat ${raven_req2}
+   fi
+
+   (cd /tmp/expand/${PYPINAME}-${VERSION}/ && python3.5 obtain-req.py | sed '/^$/d') \
+    > ${raven_req3a}
+   if [ $? -ne 0 ]; then
+      echo "### Python script to obtain dependencies failed! ###";
+      cat ${raven_req3a}
+   fi
+
+   (cd /tmp/expand/${PYPINAME}-${VERSION}/ && python3.6 obtain-req.py | sed '/^$/d') \
+    > ${raven_req3b}
+   if [ $? -ne 0 ]; then
+      echo "### Python script to obtain dependencies failed! ###";
+      cat ${raven_req3b}
    fi
     grep "if __name__ == '__main__'" /tmp/expand/*/setup.py
 }
 
 dump_dependencies_as_comments() {
-   echo "# install_requires extracted from setup.py"
-   awk '{ if (length ($1) > 0) print "# " $1 }' ${raven_req}
+   echo "# install_requires extracted from setup.py (using python 2.7)"
+   awk '{ if (length ($1) > 0) print "# " $1 }' ${raven_req2}
 }
 
 dump_buildrun_options() {
    local v
+   local reqfile
    for v in ${VARIANTS}; do
+      case "${v}" in
+       py35) reqfile=${raven_req3a} ;;
+       py36) reqfile=${raven_req3b} ;;
+        *)   reqfile=${raven_req2} ;;
+      esac
       awk -F ">" -v variant=${v} '\
 function strip_dep(dep) {\
        if (index (dep, "==")) \
@@ -341,8 +369,15 @@ BEGIN {\
         variant);\
    };\
    virgin = 0;\
-}' ${raven_req}
+}' ${reqfile}
    done
+}
+
+set_buckdir() {
+	local raw=$(/raven/bin/ravenadm locate python-${PYPINAME})
+	local bucket=$(echo ${raw} | awk -F '/' \
+	   '{ for (x=1;x<=NF;x++) if (substr($x,1,7) == "bucket_") print $x}')
+	buckdir="${thisdir}/../${bucket}/python-${PYPINAME}"
 }
 
 replace_port() {
@@ -352,10 +387,6 @@ replace_port() {
 	#    descriptions/desc.single
 	#    distinfo
 	# Any other materials like files/*, patches/*, etc. remain
-	local raw=$(/raven/bin/ravenadm locate python-${PYPINAME})
-	local bucket=$(echo ${raw} | awk -F '/' \
-	   '{ for (x=1;x<=NF;x++) if (substr($x,1,7) == "bucket_") print $x}')
-	local buckdir="${thisdir}/../${bucket}/python-${PYPINAME}"
 	mkdir -p ${buckdir}/descriptions
 	mv ${SPEC} ${buckdir}
 	mv ${NEWPORT}/descriptions/desc.single ${buckdir}/descriptions
@@ -366,6 +397,10 @@ replace_port() {
 }
 
 generate_port() {
+   local manualbit
+   if [ -f "${buckdir}/specification.manual" ]; then
+      manualbit=$(cat ${buckdir}/specification.manual)
+   fi
    rm -rf ${NEWPORT} /tmp/expand
    mkdir -p ${NEWPORT} /tmp/expand
    (cd /tmp/expand && tar -xf ${distfiles}/${tarball})
@@ -408,6 +443,7 @@ $(dump_dependencies_as_comments)
 
 DISTNAME=		${PYPINAME}-\${PORTVERSION}
 $(dump_buildrun_options)
+${manualbit}
 EOF
 
    (cd ${NEWPORT} && /raven/bin/ravenadm dev distinfo)
@@ -415,6 +451,7 @@ EOF
 }
 
 acquire_tarball_and_version
+set_buckdir
 generate_port
 replace_port
 

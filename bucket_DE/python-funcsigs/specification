@@ -1,19 +1,19 @@
-DEF[PORTVERSION]=	3.0.4
+DEF[PORTVERSION]=	1.0.2
 # ------------------------------------------------------------------------
 
-NAMEBASE=		python-chardet
+NAMEBASE=		python-funcsigs
 VERSION=		${PORTVERSION}
-KEYWORDS=		python devel textproc
+KEYWORDS=		python devel
 VARIANTS=		py27 py35 py36
-SDESC[py27]=		Universal encoding detector for Python 2 a (PY 27)
-SDESC[py35]=		Universal encoding detector for Python 2 a (PY 35)
-SDESC[py36]=		Universal encoding detector for Python 2 a (PY 36)
-HOMEPAGE=		https://github.com/chardet/chardet
+SDESC[py27]=		Python function signatures from PEP362 for (PY 27)
+SDESC[py35]=		Python function signatures from PEP362 for (PY 35)
+SDESC[py36]=		Python function signatures from PEP362 for (PY 36)
+HOMEPAGE=		http://funcsigs.readthedocs.org
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/c/chardet
-DISTFILE[1]=		chardet-3.0.4.tar.gz:main
+SITES[main]=		PYPI/f/funcsigs
+DISTFILE[1]=		funcsigs-1.0.2.tar.gz:main
 
 SPKGS[py27]=		single
 SPKGS[py35]=		single
@@ -27,18 +27,22 @@ VOPTS[py36]=		PY27=OFF PY35=OFF PY36=ON
 
 LICENSE=		CUSTOM1:single
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE
-LICENSE_NAME=		CUSTOM1:"LGPL"
+LICENSE_NAME=		CUSTOM1:"ASL"
 LICENSE_SCHEME=		solo
 
 GENERATED=		yes
 
 # install_requires extracted from setup.py (using python 2.7)
+# setuptools>=17.1
 
-DISTNAME=		chardet-${PORTVERSION}
+DISTNAME=		funcsigs-${PORTVERSION}
 
 [PY27].USES_ON=				python:py27
+[PY27].BUILDRUN_DEPENDS_ON=		python-setuptools:single:py27
 
 [PY35].USES_ON=				python:py35
+[PY35].BUILDRUN_DEPENDS_ON=		python-setuptools:single:py35
 
 [PY36].USES_ON=				python:py36
+[PY36].BUILDRUN_DEPENDS_ON=		python-setuptools:single:py36
 

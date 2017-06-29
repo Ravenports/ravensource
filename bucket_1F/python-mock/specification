@@ -1,19 +1,19 @@
-DEF[PORTVERSION]=	0.7.10
+DEF[PORTVERSION]=	2.0.0
 # ------------------------------------------------------------------------
 
-NAMEBASE=		python-alabaster
+NAMEBASE=		python-mock
 VERSION=		${PORTVERSION}
 KEYWORDS=		python devel
 VARIANTS=		py27 py35 py36
-SDESC[py27]=		Configurable sidebar-enabled Sphinx theme (PY 27)
-SDESC[py35]=		Configurable sidebar-enabled Sphinx theme (PY 35)
-SDESC[py36]=		Configurable sidebar-enabled Sphinx theme (PY 36)
-HOMEPAGE=		https://alabaster.readthedocs.io
+SDESC[py27]=		Rolling backport of unittest.mock for all  (PY 27)
+SDESC[py35]=		Rolling backport of unittest.mock for all  (PY 35)
+SDESC[py36]=		Rolling backport of unittest.mock for all  (PY 36)
+HOMEPAGE=		https://github.com/testing-cabal/mock
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/a/alabaster
-DISTFILE[1]=		alabaster-0.7.10.tar.gz:main
+SITES[main]=		PYPI/m/mock
+DISTFILE[1]=		mock-2.0.0.tar.gz:main
 
 SPKGS[py27]=		single
 SPKGS[py35]=		single
@@ -26,19 +26,27 @@ VOPTS[py35]=		PY27=OFF PY35=ON PY36=OFF
 VOPTS[py36]=		PY27=OFF PY35=OFF PY36=ON
 
 LICENSE=		CUSTOM1:single
-LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.txt
 LICENSE_NAME=		CUSTOM1:"UNKNOWN"
 LICENSE_SCHEME=		solo
 
 GENERATED=		yes
 
 # install_requires extracted from setup.py (using python 2.7)
+# pbr>=1.3
+# setuptools>=17.1
 
-DISTNAME=		alabaster-${PORTVERSION}
+DISTNAME=		mock-${PORTVERSION}
 
 [PY27].USES_ON=				python:py27
+[PY27].BUILDRUN_DEPENDS_ON=		python-pbr:single:py27
+					python-setuptools:single:py27
 
 [PY35].USES_ON=				python:py35
+[PY35].BUILDRUN_DEPENDS_ON=		python-pbr:single:py35
+					python-setuptools:single:py35
 
 [PY36].USES_ON=				python:py36
+[PY36].BUILDRUN_DEPENDS_ON=		python-pbr:single:py36
+					python-setuptools:single:py36
 
