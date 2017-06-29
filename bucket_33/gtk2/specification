@@ -1,0 +1,56 @@
+DEF[PORTVERSION]=	2.24.31
+DEF[LIBVERSION]=	0.2400.31
+DEF[GAILVERSION]=	18.0.1
+DEF[GTK_VERSION]=	EXTRACT_INFO(GTK2_VERSION)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gtk2
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_toolkits
+VARIANTS=		standard
+SDESC[standard]=	Gimp Toolkit for X11 GUI
+HOMEPAGE=		http://www.gtk.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/gtk+/${PORTVERSION:R}
+DISTFILE[1]=		gtk+-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome2
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	CUPS
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11-toolkits/gtk20
+
+USES=			gettext-tools gmake libtool pkgconfig gnome-icons:single
+			perl:build python:build shebangfix
+GNOME_COMPONENTS=	atk cairo gdkpixbuf pango introspection
+XORG_COMPONENTS=	xext x11 xinerama xi xrandr xcursor xfixes
+			xdamage xcomposite
+SHEBANG_FILES=		gtk/gtk-builder-convert
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-xinput=yes
+PLIST_SUB=		LIBVERSION=${LIBVERSION}
+			GTK_VERSION=${GTK_VERSION}
+			LIBGAILVER=${GAILVERSION}
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+DISTNAME=		gtk+-${PORTVERSION}
+
+[CUPS].BROKEN_ON=			CUPS option not supported yet
+[CUPS].CONFIGURE_ENABLE_BOTH=		cups
+[CUPS].BUILDRUN_DEPENDS_ON=		cups:single:standard
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|[{]libdir[}]/locale|{datadir}/locale|g' \
+		${WRKSRC}/configure
+	@${REINPLACE_CMD} -e 's|file,cups|file,cups,lpr|' \
+		${WRKSRC}/gtk/Makefile.in
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/gtk-2.0/modules
+	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/gtk-2.0/${GTK_VERSION}/engines
+	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/gtk-2.0/${GTK_VERSION}/loaders
+	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/gtk-2.0/${GTK_VERSION}/modules

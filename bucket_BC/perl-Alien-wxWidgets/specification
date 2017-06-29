@@ -48,11 +48,11 @@ DISTNAME=		Alien-wxWidgets-0.69
 
 
 
-BUILDRUN_DEPENDS=	wxWidgets:single:standard
+BUILDRUN_DEPENDS=	wxWidgets:single:gtk2
 CONFIGURE_ARGS=		--wxWidgets-build=0
 			--wxWidgets-unicode=1
-CONFIGURE_ENV=		WX_CONFIG="{{LOCALBASE}}/bin/wxgtk3u-3.0-config"
-MAKE_ENV=		WX_CONFIG="{{LOCALBASE}}/bin/wxgtk3u-3.0-config"
+CONFIGURE_ENV=		WX_CONFIG="{{LOCALBASE}}/bin/wxgtk2u-3.0-config"
+MAKE_ENV=		WX_CONFIG="{{LOCALBASE}}/bin/wxgtk2u-3.0-config"
 
 post-patch:
 	${REINPLACE_CMD} -e "s/lc_r/lpthread/" \
