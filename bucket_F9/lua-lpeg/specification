@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	1.0.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		lua-lpeg
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		lua52 lua53
+SDESC[lua52]=		Parsing Expression Grammars For Lua 5.2
+SDESC[lua53]=		Parsing Expression Grammars for Lua 5.3
+HOMEPAGE=		http://www.inf.puc-rio.br/~roberto/lpeg/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.inf.puc-rio.br/~roberto/lpeg/
+DISTFILE[1]=		lpeg-${PORTVERSION}.tar.gz:main
+
+SPKGS[lua52]=		single
+SPKGS[lua53]=		single
+
+OPTIONS_AVAILABLE=	LUA52 LUA53
+OPTIONS_STANDARD=	none
+VOPTS[lua52]=		LUA52=ON LUA53=OFF
+VOPTS[lua53]=		LUA52=OFF LUA53=ON
+
+FPC_EQUIVALENT=		devel/lua-lpeg
+
+DISTNAME=		lpeg-${PORTVERSION}
+MAKEFILE=		makefile
+BUILD_TARGET=		linux
+CFLAGS=			-DLUA_32BITS
+MAKE_ARGS=		CC={{CC}} LUADIR={{LUA_INCDIR}}
+
+[LUA52].DESCRIPTION=			Build with Lua 5.2
+[LUA52].USES_ON=			lua:5.2
+
+[LUA53].DESCRIPTION=			Build with Lua 5.3
+[LUA53].USES_ON=			lua:5.3
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${LUA_MODLIBDIR}
+	${INSTALL_LIB} ${WRKSRC}/lpeg.so ${STAGEDIR}${LUA_MODLIBDIR}
