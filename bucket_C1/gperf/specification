@@ -1,0 +1,31 @@
+DEF[PORTVERSION]=	3.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gperf
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Perfect hash function generator
+HOMEPAGE=		http://www.gnu.org/software/gperf/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/gperf
+DISTFILE[1]=		gperf-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/gperf
+
+USES=			c++:single
+SINGLE_JOB=		yes
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--docdir={{STD_DOCDIR}}
+INFO=			single:gperf
