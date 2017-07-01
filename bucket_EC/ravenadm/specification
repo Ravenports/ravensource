@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.59
+DEF[PORTVERSION]=	0.60
 DEF[GPR]=		{{LOCALBASE}}/lib/gnat
 # ----------------------------------------------------------------------------
 
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/jrmarino/ravenadm
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/jrmarino:ravenadm:9e6eed1
+SITES[main]=		GITHUB/jrmarino:ravenadm:dd7ccc3
 DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
@@ -63,5 +63,5 @@ do-install:
 		${STAGEDIR}${PREFIX}/bin
 	${INSTALL_PROGRAM} ${WRKSRC}/build/ravenexec \
 		${STAGEDIR}${PREFIX}/libexec
-# ${INSTALL_MAN} ${WRKSRC}/ravenadm.1 ${STAGEDIR}${MANPREFIX}/man/man1
 	${INSTALL_DATA} ${WRKSRC}/www/* ${STAGEDIR}${PREFIX}/share/ravenadm
+	${INSTALL_DATA} ${WRKSRC}/manpages/*.8 ${STAGEDIR}${MANPREFIX}/man/man8/
