@@ -1,0 +1,29 @@
+DEF[PORTVERSION]=	0.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libtickit
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Terminal Interface Construction Kit
+HOMEPAGE=		http://www.leonerd.org.uk/code/libtickit/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.leonerd.org.uk/code/libtickit/
+DISTFILE[1]=		libtickit-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# No FPC equivalent
+
+BUILDRUN_DEPENDS=	libtermkey:single:standard
+
+USES=			gmake pkgconfig libtool:build
+MAKE_ARGS=		PREFIX="{{PREFIX}}"
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libtickit.so
