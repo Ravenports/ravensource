@@ -1,0 +1,31 @@
+DEF[PORTVERSION]=	1.2.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		unibilium
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Very basic terminfo library
+HOMEPAGE=		https://github.com/mauke/unibilium
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/mauke:unibilium:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL3:single
+LICENSE_FILE=		LGPL3:{{WRKSRC}}/LGPLv3
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/unibilium
+
+USES=			gmake perl:build pkgconfig libtool:build
+MAKE_ARGS=		PREFIX={{PREFIX}}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libunibilium.so
