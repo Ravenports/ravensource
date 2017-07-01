@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	20170329
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libvterm
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	VT220/xterm/ECMA-48 terminal emulator
+HOMEPAGE=		http://www.leonerd.org.uk/code/libvterm/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/neovim:libvterm:5a748f9
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/libvterm
+
+USES=			gmake libtool:build perl:build
+MAKE_ARGS=		PREFIX={{PREFIX}}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/unterm
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/vterm-ctrl
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/vterm-dump
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libvterm.so
