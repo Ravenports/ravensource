@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	2.8.5
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		nano
+VERSION=		${PORTVERSION}
+KEYWORDS=		editors
+VARIANTS=		standard
+SDESC[standard]=	Nano's ANOther editor, an enhanced Pico clone
+HOMEPAGE=		http://www.nano-editor.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/nano
+DISTFILE[1]=		nano-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		editors/nano
+
+USES=			ncurses gettext-tools gettext-runtime charsetfix
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-utf8
+CONFIGURE_ENV=		LIBS="-ltinfo"
+MAKE_ARGS=		install_htmlmanDATA=install-htmlmanDATA
+CPPFLAGS=		-I{{NCURSESINC}}
+INFO=			primary:nano
+
+post-configure:
+	${REINPLACE_CMD} -e 's/update_revision//g' ${WRKSRC}/src/Makefile
+
+post-build:
+	(cd ${WRKSRC}/doc && ${REINPLACE_CMD} \
+		-e 's:SYSCONFDIR:${PREFIX}/etc:g' \
+		-e 's:EXAMPLESDIR:${PREFIX}/share/nano:g' \
+		nano.1 rnano.1 nanorc.5 ${WRKSRC}/doc/nano.info)
+
+post-install:
+	@${MKDIR} ${PREFIX}/share/nano
+	${INSTALL_DATA} ${WRKSRC}/doc/sample.nanorc \
+		${STAGEDIR}${PREFIX}/share/nano
