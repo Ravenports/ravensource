@@ -1,0 +1,26 @@
+DEF[PORTVERSION]=	1.0.5
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libmpack
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Small binary serialization/RPC library
+HOMEPAGE=		https://github.com/libmpack
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/libmpack:libmpack:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# FPC_EQUIVALENT=	none
+
+USES=			gmake libtool:build
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmpack.so
