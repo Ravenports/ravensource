@@ -125,6 +125,10 @@ sub set_portversion_from_tarball {
       print "Note:     versions don't match! tarball: $portversion " .
           "meta: $meta_data->{'version'}\n";
    }
+   if (substr($portversion, 0, 1) eq "v") {
+      print "Note:     stripping leading 'v' from version: $portversion\n";
+      $portversion = substr($portversion, 1);
+   }
 }
 
 set_portversion_from_tarball;

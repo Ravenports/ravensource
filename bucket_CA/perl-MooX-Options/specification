@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.023
+DEF[PORTVERSION]=	4.100
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-MooX-Options
@@ -12,8 +12,8 @@ HOMEPAGE=		https://github.com/celogeek/MooX-Options
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		CPAN/ID:C/CE/CELOGEEK
-DISTFILE[1]=		MooX-Options-4.023.tar.gz:main
+SITES[main]=		CPAN/ID:R/RE/REHSACK
+DISTFILE[1]=		MooX-Options-4.100.tar.gz:main
 
 SPKGS[526]=		single
 SPKGS[524]=		single
@@ -25,73 +25,51 @@ VOPTS[524]=		PERL_526=OFF PERL_524=ON
 
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		MooX-Options-4.023
+DISTNAME=		MooX-Options-4.100
 
 # -----------------------------------------------
 # |   Prerequisites extracted from META.json
 # -----------------------------------------------
-# |      runtime : Carp (perl 5.26 core) (perl 5.24 core)
-# |      runtime : Data::Record
 # |      runtime : Getopt::Long (perl 5.26 core) (perl 5.24 core)
 # |      runtime : Getopt::Long::Descriptive
-# |      runtime : JSON::MaybeXS
-# |      runtime : Locale::TextDomain
-# |      runtime : Module::Metadata (perl 5.26 core) (perl 5.24 core)
+# |      runtime : MRO::Compat
+# |      runtime : Module::Runtime
 # |      runtime : Moo
-# |      runtime : MooX::ConfigFromFile
+# |      runtime : MooX::Locale::Passthrough
 # |      runtime : Path::Class
 # |      runtime : Pod::Usage (perl 5.26 core) (perl 5.24 core)
-# |      runtime : Regexp::Common
-# |      runtime : Scalar::Util (perl 5.26 core) (perl 5.24 core)
-# |      runtime : Term::Size::Any
 # |      runtime : Text::LineFold
-# |      runtime : overload (perl 5.26 core) (perl 5.24 core)
-# |      runtime : parent (perl 5.26 core) (perl 5.24 core)
-# |      runtime : strict (perl 5.26 core) (perl 5.24 core)
-# |      runtime : warnings (perl 5.26 core) (perl 5.24 core)
-# |      runtime : Term::Size::Any
-# |        build : Module::Build
-# |    configure : Module::Build
-# |         test : Capture::Tiny
-# |         test : English (perl 5.26 core) (perl 5.24 core)
-# |         test : File::Spec (perl 5.26 core) (perl 5.24 core)
-# |         test : FindBin (perl 5.26 core) (perl 5.24 core)
-# |         test : IO::Handle (perl 5.26 core) (perl 5.24 core)
-# |         test : IPC::Open3 (perl 5.26 core) (perl 5.24 core)
-# |         test : Import::Into
-# |         test : Moo
-# |         test : POSIX (perl 5.26 core) (perl 5.24 core)
-# |         test : Role::Tiny::With
+# |      runtime : Data::Record
+# |      runtime : JSON::MaybeXS
+# |      runtime : Regexp::Common
+# |    configure : ExtUtils::MakeMaker (perl 5.26 core) (perl 5.24 core)
 # |         test : Test::More (perl 5.26 core) (perl 5.24 core)
-# |         test : Test::Requires
 # |         test : Test::Trap
-# |         test : Try::Tiny
-# |         test : lib (perl 5.26 core) (perl 5.24 core)
-# |         test : namespace::clean
+# |         test : Data::Record
+# |         test : JSON::MaybeXS
+# |         test : Regexp::Common
 
-[PERL_526].USES_ON=			perl:526,buildmod,run
-[PERL_524].USES_ON=			perl:524,buildmod,run
-[PERL_526].BUILD_DEPENDS_ON=		perl-Module-Build:single:526
-[PERL_526].BUILDRUN_DEPENDS_ON=		perl-Data-Record:single:526
-					perl-Getopt-Long-Descriptive:single:526
-					perl-JSON-MaybeXS:single:526
-					perl-libintl-perl:single:526
+[PERL_526].USES_ON=			perl:526,configure
+[PERL_524].USES_ON=			perl:524,configure
+[PERL_526].BUILDRUN_DEPENDS_ON=		perl-Getopt-Long-Descriptive:single:526
+					perl-MRO-Compat:single:526
+					perl-Module-Runtime:single:526
 					perl-Moo:single:526
-					perl-MooX-ConfigFromFile:single:526
+					perl-MooX-Locale-Passthrough:single:526
 					perl-Path-Class:single:526
-					perl-Regexp-Common:single:526
-					perl-Term-Size-Any:single:526
 					perl-Unicode-LineBreak:single:526
-[PERL_524].BUILD_DEPENDS_ON=		perl-Module-Build:single:524
-[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Data-Record:single:524
-					perl-Getopt-Long-Descriptive:single:524
-					perl-JSON-MaybeXS:single:524
-					perl-libintl-perl:single:524
+					perl-Data-Record:single:526
+					perl-JSON-MaybeXS:single:526
+					perl-Regexp-Common:single:526
+[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Getopt-Long-Descriptive:single:524
+					perl-MRO-Compat:single:524
+					perl-Module-Runtime:single:524
 					perl-Moo:single:524
-					perl-MooX-ConfigFromFile:single:524
+					perl-MooX-Locale-Passthrough:single:524
 					perl-Path-Class:single:524
-					perl-Regexp-Common:single:524
-					perl-Term-Size-Any:single:524
 					perl-Unicode-LineBreak:single:524
+					perl-Data-Record:single:524
+					perl-JSON-MaybeXS:single:524
+					perl-Regexp-Common:single:524
 
 
