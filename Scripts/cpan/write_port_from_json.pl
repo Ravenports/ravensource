@@ -145,6 +145,8 @@ if (exists $meta_data->{'homepage'}) {
    $homepage = $meta_data->{'resources'}{'repository'}{'url'}
 }
 
+$homepage =~ s/http:\/\/github.com/https:\/\/github.com/;
+
 if (exists $meta_data->{'prereqs'}) {
    $dump_dependencies_as_comments .= "# -----------------------------------------------\n";
    $dump_dependencies_as_comments .= "# |   Prerequisites extracted from META.json\n";

@@ -27,6 +27,7 @@ my $dir_done    = "/tmp/cpan-work/completed";
 my $dir_fail    = "/tmp/cpan-work/failed-to-build";
 my $meta_data   = Parse::CPAN::Meta::LoadFile($meta_yaml_loc);
 my $portversion;
+my $distversion;
 my $shortdesc;
 my $trunc_sdesc;
 my $distname;
@@ -107,7 +108,7 @@ sub make_comment {
 }
 
 sub make_distname {
-   $distname = $port_namebase . "-" . $portversion;
+   $distname = $port_namebase . "-" . $distversion;
    $distname =~ s/^perl-//;
 }
 
@@ -125,6 +126,7 @@ sub set_portversion_from_tarball {
       print "Note:     versions don't match! tarball: $portversion " .
           "meta: $meta_data->{'version'}\n";
    }
+   $distversion = $portversion;
    if (substr($portversion, 0, 1) eq "v") {
       print "Note:     stripping leading 'v' from version: $portversion\n";
       $portversion = substr($portversion, 1);
@@ -165,6 +167,8 @@ if (exists $meta_data->{'homepage'}) {
     ($meta_data->{'resources'}{'repository'} =~ /^http/)) {
    $homepage = $meta_data->{'resources'}{'repository'}
 }
+
+$homepage =~ s/http:\/\/github.com/https:\/\/github.com/;
 
 if ((exists $meta_data->{'configure_requires'} && defined $meta_data->{'configure_requires'}) ||
     (exists $meta_data->{'build_requires'} && defined $meta_data->{'build_requires'}) ||
