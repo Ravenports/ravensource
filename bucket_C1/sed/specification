@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.2.2
+DEF[PORTVERSION]=	4.4
 DEF[PATCH_SUBDIRS]=	. doc lib sed
 # ----------------------------------------------------------------------------
 
@@ -13,7 +13,7 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/sed
-DISTFILE[1]=		sed-${PORTVERSION}.tar.gz:main
+DISTFILE[1]=		sed-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	single
 SPKGS[nls]=		single
@@ -35,11 +35,10 @@ MUST_CONFIGURE=		gnu
 [NLS].USES_ON=				gettext-runtime
 [NLS].CONFIGURE_ENABLE_BOTH=		nls
 
-post-configure:
-.for subdir in ${PATCH_SUBDIRS}
-	@${REINPLACE_CMD} -e 's|s,x,x,|s,^,g,|' -e 's|^doc_DATA|#doc_DATA|' \
-		${WRKSRC}/${subdir}/Makefile
-.endfor
+post-install:
+	${MV} ${STAGEDIR}${PREFIX}/bin/sed ${STAGEDIR}${PREFIX}/bin/gsed
+	${MV} ${STAGEDIR}${MANPREFIX}/man/man1/sed.1 \
+		${STAGEDIR}${MANPREFIX}/man/man1/gsed.1
 
 do-test:
 	@(cd ${WRKSRC}/testsuite && ${MAKE} check)
