@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.3
+DEF[PORTVERSION]=	6.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		texinfo
@@ -32,7 +32,7 @@ FPC_EQUIVALENT=		print/texinfo
 BUILD_DEPENDS=		help2man:single:standard
 EXTRACT_ONLY=		1
 
-USES=			charsetfix cpe gmake ncurses perl
+USES=			charsetfix cpe gmake ncurses perl libtool
 DISTNAME=		texinfo-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install install-tex
@@ -51,6 +51,6 @@ post-patch:
 	${CHMOD} 755 ${WRKSRC}/build-aux/install-sh
 	${CP} ${DISTDIR}/${DIST_SUBDIR}/texinfo.tex ${WRKSRC}/doc/
 	${INSTALL_SCRIPT} ${DISTDIR}/${DIST_SUBDIR}/texi2dvi ${WRKSRC}/util/
-	${REINPLACE_CMD} '/rm -f ..DESTDIR/s:$$: $$(DESTDIR)$$(xsdir)/XSParagraph.*:' \
+	${REINPLACE_CMD} -e '/rm -f $$(DESTDIR)/ s|$$| $$(DESTDIR)$$(xsdir)/XSParagraph.*|' \
 		${WRKSRC}/tp/Texinfo/Convert/XSParagraph/Makefile.in
-
+	${REINPLACE_CMD} -e 's|free (.*)|Safe&|' ${WRKSRC}/tp/Texinfo/MiscXS/misc.c
