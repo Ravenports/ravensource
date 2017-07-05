@@ -121,6 +121,17 @@ get_url() {
    exec_setup ${FIRST_SNAKE} --url
 }
 
+get_filtered_url() {
+   url=$(get_url)
+   case ${url} in
+      http://github.com/* | http://pypi.python.org/* | http://bitbucket.org/* | \
+      http://certifi.io/* | http://docs.openstack.org/* )
+         echo ${url} | sed -e "s/^http:/https:/"
+         ;;
+      *) echo ${url} ;;
+   esac
+}
+
 get_available_options() {
    echo ${VARIANTS} | awk '{ print toupper($0) }'
 }
@@ -422,7 +433,7 @@ VERSION=		\${PORTVERSION}
 KEYWORDS=		$(set_keywords)
 VARIANTS=		${VARIANTS}
 $(dump_descriptions)
-HOMEPAGE=		$(get_url)
+HOMEPAGE=		$(get_filtered_url)
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
