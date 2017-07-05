@@ -25,6 +25,3 @@ while read ravenport version fpc_port; do
 done < ${tmpfile}
 
 rm -f ${tmpfile}
-
-
-

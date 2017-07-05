@@ -29,6 +29,7 @@ my $dir_fail    = "/tmp/cpan-work/failed-to-build";
 my $meta_data   = decode_json($json_text);
 my $portversion = $meta_data->{'version'};
 my $shortdesc   = $meta_data->{'abstract'};
+my $distversion = $portversion;
 my $trunc_sdesc;
 my $distname;
 my $homepage    = "none";
@@ -104,7 +105,7 @@ sub make_comment {
 }
 
 sub make_distname {
-   $distname = $port_namebase . "-" . $portversion;
+   $distname = $port_namebase . "-" . $distversion;
    $distname =~ s/^perl-//;
 }
 
@@ -147,6 +148,11 @@ if (exists $meta_data->{'homepage'}) {
 
 $homepage =~ s/http:\/\/github.com/https:\/\/github.com/;
 $homepage =~ s/http:\/\/bitbucket.org/https:\/\/bitbucket.org/;
+
+if (substr($portversion, 0, 1) eq "v") {
+      print "Note:     stripping leading 'v' from version: $portversion\n";
+      $portversion = substr($portversion, 1);
+}
 
 if (exists $meta_data->{'prereqs'}) {
    $dump_dependencies_as_comments .= "# -----------------------------------------------\n";
