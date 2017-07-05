@@ -1,0 +1,38 @@
+DEF[SOVER]=		2.0
+DEF[PORTVERSION]=	1.${SOVER}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		Zstandard
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers
+VARIANTS=		standard
+SDESC[standard]=	Fast real-time compression algorithm (aka zstd)
+HOMEPAGE=		none
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/facebook:zstd:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		archivers/zstd
+
+USES=			gmake
+BUILD_TARGET=		default
+MAKE_ARGS=		INCLUDEDIR="{{PREFIX}}/include"
+			LIBDIR="{{PREFIX}}/lib"
+			MANDIR="{{MANPREFIX}}/man/man1"
+			PKGCONFIGDIR="{{PREFIX}}/lib/pkgconfig"
+PLIST_SUB=		SOVER=${SOVER}
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|INSTALL_|BSD_&|' ${WRKSRC}/lib/Makefile \
+		${WRKSRC}/programs/Makefile
