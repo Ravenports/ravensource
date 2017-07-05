@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	2.06
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		slider
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	HAMMER file system time slider utility
+HOMEPAGE=		https://github.com/jrmarino/Slider
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/jrmarino:Slider:7bf0423
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		ISCL:single
+LICENSE_FILE=		ISCL:{{WRKDIR}}/ISCL
+LICENSE_SCHEME=		solo
+
+# FPC_EQUIVALENT=	dports only
+
+ONLY_FOR_OPSYS=		dragonfly
+
+USES=			gprbuild ncurses
+BUILD_DEPENDS=		adacurses:primary:standard
+
+post-extract:
+	${AWK} '/^$$/ {exit}; {print}' ${WRKSRC}/dragonfly.ads \
+		> ${WRKDIR}/ISCL
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|/usr/local/lib/gnat/||' ${WRKSRC}/slider.gpr
+
+do-build:
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		gprbuild -p -P slider)
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/construction/slider \
+		${STAGEDIR}${PREFIX}/bin
