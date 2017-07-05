@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	2.3
+DEF[PORTVERSION]=	2.4
+DEF[SOMAJOR]=		23
+DEF[SOMINOR]=		0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gsl
@@ -25,7 +27,5 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ENV=		MAKEINFO='makeinfo --no-split'
 INSTALL_TARGET=		install-strip
 INFO=			single:gsl-ref
-
-post-extract:
-	@${RM} ${WRKSRC}/doc/gsl-ref.info*
-
+PLIST_SUB=		SOMAJOR=${SOMAJOR}
+			SOMINOR=${SOMINOR}
