@@ -146,6 +146,7 @@ if (exists $meta_data->{'homepage'}) {
 }
 
 $homepage =~ s/http:\/\/github.com/https:\/\/github.com/;
+$homepage =~ s/http:\/\/bitbucket.org/https:\/\/bitbucket.org/;
 
 if (exists $meta_data->{'prereqs'}) {
    $dump_dependencies_as_comments .= "# -----------------------------------------------\n";
