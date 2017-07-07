@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	2.12.1
+DEF[PORTVERSION]=	2.12.4
+DEF[SOVER]=		9.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fontconfig
@@ -26,6 +27,7 @@ LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
+BUILD_DEPENDS=		gperf:single:standard
 BUILDRUN_DEPENDS=	freetype:primary:standard
 			expat:complete:standard
 
@@ -50,6 +52,7 @@ CPE_VENDOR=		fontconfig_project
 
 SUB_FILES=		pkg-install
 PLIST_SUB=		PREFERRED_HINTING={{PREFERRED_HINTING}}
+			SOVER=${SOVER}
 FPC_EQUIVALENT=		x11-fonts/fontconfig
 
 [HINTING_NONE].DESCRIPTION=		No hinting
