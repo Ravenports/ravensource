@@ -1,0 +1,120 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(GCC7_PORTVERSION)
+DEF[PORTREVISION]=	EXTRACT_INFO(GCC7_REVISION)
+DEF[BRANCH]=		EXTRACT_INFO(GCC7_BRANCH)
+DEF[MS_SUBDIR]=		EXTRACT_INFO(GCC7_MS_SUBDIR)
+DEF[IDENTIFICATION]=	EXTRACT_INFO(GCC7_IDENTIFICATION)
+DEF[GCC_VERSION]=	EXTRACT_INFO(GCC7_VERSION)
+DEF[TOOLCHAIN]=		{{LOCALBASE}}/toolchain
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gcc7
+VERSION=		${PORTVERSION}
+REVISION=		${PORTREVISION}
+KEYWORDS=		lang raven
+VARIANTS=		standard
+SDESC[standard]=	GNU Compiler collection (GCC), Series ${BRANCH}
+HOMEPAGE=		https://gcc.gnu.org/
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GCC/${MS_SUBDIR}
+DISTFILE[1]=		${IDENTIFICATION}.tar.bz2:main
+
+SPKGS[standard]=	complete compilers ada_run cxx_run fortran_run libs infopages
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:compilers
+			LGPL21:compilers
+			GPLv3+:compilers
+			LGPL3:compilers
+			GPLv3RLE:compilers
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+			LGPL21:{{WRKSRC}}/COPYING.LIB
+			GPLv3+:{{WRKSRC}}/COPYING3
+			LGPL3:{{WRKSRC}}/COPYING3.LIB
+			GPLv3RLE:{{WRKSRC}}/COPYING.RUNTIME
+LICENSE_SCHEME=		multi
+
+# FPC_EQUIVALENT=		none
+
+BUILD_DEPENDS=		gmp:static:standard
+			mpfr:static:standard
+			mpc:static:standard
+			zlib:static:standard
+BUILDRUN_DEPENDS=	binutils:single:ravensys
+EXRUN[ada_run]=		gcc7:libs:standard
+EXRUN[cxx_run]=		gcc7:libs:standard
+EXRUN[fortran_run]=	gcc7:libs:standard
+EXRUN[compilers]=	gcc7:cxx_run:standard
+
+USES=			cpe gmake iconv:build libtool makeinfo perl:build
+DISTNAME=		${IDENTIFICATION}
+MUST_CONFIGURE=		gnu
+CPE_VENDOR=		gnu
+PLIST_SUB=		GCCVER=${GCC_VERSION}
+			TARGET={{CONFIGURE_TARGET}}
+PREFIX=			{{LOCALBASE}}/toolchain/{{NAMEBASE}}
+INSTALL_TARGET=		install-strip
+CONFIGURE_OUTSOURCE=	yes
+CONFIGURE_ARGS=		--enable-languages="c,c++,ada,fortran"
+			--with-local-prefix={{LOCALBASE}}
+			--with-system-zlib
+			--with-gmp={{LOCALBASE}}
+			--with-mpc={{LOCALBASE}}
+			--with-mpfr={{LOCALBASE}}
+			{{ICONV_CONFIGURE_ARG}}
+			--enable-shared
+			--enable-threads=posix
+			--enable-checking=release
+			--enable-libquadmath
+			--disable-nls
+			--disable-multilib
+			--disable-libsanitizer
+			--disable-libvtv
+			--disable-libmpx
+			--disable-libcilkrts
+			--with-ld=${TOOLCHAIN}/bin/ld
+			--with-as=${TOOLCHAIN}/bin/as
+			--with-pkgversion="Ravenports"
+
+INFO=			infopages:cpp
+			infopages:cppinternals
+			infopages:gcc
+			infopages:gccinstall
+			infopages:gccint
+			infopages:gfortran
+			infopages:gnat-style
+			infopages:gnat_rm
+			infopages:gnat_ugn
+			infopages:libquadmath
+			infopages:libitm
+			infopages:libgomp
+
+# Removed ALLSTAGES OPTION (left for info)
+# [ALLSTAGES].DESCRIPTION=		Three stage build (full bootstrap)
+# [ALLSTAGES].CONFIGURE_ARGS_OFF=		--disable-bootstrap --disable-libcc1
+
+post-patch:
+	# Update LINK_SPEC to add gcc-aux lib runpath in every binary
+	@${ECHO} "Configuring LINK_SPEC runpath"
+	@${REINPLACE_CMD} -e 's;\@PREFIX\@;${PREFIX:H};' \
+		-e 's;\@GCCAUX\@;${NAMEBASE};' \
+		${WRKSRC}/gcc/config/dragonfly.h \
+		${WRKSRC}/gcc/config/i386/freebsd64.h \
+		${WRKSRC}/gcc/config/i386/freebsd.h \
+		${WRKSRC}/gcc/config/i386/gnu-user64.h \
+		${WRKSRC}/gcc/config/aarch64/aarch64-freebsd.h
+	# Ensure dwarf4-compatible addr2line
+	${REINPLACE_CMD} -e 's|/usr/bin/addr2line|${PREFIX:H}/bin/addr2line|g'\
+		${WRKSRC}/gcc/ada/traceback_symbolic.c
+
+post-install:
+	cp ${STAGEDIR}${PREFIX}/bin/gcc ${STAGEDIR}${PREFIX}/bin/cc
+	cp ${STAGEDIR}${PREFIX}/bin/g++ ${STAGEDIR}${PREFIX}/bin/CC
+	${RM} ${STAGEDIR}${MANPREFIX}/man/man7/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/adalib/libgnarl.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/adalib/libgnat.so
+	-[ -d ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/include-fixed/x86_64-linux-gnu ] && \
+		${RMDIR} ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/include-fixed/x86_64-linux-gnu
