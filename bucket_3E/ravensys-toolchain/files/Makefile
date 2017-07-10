@@ -8,6 +8,7 @@ toolchain:
 install:
 	mkdir -p ${DESTDIR}${PREFIX}/share
 	cp /packages/All/${GCCX}-*-${COMPVER}.txz ${DESTDIR}${PREFIX}/share/
+	cp /packages/All/binutils-single-ravensys-${BUVER}.txz ${DESTDIR}${PREFIX}/share/
 	# In bulk run, ravensys-tool fails frequently during tar -xf, but the
 	# reason is unclear.  In addition to copying gcc tarballs first, make
 	# tarball extraction occur after dedicated decompression to try to
