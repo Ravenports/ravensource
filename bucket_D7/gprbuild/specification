@@ -27,19 +27,18 @@ LICENSE_SCHEME=		solo
 # FPC_EQUIVALENT=		devel/gprbuild
 
 BUILD_DEPENDS=		xmlada:primary:standard
-# BUILD_DEPENDS+=	python-Sphinx:single:python_default
+# |			python-Sphinx:single:python_default
 
 MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
 BUILD_WRKSRC=		{{WRKSRC}}/construction
 INSTALL_WRKSRC=		{{BUILD_WRKSRC}}
 INSTALL_TARGET=		install
+# |			install-docs
 BUILD_TARGET=		all
-# INSTALL_TARGET=	install install-docs
-# BUILD_TARGET=		all gen-docs
+# |			gen-docs
 
 post-patch:
 	@${MKDIR} ${WRKDIR}/trash ${BUILD_WRKSRC}
 	${INSTALL_DATA} ${FILESDIR}/Makefile.BSD ${BUILD_WRKSRC}/Makefile
 	${SED} -i"" -e "s|@LOCALBASE@|${LOCALBASE}|" \
 		${WRKSRC}/share/gprconfig/compilers.xml
-# @${MV} ${WRKSRC}/share/gprconfig/*.orig ${WRKDIR}/trash

@@ -67,8 +67,14 @@ install:
 		${.CURDIR}/../share/_default.gpr \
 			${DESTDIR}${PREFIX}/share/gpr
 	${BSD_INSTALL_DATA} \
-		${.CURDIR}/../share/gprconfig/*.x[sm][dl] \
+		${.CURDIR}/../share/gprconfig/gprconfig.xsd \
 			${DESTDIR}${PREFIX}/share/gprconfig
+.for X in asm baselined c clean compilers cpp cross fallback_targets \
+	fortran gnat linker nocompiler targetset 0_default
+	${BSD_INSTALL_DATA} \
+		${.CURDIR}/../share/gprconfig/${X}.xml \
+			${DESTDIR}${PREFIX}/share/gprconfig
+.endfor
 
 install-docs:
 	mkdir -p ${DESTDIR}${PREFIX}/share/doc/gprbuild/txt
