@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	3.14.2
+DEF[PORTVERSION]=	2017
+DEF[RELEASE_TAG]=	0c592ca
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gtkada
@@ -10,7 +11,7 @@ HOMEPAGE=		http://libre.adacore.com/libre/tools/gtkada/
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/AdaCore:gtkada:1688bb8
+SITES[main]=		GITHUB/AdaCore:gtkada:${RELEASE_TAG}
 DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete primary docs
@@ -26,8 +27,7 @@ USES=			gmake perl:build pkgconfig mesa gettext-tools
 			gprbuild ada:primary
 GNOME_COMPONENTS=	gtk3 cairo gdkpixbuf
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-GL=auto
-			--with-GL-prefix={{PREFIX}}
+CONFIGURE_ARGS=		--with-GL=no
 			--enable-shared
 			--enable-static
 			--enable-build=Production
@@ -35,9 +35,9 @@ BUILD_TARGET=		tools static relocatable docs
 MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
 INSTALL_REQ_TOOLCHAIN=	yes
 
-post-patch:
-	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|' \
-		${WRKSRC}/src/opengl/gtkada_gl.gpr
+# post-patch:
+# |	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|' \
+# |		${WRKSRC}/src/opengl/gtkada_gl.gpr
 
 do-build:
 	# This target is recreated because -j cannot be set, but
@@ -48,6 +48,4 @@ do-build:
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gtkada-dialog
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgtkada.so
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgtkada_gl.so
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gtkada/gtkada_gl.relocatable/gtkada/libgtkada_gl.so
 	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/gtkada/gtkada_ug/_sources
