@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	2016
+DEF[PORTVERSION]=	2017
+DEF[GNATCOLL_TAG]=	c7062b8
+DEF[GPRBUILD_TAG]=	a146066
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnatcoll
@@ -11,8 +13,8 @@ HOMEPAGE=		http://libre.adacore.com/tools/gnat-component-collection
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main libgpr
-SITES[main]=		GITHUB/AdaCore:gnatcoll:858f72c
-SITES[libgpr]=		GITHUB/AdaCore:gprbuild:a2e9066
+SITES[main]=		GITHUB/AdaCore:gnatcoll:${GNATCOLL_TAG}
+SITES[libgpr]=		GITHUB/AdaCore:gprbuild:${GPRBUILD_TAG}
 DISTFILE[1]=		generated:main
 DISTFILE[2]=		generated:libgpr
 DF_INDEX=		1 2
@@ -28,6 +30,7 @@ OPT_ON[all]=		READLINE SYSLOG
 FPC_EQUIVALENT=		devel/gnatcoll
 
 BUILD_DEPENDS=		gnat-util:single:standard
+			xmlada:primary:standard
 
 USES=			gprbuild gmake pkgconfig
 MUST_CONFIGURE=		gnu
@@ -75,7 +78,7 @@ post-extract:
 
 post-patch:
 	@${REINPLACE_CMD} -e "s|@PREFIX@|${PREFIX}|g" \
-	    ${WRKSRC}/src/gnatcoll_readline.gpr.in
+		${WRKSRC}/src/gnatcoll_readline.gpr
 	@${REINPLACE_CMD} -e 's|with "gpr"|with "${WRKDIR}/gprbuild/gpr/gpr"|' \
 		${WRKSRC}/src/gnatcoll__libgpr.gpr
 	@${REINPLACE_CMD} \
@@ -93,7 +96,6 @@ do-build:
 
 post-install-PROJECT-OFF:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gnatcoll_db2ada
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gnatinspect
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gps
 	${RM} -r ${STAGEDIR}${STD_EXAMPLESDIR}/library
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/gnat/manifests
@@ -106,3 +108,9 @@ post-install-PROJECT-ON:
 
 post-install-DOCS-ON:
 	${RM} -r ${STAGEDIR}${DOCSDIR}/html/_sources
+
+post-install:
+	# clean up gprinstall mess wrt xmlada
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/gnatcoll/xmlada_*
+	${RM}    ${STAGEDIR}${PREFIX}/lib/gnat/xmlada*
+	${RM} -r ${STAGEDIR}${PREFIX}/include/gnatcoll/xmlada_*

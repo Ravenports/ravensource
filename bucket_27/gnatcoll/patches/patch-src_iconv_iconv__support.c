@@ -1,5 +1,5 @@
---- src/iconv/with_iconv/iconv_support.c.orig	2015-04-30 10:51:47 UTC
-+++ src/iconv/with_iconv/iconv_support.c
+--- src/iconv/iconv_support.c.orig	2017-05-11 18:04:51 UTC
++++ src/iconv/iconv_support.c
 @@ -6,6 +6,7 @@
  #include <iconv.h>
  #include <errno.h>
@@ -16,5 +16,5 @@
 +#if defined (__DragonFly__) || \
 +   (defined (__FreeBSD__) && __FreeBSD_version < 1001514)
  size_t gnatcoll_iconv
-    (iconv_t cd,  const char** inbuf, size_t *inbytesleft, char** outbuf,
+    (iconv_t cd,  char** inbuf, size_t *inbytesleft, char** outbuf,
      size_t *outbytesleft)
