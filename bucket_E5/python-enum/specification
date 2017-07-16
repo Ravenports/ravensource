@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	0.4.6
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-enum
+VERSION=		${PORTVERSION}
+KEYWORDS=		python devel
+VARIANTS=		py27
+SDESC[py27]=		Robust enumerated type support in Python. (PY 27)
+HOMEPAGE=		https://pypi.python.org/pypi/enum/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/e/enum
+DISTFILE[1]=		enum-0.4.6.tar.gz:main
+
+SPKGS[py27]=		single
+
+OPTIONS_AVAILABLE=	PY27
+OPTIONS_STANDARD=	none
+VOPTS[py27]=		PY27=ON
+
+# No license file found for Choice*of*GPL*or*Python*license license
+LICENSE_SCHEME=		solo
+
+GENERATED=		yes
+
+# install_requires extracted from setup.py (using python 2.7)
+# setuptools
+
+DISTNAME=		enum-${PORTVERSION}
+
+[PY27].USES_ON=				python:py27
+[PY27].BUILDRUN_DEPENDS_ON=		python-setuptools:single:py27
+
