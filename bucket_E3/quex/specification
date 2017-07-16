@@ -1,0 +1,31 @@
+DEF[PORTVERSION]=	0.67.5
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		quex
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel lang python
+VARIANTS=		standard
+SDESC[standard]=	Lexical Analyzer Generator
+HOMEPAGE=		http://quex.sourceforge.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/quex/DOWNLOAD
+			SF/quex/HISTORY/${PORTVERSION:R}
+DISTFILE[1]=		quex-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+SKIP_BUILD=		yes
+
+post-extract:
+	${FIND} ${WRKSRC} -name "*.orig" -delete
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/quex
+	(cd ${WRKSRC} && ${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/share/quex)
+	${INSTALL_SCRIPT} ${FILESDIR}/quex.sh ${STAGEDIR}${PREFIX}/share/quex/
+	(cd ${STAGEDIR}${PREFIX}/bin && ${LN} -s ../share/quex/quex.sh quex)
