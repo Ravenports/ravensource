@@ -18,11 +18,14 @@ if [ $# -lt 1 ]; then
    usage;
 fi
 
+EXEPERL=/usr/local/bin/perl
 PATH=/raven/bin:${PATH}
 VERSION=unset
 MD5SUM=unset
 tarball=unset
 buckdir=unset
+summary=unset
+homepage=unset
 PYPINAME=${1}
 JSONFILE=/tmp/pypi-${PYPINAME}
 NEWPORT=/tmp/python-${PYPINAME}
@@ -59,6 +62,8 @@ acquire_tarball_and_version() {
    fi
    MD5SUM=$(awk -v version=${VERSION} -v seek="md5_digest" -f ${thisdir}/md5.awk ${JSONFILE})
    tarball=$(awk -v version=${VERSION} -v seek="filename" -f ${thisdir}/md5.awk ${JSONFILE})
+   summary=$(${EXEPERL} extract_summary.pl ${JSONFILE})
+   homepage=$(${EXEPERL} extract_homepage.pl ${JSONFILE})
 
    if [ -z "${MD5SUM}" -o -z "${tarball}" ]; then
       echo "No file or md5 sum for version ${VERSION} available"
@@ -114,11 +119,19 @@ determine_variants() {
 }
 
 get_description() {
-   exec_setup ${FIRST_SNAKE} --description
+   if [ -n "${summary}" ]; then
+      echo ${summary}
+   else
+      exec_setup ${FIRST_SNAKE} --description
+   fi
 }
 
 get_url() {
-   exec_setup ${FIRST_SNAKE} --url
+   if [ -n "${homepage}" ]; then
+      echo ${homepage}
+   else
+      exec_setup ${FIRST_SNAKE} --url
+   fi
 }
 
 get_filtered_url() {
@@ -195,10 +208,13 @@ dump_variable() {
 }
 
 handle_licenses() {
-   local licname licfile
+   local licname licfile rawlicense
    local arr_license arr_file arr_name
-   all_lic=$(exec_setup ${FIRST_SNAKE} --license | \
-      awk -F ', ' '{ for (x=1;x<=NF;x++) { gsub (/ /, "*", $x); print $x }}')
+   rawlicense=$(exec_setup ${FIRST_SNAKE} --license)
+   case "${rawlicense}" in
+      "Apache License, Version 2.0") all_lic="Apache*2.0" ;;
+      *) all_lic=$(echo ${rawlicense} | awk -F ', ' '{ for (x=1;x<=NF;x++) { gsub (/ /, "*", $x); print $x }}') ;;
+   esac
    for lic in ${all_lic}; do
    case "${lic}" in
       BSD*) 
@@ -351,6 +367,7 @@ dump_buildrun_options() {
       esac
       awk -F ">" -v variant=${v} '\
 function strip_dep(dep) {\
+       gsub (" ","", dep); \
        if (index (dep, "==")) \
        return "python-" substr (dep, 1, index (dep, "=="));\
   else if (index (dep, "!=")) \
@@ -388,7 +405,7 @@ set_buckdir() {
 	local raw=$(/raven/bin/ravenadm locate python-${PYPINAME})
 	local bucket=$(echo ${raw} | awk -F '/' \
 	   '{ for (x=1;x<=NF;x++) if (substr($x,1,7) == "bucket_") print $x}')
-	buckdir="${thisdir}/../${bucket}/python-${PYPINAME}"
+	buckdir="${thisdir}/../../${bucket}/python-${PYPINAME}"
 }
 
 replace_port() {

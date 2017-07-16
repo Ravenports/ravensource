@@ -320,6 +320,9 @@ headers_FreeBSD=	${posix_headers:Nstropts.h:Ntrace.h} \
 			# end
 
 headers_DragonFly_dirs=	arpa \
+			libprop \
+			netinet \
+			netinet6 \
 			rpc \
 			rpcsvc \
 			vm \
@@ -332,6 +335,7 @@ headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
 			usb.h \
 			usbhid.h \
 			ar.h \
+			devstat.h \
 			elf.h \
 			err.h \
 			floatingpoint.h \
@@ -351,11 +355,12 @@ headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
 			vis.h \
 			libusb.h \
 			net/if_dl.h \
+			net/if_media.h \
 			net/if_var.h \
+			net/netmsg.h \
+			net/radix.h \
+			net/route.h \
 			netconfig.h \
-			netinet/in_systm.h \
-			netinet/ip.h \
-			netinet6/in6.h \
 			readpassphrase.h \
 			runetype.h \
 			stringlist.h \
