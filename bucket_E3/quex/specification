@@ -1,27 +1,39 @@
 DEF[PORTVERSION]=	0.67.5
+DEF[ADALANG_REQ]=	0.65.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		quex
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel lang python
-VARIANTS=		standard
+VARIANTS=		standard adalang
 SDESC[standard]=	Lexical Analyzer Generator
+SDESC[adalang]=		Lexical Analyzer Generator for libadalang
 HOMEPAGE=		http://quex.sourceforge.net/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main adalang
 SITES[main]=		SF/quex/DOWNLOAD
 			SF/quex/HISTORY/${PORTVERSION:R}
+SITES[adalang]=		SF/quex/HISTORY/${ADALANG_REQ:R}
 DISTFILE[1]=		quex-${PORTVERSION}.tar.gz:main
+DISTFILE[2]=		quex-${ADALANG_REQ}.tar.gz:adalang
 
 SPKGS[standard]=	single
+SPKGS[adalang]=		single
 
-OPTIONS_AVAILABLE=	none
+OPTIONS_AVAILABLE=	ADALANG
 OPTIONS_STANDARD=	none
+VOPTS[adalang]=		ADALANG=ON
 
 SKIP_BUILD=		yes
+DISTNAME=		quex-source
+
+[ADALANG].DESCRIPTION=			Specific older version used by adalang
+[ADALANG].DF_INDEX_ON=			2
+[ADALANG].DF_INDEX_OFF=			1
 
 post-extract:
+	${MV} ${WRKDIR}/quex-* ${WRKSRC}
 	${FIND} ${WRKSRC} -name "*.orig" -delete
 
 do-install:
