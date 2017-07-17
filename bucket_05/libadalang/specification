@@ -34,11 +34,11 @@ LICENSE=		GPLv3+:single
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		quex:single:standard
-			gnatcoll:primary:standard
-			xmlada:primary:standard
+BUILD_DEPENDS=		quex:single:adalang
+BUILDRUN_DEPENDS=	gnatcoll:primary:standard
 
 USES=			gprbuild
+INSTALL_REQ_TOOLCHAIN=	yes
 
 [PY27].USES_ON=				python:py27
 [PY27].BUILDRUN_DEPENDS_ON=		python-Mako:single:py27
@@ -57,15 +57,6 @@ USES=			gprbuild
 post-extract:
 	${MV} ${WRKDIR}/langkit* ${WRKSRC}/langkit
 
-post-patch:
-	${REINPLACE_CMD} \
-		-e "/token-memory-management-by-user/d" \
-		-e "/token-policy/d" \
-		${WRKSRC}/langkit/langkit/compile_context.py
-	${REINPLACE_CMD} \
-		-e "s/build_shared = args.enable_shared/build_shared = False/" \
-		${WRKSRC}/langkit/langkit/libmanage.py
-
 do-build:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${PYTHON_CMD} ada/manage.py make)
@@ -73,3 +64,12 @@ do-build:
 do-install:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${PYTHON_CMD} ada/manage.py install ${STAGEDIR}${PREFIX})
+	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/gnat
+	${MV} ${STAGEDIR}${PREFIX}/share/gpr/*.gpr \
+		${STAGEDIR}${PREFIX}/lib/gnat
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/navigate
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/parse
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/symres
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libadalang.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/liblangkit_support.so
