@@ -37,7 +37,6 @@ MUST_CONFIGURE=		gnu
 BUILD_TARGET=		all
 CONFIGURE_ARGS=		--enable-projects
 			--disable-pygtk
-			--without-iconv
 MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
 			Gnatcoll_Build=Production
 INSTALL_REQ_TOOLCHAIN=	yes
@@ -48,8 +47,9 @@ PLIST_SUB=		SONAME=${PORTVERSION}
 					--without-python
 					--without-gmp
 					--without-gtk
+					--without-iconv
 					--disable-shared
-[PROJECT].USES_OFF=			python:py27 shebangfix
+[PROJECT].USES_OFF=			python:py27 shebangfix iconv
 [PROJECT].MAKEFILE_OFF=			SHEBANG_FILES=src/dborm.py
 [PROJECT].BUILD_DEPENDS_OFF=		gmp:static:standard
 					python-pygobject:primary:py27
@@ -59,6 +59,7 @@ PLIST_SUB=		SONAME=${PORTVERSION}
 					--with-gmp={{PREFIX}}
 					--with-python_exec={{PYTHON_CMD}}
 					--with-gtk=3.0
+					--with-iconv={{PREFIX}}
 					--enable-pygobject
 
 [READLINE].USES_ON=			readline
@@ -79,8 +80,7 @@ post-extract:
 
 post-patch:
 	${REINPLACE_CMD} -e "s|@PREFIX@|${PREFIX}|g" \
-		${WRKSRC}/src/gnatcoll_readline.gpr \
-		${WRKSRC}/src/gnatcoll_tools.gpr
+		${WRKSRC}/src/gnatcoll_readline.gpr
 	${REINPLACE_CMD} -e 's|with "gpr"|with "${WRKDIR}/gprbuild/gpr/gpr"|' \
 		${WRKSRC}/src/gnatcoll__libgpr.gpr
 .for gpr in postgres sqlite gtk gmp python iconv _libgpr _nogpr
@@ -98,9 +98,12 @@ do-build:
 
 post-install-PROJECT-OFF:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gnatcoll_db2ada
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gnatinspect
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gps
 	${RM} -r ${STAGEDIR}${STD_EXAMPLESDIR}/library
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/gnat/manifests
+	# strip shared libraries
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
 
 post-install-PROJECT-ON:
 	${RM} -r ${STAGEDIR}${STD_EXAMPLESDIR}
@@ -117,5 +120,3 @@ post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/include/gnatcoll/xmlada_*
 	${RM}    ${STAGEDIR}${PREFIX}/lib/gnat/xmlada*
 	${RM}    ${STAGEDIR}${PREFIX}/lib/libxmlada*
-	# strip shared libraries
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so

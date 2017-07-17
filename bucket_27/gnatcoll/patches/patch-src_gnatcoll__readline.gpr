@@ -14,7 +14,7 @@
        --  When linking an executable
        case Gnatcoll_Shared.Readline is
 -         when "yes" => for Linker_Options use ("-lreadline");
-+         when "yes" => null;
++         when "yes" => for Linker_Options use ("-lreadline", "-Wl,-rpath,@PREFIX@/lib");
           when "no"  => null;
        end case;
     end Linker;
