@@ -1,0 +1,11 @@
+--- gnatdoc/gnatdoc.gpr.orig	2017-05-12 17:58:17 UTC
++++ gnatdoc/gnatdoc.gpr
+@@ -15,5 +15,8 @@ project GNATdoc is
+ 
+    package Compiler renames Shared.Compiler;
+    package Documentation renames Shared.Documentation;
++   package Linker is
++      for Linker_Options use ("-Wl,-rpath,@PREFIX@/lib");
++   end Linker;
+ 
+ end GNATdoc;

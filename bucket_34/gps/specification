@@ -38,6 +38,7 @@ RUN_DEPENDS=		librsvg:primary:standard
 			gdb:single:standard
 			python-pep8:single:${PYVER}
 			python-jedi:single:${PYVER}
+			${GCCVER}:complete:standard
 
 USES=			gprbuild:buildrun gettext-tools gmake pkgconfig zlib
 			perl:build python:${PYVER} shebangfix iconv
@@ -75,6 +76,7 @@ post-patch:
 	@${ECHO} "GNAT_SOURCES=" > ${WRKSRC}/Makefile.gnat
 	@${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|g' \
 		${WRKSRC}/gps/gps.gpr \
+		${WRKSRC}/gnatdoc/gnatdoc.gpr \
 		${WRKSRC}/widgets/widgets.gpr
 	@${REINPLACE_CMD} -e '/Gdb_Command/ s|"gdb"|"${PREFIX}/bin/gdb"|' \
 		${WRKSRC}/gvd/src/debugger-base_gdb-gdb_mi.adb \
