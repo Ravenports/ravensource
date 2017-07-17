@@ -35,10 +35,17 @@ while read ravenport version fpc_port; do
 
 	libedit) ;;		# Different version scheme from FPC
 	gnat-util) ;;		# Different version scheme from FPC
-	gcc6) ;;		# Different version scheme from FPC
+	gcc[678]) ;;		# Different version scheme from FPC
 	gprbuild) ;;		# Different version scheme from FPC
 
 	libexecinfo) ;;		# Different source from FPC
+
+	libadalang) ;;		# Rest are ports that FPC doesn't have yet
+	libtickit) ;;
+	libmpack) ;;
+	lua-mpack) ;;
+	quex) ;;
+	slider) ;;
 	*) echo "${ravenport} ${version}"
    esac
 done < ${tmpfile}
