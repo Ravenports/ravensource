@@ -9,7 +9,14 @@
  	--exec-subdir=${bindir} --project-subdir=lib/gnat -XXMLADA_BUILD=$(@F) \
  	--build-var=LIBRARY_TYPE --build-name=$(@F) -XLIBRARY_TYPE=$(@F)
  
-@@ -91,10 +91,10 @@ install_tools/%:
+@@ -85,16 +85,17 @@ install_library_type/%:
+ ifeq (${WITH_GTK},yes)
+ 	${GPRINSTALL} ${GPRINST_OPTS} -Psrc/gnatcoll_gtk
+ endif
++	sed -i'' -e 's|"-R", ||g' $(DESTDIR)${prefix}/lib/gnat/*.gpr
+ 
+ install_tools/%:
+ 	@echo "====== Installing $(@F) tools ======"
  	${GPRINSTALL} --mode=usage ${GPRINST_OPTS} -Psrc/gnatcoll_tools
  
  install_gps_plugin: force
@@ -22,16 +29,7 @@
  
  # Regenerate part of the sources. Unfortunately, this can be run only after
  # we have build GNATCOLL, and then its tools, even though GNATCOLL itself
-@@ -129,7 +129,7 @@ ifeq ($(OS),Windows_NT)
- 	-cd $(SQLITE_DIR); gcc -O2 -DSQLITE_OMIT_LOAD_EXTENSION -D__EXTENSIONS__ -o sqlite3_for_gps shell.c sqlite3.c
- else
- 	# If we fail to compile, never mind. Some tests will simply be disabled
--	-cd $(SQLITE_DIR); gcc -O2 -DSQLITE_OMIT_LOAD_EXTENSION -D__EXTENSIONS__ -o sqlite3_for_gps shell.c sqlite3.c -lpthread -ldl
-+	-cd $(SQLITE_DIR); gcc -O2 -DSQLITE_OMIT_LOAD_EXTENSION -D__EXTENSIONS__ -o sqlite3_for_gps shell.c sqlite3.c -lpthread
- endif
- 
- ## Only works after installation, so we should install to a local directory
-@@ -170,6 +170,6 @@ clean: clean_library/static clean_librar
+@@ -170,6 +171,6 @@ clean: clean_library/static clean_librar
  	-${MAKE} -C examples $@
  
  docs:

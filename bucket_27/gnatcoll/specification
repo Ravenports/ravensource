@@ -30,24 +30,25 @@ OPT_ON[all]=		READLINE SYSLOG
 FPC_EQUIVALENT=		devel/gnatcoll
 
 BUILD_DEPENDS=		gnat-util:single:standard
-			xmlada:primary:standard
+BUILDRUN_DEPENDS=	xmlada:primary:standard
 
 USES=			gprbuild gmake pkgconfig
 MUST_CONFIGURE=		gnu
 BUILD_TARGET=		all
 CONFIGURE_ARGS=		--enable-projects
-			--disable-shared
 			--disable-pygtk
 			--without-iconv
 MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
 			Gnatcoll_Build=Production
 INSTALL_REQ_TOOLCHAIN=	yes
+PLIST_SUB=		SONAME=${PORTVERSION}
 
 [PROJECT].DESCRIPTION=			Limited to Ada project capability support
 [PROJECT].CONFIGURE_ARGS_ON=		--without-sqlite
 					--without-python
 					--without-gmp
 					--without-gtk
+					--disable-shared
 [PROJECT].USES_OFF=			python:py27 shebangfix
 [PROJECT].MAKEFILE_OFF=			SHEBANG_FILES=src/dborm.py
 [PROJECT].BUILD_DEPENDS_OFF=		gmp:static:standard
@@ -77,14 +78,15 @@ post-extract:
 	${MV} ${WRKDIR}/gprbuild-* ${WRKDIR}/gprbuild
 
 post-patch:
-	@${REINPLACE_CMD} -e "s|@PREFIX@|${PREFIX}|g" \
-		${WRKSRC}/src/gnatcoll_readline.gpr
-	@${REINPLACE_CMD} -e 's|with "gpr"|with "${WRKDIR}/gprbuild/gpr/gpr"|' \
+	${REINPLACE_CMD} -e "s|@PREFIX@|${PREFIX}|g" \
+		${WRKSRC}/src/gnatcoll_readline.gpr \
+		${WRKSRC}/src/gnatcoll_tools.gpr
+	${REINPLACE_CMD} -e 's|with "gpr"|with "${WRKDIR}/gprbuild/gpr/gpr"|' \
 		${WRKSRC}/src/gnatcoll__libgpr.gpr
-	@${REINPLACE_CMD} \
-		-e '/PYCONFIG=/ s|$${PYTHON_MAJOR_VERSION}|${PYTHON_VER}|' \
-		-e 's| -lz| -L${PREFIX}/lib -Wl,-rpath,${PREFIX}/lib -lz|g' \
-		${WRKSRC}/configure
+.for gpr in postgres sqlite gtk gmp python iconv _libgpr _nogpr
+	${REINPLACE_CMD} -e 's|Library_Options use|Library_Options use ("-R", "-Wl,-rpath,${PREFIX}/lib:${PREFIX}/lib/xmlada/relocatable") \& |' \
+		${WRKSRC}/src/gnatcoll_${gpr}.gpr
+.endfor
 
 pre-build:
 	(cd ${WRKDIR}/gprbuild/gpr && ${SETENV} ${MAKE_ENV} \
@@ -112,5 +114,8 @@ post-install-DOCS-ON:
 post-install:
 	# clean up gprinstall mess wrt xmlada
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/gnatcoll/xmlada_*
-	${RM}    ${STAGEDIR}${PREFIX}/lib/gnat/xmlada*
 	${RM} -r ${STAGEDIR}${PREFIX}/include/gnatcoll/xmlada_*
+	${RM}    ${STAGEDIR}${PREFIX}/lib/gnat/xmlada*
+	${RM}    ${STAGEDIR}${PREFIX}/lib/libxmlada*
+	# strip shared libraries
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
