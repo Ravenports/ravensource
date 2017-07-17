@@ -51,7 +51,7 @@ urlstub="http://cpansearch.perl.org/src/"
 mirror_base="/mech/var/cache/cpan/"
 
 perlv1="5.26.0"
-perlv2="5.24.1"
+perlv2="5.24.2"
 
 if [ "${1}" == "check-core" ]; then
    check_core=1;
