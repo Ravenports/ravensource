@@ -1,4 +1,4 @@
---- docs/Makefile.in.orig	2014-11-13 18:15:57 UTC
+--- docs/Makefile.in.orig	2017-05-12 17:58:17 UTC
 +++ docs/Makefile.in
 @@ -1,10 +1,9 @@
  prefix = @prefix@
@@ -14,7 +14,7 @@
  CONVERT = convert
  CP = cp -p
  
-@@ -12,20 +11,20 @@ all: ug tutorial gps_pg relnotes gnatdoc
+@@ -12,23 +11,23 @@ all: ug tutorial gps_pg relnotes relnote
  static:
  
  gps_pg:
@@ -24,6 +24,10 @@
  relnotes:
 -	make -C release_notes singlehtml
 +	$(MAKE) -C release_notes singlehtml
+ 
+ relnotes_17:
+-	make -C release_notes_17 singlehtml
++	$(MAKE) -C release_notes_17 singlehtml
  
  ug:
 -	make -C users_guide html latexpdf

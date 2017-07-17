@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	2016
+DEF[PORTVERSION]=	2017
+DEF[RELEASE_TAG]=	ba0c4c0
 DEF[PYCOMPILE]=		{{PREFIX}}/lib/python{{PYTHON_VER}}/compileall.py
 DEF[LLVM_VERSION]=	40
 DEF[GCCVER]=		EXTRACT_INFO(CURRENT_GCC)
@@ -14,8 +15,8 @@ HOMEPAGE=		http://www.adacore.com/gnatpro/toolsuite/gps/
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://downloads.dragonlace.net/src/
-DISTFILE[1]=		gps-gpl-${PORTVERSION}-src.tar.gz:main
+SITES[main]=		GITHUB/AdaCore:gps:${RELEASE_TAG}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete primary docs examples
 
@@ -24,22 +25,22 @@ OPTIONS_STANDARD=	DEBUG
 
 FPC_EQUIVALENT=		devel/gps
 
-BUILD_DEPENDS=		xmlada:primary:standard
-			gnatcoll:primary:standard
-			gnat-util:single:standard
+BUILD_DEPENDS=		gnat-util:single:standard
 			python-Sphinx:single:${PYVER}
 BUILDRUN_DEPENDS=	fontconfig:primary:standard
 			freetype:primary:standard
 			llvm${LLVM_VERSION}:clang:standard
 			gtkada:primary:standard
 			python-pygobject:primary:${PYVER}
+			libadalang:single:${PYVER}
+			gnatcoll:primary:standard
 RUN_DEPENDS=		librsvg:primary:standard
 			gdb:single:standard
 			python-pep8:single:${PYVER}
 			python-jedi:single:${PYVER}
 
 USES=			gprbuild:buildrun gettext-tools gmake pkgconfig zlib
-			perl:build python:${PYVER}
+			perl:build python:${PYVER} shebangfix iconv
 XORG_COMPONENTS=	x11
 GNOME_COMPONENTS=	gtk3 cairo gdkpixbuf
 
@@ -47,12 +48,13 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ENV=		AWK=/usr/bin/awk
 CONFIGURE_ARGS=		--with-gtk=3.0
 			--with-clang={{LOCALBASE}}/llvm${LLVM_VERSION}/lib
-DISTNAME=		gps-gpl-${PORTVERSION}-src
 BUILD_TARGET=		default
 MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
 			PYTHON_CMD={{PYTHON_CMD}}
 SUB_FILES=		gps
 SUB_LIST=		ADA_PATH={{PREFIX}}/toolchain/${GCCVER}/bin
+SHEBANG_FILES=		share/support/core/gps_utils/internal/dialogs.py
+			share/plug-ins/spark2014.py
 
 # note: librsvg2 is needed to display the svg icons in the menu.  Actually
 # needed is lib/gdk-pixbuf-2.0/%%GTK2_VER%%/loaders/libpixbufloader-svg.so ,
@@ -72,15 +74,15 @@ post-patch:
 	@${RM} ${WRKSRC}/share/plug-ins/*.orig
 	@${ECHO} "GNAT_SOURCES=" > ${WRKSRC}/Makefile.gnat
 	@${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|g' \
+		${WRKSRC}/gps/gps.gpr \
 		${WRKSRC}/widgets/widgets.gpr
 	@${REINPLACE_CMD} -e '/Gdb_Command/ s|"gdb"|"${PREFIX}/bin/gdb"|' \
-		${WRKSRC}/gvd/src/debugger-gdb_mi.adb \
-		${WRKSRC}/gvd/src/debugger-gdb.adb
+		${WRKSRC}/gvd/src/debugger-base_gdb-gdb_mi.adb \
+		${WRKSRC}/gvd/src/debugger-base_gdb-gdb_cli.adb
 	@${REINPLACE_CMD} -i'' -e 's|ISO-8859|ISO8859|' \
 		${WRKSRC}/kernel/src/gps-kernel-charsets.adb \
 		${WRKSRC}/share/support/core/os_utils.py \
-		${WRKSRC}/configure* \
-		${WRKSRC}/po/build_skeleton.pl
+		${WRKSRC}/configure*
 	@${REINPLACE_CMD} -e 's|iso-8859|ISO8859|' \
 		${WRKSRC}/cli/src/gps-cli_scripts.adb \
 		${WRKSRC}/cli/src/gnatdoc_main.adb
@@ -100,6 +102,7 @@ do-build:
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/gps/html/*/_sources
+	${FIND} ${STAGEDIR}${PREFIX} -type f -name ".gitignore" -delete
 	${INSTALL_SCRIPT} ${WRKDIR}/gps ${STAGEDIR}${PREFIX}/bin
 	echo "This is the GPS GPL Edition for Ravenports." \
 		> ${STAGEDIR}${PREFIX}/share/gps/about.txt
