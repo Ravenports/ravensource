@@ -23,6 +23,10 @@ SPKGS[standard]=	complete primary docs examples
 OPTIONS_AVAILABLE=	DEBUG
 OPTIONS_STANDARD=	DEBUG
 
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		devel/gps
 
 BUILD_DEPENDS=		gnat-util:single:standard
@@ -38,7 +42,7 @@ RUN_DEPENDS=		librsvg:primary:standard
 			gdb:single:standard
 			python-pep8:single:${PYVER}
 			python-jedi:single:${PYVER}
-			${GCCVER}:complete:standard
+EXRUN[primary]=		${GCCVER}:complete:standard
 
 USES=			gprbuild:buildrun gettext-tools gmake pkgconfig zlib
 			perl:build python:${PYVER} shebangfix iconv
