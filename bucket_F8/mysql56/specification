@@ -105,6 +105,11 @@ INSTALL_REQ_TOOLCHAIN=	yes
 post-extract:
 	@${RM} -rv ${WRKSRC}/sql/sql_hints.yy.cc ${WRKSRC}/sql/sql_hints.yy.h
 
+post-patch:
+	${REINPLACE_CMD} -e 's|/usr/bin/perl|${PREFIX}/bin/perl|' \
+		-e 's|/usr/local/bin/perl|${PREFIX}/bin/perl|' \
+		${WRKSRC}/scripts/CMakeLists.txt
+
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/mysql/keyring \
 		${STAGEDIR}${MY_SECDIR} \
