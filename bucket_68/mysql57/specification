@@ -44,8 +44,7 @@ EXRUN[client]=		libedit:single:standard
 USES=			bison cmake:outsource perl:run shebangfix ssl:build c++:server,client
 			cclibs:server,client
 DISTNAME=		mysql-${PORTVERSION}
-SHEBANG_FILES=		scripts/*.pl*
-			scripts/*.sh
+SHEBANG_FILES=		scripts/*.pl
 CMAKE_BUILD_TYPE=	Release
 CMAKE_ARGS=		-DINSTALL_PKGCONFIGDIR="{{LOCALBASE}}/lib/pkgconfig"
 			-DINSTALL_DOCDIR="share/doc/mysql"
@@ -113,6 +112,11 @@ INSTALL_REQ_TOOLCHAIN=	yes
 
 post-extract:
 	@${RM} -rv ${WRKSRC}/sql/sql_hints.yy.cc ${WRKSRC}/sql/sql_hints.yy.h
+
+post-patch:
+	${REINPLACE_CMD} -e 's|/usr/bin/perl|${PREFIX}/bin/perl|' \
+		-e 's|/usr/local/bin/perl|${PREFIX}/bin/perl|' \
+		${WRKSRC}/scripts/CMakeLists.txt
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/mysql/keyring \
