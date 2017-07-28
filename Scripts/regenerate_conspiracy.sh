@@ -15,6 +15,8 @@ RPATH=$(realpath $0)
 SCRIPTSDIR=$(dirname ${RPATH})
 RAVENSRC=$(dirname ${SCRIPTSDIR})
 HEXRANGE="0 1 2 3 4 5 6 7 8 9 A B C D E F"
+PD_AWK=${SCRIPTSDIR}/miscellaneous/port_dates.awk
+PD_FILE=${repo}/Mk/Misc/port_dates
 
 for D1 in ${HEXRANGE}; do
   for D0 in ${HEXRANGE}; do
@@ -30,6 +32,9 @@ for D1 in ${HEXRANGE}; do
 done
 
 /raven/bin/ravenadm dev generate-index
+
+(cd ${repo} && git log --format="format:%ct" --name-only) | \
+  awk -f ${PD_AWK} | sort > ${PD_FILE}
 
 chown -R ${maintainer} ${repo}
 
