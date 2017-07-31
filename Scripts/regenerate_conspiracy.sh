@@ -33,8 +33,6 @@ done
 
 /raven/bin/ravenadm dev generate-index
 
-(cd ${repo} && git log --format="format:%ct" --name-only) | \
-  awk -f ${PD_AWK} | sort > ${PD_FILE}
 
 chown -R ${maintainer} ${repo}
 
@@ -44,3 +42,6 @@ if [ $# -lt 1 -o "${1}" != "confirm" ]; then
 fi
 
 (cd ${repo} && git add "." && git commit -m "${message}")
+(cd ${repo} && git log --format="format:%ct" --name-only) | \
+  awk -f ${PD_AWK} | sort > ${PD_FILE}
+(cd ${repo}/Mk && git add Misc)

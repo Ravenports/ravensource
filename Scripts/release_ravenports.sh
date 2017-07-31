@@ -2,7 +2,8 @@
 
 maintainer=marino
 location=/usr/raven
-infofile=${location}/Mk/Misc/latest_release.txt
+MISC=${location}/Mk/Misc
+infofile=${MISC}/latest_release.txt
 myid=$(id -un)
 
 if [ "${myid}" != "${maintainer}" ]; then
@@ -28,6 +29,6 @@ if [ $# -lt 1 -o "${1}" != "confirm" ]; then
 fi
 
 echo "${newtag}" > ${infofile}
-(cd ${location} && git add ${infofile})
-(cd ${location} && git commit -m "Create Ravenports release ${newtag}" ${infofile})
+(cd ${location} && git add ${MISC})
+(cd ${location} && git commit -m "Create Ravenports release ${newtag}" ${MISC})
 (cd ${location} && git tag -a ${newtag} -m "Ravenports release ${newtag}")
