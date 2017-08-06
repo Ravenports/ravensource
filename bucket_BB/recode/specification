@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	3.6
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		recode
+VERSION=		${PORTVERSION}
+KEYWORDS=		converters
+VARIANTS=		standard
+SDESC[standard]=	Converts files between character sets and usages
+HOMEPAGE=		https://github.com/pinard/Recode
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/pinard:Recode:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		converters/recode
+
+MUST_CONFIGURE=		gnu
+USES=			gettext-tools gettext-runtime iconv libtool perl
+CONFIGURE_ARGS=		--without-included-gettext
+LDFLAGS=		{{ICONV_LIB}}
+INFO=			single:recode
+
+post-extract:
+	@${CP} ${FILESDIR}/ru.po ${WRKSRC}/i18n
+	@${RM} ${WRKSRC}/doc/${PORTNAME}.info*
+
+post-patch:
+	@${REINPLACE_CMD} -E \
+		'/Project-Id-Version/ { \
+			s/3\.[45](r|\.[0-9])?/3.6/; \
+			s/: (Free )?recode/: GNU recode/; }' \
+		${WRKSRC}/i18n/*.po
+	@${REINPLACE_CMD} 's,"iconv\.h","${ICONV_PREFIX}/include/iconv.h",' \
+		${WRKSRC}/src/libiconv.c
+	@${CP} ${WRKSRC}/lib/error.c ${WRKSRC}/src
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/librecode.so
