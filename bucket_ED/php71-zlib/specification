@@ -1,12 +1,14 @@
 DEF[PORTVERSION]=	EXTRACT_VERSION(PHP_7.1_VERSION)
 DEF[SUFFIX]=		${PORTVERSION:R:S/.//}
+DEF[MODULE]=		zlib
+DEF[KEYWORD]=		archivers
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		php${SUFFIX}-zlib
+NAMEBASE=		php${SUFFIX}-${MODULE}
 VERSION=		${PORTVERSION}
-KEYWORDS=		lang www php archivers
+KEYWORDS=		lang www php ${KEYWORD}
 VARIANTS=		standard
-SDESC[standard]=	PHP ${PORTVERSION:R} extension: zlib compression
+SDESC[standard]=	PHP ${PORTVERSION:R} extension: ${MODULE} compression
 HOMEPAGE=		http://php.net/
 CONTACT=		nobody
 
@@ -19,14 +21,14 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-FPC_EQUIVALENT=		archivers/php71-zlib
+FPC_EQUIVALENT=		${KEYWORD}/php71-${MODULE}
 
 BUILD_DEPENDS=		zlib:static:standard
 BUILDRUN_DEPENDS=	zlib:shared:standard
 
 USES=			php:ext,${SUFFIX}
 DISTNAME=		php-${PORTVERSION}/ext/{{PHP_MODNAME}}
-CONFIGURE_ARGS=		--with-zlib={{LOCALBASE}}
+CONFIGURE_ARGS=		--with-${MODULE}={{LOCALBASE}}
 EXTRACT_HEAD[1]=	{{TAR}} -xf
 EXTRACT_TAIL[1]=	php-${PORTVERSION}/ext/{{PHP_MODNAME}}
 
