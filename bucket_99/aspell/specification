@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(ASPELL_CORE_VERSION)
+DEF[VERINST]=		${PORTVERSION:R:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		aspell
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	GNU spell checker
+HOMEPAGE=		http://aspell.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/aspell
+DISTFILE[1]=		aspell-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		textproc/aspell
+
+USES=			cpe gmake iconv libtool ncurses perl shebangfix gettext-runtime
+INSTALL_REQ_TOOLCHAIN=	yes
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-dict-dir={{PREFIX}}/share/aspell
+			--enable-docdir={{STD_DOCSDIR}}
+			--enable-curses=ncursesw
+			--enable-static
+			--enable-nls
+SHEBANG_FILES=		scripts/aspell-import
+CPE_VENDOR=		gnu
+INSTALL_TARGET=		install-strip
+PLIST_SUB=		VER=${VERINST}
+INFO=			single:aspell-dev single:aspell
