@@ -1,0 +1,27 @@
+DEF[PORTVERSION]=	5.4.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		tidy
+VERSION=		${PORTVERSION}
+KEYWORDS=		www
+VARIANTS=		standard
+SDESC[standard]=	Console app to correct and clean up HTML and XML
+HOMEPAGE=		http://www.html-tidy.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/htacg:tidy-html5:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		www/tidy-html5
+
+USES=			cmake
+GNOME_COMPONENTS=	libxslt
+CMAKE_ARGS=		-DBUILD_SHARED_LIB:BOOL=ON
+			-DTIDY_CONSOLE_SHARED:BOOL=ON
+PLIST_SUB=		SOVERSION=${PORTVERSION}
