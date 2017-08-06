@@ -46,6 +46,7 @@ while read ravenport version fpc_port; do
 	lua-mpack) ;;
 	quex) ;;
 	slider) ;;
+	firebird30) ;;
 	*) echo "${ravenport} ${version}"
    esac
 done < ${tmpfile}
