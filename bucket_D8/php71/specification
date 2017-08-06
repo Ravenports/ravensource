@@ -5,7 +5,7 @@ DEF[SOMAJOR]=		${PORTVERSION:R:R}
 
 NAMEBASE=		php${SUFFIX}
 VERSION=		${PORTVERSION}
-KEYWORDS=		lang www
+KEYWORDS=		lang www php
 VARIANTS=		standard
 SDESC[standard]=	PHP Hypertext Preprocessor version ${PORTVERSION:R}
 HOMEPAGE=		http://php.net/
@@ -22,7 +22,7 @@ OPTIONS_STANDARD=	CLI CGI FPM EMBED DEBUGGER
 OPTGROUP_RESTRICTED=	SAPI
 OPTDESCR[SAPI]=		Server Application Programming Interface
 OPTGROUP[SAPI]=		CLI CGI FPM DEBUGGER
-OPT_ON[all]=		CLI CGI FPM
+OPT_ON[all]=		CLI CGI FPM EMBED DEBUGGER
 
 FPC_EQUIVALENT=		lang/php${SUFFIX}
 
@@ -42,6 +42,8 @@ CONFIGURE_ARGS=		--with-layout=GNU
 			--localstatedir=/var
 			--with-config-file-scan-dir={{PREFIX}}/etc/php${SUFFIX}
 			--sysconfdir={{PREFIX}}/etc/php${SUFFIX}
+			--libdir={{PREFIX}}/lib/php${SUFFIX}
+			--datadir={{PREFIX}}/share/php${SUFFIX}
 			--disable-all
 			--enable-libxml
 			--enable-mysqlnd
@@ -75,6 +77,12 @@ PLIST_SUB=		SUFFIX=${SUFFIX} SOMAJOR=${SOMAJOR}
 post-patch:
 	@${TOUCH} ${WRKSRC}/ext/php_config.h
 	@${REINPLACE_CMD} "s|^\(extension_dir\)|; \1|" ${WRKSRC}/php.ini-*
+	@${REINPLACE_CMD} -e "/phpincludedir =/ s|/php|/php${SUFFIX}|" \
+		${WRKSRC}/scripts/Makefile.frag
+	@${REINPLACE_CMD} -e "/includedir=/ s|php|php${SUFFIX}|" \
+		${WRKSRC}/scripts/phpize.in
+	@${REINPLACE_CMD} -e "/include_dir=/ s|php|php${SUFFIX}|" \
+		${WRKSRC}/scripts/php-config.in
 
 post-patch-FPM-ON:
 	@${REINPLACE_CMD} -e "s|^;\(pid\)|\1|;s|^;\(pm\.[a-z_]*_servers\)|\1|" \
@@ -95,15 +103,11 @@ post-build:
 	@${ECHO_CMD} "PHP_EXT_INC=pcre spl" >> ${WRKDIR}/php.conf
 	@${ECHO_CMD} -n "PHP_EXT_DIR=" >> ${WRKDIR}/php.conf
 	@${SH} ${WRKSRC}/scripts/php-config --extension-dir | \
-		${SED} -ne 's,^${PREFIX}/lib/php/,,p' >> ${WRKDIR}/php.conf
+		${SED} -ne 's,^${PREFIX}/lib/php${SUFFIX}/,,p' >> ${WRKDIR}/php.conf
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/php${SUFFIX}
 	${RM} -r ${STAGEDIR}/var
-	${MV} ${STAGEDIR}${PREFIX}/include/php \
-		${STAGEDIR}${PREFIX}/include/php${SUFFIX}
-	${MV} ${STAGEDIR}${PREFIX}/lib/php \
-		${STAGEDIR}${PREFIX}/lib/php${SUFFIX}
 	${INSTALL_DATA} ${WRKSRC}/php.ini-development \
 		${WRKSRC}/php.ini-production \
 		${WRKDIR}/php.conf ${STAGEDIR}${PREFIX}/etc/php${SUFFIX}
@@ -119,8 +123,6 @@ post-install-DEBUGGER-ON:
 
 post-install-FPM-ON:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/sbin/php-fpm${SUFFIX}
-	${MV} ${STAGEDIR}${PREFIX}/share/php \
-		${STAGEDIR}${PREFIX}/share/php${SUFFIX};
 
 post-install-EMBED-ON:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libphp${SOMAJOR}.so
