@@ -1,14 +1,14 @@
 DEF[PORTVERSION]=	EXTRACT_VERSION(PHP_7.1_VERSION)
 DEF[SUFFIX]=		${PORTVERSION:R:S/.//}
-DEF[MODULE]=		fileinfo
-DEF[KEYWORD]=		sysutils
+DEF[MODULE]=		filter
+DEF[KEYWORD]=		security
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		php${SUFFIX}-${MODULE}
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang www php ${KEYWORD}
 VARIANTS=		standard
-SDESC[standard]=	PHP ${PORTVERSION:R} extension: ${MODULE} File Information
+SDESC[standard]=	PHP ${PORTVERSION:R} extension: ${MODULE} Data filtering
 HOMEPAGE=		http://php.net/
 CONTACT=		nobody
 
@@ -29,6 +29,5 @@ USES=			php:ext,${SUFFIX}
 DISTNAME=		php-${PORTVERSION}/ext/{{PHP_MODNAME}}
 CONFIGURE_ARGS=		--enable-${MODULE}
 			--with-pcre-dir={{LOCALBASE}}
-PHP_HEADER_DIRS=	libmagic
 EXTRACT_HEAD[1]=	{{TAR}} -xf
 EXTRACT_TAIL[1]=	php-${PORTVERSION}/ext/{{PHP_MODNAME}}
