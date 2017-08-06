@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	6.5.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		oniguruma
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc devel
+VARIANTS=		standard
+SDESC[standard]=	REGEX library compatible with POSIX/GNU/Perl
+HOMEPAGE=		https://github.com/kkos/oniguruma
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/kkos:oniguruma:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary examples docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/oniguruma6
+
+USES=			autoreconf libtool
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+
+post-patch:
+	@${REINPLACE_CMD} -e \
+		'/^INCLUDES/s|$$(includedir)|| ; \
+		 s|$$(<)|$$(@).in|' ${WRKSRC}/Makefile.am
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${STD_DOCDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+	(cd ${WRKSRC} && ${INSTALL_DATA} HISTORY README ${STAGEDIR}${STD_DOCDIR})
+	(cd ${WRKSRC}/doc && ${INSTALL_DATA} * ${STAGEDIR}${STD_DOCDIR})
+	(cd ${WRKSRC}/sample && ${INSTALL_DATA} *.c ${STAGEDIR}${STD_EXAMPLESDIR})
