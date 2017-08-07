@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.2_20050523
+DEF[PORTVERSION]=	2.4-20070901
 DEF[DISTPREFIX]=	aspell6
 DEF[DIST_ITERATION]=	0
 DEF[LANGUAGE]=		Italian
@@ -8,15 +8,15 @@ DEF[VERINST]=		${CORE_VERSION:R:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		aspell-${SUFFIX}
-VERSION=		${PORTVERSION}.${DIST_ITERATION}
+VERSION=		${PORTVERSION:S/-/./}
 KEYWORDS=		textproc
 VARIANTS=		standard
 SDESC[standard]=	Aspell ${LANGUAGE} dictionary
-HOMEPAGE=		http://aspell.net/
+HOMEPAGE=		http://linguistico.sourceforge.net
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GNU/aspell/dict/${SUFFIX}
+SITES[main]=		SF/linguistico/Dizionario%20italiano%20per%20Aspell/${PORTVERSION}-${DIST_ITERATION}
 DISTFILE[1]=		${DISTPREFIX}-${SUFFIX}-${PORTVERSION}-${DIST_ITERATION}.tar.bz2:main
 
 SPKGS[standard]=	single
@@ -24,8 +24,7 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-# FPC transformed underscore to ".", pkg(8) can't compare
-# FPC_EQUIVALENT=		textproc/${SUFFIX}-aspell
+FPC_EQUIVALENT=		textproc/${SUFFIX}-aspell
 
 BUILDRUN_DEPENDS=	aspell:single:standard
 
