@@ -1,5 +1,7 @@
-DEF[PORTVERSION]=	6.0_20061121
-DEF[DISTPREFIX]=	aspell6
+DEF[IGNORE_VERCOMP]=	6.0_
+DEF[VER_DATESTAMP]=	20170806
+DEF[PORTVERSION]=	${IGNORE_VERCOMP}${VER_DATESTAMP}
+DEF[DISTPREFIX]=	sjp-aspell6
 DEF[DIST_ITERATION]=	0
 DEF[LANGUAGE]=		Polish
 DEF[SUFFIX]=		pl
@@ -8,15 +10,15 @@ DEF[VERINST]=		${CORE_VERSION:R:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		aspell-${SUFFIX}
-VERSION=		${PORTVERSION}.${DIST_ITERATION}
+VERSION=		${VER_DATESTAMP}
 KEYWORDS=		textproc
 VARIANTS=		standard
 SDESC[standard]=	Aspell ${LANGUAGE} dictionary
-HOMEPAGE=		http://aspell.net/
+HOMEPAGE=		https://sjp.pl/slownik/en/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GNU/aspell/dict/${SUFFIX}
+SITES[main]=		https://sjp.pl/slownik/ort/
 DISTFILE[1]=		${DISTPREFIX}-${SUFFIX}-${PORTVERSION}-${DIST_ITERATION}.tar.bz2:main
 
 SPKGS[standard]=	single
@@ -24,12 +26,11 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-# FPC transformed underscore to "."; pkg can't compare
-# FPC_EQUIVALENT=		polish/aspell
+FPC_EQUIVALENT=		polish/aspell
 
 BUILDRUN_DEPENDS=	aspell:single:standard
 
 USES=			gmake
 MUST_CONFIGURE=		yes
 PLIST_SUB=		VER=${VERINST}
-DISTNAME=		${DISTPREFIX}-${SUFFIX}-${PORTVERSION}-${DIST_ITERATION}
+DISTNAME=		${DISTPREFIX:S/sjp-//}-${SUFFIX}-${PORTVERSION}-${DIST_ITERATION}
