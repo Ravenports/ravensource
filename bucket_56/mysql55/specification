@@ -66,6 +66,11 @@ USERS=			mysql
 GROUPS=			mysql
 USERGROUP_SPKG=		server
 
+post-patch:
+	${REINPLACE_CMD} -e 's|/usr/bin/perl|${PREFIX}/bin/perl|' \
+		-e 's|/usr/local/bin/perl|${PREFIX}/bin/perl|' \
+		${WRKSRC}/scripts/CMakeLists.txt
+
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/lib*.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/plugin/*.so
