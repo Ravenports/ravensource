@@ -37,8 +37,6 @@ while read ravenport version fpc_port; do
 	gnat-util) ;;		# Different version scheme from FPC
 	gcc[678]) ;;		# Different version scheme from FPC
 	gprbuild) ;;		# Different version scheme from FPC
-	aspell-it) ;;		# FPC transformed version, not comparable
-	aspell-pl) ;;		# FPC transformed version, not comparable
 
 	aspell-el) ;;		# requires EPOCH, 0.08 > 0.50 actually
 
