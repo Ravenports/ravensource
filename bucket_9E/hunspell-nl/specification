@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	2.10g
+DEF[SUFFIX]=		nl
+DEF[LANGUAGE]=		Dutch
+DEF[INSTLOC]=		{{STAGEDIR}}{{PREFIX}}/share/hunspell
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		hunspell-${SUFFIX}
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	Hunspell ${LANGUAGE} dictionary
+HOMEPAGE=		https://www.opentaal.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://sources.archlinux.org/other/community/hunspell-nl/
+DISTFILE[1]=		OpenTaal-${PORTVERSION:UC:S/.//}-LO.oxt:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		textproc/${SUFFIX}-hunspell
+
+SKIP_BUILD=		yes
+EXTRACT_DIRTY=		1
+EXTRACT_WITH_UNZIP=	1
+
+do-install:
+	${MKDIR} ${INSTLOC}
+	${INSTALL_DATA} ${WRKSRC}/nl_NL.aff ${INSTLOC}/
+	${INSTALL_DATA} ${WRKSRC}/nl_NL.dic ${INSTLOC}/
+.for ALIAS in nl_AW nl_BE
+	${LN} -sf en_NL.aff ${INSTLOC}/${ALIAS}.aff
+	${LN} -sf en_NL.dic ${INSTLOC}/${ALIAS}.dic
+.endfor
