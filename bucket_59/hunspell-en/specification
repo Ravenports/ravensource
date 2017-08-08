@@ -1,0 +1,92 @@
+DEF[PORTVERSION]=	2017.01.22
+DEF[SUFFIX]=		en
+DEF[LANGUAGE]=		English
+DEF[INSTLOC]=		{{STAGEDIR}}{{PREFIX}}/share/hunspell
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		hunspell-${SUFFIX}
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	Hunspell ${LANGUAGE} dictionary
+HOMEPAGE=		http://wordlist.aspell.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/wordlist/speller/${PORTVERSION}
+DISTFILE[1]=		hunspell-en_CA-${PORTVERSION}.zip:main
+DISTFILE[2]=		hunspell-en_CA-large-${PORTVERSION}.zip:main
+DISTFILE[3]=		hunspell-en_GB-ise-${PORTVERSION}.zip:main
+DISTFILE[4]=		hunspell-en_GB-ize-${PORTVERSION}.zip:main
+DISTFILE[5]=		hunspell-en_GB-large-${PORTVERSION}.zip:main
+DISTFILE[6]=		hunspell-en_US-${PORTVERSION}.zip:main
+DISTFILE[7]=		hunspell-en_US-large-${PORTVERSION}.zip:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	CA_STANDARD CA_LARGE GB_ISE GB_IZE GB_LARGE US_STANDARD US_LARGE
+OPTIONS_STANDARD=	CA_STANDARD CA_LARGE GB_ISE GB_IZE GB_LARGE US_STANDARD US_LARGE
+OPT_ON[all]=		GB_ISE US_STANDARD CA_STANDARD
+OPTGROUP_RADIO=		CADICT GBDICT USDICT
+OPTDESCR[CADICT]=	Install Canadian English dictionary variant
+OPTDESCR[GBDICT]=	Install British English dictionary variant
+OPTDESCR[USDICT]=	Install American English dictionary variant
+OPTGROUP[CADICT]=	CA_STANDARD CA_LARGE
+OPTGROUP[GBDICT]=	GB_ISE GB_IZE GB_LARGE
+OPTGROUP[USDICT]=	US_STANDARD US_LARGE
+
+FPC_EQUIVALENT=		textproc/${SUFFIX}-hunspell
+
+SKIP_BUILD=		yes
+EXTRACT_DIRTY=		1 2 3 4 5 6 7
+
+[CA_STANDARD].DESCRIPTION=		Contents considered standard by maintainers
+[US_STANDARD].DESCRIPTION=		Contents considered standard by maintainers
+[GB_ISE].DESCRIPTION=			Standard dictionary with GB -ise spelling
+[GB_IZE].DESCRIPTION=			Standard dictionary with US -ize spelling
+[CA_LARGE].DESCRIPTION=			More words and variants than standard version
+[GB_LARGE].DESCRIPTION=			More words and variants than standard version
+[US_LARGE].DESCRIPTION=			More words and variants than standard version
+
+[CA_STANDARD].DF_INDEX_ON=		1
+[CA_LARGE].DF_INDEX_ON=			2
+[GB_ISE].DF_INDEX_ON=			3
+[GB_IZE].DF_INDEX_ON=			4
+[GB_LARGE].DF_INDEX_ON=			5
+[US_STANDARD].DF_INDEX_ON=		6
+[US_LARGE].DF_INDEX_ON=			7
+
+do-install:
+	${MKDIR} ${INSTLOC}
+	${INSTALL_DATA} ${WRKDIR}/hunspell-en_*/*.aff ${INSTLOC}/
+	${INSTALL_DATA} ${WRKDIR}/hunspell-en_*/*.dic ${INSTLOC}/
+	${INSTALL_DATA} ${WRKDIR}/hunspell-en_*/README_*.txt ${INSTLOC}/
+.for ALIAS in en_AG en_AU en_BS en_BW en_BZ en_DK en_GH en_HK en_IE en_IN \
+	en_JM en_NA en_NG en_NZ en_SG en_TT en_ZA en_ZW
+	${LN} -sf en_GB.aff ${INSTLOC}/${ALIAS}.aff
+	${LN} -sf en_DB.dic ${INSTLOC}/${ALIAS}.dic
+.endfor
+.for ALIAS in en_PH
+	${LN} -sf en_US.aff ${INSTLOC}/${ALIAS}.aff
+	${LN} -sf en_US.dic ${INSTLOC}/${ALIAS}.dic
+.endfor
+
+do-install-CA_LARGE-ON:
+	${LN} -s en_CA-large.aff ${INSTLOC}/en_CA.aff
+	${LN} -s en_CA-large.dic ${INSTLOC}/en_CA.dic
+
+do-install-US_LARGE-ON:
+	${LN} -s en_US-large.aff ${INSTLOC}/en_US.aff
+	${LN} -s en_US-large.dic ${INSTLOC}/en_US.dic
+
+do-install-GB_LARGE-ON:
+	${LN} -s en_GB-large.aff ${INSTLOC}/en_GB.aff
+	${LN} -s en_GB-large.dic ${INSTLOC}/en_GB.dic
+
+do-install-GB_ISE-ON:
+	${LN} -s en_GB-ise.aff ${INSTLOC}/en_GB.aff
+	${LN} -s en_GB-ise.dic ${INSTLOC}/en_GB.dic
+
+do-install-GB_IZE-ON:
+	${LN} -s en_GB-ize.aff ${INSTLOC}/en_GB.aff
+	${LN} -s en_GB-ize.dic ${INSTLOC}/en_GB.dic
