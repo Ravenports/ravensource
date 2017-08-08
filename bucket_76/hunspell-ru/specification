@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	20131101
+DEF[SUFFIX]=		ru
+DEF[LANGUAGE]=		Russian
+DEF[INSTLOC]=		{{STAGEDIR}}{{PREFIX}}/share/hunspell
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		hunspell-${SUFFIX}
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc russian
+VARIANTS=		standard
+SDESC[standard]=	Hunspell ${LANGUAGE} dictionary
+HOMEPAGE=		https://hunspell.github.io/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://bitbucket.org/Shaman_Alex/russian-dictionary-hunspell/downloads/
+DISTFILE[1]=		ru_RU_UTF-8_${PORTVERSION}.zip:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		russian/hunspell
+
+SKIP_BUILD=		yes
+EXTRACT_DIRTY=		1
+
+do-install:
+	${MKDIR} ${INSTLOC}
+	${INSTALL_DATA} ${WRKSRC}/ru_RU.aff ${INSTLOC}
+	${INSTALL_DATA} ${WRKSRC}/ru_RU.dic ${INSTLOC}
