@@ -1,6 +1,6 @@
-DEF[PORTVERSION]=	1.40.7
+DEF[PORTVERSION]=	1.40.8
 DEF[PANGO_VERSION]=	1.8.0
-DEF[LIBVERSION]=	0.4000.7
+DEF[LIBVERSION]=	0.4000.8
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		pango
@@ -23,10 +23,11 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		x11-toolkits/pango
 
-RUN_DEPENDS=		xorg-truetype-fonts:single:standard
+BUILD_DEPENDS=		zlib:static:standard
 BUILDRUN_DEPENDS=	freetype:primary:standard
 			harfbuzz:primary:standard
 			fontconfig:primary:standard
+RUN_DEPENDS=		xorg-truetype-fonts:single:standard
 
 USES=			gmake libtool perl:build pkgconfig
 GNOME_COMPONENTS=	cairo glib introspection
