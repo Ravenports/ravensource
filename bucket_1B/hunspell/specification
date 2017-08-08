@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	1.6.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		hunspell
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	Most popular spellchecking library
+HOMEPAGE=		http://hunspell.github.io/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/hunspell:hunspell:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:single LGPL21+:single MPL:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+			LGPL21+:{{WRKSRC}}/COPYING.LESSER
+			MPL:{{WRKSRC}}/COPYING.MPL
+LICENSE_SCHEME=		dual
+
+FPC_EQUIVALENT=		textproc/hunspell
+
+USES=			autoreconf libtool:keepla iconv ncurses
+			readline shebangfix perl
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-nls
+			--with-readline
+			--with-ui
+			{{ICONV_CONFIGURE_ARG}}
+SHEBANG_FILES=		src/tools/ispellaff2myspell
+INSTALL_TARGET=		install-strip
+PLIST_SUB=		SHLIB_VER=${PORTVERSION:R}
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|%%PREFIX%%|${PREFIX}|g' ${WRKSRC}/src/tools/hunspell.cxx
