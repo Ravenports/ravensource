@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	3.2
+DEF[DISTVER]=		320
+DEF[SUFFIX]=		pt_BR
+DEF[LANGUAGE]=		Brazilian Portuguese
+DEF[INSTLOC]=		{{STAGEDIR}}{{PREFIX}}/share/hunspell
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		hunspell-${SUFFIX}
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	Hunspell ${LANGUAGE} dictionary
+HOMEPAGE=		http://pt-br.libreoffice.org/projetos/vero/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://pt-br.libreoffice.org/assets/Uploads/PT-BR-Documents/VERO/
+DISTFILE[1]=		VeroptBRV${DISTVER}AOC.oxt:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# FPC_EQUIVALENT left unset because pt_PT + pt_BR are combined on freebsd
+
+SKIP_BUILD=		yes
+EXTRACT_DIRTY=		1
+EXTRACT_WITH_UNZIP=	1
+
+do-install:
+	${MKDIR} ${INSTLOC}
+	${INSTALL_DATA} ${WRKSRC}/${SUFFIX}.aff ${INSTLOC}/
+	${INSTALL_DATA} ${WRKSRC}/${SUFFIX}.dic ${INSTLOC}/
