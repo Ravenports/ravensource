@@ -1,4 +1,4 @@
---- unix/Makefile.in.orig	2016-07-26 14:07:18 UTC
+--- unix/Makefile.in.orig	2017-08-09 14:45:58 UTC
 +++ unix/Makefile.in
 @@ -54,6 +54,8 @@ SCRIPT_INSTALL_DIR	= $(INSTALL_ROOT)$(TC
  
@@ -107,23 +107,23 @@
  	    do \
  	    if [ ! -d "$(SCRIPT_INSTALL_DIR)"/$$i ] ; then \
  		echo "Making directory $(SCRIPT_INSTALL_DIR)/$$i"; \
-@@ -841,31 +865,31 @@ install-libraries: libraries
+@@ -841,31 +865,29 @@ install-libraries: libraries
  	    $(INSTALL_DATA) $$i "$(SCRIPT_INSTALL_DIR)"/http1.0; \
  	    done;
- 	@echo "Installing package http 2.8.9 as a Tcl Module";
--	@$(INSTALL_DATA) $(TOP_DIR)/library/http/http.tcl "$(SCRIPT_INSTALL_DIR)"/../tcl8/8.6/http-2.8.9.tm;
-+	@$(INSTALL_DATA) $(TOP_DIR)/library/http/http.tcl "$(SCRIPT_INSTALL_DIR)"/http-2.8.9.tm;
+ 	@echo "Installing package http 2.8.11 as a Tcl Module";
+-	@$(INSTALL_DATA) $(TOP_DIR)/library/http/http.tcl "$(SCRIPT_INSTALL_DIR)"/../tcl8/8.6/http-2.8.11.tm;
++	@$(INSTALL_DATA) $(TOP_DIR)/library/http/http.tcl "$(SCRIPT_INSTALL_DIR)"/http-2.8.11.tm;
  	@echo "Installing package opt0.4 files to $(SCRIPT_INSTALL_DIR)/opt0.4/";
  	@for i in $(TOP_DIR)/library/opt/*.tcl ; \
  	    do \
  	    $(INSTALL_DATA) $$i "$(SCRIPT_INSTALL_DIR)"/opt0.4; \
  	    done;
- 	@echo "Installing package msgcat 1.6.0 as a Tcl Module";
--	@$(INSTALL_DATA) $(TOP_DIR)/library/msgcat/msgcat.tcl "$(SCRIPT_INSTALL_DIR)"/../tcl8/8.5/msgcat-1.6.0.tm;
-+	@$(INSTALL_DATA) $(TOP_DIR)/library/msgcat/msgcat.tcl "$(SCRIPT_INSTALL_DIR)"/msgcat-1.6.0.tm;
- 	@echo "Installing package tcltest 2.4.0 as a Tcl Module";
--	@$(INSTALL_DATA) $(TOP_DIR)/library/tcltest/tcltest.tcl "$(SCRIPT_INSTALL_DIR)"/../tcl8/8.5/tcltest-2.4.0.tm;
-+	@$(INSTALL_DATA) $(TOP_DIR)/library/tcltest/tcltest.tcl "$(SCRIPT_INSTALL_DIR)"/tcltest-2.4.0.tm;
+ 	@echo "Installing package msgcat 1.6.1 as a Tcl Module";
+-	@$(INSTALL_DATA) $(TOP_DIR)/library/msgcat/msgcat.tcl "$(SCRIPT_INSTALL_DIR)"/../tcl8/8.5/msgcat-1.6.1.tm;
++	@$(INSTALL_DATA) $(TOP_DIR)/library/msgcat/msgcat.tcl "$(SCRIPT_INSTALL_DIR)"/msgcat-1.6.1.tm;
+ 	@echo "Installing package tcltest 2.4.1 as a Tcl Module";
+-	@$(INSTALL_DATA) $(TOP_DIR)/library/tcltest/tcltest.tcl "$(SCRIPT_INSTALL_DIR)"/../tcl8/8.5/tcltest-2.4.1.tm;
++	@$(INSTALL_DATA) $(TOP_DIR)/library/tcltest/tcltest.tcl "$(SCRIPT_INSTALL_DIR)"/tcltest-2.4.1.tm;
  
  	@echo "Installing package platform 1.0.14 as a Tcl Module";
 -	@$(INSTALL_DATA) $(TOP_DIR)/library/platform/platform.tcl "$(SCRIPT_INSTALL_DIR)"/../tcl8/8.4/platform-1.0.14.tm;
@@ -137,19 +137,14 @@
  		$(INSTALL_DATA) $$i "$(SCRIPT_INSTALL_DIR)"/encoding; \
  	done;
 -	@if [ -n "$(TCL_MODULE_PATH)" -a -f $(TOP_DIR)/library/tm.tcl ]; then \
--	    echo "Customizing tcl module path"; \
--	    echo "if {![interp issafe]} { ::tcl::tm::roots {$(TCL_MODULE_PATH)} }" >> \
--	        "$(SCRIPT_INSTALL_DIR)"/tm.tcl; \
+ 	    echo "Customizing tcl module path"; \
+ 	    echo "if {![interp issafe]} { ::tcl::tm::roots {$(TCL_MODULE_PATH)} }" >> \
+ 	        "$(SCRIPT_INSTALL_DIR)"/tm.tcl; \
 -	fi
-+	@echo "Customizing tcl module path"; \
-+	echo "if {![interp issafe]} { ::tcl::tm::roots {$(TCL_MODULE_PATH)} }" >> \
-+	    "$(SCRIPT_INSTALL_DIR)"/tm.tcl; \
-+	echo "::tcl::tm::path add {$(TCL_LIBRARY)}" >> \
-+	    "$(SCRIPT_INSTALL_DIR)"/tm.tcl; \
  
  install-tzdata:
  	@for i in tzdata; \
-@@ -940,7 +964,7 @@ install-doc: doc
+@@ -940,7 +962,7 @@ install-doc: doc
  	done
  
  install-headers:
@@ -158,7 +153,7 @@
  	    do \
  	    if [ ! -d "$$i" ] ; then \
  		echo "Making directory $$i"; \
-@@ -949,14 +973,19 @@ install-headers:
+@@ -949,14 +971,19 @@ install-headers:
  		fi; \
  	    done;
  	@echo "Installing header files to $(INCLUDE_INSTALL_DIR)/";
