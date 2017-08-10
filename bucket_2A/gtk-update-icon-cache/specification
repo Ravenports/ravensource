@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.24.29
+DEF[PORTVERSION]=	EXTRACT_INFO(GTK3_PORT_VERSION)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gtk-update-icon-cache
@@ -12,7 +12,7 @@ CONTACT=		nobody
 DOWNLOAD_GROUPS=	main
 SITES[main]=		GNOME/gtk+/${PORTVERSION:R}
 DISTFILE[1]=		gtk+-${PORTVERSION}.tar.xz:main
-DIST_SUBDIR=		gnome2
+DIST_SUBDIR=		gnome3
 
 SPKGS[standard]=	single
 
@@ -30,6 +30,8 @@ FPC_EQUIVALENT=		graphics/gtk-update-icon-cache
 BUILD_DEPENDS=		pango:primary:standard
 			cairo:single:standard
 			atk:single:standard
+			libepoxy:single:standard
+			at-spi2-atk:single:standard
 RUN_DEPENDS=		shared-mime-info:single:standard
 			hicolor-icon-theme:single:standard
 
