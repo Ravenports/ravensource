@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	2.1.0
+DEF[SOVERSION]=		0.2001.0
+DEF[SOMAJOR]=		${SOVERSION:R:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		enchant
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	Dictionary/spellchecking framework
+HOMEPAGE=		https://abiword.github.io/enchant/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+# SITES[main]=		GITHUB/AbiWord:enchant:v${PORTVERSION}
+# DISTFILE[1]=		generated:main
+SITES[main]=		https://github.com/AbiWord/enchant/releases/download/v${PORTVERSION}/
+DISTFILE[1]=		enchant-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		textproc/enchant
+
+BUILDRUN_DEPENDS=	hunspell:single:standard
+			aspell:single:standard
+
+USES=			gmake libtool pkgconfig
+GNOME_COMPONENTS=	glib
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-hspell=no
+			--with-voikko=no
+			--with-zemberek=no
+			--with-applespell=no
+			--with-hunspell=yes
+			--with-hunspell-dir={{LOCALBASE}}/share/hunspell
+			--with-aspell=yes
+			--with-aspell-dir={{LOCALBASE}}/share/aspell
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+PLIST_SUB=		SOVERSION=${SOVERSION} SOMAJOR=${SOMAJOR}
