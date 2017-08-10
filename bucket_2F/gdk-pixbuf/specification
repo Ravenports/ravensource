@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2.36.8
-DEF[SOVER]=		3608.0
+DEF[PORTVERSION]=	2.36.7
+DEF[SOVER]=		3600.7
 DEF[GTK_VERSION]=	EXTRACT_INFO(GTK2_VERSION)
 # ----------------------------------------------------------------------------
 
@@ -23,7 +23,7 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		graphics/gdk-pixbuf2
 
-BUILD_DEPENDS=		shared-mime-info:single:standard
+# BUILD_DEPENDS=		shared-mime-info:single:standard
 BUILDRUN_DEPENDS=	tiff:primary:standard
 			jasper:primary:standard
 
@@ -46,7 +46,8 @@ PLIST_SUB=		GTK_VERSION=${GTK_VERSION}
 CPE_VENDOR=		gnome
 
 # configure broke libtiff on version 2.36.8, hardcode configure
-CONFIGURE_ENV=		LIBTIFF="-L{{LOCALBASE}}/lib -ltiff"
+# CONFIGURE_ENV=		LIBTIFF="-L{{LOCALBASE}}/lib -ltiff"
+# version 2.36.8 is defective, csource won't load image formats
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/share/doc
