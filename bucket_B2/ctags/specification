@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	5.8
+DEF[PORTVERSION]=	20170808
+DEF[TAG]=		7fcdea3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ctags
@@ -10,7 +11,7 @@ HOMEPAGE=		http://ctags.sourceforge.net/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/ctags/ctags/${PORTVERSION}
+SITES[main]=		GITHUB/universal-ctags:ctags:${TAG}
 DISTFILE[1]=		ctags-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	single
@@ -20,7 +21,16 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		devel/ctags
 
-USES=			destdirfix
+BUILD_DEPENDS=		autoconf:single:standard
+			automake:single:standard
+			python-docutils:single:python_default
+
+USES=			pkgconfig gmake
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-macro-patterns
-			--with-readlib
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-patch:
+	${REINPLACE_CMD} -e "s/make -f/gmake -f/" ${WRKSRC}/autogen.sh
+
+pre-configure:
+	(cd ${WRKSRC} && ./autogen.sh)
