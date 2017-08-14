@@ -18,7 +18,7 @@ install:
 	unxz /tmp/${GCCX}-${spkg}-standard-${COMPVER}.txz
 	tar -xf /tmp/${GCCX}-${spkg}-standard-${COMPVER}.tar
 .endfor
-	tar -xf /packages/All/binutils-single-ravensys-*.txz ${LOCALBASE}
+	tar -xf /packages/All/binutils-single-ravensys-${BUVER}.txz ${LOCALBASE}
 
 	cp -a ${LOCALBASE:T}/toolchain/bin     ${DESTDIR}${PREFIX}/
 	cp -a ${LOCALBASE:T}/toolchain/lib     ${DESTDIR}${PREFIX}/
