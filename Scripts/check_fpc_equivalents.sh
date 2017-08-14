@@ -39,6 +39,7 @@ while read ravenport version fpc_port; do
 	gprbuild) ;;		# Different version scheme from FPC
 
 	aspell-el) ;;		# requires EPOCH, 0.08 > 0.50 actually
+	hunspell-pt_BR) ;;	# Freebsd combines BR/PT, but raven splits them up
 
 	libexecinfo) ;;		# Different source from FPC
 
