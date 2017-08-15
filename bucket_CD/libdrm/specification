@@ -1,8 +1,10 @@
 DEF[PORTVERSION]=	2.4.82
+DEF[xslsheet]=		http://cdn.docbook.org/release/xsl/current/manpages/docbook.xsl
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libdrm
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics x11
 VARIANTS=		standard
 SDESC[standard]=	Direct Rendering Module services kernel interface
@@ -33,8 +35,14 @@ XORG_COMPONENTS=	pciaccess
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-cairo-tests
 			--enable-install-test-programs
+			--enable-manpages
+			MANPAGES_STYLESHEET="http://cdn.docbook.org/release/xsl/current/manpages/docbook.xsl"
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 
 [ARM].DESCRIPTION=			DRM Drivers for AARCH64 architecture
 [X86].DESCRIPTION=			DRM Drivers for amd64 and i386 architectures
+
+post-patch:
+	${REINPLACE_CMD} -e '/^MANPAGES_STYLESHEET=/ s|".*"|"${xslsheet}"|' \
+		${WRKSRC}/configure
