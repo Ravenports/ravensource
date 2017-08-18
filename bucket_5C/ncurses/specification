@@ -84,6 +84,16 @@ post-patch:
 	${REINPLACE_CMD} -e 's,$$(INSTALL_PROG) ncurses-config,@INSTALL_SCRIPT@ ncurses-config,' ${WRKSRC}/misc/Makefile.in
 	${REINPLACE_CMD} -e 's,/usr/include,${PREFIX}/include,g' ${WRKSRC}/misc/ncurses-config.in
 
+post-patch-freebsd:
+	# static libdb requires post-linking with pthread library
+	${REINPLACE_CMD} -e 's|(LIBS_TIC)|(LIBS_TIC) -lpthread|' \
+		-e 's|(LIBS_TINFO)|(LIBS_TINFO) -lpthread|' \
+		${WRKSRC}/progs/Makefile.in
+	${REINPLACE_CMD} -e 's|(MATH_LIB)|(MATH_LIB) -lpthread|' \
+		${WRKSRC}/test/Makefile.in
+	${REINPLACE_CMD} -e 's|(TEST_LDFLAGS)|(TEST_LDFLAGS) -lpthread|' \
+		${WRKSRC}/c++/Makefile.in
+
 post-configure:
 	cd ${.CURDIR} && \
 	    ${MAKE} ${.MAKEFLAGS} CONFIGURE_WRKSRC=${WIDEC_WRKSRC} \
