@@ -150,6 +150,7 @@ static_lib_FreeBSD=	${static_lib_generic} \
 			/usr/lib/libusb.a \
 			/usr/lib/libusbhid.a \
 			/usr/lib/crt1.o \
+			/usr/lib/crtbeginT.o \
 			/usr/lib/crti.o \
 			/usr/lib/crtn.o
 static_lib_DragonFly=	${static_lib_generic} \
@@ -380,6 +381,7 @@ headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
 
 headers_FreeBSD=	${headers_DragonFly:Nnet/*:Nutil.h} \
 			_ctype.h \
+			bsm/audit.h \
 			# end
 
 headers_Linux_dirs=	arpa \
@@ -554,6 +556,7 @@ install:
 .if "${OPSYS}" == "FreeBSD"
 	${MKDIR} \
 		${DESTDIR}${BASE}/libexec \
+		${DESTDIR}${BASE}/usr/include/bsm \
 		${DESTDIR}${BASE}/usr/include/x86 \
 		${DESTDIR}${BASE}/usr/include/sys \
 		${DESTDIR}${BASE}/usr/include/machine \
