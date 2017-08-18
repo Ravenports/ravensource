@@ -74,6 +74,24 @@ post-patch:
 		${WRKSRC}/src/mp/mp_region.c \
 		${WRKSRC}/src/mutex/mut_*
 
+post-patch-freebsd:
+	${REINPLACE_CMD} \
+		-e 's|freebsd1\*)|freebsd1.\*)|g' \
+		-e 's|freebsd\[12\]\*)|freebsd[12].*)|g' \
+		-e 's|freebsd\[123\]\*)|freebsd[123].*)|g' \
+		${WRKSRC}/dist/configure \
+		${WRKSRC}/lang/sql/jdbc/configure \
+		${WRKSRC}/lang/sql/sqlite/configure \
+		${WRKSRC}/lang/sql/odbc/configure
+	${REINPLACE_CMD} \
+		-e 's|freebsd1\*)|freebsd1.\*)|g' \
+		-e 's|freebsd\[\[12\]\]\*)|freebsd[[12]].*)|g' \
+		-e 's|freebsd\[\[123\]\]\*)|freebsd[[123]].*)|g' \
+		${WRKSRC}/dist/aclocal/libtool.m4 \
+		${WRKSRC}/lang/sql/jdbc/aclocal.m4 \
+		${WRKSRC}/lang/sql/sqlite/aclocal.m4 \
+		${WRKSRC}/lang/sql/odbc/aclocal.m4
+
 post-install:
 .for i in ${DBLIBS}
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/db5/${i}-${BDBVER}.so.0.0.0
