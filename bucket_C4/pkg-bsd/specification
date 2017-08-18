@@ -55,6 +55,10 @@ post-patch-linux:
 		-e '/OS_LIBS=/ s/-ldl //' \
 		${WRKSRC}/configure
 
+post-patch-freebsd:
+	${REINPLACE_CMD} -e '/#include <sys\/elf_common.h>/d' \
+		${WRKSRC}/libpkg/pkg_elf.c
+
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/sbin/pkg2ng
 	${MV} ${STAGEDIR}${PREFIX}/lib/libpkg_static.a \
