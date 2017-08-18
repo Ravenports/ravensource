@@ -378,7 +378,9 @@ headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
 			xlocale.h \
 			# end
 
-headers_FreeBSD=	${headers_DragonFly:Nnet/*:Nutil.h}
+headers_FreeBSD=	${headers_DragonFly:Nnet/*:Nutil.h} \
+			_ctype.h \
+			# end
 
 headers_Linux_dirs=	arpa \
 			asm-generic \
