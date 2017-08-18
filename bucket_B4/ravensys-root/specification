@@ -4,6 +4,8 @@ DEF[LINUX_OSREL]=	${LINUX_KERNEL:DL="-":H}
 DEF[LINUX_MAJOR]=	${LINUX_OSREL:R}
 DEF[LINUX_VERSION]=	${LINUX_KERNEL:S/-//:S/.//:S/./0/}
 DEF[EXTRA_UBUNTU]=	4 5 6 7 8 9 10 11 12 13
+DEF[FREEBSD_RELEASE]=	11.1
+DEF[FREE_KERNEL_VER]=	1101001
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravensys-root
@@ -18,9 +20,10 @@ HOMEPAGE=		none
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main avalon ubuntu1 ubuntu2 ubuntu3 ubuntu4 ubuntu5
-			ubuntu6 ubuntu7 ubuntu8
+			ubuntu6 ubuntu7 ubuntu8 freebsd
 SITES[main]=		https://leaf.dragonflybsd.org/~marino/dports-src/
 SITES[avalon]=		http://avalon.dragonflybsd.org/snapshots/x86_64/images/
+SITES[freebsd]=		https://download.freebsd.org/ftp/releases/amd64/amd64/ISO-IMAGES/${FREEBSD_RELEASE}/
 SITES[ubuntu1]=		http://security.ubuntu.com/ubuntu/pool/main/g/glibc/
 SITES[ubuntu2]=		UBUNTU/h/hostname
 SITES[ubuntu3]=		UBUNTU/d/dash
@@ -44,6 +47,7 @@ DISTFILE[11]=		passwd_4.2-3.1ubuntu5.3_amd64.deb:ubuntu7
 DISTFILE[12]=		linux-libc-dev_4.4.0-78.99_amd64.deb:ubuntu8
 DISTFILE[13]=		libc6-dev-amd64_2.23-0ubuntu9_i386.deb:ubuntu1
 DISTFILE[14]=		libc6-dev_2.23-0ubuntu9_i386.deb:ubuntu1
+DISTFILE[15]=		FreeBSD-${FREEBSD_RELEASE}-RELEASE-amd64-disc1.iso:freebsd
 
 SPKGS[dragonfly]=	single
 SPKGS[freebsd64]=	single
@@ -92,7 +96,7 @@ B_DEPS[freebsd]=	libdl:single:standard
 
 SKIP_BUILD=		yes
 SINGLE_JOB=		yes
-EXTRACT_DIRTY=		2 3 ${EXTRA_UBUNTU} 14
+EXTRACT_DIRTY=		2 3 ${EXTRA_UBUNTU} 14 15
 EXTRACT_DEB_PACKAGE=	3 ${EXTRA_UBUNTU} 14
 
 PLIST_SUB=		SONAME_LIBM={{Libm_{{OPSYS}}}}
@@ -127,7 +131,7 @@ MAKE_ARGS=		BASE={{RSYS}}
 
 [FREEBSD].DESCRIPTION=			Ravenports system root for FreeBSD
 [FREEBSD].ONLY_FOR_OPSYS_ON=		freebsd
-# [FREEBSD].DF_INDEX_ON=		2
+[FREEBSD].DF_INDEX_ON=			15
 
 post-extract-DRAGONFLY-ON:
 	${MV} ${WRKDIR}/${NAMEBASE}_2 ${WRKDIR}/dragonfly
@@ -186,3 +190,34 @@ post-install-LINUX-ON:
 	echo "x86_64"           > ${STAGEDIR}${RSYS}/usr/share/STDARCH
 	echo "include /etc/ld.so.conf.d/*.conf" > ${STAGEDIR}${RSYS}/usr/share/ld.so.conf
 	${LN} -s asm-generic ${STAGEDIR}${RSYS}/usr/include/asm
+
+post-extract-FREEBSD-ON:
+	${MV} ${WRKDIR}/${NAMEBASE}_15 ${WRKDIR}/freebsd
+	@${MKDIR} ${WRKSRC}
+	${INSTALL_DATA} ${FILESDIR}/Makefile ${WRKSRC}/
+	(cd ${WRKDIR}/freebsd && ${TAR} -xf usr/freebsd-dist/base.txz \
+		--no-same-owner --no-same-permissions)
+
+post-install-FREEBSD-ON:
+	${INSTALL_DATA} ${FOS}/etc/group \
+		${STAGEDIR}${RSYS}/usr/share/group
+	${INSTALL_DATA} ${FOS}/etc/master.passwd \
+		${STAGEDIR}${RSYS}/usr/share/master.passwd
+	${INSTALL_DATA} ${FOS}/etc/defaults/rc.conf \
+		${STAGEDIR}${RSYS}/usr/share/rc.conf
+	${FOS}/usr/sbin/pwd_mkdb -p -d ${STAGEDIR}${RSYS}/usr/share \
+		${STAGEDIR}${RSYS}/usr/share/master.passwd
+	${MKDIR} ${STAGEDIR}${RSYS}/var/run
+	# handle ldconfig hints
+	${INSTALL_PROGRAM} ${FOS}/sbin/ldconfig \
+		${STAGEDIR}${RSYS}/usr/bin/ldconfig
+	${FOS}/usr/sbin/chroot ${STAGEDIR}${RSYS} /usr/bin/ldconfig /usr/lib
+	${RM} ${STAGEDIR}${RSYS}/usr/bin/ldconfig
+	${MV} ${STAGEDIR}${RSYS}/var/run/ld-elf.so.hints \
+		${STAGEDIR}${RSYS}/usr/share/
+	${RM} -r ${STAGEDIR}${RSYS}/var
+
+	${ECHO} ${FREEBSD_RELEASE}   > ${STAGEDIR}${RSYS}/usr/share/OSRELEASE
+	${ECHO} ${FREEBSD_RELEASE:R} > ${STAGEDIR}${RSYS}/usr/share/OSMAJOR
+	${ECHO} ${FREE_KERNEL_VER}   > ${STAGEDIR}${RSYS}/usr/share/OSVERSION
+	echo "x86_64"                > ${STAGEDIR}${RSYS}/usr/share/STDARCH

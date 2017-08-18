@@ -17,10 +17,10 @@ Libcrypt_DragonFly=	libcrypt.so.4
 Libcrypt_FreeBSD=	libcrypt.so.5
 
 Libkvm_DragonFly=	libkvm.so.3
-Libkvm_FreeBSD=		libkvm.so.6
+Libkvm_FreeBSD=		libkvm.so.7
 
 Librt_DragonFly=	librt.so.0
-Librt_FreeBSD=		librt.so.4
+Librt_FreeBSD=		librt.so.1
 
 RSYS=			${PREFIX}/share/raven/sysroot/${OPSYS}
 FOS=			${WRKDIR}/${OPSYS:tl}

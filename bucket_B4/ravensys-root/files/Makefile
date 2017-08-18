@@ -6,6 +6,9 @@ Libexec_DragonFly=	/libexec/ld-elf.so.2
 Libexec_FreeBSD=	/libexec/ld-elf.so.1
 Libexec_Linux=		# empty
 
+Libthr_FreeBSD=		libthr.so.3
+Libsbuf_FreeBSD=	libsbuf.so.6
+
 # /bin/cat    (archivers/libarchive)
 # /bin/md5    (security/sha256)
 # /bin/sha256 (security/sha256)
@@ -56,7 +59,8 @@ Bin_FreeBSD=	/bin/[ \
 		/rescue/sh \
 		/bin/sleep \
 		/bin/test \
-		/bin/unlink
+		/bin/unlink \
+		# end
 
 Bin_Linux=	/bin/hostname \
 		/bin/pax \
@@ -123,7 +127,7 @@ Usr_Bin_DragonFly= \
 		/usr/bin/whoami \
 		# end
 
-Usr_Bin_FreeBSD=	${Usr_Bin_DragonFly}
+Usr_Bin_FreeBSD=	${Usr_Bin_DragonFly:N*/install:N*/wc}
 
 Usr_Bin_Linux=	# all come from coreutils except two
 		# /bin/which and /usr/bin/ldd are scripts, special handling
@@ -142,8 +146,12 @@ static_lib_generic=	/usr/lib/libc.a \
 			/usr/lib/libpthread.a
 static_lib_FreeBSD=	${static_lib_generic} \
 			/usr/lib/libkvm.a \
+			/usr/lib/libthr.a \
 			/usr/lib/libusb.a \
-			/usr/lib/libusbhid.a
+			/usr/lib/libusbhid.a \
+			/usr/lib/crt1.o \
+			/usr/lib/crti.o \
+			/usr/lib/crtn.o
 static_lib_DragonFly=	${static_lib_generic} \
 			/usr/lib/libkvm.a \
 			/usr/lib/libusb.a \
@@ -183,6 +191,8 @@ dynamic_generic=	/lib/${libc} \
 			/usr/lib/${librt} \
 			/usr/lib/libpthread.so
 dynamic_lib_FreeBSD=	${dynamic_generic} \
+			/lib/${Libsbuf_FreeBSD} \
+			/lib/${Libthr_FreeBSD} \
 			/usr/lib/${libusb} \
 			/usr/lib/${libusbhid}
 dynamic_lib_DragonFly=	${dynamic_generic} \
@@ -307,16 +317,13 @@ posix_headers=		aio.h \
 			# end
 
 headers_FreeBSD_dirs=	arpa \
+			net \
+			netinet \
+			netinet6 \
 			rpc \
 			rpcsvc \
+			vm \
 			xlocale \
-			# end
-
-headers_FreeBSD=	${posix_headers:Nstropts.h:Ntrace.h} \
-			libutil.h \
-			pthread_np.h \
-			usb.h \
-			usbhid.h \
 			# end
 
 headers_DragonFly_dirs=	arpa \
@@ -370,6 +377,8 @@ headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
 			uuid.h \
 			xlocale.h \
 			# end
+
+headers_FreeBSD=	${headers_DragonFly:Nnet/*:Nutil.h}
 
 headers_Linux_dirs=	arpa \
 			asm-generic \
@@ -534,7 +543,6 @@ install:
 	${MKDIR} \
 		${DESTDIR}${BASE}/libexec \
 		${DESTDIR}${BASE}/usr/include/cpu \
-		${DESTDIR}${BASE}/usr/include/netinet6 \
 		${DESTDIR}${BASE}/usr/include/sys \
 		${DESTDIR}${BASE}/usr/include/machine \
 		${DESTDIR}${BASE}/usr/include/vm \
@@ -544,8 +552,7 @@ install:
 .if "${OPSYS}" == "FreeBSD"
 	${MKDIR} \
 		${DESTDIR}${BASE}/libexec \
-		${DESTDIR}${BASE}/usr/include/cpu \
-		${DESTDIR}${BASE}/usr/include/netinet6 \
+		${DESTDIR}${BASE}/usr/include/x86 \
 		${DESTDIR}${BASE}/usr/include/sys \
 		${DESTDIR}${BASE}/usr/include/machine \
 		${DESTDIR}${BASE}/usr/include/vm \
@@ -589,6 +596,12 @@ install:
 		ln -s ${libutil} libutil.so && \
 		ln -s ${libusb} libusb.so && \
 		ln -s ${libusbhid} libusbhid.so)
+.endif
+.if ${OPSYS} == FreeBSD
+	(cd ${DESTDIR}${BASE}/usr/lib && \
+		ln -s ${Libthr_FreeBSD} libthr.so)
+	cp -a ${LOCALBASE}/bin/ginstall ${DESTDIR}${BASE}/usr/bin/install
+	cp -a ${LOCALBASE}/bin/gwc      ${DESTDIR}${BASE}/usr/bin/wc
 .endif
 .if ${OPSYS} == Linux
 .  for item in ${Linux_static_libs}
@@ -664,9 +677,15 @@ install:
 .for item in ${headers_${OPSYS}}
 	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/include/${item} ${DESTDIR}${BASE}/usr/include/${item}
 .endfor
-.if ${OPSYS} == DragonFly || ${OPSYS} == FreeBSD
+.if ${OPSYS} == DragonFly
 	cp ${LOCALBASE}/lib/libdl.a ${DESTDIR}${BASE}/usr/lib/
 	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/include/cpu/*.h ${DESTDIR}${BASE}/usr/include/cpu/
+	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/include/machine/*.h ${DESTDIR}${BASE}/usr/include/machine/
+	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/include/sys/*.h ${DESTDIR}${BASE}/usr/include/sys/
+.endif
+.if ${OPSYS} == FreeBSD
+	cp ${LOCALBASE}/lib/libdl.a ${DESTDIR}${BASE}/usr/lib/
+	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/include/x86/*.h ${DESTDIR}${BASE}/usr/include/x86/
 	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/include/machine/*.h ${DESTDIR}${BASE}/usr/include/machine/
 	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/include/sys/*.h ${DESTDIR}${BASE}/usr/include/sys/
 .endif
