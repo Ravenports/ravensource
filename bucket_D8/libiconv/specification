@@ -52,5 +52,18 @@ post-patch:
 		${WRKSRC}/libcharset/configure \
 		${WRKSRC}/preload/configure
 
+post-patch-freebsd:
+	${REINPLACE_CMD} \
+		-e 's|freebsd1\*)|freebsd1.\*)|g' \
+		-e 's|freebsd\[123\]\*)|freebsd[123].*)|g' \
+		${WRKSRC}/configure \
+		${WRKSRC}/libcharset/configure \
+		${WRKSRC}/preload/configure
+	${REINPLACE_CMD} \
+		-e 's|freebsd1\*)|freebsd1.\*)|g' \
+		-e 's|freebsd\[\[123\]\]\*)|freebsd[[123]].*)|g' \
+		${WRKSRC}/libcharset/m4/libtool.m4 \
+		${WRKSRC}/m4/libtool.m4
+
 post-install:
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
