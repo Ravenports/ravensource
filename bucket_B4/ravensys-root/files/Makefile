@@ -6,8 +6,10 @@ Libexec_DragonFly=	/libexec/ld-elf.so.2
 Libexec_FreeBSD=	/libexec/ld-elf.so.1
 Libexec_Linux=		# empty
 
+Libelf_FreeBSD=		libelf.so.2
 Libthr_FreeBSD=		libthr.so.3
 Libsbuf_FreeBSD=	libsbuf.so.6
+Libdevstat_FreeBSD=	libdevstat.so.7
 
 # /bin/cat    (archivers/libarchive)
 # /bin/md5    (security/sha256)
@@ -145,6 +147,7 @@ static_lib_generic=	/usr/lib/libc.a \
 			/usr/lib/libcrypt.a \
 			/usr/lib/libpthread.a
 static_lib_FreeBSD=	${static_lib_generic} \
+			/usr/lib/libdevstat.a \
 			/usr/lib/libkvm.a \
 			/usr/lib/libthr.a \
 			/usr/lib/libusb.a \
@@ -189,14 +192,16 @@ dynamic_generic=	/lib/${libc} \
 			/lib/${libutil} \
 			/lib/${libcrypt} \
 			/lib/${libkvm} \
-			/usr/lib/${librt} \
-			/usr/lib/libpthread.so
+			/usr/lib/${librt}
 dynamic_lib_FreeBSD=	${dynamic_generic} \
+			/lib/${Libelf_FreeBSD} \
 			/lib/${Libsbuf_FreeBSD} \
 			/lib/${Libthr_FreeBSD} \
+			/lib/${Libdevstat_FreeBSD} \
 			/usr/lib/${libusb} \
 			/usr/lib/${libusbhid}
 dynamic_lib_DragonFly=	${dynamic_generic} \
+			/usr/lib/libpthread.so \
 			/usr/lib/libpthread.so.0 \
 			/usr/lib/${libusb} \
 			/usr/lib/${libusbhid}
@@ -382,6 +387,8 @@ headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
 headers_FreeBSD=	${headers_DragonFly:Nnet/*:Nutil.h} \
 			_ctype.h \
 			bsm/audit.h \
+			libusb20.h \
+			libusb20_desc.h \
 			# end
 
 headers_Linux_dirs=	arpa \
@@ -604,7 +611,9 @@ install:
 .endif
 .if ${OPSYS} == FreeBSD
 	(cd ${DESTDIR}${BASE}/usr/lib && \
-		ln -s ${Libthr_FreeBSD} libthr.so)
+		ln -s ${Libthr_FreeBSD} libthr.so && \
+		ln -s ${Libdevstat_FreeBSD} libdevstat.so && \
+		ln -s libthr.so libpthread.so)
 	cp -a ${LOCALBASE}/bin/ginstall ${DESTDIR}${BASE}/usr/bin/install
 	cp -a ${LOCALBASE}/bin/gwc      ${DESTDIR}${BASE}/usr/bin/wc
 .endif
