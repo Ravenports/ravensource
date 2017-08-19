@@ -118,6 +118,9 @@ post-patch:
 		-e 's|/usr/local/bin/perl|${PREFIX}/bin/perl|' \
 		${WRKSRC}/scripts/CMakeLists.txt
 
+post-patch-freebsd:
+	${RM} ${WRKSRC}/cmake/os/FreeBSD.cmake
+
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/mysql/keyring \
 		${STAGEDIR}${MY_SECDIR} \
