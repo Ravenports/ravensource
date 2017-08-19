@@ -4,6 +4,7 @@ DEF[TAG]=		7fcdea3
 
 NAMEBASE=		ctags
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Tagfile generator for vi and emacs clones
@@ -24,9 +25,16 @@ FPC_EQUIVALENT=		devel/ctags
 BUILD_DEPENDS=		autoconf:single:standard
 			automake:single:standard
 			python-docutils:single:python_default
+BUILDRUN_DEPENDS=	libyaml:single:standard
+			libxml2:single:standard
+			jansson:single:standard
 
-USES=			pkgconfig gmake
+USES=			pkgconfig gmake iconv
 MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-iconv
+			--enable-json
+			--enable-yaml
+			--enable-xml
 INSTALL_REQ_TOOLCHAIN=	yes
 
 post-patch:
