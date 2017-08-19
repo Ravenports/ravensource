@@ -526,7 +526,10 @@ headers_Linux=		_G_config.h \
 			# end
 
 pcfiles_Linux=		# end
-pcfiles_FreeBSD=	# end
+pcfiles_FreeBSD=	libusb-0.1.pc \
+			libusb-2.0.pc \
+			libusb-1.0.pc \
+			# end
 pcfiles_DragonFly=	libusb-0.1.pc \
 			libusb-2.0.pc \
 			libusb-1.0.pc \
