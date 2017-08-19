@@ -89,6 +89,10 @@ post-patch-SSL3-OFF:
 	${REINPLACE_CMD} -e '/for protocol in TLSv1.2 SSLv3;/ s/ SSLv3//' \
 		${WRKSRC}/test/testssl
 
+post-patch-freebsd:
+	${REINPLACE_CMD} -e '/define HAVE_CRYPTODEV/d' \
+		${WRKSRC}/crypto/engine/eng_cryptodev.c
+
 do-configure:
 	${REINPLACE_CMD} -e "s|options 386|options|" ${WRKSRC}/config
 	(cd ${WRKSRC} && ${SETENV} CC="${CC}" FREEBSDCC="${CC}" \

@@ -87,6 +87,10 @@ post-patch-SKIP_MANPAGES-ON:
 	${GREP} -L openssl_manual_section ${WRKSRC}/doc/crypto/*.pod | ${XARGS} ${RM}
 	${GREP} -L openssl_manual_section ${WRKSRC}/doc/ssl/*.pod | ${XARGS} ${RM}
 
+post-patch-freebsd:
+	${REINPLACE_CMD} -e '/define HAVE_CRYPTODEV/d' \
+		${WRKSRC}/crypto/engine/eng_cryptodev.c
+
 post-configure:
 	${REINPLACE_CMD} \
 		-e 's|$$(SHLIB_MAJOR).$$(SHLIB_MINOR)|${OPENSSL_SHLIBVER}|g' \
