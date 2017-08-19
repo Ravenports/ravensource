@@ -18,7 +18,7 @@ CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		GCC/${MS_SUBDIR}
-DISTFILE[1]=		${IDENTIFICATION}.tar.bz2:main
+DISTFILE[1]=		${IDENTIFICATION}.tar.xz:main
 
 SPKGS[standard]=	complete compilers ada_run cxx_run fortran_run libs infopages
 
@@ -78,6 +78,7 @@ CONFIGURE_ARGS=		--enable-languages="c,c++,ada,fortran"
 			--with-ld=${TOOLCHAIN}/bin/ld
 			--with-as=${TOOLCHAIN}/bin/as
 			--with-pkgversion="Ravenports"
+			--disable-bootstrap
 
 INFO=			infopages:cpp
 			infopages:cppinternals
@@ -116,6 +117,9 @@ post-install:
 	${RM} ${STAGEDIR}${MANPREFIX}/man/man7/*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/adalib/libgnarl.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/adalib/libgnat.so
-# ${STRIP_CMD} ${STAGEDIR}${PREFIX}/${ASLIB}/libgcc_s.so.1
-	-[ -d ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/include-fixed/x86_64-linux-gnu ] && \
-		${RMDIR} ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/include-fixed/x86_64-linux-gnu
+
+post-install-dragonfly:
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/include-fixed
+
+post-install-freebsd:
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/include-fixed
