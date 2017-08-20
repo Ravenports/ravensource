@@ -153,7 +153,6 @@ static_lib_FreeBSD=	${static_lib_generic} \
 			/usr/lib/libusb.a \
 			/usr/lib/libusbhid.a \
 			/usr/lib/crt1.o \
-			/usr/lib/crtbeginT.o \
 			/usr/lib/crti.o \
 			/usr/lib/crtn.o
 static_lib_DragonFly=	${static_lib_generic} \
