@@ -323,6 +323,7 @@ posix_headers=		aio.h \
 			# end
 
 headers_FreeBSD_dirs=	arpa \
+			dev \
 			net \
 			netinet \
 			netinet6 \
@@ -619,6 +620,7 @@ install:
 		ln -s libthr.so libpthread.so)
 	cp -a ${LOCALBASE}/bin/ginstall ${DESTDIR}${BASE}/usr/bin/install
 	cp -a ${LOCALBASE}/bin/gwc      ${DESTDIR}${BASE}/usr/bin/wc
+	
 .endif
 .if ${OPSYS} == Linux
 .  for item in ${Linux_static_libs}
@@ -705,6 +707,8 @@ install:
 	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/include/x86/*.h ${DESTDIR}${BASE}/usr/include/x86/
 	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/include/machine/*.h ${DESTDIR}${BASE}/usr/include/machine/
 	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/include/sys/*.h ${DESTDIR}${BASE}/usr/include/sys/
+	rmdir ${DESTDIR}${BASE}/usr/include/dev/nand
+	rmdir ${DESTDIR}${BASE}/usr/include/dev/powermac_nvram
 .endif
 .for item in gsort/sort nawk/awk objdump/objdump-sysroot less/more \
 	bmake/make bsdcpio/cpio bsdtar/tar gcmp/cmp gdiff/diff \
