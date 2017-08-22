@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	1.24.0
+DEF[PORTVERSION]=	1.25.0
+DEF[SOVERSION]=		14.14.0
+DEF[SOMAJOR]=		${SOVERSION:R:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libnghttp2
@@ -24,3 +26,4 @@ USES=			autoreconf libtool pkgconfig
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-lib-only
 INSTALL_TARGET=		install-strip
+PLIST_SUB=		SOVERSION=${SOVERSION} SOMAJOR=${SOMAJOR}
