@@ -1,14 +1,15 @@
---- programs/Makefile.orig	2017-04-01 00:45:09 UTC
+--- programs/Makefile.orig	2017-08-17 17:55:30 UTC
 +++ programs/Makefile
-@@ -130,11 +130,7 @@ PREFIX  ?= /usr/local
- DESTDIR ?=
- BINDIR  ?= $(PREFIX)/bin
+@@ -134,11 +134,7 @@ BINDIR      ?= $(bindir)
+ datarootdir ?= $(PREFIX)/share
+ mandir      ?= $(datarootdir)/man
  
 -ifneq (,$(filter $(shell uname),OpenBSD FreeBSD NetBSD DragonFly SunOS))
 -MANDIR  ?= $(PREFIX)/man/man1
 -else
- MANDIR  ?= $(PREFIX)/share/man/man1
+-MANDIR  ?= $(mandir)
 -endif
++MANDIR  ?= $(PREFIX)/share/man/man1
  
  INSTALL_PROGRAM ?= $(INSTALL) -m 755
- INSTALL_SCRIPT  ?= $(INSTALL) -m 755
+ INSTALL_DATA    ?= $(INSTALL) -m 644

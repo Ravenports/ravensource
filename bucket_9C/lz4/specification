@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.7.5
+DEF[PORTVERSION]=	1.8.0
 DEF[SO_VER]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -33,12 +33,8 @@ PLIST_SUB=		SO_VER=${SO_VER}
 			SO_VER_MAJ=${SO_VER:R:R}
 
 post-patch:
-	@${FIND} ${WRKSRC} -name Makefile | ${XARGS} ${REINPLACE_CMD} \
-		-e '/^MANDIR :=/s|share/||'
 	@${REINPLACE_CMD} -e '/^all:/s/$$/ liblz4.pc/' \
 		${WRKSRC}/lib/Makefile
-	@${REINPLACE_CMD} -e '/^all:/s|fullbench.*||' \
-		${WRKSRC}/programs/Makefile
 
 post-install:
 	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/lz4*

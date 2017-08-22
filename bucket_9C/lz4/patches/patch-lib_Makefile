@@ -1,8 +1,8 @@
---- lib/Makefile.orig	2017-04-01 00:45:09 UTC
+--- lib/Makefile.orig	2017-08-17 17:55:30 UTC
 +++ lib/Makefile
-@@ -123,11 +123,7 @@ DESTDIR    ?=
- LIBDIR     ?= $(PREFIX)/lib
- INCLUDEDIR ?= $(PREFIX)/include
+@@ -126,11 +126,7 @@ LIBDIR      ?= $(libdir)
+ includedir  ?= $(PREFIX)/include
+ INCLUDEDIR  ?= $(includedir)
  
 -ifneq (,$(filter $(shell uname),OpenBSD FreeBSD NetBSD DragonFly))
 -PKGCONFIGDIR ?= $(PREFIX)/libdata/pkgconfig
@@ -10,5 +10,5 @@
  PKGCONFIGDIR ?= $(LIBDIR)/pkgconfig
 -endif
  
- INSTALL_LIB  ?= $(INSTALL) -m 755
- INSTALL_DATA ?= $(INSTALL) -m 644
+ ifneq (,$(filter $(shell uname),SunOS))
+ INSTALL ?= ginstall
