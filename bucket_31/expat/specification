@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2.2.3
-DEF[SOVER]=		1.6.5
+DEF[PORTVERSION]=	2.2.4
+DEF[SOVER]=		1.6.6
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		expat
@@ -27,5 +27,8 @@ FPC_EQUIVALENT=		textproc/expat2
 
 USES=			libtool
 MUST_CONFIGURE=		gnu
-BUILD_TARGET=		default
+INSTALL_TARGET=		install-strip
 PLIST_SUB=		SOVER=${SOVER}
+
+post-install:
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}
