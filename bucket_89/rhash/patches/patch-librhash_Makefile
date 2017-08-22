@@ -1,4 +1,4 @@
---- librhash/Makefile.orig	2016-11-06 15:49:40 UTC
+--- librhash/Makefile.orig	2017-08-14 00:56:22 UTC
 +++ librhash/Makefile
 @@ -2,9 +2,9 @@
  CC      ?= gcc
@@ -19,5 +19,5 @@
 -	sed -n '1s/.*/{ global:/p; s/^RHASH_API.* \([a-z0-9_]\+\)(.*/  \1;/p; $$s/.*/local: *; };/p' $(SO_HEADERS) > exports.sym
 +	sed -nE '1s/.*/{ global:/p; s/^RHASH_API.* ([a-z0-9_]+)\(.*/  \1;/p; $$s/.*/local: *; };/p' $(SO_HEADERS) > exports.sym
  	$(CC) -fpic $(ALLCFLAGS) -shared $(SOURCES) -Wl,--version-script,exports.sym,-soname,$(SONAME) $(LIBLDFLAGS) -o $@
+ 	rm -f $(SOLINK)
  	ln -s $(SONAME) $(SOLINK)
- # use 'nm -Cg --defined-only $@' to view exported symbols
