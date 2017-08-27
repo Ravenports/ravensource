@@ -1,5 +1,6 @@
-DEF[PORTVERSION]=	1.8.0
-DEF[SOVER]=		2.0
+DEF[PORTVERSION]=	1.8.1
+DEF[SOVERSION]=		20.2.1
+DEF[SOMAJOR]=		${SOVERSION:R:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libgcrypt
@@ -44,7 +45,8 @@ INFO=			single:gcrypt
 CPE_VENDOR=		gnupg
 INSTALL_TARGET=		install-strip
 TEST_TARGET=		check
-PLIST_SUB=		SOVER=${SOVER}
+PLIST_SUB=		SOMAJOR=${SOMAJOR}
+			SOVERSION=${SOVERSION}
 
 post-patch:
 	${RM} ${WRKSRC}/doc/gcrypt.info*
