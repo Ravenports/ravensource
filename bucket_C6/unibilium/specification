@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	1.2.0
+DEF[PORTVERSION]=	1.2.1
+DEF[SOVERSION]=		0.3.1
+DEF[SOMAJOR]=		${SOVERSION:R:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		unibilium
@@ -26,6 +28,7 @@ FPC_EQUIVALENT=		devel/unibilium
 
 USES=			gmake perl:build pkgconfig libtool:build
 MAKE_ARGS=		PREFIX={{PREFIX}}
+PLIST_SUB=		SOVERSION=${SOVERSION} SOMAJOR=${SOMAJOR}
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libunibilium.so
