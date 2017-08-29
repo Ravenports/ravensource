@@ -1,5 +1,7 @@
-DEF[PORTVERSION]=	1.8.1
-DEF[SOVER]=		${PORTVERSION}
+DEF[PORTVERSION]=	1.8.2
+DEF[SOVER]=		18
+DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
+DEF[COMP_RPATH]=	{{PREFIX}}/toolchain/${GCCX}/lib
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		jsoncpp
@@ -25,25 +27,19 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/jsoncpp
 
-USES=			dos2unix scons c++:single
-MAKE_ARGS=		platform=linux-gcc
+USES=			dos2unix c++:single meson
 PLIST_SUB=		SOVER=${SOVER}
 
-do-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/include/jsoncpp
-	(cd ${WRKSRC}/include/ && \
-		${COPYTREE_SHARE} json/ ${STAGEDIR}${PREFIX}/include/jsoncpp/)
-	${INSTALL_DATA} ${WRKSRC}/libs/linux-gcc-Raven/libjsoncpp.a \
-		${STAGEDIR}${PREFIX}/lib
-	${INSTALL_LIB} ${WRKSRC}/libs/linux-gcc-Raven/libjsoncpp.so.${PORTVERSION} \
-		${STAGEDIR}${PREFIX}/lib
-	${LN} -s libjsoncpp.so.${PORTVERSION} \
-		${STAGEDIR}${PREFIX}/lib/libjsoncpp.so.1
-	${LN} -s libjsoncpp.so.${PORTVERSION} \
-		${STAGEDIR}${PREFIX}/lib/libjsoncpp.so
-	${SED}  -e 's|@CMAKE_INSTALL_PREFIX@|${PREFIX}|g' \
-		-e 's|@CMAKE_INSTALL_LIBDIR@|lib|g' \
-		-e 's|@CMAKE_INSTALL_INCLUDEDIR@|include/jsoncpp|g' \
-		-e 's|@JSONCPP_VERSION@|${PORTVERSION}|g' \
-		${WRKSRC}/pkg-config/jsoncpp.pc.in \
-		> ${STAGEDIR}${PREFIX}/lib/pkgconfig/jsoncpp.pc
+# meson is incapable of building static + dynamic libs
+# simultaneously.  Devs don't even see why it should (garbage)
+# meson is also crap wrt to rpath.  It's stripping out our
+# compilers inherent rpath settings.  (more garbage)
+
+post-patch:
+	${REINPLACE_CMD} -e "s|install : true|install : true, install_rpath : '${COMP_RPATH}'|" \
+		${WRKSRC}/meson.build
+
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/include/jsoncpp
+	${MV} ${STAGEDIR}${PREFIX}/include/json \
+		${STAGEDIR}${PREFIX}/include/jsoncpp
