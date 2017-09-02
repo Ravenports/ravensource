@@ -1,6 +1,6 @@
---- src/stty.c.orig	2016-01-07 12:32:35 UTC
+--- src/stty.c.orig	2017-03-01 17:16:46 UTC
 +++ src/stty.c
-@@ -287,10 +287,10 @@ static struct mode_info const mode_info[
+@@ -288,10 +288,10 @@ static struct mode_info const mode_info[
  # ifdef TAB3
    {"tab3", output, SANE_UNSET, TAB3, TABDLY},
  # endif
