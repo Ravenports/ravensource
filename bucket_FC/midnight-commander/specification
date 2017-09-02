@@ -1,0 +1,74 @@
+DEF[PORTVERSION]=	4.8.19
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		midnight-commander
+VERSION=		${PORTVERSION}
+KEYWORDS=		misc shells
+VARIANTS=		standard desktop
+SDESC[standard]=	Free Norton Commander clone
+SDESC[desktop]=		Free Norton Commander clone (X11)
+HOMEPAGE=		http://midnight-commander.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main icon
+SITES[main]=		http://ftp.midnight-commander.org/
+SITES[icon]=		http://midnight-commander.org/chrome/site/
+DISTFILE[1]=		mc-${PORTVERSION}.tar.xz:main
+DISTFILE[2]=		MidnightCommander.png:icon
+
+SPKGS[standard]=	single
+SPKGS[desktop]=		single
+
+OPTIONS_AVAILABLE=	X11
+OPTIONS_STANDARD=	none
+VOPTS[desktop]=		X11=ON
+
+FPC_EQUIVALENT=		misc/mc
+
+RUN_DEPENDS=		diffutils:single:standard
+BUILDRUN_DEPENDS=	libssh2:single:standard
+
+DISTNAME=		mc-${PORTVERSION}
+EXTRACT_ONLY=		1
+
+USES=			gmake iconv libtool ncurses pkgconfig perl:build
+			gettext-runtime shebangfix
+GNOME_COMPONENTS=	glib
+MUST_CONFIGURE=		gnu
+CONFIGURE_ENV=		ac_cv_search_addwstr="-lncursesw -ltinfow"
+CONFIGURE_ARGS=		--enable-charset
+			--enable-nls
+			--enable-vfs-sftp
+			--enable-vfs-smb
+			--with-internal-edit
+			--with-screen=ncurses
+			--with-subshell
+			--with-smb-configdir={{LOCALBASE}}/etc
+			--with-smb-codepagedir={{LOCALBASE}}/etc/codepages
+CPPFLAGS=		-I{{NCURSESINC}}
+SHEBANG_FILES=		misc/mcedit.menu.in
+			configure
+			configure.ac
+			src/vfs/extfs/helpers/Makefile.in
+			src/vfs/extfs/helpers/s3+.in
+			src/vfs/extfs/helpers/uc1541.in
+SHEBANG_OLD_PYTHON=	@PYTHON@
+SHEBANG_NEW_PYTHON=	{{LOCALBASE}}/bin/python2
+
+[X11].DESCRIPTION=			Support xterm under X11 server
+[X11].CONFIGURE_WITH_BOTH=		x
+[X11].XORG_COMPONENTS_ON=		x11
+					xext
+post-patch:
+	@${REINPLACE_CMD} -e 's|PACKAGE=mc|PACKAGE=midnight-commander|' \
+		${WRKSRC}/configure
+	@${REINPLACE_CMD} -e 's|SUBDIRS = intl|SUBDIRS =|' \
+		${WRKSRC}/Makefile.in
+
+post-install-X11-ON:
+	@${MKDIR} ${STAGEDIR}${DESKTOPDIR} \
+		${STAGEDIR}${PREFIX}/share/pixmaps
+	${INSTALL_DATA} ${DISTDIR}/MidnightCommander.png \
+		${STAGEDIR}${PREFIX}/share/pixmaps/
+	${INSTALL_DATA} ${FILESDIR}/mc.desktop \
+		${STAGEDIR}${DESKTOPDIR}
