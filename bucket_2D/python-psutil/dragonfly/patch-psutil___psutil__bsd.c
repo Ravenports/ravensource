@@ -1,4 +1,4 @@
---- psutil/_psutil_bsd.c.orig	2017-03-26 08:09:27 UTC
+--- psutil/_psutil_bsd.c.orig	2017-08-03 16:14:27 UTC
 +++ psutil/_psutil_bsd.c
 @@ -19,6 +19,7 @@
      #define _KMEMUSER
@@ -16,7 +16,7 @@
  #include <netinet/in_systm.h>
  #include <netinet/ip.h>
  #include <netinet/in_pcb.h>
-@@ -92,6 +92,10 @@
+@@ -94,6 +94,10 @@
      #ifndef DTYPE_VNODE
          #define DTYPE_VNODE 1
      #endif
@@ -27,7 +27,7 @@
  #endif
  
  
-@@ -235,6 +239,12 @@ psutil_proc_oneshot_info(PyObject *self,
+@@ -231,6 +235,12 @@ psutil_proc_oneshot_info(PyObject *self,
      memtext = (long)kp.ki_tsize * pagesize;
      memdata = (long)kp.ki_dsize * pagesize;
      memstack = (long)kp.ki_ssize * pagesize;
