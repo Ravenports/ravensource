@@ -1,0 +1,57 @@
+DEF[PORTVERSION]=	1.19.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		wget
+VERSION=		${PORTVERSION}
+KEYWORDS=		ftp www
+VARIANTS=		standard
+SDESC[standard]=	Program to retrieve files via http/s and ftp
+HOMEPAGE=		https://www.gnu.org/software/wget/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/wget
+DISTFILE[1]=		wget-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		ftp/wget
+
+BUILD_DEPENDS=		pcre:static:standard
+BUILDRUN_DEPENDS=	pcre:shared:standard
+			libidn2:primary:standard
+			libunistring:primary:standard
+			libmetalink:primary:standard
+
+USES=			charsetfix cpe iconv makeinfo gettext-runtime ssl
+			zlib pkgconfig perl:build
+CPE_VENDOR=		gnu
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-libidn={{LOCALBASE}}
+			--with-libunistring-prefix={{LOCALBASE}}
+			--with-metalink
+			--with-ssl=openssl
+			--with-ssl-prefix={{OPENSSLBASE}}
+			--without-libpsl
+			--enable-nls
+			--enable-iri
+			--enable-ipv6
+			--enable-pcre
+CONFIGURE_ENV=		MAKEINFO="{{MAKEINFO}}"
+CPPFLAGS=		-I{{OPENSSLINC}}
+LDFLAGS=		-L{{OPENSSLLIB}}
+INFO=			primary:wget
+
+post-patch:
+	${REINPLACE_CMD} -e 's,WGETRC = $$(sysconfdir)/wgetrc,&.sample,' \
+		${WRKSRC}/doc/Makefile.in
+	${REINPLACE_CMD} -e 's,/usr/local/etc/wgetrc,${PREFIX}/etc/wgetrc,' \
+		${WRKSRC}/doc/sample.wgetrc* \
+		${WRKSRC}/doc/wget.texi
