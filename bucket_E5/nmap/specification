@@ -1,0 +1,51 @@
+DEF[PORTVERSION]=	7.60
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		nmap
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		standard
+SDESC[standard]=	Port scanning utility for large networks
+HOMEPAGE=		https://nmap.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://nmap.org/dist/
+DISTFILE[1]=		nmap-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		security/nmap
+
+BUILD_DEPENDS=		pcre:static:standard
+BUILDRUN_DEPENDS=	pcre:shared:standard
+
+USES=			gmake cpe ssl
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-openssl={{OPENSSLBASE}}
+			--without-localdirs
+			--without-zenmap
+			--without-ndiff
+			--with-libpcre={{LOCALBASE}}
+			--with-liblua=included
+			--without-nmap-update
+CPPFLAGS=		-I{{OPENSSLINC}}
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-extract:
+	@${RM} -r ${WRKSRC}/mswin32
+
+post-configure:
+	@${REINPLACE_CMD} -e "s|^DESTDIR *=|& ${DESTDIR}|" ${WRKSRC}/Makefile
+
+pre-install:
+	${FIND} ${WRKSRC} -type f \( -name \*.orig -o -name \*.bak \) -delete
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ncat
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/nmap
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/nping
+

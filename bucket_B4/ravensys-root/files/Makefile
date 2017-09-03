@@ -367,8 +367,17 @@ headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
 			util.h \
 			vis.h \
 			libusb.h \
+			net/bpf.h \
+			net/dlt.h \
+			net/ethernet.h \
+			net/if_arp.h \
+			net/if_clone.h \
 			net/if_dl.h \
+			net/if_llc.h \
 			net/if_media.h \
+			net/if_mib.h \
+			net/if_poll.h \
+			net/if_types.h \
 			net/if_var.h \
 			net/netmsg.h \
 			net/radix.h \
