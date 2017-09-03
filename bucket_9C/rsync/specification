@@ -1,0 +1,52 @@
+DEF[PORTVERSION]=	3.1.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		rsync
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		standard
+SDESC[standard]=	Network file distribution/synchronization utility
+HOMEPAGE=		http://rsync.samba.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://rsync.samba.org/ftp/rsync/
+			ftp://ftp.samba.org/pub/rsync/
+			http://www.mirrorservice.org/sites/rsync.samba.org/
+DISTFILE[1]=		rsync-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		net/rsync
+
+USES=			cpe iconv zlib shebangfix
+SHEBANG_FILES=		support/rrsync
+CPE_VENDOR=		samba
+CPE_PRODUCT=		rsync
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-debug
+			--enable-ipv6
+			--enable-iconv
+			--enable-iconv-open
+			--with-rsyncd-conf={{PREFIX}}/etc/rsync/rsyncd.conf
+			--with-included-popt=yes
+			--with-included-zlib=no
+			--with-rsh=ssh
+INSTALL_TARGET=		install-strip
+TEST_TARGET=		check
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|perl.*|${DO_NADA}|' ${WRKSRC}/Makefile.in
+	@${REINPLACE_CMD} -e 's:/etc/:${PREFIX}/etc/rsync/:g'  \
+		${WRKSRC}/rsync.h ${WRKSRC}/rsync.1 ${WRKSRC}/rsyncd.conf.5
+	@${REINPLACE_CMD} -e 's|/usr/bin/rsync|${PREFIX}/bin/rsync|g' \
+		${WRKSRC}/support/rrsync
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/rsync
+	${INSTALL_DATA} ${FILESDIR}/rsyncd.conf.sample ${STAGEDIR}${PREFIX}/etc/rsync
+	${INSTALL_SCRIPT} ${WRKSRC}/support/rrsync ${STAGEDIR}${PREFIX}/sbin
