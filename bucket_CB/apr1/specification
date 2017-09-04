@@ -22,13 +22,14 @@ OPTIONS_STANDARD=	none
 
 # FPC_EQUIVALENT=	would be devel/apr, but version is custom
 
-USES=			iconv libtool
+USES=			iconv libtool ssl
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-installbuilddir={{PREFIX}}/share/apr1/build-1
 			--enable-threads
 			--enable-posix-shm
 			--enable-ipv6
 			--with-devrandom
+			--with-crypto
 DISTNAME=		apr-${PORTVERSION}
 PLIST_SUB=		SOVERSION=${SOVERSION}
 			SOMAJOR=${SOMAJOR}
