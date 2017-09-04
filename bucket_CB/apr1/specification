@@ -1,0 +1,47 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(APR1_VERSION)
+DEF[SOVERSION]=		${PORTVERSION:S|1.|0.|}
+DEF[SOMAJOR]=		${SOVERSION:R:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		apr1
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Apache Portable Runtime library
+HOMEPAGE=		https://apr.apache.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		APACHE/apr
+DISTFILE[1]=		apr-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# FPC_EQUIVALENT=	would be devel/apr, but version is custom
+
+USES=			iconv libtool
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-installbuilddir={{PREFIX}}/share/apr1/build-1
+			--enable-threads
+			--enable-posix-shm
+			--enable-ipv6
+			--with-devrandom
+DISTNAME=		apr-${PORTVERSION}
+PLIST_SUB=		SOVERSION=${SOVERSION}
+			SOMAJOR=${SOMAJOR}
+
+post-extract:
+	# cleanup files not used on this platform
+	@${FIND} ${WRKDIR} -type f \( -name 'NWGNU*' -o -name '*.ds?' -o -name '*.dep' -o -name '*.mak' -o -name '*.win' \) -delete
+
+post-patch:
+	@${REINPLACE_CMD} -e 's/OSVERSION/${OSVERSION}/g' \
+		${WRKSRC}/configure
+	@${REINPLACE_CMD} -e '/recursive:/s/$$/ .MAKE/' \
+		${WRKSRC}/build/apr_rules.mk.in
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libapr-1.so
