@@ -1,0 +1,85 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(SUBVERSION_VERSION)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		subversion
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Version control system
+HOMEPAGE=		https://subversion.apache.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		APACHE/subversion
+DISTFILE[1]=		subversion-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/subversion
+
+BUILD_DEPENDS=		expat:static:standard
+BUILDRUN_DEPENDS=	serf:single:standard
+
+RC_SUBR=		svnserve:single
+
+USES=			shebangfix cpe libtool pkgconfig gettext-runtime
+			gettext-tools zlib
+CPE_VENDOR=		apache
+SHEBANG_OLD_PYTHON=	{{LOCALBASE}}/bin/python2
+			"/bin/env python"
+SHEBANG_REGEX=		./tools/.*
+SHEBANG_FILES=		tools/server-side/svnpubsub/rc.d/svnpubsub.solaris
+			tools/server-side/svnpubsub/rc.d/svnwcsub.solaris
+INSTALL_REQ_TOOLCHAIN=	yes
+MUST_CONFIGURE=		gnu
+MAKE_ARGS=		pkgconfig_dir={{PREFIX}}/lib/pkgconfig
+CONFIGURE_ARGS=		--without-swig
+			--without-berkeley-db
+			--with-serf
+			--with-sqlite={{LOCALBASE}}
+			--with-expat={{LOCALBASE}}/include:{{LOCALBASE}}/lib:expat
+			--with-apr={{LOCALBASE}}/bin/apr-1-config
+			--with-apr-util={{LOCALBASE}}/bin/apu-1-config
+VAR_ARCH[x86_64]=	CFLAGS=-fpic
+			CFLAGS=-DPIC
+
+post-patch:
+	@${REINPLACE_CMD} "s#/etc/subversion#${PREFIX}/etc/subversion#g" ${WRKSRC}/subversion/libsvn_subr/config_file.c
+	@${REINPLACE_CMD} "s#/etc/subversion#${PREFIX}/etc/subversion#g" ${WRKSRC}/subversion/libsvn_subr/config_impl.h
+	@${REINPLACE_CMD} "s#^swig_pydir =.*#swig_pydir = ${PYTHON_SITELIBDIR}/libsvn#" ${WRKSRC}/Makefile.in
+	@${REINPLACE_CMD} "s#^swig_pydir_extra =.*#swig_pydir_extra = ${PYTHON_SITELIBDIR}/svn#" ${WRKSRC}/Makefile.in
+
+	# shebangfix
+	@${FIND} ${WRKSRC}/tools/ -type f -exec ${GREP} -l -e '#!/bin/b' -e '#!/bin/env' \
+		-e '#!/usr/bin/p' {} + | ${XARGS} ${REINPLACE_CMD} -e \
+		'1s|#\!/bin/b|#\!/usr/local/bin/b|' \
+		-e '1s|#\!/bin/env|#\!/usr/bin/env|' \
+		-e '1s|#\!/usr/bin/p|#\!/usr/local/bin/p|'
+	# remove all .bak files to clean the stage
+	@${FIND} ${WRKSRC} -name '*.bak' -delete
+
+post-configure:
+	# Enable GNOME Keyring / KWallet support in main code, as it is harmless
+	@${REINPLACE_CMD} -E 's%.*#undef SVN_HAVE_(GNOME_KEYRING|KWALLET).*%#define SVN_HAVE_\1 1%' ${WRKSRC}/subversion/svn_private_config.h
+
+	# ugly hack: save tools directory so we don't have to cleanup before installing
+	@${CP} -R ${WRKSRC}/tools ${WRKSRC}/tools.examples
+	@${CHMOD} -R a-st,o+rX ${WRKSRC}/tools.examples
+
+post-build:
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		${MAKE_CMD} -C ${WRKSRC} tools ${MAKE_ARGS})
+
+post-install:
+	(cd ${WRKSRC}/tools.examples && \
+		${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/share/subversion)
+	(cd ${STAGEDIR}${PREFIX}/share/subversion && \
+		${RM} backup/hot-backup.py.in \
+		hook-scripts/commit-access-control.pl.in)
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		${MAKE_CMD} -C ${WRKSRC} install-tools ${MAKE_ARGS})
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
