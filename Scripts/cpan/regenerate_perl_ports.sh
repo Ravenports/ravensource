@@ -47,6 +47,7 @@ queue=${tmpdir}/build-queue
 RAVENADM=/home/marino/ravenadm/build/ravenadm # /raven/bin/ravenadm
 # ENTRY_LIST=${tmpdir}/latest_candidates.txt
 ENTRY_LIST=${tmpdir}/02packages.details.txt
+DEADLIST=${thisdir}/dead-homepage.list
 urlstub="http://cpansearch.perl.org/src/"
 mirror_base="/mech/var/cache/cpan/"
 
@@ -153,6 +154,14 @@ mark_all_modules()
    done
 }
 
+# return "ok" or "dead".
+# "dead" means the port has been manually marked for a dead homepage
+homepage_status()
+{
+   awk -vportname="${1}" '{ if (portname == $1) { found = 1 }} \
+END { print (found) ? "dead" : "ok"}' ${DEADLIST}
+}
+
 # generate ravensource port subroutine
 generate_ravensource()
 {
@@ -169,6 +178,7 @@ generate_ravensource()
    local bucketname=$(get_bucketname ${port_name})
    local ravsrc_dir=$(ravensource_dir ${bucketname})
    local port_author=$(author_and_tarball "${index_info}")
+   local hp_status=$(homepage_status ${port_name})
    
    local url_tail=$(cpansearch_url "${index_info}")   
    if [ -z "${url_tail}" ]; then
@@ -210,13 +220,13 @@ generate_ravensource()
    cached=0   
    if [ -f ${meta_json} ]; then
       echo "cached    meta.json for ${port_name} found"
-      perl ${thisdir}/write_port_from_json.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${meta_json}"
+      perl ${thisdir}/write_port_from_json.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${meta_json}" ${hp_status}
       result=$?
       cached=1
    else
       if [ -f ${meta_yaml} ]; then
          echo "cached    meta.yaml for ${port_name} found"
-         perl ${thisdir}/write_port_from_yaml.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${meta_yaml}"
+         perl ${thisdir}/write_port_from_yaml.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${meta_yaml}" ${hp_status}
          result=$?
          cached=1
       else
@@ -226,13 +236,13 @@ generate_ravensource()
          fetch ${base_url}/META.json -o ${meta_json} 2>/dev/null
          if [ $? -eq 0 ]; then
             echo "Retrieved meta.json for ${port_name}"
-            perl ${thisdir}/write_port_from_json.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${meta_json}"
+            perl ${thisdir}/write_port_from_json.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${meta_json}" ${hp_status}
             result=$?
          else
             fetch ${base_url}/META.yml -o ${meta_yaml} 2>/dev/null
             if [ $? -eq 0 ]; then
                echo "Retrieved meta.yaml for ${port_name}"
-               perl ${thisdir}/write_port_from_yaml.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${meta_yaml}"
+               perl ${thisdir}/write_port_from_yaml.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${meta_yaml}" ${hp_status}
                result=$?
             else
                echo "No META files found for ${perl_module} at ${base_url}"

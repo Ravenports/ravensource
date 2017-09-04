@@ -6,6 +6,7 @@
 # argument 4: perl argument (configure, buildmod, buildmodtiny)
 # argument 5: ravensource directory
 # argument 6: location of meta.yaml
+# argument 7: "ok" or "dead" (if not "ok", ignore homepage setting)
 #
 
 use strict;
@@ -21,6 +22,7 @@ my $tarball       = $ARGV[2];
 my $buildmech     = $ARGV[3];
 my $ravensource   = $ARGV[4];
 my $meta_yaml_loc = $ARGV[5];
+my $use_homepage  = $ARGV[6];
 
 my $dir_queue   = "/tmp/cpan-work/build-queue";
 my $dir_done    = "/tmp/cpan-work/completed";
@@ -161,11 +163,13 @@ foreach my $n (@variants) {
    $counter++;
 }
 
-if (exists $meta_data->{'homepage'}) {
-   $homepage = $meta_data->{'homepage'}
-} elsif ((exists $meta_data->{'resources'}{'repository'}) &&
-    ($meta_data->{'resources'}{'repository'} =~ /^http/)) {
-   $homepage = $meta_data->{'resources'}{'repository'}
+if ("$use_homepage" eq "ok") {
+  if (exists $meta_data->{'homepage'}) {
+     $homepage = $meta_data->{'homepage'}
+  } elsif ((exists $meta_data->{'resources'}{'repository'}) &&
+      ($meta_data->{'resources'}{'repository'} =~ /^http/)) {
+     $homepage = $meta_data->{'resources'}{'repository'}
+  }
 }
 
 $homepage =~ s/http:\/\/github.com/https:\/\/github.com/;
