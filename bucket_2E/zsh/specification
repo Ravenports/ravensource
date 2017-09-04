@@ -1,0 +1,90 @@
+DEF[PORTVERSION]=	5.4.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		zsh
+VERSION=		${PORTVERSION}
+KEYWORDS=		shells
+VARIANTS=		standard
+SDESC[standard]=	Interactive Z Shell
+HOMEPAGE=		http://www.zsh.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.zsh.org/pub/
+DISTFILE[1]=		zsh-${PORTVERSION}.tar.gz:main
+DISTFILE[2]=		zsh-${PORTVERSION}-doc.tar.xz:main
+DF_INDEX=		1 2
+
+SPKGS[standard]=	complete primary examples docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:primary
+LICENSE_NAME=		CUSTOM1:"ZSH license"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENCE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		shells/zsh
+
+BUILD_DEPENDS=		pcre:static:standard
+BUILDRUN_DEPENDS=	pcre:shared:standard
+			gdbm:single:standard
+
+USES=			autoreconf iconv ncurses shebangfix
+SINGLE_JOB=		yes
+SHEBANG_LANG=		zsh
+SHEBANG_OLD_ZSH=	zsh
+SHEBANG_FILES=		Functions/Calendar/*
+			Functions/Misc/*
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-tcsetpgrp
+			--enable-function-subdirs
+			--enable-maildir-support
+			--enable-multibyte
+			--enable-zsh-secure-free
+			--enable-gdbm
+			--enable-pcre
+			--enable-dynamic
+			--disable-zsh-mem
+			--sysconfdir={{PREFIX}}/etc
+CONFIGURE_ENV=		ac_cv_search_tigetflag="-lncursesw -ltinfow"
+CPPFLAGS=		-DBOOL_DEFINED
+			-I{{NCURSESINC}}
+PLIST_SUB=		ZSH_VER="${PORTVERSION}"
+INSTALL_REQ_TOOLCHAIN=	yes
+
+# note: --enable-zsh-mem causes lockup, at least on DF
+
+post-patch:
+	${RM} ${WRKSRC}/Completion/Unix/Type/_tar_archive.orig
+
+post-patch-freebsd:
+	# FreeBSD's clock_gettime(2) is in libc, not librt; see PR 167857
+	@${REINPLACE_CMD} -e '/LIBS/s|-lrt||' ${WRKSRC}/configure
+	@${REINPLACE_CMD} -i'' -e "s|/etc/|${LOCALBASE}/etc/|" \
+		${WRKSRC}/Functions/MIME/zsh-mime-setup
+
+post-patch-dragonfly:
+	# DragonFly's clock_gettime(2) is in libc, not librt
+	@${REINPLACE_CMD} -e '/LIBS/s|-lrt||' ${WRKSRC}/configure
+	@${REINPLACE_CMD} -i'' -e "s|/etc/|${LOCALBASE}/etc/|" \
+		${WRKSRC}/Functions/MIME/zsh-mime-setup
+
+post-install:
+	${LN} -f ${STAGEDIR}${PREFIX}/bin/zsh ${STAGEDIR}${PREFIX}/bin/rzsh
+	# Precompile completions and functions
+	(${STAGEDIR}${PREFIX}/bin/zsh -fc '\
+		setopt extendedglob nomark_dirs;\
+		cd ${STAGEDIR}${PREFIX}/share/zsh/${PORTVERSION};\
+		for i in functions/**/*(/) ; do\
+			zcompile -U -M $$i.zwc $$i/*~*.zwc(^/);\
+			${CHMOD} 644 $$i.zwc;\
+		done')
+	@${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR} ${STAGEDIR}${STD_DOCDIR}
+	(cd ${WRKSRC}/StartupFiles && ${INSTALL_DATA} \
+		zlogin zshenv zshrc ${STAGEDIR}${STD_EXAMPLESDIR})
+	(cd ${WRKSRC} && ${INSTALL_DATA} \
+		META-FAQ README Etc/BUGS Etc/CONTRIBUTORS \
+		Etc/FAQ Etc/completion-style-guide \
+		Doc/zsh*.html Doc/zsh.dvi ${STAGEDIR}${STD_DOCDIR})
