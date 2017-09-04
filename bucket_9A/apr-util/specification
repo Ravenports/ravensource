@@ -1,0 +1,60 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(APR1_UTIL_VERSION)
+DEF[SOVERSION]=		${PORTVERSION:S|1.|0.|}
+DEF[SOMAJOR]=		${SOVERSION:R:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		apr-util
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Apache Portable Runtime Utility library
+HOMEPAGE=		https://apr.apache.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		APACHE/apr
+DISTFILE[1]=		apr-util-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# FPC_EQUIVALENT=	would be devel/apr, but version is custom
+
+BUILD_DEPENDS=		expat:static:standard
+BUILDRUN_DEPENDS=	expat:shared:standard
+			apr1:single:standard
+			gdbm:single:standard
+			unixODBC:primary:standard
+
+USES=			iconv libtool cpe ssl bdb sqlite
+CPE_VENDOR=		apache
+CPE_PRODUCT=		apr-util
+CPE_VERSION=		${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-apr={{LOCALBASE}}
+			--with-expat={{LOCALBASE}}
+			--with-gdbm={{LOCALBASE}}
+			--with-sqlite3={{LOCALBASE}}
+			--with-odbc={{LOCALBASE}}
+			--with-iconv={{ICONV_PREFIX}}
+			--with-openssl={{OPENSSLBASE}}
+			--with-crypto
+			--without-nss
+			--without-ndbm
+			--without-ldap
+			--without-mysql
+			--without-pgsql
+LDFLAGS=		-L{{OPENSSLLIB}} -L{{LOCALBASE}}/lib/nss
+CPPFLAGS=		-I{{OPENSSLINC}} -I{{LOCALBASE}}/include/nss
+PLIST_SUB=		SOVERSION=${SOVERSION}
+			SOMAJOR=${SOMAJOR}
+
+post-extract:
+	# cleanup files not used on this platform
+	@${FIND} ${WRKDIR} -type f \( -name 'NWGNU*' -o -name '*.ds?' -o -name '*.dep' -o -name '*.mak' -o -name '*.win' \) -delete
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/apr-util-1/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libaprutil-1.so
