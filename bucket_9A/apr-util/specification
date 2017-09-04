@@ -28,7 +28,7 @@ BUILDRUN_DEPENDS=	expat:shared:standard
 			gdbm:single:standard
 			unixODBC:primary:standard
 
-USES=			iconv libtool cpe ssl bdb sqlite
+USES=			iconv libtool cpe ssl bdb:5 sqlite
 CPE_VENDOR=		apache
 CPE_PRODUCT=		apr-util
 CPE_VERSION=		${PORTVERSION}
@@ -40,6 +40,7 @@ CONFIGURE_ARGS=		--with-apr={{LOCALBASE}}
 			--with-odbc={{LOCALBASE}}
 			--with-iconv={{ICONV_PREFIX}}
 			--with-openssl={{OPENSSLBASE}}
+			--with-berkeley-db={{BDB_INCLUDE_DIR}}:{{BDB_LIB_DIR}}
 			--with-crypto
 			--without-nss
 			--without-ndbm
