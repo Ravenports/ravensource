@@ -1,0 +1,52 @@
+DEF[PORTVERSION]=	1.0.4
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		irssi
+VERSION=		${PORTVERSION}
+KEYWORDS=		irc
+VARIANTS=		standard
+SDESC[standard]=	Modular IRC client with many features
+HOMEPAGE=		http://www.irssi.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/irssi/irssi/releases/download/${PORTVERSION}/
+DISTFILE[1]=		irssi-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:primary
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		irc/irssi
+
+USES=			cpe gettext-runtime gmake libtool ncurses perl
+			pkgconfig ssl
+GNOME_COMPONENTS=	glib
+INSTALL_TARGET=		install-strip
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-socks
+			--with-bot
+			--with-proxy
+			--with-true-color
+			--with-perl-lib=site
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|/usr|${PREFIX}|' -e 's|/etc|${PREFIX}&|' \
+		${WRKSRC}/docs/irssi.1
+
+post-configure:
+	@${MV} ${WRKSRC}/irssi.conf ${WRKSRC}/irssi.conf.sample
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/irssi/modules
+	${RM} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Irssi/.packlist
+	${RM} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Irssi/*/.packlist
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Irssi/Irssi.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Irssi/Irc/Irc.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Irssi/TextUI/TextUI.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Irssi/UI/UI.so
