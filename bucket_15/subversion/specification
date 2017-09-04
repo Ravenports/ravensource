@@ -25,8 +25,8 @@ BUILDRUN_DEPENDS=	serf:single:standard
 
 RC_SUBR=		svnserve:single
 
-USES=			shebangfix cpe libtool pkgconfig gettext-runtime
-			gettext-tools zlib
+USES=			bdb:5 cpe libtool pkgconfig gettext-runtime
+			gettext-tools zlib shebangfix
 CPE_VENDOR=		apache
 SHEBANG_OLD_PYTHON=	{{LOCALBASE}}/bin/python2
 			"/bin/env python"
@@ -37,12 +37,13 @@ INSTALL_REQ_TOOLCHAIN=	yes
 MUST_CONFIGURE=		gnu
 MAKE_ARGS=		pkgconfig_dir={{PREFIX}}/lib/pkgconfig
 CONFIGURE_ARGS=		--without-swig
-			--without-berkeley-db
 			--with-serf
 			--with-sqlite={{LOCALBASE}}
 			--with-expat={{LOCALBASE}}/include:{{LOCALBASE}}/lib:expat
 			--with-apr={{LOCALBASE}}/bin/apr-1-config
 			--with-apr-util={{LOCALBASE}}/bin/apu-1-config
+			--with-berkeley-db
+			--enable-bdb6
 VAR_ARCH[x86_64]=	CFLAGS=-fpic
 			CFLAGS=-DPIC
 
