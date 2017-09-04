@@ -1,0 +1,61 @@
+DEF[PORTVERSION]=	1.7.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ldns
+VERSION=		${PORTVERSION}
+KEYWORDS=		dns
+VARIANTS=		standard
+SDESC[standard]=	Library for programs conforming to DNS RFCs
+HOMEPAGE=		https://www.nlnetlabs.nl/projects/ldns/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.nlnetlabs.nl/downloads/ldns/
+DISTFILE[1]=		ldns-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		dns/ldns
+
+EXRUN[examples]=	ldns:primary:standard
+
+USES=			cpe gmake libtool ssl perl:build
+CPE_VENDOR=		nlnetlabs
+INSTALL_REQ_TOOLCHAIN=	yes
+INSTALL_TARGET=		install-h
+			install-lib
+			install-drill
+			install-config
+			install-examples
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-ssl={{OPENSSLBASE}}
+			--with-drill
+			--enable-gost
+			--enable-rrtype-ninfo
+			--enable-rrtype-rkey
+			--enable-rrtype-ta
+			--enable-rrtype-avc
+			--enable-examples
+			--disable-dane-ta-usage
+
+post-install:
+	${INSTALL_DATA} ${WRKSRC}/packaging/libldns.pc \
+		 ${STAGEDIR}${PREFIX}/lib/pkgconfig
+	${INSTALL_MAN} ${WRKSRC}/packaging/ldns-config.1 \
+		${STAGEDIR}${MANPREFIX}/man/man1
+	${INSTALL_MAN} ${WRKSRC}/doc/man/man3/ldns_*.3 \
+		${STAGEDIR}${MANPREFIX}/man/man3
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/drill
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libldns.so.2
+	${MV} ${STAGEDIR}${PREFIX}/bin/ldns-config \
+		${STAGEDIR}${PREFIX}/bin/xldns-config
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ldns*
+	${MV} ${STAGEDIR}${PREFIX}/bin/xldns-config \
+		${STAGEDIR}${PREFIX}/bin/ldns-config
