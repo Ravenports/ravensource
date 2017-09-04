@@ -30,6 +30,9 @@ CONFIGURE_ARGS=		--with-installbuilddir={{PREFIX}}/share/apr1/build-1
 			--enable-ipv6
 			--with-devrandom
 			--with-crypto
+			--with-openssl={{OPENSSLBASE}}
+LDFLAGS=		-L{{OPENSSLLIB}}
+CPPFLAGS=		-I{{OPENSSLINC}}
 DISTNAME=		apr-${PORTVERSION}
 PLIST_SUB=		SOVERSION=${SOVERSION}
 			SOMAJOR=${SOMAJOR}
