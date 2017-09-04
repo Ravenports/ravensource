@@ -1,0 +1,40 @@
+--- SConstruct.orig	2015-09-17 12:46:24 UTC
++++ SConstruct
+@@ -74,6 +74,9 @@ else:
+ 
+ opts = Variables(files=[SAVED_CONFIG])
+ opts.AddVariables(
++  RawListVariable('DESTDIR',
++               'Required *dummy*, without scons will stop with "Unknown variables: DESTDIR"',
++                None),
+   PathVariable('PREFIX',
+                'Directory to install under',
+                default_prefix,
+@@ -153,6 +156,7 @@ if sys.platform == 'win32':
+     )
+ 
+ env = Environment(variables=opts,
++                  ENV = os.environ,
+                   tools=('default', 'textfile',),
+                   CPPPATH=['.', ],
+                   )
+@@ -364,8 +368,8 @@ else:
+   ### there is probably a better way to run/capture output.
+   ### env.ParseConfig() may be handy for getting this stuff into the build
+   if CALLOUT_OKAY:
+-    apr_libs = os.popen(env.subst('$APR --link-libtool --libs')).read().strip()
+-    apu_libs = os.popen(env.subst('$APU --link-libtool --libs')).read().strip()
++    apr_libs = os.popen(env.subst('$APR --libs')).read().strip()
++    apu_libs = os.popen(env.subst('$APU --libs')).read().strip()
+   else:
+     apr_libs = ''
+     apu_libs = ''
+@@ -406,6 +410,8 @@ pkgconfig = env.Textfile('serf-%d.pc' %
+ 
+ env.Default(lib_static, lib_shared, pkgconfig)
+ 
++#print env.Dump()
++
+ if CALLOUT_OKAY:
+   conf = Configure(env)
+ 
