@@ -6,6 +6,7 @@ DEF[NGINX_TMPDIR]=	${NGINX_VARDIR}/tmp/nginx
 DEF[NGINX_ACCESSLOG]=	${NGINX_LOGDIR}/access.log
 DEF[NGINX_ERRORLOG]=	${NGINX_LOGDIR}/error.log
 DEF[HTTP_PORT]=		80
+DEF[TAG_GEOIP2]=	2.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		nginx
@@ -17,9 +18,12 @@ SDESC[loaded]=		HTTP and reverse proxy server (all options)
 HOMEPAGE=		https://nginx.org/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main geoip2
 SITES[main]=		http://nginx.org/download/
+SITES[geoip2]=		GITHUB/leev:ngx_http_geoip2_module:${TAG_GEOIP2}
 DISTFILE[1]=		nginx-${PORTVERSION}.tar.gz:main
+DISTFILE[2]=		generated:geoip2
+DF_INDEX=		1
 
 SPKGS[standard]=	single
 SPKGS[loaded]=		single
@@ -97,6 +101,9 @@ SUB_LIST=		WWWOWN={{WWWOWN}}
 [LOADED].CONFIGURE_ARGS_OFF=		--without-mail_imap_module
 					--without-mail_pop3_module
 					--without-mail_smtp_module
+[LOADED].CONFIGURE_ARGS_ON=		--add-dynamic-module={{WRKDIR}}/ngx_http_geoip2_module-${TAG_GEOIP2}
+[LOADED].DF_INDEX_ON=			2
+[LOADED].BUILDRUN_DEPENDS_ON=		libmaxminddb:single:standard
 
 post-patch:
 	@${REINPLACE_CMD} 's!%%HTTP_PORT%%!${HTTP_PORT}!; \
