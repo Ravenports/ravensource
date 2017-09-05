@@ -1,0 +1,172 @@
+DEF[PORTVERSION]=	2.14.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		git
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel net
+VARIANTS=		standard lite
+SDESC[standard]=	Distributed version control system
+SDESC[lite]=		Distributed version control system (minimal)
+HOMEPAGE=		https://git-scm.com/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.kernel.org/pub/software/scm/git/
+DISTFILE[1]=		git-${PORTVERSION}.tar.xz:main
+DISTFILE[2]=		git-manpages-${PORTVERSION}.tar.xz:main
+DISTFILE[3]=		git-htmldocs-${PORTVERSION}.tar.xz:main
+DF_INDEX=		1 2
+
+SPKGS[standard]=	complete primary docs examples
+SPKGS[lite]=		single
+
+OPTIONS_AVAILABLE=	LITE SVN
+OPTIONS_STANDARD=	SVN
+VOPTS[lite]=		LITE=ON SVN=OFF
+
+FPC_EQUIVALENT=		devel/git
+
+USERS=			git_daemon
+GROUPS=			git_daemon
+USERGROUP_SPKG=		single
+
+BUILD_DEPENDS=		pcre:static:standard
+			expat:static:standard
+BUILDRUN_DEPENDS=	pcre:shared:standard
+			expat:shared:standard
+			curl:primary:standard
+
+EXTRACT_DIRTY=		3
+
+USES=			autoreconf gmake iconv ssl zlib shebangfix
+INSTALL_REQ_TOOLCHAIN=	yes
+BUILD_TARGET=		all strip
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-pthreads=-pthread
+			--with-libpcre
+MAKE_ENV=		V=1
+			CURLDIR={{LOCALBASE}}
+SHEBANG_FILES=		*.perl
+			*/*.perl
+			*/*/*.perl
+			*/*.pl
+			*/*/*.pl
+			*/*/*/*.pl
+			t/*/*/pre
+			t/*/*/post
+			t/Git-SVN/Utils/*.t
+			git-p4.py
+			contrib/hg-to-git/hg-to-git.py
+			contrib/hooks/update-paranoid
+			contrib/hooks/multimail/post-receive.example
+			contrib/hooks/multimail/git_multimail.py
+			contrib/hooks/multimail/migrate-mailhook-config
+			contrib/fast-import/import-zips.py
+			contrib/remote-helpers/git-remote-bzr
+			contrib/remote-helpers/git-remote-hg
+			contrib/credential/netrc/git-credential-netrc
+			contrib/buildsystems/generate
+			contrib/contacts/git-contacts
+			contrib/svn-fe/svnrdump_sim.py
+RC_SUBR=		git_daemon:single
+
+[LITE].DESCRIPTION=			Drop non-essential functionality and their deps
+[LITE].MAKE_ARGS_ON=			NO_TCLTK=yes
+					NO_PERL=yes
+					NO_GETTEXT=yes
+[LITE].CONFIGURE_ARGS_ON=		--without-python
+[LITE].DF_INDEX_OFF=			3
+[LITE].USES_OFF=			gettext-runtime
+					gettext-tools
+					tcl:tk
+					python:py27,build
+					perl
+[LITE].MAKE_ARGS_OFF=			TCL_PATH={{TCLSH}}
+					TCLTK_PATH={{WISH}}
+[LITE].CONFIGURE_ARGS_OFF=		--with-python={{PYTHON_CMD}}
+					--with-perl={{PERL}}
+[LITE].BUILDRUN_DEPENDS_OFF=		perl-Error:single:perl_default
+[LITE].BUILD_DEPENDS_OFF=		xmlto:single:standard
+					asciidoc:single:py27
+[LITE].SUB_FILES_OFF=			pkg-message-single
+
+[SVN].DESCRIPTION=			Support for subversion repositories
+[SVN].RUN_DEPENDS_ON=			perl-TermReadKey:single:perl_default
+
+post-patch-LITE-ON:
+.for FILE in git-citool.1 git-gui.1 gitk.1 git-cvsimport.1 \
+	git-cvsexportcommit.1 git-cvsserver.1
+	@${RM} ${WRKDIR}/man1/${FILE}
+.endfor
+	@${RM} ${WRKDIR}/man7/gitcvs-migration.7
+	@${REINPLACE_CMD} -e '/git-cvsexportcommit.perl/d; \
+		/git-cvsimport.perl/d; \
+		/git-cvsserver.perl/d; \
+		/documented,gitcvs-migration/d; \
+		/$$(MAKE) -C gitweb install/d; \
+		/^SCRIPT_PYTHON += git-p4.py$$/d; \
+		s/git-cvsserver//' \
+		${WRKSRC}/Makefile
+	@${REINPLACE_CMD} -e "s,/usr/bin/perl,${PERL}," \
+		${WRKSRC}/t/gitweb-lib.sh
+	@${REINPLACE_CMD} -e 's|/bin/bash|/bin/sh|' \
+		${WRKSRC}/contrib/subtree/git-subtree.sh
+
+post-patch-LITE-OFF:
+	@${REINPLACE_CMD} -e "s,/usr/bin/perl,${PERL}," \
+		${WRKSRC}/contrib/diff-highlight/Makefile
+
+post-patch-SVN-OFF:
+	@${RM} ${WRKDIR}/man1/git-svn.1
+	@${REINPLACE_CMD} -e '/git-svn.perl/d' ${WRKSRC}/Makefile
+
+post-build-LITE-OFF:
+	@${FIND} ${WRKSRC} -name "*.bak" -delete
+	${SETENV} ${MAKE_ENV} ${MAKE_CMD} -C ${WRKSRC}/contrib/diff-highlight
+	${RM} ${WRKSRC}/contrib/diff-highlight/shebang.perl
+
+post-install:
+	(cd ${WRKDIR}/man1/ && ${COPYTREE_SHARE} . ${STAGEDIR}${MANPREFIX}/man/man1)
+	(cd ${WRKDIR}/man5/ && ${COPYTREE_SHARE} . ${STAGEDIR}${MANPREFIX}/man/man5)
+	(cd ${WRKDIR}/man7/ && ${COPYTREE_SHARE} . ${STAGEDIR}${MANPREFIX}/man/man7)
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/emacs/site-lisp/git
+	${INSTALL_DATA} ${WRKSRC}/contrib/emacs/git.el \
+		${STAGEDIR}${PREFIX}/share/emacs/site-lisp/git/
+	${INSTALL_DATA} ${WRKSRC}/contrib/emacs/git-blame.el \
+		${STAGEDIR}${PREFIX}/share/emacs/site-lisp/git/
+	${RMDIR} ${STAGEDIR}${PREFIX}/share/git-core/templates/branches
+
+post-install-LITE-ON:
+	# contrib support
+	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/bash_completion.d
+	@${INSTALL_SCRIPT} ${WRKSRC}/contrib/completion/git-completion.bash \
+		${STAGEDIR}${PREFIX}/etc/bash_completion.d/git.sh
+
+post-install-LITE-OFF:
+	# p4 support
+	${INSTALL_SCRIPT} ${WRKSRC}/git-p4.py ${STAGEDIR}${PREFIX}/bin/
+
+	# contrib support
+	@${ECHO_MSG} "===> Installing contributed scripts"
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/git-core/contrib
+	${CP} -R ${WRKSRC}/contrib/* ${STAGEDIR}${PREFIX}/share/git-core/contrib
+	# Symlink the completions from the contrib directory to where they
+	# will be useful
+	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/bash_completion.d
+	@${LN} -s ../../share/git-core/contrib/completion/git-completion.bash \
+		${STAGEDIR}${PREFIX}/etc/bash_completion.d/git.sh
+
+	# subtree support
+	(cd ${WRKSRC}/contrib/subtree && ${SETENV} ${MAKE_ENV} \
+		${MAKE_CMD} ${MAKE_FLAGS} Makefile ${MAKE_ARGS} \
+		install install-doc)
+
+	# htmldocs support
+	# Manually remove the index.html symlink before installing, and then
+	# recreate it after. This is necessary because the distfile is
+	# extracted with --no-same-owner. If the distfile is extracted as a
+	# non-root user then the symlink will have the incorrect owner.
+	${RM} ${WRKDIR}/git_3/index.html
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	(cd ${WRKDIR}/git_3 && ${COPYTREE_SHARE} . ${STAGEDIR}${STD_DOCDIR})
+	${LN} -s git.html ${STAGEDIR}${STD_DOCDIR}/index.html
