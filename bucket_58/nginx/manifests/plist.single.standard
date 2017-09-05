@@ -1,0 +1,21 @@
+@dir %%NGINX_LOGDIR%%
+@dir %%NGINX_TMPDIR%%
+@sample etc/nginx/fastcgi_params-dist etc/nginx/fastcgi_params
+@sample etc/nginx/mime.types-dist etc/nginx/mime.types
+@sample etc/nginx/nginx.conf-dist etc/nginx/nginx.conf
+@sample etc/nginx/scgi_params-dist etc/nginx/scgi_params
+@sample etc/nginx/uwsgi_params-dist etc/nginx/uwsgi_params
+etc/nginx/koi-utf
+etc/nginx/koi-win
+etc/nginx/win-utf
+libexec/nginx/ngx_mail_module.so
+libexec/nginx/ngx_stream_module.so
+sbin/nginx
+share/man/man8/nginx.8.gz
+www/nginx-dist/50x.html
+www/nginx-dist/EXAMPLE_DIRECTORY-DONT_ADD_OR_TOUCH_ANYTHING
+www/nginx-dist/index.html
+@preexec mkdir -p -m 755 %D/www/nginx-dist
+@preexec if [ ! -d %D/www/nginx/ ] ; then ln -fs %D/www/nginx-dist %D/www/nginx; fi
+@preexec chmod a-w %D/www/nginx-dist
+@postunexec if [ -L %D/www/nginx ]; then rm -f %D/www/nginx; fi

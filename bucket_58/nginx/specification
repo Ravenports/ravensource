@@ -1,0 +1,134 @@
+DEF[PORTVERSION]=	1.13.4
+DEF[NGINX_VARDIR]=	/var
+DEF[NGINX_LOGDIR]=	${NGINX_VARDIR}/log/nginx
+DEF[NGINX_RUNDIR]=	${NGINX_VARDIR}/run
+DEF[NGINX_TMPDIR]=	${NGINX_VARDIR}/tmp/nginx
+DEF[NGINX_ACCESSLOG]=	${NGINX_LOGDIR}/access.log
+DEF[NGINX_ERRORLOG]=	${NGINX_LOGDIR}/error.log
+DEF[HTTP_PORT]=		80
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		nginx
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		standard loaded
+SDESC[standard]=	HTTP and reverse proxy server (basic options)
+SDESC[loaded]=		HTTP and reverse proxy server (all options)
+HOMEPAGE=		https://nginx.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://nginx.org/download/
+DISTFILE[1]=		nginx-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+SPKGS[loaded]=		single
+
+OPTIONS_AVAILABLE=	LOADED
+OPTIONS_STANDARD=	none
+VOPTS[loaded]=		LOADED=ON
+
+FPC_EQUIVALENT=		www/nginx
+
+USERS=			{{WWWOWN}}
+GROUPS=			{{WWWGRP}}
+USERGROUP_SPKG=		single
+RC_SUBR=		nginx:single
+
+BUILD_DEPENDS=		pcre:static:standard
+BUILDRUN_DEPENDS=	pcre:shared:standard
+
+USES=			cpe ssl zlib
+CPE_VENDOR=		nginx
+CPE_PRODUCT=		nginx
+
+MUST_CONFIGURE=		yes
+CONFIGURE_ARGS=		--prefix={{PREFIX}}/etc/nginx
+			--with-cc-opt="-I{{LOCALBASE}}/include"
+			--with-ld-opt="-L{{LOCALBASE}}/lib -Wl,-rpath,{{LOCALBASE}}/lib"
+			--conf-path={{PREFIX}}/etc/nginx/nginx.conf
+			--sbin-path={{PREFIX}}/sbin/nginx
+			--pid-path=${NGINX_RUNDIR}/nginx.pid
+			--error-log-path=${NGINX_ERRORLOG}
+			--user={{WWWOWN}}
+			--group={{WWWGRP}}
+			--with-pcre
+			--modules-path={{PREFIX}}/libexec/nginx
+			--with-file-aio
+			--http-client-body-temp-path=${NGINX_TMPDIR}/client_body_temp
+			--http-fastcgi-temp-path=${NGINX_TMPDIR}/fastcgi_temp
+			--http-proxy-temp-path=${NGINX_TMPDIR}/proxy_temp
+			--http-scgi-temp-path=${NGINX_TMPDIR}/scgi_temp
+			--http-uwsgi-temp-path=${NGINX_TMPDIR}/uwsgi_temp
+			--http-log-path=${NGINX_ACCESSLOG}
+			--with-http_addition_module
+			--with-http_auth_request_module
+			--with-http_dav_module
+			--with-http_flv_module
+			--with-http_gzip_static_module
+			--with-http_gunzip_module
+			--with-http_mp4_module
+			--with-http_random_index_module
+			--with-http_realip_module
+			--with-http_secure_link_module
+			--with-http_slice_module
+			--with-http_ssl_module
+			--with-http_stub_status_module
+			--with-http_sub_module
+			--with-http_v2_module
+			--with-mail=dynamic
+			--with-mail_ssl_module
+			--with-stream=dynamic
+			--with-stream_ssl_module
+			--with-stream_ssl_preread_module
+			--with-threads
+
+PLIST_SUB=		WWWOWN={{WWWOWN}}
+			WWWGRP={{WWWGRP}}
+			NGINX_TMPDIR=${NGINX_TMPDIR}
+			NGINX_LOGDIR=${NGINX_LOGDIR}
+SUB_FILES=		pkg-message-single
+SUB_LIST=		WWWOWN={{WWWOWN}}
+			WWWGRP={{WWWGRP}}
+			NGINX_TMPDIR=${NGINX_TMPDIR}
+			NGINX_LOGDIR=${NGINX_LOGDIR}
+
+[LOADED].DESCRIPTION=			All options enabled (heavy dependencies)
+[LOADED].CONFIGURE_ARGS_OFF=		--without-mail_imap_module
+					--without-mail_pop3_module
+					--without-mail_smtp_module
+
+post-patch:
+	@${REINPLACE_CMD} 's!%%HTTP_PORT%%!${HTTP_PORT}!; \
+		s!%%PREFIX%%!${PREFIX}!; \
+		s!%%NGINX_ERRORLOG%%!${NGINX_ERRORLOG}!' \
+		${WRKSRC}/conf/nginx.conf
+
+do-build:
+	@(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD})
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/nginx \
+		${STAGEDIR}${PREFIX}/libexec/nginx \
+		${STAGEDIR}${NGINX_TMPDIR} \
+		${STAGEDIR}${NGINX_LOGDIR} \
+		${STAGEDIR}${PREFIX}/www/nginx-dist
+	${INSTALL_PROGRAM} ${WRKSRC}/objs/nginx ${STAGEDIR}${PREFIX}/sbin
+.for i in koi-utf koi-win win-utf
+	${INSTALL_DATA} ${WRKSRC}/conf/${i} ${STAGEDIR}${PREFIX}/etc/nginx
+.endfor
+.for i in fastcgi_params mime.types scgi_params uwsgi_params
+	${INSTALL_DATA} ${WRKSRC}/conf/${i} ${STAGEDIR}${PREFIX}/etc/nginx/${i}-dist
+.endfor
+.for i in index.html 50x.html
+	${INSTALL_DATA} ${WRKSRC}/html/${i} ${STAGEDIR}${PREFIX}/www/nginx-dist
+.endfor
+	${ECHO_CMD} >> ${STAGEDIR}${PREFIX}/www/nginx-dist/EXAMPLE_DIRECTORY-DONT_ADD_OR_TOUCH_ANYTHING
+	(cd ${WRKSRC}/objs/ && ${FIND} . -depth -maxdepth 1 -name '*.so' -type f \
+		-exec ${INSTALL_PROGRAM} {} ${STAGEDIR}${PREFIX}/libexec/nginx \;)
+
+post-install:
+	${CAT} ${WRKSRC}/conf/nginx.conf \
+		>>${STAGEDIR}${PREFIX}/etc/nginx/nginx.conf-dist
+	${INSTALL_MAN} ${WRKSRC}/objs/nginx.8 \
+		${STAGEDIR}${MAN8PREFIX}/man/man8
