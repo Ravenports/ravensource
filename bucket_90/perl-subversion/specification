@@ -1,0 +1,84 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(SUBVERSION_VERSION)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		perl-subversion
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel perl
+VARIANTS=		526 524
+SDESC[526]=		Perl bindings to Subversion (v526)
+SDESC[524]=		Perl bindings to Subversion (v524)
+HOMEPAGE=		https://subversion.apache.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		APACHE/subversion
+DISTFILE[1]=		subversion-${PORTVERSION}.tar.bz2:main
+
+SPKGS[526]=		single
+SPKGS[524]=		single
+
+OPTIONS_AVAILABLE=	PERL_526 PERL_524
+OPTIONS_STANDARD=	none
+VOPTS[526]=		PERL_526=ON PERL_524=OFF
+VOPTS[524]=		PERL_526=OFF PERL_524=ON
+
+FPC_EQUIVALENT=		devel/p5-subversion
+
+SINGLE_JOB=		yes
+
+[PERL_526].USES_ON=			perl:526
+[PERL_524].USES_ON=			perl:524
+
+
+BUILD_DEPENDS=		expat:static:standard
+BUILDRUN_DEPENDS=	expat:shared:standard
+			sqlite:single:standard
+			serf:single:standard
+			subversion:single:standard
+
+USES=			cpe libtool pkgconfig zlib shebangfix
+CPE_VENDOR=		apache
+SHEBANG_OLD_PYTHON=	{{LOCALBASE}}/bin/python2
+			"/bin/env python"
+SHEBANG_REGEX=		./tools/.*
+SHEBANG_FILES=		tools/server-side/svnpubsub/rc.d/svnpubsub.solaris
+			tools/server-side/svnpubsub/rc.d/svnwcsub.solaris
+DISTNAME=		subversion-${PORTVERSION}
+BUILD_TARGET=		swig-pl-lib swig-pl
+INSTALL_TARGET=		install-swig-pl
+INSTALL_REQ_TOOLCHAIN=	yes
+MUST_CONFIGURE=		gnu
+MAKE_ARGS=		pkgconfig_dir={{PREFIX}}/lib/pkgconfig
+CONFIGURE_ARGS=		--without-swig
+			--with-serf
+			--with-sqlite={{LOCALBASE}}
+			--with-expat={{LOCALBASE}}/include:{{LOCALBASE}}/lib:expat
+			--with-apr={{LOCALBASE}}/bin/apr-1-config
+			--with-apr-util={{LOCALBASE}}/bin/apu-1-config
+			--without-gnome-keyring
+			--without-kwallet
+			--with-apxs=no
+VAR_ARCH[x86_64]=	CFLAGS=-fpic
+			CFLAGS=-DPIC
+
+pre-patch:
+	${CP} ${FILESDIR}/build-outputs.mk.addons ${WRKSRC}/build-outputs.mk
+
+post-patch:
+	@${REINPLACE_CMD} "s#/etc/subversion#${PREFIX}/etc/subversion#g" ${WRKSRC}/subversion/libsvn_subr/config_file.c
+	@${REINPLACE_CMD} "s#/etc/subversion#${PREFIX}/etc/subversion#g" ${WRKSRC}/subversion/libsvn_subr/config_impl.h
+	@${REINPLACE_CMD} "s#^swig_pydir =.*#swig_pydir = ${PYTHON_SITELIBDIR}/libsvn#" ${WRKSRC}/Makefile.in
+	@${REINPLACE_CMD} "s#^swig_pydir_extra =.*#swig_pydir_extra = ${PYTHON_SITELIBDIR}/svn#" ${WRKSRC}/Makefile.in
+
+	# shebangfix
+	@${FIND} ${WRKSRC}/tools/ -type f -exec ${GREP} -l -e '#!/bin/b' -e '#!/bin/env' \
+		-e '#!/usr/bin/p' {} + | ${XARGS} ${REINPLACE_CMD} -e \
+		'1s|#\!/bin/b|#\!/usr/local/bin/b|' \
+		-e '1s|#\!/bin/env|#\!/usr/bin/env|' \
+		-e '1s|#\!/usr/bin/p|#\!/usr/local/bin/p|'
+	# remove all .bak files to clean the stage
+	@${FIND} ${WRKSRC} -name '*.bak' -delete
+
+pre-install:
+	${REINPLACE_CMD} '/SWIG_PL_DIR/s, install$$, all pure_install,g' \
+		${WRKSRC}/Makefile
