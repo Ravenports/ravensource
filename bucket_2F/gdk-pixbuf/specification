@@ -1,3 +1,5 @@
+# DEF[PORTVERSION]=	2.36.9
+# DEF[SOVER]=		3609.0
 DEF[PORTVERSION]=	2.36.7
 DEF[SOVER]=		3600.7
 DEF[GTK_VERSION]=	EXTRACT_INFO(GTK2_VERSION)
@@ -48,6 +50,11 @@ CPE_VENDOR=		gnome
 # configure broke libtiff on version 2.36.8, hardcode configure
 # CONFIGURE_ENV=		LIBTIFF="-L{{LOCALBASE}}/lib -ltiff"
 # version 2.36.8 is defective, csource won't load image formats
+# see build failure in gtk if gtk-pixbuf updated past 2.36.7
+# freebsd (since 2.36.9) version of configure fix (mine above)
+# post-patch:
+# |	@${REINPLACE_CMD} -e 's|$$LIBTIFF|$$TIFF_LIBS|' \
+# |		${WRKSRC}/configure
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/share/doc
