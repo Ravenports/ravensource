@@ -2,6 +2,7 @@
 
 #include <stdbool.h>
 #include <stdint.h>
+#include "linux_support.h"
 
 #define	DEBUGGING
 

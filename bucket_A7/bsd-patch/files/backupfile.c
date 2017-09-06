@@ -7,6 +7,7 @@
 #include <unistd.h>
 
 #include "backupfile.h"
+#include "linux_support.h"
 
 
 #define ISDIGIT(c) (isascii ((unsigned char)c) && isdigit ((unsigned char)c))
@@ -88,7 +89,7 @@ max_backup_version(const char *file, const char *dir)
 	file_name_length = strlen(file);
 
 	while ((dp = readdir(dirp)) != NULL) {
-		if (dp->d_namlen <= file_name_length)
+		if (strlen(dp->d_name) <= file_name_length)
 			continue;
 
 		this_version = version_number(file, dp->d_name, file_name_length);

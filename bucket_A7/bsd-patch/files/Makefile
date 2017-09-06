@@ -1,5 +1,6 @@
 PROG=		patch
-SRCS=		${PROG}.c pch.c inp.c util.c backupfile.c mkpath.c
+SRCS=		${PROG}.c pch.c inp.c util.c backupfile.c mkpath.c \
+		linux_support.c
 PREFIX?=	/usr/local
 CFLAGS+=	-I${PREFIX}/include -I.
 STATIC_LIBS=	
