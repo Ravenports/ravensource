@@ -45,7 +45,6 @@ int		debug = 0;
 
 bool		force = false;
 bool		batch = false;
-bool		verbose = true;
 bool		reverse = false;
 bool		noreverse = false;
 bool		skip_rest_of_patch = false;
@@ -56,6 +55,7 @@ int		diff_type = 0;
 char		*revision = NULL;	/* prerequisite revision, if any */
 LINENUM		input_lines = 0;	/* how long is input file in lines */
 int		posix = 0;		/* strict POSIX mode? */
+enum vlevel	verbosity = NORMAL_LEVEL;
 
 static void	reinitialize_almost_everything(void);
 static void	get_some_switches(void);
@@ -254,7 +254,7 @@ main(int argc, char *argv[])
 							say("Ignoring previously applied (or reversed) patch.\n");
 							skip_rest_of_patch = true;
 						} else if (batch) {
-							if (verbose)
+							if (verbosity != SILENT)
 								say("%seversed (or previously applied) patch detected!  %s -R.",
 								    reverse ? "R" : "Unr",
 								    reverse ? "Assuming" : "Ignoring");
@@ -292,18 +292,20 @@ main(int argc, char *argv[])
 			if (skip_rest_of_patch) {
 				abort_hunk();
 				failed++;
-				if (verbose)
+				if (verbosity != SILENT)
 					say("Hunk #%d ignored at %ld.\n",
 					    hunk, newwhere);
 			} else if (where == 0) {
 				abort_hunk();
 				failed++;
-				if (verbose)
+				if (verbosity != SILENT)
 					say("Hunk #%d failed at %ld.\n",
 					    hunk, newwhere);
 			} else {
 				apply_hunk(where);
-				if (verbose) {
+				if (verbosity == VERBOSE
+				    || (verbosity != SILENT && (fuzz != 0 || last_offset)))
+				{
 					say("Hunk #%d succeeded at %ld",
 					    hunk, newwhere);
 					if (fuzz != 0)
@@ -355,7 +357,7 @@ main(int argc, char *argv[])
 				if (remove_empty_files &&
 				    stat(realout, &statbuf) == 0 &&
 				    statbuf.st_size == 0) {
-					if (verbose)
+					if (verbosity == VERBOSE)
 						say("Removing %s (empty after patching).\n",
 						    realout);
 					unlink(realout);
@@ -463,6 +465,7 @@ get_some_switches(void)
 		{"version",		no_argument,		0,	'v'},
 		{"version-control",	required_argument,	0,	'V'},
 		{"posix",		no_argument,		&posix,	1},
+		{"verbose",             no_argument,            0,      2},
 		{NULL,			0,			0,	0}
 	};
 	int ch;
@@ -475,12 +478,15 @@ get_some_switches(void)
 	optreset = optind = 1;
 	while ((ch = getopt_long(Argc, Argv, options, longopts, NULL)) != -1) {
 		switch (ch) {
+		case  2 :
+			verbosity = VERBOSE;
+			break;
 		case 'b':
 			if (backup_type == none)
 				backup_type = numbered_existing;
 			if (optarg == NULL)
 				break;
-			if (verbose)
+			if (verbosity != SILENT)
 				say("Warning, the ``-b suffix'' option has been"
 				    " obsoleted by the -z option.\n");
 			/* FALLTHROUGH */
@@ -554,7 +560,7 @@ get_some_switches(void)
 			reverse_flag_specified = true;
 			break;
 		case 's':
-			verbose = false;
+			verbosity = SILENT;
 			break;
 		case 't':
 			batch = true;
@@ -623,7 +629,7 @@ locate_hunk(LINENUM fuzz)
 	LINENUM	max_neg_offset = first_guess - last_frozen_line - 1 + pch_context();
 
 	if (pat_lines == 0) {		/* null range matches always */
-		if (verbose && fuzz == 0 && (diff_type == CONTEXT_DIFF
+		if (verbosity == VERBOSE && fuzz == 0 && (diff_type == CONTEXT_DIFF
 		    || diff_type == NEW_CONTEXT_DIFF
 		    || diff_type == UNI_DIFF)) {
 			say("Empty context always matches.\n");

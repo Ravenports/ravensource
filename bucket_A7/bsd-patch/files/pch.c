@@ -146,22 +146,22 @@ there_is_another_patch(void)
 	bool exists = false;
 
 	if (p_base != 0 && p_base >= p_filesize) {
-		if (verbose)
+		if (verbosity == VERBOSE)
 			say("done\n");
 		return false;
 	}
-	if (verbose)
+	if (verbosity == VERBOSE)
 		say("Hmm...");
 	diff_type = intuit_diff_type();
 	if (!diff_type) {
 		if (p_base != 0) {
-			if (verbose)
+			if (verbosity == VERBOSE)
 				say("  Ignoring the trailing garbage.\ndone\n");
 		} else
 			say("  I can't seem to find a patch in there anywhere.\n");
 		return false;
 	}
-	if (verbose)
+	if (verbosity == VERBOSE)
 		say("  %sooks like %s to me...\n",
 		    (p_base == 0 ? "L" : "The next patch l"),
 		    diff_type == UNI_DIFF ? "a unified diff" :
@@ -169,7 +169,7 @@ there_is_another_patch(void)
 		diff_type == NEW_CONTEXT_DIFF ? "a new-style context diff" :
 		    diff_type == NORMAL_DIFF ? "a normal diff" :
 		    "an ed script");
-	if (p_indent && verbose)
+	if (p_indent && (verbosity == VERBOSE))
 		say("(Patch is indented %d space%s.)\n", p_indent,
 		    p_indent == 1 ? "" : "s");
 	skip_to(p_start, p_sline);
@@ -192,7 +192,7 @@ there_is_another_patch(void)
 			    def_skip  ? 'y' : 'n');
 			if (*buf == 'n' || (!def_skip && *buf != 'y'))
 				continue;
-			if (verbose)
+			if (verbosity != SILENT)
 				say("Skipping patch...\n");
 			free(filearg[0]);
 			filearg[0] = fetchname(bestguess, &exists, 0);
@@ -425,7 +425,7 @@ skip_to(off_t file_pos, LINENUM file_line)
 	if (p_base > file_pos)
 		fatal("Internal error: seek %lld>%lld\n",
 		   (long long)p_base, (long long)file_pos);
-	if (verbose && p_base < file_pos) {
+	if (verbosity == VERBOSE && p_base < file_pos) {
 		fseeko(pfp, p_base, SEEK_SET);
 		say("The text leading up to this was:\n--------------------------\n");
 		while (ftello(pfp) < file_pos) {
@@ -802,7 +802,7 @@ hunk_done:
 		}
 		if (diff_type == CONTEXT_DIFF &&
 		    (fillcnt || (p_first > 1 && ptrn_copiable > 2 * p_context))) {
-			if (verbose)
+			if (verbosity == VERBOSE)
 				say("%s\n%s\n%s\n",
 				    "(Fascinating--this is really a new-style context diff but without",
 				    "the telltale extra asterisks on the *** line that usually indicate",
@@ -1400,7 +1400,7 @@ do_ed_script(void)
 			fatal("can't create temp file %s", TMPOUTNAME);
 		}
 		snprintf(buf, buf_size, "%s%s%s", _PATH_RED,
-		    verbose ? " " : " -s ", TMPOUTNAME);
+		    verbosity == VERBOSE ? " " : " -s ", TMPOUTNAME);
 		pipefp = popen(buf, "w");
 	}
 	for (;;) {

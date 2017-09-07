@@ -72,7 +72,7 @@ scan_input(const char *filename)
 {
 	if (!plan_a(filename))
 		plan_b(filename);
-	if (verbose) {
+	if (verbosity != SILENT) {
 		say("Patching file %s using Plan %s...\n", filename,
 		    (using_plan_a ? "A" : "B"));
 	}
@@ -121,7 +121,7 @@ plan_a(const char *filename)
 
 	statfailed = stat(filename, &filestat);
 	if (statfailed && ok_to_create_file) {
-		if (verbose)
+		if (verbosity == VERBOSE)
 			say("(Creating file %s...)\n", filename);
 
 		/*
@@ -220,7 +220,7 @@ plan_a(const char *filename)
 	if (revision != NULL) {
 		if (i_womp == NULL || !rev_in_string(i_womp)) {
 			if (force) {
-				if (verbose)
+				if (verbosity == VERBOSE)
 					say("Warning: this file doesn't appear "
 					    "to be the %s version--patching anyway.\n",
 					    revision);
@@ -235,7 +235,7 @@ plan_a(const char *filename)
 				if (*buf != 'y')
 					fatal("aborted\n");
 			}
-		} else if (verbose)
+		} else if (verbosity == VERBOSE)
 			say("Good.  This file appears to be the %s version.\n",
 			    revision);
 	}
@@ -284,7 +284,7 @@ plan_b(const char *filename)
 	if (revision != NULL) {
 		if (!found_revision) {
 			if (force) {
-				if (verbose)
+				if (verbosity == VERBOSE)
 					say("Warning: this file doesn't appear "
 					    "to be the %s version--patching anyway.\n",
 					    revision);
@@ -299,7 +299,7 @@ plan_b(const char *filename)
 				if (*buf != 'y')
 					fatal("aborted\n");
 			}
-		} else if (verbose)
+		} else if (verbosity == VERBOSE)
 			say("Good.  This file appears to be the %s version.\n",
 			    revision);
 	}

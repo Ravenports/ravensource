@@ -26,6 +26,7 @@
 /* typedefs */
 
 typedef long    LINENUM;	/* must be signed */
+enum vlevel	{ NORMAL_LEVEL, SILENT, VERBOSE };
 
 /* globals */
 
@@ -57,7 +58,7 @@ extern int	debug;
 
 extern bool	force;
 extern bool	batch;
-extern bool	verbose;
+extern enum	vlevel verbosity;
 extern bool	reverse;
 extern bool	noreverse;
 extern bool	skip_rest_of_patch;
