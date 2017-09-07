@@ -86,7 +86,6 @@ Bin_Linux=	/bin/hostname \
 # /usr/bin/xz*    (archivers/xz)
 # /usr/bin/m4     (devel/m4)
 # /usr/bin/make   (devel/bmake)
-# /usr/bin/patch  (devel/patch)
 # /usr/bin/sed    (textproc/gsed)
 # /usr/bin/tar    (archivers/libarchive)
 # /usr/bin/xargs  (misc/findutils)
@@ -698,7 +697,7 @@ install:
 	grep fetch file flex flex++ gzip gunzip zcat zcmp zdiff zegrep \
 	zfgrep zgrep lzcat lzcmp lzdiff lzegrep lzfgrep lzgrep lzma \
 	unlzma unxz xz xzcat xzcmp xzdiff xzegrep xzfgrep xzgrep yacc \
-	unzip less mtree bsdcat makewhatis dupe genpatch portfix
+	unzip less mtree bsdcat makewhatis dupe genpatch portfix patch
 	cp ${LOCALBASE}/bin/${item} ${DESTDIR}${BASE}/usr/bin/
 .endfor
 .for item in ${headers_${OPSYS}}
@@ -721,7 +720,7 @@ install:
 .for item in gsort/sort nawk/awk objdump/objdump-sysroot less/more \
 	bmake/make bsdcpio/cpio bsdtar/tar gcmp/cmp gdiff/diff \
 	gdiff3/diff3 gsdiff/sdiff gfind/find gxargs/xargs gm4/m4 \
-	gpatch/patch gsed/sed ravensys-uname/uname nvi/vi god/od
+	gsed/sed ravensys-uname/uname nvi/vi god/od
 	cp ${LOCALBASE}/bin/${item:H} ${DESTDIR}${BASE}/usr/bin/${item:T}
 .endfor
 	cp ${LOCALBASE}/share/misc/terminfo.db.default ${DESTDIR}${BASE}/usr/share/terminfo.db
