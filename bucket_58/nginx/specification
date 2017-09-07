@@ -32,6 +32,9 @@ DEF[TAG_SETMISC]=	v0.31
 DEF[TAG_SRCACHE]=	v0.31
 DEF[TAG_XSS]=		v0.05
 DEF[TAG_ARRAYVAR]=	v0.05
+DEF[TAG_DEVEL_KIT]=	v0.3.0
+DEF[TAG_NJS]=		0.1.13
+DEF[TAG_DAV_EXT]=	v0.1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		nginx
@@ -46,7 +49,7 @@ CONTACT=		nobody
 DOWNLOAD_GROUPS=	main geoip2 notice push pushstrm subsfilter ajp upcheck
 			acclang authdig pam aws certrans echo morehead eval
 			drizzle sesscrypt lua memc rdscsv rdsjson redis2 setmisc
-			srcache xss arrayvar
+			srcache xss arrayvar develkit njs davext
 SITES[main]=		http://nginx.org/download/
 SITES[geoip2]=		GITHUB/leev:ngx_http_geoip2_module:${TAG_GEOIP2}
 SITES[notice]=		GITHUB/kr:nginx-notice:${TAG_NOTICE}
@@ -74,6 +77,9 @@ SITES[setmisc]=		GITHUB/openresty:set-misc-nginx-module:${TAG_SETMISC}
 SITES[srcache]=		GITHUB/openresty:srcache-nginx-module:${TAG_SRCACHE}
 SITES[xss]=		GITHUB/openresty:xss-nginx-module:${TAG_XSS}
 SITES[arrayvar]=	GITHUB/openresty:array-var-nginx-module:${TAG_ARRAYVAR}
+SITES[develkit]=	GITHUB/simpl:ngx_devel_kit:${TAG_DEVEL_KIT}
+SITES[njs]=		GITHUB/nginx:njs:${TAG_NJS}
+SITES[davext]=		GITHUB/arut:nginx-dav-ext-module:${TAG_DAV_EXT}
 DISTFILE[1]=		nginx-${PORTVERSION}.tar.gz:main
 DISTFILE[2]=		generated:geoip2
 DISTFILE[3]=		generated:notice
@@ -101,6 +107,9 @@ DISTFILE[24]=		generated:setmisc
 DISTFILE[25]=		generated:srcache
 DISTFILE[26]=		generated:xss
 DISTFILE[27]=		generated:arrayvar
+DISTFILE[28]=		generated:develkit
+DISTFILE[29]=		generated:njs
+DISTFILE[30]=		generated:davext
 DF_INDEX=		1
 
 # TODO MODULES: KRB, LDAP FASTDFS(?)
@@ -194,16 +203,19 @@ SUB_LIST=		WWWOWN={{WWWOWN}}
 					--add-module={{WRKDIR}}/rds-json-nginx-module-${TAG_RDS_JSON:S/v//}
 					--add-module={{WRKDIR}}/redis2-nginx-module-${TAG_REDIS2:S/v//}
 					--add-module={{WRKDIR}}/srcache-nginx-module-${TAG_SRCACHE:S/v//}
+					--add-module={{WRKDIR}}/ngx_devel_kit-${TAG_DEVEL_KIT:S/v//}
+					--add-module={{WRKDIR}}/encrypted-session-nginx-module-${TAG_SESSCRYPT:S/v//}
+					--add-module={{WRKDIR}}/array-var-nginx-module-${TAG_ARRAYVAR:S/v//}
+					--add-module={{WRKDIR}}/xss-nginx-module-${TAG_XSS:S/v//}
+					--add-module={{WRKDIR}}/nginx-dav-ext-module-${TAG_DAV_EXT:S/v//}
 					--add-dynamic-module={{WRKDIR}}/ngx_http_geoip2_module-${TAG_GEOIP2}
 					--add-dynamic-module={{WRKDIR}}/nginx-http-auth-digest-${TAG_AUTH_DIGEST}
 					--add-dynamic-module={{WRKDIR}}/echo-nginx-module-${TAG_ECHO:S/v//}
 					--add-dynamic-module={{WRKDIR}}/headers-more-nginx-module-${TAG_MOREHEAD:S/v//}
 					--add-dynamic-module={{WRKDIR}}/nginx-eval-module-${TAG_EVAL:S/v//}
 					--add-dynamic-module={{WRKDIR}}/memc-nginx-module-${TAG_MEMC:S/v//}
-# --add-dynamic-module={{WRKDIR}}/
-# | set-misc-nginx-module-${TAG_SETMISC:S/v//}
-# --add-module={{WRKDIR}}/
-# | encrypted-session-nginx-module-${TAG_SESSCRYPT:S/v//}
+					--add-dynamic-module={{WRKDIR}}/set-misc-nginx-module-${TAG_SETMISC:S/v//}
+					--add-dynamic-module={{WRKDIR}}/njs-${TAG_NJS}/nginx
 # --add-dynamic-module={{WRKDIR}}/
 # | nginx-ct-${TAG_CERT_TRANS:S/v//}
 # --add-dynamic-module={{WRKDIR}}/
@@ -211,10 +223,12 @@ SUB_LIST=		WWWOWN={{WWWOWN}}
 # 11 (PAM) requires additional headers
 # 13 (cert trans) doesn't work with libressl
 # 17 requires databases/libdrizzle
-# 18 and 24 requires devel_kit module
 # 19 lua, requires more patches and lang/luajit
-[LOADED].DF_INDEX_ON=			2 3 4 5 6 7 8 9 10 12 14 15 16 20 21 22 23 25
+[LOADED].DF_INDEX_ON=			2 3 4 5 6 7 8 9 10 12 14 15 16 18 20 21 22
+					23 24 25 26 27 28 29 30
 [LOADED].BUILDRUN_DEPENDS_ON=		libmaxminddb:single:standard
+					expat:shared:standard
+[LOADED].BUILD_DEPENDS_ON=		expat:static:standard
 [LOADED].EXTRA_PATCHES_ON=		extra-patch-ngx_http_notice_module.c
 					extra-patch-upstream-check-module
 # |extra-patch-nginx-ct
