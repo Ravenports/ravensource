@@ -8,25 +8,102 @@ DEF[NGINX_ERRORLOG]=	${NGINX_LOGDIR}/error.log
 DEF[HTTP_PORT]=		80
 DEF[TAG_GEOIP2]=	2.0
 DEF[TAG_NOTICE]=	3c95966
+DEF[TAG_PUSH]=		v1.1.7
+DEF[TAG_PUSH_STREAM]=	0.5.2
+DEF[TAG_SUBS_FILTER]=	v0.6.4
+DEF[TAG_AJP]=		bf6cd93
+DEF[TAG_UPSTRM_CHECK]=	31b1b42
+DEF[TAG_ACCEPT_LANG]=	2f69842
+DEF[TAG_AUTH_DIGEST]=	519dc2a
+DEF[TAG_AUTH_PAM]=	v1.5.1
+DEF[TAG_AUTH_AWS]=	2.1.1
+DEF[TAG_CERT_TRANS]=	93e9884
+DEF[TAG_ECHO]=		v0.61
+DEF[TAG_MOREHEAD]=	v0.32
+DEF[TAG_EVAL]=		2016.06.10
+DEF[TAG_DRIZZLE]=	v0.1.10
+DEF[TAG_SESSCRYPT]=	v0.06
+DEF[TAG_LUA]=		v0.10.10
+DEF[TAG_MEMC]=		v0.18
+DEF[TAG_RDS_CSV]=	v0.07
+DEF[TAG_RDS_JSON]=	v0.14
+DEF[TAG_REDIS2]=	v0.14
+DEF[TAG_SETMISC]=	v0.31
+DEF[TAG_SRCACHE]=	v0.31
+DEF[TAG_XSS]=		v0.05
+DEF[TAG_ARRAYVAR]=	v0.05
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		nginx
 VERSION=		${PORTVERSION}
-KEYWORDS=		lang
+KEYWORDS=		www
 VARIANTS=		standard loaded
 SDESC[standard]=	HTTP and reverse proxy server (basic options)
 SDESC[loaded]=		HTTP and reverse proxy server (all options)
 HOMEPAGE=		https://nginx.org/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main geoip2 notice
+DOWNLOAD_GROUPS=	main geoip2 notice push pushstrm subsfilter ajp upcheck
+			acclang authdig pam aws certrans echo morehead eval
+			drizzle sesscrypt lua memc rdscsv rdsjson redis2 setmisc
+			srcache xss arrayvar
 SITES[main]=		http://nginx.org/download/
 SITES[geoip2]=		GITHUB/leev:ngx_http_geoip2_module:${TAG_GEOIP2}
 SITES[notice]=		GITHUB/kr:nginx-notice:${TAG_NOTICE}
+SITES[push]=		GITHUB/slact:nchan:${TAG_PUSH}
+SITES[pushstrm]=	GITHUB/wandenberg:nginx-push-stream-module:${TAG_PUSH_STREAM}
+SITES[subsfilter]=	GITHUB/yaoweibin:ngx_http_substitutions_filter_module:${TAG_SUBS_FILTER}
+SITES[ajp]=		GITHUB/yaoweibin:nginx_ajp_module:${TAG_AJP}
+SITES[upcheck]=		GITHUB/yaoweibin:nginx_upstream_check_module:${TAG_UPSTRM_CHECK}
+SITES[acclang]=		GITHUB/giom:nginx_accept_language_module:${TAG_ACCEPT_LANG}
+SITES[authdig]=		GITHUB/atomx:nginx-http-auth-digest:${TAG_AUTH_DIGEST}
+SITES[pam]=		GITHUB/sto:ngx_http_auth_pam_module:${TAG_AUTH_PAM}
+SITES[aws]=		GITHUB/anomalizer:ngx_aws_auth:${TAG_AUTH_AWS}
+SITES[certrans]=	GITHUB/grahamedgecombe:nginx-ct:${TAG_CERT_TRANS}
+SITES[echo]=		GITHUB/openresty:echo-nginx-module:${TAG_ECHO}
+SITES[morehead]=	GITHUB/openresty:headers-more-nginx-module:${TAG_MOREHEAD}
+SITES[eval]=		GITHUB/openresty:nginx-eval-module:${TAG_EVAL}
+SITES[drizzle]=		GITHUB/openresty:drizzle-nginx-module:${TAG_DRIZZLE}
+SITES[sesscrypt]=	GITHUB/openresty:encrypted-session-nginx-module:${TAG_SESSCRYPT}
+SITES[lua]=		GITHUB/openresty:lua-nginx-module:${TAG_LUA}
+SITES[memc]=		GITHUB/openresty:memc-nginx-module:${TAG_MEMC}
+SITES[rdscsv]=		GITHUB/openresty:rds-csv-nginx-module:${TAG_RDS_CSV}
+SITES[rdsjson]=		GITHUB/openresty:rds-json-nginx-module:${TAG_RDS_JSON}
+SITES[redis2]=		GITHUB/openresty:redis2-nginx-module:${TAG_REDIS2}
+SITES[setmisc]=		GITHUB/openresty:set-misc-nginx-module:${TAG_SETMISC}
+SITES[srcache]=		GITHUB/openresty:srcache-nginx-module:${TAG_SRCACHE}
+SITES[xss]=		GITHUB/openresty:xss-nginx-module:${TAG_XSS}
+SITES[arrayvar]=	GITHUB/openresty:array-var-nginx-module:${TAG_ARRAYVAR}
 DISTFILE[1]=		nginx-${PORTVERSION}.tar.gz:main
 DISTFILE[2]=		generated:geoip2
 DISTFILE[3]=		generated:notice
+DISTFILE[4]=		generated:push
+DISTFILE[5]=		generated:pushstrm
+DISTFILE[6]=		generated:subsfilter
+DISTFILE[7]=		generated:ajp
+DISTFILE[8]=		generated:upcheck
+DISTFILE[9]=		generated:acclang
+DISTFILE[10]=		generated:authdig
+DISTFILE[11]=		generated:pam
+DISTFILE[12]=		generated:aws
+DISTFILE[13]=		generated:certrans
+DISTFILE[14]=		generated:echo
+DISTFILE[15]=		generated:morehead
+DISTFILE[16]=		generated:eval
+DISTFILE[17]=		generated:drizzle
+DISTFILE[18]=		generated:sesscrypt
+DISTFILE[19]=		generated:lua
+DISTFILE[20]=		generated:memc
+DISTFILE[21]=		generated:rdscsv
+DISTFILE[22]=		generated:rdsjson
+DISTFILE[23]=		generated:redis2
+DISTFILE[24]=		generated:setmisc
+DISTFILE[25]=		generated:srcache
+DISTFILE[26]=		generated:xss
+DISTFILE[27]=		generated:arrayvar
 DF_INDEX=		1
+
+# TODO MODULES: KRB, LDAP FASTDFS(?)
 
 SPKGS[standard]=	single
 SPKGS[loaded]=		single
@@ -104,12 +181,45 @@ SUB_LIST=		WWWOWN={{WWWOWN}}
 [LOADED].CONFIGURE_ARGS_OFF=		--without-mail_imap_module
 					--without-mail_pop3_module
 					--without-mail_smtp_module
-[LOADED].CONFIGURE_ARGS_ON=		--add-dynamic-module={{WRKDIR}}/ngx_http_geoip2_module-${TAG_GEOIP2}
+[LOADED].CONFIGURE_ARGS_ON=		--with-http_perl_module=dynamic
 					--add-module={{WRKDIR}}/nginx-notice-${TAG_NOTICE}
-[LOADED].DF_INDEX_ON=			2 3
+					--add-module={{WRKDIR}}/nchan-${TAG_PUSH:S/v//}
+					--add-module={{WRKDIR}}/nginx-push-stream-module-${TAG_PUSH_STREAM}
+					--add-module={{WRKDIR}}/ngx_http_substitutions_filter_module-${TAG_SUBS_FILTER:S/v//}
+					--add-module={{WRKDIR}}/nginx_ajp_module-${TAG_AJP:S/v//}
+					--add-module={{WRKDIR}}/nginx_upstream_check_module-${TAG_UPSTRM_CHECK:S/v//}
+					--add-module={{WRKDIR}}/nginx_accept_language_module-${TAG_ACCEPT_LANG}
+					--add-module={{WRKDIR}}/ngx_aws_auth-${TAG_AUTH_AWS}
+					--add-module={{WRKDIR}}/rds-csv-nginx-module-${TAG_RDS_CSV:S/v//}
+					--add-module={{WRKDIR}}/rds-json-nginx-module-${TAG_RDS_JSON:S/v//}
+					--add-module={{WRKDIR}}/redis2-nginx-module-${TAG_REDIS2:S/v//}
+					--add-module={{WRKDIR}}/srcache-nginx-module-${TAG_SRCACHE:S/v//}
+					--add-dynamic-module={{WRKDIR}}/ngx_http_geoip2_module-${TAG_GEOIP2}
+					--add-dynamic-module={{WRKDIR}}/nginx-http-auth-digest-${TAG_AUTH_DIGEST}
+					--add-dynamic-module={{WRKDIR}}/echo-nginx-module-${TAG_ECHO:S/v//}
+					--add-dynamic-module={{WRKDIR}}/headers-more-nginx-module-${TAG_MOREHEAD:S/v//}
+					--add-dynamic-module={{WRKDIR}}/nginx-eval-module-${TAG_EVAL:S/v//}
+					--add-dynamic-module={{WRKDIR}}/memc-nginx-module-${TAG_MEMC:S/v//}
+# --add-dynamic-module={{WRKDIR}}/
+# | set-misc-nginx-module-${TAG_SETMISC:S/v//}
+# --add-module={{WRKDIR}}/
+# | encrypted-session-nginx-module-${TAG_SESSCRYPT:S/v//}
+# --add-dynamic-module={{WRKDIR}}/
+# | nginx-ct-${TAG_CERT_TRANS:S/v//}
+# --add-dynamic-module={{WRKDIR}}/
+# | ngx_http_auth_pam_module-${TAG_AUTH_PAM:S/v//}
+# 11 (PAM) requires additional headers
+# 13 (cert trans) doesn't work with libressl
+# 17 requires databases/libdrizzle
+# 18 and 24 requires devel_kit module
+# 19 lua, requires more patches and lang/luajit
+[LOADED].DF_INDEX_ON=			2 3 4 5 6 7 8 9 10 12 14 15 16 20 21 22 23 25
 [LOADED].BUILDRUN_DEPENDS_ON=		libmaxminddb:single:standard
 [LOADED].EXTRA_PATCHES_ON=		extra-patch-ngx_http_notice_module.c
-[LOADED].BROKEN_ON=			need to replace gpatch with bsdpatch
+					extra-patch-upstream-check-module
+# |extra-patch-nginx-ct
+[LOADED].KEYWORDS_ON=			perl
+[LOADED].USES_ON=			perl
 
 post-patch:
 	@${REINPLACE_CMD} 's!%%HTTP_PORT%%!${HTTP_PORT}!; \
@@ -139,6 +249,13 @@ do-install:
 	${ECHO_CMD} >> ${STAGEDIR}${PREFIX}/www/nginx-dist/EXAMPLE_DIRECTORY-DONT_ADD_OR_TOUCH_ANYTHING
 	(cd ${WRKSRC}/objs/ && ${FIND} . -depth -maxdepth 1 -name '*.so' -type f \
 		-exec ${INSTALL_PROGRAM} {} ${STAGEDIR}${PREFIX}/libexec/nginx \;)
+
+do-install-LOADED-ON:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/nginx
+	${INSTALL_PROGRAM} ${WRKSRC}/objs/src/http/modules/perl/blib/arch/auto/nginx/nginx.so \
+		${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/nginx
+	${INSTALL_DATA} ${WRKSRC}/objs/src/http/modules/perl/blib/lib/nginx.pm \
+		${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/
 
 post-install:
 	${CAT} ${WRKSRC}/conf/nginx.conf \
