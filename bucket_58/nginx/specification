@@ -36,6 +36,22 @@ DEF[TAG_DEVEL_KIT]=	v0.3.0
 DEF[TAG_NJS]=		0.1.13
 DEF[TAG_DAV_EXT]=	v0.1.0
 DEF[TAG_FOOTER]=	1.2.2
+DEF[TAG_STUB_JSON]=	0.1
+DEF[TAG_UPLOAD]=	72ec037
+DEF[TAG_UP_PROGRESS]=	afb2d31
+DEF[TAG_FAIR_LOAD]=	b5be36f
+DEF[TAG_ZIP]=		adf75e9
+DEF[TAG_DYN_UPSTREAM]=	v0.1.6
+DEF[TAG_LET]=		v0.0.4
+DEF[TAG_RTMP]=		v1.2.0
+DEF[TAG_VOD]=		1.19
+DEF[TAG_ICONV]=		v0.14
+DEF[TAG_FORMINPUT]=	v0.12
+DEF[TAG_CPURGE]=	2.3
+DEF[TAG_POSTGRESQL]=	1.0rc7
+DEF[TAG_CSLOWFS]=	1.10
+DEF[TAG_FANCYINDEX]=	v0.4.2
+DEF[TAG_NAXSI]=		0.55.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		nginx
@@ -50,7 +66,9 @@ CONTACT=		nobody
 DOWNLOAD_GROUPS=	main geoip2 notice push pushstrm subsfilter ajp upcheck
 			acclang authdig pam aws certrans echo morehead eval
 			drizzle sesscrypt lua memc rdscsv rdsjson redis2 setmisc
-			srcache xss arrayvar develkit njs davext footer
+			srcache xss arrayvar develkit njs davext footer stubjson
+			upload upprogress fairload zip dynups letmath rtmp vod
+			iconv forminput cpurge cslowfs pgsql fancyindex naxsi
 SITES[main]=		http://nginx.org/download/
 SITES[geoip2]=		GITHUB/leev:ngx_http_geoip2_module:${TAG_GEOIP2}
 SITES[notice]=		GITHUB/kr:nginx-notice:${TAG_NOTICE}
@@ -81,7 +99,24 @@ SITES[arrayvar]=	GITHUB/openresty:array-var-nginx-module:${TAG_ARRAYVAR}
 SITES[develkit]=	GITHUB/simpl:ngx_devel_kit:${TAG_DEVEL_KIT}
 SITES[njs]=		GITHUB/nginx:njs:${TAG_NJS}
 SITES[davext]=		GITHUB/arut:nginx-dav-ext-module:${TAG_DAV_EXT}
+SITES[letmath]=		GITHUB/arut:nginx-let-module:${TAG_LET}
+SITES[rtmp]=		GITHUB/arut:nginx-rtmp-module:${TAG_RTMP}
 SITES[footer]=		GITHUB/alibaba:nginx-http-footer-filter:${TAG_FOOTER}
+SITES[stubjson]=	GITHUB/nginx-modules:ngx_http_json_status_module:${TAG_STUB_JSON}
+SITES[upload]=		GITHUB/Austinb:nginx-upload-module:${TAG_UPLOAD}
+SITES[upprogress]=	GITHUB/masterzen:nginx-upload-progress-module:${TAG_UP_PROGRESS}
+SITES[fairload]=	GITHUB/cryptofuture:nginx-upstream-fair:${TAG_FAIR_LOAD}
+SITES[zip]=		GITHUB/evanmiller:mod_zip:${TAG_ZIP}
+SITES[dynups]=		GITHUB/cubicdaiya:ngx_dynamic_upstream:${TAG_DYN_UPSTREAM}
+SITES[vod]=		GITHUB/kaltura:nginx-vod-module:${TAG_VOD}
+SITES[iconv]=		GITHUB/calio:iconv-nginx-module:${TAG_ICONV}
+SITES[forminput]=	GITHUB/calio:form-input-nginx-module:${TAG_FORMINPUT}
+SITES[cpurge]=		GITHUB/FRiCKLE:ngx_cache_purge:${TAG_CPURGE}
+SITES[pgsql]=		GITHUB/FRiCKLE:ngx_postgres:${TAG_POSTGRESQL}
+SITES[cslowfs]=		GITHUB/FRiCKLE:ngx_slowfs_cache:${TAG_CSLOWFS}
+SITES[fancyindex]=	GITHUB/aperezdc:ngx-fancyindex:${TAG_FANCYINDEX}
+SITES[naxsi]=		GITHUB/nbs-system:naxsi:${TAG_NAXSI}
+
 DISTFILE[1]=		nginx-${PORTVERSION}.tar.gz:main
 DISTFILE[2]=		generated:geoip2
 DISTFILE[3]=		generated:notice
@@ -113,6 +148,22 @@ DISTFILE[28]=		generated:develkit
 DISTFILE[29]=		generated:njs
 DISTFILE[30]=		generated:davext
 DISTFILE[31]=		generated:footer
+DISTFILE[32]=		generated:stubjson
+DISTFILE[33]=		generated:upload
+DISTFILE[34]=		generated:upprogress
+DISTFILE[35]=		generated:fairload
+DISTFILE[36]=		generated:zip
+DISTFILE[37]=		generated:dynups
+DISTFILE[38]=		generated:letmath
+DISTFILE[39]=		generated:rtmp
+DISTFILE[40]=		generated:vod
+DISTFILE[41]=		generated:iconv
+DISTFILE[42]=		generated:forminput
+DISTFILE[43]=		generated:cpurge
+DISTFILE[44]=		generated:pgsql
+DISTFILE[45]=		generated:cslowfs
+DISTFILE[46]=		generated:fancyindex
+DISTFILE[47]=		generated:naxsi
 DF_INDEX=		1
 
 # TODO MODULES: KRB, LDAP FASTDFS(?)
@@ -195,6 +246,7 @@ SUB_LIST=		WWWOWN={{WWWOWN}}
 					--without-mail_smtp_module
 [LOADED].CONFIGURE_ARGS_ON=		--with-http_perl_module=dynamic
 					--with-http_xslt_module=dynamic
+					--with-http_image_filter_module=dynamic
 					--add-module={{WRKDIR}}/nginx-notice-${TAG_NOTICE}
 					--add-module={{WRKDIR}}/nchan-${TAG_PUSH:S/v//}
 					--add-module={{WRKDIR}}/nginx-push-stream-module-${TAG_PUSH_STREAM}
@@ -213,6 +265,13 @@ SUB_LIST=		WWWOWN={{WWWOWN}}
 					--add-module={{WRKDIR}}/xss-nginx-module-${TAG_XSS:S/v//}
 					--add-module={{WRKDIR}}/nginx-dav-ext-module-${TAG_DAV_EXT:S/v//}
 					--add-module={{WRKDIR}}/nginx-http-footer-filter-${TAG_FOOTER}
+					--add-module={{WRKDIR}}/ngx_http_json_status_module-${TAG_STUB_JSON}
+					--add-module={{WRKDIR}}/nginx-upload-module-${TAG_UPLOAD}
+					--add-module={{WRKDIR}}/nginx-upload-progress-module-${TAG_UP_PROGRESS:S/v//}
+					--add-module={{WRKDIR}}/nginx-let-module-${TAG_LET:S/v//}
+					--add-module={{WRKDIR}}/ngx_slowfs_cache-${TAG_CSLOWFS}
+					--add-module={{WRKDIR}}/ngx_cache_purge-${TAG_CPURGE}
+					--add-module={{WRKDIR}}/ngx_postgres-${TAG_POSTGRESQL}
 					--add-dynamic-module={{WRKDIR}}/ngx_http_geoip2_module-${TAG_GEOIP2}
 					--add-dynamic-module={{WRKDIR}}/nginx-http-auth-digest-${TAG_AUTH_DIGEST}
 					--add-dynamic-module={{WRKDIR}}/echo-nginx-module-${TAG_ECHO:S/v//}
@@ -221,6 +280,15 @@ SUB_LIST=		WWWOWN={{WWWOWN}}
 					--add-dynamic-module={{WRKDIR}}/memc-nginx-module-${TAG_MEMC:S/v//}
 					--add-dynamic-module={{WRKDIR}}/set-misc-nginx-module-${TAG_SETMISC:S/v//}
 					--add-dynamic-module={{WRKDIR}}/njs-${TAG_NJS}/nginx
+					--add-dynamic-module={{WRKDIR}}/nginx-upstream-fair-${TAG_FAIR_LOAD}
+					--add-dynamic-module={{WRKDIR}}/mod_zip-${TAG_ZIP}
+					--add-dynamic-module={{WRKDIR}}/ngx_dynamic_upstream-${TAG_DYN_UPSTREAM:S/v//}
+					--add-dynamic-module={{WRKDIR}}/nginx-rtmp-module-${TAG_RTMP:S/v//}
+					--add-dynamic-module={{WRKDIR}}/nginx-vod-module-${TAG_VOD:S/v//}
+					--add-dynamic-module={{WRKDIR}}/iconv-nginx-module-${TAG_ICONV:S/v//}
+					--add-dynamic-module={{WRKDIR}}/form-input-nginx-module-${TAG_FORMINPUT:S/v//}
+					--add-dynamic-module={{WRKDIR}}/ngx-fancyindex-${TAG_FANCYINDEX:S/v//}
+					--add-dynamic-module={{WRKDIR}}/naxsi-${TAG_NAXSI}/naxsi_src
 # --add-dynamic-module={{WRKDIR}}/
 # | nginx-ct-${TAG_CERT_TRANS:S/v//}
 # --add-dynamic-module={{WRKDIR}}/
@@ -230,15 +298,19 @@ SUB_LIST=		WWWOWN={{WWWOWN}}
 # 17 requires databases/libdrizzle
 # 19 lua, requires more patches and lang/luajit
 [LOADED].DF_INDEX_ON=			2 3 4 5 6 7 8 9 10 12 14 15 16 18 20 21 22
-					23 24 25 26 27 28 29 30 31
+					23 24 25 26 27 28 29 30 31 32 33 34 35 36
+					37 38 39 40 41 42 43 44 45 46 47
 [LOADED].BUILDRUN_DEPENDS_ON=		libmaxminddb:single:standard
+					libGD:single:standard
 					expat:shared:standard
 [LOADED].BUILD_DEPENDS_ON=		expat:static:standard
 [LOADED].EXTRA_PATCHES_ON=		extra-patch-ngx_http_notice_module.c
 					extra-patch-upstream-check-module
+					extra-patch-iconv
+					extra-patch-postgresql
 # |extra-patch-nginx-ct
 [LOADED].KEYWORDS_ON=			perl
-[LOADED].USES_ON=			perl
+[LOADED].USES_ON=			perl pgsql
 [LOADED].GNOME_COMPONENTS_ON=		libxml2
 					libxslt
 
@@ -252,6 +324,10 @@ post-patch-LOADED-ON:
 	${REINPLACE_CMD} -e "/ngx_feature_path/ \
 	s|/usr/include/libxml2|${LOCALBASE}/include/libxml2 ${LOCALBASE}/include|" \
 	${WRKSRC}/auto/lib/libxslt/conf
+	${REINPLACE_CMD} 's!%%PREFIX%%!${LOCALBASE}!g' \
+		${WRKDIR}/iconv-nginx-module-${TAG_ICONV:S/v//}/config
+	${REINPLACE_CMD} 's!%%PREFIX%%!${LOCALBASE}!g' \
+		${WRKDIR}/ngx_postgres-${TAG_POSTGRESQL}/config
 
 do-build:
 	@(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD})
