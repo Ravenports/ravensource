@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.23
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		desktop-file-utils
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	Utilities for manipulating .desktop files
+HOMEPAGE=		https://www.freedesktop.org/wiki/Software/desktop-file-utils/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://freedesktop.org/software/desktop-file-utils/releases/
+DISTFILE[1]=		desktop-file-utils-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/desktop-file-utils
+
+USES=			gettext-runtime gmake pkgconfig
+GNOME_COMPONENTS=	glib
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--without-lispdir
+CONFIGURE_ENV=		EMACS="no"
+
+SUB_FILES=		pkg-deinstall-single
+SUB_LIST=		MIMEDIRS="{{LOCALBASE}}/share/applications"
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/emacs/site-lisp \
+		${STAGEDIR}${PREFIX}/share/applications
+	${INSTALL_DATA} ${WRKSRC}/misc/desktop-entry-mode.el \
+		${STAGEDIR}${PREFIX}/share/emacs/site-lisp/desktop-entry-mode.el
