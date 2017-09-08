@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	3.1.5
+DEF[PORTVERSION]=	3.1.6
+DEF[SOVERSION]=		4.1.6
+DEF[SOMAJOR]=		${SOVERSION:R:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mpfr
@@ -12,8 +14,8 @@ CONTACT=		nobody
 DOWNLOAD_GROUPS=	main
 SITES[main]=		http://www.mpfr.org/mpfr-${PORTVERSION}/
 DISTFILE[1]=		mpfr-${PORTVERSION}.tar.xz:main
-DISTFILE[2]=		patch01:main
-DISTFILE[3]=		patch02:main
+# DISTFILE[2]=		patch01:main
+# DISTFILE[3]=		patch02:main
 DIST_SUBDIR=		mpfr-${PORTVERSION}
 DF_INDEX=		1
 
@@ -28,8 +30,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		math/mpfr
 
-PATCHFILES=		2 3
-PATCHFILES_STRIP=	-p1
+# PATCHFILES=		2 3
+# PATCHFILES_STRIP=	-p1
 
 BUILD_DEPENDS=		gmp:complete:standard
 EXRUN[shared]=		gmp:shared:standard
@@ -40,6 +42,8 @@ CONFIGURE_ARGS=		--with-gmp={{LOCALBASE}}
 INSTALL_TARGET=		install-strip
 TEST_TARGET=		check
 INFO=			static:mpfr
+PLIST_SUB=		SOVERSION=${SOVERSION}
+			SOMAJOR=${SOMAJOR}
 
 do-test:
 	 @(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE} check)
