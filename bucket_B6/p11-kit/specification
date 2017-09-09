@@ -1,0 +1,47 @@
+DEF[PORTVERSION]=	0.23.8
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		p11-kit
+VERSION=		${PORTVERSION}
+KEYWORDS=		security devel
+VARIANTS=		standard
+SDESC[standard]=	Library for loading and sharing PKCS#11 modules
+HOMEPAGE=		https://p11-glue.freedesktop.org/p11-kit.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/p11-glue/p11-kit/releases/download/${PORTVERSION}/
+DISTFILE[1]=		p11-kit-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		security/p11-kit
+
+BUILDRUN_DEPENDS=	nss:caroot:standard
+			libtasn1:primary:standard
+			libffi:single:standard
+
+USES=			gmake libtool pkgconfig
+INSTALL_TARGET=		install-strip
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-nls
+			--enable-debug=no
+			--with-trust-paths={{LOCALBASE}}/share/certs/ca-root-nss.crt
+
+pre-configure:
+	@${REINPLACE_CMD} -e \
+	's|exampledir = $$(p11_system_config)|exampledir = ${STD_EXAMPLESDIR}|' \
+	${WRKSRC}/Makefile.in
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/doc
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/p11-kit \
+		${STAGEDIR}${STD_DOCDIR}
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
