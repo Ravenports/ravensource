@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	3.3
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		nettle
+VERSION=		${PORTVERSION}
+KEYWORDS=		security net
+VARIANTS=		standard
+SDESC[standard]=	Low-level cryptographic library
+HOMEPAGE=		https://www.lysator.liu.se/~nisse/nettle/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/nettle
+DISTFILE[1]=		nettle-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary GPLv3+:primary LGPL3:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYINGv2
+			GPLv3+:{{WRKSRC}}/COPYINGv3
+			LGPL3:{{WRKSRC}}/COPYING.LESSERv3
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		security/nettle
+
+BUILD_DEPENDS=		gmp:static:standard
+BUILDRUN_DEPENDS=	gmp:shared:standard
+
+USES=			gmake makeinfo
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-shared
+CONFIGURE_ENV=		M4="/usr/bin/m4 -g"
+INFO=			primary:nettle
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
+	@${MKDIR} ${STAGEDIR}${STD_DOCDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+	(cd ${WRKSRC} && ${INSTALL_DATA} NEWS README TODO nettle.html \
+		nettle.pdf ${STAGEDIR}${STD_DOCDIR})
+	(cd ${WRKSRC}/examples && ${INSTALL_DATA} *.c *.h \
+		${STAGEDIR}${STD_EXAMPLESDIR})
