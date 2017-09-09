@@ -1,0 +1,57 @@
+DEF[PORTVERSION]=	3.6.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gnutls
+VERSION=		${PORTVERSION}
+KEYWORDS=		security net
+VARIANTS=		standard
+SDESC[standard]=	GNU Transport Layer Security library
+HOMEPAGE=		https://gnutls.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNUPG/gnutls/v${PORTVERSION:R}
+DISTFILE[1]=		gnutls-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3:single LGPL21:single
+LICENSE_FILE=		GPLv3:{{WRKSRC}}/doc/COPYING
+			LGPL21:{{WRKSRC}}/doc/COPYING.LESSER
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		security/gnutls
+
+BUILD_DEPENDS=		gmp:static:standard
+BUILDRUN_DEPENDS=	libunistring:primary:standard
+			libtasn1:primary:standard
+			libidn2:primary:standard
+			p11-kit:primary:standard
+			nettle:primary:standard
+			nss:caroot:standard
+
+USES=			cpe gmake iconv libtool makeinfo pkgconfig
+			gettext-runtime zlib
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-guile
+			--enable-local-libopt
+			--with-idn
+			--with-nls
+			--with-zlib
+			--with-p11-kit
+			--without-tpm
+MAKE_ENV=		MAKEINFOFLAGS=--no-split
+
+INFO=			single:gnutls
+			single:gnutls-guile
+
+post-patch:
+	@${RM} ${WRKSRC}/doc/*.info*
+
+post-install:
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}
