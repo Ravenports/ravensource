@@ -1,0 +1,11 @@
+--- scripts/xdg-settings.in.orig	2017-05-08 12:12:18 UTC
++++ scripts/xdg-settings.in
+@@ -399,7 +399,7 @@ check_xfce_desktop_file()
+     # "Type" must be "X-XFCE-Helper"
+     # "X-XFCE-Category" must be "WebBrowser" (for web browsers, anyway)
+     # "X-XFCE-Commands" and "X-XFCE-CommandsWithParameter" must be set
+-    search="${XDG_DATA_HOME:-$HOME/.local/share}:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
++    search="${XDG_DATA_HOME:-$HOME/.local/share}:${XDG_DATA_DIRS:-%%LOCALBASE%%/share:/usr/share}"
+     IFS=:
+     for dir in $search; do
+         unset IFS

@@ -1,5 +1,23 @@
 --- scripts/xdg-utils-common.in.orig	2017-05-08 12:12:18 UTC
 +++ scripts/xdg-utils-common.in
+@@ -22,7 +22,7 @@ first_word()
+ # map a binary to a .desktop file
+ binary_to_desktop_file()
+ {
+-    search="${XDG_DATA_HOME:-$HOME/.local/share}:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
++    search="${XDG_DATA_HOME:-$HOME/.local/share}:${XDG_DATA_DIRS:-%%LOCALBASE%%/share:/usr/share}"
+     binary="`which "$1"`"
+     binary="`readlink -f "$binary"`"
+     base="`basename "$binary"`"
+@@ -52,7 +52,7 @@ binary_to_desktop_file()
+ # map a .desktop file to a binary
+ desktop_file_to_binary()
+ {
+-    search="${XDG_DATA_HOME:-$HOME/.local/share}:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
++    search="${XDG_DATA_HOME:-$HOME/.local/share}:${XDG_DATA_DIRS:-%%LOCALBASE%%/share:/usr/share}"
+     desktop="`basename "$1"`"
+     IFS=:
+     for dir in $search; do
 @@ -300,6 +300,44 @@ detectDE()
           XFCE)
             DE=xfce
@@ -50,7 +68,7 @@
        elif echo $DESKTOP | grep -q '^Enlightenment'; then DE=enlightenment;
        elif [ x"$LXQT_SESSION_CONFIG" != x"" ]; then DE=lxqt;
 +      #Simple fallback for non-XDG window managers if Lumina is installed in the normal place (no heavy runtime dependencies)
-+      elif [ -x "/usr/local/bin/lumina-open" ]; then DE=lumina;
++      elif [ -x "%%LOCALBASE%%/bin/lumina-open" ]; then DE=lumina;
        fi
      fi
  

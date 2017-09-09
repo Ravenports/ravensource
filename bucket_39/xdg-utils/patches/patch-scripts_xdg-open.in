@@ -40,6 +40,15 @@
  #-----------------------------------------
  # Recursively search .desktop file
  
+@@ -327,7 +344,7 @@ open_generic_xdg_mime()
+         [ -n "$xdg_user_dir" ] || xdg_user_dir="$HOME/.local/share"
+ 
+         xdg_system_dirs="$XDG_DATA_DIRS"
+-        [ -n "$xdg_system_dirs" ] || xdg_system_dirs=/usr/local/share/:/usr/share/
++        [ -n "$xdg_system_dirs" ] || xdg_system_dirs=%%LOCALBASE%%/share/:/usr/share/
+ 
+ DEBUG 3 "$xdg_user_dir:$xdg_system_dirs"
+         for x in `echo "$xdg_user_dir:$xdg_system_dirs" | sed 's/:/ /g'`; do
 @@ -415,7 +432,7 @@ open_generic()
      if [ x"$BROWSER" = x"" ]; then
          BROWSER=www-browser:links2:elinks:links:lynx:w3m
