@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	1.1.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xdg-utils
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Basic desktop integration functions
+HOMEPAGE=		https://www.freedesktop.org/wiki/Software/xdg-utils/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://portland.freedesktop.org/download/
+DISTFILE[1]=		xdg-utils-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/xdg-utils
+
+BUILD_DEPENDS=		minixmlto:single:standard
+BUILDRUN_DEPENDS=	hicolor-icon-theme:single:standard
+
+USES=			gmake
+XORG_COMPONENTS=	xprop xset
+MUST_CONFIGURE=		gnu
+CONFIGURE_ENV=		XMLTO={{LOCALBASE}}/bin/minixmlto
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|' \
+		${WRKSRC}/scripts/xdg-*
