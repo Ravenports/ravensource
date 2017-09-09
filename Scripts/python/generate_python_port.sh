@@ -44,6 +44,10 @@ raven_req3b=unset
 pathtoexec=$(realpath $0)
 thisdir=$(dirname ${pathtoexec})
 
+LANG=en_US.UTF-8
+LC_ALL=en_US.UTF-8
+export LANG LC_ALL
+
 if [ $# -gt 1 ]; then
 VERSION=$2
 fi
@@ -188,9 +192,14 @@ dump_vopts() {
 
 create_description() {
    mkdir -p ${NEWPORT}/descriptions
+   local desc1
    # can't use head, it causes python to emit close failure message
    exec_setup ${FIRST_SNAKE} --long-description | awk 'NR <= 100' \
    	> ${NEWPORT}/descriptions/desc.single
+   desc1=$(/usr/bin/head -1 ${NEWPORT}/descriptions/desc.single)
+   if [ "${desc1}" = "UNKNOWN" ]; then
+      get_description | awk 'NR <= 100' > ${NEWPORT}/descriptions/desc.single
+   fi
 }
 
 dump_variable() {
