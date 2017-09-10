@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	2.5.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		taskwarrior
+VERSION=		${PORTVERSION}
+KEYWORDS=		deskutils
+VARIANTS=		standard
+SDESC[standard]=	Feature-rich command-line todo list manager
+HOMEPAGE=		https://taskwarrior.org/???
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://taskwarrior.org/download/
+DISTFILE[1]=		task-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		deskutils/taskwarrior
+
+BUILDRUN_DEPENDS=	gnutls:single:standard
+			ossp-uuid:single:standard
+
+USES=			cmake shebangfix
+DISTNAME=		task-${PORTVERSION}
+CMAKE_ARGS=		-DTASK_DOCDIR:STRING=share/doc/taskwarrior
+SHEBANG_FILES=		scripts/*/*.pl
+			doc/rc/refresh
+
+post-patch:
+	# Fix ambiguity with OSSP-UUID object name
+	${REINPLACE_CMD} -e 's|uuid ())|make_uuid ())|' \
+		${WRKSRC}/src/Task.cpp \
+		${WRKSRC}/src/commands/CmdDuplicate.cpp \
+		${WRKSRC}/src/recur.cpp
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/task
