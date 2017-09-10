@@ -1,0 +1,58 @@
+DEF[PORTVERSION]=	3.24.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gsettings-desktop-schemas
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils devel
+VARIANTS=		standard
+SDESC[standard]=	Shared GSettings schemas for the desktop
+HOMEPAGE=		https://git.gnome.org/browse/gsettings-desktop-schemas
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/gsettings-desktop-schemas/${PORTVERSION:R}
+DISTFILE[1]=		gsettings-desktop-schemas-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/gsettings-desktop-schemas
+
+RUN_DEPENDS=		fonts-cantarell:single:standard
+
+USES=			gettext-tools gmake perl:build pkgconfig schemas:single
+GNOME_COMPONENTS=	intltool glib introspection
+MUST_CONFIGURE=		gnu
+MAKE_ARGS=		pkgconfigdir={{PREFIX}}/lib/pkgconfig
+
+GLIB_SCHEMAS=		org.gnome.desktop.a11y.applications.gschema.xml
+			org.gnome.desktop.a11y.gschema.xml
+			org.gnome.desktop.a11y.keyboard.gschema.xml
+			org.gnome.desktop.a11y.magnifier.gschema.xml
+			org.gnome.desktop.a11y.mouse.gschema.xml
+			org.gnome.desktop.app-folders.gschema.xml
+			org.gnome.desktop.background.gschema.xml
+			org.gnome.desktop.calendar.gschema.xml
+			org.gnome.desktop.datetime.gschema.xml
+			org.gnome.desktop.default-applications.gschema.xml
+			org.gnome.desktop.enums.xml
+			org.gnome.desktop.input-sources.gschema.xml
+			org.gnome.desktop.interface.gschema.xml
+			org.gnome.desktop.lockdown.gschema.xml
+			org.gnome.desktop.media-handling.gschema.xml
+			org.gnome.desktop.notifications.gschema.xml
+			org.gnome.desktop.peripherals.gschema.xml
+			org.gnome.desktop.privacy.gschema.xml
+			org.gnome.desktop.screensaver.gschema.xml
+			org.gnome.desktop.search-providers.gschema.xml
+			org.gnome.desktop.session.gschema.xml
+			org.gnome.desktop.sound.gschema.xml
+			org.gnome.desktop.thumbnail-cache.gschema.xml
+			org.gnome.desktop.thumbnailers.gschema.xml
+			org.gnome.desktop.wm.keybindings.gschema.xml
+			org.gnome.desktop.wm.preferences.gschema.xml
+			org.gnome.system.locale.gschema.xml
+			org.gnome.system.location.gschema.xml
+			org.gnome.system.proxy.gschema.xml
