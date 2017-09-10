@@ -32,11 +32,13 @@ while read ravenport version fpc_port; do
 	mtree) ;;		# From DragonFly
 	rpcgen) ;;		# From DragonFly
 	sha256) ;;		# From DragonFly
+	bsd-patch) ;;		# From DragonFly/FreeBSD
 
 	libedit) ;;		# Different version scheme from FPC
 	gnat-util) ;;		# Different version scheme from FPC
 	gcc[678]) ;;		# Different version scheme from FPC
 	gprbuild) ;;		# Different version scheme from FPC
+	apr1|apr-util) ;;	# Different version scheme from FPC
 
 	aspell-el) ;;		# requires EPOCH, 0.08 > 0.50 actually
 	hunspell-pt_BR) ;;	# Freebsd combines BR/PT, but raven splits them up
@@ -50,6 +52,7 @@ while read ravenport version fpc_port; do
 	quex) ;;
 	slider) ;;
 	firebird30) ;;
+	php56-intl) ;;
 	aspell-mg | aspell-hus) ;;
 	*) echo "${ravenport} ${version}"
    esac
