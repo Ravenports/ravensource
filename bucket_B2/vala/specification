@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	0.36.5
+DEF[VALAVER]=		${PORTVERSION:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		vala
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		standard
+SDESC[standard]=	Compiler for the GObject type system
+HOMEPAGE=		https://wiki.gnome.org/Projects/Vala
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/vala/${VALAVER}
+DISTFILE[1]=		vala-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		lang/vala
+
+USES=			bison gettext-runtime gmake libtool pkgconfig
+GNOME_COMPONENTS=	glib libxslt
+INSTALL_TARGET=		install-strip
+MUST_CONFIGURE=		gnu
+CONFIGURE_ENV=		GTKDOC="false"
+CONFIGURE_ARGS=		-localstatedir={{PREFIX}}/share
+			--with-html-dir={{PREFIX}}/share/doc
+			--disable-gtk-doc
+			--with-gconf-source=xml:merged:{{PREFIX}}/etc/gconf/gconf.xml.defaults
+PLIST_SUB=		VER=${VALAVER}
