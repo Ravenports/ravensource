@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	3.18.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		meld
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel textproc editors
+VARIANTS=		standard
+SDESC[standard]=	Visual diff and merge tool
+HOMEPAGE=		http://meldmerge.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/meld/${PORTVERSION:R}
+DISTFILE[1]=		meld-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:single
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		textproc/meld
+
+BUILD_DEPENDS=		itstool:single:standard
+
+USES=			desktop-utils gettext-tools shebangfix
+			python:python_default schemas:single gnome-icons
+GNOME_COMPONENTS=	gtksourceview3 pygobject intltool
+SHEBANG_FILES=		bin/meld
+GLIB_SCHEMAS=		org.gnome.meld.gschema.xml
+PYD_INSTALL_TARGET=	--no-update-icon-cache
+			--no-compile-schemas
+			install
+PYD_INSTALLARGS=	--record
+			{{_PYTHONPKGLIST}}
+			-c
+			-O1
+			--prefix={{PREFIX}}
+			--root={{STAGEDIR}}
+
+post-install:
+	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/meld*

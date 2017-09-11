@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.0.2
 
 NAMEBASE=		itstool
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		standard
 SDESC[standard]=	ITS-based XML translation tool
@@ -20,11 +21,16 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		textproc/itstool
 
-BUILDRUN_DEPENDS=	python-libxml2:single:python_default
+# Limit to py27, Use on py36 results in:
+# AttributeError: 'dict' object has no attribute 'has_key'
 
-USES=			python
+BUILDRUN_DEPENDS=	python-libxml2:single:py27
+
+USES=			python:py27
 MUST_CONFIGURE=		gnu
 
 post-patch:
-	@${REINPLACE_CMD} -e 's|@PYTHON@|${PYTHON_CMD}|g' \
+	@${REINPLACE_CMD} \
+		-e 's|@PYTHON@|${PYTHON_CMD}|g' \
+		-e 's|/usr/local|${LOCALBASE}|g' \
 		${WRKSRC}/itstool.in
