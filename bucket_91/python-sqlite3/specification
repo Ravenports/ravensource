@@ -58,7 +58,7 @@ post-extract-PY36-ON:
 
 post-stage:
 	${MKDIR} ${STAGEDIR}${PYTHON_LIBDIR}/lib-dynload
-	${MV} ${STAGEDIR}${PYTHON_SITELIBDIR}/_sqlite3.so \
+	${MV} ${STAGEDIR}${PYTHON_SITELIBDIR}/_sqlite3*.so \
 		${STAGEDIR}${PYTHON_LIBDIR}/lib-dynload
-	${STRIP_CMD} ${STAGEDIR}${PYTHON_LIBDIR}/lib-dynload/_sqlite3.so
+	${STRIP_CMD} ${STAGEDIR}${PYTHON_LIBDIR}/lib-dynload/_sqlite3*.so
 	${RM} -r ${STAGEDIR}${PYTHON_SITELIBDIR}
