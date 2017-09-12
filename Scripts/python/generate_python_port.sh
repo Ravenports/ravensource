@@ -19,7 +19,7 @@ if [ $# -lt 1 ]; then
 fi
 
 EXEPERL=/usr/local/bin/perl
-PATH=/raven/bin:${PATH}
+#PATH=${PATH}:/raven/bin
 VERSION=unset
 MD5SUM=unset
 tarball=unset
