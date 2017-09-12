@@ -1,0 +1,28 @@
+DEF[PORTVERSION]=	0.12
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		startup-notification
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Library used to monitor application startup
+HOMEPAGE=		https://www.freedesktop.org/wiki/Software/startup-notification/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.freedesktop.org/software/startup-notification/releases/
+DISTFILE[1]=		startup-notification-${PORTVERSION}.tar.gz:main
+DIST_SUBDIR=		gnome2
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11/startup-notification
+
+USES=			gmake libtool pkgconfig
+XORG_COMPONENTS=	xcb-util x11
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		ac_cv_lib_ICE_IceConnectionNumber=no
+INSTALL_TARGET=		install-strip
