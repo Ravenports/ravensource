@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	0.15.1b
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libid3tag
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		standard
+SDESC[standard]=	ID3 tag manipulation library
+HOMEPAGE=		http://www.underbit.com/products/mad/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		ftp://ftp.mars.org/pub/mpeg/
+DISTFILE[1]=		libid3tag-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		audio/libid3tag
+
+USES=			libtool pkgconfig zlib
+INSTALL_TARGET=		install-strip
+MUST_CONFIGURE=		gnu
+
+post-build:
+	(cd ${WRKSRC} && CONFIG_FILES=id3tag.pc CONFIG_HEADERS= \
+		${SH} ./config.status)
+
+post-install:
+	${INSTALL_DATA} ${WRKSRC}/id3tag.pc ${STAGEDIR}${PREFIX}/lib/pkgconfig/
