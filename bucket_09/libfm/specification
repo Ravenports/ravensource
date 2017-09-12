@@ -1,0 +1,63 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(LIBFM_VERSION)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libfm
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Core library of PCManFM file manager
+HOMEPAGE=		http://pcmanfm.sourceforge.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/pcmanfm/PCManFM%20%2B%20Libfm%20%28tarball%20release%29/LibFM/
+DISTFILE[1]=		libfm-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11/libfm
+
+BUILD_DEPENDS=		shared-mime-info:single:standard
+			vala:single:standard
+			perl-XML-Parser:single:perl_default
+BUILDRUN_DEPENDS=	menu-cache:single:standard
+			fontconfig:primary:standard
+			freetype:primary:standard
+			libexif:single:standard
+
+USES=			gettext-tools gettext-runtime gmake libtool pkgconfig
+			desktop-utils
+GNOME_COMPONENTS=	glib intltool gtk3 cairo gdkpixbuf
+INSTALL_REQ_TOOLCHAIN=	yes
+INSTALL_TARGET=		install-strip
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--sysconfdir={{LOCALBASE}}/etc
+			--disable-static
+			--with-gtk=3
+			--enable-nls
+
+post-patch:
+	${REINPLACE_CMD} -e 's|^[[:blank:]]\{5,\}USE_NLS=yes|#&|' \
+		${WRKSRC}/configure
+	${REINPLACE_CMD} -e '/^pkgincludedir/s|-@FMLIBVER@||; \
+		/@LN_S@ @PACKAGE@-@FMLIBVER@/d' \
+		${WRKSRC}/src/Makefile.in
+	${REINPLACE_CMD} -e 's|DATA = libfm-extra.pc|DATA =|' \
+		${WRKSRC}/Makefile.in
+	${REINPLACE_CMD} -e '/^LIBFM_EXTRA_INCLUDES/,+4 s|^|@EXTRALIB_ONLY_TRUE@|; \
+		/FALSE@lib_LTLIBRARIES/s| libfm-extra.la||; \
+		s|libfm-extra.la \\|-lfm-extra \\|' \
+		${WRKSRC}/src/Makefile.in
+	${REINPLACE_CMD} -e 's|-@FMLIBVER@||' ${WRKSRC}/src/actions/Makefile.in
+	${REINPLACE_CMD} -e '/^vfs_menu_la_DEPENDENCIES/{s| \\||;n;d;}; \
+		/^vfs_menu_la_LIBADD/s|$$(top.*|-lfm-extra|' \
+		${WRKSRC}/src/modules/Makefile.in
+
+post-install:
+	${INSTALL_DATA} ${WRKSRC}/src/actions/fm-actions.h \
+		${STAGEDIR}${PREFIX}/include/libfm
+	${MV} ${STAGEDIR}${PREFIX}/etc/xdg/libfm/libfm.conf \
+		${STAGEDIR}${PREFIX}/etc/xdg/libfm/libfm.conf.sample
