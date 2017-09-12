@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	2.24.0
+DEF[PORTVERSION]=	2.26.0
+DEF[SOVERSION]=		0.22609.1
+DEF[SOMAJOR]=		${SOVERSION:R:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		atk
@@ -25,6 +27,8 @@ USES=			gmake libtool pkgconfig perl:build
 GNOME_COMPONENTS=	glib introspection
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
+PLIST_SUB=		SOVERSION=${SOVERSION}
+			SOMAJOR=${SOMAJOR}
 
 post-patch:
 	@${REINPLACE_CMD} -e "/^SUBDIRS =/s/tests docs//" \
