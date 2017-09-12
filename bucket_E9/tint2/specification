@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	15.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		tint2
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11 deskutils
+VARIANTS=		standard
+SDESC[standard]=	Lightweight panel/taskbar/systray/clock
+HOMEPAGE=		https://gitlab.com/o9000/tint2
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/o9000:tint2:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary examples docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:primary
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11/tint
+
+BUILDRUN_DEPENDS=	imlib2:single:standard
+			startup-notification:single:standard
+
+USES=			cmake:outsource pkgconfig gnome-icons
+			gettext-tools gettext-runtime
+GNOME_COMPONENTS=	gtk2 librsvg
+XORG_COMPONENTS=	x11 xcomposite xdamage xfixes xinerama xrandr xrender
+INSTALL_REQ_TOOLCHAIN=	yes
+CMAKE_ARGS=		-DCMAKE_INSTALL_MANDIR:PATH=share/man
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/tint2*
