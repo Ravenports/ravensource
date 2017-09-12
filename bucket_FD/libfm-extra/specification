@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(LIBFM_VERSION)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libfm-extra
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Extra library of PCManFM file manager
+HOMEPAGE=		http://pcmanfm.sourceforge.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/pcmanfm/PCManFM%20%2B%20Libfm%20%28tarball%20release%29/LibFM/
+DISTFILE[1]=		libfm-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11/libfm
+
+USES=			gettext-tools gmake libtool pkgconfig
+GNOME_COMPONENTS=	glib intltool
+INSTALL_TARGET=		install-strip
+DISTNAME=		libfm-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--sysconfdir={{LOCALBASE}}/etc
+			--disable-static
+			--enable-nls
+			--with-extra-only
+
+post-patch:
+	${REINPLACE_CMD} -e 's|^[[:blank:]]\{5,\}USE_NLS=yes|#&|' \
+		${WRKSRC}/configure
+	${REINPLACE_CMD} -e '/^pkgincludedir/s|-@FMLIBVER@||; \
+		/@LN_S@ @PACKAGE@-@FMLIBVER@/d' \
+		${WRKSRC}/src/Makefile.in
