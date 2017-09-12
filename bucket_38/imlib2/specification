@@ -1,0 +1,51 @@
+DEF[PORTVERSION]=	1.4.10
+DEF[SOVERSION]=		${PORTVERSION}
+DEF[SOMAJOR]=		${SOVERSION:R:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		imlib2
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Powerful image loading and rendering library
+HOMEPAGE=		https://docs.enlightenment.org/api/imlib2/html/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/enlightenment/imlib2-src/${PORTVERSION}
+DISTFILE[1]=		imlib2-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:single
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/COPYING
+LICENSE_NAME=		CUSTOM1:"imlib2 license"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/imlib2
+
+BUILDRUN_DEPENDS=	libid3tag:single:standard
+			freetype:primary:standard
+			tiff:primary:standard
+			gif:single:standard
+
+USES=			libtool pkgconfig jpeg png
+XORG_COMPONENTS=	x11 sm xext
+INSTALL_REQ_TOOLCHAIN=	yes
+INSTALL_TARGET=		install-strip
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-visibility-hiding
+			--disable-static
+VAR_ARCH[x86_64]=	CONFIGURE_ARGS=--enable-amd64
+VAR_ARCH[i386]=		CONFIGURE_ARGS=--enable-mmx
+PLIST_SUB=		SOVERSION=${SOVERSION}
+			SOMAJOR=${SOMAJOR}
+
+post-patch:
+	@${REINPLACE_CMD} -e '/MY_LIBS =/s/-lXext -lX11//' \
+		${WRKSRC}/src/lib/Makefile.in
+	@${REINPLACE_CMD} -e '/# ifndef X_DISPLAY_MISSING/,/# endif/ d' \
+		${WRKSRC}/src/lib/Imlib2.h
