@@ -1,0 +1,28 @@
+DEF[PORTVERSION]=	20060219
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		freepats
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		standard
+SDESC[standard]=	Free and open set of instrument patches
+HOMEPAGE=		http://freepats.zenvoid.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://freepats.zenvoid.org/
+DISTFILE[1]=		freepats-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		audio/freepats
+
+DISTNAME=		freepats
+SKIP_BUILD=		yes
+
+do-install:
+	(cd ${WRKSRC} && \
+		${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/share/freepats)
