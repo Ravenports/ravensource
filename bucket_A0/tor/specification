@@ -1,0 +1,59 @@
+DEF[PORTVERSION]=	0.3.0.10
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		tor
+VERSION=		${PORTVERSION}
+KEYWORDS=		security net
+VARIANTS=		standard
+SDESC[standard]=	Anonymizing overlay network for TCP
+HOMEPAGE=		https://www.torproject.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		TOR/
+DISTFILE[1]=		tor-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		security/tor
+
+BUILD_DEPENDS=		asciidoc:single:py27
+BUILDRUN_DEPENDS=	libevent:single:standard
+
+USERS=			_tor
+GROUPS=			_tor
+USERGROUP_SPKG=		primary
+RC_SUBR=		tor:primary
+
+USES=			cpe gmake pkgconfig ssl zlib cclibs:primary
+CPE_VENDOR=		torproject
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-openssl-dir="{{OPENSSLBASE}}"
+			--enable-linker-hardening
+CONFIGURE_ENV=		TOR_CPPFLAGS_libevent="-I{{LOCALBASE}}/include"
+			TOR_LDFLAGS_libevent="-L{{LOCALBASE}}/lib/"
+			TOR_LIBEVENT_LIBS="-levent"
+SUB_LIST=		USER="{{USERS}}" GROUP="{{GROUPS}}"
+PLIST_SUB=		USER="{{USERS}}" GROUP="{{GROUPS}}"
+
+post-patch:
+	@${REINPLACE_CMD} -E -e "s@(-z) (relro|now)@-Wl,\1,\2@g" \
+		${WRKSRC}/configure
+	@${REINPLACE_CMD} -e 's|lib/tor|db/tor|' \
+		${WRKSRC}/src/config/torrc.*.in \
+		${WRKSRC}/doc/tor.1.* \
+		${WRKSRC}/doc/tor.html.in
+	@${REINPLACE_CMD} -e "s@-ltcmalloc@${LOCALBASE}/lib/libtcmalloc.so@" \
+		${WRKSRC}/configure
+
+post-install:
+	@${MKDIR} ${STAGEDIR}/var/log/tor \
+		${STAGEDIR}/var/run/tor \
+		${STAGEDIR}/var/db/tor
