@@ -1,0 +1,47 @@
+DEF[PORTVERSION]=	3.6.1
+DEF[SOVERSION]=		32.0.0
+DEF[SOMAJOR]=		${SOVERSION:R:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		openbox
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_wm
+VARIANTS=		standard
+SDESC[standard]=	Configurable and lightweight X11 window manager
+HOMEPAGE=		http://openbox.org/wiki/Main_Page
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://openbox.org/dist/openbox/
+DISTFILE[1]=		openbox-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11-wm/openbox
+
+BUILDRUN_DEPENDS=	fontconfig:primary:standard
+			freetype:primary:standard
+			librsvg:primary:standard
+			imlib2:single:standard
+			startup-notification:single:standard
+
+USES=			gmake libtool python pkgconfig shebangfix
+			gettext-tools gettext-runtime
+GNOME_COMPONENTS=	cairo libxml2 pango
+XORG_COMPONENTS=	ice sm x11 xcursor xext xft xinerama xrandr
+			xrender xau
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-imlib2
+			--enable-librsvg
+SHEBANG_FILES=		data/autostart/openbox-xdg-autostart
+PLIST_SUB=		VERSION=${PORTVERSION:R}
+			SOVERSION=${SOVERSION}
+			SOMAJOR=${SOMAJOR}
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-configure:
+	@${CHMOD} +x ${WRKSRC}/install-sh
