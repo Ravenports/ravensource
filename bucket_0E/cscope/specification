@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	15.8b
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		cscope
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	C source code tree search and browse tool
+HOMEPAGE=		http://cscope.sourceforge.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/cscope/cscope/${PORTVERSION}
+DISTFILE[1]=		cscope-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/cscope
+
+USES=			ncurses
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-ncurses={{NCURSESBASE}}
+
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/emacs/site-lisp \
+		${STAGEDIR}${PREFIX}/lib/xemacs/site-lisp
+	${INSTALL_SCRIPT} ${WRKSRC}/contrib/xcscope/cscope-indexer \
+		${STAGEDIR}${PREFIX}/bin
+	${INSTALL_DATA} ${WRKSRC}/contrib/xcscope/xcscope.el \
+		${STAGEDIR}${PREFIX}/share/emacs/site-lisp
+	${LN} -sf ${PREFIX}/share/emacs/site-lisp/xcscope.el \
+		${STAGEDIR}${PREFIX}/lib/xemacs/site-lisp

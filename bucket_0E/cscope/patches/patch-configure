@@ -1,0 +1,13 @@
+--- configure.orig	2015-04-04 20:19:21 UTC
++++ configure
+@@ -5756,8 +5756,8 @@ if test "${with_ncurses+set}" = set; the
+   withval=$with_ncurses; if test x$withval = xno ; then
+ 		search_ncurses=false
+ 	  elif test x$withval != xyes ; then
+-		CURSES_LIBS="$LIBS -L$withval/lib -lncurses"
+-		CURSES_INCLUDEDIR="-I$withval/include"
++		CURSES_LIBS="$LIBS -L$withval/lib -lncurses -ltinfo"
++		CURSES_INCLUDEDIR="-I$withval/include -I$withval/include/ncurses"
+ 		search_ncurses=false
+ 		screen_manager="ncurses"
+ 
