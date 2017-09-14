@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	5.1.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		wavpack
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		standard
+SDESC[standard]=	Hybrid lossless audio compression
+HOMEPAGE=		http://www.wavpack.com/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.wavpack.com/
+DISTFILE[1]=		wavpack-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		audio/wavpack
+
+USES=			iconv libtool pkgconfig
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+
+VAR_ARCH[i386]=		CONFIGURE_ARGS=--disable-asm
+VAR_ARCH[aarch64]=	CONFIGURE_ARGS=--disable-asm
