@@ -1,0 +1,63 @@
+--- librtmp/Makefile.orig	2017-09-14 17:45:40 UTC
++++ librtmp/Makefile
+@@ -1,19 +1,19 @@
+ VERSION=v2.4
+ 
+-prefix=/usr/local
++prefix=$(PREFIX)
+ 
+ incdir=$(prefix)/include/librtmp
+ bindir=$(prefix)/bin
+ libdir=$(prefix)/lib
+-mandir=$(prefix)/man
++mandir=$(prefix)/share/man
+ BINDIR=$(DESTDIR)$(bindir)
+ INCDIR=$(DESTDIR)$(incdir)
+ LIBDIR=$(DESTDIR)$(libdir)
+ MANDIR=$(DESTDIR)$(mandir)
+ 
+-CC=$(CROSS_COMPILE)gcc
+-LD=$(CROSS_COMPILE)ld
+-AR=$(CROSS_COMPILE)ar
++CC?=$(CROSS_COMPILE)gcc
++LD?=$(CROSS_COMPILE)ld
++AR?=$(CROSS_COMPILE)ar
+ 
+ SYS=posix
+ CRYPTO=OPENSSL
+@@ -23,7 +23,6 @@ DEF_OPENSSL=-DUSE_OPENSSL
+ DEF_GNUTLS=-DUSE_GNUTLS
+ DEF_=-DNO_CRYPTO
+ REQ_GNUTLS=gnutls,hogweed,nettle
+-REQ_OPENSSL=libssl,libcrypto
+ PUB_GNUTLS=-lgmp
+ LIBZ=-lz
+ LIBS_posix=-lm
+@@ -74,8 +73,7 @@ SO_INST=$(SOINST_$(SHARED))
+ 
+ DEF=-DRTMPDUMP_VERSION=\"$(VERSION)\" $(CRYPTO_DEF) $(XDEF)
+ OPT=-O2
+-CFLAGS=-Wall $(XCFLAGS) $(INC) $(DEF) $(OPT) $(SO_DEF)
+-LDFLAGS=$(XLDFLAGS)
++CFLAGS+= $(DEF) $(SO_DEF)
+ 
+ 
+ OBJS=rtmp.o log.o amf.o hashswf.o parseurl.o
+@@ -102,6 +100,8 @@ librtmp.pc: librtmp.pc.in Makefile
+ 	sed -e "s;@prefix@;$(prefix);" -e "s;@libdir@;$(libdir);" \
+ 		-e "s;@VERSION@;$(VERSION);" \
+ 		-e "s;@CRYPTO_REQ@;$(CRYPTO_REQ);" \
++		-e "s;@OPENSSLLIB@;$(OPENSSLLIB);" \
++		-e "s;@OPENSSLINC@;$(OPENSSLINC);" \
+ 		-e "s;@PUBLIC_LIBS@;$(PUBLIC_LIBS);" \
+ 		-e "s;@PRIVATE_LIBS@;$(PRIVATE_LIBS);" librtmp.pc.in > $@
+ 
+@@ -115,7 +115,7 @@ install_base:	librtmp.a librtmp.pc
+ 	cp librtmp.3 $(MANDIR)/man3
+ 
+ install_so:	librtmp$(SO_EXT)
+-	cp librtmp$(SO_EXT) $(SODIR)
++	${BSD_INSTALL_LIB} librtmp$(SO_EXT) $(SODIR)
+ 	$(INSTALL_IMPLIB)
+ 	cd $(SODIR); ln -sf librtmp$(SO_EXT) librtmp.$(SOX)
+ 

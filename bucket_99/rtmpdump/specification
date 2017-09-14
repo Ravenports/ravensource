@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	2.4.20151223
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		rtmpdump
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		standard
+SDESC[standard]=	Toolkit for RTMP streams
+HOMEPAGE=		http://rtmpdump.mplayerhq.hu/
+CONTACT=		nobody
+
+# packaged from git://git.ffmpeg.org/rtmpdump : fa8646da
+# and patch from https://github.com/K-S-V/Scripts/releases/, see
+# http://stream-recorder.com/forum/
+#   customized-rtmpdump-binaries-patch-file-t16103.html
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://ravenports.ironwolf.systems/cache-distfiles/
+DISTFILE[1]=		rtmpdump-${PORTVERSION}.tar.gz:main
+DISTFILE[2]=		rtmpdump-KSV-20151215.patch.gz:main
+
+SPKGS[standard]=	library program
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		net/rtmpdump
+
+EXRUN[program]=		rtmpdump:library:standard
+
+USES=			pkgconfig ssl zlib
+MAKE_ENV=		THREADLIB="-lpthread"
+LDFLAGS=		-L{{OPENSSLLIB}}
+PATCHFILES=		2
