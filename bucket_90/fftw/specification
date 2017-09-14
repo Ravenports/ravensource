@@ -1,0 +1,72 @@
+DEF[PORTVERSION]=	3.3.6
+DEF[PATCHLEVEL]=	-pl2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		fftw
+VERSION=		${PORTVERSION}
+KEYWORDS=		math
+VARIANTS=		standard float long quad
+SDESC[standard]=	Fast Fourier Transform library (double)
+SDESC[float]=		Fast Fourier Transform library (float)
+SDESC[long]=		Fast Fourier Transform library (long double)
+SDESC[quad]=		Fast Fourier Transform library (quad precision)
+HOMEPAGE=		http://www.fftw.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.fftw.org/
+DISTFILE[1]=		fftw-${PORTVERSION}${PATCHLEVEL}.tar.gz:main
+
+SPKGS[standard]=	single
+SPKGS[float]=		single
+SPKGS[long]=		single
+SPKGS[quad]=		single
+
+OPTIONS_AVAILABLE=	FLOAT LONG QUAD FLAV
+OPTIONS_STANDARD=	none
+VOPTS[float]=		FLOAT=ON LONG=OFF QUAD=OFF FLAV=ON
+VOPTS[long]=		FLOAT=OFF LONG=ON QUAD=OFF FLAV=ON
+VOPTS[quad]=		FLOAT=OFF LONG=OFF QUAD=ON FLAV=ON
+
+FPC_EQUIVALENT=		math/fftw3
+
+USES=			gmake libtool makeinfo perl:build pkgconfig
+			fortran:single
+DISTNAME=		fftw-${PORTVERSION}${PATCHLEVEL}
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-shared
+			--enable-threads
+			--enable-openmp
+PLIST_SUB=		OPENMPI="@comment "
+
+[FLOAT].DESCRIPTION=			Build float version of fftw
+[LONG].DESCRIPTION=			Build long double version of fftw
+[QUAD].DESCRIPTION=			Build quad precision version of fftw
+[FLAV].DESCRIPTION=			Enabled for non-standard variants
+
+[FLOAT].CONFIGURE_ARGS_ON=		--enable-float
+[LONG].CONFIGURE_ARGS_ON=		--enable-long-double
+[QUAD].CONFIGURE_ARGS_ON=		--enable-quad-precision
+[FLAV].INFO_OFF=			single:fftw3
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|/etc/fftw|${PREFIX}/etc/fftw|' \
+		${WRKSRC}/Makefile.in \
+		${WRKSRC}/api/import-system-wisdom.c \
+		${WRKSRC}/doc/fftw3* \
+		${WRKSRC}/tools/*
+
+post-patch-FLAV-ON:
+	@${REINPLACE_CMD} -E \
+	-e '/(DIST_COMMON|bin_SCRIPTS|BUILT_SOURCES|EXTRA_DIST) =/,\
+	/[^\]$$/s/[^[:blank:]]*fftw-wisdom-to-conf[^[:blank:]]*//' \
+		${WRKSRC}/tools/Makefile.in
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
+
+post-install-FLAV-ON:
+	${RM} ${STAGEDIR}${PREFIX}/include/*
+	${RM} -r ${STAGEDIR}${PREFIX}/share/info
