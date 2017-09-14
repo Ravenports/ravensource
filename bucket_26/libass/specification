@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	0.13.7
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libass
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia devel
+VARIANTS=		standard
+SDESC[standard]=	Library for SSA/ASS subtitles rendering
+HOMEPAGE=		https://github.com/libass/libass
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/libass:libass:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		ISCL:single
+LICENSE_FILE=		ISCL:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		multimedia/libass
+
+BUILD_DEPENDS=		yasm:single:standard
+BUILDRUN_DEPENDS=	freetype:primary:standard
+			fontconfig:primary:standard
+			harfbuzz:primary:standard
+			fribidi:single:standard
+
+USES=			autoreconf iconv libtool pkgconfig
+INSTALL_TARGET=		install-strip
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-harfbuzz
+VAR_ARCH[x86_64]=	CONFIGURE_ARGS=--enable-asm
+VAR_ARCH[i386]=		CONFIGURE_ARGS=--enable-asm
+
