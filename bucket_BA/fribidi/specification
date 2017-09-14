@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	0.19.7
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		fribidi
+VERSION=		${PORTVERSION}
+KEYWORDS=		converters
+VARIANTS=		standard
+SDESC[standard]=	Free Implementation of the Unicode BiDi Algorithm
+HOMEPAGE=		https://fribidi.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://fribidi.org/download/
+DISTFILE[1]=		fribidi-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21:single
+LICENSE_FILE=		LGPL21:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		converters/fribidi
+
+USES=			gmake libtool
+INSTALL_TARGET=		install-strip
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-static
+			--without-glib
+			--disable-debug
+
+post-patch:
+	@${SED} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' < \
+		${FILESDIR}/fribidi-config \
+		> ${WRKDIR}/fribidi-config
+
+post-install:
+	${INSTALL_SCRIPT} ${WRKDIR}/fribidi-config \
+		${STAGEDIR}${PREFIX}/bin
