@@ -1,18 +1,18 @@
 DEF[PORTVERSION]=	5.0.3
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		libdvdread
+NAMEBASE=		libdvdnav
 VERSION=		${PORTVERSION}
 KEYWORDS=		multimedia
 VARIANTS=		standard
-SDESC[standard]=	Library to read DVD images
+SDESC[standard]=	DVD navigation library
 HOMEPAGE=		http://dvdnav.mplayerhq.hu/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://download.videolan.org/pub/videolan/libdvdread/${PORTVERSION}/
+SITES[main]=		http://download.videolan.org/pub/videolan/libdvdnav/${PORTVERSION}/
 			http://dvdnav.mplayerhq.hu/releases/
-DISTFILE[1]=		libdvdread-${PORTVERSION}.tar.bz2:main
+DISTFILE[1]=		libdvdnav-${PORTVERSION}.tar.bz2:main
 
 SPKGS[standard]=	single
 
@@ -23,10 +23,9 @@ LICENSE=		GPLv2:single
 LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-FPC_EQUIVALENT=		multimedia/libdvdread
+FPC_EQUIVALENT=		multimedia/libdvdnav
 
-# DVDCSS version hardcoded in src/dvd_input.c (dlopen'ed)
-BUILDRUN_DEPENDS=	libdvdcss:single:standard
+BUILDRUN_DEPENDS=	libdvdread:single:standard
 
 USES=			gmake libtool pkgconfig
 INSTALL_TARGET=		install-strip
