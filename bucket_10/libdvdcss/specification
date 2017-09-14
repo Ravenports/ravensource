@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	1.4.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libdvdcss
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		standard
+SDESC[standard]=	Portable abstraction library for DVD decryption
+HOMEPAGE=		https://www.videolan.org/developers/libdvdcss.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://download.videolan.org/pub/videolan/libdvdcss/${PORTVERSION}/
+DISTFILE[1]=		libdvdcss-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:single
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		multimedia/libdvdcss
+
+USES=			gmake libtool
+INSTALL_TARGET=		install-strip
+MUST_CONFIGURE=		gnu
+
+post-install:
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}
