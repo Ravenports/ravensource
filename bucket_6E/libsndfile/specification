@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	1.0.28
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libsndfile
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		standard
+SDESC[standard]=	Library for reading and writing sound files
+HOMEPAGE=		http://www.mega-nerd.com/libsndfile/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.mega-nerd.com/libsndfile/files/
+DISTFILE[1]=		libsndfile-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		audio/libsndfile
+
+BUILDRUN_DEPENDS=	flac:primary:standard
+			libvorbis:primary:standard
+
+USES=			cpe gmake libtool pkgconfig
+CPE_VENDOR=		libsndfile_project
+INSTALL_TARGET=		install-strip
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-gcc-pipe
+			--disable-sqlite
+			--disable-alsa
+			--disable-octave
+			--with-pkgconfigdir={{PREFIX}}/lib/pkgconfig
+
+post-patch:
+	@${REINPLACE_CMD} -e '/^SUBDIRS =/s/ doc / /g' ${WRKSRC}/Makefile.in
+
+post-install:
+	(cd ${WRKSRC}/doc && ${COPYTREE_SHARE} . ${STAGEDIR}${STD_DOCDIR})
+	${RM} ${STAGEDIR}${STD_DOCDIR}/Makefile*
+	${RM} ${STAGEDIR}${STD_DOCDIR}/libsndfile.css.in
