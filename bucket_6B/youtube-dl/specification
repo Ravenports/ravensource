@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	2017.09.11
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		youtube-dl
+VERSION=		${PORTVERSION}
+KEYWORDS=		www
+VARIANTS=		standard
+SDESC[standard]=	Program for downloading videos from YouTube.com
+HOMEPAGE=		http://rg3.github.io/youtube-dl/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/rg3/youtube-dl/releases/download/${PORTVERSION}/
+DISTFILE[1]=		youtube-dl-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		www/youtube_dl
+
+RUN_DEPENDS=		rtmpdump:program:standard
+
+USES=			python
+BUILD_TARGET=		youtube-dl
+MAKE_ARGS=		PYTHON={{PYTHON_CMD}}
+DISTNAME=		youtube-dl
+
+post-extract:
+	@# remove tarball provided version, build our own
+	@${RM} ${WRKSRC}/youtube-dl
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|python devscripts/|${PYTHON_CMD} devscripts/|' \
+		${WRKSRC}/Makefile
