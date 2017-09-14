@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	0.15.1b
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libmad
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		standard speed
+SDESC[standard]=	High-quality MPEG audio decoder (opt for accuracy)
+SDESC[speed]=		High-quality MPEG audio decoder (opt for speed)
+HOMEPAGE=		http://www.underbit.com/products/mad/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/mad/libmad/${PORTVERSION}
+DISTFILE[1]=		libmad-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+SPKGS[speed]=		single
+
+OPTIONS_AVAILABLE=	SPEED
+OPTIONS_STANDARD=	none
+VOPTS[speed]=		SPEED=ON
+
+FPC_EQUIVALENT=		audio/libmad
+
+USES=			libtool
+INSTALL_TARGET=		install-strip
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-debugging
+			--enable-sso
+SUB_FILES=		mad.pc
+SUB_LIST=		VERSION=${PORTVERSION}
+
+[SPEED].DESCRIPTION=			Optimize for speed over accuracy
+[SPEED].CONFIGURE_ARGS_ON=		--enable-speed
+[SPEED].CONFIGURE_ARGS_OFF=		--enable-accuracy
+
+post-patch:
+	@${REINPLACE_CMD} -e 's| -fforce-mem||' ${WRKSRC}/configure
+
+post-install:
+	${INSTALL_DATA} ${WRKDIR}/mad.pc ${STAGEDIR}${PREFIX}/lib/pkgconfig/
