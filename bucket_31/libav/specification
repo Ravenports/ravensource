@@ -1,0 +1,118 @@
+DEF[PORTVERSION]=	12.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libav
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		standard
+SDESC[standard]=	Realtime audio/video conversion library
+HOMEPAGE=		https://libav.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://libav.org/releases/
+DISTFILE[1]=		libav-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		multimedia/libav
+
+BUILD_DEPENDS=		yasm:single:standard
+			gmp:static:standard
+			bzip2:static:standard
+BUILDRUN_DEPENDS=	gmp:shared:standard
+			bzip2:shared:standard
+			opencv:primary:standard
+			libvdpau:single:standard
+			nettle:primary:standard
+			frei0r:single:standard
+			freetype:primary:standard
+			gnutls:single:standard
+			rtmpdump:library:standard
+			schroedinger:primary:standard
+			libtheora:single:standard
+			video4linux:headers:standard
+			libva:single:standard
+			vo-aacenc:single:standard
+			libvorbis:primary:standard
+			wavpack:single:standard
+			WebP:single:standard
+			xvid:single:standard
+
+USES=			cpe gmake perl:build pkgconfig zlib
+XORG_COMPONENTS=	x11
+SDL_COMPONENTS=		sdl1
+MUST_CONFIGURE=		yes
+CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
+			--libdir="{{PREFIX}}/lib/libav"
+			--shlibdir="{{PREFIX}}/lib/libav"
+			--incdir="{{PREFIX}}/include/libav"
+			--mandir="{{MANPREFIX}}/man"
+			--datadir="{{PREFIX}}/share/libav"
+			--extra-ldflags="-Wl,-rpath,{{PREFIX}}/lib/libav"
+			--cc="{{CC}}"
+			--enable-pthreads
+			--enable-shared
+			--enable-runtime-cpudetect
+			--enable-bzlib
+			--enable-frei0r
+			--enable-libfreetype
+			--enable-gnutls
+			--enable-libopencv
+			--enable-librtmp
+			--enable-libschroedinger
+			--enable-avplay
+			--enable-libtheora
+			--enable-indev=v4l2
+			--enable-vaapi
+			--enable-vdpau
+			--enable-libvo-aacenc
+			--enable-libvorbis
+			--enable-libwavpack
+			--enable-libwebp
+			--enable-libxvid
+			--enable-zlib
+			--enable-gpl
+			--enable-version3
+			--disable-debug
+			--disable-indev=alsa
+			--disable-outdev=alsa
+			--disable-libopencore-amrnb
+			--disable-libopencore-amrwb
+			--disable-libcdio
+			--disable-libdc1394
+			--disable-libfaac
+			--disable-libfdk-aac
+			--disable-libgsm
+			--disable-libilbc
+			--disable-indev=jack
+			--disable-libmp3lame
+			--disable-libopenjpeg
+			--disable-openssl
+			--disable-libopus
+			--disable-libspeex
+			--disable-libvo-amrwbenc
+			--disable-libvpx
+			--disable-libx264
+
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|freetype/freetype.h|freetype2/freetype.h|' \
+		-e 's|-ldc1394 -lraw1394|-ldc1394|' \
+		${WRKSRC}/configure
+	@${REINPLACE_CMD} -e 's|gsm/gsm.h|gsm.h|' \
+		${WRKSRC}/configure \
+		${WRKSRC}/libavcodec/libgsmdec.c
+	@${REINPLACE_CMD} -e 's|$$(LIBDIR)/pkgconfig|${STAGEDIR}${PREFIX}/lib/pkgconfig|' \
+		${WRKSRC}/library.mak
+
+post-configure:
+	@${REINPLACE_CMD} -e 's|CONFIG_TEXI2HTML=yes|!CONFIG_TEXI2HTML=yes|' \
+		${WRKSRC}/config.mak
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/av*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libav/*.so
