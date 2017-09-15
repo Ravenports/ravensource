@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	2.9.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		l-smash
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		standard
+SDESC[standard]=	MP4 muxer and other tools
+HOMEPAGE=		https://l-smash.github.io/l-smash/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/l-smash:l-smash:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		ISCL:single
+LICENSE_FILE=		ISCL:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		multimedia/l-smash
+
+USES=			gmake
+MUST_CONFIGURE=		yes
+CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
+			--cc="{{CC}}"
+			--extra-cflags="{{CPPFLAGS}} {{CFLAGS}}"
+			--extra-ldflags="{{LDFLAGS}}"
+			--extra-libs="{{LIBS}}"
+			--enable-shared
+MAKE_ARGS=		STRIP="{{STRIP_CMD}}"
+
+post-patch:
+	@${REINPLACE_CMD} -e 's/-Os //; /=.*-fexcess-precision/d' \
+		${WRKSRC}/configure
+	@${REINPLACE_CMD} -e '/SHARED/,/^$$/ { /STRIP/s/-x //; }' \
+		${WRKSRC}/${MAKEFILE}
