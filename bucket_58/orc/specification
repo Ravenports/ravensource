@@ -1,0 +1,47 @@
+DEF[PORTVERSION]=	0.4.27
+DEF[SOVERSION]=		0.27.0
+DEF[SOMAJOR]=		${PORTVERSION:R:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		orc
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Oil Runtime Compiler (ORC)
+HOMEPAGE=		https://gstreamer.freedesktop.org/projects/orc.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://gstreamer.freedesktop.org/data/src/orc/
+DISTFILE[1]=		orc-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary docs examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/orc
+
+USES=			gmake libtool pkgconfig
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-gtk-doc
+MAKE_ARGS=		orc orc-test tools doc examples
+PLIST_SUB=		SOVERSION=${SOVERSION}
+			SOMAJOR=${SOMAJOR}
+
+post-patch:
+	@${REINPLACE_CMD} \
+		-E -e '/LIBS/s/-lrt(\ )*//; /LIBRT/s/-lrt//' \
+		${WRKSRC}/configure
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+.for FILE in example1orc.orc example2orc.orc example3orc.orc mt19937arorc.orc
+	@${INSTALL_DATA} ${WRKSRC}/examples/${FILE} \
+		${STAGEDIR}${STD_EXAMPLESDIR}/${FILE}
+.endfor
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/orc \
+		${STAGEDIR}${STD_DOCDIR}
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
