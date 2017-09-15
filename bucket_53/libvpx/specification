@@ -1,0 +1,62 @@
+DEF[PORTVERSION]=	1.6.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libvpx
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		standard
+SDESC[standard]=	VP8 Video Codec SDK
+HOMEPAGE=		https://chromium.googlesource.com/webm/libvpx
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/webmproject:libvpx:v${PORTVERSION}
+DISTFILE[1]=		genereated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		multimedia/libvpx
+
+BUILD_DEPENDS=		yasm:single:standard
+
+USES=			cpe gmake perl:build shebangfix c++:single
+CPE_VENDOR=		john_koleszar
+MUST_CONFIGURE=		yes
+SHEBANG_FILES=		build/make/ads2gas.pl
+CONFIGURE_ARGS=		--prefix={{PREFIX}}
+			--disable-install-docs
+			--disable-install-srcs
+			--enable-pic
+			--enable-vp8
+			--enable-vp9
+			--enable-multi-res-encoding
+			--enable-postproc
+			--enable-vp9-postproc
+			--enable-vp9-temporal-denoising
+			--enable-runtime-cpu-detect
+			--enable-shared
+			--size-limit=16384x16384
+MAKE_ARGS=		verbose=yes
+BUILD_TARGET=		#empty
+
+# Sizing: Chromium is 16k*16k; Firefox has 4000*3000
+
+VAR_ARCH[aarch64]=	CONFIGURE_ARGS=--target=arm64-linux-gcc
+VAR_ARCH[x86_64]=	CONFIGURE_ARGS=--target=x86_64-linux-gcc
+VAR_ARCH[i386]=		CONFIGURE_ARGS=--target=x86-linux-gcc
+
+
+post-patch:
+	@${REINPLACE_CMD} 's|\(link_with_cc\)=gcc|\1=$${CC}|' \
+		${WRKSRC}/build/make/configure.sh
+
+post-install:
+	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/vpx*
+	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libvpx.so.*.*.*
