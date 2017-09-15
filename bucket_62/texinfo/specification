@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	6.4
+DEF[PORTVERSION]=	6.5
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		texinfo
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		print
 VARIANTS=		standard nls
 SDESC[standard]=	Typeset documentation system, multiple formats
@@ -55,3 +54,6 @@ post-patch:
 	${REINPLACE_CMD} -e '/rm -f $$(DESTDIR)/ s|$$| $$(DESTDIR)$$(xsdir)/XSParagraph.*|' \
 		${WRKSRC}/tp/Texinfo/Convert/XSParagraph/Makefile.in
 	${REINPLACE_CMD} -e 's|free (.*)|Safe&|' ${WRKSRC}/tp/Texinfo/MiscXS/misc.c
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/texinfo/MiscXS.so
