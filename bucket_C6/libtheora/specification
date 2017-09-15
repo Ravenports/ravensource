@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	1.1.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libtheora
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		standard
+SDESC[standard]=	Theora video compression codec
+HOMEPAGE=		https://www.theora.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://downloads.xiph.org/releases/theora/
+DISTFILE[1]=		libtheora-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		multimedia/libtheora
+
+BUILDRUN_DEPENDS=	libogg:primary:standard
+
+USES=			libtool
+INSTALL_TARGET=		install-strip
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-sdltest
+			--disable-examples
