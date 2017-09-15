@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(FREI0R_VERSION)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		frei0r
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Minimalistic plugin API for video effects
+HOMEPAGE=		http://frei0r.dyne.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://files.dyne.org/frei0r/releases/
+DISTFILE[1]=		frei0r-plugins-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:single
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/frei0r
+
+USES=			cmake:outsource pkgconfig
+GNOME_COMPONENTS=	cairo
+DISTNAME=		frei0r-plugins-${PORTVERSION}
+CMAKE_ARGS=		-DWITHOUT_OPENCV:BOOL=ON
+			-DWITHOUT_GAVL:BOOL=ON
+
+post-patch:
+	${REINPLACE_CMD} -e '/add_subdirectory (doc)/d' \
+		${WRKSRC}/CMakeLists.txt
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/frei0r-1/*.so
