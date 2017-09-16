@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	2.5
+DEF[SOVERSION]=		130
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		x265
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		standard
+SDESC[standard]=	Library for encoding h.265/HEVC video streams
+HOMEPAGE=		https://www.videolan.org/developers/x265.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://bitbucket.org/multicoreware/x265/downloads/
+DISTFILE[1]=		x265_${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# LICENSE=		GPLv2+:single
+# LICENSE_FILE=		GPLv2+:{{W
+
+FPC_EQUIVALENT=		multimedia/x265
+
+BUILD_DEPENDS=		yasm:single:standard
+
+USES=			cmake c++:single
+DISTNAME=		x265_${PORTVERSION}/source
+PLIST_SUB=		SOVERSION=${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/x265
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libx265.so
