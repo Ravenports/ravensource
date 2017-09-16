@@ -1,0 +1,23 @@
+--- configure.orig	2017-09-16 01:40:17 UTC
++++ configure
+@@ -598,6 +598,10 @@ case $host_os in
+             cc_check "" -mdynamic-no-pic && CFLAGS="$CFLAGS -mdynamic-no-pic"
+         fi
+         ;;
++    dragonfly*)
++        SYS="DRAGONFLY"
++        LDFLAGS="$LDFLAGS -lm"
++        ;;
+     freebsd*)
+         SYS="FREEBSD"
+         libm="-lm"
+@@ -1284,6 +1288,9 @@ if [ "$opencl" = "yes" ]; then
+         opencl="yes"
+         define HAVE_OPENCL
+         libdl="-ldl"
++    else
++        opencl="yes"
++        define HAVE_OPENCL
+     fi
+     LDFLAGS="$LDFLAGS $libdl"
+ fi
