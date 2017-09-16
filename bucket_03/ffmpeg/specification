@@ -1,0 +1,169 @@
+DEF[PORTVERSION]=	3.3.4
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ffmpeg
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia audio net
+VARIANTS=		standard
+SDESC[standard]=	Play, record, convert, and stream audio and video
+HOMEPAGE=		https://www.ffmpeg.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://ffmpeg.org/releases/
+DISTFILE[1]=		ffmpeg-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary examples docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		multimedia/ffmpeg
+
+BUILD_DEPENDS=		yasm:single:standard
+			video4linux:headers:standard
+			gmp:static:standard
+BUILDRUN_DEPENDS=	gmp:shared:standard
+			libass:single:standard
+			fontconfig:primary:standard
+			freetype:primary:standard
+			frei0r:single:standard
+			fribidi:single:standard
+			libgcrypt:single:standard
+			gnutls:single:standard
+			video4linux:primary:standard
+			opencv:core:standard
+			rtmpdump:library:standard
+			schroedinger:primary:standard
+			libtheora:single:standard
+			libva:single:standard
+			libvdpau:single:standard
+			libvorbis:primary:standard
+			libvpx:single:standard
+			wavpack:single:standard
+			WebP:single:standard
+			x264:library:standard
+			x265:single:standard
+			xvid:single:standard
+
+RC_SUBR=		ffserver:primary
+
+USES=			cpe gmake iconv perl:build pkgconfig shebangfix
+SDL_COMPONENTS=		sdl2
+MUST_CONFIGURE=		yes
+SHEBANG_FILES=		doc/texi2pod.pl
+CONFIGURE_ARGS=		--cc="{{CC}}"
+			--prefix="{{PREFIX}}"
+			--mandir="{{MANPREFIX}}/man"
+			--datadir="{{PREFIX}}/share/ffmpeg"
+			--pkgconfigdir="{{PREFIX}}/lib/pkgconfig"
+			--enable-shared
+			--enable-pic
+			--enable-gpl
+			--enable-version3
+			--enable-postproc
+			--enable-avfilter
+			--enable-avresample
+			--enable-pthreads
+			--disable-indev=alsa
+			--disable-outdev=alsa
+			--disable-libopencore-amrnb
+			--disable-libopencore-amrwb
+			--disable-libbs2b
+			--disable-libcaca
+			--disable-libcdio
+			--disable-libcelt
+			--disable-chromaprint
+			--disable-libdc1394
+			--disable-debug
+			--disable-htmlpages
+			--disable-libfdk-aac
+			--disable-libflite
+			--disable-libgme
+			--disable-libgsm
+			--disable-libilbc
+			--disable-indev=jack
+			--disable-libkvazaar
+			--disable-ladspa
+			--disable-libmp3lame
+			--disable-libbluray
+			--disable-libmodplug
+			--disable-netcdf
+			--disable-openal
+			--disable-indev=openal
+			--disable-opencl
+			--disable-opengl
+			--disable-libopenh264
+			--disable-libopenjpeg
+			--disable-openssl
+			--disable-libopus
+			--disable-libpulse
+			--disable-indev=pulse
+			--disable-outdev=pulse
+			--disable-librubberband
+			--disable-libsmbclient
+			--disable-libsnappy
+			--disable-indev=sndio
+			--disable-outdev=sndio
+			--disable-libsoxr
+			--disable-libspeex
+			--disable-libssh
+			--disable-libtesseract
+			--disable-libtwolame
+			--disable-libvo-amrwbenc
+			--disable-libvidstab
+			--disable-libxcb
+			--disable-outdev=xv
+			--disable-libzimg
+			--disable-libzmq
+			--disable-libzvbi
+			--enable-libass
+			--enable-ffserver
+			--enable-fontconfig
+			--enable-libfreetype
+			--enable-frei0r
+			--enable-libfribidi
+			--enable-gcrypt
+			--enable-gnutls
+			--enable-gmp
+			--enable-iconv
+			--enable-libv4l2
+			--enable-libopencv
+			--enable-optimizations
+			--enable-runtime-cpudetect
+			--enable-librtmp
+			--enable-libschroedinger
+			--enable-ffplay
+			--enable-libtheora
+			--enable-vaapi
+			--enable-vdpau
+			--enable-libvorbis
+			--enable-libvpx
+			--enable-libwavpack
+			--enable-libwebp
+			--enable-libx264
+			--enable-libx265
+			--enable-libxvid
+INSTALL_TARGET=		install-progs
+			install-doc
+			install-data
+			install-libs
+			install-headers
+
+post-patch:
+	# {C,LD}FLAGS safeness
+	@${REINPLACE_CMD} -e 's|/etc/ffserver.conf|${PREFIX}/etc/ffserver.conf|' \
+		${WRKSRC}/ffserver.c
+	@${REINPLACE_CMD} -E \
+		-e 's|require_pkg_config opencv|require_pkg_config opencv-core|g' \
+		${CONFIGURE_WRKSRC}/${CONFIGURE_SCRIPT}
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+.for DF in CREDITS LICENSE.md MAINTAINERS README.md RELEASE_NOTES
+	${INSTALL_DATA} ${WRKSRC}/${DF} ${STAGEDIR}${STD_DOCDIR}
+.endfor
+	${INSTALL_DATA} ${WRKSRC}/doc/APIchanges ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${WRKSRC}/doc/*.txt ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${WRKSRC}/doc/ffserver.conf \
+		${STAGEDIR}${PREFIX}/etc/ffserver.conf.sample
