@@ -1,0 +1,51 @@
+DEF[PORTVERSION]=	0.50.0
+DEF[VTE_VERSION]=	2.91
+DEF[SOVERSION]=		0.5000.0
+DEF[SOMAJOR]=		${PORTVERSION:R:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		vte
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_toolkits
+VARIANTS=		standard
+SDESC[standard]=	Virtual Terminal Emulator widget
+HOMEPAGE=		https://wiki.gnome.org/Apps/Terminal/VTE
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/vte/${PORTVERSION:R}
+DISTFILE[1]=		vte-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome3
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11-toolkits/vte3
+
+BUILD_DEPENDS=		vala:single:standard
+			bash:primary:standard
+			gperf:single:standard
+BUILDRUN_DEPENDS=	gnutls:single:standard
+			pcre2:primary:standard
+
+USES=			gettext-runtime gettext-tools gmake libtool
+			pkgconfig python:build
+GNOME_COMPONENTS=	cairo gdkpixbuf gtk3 intltool introspection
+INSTALL_TARGET=		install-strip
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-introspection
+			--disable-static
+PLIST_SUB=		VERSION=${VTE_VERSION}
+			SOVERSION=${SOVERSION}
+			SOMAJOR=${SOMAJOR}
+
+post-patch:
+	${FIND} ${WRKSRC} -name "Makefile.in" -type f | ${XARGS} ${REINPLACE_CMD} -e \
+		"s|test \"\$$\$$installfiles\" = '\$$(srcdir)/html/\*'|:|"
+
+post-install:
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/vte-${VTE_VERSION} \
+		${STAGEDIR}${STD_DOCDIR}
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
