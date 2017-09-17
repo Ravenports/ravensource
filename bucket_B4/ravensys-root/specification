@@ -6,11 +6,12 @@ DEF[LINUX_VERSION]=	${LINUX_KERNEL:S/-//:S/.//:S/./0/}
 DEF[EXTRA_UBUNTU]=	4 5 6 7 8 9 10 11 12 13
 DEF[FREEBSD_RELEASE]=	11.1
 DEF[FREE_KERNEL_VER]=	1101001
+DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravensys-root
 VERSION=		1.1
-# REVISION=		0
+REVISION=		1
 KEYWORDS=		raven
 VARIANTS=		dragonfly freebsd64 linux
 SDESC[dragonfly]=	DragonFly64 system root for Ravenports build env
@@ -111,6 +112,7 @@ PLIST_SUB=		SONAME_LIBM={{Libm_{{OPSYS}}}}
 
 MAKE_ENV=		OPSYS="{{OPSYS}}"
 			MKDIR="{{MKDIR}}"
+			GCCX=${GCCX}
 			libm={{Libm_{{OPSYS}}}}
 			libc={{Libc_{{OPSYS}}}}
 			libutil={{Libutil_{{OPSYS}}}}

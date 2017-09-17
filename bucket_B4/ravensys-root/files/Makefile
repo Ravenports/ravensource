@@ -653,6 +653,8 @@ install:
 	cp -a ../linux/usr/lib/x86_64-linux-gnu/${item} ${DESTDIR}${BASE}/usr/lib/x86_64-linux-gnu/
 .  endfor
 	ln -s /lib/x86_64-linux-gnu/${Linux_RTLD:H} ${DESTDIR}${BASE}/lib64/${Linux_RTLD:T}
+	# symlink libgcc_s.so.1 which lpthread needs in a specific location
+	ln -s /raven/toolchain/${GCCX}/lib64/libgcc_s.so.1 ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/libgcc_s.so.1
 	# certain shared libraries must be executable
 	chmod 755 ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/${Linux_RTLD:H}
 	chmod 755 ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/${Linux_C_lib:H}
