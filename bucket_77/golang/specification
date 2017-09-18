@@ -1,0 +1,64 @@
+DEF[PORTVERSION]=	1.9
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		golang
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		standard
+SDESC[standard]=	Go programming language compiler
+HOMEPAGE=		https://golang.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://golang.org/dl/
+DISTFILE[1]=		go${PORTVERSION}.src.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		lang/go
+
+NOT_FOR_ARCH=		aarch64
+
+BUILD_DEPENDS=		go14:single:standard
+
+USES=			shebangfix
+SHEBANG_LANG=		bash
+			perl
+SHEBANG_FILES=		src/*.bash
+			doc/articles/wiki/*.bash
+			lib/time/*.bash
+			misc/benchcmp
+			misc/nacl/go_nacl_*_exec
+			src/cmd/dist/*.bash
+			src/cmd/go/*.sh
+			src/regexp/syntax/*.pl
+SHEBANG_OLD_BASH=	"/usr/bin/env bash"
+SHEBANG_NEW_BASH=	{{SH}}
+DISTNAME=		go
+PLIST_SUB=		opsys_ARCH={{OPSYS:tl}}_{{GOARCH}}
+
+post-patch:
+	@cd ${WRKSRC} && ${FIND} . -name '*.orig' -delete
+	${RM} ${WRKSRC}/src/*.rc ${WRKSRC}/include/plan9/mklibc.rc
+	${FIND} ${WRKSRC} -type d -name testdata | ${XARGS} ${RM} -r
+
+do-build:
+	cd ${WRKSRC}/src && \
+		GOROOT=${WRKSRC} GOROOT_FINAL=${PREFIX}/go \
+		GOROOT_BOOTSTRAP=${LOCALBASE}/go14 \
+		GOBIN= GOARCH=${GOARCH} GOOS=${OPSYS:tl} \
+		GO386=${GO386} \
+		${SH} make.bash
+
+do-install:
+	@${CP} -a ${WRKSRC} ${STAGEDIR}${PREFIX}
+	${RM} -r ${STAGEDIR}${PREFIX}/go/pkg/obj
+.for f in go gofmt
+	@${LN} -sf ../go/bin/${f} ${STAGEDIR}${PREFIX}/bin/${f}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${f}
+.endfor
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/go/pkg/tool/${OPSYS:tl}_${GOARCH}/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/go/pkg/bootstrap/bin/*
