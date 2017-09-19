@@ -33,12 +33,14 @@ USES=			execinfo gmake python:build,py27 pkgconfig shebangfix
 DISTNAME=		node-v${PORTVERSION}
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--prefix={{PREFIX}}
+			--without-snapshot
 			--without-npm
 			--shared-cares
 			--shared-libuv
 			--shared-zlib
 			--with-intl=system-icu
 			--openssl-no-asm
+# |			--debug
 SHEBANG_FILES=		tools/specialize_node_d.py
 			tools/genv8constants.py
 MAKE_ENV=		CC.host={{CC}}
@@ -49,24 +51,18 @@ MAKE_ENV=		CC.host={{CC}}
 post-patch:
 	@${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|' \
 		${WRKSRC}/deps/v8/src/v8.gyp
+	@${GREP} -rl "/usr/local" ${WRKSRC} | \
+		${XARGS} ${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g'
+	@${FIND} ${WRKSRC} -name "*.bak" -delete
 	# So many different ways to run python. Fix them all.
 	@${REINPLACE_CMD} -e 's|/usr/bin/env python|${PYTHON_CMD}|' \
 		${WRKSRC}/configure
-	@${FIND} ${WRKSRC} -type f -name '*.gyp*' -print0 \
-		| ${XARGS} -0 ${REINPLACE_CMD} \
+	@${FIND} ${WRKSRC} -type f -name '*.gyp*' -print0 | \
+		${XARGS} -0 ${REINPLACE_CMD} \
 			-e "s|'python'|'${PYTHON_CMD}'|" \
 			-e 's|<!(python |<!(${PYTHON_CMD} |' \
 			-e 's|\&\& python |\&\& ${PYTHON_CMD} |'
-
-post-configure:
-	# Post-process Makefile and *.mk files created by node-gyp and remove
-	# all occurrences of -I${LOCALBASE}/include. C*FLAGS include this
-	# before all -I../deps/* for bundled code. This can cause build
-	# breakages if the dependency is installed in ${LOCALBASE}. The
-	# USES+=localbase # above will ensure that we pick up includes for real
-	# external dependencies.
-	${FIND} ${WRKSRC}/out -type f -print0 \
-		| ${XARGS} -0 ${REINPLACE_CMD} -e "s|-I${LOCALBASE}/include||g"
+	@${FIND} ${WRKSRC} -name "*.bak" -delete
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/node

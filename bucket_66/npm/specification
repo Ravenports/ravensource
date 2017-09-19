@@ -38,12 +38,10 @@ SHEBANG_FILES=		lib/node_modules/npm/lib/utils/completion.sh
 			lib/node_modules/npm/scripts/relocate.sh
 
 post-patch:
-	${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|' \
-		${WRKSRC}/etc/man.d/npm.conf
-	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|' \
-		${WRKSRC}/lib/node_modules/npm/node_modules/node-gyp/gyp/gyp
-	@${FIND} ${WRKSRC} -name '*.sh' -exec ${REINPLACE_CMD} \
-		-e '1 s|/usr/local|${LOCALBASE}|' {} +
+	${GREP} -rl "/usr/local" ${WRKSRC} | ${XARGS} \
+		${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g'
+	${GREP} -rl "/usr/bin/env node" ${WRKSRC} | ${XARGS} \
+		${REINPLACE_CMD} -e 's|/usr/bin/env node|${LOCALBASE}/bin/node|'
 	@${FIND} ${WRKSRC} -name "*.bak" -type f -delete
 
 do-install:
