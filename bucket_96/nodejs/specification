@@ -1,0 +1,70 @@
+DEF[PORTVERSION]=	8.5.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		nodejs
+VERSION=		${PORTVERSION}
+KEYWORDS=		www lang
+VARIANTS=		standard
+SDESC[standard]=	Evented I/O for V8 JavaScript
+HOMEPAGE=		https://nodejs.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://nodejs.org/dist/v${PORTVERSION}/
+DISTFILE[1]=		node-v${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		www/node
+
+BUILDRUN_DEPENDS=	icu:single:standard
+			libuv:single:standard
+
+USES=			execinfo gmake python:2,build pkgconfig shebangfix
+			zlib
+MUST_CONFIGURE=		yes
+CONFIGURE_ARGS=		--prefix={{PREFIX}}
+			--without-npm
+			--shared-cares
+			--shared-libuv
+			--shared-zlib
+			--with-intl=system-icu
+			--openssl-no-asm
+SHEBANG_FILES=		tools/specialize_node_d.py
+			tools/genv8constants.py
+MAKE_ENV=		CC.host={{CC}}
+			CXX.host={{CXX}}
+			LINK.host={{CXX}}
+			LINK.target={{CXX}}
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|' \
+		${WRKSRC}/deps/v8/src/v8.gyp
+	# So many different ways to run python. Fix them all.
+	@${REINPLACE_CMD} -e 's|/usr/bin/env python|${PYTHON_CMD}|' \
+		${WRKSRC}/configure
+	@${FIND} ${WRKSRC} -type f -name '*.gyp*' -print0 \
+		| ${XARGS} -0 ${REINPLACE_CMD} \
+			-e "s|'python'|'${PYTHON_CMD}'|" \
+			-e 's|<!(python |<!(${PYTHON_CMD} |' \
+			-e 's|\&\& python |\&\& ${PYTHON_CMD} |'
+
+post-configure:
+	# Post-process Makefile and *.mk files created by node-gyp and remove
+	# all occurrences of -I${LOCALBASE}/include. C*FLAGS include this
+	# before all -I../deps/* for bundled code. This can cause build
+	# breakages if the dependency is installed in ${LOCALBASE}. The
+	# USES+=localbase # above will ensure that we pick up includes for real
+	# external dependencies.
+	${FIND} ${WRKSRC}/out -type f -print0 \
+		| ${XARGS} -0 ${REINPLACE_CMD} -e "s|-I${LOCALBASE}/include||g"
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/node
