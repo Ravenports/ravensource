@@ -13,12 +13,12 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://nodejs.org/dist/v${PORTVERSION}/
 DISTFILE[1]=		node-v${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
@@ -26,9 +26,11 @@ FPC_EQUIVALENT=		www/node
 
 BUILDRUN_DEPENDS=	icu:single:standard
 			libuv:single:standard
+			c-ares:single:standard
 
-USES=			execinfo gmake python:2,build pkgconfig shebangfix
+USES=			execinfo gmake python:build,py27 pkgconfig shebangfix
 			zlib
+DISTNAME=		node-v${PORTVERSION}
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--prefix={{PREFIX}}
 			--without-npm

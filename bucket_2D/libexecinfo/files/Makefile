@@ -121,7 +121,9 @@ native-elf-format.h: ${COMMON}/native-elf-format
 
 install:
 	mkdir -p ${DESTDIR}${PREFIX}/lib ${DESTDIR}${PREFIX}/share/man/man3
+	mkdir -p ${DESTDIR}${PREFIX}/include
 	${BSD_INSTALL_LIB} ${LIB_SHARED} ${DESTDIR}${PREFIX}/lib
 	${BSD_INSTALL_DATA} ${LIB_STATIC} ${DESTDIR}${PREFIX}/lib
 	ln -s ../${LIB_SHARED} ${DESTDIR}${PREFIX}/lib/${LIB_LINK}
 	${BSD_INSTALL_MAN} backtrace.3 ${DESTDIR}${PREFIX}/share/man/man3/
+	${BSD_INSTALL_DATA} execinfo.h ${DESTDIR}${PREFIX}/include/
