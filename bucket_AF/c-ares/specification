@@ -1,0 +1,55 @@
+DEF[PORTVERSION]=	1.13.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		c-ares
+VERSION=		${PORTVERSION}
+KEYWORDS=		dns net
+VARIANTS=		standard
+SDESC[standard]=	Asynchronous DNS resolver library
+HOMEPAGE=		https://c-ares.haxx.se/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://c-ares.haxx.se/download/
+DISTFILE[1]=		c-ares-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE.md
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		dns/c-ares
+
+USES=			libtool
+SINGLE_JOB=		yes
+INSTALL_TARGET=		install-strip
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-werror
+			--disable-debug
+			--disable-optimize
+			--enable-symbol-hiding
+
+post-install:
+.for P in acountry adig ahost
+	${INSTALL_PROGRAM} ${WRKSRC}/.libs/${P} ${STAGEDIR}${PREFIX}/bin/
+.endfor
+
+# Reimplement do-configure to strip out -I${LOCALBASE}/include because the
+# configure script squawks with -I in CFLAGS
+
+do-configure:
+	@${MKDIR} ${CONFIGURE_WRKSRC}
+	@(cd ${CONFIGURE_WRKSRC} && ${SET_LATE_CONFIGURE_ARGS} \
+		${SETENV} CC="${CC}" CPP="${CPP}" CXX="${CXX}" \
+		CFLAGS="${CFLAGS:N-I*}" CPPFLAGS="${CPPFLAGS}" \
+		CXXFLAGS="${CXXFLAGS}" LDFLAGS="${LDFLAGS}" LIBS="${LIBS}" \
+		INSTALL="/usr/bin/install -c" \
+		INSTALL_DATA="${INSTALL_DATA}" \
+		INSTALL_LIB="${INSTALL_LIB}" \
+		INSTALL_PROGRAM="${INSTALL_PROGRAM}" \
+		INSTALL_SCRIPT="${INSTALL_SCRIPT}" \
+		${CONFIGURE_ENV} ${CONFIGURE_CMD} ${CONFIGURE_ARGS})
