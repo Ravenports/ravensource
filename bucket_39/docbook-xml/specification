@@ -7,6 +7,7 @@ DEF[DBCAT_XML]=		{{PREFIX}}/${DBKDIR}/catalog.xml
 
 NAMEBASE=		docbook-xml
 VERSION=		${PORTVERSION}
+REVISION=		2
 KEYWORDS=		textproc
 VARIANTS=		standard
 SDESC[standard]=	DocBook XML DTD
@@ -60,9 +61,9 @@ do-install:
 	(cd ${WRKDIR}/docbook-xml_${DF} && \
 	${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/${DBKDIR}/$$D); \
 	xmlcatmgr -c ${STAGEDIR}${DBCAT_XML} \
-	    add nextCatalog "${PREFIX}/${DBKDIR}/$D/catalog.xml"; \
-	test "$D" = 5.0 || test "$D" = 4.1.2 || \
-	    ${ECHO_CMD} "CATALOG \"${PREFIX}/${DBKDIR}/$D/docbook.cat\"" \
+	    add nextCatalog "${PREFIX}/${DBKDIR}/$$D/catalog.xml"; \
+	test "$$D" = 5.0 || test "$$D" = 4.1.2 || \
+	    ${ECHO_CMD} "CATALOG \"${PREFIX}/${DBKDIR}/$$D/docbook.cat\"" \
 	    >> ${STAGEDIR}${DBCAT_SGML}
 .endfor
 
