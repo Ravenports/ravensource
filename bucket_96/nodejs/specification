@@ -64,5 +64,9 @@ post-patch:
 			-e 's|\&\& python |\&\& ${PYTHON_CMD} |'
 	@${FIND} ${WRKSRC} -name "*.bak" -delete
 
+post-patch-freebsd:
+	@${REINPLACE_CMD} -e '/define HAVE_CRYPTODEV/d' \
+		${WRKSRC}/deps/openssl/openssl/crypto/engine/eng_cryptodev.c
+
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/node
