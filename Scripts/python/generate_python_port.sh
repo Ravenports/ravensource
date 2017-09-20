@@ -378,11 +378,11 @@ dump_buildrun_options() {
 function strip_dep(dep) {\
        gsub (" ","", dep); \
        if (index (dep, "==")) \
-       return "python-" substr (dep, 1, index (dep, "=="));\
+       return "python-" substr (dep, 1, index (dep, "==") - 1);\
   else if (index (dep, "!=")) \
-       return "python-" substr (dep, 1, index (dep, "!="));\
+       return "python-" substr (dep, 1, index (dep, "!=") - 1);\
   else if (index (dep, "<")) \
-       return "python-" substr (dep, 1, index (dep, "<"));\
+       return "python-" substr (dep, 1, index (dep, "<") - 1);\
   else \
        return "python-" dep;\
 }\

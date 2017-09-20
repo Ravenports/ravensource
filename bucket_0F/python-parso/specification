@@ -1,19 +1,19 @@
-DEF[PORTVERSION]=	0.11.0
+DEF[PORTVERSION]=	0.1.0
 # ------------------------------------------------------------------------
 
-NAMEBASE=		python-jedi
+NAMEBASE=		python-parso
 VERSION=		${PORTVERSION}
 KEYWORDS=		python devel
 VARIANTS=		py27 py35 py36
-SDESC[py27]=		Autocompletion tool for Python that can be (PY 27)
-SDESC[py35]=		Autocompletion tool for Python that can be (PY 35)
-SDESC[py36]=		Autocompletion tool for Python that can be (PY 36)
-HOMEPAGE=		https://github.com/davidhalter/jedi
+SDESC[py27]=		Python Parser (PY 27)
+SDESC[py35]=		Python Parser (PY 35)
+SDESC[py36]=		Python Parser (PY 36)
+HOMEPAGE=		https://github.com/davidhalter/parso
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/j/jedi
-DISTFILE[1]=		jedi-0.11.0.tar.gz:main
+SITES[main]=		PYPI/p/parso
+DISTFILE[1]=		parso-0.1.0.tar.gz:main
 
 SPKGS[py27]=		single
 SPKGS[py35]=		single
@@ -32,16 +32,12 @@ LICENSE_SCHEME=		solo
 GENERATED=		yes
 
 # install_requires extracted from setup.py (using python 2.7)
-# parso==0.1.0
 
-DISTNAME=		jedi-${PORTVERSION}
+DISTNAME=		parso-${PORTVERSION}
 
 [PY27].USES_ON=				python:py27
-[PY27].BUILDRUN_DEPENDS_ON=		python-parso:single:py27
 
 [PY35].USES_ON=				python:py35
-[PY35].BUILDRUN_DEPENDS_ON=		python-parso:single:py35
 
 [PY36].USES_ON=				python:py36
-[PY36].BUILDRUN_DEPENDS_ON=		python-parso:single:py36
 
