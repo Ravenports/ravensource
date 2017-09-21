@@ -67,7 +67,10 @@ fullpath=$(dirname `realpath ${old}`)
 testpath1=$(echo ${fullpath} | awk -vstd="${objpath}" "${AWKTRUNC}")
 testpath2=$(echo ${fullpath} | awk -vstd="${rvnpath}" "${AWKTRUNC}")
 
-if [ "${testpath1}" = "${objpath}" -o "${testpath2}" = "${rvnpath}" ]; then
+if [ -n "${PRINT}" ]; then
+    # send patch to stdout unconditionally
+    diff ${PKGDIFF_FMT} ${old} ${new} | sed -e "${SEDPLUS}"
+elif [ "${testpath1}" = "${objpath}" -o "${testpath2}" = "${rvnpath}" ]; then
     # Inside standard work area.  Assume genpatch executed from wrksrc
     # and generate patch with appropriate name
 
