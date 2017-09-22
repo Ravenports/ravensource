@@ -17,11 +17,16 @@ export TZ=UTC
 
 if [ $# -le 1 ]
 then
+	old=/dev/null
 	if [ -f "$1.intermediate" ]; then
-		old="$1.intermediate"
+		if [ -s "$1.intermediate" ]; then
+			old="$1.intermediate"
+		fi
 		new="$1"	
-	elif [ -f "$1.orig" ]; then 
-		old="$1.orig"
+	elif [ -f "$1.orig" ]; then
+		if [ -s "$1.orig" ]; then
+			old="$1.orig"
+		fi
 		new="$1"
 	else
 		echo $0: need at least one valid argument >&2
