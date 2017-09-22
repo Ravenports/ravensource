@@ -1,6 +1,6 @@
---- glib/tests/gdatetime.c.orig	2014-03-09 10:29:13.925231275 +0000
-+++ glib/tests/gdatetime.c	2014-03-09 10:30:18.235227107 +0000
-@@ -1322,7 +1322,7 @@
+--- glib/tests/gdatetime.c.orig	2017-08-19 13:39:20 UTC
++++ glib/tests/gdatetime.c
+@@ -1520,7 +1520,7 @@ test_find_interval (void)
    gint i1, i2;
  
  #ifdef G_OS_UNIX
@@ -9,7 +9,7 @@
  #elif defined G_OS_WIN32
    tz = g_time_zone_new ("Eastern Standard Time");
  #endif
-@@ -1355,7 +1355,7 @@
+@@ -1553,7 +1553,7 @@ test_adjust_time (void)
    gint i1, i2;
  
  #ifdef G_OS_UNIX

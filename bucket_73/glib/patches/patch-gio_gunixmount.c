@@ -1,6 +1,6 @@
---- gio/gunixmount.c.orig	2014-09-21 13:00:08.875162804 +0200
-+++ gio/gunixmount.c	2014-09-21 13:00:14.327163623 +0200
-@@ -353,12 +353,17 @@
+--- gio/gunixmount.c.orig	2017-07-13 23:03:39 UTC
++++ gio/gunixmount.c
+@@ -356,12 +356,17 @@ g_unix_mount_eject (GMount             *
                      gpointer             user_data)
  {
    GUnixMount *unix_mount = G_UNIX_MOUNT (mount);

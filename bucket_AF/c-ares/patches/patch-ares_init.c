@@ -6,10 +6,10 @@ Author: Peter Pentchev <roam@FreeBSD.org>
 Forwarded: no
 Last-Update: 2010-12-19
 
---- ares.h.orig
+--- ares.h.orig	2017-06-19 12:15:32 UTC
 +++ ares.h
-@@ -260,6 +260,14 @@
-   int nsort;
+@@ -268,6 +268,14 @@ struct ares_options {
+   int ednspsz;
  };
  
 +/** Public available config (readonly) interface for ares_get_config(). */
@@ -23,20 +23,20 @@ Last-Update: 2010-12-19
  struct hostent;
  struct timeval;
  struct sockaddr;
-@@ -530,6 +538,8 @@
- CARES_EXTERN int ares_get_servers(ares_channel channel,
-                                   struct ares_addr_node **servers);
+@@ -651,6 +659,8 @@ CARES_EXTERN const char *ares_inet_ntop(
+ CARES_EXTERN int ares_inet_pton(int af, const char *src, void *dst);
+ 
  
 +CARES_EXTERN int ares_get_config(struct ares_config_info *d, ares_channel c);
 +
  #ifdef  __cplusplus
  }
  #endif
---- ares_init.c.orig	2013-02-17 11:44:02.000000000 -0500
-+++ ares_init.c	2013-05-15 13:43:31.000000000 -0400
-@@ -1875,6 +1875,36 @@
+--- ares_init.c.orig	2017-06-16 12:53:03 UTC
++++ ares_init.c
+@@ -2356,6 +2356,36 @@ static int sortlist_alloc(struct apatter
+   return 1;
  }
- #endif  /* !WIN32 & !WATT32 & !ANDROID & !__ANDROID__ */
  
 +int ares_get_config(struct ares_config_info *d, ares_channel c)
 +{

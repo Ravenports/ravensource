@@ -1,6 +1,6 @@
---- gmodule/gmodule-dl.c.orig	Sat Feb 17 08:28:07 2001
-+++ gmodule/gmodule-dl.c	Fri Jan 18 09:48:45 2002
-@@ -104,6 +104,7 @@
+--- gmodule/gmodule-dl.c.orig	2017-07-13 23:03:39 UTC
++++ gmodule/gmodule-dl.c
+@@ -106,6 +106,7 @@ _g_module_open (const gchar *file_name,
  static gpointer
  _g_module_self (void)
  {
@@ -8,7 +8,7 @@
    gpointer handle;
    
    /* to query symbols from the program itself, special link options
-@@ -115,6 +116,9 @@
+@@ -127,6 +128,9 @@ _g_module_self (void)
      g_module_set_error (fetch_dlerror (TRUE));
    
    return handle;

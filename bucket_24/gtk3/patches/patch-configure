@@ -1,6 +1,44 @@
---- configure.orig	2016-10-24 05:10:09.000000000 +0200
-+++ configure	2016-11-15 07:54:17.741400000 +0100
-@@ -27913,9 +27913,7 @@ fi
+--- configure.orig	2017-09-11 15:20:57 UTC
++++ configure
+@@ -1057,6 +1057,7 @@ enable_glibtest
+ enable_modules
+ with_included_immodules
+ with_x
++with_atk_bridge
+ enable_cups
+ enable_papi
+ enable_cloudprint
+@@ -1823,6 +1824,7 @@ Optional Packages:
+   --with-included-immodules=MODULE1,MODULE2,...
+                           build the specified input methods into gtk
+   --with-x                use the X Window System
++  --without-atk-bridge    Do not use atk-bridge-2.0
+   --with-html-dir=PATH    path to installed docs
+   --with-xml-catalog=CATALOG
+                           path to xml catalog to use
+@@ -26927,8 +26929,20 @@ fi
+ # Check for Accessibility Toolkit flags
+ ########################################
+ 
+-if test x$enable_x11_backend = xyes; then
++
++# Check whether --with-atk-bridge was given.
++if test "${with_atk_bridge+set}" = set; then :
++  withval=$with_atk_bridge; :
++else
++  with_atk_bridge=$enable_x11_backend
++fi
++
++
++if test x$with_atk_bridge != xno; then
+    ATK_PACKAGES="atk atk-bridge-2.0"
++
++$as_echo "#define HAVE_ATK_BRIDGE 1" >>confdefs.h
++
+ else
+    ATK_PACKAGES="atk"
+ fi
+@@ -27944,9 +27958,7 @@ fi
  if test "$have_cups" = "yes"; then
    GTK_PRINT_BACKENDS="$GTK_PRINT_BACKENDS,cups"
  fi

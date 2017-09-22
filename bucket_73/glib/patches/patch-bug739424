@@ -16,9 +16,9 @@ when manipulating such items.
 
 diff --git a/gio/kqueue/kqueue-helper.c b/gio/kqueue/kqueue-helper.c
 index d4e66cd4d..84b9ef164 100644
---- gio/kqueue/kqueue-helper.c
+--- gio/kqueue/kqueue-helper.c.orig	2017-03-10 01:36:23 UTC
 +++ gio/kqueue/kqueue-helper.c
-@@ -291,10 +291,10 @@ process_kqueue_notifications (GIOChannel   *gioc,
+@@ -291,10 +291,10 @@ process_kqueue_notifications (GIOChannel
  
    G_LOCK (hash_lock);
    sub = (kqueue_sub *) g_hash_table_lookup (subs_hash_table, GINT_TO_POINTER (n.fd));
@@ -30,7 +30,7 @@ index d4e66cd4d..84b9ef164 100644
        KH_W ("Got a notification for a deleted or non-existing subscription %d",
               n.fd);
        return TRUE;
-@@ -336,6 +336,7 @@ process_kqueue_notifications (GIOChannel   *gioc,
+@@ -336,6 +336,7 @@ process_kqueue_notifications (GIOChannel
          g_file_monitor_source_handle_event (source, mask, NULL, NULL, NULL, g_get_monotonic_time ());
      }
  
@@ -54,6 +54,3 @@ index d4e66cd4d..84b9ef164 100644
    return TRUE;
  }
  
--- 
-2.12.2
-

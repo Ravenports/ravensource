@@ -1,16 +1,11 @@
---- configure.orig	2017-09-11 00:18:49 UTC
+--- configure.orig	2017-09-22 17:36:36 UTC
 +++ configure
-@@ -27408,9 +27408,12 @@ case $host in
-   *android*)
-     G_THREAD_LIBS_FOR_GTHREAD="$G_THREAD_LIBS"
-     ;;
--  *-*-freebsd*|*-*-linux*)
-+  *-*-linux*)
-     G_THREAD_LIBS_FOR_GTHREAD="`echo $G_THREAD_LIBS | sed s/-pthread/-lpthread/`"
-     ;;
-+  *-*-freebsd*)
-+    LDFLAGS="$LDFLAGS -pthread"
-+    ;;    
-   *)
-     G_THREAD_LIBS_FOR_GTHREAD="$G_THREAD_LIBS"
-     ;;
+@@ -23914,7 +23914,7 @@ _ACEOF
+ fi
+ done
+ 
+-for ac_func in getmntent_r setmntent endmntent hasmntopt getfsstat getvfsstat fallocate
++for ac_func in getmntent_r setmntent endmntent hasmntopt getfsstat fallocate
+ do :
+   as_ac_var=`$as_echo "ac_cv_func_$ac_func" | $as_tr_sh`
+ ac_fn_c_check_func "$LINENO" "$ac_func" "$as_ac_var"

@@ -1,8 +1,8 @@
---- src/tds/tls.c.orig	2015-06-09 10:38:40 UTC
+--- src/tds/tls.c.orig	2017-02-15 09:00:01 UTC
 +++ src/tds/tls.c
-@@ -46,6 +46,10 @@
- #include <sys/stat.h>
- #endif /* HAVE_SYS_STAT_H */
+@@ -50,6 +50,10 @@
+ #include <sys/socket.h>
+ #endif
  
 +#if defined(__FreeBSD__) || defined(__DragonFly__)
 +#include <sys/socket.h>

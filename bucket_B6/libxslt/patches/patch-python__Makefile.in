@@ -1,15 +1,15 @@
---- python/Makefile.in.orig	2012-10-22 16:16:50.000000000 +0000
-+++ python/Makefile.in	2012-10-22 16:17:40.000000000 +0000
-@@ -344,7 +344,7 @@
- 	-I../libexslt
- 
+--- python/Makefile.in.orig	2017-09-04 13:35:27 UTC
++++ python/Makefile.in
+@@ -435,7 +435,7 @@ top_srcdir = @top_srcdir@
+ AUTOMAKE_OPTIONS = 1.4 foreign
+ SUBDIRS = . tests
  AM_CFLAGS = $(LIBXML_CFLAGS)
 -DOCS_DIR = $(datadir)/doc/libxslt-python-$(LIBXSLT_VERSION)
 +DOCS_DIR = $(datadir)/doc/py-libxslt
  # libxsltclass.txt is generated
  DOCS = TODO
  EXTRA_DIST = \
-@@ -359,8 +359,8 @@
+@@ -450,8 +450,8 @@ EXTRA_DIST = \
  
  libxsltmod_la_LDFLAGS = $(WIN32_EXTRA_LDFLAGS) -module -avoid-version
  @WITH_PYTHON_TRUE@mylibs = \
@@ -19,4 +19,4 @@
 +@WITH_PYTHON_TRUE@	-lexslt
  
  @WITH_PYTHON_TRUE@python_LTLIBRARIES = libxsltmod.la
- @WITH_PYTHON_TRUE@libxsltmod_la_SOURCES = libxslt.c types.c
+ @WITH_PYTHON_TRUE@libxsltmod_la_CPPFLAGS = \
