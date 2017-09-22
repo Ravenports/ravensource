@@ -1,6 +1,6 @@
---- lib/softoken/pkcs11c.c.orig	2010-05-05 14:36:05.000000000 +0000
-+++ lib/softoken/pkcs11c.c	2010-05-05 14:37:25.000000000 +0000
-@@ -5679,9 +5679,6 @@ sftk_unwrapPrivateKey(SFTKObject *key, S
+--- lib/softoken/pkcs11c.c.orig	2017-09-20 06:47:27 UTC
++++ lib/softoken/pkcs11c.c
+@@ -5728,9 +5728,6 @@ sftk_unwrapPrivateKey(SFTKObject *key, S
              break;
          case NSSLOWKEYDSAKey:
              keyType = CKK_DSA;
@@ -10,8 +10,8 @@
              crv = sftk_AddAttributeType(key, CKA_KEY_TYPE, &keyType,
                                          sizeof(keyType));
              if (crv != CKR_OK)
-@@ -5722,9 +5719,6 @@ sftk_unwrapPrivateKey(SFTKObject *key, S
- #ifndef NSS_DISABLE_ECC
+@@ -5770,9 +5767,6 @@ sftk_unwrapPrivateKey(SFTKObject *key, S
+         /* what about fortezza??? */
          case NSSLOWKEYECKey:
              keyType = CKK_EC;
 -            crv = (sftk_hasAttribute(key, CKA_NETSCAPE_DB)) ? CKR_OK : CKR_KEY_TYPE_INCONSISTENT;

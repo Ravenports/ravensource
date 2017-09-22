@@ -1,4 +1,4 @@
---- /dev/null	2012-12-27 22:34:01.846650771 +0100
+--- coreconf/DragonFly.mk.orig	2017-09-22 16:21:37 UTC
 +++ coreconf/DragonFly.mk
 @@ -0,0 +1,54 @@
 +#

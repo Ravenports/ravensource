@@ -1,6 +1,6 @@
---- coreconf/UNIX.mk~
+--- coreconf/UNIX.mk.orig	2017-09-20 06:47:27 UTC
 +++ coreconf/UNIX.mk
-@@ -42,10 +42,8 @@ AR          = ar cr $@
+@@ -10,10 +10,8 @@ AR          = ar cr $@
  LDOPTS     += -L$(SOURCE_LIB_DIR)
  
  ifdef BUILD_OPT
