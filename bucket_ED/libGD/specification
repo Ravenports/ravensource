@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	2.2.4
+DEF[PORTVERSION]=	2.2.5
+DEF[SOVERSION]=		6.0.5
+DEF[SOMAJOR]=		${SOVERSION:R:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libGD
@@ -29,6 +31,8 @@ DISTNAME=		libgd-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-xpm=no
 SHEBANG_FILES=		{{WRKSRC}}/src/bdftogd
+PLIST_SUB=		SOVERSION=${SOVERSION}
+			SOMAJOR=${SOMAJOR}
 
 post-patch:
 	# bump shlib version
@@ -41,4 +45,4 @@ post-patch:
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/src/gdhelpers.h \
 		${STAGEDIR}${PREFIX}/include/
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgd.so.6.0.4
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgd.so
