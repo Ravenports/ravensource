@@ -12,6 +12,11 @@
 #   This is a list of perl ports that we want.  They are considered top-level
 #   and all requirements of these perl ports need to be built (recursively)
 #
+# file: ./dead-homepage.list
+#
+#   This is a list of perl modules that have 404 URLS for their homepages.
+#   The homepage value will be overridden to "none"
+#
 # file: /tmp/cpan-work/latest_candidates.txt
 #
 #   This is the filted list produced by produce_latest_module_candidates.sh
@@ -44,7 +49,7 @@ tmpdir=/tmp/cpan-work
 failed=${tmpdir}/failed-to-build
 built=${tmpdir}/completed
 queue=${tmpdir}/build-queue
-RAVENADM=/home/marino/ravenadm/build/ravenadm # /raven/bin/ravenadm
+RAVENADM=/raven/bin/ravenadm
 # ENTRY_LIST=${tmpdir}/latest_candidates.txt
 ENTRY_LIST=${tmpdir}/02packages.details.txt
 DEADLIST=${thisdir}/dead-homepage.list
