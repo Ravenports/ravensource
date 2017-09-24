@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	2.0.5
+DEF[PORTVERSION]=	2.0.6
+DEF[SOVERSION]=		0.6.0
+DEF[SOMAJOR]=		${SOVERSION:R:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		sdl2
@@ -65,6 +67,8 @@ CONFIGURE_ARGS=		--disable-video-opengles
 			--enable-pthreads
 			--enable-sdl-dlopen
 			--enable-assembly
+PLIST_SUB=		SOVERSION=${SOVERSION}
+			SOMAJOR=${SOMAJOR}
 
 [OPENGL].CONFIGURE_ENABLE_BOTH=		video-opengl
 [OPENGL].USES_ON=			mesa
