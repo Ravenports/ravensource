@@ -43,7 +43,11 @@ PLIST_SUB=		DISTNAME="{{DISTNAME}}"
 			DOC_DIR="${GEMS_BASE_DIR}/{{RUBY_VER}}/doc"
 
 [RUBY23].USES_ON=			ruby:v23
+[RUBY23].MAKEFILE_ON=			GEMLINK2.3=""
+					GEMLINK2.4="@comment "
 [RUBY24].USES_ON=			ruby:v24
+[RUBY24].MAKEFILE_ON=			GEMLINK2.3="@comment "
+					GEMLINK2.4=""
 
 do-install:
 	cd ${WRKSRC} && ${SETENV} \
