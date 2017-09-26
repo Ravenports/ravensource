@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	1.0.5
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-mustache
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v23 v24
+SDESC[v23]=		Framework-agnostic way to render logic-free  (v23)
+SDESC[v24]=		Framework-agnostic way to render logic-free  (v24)
+HOMEPAGE=		https://github.com/mustache/mustache
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		mustache-1.0.5.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v23]=		single
+SPKGS[v24]=		single
+
+OPTIONS_AVAILABLE=	RUBY23 RUBY24
+OPTIONS_STANDARD=	none
+VOPTS[v23]=		RUBY23=ON RUBY24=OFF
+VOPTS[v24]=		RUBY23=OFF RUBY24=ON
+
+GENERATED=		yes
+
+# Requirements specified by gem dependency --remote --version command
+#   benchmark-ips (>= 0, development)
+#   bundler (~> 1.6, development)
+#   minitest (~> 5.4, development)
+#   rake (~> 10.3, development)
+#   rdoc (~> 4.1, development)
+#   ronn (~> 0.7, development)
+#   ruby-prof (>= 0, development)
+
+DISTNAME=		mustache-${PORTVERSION}
+
+[RUBY23].USES_ON=			gem:v23
+
+[RUBY24].USES_ON=			gem:v24
+

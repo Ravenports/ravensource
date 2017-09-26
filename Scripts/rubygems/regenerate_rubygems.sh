@@ -43,7 +43,7 @@
 
 pathtoexec=$(realpath $0)
 thisdir=$(dirname ${pathtoexec})
-/tmpdir=/tmp/rubygems
+tmpdir=/tmp/rubygems
 failed=${tmpdir}/failed-to-build
 built=${tmpdir}/completed
 queue=${tmpdir}/build-queue

@@ -1,0 +1,69 @@
+DEF[PORTVERSION]=	1.9.3
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-fpm
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v23 v24
+SDESC[v23]=		Package building and mangling (v23)
+SDESC[v24]=		Package building and mangling (v24)
+HOMEPAGE=		https://github.com/jordansissel/fpm
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		fpm-1.9.3.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v23]=		single
+SPKGS[v24]=		single
+
+OPTIONS_AVAILABLE=	RUBY23 RUBY24
+OPTIONS_STANDARD=	none
+VOPTS[v23]=		RUBY23=ON RUBY24=OFF
+VOPTS[v24]=		RUBY23=OFF RUBY24=ON
+
+GENERATED=		yes
+
+# Requirements specified by gem dependency --remote --version command
+#   arr-pm (~> 0.0.10)
+#   backports (>= 2.6.2)
+#   cabin (>= 0.6.0)
+#   childprocess (>= 0)
+#   clamp (~> 1.0.0)
+#   ffi (>= 0)
+#   insist (~> 1.0.0, development)
+#   json (< 2.0, >= 1.7.7)
+#   pleaserun (~> 0.0.29)
+#   pry (>= 0, development)
+#   rake (~> 10, development)
+#   rspec (~> 3.0.0, development)
+#   ruby-xz (>= 0)
+#   stud (>= 0)
+
+DISTNAME=		fpm-${PORTVERSION}
+
+[RUBY23].USES_ON=			gem:v23
+[RUBY23].BUILDRUN_DEPENDS_ON=		ruby-arr-pm:single:v23
+					ruby-backports:single:v23
+					ruby-cabin:single:v23
+					ruby-childprocess:single:v23
+					ruby-clamp:single:v23
+					ruby-ffi:single:v23
+					ruby-json:single:v23
+					ruby-pleaserun:single:v23
+					ruby-ruby-xz:single:v23
+					ruby-stud:single:v23
+
+[RUBY24].USES_ON=			gem:v24
+[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-arr-pm:single:v24
+					ruby-backports:single:v24
+					ruby-cabin:single:v24
+					ruby-childprocess:single:v24
+					ruby-clamp:single:v24
+					ruby-ffi:single:v24
+					ruby-json:single:v24
+					ruby-pleaserun:single:v24
+					ruby-ruby-xz:single:v24
+					ruby-stud:single:v24
+

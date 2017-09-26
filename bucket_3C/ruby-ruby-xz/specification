@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	0.2.3
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-ruby-xz
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v23 v24
+SDESC[v23]=		XZ compression via liblzma for Ruby, using f (v23)
+SDESC[v24]=		XZ compression via liblzma for Ruby, using f (v24)
+HOMEPAGE=		http://quintus.github.io/ruby-xz
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		ruby-xz-0.2.3.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v23]=		single
+SPKGS[v24]=		single
+
+OPTIONS_AVAILABLE=	RUBY23 RUBY24
+OPTIONS_STANDARD=	none
+VOPTS[v23]=		RUBY23=ON RUBY24=OFF
+VOPTS[v24]=		RUBY23=OFF RUBY24=ON
+
+GENERATED=		yes
+
+# Requirements specified by gem dependency --remote --version command
+#   archive-tar-minitar (~> 0.5, development)
+#   ffi (~> 1.9)
+#   io-like (~> 0.3)
+
+DISTNAME=		ruby-xz-${PORTVERSION}
+
+[RUBY23].USES_ON=			gem:v23
+[RUBY23].BUILDRUN_DEPENDS_ON=		ruby-ffi:single:v23
+					ruby-io-like:single:v23
+
+[RUBY24].USES_ON=			gem:v24
+[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-ffi:single:v24
+					ruby-io-like:single:v24
+

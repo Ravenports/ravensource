@@ -76,9 +76,10 @@ download_gemspec()
 download_gemspec_requirements()
 {
 	local reqfile=${1}-${2}.requirements
+	local pattern="/^${1}\$/"
 	if [ ! -f ${reqsdir}/${reqfile} ]; then
 		echo "Downloading requirements for ${1} version ${2}"
-		gem dependency ${1} --remote --version=${2} > ${reqsdir}/${reqfile}
+		gem dependency ${pattern} --remote --version=${2} > ${reqsdir}/${reqfile}
 	fi
 }
 
@@ -108,7 +109,12 @@ obtain_homepage()
 {
 	local gemspec=${1}-${2}.gemspec.rz
 	if [ "${3}" = "ok" ]; then
-	   ruby24 -e "${gemline}/${gemspec}'; puts gs.homepage"
+	   home=$(ruby24 -e "${gemline}/${gemspec}'; puts gs.homepage")
+	   if [ -z "${home}" ]; then
+	      echo "none"
+	   else
+	      echo ${home}
+	   fi
 	else
 	   echo "none";
 	fi
@@ -227,22 +233,22 @@ BEGIN {\
 {\
   if (NR > 1) {
     if (length ($1) > 0) {\
-      if (virgin) {\
-        printf ("[%s].BUILDRUN_DEPENDS_ON=		", rubyXX);\
-      };\
-      package=sprintf("ruby-%s", $1);\
-      if (package in seen == 0) { \
-        dev = index ($0, ", development");\
-        if (dev == 0) {\
+      dev = index ($0, ", development");\
+      if (dev == 0) {\
+        if (virgin) {\
+          printf ("[%s].BUILDRUN_DEPENDS_ON=		", rubyXX);\
+        };\
+        package=sprintf("ruby-%s", $1);\
+        if (package in seen == 0) { \
           printf ("%s%s:single:%s\n",\
             virgin ? "" : "					",\
             package,\
             variant);\
         };\
+        seen[package]=1;\
+        virgin=0;\
       };\
-      seen[package]=1;\
     };\
-    virgin = 0;\
   };\
 }' ${reqsdir}/${reqfile}
    done
@@ -340,6 +346,7 @@ ${manualbit}
 EOF
 
    (cd ${NEWPORT} && /raven/bin/ravenadm dev distinfo)
+   echo "Overwriting ruby-${module}."
    rm -rf ${ravsrc_dir}
    mv ${NEWPORT} ${ravsrc_dir}
    populate_queue ${module} "${latest_version}"

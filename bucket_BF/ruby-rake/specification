@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	12.1.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-rake
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v23 v24
+SDESC[v23]=		Make-like program implemented in Ruby (v23)
+SDESC[v24]=		Make-like program implemented in Ruby (v24)
+HOMEPAGE=		https://github.com/ruby/rake
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		rake-12.1.0.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v23]=		single
+SPKGS[v24]=		single
+
+OPTIONS_AVAILABLE=	RUBY23 RUBY24
+OPTIONS_STANDARD=	none
+VOPTS[v23]=		RUBY23=ON RUBY24=OFF
+VOPTS[v24]=		RUBY23=OFF RUBY24=ON
+
+GENERATED=		yes
+
+# Requirements specified by gem dependency --remote --version command
+#   bundler (>= 0, development)
+#   coveralls (>= 0, development)
+#   minitest (>= 0, development)
+#   rdoc (>= 0, development)
+#   rubocop (>= 0, development)
+
+DISTNAME=		rake-${PORTVERSION}
+
+[RUBY23].USES_ON=			gem:v23
+
+[RUBY24].USES_ON=			gem:v24
+
