@@ -1,0 +1,63 @@
+DEF[PORTVERSION]=	5.0.4
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-elasticsearch-transport
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v23 v24
+SDESC[v23]=		Ruby client for Elasticsearch. (v23)
+SDESC[v24]=		Ruby client for Elasticsearch. (v24)
+HOMEPAGE=		https://github.com/elasticsearch/elasticsearch-ruby/tree/master/elasticsearch-transport
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		elasticsearch-transport-5.0.4.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v23]=		single
+SPKGS[v24]=		single
+
+OPTIONS_AVAILABLE=	RUBY23 RUBY24
+OPTIONS_STANDARD=	none
+VOPTS[v23]=		RUBY23=ON RUBY24=OFF
+VOPTS[v24]=		RUBY23=OFF RUBY24=ON
+
+GENERATED=		yes
+
+# Requirements specified by gem dependency --remote --version command
+#   ansi (>= 0, development)
+#   bundler (> 1, development)
+#   cane (>= 0, development)
+#   ci_reporter (~> 1.9, development)
+#   curb (>= 0, development)
+#   elasticsearch-extensions (>= 0, development)
+#   faraday (>= 0)
+#   hashie (>= 0, development)
+#   minitest (~> 4.0, development)
+#   mocha (>= 0, development)
+#   multi_json (>= 0)
+#   net-http-persistent (>= 0, development)
+#   patron (>= 0, development)
+#   pry (>= 0, development)
+#   rake (~> 11.1, development)
+#   require-prof (>= 0, development)
+#   ruby-prof (>= 0, development)
+#   shoulda-context (>= 0, development)
+#   simplecov (>= 0, development)
+#   simplecov-rcov (>= 0, development)
+#   test-unit (~> 2, development)
+#   turn (>= 0, development)
+#   typhoeus (~> 0.6, development)
+#   yard (>= 0, development)
+
+DISTNAME=		elasticsearch-transport-${PORTVERSION}
+
+[RUBY23].USES_ON=			gem:v23
+[RUBY23].BUILDRUN_DEPENDS_ON=		ruby-faraday:single:v23
+					ruby-multi_json:single:v23
+
+[RUBY24].USES_ON=			gem:v24
+[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-faraday:single:v24
+					ruby-multi_json:single:v24
+

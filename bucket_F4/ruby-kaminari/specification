@@ -1,0 +1,52 @@
+DEF[PORTVERSION]=	1.0.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-kaminari
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v23 v24
+SDESC[v23]=		Pagination engine plugin for Rails 4+ and ot (v23)
+SDESC[v24]=		Pagination engine plugin for Rails 4+ and ot (v24)
+HOMEPAGE=		https://github.com/kaminari/kaminari
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		kaminari-1.0.1.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v23]=		single
+SPKGS[v24]=		single
+
+OPTIONS_AVAILABLE=	RUBY23 RUBY24
+OPTIONS_STANDARD=	none
+VOPTS[v23]=		RUBY23=ON RUBY24=OFF
+VOPTS[v24]=		RUBY23=OFF RUBY24=ON
+
+GENERATED=		yes
+
+# Requirements specified by gem dependency --remote --version command
+#   activesupport (>= 4.1.0)
+#   bundler (>= 1.0.0, development)
+#   capybara (>= 1.0, development)
+#   kaminari-actionview (= 1.0.1)
+#   kaminari-activerecord (= 1.0.1)
+#   kaminari-core (= 1.0.1)
+#   rake (>= 0, development)
+#   rr (>= 0, development)
+#   test-unit-rails (>= 0, development)
+
+DISTNAME=		kaminari-${PORTVERSION}
+
+[RUBY23].USES_ON=			gem:v23
+[RUBY23].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v23
+					ruby-kaminari-actionview:single:v23
+					ruby-kaminari-activerecord:single:v23
+					ruby-kaminari-core:single:v23
+
+[RUBY24].USES_ON=			gem:v24
+[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v24
+					ruby-kaminari-actionview:single:v24
+					ruby-kaminari-activerecord:single:v24
+					ruby-kaminari-core:single:v24
+

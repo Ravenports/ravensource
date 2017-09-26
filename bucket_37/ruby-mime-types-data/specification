@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	3.2016.0521
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-mime-types-data
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v23 v24
+SDESC[v23]=		Mime-types-data provides a registry for info (v23)
+SDESC[v24]=		Mime-types-data provides a registry for info (v24)
+HOMEPAGE=		https://github.com/mime-types/mime-types-data/
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		mime-types-data-3.2016.0521.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v23]=		single
+SPKGS[v24]=		single
+
+OPTIONS_AVAILABLE=	RUBY23 RUBY24
+OPTIONS_STANDARD=	none
+VOPTS[v23]=		RUBY23=ON RUBY24=OFF
+VOPTS[v24]=		RUBY23=OFF RUBY24=ON
+
+GENERATED=		yes
+
+# Requirements specified by gem dependency --remote --version command
+#   hoe (~> 3.15, development)
+#   hoe-doofus (~> 1.0, development)
+#   hoe-gemspec2 (~> 1.1, development)
+#   hoe-git (~> 1.6, development)
+#   hoe-rubygems (~> 1.0, development)
+#   mime-types (~> 3.0, development)
+#   nokogiri (~> 1.6, development)
+#   rake (~> 10.0, development)
+#   rdoc (~> 4.0, development)
+
+DISTNAME=		mime-types-data-${PORTVERSION}
+
+[RUBY23].USES_ON=			gem:v23
+
+[RUBY24].USES_ON=			gem:v24
+

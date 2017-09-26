@@ -1,0 +1,58 @@
+DEF[PORTVERSION]=	5.0.4
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-elasticsearch
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v23 v24
+SDESC[v23]=		Ruby integrations for Elasticsearch (v23)
+SDESC[v24]=		Ruby integrations for Elasticsearch (v24)
+HOMEPAGE=		https://github.com/elasticsearch/elasticsearch-ruby
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		elasticsearch-5.0.4.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v23]=		single
+SPKGS[v24]=		single
+
+OPTIONS_AVAILABLE=	RUBY23 RUBY24
+OPTIONS_STANDARD=	none
+VOPTS[v23]=		RUBY23=ON RUBY24=OFF
+VOPTS[v24]=		RUBY23=OFF RUBY24=ON
+
+GENERATED=		yes
+
+# Requirements specified by gem dependency --remote --version command
+#   ansi (>= 0, development)
+#   bundler (> 1, development)
+#   cane (>= 0, development)
+#   ci_reporter (~> 1.9, development)
+#   elasticsearch-api (= 5.0.4)
+#   elasticsearch-extensions (>= 0, development)
+#   elasticsearch-transport (= 5.0.4)
+#   minitest (~> 4.0, development)
+#   mocha (>= 0, development)
+#   pry (>= 0, development)
+#   rake (~> 11.1, development)
+#   require-prof (>= 0, development)
+#   ruby-prof (>= 0, development)
+#   shoulda-context (>= 0, development)
+#   simplecov (>= 0, development)
+#   simplecov-rcov (>= 0, development)
+#   test-unit (~> 2, development)
+#   turn (>= 0, development)
+#   yard (>= 0, development)
+
+DISTNAME=		elasticsearch-${PORTVERSION}
+
+[RUBY23].USES_ON=			gem:v23
+[RUBY23].BUILDRUN_DEPENDS_ON=		ruby-elasticsearch-api:single:v23
+					ruby-elasticsearch-transport:single:v23
+
+[RUBY24].USES_ON=			gem:v24
+[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-elasticsearch-api:single:v24
+					ruby-elasticsearch-transport:single:v24
+

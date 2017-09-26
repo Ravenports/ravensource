@@ -1,0 +1,56 @@
+DEF[PORTVERSION]=	1.1.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-carrierwave
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v23 v24
+SDESC[v23]=		Ruby file upload library (v23)
+SDESC[v24]=		Ruby file upload library (v24)
+HOMEPAGE=		https://github.com/carrierwaveuploader/carrierwave
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		carrierwave-1.1.0.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v23]=		single
+SPKGS[v24]=		single
+
+OPTIONS_AVAILABLE=	RUBY23 RUBY24
+OPTIONS_STANDARD=	none
+VOPTS[v23]=		RUBY23=ON RUBY24=OFF
+VOPTS[v24]=		RUBY23=OFF RUBY24=ON
+
+GENERATED=		yes
+
+# Requirements specified by gem dependency --remote --version command
+#   activemodel (>= 4.0.0)
+#   activesupport (>= 4.0.0)
+#   cucumber (~> 2.3.2, development)
+#   fog (>= 1.28.0, development)
+#   generator_spec (>= 0.9.1, development)
+#   mime-types (>= 1.16)
+#   mini_magick (>= 3.6.0, development)
+#   nokogiri (~> 1.6.3, development)
+#   pg (>= 0, development)
+#   pry (>= 0, development)
+#   rails (>= 4.0.0, development)
+#   rmagick (>= 0, development)
+#   rspec (~> 3.4.0, development)
+#   timecop (= 0.7.1, development)
+#   webmock (>= 0, development)
+
+DISTNAME=		carrierwave-${PORTVERSION}
+
+[RUBY23].USES_ON=			gem:v23
+[RUBY23].BUILDRUN_DEPENDS_ON=		ruby-activemodel:single:v23
+					ruby-activesupport:single:v23
+					ruby-mime-types:single:v23
+
+[RUBY24].USES_ON=			gem:v24
+[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-activemodel:single:v24
+					ruby-activesupport:single:v24
+					ruby-mime-types:single:v24
+
