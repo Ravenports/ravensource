@@ -96,6 +96,7 @@ create_description()
 	local gemspec=${1}-${2}.gemspec.rz
 	mkdir -p ${NEWPORT}/descriptions
 	ruby24 -e "${gemline}/${gemspec}'; puts gs.description" | \
+		awk '{ if (!found && NF==0) { next } found=1; print}' | \
 		fold -s -w 75 | awk 'NR <= 100' \
 		> ${NEWPORT}/descriptions/desc.single
 	if [ ! -s ${NEWPORT}/descriptions/desc.single ]; then

@@ -19,5 +19,19 @@ tracker++;\
 if (tracker == 1) { software = $1 }; \
 if (tracker == 2) { version = $1 };\
 if (tracker == 3) { print software " " version; tracker = 0 };\
-}' > ${wrkdir}/gem_index
+}' > ${wrkdir}/gem_index.raw
 
+sort -u ${wrkdir}/gem_index.raw > ${wrkdir}/gem_index.sorted
+
+awk '{\
+if (NR==1) { last_line=$0; last_one=$1; next };\
+if ($1 != last_one)\
+ { print last_line };\
+last_line=$0;\
+last_one = $1;\
+}\
+END { print last_line; }' \
+${wrkdir}/gem_index.sorted > ${wrkdir}/gem_index
+
+rm ${wrkdir}/gem_index.raw
+rm ${wrkdir}/gem_index.sorted

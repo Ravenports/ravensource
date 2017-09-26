@@ -1,18 +1,18 @@
-DEF[PORTVERSION]=	0.6.3
+DEF[PORTVERSION]=	1.9.18
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-ffi
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v23 v24
-SDESC[v23]=		Ruby-FFI is a ruby extension for programmati (v23)
-SDESC[v24]=		Ruby-FFI is a ruby extension for programmati (v24)
+SDESC[v23]=		Ruby FFI (v23)
+SDESC[v24]=		Ruby FFI (v24)
 HOMEPAGE=		http://wiki.github.com/ffi/ffi
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		ffi-0.6.3.gem:main
+DISTFILE[1]=		ffi-1.9.18.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v23]=		single
@@ -26,13 +26,15 @@ VOPTS[v24]=		RUBY23=OFF RUBY24=ON
 GENERATED=		yes
 
 # Requirements specified by gem dependency --remote --version command
-#   rake (>= 0.8.7)
+#   rake (~> 10.1, development)
+#   rake-compiler (~> 1.0, development)
+#   rake-compiler-dock (~> 0.6.0, development)
+#   rspec (~> 2.14.1, development)
+#   rubygems-tasks (~> 0.2.4, development)
 
 DISTNAME=		ffi-${PORTVERSION}
 
 [RUBY23].USES_ON=			gem:v23
-[RUBY23].BUILDRUN_DEPENDS_ON=		ruby-rake:single:v23
 
 [RUBY24].USES_ON=			gem:v24
-[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-rake:single:v24
 
