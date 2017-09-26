@@ -10,6 +10,8 @@ pathtoexec=$(realpath $0)
 thisdir=$(dirname ${pathtoexec})
 tmpdir=/tmp/rubygems
 queue=${tmpdir}/build-queue
+built=${tmpdir}/completed
+crash=${tmpdir}/failed-to-build
 RAVENADM=/raven/bin/ravenadm
 DEADLIST=${thisdir}/dead-homepage.list
 ENTRY_LIST=${tmpdir}/gem_index
@@ -92,7 +94,8 @@ create_description()
 {
 	local gemspec=${1}-${2}.gemspec.rz
 	mkdir -p ${NEWPORT}/descriptions
-	ruby24 -e "${gemline}/${gemspec}'; puts gs.description" | awk 'NR <= 100' \
+	ruby24 -e "${gemline}/${gemspec}'; puts gs.description" | \
+		fold -s -w 75 | awk 'NR <= 100' \
 		> ${NEWPORT}/descriptions/desc.single
 	if [ ! -s ${NEWPORT}/descriptions/desc.single ]; then
 		obtain_summary ${1} ${2} | awk 'NR <= 100' \
@@ -188,7 +191,7 @@ dump_vopts() {
   for (x=1; x<=NF; x++) { \
     printf ("%s%s=%s",\
       x == 1 ? "" : " ",\
-      toupper($x),\
+      sprintf("RUBY%s", substr($x, 2)),\
       $x == variant ? "ON" : "OFF"\
     )\
   };\
@@ -198,7 +201,7 @@ dump_vopts() {
 }
 
 get_available_options() {
-   echo ${VARIANTS} | awk '{ print toupper($0) }'
+   echo ${VARIANTS} | awk '{ gsub(/v/, "RUBY");  print }'
 }
 
 handle_licenses() {
@@ -217,28 +220,62 @@ dump_buildrun_options() {
       awk -v variant=${v} '\
 BEGIN {\
   virgin = 1; \
-  printf ("\n[%s].USES_ON=				gem:%s\n", \
-     toupper(variant), variant);\
+  rubyXX=sprintf("RUBY%s", substr(variant, 2));
+  printf ("\n[%s].USES_ON=			gem:%s\n", \
+     rubyXX, variant);\
 }\
 {\
   if (NR > 1) {
     if (length ($1) > 0) {\
-      if (virgin) \
-        printf ("[%s].BUILDRUN_DEPENDS_ON=		", toupper(variant));\
+      if (virgin) {\
+        printf ("[%s].BUILDRUN_DEPENDS_ON=		", rubyXX);\
+      };\
       package=sprintf("ruby-%s", $1);\
       if (package in seen == 0) { \
-        printf ("%s%s:single:%s\n",\
-          virgin ? "" : "					",\
-          package,\
-          variant);\
-       };\
-       seen[package]=1;\
+        dev = index ($0, ", development");\
+        if (dev == 0) {\
+          printf ("%s%s:single:%s\n",\
+            virgin ? "" : "					",\
+            package,\
+            variant);\
+        };\
+      };\
+      seen[package]=1;\
     };\
     virgin = 0;\
   };\
 }' ${reqsdir}/${reqfile}
    done
 }
+
+populate_queue() {
+   local qlist
+   local reqfile=${1}-${2}.requirements
+   if [ -d ${queue} ]; then
+      qlist=$(awk '{\
+ if (NR > 1) {\
+   if (NF > 1) {\
+     package=$1;\
+     if (package in seen == 0) {\
+       dev = index ($0, ", development");\
+       if (dev == 0) { print $1 };\
+     };\
+     seen[package]=1;\
+   };
+ };
+}' ${reqsdir}/${reqfile})
+     for gem in ${qlist}; do
+       if [ ! -f ${queue}/${gem} ]; then
+         if [ ! -f ${built}/${gem} ]; then
+           if [ ! -f ${crash}/${gem} ]; then
+             touch ${queue}/${gem}
+           fi
+         fi
+       fi
+     done
+   fi
+}
+
 # generate ravensource routine
 generate_ravensource()
 {
@@ -283,7 +320,7 @@ HOMEPAGE=		$(get_filtered_url ${module} ${latest_version} ${hp_status})
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		RUBYGEMS/${module}
+SITES[main]=		RUBYGEMS/
 DISTFILE[1]=		${tarball}:main
 DIST_SUBDIR=		ruby
 
@@ -303,7 +340,9 @@ ${manualbit}
 EOF
 
    (cd ${NEWPORT} && /raven/bin/ravenadm dev distinfo)
-   
+   rm -rf ${ravsrc_dir}
+   mv ${NEWPORT} ${ravsrc_dir}
+   populate_queue ${module} "${latest_version}"
 }
 
 mkdir -p ${mirror_base}/specs ${mirror_base}/reqs
