@@ -3,6 +3,9 @@
 # This script regenerates a single rubygem port given the rubygem name.
 # It is called by ./regenerate_rubygems.sh normally, but it operates as
 # a standalone script as well.  See extended comments in regenerate_rubygems.sh
+#
+# argument 1: ruby gem name
+# argument 2: optional, "force" to ignore "done" in cache and force rebuild
 
 [ -n "${DEBUG_MK_SCRIPTS}" -o -n "${DEBUG_MK_SCRIPTS_MAKESUM}" ] && set -x
 
@@ -23,6 +26,7 @@ reqsdir=${mirror_base}/reqs
 gemline="gs = Marshal.load Gem.inflate File.read '${specsdir}"
 min_ruby23="2.3.5"
 min_ruby24="2.4.2"
+secondarg="$2"
 #VARIANTS=
 
 if [ $# -lt 1 ]; then
@@ -288,7 +292,7 @@ generate_ravensource()
 {
    local module=${1}
 
-   if [ -f ${built}/${module} ]; then
+   if [ -f ${built}/${module} -a "$secondarg" != "force" ]; then
       echo "done!     ${module}"
       return;
    fi
@@ -348,8 +352,9 @@ EOF
 
    (cd ${NEWPORT} && /raven/bin/ravenadm dev distinfo)
    echo "Overwriting ruby-${module}."
-   rm -rf ${ravsrc_dir}
-   mv ${NEWPORT} ${ravsrc_dir}
+   mkdir -p ${ravsrc_dir}
+   cp -a ${NEWPORT}/* ${ravsrc_dir}/
+   rm -rf ${NEWPORT}
    populate_queue ${module} "${latest_version}"
 }
 

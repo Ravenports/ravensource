@@ -1,0 +1,4 @@
+post-patch:
+	# Enable build on DragonFly (file has DOS endings)
+	${REINPLACE_CMD} 's@/bsd/@/bsd|dragonfly/@' \
+		${WRKSRC}/lib/childprocess.rb

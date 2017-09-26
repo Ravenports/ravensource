@@ -39,4 +39,7 @@ DISTNAME=		childprocess-${PORTVERSION}
 
 [RUBY24].USES_ON=			gem:v24
 [RUBY24].BUILDRUN_DEPENDS_ON=		ruby-ffi:single:v24
-
+post-patch:
+	# Enable build on DragonFly (file has DOS endings)
+	${REINPLACE_CMD} 's@/bsd/@/bsd|dragonfly/@' \
+		${WRKSRC}/lib/childprocess.rb

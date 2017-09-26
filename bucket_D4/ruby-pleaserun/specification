@@ -50,4 +50,7 @@ DISTNAME=		pleaserun-${PORTVERSION}
 					ruby-insist:single:v24
 					ruby-mustache:single:v24
 					ruby-stud:single:v24
-
+post-patch:
+	# Allow to work with latest mustache
+	${REINPLACE_CMD} '/mustache/ s|= 0.99.8|>= 0|' \
+		${WRKSRC}/pleaserun.gemspec
