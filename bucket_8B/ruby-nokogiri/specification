@@ -1,0 +1,54 @@
+DEF[PORTVERSION]=	1.8.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-nokogiri
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v23 v24
+SDESC[v23]=		Nokogiri (鋸) is an HTML, XML, SAX, and Rea (v23)
+SDESC[v24]=		Nokogiri (鋸) is an HTML, XML, SAX, and Rea (v24)
+HOMEPAGE=		http://nokogiri.org
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		nokogiri-1.8.1.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v23]=		single
+SPKGS[v24]=		single
+
+OPTIONS_AVAILABLE=	RUBY23 RUBY24
+OPTIONS_STANDARD=	none
+VOPTS[v23]=		RUBY23=ON RUBY24=OFF
+VOPTS[v24]=		RUBY23=OFF RUBY24=ON
+
+GENERATED=		yes
+
+# Requirements specified by gem dependency --remote --version command
+#   concourse (~> 0.11, development)
+#   hoe (~> 3.16, development)
+#   hoe-bundler (~> 1.2, development)
+#   hoe-debugging (~> 1.4, development)
+#   hoe-gemspec (~> 1.0, development)
+#   hoe-git (~> 1.6, development)
+#   mini_portile2 (~> 2.3.0)
+#   minitest (~> 5.8.4, development)
+#   racc (~> 1.4.14, development)
+#   rake (~> 12.0, development)
+#   rake-compiler (~> 1.0.3, development)
+#   rake-compiler-dock (~> 0.6.0, development)
+#   rdoc (~> 4.0, development)
+#   rexical (~> 1.0.5, development)
+
+DISTNAME=		nokogiri-${PORTVERSION}
+
+[RUBY23].USES_ON=			gem:v23
+[RUBY23].BUILDRUN_DEPENDS_ON=		ruby-mini_portile2:single:v23
+
+[RUBY24].USES_ON=			gem:v24
+[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-mini_portile2:single:v24
+BUILDRUN_DEPENDS=	libgcrypt:single:standard
+USES=			pkgconfig
+GNOME_COMPONENTS=	libxml2 libxslt
+CONFIGURE_ARGS=		--use-system-libraries

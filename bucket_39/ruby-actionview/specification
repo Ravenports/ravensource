@@ -1,0 +1,52 @@
+DEF[PORTVERSION]=	5.1.4
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-actionview
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v23 v24
+SDESC[v23]=		Rendering framework putting the V in MVC (pa (v23)
+SDESC[v24]=		Rendering framework putting the V in MVC (pa (v24)
+HOMEPAGE=		http://rubyonrails.org
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		actionview-5.1.4.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v23]=		single
+SPKGS[v24]=		single
+
+OPTIONS_AVAILABLE=	RUBY23 RUBY24
+OPTIONS_STANDARD=	none
+VOPTS[v23]=		RUBY23=ON RUBY24=OFF
+VOPTS[v24]=		RUBY23=OFF RUBY24=ON
+
+GENERATED=		yes
+
+# Requirements specified by gem dependency --remote --version command
+#   actionpack (= 5.1.4, development)
+#   activemodel (= 5.1.4, development)
+#   activesupport (= 5.1.4)
+#   builder (~> 3.1)
+#   erubi (~> 1.4)
+#   rails-dom-testing (~> 2.0)
+#   rails-html-sanitizer (>= 1.0.3, ~> 1.0)
+
+DISTNAME=		actionview-${PORTVERSION}
+
+[RUBY23].USES_ON=			gem:v23
+[RUBY23].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v23
+					ruby-builder:single:v23
+					ruby-erubi:single:v23
+					ruby-rails-dom-testing:single:v23
+					ruby-rails-html-sanitizer:single:v23
+
+[RUBY24].USES_ON=			gem:v24
+[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v24
+					ruby-builder:single:v24
+					ruby-erubi:single:v24
+					ruby-rails-dom-testing:single:v24
+					ruby-rails-html-sanitizer:single:v24
+

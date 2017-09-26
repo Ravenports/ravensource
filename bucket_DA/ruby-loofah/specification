@@ -1,0 +1,52 @@
+DEF[PORTVERSION]=	2.1.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-loofah
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v23 v24
+SDESC[v23]=		General library for manipulating and transfo (v23)
+SDESC[v24]=		General library for manipulating and transfo (v24)
+HOMEPAGE=		https://github.com/flavorjones/loofah
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		loofah-2.1.1.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v23]=		single
+SPKGS[v24]=		single
+
+OPTIONS_AVAILABLE=	RUBY23 RUBY24
+OPTIONS_STANDARD=	none
+VOPTS[v23]=		RUBY23=ON RUBY24=OFF
+VOPTS[v24]=		RUBY23=OFF RUBY24=ON
+
+GENERATED=		yes
+
+# Requirements specified by gem dependency --remote --version command
+#   concourse (>= 0.14.0, development)
+#   crass (~> 1.0.2)
+#   hoe (~> 3.16, development)
+#   hoe-bundler (>= 0, development)
+#   hoe-debugging (>= 0, development)
+#   hoe-gemspec (>= 0, development)
+#   hoe-git (>= 0, development)
+#   json (>= 0, development)
+#   minitest (~> 2.2, development)
+#   nokogiri (>= 1.5.9)
+#   rake (>= 0.8, development)
+#   rdoc (~> 4.0, development)
+#   rr (~> 1.2.0, development)
+
+DISTNAME=		loofah-${PORTVERSION}
+
+[RUBY23].USES_ON=			gem:v23
+[RUBY23].BUILDRUN_DEPENDS_ON=		ruby-crass:single:v23
+					ruby-nokogiri:single:v23
+
+[RUBY24].USES_ON=			gem:v24
+[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-crass:single:v24
+					ruby-nokogiri:single:v24
+

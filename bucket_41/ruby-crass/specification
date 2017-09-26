@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	1.0.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-crass
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v23 v24
+SDESC[v23]=		CSS parser based on the CSS Syntax Level 3 s (v23)
+SDESC[v24]=		CSS parser based on the CSS Syntax Level 3 s (v24)
+HOMEPAGE=		https://github.com/rgrove/crass/
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		crass-1.0.2.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v23]=		single
+SPKGS[v24]=		single
+
+OPTIONS_AVAILABLE=	RUBY23 RUBY24
+OPTIONS_STANDARD=	none
+VOPTS[v23]=		RUBY23=ON RUBY24=OFF
+VOPTS[v24]=		RUBY23=OFF RUBY24=ON
+
+GENERATED=		yes
+
+# Requirements specified by gem dependency --remote --version command
+#   minitest (~> 5.0.8, development)
+#   rake (~> 10.1.0, development)
+
+DISTNAME=		crass-${PORTVERSION}
+
+[RUBY23].USES_ON=			gem:v23
+
+[RUBY24].USES_ON=			gem:v24
+

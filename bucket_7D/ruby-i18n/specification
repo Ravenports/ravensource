@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	0.8.6
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-i18n
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v23 v24
+SDESC[v23]=		New wave Internationalization support for Ru (v23)
+SDESC[v24]=		New wave Internationalization support for Ru (v24)
+HOMEPAGE=		https://github.com/svenfuchs/i18n
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		i18n-0.8.6.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v23]=		single
+SPKGS[v24]=		single
+
+OPTIONS_AVAILABLE=	RUBY23 RUBY24
+OPTIONS_STANDARD=	none
+VOPTS[v23]=		RUBY23=ON RUBY24=OFF
+VOPTS[v24]=		RUBY23=OFF RUBY24=ON
+
+GENERATED=		yes
+
+# Requirements specified by gem dependency --remote --version command
+
+DISTNAME=		i18n-${PORTVERSION}
+
+[RUBY23].USES_ON=			gem:v23
+
+[RUBY24].USES_ON=			gem:v24
+

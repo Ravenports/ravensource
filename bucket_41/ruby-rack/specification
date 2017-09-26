@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	2.0.3
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-rack
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v23 v24
+SDESC[v23]=		Modular Ruby webserver interface (v23)
+SDESC[v24]=		Modular Ruby webserver interface (v24)
+HOMEPAGE=		http://rack.github.io/
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		rack-2.0.3.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v23]=		single
+SPKGS[v24]=		single
+
+OPTIONS_AVAILABLE=	RUBY23 RUBY24
+OPTIONS_STANDARD=	none
+VOPTS[v23]=		RUBY23=ON RUBY24=OFF
+VOPTS[v24]=		RUBY23=OFF RUBY24=ON
+
+GENERATED=		yes
+
+# Requirements specified by gem dependency --remote --version command
+#   concurrent-ruby (>= 0, development)
+#   minitest (~> 5.0, development)
+#   minitest-sprint (>= 0, development)
+#   rake (>= 0, development)
+
+DISTNAME=		rack-${PORTVERSION}
+
+[RUBY23].USES_ON=			gem:v23
+
+[RUBY24].USES_ON=			gem:v24
+post-patch:
+	${REINPLACE_CMD} -e "s|../../bin/rackup|${LOCALBASE}/bin/rackup|" \
+		${WRKSRC}/test/cgi/test.ru

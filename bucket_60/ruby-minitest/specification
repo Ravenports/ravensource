@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	5.10.3
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-minitest
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v23 v24
+SDESC[v23]=		Minitest provides a complete suite of testin (v23)
+SDESC[v24]=		Minitest provides a complete suite of testin (v24)
+HOMEPAGE=		https://github.com/seattlerb/minitest
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		minitest-5.10.3.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v23]=		single
+SPKGS[v24]=		single
+
+OPTIONS_AVAILABLE=	RUBY23 RUBY24
+OPTIONS_STANDARD=	none
+VOPTS[v23]=		RUBY23=ON RUBY24=OFF
+VOPTS[v24]=		RUBY23=OFF RUBY24=ON
+
+GENERATED=		yes
+
+# Requirements specified by gem dependency --remote --version command
+#   hoe (~> 3.16, development)
+#   rdoc (~> 4.0, development)
+
+DISTNAME=		minitest-${PORTVERSION}
+
+[RUBY23].USES_ON=			gem:v23
+
+[RUBY24].USES_ON=			gem:v24
+
