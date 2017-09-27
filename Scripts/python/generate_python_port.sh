@@ -43,6 +43,7 @@ raven_req3a=unset
 raven_req3b=unset
 pathtoexec=$(realpath $0)
 thisdir=$(dirname ${pathtoexec})
+DEADLIST=${thisdir}/dead-homepage.list
 
 LANG=en_US.UTF-8
 LC_ALL=en_US.UTF-8
@@ -51,6 +52,14 @@ export LANG LC_ALL
 if [ $# -gt 1 ]; then
 VERSION=$2
 fi
+
+# return "ok" or "dead".
+# "dead" means the port has been manually marked for a dead homepage
+homepage_status()
+{
+   awk -vportname="${1}" '{ if (portname == $1) { found = 1 }} \
+END { print (found) ? "dead" : "ok"}' ${DEADLIST}
+}
 
 acquire_tarball_and_version() {
    local www url summd5
@@ -139,14 +148,19 @@ get_url() {
 }
 
 get_filtered_url() {
-   url=$(get_url)
-   case ${url} in
-      http://github.com/* | http://pypi.python.org/* | http://bitbucket.org/* | \
-      http://certifi.io/* | http://docs.openstack.org/* )
-         echo ${url} | sed -e "s/^http:/https:/"
-         ;;
-      *) echo ${url} ;;
-   esac
+   local hpstat=${1}
+   if [ "${hpstat}" = "ok" ]; then
+      url=$(get_url)
+      case ${url} in
+         http://github.com/* | http://pypi.python.org/* | http://bitbucket.org/* | \
+         http://certifi.io/* | http://docs.openstack.org/* )
+            echo ${url} | sed -e "s/^http:/https:/"
+            ;;
+         *) echo ${url} ;;
+      esac
+   else
+      echo "none";
+   fi
 }
 
 get_available_options() {
@@ -396,16 +410,19 @@ BEGIN {\
      toupper(variant), variant);\
 }\
 {\
-  if (length ($1) > 0) {\
+   if (length ($1) > 0) {\
      if (virgin) \
         printf ("[%s].BUILDRUN_DEPENDS_ON=		", toupper(variant));\
      package=filter(strip_dep($1));\
-     printf ("%s%s:single:%s\n",\
-        virgin ? "" : "					",\
-        package,\
-        variant);\
+     if (package in seen == 0) { \
+        printf ("%s%s:single:%s\n",\
+           virgin ? "" : "					",\
+           package,\
+           variant);\
+     };\
+     seen[package]=1;\
+     virgin = 0;\
    };\
-   virgin = 0;\
 }' ${reqfile}
    done
 }
@@ -446,6 +463,7 @@ generate_port() {
       echo "Setup script '${setup}' is not present";
       exit 1;
    fi
+   local hp_status=$(homepage_status ${PYPINAME})
    determine_variants
    create_description
    write_buildrun

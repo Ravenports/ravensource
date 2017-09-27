@@ -1,19 +1,19 @@
-DEF[PORTVERSION]=	2017.7.27.1
+DEF[PORTVERSION]=	1.11.0
 # ------------------------------------------------------------------------
 
-NAMEBASE=		python-certifi
+NAMEBASE=		python-cffi
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		py27 py35 py36
-SDESC[py27]=		Python package for providing Mozilla's CA  (PY 27)
-SDESC[py35]=		Python package for providing Mozilla's CA  (PY 35)
-SDESC[py36]=		Python package for providing Mozilla's CA  (PY 36)
+SDESC[py27]=		Foreign Function Interface for Python call (PY 27)
+SDESC[py35]=		Foreign Function Interface for Python call (PY 35)
+SDESC[py36]=		Foreign Function Interface for Python call (PY 36)
 HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/c/certifi
-DISTFILE[1]=		certifi-2017.7.27.1.tar.gz:main
+SITES[main]=		PYPI/c/cffi
+DISTFILE[1]=		cffi-1.11.0.tar.gz:main
 
 SPKGS[py27]=		single
 SPKGS[py35]=		single
@@ -25,20 +25,17 @@ VOPTS[py27]=		PY27=ON PY35=OFF PY36=OFF
 VOPTS[py35]=		PY27=OFF PY35=ON PY36=OFF
 VOPTS[py36]=		PY27=OFF PY35=OFF PY36=ON
 
-LICENSE=		CUSTOM1:single
-LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE
-LICENSE_NAME=		CUSTOM1:"MPL-2.0"
-LICENSE_SCHEME=		solo
+
 
 GENERATED=		yes
 
 # install_requires extracted from setup.py (using python 2.7)
 
-DISTNAME=		certifi-${PORTVERSION}
+DISTNAME=		cffi-${PORTVERSION}
 
 [PY27].USES_ON=				python:py27
 
 [PY35].USES_ON=				python:py35
 
 [PY36].USES_ON=				python:py36
-
+INSTALL_REQ_TOOLCHAIN=	yes
