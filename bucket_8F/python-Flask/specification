@@ -1,0 +1,59 @@
+DEF[PORTVERSION]=	0.12.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-Flask
+VERSION=		${PORTVERSION}
+KEYWORDS=		python devel
+VARIANTS=		py27 py35 py36
+SDESC[py27]=		Microframework based on Werkzeug, Jinja2 a (PY 27)
+SDESC[py35]=		Microframework based on Werkzeug, Jinja2 a (PY 35)
+SDESC[py36]=		Microframework based on Werkzeug, Jinja2 a (PY 36)
+HOMEPAGE=		https://github.com/pallets/flask/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/F/Flask
+DISTFILE[1]=		Flask-0.12.2.tar.gz:main
+
+SPKGS[py27]=		single
+SPKGS[py35]=		single
+SPKGS[py36]=		single
+
+OPTIONS_AVAILABLE=	PY27 PY35 PY36
+OPTIONS_STANDARD=	none
+VOPTS[py27]=		PY27=ON PY35=OFF PY36=OFF
+VOPTS[py35]=		PY27=OFF PY35=ON PY36=OFF
+VOPTS[py36]=		PY27=OFF PY35=OFF PY36=ON
+
+LICENSE=		BSDGROUP:single
+LICENSE_FILE=		BSDGROUP:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+GENERATED=		yes
+
+# install_requires extracted from setup.py (using python 2.7)
+# Werkzeug>=0.7
+# Jinja2>=2.4
+# itsdangerous>=0.21
+# click>=2.0
+
+DISTNAME=		Flask-${PORTVERSION}
+
+[PY27].USES_ON=				python:py27
+[PY27].BUILDRUN_DEPENDS_ON=		python-Werkzeug:single:py27
+					python-Jinja2:single:py27
+					python-itsdangerous:single:py27
+					python-click:single:py27
+
+[PY35].USES_ON=				python:py35
+[PY35].BUILDRUN_DEPENDS_ON=		python-Werkzeug:single:py35
+					python-Jinja2:single:py35
+					python-itsdangerous:single:py35
+					python-click:single:py35
+
+[PY36].USES_ON=				python:py36
+[PY36].BUILDRUN_DEPENDS_ON=		python-Werkzeug:single:py36
+					python-Jinja2:single:py36
+					python-itsdangerous:single:py36
+					python-click:single:py36
+
