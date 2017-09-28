@@ -477,7 +477,7 @@ VERSION=		\${PORTVERSION}
 KEYWORDS=		$(set_keywords)
 VARIANTS=		${VARIANTS}
 $(dump_descriptions)
-HOMEPAGE=		$(get_filtered_url)
+HOMEPAGE=		$(get_filtered_url ${hp_status})
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
