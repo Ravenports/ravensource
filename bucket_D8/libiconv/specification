@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	1.14
+DEF[PORTVERSION]=	1.15
+DEF[SOVERSION]=		2.6.0
+DEF[SOMAJOR]=		${SOVERSION:R:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libiconv
@@ -9,16 +11,14 @@ SDESC[standard]=	Character set conversion library
 HOMEPAGE=		http://www.gnu.org/software/libiconv/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main patch
+DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/libiconv
-SITES[patch]=		http://apolloron.org/software/libiconv-${PORTVERSION}-ja
 DISTFILE[1]=		libiconv-${PORTVERSION}.tar.gz:main
-DISTFILE[2]=		libiconv-${PORTVERSION}-ja-1.patch.gz:patch
 
 SPKGS[standard]=	complete static shared
 
-OPTIONS_AVAILABLE=	ENCODINGS PATCHES
-OPTIONS_STANDARD=	ENCODINGS PATCHES
+OPTIONS_AVAILABLE=	ENCODINGS
+OPTIONS_STANDARD=	ENCODINGS
 OPT_ON[all]=		ENCODINGS
 
 LICENSE=		GPLv3:static
@@ -29,7 +29,6 @@ FPC_EQUIVALENT=		converters/libiconv
 
 USES=			libtool
 
-PATCHFILES_STRIP=	-p1
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-static
 			--disable-nls
@@ -39,9 +38,8 @@ CFLAGS=			-std=gnu89
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 SINGLE_JOB=		yes
-
-[PATCHES].DESCRIPTION=			Apply patches to fix CP932, add EUCJP-MS
-[PATCHES].PATCHFILES_ON=		2
+PLIST_SUB=		SOVERSION=${SOVERSION}
+			SOMAJOR=${SOMAJOR}
 
 [ENCODINGS].DESCRIPTION=		Include extra character sets
 [ENCODINGS].CONFIGURE_ENABLE_BOTH=	extra-encodings
