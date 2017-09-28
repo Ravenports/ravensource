@@ -27,7 +27,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		converters/libiconv
 
-USES=			libtool
+USES=			libtool fbsd10fix
 
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-static
@@ -50,18 +50,9 @@ post-patch:
 		${WRKSRC}/libcharset/configure \
 		${WRKSRC}/preload/configure
 
-post-patch-freebsd:
-	${REINPLACE_CMD} \
-		-e 's|freebsd1\*)|freebsd1.\*)|g' \
-		-e 's|freebsd\[123\]\*)|freebsd[123].*)|g' \
-		${WRKSRC}/configure \
-		${WRKSRC}/libcharset/configure \
-		${WRKSRC}/preload/configure
-	${REINPLACE_CMD} \
-		-e 's|freebsd1\*)|freebsd1.\*)|g' \
-		-e 's|freebsd\[\[123\]\]\*)|freebsd[[123]].*)|g' \
-		${WRKSRC}/libcharset/m4/libtool.m4 \
-		${WRKSRC}/m4/libtool.m4
-
 post-install:
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
+
+	# install-strip doesn't seem to work
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libcharset.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libiconv.so
