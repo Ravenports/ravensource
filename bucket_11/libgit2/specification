@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	0.26.0
+DEF[SOVERSION]=		${PORTVERSION}
+DEF[SOMAJOR]=		${SOVERSION:R:E}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libgit2
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Library providing Git core methods
+HOMEPAGE=		https://libgit2.github.com/
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/libgit2:libgit2:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:single
+LICENSE_NAME=		CUSTOM1:"libgit2 License - GPLv2 with linking exception"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/libgit2
+
+BUILDRUN_DEPENDS=	libssh2:single:standard
+			curl:primary:standard
+
+USES=			cmake pkgconfig python:build ssl zlib
+CMAKE_ARGS=		-DUSE_SSH=ON
+			-DTHREADSAFE=ON
+			-DCURL=ON
+PLIST_SUB=		SOVERSION=${SOVERSION}
+			SOMAJOR=${SOMAJOR}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgit2.so
+
