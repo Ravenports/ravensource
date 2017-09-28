@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	2.3
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-progressbar
+VERSION=		${PORTVERSION}
+KEYWORDS=		python devel
+VARIANTS=		py27
+SDESC[py27]=		Text progress bar library for Python. (PY 27)
+HOMEPAGE=		http://code.google.com/p/python-progressbar
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/p/progressbar
+DISTFILE[1]=		progressbar-2.3.tar.gz:main
+
+SPKGS[py27]=		single
+
+OPTIONS_AVAILABLE=	PY27
+OPTIONS_STANDARD=	none
+VOPTS[py27]=		PY27=ON
+
+LICENSE=		CUSTOM1:single
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.txt
+LICENSE_NAME=		CUSTOM1:"LICENSE.txt"
+LICENSE_SCHEME=		solo
+
+GENERATED=		yes
+
+# install_requires extracted from setup.py (using python 2.7)
+
+DISTNAME=		progressbar-${PORTVERSION}
+
+[PY27].USES_ON=				python:py27
+
