@@ -27,6 +27,7 @@ buckdir=unset
 summary=unset
 homepage=unset
 PYPINAME=${1}
+DISTNAME=${1}
 JSONFILE=/tmp/pypi-${PYPINAME}
 NEWPORT=/tmp/python-${PYPINAME}
 SPEC=${NEWPORT}/specification
@@ -102,7 +103,7 @@ acquire_tarball_and_version() {
 exec_setup() {
   python_program=$1
   arguments=$2
-  (cd /tmp/expand/${PYPINAME}-${VERSION}/ && ${python_program} -W ignore setup.py ${arguments})
+  (cd /tmp/expand/${DISTNAME}-${VERSION}/ && ${python_program} -W ignore setup.py ${arguments})
 }
 
 determine_variants() {
@@ -265,7 +266,7 @@ handle_licenses() {
    esac
    for chkfile in LICENSE LICENSE.txt COPYING COPYING3 COPYING.txt LICENSE.rst; do
       if [ -z "${licfile}" ]; then
-         if [ -f "/tmp/expand/${PYPINAME}-${VERSION}/${chkfile}" ]; then
+         if [ -f "/tmp/expand/${DISTNAME}-${VERSION}/${chkfile}" ]; then
             licfile=${chkfile}
          fi
       fi
@@ -315,12 +316,12 @@ set_keywords() {
 }
 
 write_buildrun() {
-   local mockfile=/tmp/expand/${PYPINAME}-${VERSION}/obtain-req.py
-   local mockfile2=/tmp/expand/${PYPINAME}-${VERSION}/obtain-req2.py
-   local setup=/tmp/expand/${PYPINAME}-${VERSION}/setup.py
-   raven_req2=/tmp/expand/${PYPINAME}-${VERSION}/raven-req2.list
-   raven_req3a=/tmp/expand/${PYPINAME}-${VERSION}/raven-req3a.list
-   raven_req3b=/tmp/expand/${PYPINAME}-${VERSION}/raven-req3b.list
+   local mockfile=/tmp/expand/${DISTNAME}-${VERSION}/obtain-req.py
+   local mockfile2=/tmp/expand/${DISTNAME}-${VERSION}/obtain-req2.py
+   local setup=/tmp/expand/${DISTNAME}-${VERSION}/setup.py
+   raven_req2=/tmp/expand/${DISTNAME}-${VERSION}/raven-req2.list
+   raven_req3a=/tmp/expand/${DISTNAME}-${VERSION}/raven-req3a.list
+   raven_req3b=/tmp/expand/${DISTNAME}-${VERSION}/raven-req3b.list
    cat <<EOF > ${mockfile}
 import unittest.mock
 import setuptools
@@ -351,21 +352,21 @@ EOF
       sed -i'.bak' 's/from distutils.core/from setuptools/' ${setup}
    fi
 
-   (cd /tmp/expand/${PYPINAME}-${VERSION}/ && python2.7 obtain-req2.py | sed '/^$/d') \
+   (cd /tmp/expand/${DISTNAME}-${VERSION}/ && python2.7 obtain-req2.py | sed '/^$/d') \
     > ${raven_req2}
    if [ $? -ne 0 ]; then
       echo "### Python script to obtain dependencies failed! ###";
       cat ${raven_req2}
    fi
 
-   (cd /tmp/expand/${PYPINAME}-${VERSION}/ && python3.5 obtain-req.py | sed '/^$/d') \
+   (cd /tmp/expand/${DISTNAME}-${VERSION}/ && python3.5 obtain-req.py | sed '/^$/d') \
     > ${raven_req3a}
    if [ $? -ne 0 ]; then
       echo "### Python script to obtain dependencies failed! ###";
       cat ${raven_req3a}
    fi
 
-   (cd /tmp/expand/${PYPINAME}-${VERSION}/ && python3.6 obtain-req.py | sed '/^$/d') \
+   (cd /tmp/expand/${DISTNAME}-${VERSION}/ && python3.6 obtain-req.py | sed '/^$/d') \
     > ${raven_req3b}
    if [ $? -ne 0 ]; then
       echo "### Python script to obtain dependencies failed! ###";
@@ -458,7 +459,11 @@ generate_port() {
    rm -rf ${NEWPORT} /tmp/expand
    mkdir -p ${NEWPORT} /tmp/expand
    (cd /tmp/expand && tar -xf ${distfiles}/${tarball})
-   setup=/tmp/expand/${PYPINAME}-${VERSION}/setup.py
+   setup=/tmp/expand/${DISTNAME}-${VERSION}/setup.py
+   if [ ! -f "${setup}" ]; then
+      DISTNAME=$(echo ${PYPINAME} | sed -e "s|_|-|g")
+      setup=/tmp/expand/${DISTNAME}-${VERSION}/setup.py
+   fi
    if [ ! -f "${setup}" ]; then
       echo "Setup script '${setup}' is not present";
       exit 1;
@@ -496,7 +501,7 @@ GENERATED=		yes
 
 $(dump_dependencies_as_comments)
 
-DISTNAME=		${PYPINAME}-\${PORTVERSION}
+DISTNAME=		${DISTNAME}-\${PORTVERSION}
 $(dump_buildrun_options)
 ${manualbit}
 EOF
