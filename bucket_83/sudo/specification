@@ -1,0 +1,62 @@
+DEF[PORTVERSION]=	1.8.21p2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		sudo
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		standard
+SDESC[standard]=	Allows restricted root access for specified users
+HOMEPAGE=		https://www.sudo.ws/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.sudo.ws/dist/
+			ftp://ftp.sudo.ws/pub/sudo/
+DISTFILE[1]=		sudo-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary examples docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:primary
+LICENSE_NAME=		CUSTOM1:"Sudo License"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/doc/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		security/sudo
+
+USES=			cpe libtool gettext-runtime cclibs:primary
+CPE_VENDOR=		todd_miller
+INSTALL_REQ_TOOLCHAIN=	yes
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--sysconfdir={{PREFIX}}/etc
+			--with-ignore-dot
+			--with-tty-tickets
+			--with-env-editor
+			--with-logincap
+			--with-long-otp-prompt
+			--enable-nls
+LDFLAGS=		-lintl
+
+post-patch:
+	@${REINPLACE_CMD} -E '/install-(binaries|noexec):/,/^$$/ \
+		s/\$$\(INSTALL\)/& ${STRIP}/;s/-b\~/-b ~/' \
+		${WRKSRC}/src/Makefile.in
+	@${REINPLACE_CMD} -e 's,$$(srcdir)/sudoers2ldif $$(DESTDIR)$$(docdir),$$(srcdir)/sudoers2ldif $$(DESTDIR)$$(bindir),' \
+		${WRKSRC}/plugins/sudoers/Makefile.in
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/pam.d
+	${INSTALL_DATA} ${FILESDIR}/pam.conf \
+		${STAGEDIR}${PREFIX}/etc/pam.d/sudo.default
+	${RM} ${STAGEDIR}${PREFIX}/etc/sudoers
+	(cd ${STAGEDIR}${PREFIX}/share/man && \
+		${RMDIR} man5 man8 && \
+		${MV} cat8 man8 && \
+		${MV} cat5 man5)
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/sudoreplay
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/sbin/visudo
+.for f in group_file.so libsudo_util.so sudoers.so system_group.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/sudo/${f}
+.endfor
