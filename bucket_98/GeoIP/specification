@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	1.6.11
+DEF[SOVERSION]=		${PORTVERSION}
+DEF[SOMAJOR]=		${SOVERSION:R:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		GeoIP
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		standard
+SDESC[standard]=	Legacy API library for geolocation queries
+HOMEPAGE=		https://dev.maxmind.com/geoip/legacy/
+CONTACT=		Jay_Leno[jay@aarp.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/maxmind:geoip-api-c:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		net/GeoIP
+
+USES=			autoreconf libtool
+INSTALL_TARGET=		install-strip
+MUST_CONFIGURE=		gnu
+SUB_FILES=		pkg-message-single
+			geoipupdate.sh
+PLIST_SUB=		SOVERSION=${SOVERSION}
+			SOMAJOR=${SOMAJOR}
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/GeoIP
+	${INSTALL_SCRIPT} ${WRKDIR}/geoipupdate.sh ${STAGEDIR}${PREFIX}/bin
