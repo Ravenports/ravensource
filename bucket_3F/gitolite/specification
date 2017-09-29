@@ -1,0 +1,62 @@
+DEF[PORTVERSION]=	3.6.7
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gitolite
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Finely-grained git repository hosting
+HOMEPAGE=		http://gitolite.com/gitolite/index.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/sitaramc:gitolite:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:primary
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/gitolite
+
+RUN_DEPENDS=		perl-JSON:single:perl_default
+			git:primary:standard
+
+USES=			cpe shebangfix perl
+CPE_VENDOR=		sitaram_chamarty
+SHEBANG_REGEX=		.*
+SHEBANG_NEW_BASH=	/bin/sh
+SUB_FILES=		pkg-message-single
+SUB_LIST=		DOCDIR={{PREFIX}}/share/doc/gitolite
+
+post-patch:
+	@${REINPLACE_CMD} -i'' -e 's,#!/usr/bin/perl,#!${PERL},' \
+		${WRKSRC}/src/lib/Gitolite/Hooks/*.pm
+
+do-build:
+	@${MKDIR} ${WRKSRC}/lib
+	echo "${GH_TAGNAME}" > ${WRKSRC}/src/VERSION
+	${MV} ${WRKSRC}/src/lib/Gitolite ${WRKSRC}/lib/
+	@${RMDIR} ${WRKSRC}/src/lib
+	${MV} ${WRKSRC}/check-g2-compat ${WRKSRC}/src/
+	${MV} ${WRKSRC}/convert-gitosis-conf ${WRKSRC}/src/
+
+post-build:
+	${FIND} ${WRKSRC} -name "*.bak" -delete
+	${FIND} ${WRKSRC} -name "*.orig" -delete
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	(cd ${WRKSRC}/src && \
+		${COPYTREE_BIN} \* ${STAGEDIR}${PREFIX}/libexec/gitolite)
+	(cd ${WRKSRC}/lib && \
+		${COPYTREE_SHARE} Gitolite ${STAGEDIR}${PREFIX}/${SITE_PERL_REL}/)
+	${LN} -s ../libexec/gitolite/gitolite \
+		${STAGEDIR}${PREFIX}/bin/gitolite
+	${INSTALL_DATA} ${WRKSRC}/README.markdown ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${WRKSRC}/CHANGELOG ${STAGEDIR}${STD_DOCDIR}
