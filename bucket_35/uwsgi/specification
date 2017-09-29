@@ -1,0 +1,61 @@
+DEF[PORTVERSION]=	2.0.15
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		uwsgi
+VERSION=		${PORTVERSION}
+KEYWORDS=		python www
+VARIANTS=		standard
+SDESC[standard]=	Fast, self-healing, application container server
+HOMEPAGE=		http://projects.unbit.it/uwsgi/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://projects.unbit.it/downloads/
+DISTFILE[1]=		uwsgi-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:single
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		www/uwsgi
+
+BUILD_DEPENDS=		pcre:static:standard
+BUILDRUN_DEPENDS=	pcre:shared:standard
+			jansson:single:standard
+			libxml2:single:standard
+
+PYSETUP=		uwsgiconfig.py
+PYD_BUILD_TARGET=	--build
+PYD_BUILDARGS=		--verbose
+
+USERS=			uwsgi
+GROUPS=			uwsgi
+USERGROUP_SPKG=		single
+RC_SUBR=		uwsgi:single
+
+USES=			pkgconfig ssl python zlib
+MAKE_ENV=		CPUCOUNT={{MAKE_JOBS_NUMBER}}
+			UWSGI_EMBED_PLUGINS=cgi
+CPPFLAGS=		-I{{OPENSSLINC}}
+LDFLAGS=		-L{{OPENSSLLIB}} -Wl,-rpath,{{OPENSSLLIB}}
+
+post-patch:
+	@${REINPLACE_CMD} \
+		-e '/^json =/ s|= .*|= jansson|' \
+		-e '/^pcre =/ s|= .*|= true|' \
+		-e '/^xml =/ s|= .*|= libxml2|' \
+		${WRKSRC}/buildconf/base.ini
+
+do-configure:
+	# don't configure
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${PYTHON_SITELIBDIR}
+	${INSTALL_PROGRAM} ${WRKSRC}/uwsgi ${STAGEDIR}${PREFIX}/bin/
+	${INSTALL_DATA} ${WRKSRC}/uwsgidecorators.py \
+		${STAGEDIR}${PYTHON_SITELIBDIR}
