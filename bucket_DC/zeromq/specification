@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	4.2.2
+DEF[SOVERSION]=		5.1.2
+DEF[SOMAJOR]=		${SOVERSION:R:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		zeromq
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		standard
+SDESC[standard]=	High-performance, asynchronous messaging library
+HOMEPAGE=		http://zeromq.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/zeromq/libzmq/releases/download/v${PORTVERSION}/
+DISTFILE[1]=		zeromq-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL3:single
+LICENSE_FILE=		LGPL3:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net/libzmq4
+
+BUILD_DEPENDS=		xmlto:single:standard
+			asciidoc:single:py27
+BUILDRUN_DEPENDS=	libsodium:single:standard
+			norm:single:standard
+
+USES=			gmake libtool pkgconfig
+INSTALL_TARGET=		install-strip
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-libsodium
+			--with-pkgconfigdir={{LOCALBASE}}/lib/pkgconfig
+			--with-norm={{LOCALBASE}}
+			--without-pgm
+MAKE_ENV=		V=1
+PLIST_SUB=		SOVERSION=${SOVERSION}
+			SOMAJOR=${SOMAJOR}

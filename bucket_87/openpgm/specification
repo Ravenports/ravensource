@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	5.2.122
+DEF[SOVERSION]=		0.0.122
+DEF[SOMAJOR]=		${SOVERSION:R:R}
+DEF[RELEASE_TAG]=	release-${PORTVERSION:S/./-/g}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		openpgm
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		standard
+SDESC[standard]=	Implementation of PGM reliable multicast protocol
+HOMEPAGE=		https://github.com/steve-o/openpgm
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/steve-o:openpgm:${RELEASE_TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary examples docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+BROKEN[dragonfly]=	missing struct group_source_req in <netinet/in.h>
+
+FPC_EQUIVALENT=		net/openpgm
+
+PLIST_SUB=		SOVERSION=${SOVERSION}
+			SOMAJOR=${SOMAJOR}
+
+USES=			autoreconf perl:build libtool python:build
+DISTNAME=		openpgm-${RELEASE_TAG}/openpgm/pgm
+INSTALL_TARGET=		install-strip
+MUST_CONFIGURE=		gnu
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${STD_DOCDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+	(cd ${WRKSRC}/../doc && ${INSTALL_DATA} \
+		draft-ietf-rmt-bb-pgmcc-03.txt rfc3208.txt \
+		${STAGEDIR}${STD_DOCDIR})
+	(cd ${WRKSRC}/examples && \
+		${COPYTREE_SHARE} . ${STAGEDIR}${STD_EXAMPLESDIR})
