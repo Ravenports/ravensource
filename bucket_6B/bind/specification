@@ -1,0 +1,116 @@
+DEF[PORTVERSION]=	9.11.2
+DEF[ETCDIR]=		etc/namedb
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		bind
+VERSION=		${PORTVERSION}
+KEYWORDS=		dns net
+VARIANTS=		standard
+SDESC[standard]=	Berkeley Internet Name Domain (Domain Name Server)
+HOMEPAGE=		https://www.isc.org/downloads/bind/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		ISC/bind9/${PORTVERSION}
+DISTFILE[1]=		bind-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete server tools docs
+
+OPTIONS_AVAILABLE=	FILTER_AAAA FIXED_RRSET GEOIP LARGE_FILE QUERYTRACE
+OPTIONS_STANDARD=	FILTER_AAAA FIXED_RRSET GEOIP LARGE_FILE QUERYTRACE
+
+LICENSE=		MPL:server
+LICENSE_FILE=		MPL:{{WRKSRC}}/COPYRIGHT
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		dns/bind911
+
+BUILD_DEPENDS=		idnkit:single:standard
+BUILDRUN_DEPENDS=	libxml2:single:standard
+			json-c:single:standard
+			lmdb:single:standard
+			libedit:single:standard
+EXRUN[tools]=		idnkit:single:standard
+
+USES=			cpe iconv ssl cclibs:server,tools
+CPE_VENDOR=		isc
+SINGLE_JOB=		yes
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--localstatedir=/var
+			--sysconfdir={{PREFIX}}/${ETCDIR}
+			--disable-linux-caps
+			--disable-symtable
+			--disable-dnstap
+			--disable-native-pkcs11
+			--without-gssapi
+			--without-python
+			--without-gost
+			--with-randomdev=/dev/random
+			--with-readline="-L{{LOCALBASE}}/lib -ledit"
+			--with-openssl={{OPENSSLBASE}}
+			--with-libxml2={{LOCALBASE}}
+			--with-dlopen=yes
+			--with-idn={{LOCALBASE}}
+			--with-libjson
+			--with-lmdb
+			--with-dlz-filesystem=yes
+			--enable-ipv6
+			--enable-threads
+			--enable-rpz-nsdname
+			--enable-rpz-nsip
+			{{ICONV_CONFIGURE_ARG}}
+			STD_CDEFINES="-DDIG_SIGCHASE=1"
+RC_SUBR=		named:server
+SUB_FILES=		pkg-message-server
+			named.conf
+PLIST_SUB=		ETCDIR=${ETCDIR}
+
+[FILTER_AAAA].DESCRIPTION=		Enable filtering of AAAA records
+[FIXED_RRSET].DESCRIPTION=		Enable fixed rrset ordering
+[GEOIP].DESCRIPTION=			Allow geographically based ACL
+[LARGE_FILE].DESCRIPTION=		64-bit file support
+[QUERYTRACE].DESCRIPTION=		Enable the very verbose query tracelogging
+
+[FILTER_AAAA].CONFIGURE_ENABLE_BOTH=	filter-aaaa
+[FIXED_RRSET].CONFIGURE_ENABLE_BOTH=	fixed-rrset
+[GEOIP].CONFIGURE_WITH_BOTH=		geoip
+[GEOIP].BUILDRUN_DEPENDS_ON=		GeoIP:single:standard
+[LARGE_FILE].CONFIGURE_ENABLE_BOTH=	largefile
+[QUERYTRACE].CONFIGURE_ENABLE_BOTH=	querytrace
+
+post-patch:
+.  for FILE in check/named-checkconf.8 named/named.8 nsupdate/nsupdate.1 \
+	rndc/rndc.8
+	@${REINPLACE_CMD} -e 's#/etc/named.conf#${PREFIX}${ETCDIR}/named.conf#g' \
+		-e 's#/etc/rndc.conf#${PREFIX}${ETCDIR}/rndc.conf#g' \
+		-e "s#/var\/run\/named\/named.pid#/var/run/named/pid#" \
+		${WRKSRC}/bin/${FILE}
+.  endfor
+	${REINPLACE_CMD} -e "s|/opt/local|${PREFIX}|g" \
+		${WRKSRC}/configure
+
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/${ETCDIR} \
+		${STAGEDIR}${STD_DOCDIR}/arm
+.  for i in dynamic master slave working
+	@${MKDIR} ${STAGEDIR}${PREFIX}/${ETCDIR}/$i
+.  endfor
+	${INSTALL_DATA} ${WRKDIR}/named.conf \
+		${STAGEDIR}${PREFIX}/${ETCDIR}/named.conf.sample
+	${INSTALL_DATA} ${FILESDIR}/named.root \
+		${STAGEDIR}${PREFIX}/${ETCDIR}
+	${INSTALL_DATA} ${FILESDIR}/empty.db \
+		${STAGEDIR}${PREFIX}/${ETCDIR}/master
+	${INSTALL_DATA} ${FILESDIR}/localhost-forward.db \
+		${STAGEDIR}${PREFIX}/${ETCDIR}/master
+	${INSTALL_DATA} ${FILESDIR}/localhost-reverse.db \
+		${STAGEDIR}${PREFIX}/${ETCDIR}/master
+	${INSTALL_DATA} ${WRKSRC}/bin/rndc/rndc.conf \
+		${STAGEDIR}${PREFIX}/${ETCDIR}/rndc.conf.sample
+	${RM} -r ${STAGEDIR}/var
+
+	# documentation
+	${INSTALL_DATA} ${WRKSRC}/doc/arm/*.html ${STAGEDIR}${STD_DOCDIR}/arm
+	${INSTALL_DATA} ${WRKSRC}/doc/arm/Bv9ARM.pdf ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${WRKSRC}/CHANGES \
+		${WRKSRC}/HISTORY* ${WRKSRC}/README* ${STAGEDIR}${STD_DOCDIR}
