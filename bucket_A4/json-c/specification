@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	0.12.1
+DEF[SOVERSION]=		2.0.2
+DEF[SOMAJOR]=		${SOVERSION:R:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		json-c
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	JSON implementation in C
+HOMEPAGE=		https://github.com/json-c/json-c/wiki
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://s3.amazonaws.com/json-c_releases/releases/
+DISTFILE[1]=		json-c-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/json-c
+
+USES=			autoreconf cpe gmake libtool pkgconfig
+CPE_VENDOR=		json-c_project
+INSTALL_TARGET=		install-strip
+MUST_CONFIGURE=		gnu
+PLIST_SUB=		SOVERSION=${SOVERSION}
+			SOMAJOR=${SOMAJOR}
+
+post-patch:
+	${REINPLACE_CMD} -e 's| -Werror||g' ${WRKSRC}/Makefile.am.inc
