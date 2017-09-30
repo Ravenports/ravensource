@@ -18,6 +18,15 @@
                    tools=('default', 'textfile',),
                    CPPPATH=['.', ],
                    )
+@@ -183,7 +187,7 @@ CALLOUT_OKAY = not (env.GetOption('clean
+ 
+ unknown = opts.UnknownVariables()
+ if unknown:
+-  print 'Warning: Used unknown variables:', ', '.join(unknown.keys())
++  print ('Warning: Used unknown variables:', ', '.join(unknown.keys()))
+ 
+ apr = str(env['APR'])
+ apu = str(env['APU'])
 @@ -364,8 +368,8 @@ else:
    ### there is probably a better way to run/capture output.
    ### env.ParseConfig() may be handy for getting this stuff into the build
