@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	2.1.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		iocell
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	Feature rich Jail containers manager
+HOMEPAGE=		https://github.com/bartekrutkowski/iocell
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/bartekrutkowski:iocell:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		sysutils/iocell
+
+RUN_DEPENDS=		uclcmd:single:standard
+
+ONLY_FOR_OPSYS=		freebsd
+SKIP_BUILD=		yes
+
+post-patch:
+	@${REINPLACE_CMD} -e "s|/usr/local/lib/iocell|${PREFIX}/lib/iocell|g" ${WRKSRC}/iocell
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/iocell \
+		${STAGEDIR}${PREFIX}/etc/rc.d
+	${INSTALL_SCRIPT} ${WRKSRC}/rc.d/iocell ${STAGEDIR}${PREFIX}/etc/rc.d
+	${INSTALL_SCRIPT} ${WRKSRC}/iocell ${STAGEDIR}${PREFIX}/sbin
+	(cd ${WRKSRC}/lib/ && ${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/lib/iocell)
+	${INSTALL_MAN} ${WRKSRC}/iocell.8 ${STAGEDIR}${MANPREFIX}/man/man8
