@@ -1,0 +1,106 @@
+DEF[PORTVERSION]=	20.1
+DEF[ERL_RELEASE]=	${PORTVERSION}
+DEF[TOOLS_VSN]=		2.11
+DEF[SNMP_VSN]=		5.2.7
+DEF[EI_VSN]=		3.10
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		erlang
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		standard
+SDESC[standard]=	Concurrent functional programming language
+HOMEPAGE=		http://www.erlang.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main erlangse publish olgeni
+SITES[main]=		http://erlang.org/download/
+			http://erlang.stacken.kth.se/download/
+SITES[erlangse]=	http://www.erlang.se/doc/
+SITES[publish]=		http://www.erlang.se/publications/
+SITES[olgeni]=		FREELOCAL/olgeni
+DISTFILE[1]=		otp_src_${ERL_RELEASE}.tar.gz:main
+DISTFILE[2]=		otp_doc_man_${ERL_RELEASE}.tar.gz:main
+DISTFILE[3]=		otp_doc_html_${ERL_RELEASE}.tar.gz:main
+DISTFILE[4]=		bjarnelic.pdf:publish
+DISTFILE[5]=		mnesia_overview.pdf:publish
+DISTFILE[6]=		programming_rules.pdf:erlangse
+DISTFILE[7]=		master_thesis_patterns.pdf:olgeni
+DISTFILE[8]=		armstrong_thesis_2003.pdf:olgeni
+DISTFILE[9]=		erlang-book-part1.pdf:main
+DIST_SUBDIR=		erlang
+DF_INDEX=		1 2 3
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	NATIVE
+OPTIONS_STANDARD=	NATIVE
+OPT_ON[freebsd]=	NATIVE
+OPT_ON[linux]=		NATIVE
+
+FPC_EQUIVALENT=		lang/erlang
+
+DISTNAME=		otp_src_${ERL_RELEASE}
+SUB_FILES=		pkg-message-primary
+SUB_LIST=		TOOLS_VSN=${TOOLS_VSN}
+RC_SUBR=		epmd:primary
+
+USES=			gmake ncurses perl:build ssl zlib
+SINGLE_JOB=		yes
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--without-dynamic-trace
+			--without-javac
+			--without-odbc
+			--disable-sctp
+			--enable-kernel-poll
+			--enable-threads
+			--enable-smp-support
+			--with-ssl={{OPENSSLBASE}}
+
+[NATIVE].DESCRIPTION=			Build native HiPE compiler
+[NATIVE].CONFIGURE_ENABLE_BOTH=		hipe native-libs
+
+# The man-pages are put (in spite of ravenport convention) in a private
+# subdir. This is to avoid cluttering up the man page name space. Also the
+# Erlang man pages are more of internal documentation using the man format than
+# actual system man pages. (erl.1 and epmd.1 perhaps being the exception).
+
+# Install documentation. (HTML docs need to be in same dir as the
+# rest, not in share/doc/erlang as it should, because of relative
+# links in the documentation.
+
+post-patch:
+	@${ECHO_CMD} "MANPATH ${PREFIX}/lib/erlang/man" > ${WRKDIR}/erlang.conf
+	# disable Wxwidgets
+	echo "disabled by port options" > ${WRKSRC}/lib/wx/SKIP
+
+pre-build-NATIVE-ON:
+	@(cd ${WRKSRC} && ${MAKE_CMD} clean)
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/man.d
+	${INSTALL_DATA} ${WRKDIR}/erlang.conf \
+		${STAGEDIR}${PREFIX}/etc/man.d/erlang.conf
+	${LN} -sf ../lib/erlang/lib/erl_interface-${EI_VSN}/bin/erl_call \
+		${STAGEDIR}${PREFIX}/bin/erl_call
+	for SECTION in 1 3 4 6 7; do \
+		${TAR} --unlink -xzpf ${DISTDIR}/${DIST_SUBDIR}/otp_doc_man_${ERL_RELEASE}.tar.gz \
+			-C ${STAGEDIR}${PREFIX}/lib/erlang \
+			"man/man$${SECTION}/*.$${SECTION}" || ${TRUE}; \
+	done
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/erlang/man/cat?
+	${TAR} --unlink -xzpf ${DISTDIR}/${DIST_SUBDIR}/otp_doc_html_${ERL_RELEASE}.tar.gz \
+		-C ${STAGEDIR}${PREFIX}/lib/erlang
+	${INSTALL_DATA} ${WRKSRC}/lib/dialyzer/doc/*.txt \
+		${STAGEDIR}${PREFIX}/lib/erlang/lib/dialyzer-*/doc/
+	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+.for df in bjarnelic mnesia_overview programming_rules master_thesis_patterns \
+	armstrong_thesis_2003 erlang-book-part1
+	${INSTALL_DATA} ${DISTDIR}/${DIST_SUBDIR}/${df}.pdf ${STAGEDIR}/${STD_DOCDIR}
+.endfor
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/erlang/lib/odbc-*
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/erlang/lib/gs-*
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/erlang/lib/jinterface-*
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/erlang/lib/wx-*
+	${FIND} ${STAGEDIR}${PREFIX}/lib/${ERLANG_LIB}/* -type d -empty -delete
+	${LN} -s ../lib/erlang/lib/snmp-${SNMP_VSN}/bin/snmpc ${STAGEDIR}${PREFIX}/bin/snmpc
