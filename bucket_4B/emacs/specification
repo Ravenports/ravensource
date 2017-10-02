@@ -1,0 +1,117 @@
+DEF[PORTVERSION]=	25.3
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		emacs
+VERSION=		${PORTVERSION}
+KEYWORDS=		editors
+VARIANTS=		standard desktop
+SDESC[standard]=	GNU Emacs text editor
+SDESC[desktop]=		GNU Emacs text editor with X11 support
+HOMEPAGE=		https://www.gnu.org/software/emacs/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/emacs
+DISTFILE[1]=		emacs-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+SPKGS[desktop]=		single
+
+OPTIONS_AVAILABLE=	X11GTK
+OPTIONS_STANDARD=	none
+VOPTS[desktop]=		X11GTK=ON
+
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		editors/emacs
+
+USERS=			games
+GROUPS=			games
+USERGROUP_SPKG=		single
+
+BUILDRUN_DEPENDS=	gnutls:single:standard
+RUN_DEPENDS=		coreutils:single:standard
+
+USES=			cpe gmake makeinfo ncurses pkgconfig zlib
+GNOME_COMPONENTS=	libxml2
+CPE_VENDOR=		gnu
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--localstatedir=/var
+			--with-gameuser=games:games
+			--with-gnutls
+			--with-modules
+			--with-xml2
+LDFLAGS=		-ltinfo
+INFO_PATH=		share/emacs/info
+PLIST_SUB=		VERSION=${PORTVERSION}
+			GNU_HOST={{CONFIGURE_TARGET}}
+INFO=			single:ada-mode
+			single:auth
+			single:autotype
+			single:bovine
+			single:calc
+			single:ccmode
+			single:cl
+			single:dbus
+			single:dired-x
+			single:ebrowse
+			single:ede
+			single:ediff
+			single:edt
+			single:efaq
+			single:eieio
+			single:eintr
+			single:elisp
+			single:emacs
+			single:emacs-gnutls
+			single:emacs-mime
+			single:epa
+			single:erc
+			single:ert
+			single:eshell
+			single:eudc
+			single:eww
+			single:flymake
+			single:forms
+			single:gnus
+			single:htmlfontify
+			single:idlwave
+			single:ido
+			single:info
+			single:mairix-el
+			single:message
+			single:mh-e
+			single:newsticker
+			single:nxml-mode
+			single:octave-mode
+			single:org
+			single:pcl-cvs
+			single:pgg
+			single:rcirc
+			single:reftex
+			single:remember
+			single:sasl
+			single:sc
+			single:semantic
+			single:ses
+			single:sieve
+			single:smtpmail
+			single:speedbar
+			single:srecode
+			single:todo-mode
+			single:tramp
+			single:url
+			single:vhdl-mode
+			single:vip
+			single:viper
+			single:widget
+			single:wisent
+			single:woman
+
+[X11GTK].DESCRIPTION=			X window system support (through GTK3)
+
+post-patch-X11GTK-OFF:
+	@${REINPLACE_CMD} -i'' -e 's/^Terminal=.*$$/Terminal=true/' \
+		${WRKSRC}/etc/emacs.desktop
