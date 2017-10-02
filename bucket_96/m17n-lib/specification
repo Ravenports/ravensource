@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(M17N_VERSION)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		m17n-lib
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc devel
+VARIANTS=		standard
+SDESC[standard]=	Multilingual text processing library
+HOMEPAGE=		http://www.nongnu.org/m17n/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SAVANNAH/m17n
+DISTFILE[1]=		m17n-lib-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21:single
+LICENSE_FILE=		LGPL21:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/m17n-lib
+
+BUILD_DEPENDS=		bison:primary:standard
+BUILDRUN_DEPENDS=	fontconfig:primary:standard
+			freetype:primary:standard
+			fribidi:single:standard
+			libGD:single:standard
+			libotf:single:standard
+			m17n-db:single:standard
+
+USES=			autoreconf gettext-tools libtool pkgconfig
+SINGLE_JOB=		yes
+XORG_COMPONENTS=	ice sm x11 xaw xft xmu xrender xt
+GNOME_COMPONENTS=	libxml2
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-nls
+			--without-anthy
+			--without-libthai
+			HAVE_ISPELL=no
