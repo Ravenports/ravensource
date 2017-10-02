@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(M17N_VERSION)
+DEF[GLIBC_VERSION]=	EXTRACT_INFO(GLIBC_VERSION)
+DEF[CHARMAPSDIR]=	glibc-${GLIBC_VERSION}/localedata/charmaps
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		m17n-db
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel textproc
+VARIANTS=		standard
+SDESC[standard]=	Data files for the m17n library
+HOMEPAGE=		http://www.nongnu.org/m17n/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main gnu
+SITES[main]=		SAVANNAH/m17n
+SITES[gnu]=		GNU/glibc
+DISTFILE[1]=		m17n-db-${PORTVERSION}.tar.gz:main
+DISTFILE[2]=		glibc-${GLIBC_VERSION}.tar.xz:gnu
+DF_INDEX=		1 2
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/m17n-db
+
+USES=			gmake pkgconfig
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-nls
+			--with-charmaps=${CHARMAPSDIR}
+MAKE_ARGS=		pkgconfigdir={{PREFIX}}/lib/pkgconfig
+
+post-extract:
+	${MV} ${WRKDIR}/glibc-${GLIBC_VERSION} ${WRKSRC}/
+
+post-patch:
+	@${REINPLACE_CMD} -E 's|(m17n_scriptdir = ).*|\1${PREFIX}/bin|' \
+		${WRKSRC}/Makefile.in
