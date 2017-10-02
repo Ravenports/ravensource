@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	1.10.16
+DEF[PORTVERSION]=	1.10.24
+DEF[SOVERSION]=		3.14.14
+DEF[SOMAJOR]=		${SOVERSION:R:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		dbus
@@ -45,7 +47,10 @@ USERS=			messagebus
 GROUPS=			messagebus
 USERGROUP_SPKG=		single
 
-PLIST_SUB=		VERSION="1.0" GROUPS={{GROUPS}}
+PLIST_SUB=		VERSION="1.0"
+			GROUPS={{GROUPS}}
+			SOVERSION=${SOVERSION}
+			SOMAJOR=${SOMAJOR}
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g' \
