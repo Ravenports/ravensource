@@ -1,0 +1,63 @@
+DEF[PORTVERSION]=	1.21
+DEF[WXCONFIG]=		/bin/wxgtk3u-3.0-config
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		veracrypt
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		standard
+SDESC[standard]=	Strong disk encryption based on TrueCrypt
+HOMEPAGE=		https://www.veracrypt.fr/en/Home.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/veracrypt/VeraCrypt%20${PORTVERSION}
+DISTFILE[1]=		VeraCrypt_${PORTVERSION}_Source.tar.bz2:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		APACHE20:primary
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/License.txt
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		security/veracrypt
+
+
+BUILD_DEPENDS=		yasm:single:standard
+BUILDRUN_DEPENDS=	fuse2:single:standard
+			wxWidgets:single:standard
+RUN_DEPENDS=		sudo:primary:standard
+
+USES=			desktop-utils gmake iconv pkgconfig
+EXTRACT_DIRTY=		1
+BUILD_WRKSRC=		{{WRKSRC}}/src
+BUILD_TARGET=		#
+CONFIGURE_ARGS=		--wxWidgets-build=0
+			--wxWidgets-unicode=1
+CONFIGURE_ENV=		WX_CONFIG="{{LOCALBASE}}${WXCONFIG}"
+MAKE_ENV=		WX_CONFIG="{{LOCALBASE}}${WXCONFIG}"
+SUB_FILES=		pkg-message-primary-freebsd
+
+
+post-patch:
+	${REINPLACE_CMD} -e 's|wx-config|${LOCALBASE}${WXCONFIG}|g' \
+		-e '/export LFLAGS/ s|:=|:= ${LDFLAGS}|' \
+		${WRKSRC}/src/Makefile
+	${REINPLACE_CMD} \
+		-e 's|/usr/bin|${PREFIX}/bin|g' \
+		-e 's|Icon=veracrypt|Icon=VeraCrypt-16x16|g' \
+		${WRKSRC}/src/Setup/FreeBSD/veracrypt.desktop
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/applications/
+	${INSTALL_PROGRAM} ${WRKSRC}/src/Main/veracrypt ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_DATA} ${WRKSRC}/src/Setup/FreeBSD/veracrypt.desktop \
+		${STAGEDIR}${PREFIX}/share/applications/
+	(cd ${WRKSRC}/src/Resources/Icons && ${COPYTREE_SHARE} . \
+		${STAGEDIR}${PREFIX}/share/pixmaps "-name '*.xpm'")
+	# web documentation
+	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	(cd ${WRKSRC}/doc/html && ${COPYTREE_SHARE} . ${STAGEDIR}${STD_DOCDIR})

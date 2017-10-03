@@ -151,6 +151,8 @@ static_lib_FreeBSD=	${static_lib_generic} \
 			/usr/lib/libthr.a \
 			/usr/lib/libusb.a \
 			/usr/lib/libusbhid.a \
+			/usr/lib/Scrt1.o \
+			/usr/lib/gcrt1.o \
 			/usr/lib/crt1.o \
 			/usr/lib/crti.o \
 			/usr/lib/crtn.o
@@ -158,6 +160,8 @@ static_lib_DragonFly=	${static_lib_generic} \
 			/usr/lib/libkvm.a \
 			/usr/lib/libusb.a \
 			/usr/lib/libusbhid.a \
+			/usr/lib/Scrt1.o \
+			/usr/lib/gcrt1.o \
 			/usr/lib/crt1.o \
 			/usr/lib/crti.o \
 			/usr/lib/crtn.o

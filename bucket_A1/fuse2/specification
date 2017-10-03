@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	2.9.7
+DEF[SOVERSION]=		${PORTVERSION}
+DEF[SOMAJOR]=		${SOVERSION:R:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		fuse2
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	File System in Userspace (FUSE), legacy
+HOMEPAGE=		https://github.com/libfuse/libfuse
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/libfuse:libfuse:fuse-${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21:single
+LICENSE_FILE=		LGPL21:{{WRKSRC}}/COPYING.LIB
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		sysutils/fusefs-libs
+
+NOT_FOR_OPSYS=		dragonfly
+
+USES=			iconv libtool autoreconf gettext-tools
+INSTALL_TARGET=		install-strip
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-pkgconfigdir={{PREFIX}}/lib/pkgconfig
+CONFIGURE_ENV=		MOUNT_FUSE_PATH={{PREFIX}}/sbin
+PLIST_SUB=		SOVERSION=${SOVERSION}
+			SOMAJOR=${SOMAJOR}
+
+pre-configure:
+	${CP} ${LOCALBASE}/share/gettext/config.rpath ${WRKSRC}
+
+post-install:
+	${INSTALL_DATA} ${WRKSRC}/include/fuse_kernel.h \
+		${STAGEDIR}${PREFIX}/include/fuse
+	# This file conflicts with fuse3
+	${RM} ${STAGEDIR}${PREFIX}/share/man/man8/mount.fuse.8
