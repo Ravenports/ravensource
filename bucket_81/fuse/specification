@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	3.2.0
+DEF[SOVERSION]=		${PORTVERSION}
+DEF[SOMAJOR]=		${SOVERSION:R:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		fuse
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	File System in Userspace (FUSE) utilities
+HOMEPAGE=		https://github.com/libfuse/libfuse
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/libfuse:libfuse:fuse-${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21:single
+LICENSE_FILE=		LGPL21:{{WRKSRC}}/COPYING.LIB
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		sysutils/fusefs-libs
+
+NOT_FOR_OPSYS=		dragonfly
+
+USES=			meson
+PLIST_SUB=		SOVERSION=${SOVERSION}
+			SOMAJOR=${SOMAJOR}
