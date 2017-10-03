@@ -1,8 +1,8 @@
---- common/compat.c.orig	2017-08-26 16:30:23 UTC
+--- common/compat.c.orig	2017-09-26 14:25:48 UTC
 +++ common/compat.c
-@@ -51,6 +51,7 @@
- #include <dirent.h>
+@@ -52,6 +52,7 @@
  #include <errno.h>
+ #include <stdint.h>
  #include <stdlib.h>
 +#include <stdint.h>
  #include <string.h>
