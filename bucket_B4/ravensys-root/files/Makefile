@@ -569,6 +569,7 @@ install:
 		${DESTDIR}${BASE}/usr/include/machine \
 		${DESTDIR}${BASE}/usr/include/vm \
 		${DESTDIR}${BASE}/usr/include/xlocale \
+		${DESTDIR}${BASE}/usr/share/locale/en_US.UTF-8 \
 		# end
 .endif
 .if "${OPSYS}" == "FreeBSD"
@@ -580,6 +581,7 @@ install:
 		${DESTDIR}${BASE}/usr/include/machine \
 		${DESTDIR}${BASE}/usr/include/vm \
 		${DESTDIR}${BASE}/usr/include/xlocale \
+		${DESTDIR}${BASE}/usr/share/locale/en_US.UTF-8 \
 		# end
 .endif
 .if "${OPSYS}" == "Linux"
@@ -735,6 +737,12 @@ install:
 		> ${DESTDIR}${BASE}/usr/bin/fgrep
 	chmod 755 ${DESTDIR}${BASE}/usr/bin/egrep \
 		${DESTDIR}${BASE}/usr/bin/fgrep
+.if ${OPSYS} == DragonFly || ${OPSYS} == FreeBSD
+.  for LC in COLLATE CTYPE MESSAGES MONETARY NUMERIC TIME
+	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/share/locale/en_US.UTF-8/LC_${LC} \
+		${DESTDIR}${BASE}/usr/share/locale/en_US.UTF-8/
+.  endfor
+.endif
 
 extra-includes:
 .for item in ${headers_${OPSYS}}
