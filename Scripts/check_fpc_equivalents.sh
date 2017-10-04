@@ -53,6 +53,7 @@ while read ravenport version fpc_port; do
 	slider) ;;
 	firebird30) ;;
 	php56-intl) ;;
+	fuse3) ;;
 	aspell-mg | aspell-hus) ;;
 	*) echo "${ravenport} ${version}"
    esac
