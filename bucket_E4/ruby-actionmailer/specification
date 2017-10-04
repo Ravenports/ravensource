@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	5.1.4
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-actionmailer
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v23 v24
+SDESC[v23]=		Email composition, delivery, and receiving f (v23)
+SDESC[v24]=		Email composition, delivery, and receiving f (v24)
+HOMEPAGE=		http://rubyonrails.org
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		actionmailer-5.1.4.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v23]=		single
+SPKGS[v24]=		single
+
+OPTIONS_AVAILABLE=	RUBY23 RUBY24
+OPTIONS_STANDARD=	none
+VOPTS[v23]=		RUBY23=ON RUBY24=OFF
+VOPTS[v24]=		RUBY23=OFF RUBY24=ON
+
+GENERATED=		yes
+
+# Requirements specified by gem dependency --remote --version command
+#   actionpack (= 5.1.4)
+#   actionview (= 5.1.4)
+#   activejob (= 5.1.4)
+#   mail (>= 2.5.4, ~> 2.5)
+#   rails-dom-testing (~> 2.0)
+
+DISTNAME=		actionmailer-${PORTVERSION}
+
+[RUBY23].USES_ON=			gem:v23
+[RUBY23].BUILDRUN_DEPENDS_ON=		ruby-actionpack:single:v23
+					ruby-actionview:single:v23
+					ruby-activejob:single:v23
+					ruby-mail:single:v23
+					ruby-rails-dom-testing:single:v23
+
+[RUBY24].USES_ON=			gem:v24
+[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-actionpack:single:v24
+					ruby-actionview:single:v24
+					ruby-activejob:single:v24
+					ruby-mail:single:v24
+					ruby-rails-dom-testing:single:v24
+
