@@ -1,8 +1,14 @@
-DEF[PORTVERSION]=	20.1
-DEF[ERL_RELEASE]=	${PORTVERSION}
+DEF[ERL_RELEASE]=	20.1
+DEF[PORTVERSION]=	${ERL_RELEASE}.1
 DEF[TOOLS_VSN]=		2.11
 DEF[SNMP_VSN]=		5.2.7
 DEF[EI_VSN]=		3.10
+DEF[COMPILER_VSN]=	7.1.3
+DEF[COMPILER_DOC_VSN]=	7.1.2
+DEF[ERTS_VSN]=		9.1.1
+DEF[ERTS_DOC_VSN]=	9.1
+DEF[SSH_VSN]=		4.6.1
+DEF[SSH_DOC_VSN]=	4.6
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		erlang
@@ -13,13 +19,14 @@ SDESC[standard]=	Concurrent functional programming language
 HOMEPAGE=		http://www.erlang.org/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main erlangse publish olgeni
+DOWNLOAD_GROUPS=	main erlangse publish olgeni github
 SITES[main]=		http://erlang.org/download/
 			http://erlang.stacken.kth.se/download/
 SITES[erlangse]=	http://www.erlang.se/doc/
 SITES[publish]=		http://www.erlang.se/publications/
 SITES[olgeni]=		FREELOCAL/olgeni
-DISTFILE[1]=		otp_src_${ERL_RELEASE}.tar.gz:main
+SITES[github]=		GITHUB/erlang:otp:OTP-${PORTVERSION}
+DISTFILE[1]=		generated:github
 DISTFILE[2]=		otp_doc_man_${ERL_RELEASE}.tar.gz:main
 DISTFILE[3]=		otp_doc_html_${ERL_RELEASE}.tar.gz:main
 DISTFILE[4]=		bjarnelic.pdf:publish
@@ -40,7 +47,10 @@ OPT_ON[linux]=		NATIVE
 
 FPC_EQUIVALENT=		lang/erlang
 
-DISTNAME=		otp_src_${ERL_RELEASE}
+BUILD_DEPENDS=		autoconf:single:standard
+BUILDRUN_DEPENDS=	wxWidgets:single:standard
+
+DISTNAME=		otp-OTP-${PORTVERSION}
 SUB_FILES=		pkg-message-primary
 SUB_LIST=		TOOLS_VSN=${TOOLS_VSN}
 RC_SUBR=		epmd:primary
@@ -57,6 +67,13 @@ CONFIGURE_ARGS=		--without-dynamic-trace
 			--enable-threads
 			--enable-smp-support
 			--with-ssl={{OPENSSLBASE}}
+			--with-wx-config={{LOCALBASE}}/bin/wxgtk3u-3.0-config
+PLIST_SUB=		COMPILER_VSN=${COMPILER_VSN}
+			COMPILER_DOC_VSN=${COMPILER_DOC_VSN}
+			ERTS_VSN=${ERTS_VSN}
+			ERTS_DOC_VSN=${ERTS_DOC_VSN}
+			SSH_VSN=${SSH_VSN}
+			SSH_DOC_VSN=${SSH_DOC_VSN}
 
 [NATIVE].DESCRIPTION=			Build native HiPE compiler
 [NATIVE].CONFIGURE_ENABLE_BOTH=		hipe native-libs
@@ -70,10 +87,11 @@ CONFIGURE_ARGS=		--without-dynamic-trace
 # rest, not in share/doc/erlang as it should, because of relative
 # links in the documentation.
 
+pre-configure:
+	(cd ${WRKSRC} && ./otp_build autoconf)
+
 post-patch:
 	@${ECHO_CMD} "MANPATH ${PREFIX}/lib/erlang/man" > ${WRKDIR}/erlang.conf
-	# disable Wxwidgets
-	echo "disabled by port options" > ${WRKSRC}/lib/wx/SKIP
 
 pre-build-NATIVE-ON:
 	@(cd ${WRKSRC} && ${MAKE_CMD} clean)
@@ -102,6 +120,5 @@ post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/erlang/lib/odbc-*
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/erlang/lib/gs-*
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/erlang/lib/jinterface-*
-	${RM} -r ${STAGEDIR}${PREFIX}/lib/erlang/lib/wx-*
 	${FIND} ${STAGEDIR}${PREFIX}/lib/${ERLANG_LIB}/* -type d -empty -delete
 	${LN} -s ../lib/erlang/lib/snmp-${SNMP_VSN}/bin/snmpc ${STAGEDIR}${PREFIX}/bin/snmpc
