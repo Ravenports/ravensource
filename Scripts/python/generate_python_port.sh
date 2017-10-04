@@ -170,10 +170,19 @@ get_available_options() {
 
 dump_descriptions() {
    local v sdesc
-   sdesc=$(get_description | awk '{\
- raw=$0; \
- if (substr(raw, 1, 2) == "A ") raw=substr(raw, 3); \
- if (substr(raw, 1, 3) == "An ") raw=substr(raw, 4); \
+   sdesc=$(get_description | awk '\
+function chop(summary,front) {\
+ ufront=toupper(front);\
+ len=length(ufront);\
+ if ((len < length(summary)) && (toupper(substr(summary,1,len)) == ufront)) \
+   return substr(summary, len + 1);\
+ else\
+   return summary;\
+}\
+{\
+ raw=chop($0,  "a ");\
+ raw=chop(raw, "an ");\
+ raw=chop(raw, "the ");\
  final=toupper(substr(raw, 1, 1)) substr(raw, 2); \
  print substr (final, 1, 42) }')
    for v in ${VARIANTS}; do

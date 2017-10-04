@@ -180,6 +180,7 @@ function chop(summary,front) {\
  raw=chop(raw, sprintf ("%s is a ", module));\
  raw=chop(raw, sprintf ("%s is an ", module));\
  raw=chop(raw, sprintf ("%s - ", module));\
+ raw=chop(raw, "the ");\
  final=toupper(substr(raw, 1, 1)) substr(raw, 2); \
  print substr (final, 1, 44) }')
    for v in ${VARIANTS}; do
