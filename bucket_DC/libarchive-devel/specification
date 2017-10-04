@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	3.3.3
+DEF[SOMINOR]=		3.3
+DEF[TAG]=		4763691
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libarchive-devel
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers
+VARIANTS=		standard
+SDESC[standard]=	Library to handle various archive formats (devel)
+HOMEPAGE=		http://libarchive.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/libarchive:libarchive:${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:single BSD3CLAUSE:single PUBDOM:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
+			BSD3CLAUSE:{{WRKSRC}}/COPYING
+			PUBDOM:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		archivers/libarchive
+
+BUILD_DEPENDS=		bzip2:static:standard
+			expat:static:standard
+			autoconf:single:standard
+			automake:single:standard
+BUILDRUN_DEPENDS=	libressl:single:standard
+			xz:single:standard
+			bzip2:shared:standard
+			expat:shared:standard
+
+USES=			cpe libtool:build perl:build pkgconfig zlib
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+CONFIGURE_ARGS=		--without-xml2
+			--without-iconv
+			--enable-shared=yes
+LDFLAGS=		-lpthread
+PLIST_SUB=		SOMINOR=${SOMINOR}
+
+pre-configure:
+	(cd ${WRKSRC} && build/autogen.sh)
