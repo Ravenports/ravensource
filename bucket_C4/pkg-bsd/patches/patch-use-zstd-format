@@ -1,3 +1,6 @@
+Note: These packages were generated on master and have been modified
+to apply to release 10.1.
+
 From 695f07277e132e73db985352e2d2e759344c6923 Mon Sep 17 00:00:00 2001
 From: jrmarino <draco@marino.st>
 Date: Tue, 22 Aug 2017 09:44:52 -0500
@@ -32,7 +35,7 @@ diff --git libpkg/packing.c libpkg/packing.c
 index b1570b377..c82f41c0b 100644
 --- libpkg/packing.c
 +++ libpkg/packing.c
-@@ -315,6 +315,11 @@ packing_set_format(struct archive *a, pkg_formats format)
+@@ -313,6 +313,11 @@ packing_set_format(struct archive *a, pkg_formats format)
  	const char *notsupp_fmt = "%s is not supported, trying %s";
  
  	switch (format) {
@@ -44,7 +47,7 @@ index b1570b377..c82f41c0b 100644
  	case TXZ:
  		if (archive_write_add_filter_xz(a) == ARCHIVE_OK)
  			return ("txz");
-@@ -342,6 +347,8 @@ packing_format_from_string(const char *str)
+@@ -340,6 +345,8 @@ packing_format_from_string(const char *str)
  {
  	if (str == NULL)
  		return TXZ;
@@ -53,7 +56,7 @@ index b1570b377..c82f41c0b 100644
  	if (strcmp(str, "txz") == 0)
  		return TXZ;
  	if (strcmp(str, "tbz") == 0)
-@@ -360,6 +367,9 @@ packing_format_to_string(pkg_formats format)
+@@ -358,6 +365,9 @@ packing_format_to_string(pkg_formats format)
  	const char *res = NULL;
  
  	switch (format) {
@@ -107,7 +110,7 @@ diff --git scripts/completion/_pkg.in scripts/completion/_pkg.in
 index 3913de3f7..814c971e9 100644
 --- scripts/completion/_pkg.in
 +++ scripts/completion/_pkg.in
-@@ -236,7 +236,7 @@ _pkg() {
+@@ -243,7 +243,7 @@ _pkg() {
  				'(-q --quiet)'{-q,--quiet}'[force quiet output]' \
  				'(-v --verbose)'{-v,--verbose}'[be verbose]' \
  				'(-n --no-clobber)'{-n,--no-clobber}'[no not overwrite existing packages]' \
@@ -150,3 +153,80 @@ index be76973a9..8aa90cc15 100644
  			fmt = TXZ;
  		else if (strcmp(format, "tbz") == 0)
  			fmt = TBZ;
+From 11c83126107b97dbb458021ac46676dbda64886c Mon Sep 17 00:00:00 2001
+From: John Marino <draco@marino.st>
+Date: Fri, 6 Oct 2017 08:45:12 -0500
+Subject: [PATCH] Switch repo command over to zstd format
+
+The repo command is hard-coded for the txz format (really??).
+Which, in effect, means other package formats are usable.
+Switch this over to a hardcoded tzst format.  The true fix is have
+a package format switch for repo command.
+---
+ libpkg/pkg_repo.c        |  2 +-
+ libpkg/pkg_repo_create.c | 10 +++++-----
+ libpkg/pkg_repo_meta.c   |  2 +-
+ 3 files changed, 7 insertions(+), 7 deletions(-)
+
+--- libpkg/pkg_repo.c.orig	2017-03-26 21:07:41 UTC
++++ libpkg/pkg_repo.c
+@@ -835,7 +835,7 @@ pkg_repo_fetch_meta(struct pkg_repo *rep
+ 
+ 	dbdir = pkg_object_string(pkg_config_get("PKG_DBDIR"));
+ 
+-	fd = pkg_repo_fetch_remote_tmp(repo, "meta", "txz", t, &rc);
++	fd = pkg_repo_fetch_remote_tmp(repo, "meta", "tzst", t, &rc);
+ 	if (fd == -1)
+ 		return (rc);
+ 
+diff --git a/libpkg/pkg_repo_create.c b/libpkg/pkg_repo_create.c
+index 7f8797462..a3fa5885b 100644
+--- libpkg/pkg_repo_create.c
++++ libpkg/pkg_repo_create.c
+@@ -1013,7 +1013,7 @@ pkg_finish_repo(const char *output_dir, pkg_password_cb *password_cb,
+ #endif
+ 
+ 	/* Now we need to set the equal mtime for all archives in the repo */
+-	snprintf(repo_archive, sizeof(repo_archive), "%s/%s.txz",
++	snprintf(repo_archive, sizeof(repo_archive), "%s/%s.tzst",
+ 	    output_dir, repo_meta_file);
+ 	if (stat(repo_archive, &st) == 0) {
+ 		struct timeval ftimes[2] = {
+@@ -1026,20 +1026,20 @@ pkg_finish_repo(const char *output_dir, pkg_password_cb *password_cb,
+ 			.tv_usec = 0
+ 			}
+ 		};
+-		snprintf(repo_archive, sizeof(repo_archive), "%s/%s.txz",
++		snprintf(repo_archive, sizeof(repo_archive), "%s/%s.tzst",
+ 		    output_dir, meta->manifests_archive);
+ 		utimes(repo_archive, ftimes);
+-		snprintf(repo_archive, sizeof(repo_archive), "%s/%s.txz",
++		snprintf(repo_archive, sizeof(repo_archive), "%s/%s.tzst",
+ 		    output_dir, meta->digests_archive);
+ 		utimes(repo_archive, ftimes);
+ 		if (filelist) {
+ 			snprintf(repo_archive, sizeof(repo_archive),
+-			    "%s/%s.txz", output_dir, meta->filesite_archive);
++			    "%s/%s.tzst", output_dir, meta->filesite_archive);
+ 			utimes(repo_archive, ftimes);
+ 		}
+ 		if (!legacy) {
+ 			snprintf(repo_archive, sizeof(repo_archive),
+-				"%s/%s.txz", output_dir, repo_meta_file);
++				"%s/%s.tzst", output_dir, repo_meta_file);
+ 			utimes(repo_archive, ftimes);
+ 		}
+ 	}
+diff --git a/libpkg/pkg_repo_meta.c b/libpkg/pkg_repo_meta.c
+index ea264a4e0..4440dc110 100644
+--- libpkg/pkg_repo_meta.c
++++ libpkg/pkg_repo_meta.c
+@@ -36,7 +36,7 @@ static void
+ pkg_repo_meta_set_default(struct pkg_repo_meta *meta)
+ {
+ 	meta->digest_format = PKG_HASH_TYPE_SHA256_BASE32;
+-	meta->packing_format = TXZ;
++	meta->packing_format = TZS;
+ 
+ 	/* Not use conflicts for now */
+ 	meta->conflicts = NULL;
