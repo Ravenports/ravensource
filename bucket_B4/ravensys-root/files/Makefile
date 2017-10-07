@@ -728,7 +728,7 @@ install:
 .for item in gsort/sort nawk/awk objdump/objdump-sysroot less/more \
 	bmake/make bsdcpio/cpio bsdtar/tar gcmp/cmp gdiff/diff \
 	gdiff3/diff3 gsdiff/sdiff gfind/find gxargs/xargs gm4/m4 \
-	gsed/sed ravensys-uname/uname nvi/vi god/od
+	gsed/sed ravensys-uname/uname nvi/vi god/od gmknod/mknod
 	cp ${LOCALBASE}/bin/${item:H} ${DESTDIR}${BASE}/usr/bin/${item:T}
 .endfor
 	ln -s m4 ${DESTDIR}${BASE}/usr/bin/gm4
