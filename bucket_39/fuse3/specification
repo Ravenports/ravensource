@@ -29,6 +29,9 @@ LICENSE_SCHEME=		solo
 
 NOT_FOR_OPSYS=		dragonfly
 
-USES=			meson
+USES=			meson pkgconfig
 PLIST_SUB=		SOVERSION=${SOVERSION}
 			SOMAJOR=${SOMAJOR}
+
+post-install-linux:
+	${RM} -r ${STAGEDIR}/dev

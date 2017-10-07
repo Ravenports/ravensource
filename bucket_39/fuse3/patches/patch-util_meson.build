@@ -1,0 +1,12 @@
+--- util/meson.build.orig	2017-09-12 13:50:16 UTC
++++ util/meson.build
+@@ -18,8 +18,7 @@ executable('mount.fuse3', ['mount.fuse.c
+            install: true,
+            install_dir: get_option('sbindir'))
+ 
+-udev = dependency('udev')
+-udevrulesdir = join_paths(udev.get_pkgconfig_variable('udevdir'), 'rules.d')
++udevrulesdir = '/etc/udev/rules.d'
+ 
+ meson.add_install_script('install_helper.sh', get_option('sysconfdir'),
+                          get_option('bindir'), udevrulesdir)
