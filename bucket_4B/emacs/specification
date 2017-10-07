@@ -111,6 +111,11 @@ INFO=			single:ada-mode
 			single:wisent
 			single:woman
 
+# repurpose QMAKE_ARGS for OPSYS-specific configuration
+
+VAR_OPSYS[freebsd]=	QMAKE_ARGS=--with-file-notification=kqueue
+VAR_OPSYS[dragonfly]=	QMAKE_ARGS=--with-file-notification=kqueue
+
 [X11GTK].DESCRIPTION=			X window system support (through GTK3)
 [X11GTK].GNOME_COMPONENTS_ON=		cairo gtk3 librsvg
 [X11GTK].XORG_COMPONENTS_ON=		xft xrender ice sm x11 xcb xfixes
@@ -118,8 +123,8 @@ INFO=			single:ada-mode
 [X11GTK].USES_ON=			gettext-runtime png desktop-utils
 					gnome-icons jpeg
 [X11GTK].CONFIGURE_ARGS_ON=		--with-x-toolkit=gtk3
-					--with-file-notification=kqueue
 					--with-sound=oss
+					{{QMAKE_ARGS}}
 [X11GTK].CONFIGURE_WITH_BOTH=		cairo
 					png
 					xft
