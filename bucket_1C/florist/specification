@@ -32,6 +32,7 @@ MUST_CONFIGURE=		gnu
 SUB_FILES=		florist.gpr
 
 post-extract:
-.if "${OPSYS}" != "FreeBSD"
-	(cd ${WRKSRC}/configs && ${CP} pconfig.FreeBSD pconfig.${OPSYS})
-.endif
+	if [ "${OPSYS}" != "FreeBSD" ]; then \
+	   cd ${WRKSRC}/configs && \
+	   ${CP} pconfig.FreeBSD pconfig.${OPSYS}; \
+	fi
