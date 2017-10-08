@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.900.1
+DEF[PORTVERSION]=	2.0.14
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		jasper
@@ -10,9 +10,8 @@ HOMEPAGE=		http://www.ece.uvic.ca/~frodo/jasper/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://www.ece.uvic.ca/~mdadams/jasper/software/
-			ftp://ftp.imagemagick.org/pub/ImageMagick/delegates/
-DISTFILE[1]=		jasper-${PORTVERSION}.zip:main
+SITES[main]=		GITHUB/mdadams:jasper:version-${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete primary docs
 
@@ -23,14 +22,13 @@ FPC_EQUIVALENT=		graphics/jasper
 
 BUILDRUN_DEPENDS=	freeglut:primary:standard
 
-USES=			jpeg libtool:keepla fbsd10fix
-XORG_COMPONENTS=	x11 xext xi xmu
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-shared
-			--enable-static
-			--enable-opengl
-INSTALL_TARGET=		install-strip
+USES=			jpeg cmake:outsource
+DISTNAME=		jasper-version-${PORTVERSION}
+CMAKE_ARGS=		-DJAS_ENABLE_DOC:BOOL=ON
+			-DJAS_ENABLE_LIBJPEG:BOOL=ON
+			-DJAS_ENABLE_OPENGL:BOOL=ON
+			-DJAS_ENABLE_SHARED:BOOL=ON
 
 post-install:
-	${MKDIR} ${STAGEDIR}${STD_DOCDIR}/
-	${INSTALL_DATA} ${WRKSRC}/doc/* ${STAGEDIR}${STD_DOCDIR}/
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libjasper.so
