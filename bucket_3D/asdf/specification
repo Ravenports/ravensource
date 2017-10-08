@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	3.3.0
+DEF[ASDF_PATH]=		lib/common-lisp/asdf
+DEF[ASDF_CONTRIB]=	lib/common-lisp/contrib
+DEF[ASDF_UIOP]=		lib/common-lisp/uiop
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		asdf
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel lang
+VARIANTS=		standard
+SDESC[standard]=	Another System Definition Facility for Common Lisp
+HOMEPAGE=		https://common-lisp.net/project/asdf/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://common-lisp.net/project/asdf/archives/
+DISTFILE[1]=		asdf-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/cl-asdf
+
+do-build:
+	(cd ${WRKSRC} && /bin/sh make-asdf.sh build_asdf)
+
+do-install:
+	@${MKDIR} \
+		${STAGEDIR}${PREFIX}/${ASDF_PATH} \
+		${STAGEDIR}${PREFIX}/${ASDF_CONTRIB} \
+		${STAGEDIR}${PREFIX}/${ASDF_UIOP}
+	${INSTALL_DATA} ${WRKSRC}/*.lisp ${STAGEDIR}${PREFIX}/${ASDF_PATH}
+	${INSTALL_DATA} ${WRKSRC}/build/asdf.lisp ${STAGEDIR}${PREFIX}/${ASDF_PATH}
+	${INSTALL_DATA} ${WRKSRC}/contrib/*.lisp ${STAGEDIR}${PREFIX}/${ASDF_CONTRIB}
+	${INSTALL_DATA} ${WRKSRC}/uiop/*.lisp ${STAGEDIR}${PREFIX}/${ASDF_UIOP}
+	${INSTALL_DATA} ${WRKSRC}/asdf.asd ${STAGEDIR}${PREFIX}/${ASDF_PATH}
+	${INSTALL_DATA} ${WRKSRC}/uiop/uiop.asd ${STAGEDIR}${PREFIX}/${ASDF_UIOP}
+	# documentation
+	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	(cd ${WRKSRC}/doc && ${COPYTREE_SHARE} . ${STAGEDIR}${STD_DOCDIR})
+	(cd ${STAGEDIR}${STD_DOCDIR} && ${RM} .htaccess Changelog Makefile)
