@@ -33,9 +33,6 @@ done
 
 /raven/bin/ravenadm dev generate-index
 
-
-chown -R ${maintainer} ${repo}
-
 if [ $# -lt 1 -o "${1}" != "confirm" ]; then
    echo "add 'confirm' argument to regenerate (again) but with a commit this time"
    exit 0;
@@ -45,3 +42,5 @@ fi
 (cd ${repo} && git log --format="format:%ct" --name-only) | \
   awk -f ${PD_AWK} | sort > ${PD_FILE}
 (cd ${repo}/Mk && git add Misc)
+
+chown -R ${maintainer} ${repo}
