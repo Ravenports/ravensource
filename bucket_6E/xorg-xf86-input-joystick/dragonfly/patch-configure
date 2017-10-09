@@ -1,0 +1,40 @@
+--- configure.orig	2016-11-17 22:58:48 UTC
++++ configure
+@@ -18649,9 +18649,9 @@ $as_echo "#define LINUX_BACKEND 1" >>con
+ fi
+ 
+ bsd_backend=yes
+-for ac_header in dev/usb/usb.h
++for ac_header in bus/u4b/usb.h
+ do :
+-  ac_fn_c_check_header_mongrel "$LINENO" "dev/usb/usb.h" "ac_cv_header_dev_usb_usb_h" "$ac_includes_default"
++  ac_fn_c_check_header_mongrel "$LINENO" "bus/u4b/usb.h" "ac_cv_header_dev_usb_usb_h" "$ac_includes_default"
+ if test "x$ac_cv_header_dev_usb_usb_h" = xyes; then :
+   cat >>confdefs.h <<_ACEOF
+ #define HAVE_DEV_USB_USB_H 1
+@@ -18661,11 +18661,11 @@ fi
+ 
+ done
+ 
+-for ac_header in usbhid.h dev/usb/usbhid.h
++for ac_header in usbhid.h bus/u4b/usbhid.h
+ do :
+   as_ac_Header=`$as_echo "ac_cv_header_$ac_header" | $as_tr_sh`
+ ac_fn_c_check_header_compile "$LINENO" "$ac_header" "$as_ac_Header" "#if HAVE_DEV_USB_USB_H
+-#include <dev/usb/usb.h>
++#include <bus/u4b/usb.h>
+ #endif
+ 
+ "
+@@ -18736,9 +18736,9 @@ else
+ fi
+ 
+ if test "x$bsd_backend" = xyes; then
+-    for ac_header in dev/usb/usb_ioctl.h
++    for ac_header in bus/u4b/usb_ioctl.h
+ do :
+-  ac_fn_c_check_header_mongrel "$LINENO" "dev/usb/usb_ioctl.h" "ac_cv_header_dev_usb_usb_ioctl_h" "$ac_includes_default"
++  ac_fn_c_check_header_mongrel "$LINENO" "bus/u4b/usb_ioctl.h" "ac_cv_header_dev_usb_usb_ioctl_h" "$ac_includes_default"
+ if test "x$ac_cv_header_dev_usb_usb_ioctl_h" = xyes; then :
+   cat >>confdefs.h <<_ACEOF
+ #define HAVE_DEV_USB_USB_IOCTL_H 1
