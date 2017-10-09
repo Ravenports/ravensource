@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	1.9.0
-DEF[XNAME]=		xf86-input-keyboard
+DEF[PORTVERSION]=	0.0.4
+DEF[XNAME]=		xf86-video-scfb
 DEF[ALTNAME]=		${XNAME}
 # ----------------------------------------------------------------------------
 
@@ -7,13 +7,13 @@ NAMEBASE=		xorg-${XNAME}
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11_drivers
 VARIANTS=		standard
-SDESC[standard]=	X.org keyboard input driver
+SDESC[standard]=	X.org vesa syscons display driver
 HOMEPAGE=		https://www.x.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		XORG/individual/driver
-DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
+SITES[main]=		GITHUB/rayddteam:xf86-video-scfb:${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
@@ -24,12 +24,13 @@ LICENSE=		MIT:single
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
+NOT_FOR_OPSYS=		linux
 FPC_EQUIVALENT=		x11-drivers/${ALTNAME}
 
 BUILDRUN_DEPENDS=	xorg-server:single:standard
 
 USES=			libtool
-XORG_COMPONENTS=	inputproto kbproto
+XORG_COMPONENTS=	inputproto
 			randrproto renderproto scrnsaverproto resourceproto
 			xf86driproto glproto dri2proto dri3proto presentproto
 			xineramaproto
