@@ -1,0 +1,65 @@
+DEF[PORTVERSION]=	330
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xterm
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Terminal emulator for the X Window System
+HOMEPAGE=		https://invisible-island.net/xterm/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		ftp://ftp.invisible-island.net/xterm/
+DISTFILE[1]=		xterm-${PORTVERSION}.tgz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	DECTERM DABBREV SIXEL REGIS
+OPTIONS_STANDARD=	DECTERM DABBREV SIXEL REGIS
+
+FPC_EQUIVALENT=		x11/xterm
+
+BUILD_DEPENDS=		xorg-luit:single:standard
+			freetype:primary:standard
+			pcre:static:standard
+BUILDRUN_DEPENDS=	pcre:shared:standard
+			fontconfig:primary:standard
+
+USES=			cpe ncurses desktop-utils
+XORG_COMPONENTS=	xinerama ice xt sm xaw xft xrender
+CPE_VENDOR=		invisible-island
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-narrowproto
+			--enable-256-color
+			--enable-luit
+			--enable-wide-chars
+			--enable-pcre
+			--enable-screen-dumps
+			--enable-logging
+			--without-Xaw3d
+			--without-Xaw3dxft
+			--without-neXtaw
+CONFIGURE_ENV=		cf_cv_lib_tgetent="-lncurses -ltinfo"
+CFLAGS=			-I{{NCURSESINC}}
+
+# This has no effect until utempter added to freebsd's sysroot
+VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--with-utempter
+
+[DECTERM].DESCRIPTION=			Enable DECterm Locator support
+[DABBREV].DESCRIPTION=			Enable support for dabbrev-expand
+[SIXEL].DESCRIPTION=			Enable Sixel graphics support
+[REGIS].DESCRIPTION=			Enable ReGIS graphics support
+
+[DECTERM].CONFIGURE_ENABLE_BOTH=	dec-locator
+[DABBREV].CONFIGURE_ENABLE_BOTH=	dabbrev
+[SIXEL].CONFIGURE_ENABLE_BOTH=		sixel-graphics
+[REGIS].CONFIGURE_ENABLE_BOTH=		regis-graphics
+
+post-install:
+.for f in koi8rxterm resize uxterm xterm
+	@${CHMOD} ${BINMODE} ${STAGEDIR}${PREFIX}/bin/${f}
+.endfor
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/applications/
+	${INSTALL_DATA} ${WRKSRC}/xterm.desktop \
+		${STAGEDIR}${PREFIX}/share/applications/
