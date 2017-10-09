@@ -1,0 +1,58 @@
+DEF[PORTVERSION]=	2.20
+DEF[LISPSITE]=		share/emacs/site-lisp
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		slime
+VERSION=		${PORTVERSION}
+KEYWORDS=		editors
+VARIANTS=		standard
+SDESC[standard]=	Superior Lisp Interaction Mode for Emacs
+HOMEPAGE=		https://common-lisp.net/project/slime/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/slime:slime:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		PUBDOM:primary
+LICENSE_FILE=		PUBDOM:{{WRKSRC}}/README.md
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		editors/slime
+
+BUILD_DEPENDS=		texinfo:single:standard
+BUILDRUN_DEPENDS=	emacs:single:standard
+
+SUB_FILES=		pkg-message-single
+SUB_LIST=		SLIME_LISPDIR="{{PREFIX}}/${LISPSITE}/slime"
+
+USES=			gmake makeinfo
+
+post-build:
+	(cd ${WRKSRC}/doc && ${DO_MAKE_BUILD} slime.info html/index.html)
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${STD_DOCDIR} \
+		${STAGEDIR}${PREFIX}/${LISPSITE}/slime/contrib \
+		${STAGEDIR}${PREFIX}/${LISPSITE}/slime/lib \
+		${STAGEDIR}${PREFIX}/${LISPSITE}/slime/swank
+	(cd ${WRKSRC} && ${INSTALL_DATA} *.asd *.el *.lisp \
+		${STAGEDIR}${PREFIX}/${LISPSITE}/slime)
+	(cd ${WRKSRC}/lib && ${INSTALL_DATA} *.el \
+		${STAGEDIR}${PREFIX}/${LISPSITE}/slime/lib)
+	(cd ${WRKSRC}/contrib && \
+		${INSTALL_DATA} *.el *.lisp *.ss *.scm *.sml \
+		${STAGEDIR}${PREFIX}/${LISPSITE}/slime/contrib)
+	(cd ${WRKSRC}/swank && ${INSTALL_DATA} *.lisp \
+		${STAGEDIR}${PREFIX}/${LISPSITE}/slime/swank)
+	${INSTALL_DATA} ${INSTALL_WRKSRC}/doc/slime.info \
+		${STAGEDIR}${PREFIX}/${INFO_PATH}
+	(cd ${WRKSRC}/doc && ${INSTALL_DATA} slime* contributors.texi \
+		${STAGEDIR}${STD_DOCDIR})
+	(cd ${WRKSRC}/doc && \
+		${COPYTREE_SHARE} html ${STAGEDIR}${STD_DOCDIR})
