@@ -336,6 +336,7 @@ headers_FreeBSD_dirs=	arpa \
 			# end
 
 headers_DragonFly_dirs=	arpa \
+			bus \
 			libprop \
 			netinet \
 			netinet6 \
