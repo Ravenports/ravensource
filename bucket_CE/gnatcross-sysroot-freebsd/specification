@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	1
+DEF[LAST_RELEASE]=	11.1
+DEF[PUB_FREEBSD]=	ftp://ftp.freebsd.org/pub/FreeBSD
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gnatcross-sysroot-freebsd
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		ARM64_R11
+SDESC[ARM64_R11]=	FreeBSD C/Ada cross-compiler sysroot (ARM64/R11)
+HOMEPAGE=		http://www.dragonlace.net
+CONTACT=		John_Marino[john@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		${PUB_FREEBSD}/releases/arm64/aarch64/
+DISTFILE[1]=		${LAST_RELEASE}-RELEASE/base.txz:main
+DIST_SUBDIR=		gnatcross/freebsd-arm64
+
+SPKGS[ARM64_R11]=	single
+
+OPTIONS_AVAILABLE=	ARM64R11
+OPTIONS_STANDARD=	none
+VOPTS[ARM64_R11]=	ARM64R11=ON
+
+FPC_EQUIVALENT=		lang/gnatcross-sysroot-aarch64
+NOT_FOR_ARCH=		aarch64
+
+SKIP_BUILD=		yes
+INVALID_RPATH=		yes
+EXTRACT_HEAD[1]=	{{TAR}} -xf
+EXTRACT_TAIL[1]=	--no-same-owner --no-same-permissions lib/ usr/include/ usr/lib/
+
+[ARM64R11].DESCRIPTION=			Package FreeBSD/ARM64 Release ${LAST_RELEASE} system root
+[ARM64R11].MAKEFILE_ON=			CTARGET=aarch64-raven-freebsd${LAST_RELEASE}
+					PREFIX={{LOCALBASE}}/FreeBSD_ARM64
+
+post-extract:
+	/bin/chflags -R noschg ${WRKDIR}
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/sysroot
+	@${MV} ${WRKDIR}/lib ${STAGEDIR}${PREFIX}/sysroot
+	@${MV} ${WRKDIR}/usr ${STAGEDIR}${PREFIX}/sysroot
+	@${ECHO_CMD} ${CTARGET} > ${STAGEDIR}${PREFIX}/sysroot/target_triplet
+	@(cd ${STAGEDIR}${PREFIX}; ${FIND} sysroot -type d -empty -delete)
