@@ -1,0 +1,61 @@
+DEF[SNAPDATE]=		20170927
+DEF[PORTVERSION]=	2.99.917.${SNAPDATE}
+DEF[TAG]=		291fdcdc09420d8e422617070731eb3da3d55b44
+DEF[XNAME]=		xf86-video-intel
+DEF[ALTNAME]=		${XNAME}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-${XNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_drivers
+VARIANTS=		standard
+SDESC[standard]=	X.org driver for Intel graphics controllers
+HOMEPAGE=		https://www.x.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://cgit.freedesktop.org/xorg/driver/xf86-video-intel/snapshot/
+DISTFILE[1]=		${TAG}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	SNA UXA
+OPTIONS_STANDARD=	SNA UXA
+OPTGROUP_RADIO=		ACCEL
+OPTDESCR[ACCEL]=	Default AccelMethod (if not specified in xorg.conf)
+OPTGROUP[ACCEL]=	SNA UXA
+OPT_ON[all]=		UXA
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+NOT_FOR_ARCH=		aarch64
+FPC_EQUIVALENT=		x11-drivers/${ALTNAME}
+
+BUILDRUN_DEPENDS=	xorg-server:single:standard
+			xorg-xcb-util:single:standard
+			libdrm:single:standard
+			mesa:libs:standard
+
+USES=			libtool cpe autoreconf
+XORG_COMPONENTS=	inputproto pciaccess pixman x11 xcb xext xrender xv xvmc
+			randrproto renderproto scrnsaverproto resourceproto
+			xf86driproto glproto dri2proto dri3proto presentproto
+			xineramaproto
+DISTNAME=		${TAG}
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+CPE_VENDOR=		x
+
+[UXA].DESCRIPTION=			Unified Acceleration Architecture
+[SNA].DESCRIPTION=			SandyBridge's New Acceleration
+
+[UXA].CONFIGURE_ARGS_ON=		--with-default-accel=uxa
+[SNA].CONFIGURE_ARGS_ON=		--with-default-accel=sna
+
+post-patch-dragonfly:
+	# Prefer to use dfly specific sigjmp_buf for less errors
+	${REINPLACE_CMD} -e 's|jmp_buf |sigjmp_buf |g' \
+		${WRKSRC}/src/sna/sna.h	\
+		${WRKSRC}/src/sna/sna_accel.c
