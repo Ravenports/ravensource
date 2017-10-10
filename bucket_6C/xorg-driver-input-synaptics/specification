@@ -1,13 +1,13 @@
-DEF[PORTVERSION]=	1.9.2
-DEF[XNAME]=		xf86-input-mouse
-DEF[ALTNAME]=		${XNAME}
+DEF[PORTVERSION]=	1.9.0
+DEF[XNAME]=		driver-input-synaptics
+DEF[ALTNAME]=		xf86-input-synaptics
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xorg-${XNAME}
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11_drivers
 VARIANTS=		standard
-SDESC[standard]=	X.org mouse input driver
+SDESC[standard]=	X.org input driver for Synaptics touchpad devices
 HOMEPAGE=		https://www.x.org/
 CONTACT=		nobody
 
@@ -29,7 +29,7 @@ FPC_EQUIVALENT=		x11-drivers/${ALTNAME}
 BUILDRUN_DEPENDS=	xorg-server:single:standard
 
 USES=			libtool
-XORG_COMPONENTS=	inputproto
+XORG_COMPONENTS=	inputproto xtst
 			randrproto renderproto scrnsaverproto resourceproto
 			xf86driproto glproto dri2proto dri3proto presentproto
 			xineramaproto
