@@ -1,0 +1,30 @@
+DEF[PORTVERSION]=	0.7.6
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gts
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	GNU Triangulated Surface Library
+HOMEPAGE=		http://gts.sourceforge.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/gts/gts/${PORTVERSION}
+DISTFILE[1]=		gts-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		graphics/gts
+
+USES=			libtool pkgconfig
+GNOME_COMPONENTS=	glib
+INSTALL_TARGET=		install-strip
+MUST_CONFIGURE=		gnu
+
+post-patch:
+	 @${REINPLACE_CMD} -e 's|netpbm="true"|netpbm="false"|' \
+		${WRKSRC}/configure
