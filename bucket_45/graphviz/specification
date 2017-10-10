@@ -1,0 +1,166 @@
+DEF[PORTVERSION]=	2.40.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		graphviz
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Graph visualization tools
+HOMEPAGE=		http://www.graphviz.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.graphviz.org/pub/graphviz/ARCHIVE/
+DISTFILE[1]=		graphviz-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary examples docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		graphics/graphviz
+
+BUILDRUN_DEPENDS=	mesa:libs:standard
+			freeglut:primary:standard
+			libGD:single:standard
+			gts:single:standard
+
+USES=			bison cpe gmake jpeg libtool:keepla pkgconfig
+			shebangfix iconv gettext-tools gettext-runtime
+XORG_COMPONENTS=	xaw xpm xmu xt sm ice xext x11 xau xdmcp xp xrender
+			xinerama xi xrandr xcursor xfixes
+GNOME_COMPONENTS=	pango cairo librsvg gtk2
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-x
+			--with-nls
+			--with-gtk
+			--with-gts
+			--with-gdk
+			--with-gdk-pixbuf
+			--with-gnomeui
+			--with-rsvg
+			--with-digcola
+			--with-ipsepcola
+			--with-pangocairo
+			--with-ghostscript=no
+			--with-qt=no
+			--without-ann
+			--without-ming
+			--without-devil
+			--without-poppler
+			--without-smyrna
+			--without-glade
+			--without-gtkgl
+			--without-gtkglext
+			--disable-io
+			--disable-ocaml
+			--disable-java
+			--disable-sharp
+			--disable-lua
+			--disable-tcl
+			--disable-php
+			--disable-perl
+			--disable-ruby
+			--disable-guile
+			--disable-python
+			--program-transform-name="s/x/x/"
+			--enable-dependency-tracking
+			--enable-r=no
+			--with-freetype2=yes
+			--with-libgd
+			--with-fontconfigincludedir={{LOCALBASE}}/include
+			--with-fontconfiglibdir={{LOCALBASE}}/lib
+			--with-iconvlibdir={{ICONV_PREFIX}}/lib
+			--with-iconvincludedir={{ICONV_PREFIX}}/include
+MAKE_ENV=		EXPR_COMPAT=yes
+MAKE_ARGS=		pkgconfigdir={{PREFIX}}/lib/pkgconfig
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-patch:
+	${FIND} ${WRKSRC} -name Makefile.in | \
+		${XARGS} ${REINPLACE_CMD} \
+		-e "s|\([^:]*:.*\) install-pdfDATA\(.*\)|\1\2|g" \
+		-e "s|\([^:]*:.*\) install-htmlDATA\(.*\)|\1\2|g" \
+		-e "s|\([^:]*:.*\) install-txtDATA\(.*\)|\1\2|g" \
+		-e "s|\([^:]*:.*\) install-demoDATA\(.*\)|\1\2|g" \
+		-e "s|\([^:]*:.*\) install-demoSCRIPTS\(.*\)|\1\2|g" \
+		-e "s|\([^:]*:.*\) install-pathplanexampleDATA\(.*\)|\1\2|g" \
+		-e 's|txtdir = $$(pkgdatadir)/doc|txtdir = ${DOCSDIR}|' \
+		-e 's|demodir = $$(pkgdatadir)/demo|demodir = ${EXAMPLESDIR}|';
+	${REINPLACE_CMD} \
+		-e 's|^\.SUFFIXES: \(.*\)\.1\(.*\)|.SUFFIXES: \1 \2|' \
+		${WRKSRC}/cmd/tools/Makefile.in \
+		${WRKSRC}/cmd/gvpr/Makefile.in
+	${FIND} ${WRKSRC}/lib -name 'Makefile.in' | \
+		${XARGS} ${REINPLACE_CMD} \
+		-e 's|pkglibdir = $$(libdir)/@PACKAGE@|pkglibdir = $$(libdir)|g' \
+		-e 's|libdir = @libdir@|libdir = @libdir@/@PACKAGE@|g';
+	${FIND} ${WRKSRC}/lib -name '*.pc.in' | \
+		${XARGS} ${REINPLACE_CMD} \
+		-e 's|libdir=@libdir@|libdir=@libdir@/@PACKAGE@|';
+	${REINPLACE_CMD} -e "s|/usr/include/php|${LOCALBASE}/include/php|g" \
+		-e "s|vendorarchdir|sitearchdir|g" \
+		-e "s|-lruby|-lruby${RUBY_SUFFIX}|g" \
+		-e "s|ruby-1[.]9|ruby-${RUBY_VER}|g" \
+		-e 's|PHP_INSTALL_DIR=.*|PHP_INSTALL_DIR="${PREFIX}/lib/php/${PHP_EXT_DIR}"|' \
+		-e 's|PHP_INSTALL_DATADIR=.*|PHP_INSTALL_DATADIR="${PREFIX}/share/php"|' \
+		-e '/if test/ s| == | = |g' ${WRKSRC}/configure
+	${REINPLACE_CMD} -e 's|#include "gui.h"|#include "gui/gui.h"|' \
+		${WRKSRC}/cmd/smyrna/tvnodes.h
+	${REINPLACE_CMD} -e 's|GTS_LIBS)|GTS_LIBS) $$(MATH_LIBS)|' \
+		${WRKSRC}/cmd/smyrna/Makefile.in
+	${CP} ${WRKSRC}/lib/cgraph/cgraph.h ${WRKSRC}/plugin/ming/
+
+post-patch-freebsd:
+	if [ ${OSVERSION} -ge 1100093 ]; then \
+		${REINPLACE_CMD} -e 's|SF_FLAGS|SFIO_FLAGS|g' \
+			${WRKSRC}/lib/sfio/*.[ch]; \
+	fi
+
+post-install:
+	# various
+	(cd ${WRKSRC}/lib/expr && ${MAKE_ENV} ${MAKE} ${MAKE_ARGS} all)
+	(cd ${WRKSRC} && ${INSTALL_DATA} \
+		lib/cdt/dthdr.h \
+		lib/pathplan/tri.h \
+		lib/pathplan/pathplan.h \
+		lib/pathplan/pathutil.h \
+		lib/pathplan/solvers.h \
+		lib/pathplan/vis.h \
+		lib/pathplan/vispath.h \
+		lib/common/arith.h \
+		lib/common/logic.h \
+		lib/common/globals.h \
+		lib/gvc/gvcint.h \
+		${STAGEDIR}${PREFIX}/include/graphviz/)
+	${RM} ${STAGEDIR}${MANPREFIX}/man/man1/smyrna.1
+	${RM} ${STAGEDIR}${MANPREFIX}/man/man1/mingle.1
+
+	# documentation
+	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}/html ${STAGEDIR}${STD_DOCDIR}/pdf
+	cd ${WRKSRC} && \
+		${INSTALL_DATA} doc/Dot.ref doc/latex_suggestions.txt \
+			${STAGEDIR}${STD_DOCDIR}/ && \
+		${INSTALL_DATA} doc/*.pdf */*/*.pdf \
+			${STAGEDIR}${STD_DOCDIR}/pdf/ && \
+		${INSTALL_DATA} doc/*.html doc/info/*.gif \
+			${STAGEDIR}${STD_DOCDIR}/html/
+
+	# examples
+	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}/pathplan_data
+	${INSTALL_SCRIPT} \
+		${WRKSRC}/tclpkg/gdtclft/demo/entities.tcl \
+		${WRKSRC}/tclpkg/tcldot/demo/doted.tcl \
+		${WRKSRC}/tclpkg/tcldot/demo/gcat.tcl \
+		${WRKSRC}/tclpkg/tclpathplan/demo/pathplan.tcl \
+		${STAGEDIR}${STD_EXAMPLESDIR}/
+	${INSTALL_DATA} \
+		${WRKSRC}/tclpkg/gdtclft/demo/entities.tcl.README \
+		${WRKSRC}/tclpkg/tcldot/demo/doted.tcl.README \
+		${WRKSRC}/tclpkg/tcldot/demo/gcat.tcl.README \
+		${WRKSRC}/tclpkg/tclpathplan/demo/pathplan.tcl.README \
+		${STAGEDIR}${STD_EXAMPLESDIR}/
+	${INSTALL_DATA} \
+		${WRKSRC}/tclpkg/tclpathplan/demo/pathplan_data/*.dat \
+		${STAGEDIR}${STD_EXAMPLESDIR}/pathplan_data/
