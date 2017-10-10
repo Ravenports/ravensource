@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.36.5
+DEF[PORTVERSION]=	0.38.2
 DEF[VALAVER]=		${PORTVERSION:R}
 # ----------------------------------------------------------------------------
 
@@ -21,9 +21,12 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		lang/vala
 
+BUILDRUN_DEPENDS=	graphviz:primary:standard
+
 USES=			bison gettext-runtime gmake libtool pkgconfig
 GNOME_COMPONENTS=	glib libxslt
 INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
 MUST_CONFIGURE=		gnu
 CONFIGURE_ENV=		GTKDOC="false"
 CONFIGURE_ARGS=		-localstatedir={{PREFIX}}/share
