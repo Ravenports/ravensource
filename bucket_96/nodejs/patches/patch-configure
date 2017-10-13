@@ -1,6 +1,15 @@
---- configure.orig	2017-08-15 14:13:44 UTC
+--- configure.orig	2017-10-13 13:36:06 UTC
 +++ configure
-@@ -642,6 +642,8 @@ def check_compiler(o):
+@@ -57,7 +57,7 @@ from gyp_node import run_gyp
+ parser = optparse.OptionParser()
+ 
+ valid_os = ('win', 'mac', 'solaris', 'freebsd', 'openbsd', 'linux',
+-            'android', 'aix')
++            'android', 'aix', 'dragonfly')
+ valid_arch = ('arm', 'arm64', 'ia32', 'mips', 'mipsel', 'mips64el', 'ppc',
+               'ppc64', 'x32','x64', 'x86', 's390', 's390x')
+ valid_arm_float_abi = ('soft', 'softfp', 'hard')
+@@ -667,6 +667,8 @@ def check_compiler(o):
  
    if is_clang:
      o['variables']['llvm_version'] = get_llvm_version(CC)
@@ -9,3 +18,13 @@
  
    # Need xcode_version or gas_version when openssl asm files are compiled.
    if options.without_ssl or options.openssl_no_asm or options.shared_openssl:
+@@ -1458,9 +1460,6 @@ if options.prefix:
+ 
+ config = '\n'.join(map('='.join, config.iteritems())) + '\n'
+ 
+-bin_override = get_bin_override()
+-if bin_override:
+-  config = 'export PATH:=' + bin_override + ':$(PATH)\n' + config
+ 
+ write('config.mk', do_not_edit + config)
+ 

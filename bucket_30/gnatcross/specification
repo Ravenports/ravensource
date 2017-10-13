@@ -98,6 +98,10 @@ post-patch:
 		${WRKSRC}/gcc/config/i386/gnu-user64.h \
 		${WRKSRC}/gcc/config/aarch64/aarch64-freebsd.h
 
+	# fix FreeBSD spec error
+	${REINPLACE_CMD} -e 's|static:crtbeginT.o%s;||' \
+		${WRKSRC}/gcc/config/freebsd-spec.h
+
 	# work around malloc detection issue
 	${REINPLACE_CMD} -e 's/#undef HAVE_ALIGNED_ALLOC/#define HAVE_ALIGNED_ALLOC 1/' \
 		${WRKSRC}/libstdc++-v3/config.h.in
