@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.5.2
+DEF[PORTVERSION]=	1.6.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-libnacl
@@ -12,8 +12,8 @@ HOMEPAGE=		https://libnacl.readthedocs.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/l/libnacl
-DISTFILE[1]=		libnacl-1.5.2.tar.gz:main
+SITES[main]=		GITHUB/saltstack:libnacl:v${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[py27]=		single
 SPKGS[py35]=		single
@@ -25,20 +25,18 @@ VOPTS[py27]=		PY27=ON PY35=OFF PY36=OFF
 VOPTS[py35]=		PY27=OFF PY35=ON PY36=OFF
 VOPTS[py36]=		PY27=OFF PY35=OFF PY36=ON
 
-LICENSE=		CUSTOM1:single
-LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE
-LICENSE_NAME=		CUSTOM1:"UNKNOWN"
+LICENSE=		APACHE20:single
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
-GENERATED=		yes
+BUILDRUN_DEPENDS=	libsodium:single:standard
+
+# GENERATED=		yes
 
 # install_requires extracted from setup.py (using python 2.7)
 
 DISTNAME=		libnacl-${PORTVERSION}
 
 [PY27].USES_ON=				python:py27
-
 [PY35].USES_ON=				python:py35
-
 [PY36].USES_ON=				python:py36
-BUILDRUN_DEPENDS=	libsodium:single:standard

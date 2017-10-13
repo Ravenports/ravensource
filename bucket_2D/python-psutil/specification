@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.3.1
+DEF[PORTVERSION]=	5.4.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-psutil
@@ -31,3 +31,6 @@ FPC_EQUIVALENT=		sysutils/py-psutil
 [PY27].USES_ON=				python:py27
 [PY35].USES_ON=				python:py35
 [PY36].USES_ON=				python:py36
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/psutil/*.so

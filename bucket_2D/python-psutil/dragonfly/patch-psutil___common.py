@@ -1,4 +1,4 @@
---- psutil/_common.py.orig	2017-08-03 16:14:27 UTC
+--- psutil/_common.py.orig	2017-10-06 05:51:06 UTC
 +++ psutil/_common.py
 @@ -43,7 +43,7 @@ PY3 = sys.version_info[0] == 3
  __all__ = [
@@ -17,5 +17,5 @@
 +DRAGONFLY = sys.platform.startswith("dragonfly")
 +BSD = FREEBSD or OPENBSD or NETBSD or DRAGONFLY
  SUNOS = sys.platform.startswith("sunos") or sys.platform.startswith("solaris")
- 
+ AIX = sys.platform.startswith("aix")
  
