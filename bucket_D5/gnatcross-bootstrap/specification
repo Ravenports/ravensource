@@ -44,12 +44,11 @@ BUILD_DEPENDS=		Zstandard:single:standard
 USES=			cpe gmake libtool perl:build
 DISTNAME=		${IDENTIFICATION}
 PLIST_SUB=		TGTSYS={{TGTSYS}}
-PREFIX=			{{LOCALBASE}}/${GCC_PREFIX}
 INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		yes
 CONFIGURE_OUTSOURCE=	yes
 CONFIGURE_ARGS=		--enable-languages="c,c++,ada,fortran"
-			--prefix={{PREFIX}}
+			--prefix={{LOCALBASE}}/${GCC_PREFIX}
 			--enable-shared
 			--enable-threads=posix
 			--enable-checking=release
@@ -124,7 +123,7 @@ post-stage:
 	${MV} ${STAGEDIR} ${STAGEDIR}.old
 	${MKDIR} ${STAGEDIR}${LOCALBASE}/share/${NAMEBASE}
 	(cd ${WRKDIR} && ${TAR} -cf \
-		${STAGEDIR}${LOCALBASE}/share/${NAMEBASE}/bootstrap_pkg/${TGTSYS}-gcc.tar \
+		${STAGEDIR}${LOCALBASE}/share/${NAMEBASE}/${TGTSYS}-gcc.tar \
 		bootstrap_compiler)
-	(cd ${STAGEDIR}${LOCALBASE}/share/${NAMEBASE}/bootstrap_pkg && \
-		zstd -7 ${TGTSYS}-gcc.tar)
+	(cd ${STAGEDIR}${LOCALBASE}/share/${NAMEBASE} && \
+		zstd -7 --rm ${TGTSYS}-gcc.tar)
