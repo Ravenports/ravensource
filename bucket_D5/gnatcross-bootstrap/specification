@@ -100,21 +100,21 @@ post-patch:
 	#	${WRKSRC}/gcc/ada/gcc-interface/Makefile.in
 
 post-install:
-	cp ${STAGEDIR}${PREFIX}/bin/gcc ${STAGEDIR}${PREFIX}/bin/cc
-	cp ${STAGEDIR}${PREFIX}/bin/g++ ${STAGEDIR}${PREFIX}/bin/CC
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gcc/${TGTSYS}/${GCC_VERSION}/adalib/libgnarl.so
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gcc/${TGTSYS}/${GCC_VERSION}/adalib/libgnat.so
+	cp ${STAGEDIR}${PREFIX}/${GCC_PREFIX}/bin/gcc ${STAGEDIR}${PREFIX}/${GCC_PREFIX}/bin/cc
+	cp ${STAGEDIR}${PREFIX}/${GCC_PREFIX}/bin/g++ ${STAGEDIR}${PREFIX}/${GCC_PREFIX}/bin/CC
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${GCC_PREFIX}/lib/gcc/${TGTSYS}/${GCC_VERSION}/adalib/libgnarl.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${GCC_PREFIX}/lib/gcc/${TGTSYS}/${GCC_VERSION}/adalib/libgnat.so
 
 post-install-dragonfly:
-	${RM} -r ${STAGEDIR}${PREFIX}/lib/gcc/${TGTSYS}/${GCC_VERSION}/include-fixed
+	${RM} -r ${STAGEDIR}${PREFIX}/${GCC_PREFIX}/lib/gcc/${TGTSYS}/${GCC_VERSION}/include-fixed
 
 post-install-freebsd:
-	${RM} -r ${STAGEDIR}${PREFIX}/lib/gcc/${TGTSYS}/${GCC_VERSION}/include-fixed
+	${RM} -r ${STAGEDIR}${PREFIX}/${GCC_PREFIX}/lib/gcc/${TGTSYS}/${GCC_VERSION}/include-fixed
 
 post-stage:
 	# package bootstrap compiler with zstd, then relocate files to avoid packaging them
 	@${MKDIR} ${WRKDIR}/bootstrap_compiler
-	(cd ${STAGEDIR}${PREFIX} \
+	(cd ${STAGEDIR}${PREFIX}/${GCC_PREFIX} \
 		&& ${CP} -a bin ${WRKDIR}/bootstrap_compiler \
 		&& ${CP} -a lib ${WRKDIR}/bootstrap_compiler \
 		&& ${CP} -a include ${WRKDIR}/bootstrap_compiler \
