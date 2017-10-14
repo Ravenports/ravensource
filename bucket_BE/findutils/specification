@@ -18,9 +18,10 @@ DISTFILE[1]=		findutils-${PORTVERSION}.tar.gz:main
 SPKGS[standard]=	single
 SPKGS[nls]=		single
 
-OPTIONS_AVAILABLE=	NLS
-OPTIONS_STANDARD=	none
-VOPTS[nls]=		NLS=ON
+OPTIONS_AVAILABLE=	GPREFIX NLS
+OPTIONS_STANDARD=	GPREFIX NLS
+OPT_ON[all]=		GPREFIX
+VOPTS[nls]=		GPREFIX=ON NLS=ON
 
 LICENSE=		GPLv3:single
 LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING
@@ -30,14 +31,18 @@ FPC_EQUIVALENT=		misc/findutils
 
 USES=			charsetfix cpe gmake
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--program-prefix=g
-			--localstatedir="${LOCALSTATEDIR}"
+CONFIGURE_ARGS=		--localstatedir="${LOCALSTATEDIR}"
 MAKE_ARGS=		INSTALL_SCRIPT="{{INSTALL_SCRIPT}}"
 INFO=			single:find single:find-maint
 CPE_VENDOR=		gnu
 
+PLIST_SUB=		GPREFIX-OFF= GPREFIX-ON="g"
+
 [NLS].USES_ON=				gettext-runtime
 [NLS].CONFIGURE_ENABLE_BOTH=		nls
+
+[GPREFIX].CONFIGURE_ARGS_ON=		--program-prefix=g
+[GPREFIX].DESCRIPTION=			Build program with the "g" prefix
 
 post-install:
 	${RM} -r ${STAGEDIR}/var
