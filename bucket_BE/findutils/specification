@@ -5,9 +5,10 @@ DEF[LOCALSTATEDIR]=	/var/db
 NAMEBASE=		findutils
 VERSION=		${PORTVERSION}
 KEYWORDS=		misc
-VARIANTS=		standard nls
+VARIANTS=		standard nls noprefix
 SDESC[standard]=	GNU find utilities (static)
 SDESC[nls]=		GNU find utilities with native language support
+SDESC[noprefix]=	GNU find utilities with unprefixed program names
 HOMEPAGE=		http://www.gnu.org/software/findutils/
 CONTACT=		nobody
 
@@ -17,10 +18,12 @@ DISTFILE[1]=		findutils-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	single
 SPKGS[nls]=		single
+SPKGS[noprefix]=	single
 
-OPTIONS_AVAILABLE=	NLS
+OPTIONS_AVAILABLE=	NLS NOPREFIX
 OPTIONS_STANDARD=	none
-VOPTS[nls]=		NLS=ON
+VOPTS[nls]=		NLS=ON NOPREFIX=OFF
+VOPTS[noprefix]=	NLS=ON NOPREFIX=ON
 
 LICENSE=		GPLv3:single
 LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING
@@ -30,14 +33,16 @@ FPC_EQUIVALENT=		misc/findutils
 
 USES=			charsetfix cpe gmake
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--program-prefix=g
-			--localstatedir="${LOCALSTATEDIR}"
+CONFIGURE_ARGS=		--localstatedir="${LOCALSTATEDIR}"
 MAKE_ARGS=		INSTALL_SCRIPT="{{INSTALL_SCRIPT}}"
 INFO=			single:find single:find-maint
 CPE_VENDOR=		gnu
 
 [NLS].USES_ON=				gettext-runtime
 [NLS].CONFIGURE_ENABLE_BOTH=		nls
+
+[NOPREFIX].CONFIGURE_ARGS_OFF=		--program-prefix=g
+[NOPREFIX].DESCRIPTION=			Build without prefixing all programs with "g"
 
 post-install:
 	${RM} -r ${STAGEDIR}/var

@@ -4,9 +4,10 @@ DEF[PORTVERSION]=	3.6
 NAMEBASE=		diffutils
 VERSION=		${PORTVERSION}
 KEYWORDS=		textproc
-VARIANTS=		standard nls
+VARIANTS=		standard nls noprefix
 SDESC[standard]=	GNU diff utilities
 SDESC[nls]=		GNU diff utilities with native language support
+SDESC[noprefix]=	GNU diff utilities with unprefixed program names
 HOMEPAGE=		http://www.gnu.org/software/diffutils/diffutils.html
 CONTACT=		nobody
 
@@ -16,10 +17,12 @@ DISTFILE[1]=		diffutils-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	single
 SPKGS[nls]=		single
+SPKGS[noprefix]=	single
 
-OPTIONS_AVAILABLE=	NLS
+OPTIONS_AVAILABLE=	NLS NOPREFIX
 OPTIONS_STANDARD=	none
-VOPTS[nls]=		NLS=ON
+VOPTS[nls]=		NLS=ON NOPREFIX=OFF
+VOPTS[noprefix]=	NLS=ON NOPREFIX=ON
 
 BUILD_DEPENDS=		libsigsegv:static:standard
 
@@ -27,11 +30,13 @@ FPC_EQUIVALENT=		textproc/diffutils
 
 USES=			charsetfix
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--program-prefix=g
 INFO=			single:diffutils
 
 [NLS].USES_ON=				gettext-runtime
 [NLS].CONFIGURE_ENABLE_BOTH=		nls
+
+[NOPREFIX].CONFIGURE_ARGS_OFF=		--program-prefix=g
+[NOPREFIX].DESCRIPTION=			Build without prefixing all programs with "g"
 
 post-patch:
 	@${REINPLACE_CMD} -e '/^mkdir/s:@mkdir_p@:${MKDIR}:' \
