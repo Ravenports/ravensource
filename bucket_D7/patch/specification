@@ -4,8 +4,9 @@ DEF[PORTVERSION]=	2.7.5
 NAMEBASE=		patch
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		standard
+VARIANTS=		standard noprefix
 SDESC[standard]=	GNU patch utility
+SDESC[noprefix]=	GNU patch utility with unprefixed program name
 HOMEPAGE=		http://www.gnu.org/software/patch/patch.html
 CONTACT=		nobody
 
@@ -14,9 +15,11 @@ SITES[main]=		GNU/patch
 DISTFILE[1]=		patch-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	single
+SPKGS[noprefix]=	single
 
-OPTIONS_AVAILABLE=	none
+OPTIONS_AVAILABLE=	NOPREFIX
 OPTIONS_STANDARD=	none
+VOPTS[noprefix]=	NOPREFIX=ON
 
 LICENSE=		GPLv3:single
 LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING
@@ -28,5 +31,7 @@ USES=			charsetfix cpe gmake
 
 CPE_VENDOR=		gnu
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--program-prefix=g
 CFLAGS=			-D__RAVEN__
+
+[NOPREFIX].CONFIGURE_ARGS_OFF=		--program-prefix=g
+[NOPREFIX].DESCRIPTION=			Build without prefixing program with "g"
