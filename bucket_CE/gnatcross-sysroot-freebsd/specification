@@ -1,26 +1,32 @@
 DEF[PORTVERSION]=	1
-DEF[LAST_RELEASE]=	EXTRACT_INFO(GNATCROSS_FREEBSD_11)
+DEF[F11_RELEASE]=	EXTRACT_INFO(GNATCROSS_FREEBSD_11)
+DEF[F12_RELEASE]=	EXTRACT_INFO(GNATCROSS_FREEBSD_12)
 DEF[PUB_FREEBSD]=	ftp://ftp.freebsd.org/pub/FreeBSD
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnatcross-sysroot-freebsd
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang
-VARIANTS=		ARM64_R11
+VARIANTS=		ARM64_R11 AMD64_R12
 SDESC[ARM64_R11]=	FreeBSD C/Ada cross-compiler sysroot (ARM64/R11)
+SDESC[AMD64_R12]=	FreeBSD C/Ada cross-compiler sysroot (AMD64/R12)
 HOMEPAGE=		http://www.dragonlace.net
 CONTACT=		John_Marino[john@marino.st]
 
-DOWNLOAD_GROUPS=	main
-SITES[main]=		${PUB_FREEBSD}/releases/arm64/aarch64/
-DISTFILE[1]=		${LAST_RELEASE}-RELEASE/base.txz:main
-DIST_SUBDIR=		gnatcross/freebsd-arm64
+DOWNLOAD_GROUPS=	main amd64
+SITES[main]=		${PUB_FREEBSD}/releases/arm64/aarch64/${F11_RELEASE}-RELEASE/
+SITES[amd64]=		http://ravenports.ironwolf.systems/cache-distfiles/
+DISTFILE[1]=		base.txz:main
+DISTFILE[2]=		base-12.0-20171012.txz:amd64
+DIST_SUBDIR=		gnatcross/freebsd
 
 SPKGS[ARM64_R11]=	single
+SPKGS[AMD64_R12]=	single
 
-OPTIONS_AVAILABLE=	ARM64R11
+OPTIONS_AVAILABLE=	ARM64R11 AMD64R12
 OPTIONS_STANDARD=	none
-VOPTS[ARM64_R11]=	ARM64R11=ON
+VOPTS[ARM64_R11]=	ARM64R11=ON AMD64R12=OFF
+VOPTS[AMD64_R12]=	ARM64R11=OFF AMD64R12=ON
 
 FPC_EQUIVALENT=		lang/gnatcross-sysroot-aarch64
 NOT_FOR_ARCH=		aarch64
@@ -29,17 +35,27 @@ SKIP_BUILD=		yes
 INVALID_RPATH=		yes
 EXTRACT_HEAD[1]=	{{TAR}} -xf
 EXTRACT_TAIL[1]=	--no-same-owner --no-same-permissions lib/ usr/include/ usr/lib/
+EXTRACT_DIRTY=		1 2
 
-[ARM64R11].DESCRIPTION=			Package FreeBSD/ARM64 Release ${LAST_RELEASE} system root
-[ARM64R11].MAKEFILE_ON=			CTARGET=aarch64-raven-freebsd${LAST_RELEASE}
+[ARM64R11].DESCRIPTION=			Package FreeBSD/ARM64 Release ${F11_RELEASE} system root
+[ARM64R11].MAKEFILE_ON=			CTARGET=aarch64-raven-freebsd${F11_RELEASE}
 					PREFIX={{LOCALBASE}}/FreeBSD11_ARM64
+[ARM64R11].DF_INDEX_ON=			1
+[AMD64R12].DESCRIPTION=			Package FreeBSD/AMD64 Release ${F12_RELEASE} system root
+[AMD64R12].MAKEFILE_ON=			CTARGET=x86_64-raven-freebsd${F12_RELEASE}
+					PREFIX={{LOCALBASE}}/FreeBSD12_AMD64
+[AMD64R12].DF_INDEX_ON=			2
 
 post-extract:
 	/bin/chflags -R noschg ${WRKDIR}
 
 do-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/sysroot
-	@${MV} ${WRKDIR}/lib ${STAGEDIR}${PREFIX}/sysroot
-	@${MV} ${WRKDIR}/usr ${STAGEDIR}${PREFIX}/sysroot
-	@${ECHO_CMD} ${CTARGET} > ${STAGEDIR}${PREFIX}/sysroot/target_triplet
-	@(cd ${STAGEDIR}${PREFIX}; ${FIND} sysroot -type d -empty -delete)
+	@${MKDIR} ${STAGEDIR}${PREFIX}/sysroot/usr
+	${MV} ${WRKDIR}/gnatcross-sys*/lib ${STAGEDIR}${PREFIX}/sysroot
+	${MV} ${WRKDIR}/gnatcross-sys*/usr/include ${STAGEDIR}${PREFIX}/sysroot/usr
+	${MV} ${WRKDIR}/gnatcross-sys*/usr/lib ${STAGEDIR}${PREFIX}/sysroot/usr
+	${ECHO_CMD} ${CTARGET} > ${STAGEDIR}${PREFIX}/sysroot/target_triplet
+	(cd ${STAGEDIR}${PREFIX}; ${FIND} sysroot -type d -empty -delete)
+
+do-install-AMD64R12-ON:
+	${RM} -r ${STAGEDIR}${PREFIX}/sysroot/usr/lib/libxo
