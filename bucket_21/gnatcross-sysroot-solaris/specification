@@ -1,0 +1,47 @@
+DEF[PORTVERSION]=	1
+DEF[PUB_FREEBSD]=	ftp://ftp.freebsd.org/pub/FreeBSD
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gnatcross-sysroot-solaris
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		SOL10
+SDESC[SOL10]=		Solaris 10 C/Ada cross-compiler sysroot
+HOMEPAGE=		http://www.dragonlace.net
+CONTACT=		John_Marino[john@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://downloads.dragonlace.net/misc/
+DISTFILE[1]=		sol10-sysroot.tar.xz:main
+DIST_SUBDIR=		gnatcross/solaris
+
+SPKGS[SOL10]=		single
+
+OPTIONS_AVAILABLE=	SOL10
+OPTIONS_STANDARD=	none
+VOPTS[SOL10]=		SOL10=ON
+
+NOT_FOR_ARCH=		aarch64
+
+SKIP_BUILD=		yes
+INVALID_RPATH=		yes
+EXTRACT_HEAD[1]=	{{TAR}} -xf
+EXTRACT_DIRTY=		1
+
+[SOL10].DESCRIPTION=			Package Solaris 10 system root
+[SOL10].MAKEFILE_ON=			CTARGET=x86_64-raven-solaris2.10
+					PREFIX={{LOCALBASE}}/Solaris10_AMD64
+[SOL10].DF_INDEX_ON=			1
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/sysroot/usr
+	# note: source file has "includes" not "include", so rename
+	${MV} ${WRKDIR}/gnatcross-sys*/lib ${STAGEDIR}${PREFIX}/sysroot
+	${MV} ${WRKDIR}/gnatcross-sys*/usr/includes ${STAGEDIR}${PREFIX}/sysroot/usr/include
+	# ${MV} ${WRKDIR}/gnatcross-sys*/usr/lib ${STAGEDIR}${PREFIX}/sysroot/usr
+	${ECHO_CMD} ${CTARGET} > ${STAGEDIR}${PREFIX}/sysroot/target_triplet
+	(cd ${STAGEDIR}${PREFIX}; ${FIND} sysroot -type d -empty -delete)
+
+post-install-SOL10-ON:
+	${RM} -r ${STAGEDIR}${PREFIX}/sysroot/lib/svc
+	${RM} -r ${STAGEDIR}${PREFIX}/sysroot/lib/opengl
