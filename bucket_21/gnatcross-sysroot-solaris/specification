@@ -35,10 +35,8 @@ EXTRACT_DIRTY=		1
 
 do-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/sysroot/usr
-	# note: source file has "includes" not "include", so rename
 	${MV} ${WRKDIR}/gnatcross-sys*/lib ${STAGEDIR}${PREFIX}/sysroot
-	${MV} ${WRKDIR}/gnatcross-sys*/usr/includes ${STAGEDIR}${PREFIX}/sysroot/usr/include
-	# ${MV} ${WRKDIR}/gnatcross-sys*/usr/lib ${STAGEDIR}${PREFIX}/sysroot/usr
+	${MV} ${WRKDIR}/gnatcross-sys*/usr ${STAGEDIR}${PREFIX}/sysroot
 	${ECHO_CMD} ${CTARGET} > ${STAGEDIR}${PREFIX}/sysroot/target_triplet
 	(cd ${STAGEDIR}${PREFIX}; ${FIND} sysroot -type d -empty -delete)
 

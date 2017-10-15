@@ -11,9 +11,10 @@ NAMEBASE=		gnatcross
 VERSION=		${PORTVERSION}
 REVISION=		${REVISION}
 KEYWORDS=		lang
-VARIANTS=		FARM64_R11 FAMD64_R12
+VARIANTS=		FARM64_R11 FAMD64_R12 SOL10
 SDESC[FARM64_R11]=	C/Ada cross-compiler, target: FreeBSD/ARM64 (R11)
 SDESC[FAMD64_R12]=	C/Ada cross-compiler, target: FreeBSD/AMD64 (R12)
+SDESC[SOL10]=		C/Ada cross-compiler, target: Solaris 10 (x86-64)
 HOMEPAGE=		http://www.dragonlace.net
 CONTACT=		John_Marino[draco@marino.st]
 
@@ -23,11 +24,13 @@ DISTFILE[1]=		${IDENTIFICATION}.tar.xz:main
 
 SPKGS[FARM64_R11]=	single
 SPKGS[FAMD64_R12]=	single
+SPKGS[SOL10]=		single
 
-OPTIONS_AVAILABLE=	FARM64R11 FAMD64R12
+OPTIONS_AVAILABLE=	FARM64R11 FAMD64R12 SOL10
 OPTIONS_STANDARD=	none
-VOPTS[FARM64_R11]=	FARM64R11=ON FAMD64R12=OFF
-VOPTS[FAMD64_R12]=	FARM64R11=OFF FAMD64R12=ON
+VOPTS[FARM64_R11]=	FARM64R11=ON FAMD64R12=OFF SOL10=OFF
+VOPTS[FAMD64_R12]=	FARM64R11=OFF FAMD64R12=ON SOL10=OFF
+VOPTS[SOL10]=		FARM64R11=OFF FAMD64R12=OFF SOL10=ON
 
 LICENSE=		GPLv2+:single
 			LGPL21:single
@@ -97,6 +100,17 @@ SUB_LIST=		TARGET="{{XCCTARGET}}"
 					XCCTARGET=x86_64-raven-freebsd${FREEBSD_12}
 					TARGET_SPECIFIC=#none
 
+[SOL10].DESCRIPTION=			Set target to Solaris 10 (x86-64)
+[SOL10].BUILDRUN_DEPENDS_ON=		gnatcross-binutils:single:SOL10
+[SOL10].MAKEFILE_ON=			OS_LABEL4VERS="[{{OPSYS}}/{{ARCH}} x Solaris_10/AMD64]"
+					PREFIX={{LOCALBASE}}/Solaris10_AMD64
+					SRPREFIX={{PREFIX}}/sysroot
+					XCCTARGET=x86_64-raven-solaris2.10
+					TARGET_SPECIFIC=--with-gnu-ld\
+					--with-gnu-as\
+					--enable-multilib
+[SOL10].CONFIGURE_ENV_ON=		LD=ld.bfd
+
 post-extract:
 	# Personalize GNAT for each different machine
 	@${ECHO} "-=> GNATCROSS ${OS_LABEL4VERS}" > ${WRKSRC}/gcc/REVISION
@@ -106,6 +120,7 @@ post-patch:
 	@${ECHO} "Configuring LINK_SPEC runpath"
 	@${REINPLACE_CMD} -e 's;\@PREFIX\@;${PREFIX};' \
 		${WRKSRC}/gcc/config/dragonfly.h \
+		${WRKSRC}/gcc/config/sol2.h \
 		${WRKSRC}/gcc/config/i386/freebsd64.h \
 		${WRKSRC}/gcc/config/i386/freebsd.h \
 		${WRKSRC}/gcc/config/i386/gnu-user64.h \
@@ -115,6 +130,12 @@ post-patch:
 	${REINPLACE_CMD} -e 's|static:crtbeginT.o%s;||' \
 		${WRKSRC}/gcc/config/freebsd-spec.h
 
+post-patch-FARM64R11-ON:
+	# work around malloc detection issue
+	${REINPLACE_CMD} -e 's/#undef HAVE_ALIGNED_ALLOC/#define HAVE_ALIGNED_ALLOC 1/' \
+		${WRKSRC}/libstdc++-v3/config.h.in
+
+post-patch-FAMD64R12-ON:
 	# work around malloc detection issue
 	${REINPLACE_CMD} -e 's/#undef HAVE_ALIGNED_ALLOC/#define HAVE_ALIGNED_ALLOC 1/' \
 		${WRKSRC}/libstdc++-v3/config.h.in
