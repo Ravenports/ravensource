@@ -1,12 +1,14 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(BINUTILS_VERSION)
 DEF[FREEBSD_11]=	EXTRACT_INFO(GNATCROSS_FREEBSD_11)
+DEF[FREEBSD_12]=	EXTRACT_INFO(GNATCROSS_FREEBSD_12)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnatcross-binutils
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang
-VARIANTS=		FARM64_R11
+VARIANTS=		FARM64_R11 FAMD64_R12
 SDESC[FARM64_R11]=	C/Ada cross-compiler linker (FreeBSD/ARM64 R11)
+SDESC[FAMD64_R12]=	C/Ada cross-compiler linker (FreeBSD/AMD64 R12)
 HOMEPAGE=		http://www.dragonlace.net
 CONTACT=		nobody
 
@@ -15,10 +17,12 @@ SITES[main]=		SOURCEWARE/binutils/releases
 DISTFILE[1]=		binutils-${PORTVERSION}.tar.bz2:main
 
 SPKGS[FARM64_R11]=	single
+SPKGS[FAMD64_R12]=	single
 
-OPTIONS_AVAILABLE=	FARM64R11
+OPTIONS_AVAILABLE=	FARM64R11 FAMD64R12
 OPTIONS_STANDARD=	none
-VOPTS[FARM64_R11]=	FARM64R11=ON
+VOPTS[FARM64_R11]=	FARM64R11=ON FAMD64R12=OFF
+VOPTS[FAMD64_R12]=	FARM64R11=OFF FAMD64R12=ON
 
 FPC_EQUIVALENT=		lang/gnatdroid-binutils
 
@@ -47,6 +51,14 @@ PLIST_SUB=		TARGET="{{XCCTARGET}}"
 					BRANCH2=
 					BRANCH_PREFIX={{PREFIX}}/{{BRANCH2}}
 					SRPREFIX=gnatcross-sysroot-aarch64
+
+[FAMD64R12].DESCRIPTION=		Create binutils for FreeBSD/AMD64 Release 12
+[FAMD64R12].BUILDRUN_DEPENDS_ON=	gnatcross-sysroot-freebsd:single:AMD64_R12
+[FAMD64R12].MAKEFILE_ON=		PREFIX={{LOCALBASE}}/FreeBSD12_AMD64
+					XCCTARGET=x86_64-raven-freebsd${FREEBSD_12}
+					BRANCH2=
+					BRANCH_PREFIX={{PREFIX}}/{{BRANCH2}}
+					SRPREFIX=gnatcross-sysroot-amd64
 
 post-install:
 	# Move the unwanted documentation out of the stage directory
