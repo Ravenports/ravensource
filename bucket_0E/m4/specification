@@ -4,8 +4,9 @@ DEF[PORTVERSION]=	1.4.18
 NAMEBASE=		m4
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		standard
+VARIANTS=		standard noprefix
 SDESC[standard]=	GNU implementation of the Unix macro processor
+SDESC[noprefix]=	GNU macro processor with unprefixed program name
 HOMEPAGE=		https://www.gnu.org/software/m4/m4.html
 CONTACT=		nobody
 
@@ -14,22 +15,26 @@ SITES[main]=		GNU/m4
 DISTFILE[1]=		m4-1.4.18.tar.xz:main
 
 SPKGS[standard]=	complete primary examples
+SPKGS[noprefix]=	complete primary examples
 
-OPTIONS_AVAILABLE=	none
+OPTIONS_AVAILABLE=	NOPREFIX
 OPTIONS_STANDARD=	none
+VOPTS[noprefix]=	NOPREFIX=ON
 
 BUILD_DEPENDS=		libsigsegv:static:standard
 
 INFO=			primary:m4
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-libsigsegv-prefix={{LOCALBASE}}
-			--program-prefix=g
 
 LICENSE=		GPLv3:primary
 LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/m4
+
+[NOPREFIX].CONFIGURE_ARGS_OFF=		--program-prefix=g
+[NOPREFIX].DESCRIPTION=			Build without prefixing all programs with "g"
 
 post-patch:
 	@${REINPLACE_CMD} -e '/^install-exec-am: / s| .*||' ${WRKSRC}/lib/Makefile.in
