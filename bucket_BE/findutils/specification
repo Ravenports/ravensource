@@ -33,8 +33,7 @@ FPC_EQUIVALENT=		misc/findutils
 
 USES=			charsetfix cpe gmake
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--program-prefix=g
-			--localstatedir="${LOCALSTATEDIR}"
+CONFIGURE_ARGS=		--localstatedir="${LOCALSTATEDIR}"
 MAKE_ARGS=		INSTALL_SCRIPT="{{INSTALL_SCRIPT}}"
 INFO=			single:find single:find-maint
 CPE_VENDOR=		gnu
@@ -42,7 +41,7 @@ CPE_VENDOR=		gnu
 [NLS].USES_ON=				gettext-runtime
 [NLS].CONFIGURE_ENABLE_BOTH=		nls
 
-[NOPREFIX].CONFIGURE_ARGS_ON=		--program-prefix=""
+[NOPREFIX].CONFIGURE_ARGS_OFF=		--program-prefix=g
 [NOPREFIX].DESCRIPTION=			Build without prefixing all programs with "g"
 
 post-install:
