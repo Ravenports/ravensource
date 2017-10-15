@@ -4,9 +4,10 @@ DEF[PORTVERSION]=	8.28
 NAMEBASE=		coreutils
 VERSION=		${PORTVERSION}
 KEYWORDS=		sysutils textproc
-VARIANTS=		standard nls
+VARIANTS=		standard nls noprefix
 SDESC[standard]=	Free Software Foundation core utilities
 SDESC[nls]=		FSF core utilities with native language support
+SDESC[noprefix]=	FSF core utilities with unprefixed program names
 HOMEPAGE=		http://www.gnu.org/software/coreutils/
 CONTACT=		nobody
 
@@ -16,10 +17,12 @@ DISTFILE[1]=		coreutils-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	single
 SPKGS[nls]=		single
+SPKGS[noprefix]=	single
 
-OPTIONS_AVAILABLE=	NLS
+OPTIONS_AVAILABLE=	NLS NOPREFIX
 OPTIONS_STANDARD=	none
-VOPTS[nls]=		NLS=ON
+VOPTS[nls]=		NLS=ON NOPREFIX=OFF
+VOPTS[noprefix]=	NLS=OFF NOPREFIX=ON
 
 LICENSE=		GPLv3:single
 LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING
@@ -34,13 +37,15 @@ SINGLE_JOB=		yes
 INFO=			single:coreutils
 CPE_VENDOR=		gnu
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--program-prefix=g
-			--with-gmp
+CONFIGURE_ARGS=		--with-gmp
 CONFIGURE_ENV=		FORCE_UNSAFE_CONFIGURE=1
 INSTALL_REQ_TOOLCHAIN=	yes
 
 [NLS].USES_ON=				gettext-runtime
 [NLS].CONFIGURE_ENABLE_BOTH=		nls
+
+[NOPREFIX].CONFIGURE_ARGS_OFF=		--program-prefix=g
+[NOPREFIX].DESCRIPTION=			Build without prefixing all programs with "g"
 
 post-patch-freebsd:
 	@${REINPLACE_CMD} -e "s/--output/--no-discard-stderr --output/" \
