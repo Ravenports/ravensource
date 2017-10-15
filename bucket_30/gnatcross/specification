@@ -4,14 +4,16 @@ DEF[MS_SUBDIR]=		EXTRACT_INFO(GCC7_MS_SUBDIR)
 DEF[IDENTIFICATION]=	EXTRACT_INFO(GCC7_IDENTIFICATION)
 DEF[GCC_VERSION]=	EXTRACT_INFO(GCC7_VERSION)
 DEF[FREEBSD_11]=	EXTRACT_INFO(GNATCROSS_FREEBSD_11)
+DEF[FREEBSD_12]=	EXTRACT_INFO(GNATCROSS_FREEBSD_12)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnatcross
 VERSION=		${PORTVERSION}
 REVISION=		${REVISION}
 KEYWORDS=		lang
-VARIANTS=		FARM64_R11
+VARIANTS=		FARM64_R11 FAMD64_R12
 SDESC[FARM64_R11]=	C/Ada cross-compiler, target: FreeBSD/ARM64 (R11)
+SDESC[FAMD64_R12]=	C/Ada cross-compiler, target: FreeBSD/AMD64 (R12)
 HOMEPAGE=		http://www.dragonlace.net
 CONTACT=		John_Marino[draco@marino.st]
 
@@ -20,10 +22,12 @@ SITES[main]=		GCC/${MS_SUBDIR}
 DISTFILE[1]=		${IDENTIFICATION}.tar.xz:main
 
 SPKGS[FARM64_R11]=	single
+SPKGS[FAMD64_R12]=	single
 
-OPTIONS_AVAILABLE=	FARM64R11
+OPTIONS_AVAILABLE=	FARM64R11 FAMD64R12
 OPTIONS_STANDARD=	none
-VOPTS[FARM64_R11]=	FARM64R11=ON
+VOPTS[FARM64_R11]=	FARM64R11=ON FAMD64R12=OFF
+VOPTS[FAMD64_R12]=	FARM64R11=OFF FAMD64R12=ON
 
 LICENSE=		GPLv2+:single
 			LGPL21:single
@@ -65,6 +69,7 @@ CONFIGURE_ARGS=		--enable-languages="c c++ ada fortran"
 			--disable-libssp
 			--disable-libgomp
 			--disable-libquadmath
+			--disable-libquadmath-support
 			--disable-libsanitizer
 			--disable-libitm
 			--disable-libcc1
@@ -82,6 +87,14 @@ SUB_LIST=		TARGET="{{XCCTARGET}}"
 					PREFIX={{LOCALBASE}}/FreeBSD11_ARM64
 					SRPREFIX={{PREFIX}}/sysroot
 					XCCTARGET=aarch64-raven-freebsd${FREEBSD_11}
+					TARGET_SPECIFIC=#none
+
+[FAMD64R12].DESCRIPTION=		Set target to FreeBSD/ARM64 (Release 12)
+[FAMD64R12].BUILDRUN_DEPENDS_ON=	gnatcross-binutils:single:FAMD64_R12
+[FAMD64R12].MAKEFILE_ON=		OS_LABEL4VERS="[{{OPSYS}}/{{ARCH}} x FreeBSD_12/AMD64]"
+					PREFIX={{LOCALBASE}}/FreeBSD12_AMD64
+					SRPREFIX={{PREFIX}}/sysroot
+					XCCTARGET=x86_64-raven-freebsd${FREEBSD_12}
 					TARGET_SPECIFIC=#none
 
 post-extract:
