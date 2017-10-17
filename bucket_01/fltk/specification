@@ -22,8 +22,15 @@ OPTIONS_STANDARD=	none
 FPC_EQUIVALENT=		x11-toolkits/fltk
 
 BUILDRUN_DEPENDS=	libGLU:single:standard
+			desktop-file-utils:single:standard
+			shared-mime-info:single:standard
 
-USES=			gmake jpeg pkgconfig png zlib
+USES=			gmake jpeg libtool pkgconfig png zlib
 XORG_COMPONENTS=	x11 xcursor xext xfixes xft xinerama
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-shared --enable-xft --enable-threads
+CONFIGURE_ARGS=		--enable-shared --docdir=/raven/share/examples/fltk
+
+post-stage:
+	mkdir -p /construction/fltk/stage/raven/share/examples/fltk
+	mv /construction/fltk/stage/raven/share/doc/fltk/examples/* /construction/fltk/stage/raven/share/examples/fltk
+	rm -r  /construction/fltk/stage/raven/share/doc

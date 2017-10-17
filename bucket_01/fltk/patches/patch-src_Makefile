@@ -1,0 +1,38 @@
+--- src/Makefile.orig	2017-10-17 17:28:51.323158000 +0200
++++ src/Makefile	2017-10-17 17:31:47.269026000 +0200
+@@ -239,7 +239,7 @@
+ 
+ libfltk.so.$(FL_DSO_VERSION): $(OBJECTS)
+ 	echo $(DSOCOMMAND) $@ ...
+-	$(DSOCOMMAND) $@ $(OBJECTS) $(LDLIBS)
++	$(DSOCOMMAND) $@ $(OBJECTS) $(LDFLAGS) $(LDLIBS)
+ 	$(RM) libfltk.so
+ 	$(LN) libfltk.so.$(FL_DSO_VERSION) libfltk.so
+ 
+@@ -275,7 +275,7 @@
+ 
+ libfltk_forms.so.$(FL_DSO_VERSION): $(FLOBJECTS) libfltk.so.$(FL_DSO_VERSION)
+ 	echo $(DSOCOMMAND) $@ ...
+-	$(DSOCOMMAND) $@ $(FLOBJECTS) -L. -lfltk $(LDLIBS)
++	$(DSOCOMMAND) $@ $(FLOBJECTS) -L. -lfltk $(LDFLAGS) $(LDLIBS)
+ 	$(RM) libfltk_forms.so
+ 	$(LN) libfltk_forms.so.$(FL_DSO_VERSION) libfltk_forms.so
+ 
+@@ -311,7 +311,7 @@
+ 
+ libfltk_gl.so.$(FL_DSO_VERSION): $(GLOBJECTS) libfltk.so.$(FL_DSO_VERSION)
+ 	echo $(DSOCOMMAND) $@ ...
+-	$(DSOCOMMAND) $@ $(GLOBJECTS) -L. -lfltk $(LDLIBS) $(GLDLIBS)
++	$(DSOCOMMAND) $@ $(GLOBJECTS) -L. -lfltk $(LDFLAGS) $(LDLIBS) $(GLDLIBS)
+ 	$(RM) libfltk_gl.so
+ 	$(LN) libfltk_gl.so.$(FL_DSO_VERSION) libfltk_gl.so
+ 
+@@ -347,7 +347,7 @@
+ 
+ libfltk_images.so.$(FL_DSO_VERSION): $(IMGOBJECTS) libfltk.so.$(FL_DSO_VERSION)
+ 	echo $(DSOCOMMAND) $@ ...
+-	$(DSOCOMMAND) $@ $(IMGOBJECTS) -L. $(IMAGELIBS) -lfltk $(LDLIBS)
++	$(DSOCOMMAND) $@ $(IMGOBJECTS) -L. $(IMAGELIBS) -lfltk $(LDFLAGS) $(LDLIBS)
+ 	$(RM) libfltk_images.so
+ 	$(LN) libfltk_images.so.$(FL_DSO_VERSION) libfltk_images.so
+ 
