@@ -1,0 +1,28 @@
+DEF[PORTVERSION]=	3.0.5
+DEF[PORTNAME]=		dillo
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		${PORTNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		www
+VARIANTS=		standard
+SDESC[standard]=	Simple and small web browser using FLTK
+HOMEPAGE=		http://www.dillo.org
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.dillo.org/download/
+DISTFILE[1]=		${PORTNAME}-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		www/dillo2
+
+BUILDRUN_DEPENDS=	fltk:primary:standard
+RUN_DEPENDS=		wget:primary:standard
+
+USES=			gmake iconv pkgconfig
+MUST_CONFIGURE=		gnu
