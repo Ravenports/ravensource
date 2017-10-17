@@ -16,24 +16,14 @@ DISTFILE[1]=		${PORTNAME}-${PORTVERSION}.tar.bz2:main
 
 SPKGS[standard]=	single
 
-OPTIONS_AVAILABLE=	COOKIES IPV6 SSL
-OPTIONS_STANDARD=	COOKIES IPV6 SSL
-OPT_ON[all]=		COOKIES SSL
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		www/dillo2
 
 BUILDRUN_DEPENDS=	fltk:primary:standard
 RUN_DEPENDS=		wget:primary:standard
 
-USES=			gmake iconv pkgconfig
+USES=			gmake iconv pkgconfig ssl
 MUST_CONFIGURE=		gnu
-
-[COOKIES].CONFIGURE_ARGS_OFF=		--disable-cookies
-[COOKIES].DESCRIPTION=			Cookie support
-
-[IPV6].CONFIGURE_ARGS_ON=		--enable-ipv6
-[IPV6].DESCRIPTION=			IPV6 capability
-
-[SSL].CONFIGURE_ARGS_ON=		--enable-ssl
-[SSL].DESCRIPTION=			Experimental HTTPS protocol support
-[SSL].USES_ON=				ssl
+CONFIGURE_ARGS=		--enable-ssl --enable-ipv6
