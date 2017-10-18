@@ -1,4 +1,13 @@
-DEF[PORTVERSION]=	3.3.4
+DEF[PORTVERSION]=	3.4
+DEF[SO_AVCODEC]=	57.107.100
+DEF[SO_AVDEVICE]=	57.10.100
+DEF[SO_AVFILTER]=	6.107.100
+DEF[SO_AVFORMAT]=	57.83.100
+DEF[SO_AVRESAMPLE]=	3.7.0
+DEF[SO_AVUTIL]=		55.78.100
+DEF[SO_POSTPROC]=	54.7.100
+DEF[SO_SWRESAMPLE]=	2.9.100
+DEF[SO_SCALE]=		4.8.100
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ffmpeg
@@ -20,7 +29,7 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		multimedia/ffmpeg
 
-BUILD_DEPENDS=		yasm:single:standard
+BUILD_DEPENDS=		nasm:primary:standard
 			video4linux:headers:standard
 			gmp:static:standard
 BUILDRUN_DEPENDS=	gmp:shared:standard
@@ -34,12 +43,13 @@ BUILDRUN_DEPENDS=	gmp:shared:standard
 			video4linux:primary:standard
 			opencv:core:standard
 			rtmpdump:library:standard
-			schroedinger:primary:standard
 			libtheora:single:standard
 			libva:single:standard
 			libvdpau:single:standard
 			libvorbis:primary:standard
 			libvpx:single:standard
+			libdrm:single:standard
+			librsvg:primary:standard
 			wavpack:single:standard
 			WebP:single:standard
 			x264:library:standard
@@ -49,6 +59,7 @@ BUILDRUN_DEPENDS=	gmp:shared:standard
 RC_SUBR=		ffserver:primary
 
 USES=			cpe gmake iconv perl:build pkgconfig shebangfix
+GNOME_COMPONENTS=	libxml2
 SDL_COMPONENTS=		sdl2
 MUST_CONFIGURE=		yes
 SHEBANG_FILES=		doc/texi2pod.pl
@@ -65,8 +76,7 @@ CONFIGURE_ARGS=		--cc="{{CC}}"
 			--enable-avfilter
 			--enable-avresample
 			--enable-pthreads
-			--disable-indev=alsa
-			--disable-outdev=alsa
+			--disable-alsa
 			--disable-libopencore-amrnb
 			--disable-libopencore-amrwb
 			--disable-libbs2b
@@ -82,15 +92,13 @@ CONFIGURE_ARGS=		--cc="{{CC}}"
 			--disable-libgme
 			--disable-libgsm
 			--disable-libilbc
-			--disable-indev=jack
+			--disable-jack
 			--disable-libkvazaar
 			--disable-ladspa
 			--disable-libmp3lame
 			--disable-libbluray
 			--disable-libmodplug
-			--disable-netcdf
 			--disable-openal
-			--disable-indev=openal
 			--disable-opencl
 			--disable-opengl
 			--disable-libopenh264
@@ -98,13 +106,10 @@ CONFIGURE_ARGS=		--cc="{{CC}}"
 			--disable-openssl
 			--disable-libopus
 			--disable-libpulse
-			--disable-indev=pulse
-			--disable-outdev=pulse
 			--disable-librubberband
 			--disable-libsmbclient
 			--disable-libsnappy
-			--disable-indev=sndio
-			--disable-outdev=sndio
+			--disable-sndio
 			--disable-libsoxr
 			--disable-libspeex
 			--disable-libssh
@@ -117,6 +122,7 @@ CONFIGURE_ARGS=		--cc="{{CC}}"
 			--disable-libzimg
 			--disable-libzmq
 			--disable-libzvbi
+			--disable-libmysofa
 			--enable-libass
 			--enable-ffserver
 			--enable-fontconfig
@@ -132,8 +138,7 @@ CONFIGURE_ARGS=		--cc="{{CC}}"
 			--enable-optimizations
 			--enable-runtime-cpudetect
 			--enable-librtmp
-			--enable-libschroedinger
-			--enable-ffplay
+			--enable-sdl2
 			--enable-libtheora
 			--enable-vaapi
 			--enable-vdpau
@@ -144,16 +149,38 @@ CONFIGURE_ARGS=		--cc="{{CC}}"
 			--enable-libx264
 			--enable-libx265
 			--enable-libxvid
+			--enable-libdrm
+			--enable-librsvg
+			--enable-libxml2
 INSTALL_TARGET=		install-progs
 			install-doc
 			install-data
 			install-libs
 			install-headers
+			install-examples
+PLIST_SUB=		AVCODEC_SO=${SO_AVCODEC}
+			AVCODEC_MAJOR=${SO_AVCODEC:R:R}
+			AVDEVICE_SO=${SO_AVDEVICE}
+			AVDEVICE_MAJOR=${SO_AVDEVICE:R:R}
+			AVFILTER_SO=${SO_AVFILTER}
+			AVFILTER_MAJOR=${SO_AVFILTER:R:R}
+			AVFORMAT_SO=${SO_AVFORMAT}
+			AVFORMAT_MAJOR=${SO_AVFORMAT:R:R}
+			AVRESAMPLE_SO=${SO_AVRESAMPLE}
+			AVRESAMPLE_MAJOR=${SO_AVRESAMPLE:R:R}
+			AVUTIL_SO=${SO_AVUTIL}
+			AVUTIL_MAJOR=${SO_AVUTIL:R:R}
+			POSTPROC_SO=${SO_POSTPROC}
+			POSTPROC_MAJOR=${SO_POSTPROC:R:R}
+			SWRESAMPLE_SO=${SO_SWRESAMPLE}
+			SWRESAMPLE_MAJOR=${SO_SWRESAMPLE:R:R}
+			SCALE_SO=${SO_SCALE}
+			SCALE_MAJOR=${SO_SCALE:R:R}
 
 post-patch:
 	# {C,LD}FLAGS safeness
 	@${REINPLACE_CMD} -e 's|/etc/ffserver.conf|${PREFIX}/etc/ffserver.conf|' \
-		${WRKSRC}/ffserver.c
+		${WRKSRC}/fftools/ffserver.c
 	@${REINPLACE_CMD} -E \
 		-e 's|require_pkg_config opencv|require_pkg_config opencv-core|g' \
 		${CONFIGURE_WRKSRC}/${CONFIGURE_SCRIPT}
