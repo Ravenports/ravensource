@@ -1,8 +1,7 @@
 DEF[PORTVERSION]=	2.1
-DEF[PORTNAME]=		edelib
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		${PORTNAME}
+NAMEBASE=		edelib
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11
 VARIANTS=		standard
@@ -11,8 +10,8 @@ HOMEPAGE=		http://equinox-project.org/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/ede/${PORTNAME}/${PORTVERSION}/
-DISTFILE[1]=		${PORTNAME}-${PORTVERSION}.tar.gz:main
+SITES[main]=		SF/ede/edelib/${PORTVERSION}/
+DISTFILE[1]=		edelib-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	single
 
@@ -43,8 +42,8 @@ do-build:
 
 do-install:
 		(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
-			jam prefix="/construction/${PORTNAME}/stage/${PREFIX}" install)
+			jam prefix="/construction/edelib/stage/${PREFIX}" install)
 
 post-stage:
-		${MV} /construction/${PORTNAME}/stage/raven/share/doc \
-			/construction/${PORTNAME}/stage/raven/share/docs
+		${MV} /construction/edelib/stage/raven/share/doc \
+			/construction/edelib/stage/raven/share/docs
