@@ -29,16 +29,22 @@ CONFIGURE_ENV=		PEKWM_CXXFLAGS="-fpermissive"
 BUILD_DEPENDS=		ftjam:single:standard
 			asciidoc:single:py27
 BUILDRUN_DEPENDS=	edelib:single:standard
+			fltk:primary:standard
 			xorg-setxkbmap:single:standard
+			xorg-xpm:single:standard
+			xorg-xrandr:single:standard
 			curl:primary:standard
 			startup-notification:single:standard
+			shared-mime-info:single:standard
 
-USES=			autoreconf:build gettext-tools pkgconfig
-XORG_COMPONENTS=	x11
+USES=			autoreconf:build gettext-tools pkgconfig png zlib
+XORG_COMPONENTS=	x11 xcursor xext xfixes xft xinerama
 MUST_CONFIGURE=		gnu
 
 post-patch:
-			${REINPLACE_CMD} -e "s|__PREFIX-LIB__|-L${PREFIX}/lib|" ${WRKSRC}/evoke/Jamfile
+			${REINPLACE_CMD} -e \
+				"s|__PREFIX-LIB__|-L${PREFIX}/lib|" \
+				${WRKSRC}/evoke/Jamfile
 
 pre-configure:
 			(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
@@ -50,5 +56,40 @@ do-build:
 
 do-install:
 			(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
-				jam prefix="/construction/ede/stage/${PREFIX}" \
+				jam prefix="/construction/ede/stage${PREFIX}" \
 				install)
+
+post-install:
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-about
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-autostart
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-bell-conf
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-bug-report
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-calc
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-conf
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-crasher
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-desktop
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-desktop-conf
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-dialog
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-image-view
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-keyboard-conf
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-launch
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-notify-daemon
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-panel
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-preferred-applications
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-screensaver-conf
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-shutdown
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-timedate
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-tip
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-tip-compiler
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/evoke
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/pekwm
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/share/ede/panel-applets/battery_monitor.so
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/share/ede/panel-applets/clock.so
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/share/ede/panel-applets/cpu_monitor.so
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/share/ede/panel-applets/keyboard_layout.so
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/share/ede/panel-applets/mem_monitor.so
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/share/ede/panel-applets/pager.so
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/share/ede/panel-applets/quick_launch.so
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/share/ede/panel-applets/start_menu.so
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/share/ede/panel-applets/system_tray.so
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/share/ede/panel-applets/taskbar.so
