@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.8.6
+DEF[PORTVERSION]=	0.9.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-i18n
@@ -12,7 +12,7 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		i18n-0.8.6.gem:main
+DISTFILE[1]=		i18n-0.9.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v23]=		single
@@ -26,10 +26,13 @@ VOPTS[v24]=		RUBY23=OFF RUBY24=ON
 GENERATED=		yes
 
 # Requirements specified by gem dependency --remote --version command
+#   concurrent-ruby (~> 1.0)
 
 DISTNAME=		i18n-${PORTVERSION}
 
 [RUBY23].USES_ON=			gem:v23
+[RUBY23].BUILDRUN_DEPENDS_ON=		ruby-concurrent-ruby:single:v23
 
 [RUBY24].USES_ON=			gem:v24
+[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-concurrent-ruby:single:v24
 
