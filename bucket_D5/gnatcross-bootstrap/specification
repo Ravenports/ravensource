@@ -33,11 +33,11 @@ DF_INDEX=		1 2 3 4 5
 
 SPKGS[standard]=	single
 
-OPTIONS_AVAILABLE=	DISABLE FARM64_R11 FAMD64_R12
-OPTIONS_STANDARD=	DISABLE FARM64_R11 FAMD64_R12
+OPTIONS_AVAILABLE=	DISABLE FARM64_R11 FAMD64_R12 SOL10
+OPTIONS_STANDARD=	DISABLE FARM64_R11 FAMD64_R12 SOL10
 OPTGROUP_RADIO=		TARGET
 OPTDESCR[TARGET]=	Target platform for generated compiler
-OPTGROUP[TARGET]=	DISABLE FARM64_R11 FAMD64_R12
+OPTGROUP[TARGET]=	DISABLE FARM64_R11 FAMD64_R12 SOL10
 OPT_ON[all]=		DISABLE
 
 BUILD_DEPENDS=		Zstandard:single:standard
@@ -63,6 +63,7 @@ CONFIGURE_ARGS=		--enable-languages="c,c++,ada,fortran"
 			--with-pkgversion="Ravenports"
 CC=			{{BSPREFIX}}/bin/{{TGTSYS}}-gcc
 CXX=			{{BSPREFIX}}/bin/{{TGTSYS}}-c++
+CPP=			{{BSPREFIX}}/bin/{{TGTSYS}}-cpp
 CONFIGURE_ENV=		build_configargs="CPPFLAGS=\"{{CPPFLAGS}}\""
 			host_configargs="CPPFLAGS=\"{{CPPFLAGS}}\""
 
@@ -89,6 +90,26 @@ CONFIGURE_ENV=		build_configargs="CPPFLAGS=\"{{CPPFLAGS}}\""
 					BSPREFIX={{LOCALBASE}}/FreeBSD12_AMD64
 					PREPEND_PATH={{BSPREFIX}}/{{TGTSYS}}/bin:{{BSPREFIX}}/bin
 
+[SOL10].DESCRIPTION=			Build native compiler for Solaris 10
+[SOL10].CONFIGURE_ARGS_ON=		--build={{CONFIGURE_TARGET}}
+					--host=x86_64-raven-solaris2.10
+					--target=x86_64-raven-solaris2.10
+[SOL10].BUILD_DEPENDS_ON=		gnatcross:single:SOL10
+[SOL10].MAKEFILE_ON=			TGTSYS=x86_64-raven-solaris2.10
+					BSPREFIX={{LOCALBASE}}/Solaris10_AMD64
+					PREPEND_PATH={{BSPREFIX}}/{{TGTSYS}}/bin:{{BSPREFIX}}/bin
+# [SOL10].CONFIGURE_ENV_ON=		ac_cv_header_sys_sysctl_h=no
+[SOL10].MAKE_ENV_ON=			ac_cv_header_sys_sysctl_h=no
+# |					ac_cv_func_clearerr_unlocked=no
+# |					ac_cv_func_feof_unlocked=no
+# |					ac_cv_func_ferror_unlocked=no
+# |					ac_cv_func_fileno_unlocked=no
+# |					ac_cv_func_asprintf=no
+# |					ac_cv_func_vasprintf=no
+# |					ac_cv_func_stpcpy=no
+# |					ac_cv_func_strnlen=no
+# |					ac_cv_func_madvise=no
+
 post-extract:
 	${MKDIR} ${WRKSRC}/libiconv
 	${MV} ${WRKDIR}/gmp-*      ${WRKSRC}/gmp
@@ -101,14 +122,15 @@ post-patch:
 	${REINPLACE_CMD} -e 's|static:crtbeginT.o%s;||' \
 		${WRKSRC}/gcc/config/freebsd-spec.h
 
+post-patch-FARM64_R11-ON:
 	# work around malloc detection issue
 	${REINPLACE_CMD} -e 's/#undef HAVE_ALIGNED_ALLOC/#define HAVE_ALIGNED_ALLOC 1/' \
 		${WRKSRC}/libstdc++-v3/config.h.in
 
-	# work around gnat cross-build bugs
-	# ${REINPLACE_CMD} -e '/GNATMAKE/ s|--GCC=".\(CC\)|--GCC="${TGTSYS}-gcc|' \
-	# ${REINPLACE_CMD} -e '/GCC_LINK=/ s|CXX|${TGTSYS}-c++|' \
-	#	${WRKSRC}/gcc/ada/gcc-interface/Makefile.in
+post-patch-FAMD64_R12-ON:
+	# work around malloc detection issue
+	${REINPLACE_CMD} -e 's/#undef HAVE_ALIGNED_ALLOC/#define HAVE_ALIGNED_ALLOC 1/' \
+		${WRKSRC}/libstdc++-v3/config.h.in
 
 post-install:
 	cp ${STAGEDIR}${PREFIX}/${GCC_PREFIX}/bin/gcc ${STAGEDIR}${PREFIX}/${GCC_PREFIX}/bin/cc
@@ -116,10 +138,13 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${GCC_PREFIX}/lib/gcc/${TGTSYS}/${GCC_VERSION}/adalib/libgnarl.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${GCC_PREFIX}/lib/gcc/${TGTSYS}/${GCC_VERSION}/adalib/libgnat.so
 
-post-install-dragonfly:
+post-install-FARM64_R11-ON:
 	${RM} -r ${STAGEDIR}${PREFIX}/${GCC_PREFIX}/lib/gcc/${TGTSYS}/${GCC_VERSION}/include-fixed
 
-post-install-freebsd:
+post-install-FAMD64_R12-ON:
+	${RM} -r ${STAGEDIR}${PREFIX}/${GCC_PREFIX}/lib/gcc/${TGTSYS}/${GCC_VERSION}/include-fixed
+
+post-install-SOL10-ON:
 	${RM} -r ${STAGEDIR}${PREFIX}/${GCC_PREFIX}/lib/gcc/${TGTSYS}/${GCC_VERSION}/include-fixed
 
 post-stage:

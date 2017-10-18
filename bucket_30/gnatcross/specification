@@ -154,8 +154,13 @@ do-install:
 	${MV} ${STAGEDIR}${PREFIX}/bin/ada \
 		${STAGEDIR}${PREFIX}/bin/${XCCTARGET}-ada
 
-post-stage:
+post-install-FARM64R11-ON:
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/gcc/${XCCTARGET}/${GCC_VERSION}/include-fixed/
+
+post-install-FAMD64R12-ON:
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/gcc/${XCCTARGET}/${GCC_VERSION}/include-fixed/
+
+post-stage:
 	${RM} -r ${STAGEDIR}${MANPREFIX}
 .for loop in A B
 	(cd ${STAGEDIR}${PREFIX}; ${FIND} * -type d -empty | \

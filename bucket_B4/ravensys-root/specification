@@ -1,4 +1,4 @@
-DEF[DF_RELEASE]=	4.8.0
+DEF[DF_RELEASE]=	5.0.0
 DEF[LINUX_KERNEL]=	4.4.0-53
 DEF[LINUX_OSREL]=	${LINUX_KERNEL:DL="-":H}
 DEF[LINUX_MAJOR]=	${LINUX_OSREL:R}
@@ -10,8 +10,7 @@ DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravensys-root
-VERSION=		1.3
-REVISION=		2
+VERSION=		1.4
 KEYWORDS=		raven
 VARIANTS=		dragonfly freebsd64 linux
 SDESC[dragonfly]=	DragonFly64 system root for Ravenports build env
@@ -23,7 +22,7 @@ CONTACT=		John_Marino[draco@marino.st]
 DOWNLOAD_GROUPS=	main avalon ubuntu1 ubuntu2 ubuntu3 ubuntu4 ubuntu5
 			ubuntu6 ubuntu7 ubuntu8 freebsd
 SITES[main]=		https://leaf.dragonflybsd.org/~marino/dports-src/
-SITES[avalon]=		http://avalon.dragonflybsd.org/snapshots/x86_64/images/
+SITES[avalon]=		http://mirror-master.dragonflybsd.org/iso-images/
 SITES[freebsd]=		https://download.freebsd.org/ftp/releases/amd64/amd64/ISO-IMAGES/${FREEBSD_RELEASE}/
 SITES[ubuntu1]=		http://security.ubuntu.com/ubuntu/pool/main/g/glibc/
 SITES[ubuntu2]=		UBUNTU/h/hostname
@@ -35,7 +34,7 @@ SITES[ubuntu7]=		http://security.ubuntu.com/ubuntu/pool/main/s/shadow/
 SITES[ubuntu8]=		http://security.ubuntu.com/ubuntu/pool/main/l/linux/
 
 DISTFILE[1]=		dummy-tarball.tar.gz:main
-DISTFILE[2]=		DragonFly-x86_64-20170412-DEV-v4.9.0.157.g88cde.iso.bz2:avalon
+DISTFILE[2]=		dfly-x86_64-${DF_RELEASE}_REL.iso.bz2:avalon
 DISTFILE[3]=		libc6_2.23-0ubuntu9_amd64.deb:ubuntu1
 DISTFILE[4]=		libc6-dev_2.23-0ubuntu9_amd64.deb:ubuntu1
 DISTFILE[5]=		hostname_3.16ubuntu2_amd64.deb:ubuntu2

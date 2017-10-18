@@ -42,6 +42,9 @@ while read ravenport version fpc_port; do
 
 	aspell-el) ;;		# requires EPOCH, 0.08 > 0.50 actually
 	hunspell-pt_BR) ;;	# Freebsd combines BR/PT, but raven splits them up
+	openjade) ;;            # FreeBSD uses dev version, ravenports has release
+	python-*) ;;            # manual python port
+	ncurses) ;;		# FreeBSD uses dev version now
 
 	libexecinfo) ;;		# Different source from FPC
 
@@ -55,6 +58,7 @@ while read ravenport version fpc_port; do
 	php56-intl) ;;
 	fuse3) ;;
 	aspell-mg | aspell-hus) ;;
+	gnatcross*) ;;
 	*) echo "${ravenport} ${version}"
    esac
 done < ${tmpfile}
