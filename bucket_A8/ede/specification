@@ -20,10 +20,6 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		x11-wm/ede
 
-CFLAGS=			-mtune=generic -O2 -pipe -fstack-protector
-			--param=ssp-buffer-size=4 -D_FORTIFY_SOURCE=2 -fPIC
-CXXFLAGS=		-mtune=generic -O2 -pipe -fstack-protector
-			--param=ssp-buffer-size=4 -D_FORTIFY_SOURCE=2 -fPIC
 CONFIGURE_ENV=		PEKWM_CXXFLAGS="-fpermissive"
 
 BUILD_DEPENDS=		ftjam:single:standard
@@ -40,6 +36,7 @@ BUILDRUN_DEPENDS=	edelib:single:standard
 USES=			autoreconf:build gettext-tools pkgconfig png zlib
 XORG_COMPONENTS=	x11 xcursor xext xfixes xft xinerama
 MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--prefix=/raven --libdir=/raven/lib
 
 post-patch:
 			${REINPLACE_CMD} -e \
