@@ -27,17 +27,13 @@ BUILD_DEPENDS=		ftjam:single:standard
 BUILDRUN_DEPENDS=	fltk:primary:standard
 			dbus:single:standard
 
-USES=			autoreconf:build pkgconfig python:2.7 shebangfix
+USES=			pkgconfig python:2.7 shebangfix
 SHEBANG_FILES=		tools/edelib-mk-indextheme
 			tools/edelib-convert-icontheme
 MUST_CONFIGURE=		gnu
 
 post-patch:
 		${CP} ${FILESDIR}/scheme.h ${WRKSRC}/edelib/ts
-
-pre-configure:
-		(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
-			./autogen.sh)
 
 do-build:
 		(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
