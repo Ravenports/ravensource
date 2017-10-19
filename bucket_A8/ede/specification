@@ -33,19 +33,20 @@ BUILDRUN_DEPENDS=	edelib:single:standard
 			startup-notification:single:standard
 			shared-mime-info:single:standard
 
-USES=			autoreconf:build gettext-tools pkgconfig png zlib
+USES=			gettext-tools pkgconfig png zlib
 XORG_COMPONENTS=	x11 xcursor xext xfixes xft xinerama
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--prefix=/raven --libdir=/raven/lib
 
 post-patch:
 			${REINPLACE_CMD} -e \
-				"s|__PREFIX-LIB__|-L${PREFIX}/lib|" \
+				"s|__LDFLAGS__|${LDFLAGS}|" \
+				${WRKSRC}/build/Program.jam
+			${REINPLACE_CMD} -e \
+				"s|__LDFLAGS__|${LDFLAGS}|" \
 				${WRKSRC}/evoke/Jamfile
-
-pre-configure:
-			(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
-				./autogen.sh)
+			${REINPLACE_CMD} -e \
+				"s|__LDFLAGS__|${LDFLAGS}|" \
+				${WRKSRC}/pekwm/Jamfile
 
 do-build:
 			(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
