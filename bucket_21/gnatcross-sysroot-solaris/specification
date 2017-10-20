@@ -38,6 +38,9 @@ do-install:
 	${MV} ${WRKDIR}/gnatcross-sys*/lib ${STAGEDIR}${PREFIX}/sysroot
 	${MV} ${WRKDIR}/gnatcross-sys*/usr ${STAGEDIR}${PREFIX}/sysroot
 	${ECHO_CMD} ${CTARGET} > ${STAGEDIR}${PREFIX}/sysroot/target_triplet
+	${LN} -s ../../lib/ld.so.1 ${STAGEDIR}${PREFIX}/sysroot/usr/lib/ld.so.1
+	${LN} -s ../../../lib/amd64/ld.so.1 \
+		${STAGEDIR}${PREFIX}/sysroot/usr/lib/amd64/ld.so.1
 	(cd ${STAGEDIR}${PREFIX}; ${FIND} sysroot -type d -empty -delete)
 
 post-install-SOL10-ON:
