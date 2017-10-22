@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	2.1
+DEF[EDE_BINARIES]=	about autostart bell-conf bug-report calc conf crasher desktop desktop-conf dialog image-view keyboard-conf launch notify-daemon panel preferred-applications screensaver-conf shutdown timedate tip tip-compiler
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ede
@@ -32,6 +33,7 @@ BUILDRUN_DEPENDS=	edelib:single:standard
 			curl:primary:standard
 			startup-notification:single:standard
 			shared-mime-info:single:standard
+BR_DEPS[freebsd]=	gamin:single:standard
 
 USES=			gettext-tools pkgconfig png zlib
 XORG_COMPONENTS=	x11 xcursor xext xfixes xft xinerama
@@ -58,11 +60,9 @@ do-install:
 				install)
 
 post-install:
-			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-[a-g]*
-			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-[i-r]*
-			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-screensaver-conf
-			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-shutdown
-			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-t*
-			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/evoke
-			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/pekwm
-			${STRIP_CMD} ${STAGEDIR}${PREFIX}/share/ede/panel-applets/*.so
+.for i in ${EDE_BINARIES}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-${i}
+.endfor
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/evoke
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/pekwm
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/share/ede/panel-applets/*.so
