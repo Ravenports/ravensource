@@ -1,0 +1,11 @@
+--- build/Program.jam.orig	2017-10-19 23:22:20.662956000 +0200
++++ build/Program.jam	2017-10-19 23:22:44.320947000 +0200
+@@ -82,7 +82,7 @@
+ 	}
+ 
+ 	MakeProgramPrivate $(1) : $(2) 
+-		: $(EDELIB_GUI_LIB) $(STDLIB) 
++		: __LDFLAGS__ $(EDELIB_GUI_LIB) $(STDLIB) 
+ 		: $(GLOBALFLAGS) $(EDELIB_GUI_INCLUDE) ;
+ 
+ 	if $(3) != "noinstall" {

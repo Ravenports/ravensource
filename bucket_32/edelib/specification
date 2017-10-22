@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	2.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		edelib
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Component construction library for EDE
+HOMEPAGE=		http://equinox-project.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/ede/edelib/${PORTVERSION}/
+DISTFILE[1]=		edelib-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+CFLAGS=			-fPIC
+CXXFLAGS=		-fPIC
+
+BUILD_DEPENDS=		ftjam:single:standard
+BUILDRUN_DEPENDS=	fltk:primary:standard
+			dbus:single:standard
+
+USES=			pkgconfig python:2.7 shebangfix
+SHEBANG_FILES=		tools/edelib-mk-indextheme
+			tools/edelib-convert-icontheme
+MUST_CONFIGURE=		gnu
+
+post-patch:
+		${CP} ${FILESDIR}/scheme.h ${WRKSRC}/edelib/ts
+
+do-build:
+		(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
+			jam)
+
+do-install:
+		(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
+			jam prefix="/construction/edelib/stage/${PREFIX}" install)
+
+post-stage:
+		${MV} /construction/edelib/stage/raven/share/doc \
+			/construction/edelib/stage/raven/share/docs

@@ -1,0 +1,29 @@
+DEF[PORTVERSION]=	0.1.10
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gamin
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Monitor files and directories for changes
+HOMEPAGE=		http://www.gnome.org/~veillard/gamin/index.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://people.gnome.org/~veillard/gamin/sources/
+DISTFILE[1]=		gamin-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/gamin
+
+BROKEN[dragonfly]=	Most likely needs patches to run (untested)
+
+USES=			gettext-runtime gmake libtool pkgconfig
+GNOME_COMPONENTS=	glib
+MUST_CONFIGURE=		gnu
+
+CPPFLAGS=		-DHAVE_LINUX

@@ -1,0 +1,70 @@
+DEF[PORTVERSION]=	2.1
+DEF[EDE_BINARIES]=	about autostart bell-conf bug-report calc conf crasher desktop desktop-conf dialog image-view keyboard-conf launch notify-daemon panel preferred-applications screensaver-conf shutdown timedate tip tip-compiler
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ede
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_wm
+VARIANTS=		standard
+SDESC[standard]=	Extremely light-weight desktop environment
+HOMEPAGE=		http://equinox-project.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/ede/ede/${PORTVERSION}/
+DISTFILE[1]=		ede-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11-wm/ede
+
+CONFIGURE_ENV=		PEKWM_CXXFLAGS="-fpermissive"
+
+BUILD_DEPENDS=		ftjam:single:standard
+			asciidoc:single:py27
+BUILDRUN_DEPENDS=	edelib:single:standard
+			fltk:primary:standard
+			xorg-setxkbmap:single:standard
+			xorg-xpm:single:standard
+			xorg-xrandr:single:standard
+			curl:primary:standard
+			startup-notification:single:standard
+			shared-mime-info:single:standard
+BR_DEPS[dragonfly]=	gamin:single:standard
+BR_DEPS[freebsd]=	gamin:single:standard
+BR_DEPS[sunos]=		gamin:single:standard
+
+USES=			gettext-tools pkgconfig png zlib
+XORG_COMPONENTS=	x11 xcursor xext xfixes xft xinerama
+MUST_CONFIGURE=		gnu
+
+post-patch:
+			${REINPLACE_CMD} -e \
+				"s|__LDFLAGS__|${LDFLAGS}|" \
+				${WRKSRC}/build/Program.jam
+			${REINPLACE_CMD} -e \
+				"s|__LDFLAGS__|${LDFLAGS}|" \
+				${WRKSRC}/evoke/Jamfile
+			${REINPLACE_CMD} -e \
+				"s|__LDFLAGS__|${LDFLAGS}|" \
+				${WRKSRC}/pekwm/Jamfile
+
+do-build:
+			(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
+				jam)
+
+do-install:
+			(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
+				jam prefix="/construction/ede/stage${PREFIX}" \
+				install)
+
+post-install:
+.for i in ${EDE_BINARIES}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-${i}
+.endfor
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/evoke
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/pekwm
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/share/ede/panel-applets/*.so
