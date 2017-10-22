@@ -1,4 +1,8 @@
-DEF[PORTVERSION]=	3.6.0
+DEF[PORTVERSION]=	3.6.1
+DEF[SOVERSION]=		30.20.1
+DEF[SOXXVERSION]=	28.1.0
+DEF[SOMAJOR]=		${SOVERSION:R:R}
+DEF[SOXXMAJOR]=		${SOXXVERSION:R:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnutls
@@ -46,6 +50,10 @@ CONFIGURE_ARGS=		--disable-guile
 			--with-p11-kit
 			--without-tpm
 MAKE_ENV=		MAKEINFOFLAGS=--no-split
+PLIST_SUB=		SOVERSION=${SOVERSION}
+			SOMAJOR=${SOMAJOR}
+			SOXXVERSION=${SOXXVERSION}
+			SOXXMAJOR=${SOXXMAJOR}
 
 INFO=			single:gnutls
 			single:gnutls-guile

@@ -91,14 +91,15 @@ CONFIGURE_ENV=		build_configargs="CPPFLAGS=\"{{CPPFLAGS}}\""
 					PREPEND_PATH={{BSPREFIX}}/{{TGTSYS}}/bin:{{BSPREFIX}}/bin
 
 [SOL10].DESCRIPTION=			Build native compiler for Solaris 10
-[SOL10].CONFIGURE_ENV_ON=		LD=ld.bfd
 [SOL10].CONFIGURE_ARGS_ON=		--build={{CONFIGURE_TARGET}}
 					--host=x86_64-raven-solaris2.10
 					--target=x86_64-raven-solaris2.10
 					--disable-libstdcxx-pch
-					--enable-multilib
+					--disable-multilib
 					--with-gnu-ld
 					--with-gnu-as
+					--with-ld={{LOCALBASE}}/toolchain/bin/ld
+					--with-as={{LOCALBASE}}/toolchain/bin/as
 [SOL10].BUILD_DEPENDS_ON=		gnatcross:single:SOL10
 [SOL10].MAKEFILE_ON=			TGTSYS=x86_64-raven-solaris2.10
 					BSPREFIX={{LOCALBASE}}/Solaris10_AMD64
