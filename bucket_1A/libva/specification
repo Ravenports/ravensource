@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	1.8.3
+DEF[PORTVERSION]=	2.0.0
+DEF[SOVERSION]=		2.0.0
+DEF[SOMAJOR]=		${SOVERSION:R:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libva
@@ -43,6 +45,8 @@ CONFIGURE_ARGS=		--program-prefix=va
 LDFLAGS=		-lpthread
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
+PLIST_SUB=		SOVERSION=${SOVERSION}
+			SOMAJOR=${SOMAJOR}
 
 # prevent types conflict: videodev2.h vs. drm.h
 CFLAGS=			-DHAVE_LINUX_INTEGER_TYPES
