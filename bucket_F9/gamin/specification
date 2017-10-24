@@ -26,3 +26,6 @@ GNOME_COMPONENTS=	glib
 MUST_CONFIGURE=		gnu
 
 CPPFLAGS=		-DHAVE_LINUX
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so*
