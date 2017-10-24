@@ -42,24 +42,17 @@ XORG_COMPONENTS=	x11 xcursor xext xfixes xft xinerama
 MUST_CONFIGURE=		gnu
 
 post-patch:
-			${REINPLACE_CMD} -e \
-				"s|__LDFLAGS__|${LDFLAGS}|" \
-				${WRKSRC}/build/Program.jam
-			${REINPLACE_CMD} -e \
-				"s|__LDFLAGS__|${LDFLAGS}|" \
-				${WRKSRC}/evoke/Jamfile
-			${REINPLACE_CMD} -e \
-				"s|__LDFLAGS__|${LDFLAGS}|" \
-				${WRKSRC}/pekwm/Jamfile
+	${REINPLACE_CMD} -e "s|__LDFLAGS__|${LDFLAGS}|" \
+		${WRKSRC}/build/Program.jam
+	${REINPLACE_CMD} -e "s|__LDFLAGS__|${LDFLAGS}|" ${WRKSRC}/evoke/Jamfile
+	${REINPLACE_CMD} -e "s|__LDFLAGS__|${LDFLAGS}|" ${WRKSRC}/pekwm/Jamfile
 
 do-build:
-			(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
-				jam)
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} jam)
 
 do-install:
-			(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
-				prefix="${STAGEDIR}${PREFIX}" \
-				jam install)
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		prefix="${STAGEDIR}${PREFIX}" jam install)
 
 post-install:
 .for i in ${EDE_BINARIES}
