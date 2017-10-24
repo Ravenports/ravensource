@@ -1,0 +1,28 @@
+DEF[PORTVERSION]=	2.6
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		jam
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Simple but more powerful alternative to make
+HOMEPAGE=		https://www.perforce.com/documentation/jam-documentation
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://swarm.workshop.perforce.com/projects/perforce_software-jam/download/main/
+DISTFILE[1]=		jam-${PORTVERSION}.tar:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/jam
+
+do-install:
+			${INSTALL_PROGRAM} ${WRKSRC}/jam0 \
+				${STAGEDIR}${PREFIX}/bin/jam
+			${MKDIR} ${STAGEDIR}${PREFIX}/share/docs/${NAMEBASE}
+			${CP} ${WRKSRC}/*.html \
+				${STAGEDIR}${PREFIX}/share/docs/${NAMEBASE}

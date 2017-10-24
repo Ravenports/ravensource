@@ -23,7 +23,7 @@ FPC_EQUIVALENT=		x11-wm/ede
 
 CONFIGURE_ENV=		PEKWM_CXXFLAGS="-fpermissive"
 
-BUILD_DEPENDS=		ftjam:single:standard
+BUILD_DEPENDS=		jam:primary:standard
 			asciidoc:single:py27
 BUILDRUN_DEPENDS=	edelib:single:standard
 			fltk:primary:standard
@@ -58,8 +58,8 @@ do-build:
 
 do-install:
 			(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
-				jam prefix="/construction/ede/stage${PREFIX}" \
-				install)
+				prefix="${STAGEDIR}${PREFIX}" \
+				jam install)
 
 post-install:
 .for i in ${EDE_BINARIES}
