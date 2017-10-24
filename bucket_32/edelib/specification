@@ -21,7 +21,7 @@ OPTIONS_STANDARD=	none
 CFLAGS=			-fPIC
 CXXFLAGS=		-fPIC
 
-BUILD_DEPENDS=		ftjam:single:standard
+BUILD_DEPENDS=		jam:primary:standard
 BUILDRUN_DEPENDS=	fltk:primary:standard
 			dbus:single:standard
 
@@ -39,8 +39,8 @@ do-build:
 
 do-install:
 		(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
-			jam prefix="/construction/edelib/stage/${PREFIX}" install)
+			prefix="${STAGEDIR}${PREFIX}" \
+			jam install)
 
 post-stage:
-		${MV} /construction/edelib/stage/raven/share/doc \
-			/construction/edelib/stage/raven/share/docs
+		${RM} -r ${STAGEDIR}${PREFIX}/share/doc
