@@ -1,0 +1,31 @@
+DEF[PORTVERSION]=	3.5.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		sakura
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Simple tabbed terminal emulator using GTK+
+HOMEPAGE=		https://launchpad.net/sakura
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://launchpad.net/sakura/trunk/${PORTVERSION}/+download/
+DISTFILE[1]=		sakura-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11/sakura
+
+BUILDRUN_DEPENDS=	vte:primary:standard
+
+USES=			cmake pkgconfig gettext-runtime
+XORG_COMPONENTS=	x11
+GNOME_COMPONENTS=	glib gtk3
+
+post-install:
+	${RM} -r ${STAGEDIR}${PREFIX}/share/doc
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/sakura
