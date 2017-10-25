@@ -30,3 +30,6 @@ post-patch:
 		"s|prefix = /usr/local|prefix = ${STAGEDIR}${PREFIX}|" \
 		${WRKSRC}/unix/Makefile
 	${REINPLACE_CMD} -e "s|man/man|share/man/man|" ${WRKSRC}/unix/Makefile
+
+post-stage:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
