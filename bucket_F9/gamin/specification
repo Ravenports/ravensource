@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	0.1.10
 
 NAMEBASE=		gamin
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Monitor files and directories for changes
@@ -26,3 +26,6 @@ GNOME_COMPONENTS=	glib
 MUST_CONFIGURE=		gnu
 
 CPPFLAGS=		-DHAVE_LINUX
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so*
