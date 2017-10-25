@@ -17,6 +17,8 @@ RAVENSRC=$(dirname ${SCRIPTSDIR})
 HEXRANGE="0 1 2 3 4 5 6 7 8 9 A B C D E F"
 PD_AWK=${SCRIPTSDIR}/miscellaneous/port_dates.awk
 PD_FILE=${repo}/Mk/Misc/port_dates
+CONVARS=${repo}/Mk/Misc/conspiracy_variants
+TMPFULL=/tmp/port_dates
 
 for D1 in ${HEXRANGE}; do
   for D0 in ${HEXRANGE}; do
@@ -40,7 +42,16 @@ fi
 
 (cd ${repo} && git add "." && git commit -m "${message}")
 (cd ${repo} && git log --format="format:%ct" --name-only) | \
-  awk -f ${PD_AWK} | sort > ${PD_FILE}
+  awk -f ${PD_AWK} | sort > ${TMPFULL}
+rm -f ${PD_FILE}
+while read namebase timeS timeF
+do
+   grep -q " ${namebase} " ${CONVARS}
+   if [ $? -eq 0 ]; then
+      echo "${namebase} ${timeS} ${timeF}" >> ${PD_FILE}
+   fi
+done < ${TMPFULL}
+rm -f ${TMPFULL}
 (cd ${repo}/Mk && git add Misc)
 
 chown -R ${maintainer} ${repo}
