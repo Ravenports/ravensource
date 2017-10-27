@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	2.3.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		tig
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Text-mode interface for git
+HOMEPAGE=		https://jonas.github.io/tig/
+CONTACT=		Michael_Neumann[mneumann@ntecs.de]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/jonas/tig/releases/download/tig-${PORTVERSION}/
+DISTFILE[1]=		tig-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:single
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/tig
+
+USES=			iconv gmake ncurses readline
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		{{ICONV_CONFIGURE_BASE}}
+CFLAGS=			-I{{NCURSESINC}}
+MAKE_ARGS=		V=1
+BUILD_TARGET=		all strip doc-man
+INSTALL_TARGET=		install install-doc-man
+
+RUN_DEPENDS=		git:primary:standard
