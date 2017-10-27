@@ -46,7 +46,10 @@ EXTRACT_DIRTY=		1 2
 					PREFIX={{LOCALBASE}}/FreeBSD12_AMD64
 [AMD64R12].DF_INDEX_ON=			2
 
-post-extract:
+post-extract-dragonfly:
+	/bin/chflags -R noschg ${WRKDIR}
+
+post-extract-freebsd:
 	/bin/chflags -R noschg ${WRKDIR}
 
 do-install:
