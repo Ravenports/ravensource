@@ -36,3 +36,7 @@ XORG_COMPONENTS=	inputproto xtst
 DISTNAME=		${ALTNAME}-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
+
+post-patch:
+	# disable evdev requirement on linux for now
+	${REINPLACE_CMD} -e '/BUILD_EVENTCOMM="yes"/d' ${WRKSRC}/configure
