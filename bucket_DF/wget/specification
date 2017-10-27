@@ -4,8 +4,9 @@ DEF[PORTVERSION]=	1.19.2
 NAMEBASE=		wget
 VERSION=		${PORTVERSION}
 KEYWORDS=		ftp www
-VARIANTS=		standard
+VARIANTS=		standard raven
 SDESC[standard]=	Program to retrieve files via http/s and ftp
+SDESC[raven]=		Minimal alias for fetch for Solaris Ravensys root
 HOMEPAGE=		https://www.gnu.org/software/wget/
 CONTACT=		nobody
 
@@ -14,9 +15,11 @@ SITES[main]=		GNU/wget
 DISTFILE[1]=		wget-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	complete primary docs
+SPKGS[raven]=		primary
 
-OPTIONS_AVAILABLE=	none
+OPTIONS_AVAILABLE=	RAVENSYS
 OPTIONS_STANDARD=	none
+VOPTS[raven]=		RAVENSYS=ON
 
 LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
@@ -24,30 +27,37 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		ftp/wget
 
-BUILD_DEPENDS=		pcre:static:standard
-BUILDRUN_DEPENDS=	pcre:shared:standard
-			libidn2:primary:standard
-			libunistring:primary:standard
-			libmetalink:primary:standard
-
-USES=			charsetfix cpe iconv makeinfo gettext-runtime ssl
-			zlib pkgconfig perl:build
+USES=			charsetfix cpe pkgconfig
 CPE_VENDOR=		gnu
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-libidn={{LOCALBASE}}
-			--with-libunistring-prefix={{LOCALBASE}}
-			--with-metalink
-			--with-ssl=openssl
+CONFIGURE_ARGS=		--with-ssl=openssl
 			--with-ssl-prefix={{OPENSSLBASE}}
 			--without-libpsl
-			--enable-nls
 			--enable-iri
-			--enable-ipv6
-			--enable-pcre
 CONFIGURE_ENV=		MAKEINFO="{{MAKEINFO}}"
 CPPFLAGS=		-I{{OPENSSLINC}}
 LDFLAGS=		-L{{OPENSSLLIB}}
-INFO=			primary:wget
+
+[RAVENSYS].DESCRIPTION=			Minimal static version used as alias for fetch
+
+[RAVENSYS].USES_OFF=			gettext-runtime perl:build makeinfo zlib ssl iconv
+[RAVENSYS].BUILD_DEPENDS_OFF=		pcre:static:standard
+[RAVENSYS].BUILDRUN_DEPENDS_OFF=	pcre:shared:standard
+					libmetalink:primary:standard
+					libidn2:primary:standard
+					libunistring:primary:standard
+[RAVENSYS].CONFIGURE_ARGS_OFF=		--enable-pcre
+					--enable-nls
+					--with-metalink
+					--with-libidn={{LOCALBASE}}
+					--with-libunistring-prefix={{LOCALBASE}}
+[RAVENSYS].INFO_OFF=			primary:wget
+
+[RAVENSYS].USES_ON=			iconv:build
+[RAVENSYS].BUILD_DEPENDS_ON=		zlib:static:standard
+					libressl:single:static
+[RAVENSYS].RUN_DEPENDS_ON=		nss:caroot:standard
+[RAVENSYS].SUB_FILES_ON=		fetch
 
 post-patch:
 	${REINPLACE_CMD} -e 's,WGETRC = $$(sysconfdir)/wgetrc,&.sample,' \
@@ -55,3 +65,14 @@ post-patch:
 	${REINPLACE_CMD} -e 's,/usr/local/etc/wgetrc,${PREFIX}/etc/wgetrc,' \
 		${WRKSRC}/doc/sample.wgetrc* \
 		${WRKSRC}/doc/wget.texi
+
+post-patch-RAVENSYS-ON:
+	${REINPLACE_CMD} \
+		-e '/^all: wget.info/ s,wget.info,,' \
+		-e '/^all-am:/ s, $$(INFO_DEPS),,' \
+		-e '/^install-data-am:/ s, install-info-am,,' \
+		${WRKSRC}/doc/Makefile.in
+
+post-install-RAVENSYS-ON:
+	${RM} ${STAGEDIR}${PREFIX}/etc/wgetrc.sample
+	${INSTALL_SCRIPT} ${WRKDIR}/fetch ${STAGEDIR}${PREFIX}/bin
