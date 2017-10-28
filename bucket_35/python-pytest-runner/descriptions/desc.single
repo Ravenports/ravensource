@@ -3,21 +3,11 @@
 
 .. image:: https://img.shields.io/pypi/pyversions/pytest-runner.svg
 
-.. image:: https://img.shields.io/pypi/dm/pytest-runner.svg
-
 .. image:: https://img.shields.io/travis/pytest-dev/pytest-runner/master.svg
    :target: http://travis-ci.org/pytest-dev/pytest-runner
 
 Setup scripts can use pytest-runner to add setup.py test support for pytest
 runner.
-
-
-License
-=======
-
-License is indicated in the project metadata (typically one or more
-of the Trove classifiers). For more details, see `this explanation
-<https://github.com/jaraco/skeleton/issues/1>`_.
 
 Usage
 -----
@@ -98,3 +88,13 @@ Considerations
 
 Conditional Requirement
 ~~~~~~~~~~~~~~~~~~~~~~~
+
+Because it uses Setuptools setup_requires, pytest-runner will install itself
+on every invocation of setup.py. In some cases, this causes delays for
+invocations of setup.py that will never invoke pytest-runner. To help avoid
+this contingency, consider requiring pytest-runner only when pytest
+is invoked::
+
+    needs_pytest = {'pytest', 'test', 'ptr'}.intersection(sys.argv)
+    pytest_runner = ['pytest-runner'] if needs_pytest else []
+
