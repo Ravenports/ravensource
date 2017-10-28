@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	6.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		cwm
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_wm
+VARIANTS=		standard
+SDESC[standard]=	Minimalistic window manager for X11
+HOMEPAGE=		https://github.com/chneukirchen/cwm
+CONTACT=		Michael_Neumann[mneumann@ntecs.de]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/chneukirchen:cwm:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11-wm/cwm
+
+LICENSE=		BSD2CLAUSE:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/BSD2CLAUSE
+LICENSE_SCHEME=		solo
+
+USES=			pkgconfig:build
+			fonts
+
+XORG_COMPONENTS=	x11 xft xinerama xrandr
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/cwm ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/cwm.1 ${STAGEDIR}${MAN1PREFIX}/man/man1
+	${INSTALL_MAN} ${WRKSRC}/cwmrc.5 ${STAGEDIR}${MAN5PREFIX}/man/man5
