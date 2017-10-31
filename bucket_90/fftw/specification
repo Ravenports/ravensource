@@ -1,5 +1,6 @@
-DEF[PORTVERSION]=	3.3.6
-DEF[PATCHLEVEL]=	-pl2
+DEF[PORTVERSION]=	3.3.7
+DEF[SOVERSION]=		3.5.7
+DEF[SOMAJOR]=		${SOVERSION:R:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fftw
@@ -15,7 +16,7 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		http://www.fftw.org/
-DISTFILE[1]=		fftw-${PORTVERSION}${PATCHLEVEL}.tar.gz:main
+DISTFILE[1]=		fftw-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	single
 SPKGS[float]=		single
@@ -32,7 +33,6 @@ FPC_EQUIVALENT=		math/fftw3
 
 USES=			gmake libtool makeinfo perl:build pkgconfig
 			fortran:single
-DISTNAME=		fftw-${PORTVERSION}${PATCHLEVEL}
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 MUST_CONFIGURE=		gnu
@@ -40,6 +40,8 @@ CONFIGURE_ARGS=		--enable-shared
 			--enable-threads
 			--enable-openmp
 PLIST_SUB=		OPENMPI="@comment "
+			SOVERSION=${SOVERSION}
+			SOMAJOR=${SOMAJOR}
 
 [FLOAT].DESCRIPTION=			Build float version of fftw
 [LONG].DESCRIPTION=			Build long double version of fftw
