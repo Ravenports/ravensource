@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	0.13.7
+DEF[PORTVERSION]=	0.14.0
+DEF[SOVERSION]=		9.0.2
+DEF[SOMAJOR]=		${SOVERSION:R:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libass
@@ -34,6 +36,7 @@ USES=			autoreconf iconv libtool pkgconfig
 INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-harfbuzz
+PLIST_SUB=		SOVERSION=${SOVERSION}
+			SOMAJOR=${SOMAJOR}
 VAR_ARCH[x86_64]=	CONFIGURE_ARGS=--enable-asm
 VAR_ARCH[i386]=		CONFIGURE_ARGS=--enable-asm
-
