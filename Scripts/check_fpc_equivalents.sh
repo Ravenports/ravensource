@@ -59,6 +59,7 @@ while read ravenport version fpc_port; do
 	fuse3) ;;
 	aspell-mg | aspell-hus) ;;
 	gnatcross*) ;;
+	edelib) ;;
 	*) echo "${ravenport} ${version}"
    esac
 done < ${tmpfile}
