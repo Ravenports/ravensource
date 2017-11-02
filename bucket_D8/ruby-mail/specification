@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.6.6
+DEF[PORTVERSION]=	2.7.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-mail
@@ -12,7 +12,7 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		mail-2.6.6.gem:main
+DISTFILE[1]=		mail-2.7.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v23]=		single
@@ -27,7 +27,7 @@ GENERATED=		yes
 
 # Requirements specified by gem dependency --remote --version command
 #   bundler (>= 1.0.3, development)
-#   mime-types (< 4, >= 1.16)
+#   mini_mime (>= 0.1.1)
 #   rake (> 0.8.7, development)
 #   rdoc (>= 0, development)
 #   rspec (~> 3.0, development)
@@ -35,8 +35,8 @@ GENERATED=		yes
 DISTNAME=		mail-${PORTVERSION}
 
 [RUBY23].USES_ON=			gem:v23
-[RUBY23].BUILDRUN_DEPENDS_ON=		ruby-mime-types:single:v23
+[RUBY23].BUILDRUN_DEPENDS_ON=		ruby-mini_mime:single:v23
 
 [RUBY24].USES_ON=			gem:v24
-[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-mime-types:single:v24
+[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-mini_mime:single:v24
 
