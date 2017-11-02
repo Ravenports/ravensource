@@ -1,4 +1,4 @@
---- configure.orig	2017-10-13 13:36:06 UTC
+--- configure.orig	2017-10-31 19:07:53 UTC
 +++ configure
 @@ -57,7 +57,7 @@ from gyp_node import run_gyp
  parser = optparse.OptionParser()
@@ -18,11 +18,11 @@
  
    # Need xcode_version or gas_version when openssl asm files are compiled.
    if options.without_ssl or options.openssl_no_asm or options.shared_openssl:
-@@ -1458,9 +1460,6 @@ if options.prefix:
- 
+@@ -1463,9 +1465,6 @@ if options.prefix:
  config = '\n'.join(map('='.join, config.iteritems())) + '\n'
  
--bin_override = get_bin_override()
+ # On Windows there's no reason to search for a different python binary.
+-bin_override = None if sys.platform == 'win32' else make_bin_override()
 -if bin_override:
 -  config = 'export PATH:=' + bin_override + ':$(PATH)\n' + config
  
