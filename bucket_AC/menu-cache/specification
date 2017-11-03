@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	1.0.2
+DEF[PORTVERSION]=	1.1.0
+DEF[SOVERSION]=		3.2.0
+DEF[SOMAJOR]=		${SOVERSION:R:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		menu-cache
@@ -10,8 +12,8 @@ HOMEPAGE=		http://lxde.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/lxde/menu-cache/${PORTVERSION:R}/
-DISTFILE[1]=		menu-cache-${PORTVERSION}.tar.xz:main
+SITES[main]=		GITHUB/lxde:menu-cache:${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
@@ -20,10 +22,18 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		x11/menu-cache
 
+BUILD_DEPENDS=		autoconf:single:standard
+			automake:single:standard
+			gtk-doc:single:standard
 BUILDRUN_DEPENDS=	libfm-extra:single:standard
 
-USES=			gmake gettext-runtime libtool pkgconfig
+USES=			gmake gettext-runtime libtool:build pkgconfig
 GNOME_COMPONENTS=	glib
 INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-static
+PLIST_SUB=		SOVERSION=${SOVERSION}
+			SOMAJOR=${SOMAJOR}
+
+pre-configure:
+	(cd ${WRKSRC} && ./autogen.sh)
