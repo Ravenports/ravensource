@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	1.26
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gtk-doc
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	GTK+ DocBook Documentation Generator
+HOMEPAGE=		https://www.gtk.org/gtk-doc/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/gtk-doc/${PORTVERSION}
+DISTFILE[1]=		gtk-doc-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		textproc/gtk-doc
+
+BUILD_DEPENDS=		itstool:single:standard
+BUILDRUN_DEPENDS=	jade:primary:standard
+			docbook-xml:single:standard
+			docbook-xsl:primary:standard
+			rarian:single:standard
+
+USES=			gmake gettext-tools perl pkgconfig python
+GNOME_COMPONENTS=	libxslt
+MUST_CONFIGURE=		gnu
+CONFIGURE_ENV=		GTKDOC="false"
+CONFIGURE_ARGS=		--with-xml-catalog={{LOCALBASE}}/share/xml/catalog.ports
+			--localstatedir={{PREFIX}}/share
+MAKE_ARGS=		pkgconfigdir={{PREFIX}}/lib/pkgconfig
+
+post-patch:
+	${REINPLACE_CMD} -e 's/docbook.sourceforge.net/cdn.docbook.org/' \
+		${WRKSRC}/configure
