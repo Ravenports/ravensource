@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	1.1.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-ddt
+VERSION=		${PORTVERSION}
+KEYWORDS=		python devel
+VARIANTS=		py27 py35 py36
+SDESC[py27]=		Data-Driven/Decorated Tests (PY 27)
+SDESC[py35]=		Data-Driven/Decorated Tests (PY 35)
+SDESC[py36]=		Data-Driven/Decorated Tests (PY 36)
+HOMEPAGE=		https://github.com/txels/ddt
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/d/ddt
+DISTFILE[1]=		ddt-1.1.1.tar.gz:main
+
+SPKGS[py27]=		single
+SPKGS[py35]=		single
+SPKGS[py36]=		single
+
+OPTIONS_AVAILABLE=	PY27 PY35 PY36
+OPTIONS_STANDARD=	none
+VOPTS[py27]=		PY27=ON PY35=OFF PY36=OFF
+VOPTS[py35]=		PY27=OFF PY35=ON PY36=OFF
+VOPTS[py36]=		PY27=OFF PY35=OFF PY36=ON
+
+# No license file found for UNKNOWN license
+LICENSE_SCHEME=		solo
+
+GENERATED=		yes
+
+# install_requires extracted from setup.py (using python 2.7)
+
+DISTNAME=		ddt-${PORTVERSION}
+
+[PY27].USES_ON=				python:py27
+
+[PY35].USES_ON=				python:py35
+
+[PY36].USES_ON=				python:py36
+
