@@ -1,4 +1,10 @@
-DEF[PORTVERSION]=	2.5.5
+DEF[PORTVERSION]=	2.6.3
+DEF[SSL_SOMAJOR]=	44
+DEF[SSL_SOMINOR]=	0.1
+DEF[TLS_SOMAJOR]=	16
+DEF[TLS_SOMINOR]=	0.1
+DEF[CRY_SOMAJOR]=	42
+DEF[CRY_SOMINOR]=	0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libressl
@@ -34,14 +40,15 @@ CPE_VENDOR=		openbsd
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-nc
 			--disable-hardening
-CONFIGURE_ENV=		ac_cv_search_b64_ntop=no
-			ac_cv_search___b64_ntop=no
 INSTALL_TARGET=		install-strip
 TEST_TARGET=		check
 INSTALL_REQ_TOOLCHAIN=	yes
-
-# disable conftest on b64_ntop to prevent it from finding libresolv
-# on linux.  It will fall back to a local compat version.
+PLIST_SUB=		CRY_SOMAJOR=${CRY_SOMAJOR}
+			CRY_SOMINOR=${CRY_SOMINOR}
+			SSL_SOMAJOR=${SSL_SOMAJOR}
+			SSL_SOMINOR=${SSL_SOMINOR}
+			TLS_SOMAJOR=${TLS_SOMAJOR}
+			TLS_SOMINOR=${TLS_SOMINOR}
 
 [STATIC].CFLAGS_OFF=			-fpic -DPIC
 [STATIC].CONFIGURE_ARGS_ON=		--enable-shared=no
