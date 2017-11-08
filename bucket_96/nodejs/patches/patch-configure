@@ -1,14 +1,14 @@
---- configure.orig	2017-10-31 19:07:53 UTC
+--- configure.orig	2017-11-07 15:07:54 UTC
 +++ configure
-@@ -57,7 +57,7 @@ from gyp_node import run_gyp
+@@ -56,7 +56,7 @@ from gyp_node import run_gyp
+ # parse our options
  parser = optparse.OptionParser()
  
- valid_os = ('win', 'mac', 'solaris', 'freebsd', 'openbsd', 'linux',
--            'android', 'aix')
-+            'android', 'aix', 'dragonfly')
+-valid_os = ('win', 'mac', 'solaris', 'freebsd', 'openbsd', 'linux',
++valid_os = ('win', 'mac', 'solaris', 'freebsd', 'openbsd', 'linux', 'dragonfly',
+             'android', 'aix', 'cloudabi')
  valid_arch = ('arm', 'arm64', 'ia32', 'mips', 'mipsel', 'mips64el', 'ppc',
                'ppc64', 'x32','x64', 'x86', 's390', 's390x')
- valid_arm_float_abi = ('soft', 'softfp', 'hard')
 @@ -667,6 +667,8 @@ def check_compiler(o):
  
    if is_clang:
