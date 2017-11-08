@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.26
 
 NAMEBASE=		gtk-doc
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		standard
 SDESC[standard]=	GTK+ DocBook Documentation Generator
@@ -37,3 +38,9 @@ MAKE_ARGS=		pkgconfigdir={{PREFIX}}/lib/pkgconfig
 post-patch:
 	${REINPLACE_CMD} -e 's/docbook.sourceforge.net/cdn.docbook.org/' \
 		${WRKSRC}/configure
+	# itstool segfaults on french and chinese documentation
+	${REINPLACE_CMD} \
+		-e '/HELP_LINGUAS =/ s/ fr / /' \
+		-e '/HELP_LINGUAS =/ s/ zh_CN//' \
+		${WRKSRC}/help/manual/Makefile.in
+
