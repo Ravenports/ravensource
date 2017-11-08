@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.2.0
+DEF[PORTVERSION]=	0.2.1
 DEF[SPEC_LUA]=		5.2
 DEF[LUA_VARIANT]=	lua${SPEC_LUA:S/.//}
 # ----------------------------------------------------------------------------
@@ -31,11 +31,12 @@ BUILD_DEPENDS=		gperf:single:standard
 			lua-bitop:single:${LUA_VARIANT}
 			lua-mpack:single:${LUA_VARIANT}
 
-USES=			cmake:outsource gmake libtool pkgconfig lua:build,${SPEC_LUA}
+USES=			cmake:outsource gmake libtool pkgconfig lua:${SPEC_LUA}
 			gettext-tools gettext-runtime
 CMAKE_ARGS=		-DCMAKE_SKIP_BUILD_RPATH:BOOL=YES
 			-DDEPS_PREFIX:PATH="{{LOCALBASE}}"
 			-DLUA_PRG:FILEPATH="{{LOCALBASE}}/bin/{{LUA_CMD}}"
+			-DPREFER_LUA:BOOL=YES
 INSTALL_REQ_TOOLCHAIN=	yes
 
 post-install:
