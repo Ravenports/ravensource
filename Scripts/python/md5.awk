@@ -5,7 +5,7 @@ BEGIN {
    # set seek to "md5_digest" or "filename"
 }
 {
-   if ($2 == version) {
+   if ($2 == "" version) {
       scan_step1 = 1;
    } else {
       if (scan_step1) {
