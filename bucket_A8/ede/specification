@@ -4,6 +4,7 @@ DEF[EDE_BINARIES]=	about autostart bell-conf bug-report calc conf crasher deskto
 
 NAMEBASE=		ede
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11_wm
 VARIANTS=		standard
 SDESC[standard]=	Extremely light-weight desktop environment
@@ -14,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/ede/ede/${PORTVERSION}/
 DISTFILE[1]=		ede-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary wallpapers
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,6 +28,7 @@ BUILD_DEPENDS=		jam:primary:standard
 			asciidoc:single:py27
 BUILDRUN_DEPENDS=	edelib:single:standard
 			fltk:primary:standard
+			pekwm:single:standard
 			xorg-setxkbmap:single:standard
 			xorg-xpm:single:standard
 			xorg-xrandr:single:standard
@@ -37,16 +39,14 @@ BR_DEPS[dragonfly]=	gamin:single:standard
 BR_DEPS[freebsd]=	gamin:single:standard
 BR_DEPS[sunos]=		gamin:single:standard
 
-USES=			gettext-tools iconv pkgconfig png zlib
-XORG_COMPONENTS=	x11 xcursor xext xfixes xft xinerama
+USES=			gettext-tools pkgconfig png zlib
+XORG_COMPONENTS=	x11 xcursor xext xfixes xft xkbfile xinerama
 MUST_CONFIGURE=		gnu
-LDFLAGS=		-liconv
 
 post-patch:
 	${REINPLACE_CMD} -e "s|__LDFLAGS__|${LDFLAGS}|" \
 		${WRKSRC}/build/Program.jam \
-		${WRKSRC}/evoke/Jamfile \
-		${WRKSRC}/pekwm/Jamfile
+		${WRKSRC}/evoke/Jamfile
 
 do-build:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} jam)
@@ -56,9 +56,8 @@ do-install:
 		prefix="${STAGEDIR}${PREFIX}" jam install)
 
 post-install:
-.for i in ${EDE_BINARIES}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-${i}
+.for f in ${EDE_BINARIES}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ede-${f}
 .endfor
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/evoke
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/pekwm
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/share/ede/panel-applets/*.so
