@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	1.14.41
+DEF[PORTVERSION]=	1.14.42
+DEF[SOVERSION]=		114.0.42
+DEF[SOMAJOR]=		${SOVERSION:R:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libgsf
@@ -26,6 +28,8 @@ GNOME_COMPONENTS=	gdkpixbuf intltool libxml2 introspection
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-introspection
 INSTALL_TARGET=		install-strip
+PLIST_SUB=		SOVERSION=${SOVERSION}
+			SOMAJOR=${SOMAJOR}
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/share/doc
