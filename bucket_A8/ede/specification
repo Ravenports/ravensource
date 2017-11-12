@@ -1,6 +1,5 @@
 DEF[PORTVERSION]=	2.1
 DEF[EDE_BINARIES]=	about autostart bell-conf bug-report calc conf crasher desktop desktop-conf dialog image-view keyboard-conf launch notify-daemon panel preferred-applications screensaver-conf shutdown timedate tip tip-compiler
-DEF[PEKWM_CONF_FILES]=	mouse autoproperties_typerules start autoproperties vars menu config keys
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ede
@@ -63,11 +62,3 @@ post-install:
 .endfor
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/evoke
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/share/ede/panel-applets/*.so
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/ede/examples/pekwm
-.for f in ${PEKWM_CONF_FILES}
-	${MV} ${STAGEDIR}${PREFIX}/etc/pekwm/${f} \
-		${STAGEDIR}${PREFIX}/share/ede/examples/pekwm/${f}.example
-.endfor
-	${RM} ${STAGEDIR}${PREFIX}/bin/pekwm
-	${RM} -r ${STAGEDIR}${PREFIX}/etc/pekwm
-	${RM} -r ${STAGEDIR}${PREFIX}/share/pekwm
