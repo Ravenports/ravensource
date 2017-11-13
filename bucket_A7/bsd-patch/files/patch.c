@@ -16,6 +16,10 @@
 #include "backupfile.h"
 #include "pathnames.h"
 
+#ifndef NAME_MAX
+#define NAME_MAX	255
+#endif
+
 mode_t		filemode = 0644;
 
 char		*buf;			/* general purpose buffer */
@@ -475,7 +479,9 @@ get_some_switches(void)
 	Argv_last = Argv;
 	if (!Argc)
 		return;
+#ifndef __sun__
 	optreset = optind = 1;
+#endif
 	while ((ch = getopt_long(Argc, Argv, options, longopts, NULL)) != -1) {
 		switch (ch) {
 		case  2 :
