@@ -1,0 +1,27 @@
+DEF[PORTVERSION]=	0.8.14
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libIDL
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Library for creating trees of CORBA IDL files
+HOMEPAGE=		https://www.gnome.org
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://ftp.gnome.org/pub/GNOME/sources/libIDL/${PORTVERSION:R}/
+DISTFILE[1]=		libIDL-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/libIDL
+
+USES=			bison gettext-runtime gmake libtool:keepla pkgconfig fbsd10fix
+GNOME_COMPONENTS=	glib
+
+INSTALL_TARGET=		install-strip
+MUST_CONFIGURE=		gnu
