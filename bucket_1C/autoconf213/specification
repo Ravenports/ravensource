@@ -1,0 +1,48 @@
+DEF[PORTVERSION]=	2.13
+DEF[SHARED_FILES]=	acconfig.h acfunctions acheaders acidentifiers acmakevars acprograms config.guess config.sub install-sh
+DEF[BINARIES]=		autoreconf autoconf autoupdate autoscan autoheader ifnames
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		autoconf213
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Automatic config tool for *nix (legacy version)
+HOMEPAGE=		http://www.gnu.org/software/autoconf/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/autoconf
+DISTFILE[1]=		autoconf-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/autoconf
+
+BUILDRUN_DEPENDS=	m4:primary:standard
+RUN_DEPENDS=		autotools-wrappers:autoconf:standard
+
+USES=			gmake makeinfo perl
+PLIST_SUB=		ACVER=${PORTVERSION}
+INFO=			single:autoconf
+MUST_CONFIGURE=		gnu
+CONFIGURE_ENV=		M4={{LOCALBASE}}/bin/gm4
+			AWK={{AWK}}
+CONFIGURE_ARGS=		--program-suffix=-${PORTVERSION}
+
+DISTNAME=		autoconf-${PORTVERSION}
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/autoconf-${PORTVERSION}
+	${CP} ${WRKSRC}/*.info* ${STAGEDIR}${PREFIX}/share/info
+	${CP} ${WRKSRC}/*.m4 ${STAGEDIR}${PREFIX}/share/autoconf-${PORTVERSION}
+	${CP} ${WRKSRC}/*.m4f ${STAGEDIR}${PREFIX}/share/autoconf-${PORTVERSION}
+.for f in ${SHARED_FILES}
+	${CP} ${WRKSRC}/${f} ${STAGEDIR}${PREFIX}/share/autoconf-${PORTVERSION}
+.endfor
+.for f in ${BINARIES}
+	${CP} ${WRKSRC}/${f} ${STAGEDIR}${PREFIX}/bin/${f}-${PORTVERSION}
+.endfor
