@@ -21,3 +21,6 @@ OPTIONS_STANDARD=	none
 MUST_CONFIGURE=		yes
 CONFIGURE_ENV=		prefix="{{PREFIX}}"
 			cflags="{{CFLAGS}}"
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libz.so
