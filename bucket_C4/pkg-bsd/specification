@@ -1,9 +1,10 @@
-DEF[PORTVERSION]=	1.10.1
+DEF[PORTVERSION]=	1.10.99.6
+DEF[ROLLING_TAG]=	e4f05af
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		pkg-bsd
 VERSION=		${PORTVERSION}
-REVISION=		6
+REVISION=		0
 KEYWORDS=		raven
 VARIANTS=		standard
 SDESC[standard]=	BSD binary package manager
@@ -11,9 +12,8 @@ HOMEPAGE=		https://github.com/freebsd/pkg/blob/master/README.md
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://files.etoilebsd.net/pkg/
-			http://mirror.shatow.net/freebsd/pkg/
-DISTFILE[1]=		pkg-${PORTVERSION}.tar.xz:main
+SITES[main]=		GITHUB/jrmarino:pkg:${ROLLING_TAG}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete shared static
 
@@ -30,10 +30,11 @@ BUILDRUN_DEPENDS=	libarchive-devel:shared:standard
 BUILD_DEPENDS=		libarchive-devel:static:standard
 			zlib:static:standard
 			bzip2:static:standard
+			autoconf:single:standard
+			automake:single:standard
 BR_DEPS[linux]=		libbsd:single:standard
 
-USES=			libtool
-DISTNAME=		pkg-${PORTVERSION}
+USES=			libtool:build
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-maintainer-mode
 			--mandir={{MANPREFIX}}/man
@@ -43,27 +44,19 @@ CFLAGS=			-Wno-error
 SINGLE_JOB=		yes
 
 post-patch:
-	${REINPLACE_CMD} -e '/mandir = / s|/man|/share/man|' \
-		${WRKSRC}/docs/Makefile.in
-	${REINPLACE_CMD}\
-		-e '/libpkg_static_la_CFLAGS =/ s/$$/ -DSKIP_PLUGINS/' \
-		-e 's/larchive/larchive-devel -lzstd/' \
-		${WRKSRC}/libpkg/Makefile.in
-	${REINPLACE_CMD} -e 's/larchive/larchive-devel -lzstd/' \
-		${WRKSRC}/src/Makefile.in
-	${REINPLACE_CMD} -e "s/' archive/' archive-devel/" \
-		${WRKSRC}/configure
+	${REINPLACE_CMD} -e 's/larchive/larchive-devel/' \
+		${WRKSRC}/libpkg/Makefile.am \
+		${WRKSRC}/tests/Makefile.am \
+		${WRKSRC}/src/Makefile.am
+	${REINPLACE_CMD} -e 's/\[archive\]/[archive-devel]/' \
+		${WRKSRC}/configure.ac
 
 post-patch-linux:
-	${REINPLACE_CMD} -e '/libpkg_la_LDFLAGS =/ s/= /= -ldl /' \
-		${WRKSRC}/libpkg/Makefile.in
-	${REINPLACE_CMD} -e '/OS_STATIC/ s/false/true/' \
-		-e '/OS_LIBS=/ s/-ldl //' \
-		${WRKSRC}/configure
+	${REINPLACE_CMD} -e '/libpkg_la_LDFLAGS=/ s/-ver/-ldl -ver/' \
+		${WRKSRC}/libpkg/Makefile.am
 
-post-patch-freebsd:
-	${REINPLACE_CMD} -e '/#include <sys\/elf_common.h>/d' \
-		${WRKSRC}/libpkg/pkg_elf.c
+pre-configure:
+	(cd ${WRKSRC} && ./autogen.sh)
 
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/sbin/pkg2ng
