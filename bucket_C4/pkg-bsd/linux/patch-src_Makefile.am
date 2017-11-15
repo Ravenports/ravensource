@@ -1,0 +1,41 @@
+--- src/Makefile.am.orig	2017-11-12 17:45:44 UTC
++++ src/Makefile.am
+@@ -59,18 +59,11 @@ pkg_static_SOURCES=
+ pkg_static_LDADD= @OS_LDFLAGS@ \
+ 			$(pkg_OBJECTS) \
+ 			$(top_builddir)/libpkg/libpkg_static.la \
++			$(top_builddir)/external/libelf_static.la \
+ 			$(top_builddir)/compat/libbsd_compat.la \
+ 			@LIBJAIL_LIB@ \
+ 			@LDNS_LIBS@ \
+ 			@OS_LIBS@ \
+-			-larchive \
+-			-lzstd \
+-			-lz \
+-			-lutil \
+-			-lbz2 \
+-			-llzma \
+-			-lssl \
+-			-lcrypto \
+ 			-lm
+ 
+ if HAVE_ELF_ABI
+@@ -91,7 +84,17 @@ DYNPROG=		pkg
+ 
+ if BUILD_STATIC
+ 
+-pkg_static_LDFLAGS=	-all-static
++pkg_static_LDFLAGS= 	-Wl,-rpath -Wl,${prefix}/lib \
++			-Wl,-Bstatic \
++			-larchive \
++			-lzstd \
++			-lz \
++			-lutil \
++			-lbz2 \
++			-llzma \
++			-lssl \
++			-lcrypto \
++			-Wl,-Bdynamic
+ sbin_PROGRAMS=		pkg-static
+ 
+ if DYNAMIC
