@@ -25,9 +25,9 @@ OPTIONS_STANDARD=	PERL526 PY36 VALA
 
 FPC_EQUIVALENT=		net/libproxy
 
-USES=			cclibs:single c++:single cmake
+USES=			cclibs:single c++:single cmake pkgconfig
 
-VOPTS[minimal]=		PERL524=OFF PERL526=OFF PY27=OFF PY35=OFF
+VOPTS[minimal]=		PERL524=OFF PERL526=OFF PY27=ON PY35=OFF
 			PY36=OFF VALA=OFF
 # Other variants may be feasible in the future as deps become available
 
@@ -58,10 +58,13 @@ CMAKE_ARGS=		-DBIPR:BOOL=OFF
 [PERL526].CMAKE_ARGS_ON=		-DWITH_PERL:BOOL=ON
 [PY27].USES_ON=				python:27
 [PY27].CMAKE_ARGS_ON=			-DWITH_PYTHON2:BOOL=ON
+					-DPYTHON_SITEPKG_DIR=/lib/python2.7/site-packages
 [PY35].USES_ON=				python:35
 [PY35].CMAKE_ARGS_ON=			-DWITH_PYTHON3:BOOL=ON
+					-DPYTHON_SITEPKG_DIR=/lib/python3.5/site-packages
 [PY36].USES_ON=				python:36
 [PY36].CMAKE_ARGS_ON=			-DWITH_PYTHON3:BOOL=ON
+					-DPYTHON_SITEPKG_DIR=/lib/python3.6/site-packages
 [VALA].BUILDRUN_DEPENDS_ON=		vala:single:standard
 [VALA].CMAKE_ARGS_ON=			-DWITH_VALA:BOOL=ON
 [VALA].CMAKE_ARGS_OFF=			-DWITH_VALA:BOOL=OFF
@@ -69,3 +72,6 @@ CMAKE_ARGS=		-DBIPR:BOOL=OFF
 post-stage:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/proxy
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libproxy.so.*
+	test -d ${STAGEDIR}/lib && ${MV} ${STAGEDIR}/lib/* ${STAGEDIR}${PREFIX}/lib || true
+	test -d ${STAGEDIR}/lib && ${RM} -r ${STAGEDIR}/lib || true
+
