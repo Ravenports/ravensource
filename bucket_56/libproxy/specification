@@ -25,7 +25,7 @@ OPTIONS_STANDARD=	PERL526 PY36 VALA
 
 FPC_EQUIVALENT=		net/libproxy
 
-USES=			cmake
+USES=			cclibs:single c++:single cmake
 
 VOPTS[minimal]=		PERL524=OFF PERL526=OFF PY27=OFF PY35=OFF
 			PY36=OFF VALA=OFF
@@ -65,3 +65,7 @@ CMAKE_ARGS=		-DBIPR:BOOL=OFF
 [VALA].BUILDRUN_DEPENDS_ON=		vala:single:standard
 [VALA].CMAKE_ARGS_ON=			-DWITH_VALA:BOOL=ON
 [VALA].CMAKE_ARGS_OFF=			-DWITH_VALA:BOOL=OFF
+
+post-stage:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/proxy
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libproxy.so.*
