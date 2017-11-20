@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	3.3
+DEF[PORTVERSION]=	3.4
+DEF[SOVERSION]=		6.4
+DEF[HOGWEED_VERSION]=	4.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		nettle
@@ -34,6 +36,10 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-shared
 CONFIGURE_ENV=		M4="/usr/bin/m4 -g"
 INFO=			primary:nettle
+PLIST_SUB=		HOGWEED_VERSION=${HOGWEED_VERSION}
+			HOGWEED_MAJOR=${HOGWEED_VERSION:R}
+			SOVERSION=${SOVERSION}
+			SOMAJOR=${SOVERSION:R}
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
