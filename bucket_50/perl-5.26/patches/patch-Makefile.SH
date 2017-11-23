@@ -1,4 +1,4 @@
---- Makefile.SH.orig	2015-09-08 05:21:36 UTC
+--- Makefile.SH.orig	2017-09-07 19:19:52 UTC
 +++ Makefile.SH
 @@ -40,7 +40,6 @@ esac
  pwd="`pwd`"

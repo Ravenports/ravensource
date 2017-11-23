@@ -74,6 +74,10 @@ post-patch:
 	${REINPLACE_CMD} -e 's|@WRKSRC@|${WRKSRC}|' \
 		${WRKSRC}/cpan/DB_File/Makefile.PL \
 
+post-patch-sunos:
+	${REINPLACE_CMD} -e '/^libs = / s/= /= -lm /' \
+		${WRKSRC}/Makefile.SH
+
 post-stage:
 	# on linux, $SITE_ARCH/machine is created but not used
 	-[ -d ${STAGEDIR}${SITE_ARCH}/machine ] && \

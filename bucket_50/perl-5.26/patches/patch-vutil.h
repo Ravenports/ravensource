@@ -1,4 +1,4 @@
---- vutil.h.orig	2015-04-15 07:47:18 UTC
+--- vutil.h.orig	2017-07-18 23:00:00 UTC
 +++ vutil.h
 @@ -115,7 +115,7 @@ S_croak_xs_usage(pTHX_ const CV *const c
              Perl_croak_nocontext("Usage: %s(%s)", gvname, params);

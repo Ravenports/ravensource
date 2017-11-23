@@ -1,6 +1,6 @@
---- hints/linux.sh.bak	2016-07-14 19:07:40.000000000 +0000
-+++ hints/linux.sh	2017-05-18 05:59:27.668407063 +0000
-@@ -150,6 +150,10 @@
+--- hints/linux.sh.orig	2017-07-18 22:50:00 UTC
++++ hints/linux.sh
+@@ -150,6 +150,10 @@ case "$optimize" in
      ;;
  esac
  
