@@ -71,8 +71,11 @@ CONFIGURE_ARGS=		--datadir={{PREFIX}}/share/misc
 CONFIGURE_ENV=		gnat_exists="no"
 BUILD_WRKSRC=		${NOWIDEC_WRKSRC}
 INSTALL_WRKSRC=		${NOWIDEC_WRKSRC}
+CPPFLAGS=		-P
 PLIST_SUB=		ABI_VER=${PORTVERSION:R}
 			REL_VER=${PORTVERSION}
+
+VAR_OPSYS[sunos]=	CONFIGURE_ENV=LIBS="-lrt -lresolv -lsocket"
 
 [STATIC].CONFIGURE_ARGS_ON=		--enable-shared=no
 [STATIC].CONFIGURE_ARGS_OFF=		--with-shared=yes
@@ -97,6 +100,7 @@ post-patch-freebsd:
 
 post-configure:
 	cd ${.CURDIR} && \
+	    ${SET_LATE_CONFIGURE_ARGS} \
 	    ${MAKE} ${.MAKEFLAGS} CONFIGURE_WRKSRC=${WIDEC_WRKSRC} \
 	    CONFIGURE_ARGS="${CONFIGURE_ARGS} --enable-widec" \
 	    do-configure
