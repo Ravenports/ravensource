@@ -32,6 +32,9 @@ MUST_CONFIGURE=		gnu
 CPPFLAGS=		-DCC_IS_GCC
 PLIST_SUB=		CCLINKDIR="${CCLINKDIR}"
 
+VAR_OPSYS[sunos]=	CPPFLAGS=-D_XPG6
+			CPPFLAGS=-D_STDC_C99=
+
 # ccache will build its own zlib since it can't find a suitable one.
 # We want this (as opposed to adding zlib as buildrun depends).
 # ccache needs to be dependency-free for Ravenports' purposes.
