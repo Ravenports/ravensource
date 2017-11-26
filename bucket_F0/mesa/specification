@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	17.2.5
+DEF[PORTVERSION]=	17.2.6
 DEF[MESA_LLVM_VER]=	40
 # ----------------------------------------------------------------------------
 
@@ -118,10 +118,3 @@ post-patch-freebsd:
 post-patch:
 	@${REINPLACE_CMD} -e 's|/etc/|${PREFIX}/etc/|g' \
 		${WRKSRC}/src/mesa/drivers/dri/common/xmlconfig.c
-
-post-install-X86_DRIVERS-OFF:
-	${RM} -r ${STAGEDIR}/etc/OpenCL
-
-post-install-X86_DRIVERS-ON:
-	${MV} ${STAGEDIR}/etc/OpenCL ${STAGEDIR}${PREFIX}/etc/
-	${RMDIR} ${STAGEDIR}/etc
