@@ -1,9 +1,9 @@
-DEF[SOVER]=		3.2
-DEF[PORTVERSION]=	1.${SOVER}
+DEF[PORTVERSION]=	1.3.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		Zstandard
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		archivers
 VARIANTS=		standard
 SDESC[standard]=	Fast real-time compression algorithm (aka zstd)
@@ -26,14 +26,23 @@ LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		archivers/zstd
 
-USES=			gmake
+USES=			gmake zlib
 BUILD_TARGET=		default
 MAKE_ARGS=		INCLUDEDIR="{{PREFIX}}/include"
 			LIBDIR="{{PREFIX}}/lib"
 			MANDIR="{{MANPREFIX}}/man/man1"
 			PKGCONFIGDIR="{{PREFIX}}/lib/pkgconfig"
-PLIST_SUB=		SOVER=${SOVER}
+SOVERSION=		${PORTVERSION}
 
 post-patch:
-	@${REINPLACE_CMD} -e 's|INSTALL_|BSD_&|' ${WRKSRC}/lib/Makefile \
+	${REINPLACE_CMD} -e 's|INSTALL_|BSD_&|' ${WRKSRC}/lib/Makefile \
 		${WRKSRC}/programs/Makefile
+
+post-patch-sunos:
+	${REINPLACE_CMD} -e 's| DragonFly| DragonFly SunOS|' \
+		${WRKSRC}/Makefile
+	${REINPLACE_CMD} -e 's|LDFLAGS +=|LDFLAGS += -lrt|' \
+		${WRKSRC}/programs/Makefile
+	${REINPLACE_CMD} -e 's|ginstall|install|' \
+		${WRKSRC}/programs/Makefile \
+		${WRKSRC}/lib/Makefile
