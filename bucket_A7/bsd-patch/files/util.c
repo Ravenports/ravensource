@@ -268,22 +268,22 @@ ask(const char *fmt, ...)
 void
 set_signals(int reset)
 {
-	static int hup_exit = 0;
-	static int int_exit = 0;
+        static int hup_exit = 0;
+        static int int_exit = 0;
 
-	if (reset) {
-		signal (SIGHUP, hup_exit ? my_exit : SIG_IGN);
-		signal (SIGINT, int_exit ? my_exit : SIG_IGN);
-	} else {
-		if (signal(SIGHUP, SIG_IGN) != SIG_IGN) {
-			hup_exit = 1;
-			signal (SIGHUP, my_exit);
-		}
-		if (signal(SIGINT, SIG_IGN) != SIG_IGN) {
-			int_exit = 1;
-			signal (SIGINT, my_exit);
-		}
-	}
+        if (reset) {
+                signal (SIGHUP, hup_exit ? my_exit : SIG_IGN);
+                signal (SIGINT, int_exit ? my_exit : SIG_IGN);
+        } else {
+                if (signal(SIGHUP, SIG_IGN) != SIG_IGN) {
+                        hup_exit = 1;
+                        signal (SIGHUP, my_exit);
+                }
+                if (signal(SIGINT, SIG_IGN) != SIG_IGN) {
+                        int_exit = 1;
+                        signal (SIGINT, my_exit);
+                }
+        }
 }
 
 /*
