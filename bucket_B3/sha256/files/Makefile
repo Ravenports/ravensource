@@ -6,8 +6,9 @@ PREFIX?=	/usr/local
 LIBS=		${PREFIX}/lib/libcrypto.a
 CFLAGS=		-I${PREFIX}/include -I.	
 
-.if "${OPSYS}" == "Linux"
+.if "${OPSYS}" == "Linux" || "${OPSYS}" == "SunOS"
 LIBS+=		${PREFIX}/lib/libbsd.a
+CFLAGS+=	-I${PREFIX}/include/bsd
 .endif
 
 all:	program

@@ -37,6 +37,7 @@
 #ifndef _SHA256_H_
 #define _SHA256_H_
 
+#include <sys/cdefs.h>
 #include <sys/types.h>
 #include <openssl/sha.h>
 

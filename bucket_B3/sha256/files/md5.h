@@ -38,6 +38,10 @@
 #ifndef _SYS_MD5_H_
 #define _SYS_MD5_H_
 
+#ifdef __sun__
+#define u_int32_t uint32_t
+#endif
+#include <sys/cdefs.h>
 #include <sys/types.h>
 #include <openssl/md5.h>
 
