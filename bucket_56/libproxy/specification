@@ -19,6 +19,8 @@ SPKGS[minimal]=		single
 
 OPTIONS_AVAILABLE=	PERL PYTHON VALA
 OPTIONS_STANDARD=	PERL PYTHON VALA
+OPT_ON[all]=		PERL PYTHON VALA
+
 # Other bindings not currently available in Raven:
 # Mono, GConf, GSettings, kreadconfig, kreadconfig5, MozJS,
 # NetworkManager, Webkit, Webkit2
@@ -42,17 +44,17 @@ CMAKE_ARGS=		-DBIPR:BOOL=OFF
 			-DWITH_GNOME3:BOOL=OFF
 			-DWITH_KDE:BOOL=OFF
 			-DWITH_MOZJS:BOOL=OFF
-			-DWITH_PERL:BOOL=OFF
 			-DWITH_PYTHON2:BOOL=OFF
 			-DWITH_PYTHON3:BOOL=OFF
 			-DWITH_WEBKIT:BOOL=OFF
 			-DWITH_WEBKIT3:BOOL=OFF
 
-[PERL].USES_ON=				perl
+[PERL].USES_ON=				perl:perl_default
 [PERL].CMAKE_ARGS_ON=			-DWITH_PERL:BOOL=ON
+[PERL].CMAKE_ARGS_OFF=			-DWITH_PERL:BOOL=OFF
 [PYTHON].USES_ON=			python
 [PYTHON].CMAKE_ARGS_ON=			-DWITH_PYTHON{{PYTHON_MAJOR_VER}}:BOOL=ON
-					-DPYTHON_SITEPKG_DIR=/lib/python{{PYTHON_MAJOR_VER}}.{{PYTHON_MINOR_VER}}/site-packages
+					-DPYTHON_SITEPKG_DIR=/lib/python{{PYTHON_VER}}/site-packages
 [VALA].BUILDRUN_DEPENDS_ON=		vala:single:standard
 [VALA].CMAKE_ARGS_ON=			-DWITH_VALA:BOOL=ON
 [VALA].CMAKE_ARGS_OFF=			-DWITH_VALA:BOOL=OFF
@@ -60,6 +62,8 @@ CMAKE_ARGS=		-DBIPR:BOOL=OFF
 post-stage:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/proxy
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libproxy.so.*
+	test -d ${STAGEDIR}${PREFIX}/lib/perl5/site_perl/mach/${PERL_VER}/auto/Net/Libproxy && \
+		${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/perl5/site_perl/mach/${PERL_VER}/auto/Net/Libproxy/Libproxy.so
 	test -d ${STAGEDIR}/lib && ${MV} ${STAGEDIR}/lib/* ${STAGEDIR}${PREFIX}/lib || true
 	test -d ${STAGEDIR}/lib && ${RM} -r ${STAGEDIR}/lib || true
 
