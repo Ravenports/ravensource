@@ -17,8 +17,8 @@ DISTFILE[1]=		${PORTVERSION}.tar.gz:main
 SPKGS[standard]=	single
 SPKGS[minimal]=		single
 
-OPTIONS_AVAILABLE=	PERL524 PERL526 PY27 PY35 PY36 VALA
-OPTIONS_STANDARD=	PERL526 PY36 VALA
+OPTIONS_AVAILABLE=	PERL524 PERL526 PYTHON VALA
+OPTIONS_STANDARD=	PERL526 PYTHON VALA
 # Other bindings not currently available in Raven:
 # Mono, GConf, GSettings, kreadconfig, kreadconfig5, MozJS,
 # NetworkManager, Webkit, Webkit2
@@ -27,15 +27,12 @@ FPC_EQUIVALENT=		net/libproxy
 
 USES=			cclibs:single c++:single cmake pkgconfig
 
-VOPTS[minimal]=		PERL524=OFF PERL526=OFF PY27=OFF PY35=OFF
-			PY36=OFF VALA=OFF
+VOPTS[minimal]=		PERL524=OFF PERL526=OFF PYTHON=OFF VALA=OFF
 # Other variants may be feasible in the future as deps become available
 
 [PERL524].DESCRIPTION=			Build with Perl (5.24) binding
 [PERL526].DESCRIPTION=			Build with Perl (5.26) binding
-[PY27].DESCRIPTION=			Build with Python (2.7) binding
-[PY35].DESCRIPTION=			Build with Python (3.5) binding
-[PY36].DESCRIPTION=			Build with Python (3.6) binding
+[PYTHON].DESCRIPTION=			Build with Python binding
 [VALA].DESCRIPTION=			Build with Vala binding
 
 CMAKE_ARGS=		-DBIPR:BOOL=OFF
@@ -56,15 +53,9 @@ CMAKE_ARGS=		-DBIPR:BOOL=OFF
 [PERL524].CMAKE_ARGS_ON=		-DWITH_PERL:BOOL=ON
 [PERL526].USES_ON=			perl:526
 [PERL526].CMAKE_ARGS_ON=		-DWITH_PERL:BOOL=ON
-[PY27].USES_ON=				python:27
-[PY27].CMAKE_ARGS_ON=			-DWITH_PYTHON2:BOOL=ON
-					-DPYTHON_SITEPKG_DIR=/lib/python2.7/site-packages
-[PY35].USES_ON=				python:35
-[PY35].CMAKE_ARGS_ON=			-DWITH_PYTHON3:BOOL=ON
-					-DPYTHON_SITEPKG_DIR=/lib/python3.5/site-packages
-[PY36].USES_ON=				python:36
-[PY36].CMAKE_ARGS_ON=			-DWITH_PYTHON3:BOOL=ON
-					-DPYTHON_SITEPKG_DIR=/lib/python3.6/site-packages
+[PYTHON].USES_ON=			python
+[PYTHON].CMAKE_ARGS_ON=			-DWITH_PYTHON{{PYTHON_MAJOR_VER}}:BOOL=ON
+					-DPYTHON_SITEPKG_DIR=/lib/python{{PYTHON_MAJOR_VER}}.{{PYTHON_MINOR_VER}}/site-packages
 [VALA].BUILDRUN_DEPENDS_ON=		vala:single:standard
 [VALA].CMAKE_ARGS_ON=			-DWITH_VALA:BOOL=ON
 [VALA].CMAKE_ARGS_OFF=			-DWITH_VALA:BOOL=OFF
