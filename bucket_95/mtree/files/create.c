@@ -37,6 +37,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <fts.h>
+#include <strings.h>
 #include <grp.h>
 #ifdef MD5
 #include <md5.h>
@@ -53,11 +54,7 @@
 #include <time.h>
 #include <unistd.h>
 #include <stdarg.h>
-#ifdef __linux__
-#include <bsd/vis.h>
-#else
 #include <vis.h>
-#endif
 #include "mtree.h"
 #include "extern.h"
 
@@ -65,6 +62,9 @@
 #define	__printflike(fmtarg, firstvararg) \
             __attribute__((__nonnull__(fmtarg), \
 			  __format__ (__printf__, fmtarg, firstvararg)))
+#endif
+#ifndef MAXHOSTNAMELEN
+#define MAXHOSTNAMELEN	256
 #endif
 
 #define	INDENTNAMELEN	15
@@ -75,7 +75,7 @@ static uid_t uid;
 static mode_t mode;
 static u_long flags = 0xffffffff;
 
-#ifdef __linux__
+#ifdef __sunlinux__
 static int	dsort(const FTSENT **, const FTSENT **);
 #else
 static int	dsort(const FTSENT * const *, const FTSENT * const *);
@@ -97,9 +97,8 @@ cwalk(void)
 	time(&clk);
 	gethostname(host, sizeof(host));
 	printf(
-	    "#\t   user: %s\n#\tmachine: %s\n#\t   tree: %s\n#\t   date: %s",
-	    getlogin(), host, fullpath, ctime(&clk));
-
+	    "#\tmachine: %s\n#\t   tree: %s\n#\t   date: %s",
+	    host, fullpath, ctime(&clk));
 	argv[0] = dot;
 	argv[1] = NULL;
 	if ((t = fts_open(argv, ftsoptions, dsort)) == NULL)
@@ -208,7 +207,7 @@ statf(int indent, FTSENT *p)
 		    (uintmax_t)p->fts_statp->st_size);
 	if (keys & F_TIME)
 		output(indent, &offset, "time=%ld.%ld",
-#ifdef __linux__
+#ifdef __sunlinux__
 		    p->fts_statp->st_mtim.tv_sec,
 		    p->fts_statp->st_mtim.tv_nsec);
 #else
@@ -261,20 +260,20 @@ statf(int indent, FTSENT *p)
 	if (keys & F_SLINK &&
 	    (p->fts_info == FTS_SL || p->fts_info == FTS_SLNONE))
 		output(indent, &offset, "link=%s", rlink(p->fts_accpath));
-#ifndef __linux__
+#ifndef __sunlinux__
 	if (keys & F_FLAGS && p->fts_statp->st_flags != flags) {
 		fflags = flags_to_string(p->fts_statp->st_flags);
 		output(indent, &offset, "flags=%s", fflags);
 		free(fflags);
 	}
-#endif /* __linux__ */
+#endif /* ! __sunlinux__ */
 	putchar('\n');
 }
 
-#define	MAXGID	5000
-#define	MAXUID	5000
-#define	MAXMODE	MBITS + 1
-#define	MAXFLAGS 256
+#define	TREE_MAXGID	5000
+#define	TREE_MAXUID	5000
+#define	TREE_MAXMODE	MBITS + 1
+#define	TREE_MAXFLAGS	256
 #define	MAXS 16
 
 static int
@@ -293,7 +292,7 @@ statd(FTS *t, FTSENT *parent, uid_t *puid, gid_t *pgid, mode_t *pmode,
 	mode_t savemode = *pmode;
 	u_long saveflags = *pflags;
 	u_short maxgid, maxuid, maxmode, maxflags;
-	u_short g[MAXGID], u[MAXUID], m[MAXMODE], f[MAXFLAGS];
+	u_short g[TREE_MAXGID], u[TREE_MAXUID], m[TREE_MAXMODE], f[TREE_MAXFLAGS];
 	char *fflags;
 	static int first = 1;
 
@@ -312,22 +311,22 @@ statd(FTS *t, FTSENT *parent, uid_t *puid, gid_t *pgid, mode_t *pmode,
 	for (; p; p = p->fts_link) {
 		if (!dflag || (dflag && S_ISDIR(p->fts_statp->st_mode))) {
 			smode = p->fts_statp->st_mode & MBITS;
-			if (smode < MAXMODE && ++m[smode] > maxmode) {
+			if (smode < TREE_MAXMODE && ++m[smode] > maxmode) {
 				savemode = smode;
 				maxmode = m[smode];
 			}
 			sgid = p->fts_statp->st_gid;
-			if (sgid < MAXGID && ++g[sgid] > maxgid) {
+			if (sgid < TREE_MAXGID && ++g[sgid] > maxgid) {
 				savegid = sgid;
 				maxgid = g[sgid];
 			}
 			suid = p->fts_statp->st_uid;
-			if (suid < MAXUID && ++u[suid] > maxuid) {
+			if (suid < TREE_MAXUID && ++u[suid] > maxuid) {
 				saveuid = suid;
 				maxuid = u[suid];
 			}
 
-#ifndef __linux__
+#ifndef __sunlinux__
 			/*
 			 * XXX
 			 * note that the below will break when file flags
@@ -336,12 +335,12 @@ statd(FTS *t, FTSENT *parent, uid_t *puid, gid_t *pgid, mode_t *pmode,
 			 */
 #define FLAGS2IDX(f) ((f & 0xf) | ((f >> 12) & 0xf0))
 			sflags = p->fts_statp->st_flags;
-			if (FLAGS2IDX(sflags) < MAXFLAGS &&
+			if (FLAGS2IDX(sflags) < TREE_MAXFLAGS &&
 			    ++f[FLAGS2IDX(sflags)] > maxflags) {
 				saveflags = sflags;
 				maxflags = f[FLAGS2IDX(sflags)];
 			}
-#endif /* __linux__ */
+#endif /* ! __sunlinux__ */
 		}
 	}
 	/*
@@ -352,9 +351,9 @@ statd(FTS *t, FTSENT *parent, uid_t *puid, gid_t *pgid, mode_t *pmode,
 	if ((((keys & F_UNAME) | (keys & F_UID)) && (*puid != saveuid)) ||
 	    (((keys & F_GNAME) | (keys & F_GID)) && (*pgid != savegid)) ||
 	    ((keys & F_MODE) && (*pmode != savemode)) || 
-#ifndef __linux__
+#ifndef __sunlinux__
 	    ((keys & F_FLAGS) && (*pflags != saveflags)) ||
-#endif /* __linux__ */
+#endif /* ! __sunlinux__ */
 	    (first)) {
 		first = 0;
 		if (dflag)
@@ -385,13 +384,13 @@ statd(FTS *t, FTSENT *parent, uid_t *puid, gid_t *pgid, mode_t *pmode,
 			printf(" mode=%#o", savemode);
 		if (keys & F_NLINK)
 			printf(" nlink=1");
-#ifndef __linux__
+#ifndef __sunlinux__
 		if (keys & F_FLAGS) {
 			fflags = flags_to_string(saveflags);
 			printf(" flags=%s", fflags);
 			free(fflags);
 		}
-#endif /* __linux__ */
+#endif /* ! __sunlinux__ */
 		printf("\n");
 		*puid = saveuid;
 		*pgid = savegid;
@@ -402,7 +401,7 @@ statd(FTS *t, FTSENT *parent, uid_t *puid, gid_t *pgid, mode_t *pmode,
 }
 
 static int
-#ifdef __linux__
+#ifdef __sunlinux__
 dsort(const FTSENT **a, const FTSENT **b)
 #else
 dsort(const FTSENT * const *a, const FTSENT * const *b)

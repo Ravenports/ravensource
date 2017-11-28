@@ -8,6 +8,12 @@ STATIC_LIBS=	${PREFIX}/lib/libcrypto.a
 STATIC_LIBS+=	${PREFIX}/lib/libbsd.a
 .endif
 
+.if "${OPSYS}" == "SunOS"
+STATIC_LIBS+=	${PREFIX}/lib/libbsd.a \
+		${PREFIX}/lib/libfts.a
+CFLAGS+=	-I${PREFIX}/include/bsd
+.endif
+
 .SUFFIXES:	.o .c
 
 .c.o:

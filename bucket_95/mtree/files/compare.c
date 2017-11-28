@@ -169,7 +169,7 @@ typeerr:		LABEL;
 	 * Catches nano-second differences, but doesn't display them.
 	 */
 	if ((s->flags & F_TIME) &&
-#ifdef __linux__
+#ifdef __sunlinux__
 	     ((s->st_mtimespec.tv_sec != p->fts_statp->st_mtim.tv_sec) ||
 	     (s->st_mtimespec.tv_nsec != p->fts_statp->st_mtim.tv_nsec))) {
 		LABEL;
@@ -211,7 +211,7 @@ typeerr:		LABEL;
 			}
 		}
 	}
-#ifndef __linux__
+#ifndef __sunlinux__
 	/*
 	 * XXX
 	 * since chflags(2) will reset file times, the utimes() above
@@ -238,7 +238,7 @@ typeerr:		LABEL;
 			printf("\n");
 		tab = "\t";
 	}
-#endif /* __linux__ */
+#endif /* ! __sunlinux__ */
 #ifdef USE_MD5
 	if (s->flags & F_MD5) {
 		char *new_digest, buf[33];

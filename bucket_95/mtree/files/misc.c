@@ -100,7 +100,7 @@ keycompare(const void *a, const void *b)
 	return (strcmp(((const KEY *)a)->name, ((const KEY *)b)->name));
 }
 
-#ifndef __linux__
+#ifndef __sunlinux__
 char *
 flags_to_string(u_long fflags)
 {
@@ -116,4 +116,4 @@ flags_to_string(u_long fflags)
 
 	return string;
 }
-#endif /* __linux__ */
+#endif /* __sunlinux__ */

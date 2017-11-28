@@ -31,10 +31,7 @@
  * $DragonFly: src/usr.sbin/mtree/mtree.h,v 1.2 2003/06/17 04:29:57 dillon Exp $
  */
 
-#ifdef __linux__
-#include <bsd/unistd.h>
-#endif
-
+#include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
 

@@ -32,6 +32,10 @@
 
 #include <stdint.h>
 
+#if defined __linux__ || defined __sun__
+#define __sunlinux__
+#endif
+
 #ifdef MAXPATHLEN
 extern char fullpath[MAXPATHLEN];
 #endif
@@ -44,7 +48,7 @@ extern u_int keys;
 int	 compare(NODE *, FTSENT *);
 int	 crc(int, u_long *, u_long *);
 void	 cwalk(void);
-#ifndef __linux__
+#ifndef __sunlinux__
 char	*flags_to_string(u_long);
 #endif
 
