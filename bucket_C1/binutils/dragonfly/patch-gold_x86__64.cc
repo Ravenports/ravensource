@@ -1,6 +1,6 @@
---- gold/x86_64.cc.orig	2016-08-03 07:36:53 UTC
+--- gold/x86_64.cc.orig	2017-07-10 09:54:42 UTC
 +++ gold/x86_64.cc
-@@ -1120,7 +1120,7 @@ const Target::Target_info Target_x86_64<
+@@ -1259,7 +1259,7 @@ const Target::Target_info Target_x86_64<
    true,			// is_default_stack_executable
    true,			// can_icf_inline_merge_sections
    '\0',			// wrap_char
