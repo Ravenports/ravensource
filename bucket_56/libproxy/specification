@@ -1,0 +1,67 @@
+DEF[PORTVERSION]=	0.4.15
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libproxy
+VERSION=		${PORTVERSION}
+KEYWORDS=		net devel
+VARIANTS=		standard minimal
+SDESC[standard]=	Library for automatic proxy configuration mgmt
+SDESC[minimal]=		Libproxy without any additional bindings
+HOMEPAGE=		https://libproxy.github.io/libproxy
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/libproxy:libproxy:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+SPKGS[minimal]=		single
+
+OPTIONS_AVAILABLE=	PERL PYTHON VALA
+OPTIONS_STANDARD=	PERL PYTHON VALA
+OPT_ON[all]=		PERL PYTHON VALA
+
+# Other bindings not currently available in Raven:
+# Mono, GConf, GSettings, kreadconfig, kreadconfig5, MozJS,
+# NetworkManager, Webkit, Webkit2
+
+FPC_EQUIVALENT=		net/libproxy
+
+USES=			cclibs:single c++:single cmake pkgconfig
+
+VOPTS[minimal]=		PERL=OFF PYTHON=OFF VALA=OFF
+# Other variants may be feasible in the future as deps become available
+
+[PERL].DESCRIPTION=			Build with Perl binding
+[PYTHON].DESCRIPTION=			Build with Python binding
+[VALA].DESCRIPTION=			Build with Vala binding
+
+CMAKE_ARGS=		-DBIPR:BOOL=OFF
+			-DWITH_DOTNET:BOOL=OFF
+			-DWITH_NATUS:BOOL=OFF
+			-DWITH_NM:BOOL=OFF
+			-DWITH_GNOME2:BOOL=OFF
+			-DWITH_GNOME3:BOOL=OFF
+			-DWITH_KDE:BOOL=OFF
+			-DWITH_MOZJS:BOOL=OFF
+			-DWITH_PYTHON2:BOOL=OFF
+			-DWITH_PYTHON3:BOOL=OFF
+			-DWITH_WEBKIT:BOOL=OFF
+			-DWITH_WEBKIT3:BOOL=OFF
+
+[PERL].USES_ON=				perl:perl_default
+[PERL].CMAKE_ARGS_ON=			-DWITH_PERL:BOOL=ON
+					-DPERL_LINK_LIBPERL:BOOL=OFF
+[PERL].CMAKE_ARGS_OFF=			-DWITH_PERL:BOOL=OFF
+[PYTHON].USES_ON=			python
+[PYTHON].CMAKE_ARGS_ON=			-DWITH_PYTHON{{PYTHON_MAJOR_VER}}:BOOL=ON
+					-DPYTHON_SITEPKG_DIR={{PYTHON_SITELIBDIR}}
+[VALA].BUILDRUN_DEPENDS_ON=		vala:single:standard
+[VALA].CMAKE_ARGS_ON=			-DWITH_VALA:BOOL=ON
+[VALA].CMAKE_ARGS_OFF=			-DWITH_VALA:BOOL=OFF
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/proxy
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libproxy.so.*
+post-install-PERL-ON:
+	${STRIP_CMD} ${STAGEDIR}${SITE_ARCH}/auto/Net/Libproxy/Libproxy.so
