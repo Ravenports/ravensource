@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.4.13
+DEF[PORTVERSION]=	0.4.15
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libproxy
@@ -62,8 +62,9 @@ CMAKE_ARGS=		-DBIPR:BOOL=OFF
 post-stage:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/proxy
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libproxy.so.*
-	test -d ${STAGEDIR}${PREFIX}/lib/perl5/site_perl/mach/${PERL_VER}/auto/Net/Libproxy && \
-		${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/perl5/site_perl/mach/${PERL_VER}/auto/Net/Libproxy/Libproxy.so
+	test -f ${STAGEDIR}${PREFIX}/lib/perl5/site_perl/mach/${PERL_VER}/auto/Net/Libproxy/Libproxy.so && ${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/perl5/site_perl/mach/${PERL_VER}/auto/Net/Libproxy/Libproxy.so || true
+# The Python lib goes into the wrong directory for some reason
+# It needs to be moved if present
 	test -d ${STAGEDIR}/lib && ${MV} ${STAGEDIR}/lib/* ${STAGEDIR}${PREFIX}/lib || true
 	test -d ${STAGEDIR}/lib && ${RM} -r ${STAGEDIR}/lib || true
 
