@@ -30,3 +30,8 @@ DISTNAME=		php-${PORTVERSION}/ext/{{PHP_MODNAME}}
 CONFIGURE_ARGS=		--with-${MODULE}={{LOCALBASE}}
 EXTRACT_HEAD[1]=	{{TAR}} -xf
 EXTRACT_TAIL[1]=	php-${PORTVERSION}/ext/{{PHP_MODNAME}}
+
+post-patch:
+	${REINPLACE_CMD} -e 's|/include/enchant|/include/enchant-2|' \
+		-e '/PHP_ADD_LIBRARY/ s|enchant|enchant-2|' \
+		${WRKSRC}/config.m4

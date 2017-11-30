@@ -1,14 +1,14 @@
-DEF[PORTVERSION]=	EXTRACT_VERSION(PHP_5.6_VERSION)
+DEF[PORTVERSION]=	EXTRACT_VERSION(PHP_7.2_VERSION)
 DEF[SUFFIX]=		${PORTVERSION:R:S/.//}
-DEF[MODULE]=		enchant
-DEF[KEYWORD]=		textproc
+DEF[MODULE]=		pcntl
+DEF[KEYWORD]=		devel
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		php${SUFFIX}-${MODULE}
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang www php ${KEYWORD}
 VARIANTS=		standard
-SDESC[standard]=	PHP ${PORTVERSION:R} extension: ${MODULE} spell checking
+SDESC[standard]=	PHP ${PORTVERSION:R} extension: ${MODULE} (process control)
 HOMEPAGE=		http://php.net/
 CONTACT=		nobody
 
@@ -23,15 +23,8 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		${KEYWORD}/php${SUFFIX}-${MODULE}
 
-BUILDRUN_DEPENDS=	enchant:single:standard
-
 USES=			php:ext,${SUFFIX}
 DISTNAME=		php-${PORTVERSION}/ext/{{PHP_MODNAME}}
-CONFIGURE_ARGS=		--with-${MODULE}={{LOCALBASE}}
+CONFIGURE_ARGS=		--enable-${MODULE}
 EXTRACT_HEAD[1]=	{{TAR}} -xf
 EXTRACT_TAIL[1]=	php-${PORTVERSION}/ext/{{PHP_MODNAME}}
-
-post-patch:
-	${REINPLACE_CMD} -e 's|/include/enchant|/include/enchant-2|' \
-		-e '/PHP_ADD_LIBRARY/ s|enchant|enchant-2|' \
-		${WRKSRC}/config.m4
