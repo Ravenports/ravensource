@@ -1,19 +1,20 @@
-DEF[PORTVERSION]=	2.1
+DEF[PORTVERSION]=	2.2
 DEF[CLHPP_VERSION]=	2.0.10
 DEF[HPP]=		OpenCL-CLHPP
 DEF[WRKSRC_clhpp]=	{{WRKDIR}}/${HPP}-${CLHPP_VERSION}
+DEF[HEADER_TAG]=	f039db6
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		opencl
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
 VARIANTS=		standard
-SDESC[standard]=	Open Computing Language (OpenCL) V2.1 specs
+SDESC[standard]=	Open Computing Language (OpenCL) V${PORTVERSION} specs
 HOMEPAGE=		http://github.khronos.org/OpenCL-CLHPP/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main cxxbind
-SITES[main]=		GITHUB/KhronosGroup:OpenCL-Headers:ec2566b
+SITES[main]=		GITHUB/KhronosGroup:OpenCL-Headers:${HEADER_TAG}
 SITES[cxxbind]=		GITHUB/KhronosGroup:${HPP}:v${CLHPP_VERSION}
 DISTFILE[1]=		generated:main
 DISTFILE[2]=		generated:cxxbind
@@ -33,7 +34,7 @@ do-build:
 
 do-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/include/CL
-	${INSTALL_DATA} ${WRKSRC}/opencl21/CL/*.h \
+	${INSTALL_DATA} ${WRKSRC}/opencl${PORTVERSION:S/.//}/CL/*.h \
 		${STAGEDIR}${PREFIX}/include/CL
 	${INSTALL_DATA} ${WRKSRC_clhpp}/cl.hpp \
 		${STAGEDIR}${PREFIX}/include/CL/cl.hpp
