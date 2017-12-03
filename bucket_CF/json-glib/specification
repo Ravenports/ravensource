@@ -1,0 +1,30 @@
+DEF[PORTVERSION]=	1.4.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		json-glib
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	JSON (RFC 4627) interface for Glib
+HOMEPAGE=		https://wiki.gnome.org/Projects/JsonGlib
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://ftp.gnome.org/pub/GNOME/sources/json-glib/${PORTVERSION:R}/
+DISTFILE[1]=		json-glib-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/json-glib
+
+USES=			gettext-tools gmake libtool meson pkgconfig
+GNOME_COMPONENTS=	glib introspection
+
+INSTALL_TARGET=		install-strip
+
+post-install:
+	${RM} -r ${STAGEDIR}${PREFIX}/share/installed-tests
+	${RM} -r ${STAGEDIR}${PREFIX}/libexec/installed-tests
