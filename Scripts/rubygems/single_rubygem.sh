@@ -136,7 +136,8 @@ get_filtered_url() {
    url=$(obtain_homepage ${1} ${2} ${3})
    case ${url} in
       http://github.com/* | http://bitbucket.org/* | \
-      http://docs.openstack.org* | http://banisterfiend.wordpress.com*)
+      http://docs.openstack.org* | http://banisterfiend.wordpress.com* | \
+      http://*.github.io)
          echo ${url} | sed -e "s/^http:/https:/"
          ;;
       *) echo ${url} ;;
