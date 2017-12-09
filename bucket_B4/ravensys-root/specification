@@ -50,7 +50,7 @@ DISTFILE[12]=		linux-libc-dev_4.4.0-78.99_amd64.deb:ubuntu8
 DISTFILE[13]=		libc6-dev-amd64_2.23-0ubuntu9_i386.deb:ubuntu1
 DISTFILE[14]=		libc6-dev_2.23-0ubuntu9_i386.deb:ubuntu1
 DISTFILE[15]=		FreeBSD-${FREEBSD_RELEASE}-RELEASE-amd64-disc1.iso:freebsd
-DISTFILE[16]=		Solaris_10_sysroot.tar.xz:dragonlace
+DISTFILE[16]=		solaris_root_10_u3.v03.tar.xz:dragonlace
 
 SPKGS[dragonfly]=	single
 SPKGS[freebsd64]=	single
@@ -233,7 +233,7 @@ post-install-FREEBSD-ON:
 	echo "x86_64"                > ${STAGEDIR}${RSYS}/usr/share/STDARCH
 
 post-extract-SUNOS-ON:
-	${MV} ${WRKDIR}/solaris_root ${WRKDIR}/sunos
+	${MV} ${WRKDIR}/solaris_root_10_u3 ${WRKDIR}/sunos
 	@${MKDIR} ${WRKSRC}
 	${INSTALL_DATA} ${FILESDIR}/Makefile ${WRKSRC}/
 
