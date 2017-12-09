@@ -20,6 +20,8 @@ SPKGS[minimal]=		single
 OPTIONS_AVAILABLE=	PERL PYTHON VALA
 OPTIONS_STANDARD=	PERL PYTHON VALA
 OPT_ON[all]=		PERL PYTHON VALA
+VOPTS[minimal]=		PERL=OFF PYTHON=OFF VALA=OFF
+# Other variants may be feasible in the future as deps become available
 
 # Other bindings not currently available in Raven:
 # Mono, GConf, GSettings, kreadconfig, kreadconfig5, MozJS,
@@ -29,8 +31,7 @@ FPC_EQUIVALENT=		net/libproxy
 
 USES=			cclibs:single c++:single cmake pkgconfig
 
-VOPTS[minimal]=		PERL=OFF PYTHON=OFF VALA=OFF
-# Other variants may be feasible in the future as deps become available
+CXXFLAGS=		-std=c++03
 
 [PERL].DESCRIPTION=			Build with Perl binding
 [PYTHON].DESCRIPTION=			Build with Python binding
