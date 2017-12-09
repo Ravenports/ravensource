@@ -61,7 +61,7 @@
 +
 +    // sysctl stores 0 in the size if we can't find the process information.
 +    if (size == 0) {
-+        NoSuchProcess();
++        NoSuchProcess("");
 +        return -1;
 +    }
 +    return 0;
@@ -241,7 +241,7 @@
 +        if (ret == -1)
 +            return NULL;
 +        else if (ret == 0)
-+            return NoSuchProcess();
++            return NoSuchProcess("");
 +        else
 +            strcpy(pathname, "");
 +    }
