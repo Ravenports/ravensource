@@ -11,6 +11,8 @@ Libthr_FreeBSD=		libthr.so.3
 Libsbuf_FreeBSD=	libsbuf.so.6
 Libdevstat_FreeBSD=	libdevstat.so.7
 
+CPA=			-RpP
+
 # /bin/cat    (archivers/libarchive)
 # /bin/md5    (security/sha256)
 # /bin/sha256 (security/sha256)
@@ -324,6 +326,9 @@ posix_headers=		aio.h \
 			wordexp.h \
 			# end
 
+headers_SunOS_dirs=	#end
+headers_SunOS=		#end
+
 headers_FreeBSD_dirs=	arpa \
 			dev \
 			net \
@@ -539,6 +544,7 @@ headers_Linux=		_G_config.h \
 			# end
 
 pcfiles_Linux=		# end
+pcfiles_SunOS=		# end
 pcfiles_FreeBSD=	libusb-0.1.pc \
 			libusb-2.0.pc \
 			libusb-1.0.pc \
@@ -598,24 +604,38 @@ install:
 		# end
 .endif
 
-.for item in ${Bin_${OPSYS}}
+.if "${OPSYS}" == "SunOS"
+	cp ${CPA} ../${OPSYS:tl}/* ${DESTDIR}${BASE}/
+	# use BSD's which
+	${BSD_INSTALL_PROGRAM} ${LOCALBASE}/bin/which ${DESTDIR}${BASE}/bin/
+	# fetch is just a wrapper for wget (for now)
+	${BSD_INSTALL_PROGRAM} ${LOCALBASE}/bin/wget ${DESTDIR}${BASE}/bin/
+#	${BSD_INSTALL_DATA} ${LOCALBASE}/share/certs/ca-root-nss.crt ${DESTDIR}${BASE}/usr/share/
+	# This fetch is a wrapper for wget; it's a script
+	sed -e "s|/raven/share/certs/|/usr/share/|" ${LOCALBASE}/bin/fetch \
+		> ${DESTDIR}${BASE}/usr/bin/fetch
+.else
+.  for item in ${Bin_${OPSYS}}
 	${BSD_INSTALL_PROGRAM} ../${OPSYS:tl}${item} ${DESTDIR}${BASE}/bin/
-.endfor
-.for item in ${Usr_Bin_${OPSYS}}
+.  endfor
+.  for item in ${Usr_Bin_${OPSYS}}
 	${BSD_INSTALL_PROGRAM} ../${OPSYS:tl}${item} ${DESTDIR}${BASE}/usr/bin/
-.endfor
-.for item in ${Usr_Sbin_${OPSYS}}
+.  endfor
+.  for item in ${Usr_Sbin_${OPSYS}}
 	${BSD_INSTALL_PROGRAM} ../${OPSYS:tl}${item} ${DESTDIR}${BASE}/usr/sbin/
-.endfor
-.for item in ${Libexec_${OPSYS}}
+.  endfor
+.  for item in ${Libexec_${OPSYS}}
 	${BSD_INSTALL_PROGRAM} ../${OPSYS:tl}${item} ${DESTDIR}${BASE}/libexec/
-.endfor
-.for item in ${dynamic_lib_${OPSYS}}
+.  endfor
+.  for item in ${dynamic_lib_${OPSYS}}
 	${BSD_INSTALL_LIB} ../${OPSYS:tl}${item} ${DESTDIR}${BASE}/usr/lib/
-.endfor
-.for item in ${static_lib_${OPSYS}}
+.  endfor
+.  for item in ${static_lib_${OPSYS}}
 	${BSD_INSTALL_DATA} ../${OPSYS:tl}${item} ${DESTDIR}${BASE}/usr/lib/
-.endfor
+.  endfor
+	# This is the real fetch program
+	cp ${LOCALBASE}/bin/fetch ${DESTDIR}${BASE}/usr/bin/
+.endif
 .if ${OPSYS} == DragonFly || ${OPSYS} == FreeBSD
 	(cd ${DESTDIR}${BASE}/usr/lib && \
 		ln -s ${libc} libc.so && \
@@ -626,14 +646,15 @@ install:
 		ln -s ${libutil} libutil.so && \
 		ln -s ${libusb} libusb.so && \
 		ln -s ${libusbhid} libusbhid.so)
+	${BSD_INSTALL_SCRIPT} ../${OPSYS:tl}/usr/bin/lorder ${DESTDIR}${BASE}/usr/bin/
 .endif
 .if ${OPSYS} == FreeBSD
 	(cd ${DESTDIR}${BASE}/usr/lib && \
 		ln -s ${Libthr_FreeBSD} libthr.so && \
 		ln -s ${Libdevstat_FreeBSD} libdevstat.so && \
 		ln -s libthr.so libpthread.so)
-	cp -a ${LOCALBASE}/bin/ginstall ${DESTDIR}${BASE}/usr/bin/install
-	cp -a ${LOCALBASE}/bin/gwc      ${DESTDIR}${BASE}/usr/bin/wc
+	cp ${CPA} ${LOCALBASE}/bin/ginstall ${DESTDIR}${BASE}/usr/bin/install
+	cp ${CPA} ${LOCALBASE}/bin/gwc      ${DESTDIR}${BASE}/usr/bin/wc
 	
 .endif
 .if ${OPSYS} == Linux
@@ -641,23 +662,23 @@ install:
 	${BSD_INSTALL_DATA} ../linux/usr/lib/x86_64-linux-gnu/${item} ${DESTDIR}${BASE}/usr/lib/x86_64-linux-gnu/
 .  endfor
 .  for item in ${Linux_shared_libs}
-	cp -a ../linux/lib/x86_64-linux-gnu/${item:H} ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/
-	cp -a ../linux/lib/x86_64-linux-gnu/${item:T} ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/
-	cp -a ../linux/usr/lib/x86_64-linux-gnu/${item:T:R} ${DESTDIR}${BASE}/usr/lib/x86_64-linux-gnu/
+	cp ${CPA} ../linux/lib/x86_64-linux-gnu/${item:H} ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/
+	cp ${CPA} ../linux/lib/x86_64-linux-gnu/${item:T} ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/
+	cp ${CPA} ../linux/usr/lib/x86_64-linux-gnu/${item:T:R} ${DESTDIR}${BASE}/usr/lib/x86_64-linux-gnu/
 .  endfor
 .  for item in ${Linux_extra_libs1} ${Linux_RTLD}
-	cp -a ../linux/lib/x86_64-linux-gnu/${item:H} ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/
-	cp -a ../linux/lib/x86_64-linux-gnu/${item:T} ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/
+	cp ${CPA} ../linux/lib/x86_64-linux-gnu/${item:H} ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/
+	cp ${CPA} ../linux/lib/x86_64-linux-gnu/${item:T} ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/
 .  endfor
 .  for item in ${Linux_extra_libs2}
-	cp -a ../linux/usr/lib/x86_64-linux-gnu/${item:H} ${DESTDIR}${BASE}/usr/lib/x86_64-linux-gnu/
-	cp -a ../linux/usr/lib/x86_64-linux-gnu/${item:T} ${DESTDIR}${BASE}/usr/lib/x86_64-linux-gnu/
+	cp ${CPA} ../linux/usr/lib/x86_64-linux-gnu/${item:H} ${DESTDIR}${BASE}/usr/lib/x86_64-linux-gnu/
+	cp ${CPA} ../linux/usr/lib/x86_64-linux-gnu/${item:T} ${DESTDIR}${BASE}/usr/lib/x86_64-linux-gnu/
 .  endfor
 .  for item in ${Linux_single_libs1}
-	cp -a ../linux/lib/x86_64-linux-gnu/${item} ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/
+	cp ${CPA} ../linux/lib/x86_64-linux-gnu/${item} ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/
 .  endfor
 .  for item in ${Linux_single_libs2}
-	cp -a ../linux/usr/lib/x86_64-linux-gnu/${item} ${DESTDIR}${BASE}/usr/lib/x86_64-linux-gnu/
+	cp ${CPA} ../linux/usr/lib/x86_64-linux-gnu/${item} ${DESTDIR}${BASE}/usr/lib/x86_64-linux-gnu/
 .  endfor
 	ln -s /lib/x86_64-linux-gnu/${Linux_RTLD:H} ${DESTDIR}${BASE}/lib64/${Linux_RTLD:T}
 	# symlink libgcc_s.so.1 which lpthread needs in a specific location
@@ -666,44 +687,48 @@ install:
 	chmod 755 ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/${Linux_RTLD:H}
 	chmod 755 ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/${Linux_C_lib:H}
 	chmod 755 ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/${Linux_thread_lib:H}
-	# use coreutils that FreeBSD and DragonFly passed on (/bin)
-.  for item in [ chmod cp date echo expr kill link ln ls mkdir mv pwd realpath rm rmdir sleep test unlink
-	cp -a ${LOCALBASE}/bin/g${item} ${DESTDIR}${BASE}/bin/${item}
-.  endfor
-	# user coreutils that FreeBSD and DragonFly passed on (/usr/bin)
-.  for item in basename chgrp chown comm cut dirname env false head id install join mkfifo mktemp \
-	printenv printf readlink stat tail tee touch tee tr true tsort uniq wc whoami
-	cp -a ${LOCALBASE}/bin/g${item} ${DESTDIR}${BASE}/usr/bin/${item}
-.  endfor
 	# From linux-only shadow package
 .  for sbinitem in useradd usermod groupadd
-	cp -a ${LOCALBASE}/sbin/${sbinitem} ${DESTDIR}${BASE}/usr/bin/
+	cp ${CPA} ${LOCALBASE}/sbin/${sbinitem} ${DESTDIR}${BASE}/usr/bin/
 .  endfor
-	# from linux-only bash package
-	cp -a ${LOCALBASE}/bin/bash ${DESTDIR}${BASE}/bin/	
+	# lorder is system-specific.  Linux has it natively though
+	${BSD_INSTALL_SCRIPT} ../linux/usr/bin/lorder ${DESTDIR}${BASE}/usr/bin/
 	# ldd and which are scripts, can't be stripped
 	${BSD_INSTALL_SCRIPT} ../linux/usr/bin/ldd ${DESTDIR}${BASE}/usr/bin/
 	${BSD_INSTALL_SCRIPT} ../linux/bin/which ${DESTDIR}${BASE}/usr/bin/
 	# convert ldd from bash to dash
 	sed -i'' -e "s|/bin/bash|/bin/dash|" ${DESTDIR}${BASE}/usr/bin/ldd
 	# i386 version conflicts with amd64 version, so copy just the i386 files separately
-	cp -a ../ravensys-root_14/usr/include/i386-linux-gnu ${DESTDIR}${BASE}/usr/include/
+	cp ${CPA} ../ravensys-root_14/usr/include/i386-linux-gnu ${DESTDIR}${BASE}/usr/include/
 .endif
+.if ${OPSYS} == Linux || ${OPSYS} == SunOS
+	# use coreutils that FreeBSD and DragonFly passed on (/bin)
+.  for item in [ chmod cp date echo expr kill link ln ls mkdir mv pwd realpath rm rmdir sleep test unlink
+	cp ${CPA} ${LOCALBASE}/bin/g${item} ${DESTDIR}${BASE}/bin/${item}
+.  endfor
+	# use coreutils that FreeBSD and DragonFly passed on (/usr/bin)
+.  for item in basename chgrp chown comm cut dirname env false head id install join mkfifo mktemp \
+	printenv printf readlink stat tail tee touch tee tr true tsort uniq wc whoami
+	cp ${CPA} ${LOCALBASE}/bin/g${item} ${DESTDIR}${BASE}/usr/bin/${item}
+.  endfor
+	# from bash package
+	cp ${CPA} ${LOCALBASE}/bin/bash ${DESTDIR}${BASE}/bin/
+.endif
+
 	# for convenience from listing hundreds of files, copy all from specific directories
 .  for hdr in ${headers_${OPSYS}_dirs}
-	cp -a ../${OPSYS:tl}/usr/include/${hdr} ${DESTDIR}${BASE}/usr/include/
+	cp ${CPA} ../${OPSYS:tl}/usr/include/${hdr} ${DESTDIR}${BASE}/usr/include/
 .  endfor
 .for item in ${pcfiles_${OPSYS}}
 	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/libdata/pkgconfig/${item} \
 		${DESTDIR}${BASE}/usr/lib/pkgconfig/
 .endfor
-	${BSD_INSTALL_SCRIPT} ../${OPSYS:tl}/usr/bin/lorder ${DESTDIR}${BASE}/usr/bin/
 .for item in md5 sha256 
-	cp -a ${LOCALBASE}/bin/${item} ${DESTDIR}${BASE}/bin/
+	cp ${CPA} ${LOCALBASE}/bin/${item} ${DESTDIR}${BASE}/bin/
 .endfor
-	cp -a ${LOCALBASE}/bin/gcat ${DESTDIR}${BASE}/bin/cat
+	cp ${CPA} ${LOCALBASE}/bin/gcat ${DESTDIR}${BASE}/bin/cat
 .for item in bzip2 bunzip2 bzcat bzgrep bzegrep bzfgrep \
-	grep fetch file flex flex++ gzip gunzip zcat zcmp zdiff zegrep \
+	grep file flex flex++ gzip gunzip zcat zcmp zdiff zegrep \
 	zfgrep zgrep lzcat lzcmp lzdiff lzegrep lzfgrep lzgrep lzma \
 	unlzma unxz xz xzcat xzcmp xzdiff xzegrep xzfgrep xzgrep yacc \
 	unzip less mtree bsdcat makewhatis dupe genpatch portfix patch

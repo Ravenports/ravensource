@@ -12,18 +12,20 @@ DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
 NAMEBASE=		ravensys-root
 VERSION=		1.4
 KEYWORDS=		raven
-VARIANTS=		dragonfly freebsd64 linux
+VARIANTS=		dragonfly freebsd64 linux sunos
 SDESC[dragonfly]=	DragonFly64 system root for Ravenports build env
 SDESC[freebsd64]=	FreeBSD64 system root for Ravenports build env
 SDESC[linux]=		Linux system root for Ravenports build env
+SDESC[sunos]=		Solaris 10 system root for Ravenports build env
 HOMEPAGE=		none
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main avalon ubuntu1 ubuntu2 ubuntu3 ubuntu4 ubuntu5
-			ubuntu6 ubuntu7 ubuntu8 freebsd
+			ubuntu6 ubuntu7 ubuntu8 freebsd dragonlace
 SITES[main]=		https://leaf.dragonflybsd.org/~marino/dports-src/
 SITES[avalon]=		http://mirror-master.dragonflybsd.org/iso-images/
 SITES[freebsd]=		https://download.freebsd.org/ftp/releases/amd64/amd64/ISO-IMAGES/${FREEBSD_RELEASE}/
+SITES[dragonlace]=	http://downloads.dragonlace.net/misc/
 SITES[ubuntu1]=		http://security.ubuntu.com/ubuntu/pool/main/g/glibc/
 SITES[ubuntu2]=		UBUNTU/h/hostname
 SITES[ubuntu3]=		UBUNTU/d/dash
@@ -48,16 +50,19 @@ DISTFILE[12]=		linux-libc-dev_4.4.0-78.99_amd64.deb:ubuntu8
 DISTFILE[13]=		libc6-dev-amd64_2.23-0ubuntu9_i386.deb:ubuntu1
 DISTFILE[14]=		libc6-dev_2.23-0ubuntu9_i386.deb:ubuntu1
 DISTFILE[15]=		FreeBSD-${FREEBSD_RELEASE}-RELEASE-amd64-disc1.iso:freebsd
+DISTFILE[16]=		Solaris_10_sysroot.tar.xz:dragonlace
 
 SPKGS[dragonfly]=	single
 SPKGS[freebsd64]=	single
 SPKGS[linux]=		single
+SPKGS[sunos]=		single
 
-OPTIONS_AVAILABLE=	DRAGONFLY FREEBSD LINUX
+OPTIONS_AVAILABLE=	DRAGONFLY FREEBSD LINUX SUNOS
 OPTIONS_STANDARD=	none
-VOPTS[dragonfly]=	DRAGONFLY=ON FREEBSD=OFF LINUX=OFF
-VOPTS[freebsd64]=	DRAGONFLY=OFF FREEBSD=ON LINUX=OFF
-VOPTS[linux]=		DRAGONFLY=OFF FREEBSD=OFF LINUX=ON
+VOPTS[dragonfly]=	DRAGONFLY=ON FREEBSD=OFF LINUX=OFF SUNOS=OFF
+VOPTS[freebsd64]=	DRAGONFLY=OFF FREEBSD=ON LINUX=OFF SUNOS=OFF
+VOPTS[linux]=		DRAGONFLY=OFF FREEBSD=OFF LINUX=ON SUNOS=OFF
+VOPTS[sunos]=		DRAGONFLY=OFF FREEBSD=OFF LINUX=OFF SUNOS=ON
 
 INVALID_RPATH=		yes
 
@@ -67,7 +72,6 @@ BUILD_DEPENDS=		nawk:single:standard
 			libarchive:single:static
 			sha256:single:standard
 			gnugrep:single:standard
-			fetch:single:standard
 			file:single:ravensys
 			findutils:single:standard
 			flex:primary:standard
@@ -90,9 +94,15 @@ BUILD_DEPENDS=		nawk:single:standard
 			makewhatis:single:standard
 			genpatch:single:standard
 B_DEPS[linux]=		shadow:single:standard
+			fetch:single:standard
 			bash:primary:static
 B_DEPS[dragonfly]=	libdl:single:standard
+			fetch:single:standard
 B_DEPS[freebsd]=	libdl:single:standard
+			fetch:single:standard
+B_DEPS[sunos]=		wget:primary:ravensys
+			bash:primary:static
+			bsd-which:single:standard
 
 SKIP_BUILD=		yes
 SINGLE_JOB=		yes
@@ -134,6 +144,10 @@ MAKE_ARGS=		BASE={{RSYS}}
 [FREEBSD].ONLY_FOR_OPSYS_ON=		freebsd
 [FREEBSD].DF_INDEX_ON=			15
 
+[SUNOS].DESCRIPTION=			Ravenports system root for Solaris 10
+[SUNOS].ONLY_FOR_OPSYS_ON=		sunos
+[SUNOS].DF_INDEX_ON=			16
+
 post-extract-DRAGONFLY-ON:
 	${MV} ${WRKDIR}/${NAMEBASE}_2 ${WRKDIR}/dragonfly
 	@${MKDIR} ${WRKSRC}
@@ -157,11 +171,6 @@ post-install-DRAGONFLY-ON:
 	${MV} ${STAGEDIR}${RSYS}/var/run/ld-elf.so.hints \
 		${STAGEDIR}${RSYS}/usr/share/
 	${RM} -r ${STAGEDIR}${RSYS}/var
-	# create termcap.db
-	${INSTALL_DATA} ${FILESDIR}/termcap.src \
-		${STAGEDIR}${RSYS}/usr/share/termcap
-	(cd ${STAGEDIR}${RSYS}/usr/share && \
-		${FOS}/usr/bin/cap_mkdb -f termcap ./termcap)
 
 	# Approach only works for DragonFly.
 	${FOS}/usr/bin/make -V .MAKE.DF.OSREL   > ${STAGEDIR}${RSYS}/usr/share/OSRELEASE
@@ -222,3 +231,14 @@ post-install-FREEBSD-ON:
 	${ECHO} ${FREEBSD_RELEASE:R} > ${STAGEDIR}${RSYS}/usr/share/OSMAJOR
 	${ECHO} ${FREE_KERNEL_VER}   > ${STAGEDIR}${RSYS}/usr/share/OSVERSION
 	echo "x86_64"                > ${STAGEDIR}${RSYS}/usr/share/STDARCH
+
+post-extract-SUNOS-ON:
+	${MV} ${WRKDIR}/solaris_root ${WRKDIR}/sunos
+	@${MKDIR} ${WRKSRC}
+	${INSTALL_DATA} ${FILESDIR}/Makefile ${WRKSRC}/
+
+post-install-SUNOS-ON:
+	${ECHO} 5.10      > ${STAGEDIR}${RSYS}/usr/share/OSRELEASE
+	${ECHO} 5.10      > ${STAGEDIR}${RSYS}/usr/share/OSMAJOR
+	${ECHO} 510201301 > ${STAGEDIR}${RSYS}/usr/share/OSVERSION
+	${ECHO} x86_64    > ${STAGEDIR}${RSYS}/usr/share/STDARCH
