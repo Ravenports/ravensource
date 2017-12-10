@@ -33,7 +33,8 @@ CONFIGURE_ARGS=		--disable-more-warnings
 			--without-gnome
 INSTALL_TARGET=		install-strip
 
-PLIST_SUB=		LIBVERSION=${LIBVERSION} SOVERSION=${SOVERSION}
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		LIBVERSION=${LIBVERSION}
 
 post-patch:
 	${REINPLACE_CMD} -e 's|env python|env python${PYTHON_VER}|g' \
