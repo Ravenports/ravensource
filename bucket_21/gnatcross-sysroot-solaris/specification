@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	1
-DEF[PUB_FREEBSD]=	ftp://ftp.freebsd.org/pub/FreeBSD
+DEF[PORTVERSION]=	2
+DEF[SOLARIS_FILE]=	solaris_root_10_u3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnatcross-sysroot-solaris
@@ -12,7 +12,7 @@ CONTACT=		John_Marino[john@marino.st]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		http://downloads.dragonlace.net/misc/
-DISTFILE[1]=		sol10-sysroot.tar.xz:main
+DISTFILE[1]=		${SOLARIS_FILE}.v03.tar.xz:main
 DIST_SUBDIR=		gnatcross/solaris
 
 SPKGS[SOL10]=		single
@@ -35,14 +35,7 @@ EXTRACT_DIRTY=		1
 
 do-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/sysroot/usr
-	${MV} ${WRKDIR}/gnatcross-sys*/lib ${STAGEDIR}${PREFIX}/sysroot
-	${MV} ${WRKDIR}/gnatcross-sys*/usr ${STAGEDIR}${PREFIX}/sysroot
+	${MV} ${WRKSRC}/${SOLARIS_FILE}/lib ${STAGEDIR}${PREFIX}/sysroot
+	${MV} ${WRKSRC}/${SOLARIS_FILE}/usr/lib ${STAGEDIR}${PREFIX}/sysroot/usr
+	${MV} ${WRKSRC}/${SOLARIS_FILE}/usr/include ${STAGEDIR}${PREFIX}/sysroot/usr
 	${ECHO_CMD} ${CTARGET} > ${STAGEDIR}${PREFIX}/sysroot/target_triplet
-	${LN} -s ../../lib/ld.so.1 ${STAGEDIR}${PREFIX}/sysroot/usr/lib/ld.so.1
-	${LN} -s ../../../lib/amd64/ld.so.1 \
-		${STAGEDIR}${PREFIX}/sysroot/usr/lib/amd64/ld.so.1
-	(cd ${STAGEDIR}${PREFIX}; ${FIND} sysroot -type d -empty -delete)
-
-post-install-SOL10-ON:
-	${RM} -r ${STAGEDIR}${PREFIX}/sysroot/lib/svc
-	${RM} -r ${STAGEDIR}${PREFIX}/sysroot/lib/opengl
