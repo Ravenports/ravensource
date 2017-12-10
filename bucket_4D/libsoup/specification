@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://ftp.gnome.org/pub/GNOME/sources/libsoup/${PORTVERSION:R}/
 DISTFILE[1]=		libsoup-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -42,3 +42,5 @@ post-patch:
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/libsoup/soup-connection.h \
 		${STAGEDIR}${PREFIX}/include/libsoup-${LIBVERSION}/libsoup/soup-connection.h
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc \
+		${STAGEDIR}${PREFIX}/share/doc/soup
