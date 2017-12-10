@@ -43,5 +43,6 @@ post-patch:
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/libsoup/soup-connection.h \
 		${STAGEDIR}${PREFIX}/include/libsoup-${LIBVERSION}/libsoup/soup-connection.h
-	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc \
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/libsoup-${LIBVERSION} \
 		${STAGEDIR}${PREFIX}/share/doc/soup
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
