@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	2.4.7
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		geoclue
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		standard
+SDESC[standard]=	D-Bus service to provide location information
+HOMEPAGE=		https://www.freedesktop.org/wiki/Software/GeoClue
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.freedesktop.org/software/geoclue/releases/${PORTVERSION:R}/
+DISTFILE[1]=		geoclue-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		net/geoclue
+
+BUILDRUN_DEPENDS=	json-glib:single:standard
+			libsoup:primary:standard
+
+USES=			gettext-tools gmake libtool pkgconfig
+GNOME_COMPONENTS=	glib intltool introspection
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-3g-source
+			--disable-cdma-source
+			--disable-nmea-source
+			--disable-modem-gps-source
+INSTALL_TARGET=		install-strip
