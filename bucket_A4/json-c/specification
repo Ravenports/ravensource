@@ -1,6 +1,5 @@
-DEF[PORTVERSION]=	0.12.1
-DEF[SOVERSION]=		2.0.2
-DEF[SOMAJOR]=		${SOVERSION:R:R}
+DEF[PORTVERSION]=	0.13
+DEF[SOVERSION]=		3.0.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		json-c
@@ -26,8 +25,4 @@ USES=			autoreconf cpe gmake libtool pkgconfig
 CPE_VENDOR=		json-c_project
 INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
-PLIST_SUB=		SOVERSION=${SOVERSION}
-			SOMAJOR=${SOMAJOR}
-
-post-patch:
-	${REINPLACE_CMD} -e 's| -Werror||g' ${WRKSRC}/Makefile.am.inc
+SOVERSION=		${SOVERSION}
