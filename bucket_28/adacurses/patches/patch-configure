@@ -1,0 +1,28 @@
+--- configure.orig	2015-08-08 14:26:00 UTC
++++ configure
+@@ -8955,15 +8955,12 @@ case $cf_cv_system_name in
+ (dragonfly*|freebsd*)
+ 	LD_RPATH_OPT="-rpath "
+ 	;;
+-(netbsd*)
++(netbsd*|solaris2*)
+ 	LD_RPATH_OPT="-Wl,-rpath,"
+ 	;;
+ (osf*|mls+*)
+ 	LD_RPATH_OPT="-rpath "
+ 	;;
+-(solaris2*)
+-	LD_RPATH_OPT="-R"
+-	;;
+ (*)
+ 	;;
+ esac
+@@ -9347,7 +9344,7 @@ CF_EOF
+ 		MK_SHARED_LIB='${LD} -Bshareable -o $@'
+ 		test "$cf_cv_shlib_version" = auto && cf_cv_shlib_version=rel
+ 		;;
+-	(dragonfly*|freebsd*)
++	(dragonfly*|freebsd*|solaris2*)
+ 		CC_SHARED_OPTS="$CC_SHARED_OPTS -DPIC"
+ 		if test "$DFT_LWR_MODEL" = "shared" && test "$cf_cv_enable_rpath" = yes ; then
+ 			LOCAL_LDFLAGS="${cf_ld_rpath_opt}\$(LOCAL_LIBDIR)"
