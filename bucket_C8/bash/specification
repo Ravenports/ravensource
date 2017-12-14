@@ -5,7 +5,7 @@ DEF[STANDARD_PATH]=	/sbin:/bin:/usr/sbin:/usr/bin
 
 NAMEBASE=		bash
 VERSION=		${PORTVERSION}.${PATCHLEVEL}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		shells
 VARIANTS=		standard static nls
 SDESC[standard]=	GNU Bourne Again SHell
@@ -51,7 +51,7 @@ PATCHFILES=		2 3 4 5 6 7 8 9 10 11 12
 
 # readline is bundled and linked statically
 
-USES=			bison cpe makeinfo
+USES=			bison cpe
 DISTNAME=		bash-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 CPE_VENDOR=		gnu
@@ -73,17 +73,19 @@ CONFIGURE_ARGS=		--enable-readline
 			--without-bash-malloc
 CPPFLAGS=		-DDEFAULT_PATH_VALUE='\"{{STANDARD_PATH}}:{{LOCALBASE}}/sbin:{{LOCALBASE}}/bin\"'
 			-DSTANDARD_UTILS_PATH='\"{{STANDARD_PATH}}\"'
+			-Wl,-export-dynamic
 
 [NLS].USES_ON=				gettext-runtime iconv
 [NLS].CONFIGURE_ENABLE_BOTH=		nls
 [NLS].CONFIGURE_ARGS_ON=		--with-libiconv-prefix={{ICONV_PREFIX}}
 
-[STATIC].CONFIGURE_ENABLE_BOTH=		static-link
-[STATIC].CFLAGS_OFF=			-Wl,-export-dynamic
-[STATIC].BUILD_DEPENDS_ON=		ncurses:primary:standard
+# [STATIC].CONFIGURE_ENABLE_BOTH=		static-link
+# [STATIC].CFLAGS_OFF=			-Wl,-export-dynamic
+[STATIC].BUILD_DEPENDS_ON=		ncurses:primary:static
 [STATIC].BUILDRUN_DEPENDS_OFF=		ncurses:primary:standard
 
 [NOTSTD].DESCRIPTION=			Non-standard designation
+[NOTSTD].USES_OFF=			makeinfo
 
 post-patch:
 	# Ensure y.tab.c is regenerated
@@ -101,3 +103,8 @@ post-install:
 
 post-install-NOTSTD-ON:
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
+
+post-install-STATIC-ON:
+	# These are not installed when --enable-static-link set
+	${RM} -r ${STAGEDIR}${PREFIX}/include
+	${RM} -r ${STAGEDIR}${PREFIX}/lib
