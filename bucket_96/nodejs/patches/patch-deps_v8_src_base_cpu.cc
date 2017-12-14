@@ -1,4 +1,4 @@
---- deps/v8/src/base/cpu.cc.orig	2017-11-07 15:07:59 UTC
+--- deps/v8/src/base/cpu.cc.orig	2017-12-12 10:22:24 UTC
 +++ deps/v8/src/base/cpu.cc
 @@ -607,6 +607,7 @@ CPU::CPU()
  

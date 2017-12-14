@@ -1,6 +1,6 @@
---- configure.orig	2017-11-07 15:07:54 UTC
+--- configure.orig	2017-12-12 10:22:19 UTC
 +++ configure
-@@ -56,7 +56,7 @@ from gyp_node import run_gyp
+@@ -58,7 +58,7 @@ from gyp_node import run_gyp
  # parse our options
  parser = optparse.OptionParser()
  
@@ -9,16 +9,7 @@
              'android', 'aix', 'cloudabi')
  valid_arch = ('arm', 'arm64', 'ia32', 'mips', 'mipsel', 'mips64el', 'ppc',
                'ppc64', 'x32','x64', 'x86', 's390', 's390x')
-@@ -667,6 +667,8 @@ def check_compiler(o):
- 
-   if is_clang:
-     o['variables']['llvm_version'] = get_llvm_version(CC)
-+  else:
-+    o['variables']['llvm_version'] = '0.0'
- 
-   # Need xcode_version or gas_version when openssl asm files are compiled.
-   if options.without_ssl or options.openssl_no_asm or options.shared_openssl:
-@@ -1463,9 +1465,6 @@ if options.prefix:
+@@ -1492,9 +1492,6 @@ if options.prefix:
  config = '\n'.join(map('='.join, config.iteritems())) + '\n'
  
  # On Windows there's no reason to search for a different python binary.
