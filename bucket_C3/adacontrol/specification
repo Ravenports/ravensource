@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.18r9
+DEF[PORTVERSION]=	1.19r10
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		adacontrol
@@ -43,12 +43,8 @@ post-extract:
 		> ${WRKDIR}/LICENSE
 
 do-patch-PROJECTS-OFF:
-	(cd ${WRKSRC}/src && ${MV} \
-		implementation_options-i_options_from_gpr_project.adb \
-		implementation_options-i_options_from_gpr_project_gpr.adb)
-	(cd ${WRKSRC}/src && ${MV} \
-		implementation_options-i_options_from_gpr_project_nogpr.adb \
-		implementation_options-i_options_from_gpr_project.adb)
+	${REINPLACE_CMD} -e 's|GPR_Project_File|No_Project_File|' \
+		${WRKSRC}/src/implementation_options-project_file.ads
 	${REINPLACE_CMD} -e '/gnatcoll/d' ${WRKSRC}/build.gpr
 
 do-build:
