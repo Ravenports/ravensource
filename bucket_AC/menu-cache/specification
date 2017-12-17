@@ -1,6 +1,5 @@
 DEF[PORTVERSION]=	1.1.0
 DEF[SOVERSION]=		3.2.0
-DEF[SOMAJOR]=		${SOVERSION:R:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		menu-cache
@@ -8,7 +7,7 @@ VERSION=		${PORTVERSION}
 KEYWORDS=		x11
 VARIANTS=		standard
 SDESC[standard]=	Caching mechanism for freedesktop-compliant menus
-HOMEPAGE=		http://lxde.org/
+HOMEPAGE=		https://lxde.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
@@ -32,8 +31,7 @@ GNOME_COMPONENTS=	glib
 INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-static
-PLIST_SUB=		SOVERSION=${SOVERSION}
-			SOMAJOR=${SOMAJOR}
+SOVERSION=		${SOVERSION}
 
 pre-configure:
 	(cd ${WRKSRC} && ./autogen.sh)
