@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	0.4.15
+DEF[SOVERSION]=		1.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libproxy
@@ -60,6 +61,8 @@ CMAKE_ARGS=		-DBIPR:BOOL=OFF
 [VALA].BUILDRUN_DEPENDS_ON=		vala:single:standard
 [VALA].CMAKE_ARGS_ON=			-DWITH_VALA:BOOL=ON
 [VALA].CMAKE_ARGS_OFF=			-DWITH_VALA:BOOL=OFF
+
+SOVERSION=		${SOVERSION}
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/proxy

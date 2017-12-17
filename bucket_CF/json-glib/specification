@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	1.4.2
 DEF[RPATH]=		{{PREFIX}}/lib
+DEF[SOVERSION]=		0.400.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		json-glib
@@ -25,6 +26,8 @@ USES=			gettext-tools gmake libtool meson pkgconfig
 GNOME_COMPONENTS=	glib introspection
 
 INSTALL_TARGET=		install-strip
+
+SOVERSION=		${SOVERSION}
 
 post-patch:
 	${REINPLACE_CMD} -e "s|install: true|install: true, install_rpath : '${RPATH}'|g" \

@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	0.1.10
+DEF[FAMVERSION]=	0.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gamin
@@ -26,6 +27,10 @@ GNOME_COMPONENTS=	glib
 MUST_CONFIGURE=		gnu
 
 CPPFLAGS=		-DHAVE_LINUX
+
+SOVERSION=		${PORTVERSION}
+PLIST_SUB=		FAMVERSION=${FAMVERSION}
+			FAMMAJOR=${FAMVERSION:R:R}
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so*
