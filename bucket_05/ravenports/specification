@@ -5,10 +5,11 @@ NAMEBASE=		ravenports
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		raven
-VARIANTS=		dragonfly freebsd64 linux
+VARIANTS=		dragonfly freebsd64 linux sunos
 SDESC[linux]=		Install turnkey Ravenports on Linux
 SDESC[dragonfly]=	Install turnkey Ravenports on DragonFly
 SDESC[freebsd64]=	Install turnkey Ravenports on FreeBSD/amd64
+SDESC[sunos]=		Install turnkey Ravenports on Solaris 10u8
 HOMEPAGE=		https://github.com/jrmarino/Ravenports
 CONTACT=		John_Marino[draco@marino.st]
 
@@ -17,12 +18,14 @@ DOWNLOAD_GROUPS=	none
 SPKGS[linux]=		single
 SPKGS[dragonfly]=	single
 SPKGS[freebsd64]=	single
+SPKGS[sunos]=		single
 
-OPTIONS_AVAILABLE=	DRAGONFLY FREEBSD64 LINUX
+OPTIONS_AVAILABLE=	DRAGONFLY FREEBSD64 LINUX SUNOS
 OPTIONS_STANDARD=	none
-VOPTS[dragonfly]=	DRAGONFLY=ON FREEBSD64=OFF LINUX=OFF
-VOPTS[freebsd64]=	DRAGONFLY=OFF FREEBSD64=ON LINUX=OFF
-VOPTS[linux]=		DRAGONFLY=OFF FREEBSD64=OFF LINUX=ON
+VOPTS[dragonfly]=	DRAGONFLY=ON FREEBSD64=OFF LINUX=OFF SUNOS=OFF
+VOPTS[freebsd64]=	DRAGONFLY=OFF FREEBSD64=ON LINUX=OFF SUNOS=OFF
+VOPTS[linux]=		DRAGONFLY=OFF FREEBSD64=OFF LINUX=ON SUNOS=OFF
+VOPTS[sunos]=		DRAGONFLY=OFF FREEBSD64=OFF LINUX=OFF SUNOS=ON
 
 RUN_DEPENDS=		pkg-bsd:static:standard
 			ravenadm:single:standard
@@ -40,3 +43,6 @@ SKIP_INSTALL=		yes
 
 [LINUX].DESCRIPTION=			Linux support
 [LINUX].RUN_DEPENDS_ON=			ravensys-root:single:linux
+
+[SUNOS].DESCRIPTION=			Solaris/Illumos support
+[SUNOS].RUN_DEPENDS_ON=			ravensys-root:single:sunos
