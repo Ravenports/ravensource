@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	0.7.7
+DEF[SOVERSION]=		4.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libnotify
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Library for desktop notifications
+HOMEPAGE=		https://developer.gnome.org/libnotify
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://ftp.gnome.org/pub/GNOME/sources/libnotify/${PORTVERSION:R}/
+DISTFILE[1]=		libnotify-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/libnotify
+
+USES=			gettext-runtime gmake libtool pkgconfig python
+GNOME_COMPONENTS=	glib gdkpixbuf intltool introspection
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+CONFIGURE_ARGS=		--disable-tests
+
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/libnotify \
+		${STAGEDIR}${PREFIX}/share/doc
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc

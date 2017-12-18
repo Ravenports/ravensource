@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	0.18.5
+DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libsecret
@@ -29,6 +30,8 @@ GNOME_COMPONENTS=	glib libxslt intltool introspection
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-introspection
 INSTALL_TARGET=		install-strip
+
+SOVERSION=		${SOVERSION}
 
 post-patch:
 	${REINPLACE_CMD} -e 's|__DBPATH__|${PREFIX}/share/xsl/docbook/manpages|' ${WRKSRC}/Makefile.in
