@@ -22,10 +22,13 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		textproc/hyphen
 
+BUILD_DEPENDS=		gawk:single:standard
+
 USES=			libtool perl shebangfix
 SHEBANG_FILES=		substrings.pl
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
+MAKE_ARGS=		AWK={{PREFIX}}/bin/gawk
 
 SOVERSION=		${SOVERSION}
 

@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	4.2.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gawk
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		standard
+SDESC[standard]=	GNU version of Awk
+HOMEPAGE=		http://www.gnu.org/software/gawk/gawk.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/gawk
+DISTFILE[1]=		gawk-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	NLS MPFR
+OPTIONS_STANDARD=	NLS MPFR
+OPT_ON[all]=		NLS MPFR
+
+FPC_EQUIVALENT=		lang/gawk
+
+BUILD_DEPENDS=		libsigsegv:static:standard
+
+USES=			makeinfo libtool readline
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		AWK={{AWK}}
+INSTALL_TARGET=		install-strip
+PLIST_SUB=		VERSION=${PORTVERSION}
+INFO=			single:gawk
+			single:gawkworkflow
+			single:gawkinet
+
+[MPFR].DESCRIPTION=			Support multi-precision floating-point computation
+
+[MPFR].BUILD_DEPENDS_ON=		mpfr:static:standard
+[MPFR].BUILDRUN_DEPENDS_ON=		mpfr:shared:standard
+[MPFR].CONFIGURE_ARGS_OFF=		--without-gmp
+					--without-mpfr
+[NLS].USES_ON=				gettext-runtime
+[NLS].CONFIGURE_ARGS_ON=		--with-libintl-prefix={{LOCALBASE}}
+[NLS].CONFIGURE_ARGS_OFF=		--disable-nls

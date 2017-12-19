@@ -1,0 +1,11 @@
+--- Makefile.in.orig	2017-10-19 18:27:30 UTC
++++ Makefile.in
+@@ -1161,7 +1161,7 @@ install-exec-hook:
+ 	(cd $(DESTDIR)$(bindir); \
+ 	name=`echo gawk | sed '$(transform)'` ; \
+ 	$(LN) $${name}$(EXEEXT) gawk-$(VERSION)$(EXEEXT) 2>/dev/null ; \
+-	if [ ! -f awk$(EXEEXT) ]; \
++	if ! /usr/bin/which -s awk; \
+ 	then	$(LN_S) $${name}$(EXEEXT) awk$(EXEEXT); \
+ 	fi; exit 0)
+ 
