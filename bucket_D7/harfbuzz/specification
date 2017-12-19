@@ -5,8 +5,9 @@ DEF[LIBVER]=		0.10702.0
 NAMEBASE=		harfbuzz
 VERSION=		${PORTVERSION}
 KEYWORDS=		print
-VARIANTS=		standard
+VARIANTS=		standard noicu
 SDESC[standard]=	OpenType text shaping engine
+SDESC[noicu]=		OpenType text shaping engine (without ICU)
 HOMEPAGE=		http://www.freedesktop.org/wiki/Software/HarfBuzz
 CONTACT=		nobody
 
@@ -15,11 +16,16 @@ SITES[main]=		http://www.freedesktop.org/software/harfbuzz/release/
 DISTFILE[1]=		harfbuzz-${PORTVERSION}.tar.bz2:main
 
 SPKGS[standard]=	complete primary docs
+SPKGS[noicu]=		complete primary docs
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	ICU
+OPTIONS_STANDARD=	ICU
+OPT_ON[all]=		ICU
+VOPTS[noicu]=		ICU=OFF
 
 FPC_EQUIVALENT=		print/harfbuzz
+
+[ICU].DESCRIPTION=			Build with ICU support
 
 BUILDRUN_DEPENDS=	graphite:single:standard
 
@@ -28,7 +34,11 @@ GNOME_COMPONENTS=	cairo glib introspection
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-graphite2
 			--with-gobject=yes
-			--without-icu
+
+[ICU].CONFIGURE_ARGS_OFF=		--without-icu
+[ICU].CONFIGURE_ARGS_ON=		--with-icu
+[ICU].BUILDRUN_DEPENDS_ON=		icu:single:standard
+
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 TEST_TARGET=		check
