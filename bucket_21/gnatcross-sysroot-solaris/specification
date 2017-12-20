@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2
-DEF[SOLARIS_FILE]=	solaris_root_10_u3
+DEF[PORTVERSION]=	3
+DEF[SOLARIS_FILE]=	solaris_root_10_u8
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnatcross-sysroot-solaris
@@ -12,7 +12,7 @@ CONTACT=		John_Marino[john@marino.st]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		http://downloads.dragonlace.net/misc/
-DISTFILE[1]=		${SOLARIS_FILE}.v03.tar.xz:main
+DISTFILE[1]=		${SOLARIS_FILE}.v04.tar.xz:main
 DIST_SUBDIR=		gnatcross/solaris
 
 SPKGS[SOL10]=		single
@@ -39,3 +39,5 @@ do-install:
 	${MV} ${WRKSRC}/${SOLARIS_FILE}/usr/lib ${STAGEDIR}${PREFIX}/sysroot/usr
 	${MV} ${WRKSRC}/${SOLARIS_FILE}/usr/include ${STAGEDIR}${PREFIX}/sysroot/usr
 	${ECHO_CMD} ${CTARGET} > ${STAGEDIR}${PREFIX}/sysroot/target_triplet
+	# late clean
+	${RM} ${STAGEDIR}${PREFIX}/sysroot/usr/include/png*
