@@ -11,6 +11,7 @@ DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
 
 NAMEBASE=		ravensys-root
 VERSION=		1.4
+REVISION=		1
 KEYWORDS=		raven
 VARIANTS=		dragonfly freebsd64 linux sunos
 SDESC[dragonfly]=	DragonFly64 system root for Ravenports build env
@@ -236,6 +237,8 @@ post-extract-SUNOS-ON:
 	${MV} ${WRKDIR}/solaris_root_10_u8 ${WRKDIR}/sunos
 	@${MKDIR} ${WRKSRC}
 	${INSTALL_DATA} ${FILESDIR}/Makefile ${WRKSRC}/
+	${RM} ${WRKDIR}/sunos/usr/include/png.h
+	${RM} ${WRKDIR}/sunos/usr/include/pngconf.h
 
 post-install-SUNOS-ON:
 	${ECHO} 5.10      > ${STAGEDIR}${RSYS}/usr/share/OSRELEASE
