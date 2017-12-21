@@ -40,3 +40,7 @@ TEST_TARGET=		check
 
 do-test:
 	@(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE} check)
+
+post-patch:
+	${REINPLACE_CMD} -e 's|gmp_cxxcompile=".CXX |&$$LDFLAGS |' \
+		${WRKSRC}/configure
