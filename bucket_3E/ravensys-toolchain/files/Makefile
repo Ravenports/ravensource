@@ -5,6 +5,8 @@ all: toolchain
 toolchain:
 	@echo "building not required"
 
+TAIL=	--no-same-permissions
+
 install:
 	mkdir -p ${DESTDIR}${PREFIX}/share
 	cp /packages/All/${GCCX}-*-${COMPVER}.tzst ${DESTDIR}${PREFIX}/share/
@@ -17,12 +19,12 @@ install:
 	cp /packages/All/${GCCX}-${spkg}-standard-${COMPVER}.tzst \
 		/tmp/${GCCX}-${spkg}-standard-${COMPVER}.tar.zst
 	zstd -d -q /tmp/${GCCX}-${spkg}-standard-${COMPVER}.tar.zst
-	tar -xf /tmp/${GCCX}-${spkg}-standard-${COMPVER}.tar
+	tar -xf /tmp/${GCCX}-${spkg}-standard-${COMPVER}.tar ${TAIL}
 .endfor
 	cp /packages/All/binutils-single-ravensys-${BUVER}.tzst \
 		/tmp/binutils-single-ravensys-${BUVER}.tar.zst
 	zstd -d -q /tmp/binutils-single-ravensys-${BUVER}.tar.zst
-	tar -xf /tmp/binutils-single-ravensys-${BUVER}.tar ${LOCALBASE}
+	tar ${TAIL} -xf /tmp/binutils-single-ravensys-${BUVER}.tar ${LOCALBASE} 
 
 	cp -a ${LOCALBASE:T}/toolchain/bin     ${DESTDIR}${PREFIX}/
 	cp -a ${LOCALBASE:T}/toolchain/lib     ${DESTDIR}${PREFIX}/
