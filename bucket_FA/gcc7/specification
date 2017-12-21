@@ -115,6 +115,12 @@ post-patch:
 	${REINPLACE_CMD} -e 's|static:crtbeginT.o%s;||' \
 		${WRKSRC}/gcc/config/freebsd-spec.h
 
+post-patch-sunos:
+	${REINPLACE_CMD} -e 's|cp -p -r |cp -RP |' \
+		${WRKSRC}/gcc/Makefile.in
+	${REINPLACE_CMD} -e 's| install-gcc-specs||' \
+		${WRKSRC}/gcc/ada/gcc-interface/Makefile.in
+
 post-install:
 	cp ${STAGEDIR}${PREFIX}/bin/gcc ${STAGEDIR}${PREFIX}/bin/cc
 	cp ${STAGEDIR}${PREFIX}/bin/g++ ${STAGEDIR}${PREFIX}/bin/CC
