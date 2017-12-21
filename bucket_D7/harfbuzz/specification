@@ -1,13 +1,17 @@
 DEF[PORTVERSION]=	1.7.2
-DEF[LIBVER]=		0.10702.0
+DEF[SOVERSION]=		0.10702.0
 # ----------------------------------------------------------------------------
+
+# The bootstrap variant may be useful in the future to work around a circular
+# dependency if harfbuzz support needs to be activated for ICU
 
 NAMEBASE=		harfbuzz
 VERSION=		${PORTVERSION}
 KEYWORDS=		print
-VARIANTS=		standard noicu
+# VARIANTS=		standard bootstrap
+VARIANTS=		standard
 SDESC[standard]=	OpenType text shaping engine
-SDESC[noicu]=		OpenType text shaping engine (without ICU)
+# SDESC[bootstrap]=	OpenType text shaping engine (without ICU)
 HOMEPAGE=		http://www.freedesktop.org/wiki/Software/HarfBuzz
 CONTACT=		nobody
 
@@ -15,19 +19,21 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://www.freedesktop.org/software/harfbuzz/release/
 DISTFILE[1]=		harfbuzz-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary docs
-SPKGS[noicu]=		complete primary docs
+SPKGS[standard]=	complete primary icu docs
+# SPKGS[bootstrap]=	complete primary docs
 
 OPTIONS_AVAILABLE=	ICU
 OPTIONS_STANDARD=	ICU
 OPT_ON[all]=		ICU
-VOPTS[noicu]=		ICU=OFF
+# VOPTS[bootstrap]=	ICU=OFF
 
 FPC_EQUIVALENT=		print/harfbuzz
 
 [ICU].DESCRIPTION=			Build with ICU support
 
 BUILDRUN_DEPENDS=	graphite:single:standard
+EXRUN[icu]=		harfbuzz:primary:standard
+			icu:single:standard
 
 USES=			gmake libtool pkgconfig c++:primary
 GNOME_COMPONENTS=	cairo glib introspection
@@ -42,7 +48,7 @@ CONFIGURE_ARGS=		--with-graphite2
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 TEST_TARGET=		check
-PLIST_SUB=		LIBVER=${LIBVER}
+SOVERSION=		${SOVERSION}
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/share/doc
