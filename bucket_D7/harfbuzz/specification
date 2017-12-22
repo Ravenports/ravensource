@@ -14,21 +14,25 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://www.freedesktop.org/software/harfbuzz/release/
 DISTFILE[1]=		harfbuzz-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary icu docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		print/harfbuzz
 
+BUILD_DEPENDS=		icu:single:standard
 BUILDRUN_DEPENDS=	graphite:single:standard
+EXRUN[icu]=		harfbuzz:primary:standard
+			icu:single:standard
 
 USES=			gmake libtool pkgconfig c++:primary
 GNOME_COMPONENTS=	cairo glib introspection
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-graphite2
 			--with-gobject=yes
-			--without-icu
+			--with-icu
+
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 TEST_TARGET=		check
