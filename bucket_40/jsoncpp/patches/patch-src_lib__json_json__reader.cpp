@@ -1,6 +1,6 @@
---- src/lib_json/json_reader.cpp.orig	2016-10-30 21:28:16 UTC
+--- src/lib_json/json_reader.cpp.orig	2017-12-20 21:07:10 UTC
 +++ src/lib_json/json_reader.cpp
-@@ -3,6 +3,11 @@
+@@ -4,6 +4,11 @@
  // recognized in your jurisdiction.
  // See file LICENSE for detail or copy at http://jsoncpp.sourceforge.net/LICENSE
  

@@ -1,4 +1,4 @@
---- src/lib_json/json_writer.cpp.orig	2016-10-30 21:27:18 UTC
+--- src/lib_json/json_writer.cpp.orig	2017-12-20 21:07:10 UTC
 +++ src/lib_json/json_writer.cpp
 @@ -3,6 +3,11 @@
  // recognized in your jurisdiction.
