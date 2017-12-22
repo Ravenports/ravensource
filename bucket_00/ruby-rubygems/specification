@@ -49,6 +49,7 @@ do-install:
 		GEM_HOME=${STAGEDIR}${PREFIX}/${GEMS_BASE_DIR}/${RUBY_VER} \
 		${RUBY} ${RUBY_SETUP} --destdir=${STAGEDIR} \
 		--no-ri --no-rdoc || ${TRUE}
+	${RM} ${STAGEDIR}${PREFIX}/bin/bundle${RUBY_SUFFIX}
 
 do-install-RUBY23-ON:
 	if [ "${RUBY_DEFAULT}" = "2.3" ]; then \
