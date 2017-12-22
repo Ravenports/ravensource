@@ -1,5 +1,5 @@
 DEF[PORTVERSION]=	2.12.6
-DEF[SOVER]=		10.1
+DEF[SOVERSION]=		1.10.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fontconfig
@@ -27,6 +27,8 @@ LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
+FPC_EQUIVALENT=		x11-fonts/fontconfig
+
 BUILD_DEPENDS=		gperf:single:standard
 BUILDRUN_DEPENDS=	freetype:primary:standard
 			expat:complete:standard
@@ -52,8 +54,7 @@ CPE_VENDOR=		fontconfig_project
 
 SUB_FILES=		pkg-install
 PLIST_SUB=		PREFERRED_HINTING={{PREFERRED_HINTING}}
-			SOVER=${SOVER}
-FPC_EQUIVALENT=		x11-fonts/fontconfig
+SOVERSION=		${SOVERSION}
 
 [HINTING_NONE].DESCRIPTION=		No hinting
 [HINTING_SLIGHT].DESCRIPTION=		Slight hinting
@@ -76,6 +77,3 @@ post-install:
 .for doc in fontconfig-user.html fontconfig-user.pdf fontconfig-user.txt
 	${INSTALL_DATA} ${WRKSRC}/doc/${doc} ${STAGEDIR}${STD_DOCDIR}/
 .endfor
-# @${SED} -e 's|%%PREFIX%%|${PREFIX}| ; \
-# s|%%LOCALBASE%%|${LOCALBASE}|' < ${FILESDIR}/pkg-install.in \
-# > ${PKGINSTALL}
