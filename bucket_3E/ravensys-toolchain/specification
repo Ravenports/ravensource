@@ -7,6 +7,7 @@ DEF[GCCX]=		gcc${GCC_BRANCH}
 
 NAMEBASE=		ravensys-toolchain
 VERSION=		2.3
+REVISION=		1
 KEYWORDS=		raven
 VARIANTS=		standard
 SDESC[standard]=	Compiler and binutils toolchain for Ravenports
@@ -45,3 +46,5 @@ post-install:
 	@${FIND} ${STAGEDIR}${PREFIX}/lib ! -type d | \
 		${SED} -e 's,^${STAGEDIR}${PREFIX}/,,' \
 		>> ${WRKDIR}/.manifest.single.mktmp
+	ln -s /raven/toolchain/${GCCX}/bin/cc \
+		${STAGEDIR}${PREFIX}/bin/cc
