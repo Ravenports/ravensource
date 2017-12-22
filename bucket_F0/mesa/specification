@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	17.2.7
+DEF[PORTVERSION]=	17.3.1
 DEF[MESA_LLVM_VER]=	40
 # ----------------------------------------------------------------------------
 
@@ -91,7 +91,7 @@ SHEBANG_FILES=		src/gallium/*/*/*.py
 			src/gallium/drivers/svga/svgadump/svga_dump.py
 			src/mapi/glapi/gen/*.py
 			src/mapi/mapi_abi.py
-			src/mesa/drivers/dri/common/xmlpool/gen_xmlpool.py
+			src/util/xmlpool/gen_xmlpool.py
 			src/mesa/main/get_*.py
 			src/util/format_srgb.py
 			src/amd/*/*.py
@@ -117,4 +117,8 @@ post-patch-freebsd:
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|/etc/|${PREFIX}/etc/|g' \
-		${WRKSRC}/src/mesa/drivers/dri/common/xmlconfig.c
+		${WRKSRC}/src/util/xmlconfig.c
+	# Use --link-static until ports/223191 is fixed
+	@${REINPLACE_CMD} -e '/$$LLVM_VERSION_MAJOR -ge 4/s|test |false |' \
+		${WRKSRC}/configure
+

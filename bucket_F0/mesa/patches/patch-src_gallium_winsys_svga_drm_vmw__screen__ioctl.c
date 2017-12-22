@@ -1,4 +1,4 @@
---- src/gallium/winsys/svga/drm/vmw_screen_ioctl.c.orig	2016-11-10 22:05:17 UTC
+--- src/gallium/winsys/svga/drm/vmw_screen_ioctl.c.orig	2017-12-21 17:31:21 UTC
 +++ src/gallium/winsys/svga/drm/vmw_screen_ioctl.c
 @@ -70,6 +70,11 @@ vmw_region_size(struct vmw_region *regio
     return region->size;
