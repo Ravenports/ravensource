@@ -63,7 +63,13 @@ post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/gettext-${PORTVERSION:R} \
 		${STAGEDIR}${PREFIX}/share/gettext/${PORTVERSION:R}
 
+post-install-freebsd:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libintl.so
+
 post-install-dragonfly:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libintl.so
+
+post-install-sunos:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libintl.so
 
 post-install-linux:
