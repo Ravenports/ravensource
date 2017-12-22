@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.60.2
+DEF[PORTVERSION]=	2.61.1
 DEF[LIBVERSION]=	2.4
 DEF[SOVERSION]=		1.8.0
 # ----------------------------------------------------------------------------
@@ -25,7 +25,7 @@ FPC_EQUIVALENT=		devel/libsoup
 BUILDRUN_DEPENDS=	glib-networking:single:standard
 RUN_DEPENDS=		libgcrypt:single:standard
 
-USES=			gettext-tools gmake libtool pkgconfig python:27,build sqlite
+USES=			gettext-tools gmake libtool pkgconfig python:build sqlite
 GNOME_COMPONENTS=	glib intltool introspection libxml2
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-more-warnings
@@ -37,8 +37,8 @@ SOVERSION=		${SOVERSION}
 PLIST_SUB=		LIBVERSION=${LIBVERSION}
 
 post-patch:
-	${REINPLACE_CMD} -e 's|env python|env python${PYTHON_VER}|g' \
-		 ${WRKSRC}/libsoup/tld-parser.py
+	${REINPLACE_CMD} -e 's|env python3|env python${PYTHON_VER}|g' \
+		${WRKSRC}/libsoup/tld-parser.py
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/libsoup/soup-connection.h \
