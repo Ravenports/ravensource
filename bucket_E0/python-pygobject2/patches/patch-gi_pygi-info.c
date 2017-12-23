@@ -1,5 +1,5 @@
---- gi/pygi-info.c.orig	2011-09-17 10:24:16.000000000 +0200
-+++ gi/pygi-info.c	2011-09-17 10:24:40.000000000 +0200
+--- gi/pygi-info.c.orig	2017-10-13 10:01:53 UTC
++++ gi/pygi-info.c
 @@ -162,9 +162,6 @@ _pygi_info_new (GIBaseInfo *info)
          case GI_INFO_TYPE_CONSTANT:
              type = &PyGIConstantInfo_Type;
