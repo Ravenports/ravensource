@@ -1,11 +1,12 @@
 PROG=		which
 SRCS=		${PROG}.c
 PREFIX?=	/usr/local
-CFLAGS+=	-I${PREFIX}/include -I. -I${PREFIX}/include/bsd
+CFLAGS+=	-I.
 STATIC_LIBS=	
 
 .if "${OPSYS}" == "SunOS" || "${OPSYS}" == "Linux"
 STATIC_LIBS+=	${PREFIX}/lib/libbsd.a
+CFLAGS+=	-DLIBBSD_OVERLAY -I${PREFIX}/include/bsd
 .endif
 
 
