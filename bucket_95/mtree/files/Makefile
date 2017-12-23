@@ -6,6 +6,7 @@ STATIC_LIBS=	${PREFIX}/lib/libcrypto.a
 
 .if "${OPSYS}" == "Linux"
 STATIC_LIBS+=	${PREFIX}/lib/libbsd.a
+CFLAGS+=	-DLIBBSD_OVERLAY -I${PREFIX}/include/bsd
 .endif
 
 .if "${OPSYS}" == "SunOS"
