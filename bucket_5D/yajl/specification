@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	2.1.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		yajl
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Yet Another JSON Library (YAJL)
+HOMEPAGE=		https://lloyd.github.io/yajl/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/lloyd:yajl:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		ISCL:single
+LICENSE_FILE=		ISCL:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/yajl
+
+USES=			cmake:outsource
+OPTIMIZER_LEVEL=	0
+SOVERSION=		${PORTVERSION}
+
+post-patch:
+	@${REINPLACE_CMD} -e "s,share/pkgconfig,lib/pkgconfig,g" \
+		${WRKSRC}/src/CMakeLists.txt
+	@${REINPLACE_CMD} -e 's|include/yajl|include|' \
+		${WRKSRC}/src/yajl.pc.cmake
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/* \
+		${STAGEDIR}${PREFIX}/lib/libyajl.so
