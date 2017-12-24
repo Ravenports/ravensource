@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.4.18
 
 NAMEBASE=		m4
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard noprefix
 SDESC[standard]=	GNU implementation of the Unix macro processor
@@ -23,7 +24,6 @@ VOPTS[noprefix]=	NOPREFIX=ON
 
 BUILD_DEPENDS=		libsigsegv:static:standard
 
-INFO=			primary:m4
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-libsigsegv-prefix={{LOCALBASE}}
 
@@ -35,9 +35,17 @@ FPC_EQUIVALENT=		devel/m4
 
 [NOPREFIX].CONFIGURE_ARGS_OFF=		--program-prefix=g
 [NOPREFIX].DESCRIPTION=			Build without prefixing all programs with "g"
+[NOPREFIX].INFO_ON=			primary:m4
+[NOPREFIX].INFO_OFF=			primary:gm4
 
 post-patch:
 	@${REINPLACE_CMD} -e '/^install-exec-am: / s| .*||' ${WRKSRC}/lib/Makefile.in
+
+post-patch-NOPREFIX-OFF:
+	${REINPLACE_CMD} -e 's|/m4.info|/gm4.info|' ${WRKSRC}/doc/Makefile.in
+.for EXT in info info-1 info-2
+	${MV} ${WRKSRC}/doc/m4.${EXT} ${WRKSRC}/doc/gm4.${EXT}
+.endfor
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/examples/m4
