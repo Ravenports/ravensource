@@ -1,0 +1,25 @@
+DEF[PORTVERSION]=	3.0_beta5
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		vbindiff
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	Visual binary diff utility
+HOMEPAGE=		https://www.cjmweb.net/vbindiff/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.cjmweb.net/vbindiff/
+DISTFILE[1]=		vbindiff-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		textproc/vbindiff
+
+USES=			ncurses c++:single
+MUST_CONFIGURE=		gnu
+CPPFLAGS=		-I{{NCURSESINC}}
