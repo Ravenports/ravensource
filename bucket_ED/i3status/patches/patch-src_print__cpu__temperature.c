@@ -1,4 +1,4 @@
---- src/print_cpu_temperature.c.orig	2017-01-30 07:58:44 UTC
+--- src/print_cpu_temperature.c.orig	2017-01-21 15:00:31 UTC
 +++ src/print_cpu_temperature.c
 @@ -13,7 +13,7 @@
  #include <err.h>
