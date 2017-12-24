@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	4.7
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		dmenu
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Dynamic menu for X
+HOMEPAGE=		https://tools.suckless.org/dmenu/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://dl.suckless.org/tools/
+DISTFILE[1]=		dmenu-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11/dmenu
+
+BUILDRUN_DEPENDS=	fontconfig:primary:standard
+
+XORG_COMPONENTS=	x11 xft xinerama
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/dmenu \
+		${STAGEDIR}${PREFIX}/bin/stest
