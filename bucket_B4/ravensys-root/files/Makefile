@@ -342,6 +342,7 @@ headers_FreeBSD_dirs=	arpa \
 
 headers_DragonFly_dirs=	arpa \
 			bus \
+			dev \
 			libprop \
 			netinet \
 			netinet6 \
@@ -727,7 +728,7 @@ install:
 	cp ${CPA} ${LOCALBASE}/bin/${item} ${DESTDIR}${BASE}/bin/
 .endfor
 	cp ${CPA} ${LOCALBASE}/bin/gcat ${DESTDIR}${BASE}/bin/cat
-.for item in bzip2 bunzip2 bzcat bzgrep bzegrep bzfgrep \
+.for item in m4 bzip2 bunzip2 bzcat bzgrep bzegrep bzfgrep \
 	grep file flex flex++ gzip gunzip zcat zcmp zdiff zegrep \
 	zfgrep zgrep lzcat lzcmp lzdiff lzegrep lzfgrep lzgrep lzma \
 	unlzma unxz xz xzcat xzcmp xzdiff xzegrep xzfgrep xzgrep yacc \
@@ -753,7 +754,7 @@ install:
 .endif
 .for item in gsort/sort nawk/awk objdump/objdump-sysroot less/more \
 	bmake/make bsdcpio/cpio bsdtar/tar gcmp/cmp gdiff/diff \
-	gdiff3/diff3 gsdiff/sdiff gfind/find gxargs/xargs gm4/m4 \
+	gdiff3/diff3 gsdiff/sdiff gfind/find gxargs/xargs \
 	gsed/sed ravensys-uname/uname nvi/vi god/od gmknod/mknod gseq/seq
 	cp ${LOCALBASE}/bin/${item:H} ${DESTDIR}${BASE}/usr/bin/${item:T}
 .endfor
