@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	2.22
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		feh
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Fast command line image viewer using Imlib2
+HOMEPAGE=		https://feh.finalrewind.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://feh.finalrewind.org/
+DISTFILE[1]=		feh-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/feh
+
+BUILDRUN_DEPENDS=	libexif:single:standard
+			curl:primary:standard
+			imlib2:single:standard
+
+USES=			cpe gmake perl:run shebangfix desktop-utils png
+XORG_COMPONENTS=	x11 xt xinerama
+CPE_VENDOR=		daniel_friesel
+MAKE_ENV=		exif=1 cam=1 LDFLAGS="{{LDFLAGS}}"
+SHEBANG_FILES=		cam/feh-cam
+
+post-patch:
+	${REINPLACE_CMD} \
+		-e 's|install-doc||' \
+		-e 's|install-examples||' \
+		${WRKSRC}/Makefile
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/feh
