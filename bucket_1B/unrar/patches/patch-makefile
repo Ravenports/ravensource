@@ -1,0 +1,58 @@
+--- makefile.orig	2017-06-13 11:04:49 UTC
++++ makefile
+@@ -2,14 +2,13 @@
+ # Makefile for UNIX - unrar
+ 
+ # Linux using GCC
+-CXX=c++
+-CXXFLAGS=-O2
+-LIBFLAGS=-fPIC
+-DEFINES=-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DRAR_SMP
+-STRIP=strip
+-AR=ar
+-LDFLAGS=-pthread
+-DESTDIR=/usr
++CXX?=		c++
++CXXFLAGS?=	-O2
++DEFINES=	-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DRAR_SMP
++STRIP?=		strip
++AR?=		ar
++LDFLAGS+=	-pthread
++DESTDIR?=	/usr
+ 
+ # Linux using LCC
+ #CXX=lcc
+@@ -128,9 +127,16 @@ OBJECTS=rar.o strlist.o strfn.o pathfn.o
+ 	rijndael.o getbits.o sha1.o sha256.o blake2s.o hash.o extinfo.o extract.o volume.o \
+   list.o find.o unpack.o headers.o threadpool.o rs16.o cmddata.o ui.o
+ 
++.SUFFIXES:	.so
++
++SOBJECTS=	${OBJECTS:.o=.so} ${LIB_OBJ:.o=.so}
++
+ .cpp.o:
+ 	$(COMPILE) -D$(WHAT) -c $<
+ 
++.cpp.so:
++	$(COMPILE) -DRARDLL -fPIC -o ${.TARGET} -c ${.IMPSRC}
++
+ all:	unrar
+ 
+ install:	install-unrar
+@@ -151,13 +157,11 @@ sfx:	clean $(OBJECTS)
+ 	$(LINK) -o default.sfx $(LDFLAGS) $(OBJECTS)
+ 	$(STRIP) default.sfx
+ 
+-lib:	WHAT=RARDLL
+-lib:	CXXFLAGS+=$(LIBFLAGS)
+-lib:	clean $(OBJECTS) $(LIB_OBJ)
++lib:	$(SOBJECTS)
+ 	@rm -f libunrar.so
+ 	@rm -f libunrar.a
+-	$(LINK) -shared -o libunrar.so $(LDFLAGS) $(OBJECTS) $(LIB_OBJ)
+-	$(AR) rcs libunrar.a $(OBJECTS) $(LIB_OBJ)
++	$(LINK) -shared -o libunrar.so $(LDFLAGS) -Wl,-soname,libunrar.so.5 $(SOBJECTS) 
++	$(AR) rcs libunrar.a $(SOBJECTS)
+ 
+ install-unrar:
+ 			install -D unrar $(DESTDIR)/bin/unrar
