@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	1.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		numlockx
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	NumLockX turns on NumLock after starting X
+HOMEPAGE=		http://freshmeat.sourceforge.net/projects/numlockx
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/rg3:numlockx:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11/numlockx
+
+XORG_COMPONENTS=	x11 xext
+MUST_CONFIGURE=		gnu
+MAKE_ARGS=		ACLOCAL="{{TRUE}}"
+			AUTOCONF="{{TRUE}}"
+			AUTOMAKE="{{TRUE}}"
+			AUTOHEADER="{{TRUE}}"
