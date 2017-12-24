@@ -346,6 +346,7 @@ headers_DragonFly_dirs=	arpa \
 			libprop \
 			netinet \
 			netinet6 \
+			netproto \
 			rpc \
 			rpcsvc \
 			vm \
