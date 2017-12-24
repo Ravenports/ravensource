@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	1.2.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		parcellite
+VERSION=		${PORTVERSION}
+KEYWORDS=		deskutils
+VARIANTS=		standard
+SDESC[standard]=	Lightweight GTK+ clipboard manager
+HOMEPAGE=		http://parcellite.sourceforge.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/rickyrockrat:parcellite:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3:single
+LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		deskutils/parcellite
+
+USES=			autoreconf pkgconfig gmake gettext-tools
+XORG_COMPONENTS=	x11
+GNOME_COMPONENTS=	gtk2 intltool
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-appindicator
+LDFLAGS=		-lgio-2.0 -lintl
+
+post-patch:
+	${REINPLACE_CMD} -e 's|$$(DATADIRNAME)/locale|share/locale|' \
+		${WRKSRC}/po/Makefile.in.in
+
+post-patch-dragonfly:
+	@${REINPLACE_CMD} -e 's|/proc|/compat/linux/proc|g' \
+		${WRKSRC}/src/utils.c
+
+post-patch-freebsd:
+	@${REINPLACE_CMD} -e 's|/proc|/compat/linux/proc|g' \
+		${WRKSRC}/src/utils.c
