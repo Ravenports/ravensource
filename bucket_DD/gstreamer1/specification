@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	1.12.4
+DEF[GST_VERSION]=	1.0
+DEF[SOVERSION]=		0.1204.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gstreamer1
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		standard
+SDESC[standard]=	Media applications framework
+HOMEPAGE=		https://gstreamer.freedesktop.org
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://gstreamer.freedesktop.org/src/gstreamer/
+DISTFILE[1]=		gstreamer-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		multimedia/gstreamer1
+
+DISTNAME=		gstreamer-${PORTVERSION}
+USES=			bison gettext-tools gmake libtool:keepla perl:build pkgconfig python:build
+GNOME_COMPONENTS=	glib introspection
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-tests
+			--disable-examples
+			--disable-failing-tests
+			--disable-fatal-warnings
+			--disable-gtk-doc
+CONFIGURE_ENV=		ac_cv_func_register_printf_function="no"
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		VERSION=${GST_VERSION}
+
+post-patch:
+	${REINPLACE_CMD} -e 's|-Wmissing-include-dirs||g' \
+		${WRKSRC}/configure
