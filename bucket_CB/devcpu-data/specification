@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	1.11
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		devcpu-data
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	Intel and AMD CPUs microcode updates
+HOMEPAGE=		none
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main intel amd
+SITES[main]=		https://downloadmirror.intel.com/26925/eng/
+SITES[intel]=		https://downloadmirror.intel.com/26925/eng/
+SITES[amd]=		http://www.amd64.org/microcode/
+DISTFILE[1]=		microcode-20170707.tgz:intel
+DISTFILE[2]=		amd-ucode-2014-12-01.tar.bz2:amd
+DF_INDEX=		1 2
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:single
+LICENSE_NAME=		CUSTOM1:"Intel Software License Agreement"
+LICENSE_FILE=		CUSTOM1:{{FILESDIR}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		sysutils/devcpu-data
+
+NOT_FOR_ARCH=		aarch64
+ONLY_FOR_OPSYS=		freebsd dragonfly
+
+RC_SUBR=		microcode_update:single
+EXTRACT_DIRTY=		1 2
+
+post-extract:
+	${INSTALL_DATA} ${FILESDIR}/Makefile \
+		${FILESDIR}/ucode-tool.c ${WRKSRC}/
+	${MV} ${WRKDIR}/${NAMEBASE}_2/* ${WRKSRC}/
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/cpucontrol
+	${INSTALL_DATA} ${WRKSRC}/mcodes/* \
+		${STAGEDIR}${PREFIX}/share/cpucontrol
