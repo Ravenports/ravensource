@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	1.32
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		geany
+VERSION=		${PORTVERSION}
+KEYWORDS=		editors devel
+VARIANTS=		standard
+SDESC[standard]=	Fast and lightweight IDE
+HOMEPAGE=		https://www.geany.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://download.geany.org/
+DISTFILE[1]=		geany-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	NLS
+OPTIONS_STANDARD=	NLS
+OPT_ON[all]=		NLS
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/geany
+
+BUILDRUN_DEPENDS=	vte:primary:standard
+			fontconfig:primary:standard
+
+USES=			desktop-utils gettext-tools gmake libtool pkgconfig
+GNOME_COMPONENTS=	cairo gtk3 intltool
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-vte
+			--enable-gtk3
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+
+[NLS].USES_ON=				gettext-runtime
+[NLS].CONFIGURE_ENABLE_BOTH=		nls
+
+post-patch-NLS-OFF:
+	@${REINPLACE_CMD} -e '/^SUBDIRS/ s|po||' ${WRKSRC}/Makefile.in
