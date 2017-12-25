@@ -1,0 +1,30 @@
+DEF[PORTVERSION]=	0.8.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libxkbcommon
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Keymap handling library for toolkits and X windows
+HOMEPAGE=		https://xkbcommon.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://xkbcommon.org/download/
+DISTFILE[1]=		libxkbcommon-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11/libxkbcommon
+
+USES=			bison gmake libtool
+XORG_COMPONENTS=	xcb
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--without-doxygen
+			--with-default-rules="xorg"
+			--with-x-locale-root={{PREFIX}}/lib/X11/locale
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
