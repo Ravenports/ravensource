@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	4.24
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libev
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	High-performance event loop/event model
+HOMEPAGE=		http://software.schmorp.de/pkg/libev.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://dist.schmorp.de/libev/Attic/
+DISTFILE[1]=		libev-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/libev
+
+USES=			libtool pkgconfig
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+
+post-patch:
+	@${SED} -e 's|%PREFIX%|${PREFIX}|g ; s|%VERSION%|${PORTVERSION}|g' \
+		${FILESDIR}/libev.pc.in > ${WRKDIR}/libev.pc
+
+post-install:
+	${INSTALL_DATA} ${WRKDIR}/libev.pc ${STAGEDIR}${PREFIX}/lib/pkgconfig/
