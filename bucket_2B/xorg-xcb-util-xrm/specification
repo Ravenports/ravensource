@@ -1,0 +1,30 @@
+DEF[PORTVERSION]=	1.2
+DEF[XNAME]=		xcb-util-xrm
+DEF[ALTNAME]=		${XNAME}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-${XNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	XCB utility functions for the X resource manager
+HOMEPAGE=		https://github.com/Airblader/xcb-util-xrm
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/Airblader/xcb-util-xrm/releases/download/v${PORTVERSION}/
+DISTFILE[1]=		xcb-util-xrm-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xorg
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+USES=			libtool gmake pkgconfig
+XORG_COMPONENTS=	xproto x11 xcb xcb-util
+DISTNAME=		${ALTNAME}-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--without-doxygen
+INSTALL_TARGET=		install-strip
+FPC_EQUIVALENT=		x11/${ALTNAME}
