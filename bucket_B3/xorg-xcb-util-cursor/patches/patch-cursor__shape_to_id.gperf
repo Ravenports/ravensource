@@ -1,0 +1,18 @@
+--- cursor/shape_to_id.gperf.orig	2016-05-12 07:51:59 UTC
++++ cursor/shape_to_id.gperf
+@@ -1,5 +1,5 @@
+ struct shape_mapping { const char *name; int number; };
+-const int cursor_shape_to_id(const char *name);
++int cursor_shape_to_id(const char *name);
+ %%
+ X_cursor,0
+ arrow,1
+@@ -79,7 +79,7 @@ ur_angle,74
+ watch,75
+ xterm,76
+ %%
+-const int cursor_shape_to_id(const char *name) {
++int cursor_shape_to_id(const char *name) {
+ 	struct shape_mapping *mapping = in_word_set(name, strlen(name));
+ 	return (mapping ? (mapping->number * 2) : -1);
+ }
