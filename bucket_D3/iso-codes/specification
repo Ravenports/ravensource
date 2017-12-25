@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	3.77
+DEF[ISO_DIRS]=		639-2 639-3 639-5 3166-1 3166-2 3166-3 4217 15924
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		iso-codes
+VERSION=		${PORTVERSION}
+KEYWORDS=		misc
+VARIANTS=		standard
+SDESC[standard]=	Lists of country, language and currency iso names
+HOMEPAGE=		https://pkg-isocodes.alioth.debian.org
+CONTACT=		Jay_Leno[jay@aarp.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://pkg-isocodes.alioth.debian.org/downloads/
+DISTFILE[1]=		iso-codes-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		misc/iso-codes
+
+USES=			gettext-tools gmake python shebangfix
+SHEBANG_GLOB=		*.py
+SHEBANG_OLD_PYTHON=	/usr/bin/env[[:space:]]python3
+MUST_CONFIGURE=		gnu
+
+post-patch:
+	${REINPLACE_CMD} -e 's|python3|python${PYTHON_VER}|g' \
+		${WRKSRC}/common.mk
+.for i in ${ISO_DIRS}
+	${REINPLACE_CMD} -e 's|python3|python${PYTHON_VER}|g' \
+		${WRKSRC}/iso_${i}/Makefile.in
+.endfor
+
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib
+	${MV} ${STAGEDIR}${PREFIX}/share/pkgconfig \
+		${STAGEDIR}${PREFIX}/lib/
