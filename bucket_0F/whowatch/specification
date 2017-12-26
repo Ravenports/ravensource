@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	1.8.5
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		whowatch
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	Display information logged on users
+HOMEPAGE=		http://wizard.ae.krakow.pl/~mike/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://wizard.ae.krakow.pl/~mike/download/
+DISTFILE[1]=		whowatch-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:single
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		sysutils/whowatch
+NOT_FOR_OPSYS=		sunos
+
+USES=			ncurses
+MUST_CONFIGURE=		gnu
+CPPFLAGS=		-I{{NCURSESINC}}
+
+post-extract:
+	${RM} ${WRKSRC}/src/procinfo.[ch]*
+	${RM} ${WRKSRC}/src/proc_plugin.c*
