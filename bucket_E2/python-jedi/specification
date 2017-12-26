@@ -44,4 +44,5 @@ DISTNAME=		jedi-${PORTVERSION}
 
 [PY36].USES_ON=				python:py36
 [PY36].BUILDRUN_DEPENDS_ON=		python-parso:single:py36
-
+post-extract:
+	${RM} ${WRKSRC}/test/test_evaluate/init_extension_module/__init__.cpython-34m.so
