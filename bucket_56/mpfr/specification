@@ -1,6 +1,5 @@
-DEF[PORTVERSION]=	3.1.6
-DEF[SOVERSION]=		4.1.6
-DEF[SOMAJOR]=		${SOVERSION:R:R}
+DEF[PORTVERSION]=	4.0.0
+DEF[SOVERSION]=		6.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mpfr
@@ -42,8 +41,7 @@ CONFIGURE_ARGS=		--with-gmp={{LOCALBASE}}
 INSTALL_TARGET=		install-strip
 TEST_TARGET=		check
 INFO=			static:mpfr
-PLIST_SUB=		SOVERSION=${SOVERSION}
-			SOMAJOR=${SOMAJOR}
+SOVERSION=		${SOVERSION}
 
 do-test:
 	 @(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE} check)
