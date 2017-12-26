@@ -9,7 +9,7 @@ DEF[EXAMPLES_CPP]=	Makefile NEWS PROBLEMS README-first cursesapp.cc cursesapp.h 
 
 NAMEBASE=		ncurses
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		devel
 VARIANTS=		standard static
 SDESC[standard]=	Terminal-independent lib for full-screen output
@@ -126,6 +126,12 @@ post-install-STATIC-ON:
 	${RM} -r ${STAGEDIR}${MANPREFIX}/man
 
 post-install-STATIC-OFF:
+	${RM} ${STAGEDIR}${PREFIX}/lib/libncurses.so
+	${RM} ${STAGEDIR}${PREFIX}/lib/libncursesw.so
+	${ECHO} "INPUT(libncurses.so.${PORTVERSION:R} AS_NEEDED(-ltinfo))" \
+		> ${STAGEDIR}${PREFIX}/lib/libncurses.so
+	${ECHO} "INPUT(libncursesw.so.${PORTVERSION:R} AS_NEEDED(-ltinfow))" \
+		> ${STAGEDIR}${PREFIX}/lib/libncursesw.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so.${PORTVERSION}
 
 	${MV} ${STAGEDIR}${PREFIX}/share/misc/terminfo.db \
