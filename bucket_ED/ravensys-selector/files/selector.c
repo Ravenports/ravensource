@@ -3,11 +3,11 @@
  * of the program name (argument 0) and environment variables.
  *   ENV. VAR    VALUE       command    EXECUTED
  *   -----------------------------------------------------
- *   LINKER      unset       ld         $BIN_PREFIX/bin/ld.bfd
+ *   LINKER      unset       ld         $BIN_PREFIX/bin/ld.gold
  *   LINKER      bfd         ld         $BIN_PREFIX/bin/ld.bfd
  *   LINKER      gold        ld         $BIN_PREFIX/bin/ld.gold
  *   LINKER      sun         ld         $BIN_PREFIX/bin/ld.sun
- *   LINKER      all else    ld         $BIN_PREFIX/bin/ld.bfd
+ *   LINKER      all else    ld         $BIN_PREFIX/bin/ld.gold
  *
  *   BIN_PREFIX = "/raven/toolchain" unless SWITCH_PREFIX is
  *   present in the environment (in which case, BIN_PREFIX is set
