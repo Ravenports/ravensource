@@ -1,0 +1,29 @@
+DEF[PORTVERSION]=	0.4.0
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libvisual
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Abstraction library between apps and visual plugin
+HOMEPAGE=		https://sourceforge.net/projects/libvisual
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/libvisual/libvisual/libvisual-${PORTVERSION}
+DISTFILE[1]=		libvisual-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		graphics/libvisual04
+
+USES=			fbsd10fix gettext-runtime gettext-tools gmake libtool:keepla pkgconfig
+MUST_CONFIGURE=		gnu
+LDFLAGS=		-lpthread
+
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		VER=${PORTVERSION:R}
