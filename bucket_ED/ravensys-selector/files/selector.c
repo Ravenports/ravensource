@@ -3,11 +3,11 @@
  * of the program name (argument 0) and environment variables.
  *   ENV. VAR    VALUE       command    EXECUTED
  *   -----------------------------------------------------
- *   LINKER      unset       ld         $BIN_PREFIX/bin/ld.gold
+ *   LINKER      unset       ld         $BIN_PREFIX/bin/ld.bfd
  *   LINKER      bfd         ld         $BIN_PREFIX/bin/ld.bfd
  *   LINKER      gold        ld         $BIN_PREFIX/bin/ld.gold
  *   LINKER      sun         ld         $BIN_PREFIX/bin/ld.sun
- *   LINKER      all else    ld         $BIN_PREFIX/bin/ld.gold
+ *   LINKER      all else    ld         $BIN_PREFIX/bin/ld.bfd
  *
  *   BIN_PREFIX = "/raven/toolchain" unless SWITCH_PREFIX is
  *   present in the environment (in which case, BIN_PREFIX is set
@@ -51,7 +51,7 @@ main(int argc, char **argv)
 	char ld_gld[] = LINKER_GOLD;
 	char ld_sun[] = LINKER_SUN;
 	char *cmd;
-	char *ldcmd = ld_gld;
+	char *ldcmd = ld_bfd;
 	char *newargv[argc];
 	char newcmd[1024];
 	const char *ldver;
