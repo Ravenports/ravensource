@@ -51,11 +51,14 @@ main(int argc, char **argv)
 	char ld_gld[] = LINKER_GOLD;
 	char ld_sun[] = LINKER_SUN;
 	char *cmd;
-	char *ldcmd = ld_bfd;
+	char *ldcmd = ld_gld;
+	char *newargv[argc];
 	char newcmd[1024];
 	const char *ldver;
 	const char *bin_prefix;
 	struct command *cmds;
+	int newx = 0;
+	int x;
 
 	/*
 	 * Get the last path element of the program name being executed
@@ -92,14 +95,34 @@ main(int argc, char **argv)
 			exit (1);
 		}
 	}
-	
+
 	bin_prefix = getenv("SWITCH_PREFIX");
 	if (bin_prefix == NULL)
 		bin_prefix = BIN_PREFIX_DEFAULT;
 
 	snprintf(newcmd, sizeof(newcmd), "%s/bin/%s", bin_prefix, cmd);
-	argv[0] = newcmd;
-	execv(newcmd, argv);
+
+	/*
+	 * Sun linker only : Filter out unrecognized arguments
+	 */
+	if (cmd == ld_sun) {
+		for (x = 0; x < argc; x++)
+		{
+			if (!(strcmp(argv[x], "--enable-new-dtags") == 0))
+			{
+				newargv[newx] = argv[x];
+				newx++;
+			}
+		}
+		for (x = newx; x < argc; x++)
+			newargv[x] = NULL;
+
+		newargv[0] = newcmd;
+		execv(newcmd, newargv);
+	} else {
+		argv[0] = newcmd;
+		execv(newcmd, argv);
+	}
 
 	/*
 	 * Execution failed, so write out an error message
