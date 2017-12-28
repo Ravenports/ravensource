@@ -22,6 +22,7 @@ OPTIONS_STANDARD=	none
 
 BUILD_DEPENDS=		binutils:single:ravensys
 			Zstandard:single:standard
+			ravensys-selector:single:standard
 
 PREFIX=			{{LOCALBASE}}/share/raven/toolchain
 SKIP_BUILD=		yes
@@ -34,8 +35,9 @@ PLIST_SUB=		COMPVER=${COMPILER_VER}
 			BUVER=${BUVER}
 MAKE_ENV=		COMPVER=${COMPILER_VER}
 			TARGET={{CONFIGURE_TARGET}}
-			GCCX=${GCCX}
+			OPSYS={{OPSYS}}
 			BUVER=${BUVER}
+			GCCX=${GCCX}
 
 do-extract:
 	${MKDIR} ${WRKSRC}
