@@ -1,6 +1,6 @@
---- src/mul.c.orig	2017-12-30 22:11:00.188369000 +0100
-+++ src/mul.c	2017-12-30 22:17:31.900188000 +0100
-@@ -170,9 +170,9 @@
+--- src/mul.c.orig	2015-02-16 12:37:30 UTC
++++ src/mul.c
+@@ -170,9 +170,9 @@ mul_imag (mpc_ptr z, mpc_srcptr x, mpc_s
     return MPC_INEX (inex_re, inex_im);
  }
  
@@ -12,7 +12,7 @@
             mpfr_srcptr d, int sign, mpfr_rnd_t rnd)
  {
     /* Computes z = ab+cd if sign >= 0, or z = ab-cd if sign < 0.
-@@ -319,7 +319,7 @@
+@@ -319,7 +319,7 @@ mpfr_fmma (mpfr_ptr z, mpfr_srcptr a, mp
  
     return inex;
  }
@@ -21,7 +21,7 @@
  
  int
  mpc_mul_naive (mpc_ptr z, mpc_srcptr x, mpc_srcptr y, mpc_rnd_t rnd)
-@@ -337,10 +337,17 @@
+@@ -337,10 +337,17 @@ mpc_mul_naive (mpc_ptr z, mpc_srcptr x,
     else
        rop [0] = z [0];
  
