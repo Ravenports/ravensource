@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	7.6.0
+DEF[PORTVERSION]=	7.6.2
+DEF[SOVERSION]=		1.3.0
+DEF[GCVERSION]=		2.2.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		boehm_garbage_collector
@@ -37,11 +39,15 @@ DISTNAME=		gc-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-cplusplus
 			--disable-static
+			--disable-docs
 CPE_VENDOR=		boehm-demers-weiser
 CPE_PRODUCT=		garbage_collector
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
 SINGLE_JOB=		yes
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		GCVERSION=${GCVERSION}
+			GCMAJOR=${GCVERSION:R:R}
 
 [THREADED].DESCRIPTION=			Enable posix thread support
 [REDIRECT].DESCRIPTION=			Enable malloc redirection support

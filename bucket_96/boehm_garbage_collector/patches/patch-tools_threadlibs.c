@@ -1,4 +1,4 @@
---- tools/threadlibs.c.orig	2014-06-03 09:08:02.000000000 +0300
+--- tools/threadlibs.c.orig	2017-12-23 08:46:29 UTC
 +++ tools/threadlibs.c
 @@ -42,7 +42,7 @@ int main(void)
  #       ifdef GC_USE_DLOPEN_WRAP
