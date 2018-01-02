@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	1.2.2
+DEF[SOVERSION]=		4.1.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libao
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		standard
+SDESC[standard]=	Portable audio output library
+HOMEPAGE=		https://www.xiph.org/ao
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/xiph:libao:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Additional dependencies to probably add later:
+# esound, nas, pulseaudio, sndio
+
+FPC_EQUIVALENT=		audio/libao
+
+USES=			autoreconf libtool pkgconfig
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-static
+INSTALL_TARGET=		install-strip
+
+SOVERSION=		${SOVERSION}

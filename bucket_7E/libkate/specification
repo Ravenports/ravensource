@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	0.4.1
+DEF[SOVERSION]=		1.3.0
+DEF[OGGKATE_SOVER]=	1.2.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libkate
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		standard
+SDESC[standard]=	Codec for karaoke and text encapsulation for Ogg
+HOMEPAGE=		https://wiki.xiph.org/OggKate
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://ftp.osuosl.org/pub/xiph/releases/kate/
+DISTFILE[1]=		libkate-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		multimedia/libkate
+
+BUILDRUN_DEPENDS=	libogg:primary:standard
+			png:single:standard
+
+USES=			fbsd10fix gmake libtool pkgconfig
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-doc
+# Additional docs require doxygen
+INSTALL_REQ_TOOLCHAIN=	yes
+
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		OGGKATE_SOVER=${OGGKATE_SOVER}
+			OGGKATE_SOMAJOR=${OGGKATE_SOVER:R:R}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libkate.so.${SOVERSION}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/liboggkate.so.${OGGKATE_SOVER}
