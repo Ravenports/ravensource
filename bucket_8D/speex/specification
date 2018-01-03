@@ -1,0 +1,31 @@
+DEF[PORTVERSION]=	1.2.0
+DEF[SOVERSION]=		1.5.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		speex
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		standard
+SDESC[standard]=	Audio compression format designed for speech
+HOMEPAGE=		https://www.speex.org
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://ftp.osuosl.org/pub/xiph/releases/speex/
+DISTFILE[1]=		speex-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		audio/speex
+
+BUILDRUN_DEPENDS=	libogg:primary:standard
+			speexdsp:single:standard
+
+USES=			libtool pkgconfig
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+
+SOVERSION=		${SOVERSION}
