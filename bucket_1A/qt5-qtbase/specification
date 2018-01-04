@@ -26,7 +26,7 @@ BUILDRUN_DEPENDS=	pcre2:primary:standard
 			at-spi2-atk:single:standard
 
 USES=			qt5 zlib png sqlite jpeg pkgconfig execinfo
-			iconv perl:build
+			iconv perl:build shebangfix
 XORG_COMPONENTS=	xcb xcb-util xcb-util-image xcb-util-keysyms
 			xcb-util-wm xcb-render-util
 CONFIGURE_ARGS=		-system-harfbuzz
@@ -65,10 +65,23 @@ SUB_LIST=		CC={{CC:Q}}
 			PTHREAD_LIBS={{QMAKE_LIBS_THREAD:Q}}
 			PTHREAD_LDFLAGS={{QMAKE_LFLAGS_THREAD:Q}}
 			SYS_LIBS={{QMAKE_X11_SYS_LIBS:Q}}
+PLIST_SUB=		QTVER=${PORTVERSION}
+			SOMAJORMIN=${PORTVERSION:R}
+SOVERSION=		${PORTVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
+SHEBANG_FILES=		mkspecs/features/uikit/devices.py
+			mkspecs/features/uikit/device_destinations.sh
+			mkspecs/features/data/mac/objc_namespace.sh
 
 post-patch:
 	${MKDIR} ${WRKSRC}/mkspecs/dragonfly-g++
 	${INSTALL_DATA} ${WRKSRC}/mkspecs/freebsd-g++/qplatformdefs.h \
 		${WRKSRC}/mkspecs/dragonfly-g++/
-	${INSTALL_DATA} ${WRKDIR}/qmake.conf ${WRKSRC}/mkspecs/${QMAKESPEC}/
+.for MKS in dragonfly-g++ freebsd-g++ linux-g++ solaris-g++-64
+	${INSTALL_DATA} ${WRKDIR}/qmake.conf ${WRKSRC}/mkspecs/${MKS}/
+.endfor
+	# Clean up files created by patching
+	@${RM} ${WRKSRC}/mkspecs/*/*.orig
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt5/bin/qmake

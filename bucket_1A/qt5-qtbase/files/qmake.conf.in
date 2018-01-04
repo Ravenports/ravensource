@@ -48,8 +48,8 @@ QMAKE_LIBS_OPENGL_QT	= -lGL
 QMAKE_LIBS_THREAD	= %%PTHREAD_LIBS%%
 
 QMAKE_AR		= /raven/toolchain/bin/ar cqs
-QMAKE_OBJCOPY           = objcopy
-QMAKE_NM		= nm -P
+QMAKE_OBJCOPY           = /raven/toolchain/bin/objcopy
+QMAKE_NM		= /raven/toolchain/bin/nm -P
 QMAKE_RANLIB		= /raven/toolchain/bin/ranlib
 
 QMAKE_MOC		= $(QTDIR)/bin/moc
@@ -58,6 +58,11 @@ QMAKE_UIC3		= $(QTDIR)/bin/uic3
 QMAKE_RCC		= $(QTDIR)/bin/rcc
 
 QMAKE_MKDIR		= /bin/mkdir
+
+QMAKE_STRIP		= strip
+QMAKE_STRIPFLAGS_LIB   += --strip-unneeded
+QMAKE_INSTALL_FILE	= install -m 644 -p
+QMAKE_INSTALL_PROGRAM	= install -m 755 -p
 
 # stop message: Variable QMAKE_CXX.COMPILER_MACROS is not defined
 
