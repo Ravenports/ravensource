@@ -1,0 +1,74 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(QT5_VERSION)
+DEF[MINOR_VER]=		${PORTVERSION:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		qt5-qtbase
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_toolkits devel
+VARIANTS=		standard
+SDESC[standard]=	Qt5 - QtBase components
+HOMEPAGE=		https://www.qt.io/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://download.qt.io/official_releases/qt/${MINOR_VER}/${PORTVERSION}/submodules/
+DISTFILE[1]=		qtbase-everywhere-src-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+BUILDRUN_DEPENDS=	pcre2:primary:standard
+			harfbuzz:icu:standard
+# |			libproxy:single:standard
+			libxkbcommon:single:standard
+			at-spi2-atk:single:standard
+
+USES=			qt5 zlib png sqlite jpeg pkgconfig execinfo
+			iconv perl:build
+XORG_COMPONENTS=	xcb xcb-util xcb-util-image xcb-util-keysyms
+			xcb-util-wm xcb-render-util
+CONFIGURE_ARGS=		-system-harfbuzz
+			-system-libjpeg
+			-system-libpng
+			-system-pcre
+			-system-sqlite
+			-system-zlib
+			-system-xcb
+			-system-xkbcommon
+			-system-freetype
+			-shared
+			-icu
+			-no-sql-db2
+			-no-sql-ibase
+			-no-sql-mysql
+			-no-sql-oci
+			-no-sql-odbc
+			-no-sql-psql
+			-no-sql-sqlite2
+			-no-sql-tds
+			-dbus-runtime
+			-accessibility
+# |			-libproxy
+# |			-openssl-linked
+			-no-openssl
+
+DISTNAME=		qtbase-everywhere-src-${PORTVERSION}
+SUB_FILES=		qmake.conf
+SUB_LIST=		CC={{CC:Q}}
+			CXX={{CXX:Q}}
+			LDFLAGS={{LDFLAGS:Q}}
+			CFLAGS={{CFLAGS:Q}}
+			CXXFLAGS={{CXXFLAGS:Q}}
+			AR={{AR:Q}}
+			PTHREAD_LIBS={{QMAKE_LIBS_THREAD:Q}}
+			PTHREAD_LDFLAGS={{QMAKE_LFLAGS_THREAD:Q}}
+			SYS_LIBS={{QMAKE_X11_SYS_LIBS:Q}}
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-patch:
+	${MKDIR} ${WRKSRC}/mkspecs/dragonfly-g++
+	${INSTALL_DATA} ${WRKSRC}/mkspecs/freebsd-g++/qplatformdefs.h \
+		${WRKSRC}/mkspecs/dragonfly-g++/
+	${INSTALL_DATA} ${WRKDIR}/qmake.conf ${WRKSRC}/mkspecs/${QMAKESPEC}/
