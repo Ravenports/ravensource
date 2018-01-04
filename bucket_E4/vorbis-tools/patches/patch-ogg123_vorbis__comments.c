@@ -1,4 +1,4 @@
---- ogg123/vorbis_comments.c.orig       2010-01-27 04:14:11 UTC
+--- ogg123/vorbis_comments.c.orig	2010-01-27 04:14:11 UTC
 +++ ogg123/vorbis_comments.c
 @@ -72,7 +72,7 @@ char *lookup_comment_prettyprint (char *
  

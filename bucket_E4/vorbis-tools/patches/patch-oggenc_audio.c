@@ -1,4 +1,4 @@
---- oggenc/audio.c.orig 2010-03-24 08:27:14 UTC
+--- oggenc/audio.c.orig	2010-03-24 08:27:14 UTC
 +++ oggenc/audio.c
 @@ -13,6 +13,7 @@
  #include <config.h>
@@ -8,7 +8,7 @@
  #include <stdlib.h>
  #include <stdio.h>
  #include <string.h>
-@@ -245,12 +246,13 @@ static int aiff_permute_matrix[6][6] = 
+@@ -245,12 +246,13 @@ static int aiff_permute_matrix[6][6] =
  int aiff_open(FILE *in, oe_enc_opt *opt, unsigned char *buf, int buflen)
  {
      int aifc; /* AIFC or AIFF? */
@@ -54,7 +54,7 @@
      aiff->bigendian = 1;
  
      if(aifc)
-@@ -412,6 +420,7 @@ int wav_open(FILE *in, oe_enc_opt *opt, 
+@@ -412,6 +420,7 @@ int wav_open(FILE *in, oe_enc_opt *opt,
      wav_fmt format;
      wavfile *wav = malloc(sizeof(wavfile));
      int i;
@@ -62,7 +62,7 @@
  
      /* Ok. At this point, we know we have a WAV file. Now we have to detect
       * whether we support the subtype, and we have to find the actual data
-@@ -449,12 +458,18 @@ int wav_open(FILE *in, oe_enc_opt *opt, 
+@@ -449,12 +458,18 @@ int wav_open(FILE *in, oe_enc_opt *opt,
      }
  
      format.format =      READ_U16_LE(buf);

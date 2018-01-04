@@ -1,4 +1,4 @@
---- oggenc/oggenc.c.orig        2010-03-26 07:07:07 UTC
+--- oggenc/oggenc.c.orig	2010-03-26 07:07:07 UTC
 +++ oggenc/oggenc.c
 @@ -97,6 +97,8 @@ int main(int argc, char **argv)
                .3,-1,
