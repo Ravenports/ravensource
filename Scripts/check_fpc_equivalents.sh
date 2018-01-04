@@ -15,12 +15,15 @@ while read ravenport version fpc_port; do
 	libbsd) ;; 		# linux only
 	libusb) ;; 		# linux only
 	shadow) ;;		# linux only
+	musl-fts) ;;		# linux only
+	libbsd4sol);;		# solaris only
 
 	ravenports) ;;		# unique to ravenports
 	libdl) ;;		# unique to ravenports
 	ravensys-root) ;;	# unique to ravenports
 	ravensys-toolchain) ;;	# unique to ravenports
 	ravensys-uname) ;;	# unique to ravenports
+	ravensys-selector) ;;	# unique to ravenports
 	bmake-mk-files) ;;	# unique to ravenports
 	ravenadm) ;;		# unique to ravenports
 
@@ -33,12 +36,17 @@ while read ravenport version fpc_port; do
 	rpcgen) ;;		# From DragonFly
 	sha256) ;;		# From DragonFly
 	bsd-patch) ;;		# From DragonFly/FreeBSD
+	bsd-which) ;;		# From DragonFly/FreeBSD
 
 	libedit) ;;		# Different version scheme from FPC
 	gnat-util) ;;		# Different version scheme from FPC
 	gcc[678]) ;;		# Different version scheme from FPC
 	gprbuild) ;;		# Different version scheme from FPC
 	apr1|apr-util) ;;	# Different version scheme from FPC
+	libunwind) ;;		# ditto
+	unrar) ;;		# ditto
+	autoconf213) ;;		# ditto
+	cwm) ;;			# ditto
 
 	aspell-el) ;;		# requires EPOCH, 0.08 > 0.50 actually
 	hunspell-pt_BR) ;;	# Freebsd combines BR/PT, but raven splits them up
@@ -47,6 +55,8 @@ while read ravenport version fpc_port; do
 	ncurses) ;;		# FreeBSD uses dev version now
 
 	libexecinfo) ;;		# Different source from FPC
+
+	qt5-qtbase) ;;		# should arrive in FreeBSD soon
 
 	libadalang) ;;		# Rest are ports that FPC doesn't have yet
 	libtickit) ;;
@@ -60,6 +70,7 @@ while read ravenport version fpc_port; do
 	aspell-mg | aspell-hus) ;;
 	gnatcross*) ;;
 	edelib) ;;
+	openpam) ;;
 	*) echo "${ravenport} ${version}"
    esac
 done < ${tmpfile}
