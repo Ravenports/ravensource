@@ -25,12 +25,14 @@ LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		databases/sqlitebrowser
 
-BUILDRUN_DEPENDS=	qt5-qtbase:single:standard
+BUILDRUN_DEPENDS=	qt5-qttools:single:standard
+			qscintilla:primary:standard
 
 USES=			cmake sqlite desktop-utils gnome-icons
-CMAKE_ARGS=		-DFORCE_INTERNAL_QSCINTILLA:BOOL=ON
-			-DFORCE_INTERNAL_ANTLR:BOOL=ON
-			-DCMAKE_MODULE_PATH="{{LOCALBASE}}/lib/qt5"
+CMAKE_ARGS=		-DFORCE_INTERNAL_ANTLR:BOOL=ON
+			-DQT_INCLUDE_DIR:PATH="{{PREFIX}}/include/qt5"
+			-DQT_LIBRARY_DIR:PATH="{{PREFIX}}/lib/qt5"
+			-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
 
 post-patch:
 	${REINPLACE_CMD} -e 's|%%DATADIR%%|${PREFIX}/share/${NAMEBASE}|' \
