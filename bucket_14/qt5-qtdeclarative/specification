@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(QT5_VERSION)
+DEF[MINOR_VER]=		${PORTVERSION:R}
+DEF[COMPONENT]=		qtdeclarative
+DEF[COMPONENT_CASED]=	QtDeclarative
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		qt5-${COMPONENT}
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Qt5 - ${COMPONENT_CASED} component
+HOMEPAGE=		https://www.qt.io/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://download.qt.io/official_releases/qt/${MINOR_VER}/${PORTVERSION}/submodules/
+DISTFILE[1]=		${COMPONENT}-everywhere-src-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+BUILDRUN_DEPENDS=	qt5-qtbase:single:standard
+			qt5-qtxmlpatterns:single:standard
+
+USES=			qt5 pkgconfig perl:build python:build
+
+DISTNAME=		${COMPONENT}-everywhere-src-${PORTVERSION}
+PLIST_SUB=		QTVER=${PORTVERSION}
+			SOMAJORMIN=${PORTVERSION:R}
+SOVERSION=		${PORTVERSION}
+
+post-patch:
+	${REINPLACE_CMD} -e 's|python |python${PYTHON_VER} |' \
+		${WRKSRC}/qtdeclarative.pro \
+		${WRKSRC}/src/3rdparty/masm/masm.pri
+
