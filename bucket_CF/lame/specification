@@ -20,14 +20,20 @@ SPKGS[standard]=	complete primary docs
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		CUSTOM1:primary
+LICENSE_NAME=		CUSTOM1:"LAME LICENSE"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		audio/lame
 
 BUILD_DEPENDS=		nasm:primary:standard
 
 USES=			gmake iconv libtool
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-nasm --enable-mp3rtp --disable-gtktest
-
+CONFIGURE_ARGS=		--enable-nasm
+			--enable-mp3rtp
+			--disable-gtktest
 SOVERSION=		${SOVERSION}
 
 post-patch:
