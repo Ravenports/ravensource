@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	3.100
+DEF[SOVERSION]=		0.0.0
+DEF[DOC_FILES]=		API README TODO USAGE
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		lame
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		standard
+SDESC[standard]=	Fast MP3 encoder kit
+HOMEPAGE=		http://lame.sourceforge.net
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/lame/lame/3.100
+DISTFILE[1]=		lame-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		audio/lame
+
+BUILD_DEPENDS=		nasm:primary:standard
+
+USES=			gmake iconv libtool
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-nasm --enable-mp3rtp --disable-gtktest
+
+SOVERSION=		${SOVERSION}
+
+post-patch:
+	${REINPLACE_CMD} -e 's,test -d \.libs || mkdir,mkdir -p,' \
+		${WRKSRC}/libmp3lame/i386/Makefile.in
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmp3lame.so.${SOVERSION}
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/doc/lame
+.for file in ${DOC_FILES}
+	${INSTALL_DATA} ${WRKSRC}/${file} ${STAGEDIR}${PREFIX}/share/doc/lame
+.endfor
