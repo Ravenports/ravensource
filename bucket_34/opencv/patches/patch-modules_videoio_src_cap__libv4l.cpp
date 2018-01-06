@@ -1,4 +1,4 @@
---- modules/videoio/src/cap_libv4l.cpp.orig	2017-08-03 23:58:23 UTC
+--- modules/videoio/src/cap_libv4l.cpp.orig	2017-12-22 19:46:21 UTC
 +++ modules/videoio/src/cap_libv4l.cpp
 @@ -251,7 +251,9 @@ make & enjoy!
  #include <sys/mman.h>

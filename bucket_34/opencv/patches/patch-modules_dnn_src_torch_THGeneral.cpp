@@ -1,6 +1,6 @@
---- modules/dnn/src/torch/THGeneral.cpp.orig	2017-08-03 23:58:23 UTC
+--- modules/dnn/src/torch/THGeneral.cpp.orig	2017-12-22 19:46:21 UTC
 +++ modules/dnn/src/torch/THGeneral.cpp
-@@ -3,7 +3,11 @@
+@@ -2,7 +2,11 @@
  
  #if defined(TH_DISABLE_HEAP_TRACKING)
  #elif (defined(__unix) || defined(_WIN32))
