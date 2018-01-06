@@ -7,6 +7,7 @@
 # argument 5: ravensource directory
 # argument 6: location of meta.json
 # argument 7: "ok" or "dead" (if not "ok", ignore homepage setting)
+# argument 8: "ok" or "rmv" (if not "ok", remove "v" from distversion)
 #
 
 use strict;
@@ -23,6 +24,7 @@ my $buildmech     = $ARGV[3];
 my $ravensource   = $ARGV[4];
 my $meta_json_loc = $ARGV[5];
 my $use_homepage  = $ARGV[6];
+my $use_distver   = $ARGV[7];
 
 my $json_text   = read_file($meta_json_loc);
 my $dir_queue   = "/tmp/cpan-work/build-queue";
@@ -112,7 +114,6 @@ sub make_distname {
 }
 
 make_comment;
-make_distname;
 
 foreach my $key (@perlverkeys) {
    if (!Module::CoreList::is_core ($port_namebase, undef, $perlver{$key})) { push @variants, $key; }
@@ -156,8 +157,13 @@ $homepage =~ s/http:\/\/bitbucket.org/https:\/\/bitbucket.org/;
 if (substr($portversion, 0, 1) eq "v") {
       print "Note:     stripping leading 'v' from version: $portversion\n";
       $portversion = substr($portversion, 1);
-      $distversion = $portversion;
 }
+
+if ("$use_distver" eq "rmv") {
+   $distversion = substr($distversion, 1);
+}
+
+make_distname;
 
 if (exists $meta_data->{'prereqs'}) {
    $dump_dependencies_as_comments .= "# -----------------------------------------------\n";

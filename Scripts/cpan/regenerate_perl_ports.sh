@@ -53,6 +53,7 @@ RAVENADM=/raven/bin/ravenadm
 # ENTRY_LIST=${tmpdir}/latest_candidates.txt
 ENTRY_LIST=${tmpdir}/02packages.details.txt
 DEADLIST=${thisdir}/dead-homepage.list
+RMVLIST=${thisdir}/bad-v.list
 urlstub="http://cpansearch.perl.org/src/"
 mirror_base="/mech/var/cache/cpan/"
 
@@ -167,6 +168,13 @@ homepage_status()
 END { print (found) ? "dead" : "ok"}' ${DEADLIST}
 }
 
+# return "ok" or "rmv"
+rmv_status()
+{
+   awk -vportname="${1}" '{ if (portname == $1) { found = 1 }} \
+END { print (found) ? "rmv" : "ok"}' ${RMVLIST}
+}
+
 # generate ravensource port subroutine
 generate_ravensource()
 {
@@ -184,7 +192,8 @@ generate_ravensource()
    local ravsrc_dir=$(ravensource_dir ${bucketname})
    local port_author=$(author_and_tarball "${index_info}")
    local hp_status=$(homepage_status ${port_name})
-   
+   local distgood=$(rmv_status ${port_name})
+
    local url_tail=$(cpansearch_url "${index_info}")   
    if [ -z "${url_tail}" ]; then
       echo "failed to find entry for ${perl_module}"
@@ -225,7 +234,7 @@ generate_ravensource()
    cached=0   
    if [ -f ${meta_json} ]; then
       echo "cached    meta.json for ${port_name} found"
-      perl ${thisdir}/write_port_from_json.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${meta_json}" ${hp_status}
+      perl ${thisdir}/write_port_from_json.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${meta_json}" ${hp_status} ${distgood}
       result=$?
       cached=1
    else
@@ -241,7 +250,7 @@ generate_ravensource()
          fetch ${base_url}/META.json -o ${meta_json} 2>/dev/null
          if [ $? -eq 0 ]; then
             echo "Retrieved meta.json for ${port_name}"
-            perl ${thisdir}/write_port_from_json.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${meta_json}" ${hp_status}
+            perl ${thisdir}/write_port_from_json.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${meta_json}" ${hp_status} ${distgood}
             result=$?
          else
             fetch ${base_url}/META.yml -o ${meta_yaml} 2>/dev/null
