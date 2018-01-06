@@ -20,4 +20,6 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		audio/cd-discid
 
-MAKE_ARGS=		prefix={{STAGEDIR}}{PREFIX}} mandir={{STAGEDIR}}{PREFIX}}/share/man/man1
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/cd-discid ${STAGEDIR}${PREFIX}/bin/
+	${INSTALL_MAN} ${WRKSRC}/cd-discid.1 ${STAGEDIR}${MANPREFIX}/man/man1/
