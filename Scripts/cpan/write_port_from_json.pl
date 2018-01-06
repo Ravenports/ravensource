@@ -156,6 +156,7 @@ $homepage =~ s/http:\/\/bitbucket.org/https:\/\/bitbucket.org/;
 if (substr($portversion, 0, 1) eq "v") {
       print "Note:     stripping leading 'v' from version: $portversion\n";
       $portversion = substr($portversion, 1);
+      $distversion = $portversion;
 }
 
 if (exists $meta_data->{'prereqs'}) {
