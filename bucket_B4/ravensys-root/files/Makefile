@@ -332,6 +332,7 @@ headers_SunOS=		#end
 headers_FreeBSD_dirs=	arpa \
 			dev \
 			net \
+			net80211 \
 			netinet \
 			netinet6 \
 			rpc \
