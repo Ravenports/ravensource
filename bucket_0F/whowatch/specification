@@ -32,3 +32,6 @@ CPPFLAGS=		-I{{NCURSESINC}}
 post-extract:
 	${RM} ${WRKSRC}/src/procinfo.[ch]*
 	${RM} ${WRKSRC}/src/proc_plugin.c*
+
+post-patch:
+	${REINPLACE_CMD} -e "s|utmp|utmpx|g" ${WRKSRC}/configure
