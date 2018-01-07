@@ -23,7 +23,9 @@ FPC_EQUIVALENT=		x11/i3status
 BUILDRUN_DEPENDS=	libconfuse:single:standard
 			yajl:single:standard
 
-USES=			gmake
+USES=			gmake pkgconfig
+
+BROKEN[linux]=		Assumes netlink and alsa headers present
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|/etc|${PREFIX}/etc|g' ${WRKSRC}/i3status.c
