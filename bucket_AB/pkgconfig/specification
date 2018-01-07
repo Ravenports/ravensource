@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	1.3.90
+DEF[PORTVERSION]=	1.4.0
+DEF[SOVERSION]=		3.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		pkgconfig
@@ -34,6 +35,7 @@ TEST_TARGET=		check
 CONFIGURE_ARGS=		--with-pkg-config-dir=/usr/lib/pkgconfig:{{PREFIX}}/lib/pkgconfig
 			--with-system-libdir=/lib:/usr/lib
 			--with-system-includedir=/usr/include
+SOVERSION=		${SOVERSION}
 
 post-install:
 	${LN} -sf pkgconf ${STAGEDIR}${PREFIX}/bin/pkg-config
