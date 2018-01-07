@@ -1,0 +1,30 @@
+DEF[PORTVERSION]=	10.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		iverilog
+VERSION=		${PORTVERSION}
+KEYWORDS=		cad
+VARIANTS=		standard
+SDESC[standard]=	Verilog simulation and synthesis tool
+HOMEPAGE=		http://iverilog.icarus.com/
+CONTACT=		Michael_Neumann[mneumann@ntecs.de]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		ftp://icarus.com/pub/eda/verilog/v10/
+DISTFILE[1]=		verilog-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+DISTNAME=		verilog-${PORTVERSION}
+FPC_EQUIVALENT=		cad/iverilog
+
+LICENSE=		GPLv2:single
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+USES=			bison gmake readline c++:single
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-suffix
