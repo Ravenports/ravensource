@@ -24,12 +24,16 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		deskutils/parcellite
 
-USES=			autoreconf pkgconfig gmake gettext-tools
+USES=			autoreconf pkgconfig gmake gettext-tools gettext-runtime
 XORG_COMPONENTS=	x11
 GNOME_COMPONENTS=	gtk2 intltool
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-appindicator
-LDFLAGS=		-lgio-2.0 -lintl
+LDFLAGS=		-lgio-2.0
+
+VAR_OPSYS[freebsd]=	LDFLAGS=-lintl
+VAR_OPSYS[dragonfly]=	LDFLAGS=-lintl
+VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 
 post-patch:
 	${REINPLACE_CMD} -e 's|$$(DATADIRNAME)/locale|share/locale|' \
