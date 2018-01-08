@@ -25,8 +25,8 @@ LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		databases/sqlitebrowser
 
-BUILDRUN_DEPENDS=	qt5-qttools:single:standard
-			qscintilla:primary:standard
+BUILD_DEPENDS=		qt5-qttools:single:standard
+BUILDRUN_DEPENDS=	qscintilla:primary:standard
 
 USES=			cmake sqlite desktop-utils gnome-icons
 CMAKE_ARGS=		-DFORCE_INTERNAL_ANTLR:BOOL=ON
@@ -38,3 +38,6 @@ post-patch:
 	${REINPLACE_CMD} -e 's|%%DATADIR%%|${PREFIX}/share/${NAMEBASE}|' \
 		${WRKSRC}/src/PreferencesDialog.cpp \
 		${WRKSRC}/src/Application.cpp
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/sqlitebrowser
