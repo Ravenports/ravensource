@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	2.3.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		openjpeg
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Open-source implementation of JPEG2000 image codec
+HOMEPAGE=		http://www.openjpeg.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/uclouvain:openjpeg:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/openjpeg
+
+BUILDRUN_DEPENDS=	tiff:primary:standard
+			lcms2:primary:standard
+
+USES=			cpe png cmake pkgconfig
+PLIST_SUB=		VER=${PORTVERSION:R}
+SOVERSION=		${PORTVERSION}
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|$${OPENJPEG_INSTALL_LIB_DIR}/pkgconfig|lib/pkgconfig|' \
+		${WRKSRC}/CMakeLists.txt
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/opj_*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libopenjp2.so
