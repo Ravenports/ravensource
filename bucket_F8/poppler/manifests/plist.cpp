@@ -10,12 +10,6 @@ include/poppler/cpp/poppler-rectangle.h
 include/poppler/cpp/poppler-toc.h
 include/poppler/cpp/poppler-version.h
 lib/libpoppler-cpp.so
-lib/libpoppler-cpp.so.0
-lib/libpoppler-cpp.so.0.3.0
-lib/libpoppler.so
-lib/libpoppler.so.%%SOMAJOR%%
-lib/libpoppler.so.%%SOVERSION%%
-lib/pkgconfig/poppler-cairo.pc
+lib/libpoppler-cpp.so.%%CPP_SOMAJOR%%
+lib/libpoppler-cpp.so.%%CPP_SOVERSION%%
 lib/pkgconfig/poppler-cpp.pc
-lib/pkgconfig/poppler-splash.pc
-lib/pkgconfig/poppler.pc
