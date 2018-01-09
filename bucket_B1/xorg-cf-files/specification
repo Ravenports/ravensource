@@ -1,0 +1,27 @@
+DEF[PORTVERSION]=	1.0.6
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-cf-files
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	X.org cf files for use with imake builds
+HOMEPAGE=		https://www.x.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.x.org/releases/individual/util/
+DISTFILE[1]=		xorg-cf-files-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11/xorg-cf-files
+
+MUST_CONFIGURE=		gnu
+
+post-patch:
+		@${REINPLACE_CMD} 's|\(define ExtraXaw[^ ]*\) [$$].*|\1 /**/|' \
+			${WRKSRC}/X11.tmpl
