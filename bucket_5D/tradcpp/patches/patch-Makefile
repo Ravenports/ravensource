@@ -1,0 +1,19 @@
+--- Makefile.orig	2016-09-04 21:16:39 UTC
++++ Makefile
+@@ -4,8 +4,13 @@ PROG=	tradcpp
+ SRCS=	main.c \
+ 	files.c directive.c eval.c macro.c output.c \
+ 	place.c array.c utils.c
+-WARNS=	5
+ 
+-#DBG=-g
++all:	${PROG}
++
++${PROG}: ${SRCS}
++	${CC} -o ${PROG} ${.ALLSRC} ${CFLAGS} ${STATIC_LIBS}
++
++install:
++	${BSD_INSTALL_PROGRAM} ${PROG} ${DESTDIR}${PREFIX}/bin/
++	${BSD_INSTALL_MAN} ${PROG}.1 ${DESTDIR}${MANPREFIX}/man/man1
+ 
+-.include <bsd.prog.mk>
