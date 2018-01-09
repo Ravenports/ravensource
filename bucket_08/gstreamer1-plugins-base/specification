@@ -1,0 +1,52 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(GSTREAMER1_VERSION)
+DEF[GST_VERSION]=	EXTRACT_INFO(GSTREAMER1_GST)
+DEF[SOVERSION]=		EXTRACT_INFO(GSTREAMER1_SOVERSION)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gstreamer1-plugins-base
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		standard
+SDESC[standard]=	GStreamer Multimedia Framework Base Plugins
+HOMEPAGE=		https://gstreamer.freedesktop.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://gstreamer.freedesktop.org/src/gst-plugins-base/
+DISTFILE[1]=		gst-plugins-base-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		multimedia/gstreamer1-plugins
+
+BUILDRUN_DEPENDS=	gstreamer1:single:standard
+			iso-codes:single:standard
+			orc:primary:standard
+			freetype:primary:standard
+
+USES=			gmake pkgconfig libtool gettext-runtime
+GNOME_COMPONENTS=	glib introspection
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-default-audiosink="osssink"
+			--with-default-audiosrc="osssrc"
+			--disable-alsa
+			--disable-cdparanoia
+			--disable-ivorbis
+			--disable-libvisual
+			--disable-ogg
+			--disable-opus
+			--disable-pango
+			--disable-theora
+			--disable-vorbis
+			--disable-x
+			--disable-xvideo
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+DISTNAME=		gst-plugins-base-${PORTVERSION}
+CFLAGS=			-Wno-format
+LDFLAGS=		-lpthread
+PLIST_SUB=		GSTVER=${GST_VERSION}
+SOVERSION=		${SOVERSION}
