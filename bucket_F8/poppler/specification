@@ -18,7 +18,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://poppler.freedesktop.org/
 DISTFILE[1]=		poppler-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary cpp glib qt5
+SPKGS[standard]=	complete primary cpp glib qt5 utils
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -44,12 +44,15 @@ EXRUN[glib]=		poppler:primary:standard
 			cairo:single:standard
 EXRUN[qt5]=		poppler:primary:standard
 			qt5-qtbase:single:standard
+EXRUN[utils]=		poppler:primary:standard
+			cairo:single:standard
+			lcms2:primary:standard
 
 USES=			cmake cpe png jpeg libtool pkgconfig zlib
 			python:build
 CPE_VENDOR=		freedesktop
 CMAKE_ARGS=		-DENABLE_GLIB=ON
-			-DENABLE_UTILS=OFF
+			-DENABLE_UTILS=ON
 			-DENABLE_QT5=ON
 			-DENABLE_LIBCURL=OFF
 			-DBUILD_GTK_TESTS=OFF
@@ -66,3 +69,4 @@ SOVERSION=		${SOVERSION}
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libpop*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/pdf*
