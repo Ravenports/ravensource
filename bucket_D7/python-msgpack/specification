@@ -1,7 +1,7 @@
-DEF[PORTVERSION]=	0.4.8
+DEF[PORTVERSION]=	0.5.0
 # ------------------------------------------------------------------------
 
-NAMEBASE=		python-msgpack-python
+NAMEBASE=		python-msgpack
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		py27 py35 py36
@@ -12,8 +12,8 @@ HOMEPAGE=		https://msgpack.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/m/msgpack-python
-DISTFILE[1]=		msgpack-python-0.4.8.tar.gz:main
+SITES[main]=		PYPI/m/msgpack
+DISTFILE[1]=		msgpack-0.5.0.tar.gz:main
 
 SPKGS[py27]=		single
 SPKGS[py35]=		single
@@ -25,16 +25,15 @@ VOPTS[py27]=		PY27=ON PY35=OFF PY36=OFF
 VOPTS[py35]=		PY27=OFF PY35=ON PY36=OFF
 VOPTS[py36]=		PY27=OFF PY35=OFF PY36=ON
 
-LICENSE=		CUSTOM1:single
-LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/COPYING
-LICENSE_NAME=		CUSTOM1:"UNKNOWN"
+LICENSE=		APACHE20:single
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
 GENERATED=		yes
 
 # install_requires extracted from setup.py (using python 2.7)
 
-DISTNAME=		msgpack-python-${PORTVERSION}
+DISTNAME=		msgpack-${PORTVERSION}
 
 [PY27].USES_ON=				python:py27
 
