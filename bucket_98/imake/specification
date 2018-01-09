@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	1.0.7
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		imake
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	X.Org imake program and related utilities
+HOMEPAGE=		https://www.x.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.x.org/releases/individual/util/
+DISTFILE[1]=		imake-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/imake
+
+BUILD_DEPENDS=		tradcpp:single:standard
+			xorg-cf-files:single:standard
+
+USES=			perl:run pkgconfig shebangfix
+XORG_COMPONENTS=	xproto
+SHEBANG_FILES=		mkhtmlindex.pl
+MUST_CONFIGURE=		gnu
+CONFIGURE_ENV=		APP_MAN_SUFFIX=1
+			HAS_PERL=no
+
+post-patch:
+	${REINPLACE_CMD} -e 's|RAWCPP|"${PREFIX}/bin/tradcpp"|' \
+		${WRKSRC}/imakemdep.h
+
+post-build:
+	# This required with some C preprocessors and not others,
+	# but is harmless when not required.
+	${REINPLACE_CMD} -e "s/^configdirspec= */configdirspec=/" \
+		${WRKSRC}/xmkmf
