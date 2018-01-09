@@ -2,6 +2,7 @@ DEF[PORTVERSION]=	EXTRACT_INFO(POPPLER_VERSION)
 DEF[SOVERSION]=		73.0.0
 DEF[CPP_SOVERSION]=	0.3.0
 DEF[GLIB_SOVERSION]=	8.9.0
+DEF[QT5_SOVERSION]=	1.12.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		poppler
@@ -17,7 +18,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://poppler.freedesktop.org/
 DISTFILE[1]=		poppler-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary cpp glib
+SPKGS[standard]=	complete primary cpp glib qt5
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -31,6 +32,8 @@ FPC_EQUIVALENT=		graphics/poppler
 BUILD_DEPENDS=		cairo:single:standard
 			gobject-introspection:single:standard
 			python27:single:standard
+			qt5-qttools:single:standard
+			qt5-qtbase:single:standard
 BUILDRUN_DEPENDS=	tiff:primary:standard
 			lcms2:primary:standard
 			fontconfig:primary:standard
@@ -39,19 +42,24 @@ BUILDRUN_DEPENDS=	tiff:primary:standard
 EXRUN[cpp]=		poppler:primary:standard
 EXRUN[glib]=		poppler:primary:standard
 			cairo:single:standard
+EXRUN[qt5]=		poppler:primary:standard
+			qt5-qtbase:single:standard
 
 USES=			cmake cpe png jpeg libtool pkgconfig zlib
 			python:build
 CPE_VENDOR=		freedesktop
 CMAKE_ARGS=		-DENABLE_GLIB=ON
 			-DENABLE_UTILS=OFF
-			-DENABLE_QT5=OFF
+			-DENABLE_QT5=ON
 			-DENABLE_LIBCURL=OFF
 			-DBUILD_GTK_TESTS=OFF
 			-DENABLE_GTK_DOC=OFF
 			-DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE
+			-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
 PLIST_SUB=		CPP_SOVERSION=${CPP_SOVERSION}
 			CPP_SOMAJOR=${CPP_SOVERSION:R:R}
+			QT5_SOVERSION=${QT5_SOVERSION}
+			QT5_SOMAJOR=${QT5_SOVERSION:R:R}
 			GLIB_SOVERSION=${GLIB_SOVERSION}
 			GLIB_SOMAJOR=${GLIB_SOVERSION:R:R}
 SOVERSION=		${SOVERSION}
