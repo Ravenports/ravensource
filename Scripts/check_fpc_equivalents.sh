@@ -56,7 +56,9 @@ while read ravenport version fpc_port; do
 
 	libexecinfo) ;;		# Different source from FPC
 
-	qt5-qtbase) ;;		# should arrive in FreeBSD soon
+	qt5-qtbase) ;;		# FreeBSD splits these packages into sep one
+	qt5-qttools) ;;		#
+	qt5-qtdeclarative) ;;	#
 
 	libadalang) ;;		# Rest are ports that FPC doesn't have yet
 	libtickit) ;;
