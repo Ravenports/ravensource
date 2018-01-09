@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(POPPLER_VERSION)
+DEF[SOVERSION]=		73.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		poppler
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics print
+VARIANTS=		standard
+SDESC[standard]=	PDF rendering library
+HOMEPAGE=		https://poppler.freedesktop.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://poppler.freedesktop.org/
+DISTFILE[1]=		poppler-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:single
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/poppler
+
+BUILDRUN_DEPENDS=	tiff:primary:standard
+			lcms2:primary:standard
+			fontconfig:primary:standard
+			openjpeg:single:standard
+			poppler-data:single:standard
+
+USES=			cmake cpe png jpeg libtool pkgconfig zlib
+CPE_VENDOR=		freedesktop
+GNOME_COMPONENTS=	libxml2 cairo
+CMAKE_ARGS=		-DENABLE_GLIB=OFF
+			-DENABLE_UTILS=OFF
+			-DENABLE_QT5=OFF
+			-DENABLE_LIBCURL=OFF
+			-DBUILD_GTK_TESTS=OFF
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libpop*.so
