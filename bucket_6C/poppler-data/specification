@@ -1,0 +1,25 @@
+DEF[PORTVERSION]=	0.4.8
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		poppler-data
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Poppler encoding data
+HOMEPAGE=		https://poppler.freedesktop.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://poppler.freedesktop.org/
+DISTFILE[1]=		poppler-data-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		graphics/poppler-data
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|' \
+		${WRKSRC}/Makefile

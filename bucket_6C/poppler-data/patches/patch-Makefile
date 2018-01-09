@@ -1,0 +1,13 @@
+--- Makefile.orig	2017-08-13 18:07:41 UTC
++++ Makefile
+@@ -14,8 +14,8 @@ install : all
+ 	install -m 0644 $(name-to-unicode-files) $(DESTDIR)$(pkgdatadir)/nameToUnicode
+ 	install -d -m 0755 $(DESTDIR)$(pkgdatadir)/unicodeMap
+ 	install -m 0644 $(unicode-map-files) $(DESTDIR)$(pkgdatadir)/unicodeMap
+-	install -d -m 0755 $(DESTDIR)$(datadir)/pkgconfig
+-	install -m 0644 poppler-data.pc $(DESTDIR)$(datadir)/pkgconfig
++	install -d -m 0755 $(DESTDIR)$(prefix)/lib/pkgconfig
++	install -m 0644 poppler-data.pc $(DESTDIR)$(prefix)/lib/pkgconfig
+ 
+ 	for f in $(cmap-files); do					    \
+ 		install -d -m 0755 $(DESTDIR)$(pkgdatadir)/`dirname $$f`; \
