@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	EXTRACT_INFO(POPPLER_VERSION)
+DEF[PORTVERSION]=	0.62.0
 DEF[SOVERSION]=		73.0.0
 DEF[CPP_SOVERSION]=	0.3.0
 DEF[GLIB_SOVERSION]=	8.9.0
@@ -39,6 +39,7 @@ BUILDRUN_DEPENDS=	tiff:primary:standard
 			fontconfig:primary:standard
 			openjpeg:single:standard
 			poppler-data:single:standard
+			curl:primary:standard
 EXRUN[cpp]=		poppler:primary:standard
 EXRUN[glib]=		poppler:primary:standard
 			cairo:single:standard
@@ -54,7 +55,7 @@ CPE_VENDOR=		freedesktop
 CMAKE_ARGS=		-DENABLE_GLIB=ON
 			-DENABLE_UTILS=ON
 			-DENABLE_QT5=ON
-			-DENABLE_LIBCURL=OFF
+			-DENABLE_LIBCURL=ON
 			-DBUILD_GTK_TESTS=OFF
 			-DENABLE_GTK_DOC=OFF
 			-DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE
