@@ -1,0 +1,61 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(GSTREAMER1_VERSION)
+DEF[GST_VERSION]=	EXTRACT_INFO(GSTREAMER1_GST)
+DEF[PLUGIN]=		vorbis
+DEF[PLUGIN_DESC]=	vorbis encoder/decoder
+DEF[FPC]=		audio/gstreamer1-plugins-vorbis
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gstreamer1-plugins-${PLUGIN}
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia audio
+VARIANTS=		standard
+SDESC[standard]=	GStreamer1 ${PLUGIN_DESC} plugin
+HOMEPAGE=		https://gstreamer.freedesktop.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://gstreamer.freedesktop.org/src/gst-plugins-base/
+DISTFILE[1]=		gst-plugins-base-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		${FPC}
+
+BUILD_DEPENDS=		gstreamer1-plugins-base:single:standard
+BUILDRUN_DEPENDS=	gstreamer1:single:standard
+			libvorbis:primary:standard
+RUN_DEPENDS=		gstreamer1-plugins-ogg:single:standard
+
+USES=			gmake pkgconfig libtool
+GNOME_COMPONENTS=	glib introspection
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-default-audiosink="osssink"
+			--with-default-audiosrc="osssrc"
+			--disable-alsa
+			--disable-cdparanoia
+			--disable-ivorbis
+			--disable-libvisual
+			--disable-ogg
+			--disable-opus
+			--disable-pango
+			--disable-theora
+			--enable-vorbis
+			--disable-x
+			--disable-xvideo
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+DISTNAME=		gst-plugins-base-${PORTVERSION}
+BUILD_WRKSRC=		{{WRKSRC}}/ext/${PLUGIN}
+INSTALL_WRKSRC=		{{WRKSRC}}/ext/${PLUGIN}
+CFLAGS=			-Wno-format
+PLIST_SUB=		GSTVER=${GST_VERSION}
+			PLUGIN=${PLUGIN}
+
+post-patch:
+	${FIND} ${WRKSRC}/ext ${WRKSRC}/sys -name Makefile.in |\
+	${XARGS} ${REINPLACE_CMD} -E \
+	-e '/la_DEPENDENCIES/,/am__DEPENDENCIES/s|[$$][(]top_builddir[)]/gst-libs/.*.la||' \
+	-e 's|[@$$][(]?GST_API_VERSION[@)]\.la|$$\{VERSION\}|g'
