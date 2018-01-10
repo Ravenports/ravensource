@@ -1,0 +1,59 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(GSTREAMER1_VERSION)
+DEF[GST_VERSION]=	EXTRACT_INFO(GSTREAMER1_GST)
+DEF[PLUGIN]=		pango
+DEF[PLUGIN_DESC]=	pango textoverlay
+DEF[FPC]=		x11-toolkits/gstreamer1-plugins-pango
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gstreamer1-plugins-${PLUGIN}
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia x11_toolkits
+VARIANTS=		standard
+SDESC[standard]=	GStreamer1 ${PLUGIN_DESC} plugin
+HOMEPAGE=		https://gstreamer.freedesktop.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://gstreamer.freedesktop.org/src/gst-plugins-base/
+DISTFILE[1]=		gst-plugins-base-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		${FPC}
+
+BUILD_DEPENDS=		gstreamer1-plugins-base:single:standard
+BUILDRUN_DEPENDS=	gstreamer1:single:standard
+
+USES=			gmake pkgconfig libtool
+GNOME_COMPONENTS=	glib introspection cairo pango
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-default-audiosink="osssink"
+			--with-default-audiosrc="osssrc"
+			--disable-alsa
+			--disable-cdparanoia
+			--disable-ivorbis
+			--disable-libvisual
+			--disable-ogg
+			--disable-opus
+			--enable-pango
+			--disable-theora
+			--disable-vorbis
+			--disable-x
+			--disable-xvideo
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+DISTNAME=		gst-plugins-base-${PORTVERSION}
+BUILD_WRKSRC=		{{WRKSRC}}/ext/${PLUGIN}
+INSTALL_WRKSRC=		{{WRKSRC}}/ext/${PLUGIN}
+CFLAGS=			-Wno-format
+PLIST_SUB=		GSTVER=${GST_VERSION}
+			PLUGIN=${PLUGIN}
+
+post-patch:
+	${FIND} ${WRKSRC}/ext ${WRKSRC}/sys -name Makefile.in |\
+	${XARGS} ${REINPLACE_CMD} -E \
+	-e '/la_DEPENDENCIES/,/am__DEPENDENCIES/s|[$$][(]top_builddir[)]/gst-libs/.*.la||' \
+	-e 's|[@$$][(]?GST_API_VERSION[@)]\.la|$$\{VERSION\}|g'
