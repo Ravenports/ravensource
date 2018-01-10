@@ -1,29 +1,20 @@
-$NetBSD: patch-imake.c,v 1.7 2016/09/04 21:33:53 dholland Exp $
-
 Beat some sense in.
 
    - Generate all files into the current (build) directory, not /tmp.
-     (hunks 1-2)
-
    - Do not delete any of the temporary files, to allow analysis after
-     build failure. (hunks 3-4, first part of 9)
-
-   - Log the command lines executed. (hunk 6)
-
+     build failure.
+   - Log the command lines executed.
    - Warn if scrubbing the Imakefile to alert the user to check if that
-     broke it (second part of hunk 9)
+     broke it
 
 Also,
-
    - Use tradcpp's -debuglog feature to trace what happens in the
-     templates (hunk 5)
+     templates (requires imake always be run with tradcpp)
+   - Force ELF for all freebsd versions
+   - Force use of just "gcc"
+   - Recognize IMAKECPPFLAGS in the environment
 
-   - Force ELF for freebsd versions >= 6 (hunk 7)
-
-   - Force use of just "gcc" for pkgsrc, so as to not bypass the
-     wrappers (hunk 8)
-
---- imake.c.orig	2013-08-17 10:11:50.000000000 +0000
+--- imake.c.orig	2013-08-17 10:11:50 UTC
 +++ imake.c
 @@ -303,9 +303,9 @@ void KludgeOutputLine(char **), KludgeRe
  const char *cpp = NULL;
@@ -82,7 +73,22 @@ Also,
  #if defined CROSSCOMPILE
  	if (sys == netBSD)
  	  if (CrossCompiling) {
-@@ -773,6 +780,13 @@ doit(FILE *outfd, const char *cmd, const
+@@ -531,6 +538,14 @@ init(void)
+ 				AddCppArg(p);
+ 			}
+ 	}
++	if ((p = getenv("IMAKECPPFLAGS"))) {
++		AddCppArg(p);
++		for (; *p; p++)
++			if (*p == ' ') {
++				*p++ = '\0';
++				AddCppArg(p);
++			}
++	}
+ 	if ((p = getenv("IMAKECPP")))
+ 		cpp = p;
+ 	if ((p = getenv("IMAKEMAKE")))
+@@ -773,6 +788,13 @@ doit(FILE *outfd, const char *cmd, const
  {
  	int		pid;
  	waitType	status;
@@ -96,18 +102,41 @@ Also,
  
  	/*
  	 * Fork and exec the command.
-@@ -1158,7 +1172,9 @@ get_binary_format(FILE *inFile)
-   } else
-       strcpy (cmd, "objformat");
- 
+@@ -1139,32 +1161,7 @@ get_ld_version(FILE *inFile)
+ static void
+ get_binary_format(FILE *inFile)
+ {
+-  int mib[2];
+-  size_t len;
+-  int osrel = 0;
+-  FILE *objprog = NULL;
+-  int iself = 0;
+-  char buf[10];
+-  char cmd[PATH_MAX];
+-
+-  mib[0] = CTL_KERN;
+-  mib[1] = KERN_OSRELDATE;
+-  len = sizeof(osrel);
+-  sysctl(mib, 2, &osrel, &len, NULL, 0);
+-  if (CrossCompiling) {
+-      strcpy (cmd, CrossCompileDir);
+-      strcat (cmd, "/");
+-      strcat (cmd,"objformat");
+-  } else
+-      strcpy (cmd, "objformat");
+-
 -  if (osrel >= 300004 &&
-+  if (osrel >= 600000)
-+    iself = 1;
-+  else if (osrel >= 300004 &&
-       (objprog = popen(cmd, "r")) != NULL &&
-       fgets(buf, sizeof(buf), objprog) != NULL &&
-       strncmp(buf, "elf", 3) == 0)
-@@ -1337,54 +1353,8 @@ get_gcc_version(FILE *inFile, char *name
+-      (objprog = popen(cmd, "r")) != NULL &&
+-      fgets(buf, sizeof(buf), objprog) != NULL &&
+-      strncmp(buf, "elf", 3) == 0)
+-    iself = 1;
+-  if (objprog)
+-    pclose(objprog);
++  int iself = 1;
+ 
+   fprintf(inFile, "#define DefaultToElfFormat %s\n", iself ? "YES" : "NO");
+ }
+@@ -1337,54 +1334,8 @@ get_gcc_version(FILE *inFile, char *name
  static boolean
  get_gcc(char *cmd)
  {
@@ -164,7 +193,7 @@ Also,
  }
  
  #ifdef CROSSCOMPILE
-@@ -1795,12 +1765,15 @@ CleanCppInput(const char *imakefile)
+@@ -1795,12 +1746,15 @@ CleanCppInput(const char *imakefile)
  			    outFile = fdopen(fd, "w");
  			if (outFile == NULL) {
  			    if (fd != -1) {
