@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(GSTREAMER1_VERSION)
+DEF[GST_VERSION]=	EXTRACT_INFO(GSTREAMER1_GST)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gstreamer1-plugins-core
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		standard
+SDESC[standard]=	Core set of audio and video GStreamer plugins
+HOMEPAGE=		https://gstreamer.freedesktop.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		none
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		multimedia/gstreamer1-plugins-core
+
+RUN_DEPENDS=		gstreamer1-plugins-base:single:standard
+			gstreamer1-plugins-pango:single:standard
+			gstreamer1-plugins-vorbis:single:standard
+			gstreamer1-plugins-ogg:single:standard
+			gstreamer1-plugins-theora:single:standard
+
+# todo
+# gstreamer1-plugins-good
+# => gstreamer1-plugins-png
+# gstreamer1-plugins-ugly
+# => gstreamer1-plugins-mpg123
+# => gstreamer1-plugins-a52dec   (dvd)
+# => gstreamer1-plugins-dvdread  (dvd)
+# gstreamer1-plugins-bad
+# => gstreamer1-plugins-dts      (dvd)
+# => gstreamer1-plugins-resindvd (dvd)
+# standalone:
+# gstreamer1-plugins-libav
+
+SKIP_BUILD=		yes
+SKIP_INSTALL=		yes
