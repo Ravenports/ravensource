@@ -1,0 +1,26 @@
+DEF[PORTVERSION]=	1.0.3
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gccmakedep
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Create dependencies in makefiles using 'gcc -M'
+HOMEPAGE=		https://cgit.freedesktop.org/xorg/util/gccmakedep/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.x.org/releases/individual/util/
+DISTFILE[1]=		gccmakedep-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/gccmakedep
+
+BUILD_DEPENDS=		tradcpp:single:standard
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ENV=		ac_cv_path_RAWCPP=tradcpp
