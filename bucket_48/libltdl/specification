@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(LIBTOOL_VERSION)
+DEF[SOVERSION]=		7.3.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libltdl
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	System-independent dlopen wrapper of GNU libtool
+HOMEPAGE=		https://www.gnu.org/software/libtool/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/libtool
+DISTFILE[1]=		libtool-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21:single
+LICENSE_FILE=		LGPL21:{{WRKSRC}}/COPYING.LIB
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/libltdl
+
+# .la files used in ltld.m4. so keep it
+
+USES=			libtool:keepla
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-ltdl-install
+INSTALL_TARGET=		install-strip
+DISTNAME=		libtool-${PORTVERSION}/libltdl
+SOVERSION=		${SOVERSION}
