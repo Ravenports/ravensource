@@ -1,14 +1,15 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(GSTREAMER1_VERSION)
 DEF[GST_VERSION]=	EXTRACT_INFO(GSTREAMER1_GST)
-DEF[SOVERSION]=		EXTRACT_INFO(GSTREAMER1_SOVERSION)
-DEF[BUILD_DIRS]=	gst po gst-libs
+DEF[PLUGIN]=		lame
+DEF[PLUGIN_DESC]=	MP3 encoder
+DEF[FPC]=		audio/gstreamer1-plugins-lame
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		gstreamer1-plugins-ugly
+NAMEBASE=		gstreamer1-plugins-${PLUGIN}
 VERSION=		${PORTVERSION}
-KEYWORDS=		multimedia
+KEYWORDS=		multimedia audio
 VARIANTS=		standard
-SDESC[standard]=	GStreamer1 plugins with potential dist. problems
+SDESC[standard]=	GStreamer1 ${PLUGIN_DESC} plugin
 HOMEPAGE=		https://gstreamer.freedesktop.org/
 CONTACT=		nobody
 
@@ -21,17 +22,19 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-FPC_EQUIVALENT=		multimedia/gstreamer1-plugins-ugly
+FPC_EQUIVALENT=		${FPC}
 
-BUILDRUN_DEPENDS=	gstreamer1:single:standard
-			gstreamer1-plugins-base:single:standard
+BUILD_DEPENDS=		gstreamer1-plugins-ugly:single:standard
+BUILDRUN_DEPENDS=	gstreamer1-plugins-base:single:standard
+			gstreamer1:single:standard
+			lame:primary:standard
 
-USES=			gmake pkgconfig libtool gettext-runtime
+USES=			gmake pkgconfig libtool
 GNOME_COMPONENTS=	glib introspection
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-default-audiosink="osssink"
 			--with-default-audiosrc="osssrc"
-			--disable-a52dec
+			--enable-a52dec
 			--disable-amrnb
 			--disable-amrwb
 			--disable-cdio
@@ -45,19 +48,8 @@ CONFIGURE_ARGS=		--with-default-audiosink="osssink"
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 DISTNAME=		gst-plugins-ugly-${PORTVERSION}
+BUILD_WRKSRC=		{{WRKSRC}}/ext/${PLUGIN}
+INSTALL_WRKSRC=		{{WRKSRC}}/ext/${PLUGIN}
 CFLAGS=			-Wno-format
-LDFLAGS=		-lpthread
 PLIST_SUB=		GSTVER=${GST_VERSION}
-SOVERSION=		${SOVERSION}
-
-do-build:
-.for dir in ${BUILD_DIRS}
-	(cd ${BUILD_WRKSRC}/${dir} && ${DO_MAKE_BUILD} ${BUILD_TARGET})
-.endfor
-
-do-install:
-.for dir in ${BUILD_DIRS}
-	(cd ${INSTALL_WRKSRC}/${dir} && ${SETENV} ${MAKE_ENV} \
-	${MAKE_CMD} ${MAKE_FLAGS} ${MAKEFILE} ${MAKE_ARGS} \
-	${INSTALL_TARGET})
-.endfor
+			PLUGIN=${PLUGIN}
