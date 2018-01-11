@@ -1,0 +1,31 @@
+DEF[PORTVERSION]=	1.25.8
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mpg123
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		standard
+SDESC[standard]=	Console MP3 player and decoder library
+HOMEPAGE=		https://www.mpg123.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.mpg123.de/download/
+DISTFILE[1]=		mpg123-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		audio/mpg123
+
+BUILDRUN_DEPENDS=	libltdl:single:standard
+
+USES=			gmake libtool
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-optimization=0
+			--with-module-suffix=.so
+			--with-audio=oss
+			--with-default-audio=oss
+INSTALL_TARGET=		install-strip
