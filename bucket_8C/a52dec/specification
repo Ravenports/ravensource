@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.7.4
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		a52dec
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		standard
+SDESC[standard]=	ATSC A/52 stream decoder and library
+HOMEPAGE=		http://liba52.sourceforge.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://liba52.sourceforge.net/files/
+DISTFILE[1]=		a52dec-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		audio/liba52
+
+USES=			gmake libtool
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-oss
+			--enable-shared
+
+post-patch:
+	@${REINPLACE_CMD} '/-prefer-non-pic/d' ${WRKSRC}/configure
+	@${REINPLACE_CMD} -E -e 's!-O3!${CFLAGS}!' -e 's!-mcpu=[^"]+"!"!' \
+		${CONFIGURE_WRKSRC}/${CONFIGURE_SCRIPT}
+
+post-install:
+	${INSTALL_DATA} ${WRKSRC}/liba52/a52_internal.h \
+		${STAGEDIR}${PREFIX}/include/a52dec
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/liba52.so
