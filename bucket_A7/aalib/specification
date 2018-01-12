@@ -4,6 +4,7 @@ DEF[WORKVERSION]=	1.4.0
 
 NAMEBASE=		aalib
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	ASCII art library
@@ -29,6 +30,8 @@ USES=			libtool ncurses makeinfo fbsd10fix
 DISTNAME=		aalib-${WORKVERSION}
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-x=no
+			--with-ncurses={{LOCALBASE}}
+CFLAGS=			-I{{NCURSESINC}}
 INSTALL_TARGET=		install-strip
 INFO=			single:aalib
 
@@ -44,6 +47,7 @@ post-patch:
 		-e 's|AC_DEFUN(AM_PATH_AALIB|AC_DEFUN([AM_PATH_AALIB]|g' \
 		${WRKSRC}/aalib.m4
 	@${FIND} ${WRKSRC} \( -name '*.[ch]' \! -name acconfig.h \) \
+		| ${XARGS} ${GREP} -l '<malloc.h>' \
 		| ${XARGS} ${REINPLACE_CMD} -e 's|<malloc.h>|<stdlib.h>|g'
 
 post-install:
