@@ -1,0 +1,75 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(GSTREAMER1_VERSION)
+DEF[GST_VERSION]=	EXTRACT_INFO(GSTREAMER1_GST)
+DEF[SOVERSION]=		EXTRACT_INFO(GSTREAMER1_SOVERSION)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gstreamer1-plugins-good
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		standard
+SDESC[standard]=	GStreamer Multimedia Framework "Good" Plugins
+HOMEPAGE=		https://gstreamer.freedesktop.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://gstreamer.freedesktop.org/src/gst-plugins-good/
+DISTFILE[1]=		gst-plugins-good-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		multimedia/gstreamer1-plugins-good
+
+BUILD_DEPENDS=		bzip2:static:standard
+BUILDRUN_DEPENDS=	gstreamer1:single:standard
+			gstreamer1-plugins-base:single:standard
+			bzip2:shared:standard
+
+USES=			gmake pkgconfig libtool gettext-runtime zlib
+GNOME_COMPONENTS=	glib introspection
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-default-audiosink="osssink"
+			--with-default-audiosrc="osssrc"
+			--disable-aalib
+			--disable-cairo
+			--disable-flac
+			--disable-gdk_pixbuf
+			--disable-gst_v4l2
+			--disable-jack
+			--disable-jpeg
+			--disable-libcaca
+			--disable-libdv
+			--disable-libpng
+			--disable-pulse
+			--disable-shout2
+			--disable-soup
+			--disable-speex
+			--disable-taglib
+			--disable-vpx
+			--disable-wavpack
+			--disable-x
+			--disable-dv1394
+			--disable-directsound
+			--disable-osx_audio
+			--disable-osx_video
+			--disable-sunaudio
+			--disable-waveform
+			--enable-bz2
+			--enable-oss
+			--enable-oss4
+			--enable-zlib
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+DISTNAME=		gst-plugins-good-${PORTVERSION}
+CFLAGS=			-Wno-format
+LDFLAGS=		-lpthread
+PLIST_SUB=		GSTVER=${GST_VERSION}
+SOVERSION=		${SOVERSION}
+
+
+# configure docs build broken, hardcode it off
+
+post-patch:
+	${REINPLACE_CMD} -e 's/= plugins/=/' ${WRKSRC}/docs/Makefile.in
