@@ -25,8 +25,6 @@ OPTIONS_STANDARD=	none
 FPC_EQUIVALENT=		${FPC}
 
 BUILD_DEPENDS=		gstreamer1-plugins-good:single:standard
-			bzip2:static:standard
-			zlib:static:standard
 BUILDRUN_DEPENDS=	gstreamer1-plugins-base:single:standard
 			gstreamer1:single:standard
 
@@ -44,7 +42,7 @@ CONFIGURE_ARGS=		--with-default-audiosink="osssink"
 			--disable-jpeg
 			--disable-libcaca
 			--disable-libdv
-			--disable-libpng
+			--enable-libpng
 			--disable-pulse
 			--disable-shout2
 			--disable-soup
@@ -59,10 +57,6 @@ CONFIGURE_ARGS=		--with-default-audiosink="osssink"
 			--disable-osx_video
 			--disable-sunaudio
 			--disable-waveform
-			--enable-bz2
-			--enable-oss
-			--enable-oss4
-			--enable-zlib
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 DISTNAME=		gst-plugins-good-${PORTVERSION}
