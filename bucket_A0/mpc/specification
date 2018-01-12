@@ -1,9 +1,9 @@
-DEF[PORTVERSION]=	1.0.3
+DEF[PORTVERSION]=	1.1.0
+DEF[SOVERSION]=		3.1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mpc
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		math devel
 VARIANTS=		standard
 SDESC[standard]=	High-precision complex number library
@@ -11,7 +11,7 @@ HOMEPAGE=		http://www.multiprecision.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://www.multiprecision.org/mpc/download/
+SITES[main]=		https://ftp.gnu.org/gnu/mpc/
 DISTFILE[1]=		mpc-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	complete static shared
@@ -32,6 +32,7 @@ CONFIGURE_ARGS=		--with-gmp={{LOCALBASE}}
 			--with-mpfr={{LOCALBASE}}
 INSTALL_TARGET=		install-strip
 INFO=			static:mpc
+SOVERSION=		${SOVERSION}
 
 do-test:
 	@(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} check)
