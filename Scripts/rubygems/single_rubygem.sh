@@ -24,8 +24,9 @@ mirror_base=/mech/var/cache/rubygems
 specsdir=${mirror_base}/specs
 reqsdir=${mirror_base}/reqs
 gemline="gs = Marshal.load Gem.inflate File.read '${specsdir}"
-min_ruby23="2.3.5"
-min_ruby24="2.4.2"
+min_ruby23="2.3.6"
+min_ruby24="2.4.3"
+min_ruby25="2.5.0"
 secondarg="$2"
 #VARIANTS=
 
@@ -154,6 +155,10 @@ determine_variants() {
    local good24=$(echo "${rubyreq}" | awk -vmin=${min_ruby24} '{ print ($2 < min ? "good" : "bad")}')
    if [ "${good24}" == "good" ]; then
       vrt="${vrt} v24"
+   fi
+   local good25=$(echo "${rubyreq}" | awk -vmin=${min_ruby25} '{ print ($2 < min ? "good" : "bad")}')
+   if [ "${good25}" == "good" ]; then
+      vrt="${vrt} v25"
    fi
    for v in ${vrt}; do
       if [ -z "${VARIANTS}" ]; then
