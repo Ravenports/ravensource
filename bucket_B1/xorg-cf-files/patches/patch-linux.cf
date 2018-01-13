@@ -1,0 +1,45 @@
+--- linux.cf.orig	2015-12-22 01:28:02 UTC
++++ linux.cf
+@@ -44,6 +44,9 @@ XCOMM platform:  $XFree86: xc/config/cf/
+ # define OSTeenyVersion		DefaultOSTeenyVersion
+ #endif
+ 
++#undef	UseRpath
++#define UseRpath YES
++
+ #ifndef LinuxDistribution
+ # define LinuxDistribution	DefaultLinuxDistribution
+ /*
+@@ -577,6 +580,9 @@ InstallNamedTargetNoClobber(install,file
+ 
+ #define MkdirHierCmd		mkdir -p
+ 
++#undef	HaveLib64
++#define HaveLib64	NO
++
+ #ifndef HaveLib64
+ # if defined (AMD64Architecture) || defined (s390xArchitecture) || defined (Ppc64Architecture) || defined (AArch64Architecture)
+ #  define HaveLib64	YES
+@@ -1030,19 +1036,19 @@ InstallNamedTargetNoClobber(install,file
+ 
+ /* Some of these man page defaults are overriden in the above OS sections */
+ #ifndef ManSuffix
+-# define ManSuffix	1x
++# define ManSuffix	1
+ #endif
+ #ifndef ManDir
+ # define ManDir		$(MANSOURCEPATH)1
+ #endif
+ #ifndef LibManSuffix
+-# define LibManSuffix	3x
++# define LibManSuffix	3
+ #endif
+ #ifndef LibmanDir
+ # define LibmanDir	$(MANSOURCEPATH)3
+ #endif
+ #ifndef FileManSuffix
+-# define FileManSuffix	5x
++# define FileManSuffix	5
+ #endif
+ #ifndef FileManDir
+ # define FileManDir	$(MANSOURCEPATH)5

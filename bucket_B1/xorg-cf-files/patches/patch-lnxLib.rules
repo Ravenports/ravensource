@@ -1,0 +1,28 @@
+--- lnxLib.rules.orig	2015-12-22 01:28:02 UTC
++++ lnxLib.rules
+@@ -78,7 +78,7 @@ XCOMM $XFree86: xc/config/cf/lnxLib.rule
+ #define LibraryRpathLoadFlags RpathLoadFlags
+ #endif
+ # ifndef SharedLibraryLoadFlags
+-#  define SharedLibraryLoadFlags -shared
++#  define SharedLibraryLoadFlags -shared LibraryRpathLoadFlags
+ # endif
+ # ifndef PositionIndependentCFlags
+ #  define PositionIndependentCFlags -fPIC
+@@ -87,14 +87,8 @@ XCOMM $XFree86: xc/config/cf/lnxLib.rule
+ #  define PositionIndependentCplusplusFlags -fPIC
+ # endif
+ # ifndef ExtraLoadFlags
+-#  if LinuxBinUtilsMajorVersion >= 26
+-#   ifdef UseInstalled
+-#    if LinuxBinUtilsMajorVersion < 27
+-#     define ExtraLoadFlags RpathLoadFlags -Wl,-rpath-link,$(USRLIBDIRPATH)
+-#    endif
+-#   else
+-#    define ExtraLoadFlags RpathLoadFlags -Wl,-rpath-link,$(BUILDLIBDIR)
+-#   endif
++#  ifdef UseInstalled
++#   define ExtraLoadFlags RpathLoadFlags -Wl,-rpath-link,$(BUILDLIBDIR)
+ #  else
+ #   define ExtraLoadFlags RpathLoadFlags
+ #  endif

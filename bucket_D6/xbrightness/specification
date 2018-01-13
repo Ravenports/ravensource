@@ -30,3 +30,6 @@ INSTALL_TARGET=		install install.man
 do-configure:
 	(cd ${CONFIGURE_WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${LOCALBASE}/bin/xmkmf -a)
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/xbrightness
