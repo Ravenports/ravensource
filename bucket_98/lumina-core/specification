@@ -39,3 +39,9 @@ QMAKE_ARGS=		PREFIX="{{PREFIX}}"
 			LIBPREFIX="{{PREFIX}}/lib"
 			L_MANDIR="{{PREFIX}}/share/man"
 			CONFIG+=WITH_I18N
+			LINUX_DISTRO=dummy
+
+post-patch-linux:
+	# remove linux override
+	${REINPLACE_CMD} -e '/L_SESSDIR=\/usr\/share\/xsessions/d' \
+		${WRKSRC}/../OS-detect.pri
