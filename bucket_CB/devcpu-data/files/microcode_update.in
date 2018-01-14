@@ -49,11 +49,9 @@ microcode_update_start()
 	else
 		cpus=${microcode_cpus}
 	fi
-	for i in ${cpus}; do
 		${CMT} -u ${microcode_update_flags} \
 		    -d "${microcode_update_datadir}" /dev/cpuctl${i} || \
 		    (echo "Failed." && exit 1)
-	done
 	echo "Done."
 }
 
