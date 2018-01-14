@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	20060219
+DEF[PORTVERSION]=	20170822
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		freepats
@@ -10,19 +10,24 @@ HOMEPAGE=		http://freepats.zenvoid.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://freepats.zenvoid.org/
-DISTFILE[1]=		freepats-${PORTVERSION}.tar.bz2:main
+SITES[main]=		http://freepats.zenvoid.org/SoundSets/FreePats2-GeneralMIDI/
+DISTFILE[1]=		FreePats2-GM-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/gpl.txt
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		audio/freepats
 
-DISTNAME=		freepats
+DISTNAME=		FreePats2-GM-${PORTVERSION}
 SKIP_BUILD=		yes
 
 do-install:
 	(cd ${WRKSRC} && \
 		${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/share/freepats)
+	${RM} ${STAGEDIR}${PREFIX}/share/freepats/gpl.txt
