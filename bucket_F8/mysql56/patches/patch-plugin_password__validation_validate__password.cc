@@ -1,4 +1,4 @@
---- plugin/password_validation/validate_password.cc.orig	2017-06-02 17:42:10 UTC
+--- plugin/password_validation/validate_password.cc.orig	2017-12-09 07:33:37 UTC
 +++ plugin/password_validation/validate_password.cc
 @@ -16,6 +16,8 @@
  #include <my_sys.h>

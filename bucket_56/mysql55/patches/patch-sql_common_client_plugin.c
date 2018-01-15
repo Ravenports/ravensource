@@ -1,6 +1,6 @@
---- sql-common/client_plugin.c.orig	2014-09-22 09:23:23 UTC
+--- sql-common/client_plugin.c.orig	2017-11-27 12:03:17 UTC
 +++ sql-common/client_plugin.c
-@@ -233,11 +233,13 @@
+@@ -233,11 +233,13 @@ int mysql_client_plugin_init()
  {
    MYSQL mysql;
    struct st_mysql_client_plugin **builtin;
@@ -14,7 +14,7 @@
  
    pthread_mutex_init(&LOCK_load_client_plugin, MY_MUTEX_INIT_SLOW);
    init_alloc_root(&mem_root, 128, 128);
-@@ -249,7 +251,7 @@
+@@ -249,7 +251,7 @@ int mysql_client_plugin_init()
    pthread_mutex_lock(&LOCK_load_client_plugin);
  
    for (builtin= mysql_client_builtins; *builtin; builtin++)
@@ -23,7 +23,7 @@
  
    pthread_mutex_unlock(&LOCK_load_client_plugin);
  
-@@ -293,9 +295,12 @@
+@@ -293,9 +295,12 @@ struct st_mysql_client_plugin *
  mysql_client_register_plugin(MYSQL *mysql,
                               struct st_mysql_client_plugin *plugin)
  {
@@ -36,7 +36,7 @@
    pthread_mutex_lock(&LOCK_load_client_plugin);
  
    /* make sure the plugin wasn't loaded meanwhile */
-@@ -307,7 +312,7 @@
+@@ -307,7 +312,7 @@ mysql_client_register_plugin(MYSQL *mysq
      plugin= NULL;
    }
    else

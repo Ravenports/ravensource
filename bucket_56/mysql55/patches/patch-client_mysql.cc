@@ -1,6 +1,6 @@
---- client/mysql.cc.orig	2017-04-27 07:12:30 UTC
+--- client/mysql.cc.orig	2017-11-27 12:03:17 UTC
 +++ client/mysql.cc
-@@ -2666,7 +2666,7 @@ You can turn off this feature to get a q
+@@ -2671,7 +2671,7 @@ You can turn off this feature to get a q
          mysql_free_result(fields);
          break;
        }

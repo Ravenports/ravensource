@@ -1,6 +1,6 @@
---- sql/sql_trigger.cc.orig	2012-08-02 00:01:13.000000000 +0200
-+++ sql/sql_trigger.cc	2012-09-11 17:01:13.000000000 +0200
-@@ -192,32 +192,32 @@ static File_option triggers_file_parameters[]=
+--- sql/sql_trigger.cc.orig	2017-11-27 12:03:17 UTC
++++ sql/sql_trigger.cc
+@@ -192,32 +192,32 @@ static File_option triggers_file_paramet
  {
    {
      { C_STRING_WITH_LEN("triggers") },
@@ -39,7 +39,7 @@
      FILE_OPTIONS_STRLIST
    },
    { { 0, 0 }, 0, FILE_OPTIONS_STRING }
-@@ -226,7 +226,7 @@ static File_option triggers_file_parameters[]=
+@@ -226,7 +226,7 @@ static File_option triggers_file_paramet
  File_option sql_modes_parameters=
  {
    { C_STRING_WITH_LEN("sql_modes") },

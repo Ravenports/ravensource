@@ -1,6 +1,6 @@
---- mysys/default.c.orig	2010-11-02 23:01:13.000000000 +0100
-+++ mysys/default.c	2010-11-10 16:39:51.000000000 +0100
-@@ -70,7 +70,7 @@
+--- mysys/default.c.orig	2017-11-27 12:03:17 UTC
++++ mysys/default.c
+@@ -89,7 +89,7 @@ static my_bool defaults_already_read= FA
  
  /* Which directories are searched for options (and in which order) */
  
@@ -9,7 +9,7 @@
  #define DEFAULT_DIRS_SIZE (MAX_DEFAULT_DIRS + 1)  /* Terminate with NULL */
  static const char **default_directories = NULL;
  
-@@ -711,7 +711,7 @@
+@@ -785,7 +785,7 @@ static int search_default_file_with_ext(
    {
      MY_STAT stat_info;
      if (!my_stat(name,&stat_info,MYF(0)))
@@ -18,7 +18,7 @@
      /*
        Ignore world-writable regular files.
        This is mainly done to protect us to not read a file created by
-@@ -1153,7 +1153,10 @@
+@@ -1227,7 +1227,10 @@ static const char **init_default_directo
  
  #if defined(DEFAULT_SYSCONFDIR)
    if (DEFAULT_SYSCONFDIR[0])

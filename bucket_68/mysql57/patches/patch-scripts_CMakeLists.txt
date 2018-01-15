@@ -1,6 +1,6 @@
---- scripts/CMakeLists.txt.orig	2016-11-28 13:32:52 UTC
+--- scripts/CMakeLists.txt.orig	2017-12-28 03:46:26 UTC
 +++ scripts/CMakeLists.txt
-@@ -313,7 +313,7 @@ SET(pkglibdir ${prefix}/${INSTALL_LIBDIR
+@@ -292,7 +292,7 @@ SET(pkglibdir ${prefix}/${INSTALL_LIBDIR
  SET(pkgplugindir ${prefix}/${INSTALL_PLUGINDIR})
  SET(localstatedir ${MYSQL_DATADIR})
  
@@ -9,7 +9,7 @@
    SET(RPATH_OPTION " -R$pkglibdir")
  ENDIF()
  
-@@ -353,6 +353,8 @@ MACRO(EXTRACT_LINK_LIBRARIES target var)
+@@ -332,6 +332,8 @@ MACRO(EXTRACT_LINK_LIBRARIES target var)
            GET_FILENAME_COMPONENT(lib "${lib}" NAME_WE)
            STRING(REGEX REPLACE "^lib" "" lib "${lib}")
            SET(${var} "${${var}}-l${lib} " ) 
@@ -18,7 +18,7 @@
          ELSE()
            SET(${var} "${${var}}-l${lib} " ) 
          ENDIF()
-@@ -477,7 +479,7 @@ ELSE()
+@@ -458,7 +460,7 @@ ELSE()
    FOREACH(file ${BIN_SCRIPTS})
      IF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${file}.sh)
        CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/${file}.sh

@@ -1,6 +1,6 @@
---- cmake/plugin.cmake.orig	2011-09-09 17:56:39.000000000 +0200
-+++ cmake/plugin.cmake	2011-10-07 10:56:37.000000000 +0200
-@@ -195,7 +195,6 @@
+--- cmake/plugin.cmake.orig	2017-11-27 12:03:17 UTC
++++ cmake/plugin.cmake
+@@ -196,7 +196,6 @@ MACRO(MYSQL_ADD_PLUGIN)
        OUTPUT_NAME "${ARG_MODULE_OUTPUT_NAME}")  
      # Install dynamic library
      MYSQL_INSTALL_TARGETS(${target} DESTINATION ${INSTALL_PLUGINDIR} COMPONENT Server)

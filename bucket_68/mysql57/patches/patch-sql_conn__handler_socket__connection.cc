@@ -1,6 +1,6 @@
---- sql/conn_handler/socket_connection.cc.orig	2017-03-18 07:45:14 UTC
+--- sql/conn_handler/socket_connection.cc.orig	2017-12-28 03:46:26 UTC
 +++ sql/conn_handler/socket_connection.cc
-@@ -942,22 +942,25 @@ Channel_info* Mysqld_socket_listener::li
+@@ -943,22 +943,25 @@ Channel_info* Mysqld_socket_listener::li
      signal(SIGCHLD, SIG_DFL);
      request_init(&req, RQ_DAEMON, m_libwrap_name, RQ_FILE,
                   mysql_socket_getfd(connect_sock), NULL);
