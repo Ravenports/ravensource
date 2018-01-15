@@ -1,0 +1,1 @@
+DEFAULT_DVD_DEVICE?=	/dev/cd0
