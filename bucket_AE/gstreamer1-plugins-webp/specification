@@ -1,13 +1,13 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(GSTREAMER1_VERSION)
 DEF[GST_VERSION]=	EXTRACT_INFO(GSTREAMER1_GST)
-DEF[PLUGIN]=		curl
-DEF[PLUGIN_DESC]=	CURL-based output
-DEF[FPC]=		ftp/gstreamer1-plugins-curl
+DEF[PLUGIN]=		webp
+DEF[PLUGIN_DESC]=	WebP image decoder
+DEF[FPC]=		graphics/gstreamer1-plugins-webp
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gstreamer1-plugins-${PLUGIN}
 VERSION=		${PORTVERSION}
-KEYWORDS=		multimedia ftp
+KEYWORDS=		multimedia graphics
 VARIANTS=		standard
 SDESC[standard]=	GStreamer1 ${PLUGIN_DESC} plugin
 HOMEPAGE=		https://gstreamer.freedesktop.org/
@@ -27,8 +27,7 @@ FPC_EQUIVALENT=		${FPC}
 BUILD_DEPENDS=		gstreamer1-plugins-bad:single:standard
 BUILDRUN_DEPENDS=	gstreamer1-plugins-base:single:standard
 			gstreamer1:single:standard
-			libssh2:single:standard
-			curl:primary:standard
+			WebP:single:standard
 
 USES=			gmake pkgconfig libtool
 GNOME_COMPONENTS=	glib introspection
@@ -36,7 +35,7 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-assrender
 			--disable-bs2b
 			--disable-chromaprint
-			--enable-curl
+			--disable-curl
 			--disable-dash
 			--disable-dtls
 			--disable-dts
@@ -77,7 +76,7 @@ CONFIGURE_ARGS=		--disable-assrender
 			--disable-ttml
 			--disable-vdpau
 			--disable-wayland
-			--disable-webp
+			--enable-webp
 			--disable-webrtcdsp
 			--disable-x265
 			--disable-zbar
