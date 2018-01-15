@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	1.4.2
+DEF[PORTVERSION]=	1.4.3
+DEF[RELEASE_TAG]=	c7ce847
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		clipit
@@ -9,9 +10,16 @@ SDESC[standard]=	Lightweight GTK+ clipboard manager
 HOMEPAGE=		https://github.com/CristianHenzel/ClipIt/
 CONTACT=		nobody
 
+# Clipit 1.4.3 was never formally released apparently.
+# Other repos starting to use snapshots labelled as 1.4.3 because the
+# ChangeLog implies the version was updated to 1.4.3 (without a
+# corresponding git release.  Those repos use random tags (e.g.
+# 2016-01-13 for gtk3 support) but this keeps to 2015-11-10, the
+# date of the 1.4.3 annotation.
+
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/gtkclipit/Version%201
-DISTFILE[1]=		clipit-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/CristianHenzel:ClipIt:${RELEASE_TAG}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
@@ -24,10 +32,17 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		deskutils/clipit
 
-USES=			pkgconfig gmake gettext-tools gnome-icons
+USES=			autoreconf pkgconfig gmake gnome-icons
+			gettext-tools gettext-runtime
 GNOME_COMPONENTS=	gtk2 intltool
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		localedir={{LOCALBASE}}/share/locale
+CONFIGURE_ARGS=		--disable-appindicator
+			localedir={{LOCALBASE}}/share/locale
+
+post-patch:
+	# deal with intltool-0.40.5 bug (can't use intltool + gettext)
+	${MV} ${WRKSRC}/configure.in ${WRKSRC}/configure.ac
+	${REINPLACE_CMD} -e '/AM_GNU_GETTEXT/d' ${WRKSRC}/configure.ac
 
 post-patch-sunos:
 	${REINPLACE_CMD} -e 's|^itlocaledir =.*|itlocaledir = $$(datarootdir)/locale|' \
