@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	0.1.3
+DEF[SOVERSION]=		1.0.3
+DEF[EBOOK_VER]=		0.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libe-book
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	Library for import of reflowable e-book formats
+HOMEPAGE=		https://sourceforge.net/projects/libebook/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/libebook/libe-book-${PORTVERSION}
+DISTFILE[1]=		libe-book-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		textproc/libe-book
+
+BUILD_DEPENDS=		boost-libraries:rest:python_default
+			gperf:single:standard
+			cppunit:single:standard
+BUILDRUN_DEPENDS=	icu:single:standard
+			librevenge:single:standard
+			liblangtag:primary:standard
+
+USES=			gmake libtool pkgconfig zlib
+GNOME_COMPONENTS=	libxml2
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--without-docs
+INSTALL_TARGET=		install-strip
+PLIST_SUB=		VER=${EBOOK_VER}
+SOVERSION=		${SOVERSION}
