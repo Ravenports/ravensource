@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.6.2
+DEF[SOVERSION]=		1.4.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		liblangtag
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc devel
+VARIANTS=		standard
+SDESC[standard]=	Library to access tags for language identification
+HOMEPAGE=		https://bitbucket.org/tagoh/liblangtag/wiki/Home
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://bitbucket.org/tagoh/liblangtag/downloads/
+DISTFILE[1]=		liblangtag-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		textproc/liblangtag
+
+BUILDRUN_DEPENDS=	libxml2:single:standard
+
+USES=			libtool pkgconfig iconv
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-introspection
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/liblangtag \
+		${STAGEDIR}${STD_DOCDIR}
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
