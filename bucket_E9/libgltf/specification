@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	0.1.0
+DEF[SOVERSION]=		1.0.0
+DEF[GLTF_VER]=		0.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libgltf
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics devel
+VARIANTS=		standard
+SDESC[standard]=	Rendering library for glTF
+HOMEPAGE=		https://wiki.documentfoundation.org/Development/libgltf
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://dev-www.libreoffice.org/src/libgltf/
+DISTFILE[1]=		libgltf-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		graphics/libgltf
+
+BUILD_DEPENDS=		boost-libraries:rest:python_default
+			glm:single:standard
+BUILDRUN_DEPENDS=	libepoxy:single:standard
+
+USES=			libtool pkgconfig c++:single
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-werror
+INSTALL_TARGET=		install-strip
+PLIST_SUB=		VER=${GLTF_VER}
+SOVERSION=		${SOVERSION}
