@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	0.0.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libzmf
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Import filter for Zoner Callisto/Draw documents
+HOMEPAGE=		https://wiki.documentfoundation.org/DLP/Libraries/libzmf
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://dev-www.libreoffice.org/src/libzmf/
+DISTFILE[1]=		libzmf-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MPL:single
+LICENSE_FILE=		MPL:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/libzmf
+
+BUILD_DEPENDS=		boost-libraries:rest:python_default
+BUILDRUN_DEPENDS=	icu:single:standard
+			librevenge:single:standard
+
+USES=			png libtool pkgconfig
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-tests
+			--disable-werror
+			--without-docs
+INSTALL_TARGET=		install-strip
+SOVERSION=		${PORTVERSION}
