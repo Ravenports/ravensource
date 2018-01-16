@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	0.1.7
+DEF[SOVERSION]=		1.0.7
+DEF[TONYEK_VER]=	0.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libetonyek
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Import filter for Apple Keynote presentations
+HOMEPAGE=		https://wiki.documentfoundation.org/DLP/Libraries/libetonyek
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://dev-www.libreoffice.org/src/libetonyek/
+DISTFILE[1]=		libetonyek-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MPL:single
+LICENSE_FILE=		MPL:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		grahpics/libetonyek01
+
+BUILD_DEPENDS=		mdds:single:standard
+			glm:single:standard
+			boost-libraries:rest:python_default
+BUILDRUN_DEPENDS=	librevenge:single:standard
+			liblangtag:primary:standard
+
+USES=			gmake libtool pkgconfig zlib
+GNOME_COMPONENTS=	libxml2
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-tests
+			--disable-werror
+			--without-docs
+INSTALL_TARGET=		install-strip
+PLIST_SUB=		VER=${TONYEK_VER}
+SOVERSION=		${SOVERSION}
+
