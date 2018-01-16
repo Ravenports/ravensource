@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	0.1.4
+DEF[SOVERSION]=		1.0.4
+DEF[CDR_VER]=		0.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libcdr
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics devel
+VARIANTS=		standard
+SDESC[standard]=	CorelDraw file format importer library
+HOMEPAGE=		https://wiki.documentfoundation.org/DLP/Libraries/libcdr
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://dev-www.libreoffice.org/src/libcdr/
+DISTFILE[1]=		libcdr-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MPL:single
+LICENSE_FILE=		MPL:{{WRKSRC}}/COPYING.MPL
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/libcdr01
+
+BUILD_DEPENDS=		boost-libraries:rest:python_default
+BUILDRUN_DEPENDS=	icu:single:standard
+			librevenge:single:standard
+			lcms2:primary:standard
+
+USES=			libtool pkgconfig zlib
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-tests
+			--disable-werror
+			--without-docs
+INSTALL_TARGET=		install-strip
+PLIST_SUB=		VER=${CDR_VER}
+SOVERSION=		${SOVERSION}
