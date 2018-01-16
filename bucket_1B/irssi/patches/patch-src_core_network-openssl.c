@@ -1,6 +1,6 @@
---- src/core/network-openssl.c.orig	2017-03-10 16:31:03 UTC
+--- src/core/network-openssl.c.orig	2018-01-07 21:39:41 UTC
 +++ src/core/network-openssl.c
-@@ -434,6 +434,7 @@ static GIOChannel *irssi_ssl_get_iochann
+@@ -466,6 +466,7 @@ static GIOChannel *irssi_ssl_get_iochann
  		if (SSL_CTX_set_cipher_list(ctx, ciphers) != 1)
  			g_warning("No valid SSL cipher suite could be selected");
  	}
