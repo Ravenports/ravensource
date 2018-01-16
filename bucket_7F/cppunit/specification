@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	1.14.0
+DEF[SOVERSION]=		0.0.0
+DEF[CPPUNIT_VER]=	1.14
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		cppunit
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	C++ port of JUnit Testing Framework
+HOMEPAGE=		http://www.freedesktop.org/wiki/Software/cppunit
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://dev-www.libreoffice.org/src/
+DISTFILE[1]=		cppunit-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/cppunit
+
+PLIST_SUB=		VER=${CPPUNIT_VER}
+SOVERSION=		${SOVERSION}
+
+USES=			libtool c++:single
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-dot
+			--disable-doxygen
+			--disable-html-docs
+			--disable-werror
+INSTALL_TARGET=		install-strip
+
+post-install:
+	# remove worthless docs
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}
