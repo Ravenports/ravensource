@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	1.4.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		hexedit
+VERSION=		${PORTVERSION}
+KEYWORDS=		editors
+VARIANTS=		standard
+SDESC[standard]=	View and edit files in hexadecimal or in ASCII
+HOMEPAGE=		http://rigaux.org/hexedit.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/pixel:hexedit:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		editors/hexedit
+
+USES=			autoreconf ncurses
+MUST_CONFIGURE=		gnu
+CFLAGS=			-I{{NCURSESINC}}
+
+post-build:
+	m4 -DVERSION=${PORTVERSION} ${WRKSRC}/hexedit.1.in \
+		> ${WRKSRC}/hexedit.1
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/hexedit ${STAGEDIR}${PREFIX}/bin/
+	${INSTALL_MAN} ${WRKSRC}/hexedit.1 ${STAGEDIR}${MANPREFIX}/man/man1/
