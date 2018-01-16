@@ -1,0 +1,31 @@
+DEF[PORTVERSION]=	1.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		hexd
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel misc
+VARIANTS=		standard
+SDESC[standard]=	Colourful, human-friendly hexdump tool
+HOMEPAGE=		https://github.com/FireyFly/hexd/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/FireyFly:hexd:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/hexd
+
+USES=			gmake
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/hexd ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/hexd.1 ${STAGEDIR}${MANPREFIX}/man/man1
