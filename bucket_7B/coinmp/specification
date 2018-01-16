@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	1.8.3
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		coinmp
+VERSION=		${PORTVERSION}
+KEYWORDS=		math
+VARIANTS=		standard
+SDESC[standard]=	Linear Programming solver library
+HOMEPAGE=		https://projects.coin-or.org/CoinMP
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.coin-or.org/download/source/CoinMP/
+DISTFILE[1]=		CoinMP-${PORTVERSION}.tgz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		math/coinmp
+
+DISTNAME=		CoinMP-${PORTVERSION}
+
+USES=			libtool pkgconfig c++:single
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-glpk-libcheck
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-patch:
+	${FIND} ${WRKSRC} -name Makefile.in | ${XARGS} ${REINPLACE_CMD} \
+		-e 's|$$(DESTDIR)$$(addlibsdir)|$$(addlibsdir)|g' \
+		-e 's|addlibs_DATA = examples/Makefile examples/example.c||g' \
+		-e 's|DocInstallDir = $$(datadir)/coin/doc/$$(PACKAGE_NAME)|DocInstallDir = $$(datadir)/doc/CoinMP/$$(PACKAGE_NAME)|' \
+		-e 's|	$$(MAKE) $$(AM_MAKEFLAGS) install-data-hook||'
+	${REINPLACE_CMD} -e 's|datacoin_DATA = $$(EXAMPLE_FILES)|datacoin_DATA = |' \
+		-e 's|datacoindir = $$(datadir)/coin/Data/Sample|datacoindir = |' \
+		${WRKSRC}/Data/Sample/Makefile.in
+	${REINPLACE_CMD} -e 's|addlibsdir = $$(DESTDIR)$$(datadir)/coin/doc/CoinMP|addlibsdir = |' \
+		${WRKSRC}/CoinMP/Makefile.in
+
+post-install:
+	# Don't install useless documentation
+	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/CoinMP
