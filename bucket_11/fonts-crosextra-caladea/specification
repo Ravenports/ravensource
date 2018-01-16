@@ -1,0 +1,31 @@
+DEF[PORTVERSION]=	20130214
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		fonts-crosextra-caladea
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_fonts
+VARIANTS=		standard
+SDESC[standard]=	Font created by Google to replace MS Cambria
+HOMEPAGE=		https://bugs.chromium.org/p/chromium/issues/detail?id=168879
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://gsdview.appspot.com/chromeos-localmirror/distfiles/
+DISTFILE[1]=		crosextrafonts-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11-fonts/crosextrafonts-caladea-ttf
+
+USES=			fonts
+XORG_COMPONENTS=	x11
+SKIP_BUILD=		yes
+FONTNAME=		Caladea
+DISTNAME=		crosextrafonts-${PORTVERSION}
+
+do-install:
+	${MKDIR} ${STAGEDIR}${FONTSDIR}
+	(cd ${WRKSRC} && ${INSTALL_DATA} *.ttf ${STAGEDIR}${FONTSDIR})
