@@ -1,19 +1,19 @@
-DEF[PORTVERSION]=	2.5.3
+DEF[PORTVERSION]=	2.2.0
 # ------------------------------------------------------------------------
 
-NAMEBASE=		python-Babel
+NAMEBASE=		python-pyparsing
 VERSION=		${PORTVERSION}
-KEYWORDS=		python devel
+KEYWORDS=		python
 VARIANTS=		py27 py35 py36
-SDESC[py27]=		Internationalization utilities (PY 27)
-SDESC[py35]=		Internationalization utilities (PY 35)
-SDESC[py36]=		Internationalization utilities (PY 36)
-HOMEPAGE=		http://babel.pocoo.org/
+SDESC[py27]=		Python parsing module (PY 27)
+SDESC[py35]=		Python parsing module (PY 35)
+SDESC[py36]=		Python parsing module (PY 36)
+HOMEPAGE=		http://pyparsing.wikispaces.com/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/B/Babel
-DISTFILE[1]=		Babel-2.5.3.tar.gz:main
+SITES[main]=		PYPI/p/pyparsing
+DISTFILE[1]=		pyparsing-2.2.0.tar.gz:main
 
 SPKGS[py27]=		single
 SPKGS[py35]=		single
@@ -25,23 +25,20 @@ VOPTS[py27]=		PY27=ON PY35=OFF PY36=OFF
 VOPTS[py35]=		PY27=OFF PY35=ON PY36=OFF
 VOPTS[py36]=		PY27=OFF PY35=OFF PY36=ON
 
-LICENSE=		BSD3CLAUSE:single
-LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE=		CUSTOM1:single
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE
+LICENSE_NAME=		CUSTOM1:"MIT License"
 LICENSE_SCHEME=		solo
 
 GENERATED=		yes
 
 # install_requires extracted from setup.py (using python 2.7)
-# pytz>=0a
 
-DISTNAME=		Babel-${PORTVERSION}
+DISTNAME=		pyparsing-${PORTVERSION}
 
 [PY27].USES_ON=				python:py27
-[PY27].BUILDRUN_DEPENDS_ON=		python-pytz:single:py27
 
 [PY35].USES_ON=				python:py35
-[PY35].BUILDRUN_DEPENDS_ON=		python-pytz:single:py35
 
 [PY36].USES_ON=				python:py36
-[PY36].BUILDRUN_DEPENDS_ON=		python-pytz:single:py36
 
