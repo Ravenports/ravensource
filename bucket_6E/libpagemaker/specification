@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	0.0.4
+DEF[PMVER]=		0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libpagemaker
+VERSION=		${PORTVERSION}
+KEYWORDS=		print graphics devel
+VARIANTS=		standard
+SDESC[standard]=	Import filter and tools for PageMaker
+HOMEPAGE=		https://wiki.documentfoundation.org/DLP/Libraries/libpagemaker
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://dev-www.libreoffice.org/src/libpagemaker/
+DISTFILE[1]=		libpagemaker-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		VER=${PMVER}
+
+BUILD_DEPENDS=		boost-libraries:rest:python_default
+BUILDRUN_DEPENDS=	librevenge:single:standard
+
+USES=			libtool pkgconfig
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-werror
+			--without-docs
+INSTALL_TARGET=		install-strip
+PLIST_SUB=		VER=${PMVER}
+SOVERSION=		${PORTVERSION}
