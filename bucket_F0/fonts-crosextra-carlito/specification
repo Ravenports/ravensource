@@ -1,0 +1,31 @@
+DEF[PORTVERSION]=	20130920
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		fonts-crosextra-carlito
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_fonts
+VARIANTS=		standard
+SDESC[standard]=	Font created by Google to replace MS Calibri
+HOMEPAGE=		https://bugs.chromium.org/p/chromium/issues/detail?id=280557
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://gsdview.appspot.com/chromeos-localmirror/distfiles/
+DISTFILE[1]=		crosextrafonts-carlito-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11-fonts/crosextrafonts-carlito-ttf
+
+USES=			fonts
+XORG_COMPONENTS=	x11
+SKIP_BUILD=		yes
+FONTNAME=		Carlito
+DISTNAME=		crosextrafonts-carlito-${PORTVERSION}
+
+do-install:
+	${MKDIR} ${STAGEDIR}${FONTSDIR}
+	(cd ${WRKSRC} && ${INSTALL_DATA} *.ttf ${STAGEDIR}${FONTSDIR})
