@@ -1,0 +1,31 @@
+DEF[PORTVERSION]=	4.7.5
+DEF[FILEVER]=		${PORTVERSION}-2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		fonts-linuxlibertine
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_fonts
+VARIANTS=		standard
+SDESC[standard]=	Fonts from Red Hat to replace MS TTF fonts
+HOMEPAGE=		https://pagure.io/liberation-fonts/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/linuxlibertine/linuxlibertine/${PORTVERSION}
+DISTFILE[1]=		LinLibertineFont-${FILEVER}.tgz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11-fonts/linuxlibertine
+
+USES=			fonts
+SKIP_BUILD=		yes
+FONTNAME=		linuxlibertine
+DISTNAME=		LinLibertine
+
+do-install:
+	${MKDIR} ${STAGEDIR}${FONTSDIR}
+	${INSTALL_DATA} ${WRKSRC}/Fonts/*.[ot]tf ${STAGEDIR}${FONTSDIR}
