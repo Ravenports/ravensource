@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	0.0.4
+DEF[REVENGE_VER]=	0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		librevenge
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	Library for REVerses ENGineered formats filters
+HOMEPAGE=		https://sourceforge.net/p/libwpd/wiki/librevenge/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/libwpd/librevenge/librevenge-${PORTVERSION}
+DISTFILE[1]=		librevenge-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		textproc/librevenge
+
+BUILD_DEPENDS=		boost-libraries:rest:python_default
+
+USES=			gmake libtool zlib c++:single
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-werror
+			--disable-tests
+			--without-docs
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${PORTVERSION}
+PLIST_SUB=		VER=${REVENGE_VER}
