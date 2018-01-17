@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	0.9.33
+DEF[SOVERSION]=		3.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		rasqal
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	RDF Query Library for Redland
+HOMEPAGE=		http://librdf.org/rasqal/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://download.librdf.org/source/
+DISTFILE[1]=		rasqal-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		text/rasqal
+
+BUILD_DEPENDS=		pcre:static:standard
+			gmp:static:standard
+BUILDRUN_DEPENDS=	raptor:primary:standard
+			pcre:shared:standard
+			gmp:shared:standard
+
+USES=			gmake libtool perl:build pkgconfig ssl
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-decimal=gmp
+			--with-gmp="{{LOCALBASE}}"
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/rasqal \
+		${STAGEDIR}${STD_DOCDIR}
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
