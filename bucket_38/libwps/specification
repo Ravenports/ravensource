@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	0.4.8
+DEF[SOVERSION]=		4.0.8
+DEF[WPS_VER]=		0.4
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libwps
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	Import filter and tools for Microsoft Works files
+HOMEPAGE=		http://libwps.sourceforge.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/libwps/libwps/libwps-${PORTVERSION}
+DISTFILE[1]=		libwps-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:single MPL:single
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING.LGPL
+			MPL:{{WRKSRC}}/COPYING.MPL
+LICENSE_SCHEME=		dual
+
+FPC_EQUIVALENT=		textproc/libwps
+
+BUILD_DEPENDS=		boost-libraries:rest:python_default
+BUILDRUN_DEPENDS=	librevenge:single:standard
+
+USES=			libtool pkgconfig
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-werror
+			--without-docs
+			--with-sharedptr=boost
+INSTALL_TARGET=		install-strip
+PLIST_SUB=		VER=${WPS_VER}
+SOVERSION=		${SOVERSION}
