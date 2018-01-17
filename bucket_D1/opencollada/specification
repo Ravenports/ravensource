@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	1.6.62
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		opencollada
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Library for reading and writing COLLADA files
+HOMEPAGE=		http://www.opencollada.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/KhronosGroup:OpenCOLLADA:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		graphics/opencollada
+
+BUILD_DEPENDS=		pcre:static:standard
+BUILDRUN_DEPENDS=	pcre:shared:standard
+
+USES=			cmake:outsource iconv pkgconfig
+GNOME_COMPONENTS=	libxml2
+CMAKE_ARGS=		-DUSE_SHARED:BOOL=ON
+			-DUSE_STATIC:BOOL=OFF
+LDFLAGS=		-Wl,-rpath,{{PREFIX}}/lib/opencollada
+
+post-patch:
+	${REINPLACE_CMD} -e 's|$${OPENCOLLADA_INST_LIBRARY}/cmake|${PREFIX}/share/cmake/Modules|' \
+		${WRKSRC}/CMakeLists.txt
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/opencollada/*.so
