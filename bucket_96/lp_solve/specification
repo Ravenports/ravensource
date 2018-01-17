@@ -1,0 +1,47 @@
+DEF[PORTVERSION]=	5.5.2.5
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		lp_solve
+VERSION=		${PORTVERSION}
+KEYWORDS=		math
+VARIANTS=		standard
+SDESC[standard]=	Linear Programming Solver
+HOMEPAGE=		http://lpsolve.sourceforge.net/5.5/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/lpsolve/lpsolve/${PORTVERSION}
+DISTFILE[1]=		lp_solve_${PORTVERSION}_source.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		math/lp_solve
+
+DISTNAME=		lp_solve_${PORTVERSION:R:R}
+
+pre-build:
+	${FIND} ${WRKSRC} -name "ccc" | ${XARGS} ${REINPLACE_CMD} -e \
+		"s|^c=.*$$|c='${CC}'|g ; \
+		 s|^opts=.*$$|opts='${CFLAGS}'|g ; \
+		 s|-fpic|-fPIC|g"
+
+do-build:
+	(cd ${WRKSRC}/lp_solve  && ${SETENV} TMPDIR="${WRKDIR}" ${SH} -x ccc)
+	(cd ${WRKSRC}/demo      && ${SETENV} TMPDIR="${WRKDIR}" ${SH} -x ccc)
+	(cd ${WRKSRC}/lpsolve55 && ${SETENV} TMPDIR="${WRKDIR}" ${SH} -x ccc)
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/lp_solve/bin/ux64/lp_solve \
+		${STAGEDIR}${PREFIX}/bin
+	${INSTALL_DATA} ${WRKSRC}/lpsolve55/bin/ux64/liblpsolve55.a \
+		${STAGEDIR}${PREFIX}/lib
+	${INSTALL_LIB} ${WRKSRC}/lpsolve55/bin/ux64/liblpsolve55.so \
+		${STAGEDIR}${PREFIX}/lib
+	${LN} -sf liblpsolve55.so ${STAGEDIR}${PREFIX}/lib/liblpsolve55.so.1
+	@${MKDIR} ${STAGEDIR}${PREFIX}/include/lpsolve
+.for i in declare.h fortify.h ini.h lp_*.h lpkit.h lpsolve.h ufortify.h yacc_read.h
+	${INSTALL_DATA} ${WRKSRC}/${i} ${STAGEDIR}${PREFIX}/include/lpsolve
+.endfor
