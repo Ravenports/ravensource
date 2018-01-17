@@ -1,0 +1,153 @@
+--- Makefile.orig	2017-07-31 11:25:39 UTC
++++ Makefile
+@@ -43,7 +43,7 @@ endif
+ GLEW_PREFIX ?= /usr
+ GLEW_DEST ?= /usr
+ BINDIR    ?= $(GLEW_DEST)/bin
+-LIBDIR    ?= $(GLEW_DEST)/lib
++GLIBDIR   ?= $(GLEW_DEST)/lib
+ INCDIR    ?= $(GLEW_DEST)/include/GL
+ PKGDIR    ?= $(GLEW_DEST)/lib/pkgconfig
+ 
+@@ -81,13 +81,13 @@ else
+ OPT = $(POPT)
+ endif
+ INCLUDE = -Iinclude
+-CFLAGS = $(OPT) $(WARN) $(INCLUDE) $(CFLAGS.EXTRA)
++CFLAGS += $(OPT) $(WARN) $(INCLUDE) $(CFLAGS.EXTRA)
+ 
+ all debug: glew.lib glew.bin
+ 
+ # GLEW shared and static libraries
+ 
+-LIB.LDFLAGS        := $(LDFLAGS.EXTRA) $(LDFLAGS.GL)
++LIB.LDFLAGS        := $(LDFLAGS) $(LDFLAGS.EXTRA) $(LDFLAGS.GL)
+ LIB.LIBS           := $(GL_LDFLAGS)
+ 
+ LIB.SRCS           := src/glew.c
+@@ -115,7 +115,7 @@ else ifneq ($(LIBTOOL),)
+ 	$(LIBTOOL) $@ $^
+ endif
+ ifneq ($(STRIP),)
+-	$(STRIP) -x $@
++	$(STRIP) $@
+ endif
+ 
+ lib/$(LIB.SHARED): $(LIB.SOBJS)
+@@ -125,8 +125,9 @@ ifneq ($(LN),)
+ 	$(LN) $(LIB.SHARED) lib/$(LIB.DEVLNK)
+ endif
+ ifneq ($(STRIP),)
+-	$(STRIP) -x $@
++	$(STRIP) $@
+ endif
++	/usr/bin/file $@
+ 
+ tmp/$(SYSTEM)/default/static/glew.o: src/glew.c include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
+ 	@mkdir -p $(dir $@)
+@@ -142,14 +143,14 @@ tmp/$(SYSTEM)/default/shared/glew.o: src
+ 
+ glew.pc: glew.pc.in
+ 	sed \
+-		-e "s|@prefix@|$(GLEW_PREFIX)|g" \
+-		-e "s|@libdir@|$(LIBDIR)|g" \
+-		-e "s|@exec_prefix@|$(BINDIR)|g" \
+-		-e "s|@includedir@|$(INCDIR)|g" \
+-		-e "s|@version@|$(GLEW_VERSION)|g" \
+-		-e "s|@cflags@||g" \
+-		-e "s|@libname@|$(NAME)|g" \
+-		-e "s|@requireslib@|$(LIBGLU)|g" \
++		-e 's|@prefix@|$(GLEW_PREFIX)|g' \
++		-e 's|@libdir@|$${prefix}/lib|g' \
++		-e 's|@exec_prefix@|$${prefix}/bin|g' \
++		-e 's|@includedir@|$${prefix}/include|g' \
++		-e 's|@version@|$(GLEW_VERSION)|g' \
++		-e 's|@cflags@||g' \
++		-e 's|@libname@|$(NAME)|g' \
++		-e 's|@requireslib@|$(LIBGLU)|g' \
+ 		< $< > $@
+ 
+ # GLEW utility programs
+@@ -178,24 +179,24 @@ bin:
+ 	mkdir bin
+ 
+ bin/$(GLEWINFO.BIN): $(GLEWINFO.BIN.OBJ) lib/$(LIB.SHARED)
+-	$(CC) $(CFLAGS) -o $@ $(GLEWINFO.BIN.OBJ) $(BIN.LIBS)
++	$(CC) $(CFLAGS) -o $@ $(GLEWINFO.BIN.OBJ) $(BIN.LIBS) $(LDFLAGS)
+ ifneq ($(STRIP),)
+-	$(STRIP) -x $@
++	$(STRIP) $@
+ endif
+ 
+ bin/$(VISUALINFO.BIN): $(VISUALINFO.BIN.OBJ) lib/$(LIB.SHARED)
+-	$(CC) $(CFLAGS) -o $@ $(VISUALINFO.BIN.OBJ) $(BIN.LIBS)
++	$(CC) $(CFLAGS) -o $@ $(VISUALINFO.BIN.OBJ) $(BIN.LIBS) $(LDFLAGS)
+ ifneq ($(STRIP),)
+-	$(STRIP) -x $@
++	$(STRIP) $@
+ endif
+ 
+ $(GLEWINFO.BIN.OBJ): $(GLEWINFO.BIN.SRC) include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
+ 	@mkdir -p $(dir $@)
+-	$(CC) -DGLEW_NO_GLU $(CFLAGS) $(CFLAGS.SO) -o $@ -c $<
++	$(CC) -DGLEW_NO_GLU $(CFLAGS) -o $@ -c $<
+ 
+ $(VISUALINFO.BIN.OBJ): $(VISUALINFO.BIN.SRC) include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
+ 	@mkdir -p $(dir $@)
+-	$(CC) -DGLEW_NO_GLU $(CFLAGS) $(CFLAGS.SO) -o $@ -c $<
++	$(CC) -DGLEW_NO_GLU $(CFLAGS) -o $@ -c $<
+ 
+ # Install targets
+ 
+@@ -204,26 +205,26 @@ install.all: install install.bin
+ install:     install.include install.lib install.pkgconfig
+ 
+ install.lib: glew.lib
+-	$(INSTALL) -d -m 0755 "$(DESTDIR)$(LIBDIR)"
++	$(INSTALL) -d -m 0755 "$(DESTDIR)$(GLIBDIR)"
+ # runtime
+ ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
+ 	$(INSTALL) -d -m 0755 "$(DESTDIR)$(BINDIR)"
+ 	$(INSTALL) -m 0755 lib/$(LIB.SHARED) "$(DESTDIR)$(BINDIR)/"
+ else
+-	$(INSTALL) -m 0644 lib/$(LIB.SHARED) "$(DESTDIR)$(LIBDIR)/"
++	$(INSTALL) -m 0644 lib/$(LIB.SHARED) "$(DESTDIR)$(GLIBDIR)/"
+ endif
+ ifneq ($(LN),)
+-	$(LN) $(LIB.SHARED) "$(DESTDIR)$(LIBDIR)/$(LIB.SONAME)"
++	$(LN) $(LIB.SHARED) "$(DESTDIR)$(GLIBDIR)/$(LIB.SONAME)"
+ endif
+ 
+ # development files
+ ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
+-	$(INSTALL) -m 0644 lib/$(LIB.DEVLNK) "$(DESTDIR)$(LIBDIR)/"
++	$(INSTALL) -m 0644 lib/$(LIB.DEVLNK) "$(DESTDIR)$(GLIBDIR)/"
+ endif
+ ifneq ($(LN),)
+-	$(LN) $(LIB.SHARED) "$(DESTDIR)$(LIBDIR)/$(LIB.DEVLNK)"
++	$(LN) $(LIB.SHARED) "$(DESTDIR)$(GLIBDIR)/$(LIB.DEVLNK)"
+ endif
+-	$(INSTALL) -m 0644 lib/$(LIB.STATIC) "$(DESTDIR)$(LIBDIR)/"
++	$(INSTALL) -m 0644 lib/$(LIB.STATIC) "$(DESTDIR)$(GLIBDIR)/"
+ 
+ install.bin: glew.bin
+ 	$(INSTALL) -d -m 0755 "$(DESTDIR)$(BINDIR)"
+@@ -244,14 +245,14 @@ uninstall:
+ 	$(RM) "$(DESTDIR)$(INCDIR)/wglew.h"
+ 	$(RM) "$(DESTDIR)$(INCDIR)/glew.h"
+ 	$(RM) "$(DESTDIR)$(INCDIR)/glxew.h"
+-	$(RM) "$(DESTDIR)$(LIBDIR)/$(LIB.DEVLNK)"
++	$(RM) "$(DESTDIR)$(GLIBDIR)/$(LIB.DEVLNK)"
+ ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
+ 	$(RM) "$(DESTDIR)$(BINDIR)/$(LIB.SHARED)"
+ else
+-	$(RM) "$(DESTDIR)$(LIBDIR)/$(LIB.SONAME)"
+-	$(RM) "$(DESTDIR)$(LIBDIR)/$(LIB.SHARED)"
++	$(RM) "$(DESTDIR)$(GLIBDIR)/$(LIB.SONAME)"
++	$(RM) "$(DESTDIR)$(GLIBDIR)/$(LIB.SHARED)"
+ endif
+-	$(RM) "$(DESTDIR)$(LIBDIR)/$(LIB.STATIC)"
++	$(RM) "$(DESTDIR)$(GLIBDIR)/$(LIB.STATIC)"
+ 	$(RM) "$(DESTDIR)$(BINDIR)/$(GLEWINFO.BIN)" "$(DESTDIR)$(BINDIR)/$(VISUALINFO.BIN)"
+ 
+ clean:

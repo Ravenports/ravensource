@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	2.1.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		glew
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	OpenGL Extension Wrangler Library
+HOMEPAGE=		http://glew.sourceforge.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/glew/glew/${PORTVERSION}
+DISTFILE[1]=		glew-${PORTVERSION}.tgz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		graphics/glew
+
+USES=			gmake mesa zlib
+XORG_COMPONENTS=	x11
+MAKE_ENV=		GLEW_DEST={{PREFIX}}
+			GLEW_PREFIX={{PREFIX}}
+INSTALL_TARGET=		install.all
+SOVERSION=		${PORTVERSION}
+
+post-patch:
+	${CP} ${WRKSRC}/config/Makefile.freebsd \
+		${WRKSRC}/config/Makefile.dragonfly
+
+post-install:
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+.for i in css html jpg png
+	${INSTALL_DATA} ${WRKSRC}/doc/*.${i} ${STAGEDIR}${STD_DOCDIR}
+.endfor
