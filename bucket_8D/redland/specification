@@ -1,0 +1,77 @@
+DEF[PORTVERSION]=	1.0.17
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		redland
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard bdb mysql pgsql virtuoso
+SDESC[standard]=	RDF Application Framework (SQLite backend)
+SDESC[bdb]=		RDF Application Framework (BDB backend)
+SDESC[mysql]=		RDF Application Framework (MySQL backend)
+SDESC[pgsql]=		RDF Application Framework (PostgreSQL backend)
+SDESC[virtuoso]=	RDF Application Framework (Virtuoso backend)
+HOMEPAGE=		http://librdf.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://download.librdf.org/source/
+DISTFILE[1]=		redland-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+SPKGS[bdb]=		single
+SPKGS[mysql]=		single
+SPKGS[pgsql]=		single
+SPKGS[virtuoso]=	single
+
+OPTIONS_AVAILABLE=	BDB MYSQL PGSQL VIRTUOSO NOTSTD
+OPTIONS_STANDARD=	none
+VOPTS[bdb]=		BDB=ON MYSQL=OFF PGSQL=OFF VIRTUOSO=OFF NOTSTD=ON
+VOPTS[mysql]=		BDB=OFF MYSQL=ON PGSQL=OFF VIRTUOSO=OFF NOTSTD=ON
+VOPTS[pgsql]=		BDB=OFF MYSQL=OFF PGSQL=ON VIRTUOSO=OFF NOTSTD=ON
+VOPTS[virtuoso]=	BDB=OFF MYSQL=OFF PGSQL=OFF VIRTUOSO=ON NOTSTD=ON
+
+FPC_EQUIVALENT=		text/redland
+
+BUILDRUN_DEPENDS=	libltdl:single:standard
+			rasqal:primary:standard
+			raptor:primary:standard
+
+USES=			gmake libtool perl:build pkgconfig shebangfix
+SHEBANG_FILES=		scripts/touch-mtime.pl
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-threestore=no
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+
+[NOTSTD].DESCRIPTION=			Don't build with SQLite backend
+[NOTSTD].CONFIGURE_ARGS_OFF=		--with-sqlite=3
+[NOTSTD].USES_OFF=			sqlite
+
+[BDB].DESCRIPTION=			Build with Berkeley database backend
+[BDB].CONFIGURE_ARGS_ON=		--with-bdb=yes
+[BDB].CONFIGURE_ARGS_OFF=		--with-bdb=no
+[BDB].USES_ON=				bdb
+
+[MYSQL].CONFIGURE_ARGS_ON=		--with-mysql=yes
+[MYSQL].CONFIGURE_ARGS_OFF=		--with-mysql=no
+[MYSQL].USES_ON=			mysql
+[MYSQL].LDFLAGS_ON=			-L{{LOCALBASE}}/lib/mysql
+[MYSQL].CPPFLAGS_ON=			-I{{LOCALBASE}}/include/mysql
+					-DHAVE_MYSQL_H
+
+[PGSQL].CONFIGURE_ARGS_ON=		--with-postgresql=yes
+[PGSQL].CONFIGURE_ARGS_OFF=		--with-postgresql=no
+[PGSQL].USES_ON=			pgsql
+
+[VIRTUOSO].DESCRIPTION=			Build with virtuoso/ODBC backend
+[VIRTUOSO].CONFIGURE_ARGS_ON=		--with-virtuoso=yes
+[VIRTUOSO].CONFIGURE_ARGS_OFF=		--with-virtuoso=no
+[VIRTUOSO].BUILDRUN_DEPENDS_ON=		unixODBC:primary:standard
+
+post-install-NOTSTD-ON:
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
+
+post-install-NOTSTD-OFF:
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/redland \
+		${STAGEDIR}${STD_DOCDIR}
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
