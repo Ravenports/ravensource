@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	0.5.1
+DEF[SOVERSION]=		5.0.0
+DEF[CMIS_VER]=		0.5
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libcmis
+VERSION=		${PORTVERSION}
+KEYWORDS=		net devel
+VARIANTS=		standard
+SDESC[standard]=	Client library for the CMIS interface
+HOMEPAGE=		https://github.com/tdf/libcmis
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+# Use libreoffice fork of libcmis (for now)
+# SITES[main]=		GITHUB/tdf:libcmis:v${PORTVERSION}
+# DISTFILE[1]=		generated:main
+SITES[main]=		http://dev-www.libreoffice.org/src/
+DISTFILE[1]=		libcmis-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		net/libcmis
+
+BUILD_DEPENDS=		cppunit:single:standard
+BUILDRUN_DEPENDS=	curl:primary:standard
+			boost-libraries:rest:python_default
+
+USES=			gmake libtool pkgconfig
+GNOME_COMPONENTS=	libxml2
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-werror
+			--with-boost="{{LOCALBASE}}"
+			--without-man
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+PLIST_SUB=		VER=${CMIS_VER}
+SOVERSION=		${SOVERSION}
+
+post-patch:
+	@${REINPLACE_CMD} -e "s|@WITH_LIBCMIS_MAN_FALSE@|#|g" \
+	    ${WRKSRC}/Makefile.in
