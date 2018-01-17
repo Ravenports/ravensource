@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	0.1.6
+DEF[SOVERSION]=		1.0.6
+DEF[VISIO_VER]=		0.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libvisio
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc devel
+VARIANTS=		standard
+SDESC[standard]=	Import filter and tools for MS Visio Diagrams
+HOMEPAGE=		https://wiki.documentfoundation.org/DLP/Libraries/libvisio
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://dev-www.libreoffice.org/src/libvisio/
+DISTFILE[1]=		libvisio-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MPL:single
+LICENSE_FILE=		MPL:{{WRKSRC}}/COPYING.MPL
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		textproc/libvisio01
+
+BUILD_DEPENDS=		gperf:single:standard
+			boost-libraries:rest:python_default
+			cppunit:single:standard
+BUILDRUN_DEPENDS=	librevenge:single:standard
+			icu:single:standard
+
+USES=			perl:build pkgconfig gmake libtool
+GNOME_COMPONENTS=	libxml2
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-test
+			--disable-werror
+			--without-docs
+INSTALL_TARGET=		install-strip
+PLIST_SUB=		VER=${VISIO_VER}
+SOVERSION=		${SOVERSION}
