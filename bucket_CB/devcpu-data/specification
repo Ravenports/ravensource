@@ -1,6 +1,7 @@
-DEF[PORTVERSION]=	1.14
-DEF[INTEL_SITE]=	27431
-DEF[INTEL_DATE]=	20180108
+DEF[PORTVERSION]=	1.15
+DEF[INTEL_SITE]=	27337
+DEF[INTEL_DATE]=	20171117
+DEF[AMD_VERSION]=	3.20171205.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		devcpu-data
@@ -16,7 +17,7 @@ SITES[main]=		https://downloadmirror.intel.com/${INTEL_SITE}/eng/
 SITES[intel]=		https://downloadmirror.intel.com/${INTEL_SITE}/eng/
 SITES[amd]=		FREELOCAL/sbruno
 DISTFILE[1]=		microcode-${INTEL_DATE}.tgz:intel
-DISTFILE[2]=		amd64-microcode_3.20171205.1.tar.xz:amd
+DISTFILE[2]=		amd64-microcode_${AMD_VERSION}.tar.xz:amd
 DF_INDEX=		1 2
 
 SPKGS[standard]=	single
@@ -36,13 +37,11 @@ ONLY_FOR_OPSYS=		freebsd dragonfly
 
 RC_SUBR=		microcode_update:single
 EXTRACT_DIRTY=		1 2
-
-post-extract:
-	${INSTALL_DATA} ${FILESDIR}/Makefile \
-		${FILESDIR}/ucode-tool.c ${WRKSRC}/
-	${MV} ${WRKDIR}/${NAMEBASE}_2/* ${WRKSRC}/
+SKIP_BUILD=		yes
 
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/cpucontrol
-	${INSTALL_DATA} ${WRKSRC}/mcodes/* \
+	${INSTALL_DATA} ${WRKSRC}/intel-ucode/* \
+		${STAGEDIR}${PREFIX}/share/cpucontrol
+	${INSTALL_DATA} ${WRKDIR}/${NAMEBASE}_2/amd64-microcode-${AMD_VERSION}/microcode_amd_fam1[567]h.bin \
 		${STAGEDIR}${PREFIX}/share/cpucontrol
