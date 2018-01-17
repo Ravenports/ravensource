@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	2.0.15
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		raptor
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	RDF Parser Toolkit for Redland
+HOMEPAGE=		http://librdf.org/raptor/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://download.librdf.org/source/
+DISTFILE[1]=		raptor2-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		textproc/raptor2
+
+BUILDRUN_DEPENDS=	curl:primary:standard
+			icu:single:standard
+			yajl:single:standard
+
+USES=			libtool pkgconfig
+GNOME_COMPONENTS=	libxml2 libxslt
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-xml2-config={{LOCALBASE}}/bin/xml2-config
+			--with-curl-config={{LOCALBASE}}/bin/curl-config
+			--with-icu-config={{LOCALBASE}}/bin/icu-config
+			--with-www=curl
+INSTALL_TARGET=		install-strip
+DISTNAME=		raptor2-${PORTVERSION}
+
+post-install:
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/raptor2 \
+		${STAGEDIR}${STD_DOCDIR}
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
