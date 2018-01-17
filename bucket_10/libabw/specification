@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.1.2
+DEF[SOVERSION]=		1.0.2
+DEF[ABW_VER]=		0.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libabw
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	Library for parsing the AbiWord format
+HOMEPAGE=		https://wiki.documentfoundation.org/DLP/Libraries/libabw
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://dev-www.libreoffice.org/src/libabw/
+DISTFILE[1]=		libabw-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		textproc/libabw
+
+BUILD_DEPENDS=		gperf:single:standard
+			boost-libraries:rest:python_default
+BUILDRUN_DEPENDS=	librevenge:single:standard
+
+USES=			libtool pkgconfig perl:build zlib
+GNOME_COMPONENTS=	libxml2
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-werror
+			--without-docs
+INSTALL_TARGET=		install-strip
+PLIST_SUB=		VER=${ABW_VER}
+SOVERSION=		${SOVERSION}
