@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	2.11
+DEF[PORTVERSION]=	2.12
+DEF[SOVERSION]=		2.0.5
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libsigsegv
@@ -29,6 +30,7 @@ C_USES[sunos]=		cclibs:shared
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		AWK="{{AWK}}" --enable-shared
 INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
 
 do-test:
 	@(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_FLAGS} \
