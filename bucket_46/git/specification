@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.15.1
+DEF[PORTVERSION]=	2.16.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		git
@@ -55,6 +55,7 @@ SHEBANG_FILES=		*.perl
 			t/*/*/pre
 			t/*/*/post
 			t/Git-SVN/Utils/*.t
+			t/t7519/fsmonitor-watchman
 			git-p4.py
 			contrib/hg-to-git/hg-to-git.py
 			contrib/hooks/update-paranoid
@@ -68,6 +69,7 @@ SHEBANG_FILES=		*.perl
 			contrib/buildsystems/generate
 			contrib/contacts/git-contacts
 			contrib/svn-fe/svnrdump_sim.py
+			templates/hooks--fsmonitor-watchman.sample
 RC_SUBR=		git_daemon:single
 
 [LITE].DESCRIPTION=			Drop non-essential functionality and their deps
@@ -81,6 +83,7 @@ RC_SUBR=		git_daemon:single
 					tcl:tk
 					python:py27,build
 					perl
+[LITE].USES_ON=				perl:build
 [LITE].MAKE_ARGS_OFF=			TCL_PATH={{TCLSH}}
 					TCLTK_PATH={{WISH}}
 [LITE].CONFIGURE_ARGS_OFF=		--with-python={{PYTHON_CMD}}
