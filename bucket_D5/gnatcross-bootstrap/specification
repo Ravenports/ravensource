@@ -4,7 +4,7 @@ DEF[BRANCH]=		EXTRACT_INFO(GCC7_BRANCH)
 DEF[MS_SUBDIR]=		EXTRACT_INFO(GCC7_MS_SUBDIR)
 DEF[IDENTIFICATION]=	EXTRACT_INFO(GCC7_IDENTIFICATION)
 DEF[GCC_VERSION]=	EXTRACT_INFO(GCC7_VERSION)
-DEF[GCC_PREFIX]=	gcc7-raven
+DEF[GCC_PREFIX]=	toolchain/gcc7
 DEF[FREEBSD_11]=	EXTRACT_INFO(GNATCROSS_FREEBSD_11)
 DEF[FREEBSD_12]=	EXTRACT_INFO(GNATCROSS_FREEBSD_12)
 # ----------------------------------------------------------------------------
@@ -126,6 +126,16 @@ post-extract:
 	${MV} ${WRKDIR}/libiconv-* ${WRKSRC}/libiconv
 
 post-patch:
+	# Update LINK_SPEC to add gcc-aux lib runpath in every binary
+	@${ECHO} "Configuring LINK_SPEC runpath"
+	@${REINPLACE_CMD} -e 's;\@PREFIX\@;${PREFIX:H};' \
+		-e 's;\@GCCAUX\@;${NAMEBASE};' \
+		${WRKSRC}/gcc/config/dragonfly.h \
+		${WRKSRC}/gcc/config/sol2.h \
+		${WRKSRC}/gcc/config/i386/freebsd64.h \
+		${WRKSRC}/gcc/config/i386/freebsd.h \
+		${WRKSRC}/gcc/config/i386/gnu-user64.h \
+		${WRKSRC}/gcc/config/aarch64/aarch64-freebsd.h
 	# fix FreeBSD spec error
 	${REINPLACE_CMD} -e 's|static:crtbeginT.o%s;||' \
 		${WRKSRC}/gcc/config/freebsd-spec.h
@@ -160,6 +170,8 @@ post-stage:
 		&& ${CP} -a lib ${WRKDIR}/bootstrap_compiler \
 		&& ${CP} -a include ${WRKDIR}/bootstrap_compiler \
 		&& ${CP} -a libexec ${WRKDIR}/bootstrap_compiler)
+	${ECHO_CMD} "Relocate directories to: ${PREFIX}/${GCC_PREFIX}" \
+		>> ${WRKDIR}/bootstrap_compiler/README
 	${RM} ${WRKDIR}/bootstrap_compiler/bin/${TGTSYS}*
 	${MV} ${STAGEDIR} ${STAGEDIR}.old
 	${MKDIR} ${STAGEDIR}${LOCALBASE}/share/${NAMEBASE}
