@@ -1,6 +1,4 @@
-DEF[PORTVERSION]=	1.6.11
-DEF[SOVERSION]=		${PORTVERSION}
-DEF[SOMAJOR]=		${SOVERSION:R:R}
+DEF[PORTVERSION]=	1.6.12
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		GeoIP
@@ -27,8 +25,7 @@ INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
 SUB_FILES=		pkg-message-single
 			geoipupdate.sh
-PLIST_SUB=		SOVERSION=${SOVERSION}
-			SOMAJOR=${SOMAJOR}
+SOVERSION=		${PORTVERSION}
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/share/GeoIP
