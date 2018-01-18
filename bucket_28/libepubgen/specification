@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	0.1.0
+DEF[SOVERSION]=		1.0.0
+DEF[EPG_VER]=		0.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libepubgen
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	Library for generating documents in ePub format
+HOMEPAGE=		https://sourceforge.net/projects/libepubgen/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/libepubgen/libepubgen-${PORTVERSION}
+DISTFILE[1]=		libepubgen-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+BUILD_DEPENDS=		boost-libraries:rest:python_default
+			cppunit:single:standard
+BUILDRUN_DEPENDS=	librevenge:single:standard
+
+USES=			libtool pkgconfig
+GNOME_COMPONENTS=	libxml2
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-werror
+			--without-docs
+INSTALL_TARGET=		install-strip
+PLIST_SUB=		VER=${EPG_VER}
+SOVERSION=		${SOVERSION}
