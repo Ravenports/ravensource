@@ -1,4 +1,4 @@
---- src/gallium/auxiliary/util/u_network.c.orig	2017-12-21 17:31:21 UTC
+--- src/gallium/auxiliary/util/u_network.c.orig	2018-01-18 21:30:28 UTC
 +++ src/gallium/auxiliary/util/u_network.c
 @@ -6,7 +6,7 @@
  #if defined(PIPE_SUBSYSTEM_WINDOWS_USER)

@@ -1,4 +1,4 @@
---- src/util/u_endian.h.orig	2017-12-21 17:31:22 UTC
+--- src/util/u_endian.h.orig	2018-01-18 21:30:29 UTC
 +++ src/util/u_endian.h
 @@ -54,7 +54,7 @@
  # define PIPE_ARCH_BIG_ENDIAN
