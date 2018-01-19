@@ -1,6 +1,28 @@
---- configure.orig	2017-09-19 16:32:26.000000000 +0000
-+++ configure	2017-12-08 18:43:17.349325345 +0000
-@@ -7525,7 +7525,6 @@
+--- configure.orig	2018-01-18 12:37:14 UTC
++++ configure
+@@ -6704,6 +6704,21 @@ tools are selected during the Xcode/Deve
+     PR_MD_CSRCS=dgux.c
+     ;;
+ 
++*-dragonfly*)
++    if test -z "$USE_NSPR_THREADS"; then
++        USE_PTHREADS=1
++    fi
++    $as_echo "#define XP_UNIX 1" >>confdefs.h
++    $as_echo "#define HAVE_BSD_FLOCK 1" >>confdefs.h
++    $as_echo "#define HAVE_SOCKLEN_T 1" >>confdefs.h
++    CFLAGS="$CFLAGS $(DSO_CFLAGS) -ansi -Wall"
++    MKSHLIB='$(CC) $(DSO_LDOPTS) -o $@'
++    DSO_CFLAGS=-fPIC
++    DSO_LDOPTS='-shared -Wl,-soname -Wl,$(notdir $@)'
++    MDCPUCFG_H=_dragonfly.cfg
++    PR_MD_CSRCS=freebsd.c
++    ;;
++
+ *-freebsd*)
+     if test -z "$USE_NSPR_THREADS"; then
+         USE_PTHREADS=1
+@@ -7527,7 +7542,6 @@ fi
      CPU_ARCH=`uname -p`
      MDCPUCFG_H=_solaris.cfg
      PR_MD_CSRCS=solaris.c
@@ -8,7 +30,7 @@
      MKSHLIB='$(CC) $(DSO_LDOPTS) -o $@'
      RESOLVE_LINK_SYMBOLS=1
      case "${OS_RELEASE}" in
-@@ -7533,7 +7532,6 @@
+@@ -7535,7 +7549,6 @@ fi
          ;;
      *)
          # It is safe to use the -Bdirect linker flag on Solaris 10 or later.
@@ -16,7 +38,34 @@
          ;;
      esac
      if test -n "$GNU_CC"; then
-@@ -8544,17 +8542,7 @@
+@@ -8334,7 +8347,7 @@ $as_echo_n "checking whether ${CC-cc} ac
+ 	if test -z "`egrep -i '(unrecognize|unknown)' conftest.out | grep pthread`" && test -z "`egrep -i '(error|incorrect)' conftest.out`" ; then
+ 	    ac_cv_have_dash_pthread=yes
+ 		case "$target_os" in
+-	    freebsd*)
++	    freebsd*|dragonfly*)
+ # Freebsd doesn't use -pthread for compiles, it uses them for linking
+             ;;
+ 	    *)
+@@ -8372,7 +8385,7 @@ $as_echo "$ac_cv_have_dash_pthreads" >&6
+             _PTHREAD_LDFLAGS=
+         fi
+ 	    ;;
+-    *-freebsd*)
++    *-freebsd*|*-dragonfly*)
+ 	    $as_echo "#define _REENTRANT 1" >>confdefs.h
+ 
+ 	    $as_echo "#define _THREAD_SAFE 1" >>confdefs.h
+@@ -8462,7 +8475,7 @@ case "$target" in
+ 
+     fi
+     ;;
+-*-freebsd*)
++*-freebsd*|*-dragonfly*)
+     if test -n "$USE_NSPR_THREADS"; then
+         $as_echo "#define _PR_LOCAL_THREADS_ONLY 1" >>confdefs.h
+ 
+@@ -8539,17 +8552,7 @@ _ACEOF
  
          $as_echo "#define HAVE_POINTER_LOCALTIME_R 1" >>confdefs.h
  
