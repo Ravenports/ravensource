@@ -73,6 +73,7 @@ while read ravenport version fpc_port; do
 	gnatcross*) ;;
 	edelib) ;;
 	openpam) ;;
+	libepubgen | libqxp) ;;		# expected soon
 	*) echo "${ravenport} ${version}"
    esac
 done < ${tmpfile}

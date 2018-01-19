@@ -18,7 +18,10 @@ awk "${PROG}" ${location}/Mk/Misc/fpc_equivalents > ${tmpfile}
 
 while read ravenport version fpc_port; do
   portv=$(make -C ${ports}/${fpc_port} -V PORTVERSION)
-  result=$(pkg version -t ${version} ${portv})
+  result=$(pkg version -t "${version}" "${portv}")
+  if [ $? -ne 0 ]; then
+     echo "failed to query ${fpc_port}"
+  fi
   if [ "${result}" = "<" ]; then
      echo "${ravenport}		version=${version} freebsd=${portv}"
   fi
