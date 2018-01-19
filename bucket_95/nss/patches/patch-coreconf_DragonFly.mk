@@ -1,4 +1,4 @@
---- coreconf/DragonFly.mk.orig	2017-09-22 16:21:37 UTC
+--- /dev/null	2018-01-19 14:58:14 UTC
 +++ coreconf/DragonFly.mk
 @@ -0,0 +1,54 @@
 +#
