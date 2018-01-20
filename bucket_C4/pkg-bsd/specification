@@ -63,6 +63,8 @@ post-patch-sunos:
 	${REINPLACE_CMD} -e 's|-lutil ||' \
 		${WRKSRC}/libpkg/Makefile.in \
 		${WRKSRC}/tests/Makefile.in
+	${REINPLACE_CMD} -e '/enable-new-dtags/d' \
+		${WRKSRC}/src/Makefile.in
 
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/sbin/pkg2ng
