@@ -1,0 +1,11 @@
+--- doc/Makefile.in.orig	2015-08-05 23:15:41 UTC
++++ doc/Makefile.in
+@@ -68,7 +68,7 @@ uninstall uninstall.man :
+ 
+ # HTML documentation is optional, usually in a separate package.
+ install.html : $(DOCDIR)
+-	cd $(srcdir) && tar -cf - *.htm* ada | tar -C $(DOCDIR) -xf -
++	cd $(srcdir) && tar -cf - *.htm* ada | tar -C $(DOCDIR) -xf - --no-same-owner --no-same-permissions
+ 
+ uninstall.html :
+ 	-rm -rf $(DOCDIR)
