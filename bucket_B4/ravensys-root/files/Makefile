@@ -617,6 +617,9 @@ install:
 	# This fetch is a wrapper for wget; it's a script
 	${BSD_INSTALL_SCRIPT} ${LOCALBASE}/bin/fetch ${DESTDIR}${BASE}/usr/bin/
 	sed -i'' -e "s|/raven/share/certs/|/usr/share/|" ${DESTDIR}${BASE}/usr/bin/fetch
+	# have a second copy of bourne shell
+	mkdir -p ${DESTDIR}${BASE}/usr/xpg4/bin
+	${BSD_INSTALL_PROGRAM} ${DESTDIR}${BASE}/bin/sh ${DESTDIR}${BASE}/usr/xpg4/bin/
 .else
 .  for item in ${Bin_${OPSYS}}
 	${BSD_INSTALL_PROGRAM} ../${OPSYS:tl}${item} ${DESTDIR}${BASE}/bin/
