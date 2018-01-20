@@ -126,26 +126,27 @@ post-install-STATIC-ON:
 	${RM} -r ${STAGEDIR}${MANPREFIX}/man
 
 post-install-STATIC-OFF:
-	${RM} ${STAGEDIR}${PREFIX}/lib/libncurses.so
-	${RM} ${STAGEDIR}${PREFIX}/lib/libncursesw.so
+	if [ "${OPSYS}" != "SunOS" ]; then \
+	${RM} ${STAGEDIR}${PREFIX}/lib/libncurses.so; \
+	${RM} ${STAGEDIR}${PREFIX}/lib/libncursesw.so; \
 	${ECHO} "INPUT(libncurses.so.${PORTVERSION:R} AS_NEEDED(-ltinfo))" \
-		> ${STAGEDIR}${PREFIX}/lib/libncurses.so
+		> ${STAGEDIR}${PREFIX}/lib/libncurses.so; \
 	${ECHO} "INPUT(libncursesw.so.${PORTVERSION:R} AS_NEEDED(-ltinfow))" \
-		> ${STAGEDIR}${PREFIX}/lib/libncursesw.so
+		> ${STAGEDIR}${PREFIX}/lib/libncursesw.so; \
+	fi
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so.${PORTVERSION}
-
 	${MV} ${STAGEDIR}${PREFIX}/share/misc/terminfo.db \
 		${STAGEDIR}${PREFIX}/share/misc/terminfo.db.default
 
 	@${MKDIR} ${STAGEDIR}${NOWIDEC_EXAMDIR}/c++
-. for f in ${EXAMPLES}
+.for f in ${EXAMPLES}
 	${INSTALL_DATA} ${NOWIDEC_WRKSRC}/test/${f} \
 		${STAGEDIR}${NOWIDEC_EXAMDIR}/
-. endfor
-. for f in ${EXAMPLES_CPP}
+.endfor
+.for f in ${EXAMPLES_CPP}
 	${INSTALL_DATA} ${NOWIDEC_WRKSRC}/c++/${f} \
 		${STAGEDIR}${NOWIDEC_EXAMDIR}/c++/
-. endfor
+.endfor
 	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 .for f in ${DOCS}
 	${INSTALL_DATA} ${WRKSRC}/${f} ${STAGEDIR}${STD_DOCDIR}/

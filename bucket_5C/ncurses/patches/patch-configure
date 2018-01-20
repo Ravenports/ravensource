@@ -1,16 +1,3 @@
-# Based on upstream 6.0 patch 20160220:
-#
-#  + modify configure macro for shared-library rules to use -Wl,-rpath
-#    rather than -rpath to work around a bug in scons (FreeBSD #178732,
-#  cf: 20061021).
-#
-# See Also:
-#
-#  http://lists.gnu.org/archive/html/bug-ncurses/2016-02/msg00009.html
-#  http://lists.gnu.org/archive/html/bug-ncurses/2016-02/msg00006.html
-#
-# TODO: Remove patch on 6.1 update
-
 --- configure.orig	2015-08-05 09:20:32 UTC
 +++ configure
 @@ -5863,7 +5863,7 @@ case $cf_cv_system_name in
@@ -31,3 +18,17 @@
  	;;
  (*)
  	;;
+@@ -6343,11 +6343,11 @@ CF_EOF
+ 		# tested with SunOS 5.5.1 (solaris 2.5.1) and gcc 2.7.2
+ 		# tested with SunOS 5.10 (solaris 10) and gcc 3.4.3
+ 		if test "$DFT_LWR_MODEL" = "shared" ; then
+-			LOCAL_LDFLAGS="-R \$(LOCAL_LIBDIR):\${libdir}"
++			LOCAL_LDFLAGS="-Wl,-R\$(LOCAL_LIBDIR):\${libdir}"
+ 			LOCAL_LDFLAGS2="$LOCAL_LDFLAGS"
+ 		fi
+ 		if test "$cf_cv_enable_rpath" = yes ; then
+-			EXTRA_LDFLAGS="-R \${libdir} $EXTRA_LDFLAGS"
++			EXTRA_LDFLAGS="-Wl,-R\${libdir} $EXTRA_LDFLAGS"
+ 		fi
+ 
+ 	test "$cf_cv_shlib_version" = auto && cf_cv_shlib_version=rel
