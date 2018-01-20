@@ -1,10 +1,12 @@
 --- hints/solaris_2.sh.orig	2017-07-18 22:50:01 UTC
 +++ hints/solaris_2.sh
-@@ -622,7 +622,6 @@ EOM
- 		# use that with Solaris 11 and later, but keep
- 		# the old behavior for older Solaris versions.
- 		case "$osvers" in
--			2.?|2.10) lddlflags="$lddlflags -G -m64" ;;
- 			*) lddlflags="$lddlflags -shared -m64" ;;
- 		esac
- 		;;
+@@ -20,6 +20,9 @@
+ #  gcc will occasionally emit warnings about "unused prefix", but
+ #  these ought to be harmless.  See below for more details.
+ 
++lddlflags="-shared "
++cccdlflags='-DPIC -fPIC'
++
+ # Solaris has secure SUID scripts
+ d_suidsafe=${d_suidsafe:-define}
+ 
