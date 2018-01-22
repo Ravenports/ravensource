@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	0.1
+DEF[PORTVERSION]=	0.2
+DEF[SOVERSION]=		1.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libtickit
@@ -24,6 +25,7 @@ BUILDRUN_DEPENDS=	libtermkey:single:standard
 
 USES=			gmake pkgconfig libtool:build
 MAKE_ARGS=		PREFIX="{{PREFIX}}"
+SOVERSION=		${SOVERSION}
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libtickit.so
