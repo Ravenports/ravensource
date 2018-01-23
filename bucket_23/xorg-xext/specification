@@ -33,3 +33,6 @@ INSTALL_TARGET=		install-strip
 CPE_PRODUCT=		libxext
 CPE_VENDOR=		x
 FPC_EQUIVALENT=		x11/libXext
+
+post-patch-sunos:
+	${REINPLACE_CMD} -e '/SOREV=0/d' ${WRKSRC}/configure
