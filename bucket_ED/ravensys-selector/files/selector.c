@@ -117,7 +117,8 @@ main(int argc, char **argv)
 	if (cmd == ld_sun) {
 		for (x = 0; x < argc; x++)
 		{
-			if (!(strcmp(argv[x], "--enable-new-dtags") == 0))
+			if (!(strcmp(argv[x], "--enable-new-dtags") == 0) &&
+			    !(strcmp(argv[x], "--export-dynamic") == 0))
 			{
 				     if (strcmp(argv[x], "-rpath") == 0)
 					newargv[newx] = sun_rpath;
