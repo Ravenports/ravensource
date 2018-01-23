@@ -41,6 +41,9 @@ PLIST_SUB=		HOGWEED_VERSION=${HOGWEED_VERSION}
 			SOVERSION=${SOVERSION}
 			SOMAJOR=${SOVERSION:R}
 
+post-patch-sunos:
+	${REINPLACE_CMD} -e 's|lib/64|lib|' ${WRKSRC}/configure
+
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
 	@${MKDIR} ${STAGEDIR}${STD_DOCDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
