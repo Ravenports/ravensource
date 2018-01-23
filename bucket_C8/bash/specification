@@ -5,7 +5,7 @@ DEF[STANDARD_PATH]=	/sbin:/bin:/usr/sbin:/usr/bin
 
 NAMEBASE=		bash
 VERSION=		${PORTVERSION}.${PATCHLEVEL}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		shells
 VARIANTS=		standard static nls
 SDESC[standard]=	GNU Bourne Again SHell
@@ -73,7 +73,7 @@ CONFIGURE_ARGS=		--enable-readline
 			--without-bash-malloc
 CPPFLAGS=		-DDEFAULT_PATH_VALUE='\"{{STANDARD_PATH}}:{{LOCALBASE}}/sbin:{{LOCALBASE}}/bin\"'
 			-DSTANDARD_UTILS_PATH='\"{{STANDARD_PATH}}\"'
-			-Wl,-export-dynamic
+			-Wl,--export-dynamic
 
 [NLS].USES_ON=				gettext-runtime iconv
 [NLS].CONFIGURE_ENABLE_BOTH=		nls
