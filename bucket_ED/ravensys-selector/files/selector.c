@@ -1,13 +1,17 @@
 /*
  * This program will automatically exec another program as a function
  * of the program name (argument 0) and environment variables.
+ * The primary function is to support solaris, but to convert
+ * gnu-specific linker flags to solaris equivalents.  It can also
+ * be used to force use of the gold linker for other platforms.
+ *
  *   ENV. VAR    VALUE       command    EXECUTED
  *   -----------------------------------------------------
- *   LINKER      unset       ld         $BIN_PREFIX/bin/ld.bfd
+ *   LINKER      unset       ld         $BIN_PREFIX/bin/ld.sun
  *   LINKER      bfd         ld         $BIN_PREFIX/bin/ld.bfd
  *   LINKER      gold        ld         $BIN_PREFIX/bin/ld.gold
  *   LINKER      sun         ld         $BIN_PREFIX/bin/ld.sun
- *   LINKER      all else    ld         $BIN_PREFIX/bin/ld.bfd
+ *   LINKER      all else    ld         $BIN_PREFIX/bin/ld.sun
  *
  *   BIN_PREFIX = "/raven/toolchain" unless SWITCH_PREFIX is
  *   present in the environment (in which case, BIN_PREFIX is set
@@ -51,8 +55,12 @@ main(int argc, char **argv)
 	char ld_gld[] = LINKER_GOLD;
 	char ld_sun[] = LINKER_SUN;
 	char *cmd;
-	char *ldcmd = ld_bfd;
+	char *ldcmd = ld_sun;
 	char *newargv[argc];
+	char *sun_rpath  = "-R";
+	char *sun_soname = "-h";
+	char *sun_shared = "-G";
+	char *sun_static = "-a";
 	char newcmd[1024];
 	const char *ldver;
 	const char *bin_prefix;
@@ -103,14 +111,24 @@ main(int argc, char **argv)
 	snprintf(newcmd, sizeof(newcmd), "%s/bin/%s", bin_prefix, cmd);
 
 	/*
-	 * Sun linker only : Filter out unrecognized arguments
+	 * Sun linker only : Filter out unrecognized arguments and
+	 *                   Convert gnu-specific commands to sun equivalent
 	 */
 	if (cmd == ld_sun) {
 		for (x = 0; x < argc; x++)
 		{
 			if (!(strcmp(argv[x], "--enable-new-dtags") == 0))
 			{
-				newargv[newx] = argv[x];
+				     if (strcmp(argv[x], "-rpath") == 0)
+					newargv[newx] = sun_rpath;
+				else if (strcmp(argv[x], "-soname") == 0)
+					newargv[newx] = sun_soname;
+				else if (strcmp(argv[x], "-shared") == 0)
+					newargv[newx] = sun_shared;
+				else if (strcmp(argv[x], "-static") == 0)
+					newargv[newx] = sun_static;
+				else
+					newargv[newx] = argv[x];
 				newx++;
 			}
 		}
@@ -128,5 +146,9 @@ main(int argc, char **argv)
 	 * Execution failed, so write out an error message
 	 */
 	printf ("Command execution failed: %s/bin/%s\n", bin_prefix, cmd);
+	printf ("               arguments:");
+	for (x = 1; x < argc; x++)
+		printf (" %s", (cmd == ld_sun) ? newargv[x] : argv[x]);
+	printf ("\n");
 	exit (1);
 }
