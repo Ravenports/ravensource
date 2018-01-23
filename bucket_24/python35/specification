@@ -53,7 +53,7 @@ CONFIGURE_ARGS=		--with-system-ffi
 			--enable-ipv6
 CONFIGURE_ENV=		OPT=""
 			DISABLED_EXTENSIONS="_sqlite3 _tkinter _gdbm"
-CFLAGS=			-I{{NCURSESINC}}
+CPPFLAGS=		-I{{NCURSESINC}}
 INSTALL_TARGET=		altinstall
 TEST_TARGET=		buildbottest
 TEST_ARGS=		TESTOPTS=-j{{MAKE_JOBS_NUMBER}}
@@ -71,6 +71,8 @@ VAR_OPSYS[dragonfly]=	PLIST_SUB=SOABI=
 			PLIST_SUB=PLAT={{OPSYS:tl}}{{MAJOR:R}}
 VAR_OPSYS[freebsd]=	PLIST_SUB=SOABI=
 			PLIST_SUB=PLAT={{OPSYS:tl}}{{MAJOR:R}}
+VAR_OPSYS[sunos]=	PLIST_SUB=SOABI=
+			PLIST_SUB=PLAT=sunos5
 
 [THREADS].CONFIGURE_WITH_BOTH=		threads
 [THREADS].LDFLAGS_ON=			-pthread
