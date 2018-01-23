@@ -84,7 +84,7 @@ CONFIGURE_ARGS=		--with-system-ffi
 CONFIGURE_ENV=		OPT=""
 			ac_cv_opt_olimit_ok=no
 			ac_cv_posix_semaphores_enabled=yes
-CFLAGS=			-I{{NCURSESINC}}
+CPPFLAGS=		-I{{NCURSESINC}}
 INSTALL_TARGET=		altinstall
 TEST_TARGET=		buildbottest
 TEST_ARGS=		TESTOPTS=-j{{MAKE_JOBS_NUMBER}}
@@ -102,6 +102,8 @@ VAR_OPSYS[dragonfly]=	PLIST_SUB=PLAT={{OPSYS:tl}}{{MAJOR:R}}
 			PLIST_SUB=SHLIB=so.1
 VAR_OPSYS[freebsd]=	PLIST_SUB=PLAT={{OPSYS:tl}}{{MAJOR:R}}
 			PLIST_SUB=SHLIB=so.1
+VAR_OPSYS[sunos]=	PLIST_SUB=PLAT=sunos5
+			PLIST_SUB=SHLIB=so.1.0
 
 VAR_ARCH[i386]=		PLIST_SUB=I386-ON=""
 VAR_ARCH[x86_64]=	PLIST_SUB=I386-ON="@comment "
