@@ -38,6 +38,9 @@ INSTALL_TARGET=		install-strip
 CPE_VENDOR=		x
 FPC_EQUIVALENT=		x11/libX11
 
+PLIST_SUB=		FMS={{QMAKE_ARGS:U5}}
+VAR_OPSYS[sunos]=	QMAKE_ARGS=4
+
 post-patch:
 	@${REINPLACE_CMD} 's/test.*-traditional.*;/true;/' \
 		${WRKSRC}/configure
