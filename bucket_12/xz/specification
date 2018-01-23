@@ -22,15 +22,18 @@ OPTIONS_STANDARD=	none
 VOPTS[static]=		STATIC=ON
 
 USES=			libtool
-C_USES[sunos]=		cclibs:single
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-nls
 			--disable-doc
-			--enable-symbol-versions
 CONFIGURE_ENV=		gl_cv_posix_shell=/bin/sh
 INSTALL_TARGET=		install-strip
 
 [STATIC].CONFIGURE_ARGS_ON=		--enable-shared=no
+
+# This option assumes GNU linker which Solaris isn't using
+VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--enable-symbol-versions
+VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-symbol-versions
+VAR_OPSYS[linux]=	CONFIGURE_ARGS=--enable-symbol-versions
 
 do-test:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE} check)
