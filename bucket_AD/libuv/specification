@@ -28,6 +28,8 @@ USES=			autoreconf libtool pkgconfig
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
 
+VAR_OPSYS[sunos]=	CFLAGS=-DSUNOS_NO_IFADDRS
+
 pre-configure:
 	${ECHO_CMD} "m4_define([UV_EXTRA_AUTOMAKE_FLAGS], [ serial-tests])" \
 		> ${WRKSRC}/m4/libuv-extra-automake-flags.m4
