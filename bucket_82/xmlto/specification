@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	0.0.28
 
 NAMEBASE=		xmlto
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		textproc
 VARIANTS=		standard
 SDESC[standard]=	Front-end to an XSL toolchain
@@ -25,8 +25,7 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		textproc/xmlto
 
-BUILDRUN_DEPENDS=	bash:primary:standard
-			getopt:single:standard
+BUILDRUN_DEPENDS=	getopt:single:standard
 			libpaper:single:standard
 			w3m:primary:standard
 			docbook-xsl:primary:standard
@@ -35,7 +34,7 @@ BUILDRUN_DEPENDS=	bash:primary:standard
 EXTRACT_ONLY=		1
 GNOME_COMPONENTS=	libxslt
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		BASH={{LOCALBASE}}/bin/bash
+CONFIGURE_ARGS=		BASH={{SH}}
 			GETOPT={{LOCALBASE}}/bin/getopt
 			PDFXMLTEX={{LOCALBASE}}/bin/pdftex
 MAKE_ENV=		HOME=/dev/null
