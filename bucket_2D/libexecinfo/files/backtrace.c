@@ -16,6 +16,8 @@
 
 #ifdef __linux__
 #define SELF	"/proc/self/exe"
+#elif defined __sun__
+#define SELF	"/proc/self/path/a.out"
 #else
 #include <sys/sysctl.h>
 #define SELF	"/proc/curproc/file"
@@ -25,6 +27,10 @@
 #define	__printflike(fmtarg, firstvararg) \
             __attribute__((__nonnull__(fmtarg), \
 			  __format__ (__printf__, fmtarg, firstvararg)))
+#endif
+
+#ifndef MAX
+#define MAX(a, b)	((a) >= (b) ? (a) : (b))
 #endif
 
 static int

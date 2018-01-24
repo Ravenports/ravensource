@@ -27,7 +27,7 @@ CFLAGS+=	-I. -I${SRCDIR} -I${COMMON}
 
 all: ${LIB_STATIC} ${LIB_SHARED}
 
-.if ${OPSYS} == Linux
+.if ${OPSYS} == Linux || ${OPSYS} == SunOS
 TSORT=		tsort 2>/dev/null
 .else
 TSORT=		tsort -q
@@ -99,6 +99,11 @@ libelf_msize.c:		elf_types.m4 libelf_msize.m4
 ${SRCS}: native-elf-format.h
 .endif
 
+.if "${OPSYS}" == "SunOS"
+CFLAGS+=	-I${PREFIX}/include/bsd
+SRCS+=		progname.c
+.endif
+
 # libexec sources
 PREFIX?=	/usr/local
 SRCS+=		backtrace.c symtab.c unwind.c
@@ -112,7 +117,7 @@ ${LIB_STATIC}: ${OBJS}
 
 ${LIB_SHARED}: ${SOBJS}
 	@${ECHO} building shared ${LIB} library
-	${CC_LINK} ${LDFLAGS} -shared -Wl,-x \
+	${CC_LINK} ${LDFLAGS} -shared \
 	    -o ${.TARGET} -Wl,-soname,${.TARGET} \
 	    `lorder ${SOBJS} | ${TSORT}`
 
