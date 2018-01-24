@@ -4,6 +4,7 @@ DEF[GEMS_BASE_DIR]=	lib/ruby/gems
 
 NAMEBASE=		ruby-rubygems
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		ruby devel
 VARIANTS=		v23 v24 v25
 SDESC[v23]=		Package management framework for Ruby (v2.3)
@@ -39,6 +40,7 @@ SKIP_BUILD=		yes
 DISTNAME=		rubygems-${PORTVERSION}
 PLIST_SUB=		DISTNAME="{{DISTNAME}}"
 			SUFFIX="{{RUBY_SUFFIX}}"
+			GEMS_BASE_DIR="${GEMS_BASE_DIR}/{{RUBY_VER}}"
 
 [RUBY23].USES_ON=			ruby:v23
 [RUBY23].MAKEFILE_ON=			GEMLINK2.3=""
@@ -54,6 +56,7 @@ PLIST_SUB=		DISTNAME="{{DISTNAME}}"
 					GEMLINK2.5=""
 
 do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/${GEMS_BASE_DIR}/${RUBY_VER}
 	cd ${WRKSRC} && ${SETENV} \
 		GEM_HOME=${STAGEDIR}${PREFIX}/${GEMS_BASE_DIR}/${RUBY_VER} \
 		${RUBY} ${RUBY_SETUP} --destdir=${STAGEDIR} \
