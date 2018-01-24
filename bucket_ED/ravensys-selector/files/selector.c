@@ -61,6 +61,7 @@ main(int argc, char **argv)
 	char *sun_soname = "-h";
 	char *sun_shared = "-G";
 	char *sun_static = "-a";
+	char *sun_script = "-M";
 	char newcmd[1024];
 	const char *ldver;
 	const char *bin_prefix;
@@ -128,6 +129,8 @@ main(int argc, char **argv)
 					newargv[newx] = sun_shared;
 				else if (strcmp(argv[x], "-static") == 0)
 					newargv[newx] = sun_static;
+				else if (strcmp(argv[x], "--version-script") == 0)
+					newargv[newx] = sun_script;
 				else
 					newargv[newx] = argv[x];
 				newx++;
