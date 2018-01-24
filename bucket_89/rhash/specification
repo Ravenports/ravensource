@@ -33,9 +33,12 @@ MAKE_ARGS=		INSTALL_PROGRAM="{{INSTALL_PROGRAM}}"
 			MANDIR="{{MANPREFIX}}/man"
 
 post-patch:
-	@${REINPLACE_CMD} -e 's,/etc/,${PREFIX}&,' ${WRKSRC}/parse_cmdline.c
-	@${REINPLACE_CMD} -e '/BYTE_ORDER/s,__,_,g' \
+	${REINPLACE_CMD} -e 's,/etc/,${PREFIX}&,' ${WRKSRC}/parse_cmdline.c
+	${REINPLACE_CMD} -e '/BYTE_ORDER/s,__,_,g' \
 		${WRKSRC}/librhash/byte_order.h
+	# remove windows-only function that sun linker squawks on
+	# because its scraped into a symbol map while undefined
+	${REINPLACE_CMD} -e '/rhash_wfile/d' ${WRKSRC}/librhash/rhash.h
 
 post-install:
 	${LN} -s librhash.so.0 ${STAGEDIR}${PREFIX}/lib/librhash.so
