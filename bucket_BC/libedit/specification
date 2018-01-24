@@ -28,6 +28,9 @@ INSTALL_TARGET=		install-strip
 CPPFLAGS=		-I{{NCURSESINC}}
 LDFLAGS=		-L{{NCURSESLIB}}
 
+post-patch:
+	${REINPLACE_CMD} -e '/EXAMPLES_DIR =/d' ${WRKSRC}/Makefile.in
+
 post-patch-sunos:
 	${REINPLACE_CMD} -e 's|LIBS="-lncurses |LIBS="-lncurses -ltinfo |'\
 		${WRKSRC}/configure
