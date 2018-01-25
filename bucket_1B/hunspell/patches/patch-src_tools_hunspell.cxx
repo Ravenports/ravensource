@@ -1,4 +1,4 @@
---- src/tools/hunspell.cxx.orig	2017-03-25 21:20:45 UTC
+--- src/tools/hunspell.cxx.orig	2017-09-03 11:38:44 UTC
 +++ src/tools/hunspell.cxx
 @@ -115,29 +115,23 @@
  #include "xmlparser.hxx"
@@ -45,3 +45,16 @@
  #define HOME getenv("HOME")
  #define DICBASENAME ".hunspell_"
  #define LOGFILE "/tmp/hunspell.log"
+@@ -643,6 +637,12 @@ char* mymkdtemp(char *templ) {
+     return NULL;
+   }
+   return odftmpdir;
++#elif defined __sun__
++  char *tmplt;
++  tmplt = mktemp(templ);
++  if (tmplt == NULL)
++	return NULL;
++  return (mkdir (tmplt, 0700) == 0) ? tmplt : NULL;
+ #else
+   return mkdtemp(templ);
+ #endif
