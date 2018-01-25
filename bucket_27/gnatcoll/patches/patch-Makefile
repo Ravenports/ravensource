@@ -25,7 +25,7 @@
  	-(cd distrib/ ; python ./gen_gps.py)
  	(cd distrib/; tar cf - gnatcoll) | \
 -          (cd $(prefix)/share/gps/plug-ins ; tar xf -)
-+          (cd $(DESTDIR)$(prefix)/share/gps/plug-ins ; tar xf -)
++          (cd $(DESTDIR)$(prefix)/share/gps/plug-ins ; tar xf - --no-same-owner --no-same-permissions)
  
  # Regenerate part of the sources. Unfortunately, this can be run only after
  # we have build GNATCOLL, and then its tools, even though GNATCOLL itself
