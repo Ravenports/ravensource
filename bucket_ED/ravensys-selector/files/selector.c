@@ -119,7 +119,10 @@ main(int argc, char **argv)
 		for (x = 0; x < argc; x++)
 		{
 			if (!(strcmp(argv[x], "--enable-new-dtags") == 0) &&
-			    !(strcmp(argv[x], "--export-dynamic") == 0))
+			    !(strcmp(argv[x], "--disable-new-dtags") == 0) &&
+			    !(strcmp(argv[x], "--export-dynamic") == 0) &&
+			    !(strcmp(argv[x], "--no-export-dynamic") == 0) &&
+			    !(strcmp(argv[x], "-E") == 0))
 			{
 				     if (strcmp(argv[x], "-rpath") == 0)
 					newargv[newx] = sun_rpath;
