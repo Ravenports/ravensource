@@ -27,8 +27,11 @@ FPC_EQUIVALENT=		devel/uclcmd
 
 BUILDRUN_DEPENDS=	libucl:single:standard
 B_DEPS[linux]=		libbsd:single:standard
+B_DEPS[sunos]=		libbsd4sol:single:standard
 
 USES=			pkgconfig
+
+VAR_OPSYS[sunos]=	CFLAGS=-I{{LOCALBASE}}/include/bsd
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/uclcmd
