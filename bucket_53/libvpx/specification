@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	1.6.1
+DEF[PORTVERSION]=	1.7.0
+DEF[SOVERSION]=		5.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libvpx
@@ -11,7 +12,7 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/webmproject:libvpx:v${PORTVERSION}
-DISTFILE[1]=		genereated:main
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
@@ -45,6 +46,8 @@ CONFIGURE_ARGS=		--prefix={{PREFIX}}
 			--size-limit=16384x16384
 MAKE_ARGS=		verbose=yes
 BUILD_TARGET=		#empty
+PLIST_SUB=		SOMAJORMIN=${SOVERSION:R}
+SOVERSION=		${SOVERSION}
 
 # Sizing: Chromium is 16k*16k; Firefox has 4000*3000
 
