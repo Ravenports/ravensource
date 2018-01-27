@@ -22,6 +22,10 @@ FPC_EQUIVALENT=		math/lp_solve
 
 DISTNAME=		lp_solve_${PORTVERSION:R:R}
 
+post-patch:
+	${REINPLACE_CMD} -e "s/ FALSE/ LP_FALSE/; s/ TRUE/ LP_TRUE/" \
+		${WRKSRC}/shared/commonlib.[ch] ${WRKSRC}/shared/myblas.c
+
 pre-build:
 	${FIND} ${WRKSRC} -name "ccc" | ${XARGS} ${REINPLACE_CMD} -e \
 		"s|^c=.*$$|c='${CC}'|g ; \
