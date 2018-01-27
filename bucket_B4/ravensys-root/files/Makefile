@@ -610,7 +610,7 @@ install:
 .if "${OPSYS}" == "SunOS"
 	cp ${CPA} ../${OPSYS:tl}/* ${DESTDIR}${BASE}/
 	# use BSD's which
-	${BSD_INSTALL_PROGRAM} ${LOCALBASE}/bin/which ${DESTDIR}${BASE}/bin/
+	${BSD_INSTALL_PROGRAM} ${LOCALBASE}/bin/which ${DESTDIR}${BASE}/usr/bin/
 	# fetch is just a wrapper for wget (for now)
 	${BSD_INSTALL_PROGRAM} ${LOCALBASE}/bin/wget ${DESTDIR}${BASE}/usr/bin/
 #	${BSD_INSTALL_DATA} ${LOCALBASE}/share/certs/ca-root-nss.crt ${DESTDIR}${BASE}/usr/share/
