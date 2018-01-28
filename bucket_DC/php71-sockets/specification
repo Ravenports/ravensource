@@ -28,3 +28,6 @@ DISTNAME=		php-${PORTVERSION}/ext/{{PHP_MODNAME}}
 CONFIGURE_ARGS=		--enable-${MODULE}
 EXTRACT_HEAD[1]=	{{TAR}} -xf
 EXTRACT_TAIL[1]=	php-${PORTVERSION}/ext/{{PHP_MODNAME}}
+
+VAR_OPSYS[sunos]=	CONFIGURE_ENV=ac_cv_func_if_indextoname=yes
+			CFLAGS=-D_XOPEN_SOURCE=600
