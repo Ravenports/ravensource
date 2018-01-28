@@ -34,5 +34,9 @@ post-patch:
 		-e 's|-lncurses|$$(LDFLAGS) -lncurses|' \
 		${WRKSRC}/Makefile
 
+post-patch-sunos:
+	${REINPLACE_CMD} -e 's|-lncurses|-lncurses -ltinfo|' \
+		${WRKSRC}/Makefile
+
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/hexcompare ${STAGEDIR}${PREFIX}/bin
