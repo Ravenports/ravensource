@@ -1,6 +1,16 @@
---- xf86drm.h.orig	2017-04-07 08:49:13 UTC
+--- xf86drm.h.orig	2017-12-18 01:33:10 UTC
 +++ xf86drm.h
-@@ -78,17 +78,27 @@ extern "C" {
+@@ -59,6 +59,9 @@ extern "C" {
+ #else /* One of the *BSDs */
+ 
+ #include <sys/ioccom.h>
++#ifdef __sun__
++#define _IOC(inout,group,num,len)	(inout | ((len & IOCPARM_MASK) << 16) | ((group) << 8) | (num))
++#endif
+ #define DRM_IOCTL_NR(n)         ((n) & 0xff)
+ #define DRM_IOC_VOID            IOC_VOID
+ #define DRM_IOC_READ            IOC_OUT
+@@ -78,17 +81,27 @@ extern "C" {
  
  #ifdef __OpenBSD__
  #define DRM_DIR_NAME  "/dev"

@@ -28,6 +28,7 @@ BUILD_DEPENDS=		libpthread-stubs:single:standard
 			docbook-xsl:primary:standard
 			libxslt:single:standard
 			libxml2:single:standard
+B_DEPS[sunos]=		libbsd4sol:single:standard
 
 USES=			gmake libtool pkgconfig
 XORG_COMPONENTS=	pciaccess
@@ -43,5 +44,7 @@ INSTALL_REQ_TOOLCHAIN=	yes
 [X86].DESCRIPTION=			DRM Drivers for amd64 and i386 architectures
 
 post-patch:
-	${REINPLACE_CMD} -e '/^MANPAGES_STYLESHEET=/ s|".*"|"${xslsheet}"|' \
+	${REINPLACE_CMD} \
+		-e '/^MANPAGES_STYLESHEET=/ s|".*"|"${xslsheet}"|' \
+		-e '/_MAN_SUFFIX/ s/solaris/no-solaris/' \
 		${WRKSRC}/configure
