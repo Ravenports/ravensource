@@ -53,9 +53,9 @@ PLIST_SUB=		VERSION="1.0"
 			SOMAJOR=${SOMAJOR}
 
 post-patch:
-	@${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g' \
+	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g' \
 		${WRKSRC}/dbus/dbus-sysdeps-unix.c
-	@${REINPLACE_CMD} '/^SUBDIRS =/s|test||' ${WRKSRC}/Makefile.in
+	${REINPLACE_CMD} '/^SUBDIRS =/s|test||' ${WRKSRC}/Makefile.in
 
 post-install:
 	# delete examples

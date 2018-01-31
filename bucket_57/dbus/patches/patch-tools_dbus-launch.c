@@ -1,6 +1,6 @@
---- tools/dbus-launch.c.orig	2016-08-15 18:55:42 UTC
+--- tools/dbus-launch.c.orig	2017-10-30 12:26:18 UTC
 +++ tools/dbus-launch.c
-@@ -847,6 +847,12 @@ main (int argc, char **argv)
+@@ -846,6 +846,12 @@ main (int argc, char **argv)
    exit_with_session = FALSE;
    config_file = NULL;
  

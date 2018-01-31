@@ -1,0 +1,45 @@
+--- configure.orig	2017-11-13 13:36:11 UTC
++++ configure
+@@ -24487,14 +24487,14 @@ fi
+ done
+ 
+ 
+-    if test "$ax_enable_compile_warnings" != "no"; then :
++    if test "$ax_enable_compile_warnings" == "skipme"; then :
+ 
+         # "yes" flags
+ 
+ 
+ 
+ 
+-for flag in       ; do
++for flag in ""      ; do
+   as_CACHEVAR=`$as_echo "ax_cv_check_ldflags_$ax_compiler_flags_test_$flag" | $as_tr_sh`
+ { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether the linker accepts $flag" >&5
+ $as_echo_n "checking whether the linker accepts $flag... " >&6; }
+@@ -26002,14 +26002,14 @@ fi
+ done
+ 
+ 
+-    if test "$ax_enable_compile_warnings" != "no"; then :
++    if test "$ax_enable_compile_warnings" != "yes"; then :
+ 
+         # "yes" flags
+ 
+ 
+ 
+ 
+-for flag in    ; do
++for flag in ""   ; do
+   as_CACHEVAR=`$as_echo "ax_cv_check_ldflags_$ax_compiler_flags_test_$flag" | $as_tr_sh`
+ { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether the linker accepts $flag" >&5
+ $as_echo_n "checking whether the linker accepts $flag... " >&6; }
+@@ -26183,8 +26183,6 @@ case $host_os in
+         CFLAGS="$CFLAGS -D_POSIX_PTHREAD_SEMANTICS -D_REENTRANT"
+         # ... this opt-in to get sockaddr_in6 and sockaddr_storage...
+         CFLAGS="$CFLAGS -D__EXTENSIONS__"
+-        # ... and this opt-in to get file descriptor passing support
+-        CFLAGS="$CFLAGS -D_XOPEN_SOURCE=500"
+         ;;
+ esac
+ 
