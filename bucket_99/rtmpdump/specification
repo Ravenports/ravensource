@@ -32,3 +32,6 @@ USES=			pkgconfig ssl zlib
 MAKE_ENV=		THREADLIB="-lpthread"
 LDFLAGS=		-L{{OPENSSLLIB}}
 PATCHFILES=		2
+
+VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
+			LDFLAGS=-lnsl
