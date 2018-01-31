@@ -62,10 +62,10 @@ PLIST_SUB=		NAMEBASE="llvm${SUFFIX}"
 
 # llvm linking requires vast amounts of memory per builder
 # On FreeBSD and Linux using swapfiles, the build can thrash the disk so much
-# that the watchdog always kicks in.  Limiting to 2 builders seems to allow
-# jobs to complete using mechanical disk swap files
+# that the watchdog always kicks in.  For llvm50, mandating a single job
+# seems to be the most effective approach to avoid this.
 
-MAKE_JOBS_NUMBER_LIMIT=	2
+SINGLE_JOB=		yes
 
 [GOLD].DESCRIPTION=			Build the LLVM Gold plugin for LTO
 [OPENMP].DESCRIPTION=			Install libomp, the LLVM OpenMP runtime library
