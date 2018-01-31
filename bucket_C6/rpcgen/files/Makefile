@@ -8,6 +8,10 @@ PREFIX?=	/usr/local
 LIBS+=		${PREFIX}/lib/libbsd.a
 .endif
 
+.if ${OPSYS} == SunOS
+CFLAGS+=	-I${PREFIX}/include/bsd
+.endif
+
 all: ${PROG}
 
 clean:

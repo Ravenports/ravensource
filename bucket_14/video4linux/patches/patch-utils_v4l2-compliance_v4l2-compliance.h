@@ -5,7 +5,7 @@
  #include <cv4l-helpers.h>
  
 -#if !defined(ENODATA) && (defined(__FreeBSD__) || defined(__FreeBSD_kernel__))
-+#if !defined(ENODATA) && (defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__DragonFly__))
++#if !defined(ENODATA) && (defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined __DragonFly__ || defined __sun__)
  #define ENODATA ENOTSUP
  #endif
  

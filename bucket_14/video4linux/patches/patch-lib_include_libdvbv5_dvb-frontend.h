@@ -1,6 +1,16 @@
---- ./lib/include/libdvbv5/dvb-frontend.h.orig	2016-09-13 19:57:29.863954000 +0200
-+++ ./lib/include/libdvbv5/dvb-frontend.h	2016-09-13 19:58:07.703108000 +0200
-@@ -553,7 +553,13 @@
+--- lib/include/libdvbv5/dvb-frontend.h.orig	2014-04-23 06:40:08 UTC
++++ lib/include/libdvbv5/dvb-frontend.h
+@@ -27,6 +27,9 @@
+ #define _DVBFRONTEND_H_
+ 
+ #include <linux/types.h>
++#ifdef __sun__
++#include <sys/ioccom.h>
++#endif
+ 
+ typedef enum fe_type {
+ 	FE_QPSK,
+@@ -553,7 +556,13 @@ struct dtv_properties {
  };
  
  #define FE_SET_PROPERTY		   _IOW('o', 82, struct dtv_properties)

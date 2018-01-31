@@ -24,6 +24,10 @@ USES=			ncurses
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-ncurses={{NCURSESBASE}}
 
+post-patch-sunos:
+	${REINPLACE_CMD} -e '/CURSES_LIBS=/ s/-lncurses/-lncurses -ltinfo/'\
+		${WRKSRC}/configure
+
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/emacs/site-lisp \
 		${STAGEDIR}${PREFIX}/lib/xemacs/site-lisp

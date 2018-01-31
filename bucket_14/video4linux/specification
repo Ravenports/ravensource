@@ -29,6 +29,8 @@ FPC_EQUIVALENT=		multimedia/libv4l
 
 BR_DEPS[dragonfly]=	argp-standalone:single:standard
 BR_DEPS[freebsd]=	argp-standalone:single:standard
+BR_DEPS[sunos]=		argp-standalone:single:standard
+B_DEPS[sunos]=		libbsd4sol:single:standard
 
 EXRUN[utils]=		video4linux:primary:standard
 
@@ -65,6 +67,21 @@ post-patch-freebsd:
 		s|__u16|uint16_t|g; s|__s16|int16_t|g; \
 		s|__u32|uint32_t|g; s|__s32|int32_t|g; \
 		s|__u64|uint64_t|g; s|__s64|int64_t|g'
+
+post-patch-sunos:
+	@${FIND} ${WRKDIR} -type f \( -iname "*.h" ! -iname "input.h" ! -iname "videodev2.h" \) | \
+		${XARGS} -n 10 ${REINPLACE_CMD} \
+		-e 's|linux/types.h|sys/types.h|g; s|__user||g; \
+		s|sys/fcntl.h|fcntl.h|g; \
+		s|__u8|uint8_t|g; s|__s8|int8_t|g; \
+		s|__u16|uint16_t|g; s|__s16|int16_t|g; \
+		s|__u32|uint32_t|g; s|__s32|int32_t|g; \
+		s|__u64|uint64_t|g; s|__s64|int64_t|g'
+	${REINPLACE_CMD} \
+		-e 's|u_int8_t|uint8_t|g' \
+		-e 's|u_int16_t|uint16_t|g' \
+		-e 's|u_int32_t|uint32_t|g' \
+		${WRKSRC}/utils/keytable/keytable.c
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/include/linux/dvb/
