@@ -57,7 +57,8 @@ post-patch:
 		${WRKSRC}/glib/tests/utils.c
 	@${REINPLACE_CMD} -e 's|inotify_support=yes|inotify_support=no| ; \
 		s|-Werror|| ; \
-		s|#define HAVE_SYS_INOTIFY_H 1||' ${WRKSRC}/configure
+		s|#define HAVE_SYS_INOTIFY_H 1|| ; \
+		/_XOPEN_SOURCE 2/d' ${WRKSRC}/configure
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/share/GConf/gsettings
