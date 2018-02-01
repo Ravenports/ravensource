@@ -57,9 +57,13 @@ VAR_ARCH[i386]=		CONFIGURE_ARGS=--target=x86-linux-gcc
 
 
 post-patch:
-	@${REINPLACE_CMD} 's|\(link_with_cc\)=gcc|\1=$${CC}|' \
+	${REINPLACE_CMD} 's|\(link_with_cc\)=gcc|\1=$${CC}|' \
 		${WRKSRC}/build/make/configure.sh
 
+post-patch-sunos:
+	${REINPLACE_CMD} -e 's/-Wl,--no-undefined//' \
+		${WRKSRC}/build/make/Makefile
+
 post-install:
-	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/vpx*
-	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libvpx.so.*.*.*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/vpx*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libvpx.so.*.*.*
