@@ -37,6 +37,7 @@ USES=			bison gmake
 DISTNAME=		binutils-${PORTVERSION}
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--target={{XCCTARGET}}
+			--build={{CONFIGURE_TARGET}}
 			--prefix={{BRANCH_PREFIX}}
 			--with-sysroot={{SRPREFIX}}
 			--with-gmp={{LOCALBASE}}
@@ -70,6 +71,7 @@ PLIST_SUB=		TARGET="{{XCCTARGET}}"
 					BRANCH2=
 					BRANCH_PREFIX={{PREFIX}}/{{BRANCH2}}
 					SRPREFIX=gnatcross-sysroot-amd64
+[SOL10].ONLY_FOR_OPSYS_ON=		freebsd dragonfly linux
 
 post-install:
 	# Move the unwanted documentation out of the stage directory
