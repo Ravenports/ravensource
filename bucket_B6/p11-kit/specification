@@ -28,12 +28,16 @@ BUILDRUN_DEPENDS=	nss:caroot:standard
 			libtasn1:primary:standard
 			libffi:single:standard
 
+B_DEPS[sunos]=		libbsd4sol:single:standard
+
 USES=			gmake libtool pkgconfig
 INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-nls
 			--enable-debug=no
 			--with-trust-paths={{LOCALBASE}}/share/certs/ca-root-nss.crt
+
+VAR_OPSYS[sunos]=	CPPFLAGS=-I{{LOCALBASE}}/include/bsd
 
 pre-configure:
 	@${REINPLACE_CMD} -e \
