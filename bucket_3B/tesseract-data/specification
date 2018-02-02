@@ -1,0 +1,30 @@
+DEF[PORTVERSION]=	3.04.00
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		tesseract-data
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Trained language data for the Tesseract OCR engine
+HOMEPAGE=		https://github.com/tesseract-ocr/tessdata
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/tesseract-ocr:tessdata:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		graphics/tesseract-data
+
+SKIP_BUILD=		yes
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/tesseract-data
+	${INSTALL_SCRIPT} ${WRKSRC}/*.traineddata \
+		${STAGEDIR}${PREFIX}/share/tesseract-data/
+	# remove all the "_old" data until somebody says it's needed
+	${RM} ${STAGEDIR}${PREFIX}/share/tesseract-data/*_old.traineddata
