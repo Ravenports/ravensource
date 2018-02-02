@@ -425,7 +425,7 @@ adjust_variants() {
 
 check_variant_inhibits() {
    local django
-   django=$(grep "^[Dj]jango" ${raven_req2})
+   django=$(grep "^[Dd]jango" ${raven_req2})
    if [ -n "${django}" ]; then
       INHIBIT_VARIANTS="${INHIBIT_VARIANTS} py27"
    fi
