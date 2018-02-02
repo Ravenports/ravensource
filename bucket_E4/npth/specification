@@ -1,0 +1,31 @@
+DEF[PORTVERSION]=	1.5
+DEF[SOVERSION]=		0.1.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		npth
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	New Portable Threads Library (nPth)
+HOMEPAGE=		https://www.gnupg.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNUPG/npth
+DISTFILE[1]=		npth-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:single
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING.LIB
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/npth
+
+USES=			libtool
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
