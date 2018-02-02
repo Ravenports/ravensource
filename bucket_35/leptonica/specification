@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	1.75.1
+DEF[SOVERSION]=		5.0.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		leptonica
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Image processing and analysis library
+HOMEPAGE=		http://www.leptonica.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.leptonica.org/source/
+DISTFILE[1]=		leptonica-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		graphics/leptonica
+
+BUILDRUN_DEPENDS=	tiff:primary:standard
+			WebP:single:standard
+			openjpeg:single:standard
+			gif:single:standard
+
+USES=			png jpeg libtool
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
+
+post-patch:
+	# add support for openjpeg 2.3
+	${REINPLACE_CMD} -e 's|openjpeg-2.0|openjpeg-2.3|' ${WRKSRC}/configure
