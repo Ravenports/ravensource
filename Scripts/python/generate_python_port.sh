@@ -45,6 +45,7 @@ raven_req3b=unset
 pathtoexec=$(realpath $0)
 thisdir=$(dirname ${pathtoexec})
 DEADLIST=${thisdir}/dead-homepage.list
+INHIBIT_VARIANTS=
 
 LANG=en_US.UTF-8
 LC_ALL=en_US.UTF-8
@@ -397,6 +398,39 @@ dump_dependencies_as_comments() {
    awk '{ if (length ($1) > 0) print "# " $1 }' ${raven_req2}
 }
 
+adjust_variants() {
+   local tmp_variants
+   local v1
+   local v2
+   local tv
+   if [ -n "${INHIBIT_VARIANTS}" ]; then
+      for v1 in ${VARIANTS}; do
+         tv=
+         for v2 in ${INHIBIT_VARIANTS}; do
+            if [ "${v1}" = "${v2}" ]; then
+               tv=skip
+            fi
+         done
+         if [ -z "${tv}" ]; then
+            if [ -z "${tmp_variants}" ]; then
+               tmp_variants=${v1}
+            else
+               tmp_variants="${tmp_variants} ${v1}"
+            fi
+         fi
+      done
+      VARIANTS="${tmp_variants}"
+   fi
+}
+
+check_variant_inhibits() {
+   local django
+   django=$(grep "^[Dj]jango" ${raven_req2})
+   if [ -n "${django}" ]; then
+      INHIBIT_VARIANTS="${INHIBIT_VARIANTS} py27"
+   fi
+}
+
 dump_buildrun_options() {
    local v
    local reqfile
@@ -491,6 +525,8 @@ generate_port() {
    determine_variants
    create_description
    write_buildrun
+   check_variant_inhibits
+   adjust_variants
 
    cat <<EOF > ${SPEC}
 DEF[PORTVERSION]=	${VERSION}
