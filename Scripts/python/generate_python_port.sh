@@ -108,11 +108,17 @@ exec_setup() {
 
 determine_variants() {
    local vrt
-   exec_setup python2.7 --name > /dev/null
-   if [ $? -eq 0 ]; then
-      vrt="py27"
-      [ -z "${FIRST_SNAKE}" ] && FIRST_SNAKE=python2.7
-   fi
+   case ${PYPINAME} in
+     django-*)	# skip, django is 3.5+
+        ;;
+     *)
+        exec_setup python2.7 --name > /dev/null
+        if [ $? -eq 0 ]; then
+           vrt="py27"
+           [ -z "${FIRST_SNAKE}" ] && FIRST_SNAKE=python2.7
+        fi
+        ;;
+   esac
    exec_setup python3.5 --name > /dev/null
    if [ $? -eq 0 ]; then
       vrt="${vrt} py35"
@@ -246,6 +252,8 @@ handle_licenses() {
    rawlicense=$(exec_setup ${FIRST_SNAKE} --license)
    case "${rawlicense}" in
       "Apache License, Version 2.0") all_lic="Apache*2.0" ;;
+      *Apache*)                      all_lic="Apache*2.0" ;;
+      "The MIT License"*) all_lic="MIT" ;;
       *) all_lic=$(echo ${rawlicense} | awk -F ', ' '{ for (x=1;x<=NF;x++) { gsub (/ /, "*", $x); print $x }}') ;;
    esac
    for lic in ${all_lic}; do
@@ -411,7 +419,9 @@ function strip_dep(dep) {\
        return "python-" dep;\
 }\
 function filter(dep) {\
-   if (dep == "python-babel") return "python-Babel";
+        if (dep == "python-babel") return "python-Babel";
+   else if (dep == "python-django") return "python-Django";
+   else if (dep == "python-django-compressor") return "python-django_compressor";
    else return dep;
 }\
 BEGIN {\

@@ -47,6 +47,7 @@ while read ravenport version fpc_port; do
 	unrar) ;;		# ditto
 	autoconf213) ;;		# ditto
 	cwm) ;;			# ditto
+	fonts-gentium-basic) ;;	# ditto
 
 	aspell-el) ;;		# requires EPOCH, 0.08 > 0.50 actually
 	hunspell-pt_BR) ;;	# Freebsd combines BR/PT, but raven splits them up

@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	3.2.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-django-celery
+VERSION=		${PORTVERSION}
+KEYWORDS=		python devel
+VARIANTS=		py35 py36
+SDESC[py35]=		Old django celery integration project. (PY 35)
+SDESC[py36]=		Old django celery integration project. (PY 36)
+HOMEPAGE=		http://celeryproject.org
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/d/django-celery
+DISTFILE[1]=		django-celery-3.2.2.tar.gz:main
+
+SPKGS[py35]=		single
+SPKGS[py36]=		single
+
+OPTIONS_AVAILABLE=	PY35 PY36
+OPTIONS_STANDARD=	none
+VOPTS[py35]=		PY35=ON PY36=OFF
+VOPTS[py36]=		PY35=OFF PY36=ON
+
+LICENSE=		BSDGROUP:single
+LICENSE_FILE=		BSDGROUP:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+GENERATED=		yes
+
+# install_requires extracted from setup.py (using python 2.7)
+# celery>=3.1.15,<4.0
+# django>=1.8
+
+DISTNAME=		django-celery-${PORTVERSION}
+
+[PY35].USES_ON=				python:py35
+[PY35].BUILDRUN_DEPENDS_ON=		python-celery:single:py35
+					python-Django:single:py35
+
+[PY36].USES_ON=				python:py36
+[PY36].BUILDRUN_DEPENDS_ON=		python-celery:single:py36
+					python-Django:single:py36
+

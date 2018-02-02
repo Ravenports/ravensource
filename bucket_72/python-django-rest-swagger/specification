@@ -1,0 +1,51 @@
+DEF[PORTVERSION]=	2.1.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-django-rest-swagger
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py35 py36
+SDESC[py35]=		Swagger UI for Django REST Framework 3.5+ (PY 35)
+SDESC[py36]=		Swagger UI for Django REST Framework 3.5+ (PY 36)
+HOMEPAGE=		https://github.com/marcgibbons/django-rest-swagger
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/d/django-rest-swagger
+DISTFILE[1]=		django-rest-swagger-2.1.2.tar.gz:main
+
+SPKGS[py35]=		single
+SPKGS[py36]=		single
+
+OPTIONS_AVAILABLE=	PY35 PY36
+OPTIONS_STANDARD=	none
+VOPTS[py35]=		PY35=ON PY36=OFF
+VOPTS[py36]=		PY35=OFF PY36=ON
+
+LICENSE=		CUSTOM1:single
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE
+LICENSE_NAME=		CUSTOM1:"FreeBSD License"
+LICENSE_SCHEME=		solo
+
+GENERATED=		yes
+
+# install_requires extracted from setup.py (using python 2.7)
+# coreapi>=2.3.0
+# openapi-codec>=1.3.1
+# djangorestframework>=3.5.4
+# simplejson
+
+DISTNAME=		django-rest-swagger-${PORTVERSION}
+
+[PY35].USES_ON=				python:py35
+[PY35].BUILDRUN_DEPENDS_ON=		python-coreapi:single:py35
+					python-openapi-codec:single:py35
+					python-djangorestframework:single:py35
+					python-simplejson:single:py35
+
+[PY36].USES_ON=				python:py36
+[PY36].BUILDRUN_DEPENDS_ON=		python-coreapi:single:py36
+					python-openapi-codec:single:py36
+					python-djangorestframework:single:py36
+					python-simplejson:single:py36
+

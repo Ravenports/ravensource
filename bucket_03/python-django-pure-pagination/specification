@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	0.3.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-django-pure-pagination
+VERSION=		${PORTVERSION}
+KEYWORDS=		python devel
+VARIANTS=		py35 py36
+SDESC[py35]=		Django-pure-pagination provides advanced p (PY 35)
+SDESC[py36]=		Django-pure-pagination provides advanced p (PY 36)
+HOMEPAGE=		https://github.com/jamespacileo/django-pure-pagination/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/d/django-pure-pagination
+DISTFILE[1]=		django-pure-pagination-0.3.0.tar.gz:main
+
+SPKGS[py35]=		single
+SPKGS[py36]=		single
+
+OPTIONS_AVAILABLE=	PY35 PY36
+OPTIONS_STANDARD=	none
+VOPTS[py35]=		PY35=ON PY36=OFF
+VOPTS[py36]=		PY35=OFF PY36=ON
+
+LICENSE=		BSDGROUP:single
+LICENSE_FILE=		BSDGROUP:{{WRKSRC}}/LICENSE.txt
+LICENSE_SCHEME=		solo
+
+GENERATED=		yes
+
+# install_requires extracted from setup.py (using python 2.7)
+
+DISTNAME=		django-pure-pagination-${PORTVERSION}
+
+[PY35].USES_ON=				python:py35
+
+[PY36].USES_ON=				python:py36
+

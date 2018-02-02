@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	1.1.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-django-autoadmin
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py35 py36
+SDESC[py35]=		Automatic admin users for Django projects. (PY 35)
+SDESC[py36]=		Automatic admin users for Django projects. (PY 36)
+HOMEPAGE=		https://github.com/rosarior/django-autoadmin
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/d/django-autoadmin
+DISTFILE[1]=		django-autoadmin-1.1.1.tar.gz:main
+
+SPKGS[py35]=		single
+SPKGS[py36]=		single
+
+OPTIONS_AVAILABLE=	PY35 PY36
+OPTIONS_STANDARD=	none
+VOPTS[py35]=		PY35=ON PY36=OFF
+VOPTS[py36]=		PY35=OFF PY36=ON
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+GENERATED=		yes
+
+# install_requires extracted from setup.py (using python 2.7)
+# django-solo>=1.1.0
+
+DISTNAME=		django-autoadmin-${PORTVERSION}
+
+[PY35].USES_ON=				python:py35
+[PY35].BUILDRUN_DEPENDS_ON=		python-django-solo:single:py35
+
+[PY36].USES_ON=				python:py36
+[PY36].BUILDRUN_DEPENDS_ON=		python-django-solo:single:py36
+

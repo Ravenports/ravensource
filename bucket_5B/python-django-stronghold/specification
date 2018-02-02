@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	0.3.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-django-stronghold
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py35 py36
+SDESC[py35]=		Get inside your stronghold and make all yo (PY 35)
+SDESC[py36]=		Get inside your stronghold and make all yo (PY 36)
+HOMEPAGE=		https://github.com/mgrouchy/django-stronghold
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/d/django-stronghold
+DISTFILE[1]=		django-stronghold-0.3.0.tar.gz:main
+
+SPKGS[py35]=		single
+SPKGS[py36]=		single
+
+OPTIONS_AVAILABLE=	PY35 PY36
+OPTIONS_STANDARD=	none
+VOPTS[py35]=		PY35=ON PY36=OFF
+VOPTS[py36]=		PY35=OFF PY36=ON
+
+# No license file found for MIT*license license
+LICENSE_SCHEME=		solo
+
+GENERATED=		yes
+
+# install_requires extracted from setup.py (using python 2.7)
+
+DISTNAME=		django-stronghold-${PORTVERSION}
+
+[PY35].USES_ON=				python:py35
+
+[PY36].USES_ON=				python:py36
+

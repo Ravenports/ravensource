@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	3.1.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-django-model-utils
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py35 py36
+SDESC[py35]=		Django model mixins and utilities (PY 35)
+SDESC[py36]=		Django model mixins and utilities (PY 36)
+HOMEPAGE=		https://github.com/jazzband/django-model-utils/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/d/django-model-utils
+DISTFILE[1]=		django-model-utils-3.1.1.tar.gz:main
+
+SPKGS[py35]=		single
+SPKGS[py36]=		single
+
+OPTIONS_AVAILABLE=	PY35 PY36
+OPTIONS_STANDARD=	none
+VOPTS[py35]=		PY35=ON PY36=OFF
+VOPTS[py36]=		PY35=OFF PY36=ON
+
+LICENSE=		BSDGROUP:single
+LICENSE_FILE=		BSDGROUP:{{WRKSRC}}/LICENSE.txt
+LICENSE_SCHEME=		solo
+
+GENERATED=		yes
+
+# install_requires extracted from setup.py (using python 2.7)
+# Django>=1.8
+
+DISTNAME=		django-model-utils-${PORTVERSION}
+
+[PY35].USES_ON=				python:py35
+[PY35].BUILDRUN_DEPENDS_ON=		python-Django:single:py35
+
+[PY36].USES_ON=				python:py36
+[PY36].BUILDRUN_DEPENDS_ON=		python-Django:single:py36
+

@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	1.0.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-django-js-asset
+VERSION=		${PORTVERSION}
+KEYWORDS=		python devel
+VARIANTS=		py35 py36
+SDESC[py35]=		Script tag with additional attributes for  (PY 35)
+SDESC[py36]=		Script tag with additional attributes for  (PY 36)
+HOMEPAGE=		https://github.com/matthiask/django-js-asset/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/d/django-js-asset
+DISTFILE[1]=		django-js-asset-1.0.0.tar.gz:main
+
+SPKGS[py35]=		single
+SPKGS[py36]=		single
+
+OPTIONS_AVAILABLE=	PY35 PY36
+OPTIONS_STANDARD=	none
+VOPTS[py35]=		PY35=ON PY36=OFF
+VOPTS[py36]=		PY35=OFF PY36=ON
+
+LICENSE=		BSDGROUP:single
+LICENSE_FILE=		BSDGROUP:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+GENERATED=		yes
+
+# install_requires extracted from setup.py (using python 2.7)
+
+DISTNAME=		django-js-asset-${PORTVERSION}
+
+[PY35].USES_ON=				python:py35
+
+[PY36].USES_ON=				python:py36
+

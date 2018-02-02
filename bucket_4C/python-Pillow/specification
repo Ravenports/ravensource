@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	5.0.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-Pillow
+VERSION=		${PORTVERSION}
+KEYWORDS=		python graphics
+VARIANTS=		py27 py35 py36
+SDESC[py27]=		Python Imaging Library (Fork) (PY 27)
+SDESC[py35]=		Python Imaging Library (Fork) (PY 35)
+SDESC[py36]=		Python Imaging Library (Fork) (PY 36)
+HOMEPAGE=		https://python-pillow.org
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/P/Pillow
+DISTFILE[1]=		Pillow-5.0.0.tar.gz:main
+
+SPKGS[py27]=		single
+SPKGS[py35]=		single
+SPKGS[py36]=		single
+
+OPTIONS_AVAILABLE=	PY27 PY35 PY36
+OPTIONS_STANDARD=	none
+VOPTS[py27]=		PY27=ON PY35=OFF PY36=OFF
+VOPTS[py35]=		PY27=OFF PY35=ON PY36=OFF
+VOPTS[py36]=		PY27=OFF PY35=OFF PY36=ON
+
+LICENSE=		CUSTOM1:single
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE
+LICENSE_NAME=		CUSTOM1:"Standard PIL License"
+LICENSE_SCHEME=		solo
+
+GENERATED=		yes
+
+# install_requires extracted from setup.py (using python 2.7)
+
+DISTNAME=		Pillow-${PORTVERSION}
+
+[PY27].USES_ON=				python:py27
+
+[PY35].USES_ON=				python:py35
+
+[PY36].USES_ON=				python:py36
+
