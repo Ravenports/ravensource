@@ -146,4 +146,8 @@ DISTNAME=		mayan-edms-${PORTVERSION}
 					python-pytz:single:py36
 					python-requests:single:py36
 					python-sh:single:py36
+USES=			shebangfix
+SHEBANG_FILES=		mayan/bin/mayan-edms.py
 
+post-patch:
+	${REINPLACE_CMD} 's/[\d128-\d255]//g' ${WRKSRC}/HISTORY.rst

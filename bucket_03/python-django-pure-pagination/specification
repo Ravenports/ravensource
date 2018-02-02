@@ -35,4 +35,5 @@ DISTNAME=		django-pure-pagination-${PORTVERSION}
 [PY35].USES_ON=				python:py35
 
 [PY36].USES_ON=				python:py36
-
+post-patch:
+	${REINPLACE_CMD} 's/[\d128-\d255]//g' ${WRKSRC}/README.rst

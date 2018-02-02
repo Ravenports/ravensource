@@ -456,6 +456,7 @@ function filter(dep) {\
         if (dep == "python-babel") return "python-Babel";
    else if (dep == "python-django") return "python-Django";
    else if (dep == "python-django-compressor") return "python-django_compressor";
+   else if (dep == "python-jinja2") return "python-Jinja2";
    else return dep;
 }\
 BEGIN {\
