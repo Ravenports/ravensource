@@ -225,11 +225,12 @@ create_description() {
    mkdir -p ${NEWPORT}/descriptions
    local desc1
    # can't use head, it causes python to emit close failure message
-   exec_setup ${FIRST_SNAKE} --long-description | awk 'NR <= 100' \
-   	> ${NEWPORT}/descriptions/desc.single
+   exec_setup ${FIRST_SNAKE} --long-description | awk 'NR <= 100' |\
+      fold -s -w75 | sed 's/[[:blank:]]*$//' > ${NEWPORT}/descriptions/desc.single
    desc1=$(/usr/bin/head -1 ${NEWPORT}/descriptions/desc.single)
    if [ "${desc1}" = "UNKNOWN" ]; then
-      get_description | awk 'NR <= 100' > ${NEWPORT}/descriptions/desc.single
+      get_description | awk 'NR <= 100' | fold -s -w75 |\
+         sed 's/[[:blank:]]*$//' > ${NEWPORT}/descriptions/desc.single
    fi
 }
 
