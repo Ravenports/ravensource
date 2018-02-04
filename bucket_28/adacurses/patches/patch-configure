@@ -1,15 +1,15 @@
---- configure.orig	2015-08-08 14:26:00 UTC
+--- configure.orig	2018-01-16 21:50:06 UTC
 +++ configure
-@@ -8953,7 +8953,7 @@ case $cf_cv_system_name in
+@@ -9446,7 +9446,7 @@ case $cf_cv_system_name in
  	LD_RPATH_OPT="-Wl,-rpath,"
  	;;
- (dragonfly*|freebsd*)
+ (dragonfly*)
 -	LD_RPATH_OPT="-rpath "
 +	LD_RPATH_OPT="-Wl,-rpath,"
  	;;
  (netbsd*)
  	LD_RPATH_OPT="-Wl,-rpath,"
-@@ -8962,7 +8962,7 @@ case $cf_cv_system_name in
+@@ -9455,7 +9455,7 @@ case $cf_cv_system_name in
  	LD_RPATH_OPT="-rpath "
  	;;
  (solaris2*)
@@ -18,7 +18,7 @@
  	;;
  (*)
  	;;
-@@ -9433,11 +9433,11 @@ CF_EOF
+@@ -9941,11 +9941,11 @@ CF_EOF
  		# tested with SunOS 5.5.1 (solaris 2.5.1) and gcc 2.7.2
  		# tested with SunOS 5.10 (solaris 10) and gcc 3.4.3
  		if test "$DFT_LWR_MODEL" = "shared" ; then
