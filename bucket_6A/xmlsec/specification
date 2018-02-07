@@ -1,0 +1,61 @@
+DEF[PORTVERSION]=	1.2.25
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xmlsec
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		standard
+SDESC[standard]=	XML Security Library
+HOMEPAGE=		https://www.aleksey.com/xmlsec/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.aleksey.com/xmlsec/download/
+DISTFILE[1]=		xmlsec1-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/Copyright
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		security/xmlsec1
+
+BUILDRUN_DEPENDS=	libgcrypt:single:standard
+			libgpg-error:single:standard
+			libltdl:single:standard
+			nspr:single:standard
+			nss:primary:standard
+
+USES=			gmake libtool pkgconfig ssl
+GNOME_COMPONENTS=	libxslt
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-openssl="{{OPENSSLBASE}}"
+			--with-gcrypt="{{LOCALBASE}}"
+			--with-nspr="{{LOCALBASE}}"
+			--with-nss="{{LOCALBASE}}"
+			--enable-soap
+			--disable-docs-build
+MAKE_ENV=		ABS_BUILDDIR="{{WRKSRC}}"
+			TMPFOLDER="{{WRKDIR}}"
+MAKE_ARGS=		confexecdir="{{LOCALBASE}}/etc"
+LDFLAGS=		-Wl,-rpath,{{LOCALBASE}}/lib/nss
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+DISTNAME=		xmlsec1-${PORTVERSION}
+SOVERSION=		${PORTVERSION}
+
+post-patch:
+	${REINPLACE_CMD} -e 's/mozilla-nss/nss/' -e 's/mozilla-nspr/nspr/' \
+		${WRKSRC}/configure
+	${REINPLACE_CMD} -e 's/(CP) -ru/(CP) -r/' -e 's/(CP) -u/(CP)/' \
+		${WRKSRC}/docs/Makefile.am ${WRKSRC}/docs/Makefile.in \
+		${WRKSRC}/docs/api/Makefile.am ${WRKSRC}/docs/api/Makefile.in \
+		${WRKSRC}/man/Makefile.am ${WRKSRC}/man/Makefile.in
+	# Making the xmlsec1 executable multi-threaded to let load -lnss when needed
+	${REINPLACE_CMD} -e 's,^\(xmlsec1_LDADD = \)\\$$,\1 -L${LOCALBASE}/lib -lpthread\\,' \
+		${WRKSRC}/apps/Makefile.in
+
