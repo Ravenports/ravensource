@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	0.19.7
+DEF[PORTVERSION]=	1.0.1
+DEF[SOVERSION]=		0.4.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fribidi
@@ -10,7 +11,7 @@ HOMEPAGE=		https://fribidi.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://download.videolan.org/contrib/fribidi/
+SITES[main]=		https://github.com/fribidi/fribidi/releases/download/v${PORTVERSION}/
 DISTFILE[1]=		fribidi-${PORTVERSION}.tar.bz2:main
 
 SPKGS[standard]=	single
@@ -30,6 +31,7 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-static
 			--without-glib
 			--disable-debug
+SOVERSION=		${SOVERSION}
 
 post-patch:
 	@${SED} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' < \
