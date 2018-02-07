@@ -1,4 +1,4 @@
---- src/remote/inet.cpp.intermediate	2017-08-03 06:15:08 UTC
+--- src/remote/inet.cpp.orig	2018-02-02 11:00:36 UTC
 +++ src/remote/inet.cpp
 @@ -866,7 +866,7 @@ rem_port* INET_connect(const TEXT* name,
  		gai_hints.ai_family = ((host.hasData() || !ipv6) ? AF_UNSPEC : AF_INET6);
@@ -9,3 +9,16 @@
  	gai_hints.ai_protocol = SOL_TCP;
  #else
  	gai_hints.ai_protocol = IPPROTO_TCP;
+@@ -1071,6 +1071,12 @@ static rem_port* listener_socket(rem_por
+ 
+ 	inet_ports->registerPort(port);
+ 
++	char *parent_pid;
++	if (parent_pid = getenv("FB_SIGNAL_PROCESS"))
++	{
++		kill(atoi(parent_pid), SIGUSR1);
++	}
++
+ 	if (flag & SRVR_multi_client)
+ 	{
+ 		// Prevent the generation of dummy keepalive packets on the connect port.

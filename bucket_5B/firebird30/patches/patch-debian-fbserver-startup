@@ -9,22 +9,9 @@ Bug-Debian: https://bugs.debian.org/859234
 Forwarded: https://sourceforge.net/p/firebird/mailman/message/35769037/
 Author: Damyan Ivanov <dmn@debian.org>
 
---- src/remote/inet.cpp
-+++ src/remote/inet.cpp
-@@ -1069,6 +1069,12 @@ static rem_port* listener_socket(rem_por
- 
- 	inet_ports->registerPort(port);
- 
-+	char *parent_pid;
-+	if (parent_pid = getenv("FB_SIGNAL_PROCESS"))
-+	{
-+		kill(atoi(parent_pid), SIGUSR1);
-+	}
-+
- 	if (flag & SRVR_multi_client)
- 	{
- 		// Prevent the generation of dummy keepalive packets on the connect port.
---- src/utilities/guard/guard.cpp
+see separate src/remote/inet.cpp patch (partial)
+
+--- src/utilities/guard/guard.cpp.orig	2018-02-02 11:00:36 UTC
 +++ src/utilities/guard/guard.cpp
 @@ -162,13 +162,32 @@ int CLIB_ROUTINE main( int argc, char **
  		exit(-5);

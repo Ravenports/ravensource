@@ -1,4 +1,4 @@
---- src/common/classes/FpeControl.h.orig	2016-06-30 09:34:54 UTC
+--- src/common/classes/FpeControl.h.orig	2018-02-02 11:00:35 UTC
 +++ src/common/classes/FpeControl.h
 @@ -223,13 +223,13 @@ inline bool isinf(double x)
  	return (!_finite (x) && !isnan(x));
@@ -15,4 +15,4 @@
 +#endif // isinf || FreeBSD || DragonFly
  #endif // WIN_NT
  
- #endif //CLASSES_FPE_CONTROL_H
+ namespace Firebird {
