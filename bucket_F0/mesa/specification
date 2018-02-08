@@ -51,6 +51,7 @@ EXRUN[drivers]=		llvm${MESA_LLVM_VER}:llvm:standard
 EXRUN[osmesa]=		llvm${MESA_LLVM_VER}:llvm:standard
 			mesa:libs:standard
 			zlib:shared:standard
+B_DEPS[sunos]=		libbsd4sol:single:standard
 
 # placeholder for wayland support here
 
@@ -80,7 +81,7 @@ CONFIGURE_ARGS=		--enable-llvm
 # configure switch is going away ...
 # https://lists.freebsd.org/pipermail/freebsd-arch/2016-February/017699.html
 
-LDFLAGS=		-Wl,-rpath={{LOCALBASE}}/llvm${MESA_LLVM_VER}/lib
+LDFLAGS=		-Wl,-rpath,{{LOCALBASE}}/llvm${MESA_LLVM_VER}/lib
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 SHEBANG_OLD_PYTHON=	/usr/bin/env[[:space:]]python2
@@ -96,6 +97,11 @@ SHEBANG_FILES=		src/gallium/*/*/*.py
 			src/util/format_srgb.py
 			src/amd/*/*.py
 			src/intel/genxml/gen_pack_header.py
+CONFIGURE_ENV=		ax_cv_check_cflags___Wno_initializer_overrides=no
+
+VAR_OPSYS[sunos]=	CPPFLAGS=-D__EXTENSIONS__=1
+			CPPFLAGS=-D_POSIX_PTHREAD_SEMANTICS
+			CFLAGS=-DF_DUPFD_CLOEXEC=F_DUPFD
 
 [X86_DRIVERS].DESCRIPTION=		Build drivers for i386 and x86_64 architectures
 [ARM_DRIVERS].DESCRIPTION=		Build drivers for aarch64 architecture
@@ -113,12 +119,23 @@ SHEBANG_FILES=		src/gallium/*/*/*.py
 					GALLIUM_DRIVERS+=VC4
 
 post-patch-freebsd:
-	@${REINPLACE_CMD} -e 's|x86_64|amd64|' ${WRKSRC}/configure
+	${REINPLACE_CMD} -e 's|x86_64|amd64|' ${WRKSRC}/configure
+
+post-patch-sunos:
+	${REINPLACE_CMD}\
+		-e '/^CFLAGS =/ s|$$| -I$$(prefix)/include/bsd|' \
+		-e '/^LDFLAGS =/ s|$$| -lbsd|' \
+		${WRKSRC}/src/egl/Makefile.in \
+		${WRKSRC}/src/gallium/drivers/r600/Makefile.in \
+		${WRKSRC}/src/gallium/drivers/radeon/Makefile.in \
+		${WRKSRC}/src/gallium/drivers/radeonsi/Makefile.in \
+		${WRKSRC}/src/gallium/auxiliary/Makefile.in \
+		${WRKSRC}/src/loader/Makefile.in
 
 post-patch:
-	@${REINPLACE_CMD} -e 's|/etc/|${PREFIX}/etc/|g' \
+	${REINPLACE_CMD} -e 's|/etc/|${PREFIX}/etc/|g' \
 		${WRKSRC}/src/util/xmlconfig.c
 	# Use --link-static until ports/223191 is fixed
-	@${REINPLACE_CMD} -e '/$$LLVM_VERSION_MAJOR -ge 4/s|test |false |' \
+	${REINPLACE_CMD} -e '/$$LLVM_VERSION_MAJOR -ge 4/s|test |false |' \
 		${WRKSRC}/configure
 

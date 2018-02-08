@@ -1,5 +1,14 @@
 --- configure.orig	2018-01-18 21:30:38 UTC
 +++ configure
+@@ -21380,7 +21380,7 @@ LDFLAGS=$save_LDFLAGS
+ 
+ 
+ case "$host_os" in
+-openbsd* | darwin* )
++openbsd* | darwin* | solaris* )
+     LD_NO_UNDEFINED="" ;;
+ *)
+     if test "x$enable_sanitize" = xno; then
 @@ -23351,7 +23351,7 @@ fi
  
  
@@ -39,3 +48,21 @@
  fi
   if test "x$enable_opencl" = xyes; then
    HAVE_CLOVER_TRUE=
+@@ -28445,7 +28452,7 @@ if test "x$enable_llvm" = xyes; then
+     LLVM_CXXFLAGS=`strip_unwanted_llvm_flags "$LLVM_CONFIG --cxxflags"`
+ 
+ 
+-    if test $LLVM_VERSION_MAJOR -ge 4 -o $LLVM_VERSION_MAJOR -eq 3 -a $LLVM_VERSION_MINOR -ge 9; then
++    if false $LLVM_VERSION_MAJOR -ge 4 -o $LLVM_VERSION_MAJOR -eq 3 -a $LLVM_VERSION_MINOR -ge 9; then
+         if test "x$enable_llvm_shared_libs" = xyes; then
+             LLVM_LIBS="`$LLVM_CONFIG --link-shared --libs ${LLVM_COMPONENTS}`"
+         else
+@@ -28459,7 +28466,7 @@ if test "x$enable_llvm" = xyes; then
+         else
+             { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Building mesa with statically linked LLVM may cause compilation issues" >&5
+ $as_echo "$as_me: WARNING: Building mesa with statically linked LLVM may cause compilation issues" >&2;}
+-                                    if test $LLVM_VERSION_MAJOR -ge 4 -o $LLVM_VERSION_MAJOR -eq 3 -a $LLVM_VERSION_MINOR -ge 5; then
++                                    if false $LLVM_VERSION_MAJOR -ge 4 -o $LLVM_VERSION_MAJOR -eq 3 -a $LLVM_VERSION_MINOR -ge 5; then
+                 LLVM_LIBS="$LLVM_LIBS `$LLVM_CONFIG --system-libs`"
+             fi
+         fi

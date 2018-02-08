@@ -1,0 +1,32 @@
+--- src/util/Makefile.in.orig	2018-01-18 21:30:42 UTC
++++ src/util/Makefile.in
+@@ -865,6 +865,7 @@ libmesautil_la_CPPFLAGS = \
+ 	-I$(top_srcdir)/src/mesa \
+ 	-I$(top_srcdir)/src/gallium/include \
+ 	-I$(top_srcdir)/src/gallium/auxiliary \
++	-I$(prefix)/include/bsd \
+ 	$(VISIBILITY_CFLAGS) \
+ 	$(MSVC2013_COMPAT_CFLAGS) \
+ 	$(ZLIB_CFLAGS)
+@@ -876,18 +877,19 @@ libmesautil_la_SOURCES = \
+ libmesautil_la_LIBADD = \
+ 	$(CLOCK_LIB) \
+ 	$(ZLIB_LIBS) \
+-	$(LIBATOMIC_LIBS)
++	$(LIBATOMIC_LIBS) -lbsd
+ 
+ libxmlconfig_la_SOURCES = $(XMLCONFIG_FILES)
+ libxmlconfig_la_CFLAGS = \
+ 	$(DEFINES) \
+ 	-I$(top_srcdir)/include \
+ 	-I$(top_srcdir)/src \
++	-I$(prefix)/include/bsd \
+ 	-DSYSCONFDIR=\"$(sysconfdir)\" \
+ 	$(VISIBILITY_CFLAGS) \
+ 	$(EXPAT_CFLAGS)
+ 
+-libxmlconfig_la_LIBADD = $(EXPAT_LIBS) -lm
++libxmlconfig_la_LIBADD = $(EXPAT_LIBS) -lm -lbsd
+ sysconf_DATA = drirc
+ u_atomic_test_LDADD = libmesautil.la
+ roundeven_test_LDADD = -lm
