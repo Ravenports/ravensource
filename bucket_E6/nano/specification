@@ -27,6 +27,8 @@ MAKE_ARGS=		install_htmlmanDATA=install-htmlmanDATA
 CPPFLAGS=		-I{{NCURSESINC}}
 INFO=			primary:nano
 
+VAR_OPSYS[sunos]=	CONFIGURE_ENV=LIBS=-ltinfo
+
 post-configure:
 	${REINPLACE_CMD} -e 's/update_revision//g' ${WRKSRC}/src/Makefile
 
