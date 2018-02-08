@@ -1,7 +1,6 @@
 DEF[PORTVERSION]=	3.6.1
 DEF[SOVERSION]=		30.20.1
 DEF[SOXXVERSION]=	28.1.0
-DEF[SOMAJOR]=		${SOVERSION:R:R}
 DEF[SOXXMAJOR]=		${SOXXVERSION:R:R}
 # ----------------------------------------------------------------------------
 
@@ -36,6 +35,7 @@ BUILDRUN_DEPENDS=	libunistring:primary:standard
 			p11-kit:primary:standard
 			nettle:primary:standard
 			nss:caroot:standard
+B_DEPS[sunos]=		libbsd4sol:single:standard
 
 USES=			cpe gmake iconv libtool makeinfo pkgconfig
 			gettext-runtime zlib
@@ -50,16 +50,22 @@ CONFIGURE_ARGS=		--disable-guile
 			--with-p11-kit
 			--without-tpm
 MAKE_ENV=		MAKEINFOFLAGS=--no-split
-PLIST_SUB=		SOVERSION=${SOVERSION}
-			SOMAJOR=${SOMAJOR}
-			SOXXVERSION=${SOXXVERSION}
+PLIST_SUB=		SOXXVERSION=${SOXXVERSION}
 			SOXXMAJOR=${SOXXMAJOR}
+SOVERSION=		${SOVERSION}
 
 INFO=			single:gnutls
 			single:gnutls-guile
 
+VAR_OPSYS[sunos]=	CPPFLAGS=-I{{LOCALBASE}}/include/bsd
+			LDFLAGS=-lbsd
+
 post-patch:
-	@${RM} ${WRKSRC}/doc/*.info*
+	${RM} ${WRKSRC}/doc/*.info*
+
+post-patch-sunos:
+	${REINPLACE_CMD} -e '/_POSIX_C_SOURCE/d' \
+		${WRKSRC}/tests/pkcs11/pkcs11-mock.h
 
 post-install:
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
