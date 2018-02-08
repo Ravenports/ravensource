@@ -1,6 +1,16 @@
---- include/linux/dvb/frontend.h.orig	2015-01-10 15:04:07.446370686 +0100
-+++ include/linux/dvb/frontend.h	2015-01-10 15:05:20.367365809 +0100
-@@ -549,7 +549,13 @@
+--- include/linux/dvb/frontend.h.orig	2014-09-07 17:18:12 UTC
++++ include/linux/dvb/frontend.h
+@@ -26,6 +26,9 @@
+ #ifndef _DVBFRONTEND_H_
+ #define _DVBFRONTEND_H_
+ 
++#ifdef __sun__
++#include <sys/ioccom.h>
++#endif
+ #include <linux/types.h>
+ 
+ typedef enum fe_type {
+@@ -549,7 +552,13 @@ struct dtv_properties {
  };
  
  #define FE_SET_PROPERTY		   _IOW('o', 82, struct dtv_properties)

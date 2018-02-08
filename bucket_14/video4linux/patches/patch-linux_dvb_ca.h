@@ -1,6 +1,17 @@
---- linux/dvb/ca.h.orig	2014-12-01 10:58:18.000000000 +0100
+--- linux/dvb/ca.h.orig	2014-12-01 09:58:18 UTC
 +++ linux/dvb/ca.h
-@@ -80,9 +80,17 @@
+@@ -24,6 +24,10 @@
+ #ifndef _DVBCA_H_
+ #define _DVBCA_H_
+ 
++#ifdef __sun__
++#include <sys/ioccom.h>
++#endif
++
+ /* slot interface types and info */
+ 
+ typedef struct ca_slot_info {
+@@ -80,9 +84,17 @@ typedef struct ca_pid {
  
  #define CA_RESET          _IO('o', 128)
  #define CA_GET_CAP        _IOR('o', 129, ca_caps_t)
