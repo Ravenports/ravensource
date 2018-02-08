@@ -42,8 +42,11 @@ CONFIGURE_ARGS=		--enable-narrowproto
 			--without-neXtaw
 CFLAGS=			-I{{NCURSESINC}}
 
+VAR_OPSYS[sunos]=	CONFIGURE_ENV=cf_cv_lib_tgetent="-lncurses -ltinfo"
+
 # This has no effect until utempter added to freebsd's sysroot
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--with-utempter
+
 
 [DECTERM].DESCRIPTION=			Enable DECterm Locator support
 [DABBREV].DESCRIPTION=			Enable support for dabbrev-expand
