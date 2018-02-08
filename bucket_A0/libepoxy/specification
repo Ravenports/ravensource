@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	1.4.3
+DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libepoxy
@@ -20,6 +21,16 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		graphics/libepoxy
 
+B_DEPS[sunos]=		libbsd4sol:single:standard
+
 USES=			mesa meson pkgconfig
 XORG_COMPONENTS=	x11
 MESON_ARGS=		-Denable-egl=yes
+
+VAR_OPSYS[sunos]=	CFLAGS=-I{{LOCALBASE}}/include/bsd
+			LDFLAGS=-lbsd
+
+post-patch:
+	${REINPLACE_CMD} \
+		-e 's|@MYRPATH@|${PREFIX}/toolchain/${GCCX}/${ASLIB}|' \
+		${WRKSRC}/src/meson.build
