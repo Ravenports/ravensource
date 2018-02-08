@@ -27,7 +27,17 @@
  
  apr = str(env['APR'])
  apu = str(env['APU'])
-@@ -364,8 +368,8 @@ else:
+@@ -215,8 +219,7 @@ incdir = '$PREFIX/include/serf-$MAJOR'
+ # Unfortunately we can't set the .dylib compatibility_version option separately
+ # from current_version, so don't use the PATCH level to avoid that build and
+ # runtime patch levels have to be identical.
+-if sys.platform != 'sunos5':
+-  env['SHLIBVERSION'] = '%d.%d.%d' % (MAJOR, MINOR, 0)
++env['SHLIBVERSION'] = '%d.%d.%d' % (MAJOR, MINOR, 0)
+ 
+ LIBNAME = 'libserf-%d' % (MAJOR,)
+ if sys.platform != 'win32':
+@@ -364,8 +367,8 @@ else:
    ### there is probably a better way to run/capture output.
    ### env.ParseConfig() may be handy for getting this stuff into the build
    if CALLOUT_OKAY:
@@ -38,7 +48,7 @@
    else:
      apr_libs = ''
      apu_libs = ''
-@@ -406,6 +410,8 @@ pkgconfig = env.Textfile('serf-%d.pc' %
+@@ -406,6 +409,8 @@ pkgconfig = env.Textfile('serf-%d.pc' %
  
  env.Default(lib_static, lib_shared, pkgconfig)
  
