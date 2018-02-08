@@ -19,7 +19,7 @@
 -            return "-Wl,-R" + dir
 -        else:
 -            return "-R" + dir
-+        return "-Wl,-rpath=" + dir
++        return "-Wl,-rpath," + dir
  
      def library_option(self, lib):
          return "-l" + lib

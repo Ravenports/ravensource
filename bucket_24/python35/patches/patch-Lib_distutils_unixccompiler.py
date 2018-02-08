@@ -32,7 +32,7 @@
 -                # ld if this system was using GNU ld.  Don't know if a
 -                # system like this even exists.
 -                return "-R" + dir
-+        return "-Wl,-rpath=" + dir
++        return "-Wl,-rpath," + dir
  
      def library_option(self, lib):
          return "-l" + lib
