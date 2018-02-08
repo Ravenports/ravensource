@@ -50,3 +50,6 @@ CFLAGS=			-Wno-format
 LDFLAGS=		-lpthread
 PLIST_SUB=		GSTVER=${GST_VERSION}
 SOVERSION=		${SOVERSION}
+
+# This define is checked but never set, enable it on Solaris
+VAR_OPSYS[sunos]=	CFLAGS=-DHAVE_FIONREAD_IN_SYS_FILIO=1
