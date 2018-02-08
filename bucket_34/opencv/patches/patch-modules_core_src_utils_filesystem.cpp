@@ -5,7 +5,7 @@
  #include <io.h>
  #include <stdio.h>
 -#elif defined __linux__ || defined __APPLE__
-+#elif defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __DragonFly__
++#elif defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __DragonFly__ || defined __sun__
  #include <sys/types.h>
  #include <sys/stat.h>
  #include <fcntl.h>
@@ -14,7 +14,7 @@
      return cv::String((char*)buf, (size_t)sz);
  #endif
 -#elif defined __linux__ || defined __APPLE__
-+#elif defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __DragonFly__
++#elif defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __DragonFly__ || defined __sun__
      for(;;)
      {
          char* p = ::getcwd((char*)buf, buf.size());
@@ -23,7 +23,7 @@
      int result = _mkdir(path.c_str());
  #endif
 -#elif defined __linux__ || defined __APPLE__
-+#elif defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __DragonFly__
++#elif defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __DragonFly__ || defined __sun__
      int result = mkdir(path.c_str(), 0777);
  #else
      int result = -1;
@@ -32,7 +32,7 @@
  };
  
 -#elif defined __linux__ || defined __APPLE__
-+#elif defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __DragonFly__
++#elif defined __linux__ || defined __APPLE__ || defined __FreeBSD__ || defined __DragonFly__ || defined __sun__
  
  struct FileLock::Impl
  {

@@ -5,7 +5,7 @@
  #endif
  
 -#if defined __ANDROID__ || defined __linux__ || defined __FreeBSD__ || defined __HAIKU__
-+#if defined __ANDROID__ || defined __linux__ || defined __FreeBSD__ || defined __HAIKU__ || defined __DragonFly__
++#if defined __ANDROID__ || defined __linux__ || defined __FreeBSD__ || defined __HAIKU__ || defined __DragonFly__ || defined __sun__
  #  include <unistd.h>
  #  include <fcntl.h>
  #  include <elf.h>
@@ -14,7 +14,7 @@
  #endif
  
 -#if defined __linux__ || defined __APPLE__ || defined __EMSCRIPTEN__ || defined __FreeBSD__ || defined __GLIBC__ || defined __HAIKU__
-+#if defined __linux__ || defined __APPLE__ || defined __EMSCRIPTEN__ || defined __FreeBSD__ || defined __GLIBC__ || defined __HAIKU__ || defined __DragonFly__
++#if defined __linux__ || defined __APPLE__ || defined __EMSCRIPTEN__ || defined __FreeBSD__ || defined __GLIBC__ || defined __HAIKU__ || defined __DragonFly__ || defined __sun__
  #include <unistd.h>
  #include <stdio.h>
  #include <sys/types.h>
