@@ -65,6 +65,8 @@ CONFIGURE_ARGS=		--with-xkb-path={{LOCALBASE}}/share/X11/xkb
 			--enable-xcsecurity
 INSTALL_TARGET=		install-strip
 
+VAR_OPSYS[sunos]=	CFLAGS=-DO_CLOEXEC=0
+
 [XORG].DESCRIPTION=			Build as X server (don't change setting!)
 [VIRTUAL].DESCRIPTION=			Build as virtual framebuffer server
 [DMX].DESCRIPTION=			Build as distributed multihead X server
@@ -120,7 +122,6 @@ INSTALL_TARGET=		install-strip
 [XORG].SUB_FILES_ON=			pkg-install-single pkg-deinstall-single
 
 post-patch:
-	@${REINPLACE_CMD} 's/test.*-traditional.*;/true;/' ${WRKSRC}/configure
 	# build libglx.so but don't install it yet. (done in pre-install)
 	@${REINPLACE_CMD} -e 's|@GLX_TRUE@GLXMODS =|@GLX_BOGUS@GLXMODS =|g' \
 		-e 's|^LTLIBRARIES = |LTLIBRARIES = libglx.la |g' \

@@ -1,4 +1,4 @@
---- hw/xfree86/common/xf86AutoConfig.c.orig	2017-01-11 20:00:58 UTC
+--- hw/xfree86/common/xf86AutoConfig.c.orig	2017-12-20 20:32:33 UTC
 +++ hw/xfree86/common/xf86AutoConfig.c
 @@ -276,7 +276,7 @@ listPossibleVideoDrivers(char *matches[]
          i += xf86PciMatchDriver(&matches[i], nmatches - i);

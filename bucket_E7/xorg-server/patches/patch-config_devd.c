@@ -1,4 +1,4 @@
---- config/devd.c.orig	2017-01-19 15:20:42 UTC
+--- /dev/null	2018-02-08 20:22:25 UTC
 +++ config/devd.c
 @@ -0,0 +1,532 @@
 +/*
