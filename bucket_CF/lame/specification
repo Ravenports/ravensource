@@ -28,6 +28,7 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		audio/lame
 
 BUILD_DEPENDS=		nasm:primary:standard
+B_DEPS[sunos]=		libbsd4sol:single:standard
 
 USES=			gmake iconv libtool
 MUST_CONFIGURE=		gnu
@@ -35,6 +36,9 @@ CONFIGURE_ARGS=		--enable-nasm
 			--enable-mp3rtp
 			--disable-gtktest
 SOVERSION=		${SOVERSION}
+
+VAR_OPSYS[sunos]=	CFLAGS=-I{{LOCALBASE}}/include/bsd
+			LDFLAGS=-lbsd
 
 post-patch:
 	${REINPLACE_CMD} -e 's,test -d \.libs || mkdir,mkdir -p,' \
