@@ -39,5 +39,12 @@ CMAKE_ARGS=		-DCMAKE_SKIP_BUILD_RPATH:BOOL=YES
 			-DPREFER_LUA:BOOL=YES
 INSTALL_REQ_TOOLCHAIN=	yes
 
+post-patch-sunos:
+	${REINPLACE_CMD} -e 's|STR(|STR_(|g' \
+		${WRKSRC}/src/nvim/eval/typval_encode.c.h \
+		${WRKSRC}/src/nvim/version.c
+	${REINPLACE_CMD} -e 's|util||' \
+		${WRKSRC}/src/nvim/CMakeLists.txt
+
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/nvim
