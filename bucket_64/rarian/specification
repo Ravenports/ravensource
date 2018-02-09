@@ -31,6 +31,7 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-convert-dir={{LOCALBASE}}/share/omf
 			--localstatedir=/var
 INSTALL_TARGET=		install-strip
+PLIST_SUB=		PREFIX={{PREFIX}}
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|/lib/rarian|/db/rarian|' \
