@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	0.0.25
+DEF[PORTVERSION]=	0.100
+DEF[DL_FOLDER]=		0.100
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fonts-cantarell
@@ -10,7 +11,7 @@ HOMEPAGE=		https://wiki.gnome.org/Projects/CantarellFonts
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GNOME/cantarell-fonts/${PORTVERSION:R}/
+SITES[main]=		GNOME/cantarell-fonts/${DL_FOLDER}/
 DISTFILE[1]=		cantarell-fonts-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	single
@@ -20,8 +21,9 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		x11-fonts/cantarell-fonts
 
-USES=			fonts:fc gmake pkgconfig
+BUILD_DEPENDS=		appstream-glib:primary:standard
+
+USES=			fonts:fc gmake pkgconfig meson gettext-tools
 DISTNAME=		cantarell-fonts-${PORTVERSION}
 FONTNAME=		cantarell
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-configdir={{PREFIX}}/etc/fonts/conf.avail
+MESON_ARGS=		-Dfontsdir="{{FONTSDIR}}"
