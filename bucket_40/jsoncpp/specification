@@ -1,7 +1,5 @@
 DEF[PORTVERSION]=	1.8.4
 DEF[SOVER]=		20
-DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
-DEF[COMP_RPATH]=	{{PREFIX}}/toolchain/${GCCX}/{{ASLIB}}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		jsoncpp
@@ -35,9 +33,7 @@ PLIST_SUB=		SOVER=${SOVER}
 # meson is also crap wrt to rpath.  It's stripping out our
 # compilers inherent rpath settings.  (more garbage)
 
-post-patch:
-	${REINPLACE_CMD} -e "s|install : true|install : true, install_rpath : '${COMP_RPATH}'|" \
-		${WRKSRC}/meson.build
+MESON_INSERT_RPATH=	meson.build
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/include/jsoncpp

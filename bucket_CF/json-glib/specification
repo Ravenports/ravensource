@@ -1,5 +1,4 @@
 DEF[PORTVERSION]=	1.4.2
-DEF[RPATH]=		{{PREFIX}}/lib
 DEF[SOVERSION]=		0.400.2
 # ----------------------------------------------------------------------------
 
@@ -24,14 +23,9 @@ FPC_EQUIVALENT=		devel/json-glib
 
 USES=			gettext-tools gmake libtool meson pkgconfig
 GNOME_COMPONENTS=	glib introspection
-
 INSTALL_TARGET=		install-strip
-
+MESON_INSERT_RPATH=	json-glib/meson.build
 SOVERSION=		${SOVERSION}
-
-post-patch:
-	${REINPLACE_CMD} -e "s|install: true|install: true, install_rpath : '${RPATH}'|g" \
-		${WRKSRC}/json-glib/meson.build
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/installed-tests

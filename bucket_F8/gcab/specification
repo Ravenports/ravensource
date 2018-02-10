@@ -1,7 +1,5 @@
 DEF[PORTVERSION]=	1.1
 DEF[DL_FOLDER]=		1.1
-DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
-DEF[COMP_RPATH]=	{{PREFIX}}/toolchain/${GCCX}/{{ASLIB}}:{{PREFIX}}/lib
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gcab
@@ -29,10 +27,8 @@ BUILD_DEPENDS=		vala:single:standard
 USES=			cpe gettext-tools gmake libtool pkgconfig meson
 GNOME_COMPONENTS=	glib intltool introspection
 CPE_VENDOR=		gnome
-
-post-patch:
-	${REINPLACE_CMD} -e "s|install : true|install : true, install_rpath : '${COMP_RPATH}'|" \
-		${WRKSRC}/libgcab/meson.build ${WRKSRC}/src/meson.build
+MESON_INSERT_RPATH=	libgcab/meson.build
+			src/meson.build
 
 post-install:
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR:H}
