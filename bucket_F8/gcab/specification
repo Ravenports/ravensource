@@ -24,28 +24,18 @@ OPTIONS_STANDARD=	none
 FPC_EQUIVALENT=		archivers/gcab
 
 BUILD_DEPENDS=		vala:single:standard
-# |			gtk-doc:single:standard
+			gtk-doc:single:standard
 
 USES=			cpe gettext-tools gmake libtool pkgconfig meson
 GNOME_COMPONENTS=	glib intltool introspection
 CPE_VENDOR=		gnome
-MESON_ARGS=		-Ddocs=false
 
 post-patch:
 	${REINPLACE_CMD} -e "s|install : true|install : true, install_rpath : '${COMP_RPATH}'|" \
 		${WRKSRC}/libgcab/meson.build ${WRKSRC}/src/meson.build
 
-# gtk-docs are not registered correctly.  Disable docs until it's figured out
-# I/O error : Attempt to load network entity http://docbook.sourceforge.net/
-#             release/xsl/current/html/chunk.xsl
-# warning: failed to load external entity "http://docbook.sourceforge.net/
-#             release/xsl/current/html/chunk.xsl"
-# compilation error: file /raven/share/gtk-doc/data/gtk-doc.xsl line 10
-#             element import
-# xsl:import : unable to load http://docbook.sourceforge.net/release/xsl/
-#             current/html/chunk.xsl
-
 post-install:
-	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
-	${ECHO_CMD} "gtk-doc fails to find chunk.xsl even though it's installed (no docs)" \
-		> ${STAGEDIR}${STD_DOCDIR}/README.txt
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR:H}
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/gcab \
+		${STAGEDIR}${STD_DOCDIR:H}
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc

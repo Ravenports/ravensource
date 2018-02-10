@@ -37,11 +37,11 @@ CONFIGURE_ARGS=		--with-xml-catalog={{LOCALBASE}}/share/xml/catalog.ports
 MAKE_ARGS=		pkgconfigdir={{PREFIX}}/lib/pkgconfig
 
 post-patch:
-	${REINPLACE_CMD} -e 's/docbook.sourceforge.net/cdn.docbook.org/' \
-		${WRKSRC}/configure
+	${GREP} -rl "http://docbook.sourceforge.net" ${WRKSRC} | \
+		${SED} '/configure\.ac/d' | ${XARGS} \
+		${SED} -i'' -e 's|/docbook.sourceforge.net/|/cdn.docbook.org/|'
 	# itstool segfaults on french and chinese documentation
 	${REINPLACE_CMD} \
 		-e '/HELP_LINGUAS =/ s/ fr / /' \
 		-e '/HELP_LINGUAS =/ s/ zh_CN//' \
 		${WRKSRC}/help/manual/Makefile.in
-

@@ -1,0 +1,61 @@
+DEF[PORTVERSION]=	0.7.6
+DEF[SOVERSION]=		8.0.10
+DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
+DEF[COMP_RPATH]=	{{PREFIX}}/toolchain/${GCCX}/{{ASLIB}}:{{PREFIX}}/lib
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		appstream-glib
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Library for reading and writing AppStream metadata
+HOMEPAGE=		https://people.freedesktop.org/~hughsient/appstream-glib/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://people.freedesktop.org/~hughsient/appstream-glib/releases/
+DISTFILE[1]=		appstream-glib-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome3
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/appstream-glib
+
+BUILD_DEPENDS=		gtk-doc:single:standard
+			gperf:single:standard
+BUILDRUN_DEPENDS=	libsoup:primary:standard
+			libyaml:single:standard
+			ossp-uuid:single:standard
+			fontconfig:primary:standard
+			freetype:primary:standard
+			libarchive:single:standard
+			json-glib:single:standard
+			gcab:primary:standard
+
+USES=			gettext-tools gmake libtool pkgconfig sqlite meson
+GNOME_COMPONENTS=	gtk3 introspection gdkpixbuf intltool pango
+MESON_ARGS=		-Drpm=false
+			-Dstemmer=false
+			-Dgtk-doc=true
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
+
+post-patch:
+	${REINPLACE_CMD} -e "s/'uuid'/'ossp-uuid'/" ${WRKSRC}/meson.build
+	${REINPLACE_CMD} -e "s|http://docbook.sourceforge.net|http://cdn.docbook.org|" \
+		${WRKSRC}/data/meson.build
+	${REINPLACE_CMD} -e "s|install : true|install : true, install_rpath : '${COMP_RPATH}'|" \
+		${WRKSRC}/meson.build
+
+post-install:
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR:H}
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/appstream-glib \
+		${STAGEDIR}${STD_DOCDIR:H}
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
