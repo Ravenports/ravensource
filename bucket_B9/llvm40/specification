@@ -54,10 +54,10 @@ SHEBANG_FILES=		tools/clang/tools/scan-view/bin/scan-view
 			tools/clang/tools/extra/include-fixer/find-all-symbols/tool/run-find-all-symbols.py
 CMAKE_INSTALL_PREFIX=	{{PREFIX}}/llvm${SUFFIX}
 CMAKE_ARGS=		-DLLVM_BUILD_LLVM_DYLIB=ON
-			-DCMAKE_BUILD_TYPE=Release
 			-DCMAKE_BUILD_WITH_INSTALL_RPATH=1
 			-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm${SUFFIX}/lib"
 			-DLLVM_HOST_TRIPLE:STRING="{{CONFIGURE_TARGET}}"
+CMAKE_BUILD_TYPE=	Release
 PLIST_SUB=		NAMEBASE="llvm${SUFFIX}"
 			LLVM_RELEASE="${LLVM_VERSION}"
 			LLVM_MAJOR="${MAJOR}"
