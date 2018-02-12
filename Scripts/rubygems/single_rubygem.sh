@@ -92,7 +92,12 @@ download_gemspec_requirements()
 obtain_summary()
 {
 	local gemspec=${1}-${2}.gemspec.rz
-	ruby24 -e "${gemline}/${gemspec}'; puts gs.summary"
+	summary=$(ruby24 -e "${gemline}/${gemspec}'; puts gs.summary" | sed 's/[ ]*$//')
+	if [ -z "${summary}" ]; then
+		echo "No description provided"
+	else
+		echo "${summary}"
+	fi
 }
 
 # create long description file
