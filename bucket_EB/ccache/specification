@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.3.6
+DEF[PORTVERSION]=	3.4.1
 DEF[CCLINKDIR]=		libexec/ccache
 DEF[CC_COMPILERS]=	cc c++ CC gcc g++ clang clang++
 # ----------------------------------------------------------------------------
@@ -28,7 +28,7 @@ FPC_EQUIVALENT=		devel/ccache
 
 SKIP_CCACHE=		yes
 MUST_CONFIGURE=		gnu
-CPPFLAGS=		-DCC_IS_GCC
+CPPFLAGS=		-DCC_IS_GCC -Wno-implicit-fallthrough
 PLIST_SUB=		CCLINKDIR="${CCLINKDIR}"
 
 VAR_OPSYS[sunos]=	CPPFLAGS=-D_XPG6
@@ -48,4 +48,3 @@ do-install:
 
 	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 	${INSTALL_DATA} ${WRKSRC}/MANUAL.html ${STAGEDIR}${STD_DOCDIR}
-	${INSTALL_DATA} ${WRKSRC}/MANUAL.txt  ${STAGEDIR}${STD_DOCDIR}

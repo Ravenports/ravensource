@@ -1,12 +1,12 @@
---- Makefile.in.orig	2017-02-17 21:28:53 UTC
+--- Makefile.in.orig	2018-02-11 18:16:12 UTC
 +++ Makefile.in
-@@ -88,7 +88,8 @@ clean:
+@@ -90,7 +90,8 @@ clean:
  
  conf.c: confitems_lookup.c envtoconfitems_lookup.c
  
 -$(zlib_objs): CPPFLAGS += -include config.h
 +$(zlib_objs):
-+	$(CC) $(all_cppflags) -include config.h $(all_cflags) -c -o $@ $<
++	$(CC) $(all_cppflags) -include config.h $(all_cflags) -c src/zlib/${.TARGET:T:.o=.c} -o ${.TARGET} $<
  
  zlib/libz.a: $(zlib_objs)
  	$(AR) cr $@ $(zlib_objs)

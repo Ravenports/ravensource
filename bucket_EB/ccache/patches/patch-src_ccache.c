@@ -4,9 +4,9 @@
   already available.
 -bdrewery
 
---- ccache.c.orig	2016-10-26 14:31:19.000000000 -0700
-+++ ccache.c	2017-02-03 14:24:35.466505000 -0800
-@@ -1468,6 +1468,11 @@ compiler_is_clang(struct args *args)
+--- src/ccache.c.orig	2018-02-11 18:16:12 UTC
++++ src/ccache.c
+@@ -477,6 +477,11 @@ compiler_is_clang(struct args *args)
  {
  	char *name = basename(args->argv[0]);
  	bool result = strstr(name, "clang") != NULL;
@@ -18,7 +18,7 @@
  	free(name);
  	return result;
  }
-@@ -1477,6 +1482,11 @@ compiler_is_gcc(struct args *args)
+@@ -486,6 +491,11 @@ compiler_is_gcc(struct args *args)
  {
  	char *name = basename(args->argv[0]);
  	bool result = strstr(name, "gcc") || strstr(name, "g++");
@@ -30,7 +30,7 @@
  	free(name);
  	return result;
  }
-@@ -1592,6 +1602,7 @@ calculate_common_hash(struct args *args,
+@@ -1673,6 +1683,7 @@ calculate_common_hash(struct args *args,
  		free(p);
  	}
  
@@ -38,7 +38,7 @@
  	// Possibly hash GCC_COLORS (for color diagnostics).
  	if (compiler_is_gcc(args)) {
  		const char *gcc_colors = getenv("GCC_COLORS");
-@@ -1600,6 +1611,7 @@ calculate_common_hash(struct args *args,
+@@ -1681,6 +1692,7 @@ calculate_common_hash(struct args *args,
  			hash_string(hash, gcc_colors);
  		}
  	}
@@ -46,7 +46,7 @@
  }
  
  // Update a hash sum with information specific to the direct and preprocessor
-@@ -1629,6 +1641,13 @@ calculate_object_hash(struct args *args,
+@@ -1716,6 +1728,13 @@ calculate_object_hash(struct args *args,
  			continue;
  		}
  
