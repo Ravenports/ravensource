@@ -58,6 +58,14 @@ VAR_ARCH[aarch64]=	CONFIGURE_ARGS=--enable-gold
 			CONFIGURE_ARGS=--enable-plugins
 			PLIST_SUB=GOLD=""
 VAR_ARCH[i386]=		PLIST_SUB=GOLD="@comment "
+VAR_OPSYS[dragonfly]=	VAR1=/libexec/ld-elf.so.2
+			VAR2=/libexec/ld-elf.so.2
+VAR_OPSYS[freebsd]=	VAR1=/libexec/ld-elf.so.1
+			VAR2=/libexec/ld-elf.so.1
+VAR_OPSYS[sunos]=	VAR1=/lib/amd64/ld.so.1
+			VAR2=/lib/ld.so.1
+VAR_OPSYS[linux]=	VAR1=/lib/ld64.so.1
+			VAR2=/lib/ldx32.so.1
 
 [RELRO].DESCRIPTION=			enable -z relro in ELF linker by default
 [RELRO].CONFIGURE_ARGS_ON=		--enable-relro
@@ -73,6 +81,13 @@ VAR_ARCH[i386]=		PLIST_SUB=GOLD="@comment "
 
 [RAVENSYS].DESCRIPTION=			Static binutils for Ravenports system-root
 [RAVENSYS].MAKEFILE_ON=			PREFIX={{LOCALBASE}}/toolchain
+
+post-patch:
+	${REINPLACE_CMD} \
+		-e 's|@ELF64_INTERPRETER@|${VAR1}|' \
+		-e 's|@ELF32_INTERPRETER@|${VAR2}|' \
+	${WRKSRC}/bfd/elfxx-x86.c \
+	${WRKSRC}/gold/x86_64.cc
 
 post-patch-NLS-OFF:
 	${REINPLACE_CMD} -e '/INFO_DEPS =/d' \

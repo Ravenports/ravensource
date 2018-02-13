@@ -1,5 +1,5 @@
---- ./include/safe-ctype.h.orig	2017-07-10 09:54:42 UTC
-+++ ./include/safe-ctype.h
+--- include/safe-ctype.h.orig	2018-01-13 13:31:16 UTC
++++ include/safe-ctype.h
 @@ -119,6 +119,7 @@ extern const unsigned char  _sch_tolower
     including another system header (for instance gnulib's stdint.h).
     So we include ctype.h here and then immediately redefine its macros.  */
