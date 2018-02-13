@@ -1,4 +1,4 @@
---- va/va_trace.c.orig	2017-10-21 04:49:28 UTC
+--- va/va_trace.c.orig	2018-02-12 06:32:11 UTC
 +++ va/va_trace.c
 @@ -50,6 +50,9 @@
  #include <sys/stat.h>
@@ -10,7 +10,7 @@
  #include <unistd.h>
  #include <time.h>
  #include <errno.h>
-@@ -291,7 +294,15 @@ static void add_trace_config_info(
+@@ -290,7 +293,15 @@ static void add_trace_config_info(
  {
      struct trace_config_info *pconfig_info;
      int idx = 0;
@@ -26,23 +26,7 @@
  
      LOCK_RESOURCE(pva_trace);
  
-@@ -315,7 +326,15 @@ static void delete_trace_config_info(
- {
-     struct trace_config_info *pconfig_info;
-     int idx = 0;
-+#ifdef __FreeBSD__
-+    pid_t thd_id = pthread_getthreadid_np();
-+#elif defined __DragonFly__
-+    pid_t thd_id = syscall(SYS_lwp_gettid);
-+#elif defined __sun__
-+    pid_t thd_id = pthread_self();
-+#else
-     pid_t thd_id = syscall(__NR_gettid);
-+#endif
- 
-     LOCK_RESOURCE(pva_trace);
- 
-@@ -489,6 +508,18 @@ static int get_valid_ctx_idx(
+@@ -495,6 +506,18 @@ static int get_valid_ctx_idx(
      return idx;
  }
  
@@ -61,7 +45,7 @@
  static void FILE_NAME_SUFFIX(
      char *env_value,
      int max_size,
-@@ -662,7 +693,15 @@ static struct trace_log_file *start_trac
+@@ -668,7 +691,15 @@ static struct trace_log_file *start_trac
  {
      struct trace_log_files_manager *plog_files_mgr = NULL;
      struct trace_log_file *plog_file = NULL;
@@ -77,7 +61,7 @@
      int i = 0;
  
      LOCK_RESOURCE(pva_trace);
-@@ -701,7 +740,15 @@ static void refresh_log_file(
+@@ -707,7 +738,15 @@ static void refresh_log_file(
      struct trace_context *ptra_ctx)
  {
      struct trace_log_file *plog_file = NULL;
@@ -93,7 +77,7 @@
      int i = 0;
  
      plog_file = ptra_ctx->plog_file;
-@@ -1224,7 +1271,15 @@ static void internal_TraceUpdateContext
+@@ -1230,7 +1269,15 @@ static void internal_TraceUpdateContext
  {
      struct trace_context *trace_ctx = NULL;
      int i = 0, delete = 1;
