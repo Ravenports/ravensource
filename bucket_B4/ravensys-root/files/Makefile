@@ -706,6 +706,16 @@ install:
 	sed -i'' -e "s|/bin/bash|/bin/dash|" ${DESTDIR}${BASE}/usr/bin/ldd
 	# i386 version conflicts with amd64 version, so copy just the i386 files separately
 	cp ${CPA} ../ravensys-root_14/usr/include/i386-linux-gnu ${DESTDIR}${BASE}/usr/include/
+	# locales
+	mkdir -p ${DESTDIR}${BASE}/usr/lib/locale
+	mkdir -p ${DESTDIR}${BASE}/usr/share/i18n/charmaps
+	mkdir -p ${DESTDIR}${BASE}/usr/share/i18n/locales
+	cp ${CPA} ../linux/usr/share/i18n/charmaps/UTF-8.gz ${DESTDIR}${BASE}/usr/share/i18n/charmaps/
+	cp ${CPA} ../linux/usr/lib/locale/C.UTF-8 ${DESTDIR}${BASE}/usr/lib/locale/
+.  for locale in C POSIX en_US en_GB iso14651_t1 iso14651_t1_common i18n translit_*
+	cp ${CPA} ../linux/usr/share/i18n/locales/${locale} ${DESTDIR}${BASE}/usr/share/i18n/locales/
+.  endfor
+	env I18NPATH=${DESTDIR}${BASE}/usr/share/i18n ../linux/usr/bin/localedef --prefix=${DESTDIR}${BASE} -f UTF-8 -i en_US en_US.UTF-8
 .endif
 .if ${OPSYS} == Linux || ${OPSYS} == SunOS
 	# use coreutils that FreeBSD and DragonFly passed on (/bin)
