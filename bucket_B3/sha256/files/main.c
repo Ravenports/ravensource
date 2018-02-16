@@ -33,6 +33,9 @@
 #include <unistd.h>
 #include <sysexits.h>
 
+#ifdef __linux__
+#include <bsd/stdlib.h>
+#endif
 #ifdef __sun__
 #include <libgen.h>
 #endif
