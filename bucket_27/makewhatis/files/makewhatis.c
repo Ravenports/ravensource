@@ -2,8 +2,13 @@
  * $FreeBSD: src/usr.bin/makewhatis/makewhatis.c,v 1.9 2002/09/04 23:29:04 dwmalone Exp $
  */
 
+#ifdef __linux__		
+#include <bsd/sys/tree.h>		
+#include <bsd/stringlist.h>		
+#else
 #include <sys/tree.h>
 #include <stringlist.h>
+#endif
 #include <sys/types.h>
 #include <sys/param.h>
 #include <sys/queue.h>

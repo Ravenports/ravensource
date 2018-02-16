@@ -4,7 +4,10 @@ PREFIX?=	/usr/local
 CFLAGS+=	-I${PREFIX}/include -I.
 STATIC_LIBS=	${PREFIX}/lib/libz.a
 
-.if "${OPSYS}" == "Linux" || "${OPSYS}" == "SunOS"
+.if "${OPSYS}" == "Linux"
+STATIC_LIBS+=	${PREFIX}/lib/libbsd.a
+.endif 
+.if "${OPSYS}" == "SunOS"
 STATIC_LIBS+=	${PREFIX}/lib/libbsd.a
 CFLAGS+=	-I${PREFIX}/include/bsd
 .endif
