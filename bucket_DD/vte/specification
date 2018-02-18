@@ -1,7 +1,7 @@
-DEF[PORTVERSION]=	0.51.3
+# vte uses even/odd releases, so stick to e.g. 0.50.x, 0.52.x
+DEF[PORTVERSION]=	0.51.90
 DEF[VTE_VERSION]=	2.91
-DEF[SOVERSION]=		0.5103.0
-DEF[SOMAJOR]=		${PORTVERSION:R:R}
+DEF[SOVERSION]=		0.5190.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		vte
@@ -38,8 +38,7 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-introspection
 			--disable-static
 PLIST_SUB=		VERSION=${VTE_VERSION}
-			SOVERSION=${SOVERSION}
-			SOMAJOR=${SOMAJOR}
+SOVERSION=		${SOVERSION}
 
 post-patch:
 	${FIND} ${WRKSRC} -name "Makefile.in" -type f | ${XARGS} ${REINPLACE_CMD} -e \
