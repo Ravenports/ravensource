@@ -1,4 +1,4 @@
---- Makefile.PL.orig	2011-09-04 21:37:48 UTC
+--- Makefile.PL.orig	2018-02-15 09:44:15 UTC
 +++ Makefile.PL
 @@ -27,15 +27,7 @@ sub MY::install {
      }
@@ -20,7 +20,7 @@
 @@ -43,7 +35,7 @@ sub MY::install {
          $script .= <<"INSTALL";
  
- install_sax_pureperl :
+ install_sax_pureperl : pure_install
 -\t\@\$(PERL) -MXML::SAX -e "XML::SAX->add_parser(q(XML::SAX::PurePerl))->save_parsers()"
 +\t\@\$(PERL) -I\$(DESTDIR)\$(INSTALLSITELIB) -MXML::SAX -e "XML::SAX->add_parser(q(XML::SAX::PurePerl))->save_parsers()"
  
