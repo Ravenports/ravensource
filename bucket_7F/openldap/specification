@@ -1,0 +1,108 @@
+DEF[PORTVERSION]=	2.4.45
+DEF[SOVERSION]=		2.10.8
+DEF[LDAP_USER]=		ldap
+DEF[LDAP_GROUP]=	ldap
+DEF[LDAP_RUN_DIR]=	/var/run/openldap
+DEF[DATABASE_DIR]=	/var/db/openldap-data
+DEF[SED_MODULES]=	-e 's/\(moduleload[     ]*back_[a-z]*\)\.la/\1/' -e 's/\# *\(modulepath\)/\1/' -e 's/\# *\(moduleload[         ]*back_bdb\)/\1/'
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		openldap
+VERSION=		${PORTVERSION}
+KEYWORDS=		net databases
+VARIANTS=		standard
+SDESC[standard]=	Lightweight Directory Access Protocol server
+HOMEPAGE=		http://www.openldap.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/
+DISTFILE[1]=		openldap-${PORTVERSION}.tgz:main
+
+SPKGS[standard]=	complete server client docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		net/openldap24-server
+
+BUILD_DEPENDS=		mandoc:single:standard
+BUILDRUN_DEPENDS=	libltdl:single:standard
+			icu:single:standard
+			unixODBC:primary:standard
+EXRUN[client]=		ssl
+
+USERS=			${LDAP_USER}
+GROUPS=			${LDAP_GROUP}
+USERGROUP_SPKG=		server
+
+# :keepla because port uses lt_dlopen
+USES=			cpe libtool:keepla ssl
+
+INSTALL_REQ_TOOLCHAIN=	yes
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-modules
+			--enable-syncprov=yes
+			--enable-ldap="mod"
+			--enable-meta="mod"
+			--enable-null="mod"
+			--enable-monitor="mod"
+			--enable-mdb="mod"
+			--enable-sql="mod"
+			--enable-rewrite
+			--enable-dynamic
+			--enable-crypt
+			--with-threads=posix
+			--with-tls=openssl
+			--localstatedir=${DATABASE_DIR:H}
+			--disable-dependency-tracking
+			--disable-seqmod
+			--disable-bdb
+			--disable-hdb
+			--without-fetch
+			--without-cyrus-sasl
+
+RC_SUBR=		slapd:server
+SUB_FILES=		pkg-message-client
+			pkg-message-server
+			pkg-deinstall-server
+SUB_LIST=		LDAP_USER=${LDAP_USER}
+			LDAP_GROUP=${LDAP_GROUP}
+			LDAP_RUN_DIR=${LDAP_RUN_DIR}
+			DATABASEDIR=${DATABASE_DIR}
+PLIST_SUB=		OPENLDAP_MAJOR=${PORTVERSION:R}
+			LDAP_USER=${LDAP_USER}
+			LDAP_GROUP=${LDAP_GROUP}
+			LDAP_RUN_DIR=${LDAP_RUN_DIR}
+			DATABASEDIR=${DATABASE_DIR}
+SOVERSION=		${SOVERSION}
+
+post-patch:
+	${REINPLACE_CMD} -e 's|%LOCALSTATEDIR%/run/|${LDAP_RUN_DIR}/|g' \
+		${SED_MODULES} ${WRKSRC}/servers/slapd/slapd.conf
+	${REINPLACE_CMD} -e 's|^OPT =.*|OPT = ${CFLAGS}|g' \
+		-e 's|^CC =.*|CC = ${CC}|g' \
+		${SED_MODULES} ${WRKSRC}/contrib/slapd-modules/*/Makefile \
+		${WRKSRC}/contrib/slapd-modules/*/*/Makefile
+	${REINPLACE_CMD} -E -e 's,uuid/uuid.h,xxuuid/uuid.h,g' \
+		${CONFIGURE_WRKSRC}/${CONFIGURE_SCRIPT}
+
+pre-install:
+	${MKDIR} ${STAGEDIR}${DATABASE_DIR}
+
+post-install:
+	${MKDIR} ${STAGEDIR}${LDAP_RUN_DIR}
+	${MKDIR} ${STAGEDIR}${PREFIX}/libexec/openldap
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${WRKSRC}/CHANGES ${STAGEDIR}${STD_DOCDIR}
+	for dir in drafts rfc; do \
+		${MKDIR} ${STAGEDIR}${STD_DOCDIR}/$${dir}; \
+		${INSTALL_DATA} ${WRKSRC}/doc/$${dir}/* ${STAGEDIR}${STD_DOCDIR}/$${dir}; \
+	done
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ldap*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/sbin/slap*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/openldap/*.so
+
+	for library in lber ldap ldap_r; do \
+		${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib$${library}-${PORTVERSION:R}.so.${SOVERSION:R:R}; \
+	done
