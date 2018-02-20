@@ -31,6 +31,7 @@ BUILD_DEPENDS=		perl-Archive-Zip:single:perl_default
 			ucpp:single:standard
 			glm:single:standard
 			sed:single:standard
+			zip:single:standard
 			bash:primary:standard
 			bison:primary:standard
 			cppunit:single:standard
@@ -79,6 +80,7 @@ BUILDRUN_DEPENDS=	serf:single:standard
 			nss:primary:standard
 			gstreamer1:single:standard
 			gstreamer1-plugins-base:single:standard
+			openldap:client:standard
 
 USES=			autoreconf:build perl:build gmake jpeg pkgconfig
 			python mesa desktop-utils gnome-icons zlib
@@ -92,6 +94,7 @@ CONFIGURE_ARGS=		--enable-gtk3
 			--enable-release-build
 			--disable-dependency-tracking
 			--disable-epm
+			--disable-gtk
 			--disable-fetch-external
 			--disable-firebird-sdbc
 			--disable-postgresql-sdbc
@@ -102,6 +105,8 @@ CONFIGURE_ARGS=		--enable-gtk3
 			--disable-neon
 			--disable-kde4
 			--disable-cups
+			--disable-dbus
+			--disable-dconf
 			--exec-prefix={{PREFIX}}
 			--with-alloc=system
 			--with-boost={{LOCALBASE}}
@@ -125,6 +130,7 @@ CONFIGURE_ARGS=		--enable-gtk3
 			--without-myspell-dicts
 			--without-doxygen
 			--without-java
+			--without-system-sane
 CONFIGURE_ENV=		GNUTAR="{{TAR}}"
 			GPERF="{{LOCALBASE}}/bin/gperf"
 			ICU_CFLAGS="`icu-config --cflags`"
