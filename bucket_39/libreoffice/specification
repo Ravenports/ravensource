@@ -24,14 +24,14 @@ FPC_EQUIVALENT=		editors/libreoffice
 
 BROKEN[all]=		Under development
 
-BUILD_DEPENDS=		perl-Archive-Zip:standard:perl_default
+BUILD_DEPENDS=		perl-Archive-Zip:single:perl_default
 			gperf:single:standard
 			mdds:single:standard
 			patch:single:standard
 			ucpp:single:standard
 			glm:single:standard
 			sed:single:standard
-			bash:single:standard
+			bash:primary:standard
 			bison:primary:standard
 			cppunit:single:standard
 			shared-mime-info:single:standard
@@ -52,6 +52,7 @@ BUILDRUN_DEPENDS=	serf:single:standard
 			libwps:single:standard
 			libwpg:single:standard
 			libzmf:single:standard
+			libqxp:single:standard
 			libxslt:single:standard
 			libmwaw:single:standard
 			libgltf:single:standard
@@ -100,11 +101,12 @@ CONFIGURE_ARGS=		--enable-gtk3
 			--disable-systray
 			--disable-neon
 			--disable-kde4
+			--disable-cups
 			--exec-prefix={{PREFIX}}
 			--with-alloc=system
 			--with-boost={{LOCALBASE}}
 			--with-vendor="Ravenports"
-			--with-build-version="Ravenports v{{VERSION}} r{{REVISION}}"
+			--with-build-version="Ravenports v{{VERSION}}"
 			--with-external-dict-dir="{{LOCALBASE}}/share/hunspell"
 			--with-external-hyph-dir="{{LOCALBASE}}/share/hyphen"
 			--with-external-thes-dir="{{LOCALBASE}}/share/mythes"
@@ -127,6 +129,7 @@ CONFIGURE_ENV=		GNUTAR="{{TAR}}"
 			GPERF="{{LOCALBASE}}/bin/gperf"
 			ICU_CFLAGS="`icu-config --cflags`"
 			ICU_LIBS="`icu-config --ldflags`"
+			PYTHON="{{PYTHON_VERSION}}"
 			PYTHON_CFLAGS="`{{PYTHON_CMD}}-config --cflags`"
 			PYTHON_LIBS="`{{PYTHON_VERSION}}-config --libs`"
 			OPENCOLLADA_CFLAGS="{{COLLADA_CFLAGS}}"
@@ -139,7 +142,6 @@ MAKE_ENV=		CXXFLAGS_WARN="{{CXXFLAGS_WARN}}"
 
 BUILD_TARGET=		build-nocheck
 INSTALL_TARGET=		distro-pack-install
-DISTNAME=		libreoffice-${PORTVERSION:R}
 PLIST_SUB=		LOCALBASE="{{LOCALBASE}}"
 
 pre-configure:
@@ -161,14 +163,14 @@ post-patch-dragonfly:
 		${WRKSRC}/solenv/bin/ooinstall
 
 	(cd ${WRKSRC} && \
-		${REINPLACE_CMD} -e 's|FREEBSD|DRAGONFLY|' ${REPLACE_LIST})
+		${SED} -i'' -e 's|FREEBSD|DRAGONFLY|' ${REPLACE_LIST})
 .for F in ${REPLACE_LIST}
 	@/usr/bin/cmp -s ${WRKSRC:Q}/${F} ${WRKSRC:Q}/${F}.bak && \
 		echo "${F} was not altered" || /usr/bin/true
 .endfor
 
 	(cd ${WRKSRC} && \
-		${REINPLACE_CMD} -e 's|%BSD|DRAGONFLY|' ${PERCENT_BSD_LIST})
+		${SED} -i'' -e 's|%BSD|DRAGONFLY|' ${PERCENT_BSD_LIST})
 .for F in ${PERCENT_BSD_LIST}
 	@/usr/bin/cmp -s ${WRKSRC:Q}/${F} ${WRKSRC:Q}/${F}.bak && \
 		echo "${F} was not altered" || /usr/bin/true

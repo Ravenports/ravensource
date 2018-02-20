@@ -1,6 +1,6 @@
---- solenv/gbuild/platform/DRAGONFLY_X86_64_GCC.mk.orig	2014-06-12 08:25:19.000000000 +0000
+--- solenv/gbuild/platform/DRAGONFLY_X86_64_GCC.mk.orig	2018-02-08 14:35:19 UTC
 +++ solenv/gbuild/platform/DRAGONFLY_X86_64_GCC.mk
-@@ -13,6 +13,6 @@ gb_COMPILERDEFAULTOPTFLAGS := -O2
+@@ -11,6 +11,6 @@
  
  include $(GBUILDDIR)/platform/unxgcc.mk
  

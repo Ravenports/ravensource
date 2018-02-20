@@ -1,6 +1,6 @@
---- shell/source/unix/exec/shellexec.cxx.orig	2017-01-12 00:54:33 UTC
+--- shell/source/unix/exec/shellexec.cxx.orig	2018-02-08 14:35:19 UTC
 +++ shell/source/unix/exec/shellexec.cxx
-@@ -145,7 +145,7 @@ void SAL_CALL ShellExec::execute( const 
+@@ -145,7 +145,7 @@ void SAL_CALL ShellExec::execute( const
          aBuffer.append("open --");
  #else
          // Just use xdg-open on non-Mac

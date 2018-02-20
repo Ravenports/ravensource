@@ -1,19 +1,18 @@
---- vcl/unx/generic/app/geninst.cxx.orig	2017-05-03 16:46:29 UTC
+--- vcl/unx/generic/app/geninst.cxx.orig	2018-02-08 14:35:19 UTC
 +++ vcl/unx/generic/app/geninst.cxx
-@@ -22,11 +22,8 @@
+@@ -22,10 +22,7 @@
  #include <cassert>
  #include <string.h>
  #include <stdlib.h>
-+#include <sys/utsname.h>
- 
+-
 -#if defined(LINUX)
 -#  include <stdio.h>
 -#endif
--
++#include <sys/utsname.h>
+ 
  #include <osl/module.hxx>
  #include <comphelper/solarmutex.hxx>
- #include <config_features.h>
-@@ -139,31 +136,22 @@ SalGenericInstance::~SalGenericInstance()
+@@ -69,31 +66,22 @@ SalGenericInstance::~SalGenericInstance(
  
  OUString SalGenericInstance::getOSVersion()
  {
