@@ -1,0 +1,291 @@
+DEF[PORTVERSION]=	2.6
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		wpa_supplicant
+VERSION=		${PORTVERSION}
+KEYWORDS=		security net
+VARIANTS=		standard
+SDESC[standard]=	Supplicant (client) for WPA/802.1x protocols
+HOMEPAGE=		https://w1.fi/wpa_supplicant/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main patchsite
+SITES[main]=		https://w1.fi/releases/
+SITES[patchsite]=	https://w1.fi/security/2017-1/
+DISTFILE[1]=		wpa_supplicant-${PORTVERSION}.tar.gz:main
+DISTFILE[2]=		rebased-v2.6-0001-hostapd-Avoid-key-reinstallation-in-FT-handshake.patch:patchsite
+DISTFILE[3]=		rebased-v2.6-0002-Prevent-reinstallation-of-an-already-in-use-group-ke.patch:patchsite
+DISTFILE[4]=		rebased-v2.6-0003-Extend-protection-of-GTK-IGTK-reinstallation-of-WNM-.patch:patchsite
+DISTFILE[5]=		rebased-v2.6-0004-Prevent-installation-of-an-all-zero-TK.patch:patchsite
+DISTFILE[6]=		rebased-v2.6-0005-Fix-PTK-rekeying-to-generate-a-new-ANonce.patch:patchsite
+DISTFILE[7]=		rebased-v2.6-0006-TDLS-Reject-TPK-TK-reconfiguration.patch:patchsite
+DISTFILE[8]=		rebased-v2.6-0007-WNM-Ignore-WNM-Sleep-Mode-Response-without-pending-r.patch:patchsite
+DISTFILE[9]=		rebased-v2.6-0008-FT-Do-not-allow-multiple-Reassociation-Response-fram.patch:patchsite
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	BSD WIRED NDIS TEST
+			TLS PEAP TTLS MSCHAPV2 GTC LEAP OTP PSK FAST
+			SIM PWD PAX AKA AKA_PRIME SAKE GPSK TNC IKEV2 EKE
+			WPS PKCS SMARTCARD SYSLOG INTERWORKING HOTSPOT
+			IEEE80211AC IEEE80211N IEEE80211R IEEE80211W
+			DELAYED_MIC P2P TDLS NO_ROAMING
+			HT_OVERRIDES VHT_OVERRIDES
+			WPS_ER WPS_NOREG WPS_NFC
+OPTIONS_STANDARD=	BSD WIRED NDIS TEST
+			TLS PEAP TTLS MSCHAPV2 GTC LEAP OTP PSK FAST
+			SIM PWD PAX AKA AKA_PRIME SAKE GPSK TNC IKEV2 EKE
+			WPS PKCS SMARTCARD SYSLOG INTERWORKING HOTSPOT
+			IEEE80211AC IEEE80211N IEEE80211R IEEE80211W
+			DELAYED_MIC P2P TDLS NO_ROAMING
+			HT_OVERRIDES VHT_OVERRIDES
+			WPS_ER WPS_NOREG WPS_NFC
+OPTGROUP_RESTRICTED=	DRIVERS EXTAP
+OPTDESCR[DRIVERS]=	Supported Drivers
+OPTGROUP[DRIVERS]=	BSD WIRED NDIS TEST
+OPTDESCR[EXTAP]=	Extensible Authentication Protocols
+OPTGROUP[EXTAP]=	TLS PEAP TTLS MSCHAPV2 GTC LEAP OTP PSK FAST
+			SIM PWD PAX AKA AKA_PRIME SAKE GPSK TNC IKEV2 EKE
+OPT_ON[all]=		WIRED NDIS
+			TLS PEAP TTLS MSCHAPV2 GTC LEAP OTP PSK
+			WPS PKCS SMARTCARD IEEE80211R SYSLOG INTERWORKING
+			HOTSPOT
+OPT_ON[dragonfly]=	BSD
+OPT_ON[freebsd]=	BSD
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/README
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		security/wpa_supplicant
+
+PATCHFILES=		2 3 4 5 6 7 8 9
+PATCHFILES_STRIP=	-p1
+
+USES=			cpe gmake readline ssl
+BUILD_WRKSRC=		{{WRKSRC}}/wpa_supplicant
+INSTALL_WRKSRC=		{{WRKSRC}}/src
+
+CFLAGS=			-I{{OPENSSLINC}}
+LDFLAGS=		-L{{OPENSSLLIB}}
+MAKE_ENV=		V=1
+
+SUB_FILES=		pkg-message-single-dragonfly
+			pkg-message-single-freebsd
+
+VAR_OPSYS[freebsd]=	LDFLAGS=-lutil
+VAR_OPSYS[dragonfly]=	LDFLAGS=-lutil
+
+[BSD].DESCRIPTION=			BSD net80211 interface
+[NDIS].DESCRIPTION=			Windows NDIS interface
+[WIRED].DESCRIPTION=			Wired ethernet interface
+[TEST].DESCRIPTION=			Development testing interface
+
+[TLS].DESCRIPTION=			Transport Layer Security
+[PEAP].DESCRIPTION=			Protected Extensible Authentication Protocol
+[TTLS].DESCRIPTION=			Tunneled Transport Layer Security
+[MSCHAPV2].DESCRIPTION=			Microsoft CHAP version 2 (RFC 2759)
+[GTC].DESCRIPTION=			Generic Token Card
+[LEAP].DESCRIPTION=			Lightweight Extensible Authentication Protocol
+[OTP].DESCRIPTION=			One-Time Password
+[PSK].DESCRIPTION=			Pre-Shared key
+[FAST].DESCRIPTION=			Flexible Authentication via Secure Tunneling
+[AKA].DESCRIPTION=			Authentication and Key Agreement (UMTS)
+[AKA_PRIME].DESCRIPTION=		AKA Prime variant (RFC 5448)
+[EKE].DESCRIPTION=			Encrypted Key Exchange
+[SIM].DESCRIPTION=			Subscriber Identity Module
+[IKEV2].DESCRIPTION=			Internet Key Exchange version 2
+[PWD].DESCRIPTION=			Shared password (RFC 5931)
+[PAX].DESCRIPTION=			Password Authenticated Exchange
+[SAKE].DESCRIPTION=			Shared-Secret Authentication & Key Establishment
+[GPSK].DESCRIPTION=			Generalized Pre-Shared Key
+[TNC].DESCRIPTION=			Trusted Network Connect
+
+[WPS].DESCRIPTION=			Wi-Fi Protected Setup
+[WPS_ER].DESCRIPTION=			Enable WPS External Registrar
+[WPS_NOREG].DESCRIPTION=		Disable open network credentials when registrar
+[WPS_NFC].DESCRIPTION=			Near Field Communication (NFC) configuration
+[PKCS].DESCRIPTION=			PKCS#12 (PFS) support
+[SMARTCARD].DESCRIPTION=		Private key on smartcard support
+[IEEE80211AC].DESCRIPTION=		Very High Throughput, AP mode (IEEE 802.11ac)
+[IEEE80211N].DESCRIPTION=		High Throughput, AP mode (IEEE 802.11n)
+[IEEE80211R].DESCRIPTION=		Fast BSS Transition (IEEE 802.11r-2008)
+[IEEE80211W].DESCRIPTION=		Management Frame Protection (IEEE 802.11w)
+[SYSLOG].DESCRIPTION=			Send debug messages to syslog instead of stdout
+[INTERWORKING].DESCRIPTION=		Improve ext. network interworking (IEEE 802.11u)
+[HOTSPOT].DESCRIPTION=			Hotspot 2.0
+[DELAYED_MIC].DESCRIPTION=		Mitigate TKIP attack, random delay on MIC errors
+[P2P].DESCRIPTION=			Peer-to-Peer support
+[TDLS].DESCRIPTION=			Tunneled Direct Link Setup
+[NO_ROAMING].DESCRIPTION=		Disable roaming
+[HT_OVERRIDES].DESCRIPTION=		Disable HT/HT40, mask MCS rates, etc
+[VHT_OVERRIDES].DESCRIPTION=		Disable VHT, mask MCS rates, etc
+
+[SIM].BUILDRUN_DEPENDS_ON=		pcsc-lite:primary:standard
+[AKA].BUILDRUN_DEPENDS_ON=		pcsc-lite:primary:standard
+[AKA_PRIME].BUILDRUN_DEPENDS_ON=	pcsc-lite:primary:standard
+
+[SIM].CFLAGS_ON=			-I{{LOCALBASE}}/include/PCSC
+[AKA].CFLAGS_ON=			-I{{LOCALBASE}}/include/PCSC
+[AKA_PRIME].CFLAGS_ON=			-I{{LOCALBASE}}/include/PCSC
+
+[IEEE80211AC].PREVENTS_ON=		IEEE80211N
+[IEEE80211N].PREVENTS_ON=		IEEE80211AC
+
+do-install:
+	(cd ${BUILD_WRKSRC} && \
+		${INSTALL_PROGRAM} wpa_supplicant wpa_cli \
+		wpa_passphrase ${STAGEDIR}${PREFIX}/sbin)
+	${INSTALL_DATA} ${BUILD_WRKSRC}/wpa_supplicant.conf \
+		${STAGEDIR}${PREFIX}/etc/wpa_supplicant.conf.sample
+
+post-patch:
+.if ${PLIST_SUB:MSIM_ON=} || ${PLIST_SUB:MAKA_ON=} || ${PLIST_SUB:AKA_PRIME_ON=}
+	${ECHO_CMD} CONFIG_PCSC=y >> ${BUILD_WRKSRC}/.config
+.endif
+.if ${PLIST_SUB:MIEEE80211AC_ON=} || ${PLIST_SUB:MIEEE80211N_ON=}
+	${ECHO_CMD} CONFIG_AP=y >> ${BUILD_WRKSRC}/.config
+.endif
+	${ECHO_CMD} CONFIG_OS=unix >> ${BUILD_WRKSRC}/.config
+	${ECHO_CMD} CONFIG_CTRL_IFACE=unix >> ${BUILD_WRKSRC}/.config
+	${ECHO_CMD} CONFIG_BACKEND=file >> ${BUILD_WRKSRC}/.config
+	${ECHO_CMD} CONFIG_TLS=openssl >> ${BUILD_WRKSRC}/.config
+
+post-patch-freebsd:
+	${CP} ${FILESDIR}/Packet32.[ch] ${FILESDIR}/ntddndis.h \
+		${WRKSRC}/src/utils
+	${ECHO_CMD} CONFIG_L2_PACKET=freebsd >> ${BUILD_WRKSRC}/.config
+
+post-patch-dragonfly:
+	${CP} ${FILESDIR}/Packet32.[ch] ${FILESDIR}/ntddndis.h \
+		${WRKSRC}/src/utils
+	${ECHO_CMD} CONFIG_L2_PACKET=freebsd >> ${BUILD_WRKSRC}/.config
+
+post-patch-linux:
+	${ECHO_CMD} CONFIG_L2_PACKET=linux >> ${BUILD_WRKSRC}/.config
+
+post-patch-sunos:
+	${ECHO_CMD} CONFIG_L2_PACKET=none >> ${BUILD_WRKSRC}/.config
+
+post-patch-BSD-ON:
+	${ECHO_CMD} CONFIG_DRIVER_BSD=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-NDIS-ON:
+	${ECHO_CMD} CONFIG_DRIVER_NDIS=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-WIRED-ON:
+	${ECHO_CMD} CONFIG_DRIVER_WIRED=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-TEST-ON:
+	${ECHO_CMD} CONFIG_DRIVER_TEST=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-TLS-ON:
+	${ECHO_CMD} CONFIG_EAP_TLS=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-PEAP-ON:
+	${ECHO_CMD} CONFIG_EAP_PEAP=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-TTLS-ON:
+	${ECHO_CMD} CONFIG_EAP_TTLS=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-MSCHAPV2-ON:
+	${ECHO_CMD} CONFIG_EAP_MSCHAPv2=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-GTC-ON:
+	${ECHO_CMD} CONFIG_EAP_GTC=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-LEAP-ON:
+	${ECHO_CMD} CONFIG_EAP_LEAP=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-OTP-ON:
+	${ECHO_CMD} CONFIG_EAP_OTP=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-PSK-ON:
+	${ECHO_CMD} CONFIG_EAP_PSK=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-FAST-ON:
+	${ECHO_CMD} CONFIG_EAP_FAST=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-AKA-ON:
+	${ECHO_CMD} CONFIG_EAP_AKA=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-EKE-ON:
+	${ECHO_CMD} CONFIG_EAP_EKE=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-SIM-ON:
+	${ECHO_CMD} CONFIG_EAP_SIM=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-IKEV2-ON:
+	${ECHO_CMD} CONFIG_EAP_IKEv2=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-PWD-ON:
+	${ECHO_CMD} CONFIG_EAP_PWD=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-PAX-ON:
+	${ECHO_CMD} CONFIG_EAP_PAX=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-SAKE-ON:
+	${ECHO_CMD} CONFIG_EAP_SAKE=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-GPSK-ON:
+	${ECHO_CMD} CONFIG_EAP_GPSK=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-TNC-ON:
+	${ECHO_CMD} CONFIG_EAP_TNC=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-WPS-ON:
+	${ECHO_CMD} CONFIG_WPS=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-PKCS-ON:
+	${ECHO_CMD} CONFIG_PKCS12=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-SMARTCARD-ON:
+	${ECHO_CMD} CONFIG_SMARTCARD=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-IEEE80211AC-ON:
+	${ECHO_CMD} CONFIG_IEEE80211AC=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-IEEE80211N-ON:
+	${ECHO_CMD} CONFIG_IEEE80211N=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-IEEE80211R-ON:
+	${ECHO_CMD} CONFIG_IEEE80211R=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-IEEE80211W-ON:
+	${ECHO_CMD} CONFIG_IEEE80211W=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-SYSLOG-ON:
+	${ECHO_CMD} CONFIG_DEBUG_SYSLOG=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-INTERWORKING-ON:
+	${ECHO_CMD} CONFIG_INTERWORKING=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-HOTSPOT-ON:
+	${ECHO_CMD} CONFIG_HS20=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-DELAYED_MIC-ON:
+	${ECHO_CMD} CONFIG_DELAYED_MIC_ERROR_REPORT=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-P2P-ON:
+	${ECHO_CMD} CONFIG_P2P=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-TDLS-ON:
+	${ECHO_CMD} CONFIG_TDLS=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-NO_ROAMING-ON:
+	${ECHO_CMD} CONFIG_NO_ROAMING=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-HT_OVERRIDES-ON:
+	${ECHO_CMD} CONFIG_HT_OVERRIDES=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-VHT_OVERRIDES-ON:
+	${ECHO_CMD} CONFIG_VHT_OVERRIDES=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-WPS_ER-ON:
+	${ECHO_CMD} CONFIG_WPS_ER=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-WPS_NFC-ON:
+	${ECHO_CMD} CONFIG_WPS_NFC=y >> ${BUILD_WRKSRC}/.config
+
+post-patch-WPS_NOREG-ON:
+	${ECHO_CMD} CONFIG_WPS_REG_DISABLE_OPEN=y >> ${BUILD_WRKSRC}/.config

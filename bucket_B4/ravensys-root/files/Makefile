@@ -345,6 +345,7 @@ headers_DragonFly_dirs=	arpa \
 			bus \
 			dev \
 			libprop \
+			net \
 			netinet \
 			netinet6 \
 			netproto \
@@ -379,21 +380,6 @@ headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
 			util.h \
 			vis.h \
 			libusb.h \
-			net/bpf.h \
-			net/dlt.h \
-			net/ethernet.h \
-			net/if_arp.h \
-			net/if_clone.h \
-			net/if_dl.h \
-			net/if_llc.h \
-			net/if_media.h \
-			net/if_mib.h \
-			net/if_poll.h \
-			net/if_types.h \
-			net/if_var.h \
-			net/netmsg.h \
-			net/radix.h \
-			net/route.h \
 			netconfig.h \
 			readpassphrase.h \
 			runetype.h \
@@ -758,6 +744,7 @@ install:
 	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/include/cpu/*.h ${DESTDIR}${BASE}/usr/include/cpu/
 	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/include/machine/*.h ${DESTDIR}${BASE}/usr/include/machine/
 	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/include/sys/*.h ${DESTDIR}${BASE}/usr/include/sys/
+	rm ${DESTDIR}${BASE}/usr/include/net/zlib.h
 .endif
 .if ${OPSYS} == FreeBSD
 	cp ${LOCALBASE}/lib/libdl.a ${DESTDIR}${BASE}/usr/lib/
