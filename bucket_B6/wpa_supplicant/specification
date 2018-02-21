@@ -62,6 +62,8 @@ FPC_EQUIVALENT=		security/wpa_supplicant
 PATCHFILES=		2 3 4 5 6 7 8 9
 PATCHFILES_STRIP=	-p1
 
+BUILDRUN_DEPENDS=	libpcap:single:standard
+
 USES=			cpe gmake readline ssl
 BUILD_WRKSRC=		{{WRKSRC}}/wpa_supplicant
 INSTALL_WRKSRC=		{{WRKSRC}}/src
@@ -140,7 +142,7 @@ do-install:
 		${STAGEDIR}${PREFIX}/etc/wpa_supplicant.conf.sample
 
 post-patch:
-.if ${PLIST_SUB:MSIM_ON=} || ${PLIST_SUB:MAKA_ON=} || ${PLIST_SUB:AKA_PRIME_ON=}
+.if ${PLIST_SUB:MSIM_ON=} || ${PLIST_SUB:MAKA_ON=} || ${PLIST_SUB:MAKA_PRIME_ON=}
 	${ECHO_CMD} CONFIG_PCSC=y >> ${BUILD_WRKSRC}/.config
 .endif
 .if ${PLIST_SUB:MIEEE80211AC_ON=} || ${PLIST_SUB:MIEEE80211N_ON=}
@@ -152,14 +154,14 @@ post-patch:
 	${ECHO_CMD} CONFIG_TLS=openssl >> ${BUILD_WRKSRC}/.config
 
 post-patch-freebsd:
+	${ECHO_CMD} CONFIG_L2_PACKET=freebsd >> ${BUILD_WRKSRC}/.config
 	${CP} ${FILESDIR}/Packet32.[ch] ${FILESDIR}/ntddndis.h \
 		${WRKSRC}/src/utils
-	${ECHO_CMD} CONFIG_L2_PACKET=freebsd >> ${BUILD_WRKSRC}/.config
 
 post-patch-dragonfly:
+	${ECHO_CMD} CONFIG_L2_PACKET=freebsd >> ${BUILD_WRKSRC}/.config
 	${CP} ${FILESDIR}/Packet32.[ch] ${FILESDIR}/ntddndis.h \
 		${WRKSRC}/src/utils
-	${ECHO_CMD} CONFIG_L2_PACKET=freebsd >> ${BUILD_WRKSRC}/.config
 
 post-patch-linux:
 	${ECHO_CMD} CONFIG_L2_PACKET=linux >> ${BUILD_WRKSRC}/.config
