@@ -1,11 +1,3 @@
-COLLADA_MODS=	COLLADABaseUtils \
-		COLLADAFramework \
-		COLLADASaxFrameworkLoader \
-		GeneratedSaxParser
-
-COLLADA_CFLAGS=	${COLLADA_MODS:S|^|-isystem ${LOCALBASE}/include/opencollada/|}
-COLLADA_LIBS=	-L${LOCALBASE}/lib/opencollada ${COLLADA_MODS:S|^COLLADA|OpenCOLLADA|:S|^|-l|}
-
 REPLACE_LIST= \
 	external/curl/ExternalProject_curl.mk \
 	external/liblangtag/ExternalProject_liblangtag.mk \
@@ -16,7 +8,6 @@ REPLACE_LIST= \
 	external/redland/ExternalProject_rasqal.mk \
 	external/redland/ExternalProject_redland.mk \
 	external/xmlsec/ExternalProject_xmlsec.mk \
-	extensions/Library_ldapbe2.mk \
 	include/osl/endian.h \
 	sal/osl/unx/system.cxx \
 	solenv/bin/modules/installer/parameter.pm \

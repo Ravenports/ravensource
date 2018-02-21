@@ -22,8 +22,6 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		editors/libreoffice
 
-BROKEN[all]=		Under development
-
 BUILD_DEPENDS=		perl-Archive-Zip:single:perl_default
 			gperf:single:standard
 			mdds:single:standard
@@ -35,7 +33,7 @@ BUILD_DEPENDS=		perl-Archive-Zip:single:perl_default
 			bash:primary:standard
 			bison:primary:standard
 			cppunit:single:standard
-			shared-mime-info:single:standard
+			poppler:primary:standard
 RUN_DEPENDS=		fonts-crosextra-caladea:single:standard
 			fonts-crosextra-carlito:single:standard
 			font-dejavu:single:standard
@@ -44,7 +42,6 @@ RUN_DEPENDS=		fonts-crosextra-caladea:single:standard
 			fonts-liberation2:single:standard
 			fonts-linuxlibertine:single:standard
 BUILDRUN_DEPENDS=	serf:single:standard
-			opencollada:single:standard
 			harfbuzz:icu:standard
 			libe-book:single:standard
 			libabw:single:standard
@@ -74,18 +71,20 @@ BUILDRUN_DEPENDS=	serf:single:standard
 			hyphen:single:standard
 			coinmp:single:standard
 			mythes:single:standard
-			poppler:primary:standard
+			poppler:cpp:standard
 			lp_solve:single:standard
 			glew:primary:standard
 			nss:primary:standard
 			gstreamer1:single:standard
 			gstreamer1-plugins-base:single:standard
 			openldap:client:standard
+			shared-mime-info:single:standard
 
 USES=			autoreconf:build perl:build gmake jpeg pkgconfig
-			python mesa desktop-utils gnome-icons zlib
+			python mesa gnome-icons zlib shebangfix
 XORG_COMPONENTS=	xaw xrandr
 GNOME_COMPONENTS=	gtk3
+SHEBANG_GLOB=		*.py
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-gtk3
 			--enable-gstreamer-1-0
@@ -123,7 +122,6 @@ CONFIGURE_ARGS=		--enable-gtk3
 			--with-system-dicts
 			--with-system-libs
 			--with-system-libxml
-			--with-system-opencollada
 			--with-system-ucpp
 			--with-system-zlib
 			--without-fonts
@@ -138,8 +136,6 @@ CONFIGURE_ENV=		GNUTAR="{{TAR}}"
 			PYTHON="{{PYTHON_VERSION}}"
 			PYTHON_CFLAGS="`{{PYTHON_CMD}}-config --cflags`"
 			PYTHON_LIBS="`{{PYTHON_VERSION}}-config --libs`"
-			OPENCOLLADA_CFLAGS="{{COLLADA_CFLAGS}}"
-			OPENCOLLADA_LIBS="{{COLLADA_LIBS}}"
 MAKE_ARGS=		TMPDIR={{WRKDIR}}
 MAKE_ENV=		CXXFLAGS_WARN="{{CXXFLAGS_WARN}}"
 			GNUSED="{{LOCALBASE}}/bin/gsed"
@@ -169,15 +165,18 @@ post-patch-dragonfly:
 		${WRKSRC}/solenv/bin/ooinstall
 
 	(cd ${WRKSRC} && \
-		${SED} -i'' -e 's|FREEBSD|DRAGONFLY|' ${REPLACE_LIST})
+		${REINPLACE_CMD} -e 's|FREEBSD|DRAGONFLY|' ${REPLACE_LIST})
 .for F in ${REPLACE_LIST}
 	@/usr/bin/cmp -s ${WRKSRC:Q}/${F} ${WRKSRC:Q}/${F}.bak && \
 		echo "${F} was not altered" || /usr/bin/true
 .endfor
 
 	(cd ${WRKSRC} && \
-		${SED} -i'' -e 's|%BSD|DRAGONFLY|' ${PERCENT_BSD_LIST})
+		${REINPLACE_CMD} -e 's|%BSD|DRAGONFLY|' ${PERCENT_BSD_LIST})
 .for F in ${PERCENT_BSD_LIST}
 	@/usr/bin/cmp -s ${WRKSRC:Q}/${F} ${WRKSRC:Q}/${F}.bak && \
 		echo "${F} was not altered" || /usr/bin/true
 .endfor
+
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/libreoffice/sdk/classes
