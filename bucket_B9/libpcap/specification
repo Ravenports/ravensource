@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	1.8.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libpcap
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		standard
+SDESC[standard]=	Network packet capture library
+HOMEPAGE=		https://www.tcpdump.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.tcpdump.org/release/
+DISTFILE[1]=		libpcap-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		net/libpcap
+
+BUILD_DEPENDS=		flex:primary:standard
+			bison:primary:standard
+
+USES=			gmake
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-dbus=no
+			--with-pcap=bpf
+			--with-ipv6
+CONFIGURE_ENV=		LEX={{LOCALBASE}}/bin/flex
+CFLAGS=			-fPIC
+INSTALL_REQ_TOOLCHAIN=	yes
+
+SOVERSION=		${PORTVERSION}
