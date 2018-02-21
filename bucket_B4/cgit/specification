@@ -1,0 +1,69 @@
+DEF[PORTVERSION]=	1.1
+DEF[BLESSED_GIT]=	2.16.0
+DEF[WWWDIR]=		{{PREFIX}}/www/cgit
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		cgit
+VERSION=		${PORTVERSION}
+KEYWORDS=		www devel
+VARIANTS=		standard
+SDESC[standard]=	Fast web interface for git
+HOMEPAGE=		https://git.zx2c4.com/cgit/about/
+CONTACT=		nobody
+
+# cgit builds its own libgit using a known-good version
+# check periodically: https://git.zx2c4.com/cgit/log/git
+
+DOWNLOAD_GROUPS=	main fixedgit
+SITES[main]=		http://git.zx2c4.com/cgit/snapshot/
+SITES[fixedgit]=	https://www.kernel.org/pub/software/scm/git/
+DISTFILE[1]=		cgit-${PORTVERSION}.tar.xz:main
+DISTFILE[2]=		git-${BLESSED_GIT}.tar.xz:fixedgit
+DF_INDEX=		1 2
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:single
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/cgit
+
+USES=			cpe gmake iconv python:build shebangfix ssl zlib
+CPE_VENDOR=		lars_hjemli
+SHEBANG_FILES=		filters/email-gravatar.py
+			filters/html-converters/md2html
+			filters/html-converters/rst2html
+			filters/syntax-highlighting.py
+MAKE_ARGS=		CGIT_SCRIPT_PATH=${WWWDIR}
+			CGIT_CONFIG={{PREFIX}}/etc/cgitrc
+			prefix={{PREFIX}}
+			NO_GETTEXT=1
+			NO_LUA=1
+			NO_R_TO_GCC_LINKER=1
+			V=1
+			NEEDS_LIBICONV=1
+CFLAGS=			-I{{OPENSSLINC}}
+LDFLAGS=		-L{{OPENSSLLIB}}
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-extract:
+	${RMDIR} ${WRKSRC}/git
+	${MV} ${WRKDIR}/git-${BLESSED_GIT} ${WRKSRC}/git
+
+post-patch:
+	${REINPLACE_CMD} -e 's/^\(GIT_VER =\).*$$/\1 ${BLESSED_GIT}/' \
+		${WRKSRC}/Makefile
+
+	${REINPLACE_CMD} \
+		-e "s|\(ALL_CFLAGS =\)|\1 ${CFLAGS}|g" \
+		-e "s|\(ALL_LDFLAGS =\)|\1 ${LDFLAGS}|g" \
+		${WRKSRC}/git/Makefile
+
+	# ${REINPLACE_CMD} -e 's|ALL_LDFLAGS|LDFLAGS|g' ${WRKSRC}/cgit.mk
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${WWWDIR}/cgit.cgi
