@@ -1,6 +1,6 @@
---- youtube_dl/options.py.orig	2016-04-28 23:04:36 UTC
+--- youtube_dl/options.py.orig	2018-02-22 16:50:23 UTC
 +++ youtube_dl/options.py
-@@ -127,10 +127,6 @@ def parseOpts(overrideArguments=None):
+@@ -138,10 +138,6 @@ def parseOpts(overrideArguments=None):
          action='version',
          help='Print program version and exit')
      general.add_option(
