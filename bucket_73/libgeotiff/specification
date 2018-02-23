@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	1.4.2
+DEF[SOVERSION]=		2.1.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libgeotiff
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Library and tools for dealing with GeoTIFF
+HOMEPAGE=		http://trac.osgeo.org/geotiff/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://download.osgeo.org/geotiff/libgeotiff/
+DISTFILE[1]=		libgeotiff-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/libgeotiff
+
+BUILDRUN_DEPENDS=	proj:single:standard
+			jbigkit:single:standard
+			tiff:primary:standard
+
+USES=			jpeg libtool zlib
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--datadir={{PREFIX}}/share/libgeotiff
+			--disable-doxygen-doc
+			--disable-doxygen-dot
+			--disable-doxygen-html
+			--disable-doxygen-man
+			--with-jpeg={{LOCALBASE}}
+			--with-proj={{LOCALBASE}}
+			--with-libtiff={{LOCALBASE}}
+			--with-zlib={{LOCALBASE}}
+INSTALL_TARGET=		install-strip
+CPPFLAGS=		-fPIC
+SOVERSION=		${SOVERSION}
