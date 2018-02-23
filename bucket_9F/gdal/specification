@@ -1,0 +1,104 @@
+DEF[PORTVERSION]=	2.2.3
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gdal
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Geospatial Data Abstraction Library
+HOMEPAGE=		http://www.gdal.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://download.osgeo.org/gdal/${PORTVERSION}/
+DISTFILE[1]=		gdal-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE.TXT
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/gdal
+
+BUILDRUN_DEPENDS=	libgeotiff:single:standard
+			gif:single:standard
+			cfitsio:primary:standard
+			jasper:primary:standard
+			WebP:single:standard
+			openjpeg:single:standard
+
+# Can't use json-c externally because libjson-c support requires a
+# private json_object header that it shouldn't refer to.
+
+SINGLE_JOB=		yes
+
+USES=			gmake png jpeg iconv sqlite pkgconfig
+MAKEFILE=		GNUmakefile
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--datadir={{LOCALBASE}}/share/gdal
+			--enable-static=yes
+			--with-geotiff={{LOCALBASE}}
+			--with-gif={{LOCALBASE}}
+			--with-gnm=yes
+			--with-jpeg=yes
+			--with-openjpeg={{LOCALBASE}}
+			--with-libjson-c=internal
+			--with-liblzma=yes
+			--with-libtiff={{LOCALBASE}}
+			--with-libz={{LOCALBASE}}
+			--with-png={{LOCALBASE}}
+			--with-cfitsio={{LOCALBASE}}
+			--with-jasper={{LOCALBASE}}
+			--with-webp={{LOCALBASE}}
+			--with-sqlite3={{LOCALBASE}}
+			--with-threads=yes
+			--with-static-proj4=no
+			--with-curl=no
+			--with-geos=no
+			--with-xml2=no
+			--with-pg=no
+			--with-mysql=no
+			--with-sfcgal=no
+			--without-libtool
+			--without-armadillo
+			--without-ecw
+			--without-expat
+			--without-freexl
+			--without-gta
+			--without-hdf5
+			--without-libkml
+			--without-netcdf
+			--without-odbc
+			--without-pcre
+			--without-podofo
+			--without-spatialite
+			--without-xerces
+			{{ICONV_CONFIGURE_ARG}}
+CFLAGS=			-fPIC
+SOVERSION=		${PORTVERSION}
+
+post-patch:
+	${REINPLACE_CMD} -e '/^#GDAL_SLIB_SONAME/ s|^#||' ${WRKSRC}/GDALmake.opt.in
+	${REINPLACE_CMD} -e 's| LICENSE.TXT||' ${WRKSRC}/GNUmakefile
+	${REINPLACE_CMD} -e 's|-lminizip|-lkmlminizip|' ${WRKSRC}/configure
+	# Clean up bundled libraries
+	${RM} -r ${WRKSRC}/frmts/gif/giflib/
+	${RM} -r ${WRKSRC}/frmts/gtiff/libgeotiff/
+	${RM} -r ${WRKSRC}/frmts/gtiff/libtiff/
+	${RM} -r ${WRKSRC}/frmts/jpeg/libjpeg/
+	${RM} -r ${WRKSRC}/frmts/jpeg/libjpeg12/
+	${RM} -r ${WRKSRC}/frmts/png/libpng/
+	${RM} -r ${WRKSRC}/frmts/zlib/
+	# ${RM} -r ${WRKSRC}/ogr/ogrsf_frmts/geojson/libjson/
+
+post-install:
+	(cd ${WRKSRC}/gnm/ && \
+		${INSTALL_DATA} gnm.h gnm_api.h gnm_priv.h gnmgraph.h \
+		${STAGEDIR}${PREFIX}/include/)
+	${INSTALL_DATA} ${WRKSRC}/libgdal.a ${STAGEDIR}${PREFIX}/lib/
+	${INSTALL_DATA} ${WRKSRC}/GDALmake.opt ${STAGEDIR}${PREFIX}/share/gdal/
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgdal.so
