@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	4.9.3
+DEF[SOVERSION]=		12.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		proj
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Cartographic Projections Library
+HOMEPAGE=		https://github.com/OSGeo/proj.4
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://download.osgeo.org/proj/
+DISTFILE[1]=		proj-${PORTVERSION}.tar.gz:main
+DISTFILE[2]=		proj-datumgrid-1.6.zip:main
+DF_INDEX=		1 2
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/proj
+
+USES=			gmake libtool
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+EXTRACT_DIRTY=		2
+SOVERSION=		${SOVERSION}
+
+post-extract:
+	${MV} ${WRKDIR}/proj_2/* ${WRKSRC}/nad/
