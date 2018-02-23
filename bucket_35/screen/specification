@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	4.6.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		screen
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	Multi-screen window manager
+HOMEPAGE=		https://www.gnu.org/software/screen/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/screen
+DISTFILE[1]=		screen-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		sysutils/screen
+
+USES=			gmake cpe ncurses
+MUST_CONFIGURE=		gnu
+MAKE_ARGS=		WITH_MAN=1
+CFLAGS=			-I{{NCURSESINC}}
+			-DCOLORS256
+LDFLAGS=		-L{{NCURSESLIB}}
+CPE_VENDOR=		gnu
+
+post-patch:
+	${RM} ${WRKSRC}/doc/screen.info*
+	${REINPLACE_CMD} -e 's|/dev/ptmx|/nonexistent|' ${WRKSRC}/configure
+
+post-install:
+	${INSTALL_DATA} ${FILESDIR}/screenrc.sample \
+		${STAGEDIR}${PREFIX}/etc/screenrc.sample
