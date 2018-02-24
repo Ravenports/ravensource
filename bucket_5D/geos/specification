@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	3.6.2
+DEF[SOVERSION]=		1.10.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		geos
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics geography
+VARIANTS=		standard
+SDESC[standard]=	C++ port of the Java Topology Suite (JTS)
+HOMEPAGE=		http://trac.osgeo.org/geos/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://download.osgeo.org/geos/
+DISTFILE[1]=		geos-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21:single
+LICENSE_FILE=		LGPL21:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/geos
+
+USES=			gmake libtool c++:single
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+PLIST_SUB=		PORTVERSION=${PORTVERSION}
+SOVERSION=		${SOVERSION}
+
+post-configure:
+	${FIND} ${WRKSRC} -name Makefile -exec \
+		${REINPLACE_CMD} -e '/CXXFLAGS = / s| -O2||' {} \;
