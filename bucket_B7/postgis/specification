@@ -1,0 +1,68 @@
+DEF[PORTVERSION]=	2.4.3
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		postgis
+VERSION=		${PORTVERSION}
+KEYWORDS=		databases geography
+VARIANTS=		standard
+SDESC[standard]=	Spatial and Geographic objects for PostgreSQL
+HOMEPAGE=		http://www.postgis.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://download.osgeo.org/postgis/source/
+DISTFILE[1]=		postgis-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:single
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		databases/postgis24
+
+BUILD_DEPENDS=		pcre:static:standard
+BUILDRUN_DEPENDS=	pcre:shared:standard
+			proj:single:standard
+			geos:single:standard
+			gdal:single:standard
+			sfcgal:single:standard
+# postgis illegally using private object defintion
+# so compile without json support
+# |			json-c:single:standard
+
+USES=			gmake iconv libtool:keepla perl:build pkgconfig
+			shebangfix gettext-tools gettext-runtime
+			pgsql:server,contrib
+GNOME_COMPONENTS=	libxml2 gtk2
+SHEBANG_GLOB=		*.pl
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		{{ICONV_CONFIGURE_BASE}}
+			--with-topology
+			--with-raster
+			--with-address-standardizer
+			--with-gui
+			--with-gdalconfig={{LOCALBASE}}/bin/gdal-config
+			--with-sfcgal={{LOCALBASE}}/bin/sfcgal-config
+			--without-json
+PLIST_SUB=		VERSION=${PORTVERSION}
+			XDOTY=${PORTVERSION:R}
+
+post-patch:
+	${FIND} ${WRKSRC}/extras/tiger_geocoder ${WRKSRC}/utils \
+		\( -name "*.orig" -o -name "*.bak" \) -delete
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/postgresql/*.so
+	(cd ${WRKSRC}/extras/tiger_geocoder && \
+		${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/share/postgis/tiger_geocoder )
+	(cd ${WRKSRC}/utils/ && \
+		${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/share/postgis/utils )
+	${RM} ${STAGEDIR}${PREFIX}/share/postgis/utils/*.in
+	${RM} ${STAGEDIR}${PREFIX}/share/postgis/utils/uninstall_script
+	${RM} ${STAGEDIR}${PREFIX}/share/postgis/utils/Makefile
