@@ -1,0 +1,55 @@
+DEF[PORTVERSION]=	4.11.1
+DEF[SOVERSION]=		13.0.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		cgal
+VERSION=		${PORTVERSION}
+KEYWORDS=		math
+VARIANTS=		standard
+SDESC[standard]=	Computational Geometry Algorithms Library
+HOMEPAGE=		http://www.cgal.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/CGAL/cgal/releases/download/releases%2FCGAL-${PORTVERSION}/
+DISTFILE[1]=		CGAL-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:single
+			LGPL3+:single
+			CUSTOM1:single
+			CUSTOM2:single
+			CUSTOM3:single
+LICENSE_SCHEME=		multi
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/LICENSE.GPL
+			LGPL3+:{{WRKSRC}}/LICENSE.LGPL
+			CUSTOM1:{{WRKSRC}}/LICENSE.FREE_USE
+			CUSTOM2:{{WRKSRC}}/LICENSE.BSL
+			CUSTOM2:{{WRKSRC}}/LICENSE
+LICENSE_NAME=		CUSTOM1:"Free Use"
+			CUSTOM2:"Boost license"
+			CUSTOM3:"Overarching license description"
+
+FPC_EQUIVALENT=		math/cgal
+
+BUILD_DEPENDS=		eigen:single:standard
+			gmp:static:standard
+			mpfr:static:standard
+			ntl:primary:standard
+BUILDRUN_DEPENDS=	gmp:shared:standard
+			mpfr:shared:standard
+			boost-libraries:rest:python_default
+
+USES=			cmake shebangfix
+SHEBANG_FILES=		scripts/cgal_create_CMakeLists
+			scripts/cgal_create_cmake_script
+CMAKE_ARGS=		-DWITH_CGAL_Qt5=OFF
+DISTNAME=		CGAL-${PORTVERSION}
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/CGAL-${PORTVERSION}
