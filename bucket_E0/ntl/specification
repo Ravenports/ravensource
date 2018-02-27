@@ -1,0 +1,49 @@
+DEF[PORTVERSION]=	10.5.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ntl
+VERSION=		${PORTVERSION}
+KEYWORDS=		math
+VARIANTS=		standard
+SDESC[standard]=	Victor Shoup's Number Theory Library
+HOMEPAGE=		http://www.shoup.net/ntl/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.shoup.net/ntl/
+DISTFILE[1]=		ntl-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	NATIVE
+OPTIONS_STANDARD=	NATIVE
+
+FPC_EQUIVALENT=		math/ntl
+
+BUILD_DEPENDS=		gmp:static:standard
+
+USES=			perl:build
+MAKEFILE=		makefile
+MUST_CONFIGURE=		yes
+CONFIGURE_ARGS=		NTL_GMP_LIP=on
+			AR="{{AR}}"
+			CXX="{{CXX}}"
+			CXXFLAGS="{{CXXFLAGS}}"
+			CPPFLAGS="{{CPPLAGS}}"
+			LDFLAGS="{{LDFLAGS}}"
+			DEF_PREFIX="{{LOCALBASE}}"
+			PREFIX="{{PREFIX}}"
+			RANLIB="/raven/toolchain/bin/ranlib"
+CFLAGS=			-fPIC
+DISTNAME=		ntl-${PORTVERSION}/src
+
+[NATIVE].DESCRIPTION=			Compiles code targeted to current hardware
+[NATIVE].CONFIGURE_ARGS_ON=		NATIVE=on
+[NATIVE].CONFIGURE_ARGS_OFF=		NATIVE=off
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/include/NTL
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${WRKSRC}/../include/NTL/* ${STAGEDIR}${PREFIX}/include/NTL/
+	${INSTALL_DATA} ${WRKSRC}/ntl.a ${STAGEDIR}${PREFIX}/lib/libntl.a
+	${INSTALL_DATA} ${WRKSRC}/../doc/* ${STAGEDIR}${STD_DOCDIR}
