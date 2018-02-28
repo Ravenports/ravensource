@@ -36,11 +36,8 @@ CONFIGURE_ARGS=		--with-default-audiosink="osssink"
 			--disable-amrwb
 			--disable-cdio
 			--disable-dvdread
-			--disable-lame
 			--disable-mpeg2dec
-			--disable-mpg123
 			--disable-sidplay
-			--disable-twolame
 			--disable-x264
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
@@ -49,6 +46,9 @@ CFLAGS=			-Wno-format
 LDFLAGS=		-lpthread
 PLIST_SUB=		GSTVER=${GST_VERSION}
 SOVERSION=		${SOVERSION}
+
+post-patch:
+	${REINPLACE_CMD} -e 's|FLAGS -Werror|FLAGS|' ${WRKSRC}/configure
 
 do-build:
 .for dir in ${BUILD_DIRS}

@@ -53,3 +53,6 @@ SOVERSION=		${SOVERSION}
 
 # This define is checked but never set, enable it on Solaris
 VAR_OPSYS[sunos]=	CFLAGS=-DHAVE_FIONREAD_IN_SYS_FILIO=1
+
+post-patch:
+	${REINPLACE_CMD} -e 's|FLAGS -Werror|FLAGS|' ${WRKSRC}/configure

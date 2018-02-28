@@ -112,6 +112,9 @@ LDFLAGS=		-lpthread
 PLIST_SUB=		GSTVER=${GST_VERSION}
 SOVERSION=		${SOVERSION}
 
+post-patch:
+	${REINPLACE_CMD} -e 's|FLAGS -Werror|FLAGS|' ${WRKSRC}/configure
+
 do-build:
 .for dir in ${BUILD_DIRS}
 	(cd ${BUILD_WRKSRC}/${dir} && ${DO_MAKE_BUILD} ${BUILD_TARGET})

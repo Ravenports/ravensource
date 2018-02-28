@@ -54,6 +54,7 @@ PLIST_SUB=		GSTVER=${GST_VERSION}
 			PLUGIN=${PLUGIN}
 
 post-patch:
+	${REINPLACE_CMD} -e 's|FLAGS -Werror|FLAGS|' ${WRKSRC}/configure
 	${FIND} ${WRKSRC}/ext ${WRKSRC}/sys -name Makefile.in |\
 	${XARGS} ${REINPLACE_CMD} -E \
 	-e '/la_DEPENDENCIES/,/am__DEPENDENCIES/s|[$$][(]top_builddir[)]/gst-libs/.*.la||' \

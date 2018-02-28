@@ -39,11 +39,8 @@ CONFIGURE_ARGS=		--with-default-audiosink="osssink"
 			--disable-amrwb
 			--disable-cdio
 			--disable-dvdread
-			--disable-lame
 			--disable-mpeg2dec
-			--disable-mpg123
 			--disable-sidplay
-			--disable-twolame
 			--enable-x264
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
@@ -53,3 +50,6 @@ INSTALL_WRKSRC=		{{WRKSRC}}/ext/${PLUGIN}
 CFLAGS=			-Wno-format
 PLIST_SUB=		GSTVER=${GST_VERSION}
 			PLUGIN=${PLUGIN}
+
+post-patch:
+	${REINPLACE_CMD} -e 's|FLAGS -Werror|FLAGS|' ${WRKSRC}/configure
