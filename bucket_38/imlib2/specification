@@ -1,6 +1,4 @@
-DEF[PORTVERSION]=	1.4.10
-DEF[SOVERSION]=		${PORTVERSION}
-DEF[SOMAJOR]=		${SOVERSION:R:R}
+DEF[PORTVERSION]=	1.5.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		imlib2
@@ -41,8 +39,7 @@ CONFIGURE_ARGS=		--enable-visibility-hiding
 			--disable-static
 VAR_ARCH[x86_64]=	CONFIGURE_ARGS=--enable-amd64
 VAR_ARCH[i386]=		CONFIGURE_ARGS=--enable-mmx
-PLIST_SUB=		SOVERSION=${SOVERSION}
-			SOMAJOR=${SOMAJOR}
+SOVERSION=		${PORTVERSION}
 
 post-patch:
 	@${REINPLACE_CMD} -e '/MY_LIBS =/s/-lXext -lX11//' \
