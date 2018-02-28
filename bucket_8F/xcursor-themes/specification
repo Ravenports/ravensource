@@ -1,0 +1,29 @@
+DEF[PORTVERSION]=	1.0.4
+DEF[XNAME]=		xcursor-themes
+DEF[ALTNAME]=		xcursor-themes
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		${XNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_themes
+VARIANTS=		standard
+SDESC[standard]=	X.org Cursor themes
+HOMEPAGE=		https://www.x.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		XORG/individual/data
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xorg
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+BUILD_DEPENDS=		xorg-xcursorgen:single:standard
+
+XORG_COMPONENTS=	xextproto
+DISTNAME=		${ALTNAME}-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+FPC_EQUIVALENT=		x11-themes/${ALTNAME}
