@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	2.10.2
+DEF[PORTVERSION]=	2.10.3
+DEF[SOVERSION]=		13.1.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		qscintilla
@@ -25,6 +26,8 @@ BUILDRUN_DEPENDS=	qt5-qtbase:single:standard
 USES=			gmake libtool qt5 mesa
 
 DISTNAME=		QScintilla_gpl-${PORTVERSION}/Qt4Qt5
+PLIST_SUB=		SOMAJORMIN=${SOVERSION:R}
+SOVERSION=		${SOVERSION}
 
 post-install:
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}/html
