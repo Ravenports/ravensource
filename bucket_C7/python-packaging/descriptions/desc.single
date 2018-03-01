@@ -34,6 +34,32 @@ rooms, and mailing lists is expected to follow the `PyPA Code of Conduct`_.
 Changelog
 ---------
 
+17.1 - 2017-02-28
+~~~~~~~~~~~~~~~~~
+
+* Fix ``utils.canonicalize_version`` when supplying non PEP 440 versions.
+
+
+17.0 - 2017-02-28
+~~~~~~~~~~~~~~~~~
+
+* Drop support for python 2.6, 3.2, and 3.3.
+
+* Define minimal pyparsing version to 2.0.2 (`#91
+<https://github.com/pypa/packaging/issues/91>`__).
+
+* Add ``epoch``, ``release``, ``pre``, ``dev``, and ``post`` attributes to
+  ``Version`` and ``LegacyVersion`` (`#34
+<https://github.com/pypa/packaging/issues/34>`__).
+
+* Add ``Version().is_devrelease`` and ``LegacyVersion().is_devrelease`` to
+  make it easy to determine if a release is a development release.
+
+* Add ``utils.canonicalize_version`` to canonicalize version strings or
+  ``Version`` instances (`#121
+<https://github.com/pypa/packaging/issues/121>`__).
+
+
 16.8 - 2016-10-29
 ~~~~~~~~~~~~~~~~~
 
@@ -78,28 +104,4 @@ comma
 when
   matching legacy requirements.
 
-
-16.2 - 2016-02-09
-~~~~~~~~~~~~~~~~~
-
-* Add a function that implements the name canonicalization from PEP 503.
-
-
-16.1 - 2016-02-07
-~~~~~~~~~~~~~~~~~
-
-* Implement requirement specifiers from PEP 508.
-
-
-16.0 - 2016-01-19
-~~~~~~~~~~~~~~~~~
-
-* Relicense so that packaging is available under *either* the Apache
-License,
-  Version 2.0 or a 2 Clause BSD license.
-
-* Support installation of packaging when only distutils is available.
-
-* Fix ``==`` comparison when there is a prefix and a local version in play.
-  (`#41 <https://github.com/pypa/packaging/issues/41>`__).
 
