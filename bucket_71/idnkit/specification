@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	1.0
+DEF[PORTVERSION]=	2.3
+DEF[SOVERSION]=		2.0.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		idnkit
@@ -6,12 +7,12 @@ VERSION=		${PORTVERSION}
 KEYWORDS=		dns
 VARIANTS=		standard
 SDESC[standard]=	Library to handle internationalized domain names
-HOMEPAGE=		https://www.nic.ad.jp/ja/idn/idnkit/download/
+HOMEPAGE=		https://jprs.co.jp/idn/idnkit2.html
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://www.nic.ad.jp/ja/idn/idnkit/download/sources/
-DISTFILE[1]=		idnkit-${PORTVERSION}-src.tar.gz:main
+SITES[main]=		http://jprs.co.jp/idn/
+DISTFILE[1]=		idnkit-${PORTVERSION}.tar.bz2:main
 
 SPKGS[standard]=	single
 
@@ -20,13 +21,13 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		dns/idnkit
 
-USES=			iconv libtool fbsd10fix
-DISTNAME=		idnkit-${PORTVERSION}-src
+USES=			iconv libtool
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		{{ICONV_CONFIGURE_ARG}}
 			--enable-runidn
 			--enable-extra-ace
 LDFLAGS=		{{ICONV_LIB}}
+SOVERSION=		${SOVERSION}
 
 post-patch:
 	@${FIND} ${WRKSRC} -name Makefile.in | ${XARGS} ${REINPLACE_CMD} -e \
@@ -36,5 +37,5 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
 	${MV} ${STAGEDIR}${PREFIX}/etc/idnalias.conf \
 		${STAGEDIR}${PREFIX}/etc/idnalias.conf.sample
-	${MV} ${STAGEDIR}${PREFIX}/etc/idn.conf \
-		${STAGEDIR}${PREFIX}/etc/idn.conf.sample
+	${MV} ${STAGEDIR}${PREFIX}/etc/idn2.conf \
+		${STAGEDIR}${PREFIX}/etc/idn2.conf.sample
