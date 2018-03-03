@@ -1,4 +1,4 @@
---- youtube_dl/__init__.py.orig	2018-02-22 16:50:23 UTC
+--- youtube_dl/__init__.py.orig	2018-02-25 22:23:14 UTC
 +++ youtube_dl/__init__.py
 @@ -36,7 +36,6 @@ from .utils import (
      write_string,
@@ -14,7 +14,7 @@
      with YoutubeDL(ydl_opts) as ydl:
 -        # Update version
 -        if opts.update_self:
--            update_self(ydl.to_screen, opts.verbose, ydl._opener, opts.prefer_insecure)
+-            update_self(ydl.to_screen, opts.verbose, ydl._opener)
 -
          # Remove cache dir
          if opts.rm_cachedir:
