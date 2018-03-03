@@ -1,4 +1,4 @@
---- libavformat/rtsp.c.orig	2017-10-15 15:59:38 UTC
+--- libavformat/rtsp.c.orig	2018-02-12 00:29:06 UTC
 +++ libavformat/rtsp.c
 @@ -1610,7 +1610,12 @@ int ff_rtsp_make_setup_request(AVFormatC
              }

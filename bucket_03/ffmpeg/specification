@@ -41,7 +41,7 @@ BUILDRUN_DEPENDS=	gmp:shared:standard
 			libgcrypt:single:standard
 			gnutls:single:standard
 			video4linux:primary:standard
-			opencv:core:standard
+# |			opencv:core:standard
 			rtmpdump:library:standard
 			libtheora:single:standard
 			libva:single:standard
@@ -57,6 +57,8 @@ BUILDRUN_DEPENDS=	gmp:shared:standard
 			xvid:single:standard
 
 RC_SUBR=		ffserver:primary
+
+# opencv support removed because version 3.x requires c++ compilation
 
 USES=			cpe gmake iconv perl:build pkgconfig shebangfix
 GNOME_COMPONENTS=	libxml2
@@ -134,7 +136,7 @@ CONFIGURE_ARGS=		--cc="{{CC}}"
 			--enable-gmp
 			--enable-iconv
 			--enable-libv4l2
-			--enable-libopencv
+# |			--enable-libopencv
 			--enable-optimizations
 			--enable-runtime-cpudetect
 			--enable-librtmp
@@ -179,11 +181,11 @@ PLIST_SUB=		AVCODEC_SO=${SO_AVCODEC}
 
 post-patch:
 	# {C,LD}FLAGS safeness
-	@${REINPLACE_CMD} -e 's|/etc/ffserver.conf|${PREFIX}/etc/ffserver.conf|' \
+	${REINPLACE_CMD} -e 's|/etc/ffserver.conf|${PREFIX}/etc/ffserver.conf|' \
 		${WRKSRC}/fftools/ffserver.c
-	@${REINPLACE_CMD} -E \
-		-e 's|require_pkg_config opencv|require_pkg_config opencv-core|g' \
-		${CONFIGURE_WRKSRC}/${CONFIGURE_SCRIPT}
+# |	${REINPLACE_CMD} -E \
+# |		-e 's|require_pkg_config opencv|require_pkg_config opencv-core|g' \
+# |		${CONFIGURE_WRKSRC}/${CONFIGURE_SCRIPT}
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
