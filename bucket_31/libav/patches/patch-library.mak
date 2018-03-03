@@ -1,4 +1,4 @@
---- library.mak.orig	2017-05-14 19:25:01 UTC
+--- library.mak.orig	2018-02-12 21:25:59 UTC
 +++ library.mak
 @@ -71,7 +71,7 @@ install-lib$(NAME)-headers: $(addprefix
  	$(Q)mkdir -p "$(INCINSTDIR)"

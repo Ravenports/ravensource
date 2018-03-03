@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	12.3
 
 NAMEBASE=		libav
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		standard
 SDESC[standard]=	Realtime audio/video conversion library
@@ -20,12 +21,15 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		multimedia/libav
 
+# OpenCV headers require C++ compilation since v3.x
+# so support has been suspended
+
 BUILD_DEPENDS=		yasm:single:standard
 			gmp:static:standard
 			bzip2:static:standard
 BUILDRUN_DEPENDS=	gmp:shared:standard
 			bzip2:shared:standard
-			opencv:primary:standard
+# |			opencv:primary:standard
 			libvdpau:single:standard
 			nettle:primary:standard
 			frei0r:single:standard
@@ -61,7 +65,7 @@ CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
 			--enable-frei0r
 			--enable-libfreetype
 			--enable-gnutls
-			--enable-libopencv
+# |			--enable-libopencv
 			--enable-librtmp
 			--enable-libschroedinger
 			--enable-avplay
@@ -100,17 +104,11 @@ CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
 
 
 post-patch:
-	@${REINPLACE_CMD} -e 's|freetype/freetype.h|freetype2/freetype.h|' \
-		-e 's|-ldc1394 -lraw1394|-ldc1394|' \
-		${WRKSRC}/configure
-	@${REINPLACE_CMD} -e 's|gsm/gsm.h|gsm.h|' \
-		${WRKSRC}/configure \
-		${WRKSRC}/libavcodec/libgsmdec.c
-	@${REINPLACE_CMD} -e 's|$$(LIBDIR)/pkgconfig|${STAGEDIR}${PREFIX}/lib/pkgconfig|' \
+	${REINPLACE_CMD} -e 's|$$(LIBDIR)/pkgconfig|${STAGEDIR}${PREFIX}/lib/pkgconfig|' \
 		${WRKSRC}/library.mak
 
 post-configure:
-	@${REINPLACE_CMD} -e 's|CONFIG_TEXI2HTML=yes|!CONFIG_TEXI2HTML=yes|' \
+	${REINPLACE_CMD} -e 's|CONFIG_TEXI2HTML=yes|!CONFIG_TEXI2HTML=yes|' \
 		${WRKSRC}/config.mak
 
 post-install:
