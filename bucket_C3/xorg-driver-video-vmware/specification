@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	13.2.1
+DEF[XNAME]=		driver-video-vmware
+DEF[ALTNAME]=		xf86-video-vmware
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-${XNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_drivers
+VARIANTS=		standard
+SDESC[standard]=	X.org VMware video driver
+HOMEPAGE=		https://www.x.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		XORG/individual/driver
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11-drivers/${ALTNAME}
+
+BROKEN[freebsd]=	REL_11: not supported on 11.x or older, no kernel support
+NOT_FOR_ARCH=		aarch64
+
+BUILDRUN_DEPENDS=	xorg-server:single:standard
+
+USES=			libtool
+XORG_COMPONENTS=	xproto fontsproto renderproto randrproto xf86driproto
+			dri2proto dri3proto inputproto scrnsaverproto
+			presentproto xineramaproto glproto resourceproto
+DISTNAME=		${ALTNAME}-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
