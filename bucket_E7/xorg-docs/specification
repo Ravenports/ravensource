@@ -1,0 +1,30 @@
+DEF[PORTVERSION]=	1.7.1
+DEF[XNAME]=		docs
+DEF[ALTNAME]=		xorg-docs
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-${XNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_drivers
+VARIANTS=		standard
+SDESC[standard]=	X.org documentation files
+HOMEPAGE=		https://www.x.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		XORG/individual/doc
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11/${ALTNAME}
+
+USES=			libtool
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--without-xmlto
+			--without-fop
+			--disable-specs
+INSTALL_TARGET=		install-strip
