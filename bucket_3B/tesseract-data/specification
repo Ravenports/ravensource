@@ -23,8 +23,8 @@ FPC_EQUIVALENT=		graphics/tesseract-data
 SKIP_BUILD=		yes
 
 do-install:
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/tesseract-data
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/tessdata
 	${INSTALL_SCRIPT} ${WRKSRC}/*.traineddata \
-		${STAGEDIR}${PREFIX}/share/tesseract-data/
+		${STAGEDIR}${PREFIX}/share/tessdata
 	# remove all the "_old" data until somebody says it's needed
-	${RM} ${STAGEDIR}${PREFIX}/share/tesseract-data/*_old.traineddata
+	${RM} ${STAGEDIR}${PREFIX}/share/tessdata/*_old.traineddata
