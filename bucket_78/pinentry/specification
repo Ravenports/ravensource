@@ -4,12 +4,13 @@ DEF[PORTVERSION]=	1.1.0
 NAMEBASE=		pinentry
 VERSION=		${PORTVERSION}
 KEYWORDS=		security
-VARIANTS=		standard ncurses qt5 gtk2 fltk
+VARIANTS=		standard ncurses qt5 gtk2 fltk gnome3
 SDESC[standard]=	Assuan passphrase entry dialog (console)
 SDESC[ncurses]=		Assuan passphrase entry dialog (ncurses)
 SDESC[qt5]=		Assuan passphrase entry dialog (Qt5)
 SDESC[gtk2]=		Assuan passphrase entry dialog (GTK2)
 SDESC[fltk]=		Assuan passphrase entry dialog (FLTK)
+SDESC[gnome3]=		Assuan passphrase entry dialog (GNOME3)
 HOMEPAGE=		https://www.gnupg.org/aegypten2/
 CONTACT=		nobody
 
@@ -22,13 +23,15 @@ SPKGS[ncurses]=		single
 SPKGS[qt5]=		single
 SPKGS[gtk2]=		single
 SPKGS[fltk]=		single
+SPKGS[gnome3]=		single
 
-OPTIONS_AVAILABLE=	NCURSES QT5 GTK2 FLTK NOTSTD
+OPTIONS_AVAILABLE=	NCURSES QT5 GTK2 FLTK NOTSTD GNOME3
 OPTIONS_STANDARD=	none
-VOPTS[ncurses]=		NCURSES=ON QT5=OFF GTK2=OFF FLTK=OFF NOTSTD=ON
-VOPTS[qt5]=		NCURSES=OFF QT5=ON GTK2=OFF FLTK=OFF NOTSTD=ON
-VOPTS[gtk2]=		NCURSES=OFF QT5=OFF GTK2=ON FLTK=OFF NOTSTD=ON
-VOPTS[fltk]=		NCURSES=OFF QT5=OFF GTK2=OFF FLTK=ON NOTSTD=ON
+VOPTS[ncurses]=		NCURSES=ON QT5=OFF GTK2=OFF FLTK=OFF NOTSTD=ON GNOME3=OFF
+VOPTS[qt5]=		NCURSES=OFF QT5=ON GTK2=OFF FLTK=OFF NOTSTD=ON GNOME3=OFF
+VOPTS[gtk2]=		NCURSES=OFF QT5=OFF GTK2=ON FLTK=OFF NOTSTD=ON GNOME3=OFF
+VOPTS[fltk]=		NCURSES=OFF QT5=OFF GTK2=OFF FLTK=ON NOTSTD=ON GNOME3=OFF
+VOPTS[gnome3]=		NCURSES=OFF QT5=OFF GTK2=OFF FLTK=OFF NOTSTD=ON GNOME3=ON
 
 LICENSE=		GPLv2+:single
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
@@ -68,6 +71,10 @@ CONFIGURE_ARGS=		--enable-libsecret
 [FLTK].DESCRIPTION=			Build FLTK variant
 [FLTK].CONFIGURE_ENABLE_BOTH=		pinentry-fltk
 [FLTK].BUILDRUN_DEPENDS_ON=		fltk:primary:standard
+
+[GNOME3].DESCRIPTION=			Build GNOME3 variant
+[GNOME3].CONFIGURE_ENABLE_BOTH=		pinentry-gnome3
+[GNOME3].BUILDRUN_DEPENDS_ON=		gcr:primary:standard
 
 [NCURSES].DESCRIPTION=			Build ncurses variant
 [NCURSES].CONFIGURE_ENABLE_BOTH=	pinentry-curses
