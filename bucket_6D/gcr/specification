@@ -1,0 +1,58 @@
+DEF[PORTVERSION]=	3.20.0
+DEF[SOVERSION_gck]=	0.0.0
+DEF[SOVERSION_gcr]=	1.0.0
+DEF[SOVERSION_gcrbase]=	1.0.0
+DEF[SOVERSION_gcrui]=	1.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gcr
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		standard
+SDESC[standard]=	Library for bits of crypto UI and parsing
+HOMEPAGE=		https://github.com/GNOME/gcr
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.gnome.org/sources/gcr/${PORTVERSION:R}/
+DISTFILE[1]=		gcr-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		security/gcr
+
+BUILD_DEPENDS=		gtk-doc:single:standard
+			intltool:single:standard
+			vala:single:standard
+BUILDRUN_DEPENDS=	dbus:single:standard
+			libgcrypt:single:standard
+			libtasn1:primary:standard
+			p11-kit:primary:standard
+
+USES=			gettext-tools gmake intltoolfix libtool pkgconfig schemas:primary
+GNOME_COMPONENTS=	gtk3 introspection
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-valgrind
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+
+GLIB_SCHEMAS=		org.gnome.crypto.pgp.gschema.xml
+
+PLIST_SUB=		GCK_SOVER=${SOVERSION_gck}
+			GCK_SOMAJOR=${SOVERSION_gck:R:R}
+			GCR_SOVER=${SOVERSION_gcr}
+			GCR_SOMAJOR=${SOVERSION_gcr:R:R}
+			GCRBASE_SOVER=${SOVERSION_gcrbase}
+			GCRBASE_SOMAJOR=${SOVERSION_gcrbase:R:R}
+			GCRUI_SOVER=${SOVERSION_gcrui}
+			GCRUI_SOMAJOR=${SOVERSION_gcrui:R:R}
+
+post-install:
+		${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/gck \
+			${STAGEDIR}${PREFIX}/share/doc/gck
+		${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/gcr-3 \
+			${STAGEDIR}${PREFIX}/share/doc/gcr-3
+		${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
