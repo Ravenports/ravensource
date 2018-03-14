@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	17.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		spidermonkey170
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		standard
+SDESC[standard]=	Standalone JS interpreter from Mozilla 17-esr
+HOMEPAGE=		https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://archive.mozilla.org/pub/js/
+DISTFILE[1]=		mozjs${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		lang/spidermonkey170
+
+BUILD_DEPENDS=		zip:single:standard
+BUILDRUN_DEPENDS=	nspr:single:standard
+			zlib:complete:standard
+
+DISTNAME=		mozjs${PORTVERSION}/js/src
+
+USES=			gmake perl python:py27,build
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-pthreads
+			--with-system-nspr
+			--with-system-zlib
+
+post-install:
+	${LN} -s libmozjs-${PORTVERSION:R}.so \
+		${STAGEDIR}${PREFIX}/lib/libmozjs-${PORTVERSION:R}.so.1
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/js${PORTVERSION:R:R}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmozjs-${PORTVERSION:R}.so
