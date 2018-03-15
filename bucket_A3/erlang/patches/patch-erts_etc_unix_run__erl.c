@@ -1,8 +1,8 @@
---- erts/etc/unix/run_erl.c.orig	2015-03-31 12:32:52 UTC
+--- erts/etc/unix/run_erl.c.orig	2018-03-09 10:01:10 UTC
 +++ erts/etc/unix/run_erl.c
-@@ -73,9 +73,6 @@
- #ifdef HAVE_UTMP_H
- #  include <utmp.h>
+@@ -81,9 +81,6 @@
+ #ifdef HAVE_LIBUTIL_H
+ #  include <libutil.h>
  #endif
 -#ifdef HAVE_UTIL_H
 -#  include <util.h>
