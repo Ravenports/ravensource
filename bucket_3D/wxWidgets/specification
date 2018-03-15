@@ -1,6 +1,5 @@
-DEF[MINOR_DIGIT]=	3
-DEF[PORTVERSION]=	3.0.${MINOR_DIGIT}.1
-DEF[SOMINOR]=		${MINOR_DIGIT}.0
+DEF[PORTVERSION]=	3.0.4
+DEF[SOVERSION]=		0.4.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		wxWidgets
@@ -45,8 +44,8 @@ CONFIGURE_ARGS=		--with-libpng=sys
 			--enable-compat26
 			--enable-compat28
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-precomp-headers=no
-PLIST_SUB=		SOMINOR=${SOMINOR}
-			GTKVER={{GTKVER}}
+PLIST_SUB=		GTKVER={{GTKVER}}
+SOVERSION=		${SOVERSION}
 
 [GTK2].DESCRIPTION=			Build with GTK+2 instead of GTK+3
 [GTK2].CONFIGURE_ARGS_ON=		--with-gtk=2
