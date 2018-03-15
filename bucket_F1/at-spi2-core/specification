@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.26.2
+DEF[PORTVERSION]=	2.28.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		at-spi2-core
@@ -21,14 +21,21 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		accessibility/at-spi2-core
 
+
+BUILD_DEPENDS=		gtk-doc:single:standard
 BUILDRUN_DEPENDS=	dbus:single:standard
 
 USES=			gmake libtool pkgconfig gettext-tools python:build
+			meson
 GNOME_COMPONENTS=	glib intltool introspection
 XORG_COMPONENTS=	x11 xi xtst xext sm ice
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-xevie
-INSTALL_TARGET=		install-strip
+MESON_ARGS=		-Denable_docs=true
+			-Denable-introspection=yes
+			-Denable-x11=yes
+MESON_INSERT_RPATH=	atspi/meson.build
+			registryd/meson.build
+			bus/meson.build
+INSTALL_REQ_TOOLCHAIN=	yes
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/share/doc
