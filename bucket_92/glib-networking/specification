@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.54.1
+DEF[PORTVERSION]=	2.56.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		glib-networking
@@ -28,13 +28,26 @@ BUILDRUN_DEPENDS=	nss:caroot:standard
 			dbus:single:standard
 			libproxy:single:standard
 
-USES=			gettext-runtime gmake libtool pkgconfig
+USES=			gettext-tools libtool meson pkgconfig python
+# shebangfix
+# SHEBANG_FILES=		meson_post_install.py
+# find-ca-certificates
 GNOME_COMPONENTS=	glib intltool
+MESON_ARGS=		-Dca_certificates_path={{PREFIX}}/etc/ssl
+			-Dstatic_modules=true
+			-Dinstalled_tests=false
+MESON_INSERT_RPATH=	tls/gnutls/meson.build
+			proxy/libproxy/meson.build
+			proxy/gnome/meson.build
 
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-ca-certificates={{PREFIX}}/share/certs/ca-root-nss.crt
 INSTALL_TARGET=		install-strip
+
+post-patch:
+	${REINPLACE_CMD} -e 's|#!/usr/bin/env python3|#!${PREFIX}/bin/python${PYTHON_VER}|' \
+		${WRKSRC}/meson_post_install.py \
+		${WRKSRC}/find-ca-certificates
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/systemd
 	${RM} -r ${STAGEDIR}${PREFIX}/share/dbus-1
+	${RM} -r ${STAGEDIR}${PREFIX}/share/installed-tests
