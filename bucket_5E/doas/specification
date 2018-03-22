@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	6.0p2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		doas
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		standard
+SDESC[standard]=	Simple sudo alternative from OpenBSD
+HOMEPAGE=		none
+CONTACT=		Omar_Polo[omar.polo@europecom.net]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/slicer69:doas:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:single
+LICENSE_SCHEME=		solo
+LICENSE_FILE=		BSD2CLAUSE:{{WRKDIR}}/LICENSE
+
+FPC_EQUIVALENT=		security/doas
+
+USES=			gmake
+
+BUILDRUN_DEPENDS=	openpam:single:standard
+BUILD_DEPENDS=		byacc:single:standard
+
+post-patch:
+	${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|g' \
+		${WRKSRC}/doas.c
+
+post-patch-dragonfly:
+	${REINPLACE_CMD} -e 's/Free/DragonFly/g' \
+		${WRKSRC}/Makefile
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/doas ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/doas.1 ${STAGEDIR}${PREFIX}/share/man/man1
+	${INSTALL_MAN} ${WRKSRC}/doas.conf.5 ${STAGEDIR}${PREFIX}/share/man/man5
