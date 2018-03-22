@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.25
+DEF[PORTVERSION]=	2.25.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		feh
@@ -31,7 +31,10 @@ BUILDRUN_DEPENDS=	libexif:single:standard
 USES=			cpe gmake perl:run shebangfix desktop-utils png
 XORG_COMPONENTS=	x11 xt xinerama
 CPE_VENDOR=		daniel_friesel
-MAKE_ENV=		exif=1 cam=1 LDFLAGS="{{LDFLAGS}}"
+MAKE_ENV=		exif=1
+			cam=1
+			verscmp=0
+			LDFLAGS="{{LDFLAGS}}"
 SHEBANG_FILES=		cam/feh-cam
 
 post-patch:
