@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.0.1
+DEF[PORTVERSION]=	1.0.2
 DEF[SOVERSION]=		0.4.0
 # ----------------------------------------------------------------------------
 
@@ -29,12 +29,12 @@ USES=			gmake libtool
 INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-static
-			--without-glib
 			--disable-debug
+			--enable-docs=no
 SOVERSION=		${SOVERSION}
 
 post-patch:
-	@${SED} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' < \
+	${SED} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' < \
 		${FILESDIR}/fribidi-config \
 		> ${WRKDIR}/fribidi-config
 
