@@ -13,7 +13,7 @@ CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/p/pyocr
-DISTFILE[1]=		pyocr-0.5.1.tar.gz:main
+DISTFILE[1]=		pyocr-${PORTVERSION}.tar.gz:main
 
 SPKGS[py27]=		single
 SPKGS[py35]=		single
@@ -28,27 +28,25 @@ VOPTS[py36]=		PY27=OFF PY35=OFF PY36=ON
 # No license file found for PyOCR*version:*0.5.1*GPLv3+ license
 LICENSE_SCHEME=		solo
 
-GENERATED=		yes
+# GENERATED=		yes
 
 # install_requires extracted from setup.py (using python 2.7)
-# PyOCR
+# error: lists PyOCR as a dependency (self-reference), requires
+# manual build now
 # Pillow
 # six
 
 DISTNAME=		pyocr-${PORTVERSION}
 
 [PY27].USES_ON=				python:py27
-[PY27].BUILDRUN_DEPENDS_ON=		python-PyOCRversion:0.5.1:single:py27
-					python-Pillow:single:py27
+[PY27].BUILDRUN_DEPENDS_ON=		python-Pillow:single:py27
 					python-six:single:py27
 
 [PY35].USES_ON=				python:py35
-[PY35].BUILDRUN_DEPENDS_ON=		python-PyOCRversion:0.5.1:single:py35
-					python-Pillow:single:py35
+[PY35].BUILDRUN_DEPENDS_ON=		python-Pillow:single:py35
 					python-six:single:py35
 
 [PY36].USES_ON=				python:py36
-[PY36].BUILDRUN_DEPENDS_ON=		python-PyOCRversion:0.5.1:single:py36
-					python-Pillow:single:py36
+[PY36].BUILDRUN_DEPENDS_ON=		python-Pillow:single:py36
 					python-six:single:py36
 RUN_DEPENDS=		tesseract:complete:standard
