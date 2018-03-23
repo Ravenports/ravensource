@@ -9,7 +9,7 @@ Date:   Wed Jul 17 16:16:55 2013 +0900
 
 --- shell/jsoptparse.cpp.orig	2013-02-11 22:33:23 UTC
 +++ shell/jsoptparse.cpp
-@@ -243,7 +243,7 @@ OptionParser::extractValue(size_t argc, char **argv, s
+@@ -243,7 +243,7 @@ OptionParser::extractValue(size_t argc,
      char *eq = strchr(argv[*i], '=');
      if (eq) {
          *value = eq + 1;
