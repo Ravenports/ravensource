@@ -1,6 +1,5 @@
-DEF[PORTVERSION]=	0.8.0
-DEF[SOVERSION]=		6.0.0
-DEF[SOMAJOR]=		${SOVERSION:R:R}
+DEF[PORTVERSION]=	0.8.1
+DEF[SOVERSION]=		5.1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libucl
@@ -37,8 +36,7 @@ CONFIGURE_ARGS=		--enable-signatures
 			--enable-regex
 CPPFLAGS=		-I{{OPENSSLINC}}
 LDFLAGS=		-L{{OPENSSLLIB}}
-PLIST_SUB=		SOVERSION=${SOVERSION}
-			SOMAJOR=${SOMAJOR}
+SOVERSION=		${SOVERSION}
 
 [LUA].DESCRIPTION=			Enable support for LUA scripting language
 [LUA].CONFIGURE_ENV_ON=			LUA={{LOCALBASE}}/bin/{{LUA_CMD}}
