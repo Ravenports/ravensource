@@ -26,7 +26,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/sudo
 
-USES=			cpe libtool gettext-runtime cclibs:primary
+# With OpenPAM, some kind of EXEC error, needs study
+# BUILDRUN_DEPENDS=	openpam:single:standard
+
+USES=			cpe libtool gettext-runtime cclibs:primary zlib
 CPE_VENDOR=		todd_miller
 INSTALL_REQ_TOOLCHAIN=	yes
 MUST_CONFIGURE=		gnu
@@ -35,15 +38,20 @@ CONFIGURE_ARGS=		--sysconfdir={{PREFIX}}/etc
 			--with-ignore-dot
 			--with-tty-tickets
 			--with-env-editor
-			--with-logincap
+# |			--with-logincap
 			--with-long-otp-prompt
+			--with-logfac=authpriv
+# |			--with-pam
 			--enable-nls
+			--disable-noargs-shell
+
+VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--enable-hardening=no
 
 post-patch:
-	@${REINPLACE_CMD} -E '/install-(binaries|noexec):/,/^$$/ \
+	${REINPLACE_CMD} -E '/install-(binaries|noexec):/,/^$$/ \
 		s/\$$\(INSTALL\)/& ${STRIP}/;s/-b\~/-b ~/' \
 		${WRKSRC}/src/Makefile.in
-	@${REINPLACE_CMD} -e 's,$$(srcdir)/sudoers2ldif $$(DESTDIR)$$(docdir),$$(srcdir)/sudoers2ldif $$(DESTDIR)$$(bindir),' \
+	${REINPLACE_CMD} -e 's,$$(srcdir)/sudoers2ldif $$(DESTDIR)$$(docdir),$$(srcdir)/sudoers2ldif $$(DESTDIR)$$(bindir),' \
 		${WRKSRC}/plugins/sudoers/Makefile.in
 
 post-install:
