@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	6.7.1
+DEF[PORTVERSION]=	6.8.1
+DEF[SOVERSION]=		5.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		oniguruma
@@ -23,9 +24,10 @@ FPC_EQUIVALENT=		devel/oniguruma
 USES=			autoreconf libtool
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
 
 post-patch:
-	@${REINPLACE_CMD} -e \
+	${REINPLACE_CMD} -e \
 		'/^INCLUDES/s|$$(includedir)|| ; \
 		 s|$$(<)|$$(@).in|' ${WRKSRC}/Makefile.am
 
