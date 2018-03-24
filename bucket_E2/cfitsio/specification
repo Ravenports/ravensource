@@ -1,6 +1,6 @@
 DEF[PORTVERSION]=	3.430
-DEF[SHLIB_MAJOR]=	5
-DEF[SHLIB_MINOR]=	3.43
+DEF[SOVERSION]=		5.3.43
+DEF[ROLLDATE]=		20180324
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		cfitsio
@@ -17,6 +17,7 @@ SITES[main]=		http://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/
 			ftp://heasarc.gsfc.nasa.gov/software/fitsio/c/
 			ftp://heasarc.gsfc.nasa.gov/software/fitsio/c/oldvers/
 DISTFILE[1]=		cfitsio${PORTVERSION:S|.||}.tar.gz:main
+DIST_SUBDIR=		cfitsio-${ROLLDATE}
 
 SPKGS[standard]=	complete primary docs
 
@@ -30,8 +31,7 @@ BUILD_TARGET=		libcfitsio.a shared
 MUST_CONFIGURE=		gnu
 MAKE_ARGS=		ZLIB_SOURCES="zlib/zcompress.c zlib/zuncompress.c"
 DISTNAME=		cfitsio
-PLIST_SUB=		SHLIB_MAJOR=${SHLIB_MAJOR}
-			SHLIB_MINOR=${SHLIB_MINOR}
+SOVERSION=		${SOVERSION}
 
 post-patch:
 	${GREP} -l "<malloc.h>" ${WRKSRC}/*.[chl] ${WRKSRC}/zlib/*.h |\
@@ -47,11 +47,11 @@ do-install:
 		${INSTALL_DATA} drvrsmem.h fitsio.h fitsio2.h longnam.h \
 		${STAGEDIR}${PREFIX}/include/)
 	${INSTALL_DATA} ${WRKSRC}/libcfitsio.a ${STAGEDIR}${PREFIX}/lib/
-	${INSTALL_LIB} ${WRKSRC}/libcfitsio.so.${SHLIB_MAJOR}.${SHLIB_MINOR} \
+	${INSTALL_LIB} ${WRKSRC}/libcfitsio.so.${SOVERSION} \
 		${STAGEDIR}${PREFIX}/lib/
 	${INSTALL_DATA} ${WRKSRC}/cfitsio.pc ${STAGEDIR}${PREFIX}/lib/pkgconfig
-	${LN} -fs libcfitsio.so.${SHLIB_MAJOR}.${SHLIB_MINOR} \
-		${STAGEDIR}${PREFIX}/lib/libcfitsio.so.${SHLIB_MAJOR}
-	${LN} -fs libcfitsio.so.${SHLIB_MAJOR}.${SHLIB_MINOR} \
+	${LN} -fs libcfitsio.so.${SOVERSION} \
+		${STAGEDIR}${PREFIX}/lib/libcfitsio.so.${SOVERSION:R:R}
+	${LN} -fs libcfitsio.so.${SOVERSION} \
 		${STAGEDIR}${PREFIX}/lib/libcfitsio.so
 	${INSTALL_DATA} ${WRKSRC}/docs/*.doc ${STAGEDIR}${STD_DOCDIR}
