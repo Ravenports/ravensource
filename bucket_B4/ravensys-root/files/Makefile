@@ -372,6 +372,7 @@ headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
 			ifaddrs.h \
 			kvm.h \
 			link.h \
+			login_cap.h \
 			memory.h \
 			nlist.h \
 			osreldate.h \
