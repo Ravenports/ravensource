@@ -148,6 +148,7 @@ static_lib_generic=	/usr/lib/libc.a \
 			/usr/lib/libcrypt.a \
 			/usr/lib/libpthread.a
 static_lib_FreeBSD=	${static_lib_generic} \
+			/usr/lib/libcompat.a \
 			/usr/lib/libdevstat.a \
 			/usr/lib/libkvm.a \
 			/usr/lib/libthr.a \
