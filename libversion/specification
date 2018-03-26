@@ -1,0 +1,29 @@
+DEF[PORTVERSION]=	2.5.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libversion
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Advanced version string comparison library
+HOMEPAGE=		https://github.com/repology/libversion
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/repology/libversion/archive/${PORTVERSION}/
+DISTFILE[1]=		libversion-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/libversion
+
+USES=			cmake
+
+post-install:
+	${MV} ${STAGEDIR}${PREFIX}/libdata/pkgconfig \
+		${STAGEDIR}${PREFIX}/lib
+	${RM} -r ${STAGEDIR}${PREFIX}/libdata
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/version_compare
