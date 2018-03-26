@@ -3,7 +3,7 @@ DEF[LINUX_KERNEL]=	4.4.0-53
 DEF[LINUX_OSREL]=	${LINUX_KERNEL:DL="-":H}
 DEF[LINUX_MAJOR]=	${LINUX_OSREL:R}
 DEF[LINUX_VERSION]=	${LINUX_KERNEL:S/-//:S/.//:S/./0/}
-DEF[EXTRA_UBUNTU]=	4 5 6 7 8 9 10 11 12 13 17
+DEF[EXTRA_UBUNTU]=	4 5 6 7 8 9 10 11 12 13 17 18 19
 DEF[FREEBSD_RELEASE]=	11.1
 DEF[FREE_KERNEL_VER]=	1101001
 DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
@@ -11,7 +11,7 @@ DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
 
 NAMEBASE=		ravensys-root
 VERSION=		1.4
-REVISION=		2
+REVISION=		3
 KEYWORDS=		raven
 VARIANTS=		dragonfly freebsd64 linux sunos
 SDESC[dragonfly]=	DragonFly64 system root for Ravenports build env
@@ -22,7 +22,8 @@ HOMEPAGE=		none
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main avalon ubuntu1 ubuntu2 ubuntu3 ubuntu4 ubuntu5
-			ubuntu6 ubuntu7 ubuntu8 freebsd dragonlace
+			ubuntu6 ubuntu7 ubuntu8 ubuntu9
+			freebsd dragonlace
 SITES[main]=		https://leaf.dragonflybsd.org/~marino/dports-src/
 SITES[avalon]=		http://mirror-master.dragonflybsd.org/iso-images/
 SITES[freebsd]=		https://download.freebsd.org/ftp/releases/amd64/amd64/ISO-IMAGES/${FREEBSD_RELEASE}/
@@ -35,6 +36,7 @@ SITES[ubuntu5]=		UBUNTU/d/debianutils
 SITES[ubuntu6]=		UBUNTU/b/bsdmainutils
 SITES[ubuntu7]=		http://security.ubuntu.com/ubuntu/pool/main/s/shadow/
 SITES[ubuntu8]=		http://security.ubuntu.com/ubuntu/pool/main/l/linux/
+SITES[ubuntu9]=		UBUNTU/a/attr
 
 DISTFILE[1]=		dummy-tarball.tar.gz:main
 DISTFILE[2]=		dfly-x86_64-${DF_RELEASE}_REL.iso.bz2:avalon
@@ -53,6 +55,8 @@ DISTFILE[14]=		libc6-dev_2.23-0ubuntu9_i386.deb:ubuntu1
 DISTFILE[15]=		FreeBSD-${FREEBSD_RELEASE}-RELEASE-amd64-disc1.iso:freebsd
 DISTFILE[16]=		solaris_root_10_u8.v09.tar.xz:dragonlace
 DISTFILE[17]=		locales_2.23-0ubuntu10_all.deb:ubuntu1
+DISTFILE[18]=		libattr1-dev_2.4.47-2_amd64.deb:ubuntu9
+DISTFILE[19]=		libattr1_2.4.47-2_amd64.deb:ubuntu9
 
 SPKGS[dragonfly]=	single
 SPKGS[freebsd64]=	single

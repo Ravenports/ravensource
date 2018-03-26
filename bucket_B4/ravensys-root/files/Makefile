@@ -235,7 +235,7 @@ Linux_shared_libs=	${Linux_C_lib} \
 			libnss_nis-2.23.so/libnss_nis.so.2 \
 			libnss_nisplus-2.23.so/libnss_nisplus.so.2 \
 			# end
-Linux_extra_libs1=	# libaudit.so.1.0.0/libaudit.so.1 \
+Linux_extra_libs1=	libattr.so.1.1.0/libattr.so.1 \
 			# end (/lib)
 Linux_extra_libs2=	# libustr-1.0.so.1.0.4/libustr-1.0.so.1 \
 			# end (/usr/lib)
@@ -401,6 +401,7 @@ headers_FreeBSD=	${headers_DragonFly:Nnet/*:Nutil.h} \
 			# end
 
 headers_Linux_dirs=	arpa \
+			attr \
 			asm-generic \
 			drm \
 			linux \
@@ -660,9 +661,14 @@ install:
 	cp ${CPA} ../linux/lib/x86_64-linux-gnu/${item:T} ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/
 	cp ${CPA} ../linux/usr/lib/x86_64-linux-gnu/${item:T:R} ${DESTDIR}${BASE}/usr/lib/x86_64-linux-gnu/
 .  endfor
-.  for item in ${Linux_extra_libs1} ${Linux_RTLD}
+.  for item in ${Linux_RTLD}
 	cp ${CPA} ../linux/lib/x86_64-linux-gnu/${item:H} ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/
 	cp ${CPA} ../linux/lib/x86_64-linux-gnu/${item:T} ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/
+.  endfor
+.  for item in ${Linux_extra_libs1}
+	cp ${CPA} ../linux/lib/x86_64-linux-gnu/${item:H} ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/
+	cp ${CPA} ../linux/lib/x86_64-linux-gnu/${item:T} ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/
+	cp ${CPA} ../linux/lib/x86_64-linux-gnu/${item:T:R} ${DESTDIR}${BASE}/lib/x86_64-linux-gnu/
 .  endfor
 .  for item in ${Linux_extra_libs2}
 	cp ${CPA} ../linux/usr/lib/x86_64-linux-gnu/${item:H} ${DESTDIR}${BASE}/usr/lib/x86_64-linux-gnu/
