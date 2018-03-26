@@ -1,0 +1,49 @@
+DEF[PORTVERSION]=	7.6p1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		openssh
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		standard
+SDESC[standard]=	Portable version of OpenBSD's OpenSSH
+HOMEPAGE=		https://www.openssh.com/portable.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/
+DISTFILE[1]=		openssh-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		security/openssh-portable
+
+BROKEN[all]=		ssh binary crashes when trying to connect to a remote machine
+
+USES=			autoreconf ncurses ssl
+MUST_CONFIGURE=		gnu
+CONFIGURE_ENV=		ac_cv_func_strnvis=no
+CONFIGURE_ARGS=		--with-md5-passwords
+			--with-ldns
+			--with-libedit
+			--with-pam
+			--with-privsep-user=nobody
+			--with-xauth=/raven/bin/xauth
+			--with-pid-dir=/var/run
+			--with-mantype=man
+# --with-ssl-engine # Seems not to work with LibreSSL
+
+BUILDRUN_DEPENDS=	ldns:primary:standard
+			libedit:single:standard
+			libressl:single:standard
+			openpam:single:standard
+			zlib:complete:standard
+
+post-install:
+	${MV} ${STAGEDIR}${PREFIX}/etc/ssh_config \
+		${STAGEDIR}${PREFIX}/etc/ssh_config.sample
+	${MV} ${STAGEDIR}${PREFIX}/etc/sshd_config \
+		${STAGEDIR}${PREFIX}/etc/sshd_config.sample
+	${RM} -r ${STAGEDIR}/var
