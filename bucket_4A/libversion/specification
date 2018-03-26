@@ -22,8 +22,9 @@ FPC_EQUIVALENT=		devel/libversion
 
 USES=			cmake
 
+post-patch:
+	${REINPLACE_CMD} -e 's|libdata/pkgconfig|lib/pkgconfig|' \
+		${WRKSRC}/CMakeLists.txt
+
 post-install:
-	${MV} ${STAGEDIR}${PREFIX}/libdata/pkgconfig \
-		${STAGEDIR}${PREFIX}/lib
-	${RM} -r ${STAGEDIR}${PREFIX}/libdata
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/version_compare
