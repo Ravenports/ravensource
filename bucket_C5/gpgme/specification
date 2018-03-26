@@ -1,0 +1,54 @@
+DEF[PORTVERSION]=	1.10.0
+DEF[SOVERSION]=		11.19.0
+DEF[CPP_SOVERSION]=	6.5.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gpgme
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		standard
+SDESC[standard]=	GnuPG Made Easy - high level crypto API
+HOMEPAGE=		https://www.gnupg.org/related_software/gpgme/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNUPG/gpgme
+DISTFILE[1]=		gpgme-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary cpp
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING.LESSOR
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		security/gpgme
+
+BUILDRUN_DEPENDS=	libgpg-error:single:standard
+			libassuan:single:standard
+			gnupg:primary:standard
+
+EXRUN[cpp]=		gpgme:primary:standard
+
+USES=			cpe gmake libtool shebangfix
+SHEBANG_FILES=		tests/gpg/pinentry
+CPE_VENDOR=		gnu
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+CONFIGURE_ARGS=		--enable-languages="cl cpp"
+			--enable-fd-passing
+			--disable-g13-test
+			--disable-gpg-test
+			--disable-gpgconf-test
+			--disable-gpgsm-test
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		CPP_SOMAJOR=${CPP_SOVERSION:R:R}
+			CPP_SOVERSION=${CPP_SOVERSION}
+INFO=			primary:gpgme
+
+post-patch:
+	${REINPLACE_CMD} -e 's|^clfilesdir.*|clfilesdir=$$\(libdir\)/common-lisp/gpgme|g' \
+		${WRKSRC}/lang/cl/Makefile.in
