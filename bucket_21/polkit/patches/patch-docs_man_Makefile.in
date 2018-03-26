@@ -1,0 +1,11 @@
+--- docs/man/Makefile.in.orig	2018-03-13 16:34:14.322676000 +0100
++++ docs/man/Makefile.in	2018-03-13 16:35:12.363732000 +0100
+@@ -644,7 +644,7 @@
+ 
+ 
+ @MAN_PAGES_ENABLED_TRUE@%.8 %.1 : %.xml
+-@MAN_PAGES_ENABLED_TRUE@	$(XSLTPROC) -nonet --stringparam man.base.url.for.relative.links $(datadir)/gtk-doc/html/polkit-1/ --xinclude http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl $<
++@MAN_PAGES_ENABLED_TRUE@	$(XSLTPROC) -nonet --path __DBPATH__ --stringparam man.base.url.for.relative.links $(datadir)/gtk-doc/html/polkit-1/ --xinclude http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl $<
+ 
+ clean-local:
+ 	rm -f *~ *.1 *.8
