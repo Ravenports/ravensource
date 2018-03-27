@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.4.1
+DEF[PORTVERSION]=	3.4.2
 DEF[CCLINKDIR]=		libexec/ccache
 DEF[CC_COMPILERS]=	cc c++ CC gcc g++ clang clang++
 # ----------------------------------------------------------------------------
@@ -40,11 +40,12 @@ VAR_OPSYS[sunos]=	CPPFLAGS=-D_XPG6
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/ccache ${STAGEDIR}${PREFIX}/bin
-	${INSTALL_MAN} ${WRKSRC}/ccache.1 ${STAGEDIR}${PREFIX}/share/man/man1
+	${INSTALL_MAN} ${WRKSRC}/doc/ccache.1 \
+		${STAGEDIR}${PREFIX}/share/man/man1
 	@${MKDIR} ${STAGEDIR}${PREFIX}/${CCLINKDIR}
 .for compiler in ${CC_COMPILERS}
 	${LN} -sf ${PREFIX}/bin/ccache ${STAGEDIR}${PREFIX}/${CCLINKDIR}/${compiler}
 .endfor
 
 	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
-	${INSTALL_DATA} ${WRKSRC}/MANUAL.html ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${WRKSRC}/doc/MANUAL.html ${STAGEDIR}${STD_DOCDIR}

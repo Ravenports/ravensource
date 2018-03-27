@@ -1,44 +1,18 @@
-- Determine whether cc(1) is clang or gcc at compile-time.
 - Don't hash -fcolor-diagnostics; make will auto use it while make -j will not.
   There's no reason to not use the cache in either of these cases if it is
   already available.
--bdrewery
 
---- src/ccache.c.orig	2018-02-11 18:16:12 UTC
+--- src/ccache.c.orig	2018-03-25 20:24:05 UTC
 +++ src/ccache.c
-@@ -477,6 +477,11 @@ compiler_is_clang(struct args *args)
- {
- 	char *name = basename(args->argv[0]);
- 	bool result = strstr(name, "clang") != NULL;
-+#ifdef CC_IS_CLANG
-+	if (strcmp(name, "cc") == 0 || strcmp(name, "CC") == 0 ||
-+	    strcmp(name, "c++") == 0)
-+	        result = true;
-+#endif
- 	free(name);
- 	return result;
- }
-@@ -486,6 +491,11 @@ compiler_is_gcc(struct args *args)
- {
- 	char *name = basename(args->argv[0]);
- 	bool result = strstr(name, "gcc") || strstr(name, "g++");
-+#ifdef CC_IS_GCC
-+	if (strcmp(name, "cc") == 0 || strcmp(name, "CC") == 0 ||
-+	    strcmp(name, "c++") == 0)
-+	        result = true;
-+#endif
- 	free(name);
- 	return result;
- }
-@@ -1673,6 +1683,7 @@ calculate_common_hash(struct args *args,
+@@ -1657,6 +1657,7 @@ calculate_common_hash(struct args *args,
  		free(p);
  	}
  
 +#if 0
  	// Possibly hash GCC_COLORS (for color diagnostics).
- 	if (compiler_is_gcc(args)) {
+ 	if (guessed_compiler == GUESSED_GCC) {
  		const char *gcc_colors = getenv("GCC_COLORS");
-@@ -1681,6 +1692,7 @@ calculate_common_hash(struct args *args,
+@@ -1665,6 +1666,7 @@ calculate_common_hash(struct args *args,
  			hash_string(hash, gcc_colors);
  		}
  	}
@@ -46,7 +20,7 @@
  }
  
  // Update a hash sum with information specific to the direct and preprocessor
-@@ -1716,6 +1728,13 @@ calculate_object_hash(struct args *args,
+@@ -1700,6 +1702,13 @@ calculate_object_hash(struct args *args,
  			continue;
  		}
  
