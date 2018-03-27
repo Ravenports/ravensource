@@ -1,6 +1,6 @@
---- src/unix/posix.h.orig	2017-06-14 11:31:20 UTC
+--- src/unix/posix.h.orig	2018-03-23 14:38:34 UTC
 +++ src/unix/posix.h
-@@ -81,6 +81,11 @@ GIT_INLINE(int) p_futimes(int f, const s
+@@ -85,6 +85,11 @@ GIT_INLINE(int) p_futimes(int f, const s
  	s[1].tv_nsec = t[1].tv_usec * 1000;
  	return futimens(f, s);
  }
