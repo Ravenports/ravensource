@@ -80,6 +80,8 @@ BUILDRUN_DEPENDS=	serf:single:standard
 			openldap:client:standard
 			shared-mime-info:single:standard
 
+BR_DEPS[linux]=		gpgme:cpp:standard
+
 USES=			autoreconf:build perl:build gmake jpeg pkgconfig
 			python mesa gnome-icons zlib shebangfix
 XORG_COMPONENTS=	xaw xrandr
@@ -148,6 +150,8 @@ PLIST_SUB=		LOCALBASE="{{LOCALBASE}}"
 
 pre-configure:
 	${TOUCH} ${WRKSRC}/autogen.lastrun
+	${REINPLACE_CMD} -e 's|/usr/include/gpgme++|${PREFIX}/include/gpgme++|' \
+		${WRKSRC}/configure
 
 post-configure:
 	${TOUCH} ${WRKSRC}/src.downloaded
@@ -180,3 +184,7 @@ post-patch-dragonfly:
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/libreoffice/sdk/classes
+
+post-install-linux:
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/libreoffice/share/uno_packages
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/libreoffice/sdk/share
