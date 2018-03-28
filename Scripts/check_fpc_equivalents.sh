@@ -29,6 +29,7 @@ while read ravenport version fpc_port; do
 
 	xz) ;;			# deleted from FPC
 	zlib) ;;		# deleted from FPC
+	aflex*) ;;		# deleted from FPC
 
 	fetch) ;;		# From DragonFly
 	makewhatis) ;;		# From DragonFly
