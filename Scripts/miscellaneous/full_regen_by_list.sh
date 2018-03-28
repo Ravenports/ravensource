@@ -24,7 +24,7 @@ if [ $# -lt 1 ]; then
    return 1
 fi
 
-LISTFILE=${MISCDIR}/${1}.list
+LISTFILE=${MISCDIR}/${1%.list}.list
 
 if [ ! -f ${LISTFILE} ]; then
    echo "The file '${LISTFILE}' does not exist"
