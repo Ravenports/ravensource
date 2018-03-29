@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	2.5.0
+DEF[PORTVERSION]=	2.6.0
+DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libversion
@@ -10,8 +11,8 @@ HOMEPAGE=		https://github.com/repology/libversion
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://github.com/repology/libversion/archive/${PORTVERSION}/
-DISTFILE[1]=		libversion-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/repology:libversion:${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
@@ -21,6 +22,7 @@ OPTIONS_STANDARD=	none
 FPC_EQUIVALENT=		devel/libversion
 
 USES=			cmake
+SOVERSION=		${SOVERSION}
 
 post-patch:
 	${REINPLACE_CMD} -e 's|libdata/pkgconfig|lib/pkgconfig|' \
@@ -28,3 +30,4 @@ post-patch:
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/version_compare
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libversion.so.*
