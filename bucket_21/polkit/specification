@@ -1,0 +1,66 @@
+DEF[PORTVERSION]=	0.113
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		polkit
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	Framework for access control to system components
+HOMEPAGE=		https://www.freedesktop.org/wiki/Software/polkit/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.freedesktop.org/software/polkit/releases/
+DISTFILE[1]=		polkit-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		sysutils/polkit
+
+USERS=			polkitd
+GROUPS=			polkitd
+USERGROUP_SPKG=		single
+
+BUILD_DEPENDS=		docbook-xsl:primary:standard
+			intltool:single:standard
+BUILDRUN_DEPENDS=	dbus:single:standard
+			expat:complete:standard
+			openpam:single:standard
+			spidermonkey-ff17:single:standard
+
+GNOME_COMPONENTS=	glib introspection libxslt
+USES=			gettext-tools gmake libtool pkgconfig python shebangfix
+SHEBANG_FILES=		{{WRKSRC}}/src/polkitbackend/toarray.pl
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-authfw=pam
+			--with-pam-include=system
+			--with-mozjs=mozjs-17.0
+			--with-os-type={{OPSYS}}
+			--disable-libsystemd-login
+			--disable-static
+			--enable-introspection=yes
+			--localstatedir=/var
+			--disable-test
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-patch:
+	${REINPLACE_CMD} -e 's|__DBPATH__|${PREFIX}/share/xsl/docbook/manpages|' ${WRKSRC}/docs/man/Makefile.in
+	${REINPLACE_CMD} -e 's|/usr/bin/|${PREFIX}/bin/|g' \
+		${WRKSRC}/docs/man/pkexec.xml \
+		${WRKSRC}/src/examples/org.freedesktop.policykit.examples.pkexec.policy.in
+	${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|g' \
+		${WRKSRC}/docs/man/polkit.xml
+
+post-install:
+	${MKDIR} ${STAGEDIR}/var/lib/polkit-1
+	${INSTALL_DATA} ${WRKSRC}/data/org.freedesktop.PolicyKit1.conf \
+		${STAGEDIR}${PREFIX}/etc/dbus-1/system.d/org.freedesktop.PolicyKit1.conf.sample
+.for i in 10-vendor.d 20-org.d 30-site.d 50-local.d 90-mandatory.d
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/polkit-1/localauthority/${i}
+	${MKDIR} ${STAGEDIR}/var/lib/polkit-1/localauthority/${i}
+.endfor
+	${RM} -r ${STAGEDIR}${PREFIX}/etc/dbus-1
