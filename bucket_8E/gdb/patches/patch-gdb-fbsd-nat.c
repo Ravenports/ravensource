@@ -1,8 +1,6 @@
-diff --git gdb/fbsd-nat.c gdb/fbsd-nat.c
-index ef5ad1ec92..dedb1ba59c 100644
---- gdb/fbsd-nat.c
+--- gdb/fbsd-nat.c.orig	2018-01-31 02:58:50 UTC
 +++ gdb/fbsd-nat.c
-@@ -682,6 +682,14 @@ fbsd_resume (struct target_ops *ops,
+@@ -810,6 +810,14 @@ fbsd_resume (struct target_ops *ops,
        struct thread_info *tp;
        int request;
  

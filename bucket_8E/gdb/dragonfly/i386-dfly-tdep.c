@@ -1,6 +1,6 @@
 /* Target-dependent code for DragonFly/i386.
 
-   Copyright (C) 2003-2013 Free Software Foundation, Inc.
+   Copyright (C) 2003-2018 Free Software Foundation, Inc.
 
    This file is part of GDB.
 
@@ -22,8 +22,7 @@
 #include "gdbcore.h"
 #include "osabi.h"
 #include "regcache.h"
-
-#include "gdb_assert.h"
+#include "x86-xstate.h"
 
 #include "i386-tdep.h"
 #include "i387-tdep.h"
@@ -90,10 +89,6 @@ i386dfly_init_abi (struct gdbarch_info info, struct gdbarch *gdbarch)
   set_solib_svr4_fetch_link_map_offsets
     (gdbarch, svr4_ilp32_fetch_link_map_offsets);
 }
-
-
-/* Provide a prototype to silence -Wmissing-prototypes.  */
-void _initialize_i386dfly_tdep (void);
 
 void
 _initialize_i386dfly_tdep (void)

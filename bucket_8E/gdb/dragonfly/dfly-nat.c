@@ -1,6 +1,6 @@
 /* Native-dependent code for DragonFly.
 
-   Copyright (C) 2002-2016 Free Software Foundation, Inc.
+   Copyright (C) 2002-2018 Free Software Foundation, Inc.
 
    This file is part of GDB.
 
@@ -155,9 +155,6 @@ dfly_nat_add_target (struct target_ops *t)
   /* XXX: thread vfork support */
   add_target (t);
 }
-
-/* Provide a prototype to silence -Wmissing-prototypes.  */
-extern initialize_file_ftype _initialize_dfly_nat;
 
 void
 _initialize_dfly_nat (void)
