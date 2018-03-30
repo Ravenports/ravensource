@@ -20,13 +20,10 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		security/openssh-portable
 
-BROKEN[all]=		ssh binary crashes when trying to connect to a remote machine
-
 USES=			autoreconf ncurses ssl zlib
 MUST_CONFIGURE=		gnu
 CONFIGURE_ENV=		ac_cv_func_strnvis=no
 CONFIGURE_ARGS=		--with-md5-passwords
-			--with-ldns={{LOCALBASE}}
 			--with-libedit
 			--with-pam
 			--with-privsep-user=nobody
@@ -35,9 +32,12 @@ CONFIGURE_ARGS=		--with-md5-passwords
 			--with-mantype=man
 			--with-ssl-engine
 
-BUILDRUN_DEPENDS=	ldns:primary:standard
-			libedit:single:standard
+BUILDRUN_DEPENDS=	libedit:single:standard
 			openpam:single:standard
+
+# Building with ldns and LibreSSL makes ssh crash when connecting to a server
+# CONFIGURE_ARG: --with-ldns={{LOCALBASE}}
+# BUILDRUN_DEPEND: ldns:primary:standard
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/etc/ssh_config \
