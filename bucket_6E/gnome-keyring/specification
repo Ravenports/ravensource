@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.20.1
+DEF[PORTVERSION]=	3.28.0.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnome-keyring
@@ -10,7 +10,7 @@ HOMEPAGE=		https://wiki.gnome.org/Projects/GnomeKeyring
 CONTACT=		Michael_Reim[kaileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://download.gnome.org/sources/gnome-keyring/${PORTVERSION:R}/
+SITES[main]=		https://download.gnome.org/sources/gnome-keyring/${PORTVERSION:R:R}/
 DISTFILE[1]=		gnome-keyring-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	single
@@ -27,11 +27,12 @@ BUILDRUN_DEPENDS=	dbus:single:standard
 			libgcrypt:single:standard
 			libtasn1:primary:standard
 			nss:caroot:standard
+			openssh:single:standard
 			openpam:single:standard
 			p11-kit:primary:standard
 RUN_DEPENDS=		pinentry:single:gnome3
 
-USES=			autoreconf gettext-tools gmake intltoolfix libtool pkgconfig python
+USES=			autoreconf gettext-tools gmake libtool pkgconfig python
 GNOME_COMPONENTS=	gtk3 libxslt
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-pam-dir={{PREFIX}}/lib
