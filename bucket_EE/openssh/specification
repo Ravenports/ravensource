@@ -22,24 +22,22 @@ FPC_EQUIVALENT=		security/openssh-portable
 
 BROKEN[all]=		ssh binary crashes when trying to connect to a remote machine
 
-USES=			autoreconf ncurses ssl
+USES=			autoreconf ncurses ssl zlib
 MUST_CONFIGURE=		gnu
 CONFIGURE_ENV=		ac_cv_func_strnvis=no
 CONFIGURE_ARGS=		--with-md5-passwords
-			--with-ldns
+			--with-ldns={{LOCALBASE}}
 			--with-libedit
 			--with-pam
 			--with-privsep-user=nobody
-			--with-xauth=/raven/bin/xauth
+			--with-xauth={{LOCALBASE}}/bin/xauth
 			--with-pid-dir=/var/run
 			--with-mantype=man
-# --with-ssl-engine # Seems not to work with LibreSSL
+			--with-ssl-engine
 
 BUILDRUN_DEPENDS=	ldns:primary:standard
 			libedit:single:standard
-			libressl:single:standard
 			openpam:single:standard
-			zlib:complete:standard
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/etc/ssh_config \
