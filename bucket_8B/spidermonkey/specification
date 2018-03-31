@@ -5,7 +5,7 @@ NAMEBASE=		spidermonkey
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang
 VARIANTS=		standard
-SDESC[standard]=	Standalone JS interpreter from Mozilla 17-esr
+SDESC[standard]=	Standalone JS interpreter from Mozilla 52-esr
 HOMEPAGE=		https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -20,15 +20,25 @@ OPTIONS_STANDARD=	none
 
 BUILD_DEPENDS=		autoconf213:single:standard
 			zip:single:standard
-BUILDRUN_DEPENDS=	nspr:single:standard
+BUILDRUN_DEPENDS=	icu:single:standard
+			nspr:single:standard
+			readline:single:standard
 			zlib:complete:standard
 
 DISTNAME=		mozjs-${PORTVERSION}/js/src
 
 USES=			gmake perl python:py27,build
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-pthreads
+CONFIGURE_ARGS=		--disable-debug
+			--disable-debug-symbols
+			--enable-readline
+			--enable-release
+			--enable-shared-js
+			--enable-tests
+			--with-intl-api
+			--with-pthreads
 			--with-system-nspr
+			--with-system-icu
 			--with-system-zlib
 MAKE_ENV=		SHELL="/bin/sh"
 
