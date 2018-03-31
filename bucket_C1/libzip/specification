@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.4.0
+DEF[PORTVERSION]=	1.5.0
 DEF[SOVERSION]=		5.0
 # ----------------------------------------------------------------------------
 
@@ -25,5 +25,16 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		archivers/libzip
 
-USES=			cpe cmake perl:build zlib
+BUILD_DEPENDS=		bzip2:static:standard
+BUILDRUN_DEPENDS=	bzip2:shared:standard
+
+USES=			cpe cmake zlib ssl
 SOVERSION=		${SOVERSION}
+
+post-patch:
+	${REINPLACE_CMD} -e '/SET(CMAKE_INSTALL_RPATH /d' \
+		${WRKSRC}/CMakeLists.txt
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/zip*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libzip.so
