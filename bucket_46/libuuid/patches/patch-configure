@@ -1,9 +1,8 @@
 Add --disable-uuidgen and --disable-mcookie.
-Shell portability.
 
---- configure.orig	2017-10-19 11:10:01 UTC
+--- configure.orig	2018-03-21 14:25:31 UTC
 +++ configure
-@@ -1250,6 +1250,7 @@ enable_zramctl
+@@ -1252,6 +1252,7 @@ enable_zramctl
  enable_fsck
  enable_partx
  enable_uuidd
@@ -11,7 +10,7 @@ Shell portability.
  enable_mountpoint
  enable_fallocate
  enable_unshare
-@@ -1269,6 +1270,7 @@ enable_lslogins
+@@ -1271,6 +1272,7 @@ enable_lslogins
  enable_wdctl
  enable_cal
  enable_logger
@@ -19,7 +18,7 @@ Shell portability.
  enable_switch_root
  enable_pivot_root
  enable_lsmem
-@@ -2024,6 +2026,7 @@ Optional Features:
+@@ -2027,6 +2029,7 @@ Optional Features:
    --disable-fsck          do not build fsck
    --disable-partx         do not build addpart, delpart, partx
    --disable-uuidd         do not build the uuid daemon
@@ -27,7 +26,7 @@ Shell portability.
    --disable-mountpoint    do not build mountpoint
    --disable-fallocate     do not build fallocate
    --disable-unshare       do not build unshare
-@@ -2043,6 +2046,7 @@ Optional Features:
+@@ -2046,6 +2049,7 @@ Optional Features:
    --disable-wdctl         do not build wdctl
    --disable-cal           do not build cal
    --disable-logger        do not build logger
@@ -35,25 +34,7 @@ Shell portability.
    --disable-switch_root   do not build switch_root
    --disable-pivot_root    do not build pivot_root
    --disable-lsmem         do not build lsmem
-@@ -22393,7 +22397,7 @@ else
- fi
- 
- 
--if test "x$enable_libmount_support_mtab" == xyes; then :
-+if test "x$enable_libmount_support_mtab" = xyes; then :
- 
- 
- $as_echo "#define USE_LIBMOUNT_SUPPORT_MTAB 1" >>confdefs.h
-@@ -23293,7 +23297,7 @@ $as_echo "$as_me: WARNING: sys/signalfd.
-     esac
-   fi
- 
--if test "x$build_uuidd" = xyes || test "x$enable_libuuid_force_uuidd" == xyes ; then :
-+if test "x$build_uuidd" = xyes || test "x$enable_libuuid_force_uuidd" = xyes ; then :
- 
- 
- $as_echo "#define HAVE_UUIDD 1" >>confdefs.h
-@@ -23311,17 +23315,22 @@ fi
+@@ -23632,17 +23636,22 @@ fi
  
  
  
@@ -81,7 +62,7 @@ Shell portability.
  fi
  
  
-@@ -25956,17 +25965,23 @@ fi
+@@ -26489,17 +26498,23 @@ fi
  
  
  
@@ -110,12 +91,3 @@ Shell portability.
  fi
  
   if test "x$build_mcookie" = xyes; then
-@@ -31063,7 +31078,7 @@ else
- fi
- 
- 
--if test "x$enable_usrdir_path" == xyes; then :
-+if test "x$enable_usrdir_path" = xyes; then :
- 
- 
- $as_echo "#define USE_USRDIR_PATHS_ONLY 1" >>confdefs.h

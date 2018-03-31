@@ -1,6 +1,6 @@
 Add NAME_MAX compat.
 
---- include/c.h.orig	2017-09-27 09:05:13 UTC
+--- include/c.h.orig	2018-02-09 12:22:55 UTC
 +++ include/c.h
 @@ -29,6 +29,10 @@
  # define LOGIN_NAME_MAX 256
