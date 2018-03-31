@@ -82,8 +82,9 @@ download_gemspec_requirements()
 {
 	local reqfile=${1}-${2}.requirements
 	local pattern="/^${1}\$/"
-	if [ ! -f ${reqsdir}/${reqfile} ]; then
+	if [ ! -f ${reqsdir}/${reqfile} -o "${secondarg}" = "force" ]; then
 		echo "Downloading requirements for ${1} version ${2}"
+		#echo "executing gem dependency ${pattern} --remote --version=${2}"
 		gem dependency ${pattern} --remote --version=${2} > ${reqsdir}/${reqfile}
 	fi
 }
