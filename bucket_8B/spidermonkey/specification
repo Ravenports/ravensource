@@ -42,7 +42,11 @@ CONFIGURE_ARGS=		--disable-debug
 			--with-system-zlib
 MAKE_ENV=		SHELL="/bin/sh"
 
+post-extract:
+	${CP} /port/files/configure ${WRKSRC}
+
 do-configure:
+	touch ${WRKSRC}/configure
 	(cd ${WRKSRC}; export SHELL=/bin/sh; ./configure)
 
 post-install:
