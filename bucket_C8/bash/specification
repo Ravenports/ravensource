@@ -95,10 +95,10 @@ post-patch:
 	# Ensure y.tab.c is regenerated
 	${TOUCH} ${WRKSRC}/parse.y
 	${RM} ${WRKSRC}/y.tab.c
-	@${REINPLACE_CMD} -e "s|%%PREFIX%%|${PREFIX}|g" ${WRKSRC}/doc/bash.1
+	${REINPLACE_CMD} -e "s|%%PREFIX%%|${PREFIX}|g" ${WRKSRC}/doc/bash.1
 
 post-configure:
-	@${FIND} ${WRKSRC} -name Makefile -print0 | ${XARGS} -0 \
+	${FIND} ${WRKSRC} -name Makefile -print0 | ${XARGS} -0 \
 		${REINPLACE_CMD} -e "s|^DESTDIR *=|& ${DESTDIR}|"
 
 post-install:

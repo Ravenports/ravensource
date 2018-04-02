@@ -40,9 +40,9 @@ post-patch:
 		${WRKSRC}/po/Makefile.in.in
 
 post-patch-dragonfly:
-	@${REINPLACE_CMD} -e 's|/proc|/compat/linux/proc|g' \
+	${REINPLACE_CMD} -e 's|/proc|/compat/linux/proc|g' \
 		${WRKSRC}/src/utils.c
 
 post-patch-freebsd:
-	@${REINPLACE_CMD} -e 's|/proc|/compat/linux/proc|g' \
+	${REINPLACE_CMD} -e 's|/proc|/compat/linux/proc|g' \
 		${WRKSRC}/src/utils.c

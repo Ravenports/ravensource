@@ -41,5 +41,5 @@ PLIST_SUB=		VER=${CMIS_VER}
 SOVERSION=		${SOVERSION}
 
 post-patch:
-	@${REINPLACE_CMD} -e "s|@WITH_LIBCMIS_MAN_FALSE@|#|g" \
+	${REINPLACE_CMD} -e "s|@WITH_LIBCMIS_MAN_FALSE@|#|g" \
 	    ${WRKSRC}/Makefile.in
