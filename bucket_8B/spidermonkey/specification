@@ -23,12 +23,10 @@ BUILD_DEPENDS=		autoconf213:single:standard
 			zip:single:standard
 BUILDRUN_DEPENDS=	icu:single:standard
 			nspr:single:standard
-			readline:single:standard
-			zlib:complete:standard
 
 DISTNAME=		mozjs-${PORTVERSION}/js/src
 
-USES=			gmake perl pkgconfig python:py27,build
+USES=			gmake perl pkgconfig python:py27,build zlib readline
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-debug
 			--disable-debug-symbols
@@ -41,10 +39,11 @@ CONFIGURE_ARGS=		--disable-debug
 			--with-system-nspr
 			--with-system-icu
 			--with-system-zlib
-			--prefix=/raven
 
 PLIST_SUB=		MOZJS_MAJOR=${PORTVERSION:R:R}
 			MOZJS_MINOR=${PORTVERSION:R:E}
+
+VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--disable-jemalloc
 
 post-extract:
 	${CP} /port/files/configure ${WRKSRC}
