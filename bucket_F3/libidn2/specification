@@ -35,7 +35,7 @@ INSTALL_TARGET=		install-strip
 INFO=			primary:libidn2
 
 post-patch:
-	@${REINPLACE_CMD} -e '/^TMPDIR = /d' ${WRKSRC}/Makefile.in
+	${REINPLACE_CMD} -e '/^TMPDIR = /d' ${WRKSRC}/Makefile.in
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/libidn2 \

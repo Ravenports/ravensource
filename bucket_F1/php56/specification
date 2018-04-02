@@ -77,17 +77,17 @@ PLIST_SUB=		SUFFIX=${SUFFIX} SOMAJOR=${SOMAJOR}
 [DEBUGGER].MAKEFILE_ON=			PHP_SAPI+=phpdbg
 
 post-patch:
-	@${TOUCH} ${WRKSRC}/ext/php_config.h
-	@${REINPLACE_CMD} "s|^\(extension_dir\)|; \1|" ${WRKSRC}/php.ini-*
-	@${REINPLACE_CMD} -e "/phpincludedir =/ s|/php|/php${SUFFIX}|" \
+	${TOUCH} ${WRKSRC}/ext/php_config.h
+	${REINPLACE_CMD} "s|^\(extension_dir\)|; \1|" ${WRKSRC}/php.ini-*
+	${REINPLACE_CMD} -e "/phpincludedir =/ s|/php|/php${SUFFIX}|" \
 		${WRKSRC}/scripts/Makefile.frag
-	@${REINPLACE_CMD} -e "/includedir=/ s|php|php${SUFFIX}|" \
+	${REINPLACE_CMD} -e "/includedir=/ s|php|php${SUFFIX}|" \
 		${WRKSRC}/scripts/phpize.in
-	@${REINPLACE_CMD} -e "/include_dir=/ s|php|php${SUFFIX}|" \
+	${REINPLACE_CMD} -e "/include_dir=/ s|php|php${SUFFIX}|" \
 		${WRKSRC}/scripts/php-config.in
 
 post-patch-FPM-ON:
-	@${REINPLACE_CMD} -e "s|^;\(pid\)|\1|;s|^;\(pm\.[a-z_]*_servers\)|\1|" \
+	${REINPLACE_CMD} -e "s|^;\(pid\)|\1|;s|^;\(pm\.[a-z_]*_servers\)|\1|" \
 		${WRKSRC}/sapi/fpm/php-fpm.conf.in
 
 pre-configure:
@@ -99,11 +99,11 @@ pre-configure:
 	(cd ${CONFIGURE_WRKSRC} && ${LOCALBASE}/bin/autoconf-2.69)
 
 post-build:
-	@${ECHO_CMD} "PHP_VER=${SUFFIX}" > ${WRKDIR}/php.conf
-	@${ECHO_CMD} "PHP_VERSION=${PORTVERSION}" >> ${WRKDIR}/php.conf
-	@${ECHO_CMD} "PHP_SAPI=${PHP_SAPI}" >> ${WRKDIR}/php.conf
-	@${ECHO_CMD} "PHP_EXT_INC=pcre spl" >> ${WRKDIR}/php.conf
-	@${SH} ${WRKSRC}/scripts/php-config --extension-dir | \
+	${ECHO_CMD} "PHP_VER=${SUFFIX}" > ${WRKDIR}/php.conf
+	${ECHO_CMD} "PHP_VERSION=${PORTVERSION}" >> ${WRKDIR}/php.conf
+	${ECHO_CMD} "PHP_SAPI=${PHP_SAPI}" >> ${WRKDIR}/php.conf
+	${ECHO_CMD} "PHP_EXT_INC=pcre spl" >> ${WRKDIR}/php.conf
+	${SH} ${WRKSRC}/scripts/php-config --extension-dir | \
 		${SED} -ne 's,^${PREFIX}/lib/php${SUFFIX}/,PHP_EXT_DIR=,p'\
 		>> ${WRKDIR}/php.conf
 

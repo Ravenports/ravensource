@@ -32,7 +32,7 @@ SHEBANG_FILES=		bin/*.pl
 DISTNAME=		igerman98-${PORTVERSION}
 
 post-patch:
-	@${REINPLACE_CMD} -e "s/AFFIX_EXPANDER = ispell/AFFIX_EXPANDER = aspell/g" \
+	${REINPLACE_CMD} -e "s/AFFIX_EXPANDER = ispell/AFFIX_EXPANDER = aspell/g" \
 		${WRKSRC}/Makefile
 
 do-install:

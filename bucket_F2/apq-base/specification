@@ -43,7 +43,7 @@ post-extract:
 		> ${WRKDIR}/GMGPL_LICENSE
 
 post-patch:
-	@${REINPLACE_CMD} -e '/for Object_Dir/d' ${WRKSRC}/gnat/apq.gpr.in
+	${REINPLACE_CMD} -e '/for Object_Dir/d' ${WRKSRC}/gnat/apq.gpr.in
 	${REINPLACE_CMD} -e 's|processors=2|gprbuild_params="--autoconf=apq.cgpr"|' \
 		${WRKSRC}/configure
 	${REINPLACE_CMD} -e 's|-ws|-ws --autoconf=dummy.cgpr|' \
