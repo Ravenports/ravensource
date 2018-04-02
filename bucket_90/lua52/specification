@@ -60,13 +60,13 @@ post-extract:
 		${WRKSRC}/src/lua.h > ${WRKDIR}/LICENSE
 
 post-patch:
-	@${REINPLACE_CMD} -e 's,rand *(,random(,g' ${WRKSRC}/src/lmathlib.c
-	@${REINPLACE_CMD} -e "/LUA_ROOT/s|/usr/local|${PREFIX}|" \
+	${REINPLACE_CMD} -e 's,rand *(,random(,g' ${WRKSRC}/src/lmathlib.c
+	${REINPLACE_CMD} -e "/LUA_ROOT/s|/usr/local|${PREFIX}|" \
 		${WRKSRC}/src/luaconf.h ${WRKSRC}/src/lua.c
-	@${REINPLACE_CMD} -e 's|man/man1|share/man/man1|' ${WRKSRC}/Makefile
+	${REINPLACE_CMD} -e 's|man/man1|share/man/man1|' ${WRKSRC}/Makefile
 
 post-install:
-	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/liblua-${LUA_VER}.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/liblua-${LUA_VER}.so
 	${MV} ${STAGEDIR}${MANPREFIX}/man/man1/lua.1 \
 		${STAGEDIR}${MANPREFIX}/man/man1/lua${SUFFIX}.1
 	${MV} ${STAGEDIR}${MANPREFIX}/man/man1/luac.1 \

@@ -44,10 +44,10 @@ MAKE_ENV=		INSTALL_STRIP_FLAG="{{STRIP}}"
 					--datarootdir=/usr/share
 
 do-test:
-	@(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} check)
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} check)
 
 post-patch:
-	@${REINPLACE_CMD} -e 's|$$(datadir)/misc|$$(datadir)/file|g' \
+	${REINPLACE_CMD} -e 's|$$(datadir)/misc|$$(datadir)/file|g' \
 		${WRKSRC}/configure
 
 post-install-RAVENSYS-ON:

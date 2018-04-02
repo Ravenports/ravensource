@@ -25,5 +25,5 @@ MUST_CONFIGURE=		gnu
 FPC_EQUIVALENT=		x11/videoproto
 
 post-patch:
-	@${REINPLACE_CMD} '/^install-data-am:/,/^$$/ \
+	${REINPLACE_CMD} '/^install-data-am:/,/^$$/ \
 		s/install-dist_docDATA//' ${WRKSRC}/Makefile.in
