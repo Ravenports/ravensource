@@ -4,6 +4,6 @@ CONFIGURE_ARGS=		interface=FREEGLUT verbose
 XORG_COMPONENTS=	x11 xext xmu xi ice
 
 post-patch:
-	@${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g' ${WRKSRC}/Makefile.PL
-	@${REINPLACE_CMD} -e 's|LDFLAGS=|LDFLAGS=-L${LOCALBASE}/lib -Wl,-rpath,${LOCALBASE}/lib |' \
+	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g' ${WRKSRC}/Makefile.PL
+	${REINPLACE_CMD} -e 's|LDFLAGS=|LDFLAGS=-L${LOCALBASE}/lib -Wl,-rpath,${LOCALBASE}/lib |' \
 		${WRKSRC}/utils/Makefile

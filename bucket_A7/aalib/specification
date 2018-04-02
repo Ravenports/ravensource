@@ -36,17 +36,17 @@ INSTALL_TARGET=		install-strip
 INFO=			single:aalib
 
 post-extract:
-	@${RM} ${WRKSRC}/doc/aalib.info*
+	${RM} ${WRKSRC}/doc/aalib.info*
 
 post-patch:
-	@${RM} ${WRKSRC}/config.cache
-	@${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g; \
+	${RM} ${WRKSRC}/config.cache
+	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g; \
 		s|MAKEINFO=makeinfo|MAKEINFO="makeinfo --no-split"|g' \
 		${WRKSRC}/configure
-	@${REINPLACE_CMD} \
+	${REINPLACE_CMD} \
 		-e 's|AC_DEFUN(AM_PATH_AALIB|AC_DEFUN([AM_PATH_AALIB]|g' \
 		${WRKSRC}/aalib.m4
-	@${FIND} ${WRKSRC} \( -name '*.[ch]' \! -name acconfig.h \) \
+	${FIND} ${WRKSRC} \( -name '*.[ch]' \! -name acconfig.h \) \
 		| ${XARGS} ${GREP} -l '<malloc.h>' \
 		| ${XARGS} ${REINPLACE_CMD} -e 's|<malloc.h>|<stdlib.h>|g'
 
