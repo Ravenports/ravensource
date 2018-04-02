@@ -36,11 +36,11 @@ CONFIGURE_ARGS=		--with-socks
 			--with-perl-lib=site
 
 post-patch:
-	@${REINPLACE_CMD} -e 's|/usr|${PREFIX}|' -e 's|/etc|${PREFIX}&|' \
+	${REINPLACE_CMD} -e 's|/usr|${PREFIX}|' -e 's|/etc|${PREFIX}&|' \
 		${WRKSRC}/docs/irssi.1
 
 post-configure:
-	@${MV} ${WRKSRC}/irssi.conf ${WRKSRC}/irssi.conf.sample
+	${MV} ${WRKSRC}/irssi.conf ${WRKSRC}/irssi.conf.sample
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/irssi/modules

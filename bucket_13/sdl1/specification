@@ -67,7 +67,7 @@ CONFIGURE_ARGS=		--disable-alsa
 [OSS].CONFIGURE_ENABLE_BOTH=		oss
 
 post-patch:
-	@${REINPLACE_CMD} -e '/EXTRA_LDFLAGS/s/-liconv/${ICONV_LIB}/' \
+	${REINPLACE_CMD} -e '/EXTRA_LDFLAGS/s/-liconv/${ICONV_LIB}/' \
 		${WRKSRC}/configure
 
 post-patch-SNDIO-ON:

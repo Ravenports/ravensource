@@ -69,10 +69,10 @@ CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
 [ASM].CONFIGURE_ARGS_OFF=		--disable-asm
 
 post-patch:
-	@${REINPLACE_CMD} -e ' \
+	${REINPLACE_CMD} -e ' \
 		s|gpac_static|gpac|g' \
 		${WRKSRC}/configure
-	@${REINPLACE_CMD} -e ' \
+	${REINPLACE_CMD} -e ' \
 		s|bash|sh|; \
 		s|VER="x"|VER="${X264_REV} ${X264_GITVER}"|; \
 		s|VERSION=""|VERSION=" r${X264_REV} ${X264_GITVER}"|' \

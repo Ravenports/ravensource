@@ -27,6 +27,5 @@ CONFIGURE_ARGS=		--disable-specs
 FPC_EQUIVALENT=		x11/xcmiscproto
 
 post-patch:
-	@${REINPLACE_CMD} '/^SUBDIRS =/,/^$$/ s/specs//' \
+	${REINPLACE_CMD} '/^SUBDIRS =/,/^$$/ s/specs//' \
 		${WRKSRC}/Makefile.in
-
