@@ -48,12 +48,12 @@ INSTALL_REQ_TOOLCHAIN=	yes
 [NOPREFIX].DESCRIPTION=			Build without prefixing all programs with "g"
 
 post-patch-freebsd:
-	@${REINPLACE_CMD} -e "s/--output/--no-discard-stderr --output/" \
+	${REINPLACE_CMD} -e "s/--output/--no-discard-stderr --output/" \
 		${WRKSRC}/Makefile.in
 
 post-build:
-	@${REINPLACE_CMD} -e "s/ lib / /g" ${WRKSRC}/Makefile
+	${REINPLACE_CMD} -e "s/ lib / /g" ${WRKSRC}/Makefile
 
 post-install:
-	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/g* \
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/g* \
 		${STAGEDIR}${PREFIX}/libexec/coreutils/libstdbuf.so

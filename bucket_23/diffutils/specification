@@ -39,5 +39,5 @@ INFO=			single:diffutils
 [NOPREFIX].DESCRIPTION=			Build without prefixing all programs with "g"
 
 post-patch:
-	@${REINPLACE_CMD} -e '/^mkdir/s:@mkdir_p@:${MKDIR}:' \
+	${REINPLACE_CMD} -e '/^mkdir/s:@mkdir_p@:${MKDIR}:' \
 		${WRKSRC}/po/Makefile.in.in

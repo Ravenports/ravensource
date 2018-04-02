@@ -31,11 +31,11 @@ INSTALL_TARGET=		install-strip
 FPC_EQUIVALENT=		x11-fonts/libXft
 
 post-extract:
-	@${CP} ${FILESDIR}/xft-config.in ${WRKSRC}/xft-config.in
+	${CP} ${FILESDIR}/xft-config.in ${WRKSRC}/xft-config.in
 
 post-patch:
-	@${REINPLACE_CMD} -e '/ac_config_files/s|xft\.pc|xft\.pc xft-config|' \
+	${REINPLACE_CMD} -e '/ac_config_files/s|xft\.pc|xft\.pc xft-config|' \
 		${WRKSRC}/configure
 
 post-install:
-	@${INSTALL_SCRIPT} ${WRKSRC}/xft-config ${STAGEDIR}${PREFIX}/bin/
+	${INSTALL_SCRIPT} ${WRKSRC}/xft-config ${STAGEDIR}${PREFIX}/bin/
