@@ -2,19 +2,18 @@
 django-widget-tweaks
 ====================
 
+.. image:: https://jazzband.co/static/img/badge.svg
+   :target: https://jazzband.co/
+   :alt: Jazzband
+
 .. image:: https://img.shields.io/pypi/v/django-widget-tweaks.svg
    :target: https://pypi.python.org/pypi/django-widget-tweaks
    :alt: PyPI Version
 
 .. image::
-https://img.shields.io/travis/kmike/django-widget-tweaks/master.svg
-   :target: http://travis-ci.org/kmike/django-widget-tweaks
+https://img.shields.io/travis/jazzband/django-widget-tweaks/master.svg
+   :target: http://travis-ci.org/jazzband/django-widget-tweaks
    :alt: Build Status
-
-.. image::
-https://img.shields.io/coveralls/kmike/django-widget-tweaks/master.svg
-   :target: https://coveralls.io/r/kmike/django-widget-tweaks
-   :alt: Test Coverage
 
 
 Tweak the form field rendering in templates, not in python-level
@@ -28,11 +27,19 @@ License is MIT.
 Installation
 ============
 
-::
+You can get Django Widget Tweaks by using pip::
 
-    pip install django-widget-tweaks
+    $ pip install django-widget-tweaks
 
-Then add 'widget_tweaks' to INSTALLED_APPS.
+To enable `widget_tweaks` in your project you need to add it to
+`INSTALLED_APPS` in your projects
+`settings.py` file::
+
+    INSTALLED_APPS = [
+        ...
+        'widget_tweaks',
+        ...
+    ]
 
 Usage
 =====
@@ -97,10 +104,3 @@ attr
 Adds or replaces any single html atribute for the form field.
 
 Examples::
-
-    {% load widget_tweaks %}
-
-    <!-- change input type (e.g. to HTML5) -->
-    {{ form.search_query|attr:"type:search" }}
-
-    <!-- add/change several attributes -->
