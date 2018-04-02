@@ -29,9 +29,9 @@ OPTIMIZER_LEVEL=	0
 SOVERSION=		${PORTVERSION}
 
 post-patch:
-	@${REINPLACE_CMD} -e "s,share/pkgconfig,lib/pkgconfig,g" \
+	${REINPLACE_CMD} -e "s,share/pkgconfig,lib/pkgconfig,g" \
 		${WRKSRC}/src/CMakeLists.txt
-	@${REINPLACE_CMD} -e 's|include/yajl|include|' \
+	${REINPLACE_CMD} -e 's|include/yajl|include|' \
 		${WRKSRC}/src/yajl.pc.cmake
 
 post-install:

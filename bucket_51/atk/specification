@@ -29,7 +29,7 @@ INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 
 post-patch:
-	@${REINPLACE_CMD} -e "/^SUBDIRS =/s/tests docs//" \
+	${REINPLACE_CMD} -e "/^SUBDIRS =/s/tests docs//" \
 		${WRKSRC}/Makefile.in
 
 	# disable html docs (gnome referencehack)

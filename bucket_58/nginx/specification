@@ -315,7 +315,7 @@ SUB_LIST=		WWWOWN={{WWWOWN}}
 					libxslt
 
 post-patch:
-	@${REINPLACE_CMD} 's!%%HTTP_PORT%%!${HTTP_PORT}!; \
+	${REINPLACE_CMD} 's!%%HTTP_PORT%%!${HTTP_PORT}!; \
 		s!%%PREFIX%%!${PREFIX}!; \
 		s!%%NGINX_ERRORLOG%%!${NGINX_ERRORLOG}!' \
 		${WRKSRC}/conf/nginx.conf

@@ -62,11 +62,11 @@ CONFIGURE_ARGS=		prefix={{PREFIX}}
 					NAME_IP4=
 
 post-patch:
-	@${REINPLACE_CMD} \
+	${REINPLACE_CMD} \
 		-e 's|@ADDITIONAL_RPATH@|${ADDL_RPATH}|' \
 		${WRKSRC}/src/src.gpr \
 		${WRKSRC}/include/include.gpr
-	@${REINPLACE_CMD} -e 's|latexpdf||' ${WRKSRC}/Makefile
+	${REINPLACE_CMD} -e 's|latexpdf||' ${WRKSRC}/Makefile
 
 do-configure:
 	(cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} \
