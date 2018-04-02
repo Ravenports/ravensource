@@ -36,7 +36,7 @@ SUB_LIST=		VERSION=${PORTVERSION}
 [SPEED].CONFIGURE_ARGS_OFF=		--enable-accuracy
 
 post-patch:
-	@${REINPLACE_CMD} -e 's| -fforce-mem||' ${WRKSRC}/configure
+	${REINPLACE_CMD} -e 's| -fforce-mem||' ${WRKSRC}/configure
 
 post-install:
 	${INSTALL_DATA} ${WRKDIR}/mad.pc ${STAGEDIR}${PREFIX}/lib/pkgconfig/

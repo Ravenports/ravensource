@@ -44,8 +44,8 @@ PLIST_SUB=		XSLTVERSION=${PORTVERSION}
 			EXSLTVERSION=${EXSLTVERSION}
 
 post-patch:
-	@${REINPLACE_CMD} -e '/^install-data-am:/ s|install-data-local||' \
+	${REINPLACE_CMD} -e '/^install-data-am:/ s|install-data-local||' \
 		${WRKSRC}/doc/Makefile.in
-	@${REINPLACE_CMD} -e 's|[$$](bindir)/xsltproc|../xsltproc/xsltproc|g ; \
+	${REINPLACE_CMD} -e 's|[$$](bindir)/xsltproc|../xsltproc/xsltproc|g ; \
 		s|[$$](bindir)/xmllint|../xmllint/xmllint|g' \
 		${WRKSRC}/doc/Makefile.in

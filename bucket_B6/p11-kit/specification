@@ -40,7 +40,7 @@ CONFIGURE_ARGS=		--disable-nls
 VAR_OPSYS[sunos]=	CPPFLAGS=-I{{LOCALBASE}}/include/bsd
 
 pre-configure:
-	@${REINPLACE_CMD} -e \
+	${REINPLACE_CMD} -e \
 	's|exampledir = $$(p11_system_config)|exampledir = ${STD_EXAMPLESDIR}|' \
 	${WRKSRC}/Makefile.in
 
