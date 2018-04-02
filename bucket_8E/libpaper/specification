@@ -32,7 +32,7 @@ post-extract:
 	${ECHO_CMD} letter > ${WRKDIR}/papersize.letter
 
 post-configure:
-	@${REINPLACE_CMD} -e 's|$${prefix}|${PREFIX}|g' \
+	${REINPLACE_CMD} -e 's|$${prefix}|${PREFIX}|g' \
 		${WRKSRC}/config.h ${WRKSRC}/src/paperconfig
 
 post-install:

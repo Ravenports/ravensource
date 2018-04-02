@@ -53,7 +53,7 @@ EXTRACT_HEAD[1]=	{{TAR}} -xf
 EXTRACT_TAIL[1]=	--exclude dejagnu --exclude expect --exclude sim --exclude texinfo --exclude intl --exclude readline
 
 post-patch:
-	@${REINPLACE_CMD} -e 's|$$| [GDB v${PORTVERSION} for ${OPSYS}]|' \
+	${REINPLACE_CMD} -e 's|$$| [GDB v${PORTVERSION} for ${OPSYS}]|' \
 		${WRKSRC}/gdb/version.in
 
 post-patch-dragonfly:
