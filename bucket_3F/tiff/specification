@@ -43,7 +43,7 @@ PLIST_SUB=		SOVERSION=${SOVERSION}
 			SOMAJOR=${SOMAJOR}
 
 post-patch:
-	@${REINPLACE_CMD} "/\.po 0/d" ${WRKSRC}/man/*
+	${REINPLACE_CMD} "/\.po 0/d" ${WRKSRC}/man/*
 
 pre-configure:
 	${REINPLACE_CMD} \
@@ -53,7 +53,7 @@ pre-configure:
 		-e 's|man html|man|' ${WRKSRC}/Makefile.in
 
 post-install:
-	${MKDIR} ${STAGEDIR}${STD_DOCDIR}/images ${STAGEDIR}${STD_DOCDIR}/man
+	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}/images ${STAGEDIR}${STD_DOCDIR}/man
 	${INSTALL_DATA} ${WRKSRC}/html/*.html ${STAGEDIR}${STD_DOCDIR}/
 	${INSTALL_DATA} ${WRKSRC}/html/images/*.jpg ${STAGEDIR}${STD_DOCDIR}/images/
 	${INSTALL_DATA} ${WRKSRC}/html/images/*.gif ${STAGEDIR}${STD_DOCDIR}/images/

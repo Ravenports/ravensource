@@ -7,5 +7,5 @@ USES=			mesa
 XORG_COMPONENTS=	x11 xext
 
 post-patch:
-	@${REINPLACE_CMD} -e 's|defined(__APPLE__)|1|' \
+	${REINPLACE_CMD} -e 's|defined(__APPLE__)|1|' \
 		${WRKSRC}/OverlapMan.c
