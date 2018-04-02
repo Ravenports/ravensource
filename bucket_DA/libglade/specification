@@ -41,7 +41,7 @@ pre-patch:
 	"s|test \"\$$\$$installfiles\" = '\$$(srcdir)/html/\*'|:|"
 
 post-patch:
-	@${REINPLACE_CMD} -E 's/in (python.*)+ none/in none/' \
+	${REINPLACE_CMD} -E 's/in (python.*)+ none/in none/' \
 		${WRKSRC}/configure
 
 post-install:

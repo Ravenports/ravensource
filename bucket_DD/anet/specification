@@ -44,8 +44,8 @@ post-extract:
 		> ${WRKDIR}/GMGPL_LICENSE
 
 post-patch:
-	@${REINPLACE_CMD} -e 's|dynamic|static|g' ${WRKSRC}/gnat/anet.gpr
-	@${REINPLACE_CMD} -e 's|DESTDIR|DEST2|g' ${WRKSRC}/doc/Makefile
+	${REINPLACE_CMD} -e 's|dynamic|static|g' ${WRKSRC}/gnat/anet.gpr
+	${REINPLACE_CMD} -e 's|DESTDIR|DEST2|g' ${WRKSRC}/doc/Makefile
 
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gnat \

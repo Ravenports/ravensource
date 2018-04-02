@@ -27,11 +27,11 @@ INSTALL_TARGET=		install-strip
 INFO=			primary:check
 
 post-patch:
-	@${REINPLACE_CMD} \
+	${REINPLACE_CMD} \
 		-e 's|COPYING.LESSER||' \
 		-e '/^docdir = / s|$$(PACKAGE)|check|' \
 			${WRKSRC}/Makefile.am
-	@${REINPLACE_CMD} \
+	${REINPLACE_CMD} \
 		-e '/^exampledir = / s|(docdir)/example|(datadir)/examples/check|' \
 		-e '/^example[a-z]*dir = / s|(docdir)/example/|(exampledir)/|' \
 			${WRKSRC}/doc/Makefile.am
