@@ -43,7 +43,7 @@ pre-patch:
 		"s|test \"\$$\$$installfiles\" = '\$$(srcdir)/html/\*'|:|"
 
 post-patch:
-	@${REINPLACE_CMD} -e 's|--warn-all||g' \
+	${REINPLACE_CMD} -e 's|--warn-all||g' \
 		${WRKSRC}/gtksourceview/Makefile.in
 
 post-install:

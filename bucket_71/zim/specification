@@ -30,9 +30,9 @@ USES=			desktop-utils gettext-runtime python:py27
 GNOME_COMPONENTS=	pygtk2
 
 post-patch:
-	@${REINPLACE_CMD} -e \
+	${REINPLACE_CMD} -e \
 		'/.command.install /s|distutils|setuptools| ; \
 		 /.skip_xdg_cmd = /s|0|1|' ${WRKSRC}/setup.py
-	@${REINPLACE_CMD} -e "s|/usr/local|${LOCALBASE}|" \
+	${REINPLACE_CMD} -e "s|/usr/local|${LOCALBASE}|" \
 		${WRKSRC}/zim/config/basedirs.py \
 		${WRKSRC}/tests/config.py
