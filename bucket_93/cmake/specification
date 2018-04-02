@@ -52,7 +52,7 @@ post-patch:
 	${REINPLACE_CMD} -e "s@<form.h>@<ncurses/form.h>@g" \
 		${WRKSRC}/Source/CursesDialog/ccmake.cxx \
 		${WRKSRC}/Source/CursesDialog/cmCursesStandardIncludes.h
-	@(${FIND} ${WRKSRC}/Modules -name "*.cmake" -print0; \
+	(${FIND} ${WRKSRC}/Modules -name "*.cmake" -print0; \
 		${FIND} ${WRKSRC}/Tests -name "CMakeLists.txt" -print0 ) | \
 		${XARGS} -0 -n 100 ${REINPLACE_CMD} -e 's,/usr/local,${LOCALBASE},g; \
 			s,/usr/X11R6,${LOCALBASE},g'

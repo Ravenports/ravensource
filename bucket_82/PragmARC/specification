@@ -26,7 +26,7 @@ LICENSE_SCHEME=		multi
 FPC_EQUIVALENT=		devel/pragmarcs
 
 post-extract:
-	@${CP} ${FILESDIR}/buildlib.gpr ${WRKSRC}/
+	${CP} ${FILESDIR}/buildlib.gpr ${WRKSRC}/
 	${RM} ${WRKSRC}/compile_all.adb
 	${AWK} '/^-- / {print}' ${WRKSRC}/pragmarc.ads > ${WRKDIR}/LICENSE
 
