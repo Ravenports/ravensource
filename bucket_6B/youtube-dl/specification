@@ -28,9 +28,9 @@ MAKE_ARGS=		PYTHON={{PYTHON_CMD}}
 DISTNAME=		youtube-dl
 
 post-extract:
-	@# remove tarball provided version, build our own
-	@${RM} ${WRKSRC}/youtube-dl
+	# remove tarball provided version, build our own
+	${RM} ${WRKSRC}/youtube-dl
 
 post-patch:
-	@${REINPLACE_CMD} -e 's|python devscripts/|${PYTHON_CMD} devscripts/|' \
+	${REINPLACE_CMD} -e 's|python devscripts/|${PYTHON_CMD} devscripts/|' \
 		${WRKSRC}/Makefile
