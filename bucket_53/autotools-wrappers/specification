@@ -40,8 +40,8 @@ do-install:
 	${INSTALL_SCRIPT} ${WRKDIR}/autoconf-wrapper ${STAGEDIR}${PREFIX}/bin/
 	${INSTALL_SCRIPT} ${WRKDIR}/automake-wrapper ${STAGEDIR}${PREFIX}/bin/
 .for tool in ${AC_TOOLS}
-	@${LN} -sf autoconf-wrapper ${STAGEDIR}${PREFIX}/bin/${tool}
+	${LN} -sf autoconf-wrapper ${STAGEDIR}${PREFIX}/bin/${tool}
 .endfor
 .for tool in ${AM_TOOLS}
-	@${LN} -sf automake-wrapper ${STAGEDIR}${PREFIX}/bin/${tool}
+	${LN} -sf automake-wrapper ${STAGEDIR}${PREFIX}/bin/${tool}
 .endfor

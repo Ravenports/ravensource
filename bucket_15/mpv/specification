@@ -77,7 +77,7 @@ CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
 			-j{{MAKE_JOBS_NUMBER}}
 
 post-patch:
-	@${FIND} ${WRKSRC}/DOCS/man -name '*.rst' | \
+	${FIND} ${WRKSRC}/DOCS/man -name '*.rst' | \
 		${XARGS} ${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|g'
 
 post-install:

@@ -25,7 +25,7 @@ MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
 
 post-patch:
-	@${SED} -e 's|%PREFIX%|${PREFIX}|g ; s|%VERSION%|${PORTVERSION}|g' \
+	${SED} -e 's|%PREFIX%|${PREFIX}|g ; s|%VERSION%|${PORTVERSION}|g' \
 		${FILESDIR}/libev.pc.in > ${WRKDIR}/libev.pc
 
 post-install:

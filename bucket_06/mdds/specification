@@ -32,7 +32,7 @@ post-patch:
 	${FIND} ${WRKSRC}/include -name "*.orig" -delete
 
 do-configure:
-	@${SED} -e 's|@API_VERSION@|${API_VERSION}|' \
+	${SED} -e 's|@API_VERSION@|${API_VERSION}|' \
 	    -e 's|@VERSION@|${PORTVERSION}|' \
 	    -e 's|@includedir@|$${prefix}/include|' \
 	    -e 's|@prefix@|${PREFIX}|' \

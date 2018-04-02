@@ -77,7 +77,7 @@ post-extract:
 
 post-patch:
 	${RM} ${WRKSRC}/share/plug-ins/*.orig
-	@${ECHO} "GNAT_SOURCES=" > ${WRKSRC}/Makefile.gnat
+	${ECHO} "GNAT_SOURCES=" > ${WRKSRC}/Makefile.gnat
 	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|g' \
 		${WRKSRC}/gps/gps.gpr \
 		${WRKSRC}/gnatdoc/gnatdoc.gpr \

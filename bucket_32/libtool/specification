@@ -38,6 +38,6 @@ CPE_PRODUCT=		libtool
 CONFIGURE_ARGS=		--disable-ltdl-install
 
 post-patch:
-	@${RM} ${WRKSRC}/doc/*.info*
-	@${TOUCH} ${WRKSRC}/doc/libtool.1
+	${RM} ${WRKSRC}/doc/*.info*
+	${TOUCH} ${WRKSRC}/doc/libtool.1
 	${REINPLACE_CMD} -e "/INFO_DEPS =/d" ${WRKSRC}/Makefile.in

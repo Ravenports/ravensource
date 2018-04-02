@@ -38,7 +38,7 @@ post-extract:
 	${MV} ${WRKSRC}/setup.py ${WRKSRC}/setup.py.disable
 
 post-install:
-	@${RM} ${WRKSRC}/examples/pygtk-demo/pygtk-demo.in
+	${RM} ${WRKSRC}/examples/pygtk-demo/pygtk-demo.in
 	@${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR} ${STAGEDIR}${STD_DOCDIR}
 	(cd ${WRKSRC}/examples && \
 		${COPYTREE_SHARE} . ${STAGEDIR}${STD_EXAMPLESDIR})
