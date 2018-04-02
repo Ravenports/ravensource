@@ -57,15 +57,15 @@ MAKE_ENV=		LDSHARED="{{CC}} -shared"
 # SETUPTOOLS_DISABLE_VERSIONED_EASY_INSTALL_SCRIPT=1
 
 do-configure:
-	@(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
+	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${PYTHON_CMD} ${PYDISTUTILS_SETUP} config)
 
 do-build:
-	@(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
+	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${PYTHON_CMD} ${PYDISTUTILS_SETUP} build)
 
 do-install:
-	@(cd ${INSTALL_WRKSRC} && ${SETENV} ${MAKE_ENV} \
+	(cd ${INSTALL_WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${PYTHON_CMD} ${PYDISTUTILS_SETUP} install \
 		--record ${WRKDIR}/.PLIST.pymodtmp -c -O1 \
 		--prefix=${PREFIX} --single-version-externally-managed \

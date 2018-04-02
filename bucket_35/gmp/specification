@@ -39,7 +39,7 @@ TEST_TARGET=		check
 [ASM].CONFIGURE_ENABLE_BOTH=		assembly
 
 do-test:
-	@(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE} check)
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE} check)
 
 post-patch:
 	${REINPLACE_CMD} -e 's|gmp_cxxcompile=".CXX |&$$LDFLAGS |' \
