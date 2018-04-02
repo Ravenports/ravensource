@@ -33,12 +33,12 @@ DISTNAME=		asis-gpl-${PORTVERSION}-src
 MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
 
 post-extract:
-	@${REINPLACE_CMD} -e 's|OPSYS|ASISOPSYS|g' \
+	${REINPLACE_CMD} -e 's|OPSYS|ASISOPSYS|g' \
 		-e 's|(prefix)|(DESTDIR)$$(prefix)|g' \
 		${WRKSRC}/Makefile \
 		${WRKSRC}/Makefile.stub \
 		${WRKSRC}/common.gpr
-	@${RM} -r ${WRKSRC}/gnat
+	${RM} -r ${WRKSRC}/gnat
 
 do-build:
 	# This target is recreated because -j cannot be set, but

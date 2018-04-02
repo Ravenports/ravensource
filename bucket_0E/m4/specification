@@ -39,7 +39,8 @@ FPC_EQUIVALENT=		devel/m4
 [NOPREFIX].INFO_OFF=			primary:gm4
 
 post-patch:
-	@${REINPLACE_CMD} -e '/^install-exec-am: / s| .*||' ${WRKSRC}/lib/Makefile.in
+	${REINPLACE_CMD} -e '/^install-exec-am: / s| .*||' \
+		${WRKSRC}/lib/Makefile.in
 
 post-patch-NOPREFIX-OFF:
 	${REINPLACE_CMD} -e 's|/m4.info|/gm4.info|' ${WRKSRC}/doc/Makefile.in
@@ -49,4 +50,5 @@ post-patch-NOPREFIX-OFF:
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/examples/m4
-	${INSTALL_DATA} ${WRKSRC}/examples/*.m4 ${STAGEDIR}${PREFIX}/share/examples/m4
+	${INSTALL_DATA} ${WRKSRC}/examples/*.m4 \
+		${STAGEDIR}${PREFIX}/share/examples/m4
