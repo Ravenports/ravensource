@@ -1,0 +1,58 @@
+DEF[PORTVERSION]=	52.6.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		spidermonkey
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		standard
+SDESC[standard]=	Standalone JS interpreter from Mozilla 52-esr
+HOMEPAGE=		https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://queue.taskcluster.net/v1/task/PNGBJ8KgQuK9tX78Hajrbg/runs/0/artifacts/public/build/
+DISTFILE[1]=		mozjs-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+BUILD_DEPENDS=		autoconf213:single:standard
+			zip:single:standard
+BUILDRUN_DEPENDS=	icu:single:standard
+			nspr:single:standard
+			readline:single:standard
+			zlib:complete:standard
+
+DISTNAME=		mozjs-${PORTVERSION}/js/src
+
+USES=			gmake perl pkgconfig python:py27,build
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-debug
+			--disable-debug-symbols
+			--enable-readline
+			--enable-release
+			--enable-shared-js
+			--enable-tests
+			--with-intl-api
+			--with-pthreads
+			--with-system-nspr
+			--with-system-icu
+			--with-system-zlib
+			--prefix=/raven
+
+PLIST_SUB=		MOZJS_MAJOR=${PORTVERSION:R:R}
+			MOZJS_MINOR=${PORTVERSION:R:E}
+
+post-extract:
+	${CP} /port/files/configure ${WRKSRC}
+
+post-patch:
+	touch ${WRKSRC}/configure
+
+post-install:
+	${LN} -s libmozjs-${PORTVERSION:R:R}.so \
+		${STAGEDIR}${PREFIX}/lib/libmozjs-${PORTVERSION:R}.so.1
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/js${PORTVERSION:R:R}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmozjs-${PORTVERSION:R:R}.so
