@@ -35,5 +35,5 @@ post-extract:
 	${MV} ${WRKDIR}/glibc-${GLIBC_VERSION} ${WRKSRC}/
 
 post-patch:
-	@${REINPLACE_CMD} -E 's|(m17n_scriptdir = ).*|\1${PREFIX}/bin|' \
+	${REINPLACE_CMD} -E 's|(m17n_scriptdir = ).*|\1${PREFIX}/bin|' \
 		${WRKSRC}/Makefile.in

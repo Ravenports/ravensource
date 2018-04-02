@@ -41,5 +41,5 @@ DISTNAME=		execjs-${PORTVERSION}
 RUN_DEPENDS=		nodejs:primary:standard
 
 post-patch:
-	@${REINPLACE_CMD} -e 's#%%LOCALBASE%%#${LOCALBASE}#' \
+	${REINPLACE_CMD} -e 's#%%LOCALBASE%%#${LOCALBASE}#' \
 		${WRKSRC}/lib/execjs/runtimes.rb

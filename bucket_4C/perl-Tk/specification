@@ -46,15 +46,15 @@ SHEBANG_FILES=		pTk/Tcl-pTk
 			pTk/mkVFunc
 
 post-patch:
-	@${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
+	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
 		${WRKSRC}/JPEG/Makefile.PL \
 		${WRKSRC}/PNG/Makefile.PL \
 		${WRKSRC}/pTk/Makefile.PL
-	@${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g' \
+	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g' \
 		${WRKSRC}/myConfig
 
 post-configure:
-	@${REINPLACE_CMD} \
+	${REINPLACE_CMD} \
 		-e '/^CC = / s|.*|CC = ${CC}|' \
 		-e '/^CCFLAGS = / s|.*|CCFLAGS = ${CFLAGS}|' \
 		-e '/^LD = / s|.*|LD = ${CC} ${CFLAGS} ${LDFLAGS}|' \
@@ -62,6 +62,6 @@ post-configure:
 		`${FIND} ${WRKSRC} -name Makefile`
 
 post-install:
-	@${RM} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Tk/pTk/extralibs.ld
-	@${RMDIR} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Tk/pTk
+	${RM} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Tk/pTk/extralibs.ld
+	${RMDIR} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Tk/pTk
 
