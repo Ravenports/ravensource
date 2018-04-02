@@ -27,7 +27,7 @@ BUILDRUN_DEPENDS=	icu:single:standard
 
 DISTNAME=		mozjs-${PORTVERSION}/js/src
 
-USES=			gmake perl python:py27,build
+USES=			gmake perl pkgconfig python:py27,build
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-debug
 			--disable-debug-symbols
@@ -40,17 +40,19 @@ CONFIGURE_ARGS=		--disable-debug
 			--with-system-nspr
 			--with-system-icu
 			--with-system-zlib
-MAKE_ENV=		SHELL="/bin/sh"
+			--prefix=/raven
+
+PLIST_SUB=		MOZJS_MAJOR=${PORTVERSION:R:R}
+			MOZJS_MINOR=${PORTVERSION:R:E}
 
 post-extract:
 	${CP} /port/files/configure ${WRKSRC}
 
-do-configure:
+post-patch:
 	touch ${WRKSRC}/configure
-	(cd ${WRKSRC}; export SHELL=/bin/sh; ./configure)
 
 post-install:
-	${LN} -s libmozjs-${PORTVERSION:R}.so \
+	${LN} -s libmozjs-${PORTVERSION:R:R}.so \
 		${STAGEDIR}${PREFIX}/lib/libmozjs-${PORTVERSION:R}.so.1
-# ${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/js${PORTVERSION:R:R}
-# ${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmozjs-${PORTVERSION:R}.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/js${PORTVERSION:R:R}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmozjs-${PORTVERSION:R:R}.so
