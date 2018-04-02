@@ -31,7 +31,7 @@ MUST_CONFIGURE=		gnu
 FPC_EQUIVALENT=		x11/libXdmcp
 
 post-patch:
-	@${REINPLACE_CMD} '/^SUBDIRS/,/^$$/ s/doc//' ${WRKSRC}/Makefile.in
+	${REINPLACE_CMD} '/^SUBDIRS/,/^$$/ s/doc//' ${WRKSRC}/Makefile.in
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libXdmcp.so

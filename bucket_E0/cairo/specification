@@ -49,13 +49,13 @@ PLIST_SUB=		LIBVER=${LIBVER}
 VAR_OPSYS[sunos]=	CFLAGS=-D_XOPEN_SOURCE=600
 
 post-patch:
-	@${REINPLACE_CMD} \
+	${REINPLACE_CMD} \
 		-e '/strings/s/ - / -a /' \
 		-e '/test/s/==/=/g' \
 		-e '/LIBS/s|-ldld||' ${WRKSRC}/configure
-	@${REINPLACE_CMD} -e 's|-lcairo|-lcairo -lpthread|' \
+	${REINPLACE_CMD} -e 's|-lcairo|-lcairo -lpthread|' \
 		${WRKSRC}/src/*.pc.in
-	@${REINPLACE_CMD} -e '/@CAIRO_HAS_PNG_FUNCTIONS_TRUE@.*=/d' \
+	${REINPLACE_CMD} -e '/@CAIRO_HAS_PNG_FUNCTIONS_TRUE@.*=/d' \
 		${WRKSRC}/Makefile.in
 
 	# disable html docs (gnome referencehack)
@@ -63,7 +63,7 @@ post-patch:
 		"s|test \"\$$\$$installfiles\" = '\$$(srcdir)/html/\*'|:|"
 
 post-patch-dragonfly:
-	@${REINPLACE_CMD} -e '/LIBS/s/-lrt//' ${WRKSRC}/configure
+	${REINPLACE_CMD} -e '/LIBS/s/-lrt//' ${WRKSRC}/configure
 
 post-patch-freebsd:
-	@${REINPLACE_CMD} -e '/LIBS/s/-lrt//' ${WRKSRC}/configure
+	${REINPLACE_CMD} -e '/LIBS/s/-lrt//' ${WRKSRC}/configure

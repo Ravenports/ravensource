@@ -39,7 +39,7 @@ CPPFLAGS=		-I{{NCURSESINC}}
 # VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-utempter
 
 post-patch:
-	@${REINPLACE_CMD} -e 's|/etc/tmux.conf|${PREFIX}/etc/tmux.conf|g' \
+	${REINPLACE_CMD} -e 's|/etc/tmux.conf|${PREFIX}/etc/tmux.conf|g' \
 		${WRKSRC}/CHANGES ${WRKSRC}/tmux.h
 
 do-install:

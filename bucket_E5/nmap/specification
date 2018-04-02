@@ -36,10 +36,10 @@ CPPFLAGS=		-I{{OPENSSLINC}}
 INSTALL_REQ_TOOLCHAIN=	yes
 
 post-extract:
-	@${RM} -r ${WRKSRC}/mswin32
+	${RM} -r ${WRKSRC}/mswin32
 
 post-configure:
-	@${REINPLACE_CMD} -e "s|^DESTDIR *=|& ${DESTDIR}|" ${WRKSRC}/Makefile
+	${REINPLACE_CMD} -e "s|^DESTDIR *=|& ${DESTDIR}|" ${WRKSRC}/Makefile
 
 pre-install:
 	${FIND} ${WRKSRC} -type f \( -name \*.orig -o -name \*.bak \) -delete
