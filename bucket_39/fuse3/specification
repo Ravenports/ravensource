@@ -31,5 +31,9 @@ NOT_FOR_OPSYS=		dragonfly sunos
 USES=			meson pkgconfig
 SOVERSION=		${PORTVERSION}
 
+post-patch:
+	# not sure why not detected on linux ...
+	${REINPLACE_CMD} -e 's|3.2.1|${PORTVERSION}|' ${WRKSRC}/meson.build
+
 post-install-linux:
 	${RM} -r ${STAGEDIR}/dev
