@@ -1,4 +1,12 @@
 DEF[PORTVERSION]=	7.7
+DEF[L1]=		DGA X11PERF XGC XKBUTILS
+DEF[L2]=		APPRES XCONSOLE XINFO XDRIINFO XEV XLSATOMS XLSCLIENTS XPROP XVINFO XWININFO
+DEF[L3]=		XINPUT XKBCOMP XKBMAP XKBEVD XMODMAP XSETMODE
+DEF[L4]=		BITMAP ICEAUTH LUIT SESSREG SMPROXY TWM XAUTH
+DEF[L5]=		XBACKLIGHT XCALC XCLOCK XCMSDB XCURGEN XGAMMA XHOST
+DEF[L6]=		XINIT XKILL XMESSAGE XPR XRANDR XRDB XREFRESH XSET
+DEF[L7]=		XSETROOT XTERM XWD XWUD
+DEF[OPTIONS]=		${L1} ${L2} ${L3} ${L4} ${L5} ${L6} ${L7}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xorg-apps
@@ -13,57 +21,112 @@ DOWNLOAD_GROUPS=	none
 
 SPKGS[standard]=	single
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	${OPTIONS}
+OPTIONS_STANDARD=	${OPTIONS}
+OPT_ON[all]=		${OPTIONS}
+
+OPTGROUP_UNLIMITED=	INFOMON DEVICES DEMOS
+OPTDESCR[INFOMON]=	Information display applications
+OPTDESCR[DEVICES]=	Input device applications
+OPTDESCR[DEMOS]=	Test and demo applications
+OPTGROUP[INFOMON]=	${L2}
+OPTGROUP[DEVICES]=	${L3}
+OPTGROUP[DEMOS]=	${L1}
+
+[APPRES].DESCRIPTION=			Application resource usage display
+[BITMAP].DESCRIPTION=			Bitmap editor and converter
+[DGA].DESCRIPTION=			XFree86-DGA extension tester
+[ICEAUTH].DESCRIPTION=			ICE authority utility
+[LUIT].DESCRIPTION=			Locales for unicode terminals
+[SESSREG].DESCRIPTION=			Manager for xdm sessions
+[SMPROXY].DESCRIPTION=			Proxy provider for X11R6 sessions
+[TWM].DESCRIPTION=			Tab window manager
+[X11PERF].DESCRIPTION=			X11 server performance tester
+[XAUTH].DESCRIPTION=			X authority utility
+[XBACKLIGHT].DESCRIPTION=		Backlight adjustment tool
+[XCALC].DESCRIPTION=			Scientific calculator
+[XCLOCK].DESCRIPTION=			Clock (analog or digital)
+[XCMSDB].DESCRIPTION=			Device color characterization utility
+[XCONSOLE].DESCRIPTION=			System console message monitor
+[XCURGEN].DESCRIPTION=			Cursor generation tool
+[XDRIINFO].DESCRIPTION=			DRI driver information query tool
+[XEV].DESCRIPTION=			X events monitor
+[XGAMMA].DESCRIPTION=			Gamma correction tool
+[XGC].DESCRIPTION=			X graphics demo
+[XHOST].DESCRIPTION=			X server access control tool
+[XINFO].DESCRIPTION=			X server information display
+[XINIT].DESCRIPTION=			X system initializer
+[XINPUT].DESCRIPTION=			Input device configuration tool
+[XKBCOMP].DESCRIPTION=			Keyboard layout compiler
+[XKBMAP].DESCRIPTION=			Keyboard layout selector
+[XKBEVD].DESCRIPTION=			Keyboard event daemon
+[XKBUTILS].DESCRIPTION=			Keyboard utilities demo
+[XKILL].DESCRIPTION=			Client connection kill tool
+[XLSATOMS].DESCRIPTION=			Interned atoms list display
+[XLSCLIENTS].DESCRIPTION=		Connected clients information display
+[XMESSAGE].DESCRIPTION=			Message and query display tool
+[XMODMAP].DESCRIPTION=			Key and pointer button mapping tool
+[XPR].DESCRIPTION=			Utility to print X window dump
+[XRANDR].DESCRIPTION=			CLI interface to RandR extension
+[XPROP].DESCRIPTION=			Window and font properties display
+[XRDB].DESCRIPTION=			X server resource database utility
+[XREFRESH].DESCRIPTION=			Tool to refresh part or all of screen
+[XSET].DESCRIPTION=			Tool to set user preferences
+[XSETMODE].DESCRIPTION=			Tool to set input device mode
+[XSETROOT].DESCRIPTION=			Tool to set parameters of background window
+[XTERM].DESCRIPTION=			Terminal emulator
+[XVINFO].DESCRIPTION=			X-Video adapter information display
+[XWD].DESCRIPTION=			X window dump tool
+[XWININFO].DESCRIPTION=			X window information display
+[XWUD].DESCRIPTION=			Image display tool
+
+[APPRES].RUN_DEPENDS_ON=		xorg-appres:single:standard
+[BITMAP].RUN_DEPENDS_ON=		xorg-bitmap:single:standard
+[DGA].RUN_DEPENDS_ON=			xorg-xf86dga:single:standard
+[ICEAUTH].RUN_DEPENDS_ON=		xorg-iceauth:single:standard
+[LUIT].RUN_DEPENDS_ON=			xorg-luit:single:standard
+[SESSREG].RUN_DEPENDS_ON=		xorg-sessreg:single:standard
+[SMPROXY].RUN_DEPENDS_ON=		xorg-smproxy:single:standard
+[TWM].RUN_DEPENDS_ON=			xorg-twm:single:standard
+[X11PERF].RUN_DEPENDS_ON=		xorg-x11perf:single:standard
+[XAUTH].RUN_DEPENDS_ON=			xorg-xauth:single:standard
+[XBACKLIGHT].RUN_DEPENDS_ON=		xorg-xbacklight:single:standard
+[XCALC].RUN_DEPENDS_ON=			xorg-xcalc:single:standard
+[XCLOCK].RUN_DEPENDS_ON=		xorg-xclock:single:standard
+[XCMSDB].RUN_DEPENDS_ON=		xorg-xcmsdb:single:standard
+[XCONSOLE].RUN_DEPENDS_ON=		xorg-xconsole:single:standard
+[XCURGEN].RUN_DEPENDS_ON=		xorg-xcursorgen:single:standard
+[XDRIINFO].RUN_DEPENDS_ON=		xorg-xdriinfo:single:standard
+[XEV].RUN_DEPENDS_ON=			xorg-xev:single:standard
+[XGAMMA].RUN_DEPENDS_ON=		xorg-xgamma:single:standard
+[XGC].RUN_DEPENDS_ON=			xorg-xgc:single:standard
+[XHOST].RUN_DEPENDS_ON=			xorg-xhost:single:standard
+[XINFO].RUN_DEPENDS_ON=			xorg-xdpyinfo:single:standard
+[XINIT].RUN_DEPENDS_ON=			xinit:single:standard
+[XINPUT].RUN_DEPENDS_ON=		xorg-xinput:single:standard
+[XKBCOMP].RUN_DEPENDS_ON=		xorg-xkbcomp:single:standard
+[XKBMAP].RUN_DEPENDS_ON=		xorg-setxkbmap:single:standard
+[XKBEVD].RUN_DEPENDS_ON=		xorg-xkbevd:single:standard
+[XKBUTILS].RUN_DEPENDS_ON=		xorg-xkbutils:single:standard
+[XKILL].RUN_DEPENDS_ON=			xorg-xkill:single:standard
+[XLSATOMS].RUN_DEPENDS_ON=		xorg-xlsatoms:single:standard
+[XLSCLIENTS].RUN_DEPENDS_ON=		xorg-xlsclients:single:standard
+[XMESSAGE].RUN_DEPENDS_ON=		xorg-xmessage:single:standard
+[XMODMAP].RUN_DEPENDS_ON=		xorg-xmodmap:single:standard
+[XPR].RUN_DEPENDS_ON=			xorg-xpr:single:standard
+[XRANDR].RUN_DEPENDS_ON=		xrandr:single:standard
+[XPROP].RUN_DEPENDS_ON=			xorg-xprop:single:standard
+[XRDB].RUN_DEPENDS_ON=			xorg-xrdb:single:standard
+[XREFRESH].RUN_DEPENDS_ON=		xorg-xrefresh:single:standard
+[XSET].RUN_DEPENDS_ON=			xorg-xset:single:standard
+[XSETMODE].RUN_DEPENDS_ON=		xorg-xsetmode:single:standard
+[XSETROOT].RUN_DEPENDS_ON=		xorg-xsetroot:single:standard
+[XTERM].RUN_DEPENDS_ON=			xterm:single:standard
+[XVINFO].RUN_DEPENDS_ON=		xorg-xvinfo:single:standard
+[XWD].RUN_DEPENDS_ON=			xorg-xwd:single:standard
+[XWININFO].RUN_DEPENDS_ON=		xorg-xwininfo:single:standard
+[XWUD].RUN_DEPENDS_ON=			xorg-xwud:single:standard
 
 FPC_EQUIVALENT=		x11/xorg-apps
-
-RUN_DEPENDS=		xinit:single:standard
-			xorg-appres:single:standard
-			xorg-bitmap:single:standard
-			xorg-iceauth:single:standard
-			xorg-luit:single:standard
-			xorg-sessreg:single:standard
-			xorg-setxkbmap:single:standard
-			xorg-smproxy:single:standard
-			xorg-twm:single:standard
-			xorg-x11perf:single:standard
-			xorg-xauth:single:standard
-			xorg-xbacklight:single:standard
-			xorg-xcalc:single:standard
-			xorg-xclock:single:standard
-			xorg-xcmsdb:single:standard
-			xorg-xconsole:single:standard
-			xorg-xcursorgen:single:standard
-			xorg-xdpyinfo:single:standard
-			xorg-xdriinfo:single:standard
-			xorg-xev:single:standard
-			xorg-xf86dga:single:standard
-			xorg-xgamma:single:standard
-			xorg-xgc:single:standard
-			xorg-xhost:single:standard
-			xorg-xinput:single:standard
-			xorg-xkbcomp:single:standard
-			xorg-xkbevd:single:standard
-			xorg-xkbutils:single:standard
-			xorg-xkill:single:standard
-			xorg-xlsatoms:single:standard
-			xorg-xlsclients:single:standard
-			xorg-xmodmap:single:standard
-			xorg-xpr:single:standard
-			xorg-xprop:single:standard
-			xorg-xrdb:single:standard
-			xorg-xrefresh:single:standard
-			xorg-xset:single:standard
-			xorg-xsetmode:single:standard
-			xorg-xsetroot:single:standard
-			xorg-xvinfo:single:standard
-			xorg-xwd:single:standard
-			xorg-xwininfo:single:standard
-			xorg-xwud:single:standard
-			xorg-xmessage:single:standard
-			xrandr:single:standard
-			xterm:single:standard
-
 SKIP_BUILD=		yes
 SKIP_INSTALL=		yes
