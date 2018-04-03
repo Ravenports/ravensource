@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	1.1.4
+DEF[SOVERSION]=		1.0.0
+DEF[XNAME]=		xxf86dga
+DEF[ALTNAME]=		libXxf86dga
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-${XNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	XFree86 Direct Graphics Access Extension Library
+HOMEPAGE=		https://www.x.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		XORG/individual/lib
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xorg
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+RUN_DEPENDS=		xorg-xf86dgaproto:single:standard
+
+USES=			libtool cpe
+XORG_COMPONENTS=	x11 xext xf86dgaproto
+CPE_VENDOR=		x
+DISTNAME=		${ALTNAME}-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+FPC_EQUIVALENT=		x11/${ALTNAME}
+SOVERSION=		${SOVERSION}
