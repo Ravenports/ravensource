@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.113
+DEF[PORTVERSION]=	0.114
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		polkit
@@ -29,7 +29,7 @@ BUILD_DEPENDS=		docbook-xsl:primary:standard
 BUILDRUN_DEPENDS=	dbus:single:standard
 			expat:complete:standard
 			openpam:single:standard
-			spidermonkey-ff17:single:standard
+			spidermonkey:single:standard
 
 GNOME_COMPONENTS=	glib introspection libxslt
 USES=			gettext-tools gmake libtool pkgconfig python shebangfix
@@ -40,6 +40,7 @@ CONFIGURE_ARGS=		--with-authfw=pam
 			--with-mozjs=mozjs-17.0
 			--with-os-type={{OPSYS}}
 			--disable-libsystemd-login
+			--disable-libelogind
 			--disable-static
 			--enable-introspection=yes
 			--localstatedir=/var
