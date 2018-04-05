@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	1.4.49
+DEF[REVISION]=		1
 DEF[CACHEDIR]=		/var/cache/lighttpd
 DEF[LOGDIR]=		/var/log/lighttpd
 DEF[HOMEDIR]=		/var/run/lighttpd
@@ -6,6 +7,7 @@ DEF[HOMEDIR]=		/var/run/lighttpd
 
 NAMEBASE=		lighttpd
 VERSION=		${PORTVERSION}
+REVISION=		${REVISION}
 KEYWORDS=		www
 VARIANTS=		standard
 SDESC[standard]=	Lightweight high-performance web server
@@ -65,6 +67,7 @@ PLIST_SUB=		WWWOWN="wwwraven"
 
 RC_SUBR=		lighttpd:single
 SUB_LIST=		REQUIRE="DAEMON {{REQUIRES}}"
+			ETCDIR="{{PREFIX}}/etc/lighttpd"
 
 [LDAP].DESCRIPTION=			LDAP authentication (mod_authn_ldap)
 [LDAP].BUILDRUN_DEPENDS_ON=		openldap:client:standard
@@ -86,6 +89,7 @@ post-patch:
 	${REINPLACE_CMD} -E \
 		-e 's|^(server.document-root.*=).*|\1 "${PREFIX}/www" + "/data"|' \
 		-e "s|/etc/lighttpd|${PREFIX}/etc/lighttpd|g" \
+		-e 's|^(server.event-handler.*=).*|\1 "libev"|' \
 		-e 's|^(server.network-backend.*=).*|\1 "writev"|' \
 		-e "s|^(server.username.*=).*|\1 \"wwwraven\"|" \
 		-e "s|^(server.groupname.*=).*|\1 \"wwwraven\"|" \
