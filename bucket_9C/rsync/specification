@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	3.1.3
 
 NAMEBASE=		rsync
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net
 VARIANTS=		standard
 SDESC[standard]=	Network file distribution/synchronization utility
@@ -38,6 +39,9 @@ CONFIGURE_ARGS=		--disable-debug
 			--with-rsh=ssh
 INSTALL_TARGET=		install-strip
 TEST_TARGET=		check
+
+RC_SUBR=		rsyncd:single
+SUB_LIST=		NAME=rsyncd
 
 post-patch:
 	${REINPLACE_CMD} -e 's|perl.*|${DO_NADA}|' ${WRKSRC}/Makefile.in

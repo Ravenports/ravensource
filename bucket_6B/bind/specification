@@ -1,9 +1,9 @@
 DEF[PORTVERSION]=	9.12.1
-DEF[ETCDIR]=		etc/namedb
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		bind
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		dns net
 VARIANTS=		standard
 SDESC[standard]=	Berkeley Internet Name Domain (Domain Name Server)
@@ -41,7 +41,7 @@ CPE_VENDOR=		isc
 SINGLE_JOB=		yes
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--localstatedir=/var
-			--sysconfdir={{PREFIX}}/${ETCDIR}
+			--sysconfdir={{ETCDIR}}
 			--disable-linux-caps
 			--disable-symtable
 			--disable-dnstap
@@ -67,7 +67,7 @@ CONFIGURE_ARGS=		--localstatedir=/var
 RC_SUBR=		named:server
 SUB_FILES=		pkg-message-server
 			named.conf
-PLIST_SUB=		ETCDIR=${ETCDIR}
+PLIST_SUB=		ETCDIR={{BIND_ETCDIR}}
 
 [FILTER_AAAA].DESCRIPTION=		Enable filtering of AAAA records
 [FIXED_RRSET].DESCRIPTION=		Enable fixed rrset ordering
@@ -94,23 +94,23 @@ post-patch:
 		${WRKSRC}/configure
 
 post-install:
-	${MKDIR} ${STAGEDIR}${PREFIX}/${ETCDIR} \
+	${MKDIR} ${STAGEDIR}${ETCDIR} \
 		${STAGEDIR}${STD_DOCDIR}/arm
 .  for i in dynamic master slave working
-	@${MKDIR} ${STAGEDIR}${PREFIX}/${ETCDIR}/$i
+	@${MKDIR} ${STAGEDIR}${ETCDIR}/$i
 .  endfor
 	${INSTALL_DATA} ${WRKDIR}/named.conf \
-		${STAGEDIR}${PREFIX}/${ETCDIR}/named.conf.sample
+		${STAGEDIR}${ETCDIR}/named.conf.sample
 	${INSTALL_DATA} ${FILESDIR}/named.root \
-		${STAGEDIR}${PREFIX}/${ETCDIR}
+		${STAGEDIR}${ETCDIR}
 	${INSTALL_DATA} ${FILESDIR}/empty.db \
-		${STAGEDIR}${PREFIX}/${ETCDIR}/master
+		${STAGEDIR}${ETCDIR}/master
 	${INSTALL_DATA} ${FILESDIR}/localhost-forward.db \
-		${STAGEDIR}${PREFIX}/${ETCDIR}/master
+		${STAGEDIR}${ETCDIR}/master
 	${INSTALL_DATA} ${FILESDIR}/localhost-reverse.db \
-		${STAGEDIR}${PREFIX}/${ETCDIR}/master
+		${STAGEDIR}${ETCDIR}/master
 	${INSTALL_DATA} ${WRKSRC}/bin/rndc/rndc.conf \
-		${STAGEDIR}${PREFIX}/${ETCDIR}/rndc.conf.sample
+		${STAGEDIR}${ETCDIR}/rndc.conf.sample
 	${RM} -r ${STAGEDIR}/var
 
 	# documentation
