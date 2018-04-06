@@ -4,6 +4,7 @@ DEF[TAG]=		EXTRACT_INFO(LUMINA_RELEASE_TAG)
 
 NAMEBASE=		lumina-textedit
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		deskutils
 VARIANTS=		standard
 SDESC[standard]=	Plain-text editor from the Lumina Desktop
@@ -31,3 +32,8 @@ QMAKE_ARGS=		PREFIX="{{PREFIX}}"
 			LIBPREFIX="{{PREFIX}}/lib"
 			L_MANDIR="{{PREFIX}}/share/man"
 			CONFIG+=WITH_I18N
+
+post-patch:
+	${GREP} -rl "/usr/local" ${WRKDIR}/lumina-${TAG} | \
+		${XARGS} ${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|g'
+	${FIND} ${WRKDIR}/lumina-${TAG} -name "*.bak" -type f -delete
