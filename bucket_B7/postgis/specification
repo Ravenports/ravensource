@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.4.3
+DEF[PORTVERSION]=	2.4.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		postgis
@@ -30,9 +30,7 @@ BUILDRUN_DEPENDS=	pcre:shared:standard
 			geos:single:standard
 			gdal:single:standard
 			sfcgal:single:standard
-# postgis illegally using private object defintion
-# so compile without json support
-# |			json-c:single:standard
+			json-c:single:standard
 
 USES=			gmake iconv libtool:keepla perl:build pkgconfig
 			shebangfix gettext-tools gettext-runtime
@@ -47,7 +45,6 @@ CONFIGURE_ARGS=		{{ICONV_CONFIGURE_BASE}}
 			--with-gui
 			--with-gdalconfig={{LOCALBASE}}/bin/gdal-config
 			--with-sfcgal={{LOCALBASE}}/bin/sfcgal-config
-			--without-json
 PLIST_SUB=		VERSION=${PORTVERSION}
 			XDOTY=${PORTVERSION:R}
 
