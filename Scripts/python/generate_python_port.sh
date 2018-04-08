@@ -4,6 +4,9 @@
 # then creates/overwrites the source port after querying the website
 # and downloading the latest tarball for querying setup.py
 #
+# requires: python-six:py27
+#           python-funcsigs:py27
+#           python-mock-single-py27
 
 [ -n "${DEBUG_MK_SCRIPTS}" -o -n "${DEBUG_MK_SCRIPTS_MAKESUM}" ] && set -x
 
@@ -18,8 +21,7 @@ if [ $# -lt 1 ]; then
    usage;
 fi
 
-EXEPERL=/usr/local/bin/perl
-#PATH=${PATH}:/raven/bin
+EXEPERL=perl
 VERSION=unset
 MD5SUM=unset
 tarball=unset
