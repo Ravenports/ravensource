@@ -12,6 +12,7 @@ DEF[CERTDATA_PATH]=	{{WRKSRC}}/lib/ckfw/builtins/certdata.txt
 
 NAMEBASE=		nss
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Application security development libraries
@@ -100,7 +101,8 @@ do-install:
 	${INSTALL_SCRIPT} ${WRKDIR}/nss-config ${STAGEDIR}${PREFIX}/bin
 	${INSTALL_DATA} ${WRKDIR}/nss.pc ${STAGEDIR}${PREFIX}/lib/pkgconfig
 	# CA ROOT CERT
-	${INSTALL_DATA} ${WRKDIR}/ca-root-nss.crt ${STAGEDIR}${PREFIX}/${CERTDIR}
+	${INSTALL_DATA} ${WRKDIR}/ca-root-nss.crt \
+		${STAGEDIR}${PREFIX}/${CERTDIR}
 	${INSTALL_DATA} ${WRKDIR}/ca-root-nss.crt \
 		${STAGEDIR}${PREFIX}/etc/ssl/cert.pem.sample
 	${INSTALL_DATA} ${WRKDIR}/ca-root-nss.crt \
@@ -108,5 +110,5 @@ do-install:
 
 post-install-ETCSYMLINK-ON:
 	@${MKDIR} ${STAGEDIR}/etc/ssl
-	${LN} -sf ../../${CERTDIR}/ca-root-nss.crt \
+	${LN} -sf ${PREFIX}/${CERTDIR}/ca-root-nss.crt \
 		${STAGEDIR}/etc/ssl/cert.pem
