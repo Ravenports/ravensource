@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	3.5.2
+DEF[SOVERSION]=		15.0.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		protobuf
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Google's data interchange format
+HOMEPAGE=		https://github.com/google/protobuf
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/google:protobuf:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/protobuf
+
+USES=			autoreconf gmake libtool pkgconfig c++:single
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+CFLAGS=			-DGOOGLE_PROTOBUF_NO_RTTI
+SOVERSION=		${SOVERSION}
+
+post-patch:
+	${REINPLACE_CMD} -e 's|^check-local:|disabled-&|' \
+		${WRKSRC}/Makefile.am
+	${REINPLACE_CMD} -Ee '/gtest|mock/ s|[^ ]*lib(.*)\.la|-l\1|' \
+		${WRKSRC}/src/Makefile.am
