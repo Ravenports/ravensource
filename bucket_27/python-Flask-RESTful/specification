@@ -1,0 +1,59 @@
+DEF[PORTVERSION]=	0.3.6
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-Flask-RESTful
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py27 py35 py36
+SDESC[py27]=		Simple framework for creating REST APIs (PY 27)
+SDESC[py35]=		Simple framework for creating REST APIs (PY 35)
+SDESC[py36]=		Simple framework for creating REST APIs (PY 36)
+HOMEPAGE=		https://www.github.com/flask-restful/flask-restful/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/F/Flask-RESTful
+DISTFILE[1]=		Flask-RESTful-0.3.6.tar.gz:main
+
+SPKGS[py27]=		single
+SPKGS[py35]=		single
+SPKGS[py36]=		single
+
+OPTIONS_AVAILABLE=	PY27 PY35 PY36
+OPTIONS_STANDARD=	none
+VOPTS[py27]=		PY27=ON PY35=OFF PY36=OFF
+VOPTS[py35]=		PY27=OFF PY35=ON PY36=OFF
+VOPTS[py36]=		PY27=OFF PY35=OFF PY36=ON
+
+LICENSE=		BSDGROUP:single
+LICENSE_FILE=		BSDGROUP:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+GENERATED=		yes
+
+# install_requires extracted from setup.py (using python 2.7)
+# aniso8601>=0.82
+# Flask>=0.8
+# six>=1.3.0
+# pytz
+
+DISTNAME=		Flask-RESTful-${PORTVERSION}
+
+[PY27].USES_ON=				python:py27
+[PY27].BUILDRUN_DEPENDS_ON=		python-aniso8601:single:py27
+					python-Flask:single:py27
+					python-six:single:py27
+					python-pytz:single:py27
+
+[PY35].USES_ON=				python:py35
+[PY35].BUILDRUN_DEPENDS_ON=		python-aniso8601:single:py35
+					python-Flask:single:py35
+					python-six:single:py35
+					python-pytz:single:py35
+
+[PY36].USES_ON=				python:py36
+[PY36].BUILDRUN_DEPENDS_ON=		python-aniso8601:single:py36
+					python-Flask:single:py36
+					python-six:single:py36
+					python-pytz:single:py36
+
