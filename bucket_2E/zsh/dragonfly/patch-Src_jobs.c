@@ -1,6 +1,6 @@
---- Src/jobs.c.orig	2015-08-16 18:44:40 UTC
+--- Src/jobs.c.orig	2018-03-25 16:45:17 UTC
 +++ Src/jobs.c
-@@ -687,15 +687,15 @@ printtime(struct timeval *real, child_ti
+@@ -694,15 +694,15 @@ printtime(struct timeval *real, child_ti
      /* go ahead and compute these, since almost every TIMEFMT will have them */
      elapsed_time = real->tv_sec + real->tv_usec / 1000000.0;
  
@@ -19,7 +19,7 @@
  	user_time    = ti->ut / (double) clktck;
  	system_time  = ti->st / (double) clktck;
  	percent      =  100.0 * (ti->ut + ti->st)
-@@ -791,7 +791,7 @@ printtime(struct timeval *real, child_ti
+@@ -832,7 +832,7 @@ printtime(struct timeval *real, child_ti
  #endif
  #ifdef HAVE_STRUCT_RUSAGE_RU_MAXRSS
  	    case 'M':
