@@ -1,19 +1,19 @@
 DEF[PORTVERSION]=	5.2.0
 # ------------------------------------------------------------------------
 
-NAMEBASE=		ruby-activerecord
+NAMEBASE=		ruby-activestorage
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v23 v24 v25
-SDESC[v23]=		Object-relational mapper framework (part of  (v23)
-SDESC[v24]=		Object-relational mapper framework (part of  (v24)
-SDESC[v25]=		Object-relational mapper framework (part of  (v25)
+SDESC[v23]=		Local and cloud file storage framework. (v23)
+SDESC[v24]=		Local and cloud file storage framework. (v24)
+SDESC[v25]=		Local and cloud file storage framework. (v25)
 HOMEPAGE=		http://rubyonrails.org
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		activerecord-5.2.0.gem:main
+DISTFILE[1]=		activestorage-5.2.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v23]=		single
@@ -29,24 +29,24 @@ VOPTS[v25]=		RUBY23=OFF RUBY24=OFF RUBY25=ON
 GENERATED=		yes
 
 # Requirements specified by gem dependency --remote --version command
-#   activemodel (= 5.2.0)
-#   activesupport (= 5.2.0)
-#   arel (>= 9.0)
+#   actionpack (= 5.2.0)
+#   activerecord (= 5.2.0)
+#   marcel (~> 0.3.1)
 
-DISTNAME=		activerecord-${PORTVERSION}
+DISTNAME=		activestorage-${PORTVERSION}
 
 [RUBY23].USES_ON=			gem:v23
-[RUBY23].BUILDRUN_DEPENDS_ON=		ruby-activemodel:single:v23
-					ruby-activesupport:single:v23
-					ruby-arel:single:v23
+[RUBY23].BUILDRUN_DEPENDS_ON=		ruby-actionpack:single:v23
+					ruby-activerecord:single:v23
+					ruby-marcel:single:v23
 
 [RUBY24].USES_ON=			gem:v24
-[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-activemodel:single:v24
-					ruby-activesupport:single:v24
-					ruby-arel:single:v24
+[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-actionpack:single:v24
+					ruby-activerecord:single:v24
+					ruby-marcel:single:v24
 
 [RUBY25].USES_ON=			gem:v25
-[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-activemodel:single:v25
-					ruby-activesupport:single:v25
-					ruby-arel:single:v25
+[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-actionpack:single:v25
+					ruby-activerecord:single:v25
+					ruby-marcel:single:v25
 

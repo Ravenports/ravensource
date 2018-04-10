@@ -1,19 +1,19 @@
-DEF[PORTVERSION]=	5.2.0
+DEF[PORTVERSION]=	0.3.2
 # ------------------------------------------------------------------------
 
-NAMEBASE=		ruby-activejob
+NAMEBASE=		ruby-mimemagic
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v23 v24 v25
-SDESC[v23]=		Job framework with pluggable queues. (v23)
-SDESC[v24]=		Job framework with pluggable queues. (v24)
-SDESC[v25]=		Job framework with pluggable queues. (v25)
-HOMEPAGE=		http://rubyonrails.org
+SDESC[v23]=		Fast mime detection by extension or content (v23)
+SDESC[v24]=		Fast mime detection by extension or content (v24)
+SDESC[v25]=		Fast mime detection by extension or content (v25)
+HOMEPAGE=		https://github.com/minad/mimemagic
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		activejob-5.2.0.gem:main
+DISTFILE[1]=		mimemagic-0.3.2.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v23]=		single
@@ -29,20 +29,14 @@ VOPTS[v25]=		RUBY23=OFF RUBY24=OFF RUBY25=ON
 GENERATED=		yes
 
 # Requirements specified by gem dependency --remote --version command
-#   activesupport (= 5.2.0)
-#   globalid (>= 0.3.6)
+#   bacon (>= 0, development)
+#   rake (>= 0, development)
 
-DISTNAME=		activejob-${PORTVERSION}
+DISTNAME=		mimemagic-${PORTVERSION}
 
 [RUBY23].USES_ON=			gem:v23
-[RUBY23].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v23
-					ruby-globalid:single:v23
 
 [RUBY24].USES_ON=			gem:v24
-[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v24
-					ruby-globalid:single:v24
 
 [RUBY25].USES_ON=			gem:v25
-[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v25
-					ruby-globalid:single:v25
 
