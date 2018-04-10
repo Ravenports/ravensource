@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	5.5
 
 NAMEBASE=		zsh
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		shells
 VARIANTS=		standard
 SDESC[standard]=	Interactive Z Shell
@@ -56,7 +57,7 @@ INSTALL_REQ_TOOLCHAIN=	yes
 # note: --enable-zsh-mem causes lockup, at least on DF
 
 post-patch:
-	${RM} ${WRKSRC}/Completion/Unix/Type/_tar_archive.orig
+	${FIND} ${WRKSRC} -name "*.orig" -delete
 
 post-patch-freebsd:
 	# FreeBSD's clock_gettime(2) is in libc, not librt; see PR 167857
