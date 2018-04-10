@@ -26,3 +26,6 @@ DISTNAME=		${ALTNAME}-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
 FPC_EQUIVALENT=		x11/${ALTNAME}
+
+post-patch:
+	${REINPLACE_CMD} -e 's|linux*|nosys|g' ${WRKSRC}/configure
