@@ -1,5 +1,5 @@
 DEF[PORTVERSION]=	1.10.99.7
-DEF[ROLLING_TAG]=	256e9ff
+DEF[ROLLING_TAG]=	dec24aa
 DEF[SQLITE_VER]=	3.23.0
 DEF[SQLITE_LONGVER]=	${SQLITE_VER:S/.//:S/./0/}00
 DEF[SQLITE_YEAR]=	2018
@@ -7,7 +7,7 @@ DEF[SQLITE_YEAR]=	2018
 
 NAMEBASE=		pkg-bsd
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		raven
 VARIANTS=		standard
 SDESC[standard]=	BSD binary package manager
@@ -22,12 +22,12 @@ DISTFILE[1]=		generated:main
 DISTFILE[2]=		sqlite-autoconf-${SQLITE_LONGVER}.tar.gz:sqlite
 DF_INDEX=		1 2
 
-SPKGS[standard]=	single
+SPKGS[standard]=	shared static
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		BSD2CLAUSE:single
+LICENSE=		BSD2CLAUSE:shared
 LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
@@ -51,6 +51,7 @@ INSTALL_TARGET=		install-strip
 CFLAGS=			-Wno-error
 # debugging		-O0 -g
 SINGLE_JOB=		yes
+SUB_FILES=		pkg.c
 
 VAR_OPSYS[sunos]=	CFLAGS=-I{{LOCALBASE}}/include/bsd
 
@@ -81,10 +82,16 @@ post-patch-sunos:
 	${REINPLACE_CMD} -e '/enable-new-dtags/d' \
 		${WRKSRC}/src/Makefile.in
 
+post-build:
+	(cd ${WRKDIR} && ${CC} pkg.c -o pkg-selector)
+
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/sbin/pkg2ng
 	${MV} ${STAGEDIR}${PREFIX}/lib/libpkg_static.a \
 		${STAGEDIR}${PREFIX}/lib/libpkg.a
+	${MV} ${STAGEDIR}${PREFIX}/sbin/pkg \
+		${STAGEDIR}${PREFIX}/sbin/pkg-dynamic
+	${MV} ${WRKDIR}/pkg-selector ${STAGEDIR}${PREFIX}/sbin/pkg
 	${INSTALL_SCRIPT} ${WRKSRC}/scripts/periodic/411.pkg-backup \
 		${WRKSRC}/scripts/periodic/490.status-pkg-changes \
 		${STAGEDIR}${PREFIX}/etc/periodic/daily/
