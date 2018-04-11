@@ -1,5 +1,8 @@
 DEF[PORTVERSION]=	1.10.99.7
 DEF[ROLLING_TAG]=	9732e6a
+DEF[SQLITE_VER]=	3.23.0
+DEF[SQLITE_LONGVER]=	${SQLITE_VER:S/.//:S/./0/}00
+DEF[SQLITE_YEAR]=	2018
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		pkg-bsd
@@ -10,9 +13,13 @@ SDESC[standard]=	BSD binary package manager
 HOMEPAGE=		https://github.com/freebsd/pkg/blob/master/README.md
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main sqlite
 SITES[main]=		GITHUB/jrmarino:pkg:${ROLLING_TAG}
+SITES[sqlite]=		https://www.sqlite.org/${SQLITE_YEAR}/
+			http://www2.sqlite.org/${SQLITE_YEAR}/
 DISTFILE[1]=		generated:main
+DISTFILE[2]=		sqlite-autoconf-${SQLITE_LONGVER}.tar.gz:sqlite
+DF_INDEX=		1 2
 
 SPKGS[standard]=	complete shared static
 
@@ -41,9 +48,17 @@ CONFIGURE_ARGS=		--disable-maintainer-mode
 			--mandir={{MANPREFIX}}/man
 INSTALL_TARGET=		install-strip
 CFLAGS=			-Wno-error
+# debugging		-O0 -g
 SINGLE_JOB=		yes
 
 VAR_OPSYS[sunos]=	CFLAGS=-I{{LOCALBASE}}/include/bsd
+
+post-extract:
+	# Use a newer sqlite than the provided 3.15.2 version
+	(cd ${WRKDIR}/sqlite-autoconf-${SQLITE_LONGVER}/ && \
+		cp sqlite3.[ch] shell.c ${WRKSRC}/external/sqlite/)
+	${REINPLACE_CMD} -e 's|SQLITE_CDECL main|SQLITE_CDECL sqlite3_shell|'\
+		${WRKSRC}/external/sqlite/shell.c
 
 pre-patch:
 	${REINPLACE_CMD} -e 's/larchive/larchive-devel/' \
