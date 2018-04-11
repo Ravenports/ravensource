@@ -1,5 +1,5 @@
 DEF[PORTVERSION]=	1.10.99.7
-DEF[ROLLING_TAG]=	9732e6a
+DEF[ROLLING_TAG]=	256e9ff
 DEF[SQLITE_VER]=	3.23.0
 DEF[SQLITE_LONGVER]=	${SQLITE_VER:S/.//:S/./0/}00
 DEF[SQLITE_YEAR]=	2018
@@ -7,6 +7,7 @@ DEF[SQLITE_YEAR]=	2018
 
 NAMEBASE=		pkg-bsd
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		raven
 VARIANTS=		standard
 SDESC[standard]=	BSD binary package manager
@@ -21,12 +22,12 @@ DISTFILE[1]=		generated:main
 DISTFILE[2]=		sqlite-autoconf-${SQLITE_LONGVER}.tar.gz:sqlite
 DF_INDEX=		1 2
 
-SPKGS[standard]=	complete shared static
+SPKGS[standard]=	single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		BSD2CLAUSE:shared
+LICENSE=		BSD2CLAUSE:single
 LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
