@@ -1,0 +1,102 @@
+DEF[PORTVERSION]=	52.7.3
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		rustless-firefox
+VERSION=		${PORTVERSION}
+KEYWORDS=		www
+VARIANTS=		standard
+SDESC[standard]=	Legacy web browser built with Rust compiler
+HOMEPAGE=		https://www.mozilla.org/en-US/firefox/organizations/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://archive.mozilla.org/pub/firefox/releases/${PORTVERSION}esr/source/
+DISTFILE[1]=		firefox-${PORTVERSION}esr.source.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	DBUS
+OPTIONS_STANDARD=	DBUS
+OPT_ON[all]=		DBUS
+
+BROKEN[all]=		port is under development
+
+# FPC_EQUIVALENT=	started as www/firefox-esr, but this will expire
+
+BUILD_DEPENDS=		python-sqlite3:single:py27
+			video4linux:headers:standard
+			autoconf213:single:standard
+			bzip2:static:standard
+			yasm:single:standard
+			zip:single:standard
+BUILDRUN_DEPENDS=	nss:primary:standard
+			libevent:single:standard
+			harfbuff:primary:standard
+			libvorbis:primary:standard
+			libvpx:single:standard
+			libffi:single:standard
+			sqlite:single:standard
+			video4linux:primary:standard
+			hunspell:single:standard
+			icu:single:standard
+			bzip2:shared:standard
+			ffmpeg:primary:standard
+
+USES=			cpe gmake jpeg png pkgconfig zlib
+			perl:build python:py27,build desktop-utils
+XORG_COMPONENTS=	xcb pixman
+CPE_VENDOR=		mozilla
+MUST_CONFIGURE=		yes
+CONFIGURE_OUTSOURCE=	yes
+CONFIGURE_ARGS=		--prefix={{PREFIX:Q}}
+			--disable-rust
+			--disable-updater
+			--disable-optimize
+			--disable-gconf
+			--disable-libproxy
+			--disable-alsa
+			--disable-jack
+			--disable-pulseaudio
+			--disable-debug
+			--disable-debug-symbols
+			--disable-dtrace
+			--disable-profiling
+			--disable-tests
+			--enable-system-cairo
+			--enable-system-ffi
+			--enable-system-hunspell
+			--enable-system-pixman
+			--enable-system-sqlite
+			--with-system-libevent
+			--with-system-harfbuzz
+			--with-system-graphite2
+			--with-system-icu
+			--with-system-nss
+			--with-system-nspr
+			--with-system-vorbis
+			--with-system-libvpx
+			--with-system-zlib
+			--with-system-bz2
+			--with-system-jpeg={{LOCALBASE}}
+			--with-system-png={{LOCALBASE}}
+			--with-intl-api
+			--with-pthreads
+			--enable-release
+			--enable-chrome-format=omni
+			--enable-default-toolkit=cairo-gtk3
+			--enable-update-channel=esr
+			--enable-pie
+			--enable-strip
+			--enable-install-strip
+
+VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-jemalloc=4
+
+# review soundtouch (bsd.gecko.mk)
+
+[DBUS].DESCRIPTION=			D-Bus IPC system support
+[DBUS].CONFIGURE_ARGS_ON=		--enable-startup-notification
+[DBUS].CONFIGURE_ARGS_OFF=		--disable-dbus
+[DBUS].BUILDRUN_DEPENDS_ON=		dbus:single:standard
+					startup-notification:single:standard
+					libnotify:single:standard
+
