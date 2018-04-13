@@ -45,15 +45,16 @@ BUILDRUN_DEPENDS=	nss:primary:standard
 USES=			cpe gmake jpeg png pkgconfig zlib
 			perl:build python:py27,build desktop-utils
 XORG_COMPONENTS=	xcb pixman
+GNOME_COMPONENTS=	gdkpixbuf gtk2 gtk3 gconf
 DISTNAME=		firefox-${PORTVERSION}esr
 CPE_VENDOR=		mozilla
 MUST_CONFIGURE=		yes
 CONFIGURE_OUTSOURCE=	yes
-CONFIGURE_ARGS=		--prefix={{PREFIX:Q}}
+# QMAKE_ARGS are repurposed
+QMAKE_ARGS=		--prefix={{PREFIX:Q}}
 			--disable-rust
 			--disable-updater
 			--disable-optimize
-			--disable-gconf
 			--disable-libproxy
 			--disable-alsa
 			--disable-jack
@@ -63,6 +64,7 @@ CONFIGURE_ARGS=		--prefix={{PREFIX:Q}}
 			--disable-dtrace
 			--disable-profiling
 			--disable-tests
+			--disable-webrtc
 			--enable-system-cairo
 			--enable-system-ffi
 			--enable-system-hunspell
@@ -86,6 +88,7 @@ CONFIGURE_ARGS=		--prefix={{PREFIX:Q}}
 			--enable-chrome-format=omni
 			--enable-default-toolkit=cairo-gtk3
 			--enable-update-channel=esr
+			--enable-gconf
 			--enable-pie
 			--enable-strip
 			--enable-install-strip
@@ -93,9 +96,13 @@ CONFIGURE_ARGS=		--prefix={{PREFIX:Q}}
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-jemalloc=4
 
 SUB_FILES=		firefox.desktop
+			pkg-install-single
+			pkg-deinstall-single
 SUB_LIST=		FIREFOX_ICON=firefox.png
 			MOZILLA=firefox
+			MOZILLA_BIN=firefox-bin
 			MOZILLA_NAME=Firefox
+			MOZDIR={{PREFIX}}/lib/firefox
 
 # review soundtouch (bsd.gecko.mk)
 
@@ -103,20 +110,57 @@ SUB_LIST=		FIREFOX_ICON=firefox.png
 [DBUS].CONFIGURE_ARGS_ON=		--enable-startup-notification
 [DBUS].CONFIGURE_ARGS_OFF=		--disable-dbus
 [DBUS].BUILDRUN_DEPENDS_ON=		dbus:single:standard
+					dbus-glib:primary:standard
 					startup-notification:single:standard
 					libnotify:primary:standard
 
 post-patch:
 	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
 		${WRKSRC}/browser/app/nsBrowserApp.cpp
+	${REINPLACE_CMD} -e 's|%%MOZILLA%%|firefox|g' \
+		${WRKSRC}/config/baseconfig.mk; \
+	${REINPLACE_CMD} -e 's|%%PREFIX%%|${PREFIX}|g ; \
+		s|%%LOCALBASE%%|${LOCALBASE}|g' \
+			${WRKSRC}/build/unix/run-mozilla.sh
+	${REINPLACE_CMD} -e 's|/usr/local/netscape|${LOCALBASE}|g ; \
+		s|/usr/local/lib/netscape|${LOCALBASE}/lib|g' \
+		${WRKSRC}/xpcom/io/SpecialSystemDirectory.cpp
+	${REINPLACE_CMD} -e 's|/etc|${PREFIX}&|g' \
+		${WRKSRC}/xpcom/build/nsXPCOMPrivate.h
+	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g' \
+		-e 's|mozilla/plugins|browser_plugins|g' \
+		-e 's|share/mozilla/extensions|lib/xpi|g' \
+		${WRKSRC}/xpcom/io/nsAppFileLocationProvider.cpp \
+		${WRKSRC}/toolkit/xre/nsXREDirProvider.cpp
+	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
+		${WRKSRC}/extensions/spellcheck/hunspell/*/mozHunspell.cpp
+	${REINPLACE_CMD} -Ee 's|-lc_r|-pthread|g ; \
+			s|-l?pthread|-pthread|g ; \
+			s|echo aout|echo elf|g ; \
+			s|/usr/X11R6|${LOCALBASE}|g' \
+		${WRKSRC}/js/src/Makefile.in \
+		${WRKSRC}/js/src/configure \
+		${WRKSRC}/configure
+
+	# set configuration
+	for arg in ${QMAKE_ARGS} ; do \
+		${ECHO_CMD} ac_add_options $$arg >> ${WRKSRC}/.mozconfig ; \
+	done
+	${ECHO_CMD} export MOZ_OBJDIR="${BUILD_WRKSRC}" \
+		>> ${WRKSRC}/.mozconfig
+
+
+post-patch-freebsd:
+	${ECHO_CMD} export MOZ_JEMALLOC4=1 >> ${WRKSRC}/.mozconfig
 
 pre-configure:
 	(cd ${WRKSRC} && ${LOCALBASE}/bin/autoconf-2.13)
 	(cd ${WRKSRC}/js/src/ && ${LOCALBASE}/bin/autoconf-2.13)
 
 post-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/share/pixmaps
-	${INSTALL_DATA} ${WRKDIR}/${MOZILLA}.desktop \
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/pixmaps \
+		${STAGEDIR}${PREFIX}/share/applications
+	${INSTALL_DATA} ${WRKDIR}/firefox.desktop \
 		${STAGEDIR}${PREFIX}/share/applications/
 	${LN} -sf ${PREFIX}/lib/firefox/browser/chrome/icons/default/default48.png \
 		${STAGEDIR}${PREFIX}/share/pixmaps/firefox.png
