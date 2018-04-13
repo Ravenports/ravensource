@@ -31,7 +31,7 @@ BUILD_DEPENDS=		python-sqlite3:single:py27
 			zip:single:standard
 BUILDRUN_DEPENDS=	nss:primary:standard
 			libevent:single:standard
-			harfbuff:primary:standard
+			harfbuzz:primary:standard
 			libvorbis:primary:standard
 			libvpx:single:standard
 			libffi:single:standard
@@ -45,6 +45,7 @@ BUILDRUN_DEPENDS=	nss:primary:standard
 USES=			cpe gmake jpeg png pkgconfig zlib
 			perl:build python:py27,build desktop-utils
 XORG_COMPONENTS=	xcb pixman
+DISTNAME=		firefox-${PORTVERSION}
 CPE_VENDOR=		mozilla
 MUST_CONFIGURE=		yes
 CONFIGURE_OUTSOURCE=	yes
@@ -98,5 +99,5 @@ VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-jemalloc=4
 [DBUS].CONFIGURE_ARGS_OFF=		--disable-dbus
 [DBUS].BUILDRUN_DEPENDS_ON=		dbus:single:standard
 					startup-notification:single:standard
-					libnotify:single:standard
+					libnotify:primary:standard
 
