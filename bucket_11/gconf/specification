@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	3.2.6
+DEF[SOVERSION]=		4.1.5
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gconf
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Configuration database system for GNOME
+HOMEPAGE=		http://projects.gnome.org/gconf/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/GConf/${PORTVERSION:R}
+DISTFILE[1]=		GConf-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome2
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL20:primary
+LICENSE_FILE=		LGPL20:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/gconf2
+
+BUILDRUN_DEPENDS=	dbus-glib:primary:standard
+			polkit:single:standard
+
+USES=			gmake libtool pkgconfig shebangfix
+GNOME_COMPONENTS=	introspection gtk3
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-gtk=3.0
+			--disable-gtk-doc
+			--with-html-dir={{PREFIX}}/share/doc
+SHEBANG_FILES=		gsettings/gsettings-schema-convert
+DISTNAME=		GConf-${PORTVERSION}
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/gconf/gconf.xml.system
