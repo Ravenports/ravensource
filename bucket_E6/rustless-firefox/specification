@@ -19,8 +19,6 @@ OPTIONS_AVAILABLE=	DBUS
 OPTIONS_STANDARD=	DBUS
 OPT_ON[all]=		DBUS
 
-# BROKEN[all]=		port is under development
-
 # FPC_EQUIVALENT=	started as www/firefox-esr, but this will expire
 
 BUILD_DEPENDS=		python-sqlite3:single:py27
@@ -33,6 +31,7 @@ BUILDRUN_DEPENDS=	nss:primary:standard
 			libevent:single:standard
 			harfbuzz:primary:standard
 			libvorbis:primary:standard
+			libogg:primary:standard
 			libvpx:single:standard
 			libffi:single:standard
 			sqlite:single:standard
@@ -54,7 +53,6 @@ CONFIGURE_OUTSOURCE=	yes
 QMAKE_ARGS=		--prefix={{PREFIX:Q}}
 			--disable-rust
 			--disable-updater
-			--disable-optimize
 			--disable-libproxy
 			--disable-alsa
 			--disable-jack
@@ -77,6 +75,7 @@ QMAKE_ARGS=		--prefix={{PREFIX:Q}}
 			--with-system-nss
 			--with-system-nspr
 			--with-system-vorbis
+			--with-system-ogg
 			--with-system-libvpx
 			--with-system-zlib
 			--with-system-bz2
@@ -88,10 +87,13 @@ QMAKE_ARGS=		--prefix={{PREFIX:Q}}
 			--enable-chrome-format=omni
 			--enable-default-toolkit=cairo-gtk3
 			--enable-update-channel=esr
+			--enable-optimize
 			--enable-gconf
 			--enable-pie
 			--enable-strip
 			--enable-install-strip
+			--enable-application=browser
+			--enable-official-branding
 
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-jemalloc=4
 
@@ -107,8 +109,8 @@ SUB_LIST=		FIREFOX_ICON=firefox.png
 # review soundtouch (bsd.gecko.mk)
 
 [DBUS].DESCRIPTION=			D-Bus IPC system support
-[DBUS].CONFIGURE_ARGS_ON=		--enable-startup-notification
-[DBUS].CONFIGURE_ARGS_OFF=		--disable-dbus
+[DBUS].QMAKE_ARGS_ON=			--enable-startup-notification
+[DBUS].QMAKE_ARGS_OFF=			--disable-dbus
 [DBUS].BUILDRUN_DEPENDS_ON=		dbus:single:standard
 					dbus-glib:primary:standard
 					startup-notification:single:standard
@@ -141,17 +143,30 @@ post-patch:
 		${WRKSRC}/js/src/Makefile.in \
 		${WRKSRC}/js/src/configure \
 		${WRKSRC}/configure
+	${REINPLACE_CMD} -Ee '/^MOZ_FIX_LINK_PATHS=/ s|"|"-Wl,-rpath,${PREFIX}/lib/firefox |' \
+		${WRKSRC}/js/src/old-configure.in \
+		${WRKSRC}/old-configure.in
 
 	# set configuration
 	for arg in ${QMAKE_ARGS} ; do \
 		${ECHO_CMD} ac_add_options $$arg >> ${WRKSRC}/.mozconfig ; \
 	done
-	${ECHO_CMD} export MOZ_OBJDIR="${BUILD_WRKSRC}" \
+	${ECHO_CMD} mk_add_options MOZ_OBJDIR="${BUILD_WRKSRC}" \
 		>> ${WRKSRC}/.mozconfig
+	${ECHO_CMD} export MOZ_OPTIMIZE_FLAGS="-O${OPTIMIZER_LEVEL}" \
+		>> ${WRKSRC}/.mozconfig
+	${ECHO_CMD} export PERL="${PERL}" >> ${WRKSRC}/.mozconfig
 
 
 post-patch-freebsd:
 	${ECHO_CMD} export MOZ_JEMALLOC4=1 >> ${WRKSRC}/.mozconfig
+
+	# API keys from www/chromium
+	# http://www.chromium.org/developers/how-tos/api-keys
+	# Note: these are for FreeBSD use ONLY. For another distribution,
+	# please obtain its key instead.
+	${ECHO_CMD} export MOZ_GOOGLE_API_KEY=AIzaSyBsp9n41JLW8jCokwn7vhoaMejDFRd1mp8 \
+		>> ${WRKSRC}/.mozconfig
 
 pre-configure:
 	(cd ${WRKSRC} && ${LOCALBASE}/bin/autoconf-2.13)
