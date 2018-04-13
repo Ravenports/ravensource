@@ -19,7 +19,7 @@ OPTIONS_AVAILABLE=	DBUS
 OPTIONS_STANDARD=	DBUS
 OPT_ON[all]=		DBUS
 
-BROKEN[all]=		port is under development
+# BROKEN[all]=		port is under development
 
 # FPC_EQUIVALENT=	started as www/firefox-esr, but this will expire
 
@@ -45,7 +45,7 @@ BUILDRUN_DEPENDS=	nss:primary:standard
 USES=			cpe gmake jpeg png pkgconfig zlib
 			perl:build python:py27,build desktop-utils
 XORG_COMPONENTS=	xcb pixman
-DISTNAME=		firefox-${PORTVERSION}
+DISTNAME=		firefox-${PORTVERSION}esr
 CPE_VENDOR=		mozilla
 MUST_CONFIGURE=		yes
 CONFIGURE_OUTSOURCE=	yes
@@ -92,6 +92,11 @@ CONFIGURE_ARGS=		--prefix={{PREFIX:Q}}
 
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-jemalloc=4
 
+SUB_FILES=		firefox.desktop
+SUB_LIST=		FIREFOX_ICON=firefox.png
+			MOZILLA=firefox
+			MOZILLA_NAME=Firefox
+
 # review soundtouch (bsd.gecko.mk)
 
 [DBUS].DESCRIPTION=			D-Bus IPC system support
@@ -101,3 +106,17 @@ VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-jemalloc=4
 					startup-notification:single:standard
 					libnotify:primary:standard
 
+post-patch:
+	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
+		${WRKSRC}/browser/app/nsBrowserApp.cpp
+
+pre-configure:
+	(cd ${WRKSRC} && ${LOCALBASE}/bin/autoconf-2.13)
+	(cd ${WRKSRC}/js/src/ && ${LOCALBASE}/bin/autoconf-2.13)
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/pixmaps
+	${INSTALL_DATA} ${WRKDIR}/${MOZILLA}.desktop \
+		${STAGEDIR}${PREFIX}/share/applications/
+	${LN} -sf ${PREFIX}/lib/firefox/browser/chrome/icons/default/default48.png \
+		${STAGEDIR}${PREFIX}/share/pixmaps/firefox.png
