@@ -29,8 +29,9 @@ FPC_EQUIVALENT=		devel/gconf2
 BUILDRUN_DEPENDS=	dbus-glib:primary:standard
 			polkit:single:standard
 
-USES=			gmake libtool pkgconfig shebangfix
-GNOME_COMPONENTS=	introspection gtk3
+USES=			gmake libtool pkgconfig shebangfix intltoolfix
+			gettext-tools
+GNOME_COMPONENTS=	intltool introspection orbit2 dconf
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-gtk=3.0
 			--disable-gtk-doc
@@ -38,6 +39,7 @@ CONFIGURE_ARGS=		--with-gtk=3.0
 SHEBANG_FILES=		gsettings/gsettings-schema-convert
 DISTNAME=		GConf-${PORTVERSION}
 INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
 
 post-install:
