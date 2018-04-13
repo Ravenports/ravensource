@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	0.110
+DEF[SOVERSION]=		2.3.4
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		dbus-glib
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	D-Bus GLib binding
+HOMEPAGE=		https://wiki.freedesktop.org/www/Software/DBusBindings/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://dbus.freedesktop.org/releases/dbus-glib/
+DISTFILE[1]=		dbus-glib-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/dbus-glib
+
+BUILD_DEPENDS=		expat:static:standard
+BUILDRUN_DEPENDS=	expat:shared:standard
+			dbus:single:standard
+
+USES=			cpe gmake libtool pkgconfig gettext-runtime
+			python:build
+GNOME_COMPONENTS=	glib
+CPE_VENDOR=		freedesktop
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-gtk-doc
+			--with-html-dir={{PREFIX}}/share/doc
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
