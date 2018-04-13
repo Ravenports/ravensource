@@ -14,7 +14,7 @@ SITES[main]=		GNOME/ORBit2/${PORTVERSION:R}
 DISTFILE[1]=		ORBit2-${PORTVERSION}.tar.bz2:main
 DIST_SUBDIR=		gnome2
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -22,11 +22,13 @@ OPTIONS_STANDARD=	none
 FPC_EQUIVALENT=		devel/ORBit2
 
 USES=			gmake libtool:keepla pkgconfig
-GNOME_COMPONENTS=	glib
+GNOME_COMPONENTS=	libidl
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-gtk-doc
 			--with-html-dir={{PREFIX}}/share/doc
 SINGLE_JOB=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+INSTALL_TARGET=		install-strip
 
 post-patch:
 	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
