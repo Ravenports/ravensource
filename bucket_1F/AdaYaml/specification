@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	0.3.0
+DEF[DEST]=		{{STAGEDIR}}{{PREFIX}}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		AdaYaml
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc ada
+VARIANTS=		standard
+SDESC[standard]=	Experimental YAML 1.3 implementation library
+HOMEPAGE=		https://ada.yaml.io/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/yaml:AdaYaml:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/copying.txt
+LICENSE_SCHEME=		solo
+
+# FPC_EQUIVALENT=		NONE
+
+USES=			gprbuild
+INSTALL_REQ_TOOLCHAIN=	yes
+
+do-build:
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -p -P yaml)
+
+do-install:
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprinstall -p \
+		--prefix=${DEST} \
+		--project-subdir=${DEST}/lib/gnat \
+		--sources-subdir=${DEST}/include/AdaYaml/yaml \
+		--lib-subdir=${DEST}/lib/AdaYaml/yaml \
+		yaml.gpr)
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/gnat/manifests
