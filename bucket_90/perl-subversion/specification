@@ -29,12 +29,15 @@ SINGLE_JOB=		yes
 [PERL_526].USES_ON=			perl:526
 [PERL_524].USES_ON=			perl:524
 
-
 BUILD_DEPENDS=		expat:static:standard
+			lz4:static:standard
+			utf8proc:single:standard
 BUILDRUN_DEPENDS=	expat:shared:standard
 			sqlite:single:standard
 			serf:single:standard
 			subversion:single:standard
+
+BROKEN[all]=		swigutil_pl.c:31:10: fatal error: EXTERN.h: No such file or directory
 
 USES=			cpe libtool pkgconfig zlib shebangfix
 CPE_VENDOR=		apache
