@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	2.1.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		utf8proc
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc devel
+VARIANTS=		standard
+SDESC[standard]=	UTF-8 processing library
+HOMEPAGE=		https://julialang.org/utf8proc/
+CONTACT=		Jay_Leno[jay@aarp.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/JuliaLang:utf8proc:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE.d
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		textproc/utf8proc
+
+USES=			gmake
+MAKE_ARGS=		prefix={{PREFIX}}
+SOVERSION=		${PORTVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libutf8proc.so
