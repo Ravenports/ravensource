@@ -37,8 +37,6 @@ BUILDRUN_DEPENDS=	expat:shared:standard
 			serf:single:standard
 			subversion:single:standard
 
-BROKEN[all]=		swigutil_pl.c:31:10: fatal error: EXTERN.h: No such file or directory
-
 USES=			cpe libtool pkgconfig zlib shebangfix
 CPE_VENDOR=		apache
 SHEBANG_OLD_PYTHON=	{{LOCALBASE}}/bin/python2
@@ -53,7 +51,6 @@ INSTALL_REQ_TOOLCHAIN=	yes
 MUST_CONFIGURE=		gnu
 MAKE_ARGS=		pkgconfig_dir={{PREFIX}}/lib/pkgconfig
 CONFIGURE_ARGS=		--without-swig
-			--with-serf
 			--with-sqlite={{LOCALBASE}}
 			--with-expat={{LOCALBASE}}/include:{{LOCALBASE}}/lib:expat
 			--with-apr={{LOCALBASE}}/bin/apr-1-config
@@ -61,6 +58,8 @@ CONFIGURE_ARGS=		--without-swig
 			--without-gnome-keyring
 			--without-kwallet
 			--with-apxs=no
+CFLAGS=			-I{{PREFIX}}/lib/perl5/{{PERL_VER}}/{{PERL_ARCH}}/CORE
+			-Isubversion/bindings/swig/proxy
 VAR_ARCH[x86_64]=	CFLAGS=-fpic
 			CFLAGS=-DPIC
 
@@ -73,16 +72,13 @@ post-patch:
 	${REINPLACE_CMD} "s#^swig_pydir =.*#swig_pydir = ${PYTHON_SITELIBDIR}/libsvn#" ${WRKSRC}/Makefile.in
 	${REINPLACE_CMD} "s#^swig_pydir_extra =.*#swig_pydir_extra = ${PYTHON_SITELIBDIR}/svn#" ${WRKSRC}/Makefile.in
 
-# |	# shebangfix
-# |	${FIND} ${WRKSRC}/tools/ -type f -exec ${GREP} -l -e '#!/bin/b' \
-# |		-e '#!/bin/env' -e '#!/usr/bin/p' {} + | \
-# |		${XARGS} ${REINPLACE_CMD} \
-# |		-e '1s|#\!/bin/b|#\!/usr/local/bin/b|' \
-# |		-e '1s|#\!/bin/env|#\!/usr/bin/env|' \
-# |		-e '1s|#\!/usr/bin/p|#\!/usr/local/bin/p|'
 	# remove all .bak files to clean the stage
 	${FIND} ${WRKSRC} -name '*.bak' -delete
 
 pre-install:
 	${REINPLACE_CMD} '/SWIG_PL_DIR/s, install$$, all pure_install,g' \
 		${WRKSRC}/Makefile
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libsvn_swig_perl-1.so
+	${STRIP_CMD} ${STAGEDIR}${SITE_ARCH}/auto/SVN/*/*.so
