@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	2.5.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		usb-modeswitch
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	USB mode switching tool
+HOMEPAGE=		http://www.draisberghof.de/usb_modeswitch
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.draisberghof.de/usb_modeswitch/
+DISTFILE[1]=		usb-modeswitch-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		sysutils/usb_modeswitch
+
+ONLY_FOR_OPSYS=		freebsd
+# Everything else is untested; Linux needs more work
+
+USES=			gmake
+RUN_DEPENDS=		usb-modeswitch-data:single:standard
+BR_DEPS[linux]=		libusb:single:standard
+DISTNAME=		usb-modeswitch-${PORTVERSION}
+
+post-patch:
+	${REINPLACE_CMD} 's|`pkg-config --libs --cflags libusb-1.0`|-lusb|' ${WRKSRC}/Makefile
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/usb_modeswitch ${STAGEDIR}${PREFIX}/sbin
+	${INSTALL_DATA} ${WRKSRC}/usb_modeswitch.conf ${STAGEDIR}${PREFIX}/etc/usb_modeswitch.conf.sample
+	${MKDIR} -p ${STAGEDIR}${PREFIX}/man/man1
+	${INSTALL_MAN} ${WRKSRC}/usb_modeswitch.1 ${STAGEDIR}${PREFIX}/man/man1

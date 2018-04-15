@@ -1,0 +1,25 @@
+DEF[PORTVERSION]=	20170806
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		usb-modeswitch-data
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	Device data and rules for USB-ModeSwitch
+HOMEPAGE=		http://www.draisberghof.de/usb_modeswitch
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.draisberghof.de/usb_modeswitch/
+DISTFILE[1]=		usb-modeswitch-data-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+SKIP_BUILD=		yes
+
+do-install:
+	(cd ${WRKSRC}/usb_modeswitch.d && \
+		${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/share/usb-modeswitch)
