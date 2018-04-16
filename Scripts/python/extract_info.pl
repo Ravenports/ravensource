@@ -39,7 +39,9 @@ if (defined $ARGV[1] && $ARGV[1] ne "unset") {
 # print Dumper($meta_data);
 
 if (exists $info->{'home_page'}) {
-  $homepage = $info->{'home_page'};
+  if ($info->{'home_page'} ne "") {
+     $homepage = $info->{'home_page'};
+  }
 }
 
 my @slice = @{$meta_data->{'releases'}->{$focus_version}};
