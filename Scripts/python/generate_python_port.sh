@@ -47,6 +47,7 @@ raven_req3b=unset
 pathtoexec=$(realpath $0)
 thisdir=$(dirname ${pathtoexec})
 DEADLIST=${thisdir}/dead-homepage.list
+SUMOVER=${thisdir}/summary-override.list
 INHIBIT_VARIANTS=
 
 LANG=en_US.UTF-8
@@ -65,8 +66,29 @@ homepage_status()
 END { print (found) ? "dead" : "ok"}' ${DEADLIST}
 }
 
+summary_override()
+{
+   awk -vportname="${1}" -F"\t" '{ if (portname == $1) { print $2 ; exit 0 }}' ${SUMOVER}
+}
+
+arg_1() {
+  echo $1;
+}
+
+arg_2() {
+  echo $2
+}
+
+arg_3() {
+  echo $3
+}
+
+arg_4() {
+  echo $4
+}
+
 acquire_tarball_and_version() {
-   local www url summd5
+   local www url summd5 info
 
    www="https://pypi.python.org/pypi/${PYPINAME}/json"
    fetch -o ${JSONFILE} ${www}
@@ -74,13 +96,15 @@ acquire_tarball_and_version() {
       echo "'${PYPINAME}' doesn't seem to be a valid package name"
       exit 1;
    fi
-   if [ "${VERSION}" == "unset" ]; then
-      VERSION=$(awk -F'"' '/"version":/ { print $4 }' ${JSONFILE})
+   info=$(${EXEPERL} extract_info.pl ${JSONFILE} ${VERSION})
+   VERSION=$(arg_1 $info)
+   MD5SUM=$(arg_2 $info)
+   tarball=$(arg_3 $info)
+   homepage=$(arg_4 $info)
+   summary=$(summary_override "${PYPINAME}")
+   if [ -z "$summary" ]; then
+      summary=$(${EXEPERL} extract_summary.pl ${JSONFILE})
    fi
-   MD5SUM=$(awk -v version=${VERSION} -v seek="md5_digest" -f ${thisdir}/md5.awk ${JSONFILE})
-   tarball=$(awk -v version=${VERSION} -v seek="filename" -f ${thisdir}/md5.awk ${JSONFILE})
-   summary=$(${EXEPERL} extract_summary.pl ${JSONFILE})
-   homepage=$(${EXEPERL} extract_homepage.pl ${JSONFILE})
 
    if [ -z "${MD5SUM}" -o -z "${tarball}" ]; then
       echo "No file or md5 sum for version ${VERSION} available"
@@ -239,7 +263,7 @@ create_description() {
       fold -s -w75 | sed 's/[[:blank:]]*$//' > ${NEWPORT}/descriptions/desc.single
    desc1=$(/usr/bin/head -1 ${NEWPORT}/descriptions/desc.single)
    if [ "${desc1}" = "UNKNOWN" ]; then
-      get_description | awk 'NR <= 100' | fold -s -w75 |\
+      exec_setup ${FIRST_SNAKE} --description | awk 'NR <= 100' | fold -s -w75 |\
          sed 's/[[:blank:]]*$//' > ${NEWPORT}/descriptions/desc.single
    fi
 }
