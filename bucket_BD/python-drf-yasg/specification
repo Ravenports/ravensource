@@ -1,0 +1,72 @@
+DEF[PORTVERSION]=	1.6.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-drf-yasg
+VERSION=		${PORTVERSION}
+KEYWORDS=		python devel
+VARIANTS=		py35 py36
+SDESC[py35]=		Automated generation of real Swagger/OpenA (PY 35)
+SDESC[py36]=		Automated generation of real Swagger/OpenA (PY 36)
+HOMEPAGE=		https://github.com/axnsan12/drf-yasg
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/d/drf-yasg
+DISTFILE[1]=		drf-yasg-1.6.1.tar.gz:main
+
+SPKGS[py35]=		single
+SPKGS[py36]=		single
+
+OPTIONS_AVAILABLE=	PY35 PY36
+OPTIONS_STANDARD=	none
+VOPTS[py35]=		PY35=ON PY36=OFF
+VOPTS[py36]=		PY35=OFF PY36=ON
+
+LICENSE=		BSDGROUP:single
+LICENSE_FILE=		BSDGROUP:{{WRKSRC}}/LICENSE.rst
+LICENSE_SCHEME=		solo
+
+GENERATED=		yes
+
+# install_requires extracted from setup.py (using python 2.7)
+# coreapi>=2.3.3
+# coreschema>=0.0.4
+# openapi_codec>=1.3.2
+# ruamel.yaml>=0.15.34
+# inflection>=0.3.1
+# future>=0.16.0
+# six>=1.10.0
+# uritemplate>=3.0.0
+# djangorestframework>=3.7.7
+# Django>=1.11.7,<2.0;
+# Django>=1.11.7;
+# setuptools_scm==1.15.6
+
+DISTNAME=		drf-yasg-${PORTVERSION}
+
+[PY35].USES_ON=				python:py35
+[PY35].BUILDRUN_DEPENDS_ON=		python-coreapi:single:py35
+					python-coreschema:single:py35
+					python-openapi_codec:single:py35
+					python-ruamel.yaml:single:py35
+					python-inflection:single:py35
+					python-future:single:py35
+					python-six:single:py35
+					python-uritemplate:single:py35
+					python-djangorestframework:single:py35
+					python-Django:single:py35
+					python-setuptools_scm:single:py35
+
+[PY36].USES_ON=				python:py36
+[PY36].BUILDRUN_DEPENDS_ON=		python-coreapi:single:py36
+					python-coreschema:single:py36
+					python-openapi_codec:single:py36
+					python-ruamel.yaml:single:py36
+					python-inflection:single:py36
+					python-future:single:py36
+					python-six:single:py36
+					python-uritemplate:single:py36
+					python-djangorestframework:single:py36
+					python-Django:single:py36
+					python-setuptools_scm:single:py36
+

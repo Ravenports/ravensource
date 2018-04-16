@@ -1,0 +1,34 @@
+# manual
+DEF[PORTVERSION]=	0.15.37
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-ruamel.yaml
+VERSION=		${PORTVERSION}
+KEYWORDS=		python devel textproc
+VARIANTS=		py27 py35 py36
+SDESC[py27]=		YAML 1.2 parser/emitter (PY 27)
+SDESC[py35]=		YAML 1.2 parser/emitter (PY 35)
+SDESC[py36]=		YAML 1.2 parser/emitter (PY 36)
+HOMEPAGE=		https://bitbucket.org/ruamel/yaml
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/r/ruamel.yaml
+DISTFILE[1]=		ruamel.yaml-${PORTVERSION}.tar.gz:main
+
+SPKGS[py27]=		single
+SPKGS[py35]=		single
+SPKGS[py36]=		single
+
+OPTIONS_AVAILABLE=	PY27 PY35 PY36
+OPTIONS_STANDARD=	none
+VOPTS[py27]=		PY27=ON PY35=OFF PY36=OFF
+VOPTS[py35]=		PY27=OFF PY35=ON PY36=OFF
+VOPTS[py36]=		PY27=OFF PY35=OFF PY36=ON
+
+GENERATED=		yes
+DISTNAME=		ruamel.yaml-${PORTVERSION}
+
+[PY27].USES_ON=				python:py27
+[PY35].USES_ON=				python:py35
+[PY36].USES_ON=				python:py36
