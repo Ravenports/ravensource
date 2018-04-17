@@ -61,6 +61,9 @@ while read ravenport version fpc_port; do
 	qt5-qtbase) ;;		# FreeBSD splits these packages into sep one
 	qt5-qttools) ;;		#
 	qt5-qtdeclarative) ;;	#
+	
+	usb-modeswitch-data) ;;	# combined with sysutils/usb_modeswitch
+	rustless-firefox) ;;	# currently like www/firefox-esr, but RP is frozen
 
 	libadalang) ;;		# Rest are ports that FPC doesn't have yet
 	libtickit) ;;
@@ -75,7 +78,9 @@ while read ravenport version fpc_port; do
 	gnatcross*) ;;
 	edelib) ;;
 	openpam) ;;
-	libepubgen | libqxp) ;;		# expected soon
+	AdaYaml) ;;
+	libuuid) ;;
+	spidermonkey) ;;		# check occasionally
 	*) echo "${ravenport} ${version}"
    esac
 done < ${tmpfile}
