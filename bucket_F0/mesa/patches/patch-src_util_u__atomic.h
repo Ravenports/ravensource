@@ -1,6 +1,6 @@
---- src/util/u_atomic.h.orig	2018-01-18 21:30:29 UTC
+--- src/util/u_atomic.h.orig	2018-04-18 14:47:54 UTC
 +++ src/util/u_atomic.h
-@@ -19,11 +19,7 @@
+@@ -20,11 +20,7 @@
   * locally coded assembly, compiler intrinsic or ultimately a
   * mutex-based implementation.
   */

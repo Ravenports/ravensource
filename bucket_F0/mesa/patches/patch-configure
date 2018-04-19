@@ -1,6 +1,6 @@
---- configure.orig	2018-01-18 21:30:38 UTC
+--- configure.orig	2018-04-18 14:48:02 UTC
 +++ configure
-@@ -21380,7 +21380,7 @@ LDFLAGS=$save_LDFLAGS
+@@ -21522,7 +21522,7 @@ LDFLAGS=$save_LDFLAGS
  
  
  case "$host_os" in
@@ -9,7 +9,7 @@
      LD_NO_UNDEFINED="" ;;
  *)
      if test "x$enable_sanitize" = xno; then
-@@ -23351,7 +23351,7 @@ fi
+@@ -23528,7 +23528,7 @@ fi
  
  
  case "$host_os" in
@@ -18,27 +18,7 @@
      dri3_default=yes
      ;;
  *)
-@@ -27071,9 +27071,19 @@ if test "x$enable_opencl" = xyes; then
-         as_fn_error $? "cannot enable OpenCL without Gallium" "$LINENO" 5
-     fi
- 
-+    if test "x$acv_mesa_CLANG" = xno; then
-+
-+    GCC_VERSION=`$CC -dumpversion`
-+    if test $? -eq 0; then
-+        GCC_VERSION_MAJOR=`echo $GCC_VERSION | cut -d. -f1`
-+        GCC_VERSION_MINOR=`echo $GCC_VERSION | cut -d. -f2`
-+    fi
-+
-     if test $GCC_VERSION_MAJOR -lt 4 -o $GCC_VERSION_MAJOR -eq 4 -a $GCC_VERSION_MINOR -lt 7; then
-         as_fn_error $? "gcc >= 4.7 is required to build clover" "$LINENO" 5
-     fi
-+# end of clang test.
-+    fi
- 
-     if test "x$have_libclc" = xno; then
-         as_fn_error $? "pkg-config cannot find libclc.pc which is required to build clover.
-@@ -27139,9 +27149,6 @@ rm -f core conftest.err conftest.$ac_obj
+@@ -27316,9 +27316,6 @@ rm -f core conftest.err conftest.$ac_obj
          CLANG_LIBDIR=${LLVM_LIBDIR}
      fi
      CLANG_RESOURCE_DIR=$CLANG_LIBDIR/clang/${LLVM_VERSION}
@@ -48,7 +28,7 @@
  fi
   if test "x$enable_opencl" = xyes; then
    HAVE_CLOVER_TRUE=
-@@ -28445,7 +28452,7 @@ if test "x$enable_llvm" = xyes; then
+@@ -28643,7 +28640,7 @@ if test "x$enable_llvm" = xyes; then
      LLVM_CXXFLAGS=`strip_unwanted_llvm_flags "$LLVM_CONFIG --cxxflags"`
  
  
@@ -57,7 +37,7 @@
          if test "x$enable_llvm_shared_libs" = xyes; then
              LLVM_LIBS="`$LLVM_CONFIG --link-shared --libs ${LLVM_COMPONENTS}`"
          else
-@@ -28459,7 +28466,7 @@ if test "x$enable_llvm" = xyes; then
+@@ -28657,7 +28654,7 @@ if test "x$enable_llvm" = xyes; then
          else
              { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Building mesa with statically linked LLVM may cause compilation issues" >&5
  $as_echo "$as_me: WARNING: Building mesa with statically linked LLVM may cause compilation issues" >&2;}

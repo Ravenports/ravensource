@@ -6,7 +6,7 @@
 ic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5c_strEv' can not be used when making a shared object; recompile with -fPIC
 # /usr/bin/ld: final link failed: Bad value
 #
---- src/gallium/state_trackers/clover/llvm/invocation.cpp.orig	2018-01-18 21:30:28 UTC
+--- src/gallium/state_trackers/clover/llvm/invocation.cpp.orig	2018-04-18 14:47:54 UTC
 +++ src/gallium/state_trackers/clover/llvm/invocation.cpp
 @@ -93,6 +93,8 @@ namespace {
        return ctx;

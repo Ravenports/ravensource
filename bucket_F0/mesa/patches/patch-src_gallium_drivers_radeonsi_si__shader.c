@@ -1,7 +1,7 @@
---- src/gallium/drivers/radeonsi/si_shader.c.orig	2018-01-18 21:30:28 UTC
+--- src/gallium/drivers/radeonsi/si_shader.c.orig	2018-04-18 14:47:54 UTC
 +++ src/gallium/drivers/radeonsi/si_shader.c
-@@ -26,6 +26,10 @@
-  *      Christian König <christian.koenig@amd.com>
+@@ -21,6 +21,10 @@
+  * USE OR OTHER DEALINGS IN THE SOFTWARE.
   */
  
 +#ifdef __sun__
