@@ -1,6 +1,6 @@
---- src/unix/fs.c.orig	2018-01-19 20:17:23 UTC
+--- src/unix/fs.c.orig	2018-04-18 13:18:43 UTC
 +++ src/unix/fs.c
-@@ -259,7 +259,15 @@ skip:
+@@ -258,7 +258,15 @@ skip:
  
  
  static ssize_t uv__fs_mkdtemp(uv_fs_t* req) {
