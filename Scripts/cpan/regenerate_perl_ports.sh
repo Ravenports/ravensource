@@ -266,7 +266,7 @@ generate_ravensource()
          fetch ${base_url}/META.json -o ${meta_json} 2>/dev/null
          if [ $? -eq 0 ]; then
             echo "Retrieved meta.json for ${port_name}"
-            perl ${thisdir}/write_port_from_json.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${meta_json}" ${hp_status} ${distgood} "${sumover}" "{descover}"
+            perl ${thisdir}/write_port_from_json.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${meta_json}" ${hp_status} ${distgood} "${sumover}" "${descover}"
             result=$?
          else
             fetch ${base_url}/META.yml -o ${meta_yaml} 2>/dev/null

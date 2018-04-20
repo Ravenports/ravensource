@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.205002
+DEF[PORTVERSION]=	0.206000
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Dancer2
@@ -12,7 +12,7 @@ CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:C/CR/CROMEDOME
-DISTFILE[1]=		Dancer2-0.205002.tar.gz:main
+DISTFILE[1]=		Dancer2-0.206000.tar.gz:main
 
 SPKGS[526]=		single
 
@@ -22,7 +22,7 @@ VOPTS[526]=		PERL_526=ON
 
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		Dancer2-0.205002
+DISTNAME=		Dancer2-0.206000
 
 # -----------------------------------------------
 # |   Prerequisites extracted from META.json
@@ -30,6 +30,7 @@ DISTNAME=		Dancer2-0.205002
 # |      runtime : App::Cmd::Setup
 # |      runtime : Attribute::Handlers (perl 5.26 core)
 # |      runtime : Carp (perl 5.26 core)
+# |      runtime : Clone
 # |      runtime : Config::Any
 # |      runtime : Digest::SHA (perl 5.26 core)
 # |      runtime : Encode (perl 5.26 core)
@@ -39,10 +40,9 @@ DISTNAME=		Dancer2-0.205002
 # |      runtime : File::Copy (perl 5.26 core)
 # |      runtime : File::Find (perl 5.26 core)
 # |      runtime : File::Path (perl 5.26 core)
-# |      runtime : File::ShareDir
+# |      runtime : File::Share
 # |      runtime : File::Spec (perl 5.26 core)
 # |      runtime : File::Temp (perl 5.26 core)
-# |      runtime : HTTP::Body
 # |      runtime : HTTP::Date
 # |      runtime : HTTP::Headers::Fast
 # |      runtime : HTTP::Tiny (perl 5.26 core)
@@ -88,12 +88,12 @@ DISTNAME=		Dancer2-0.205002
 # |      runtime : URL::Encode::XS
 # |      runtime : YAML::XS
 # |        build : ExtUtils::MakeMaker (perl 5.26 core)
+# |        build : Test::CPAN::Meta
 # |    configure : ExtUtils::MakeMaker (perl 5.26 core)
 # |    configure : File::ShareDir::Install
 # |         test : Capture::Tiny
 # |         test : ExtUtils::MakeMaker (perl 5.26 core)
 # |         test : File::Spec (perl 5.26 core)
-# |         test : HTTP::Body
 # |         test : HTTP::Cookies
 # |         test : HTTP::Headers
 # |         test : IO::Handle (perl 5.26 core)
@@ -106,12 +106,13 @@ DISTNAME=		Dancer2-0.205002
 # |         test : CPAN::Meta (perl 5.26 core)
 
 [PERL_526].USES_ON=			perl:526,configure
-[PERL_526].BUILD_DEPENDS_ON=		perl-File-ShareDir-Install:single:526
+[PERL_526].BUILD_DEPENDS_ON=		perl-Test-CPAN-Meta:single:526
+					perl-File-ShareDir-Install:single:526
 [PERL_526].BUILDRUN_DEPENDS_ON=		perl-App-Cmd:single:526
+					perl-Clone:single:526
 					perl-Config-Any:single:526
 					perl-Exporter-Tiny:single:526
-					perl-File-ShareDir:single:526
-					perl-HTTP-Body:single:526
+					perl-File-Share:single:526
 					perl-HTTP-Date:single:526
 					perl-HTTP-Headers-Fast:single:526
 					perl-HTTP-XSCookies:single:526
