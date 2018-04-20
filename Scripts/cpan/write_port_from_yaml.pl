@@ -7,6 +7,8 @@
 # argument 5: ravensource directory
 # argument 6: location of meta.yaml
 # argument 7: "ok" or "dead" (if not "ok", ignore homepage setting)
+# argument 8: summary override (normally blank)
+# argument 9: description override (normally blank)
 #
 
 use strict;
@@ -23,6 +25,8 @@ my $buildmech     = $ARGV[3];
 my $ravensource   = $ARGV[4];
 my $meta_yaml_loc = $ARGV[5];
 my $use_homepage  = $ARGV[6];
+my $sum_override  = $ARGV[7];
+my $des_override  = $ARGV[8];
 
 my $dir_queue   = "/tmp/cpan-work/build-queue";
 my $dir_done    = "/tmp/cpan-work/completed";
@@ -31,6 +35,7 @@ my $meta_data   = Parse::CPAN::Meta::LoadFile($meta_yaml_loc);
 my $portversion;
 my $distversion;
 my $shortdesc;
+my $longdesc;
 my $trunc_sdesc;
 my $distname;
 my $homepage    = "none";
@@ -92,10 +97,20 @@ sub get_namebase {
    }
 }
 
-if ((defined $meta_data->{'abstract'}) && ($meta_data->{'abstract'} ne "")) {
-   $shortdesc = $meta_data->{'abstract'};
+if ($sum_override ne "") {
+   $shortdesc = $sum_override;
 } else {
-   $shortdesc = "No description provided";
+  if ((defined $meta_data->{'abstract'}) && ($meta_data->{'abstract'} ne "")) {
+     $shortdesc = $meta_data->{'abstract'};
+  } else {
+     $shortdesc = "No description provided";
+  }
+}
+
+if ($des_override ne "") {
+   $longdesc = $des_override;
+} else {
+   $longdesc = $shortdesc;
 }
 
 sub make_comment {
@@ -279,5 +294,5 @@ close(FOUT);
 
 $Text::Wrap::columns = 75;
 open(FOUT, ">" , "${ravensource}/descriptions/desc.single");
-print FOUT wrap ("", "", $shortdesc . "\n");
+print FOUT wrap ("", "", $longdesc . "\n");
 close(FOUT);

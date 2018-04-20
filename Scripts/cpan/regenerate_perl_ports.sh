@@ -256,7 +256,7 @@ generate_ravensource()
    else
       if [ -f ${meta_yaml} ]; then
          echo "cached    meta.yaml for ${port_name} found"
-         perl ${thisdir}/write_port_from_yaml.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${meta_yaml}" ${hp_status}
+         perl ${thisdir}/write_port_from_yaml.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${meta_yaml}" ${hp_status} "${sumover}" "${descover}"
          result=$?
          cached=1
       else
@@ -272,7 +272,7 @@ generate_ravensource()
             fetch ${base_url}/META.yml -o ${meta_yaml} 2>/dev/null
             if [ $? -eq 0 ]; then
                echo "Retrieved meta.yaml for ${port_name}"
-               perl ${thisdir}/write_port_from_yaml.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${meta_yaml}" ${hp_status}
+               perl ${thisdir}/write_port_from_yaml.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${meta_yaml}" ${hp_status} "${sumover}" "${descover}"
                result=$?
             else
                echo "No META files found for ${perl_module} at ${base_url}"
