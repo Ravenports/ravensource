@@ -53,6 +53,8 @@ RAVENADM=/raven/bin/ravenadm
 # ENTRY_LIST=${tmpdir}/latest_candidates.txt
 ENTRY_LIST=${tmpdir}/02packages.details.txt
 DEADLIST=${thisdir}/dead-homepage.list
+SUMOVERLIST=${thisdir}/summary-override.list
+DESCOVERLIST=${thisdir}/description-override.list
 RMVLIST=${thisdir}/bad-v.list
 urlstub="http://cpansearch.perl.org/src/"
 mirror_base="/mech/var/cache/cpan/"
@@ -175,6 +177,18 @@ rmv_status()
 END { print (found) ? "rmv" : "ok"}' ${RMVLIST}
 }
 
+# return summary string or blank
+summary_override()
+{
+   awk -vportname="${1}" -F"\t" '{ if (portname == $1) { print $2 ; exit 0 }}' ${SUMOVERLIST}
+}
+
+# return description string or blank
+description_override()
+{
+   awk -vportname="${1}" -F"\t" '{ if (portname == $1) { print $2 ; exit 0 }}' ${DESCOVERLIST}
+}
+
 # generate ravensource port subroutine
 generate_ravensource()
 {
@@ -193,6 +207,8 @@ generate_ravensource()
    local port_author=$(author_and_tarball "${index_info}")
    local hp_status=$(homepage_status ${port_name})
    local distgood=$(rmv_status ${port_name})
+   local sumover=$(summary_override ${port_name})
+   local descover=$(description_override ${port_name})
 
    local url_tail=$(cpansearch_url "${index_info}")   
    if [ -z "${url_tail}" ]; then
@@ -234,7 +250,7 @@ generate_ravensource()
    cached=0   
    if [ -f ${meta_json} ]; then
       echo "cached    meta.json for ${port_name} found"
-      perl ${thisdir}/write_port_from_json.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${meta_json}" ${hp_status} ${distgood}
+      perl ${thisdir}/write_port_from_json.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${meta_json}" ${hp_status} ${distgood} "${sumover}" "${descover}"
       result=$?
       cached=1
    else
@@ -250,7 +266,7 @@ generate_ravensource()
          fetch ${base_url}/META.json -o ${meta_json} 2>/dev/null
          if [ $? -eq 0 ]; then
             echo "Retrieved meta.json for ${port_name}"
-            perl ${thisdir}/write_port_from_json.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${meta_json}" ${hp_status} ${distgood}
+            perl ${thisdir}/write_port_from_json.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${meta_json}" ${hp_status} ${distgood} "${sumover}" "{descover}"
             result=$?
          else
             fetch ${base_url}/META.yml -o ${meta_yaml} 2>/dev/null

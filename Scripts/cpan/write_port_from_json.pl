@@ -8,6 +8,8 @@
 # argument 6: location of meta.json
 # argument 7: "ok" or "dead" (if not "ok", ignore homepage setting)
 # argument 8: "ok" or "rmv" (if not "ok", remove "v" from distversion)
+# argument 9: summary override (normally blank)
+# argument 10: description override (normally blank)
 #
 
 use strict;
@@ -25,6 +27,8 @@ my $ravensource   = $ARGV[4];
 my $meta_json_loc = $ARGV[5];
 my $use_homepage  = $ARGV[6];
 my $use_distver   = $ARGV[7];
+my $sum_override  = $ARGV[8];
+my $des_override  = $ARGV[9];
 
 my $json_text   = read_file($meta_json_loc);
 my $dir_queue   = "/tmp/cpan-work/build-queue";
@@ -32,7 +36,8 @@ my $dir_done    = "/tmp/cpan-work/completed";
 my $dir_fail    = "/tmp/cpan-work/failed-to-build";
 my $meta_data   = decode_json($json_text);
 my $portversion = $meta_data->{'version'};
-my $shortdesc   = $meta_data->{'abstract'};
+my $shortdesc   = ($sum_override eq "") ? $meta_data->{'abstract'} : $sum_override;
+my $longdesc    = ($des_override eq "") ? $meta_data->{'abstract'} : $des_override;
 my $distversion = $portversion;
 my $trunc_sdesc;
 my $distname;
@@ -273,5 +278,5 @@ close(FOUT);
 
 $Text::Wrap::columns = 75;
 open(FOUT, ">" , "${ravensource}/descriptions/desc.single");
-print FOUT wrap ("", "", $shortdesc . "\n");
+print FOUT wrap ("", "", $longdesc . "\n");
 close(FOUT);
