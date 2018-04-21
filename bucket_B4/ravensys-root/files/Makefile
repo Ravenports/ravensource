@@ -141,6 +141,12 @@ Usr_Sbin_DragonFly= 	/usr/sbin/pw \
 Usr_Sbin_FreeBSD=	${Usr_Sbin_DragonFly}
 Usr_Sbin_Linux=		# end
 
+Sbin_DragonFly=		# end
+Sbin_FreeBSD=		/sbin/ifconfig \
+			/sbin/route \
+			# end
+Sbin_Linux=		# end
+
 static_lib_generic=	/usr/lib/libc.a \
 			/usr/lib/libm.a \
 			/usr/lib/librt.a \
@@ -563,6 +569,7 @@ install:
 		${DESTDIR}${BASE}/usr/include/rpc \
 		${DESTDIR}${BASE}/usr/include/rpcsvc \
 		${DESTDIR}${BASE}/usr/sbin \
+		${DESTDIR}${BASE}/sbin \
 		# end
 .if "${OPSYS}" == "DragonFly"
 	${MKDIR} \
@@ -619,6 +626,9 @@ install:
 .  for item in ${Usr_Sbin_${OPSYS}}
 	${BSD_INSTALL_PROGRAM} ../${OPSYS:tl}${item} ${DESTDIR}${BASE}/usr/sbin/
 .  endfor
+. for item in ${Sbin_${OPSYS}}
+	${BSD_INSTALL_PROGRAM} ../${OPSYS:tl}${item} ${DESTDIR}${BASE}/sbin/
+. endfor
 .  for item in ${Libexec_${OPSYS}}
 	${BSD_INSTALL_PROGRAM} ../${OPSYS:tl}${item} ${DESTDIR}${BASE}/libexec/
 .  endfor
