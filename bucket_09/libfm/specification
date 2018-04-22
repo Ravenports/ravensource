@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(LIBFM_VERSION)
+DEF[SOVERSION]=		4.1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libfm
@@ -38,6 +39,8 @@ CONFIGURE_ARGS=		--sysconfdir={{LOCALBASE}}/etc
 			--disable-static
 			--with-gtk=3
 			--enable-nls
+
+SOVERSION=		${SOVERSION}
 
 post-patch:
 	${REINPLACE_CMD} -e 's|^[[:blank:]]\{5,\}USE_NLS=yes|#&|' \
