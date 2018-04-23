@@ -110,7 +110,11 @@ if ($sum_override ne "") {
 if ($des_override ne "") {
    $longdesc = $des_override;
 } else {
-   $longdesc = $shortdesc;
+  if ((defined $meta_data->{'abstract'}) && ($meta_data->{'abstract'} ne "")) {
+     $longdesc = $meta_data->{'abstract'};
+  } else {
+     $longdesc = "No description provided";
+  }
 }
 
 sub make_comment {
