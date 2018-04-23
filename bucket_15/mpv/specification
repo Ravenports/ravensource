@@ -1,5 +1,6 @@
-DEF[PORTVERSION]=	0.27.2
+DEF[PORTVERSION]=	0.28.2
 DEF[WAF_TAG]=		1.9.8
+DEF[SOVERSION]=		1.26.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mpv
@@ -75,6 +76,7 @@ CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
 			--disable-libbluray
 			--disable-sndio
 			-j{{MAKE_JOBS_NUMBER}}
+SOVERSION=		${SOVERSION}
 
 post-patch:
 	${FIND} ${WRKSRC}/DOCS/man -name '*.rst' | \
