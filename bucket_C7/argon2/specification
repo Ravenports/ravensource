@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	20171227
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		argon2
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		standard
+SDESC[standard]=	Reference C implementation of the Argon2 hash
+HOMEPAGE=		https://github.com/P-H-C/phc-winner-argon2
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/P-H-C/phc-winner-argon2/archive/
+DISTFILE[1]=		${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		security/libargon2
+
+USES=			gmake
+DISTNAME=		phc-winner-argon2-${PORTVERSION}
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-patch:
+	${REINPLACE_CMD} -e "s|PREFIX = /usr|PREFIX = ${PREFIX}|" \
+		${WRKSRC}/Makefile
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/argon2
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libargon2.so
