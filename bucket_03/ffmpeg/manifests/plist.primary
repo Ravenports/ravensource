@@ -1,8 +1,8 @@
-@sample etc/ffserver.conf.sample
 bin/ffmpeg
 bin/ffplay
 bin/ffprobe
-bin/ffserver
+include/libavcodec/ac3_parser.h
+include/libavcodec/adts_parser.h
 include/libavcodec/avcodec.h
 include/libavcodec/avdct.h
 include/libavcodec/avfft.h
@@ -14,7 +14,6 @@ include/libavcodec/jni.h
 include/libavcodec/mediacodec.h
 include/libavcodec/qsv.h
 include/libavcodec/vaapi.h
-include/libavcodec/vda.h
 include/libavcodec/vdpau.h
 include/libavcodec/version.h
 include/libavcodec/videotoolbox.h
@@ -23,7 +22,6 @@ include/libavcodec/xvmc.h
 include/libavdevice/avdevice.h
 include/libavdevice/version.h
 include/libavfilter/avfilter.h
-include/libavfilter/avfiltergraph.h
 include/libavfilter/buffersink.h
 include/libavfilter/buffersrc.h
 include/libavfilter/version.h
@@ -56,6 +54,7 @@ include/libavutil/des.h
 include/libavutil/dict.h
 include/libavutil/display.h
 include/libavutil/downmix_info.h
+include/libavutil/encryption_info.h
 include/libavutil/error.h
 include/libavutil/eval.h
 include/libavutil/ffversion.h
@@ -69,6 +68,7 @@ include/libavutil/hwcontext_cuda.h
 include/libavutil/hwcontext_d3d11va.h
 include/libavutil/hwcontext_drm.h
 include/libavutil/hwcontext_dxva2.h
+include/libavutil/hwcontext_mediacodec.h
 include/libavutil/hwcontext_qsv.h
 include/libavutil/hwcontext_vaapi.h
 include/libavutil/hwcontext_vdpau.h
@@ -161,6 +161,8 @@ lib/pkgconfig/libavutil.pc
 lib/pkgconfig/libpostproc.pc
 lib/pkgconfig/libswresample.pc
 lib/pkgconfig/libswscale.pc
+share/ffmpeg/examples/vaapi_encode.c
+share/ffmpeg/examples/vaapi_transcode.c
 share/ffmpeg/ffprobe.xsd
 share/ffmpeg/libvpx-1080p.ffpreset
 share/ffmpeg/libvpx-1080p50_60.ffpreset
@@ -182,8 +184,6 @@ share/man/man1/ffplay-all.1.gz
 share/man/man1/ffplay.1.gz
 share/man/man1/ffprobe-all.1.gz
 share/man/man1/ffprobe.1.gz
-share/man/man1/ffserver-all.1.gz
-share/man/man1/ffserver.1.gz
 share/man/man3/libavcodec.3.gz
 share/man/man3/libavdevice.3.gz
 share/man/man3/libavfilter.3.gz

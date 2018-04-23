@@ -1,18 +1,17 @@
-DEF[PORTVERSION]=	3.4.2
-DEF[SO_AVCODEC]=	57.107.100
-DEF[SO_AVDEVICE]=	57.10.100
-DEF[SO_AVFILTER]=	6.107.100
-DEF[SO_AVFORMAT]=	57.83.100
-DEF[SO_AVRESAMPLE]=	3.7.0
-DEF[SO_AVUTIL]=		55.78.100
-DEF[SO_POSTPROC]=	54.7.100
-DEF[SO_SWRESAMPLE]=	2.9.100
-DEF[SO_SCALE]=		4.8.100
+DEF[PORTVERSION]=	4.0
+DEF[SO_AVCODEC]=	58.18.100
+DEF[SO_AVDEVICE]=	58.3.100
+DEF[SO_AVFILTER]=	7.16.100
+DEF[SO_AVFORMAT]=	58.12.100
+DEF[SO_AVRESAMPLE]=	4.0.0
+DEF[SO_AVUTIL]=		56.14.100
+DEF[SO_POSTPROC]=	55.1.100
+DEF[SO_SWRESAMPLE]=	3.1.100
+DEF[SO_SCALE]=		5.1.100
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ffmpeg
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		multimedia audio net
 VARIANTS=		standard
 SDESC[standard]=	Play, record, convert, and stream audio and video
@@ -95,7 +94,6 @@ CONFIGURE_ARGS=		--cc="{{CC}}"
 			--disable-libgme
 			--disable-libgsm
 			--disable-libilbc
-			--disable-jack
 			--disable-libkvazaar
 			--disable-ladspa
 			--disable-libmp3lame
@@ -127,7 +125,6 @@ CONFIGURE_ARGS=		--cc="{{CC}}"
 			--disable-libzvbi
 			--disable-libmysofa
 			--enable-libass
-			--enable-ffserver
 			--enable-fontconfig
 			--enable-libfreetype
 			--enable-frei0r
@@ -180,14 +177,6 @@ PLIST_SUB=		AVCODEC_SO=${SO_AVCODEC}
 			SCALE_SO=${SO_SCALE}
 			SCALE_MAJOR=${SO_SCALE:R:R}
 
-post-patch:
-	# {C,LD}FLAGS safeness
-	${REINPLACE_CMD} -e 's|/etc/ffserver.conf|${PREFIX}/etc/ffserver.conf|' \
-		${WRKSRC}/fftools/ffserver.c
-# |	${REINPLACE_CMD} -E \
-# |		-e 's|require_pkg_config opencv|require_pkg_config opencv-core|g' \
-# |		${CONFIGURE_WRKSRC}/${CONFIGURE_SCRIPT}
-
 post-install:
 	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 .for DF in CREDITS LICENSE.md MAINTAINERS README.md RELEASE_NOTES
@@ -195,5 +184,3 @@ post-install:
 .endfor
 	${INSTALL_DATA} ${WRKSRC}/doc/APIchanges ${STAGEDIR}${STD_DOCDIR}
 	${INSTALL_DATA} ${WRKSRC}/doc/*.txt ${STAGEDIR}${STD_DOCDIR}
-	${INSTALL_DATA} ${WRKSRC}/doc/ffserver.conf \
-		${STAGEDIR}${PREFIX}/etc/ffserver.conf.sample
