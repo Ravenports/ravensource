@@ -5,23 +5,30 @@
 # argument 3: tarball associated with meta file
 # argument 4: perl argument (configure, buildmod, buildmodtiny)
 # argument 5: ravensource directory
+# argument 6: summary override (normally blank)
+# argument 7: description override (normally blank)
 #
 
 use strict;
 use warnings;
 use File::Slurp;
 use Module::CoreList;
+use Text::Wrap;
 
 my $port_namebase = $ARGV[0];
 my $port_author   = $ARGV[1];
 my $tarball       = $ARGV[2];
 my $buildmech     = $ARGV[3];
 my $ravensource   = $ARGV[4];
+my $sum_override  = $ARGV[5];
+my $des_override  = $ARGV[6];
+
 
 my $dir_queue   = "/tmp/cpan-work/build-queue";
 my $dir_done    = "/tmp/cpan-work/completed";
 my $dir_fail    = "/tmp/cpan-work/failed-to-build";
-my $shortdesc   = "No description provided.";
+my $shortdesc   = ($sum_override eq "") ? "No description provided." : $sum_override;
+my $longdesc	= ($des_override eq "") ? $shortdesc : $des_override;
 my $trunc_sdesc = $shortdesc;
 my $distname;
 my $portversion;
@@ -124,6 +131,7 @@ EOF
 
 close(FOUT);
 
+$Text::Wrap::columns = 75;
 open(FOUT, ">" , "${ravensource}/descriptions/desc.single");
-print FOUT $shortdesc . "\n";
+print FOUT wrap ("", "", $longdesc . "\n");
 close(FOUT);

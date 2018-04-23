@@ -276,7 +276,7 @@ generate_ravensource()
                result=$?
             else
                echo "No META files found for ${perl_module} at ${base_url}"
-               perl ${thisdir}/write_port_without_meta.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir}
+               perl ${thisdir}/write_port_without_meta.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${sumover}" "${descover}"
                result=$?
             fi
          fi
