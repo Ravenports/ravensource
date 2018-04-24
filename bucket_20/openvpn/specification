@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	2.4.5
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		openvpn
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		standard
+SDESC[standard]=	Secure and highly configurable VPN solution
+HOMEPAGE=		https://openvpn.net
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://swupdate.openvpn.org/community/releases/
+DISTFILE[1]=		openvpn-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete docs primary
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		security/openvpn
+
+# Linux support means adding more packages
+NOT_FOR_OPSYS=		linux
+
+BUILDRUN_DEPENDS=	libressl:single:standard
+			openpam:single:standard
+BUILD_DEPENDS=		lz4:complete:standard
+			lzo:complete:standard
+RUN_DEPENDS=		lz4:shared:standard
+			lzo:shared:standard
+USES=			autoreconf libtool pkgconfig
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ENV=		ac_cv_prog_CMAKE= CMAKE=
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/openvpn/plugins/openvpn-plugin-auth-pam.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/openvpn/plugins/openvpn-plugin-down-root.so

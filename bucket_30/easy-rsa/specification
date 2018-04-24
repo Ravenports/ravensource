@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	3.0.4
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		easy-rsa
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		standard
+SDESC[standard]=	Simple shell based CA utility using OpenSSL
+HOMEPAGE=		https://github.com/OpenVPN/easy-rsa
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/OpenVPN:easy-rsa:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		security/easy-rsa
+
+SKIP_BUILD=		yes
+DISTNAME=		easy-rsa-${PORTVERSION}/easyrsa3
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_SCRIPT} ${WRKSRC}/easyrsa ${STAGEDIR}${PREFIX}/bin/
+	${MKDIR} -p ${STAGEDIR}${PREFIX}/share/easy-rsa
+	${INSTALL_DATA} ${WRKSRC}/vars.example ${STAGEDIR}${PREFIX}/share/easy-rsa
+	${INSTALL_DATA} ${WRKSRC}/openssl-easyrsa.cnf ${STAGEDIR}${PREFIX}/share/easy-rsa/openssl-easyrsa.cnf.example
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/easy-rsa/x509-types/
+	(cd ${WRKSRC}/x509-types/ && ${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/share/easy-rsa/x509-types/)
