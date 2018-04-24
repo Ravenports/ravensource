@@ -1,0 +1,24 @@
+--- configure.in.orig	2018-04-23 00:23:56.325249000 +0200
++++ configure.in	2018-04-23 00:24:26.244430000 +0200
+@@ -59,7 +59,20 @@
+ AC_PROG_INSTALL
+ 
+ dnl Work around the lack of certain typedefs.
+-AC_TYPE_SOCKLEN_T
++AC_DEFUN(AC_TYPE_SOCKLEN_T,
++[AC_CACHE_CHECK([for socklen_t], ac_cv_type_socklen_t,
++[
++  AC_TRY_COMPILE(
++  [#include <sys/types.h>
++   #include <sys/socket.h>],
++  [socklen_t len = 42; return len;],
++  ac_cv_type_socklen_t=yes,
++  ac_cv_type_socklen_t=no)
++])
++  if test $ac_cv_type_socklen_t != yes; then
++    AC_DEFINE(socklen_t, int)
++  fi
++])
+ 
+ dnl The alpha architecture needs special flags for binary portability
+ case "$target" in
