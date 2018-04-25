@@ -18,13 +18,12 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 LICENSE=		GPLv3+:single
-LICENSE_FILE=		GPLv3+:{{WRDIR}}/LICENSE
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_FILE=		GPLv3+:stock
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/spark.ads
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libspark2012
 
 USES=			gprbuild
-
-post-extract:
-	${AWK} '/^$$/ {exit}; {print}' ${WRKSRC}/src/spark.ads \
-		> ${WRKDIR}/LICENSE

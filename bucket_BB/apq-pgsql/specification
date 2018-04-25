@@ -21,10 +21,12 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2:single GMGPL:single
-LICENSE_FILE=		GPLv2:{{WRKSRC}}/GMPGL_LICENSE
-			GMGPL:{{WRKSRC}}/GMGPL_LICENSE
-LICENSE_SCHEME=		multi
+LICENSE=		GMGPL:single
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_FILE=		GMGPL:stock
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/apq-postgresql-client.ads
+LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		bash:primary:standard
 BUILDRUN_DEPENDS=	apq-base:single:standard
@@ -37,10 +39,6 @@ CONFIGURE_ARGS=		--prefix={{PREFIX}}
 			--disable-relocatable
 			--work-path=${WRKPATH}
 			--processors={{MAKE_JOBS_NUMBER}}
-
-post-extract:
-	${AWK} '/^$$/ {exit}; {print}' ${WRKSRC}/src/apq-postgresql-client.ads \
-		> ${WRKDIR}/GMGPL_LICENSE
 
 post-patch:
 	${RM} ${WRKSRC}/src/*.orig

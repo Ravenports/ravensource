@@ -28,10 +28,12 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single GMGPL:single
-LICENSE_FILE=		GPLv2+:{{WRKDIR}}/LICENSE
-			GMGPL:{{WRKDIR}}/LICENSE
-LICENSE_SCHEME=		multi
+LICENSE=		GMGPL:single
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_FILE=		GMGPL:stock
+LICENSE_AWK=		TERMS:"^--___"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/sqlite.ads
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/simple_components
 
@@ -45,10 +47,6 @@ PLIST_SUB=		ISC=include/components
 			SSM=gnat-sockets-connection_state_machine
 			SE=strings_edit
 			CS=${CS}
-
-post-extract:
-	${AWK} '/^--___/ {exit}; {print}' ${WRKSRC}/sqlite.ads \
-		> ${WRKDIR}/LICENSE
 
 do-build:
 .for PROJECT in ${PROJECT_LIST}

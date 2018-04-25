@@ -18,18 +18,18 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2:single MPL:single
-LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
-			MPL:{{WRKDIR}}/DUAL_MPL_LICENSE
+LICENSE=		LGPL21+:single
+			GPLv2+:single
+			MPL:single
+LICENSE_TERMS=		single:{{WRKSRC}}/COPYING
+LICENSE_FILE=		LGPL21+:stock
+			GPLv2+:stock
+			MPL:stock
 LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		graphics/graphite2
 
 USES=			cmake c++:single
-
-post-extract:
-	${AWK} '/^#include / {exit}; {print}' ${WRKSRC}/src/Font.cpp \
-		> ${WRKDIR}/DUAL_MPL_LICENSE
 
 post-patch-linux:
 	${REINPLACE_CMD} "/CREATE_LIBTOOL_FILE/d" ${WRKSRC}/src/CMakeLists.txt

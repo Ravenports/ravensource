@@ -20,6 +20,8 @@ OPTIONS_STANDARD=	none
 
 LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKDIR}}/LICENSE
+LICENSE_AWK=		MIT:"^-- Change"
+LICENSE_SOURCE=		MIT:{{WRKSRC}}/config.ads
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		misc/ini_file_manager
@@ -33,8 +35,6 @@ post-extract:
 	${MV} ${WRKSRC}/config.ad[bs] ${WRKSRC}/src
 	${SED} -e "s,@PREFIX@,${LOCALBASE},g" ${FILESDIR}/runme.sh.in \
 		> ${WRKSRC}/runme.sh
-	${AWK} '/^-- Change/ {exit}; {print}' ${WRKSRC}/src/config.ads \
-		> ${WRKDIR}/LICENSE
 
 do-build:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -p -Pconstruct)
