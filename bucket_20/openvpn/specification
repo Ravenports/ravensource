@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.4.5
+DEF[PORTVERSION]=	2.4.6
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		openvpn
@@ -17,6 +17,15 @@ SPKGS[standard]=	complete docs primary
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
+
+# Terms interpreted as GPLv2 (not later).
+# Terms indicate several additional licenses beyond openssl
+LICENSE=		GPLv2:primary
+			OpenSSL:primary
+LICENSE_TERMS=		primary:{{WRKSRC}}/COPYING
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYRIGHT.GPL
+			OpenSSL:stock
+LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		security/openvpn
 

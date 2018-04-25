@@ -1,6 +1,6 @@
---- ./src/openvpn/openssl_compat.h	2018-03-01 07:22:19.000000000 +0000
-+++ ./src/openvpn/openssl_compat.h	2018-03-12 10:44:08.876010487 +0000
-@@ -711,7 +711,7 @@
+--- ./src/openvpn/openssl_compat.h.orig	2018-04-24 07:12:55 UTC
++++ ./src/openvpn/openssl_compat.h
+@@ -715,7 +715,7 @@ SSL_CTX_get_max_proto_version(SSL_CTX *c
  }
  #endif /* SSL_CTX_get_max_proto_version */
  
@@ -9,7 +9,7 @@
  /** Mimics SSL_CTX_set_min_proto_version for OpenSSL < 1.1 */
  static inline int
  SSL_CTX_set_min_proto_version(SSL_CTX *ctx, long tls_ver_min)
-@@ -740,7 +740,7 @@
+@@ -744,7 +744,7 @@ SSL_CTX_set_min_proto_version(SSL_CTX *c
  }
  #endif /* SSL_CTX_set_min_proto_version */
  
