@@ -1,16 +1,16 @@
---- deps/v8/src/base/cpu.cc.orig	2017-12-12 10:22:24 UTC
+--- deps/v8/src/base/cpu.cc.orig	2018-04-24 14:41:24 UTC
 +++ deps/v8/src/base/cpu.cc
-@@ -607,6 +607,7 @@ CPU::CPU()
+@@ -424,6 +424,7 @@ CPU::CPU()
  
- #elif V8_HOST_ARCH_ARM64
+ #if V8_OS_LINUX
  
 +#if V8_OS_LINUX
    CPUInfo cpu_info;
  
    // Extract implementor from the "CPU implementer" field.
-@@ -641,6 +642,8 @@ CPU::CPU()
-     delete[] part;
-   }
+@@ -604,6 +605,8 @@ CPU::CPU()
+ #elif V8_HOST_ARCH_ARM64
+ // Implementer, variant and part are currently unused under ARM64.
  
 +#endif  // V8_OS_LINUX
 +

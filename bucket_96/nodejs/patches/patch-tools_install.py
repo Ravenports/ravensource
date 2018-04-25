@@ -1,4 +1,4 @@
---- tools/install.py.orig	2017-12-12 10:22:53 UTC
+--- tools/install.py.orig	2018-04-24 14:41:41 UTC
 +++ tools/install.py
 @@ -149,7 +149,7 @@ def files(action):
    action(['deps/v8/tools/lldbinit'], 'share/doc/node/')

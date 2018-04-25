@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	9.11.1
+DEF[PORTVERSION]=	10.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		nodejs
@@ -49,8 +49,8 @@ MAKE_ENV=		CC.host={{CC}}
 			LINK.target={{CXX}}
 
 post-patch:
-	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|' \
-		${WRKSRC}/deps/v8/src/v8.gyp
+# |	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|' \
+# |		${WRKSRC}/deps/v8/src/v8.gyp
 	${GREP} -rl "/usr/local" ${WRKSRC} | \
 		${XARGS} ${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g'
 	${FIND} ${WRKSRC} -name "*.bak" -delete
@@ -70,3 +70,4 @@ post-patch-freebsd:
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/node
+	${CHOWN} ${MANMODE} ${STAGEDIR}${PREFIX}/share/man/man1/node.1
