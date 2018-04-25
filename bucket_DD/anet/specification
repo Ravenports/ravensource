@@ -18,10 +18,12 @@ SPKGS[standard]=	complete primary docs
 OPTIONS_AVAILABLE=	TESTED
 OPTIONS_STANDARD=	TESTED
 
-LICENSE=		LGPL21+:primary GMGPL:primary
-LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
-			GMGPL:{{WRKDIR}}/GMGPL_LICENSE
-LICENSE_SCHEME=		multi
+LICENSE=		GMGPL:primary
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_FILE=		GMGPL:{{WRKSRC}}/COPYING
+LICENSE_AWK=		TERMS:"^pragma"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/anet.ads
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net/anet
 
@@ -38,10 +40,6 @@ MAKE_ARGS=		NUM_CPUS={{MAKE_JOBS_NUMBER}}
 [TESTED].DESCRIPTION=			Run unit test suite before installation
 [TESTED].BUILD_DEPENDS_ON=		ahven:primary:standard
 [TESTED].BUILD_TARGET_ON=		tests
-
-post-extract:
-	${AWK} '/^pragma/ {exit}; {print}' ${WRKSRC}/src/anet.ads \
-		> ${WRKDIR}/GMGPL_LICENSE
 
 post-patch:
 	${REINPLACE_CMD} -e 's|dynamic|static|g' ${WRKSRC}/gnat/anet.gpr

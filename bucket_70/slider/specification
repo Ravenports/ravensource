@@ -20,6 +20,8 @@ OPTIONS_STANDARD=	none
 
 LICENSE=		ISCL:single
 LICENSE_FILE=		ISCL:{{WRKDIR}}/ISCL
+LICENSE_AWK=		ISCL:"^$$"
+LICENSE_SOURCE=		ISCL:{{WRKSRC}}/dragonfly.ads
 LICENSE_SCHEME=		solo
 
 # FPC_EQUIVALENT=	dports only
@@ -28,10 +30,6 @@ ONLY_FOR_OPSYS=		dragonfly
 
 USES=			gprbuild ncurses
 BUILD_DEPENDS=		adacurses:primary:standard
-
-post-extract:
-	${AWK} '/^$$/ {exit}; {print}' ${WRKSRC}/dragonfly.ads \
-		> ${WRKDIR}/ISCL
 
 post-patch:
 	${REINPLACE_CMD} -e 's|/usr/local/lib/gnat/||' ${WRKSRC}/slider.gpr
