@@ -20,6 +20,8 @@ OPTIONS_STANDARD=	none
 
 LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKDIR}}/LICENSE
+LICENSE_AWK=		MIT:"^--  Follow"
+LICENSE_SOURCE=		MIT:{{WRKSRC}}/excel_out.ads
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		misc/excel-writer
@@ -34,8 +36,6 @@ post-extract:
 	(cd ${WRKSRC}; ${MV} excel_out.ad[bs] ieee* extras/csv.* src)
 	${SED} -e "s,@PREFIX@,${LOCALBASE},g" ${FILESDIR}/runme.sh.in \
 		> ${WRKSRC}/runme.sh
-	${AWK} '/^--  Follow/ {exit}; {print}' ${WRKSRC}/src/excel_out.ads \
-		> ${WRKDIR}/LICENSE
 
 post-patch:
 	${REINPLACE_CMD} -e "s|Big.xls|${DATADIR}/Big.xls|" \

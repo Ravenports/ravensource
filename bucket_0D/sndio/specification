@@ -20,6 +20,8 @@ OPTIONS_STANDARD=	none
 
 LICENSE=		ISCL:single
 LICENSE_FILE=		ISCL:{{WRKDIR}}/ISC_LICENSE
+LICENSE_AWK=		ISCL:"^\#ifndef"
+LICENSE_SOURCE=		ISCL:{{WRKSRC}}/libsndio/sndio.h
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		audio/sndio
@@ -36,11 +38,6 @@ RC_SUBR=		sndiod:single
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--prefix={{PREFIX}}
 			--mandir={{MANPREFIX}}/man
-
-post-extract:
-	${AWK} '/^#ifndef/ {exit}; {print}' ${WRKSRC}/libsndio/sndio.h \
-		> ${WRKDIR}/ISC_LICENSE
-
 
 post-patch:
 	# Make sure sndiod can be started inside jails as root
