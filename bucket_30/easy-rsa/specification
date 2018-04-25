@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.0.4
+DEF[PORTVERSION]=	3.0.5
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		easy-rsa
@@ -18,6 +18,15 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+# Terms interpreted as GPLv2 only (not later version)
+# Note that OpenSSL:stock license could be added (and
+# scheme changed to "multi" accordingly)
+
+LICENSE=		GPLv2:single
+LICENSE_TERMS=		single:{{WRKDIR}}/easy-rsa-${PORTVERSION}/COPYING.md
+LICENSE_FILE=		GPLv2:{{WRKDIR}}/easy-rsa-${PORTVERSION}/Licensing/gpl-2.0.txt
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		security/easy-rsa
 
 SKIP_BUILD=		yes
@@ -27,7 +36,10 @@ do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/bin
 	${INSTALL_SCRIPT} ${WRKSRC}/easyrsa ${STAGEDIR}${PREFIX}/bin/
 	${MKDIR} -p ${STAGEDIR}${PREFIX}/share/easy-rsa
-	${INSTALL_DATA} ${WRKSRC}/vars.example ${STAGEDIR}${PREFIX}/share/easy-rsa
-	${INSTALL_DATA} ${WRKSRC}/openssl-easyrsa.cnf ${STAGEDIR}${PREFIX}/share/easy-rsa/openssl-easyrsa.cnf.example
+	${INSTALL_DATA} ${WRKSRC}/vars.example \
+		${STAGEDIR}${PREFIX}/share/easy-rsa
+	${INSTALL_DATA} ${WRKSRC}/openssl-easyrsa.cnf \
+		${STAGEDIR}${PREFIX}/share/easy-rsa/openssl-easyrsa.cnf.example
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/easy-rsa/x509-types/
-	(cd ${WRKSRC}/x509-types/ && ${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/share/easy-rsa/x509-types/)
+	(cd ${WRKSRC}/x509-types/ && \
+	${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/share/easy-rsa/x509-types/)
