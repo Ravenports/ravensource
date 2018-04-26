@@ -1,4 +1,4 @@
---- php_mbregex.c.orig	2018-02-27 23:15:25 UTC
+--- php_mbregex.c.orig	2018-04-24 22:22:50 UTC
 +++ php_mbregex.c
 @@ -454,7 +454,7 @@ static php_mb_regex_t *php_mbregex_compi
  	OnigUChar err_str[ONIG_MAX_ERROR_MESSAGE_LEN];
