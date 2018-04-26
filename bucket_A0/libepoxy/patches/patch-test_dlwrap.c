@@ -1,4 +1,4 @@
---- test/dlwrap.c.orig	2017-06-06 09:24:13 UTC
+--- test/dlwrap.c.orig	2018-02-23 10:56:23 UTC
 +++ test/dlwrap.c
 @@ -34,6 +34,8 @@
  
@@ -9,7 +9,7 @@
  #include <dlfcn.h>
  
  #include <stdbool.h>
-@@ -208,6 +210,10 @@ dlsym(void *handle, const char *name)
+@@ -213,6 +215,10 @@ dlsym(void *handle, const char *name)
  void *
  dlwrap_real_dlsym(void *handle, const char *name)
  {
@@ -20,7 +20,7 @@
      static fips_dlsym_t real_dlsym = NULL;
  
      if (!real_dlsym) {
-@@ -269,6 +275,7 @@ dlwrap_real_dlsym(void *handle, const ch
+@@ -274,6 +280,7 @@ dlwrap_real_dlsym(void *handle, const ch
      }
  
      return real_dlsym(handle, name);
