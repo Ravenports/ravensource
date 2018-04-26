@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	8.0.1763
+DEF[PORTVERSION]=	8.0.1765
 DEF[VIM_VER]=		vim${PORTVERSION:R:S|.||g}
 # ----------------------------------------------------------------------------
 
@@ -22,10 +22,15 @@ OPTIONS_AVAILABLE=	LOADED
 OPTIONS_STANDARD=	none
 VOPTS[loaded]=		LOADED=ON
 
-LICENSE=		CUSTOM1:single
-LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/runtime/doc/uganda.txt
+LICENSE=		CUSTOM1:single CUSTOM2:single
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_FILE=		CUSTOM1:{{WRKDIR}}/VIM_LICENSE
+			CUSTOM2:{{WRKDIR}}/DOC_LICENSE
 LICENSE_NAME=		CUSTOM1:"VIM License"
-LICENSE_SCHEME=		solo
+			CUSTOM2:"Open Publication License"
+LICENSE_AWK=		TERMS:"=== begin of license ==="
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/runtime/doc/uganda.txt
+LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		editors/vim
 
@@ -71,6 +76,12 @@ CPE_VERSION=		${PORTVERSION:R}
 					CONF_OPT_PYTHON="--enable-python3interp --disable-pythoninterp"
 [LOADED].XORG_COMPONENTS_ON=		ice sm x11 xpm xt
 [LOADED].GNOME_COMPONENTS_ON=		cairo gdkpixbuf gtk3
+
+post-extract:
+	${AWK} '/\*manual-copyright\*/,/\|iccf\|/' \
+		${WRKSRC}/runtime/doc/usr_01.txt > ${WRKDIR}/DOC_LICENSE
+	${AWK} '/=== begin of license ===/,/=== end of license ===/' \
+		${WRKSRC}/runtime/doc/uganda.txt > ${WRKDIR}/VIM_LICENSE
 
 post-patch:
 	${FIND} ${WRKSRC}/ -name 'Makefile' | ${XARGS} ${REINPLACE_CMD} -e 's| $$<| $$>|'
