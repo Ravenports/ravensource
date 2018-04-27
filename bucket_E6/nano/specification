@@ -18,12 +18,13 @@ SPKGS[standard]=	complete primary docs
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv3+:primary
+LICENSE=		GPLv3+:primary CUSTOM1:docs
+LICENSE_NAME=		CUSTOM1:"GNU Free Documentation License"
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+			CUSTOM1:{{WRKSRC}}/COPYING.DOC
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
-LICENSE_AWK=		TERMS:"^$$"
-LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/nano.h
-LICENSE_SCHEME=		solo
+			docs:{{WRKDIR}}/TERMS.DOC
+LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		editors/nano
 
@@ -35,6 +36,12 @@ CPPFLAGS=		-I{{NCURSESINC}}
 INFO=			primary:nano
 
 VAR_OPSYS[sunos]=	CONFIGURE_ENV=LIBS=-ltinfo
+
+post-extract:
+	# LICENSE_AWK writes to all defined terms, so create them manually
+	${AWK} '/^$$/ {exit}; {print}' ${WRKSRC}/src/nano.h > ${WRKDIR}/TERMS
+	${AWK} '/NANO 1/ {exit}; {print}' \
+		${WRKSRC}/doc/nano.1 > ${WRKDIR}/TERMS.DOC
 
 post-configure:
 	${REINPLACE_CMD} -e 's/update_revision//g' ${WRKSRC}/src/Makefile
