@@ -5,6 +5,7 @@ DEF[LUA_VARIANT]=	lua${SPEC_LUA:S/.//}
 
 NAMEBASE=		neovim
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		editors
 VARIANTS=		standard
 SDESC[standard]=	Next generation Vim
@@ -20,6 +21,13 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		APACHE20:single CUSTOM1:single
+LICENSE_NAME=		CUSTOM1:"VIM license"
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_FILE=		APACHE20:{{WRKDIR}}/LICENSE_APACHE
+			CUSTOM1:{{WRKDIR}}/LICENSE_VIM
+LICENSE_SCHEME=		multi
+
 FPC_EQUIVALENT=		editors/neovim
 
 BUILDRUN_DEPENDS=	msgpack:single:standard
@@ -32,12 +40,25 @@ BUILD_DEPENDS=		gperf:single:standard
 			lua-mpack:single:${LUA_VARIANT}
 
 USES=			cmake:outsource gmake libtool pkgconfig lua:${SPEC_LUA}
-			gettext-tools gettext-runtime
+			gettext-tools gettext-runtime desktop-utils
 CMAKE_ARGS=		-DCMAKE_SKIP_BUILD_RPATH:BOOL=YES
 			-DDEPS_PREFIX:PATH="{{LOCALBASE}}"
 			-DLUA_PRG:FILEPATH="{{LOCALBASE}}/bin/{{LUA_CMD}}"
 			-DPREFER_LUA:BOOL=YES
 INSTALL_REQ_TOOLCHAIN=	yes
+
+post-extract:
+	${AWK} '/Apache License/,/^====$$/' \
+		${WRKSRC}/LICENSE > ${WRKDIR}/LICENSE_APACHE
+	${AWK} '/^VIM LICENSE/,/at your option/' \
+		${WRKSRC}/LICENSE > ${WRKDIR}/LICENSE_VIM
+	${AWK} '/^====/{exit}; {print}' \
+		${WRKSRC}/LICENSE > ${WRKDIR}/TERMS
+	echo "[See APACHE20.standard file]" >> ${WRKDIR}/TERMS
+	echo >> ${WRKDIR}/TERMS
+	${AWK} '/^The above license/,/^The Vim license follows/' \
+		${WRKSRC}/LICENSE >> ${WRKDIR}/TERMS
+	echo "[See CUSTOM1.standard file]" >> ${WRKDIR}/TERMS
 
 post-patch-sunos:
 	${REINPLACE_CMD} -e 's|STR(|STR_(|g' \
