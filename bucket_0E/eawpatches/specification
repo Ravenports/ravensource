@@ -1,0 +1,57 @@
+DEF[PORTVERSION]=	12
+DEF[PATCH_SUBDIRS]=	ethnic mazpat/fx gsdrum08 gsdrum25 gsdrum40 gus power sfx wime
+DEF[DOC_SUBDIRS]=	ethnic gsdrum08 gsdrum25 gsdrum40 power wime
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		eawpatches
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		standard
+SDESC[standard]=	Collection of Gravis Ultrasound MIDI patches
+HOMEPAGE=		none
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://distfiles.gentoo.org/distfiles/
+DISTFILE[1]=		eawpats12_full.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		audio/eawpats
+
+LICENSE=		CUSTOM1:single
+LICENSE_TERMS=		single:{{WRKSRC}}/copyrigh.txt
+LICENSE_NAME=		CUSTOM1:"Eric A. Welsh Fameware license"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/copyrigh.txt
+LICENSE_SCHEME=		solo
+
+SKIP_BUILD=		yes
+DISTNAME=		eawpats
+
+post-patch:
+	${REINPLACE_CMD} -e 's|/home/user/eawpats|${PREFIX}/share/eawpatches|' \
+		-e '1d' ${WRKSRC}/linuxconfig/timidity.cfg
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/eawpatches
+	${INSTALL_DATA} ${WRKSRC}/*.cfg ${WRKSRC}/*.pat ${WRKSRC}/*.ini \
+		${STAGEDIR}${PREFIX}/share/eawpatches
+.for d in ${PATCH_SUBDIRS}
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/eawpatches/${d}
+	${INSTALL_DATA} ${WRKSRC}/${d}/*.pat \
+		${STAGEDIR}${PREFIX}/share/eawpatches/${d}
+.endfor
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/doc/eawpatches
+	${INSTALL_DATA} ${WRKSRC}/*.txt ${WRKSRC}/*.hlp \
+		${STAGEDIR}${PREFIX}/share/doc/eawpatches
+.for d in ${DOC_SUBDIRS}
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/doc/eawpatches/${d}
+	${INSTALL_DATA} ${WRKSRC}/${d}/*.txt \
+		${STAGEDIR}${PREFIX}/share/doc/eawpatches/${d}
+.endfor
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/timidity
+	${INSTALL_DATA} ${WRKSRC}/linuxconfig/timidity.cfg \
+		${STAGEDIR}${PREFIX}/share/timidity/timidity.cfg-eawpats
