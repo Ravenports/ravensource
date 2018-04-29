@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.2.3
+DEF[PORTVERSION]=	5.2.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xz
@@ -21,12 +21,19 @@ OPTIONS_AVAILABLE=	STATIC
 OPTIONS_STANDARD=	none
 VOPTS[static]=		STATIC=ON
 
+LICENSE=		PUBDOM:single GPLv2+:single
+LICENSE_TERMS=		single:{{WRKSRC}}/COPYING
+LICENSE_FILE=		PUBDOM:{{WRKDIR}}/LICENSE_PUBDOM
+			GPLv2+:{{WRKSRC}}/COPYING.GPLv2
+LICENSE_SCHEME=		multi
+
 USES=			libtool
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-nls
 			--disable-doc
 CONFIGURE_ENV=		gl_cv_posix_shell=/bin/sh
 INSTALL_TARGET=		install-strip
+SOVERSION=		${PORTVERSION}
 
 [STATIC].CONFIGURE_ARGS_ON=		--enable-shared=no
 
@@ -34,6 +41,10 @@ INSTALL_TARGET=		install-strip
 VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--enable-symbol-versions
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-symbol-versions
 VAR_OPSYS[linux]=	CONFIGURE_ARGS=--enable-symbol-versions
+
+post-extract:
+	${AWK} '/You can do whatever/,/lawyers/' \
+		${WRKSRC}/COPYING > ${WRKDIR}/LICENSE_PUBDOM
 
 do-test:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE} check)
