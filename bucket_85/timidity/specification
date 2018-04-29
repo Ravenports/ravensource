@@ -1,0 +1,64 @@
+DEF[PORTVERSION]=	2.14.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		timidity
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		standard
+SDESC[standard]=	Software synthesizer and MIDI converter / player
+HOMEPAGE=		http://timidity.sourceforge.net
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/timidity/TiMidity%2B%2B/TiMidity%2B%2B-${PORTVERSION}/
+DISTFILE[1]=		TiMidity++-${PORTVERSION}.tar.xz:main
+
+# Extra interfaces don't work: Raven's required RPATH seems to be ignored...
+# SPKGS[standard]=	complete primary ncurses xaw gtk
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		audio/timidity++
+
+LICENSE=		GPLv2:single
+LICENSE_TERMS=		single:{{WRKSRC}}/COPYING
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+BUILDRUN_DEPENDS=	flac:primary:standard
+			libvorbis:primary:standard
+RUN_DEPENDS=		eawpatches:single:standard
+# USES=			gmake ncurses png
+USES=			gmake
+XORG_COMPONENTS=	x11 xext xft
+# xaw
+# GNOME_COMPONENTS=	gtk2
+MUST_CONFIGURE=		gnu
+# Additional configure options don't hurt since TiMidity will ignore them
+# if the dependencies are not installed.
+CONFIGURE_ARGS=		--with-default-path={{PREFIX}}/etc/timidity
+			--prefix={{PREFIX}}
+			--libdir={{PREFIX}}/lib
+			--enable-audio=oss,vorbis,flac
+			--enable-dynamic=ncurses,xaw,gtk
+			--enable-interface=server,ncurses,vt100,xaw,gtk
+			--enable-xft
+			--enable-network
+			--enable-server
+			--with-x
+			--with-elf
+			--enable-spectrogram
+			--enable-wrd
+			--x-includes=/raven/include/X11
+			--x-libraries=/raven/lib
+# CONFIGURE_ENV=timidity_LDFLAGS="-L/raven/lib -Wl,-rpath,/raven/lib -lpthread"
+# MAKE_ENV=		timidity_LDFLAGS="-L/raven/lib -Wl,-rpath,/raven/lib -lpthread"
+DISTNAME=		TiMidity++-${PORTVERSION}
+
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/timidity
+	${LN} -s ${PREFIX}/etc/timidity/timidity_eawpatches.cfg ${STAGEDIR}${PREFIX}/etc/timidity/timidity.cfg
+# No additional interfaces yet, so let's get rid of the lib dir
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/timidity
