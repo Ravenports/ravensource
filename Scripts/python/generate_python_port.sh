@@ -286,6 +286,11 @@ handle_licenses() {
    local licname licfile rawlicense
    local arr_license arr_file arr_name
    rawlicense=$(exec_setup ${FIRST_SNAKE} --license)
+   echo "# Output of setup.py --license"
+   echo ${rawlicense} | cut -c -500 | fold -s -w77 | sed -e 's/^/# /; s/[[:space:]]*$//'
+}
+
+commented_out() {
    case "${rawlicense}" in
       "Apache License, Version 2.0") all_lic="Apache*2.0" ;;
       *Apache*)                      all_lic="Apache*2.0" ;;
