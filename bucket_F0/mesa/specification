@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	18.0.1
+DEF[PORTVERSION]=	18.0.2
 DEF[MESA_LLVM_VER]=	40
 # ----------------------------------------------------------------------------
 
@@ -22,6 +22,20 @@ OPTIONS_STANDARD=	X86_DRIVERS ARM_DRIVERS
 OPT_ON[x86_64]=		X86_DRIVERS
 OPT_ON[i386]=		X86_DRIVERS
 OPT_ON[aarch64]=	ARM_DRIVERS
+
+LICENSE=		MIT:libs
+			CUSTOM1:libs
+			CUSTOM2:libs
+LICENSE_FILE=		MIT:{{WRKDIR}}/LICENSE_MIT
+			CUSTOM1:{{WRKDIR}}/LICENSE_KHRONOS
+			CUSTOM2:{{WRKDIR}}/LICENSE_SGI
+LICENSE_NAME=		CUSTOM1:"Kronos License (MIT with modifications)"
+			CUSTOM2:"SGI Free Software License B"
+LICENSE_AWK=		MIT:"^$$"
+			CUSTOM2:"^$$"
+LICENSE_SOURCE=		MIT:{{WRKSRC}}/include/GL/gl.h
+			CUSTOM2:{{WRKSRC}}/src/glx/eval.c
+LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		graphics/mesa-libs
 
@@ -116,6 +130,10 @@ VAR_OPSYS[sunos]=	CPPFLAGS=-D__EXTENSIONS__=1
 					GALLIUM_DRIVERS+=SVGA
 [ARM_DRIVERS].MAKEFILE_ON=		GALLIUM_DRIVERS+=FREEDRENO
 					GALLIUM_DRIVERS+=VC4
+
+post-extract:
+	${AWK} '/Copyright/,/DEALINGS/' ${WRKSRC}/include/GL/glext.h \
+		> ${WRKDIR}/LICENSE_KHRONOS
 
 post-patch-freebsd:
 	${REINPLACE_CMD} -e 's|x86_64|amd64|' ${WRKSRC}/configure
