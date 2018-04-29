@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	0.8.18.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		leafpad
+VERSION=		${PORTVERSION}
+KEYWORDS=		editors
+VARIANTS=		standard
+SDESC[standard]=	Light-weight and simple GTK+2 text editor
+HOMEPAGE=		http://tarot.freeshell.org/leafpad/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://download.savannah.gnu.org/releases/leafpad/
+DISTFILE[1]=		leafpad-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		editors/leafpad
+
+LICENSE=		GPLv2+:single
+LICENSE_SCHEME=		solo
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKSRC}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/leafpad.h
+
+BUILD_DEPENDS=		intltool:single:standard
+USES=			desktop-utils gettext-tools gmake pkgconfig
+GNOME_COMPONENTS=	gtk2
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-chooser
