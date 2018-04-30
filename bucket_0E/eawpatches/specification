@@ -15,14 +15,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://distfiles.gentoo.org/distfiles/
 DISTFILE[1]=		eawpats12_full.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		audio/eawpats
 
-LICENSE=		CUSTOM1:single
+LICENSE=		CUSTOM1:primary
 LICENSE_NAME=		CUSTOM1:"Eric A. Welsh Fameware license"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/copyrigh.txt
 LICENSE_SCHEME=		solo
@@ -30,27 +30,30 @@ LICENSE_SCHEME=		solo
 SKIP_BUILD=		yes
 DISTNAME=		eawpats
 
+# Solves "eawpats/charang.pat: Can't restore time" during extraction
+# (As seen on DragonFly).  Difference is added -m switch
+EXTRACT_HEAD[1]=	{{TAR}} -xmf
+EXTRACT_TAIL[1]=	--no-same-owner --no-same-permissions
+
 post-patch:
 	${REINPLACE_CMD} -e 's|/home/user/eawpats|${PREFIX}/share/eawpatches|' \
 		-e '1d' ${WRKSRC}/linuxconfig/timidity.cfg
 
 do-install:
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/eawpatches
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/eawpatches \
+		${STAGEDIR}${STD_DOCDIR} \
+		${STAGEDIR}${PREFIX}/etc/timidity
 	${INSTALL_DATA} ${WRKSRC}/*.cfg ${WRKSRC}/*.pat ${WRKSRC}/*.ini \
 		${STAGEDIR}${PREFIX}/share/eawpatches
 .for d in ${PATCH_SUBDIRS}
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/eawpatches/${d}
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/eawpatches/${d}
 	${INSTALL_DATA} ${WRKSRC}/${d}/*.pat \
 		${STAGEDIR}${PREFIX}/share/eawpatches/${d}
 .endfor
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/doc/eawpatches
 	${INSTALL_DATA} ${WRKSRC}/*.txt ${WRKSRC}/*.hlp \
-		${STAGEDIR}${PREFIX}/share/doc/eawpatches
+		${STAGEDIR}${STD_DOCDIR}
 .for d in ${DOC_SUBDIRS}
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/doc/eawpatches/${d}
-	${INSTALL_DATA} ${WRKSRC}/${d}/*.txt \
-		${STAGEDIR}${PREFIX}/share/doc/eawpatches/${d}
+	${INSTALL_DATA} ${WRKSRC}/${d}/*.txt ${STAGEDIR}${STD_DOCDIR}
 .endfor
-	${MKDIR} ${STAGEDIR}${PREFIX}/etc/timidity
 	${INSTALL_DATA} ${WRKSRC}/linuxconfig/timidity.cfg \
 		${STAGEDIR}${PREFIX}/etc/timidity/timidity_eawpatches.cfg
