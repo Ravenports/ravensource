@@ -1,5 +1,5 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(LIBFM_VERSION)
-DEF[SOVERSION]=		4.1.0
+DEF[SOVERSION]=		4.1.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libfm-extra
@@ -18,6 +18,17 @@ SPKGS[standard]=	single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
+
+# libFM license was changed from GPLv2 to LGPL21+, but the COPYING
+# file in the tarball still refects GPLv2 in error.  See NEWS for confirmation
+# So use a stock license instead of the provided one.
+
+LICENSE=		LGPL21+:single
+LICENSE_FILE=		LGPL21+:stock
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/fm.h
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11/libfm
 
