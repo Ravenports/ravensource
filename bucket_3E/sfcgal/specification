@@ -4,6 +4,7 @@ DEF[SOVERSION]=		${PORTVERSION}
 
 NAMEBASE=		sfcgal
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		math graphics
 VARIANTS=		standard
 SDESC[standard]=	C++ wrapper library around CGAL
@@ -36,6 +37,9 @@ USES=			cmake libtool
 CXXFLAGS=		-Wno-deprecated-declarations
 CMAKE_ARGS=		-DCMAKE_INSTALL_LIBDIR:STRING="lib"
 SOVERSION=		${SOVERSION}
+
+# boost_serialization linkage seems to be omitted by error
+LDFLAGS=		{{LOCALBASE}}/lib/libboost_serialization.so
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libSFCGAL.so
