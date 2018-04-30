@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.4.6
+DEF[PORTVERSION]=	1.4.7
 DEF[BOOTVSN]=		1.2.7
 # ----------------------------------------------------------------------------
 
@@ -29,6 +29,17 @@ OPTGROUP[SYSTEM]=	DRAGONFLY FREEBSD LINUX
 OPT_ON[dragonfly]=	DRAGONFLY
 OPT_ON[freebsd]=	FREEBSD CONCURRENCY
 OPT_ON[linux]=		LINUX CONCURRENCY
+
+LICENSE=		PUBDOM:single
+			BSD3CLAUSE:single
+			MIT:single
+LICENSE_FILE=		PUBDOM:{{WRKDIR}}/LICENSE_PUBDOM
+			BSD3CLAUSE:{{WRKDIR}}/LICENSE_BSD
+			MIT:{{FILESDIR}}/city.cc.license
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^===="
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		lang/sbcl
 
@@ -75,6 +86,11 @@ CMAKE_ARGS=		--prefix="{{PREFIX}}"
 
 post-extract:
 	${MV} ${WRKDIR}/sbcl-${BOOTVSN}-* ${WRKDIR}/bootstrap
+	# Extract licenses into separate files
+	${AWK} '/^;;;; Portions of LOOP/,/;;;; specification/' \
+		${WRKSRC}/COPYING > ${WRKDIR}/LICENSE_PUBDOM
+	${AWK} '/gerd\.moellmann/,/;;; DAMAGE/' \
+		${WRKSRC}/COPYING > ${WRKDIR}/LICENSE_BSD
 
 post-patch:
 	# don't install files with "core" suffix, use "_core" instead
