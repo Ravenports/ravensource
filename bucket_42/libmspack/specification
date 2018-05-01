@@ -21,21 +21,23 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		archivers/libmspack
 
-# The author grants additional rights over the LGPL
-# See "LEGAL ISSUES" in README
-
 LICENSE=		LGPL21:single
-			CUSTOM1:single
-LICENSE_NAME=		CUSTOM1:"LGPL + extra rights"
 LICENSE_FILE=		LGPL21:{{WRKSRC}}/COPYING.LIB
-			CUSTOM1:{{WRKSRC}}/README
-LICENSE_SCHEME=		dual
+LICENSE_SCHEME=		solo
 LICENSE_TERMS=		single:{{WRKSRC}}/TERMS
-LICENSE_SOURCE=		TERMS:{{WRKSRC}}/mspack/mspack.h
-LICENSE_AWK=		TERMS:"^$$"
 
 USES=			libtool
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
 
 SOVERSION=		${SOVERSION}
+
+# The author grants additional rights over the LGPL
+# See "LEGAL ISSUES" in README
+
+post-extract:
+	${HEAD} -n 15 ${WRKSRC}/mspack/mspack.h > ${WRKSRC}/TERMS1
+	${SED} -n -e '/^LEGAL ISSUES/,/LGPL\./p' \
+		${WRKSRC}/README > ${WRKSRC}/TERMS2
+	${CAT} ${WRKSRC}/TERMS1 ${WRKSRC}/TERMS2 > \
+		${WRKSRC}/TERMS
