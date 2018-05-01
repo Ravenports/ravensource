@@ -35,7 +35,7 @@ RUN_DEPENDS=		libsndfile:primary:standard
 USES=			cmake pkgconfig readline
 GNOME_COMPONENTS=	glib
 
-CMAKE_ARGS=		-DCMAKE_INSTALL_LIBDIR=lib
+CMAKE_ARGS=		-DLIB_INSTALL_DIR=lib
 			-DCMAKE_INSTALL_PREFIX={{PREFIX}}
 			-Denable-ladcca:BOOL=FALSE
 			-Denable-midishare:BOOL=FALSE
@@ -52,11 +52,6 @@ CMAKE_ARGS=		-DCMAKE_INSTALL_LIBDIR=lib
 
 SOVERSION=		${SOVERSION}
 
-# unfortunately CMake just completely sucks and will put the libraries
-# into "lib64" even when told otherwise...
 post-install:
-	${RM} -r ${STAGEDIR}${PREFIX}/lib
-	${MV} ${STAGEDIR}${PREFIX}/lib64 \
-		${STAGEDIR}${PREFIX}/lib
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/fluidsynth
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libfluidsynth.so.1.7.1
