@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.8.22
+DEF[PORTVERSION]=	1.8.23
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		sudo
@@ -62,7 +62,8 @@ post-install:
 		${STAGEDIR}${PREFIX}/etc/pam.d/sudo.default
 	${RM} ${STAGEDIR}${PREFIX}/etc/sudoers
 	(cd ${STAGEDIR}${PREFIX}/share/man && \
-		${RMDIR} man5 man8 && \
+		${RMDIR} man[158] && \
+		${MV} cat1 man1 && \
 		${MV} cat8 man8 && \
 		${MV} cat5 man5)
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/sudoreplay
