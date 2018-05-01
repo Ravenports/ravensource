@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	0.6alpha
+DEF[SOVERSION]=		0.1.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libmspack
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers
+VARIANTS=		standard
+SDESC[standard]=	Library for some Microsoft compression formats
+HOMEPAGE=		https://www.cabextract.org.uk/libmspack
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.cabextract.org.uk/libmspack/
+DISTFILE[1]=		libmspack-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		archivers/libmspack
+
+LICENSE=		LGPL21:single
+LICENSE_FILE=		LGPL21:{{WRKSRC}}/COPYING.LIB
+LICENSE_SCHEME=		solo
+LICENSE_TERMS=		single:{{WRKSRC}}/TERMS
+
+USES=			libtool
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+
+SOVERSION=		${SOVERSION}
+
+# The author grants additional rights over the LGPL
+# See "LEGAL ISSUES" in README
+
+post-extract:
+	${HEAD} -n 15 ${WRKSRC}/mspack/mspack.h > ${WRKSRC}/TERMS1
+	${SED} -n -e '/^LEGAL ISSUES/,/LGPL\./p' \
+		${WRKSRC}/README > ${WRKSRC}/TERMS2
+	${CAT} ${WRKSRC}/TERMS1 ${WRKSRC}/TERMS2 > \
+		${WRKSRC}/TERMS
