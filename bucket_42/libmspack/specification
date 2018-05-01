@@ -36,8 +36,6 @@ SOVERSION=		${SOVERSION}
 # See "LEGAL ISSUES" in README
 
 post-extract:
-	${HEAD} -n 15 ${WRKSRC}/mspack/mspack.h > ${WRKSRC}/TERMS1
+	${HEAD} -n 15 ${WRKSRC}/mspack/mspack.h > ${WRKSRC}/TERMS
 	${SED} -n -e '/^LEGAL ISSUES/,/LGPL\./p' \
-		${WRKSRC}/README > ${WRKSRC}/TERMS2
-	${CAT} ${WRKSRC}/TERMS1 ${WRKSRC}/TERMS2 > \
-		${WRKSRC}/TERMS
+		${WRKSRC}/README >> ${WRKSRC}/TERMS
