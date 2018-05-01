@@ -1,0 +1,47 @@
+DEF[PORTVERSION]=	2.0.2
+DEF[SOVERSION]=		0.2.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		sdl2_mixer
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		standard
+SDESC[standard]=	SDL multi-channel audio mixer library
+HOMEPAGE=		https://www.libsdl.org/projects/SDL_mixer
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.libsdl.org/projects/SDL_mixer/release/
+DISTFILE[1]=		SDL2_mixer-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		audio/sdl2_mixer
+
+BUILD_DEPENDS=		flac:complete:standard
+			libvorbis:complete:standard
+RUN_DEPENDS=		flac:primary:standard
+			libvorbis:primary:standard
+BUILDRUN_DEPENDS=	fluidsynth:single:standard
+			libmodplug:single:standard
+			mpg123:single:standard
+
+USES=			fbsd10fix gmake pkgconfig libtool
+SDL_COMPONENTS=		sdl2
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-music-midi
+			--enable-music-midi-fluidsynth
+			--enable-music-ogg
+			--enable-music-mp3
+			--enable-music-flac
+			--enable-music-mp3-mpg123
+DISTNAME=		SDL2_mixer-${PORTVERSION}
+
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		LIBVERSION=${PORTVERSION:R}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libSDL2_mixer-${PORTVERSION:R}.so.${SOVERSION}
