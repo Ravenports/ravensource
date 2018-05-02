@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	EXTRACT_VERSION(FIREBIRD_2.5_VERSION)
-DEF[SCMVERSION]=	27050-0
+DEF[GH_FOLDER]=		${PORTVERSION:S/./_/g}
+DEF[SCMVERSION]=	27089-0
 DEF[LOCALSTATEDIR]=	/var/db/firebird
 DEF[CONFDIR]=		etc/firebird
 DEF[LIBEXECDIR]=	{{PREFIX}}/libexec/firebird
@@ -14,7 +15,7 @@ HOMEPAGE=		https://www.firebirdsql.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/firebird/firebird/${PORTVERSION}-Release
+SITES[main]=		https://github.com/FirebirdSQL/firebird/releases/download/R${GH_FOLDER}/
 DISTFILE[1]=		Firebird-${PORTVERSION}.${SCMVERSION}.tar.bz2:main
 
 SPKGS[standard]=	complete server client docs
@@ -23,6 +24,7 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 LICENSE=		CUSTOM1:server CUSTOM2:server
+LICENSE_TERMS=		server:{{WRKSRC}}/doc/license/README.license.usage.txt
 LICENSE_NAME=		CUSTOM1:"Initial Developer's Public License"
 			CUSTOM2:"InterBase Public License"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/builds/install/misc/IDPLicense.txt
