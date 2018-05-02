@@ -41,7 +41,6 @@ while read ravenport version fpc_port; do
 
 	libedit) ;;		# Different version scheme from FPC
 	gnat-util) ;;		# Different version scheme from FPC
-	gcc[678]) ;;		# Different version scheme from FPC
 	gprbuild) ;;		# Different version scheme from FPC
 	apr1|apr-util) ;;	# Different version scheme from FPC
 	libunwind) ;;		# ditto
