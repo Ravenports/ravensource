@@ -80,6 +80,7 @@ while read ravenport version fpc_port; do
 	openpam) ;;
 	AdaYaml) ;;
 	libuuid) ;;
+	pekwm-themepack) ;;
 	spidermonkey) ;;		# check occasionally
 	*) echo "${ravenport} ${version}"
    esac
