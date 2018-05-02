@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2.9
-DEF[SOVERSION]=		6.16.0
+DEF[PORTVERSION]=	2.9.1
+DEF[SOVERSION]=		6.16.1
 DEF[PORTDOCS]=		reference CHANGES formats.txt LICENSE.TXT raster.txt
 # ----------------------------------------------------------------------------
 
@@ -31,13 +31,14 @@ LICENSE=		GPLv2+:primary CUSTOM1:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/docs/GPLv2.TXT
 			CUSTOM1:{{WRKSRC}}/docs/FTL.TXT
 LICENSE_NAME=		CUSTOM1:"The FreeType Project license"
+LICENSE_TERMS=		primary:{{WRKSRC}}/docs/LICENSE.TXT
 LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		print/freetype2
 
 BUILDRUN_DEPENDS=	bzip2:complete:standard
 
-USES=			cpe gmake libtool zlib
+USES=			cpe gmake libtool zlib pkgconfig
 MAKE_ENV=		TOP=""
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--without-harfbuzz
