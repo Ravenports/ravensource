@@ -1,5 +1,5 @@
 DEF[ERL_RELEASE]=	20.3
-DEF[PORTVERSION]=	${ERL_RELEASE}.4
+DEF[PORTVERSION]=	${ERL_RELEASE}.5
 DEF[ASN1_DOC_VSN]=	5.0.5
 DEF[ASN1_VSN]=		${ASN1_DOC_VSN}
 DEF[COMMTEST_DOC_VSN]=	1.15.4
@@ -11,7 +11,7 @@ DEF[DIAMETER_VSN]=	${DIAMETER_DOC_VSN}
 DEF[ERLINT_DOC_VSN]=	3.10.1
 DEF[ERLINT_VSN]=	3.10.2
 DEF[ERTS_DOC_VSN]=	9.3
-DEF[ERTS_VSN]=		${ERTS_DOC_VSN}
+DEF[ERTS_VSN]=		9.3.1
 DEF[INETS_DOC_VSN]=	6.5
 DEF[INETS_VSN]=		6.5.1
 DEF[KERNEL_DOC_VSN]=	5.4.3
@@ -27,7 +27,7 @@ DEF[SNMP_VSN]=		${SNMP_DOC_VSN}
 DEF[SSH_DOC_VSN]=	4.6.6
 DEF[SSH_VSN]=		4.6.8
 DEF[SSL_DOC_VSN]=	8.2.4
-DEF[SSL_VSN]=		8.2.5
+DEF[SSL_VSN]=		8.2.6
 DEF[TOOLS_DOC_VSN]=	2.11.2
 DEF[TOOLS_VSN]=		${TOOLS_DOC_VSN}
 DEF[HIPE_DOC_VSN]=	3.17.1
@@ -79,6 +79,11 @@ OPTIONS_AVAILABLE=	NATIVE
 OPTIONS_STANDARD=	NATIVE
 OPT_ON[freebsd]=	NATIVE
 OPT_ON[linux]=		NATIVE
+
+LICENSE=		APACHE20:primary
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE.txt
+LICENSE_TERMS=		primary:{{WRKSRC}}/TERMS
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		lang/erlang
 
@@ -159,6 +164,10 @@ PLIST_SUB=		COMPILER_VSN=${COMPILER_VSN}
 # Install documentation. (HTML docs need to be in same dir as the
 # rest, not in share/doc/erlang as it should, because of relative
 # links in the documentation.
+
+post-extract:
+	${AWK} '/%CopyrightBegin%/,/%CopyrightEnd%/' \
+		${WRKSRC}/README.md > ${WRKDIR}/TERMS
 
 pre-configure:
 	(cd ${WRKSRC} && ./otp_build autoconf)
