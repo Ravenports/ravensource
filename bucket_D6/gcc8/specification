@@ -26,15 +26,13 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 LICENSE=		GPLv3+:compilers
-			LGPL3:compilers
-			GPLv3RLE:compilers
+			LGPL3+:compilers
+			GPLv3RLE+:compilers
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
-			LGPL3:{{WRKSRC}}/COPYING3.LIB
-			GPLv3RLE:{{WRKSRC}}/COPYING.RUNTIME
+			LGPL3+:{{WRKSRC}}/COPYING3.LIB
+			GPLv3RLE+:{{WRKSRC}}/COPYING.RUNTIME
 LICENSE_TERMS=		compilers:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		multi
-
-BROKEN[all]=		need to generate diffs first
 
 # lang/gcc8 not created yet
 # FPC_EQUIVALENT=		lang/gcc8
@@ -127,6 +125,9 @@ post-patch-sunos:
 		${WRKSRC}/gcc/Makefile.in
 	${REINPLACE_CMD} -e 's| install-gcc-specs||' \
 		${WRKSRC}/gcc/ada/gcc-interface/Makefile.in
+	# undo BSD thin socket modification
+	${MV} ${WRKSRC}/gcc/ada/libgnat/g-socthi.ads.orig \
+		${WRKSRC}/gcc/ada/libgnat/g-socthi.ads
 
 post-install:
 	cp ${STAGEDIR}${PREFIX}/bin/gcc ${STAGEDIR}${PREFIX}/bin/cc

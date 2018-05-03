@@ -45,22 +45,6 @@
  #include <unistd.h>
  #include <sys/time.h>
  #include <errno.h>
---- libstdc++-v3/src/filesystem/dir.cc.orig
-+++ libstdc++-v3/src/filesystem/dir.cc
-@@ -146,7 +146,13 @@
- 
-   int err = std::exchange(errno, 0);
-   const auto entp = readdir(dirp);
-+#ifdef __ANDROID__
-+  int tmperr = errno;
-+  errno = err;
-+  err = tmperr;
-+#else
-   std::swap(errno, err);
-+#endif
- 
-   if (entp)
-     {
 --- libstdc++-v3/include/bits/c++config.orig
 +++ libstdc++-v3/include/bits/c++config
 @@ -30,6 +30,12 @@
@@ -121,7 +105,7 @@
  # endif
  #endif
  } // namespace std
-@@ -194,7 +194,7 @@
+@@ -200,7 +200,7 @@
    using ::lldiv_t;
  #endif
  #if _GLIBCXX_USE_C99_CHECK || _GLIBCXX_USE_C99_DYNAMIC
@@ -130,7 +114,7 @@
  #endif
  #if !_GLIBCXX_USE_C99_DYNAMIC
    using ::_Exit;
-@@ -211,11 +211,11 @@
+@@ -217,11 +217,11 @@
  #endif
  
  #if _GLIBCXX_USE_C99_LONG_LONG_CHECK || _GLIBCXX_USE_C99_LONG_LONG_DYNAMIC
