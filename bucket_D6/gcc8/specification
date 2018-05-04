@@ -120,6 +120,11 @@ post-patch:
 	${REINPLACE_CMD} -e 's|static:crtbeginT.o%s;||' \
 		${WRKSRC}/gcc/config/freebsd-spec.h
 
+post-patch-linux:
+	# undo BSD thin socket modification
+	${MV} ${WRKSRC}/gcc/ada/libgnat/g-socthi.ads.orig \
+		${WRKSRC}/gcc/ada/libgnat/g-socthi.ads
+
 post-patch-sunos:
 	${REINPLACE_CMD} -e 's|cp -p -r |cp -RP |' \
 		${WRKSRC}/gcc/Makefile.in
