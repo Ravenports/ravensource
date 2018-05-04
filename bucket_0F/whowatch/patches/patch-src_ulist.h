@@ -1,6 +1,20 @@
 --- src/ulist.h.orig	2018-04-11 06:10:50 UTC
 +++ src/ulist.h
-@@ -16,11 +16,11 @@
+@@ -3,7 +3,13 @@
+ #endif
+ 
+ #ifndef WTMP_FILE
++#  ifdef __FreeBSD__
++#define WTMP_FILE 	"/var/log/utx.log"
++#  elif defined __DragonFly__
++#define WTMP_FILE 	"/var/log/wtmpx"
++#  else
+ #define WTMP_FILE 	"/var/log/wtmp"
++#  endif
+ #endif
+ 
+ #define LOGIN		1
+@@ -16,11 +22,11 @@
  struct user_t
  {
  	struct list_head head;
