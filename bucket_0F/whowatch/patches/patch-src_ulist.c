@@ -1,7 +1,7 @@
---- src/ulist.c.orig	2013-10-07 12:11:29 UTC
+--- src/ulist.c.orig	2018-04-11 06:10:50 UTC
 +++ src/ulist.c
 @@ -48,21 +48,17 @@ void update_line(int line)
- /* 
+ /*
   * Create new user structure and fill it
   */
 -struct user_t *alloc_user(struct utmp *entry)
@@ -9,13 +9,13 @@
  {
  	struct user_t *u;
  	int ppid;
- 	
+ 
  	u = calloc(1, sizeof *u);
  	if(!u) errx(1, "Cannot allocate memory.");
 -	strncpy(u->name, entry->ut_user, UT_NAMESIZE);
 -	strncpy(u->tty, entry->ut_line, UT_LINESIZE);
 -	strncpy(u->host, entry->ut_host, UT_HOSTSIZE);
--#ifdef HAVE_UTPID		
+-#ifdef HAVE_UTPID
 +	strncpy(u->name, entry->ut_user, sizeof(entry->ut_user));
 +	strncpy(u->tty, entry->ut_line, sizeof(entry->ut_line));
 +	strncpy(u->host, entry->ut_host, sizeof(entry->ut_host));
@@ -23,7 +23,7 @@
 -#else
 -	u->pid = get_login_pid(u->tty);
 -#endif
-  	if((ppid = get_ppid(u->pid)) == -1)
+ 	if((ppid = get_ppid(u->pid)) == -1)
  		strncpy(u->parent, "can't access", sizeof u->parent);
  	else 	strncpy(u->parent, get_name(ppid), sizeof u->parent - 1);
 @@ -70,7 +66,7 @@ struct user_t *alloc_user(struct utmp *e
@@ -37,13 +37,13 @@
  	u = alloc_user(ut);
 @@ -108,21 +104,13 @@ void uredraw(struct wdgt *w)
   */
- void read_utmp(void)		
+ void read_utmp(void)
  {
 -	int fd, i;
 -	static struct utmp entry;
 +	static struct utmpx *entry;
  	struct user_t *u;
--	
+ 
 -	if ((fd = open(UTMP_FILE ,O_RDONLY)) == -1) err_exit(1, "Cannot open utmp");
 -	while((i = read(fd, &entry,sizeof entry)) > 0) {
 -		if(i != sizeof entry) errx(1, "Error reading " UTMP_FILE );
@@ -53,7 +53,6 @@
 -		if(!entry.ut_name[0]) continue;
 -#endif
 -		u = new_user(&entry);
-+
 +	while ((entry = getutxent()) != NULL) {
 +		if(entry->ut_type != USER_PROCESS) continue;
 +		u = new_user(entry);
@@ -69,9 +68,9 @@
 -	struct utmp entry;
 +	struct utmpx entry;
  	int i, changed = 0;
- 	if(!wtmp_fd) open_wtmp(&wtmp_fd);	
- 	
- 	while((i = read(wtmp_fd, &entry, sizeof entry)) > 0){ 
+ 	if(!wtmp_fd) open_wtmp(&wtmp_fd);
+ 
+ 	while((i = read(wtmp_fd, &entry, sizeof entry)) > 0){
  		if (i < sizeof entry) prg_exit("Error reading wtmp");
  		/* user just logged in */
 -#ifdef HAVE_USER_PROCESS
@@ -91,8 +90,8 @@
  	/* user just logged out */
  		list_for_each(h, &users_l) {
  			u = list_entry(h, struct user_t, head);
--			if(strncmp(u->tty, entry.ut_line, UT_LINESIZE)) 
-+			if(strncmp(u->tty, entry.ut_line, sizeof(entry.ut_line))) 
+-			if(strncmp(u->tty, entry.ut_line, UT_LINESIZE))
++			if(strncmp(u->tty, entry.ut_line, sizeof(entry.ut_line)))
  				continue;
- 			udel(u, w);	
+ 			udel(u, w);
  			changed = 1;

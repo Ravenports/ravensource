@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.8.5
+DEF[PORTVERSION]=	1.8.6
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		whowatch
@@ -18,20 +18,18 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2:single
-LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
-LICENSE_SCHEME=		solo
+# There is no terms specifying GPLv2(+) in the source!
+# LICENSE=		GPLv2:single
+# LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+# LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		sysutils/whowatch
-NOT_FOR_OPSYS=		sunos
+# Temporarily ignore on freebsd, dragonfly
+NOT_FOR_OPSYS=		sunos freebsd dragonfly
 
 USES=			ncurses
 MUST_CONFIGURE=		gnu
 CPPFLAGS=		-I{{NCURSESINC}}
-
-post-extract:
-	${RM} ${WRKSRC}/src/procinfo.[ch]*
-	${RM} ${WRKSRC}/src/proc_plugin.c*
 
 post-patch:
 	${REINPLACE_CMD} -e "s|utmp|utmpx|g" ${WRKSRC}/configure
