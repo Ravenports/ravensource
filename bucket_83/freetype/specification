@@ -5,6 +5,7 @@ DEF[PORTDOCS]=		reference CHANGES formats.txt LICENSE.TXT raster.txt
 
 NAMEBASE=		freetype
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		print
 VARIANTS=		standard
 SDESC[standard]=	Free and portable TrueType font rendering engine
@@ -93,6 +94,8 @@ post-configure:
 		${MAKE_CMD} ${MAKE_FLAGS} ${MAKEFILE} ${MAKE_ARGS} setup)
 
 post-install:
+	${INSTALL_SCRIPT} ${WRKSRC}/builds/unix/freetype-config \
+		${STAGEDIR}${PREFIX}/bin/
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libfreetype.so.*
 	(cd ${WRKSRC}/docs && \
 		${COPYTREE_SHARE} "${PORTDOCS}" ${STAGEDIR}${STD_DOCDIR})
