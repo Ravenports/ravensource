@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	16.2
+DEF[PORTVERSION]=	16.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		tint2
@@ -10,8 +10,8 @@ HOMEPAGE=		https://gitlab.com/o9000/tint2
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/o9000:tint2:${PORTVERSION}
-DISTFILE[1]=		generated:main
+SITES[main]=		https://gitlab.com/o9000/tint2/-/archive/v${PORTVERSION}/
+DISTFILE[1]=		tint2-v${PORTVERSION}.tar.bz2:main
 
 SPKGS[standard]=	complete primary examples docs
 
@@ -20,18 +20,23 @@ OPTIONS_STANDARD=	none
 
 LICENSE=		GPLv2:primary
 LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/main.c
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11/tint
 
 BUILDRUN_DEPENDS=	imlib2:single:standard
 			startup-notification:single:standard
+			shared-mime-info:single:standard
 
 USES=			cmake:outsource pkgconfig gnome-icons
-			gettext-tools gettext-runtime
+			gettext-tools gettext-runtime desktop-utils
 GNOME_COMPONENTS=	gtk2 librsvg
 XORG_COMPONENTS=	x11 xcomposite xdamage xfixes xinerama xrandr xrender
 INSTALL_REQ_TOOLCHAIN=	yes
+DISTNAME=		tint2-v${PORTVERSION}
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/tint2*
