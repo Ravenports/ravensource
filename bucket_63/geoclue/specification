@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.4.8
+DEF[PORTVERSION]=	2.4.10
 DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
@@ -19,10 +19,18 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/gclue-error.h
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		net/geoclue
 
 BUILDRUN_DEPENDS=	json-glib:single:standard
 			libsoup:primary:standard
+			libnotify:primary:standard
 
 USES=			gettext-tools gmake libtool pkgconfig
 GNOME_COMPONENTS=	glib intltool introspection
