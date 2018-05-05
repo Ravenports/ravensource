@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.3.1
+DEF[PORTVERSION]=	3.3.2
 DEF[ASDF_PATH]=		lib/common-lisp/asdf
 DEF[ASDF_CONTRIB]=	lib/common-lisp/contrib
 DEF[ASDF_UIOP]=		lib/common-lisp/uiop
@@ -21,7 +21,15 @@ SPKGS[standard]=	complete primary docs
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKDIR}}/LICENSE_MIT
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		devel/cl-asdf
+
+post-extract:
+	${AWK} '/LICENSE START/,/LICENSE END/' \
+		${WRKSRC}/header.lisp > ${WRKDIR}/LICENSE_MIT
 
 do-build:
 	(cd ${WRKSRC} && /bin/sh make-asdf.sh build_asdf)
