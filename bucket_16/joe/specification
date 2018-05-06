@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	4.6
 
 NAMEBASE=		joe
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		editors
 VARIANTS=		standard
 SDESC[standard]=	Joe's Own Editor
@@ -18,12 +19,22 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+# GPLv2 license is not properly specified.  The only grant is at
+# src/mouse.[ch] and that specifies GPLv1.  Do not specify license
+# until issue resolved at future release.  (issue #388)
+# LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+
 FPC_EQUIVALENT=		editors/joe
 
-USES=			gmake iconv ncurses
+BUILD_DEPENDS=		ncurses60:single:standard
+
+USES=			gmake iconv desktop-utils
 MUST_CONFIGURE=		gnu
 BUILD_TARGET=		joe
 INSTALL_REQ_TOOLCHAIN=	yes
+CFLAGS=			-I{{LOCALBASE}}/ncurses60/include
+LDFLAGS=		-L{{LOCALBASE}}/ncurses60/lib
+			-Wl,-rpath,{{LOCALBASE}}/ncurses60/lib
 
 post-patch:
 	${REINPLACE_CMD} -e 's|docs/README.old docs/man.md ||' \
