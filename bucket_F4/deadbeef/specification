@@ -19,6 +19,21 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		GPLv2+:single
+			ZLIB:single
+			CUSTOM1:single
+			CUSTOM2:single
+LICENSE_TERMS=		single:{{WRKSRC}}/plugins/notify/COPYING
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING.GPLv2
+			CUSTOM1:{{WRKSRC}}/COPYING
+			CUSTOM2:{{WRKDIR}}/LICENSE_PLUGINS
+			ZLIB:{{WRKDIR}}/LICENSE_ZLIB
+LICENSE_NAME=		CUSTOM1:"Various BSD licenses and copyrights"
+			CUSTOM2:"All plugin licenses and copyrights"
+LICENSE_AWK=		ZLIB:"__DEADBEEF_H"
+LICENSE_SOURCE=		ZLIB:{{WRKSRC}}/deadbeef.h
+LICENSE_SCHEME=		multi
+
 FPC_EQUIVALENT=		audio/deadbeef
 
 RUN_DEPENDS=		freepats:single:standard
@@ -51,6 +66,10 @@ CPPFLAGS=		-I../dumb/dumb-kode54/include
 			-I../../plugins/gme/game-music-emu-0.6pre
 			-I./sidplay-libs/libsidplay/include/sidplay
 SHEBANG_FILES=		yasmwrapper.sh
+
+post-extract:
+	(cd ${WRKSRC} && ${HEAD} -n 100 plugins/*/COPYING \
+		> ${WRKDIR}/LICENSE_PLUGINS)
 
 post-patch:
 	# Do not link to libsupc++ which may be PIC-unsafe (breaks 64-bit arches)
