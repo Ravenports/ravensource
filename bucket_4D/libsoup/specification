@@ -1,5 +1,5 @@
 # libsoup has even/odd releases, so stick to e.g. 2.60.x, 2.62.x, etc
-DEF[PORTVERSION]=	2.62.1
+DEF[PORTVERSION]=	2.62.2
 DEF[LIBVERSION]=	2.4
 DEF[SOVERSION]=		1.8.0
 # ----------------------------------------------------------------------------
@@ -20,6 +20,13 @@ SPKGS[standard]=	complete primary docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libsoup/soup-websocket.h
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libsoup
 
