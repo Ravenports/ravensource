@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	3.10.1
 
 NAMEBASE=		sqlitebrowser
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		databases
 VARIANTS=		standard
 SDESC[standard]=	Visual tool to manage SQLite databases
@@ -28,7 +29,7 @@ FPC_EQUIVALENT=		databases/sqlitebrowser
 BUILD_DEPENDS=		qt5-qttools:single:standard
 BUILDRUN_DEPENDS=	qscintilla:primary:standard
 
-USES=			cmake sqlite desktop-utils gnome-icons
+USES=			cmake sqlite desktop-utils:single gnome-icons:single
 CMAKE_ARGS=		-DFORCE_INTERNAL_ANTLR:BOOL=ON
 			-DQT_INCLUDE_DIR:PATH="{{PREFIX}}/include/qt5"
 			-DQT_LIBRARY_DIR:PATH="{{PREFIX}}/lib/qt5"
