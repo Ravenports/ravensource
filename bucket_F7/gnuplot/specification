@@ -14,7 +14,8 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/gnuplot/gnuplot/${PORTVERSION}
 DISTFILE[1]=		gnuplot-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary docs examples
+# add "docs" subpackage to standard later when groff available
+SPKGS[standard]=	complete primary examples
 SPKGS[lite]=		complete primary examples
 
 OPTIONS_AVAILABLE=	LITE
@@ -34,7 +35,6 @@ LDFLAGS=		-L{{ICONV_LIBRARY_PATH}} {{ICONV_LIB}}
 PLIST_SUB=		MAJORVER=${PORTVERSION:R}
 CONFIGURE_ARGS=		--with-readline=gnu
 			--without-linux-vga
-			--without-lisp-files
 			--without-tutorial
 			--with-bitmap-terminals
 			--with-qt=no
@@ -54,6 +54,23 @@ CONFIGURE_ARGS=		--with-readline=gnu
 					--without-lua
 					--without-latex
 					--without-kpsexpand
+[LITE].CONFIGURE_ARGS_OFF=		--with-gd={{LOCALBASE}}
+					--with-gpic
+					--with-mif
+					--with-caca
+# |					--with-kpsexpand
+# |					--with-latex
+# |					ac_cv_prog_KPSEXPAND={{LOCALBASE}}/bin/kpsexpand
+# |					ac_cv_prog_PLAINTEX={{LOCALBASE}}/bin/tex
+# |					ac_cv_prog_PDFLATEX={{LOCALBASE}}/bin/pdflatex
+# |					ac_cv_prog_LATEX={{LOCALBASE}}/bin/latex
+					ac_cv_path_WX_CONFIG={{LOCALBASE}}/bin/wxgtk3u-3.0-config
+[LITE].USES_OFF=			jpeg lua png
+[LITE].GNOME_COMPONENTS_OFF=		atk cairo gtk2 gdkpixbuf
+[LITE].XORG_COMPONENTS_OFF=		x11
+[LITE].BUILDRUN_DEPENDS_OFF=		tiff:primary:standard
+					libGD:single:standard
+					wxWidgets:single:standard
 
 post-patch:
 	${REINPLACE_CMD} -e \
@@ -68,10 +85,12 @@ post-install:
 	# Establish sample
 	(cd ${STAGEDIR}${PREFIX}/share/gnuplot/${PORTVERSION:R} && \
 		${MV} gnuplotrc gnuplotrc.sample)
-	# remove empty directories
-	${RM} -r ${STAGEDIR}${PREFIX}/libexec/gnuplot
 	# install examples and strip
 	@${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
 	(cd ${WRKSRC}/demo && \
 		${COPYTREE_SHARE} . ${STAGEDIR}${STD_EXAMPLESDIR})
 	${STRIP_CMD} ${STAGEDIR}${STD_EXAMPLESDIR}/plugin/demo_plugin.so
+
+post-install-LITE-ON:
+	# remove empty directories
+	${RM} -r ${STAGEDIR}${PREFIX}/libexec/gnuplot
