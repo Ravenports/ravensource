@@ -1,0 +1,77 @@
+DEF[PORTVERSION]=	5.2.3
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gnuplot
+VERSION=		${PORTVERSION}
+KEYWORDS=		math
+VARIANTS=		standard lite
+SDESC[standard]=	Command-line driven graphing utility
+SDESC[lite]=		Command-line driven graphing utility (headless)
+HOMEPAGE=		http://www.gnuplot.info/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/gnuplot/gnuplot/${PORTVERSION}
+DISTFILE[1]=		gnuplot-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs examples
+SPKGS[lite]=		complete primary examples
+
+OPTIONS_AVAILABLE=	LITE
+OPTIONS_STANDARD=	none
+VOPTS[lite]=		LITE=ON
+
+LICENSE=		CUSTOM1:primary
+LICENSE_NAME=		CUSTOM1:"Gnuplot License"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/Copyright
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		math/gnuplot
+
+USES=			iconv pkgconfig readline c++:primary
+MUST_CONFIGURE=		gnu
+LDFLAGS=		-L{{ICONV_LIBRARY_PATH}} {{ICONV_LIB}}
+PLIST_SUB=		MAJORVER=${PORTVERSION:R}
+CONFIGURE_ARGS=		--with-readline=gnu
+			--without-linux-vga
+			--without-lisp-files
+			--without-tutorial
+			--with-bitmap-terminals
+			--with-qt=no
+
+[LITE].DESCRIPTION=			Build lite variant
+[LITE].CONFIGURE_ARGS_ON=		--disable-x11-mbfonts
+					--disable-x11-external
+					--disable-wxwidgets
+					--without-x
+					--without-ggi
+					--without-gd
+					--without-caca
+					--without-wx
+					--without-gpic
+					--without-mif
+					--without-cairo
+					--without-lua
+					--without-latex
+					--without-kpsexpand
+
+post-patch:
+	${REINPLACE_CMD} -e \
+		'/^install:/s/install-am//' ${WRKSRC}/share/LaTeX/Makefile.in
+	${REINPLACE_CMD} -e \
+		's|)/@PACKAGE@/@PKG_MAJOR@|)|g' ${WRKSRC}/src/Makefile.in
+	${REINPLACE_CMD} -e \
+		's|luaL_checkint(|(int)luaL_checkinteger(|' \
+		${WRKSRC}/term/lua.trm
+
+post-install:
+	# Establish sample
+	(cd ${STAGEDIR}${PREFIX}/share/gnuplot/${PORTVERSION:R} && \
+		${MV} gnuplotrc gnuplotrc.sample)
+	# remove empty directories
+	${RM} -r ${STAGEDIR}${PREFIX}/libexec/gnuplot
+	# install examples and strip
+	@${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+	(cd ${WRKSRC}/demo && \
+		${COPYTREE_SHARE} . ${STAGEDIR}${STD_EXAMPLESDIR})
+	${STRIP_CMD} ${STAGEDIR}${STD_EXAMPLESDIR}/plugin/demo_plugin.so
