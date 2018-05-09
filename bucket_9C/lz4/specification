@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	1.8.1.2
-DEF[SOVERSION]=		1.8.1
+DEF[PORTVERSION]=	1.8.2
+DEF[SOVERSION]=		1.8.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		lz4
@@ -19,9 +19,10 @@ SPKGS[standard]=	complete static shared
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		BSD2CLAUSE:static GPLv2:static
-LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE
-			GPLv2:{{WRKSRC}}/LICENSE
+LICENSE=		BSD2CLAUSE:static GPLv2+:static
+LICENSE_TERMS=		static:{{WRKSRC}}/LICENSE
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/lib/LICENSE
+			GPLv2+:stock
 LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		archivers/liblz4
@@ -30,7 +31,7 @@ USES=			gmake pkgconfig
 BUILD_TARGET=		default
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
-MAKE_ARGS=		MANDIR={{MANPREFIX}}/man/man1
+MAKE_ARGS=		MANDIR={{MANPREFIX}}/man
 			PKGCONFIGDIR={{PREFIX}}/lib/pkgconfig
 			INSTALL=install
 
