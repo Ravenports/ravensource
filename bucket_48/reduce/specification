@@ -1,0 +1,76 @@
+DEF[SNAPSHOT]=		2018-04-06
+DEF[SVNREV]=		4567
+DEF[PORTVERSION]=	${SNAPSHOT:S/-//g}
+DEF[RBINS]=		{{WRKSRC}}/cslbuild/{{CONFIGURE_TARGET}}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		reduce
+VERSION=		${PORTVERSION}
+KEYWORDS=		math lang
+VARIANTS=		standard
+SDESC[standard]=	Codemist Std Lisp general-purpose computer system
+HOMEPAGE=		http://www.reduce-algebra.com/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/reduce-algebra/snapshot_${SNAPSHOT}
+DISTFILE[1]=		Reduce-svn${SVNREV}-src.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:primary
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/csl/reduce.doc/BSD-LICENSE.txt
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		math/reduce
+
+BUILD_DEPENDS=		libtool:single:standard
+			autoconf:single:standard
+			automake:single:standard
+BUILDRUN_DEPENDS=	tiff:primary:standard
+RUN_DEPENDS=		gnuplot:complete:standard
+
+USES=			gmake jpeg png ncurses
+XORG_COMPONENTS=	x11 xext xft
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-csl
+			--with-autogen=no
+			AMDEP_TRUE="\#"
+			am__fastdepCC_TRUE="\#"
+			am__fastdepCXX_TRUE="\#"
+DISTNAME=		Reduce-svn${SVNREV}-src
+CPPFLAGS=		`freetype-config --cflags`
+			-I{{NCURSESINC}}
+LDFLAGS=		`freetype-config --libs`
+BUILD_TARGET=		#
+SUB_FILES=		redcsl
+
+post-patch:
+	${REINPLACE_CMD} -e 's|/usr/pkg/|${LOCALBASE}/|' \
+		-e 's|`./config.guess`|${CONFIGURE_TARGET}|' \
+		${WRKSRC}/scripts/make.sh
+
+pre-configure:
+	(cd ${WRKSRC} && ./autogen.sh --sequential --with-csl)
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/reduce ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${RBINS}/csl/reduce.img \
+		${STAGEDIR}${PREFIX}/share/reduce
+	${INSTALL_PROGRAM} ${RBINS}/csl/reduce \
+		${STAGEDIR}${PREFIX}/share/reduce
+	${INSTALL_SCRIPT} ${WRKDIR}/redcsl ${STAGEDIR}${PREFIX}/bin/
+	${INSTALL_MAN} ${FILESDIR}/redcsl.1 ${STAGEDIR}${MANPREFIX}/man/man1/
+	(cd ${RBINS}/csl/reduce.doc && \
+		${COPYTREE_SHARE} . ${STAGEDIR}${STD_DOCDIR})
+	${RM} ${STAGEDIR}${STD_DOCDIR}/*-LICENSE.txt
+	${RM} ${STAGEDIR}${STD_DOCDIR}/LGPL-2.1.txt
+	(cd ${RBINS}/csl/reduce.fonts && \
+		${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/share/reduce/reduce.fonts)
+	${INSTALL_DATA} ${WRKSRC}/doc/manual/manual.pdf \
+		${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${WRKSRC}/doc/primers/*.pdf \
+		${STAGEDIR}${STD_DOCDIR}
