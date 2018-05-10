@@ -158,6 +158,7 @@ if ("$use_homepage" eq "ok") {
 
 $homepage =~ s/http:\/\/github.com/https:\/\/github.com/;
 $homepage =~ s/http:\/\/bitbucket.org/https:\/\/bitbucket.org/;
+$homepage =~ s/http:\/\/svn.ali.as\/.*/none/;
 
 if (substr($portversion, 0, 1) eq "v") {
       print "Note:     stripping leading 'v' from version: $portversion\n";

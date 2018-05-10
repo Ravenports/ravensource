@@ -193,6 +193,7 @@ if ("$use_homepage" eq "ok") {
 
 $homepage =~ s/http:\/\/github.com/https:\/\/github.com/;
 $homepage =~ s/http:\/\/bitbucket.org/https:\/\/bitbucket.org/;
+$homepage =~ s/http:\/\/svn.ali.as\/.*/none/;
 
 if ((exists $meta_data->{'configure_requires'} && defined $meta_data->{'configure_requires'}) ||
     (exists $meta_data->{'build_requires'} && defined $meta_data->{'build_requires'}) ||
