@@ -144,7 +144,7 @@ get_filtered_url() {
    case ${url} in
       http://github.com/* | http://bitbucket.org/* | \
       http://docs.openstack.org* | http://banisterfiend.wordpress.com* | \
-      http://*.github.io)
+      http://*.github.io | http://rubyonrails.org*)
          echo ${url} | sed -e "s/^http:/https:/"
          ;;
       *) echo ${url} ;;
