@@ -1,3 +1,4 @@
+%%CUPS-ON%%lib/gtk-2.0/%%GTK_VERSION%%/printbackends/libprintbackend-cups.so
 bin/gtk-builder-convert
 bin/gtk-demo
 bin/gtk-query-immodules-2.0
@@ -6,6 +7,7 @@ include/gail-1.0/gail/gailwidget.h
 include/gail-1.0/libgail-util/gail-util.h
 include/gail-1.0/libgail-util/gailmisc.h
 include/gail-1.0/libgail-util/gailtextutil.h
+include/gtk-2.0/gdkconfig.h
 include/gtk-2.0/gdk/gdk.h
 include/gtk-2.0/gdk/gdkapplaunchcontext.h
 include/gtk-2.0/gdk/gdkcairo.h
@@ -40,7 +42,6 @@ include/gtk-2.0/gdk/gdktypes.h
 include/gtk-2.0/gdk/gdkvisual.h
 include/gtk-2.0/gdk/gdkwindow.h
 include/gtk-2.0/gdk/gdkx.h
-include/gtk-2.0/gdkconfig.h
 include/gtk-2.0/gtk/gtk.h
 include/gtk-2.0/gtk/gtkaboutdialog.h
 include/gtk-2.0/gtk/gtkaccelgroup.h
@@ -124,13 +125,13 @@ include/gtk-2.0/gtk/gtkhsv.h
 include/gtk-2.0/gtk/gtkiconfactory.h
 include/gtk-2.0/gtk/gtkicontheme.h
 include/gtk-2.0/gtk/gtkiconview.h
-include/gtk-2.0/gtk/gtkinfobar.h
 include/gtk-2.0/gtk/gtkimage.h
 include/gtk-2.0/gtk/gtkimagemenuitem.h
 include/gtk-2.0/gtk/gtkimcontext.h
 include/gtk-2.0/gtk/gtkimcontextsimple.h
 include/gtk-2.0/gtk/gtkimmodule.h
 include/gtk-2.0/gtk/gtkimmulticontext.h
+include/gtk-2.0/gtk/gtkinfobar.h
 include/gtk-2.0/gtk/gtkinputdialog.h
 include/gtk-2.0/gtk/gtkinvisible.h
 include/gtk-2.0/gtk/gtkitem.h
@@ -261,6 +262,15 @@ include/gtk-unix-print-2.0/gtk/gtkprinter.h
 include/gtk-unix-print-2.0/gtk/gtkprintjob.h
 include/gtk-unix-print-2.0/gtk/gtkprintunixdialog.h
 include/gtk-unix-print-2.0/gtk/gtkunixprint.h
+lib/libgailutil.so
+lib/libgailutil.so.%%LIBGAILVER%%
+lib/libgailutil.so.18
+lib/libgdk-x11-2.0.so
+lib/libgdk-x11-2.0.so.%%LIBVERSION%%
+lib/libgdk-x11-2.0.so.0
+lib/libgtk-x11-2.0.so
+lib/libgtk-x11-2.0.so.%%LIBVERSION%%
+lib/libgtk-x11-2.0.so.0
 lib/girepository-1.0/Gdk-2.0.typelib
 lib/girepository-1.0/GdkX11-2.0.typelib
 lib/girepository-1.0/Gtk-2.0.typelib
@@ -276,20 +286,10 @@ lib/gtk-2.0/%%GTK_VERSION%%/immodules/im-ti-er.so
 lib/gtk-2.0/%%GTK_VERSION%%/immodules/im-ti-et.so
 lib/gtk-2.0/%%GTK_VERSION%%/immodules/im-viqr.so
 lib/gtk-2.0/%%GTK_VERSION%%/immodules/im-xim.so
-%%CUPS-ON%%lib/gtk-2.0/%%GTK_VERSION%%/printbackends/libprintbackend-cups.so
 lib/gtk-2.0/%%GTK_VERSION%%/printbackends/libprintbackend-file.so
 lib/gtk-2.0/%%GTK_VERSION%%/printbackends/libprintbackend-lpr.so
 lib/gtk-2.0/modules/libferret.so
 lib/gtk-2.0/modules/libgail.so
-lib/libgailutil.so
-lib/libgailutil.so.18
-lib/libgailutil.so.%%LIBGAILVER%%
-lib/libgdk-x11-2.0.so
-lib/libgdk-x11-2.0.so.0
-lib/libgdk-x11-2.0.so.%%LIBVERSION%%
-lib/libgtk-x11-2.0.so
-lib/libgtk-x11-2.0.so.0
-lib/libgtk-x11-2.0.so.%%LIBVERSION%%
 lib/pkgconfig/gail.pc
 lib/pkgconfig/gdk-2.0.pc
 lib/pkgconfig/gdk-x11-2.0.pc
@@ -334,8 +334,8 @@ share/gtk-2.0/demo/iconview.c
 share/gtk-2.0/demo/iconview_edit.c
 share/gtk-2.0/demo/images.c
 share/gtk-2.0/demo/infobar.c
-share/gtk-2.0/demo/list_store.c
 share/gtk-2.0/demo/links.c
+share/gtk-2.0/demo/list_store.c
 share/gtk-2.0/demo/menus.c
 share/gtk-2.0/demo/offscreen_window.c
 share/gtk-2.0/demo/offscreen_window2.c
@@ -566,7 +566,7 @@ share/locale/zh_TW/LC_MESSAGES/gtk20.mo
 share/themes/Default/gtk-2.0-key/gtkrc
 share/themes/Emacs/gtk-2.0-key/gtkrc
 share/themes/Raleigh/gtk-2.0/gtkrc
+@dir lib/gtk-2.0/%%GTK_VERSION%%/loaders
+@dir lib/gtk-2.0/%%GTK_VERSION%%/modules
 @postexec %D/bin/gtk-query-immodules-2.0 --update-cache > /dev/null 2>&1 || /usr/bin/true
 @rmtry lib/gtk-2.0/%%GTK_VERSION%%/immodules.cache
-@dir lib/gtk-2.0/%%GTK_VERSION%%/modules
-@dir lib/gtk-2.0/%%GTK_VERSION%%/loaders

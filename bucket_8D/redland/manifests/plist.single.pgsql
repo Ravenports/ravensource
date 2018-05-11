@@ -26,9 +26,9 @@ lib/librdf.a
 lib/librdf.so
 lib/librdf.so.0
 lib/librdf.so.0.0.0
+lib/pkgconfig/redland.pc
 lib/redland/librdf_storage_postgresql.a
 lib/redland/librdf_storage_postgresql.so
-lib/pkgconfig/redland.pc
 share/man/man1/rdfproc.1.gz
 share/man/man1/redland-config.1.gz
 share/man/man1/redland-db-upgrade.1.gz

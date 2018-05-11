@@ -20,10 +20,6 @@ include/gpgme++/gpgsetexpirytimeeditinteractor.h
 include/gpgme++/gpgsetownertrusteditinteractor.h
 include/gpgme++/gpgsignkeyeditinteractor.h
 include/gpgme++/importresult.h
-include/gpgme++/interfaces/assuantransaction.h
-include/gpgme++/interfaces/dataprovider.h
-include/gpgme++/interfaces/passphraseprovider.h
-include/gpgme++/interfaces/progressprovider.h
 include/gpgme++/key.h
 include/gpgme++/keygenerationresult.h
 include/gpgme++/keylistresult.h
@@ -36,8 +32,12 @@ include/gpgme++/tofuinfo.h
 include/gpgme++/trustitem.h
 include/gpgme++/verificationresult.h
 include/gpgme++/vfsmountresult.h
-lib/cmake/Gpgmepp/GpgmeppConfig.cmake
-lib/cmake/Gpgmepp/GpgmeppConfigVersion.cmake
+include/gpgme++/interfaces/assuantransaction.h
+include/gpgme++/interfaces/dataprovider.h
+include/gpgme++/interfaces/passphraseprovider.h
+include/gpgme++/interfaces/progressprovider.h
 lib/libgpgmepp.so
 lib/libgpgmepp.so.%%CPP_SOMAJOR%%
 lib/libgpgmepp.so.%%CPP_SOVERSION%%
+lib/cmake/Gpgmepp/GpgmeppConfig.cmake
+lib/cmake/Gpgmepp/GpgmeppConfigVersion.cmake

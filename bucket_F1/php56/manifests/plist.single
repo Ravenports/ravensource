@@ -1,12 +1,21 @@
-%%CLI-ON%%bin/php%%SUFFIX%%
 %%CGI-ON%%bin/php-cgi%%SUFFIX%%
-bin/php-config%%SUFFIX%%
+%%CGI-ON%%share/man/man1/php-cgi%%SUFFIX%%.1.gz
+%%CLI-ON%%bin/php%%SUFFIX%%
+%%CLI-ON%%include/php%%SUFFIX%%/sapi/cli/cli.h
+%%CLI-ON%%share/man/man1/php%%SUFFIX%%.1.gz
 %%DEBUGGER-ON%%bin/phpdbg%%SUFFIX%%
+%%DEBUGGER-ON%%share/man/man1/phpdbg%%SUFFIX%%.1.gz
+%%EMBED-ON%%include/php%%SUFFIX%%/sapi/embed/php_embed.h
+%%EMBED-ON%%lib/php%%SUFFIX%%/libphp%%SOMAJOR%%.so
+%%FPM-ON%%@sample etc/php%%SUFFIX%%/php-fpm.conf.default etc/php%%SUFFIX%%/php-fpm.conf
+%%FPM-ON%%sbin/php-fpm%%SUFFIX%%
+%%FPM-ON%%share/man/man8/php-fpm%%SUFFIX%%.8.gz
+%%FPM-ON%%share/php%%SUFFIX%%/fpm/status.html
+bin/php-config%%SUFFIX%%
 bin/phpize%%SUFFIX%%
 etc/php%%SUFFIX%%/php.conf
 etc/php%%SUFFIX%%/php.ini-development
 etc/php%%SUFFIX%%/php.ini-production
-%%FPM-ON%%@sample etc/php%%SUFFIX%%/php-fpm.conf.default etc/php%%SUFFIX%%/php-fpm.conf
 include/php%%SUFFIX%%/TSRM/TSRM.h
 include/php%%SUFFIX%%/TSRM/readdir.h
 include/php%%SUFFIX%%/TSRM/tsrm_config.h
@@ -28,6 +37,7 @@ include/php%%SUFFIX%%/Zend/zend_config.nw.h
 include/php%%SUFFIX%%/Zend/zend_config.w32.h
 include/php%%SUFFIX%%/Zend/zend_constants.h
 include/php%%SUFFIX%%/Zend/zend_dtrace.h
+include/php%%SUFFIX%%/Zend/zend_dynamic_array.h
 include/php%%SUFFIX%%/Zend/zend_errors.h
 include/php%%SUFFIX%%/Zend/zend_exceptions.h
 include/php%%SUFFIX%%/Zend/zend_execute.h
@@ -39,6 +49,7 @@ include/php%%SUFFIX%%/Zend/zend_globals.h
 include/php%%SUFFIX%%/Zend/zend_globals_macros.h
 include/php%%SUFFIX%%/Zend/zend_hash.h
 include/php%%SUFFIX%%/Zend/zend_highlight.h
+include/php%%SUFFIX%%/Zend/zend_indent.h
 include/php%%SUFFIX%%/Zend/zend_ini.h
 include/php%%SUFFIX%%/Zend/zend_ini_parser.h
 include/php%%SUFFIX%%/Zend/zend_ini_scanner.h
@@ -59,8 +70,10 @@ include/php%%SUFFIX%%/Zend/zend_objects.h
 include/php%%SUFFIX%%/Zend/zend_objects_API.h
 include/php%%SUFFIX%%/Zend/zend_operators.h
 include/php%%SUFFIX%%/Zend/zend_ptr_stack.h
+include/php%%SUFFIX%%/Zend/zend_qsort.h
 include/php%%SUFFIX%%/Zend/zend_signal.h
 include/php%%SUFFIX%%/Zend/zend_stack.h
+include/php%%SUFFIX%%/Zend/zend_static_allocator.h
 include/php%%SUFFIX%%/Zend/zend_stream.h
 include/php%%SUFFIX%%/Zend/zend_string.h
 include/php%%SUFFIX%%/Zend/zend_strtod.h
@@ -72,14 +85,10 @@ include/php%%SUFFIX%%/Zend/zend_vm.h
 include/php%%SUFFIX%%/Zend/zend_vm_def.h
 include/php%%SUFFIX%%/Zend/zend_vm_execute.h
 include/php%%SUFFIX%%/Zend/zend_vm_opcodes.h
-include/php%%SUFFIX%%/Zend/zend_dynamic_array.h
-include/php%%SUFFIX%%/Zend/zend_indent.h
-include/php%%SUFFIX%%/Zend/zend_qsort.h
-include/php%%SUFFIX%%/Zend/zend_static_allocator.h
+include/php%%SUFFIX%%/ext/date/php_date.h
 include/php%%SUFFIX%%/ext/date/lib/timelib.h
 include/php%%SUFFIX%%/ext/date/lib/timelib_config.h
 include/php%%SUFFIX%%/ext/date/lib/timelib_structs.h
-include/php%%SUFFIX%%/ext/date/php_date.h
 include/php%%SUFFIX%%/ext/ereg/php_ereg.h
 include/php%%SUFFIX%%/ext/ereg/php_regex.h
 include/php%%SUFFIX%%/ext/ereg/regex/cclass.h
@@ -183,8 +192,6 @@ include/php%%SUFFIX%%/ext/standard/uniqid.h
 include/php%%SUFFIX%%/ext/standard/url.h
 include/php%%SUFFIX%%/ext/standard/url_scanner_ex.h
 include/php%%SUFFIX%%/ext/standard/winver.h
-@postexec touch %D/include/php%%SUFFIX%%/ext/php_config.h
-@postunexec [ -s %D/include/php%%SUFFIX%%/ext/php_config.h ] || rm %D/include/php%%SUFFIX%%/ext/php_config.h
 include/php%%SUFFIX%%/main/SAPI.h
 include/php%%SUFFIX%%/main/build-defs.h
 include/php%%SUFFIX%%/main/fopen_wrappers.h
@@ -211,6 +218,8 @@ include/php%%SUFFIX%%/main/php_version.h
 include/php%%SUFFIX%%/main/rfc1867.h
 include/php%%SUFFIX%%/main/snprintf.h
 include/php%%SUFFIX%%/main/spprintf.h
+include/php%%SUFFIX%%/main/win32_internal_function_disabled.h
+include/php%%SUFFIX%%/main/win95nt.h
 include/php%%SUFFIX%%/main/streams/php_stream_context.h
 include/php%%SUFFIX%%/main/streams/php_stream_filter_api.h
 include/php%%SUFFIX%%/main/streams/php_stream_glob_wrapper.h
@@ -219,10 +228,6 @@ include/php%%SUFFIX%%/main/streams/php_stream_plain_wrapper.h
 include/php%%SUFFIX%%/main/streams/php_stream_transport.h
 include/php%%SUFFIX%%/main/streams/php_stream_userspace.h
 include/php%%SUFFIX%%/main/streams/php_streams_int.h
-include/php%%SUFFIX%%/main/win32_internal_function_disabled.h
-include/php%%SUFFIX%%/main/win95nt.h
-%%CLI-ON%%include/php%%SUFFIX%%/sapi/cli/cli.h
-%%EMBED-ON%%include/php%%SUFFIX%%/sapi/embed/php_embed.h
 lib/php%%SUFFIX%%/build/Makefile.global
 lib/php%%SUFFIX%%/build/acinclude.m4
 lib/php%%SUFFIX%%/build/config.guess
@@ -234,12 +239,7 @@ lib/php%%SUFFIX%%/build/phpize.m4
 lib/php%%SUFFIX%%/build/run-tests.php
 lib/php%%SUFFIX%%/build/scan_makefile_in.awk
 lib/php%%SUFFIX%%/build/shtool
-%%EMBED-ON%%lib/php%%SUFFIX%%/libphp%%SOMAJOR%%.so
-%%FPM-ON%%sbin/php-fpm%%SUFFIX%%
-%%CLI-ON%%share/man/man1/php%%SUFFIX%%.1.gz
-%%CGI-ON%%share/man/man1/php-cgi%%SUFFIX%%.1.gz
 share/man/man1/php-config%%SUFFIX%%.1.gz
-%%DEBUGGER-ON%%share/man/man1/phpdbg%%SUFFIX%%.1.gz
 share/man/man1/phpize%%SUFFIX%%.1.gz
-%%FPM-ON%%share/man/man8/php-fpm%%SUFFIX%%.8.gz
-%%FPM-ON%%share/php%%SUFFIX%%/fpm/status.html
+@postexec touch %D/include/php%%SUFFIX%%/ext/php_config.h
+@postunexec [ -s %D/include/php%%SUFFIX%%/ext/php_config.h ] || rm %D/include/php%%SUFFIX%%/ext/php_config.h

@@ -1,3 +1,8 @@
+@sample openssl/openssl.cnf.sample
+%%SHARED-ON%%lib/libcrypto.so
+%%SHARED-ON%%lib/libcrypto.so.%%SHLIBVER%%
+%%SHARED-ON%%lib/libssl.so
+%%SHARED-ON%%lib/libssl.so.%%SHLIBVER%%
 %%SHARED-ON%%lib/engines/lib4758cca.so
 %%SHARED-ON%%lib/engines/libaep.so
 %%SHARED-ON%%lib/engines/libatalla.so
@@ -10,10 +15,6 @@
 %%SHARED-ON%%lib/engines/libpadlock.so
 %%SHARED-ON%%lib/engines/libsureware.so
 %%SHARED-ON%%lib/engines/libubsec.so
-%%SHARED-ON%%lib/libcrypto.so
-%%SHARED-ON%%lib/libcrypto.so.%%SHLIBVER%%
-%%SHARED-ON%%lib/libssl.so
-%%SHARED-ON%%lib/libssl.so.%%SHLIBVER%%
 %%SKIP_MANPAGES-OFF%%share/man/man1/CA.pl.1.gz
 %%SKIP_MANPAGES-OFF%%share/man/man1/asn1parse.1.gz
 %%SKIP_MANPAGES-OFF%%share/man/man1/c_rehash.1.gz
@@ -1701,9 +1702,6 @@
 %%SKIP_MANPAGES-OFF%%share/man/man5/config.5.gz
 %%SKIP_MANPAGES-OFF%%share/man/man5/x509v3_config.5.gz
 %%SKIP_MANPAGES-OFF%%share/man/man7/des_modes.7.gz
-@dir openssl/certs
-@dir openssl/private
-@sample openssl/openssl.cnf.sample
 bin/c_rehash
 bin/openssl
 include/openssl/aes.h
@@ -1793,3 +1791,5 @@ openssl/misc/c_info
 openssl/misc/c_issuer
 openssl/misc/c_name
 openssl/misc/tsget
+@dir openssl/certs
+@dir openssl/private

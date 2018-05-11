@@ -1,5 +1,3 @@
-@sample etc/lighttpd/lighttpd.conf.sample
-@sample etc/lighttpd/modules.conf.sample
 @sample etc/lighttpd/conf.d/access_log.conf.sample
 @sample etc/lighttpd/conf.d/auth.conf.sample
 @sample etc/lighttpd/conf.d/cgi.conf.sample
@@ -23,14 +21,20 @@
 @sample etc/lighttpd/conf.d/trigger_b4_dl.conf.sample
 @sample etc/lighttpd/conf.d/userdir.conf.sample
 @sample etc/lighttpd/conf.d/webdav.conf.sample
+@sample etc/lighttpd/lighttpd.conf.sample
+@sample etc/lighttpd/modules.conf.sample
+%%GEOIP-ON%%lib/lighttpd/mod_geoip.so
+%%LDAP-ON%%lib/lighttpd/mod_authn_ldap.so
+%%LDAP-ON%%lib/lighttpd/mod_vhostdb_ldap.so
+%%MYSQL-ON%%lib/lighttpd/mod_authn_mysql.so
+%%MYSQL-ON%%lib/lighttpd/mod_mysql_vhost.so
+%%MYSQL-ON%%lib/lighttpd/mod_vhostdb_mysql.so
 etc/lighttpd/vhosts.d/vhosts.template
 lib/lighttpd/mod_access.so
 lib/lighttpd/mod_accesslog.so
 lib/lighttpd/mod_alias.so
 lib/lighttpd/mod_auth.so
 lib/lighttpd/mod_authn_file.so
-%%LDAP-ON%%lib/lighttpd/mod_authn_ldap.so
-%%MYSQL-ON%%lib/lighttpd/mod_authn_mysql.so
 lib/lighttpd/mod_cgi.so
 lib/lighttpd/mod_cml.so
 lib/lighttpd/mod_compress.so
@@ -42,10 +46,8 @@ lib/lighttpd/mod_expire.so
 lib/lighttpd/mod_extforward.so
 lib/lighttpd/mod_fastcgi.so
 lib/lighttpd/mod_flv_streaming.so
-%%GEOIP-ON%%lib/lighttpd/mod_geoip.so
 lib/lighttpd/mod_indexfile.so
 lib/lighttpd/mod_magnet.so
-%%MYSQL-ON%%lib/lighttpd/mod_mysql_vhost.so
 lib/lighttpd/mod_openssl.so
 lib/lighttpd/mod_proxy.so
 lib/lighttpd/mod_redirect.so
@@ -62,14 +64,12 @@ lib/lighttpd/mod_uploadprogress.so
 lib/lighttpd/mod_userdir.so
 lib/lighttpd/mod_usertrack.so
 lib/lighttpd/mod_vhostdb.so
-%%LDAP-ON%%lib/lighttpd/mod_vhostdb_ldap.so
-%%MYSQL-ON%%lib/lighttpd/mod_vhostdb_mysql.so
 lib/lighttpd/mod_webdav.so
 lib/lighttpd/mod_wstunnel.so
-share/man/man8/lighttpd.8.gz
-share/man/man8/lighttpd-angel.8.gz
 sbin/lighttpd
 sbin/lighttpd-angel
+share/man/man8/lighttpd-angel.8.gz
+share/man/man8/lighttpd.8.gz
 @dir %%WWWDIR%%
 @dir(%%WWWOWN%%,%%WWWGRP%%,700) %%CACHEDIR%%
 @dir(%%WWWOWN%%,%%WWWGRP%%,700) %%HOMEDIR%%/sockets

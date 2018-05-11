@@ -1,7 +1,4 @@
-@dir(mysql,mysql,0750) %%MY_SECDIR%%
-@dir(mysql,mysql,0750) %%MY_TMPDIR%%
-@dir(mysql,mysql,0750) etc/mysql/keyring
-@sample(root,wheel,0644) etc/mysql/my.cnf.sample
+%%ONLY-LINUX%%lib/mysql/plugin/auth_socket.so
 bin/innochecksum
 bin/my_print_defaults
 bin/myisam_ftdump
@@ -12,14 +9,14 @@ bin/mysql_convert_table_format
 bin/mysql_fix_extensions
 bin/mysql_install_db
 bin/mysql_plugin
-bin/mysql_setpermission
 bin/mysql_secure_installation
+bin/mysql_setpermission
 bin/mysql_tzinfo_to_sql
 bin/mysql_upgrade
-bin/mysqld_multi
-bin/mysqld_safe
 bin/mysql_zap
 bin/mysqlbug
+bin/mysqld_multi
+bin/mysqld_safe
 bin/mysqldumpslow
 bin/mysqlhotcopy
 bin/mysqltest
@@ -30,7 +27,6 @@ bin/resolveip
 lib/mysql/libmysqld.a
 lib/mysql/plugin/adt_null.so
 lib/mysql/plugin/auth.so
-%%ONLY-LINUX%%lib/mysql/plugin/auth_socket.so
 lib/mysql/plugin/auth_test_plugin.so
 lib/mysql/plugin/connection_control.so
 lib/mysql/plugin/daemon_example.ini
@@ -45,8 +41,8 @@ lib/mysql/plugin/semisync_slave.so
 lib/mysql/plugin/test_udf_services.so
 lib/mysql/plugin/validate_password.so
 libexec/mysqld
-share/man/man1/my_print_defaults.1.gz
 share/man/man1/innochecksum.1.gz
+share/man/man1/my_print_defaults.1.gz
 share/man/man1/myisam_ftdump.1.gz
 share/man/man1/myisamchk.1.gz
 share/man/man1/myisamlog.1.gz
@@ -62,9 +58,9 @@ share/man/man1/mysql_setpermission.1.gz
 share/man/man1/mysql_tzinfo_to_sql.1.gz
 share/man/man1/mysql_upgrade.1.gz
 share/man/man1/mysql_zap.1.gz
+share/man/man1/mysqlbug.1.gz
 share/man/man1/mysqld_multi.1.gz
 share/man/man1/mysqld_safe.1.gz
-share/man/man1/mysqlbug.1.gz
 share/man/man1/mysqldumpslow.1.gz
 share/man/man1/mysqlhotcopy.1.gz
 share/man/man1/mysqlman.1.gz
@@ -74,6 +70,19 @@ share/man/man1/resolve_stack_dump.1.gz
 share/man/man1/resolveip.1.gz
 share/man/man8/mysqld.8.gz
 share/mysql/binary-configure
+share/mysql/dictionary.txt
+share/mysql/errmsg-utf8.txt
+share/mysql/fill_help_tables.sql
+share/mysql/innodb_memcached_config.sql
+share/mysql/magic
+share/mysql/my-default.cnf
+share/mysql/mysql-log-rotate
+share/mysql/mysql.server
+share/mysql/mysql_security_commands.sql
+share/mysql/mysql_system_tables.sql
+share/mysql/mysql_system_tables_data.sql
+share/mysql/mysql_test_data_timezone.sql
+share/mysql/mysqld_multi.server
 share/mysql/bulgarian/errmsg.sys
 share/mysql/charsets/Index.xml
 share/mysql/charsets/README
@@ -103,31 +112,18 @@ share/mysql/charsets/macroman.xml
 share/mysql/charsets/swe7.xml
 share/mysql/czech/errmsg.sys
 share/mysql/danish/errmsg.sys
-share/mysql/dictionary.txt
 share/mysql/dutch/errmsg.sys
 share/mysql/english/errmsg.sys
-share/mysql/errmsg-utf8.txt
 share/mysql/estonian/errmsg.sys
-share/mysql/fill_help_tables.sql
 share/mysql/french/errmsg.sys
 share/mysql/german/errmsg.sys
 share/mysql/greek/errmsg.sys
 share/mysql/hungarian/errmsg.sys
-share/mysql/innodb_memcached_config.sql
 share/mysql/italian/errmsg.sys
 share/mysql/japanese/errmsg.sys
 share/mysql/korean/errmsg.sys
-share/mysql/magic
-share/mysql/my-default.cnf
-share/mysql/mysql-log-rotate
-share/mysql/mysql.server
-share/mysql/mysql_security_commands.sql
-share/mysql/mysql_system_tables.sql
-share/mysql/mysql_system_tables_data.sql
-share/mysql/mysql_test_data_timezone.sql
-share/mysql/mysqld_multi.server
-share/mysql/norwegian-ny/errmsg.sys
 share/mysql/norwegian/errmsg.sys
+share/mysql/norwegian-ny/errmsg.sys
 share/mysql/polish/errmsg.sys
 share/mysql/portuguese/errmsg.sys
 share/mysql/romanian/errmsg.sys
@@ -137,3 +133,7 @@ share/mysql/slovak/errmsg.sys
 share/mysql/spanish/errmsg.sys
 share/mysql/swedish/errmsg.sys
 share/mysql/ukrainian/errmsg.sys
+@dir(mysql,mysql,0750) %%MY_SECDIR%%
+@dir(mysql,mysql,0750) %%MY_TMPDIR%%
+@dir(mysql,mysql,0750) etc/mysql/keyring
+@sample(root,wheel,0644) etc/mysql/my.cnf.sample
