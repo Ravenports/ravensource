@@ -19,6 +19,13 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		CUSTOM1:single LGPL21:single
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/COPYING-MPL-1.1
+			LGPL21:{{WRKSRC}}/COPYING-LGPL-2.1
+LICENSE_NAME=		CUSTOM1:"Mozilla Public License (MPL) version 1.1"
+LICENSE_TERMS=		single:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		dual
+
 FPC_EQUIVALENT=		graphics/cairo
 
 BUILD_DEPENDS=		libatomic_ops:single:standard
@@ -40,7 +47,7 @@ CONFIGURE_ARGS=		--with-html-dir={{STD_DOCDIR}}
 			--enable-xcb
 CONFIGURE_ENV=		cairo_cv_atomic_primitives="libatomic-ops"
 CPE_VENDOR=		cairographics
-XORG_COMPONENTS=	glproto dri2proto pixman x11 xext xrender xcb-render-util
+XORG_COMPONENTS=	pixman x11 xext xrender xcb-render-util
 GNOME_COMPONENTS=	glib
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip

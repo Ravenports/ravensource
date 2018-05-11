@@ -21,11 +21,14 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
 BUILDRUN_DEPENDS=	freetype:primary:standard
-RUN_DEPENDS=		xorg-fontsproto:single:standard
 
 USES=			cpe libtool zlib
-XORG_COMPONENTS=	xproto fontsproto xtransproto fontenc
+XORG_COMPONENTS=	xorgproto xtransproto fontenc
 DISTNAME=		${ALTNAME}-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--without-xmlto
