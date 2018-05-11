@@ -27,8 +27,11 @@ OPT_ON[dragonfly]=	OSS
 OPT_ON[freebsd]=	OSS
 # OPT_ON[freebsd]=	PULSEAUDIO OSS
 
-LICENSE=		LGPL21:primary
-LICENSE_FILE=		LGPL21:{{WRKSRC}}/COPYING
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"SDL_config"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/SDL.c
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/sdl12
@@ -62,7 +65,7 @@ CONFIGURE_ARGS=		--disable-alsa
 [SNDIO].BUILDRUN_DEPENDS_ON=		sndio:single:standard
 
 [X11].CONFIGURE_ENABLE_BOTH=		video-x11
-[X11].XORG_COMPONENTS_ON=		x11 xrender xrandr xextproto
+[X11].XORG_COMPONENTS_ON=		x11 xrender xrandr
 
 [OSS].CONFIGURE_ENABLE_BOTH=		oss
 

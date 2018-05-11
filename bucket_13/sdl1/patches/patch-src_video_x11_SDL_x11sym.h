@@ -1,6 +1,6 @@
---- src/video/x11/SDL_x11sym.h.orig	2013-06-05 11:06:34.000000000 +0200
-+++ src/video/x11/SDL_x11sym.h	2013-06-05 11:08:02.000000000 +0200
-@@ -165,7 +165,7 @@
+--- src/video/x11/SDL_x11sym.h.orig	2012-01-19 06:30:06 UTC
++++ src/video/x11/SDL_x11sym.h
+@@ -165,7 +165,7 @@ SDL_X11_SYM(Bool,XShmQueryExtension,(Dis
   */
  #ifdef LONG64
  SDL_X11_MODULE(IO_32BIT)

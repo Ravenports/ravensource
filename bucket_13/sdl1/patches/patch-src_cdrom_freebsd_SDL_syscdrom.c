@@ -1,6 +1,6 @@
---- src/cdrom/freebsd/SDL_syscdrom.c.orig	2012-03-14 08:36:58.000000000 +0100
-+++ src/cdrom/freebsd/SDL_syscdrom.c	2012-03-14 08:36:11.000000000 +0100
-@@ -188,7 +188,7 @@
+--- src/cdrom/freebsd/SDL_syscdrom.c.orig	2012-01-19 06:30:06 UTC
++++ src/cdrom/freebsd/SDL_syscdrom.c
+@@ -188,7 +188,7 @@ int  SDL_SYS_CDInit(void)
  			char *insert;
  			exists = 1;
  			for ( j=checklist[i][1]; exists; ++j ) {

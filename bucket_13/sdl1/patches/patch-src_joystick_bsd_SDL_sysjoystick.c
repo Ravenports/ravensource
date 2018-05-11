@@ -1,5 +1,5 @@
---- src/joystick/bsd/SDL_sysjoystick.c.orig	2012-01-19 07:30:06.000000000 +0100
-+++ src/joystick/bsd/SDL_sysjoystick.c	2015-05-06 22:52:50.648504057 +0900
+--- src/joystick/bsd/SDL_sysjoystick.c.orig	2012-01-19 06:30:06 UTC
++++ src/joystick/bsd/SDL_sysjoystick.c
 @@ -82,7 +82,9 @@
  #define MAX_JOYS	(MAX_UHID_JOYS + MAX_JOY_JOYS)
  
@@ -11,7 +11,7 @@
  	struct	usb_gen_descriptor *buf;	/* Buffer */
  #else
  	struct	usb_ctl_report *buf;	/* Buffer */
-@@ -148,8 +150,10 @@
+@@ -148,8 +150,10 @@ static char *joydevnames[MAX_JOYS];
  static int	report_alloc(struct report *, struct report_desc *, int);
  static void	report_free(struct report *);
  
@@ -23,7 +23,7 @@
  #elif (defined(__FREEBSD__) && (__FreeBSD_kernel_version > 800063))
  #define REP_BUF_DATA(rep) ((rep)->buf->ugd_data)
  #else
-@@ -411,47 +415,47 @@
+@@ -411,47 +415,47 @@ SDL_SYS_JoystickUpdate(SDL_Joystick *joy
  	struct joystick gameport;
   
  	if (joy->hwdata->type == BSDJOY_JOY) {
@@ -109,7 +109,7 @@
  		}
  		return;
  	}
-@@ -459,65 +463,61 @@
+@@ -459,65 +463,61 @@ SDL_SYS_JoystickUpdate(SDL_Joystick *joy
  	
  	rep = &joy->hwdata->inreport;
  
@@ -219,7 +219,7 @@
  }
  
  /* Function to close a joystick after use */
-@@ -582,8 +582,12 @@
+@@ -582,8 +582,12 @@ report_alloc(struct report *r, struct re
  	r->size = len;
  
  	if (r->size > 0) {
