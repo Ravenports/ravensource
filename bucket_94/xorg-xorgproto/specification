@@ -26,6 +26,7 @@ LICENSE_SCHEME=		solo
 
 DISTNAME=		${XNAME}-${PORTVERSION}
 MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--datarootdir={{PREFIX}}/lib
 # FPC_EQUIVALENT=	not on freebsd yet
 
 post-patch:
@@ -33,4 +34,4 @@ post-patch:
 		${HEAD} -n 300 COPYING-* > ${WRKDIR}/LICENSE_MIT)
 
 post-install:
-	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/${XNAME}
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/doc
