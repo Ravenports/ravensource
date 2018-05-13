@@ -126,7 +126,21 @@
  }
  
  static void
-@@ -997,6 +1006,8 @@ MousePreInit(InputDriverPtr drv, InputIn
+@@ -820,13 +829,6 @@ InitProtocols(void)
+                 !osInfo->CheckProtocol(mouseProtocols[i].name))
+                 mouseProtocols[i].id = PROT_UNSUP;
+ 
+-    /* NetBSD uses PROT_BM for "PS/2". */
+-    xf86GetOS(&osname, NULL, NULL, NULL);
+-    if (osname && xf86NameCmp(osname, "netbsd") == 0)
+-        for (i = 0; mouseProtocols[i].name; i++)
+-            if (mouseProtocols[i].id == PROT_PS2)
+-                mouseProtocols[i].id = PROT_BM;
+-
+     return TRUE;
+ }
+ 
+@@ -997,6 +999,8 @@ MousePreInit(InputDriverPtr drv, InputIn
      /* Default Mapping: 1 2 3 8 9 10 11 ... */
      for (i = 0; i < MSE_MAXBUTTONS; i++)
          pMse->buttonMap[i] = 1 << (i > 2 && i < MSE_MAXBUTTONS-4 ? i+4 : i);
@@ -135,7 +149,7 @@
  
      protocol = MousePickProtocol(pInfo, device, protocol, &protocolID);
  
-@@ -2198,7 +2209,7 @@ MouseDoPostEvent(InputInfoPtr pInfo, int
+@@ -2198,7 +2202,7 @@ MouseDoPostEvent(InputInfoPtr pInfo, int
  
      if (pMse->emulateWheel) {
          /* Emulate wheel button handling */
@@ -144,7 +158,7 @@
              wheelButtonMask = 0;
          else
              wheelButtonMask = 1 << (pMse->wheelButton - 1);
-@@ -2288,6 +2299,9 @@ MouseDoPostEvent(InputInfoPtr pInfo, int
+@@ -2288,6 +2292,9 @@ MouseDoPostEvent(InputInfoPtr pInfo, int
                          }
                      }
                  }
@@ -154,7 +168,7 @@
              }
  
              /* Absorb the mouse movement while the wheel button is pressed. */
-@@ -2305,7 +2319,7 @@ MouseDoPostEvent(InputInfoPtr pInfo, int
+@@ -2305,7 +2312,7 @@ MouseDoPostEvent(InputInfoPtr pInfo, int
      if (pMse->emulate3ButtonsSoft && pMse->emulate3Pending && (dx || dy))
          buttonTimer(pInfo);
  
@@ -163,7 +177,7 @@
          xf86PostMotionEvent(pInfo->dev, 0, 0, 2, dx, dy);
  
      if (change) {
-@@ -2418,12 +2432,10 @@ MousePostEvent(InputInfoPtr pInfo, int t
+@@ -2418,12 +2425,10 @@ MousePostEvent(InputInfoPtr pInfo, int t
                 int dx, int dy, int dz, int dw)
  {
      MouseDevPtr pMse;
@@ -176,7 +190,7 @@
  
      if (pMse->protocolID == PROT_MMHIT)
          b = reverseBits(hitachMap, truebuttons);
-@@ -2516,11 +2528,11 @@ MousePostEvent(InputInfoPtr pInfo, int t
+@@ -2516,11 +2521,11 @@ MousePostEvent(InputInfoPtr pInfo, int t
  
      /* Accumulate the scaled dx, dy in the private variables
         fracdx,fracdy and return the integer number part */
