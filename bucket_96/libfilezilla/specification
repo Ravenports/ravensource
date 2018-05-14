@@ -21,7 +21,9 @@ OPTIONS_STANDARD=	none
 
 LICENSE=		GPLv2+:single
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKSRC}}/TERMS
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^Documentation"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/README
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		ftp/libfilezilla
@@ -31,7 +33,3 @@ MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
 
 SOVERSION=		${SOVERSION}
-
-post-extract:
-	${AWK} '/section License/,/higher/' \
-		${WRKSRC}/lib/libfilezilla/libfilezilla.hpp > ${WRKSRC}/TERMS
