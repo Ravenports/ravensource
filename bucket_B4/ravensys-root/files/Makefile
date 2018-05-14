@@ -203,11 +203,13 @@ dynamic_lib_FreeBSD=	${dynamic_generic} \
 			/lib/${Libsbuf_FreeBSD} \
 			/lib/${Libthr_FreeBSD} \
 			/lib/${Libdevstat_FreeBSD} \
+			/usr/lib/libexecinfo.so.1 \
 			/usr/lib/${libusb} \
 			/usr/lib/${libusbhid}
 dynamic_lib_DragonFly=	${dynamic_generic} \
 			/usr/lib/libpthread.so \
 			/usr/lib/libpthread.so.0 \
+			/usr/lib/libexecinfo.so.1 \
 			/usr/lib/${libusb} \
 			/usr/lib/${libusbhid}
 dynamic_lib_Linux=	# Linux doesn't use /usr/lib, needs special list
