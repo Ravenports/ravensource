@@ -33,5 +33,5 @@ INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 
 post-extract:
-	${TAIL} -n 22 ${WRKSRC}/lib/libfilezilla/libfilezilla.hpp \
-		| ${HEAD} -n 3 > ${WRKSRC}/TERMS
+	${AWK} '/section License/,/higher/' \
+		${WRKSRC}/lib/libfilezilla/libfilezilla.hpp > ${WRKSRC}/TERMS
