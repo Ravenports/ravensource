@@ -18,8 +18,9 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv3:single
-LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		misc/help2man
@@ -28,6 +29,10 @@ USES=			gmake perl:build
 INFO=			single:help2man
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-nls=no
+
+post-extract:
+	${AWK} '/^\# Copyright/,/Written by Brendan/' \
+		${WRKSRC}/help2man.PL > ${WRKDIR}/TERMS
 
 post-patch:
 	${REINPLACE_CMD} -e '/^pkglibdir/ s|/help2man$$||' ${WRKSRC}/Makefile.in
