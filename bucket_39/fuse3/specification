@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.2.2
+DEF[PORTVERSION]=	3.2.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fuse3
@@ -20,6 +20,9 @@ OPTIONS_STANDARD=	none
 
 LICENSE=		LGPL21:single
 LICENSE_FILE=		LGPL21:{{WRKSRC}}/COPYING.LIB
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"pthread.h"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/lib/fuse_misc.h
 LICENSE_SCHEME=		solo
 
 # let fuse2 map to fusefs-libs
@@ -37,3 +40,6 @@ post-patch:
 
 post-install-linux:
 	${RM} -r ${STAGEDIR}/dev
+
+post-install:
+	${MV} ${STAGEDIR}/etc/fuse.conf ${STAGEDIR}/etc/fuse.conf.sample
