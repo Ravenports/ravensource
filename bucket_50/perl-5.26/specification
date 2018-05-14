@@ -67,9 +67,7 @@ TEST_ENV=		{{MAKE_ENV}}
 [DEBUG].CONFIGURE_ARGS_ON=		-Doptimize="-g" -DDEBUGGING
 [DEBUG].CONFIGURE_ARGS_OFF=		-Doptimize="-O{{OPTIMIZER_LEVEL}}"
 
-# move to post-extract after perl-interp.mk adjusted not to
-# work if post-extract target is set.
-pre-patch:
+post-extract:
 	${AWK} '/^LICENSING/,/^spells all this/' \
 		${WRKSRC}/README > ${WRKDIR}/TERMS
 

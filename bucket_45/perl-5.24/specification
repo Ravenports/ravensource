@@ -25,9 +25,10 @@ OPTIONS_STANDARD=	MULTIPLICITY THREADS BIT64INT DEBUG
 OPT_ON[all]=		MULTIPLICITY THREADS
 OPT_ON[i386]=		BIT64INT
 
-LICENSE=		ART10:primary GPLv1:primary
+LICENSE=		ART10:primary GPLv1+:primary
 LICENSE_FILE=		ART10:{{WRKSRC}}/Artistic
-			GPLv1:{{WRKSRC}}/Copying
+			GPLv1+:{{WRKSRC}}/Copying
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		lang/perl5.24
@@ -65,6 +66,10 @@ TEST_ENV=		{{MAKE_ENV}}
 
 [DEBUG].CONFIGURE_ARGS_ON=		-Doptimize="-g" -DDEBUGGING
 [DEBUG].CONFIGURE_ARGS_OFF=		-Doptimize="-O{{OPTIMIZER_LEVEL}}"
+
+post-extract:
+	${AWK} '/^LICENSING/,/^spells all this/' \
+		${WRKSRC}/README > ${WRKDIR}/TERMS
 
 post-patch:
 	# GDBM is missing the runpath
