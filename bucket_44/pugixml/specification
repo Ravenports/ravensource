@@ -21,6 +21,9 @@ OPTIONS_STANDARD=	none
 
 LICENSE=		MIT:single
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		single:{{WRKSRC}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/pugixml.hpp
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		textproc/pugixml
@@ -35,8 +38,7 @@ CMAKE_ARGS=		-DBUILD_SHARED_LIBS=ON
 SOVERSION=		${SOVERSION}
 
 post-patch:
-	grep -A 21 "<pre>Copyright" ${WRKSRC}/docs/manual.html \
-		| sed -e 's:<pre>::' -e 's:</pre>::' > ${WRKSRC}/LICENSE
+	${TAIL} -n 23 ${WRKSRC}/src/pugixml.hpp > ${WRKSRC}/LICENSE
 
 post-stage:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/pugixml-${PORTVERSION}/libpugixml.so.${SOVERSION}
