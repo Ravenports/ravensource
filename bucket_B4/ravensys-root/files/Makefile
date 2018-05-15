@@ -739,7 +739,7 @@ install:
 	cp ${CPA} ${LOCALBASE}/bin/${item} ${DESTDIR}${BASE}/bin/
 .endfor
 	cp ${CPA} ${LOCALBASE}/bin/gcat ${DESTDIR}${BASE}/bin/cat
-.for item in m4 bzip2 bunzip2 bzcat bzgrep bzegrep bzfgrep \
+.for item in m4 bzip2 bunzip2 bzcat bzgrep bzegrep bzfgrep lockf \
 	grep file flex flex++ gzip gunzip zcat zcmp zdiff zegrep \
 	zfgrep zgrep lzcat lzcmp lzdiff lzegrep lzfgrep lzgrep lzma \
 	unlzma unxz xz xzcat xzcmp xzdiff xzegrep xzfgrep xzgrep yacc \
