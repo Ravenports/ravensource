@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	52.7.4
-DEF[URL_HASH]=		B2xAyI3fRB6xm-9zjFFugA
+DEF[PORTVERSION]=	52.8.0
+# DEF[URL_HASH]=		B2xAyI3fRB6xm-9zjFFugA
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		spidermonkey
@@ -12,8 +12,15 @@ HOMEPAGE=		https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonke
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://queue.taskcluster.net/v1/task/${URL_HASH}/runs/0/artifacts/public/build/
-DISTFILE[1]=		mozjs-${PORTVERSION}.tar.bz2:main
+# If we go back to queue.taskcluster.net, we need a comment block to describe
+# how to update For the 52.7.4 => 52.8.0 update, just use the last
+# firefox 52-esr release
+# SITES[main]=		https://queue.taskcluster.net/v1/task/${URL_HASH}/
+# |			runs/0/artifacts/public/build/
+# DISTFILE[1]=		mozjs-${PORTVERSION}.tar.bz2:main
+
+SITES[main]=		https://archive.mozilla.org/pub/firefox/releases/${PORTVERSION}esr/source/
+DISTFILE[1]=		firefox-${PORTVERSION}esr.source.tar.xz:main
 
 SPKGS[standard]=	single
 
@@ -25,7 +32,8 @@ BUILD_DEPENDS=		autoconf213:single:standard
 BUILDRUN_DEPENDS=	icu:single:standard
 			nspr:single:standard
 
-DISTNAME=		mozjs-${PORTVERSION}/js/src
+# DISTNAME=		mozjs-${PORTVERSION}/js/src
+DISTNAME=		firefox-${PORTVERSION}esr/js/src
 
 USES=			gmake perl pkgconfig python:py27,build zlib readline
 MUST_CONFIGURE=		gnu
