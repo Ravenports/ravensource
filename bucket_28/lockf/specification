@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		lockf
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	FreeBSD's lockf command
+HOMEPAGE=		https://www.freebsd.org/cgi/man.cgi?query=lockf
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	none
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKDIR}}/LICENSE_BSD
+LICENSE_AWK=		BSD2CLAUSE:"^$$"
+LICENSE_SOURCE=		BSD2CLAUSE:{{FILESDIR}}/lockf.c
+LICENSE_SCHEME=		solo
+
+do-extract:
+	@${MKDIR} ${WRKSRC}
+	${CP} ${FILESDIR}/* ${WRKSRC}
+
+do-build:
+	(cd ${WRKSRC} && ${CC} ${CFLAGS} ${LDFLAGS} -o lockf lockf.c)
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/lockf   ${STAGEDIR}${PREFIX}/bin/
+	${INSTALL_MAN}     ${WRKSRC}/lockf.1 ${STAGEDIR}${MANPREFIX}/man/man1/
