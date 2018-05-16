@@ -1,0 +1,63 @@
+DEF[PORTVERSION]=	5.7.8
+DEF[SOVERSION]=		35.6.8
+DEF[RELEASE]=		217
+DEF[RFILE]=		02
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		aqbanking
+VERSION=		${PORTVERSION}
+KEYWORDS=		finance
+VARIANTS=		standard
+SDESC[standard]=	Online banking interface and financial framework
+HOMEPAGE=		https://www.aquamaniac.de/aqbanking/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.aquamaniac.de/sites/download/download.php?package=03&release=${RELEASE}&file=${RFILE}&dummy=/
+DISTFILE[1]=		aqbanking-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:single GPLv3:single
+LICENSE_FILE=		GPLv2:stock
+			GPLv3:stock
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"GNU GPL v2"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		finance/aqbanking
+
+BUILD_DEPENDS=		gmp:static:standard
+BUILDRUN_DEPENDS=	gmp:shared:standard
+			xmlsec:primary:standard
+			ktoblzcheck:single:standard
+			gwenhywfar:primary:standard
+			libltdl:single:standard
+
+USES=			gmake libtool pkgconfig gettext-runtime gettext-tools zlib
+GNOME_COMPONENTS=	libxslt
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-release="yes"
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+SINGLE_JOB=		yes
+PLIST_SUB=		AQB_MAJ_MIN_VER="${PORTVERSION:R}"
+SOVERSION=		${SOVERSION}
+
+VAR_OPSYS[freebsd]=	LDFLAGS=-lintl
+VAR_OPSYS[sunos]=	LDFLAGS=-lintl
+VAR_OPSYS[dragonfly]=	LDFLAGS=-lintl
+
+post-extract:
+	${AWK} '/^5\./,/^SOFTWARE,/' \
+		${WRKSRC}/COPYING >> ${WRKDIR}/TERMS
+
+post-install:
+	# the "documentation" is nearly useless, not worth a subpackage
+	# they are also in the wrong directory, so keeping them would
+	# require relocating them.
+	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/*
