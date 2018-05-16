@@ -1,0 +1,68 @@
+DEF[PORTVERSION]=	0.9.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libdbi-drivers
+VERSION=		${PORTVERSION}
+KEYWORDS=		databases devel
+VARIANTS=		mysql pgsql sqlite
+SDESC[mysql]=		MySQL driver for libdbi
+SDESC[pgsql]=		PostgreSQL driver for libdbi
+SDESC[sqlite]=		SQLite driver for libdbi
+HOMEPAGE=		http://libdbi-drivers.sourceforge.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/libdbi-drivers/libdbi-drivers/libdbi-drivers-${PORTVERSION}
+DISTFILE[1]=		libdbi-drivers-${PORTVERSION}.tar.gz:main
+
+SPKGS[mysql]=		complete primary docs
+SPKGS[pgsql]=		complete primary docs
+SPKGS[sqlite]=		complete primary docs
+
+OPTIONS_AVAILABLE=	MYSQL PGSQL SQLITE
+OPTIONS_STANDARD=	none
+VOPTS[mysql]=		MYSQL=ON PGSQL=OFF SQLITE=OFF
+VOPTS[pgsql]=		MYSQL=OFF PGSQL=ON SQLITE=OFF
+VOPTS[sqlite]=		MYSQL=OFF PGSQL=OFF SQLITE=ON
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/drivers/sqlite/dbd_sqlite.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		databases/libdbi-drivers
+
+BUILDRUN_DEPENDS=	libdbi:primary:standard
+
+USES=			gmake libtool
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-dbi-incdir={{LOCALBASE}}/include
+			--with-dbi-dbdir=/var/lib/libdbi
+INSTALL_TARGET=		install-strip
+
+[MYSQL].DESCRIPTION=			Build MySQL driver
+[PGSQL].DESCRIPTION=			Build PostgreSQL driver
+[SQLITE].DESCRIPTION=			Build SQLite driver
+
+[MYSQL].USES_ON=			mysql:client
+[MYSQL].CONFIGURE_ARGS_ON=		--with-mysql
+[PGSQL].USES_ON=			pgsql:client
+[PGSQL].CONFIGURE_ARGS_ON=		--with-pgsql
+[SQLITE].USES_ON=			sqlite
+[SQLITE].CONFIGURE_ARGS_ON=		--with-sqlite3
+
+post-patch:
+	${REINPLACE_CMD} -e 's|-O20|${CFLAGS}|g' \
+		-e 's|/usr/local|${LOCALBASE}|g' ${WRKSRC}/configure
+	${TOUCH} ${WRKSRC}/drivers/*/dbd_*/*
+
+post-install:
+	${RMDIR} ${STAGEDIR}/var/lib/libdbi/sqlite
+	${RMDIR} ${STAGEDIR}/var/lib/libdbi/firebird
+	${MV} ${STAGEDIR}${PREFIX}/share/doc/libdbi-drivers-${PORTVERSION} \
+		${STAGEDIR}${STD_DOCDIR}
+
+post-install-SQLITE-OFF:
+	${RMDIR} ${STAGEDIR}/var/lib/libdbi/sqlite3

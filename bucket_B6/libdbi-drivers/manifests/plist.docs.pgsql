@@ -1,0 +1,10 @@
+share/doc/libdbi-drivers/dbd_pgsql.pdf
+share/doc/libdbi-drivers/dbd_pgsql/copying-fdl.html
+share/doc/libdbi-drivers/dbd_pgsql/f30.html
+share/doc/libdbi-drivers/dbd_pgsql/index.html
+share/doc/libdbi-drivers/dbd_pgsql/install-build.html
+share/doc/libdbi-drivers/dbd_pgsql/install-prereq.html
+share/doc/libdbi-drivers/dbd_pgsql/install.html
+share/doc/libdbi-drivers/dbd_pgsql/intro.html
+share/doc/libdbi-drivers/dbd_pgsql/options.html
+share/doc/libdbi-drivers/dbd_pgsql/specific.html
