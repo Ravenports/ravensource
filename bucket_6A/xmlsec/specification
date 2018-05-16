@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.2.25
 
 NAMEBASE=		xmlsec
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	XML Security Library
@@ -27,6 +28,7 @@ FPC_EQUIVALENT=		security/xmlsec1
 BUILDRUN_DEPENDS=	libgcrypt:single:standard
 			libgpg-error:single:standard
 			libltdl:single:standard
+			gnutls:single:standard
 			nspr:single:standard
 			nss:primary:standard
 
@@ -35,6 +37,7 @@ GNOME_COMPONENTS=	libxslt
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-openssl="{{OPENSSLBASE}}"
 			--with-gcrypt="{{LOCALBASE}}"
+			--with-gnutls="{{LOCALBASE}}"
 			--with-nspr="{{LOCALBASE}}"
 			--with-nss="{{LOCALBASE}}"
 			--enable-soap
@@ -49,7 +52,11 @@ DISTNAME=		xmlsec1-${PORTVERSION}
 SOVERSION=		${PORTVERSION}
 
 post-patch:
-	${REINPLACE_CMD} -e 's/mozilla-nss/nss/' -e 's/mozilla-nspr/nspr/' \
+	${REINPLACE_CMD} \
+		-e 's/mozilla-nss/nss/' \
+		-e 's/mozilla-nspr/nspr/' \
+		-e '/^GNUTLS_FOUND/s/no/yes/' \
+		-e '/^GNUTLS_LIBS=/s,"","-L${LOCALBASE}/lib -lgnutls",' \
 		${WRKSRC}/configure
 	${REINPLACE_CMD} -e 's/(CP) -ru/(CP) -r/' -e 's/(CP) -u/(CP)/' \
 		${WRKSRC}/docs/Makefile.am ${WRKSRC}/docs/Makefile.in \
