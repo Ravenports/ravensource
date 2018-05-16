@@ -1,0 +1,47 @@
+DEF[PORTVERSION]=	0.9.0
+DEF[SOVERSION]=		1.1.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libdbi
+VERSION=		${PORTVERSION}
+KEYWORDS=		databases devel
+VARIANTS=		standard
+SDESC[standard]=	Database-independent abstraction Layer
+HOMEPAGE=		http://libdbi.sourceforge.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/libdbi/libdbi/libdbi-${PORTVERSION}
+DISTFILE[1]=		libdbi-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"Id: dbi_result.c"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/dbi_result.c
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		databases/libdbi
+
+USES=			libtool
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
+
+post-patch:
+	${REINPLACE_CMD} -e "s|-O20|${CFLAGS}|g" -e "s|-std=gnu99||g" \
+		 ${WRKSRC}/configure
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}/driver-guide \
+		${STAGEDIR}${STD_DOCDIR}/programmers-guide
+	${INSTALL_DATA} ${WRKSRC}/doc/*.pdf ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${WRKSRC}/doc/driver-guide/*.html \
+		${STAGEDIR}${STD_DOCDIR}/driver-guide
+	${INSTALL_DATA} ${WRKSRC}/doc/programmers-guide/*.html \
+		${STAGEDIR}${STD_DOCDIR}/programmers-guide
