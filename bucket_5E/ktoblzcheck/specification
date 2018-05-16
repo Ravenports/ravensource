@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	1.49
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ktoblzcheck
+VERSION=		${PORTVERSION}
+KEYWORDS=		finance german
+VARIANTS=		standard
+SDESC[standard]=	Check bank codes of German banks
+HOMEPAGE=		http://ktoblzcheck.sourceforge.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/ktoblzcheck
+DISTFILE[1]=		ktoblzcheck-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:single
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"HAVE_CONFIG_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/bin/ktoblzcheck.cc
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		finance/ktoblzcheck
+
+RUN_DEPENDS=		wget:complete:standard
+
+SUB_FILES=		pkg-deinstall-single pkg-message-single
+SUB_LIST=		DATADIR={{PREFIX}}/share/ktoblzcheck
+
+USES=			libtool perl
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-python
+			--with-wget={{LOCALBASE}}/bin/wget
+INSTALL_TARGET=		install-strip
