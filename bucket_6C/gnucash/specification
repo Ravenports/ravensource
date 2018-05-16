@@ -1,0 +1,65 @@
+DEF[DASH]=		-1
+DEF[BASEVER]=		3.1
+DEF[PORTVERSION]=	${BASEVER}${DASH:S/-/./}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gnucash
+VERSION=		${PORTVERSION}
+KEYWORDS=		finance
+VARIANTS=		standard
+SDESC[standard]=	Financial accounting software
+HOMEPAGE=		https://www.gnucash.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/gnucash/gnucash%20%28stable%29/${BASEVER}
+DISTFILE[1]=		gnucash-${BASEVER}${DASH}.tar.bz2:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:primary
+			GPLv3:primary
+LICENSE_FILE=		GPLv2:stock
+			GPLv3:stock
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^The text of the GNU GPL"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		dual
+
+FPC_EQUIVALENT=		finance/gnucash
+
+BROKEN[all]=		still under development
+
+BUILDRUN_DEPENDS=	gnome-keyring:single:standard
+			icu:single:standard
+			libsecret:primary:standard
+			boost-libraries:rest:python_default
+			boehm_garbage_collector:single:threaded
+			fontconfig:primary:standard
+			freetype:primary:standard
+			libsoup:primary:standard
+			aqbanking:single:standard
+RUN_DEPENDS=		perl-Date-Manip:single:perl_default
+			perl-Finance-Quote:single:perl_default
+			perl-libwww-perl:single:perl_default
+
+GLIB_SCHEMAS=		org.gnucash.dialogs.business.gschema.xml
+			org.gnucash.dialogs.checkprinting.gschema.xml
+			org.gnucash.dialogs.commodities.gschema.xml
+			org.gnucash.dialogs.export.csv.gschema.xml
+			org.gnucash.dialogs.gschema.xml
+			org.gnucash.dialogs.import.csv.gschema.xml
+			org.gnucash.dialogs.import.generic.gschema.xml
+			org.gnucash.dialogs.import.qif.gschema.xml
+			org.gnucash.dialogs.reconcile.gschema.xml
+			org.gnucash.dialogs.sxs.gschema.xml
+			org.gnucash.dialogs.totd.gschema.xml
+			org.gnucash.general.finance-quote.gschema.xml
+			org.gnucash.gschema.xml
+			org.gnucash.history.gschema.xml
+			org.gnucash.warnings.gschema.xml
+			org.gnucash.window.pages.account.tree.gschema.xml
+			org.gnucash.window.pages.gschema.xml
