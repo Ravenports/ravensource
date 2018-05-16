@@ -1,0 +1,76 @@
+DEF[PORTVERSION]=	4.20.0
+DEF[RELEASE]=		208
+DEF[RFILE]=		02
+DEF[SOVERSION]=		60.19.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gwenhywfar
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel net security
+VARIANTS=		standard
+SDESC[standard]=	Networking and security application library
+HOMEPAGE=		http://gwenhywfar.sourceforge.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.aquamaniac.de/sites/download/download.php?package=01&release=${RELEASE}&file=${RFILE}&dummy=/
+DISTFILE[1]=		gwenhywfar-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary gtk2 gtk3 qt5
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"GWENHYWFAR_GWENHYWFAR_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/gwenhywfar.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/gwenhywfar
+
+BUILD_DEPENDS=		atk:single:standard
+			pango:primary:standard
+			cairo:single:standard
+			gdk-pixbuf:primary:standard
+			gtk2:single:standard
+			gtk3:single:standard
+			qt5-qtbase:single:standard
+BUILDRUN_DEPENDS=	gnutls:single:standard
+			libgcrypt:single:standard
+			libgpg-error:single:standard
+
+EXRUN[gtk2]=		gwenhywfar:primary:standard
+			atk:single:standard
+			pango:primary:standard
+			cairo:single:standard
+			gdk-pixbuf:primary:standard
+			gtk2:single:standard
+
+EXRUN[gtk3]=		gwenhywfar:primary:standard
+			atk:single:standard
+			pango:primary:standard
+			cairo:single:standard
+			gdk-pixbuf:primary:standard
+			gtk3:single:standard
+
+EXRUN[qt5]=		gwenhywfar:primary:standard
+			qt5-qtbase:single:standard
+
+USES=			gmake iconv libtool pkgconfig ssl gettext-tools
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-release="yes"
+			--with-guis="gtk2 gtk3 qt5"
+			--with-qt5-qmake={{LOCALBASE}}/lib/qt5/bin/qmake
+			--with-qt5-moc={{LOCALBASE}}/lib/qt5/bin/moc
+			--with-qt5-uic={{LOCALBASE}}/lib/qt5/bin/uic
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+LDFLAGS=		-Wl,-rpath,{{PREFIX}}/lib/qt5
+PLIST_SUB=		GWEN_MAJ_MIN_VER=${PORTVERSION:R}
+SOVERSION=		${SOVERSION}
+
+VAR_OPSYS[freebsd]=	LDFLAGS=-lintl
+VAR_OPSYS[dragonfly]=	LDFLAGS=-lintl
+VAR_OPSYS[sunos]=	LDFLAGS=-lintl
