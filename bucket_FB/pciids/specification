@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	20180406
-DEF[RELEASE_TAG]=	8b48aa9
+DEF[PORTVERSION]=	20180428
+DEF[RELEASE_TAG]=	2999d91
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		pciids
@@ -19,9 +19,13 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+# The maintainers incorrectly specified the 3-clause BSD license
+# (and the GPLv2 too for that matter), so make a good faith effort
+# at creating it in FILESDIR.
 LICENSE=		BSD3CLAUSE:single GPLv2+:single
-LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/README
-			GPLv2+:{{WRKSRC}}/README
+LICENSE_FILE=		BSD3CLAUSE:{{FILESDIR}}/LICENSE_BSD
+			GPLv2+:stock
+LICENSE_TERMS=		single:{{WRKSRC}}/README
 LICENSE_SCHEME=		dual
 
 SKIP_BUILD=		yes
