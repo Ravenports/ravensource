@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	1.0.4
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		brotli
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers devel
+VARIANTS=		standard
+SDESC[standard]=	Generic-purpose lossless compression algorithm
+HOMEPAGE=		https://github.com/google/brotli
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/google:brotli:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		archivers/brotli
+
+BUILD_DEPENDS=		bc:single:standard
+
+USES=			autoreconf:build libtool:build gmake pkgconfig
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${PORTVERSION}
+
+pre-configure:
+	(cd ${WRKSRC} && ./bootstrap)
+
+post-install:
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}
