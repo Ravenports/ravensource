@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	2.10.0
+DEF[FOLDER]=		${PORTVERSION:R}
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libsigcxx
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Typesafe signal framework for C++
+HOMEPAGE=		https://libsigcplusplus.github.io/libsigcplusplus/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/libsigc++/${FOLDER}
+DISTFILE[1]=		libsigc++-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/sigc++/sigc++.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/libsigc++20
+
+USES=			gmake libtool perl:build c++:primary
+DISTNAME=		libsigc++-${PORTVERSION}
+INSTALL_TARGET=		install-strip
+MUST_CONFIGURE=		gnu
+PLIST_SUB=		API_VERSION="2.0"
+SOVERSION=		${SOVERSION}
+
+post-patch:
+	${REINPLACE_CMD} -e "/^SUBDIRS =/s|tests||; \
+		/^SUBDIRS =/s|examples||" ${WRKSRC}/Makefile.in
+
+post-install:
+	${MV} ${STAGEDIR}${PREFIX}/share/doc/libsigc* \
+		${STAGEDIR}${STD_DOCDIR}
+	${RM} -r ${STAGEDIR}${PREFIX}/share/devhelp
