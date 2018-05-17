@@ -1,0 +1,72 @@
+DEF[PORTVERSION]=	2.20.2
+DEF[SOVERSION]=		37.28.0
+DEF[JSSOVERSION]=	18.7.8
+DEF[WKAPI]=		4.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		webkit2
+VERSION=		${PORTVERSION}
+KEYWORDS=		www
+VARIANTS=		gtk3
+SDESC[gtk3]=		Opensource browser engine using the GTK+ 3 toolkit
+HOMEPAGE=		https://www.webkitgtk.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.webkitgtk.org/releases/
+			https://fossies.org/linux/www/
+DISTFILE[1]=		webkitgtk-${PORTVERSION}.tar.xz:main
+
+SPKGS[gtk3]=		single
+
+OPTIONS_AVAILABLE=	GTK3
+OPTIONS_STANDARD=	none
+VOPTS[gtk3]=		GTK3=ON
+
+LICENSE=		GPLv2+:single BSD3CLAUSE:single
+LICENSE_FILE=		GPLv2+:stock
+			BSD3CLAUSE:{{WRKDIR}}/LICENSE_BSD
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		BSD3CLAUSE:"^$$"
+			TERMS:"^$$"
+LICENSE_SOURCE=		BSD3CLAUSE:{{WRKSRC}}/Source/WebCore/css/parser/MediaQueryBlockWatcher.h
+			TERMS:{{WRKSRC}}/Source/WebCore/style/StyleScope.cpp
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		www/webkit2-gtk3
+
+BUILD_DEPENDS=		gperf:single:standard
+BUILDRUN_DEPENDS=	enchant:single:standard
+			fontconfig:primary:standard
+			freetype:primary:standard
+			WebP:single:standard
+			libsecret:primary:standard
+			libnotify:primary:standard
+			hyphen:single:standard
+			harfbuzz:icu:standard
+			icu:single:standard
+			libsoup:primary:standard
+			libgcrypt:single:standard
+			gnutls:single:standard
+			libtasn1:primary:standard
+			geoclue:single:standard
+
+USES=			jpeg png mesa cmake:outsource pkgconfig sqlite
+			bison perl:build python:py27,build
+GNOME_COMPONENTS=	gtk3 gdkpixbuf introspection libxslt
+XORG_COMPONENTS=	x11 xcomposite xdamage xext xrender xt ice
+DISTNAME=		webkitgtk-${PORTVERSION}
+INSTALL_TARGET=		install
+CMAKE_ARGS=		-DPORT=GTK
+			-DENABLE_GEOLOCATION:BOOL=true
+			-DENABLE_GLES2:BOOL=ON
+			-DENABLE_MINIBROWSER:BOOL=ON
+CONFIGURE_ENV=		XDG_CACHE_HOME={{WRKDIR}}
+CXXFLAGS=		-DFIXED_EXECUTABLE_MEMORY_POOL_SIZE_IN_MB=32
+PLIST_SUB=		JSSOVERSION=${JSSOVERSION}
+			JSSOMAJOR=${JSSOVERSION:R:R}
+			WKAPI=${WKAPI}
+			WKAPIMAJOR=${WKAPI:R}
+SOVERSION=		${SOVERSION}
+
+[GTK3].DESCRIPTION=			Build GTK+3 variant
