@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	2.0.4
+DEF[PORTVERSION]=	2.0.5
+DEF[SOVERSION]=		0.3.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libidn2
@@ -18,9 +19,17 @@ SPKGS[standard]=	complete primary docs
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv3:primary
-LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING
-LICENSE_SCHEME=		solo
+# library is actually dual or multi, but multi really isn't practical.
+# The unicode copyright is actually multi with one of those.
+LICENSE=		GPLv2+:primary
+			LGPL3+:primary
+			CUSTOM1:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYINGv2
+			LGPL3+:{{WRKSRC}}/COPYING.LESSERv3
+			CUSTOM1:{{WRKSRC}}/COPYING.unicode
+LICENSE_NAME=		CUSTOM1:"Unicode copyright"
+LICENSE_TERMS=		primary:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		dns/libidn2
 
@@ -33,6 +42,7 @@ CONFIGURE_ARGS=		--disable-nls
 			ac_cv_prog_RONN={{TRUE}}
 INSTALL_TARGET=		install-strip
 INFO=			primary:libidn2
+SOVERSION=		${SOVERSION}
 
 post-patch:
 	${REINPLACE_CMD} -e '/^TMPDIR = /d' ${WRKSRC}/Makefile.in
