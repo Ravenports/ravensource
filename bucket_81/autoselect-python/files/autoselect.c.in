@@ -21,8 +21,9 @@ main(int argc, char **argv)
 {
 	int x;
 	char *cmd;
-	char *pyver;
+	char *override;
 	char recommand[1024];
+	char *pyver    = NULL;
 	char *PYTHON_A = "%%PREFIX%%/bin/python%%ALPHA%%";
 	char *PYTHON_B = "%%PREFIX%%/bin/python%%BRAVO%%";
 	char *PYTHON_C = "%%PREFIX%%/bin/python%%CHARLIE%%";
@@ -30,16 +31,28 @@ main(int argc, char **argv)
 	char *BRAVO    = "%%BRAVO%%";
 	char *CHARLIE  = "%%CHARLIE%%";
 
-	if (access(PYTHON_A, F_OK) != -1) {
-		pyver = ALPHA;
-	} else if (access(PYTHON_B, F_OK) != -1) {
-		pyver = BRAVO;
-	} else if (access(PYTHON_C, F_OK) != -1) {
-		pyver = CHARLIE;
-	} else {
-		/* no versions of python are installed */
-		printf ("There are no versions of python installed at %%PREFIX%%/bin\n");
-		exit (1);
+	override = getenv("AUTOPYTHON");
+	if (override != NULL) {
+		if (strcmp (override, ALPHA) == 0) {
+			pyver = ALPHA;
+		} else if (strcmp (override, BRAVO) == 0) {
+			pyver = BRAVO;
+		} else if (strcmp (override, CHARLIE) == 0) {
+			pyver = CHARLIE;
+		}
+	}
+	if (pyver == NULL) {
+		if (access(PYTHON_A, F_OK) != -1) {
+			pyver = ALPHA;
+		} else if (access(PYTHON_B, F_OK) != -1) {
+			pyver = BRAVO;
+		} else if (access(PYTHON_C, F_OK) != -1) {
+			pyver = CHARLIE;
+		} else {
+			/* no versions of python are installed */
+			printf ("There are no versions of python installed at %%PREFIX%%/bin\n");
+			exit (1);
+		}
 	}
 
 	/*
