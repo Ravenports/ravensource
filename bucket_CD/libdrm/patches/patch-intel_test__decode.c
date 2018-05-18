@@ -1,6 +1,6 @@
---- intel/test_decode.c.orig	2017-12-18 01:33:10 UTC
+--- intel/test_decode.c.orig	2018-05-09 22:26:03 UTC
 +++ intel/test_decode.c
-@@ -32,7 +32,13 @@
+@@ -28,7 +28,13 @@
  #include <fcntl.h>
  #include <sys/types.h>
  #include <sys/stat.h>
