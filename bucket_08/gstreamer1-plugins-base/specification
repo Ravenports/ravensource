@@ -26,6 +26,7 @@ BUILDRUN_DEPENDS=	gstreamer1:single:standard
 			iso-codes:single:standard
 			orc:primary:standard
 			freetype:primary:standard
+			mesa:libs:standard
 
 USES=			gmake pkgconfig libtool gettext-runtime
 GNOME_COMPONENTS=	glib introspection
@@ -55,4 +56,7 @@ SOVERSION=		${SOVERSION}
 VAR_OPSYS[sunos]=	CFLAGS=-DHAVE_FIONREAD_IN_SYS_FILIO=1
 
 post-patch:
-	${REINPLACE_CMD} -e 's|FLAGS -Werror|FLAGS|' ${WRKSRC}/configure
+	${REINPLACE_CMD} \
+		-e 's|FLAGS -Werror|FLAGS|' \
+		-e 's|dragonflybsd|dragonfly|' \
+		${WRKSRC}/configure
