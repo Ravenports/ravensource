@@ -2,6 +2,7 @@ DEF[PORTVERSION]=	2.20.2
 DEF[SOVERSION]=		37.28.0
 DEF[JSSOVERSION]=	18.7.8
 DEF[WKAPI]=		4.0
+DEF[WKAPIMAJOR]=	${WKAPI:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		webkit2
@@ -53,14 +54,16 @@ BUILDRUN_DEPENDS=	enchant:single:standard
 			libtasn1:primary:standard
 			geoclue:single:standard
 			woff2:single:standard
+			gstreamer1-plugins-gl:single:standard
 
 USES=			jpeg png mesa cmake:outsource pkgconfig sqlite
-			bison perl:build python:py27,build
+			bison perl:build python:py27,build ruby:build
 GNOME_COMPONENTS=	gtk3 gdkpixbuf introspection libxslt
 XORG_COMPONENTS=	x11 xcomposite xdamage xext xrender xt ice
 DISTNAME=		webkitgtk-${PORTVERSION}
 INSTALL_TARGET=		install
 CMAKE_ARGS=		-DPORT=GTK
+			-DNDEBUG=1
 			-DENABLE_GEOLOCATION:BOOL=true
 			-DENABLE_GLES2:BOOL=ON
 			-DENABLE_MINIBROWSER:BOOL=ON
@@ -69,7 +72,21 @@ CXXFLAGS=		-DFIXED_EXECUTABLE_MEMORY_POOL_SIZE_IN_MB=32
 PLIST_SUB=		JSSOVERSION=${JSSOVERSION}
 			JSSOMAJOR=${JSSOVERSION:R:R}
 			WKAPI=${WKAPI}
-			WKAPIMAJOR=${WKAPI:R}
+			WKAPIMAJOR=${WKAPIMAJOR}
 SOVERSION=		${SOVERSION}
 
 [GTK3].DESCRIPTION=			Build GTK+3 variant
+[GTK3].MAKEFILE_ON=			BROWSER_PLUGIN_DIR={{LOCALBASE}}/lib/browser_plugins/symlinks/webkit-gtk3
+
+post-patch:
+	${REINPLACE_CMD} -e 's|/usr/lib/browser/plugins|${BROWSER_PLUGINS_DIR}|' \
+		${WRKSRC}/Source/WebKit/Shared/Plugins/unix/PluginSearchPath.cpp
+
+post-install:
+	(cd ${STAGEDIR}${PREFIX}/bin && \
+	 ${LN} -s ../libexec/webkit2gtk-${WKAPI}/jsc jsc-${WKAPIMAJOR} && \
+	 ${LN} -s ../libexec/webkit2gtk-${WKAPI}/MiniBrowser MiniBrowser-${WKAPIMAJOR})
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so.*.*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/webkit2gtk-${WKAPI}/injected-bundle/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/webkit2gtk-${WKAPI}/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/WebKitWebDriver
