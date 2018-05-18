@@ -1,6 +1,6 @@
 DEF[PORTVERSION]=	2.20.2
-DEF[SOVERSION]=		37.28.0
-DEF[JSSOVERSION]=	18.7.8
+DEF[SOVERSION]=		37.28.2
+DEF[JSSOVERSION]=	18.7.10
 DEF[WKAPI]=		4.0
 DEF[WKAPIMAJOR]=	${WKAPI:R}
 # ----------------------------------------------------------------------------
@@ -36,9 +36,8 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		www/webkit2-gtk3
 
-BROKEN[all]=		WIP
-
 BUILD_DEPENDS=		gperf:single:standard
+			autoselect-python:single:standard
 BUILDRUN_DEPENDS=	enchant:single:standard
 			fontconfig:primary:standard
 			freetype:primary:standard
@@ -58,6 +57,7 @@ BUILDRUN_DEPENDS=	enchant:single:standard
 
 USES=			jpeg png mesa cmake:outsource pkgconfig sqlite
 			bison perl:build python:py27,build ruby:build
+			gettext-tools
 GNOME_COMPONENTS=	gtk3 gdkpixbuf introspection libxslt
 XORG_COMPONENTS=	x11 xcomposite xdamage xext xrender xt ice
 DISTNAME=		webkitgtk-${PORTVERSION}
@@ -68,6 +68,8 @@ CMAKE_ARGS=		-DPORT=GTK
 			-DENABLE_GLES2:BOOL=ON
 			-DENABLE_MINIBROWSER:BOOL=ON
 CONFIGURE_ENV=		XDG_CACHE_HOME={{WRKDIR}}
+			AUTOPYTHON=2.7
+MAKE_ENV=		AUTOPYTHON=2.7
 CXXFLAGS=		-DFIXED_EXECUTABLE_MEMORY_POOL_SIZE_IN_MB=32
 PLIST_SUB=		JSSOVERSION=${JSSOVERSION}
 			JSSOMAJOR=${JSSOVERSION:R:R}
