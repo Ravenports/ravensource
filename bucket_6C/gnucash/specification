@@ -5,6 +5,7 @@ DEF[PORTVERSION]=	${BASEVER}${DASH:S/-/./}
 
 NAMEBASE=		gnucash
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		finance
 VARIANTS=		standard
 SDESC[standard]=	Financial accounting software
@@ -87,14 +88,19 @@ MAKE_ENV=		XDG_CACHE_HOME={{WRKDIR}}/.cache
 SINGLE_JOB=		yes
 
 post-patch:
-	# disable testing
+	# disable testing and fix XDG_DATA_DIRS
 	(cd ${WRKSRC} && \
 		${FIND} . -type f -name CMakeLists.txt \
-		-exec ${REINPLACE_CMD} -e '/ADD_SUBDIRECTORY *(test.*)/d' \
-		-e '/ENABLE_TESTING()/d' -e '/INCLUDE (GncAddTest)/d' \
+		-exec ${REINPLACE_CMD} \
+		-e 's|/usr/local/share|${PREFIX}/share|' \
+		-e '/ADD_SUBDIRECTORY *(test.*)/d' \
+		-e '/ENABLE_TESTING()/d' \
+		-e '/INCLUDE (GncAddTest)/d' \
 		-e '/GNC_GTEST_CONFIGURE()/d' {} +)
 
 post-install:
+	(cd ${STAGEDIR}${PREFIX}/etc/gnucash && \
+		${MV} environment environment.sample)
 	(cd ${STAGEDIR}${PREFIX}/share/gnucash/icons/hicolor && \
 		${RMDIR} 22x22 32x32 48x48 64x64 96x96 128x128 256x256 scalable)
 	${RM} ${STAGEDIR}${STD_DOCDIR}/ChangeLog*
