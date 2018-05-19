@@ -32,6 +32,10 @@ INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${PORTVERSION}
 
+post-patch:
+	${REINPLACE_CMD} -e "s|# !/bin/sh -e|#!/bin/sh|" ${WRKSRC}/bootstrap
+	${CHMOD} ${BINMODE} ${WRKSRC}/bootstrap
+
 pre-configure:
 	(cd ${WRKSRC} && ./bootstrap)
 
