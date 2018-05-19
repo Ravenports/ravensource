@@ -27,6 +27,7 @@
 
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/file.h>
 
 #include <err.h>
 #include <errno.h>
@@ -36,6 +37,14 @@
 #include <stdlib.h>
 #include <sysexits.h>
 #include <unistd.h>
+
+#ifndef O_EXLOCK
+#define O_EXLOCK	0
+#endif
+
+#ifndef __unused
+#define __unused	__attribute__((__unused__))
+#endif
 
 static int acquire_lock(const char *name, int flags);
 static void cleanup(void);
