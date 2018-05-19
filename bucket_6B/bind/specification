@@ -1,9 +1,9 @@
-DEF[PORTVERSION]=	9.12.1
+DEF[REALVERSION]=	9.12.1-P2
+DEF[PORTVERSION]=	${REALVERSION:S/-/./}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		bind
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		dns net
 VARIANTS=		standard
 SDESC[standard]=	Berkeley Internet Name Domain (Domain Name Server)
@@ -11,8 +11,8 @@ HOMEPAGE=		https://www.isc.org/downloads/bind/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		ISC/bind9/${PORTVERSION}
-DISTFILE[1]=		bind-${PORTVERSION}.tar.gz:main
+SITES[main]=		ISC/bind9/${REALVERSION}
+DISTFILE[1]=		bind-${REALVERSION}.tar.gz:main
 
 SPKGS[standard]=	complete server tools docs
 
@@ -39,6 +39,7 @@ BUILDRUN_DEPENDS=	libxml2:single:standard
 USES=			cpe iconv ssl cclibs:server,tools
 CPE_VENDOR=		isc
 SINGLE_JOB=		yes
+DISTNAME=		bind-${REALVERSION}
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--localstatedir=/var
 			--sysconfdir={{ETCDIR}}
