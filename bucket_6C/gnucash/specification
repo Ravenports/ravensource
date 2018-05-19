@@ -31,8 +31,8 @@ LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		finance/gnucash
 
-BROKEN[all]=		still under development
-
+BUILD_DEPENDS=		gmp:static:standard
+			appstream-glib:primary:standard
 BUILDRUN_DEPENDS=	gnome-keyring:single:standard
 			icu:single:standard
 			libsecret:primary:standard
@@ -45,13 +45,14 @@ BUILDRUN_DEPENDS=	gnome-keyring:single:standard
 			libdbi-drivers:primary:sqlite
 			libofx:primary:standard
 			guile:single:standard
+			webkit2:single:gtk3
 RUN_DEPENDS=		perl-Date-Manip:single:perl_default
 			perl-Finance-Quote:single:perl_default
 			perl-libwww-perl:single:perl_default
 
 USES=			cmake desktop-utils:primary gnome-icons:primary
 			pkgconfig gettext-tools gettext-runtime
-			libtool perl shebangfix
+			libtool perl shebangfix zlib
 XORG_COMPONENTS=	x11
 GNOME_COMPONENTS=	gtk3 libxslt intltool
 CMAKE_ARGS=		-DWITH_AQBANKING:BOOL=true
@@ -81,3 +82,22 @@ GLIB_SCHEMAS=		org.gnucash.dialogs.business.gschema.xml
 			org.gnucash.warnings.gschema.xml
 			org.gnucash.window.pages.account.tree.gschema.xml
 			org.gnucash.window.pages.gschema.xml
+MAKE_ENV=		XDG_CACHE_HOME={{WRKDIR}}/.cache
+SINGLE_JOB=		yes
+
+post-patch:
+	# disable testing
+	(cd ${WRKSRC} && \
+		${FIND} . -type f -name CMakeLists.txt \
+		-exec ${REINPLACE_CMD} -e '/ADD_SUBDIRECTORY *(test.*)/d' \
+		-e '/ENABLE_TESTING()/d' -e '/INCLUDE (GncAddTest)/d' \
+		-e '/GNC_GTEST_CONFIGURE()/d' {} +)
+
+post-install:
+	(cd ${STAGEDIR}${PREFIX}/share/gnucash/icons/hicolor && \
+		${RMDIR} 22x22 32x32 48x48 64x64 96x96 128x128 256x256 scalable)
+	${RM} ${STAGEDIR}${STD_DOCDIR}/ChangeLog*
+	${RM} ${STAGEDIR}${STD_DOCDIR}/LICENSE
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gnucash/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gnucash
