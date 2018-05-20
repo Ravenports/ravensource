@@ -1,8 +1,8 @@
-DEF[PORTVERSION]=	0.64.0
-DEF[SOVERSION]=		75.0.0
-DEF[CPP_SOVERSION]=	0.4.0
+DEF[PORTVERSION]=	0.65.0
+DEF[SOVERSION]=		76.0.0
+DEF[CPP_SOVERSION]=	0.5.0
 DEF[GLIB_SOVERSION]=	8.9.0
-DEF[QT5_SOVERSION]=	1.14.0
+DEF[QT5_SOVERSION]=	1.15.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		poppler
@@ -22,8 +22,11 @@ SPKGS[standard]=	complete primary cpp glib qt5 utils
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2:primary
-LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"CATALOG_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/poppler/Catalog.h
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/poppler
