@@ -4,6 +4,7 @@ DEF[LIBVERSION]=	0.5600.1
 
 NAMEBASE=		glib
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Some useful routines of C programming
@@ -45,6 +46,12 @@ INSTALL_REQ_TOOLCHAIN=	yes
 SHEBANG_FILES=		*/*.pl
 PLIST_SUB=		LIBVERSION=${LIBVERSION}
 			RESETPREFIX={{PREFIX}}
+
+# Leaving debugging symbols in place clears up the XDG_DATA_DIRS related
+# SIGTRAP error from gnucash which manifested on 3 platforms.  It's
+# probably related to the stripping of the binaries, but its not clear
+# why this solves the issue.
+SET_DEBUGGING_ON=	yes
 
 post-patch:
 	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g ; \
