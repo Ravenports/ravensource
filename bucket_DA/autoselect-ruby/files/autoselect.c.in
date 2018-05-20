@@ -1,0 +1,80 @@
+/*
+ * This program will determine the latest version of ruby
+ * installed by checking %%PREFIX%%/bin/ruby-<x> where <x> checks
+ * all possible versions.
+ * 
+ * If no version is present, an error message will be displayed,
+ * otherwise the versioned counterpart of the ruby command
+ * requested will be will be executed with the same arguments
+ * provided to this one.  If the versioned command isn't present, an
+ * error message will be provided as a fallback.
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
+
+int
+main(int argc, char **argv)
+{
+	int x;
+	char *cmd;
+	char *override;
+	char recommand[1024];
+	char *rbver   = NULL;
+	char *RUBY_A  = "%%PREFIX%%/bin/ruby%%ALPHA%%";
+	char *RUBY_B  = "%%PREFIX%%/bin/ruby%%BRAVO%%";
+	char *RUBY_C  = "%%PREFIX%%/bin/ruby%%CHARLIE%%";
+	char *ALPHA   = "%%ALPHA%%";
+	char *BRAVO   = "%%BRAVO%%";
+	char *CHARLIE = "%%CHARLIE%%";
+
+	override = getenv("AUTORUBY");
+	if (override != NULL) {
+		if (strcmp (override, ALPHA) == 0) {
+			rbver = ALPHA;
+		} else if (strcmp (override, BRAVO) == 0) {
+			rbver = BRAVO;
+		} else if (strcmp (override, CHARLIE) == 0) {
+			rbver = CHARLIE;
+		}
+	}
+	if (rbver == NULL) {
+		if (access(RUBY_A, F_OK) != -1) {
+			rbver = ALPHA;
+		} else if (access(RUBY_B, F_OK) != -1) {
+			rbver = BRAVO;
+		} else if (access(RUBY_C, F_OK) != -1) {
+			rbver = CHARLIE;
+		} else {
+			/* no versions of ruby are installed */
+			printf ("There are no versions of ruby installed at %%PREFIX%%/bin\n");
+			exit (1);
+		}
+	}
+
+	/*
+	 * Get the last path element of the program name being executed
+	 */
+	cmd = strrchr(argv[0], '/');
+	if (cmd != NULL)
+		cmd++;
+	else
+		cmd = argv[0];
+
+	snprintf(recommand, 1024, "%%PREFIX%%/bin/%s%s", cmd, rbver);
+	argv[0] = recommand;
+	execv(recommand, argv);
+
+	/*
+	 * Execution failed, so write out an error message
+	 */
+	printf ("Command execution failed: %s\n", recommand);
+	printf ("               arguments:");
+	for (x = 1; x < argc; x++)
+		printf (" %s", argv[x]);
+	printf ("\n");
+	exit (1);
+}

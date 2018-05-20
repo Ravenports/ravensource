@@ -1,0 +1,42 @@
+# manually update when ruby versions are cycled
+DEF[PORTVERSION]=	1
+DEF[ALPHA]=		25
+DEF[BRAVO]=		24
+DEF[CHARLIE]=		23
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		autoselect-ruby
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		standard
+SDESC[standard]=	Dynamic links to the latest installed ruby
+HOMEPAGE=		none
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	none
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		ISCL:single
+LICENSE_FILE=		ISCL:{{FILESDIR}}/LICENSE_ISC
+LICENSE_SCHEME=		solo
+
+SUB_FILES=		autoselect.c
+SUB_LIST=		ALPHA=${ALPHA}
+			BRAVO=${BRAVO}
+			CHARLIE=${CHARLIE}
+
+post-patch:
+	@${MKDIR} ${WRKSRC}
+	${CP} ${WRKDIR}/autoselect.c ${WRKSRC}
+
+do-build:
+	(cd ${WRKSRC} && ${CC} ${CFLAGS} ${LDFLAGS} -o generic autoselect.c)
+
+do-install:
+.for prog in ruby gem erb irb rdoc ri
+	${INSTALL_PROGRAM} ${WRKSRC}/generic ${STAGEDIR}${PREFIX}/bin/${prog}
+.endfor
