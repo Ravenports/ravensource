@@ -1,18 +1,18 @@
-DEF[PORTVERSION]=	2.7.3
+DEF[PORTVERSION]=	3.0.2
 # ------------------------------------------------------------------------
 
-NAMEBASE=		python-mayan-edms
+NAMEBASE=		python-mayan-edms-ng
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		py35 py36
 SDESC[py35]=		Free Open Source Electronic Document Manag (PY 35)
 SDESC[py36]=		Free Open Source Electronic Document Manag (PY 36)
-HOMEPAGE=		https://gitlab.com/mayan-edms/mayan-edms
+HOMEPAGE=		https://gitlab.com/mayan-edms-ng/mayan-edms-ng
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/m/mayan-edms
-DISTFILE[1]=		mayan-edms-2.7.3.tar.gz:main
+SITES[main]=		PYPI/m/mayan-edms-ng
+DISTFILE[1]=		mayan-edms-ng-3.0.2.tar.gz:main
 
 SPKGS[py35]=		single
 SPKGS[py36]=		single
@@ -28,45 +28,47 @@ VOPTS[py36]=		PY35=OFF PY36=ON
 GENERATED=		yes
 
 # install_requires extracted from setup.py (using python 2.7)
-# Django==1.10.7
-# Pillow==4.2.0
+# Django==1.11.11
+# Pillow==5.0.0
 # PyYAML==3.12
 # celery==3.1.24
 # cssmin==0.2.0
-# django-activity-stream==0.6.3
+# django-activity-stream==0.6.5
 # django-autoadmin==1.1.1
 # django-celery==3.2.1
 # django-colorful==1.2
-# django-compressor==2.1
-# django-cors-headers==1.2.2
+# django-compressor==2.2
+# django-cors-headers==2.2.0
 # django-downloadview==1.9
-# django-formtools==2.0
+# django-formtools==2.1
 # django-pure-pagination==0.3.0
 # django-mathfilters==0.4.0
-# django-model-utils==2.6.1
-# django-mptt>=0.8.7
-# django-qsstats-magic==0.7.2
-# django-rest-swagger==0.3.10
-# django-stronghold==0.2.8
-# django-suit==0.2.25
+# django-model-utils==3.1.1
+# django-mptt==0.9.0
+# django-qsstats-magic==1.0.0
+# django-stronghold==0.3.0
+# django-suit==0.2.26
 # django-widget-tweaks==1.4.1
-# djangorestframework==3.3.2
-# djangorestframework-recursive==0.1.1
-# furl==1.0.0
+# djangorestframework==3.7.7
+# djangorestframework-recursive==0.1.2
+# drf-yasg==1.5.0
+# flex==6.12.0
+# furl==1.0.1
 # fusepy==2.0.4
-# graphviz==0.8
+# graphviz==0.8.2
 # mock==2.0.0
 # pycountry==1.20
 # PyPDF2==1.26.0
-# pyocr==0.4.5
-# python-dateutil==2.5.3
+# pyocr==0.5.1
+# python-dateutil==2.6.1
 # python-gnupg==0.3.9
-# python-magic==0.4.13
-# pytz==2016.7
+# python-magic==0.4.15
+# pytz==2018.3
 # requests==2.18.4
-# sh==1.12.11
+# sh==1.12.14
+# swagger-spec-validator==2.1.0
 
-DISTNAME=		mayan-edms-${PORTVERSION}
+DISTNAME=		mayan-edms-ng-${PORTVERSION}
 
 [PY35].USES_ON=				python:py35
 [PY35].BUILDRUN_DEPENDS_ON=		python-Django:single:py35
@@ -87,12 +89,13 @@ DISTNAME=		mayan-edms-${PORTVERSION}
 					python-django-model-utils:single:py35
 					python-django-mptt:single:py35
 					python-django-qsstats-magic:single:py35
-					python-django-rest-swagger:single:py35
 					python-django-stronghold:single:py35
 					python-django-suit:single:py35
 					python-django-widget-tweaks:single:py35
 					python-djangorestframework:single:py35
 					python-djangorestframework-recursive:single:py35
+					python-drf-yasg:single:py35
+					python-flex:single:py35
 					python-furl:single:py35
 					python-fusepy:single:py35
 					python-graphviz:single:py35
@@ -106,6 +109,7 @@ DISTNAME=		mayan-edms-${PORTVERSION}
 					python-pytz:single:py35
 					python-requests:single:py35
 					python-sh:single:py35
+					python-swagger-spec-validator:single:py35
 
 [PY36].USES_ON=				python:py36
 [PY36].BUILDRUN_DEPENDS_ON=		python-Django:single:py36
@@ -126,12 +130,13 @@ DISTNAME=		mayan-edms-${PORTVERSION}
 					python-django-model-utils:single:py36
 					python-django-mptt:single:py36
 					python-django-qsstats-magic:single:py36
-					python-django-rest-swagger:single:py36
 					python-django-stronghold:single:py36
 					python-django-suit:single:py36
 					python-django-widget-tweaks:single:py36
 					python-djangorestframework:single:py36
 					python-djangorestframework-recursive:single:py36
+					python-drf-yasg:single:py36
+					python-flex:single:py36
 					python-furl:single:py36
 					python-fusepy:single:py36
 					python-graphviz:single:py36
@@ -145,8 +150,5 @@ DISTNAME=		mayan-edms-${PORTVERSION}
 					python-pytz:single:py36
 					python-requests:single:py36
 					python-sh:single:py36
-USES=			shebangfix
-SHEBANG_FILES=		mayan/bin/mayan-edms.py
+					python-swagger-spec-validator:single:py36
 
-post-patch:
-	${REINPLACE_CMD} 's/[\d128-\d255]//g' ${WRKSRC}/HISTORY.rst
