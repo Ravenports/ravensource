@@ -1,0 +1,51 @@
+DEF[PORTVERSION]=	3.33.0
+DEF[WXRC_CMD]=		wxrc-gtk3u-3.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		filezilla
+VERSION=		${PORTVERSION}
+KEYWORDS=		ftp
+VARIANTS=		standard
+SDESC[standard]=	Cross-platform graphical FTP, FTPS & SFTP client
+HOMEPAGE=		https://filezilla-project.org
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://dl1.cdn.filezilla-project.org/client/
+DISTFILE[1]=		FileZilla_${PORTVERSION}_src.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^Features"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/README
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		ftp/filezilla
+
+BUILDRUN_DEPENDS=	xdg-utils:single:standard
+			libfilezilla:single:standard
+			libgcrypt:single:standard
+			gnutls:single:standard
+			libidn:primary:standard
+			nettle:primary:standard
+			pugixml:single:standard
+			fontconfig:primary:standard
+			freetype:primary:standard
+			dbus:single:standard
+			wxWidgets:single:standard
+
+USES=			gettext-tools gmake iconv pkgconfig sqlite
+GNOME_COMPONENTS=	cairo gtk3
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-wx-config={{LOCALBASE}}/bin/wxgtk3u-3.0-config
+			--with-wx-prefix={{PREFIX}}
+			--with-dbus
+			--disable-manualupdatecheck
+			WXRC={{LOCALBASE}}/bin/${WXRC_CMD}
