@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	3.33.0
 DEF[WXRC_CMD]=		wxrc-gtk3u-3.0
+DEF[WX_CONFIG]=		wxgtk3u-3.0-config
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		filezilla
@@ -44,8 +45,8 @@ USES=			gettext-tools gmake iconv pkgconfig sqlite
 GNOME_COMPONENTS=	cairo gtk3
 
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-wx-config={{LOCALBASE}}/bin/wxgtk3u-3.0-config
-			--with-wx-prefix={{PREFIX}}
+CONFIGURE_ARGS=		--with-wx-config={{LOCALBASE}}/bin/${WX_CONFIG}
+			--with-wx-prefix={{LOCALBASE}}
 			--with-dbus
 			--disable-manualupdatecheck
 			WXRC={{LOCALBASE}}/bin/${WXRC_CMD}
