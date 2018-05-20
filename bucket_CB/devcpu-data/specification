@@ -6,6 +6,7 @@ DEF[AMD_VERSION]=	3.20171205.1
 
 NAMEBASE=		devcpu-data
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		standard
 SDESC[standard]=	Intel and AMD CPUs microcode updates
@@ -37,11 +38,14 @@ ONLY_FOR_OPSYS=		freebsd dragonfly
 
 RC_SUBR=		microcode_update:single
 EXTRACT_DIRTY=		1 2
-SKIP_BUILD=		yes
+
+post-extract:
+	${INSTALL_DATA} ${FILESDIR}/Makefile ${FILESDIR}/ucode-split.c \
+		${WRKSRC}
 
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/cpucontrol
-	${INSTALL_DATA} ${WRKSRC}/intel-ucode/* \
-		${STAGEDIR}${PREFIX}/share/cpucontrol
-	${INSTALL_DATA} ${WRKDIR}/${NAMEBASE}_2/amd64-microcode-${AMD_VERSION}/microcode_amd_fam1[567]h.bin \
-		${STAGEDIR}${PREFIX}/share/cpucontrol
+	${INSTALL_DATA} ${WRKSRC}/mcodes/* ${STAGEDIR}${PREFIX}/share/cpucontrol
+	(cd ${WRKDIR}/${NAMEBASE}_2/amd64-microcode-${AMD_VERSION} && \
+	 ${INSTALL_DATA} microcode_amd.bin microcode_amd_fam1[567]h.bin \
+	 ${STAGEDIR}${PREFIX}/share/cpucontrol)
