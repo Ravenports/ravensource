@@ -1,6 +1,6 @@
---- CMakeLists.txt.orig	2018-04-04 16:53:16.000000000 +0200
-+++ CMakeLists.txt	2018-05-16 17:20:41.177952000 +0200
-@@ -4,7 +4,7 @@
+--- CMakeLists.txt.orig	2018-04-04 14:53:16 UTC
++++ CMakeLists.txt
+@@ -4,7 +4,7 @@ project(pugixml)
  
  option(BUILD_SHARED_LIBS "Build shared instead of static library" OFF)
  option(BUILD_TESTS "Build tests" OFF)
@@ -9,7 +9,7 @@
  
  set(BUILD_DEFINES "" CACHE STRING "Build defines")
  
-@@ -55,7 +55,7 @@
+@@ -55,7 +55,7 @@ endif()
  set_target_properties(pugixml PROPERTIES VERSION 1.9 SOVERSION 1)
  get_target_property(PUGIXML_VERSION_STRING pugixml VERSION)
  
@@ -18,7 +18,7 @@
  	# Install library into its own directory under LIBDIR
  	set(INSTALL_SUFFIX /pugixml-${PUGIXML_VERSION_STRING})
  endif()
-@@ -71,10 +71,8 @@
+@@ -71,10 +71,8 @@ install(TARGETS pugixml EXPORT pugixml-c
  install(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}${INSTALL_SUFFIX})
  install(EXPORT pugixml-config DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/pugixml)
  
