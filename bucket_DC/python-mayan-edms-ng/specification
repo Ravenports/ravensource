@@ -152,3 +152,9 @@ DISTNAME=		mayan-edms-ng-${PORTVERSION}
 					python-sh:single:py36
 					python-swagger-spec-validator:single:py36
 
+
+USES=			shebangfix
+SHEBANG_FILES=		mayan/bin/mayan-edms.py
+
+post-patch:
+	${REINPLACE_CMD} 's/[\d128-\d255]//g' ${WRKSRC}/HISTORY.rst
