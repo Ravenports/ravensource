@@ -33,7 +33,7 @@ BUILDRUN_DEPENDS=	xdg-utils:single:standard
 			libfilezilla:single:standard
 			libgcrypt:single:standard
 			gnutls:single:standard
-			libidn:primary:standard
+			libidn2:primary:standard
 			nettle:primary:standard
 			pugixml:single:standard
 			fontconfig:primary:standard
@@ -50,3 +50,15 @@ CONFIGURE_ARGS=		--with-wx-config={{LOCALBASE}}/bin/${WX_CONFIG}
 			--with-dbus
 			--disable-manualupdatecheck
 			WXRC={{LOCALBASE}}/bin/${WXRC_CMD}
+
+post-patch:
+	# Use libidn2 instead of libidn
+	${REINPLACE_CMD} \
+		-e 's/idna/idn2/g' \
+		-e 's/lidn/lidn2/g' \
+		-e 's/stringprep_check_version/idn2_lookup_ul/g' \
+		${WRKSRC}/configure
+	${REINPLACE_CMD} \
+		-e 's/idna/idn2/g' \
+		-e '/<idn-free.h>/d' \
+		${WRKSRC}/src/engine/ControlSocket.cpp
