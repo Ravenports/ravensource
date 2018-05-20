@@ -10,9 +10,9 @@ list=$(cd ${rports} && find bucket_* -type f)
 
 if [ $# -lt 1 -o "${1}" != "confirm" ]; then
    echo "add 'confirm' argument to execute (this is dry run)"
-   xc=1
-else
    xc=0
+else
+   xc=1
 fi
 
 
