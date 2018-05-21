@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.2.3
+DEF[PORTVERSION]=	1.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-ruby-xz
@@ -8,12 +8,12 @@ VARIANTS=		v23 v24 v25
 SDESC[v23]=		XZ compression via liblzma for Ruby, using f (v23)
 SDESC[v24]=		XZ compression via liblzma for Ruby, using f (v24)
 SDESC[v25]=		XZ compression via liblzma for Ruby, using f (v25)
-HOMEPAGE=		https://quintus.github.io/ruby-xz
+HOMEPAGE=		https://mg.guelker.eu/projects/ruby-xz/
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		ruby-xz-0.2.3.gem:main
+DISTFILE[1]=		ruby-xz-1.0.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v23]=		single
@@ -29,21 +29,13 @@ VOPTS[v25]=		RUBY23=OFF RUBY24=OFF RUBY25=ON
 GENERATED=		yes
 
 # Requirements specified by gem dependency --remote --version command
-#   archive-tar-minitar (~> 0.5, development)
-#   ffi (~> 1.9)
-#   io-like (~> 0.3)
+#   minitar (~> 0.6, development)
 
 DISTNAME=		ruby-xz-${PORTVERSION}
 
 [RUBY23].USES_ON=			gem:v23
-[RUBY23].BUILDRUN_DEPENDS_ON=		ruby-ffi:single:v23
-					ruby-io-like:single:v23
 
 [RUBY24].USES_ON=			gem:v24
-[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-ffi:single:v24
-					ruby-io-like:single:v24
 
 [RUBY25].USES_ON=			gem:v25
-[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-ffi:single:v25
-					ruby-io-like:single:v25
 
