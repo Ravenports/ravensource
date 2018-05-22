@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	20170430
 
 NAMEBASE=		openpam
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Open-source Pluggable Authentication Module
@@ -22,8 +23,18 @@ OPTIONS_STANDARD=	none
 
 USES=			libtool
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--without-pam-su
+CONFIGURE_ARGS=		--with-su
 			--with-pam-unix
 			--with-modules-dir={{PREFIX}}/lib/openpam
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
+SET_DEBUGGING_ON=	yes
+
+VAR_OPSYS[dragonfly]=	VAR1="/usr/lib/security",
+VAR_OPSYS[freebsd]=	VAR1="/usr/lib/security",
+
+post-patch:
+	${REINPLACE_CMD} \
+		-e 's|@PREFIX@|${PREFIX}|' \
+		-e 's|@SYSTEM_MODULES@|${VAR1}|' \
+		${WRKSRC}/lib/libpam/openpam_constants.c
