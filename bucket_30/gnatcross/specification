@@ -11,9 +11,10 @@ NAMEBASE=		gnatcross
 VERSION=		${PORTVERSION}
 REVISION=		${REVISION}
 KEYWORDS=		lang
-VARIANTS=		FARM64_R11 FAMD64_R12 SOL10
+VARIANTS=		FARM64_R11 FAMD64_R12 FI386_R11 SOL10
 SDESC[FARM64_R11]=	C/Ada cross-compiler, target: FreeBSD/ARM64 (R11)
 SDESC[FAMD64_R12]=	C/Ada cross-compiler, target: FreeBSD/AMD64 (R12)
+SDESC[FI386_R11]=	C/Ada cross-compiler, target: FreeBSD/I386 (R11)
 SDESC[SOL10]=		C/Ada cross-compiler, target: Solaris 10 (x86-64)
 HOMEPAGE=		http://www.dragonlace.net
 CONTACT=		John_Marino[draco@marino.st]
@@ -24,24 +25,22 @@ DISTFILE[1]=		${IDENTIFICATION}.tar.xz:main
 
 SPKGS[FARM64_R11]=	single
 SPKGS[FAMD64_R12]=	single
+SPKGS[FI386_R11]=	single
 SPKGS[SOL10]=		single
 
-OPTIONS_AVAILABLE=	FARM64R11 FAMD64R12 SOL10
+OPTIONS_AVAILABLE=	FARM64R11 FAMD64R12 FI386R11 SOL10
 OPTIONS_STANDARD=	none
-VOPTS[FARM64_R11]=	FARM64R11=ON FAMD64R12=OFF SOL10=OFF
-VOPTS[FAMD64_R12]=	FARM64R11=OFF FAMD64R12=ON SOL10=OFF
-VOPTS[SOL10]=		FARM64R11=OFF FAMD64R12=OFF SOL10=ON
+VOPTS[FARM64_R11]=	FARM64R11=ON FAMD64R12=OFF FI386R11=OFF SOL10=OFF
+VOPTS[FAMD64_R12]=	FARM64R11=OFF FAMD64R12=ON FI386R11=OFF SOL10=OFF
+VOPTS[FI386_R11]=	FARM64R11=OFF FAMD64R12=OFF FI386R11=ON SOL10=OFF
+VOPTS[SOL10]=		FARM64R11=OFF FAMD64R12=OFF FI386R11=OFF SOL10=ON
 
-LICENSE=		GPLv2+:single
-			LGPL21:single
-			GPLv3+:single
-			LGPL3:single
-			GPLv3RLE:single
-LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-			LGPL21:{{WRKSRC}}/COPYING.LIB
-			GPLv3+:{{WRKSRC}}/COPYING3
-			LGPL3:{{WRKSRC}}/COPYING3.LIB
-			GPLv3RLE:{{WRKSRC}}/COPYING.RUNTIME
+LICENSE=		GPLv3+:single LGPL3+:single
+			GPLv3RLE+:single
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
+			LGPL3+:{{WRKSRC}}/COPYING3.LIB
+			GPLv3RLE+:{{WRKSRC}}/COPYING.RUNTIME
 LICENSE_SCHEME=		multi
 
 BUILD_DEPENDS=		gmp:static:standard
@@ -100,6 +99,14 @@ SUB_LIST=		TARGET="{{XCCTARGET}}"
 					XCCTARGET=x86_64-raven-freebsd${FREEBSD_12}
 					TARGET_SPECIFIC=#none
 
+[FI386R11].DESCRIPTION=			Set target to FreeBSD/I386 (Release 11)
+[FI386R11].BUILDRUN_DEPENDS_ON=		gnatcross-binutils:single:FI386_R11
+[FI386R11].MAKEFILE_ON=			OS_LABEL4VERS="[{{OPSYS}}/{{ARCH}} x FreeBSD_11/I386]"
+					PREFIX={{LOCALBASE}}/FreeBSD11_I386
+					SRPREFIX={{PREFIX}}/sysroot
+					XCCTARGET=i386-raven-freebsd${FREEBSD_11}
+					TARGET_SPECIFIC=#none
+
 [SOL10].DESCRIPTION=			Set target to Solaris 10 (x86-64)
 [SOL10].BUILDRUN_DEPENDS_ON=		gnatcross-binutils:single:SOL10
 [SOL10].MAKEFILE_ON=			OS_LABEL4VERS="[{{OPSYS}}/{{ARCH}} x Solaris_10/AMD64]"
@@ -114,6 +121,10 @@ SUB_LIST=		TARGET="{{XCCTARGET}}"
 post-extract:
 	# Personalize GNAT for each different machine
 	${ECHO} "-=> GNATCROSS ${OS_LABEL4VERS}" > ${WRKSRC}/gcc/REVISION
+	# Create license terms
+	${HEAD} -n 19 ${WRKSRC}/gcc/gcc.h > ${WRKDIR}/TERMS
+	${HEAD} -n 31 ${WRKSRC}/gcc/ada/adaint.h >> ${WRKDIR}/TERMS
+	${HEAD} -n 18 ${WRKSRC}/libiberty/hex.c >> ${WRKDIR}/TERMS
 
 post-patch:
 	# Update LINK_SPEC to add gcc-aux lib runpath in every binary
@@ -131,6 +142,11 @@ post-patch:
 		${WRKSRC}/gcc/config/freebsd-spec.h
 
 post-patch-FARM64R11-ON:
+	# work around malloc detection issue
+	${REINPLACE_CMD} -e 's/#undef HAVE_ALIGNED_ALLOC/#define HAVE_ALIGNED_ALLOC 1/' \
+		${WRKSRC}/libstdc++-v3/config.h.in
+
+post-patch-FI386R11-ON:
 	# work around malloc detection issue
 	${REINPLACE_CMD} -e 's/#undef HAVE_ALIGNED_ALLOC/#define HAVE_ALIGNED_ALLOC 1/' \
 		${WRKSRC}/libstdc++-v3/config.h.in
@@ -155,6 +171,9 @@ do-install:
 		${STAGEDIR}${PREFIX}/bin/${XCCTARGET}-ada
 
 post-install-FARM64R11-ON:
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/gcc/${XCCTARGET}/${GCC_VERSION}/include-fixed/
+
+post-install-FI386R11-ON:
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/gcc/${XCCTARGET}/${GCC_VERSION}/include-fixed/
 
 post-install-FAMD64R12-ON:
