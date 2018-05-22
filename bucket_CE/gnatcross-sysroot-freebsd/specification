@@ -7,26 +7,30 @@ DEF[PUB_FREEBSD]=	ftp://ftp.freebsd.org/pub/FreeBSD
 NAMEBASE=		gnatcross-sysroot-freebsd
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang
-VARIANTS=		ARM64_R11 AMD64_R12
+VARIANTS=		ARM64_R11 AMD64_R12 I386_R11
 SDESC[ARM64_R11]=	FreeBSD C/Ada cross-compiler sysroot (ARM64/R11)
 SDESC[AMD64_R12]=	FreeBSD C/Ada cross-compiler sysroot (AMD64/R12)
+SDESC[I386_R11]=	FreeBSD C/Ada cross-compiler sysroot (I386/R11)
 HOMEPAGE=		http://www.dragonlace.net
 CONTACT=		John_Marino[john@marino.st]
 
-DOWNLOAD_GROUPS=	main amd64
+DOWNLOAD_GROUPS=	main ravcache
 SITES[main]=		${PUB_FREEBSD}/releases/arm64/aarch64/${F11_RELEASE}-RELEASE/
-SITES[amd64]=		http://ravenports.ironwolf.systems/cache-distfiles/
+SITES[ravcache]=	http://ravenports.ironwolf.systems/cache-distfiles/
 DISTFILE[1]=		base.txz:main
-DISTFILE[2]=		base-12.0-20171012.txz:amd64
+DISTFILE[2]=		base-12.0-20171012.txz:ravcache
+DISTFILE[3]=		base-i386-${F11_RELEASE}.txz:ravcache
 DIST_SUBDIR=		gnatcross/freebsd
 
 SPKGS[ARM64_R11]=	single
 SPKGS[AMD64_R12]=	single
+SPKGS[I386_R11]=	single
 
-OPTIONS_AVAILABLE=	ARM64R11 AMD64R12
+OPTIONS_AVAILABLE=	ARM64R11 AMD64R12 I386R11
 OPTIONS_STANDARD=	none
-VOPTS[ARM64_R11]=	ARM64R11=ON AMD64R12=OFF
-VOPTS[AMD64_R12]=	ARM64R11=OFF AMD64R12=ON
+VOPTS[ARM64_R11]=	ARM64R11=ON AMD64R12=OFF I386R11=OFF
+VOPTS[AMD64_R12]=	ARM64R11=OFF AMD64R12=ON I386R11=OFF
+VOPTS[I386_R11]=	ARM64R11=OFF AMD64R12=OFF I386R11=ON
 
 FPC_EQUIVALENT=		lang/gnatcross-sysroot-aarch64
 NOT_FOR_ARCH=		aarch64
@@ -35,7 +39,7 @@ SKIP_BUILD=		yes
 INVALID_RPATH=		yes
 EXTRACT_HEAD[1]=	{{TAR}} -xf
 EXTRACT_TAIL[1]=	--no-same-owner --no-same-permissions lib/ usr/include/ usr/lib/
-EXTRACT_DIRTY=		1 2
+EXTRACT_DIRTY=		1 2 3
 
 [ARM64R11].DESCRIPTION=			Package FreeBSD/ARM64 Release ${F11_RELEASE} system root
 [ARM64R11].MAKEFILE_ON=			CTARGET=aarch64-raven-freebsd${F11_RELEASE}
@@ -45,6 +49,10 @@ EXTRACT_DIRTY=		1 2
 [AMD64R12].MAKEFILE_ON=			CTARGET=x86_64-raven-freebsd${F12_RELEASE}
 					PREFIX={{LOCALBASE}}/FreeBSD12_AMD64
 [AMD64R12].DF_INDEX_ON=			2
+[I386R11].DESCRIPTION=			Package FreeBSD/I386 Release ${F11_RELEASE} system root
+[I386R11].MAKEFILE_ON=			CTARGET=i386-raven-freebsd${F11_RELEASE}
+					PREFIX={{LOCALBASE}}/FreeBSD11_I386
+[I386R11].DF_INDEX_ON=			3
 
 post-extract-dragonfly:
 	/bin/chflags -R noschg ${WRKDIR}
