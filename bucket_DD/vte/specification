@@ -1,7 +1,7 @@
 # vte uses even/odd releases, so stick to e.g. 0.50.x, 0.52.x
-DEF[PORTVERSION]=	0.52.1
+DEF[PORTVERSION]=	0.52.2
 DEF[VTE_VERSION]=	2.91
-DEF[SOVERSION]=		0.5200.1
+DEF[SOVERSION]=		0.5200.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		vte
@@ -21,6 +21,13 @@ SPKGS[standard]=	complete primary docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/vte.cc
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11-toolkits/vte3
 
