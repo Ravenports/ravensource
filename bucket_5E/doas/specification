@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.0p2
+DEF[PORTVERSION]=	6.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		doas
@@ -6,11 +6,11 @@ VERSION=		${PORTVERSION}
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Simple sudo alternative from OpenBSD
-HOMEPAGE=		none
+HOMEPAGE=		https://github.com/Duncaen/OpenDoas
 CONTACT=		Omar_Polo[omar.polo@europecom.net]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/slicer69:doas:${PORTVERSION}
+SITES[main]=		GITHUB/Duncaen:OpenDoas:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
@@ -24,18 +24,25 @@ LICENSE_FILE=		BSD2CLAUSE:{{WRKDIR}}/LICENSE
 
 FPC_EQUIVALENT=		security/doas
 
-USES=			gmake
-
-BUILDRUN_DEPENDS=	openpam:single:standard
 BUILD_DEPENDS=		byacc:single:standard
+BUILDRUN_DEPENDS=	openpam:single:standard
+
+USES=			gmake
+MUST_CONFIGURE=		yes
+CONFIGURE_ARGS=		--prefix={{PREFIX}}
+			--sysconfdir={{PREFIX}}/etc
+BUILD_TARGET=		doas
 
 post-patch:
-	${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|g' \
+	${REINPLACE_CMD} -e 's|/etc/doas.conf|${PREFIX}&|g' \
 		${WRKSRC}/doas.c
+	${REINPLACE_CMD} -e 's/-Werror//' ${WRKSRC}/Makefile
 
 post-patch-dragonfly:
-	${REINPLACE_CMD} -e 's/Free/DragonFly/g' \
-		${WRKSRC}/Makefile
+	${REINPLACE_CMD} \
+		-e 's/HOST_NAME_MAX/_POSIX_&/' \
+		-e 's/__linux__/__DragonFly__/' \
+		${WRKSRC}/pam.c
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/doas ${STAGEDIR}${PREFIX}/bin
