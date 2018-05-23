@@ -33,11 +33,11 @@ DF_INDEX=		1 2 3 4 5
 
 SPKGS[standard]=	single
 
-OPTIONS_AVAILABLE=	DISABLE FARM64_R11 FAMD64_R12 FI386_R11 SOL10
-OPTIONS_STANDARD=	DISABLE FARM64_R11 FAMD64_R12 FI386_R11 SOL10
+OPTIONS_AVAILABLE=	DISABLE FARM64_R11 FAMD64_R12 FI386_R12 SOL10
+OPTIONS_STANDARD=	DISABLE FARM64_R11 FAMD64_R12 FI386_R12 SOL10
 OPTGROUP_RADIO=		TARGET
 OPTDESCR[TARGET]=	Target platform for generated compiler
-OPTGROUP[TARGET]=	DISABLE FARM64_R11 FAMD64_R12 FI386_R11 SOL10
+OPTGROUP[TARGET]=	DISABLE FARM64_R11 FAMD64_R12 FI386_R12 SOL10
 OPT_ON[all]=		DISABLE
 
 BUILD_DEPENDS=		Zstandard:single:standard
@@ -90,14 +90,14 @@ CONFIGURE_ENV=		build_configargs="CPPFLAGS=\"{{CPPFLAGS}}\""
 					BSPREFIX={{LOCALBASE}}/FreeBSD12_AMD64
 					PREPEND_PATH={{BSPREFIX}}/{{TGTSYS}}/bin:{{BSPREFIX}}/bin
 
-[FI386_R11].DESCRIPTION=		Build native compiler for FreeBSD/I386 Release 11
-[FI386_R11].CONFIGURE_ARGS_ON=		--build={{CONFIGURE_TARGET}}
-					--host=i386-raven-freebsd${FREEBSD_11}
-					--target=i386-raven-freebsd${FREEBSD_11}
+[FI386_R12].DESCRIPTION=		Build native compiler for FreeBSD/I386 Release 12
+[FI386_R12].CONFIGURE_ARGS_ON=		--build={{CONFIGURE_TARGET}}
+					--host=i386-raven-freebsd${FREEBSD_12}
+					--target=i386-raven-freebsd${FREEBSD_12}
 					--disable-libstdcxx-pch
-[FI386_R11].BUILD_DEPENDS_ON=		gnatcross:single:FI386_R11
-[FI386_R11].MAKEFILE_ON=		TGTSYS=i386-raven-freebsd${FREEBSD_11}
-					BSPREFIX={{LOCALBASE}}/FreeBSD11_I386
+[FI386_R12].BUILD_DEPENDS_ON=		gnatcross:single:FI386_R12
+[FI386_R12].MAKEFILE_ON=		TGTSYS=i386-raven-freebsd${FREEBSD_12}
+					BSPREFIX={{LOCALBASE}}/FreeBSD12_I386
 					PREPEND_PATH={{BSPREFIX}}/{{TGTSYS}}/bin:{{BSPREFIX}}/bin
 
 [SOL10].DESCRIPTION=			Build native compiler for Solaris 10
@@ -160,7 +160,7 @@ post-patch-FAMD64_R12-ON:
 	${REINPLACE_CMD} -e 's/#undef HAVE_ALIGNED_ALLOC/#define HAVE_ALIGNED_ALLOC 1/' \
 		${WRKSRC}/libstdc++-v3/config.h.in
 
-post-patch-FI386_R11-ON:
+post-patch-FI386_R12-ON:
 	# work around malloc detection issue
 	${REINPLACE_CMD} -e 's/#undef HAVE_ALIGNED_ALLOC/#define HAVE_ALIGNED_ALLOC 1/' \
 		${WRKSRC}/libstdc++-v3/config.h.in
@@ -177,7 +177,7 @@ post-install-FARM64_R11-ON:
 post-install-FAMD64_R12-ON:
 	${RM} -r ${STAGEDIR}${PREFIX}/${GCC_PREFIX}/lib/gcc/${TGTSYS}/${GCC_VERSION}/include-fixed
 
-post-install-FI386_R11-ON:
+post-install-FI386_R12-ON:
 	${RM} -r ${STAGEDIR}${PREFIX}/${GCC_PREFIX}/lib/gcc/${TGTSYS}/${GCC_VERSION}/include-fixed
 
 post-stage:
