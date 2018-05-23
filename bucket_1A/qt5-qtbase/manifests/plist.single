@@ -291,7 +291,6 @@ include/qt5/QtCore/QStandardPaths
 include/qt5/QtCore/QState
 include/qt5/QtCore/QStateMachine
 include/qt5/QtCore/QStaticArrayData
-include/qt5/QtCore/QStaticAssertFailure
 include/qt5/QtCore/QStaticByteArrayData
 include/qt5/QtCore/QStaticByteArrayMatcherBase
 include/qt5/QtCore/QStaticPlugin
@@ -400,7 +399,6 @@ include/qt5/QtCore/qarraydatapointer.h
 include/qt5/QtCore/qatomic.h
 include/qt5/QtCore/qatomic_bootstrap.h
 include/qt5/QtCore/qatomic_cxx11.h
-include/qt5/QtCore/qatomic_msvc.h
 include/qt5/QtCore/qbasicatomic.h
 include/qt5/QtCore/qbasictimer.h
 include/qt5/QtCore/qbitarray.h
@@ -740,6 +738,9 @@ include/qt5/QtCore/%%QTVER%%/QtCore/private/qwindowspipewriter_p.h
 include/qt5/QtCore/%%QTVER%%/QtCore/private/qwineventnotifier_p.h
 include/qt5/QtCore/%%QTVER%%/QtCore/private/qxmlstream_p.h
 include/qt5/QtCore/%%QTVER%%/QtCore/private/qxmlutils_p.h
+include/qt5/QtCore/%%QTVER%%/QtCore/private/qfutex_p.h
+include/qt5/QtCore/%%QTVER%%/QtCore/private/qlogging_p.h
+include/qt5/QtCore/%%QTVER%%/QtCore/private/qtrace_p.h
 include/qt5/QtDBus/QDBusAbstractAdaptor
 include/qt5/QtDBus/QDBusAbstractInterface
 include/qt5/QtDBus/QDBusAbstractInterfaceBase
@@ -1648,6 +1649,8 @@ include/qt5/QtNetwork/%%QTVER%%/QtNetwork/private/qtcpsocket_p.h
 include/qt5/QtNetwork/%%QTVER%%/QtNetwork/private/qtnetwork-config_p.h
 include/qt5/QtNetwork/%%QTVER%%/QtNetwork/private/qtnetworkglobal_p.h
 include/qt5/QtNetwork/%%QTVER%%/QtNetwork/private/qurlinfo_p.h
+include/qt5/QtNetwork/%%QTVER%%/QtNetwork/private/qnetworkinterface_uikit_p.h
+include/qt5/QtNetwork/%%QTVER%%/QtNetwork/private/qnetworkinterface_unix_p.h
 include/qt5/QtOpenGL/QGL
 include/qt5/QtOpenGL/QGLBuffer
 include/qt5/QtOpenGL/QGLColormap
@@ -1814,6 +1817,7 @@ include/qt5/QtSql/%%QTVER%%/QtSql/private/qsqlquerymodel_p.h
 include/qt5/QtSql/%%QTVER%%/QtSql/private/qsqlresult_p.h
 include/qt5/QtSql/%%QTVER%%/QtSql/private/qsqltablemodel_p.h
 include/qt5/QtSql/%%QTVER%%/QtSql/private/qtsqlglobal_p.h
+include/qt5/QtTest/QAbstractItemModelTester
 include/qt5/QtTest/QEventSizeOfChecker
 include/qt5/QtTest/QSignalSpy
 include/qt5/QtTest/QSpontaneKeyEvent
@@ -1833,6 +1837,7 @@ include/qt5/QtTest/QtTestGui
 include/qt5/QtTest/QtTestNetwork
 include/qt5/QtTest/QtTestVersion
 include/qt5/QtTest/QtTestWidgets
+include/qt5/QtTest/qabstractitemmodeltester.h
 include/qt5/QtTest/qbenchmark.h
 include/qt5/QtTest/qbenchmarkmetric.h
 include/qt5/QtTest/qsignalspy.h
@@ -1852,6 +1857,8 @@ include/qt5/QtTest/qtestmouse.h
 include/qt5/QtTest/qtestspontaneevent.h
 include/qt5/QtTest/qtestsystem.h
 include/qt5/QtTest/qtesttouch.h
+include/qt5/QtTest/qttestglobal.h
+include/qt5/QtTest/qttestlib-config.h
 include/qt5/QtTest/qttestversion.h
 include/qt5/QtTest/%%QTVER%%/QtTest/private/callgrind_p.h
 include/qt5/QtTest/%%QTVER%%/QtTest/private/cycle_p.h
@@ -1883,6 +1890,7 @@ include/qt5/QtTest/%%QTVER%%/QtTest/private/qxctestlogger_p.h
 include/qt5/QtTest/%%QTVER%%/QtTest/private/qxmltestlogger_p.h
 include/qt5/QtTest/%%QTVER%%/QtTest/private/qxunittestlogger_p.h
 include/qt5/QtTest/%%QTVER%%/QtTest/private/valgrind_p.h
+include/qt5/QtTest/%%QTVER%%/QtTest/private/qttestlib-config_p.h
 include/qt5/QtThemeSupport/QtThemeSupport
 include/qt5/QtThemeSupport/QtThemeSupportDepends
 include/qt5/QtThemeSupport/QtThemeSupportVersion
@@ -2550,6 +2558,7 @@ lib/qt5/cmake/Qt5Gui/Qt5Gui_QEglFSIntegrationPlugin.cmake
 lib/qt5/cmake/Qt5Gui/Qt5Gui_QEglFSKmsEglDeviceIntegrationPlugin.cmake
 lib/qt5/cmake/Qt5Gui/Qt5Gui_QEglFSKmsGbmIntegrationPlugin.cmake
 lib/qt5/cmake/Qt5Gui/Qt5Gui_QEglFSX11IntegrationPlugin.cmake
+lib/qt5/cmake/Qt5Gui/Qt5Gui_QFlatpakThemePlugin.cmake
 lib/qt5/cmake/Qt5Gui/Qt5Gui_QGifPlugin.cmake
 lib/qt5/cmake/Qt5Gui/Qt5Gui_QICOPlugin.cmake
 lib/qt5/cmake/Qt5Gui/Qt5Gui_QIbusPlatformInputContextPlugin.cmake
@@ -2602,6 +2611,7 @@ lib/qt5/mkspecs/common/clang.conf
 lib/qt5/mkspecs/common/g++-base.conf
 lib/qt5/mkspecs/common/g++-macx.conf
 lib/qt5/mkspecs/common/g++-unix.conf
+lib/qt5/mkspecs/common/g++-win32.conf
 lib/qt5/mkspecs/common/g++.conf
 lib/qt5/mkspecs/common/gcc-base-mac.conf
 lib/qt5/mkspecs/common/gcc-base-unix.conf
@@ -2730,6 +2740,8 @@ lib/qt5/mkspecs/devices/linux-rasp-pi3-vc4-g++/qmake.conf
 lib/qt5/mkspecs/devices/linux-rasp-pi3-vc4-g++/qplatformdefs.h
 lib/qt5/mkspecs/devices/linux-rcar-h2-g++/qmake.conf
 lib/qt5/mkspecs/devices/linux-rcar-h2-g++/qplatformdefs.h
+lib/qt5/mkspecs/devices/linux-rcar-m3-g++/qmake.conf
+lib/qt5/mkspecs/devices/linux-rcar-m3-g++/qplatformdefs.h
 lib/qt5/mkspecs/devices/linux-sh4-stmicro-ST7108-g++/qmake.conf
 lib/qt5/mkspecs/devices/linux-sh4-stmicro-ST7108-g++/qplatformdefs.h
 lib/qt5/mkspecs/devices/linux-sh4-stmicro-ST7540-g++/qmake.conf
@@ -2810,6 +2822,7 @@ lib/qt5/mkspecs/features/qt_parts.prf
 lib/qt5/mkspecs/features/qt_plugin.prf
 lib/qt5/mkspecs/features/qt_targets.prf
 lib/qt5/mkspecs/features/qt_tool.prf
+lib/qt5/mkspecs/features/qt_tracepoints.prf
 lib/qt5/mkspecs/features/resolve_config.prf
 lib/qt5/mkspecs/features/resolve_target.prf
 lib/qt5/mkspecs/features/resources.prf
@@ -2839,7 +2852,6 @@ lib/qt5/mkspecs/features/android/sdk.prf
 lib/qt5/mkspecs/features/data/configure.json
 lib/qt5/mkspecs/features/data/dummy.cpp
 lib/qt5/mkspecs/features/data/macros.cpp
-lib/qt5/mkspecs/features/data/android/dx.bat
 lib/qt5/mkspecs/features/data/cmake/ExtraSourceIncludes.cmake.in
 lib/qt5/mkspecs/features/data/cmake/Qt5BasicConfig.cmake.in
 lib/qt5/mkspecs/features/data/cmake/Qt5ConfigVersion.cmake.in
@@ -3063,6 +3075,8 @@ lib/qt5/mkspecs/unsupported/vxworks-simpentium-dcc/qmake.conf
 lib/qt5/mkspecs/unsupported/vxworks-simpentium-dcc/qplatformdefs.h
 lib/qt5/mkspecs/unsupported/vxworks-simpentium-g++/qmake.conf
 lib/qt5/mkspecs/unsupported/vxworks-simpentium-g++/qplatformdefs.h
+lib/qt5/mkspecs/win32-clang-g++/qmake.conf
+lib/qt5/mkspecs/win32-clang-g++/qplatformdefs.h
 lib/qt5/mkspecs/win32-clang-msvc/qmake.conf
 lib/qt5/mkspecs/win32-clang-msvc/qplatformdefs.h
 lib/qt5/mkspecs/win32-g++/qmake.conf
@@ -3114,6 +3128,7 @@ lib/qt5/plugins/platforms/libqminimalegl.so
 lib/qt5/plugins/platforms/libqoffscreen.so
 lib/qt5/plugins/platforms/libqvnc.so
 lib/qt5/plugins/platforms/libqxcb.so
+lib/qt5/plugins/platformthemes/libqflatpak.so
 lib/qt5/plugins/sqldrivers/libqsqlite.so
 lib/qt5/plugins/xcbglintegrations/libqxcb-egl-integration.so
 lib/qt5/plugins/xcbglintegrations/libqxcb-glx-integration.so

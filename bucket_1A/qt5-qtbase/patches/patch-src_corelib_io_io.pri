@@ -5,9 +5,9 @@ $NetBSD: patch-src_corelib_io_io.pri,v 1.4 2015/10/26 19:03:59 adam Exp $
   http://codereview.qt-project.org/#/c/111741/
 * fix linux test.
 
---- src/corelib/io/io.pri.orig	2017-11-30 13:49:46 UTC
+--- src/corelib/io/io.pri.orig	2018-05-14 04:46:28 UTC
 +++ src/corelib/io/io.pri
-@@ -180,13 +180,13 @@ win32 {
+@@ -174,13 +174,13 @@ win32 {
                  io/qstorageinfo_unix.cpp
          }
  
