@@ -24,18 +24,14 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		textproc/mdocml
 
-USES=			sqlite zlib
+BUILD_DEPENDS=		zlib:static:standard
+
+USES=			sqlite
 MUST_CONFIGURE=		yes
+CONFIGURE_ENV=		INSTALL_PROGRAM="{{INSTALL_PROGRAM}}"
+			INSTALL_DATA="{{INSTALL_DATA}}"
+			INSTALL_LIB="{{INSTALL_LIB}}"
+			INSTALL_MAN="{{INSTALL_MAN}}"
 
 post-patch:
-	${REINPLACE_CMD} \
-		-e '/LDFLAGS=/d' \
-		-e 's|^MANDIR=$$|MANDIR="${MANPREFIX}/man"|' \
-		-e 's|^PREFIX="/usr/local"|PREFIX="${PREFIX}"|' \
-		${WRKSRC}/configure
-
-post-configure:
-	${REINPLACE_CMD} -e '/^CFLAGS/s/-g//' -e '/^PREFIX/s/=/?=/' \
-		-e 's/^INSTALL_PROGRAM.*/INSTALL_PROGRAM=${INSTALL_PROGRAM}/' \
-		${WRKSRC}/Makefile.local
-
+	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|g' ${WRKSRC}/configure
