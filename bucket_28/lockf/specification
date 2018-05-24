@@ -22,12 +22,16 @@ LICENSE_AWK=		BSD2CLAUSE:"^$$"
 LICENSE_SOURCE=		BSD2CLAUSE:{{FILESDIR}}/lockf.c
 LICENSE_SCHEME=		solo
 
+B_DEPS[sunos]=		libbsd4sol:single:standard
+VAR_OPSYS[sunos]=	CFLAGS=-I{{LOCALBASE}}/include/bsd
+			LDFLAGS=-lbsd
+
 do-extract:
 	@${MKDIR} ${WRKSRC}
 	${CP} ${FILESDIR}/* ${WRKSRC}
 
 do-build:
-	(cd ${WRKSRC} && ${CC} ${CFLAGS} ${LDFLAGS} -o lockf lockf.c)
+	(cd ${WRKSRC} && ${CC} -o lockf lockf.c ${CFLAGS} ${LDFLAGS})
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/lockf   ${STAGEDIR}${PREFIX}/bin/
