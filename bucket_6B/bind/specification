@@ -1,4 +1,5 @@
-DEF[REALVERSION]=	9.12.1-P2
+# DEF[REALVERSION]=	9.12.1-P2
+DEF[REALVERSION]=	9.13.0
 DEF[PORTVERSION]=	${REALVERSION:S/-/./}
 # ----------------------------------------------------------------------------
 
@@ -25,16 +26,12 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		dns/bind911
 
-# Bind 9.12 requires idnkit v1, but that's been replaced with v2 in RP
-# Bind 9.13 will likely support idnkit v2, so disable IDN support until
-# the next version is released
-
-# BUILD_DEPENDS=		idnkit:single:standard
+BUILD_DEPENDS=		idnkit:single:standard
 BUILDRUN_DEPENDS=	libxml2:single:standard
 			json-c:single:standard
 			lmdb:single:standard
 			libedit:single:standard
-# EXRUN[tools]=		idnkit:single:standard
+EXRUN[tools]=		idnkit:single:standard
 
 USES=			cpe iconv ssl cclibs:server,tools
 CPE_VENDOR=		isc
@@ -55,7 +52,7 @@ CONFIGURE_ARGS=		--localstatedir=/var
 			--with-openssl={{OPENSSLBASE}}
 			--with-libxml2={{LOCALBASE}}
 			--with-dlopen=yes
-# |			--with-idn={{LOCALBASE}}
+			--with-idn={{LOCALBASE}}
 			--with-libjson
 			--with-lmdb
 			--with-dlz-filesystem=yes
