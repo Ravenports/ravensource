@@ -40,12 +40,13 @@
      return False
  
  def get_largefile_args(compiler):
-@@ -1062,8 +1045,6 @@ class GnuCompiler:
+@@ -1062,9 +1045,6 @@ class GnuCompiler:
          self.defines = defines or {}
          self.base_options = ['b_pch', 'b_lto', 'b_pgo', 'b_sanitize', 'b_coverage',
                               'b_colorout', 'b_ndebug', 'b_staticpic']
 -        if self.gcc_type != GCC_OSX:
 -            self.base_options.append('b_lundef')
-         self.base_options.append('b_asneeded')
+-        self.base_options.append('b_asneeded')
          # All GCC backends can do assembly
          self.can_compile_suffixes.add('s')
+ 
