@@ -32,8 +32,11 @@ SET_DEBUGGING_ON=	yes
 
 VAR_OPSYS[dragonfly]=	VAR1="/usr/lib/security",
 VAR_OPSYS[freebsd]=	VAR1="/usr/lib/security",
-VAR_OPSYS[sunos]=	VAR1="/usr/lib/security",
 VAR_OPSYS[linux]=	VAR1="/lib/{{ARCH_STANDARD}}-linux-gnu/security",
+
+B_DEPS[sunos]=		libbsd4sol:single:standard
+VAR_OPSYS[sunos]=	VAR1="/usr/lib/security",
+			CFLAGS=-I{{PREFIX}}/include/bsd
 
 post-patch:
 	${REINPLACE_CMD} \
