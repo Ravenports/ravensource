@@ -43,6 +43,11 @@ VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--disable-libutil
 # CONFIGURE_ARG: --with-ldns={{LOCALBASE}}
 # BUILDRUN_DEPEND: ldns:primary:standard
 
+post-patch-sunos:
+	${FIND} ${WRKSRC} -name "*.[ch]" | ${XARGS} \
+		${GREP} -l u_int64_t | ${XARGS} \
+		${REINPLACE_CMD} -e 's|u_int64_t|uint64_t|g'
+
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/etc/ssh_config \
 		${STAGEDIR}${PREFIX}/etc/ssh_config.sample
