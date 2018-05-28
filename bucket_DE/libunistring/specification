@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.9.9
+DEF[PORTVERSION]=	0.9.10
 DEF[SOVERSION]=		2.1.0
 # ----------------------------------------------------------------------------
 
@@ -19,9 +19,12 @@ SPKGS[standard]=	complete primary docs
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2:primary LGPL3+:primary
-LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE=		GPLv2+:primary LGPL3+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
 			LGPL3+:{{WRKSRC}}/COPYING.LIB
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"stddef.h"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/lib/unicase/unicasemap.h
 LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		devel/libunistring
