@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	25.3
+DEF[PORTVERSION]=	26.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		emacs
@@ -23,6 +23,9 @@ VOPTS[desktop]=		X11GTK=ON
 
 LICENSE=		GPLv3+:single
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"EMACS_COMMANDS_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/commands.h
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		editors/emacs
@@ -149,3 +152,12 @@ post-patch:
 post-patch-X11GTK-OFF:
 	${REINPLACE_CMD} -i'' -e 's/^Terminal=.*$$/Terminal=true/' \
 		${WRKSRC}/etc/emacs.desktop
+
+post-install-dragonfly:
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/systemd
+
+post-install-freebsd:
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/systemd
+
+post-install-sunos:
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/systemd
