@@ -1,12 +1,11 @@
-DEF[PORTVERSION]=	1.16
+DEF[PORTVERSION]=	1.17
 DEF[INTEL_SITE]=	27591
 DEF[INTEL_DATE]=	20180312
-DEF[AMD_VERSION]=	3.20171205.1
+DEF[AMD_VERSION]=	20180525
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		devcpu-data
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		standard
 SDESC[standard]=	Intel and AMD CPUs microcode updates
@@ -18,7 +17,7 @@ SITES[main]=		https://downloadmirror.intel.com/${INTEL_SITE}/eng/
 SITES[intel]=		https://downloadmirror.intel.com/${INTEL_SITE}/eng/
 SITES[amd]=		FREELOCAL/sbruno
 DISTFILE[1]=		microcode-${INTEL_DATE}.tgz:intel
-DISTFILE[2]=		amd64-microcode_${AMD_VERSION}.tar.xz:amd
+DISTFILE[2]=		amd64-microcode.${AMD_VERSION}.tar.xz:amd
 DF_INDEX=		1 2
 
 SPKGS[standard]=	single
@@ -46,6 +45,6 @@ post-extract:
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/cpucontrol
 	${INSTALL_DATA} ${WRKSRC}/mcodes/* ${STAGEDIR}${PREFIX}/share/cpucontrol
-	(cd ${WRKDIR}/${NAMEBASE}_2/amd64-microcode-${AMD_VERSION} && \
+	(cd ${WRKDIR}/${NAMEBASE}_2 && \
 	 ${INSTALL_DATA} microcode_amd.bin microcode_amd_fam1[567]h.bin \
 	 ${STAGEDIR}${PREFIX}/share/cpucontrol)
