@@ -19,8 +19,14 @@
 #endif
 
 #ifdef __linux__
-#define EAUTH		80	/* Authentication error */
-#define ENEEDAUTH	81	/* Need authenticator */
+#define SKIP_EAUTH	/* Authentication error */
+#define SKIP_ENEEDAUTH	/* Need authenticator */
+#define MAXLOGNAME	17
+#endif
+
+#ifdef __sun__
+#define	SKIP_EAUTH
+#define	SKIP_ENEEDAUTH
 #define MAXLOGNAME	17
 #endif
 

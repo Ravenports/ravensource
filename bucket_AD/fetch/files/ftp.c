@@ -48,6 +48,10 @@
 #include "common.h"
 #include "ftperr.h"
 
+#ifdef __sun__
+#define	u_int32_t	uint32_t
+#endif
+
 #define FTP_ANONYMOUS_USER	"anonymous"
 
 #define FTP_CONNECTION_ALREADY_OPEN	125

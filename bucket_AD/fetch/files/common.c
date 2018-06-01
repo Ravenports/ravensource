@@ -94,8 +94,12 @@ fetch_syserr(void)
 	case EPERM:
 	case EACCES:
 	case EROFS:
+#ifndef SKIP_EAUTH
 	case EAUTH:
+#endif
+#ifndef SKIP_ENEEDAUTH
 	case ENEEDAUTH:
+#endif
 		fetchLastErrCode = FETCH_AUTH;
 		break;
 	case ENOENT:

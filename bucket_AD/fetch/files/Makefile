@@ -13,6 +13,12 @@ LIBS=		${PREFIX}/lib/libssl.a \
 LIBS+=		${PREFIX}/lib/libbsd.a
 .endif
 
+.if "${OPSYS}" == "SunOS"
+LIBS+=		${PREFIX}/lib/libbsd.a
+CFLAGS+=	-I${PREFIX}/include/bsd
+LDFLAGS+=	-lresolv -lsocket
+.endif
+
 all: fetch
 
 clean:
@@ -22,7 +28,7 @@ ${OBJS}: ${.TARGET:.o=.c}
 	${CC} -c ${.ALLSRC} ${CFLAGS}
 
 fetch:	${OBJS} main.c
-	${CC} -o fetch main.c ${OBJS} ${CFLAGS} ${LIBS}
+	${CC} -o fetch main.c ${OBJS} ${CFLAGS} ${LIBS} ${LDFLAGS}
 
 install:
 	${BSD_INSTALL_PROGRAM} fetch ${DESTDIR}${PREFIX}/bin/

@@ -31,7 +31,11 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  */
+#ifdef __sun__
+#define	__EXTENSIONS__
+#else
 #define _XOPEN_SOURCE
+#endif
 #ifdef __NetBSD__
 #define _NETBSD_SOURCE
 #endif
@@ -51,6 +55,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>	/* for strncasecmp */
 #include <time.h>
 #include <unistd.h>
 
@@ -1456,7 +1461,11 @@ http_connect(struct url *URL, struct url *purl, const char *flags)
 	if (strcasecmp(URL->scheme, SCHEME_HTTPS) == 0 &&
 	    fetch_ssl(conn, URL, verbose) == -1) {
 		/* grrr */
+#ifdef SKIP_EAUTH
+		errno = EACCES;
+#else
 		errno = EAUTH;
+#endif
 		fetch_syserr();
 		goto ouch;
 	}

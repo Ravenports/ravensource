@@ -3,9 +3,17 @@
 
 #define _LIBFETCH_VER "libfetch/2.0"
 
-#define URL_SCHEMELEN 16
-#define URL_USERLEN 256
-#define URL_PWDLEN 256
+#define URL_SCHEMELEN	16
+#define URL_USERLEN	256
+#define URL_PWDLEN	256
+
+#ifndef	MAXHOSTNAMELEN
+#define	MAXHOSTNAMELEN	256
+#endif
+
+#ifndef	PATH_MAX
+#define	PATH_MAX	1024
+#endif
 
 struct url {
 	char		 scheme[URL_SCHEMELEN+1];

@@ -22,12 +22,14 @@
 #define MINBUFSIZE	16384
 #define TIMEOUT		120
 
+#ifndef TCSASOFT
+#define	TCSASOFT	0
+#endif
+
 #ifdef __linux__
 #include <stdarg.h>
 #include <bsd/unistd.h>
 #include <sys/ioctl.h>
-
-#define	TCSASOFT	0
 
 static int
 vasprintf(char **strp, const char *fmt, va_list args)
@@ -192,7 +194,7 @@ sig_handler(int sig)
 	case SIGALRM:
 		sigalrm = 1;
 		break;
-#ifdef __linux__
+#if defined __linux__ || defined __sun__
 	case SIGPWR:
 #else
 	case SIGINFO:
@@ -707,11 +709,11 @@ fetch(char *URL, const char *path)
 				slash = path;
 			else
 				++slash;
-			asprintf(&tmppath, "%.*s.fetch.XXXXXX.%s",
+			asprintf(&tmppath, "%.*s.fetch.%s.XXXXXX",
 			    (int)(slash - path), path, slash);
 			if (tmppath != NULL) {
-				if (mkstemps(tmppath, strlen(slash) + 1) == -1) {
-					warn("%s: mkstemps()", path);
+				if (mkstemp(tmppath) == -1) {
+					warn("%s: mkstemp()", path);
 					goto failure;
 				}
 				of = fopen(tmppath, "w");
@@ -735,7 +737,7 @@ fetch(char *URL, const char *path)
 
 	/* suck in the data */
 	setvbuf(f, NULL, _IOFBF, B_size);
-#ifdef __linux__
+#if defined __linux__ || defined __sun__
 	signal(SIGPWR, sig_handler);
 #else
 	signal(SIGINFO, sig_handler);
@@ -774,7 +776,7 @@ fetch(char *URL, const char *path)
 	}
 	if (!sigalrm)
 		sigalrm = ferror(f) && errno == ETIMEDOUT;
-#ifdef __linux__
+#if defined __linux__ || defined __sun__
 	signal(SIGPWR, SIG_DFL);
 #else
 	signal(SIGINFO, SIG_DFL);
