@@ -845,6 +845,10 @@ ftp_transfer(conn_t *conn, const char *oper, const char *file,
 				(char *)&arg, sizeof(arg)) == -1)
 				goto sysouch;
 #endif
+			if (verbose)
+				fetch_info("binding IPv6 data socket");
+			if (bind(sd, (struct sockaddr *)&sa, sslen) == -1)
+				goto sysouch;
 			break;
 		case AF_INET:
 			((struct sockaddr_in *)&sa)->sin_port = 0;
@@ -855,12 +859,12 @@ ftp_transfer(conn_t *conn, const char *oper, const char *file,
 				(char *)&arg, sizeof(arg)) == -1)
 				goto sysouch;
 #endif
+			if (verbose)
+				fetch_info("binding IPv4 data socket");
+			if (bind(sd, (struct sockaddr *)&sa, sslen) == -1)
+				goto sysouch;
 			break;
 		}
-		if (verbose)
-			fetch_info("binding data socket");
-		if (bind(sd, (struct sockaddr *)&sa, sslen) == -1)
-			goto sysouch;
 		if (listen(sd, 1) == -1)
 			goto sysouch;
 
@@ -882,7 +886,8 @@ ftp_transfer(conn_t *conn, const char *oper, const char *file,
 			e = -1;
 			sin6 = (struct sockaddr_in6 *)&sa;
 			sin6->sin6_scope_id = 0;
-			if (getnameinfo((struct sockaddr *)&sa, sslen,
+			if (getnameinfo((struct sockaddr *)&sa,
+				sizeof(struct sockaddr_in6),
 				hname, sizeof(hname),
 				NULL, 0, NI_NUMERICHOST) == 0) {
 				e = ftp_cmd(conn, "EPRT |%d|%s|%d|", 2, hname,
