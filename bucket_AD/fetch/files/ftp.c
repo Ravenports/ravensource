@@ -665,14 +665,18 @@ ftp_transfer(conn_t *conn, const char *oper, const char *file,
 	const char *bindaddr;
 	const char *filename;
 	int filenamelen, type;
-	int low, pasv, verbose;
+	int pasv, verbose;
 	int e, sd = -1;
 	socklen_t l;
 	char *s;
 	FXRETTYPE df;
 
+#ifdef IPV6_PORTRANGE
+	int low;
+
 	/* check flags */
 	low = CHECK_FLAG('l');
+#endif
 	pasv = CHECK_FLAG('p') || !CHECK_FLAG('P');
 	verbose = CHECK_FLAG('v');
 
@@ -823,7 +827,10 @@ ftp_transfer(conn_t *conn, const char *oper, const char *file,
 	} else {
 		u_int32_t a;
 		u_short p;
-		int arg, d;
+#ifdef IPV6_PORTRANGE
+		int arg;
+#endif
+		int d;
 		socklen_t sslen;
 		char *ap;
 		char hname[INET6_ADDRSTRLEN];
@@ -875,7 +882,7 @@ ftp_transfer(conn_t *conn, const char *oper, const char *file,
 			e = -1;
 			sin6 = (struct sockaddr_in6 *)&sa;
 			sin6->sin6_scope_id = 0;
-			if (getnameinfo((struct sockaddr *)&sa, sizeof(struct sockaddr_in6),
+			if (getnameinfo((struct sockaddr *)&sa, sslen,
 				hname, sizeof(hname),
 				NULL, 0, NI_NUMERICHOST) == 0) {
 				e = ftp_cmd(conn, "EPRT |%d|%s|%d|", 2, hname,
@@ -974,7 +981,7 @@ ftp_authenticate(conn_t *conn, struct url *url, struct url *purl)
 		if (*pwd == '\0')
 			pwd = getenv("FTP_PASSWORD");
 		if (pwd == NULL || *pwd == '\0') {
-			if ((logname = getlogin()) == 0)
+			if ((logname = getlogin()) == NULL)
 				logname = FTP_ANONYMOUS_USER;
 			if ((len = snprintf(pbuf, MAXLOGNAME + 1, "%s@", logname)) < 0)
 				len = 0;
