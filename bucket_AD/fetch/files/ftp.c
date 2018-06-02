@@ -490,13 +490,24 @@ struct ftpio {
 	int	 err;		/* Error code */
 };
 
+#ifdef __sun__
+static ssize_t	 ftp_readfn(void *, void *, size_t);
+static ssize_t	 ftp_writefn(void *, const void *, size_t);
+static int	 ftp_seekfn(void *, off_t*, int);
+#else
 static int	 ftp_readfn(void *, char *, int);
 static int	 ftp_writefn(void *, const char *, int);
 static off_t	 ftp_seekfn(void *, off_t, int);
+#endif
 static int	 ftp_closefn(void *);
 
+#ifdef __sun__
+static ssize_t
+ftp_readfn(void *v, void *buf, size_t len)
+#else
 static int
 ftp_readfn(void *v, char *buf, int len)
+#endif
 {
 	struct ftpio *io;
 	int r;
@@ -516,7 +527,7 @@ ftp_readfn(void *v, char *buf, int len)
 	}
 	if (io->eof)
 		return (0);
-	r = fetch_read(io->dconn, buf, len);
+	r = fetch_read(io->dconn, (char *)buf, (size_t)len);
 	if (r > 0)
 		return (r);
 	if (r == 0) {
@@ -528,8 +539,13 @@ ftp_readfn(void *v, char *buf, int len)
 	return (-1);
 }
 
+#ifdef __sun__
+static ssize_t
+ftp_writefn(void *v, const void *buf, size_t len)
+#else
 static int
 ftp_writefn(void *v, const char *buf, int len)
+#endif
 {
 	struct ftpio *io;
 	int w;
@@ -547,7 +563,7 @@ ftp_writefn(void *v, const char *buf, int len)
 		errno = io->err;
 		return (-1);
 	}
-	w = fetch_write(io->dconn, buf, len);
+	w = fetch_write(io->dconn, (const void*)buf, (size_t)len);
 	if (w >= 0)
 		return (w);
 	if (errno != EINTR)
@@ -555,18 +571,23 @@ ftp_writefn(void *v, const char *buf, int len)
 	return (-1);
 }
 
+#ifdef __sun__
+static int
+ftp_seekfn(void *v, off_t *pos __unused, int whence __unused)
+#else
 static off_t
 ftp_seekfn(void *v, off_t pos __unused, int whence __unused)
+#endif
 {
 	struct ftpio *io;
 
 	io = (struct ftpio *)v;
 	if (io == NULL) {
 		errno = EBADF;
-		return ((off_t)-1);
+		return (-1);
 	}
 	errno = ESPIPE;
-	return ((off_t)-1);
+	return (-1);
 }
 
 static int
@@ -598,11 +619,20 @@ ftp_closefn(void *v)
 	return (r == FTP_TRANSFER_COMPLETE) ? 0 : -1;
 }
 
-static FILE *
+static FXRETTYPE
 ftp_setup(conn_t *cconn, conn_t *dconn, int mode)
 {
 	struct ftpio *io;
-	FILE *f;
+	FXRETTYPE f;
+#ifdef __sun__
+	es_cookie_io_functions_t ftp_cookie_functions =
+	{
+	  ftp_readfn,
+	  ftp_writefn,
+	  ftp_seekfn,
+	  ftp_closefn
+	};
+#endif
 
 	if (cconn == NULL || dconn == NULL)
 		return (NULL);
@@ -612,7 +642,11 @@ ftp_setup(conn_t *cconn, conn_t *dconn, int mode)
 	io->dconn = dconn;
 	io->dir = mode;
 	io->eof = io->err = 0;
+#ifdef __sun__
+	f = es_fopencookie ((void *)io, "rb", ftp_cookie_functions);
+#else
 	f = funopen(io, ftp_readfn, ftp_writefn, ftp_seekfn, ftp_closefn);
+#endif
 	if (f == NULL)
 		free(io);
 	return (f);
@@ -621,7 +655,7 @@ ftp_setup(conn_t *cconn, conn_t *dconn, int mode)
 /*
  * Transfer file
  */
-static FILE *
+static FXRETTYPE
 ftp_transfer(conn_t *conn, const char *oper, const char *file,
     int mode, off_t offset, const char *flags)
 {
@@ -635,7 +669,7 @@ ftp_transfer(conn_t *conn, const char *oper, const char *file,
 	int e, sd = -1;
 	socklen_t l;
 	char *s;
-	FILE *df;
+	FXRETTYPE df;
 
 	/* check flags */
 	low = CHECK_FLAG('l');
@@ -1104,7 +1138,7 @@ ftp_get_proxy(struct url * url, const char *flags)
 /*
  * Process an FTP request
  */
-FILE *
+FXRETTYPE
 ftp_request(struct url *url, const char *op, struct url_stat *us,
     struct url *purl, const char *flags)
 {
@@ -1144,7 +1178,7 @@ ftp_request(struct url *url, const char *op, struct url_stat *us,
 	if (strcmp(op, "STAT") == 0) {
 		--conn->ref;
 		ftp_disconnect(conn);
-		return (FILE *)1; /* bogus return value */
+		return (FXRETTYPE)1; /* bogus return value */
 	}
 	if (strcmp(op, "STOR") == 0 || strcmp(op, "APPE") == 0)
 		oflag = O_WRONLY;
@@ -1162,7 +1196,7 @@ errsock:
 /*
  * Get and stat file
  */
-FILE *
+FXRETTYPE
 fetchXGetFTP(struct url *url, struct url_stat *us, const char *flags)
 {
 	return (ftp_request(url, "RETR", us, ftp_get_proxy(url, flags), flags));
@@ -1171,7 +1205,7 @@ fetchXGetFTP(struct url *url, struct url_stat *us, const char *flags)
 /*
  * Get file
  */
-FILE *
+FXRETTYPE
 fetchGetFTP(struct url *url, const char *flags)
 {
 	return (fetchXGetFTP(url, NULL, flags));
@@ -1180,7 +1214,7 @@ fetchGetFTP(struct url *url, const char *flags)
 /*
  * Put file
  */
-FILE *
+FXRETTYPE
 fetchPutFTP(struct url *url, const char *flags)
 {
 	return (ftp_request(url, CHECK_FLAG('a') ? "APPE" : "STOR", NULL,
@@ -1193,7 +1227,7 @@ fetchPutFTP(struct url *url, const char *flags)
 int
 fetchStatFTP(struct url *url, struct url_stat *us, const char *flags)
 {
-	FILE *f;
+	FXRETTYPE f;
 
 	f = ftp_request(url, "STAT", us, ftp_get_proxy(url, flags), flags);
 	if (f == NULL)

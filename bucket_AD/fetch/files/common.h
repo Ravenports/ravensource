@@ -101,12 +101,12 @@ int		 fetch_no_proxy_match(const char *);
  * Note that _*_request() free purl, which is way ugly but saves us a
  * whole lot of trouble.
  */
-FILE		*http_request(struct url *, const char *,
+FXRETTYPE	http_request(struct url *, const char *,
 		     struct url_stat *, struct url *, const char *);
-FILE		*http_request_body(struct url *, const char *,
+FXRETTYPE	http_request_body(struct url *, const char *,
 		     struct url_stat *, struct url *, const char *,
 		     const char *, const char *);
-FILE		*ftp_request(struct url *, const char *,
+FXRETTYPE	ftp_request(struct url *, const char *,
 		     struct url_stat *, struct url *, const char *);
 
 /*

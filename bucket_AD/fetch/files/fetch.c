@@ -42,7 +42,7 @@ static struct fetcherr url_errlist[] = {
  * read-only stream connected to the document referenced by the URL.
  * Also fill out the struct url_stat.
  */
-FILE *
+FXRETTYPE
 fetchXGet(struct url *URL, struct url_stat *us, const char *flags)
 {
 
@@ -66,7 +66,7 @@ fetchXGet(struct url *URL, struct url_stat *us, const char *flags)
  * Select the appropriate protocol for the URL scheme, and return a
  * read-only stream connected to the document referenced by the URL.
  */
-FILE *
+FXRETTYPE
 fetchGet(struct url *URL, const char *flags)
 {
 	return (fetchXGet(URL, NULL, flags));
@@ -76,7 +76,7 @@ fetchGet(struct url *URL, const char *flags)
  * Select the appropriate protocol for the URL scheme, and return a
  * write-only stream connected to the document referenced by the URL.
  */
-FILE *
+FXRETTYPE
 fetchPut(struct url *URL, const char *flags)
 {
 
@@ -139,11 +139,11 @@ fetchList(struct url *URL, const char *flags)
 /*
  * Attempt to parse the given URL; if successful, call fetchXGet().
  */
-FILE *
+FXRETTYPE
 fetchXGetURL(const char *URL, struct url_stat *us, const char *flags)
 {
 	struct url *u;
-	FILE *f;
+	FXRETTYPE f;
 
 	if ((u = fetchParseURL(URL)) == NULL)
 		return (NULL);
@@ -157,7 +157,7 @@ fetchXGetURL(const char *URL, struct url_stat *us, const char *flags)
 /*
  * Attempt to parse the given URL; if successful, call fetchGet().
  */
-FILE *
+FXRETTYPE
 fetchGetURL(const char *URL, const char *flags)
 {
 	return (fetchXGetURL(URL, NULL, flags));
@@ -166,11 +166,11 @@ fetchGetURL(const char *URL, const char *flags)
 /*
  * Attempt to parse the given URL; if successful, call fetchPut().
  */
-FILE *
+FXRETTYPE
 fetchPutURL(const char *URL, const char *flags)
 {
 	struct url *u;
-	FILE *f;
+	FXRETTYPE f;
 
 	if ((u = fetchParseURL(URL)) == NULL)
 		return (NULL);

@@ -15,6 +15,37 @@
 #define	PATH_MAX	1024
 #endif
 
+#ifdef __sun__
+#include <estream.h>
+#define	FXRETTYPE	estream_t
+#define	FXCLOSE		es_fclose
+#define	FXGETLINE	es_getline
+#define	FXSEEKO		es_fseeko
+#define	FXOPEN		es_fopen
+#define	FXFILENO	es_fileno
+#define	FXERROR		es_ferror
+#define	FXSETVBUF	es_setvbuf
+#define	FXSTDOUT	es_stdout
+#define	FXFREAD		es_fread
+#define	FXFWRITE	es_fwrite
+#define	FXFLUSH		es_fflush
+#define	FXCLEARERR	es_clearerr
+#else
+#define	FXRETTYPE	FILE *
+#define	FXCLOSE		fclose
+#define	FXGETLINE	getline
+#define	FXSEEKO		fseeko
+#define	FXOPEN		fopen
+#define	FXFILENO	fileno
+#define	FXERROR		ferror
+#define	FXSETVBUF	setvbuf
+#define	FXSTDOUT	stdout
+#define	FXFREAD		fread
+#define	FXFWRITE	fwrite
+#define	FXFLUSH		fflush
+#define	FXCLEARERR	clearerr
+#endif
+
 struct url {
 	char		 scheme[URL_SCHEMELEN+1];
 	char		 user[URL_USERLEN+1];
@@ -68,37 +99,37 @@ struct url_ent {
 __BEGIN_DECLS
 
 /* FILE-specific functions */
-FILE		*fetchXGetFile(struct url *, struct url_stat *, const char *);
-FILE		*fetchGetFile(struct url *, const char *);
-FILE		*fetchPutFile(struct url *, const char *);
+FXRETTYPE	fetchXGetFile(struct url *, struct url_stat *, const char *);
+FXRETTYPE	fetchGetFile(struct url *, const char *);
+FXRETTYPE	fetchPutFile(struct url *, const char *);
 int		 fetchStatFile(struct url *, struct url_stat *, const char *);
 struct url_ent	*fetchListFile(struct url *, const char *);
 
 /* HTTP-specific functions */
-FILE		*fetchXGetHTTP(struct url *, struct url_stat *, const char *);
-FILE		*fetchGetHTTP(struct url *, const char *);
-FILE		*fetchPutHTTP(struct url *, const char *);
+FXRETTYPE	fetchXGetHTTP(struct url *, struct url_stat *, const char *);
+FXRETTYPE	fetchGetHTTP(struct url *, const char *);
+FXRETTYPE	fetchPutHTTP(struct url *, const char *);
 int		 fetchStatHTTP(struct url *, struct url_stat *, const char *);
 struct url_ent	*fetchListHTTP(struct url *, const char *);
-FILE		*fetchReqHTTP(struct url *, const char *, const char *,
+FXRETTYPE	fetchReqHTTP(struct url *, const char *, const char *,
 		    const char *, const char *);
 
 /* FTP-specific functions */
-FILE		*fetchXGetFTP(struct url *, struct url_stat *, const char *);
-FILE		*fetchGetFTP(struct url *, const char *);
-FILE		*fetchPutFTP(struct url *, const char *);
+FXRETTYPE	fetchXGetFTP(struct url *, struct url_stat *, const char *);
+FXRETTYPE	fetchGetFTP(struct url *, const char *);
+FXRETTYPE	fetchPutFTP(struct url *, const char *);
 int		 fetchStatFTP(struct url *, struct url_stat *, const char *);
 struct url_ent	*fetchListFTP(struct url *, const char *);
 
 /* Generic functions */
-FILE		*fetchXGetURL(const char *, struct url_stat *, const char *);
-FILE		*fetchGetURL(const char *, const char *);
-FILE		*fetchPutURL(const char *, const char *);
+FXRETTYPE	fetchXGetURL(const char *, struct url_stat *, const char *);
+FXRETTYPE	fetchGetURL(const char *, const char *);
+FXRETTYPE	fetchPutURL(const char *, const char *);
 int		 fetchStatURL(const char *, struct url_stat *, const char *);
 struct url_ent	*fetchListURL(const char *, const char *);
-FILE		*fetchXGet(struct url *, struct url_stat *, const char *);
-FILE		*fetchGet(struct url *, const char *);
-FILE		*fetchPut(struct url *, const char *);
+FXRETTYPE	fetchXGet(struct url *, struct url_stat *, const char *);
+FXRETTYPE	fetchGet(struct url *, const char *);
+FXRETTYPE	fetchPut(struct url *, const char *);
 int		 fetchStat(struct url *, struct url_stat *, const char *);
 struct url_ent	*fetchList(struct url *, const char *);
 
