@@ -602,12 +602,6 @@ install:
 	cp ${CPA} ../${OPSYS:tl}/* ${DESTDIR}${BASE}/
 	# use BSD's which
 	${BSD_INSTALL_PROGRAM} ${LOCALBASE}/bin/which ${DESTDIR}${BASE}/usr/bin/
-	# fetch is just a wrapper for wget (for now)
-	${BSD_INSTALL_PROGRAM} ${LOCALBASE}/bin/wget ${DESTDIR}${BASE}/usr/bin/
-#	${BSD_INSTALL_DATA} ${LOCALBASE}/share/certs/ca-root-nss.crt ${DESTDIR}${BASE}/usr/share/
-	# This fetch is a wrapper for wget; it's a script
-	${BSD_INSTALL_SCRIPT} ${LOCALBASE}/bin/fetch ${DESTDIR}${BASE}/usr/bin/
-	sed -i'' -e "s|/raven/share/certs/|/usr/share/|" ${DESTDIR}${BASE}/usr/bin/fetch
 	# have a second copy of bourne shell
 	mkdir -p ${DESTDIR}${BASE}/usr/xpg4/bin
 	${BSD_INSTALL_PROGRAM} ${DESTDIR}${BASE}/bin/sh ${DESTDIR}${BASE}/usr/xpg4/bin/
@@ -630,8 +624,6 @@ install:
 .  for item in ${static_lib_${OPSYS}}
 	${BSD_INSTALL_DATA} ../${OPSYS:tl}${item} ${DESTDIR}${BASE}/usr/lib/
 .  endfor
-	# This is the real fetch program
-	cp ${LOCALBASE}/bin/fetch ${DESTDIR}${BASE}/usr/bin/
 .endif
 .if ${OPSYS} == DragonFly || ${OPSYS} == FreeBSD
 	(cd ${DESTDIR}${BASE}/usr/lib && \
@@ -743,7 +735,8 @@ install:
 	grep file flex flex++ gzip gunzip zcat zcmp zdiff zegrep \
 	zfgrep zgrep lzcat lzcmp lzdiff lzegrep lzfgrep lzgrep lzma \
 	unlzma unxz xz xzcat xzcmp xzdiff xzegrep xzfgrep xzgrep yacc \
-	unzip less mtree bsdcat makewhatis dupe genpatch portfix patch
+	unzip less mtree bsdcat makewhatis dupe genpatch portfix patch \
+	fetch
 	cp ${LOCALBASE}/bin/${item} ${DESTDIR}${BASE}/usr/bin/
 .endfor
 .for item in ${headers_${OPSYS}}
