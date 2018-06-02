@@ -1,11 +1,11 @@
---- src/pj_mutex.c.orig	2016-08-29 18:47:58 UTC
-+++ src/pj_mutex.c
-@@ -124,7 +124,7 @@ void pj_acquire_lock()
-         pthread_mutex_lock( &pj_precreated_lock);
+--- src/pj_mutex.c.orig	2018-06-03 00:17:46.473280000 +0200
++++ src/pj_mutex.c	2018-06-03 00:18:42.093587000 +0200
+@@ -119,7 +119,7 @@
+     pthread_mutexattr_t mutex_attr;
  
-         pthread_mutexattr_init(&mutex_attr);
+     pthread_mutexattr_init(&mutex_attr);
 -#ifdef HAVE_PTHREAD_MUTEX_RECURSIVE
 +#if defined(HAVE_PTHREAD_MUTEX_RECURSIVE) || defined(__FreeBSD__) || defined(__DragonFly__)
-         pthread_mutexattr_settype(&mutex_attr, PTHREAD_MUTEX_RECURSIVE);
+     pthread_mutexattr_settype(&mutex_attr, PTHREAD_MUTEX_RECURSIVE);
  #else
-         pthread_mutexattr_settype(&mutex_attr, PTHREAD_MUTEX_RECURSIVE_NP);
+     pthread_mutexattr_settype(&mutex_attr, PTHREAD_MUTEX_RECURSIVE_NP);
