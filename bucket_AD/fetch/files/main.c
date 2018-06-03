@@ -428,7 +428,8 @@ fetch(char *URL, const char *path)
 	struct url_stat us;
 	struct stat sb, nsb;
 	struct xferstat xs;
-	FXRETTYPE f, of;
+	FXRETTYPE f;
+	FXRETTYPE of;
 	size_t size, readcnt, wr;
 	off_t count;
 	char flags[8];

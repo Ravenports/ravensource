@@ -33,6 +33,8 @@
  */
 #ifdef __sun__
 #define	__EXTENSIONS__
+#elif defined __linux__
+#define __USE_XOPEN
 #else
 #define _XOPEN_SOURCE
 #endif
@@ -78,6 +80,7 @@
 #ifdef __linux__
 #include <bsd/stdio.h>
 #include <bsd/stdlib.h>
+#include <bsd/string.h>
 
 static int
 vasprintf(char **strp, const char *fmt, va_list args)
