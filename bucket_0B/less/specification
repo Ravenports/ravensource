@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	487
+DEF[PORTVERSION]=	530
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		less
@@ -22,8 +22,9 @@ OPTIONS_STANDARD=	none
 VOPTS[color]=		COLOR=ON
 
 LICENSE=		GPLv3:single CUSTOM1:single
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
 LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING
-			CUSTOM1:{{WRKSRC}/LICENSE
+			CUSTOM1:{{WRKSRC}}/LICENSE
 LICENSE_NAME=		CUSTOM1:"Less License"
 LICENSE_SCHEME=		dual
 
@@ -40,3 +41,4 @@ VAR_OPSYS[sunos]=	CONFIGURE_ENV=LIBS="-lrt -lsocket"
 
 post-patch:
 	${REINPLACE_CMD} -e 's|-lcurses|-lncurses -ltinfo -ldb|' ${WRKSRC}/configure
+	${HEAD} -n 18 ${WRKSRC}/README > ${WRKDIR}/TERMS
