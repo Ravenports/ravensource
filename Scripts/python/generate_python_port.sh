@@ -7,6 +7,8 @@
 # requires: python-six:py27
 #           python-funcsigs:py27
 #           python-mock-single-py27
+#           python-setuptools-py36
+#           python-setuptools-py35
 
 [ -n "${DEBUG_MK_SCRIPTS}" -o -n "${DEBUG_MK_SCRIPTS_MAKESUM}" ] && set -x
 

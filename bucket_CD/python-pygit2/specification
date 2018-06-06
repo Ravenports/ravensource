@@ -1,26 +1,29 @@
-DEF[PORTVERSION]=	0.27.0
+DEF[PORTVERSION]=	0.27.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pygit2
 VERSION=		${PORTVERSION}
 KEYWORDS=		python devel
-VARIANTS=		py27 py36
+VARIANTS=		py27 py35 py36
 SDESC[py27]=		Python bindings for libgit2 (PY 27)
+SDESC[py35]=		Python bindings for libgit2 (PY 35)
 SDESC[py36]=		Python bindings for libgit2 (PY 36)
 HOMEPAGE=		https://github.com/libgit2/pygit2
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/p/pygit2
-DISTFILE[1]=		pygit2-0.27.0.tar.gz:main
+DISTFILE[1]=		pygit2-0.27.1.tar.gz:main
 
 SPKGS[py27]=		single
+SPKGS[py35]=		single
 SPKGS[py36]=		single
 
-OPTIONS_AVAILABLE=	PY27 PY36
+OPTIONS_AVAILABLE=	PY27 PY35 PY36
 OPTIONS_STANDARD=	none
-VOPTS[py27]=		PY27=ON PY36=OFF
-VOPTS[py36]=		PY27=OFF PY36=ON
+VOPTS[py27]=		PY27=ON PY35=OFF PY36=OFF
+VOPTS[py35]=		PY27=OFF PY35=ON PY36=OFF
+VOPTS[py36]=		PY27=OFF PY35=OFF PY36=ON
 
 # Output of setup.py --license
 # GPLv2 with linking exception
@@ -37,6 +40,10 @@ DISTNAME=		pygit2-${PORTVERSION}
 [PY27].USES_ON=				python:py27
 [PY27].BUILDRUN_DEPENDS_ON=		python-cffi:single:py27
 					python-six:single:py27
+
+[PY35].USES_ON=				python:py35
+[PY35].BUILDRUN_DEPENDS_ON=		python-cffi:single:py35
+					python-six:single:py35
 
 [PY36].USES_ON=				python:py36
 [PY36].BUILDRUN_DEPENDS_ON=		python-cffi:single:py36
