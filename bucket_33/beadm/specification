@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	1.2.7
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		beadm
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	Shell script to manage ZFS boot environments
+HOMEPAGE=		https://github.com/vermaden/beadm
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/vermaden:beadm:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKDIR}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		sysutils/beadm
+
+ONLY_FOR_OPSYS=		freebsd
+SKIP_BUILD=		yes
+
+post-extract:
+	head -n 26 beadm | tail -n 24 > ${WRKSRC}/LICENSE
+
+do-install:
+	${INSTALL_SCRIPT} ${WRKSRC}/beadm ${STAGEDIR}${PREFIX}/sbin
+	${INSTALL_MAN} ${WRKSRC}/beadm.1 ${STAGEDIR}${PREFIX}/share/man/man1
