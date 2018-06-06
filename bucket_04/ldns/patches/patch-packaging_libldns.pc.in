@@ -1,0 +1,10 @@
+--- packaging/libldns.pc.in.orig	2016-12-20 10:48:22 UTC
++++ packaging/libldns.pc.in
+@@ -8,6 +8,6 @@ Description: Library for DNS programming
+ URL: http://www.nlnetlabs.nl/projects/ldns
+ Version: @PACKAGE_VERSION@
+ Requires: 
+-Libs: -L${libdir} -lldns
++Libs: -L${libdir} -Wl,-rpath,${libdir} -lldns
+ Libs.private: @LDFLAGS@
+ Cflags: -I${includedir} 
