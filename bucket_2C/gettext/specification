@@ -18,9 +18,10 @@ SPKGS[standard]=	complete runtime tools asprintf docs
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv3:runtime LGPL21:runtime
-LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING
-			LGPL21:{{WRKSRC}}/gettext-runtime/intl/COPYING.LIB
+LICENSE=		GPLv3+:runtime LGPL21+:runtime
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+			LGPL21+:{{WRKSRC}}/gettext-runtime/intl/COPYING.LIB
+LICENSE_TERMS=		runtime:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		devel/gettext
@@ -46,6 +47,12 @@ TEST_TARGET=		check
 INFO=			runtime:autosprintf runtime:gettext
 CPE_PRODUCT=		gettext
 CPE_VENDOR=		gnu
+
+post-extract:
+	${AWK} -e '/HAVE_CONFIG_H/ {exit}; {print}' \
+		${WRKSRC}/gettext-runtime/src/gettext.c > ${WRKDIR}/TERMS
+	${AWK} -e '/HAVE_CONFIG_H/ {exit}; {print}' \
+		${WRKSRC}/gettext-runtime/intl/textdomain.c >> ${WRKDIR}/TERMS
 
 post-patch:
 	# Do not install csharp and java documentation.
