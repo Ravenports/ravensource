@@ -1,5 +1,6 @@
 #!/bin/sh
 
+RUBYEXE=ruby25
 pathtoexec=$(realpath $0)
 thisdir=$(dirname ${pathtoexec})
 wrkdir=/tmp/rubygems
@@ -14,7 +15,7 @@ if [ $? -ne 0 ]; then
   exit 1;
 fi
 
-ruby24 ${thisdir}/dump_latest.rb | awk '{\
+$RUBYEXE ${thisdir}/dump_latest.rb | awk '{\
 tracker++;\
 if (tracker == 1) { software = $1 }; \
 if (tracker == 2) { version = $1 };\

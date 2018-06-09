@@ -9,6 +9,7 @@
 
 [ -n "${DEBUG_MK_SCRIPTS}" -o -n "${DEBUG_MK_SCRIPTS_MAKESUM}" ] && set -x
 
+RUBYEXE=ruby25
 pathtoexec=$(realpath $0)
 thisdir=$(dirname ${pathtoexec})
 tmpdir=/tmp/rubygems
@@ -24,9 +25,9 @@ mirror_base=/mech/var/cache/rubygems
 specsdir=${mirror_base}/specs
 reqsdir=${mirror_base}/reqs
 gemline="gs = Marshal.load Gem.inflate File.read '${specsdir}"
-min_ruby23="2.3.6"
-min_ruby24="2.4.3"
-min_ruby25="2.5.0"
+min_ruby23="2.3.7"
+min_ruby24="2.4.4"
+min_ruby25="2.5.1"
 secondarg="$2"
 #VARIANTS=
 
@@ -93,7 +94,7 @@ download_gemspec_requirements()
 obtain_summary()
 {
 	local gemspec=${1}-${2}.gemspec.rz
-	summary=$(ruby24 -e "${gemline}/${gemspec}'; puts gs.summary" | sed 's/[ ]*$//')
+	summary=$($RUBYEXE -e "${gemline}/${gemspec}'; puts gs.summary" | sed 's/[ ]*$//')
 	if [ -z "${summary}" ]; then
 		echo "No description provided"
 	else
@@ -106,7 +107,7 @@ create_description()
 {
 	local gemspec=${1}-${2}.gemspec.rz
 	mkdir -p ${NEWPORT}/descriptions
-	ruby24 -e "${gemline}/${gemspec}'; puts gs.description" | \
+	$RUBYEXE -e "${gemline}/${gemspec}'; puts gs.description" | \
 		awk '{ if (!found && NF==0) { next } found=1; print}' | \
 		fold -s -w 75 | awk 'NR <= 100' \
 		> ${NEWPORT}/descriptions/desc.single
@@ -121,7 +122,7 @@ obtain_homepage()
 {
 	local gemspec=${1}-${2}.gemspec.rz
 	if [ "${3}" = "ok" ]; then
-	   home=$(ruby24 -e "${gemline}/${gemspec}'; puts gs.homepage")
+	   home=$($RUBYEXE -e "${gemline}/${gemspec}'; puts gs.homepage")
 	   if [ -z "${home}" ]; then
 	      echo "none"
 	   else
@@ -136,7 +137,7 @@ obtain_homepage()
 obtain_ruby_requirement()
 {
 	local gemspec=${1}-${2}.gemspec.rz
-	ruby24 -e "${gemline}/${gemspec}'; puts gs.required_ruby_version"	
+	$RUBYEXE -e "${gemline}/${gemspec}'; puts gs.required_ruby_version"	
 }
 
 get_filtered_url() {
