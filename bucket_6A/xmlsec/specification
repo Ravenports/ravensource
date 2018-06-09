@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	1.2.25
+DEF[PORTVERSION]=	1.2.26
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xmlsec
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	XML Security Library
@@ -42,10 +41,12 @@ CONFIGURE_ARGS=		--with-openssl="{{OPENSSLBASE}}"
 			--with-nss="{{LOCALBASE}}"
 			--enable-soap
 			--disable-docs-build
+CONFIGURE_ENV=		NSS_CFLAGS="-I{{LOCALBASE}}/include/nss/nss"
 MAKE_ENV=		ABS_BUILDDIR="{{WRKSRC}}"
 			TMPFOLDER="{{WRKDIR}}"
 MAKE_ARGS=		confexecdir="{{LOCALBASE}}/etc"
-LDFLAGS=		-Wl,-rpath,{{LOCALBASE}}/lib/nss
+LDFLAGS=		-L{{LOCALBASE}}/lib/nss
+			-Wl,-rpath,{{LOCALBASE}}/lib/nss
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 DISTNAME=		xmlsec1-${PORTVERSION}
