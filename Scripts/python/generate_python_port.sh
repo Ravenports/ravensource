@@ -501,6 +501,7 @@ function filter(dep) {\
    else if (dep == "python-openapi_codec") return "python-openapi-codec";\
    else if (dep == "python-jinja2") return "python-Jinja2";\
    else if (dep == "python-Six") return "python-six";\
+   else if (dep == "python-pyyaml") return "python-PyYAML";\
    else if (dep == "python-validate-email") return "python-validate_email";\
    else return dep;\
 }\
