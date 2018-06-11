@@ -1,4 +1,4 @@
---- psutil/_psbsd.py.orig	2017-10-06 05:51:06 UTC
+--- psutil/_psbsd.py.orig	2018-05-08 15:56:36 UTC
 +++ psutil/_psbsd.py
 @@ -23,6 +23,7 @@ from ._common import memoize
  from ._common import memoize_when_activated
