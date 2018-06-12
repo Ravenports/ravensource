@@ -1,11 +1,11 @@
 DEF[PORTVERSION]=	0.98
 DEF[GPR]=		{{LOCALBASE}}/lib/gnat
-DEF[RELEASE_TAG]=	028c8f4
+DEF[RELEASE_TAG]=	1dd9680
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravenadm
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		raven
 VARIANTS=		standard
 SDESC[standard]=	Ravenports administration utility
@@ -31,6 +31,7 @@ BUILD_DEPENDS=		adacurses:primary:standard
 R_DEPS[sunos]=		mandoc:single:standard
 
 USES=			gprbuild ncurses
+SET_DEBUGGING_ON=	yes
 
 [WATCHDOG].DESCRIPTION=			Use "watchdog" monitor to abort stalled builds
 
@@ -45,6 +46,8 @@ post-extract:
 	${REINPLACE_CMD} -e '/pragma Suppress/ s|--  ||' \
 		${WRKSRC}/src/portscan.ads \
 		${WRKSRC}/src/port_specification.ads
+
+	${REINPLACE_CMD} -e 's|"-gnat|"-g", "-gnat|' ${WRKSRC}/ravenadm.gpr
 
 post-patch-WATCHDOG-OFF:
 	@${ECHO_MSG} "Disabling watchdog monitor ..."
