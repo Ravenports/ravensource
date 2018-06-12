@@ -1,8 +1,8 @@
---- src/nvim/os/os_defs.h.orig	2017-11-18 11:39:14 UTC
+--- src/nvim/os/os_defs.h.orig	2018-06-10 22:46:49 UTC
 +++ src/nvim/os/os_defs.h
-@@ -20,6 +20,10 @@ enum {
-   OS_STDERR_FILENO = STDERR_FILENO,
- };
+@@ -13,6 +13,10 @@
+ # include "nvim/os/unix_defs.h"
+ #endif
  
 +#ifdef __sun__
 +#define NAME_MAX	255

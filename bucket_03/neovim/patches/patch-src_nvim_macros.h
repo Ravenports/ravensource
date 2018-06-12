@@ -1,7 +1,7 @@
---- src/nvim/macros.h.orig	2017-11-18 11:39:14 UTC
+--- src/nvim/macros.h.orig	2018-06-10 22:46:49 UTC
 +++ src/nvim/macros.h
-@@ -151,7 +151,9 @@
- #define RGB(r, g, b) ((r << 16) | (g << 8) | b)
+@@ -156,7 +156,9 @@
+ #define RGB_(r, g, b) ((r << 16) | (g << 8) | b)
  
  #define STR_(x) #x
 +#ifndef __sun__
