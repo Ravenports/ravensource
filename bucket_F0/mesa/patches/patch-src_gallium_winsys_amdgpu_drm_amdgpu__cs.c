@@ -1,8 +1,8 @@
---- src/gallium/winsys/amdgpu/drm/amdgpu_cs.c.orig	2018-04-18 14:47:54 UTC
+--- src/gallium/winsys/amdgpu/drm/amdgpu_cs.c.orig	2018-06-15 20:37:48 UTC
 +++ src/gallium/winsys/amdgpu/drm/amdgpu_cs.c
-@@ -33,6 +33,10 @@
- 
- #include "amd/common/sid.h"
+@@ -37,6 +37,10 @@
+ #define AMDGPU_IB_FLAG_TC_WB_NOT_INVALIDATE (1 << 3)
+ #endif
  
 +#ifdef __sun__
 +#include <alloca.h>

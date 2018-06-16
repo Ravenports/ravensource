@@ -1,6 +1,6 @@
---- src/mesa/drivers/dri/i965/brw_performance_query.c.orig	2018-04-18 14:47:54 UTC
+--- src/mesa/drivers/dri/i965/brw_performance_query.c.orig	2018-06-15 20:37:48 UTC
 +++ src/mesa/drivers/dri/i965/brw_performance_query.c
-@@ -1767,9 +1767,17 @@ enumerate_sysfs_metrics(struct brw_conte
+@@ -1806,9 +1806,17 @@ enumerate_sysfs_metrics(struct brw_conte
     while ((metric_entry = readdir(metricsdir))) {
        struct hash_entry *entry;
  
@@ -18,7 +18,7 @@
           continue;
  
        DBG("metric set: %s\n", metric_entry->d_name);
-@@ -2041,9 +2049,17 @@ get_sysfs_dev_dir(struct brw_context *br
+@@ -2082,9 +2090,17 @@ get_sysfs_dev_dir(struct brw_context *br
     }
  
     while ((drm_entry = readdir(drmdir))) {
@@ -34,5 +34,5 @@
            strncmp(drm_entry->d_name, "card", 4) == 0)
 +#endif
        {
-          len = snprintf(path_buf, path_buf_len,
-                         "/sys/dev/char/%d:%d/device/drm/%s",
+          len = snprintf(brw->perfquery.sysfs_dev_dir,
+                         sizeof(brw->perfquery.sysfs_dev_dir),

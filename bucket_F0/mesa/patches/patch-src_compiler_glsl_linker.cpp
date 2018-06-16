@@ -1,8 +1,8 @@
---- src/compiler/glsl/linker.cpp.orig	2018-04-18 14:47:54 UTC
+--- src/compiler/glsl/linker.cpp.orig	2018-06-15 20:37:48 UTC
 +++ src/compiler/glsl/linker.cpp
-@@ -87,6 +87,38 @@
- #include "main/shaderobj.h"
+@@ -88,6 +88,38 @@
  #include "main/enums.h"
+ #include "main/mtypes.h"
  
 +#ifdef __sun__
 +/* uses libbsd4sol prototypes, so can't be static */

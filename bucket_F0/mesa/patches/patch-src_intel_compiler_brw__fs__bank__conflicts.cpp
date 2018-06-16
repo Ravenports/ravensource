@@ -5,7 +5,7 @@ compiler/brw_fs_bank_conflicts.cpp:719:35: error: scalar initializer cannot be e
       vector_type s_p = {}, s_n = {};
                                   ^~
 
---- src/intel/compiler/brw_fs_bank_conflicts.cpp.orig	2018-01-23 18:08:50 UTC
+--- src/intel/compiler/brw_fs_bank_conflicts.cpp.orig	2018-06-15 20:37:48 UTC
 +++ src/intel/compiler/brw_fs_bank_conflicts.cpp
 @@ -716,7 +716,7 @@ namespace {
                     const weight_vector_type &conflicts)

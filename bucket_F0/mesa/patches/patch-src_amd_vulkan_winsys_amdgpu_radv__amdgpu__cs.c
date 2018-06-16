@@ -1,8 +1,8 @@
 - Define ETIME if missing
 
---- src/amd/vulkan/winsys/amdgpu/radv_amdgpu_cs.c.orig	2018-01-23 18:08:49 UTC
+--- src/amd/vulkan/winsys/amdgpu/radv_amdgpu_cs.c.orig	2018-06-15 20:37:48 UTC
 +++ src/amd/vulkan/winsys/amdgpu/radv_amdgpu_cs.c
-@@ -33,6 +33,9 @@
+@@ -35,6 +35,9 @@
  #include "radv_amdgpu_bo.h"
  #include "sid.h"
  

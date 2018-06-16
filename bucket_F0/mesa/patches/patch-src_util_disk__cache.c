@@ -1,4 +1,4 @@
---- src/util/disk_cache.c.orig	2018-04-18 14:47:54 UTC
+--- src/util/disk_cache.c.orig	2018-06-15 20:37:48 UTC
 +++ src/util/disk_cache.c
 @@ -51,6 +51,10 @@
  
@@ -11,7 +11,7 @@
  /* Number of bits to mask off from a cache key to get an index. */
  #define CACHE_INDEX_KEY_BITS 16
  
-@@ -498,7 +502,11 @@ choose_lru_file_matching(const char *dir
+@@ -513,7 +517,11 @@ choose_lru_file_matching(const char *dir
           break;
  
        struct stat sb;
