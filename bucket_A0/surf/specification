@@ -1,0 +1,51 @@
+DEF[PORTVERSION]=	2.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		surf
+VERSION=		${PORTVERSION}
+KEYWORDS=		www
+VARIANTS=		standard
+SDESC[standard]=	Simple webkit browser adhering suckless principles
+HOMEPAGE=		https://surf.suckless.org
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://dl.suckless.org/surf/
+DISTFILE[1]=		surf-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		www/surf
+
+RUN_DEPENDS=		curl:primary:standard
+			dmenu:single:standard
+			st:single:standard
+			xorg-xprop:single:standard
+BUILDRUN_DEPENDS=	webkit2:single:gtk3
+
+USES=			pkgconfig
+XORG_COMPONENTS=	x11
+GNOME_COMPONENTS=	cairo gtk3 pango gdkpixbuf
+
+post-patch:
+	${REINPLACE_CMD} -e \
+		'/^PREFIX/s| = /usr/local| = /${PREFIX}| ; \
+		/^X11INC/s|/usr/X11R6/include|${PREFIX}/include/X11| ; \
+		/^X11LIB/s|/usr/X11R6|${PREFIX}| ; \
+		/^GTKINC/s| =| ?=| ; \
+		/^GTKLIB/s| =| ?=| ; \
+		/^INCS/s|-I/usr/include || ; \
+		/^LIBS/s|-L/usr/lib -lc || ; \
+		/^CPPFLAGS/s| =| +=| ; \
+		/^CFLAGS/s| =| +=| ; \
+		/^CFLAGS/s|-Os || ; \
+		/^LDFLAGS/s| =| +=| ; \
+		/^LDFLAGS/s|-g || ; \
+		/^CC/s| =| ?=|' ${WRKSRC}/config.mk
