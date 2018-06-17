@@ -1,6 +1,5 @@
-DEF[PORTVERSION]=	6.0.4.2
+DEF[PORTVERSION]=	6.0.5.1
 DEF[CXXWARN]=		-Wno-deprecated-declarations -Wno-undef Wno-unused-parameter -Wno-unused-function -Wno-unused-local-typedefs -Wno-unused-variable -Wno-ignored-qualifiers -Woverloaded-virtual
-DEF[PYTHON_SEARCH]=	python3.6 python3.5 python3.4 python2.7
 DEF[PROGRAM_BINARIES]=	oosplash regmerge regview ui-previewer uri-encode xpdfimport
 # ----------------------------------------------------------------------------
 
@@ -37,6 +36,7 @@ BUILD_DEPENDS=		perl-Archive-Zip:single:perl_default
 			bison:primary:standard
 			cppunit:single:standard
 			poppler:primary:standard
+			autoselect-python:single:standard
 RUN_DEPENDS=		fonts-crosextra-caladea:single:standard
 			fonts-crosextra-carlito:single:standard
 			font-dejavu:single:standard
@@ -155,7 +155,6 @@ PLIST_SUB=		LOCALBASE="{{LOCALBASE}}"
 pre-configure:
 	${TOUCH} ${WRKSRC}/autogen.lastrun
 	${REINPLACE_CMD} -e 's|/usr/include/gpgme++|${PREFIX}/include/gpgme++|' \
-		-e 's/for am_cv_pathless_PYTHON in .* none;/for am_cv_pathless_PYTHON in ${PYTHON_SEARCH} none;/' \
 		${WRKSRC}/configure
 
 post-configure:
