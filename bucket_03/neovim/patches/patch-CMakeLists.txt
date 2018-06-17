@@ -27,12 +27,3 @@
  endif()
  
  if(CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
-@@ -407,7 +396,7 @@ if((CLANG_ASAN_UBSAN OR CLANG_MSAN OR CL
-   message(FATAL_ERROR "Sanitizers are only supported for Clang.")
- endif()
- 
--if(CMAKE_SYSTEM_NAME MATCHES "OpenBSD|FreeBSD|Windows")  # see #5318
-+if(CMAKE_SYSTEM_NAME MATCHES "OpenBSD|FreeBSD|DragonFly")  # see #5318
-   message(STATUS "skipping jemalloc on this system: ${CMAKE_SYSTEM_NAME}")
-   option(ENABLE_JEMALLOC "enable jemalloc" OFF)
- else()
