@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	3.6
 
 NAMEBASE=		recode
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		converters
 VARIANTS=		standard
 SDESC[standard]=	Converts files between character sets and usages
@@ -18,13 +19,19 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		LGPL20+:single
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING-LIB
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"PARAMS"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/recode.h
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		converters/recode
 
 MUST_CONFIGURE=		gnu
 USES=			gettext-tools gettext-runtime iconv libtool perl
 			fbsd10fix
 CONFIGURE_ARGS=		--without-included-gettext
-CONFIGURE_ENV=		ac_cv_func_gettext=no
 LDFLAGS=		{{ICONV_LIB}}
 INFO=			single:recode
 
@@ -41,6 +48,8 @@ post-patch:
 	${REINPLACE_CMD} 's,"iconv\.h","${ICONV_PREFIX}/include/iconv.h",' \
 		${WRKSRC}/src/libiconv.c
 	${CP} ${WRKSRC}/lib/error.c ${WRKSRC}/src
+	${REINPLACE_CMD} -e '/linkopts=/ s|=|=-Wl,-rpath,${PREFIX}/lib|' \
+		${WRKSRC}/ltmain.sh
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/librecode.so
