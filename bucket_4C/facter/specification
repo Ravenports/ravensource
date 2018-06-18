@@ -18,6 +18,11 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		APACHE20:single
+LICENSE_FILE=		APACHE20:stock
+LICENSE_TERMS=		single:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		sysutils/factor
 
 BUILDRUN_DEPENDS=	curl:primary:standard
@@ -25,11 +30,13 @@ BUILDRUN_DEPENDS=	curl:primary:standard
 			cpp-hocon:single:standard
 			yaml-cpp:single:standard
 			boost-libraries:rest:python_default
+# libwhereami needed for linux and solaris
 # linux optional: libblkid
 
 NOT_FOR_OPSYS=		dragonfly
 
 USES=			ssl cmake ruby
+CMAKE_ARGS=		-DWITHOUT_JRUBY:BOOL=ON
 SOVERSION=		${PORTVERSION}
 
 post-patch:
@@ -37,3 +44,10 @@ post-patch:
 		${WRKSRC}/lib/src/facts/posix/cache.cc \
 		${WRKSRC}/lib/src/facts/posix/collection.cc \
 		${WRKSRC}/lib/src/util/config/posix/config.cc
+	# ignore MANDIR override by FreeBSD
+	${REINPLACE_CMD} -e 's,OpenBSD|FreeBSD,disable,' \
+		${WRKSRC}/CMakeLists.txt
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/facter
