@@ -400,6 +400,7 @@ headers_FreeBSD=	${headers_DragonFly:Nnet/*:Nutil.h} \
 			bsm/audit.h \
 			libusb20.h \
 			libusb20_desc.h \
+			kenv.h \
 			# end
 
 headers_Linux_dirs=	arpa \

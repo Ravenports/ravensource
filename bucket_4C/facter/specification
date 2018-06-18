@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	3.11.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		facter
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	Cross-platform library for retrieving OS facts
+HOMEPAGE=		https://github.com/puppetlabs/facter
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/puppetlabs:facter:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		sysutils/factor
+
+BUILDRUN_DEPENDS=	curl:primary:standard
+			leatherman:single:standard
+			cpp-hocon:single:standard
+			yaml-cpp:single:standard
+			boost-libraries:rest:python_default
+# linux optional: libblkid
+
+NOT_FOR_OPSYS=		dragonfly
+
+USES=			ssl cmake ruby
+SOVERSION=		${PORTVERSION}
+
+post-patch:
+	${REINPLACE_CMD} -e 's|%%PREFIX%%|${PREFIX}|g' \
+		${WRKSRC}/lib/src/facts/posix/cache.cc \
+		${WRKSRC}/lib/src/facts/posix/collection.cc \
+		${WRKSRC}/lib/src/util/config/posix/config.cc
