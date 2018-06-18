@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	1.4.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		leatherman
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	C++ and CMake utility libraries
+HOMEPAGE=		https://github.com/puppetlabs/leatherman
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/puppetlabs:leatherman:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		APACHE20:single
+LICENSE_FILE=		APACHE20:stock
+LICENSE_TERMS=		single:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/leatherman
+
+BUILDRUN_DEPENDS=	curl:primary:standard
+			boost-libraries:rest:python_default
+
+USES=			cmake:outsource ruby gettext-tools
+CMAKE_ARGS=		-DLEATHERMAN_SHARED:BOOL=ON
+			-DLEATHERMAN_ENABLE_TESTING:BOOL=OFF
+SOVERSION=		${PORTVERSION}
+
+post-patch:
+	${REINPLACE_CMD} -e 's/ -Werror//' ${WRKSRC}/cmake/cflags.cmake
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
