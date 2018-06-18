@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.1.6
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		cpp-hocon
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	C++ port of the Typesafe Config library
+HOMEPAGE=		https://github.com/puppetlabs/cpp-hocon
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/puppetlabs:cpp-hocon:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		APACHE20:single
+LICENSE_FILE=		APACHE20:stock
+LICENSE_TERMS=		single:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/cpp-hocon
+
+BUILDRUN_DEPENDS=	leatherman:single:standard
+			boost-libraries:rest:python_default
+
+USES=			cmake
+CMAKE_ARGS=		-DBUILD_SHARED_LIBS=SHARED
+SOVERSION=		${PORTVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
