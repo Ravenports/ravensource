@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	1.2.8
+DEF[SOVERSION]=		0.8.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		sdl1_net
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		standard
+SDESC[standard]=	SDL cross-platform networking library
+HOMEPAGE=		https://www.libsdl.org/projects/SDL_net
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.libsdl.org/projects/SDL_net/release/
+DISTFILE[1]=		SDL_net-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		net/sdl_net
+
+LICENSE=		ZLIB:single
+LICENSE_FILE=		ZLIB:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+USES=			fbsd10fix gmake libtool pkgconfig
+SDL_COMPONENTS=		sdl1
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-gui
+INSTALL_TARGET=		install-strip
+DISTNAME=		SDL_net-${PORTVERSION}
+
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		LIBVERSION=${PORTVERSION:R}
