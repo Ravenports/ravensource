@@ -10,6 +10,7 @@ Libelf_FreeBSD=		libelf.so.2
 Libthr_FreeBSD=		libthr.so.3
 Libsbuf_FreeBSD=	libsbuf.so.6
 Libdevstat_FreeBSD=	libdevstat.so.7
+Libprocstat_FreeBSD=	libprocstat.so.1
 
 CPA=			-RpP
 
@@ -151,6 +152,7 @@ static_lib_FreeBSD=	${static_lib_generic} \
 			/usr/lib/libcompat.a \
 			/usr/lib/libdevstat.a \
 			/usr/lib/libkvm.a \
+			/usr/lib/libprocstat.a \
 			/usr/lib/libthr.a \
 			/usr/lib/libusb.a \
 			/usr/lib/libusbhid.a \
@@ -204,6 +206,7 @@ dynamic_lib_FreeBSD=	${dynamic_generic} \
 			/lib/${Libthr_FreeBSD} \
 			/lib/${Libdevstat_FreeBSD} \
 			/usr/lib/libexecinfo.so.1 \
+			/usr/lib/${Libprocstat_FreeBSD} \
 			/usr/lib/${libusb} \
 			/usr/lib/${libusbhid}
 dynamic_lib_DragonFly=	${dynamic_generic} \
@@ -401,6 +404,7 @@ headers_FreeBSD=	${headers_DragonFly:Nnet/*:Nutil.h} \
 			libusb20.h \
 			libusb20_desc.h \
 			kenv.h \
+			libprocstat.h \
 			# end
 
 headers_Linux_dirs=	arpa \
@@ -642,6 +646,7 @@ install:
 	(cd ${DESTDIR}${BASE}/usr/lib && \
 		ln -s ${Libthr_FreeBSD} libthr.so && \
 		ln -s ${Libdevstat_FreeBSD} libdevstat.so && \
+		ln -s ${Libprocstat_FreeBSD} libprocstat.so && \
 		ln -s libthr.so libpthread.so)
 	cp ${CPA} ${LOCALBASE}/bin/ginstall ${DESTDIR}${BASE}/usr/bin/install
 	cp ${CPA} ${LOCALBASE}/bin/gwc      ${DESTDIR}${BASE}/usr/bin/wc
