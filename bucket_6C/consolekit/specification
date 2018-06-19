@@ -1,0 +1,56 @@
+DEF[PORTVERSION]=	1.2.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		consolekit
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	Framework for defining and tracking users
+HOMEPAGE=		https://github.com/ConsoleKit2/ConsoleKit2
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/ConsoleKit2/ConsoleKit2/releases/download/${PORTVERSION}/
+DISTFILE[1]=		ConsoleKit2-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/ck-session.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		sysutils/consolekit2
+
+BUILDRUN_DEPENDS=	dbus:single:standard
+			openpam:single:standard
+			polkit:single:standard
+
+DISTNAME=		ConsoleKit2-${PORTVERSION}
+USES=			gettext-tools gmake libtool pkgconfig zlib
+XORG_COMPONENTS=	x11
+GNOME_COMPONENTS=	glib libxslt introspection
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-pid-file=/var/run/consolekit.pid
+			--enable-pam-module
+			--with-pam-module-dir={{PREFIX}}/lib
+			--localstatedir=/var
+			--enable-polkit
+			--enable-introspection
+			--disable-udev-acl
+			--disable-libcgmanager
+			--disable-libevdev
+			--disable-libudev
+			--without-systemdsystemunitdir
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-install:
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/libconsolekit-1.0 \
+		${STAGEDIR}${PREFIX}/share/doc/consolekit
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
