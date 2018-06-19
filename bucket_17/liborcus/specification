@@ -11,8 +11,8 @@ HOMEPAGE=		https://gitlab.com/orcus/orcus
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://kohei.us/files/orcus/src/
-DISTFILE[1]=		liborcus-${PORTVERSION}.tar.xz:main
+SITES[main]=		GITLAB/orcus:orcus:${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
@@ -29,7 +29,7 @@ BUILD_DEPENDS=		mdds:single:standard
 			bzip2:shared:standard
 BUILDRUN_DEPENDS=	boost-libraries:rest:python_default
 
-USES=			libtool pkgconfig zlib
+USES=			libtool pkgconfig zlib autoreconf
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-boost="{{LOCALBASE}}"
 			--disable-spreadsheet-model
