@@ -1,32 +1,55 @@
 dateutil - powerful extensions to datetime
 ==========================================
 
-.. image::
+|pypi| |support| |licence|
+
+|gitter| |readthedocs|
+
+|travis| |appveyor| |coverage|
+
+.. |pypi| image::
 https://img.shields.io/pypi/v/python-dateutil.svg?style=flat-square
     :target: https://pypi.org/project/python-dateutil/
     :alt: pypi version
 
-.. image::
-https://img.shields.io/travis/dateutil/dateutil/master.svg?style=flat-squar
+.. |support| image::
+https://img.shields.io/pypi/pyversions/python-dateutil.svg?style=flat-squar
 e
+    :target: https://pypi.org/project/python-dateutil/
+    :alt: supported Python version
+
+.. |travis| image::
+https://img.shields.io/travis/dateutil/dateutil/master.svg?style=flat-squar
+e&label=Travis%20Build
     :target: https://travis-ci.org/dateutil/dateutil
     :alt: travis build status
 
-.. image::
+.. |appveyor| image::
 https://img.shields.io/appveyor/ci/dateutil/dateutil/master.svg?style=flat-
-square
+square&logo=appveyor
     :target: https://ci.appveyor.com/project/dateutil/dateutil
     :alt: appveyor build status
 
-.. image::
+.. |coverage| image::
 https://codecov.io/github/dateutil/dateutil/coverage.svg?branch=master
     :target: https://codecov.io/github/dateutil/dateutil?branch=master
     :alt: Code coverage
 
-.. image:: https://badges.gitter.im/dateutil/dateutil.svg
+.. |gitter| image:: https://badges.gitter.im/dateutil/dateutil.svg
    :alt: Join the chat at https://gitter.im/dateutil/dateutil
    :target: https://gitter.im/dateutil/dateutil
 
+.. |licence| image::
+https://img.shields.io/pypi/l/python-dateutil.svg?style=flat-square
+    :target: https://pypi.org/project/python-dateutil/
+    :alt: licence
+
+.. |readthedocs| image::
+https://img.shields.io/readthedocs/dateutil/latest.svg?style=flat-square&la
+bel=Read%20the%20Docs
+   :alt: Read the documentation at
+https://dateutil.readthedocs.io/en/latest/
+   :target: https://dateutil.readthedocs.io/en/latest/
 
 The `dateutil` module provides powerful extensions to
 the standard `datetime` module, available in Python.
@@ -88,24 +111,3 @@ date out of the "date" unix system command. Here is the code:
     >>> from datetime import *
     >>> now = parse("Sat Oct 11 17:13:46 UTC 2003")
     >>> today = now.date()
-    >>> year =
-rrule(YEARLY,dtstart=now,bymonth=8,bymonthday=13,byweekday=FR)[0].year
-    >>> rdelta = relativedelta(easter(year), today)
-    >>> print("Today is: %s" % today)
-    Today is: 2003-10-11
-    >>> print("Year with next Aug 13th on a Friday is: %s" % year)
-    Year with next Aug 13th on a Friday is: 2004
-    >>> print("How far is the Easter of that year: %s" % rdelta)
-    How far is the Easter of that year: relativedelta(months=+6)
-    >>> print("And the Easter of that year is: %s" % (today+rdelta))
-    And the Easter of that year is: 2004-04-11
-
-Being exactly 6 months ahead was **really** a coincidence :)
-
-Contributing
-============
-
-We welcome many types of contributions - bug reports, pull requests (code,
-infrastructure or documentation fixes). For more information about how to
-contribute to the project, see the ``CONTRIBUTING.md`` file in the
-repository.
