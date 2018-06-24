@@ -1,4 +1,4 @@
---- Makefile.orig	2016-01-19 16:18:43 UTC
+--- Makefile.orig	2017-12-20 16:28:37 UTC
 +++ Makefile
 @@ -4,7 +4,7 @@ GPRBUILD  = gprbuild
  GPRCLEAN = gprclean
@@ -9,3 +9,12 @@
  
  ifeq ($(RTS),)
     RTS=full
+@@ -50,7 +50,7 @@ endif
+ 
+ install: install-clean
+ 	$(GPRINSTALL) $(GPROPTS) -p -f --prefix=$(INSTALL) \
+-		--no-build-var lib/gnat/aunit.gpr
++	--project-subdir=lib/gnat --no-build-var lib/gnat/aunit.gpr
+ 
+ .PHONY: doc
+ doc:
