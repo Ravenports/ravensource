@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	2017
+DEF[PORTVERSION]=	2018
+DEF[DATE]=		20180524
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xmlada
@@ -10,8 +11,8 @@ HOMEPAGE=		http://libre.adacore.com/libre/tools/xmlada/
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/AdaCore:xmlada:fce5c96
-DISTFILE[1]=		generated:main
+SITES[main]=		http://downloads.dragonlace.net/src/
+DISTFILE[1]=		xmlada-gpl-${PORTVERSION}-${DATE}-src.tar.gz:main
 DF_INDEX=		1
 SPKGS[standard]=	complete
 			primary
@@ -32,6 +33,7 @@ FPC_EQUIVALENT=		textproc/xmlada
 BUILD_DEPENDS=		python-Sphinx:single:python_default
 
 USES=			cclibs:primary ada:primary
+DISTNAME=		xmlada-gpl-${PORTVERSION}-src
 BUILD_TARGET=		schema_libs gen-docs
 MAKEFILE=		Makefile.bsd
 MAKE_ARGS=		LIBVER=${PORTVERSION}
