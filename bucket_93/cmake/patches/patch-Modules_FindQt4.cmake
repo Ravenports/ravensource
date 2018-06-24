@@ -1,4 +1,4 @@
---- Modules/FindQt4.cmake.orig	2018-03-28 11:16:49 UTC
+--- Modules/FindQt4.cmake.orig	2018-06-14 12:57:31 UTC
 +++ Modules/FindQt4.cmake
 @@ -709,14 +709,7 @@ if (QT_QMAKE_EXECUTABLE AND
    # ask qmake for the plugins directory
