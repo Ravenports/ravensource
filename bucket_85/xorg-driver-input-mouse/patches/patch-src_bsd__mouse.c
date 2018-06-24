@@ -1,4 +1,4 @@
---- src/bsd_mouse.c.orig	2015-04-20 01:07:33 UTC
+--- src/bsd_mouse.c.orig	2018-06-19 04:36:21 UTC
 +++ src/bsd_mouse.c
 @@ -26,6 +26,24 @@
   * authorization from the copyright holder(s) and author(s).
@@ -365,7 +365,7 @@
  
      switch (what) {
      case DEVICE_INIT:
-@@ -518,38 +641,96 @@ usbMouseProc(DeviceIntPtr pPointer, int
+@@ -518,40 +641,96 @@ usbMouseProc(DeviceIntPtr pPointer, int
          for (nbuttons = 0; nbuttons < MSE_MAXBUTTONS; ++nbuttons)
              map[nbuttons + 1] = nbuttons + 1;
  
@@ -461,8 +461,10 @@
 -                pInfo->fd = -1;
 -            } else {
 -                xf86FlushInput(pInfo->fd);
+-#if GET_ABI_MAJOR(ABI_XINPUT_VERSION) < 23
 -                if (!xf86InstallSIGIOHandler (pInfo->fd, usbSigioReadInput,
 -                                              pInfo))
+-#endif
 -                    AddEnabledDevice(pInfo->fd);
 -            }
 +	if (pUsbMse->opened++ == 0) {
@@ -485,7 +487,7 @@
          }
          pMse->lastButtons = 0;
          pMse->lastMappedButtons = 0;
-@@ -560,7 +741,7 @@ usbMouseProc(DeviceIntPtr pPointer, int
+@@ -562,7 +741,7 @@ usbMouseProc(DeviceIntPtr pPointer, int
      case DEVICE_OFF:
      case DEVICE_CLOSE:
          if (pInfo->fd != -1) {
@@ -494,7 +496,7 @@
              if (pUsbMse->packetSize > 8 && pUsbMse->buffer) {
                  free(pUsbMse->buffer);
              }
-@@ -571,6 +752,7 @@ usbMouseProc(DeviceIntPtr pPointer, int
+@@ -573,6 +752,7 @@ usbMouseProc(DeviceIntPtr pPointer, int
              xf86CloseSerial(pInfo->fd);
              pInfo->fd = -1;
          }
@@ -502,7 +504,7 @@
          pPointer->public.on = FALSE;
          usleep(300000);
          break;
-@@ -586,45 +768,154 @@ usbReadInput(InputInfoPtr pInfo)
+@@ -588,45 +768,154 @@ usbReadInput(InputInfoPtr pInfo)
  {
      MouseDevPtr pMse;
      UsbMsePtr pUsbMse;
@@ -679,7 +681,7 @@
  }
  
  static void
-@@ -633,14 +924,17 @@ usbSigioReadInput (int fd, void *closure
+@@ -635,14 +924,17 @@ usbSigioReadInput (int fd, void *closure
      usbReadInput ((InputInfoPtr) closure);
  }
  
@@ -700,7 +702,7 @@
  
      pUsbMse = malloc(sizeof(UsbMseRec));
      if (pUsbMse == NULL) {
-@@ -649,12 +943,7 @@ usbPreInit(InputInfoPtr pInfo, const cha
+@@ -651,12 +943,7 @@ usbPreInit(InputInfoPtr pInfo, const cha
          return FALSE;
      }
  
@@ -714,7 +716,7 @@
  
      /* Check if the device can be opened. */
      pInfo->fd = xf86OpenSerial(pInfo->options);
-@@ -670,19 +959,134 @@ usbPreInit(InputInfoPtr pInfo, const cha
+@@ -672,19 +959,134 @@ usbPreInit(InputInfoPtr pInfo, const cha
      }
      /* Get USB informations */
      reportDesc = hid_get_report_desc(pInfo->fd);
@@ -862,7 +864,7 @@
      /* Allocate buffer */
      if (pUsbMse->packetSize <= 8) {
          pUsbMse->buffer = pMse->protoBuf;
-@@ -692,56 +1096,129 @@ usbPreInit(InputInfoPtr pInfo, const cha
+@@ -694,56 +1096,129 @@ usbPreInit(InputInfoPtr pInfo, const cha
      if (pUsbMse->buffer == NULL) {
          xf86Msg(X_ERROR, "%s: cannot allocate buffer\n", pInfo->name);
          free(pUsbMse);
@@ -1029,7 +1031,7 @@
      /* Setup the local procs. */
      pInfo->device_control = usbMouseProc;
      pInfo->read_input = usbReadInput;
-@@ -784,7 +1261,9 @@ OSMouseInit(int flags)
+@@ -786,7 +1261,9 @@ OSMouseInit(int flags)
      p->CheckProtocol = CheckProtocol;
  #if (defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__DragonFly__)) && defined(MOUSE_PROTO_SYSMOUSE)
      p->SetupAuto = SetupAuto;
