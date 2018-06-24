@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2017
-DEF[RELEASE_TAG]=	a146066
+DEF[PORTVERSION]=	2018
+DEF[DATE]=		20180524
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gprbuild
@@ -11,8 +11,8 @@ HOMEPAGE=		http://docs.adacore.com/live/wave/gprbuild/html/gprbuild_ug/gprbuild_
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/Adacore:gprbuild:${RELEASE_TAG}
-DISTFILE[1]=		generated:main
+SITES[main]=		http://downloads.dragonlace.net/src/
+DISTFILE[1]=		gprbuild-gpl-${PORTVERSION}-${DATE}-src.tar.gz:main
 
 SPKGS[standard]=	complete primary docs
 
@@ -30,18 +30,19 @@ LICENSE_SCHEME=		solo
 # FPC_EQUIVALENT=		devel/gprbuild
 
 BUILD_DEPENDS=		xmlada:primary:standard
-# |			python-Sphinx:single:python_default
+			python-Sphinx:single:python_default
 
+DISTNAME=		gprbuild-gpl-${PORTVERSION}-src
 MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
 BUILD_WRKSRC=		{{WRKSRC}}/construction
 INSTALL_WRKSRC=		{{BUILD_WRKSRC}}
 INSTALL_TARGET=		install
-# |			install-docs
+			install-docs
 BUILD_TARGET=		all
-# |			gen-docs
+			gen-docs
 
 post-patch:
-	@${MKDIR} ${WRKDIR}/trash ${BUILD_WRKSRC}
+	${MKDIR} ${WRKDIR}/trash ${BUILD_WRKSRC}
 	${INSTALL_DATA} ${FILESDIR}/Makefile.BSD ${BUILD_WRKSRC}/Makefile
 	${SED} -i"" -e "s|@LOCALBASE@|${LOCALBASE}|" \
 		${WRKSRC}/share/gprconfig/compilers.xml
