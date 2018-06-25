@@ -1,11 +1,11 @@
---- share/gprconfig/linker.xml.orig	2018-05-24 06:18:29 UTC
+--- share/gprconfig/linker.xml.orig	2016-12-23 15:59:49 UTC
 +++ share/gprconfig/linker.xml
-@@ -951,11 +951,14 @@
+@@ -1026,11 +1026,14 @@
      </config>
    </configuration>
  
--  <!-- linux, freebsd, Irix, QNX -->
-+  <!-- linux, bsd, Irix, QNX -->
+-  <!-- linux, freebsd and Irix-->
++  <!-- linux, bsd and Irix-->
    <configuration>
      <targets>
         <target name="^.*linux.*$" />
@@ -14,9 +14,9 @@
 +       <target name="^.*openbsd.*$" />
 +       <target name="^.*netbsd.*$" />
         <target name="^.*irix.*$" />
-        <target name="^.*qnx[0-9]*$" />
      </targets>
-@@ -1061,10 +1064,13 @@
+     <config>
+@@ -1108,10 +1111,13 @@
      </config>
    </configuration>
  
@@ -31,7 +31,20 @@
      </targets>
      <config>
     for Run_Path_Option  use ("-Wl,-rpath,");
-@@ -1519,6 +1525,9 @@
+@@ -1686,6 +1692,12 @@
+        <target name="^.*mingw.*$" />
+        <target name="^.*linux.*$" />
+        <target name="^.*freebsd.*$" />
++       <target name="^.*dragonfly.*$" />
++       <target name="^.*openbsd.*$" />
++       <target name="^.*netbsd.*$" />
++       <target name="^.*dragonfly.*$" />
++       <target name="^.*openbsd.*$" />
++       <target name="^.*netbsd.*$" />
+      </targets>
+     <compilers negate="true">
+        <compiler language="C++" />
+@@ -1773,6 +1785,9 @@
         <target name="^.*mingw.*$" />
         <target name="^.*linux.*$" />
         <target name="^.*freebsd.*$" />
@@ -39,5 +52,5 @@
 +       <target name="^.*openbsd.*$" />
 +       <target name="^.*netbsd.*$" />
       </targets>
-     <config>
-    package Linker is
+     <compilers>
+        <compiler language="C++" />
