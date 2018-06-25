@@ -1,6 +1,5 @@
-DEF[PORTVERSION]=	2017
-DEF[AWS_RELEASE]=	0b6f5f6
-DEF[TPARSER_RELEASE]=	76d8867
+DEF[PORTVERSION]=	2018
+DEF[DATE]=		20180524
 DEF[ADDL_RPATH]=	{{LOCALBASE}}/lib:{{LOCALBASE}}/lib/aws/native/relocatable
 # ----------------------------------------------------------------------------
 
@@ -12,18 +11,22 @@ SDESC[standard]=	Adacore Ada Web Server and framework
 HOMEPAGE=		http://libre.adacore.com/libre/tools/aws/
 CONTACT=		John_Marino[draco@marino.st]
 
-DOWNLOAD_GROUPS=	main tparser
-SITES[main]=		GITHUB/Adacore:aws:${AWS_RELEASE}
-SITES[tparser]=		GITHUB/Adacore:templates-parser:${TPARSER_RELEASE}:templates_parser
-DISTFILE[1]=		generated:main
-DISTFILE[2]=		generated:tparser
-DF_INDEX=		1 2
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://downloads.dragonlace.net/src/
+DISTFILE[1]=		aws-gpl-${PORTVERSION}-${DATE}-src.tar.gz:main
 
 SPKGS[standard]=	complete primary examples docs
 
 OPTIONS_AVAILABLE=	SHARED IPV6 DEBUG
 OPTIONS_STANDARD=	SHARED IPV6 DEBUG
 OPT_ON[all]=		SHARED
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/core/aws.ads
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		www/aws
 
@@ -34,6 +37,7 @@ BUILDRUN_DEPENDS=	xmlada:primary:standard
 
 USES=			ada:primary gmake gprbuild python:py27,build shebangfix
 			ssl zlib
+DISTNAME=		aws-gpl-${PORTVERSION}-src
 SHEBANG_FILES=		tools/awsascb
 INSTALL_REQ_TOOLCHAIN=	yes
 MUST_CONFIGURE=		yes
@@ -86,7 +90,7 @@ do-test:
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
 	${RM} ${STAGEDIR}${PREFIX}/include/aws.relocatable/Makefile
-	${RM} ${STAGEDIR}${PREFIX}/include/aws/Makefile
+	${RM} ${STAGEDIR}${PREFIX}/include/aws.static/Makefile
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gnat \
 		${STAGEDIR}${PREFIX}/share/gps/plug-ins
 	${CAT} ${FILESDIR}/aws.gpr.in | ${SED} -e 's|@PREFIX@|${PREFIX}|g' \
