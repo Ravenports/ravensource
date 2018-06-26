@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	4.13.2
+DEF[SOVERSION]=		7.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libxfce4util
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Xfce utility library for non-GUI components
+HOMEPAGE=		https://xfce.org
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://archive.xfce.org/src/xfce/libxfce4util/${PORTVERSION:R}/
+DISTFILE[1]=		libxfce4util-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary docs nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11/libxfce4util
+
+USES=			gmake libtool perl pkgconfig gettext-runtime gettext-tools:build
+GNOME_COMPONENTS=	glib intltool
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-nls
+			--with-html-dir={{PREFIX}}/share/doc
+
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libxfce4util.so.${SOVERSION}
