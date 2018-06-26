@@ -250,7 +250,6 @@ lib/gnucash/libgncmod-locale-reports-us.so
 lib/gnucash/libgncmod-log-replay.so
 lib/gnucash/libgncmod-ofx.so
 lib/gnucash/libgncmod-qif-import.so
-lib/gnucash/libgncmod-qif.so
 lib/gnucash/libgncmod-register-core.so
 lib/gnucash/libgncmod-register-gnome.so
 lib/gnucash/libgncmod-report-gnome.so
@@ -271,6 +270,7 @@ lib/gnucash/scm/ccache/2.2/gnc-menu-extensions.go
 lib/gnucash/scm/ccache/2.2/gnc-numeric.go
 lib/gnucash/scm/ccache/2.2/hooks.go
 lib/gnucash/scm/ccache/2.2/html-acct-table.go
+lib/gnucash/scm/ccache/2.2/html-anytag.go
 lib/gnucash/scm/ccache/2.2/html-barchart.go
 lib/gnucash/scm/ccache/2.2/html-document.go
 lib/gnucash/scm/ccache/2.2/html-fonts.go
@@ -282,6 +282,7 @@ lib/gnucash/scm/ccache/2.2/html-style-sheet.go
 lib/gnucash/scm/ccache/2.2/html-table.go
 lib/gnucash/scm/ccache/2.2/html-text.go
 lib/gnucash/scm/ccache/2.2/html-utilities.go
+lib/gnucash/scm/ccache/2.2/json.go
 lib/gnucash/scm/ccache/2.2/migrate-prefs.go
 lib/gnucash/scm/ccache/2.2/options-utilities.go
 lib/gnucash/scm/ccache/2.2/options.go
@@ -338,7 +339,6 @@ lib/gnucash/scm/ccache/2.2/gnucash/report/welcome-to-gnucash.go
 lib/gnucash/scm/ccache/2.2/gnucash/report/locale-specific/de_DE.go
 lib/gnucash/scm/ccache/2.2/gnucash/report/locale-specific/us.go
 lib/gnucash/scm/ccache/2.2/gnucash/report/report-system/collectors.go
-lib/gnucash/scm/ccache/2.2/gnucash/report/report-system/list-extras.go
 lib/gnucash/scm/ccache/2.2/gnucash/report/report-system/report-collectors.go
 lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/account-piecharts.go
 lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/account-summary.go
@@ -359,8 +359,7 @@ lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/general-journal.go
 lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/general-ledger.go
 lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/income-gst-statement.go
 lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/income-statement.go
-lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/net-barchart.go
-lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/net-linechart.go
+lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/net-charts.go
 lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/portfolio.go
 lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/price-scatter.go
 lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/register.go
@@ -369,6 +368,9 @@ lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/transaction.go
 lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/trial-balance.go
 lib/gnucash/scm/ccache/2.2/gnucash/tax/de_DE.go
 lib/gnucash/scm/ccache/2.2/gnucash/tax/us.go
+lib/gnucash/scm/ccache/2.2/json/builder.go
+lib/gnucash/scm/ccache/2.2/json/parser.go
+lib/gnucash/scm/ccache/2.2/json/syntax.go
 lib/gnucash/scm/ccache/2.2/qif-import/qif-dialog-utils.go
 lib/gnucash/scm/ccache/2.2/qif-import/qif-file.go
 lib/gnucash/scm/ccache/2.2/qif-import/qif-guess-map.go
@@ -935,6 +937,7 @@ share/gnucash/scm/gnc-menu-extensions.scm
 share/gnucash/scm/gnc-numeric.scm
 share/gnucash/scm/hooks.scm
 share/gnucash/scm/html-acct-table.scm
+share/gnucash/scm/html-anytag.scm
 share/gnucash/scm/html-barchart.scm
 share/gnucash/scm/html-document.scm
 share/gnucash/scm/html-fonts.scm
@@ -946,6 +949,7 @@ share/gnucash/scm/html-style-sheet.scm
 share/gnucash/scm/html-table.scm
 share/gnucash/scm/html-text.scm
 share/gnucash/scm/html-utilities.scm
+share/gnucash/scm/json.scm
 share/gnucash/scm/migrate-prefs.scm
 share/gnucash/scm/options-utilities.scm
 share/gnucash/scm/options.scm
@@ -1008,7 +1012,6 @@ share/gnucash/scm/gnucash/report/welcome-to-gnucash.scm
 share/gnucash/scm/gnucash/report/locale-specific/de_DE.scm
 share/gnucash/scm/gnucash/report/locale-specific/us.scm
 share/gnucash/scm/gnucash/report/report-system/collectors.scm
-share/gnucash/scm/gnucash/report/report-system/list-extras.scm
 share/gnucash/scm/gnucash/report/report-system/report-collectors.scm
 share/gnucash/scm/gnucash/report/standard-reports/account-piecharts.scm
 share/gnucash/scm/gnucash/report/standard-reports/account-summary.scm
@@ -1029,8 +1032,7 @@ share/gnucash/scm/gnucash/report/standard-reports/general-journal.scm
 share/gnucash/scm/gnucash/report/standard-reports/general-ledger.scm
 share/gnucash/scm/gnucash/report/standard-reports/income-gst-statement.scm
 share/gnucash/scm/gnucash/report/standard-reports/income-statement.scm
-share/gnucash/scm/gnucash/report/standard-reports/net-barchart.scm
-share/gnucash/scm/gnucash/report/standard-reports/net-linechart.scm
+share/gnucash/scm/gnucash/report/standard-reports/net-charts.scm
 share/gnucash/scm/gnucash/report/standard-reports/portfolio.scm
 share/gnucash/scm/gnucash/report/standard-reports/price-scatter.scm
 share/gnucash/scm/gnucash/report/standard-reports/register.scm
@@ -1039,6 +1041,9 @@ share/gnucash/scm/gnucash/report/standard-reports/transaction.scm
 share/gnucash/scm/gnucash/report/standard-reports/trial-balance.scm
 share/gnucash/scm/gnucash/tax/de_DE.scm
 share/gnucash/scm/gnucash/tax/us.scm
+share/gnucash/scm/json/builder.scm
+share/gnucash/scm/json/parser.scm
+share/gnucash/scm/json/syntax.scm
 share/gnucash/scm/qif-import/qif-dialog-utils.scm
 share/gnucash/scm/qif-import/qif-file.scm
 share/gnucash/scm/qif-import/qif-guess-map.scm

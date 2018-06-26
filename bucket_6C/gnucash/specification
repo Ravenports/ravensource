@@ -1,11 +1,13 @@
-DEF[DASH]=		-1
-DEF[BASEVER]=		3.1
-DEF[PORTVERSION]=	${BASEVER}${DASH:S/-/./}
+DEF[BASEVER]=		3.2
+# DEF[DASH]=		-1
+# DEF[PORTVERSION]=	${BASEVER}${DASH:S/-/./}
+# DEF[DISTVERSION]=	${BASEVER}${DASH}
+DEF[PORTVERSION]=	${BASEVER}
+DEF[DISTVERSION]=	${BASEVER}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnucash
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		finance
 VARIANTS=		standard
 SDESC[standard]=	Financial accounting software
@@ -14,7 +16,7 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/gnucash/gnucash%20%28stable%29/${BASEVER}
-DISTFILE[1]=		gnucash-${BASEVER}${DASH}.tar.bz2:main
+DISTFILE[1]=		gnucash-${DISTVERSION}.tar.bz2:main
 
 SPKGS[standard]=	complete primary docs
 
@@ -92,10 +94,11 @@ post-patch:
 		${FIND} . -type f -name CMakeLists.txt \
 		-exec ${REINPLACE_CMD} \
 		-e 's|/usr/local/share|${PREFIX}/share|' \
-		-e '/ADD_SUBDIRECTORY *(test.*)/d' \
-		-e '/ENABLE_TESTING()/d' \
+		-e 's| -Werror||' \
+		-e '/add_subdirectory *(test.*)/d' \
+		-e '/enable_testing()/d' -e '/include (GncAddTest)/d' \
 		-e '/INCLUDE (GncAddTest)/d' \
-		-e '/GNC_GTEST_CONFIGURE()/d' {} +)
+		-e '/gnc_gtest_configure()/d' {} +)
 
 post-install:
 	(cd ${STAGEDIR}${PREFIX}/etc/gnucash && \
