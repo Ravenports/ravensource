@@ -1,0 +1,45 @@
+# manually update when perl versions are cycled
+DEF[PORTVERSION]=	1
+DEF[ALPHA]=		5.28
+DEF[BRAVO]=		5.26
+DEF[ALPHA_FULL]=	EXTRACT_VERSION(PERL_5.28_VERSION)
+DEF[BRAVO_FULL]=	EXTRACT_VERSION(PERL_5.26_VERSION)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		autoselect-perl
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		standard
+SDESC[standard]=	Dynamic links to the latest installed perl
+HOMEPAGE=		none
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	none
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		ISCL:single
+LICENSE_FILE=		ISCL:{{FILESDIR}}/LICENSE_ISC
+LICENSE_SCHEME=		solo
+
+SUB_FILES=		autoselect.c
+SUB_LIST=		ALPHA=${ALPHA} ALPHA_FULL=${ALPHA_FULL}
+			BRAVO=${BRAVO} BRAVO_FULL=${BRAVO_FULL}
+
+post-patch:
+	@${MKDIR} ${WRKSRC}
+	${CP} ${WRKDIR}/autoselect.c ${WRKSRC}
+
+do-build:
+	(cd ${WRKSRC} && ${CC} ${CFLAGS} ${LDFLAGS} -o generic autoselect.c)
+
+do-install:
+.for prog in perl perl5 corelist cpan enc2xs encguess h2ph h2xs \
+	instmodsh json_pp libnetcfg perlbug perldoc perlivp perlthanks \
+	piconv pl2pm pod2html pod2man pod2text pod2usage podchecker \
+	podselect prove ptar ptardiff ptargrep shasum splain xsubpp zipdetails
+	${INSTALL_PROGRAM} ${WRKSRC}/generic ${STAGEDIR}${PREFIX}/bin/${prog}
+.endfor
