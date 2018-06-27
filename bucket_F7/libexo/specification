@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	0.12.2
+DEF[SOVERSION]=		0.1.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libexo
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Xfce application development library
+HOMEPAGE=		https://xfce.org
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://archive.xfce.org/src/xfce/exo/${PORTVERSION:R}/
+DISTFILE[1]=		exo-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary docs nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11/libexo
+
+BUILDRUN_DEPENDS=	desktop-file-utils:single:standard
+			fontconfig:primary:standard
+			freetype:primary:standard
+			libxfce4ui:primary:standard
+			perl-URI:single:perl_default
+USES=			gettext-runtime gettext-tools:build gmake libtool perl pkgconfig
+XORG_COMPONENTS=	ice sm x11
+GNOME_COMPONENTS=	cairo glib gtk3 intltool
+DISTNAME=		exo-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-nls
+			--with-html-dir={{PREFIX}}/share/doc
+			--disable-silent-rules
+INSTALL_TARGET=		install-strip
+
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${MV} ${STAGEDIR}${PREFIX}/share/doc/exo-1 ${STAGEDIR}${PREFIX}/share/doc/libexo
