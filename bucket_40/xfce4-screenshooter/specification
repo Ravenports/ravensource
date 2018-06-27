@@ -1,0 +1,30 @@
+DEF[PORTVERSION]=	1.9.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xfce4-screenshooter
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Screenshot utility and panel plugin for Xfce
+HOMEPAGE=		https://xfce.org
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://archive.xfce.org/src/apps/xfce4-screenshooter/${PORTVERSION:R}/
+DISTFILE[1]=		xfce4-screenshooter-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11/xfce4-screenshooter-plugin
+
+BUILDRUN_DEPENDS=	libsoup:primary:standard
+			xfce4-panel:primary:standard
+USES=			gettext-runtime gettext-tools:build gmake libtool pkgconfig
+XORG_COMPONENTS=	ice sm x11 xfixes xext
+GNOME_COMPONENTS=	cairo glib gtk3 intltool libxml2
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-nls
+INSTALL_TARGET=		install-strip
