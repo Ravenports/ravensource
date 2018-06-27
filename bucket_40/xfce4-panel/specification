@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	4.13.3
+DEF[SOVERSION]=		4.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xfce4-panel
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Panel for the Xfce4 desktop environment
+HOMEPAGE=		https://xfce.org
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://archive.xfce.org/src/xfce/xfce4-panel/${PORTVERSION:R}/
+DISTFILE[1]=		xfce4-panel-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary docs nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11-wm/xfce4-panel
+
+BUILDRUN_DEPENDS=	desktop-file-utils:single:standard
+			dbus:single:standard
+			dbus-glib:primary:standard
+			fontconfig:primary:standard
+			freetype:primary:standard
+			garcon:primary:standard
+			libexo:primary:standard
+			libwnck:primary:standard
+USES=			gettext-runtime gettext-tools:build gmake libtool perl pkgconfig
+XORG_COMPONENTS=	ice sm x11 xext
+GNOME_COMPONENTS=	glib gtk3 intltool cairo
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-gio-unix
+			--enable-nls
+			--with-html-dir={{PREFIX}}/share/doc
+INSTALL_REQ_TOOLCHAIN=	yes
+INSTALL_TARGET=		install-strip
+
+SOVERSION=		${SOVERSION}
