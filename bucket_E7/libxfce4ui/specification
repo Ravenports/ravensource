@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	4.13.4
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libxfce4ui
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Xfce UI library containing various GTK+ widgets
+HOMEPAGE=		https://xfce.org
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://archive.xfce.org/src/xfce/libxfce4ui/${PORTVERSION:R}/
+DISTFILE[1]=		libxfce4ui-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary docs nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Yes, this is correct: The portname in the FPC is actually wrong!
+FPC_EQUIVALENT=		x11/libxfce4menu
+
+BUILDRUN_DEPENDS=	startup-notification:single:standard
+			xfconf:primary:standard
+USES=			gettext-runtime gettext-tools:build gmake libtool pkgconfig
+GNOME_COMPONENTS=	glib gtk3 intltool
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-nls
+			--with-html-dir={{PREFIX}}/share/doc
+INSTALL_REQ_TOOLCHAIN=	yes
+INSTALL_TARGET=		install-strip
+
+SOVERSION=		${SOVERSION}
