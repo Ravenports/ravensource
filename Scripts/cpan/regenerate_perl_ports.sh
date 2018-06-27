@@ -41,9 +41,9 @@
 #   elaborated in the files (so they may not be zero-length like the others)
 #
 # Install:
-# perl-5.26-complete-standard
-# perl-File-Slurp-single-526
-# perl-JSON-single-526
+# perl-5.28-complete-standard
+# perl-File-Slurp-single-528
+# perl-JSON-single-528
 
 [ -n "${DEBUG_MK_SCRIPTS}" -o -n "${DEBUG_MK_SCRIPTS_MAKESUM}" ] && set -x
 
@@ -63,8 +63,8 @@ RMVLIST=${thisdir}/bad-v.list
 urlstub="http://cpansearch.perl.org/src/"
 mirror_base="/mech/var/cache/cpan/"
 
-perlv1="5.26.2"
-perlv2="5.24.4"
+perlv1="5.28.0"
+perlv2="5.26.2"
 
 if [ "${1}" == "check-core" ]; then
    check_core=1;

@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.07
 NAMEBASE=		perl-Array-Diff
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		526 524
+VARIANTS=		528 526
+SDESC[528]=		Find the differences between two arrays (v528)
 SDESC[526]=		Find the differences between two arrays (v526)
-SDESC[524]=		Find the differences between two arrays (v524)
 
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
@@ -15,13 +15,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:T/TY/TYPESTER
 DISTFILE[1]=		Array-Diff-0.07.tar.gz:main
 
+SPKGS[528]=		single
 SPKGS[526]=		single
-SPKGS[524]=		single
 
-OPTIONS_AVAILABLE=	PERL_526 PERL_524
+OPTIONS_AVAILABLE=	PERL_528 PERL_526
 OPTIONS_STANDARD=	none
-VOPTS[526]=		PERL_526=ON PERL_524=OFF
-VOPTS[524]=		PERL_526=OFF PERL_524=ON
+VOPTS[528]=		PERL_528=ON PERL_526=OFF
+VOPTS[526]=		PERL_528=OFF PERL_526=ON
 
 GENERATED=		yes
 SINGLE_JOB=		yes
@@ -32,18 +32,18 @@ DISTNAME=		Array-Diff-0.07
 # -----------------------------------------------
 # |           requires : Algorithm::Diff
 # |           requires : Class::Accessor::Fast
-# |           requires : Filter::Util::Call (perl 5.26 core) (perl 5.24 core)
-# | configure_requires : ExtUtils::MakeMaker (perl 5.26 core) (perl 5.24 core)
-# |     build_requires : ExtUtils::MakeMaker (perl 5.26 core) (perl 5.24 core)
+# |           requires : Filter::Util::Call (perl 5.28 core) (perl 5.26 core)
+# | configure_requires : ExtUtils::MakeMaker (perl 5.28 core) (perl 5.26 core)
+# |     build_requires : ExtUtils::MakeMaker (perl 5.28 core) (perl 5.26 core)
 # |         recommends : Algorithm::Diff::XS
 
+[PERL_528].USES_ON=			perl:528,configure
 [PERL_526].USES_ON=			perl:526,configure
-[PERL_524].USES_ON=			perl:524,configure
+[PERL_528].BUILDRUN_DEPENDS_ON=		perl-Algorithm-Diff:single:528
+					perl-Class-Accessor:single:528
+					perl-Algorithm-Diff-XS:single:528
 [PERL_526].BUILDRUN_DEPENDS_ON=		perl-Algorithm-Diff:single:526
 					perl-Class-Accessor:single:526
 					perl-Algorithm-Diff-XS:single:526
-[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Algorithm-Diff:single:524
-					perl-Class-Accessor:single:524
-					perl-Algorithm-Diff-XS:single:524
 
 

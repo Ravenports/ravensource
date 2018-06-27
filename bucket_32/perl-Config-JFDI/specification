@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.065
 NAMEBASE=		perl-Config-JFDI
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		526 524
+VARIANTS=		528 526
+SDESC[528]=		Just * Do it: A Catalyst::Plugin::ConfigLoa (v528)
 SDESC[526]=		Just * Do it: A Catalyst::Plugin::ConfigLoa (v526)
-SDESC[524]=		Just * Do it: A Catalyst::Plugin::ConfigLoa (v524)
 
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
@@ -15,13 +15,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:R/RO/ROKR
 DISTFILE[1]=		Config-JFDI-0.065.tar.gz:main
 
+SPKGS[528]=		single
 SPKGS[526]=		single
-SPKGS[524]=		single
 
-OPTIONS_AVAILABLE=	PERL_526 PERL_524
+OPTIONS_AVAILABLE=	PERL_528 PERL_526
 OPTIONS_STANDARD=	none
-VOPTS[526]=		PERL_526=ON PERL_524=OFF
-VOPTS[524]=		PERL_526=OFF PERL_524=ON
+VOPTS[528]=		PERL_528=ON PERL_526=OFF
+VOPTS[526]=		PERL_528=OFF PERL_526=ON
 
 GENERATED=		yes
 SINGLE_JOB=		yes
@@ -41,11 +41,23 @@ DISTNAME=		Config-JFDI-0.065
 # |           requires : List::MoreUtils
 # |           requires : Path::Class
 # |           requires : Sub::Install
-# | configure_requires : ExtUtils::MakeMaker (perl 5.26 core) (perl 5.24 core)
+# | configure_requires : ExtUtils::MakeMaker (perl 5.28 core) (perl 5.26 core)
 # |     build_requires : Test::Most
 
+[PERL_528].USES_ON=			perl:528,configure
 [PERL_526].USES_ON=			perl:526,configure
-[PERL_524].USES_ON=			perl:524,configure
+[PERL_528].BUILD_DEPENDS_ON=		perl-Test-Most:single:528
+[PERL_528].BUILDRUN_DEPENDS_ON=		perl-Any-Moose:single:528
+					perl-Carp-Clan-Share:single:528
+					perl-Clone:single:528
+					perl-Config-Any:single:528
+					perl-Config-General:single:528
+					perl-Data-Visitor:single:528
+					perl-Getopt-Usaginator:single:528
+					perl-Hash-Merge-Simple:single:528
+					perl-List-MoreUtils:single:528
+					perl-Path-Class:single:528
+					perl-Sub-Install:single:528
 [PERL_526].BUILD_DEPENDS_ON=		perl-Test-Most:single:526
 [PERL_526].BUILDRUN_DEPENDS_ON=		perl-Any-Moose:single:526
 					perl-Carp-Clan-Share:single:526
@@ -58,17 +70,5 @@ DISTNAME=		Config-JFDI-0.065
 					perl-List-MoreUtils:single:526
 					perl-Path-Class:single:526
 					perl-Sub-Install:single:526
-[PERL_524].BUILD_DEPENDS_ON=		perl-Test-Most:single:524
-[PERL_524].BUILDRUN_DEPENDS_ON=		perl-Any-Moose:single:524
-					perl-Carp-Clan-Share:single:524
-					perl-Clone:single:524
-					perl-Config-Any:single:524
-					perl-Config-General:single:524
-					perl-Data-Visitor:single:524
-					perl-Getopt-Usaginator:single:524
-					perl-Hash-Merge-Simple:single:524
-					perl-List-MoreUtils:single:524
-					perl-Path-Class:single:524
-					perl-Sub-Install:single:524
 
 
