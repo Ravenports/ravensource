@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.9
+DEF[PORTVERSION]=	1.10
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		shared-mime-info
@@ -18,6 +18,11 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		GPLv2:single
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		misc/shared-mime-info
 
 USES=			pkgconfig gmake gettext-tools
@@ -29,6 +34,10 @@ SINGLE_JOB=		yes
 
 SUB_FILES=		pkg-install-single
 SUB_LIST=		MIMEDIRS="{{CLEAN_MIMEDIRS}}"
+
+post-extract:
+	${AWK} '/Copyright/,/file named COPYING/' \
+		${WRKSRC}/update-mime-database.c > ${WRKDIR}/TERMS
 
 post-patch:
 	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g' \
