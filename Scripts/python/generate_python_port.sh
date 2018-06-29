@@ -8,7 +8,7 @@
 #           python-funcsigs:py27
 #           python-mock-single-py27
 #           python-setuptools-py36
-#           python-setuptools-py35
+#           python-setuptools-py37
 
 [ -n "${DEBUG_MK_SCRIPTS}" -o -n "${DEBUG_MK_SCRIPTS_MAKESUM}" ] && set -x
 
@@ -148,15 +148,15 @@ determine_variants() {
         fi
         ;;
    esac
-   exec_setup python3.5 --name > /dev/null
-   if [ $? -eq 0 ]; then
-      vrt="${vrt} py35"
-      [ -z "${FIRST_SNAKE}" ] && FIRST_SNAKE=python3.5
-   fi
    exec_setup python3.6 --name > /dev/null
    if [ $? -eq 0 ]; then
       vrt="${vrt} py36"
       [ -z "${FIRST_SNAKE}" ] && FIRST_SNAKE=python3.6
+   fi
+   exec_setup python3.7 --name > /dev/null
+   if [ $? -eq 0 ]; then
+      vrt="${vrt} py37"
+      [ -z "${FIRST_SNAKE}" ] && FIRST_SNAKE=python3.7
    fi
    for v in ${vrt}; do
       if [ -z "${VARIANTS}" ]; then
