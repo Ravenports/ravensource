@@ -1,6 +1,8 @@
 DEF[PORTVERSION]=	0.28.2
 DEF[WAF_TAG]=		1.9.8
 DEF[SOVERSION]=		1.26.0
+# should be "python_default"
+DEF[PY_BUILD]=		py36
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mpv
@@ -32,7 +34,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		multimedia/mpv
 
-BUILD_DEPENDS=		python-docutils:single:python_default
+BUILD_DEPENDS=		python-docutils:single:${PY_BUILD}
 			video4linux:headers:standard
 BUILDRUN_DEPENDS=	ffmpeg:primary:standard
 			libarchive:single:standard
@@ -46,7 +48,7 @@ BUILDRUN_DEPENDS=	ffmpeg:primary:standard
 RUN_DEPENDS=		youtube-dl:single:standard
 
 USES=			iconv jpeg lua:5.2 pkgconfig
-			perl:build python:build
+			perl:build python:build,${PY_BUILD}
 			desktop-utils:primary gnome-icons:primary
 SDL_COMPONENTS=		sdl2
 XORG_COMPONENTS=	x11 xext xinerama xrandr xscrnsaver xv xxf86vm
