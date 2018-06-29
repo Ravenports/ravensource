@@ -189,6 +189,7 @@ get_filtered_url() {
       url=$(get_url)
       case ${url} in
          http://github.com/* | http://pypi.python.org/* | http://bitbucket.org/* | \
+         http://lxml.de/* | \
          http://certifi.io/* | http://docs.openstack.org/* | http://msgpack.org/* )
             echo ${url} | sed -e "s/^http:/https:/"
             ;;
