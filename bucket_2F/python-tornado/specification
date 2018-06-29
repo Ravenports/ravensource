@@ -4,9 +4,8 @@ DEF[PORTVERSION]=	5.0.2
 NAMEBASE=		python-tornado
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py27 py35 py36
+VARIANTS=		py27 py36
 SDESC[py27]=		Web framework and asynchronous networking (PY 27)
-SDESC[py35]=		Web framework and asynchronous networking (PY 35)
 SDESC[py36]=		Web framework and asynchronous networking (PY 36)
 HOMEPAGE=		http://www.tornadoweb.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
@@ -16,14 +15,12 @@ SITES[main]=		PYPI/t/tornado
 DISTFILE[1]=		tornado-5.0.2.tar.gz:main
 
 SPKGS[py27]=		single
-SPKGS[py35]=		single
 SPKGS[py36]=		single
 
-OPTIONS_AVAILABLE=	PY27 PY35 PY36
+OPTIONS_AVAILABLE=	PY27 PY36
 OPTIONS_STANDARD=	none
-VOPTS[py27]=		PY27=ON PY35=OFF PY36=OFF
-VOPTS[py35]=		PY27=OFF PY35=ON PY36=OFF
-VOPTS[py36]=		PY27=OFF PY35=OFF PY36=ON
+VOPTS[py27]=		PY27=ON PY36=OFF
+VOPTS[py36]=		PY27=OFF PY36=ON
 
 # Output of setup.py --license
 # http://www.apache.org/licenses/LICENSE-2.0
@@ -41,8 +38,6 @@ DISTNAME=		tornado-${PORTVERSION}
 [PY27].BUILDRUN_DEPENDS_ON=		python-futures:single:py27
 					python-singledispatch:single:py27
 					python-backports_abc:single:py27
-
-[PY35].USES_ON=				python:py35
 
 [PY36].USES_ON=				python:py36
 

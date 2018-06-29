@@ -8,10 +8,10 @@ NAMEBASE=		boost-libraries
 VERSION=		${PORTVERSION}
 REVISION=		${REVISION}
 KEYWORDS=		devel c++
-VARIANTS=		py27 py36 py35
+VARIANTS=		py27 py36 py37
 SDESC[py27]=		Free portable C++ libraries (PY 27)
 SDESC[py36]=		Free portable C++ libraries (PY 36)
-SDESC[py35]=		Free portable C++ libraries (PY 35)
+SDESC[py37]=		Free portable C++ libraries (PY 37)
 HOMEPAGE=		https://www.boost.org/
 CONTACT=		nobody
 
@@ -21,20 +21,20 @@ DISTFILE[1]=		boost_${BOOSTVER}.tar.bz2:main
 
 SPKGS[py27]=		complete rest python
 SPKGS[py36]=		complete rest python
-SPKGS[py35]=		complete rest python
+SPKGS[py37]=		complete rest python
 
-OPTIONS_AVAILABLE=	PY27 PY36 PY35
+OPTIONS_AVAILABLE=	PY27 PY36 PY37
 OPTIONS_STANDARD=	none
-VOPTS[py27]=		PY27=ON PY36=OFF PY35=OFF
-VOPTS[py36]=		PY27=OFF PY36=ON PY35=OFF
-VOPTS[py35]=		PY27=OFF PY36=OFF PY35=ON
+VOPTS[py27]=		PY27=ON PY36=OFF PY37=OFF
+VOPTS[py36]=		PY27=OFF PY36=ON PY37=OFF
+VOPTS[py37]=		PY27=OFF PY36=OFF PY37=ON
 
 FPC_EQUIVALENT=		devel/boost-all
 
 BUILD_DEPENDS=		boost-jam:single:standard
 			bzip2:complete:standard
 BUILDRUN_DEPENDS=	icu:single:standard
-EXRUN[python]=		python35:single:standard
+EXRUN[python]=		python37:single:standard
 
 USES=			iconv c++:rest,python zlib
 DISTNAME=		boost_${BOOSTVER}
@@ -69,7 +69,7 @@ VAR_OPSYS[freebsd]=	MAKE_ARGS=pch=off
 
 [PY27].USES_ON=				python:py27,build
 [PY36].USES_ON=				python:py36,build
-[PY35].USES_ON=				python:py35,build
+[PY37].USES_ON=				python:py37,build
 
 post-patch:
 	${REINPLACE_CMD} -e 's|$$(RPATH)|${HARDCODE_RPATH}|' \

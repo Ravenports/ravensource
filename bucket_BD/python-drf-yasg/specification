@@ -4,8 +4,7 @@ DEF[PORTVERSION]=	1.9.0
 NAMEBASE=		python-drf-yasg
 VERSION=		${PORTVERSION}
 KEYWORDS=		python devel
-VARIANTS=		py35 py36
-SDESC[py35]=		Django Swagger/OpenAPI spec generator (PY 35)
+VARIANTS=		py36
 SDESC[py36]=		Django Swagger/OpenAPI spec generator (PY 36)
 HOMEPAGE=		https://github.com/axnsan12/drf-yasg
 CONTACT=		Python_Automaton[python@ironwolf.systems]
@@ -14,13 +13,11 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/d/drf-yasg
 DISTFILE[1]=		drf-yasg-1.9.0.tar.gz:main
 
-SPKGS[py35]=		single
 SPKGS[py36]=		single
 
-OPTIONS_AVAILABLE=	PY35 PY36
+OPTIONS_AVAILABLE=	PY36
 OPTIONS_STANDARD=	none
-VOPTS[py35]=		PY35=ON PY36=OFF
-VOPTS[py36]=		PY35=OFF PY36=ON
+VOPTS[py36]=		PY36=ON
 
 # Output of setup.py --license
 # BSD License
@@ -41,19 +38,6 @@ GENERATED=		yes
 # setuptools_scm==1.15.6
 
 DISTNAME=		drf-yasg-${PORTVERSION}
-
-[PY35].USES_ON=				python:py35
-[PY35].BUILDRUN_DEPENDS_ON=		python-coreapi:single:py35
-					python-coreschema:single:py35
-					python-openapi-codec:single:py35
-					python-ruamel.yaml:single:py35
-					python-inflection:single:py35
-					python-future:single:py35
-					python-six:single:py35
-					python-uritemplate:single:py35
-					python-djangorestframework:single:py35
-					python-Django:single:py35
-					python-setuptools_scm:single:py35
 
 [PY36].USES_ON=				python:py36
 [PY36].BUILDRUN_DEPENDS_ON=		python-coreapi:single:py36

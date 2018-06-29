@@ -1,11 +1,12 @@
+# manually maintained
 DEF[PORTVERSION]=	1.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-libversion
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py35 py36
-SDESC[py35]=		Python bindings for libversion (PY 35)
+VARIANTS=		py37 py36
+SDESC[py37]=		Python bindings for libversion (PY 37)
 SDESC[py36]=		Python bindings for libversion (PY 36)
 HOMEPAGE=		https://github.com/repology/py-libversion
 CONTACT=		Python_Automaton[python@ironwolf.systems]
@@ -14,13 +15,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/repology:py-libversion:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[py35]=		single
+SPKGS[py37]=		single
 SPKGS[py36]=		single
 
-OPTIONS_AVAILABLE=	PY35 PY36
+OPTIONS_AVAILABLE=	PY37 PY36
 OPTIONS_STANDARD=	none
-VOPTS[py35]=		PY35=ON PY36=OFF
-VOPTS[py36]=		PY35=OFF PY36=ON
+VOPTS[py37]=		PY37=ON PY36=OFF
+VOPTS[py36]=		PY37=OFF PY36=ON
 
 LICENSE=		MIT:single
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
@@ -30,5 +31,5 @@ BUILDRUN_DEPENDS=	libversion:single:standard
 
 USES=			pkgconfig
 
-[PY35].USES_ON=				python:py35
+[PY37].USES_ON=				python:py37
 [PY36].USES_ON=				python:py36

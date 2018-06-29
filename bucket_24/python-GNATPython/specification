@@ -1,3 +1,4 @@
+# manually maintained
 DEF[PORTVERSION]=	20140224
 # ----------------------------------------------------------------------------
 
@@ -6,9 +7,6 @@ VERSION=		${PORTVERSION}
 KEYWORDS=		devel ada python
 VARIANTS=		py27
 SDESC[py27]=		Python package used in Ada testsuites (PY 27)
-# SDESC[py36]=		Python package used in Ada testsuites (PY 36)
-# SDESC[py35]=		Python package used in Ada testsuites (PY 35)
-# HOMEPAGE=		https://forge.open-do.org/projects/gnatpython
 HOMEPAGE=		https://github.com/Nikokrock/gnatpython
 CONTACT=		John_Marino[draco@marino.st]
 
@@ -17,14 +15,10 @@ SITES[main]=		http://downloads.dragonlace.net/src/
 DISTFILE[1]=		gnatpython-${PORTVERSION}.tar.bz2:main
 
 SPKGS[py27]=		single
-# SPKGS[py36]=		single
-# SPKGS[py35]=		single
 
-OPTIONS_AVAILABLE=	PY27 PY36 PY35
+OPTIONS_AVAILABLE=	PY27
 OPTIONS_STANDARD=	none
-VOPTS[py27]=		PY27=ON PY36=OFF PY35=OFF
-# VOPTS[py36]=		PY27=OFF PY36=ON PY35=OFF
-# VOPTS[py35]=		PY27=OFF PY36=OFF PY35=ON
+VOPTS[py27]=		PY27=ON
 
 LICENSE=		GPLv3:single
 LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING3
@@ -35,5 +29,3 @@ FPC_EQUIVALENT=		devel/gnatpython
 DISTNAME=		gnatpython-${PORTVERSION}
 
 [PY27].USES_ON=				python:py27
-[PY36].USES_ON=				python:py36
-[PY35].USES_ON=				python:py35

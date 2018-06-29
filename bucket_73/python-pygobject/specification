@@ -1,13 +1,14 @@
+# manually maintained
 DEF[PORTVERSION]=	3.28.3
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pygobject
 VERSION=		${PORTVERSION}
 KEYWORDS=		python devel
-VARIANTS=		py27 py36 py35
+VARIANTS=		py27 py36 py37
 SDESC[py27]=		Python bindings for GObject (PY 27)
 SDESC[py36]=		Python bindings for GObject (PY 36)
-SDESC[py35]=		Python bindings for GObject (PY 35)
+SDESC[py37]=		Python bindings for GObject (PY 37)
 HOMEPAGE=		https://wiki.gnome.org/Projects/PyGObject
 CONTACT=		nobody
 
@@ -18,13 +19,13 @@ DIST_SUBDIR=		gnome3
 
 SPKGS[py27]=		primary
 SPKGS[py36]=		primary
-SPKGS[py35]=		primary common
+SPKGS[py37]=		primary common
 
-OPTIONS_AVAILABLE=	PY27 PY36 PY35
+OPTIONS_AVAILABLE=	PY27 PY36 PY37
 OPTIONS_STANDARD=	none
-VOPTS[py27]=		PY27=ON PY36=OFF PY35=OFF
-VOPTS[py36]=		PY27=OFF PY36=ON PY35=OFF
-VOPTS[py35]=		PY27=OFF PY36=OFF PY35=ON
+VOPTS[py27]=		PY27=ON PY36=OFF PY37=OFF
+VOPTS[py36]=		PY27=OFF PY36=ON PY37=OFF
+VOPTS[py37]=		PY27=OFF PY36=OFF PY37=ON
 
 LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
@@ -38,7 +39,7 @@ FPC_EQUIVALENT=		devel/py-gobject3
 BUILDRUN_DEPENDS=	libffi:single:standard
 RUN_DEPENDS=		gobject-introspection:single:standard
 
-EXRUN[primary]=		python-pygobject:common:py35
+EXRUN[primary]=		python-pygobject:common:py37
 
 USES=			gmake libtool pkgconfig
 GNOME_COMPONENTS=	introspection
@@ -50,17 +51,17 @@ INSTALL_TARGET=		install-strip
 
 [PY27].USES_ON=				python:py27
 [PY36].USES_ON=				python:py36
-[PY35].USES_ON=				python:py35
+[PY37].USES_ON=				python:py37
 
 [PY27].BUILDRUN_DEPENDS_ON=		python-pycairo:single:py27
 [PY36].BUILDRUN_DEPENDS_ON=		python-pycairo:primary:py36
-					python-pycairo:common:py35
-[PY35].BUILDRUN_DEPENDS_ON=		python-pycairo:primary:py35
-					python-pycairo:common:py35
+					python-pycairo:common:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-pycairo:primary:py37
+					python-pycairo:common:py37
 
 post-extract:
 	${MV} ${WRKSRC}/setup.py ${WRKSRC}/setup.py.disable
 
-post-install-PY35-OFF:
+post-install-PY37-OFF:
 	${RM} -r ${STAGEDIR}${PREFIX}/include/pygobject-3.0
 	${RM} ${STAGEDIR}${PREFIX}/lib/pkgconfig/pygobject-3.0.pc
