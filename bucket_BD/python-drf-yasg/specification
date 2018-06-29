@@ -4,8 +4,9 @@ DEF[PORTVERSION]=	1.9.0
 NAMEBASE=		python-drf-yasg
 VERSION=		${PORTVERSION}
 KEYWORDS=		python devel
-VARIANTS=		py36
+VARIANTS=		py36 py37
 SDESC[py36]=		Django Swagger/OpenAPI spec generator (PY 36)
+SDESC[py37]=		Django Swagger/OpenAPI spec generator (PY 37)
 HOMEPAGE=		https://github.com/axnsan12/drf-yasg
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -14,10 +15,12 @@ SITES[main]=		PYPI/d/drf-yasg
 DISTFILE[1]=		drf-yasg-1.9.0.tar.gz:main
 
 SPKGS[py36]=		single
+SPKGS[py37]=		single
 
-OPTIONS_AVAILABLE=	PY36
+OPTIONS_AVAILABLE=	PY36 PY37
 OPTIONS_STANDARD=	none
-VOPTS[py36]=		PY36=ON
+VOPTS[py36]=		PY36=ON PY37=OFF
+VOPTS[py37]=		PY36=OFF PY37=ON
 
 # Output of setup.py --license
 # BSD License
@@ -35,7 +38,7 @@ GENERATED=		yes
 # uritemplate>=3.0.0
 # djangorestframework>=3.7.7
 # Django>=1.11.7
-# setuptools_scm==1.15.6
+# setuptools_scm>1
 
 DISTNAME=		drf-yasg-${PORTVERSION}
 
@@ -51,4 +54,17 @@ DISTNAME=		drf-yasg-${PORTVERSION}
 					python-djangorestframework:single:py36
 					python-Django:single:py36
 					python-setuptools_scm:single:py36
+
+[PY37].USES_ON=				python:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-coreapi:single:py37
+					python-coreschema:single:py37
+					python-openapi-codec:single:py37
+					python-ruamel.yaml:single:py37
+					python-inflection:single:py37
+					python-future:single:py37
+					python-six:single:py37
+					python-uritemplate:single:py37
+					python-djangorestframework:single:py37
+					python-Django:single:py37
+					python-setuptools_scm:single:py37
 

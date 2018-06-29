@@ -4,9 +4,10 @@ DEF[PORTVERSION]=	2.7.3
 NAMEBASE=		python-python-dateutil
 VERSION=		${PORTVERSION}
 KEYWORDS=		python devel
-VARIANTS=		py27 py36
+VARIANTS=		py27 py36 py37
 SDESC[py27]=		Extensions to the standard Python datetime (PY 27)
 SDESC[py36]=		Extensions to the standard Python datetime (PY 36)
+SDESC[py37]=		Extensions to the standard Python datetime (PY 37)
 HOMEPAGE=		https://dateutil.readthedocs.io
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -16,11 +17,13 @@ DISTFILE[1]=		python-dateutil-2.7.3.tar.gz:main
 
 SPKGS[py27]=		single
 SPKGS[py36]=		single
+SPKGS[py37]=		single
 
-OPTIONS_AVAILABLE=	PY27 PY36
+OPTIONS_AVAILABLE=	PY27 PY36 PY37
 OPTIONS_STANDARD=	none
-VOPTS[py27]=		PY27=ON PY36=OFF
-VOPTS[py36]=		PY27=OFF PY36=ON
+VOPTS[py27]=		PY27=ON PY36=OFF PY37=OFF
+VOPTS[py36]=		PY27=OFF PY36=ON PY37=OFF
+VOPTS[py37]=		PY27=OFF PY36=OFF PY37=ON
 
 # Output of setup.py --license
 # Dual License
@@ -40,4 +43,8 @@ DISTNAME=		python-dateutil-${PORTVERSION}
 [PY36].USES_ON=				python:py36
 [PY36].BUILDRUN_DEPENDS_ON=		python-six:single:py36
 					python-setuptools_scm:single:py36
+
+[PY37].USES_ON=				python:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-six:single:py37
+					python-setuptools_scm:single:py37
 

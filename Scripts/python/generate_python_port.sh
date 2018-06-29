@@ -9,6 +9,10 @@
 #           python-mock-single-py27
 #           python-setuptools-py36
 #           python-setuptools-py37
+#           python-setuptools_scm-py37
+#           python-setuptools_git-py37
+#           python-vcversioner-py37
+#           python-pbr-py37 (conflict issue with python-pbr-py27)
 
 [ -n "${DEBUG_MK_SCRIPTS}" -o -n "${DEBUG_MK_SCRIPTS_MAKESUM}" ] && set -x
 
@@ -420,7 +424,7 @@ EOF
       cat ${raven_req2}
    fi
 
-   (cd /tmp/expand/${DISTNAME}-${VERSION}/ && python3.5 obtain-req.py | sed '/^$/d') \
+   (cd /tmp/expand/${DISTNAME}-${VERSION}/ && python3.7 obtain-req.py | sed '/^$/d') \
     > ${raven_req3a}
    if [ $? -ne 0 ]; then
       echo "### Python script to obtain dependencies failed! ###";
@@ -479,7 +483,7 @@ dump_buildrun_options() {
    local reqfile
    for v in ${VARIANTS}; do
       case "${v}" in
-       py35) reqfile=${raven_req3a} ;;
+       py37) reqfile=${raven_req3a} ;;
        py36) reqfile=${raven_req3b} ;;
         *)   reqfile=${raven_req2} ;;
       esac
@@ -552,6 +556,19 @@ replace_port() {
 	/raven/bin/ravenadm dev buildsheet ${buckdir} save
 }
 
+replace_inline() {
+   local sedcmd
+   case "${PYPINAME}" in
+      drf-yasg) sedcmd='s/    _install_setup_requires.*/    pass/'
+         sed -i.bak -e 's/==.*/>1/' /tmp/expand/${DISTNAME}-${VERSION}/requirements/setup.txt
+         ;;
+      *) ;;
+   esac
+   if [ -n "${sedcmd}" ]; then
+      sed -i.bak -e "${sedcmd}" ${setup}
+   fi
+}
+
 generate_port() {
    local manualbit
    if [ -f "${buckdir}/specification.manual" ]; then
@@ -569,6 +586,7 @@ generate_port() {
       echo "Setup script '${setup}' is not present";
       exit 1;
    fi
+   replace_inline
    local hp_status=$(homepage_status ${PYPINAME})
    determine_variants
    create_description
