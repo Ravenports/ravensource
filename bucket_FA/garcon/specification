@@ -21,6 +21,16 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		sysutils/garcon
 
+LICENSE=		LGPL20+:primary
+			GFDL:docs
+LICENSE_SCHEME=		multi
+# COPYING exists but has a header and contains both licenses
+LICENSE_FILE=		LGPL20+:stock
+			GFDL:stock
+LICENSE_TERMS=		primary:{{WRKSRC}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/garcon/garcon.h
+
 BUILDRUN_DEPENDS=	libxfce4ui:primary:standard
 USES=			gettext-runtime gettext-tools:build gmake libtool pkgconfig python:build
 GNOME_COMPONENTS=	glib gtk3 intltool cairo gdkpixbuf
