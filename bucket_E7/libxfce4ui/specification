@@ -22,6 +22,13 @@ OPTIONS_STANDARD=	none
 # Yes, this is correct: The portname in the FPC is actually wrong!
 FPC_EQUIVALENT=		x11/libxfce4menu
 
+LICENSE=		LGPL20+:complete
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+LICENSE_TERMS=		complete:{{WRKSRC}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libxfce4ui/libxfce4ui.h
+
 BUILDRUN_DEPENDS=	startup-notification:single:standard
 			xfconf:primary:standard
 USES=			gettext-runtime gettext-tools:build gmake libtool pkgconfig
