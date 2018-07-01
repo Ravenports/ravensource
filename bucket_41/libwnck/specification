@@ -21,6 +21,11 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		x11-toolkits/libwnck3
 
+LICENSE=		LGPL20+:complete
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+LICENSE_TERMS=		complete:{{WRKDIR}}/TERMS
+
 BUILDRUN_DEPENDS=	startup-notification:single:standard
 USES=			bison gettext-runtime gettext-tools:build gmake libtool pkgconfig
 XORG_COMPONENTS=	xres x11
@@ -31,3 +36,7 @@ CONFIGURE_ARGS=		--disable-tools
 INSTALL_TARGET=		install-strip
 
 SOVERSION=		${SOVERSION}
+
+post-patch:
+	${HEAD} -n 19 ${WRKSRC}/libwnck/libwnck.h \
+		| ${TAIL} -n 17 > ${WRKDIR}/TERMS
