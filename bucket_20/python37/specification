@@ -18,9 +18,9 @@ DISTFILE[1]=		Python-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	single
 
-OPTIONS_AVAILABLE=	THREADS DEBUG PYMALLOC
-OPTIONS_STANDARD=	THREADS DEBUG PYMALLOC
-OPT_ON[all]=		THREADS PYMALLOC
+OPTIONS_AVAILABLE=	DEBUG PYMALLOC
+OPTIONS_STANDARD=	DEBUG PYMALLOC
+OPT_ON[all]=		PYMALLOC
 
 BUILD_DEPENDS=		expat:static:standard
 			bzip2:static:standard
@@ -28,7 +28,7 @@ BUILDRUN_DEPENDS=	libffi:single:standard
 			expat:shared:standard
 			bzip2:shared:standard
 			xz:single:standard
-BROKEN_SSL=		openssl-devel
+BR_DEPS[linux]=		libuuid:single:standard
 
 FPC_EQUIVALENT=		lang/python37
 
@@ -68,6 +68,7 @@ VAR_OPSYS[linux]=	PLIST_SUB=SOABI=.cpython-${PYTHON_SUFFIX}m-x86_64-linux-gnu
 			PLIST_SUB=SCD=x86_64-linux-gnu
 			PLIST_SUB=FULLABI={{ABIFLAGS}}-x86_64-linux-gnu
 			PLIST_SUB=PLAT={{OPSYS:tl}}
+			CPPFLAGS=-I{{LOCALBASE}}/include/uuid
 VAR_OPSYS[dragonfly]=	PLIST_SUB=SOABI=
 			PLIST_SUB=SCD=
 			PLIST_SUB=FULLABI={{ABIFLAGS}}
@@ -80,9 +81,6 @@ VAR_OPSYS[sunos]=	PLIST_SUB=SOABI=
 			PLIST_SUB=SCD=
 			PLIST_SUB=PLAT=sunos5
 			PLIST_SUB=FULLABI={{ABIFLAGS}}
-
-[THREADS].CONFIGURE_WITH_BOTH=		threads
-[THREADS].LDFLAGS_ON=			-pthread
 
 [DEBUG].CONFIGURE_WITH_BOTH=		pydebug
 [DEBUG].MAKEFILE_ON=			ABIFLAGS:=d{{ABIFLAGS}}
