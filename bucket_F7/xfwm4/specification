@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	4.13.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xfwm4
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Standard-complient window manager from Xfce
+HOMEPAGE=		https://xfce.org
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://archive.xfce.org/src/xfce/xfwm4/${PORTVERSION:R}/
+DISTFILE[1]=		xfwm4-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary nls themes
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11-wm/xfce4-wm
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+
+BUILDRUN_DEPENDS=	dbus:single:standard
+			dbus-glib:primary:standard
+			fontconfig:primary:standard
+			freetype:primary:standard
+			libwnck-legacy:primary:standard
+			libxfce4ui:primary:standard
+
+USES=			gettext-runtime gettext-tools:build gmake pkgconfig
+MUST_CONFIGURE=		gnu
+XORG_COMPONENTS=	ice sm x11 xcomposite xdamage xext xfixes xrandr xrender
+GNOME_COMPONENTS=	cairo gtk2 intltool
+INSTALL_TARGET=		install-strip
+
+post-patch:
+		${HEAD} -n 22 ${WRKSRC}/src/misc.h > \
+			${WRKDIR}/TERMS
