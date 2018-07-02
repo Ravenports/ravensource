@@ -25,6 +25,8 @@ LICENSE=		LGPL20+:complete
 LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 LICENSE_TERMS=		complete:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"ifndef"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libwnck/libwnck.h
 
 BUILDRUN_DEPENDS=	startup-notification:single:standard
 USES=			bison fbsd10fix gettext-runtime gettext-tools:build gmake libtool pkgconfig
@@ -37,7 +39,3 @@ DISTNAME=		libwnck-${PORTVERSION}
 INSTALL_TARGET=		install-strip
 
 SOVERSION=		${SOVERSION}
-
-post-patch:
-	${HEAD} -n 19 ${WRKSRC}/libwnck/libwnck.h \
-		| ${TAIL} -n 17 > ${WRKDIR}/TERMS
