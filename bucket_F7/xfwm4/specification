@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	4.13.0
 
 NAMEBASE=		xfwm4
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11
 VARIANTS=		standard
 SDESC[standard]=	Standard-complient window manager from Xfce
@@ -24,6 +25,8 @@ LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"ifndef"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/misc.h
 
 BUILDRUN_DEPENDS=	dbus:single:standard
 			dbus-glib:primary:standard
@@ -38,6 +41,4 @@ XORG_COMPONENTS=	ice sm x11 xcomposite xdamage xext xfixes xrandr xrender
 GNOME_COMPONENTS=	cairo gtk2 intltool
 INSTALL_TARGET=		install-strip
 
-post-patch:
-		${HEAD} -n 22 ${WRKSRC}/src/misc.h > \
-			${WRKDIR}/TERMS
+EXRUN[primary]=		xfwm4:themes:standard
