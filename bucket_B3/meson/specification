@@ -32,3 +32,8 @@ FPC_EQUIVALENT=		devel/meson
 RUN_DEPENDS=		ninja:single:standard
 
 USES=			python
+
+post-patch:
+	# remove with version 0.47 (fixes python 3.7)
+	${REINPLACE_CMD} -e 's/raise StopIteration/return/' \
+		${WRKSRC}/mesonbuild/compilers/compilers.py
