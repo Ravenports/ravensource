@@ -1,6 +1,6 @@
 # May need to lock version if following warning breaks rpath setting:
 # src/meson.build:72: WARNING: Passed invalid keyword argument "install_rpath"
-DEF[PORTVERSION]=	0.46.1
+DEF[PORTVERSION]=	0.47.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		meson
@@ -32,8 +32,3 @@ FPC_EQUIVALENT=		devel/meson
 RUN_DEPENDS=		ninja:single:standard
 
 USES=			python
-
-post-patch:
-	# remove with version 0.47 (fixes python 3.7)
-	${REINPLACE_CMD} -e 's/raise StopIteration/return/' \
-		${WRKSRC}/mesonbuild/compilers/compilers.py
