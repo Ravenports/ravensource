@@ -3,20 +3,28 @@ ADALIB!=	gnatls -v | grep adalib | awk '{print $$1}'
 STATIC_FLAGS=	-gnatQ -O2 -gnatn -gnatp -gnatA -j${PROCESSORS}
 DYNAMIC_FLAGS=	-fPIC ${STATIC_FLAGS}
 
-schema_libs: schema/lib/static/libxmlada_schema.a schema/lib/relocatable/libxmlada_schema.so
+STATIC_FLAVOR=		static static-pic
+FLAGS_static=		${STATIC_FLAGS}
+FLAGS_static-pic=	${DYNAMIC_FLAGS}
+
+schema_libs: schema/lib/static/libxmlada_schema.a
+schema_libs: schema/lib/static-pic/libxmlada_schema.a
+schema_libs: schema/lib/relocatable/libxmlada_schema.so
 
 #
 # unicode depends on nothing
 #
 
-unicode/lib/static/libxmlada_unicode.a: unicode/dummy_unicode.adb
-	@echo building static ${.TARGET:R} library
-	@mkdir -p unicode/obj/static unicode/lib/static
+.for FLAV in ${STATIC_FLAVOR}
+unicode/lib/${FLAV}/libxmlada_unicode.a: unicode/dummy_unicode.adb
+	@echo building ${FLAV} ${.TARGET:R} library
+	@mkdir -p unicode/obj/${FLAV} unicode/lib/${FLAV}
 	@rm -f ${.TARGET}
-	gnatmake -c ${.ALLSRC} -D unicode/obj/static ${STATIC_FLAGS}
-	rm unicode/obj/static/dummy*
-	ar cq ${.TARGET} unicode/obj/static/*.o
+	gnatmake -c ${.ALLSRC} -D unicode/obj/${FLAV} ${FLAGS_${FLAV}}
+	rm unicode/obj/${FLAV}/dummy*
+	ar cq ${.TARGET} unicode/obj/${FLAV}/*.o
 	ranlib ${.TARGET}
+.endfor
 
 unicode/lib/relocatable/libxmlada_unicode.so: unicode/dummy_unicode.adb
 	@echo building shared library ${.TARGET:R}
@@ -34,14 +42,16 @@ unicode/lib/relocatable/libxmlada_unicode.so: unicode/dummy_unicode.adb
 # input sources depends on unicode
 #
 
-input_sources/lib/static/libxmlada_input_sources.a: input_sources/dummy_input_sources.adb unicode/lib/static/libxmlada_unicode.a
-	@echo building static ${.TARGET:R} library
-	@mkdir -p input_sources/obj/static input_sources/lib/static
+.for FLAV in ${STATIC_FLAVOR}
+input_sources/lib/${FLAV}/libxmlada_input_sources.a: input_sources/dummy_input_sources.adb unicode/lib/${FLAV}/libxmlada_unicode.a
+	@echo building ${FLAV} ${.TARGET:R} library
+	@mkdir -p input_sources/obj/${FLAV} input_sources/lib/${FLAV}
 	@rm -f ${.TARGET}
-	gnatmake -c ${.ALLSRC:M*.adb} -D input_sources/obj/static -aOunicode/obj/static -aIunicode ${STATIC_FLAGS}
-	rm input_sources/obj/static/dummy*
-	ar cq ${.TARGET} input_sources/obj/static/*.o
+	gnatmake -c ${.ALLSRC:M*.adb} -D input_sources/obj/${FLAV} -aOunicode/obj/${FLAV} -aIunicode ${FLAGS_${FLAV}}
+	rm input_sources/obj/${FLAV}/dummy*
+	ar cq ${.TARGET} input_sources/obj/${FLAV}/*.o
 	ranlib ${.TARGET}
+.endfor
 
 input_sources/lib/relocatable/libxmlada_input_sources.so: input_sources/dummy_input_sources.adb unicode/lib/relocatable/libxmlada_unicode.so
 	@echo building shared library ${.TARGET:R}
@@ -60,14 +70,16 @@ input_sources/lib/relocatable/libxmlada_input_sources.so: input_sources/dummy_in
 # sax depends on input sources and unicode (sufficent to limit to I.S)
 #
 
-sax/lib/static/libxmlada_sax.a: sax/dummy_sax.adb input_sources/lib/static/libxmlada_input_sources.a
-	@echo building static ${.TARGET:R} library
-	@mkdir -p sax/obj/static sax/lib/static
+.for FLAV in ${STATIC_FLAVOR}
+sax/lib/${FLAV}/libxmlada_sax.a: sax/dummy_sax.adb input_sources/lib/${FLAV}/libxmlada_input_sources.a
+	@echo building ${FLAV} ${.TARGET:R} library
+	@mkdir -p sax/obj/${FLAV} sax/lib/${FLAV}
 	@rm -f ${.TARGET}
-	gnatmake -c ${.ALLSRC:M*.adb} -D sax/obj/static -aOunicode/obj/static -aOinput_sources/obj/static -aIunicode -aIinput_sources ${STATIC_FLAGS}
-	rm sax/obj/static/dummy*
-	ar cq ${.TARGET} sax/obj/static/*.o
+	gnatmake -c ${.ALLSRC:M*.adb} -D sax/obj/${FLAV} -aOunicode/obj/${FLAV} -aOinput_sources/obj/${FLAV} -aIunicode -aIinput_sources ${FLAGS_${FLAV}}
+	rm sax/obj/${FLAV}/dummy*
+	ar cq ${.TARGET} sax/obj/${FLAV}/*.o
 	ranlib ${.TARGET}
+.endfor
 
 sax/lib/relocatable/libxmlada_sax.so: sax/dummy_sax.adb input_sources/lib/relocatable/libxmlada_input_sources.so
 	@echo building shared library ${.TARGET:R}
@@ -87,14 +99,16 @@ sax/lib/relocatable/libxmlada_sax.so: sax/dummy_sax.adb input_sources/lib/reloca
 # dom depends on three other libraries (sufficent to limit to sax)
 #
 
-dom/lib/static/libxmlada_dom.a: dom/dummy_dom.adb sax/lib/static/libxmlada_sax.a
-	@echo building static ${.TARGET:R} library
-	@mkdir -p dom/obj/static dom/lib/static
+.for FLAV in ${STATIC_FLAVOR}
+dom/lib/${FLAV}/libxmlada_dom.a: dom/dummy_dom.adb sax/lib/${FLAV}/libxmlada_sax.a
+	@echo building ${FLAV} ${.TARGET:R} library
+	@mkdir -p dom/obj/${FLAV} dom/lib/${FLAV}
 	@rm -f ${.TARGET}
-	gnatmake -c ${.ALLSRC:M*.adb} -D dom/obj/static -aOunicode/obj/static -aOinput_sources/obj/static -aOsax/obj/static -aIunicode -aIinput_sources -aIsax ${STATIC_FLAGS}
-	rm dom/obj/static/dummy*
-	ar cq ${.TARGET} dom/obj/static/*.o
+	gnatmake -c ${.ALLSRC:M*.adb} -D dom/obj/${FLAV} -aOunicode/obj/${FLAV} -aOinput_sources/obj/${FLAV} -aOsax/obj/${FLAV} -aIunicode -aIinput_sources -aIsax ${FLAGS_${FLAV}}
+	rm dom/obj/${FLAV}/dummy*
+	ar cq ${.TARGET} dom/obj/${FLAV}/*.o
 	ranlib ${.TARGET}
+.endfor
 
 dom/lib/relocatable/libxmlada_dom.so: dom/dummy_dom.adb sax/lib/relocatable/libxmlada_sax.so
 	@echo building shared library ${.TARGET:R}
@@ -115,14 +129,16 @@ dom/lib/relocatable/libxmlada_dom.so: dom/dummy_dom.adb sax/lib/relocatable/libx
 # schema depends on four other libraries (sufficent to limit to dom)
 #
 
-schema/lib/static/libxmlada_schema.a: schema/dummy_schema.adb dom/lib/static/libxmlada_dom.a
-	@echo building static ${.TARGET:R} library
-	@mkdir -p schema/obj/static schema/lib/static
+.for FLAV in ${STATIC_FLAVOR}
+schema/lib/${FLAV}/libxmlada_schema.a: schema/dummy_schema.adb dom/lib/${FLAV}/libxmlada_dom.a
+	@echo building ${FLAV} ${.TARGET:R} library
+	@mkdir -p schema/obj/${FLAV} schema/lib/${FLAV}
 	@rm -f ${.TARGET}
-	gnatmake -c ${.ALLSRC:M*.adb} -D schema/obj/static -aOunicode/obj/static -aOinput_sources/obj/static -aOsax/obj/static -aOdom/obj/static -aIunicode -aIinput_sources -aIsax -aIdom ${STATIC_FLAGS}
-	rm schema/obj/static/dummy*
-	ar cq ${.TARGET} schema/obj/static/*.o
+	gnatmake -c ${.ALLSRC:M*.adb} -D schema/obj/${FLAV} -aOunicode/obj/${FLAV} -aOinput_sources/obj/${FLAV} -aOsax/obj/${FLAV} -aOdom/obj/${FLAV} -aIunicode -aIinput_sources -aIsax -aIdom ${FLAGS_${FLAV}}
+	rm schema/obj/${FLAV}/dummy*
+	ar cq ${.TARGET} schema/obj/${FLAV}/*.o
 	ranlib ${.TARGET}
+.endfor
 
 schema/lib/relocatable/libxmlada_schema.so: schema/dummy_schema.adb dom/lib/relocatable/libxmlada_dom.so
 	@echo building shared library ${.TARGET:R}
@@ -234,6 +250,7 @@ install: distrib/xmlada_unicode.gpr distrib/xmlada_input_sources.gpr \
 	@mkdir -p ${DESTDIR}${PREFIX}/include/xmlada \
 		${DESTDIR}${PREFIX}/lib/gnat \
 		${DESTDIR}${PREFIX}/lib/xmlada/relocatable \
+		${DESTDIR}${PREFIX}/lib/xmlada/static-pic \
 		${DESTDIR}${PREFIX}/lib/xmlada/static \
 		${DESTDIR}${STD_DOCDIR}
 
@@ -257,17 +274,19 @@ install: distrib/xmlada_unicode.gpr distrib/xmlada_input_sources.gpr \
 		unicode/lib/relocatable/* \
 		${DESTDIR}${PREFIX}/lib/xmlada/relocatable
 
-	${BSD_INSTALL_DATA} dom/obj/static/*.ali \
-		input_sources/obj/static/*.ali \
-		sax/obj/static/*.ali \
-		schema/obj/static/*.ali \
-		unicode/obj/static/*.ali \
-		dom/lib/static/* \
-		input_sources/lib/static/* \
-		sax/lib/static/* \
-		schema/lib/static/* \
-		unicode/lib/static/* \
-		${DESTDIR}${PREFIX}/lib/xmlada/static
+.for FLAV in ${STATIC_FLAVOR}
+	${BSD_INSTALL_DATA} dom/obj/${FLAV}/*.ali \
+		input_sources/obj/${FLAV}/*.ali \
+		sax/obj/${FLAV}/*.ali \
+		schema/obj/${FLAV}/*.ali \
+		unicode/obj/${FLAV}/*.ali \
+		dom/lib/${FLAV}/* \
+		input_sources/lib/${FLAV}/* \
+		sax/lib/${FLAV}/* \
+		schema/lib/${FLAV}/* \
+		unicode/lib/${FLAV}/* \
+		${DESTDIR}${PREFIX}/lib/xmlada/${FLAV}
+.endfor
 
 	${BSD_INSTALL_DATA} distrib/xml*.gpr ${DESTDIR}${PREFIX}/lib/gnat
 
