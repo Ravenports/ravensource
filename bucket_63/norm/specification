@@ -1,6 +1,5 @@
-DEF[PORTVERSION]=	1.5r6
+DEF[PORTVERSION]=	1.5.7
 DEF[SOVERSION]=		1.0.0
-DEF[SOMAJOR]=		${SOVERSION:R:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		norm
@@ -12,7 +11,8 @@ HOMEPAGE=		https://www.nrl.navy.mil/itd/ncs/products/norm
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://downloads.pf.itd.nrl.navy.mil/norm/archive/
+SITES[main]=		https://downloads.pf.itd.nrl.navy.mil/norm/
+			https://downloads.pf.itd.nrl.navy.mil/norm/archive/
 DISTFILE[1]=		src-norm-${PORTVERSION}.tgz:main
 
 SPKGS[standard]=	single
@@ -22,17 +22,14 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		net/norm
 
-BUILD_DEPENDS=		python27:single:standard
-
-USES=			libtool c++:single
+USES=			libtool c++:single python:py27,build
 DESTDIRNAME=		--destdir
 BUILD_TARGET=		build
 SINGLE_JOB=		yes
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
 			-j{{MAKE_JOBS_NUMBER}}
-PLIST_SUB=		SOVERSION=${SOVERSION}
-			SOMAJOR=${SOMAJOR}
+SOVERSION=		${SOVERSION}
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/include/normApi.h \

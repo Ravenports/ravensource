@@ -1,6 +1,6 @@
---- protolib/include/protoSocket.h.orig	2015-02-06 00:47:50.000000000 +0200
+--- protolib/include/protoSocket.h.orig	2018-04-30 17:33:49 UTC
 +++ protolib/include/protoSocket.h
-@@ -94,7 +94,7 @@ class ProtoSocket
+@@ -106,7 +106,7 @@ class ProtoSocket : public ProtoNotify
  // On Mac OSX, only version 10.7 and later support IGMPv3 
  // and the "MCAST_JOIN_GROUP" macro definition is a "tell" for this
  // (we _reallly_ need to go to a more sophisticated build system!)
