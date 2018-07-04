@@ -1,5 +1,4 @@
 DEF[PORTVERSION]=	1.5.7
-DEF[SOVERSION]=		1.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		norm
@@ -20,6 +19,11 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		CUSTOM1:single
+LICENSE_NAME=		CUSTOM1:"NORM source code license"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.TXT
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		net/norm
 
 USES=			libtool c++:single python:py27,build
@@ -29,9 +33,26 @@ SINGLE_JOB=		yes
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
 			-j{{MAKE_JOBS_NUMBER}}
-SOVERSION=		${SOVERSION}
+
+post-extract:
+	${REINPLACE_CMD} -e '/SYSTEM_SOFLAGS/ s/$$/ -Wl,-soname,libnorm.so.1/' \
+		${WRKSRC}/makefiles/Makefile.freebsd \
+		${WRKSRC}/makefiles/Makefile.solaris
+
+post-patch-dragonfly:
+	${REINPLACE_CMD} -e 's| ../src/bsd/bsdNet.cpp||' \
+		${WRKSRC}/protolib/makefiles/Makefile.freebsd
+
+post-build:
+	(cd ${BUILD_WRKSRC}/makefiles && ${SETENV} ${MAKE_ENV} \
+		${BSDMAKE} ${MAKE_FLAGS} -f Makefile.${OPSYS:tl:S/sunos/solaris/:S/dragonfly/freebsd/} \
+		${_MAKE_JOBS} all libnorm.so)
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/include/normApi.h \
 		${STAGEDIR}${PREFIX}/include/
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libnorm.so
+	${INSTALL_PROGRAM} ${WRKSRC}/bin/raft ${WRKSRC}/bin/norm \
+		${STAGEDIR}${PREFIX}/bin/
+	${INSTALL_DATA} ${WRKSRC}/lib/libnorm.a ${STAGEDIR}${PREFIX}/lib
+	${INSTALL_LIB} ${WRKSRC}/lib/libnorm.so ${STAGEDIR}${PREFIX}/lib/libnorm.so.1
+	${LN} -s libnorm.so.1 ${STAGEDIR}${PREFIX}/lib/libnorm.so
