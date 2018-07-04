@@ -1,0 +1,69 @@
+DEF[PORTVERSION]=	2018
+DEF[DATE]=		20180524
+DEF[GPRBUILD_TAG]=	502a098
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gnatcoll-core
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Core packages of GNAT Components Collection
+HOMEPAGE=		https://github.com/AdaCore/gnatcoll-core
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main libgpr
+SITES[main]=		http://downloads.dragonlace.net/src/
+SITES[libgpr]=		GITHUB/AdaCore:gprbuild:${GPRBUILD_TAG}
+DISTFILE[1]=		gnatcoll-core-gpl-${PORTVERSION}-${DATE}-src.tar.gz:main
+DISTFILE[2]=		generated:libgpr
+DF_INDEX=		1 2
+
+SPKGS[standard]=	complete primary docs examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/gnatcoll.ads
+LICENSE_SCHEME=		solo
+
+BUILDRUN_DEPENDS=	xmlada:primary:standard
+
+USES=			gprbuild gmake
+DISTNAME=		gnatcoll-core-gpl-${PORTVERSION}-src
+MAKE_ARGS=		prefix={{STAGEDIR}}{{PREFIX}}
+			ENABLE_SHARED=yes
+			BUILD=PROD
+			PROCESSORS={{MAKE_JOBS_NUMBER}}
+			TARGET={{CONFIGURE_TARGET}}
+			NORMALIZED_TARGET={{CONFIGURE_TARGET}}
+			INTEGRATED=no
+BUILD_TARGET=		build
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${PORTVERSION}
+
+post-extract:
+	${MV} ${WRKDIR}/gprbuild-* ${WRKDIR}/gprbuild
+
+post-patch:
+	${REINPLACE_CMD} \
+		-e 's|with "gpr"|with "${WRKDIR}/gprbuild/gpr/gpr"|' \
+		-e 's|_build/html|_build/html/*|' \
+		${WRKSRC}/gnatcoll.gpr
+	# avoid env variable conflict with gprbuild (default: production)
+	${REINPLACE_CMD} -e 's|BUILD|BLDFORMAT|' ${WRKDIR}/gprbuild/gpr/gpr.gpr
+
+do-configure:
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} setup)
+
+pre-build:
+	(cd ${WRKDIR}/gprbuild/gpr && ${SETENV} ${MAKE_ENV} \
+		gprbuild -p -P gpr);
+
+post-install:
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/gnat/manifests
+	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/gnatcoll/html/_sources
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgnatcoll.so
