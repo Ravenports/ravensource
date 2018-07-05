@@ -37,7 +37,7 @@ BUILD_DEPENDS=		xmlada:primary:standard
 USES=			gmake
 DISTNAME=		gprbuild-gpl-${PORTVERSION}-src
 MAKE_ARGS=		prefix={{STAGEDIR}}{{PREFIX}}
-			ENABLE_SHARED=no
+			ENABLE_SHARED=yes
 			BUILD=production
 			PROCESSORS={{MAKE_JOBS_NUMBER}}
 			TARGET={{CONFIGURE_TARGET}}
@@ -48,7 +48,10 @@ INSTALL_TARGET=		install libgpr.install
 post-patch:
 	${SED} -i"" -e "s|@LOCALBASE@|${LOCALBASE}|" \
 		${WRKSRC}/share/gprconfig/compilers.xml
-	${REINPLACE_CMD} -e '/^LIB_INSTALLER=/ s|$$| --project-subdir=lib/gnat|' \
+	# the relocatable library fails to build, limit to static(-pic)
+	${REINPLACE_CMD} \
+		-e '/^LIB_INSTALLER=/ s|$$| --project-subdir=lib/gnat|' \
+		-e '/LIBGPR_TYPES=/ s| shared||' \
 		${WRKSRC}/Makefile
 	${RM} ${WRKSRC}/share/gprconfig/*.orig
 
