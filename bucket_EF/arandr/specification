@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	0.1.9
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		arandr
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11 deskutils
+VARIANTS=		standard
+SDESC[standard]=	Another XRandR graphical user interface
+HOMEPAGE=		http://christian.amsuess.com/tools/arandr/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://christian.amsuess.com/tools/arandr/files/
+DISTFILE[1]=		arandr-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"Run ARandR GUI"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/arandr
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11/arandr
+
+BUILD_DEPENDS=		python-docutils:single:py27
+RUN_DEPENDS=		xrandr:single:standard
+
+USES=			gettext-tools python:py27
+GNOME_COMPONENTS=	pygtk2
+PLIST_SUB=		ARVER=${PORTVERSION}
