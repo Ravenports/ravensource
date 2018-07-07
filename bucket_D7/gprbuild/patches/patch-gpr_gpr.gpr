@@ -1,0 +1,20 @@
+--- gpr/gpr.gpr.orig	2018-05-25 06:23:17 UTC
++++ gpr/gpr.gpr
+@@ -16,7 +16,7 @@
+ --                                                                          --
+ ------------------------------------------------------------------------------
+ 
+-with "xmlada";
++with "xmlada_schema";
+ 
+ library project GPR is
+ 
+@@ -37,6 +37,8 @@ library project GPR is
+    for Object_Dir use "libobj/" & Bld & "/" & Gnat_Lib_Type;
+    for Library_Dir use "lib/" & Bld & "/" & Gnat_Lib_Type;
+ 
++   for Library_Options use Xmlada_schema'Library_options;
++
+    --------------
+    -- Compiler --
+    --------------

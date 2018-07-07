@@ -16,4 +16,11 @@ project XmlAda_@ZONE@ is
     for Source_Files use ("@ZONE@.ads"@FILES@);
     for Externally_Built use "true";
 
+    case Xmlada_Kind is
+       when "relocatable" =>
+          for Library_Options use ("-Wl,-R,@RPATH@");
+       when others =>
+          null;
+    end case;
+
 end XmlAda_@ZONE@;

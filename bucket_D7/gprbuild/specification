@@ -33,17 +33,20 @@ LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		xmlada:primary:standard
 			python-Sphinx:single:python_default
+EXRUN[gprlib]=		xmlada:primary:standard
 
 USES=			gmake
 DISTNAME=		gprbuild-gpl-${PORTVERSION}-src
 MAKE_ARGS=		prefix={{STAGEDIR}}{{PREFIX}}
 			ENABLE_SHARED=yes
 			BUILD=production
+# #			BUILD=debug
 			PROCESSORS={{MAKE_JOBS_NUMBER}}
 			TARGET={{CONFIGURE_TARGET}}
 INSTALL_REQ_TOOLCHAIN=	yes
 BUILD_TARGET=		all libgpr.build
 INSTALL_TARGET=		install libgpr.install
+# # SET_DEBUGGING_ON=	yes
 
 post-patch:
 	${SED} -i"" -e "s|@LOCALBASE@|${LOCALBASE}|" \
@@ -51,9 +54,9 @@ post-patch:
 	# the relocatable library fails to build, limit to static(-pic)
 	${REINPLACE_CMD} \
 		-e '/^LIB_INSTALLER=/ s|$$| --project-subdir=lib/gnat|' \
-		-e '/LIBGPR_TYPES=/ s| shared||' \
 		${WRKSRC}/Makefile
 	${RM} ${WRKSRC}/share/gprconfig/*.orig
+	${REINPLACE_CMD} -e 's|"-gnatwe", ||' ${WRKSRC}/gprbuild.gpr
 
 post-patch-dragonfly:
 	# dragonfly has different install program than freebsd, linux (!)
