@@ -42,13 +42,6 @@ BUILD_TARGET=		build
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${PORTVERSION}
 
-post-patch:
-	${REINPLACE_CMD} -e 's|_build/html|_build/html/*|' \
-		${WRKSRC}/gnatcoll.gpr
-	# gprbuild fails to build relocatable, skip it
-	${REINPLACE_CMD} -e '/LIBRARY_TYPES=/ s| relocatable||' \
-		${WRKSRC}/Makefile
-
 do-configure:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} setup)
 
