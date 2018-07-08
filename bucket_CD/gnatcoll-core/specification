@@ -42,10 +42,13 @@ BUILD_TARGET=		build
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${PORTVERSION}
 
+post-patch:
+	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|' ${WRKSRC}/gnatcoll.gpr
+
 do-configure:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} setup)
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/gnat/manifests
 	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/gnatcoll/html/_sources
-	# ${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgnatcoll.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgnatcoll.so

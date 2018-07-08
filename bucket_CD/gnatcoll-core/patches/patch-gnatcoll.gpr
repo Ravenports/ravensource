@@ -1,14 +1,14 @@
 --- gnatcoll.gpr.orig	2018-05-25 05:42:27 UTC
 +++ gnatcoll.gpr
-@@ -54,7 +54,7 @@ project GnatColl is
-    type OS_Kind is ("windows", "unix", "osx");
-    OS : OS_Kind := External ("GNATCOLL_OS", "unix");
-    Extra_Switches := ();
--   Extra_Libs := ();
-+   Extra_Libs := gpr'Library_Options;
-    case OS is
-       when "windows" =>
-          Extra_Libs := ("-lpsapi");   --  For gnatcoll.memory
+@@ -94,7 +94,7 @@ project GnatColl is
+ 
+    case Library_Type is
+       when "relocatable" =>
+-         for Library_Options use Extra_Libs;
++         for Library_Options use Extra_Libs & gpr.Linker'Linker_options & ("-Wl,-R,@PREFIX@/lib");
+       when others =>
+          null;
+    end case;
 @@ -182,7 +182,7 @@ project GnatColl is
  
     package Install is
