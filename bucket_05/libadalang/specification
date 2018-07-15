@@ -13,7 +13,7 @@ CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main langkit
 SITES[main]=		GITHUB/AdaCore:libadalang:${RELEASE_TAG}
-SITES[langkit]=		GITHUB/AdaCore:langkit:${RELEASE_LANGKIT}
+SITES[langkit]=		GITHUB/AdaCore:langkit:${RELEASE_LANGKIT}:langkit
 DISTFILE[1]=		generated:main
 DISTFILE[2]=		generated:langkit
 DF_INDEX=		1 2
@@ -47,9 +47,6 @@ INSTALL_REQ_TOOLCHAIN=	yes
 					python-yapf:single:py27
 					python-enum:single:py27
 					python-enum34:single:py27
-
-post-extract:
-	${MV} ${WRKDIR}/langkit* ${WRKSRC}/langkit
 
 do-build:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
