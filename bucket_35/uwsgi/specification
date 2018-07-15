@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.0.17
+DEF[PORTVERSION]=	2.0.17.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		uwsgi
@@ -20,6 +20,7 @@ OPTIONS_STANDARD=	none
 
 LICENSE=		GPLv2:single
 LICENSE_FILE=		GPLv2:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		www/uwsgi
@@ -43,6 +44,9 @@ MAKE_ENV=		CPUCOUNT={{MAKE_JOBS_NUMBER}}
 			UWSGI_EMBED_PLUGINS=cgi
 CPPFLAGS=		-I{{OPENSSLINC}}
 LDFLAGS=		-L{{OPENSSLLIB}} -Wl,-rpath,{{OPENSSLLIB}}
+
+post-extract:
+	${GREP} License ${WRKSRC}/setup.py > ${WRKDIR}/TERMS
 
 post-patch:
 	${REINPLACE_CMD} \
