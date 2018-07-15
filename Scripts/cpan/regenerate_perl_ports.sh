@@ -60,7 +60,7 @@ DEADLIST=${thisdir}/dead-homepage.list
 SUMOVERLIST=${thisdir}/summary-override.list
 DESCOVERLIST=${thisdir}/description-override.list
 RMVLIST=${thisdir}/bad-v.list
-urlstub="http://cpansearch.perl.org/src/"
+urlstub="https://st.aticpan.org/source/"
 mirror_base="/mech/var/cache/cpan/"
 
 perlv1="5.28.0"
