@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.6.7
+DEF[PORTVERSION]=	3.6.8
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gitolite
@@ -13,13 +13,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/sitaramc:gitolite:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary contrib docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 LICENSE=		GPLv2:primary
 LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/gitolite
@@ -34,6 +35,10 @@ SHEBANG_NEW_BASH=	/bin/sh
 SUB_FILES=		pkg-message-single
 SUB_LIST=		DOCDIR={{PREFIX}}/share/doc/gitolite
 
+post-extract:
+	${AWK} '/^\# license/ { matched=1} matched { print }' \
+		${WRKSRC}/README.markdown > ${WRKDIR}/TERMS
+
 post-patch:
 	${REINPLACE_CMD} -i'' -e 's,#!/usr/bin/perl,#!${PERL},' \
 		${WRKSRC}/src/lib/Gitolite/Hooks/*.pm
@@ -45,10 +50,7 @@ do-build:
 	${RMDIR} ${WRKSRC}/src/lib
 	${MV} ${WRKSRC}/check-g2-compat ${WRKSRC}/src/
 	${MV} ${WRKSRC}/convert-gitosis-conf ${WRKSRC}/src/
-
-post-build:
-	${FIND} ${WRKSRC} -name "*.bak" -delete
-	${FIND} ${WRKSRC} -name "*.orig" -delete
+	${FIND} ${WRKSRC} '(' -name '*.bak' -o -name '*.orig' ')' -delete
 
 do-install:
 	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
@@ -60,3 +62,10 @@ do-install:
 		${STAGEDIR}${PREFIX}/bin/gitolite
 	${INSTALL_DATA} ${WRKSRC}/README.markdown ${STAGEDIR}${STD_DOCDIR}
 	${INSTALL_DATA} ${WRKSRC}/CHANGELOG ${STAGEDIR}${STD_DOCDIR}
+	# install the contrib scripts in a separate subpackage
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/gitolite
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/vim
+	(cd ${WRKSRC}/contrib && \
+		${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/share/gitolite)
+	${MV} ${STAGEDIR}${PREFIX}/share/gitolite/vim \
+		${STAGEDIR}${PREFIX}/share/vim/vimfiles
