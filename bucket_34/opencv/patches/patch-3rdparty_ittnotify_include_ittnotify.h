@@ -1,4 +1,4 @@
---- 3rdparty/ittnotify/include/ittnotify.h.orig	2017-12-22 19:46:21 UTC
+--- 3rdparty/ittnotify/include/ittnotify.h.orig	2018-07-04 11:05:47 UTC
 +++ 3rdparty/ittnotify/include/ittnotify.h
 @@ -146,7 +146,7 @@ The same ID may not be reused for differ
  #    define ITT_OS ITT_OS_WIN

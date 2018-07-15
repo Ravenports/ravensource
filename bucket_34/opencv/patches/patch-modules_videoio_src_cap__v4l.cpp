@@ -1,6 +1,6 @@
---- modules/videoio/src/cap_v4l.cpp.orig	2017-12-22 19:46:21 UTC
+--- modules/videoio/src/cap_v4l.cpp.orig	2018-07-04 11:05:47 UTC
 +++ modules/videoio/src/cap_v4l.cpp
-@@ -226,7 +226,9 @@ make & enjoy!
+@@ -228,7 +228,9 @@ make & enjoy!
  #include <sys/ioctl.h>
  
  #ifdef HAVE_CAMV4L2

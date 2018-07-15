@@ -1,7 +1,7 @@
---- modules/core/src/system.cpp.orig	2017-12-22 19:46:21 UTC
+--- modules/core/src/system.cpp.orig	2018-07-04 11:05:47 UTC
 +++ modules/core/src/system.cpp
-@@ -67,7 +67,7 @@ Mutex* __initialization_mutex_initialize
- # endif
+@@ -91,7 +91,7 @@ static bool param_dumpErrors = utils::ge
+ #include <cstdlib>        // std::abort
  #endif
  
 -#if defined __ANDROID__ || defined __linux__ || defined __FreeBSD__ || defined __HAIKU__
@@ -9,7 +9,7 @@
  #  include <unistd.h>
  #  include <fcntl.h>
  #  include <elf.h>
-@@ -215,7 +215,7 @@ std::wstring GetTempFileNameWinRT(std::w
+@@ -200,7 +200,7 @@ std::wstring GetTempFileNameWinRT(std::w
  #include "omp.h"
  #endif
  
