@@ -1,0 +1,61 @@
+DEF[PORTVERSION]=	0.1.16
+DEF[DIRS]=		etc/acme etc/ssl/acme/private www/acme
+DEF[EXAMPLES]=		deploy.sh acme-client.sh
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		acme-client
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		standard
+SDESC[standard]=	Secure ACME (Let's Encrypt) client written in C
+HOMEPAGE=		https://kristaps.bsd.lv/acme-client
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://kristaps.bsd.lv/acme-client/snapshots/
+DISTFILE[1]=		acme-client-portable-${PORTVERSION}.tgz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		security/acme-client
+
+USERS=			_acme
+GROUPS=			_acme
+USERGROUP_SPKG=		single
+
+# License can be found on GitHub, LICENSE.md missing in distribution tarball
+LICENSE=		ISCL:single
+LICENSE_FILE=		ISCL:stock
+LICENSE_SCHEME=		solo
+
+RUN_DEPENDS=		nss:caroot:standard
+
+USES=			gmake ssl
+DISTNAME=		acme-client-portable-${PORTVERSION}
+MAKEFILE=		GNUmakefile
+MAKE_ENV=		PREFIX={{STAGEDIR}}{{PREFIX}}
+CFLAGS=			-DNOBODY_USER=\\\"_acme\\\"
+
+PLIST_SUB=		WWWDIR={{PREFIX}}/www/acme
+
+post-patch:
+	${REINPLACE_CMD} -e "s|/etc/|${PREFIX}/etc/|g" \
+		-e "s|/var/www/acme|${PREFIX}/www/acme|" \
+		${WRKSRC}/main.c ${WRKSRC}/acme-client.1
+
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/acme-client/examples
+.for f in ${EXAMPLES}
+	${INSTALL_DATA} /port/files/${f}.sample \
+		${STAGEDIR}${PREFIX}/share/acme-client/examples
+.endfor
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/periodic/weekly
+	${INSTALL_SCRIPT} /port/files/000.acme-client.sh \
+		${STAGEDIR}${PREFIX}/etc/periodic/weekly
+
+.for d in ${DIRS}
+	${MKDIR} -p ${STAGEDIR}${PREFIX}/${d}
+.endfor
