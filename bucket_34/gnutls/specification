@@ -1,5 +1,7 @@
-DEF[PORTVERSION]=	3.6.2
-DEF[SOVERSION]=		30.20.2
+# note that branch 3.6 is consider devel
+# currently 3.5 is considered the latest stable (oops).
+DEF[PORTVERSION]=	3.6.3
+DEF[SOVERSION]=		30.21.0
 DEF[SOXXVERSION]=	28.1.0
 DEF[SOXXMAJOR]=		${SOXXVERSION:R:R}
 # ----------------------------------------------------------------------------
@@ -62,6 +64,9 @@ VAR_OPSYS[sunos]=	CPPFLAGS=-I{{LOCALBASE}}/include/bsd
 
 post-patch:
 	${RM} ${WRKSRC}/doc/*.info*
+	# strdupa not available on BSD, just avoid it everywhere
+	${REINPLACE_CMD} -e 's/strdupa/strdup/' \
+		${WRKSRC}/doc/examples/tlsproxy/tlsproxy.c
 
 post-patch-sunos:
 	${REINPLACE_CMD} -e '/_POSIX_C_SOURCE/d' \
