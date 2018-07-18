@@ -1,6 +1,6 @@
---- CMakeLists.txt.orig	2018-06-10 22:46:49 UTC
+--- CMakeLists.txt.orig	2018-07-18 11:44:59 UTC
 +++ CMakeLists.txt
-@@ -247,17 +247,6 @@ if(HAS_WVLA_FLAG)
+@@ -272,17 +272,6 @@ if(HAS_WVLA_FLAG)
    add_definitions(-Wvla)
  endif()
  
@@ -18,12 +18,12 @@
  
  check_c_compiler_flag(-fdiagnostics-color=auto HAS_DIAG_COLOR_FLAG)
  if(HAS_DIAG_COLOR_FLAG)
-@@ -309,7 +298,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
- endif()
+@@ -324,7 +313,7 @@ add_definitions(-DINCLUDE_GENERATED_DECL
  
- if(CMAKE_COMPILER_IS_GNUCXX AND CMAKE_SYSTEM_NAME STREQUAL "SunOS")
--  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--no-undefined -lsocket")
-+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lsocket")
- endif()
- 
- if(CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+ if(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "Clang")
+   if(CMAKE_SYSTEM_NAME STREQUAL "SunOS")
+-    set(NO_UNDEFINED "-Wl,--no-undefined -lsocket")
++    set(NO_UNDEFINED "-lsocket")
+   elseif(NOT CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+     set(NO_UNDEFINED "-Wl,--no-undefined")
+   endif()
