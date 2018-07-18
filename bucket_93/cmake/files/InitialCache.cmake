@@ -13,4 +13,7 @@ set(BUILD_TESTING OFF CACHE BOOL "Build the testing tree.")
 set(LIBLZMA_INCLUDE_DIR "/usr/include" CACHE PATH
     "Directory where LibLZMA headers are located.")
 set(LIBLZMA_LIBRARY "/usr/lib/liblzma.so" CACHE PATH
-    "LibLZMA library to link against..")
+    "LibLZMA library to link against.")
+
+# Don't even try
+set(CPACK_ENABLE_FREEBSD_PKG OFF CACHE BOOL "Enable pkg(8) generator in CPack")
