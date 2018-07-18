@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# This script copies php71 extensions to phpXY extensions where 
+# This script copies php72 extensions to phpXY extensions where 
 # argument 1 is "X" and argument 2 is "Y".
 #
 # The script invokes "ravenadm dev distinfo" then "ravenadm dev buildsheet"
@@ -51,7 +51,7 @@ get_bucket() {
 }
 
 while read extension; do
-	oldport=php71-${extension}
+	oldport=php72-${extension}
 	newport=php${1}${2}-${extension}
 	oldbucket=$(get_bucket ${oldport})
 	newbucket=$(get_bucket ${newport})
@@ -64,7 +64,7 @@ while read extension; do
 			mkdir -p ${RAVENSRC}/${bucketdir}
 		fi
 		cp -a ${RAVENSRC}/${oldbucket} ${RAVENSRC}/${newbucket}
-		sed -i '' -e "s|PHP_7.1_|PHP_${1}.${2}_|" ${RAVENSRC}/${newbucket}/specification
+		sed -i '' -e "s|PHP_7.2_|PHP_${1}.${2}_|" ${RAVENSRC}/${newbucket}/specification
 	fi
 	(cd ${RAVENSRC}/${newbucket} && \
 		/raven/bin/ravenadm dev distinfo &&
