@@ -1,5 +1,5 @@
 .if ${OPSYS} == "FreeBSD"
-BUILD_TARGET=	freebsd
+BUILD_TARGET=	bsd	# was 'freebsd'
 .elif !empty(OPSYS:M*BSD*) || ${OPSYS} == "DragonFly"
 BUILD_TARGET=	bsd
 .elif ${OPSYS} == "Linux"
