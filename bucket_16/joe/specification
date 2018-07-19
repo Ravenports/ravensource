@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	4.6
 
 NAMEBASE=		joe
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		editors
 VARIANTS=		standard
 SDESC[standard]=	Joe's Own Editor
@@ -28,13 +28,17 @@ FPC_EQUIVALENT=		editors/joe
 
 BUILD_DEPENDS=		ncurses60:single:standard
 
+# standard ncurses is required for terminfo.db
+# The statically built ncurses60 will not provide it
+
+RUN_DEPENDS=		ncurses:primary:standard
+
 USES=			gmake iconv desktop-utils:single
 MUST_CONFIGURE=		gnu
 BUILD_TARGET=		joe
 INSTALL_REQ_TOOLCHAIN=	yes
 CFLAGS=			-I{{LOCALBASE}}/ncurses60/include
 LDFLAGS=		-L{{LOCALBASE}}/ncurses60/lib
-			-Wl,-rpath,{{LOCALBASE}}/ncurses60/lib
 
 post-patch:
 	${REINPLACE_CMD} -e 's|docs/README.old docs/man.md ||' \
