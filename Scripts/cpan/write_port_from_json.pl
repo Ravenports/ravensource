@@ -165,6 +165,11 @@ if (substr($portversion, 0, 1) eq "v") {
       $portversion = substr($portversion, 1);
 }
 
+# Deal with major screwup on Class-Multimethods
+if ("$port_namebase" eq "perl-Class-Multimethods" && "$portversion" eq "1.700") {
+   $portversion = "1.701";
+}
+
 if ("$use_distver" eq "rmv") {
    $distversion = substr($distversion, 1);
 }
