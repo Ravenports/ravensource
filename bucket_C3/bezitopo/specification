@@ -37,3 +37,6 @@ CMAKE_ARGS=		-DQT_INCLUDE_DIR:PATH="{{PREFIX}}/include/qt5"
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
+	# examples
+	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+	${INSTALL_DATA} ${WRKSRC}/topo0.asc ${STAGEDIR}${STD_EXAMPLESDIR}
