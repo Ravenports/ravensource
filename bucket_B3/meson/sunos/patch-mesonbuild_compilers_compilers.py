@@ -1,6 +1,6 @@
---- mesonbuild/compilers/compilers.py.orig	2018-05-16 16:23:56 UTC
+--- mesonbuild/compilers/compilers.py.orig	2018-07-10 20:59:44 UTC
 +++ mesonbuild/compilers/compilers.py
-@@ -140,7 +140,7 @@ apple_buildtype_linker_args = {'plain':
+@@ -161,7 +161,7 @@ apple_buildtype_linker_args = {'plain':
  gnulike_buildtype_linker_args = {'plain': [],
                                   'debug': [],
                                   'debugoptimized': [],
@@ -9,7 +9,7 @@
                                   'minsize': [],
                                   }
  
-@@ -917,19 +917,6 @@ class Compiler:
+@@ -1034,19 +1034,6 @@ class Compiler:
              # linked against local libraries will fail to resolve them.
              args.append('-Wl,-z,origin')
          args.append('-Wl,-rpath,' + paths)
@@ -29,7 +29,7 @@
          return args
  
      def thread_flags(self, env):
-@@ -991,10 +978,6 @@ def get_compiler_is_linuxlike(compiler):
+@@ -1118,10 +1105,6 @@ def get_compiler_is_linuxlike(compiler):
  def get_compiler_uses_gnuld(c):
      # FIXME: Perhaps we should detect the linker in the environment?
      # FIXME: Assumes that *BSD use GNU ld, but they might start using lld soon
@@ -40,11 +40,13 @@
      return False
  
  def get_largefile_args(compiler):
-@@ -1062,9 +1045,6 @@ class GnuCompiler:
+@@ -1189,11 +1172,6 @@ class GnuCompiler:
          self.defines = defines or {}
          self.base_options = ['b_pch', 'b_lto', 'b_pgo', 'b_sanitize', 'b_coverage',
                               'b_colorout', 'b_ndebug', 'b_staticpic']
--        if self.gcc_type != GCC_OSX:
+-        if self.gcc_type == GCC_OSX:
+-            self.base_options.append('b_bitcode')
+-        else:
 -            self.base_options.append('b_lundef')
 -        self.base_options.append('b_asneeded')
          # All GCC backends can do assembly
