@@ -29,6 +29,7 @@ BUILDRUN_DEPENDS=	libffi:single:standard
 			bzip2:shared:standard
 			xz:single:standard
 BR_DEPS[linux]=		libuuid:single:standard
+BR_DEPS[sunos]=		libuuid:single:standard
 
 FPC_EQUIVALENT=		lang/python37
 
@@ -81,6 +82,7 @@ VAR_OPSYS[sunos]=	PLIST_SUB=SOABI=
 			PLIST_SUB=SCD=
 			PLIST_SUB=PLAT=sunos5
 			PLIST_SUB=FULLABI={{ABIFLAGS}}
+			CONFIGURE_ARGS=ac_cv_func_sethostname=no
 
 [DEBUG].CONFIGURE_WITH_BOTH=		pydebug
 [DEBUG].MAKEFILE_ON=			ABIFLAGS:=d{{ABIFLAGS}}
@@ -94,6 +96,13 @@ post-patch:
 		${WRKSRC}/Lib/cgi.py
 	${REINPLACE_CMD} -e 's|/usr/local/include/db4|${PREFIX}/include/db${BDB_VER}|' \
 		${WRKSRC}/setup.py
+
+post-patch-sunos:
+	# non-understood missing ref to uuid_generate_time_safe even
+	# though it is correctly present in libuuid (hack to fix uuid
+	# module)
+	${REINPLACE_CMD} -e 's|ifdef HAVE_UUID_GENERATE_TIME_SAFE|if 0|' \
+		${WRKSRC}/Modules/_uuidmodule.c
 
 post-install-DEBUG-OFF:
 	# Upstream Issue: http://bugs.python.org/issue17975

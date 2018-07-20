@@ -12,7 +12,16 @@
  
  def add_dir_to_list(dirlist, dir):
      """Add the directory 'dir' to the list 'dirlist' (after any relative
-@@ -1581,6 +1584,10 @@ class PyBuildExt(build_ext):
+@@ -810,8 +813,6 @@ class PyBuildExt(build_ext):
+         # use the same library for the readline and curses modules.
+         if 'curses' in readline_termcap_library:
+             curses_library = readline_termcap_library
+-        elif self.compiler.find_library_file(lib_dirs, 'ncursesw'):
+-            curses_library = 'ncursesw'
+         elif self.compiler.find_library_file(lib_dirs, 'ncurses'):
+             curses_library = 'ncurses'
+         elif self.compiler.find_library_file(lib_dirs, 'curses'):
+@@ -1581,6 +1582,10 @@ class PyBuildExt(build_ext):
              macros = dict()
              libraries = []
  
@@ -23,7 +32,7 @@
          else:                                   # Linux and other unices
              macros = dict()
              libraries = ['rt']
-@@ -1603,7 +1610,7 @@ class PyBuildExt(build_ext):
+@@ -1603,7 +1608,7 @@ class PyBuildExt(build_ext):
          # End multiprocessing
  
          # Platform-specific libraries
