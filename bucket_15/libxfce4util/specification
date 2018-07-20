@@ -36,5 +36,11 @@ CONFIGURE_ARGS=		--enable-nls
 
 SOVERSION=		${SOVERSION}
 
+post-patch-sunos:
+	# work around deficient /bin/sh in solaris
+	${REINPLACE_CMD} -e 's|#! /bin/sh|#!/bin/bash|' \
+		-e '/LIBTOOL=/ s|.(SHELL)|/bin/bash|' \
+		${WRKSRC}/configure
+
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libxfce4util.so.${SOVERSION}
