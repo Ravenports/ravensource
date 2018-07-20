@@ -19,6 +19,12 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKDIR}}/BSD3
+LICENSE_AWK=		BSD3CLAUSE:"^$$"
+LICENSE_SOURCE=		BSD3CLAUSE:{{WRKSRC}}/libuuid/src/uuid.h
+LICENSE_SCHEME=		solo
+
 USES=			libtool pkgconfig
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-all-programs
@@ -32,5 +38,17 @@ INSTALL_TARGET=		install-strip
 DISTNAME=		util-linux-${PORTVERSION}
 SOVERSION=		${SOVERSION}
 
+B_DEPS[sunos]=		libbsd4sol:single:standard
+C_USES[sunos]=		perl:build
+VAR_OPSYS[sunos]=	CFLAGS=-I{{LOCALBASE}}/include/bsd
+			LDFLAGS=-lbsd
+			CFLAGS=-DHAVE_STRNLEN
+			CFLAGS=-DHAVE_STRNDUP
+
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/bash-completion
+
+post-patch-sunos:
+	# there's a problem with nls, just mass-remove the macro
+	${GREP} -rl '_(".*")' ${WRKSRC} | ${XARGS} \
+		${PERL} -p -i.pbak -e 's|[_][(]["](.*?)["][)]|"\1"|g'
