@@ -29,6 +29,7 @@ BUILDRUN_DEPENDS=	libid3tag:single:standard
 			freetype:primary:standard
 			tiff:primary:standard
 			gif:single:standard
+B_DEPS[sunos]=		libbsd4sol:single:standard
 
 USES=			libtool pkgconfig jpeg png
 XORG_COMPONENTS=	x11 sm xext
@@ -39,6 +40,8 @@ CONFIGURE_ARGS=		--enable-visibility-hiding
 			--disable-static
 VAR_ARCH[x86_64]=	CONFIGURE_ARGS=--enable-amd64
 VAR_ARCH[i386]=		CONFIGURE_ARGS=--enable-mmx
+VAR_OPSYS[sunos]=	CFLAGS=-I{{LOCALBASE}}/include/bsd
+			LDFLAGS=-lbsd
 SOVERSION=		${PORTVERSION}
 
 post-patch:
