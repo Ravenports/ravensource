@@ -1,6 +1,6 @@
---- dbus/dbus-connection.c.orig	2017-10-30 12:26:18 UTC
+--- dbus/dbus-connection.c.orig	2018-02-08 14:07:21 UTC
 +++ dbus/dbus-connection.c
-@@ -2384,7 +2384,7 @@ _dbus_connection_block_pending_call (DBu
+@@ -2385,7 +2385,7 @@ _dbus_connection_block_pending_call (DBu
    DBusConnection *connection;
    dbus_uint32_t client_serial;
    DBusTimeout *timeout;
@@ -9,7 +9,7 @@
  
    _dbus_assert (pending != NULL);
  
-@@ -2465,7 +2465,11 @@ _dbus_connection_block_pending_call (DBu
+@@ -2466,7 +2466,11 @@ _dbus_connection_block_pending_call (DBu
    _dbus_get_monotonic_time (&tv_sec, &tv_usec);
    elapsed_milliseconds = (tv_sec - start_tv_sec) * 1000 +
  	  (tv_usec - start_tv_usec) / 1000;
@@ -22,7 +22,7 @@
    if (!_dbus_connection_get_is_connected_unlocked (connection))
      {
        DBusMessage *error_msg;
-@@ -2493,7 +2497,7 @@ _dbus_connection_block_pending_call (DBu
+@@ -2494,7 +2498,7 @@ _dbus_connection_block_pending_call (DBu
             */
            _dbus_verbose ("dbus_connection_send_with_reply_and_block() waiting for more memory\n");
  
@@ -31,7 +31,7 @@
          }
        else
          {          
-@@ -2502,7 +2506,7 @@ _dbus_connection_block_pending_call (DBu
+@@ -2503,7 +2507,7 @@ _dbus_connection_block_pending_call (DBu
                                                    pending,
                                                    DBUS_ITERATION_DO_READING |
                                                    DBUS_ITERATION_BLOCK,
@@ -40,7 +40,7 @@
          }
  
        goto recheck_status;
-@@ -2511,7 +2515,7 @@ _dbus_connection_block_pending_call (DBu
+@@ -2512,7 +2516,7 @@ _dbus_connection_block_pending_call (DBu
      _dbus_verbose ("dbus_connection_send_with_reply_and_block(): clock set backward\n");
    else if (elapsed_milliseconds < timeout_milliseconds)
      {
@@ -49,7 +49,7 @@
        
        if (status == DBUS_DISPATCH_NEED_MEMORY)
          {
-@@ -2521,7 +2525,7 @@ _dbus_connection_block_pending_call (DBu
+@@ -2522,7 +2526,7 @@ _dbus_connection_block_pending_call (DBu
             */
            _dbus_verbose ("dbus_connection_send_with_reply_and_block() waiting for more memory\n");
  
@@ -58,8 +58,8 @@
          }
        else
          {          
-@@ -2530,7 +2534,7 @@ _dbus_connection_block_pending_call (DBu
-                                                   NULL,
+@@ -2531,7 +2535,7 @@ _dbus_connection_block_pending_call (DBu
+                                                   pending,
                                                    DBUS_ITERATION_DO_READING |
                                                    DBUS_ITERATION_BLOCK,
 -                                                  timeout_milliseconds - elapsed_milliseconds);
