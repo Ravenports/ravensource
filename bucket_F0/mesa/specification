@@ -147,6 +147,10 @@ post-patch-sunos:
 		${WRKSRC}/src/gallium/drivers/radeonsi/Makefile.in \
 		${WRKSRC}/src/gallium/auxiliary/Makefile.in \
 		${WRKSRC}/src/loader/Makefile.in
+	# work around deficient /bin/sh in solaris
+	${REINPLACE_CMD} -e 's|#! /bin/sh|#!/bin/bash|' \
+		-e '/LIBTOOL=/ s|.(SHELL)|/bin/bash|' \
+		${WRKSRC}/configure
 
 post-patch:
 	${REINPLACE_CMD} -e 's|/etc/|${PREFIX}/etc/|g' \

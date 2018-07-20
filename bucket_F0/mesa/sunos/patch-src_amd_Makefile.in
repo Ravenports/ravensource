@@ -1,6 +1,6 @@
---- src/amd/Makefile.in.orig	2018-01-18 21:30:38 UTC
+--- src/amd/Makefile.in.orig	2018-07-13 18:41:35 UTC
 +++ src/amd/Makefile.in
-@@ -332,7 +332,7 @@ CCAS = @CCAS@
+@@ -331,7 +331,7 @@ CCAS = @CCAS@
  CCASDEPMODE = @CCASDEPMODE@
  CCASFLAGS = @CCASFLAGS@
  CCDEPMODE = @CCDEPMODE@
@@ -9,12 +9,12 @@
  CLANG_RESOURCE_DIR = @CLANG_RESOURCE_DIR@
  CLOCK_LIB = @CLOCK_LIB@
  CLOVER_STD_OVERRIDE = @CLOVER_STD_OVERRIDE@
-@@ -739,7 +739,7 @@ addrlib_libamdgpu_addrlib_la_SOURCES = $
+@@ -741,7 +741,7 @@ addrlib_libamdgpu_addrlib_la_SOURCES = $
  @HAVE_GALLIUM_LLVM_TRUE@	$(AMD_GENERATED_FILES) \
  @HAVE_GALLIUM_LLVM_TRUE@	$(AMD_NIR_FILES)
  
 -common_libamd_common_la_LIBADD = $(LIBELF_LIBS)
 +common_libamd_common_la_LIBADD = $(LIBELF_LIBS) -lbsd
  BUILT_SOURCES = $(AMD_GENERATED_FILES)
- all: $(BUILT_SOURCES)
- 	$(MAKE) $(AM_MAKEFLAGS) all-am
+ EXTRA_DIST = \
+      $(COMMON_HEADER_FILES) \

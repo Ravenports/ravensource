@@ -1,7 +1,7 @@
 - Implement setting thread name
 - Use monotonic clock for timeouts
 
---- src/util/u_thread.h.orig	2018-06-15 20:37:48 UTC
+--- src/util/u_thread.h.orig	2018-07-13 18:41:27 UTC
 +++ src/util/u_thread.h
 @@ -34,6 +34,10 @@
  
@@ -19,7 +19,7 @@
        defined(__linux__)
     pthread_setname_np(pthread_self(), name);
 +#  elif defined(__sun)
-+   pthread_setname_np(pthread_self(), name);
++   (void)name;
 +#  elif defined(__DragonFly__) || defined(__FreeBSD__) || defined(__OpenBSD__)
 +   pthread_set_name_np(pthread_self(), name);
 +#  elif defined(__NetBSD__)
@@ -32,7 +32,7 @@
  u_thread_get_time_nano(thrd_t thread)
  {
 -#if defined(__linux__) && defined(HAVE_PTHREAD)
-+#if defined(HAVE_PTHREAD)
++#if defined(HAVE_PTHREAD) && !defined(__sun)
     struct timespec ts;
     clockid_t cid;
  

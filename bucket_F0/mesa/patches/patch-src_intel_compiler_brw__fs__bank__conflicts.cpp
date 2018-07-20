@@ -1,13 +1,20 @@
-compiler/brw_fs_bank_conflicts.cpp:719:25: error: scalar initializer cannot be empty
-      vector_type s_p = {}, s_n = {};
-                        ^~
-compiler/brw_fs_bank_conflicts.cpp:719:35: error: scalar initializer cannot be empty
-      vector_type s_p = {}, s_n = {};
-                                  ^~
-
---- src/intel/compiler/brw_fs_bank_conflicts.cpp.orig	2018-06-15 20:37:48 UTC
+--- src/intel/compiler/brw_fs_bank_conflicts.cpp.orig	2018-07-13 18:41:27 UTC
 +++ src/intel/compiler/brw_fs_bank_conflicts.cpp
-@@ -716,7 +716,7 @@ namespace {
+@@ -309,8 +309,13 @@ namespace {
+          const unsigned align = MAX2(sizeof(void *), __alignof__(vector_type));
+          const unsigned size = DIV_ROUND_UP(n, vector_width) * sizeof(vector_type);
+          void *p;
++#ifdef __sun
++	p = memalign(align, size);
++	if (p == NULL) return NULL;
++#else
+          if (posix_memalign(&p, align, size))
+             return NULL;
++#endif
+          memset(p, 0, size);
+          return reinterpret_cast<vector_type *>(p);
+       }
+@@ -728,7 +733,7 @@ namespace {
                     const weight_vector_type &conflicts)
     {
        const unsigned m = DIV_ROUND_UP(conflicts.size, vector_width);
