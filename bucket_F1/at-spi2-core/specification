@@ -37,6 +37,9 @@ MESON_INSERT_RPATH=	atspi/meson.build
 			bus/meson.build
 INSTALL_REQ_TOOLCHAIN=	yes
 
+post-patch-sunos:
+	${REINPLACE_CMD} -e '/POSIX_C_SOURCE/d' ${WRKSRC}/meson.build
+
 post-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/share/doc
 	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/libatspi \
