@@ -33,6 +33,8 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		databases/firebird25-server
 
+BROKEN[sunos]=		gpre segfaults on dpm.cpp during at end of build
+
 BUILDRUN_DEPENDS=	libedit:single:standard
 # |			icu:single:standard
 EXRUN[server]=		firebird25:client:standard
@@ -88,20 +90,6 @@ DISTNAME=		Firebird-${PORTVERSION}.${SCMVERSION}
 
 post-patch:
 	${FIND} ${WRKSRC} -name "*.sh" -exec ${CHMOD} +x {} \+
-
-# pre-build:
-# |	${MAKE} -C ${WRKSRC}/extern/btyacc
-# |	[ -f ${WRKDIR}/ipcs.pre.build ] || ${IPCS_CMD} -s | ${TAIL} -n +3 | \
-# |		${GREP} -F `${ID} -un` | ${CAT} > ${WRKDIR}/ipcs.pre.build
-
-# post-build:
-# |	${IPCS_CMD} -s | ${TAIL} -n +3 | ${GREP} -F `${ID} -un` | \
-# |		${CAT} > ${WRKDIR}/ipcs.post.build
-# |	${DIFF} -n ${WRKDIR}/ipcs.pre.build ${WRKDIR}/ipcs.post.build | \
-# | ${TAIL} -n +2 | \
-# |		${SED} -E 's/^s +([0-9]+).*$$/\/usr\/bin\/ipcrm -s \1/' \
-# |		> ${WRKDIR}/ipcrm.sh
-# |	${SH} ${WRKDIR}/ipcrm.sh
 
 do-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/bin \

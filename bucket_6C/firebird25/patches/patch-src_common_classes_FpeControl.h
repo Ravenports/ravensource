@@ -5,14 +5,14 @@
  }
  #else
 -#ifndef isinf
-+#if !defined isinf  && !defined __FreeBSD__ && !defined __DragonFly__
++#if !defined isinf  && !defined __FreeBSD__ && !defined __DragonFly__ && !defined __sun__
  template <typename F>
  inline bool isinf(F x)
  {
  	return !isnan(x) && isnan(x - x);
  }
 -#endif // isinf
-+#endif // isinf || FreeBSD || DragonFly
++#endif // isinf || FreeBSD || DragonFly || Solaris
  #endif // WIN_NT
  
  #endif //CLASSES_FPE_CONTROL_H
