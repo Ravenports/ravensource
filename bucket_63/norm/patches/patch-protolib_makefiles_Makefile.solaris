@@ -1,0 +1,16 @@
+--- protolib/makefiles/Makefile.solaris.orig	2018-07-20 22:30:48 UTC
++++ protolib/makefiles/Makefile.solaris
+@@ -39,11 +39,12 @@ SYSTEM_LIBS = -ldl -lnsl -lsocket -lreso
+ #
+ 
+ SYSTEM_HAVES =  -DHAVE_IPV6 -DHAVE_ASSERT -DHAVE_CUSERID -DHAVE_LOCKF -DNO_SCM_RIGHTS $(NETSEC) -DSOLARIS 
++SYSTEM_SRC =  ../src/unix/unixNet.cpp ../src/unix/getifaddrs.cpp
+ 
+ SYSTEM = solaris
+ 
+ CC = CC
+-SYSTEM_CFLAGS = -KPIC
++SYSTEM_CFLAGS = -fPIC
+ SYSTEM_SOFLAGS = -G
+ RANLIB = touch
+ 

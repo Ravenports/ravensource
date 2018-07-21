@@ -26,7 +26,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net/norm
 
-USES=			libtool c++:single python:py27,build
+USES=			libtool c++:single python:py27,build dos2unix
 DESTDIRNAME=		--destdir
 BUILD_TARGET=		build
 SINGLE_JOB=		yes
@@ -36,8 +36,11 @@ CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
 
 post-extract:
 	${REINPLACE_CMD} -e '/SYSTEM_SOFLAGS/ s/$$/ -Wl,-soname,libnorm.so.1/' \
-		${WRKSRC}/makefiles/Makefile.freebsd \
-		${WRKSRC}/makefiles/Makefile.solaris
+		${WRKSRC}/makefiles/Makefile.freebsd
+
+post-extract-sunos:
+	${CP} ${FILESDIR}/getifaddrs.cpp ${WRKSRC}/protolib/src/unix/
+	${CP} ${FILESDIR}/ifaddrs.h ${WRKSRC}/protolib/include/
 
 post-patch-dragonfly:
 	${REINPLACE_CMD} -e 's| ../src/bsd/bsdNet.cpp||' \
