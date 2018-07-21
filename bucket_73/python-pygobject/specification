@@ -62,6 +62,9 @@ INSTALL_TARGET=		install-strip
 post-extract:
 	${MV} ${WRKSRC}/setup.py ${WRKSRC}/setup.py.disable
 
+post-extract-sunos:
+	${REINPLACE_CMD} -e 's|#! /bin/sh|#!/bin/bash|' ${WRKSRC}/configure
+
 post-install-PY37-OFF:
 	${RM} -r ${STAGEDIR}${PREFIX}/include/pygobject-3.0
 	${RM} ${STAGEDIR}${PREFIX}/lib/pkgconfig/pygobject-3.0.pc
