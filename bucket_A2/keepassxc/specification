@@ -54,7 +54,7 @@ post-patch:
 
 do-install:
 	(cd ${WRKDIR}/.build ; \
-	make DESTDIR=/construction/keepassxc/stage/ install)
+	make DESTDIR=${STAGEDIR} install)
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/keepassxc
