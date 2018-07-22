@@ -22,13 +22,14 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		security/acme-client
 
-USERS=			_acme
-GROUPS=			_acme
+USERS=			acme
+GROUPS=			acme
 USERGROUP_SPKG=		single
 
-# License can be found on GitHub, LICENSE.md missing in distribution tarball
+# License can be found on GitHub, LICENSE.md missing in distribution tarball:
+# raw.githubusercontent.com/kristapsdz/acme-client-portable/master/LICENSE.md
 LICENSE=		ISCL:single
-LICENSE_FILE=		ISCL:stock
+LICENSE_FILE=		ISCL:{{FILESDIR}}/LICENSE
 LICENSE_SCHEME=		solo
 
 RUN_DEPENDS=		nss:caroot:standard
@@ -37,7 +38,7 @@ USES=			gmake ssl
 DISTNAME=		acme-client-portable-${PORTVERSION}
 MAKEFILE=		GNUmakefile
 MAKE_ENV=		PREFIX={{STAGEDIR}}{{PREFIX}}
-CFLAGS=			-DNOBODY_USER=\\\"_acme\\\"
+CFLAGS=			-DNOBODY_USER=\\\"acme\\\"
 
 PLIST_SUB=		WWWDIR={{PREFIX}}/www/acme
 
@@ -49,11 +50,11 @@ post-patch:
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/acme-client/examples
 .for f in ${EXAMPLES}
-	${INSTALL_DATA} /port/files/${f}.sample \
+	${INSTALL_DATA} ${FILESDIR}/${f}.sample \
 		${STAGEDIR}${PREFIX}/share/acme-client/examples
 .endfor
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/periodic/weekly
-	${INSTALL_SCRIPT} /port/files/000.acme-client.sh \
+	${INSTALL_SCRIPT} ${FILESDIR}/000.acme-client.sh \
 		${STAGEDIR}${PREFIX}/etc/periodic/weekly
 
 .for d in ${DIRS}
