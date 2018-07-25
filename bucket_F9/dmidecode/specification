@@ -28,5 +28,14 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		sysutils/dmidecode
 
 NOT_FOR_ARCH=		aarch64
+SUB_FILES=		dmidecode
 
 MAKE_ARGS=		prefix={{PREFIX}}
+
+post-install-dragonfly:
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/periodic/daily
+	${INSTALL_SCRIPT} ${WRKDIR}/dmidecode ${STAGEDIR}${PREFIX}/etc/periodic/daily/
+
+post-install-freebsd:
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/periodic/daily
+	${INSTALL_SCRIPT} ${WRKDIR}/dmidecode ${STAGEDIR}${PREFIX}/etc/periodic/daily/
