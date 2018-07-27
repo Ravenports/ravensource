@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	3.1.0
+DEF[FILESTOPATCH]=	ex_angle.c ex_cut_round.c ex_raw.c extrude.c round_cap.c segment.c texgen.c
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gle
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	GL Tubing and Extrusion Library
+HOMEPAGE=		http://www.linas.org/gle
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://linas.org/gle/pub/
+DISTFILE[1]=		gle-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		graphics/gle
+
+BUILDRUN_DEPENDS=	freeglut:primary:standard
+
+USES=			fbsd10fix libtool
+XORG_COMPONENTS=	ice xmu xt
+MUST_CONFIGURE=		gnu
+
+SOVERSION=		${PORTVERSION}
+
+post-patch-dragonfly:
+.for f in ${FILESTOPATCH}
+	${REINPLACE_CMD} -e "s/malloc.h/stdlib.h/g" ${WRKSRC}/src/${f}
+.endfor
+
+post-patch-freebsd:
+.for f in ${FILESTOPATCH}
+	${REINPLACE_CMD} -e "s/malloc.h/stdlib.h/g" ${WRKSRC}/src/${f}
+.endfor
+
+post-install:
+	${MV} ${STAGEDIR}${PREFIX}/share/doc/gle/html/* \
+		${STAGEDIR}${PREFIX}/share/doc/gle
+	${RMDIR} ${STAGEDIR}${PREFIX}/share/doc/gle/html
