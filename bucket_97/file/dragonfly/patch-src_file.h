@@ -1,6 +1,6 @@
---- src/file.h.orig	2017-08-28 13:39:18 UTC
+--- src/file.h.orig	2018-05-24 18:09:17 UTC
 +++ src/file.h
-@@ -501,6 +501,7 @@ protected int file_os2_apptype(struct ma
+@@ -515,6 +515,7 @@ protected int buffer_fill(const struct b
  #include <locale.h>
  #endif
  #if defined(HAVE_XLOCALE_H)
