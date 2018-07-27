@@ -11,7 +11,7 @@
  #include <stdio.h>
  #include <string.h>
  #include <strings.h>
-@@ -4934,13 +4938,18 @@ static int legacy_decode(u8 *buf, const 
+@@ -4934,13 +4938,18 @@ static int legacy_decode(u8 *buf, const
  #define EFI_NO_SMBIOS   (-2)
  static int address_from_efi(off_t *address)
  {
@@ -30,10 +30,12 @@
  	/*
  	 * Linux up to 2.6.6: /proc/efi/systab
  	 * Linux 2.6.7 and up: /sys/firmware/efi/systab
-@@ -4973,6 +4982,25 @@ static int address_from_efi(off_t *addre
+@@ -4973,6 +4982,27 @@ static int address_from_efi(off_t *addre
  	if (ret == EFI_NO_SMBIOS)
  		fprintf(stderr, "%s: SMBIOS entry point missing\n", filename);
  	return ret;
++#elif defined(__DragonFly__)
++	return EFI_NOT_FOUND;
 +#elif defined(__FreeBSD__)
 +	/*
 +	 * On FreeBSD, SMBIOS anchor base address in UEFI mode is exposed
