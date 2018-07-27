@@ -21,6 +21,20 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		graphics/gle
 
+# Documentation is ART10 or GPLv2, source code is IBM standard example source
+# code license or GPLv2
+LICENSE=		ART10:docs
+			GPLv2:primary
+			CUSTOM1:primary
+LICENSE_FILE=		ART10:{{WRKSRC}}/doc/COPYING.artistic
+			GPLv2:stock
+			CUSTOM1:{{WRKSRC}}/src/COPYING.src
+LICENSE_NAME=		CUSTOM1:"IBM standard example source code license"
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"GNU GENERAL"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		multi
+
 BUILDRUN_DEPENDS=	freeglut:primary:standard
 
 USES=			fbsd10fix libtool
