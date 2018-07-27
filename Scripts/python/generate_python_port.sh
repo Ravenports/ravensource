@@ -563,6 +563,7 @@ replace_inline() {
          sed -i.bak -e 's/==.*/>1/' /tmp/expand/${DISTNAME}-${VERSION}/requirements/setup.txt
          ;;
       ruamel.yaml) sedcmd="/include setup.py/ s/^.*/    pass/; /'sys.argv'/d; /compiling/d" ;;
+      pyocr) sedcmd="/PyOCR version/d" ;;
       *) ;;
    esac
    if [ -n "${sedcmd}" ]; then
