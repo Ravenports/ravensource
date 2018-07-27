@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.6
+DEF[PORTVERSION]=	2.7
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ahven
@@ -20,7 +20,7 @@ OPTIONS_STANDARD=	TRACE
 OPT_ON[all]=		TRACE
 
 LICENSE=		ISCL:primary
-LICENSE_FILE=		ISCL:{{WRKSRC}}/LICENSE
+LICENSE_FILE=		ISCL:{{WRKSRC}}/LICENSE.txt
 LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		python-sphinxcontrib-adadomain:single:py27
@@ -28,27 +28,21 @@ BUILD_DEPENDS=		python-sphinxcontrib-adadomain:single:py27
 
 FPC_EQUIVALENT=		devel/ahven
 
-USES=			gprbuild gmake
+USES=			gprbuild gmake ada:primary
 MAKE_ENV=		OS_VERSION=unix
+BUILD_WRKSRC=		{{WRKSRC}}/gnat_linux
 
 [TRACE].DESCRIPTION=			Use GNAT-specific symbolic tracing functionality
 [TRACE].EXTRA_PATCHES_ON=		extra-src_ahven-framework.adb
 
-do-build:
-	(cd ${WRKSRC} && ${MKDIR} lib objects)
-	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -Pgnat/ahven_lib)
-	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
-		${MAKE_CMD} -C doc/manual/en html)
+post-patch:
+	${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|g' \
+		-e '/preserve=timestamps/d' \
+		-e 's/RPf /RpP /' \
+		-e '/^gprdir/ s|{datarootdir}/gpr|{libdir}/gnat|' \
+		${BUILD_WRKSRC}/comfignat.gpr.gp \
+		${BUILD_WRKSRC}/comfignat.mk
 
-do-install:
-	(cd ${STAGEDIR}${PREFIX} && ${MKDIR} lib/gnat lib/ahven include/ahven)
-	${INSTALL_DATA} ${WRKSRC}/src/*.ad[bs] \
-		${STAGEDIR}${PREFIX}/include/ahven
-	${INSTALL_DATA} ${WRKSRC}/lib/*.ali ${STAGEDIR}${PREFIX}/lib/ahven
-	${INSTALL_DATA} ${WRKSRC}/lib/libahven.a ${STAGEDIR}${PREFIX}/lib/ahven
-	${INSTALL_DATA} ${FILESDIR}/ahven.gpr ${STAGEDIR}${PREFIX}/lib/gnat
-	@${MKDIR} ${STAGEDIR}${DOCSDIR}
-	(cd ${WRKSRC}/doc/manual/en/build && \
-		${COPYTREE_SHARE} html ${STAGEDIR}${STD_DOCDIR});
+post-install:
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}/html/_sources
-	${RM} ${STAGEDIR}${STD_DOCDIR}/html/.buildinfo
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
