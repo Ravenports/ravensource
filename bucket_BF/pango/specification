@@ -1,6 +1,6 @@
-DEF[PORTVERSION]=	1.42.2
+DEF[PORTVERSION]=	1.42.3
 DEF[PANGO_VERSION]=	1.8.0
-DEF[LIBVERSION]=	0.4200.2
+DEF[LIBVERSION]=	0.4200.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		pango
@@ -20,6 +20,13 @@ SPKGS[standard]=	complete primary docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"__PANGO_H__"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/pango/pango.h
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11-toolkits/pango
 
