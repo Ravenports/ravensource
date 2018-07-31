@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.47.6
 
 NAMEBASE=		help2man
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		standard
 SDESC[standard]=	Simple man page generator using program output
@@ -25,7 +26,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		misc/help2man
 
-USES=			gmake perl:build
+USES=			gmake perl
 INFO=			single:help2man
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-nls=no
@@ -35,4 +36,7 @@ post-extract:
 		${WRKSRC}/help2man.PL > ${WRKDIR}/TERMS
 
 post-patch:
-	${REINPLACE_CMD} -e '/^pkglibdir/ s|/help2man$$||' ${WRKSRC}/Makefile.in
+	${REINPLACE_CMD} -e '/startperl/ s|".*"|"#!${PERL}\\n"|' \
+		${WRKSRC}/help2man.PL
+	${REINPLACE_CMD} -e '/^pkglibdir/ s|/help2man$$||' \
+		${WRKSRC}/Makefile.in
