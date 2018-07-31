@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.4.0
+DEF[PORTVERSION]=	0.4.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-sphinx_rtd_theme
@@ -13,7 +13,7 @@ CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/s/sphinx_rtd_theme
-DISTFILE[1]=		sphinx_rtd_theme-0.4.0.tar.gz:main
+DISTFILE[1]=		sphinx_rtd_theme-0.4.1.tar.gz:main
 
 SPKGS[py27]=		single
 SPKGS[py36]=		single
@@ -31,12 +31,16 @@ VOPTS[py37]=		PY27=OFF PY36=OFF PY37=ON
 GENERATED=		yes
 
 # install_requires extracted from setup.py (using python 2.7)
+# sphinx
 
 DISTNAME=		sphinx_rtd_theme-${PORTVERSION}
 
 [PY27].USES_ON=				python:py27
+[PY27].BUILDRUN_DEPENDS_ON=		python-sphinx:single:py27
 
 [PY36].USES_ON=				python:py36
+[PY36].BUILDRUN_DEPENDS_ON=		python-sphinx:single:py36
 
 [PY37].USES_ON=				python:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-sphinx:single:py37
 
