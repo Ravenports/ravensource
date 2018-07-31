@@ -47,7 +47,8 @@ EXRUN[cxx_run]=		gcc8:libs:standard
 EXRUN[fortran_run]=	gcc8:libs:standard
 EXRUN[compilers]=	gcc8:cxx_run:standard
 
-USES=			cpe gmake iconv:build libtool makeinfo perl:build
+USES=			cpe gmake iconv:build libtool perl:build
+# #			makeinfo
 DISTNAME=		${IDENTIFICATION}
 MUST_CONFIGURE=		gnu
 CPE_VENDOR=		gnu
@@ -82,18 +83,23 @@ VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--disable-libstdcxx-pch
 VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--without-gnu-ld
 			CONFIGURE_ARGS=--enable-symvers=no
 
-INFO=			infopages:cpp
-			infopages:cppinternals
-			infopages:gcc
-			infopages:gccinstall
-			infopages:gccint
-			infopages:gfortran
-			infopages:gnat-style
-			infopages:gnat_rm
-			infopages:gnat_ugn
-			infopages:libquadmath
-			infopages:libitm
-			infopages:libgomp
+# Special case for ports compiler:
+# Don't support info pages.  This causes dependency on indexinfo,
+# which breaks dependency checking on empty packages directory.
+# Re-enable when gcc9 replaces gcc8
+#
+# INFO=			infopages:cpp
+# #			infopages:cppinternals
+# #			infopages:gcc
+# #			infopages:gccinstall
+# #			infopages:gccint
+# #			infopages:gfortran
+# #			infopages:gnat-style
+# #			infopages:gnat_rm
+# #			infopages:gnat_ugn
+# #			infopages:libquadmath
+# #			infopages:libitm
+# #			infopages:libgomp
 
 # Removed ALLSTAGES OPTION (left for info)
 # [ALLSTAGES].DESCRIPTION=		Three stage build (full bootstrap)
@@ -141,6 +147,10 @@ post-install:
 	${RM} ${STAGEDIR}${MANPREFIX}/man/man7/*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/adalib/libgnarl.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/adalib/libgnat.so
+	# remove when info pages re-enabled
+	${RM} ${STAGEDIR}${PREFIX}/share/info/libitm.info
+	${RM} ${STAGEDIR}${PREFIX}/share/info/libgomp.info
+	${RM} ${STAGEDIR}${PREFIX}/share/info/libquadmath.info
 
 post-install-dragonfly:
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/include-fixed
