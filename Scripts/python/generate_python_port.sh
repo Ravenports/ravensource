@@ -508,6 +508,7 @@ function filter(dep) {\
    else if (dep == "python-Six") return "python-six";\
    else if (dep == "python-pyyaml") return "python-PyYAML";\
    else if (dep == "python-validate-email") return "python-validate_email";\
+   else if (dep == "python-sphinx") return "python-Sphinx";\
    else return dep;\
 }\
 BEGIN {\
