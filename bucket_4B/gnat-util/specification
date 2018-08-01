@@ -1,7 +1,7 @@
-DEF[PORTVERSION]=	EXTRACT_INFO(GCC7_PORTVERSION)
-DEF[MS_SUBDIR]=		EXTRACT_INFO(GCC7_MS_SUBDIR)
-DEF[IDENTIFICATION]=	EXTRACT_INFO(GCC7_IDENTIFICATION)
-DEF[PORTREVISION]=	EXTRACT_INFO(GCC7_GNAT_UTIL_REVISION)
+DEF[PORTVERSION]=	EXTRACT_INFO(GCC8_PORTVERSION)
+DEF[MS_SUBDIR]=		EXTRACT_INFO(GCC8_MS_SUBDIR)
+DEF[IDENTIFICATION]=	EXTRACT_INFO(GCC8_IDENTIFICATION)
+DEF[PORTREVISION]=	EXTRACT_INFO(GCC8_GNAT_UTIL_REVISION)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnat-util
@@ -22,16 +22,12 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
-			LGPL21:single
-			GPLv3+:single
-			LGPL3:single
-			GPLv3RLE:single
-LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-			LGPL21:{{WRKSRC}}/COPYING.LIB
-			GPLv3+:{{WRKSRC}}/COPYING3
-			LGPL3:{{WRKSRC}}/COPYING3.LIB
-			GPLv3RLE:{{WRKSRC}}/COPYING.RUNTIME
+LICENSE=		GPLv3+:single LGPL3+:single
+			GPLv3RLE+:single
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
+			LGPL3+:{{WRKSRC}}/COPYING3.LIB
+			GPLv3RLE+:{{WRKSRC}}/COPYING.RUNTIME
 LICENSE_SCHEME=		multi
 
 # FreeBSD uses a different version scheme
@@ -50,6 +46,10 @@ post-extract:
 .endfor
 	(cd ${WRKSRC}/gcc/ada && \
 		${CP} ${GNAT_SRCS} ${BUILD_WRKSRC}/)
+	# construct license terms
+	${HEAD} -n 19 ${WRKSRC}/gcc/gcc.h > ${WRKDIR}/TERMS
+	${HEAD} -n 31 ${WRKSRC}/gcc/ada/adaint.h >> ${WRKDIR}/TERMS
+	${HEAD} -n 18 ${WRKSRC}/libiberty/hex.c >> ${WRKDIR}/TERMS
 
 post-install:
 	# impunit is needed for GPS menus, just provide the source files

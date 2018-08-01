@@ -1,3 +1,5 @@
+# From gnat_util-gpl-2018-20180524, file: MANIFEST.gnat_util (sorted)
+# minus *.gpr, sdefault_adb.gnat_util, 	gnat_util_dummies.c
 GNAT_SRCS= \
 	ali-util.adb \
 	ali-util.ads \
@@ -47,18 +49,6 @@ GNAT_SRCS= \
 	lib.adb \
 	lib.ads \
 	link.c \
-	makeutl.adb \
-	makeutl.ads \
-	mlib-fil.adb \
-	mlib-fil.ads \
-	mlib-tgt-specific.adb \
-	mlib-tgt-specific.ads \
-	mlib-tgt.adb \
-	mlib-tgt.ads \
-	mlib-utl.adb \
-	mlib-utl.ads \
-	mlib.adb \
-	mlib.ads \
 	namet.adb \
 	namet.ads \
 	nlists.adb \
@@ -69,37 +59,6 @@ GNAT_SRCS= \
 	osint.ads \
 	output.adb \
 	output.ads \
-	prj-attr-pm.adb \
-	prj-attr-pm.ads \
-	prj-attr.adb \
-	prj-attr.ads \
-	prj-com.ads \
-	prj-conf.adb \
-	prj-conf.ads \
-	prj-dect.adb \
-	prj-dect.ads \
-	prj-env.adb \
-	prj-env.ads \
-	prj-err.adb \
-	prj-err.ads \
-	prj-ext.adb \
-	prj-ext.ads \
-	prj-nmsc.adb \
-	prj-nmsc.ads \
-	prj-part.adb \
-	prj-part.ads \
-	prj-pp.adb \
-	prj-pp.ads \
-	prj-proc.adb \
-	prj-proc.ads \
-	prj-strt.adb \
-	prj-strt.ads \
-	prj-tree.adb \
-	prj-tree.ads \
-	prj-util.adb \
-	prj-util.ads \
-	prj.adb \
-	prj.ads \
 	put_scos.adb \
 	put_scos.ads \
 	repinfo.adb \
@@ -120,8 +79,6 @@ GNAT_SRCS= \
 	sinfo.ads \
 	sinput-c.adb \
 	sinput-c.ads \
-	sinput-p.adb \
-	sinput-p.ads \
 	sinput.adb \
 	sinput.ads \
 	snames.adb-tmpl \
