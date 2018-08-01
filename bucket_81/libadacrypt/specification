@@ -18,14 +18,14 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single GMGPL:single
-LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-			GMGPL:{{WRKSRC}}/COPYING
-LICENSE_SCHEME=		multi
+LICENSE=		GMGPL:single
+LICENSE_FILE=		GMGPL:stock
+LICENSE_TERMS=		single:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/libadacrypt
 
-USES=			gmake
+USES=			gmake gprbuild
 
 post-patch:
 	${REINPLACE_CMD} -e 's|libadacrypt-|adacrypt-|' \
