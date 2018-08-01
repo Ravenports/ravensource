@@ -18,10 +18,10 @@ SPKGS[standard]=	complete primary docs
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2:primary GMGPL:primary
-LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
-			GMGPL:{{WRKDIR}}/LICENSE
-LICENSE_SCHEME=		multi
+LICENSE=		GMGPL:primary
+LICENSE_FILE=		GMGPL:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/adabooch
 
@@ -31,11 +31,18 @@ BUILD_TARGET=		libs
 
 post-extract:
 	 ${AWK} '/^package / {exit}; {print $$0}' ${WRKSRC}/src/bc.ads \
-		> ${WRKDIR}/LICENSE
+		> ${WRKDIR}/TERMS
+
 post-patch:
 	${SED} -e 's|@PREFIX@|${PREFIX}|' ${WRKSRC}/Makefile.in \
 		> ${WRKSRC}/Makefile
 	${REINPLACE_CMD} -e '/LDFLAGS/d' ${WRKSRC}/bc.gpr
+	# solve preelaborated unit cannot depend on non-preelaborated unit
+	${REINPLACE_CMD} -e '/Preelaborate/d' \
+		${WRKSRC}/src/bc-containers-trees-avl-print.ads \
+		${WRKSRC}/src/bc-containers-trees-avl-validate.ads \
+		${WRKSRC}/src/bc-trees-avl_trees-print.ads \
+		${WRKSRC}/src/bc-trees-avl_trees-validate.ads
 
 # Demos are available but require that the libraries are already installed
 # In other words, adabooch demos requires a separate port to do correctly
