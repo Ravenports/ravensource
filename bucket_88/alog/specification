@@ -25,6 +25,9 @@ BUILD_DEPENDS=		asciidoc:single:py27
 
 LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/alog.ads
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/alog
@@ -49,7 +52,8 @@ do-install:
 		${STAGEDIR}${PREFIX}/lib/alog \
 		${STAGEDIR}${PREFIX}/include/alog \
 		${STAGEDIR}${STD_DOCDIR}
-	${INSTALL_DATA} ${WRKSRC}/src/* ${STAGEDIR}${PREFIX}/include/alog
+	${INSTALL_DATA} ${WRKSRC}/src/*.ad[bs] ${STAGEDIR}${PREFIX}/include/alog
+	${INSTALL_DATA} ${WRKSRC}/src/*.c ${STAGEDIR}${PREFIX}/include/alog
 	${INSTALL_DATA} ${WRKSRC}/lib/*/*.ali ${STAGEDIR}${PREFIX}/lib/alog
 	${INSTALL_DATA} ${WRKSRC}/gnat/alog.gpr ${STAGEDIR}${PREFIX}/lib/gnat
 	${INSTALL_DATA} ${WRKSRC}/lib/*/libalog.a ${STAGEDIR}${PREFIX}/lib/alog
