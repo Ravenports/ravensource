@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	20170406
+DEF[PORTVERSION]=	20180726
+DEF[TAG]=		204a0d4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		PragmARC
@@ -10,7 +11,7 @@ HOMEPAGE=		http://pragmada.x10hosting.com/pragmarc.htm
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/jrcarter:PragmARC:91dcac6
+SITES[main]=		GITHUB/jrcarter:PragmARC:${TAG}
 DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
@@ -18,17 +19,19 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single GMGPL:single
-LICENSE_FILE=		GPLv2+:{{WRKDIR}}/LICENSE
-			GMGPL:{{WRKDIR}}/LICENSE
-LICENSE_SCHEME=		multi
+LICENSE=		GMGPL:single
+LICENSE_FILE=		GMGPL:stock
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/pragmarcs
+
+USES=			gprbuild
 
 post-extract:
 	${CP} ${FILESDIR}/buildlib.gpr ${WRKSRC}/
 	${RM} ${WRKSRC}/compile_all.adb
-	${AWK} '/^-- / {print}' ${WRKSRC}/pragmarc.ads > ${WRKDIR}/LICENSE
+	${AWK} '/^-- / {print}' ${WRKSRC}/pragmarc.ads > ${WRKDIR}/TERMS
 
 do-build:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gnatmake -p -Pbuildlib)
