@@ -25,7 +25,8 @@ OPTIONS_STANDARD=	none
 VOPTS[py27]=		PY27=ON
 
 LICENSE=		GPLv3+:single
-LICENSE_FILE=		GPLv3+:{{WRKSRC}}/LICENSE
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/GPL
+LICENSE_TERMS=		single:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		quex:single:adalang
@@ -47,6 +48,12 @@ INSTALL_REQ_TOOLCHAIN=	yes
 					python-yapf:single:py27
 					python-enum:single:py27
 					python-enum34:single:py27
+
+post-patch:
+	# disable -Werror
+	${REINPLACE_CMD} -e 's|, "-gnatwe"||' \
+		${WRKSRC}/langkit/langkit/templates/project_file.mako \
+		${WRKSRC}/langkit/langkit/support/langkit_support_installed.gpr
 
 do-build:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
