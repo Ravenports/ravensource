@@ -110,7 +110,6 @@ Usr_Bin_DragonFly= \
 		/usr/bin/false \
 		/usr/bin/head \
 		/usr/bin/id \
-		/usr/bin/install \
 		/usr/bin/join \
 		/usr/bin/ldd \
 		/usr/bin/mkfifo \
@@ -126,12 +125,11 @@ Usr_Bin_DragonFly= \
 		/usr/bin/true \
 		/usr/bin/tsort \
 		/usr/bin/uniq \
-		/usr/bin/wc \
 		/usr/bin/which \
 		/usr/bin/whoami \
 		# end
 
-Usr_Bin_FreeBSD=	${Usr_Bin_DragonFly:N*/install:N*/wc}
+Usr_Bin_FreeBSD=	${Usr_Bin_DragonFly}
 
 Usr_Bin_Linux=	# all come from coreutils except two
 		# /bin/which and /usr/bin/ldd are scripts, special handling
@@ -648,8 +646,6 @@ install:
 		ln -s ${Libdevstat_FreeBSD} libdevstat.so && \
 		ln -s ${Libprocstat_FreeBSD} libprocstat.so && \
 		ln -s libthr.so libpthread.so)
-	cp ${CPA} ${LOCALBASE}/bin/ginstall ${DESTDIR}${BASE}/usr/bin/install
-	cp ${CPA} ${LOCALBASE}/bin/gwc      ${DESTDIR}${BASE}/usr/bin/wc
 	
 .endif
 .if ${OPSYS} == Linux
@@ -713,12 +709,14 @@ install:
 .endif
 .if ${OPSYS} == Linux || ${OPSYS} == SunOS
 	# use coreutils that FreeBSD and DragonFly passed on (/bin)
-.  for item in [ chmod cp date echo expr kill link ln ls mkdir mv pwd realpath rm rmdir sleep test unlink
+.  for item in [ chmod cp date echo expr kill link ln ls mkdir mv pwd \
+	realpath rm rmdir sleep test unlink
 	cp ${CPA} ${LOCALBASE}/bin/g${item} ${DESTDIR}${BASE}/bin/${item}
 .  endfor
 	# use coreutils that FreeBSD and DragonFly passed on (/usr/bin)
-.  for item in basename chgrp chown comm cut dirname env false head id install join mkfifo mktemp \
-	printenv printf readlink stat tail tee touch tee tr true tsort uniq wc whoami
+.  for item in basename chgrp chown comm cut dirname env false head id \
+	join mkfifo mktemp printenv printf readlink stat tail tee touch \
+	tee tr true tsort uniq whoami
 	cp ${CPA} ${LOCALBASE}/bin/g${item} ${DESTDIR}${BASE}/usr/bin/${item}
 .  endfor
 	# from bash package
@@ -745,6 +743,10 @@ install:
 	fetch
 	cp ${LOCALBASE}/bin/${item} ${DESTDIR}${BASE}/usr/bin/
 .endfor
+.  for item in sed find xargs cmp diff diff3 sdiff \
+	install wc sort od mknod seq
+	cp ${CPA} ${LOCALBASE}/bin/g${item} ${DESTDIR}${BASE}/usr/bin/${item}
+.  endfor
 .for item in ${headers_${OPSYS}}
 	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/include/${item} ${DESTDIR}${BASE}/usr/include/${item}
 .endfor
@@ -763,10 +765,8 @@ install:
 	rmdir ${DESTDIR}${BASE}/usr/include/dev/nand
 	rmdir ${DESTDIR}${BASE}/usr/include/dev/powermac_nvram
 .endif
-.for item in gsort/sort nawk/awk objdump/objdump-sysroot less/more \
-	bmake/make bsdcpio/cpio bsdtar/tar gcmp/cmp gdiff/diff \
-	gdiff3/diff3 gsdiff/sdiff gfind/find gxargs/xargs \
-	gsed/sed ravensys-uname/uname nvi/vi god/od gmknod/mknod gseq/seq
+.for item in nawk/awk objdump/objdump-sysroot less/more bmake/make \
+	bsdcpio/cpio bsdtar/tar ravensys-uname/uname nvi/vi
 	cp ${LOCALBASE}/bin/${item:H} ${DESTDIR}${BASE}/usr/bin/${item:T}
 .endfor
 	ln -s m4 ${DESTDIR}${BASE}/usr/bin/gm4
