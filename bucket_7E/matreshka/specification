@@ -1,4 +1,6 @@
 DEF[PORTVERSION]=	0.7.0
+DEF[CURRENTGCC]=	EXTRACT_INFO(CURRENT_GCC_VERSION)
+DEF[LIBSUFFIX]=		${CURRENTGCC:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		matreshka
@@ -19,8 +21,6 @@ OPTIONS_AVAILABLE=	SQLITE FIREBIRD PGSQL MYSQL ORACLE AMF
 OPTIONS_STANDARD=	SQLITE FIREBIRD PGSQL MYSQL ORACLE AMF
 OPT_ON[all]=		SQLITE PGSQL MYSQL
 
-BROKEN[all]=		gnatls => raised STORAGE_ERROR : stack overflow or erroneous memory access
-
 FPC_EQUIVALENT=		devel/matreshka
 
 USES=			gmake pkgconfig gprbuild ada:single
@@ -29,6 +29,7 @@ CONFIGURE_ARGS=		--prefix={{PREFIX}}
 SINGLE_JOB=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
 MAKE_ENV=		SMP_MFLAGS=-j{{MAKE_JOBS_NUMBER}}
+PLIST_SUB=		LIBSUFFIX=${LIBSUFFIX}
 
 [AMF].DESCRIPTION=			Build Ada Modeling Framework
 [ORACLE].DESCRIPTION=			Oracle database support
