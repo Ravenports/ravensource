@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	0.8.7.4
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xfce4-terminal
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Terminal emulator for Xfce
+HOMEPAGE=		https://xfce.org
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://archive.xfce.org/src/apps/xfce4-terminal/${PORTVERSION:R:R}/
+DISTFILE[1]=		xfce4-terminal-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary nls themes
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11/xfce4-terminal
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/terminal/terminal-app.h
+LICENSE_SCHEME=		solo
+
+BUILDRUN_DEPENDS=	libxfce4ui:primary:standard
+
+USES=			gettext-tools:build gmake pkgconfig
+XORG_COMPONENTS=	x11
+GNOME_COMPONENTS=	cairo gtk3 intltool vte
+
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+SUB_FILES=		pkg-message
