@@ -20,7 +20,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GCC/${MS_SUBDIR}
 DISTFILE[1]=		${IDENTIFICATION}.tar.xz:main
 
-SPKGS[standard]=	complete compilers ada_run cxx_run fortran_run libs infopages
+SPKGS[standard]=	complete compilers cxx_run fortran_run libs infopages
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -41,7 +41,6 @@ BUILD_DEPENDS=		gmp:static:standard
 			mpc:static:standard
 			zlib:static:standard
 BUILDRUN_DEPENDS=	binutils:single:ravensys
-EXRUN[ada_run]=		gcc6:libs:standard
 EXRUN[cxx_run]=		gcc6:libs:standard
 EXRUN[fortran_run]=	gcc6:libs:standard
 EXRUN[compilers]=	gcc6:cxx_run:standard
@@ -55,7 +54,12 @@ PLIST_SUB=		GCCVER=${GCC_VERSION}
 PREFIX=			{{LOCALBASE}}/toolchain/{{NAMEBASE}}
 INSTALL_TARGET=		install-strip
 CONFIGURE_OUTSOURCE=	yes
-CONFIGURE_ARGS=		--enable-languages="c,c++,ada,fortran"
+
+# gcc8 cannot build gcc6 with ada
+# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=86211
+# Remove from langs, manifests, descriptions, subpackages
+
+CONFIGURE_ARGS=		--enable-languages="c,c++,fortran"
 			--with-local-prefix={{LOCALBASE}}
 			--with-system-zlib
 			--with-gmp={{LOCALBASE}}
@@ -71,10 +75,11 @@ CONFIGURE_ARGS=		--enable-languages="c,c++,ada,fortran"
 			--disable-libsanitizer
 			--disable-libvtv
 			--disable-libmpx
-			--with-ld=${TOOLCHAIN}/bin/ld
+			--disable-libcilkrts
+			--with-gnu-as
 			--with-as=${TOOLCHAIN}/bin/as
+			--with-ld=${TOOLCHAIN}/bin/ld
 			--with-pkgversion="Ravenports"
-			--disable-bootstrap
 
 VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--without-gnu-ld
 			CONFIGURE_ARGS=--enable-symvers=no
@@ -112,9 +117,6 @@ post-patch:
 		${WRKSRC}/gcc/config/i386/freebsd.h \
 		${WRKSRC}/gcc/config/i386/gnu-user64.h \
 		${WRKSRC}/gcc/config/aarch64/aarch64-freebsd.h
-	# Ensure dwarf4-compatible addr2line
-	${REINPLACE_CMD} -e 's|/usr/bin/addr2line|${PREFIX:H}/bin/addr2line|g'\
-		${WRKSRC}/gcc/ada/traceback_symbolic.c
 	${REINPLACE_CMD} -e 's|static:crtbeginT.o%s;||' \
 		${WRKSRC}/gcc/config/freebsd-spec.h
 
@@ -122,8 +124,6 @@ post-install:
 	cp ${STAGEDIR}${PREFIX}/bin/gcc ${STAGEDIR}${PREFIX}/bin/cc
 	cp ${STAGEDIR}${PREFIX}/bin/g++ ${STAGEDIR}${PREFIX}/bin/CC
 	${RM} ${STAGEDIR}${MANPREFIX}/man/man7/*
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/adalib/libgnarl.so
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/adalib/libgnat.so
 
 post-install-dragonfly:
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/include-fixed
