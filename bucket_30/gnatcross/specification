@@ -156,6 +156,13 @@ post-patch-FAMD64R12-ON:
 	${REINPLACE_CMD} -e 's/#undef HAVE_ALIGNED_ALLOC/#define HAVE_ALIGNED_ALLOC 1/' \
 		${WRKSRC}/libstdc++-v3/config.h.in
 
+post-patch-SOL10-ON:
+	${REINPLACE_CMD} -e 's| install-gcc-specs||' \
+		${WRKSRC}/gcc/ada/gcc-interface/Makefile.in
+	# undo BSD thin socket modification
+	${MV} ${WRKSRC}/gcc/ada/libgnat/g-socthi.ads.orig \
+		${WRKSRC}/gcc/ada/libgnat/g-socthi.ads
+
 do-install:
 	# Buggy makefile; seems to have forgotten this is a cross compiler
 	# Manually rename products so it doesn't rebuild them with new name
