@@ -25,6 +25,9 @@ OPTIONS_STANDARD=	DEBUG
 
 LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gps/src/gps-main.adb
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/gps
@@ -67,8 +70,8 @@ SHEBANG_FILES=		share/support/core/gps_utils/internal/dialogs.py
 # we just request the sole binary to pull in the package which effectively
 # accomplishes what is desired.
 
-[DEBUG].CONFIGURE_ARGS_ON=		Build=Debug
-[DEBUG].CONFIGURE_ARGS_OFF=		Build=Production
+[DEBUG].MAKE_ARGS_ON=			Build=Debug
+[DEBUG].MAKE_ARGS_OFF=			Build=Production
 
 post-extract:
 	${MV} ${WRKSRC}/Makefile.gnat ${WRKSRC}/Makefile.gnat.ignore
