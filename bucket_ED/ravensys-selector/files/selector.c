@@ -155,7 +155,7 @@ main(int argc, char **argv)
 	/*
 	 * Execution failed, so write out an error message
 	 */
-	printf ("Command execution failed: %s/bin/%s\n", bin_prefix, cmd);
+	printf ("Command execution failed: %s\n", newcmd);
 	printf ("               arguments:");
 	for (x = 1; x < argc; x++)
 		printf (" %s", (cmd == ld_sun) ? newargv[x] : argv[x]);
