@@ -73,6 +73,7 @@ SINGLE_JOB=		yes
 [OPENMP].DESCRIPTION=			Install libomp, the LLVM OpenMP runtime library
 
 [GOLD].CMAKE_ARGS_ON=			-DLLVM_BINUTILS_INCDIR={{LOCALBASE}}/toolchain/include
+					-DLLVM_USE_LINKER=gold
 
 post-extract:
 	${MV} ${WRKDIR}/cfe-${PORTVERSION}.src ${WRKSRC}/tools/clang
