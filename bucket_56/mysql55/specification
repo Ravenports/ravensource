@@ -32,8 +32,6 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		databases/mysql55-server
 
-BROKEN[linux]=		aborts on extra/CMakeFiles/replace.dir/replace.c.o
-
 BUILD_DEPENDS=		readline:single:standard
 EXRUN[client]=		readline:single:standard
 
@@ -73,6 +71,9 @@ RC_SUBR=		mysql-server:server
 USERS=			mysql
 GROUPS=			mysql
 USERGROUP_SPKG=		server
+
+# abi check requires compiler in stage
+INSTALL_REQ_TOOLCHAIN=	yes
 
 post-patch:
 	${REINPLACE_CMD} -e 's|/usr/bin/perl|${PREFIX}/bin/perl|' \
