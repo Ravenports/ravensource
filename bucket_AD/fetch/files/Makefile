@@ -11,6 +11,7 @@ LIBS=		${PREFIX}/lib/libssl.a \
 
 .if "${OPSYS}" == "Linux"
 LIBS+=		${PREFIX}/lib/libbsd.a
+LDFLAGS+=	-lpthread
 .endif
 
 .if "${OPSYS}" == "SunOS"
