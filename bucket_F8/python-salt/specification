@@ -106,6 +106,7 @@ post-patch:
 		-e 's|/srv/pillar|${PREFIX}/etc/salt/pillar|' ${WRKSRC}/${file}
 .endfor
 	${REINPLACE_CMD} -e 's|yumpkg5|pkg|' ${WRKSRC}/conf/minion
+	${REINPLACE_CMD} -e 's|__PREFIX__|${PREFIX}|' ${WRKSRC}/salt/utils/rsax931.py
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/salt
