@@ -1,5 +1,5 @@
---- crypto/compat/getentropy_solaris.c.orig	2017-11-05 23:15:17.000000000 +0000
-+++ crypto/compat/getentropy_solaris.c	2017-11-28 02:40:01.912327475 +0000
+--- crypto/compat/getentropy_solaris.c.orig	2018-08-05 18:01:56 UTC
++++ crypto/compat/getentropy_solaris.c
 @@ -43,9 +43,6 @@
  #include <unistd.h>
  #include <time.h>
@@ -24,7 +24,7 @@
  
  int
  getentropy(void *buf, size_t len)
-@@ -96,7 +89,7 @@
+@@ -96,7 +89,7 @@ getentropy(void *buf, size_t len)
  	 * the devfs mount, or if file descriptors are exhausted.
  	 */
  	ret = getentropy_urandom(buf, len,
@@ -33,7 +33,7 @@
  	if (ret != -1)
  		return (ret);
  
-@@ -136,16 +129,8 @@
+@@ -136,16 +129,8 @@ getentropy(void *buf, size_t len)
  	 * providing a new failsafe API which works in a chroot or
  	 * when file descriptors are exhausted.
  	 */
@@ -52,7 +52,7 @@
  }
  
  /*
-@@ -244,202 +229,3 @@
+@@ -244,202 +229,3 @@ static const int cl[] = {
  #endif
  };
  
