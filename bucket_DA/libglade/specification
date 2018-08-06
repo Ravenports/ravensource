@@ -20,6 +20,13 @@ OPTIONS_AVAILABLE=	PY27
 OPTIONS_STANDARD=	none
 VOPTS[py27]=		PY27=ON
 
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"GLADE_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/glade/glade.h
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		devel/libglade2
 
 RUN_DEPENDS=		xmlcatmgr:single:standard
@@ -32,6 +39,7 @@ CONFIGURE_ARGS=		--with-html-dir={{PREFIX}}/share/doc
 			--with-xml-catalog={{LOCALBASE}}/share/xml/catalog.ports
 PLIST_SUB=		XMLCATALOG="{{LOCALBASE}}/bin/xmlcatalog"
 			CATALOG_PORTS_XML="{{LOCALBASE}}/share/xml/catalog.ports"
+LDFLAGS=		-lgmodule-2.0
 
 [PY27].USES_ON=				python:py27
 
@@ -46,3 +54,4 @@ post-patch:
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/libglade/2.0
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libglade-2.0.so
