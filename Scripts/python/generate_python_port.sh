@@ -565,6 +565,9 @@ replace_inline() {
          ;;
       ruamel.yaml) sedcmd="/include setup.py/ s/^.*/    pass/; /'sys.argv'/d; /compiling/d" ;;
       pyocr) sedcmd="/PyOCR version/d" ;;
+      lxml) sedcmd="/Building lxml/d"
+         sed -i.bak -E -e '/Building without/d; /Using build/ s/^.*$$/        pass/; /lib_versions[[]?[1]?[]]?)/d; s/if _library_dirs:/if 0:/' /tmp/expand/${DISTNAME}-${VERSION}/setupinfo.py
+         ;;
       *) ;;
    esac
    if [ -n "${sedcmd}" ]; then
