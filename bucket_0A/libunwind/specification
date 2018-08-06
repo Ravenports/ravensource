@@ -1,3 +1,5 @@
+# remove ld.bfd requirement when version bumped past 1.2.1
+# https://github.com/libunwind/libunwind/issues/58
 DEF[PORTVERSION]=	1.2.1
 DEF[ARCH]=		x86_64
 DEF[SOVERSION]=		8.0.1
@@ -20,13 +22,18 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
 # freebsd uses bogus version, so it can't be compared
 # FPC_EQUIVALENT=		devel/libunwind
 
 ONLY_FOR_OPSYS=		freebsd linux
 # ONLY_FOR_ARCH=	amd64 i386
 
-USES=			libtool pkgconfig
+
+USES=			libtool pkgconfig cclibs:single
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		ac_cv_path_LATEX2MAN=1
 INSTALL_TARGET=		install-strip
@@ -34,3 +41,5 @@ INSTALL_REQ_TOOLCHAIN=	yes
 
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		ARCH=${ARCH}
+
+VAR_OPSYS[freebsd]=	CFLAGS=-fuse-ld=bfd
