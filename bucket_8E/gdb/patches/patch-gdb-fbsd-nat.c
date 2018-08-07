@@ -1,4 +1,4 @@
---- gdb/fbsd-nat.c.orig	2018-01-31 02:58:50 UTC
+--- gdb/fbsd-nat.c.orig	2018-07-31 14:47:55 UTC
 +++ gdb/fbsd-nat.c
 @@ -810,6 +810,14 @@ fbsd_resume (struct target_ops *ops,
        struct thread_info *tp;

@@ -1,4 +1,4 @@
---- gdb/i386-fbsd-nat.c.orig	2018-01-05 04:07:23 UTC
+--- gdb/i386-fbsd-nat.c.orig	2018-07-31 14:47:55 UTC
 +++ gdb/i386-fbsd-nat.c
 @@ -159,7 +159,6 @@ _initialize_i386fbsd_nat (void)
    t->to_read_description = i386fbsd_read_description;

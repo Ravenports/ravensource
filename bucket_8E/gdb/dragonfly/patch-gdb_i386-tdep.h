@@ -1,4 +1,4 @@
---- gdb/i386-tdep.h.orig	2018-01-05 04:07:23 UTC
+--- gdb/i386-tdep.h.orig	2018-07-31 14:47:55 UTC
 +++ gdb/i386-tdep.h
 @@ -449,12 +449,11 @@ extern int i386_mpx_enabled (void);
  /* Functions and variables exported from i386-bsd-tdep.c.  */
