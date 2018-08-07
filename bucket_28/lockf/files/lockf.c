@@ -179,6 +179,10 @@ acquire_lock(const char *name, int flags)
 			return (-1);
 		err(EX_CANTCREAT, "cannot open %s", name);
 	}
+	if (O_EXLOCK == 0) {
+		if (flock(fd, LOCK_EX) != 0)
+			err(EX_CANTCREAT, "cannot lock %s", name);
+	}
 	return (fd);
 }
 
