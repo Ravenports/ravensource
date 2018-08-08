@@ -43,6 +43,12 @@
 #define O_EXLOCK	0
 #endif
 
+#ifdef __sun__
+#define OPEN_MODE	O_RDWR
+#else
+#define OPEN_MODE	O_RDONLY
+#endif
+
 #ifndef __unused
 #define __unused	__attribute__((__unused__))
 #endif
@@ -174,7 +180,7 @@ acquire_lock(const char *name, int flags)
 {
 	int fd;
 
-	if ((fd = open(name, O_RDONLY|O_CREAT|O_EXLOCK|flags, 0666)) == -1) {
+	if ((fd = open(name, OPEN_MODE|O_CREAT|O_EXLOCK|flags, 0666)) == -1) {
 		if (errno == EAGAIN || errno == EINTR)
 			return (-1);
 		err(EX_CANTCREAT, "cannot open %s", name);
@@ -241,10 +247,14 @@ wait_for_lock(const char *name)
 {
 	int fd;
 
-	if ((fd = open(name, O_RDONLY|O_EXLOCK, 0666)) == -1) {
+	if ((fd = open(name, OPEN_MODE|O_EXLOCK, 0666)) == -1) {
 		if (errno == ENOENT || errno == EINTR)
 			return;
 		err(EX_CANTCREAT, "cannot open %s", name);
+	}
+	if (O_EXLOCK == 0) {
+		if (flock(fd, LOCK_EX) != 0)
+			err(EX_CANTCREAT, "cannot lock %s", name);
 	}
 	close(fd);
 }
