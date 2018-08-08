@@ -605,9 +605,13 @@ install:
 	cp ${CPA} ../${OPSYS:tl}/* ${DESTDIR}${BASE}/
 	# use BSD's which
 	${BSD_INSTALL_PROGRAM} ${LOCALBASE}/bin/which ${DESTDIR}${BASE}/usr/bin/
-	# have a second copy of bourne shell
+	# /bin/sh is really /usr/xpg4/bin/sh, move it there
+	# Move /usr/bin/bash (from distro) to /bin/bash
+	# hardlink /bin/bash to /bin/sh
 	mkdir -p ${DESTDIR}${BASE}/usr/xpg4/bin
-	${BSD_INSTALL_PROGRAM} ${DESTDIR}${BASE}/bin/sh ${DESTDIR}${BASE}/usr/xpg4/bin/
+	mv ${DESTDIR}${BASE}/bin/sh ${DESTDIR}${BASE}/usr/xpg4/bin/
+	mv ${DESTDIR}${BASE}/usr/bin/bash ${DESTDIR}${BASE}/bin/bash
+	ln ${DESTDIR}${BASE}/bin/bash ${DESTDIR}${BASE}/bin/sh
 .else
 .  for item in ${Bin_${OPSYS}}
 	${BSD_INSTALL_PROGRAM} ../${OPSYS:tl}${item} ${DESTDIR}${BASE}/bin/
@@ -706,6 +710,8 @@ install:
 	cp ${CPA} ../linux/usr/share/i18n/locales/${locale} ${DESTDIR}${BASE}/usr/share/i18n/locales/
 .  endfor
 	env I18NPATH=${DESTDIR}${BASE}/usr/share/i18n ../linux/usr/bin/localedef --prefix=${DESTDIR}${BASE} -f UTF-8 -i en_US en_US.UTF-8
+	# from bash package
+	cp ${CPA} ${LOCALBASE}/bin/bash ${DESTDIR}${BASE}/bin/
 .endif
 .if ${OPSYS} == Linux || ${OPSYS} == SunOS
 	# use coreutils that FreeBSD and DragonFly passed on (/bin)
@@ -719,8 +725,6 @@ install:
 	tee tr true tsort uniq whoami
 	cp ${CPA} ${LOCALBASE}/bin/g${item} ${DESTDIR}${BASE}/usr/bin/${item}
 .  endfor
-	# from bash package
-	cp ${CPA} ${LOCALBASE}/bin/bash ${DESTDIR}${BASE}/bin/
 .endif
 
 	# for convenience from listing hundreds of files, copy all from specific directories
