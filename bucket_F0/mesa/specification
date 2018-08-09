@@ -43,12 +43,13 @@ BUILD_DEPENDS=		libpthread-stubs:single:standard
 			libclc:single:standard
 			llvm${MESA_LLVM_VER}:llvm:standard
 			llvm${MESA_LLVM_VER}:clang:standard
-			zlib:complete:standard
+			zlib:static:standard
 			libelf:single:standard
 			libvdpau:single:standard
 			libva:single:standard
 			expat:static:standard
 BUILDRUN_DEPENDS=	expat:shared:standard
+			zlib:shared:standard
 			libdrm:single:standard
 			ocl-icd:primary:standard
 			opencl:single:standard
@@ -69,7 +70,8 @@ B_DEPS[sunos]=		libbsd4sol:single:standard
 # placeholder for wayland support here
 
 USES=			bison gettext-tools gmake libtool pkgconfig
-			python:py27,build shebangfix c++:clover,drivers,osmesa
+			python:py27,build shebangfix
+			c++:clover,drivers,osmesa
 XORG_COMPONENTS=	x11 xcb xdamage xext xfixes xshmfence xxf86vm xv xvmc
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-llvm
