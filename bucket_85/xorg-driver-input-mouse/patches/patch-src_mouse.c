@@ -59,16 +59,15 @@
      pMse->flipXY = xf86SetBoolOption(pInfo->options, "FlipXY", FALSE);
      if (xf86SetBoolOption(pInfo->options, "InvX", FALSE)) {
          pMse->invX = -1;
-@@ -339,8 +369,8 @@ MouseCommonOptions(InputInfoPtr pInfo)
+@@ -339,7 +369,7 @@ MouseCommonOptions(InputInfoPtr pInfo)
      } else
          pMse->invY = 1;
      pMse->angleOffset = xf86SetIntOption(pInfo->options, "AngleOffset", 0);
+-
 +    pMse->sensitivity = xf86SetRealOption(pInfo->options, "Sensitivity", 1.0);
  
--
      if (pMse->pDragLock)
          free(pMse->pDragLock);
-     pMse->pDragLock = NULL;
 @@ -449,14 +479,17 @@ MouseCommonOptions(InputInfoPtr pInfo)
          free(s);
      }
@@ -127,7 +126,7 @@
  }
  
  static void
-@@ -996,6 +1005,8 @@ MousePreInit(InputDriverPtr drv, InputInfoPtr pInfo, i
+@@ -996,6 +1005,8 @@ MousePreInit(InputDriverPtr drv, InputIn
      /* Default Mapping: 1 2 3 8 9 10 11 ... */
      for (i = 0; i < MSE_MAXBUTTONS; i++)
          pMse->buttonMap[i] = 1 << (i > 2 && i < MSE_MAXBUTTONS-4 ? i+4 : i);
@@ -136,7 +135,7 @@
  
      protocol = MousePickProtocol(pInfo, device, protocol, &protocolID);
  
-@@ -2197,7 +2208,7 @@ MouseDoPostEvent(InputInfoPtr pInfo, int buttons, int 
+@@ -2197,7 +2208,7 @@ MouseDoPostEvent(InputInfoPtr pInfo, int
  
      if (pMse->emulateWheel) {
          /* Emulate wheel button handling */
@@ -145,7 +144,7 @@
              wheelButtonMask = 0;
          else
              wheelButtonMask = 1 << (pMse->wheelButton - 1);
-@@ -2287,6 +2298,9 @@ MouseDoPostEvent(InputInfoPtr pInfo, int buttons, int 
+@@ -2287,6 +2298,9 @@ MouseDoPostEvent(InputInfoPtr pInfo, int
                          }
                      }
                  }
@@ -155,7 +154,7 @@
              }
  
              /* Absorb the mouse movement while the wheel button is pressed. */
-@@ -2304,7 +2318,7 @@ MouseDoPostEvent(InputInfoPtr pInfo, int buttons, int 
+@@ -2304,7 +2318,7 @@ MouseDoPostEvent(InputInfoPtr pInfo, int
      if (pMse->emulate3ButtonsSoft && pMse->emulate3Pending && (dx || dy))
          buttonTimer(pInfo);
  
@@ -164,7 +163,7 @@
          xf86PostMotionEvent(pInfo->dev, 0, 0, 2, dx, dy);
  
      if (change) {
-@@ -2417,12 +2431,10 @@ MousePostEvent(InputInfoPtr pInfo, int truebuttons,
+@@ -2417,12 +2431,10 @@ MousePostEvent(InputInfoPtr pInfo, int t
                 int dx, int dy, int dz, int dw)
  {
      MouseDevPtr pMse;
@@ -177,7 +176,7 @@
  
      if (pMse->protocolID == PROT_MMHIT)
          b = reverseBits(hitachMap, truebuttons);
-@@ -2515,11 +2527,11 @@ MousePostEvent(InputInfoPtr pInfo, int truebuttons,
+@@ -2515,11 +2527,11 @@ MousePostEvent(InputInfoPtr pInfo, int t
  
      /* Accumulate the scaled dx, dy in the private variables
         fracdx,fracdy and return the integer number part */

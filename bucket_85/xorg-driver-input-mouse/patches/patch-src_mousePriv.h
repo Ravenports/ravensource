@@ -1,4 +1,4 @@
---- src/mousePriv.h.orig	2012-05-28 00:01:45 UTC
+--- src/mousePriv.h.orig	2018-06-19 04:36:21 UTC
 +++ src/mousePriv.h
 @@ -63,8 +63,6 @@ typedef struct {
      int         acc;
