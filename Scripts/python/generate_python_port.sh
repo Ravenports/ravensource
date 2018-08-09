@@ -509,6 +509,7 @@ function filter(dep) {\
    else if (dep == "python-pyyaml") return "python-PyYAML";\
    else if (dep == "python-validate-email") return "python-validate_email";\
    else if (dep == "python-sphinx") return "python-Sphinx";\
+   else if (dep == "python-setuptools-scm") return "python-setuptools_scm";\
    else return dep;\
 }\
 BEGIN {\
