@@ -26,8 +26,13 @@ while read ravenport version fpc_port; do
 	ravensys-selector) ;;	# unique to ravenports
 	bmake-mk-files) ;;	# unique to ravenports
 	ravenadm) ;;		# unique to ravenports
+	autoselect-*) ;;	# unique to ravenports
 
-	xz) ;;			# deleted from FPC
+	lockf) ;;		# for sysroot
+	bc) ;;			# for sysroot
+	ed) ;;			# for sysroot
+	xz) ;;			# for sysroot, deleted from FPC
+
 	zlib) ;;		# deleted from FPC
 	aflex*) ;;		# deleted from FPC
 
@@ -54,6 +59,7 @@ while read ravenport version fpc_port; do
 	openjade) ;;            # FreeBSD uses dev version, ravenports has release
 	python-*) ;;            # manual python port
 	ncurses) ;;		# FreeBSD uses dev version now
+	ncurses60) ;;		# required for 1 or 2 apps
 
 	libexecinfo) ;;		# Different source from FPC
 
@@ -79,8 +85,11 @@ while read ravenport version fpc_port; do
 	openpam) ;;
 	AdaYaml) ;;
 	libuuid) ;;
+	stterm)  ;;
+	bezitopo) ;;
 	pekwm-themepack) ;;
 	spidermonkey) ;;		# check occasionally
+	libxmlxx) ;;			# check libxml++ occ.
 	*) echo "${ravenport} ${version}"
    esac
 done < ${tmpfile}
