@@ -1,0 +1,86 @@
+DEF[PORTVERSION]=	4.4.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		dhcp
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		standard
+SDESC[standard]=	ISC DHCP Server and Relay Agent
+HOMEPAGE=		https://www.isc.org/downloads/dhcp/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://ftp.isc.org/isc/dhcp/${PORTVERSION}/
+DISTFILE[1]=		dhcp-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete server client relay
+
+OPTIONS_AVAILABLE=	BINLEASES DHCP4O6 LDAP BIND_SYMBOLS
+OPTIONS_STANDARD=	BINLEASES DHCP4O6 LDAP BIND_SYMBOLS
+
+LICENSE=		ISCL:server
+LICENSE_FILE=		ISCL:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		isc-dhcp44-server
+
+RC_SUBR=		isc-dhcpd:server
+			isc-dhcrelay:relay
+USERS=			dhcpd
+GROUPS=			dhcpd
+USERGROUP_SPKG=		server
+
+# will break if SSL default is not "libressl" (system should handle)
+EXRUN[client]=		libressl:single:standard
+EXRUN[relay]=		libressl:single:standard
+
+SUB_FILES=		pkg-message-client-freebsd
+			pkg-message-client-dragonfly
+			pkg-message-server-freebsd
+			pkg-message-server-dragonfly
+SUB_LIST=		MANPREFIX={{MANPREFIX}}
+
+USES=			gmake ssl shebangfix cclibs:server,client,relay
+SHEBANG_FILES=		contrib/ldap/dhcpd-conf-to-ldap
+SINGLE_JOB=		yes
+MUST_CONFIGURE=		gnu
+CPPFLAGS=		-D_PATH_DHCLIENT_SCRIPT='\"{{PREFIX}}/sbin/dhclient-script\"'
+			-D_PATH_DHCLIENT_CONF='\"{{PREFIX}}/etc/dhclient.conf\"'
+			-D_PATH_DHCPD_CONF='\"{{PREFIX}}/etc/dhcpd.conf\"'
+CFLAGS=			-fPIC
+LDFLAGS=		-lssl
+CONFIGURE_ARGS=		--localstatedir=/var
+			--enable-paranoia
+			--enable-early-chroot
+			--enable-dhcpv6
+
+[BINLEASES].DESCRIPTION=		Enable support for binary insertion of leases
+[BINLEASES].CONFIGURE_ENABLE_BOTH=	binary-leases
+
+[DHCP4O6].DESCRIPTION=			Enable DHCPv4-over-DHCPv6 (TSV)
+[DHCP4O6].CONFIGURE_ENABLE_BOTH=	dhcpv4o6
+
+[LDAP].CONFIGURE_WITH_BOTH=		ldap ldapcrypto
+[LDAP].BUILDRUN_DEPENDS_ON=		openldap:client:standard
+
+[BIND_SYMBOLS].DESCRIPTION=		Enable BIND internal symbol table
+[BIND_SYMBOLS].USES_ON=			perl:build
+
+post-patch:
+	${REINPLACE_CMD} -e 's|/usr/local||g' \
+		${WRKSRC}/doc/examples/dhcpd-dhcpv6.conf
+
+post-patch-BIND_SYMBOLS-ON:
+	${REINPLACE_CMD} -e '/^bindconfig =/ s|--disable-symtable ||' \
+		${WRKSRC}/bind/Makefile.in
+
+post-install:
+	${INSTALL_SCRIPT} ${WRKSRC}/client/scripts/freebsd \
+		${STAGEDIR}${PREFIX}/sbin/dhclient-script
+
+post-install-LDAP-ON:
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/isc-dhcp
+	${INSTALL_SCRIPT} ${WRKSRC}/contrib/ldap/dhcpd-conf-to-ldap \
+		${STAGEDIR}${PREFIX}/bin
+	${INSTALL_DATA} ${WRKSRC}/contrib/ldap/dhcp.schema \
+		${STAGEDIR}${PREFIX}/share/isc-dhcp/
