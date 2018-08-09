@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.8.8
+DEF[PORTVERSION]=	1.8.9
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-ransack
@@ -13,7 +13,7 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		ransack-1.8.8.gem:main
+DISTFILE[1]=		ransack-1.8.9.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v23]=		single
@@ -29,15 +29,14 @@ VOPTS[v25]=		RUBY23=OFF RUBY24=OFF RUBY25=ON
 GENERATED=		yes
 
 # Requirements specified by gem dependency --remote --version command
-#   actionpack (>= 3.0)
-#   activerecord (>= 3.0)
-#   activesupport (>= 3.0)
+#   actionpack (<= 5.1.1, >= 3.0)
+#   activerecord (<= 5.1.1, >= 3.0)
+#   activesupport (<= 5.1.1, >= 3.0)
 #   faker (~> 0.9.5, development)
 #   i18n (>= 0)
 #   machinist (~> 1.0.6, development)
 #   mysql2 (= 0.3.20, development)
 #   pg (~> 0.21, development)
-#   polyamorous (~> 1.3.2)
 #   pry (= 0.10, development)
 #   rspec (~> 3, development)
 #   sqlite3 (~> 1.3.3, development)
@@ -49,19 +48,16 @@ DISTNAME=		ransack-${PORTVERSION}
 					ruby-activerecord:single:v23
 					ruby-activesupport:single:v23
 					ruby-i18n:single:v23
-					ruby-polyamorous:single:v23
 
 [RUBY24].USES_ON=			gem:v24
 [RUBY24].BUILDRUN_DEPENDS_ON=		ruby-actionpack:single:v24
 					ruby-activerecord:single:v24
 					ruby-activesupport:single:v24
 					ruby-i18n:single:v24
-					ruby-polyamorous:single:v24
 
 [RUBY25].USES_ON=			gem:v25
 [RUBY25].BUILDRUN_DEPENDS_ON=		ruby-actionpack:single:v25
 					ruby-activerecord:single:v25
 					ruby-activesupport:single:v25
 					ruby-i18n:single:v25
-					ruby-polyamorous:single:v25
 
