@@ -4,6 +4,7 @@ DEF[SOVERSION]=		2.200.0
 
 NAMEBASE=		libva
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		standard
 SDESC[standard]=	VAAPI wrapper and dummy driver
@@ -52,3 +53,4 @@ CFLAGS=			-DHAVE_LINUX_INTEGER_TYPES
 post-patch:
 	${REINPLACE_CMD} -e 's|\($$libdir\)/dri|\1/va|' ${WRKSRC}/configure.ac
 	${REINPLACE_CMD} '/^export VA_HEADER_/d' ${WRKSRC}/doc/Makefile.am
+	${REINPLACE_CMD} -e '/stack-protector/d' ${WRKSRC}/va/Makefile.am
