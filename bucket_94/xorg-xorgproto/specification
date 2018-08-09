@@ -4,7 +4,7 @@ DEF[XNAME]=		xorgproto
 
 NAMEBASE=		xorg-${XNAME}
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		x11
 VARIANTS=		standard
 SDESC[standard]=	Combined X.Org X11 Protocol headers
@@ -25,10 +25,12 @@ LICENSE=		MIT:single
 LICENSE_FILE=		MIT:{{WRKDIR}}/LICENSE_MIT
 LICENSE_SCHEME=		solo
 
+FPC_EQUIVALENT=		x11/xorgproto
+
 DISTNAME=		${XNAME}-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--datarootdir={{PREFIX}}/lib
-# FPC_EQUIVALENT=	not on freebsd yet
+			--enable-legacy
 
 post-patch:
 	(cd ${WRKSRC} && \
