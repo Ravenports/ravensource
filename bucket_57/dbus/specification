@@ -68,12 +68,6 @@ post-patch:
 		${WRKSRC}/dbus/dbus-sysdeps-unix.c
 	${REINPLACE_CMD} '/^SUBDIRS =/s|test||' ${WRKSRC}/Makefile.in
 
-post-patch-sunos:
-	# work around deficient /bin/sh in solaris
-	${REINPLACE_CMD} -e 's|#! /bin/sh|#!/bin/bash|' \
-		-e '/LIBTOOL=/ s|.(SHELL)|/bin/bash|' \
-		${WRKSRC}/configure
-
 post-install:
 	# delete examples
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
