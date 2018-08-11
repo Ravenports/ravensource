@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	0.78
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		tinycdb
+VERSION=		${PORTVERSION}
+KEYWORDS=		databases
+VARIANTS=		standard
+SDESC[standard]=	Create and read constant databases
+HOMEPAGE=		http://www.corpit.ru/mjt/tinycdb/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.corpit.ru/mjt/tinycdb/
+DISTFILE[1]=		tinycdb-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		PUBDOM:single
+LICENSE_FILE=		PUBDOM:{{WRKDIR}}/LICENSE
+LICENSE_AWK=		PUBDOM:"^$$"
+LICENSE_SOURCE=		PUBDOM:{{WRKSRC}}/cdb.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		databases/tinycdb
+
+USES=			gmake
+BUILD_TARGET=		static sharedlib
+INSTALL_TARGET=		install install-sharedlib
+MAKE_ARGS=		CC="{{CC}}"
+			CFLAGS="{{CFLAGS}}"
+			prefix="{{PREFIX}}"
+			mandir="{{MANPREFIX}}/man"
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/cdb \
+		${STAGEDIR}${PREFIX}/lib/libcdb.so.1
