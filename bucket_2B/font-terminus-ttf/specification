@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	4.46.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		font-terminus-ttf
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_fonts
+VARIANTS=		standard
+SDESC[standard]=	Monospace True-Type font (for X11 and console)
+HOMEPAGE=		http://files.ax86.net/terminus-ttf/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://files.ax86.net/terminus-ttf/files/${PORTVERSION}/
+DISTFILE[1]=		terminus-ttf-${PORTVERSION}.zip:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:single
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/COPYING
+LICENSE_NAME=		CUSTOM1:"SIL OPEN FONT LICENSE Version 1.1"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11-fonts/terminus-ttf
+
+SUB_FILES=		pkg-message-single
+
+USES=			fonts
+FONTNAME=		TerminusTTF
+DISTNAME=		terminus-ttf-${PORTVERSION}
+XORG_COMPONENTS=	x11
+SKIP_BUILD=		yes
+PLIST_SUB=		VERSION=${PORTVERSION}
+
+do-install:
+	${MKDIR} ${STAGEDIR}${FONTSDIR}/
+	${INSTALL_DATA} ${WRKSRC}/*.ttf ${STAGEDIR}${FONTSDIR}/
