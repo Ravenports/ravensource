@@ -1,0 +1,93 @@
+DEF[PORTVERSION]=	4.1.23
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		nsd
+VERSION=		${PORTVERSION}
+KEYWORDS=		dns
+VARIANTS=		standard
+SDESC[standard]=	Fast and lean authoritative DNS Name Server
+HOMEPAGE=		https://www.nlnetlabs.nl/projects/nsd/about/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.nlnetlabs.nl/downloads/nsd/
+DISTFILE[1]=		nsd-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	ROOT_SERVER CHECKING MMAP PACKED
+OPTIONS_STANDARD=	ROOT_SERVER CHECKING MMAP PACKED
+
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		dns/nsd
+
+BUILDRUN_DEPENDS=	libevent:single:standard
+
+RC_SUBR=		nsd:primary
+USERS=			nsd
+GROUPS=			nsd
+USERGROUP_SPKG=		primary
+
+USES=			cpe ssl
+CPE_VENDOR=		nlnetlabs
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-libevent="{{LOCALBASE}}"
+			--with-user=nsd
+			--with-configdir="{{PREFIX}}/etc/nsd"
+			--localstatedir=/var
+			--with-dbfile=/var/db/nsd/nsd.db
+			--with-ssl="{{OPENSSLBASE}}"
+			--with-pidfile=/var/run/nsd/nsd.pid
+			--enable-largefile
+			--enable-nsec3
+			--enable-minimal-responses
+			--enable-ratelimit
+			--enable-radix-tree
+			--enable-bind8-stats
+			--enable-zone-stats
+			--enable-ipv6
+
+[ROOT_SERVER].DESCRIPTION=		Configure as a root server
+[ROOT_SERVER].CONFIGURE_ENABLE_BOTH=	root-server
+
+[CHECKING].DESCRIPTION=			Internal run-time checks
+[CHECKING].CONFIGURE_ENABLE_BOTH=	checking
+
+[MMAP].DESCRIPTION=			Use mmap instead of malloc
+[MMAP].CONFIGURE_ENABLE_BOTH=		mmap
+
+[PACKED].DESCRIPTION=			Use packed structures for reduced memory use
+[PACKED].CONFIGURE_ENABLE_BOTH=		packed
+
+post-install:
+	${INSTALL_DATA} ${WRKSRC}/nsd.conf.sample \
+		${STAGEDIR}${PREFIX}/etc/nsd/nsd.conf.sample
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/sbin/nsd \
+		${STAGEDIR}${PREFIX}/sbin/nsd-checkconf \
+		${STAGEDIR}${PREFIX}/sbin/nsd-checkzone \
+		${STAGEDIR}${PREFIX}/sbin/nsd-control
+	# remove garbage
+	${RMDIR} ${STAGEDIR}/tmp
+
+	# munin plugin
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/munin/plugins
+	${REINPLACE_CMD} \
+		-e 's|/usr/local|${LOCALBASE}|g' \
+		-e 's|/usr/local/etc/nsd.conf|${ETCDIR}/nsd.conf|g' \
+		-e 's|/usr/local/var/munin/plugin-state|/var/munin/plugin-state/root|g' \
+		-e '90s|/var/munin/plugin-state/root|$${MUNIN_PLUGSTATE}|' \
+		${WRKSRC}/contrib/nsd_munin_
+	${INSTALL_SCRIPT} ${WRKSRC}/contrib/nsd_munin_ \
+		${STAGEDIR}${PREFIX}/share/munin/plugins
+
+	# documentation
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	(cd ${WRKSRC}/doc && ${INSTALL_DATA} \
+	  CREDITS ChangeLog LICENSE NSD-DATABASE NSD-DIFFFILE \
+	  NSD-4-features NSD-FOR-BIND-USERS README README.icc \
+	  RELNOTES REQUIREMENTS TESTPLAN TODO UPGRADING \
+	  coding-style differences.tex \
+	${STAGEDIR}${STD_DOCDIR})
