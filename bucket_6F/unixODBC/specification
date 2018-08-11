@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.3.6
+DEF[PORTVERSION]=	2.3.7
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		unixODBC
@@ -21,6 +21,7 @@ OPTIONS_STANDARD=	none
 LICENSE=		GPLv2:primary LGPL21:primary
 LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
 			LGPL21:{{WKRSRC}}/README
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		databases/unixODBC
@@ -37,6 +38,7 @@ INSTALL_REQ_TOOLCHAIN=	yes
 
 post-patch:
 	${REINPLACE_CMD} -e 's|\.ini$$|.ini.sample|' ${WRKSRC}/Makefile.in
+	${HEAD} -n 17 ${WRKSRC}/README | ${TAIL} -n 5 > ${WRKDIR}/TERMS
 
 post-install:
 	(cd ${WRKSRC}/doc && ${COPYTREE_SHARE} . ${STAGEDIR}${STD_DOCDIR} \
