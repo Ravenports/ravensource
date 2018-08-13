@@ -32,6 +32,7 @@ done
 for F in information versions; do
    sed "s|${PATTERN}|${WARNING}|" ${DATADIR}/raven.${F}.mk > ${CONSPIR}/Mk/raven.${F}.mk
 done
+cp ${DATADIR}/raverreq ${CONSPIR}/Mk/Misc/
 
 for D1 in ${HEXRANGE}; do
   for D0 in ${HEXRANGE}; do

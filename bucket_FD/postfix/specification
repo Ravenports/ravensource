@@ -1,0 +1,202 @@
+DEF[PORTVERSION]=	3.3.1
+DEF[DAEMONDIR]=		{{PREFIX}}/libexec/postfix
+DEF[METADIR]=		{{PREFIX}}/etc/postfix
+DEF[SHLIBDIR]=		{{PREFIX}}/lib/postfix
+DEF[DYN_EXT]=		pcre mysql pgsql sqlite ldap cdb lmdb
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		postfix
+VERSION=		${PORTVERSION}
+KEYWORDS=		mail
+VARIANTS=		standard
+SDESC[standard]=	Fast and robust mail transfer agent
+HOMEPAGE=		http://www.postfix.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://de.postfix.org/ftpmirror/official/
+			http://cdn.postfix.johnriley.me/mirrors/postfix-release/official/
+			http://mirror.lhsolutions.nl/postfix-release/official/
+DISTFILE[1]=		postfix-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary cdb ldap lmdb mysql pgsql test docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		mail/postfix
+
+BUILD_DEPENDS=		openldap:client:standard
+			tinycdb:single:standard
+			lmdb:single:standard
+			zlib:static:standard
+			pcre:static:standard
+
+BUILDRUN_DEPENDS=	pcre:shared:standard
+			icu:single:standard
+
+EXRUN[cdb]=		tinycdb:single:standard
+EXRUN[ldap]=		openldap:client:standard
+EXRUN[lmdb]=		lmdb:single:standard
+EXRUN[pgsql]=		pgsql
+EXRUN[mysql]=		mysql
+			zlib:shared:standard
+
+# the "mail" group is blacklisted by every OPSYS (or at least should be)
+USERS=			postfix
+GROUPS=			postfix maildrop mail
+USERGROUP_SPKG=		primary
+
+RC_SUBR=		postfix:primary
+SUB_LIST=		REQUIRE="LOGIN cleanvar dovecot mysql postgresql slapd"
+SUB_FILES=		mailer.conf.postfix
+
+USES=			cpe shebangfix mysql:client,build pgsql:client,build
+			sqlite ssl
+SHEBANG_FILES=		auxiliary/qshape/qshape.pl
+
+# QMAKE_ARGS are repurposed
+
+QMAKE_ARGS=		-DDEF_CONFIG_DIR=\\\"{{PREFIX}}/etc/postfix\\\"
+			-DDEF_DAEMON_DIR=\\\"${DAEMONDIR}\\\"
+			-DDEF_META_DIR=\\\"${METADIR}\\\"
+			-DDEF_COMMAND_DIR=\\\"{{PREFIX}}/sbin\\\"
+			-DDEF_SENDMAIL_PATH=\\\"{{PREFIX}}/sbin/sendmail\\\"
+			-DDEF_NEWALIAS_PATH=\\\"{{PREFIX}}/bin/newaliases\\\"
+			-DDEF_MAILQ_PATH=\\\"{{PREFIX}}/bin/mailq\\\"
+			-DDEF_MANPAGE_DIR=\\\"{{MANPREFIX}}/man\\\"
+			-DDEF_README_DIR=\\\"{{STD_DOCDIR}}\\\"
+			-DDEF_HTML_DIR=\\\"{{STD_DOCSIR}}\\\"
+			-DDEF_QUEUE_DIR=\\\"/var/spool/postfix\\\"
+			-DDEF_DATA_DIR=\\\"/var/db/postfix\\\"
+			-DDEF_MAIL_OWNER=\\\"postfix\\\"
+			-DDEF_SGID_GROUP=\\\"maildrop\\\"
+			-DDEF_SERVER_SASL_TYPE=\\\"dovecot\\\"
+			-I{{LOCALBASE}}/include
+			-I{{LOCALBASE}}/include/mysql
+			-I{{OPENSSLINC}}
+			-DHAS_CDB
+			-DHAS_LDAP
+			-DHAS_LMDB
+			-DHAS_MYSQL
+			-DHAS_PGSQL
+			-DHAS_SQLITE
+			-DHAS_PCRE
+			-DHAS_EAI
+			-DUSE_TLS
+			-DUSE_SASL_AUTH
+			-DNO_DB
+			-Wmissing-prototypes -Wformat -Wno-comment
+
+post-patch:
+	${ECHO_CMD} '$$manpage_directory/man1/posttls-finger.1:f:root:-:644' \
+		>> ${WRKSRC}/conf/postfix-files
+	${ECHO_CMD} '$$command_directory/posttls-finger:f:root:-:755' \
+		>> ${WRKSRC}/conf/postfix-files
+.for f in body_checks.5.html bounce.5.html postfix-power.png \
+	scache.8.html tlsmgr.8.html
+	${ECHO_CMD} '$$html_directory/$f:f:root:-:644' \
+		>> ${WRKSRC}/conf/postfix-files
+.endfor
+	${ECHO_CMD} '<HTML><BODY>See <A HREF="header_checks.5.html">header_checks.5.html</A></BODY></HTML>' \
+		> ${WRKSRC}/html/body_checks.5.html
+	${REINPLACE_CMD} -E -e 's!^(#define DEF_SGID_GROUP[^"]+)"postdrop"$$!\1"maildrop"!' \
+		${WRKSRC}/src/global/mail_params.h
+	${FIND} ${WRKSRC}/README_FILES ${WRKSRC}/conf ${WRKSRC}/man \
+		-type f -a ! \( -name INSTALL -o -name aliases \) -print0| \
+		${XARGS} -0 ${REINPLACE_CMD} -E -e '\
+		s!^PATH=.*!PATH=/bin:/sbin:/usr/bin:/usr/sbin:${PREFIX}/bin:${PREFIX}/sbin!;\
+		s!(_directory = )/usr/!\1${PREFIX}/!g;\
+		s!^(data_directory = /var/)lib/!\1db/!g;\
+		s!^\#(mynetworks_style = host)!\1!g;\
+		s!^(sendmail_path =)!\1 ${PREFIX}/sbin/sendmail!g;\
+		s!^(newaliases_path =)!\1 ${PREFIX}/bin/newaliases!g;\
+		s!^(mailq_path =)!\1 ${PREFIX}/bin/mailq!g;\
+		s!^(setgid_group =)!\1 maildrop!g;\
+		s!^(manpage_directory =)!\1 ${MANPREFIX}/man!g;\
+		s!^((html|readme)_directory =)!\1 ${STD_DOCDIR}!g;\
+		\!^\#alias_database = dbm:/etc/mail/aliases$$!d;\
+		s!(:|= )/etc/postfix!\1$$config_directory!g;\
+		s!/etc/postfix!${PREFIX}/etc/postfix!g;\
+		s!^(sample_directory =)!\1 ${PREFIX}/etc/postfix!g;\
+		s!($config_directory/(access|aliases|canonical|generic|header_checks|relocated|transport|virtual):f:root:-:644:)p1!\1o!;'
+
+do-configure:
+	(cd ${WRKSRC} && ${MAKE} -f Makefile.init makefiles \
+	${MAKEFILEFLAGS} \
+	CCARGS="${QMAKE_ARGS}" \
+	shared=yes \
+	shlib_directory="${SHLIBDIR}" \
+	dynamicmaps=yes \
+	${DYN_AUXLIBS} \
+	AUXLIBS="${AUXLIBS}" && \
+	${ECHO_CMD} "all: default" >> Makefile)
+
+do-install:
+	(cd ${WRKSRC} && ${MAKE} non-interactive-package \
+		install_root="${STAGEDIR}" \
+		tempdir="${WRKDIR}" \
+		shlib_directory="${SHLIBDIR}" \
+		config_directory="${PREFIX}/etc/postfix" \
+		command_directory="${PREFIX}/sbin" \
+		daemon_directory="${DAEMONDIR}" \
+		meta_directory="${METADIR}" \
+		html_directory="${STD_DOCDIR}" \
+		mailq_path="${PREFIX}/bin/mailq" \
+		manpage_directory="${MANPREFIX}/man" \
+		newaliases_path="${PREFIX}/bin/newaliases" \
+		readme_directory="${STD_DOCDIR}" \
+		sendmail_path="${PREFIX}/sbin/sendmail" )
+
+	${INSTALL_SCRIPT} ${WRKSRC}/auxiliary/rmail/rmail \
+		${STAGEDIR}${PREFIX}/bin/rmail
+	${INSTALL_SCRIPT} ${WRKSRC}/auxiliary/qshape/qshape.pl \
+		${STAGEDIR}${PREFIX}/bin/qshape
+	${INSTALL_MAN} ${WRKSRC}/man/man1/qshape.1 \
+		${STAGEDIR}${MANPREFIX}/man/man1
+	${MV} ${STAGEDIR}${ETCDIR}/main.cf \
+		${STAGEDIR}${ETCDIR}/main.cf.sample
+	${MV} ${STAGEDIR}${ETCDIR}/master.cf \
+		${STAGEDIR}${ETCDIR}/master.cf.sample
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/postfix
+	${INSTALL_DATA} ${WRKDIR}/mailer.conf.postfix \
+		${STAGEDIR}${PREFIX}/share/postfix
+
+	# == chop dynamicmaps.cf entries into dedicated .cf files
+.for f in ${DYN_EXT}
+	# adjust dynamicmaps.cf
+	${GREP} -e "^#" -e "^${f}" ${STAGEDIR}${METADIR}/dynamicmaps.cf \
+	  > ${STAGEDIR}${METADIR}/dynamicmaps.cf.d/${f}.cf && \
+	    ${SED} -i'' -e '/${f}/d' ${STAGEDIR}${METADIR}/dynamicmaps.cf
+
+	# adjust / generate postfix-files for dynamic modules
+	${SED} -i'' -e '/postfix-${f}.so/d' \
+		${STAGEDIR}${METADIR}/postfix-files
+	${ECHO} "# Do not edit this file." \
+	  > ${STAGEDIR}${METADIR}/postfix-files.d/${f}-files
+	${ECHO} "$$shlib_directory/postfix-${f}.so:f:root:-:755"\
+	 >> ${STAGEDIR}${METADIR}/postfix-files.d/${f}-files
+	${ECHO} "$$meta_directory/postfix-files.d/${f}-files:f:root:-:644"\
+	 >> ${STAGEDIR}${METADIR}/postfix-files.d/${f}-files
+	${ECHO} "$$meta_directory/dynamicmaps.cf.d/${f}.cf:f:root:-:644"\
+	 >> ${STAGEDIR}${METADIR}/postfix-files.d/${f}-files
+.endfor
+
+	# Fix compressed man pages and strip executables
+	${SED} -i'' -E -e "s|(man[158]/.*.[158]):|\1.gz:|g" \
+		${STAGEDIR}${METADIR}/postfix-files
+	(cd ${STAGEDIR}${DAEMONDIR} && \
+	  ${STRIP_CMD} anvil bounce cleanup discard dnsblog error \
+	  flush lmtp local master nqmgr oqmgr pickup pipe postscreen \
+	  proxymap qmgr qmqpd scache showq smtp smtpd spawn tlsmgr \
+	  tlsproxy trivial-rewrite verify virtual)
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/sbin/*
+	${STRIP_CMD} ${STAGEDIR}${SHLIBDIR}/*.so
+
+	# install test files
+	(cd ${WRKSRC}/bin && \
+	  ${INSTALL_PROGRAM} qmqp-sink qmqp-source smtp-sink smtp-source\
+	  ${STAGEDIR}${PREFIX}/bin/ )
+	(cd ${WRKSRC}/man/man1 && \
+	  ${INSTALL_MAN} qmqp-sink.1 qmqp-source.1 smtp-sink.1 smtp-source.1\
+	  ${STAGEDIR}${MANPREFIX}/man/man1/ )

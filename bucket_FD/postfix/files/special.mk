@@ -1,0 +1,12 @@
+DYN_AUXLIBS=	"AUXLIBS_PCRE=${LDFLAGS} -lpcre"
+DYN_AUXLIBS+=	"AUXLIBS_MYSQL=${LDFLAGS} -L${LOCALBASE}/lib/mysql -Wl,-rpath,${LOCALBASE}/lib/mysql -lmysqlclient -lz -lm"
+DYN_AUXLIBS+=	"AUXLIBS_PGSQL=${LDFLAGS} -lpq"
+DYN_AUXLIBS+=	"AUXLIBS_SQLITE=${LDFLAGS} -lsqlite3 -lpthread"
+DYN_AUXLIBS+=	"AUXLIBS_LDAP=${LDFLAGS} -lldap -llber"
+DYN_AUXLIBS+=	"AUXLIBS_CDB=${LDFLAGS} -lcdb"
+DYN_AUXLIBS+=	"AUXLIBS_LMDB=${LDFLAGS} -llmdb"
+
+AUXLIBS=	-L${LOCALBASE}/lib -licuuc
+AUXLIBS+=	-L${OPENSSLLIB} ${LDFLAGS} -lssl -lcrypto
+
+MAKEFILEFLAGS+=	pie=yes CC="${CC}" OPT="${CFLAGS}"
