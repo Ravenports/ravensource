@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	1.20
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		lzip
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers
+VARIANTS=		standard
+SDESC[standard]=	LZMA lossless data compressor
+HOMEPAGE=		http://www.nongnu.org/lzip/lzip.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SAVANNAH/lzip
+DISTFILE[1]=		lzip-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^class State"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/lzip.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		archivers/lzip
+
+USES=			c++:single
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+CONFIGURE_ARGS=		CXX="{{CXX}}"
+			CXXFLAGS="{{CXXFLAGS}}"
+			LDFLAGS="{{LDFLAGS}}"
+INFO=			single:lzip
