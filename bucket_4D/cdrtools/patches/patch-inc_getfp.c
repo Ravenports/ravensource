@@ -22,7 +22,7 @@
  EXPORT	void	**___fpoff	__PR((char *cp));
  
 -EXPORT void **
-+EXPORT __noinline void **
++EXPORT __attribute__ ((noinline)) void **
  getfp()
  {
  		long	**dummy[1];
@@ -31,7 +31,7 @@
   * from outside the functions local address space.
   */
 -EXPORT void **
-+EXPORT __noinline void **
++EXPORT __attribute__ ((noinline)) void **
  ___fpoff(cp)
  	char	*cp;
  {
