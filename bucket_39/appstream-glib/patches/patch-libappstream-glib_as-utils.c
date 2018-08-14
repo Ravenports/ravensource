@@ -1,6 +1,6 @@
---- libappstream-glib/as-utils.c.orig	2018-02-09 11:34:12 UTC
+--- libappstream-glib/as-utils.c.orig	2018-08-13 10:48:23 UTC
 +++ libappstream-glib/as-utils.c
-@@ -1470,18 +1470,21 @@ as_utils_guid_from_data (const gchar *na
+@@ -1504,18 +1504,21 @@ as_utils_guid_from_data (const gchar *na
  	gchar guid_new[37]; /* 36 plus NUL */
  	gsize digestlen = 20;
  	guint8 hash[20];
@@ -28,7 +28,7 @@
  		g_set_error (error,
  			     AS_UTILS_ERROR,
  			     AS_UTILS_ERROR_FAILED,
-@@ -1489,22 +1492,45 @@ as_utils_guid_from_data (const gchar *na
+@@ -1523,22 +1526,45 @@ as_utils_guid_from_data (const gchar *na
  			     namespace_id);
  		return FALSE;
  	}
@@ -80,7 +80,7 @@
  	return g_strdup (guid_new);
  }
  
-@@ -1521,12 +1547,14 @@ as_utils_guid_from_data (const gchar *na
+@@ -1555,12 +1581,14 @@ as_utils_guid_from_data (const gchar *na
  gboolean
  as_utils_guid_is_valid (const gchar *guid)
  {
