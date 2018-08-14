@@ -1,4 +1,4 @@
---- src/mesa/drivers/dri/i965/brw_performance_query.c.orig	2018-06-15 20:37:48 UTC
+--- src/mesa/drivers/dri/i965/brw_performance_query.c.orig	2018-08-13 16:42:38 UTC
 +++ src/mesa/drivers/dri/i965/brw_performance_query.c
 @@ -1806,9 +1806,17 @@ enumerate_sysfs_metrics(struct brw_conte
     while ((metric_entry = readdir(metricsdir))) {

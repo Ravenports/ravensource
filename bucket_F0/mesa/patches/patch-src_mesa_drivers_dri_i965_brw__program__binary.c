@@ -1,4 +1,4 @@
---- src/mesa/drivers/dri/i965/brw_program_binary.c.orig	2018-07-13 18:41:27 UTC
+--- src/mesa/drivers/dri/i965/brw_program_binary.c.orig	2018-08-13 16:42:38 UTC
 +++ src/mesa/drivers/dri/i965/brw_program_binary.c
 @@ -34,9 +34,11 @@ static uint8_t driver_sha1[20];
  void

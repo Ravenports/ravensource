@@ -1,7 +1,7 @@
 # We don't have MAP_NORESERVE so use MAP_NOSYNC | MAP_NOCORE and
 # hope for the best (this alloc is too big but it's only a test)
 #
---- src/intel/tools/aubinator.c.orig	2018-06-15 20:37:48 UTC
+--- src/intel/tools/aubinator.c.orig	2018-08-13 16:42:38 UTC
 +++ src/intel/tools/aubinator.c
 @@ -633,7 +633,7 @@ int main(int argc, char *argv[])
     /* mmap a terabyte for our gtt space. */
