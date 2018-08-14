@@ -34,6 +34,11 @@ MAKE_ARGS=		CC="{{CC}}"
 			prefix="{{PREFIX}}"
 			mandir="{{MANPREFIX}}/man"
 
+post-patch:
+	${REINPLACE_CMD} -e 's|--soname=|-soname,|' \
+		-e '/version-script=/ s/pt=/pt,/' \
+		${WRKSRC}/Makefile
+
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/cdb \
 		${STAGEDIR}${PREFIX}/lib/libcdb.so.1
