@@ -1,0 +1,53 @@
+DEF[PORTVERSION]=	1.5.10
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		memcached
+VERSION=		${PORTVERSION}
+KEYWORDS=		databases
+VARIANTS=		standard
+SDESC[standard]=	Distributed memory object caching system
+HOMEPAGE=		http://www.memcached.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.memcached.org/files/
+DISTFILE[1]=		memcached-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		databases/memcached
+
+BUILD_DEPENDS=		python-xml2rfc:single:python_default
+BUILDRUN_DEPENDS=	libevent:single:standard
+			cyrus-sasl:primary:standard
+
+RC_SUBR=		memcached:primary
+
+USES=			cpe shebangfix autoreconf
+SHEBANG_FILES=		scripts/memcached-tool
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-libevent={{LOCALBASE}}
+			--program-prefix=
+			--disable-coverage
+			--enable-sasl
+			--enable-docs
+
+VAR_ARCH[x86_64]=	CONFIGURE_ARGS=--enable-64bit
+VAR_ARCH[aarch64]=	CONFIGURE_ARGS=--enable-64bit
+
+post-install:
+	${INSTALL_SCRIPT} ${WRKSRC}/scripts/memcached-tool \
+		${STAGEDIR}${PREFIX}/bin
+	# docs
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+.for i in protocol-binary-range.txt protocol-binary.txt protocol.txt \
+		readme.txt threads.txt
+	${INSTALL_DATA} ${WRKSRC}/doc/${i} ${STAGEDIR}${STD_DOCDIR}
+.endfor
