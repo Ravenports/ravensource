@@ -1,0 +1,92 @@
+DEF[PORTVERSION]=	2.1.26
+DEF[SOVERSION]=		3.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		cyrus-sasl
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		standard
+SDESC[standard]=	Cyrus Simple Authentication Service Layer (SASL)
+HOMEPAGE=		https://www.cyrusimap.org/sasl/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://cyrusimap.org/releases/
+			ftp://ftp.cyrusimap.org/cyrus-sasl/
+DISTFILE[1]=		cyrus-sasl-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD4CLAUSE:primary
+LICENSE_FILE=		BSD4CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		security/cyrus-sasl2
+
+USERS=			cyrus
+GROUPS=			cyrus
+USERGROUP_SPKG=		primary
+
+USES=			cpe libtool:keepla perl:build bdb ssl
+CPE_VENDOR=		cmu
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-alwaystrue
+			--disable-keep-db-open
+			--disable-srp
+			--disable-krb4
+			--disable-gssapi
+			--disable-otp
+			--enable-anon
+			--enable-cram
+			--enable-digest
+			--enable-login
+			--enable-ntlm
+			--enable-plain
+			--enable-scram
+			--sysconfdir={{PREFIX}}/etc
+			--with-dblib=berkeley
+			--with-bdb-libdir={{BDB_LIB_DIR}}
+			--with-bdb-incdir={{BDB_INCLUDE_DIR}}
+			--with-bdb={{BDB_LIB_NAME}}
+			--with-authdaemond=/var/run/authdaemond/socket
+			--with-configdir={{PREFIX}}/lib/sasl2:{{PREFIX}}/etc/sasl2
+			--with-plugindir={{PREFIX}}/lib/sasl2
+			--with-dbpath={{PREFIX}}/etc/sasldb2
+			--with-lib-subdir=lib
+			--with-pkgconfigdir={{PREFIX}}/lib/pkgconfig
+			--includedir={{PREFIX}}/include
+			--enable-static
+			--with-rc4=openssl
+			--with-saslauthd=/var/run/saslauthd
+			--with-openssl={{OPENSSLBASE}}
+CFLAGS=			-Wno-pointer-sign
+SINGLE_JOB=		yes
+SOVERSION=		${SOVERSION}
+
+SUB_FILES=		pkg-install-primary
+			pkg-deinstall-primary
+SUB_LIST=		SASLDB_NAME=sasldb2
+			CYRUS_USER=cyrus
+VAR_ARCH[x86_64]=	CPPFLAGS=-fPIC
+
+post-configure:
+	# work around horrible libtool
+	${REINPLACE_CMD} -e "/^archive_cmds=/ \
+		s|linkopts|linkopts -Wl,-rpath,${BDB_LIB_DIR}:${OPENSSLRPATH}|" \
+		${WRKSRC}/libtool
+
+post-install:
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}/html
+	(cd ${WRKSRC} && \
+		${INSTALL_DATA} ${DOCS} ${STAGEDIR}${STD_DOCDIR})
+	(cd ${WRKSRC}/doc && \
+		${INSTALL_DATA} ${DOC2} ${STAGEDIR}${STD_DOCDIR})
+	(cd ${WRKSRC}/doc && \
+		${INSTALL_DATA} ${HTDOCS:S/$$/.html/} \
+		${STAGEDIR}${STD_DOCDIR}/html)
+	${INSTALL_DATA} ${FILESDIR}/Sendmail.README ${STAGEDIR}${STD_DOCDIR}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/sasl2/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
