@@ -1,0 +1,48 @@
+DEF[PORTVERSION]=	1.30
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		tar
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers
+VARIANTS=		standard nls noprefix
+SDESC[standard]=	GNU version of the traditional tape archiver
+SDESC[nls]=		GNU tape archiver with native language support
+SDESC[noprefix]=	GNU tape archiver without 'g' prefix
+HOMEPAGE=		https://www.gnu.org/software/tar/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/tar
+DISTFILE[1]=		tar-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+SPKGS[noprefix]=	single
+SPKGS[nls]=		single
+
+OPTIONS_AVAILABLE=	NLS NOPREFIX
+OPTIONS_STANDARD=	none
+VOPTS[nls]=		NLS=ON NOPREFIX=OFF
+VOPTS[noprefix]=	NLS=ON NOPREFIX=ON
+
+LICENSE=		GPLv3+:single
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_AWK=		TERMS:"tar Header Block"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/tar.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		archivers/gtar
+
+USES=			cpe makeinfo iconv:build charsetfix
+CPE_VENDOR=		gnu
+MUST_CONFIGURE=		gnu
+CONFIGURE_ENV=		DEFAULT_ARCHIVE=/dev/sa0
+			DEFAULT_RMT_COMMAND=/etc/rmt
+			gl_cv_func_mknod_works=yes
+INFO=			single:tar
+
+[NLS].CONFIGURE_ENABLE_BOTH=		nls
+[NLS].USES_ON=				gettext-runtime
+
+[NOPREFIX].DESCRIPTION=			Build without prefixing all programs with "g"
+[NOPREFIX].CONFIGURE_ARGS_OFF=		--program-prefix=g
