@@ -18,6 +18,13 @@ SPKGS[standard]=	complete primary docs
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		GPLv2:primary CUSTOM1:primary
+LICENSE_TERMS=		primary:{{WRKSRC}}/COPYING
+LICENSE_FILE=		GPLv2:stock
+			CUSTOM1:{{WRKDIR}}/LIC_REMAINING
+LICENSE_NAME=		CUSTOM1:"Various additional licenses to cover some components"
+LICENSE_SCHEME=		multi
+
 FPC_EQUIVALENT=		shells/fish
 
 BUILDRUN_DEPENDS=	pcre2:primary:standard
@@ -31,6 +38,10 @@ MUST_CONFIGURE=		gnu
 # CONFIGURE_ENV=		ac_cv_func_gettext=yes
 LDFLAGS=		-lpthread
 MANDIRS=		{{PREFIX}}/share/fish/man/man1
+
+post-extract:
+	${AWK} '/## License for/,0' ${WRKSRC}/doc_src/license.hdr \
+		> ${WRKDIR}/LIC_REMAINING
 
 post-patch:
 	${REINPLACE_CMD} -e \
