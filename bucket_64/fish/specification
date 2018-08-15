@@ -1,0 +1,47 @@
+DEF[PORTVERSION]=	2.7.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		fish
+VERSION=		${PORTVERSION}
+KEYWORDS=		shells
+VARIANTS=		standard
+SDESC[standard]=	Friendly Interactive SHell
+HOMEPAGE=		https://fishshell.com/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/fish-shell/fish-shell/releases/download/${PORTVERSION}/
+DISTFILE[1]=		fish-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		shells/fish
+
+BUILDRUN_DEPENDS=	pcre2:primary:standard
+
+USES=			cpe autoreconf gmake libtool ncurses pkgconfig
+			python shebangfix gettext-tools gettext-runtime
+CPE_VENDOR=		fishshell
+SHEBANG_FILES=		share/tools/*.py
+			share/tools/web_config/webconfig.py
+MUST_CONFIGURE=		gnu
+# CONFIGURE_ENV=		ac_cv_func_gettext=yes
+LDFLAGS=		-lpthread
+MANDIRS=		{{PREFIX}}/share/fish/man/man1
+
+post-patch:
+	${REINPLACE_CMD} -e \
+		'/^all:/s|user_doc|| ; \
+		 s| "$$(HAVE_GETTEXT)" = 1| x$$(HAVE_GETTEXT) = x1| ; \
+		 s| $$(HAVE_GETTEXT) = 1| x$$(HAVE_GETTEXT) = x1| ; \
+		 s|$$(DESTDIR)$$(bindir)/fish|$$(bindir)/fish|g ; \
+		 s|$$(datadir)/pkgconfig|$$(prefix)/lib/pkgconfig|g' \
+		 ${WRKSRC}/Makefile.in
+
+post-install:
+.for i in fish fish_indent fish_key_reader
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${i}
+.endfor
