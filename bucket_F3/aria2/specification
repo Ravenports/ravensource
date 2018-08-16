@@ -65,6 +65,9 @@ CONFIGURE_ENV=		OPENSSL_CFLAGS=-I{{OPENSSLINC}}
 			OPENSSL_LIBS="-L{{OPENSSLLIB}} -lcrypto -lssl"
 			ac_cv_path_RST2HTML=no
 
+post-patch:
+	${REINPLACE_CMD} -e '/GAI_STRERROR/d' ${WRKSRC}/src/Makefile.in
+
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/bash_completion.d/
 	${INSTALL_DATA} ${WRKSRC}/doc/bash_completion/aria2c \
