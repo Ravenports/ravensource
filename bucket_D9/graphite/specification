@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	1.3.11
+DEF[PORTVERSION]=	1.3.12
+DEF[SOVERSION]=		3.2.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		graphite
@@ -30,6 +31,7 @@ LICENSE_SCHEME=		dual
 FPC_EQUIVALENT=		graphics/graphite2
 
 USES=			cmake c++:single
+SOVERSION=		${SOVERSION}
 
 post-patch-linux:
 	${REINPLACE_CMD} "/CREATE_LIBTOOL_FILE/d" ${WRKSRC}/src/CMakeLists.txt
