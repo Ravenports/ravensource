@@ -1,0 +1,82 @@
+DEF[PORTVERSION]=	1.13.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mupdf
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Lightweight PDF and XPS viewer
+HOMEPAGE=		https://mupdf.com/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://mupdf.com/downloads/
+			http://www.mupdf.com/downloads/archive/
+DISTFILE[1]=		mupdf-${PORTVERSION}-source.tar.gz:main
+
+SPKGS[standard]=	complete primary docs examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		AGPLv3+:primary
+LICENSE_FILE=		AGPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/mupdf
+
+BUILDRUN_DEPENDS=	curl:primary:standard
+			freetype:primary:standard
+			harfbuzz:primary:standard
+			openjpeg:single:standard
+			jbig2dec:single:standard
+			freeglut:primary:standard
+
+USES=			cpe gmake jpeg pkgconfig
+XORG_COMPONENTS=	x11 xcursor xext xinerama xrandr
+CPE_VENDOR=		artifex
+DISTNAME=		mupdf-${PORTVERSION}-source
+SOVERSION=		${PORTVERSION}
+BUILD_TARGET=		all extra
+MAKE_ARGS=		build=release
+			prefix={{PREFIX}}
+			mandir={{MANPREFIX}}/man
+			verbose=yes
+			SOVERSION=${PORTVERSION}
+CFLAGS=			`pkg-config --cflags libopenjp2`
+			-I{{WRKSRC}}/include/mupdf
+VAR_ARCH[x86_64]=	CFLAGS=-fPIC
+
+
+post-extract:
+	${RM} -r ${WRKSRC}/thirdparty/curl \
+		${WRKSRC}/thirdparty/freetype \
+		${WRKSRC}/thirdparty/freeglut \
+		${WRKSRC}/thirdparty/harfbuzz \
+		${WRKSRC}/thirdparty/jbig2dec \
+		${WRKSRC}/thirdparty/libjpeg \
+		${WRKSRC}/thirdparty/openjpeg \
+		${WRKSRC}/thirdparty/zlib
+	${AWK} '/^LICENSE/,/^REPORTING/' ${WRKSRC}/README > ${WRKDIR}/TERMS
+
+post-patch:
+	${REINPLACE_CMD} -e "s|%%OPSYS%%|${OPSYS}|; s/-pipe -O2 //" \
+		${WRKSRC}/Makerules
+
+post-install:
+	${MV} ${STAGEDIR}${PREFIX}/bin/mupdf-x11 ${STAGEDIR}${PREFIX}/bin/mupdf
+	${INSTALL_PROGRAM} \
+		${WRKSRC}/build/release/mjsgen \
+		${WRKSRC}/build/release/mujstest \
+		${WRKSRC}/build/release/mupdf-x11-curl \
+		${WRKSRC}/build/release/muraster \
+		${STAGEDIR}${PREFIX}/bin
+	${LN} -s libmupdf.so.${PORTVERSION} \
+		${STAGEDIR}${PREFIX}/lib/libmupdf.so
+	${LN} -s libmupdfthird.so.${PORTVERSION} \
+		${STAGEDIR}${PREFIX}/lib/libmupdfthird.so
+	${MKDIR ${STAGEDIR}${PREFIX}/share/examples
+	${MV} ${STAGEDIR}${PREFIX}/share/doc/mupdf/examples \
+		${STAGEDIR}${STD_EXAMPLESDIR}
+	${RM} ${STAGEDIR}${STD_DOCDIR}/COPYING
