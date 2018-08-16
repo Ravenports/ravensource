@@ -48,7 +48,6 @@ CFLAGS=			`pkg-config --cflags libopenjp2`
 			-I{{WRKSRC}}/include/mupdf
 VAR_ARCH[x86_64]=	CFLAGS=-fPIC
 
-
 post-extract:
 	${RM} -r ${WRKSRC}/thirdparty/curl \
 		${WRKSRC}/thirdparty/freetype \
@@ -63,6 +62,10 @@ post-extract:
 post-patch:
 	${REINPLACE_CMD} -e "s|%%OPSYS%%|${OPSYS}|; s/-pipe -O2 //" \
 		${WRKSRC}/Makerules
+
+post-patch-sunos:
+	${REINPLACE_CMD} -e '/define _XOPEN_SOURCE/d' \
+		${WRKSRC}/platform/x11/x11_image.c
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/bin/mupdf-x11 ${STAGEDIR}${PREFIX}/bin/mupdf
