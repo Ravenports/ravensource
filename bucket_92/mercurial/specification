@@ -1,0 +1,66 @@
+DEF[PORTVERSION]=	4.7
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mercurial
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel python
+VARIANTS=		standard
+SDESC[standard]=	Scalable distributed version control system
+HOMEPAGE=		https://mercurial-scm.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.mercurial-scm.org/release/
+DISTFILE[1]=		mercurial-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"__future__"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/hg
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/mercurial
+
+RUN_DEPENDS=		nss:caroot:standard
+
+USES=			cpe python:py27 gettext-runtime gettext-tools
+
+post-install:
+	${INSTALL_MAN} ${WRKSRC}/doc/*.1 ${STAGEDIR}${MANPREFIX}/man/man1/
+	${INSTALL_MAN} ${WRKSRC}/doc/*.5 ${STAGEDIR}${MANPREFIX}/man/man5/
+	${FIND} ${STAGEDIR}${PYTHON_SITELIBDIR}/ -name '*.so' \
+		-exec ${STRIP_CMD} {} +
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/mercurial/contrib/hgsh \
+		${STAGEDIR}${PREFIX}/share/mercurial/contrib/vim \
+		${STAGEDIR}${PREFIX}/share/mercurial/www
+	${INSTALL_DATA} ${WRKSRC}/contrib/hgsh/* \
+		${STAGEDIR}${PREFIX}/share/mercurial/contrib/hgsh
+	${INSTALL_DATA} ${WRKSRC}/contrib/vim/* \
+		${STAGEDIR}${PREFIX}/share/mercurial/contrib/vim
+	${INSTALL_DATA} ${WRKSRC}/hgweb.cgi ${WRKSRC}/contrib/hgweb.* \
+		${STAGEDIR}${PREFIX}/share/mercurial/www
+	(cd ${WRKSRC}/contrib && ${INSTALL_DATA} \
+		bash_completion \
+		casesmash.py \
+		check-code.py \
+		debugcmdserver.py \
+		debugshell.py \
+		dumprevlog \
+		hg-ssh \
+		hgk \
+		mercurial.el \
+		mq.el \
+		pylintrc \
+		python-hook-examples.py \
+		simplemerge \
+		tcsh_completion \
+		tcsh_completion_build.sh \
+		undumprevlog \
+		zsh_completion \
+		${STAGEDIR}${PREFIX}/share/mercurial/contrib/ )
