@@ -116,7 +116,9 @@ INFO=			single:ada-mode
 			single:woman
 
 VAR_OPSYS[freebsd]=	VAR1=--with-file-notification=kqueue
+			VAR2=--with-sound=oss
 VAR_OPSYS[dragonfly]=	VAR1=--with-file-notification=kqueue
+			VAR2=--with-sound=oss
 
 [X11GTK].DESCRIPTION=			X window system support (through GTK3)
 [X11GTK].GNOME_COMPONENTS_ON=		cairo gtk3 librsvg
@@ -125,8 +127,8 @@ VAR_OPSYS[dragonfly]=	VAR1=--with-file-notification=kqueue
 [X11GTK].USES_ON=			gettext-runtime png desktop-utils
 					gnome-icons jpeg
 [X11GTK].CONFIGURE_ARGS_ON=		--with-x-toolkit=gtk3
-					--with-sound=oss
 					{{VAR1}}
+					{{VAR2}}
 [X11GTK].CONFIGURE_WITH_BOTH=		cairo
 					png
 					xft
