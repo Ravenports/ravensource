@@ -38,7 +38,5 @@ MAKE_ARGS=		STRIP="{{STRIP_CMD}}"
 VAR_OPSYS[sunos]=	CPPFLAGS=-D_XOPEN_SOURCE=600
 
 post-patch:
-	${REINPLACE_CMD} -e 's/-Os //' \
-		-e 's/solaris/no-solaris/' ${WRKSRC}/configure
 	${REINPLACE_CMD} -e '/SHARED/,/^$$/ { /STRIP/s/-x //; }' \
 		${WRKSRC}/${MAKEFILE}
