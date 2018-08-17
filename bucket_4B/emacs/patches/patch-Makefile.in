@@ -1,0 +1,11 @@
+--- Makefile.in.orig	2018-04-23 14:17:32 UTC
++++ Makefile.in
+@@ -574,7 +574,7 @@ install-arch-indep: lisp install-info in
+ 	  printf 'Copying %s to %s...\n' "$$dir" "$$dest" ; \
+ 	  (cd $${dir}; tar -chf - . ) \
+ 	    | (cd "$${dest}"; umask 022; \
+-	       tar -xvf - && cat > /dev/null) || exit 1; \
++	       tar -xvf - --no-same-owner --no-same-permissions && cat > /dev/null) || exit 1; \
+ 	  if [ "$${dir}" = "${srcdir}/etc" ]; then \
+ 	      rm -f "$${dest}/DOC"* ; \
+ 	      rm -f "$${dest}/refcards"/*.aux "$${dest}/refcards"/*.dvi; \
