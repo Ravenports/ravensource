@@ -75,7 +75,7 @@ VAR_ARCH[x86_64]=	CPPFLAGS=-fPIC
 post-configure:
 	# work around horrible libtool
 	${REINPLACE_CMD} -e "/^archive_cmds=/ \
-		s|linkopts|linkopts -Wl,-rpath,${BDB_LIB_DIR}:${OPENSSLRPATH}|" \
+		s|linkopts|linkopts -Wl,-R,${BDB_LIB_DIR}:${OPENSSLRPATH}|" \
 		${WRKSRC}/libtool
 
 post-install:
