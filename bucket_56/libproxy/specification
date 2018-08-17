@@ -64,6 +64,9 @@ CMAKE_ARGS=		-DBIPR:BOOL=OFF
 
 SOVERSION=		${SOVERSION}
 
+VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
+			LDFLAGS=-lnsl
+
 post-patch:
 	# support python 3.7
 	${REINPLACE_CMD} -e 's/ 3\.6/ 3.7 3.6/' \
