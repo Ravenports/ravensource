@@ -1,10 +1,9 @@
 DEF[PORTVERSION]=	3.4
-DEF[SOVERSION]=		6.4
-DEF[HOGWEED_VERSION]=	4.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		nettle
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security net
 VARIANTS=		standard
 SDESC[standard]=	Low-level cryptographic library
@@ -33,21 +32,18 @@ FPC_EQUIVALENT=		security/nettle
 BUILD_DEPENDS=		gmp:static:standard
 BUILDRUN_DEPENDS=	gmp:shared:standard
 
+# Don't build shared library.  The assembler files are not made
+# with position independent instructions.
 USES=			gmake makeinfo
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-shared
+CONFIGURE_ARGS=		--disable-shared
 CONFIGURE_ENV=		M4="/usr/bin/m4 -g"
 INFO=			primary:nettle
-PLIST_SUB=		HOGWEED_VERSION=${HOGWEED_VERSION}
-			HOGWEED_MAJOR=${HOGWEED_VERSION:R}
-			SOVERSION=${SOVERSION}
-			SOMAJOR=${SOVERSION:R}
 
 post-patch-sunos:
 	${REINPLACE_CMD} -e 's|lib/64|lib|' ${WRKSRC}/configure
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
 	@${MKDIR} ${STAGEDIR}${STD_DOCDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
 	(cd ${WRKSRC} && ${INSTALL_DATA} NEWS README TODO nettle.html \
 		nettle.pdf ${STAGEDIR}${STD_DOCDIR})
