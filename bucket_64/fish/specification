@@ -35,9 +35,10 @@ CPE_VENDOR=		fishshell
 SHEBANG_FILES=		share/tools/*.py
 			share/tools/web_config/webconfig.py
 MUST_CONFIGURE=		gnu
-# CONFIGURE_ENV=		ac_cv_func_gettext=yes
 LDFLAGS=		-lpthread
 MANDIRS=		{{PREFIX}}/share/fish/man/man1
+
+VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 
 post-extract:
 	${AWK} '/## License for/,0' ${WRKSRC}/doc_src/license.hdr \
