@@ -32,15 +32,20 @@ BUILDRUN_DEPENDS=	libassuan:single:standard
 			npth:single:standard
 RUN_DEPENDS=		pinentry:single:standard
 
-USES=			cpe gmake iconv pkgconfig readline sqlite gettext-runtime
+USES=			cpe gmake iconv pkgconfig readline sqlite
+			gettext-runtime
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-ntbtls
 			--disable-wks-tools
 			--enable-gpg-is-gpg2
-			--enable-symcryptrun
 			--enable-scdaemon
 			--enable-nls
 INFO=			primary:gnupg
+
+# sunos doesn't have openpty or login_tty that symcryptrun needs
+VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-symcryptrun
+VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--enable-symcryptrun
+VAR_OPSYS[linux]=	CONFIGURE_ARGS=--enable-symcryptrun
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
