@@ -46,6 +46,9 @@ PLIST_SUB=		CRY_SOMAJOR=${CRY_SOVERSION:R:R}
 			TLS_SOMAJOR=${TLS_SOVERSION:R:R}
 			TLS_SOVERSION=${TLS_SOVERSION}
 
+# relocation linking issues with assembly files
+VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--disable-asm
+
 [STATIC].CFLAGS_OFF=			-fpic -DPIC
 [STATIC].CONFIGURE_ARGS_ON=		--enable-shared=no
 [SKIP_MANPAGES].DESCRIPTION=		Avoid installing LibreSSL manpages
