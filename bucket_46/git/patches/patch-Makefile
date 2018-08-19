@@ -1,6 +1,6 @@
---- Makefile.orig	2018-04-02 17:44:04 UTC
+--- Makefile.orig	2018-06-21 17:18:50 UTC
 +++ Makefile
-@@ -481,11 +481,11 @@ infodir = $(prefix)/share/info
+@@ -523,11 +523,11 @@ infodir = $(prefix)/share/info
  gitexecdir = libexec/git-core
  mergetoolsdir = $(gitexecdir)/mergetools
  sharedir = $(prefix)/share
@@ -14,7 +14,7 @@
  ETC_GITCONFIG = $(sysconfdir)/gitconfig
  ETC_GITATTRIBUTES = $(sysconfdir)/gitattributes
  lib = lib
-@@ -1267,9 +1267,9 @@ EXTLIBS += -lz
+@@ -1326,9 +1326,9 @@ EXTLIBS += -lz
  
  ifndef NO_OPENSSL
  	OPENSSL_LIBSSL = -lssl
@@ -27,7 +27,7 @@
  	else
  		OPENSSL_LINK =
  	endif
-@@ -2012,7 +2012,7 @@ git-instaweb: git-instaweb.sh GIT-SCRIPT
+@@ -2151,7 +2151,7 @@ git-instaweb: git-instaweb.sh GIT-SCRIPT
  	chmod +x $@+ && \
  	mv $@+ $@
  else # NO_PERL
@@ -36,3 +36,18 @@
  	$(QUIET_GEN)$(RM) $@ $@+ && \
  	sed -e '1s|#!.*/sh|#!$(SHELL_PATH_SQ)|' \
  	    -e 's|@@REASON@@|NO_PERL=$(NO_PERL)|g' \
+@@ -2730,12 +2730,12 @@ install: all
+ ifndef NO_GETTEXT
+ 	$(INSTALL) -d -m 755 '$(DESTDIR_SQ)$(localedir_SQ)'
+ 	(cd po/build/locale && $(TAR) cf - .) | \
+-	(cd '$(DESTDIR_SQ)$(localedir_SQ)' && umask 022 && $(TAR) xof -)
++	(cd '$(DESTDIR_SQ)$(localedir_SQ)' && umask 022 && $(TAR) xof - --no-same-owner --no-same-permissions)
+ endif
+ ifndef NO_PERL
+ 	$(INSTALL) -d -m 755 '$(DESTDIR_SQ)$(perllibdir_SQ)'
+ 	(cd perl/build/lib && $(TAR) cf - .) | \
+-	(cd '$(DESTDIR_SQ)$(perllibdir_SQ)' && umask 022 && $(TAR) xof -)
++	(cd '$(DESTDIR_SQ)$(perllibdir_SQ)' && umask 022 && $(TAR) xof - --no-same-owner --no-same-permissions)
+ 	$(MAKE) -C gitweb install
+ endif
+ ifndef NO_TCLTK
