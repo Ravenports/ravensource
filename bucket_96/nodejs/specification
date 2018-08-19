@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	10.8.0
+DEF[PORTVERSION]=	10.9.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		nodejs
@@ -49,8 +49,6 @@ MAKE_ENV=		CC.host={{CC}}
 			LINK.target={{CXX}}
 
 post-patch:
-# |	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|' \
-# |		${WRKSRC}/deps/v8/src/v8.gyp
 	${GREP} -rl "/usr/local" ${WRKSRC} | \
 		${XARGS} ${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g'
 	${FIND} ${WRKSRC} -name "*.bak" -delete
@@ -63,6 +61,10 @@ post-patch:
 			-e 's|<!(python |<!(${PYTHON_CMD} |' \
 			-e 's|\&\& python |\&\& ${PYTHON_CMD} |'
 	${FIND} ${WRKSRC} -name "*.bak" -delete
+	# fix inability for torque to find libz
+	${REINPLACE_CMD} \
+		-e "s|-lexecinfo|-Wl,-rpath,${PREFIX}/lib -lexecinfo|" \
+		${WRKSRC}/deps/v8/gypfiles/v8.gyp
 
 post-patch-freebsd:
 	${REINPLACE_CMD} -e '/define HAVE_CRYPTODEV/d' \
