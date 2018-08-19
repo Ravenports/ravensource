@@ -119,6 +119,9 @@ post-patch:
 	${REINPLACE_CMD} -e 's|/usr/bin/perl|${PREFIX}/bin/perl|' \
 		-e 's|/usr/local/bin/perl|${PREFIX}/bin/perl|' \
 		${WRKSRC}/scripts/CMakeLists.txt
+	# don't build authentication ldap on any platform (yet)
+	${REINPLACE_CMD} -e '/authentication_ldap/d' \
+		${WRKSRC}/libmysql/CMakeLists.txt
 
 post-patch-freebsd:
 	${RM} ${WRKSRC}/cmake/os/FreeBSD.cmake
