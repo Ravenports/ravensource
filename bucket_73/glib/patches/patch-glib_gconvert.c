@@ -1,7 +1,7 @@
 Work around our situation of having both libiconv in libc and libiconv from
 ports installed.
 
---- glib/gconvert.c.orig	2017-07-13 23:03:39 UTC
+--- glib/gconvert.c.orig	2018-03-12 16:23:37 UTC
 +++ glib/gconvert.c
 @@ -55,7 +55,7 @@
  #error GNU libiconv in use but included iconv.h not from libiconv

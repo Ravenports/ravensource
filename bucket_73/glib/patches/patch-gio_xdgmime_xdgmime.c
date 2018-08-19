@@ -1,6 +1,6 @@
---- gio/xdgmime/xdgmime.c.orig	2017-07-13 23:03:39 UTC
+--- gio/xdgmime/xdgmime.c.orig	2018-08-17 00:03:20 UTC
 +++ gio/xdgmime/xdgmime.c
-@@ -255,7 +255,7 @@ xdg_run_command_on_dirs (XdgDirectoryFun
+@@ -253,7 +253,7 @@ xdg_run_command_on_dirs (XdgDirectoryFun
  
    xdg_data_dirs = getenv ("XDG_DATA_DIRS");
    if (xdg_data_dirs == NULL)
