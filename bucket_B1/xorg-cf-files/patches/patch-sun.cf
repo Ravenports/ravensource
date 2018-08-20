@@ -1,0 +1,20 @@
+--- sun.cf.orig	2015-12-22 01:28:02 UTC
++++ sun.cf
+@@ -515,7 +515,7 @@ XCOMM SunPro C++ CplusplusCompilerMajorV
+ # define InstKmemFlags	-g sys -m 2711
+ # define ShLibIncludeFile <sunLib.tmpl>
+ # define LinkerRuntimeLibraryPathFlag(path) Concat(-R,path)
+-# define RpathLoadFlags LinkerRuntimeLibraryPathFlag($(USRLIBDIRPATH))
++# define RpathLoadFlags -Wl,-rpath,$(USRLIBDIRPATH)
+ /*
+  * Set flags for position independent code before including sv4Lib.rules
+  * if the compiler in use doesn't use standard SVR4 flags
+@@ -879,7 +879,7 @@ MAPFILES_FOR_PROGS = Mapfile_BssAlign Ma
+ #  define DriverManSuffix	7	/* use just one tab or cpp will die */
+ # endif
+ # ifndef AdminManSuffix
+-#  define AdminManSuffix	1m	/* use just one tab or cpp will die */
++#  define AdminManSuffix	1	/* use just one tab or cpp will die */
+ # endif
+ #else
+ /* Bell Labs / BSD man page sections */

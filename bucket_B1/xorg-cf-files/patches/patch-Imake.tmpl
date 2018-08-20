@@ -9,7 +9,24 @@
  #else
  #define ManDirectoryRoot SystemManDirectory
  #endif
-@@ -1823,7 +1823,7 @@ CXXEXTRA_INCLUDES = CplusplusExtraInclud
+@@ -1205,16 +1205,8 @@ TCLIBDIR = TclLibDir
+ #define PreProcessCmd CcCmd -E
+ #endif
+ #ifndef InstallCmd		/* hack should be in project */
+-#if SystemV || SystemV4
+-#ifdef UseInstalled		/* assume BINDIR in path */
+-#define InstallCmd bsdinst
+-#else
+-#define InstallCmd $(SHELL) $(CONFIGSRC)/util/bsdinst.sh
+-#endif
+-#else
+ #define InstallCmd install
+ #endif
+-#endif
+ #ifndef InstallFlags
+ #define InstallFlags -c
+ #endif
+@@ -1823,7 +1815,7 @@ CXXEXTRA_INCLUDES = CplusplusExtraInclud
         CXXOPTIONS = CplusplusOptions
        CXXINCLUDES = $(INCLUDES) $(TOP_INCLUDES) $(CXXEXTRA_INCLUDES)
         CXXDEFINES = $(CXXINCLUDES) $(CXXSTD_DEFINES) $(THREADS_CXXDEFINES) $(DEFINES) $(CXXEXTRA_DEFINES)
@@ -18,7 +35,7 @@
  #endif
           COMPRESS = CompressCmd
            GZIPCMD = GzipCmd
-@@ -2073,7 +2073,7 @@ MODLDCOMBINEFLAGS = ModuleLdCombineFlags
+@@ -2073,7 +2065,7 @@ MODLDCOMBINEFLAGS = ModuleLdCombineFlags
   */
        ALLINCLUDES = $(INCLUDES) $(EXTRA_INCLUDES) $(TOP_INCLUDES) $(INSTALLED_INCLUDES) $(STD_INCLUDES)
         ALLDEFINES = $(ALLINCLUDES) $(STD_DEFINES) $(PROTO_DEFINES) $(THREADS_DEFINES) $(MODULE_DEFINES) $(DEFINES) $(EXTRA_DEFINES)

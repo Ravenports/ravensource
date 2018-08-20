@@ -1,0 +1,14 @@
+--- sv4Lib.rules.orig	2015-12-22 01:28:02 UTC
++++ sv4Lib.rules
+@@ -31,7 +31,10 @@ XCOMM $XFree86: xc/config/cf/sv4Lib.rule
+ # define SharedLibraryLoadFlags -G -z text
+ #endif
+ #ifndef RpathLoadFlags
+-#define RpathLoadFlags /**/
++#define RpathLoadFlags -Wl,-rpath,$(USRLIBDIRPATH)
++#endif
++#ifndef ExtraLoadFlags
++#define ExtraLoadFlags RpathLoadFlags
+ #endif
+ #ifndef LibraryRpathLoadFlags
+ #define LibraryRpathLoadFlags RpathLoadFlags
