@@ -49,6 +49,8 @@ CONFIGURE_ARGS=		--without-swig
 			--enable-bdb6
 VAR_ARCH[x86_64]=	CFLAGS=-fpic
 			CFLAGS=-DPIC
+VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
+			CONFIGURE_ENV=ac_cv_search_bindtextdomain="-lintl"
 
 post-patch:
 	${REINPLACE_CMD} "s#/etc/subversion#${PREFIX}/etc/subversion#g" ${WRKSRC}/subversion/libsvn_subr/config_file.c
