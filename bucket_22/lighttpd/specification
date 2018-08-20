@@ -48,7 +48,6 @@ CONFIGURE_ARGS=		--libdir={{PREFIX}}/lib/lighttpd
 			--with-openssl-includes={{OPENSSLINC}}
 			--with-openssl-libs={{OPENSSLLIB}}
 			--with-lua
-			--with-attr
 			--with-bzip2
 			--without-gdbm
 			--without-krb5
@@ -67,6 +66,10 @@ PLIST_SUB=		WWWOWN="wwwraven"
 
 RC_SUBR=		lighttpd:single
 SUB_LIST=		REQUIRE="DAEMON {{REQUIRES}}"
+
+VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--with-attr
+VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-attr
+VAR_OPSYS[linux]=	CONFIGURE_ARGS=--with-attr
 
 [LDAP].DESCRIPTION=			LDAP authentication (mod_authn_ldap)
 [LDAP].BUILDRUN_DEPENDS_ON=		openldap:client:standard
