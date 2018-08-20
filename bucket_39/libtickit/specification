@@ -19,13 +19,28 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
 # No FPC equivalent
 
 BUILDRUN_DEPENDS=	libtermkey:single:standard
+B_DEPS[sunos]=		libbsd4sol:single:standard
 
 USES=			gmake pkgconfig libtool:build
 MAKE_ARGS=		PREFIX="{{PREFIX}}"
 SOVERSION=		${SOVERSION}
+
+VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
+			CFLAGS=-I{{LOCALBASE}}/include/bsd
+			LDFLAGS=-lbsd
+
+post-patch-sunos:
+	${REINPLACE_CMD} -e '/XOPEN_SOURCE/d' \
+		${WRKSRC}/src/debug.c \
+		${WRKSRC}/src/rectset.c \
+		${WRKSRC}/src/mockterm.c
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libtickit.so
