@@ -33,5 +33,12 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-static
 SOVERSION=		${SOVERSION}
 
+VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
+
+post-patch-sunos:
+	${REINPLACE_CMD} -e 's|<sys/fcntl.h>|<fcntl.h>|' \
+		${WRKSRC}/libmenu-cache/menu-cache.c \
+		${WRKSRC}/menu-cache-daemon/menu-cached.c
+
 pre-configure:
 	(cd ${WRKSRC} && ./autogen.sh)
