@@ -1,1 +1,4 @@
 VAR_OPSYS[linux]=	CFLAGS=-Doff64_t=__off64_t
+
+post-patch-sunos:
+	${REINPLACE_CMD} -e '/XOPEN_SOURCE/d' ${WRKSRC}/Makefile.PL
