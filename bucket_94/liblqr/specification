@@ -1,0 +1,56 @@
+DEF[PORTVERSION]=	0.4.2
+DEF[SOVERSION]=		0.3.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		liblqr
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Seam-carving C/C++ library called Liquid Rescaling
+HOMEPAGE=		http://liblqr.wikidot.com/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://liblqr.wdfiles.com/local--files/en:download-page/
+			http://mirror.amdmi3.ru/distfiles/
+DISTFILE[1]=		liblqr-1-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL3+:primary
+LICENSE_FILE=		LGPL3+:{{WRKSRC}}/COPYING.LESSER
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"__LQR_H__"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/lqr/lqr.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/liblqr-1
+
+BUILD_DEPENDS=		libxslt:single:standard
+			docbook-xsl:primary:standard
+			docbook-xml:single:standard
+
+USES=			gmake pkgconfig libtool gettext-tools gettext-runtime
+GNOME_COMPONENTS=	glib
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+DISTNAME=		liblqr-1-${PORTVERSION}
+SOVERSION=		${SOVERSION}
+
+post-patch:
+	#${REINPLACE_CMD} -e '/^lqr_pkgconfigdir/ s|$$(libdir)|$${exec_prefix}/libdata|' \
+		${WRKSRC}/Makefile.in
+	${REINPLACE_CMD} -e 's|/usr.*chunk\.xsl|${LOCALBASE}/share/xsl/docbook/html/chunk.xsl|' \
+		${WRKSRC}/docs/lqr_style.xsl
+	${REINPLACE_CMD} -e 's|/usr.*docbookx.dtd|${LOCALBASE}/share/xml/docbook/4.5/docbookx.dtd|' \
+		${WRKSRC}/docs/liblqr_manual.docbook
+
+post-build:
+	(cd ${WRKSRC}/docs && ${SETENV} ${MAKE_ENV} ${MAKE} html)
+
+post-install:
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${WRKSRC}/docs/html/* ${STAGEDIR}${STD_DOCDIR}
