@@ -1,0 +1,105 @@
+DEF[PORTVERSION]=	9.23
+DEF[DLFOLDER]=		${PORTVERSION:S/.//}
+DEF[DATADIR]=		{{PREFIX}}/share/ghostscript/${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ghostscript
+VERSION=		${PORTVERSION}
+KEYWORDS=		print
+VARIANTS=		standard
+SDESC[standard]=	Postscript and PDF Rendering Engine
+HOMEPAGE=		https://www.ghostscript.com/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs${DLFOLDER}/
+DISTFILE[1]=		ghostscript-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary x11 docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		AGPLv3+:primary
+LICENSE_FILE=		AGPLv3+:stock
+LICENSE_TERMS=		primary:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		print/ghostscript9-agpl-base
+
+# libidn2 can't be used, it depends on stringprep
+
+BUILD_DEPENDS=		xorg-sm:single:standard
+			xorg-xt:single:standard
+			xorg-ice:single:standard
+			xorg-x11:single:standard
+			xorg-xext:single:standard
+BUILDRUN_DEPENDS=	freetype:primary:standard
+			fontconfig:primary:standard
+			jbig2dec:single:standard
+			openjpeg:single:standard
+			tiff:primary:standard
+			libpaper:single:standard
+			cups:primary:standard
+RUN_DEPENDS=		poppler-data:single:standard
+
+EXRUN[x11]=		xorg-sm:single:standard
+			xorg-xt:single:standard
+			xorg-ice:single:standard
+			xorg-x11:single:standard
+			xorg-xext:single:standard
+
+USES=			gmake png jpeg iconv pkgconfig zlib
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-compile-inits
+			--disable-dbus
+			--disable-gtk
+			--enable-contrib
+			--enable-dynamic
+			--enable-fontconfig
+			--enable-freetype
+			--enable-openjpeg
+			--enable-cups
+			--with-drivers=ALL
+			--with-fontpath={{LOCALBASE}}/share/fonts
+			--with-jbig2dec
+			--with-libiconv=yes
+			--with-libidn=no
+			--with-ijs=no
+			--with-libpaper
+			--with-system-libtiff
+			--with-x
+BUILD_TARGET=		so ./obj/X11.so
+INSTALL_TARGET=		soinstall install-shared
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${PORTVERSION}
+
+post-patch:
+	${RM} -r ${WRKSRC}/freetype \
+		${WRKSRC}/ijs \
+		${WRKSRC}/jbig2dec \
+		${WRKSRC}/jpeg \
+		${WRKSRC}/libpng \
+		${WRKSRC}/openjpeg \
+		${WRKSRC}/zlib
+	${FIND} ${WRKSRC}/Resource/Init -name "*.orig" -delete
+
+post-install:
+	${MV} ${STAGEDIR}${PREFIX}/bin/gsc ${STAGEDIR}${PREFIX}/bin/gs
+	${RM} ${STAGEDIR}${PREFIX}/bin/gsx
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gs
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgs.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/ghostscript/${PORTVERSION}/X11.so
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/color/icc \
+		${STAGEDIR}${PREFIX}/share/cmap \
+		${STAGEDIR}${STD_DOCDIR}
+	${MV} ${STAGEDIR}${DATADIR}/iccprofiles \
+		${STAGEDIR}${PREFIX}/share/color/icc/ghostscript
+	${LN} -s ../../color/icc/ghostscript \
+		${STAGEDIR}${DATADIR}/iccprofiles
+	${MV} ${STAGEDIR}${DATADIR}/Resource/CMap/Identity* \
+		${STAGEDIR}${PREFIX}/share/cmap
+	${RM} -r ${STAGEDIR}${DATADIR}/Resource/CMap
+	${LN} -s ../../../cmap \
+		${STAGEDIR}${DATADIR}/Resource/CMap
+	${RM} ${STAGEDIR}${DATADIR}/doc
