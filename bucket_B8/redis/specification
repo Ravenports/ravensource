@@ -1,0 +1,47 @@
+DEF[PORTVERSION]=	4.0.11
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		redis
+VERSION=		${PORTVERSION}
+KEYWORDS=		databases
+VARIANTS=		standard
+SDESC[standard]=	Persistent key-value database with net interface
+HOMEPAGE=		https://redis.io/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://download.redis.io/releases/
+DISTFILE[1]=		redis-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		databases/redis
+
+USERS=			redis
+GROUPS=			redis
+USERGROUP_SPKG=		single
+
+RC_SUBR=		redis:single
+			sentinel:single
+SUB_FILES=		pkg-message-single
+
+USES=			gmake execinfo
+CFLAGS=			-Wno-implicit-fallthrough
+LDFLAGS=		-lm -lexecinfo
+MAKE_ENV=		V=yo
+
+do-install:
+	(cd ${WRKSRC}/src && \
+	${INSTALL_PROGRAM} redis-benchmark redis-check-aof redis-check-rdb \
+	redis-cli redis-sentinel redis-server ${STAGEDIR}${PREFIX}/bin/)
+
+	${INSTALL_DATA} ${WRKSRC}/redis.conf \
+		${STAGEDIR}${PREFIX}/etc/redis.conf.sample
+	${INSTALL_DATA} ${WRKSRC}/sentinel.conf \
+		${STAGEDIR}${PREFIX}/etc/sentinel.conf.sample
+	${MKDIR} ${STAGEDIR}/var/db/redis \
+		${STAGEDIR}/var/run/redis \
+		${STAGEDIR}/var/log/redis
