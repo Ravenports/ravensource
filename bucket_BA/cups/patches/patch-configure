@@ -1,0 +1,84 @@
+--- configure.orig	2018-06-05 16:06:54 UTC
++++ configure
+@@ -5731,7 +5731,7 @@ fi
+ 
+ 
+ case $host_os_name in
+-        darwin* | *bsd*)
++        darwin* | *bsd* | dragonfly*)
+                 ARFLAGS="-rcv"
+                 ;;
+         *)
+@@ -5827,7 +5827,6 @@ if test "${with_dbusdir+set}" = set; the
+ fi
+ 
+ 
+-DBUSDIR=""
+ DBUS_NOTIFIER=""
+ DBUS_NOTIFIERLIBS=""
+ 
+@@ -6391,7 +6390,7 @@ _ACEOF
+ # Locale data
+ if test "$localedir" = "\${datarootdir}/locale"; then
+ 	case "$host_os_name" in
+-		linux* | gnu* | *bsd* | darwin*)
++		linux* | gnu* | *bsd* | dragonfly*| darwin*)
+ 			CUPS_LOCALEDIR="$datarootdir/locale"
+ 			;;
+ 
+@@ -6445,7 +6444,7 @@ _ACEOF
+ 
+ # Server executables...
+ case "$host_os_name" in
+-	*bsd* | darwin*)
++	*bsd* | dragonfly* | darwin*)
+ 		# *BSD and Darwin (macOS)
+ 		INSTALL_SYSV=""
+ 		CUPS_SERVERBIN="$exec_prefix/libexec/cups"
+@@ -6506,7 +6505,7 @@ fi
+ 
+ if test "$mandir" = "\${prefix}/man" -a "$prefix" = "/"; then
+ 	case "$host_os_name" in
+-        	darwin* | linux* | gnu* | *bsd*)
++        	darwin* | linux* | gnu* | *bsd* | dragonfly*)
+         		# Darwin, macOS, Linux, GNU HURD, and *BSD
+         		mandir="/usr/share/man"
+         		AMANDIR="/usr/share/man"
+@@ -6587,7 +6586,7 @@ if test x$enable_shared != xno; then
+ 			DSOXX="\$(CXX)"
+ 			DSOFLAGS="$DSOFLAGS -Wl,-h\`basename \$@\` -G \$(OPTIM)"
+ 			;;
+-		linux* | gnu* | *bsd*)
++		linux* | gnu* | *bsd* | dragonfly*)
+ 			LIBCUPS="lib$cupsbase.so.2"
+ 			LIBCUPSCGI="libcupscgi.so.1"
+ 			LIBCUPSIMAGE="libcupsimage.so.2"
+@@ -6683,12 +6682,11 @@ if test "$DSO" != ":"; then
+ 				EXPORT_LDFLAGS="-R$libdir"
+ 			fi
+ 			;;
+-                *bsd*)
++                *bsd* | dragonfly*)
+                         # *BSD...
+ 			if test $exec_prefix != /usr; then
+ 				DSOFLAGS="-Wl,-R$libdir $DSOFLAGS"
+ 				LDFLAGS="$LDFLAGS -Wl,-R$libdir"
+-				EXPORT_LDFLAGS="-Wl,-R$libdir"
+ 			fi
+ 			;;
+                 linux* | gnu*)
+@@ -8802,13 +8800,7 @@ fi
+ 			PAMLIBS="-lpam"
+ 		fi
+ 
+-		# Find the PAM configuration directory, if any...
+-		for dir in /private/etc/pam.d /etc/pam.d; do
+-			if test -d $dir; then
+-				PAMDIR=$dir
+-				break;
+-			fi
+-		done
++		PAMDIR=/usr/local/etc/pam.d
+ 	fi
+ 
+ 	LIBS="$SAVELIBS"
