@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	20180824
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mg
+VERSION=		${PORTVERSION}
+KEYWORDS=		editors
+VARIANTS=		standard
+SDESC[standard]=	Microscopic GNU Emacs clone
+HOMEPAGE=		https://github.com/hboetes/mg
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/hboetes:mg:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		PUBDOM:single
+LICENSE_FILE=		PUBDOM:{{WRKDIR}}/LICENSE
+LICENSE_AWK=		PUBDOM:"^\#include"
+LICENSE_SOURCE=		PUBDOM:{{WRKSRC}}/main.c
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		editors/mg
+
+USES=			cmake:outsource ncurses
+CFLAGS=			-I{{NCURSESINC}}
+
+VAR_OPSYS[dragonfly]=	CFLAGS=-DMAXNAMLEN=255
+
+post-extract:
+	${CP} ${FILESDIR}/reallocarray.c ${WRKSRC}
+	${CP} ${FILESDIR}/CMakeLists.txt ${WRKSRC}
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKDIR}/.build/mg ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/mg.1 ${STAGEDIR}${MAN1PREFIX}/man/man1
