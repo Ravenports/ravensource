@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	1.7.2
+DEF[SOVERSION]=		11.0.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libconfig
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Configuration file parsing library
+HOMEPAGE=		https://hyperrealm.github.io/libconfig/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/hyperrealm:libconfig:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:single
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"__libconfig_h"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/lib/libconfig.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/libconfig
+
+USES=			autoreconf libtool makeinfo c++:single
+MUST_CONFIGURE=		gnu
+INFO=			single:libconfig
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
