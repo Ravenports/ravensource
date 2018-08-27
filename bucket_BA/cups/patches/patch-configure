@@ -26,7 +26,7 @@
  			CUPS_LOCALEDIR="$datarootdir/locale"
  			;;
  
-@@ -6445,7 +6444,7 @@ _ACEOF
+@@ -6445,11 +6444,15 @@ _ACEOF
  
  # Server executables...
  case "$host_os_name" in
@@ -35,7 +35,15 @@
  		# *BSD and Darwin (macOS)
  		INSTALL_SYSV=""
  		CUPS_SERVERBIN="$exec_prefix/libexec/cups"
-@@ -6506,7 +6505,7 @@ fi
+ 		;;
++	linux*)
++		INSTALL_SYSV="install-sysv"
++		CUPS_SERVERBIN="$exec_prefix/libexec/cups"
++		;;
+ 	*)
+ 		# All others
+ 		INSTALL_SYSV="install-sysv"
+@@ -6506,7 +6509,7 @@ fi
  
  if test "$mandir" = "\${prefix}/man" -a "$prefix" = "/"; then
  	case "$host_os_name" in
@@ -44,7 +52,7 @@
          		# Darwin, macOS, Linux, GNU HURD, and *BSD
          		mandir="/usr/share/man"
          		AMANDIR="/usr/share/man"
-@@ -6587,7 +6586,7 @@ if test x$enable_shared != xno; then
+@@ -6587,7 +6590,7 @@ if test x$enable_shared != xno; then
  			DSOXX="\$(CXX)"
  			DSOFLAGS="$DSOFLAGS -Wl,-h\`basename \$@\` -G \$(OPTIM)"
  			;;
@@ -53,7 +61,7 @@
  			LIBCUPS="lib$cupsbase.so.2"
  			LIBCUPSCGI="libcupscgi.so.1"
  			LIBCUPSIMAGE="libcupsimage.so.2"
-@@ -6683,12 +6682,11 @@ if test "$DSO" != ":"; then
+@@ -6683,12 +6686,11 @@ if test "$DSO" != ":"; then
  				EXPORT_LDFLAGS="-R$libdir"
  			fi
  			;;
@@ -67,7 +75,7 @@
  			fi
  			;;
                  linux* | gnu*)
-@@ -8802,13 +8800,7 @@ fi
+@@ -8802,13 +8804,7 @@ fi
  			PAMLIBS="-lpam"
  		fi
  

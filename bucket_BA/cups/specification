@@ -52,7 +52,7 @@ CONFIGURE_ARGS=		--enable-libpaper
 			--with-cups-group=cups
 			--with-dbusdir="{{PREFIX}}/etc/dbus-1"
 			--with-icondir="{{PREFIX}}/share/icons"
-			--with-menudir="{{PREFIX}}//share/applications"
+			--with-menudir="{{PREFIX}}/share/applications"
 			--with-printcap="{{PREFIX}}/etc/printcap"
 			--with-rcdir=no
 			--with-optim=" "
@@ -69,8 +69,8 @@ VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-system-groups=wheel
 post-patch:
 	${REINPLACE_CMD} -e '/SILENT/d' ${WRKSRC}/Makedefs.in
 	${REINPLACE_CMD} 's/usblp/ulpt/g' ${WRKSRC}/backend/usb-libusb.c
-	${REINPLACE_CMD} -e 's|/usr/local/etc/pam.d|${LOCALBASE}/etc/pam.d|' \
-		-e 's/-fstack-protector//' ${WRKSRC}/configure
+# #	${REINPLACE_CMD} -e 's|/usr/local/etc/pam.d|${LOCALBASE}/etc/pam.d|' \
+# #		-e 's/-fstack-protector//' ${WRKSRC}/configure
 	${FIND} ${WRKSRC}/doc ${WRKSRC}/templates -type f -exec ${SED} -i'' \
 		's|http://www.cups.org|https://www.cups.org|g' {} +
 	${REINPLACE_CMD} '/stripopt=/s/-x//' ${WRKSRC}/install-sh
