@@ -60,11 +60,10 @@ post-patch:
 			-e "s|'python'|'${PYTHON_CMD}'|" \
 			-e 's|<!(python |<!(${PYTHON_CMD} |' \
 			-e 's|\&\& python |\&\& ${PYTHON_CMD} |'
-	${FIND} ${WRKSRC} -name "*.bak" -delete
 	# fix inability for torque to find libz
-	${REINPLACE_CMD} \
-		-e "s|-lexecinfo|-Wl,-rpath,${PREFIX}/lib -lexecinfo|" \
+	${REINPLACE_CMD} -e 's|@RAVRPATH@|-Wl,-rpath,${PREFIX}/lib|' \
 		${WRKSRC}/deps/v8/gypfiles/v8.gyp
+	${FIND} ${WRKSRC} -name "*.bak" -delete
 
 post-patch-freebsd:
 	${REINPLACE_CMD} -e '/define HAVE_CRYPTODEV/d' \
