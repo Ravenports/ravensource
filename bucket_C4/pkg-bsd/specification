@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	1.10.99.7
-DEF[ROLLING_TAG]=	38c8e9f
+DEF[PORTVERSION]=	1.10.99.8
+DEF[ROLLING_TAG]=	bb55b82
 DEF[SQLITE_VER]=	3.23.1
 DEF[SQLITE_LONGVER]=	${SQLITE_VER:S/.//:S/./0/}00
 DEF[SQLITE_YEAR]=	2018
@@ -7,7 +7,6 @@ DEF[SQLITE_YEAR]=	2018
 
 NAMEBASE=		pkg-bsd
 VERSION=		${PORTVERSION}
-REVISION=		3
 KEYWORDS=		raven
 VARIANTS=		standard
 SDESC[standard]=	BSD binary package manager
@@ -43,14 +42,13 @@ BR_DEPS[linux]=		libbsd:single:standard
 B_DEPS[sunos]=		libbsd4sol:single:standard
 			musl-fts:single:standard
 
-USES=			libtool:build
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-maintainer-mode
-			--mandir={{MANPREFIX}}/man
-INSTALL_TARGET=		install-strip
+USES=			pkgconfig
+MUST_CONFIGURE=		yes
+CONFIGURE_ARGS=		--mandir={{MANPREFIX}}/man
+			--pkgconfigdir={{PREFIX}}/lib/pkgconfig
+			--prefix={{PREFIX}}
 CFLAGS=			-Wno-error
 # debugging		-O0 -g
-SINGLE_JOB=		yes
 SUB_FILES=		pkg.c
 
 VAR_OPSYS[sunos]=	CFLAGS=-I{{LOCALBASE}}/include/bsd
@@ -61,15 +59,15 @@ post-extract:
 		cp sqlite3.[ch] shell.c ${WRKSRC}/external/sqlite/)
 	${REINPLACE_CMD} -e 's|SQLITE_CDECL main|SQLITE_CDECL sqlite3_shell|'\
 		${WRKSRC}/external/sqlite/shell.c
+	${CHMOD} ${BINMODE} ${WRKSRC}/configure \
+		${WRKSRC}/autosetup/autosetup-find-tclsh
 
 pre-patch:
 	${REINPLACE_CMD} -e 's/larchive/larchive-devel/' \
-		${WRKSRC}/libpkg/Makefile.am \
-		${WRKSRC}/tests/Makefile.am \
-		${WRKSRC}/src/Makefile.am
-	${REINPLACE_CMD} -e 's/\[archive\]/[archive-devel]/' \
-		${WRKSRC}/configure.ac
-	(cd ${WRKSRC} && ./autogen.sh)
+		${WRKSRC}/libpkg/Makefile.autosetup \
+		${WRKSRC}/tests/Makefile.autosetup \
+		${WRKSRC}/src/Makefile.autosetup
+	${REINPLACE_CMD} -e 's|-larchive|-larchive-devel|' ${WRKSRC}/auto.def
 
 post-patch-linux:
 	${REINPLACE_CMD} -e '/libpkg_la_LDFLAGS =/ s/= /= -ldl /' \
@@ -84,11 +82,10 @@ post-patch-sunos:
 
 post-build:
 	(cd ${WRKDIR} && ${CC} pkg.c -o pkg-selector)
+	${STRIP_CMD} ${WRKDIR}/pkg-selector
 
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/sbin/pkg2ng
-	${MV} ${STAGEDIR}${PREFIX}/lib/libpkg_static.a \
-		${STAGEDIR}${PREFIX}/lib/libpkg.a
 	${MV} ${STAGEDIR}${PREFIX}/sbin/pkg \
 		${STAGEDIR}${PREFIX}/sbin/pkg-dynamic
 	${MV} ${WRKDIR}/pkg-selector ${STAGEDIR}${PREFIX}/sbin/pkg
