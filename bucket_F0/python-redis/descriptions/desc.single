@@ -1,0 +1,119 @@
+redis-py
+========
+
+The Python interface to the Redis key-value store.
+
+.. image::
+https://secure.travis-ci.org/andymccurdy/redis-py.png?branch=master
+        :target: http://travis-ci.org/andymccurdy/redis-py
+
+Installation
+------------
+
+redis-py requires a running Redis server. See `Redis's quickstart
+<http://redis.io/topics/quickstart>`_ for installation instructions.
+
+To install redis-py, simply:
+
+.. code-block:: bash
+
+    $ sudo pip install redis
+
+or alternatively (you really should be using pip though):
+
+.. code-block:: bash
+
+    $ sudo easy_install redis
+
+or from source:
+
+.. code-block:: bash
+
+    $ sudo python setup.py install
+
+
+Getting Started
+---------------
+
+.. code-block:: pycon
+
+    >>> import redis
+    >>> r = redis.StrictRedis(host='localhost', port=6379, db=0)
+    >>> r.set('foo', 'bar')
+    True
+    >>> r.get('foo')
+    'bar'
+
+API Reference
+-------------
+
+The `official Redis command documentation <http://redis.io/commands>`_
+does a
+great job of explaining each command in detail. redis-py exposes two client
+classes that implement these commands. The StrictRedis class attempts to
+adhere
+to the official command syntax. There are a few exceptions:
+
+* **SELECT**: Not implemented. See the explanation in the Thread Safety
+section
+  below.
+* **DEL**: 'del' is a reserved keyword in the Python syntax. Therefore
+redis-py
+  uses 'delete' instead.
+* **CONFIG GET|SET**: These are implemented separately as config_get or
+config_set.
+* **MULTI/EXEC**: These are implemented as part of the Pipeline class. The
+  pipeline is wrapped with the MULTI and EXEC statements by default when it
+  is executed, which can be disabled by specifying transaction=False.
+  See more about Pipelines below.
+* **SUBSCRIBE/LISTEN**: Similar to pipelines, PubSub is implemented as a
+separate
+  class as it places the underlying connection in a state where it can't
+  execute non-pubsub commands. Calling the pubsub method from the Redis
+client
+  will return a PubSub instance where you can subscribe to channels and
+listen
+  for messages. You can only call PUBLISH from the Redis client (see
+  `this comment on issue #151
+
+<https://github.com/andymccurdy/redis-py/issues/151#issuecomment-1545015>`_
+  for details).
+* **SCAN/SSCAN/HSCAN/ZSCAN**: The \*SCAN commands are implemented as they
+  exist in the Redis documentation. In addition, each command has an
+equivilant
+  iterator method. These are purely for convenience so the user doesn't
+have
+  to keep track of the cursor while iterating. Use the
+  scan_iter/sscan_iter/hscan_iter/zscan_iter methods for this behavior.
+
+In addition to the changes above, the Redis class, a subclass of
+StrictRedis,
+overrides several other commands to provide backwards compatibility with
+older
+versions of redis-py:
+
+* **LREM**: Order of 'num' and 'value' arguments reversed such that 'num'
+can
+  provide a default value of zero.
+* **ZADD**: Redis specifies the 'score' argument before 'value'. These
+were swapped
+  accidentally when being implemented and not discovered until after people
+  were already using it. The Redis class expects \*args in the form of:
+  `name1, score1, name2, score2, ...`
+* **SETEX**: Order of 'time' and 'value' arguments reversed.
+
+
+More Detail
+-----------
+
+Connection Pools
+^^^^^^^^^^^^^^^^
+
+Behind the scenes, redis-py uses a connection pool to manage connections to
+a Redis server. By default, each Redis instance you create will in turn
+create
+its own connection pool. You can override this behavior and use an existing
+connection pool by passing an already created connection pool instance to
+the
+connection_pool argument of the Redis class. You may choose to do this in
+order
