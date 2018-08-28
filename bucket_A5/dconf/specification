@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.28.0
+DEF[PORTVERSION]=	0.29.2
 DEF[SOVERSION]=		1.0.0
 # ----------------------------------------------------------------------------
 
@@ -29,7 +29,8 @@ BUILDRUN_DEPENDS=	dbus:single:standard
 USES=			gettext-runtime gmake meson pkgconfig python:build
 			shebangfix
 GNOME_COMPONENTS=	glib libxslt
-MESON_ARGS=		-Denable-gtk-doc=true
+MESON_ARGS=		-Dgtk_doc=true
+			-Dbash_completion=false
 MESON_INSERT_RPATH=	bin/meson.build
 			client/meson.build
 			gsettings/meson.build
