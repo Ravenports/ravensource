@@ -26,6 +26,10 @@
 #define	TCSASOFT	0
 #endif
 
+#ifdef __APPLE__
+#include <sys/ioctl.h>
+#endif
+
 #ifdef __linux__
 #include <stdarg.h>
 #include <bsd/unistd.h>
@@ -305,12 +309,12 @@ stat_display(struct xferstat *xs, int force)
 
 	fprintf(stderr, "\r%-46.46s", xs->name);
 	if (xs->size <= 0) {
-#ifndef __sun__
+#if !(defined __sun__ || defined __APPLE__)
 		setproctitle("%s [%s]", xs->name, stat_bytes(xs->rcvd));
 #endif
 		fprintf(stderr, "        %s", stat_bytes(xs->rcvd));
 	} else {
-#ifndef __sun__
+#if !(defined __sun__ || defined __APPLE__)
 		setproctitle("%s [%d%% of %s]", xs->name,
 		    (int)((100.0 * xs->rcvd) / xs->size),
 		    stat_bytes(xs->size));
