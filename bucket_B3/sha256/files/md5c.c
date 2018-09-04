@@ -45,7 +45,9 @@ static unsigned char PADDING[64] = {
 #define u_int32_t uint32_t
 #else
 #include <machine/endian.h>
+# ifndef __APPLE__
 #include <sys/endian.h>
+# endif
 #endif
 #include "md5.h"
 

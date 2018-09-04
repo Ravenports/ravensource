@@ -166,7 +166,7 @@ digestfile(const char *fname, char *buf, const Algorithm_t *alg,
 		else
 			size = end - begin;
 
-#if defined __linux__ || defined __sun__
+#if defined __linux__ || defined __sun__ || defined __APPLE__
 		map = mmap(NULL, size, PROT_READ, 0, fd, begin);
 #else
 		map = mmap(NULL, size, PROT_READ, MAP_NOCORE, fd, begin);
