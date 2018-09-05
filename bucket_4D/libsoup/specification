@@ -30,7 +30,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libsoup
 
+BUILD_DEPENDS=		gtk-doc:single:standard
 BUILDRUN_DEPENDS=	glib-networking:single:standard
+			libpsl:single:standard
 RUN_DEPENDS=		libgcrypt:single:standard
 
 USES=			gettext-tools gmake libtool pkgconfig python:build
@@ -42,17 +44,14 @@ MESON_ARGS=		-Dgssapi=false
 			-Dgnome=false
 			-Dintrospection=true
 			-Dvapi=false
-			-Ddoc=false
+			-Ddoc=true
 			-Dtests=false
 MESON_INSERT_RPATH=	libsoup/meson.build
 INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
 
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		LIBVERSION=${LIBVERSION}
-
-# post-patch:
-# #	${REINPLACE_CMD} -e 's|env python3|env python${PYTHON_VER}|g' \
-# #		${WRKSRC}/libsoup/tld-parser.py
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/libsoup/soup-connection.h \
