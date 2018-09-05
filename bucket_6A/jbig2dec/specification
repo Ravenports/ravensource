@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	0.14
-DEF[DL_GROUP]=		gs922
+DEF[PORTVERSION]=	0.15
+DEF[DL_GROUP]=		gs924
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		jbig2dec
@@ -32,7 +32,3 @@ CONFIGURE_ARGS=		--with-libpng={{LOCALBASE}}
 CONFIGURE_ENV=		ac_cv_func_getopt_long=yes
 LDFLAGS=		-L{{OPENSSLLIB}} -lcrypto
 INSTALL_TARGET=		install-strip
-
-post-patch:
-	${REINPLACE_CMD} 's|png_check_sig|png_sig_cmp|g' \
-		${WRKSRC}/configure
