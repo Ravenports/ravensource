@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.56.1
+DEF[PORTVERSION]=	2.58.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		glib-networking
@@ -38,7 +38,6 @@ BUILDRUN_DEPENDS=	nss:caroot:standard
 USES=			gettext-tools libtool meson pkgconfig python
 			shebangfix
 SHEBANG_FILES=		meson_post_install.py
-			find-ca-certificates
 GNOME_COMPONENTS=	glib intltool
 MESON_ARGS=		-Dca_certificates_path={{PREFIX}}/etc/ssl
 			-Dstatic_modules=true
@@ -50,8 +49,7 @@ MESON_INSERT_RPATH=	tls/gnutls/meson.build
 INSTALL_TARGET=		install-strip
 
 post-patch:
-	${CHMOD} ${BINMODE} ${WRKSRC}/meson_post_install.py \
-		${WRKSRC}/find-ca-certificates
+	${CHMOD} ${BINMODE} ${WRKSRC}/meson_post_install.py
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/systemd
