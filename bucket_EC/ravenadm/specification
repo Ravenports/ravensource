@@ -50,6 +50,10 @@ post-extract:
 
 	${REINPLACE_CMD} -e 's|"-gnat|"-g", "-gnat|' ${WRKSRC}/ravenadm.gpr
 
+post-extract-macos:
+	${SED} -i.mac -e "s|/var/ravenports|/ravendata|" \
+		${WRKSRC}/src/definitions.ads
+
 post-patch-WATCHDOG-OFF:
 	@${ECHO_MSG} "Disabling watchdog monitor ..."
 	${REINPLACE_CMD} -e "/hangmonitor :/ s|True|False|" \
