@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2.36.12
-DEF[SOVER]=		3612.0
+DEF[PORTVERSION]=	2.38.0
+DEF[SOVER]=		3800.0
 DEF[GTK_VERSION]=	EXTRACT_INFO(GTK2_VERSION)
 # ----------------------------------------------------------------------------
 
@@ -36,29 +36,38 @@ FPC_EQUIVALENT=		graphics/gdk-pixbuf2
 BUILDRUN_DEPENDS=	tiff:primary:standard
 			jasper:primary:standard
 			shared-mime-info:single:standard
+BUILD_DEPENDS=		xmlto:single:standard
 
 USES=			cpe gmake jpeg png pkgconfig libtool gettext-runtime
-			perl:build python:build
+			perl:build python:build meson gettext-tools shebangfix
 XORG_COMPONENTS=	x11 xi xt
 GNOME_COMPONENTS=	glib introspection
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-introspection=yes
-			--enable-nls
-			--with-x11
-			--with-libjasper
-			--with-libjpeg
-			--with-libpng
-			--with-libtiff
+MESON_ARGS=		-Dpng=true
+			-Dtiff=true
+			-Djpeg=true
+			-Djasper=true
+			-Dx11=true
+			-Dbuiltin_loaders=none
+			-Ddocs=false
+			-Dgir=true
+			-Dman=true
+			-Dinstalled_tests=false
+			-Drelocatable=false
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
+SHEBANG_FILES=		build-aux/gen-installed-test.py
+			build-aux/gen-resources.py
+			build-aux/gen-thumbnailer.py
+MESON_INSERT_RPATH=	thumbnailer/meson.build
+			gdk-pixbuf/meson.build
+			contrib/gdk-pixbuf-xlib/meson.build
 PLIST_SUB=		GTK_VERSION=${GTK_VERSION}
 			SOVER=${SOVER}
 CPE_VENDOR=		gnome
 
-post-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/share/doc
-	(cd ${WRKSRC}/docs/reference/gdk-pixbuf && \
-		${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} install-man1)
-	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/gdk-pixbuf \
-		${STAGEDIR}${PREFIX}/share/doc/
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
+post-patch:
+	${REINPLACE_CMD} -e 's|/docbook.sourceforge.net/|/cdn.docbook.org/|' \
+		${WRKSRC}/docs/meson.build
+	# Don't run post-install script; the manifest does this as postexec
+	${REINPLACE_CMD} -e 's|not meson.is_cross_build()|false|' ${WRKSRC}/meson.build
+	${CHMOD} ${BINMODE} ${WRKSRC}/build-aux/gen-*.py
