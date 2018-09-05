@@ -1,4 +1,4 @@
---- gtk/a11y/gtkaccessibility.c.orig	2017-08-11 19:47:18 UTC
+--- gtk/a11y/gtkaccessibility.c.orig	2017-11-16 13:21:24 UTC
 +++ gtk/a11y/gtkaccessibility.c
 @@ -37,7 +37,7 @@
  #include <gtk/gtktogglebutton.h>
