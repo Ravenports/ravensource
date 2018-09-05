@@ -1,6 +1,6 @@
---- glib/gutils.c.orig	2018-08-17 00:03:20 UTC
+--- glib/gutils.c.orig	2018-08-30 17:12:09 UTC
 +++ glib/gutils.c
-@@ -2040,7 +2040,7 @@ g_get_system_data_dirs (void)
+@@ -2043,7 +2043,7 @@ g_get_system_data_dirs (void)
  
  #ifndef G_OS_WIN32
        if (!data_dirs || !data_dirs[0])
@@ -9,7 +9,7 @@
  
        data_dir_vector = g_strsplit (data_dirs, G_SEARCHPATH_SEPARATOR_S, 0);
  #else
-@@ -2116,7 +2116,7 @@ g_get_system_config_dirs (void)
+@@ -2119,7 +2119,7 @@ g_get_system_config_dirs (void)
  	}
  #else
        if (!conf_dirs || !conf_dirs[0])

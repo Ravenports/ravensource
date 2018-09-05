@@ -1,6 +1,6 @@
---- gio/glib-compile-schemas.c.orig	2018-08-17 00:03:20 UTC
+--- gio/glib-compile-schemas.c.orig	2018-08-30 17:12:08 UTC
 +++ gio/glib-compile-schemas.c
-@@ -1219,6 +1219,7 @@ parse_state_start_schema (ParseState  *s
+@@ -1233,6 +1233,7 @@ parse_state_start_schema (ParseState  *s
        return;
      }
  
@@ -8,7 +8,7 @@
    if (path && (g_str_has_prefix (path, "/apps/") ||
                 g_str_has_prefix (path, "/desktop/") ||
                 g_str_has_prefix (path, "/system/")))
-@@ -1231,6 +1232,7 @@ parse_state_start_schema (ParseState  *s
+@@ -1245,6 +1246,7 @@ parse_state_start_schema (ParseState  *s
        g_printerr ("%s\n", message);
        g_free (message);
      }
