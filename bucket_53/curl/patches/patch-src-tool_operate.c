@@ -1,6 +1,6 @@
---- src/tool_operate.c.orig	2017-11-12 11:30:34 UTC
+--- src/tool_operate.c.orig	2018-09-04 20:48:37 UTC
 +++ src/tool_operate.c
-@@ -645,20 +645,7 @@ static CURLcode operate_do(struct Global
+@@ -603,20 +603,7 @@ static CURLcode operate_do(struct Global
              DEBUGASSERT(!outs.filename);
            }
  
@@ -22,7 +22,7 @@
  #ifdef __VMS
              /* open file for output, forcing VMS output format into stream
                 mode which is needed for stat() call above to always work. */
-@@ -666,7 +653,8 @@ static CURLcode operate_do(struct Global
+@@ -624,7 +611,8 @@ static CURLcode operate_do(struct Global
                                 "ctx=stm", "rfm=stmlf", "rat=cr", "mrs=0");
  #else
              /* open file for output: */
@@ -32,7 +32,7 @@
  #endif
              if(!file) {
                helpf(global->errors, "Can't open '%s'!\n", outfile);
-@@ -675,6 +663,19 @@ static CURLcode operate_do(struct Global
+@@ -633,6 +621,19 @@ static CURLcode operate_do(struct Global
              }
              outs.fopened = TRUE;
              outs.stream = file;
