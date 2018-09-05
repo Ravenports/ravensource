@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	0.20.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libpsl
+VERSION=		${PORTVERSION}
+KEYWORDS=		dns
+VARIANTS=		standard
+SDESC[standard]=	Library to handle the Public Suffix List
+HOMEPAGE=		https://github.com/rockdaboot/libpsl
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/rockdaboot:libpsl:libpsl-${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		dns/libpsl
+
+BUILD_DEPENDS=		publicsuffix-list:single:standard
+BUILDRUN_DEPENDS=	libidn2:primary:standard
+			libunistring:primary:standard
+
+USES=			autoreconf libtool pkgconfig python:build shebangfix
+			iconv gettext-runtime gettext-tools
+GNOME_COMPONENTS=	libxslt
+SHEBANG_FILES=		src/psl-make-dafsa
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-psl-file={{LOCALBASE}}/share/publicsuffix-list/public_suffix_list.dat
+			--with-psl-testfile={{LOCALBASE}}/share/publicsuffix-list/test_psl.txt
+			--enable-nls
+			--enable-man
+			--enable-builtin=libidn2
+			--enable-runtime=libidn2
+INSTALL_TARGET=		install-strip
