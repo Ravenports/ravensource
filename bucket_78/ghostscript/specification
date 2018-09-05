@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	9.23
+DEF[PORTVERSION]=	9.24
 DEF[DLFOLDER]=		${PORTVERSION:S/.//}
 DEF[DATADIR]=		{{PREFIX}}/share/ghostscript/${PORTVERSION}
 # ----------------------------------------------------------------------------
@@ -69,6 +69,7 @@ CONFIGURE_ARGS=		--disable-compile-inits
 			--with-libpaper
 			--with-system-libtiff
 			--with-x
+CONFIGURE_ENV=		LIBS=-Wl,-rpath,{{PREFIX}}/lib
 BUILD_TARGET=		so ./obj/X11.so
 INSTALL_TARGET=		soinstall install-shared
 INSTALL_REQ_TOOLCHAIN=	yes
