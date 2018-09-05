@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	0.13.4
-DEF[ORCUS_VERSION]=	0.13
+DEF[PORTVERSION]=	0.14.0
+DEF[ORCUS_VERSION]=	0.14
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		liborcus
@@ -37,3 +37,6 @@ CONFIGURE_ARGS=		--with-boost="{{LOCALBASE}}"
 			--disable-werror
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
+
+post-patch:
+	${REINPLACE_CMD} -e 's|mdds-1.4|mdds-1.2|g' ${WRKSRC}/configure.ac
