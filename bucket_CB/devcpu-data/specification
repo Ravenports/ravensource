@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.19
+DEF[PORTVERSION]=	1.20
 DEF[INTEL_SITE]=	28039
 DEF[INTEL_DATE]=	20180807
 DEF[AMD_VERSION]=	20180525
@@ -41,10 +41,14 @@ EXTRACT_DIRTY=		1 2
 post-extract:
 	${INSTALL_DATA} ${FILESDIR}/Makefile ${FILESDIR}/ucode-split.c \
 		${WRKSRC}
+	${CAT} ${WRKSRC}/intel-ucode/* ${WRKSRC}/intel-ucode-with-caveats/* \
+		> ${WRKSRC}/intel-ucode.bin
 
 do-install:
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/cpucontrol
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/cpucontrol \
+		${STAGEDIR}/boot/firmware
 	${INSTALL_DATA} ${WRKSRC}/mcodes/* ${STAGEDIR}${PREFIX}/share/cpucontrol
 	(cd ${WRKDIR}/${NAMEBASE}_2 && \
-	 ${INSTALL_DATA} microcode_amd.bin microcode_amd_fam1[567]h.bin \
-	 ${STAGEDIR}${PREFIX}/share/cpucontrol)
+	    ${INSTALL_DATA} microcode_amd.bin microcode_amd_fam1[567]h.bin \
+	    ${STAGEDIR}${PREFIX}/share/cpucontrol)
+	${INSTALL_DATA} ${WRKSRC}/intel-ucode.bin ${STAGEDIR}/boot/firmware
