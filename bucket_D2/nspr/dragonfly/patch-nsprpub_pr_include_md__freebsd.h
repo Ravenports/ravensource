@@ -1,4 +1,4 @@
---- pr/include/md/_freebsd.h.orig	2018-01-19 15:06:41 UTC
+--- pr/include/md/_freebsd.h.orig	2018-09-05 01:03:20 UTC
 +++ pr/include/md/_freebsd.h
 @@ -67,7 +67,7 @@
  #define _PR_HAVE_GETHOST_R
