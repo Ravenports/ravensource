@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	20180823
+DEF[HASH]=		87cffce
+DEF[DATADIR]=		{{PREFIX}}/share/publicsuffix-list
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		publicsuffix-list
+VERSION=		${PORTVERSION}
+KEYWORDS=		dns
+VARIANTS=		standard
+SDESC[standard]=	List of all known public internet suffixes
+HOMEPAGE=		https://publicsuffix.org
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/publicsuffix:list:${HASH}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MPL:single
+LICENSE_FILE=		MPL:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"===BEGIN ICANN DOMAINS==="
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/public_suffix_list.dat
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		dns/public_suffix_list
+
+SKIP_BUILD=		yes
+
+do-install:
+	${MKDIR} ${STAGEDIR}${DATADIR}
+	${INSTALL_DATA} ${WRKSRC}/public_suffix_list.dat \
+		${WRKSRC}/tests/test_psl.txt \
+		${STAGEDIR}${DATADIR}
