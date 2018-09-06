@@ -1,5 +1,6 @@
-DEF[PORTVERSION]=	0.14.0
-DEF[ORCUS_VERSION]=	0.14
+# Don't upgrade past 0.13.x until libreoffice looks for version 0.14
+DEF[PORTVERSION]=	0.13.4
+DEF[ORCUS_VERSION]=	0.13
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		liborcus
@@ -37,11 +38,3 @@ CONFIGURE_ARGS=		--with-boost="{{LOCALBASE}}"
 			--disable-werror
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
-
-post-patch:
-	${REINPLACE_CMD} -e 's|mdds-1.4|mdds-1.2|g' ${WRKSRC}/configure.ac
-
-post-install:
-	(cd ${STAGEDIR}${PREFIX}/lib/pkgconfig && \
-	  ${SED} -e 's|Name: liborcus-${ORCUS_VERSION}|Name: liborcus-0.13|' \
-	  liborcus-${ORCUS_VERSION}.pc > liborcus-0.13.pc)
