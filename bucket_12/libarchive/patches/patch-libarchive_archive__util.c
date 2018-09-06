@@ -1,4 +1,4 @@
---- libarchive/archive_util.c.orig	2017-05-08 00:38:09 UTC
+--- libarchive/archive_util.c.orig	2017-10-01 00:17:22 UTC
 +++ libarchive/archive_util.c
 @@ -46,16 +46,16 @@ __FBSDID("$FreeBSD: head/lib/libarchive/
  #include <wincrypt.h>
