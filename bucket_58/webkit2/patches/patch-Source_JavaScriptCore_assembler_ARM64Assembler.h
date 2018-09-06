@@ -1,9 +1,9 @@
---- Source/JavaScriptCore/assembler/ARM64Assembler.h.orig	2018-03-05 09:28:05 UTC
+--- Source/JavaScriptCore/assembler/ARM64Assembler.h.orig	2018-08-20 11:53:24 UTC
 +++ Source/JavaScriptCore/assembler/ARM64Assembler.h
-@@ -2856,6 +2856,8 @@ public:
-     {
- #if OS(IOS)
+@@ -2865,6 +2865,8 @@ public:
          sys_cache_control(kCacheFunctionPrepareForExecution, code, size);
+ #elif OS(FUCHSIA)
+         zx_cache_flush(code, size, ZX_CACHE_FLUSH_INSN);
 +#elif OS(FREEBSD) || OS(NETBSD)
 +        __clear_cache(code, reinterpret_cast<char*>(code) + size);
  #elif OS(LINUX)

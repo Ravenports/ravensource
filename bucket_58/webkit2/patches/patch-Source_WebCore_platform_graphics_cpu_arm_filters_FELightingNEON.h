@@ -1,4 +1,4 @@
---- Source/WebCore/platform/graphics/cpu/arm/filters/FELightingNEON.h.orig	2018-05-07 07:58:18 UTC
+--- Source/WebCore/platform/graphics/cpu/arm/filters/FELightingNEON.h.orig	2018-04-18 06:26:41 UTC
 +++ Source/WebCore/platform/graphics/cpu/arm/filters/FELightingNEON.h
 @@ -144,9 +144,9 @@ inline void FELighting::platformApplyNeo
              neonData.flags |= FLAG_CONE_EXPONENT_IS_1;
