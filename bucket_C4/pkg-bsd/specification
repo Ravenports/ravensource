@@ -7,6 +7,7 @@ DEF[SQLITE_YEAR]=	2018
 
 NAMEBASE=		pkg-bsd
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		raven
 VARIANTS=		standard
 SDESC[standard]=	BSD binary package manager
@@ -32,10 +33,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		ports-mgmt/pkg
 
-BUILDRUN_DEPENDS=	libarchive-devel:shared:standard
-BUILD_DEPENDS=		libarchive-devel:static:standard
-			zlib:static:standard
+BUILDRUN_DEPENDS=	libarchive:single:standard
+BUILD_DEPENDS=		zlib:static:standard
 			bzip2:static:standard
+			Zstandard:static:standard
 			autoconf:single:standard
 			automake:single:standard
 BR_DEPS[linux]=		libbsd:single:standard
@@ -61,13 +62,6 @@ post-extract:
 		${WRKSRC}/external/sqlite/shell.c
 	${CHMOD} ${BINMODE} ${WRKSRC}/configure \
 		${WRKSRC}/autosetup/autosetup-find-tclsh
-
-pre-patch:
-	${REINPLACE_CMD} -e 's/larchive/larchive-devel/' \
-		${WRKSRC}/libpkg/Makefile.autosetup \
-		${WRKSRC}/tests/Makefile.autosetup \
-		${WRKSRC}/src/Makefile.autosetup
-	${REINPLACE_CMD} -e 's|-larchive|-larchive-devel|' ${WRKSRC}/auto.def
 
 post-patch-linux:
 	${REINPLACE_CMD} -e '/libpkg_la_LDFLAGS =/ s/= /= -ldl /' \
