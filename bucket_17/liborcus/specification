@@ -40,3 +40,8 @@ INSTALL_REQ_TOOLCHAIN=	yes
 
 post-patch:
 	${REINPLACE_CMD} -e 's|mdds-1.4|mdds-1.2|g' ${WRKSRC}/configure.ac
+
+post-install:
+	(cd ${STAGEDIR}${PREFIX}/lib/pkgconfig && \
+	  ${SED} -e 's|Name: liborcus-${ORCUS_VERSION}|Name: liborcus-0.13|' \
+	  liborcus-${ORCUS_VERSION}.pc > liborcus-0.13.pc)
