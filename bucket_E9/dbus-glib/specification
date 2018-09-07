@@ -20,8 +20,14 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 LICENSE=		GPLv2+:primary
-LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_SCHEME=		solo
+			CUSTOM1:primary
+LICENSE_FILE=		GPLv2+:{{WRKDIR}}/COPYING.GPL
+			CUSTOM1:{{WRKDIR}}/COPYING.AFL
+LICENSE_NAME=		CUSTOM1:"The Academic Free License 2.1"
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/dbus/dbus-glib.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		devel/dbus-glib
 
@@ -38,3 +44,7 @@ CONFIGURE_ARGS=		--disable-gtk-doc
 			--with-html-dir={{PREFIX}}/share/doc
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
+
+post-extract:
+	${TAIL} -n 342 ${WRKSRC}/COPYING > ${WRKDIR}/COPYING.GPL
+	${TAIL} -n 543 ${WRKSRC}/COPYING | ${HEAD} -n 163 > ${WRKDIR}/COPYING.AFL
