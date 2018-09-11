@@ -46,5 +46,7 @@ INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 
 post-extract:
-	${TAIL} -n 342 ${WRKSRC}/COPYING > ${WRKDIR}/COPYING.GPL
-	${TAIL} -n 543 ${WRKSRC}/COPYING | ${HEAD} -n 163 > ${WRKDIR}/COPYING.AFL
+	${AWK} '/^The Academic Free License/,/^--/' \
+		${WRKSRC}/COPYING > ${WRKDIR}/COPYING.AFL
+	${AWK} '/^START OF GNU/,/^Public License instead/' \
+		${WRKSRC}/COPYING > ${WRKDIR}/COPYING.GPL
