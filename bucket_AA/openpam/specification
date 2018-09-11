@@ -23,8 +23,7 @@ OPTIONS_STANDARD=	none
 
 USES=			libtool
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-su
-			--with-pam-unix
+CONFIGURE_ARGS=		--with-pam-unix
 			--with-modules-dir={{PREFIX}}/lib/openpam
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
@@ -43,6 +42,3 @@ post-patch:
 		-e 's|@PREFIX@|${PREFIX}|' \
 		-e 's|@SYSTEM_MODULES@|${VAR1}|' \
 		${WRKSRC}/lib/libpam/openpam_constants.c
-
-post-install:
-	${MV} ${STAGEDIR}${PREFIX}/bin/su ${STAGEDIR}${PREFIX}/bin/su-opam
