@@ -1,6 +1,6 @@
---- configure.orig	2016-12-31 18:06:40.000000000 +0000
-+++ configure	2018-09-07 18:02:33.000000000 +0000
-@@ -207,6 +207,8 @@
+--- configure.orig	2016-12-31 18:06:40 UTC
++++ configure
+@@ -207,6 +207,8 @@ if test "$gcc" -eq 1 && ($cc -c $test.c)
      uname=`(uname -s || echo unknown) 2>/dev/null`
    fi
    case "$uname" in
@@ -9,7 +9,7 @@
    Linux* | linux* | GNU | GNU/* | solaris*)
          LDSHARED=${LDSHARED-"$cc -shared -Wl,-soname,libz.so.1,--version-script,${SRCDIR}zlib.map"} ;;
    *BSD | *bsd* | DragonFly)
-@@ -240,13 +242,7 @@
+@@ -240,13 +242,7 @@ if test "$gcc" -eq 1 && ($cc -c $test.c)
               SHAREDLIB=libz$shared_ext
               SHAREDLIBV=libz.$VER$shared_ext
               SHAREDLIBM=libz.$VER1$shared_ext
