@@ -57,7 +57,7 @@
 +	ln -sf libbz2.so.1 libbz2.so
 +
 +libbz2.1.dylib: $(SO_OBJS)
-+	$(CC) $(LDFLAGS) -shared -Wl,-install_name,${.TARGET} ${.TARGET} $(SO_OBJS)
++	$(CC) $(LDFLAGS) -shared -Wl,-install_name,${.TARGET} -o ${.TARGET} $(SO_OBJS)
 +	ln -sf ${.TARGET} libbz2.dylib
 +
  check: test
