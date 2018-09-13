@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	20121220
+DEF[PORTVERSION]=	20180827
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		nawk
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		lang
 VARIANTS=		standard
 SDESC[standard]=	Brian Kernighan's pattern processing language
@@ -11,9 +10,8 @@ HOMEPAGE=		http://www.icecast.org/ezstream.php
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://www.cs.princeton.edu/~bwk/btl.mirror/
-DISTFILE[1]=		awk.tar.gz:main
-DIST_SUBDIR=		nawk-${PORTVERSION}
+SITES[main]=		GITHUB/onetrueawk:awk:${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
@@ -22,7 +20,6 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		lang/nawk
 
-EXTRACT_DIRTY=		1
 MAKEFILE=		makefile
 BUILD_TARGET=		a.out
 SKIP_INSTALL=		yes
