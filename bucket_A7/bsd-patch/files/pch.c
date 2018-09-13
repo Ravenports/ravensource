@@ -14,6 +14,7 @@
 #include "util.h"
 #include "pch.h"
 #include "pathnames.h"
+#include "mac_support.h"
 
 /* Patch (diff listing) abstract type. */
 

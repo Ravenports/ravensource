@@ -1,16 +1,19 @@
 PROG=		patch
-SRCS=		${PROG}.c pch.c inp.c util.c backupfile.c mkpath.c \
-		linux_support.c
+SRCS=		${PROG}.c pch.c inp.c util.c backupfile.c mkpath.c
 PREFIX?=	/usr/local
 CFLAGS+=	-I${PREFIX}/include -I.
 STATIC_LIBS=	
 
 .if "${OPSYS}" == "Linux"
 STATIC_LIBS+=	${PREFIX}/lib/libbsd.a
+SRCS+=		linux_support.c
 .endif
 .if "${OPSYS}" == "SunOS"
 STATIC_LIBS+=	${PREFIX}/lib/libbsd.a
 CFLAGS+=	-I${PREFIX}/include/bsd
+.endif
+.if "${OPSYS}" == "Darwin"
+SRCS+=		mac_support.c
 .endif
 
 all: ${PROG}
