@@ -1,6 +1,6 @@
---- gl/lib/fdopendir.c.orig	2012-12-15 14:42:45.000000000 +0100
-+++ gl/lib/fdopendir.c	2013-02-02 17:11:52.000000000 +0100
-@@ -182,9 +182,11 @@
+--- gl/lib/fdopendir.c.orig	2015-12-24 16:41:42 UTC
++++ gl/lib/fdopendir.c
+@@ -191,9 +191,11 @@ fd_clone_opendir (int fd, struct saved_c
  
  # include <errno.h>
  # include <sys/stat.h>
