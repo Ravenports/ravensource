@@ -29,7 +29,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		converters/libiconv
 
-USES=			libtool fbsd10fix
+USES=			libtool fbsd10fix macfix
 
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-static
@@ -55,8 +55,8 @@ post-install:
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
 
 	# install-strip doesn't seem to work
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libcharset.so
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libiconv.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libcharset.${LIBEXT}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libiconv.${LIBEXT}
 
 post-install-sunos:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/preloadable_libiconv.so
