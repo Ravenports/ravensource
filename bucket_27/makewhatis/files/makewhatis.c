@@ -4,7 +4,10 @@
 
 #ifdef __linux__		
 #include <bsd/sys/tree.h>		
-#include <bsd/stringlist.h>		
+#include <bsd/stringlist.h>
+#elif defined __APPLE__
+#include "tree.h"
+#include <stringlist.h>
 #else
 #include <sys/tree.h>
 #include <stringlist.h>
