@@ -28,7 +28,7 @@ FPC_EQUIVALENT=		devel/gettext
 
 RUN_DEPENDS=		libiconv:static:standard
 
-USES=			charsetfix cpe iconv libtool c++:asprintf
+USES=			charsetfix cpe iconv libtool c++:asprintf macfix
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-csharp
 			--disable-java
@@ -37,6 +37,7 @@ CONFIGURE_ARGS=		--disable-csharp
 			--with-included-libcroco
 			--with-included-libunistring
 			--with-included-libxml
+			--with-xz
 			--without-emacs
 			--without-git
 CONFIGURE_ENV=		ac_cv_lib_rt_sched_yield=no
@@ -49,9 +50,9 @@ CPE_PRODUCT=		gettext
 CPE_VENDOR=		gnu
 
 post-extract:
-	${AWK} -e '/HAVE_CONFIG_H/ {exit}; {print}' \
+	${AWK} '/HAVE_CONFIG_H/ {exit}; {print}' \
 		${WRKSRC}/gettext-runtime/src/gettext.c > ${WRKDIR}/TERMS
-	${AWK} -e '/HAVE_CONFIG_H/ {exit}; {print}' \
+	${AWK} '/HAVE_CONFIG_H/ {exit}; {print}' \
 		${WRKSRC}/gettext-runtime/intl/textdomain.c >> ${WRKDIR}/TERMS
 
 post-patch:
@@ -69,15 +70,8 @@ post-patch:
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/gettext-${PORTVERSION:R} \
 		${STAGEDIR}${PREFIX}/share/gettext/${PORTVERSION:R}
-
-post-install-freebsd:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libintl.so
-
-post-install-dragonfly:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libintl.so
-
-post-install-sunos:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libintl.so
-
-post-install-linux:
+.if "${.MAKE.OS.NAME}" == "Linux"
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/preloadable_libintl.so
+.else
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libintl.${LIBEXT}
+.endif
