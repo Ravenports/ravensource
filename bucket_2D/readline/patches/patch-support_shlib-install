@@ -1,20 +1,11 @@
 --- support/shlib-install.orig	2012-07-10 19:58:08 UTC
 +++ support/shlib-install
-@@ -119,16 +119,10 @@ INSTALL_LINK2='${echo} cd $INSTALLDIR &&
- #
- case "$host_os-$host_vendor" in
- *linux*|freebsd*-gentoo)
--	# libname.so.M -> libname.so.M.N
--	${echo} ${RM} ${INSTALLDIR}/$LINK2
--	if [ -z "$uninstall" ]; then
--		eval $INSTALL_LINK2
--	fi
--
- 	# libname.so -> libname.so.M
- 	${echo} ${RM} ${INSTALLDIR}/$LINK1
- 	if [ -z "$uninstall" ]; then
--		${echo} cd $INSTALLDIR && ${echo} ${LN} $LINK2 $LINK1
-+		eval $INSTALL_LINK1
+@@ -132,7 +132,7 @@ case "$host_os-$host_vendor" in
  	fi
  	;;
  
+-bsdi4*|*gnu*|darwin*|macosx*|netbsd*|mirbsd*)
++bsdi4*|*gnu*|darwin*|macosx*|netbsd*|mirbsd*|dragonfly*|freebsd*)
+ 	# libname.so.M -> libname.so.M.N
+ 	${echo} ${RM} ${INSTALLDIR}/$LINK2
+ 	if [ -z "$uninstall" ]; then
