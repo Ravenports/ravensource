@@ -31,7 +31,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		databases/db5
 
-USES=			gmake libtool c++:shared fbsd10fix
+USES=			gmake libtool c++:shared fbsd10fix macfix
 DISTNAME=		db-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 CONFIGURE_OUTSOURCE=	yes
@@ -57,6 +57,7 @@ CFLAGS=			-fPIC
 VAR_ARCH[aarch64]=	CONFIGURE_ARGS=--enable-posixmutexes
 			CONFIGURE_ARGS=--with-mutex=POSIX/pthreads
 VAR_ARCH[i386]=		CONFIGURE_ARGS=--with-mutex=x86/gcc-assembly
+VAR_OPSYS[darwin]=	CONFIGURE_ARGS=lt_cv_apple_cc_single_mod=yes
 
 [CRYPTO].DESCRIPTION=			Cryptography support
 [CRYPTO].CONFIGURE_WITH_BOTH=		cryptography=yes
@@ -80,7 +81,17 @@ post-patch-sunos:
 
 post-install:
 .for i in ${DBLIBS}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/db5/${i}-${BDBVER}.so.0.0.0
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/db5/${i}-${BDBVER}.${LIBEXT}
+.if "${.MAKE.OS.NAME}" == "Darwin"
+	${LN} -s -f db5/${i}-${BDBVER}.0.0.0.dylib \
+		${STAGEDIR}${PREFIX}/lib/${i}-${BDBVER}.0.dylib
+	${LN} -s -f db5/${i}-${BDBVER}.0.0.0.dylib \
+		${STAGEDIR}${PREFIX}/lib/${i}-${BDBVER}.dylib
+	${LN} -s -f db5/${i}-${BDBVER}.0.0.0.dylib \
+		${STAGEDIR}${PREFIX}/lib/${i}-${BDBMAJ}.0.dylib
+	${LN} -s -f db5/${i}-${BDBVER}.0.0.0.dylib \
+		${STAGEDIR}${PREFIX}/lib/${i}-${BDBMAJ}.dylib
+.else
 	${LN} -s -f db5/${i}-${BDBVER}.so.0.0.0 \
 		${STAGEDIR}${PREFIX}/lib/${i}-${BDBVER}.so.0
 	${LN} -s -f db5/${i}-${BDBVER}.so.0.0.0 \
@@ -89,6 +100,7 @@ post-install:
 		${STAGEDIR}${PREFIX}/lib/${i}-${BDBMAJ}.so.0
 	${LN} -s -f db5/${i}-${BDBVER}.so.0.0.0 \
 		${STAGEDIR}${PREFIX}/lib/${i}-${BDBMAJ}.so
+.endif
 	${LN} -s -f ${i}-${BDBVER}.a ${STAGEDIR}${PREFIX}/lib/db5/${i}.a
 	${LN} -s -f ${i}-${BDBVER}.a ${STAGEDIR}${PREFIX}/lib/db5/${i}-${BDBMAJ}.a
 .endfor
@@ -101,15 +113,26 @@ post-install:
 .endfor
 
 post-install-TCL-ON:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/db5/libdb_tcl-${BDBVER}.so.0.0.0
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/db5/libdb_tcl-${BDBVER}.${LIBEXT}
+.if "${OPSYS}" == "Darwin"
+	${LN} -s -f db5/libdb_tcl-${BDBVER}.0.0.0.dylib \
+		${STAGEDIR}${PREFIX}/lib/libdb_tcl-${BDBVER}.0.dylib
+	${LN} -s -f db5/libdb_tcl-${BDBVER}.0.0.0.dylib \
+		${STAGEDIR}${PREFIX}/lib/libdb_tcl-${BDBMAJ}.dylib
+	${LN} -s -f db5/libdb_tcl-${BDBVER}.0.0.0.dylib \
+		${STAGEDIR}${PREFIX}/lib/libdb_tcl-${BDBVER}.dylib
+	${LN} -s -f db5/libdb_tcl-${BDBVER}.0.0.0.dylib \
+		${STAGEDIR}${PREFIX}/lib/libdb_tcl-${BDBMAJ}.0.dylib
+.else
 	${LN} -s -f db5/libdb_tcl-${BDBVER}.so.0.0.0 \
 		${STAGEDIR}${PREFIX}/lib/libdb_tcl-${BDBVER}.so.0
-	${LN} -s -f db5/libdb_tcl-${BDBVER}.so.0.0.0 \ \
+	${LN} -s -f db5/libdb_tcl-${BDBVER}.so.0.0.0 \
 		${STAGEDIR}${PREFIX}/lib/libdb_tcl-${BDBMAJ}.so
 	${LN} -s -f db5/libdb_tcl-${BDBVER}.so.0.0.0 \
 		${STAGEDIR}${PREFIX}/lib/libdb_tcl-${BDBVER}.so
 	${LN} -s -f db5/libdb_tcl-${BDBVER}.so.0.0.0 \
 		${STAGEDIR}${PREFIX}/lib/libdb_tcl-${BDBMAJ}.so.0
+.endif
 	${LN} -s -f libdb_tcl-${BDBVER}.a \
 		${STAGEDIR}${PREFIX}/lib/db5/libdb_tcl.a
 	echo "package ifneeded Db_tcl ${BDBVER} \
