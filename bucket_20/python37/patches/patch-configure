@@ -25,23 +25,3 @@
  	RUNSHARED=DYLD_LIBRARY_PATH=`pwd`${DYLD_LIBRARY_PATH:+:${DYLD_LIBRARY_PATH}}
  	;;
      AIX*)
-@@ -9406,7 +9408,7 @@ then
- 	Linux-android*) LINKFORSHARED="-pie -Xlinker -export-dynamic";;
- 	Linux*|GNU*) LINKFORSHARED="-Xlinker -export-dynamic";;
- 	# -u libsys_s pulls in all symbols in libsys
--	Darwin/*)
-+	Darwin-disable/*)
- 		LINKFORSHARED="$extra_undefs -framework CoreFoundation"
- 
- 		# Issue #18075: the default maximum stack size (8MBytes) is too
-@@ -16263,10 +16265,6 @@ $as_echo "#define HAVE_DEV_PTC 1" >>conf
- 
- fi
- 
--if test $ac_sys_system = Darwin
--then
--	LIBS="$LIBS -framework CoreFoundation"
--fi
- 
- { $as_echo "$as_me:${as_lineno-$LINENO}: checking for %zd printf() format support" >&5
- $as_echo_n "checking for %zd printf() format support... " >&6; }
