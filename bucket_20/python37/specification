@@ -34,7 +34,7 @@ BR_DEPS[sunos]=		libuuid:single:standard
 FPC_EQUIVALENT=		lang/python37
 
 USES=			bdb cpe ncurses pkgconfig readline ssl shebangfix
-			zlib gettext-runtime
+			zlib gettext-runtime gmake
 DISTNAME=		Python-${PORTVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
 SINGLE_JOB=		yes
@@ -51,6 +51,7 @@ CONFIGURE_ARGS=		--with-system-ffi
 			--enable-shared
 			--without-ensurepip
 			--enable-ipv6
+			--enable-framework=no
 CONFIGURE_ENV=		OPT=""
 			DISABLED_EXTENSIONS="_sqlite3 _tkinter _gdbm"
 CPPFLAGS=		-I{{NCURSESINC}}
@@ -83,6 +84,10 @@ VAR_OPSYS[sunos]=	PLIST_SUB=SOABI=
 			PLIST_SUB=PLAT=sunos5
 			PLIST_SUB=FULLABI={{ABIFLAGS}}
 			CONFIGURE_ARGS=ac_cv_func_sethostname=no
+VAR_OPSYS[darwin]=	PLIST_SUB=SOABI=.cpython-${PYTHON_SUFFIX}m-darwin
+			PLIST_SUB=SCD=darwin
+			PLIST_SUB=FULLABI={{ABIFLAGS}}-darwin
+			PLIST_SUB=PLAT=darwin
 
 [DEBUG].CONFIGURE_WITH_BOTH=		pydebug
 [DEBUG].MAKEFILE_ON=			ABIFLAGS:=d{{ABIFLAGS}}
