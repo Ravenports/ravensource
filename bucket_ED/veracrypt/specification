@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.22
+DEF[PORTVERSION]=	1.23
 DEF[WXCONFIG]=		/bin/wxgtk3u-3.0-config
 # ----------------------------------------------------------------------------
 
@@ -20,9 +20,16 @@ SPKGS[standard]=	complete primary docs
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+# Various third-party components are licensed differently
 LICENSE=		APACHE20:primary
-LICENSE_FILE=		APACHE20:{{WRKSRC}}/License.txt
-LICENSE_SCHEME=		solo
+			CUSTOM1:primary
+LICENSE_NAME=		CUSTOM1:"TrueCrypt License 3.0"
+LICENSE_FILE=		APACHE20:{{WRKDIR}}/license.apache20
+			CUSTOM1:{{WRKDIR}}/license.truecrypt30
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/Main/Main.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		security/veracrypt
 
@@ -42,6 +49,11 @@ CONFIGURE_ENV=		WX_CONFIG="{{LOCALBASE}}${WXCONFIG}"
 MAKE_ENV=		WX_CONFIG="{{LOCALBASE}}${WXCONFIG}"
 SUB_FILES=		pkg-message-primary-freebsd
 
+post-extract:
+	${AWK} '/ Apache License/,/additional liability./' \
+		${WRKSRC}/License.txt > ${WRKDIR}/license.apache20
+	${AWK} '/^TrueCrypt License V/,/closely as possible./' \
+		${WRKSRC}/License.txt > ${WRKDIR}/license.truecrypt30
 
 post-patch:
 	${REINPLACE_CMD} -e 's|wx-config|${LOCALBASE}${WXCONFIG}|g' \
