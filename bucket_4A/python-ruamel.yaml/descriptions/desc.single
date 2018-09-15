@@ -4,8 +4,8 @@ ruamel.yaml
 
 ``ruamel.yaml`` is a YAML 1.2 loader/dumper package for Python.
 
-:version:       0.15.64
-:updated:       2018-08-30
+:version:       0.15.66
+:updated:       2018-09-07
 :documentation: http://yaml.readthedocs.io
 :repository:    https://bitbucket.org/ruamel/
 :pypi:          https://pypi.org/project/ruamel.yaml/
@@ -59,6 +59,21 @@ ChangeLog
 .. should insert NEXT: at the beginning of line for next key (with empty
 line)
 
+0.15.66 (2018-09-07):
+  - fix issue with fold indicating characters inserted in safe_load-ed
+folded strings
+    (reported by `Maximilian Hils <https://bitbucket.org/mhils/>`__).
+
+0.15.65 (2018-09-07):
+  - fix issue #232 revert to throw ParserError for unexcpected ``]``
+    and ``}`` instead of IndexError. (Issue reported and PR with fix
+    provided by `Naomi Seyfer <https://bitbucket.org/sixolet/>`__.)
+  - added ``key`` and ``reverse`` parameter (suggested by Jannik Klemm via
+email)
+  - indent root level literal scalars that have directive or document end
+markers
+    at the beginning of a line
+
 0.15.64 (2018-08-30):
   - support round-trip of tagged sequences: ``!Arg [a, {b: 1}]``
   - single entry mappings in flow sequences now written by default without
@@ -97,16 +112,3 @@ checked
 0.15.59 (2018-08-17):
   - issue with C based loader and leading zeros (reported by
     `Tom Hamilton Stubber <https://bitbucket.org/TomHamiltonStubber/>`__)
-
-0.15.58 (2018-08-17):
-  - simple mappings can now be used as keys when round-tripping::
-
-      {a: 1, b: 2}: hello world
-
-    although using the obvious operations (del, popitem) on the key will
-    fail, you can mutilate it by going through its attributes. If you load
-the
-    above YAML in `d`, then changing the value is cumbersome:
-
-        d = {CommentedKeyMap([('a', 1), ('b', 2)]): "goodbye"}
-
