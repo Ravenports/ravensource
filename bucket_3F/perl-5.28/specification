@@ -90,9 +90,7 @@ post-patch-sunos:
 		${WRKSRC}/Makefile.SH
 
 post-patch-darwin:
-	# for some reason, doubleinfbytes test segfaults so use fallback
-	# by breaking the conftest intentionally
-	${SED} -i.mac -e "/whether the sign/ s|/*||" \
+	${SED} -i.mac \
 		-e 's| -fstack-protector-strong||' \
 		-e 's| -fstack-protector||' ${WRKSRC}/Configure
 
