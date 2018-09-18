@@ -7,6 +7,7 @@ DEF[MAINT_MAIL]=	draco@marino.st
 
 NAMEBASE=		perl-${PERL_VER}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		lang perl devel
 VARIANTS=		standard
 SDESC[standard]=	Practical Extraction and Report Language
@@ -87,6 +88,13 @@ post-patch:
 post-patch-sunos:
 	${REINPLACE_CMD} -e '/^libs = / s/= /= -lm /' \
 		${WRKSRC}/Makefile.SH
+
+post-patch-darwin:
+	# for some reason, doubleinfbytes test segfaults so use fallback
+	# by breaking the conftest intentionally
+	${SED} -i.mac -e "/whether the sign/ s|/*||" \
+		-e 's| -fstack-protector-strong||' \
+		-e 's| -fstack-protector||' ${WRKSRC}/Configure
 
 post-stage:
 	# on linux, $SITE_ARCH/machine is created but not used
