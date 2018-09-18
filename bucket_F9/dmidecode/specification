@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.1
+DEF[PORTVERSION]=	3.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		dmidecode
@@ -31,6 +31,10 @@ NOT_FOR_ARCH=		aarch64
 SUB_FILES=		dmidecode
 
 MAKE_ARGS=		prefix={{PREFIX}}
+
+post-install:
+	# documentation requires multiple subpackages
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}
 
 post-install-dragonfly:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/periodic/daily
