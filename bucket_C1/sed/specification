@@ -35,8 +35,17 @@ USES=			charsetfix gmake
 INFO=			single:sed
 MUST_CONFIGURE=		gnu
 
+# All platforms except for Darwin build properly
+# On Darwin, the programs relink the static libraries and
+# programs again during stage phase.  Once fixed, the
+# following line can be removed.
+INSTALL_REQ_TOOLCHAIN=	yes
+
 [NLS].USES_ON=				gettext-runtime
 [NLS].CONFIGURE_ENABLE_BOTH=		nls
+
+post-patch-darwin:
+	${REINPLACE_CMD} -e "s|'cr'|'Scr'|" ${WRKSRC}/configure
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/bin/sed ${STAGEDIR}${PREFIX}/bin/gsed

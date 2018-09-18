@@ -41,11 +41,20 @@ MAKE_ARGS=		INSTALL_SCRIPT="{{INSTALL_SCRIPT}}"
 INFO=			single:find single:find-maint
 CPE_VENDOR=		gnu
 
+# All platforms except for Darwin build properly
+# On Darwin, the programs relink the static libraries and
+# programs again during stage phase.  Once fixed, the
+# following line can be removed.
+INSTALL_REQ_TOOLCHAIN=	yes
+
 [NLS].USES_ON=				gettext-runtime
 [NLS].CONFIGURE_ENABLE_BOTH=		nls
 
 [NOPREFIX].CONFIGURE_ARGS_OFF=		--program-prefix=g
 [NOPREFIX].DESCRIPTION=			Build without prefixing all programs with "g"
+
+post-patch-darwin:
+	${REINPLACE_CMD} -e "s|'cr'|'Scr'|" ${WRKSRC}/configure
 
 post-install:
 	${RM} -r ${STAGEDIR}/var
