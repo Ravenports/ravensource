@@ -1,4 +1,4 @@
---- src/tds/sec_negotiate_openssl.h.orig	2017-02-15 09:00:01 UTC
+--- src/tds/sec_negotiate_openssl.h.orig	2018-04-03 09:00:03 UTC
 +++ src/tds/sec_negotiate_openssl.h
 @@ -37,6 +37,11 @@
  #error HAVE_OPENSSL not defines, this file should not be included

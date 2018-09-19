@@ -1,4 +1,4 @@
---- src/tds/tls.c.orig	2017-11-30 09:00:01 UTC
+--- src/tds/tls.c.orig	2018-04-03 09:00:03 UTC
 +++ src/tds/tls.c
 @@ -50,6 +50,10 @@
  #include <sys/socket.h>
@@ -25,5 +25,5 @@
 +#endif
 +
  /* some compatibility layer */
- #if OPENSSL_VERSION_NUMBER < 0x1010000FL
+ #if !HAVE_BIO_GET_DATA
  static inline void
