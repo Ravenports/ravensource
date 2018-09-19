@@ -89,7 +89,7 @@ do-install:
 		${STAGEDIR}${PREFIX}/openssl
 	${FIND} ${DIST}/public/nss -type l \
 		-exec ${INSTALL_DATA} {} ${STAGEDIR}${PREFIX}/include/nss/nss \;
-	${INSTALL_LIB} ${BINS}/lib/*.so \
+	${INSTALL_LIB} ${BINS}/lib/*.${LIBEXT} \
 		${STAGEDIR}${PREFIX}/lib/nss
 	${INSTALL_DATA} ${BINS}/lib/libcrmf.a \
 		${STAGEDIR}${PREFIX}/lib/nss
