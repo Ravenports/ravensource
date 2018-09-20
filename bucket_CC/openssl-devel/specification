@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	1.1.0i
-DEF[OPENSSL_SHLIBVER]=	10
+DEF[PORTVERSION]=	1.1.1
+DEF[OPENSSL_SHLIBVER]=	1.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		openssl-devel
@@ -34,7 +34,6 @@ MUST_CONFIGURE=		yes
 CONFIGURE_SCRIPT=	config
 CONFIGURE_ENV=		PERL="{{PERL}}"
 
-# INSTALL_REQ_TOOLCHAIN=	yes
 CONFIGURE_ARGS=		--openssldir={{PREFIX}}/openssl
 			--prefix={{PREFIX}}
 			no-md2
@@ -45,9 +44,7 @@ CONFIGURE_ARGS=		--openssldir={{PREFIX}}/openssl
 			no-idea
 			no-mdc2
 			no-nextprotoneg
-MAKE_ARGS=		WHOLE_ARCHIVE_FLAG=--whole-archive
-			LDFLAGS="-Wl,-rpath,{{PREFIX}}/lib"
-			LIB_LDFLAGS="-Wl,-rpath,{{PREFIX}}/lib"
+# MAKE_ARGS=		LDFLAGS="-Wl,-rpath,{{PREFIX}}/lib"
 MAKE_ENV=		LIBRPATH="{{PREFIX}}/lib"
 			GREP_OPTIONS=
 TEST_TARGET=		test
@@ -101,11 +98,10 @@ post-configure:
 
 post-install-SHARED-ON:
 .for i in libcrypto libssl
-	${INSTALL_LIB} ${WRKSRC}/$i.so.${OPENSSL_SHLIBVER} ${STAGEDIR}${PREFIX}/lib
-	${LN} -sf $i.so.${OPENSSL_SHLIBVER} ${STAGEDIR}${PREFIX}/lib/$i.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.${LIBEXT}
 .endfor
 .for i in capi padlock
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/engines-1.1/${i}.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/engines-*/${i}.${LIBEXT}
 .endfor
 
 post-install:
@@ -114,3 +110,4 @@ post-install:
 .endfor
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/openssl
 	${RM} ${STAGEDIR}${PREFIX}/openssl/openssl.cnf
+	${RM} ${STAGEDIR}${PREFIX}/openssl/ct_log_list.cnf

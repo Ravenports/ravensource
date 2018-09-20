@@ -1,17 +1,6 @@
---- config.orig	2017-11-02 14:29:02 UTC
+--- config.orig	2018-09-11 12:48:20 UTC
 +++ config
-@@ -187,6 +187,10 @@ case "${SYSTEM}:${RELEASE}:${VERSION}:${
-         echo "${MACH}-${ARCH}-freebsd${VERS}"; exit 0
-         ;;
- 
-+    DragonFly:*)
-+	echo "${MACHINE}-whatever-dragonfly"; exit 0
-+	;;
-+
-     FreeBSD:*)
- 	echo "${MACHINE}-whatever-freebsd"; exit 0
- 	;;
-@@ -696,15 +700,7 @@ case "$GUESSOS" in
+@@ -689,15 +689,7 @@ case "$GUESSOS" in
    sun4d-*-solaris2)	OUT="solaris-sparcv8-$CC" ;;
    sun4*-*-solaris2)	OUT="solaris-sparcv7-$CC" ;;
    *86*-*-solaris2)
@@ -28,13 +17,10 @@
  	;;
    *-*-sunos4)		OUT="sunos-$CC" ;;
  
-@@ -713,15 +709,10 @@ case "$GUESSOS" in
-   powerpc64-*-*bsd*)	OUT="BSD-generic64"; options="$options -DB_ENDIAN" ;;
-   sparc64-*-*bsd*)	OUT="BSD-sparc64" ;;
-   ia64-*-*bsd*)		OUT="BSD-ia64" ;;
-+  x86_64-*-dragonfly*)	OUT="BSD-x86_64" ;;
+@@ -712,13 +704,7 @@ case "$GUESSOS" in
+   x86_64-*-dragonfly*)  OUT="BSD-x86_64" ;;
    amd64-*-*bsd*)	OUT="BSD-x86_64" ;;
--  *86*-*-*bsd*)		# mimic ld behaviour when it's looking for libc...
+   *86*-*-*bsd*)		# mimic ld behaviour when it's looking for libc...
 -			if [ -L /usr/lib/libc.so ]; then	# [Free|Net]BSD
 -			    libc=/usr/lib/libc.so
 -			else					# OpenBSD
@@ -42,7 +28,6 @@
 -			    libc=`(ls /usr/lib/libc.so.* /lib/libc.so.* | tail -1) 2>/dev/null`
 -			fi
 -			case "`(file -L $libc) 2>/dev/null`" in
-+  *86*-*-*bsd*)
 +			case "`(file -L /bin/sh) 2>/dev/null`" in
  			*ELF*)	OUT="BSD-x86-elf" ;;
  			*)	OUT="BSD-x86"; options="$options no-sse2" ;;
