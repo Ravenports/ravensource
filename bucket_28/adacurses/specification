@@ -36,6 +36,7 @@ CONFIGURE_ARGS=		--with-ada-include={{PREFIX}}/include/adacurses
 			--libdir={{PREFIX}}/lib/adacurses
 			--enable-widec
 PLIST_SUB=		atic=adacurses/terminal_interface-curses
+SUB_FILES=		adacurses.gpr
 
 post-patch:
 	${REINPLACE_CMD} -e '/(INSTALL_PROG)/d' \
@@ -50,11 +51,15 @@ post-patch:
 	${REINPLACE_CMD} -e "s|@PREFIX@|${NCURSESBASE}|g" \
 		${WRKSRC}/src/library.gpr
 
+post-patch-darwin:
+	${REINPLACE_CMD} -e 's|,-R,|,-rpath,|' \
+		${WRKSRC}/src/library.gpr \
+		${WRKDIR}/adacurses.gpr
+
 post-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/gen/adacurses-config \
 		${STAGEDIR}${PREFIX}/bin/
 	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/gnat
-	${SED} "s|@PREFIX@|${NCURSESBASE}|g" ${FILESDIR}/adacurses.gpr.in > \
-		${STAGEDIR}${PREFIX}/lib/gnat/adacurses.gpr
+	${INSTALL_SCRIPT} ${WRKDIR}/adacurses.gpr ${STAGEDIR}${PREFIX}/lib/gnat
 	(cd ${WRKSRC}/doc && ${SETENV} ${MAKE_ENV} \
 		${MAKE_CMD} ${MAKE_ARGS} THIS=adacurses install.html)
