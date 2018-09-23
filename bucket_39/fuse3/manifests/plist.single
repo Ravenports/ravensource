@@ -1,11 +1,12 @@
-%%ONLY-LINUX%%/etc/init.d/fuse3
+%%ONLY-LINUX%%etc/init.d/fuse3
 %%ONLY-LINUX%%/etc/udev/rules.d/99-fuse3.rules
 %%ONLY-LINUX%%@postunexec rm -f /dev/fuse
 %%ONLY-LINUX%%@preexec mknod -m 0666 /dev/fuse c 10 229 || true
-%%ONLY-LINUX%%@sample /etc/fuse.conf.sample
+%%ONLY-LINUX%%@sample etc/fuse.conf.sample
 %%ONLY-LINUX%%bin/fusermount3
 %%ONLY-LINUX%%sbin/mount.fuse3
 %%ONLY-LINUX%%share/man/man1/fusermount3.1.gz
+%%ONLY-LINUX%%share/man/man8/mount.fuse3.8.gz
 include/fuse3/cuse_lowlevel.h
 include/fuse3/fuse.h
 include/fuse3/fuse_common.h
