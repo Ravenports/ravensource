@@ -5,7 +5,7 @@
  char		 pat[NPAT];			/* pattern		*/
  
 +#ifndef __dead
-+#define __dead __dead2
++#define __dead __attribute__ ((__noreturn__))
 +#endif
 +
  static void	 edinit(struct buffer *);
