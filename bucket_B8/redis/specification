@@ -33,6 +33,8 @@ CFLAGS=			-Wno-implicit-fallthrough
 LDFLAGS=		-lm -lexecinfo
 MAKE_ENV=		V=yo
 
+VAR_OPSYS[linux]=	LDFLAGS=-ldl
+
 do-install:
 	(cd ${WRKSRC}/src && \
 	${INSTALL_PROGRAM} redis-benchmark redis-check-aof redis-check-rdb \
