@@ -4,6 +4,7 @@ DEF[SOVERSION]=		13.3.3
 
 NAMEBASE=		libarchive
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		archivers
 VARIANTS=		standard static extended
 SDESC[standard]=	Library to handle many streaming archive formats
@@ -36,6 +37,7 @@ FPC_EQUIVALENT=		archivers/libarchive
 BUILD_DEPENDS=		bzip2:static:standard
 			zlib:static:standard
 			expat:static:standard
+			Zstandard:static:standard
 
 USES=			cpe libtool macfix
 MUST_CONFIGURE=		gnu
@@ -53,7 +55,6 @@ SOVERSION=		${SOVERSION}
 					Zstandard:shared:standard
 [STATIC].BUILD_DEPENDS_ON=		libressl:single:static
 					xz:single:static
-					Zstandard:static:standard
 [STATIC].CONFIGURE_ARGS_OFF=		--enable-shared=yes
 [STATIC].CONFIGURE_ARGS_ON=		--enable-shared=no
 					--enable-static=yes
