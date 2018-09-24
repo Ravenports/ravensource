@@ -53,6 +53,8 @@ INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		LIBVERSION=${LIBVERSION}
 
+VAR_OPSYS[linux]=	CFLAGS=-D_GNU_SOURCE
+
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/libsoup/soup-connection.h \
 		${STAGEDIR}${PREFIX}/include/libsoup-${LIBVERSION}/libsoup/soup-connection.h
