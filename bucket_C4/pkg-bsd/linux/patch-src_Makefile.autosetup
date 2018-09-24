@@ -1,0 +1,29 @@
+--- src/Makefile.autosetup.orig	2018-09-22 12:58:22 UTC
++++ src/Makefile.autosetup
+@@ -45,7 +45,6 @@ LOCAL_CFLAGS=	-I$(top_srcdir)/external/u
+ 		-DHAVE_CONFIG_H
+ LIBS=	\
+ 	-L$(top_builddir)/libpkg -lpkg_flat \
+-	-lm \
+ 	@EXTRA_LIBS@
+ 
+ @if HAVE_PKG_LIBARCHIVE
+@@ -53,7 +52,7 @@ LIBS+=	@PKG_LIBARCHIVE_LDFLAGS@ @PKG_LIB
+ @else
+ LIBS+=	-larchive -lbz2 -lz -llzma -lzstd
+ @endif
+-OTHER_LIBS=	-lssl -lcrypto -pthread
++OTHER_LIBS=	-lm -lssl -lcrypto -pthread
+ @if HAVE_LIBUTIL
+ OTHER_LIBS+=	-lutil
+ @endif
+@@ -69,7 +68,8 @@ LOCAL_LDFLAGS=	$(LIBS:S/_flat//) $(OTHER
+ STATIC_LDFLAGS=	$(LIBS) $(OTHER_LIBS) -lresolv
+ @else
+ LOCAL_LDFLAGS=	-Wl,-Bstatic \
+-		-Wl,--whole-archive $(LIBS) -Wl,--no-whole-archive \
++		-L$(top_builddir)/libpkg -Wl,--whole-archive -lpkg_flat -Wl,--no-whole-archive \
++		${LIBS:N-lpkg_flat} \
+ 		-Wl,-Bdynamic $(OTHER_LIBS) \
+ 		-Wl,--export-dynamic \
+ 		-Wl,--version-script=$(top_builddir)/libpkg/libpkg.ver

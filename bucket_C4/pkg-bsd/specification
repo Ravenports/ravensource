@@ -63,10 +63,6 @@ post-extract:
 	${CHMOD} ${BINMODE} ${WRKSRC}/configure \
 		${WRKSRC}/autosetup/autosetup-find-tclsh
 
-post-patch-linux:
-	${REINPLACE_CMD} -e '/libpkg_la_LDFLAGS =/ s/= /= -ldl /' \
-		${WRKSRC}/libpkg/Makefile.in
-
 post-patch-sunos:
 	${REINPLACE_CMD} -e 's|-lutil ||' \
 		${WRKSRC}/libpkg/Makefile.in \
