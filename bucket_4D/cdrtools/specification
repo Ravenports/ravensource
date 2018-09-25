@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	3.01
 
 NAMEBASE=		cdrtools
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils audio
 VARIANTS=		standard
 SDESC[standard]=	CD/DVD/BluRay command line recording software
@@ -31,12 +32,13 @@ FPC_EQUIVALENT=		sysutils/cdrtools
 EXRUN[mp3]=		lame:complete:standard
 EXRUN[ogg]=		vorbis-tools:single:standard
 
-USES=			gmake
+USES=			gmake iconv
 SINGLE_JOB=		yes
 MAKE_ENV=		CCOM=cc
 			GMAKE_NOWARN=true
 			INS_BASE="{{LOCALBASE}}"
-			INS_BASE="{{LOCALBASE}}"
+			DEFOSINCDIRS="{{LOCALBASE}}/include"
+			LDPATH="-L{{LOCALBASE}}/lib -Wl,-rpath,{{LOCALBASE}}/lib"
 
 post-patch:
 	(cd ${WRKSRC}/RULES && \
