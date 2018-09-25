@@ -338,6 +338,7 @@ headers_Darwin=		#end
 
 headers_FreeBSD_dirs=	arpa \
 			dev \
+			geom \
 			net \
 			net80211 \
 			netipsec \
