@@ -82,10 +82,6 @@ post-patch-SKIP_MANPAGES-ON:
 		-e 's|man1:man3:man5:man7|man1:man5:man7|' \
 		${WRKSRC}/util/process_docs.pl
 
-post-patch-freebsd:
-	${REINPLACE_CMD} -e '/define HAVE_CRYPTODEV/d' \
-		${WRKSRC}/crypto/engine/eng_cryptodev.c
-
 post-install-SHARED-ON:
 .for i in libcrypto libssl
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.${LIBEXT}
