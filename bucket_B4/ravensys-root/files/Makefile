@@ -333,6 +333,9 @@ posix_headers=		aio.h \
 headers_SunOS_dirs=	#end
 headers_SunOS=		#end
 
+headers_Darwin_dirs=	#end
+headers_Darwin=		#end
+
 headers_FreeBSD_dirs=	arpa \
 			dev \
 			net \
@@ -543,6 +546,7 @@ headers_Linux=		_G_config.h \
 
 pcfiles_Linux=		# end
 pcfiles_SunOS=		# end
+pcfiles_Darwin=		# end
 pcfiles_FreeBSD=	libusb-0.1.pc \
 			libusb-2.0.pc \
 			libusb-1.0.pc \
@@ -613,6 +617,8 @@ install:
 	mv ${DESTDIR}${BASE}/bin/sh ${DESTDIR}${BASE}/usr/xpg4/bin/
 	mv ${DESTDIR}${BASE}/usr/bin/bash ${DESTDIR}${BASE}/bin/bash
 	ln ${DESTDIR}${BASE}/bin/bash ${DESTDIR}${BASE}/bin/sh
+.elif "${OPSYS}" == "Darwin"
+	cp ${CPA} ../${OPSYS:tl}/* ${DESTDIR}${BASE}/
 .else
 .  for item in ${Bin_${OPSYS}}
 	${BSD_INSTALL_PROGRAM} ../${OPSYS:tl}${item} ${DESTDIR}${BASE}/bin/
@@ -714,7 +720,7 @@ install:
 	# from bash package
 	cp ${CPA} ${LOCALBASE}/bin/bash ${DESTDIR}${BASE}/bin/
 .endif
-.if ${OPSYS} == Linux || ${OPSYS} == SunOS
+.if ${OPSYS} == Linux || ${OPSYS} == SunOS || ${OPSYS} == Darwin
 	# use coreutils that FreeBSD and DragonFly passed on (/bin)
 .  for item in [ chmod cp date echo expr kill link ln ls mkdir mv pwd \
 	realpath rm rmdir sleep test unlink
@@ -784,6 +790,9 @@ install:
 		> ${DESTDIR}${BASE}/usr/bin/fgrep
 	chmod 755 ${DESTDIR}${BASE}/usr/bin/egrep \
 		${DESTDIR}${BASE}/usr/bin/fgrep
+.if ${OPSYS} == Darwin
+	rm ${DESTDIR}${BASE}/usr/bin/objdump-sysroot
+.endif
 .if ${OPSYS} == DragonFly || ${OPSYS} == FreeBSD
 .  for LC in COLLATE CTYPE MESSAGES MONETARY NUMERIC TIME
 	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/share/locale/en_US.UTF-8/LC_${LC} \

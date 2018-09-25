@@ -13,11 +13,12 @@ NAMEBASE=		ravensys-root
 VERSION=		1.4
 REVISION=		8
 KEYWORDS=		raven
-VARIANTS=		dragonfly freebsd_amd64 linux sunos
+VARIANTS=		dragonfly freebsd_amd64 linux sunos macos
 SDESC[dragonfly]=	DragonFly64 system root for Ravenports build env
 SDESC[freebsd_amd64]=	FreeBSD-amd64 system root for Ravenports build env
 SDESC[linux]=		Linux system root for Ravenports build env
 SDESC[sunos]=		Solaris 10 system root for Ravenports build env
+SDESC[macos]=		MacOS/Darwin system root for Ravenports build env
 HOMEPAGE=		none
 CONTACT=		John_Marino[draco@marino.st]
 
@@ -57,18 +58,21 @@ DISTFILE[16]=		solaris_root_10_u8.v11.tar.xz:dragonlace
 DISTFILE[17]=		locales_2.23-0ubuntu10_all.deb:ubuntu1
 DISTFILE[18]=		libattr1-dev_2.4.47-2_amd64.deb:ubuntu9
 DISTFILE[19]=		libattr1_2.4.47-2_amd64.deb:ubuntu9
+DISTFILE[20]=		mac_root_10.13.6.v01.tar.xz:dragonlace
 
 SPKGS[dragonfly]=	single
 SPKGS[freebsd_amd64]=	single
 SPKGS[linux]=		single
 SPKGS[sunos]=		single
+SPKGS[macos]=		single
 
-OPTIONS_AVAILABLE=	DRAGONFLY FREEBSDAMD64 LINUX SUNOS
+OPTIONS_AVAILABLE=	DRAGONFLY FREEBSDAMD64 LINUX SUNOS MACOS
 OPTIONS_STANDARD=	none
-VOPTS[dragonfly]=	DRAGONFLY=ON FREEBSDAMD64=OFF LINUX=OFF SUNOS=OFF
-VOPTS[freebsd_amd64]=	DRAGONFLY=OFF FREEBSDAMD64=ON LINUX=OFF SUNOS=OFF
-VOPTS[linux]=		DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=ON SUNOS=OFF
-VOPTS[sunos]=		DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=OFF SUNOS=ON
+VOPTS[dragonfly]=	DRAGONFLY=ON FREEBSDAMD64=OFF LINUX=OFF SUNOS=OFF MACOS=OFF
+VOPTS[freebsd_amd64]=	DRAGONFLY=OFF FREEBSDAMD64=ON LINUX=OFF SUNOS=OFF MACOS=OFF
+VOPTS[linux]=		DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=ON SUNOS=OFF MACOS=OFF
+VOPTS[sunos]=		DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=OFF SUNOS=ON MACOS=OFF
+VOPTS[macos]=		DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=OFF SUNOS=OFF MACOS=ON
 
 INVALID_RPATH=		yes
 
@@ -152,6 +156,10 @@ MAKE_ARGS=		BASE={{RSYS}}
 [SUNOS].DESCRIPTION=			Ravenports system root for Solaris 10
 [SUNOS].ONLY_FOR_OPSYS_ON=		sunos
 [SUNOS].DF_INDEX_ON=			16
+
+[MACOS].DESCRIPTION=			Ravenports system root for MacOS/Darwin
+[MACOS].ONLY_FOR_OPSYS_ON=		darwin
+[MACOS].DF_INDEX_ON=			20
 
 post-extract-DRAGONFLY-ON:
 	${MV} ${WRKDIR}/${NAMEBASE}_2 ${WRKDIR}/dragonfly
@@ -244,8 +252,19 @@ post-extract-SUNOS-ON:
 	${RM} ${WRKDIR}/sunos/usr/include/png.h
 	${RM} ${WRKDIR}/sunos/usr/include/pngconf.h
 
+post-extract-MACOS-ON:
+	${MV} ${WRKDIR}/mac-sysroot ${WRKDIR}/darwin
+	@${MKDIR} ${WRKSRC}
+	${INSTALL_DATA} ${FILESDIR}/Makefile ${WRKSRC}/
+
 post-install-SUNOS-ON:
 	${ECHO} 5.10      > ${STAGEDIR}${RSYS}/usr/share/OSRELEASE
 	${ECHO} 5.10      > ${STAGEDIR}${RSYS}/usr/share/OSMAJOR
 	${ECHO} 510200910 > ${STAGEDIR}${RSYS}/usr/share/OSVERSION
+	${ECHO} x86_64    > ${STAGEDIR}${RSYS}/usr/share/STDARCH
+
+post-install-MACOS-ON:
+	${ECHO} 17.7.0    > ${STAGEDIR}${RSYS}/usr/share/OSRELEASE
+	${ECHO} 17        > ${STAGEDIR}${RSYS}/usr/share/OSMAJOR
+	${ECHO} 170700    > ${STAGEDIR}${RSYS}/usr/share/OSVERSION
 	${ECHO} x86_64    > ${STAGEDIR}${RSYS}/usr/share/STDARCH
