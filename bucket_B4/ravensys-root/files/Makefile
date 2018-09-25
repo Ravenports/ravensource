@@ -12,6 +12,7 @@ Libsbuf_FreeBSD=	libsbuf.so.6
 Libdevstat_FreeBSD=	libdevstat.so.7
 Libprocstat_FreeBSD=	libprocstat.so.1
 Libgeom_FreeBSD=	libgeom.so.5
+Libbsdxml_FreeBSD=	libbsdxml.so.4
 
 CPA=			-RpP
 
@@ -148,6 +149,7 @@ static_lib_generic=	/usr/lib/libc.a \
 			/usr/lib/libcrypt.a \
 			/usr/lib/libpthread.a
 static_lib_FreeBSD=	${static_lib_generic} \
+			/usr/lib/libbsdxml.a \
 			/usr/lib/libcompat.a \
 			/usr/lib/libdevstat.a \
 			/usr/lib/libgeom.a \
@@ -201,6 +203,7 @@ dynamic_generic=	/lib/${libc} \
 			/lib/${libkvm} \
 			/usr/lib/${librt}
 dynamic_lib_FreeBSD=	${dynamic_generic} \
+			/lib/${Libbsdxml_FreeBSD} \
 			/lib/${Libelf_FreeBSD} \
 			/lib/${Libgeom_FreeBSD} \
 			/lib/${Libsbuf_FreeBSD} \
@@ -659,6 +662,7 @@ install:
 .if ${OPSYS} == FreeBSD
 	(cd ${DESTDIR}${BASE}/usr/lib && \
 		ln -s ${Libthr_FreeBSD} libthr.so && \
+		ln -s ${Libbsdxml_FreeBSD} libbsdxml.so && \
 		ln -s ${Libdevstat_FreeBSD} libdevstat.so && \
 		ln -s ${Libprocstat_FreeBSD} libprocstat.so && \
 		ln -s ${Libgeom_FreeBSD} libgeom.so && \
