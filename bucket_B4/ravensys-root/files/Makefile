@@ -11,6 +11,7 @@ Libthr_FreeBSD=		libthr.so.3
 Libsbuf_FreeBSD=	libsbuf.so.6
 Libdevstat_FreeBSD=	libdevstat.so.7
 Libprocstat_FreeBSD=	libprocstat.so.1
+Libgeom_FreeBSD=	libgeom.so.5
 
 CPA=			-RpP
 
@@ -149,6 +150,7 @@ static_lib_generic=	/usr/lib/libc.a \
 static_lib_FreeBSD=	${static_lib_generic} \
 			/usr/lib/libcompat.a \
 			/usr/lib/libdevstat.a \
+			/usr/lib/libgeom.a \
 			/usr/lib/libkvm.a \
 			/usr/lib/libprocstat.a \
 			/usr/lib/libthr.a \
@@ -200,6 +202,7 @@ dynamic_generic=	/lib/${libc} \
 			/usr/lib/${librt}
 dynamic_lib_FreeBSD=	${dynamic_generic} \
 			/lib/${Libelf_FreeBSD} \
+			/lib/${Libgeom_FreeBSD} \
 			/lib/${Libsbuf_FreeBSD} \
 			/lib/${Libthr_FreeBSD} \
 			/lib/${Libdevstat_FreeBSD} \
@@ -407,6 +410,7 @@ headers_FreeBSD=	${headers_DragonFly:Nnet/*:Nutil.h} \
 			libusb20.h \
 			libusb20_desc.h \
 			kenv.h \
+			libgeom.h \
 			libprocstat.h \
 			# end
 
@@ -657,8 +661,8 @@ install:
 		ln -s ${Libthr_FreeBSD} libthr.so && \
 		ln -s ${Libdevstat_FreeBSD} libdevstat.so && \
 		ln -s ${Libprocstat_FreeBSD} libprocstat.so && \
+		ln -s ${Libgeom_FreeBSD} libgeom.so && \
 		ln -s libthr.so libpthread.so)
-	
 .endif
 .if ${OPSYS} == Linux
 .  for item in ${Linux_static_libs}
