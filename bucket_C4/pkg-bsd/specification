@@ -1,5 +1,5 @@
 DEF[PORTVERSION]=	1.10.99.10
-DEF[ROLLING_TAG]=	18fb4d7
+DEF[ROLLING_TAG]=	0bb20aa
 DEF[SQLITE_VER]=	3.23.1
 DEF[SQLITE_LONGVER]=	${SQLITE_VER:S/.//:S/./0/}00
 DEF[SQLITE_YEAR]=	2018
@@ -7,7 +7,7 @@ DEF[SQLITE_YEAR]=	2018
 
 NAMEBASE=		pkg-bsd
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		raven
 VARIANTS=		standard
 SDESC[standard]=	BSD binary package manager
@@ -62,13 +62,6 @@ post-extract:
 		${WRKSRC}/external/sqlite/shell.c
 	${CHMOD} ${BINMODE} ${WRKSRC}/configure \
 		${WRKSRC}/autosetup/autosetup-find-tclsh
-
-post-patch-sunos:
-	${REINPLACE_CMD} -e 's|-lutil ||' \
-		${WRKSRC}/libpkg/Makefile.in \
-		${WRKSRC}/tests/Makefile.in
-	${REINPLACE_CMD} -e '/enable-new-dtags/d' \
-		${WRKSRC}/src/Makefile.in
 
 post-build:
 	(cd ${WRKDIR} && ${CC} pkg.c -o pkg-selector)
