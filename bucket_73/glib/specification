@@ -37,7 +37,7 @@ BUILDRUN_DEPENDS=	pcre:static:standard
 RUN_DEPENDS=		zlib:static:standard
 
 USES=			gettext-tools gettext-runtime gmake libtool perl:build
-			pkgconfig python:build shebangfix zlib meson
+			pkgconfig python:build shebangfix zlib meson iconv
 MESON_ARGS=		-Diconv=gnu
 			-Dselinux=false
 			-Dxattr=false
@@ -76,7 +76,10 @@ post-patch:
 		${WRKSRC}/glib/tests/utils.c
 	${REINPLACE_CMD} -e "s|python3|python${PYTHON_VER}|g" \
 		-e 's|/docbook.sourceforge.net/|/cdn.docbook.org/|' \
+		-e "/'_XOPEN_SOURCE'/d" \
 		${WRKSRC}/meson.build
+	${REINPLACE_CMD} -e '/_XOPEN_SOURCE/d' \
+		${WRKSRC}/glib/tests/strfuncs.c
 	for F in ${pyscripts}; do \
 		${CHMOD} ${BINMODE} ${WRKSRC}/$$F; \
 	done

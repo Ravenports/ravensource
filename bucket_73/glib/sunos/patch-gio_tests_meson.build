@@ -1,0 +1,44 @@
+--- gio/tests/meson.build.orig	2018-09-21 14:23:52 UTC
++++ gio/tests/meson.build
+@@ -14,6 +14,8 @@ giotypefuncs_inc = custom_target(
+   input : gio_headers + [gioenumtypes_h] + gobject_install_headers,
+   command: [gengiotypefuncs_prog, '@OUTPUT@', '@INPUT@'])
+ 
++sun_socket = cc.find_library('socket')
++
+ #  Test programs buildable on all platforms
+ # FIXME: We are using list of dictionnaries until we can depend on Meson 0.48.0
+ # that supports '+=' operator on dictionnaries.
+@@ -56,7 +58,7 @@ gio_tests = [{
+   'simple-async-result' : {},
+   'simple-proxy' : {},
+   'sleepy-stream' : {},
+-  'socket' : {},
++  'socket' : { 'dependencies' : [sun_socket] },
+   'socket-listener' : {},
+   'socket-service' : {},
+   'srvtarget' : {},
+@@ -121,11 +123,11 @@ if host_machine.system() != 'windows'
+   gio_tests += [{
+     'file' : {},
+     'gdbus-peer' : {'dependencies' : [libgdbus_example_objectmanager_dep]},
+-    'gdbus-peer-object-manager' : {},
++    'gdbus-peer-object-manager' : {'dependencies' : [sun_socket]},
+     'live-g-file' : {},
+     'socket-address' : {},
+-    'stream-rw_all' : {},
+-    'unix-fd' : {},
++    'stream-rw_all' : {'dependencies' : [sun_socket]},
++    'unix-fd' : {'dependencies' : [sun_socket]},
+     'unix-mounts' : {},
+     'unix-streams' : {},
+     'g-file-info-filesystem-readonly' : {},
+@@ -248,7 +250,7 @@ if host_machine.system() != 'windows'
+   executable('gdbus-overflow', 'gdbus-overflow.c',
+       install : false,
+       c_args : test_c_args,
+-      dependencies : common_gio_tests_deps)
++      dependencies : [common_gio_tests_deps, sun_socket])
+ 
+   gio_tests += [{
+     'gdbus-connection-flush' : {
