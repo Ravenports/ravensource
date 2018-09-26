@@ -64,6 +64,7 @@ MESON_INSERT_RPATH=	thumbnailer/meson.build
 PLIST_SUB=		GTK_VERSION=${GTK_VERSION}
 			SOVER=${SOVER}
 CPE_VENDOR=		gnome
+VAR_OPSYS[sunos]=	CFLAGS=-D_XPG6
 
 post-patch:
 	${REINPLACE_CMD} -e 's|/docbook.sourceforge.net/|/cdn.docbook.org/|' \
