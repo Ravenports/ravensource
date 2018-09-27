@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	20180925
+DEF[DATADIR]=		{{PREFIX}}/share/wtf
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		wtf
+VERSION=		${PORTVERSION}
+KEYWORDS=		games
+VARIANTS=		standard
+SDESC[standard]=	Translates common Internet acronyms
+HOMEPAGE=		none
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://downloads.sourceforge.net/project/bsdwtf/
+DISTFILE[1]=		wtf-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		PUBDOM:single
+LICENSE_FILE=		PUBDOM:{{WRKDIR}}/LICENSE
+LICENSE_AWK=		PUBDOM:"^$$"
+LICENSE_SOURCE=		PUBDOM:{{WRKSRC}}/wtf
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		games/wtf
+
+SKIP_BUILD=		yes
+
+post-extract:
+	${REINPLACE_CMD} -e 's|/usr/share/misc|${DATADIR}|g' ${WRKSRC}/wtf*
+
+do-install:
+	${INSTALL_SCRIPT} ${WRKSRC}/wtf ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/wtf.6 ${STAGEDIR}${MAN6PREFIX}/man/man6
+	${MKDIR} ${STAGEDIR}${DATADIR}
+	${INSTALL_DATA} ${WRKSRC}/acronyms ${STAGEDIR}${DATADIR}
+	${INSTALL_DATA} ${WRKSRC}/acronyms.comp ${STAGEDIR}${DATADIR}
+	${INSTALL_DATA} ${WRKSRC}/acronyms-o.real ${STAGEDIR}${DATADIR}/acronyms-o
