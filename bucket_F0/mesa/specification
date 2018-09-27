@@ -1,5 +1,4 @@
-DEF[PORTVERSION]=	18.1.8
-DEF[MESA_LLVM_VER]=	40
+DEF[PORTVERSION]=	18.2.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mesa
@@ -41,8 +40,8 @@ FPC_EQUIVALENT=		graphics/mesa-libs
 
 BUILD_DEPENDS=		libpthread-stubs:single:standard
 			libclc:single:standard
-			llvm${MESA_LLVM_VER}:llvm:standard
-			llvm${MESA_LLVM_VER}:clang:standard
+			llvm:llvm:standard
+			llvm:clang:standard
 			zlib:static:standard
 			libelf:single:standard
 			libvdpau:single:standard
@@ -53,16 +52,16 @@ BUILDRUN_DEPENDS=	expat:shared:standard
 			libdrm:single:standard
 			ocl-icd:primary:standard
 			opencl:single:standard
-EXRUN[clover]=		llvm${MESA_LLVM_VER}:llvm:standard
+EXRUN[clover]=		llvm:llvm:standard
 			zlib:shared:standard
 			libelf:single:standard
 			expat:shared:standard
 			libdrm:single:standard
-EXRUN[drivers]=		llvm${MESA_LLVM_VER}:llvm:standard
+EXRUN[drivers]=		llvm:llvm:standard
 			mesa:libs:standard
 			zlib:shared:standard
 			libelf:single:standard
-EXRUN[osmesa]=		llvm${MESA_LLVM_VER}:llvm:standard
+EXRUN[osmesa]=		llvm:llvm:standard
 			mesa:libs:standard
 			zlib:shared:standard
 B_DEPS[sunos]=		libbsd4sol:single:standard
@@ -72,7 +71,7 @@ B_DEPS[sunos]=		libbsd4sol:single:standard
 USES=			bison gettext-tools gmake libtool pkgconfig
 			python:py27,build shebangfix
 			c++:clover,drivers,osmesa
-XORG_COMPONENTS=	x11 xcb xdamage xext xfixes xshmfence xxf86vm xv xvmc
+XORG_COMPONENTS=	x11 xcb xdamage xext xfixes xshmfence xxf86vm xv xvmc xrandr
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-llvm
 			--enable-texture-float
@@ -84,7 +83,7 @@ CONFIGURE_ARGS=		--enable-llvm
 			--disable-libunwind
 			--with-platforms=x11,drm
 			--enable-gallium-osmesa
-			--with-llvm-prefix={{LOCALBASE}}/llvm${MESA_LLVM_VER}
+			--with-llvm-prefix={{LOCALBASE}}/llvm
 			--with-dri-drivers="{{DRI_DRIVERS:tl}}"
 			--with-gallium_drivers="{{GALLIUM_DRIVERS:tl}}"
 
@@ -95,7 +94,7 @@ CONFIGURE_ARGS=		--enable-llvm
 # configure switch is going away ...
 # https://lists.freebsd.org/pipermail/freebsd-arch/2016-February/017699.html
 
-LDFLAGS=		-Wl,-rpath,{{LOCALBASE}}/llvm${MESA_LLVM_VER}/lib
+LDFLAGS=		-Wl,-rpath,{{LOCALBASE}}/llvm/lib
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 SHEBANG_OLD_PYTHON=	/usr/bin/env[[:space:]]python2
@@ -139,6 +138,11 @@ post-extract:
 post-patch-freebsd:
 	${REINPLACE_CMD} -e 's|x86_64|amd64|' ${WRKSRC}/configure
 
+post-patch-dragonfly:
+	# shm_open doesn't support SHM_ANON, and no memfd_create syscall
+	${REINPLACE_CMD} -e '/^noinst_PROGRAMS =/ s|tools/aubinator.(EXEEXT)||' \
+		${WRKSRC}/src/intel/Makefile.in
+
 post-patch-sunos:
 	${REINPLACE_CMD}\
 		-e '/^CFLAGS =/ s|$$| -I$$(prefix)/include/bsd|' \
@@ -152,7 +156,4 @@ post-patch-sunos:
 post-patch:
 	${REINPLACE_CMD} -e 's|/etc/|${PREFIX}/etc/|g' \
 		${WRKSRC}/src/util/xmlconfig.c
-	# Use --link-static until ports/223191 is fixed
-	${REINPLACE_CMD} -e '/$$LLVM_VERSION_MAJOR -ge 4/s|test |false |' \
-		${WRKSRC}/configure
 

@@ -1,6 +1,6 @@
---- src/mapi/glapi/gen/gl_gentable.py.orig	2018-08-13 16:42:38 UTC
+--- src/mapi/glapi/gen/gl_gentable.py.orig	2018-09-21 10:57:00 UTC
 +++ src/mapi/glapi/gen/gl_gentable.py
-@@ -43,7 +43,7 @@ header = """/* GLXEXT is the define used
+@@ -45,7 +45,7 @@ header = """/* GLXEXT is the define used
  #endif
  
  #if (defined(GLXEXT) && defined(HAVE_BACKTRACE)) \\

@@ -1,6 +1,6 @@
---- src/mesa/drivers/dri/i965/brw_performance_query.c.orig	2018-08-13 16:42:38 UTC
+--- src/mesa/drivers/dri/i965/brw_performance_query.c.orig	2018-09-21 10:57:01 UTC
 +++ src/mesa/drivers/dri/i965/brw_performance_query.c
-@@ -1806,9 +1806,17 @@ enumerate_sysfs_metrics(struct brw_conte
+@@ -1812,9 +1812,17 @@ enumerate_sysfs_metrics(struct brw_conte
     while ((metric_entry = readdir(metricsdir))) {
        struct hash_entry *entry;
  
@@ -18,7 +18,7 @@
           continue;
  
        DBG("metric set: %s\n", metric_entry->d_name);
-@@ -2082,9 +2090,17 @@ get_sysfs_dev_dir(struct brw_context *br
+@@ -2088,9 +2096,17 @@ get_sysfs_dev_dir(struct brw_context *br
     }
  
     while ((drm_entry = readdir(drmdir))) {

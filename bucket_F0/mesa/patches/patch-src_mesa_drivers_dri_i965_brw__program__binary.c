@@ -1,6 +1,6 @@
---- src/mesa/drivers/dri/i965/brw_program_binary.c.orig	2018-08-13 16:42:38 UTC
+--- src/mesa/drivers/dri/i965/brw_program_binary.c.orig	2018-09-21 10:57:01 UTC
 +++ src/mesa/drivers/dri/i965/brw_program_binary.c
-@@ -34,9 +34,11 @@ static uint8_t driver_sha1[20];
+@@ -36,9 +36,11 @@ static uint8_t driver_sha1[20];
  void
  brw_program_binary_init(unsigned device_id)
  {
@@ -12,7 +12,7 @@
  
     /**
      * With Mesa's megadrivers, taking the sha1 of i965_dri.so may not be
-@@ -50,7 +52,9 @@ brw_program_binary_init(unsigned device_
+@@ -52,7 +54,9 @@ brw_program_binary_init(unsigned device_
     int len = snprintf(renderer, sizeof(renderer), "i965_%04x", device_id);
     assert(len == sizeof(renderer) - 1);
     _mesa_sha1_update(&ctx, renderer, len);

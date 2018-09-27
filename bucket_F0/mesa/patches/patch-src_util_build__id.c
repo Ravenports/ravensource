@@ -1,8 +1,8 @@
 # Elf_ doesn't exist, use Elf32_ or Elf64_
 #
---- src/util/build_id.c.orig	2018-08-13 16:42:39 UTC
+--- src/util/build_id.c.orig	2018-09-21 10:57:01 UTC
 +++ src/util/build_id.c
-@@ -34,7 +34,11 @@
+@@ -35,7 +35,11 @@
  #endif
  
  #ifndef ElfW
@@ -14,4 +14,4 @@
 +#endif
  #endif
  
- #define ALIGN(val, align)      (((val) + (align) - 1) & ~((align) - 1))
+ struct build_id_note {
