@@ -268,3 +268,6 @@ post-install-MACOS-ON:
 	${ECHO} 17        > ${STAGEDIR}${RSYS}/usr/share/OSMAJOR
 	${ECHO} 170700    > ${STAGEDIR}${RSYS}/usr/share/OSVERSION
 	${ECHO} x86_64    > ${STAGEDIR}${RSYS}/usr/share/STDARCH
+	${CHMOD} 600 ${STAGEDIR}${RSYS}/usr/share/master.passwd
+	${FOS}/usr/sbin/pwd_mkdb -p -d ${STAGEDIR}${RSYS}/usr/share \
+		${STAGEDIR}${RSYS}/usr/share/master.passwd
