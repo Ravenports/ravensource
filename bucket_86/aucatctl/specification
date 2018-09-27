@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	0.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		aucatctl
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		standard
+SDESC[standard]=	Control sndiod and/or aucat volumes
+HOMEPAGE=		http://www.sndio.org/
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.sndio.org/
+DISTFILE[1]=		aucatctl-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		ISCL:single
+LICENSE_FILE=		ISCL:{{WRKDIR}}/LICENSE
+LICENSE_AWK=            ISCL:"^\#include"
+LICENSE_SOURCE=         ISCL:{{WRKSRC}}/main.c
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		audio/aucatctl
+
+BUILDRUN_DEPENDS=	sndio:single:standard
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/aucatctl ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/aucatctl.1 ${STAGEDIR}${MAN1PREFIX}/man/man1
