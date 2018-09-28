@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	1.5.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		rofi
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Window switcher, run dialog and dmenu replacement
+HOMEPAGE=		https://github.com/DaveDavenport/rofi
+CONTACT=		Alexanre_C_Guimarães[lebarondemerde@privacychain.ch]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/DaveDavenport/rofi/releases/download/${PORTVERSION}/
+DISTFILE[1]=		rofi-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11/rofi
+
+BUILD_DEPENDS=		check:primary:standard
+
+BUILDRUN_DEPENDS=	libxkbcommon:single:standard
+			startup-notification:single:standard
+			xorg-xcb-util:single:standard
+			xorg-xcb-util-wm:single:standard
+			xorg-xcb-util-xrm:single:standard
+
+USES=			bison gmake libtool pkgconfig shebangfix
+GNOME_COMPONENTS=	cairo gdkpixbuf librsvg pango
+XORG_COMPONENTS=	xcb
+MUST_CONFIGURE=		gnu
+
+SHEBANG_FILES=		script/get_git_rev.sh
+			script/rofi-sensible-terminal
+SHEBANG_LANG=		bash
+SHEBANG_OLD_BASH=	"/usr/bin/env bash"
+SHEBANG_NEW_BASH=	/bin/sh
