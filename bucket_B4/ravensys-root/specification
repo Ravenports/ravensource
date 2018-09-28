@@ -58,7 +58,7 @@ DISTFILE[16]=		solaris_root_10_u8.v11.tar.xz:dragonlace
 DISTFILE[17]=		locales_2.23-0ubuntu10_all.deb:ubuntu1
 DISTFILE[18]=		libattr1-dev_2.4.47-2_amd64.deb:ubuntu9
 DISTFILE[19]=		libattr1_2.4.47-2_amd64.deb:ubuntu9
-DISTFILE[20]=		mac_root_10.13.6.v01.tar.xz:dragonlace
+DISTFILE[20]=		mac_root_10.13.6.v01.tar.zst:dragonlace
 
 SPKGS[dragonfly]=	single
 SPKGS[freebsd_amd64]=	single
@@ -271,3 +271,9 @@ post-install-MACOS-ON:
 	${CHMOD} 600 ${STAGEDIR}${RSYS}/usr/share/master.passwd
 	${FOS}/usr/sbin/pwd_mkdb -p -d ${STAGEDIR}${RSYS}/usr/share \
 		${STAGEDIR}${RSYS}/usr/share/master.passwd
+
+post-stage-MACOS-ON:
+	# autogenerate System/Library part of manifest
+	(cd ${STAGEDIR}${RSYS} && \
+		${FIND} System \( -type f -or -type l \) | ${SORT} \
+		>> ${WRKDIR}/.manifest.single.mktmp)
