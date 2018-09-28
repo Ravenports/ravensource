@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	20180824
+DEF[PORTVERSION]=	20180927
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mg
@@ -31,10 +31,7 @@ BR_DEPS[linux]=		libbsd:single:standard
 USES=			cmake:outsource ncurses pkgconfig
 CFLAGS=			-I{{NCURSESINC}}
 
-VAR_OPSYS[dragonfly]=	CFLAGS=-DMAXNAMLEN=255
-
 post-extract:
-	${CP} ${FILESDIR}/reallocarray.c ${WRKSRC}
 	${CP} ${FILESDIR}/CMakeLists.txt ${WRKSRC}
 
 do-install:
