@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	1.9
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		fdm
+VERSION=		${PORTVERSION}
+KEYWORDS=		mail
+VARIANTS=		standard
+SDESC[standard]=	Fetch, filter and deliver mail
+HOMEPAGE=		https://github.com/nicm/fdm
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/nicm:fdm:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		ISCL:single
+LICENSE_FILE=		ISCL:{{WRKDIR}}/LICENSE
+LICENSE_AWK=		ISCL:"^\#include"
+LICENSE_SOURCE=		ISCL:{{WRKSRC}}/fdm.c
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		mail/fdm
+
+VAR_OPSYS[dragonfly]=	CFLAGS=-DMAXNAMLEN=255
+
+BUILDRUN_DEPENDS=	tdb:single:standard
+
+post-patch:
+	${REINPLACE_CMD} -e 's|/etc|${PREFIX}/etc|g' ${WRKSRC}/*.[15] ${WRKSRC}/MANUAL
+	${ECHO_CMD} 'lex.c: parse.h' >> ${WRKSRC}/Makefile.am
+
+pre-configure:
+	cd ${WRKSRC} && sh autogen.sh
