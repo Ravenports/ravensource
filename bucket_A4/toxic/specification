@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	0.8.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		toxic
+VERSION=		${PORTVERSION}
+KEYWORDS=		net net_im net_p2p
+VARIANTS=		standard
+SDESC[standard]=	Ncurses-based Tox client
+HOMEPAGE=		https://github.com/Jfreegman/toxic
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/JFreegman:toxic:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^\#include"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/toxic.c
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net-im/toxic
+
+USES=			desktop-utils:single gmake ncurses pkgconfig python shebangfix
+SHEBANG_FILES=		apidoc/python/source/conf.py
+XORG_COMPONENTS=	x11
+BUILD_DEPENDS=		video4linux:headers:standard
+BUILDRUN_DEPENDS=	curl:primary:standard
+			freealut:single:standard
+			libnotify:primary:standard
+			qrencode:single:standard
+			toxcore:single:standard
+CFLAGS=			-I{{NCURSESINC}}
+MAKE_ARGS=		ENABLE_PYTHON=1
+			MANDIR="{{MANPREFIX}}/man"
+			PREFIX="{{PREFIX}}"
+			USER_CFLAGS="{{CFLAGS}}"
+			USER_LDFLAGS="{{LDFLAGS}}"
+
+post-patch:
+	${REINPLACE_CMD} -e 's|LIBS = python3|LIBS = python-${PYTHON_VER}|' \
+	${WRKSRC}/cfg/checks/python.mk
+	${REINPLACE_CMD} -e 's|python3|python${PYTHON_VER}|g' \
+	${WRKSRC}/cfg/checks/python.mk
