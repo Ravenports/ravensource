@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	0.11
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		opusfile
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		standard
+SDESC[standard]=	Opus playback library
+HOMEPAGE=		https://www.opus-codec.org/
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.cdn.mozilla.net/pub/opus/
+			https://downloads.xiph.org/releases/opus/
+			https://archive.mozilla.org/pub/opus/
+DISTFILE[1]=		opusfile-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		audio/opusfile
+
+USES=			autoreconf gmake libtool pkgconfig ssl
+
+BUILDRUN_DEPENDS=	libogg:primary:standard
+			opus:single:standard
+
+MUST_CONFIGURE=		gnu
+
+INSTALL_REQ_TOOLCHAIN=	yes
+
+INSTALL_TARGET=		install-strip
+
+pre-patch-freebsd:
+	${GREP} -l '@openssl@' ${WRKSRC}/opusurl.pc.in | \
+		${XARGS} ${REINPLACE_CMD} -e 's| @openssl@||'
+
+post-patch-freebsd:
+	${GREP} -l 'AC_SEARCH_LIBS(ftime' ${WRKSRC}/configure.ac | \
+		${XARGS} ${REINPLACE_CMD} -e '/ftime/d'
+	${GREP} -L 'src/ftime.c' ${WRKSRC}/Makefile.am | \
+		${XARGS} ${REINPLACE_CMD} -e '/dist_doc_DATA/s/COPYING//' \
+		-e '/libopusurl_la_SOURCES/s|= \(src/http\.c\)|= src/ftime.c \1|'
+	${CP} ${FILESDIR}/ftime.c ${WRKSRC}/src/
