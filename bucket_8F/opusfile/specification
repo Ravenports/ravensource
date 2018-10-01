@@ -36,3 +36,15 @@ MUST_CONFIGURE=		gnu
 INSTALL_REQ_TOOLCHAIN=	yes
 
 INSTALL_TARGET=		install-strip
+
+pre-patch-freebsd:
+	${GREP} -l '@openssl@' ${WRKSRC}/opusurl.pc.in | \
+		${XARGS} ${REINPLACE_CMD} -e 's| @openssl@||'
+
+post-patch-freebsd:
+	${GREP} -l 'AC_SEARCH_LIBS(ftime' ${WRKSRC}/configure.ac | \
+		${XARGS} ${REINPLACE_CMD} -e '/ftime/d'
+	${GREP} -L 'src/ftime.c' ${WRKSRC}/Makefile.am | \
+		${XARGS} ${REINPLACE_CMD} -e '/dist_doc_DATA/s/COPYING//' \
+		-e '/libopusurl_la_SOURCES/s|= \(src/http\.c\)|= src/ftime.c \1|'
+	${CP} ${FILESDIR}/ftime.c ${WRKSRC}/src/
