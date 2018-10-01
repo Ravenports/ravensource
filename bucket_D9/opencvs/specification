@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	20170828
+DEF[RELEASE_TAG]=	20180929
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		opencvs
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Free Concurrent Versions System implementation
+HOMEPAGE=		https://www.openbsd.org/opencvs/index.html
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/OrangeGrayCyan:cvs:${RELEASE_TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKDIR}}/LICENSE
+LICENSE_AWK=		BSD2CLAUSE:"^\#include"
+LICENSE_SOURCE=		BSD2CLAUSE:{{WRKSRC}}/cvs.c
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/opencvs
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/cvs ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/cvs.1 ${STAGEDIR}${MAN1PREFIX}/man/man1
+	${INSTALL_MAN} ${WRKSRC}/cvs.5 ${STAGEDIR}${MAN5PREFIX}/man/man5
+	${INSTALL_MAN} ${WRKSRC}/cvsintro.7 ${STAGEDIR}${MAN7PREFIX}/man/man7
