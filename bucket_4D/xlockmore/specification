@@ -1,0 +1,68 @@
+DEF[PORTVERSION]=	5.56
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xlockmore
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	X Window System Lock Screen
+HOMEPAGE=		http://www.sillycycle.com/xlockmore.html
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://sillycycle.com/xlock/
+DISTFILE[1]=		xlockmore-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		ISCL:single
+LICENSE_FILE=		ISCL:{{WRKDIR}}/LICENSE
+LICENSE_AWK=		ISCL:"^\#include"
+LICENSE_SOURCE=		ISCL:{{WRKSRC}}/xlock/xlock.c
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11/xlockmore
+
+USES=			c++:single
+
+XORG_COMPONENTS=	x11 xaw ice sm xpm xext xinerama
+
+BUILDRUN_DEPENDS=	freetype:primary:standard
+
+MUST_CONFIGURE=		gnu
+
+CONFIGURE_ARGS=		--disable-bomb
+			--enable-blank-only
+			--enable-customization
+			--without-dtsaver
+			--without-editres
+			--without-esound
+			--without-ftgl
+			--without-gtk
+			--without-gtk2
+			--without-magick
+			--without-mesa
+			--without-motif
+			--without-nas
+			--without-opengl
+			--without-rplay
+			--disable-setuid
+			--without-ttf
+
+post-extract:
+	${REINPLACE_CMD} -e 's|/usr/lib|${PREFIX}/lib|g' ${WRKSRC}/configure
+	${REINPLACE_CMD} -e 's| $$(SOUNDPATH)| $$(DESTDIR)$$(SOUNDPATH)|' \
+	${WRKSRC}/modes/Makefile.in
+	${REINPLACE_CMD} -e \
+	'/$$(ETCDIR)play.sh/ s|$$(INSTALL_PROGRAM)|$$(INSTALL_PROGRAM:N-s)|' \
+	${WRKSRC}/modes/Makefile.in
+
+post-extract-freebsd:
+	${REINPLACE_CMD} -e 's|/usr/games/fortune|/usr/bin/fortune|' \
+	${WRKSRC}/modes/Makefile.in
+
+post-configure:
+	${REINPLACE_CMD} -e 's/-lXdpms//g' ${WRKSRC}/modes/Makefile
