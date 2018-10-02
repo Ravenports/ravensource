@@ -1,0 +1,55 @@
+DEF[PORTVERSION]=	1.19.0
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		openal
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		standard
+SDESC[standard]=	Cross-platform 3D audio API
+HOMEPAGE=		http://kcat.strangesoft.net/openal.html
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/kcat:openal-soft:openal-soft-${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL20+:single
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^\#include"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/Alc/ALc.c
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		audio/openal-soft
+
+USES=			cclibs:single cmake:outsource
+CMAKE_ARGS=		-DALSOFT_DLOPEN=Off
+			-DALSOFT_UTILS=On
+			-DALSOFT_EXAMPLES=Off
+			-DALSOFT_REQUIRE_SNDIO=On
+			-DALSOFT_BACKEND_WAVE=Off
+			-DALSOFT_CPUEXT_SSE=Off
+			-DALSOFT_CPUEXT_SSE2=Off
+			-DALSOFT_CPUEXT_SSE3=Off
+			-DALSOFT_CPUEXT_SSE4_1=Off
+			-DCMAKE_DISABLE_FIND_PACKAGE_ALSA:Bool=Yes
+			-DCMAKE_DISABLE_FIND_PACKAGE_AudioIO:Bool=Yes
+			-DCMAKE_DISABLE_FIND_PACKAGE_JACK:Bool=Yes
+			-DCMAKE_DISABLE_FIND_PACKAGE_OSS:Bool=Yes
+			-DCMAKE_DISABLE_FIND_PACKAGE_PortAudio:Bool=Yes
+			-DCMAKE_DISABLE_FIND_PACKAGE_PulseAudio:Bool=Yes
+			-DCMAKE_DISABLE_FIND_PACKAGE_QSA:Bool=Yes
+			-DALSOFT_NO_CONFIG_UTIL=On
+CMAKE_BUILD_TYPE=	Release
+BUILDRUN_DEPENDS=	sndio:single:standard
+SOVERSION=		${SOVERSION}
+
+post-patch:
+	${REINPLACE_CMD} 's|/etc/openal|${PREFIX}/etc/openal|' \
+	${WRKSRC}/Alc/alconfig.c
