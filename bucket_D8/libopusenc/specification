@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	0.2
+DEF[SOVERSION]=		0.4.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libopusenc
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		standard
+SDESC[standard]=	High-level API for encoding .opus files
+HOMEPAGE=		https://www.opus-codec.org/
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.cdn.mozilla.net/pub/opus/
+			https://downloads.xiph.org/releases/opus/
+			https://archive.mozilla.org/pub/opus/
+DISTFILE[1]=		libopusenc-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		audio/opus-tools
+
+USES=			gmake libtool pkgconfig
+MUST_CONFIGURE=		gnu
+BUILDRUN_DEPENDS=	opus:single:standard
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}

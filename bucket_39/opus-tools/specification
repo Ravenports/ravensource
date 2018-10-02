@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	0.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		opus-tools
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		standard
+SDESC[standard]=	Encode, inspect, and decode Opus files
+HOMEPAGE=		https://www.opus-codec.org/
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.cdn.mozilla.net/pub/opus/
+			https://downloads.xiph.org/releases/opus/
+			https://archive.mozilla.org/pub/opus/
+DISTFILE[1]=		opus-tools-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:single
+			GPLv2:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKDIR}}/LICENSE
+			GPLv2:{{WRKDIR}}/LICENSE
+LICENSE_TERMS=		single:{{WRKSRC}}/TERMS
+LICENSE_AWK=		TERMS:"^\#ifdef"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/opusinfo.c
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		audio/opus-tools
+
+USES=			pkgconfig
+
+MUST_CONFIGURE=		gnu
+
+BUILDRUN_DEPENDS=	flac:primary:standard
+			libogg:primary:standard
+			libopusenc:primary:standard
+			opusfile:primary:standard
