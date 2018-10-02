@@ -269,11 +269,11 @@ post-install-MACOS-ON:
 	${ECHO} 170700    > ${STAGEDIR}${RSYS}/usr/share/OSVERSION
 	${ECHO} x86_64    > ${STAGEDIR}${RSYS}/usr/share/STDARCH
 	${CHMOD} 600 ${STAGEDIR}${RSYS}/usr/share/master.passwd
-	${FOS}/usr/sbin/pwd_mkdb -p -d ${STAGEDIR}${RSYS}/usr/share \
+	${STAGEDIR}${RSYS}/usr/sbin/pwd_mkdb -p -d ${STAGEDIR}${RSYS}/usr/share \
 		${STAGEDIR}${RSYS}/usr/share/master.passwd
 
 post-stage-MACOS-ON:
 	# autogenerate System/Library part of manifest
-	(cd ${STAGEDIR}${RSYS} && \
-		${FIND} System \( -type f -or -type l \) | ${SORT} \
+	(cd ${STAGEDIR}${PREFIX} && \
+		${FIND} ${RSYS}/System \( -type f -or -type l \) | ${SORT} \
 		>> ${WRKDIR}/.manifest.single.mktmp)

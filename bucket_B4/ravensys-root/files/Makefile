@@ -568,6 +568,10 @@ sysroot:
 	@echo "building not required"
 
 install:
+.if "${OPSYS}" == "Darwin"
+	${MKDIR} ${DESTDIR}/${BASE}
+	mv ../${OPSYS:tl}/* ${DESTDIR}${BASE}/
+.endif
 	${MKDIR} \
 		${DESTDIR}${BASE}/bin \
 		${DESTDIR}${BASE}/usr/bin \
@@ -626,7 +630,7 @@ install:
 	mv ${DESTDIR}${BASE}/usr/bin/bash ${DESTDIR}${BASE}/bin/bash
 	ln ${DESTDIR}${BASE}/bin/bash ${DESTDIR}${BASE}/bin/sh
 .elif "${OPSYS}" == "Darwin"
-	cp ${CPA} ../${OPSYS:tl}/* ${DESTDIR}${BASE}/
+	# do nothing
 .else
 .  for item in ${Bin_${OPSYS}}
 	${BSD_INSTALL_PROGRAM} ../${OPSYS:tl}${item} ${DESTDIR}${BASE}/bin/
