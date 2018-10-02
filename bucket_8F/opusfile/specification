@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	0.11
+DEF[SOVERSION]=		0.4.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		opusfile
@@ -27,15 +28,12 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		audio/opusfile
 
 USES=			autoreconf gmake libtool pkgconfig ssl
-
 BUILDRUN_DEPENDS=	libogg:primary:standard
 			opus:single:standard
-
 MUST_CONFIGURE=		gnu
-
 INSTALL_REQ_TOOLCHAIN=	yes
-
 INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
 
 pre-patch-freebsd:
 	${GREP} -l '@openssl@' ${WRKSRC}/opusurl.pc.in | \
