@@ -34,7 +34,7 @@ FPC_EQUIVALENT=		devel/libtool
 # Accordingly, don't install INFO=libtool which requires makeinfo which
 # has a huge dependency chain.
 
-USES=			cpe
+USES=			cpe macfix
 MUST_CONFIGURE=		gnu
 CPE_VENDOR=		gnu
 CPE_PRODUCT=		libtool
@@ -42,5 +42,5 @@ CONFIGURE_ARGS=		--disable-ltdl-install
 
 post-patch:
 	${RM} ${WRKSRC}/doc/*.info*
-	${TOUCH} ${WRKSRC}/doc/libtool.1
 	${REINPLACE_CMD} -e "/INFO_DEPS =/d" ${WRKSRC}/Makefile.in
+	${FIND} ${WRKSRC} -type f | ${XARGS} ${TOUCH}
