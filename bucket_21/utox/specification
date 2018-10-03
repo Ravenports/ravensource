@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	0.17.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		utox
+VERSION=		${PORTVERSION}
+KEYWORDS=		net net_im net_p2p
+VARIANTS=		standard
+SDESC[standard]=	Lightweight Tox client
+HOMEPAGE=		https://utox.io/
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/uTox/uTox/releases/download/v${PORTVERSION}/
+DISTFILE[1]=		uTox-${PORTVERSION}-full.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net/uTox
+
+USES=			cmake:outsource desktop-utils:single dos2unix pkgconfig
+XORG_COMPONENTS=	ice sm x11 xext xrender
+DISTNAME=		uTox
+BUILD_DEPENDS=		check:primary:standard
+			video4linux:headers:standard
+BUILDRUN_DEPENDS=	dbus:single:standard
+			fontconfig:primary:standard
+			freetype:primary:standard
+			openal:single:standard
+			toxcore:single:standard
+			video4linux:primary:standard
+RUN_DEPENDS=		gtk3:single:standard
+CMAKE_ARGS=		-DENABLE_FILTERAUDIO=Off
+DOS2UNIX_GLOB=		*
+
+post-extract:
+	${CP} ${FILESDIR}/* ${WRKSRC}/cmake/
