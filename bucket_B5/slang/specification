@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	2.3.2
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		slang
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	S-Lang is a powerful interpreted language
+HOMEPAGE=		https://www.jedsoft.org/slang/
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.jedsoft.org/releases/slang/
+DISTFILE[1]=		slang-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKSRC}}/TERMS
+LICENSE_AWK=		TERMS:"^\#include"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/slang.c
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/libslang2
+
+USES=			iconv ncurses
+BUILDRUN_DEPENDS=	oniguruma:primary:standard
+			pcre:shared:standard
+			png:single:standard
+MUST_CONFIGURE=		gnu
+BUILD_TARGET=		all static
+INSTALL_TARGET=		install install-static
+SOVERSION=		${SOVERSION}

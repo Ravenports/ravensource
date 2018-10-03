@@ -1,0 +1,72 @@
+DEF[PORTVERSION]=	1.10.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mutt
+VERSION=		${PORTVERSION}
+KEYWORDS=		mail
+VARIANTS=		standard nls
+SDESC[standard]=	Powerful mail client
+SDESC[nls]=		Powerful mail client with native language support
+HOMEPAGE=		http://www.mutt.org/
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		ftp://ftp.mutt.org/pub/mutt/
+DISTFILE[1]=		mutt-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+SPKGS[nls]=		complete primary docs
+
+OPTIONS_AVAILABLE=	NLS
+OPTIONS_STANDARD=	none
+VOPTS[nls]=		NLS=ON
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:stock
+LICENSE_TERMS=		primary:{{WRKSRC}}/COPYRIGHT
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		mail/mutt
+
+USES=			cpe shebangfix ssl
+BUILD_DEPENDS=		docbook-xsl:primary:standard
+			lynx:primary:standard
+BUILDRUN_DEPENDS=	cyrus-sasl:primary:standard
+			gettext:runtime:standard
+			gpgme:primary:standard
+			libidn2:primary:standard
+			slang:primary:standard
+BR_DEPS[standard]=	gdbm:single:standard
+BR_DEPS[nls]=		gdbm:single:nls
+
+SHEBANG_FILES=		contrib/smime_keys_test.pl
+			doc/gen-map-doc
+			smime_keys.pl
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-debug
+			--disable-fcntl
+			--enable-compressed
+			--enable-gpgme
+			--enable-external_dotlock
+			--enable-flock
+			--enable-hcache
+			--enable-imap
+			--enable-pop
+			--enable-sidebar
+			--enable-smtp
+			--mandir={{MANPREFIX}}/man
+			--prefix={{PREFIX}}
+			--sysconfdir={{PREFIX}}/etc
+			--with-docdir={{PREFIX}}/share/doc/mutt
+			--with-gdbm
+			--with-idn2
+			--with-sasl={{LOCALBASE}}
+			--with-slang={{PREFIX}}
+			--with-ssl
+			--without-curses
+			--without-kyotocabinet
+			--without-tokyocabinet
+			--without-slang
+			--without-qdbm
+[NLS].CONFIGURE_ENABLE_BOTH=		nls
