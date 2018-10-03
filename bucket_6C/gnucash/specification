@@ -1,4 +1,4 @@
-DEF[BASEVER]=		3.2
+DEF[BASEVER]=		3.3
 # DEF[DASH]=		-1
 # DEF[PORTVERSION]=	${BASEVER}${DASH:S/-/./}
 # DEF[DISTVERSION]=	${BASEVER}${DASH}
@@ -23,10 +23,10 @@ SPKGS[standard]=	complete primary docs
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2:primary
-			GPLv3:primary
-LICENSE_FILE=		GPLv2:stock
-			GPLv3:stock
+LICENSE=		GPLv2+:primary
+			GPLv3+:primary
+LICENSE_FILE=		GPLv2+:stock
+			GPLv3+:stock
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^The text of the GNU GPL"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/LICENSE
@@ -106,9 +106,13 @@ post-install:
 	(cd ${STAGEDIR}${PREFIX}/etc/gnucash && \
 		${MV} environment environment.sample)
 	(cd ${STAGEDIR}${PREFIX}/share/gnucash/icons/hicolor && \
-		${RMDIR} 22x22 32x32 48x48 64x64 96x96 128x128 256x256 scalable)
+		${RM} -r 22x22 32x32 48x48 64x64 96x96 \
+			128x128 256x256 scalable)
+	${RMDIR} ${STAGEDIR}${PREFIX}/share/icons/hicolor/*/actions
+	${RMDIR} ${STAGEDIR}${PREFIX}/share/gnucash/icons/hicolor/16x16/apps
+	${RMDIR} ${STAGEDIR}${PREFIX}/share/gnucash/icons/hicolor/24x24/apps
 	${RM} ${STAGEDIR}${STD_DOCDIR}/ChangeLog*
 	${RM} ${STAGEDIR}${STD_DOCDIR}/LICENSE
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gnucash/*.so
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gnucash/*.${LIBEXT}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.${LIBEXT}
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gnucash
