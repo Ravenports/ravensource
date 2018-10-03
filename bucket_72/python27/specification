@@ -38,7 +38,7 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		lang/python27
 
 USES=			bdb cpe ncurses pkgconfig readline ssl shebangfix
-			gettext-runtime zlib
+			gettext-runtime zlib gmake
 DISTNAME=		Python-${PORTVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
 SINGLE_JOB=		yes
@@ -104,6 +104,9 @@ VAR_OPSYS[freebsd]=	PLIST_SUB=PLAT={{OPSYS:tl}}{{MAJOR:R}}
 			PLIST_SUB=SHLIB=so.1
 VAR_OPSYS[sunos]=	PLIST_SUB=PLAT=sunos5
 			PLIST_SUB=SHLIB=so.1.0
+VAR_OPSYS[darwin]=	PLIST_SUB=PLAT=darwin
+			PLIST_SUB=SHLIB=1.0.dylib
+			CONFIGURE_ARGS=--enable-framework=no
 
 VAR_ARCH[i386]=		PLIST_SUB=I386-ON=""
 VAR_ARCH[x86_64]=	PLIST_SUB=I386-ON="@comment "
@@ -127,6 +130,7 @@ post-patch:
 		-e 's|/usr/local/include/db4|${PREFIX}/include/db${BDB_VER}|' \
 		${WRKSRC}/setup.py
 	${REINPLACE_CMD} -e 's|$$$$quiet|--verbose|' ${WRKSRC}/Makefile.pre.in
+	${REINPLACE_CMD} -e 's| make| gmake|g' ${WRKSRC}/Mac/Makefile.in
 
 post-install-DEBUG-OFF:
 	# Upstream Issue: http://bugs.python.org/issue17975
