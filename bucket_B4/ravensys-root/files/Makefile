@@ -741,10 +741,15 @@ install:
 .  endfor
 	# use coreutils that FreeBSD and DragonFly passed on (/usr/bin)
 .  for item in basename chgrp chown comm cut dirname env false head id \
-	join mkfifo mktemp printenv printf readlink stat tail tee touch \
+	join mkfifo mktemp printenv printf readlink tail tee touch \
 	tee tr true tsort uniq whoami
 	cp ${CPA} ${LOCALBASE}/bin/g${item} ${DESTDIR}${BASE}/usr/bin/${item}
 .  endfor
+.  if ${OPSYS} == Linux || ${OPSYS} == SunOS
+.    for item in stat
+	cp ${CPA} ${LOCALBASE}/bin/g${item} ${DESTDIR}${BASE}/usr/bin/${item}
+.    endfor
+.  endif
 .endif
 
 	# for convenience from listing hundreds of files, copy all from specific directories
