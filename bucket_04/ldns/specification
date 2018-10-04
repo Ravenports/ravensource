@@ -27,7 +27,7 @@ FPC_EQUIVALENT=		dns/ldns
 
 EXRUN[examples]=	ldns:primary:standard
 
-USES=			cpe gmake libtool ssl perl:build
+USES=			cpe gmake libtool ssl perl:build macfix
 CPE_VENDOR=		nlnetlabs
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-h
@@ -43,7 +43,6 @@ CONFIGURE_ARGS=		--with-ssl={{OPENSSLBASE}}
 			--enable-rrtype-rkey
 			--enable-rrtype-ta
 			--enable-rrtype-avc
-			--enable-examples
 			--disable-dane-ta-usage
 
 post-install:
@@ -54,7 +53,7 @@ post-install:
 	${INSTALL_MAN} ${WRKSRC}/doc/man/man3/ldns_*.3 \
 		${STAGEDIR}${MANPREFIX}/man/man3
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/drill
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libldns.so.2
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libldns.${LIBEXT}
 	${MV} ${STAGEDIR}${PREFIX}/bin/ldns-config \
 		${STAGEDIR}${PREFIX}/bin/xldns-config
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ldns*
