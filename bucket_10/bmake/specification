@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	20180512
+DEF[PORTVERSION]=	20180919
 DEF[OSDEFINE]=		-DOSNAME=\\\"{{OPSYS}}\\\" -DOSARCH=\\\"{{ARCH}}\\\"
 # ----------------------------------------------------------------------------
 
@@ -21,6 +21,8 @@ OPTIONS_STANDARD=	none
 
 LICENSE=		BSD3CLAUSE:single
 LICENSE_FILE=		BSD3CLAUSE:{{WRKDIR}}/LICENSE
+LICENSE_AWK=		BSD3CLAUSE:"make.h --"
+LICENSE_SOURCE=		BSD3CLAUSE:{{WRKSRC}}/make.h
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/bmake
@@ -31,10 +33,6 @@ CONFIGURE_ARGS=		--with-default-sys-path="/xports/Mk:{{PREFIX}}/share/mk"
 			--with-machine-arch={{ARCH}}
 			--with-mksrc=no
 MUST_CONFIGURE=		gnu
-
-post-extract:
-	${AWK} '/make.h --/ {exit}; {print $$0}' ${WRKSRC}/make.h \
-		> ${WRKDIR}/LICENSE
 
 post-patch:
 	${REINPLACE_CMD} 's/^\.Nx/NetBSD/' ${WRKDIR}/bmake/bmake.1
