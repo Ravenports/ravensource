@@ -60,6 +60,8 @@ post-patch:
 		${WRKSRC}/libparanoia/js_cdda_paranoia.h
 	(cd ${WRKSRC} && ${REINPLACE_CMD} -e \
 	 's|cdda_paranoia\.h|js_cdda_paranoia.h|g' ${RPTARGETS2})
+	${REINPLACE_CMD} -e '/LDPATH=/d; /DEFOSINCDIRS=/d' \
+		${WRKSRC}/DEFAULTS/Defaults.${OPSYS:tl:S/sunos/sunos5/}
 
 do-install:
 	${INSTALL_SCRIPT} \
