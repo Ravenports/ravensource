@@ -1,4 +1,4 @@
---- test/dlwrap.c.orig	2018-02-23 10:56:23 UTC
+--- test/dlwrap.c.orig	2018-10-04 23:40:48 UTC
 +++ test/dlwrap.c
 @@ -34,6 +34,8 @@
  
@@ -20,7 +20,7 @@
      static fips_dlsym_t real_dlsym = NULL;
  
      if (!real_dlsym) {
-@@ -274,6 +280,7 @@ dlwrap_real_dlsym(void *handle, const ch
+@@ -275,6 +281,7 @@ dlwrap_real_dlsym(void *handle, const ch
      }
  
      return real_dlsym(handle, name);
