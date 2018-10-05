@@ -14,7 +14,7 @@
  }
 +# elif defined __FreeBSD__
 +static inline int
-+memfd_create(const char *name __unused__, unsigned int flags __unused__)
++memfd_create(const char *name __unused, unsigned int flags __unused)
 +{
 +   return shm_open(SHM_ANON, O_RDWR, 0600);   
 +}
