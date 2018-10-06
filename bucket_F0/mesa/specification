@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	18.2.1
 
 NAMEBASE=		mesa
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Mesa 3D Graphics Library
@@ -83,7 +84,7 @@ CONFIGURE_ARGS=		--enable-llvm
 			--disable-libunwind
 			--with-platforms=x11,drm
 			--enable-gallium-osmesa
-			--with-llvm-prefix={{LOCALBASE}}/llvm
+			--with-llvm-prefix={{LOCALBASE}}
 			--with-dri-drivers="{{DRI_DRIVERS:tl}}"
 			--with-gallium_drivers="{{GALLIUM_DRIVERS:tl}}"
 
@@ -94,7 +95,6 @@ CONFIGURE_ARGS=		--enable-llvm
 # configure switch is going away ...
 # https://lists.freebsd.org/pipermail/freebsd-arch/2016-February/017699.html
 
-LDFLAGS=		-Wl,-rpath,{{LOCALBASE}}/llvm/lib
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 SHEBANG_OLD_PYTHON=	/usr/bin/env[[:space:]]python2
