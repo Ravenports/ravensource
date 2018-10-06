@@ -27,8 +27,6 @@ LICENSE_AWK=		TERMS:"^Features"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/README
 LICENSE_SCHEME=		solo
 
-BROKEN[freebsd]=	compiler ICE
-
 FPC_EQUIVALENT=		ftp/filezilla
 
 BUILDRUN_DEPENDS=	xdg-utils:single:standard
@@ -52,6 +50,11 @@ CONFIGURE_ARGS=		--with-wx-config={{LOCALBASE}}/bin/${WX_CONFIG}
 			--with-dbus
 			--disable-manualupdatecheck
 			WXRC={{LOCALBASE}}/bin/${WXRC_CMD}
+
+# filezilla has been failing with gcc ICE failure on both gcc7 and gcc8
+# on FreeBSD. Until this is fixed, use clang to build filezilla on that OS.
+# See freebsd/special.mk (maybe we need USES=compiler:clang ?)
+B_DEPS[freebsd]=	llvm:complete:standard
 
 post-patch:
 	# Use libidn2 instead of libidn
