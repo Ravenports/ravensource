@@ -142,6 +142,11 @@ post-patch-dragonfly:
 	${REINPLACE_CMD} -e '/^noinst_PROGRAMS =/ s|tools/aubinator.(EXEEXT)||' \
 		${WRKSRC}/src/intel/Makefile.in
 
+post-patch-linux:
+	# memfd_create is too new for linux base
+	${REINPLACE_CMD} -e '/^noinst_PROGRAMS =/ s|tools/aubinator.(EXEEXT)||' \
+		${WRKSRC}/src/intel/Makefile.in
+
 post-patch-sunos:
 	${REINPLACE_CMD}\
 		-e '/^CFLAGS =/ s|$$| -I$$(prefix)/include/bsd|' \
