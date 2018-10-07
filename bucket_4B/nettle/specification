@@ -40,6 +40,10 @@ CONFIGURE_ARGS=		--disable-shared
 CONFIGURE_ENV=		M4="/usr/bin/m4 -g"
 INFO=			primary:nettle
 
+# on macos, libweed.a gets rebuilt unnecessarily.
+# That is broken, so adding toolchain to end is a hack that needs fixing
+INSTALL_REQ_TOOLCHAIN=	yes
+
 post-patch-sunos:
 	${REINPLACE_CMD} -e 's|lib/64|lib|' ${WRKSRC}/configure
 
