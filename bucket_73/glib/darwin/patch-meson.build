@@ -1,0 +1,63 @@
+--- meson.build.orig	2018-09-21 14:23:53 UTC
++++ meson.build
+@@ -609,42 +609,23 @@ glib_have_os_x_9_or_later = false
+ glib_have_carbon = false
+ glib_have_cocoa = false
+ if host_system == 'darwin'
+-  add_languages('objc')
+-  objcc = meson.get_compiler('objc')
+ 
+   osx_ldflags += ['-Wl,-framework,CoreFoundation']
+ 
+-  # Mac OS X Carbon support
+-  glib_have_carbon = objcc.compiles('''#include <Carbon/Carbon.h>
+-                                       #include <CoreServices/CoreServices.h>''',
+-                                    name : 'Mac OS X Carbon support')
++  glib_have_carbon = false
++  glib_have_cocoa = false 
++  glib_have_os_x_9_or_later = true
+ 
+   if glib_have_carbon
+     glib_conf.set('HAVE_CARBON', true)
+     osx_ldflags += '-Wl,-framework,Carbon'
+-    glib_have_os_x_9_or_later = objcc.compiles('''#include <AvailabilityMacros.h>
+-                                                  #if MAC_OS_X_VERSION_MIN_REQUIRED < 1090
+-                                                  #error Compiling for minimum OS X version before 10.9
+-                                                  #endif''',
+-                                               name : 'OS X 9 or later')
+   endif
+ 
+-  # Mac OS X Cocoa support
+-  glib_have_cocoa = objcc.compiles('''#include <Cocoa/Cocoa.h>
+-                                      #ifdef GNUSTEP_BASE_VERSION
+-                                      #error "Detected GNUstep, not Cocoa"
+-                                      #endif''',
+-                                   name : 'Mac OS X Cocoa support')
+-
+   if glib_have_cocoa
+     glib_conf.set('HAVE_COCOA', true)
+     osx_ldflags += ['-Wl,-framework,Foundation', '-Wl,-framework,AppKit']
+   endif
+ 
+-  # FIXME: libgio mix C and objC source files and there is no way to reliably
+-  # know which language flags it's going to use to link. Add to both languages
+-  # for now. See https://github.com/mesonbuild/meson/issues/3585.
+-  add_project_link_arguments(osx_ldflags, language : ['objc', 'c'])
+ endif
+ 
+ # Check for futex(2)
+@@ -1744,14 +1725,10 @@ endif
+ # proxy-libintl subproject.
+ # FIXME: glib-gettext.m4 has much more checks to detect broken/uncompatible
+ # implementations. This could be extended if issues are found in some platforms.
+-if cc.has_function('ngettext')
+-  libintl = []
+-else
+   libintl = cc.find_library('intl', required : false)
+   if not libintl.found()
+     libintl = subproject('proxy-libintl').get_variable('intl_dep')
+   endif
+-endif
+ 
+ # We require gettext to always be present
+ glib_conf.set('HAVE_DCGETTEXT', 1)
