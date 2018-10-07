@@ -31,7 +31,7 @@ FPC_EQUIVALENT=		security/libgcrypt
 
 BUILDRUN_DEPENDS=	libgpg-error:single:standard
 
-USES=			cpe libtool makeinfo
+USES=			cpe libtool makeinfo macfix
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-drng-support
 			--enable-static=yes
@@ -41,6 +41,8 @@ CPE_VENDOR=		gnupg
 INSTALL_TARGET=		install-strip
 TEST_TARGET=		check
 SOVERSION=		${SOVERSION}
+
+VAR_OPSYS[darwin]=	CONFIGURE_ARGS=--disable-asm
 
 post-patch:
 	${RM} ${WRKSRC}/doc/gcrypt.info*
