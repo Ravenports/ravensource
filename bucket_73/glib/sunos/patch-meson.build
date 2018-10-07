@@ -1,0 +1,17 @@
+--- meson.build.orig	2018-09-21 14:23:53 UTC
++++ meson.build
+@@ -1744,14 +1744,10 @@ endif
+ # proxy-libintl subproject.
+ # FIXME: glib-gettext.m4 has much more checks to detect broken/uncompatible
+ # implementations. This could be extended if issues are found in some platforms.
+-if cc.has_function('ngettext')
+-  libintl = []
+-else
+   libintl = cc.find_library('intl', required : false)
+   if not libintl.found()
+     libintl = subproject('proxy-libintl').get_variable('intl_dep')
+   endif
+-endif
+ 
+ # We require gettext to always be present
+ glib_conf.set('HAVE_DCGETTEXT', 1)
