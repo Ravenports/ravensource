@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	0.2.7
-DEF[SOVERSION]=		2.7.0
+DEF[PORTVERSION]=	0.2.8
+DEF[SOVERSION]=		2.8.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		toxcore
@@ -28,9 +28,18 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net-im/tox
 
+USERS=			toxdht
+GROUPS=			toxdht
+USERGROUP_SPKG=		single
+RC_SUBR=		tox-bootstrapd:single
+
 USES=			cmake:outsource libtool pkgconfig
 BUILDRUN_DEPENDS=	libconfig:single:standard
 			libsodium:single:standard
 			libvpx:single:standard
 			opus:single:standard
 SOVERSION=		${SOVERSION}
+
+post-install:
+	${MKDIR} ${STAGEDIR}/var/lib/tox-bootstrapd
+	${MKDIR} ${STAGEDIR}/var/run/tox-bootstrapd
