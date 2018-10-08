@@ -49,6 +49,7 @@ CONFIGURE_ARGS=		--localstatedir=/var
 			--with-gnutls
 			--with-modules
 			--with-xml2
+			--without-ns
 INFO_PATH=		share/emacs/info
 PLIST_SUB=		VERSION=${PORTVERSION}
 			GNU_HOST={{CONFIGURE_TARGET}}
@@ -120,6 +121,9 @@ VAR_OPSYS[freebsd]=	VAR1=--with-file-notification=kqueue
 VAR_OPSYS[dragonfly]=	VAR1=--with-file-notification=kqueue
 			VAR2=--with-sound=oss
 
+# Darwin-only issue where libgnu tries to relink in the stage phase
+INSTALL_REQ_TOOLCHAIN=	yes
+
 [X11GTK].DESCRIPTION=			X window system support (through GTK3)
 [X11GTK].GNOME_COMPONENTS_ON=		cairo gtk3 librsvg
 [X11GTK].XORG_COMPONENTS_ON=		xft xrender ice sm x11 xcb xfixes
@@ -152,6 +156,7 @@ VAR_OPSYS[dragonfly]=	VAR1=--with-file-notification=kqueue
 
 post-patch:
 	${RM} ${WRKSRC}/doc/man/ctags.1
+	${REINPLACE_CMD} -e 's|apple-darwin|raven-darwin|g' ${WRKSRC}/configure
 
 post-patch-X11GTK-OFF:
 	${REINPLACE_CMD} -i'' -e 's/^Terminal=.*$$/Terminal=true/' \
@@ -164,4 +169,7 @@ post-install-freebsd:
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/systemd
 
 post-install-sunos:
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/systemd
+
+post-install-darwin:
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/systemd
