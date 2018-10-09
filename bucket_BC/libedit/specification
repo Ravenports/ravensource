@@ -22,7 +22,7 @@ OPTIONS_STANDARD=	none
 # FreeBSD uses a different version scheme
 # FPC_EQUIVALENT=		devel/libedit
 
-USES=			libtool ncurses
+USES=			libtool ncurses macfix
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-widec
 INSTALL_TARGET=		install-strip
@@ -39,6 +39,10 @@ post-patch:
 	${REINPLACE_CMD} -e '/EXAMPLES_DIR =/d' ${WRKSRC}/Makefile.in
 
 post-patch-sunos:
+	${REINPLACE_CMD} -e 's|LIBS="-lncurses |LIBS="-lncurses -ltinfo |'\
+		${WRKSRC}/configure
+
+post-patch-darwin:
 	${REINPLACE_CMD} -e 's|LIBS="-lncurses |LIBS="-lncurses -ltinfo |'\
 		${WRKSRC}/configure
 
