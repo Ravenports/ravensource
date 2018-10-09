@@ -1,0 +1,84 @@
+DEF[PORTVERSION]=	10.83.02
+DEF[SOVERSION]=		11.83
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		netpbm
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Toolkit for manipulation of graphic images
+HOMEPAGE=		http://netpbm.sourceforge.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/t6/netpbm/releases/download/v${PORTVERSION}/
+DISTFILE[1]=		netpbm-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:single
+LICENSE_NAME=		CUSTOM1:"Netpbm multi-license (at least 8)"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/doc/copyright_summary
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/netpbm
+
+BUILDRUN_DEPENDS=	tiff:primary:standard
+			jasper:primary:standard
+			jbigkit:single:standard
+			xz:single:standard
+
+USES=			gmake jpeg png perl shebangfix
+XORG_COMPONENTS=	x11 xcb xau xdmcp
+GNOME_COMPONENTS=	libxml2
+SHEBANG_FILES=		buildtools/makeman
+			editor/pnmflip
+			editor/pnmquant
+			editor/ppmfade
+			editor/ppmquant
+			editor/ppmshadow
+			generator/ppmrainbow
+			converter/pbm/pbmtox10bm
+			test/Execute-Tests
+			test/*.test
+			test/Available-Testprog
+MAKEFILE=		GNUmakefile
+INSTALL_TARGET=		install.bin
+			install.lib
+			install.data
+			install.hdr
+			install.staticlib
+MAKE_ARGS=		pkgdir={{STAGEDIR}}{{PREFIX}}
+			BINMODE={{BINMODE}}
+			SHAREMODE={{SHAREMODE}}
+			DATAMODE={{_SHAREMODE}}
+			DIRMODE=755
+			MANMODE={{MANMODE}}
+			DATADIR={{DATADIR}}
+SOVERSION=		${SOVERSION}
+
+post-patch:
+	${REINPLACE_CMD} -e 's|misc|share/netpbm|g' ${WRKSRC}/common.mk
+	${REINPLACE_CMD} -e 's|$$(PKGDIR)/link|$$(PKGDIR)/lib|g' \
+		-e 's|pkg-config|false|g' \
+		${WRKSRC}/GNUmakefile ${WRKSRC}/lib/Makefile
+
+do-configure:
+	${CAT} ${WRKSRC}/config.mk.in ${FILESDIR}/config.mk > ${WRKSRC}/config.mk
+
+post-install:
+.if "${.MAKE.OS.NAME}" == "Darwin"
+	(cd ${STAGEDIR}${PREFIX}/lib && ${LN} -sf libnetpbm.11.dylib libnetpbm.dylib)
+.else
+	(cd ${STAGEDIR}${PREFIX}/lib && ${LN} -sf libnetpbm.so.11 libnetpbm.so)
+.endif
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libnetpbm.${LIBEXT}
+	${RM} ${STAGEDIR}${PREFIX}/bin/manweb
+	${INSTALL_DATA} ${WRKSRC}/lib/util/pm_c_util.h ${WRKSRC}/pm_config.h \
+		${STAGEDIR}${PREFIX}/include/netpbm
+	${INSTALL_MAN} ${WRKSRC}/man/*.1 ${STAGEDIR}${MANPREFIX}/man/man1
+	${INSTALL_MAN} ${WRKSRC}/man/*.3 ${STAGEDIR}${MANPREFIX}/man/man3
+	${INSTALL_MAN} ${WRKSRC}/man/*.5 ${STAGEDIR}${MANPREFIX}/man/man5
