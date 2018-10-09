@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	1.8.14
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		doxygen
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel textproc
+VARIANTS=		standard
+SDESC[standard]=	Source code documentation generator tool
+HOMEPAGE=		http://www.doxygen.nl/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://ftp.stack.nl/pub/users/dimitri/
+DISTFILE[1]=		doxygen-${PORTVERSION}.src.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/doxygen
+
+BUILDRUN_DEPENDS=	xapian-core:primary:standard
+
+USES=			bison cmake:outsource iconv python shebangfix
+			zlib perl:build
+CMAKE_ARGS=		-DDOC_INSTALL_DIR:PATH=share/doc/doxygen
+			-Dbuild_search:BOOLEAN=true
+			-Dbuild_wizard:BOOLEAN=false
+
+# If build_doc is set, parallel builds break.  But docs require LATEX
+# which isn't in the tree, so no man pages.
+# SINGLE_JOB=		yes
+
+post-patch:
+	@${REINPLACE_CMD} -e '/PERL_PATH/ s|/usr/bin/perl|${perl_CMD}|' \
+		${WRKSRC}/src/config.xml
