@@ -33,7 +33,7 @@ BROKEN_SSL=		openssl-devel
 FPC_EQUIVALENT=		lang/python36
 
 USES=			bdb cpe ncurses pkgconfig readline ssl shebangfix
-			zlib gettext-runtime
+			zlib gettext-runtime gmake
 DISTNAME=		Python-${PORTVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
 SINGLE_JOB=		yes
@@ -80,6 +80,11 @@ VAR_OPSYS[sunos]=	PLIST_SUB=SOABI=
 			PLIST_SUB=SCD=
 			PLIST_SUB=PLAT=sunos5
 			PLIST_SUB=FULLABI={{ABIFLAGS}}
+VAR_OPSYS[darwin]=	PLIST_SUB=SOABI=.cpython-${PYTHON_SUFFIX}m-darwin
+			PLIST_SUB=SCD=darwin
+			PLIST_SUB=FULLABI={{ABIFLAGS}}-darwin
+			PLIST_SUB=PLAT=darwin
+			CONFIGURE_ARGS=--enable-framework=no
 
 [THREADS].CONFIGURE_WITH_BOTH=		threads
 [THREADS].LDFLAGS_ON=			-pthread
@@ -94,8 +99,9 @@ VAR_OPSYS[sunos]=	PLIST_SUB=SOABI=
 post-patch:
 	${REINPLACE_CMD} -e 's|/usr/local/bin/python|${python_CMD}|' \
 		${WRKSRC}/Lib/cgi.py
-	${REINPLACE_CMD} -e 's|/usr/local/include/db4|${PREFIX}/include/db${BDB_VER}|' \
-		${WRKSRC}/setup.py
+	# ${REINPLACE_CMD} -e 's|/usr/local/include/db4|${PREFIX}/include/db${BDB_VER}|' \
+	#	${WRKSRC}/setup.py
+	${REINPLACE_CMD} -e 's| make| gmake|g' ${WRKSRC}/Mac/Makefile.in
 
 post-install-DEBUG-OFF:
 	# Upstream Issue: http://bugs.python.org/issue17975
