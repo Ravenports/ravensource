@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	1.4.7
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xapian-core
+VERSION=		${PORTVERSION}
+KEYWORDS=		databases
+VARIANTS=		standard
+SDESC[standard]=	Xapian Probabilistic Information Retrieval Library
+HOMEPAGE=		https://xapian.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://oligarchy.co.uk/xapian/${PORTVERSION}/
+DISTFILE[1]=		xapian-core-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/xapian.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		databases/xapian-core
+
+USES=			libtool zlib c++:primary
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+
+post-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/bin/xapian-inspect \
+		${STAGEDIR}${PREFIX}/bin/xapian-inspect
+	${INSTALL_PROGRAM} ${WRKSRC}/examples/.libs/copydatabase \
+		${STAGEDIR}${PREFIX}/bin/xapian-copydatabase
+	${INSTALL_PROGRAM} ${WRKSRC}/examples/.libs/quest \
+		${STAGEDIR}${PREFIX}/bin/xapian-quest
+	${INSTALL_PROGRAM} ${WRKSRC}/examples/.libs/xapian-metadata \
+		${STAGEDIR}${PREFIX}/bin/xapian-metadata
