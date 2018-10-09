@@ -13,7 +13,7 @@ C_SRCS=		link.c osint_scars.c
 LIB_SRCS+=	${C_SRCS} ${GEN_SRCS} ${ADS_SRCS} ${ADB_SRCS:Nlib-*.adb}
 LIB_OBJS=	${LIB_SRCS:R:S/$/.o/}
 
-.if ${OPSYS} == Linux
+.if ${OPSYS} == Linux || ${OPSYS} == SunOS || ${OPSYS} == Darwin
 TSORT=		tsort 2>/dev/null
 .else
 TSORT=		tsort -q
