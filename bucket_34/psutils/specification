@@ -1,0 +1,31 @@
+DEF[PORTVERSION]=	17
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		psutils
+VERSION=		${PORTVERSION}
+KEYWORDS=		print
+VARIANTS=		standard
+SDESC[standard]=	Tools for Manipulating PostScript Files
+HOMEPAGE=		http://knackered.org/angus/psutils/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		ftp://ftp.dcs.ed.ac.uk/pub/ajcd/
+			ftp://ftp.knackered.org/pub/psutils/
+DISTFILE[1]=		psutils-p${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		print/psutils
+
+BUILDRUN_DEPENDS=	libpaper:single:standard
+
+USES=			perl
+DISTNAME=		psutils
+MAKEFILE=		Makefile.unix
+MAKE_ENV=		DATADIR="{{PREFIX}}/share/psutils"
+			PERL="{{PERL}}"
+			CHMOD="{{CHMOD}}"
