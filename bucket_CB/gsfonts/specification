@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	8.11pre44
+DEF[FONTSDIR]=		{{PREFIX}}/share/ghostscript/fonts
+DEF[FILENAME]=		gsfonts_8.11+urwcyr1.0.7~pre44
+DEF[EXTRACTDIR]=	${FILENAME:S|_|-|}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gsfonts
+VERSION=		${PORTVERSION}
+KEYWORDS=		print
+VARIANTS=		standard
+SDESC[standard]=	Fonts for the Ghostscript interpreter(s)
+HOMEPAGE=		http://www.ghostscript.com
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		DEBIAN/pool/main/g/gsfonts
+DISTFILE[1]=		${FILENAME}.orig.tar.gz:main
+DISTFILE[2]=		${FILENAME}-4.4.diff.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:single
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/${EXTRACTDIR}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^Acknowledgements"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/${EXTRACTDIR}/README
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		print/gsfonts
+
+SKIP_BUILD=		yes
+EXTRACT_DIRTY=		1
+PATCHFILES=		2
+
+do-install:
+	${MKDIR} ${STAGEDIR}${FONTSDIR}
+	(cd ${WRKSRC}/${EXTRACTDIR} && \
+		${INSTALL_DATA} fonts.dir *.afm *.pfb *.pfm \
+		${STAGEDIR}${FONTSDIR}/)

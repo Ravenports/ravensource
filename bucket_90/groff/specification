@@ -1,0 +1,49 @@
+DEF[PORTVERSION]=	1.22.3
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		groff
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	GNU troff text-formatting system
+HOMEPAGE=		http://www.gnu.org/software/groff/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/groff
+DISTFILE[1]=		groff-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary examples docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		textproc/groff
+
+BUILD_DEPENDS=		gsfonts:single:standard
+BUILDRUN_DEPENDS=	psutils:single:standard
+			ghostscript:primary:standard
+			ghostscript:x11:standard
+			netpbm:single:standard
+
+USES=			cpe gmake perl shebangfix
+XORG_COMPONENTS=	xaw
+CPE_VENDOR=		gnu
+SINGLE_JOB=		yes
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-awk=/usr/bin/awk
+			--with-x
+			--with-appresdir={{PREFIX}}/lib/X11/app-defaults
+CONFIGURE_ENV=		PERLPATH={{PERL}}
+SHEBANG_FILES=		src/utils/afmtodit/afmtodit.pl
+			contrib/mm/mmroff.pl
+			font/devps/generate/symbol.sed
+MAKE_ARGS=		docdir={{STD_DOCDIR}}
+			exampledir={{STD_EXAMPLESDIR}}
+			datasubdir={{PREFIX}}/share/groff
+SHEBANG_LANG=		sed
+INFO=			primary:groff
+
+post-install:
+	# ${MV} ${STAGEDIR}${PREFIX}/share/doc/groff-${PORTVERSION}/examples \
+	#	${STAGEDIR}${STD_EXAMPLESDIR}
