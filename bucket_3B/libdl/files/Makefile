@@ -1,10 +1,16 @@
 all: libdl.a
 
+.if ${OPSYS} == Linux || ${OPSYS} == SunOS || ${OPSYS} == Darwin
+TSORT=		tsort 2>/dev/null
+.else
+TSORT=		tsort -q
+.endif
+
 install:
 	${BSD_INSTALL_DATA} libdl.a ${DESTDIR}${PREFIX}/lib
 
 libdl.a: dl_stub.o
-	ar cq ${.TARGET} `lorder ${.ALLSRC} | tsort -q`
+	ar cq ${.TARGET} `lorder ${.ALLSRC} | ${TSORT}`
 	ranlib ${.TARGET}
 
 dl_stub.c:
