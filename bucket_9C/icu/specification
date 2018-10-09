@@ -58,3 +58,6 @@ post-install:
 		${STAGEDIR}${PREFIX}/bin/pkgdata \
 		${STAGEDIR}${PREFIX}/sbin/*
 	${RM} ${STAGEDIR}${PREFIX}/share/icu/${PORTVERSION}/LICENSE
+
+post-patch-darwin:
+	${REINPLACE_CMD} -e 's/apple-darwin/raven-darwin/' ${WRKSRC}/configure
