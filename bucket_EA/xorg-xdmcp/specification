@@ -26,7 +26,7 @@ LICENSE=		MIT:single
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-USES=			libtool
+USES=			libtool macfix
 XORG_COMPONENTS=	xorgproto
 DISTNAME=		${ALTNAME}-${PORTVERSION}
 MUST_CONFIGURE=		gnu
@@ -36,4 +36,4 @@ post-patch:
 	${REINPLACE_CMD} '/^SUBDIRS/,/^$$/ s/doc//' ${WRKSRC}/Makefile.in
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libXdmcp.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libXdmcp.${LIBEXT}
