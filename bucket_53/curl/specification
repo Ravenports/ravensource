@@ -29,7 +29,8 @@ BUILDRUN_DEPENDS=	libnghttp2:single:standard
 
 FPC_EQUIVALENT=		ftp/curl
 
-USES=			cpe gmake libtool perl:build pkgconfig shebangfix ssl
+USES=			cpe gmake libtool perl:build pkgconfig shebangfix
+			ssl macfix
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-werror
 			--enable-imap
@@ -68,7 +69,7 @@ post-patch:
 post-install:
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}/libcurl \
 		${STAGEDIR}${STD_EXAMPLESDIR}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libcurl.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libcurl.${LIBEXT}
 	(cd ${WRKSRC}/docs/ && \
 		${INSTALL_DATA} ${DOCS} *.md ${STAGEDIR}${STD_DOCDIR}/)
 	(cd ${WRKSRC}/docs/libcurl/ && ${INSTALL_DATA} \
