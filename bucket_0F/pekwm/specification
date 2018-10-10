@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	0.1.17
 
 NAMEBASE=		pekwm
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11_wm
 VARIANTS=		standard
 SDESC[standard]=	Light, unobtrusive and configurable WM
@@ -10,8 +11,8 @@ HOMEPAGE=		https://github.com/pekdon/pekwm
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://pekwm.org/projects/pekwm/files/
-DISTFILE[1]=		pekwm-${PORTVERSION}.tar.bz2:main
+SITES[main]=		GITHUB/pekdon:pekwm:release-${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
@@ -21,7 +22,7 @@ OPTIONS_STANDARD=	none
 FPC_EQUIVALENT=		x11-wm/pekwm
 
 BUILDRUN_DEPENDS=	png:single:standard
-USES=			c++:single cclibs:single gmake iconv jpeg pkgconfig
+USES=			autoreconf c++:single cclibs:single gmake iconv jpeg pkgconfig
 XORG_COMPONENTS=	xft xpm x11 sm ice xext xrandr
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-shape
