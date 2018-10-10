@@ -1,0 +1,48 @@
+DEF[PORTVERSION]=	2.02
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		grub
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	GRand Unified Bootloader
+HOMEPAGE=		https://www.gnu.org/software/grub
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://ftp.nluug.nl/gnu/grub/
+DISTFILE[1]=		grub-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		sysutils/grub2
+
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/grub/loader.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+USES=			autoreconf bison gettext-tools gmake
+BUILD_DEPENDS=		flex:primary:standard
+			help2man:single:standard
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-werror
+			--disable-grub-mkfont
+			--disable-grub-mount
+CONFIGURE_ENV=		CPP="{{CC}} -E"
+
+SUB_FILES=		00_header 10_kfreebsd 10_ktrueos 30_os-prober 50_otherbe
+
+post-install:
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/charset.alias
+	${INSTALL_SCRIPT} ${WRKDIR}/00_header ${STAGEDIR}${PREFIX}/etc/grub.d/
+	${INSTALL_SCRIPT} ${WRKDIR}/10_kfreebsd ${STAGEDIR}${PREFIX}/etc/grub.d/
+	${INSTALL_SCRIPT} ${WRKDIR}/10_ktrueos ${STAGEDIR}${PREFIX}/etc/grub.d/
+	${INSTALL_SCRIPT} ${WRKDIR}/30_os-prober ${STAGEDIR}${PREFIX}/etc/grub.d/
+	${INSTALL_SCRIPT} ${WRKDIR}/50_otherbe ${STAGEDIR}${PREFIX}/etc/grub.d/
+	${MV} ${STAGEDIR}${PREFIX}/etc/grub.d/40_custom ${STAGEDIR}/${PREFIX}/etc/grub.d/40_custom.dist
