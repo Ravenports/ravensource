@@ -62,7 +62,7 @@ INSTALL_REQ_TOOLCHAIN=	yes
 
 VAR_OPSYS[darwin]=	CONFIGURE_ENV=ac_cv_func_backtrace=no
 
-post-patch-linux:
+post-patch:
 	${FIND} ${WRKSRC}/ -name "*.orig" -delete
 	# We install these from other ports
 .for d in bin/rake doc/rake lib/rake test/rake man/rake.1 lib/rake.rb ext/win32ole bin/gem
@@ -108,7 +108,3 @@ post-install:
 	(cd ${WRKSRC}/sample/ && ${COPYTREE_SHARE} . ${STAGEDIR}${RUBY_EXAMPLESDIR}/)
 	${INSTALL_DATA} ${WRKSRC}/ext/bigdecimal/sample/*.rb \
 		${STAGEDIR}${RUBY_EXAMPLESDIR}/bigdecimal/
-
-post-install-darwin:
-	# Not sure where this file comes from on MacOS
-	${RM} ${STAGEDIR}${PREFIX}/bin/gem24
