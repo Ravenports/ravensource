@@ -1,6 +1,5 @@
 DEF[PORTVERSION]=	0.3.0.20180518
 DEF[TAG]=		a2118d5
-DEF[LLVMVER]=		40
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libclc
@@ -27,7 +26,7 @@ LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		devel/libclc
 
-BUILD_DEPENDS=		llvm${LLVMVER}:complete:standard
+BUILD_DEPENDS=		llvm:complete:standard
 			libedit:single:standard
 
 USES=			gmake python:py27,build
@@ -44,5 +43,5 @@ do-configure:
 	(cd ${WRKSRC} && ${PYTHON_CMD} configure.py ${CONFIGURE_ARGS} -g make \
 		--with-cxx-compiler="c++" \
 		--pkgconfigdir=${PREFIX}/lib/pkgconfig \
-		--with-llvm-config=${LOCALBASE}/llvm${LLVMVER}/bin/llvm-config \
+		--with-llvm-config=${LOCALBASE}/bin/llvm-config \
 		--prefix=${PREFIX})
