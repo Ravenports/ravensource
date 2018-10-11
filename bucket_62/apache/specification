@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		APACHE_HTTPD/
 DISTFILE[1]=		httpd-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary docs
 
 OPTIONS_AVAILABLE=	MPM_PREFORK MPM_WORKER MPM_EVENT
 OPTIONS_STANDARD=	MPM_PREFORK MPM_WORKER MPM_EVENT
@@ -26,32 +26,42 @@ OPT_ON[darwin]=		MPM_EVENT
 OPT_ON[linux]=		MPM_EVENT
 OPT_ON[sunos]=		MPM_WORKER
 
-FPC_EQUIVALENT=		www/apache24
+LICENSE=		APACHE20:primary
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/httpd.h
+LICENSE_SCHEME=		solo
 
-BROKEN[all]=		WIP - needs to save to release repo
+FPC_EQUIVALENT=		www/apache24
 
 BUILD_DEPENDS=		expat:static:standard
 			pcre:static:standard
 BUILDRUN_DEPENDS=	expat:shared:standard
 			pcre:shared:standard
 			apr1:single:standard
+			apr-util:single:standard
 			libnghttp2:single:standard
 
 USERS=			wwwraven
 GROUPS=			wwwraven
-USERGROUP_SPKG=		single
+USERGROUP_SPKG=		primary
 
-USES=			autoreconf cpe iconv libtool ssl perl:run
+USES=			autoreconf cpe iconv libtool ssl perl:run zlib
 GNOME_COMPONENTS=	libxml2
 CPE_VENDOR=		apache
 CPE_PRODUCT=		http_server
+DISTNAME=		httpd-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-http
+			--enable-layout=Ravenports
 			--with-pcre={{LOCALBASE}}
 			--with-apr={{LOCALBASE}}/bin/apr-1-config
 			--with-apr-util={{LOCALBASE}}/bin/apu-1-config
 			--with-nghttp2={{LOCALBASE}}
+			--with-libxml2={{LOCALBASE}}
 			--with-ssl={{OPENSSLBASE}}
+			--with-z={{LOCALBASE}}
 			--enable-mpms-shared=all
 			--enable-access-compat=shared
 			--enable-actions=shared
@@ -180,7 +190,7 @@ CONFIGURE_ARGS=		--enable-http
 CONFIGURE_ENV=		LOCALBASE="{{LOCALBASE}}"
 			CONFIG_SHELL="{{SH}}"
 MAKE_ENV=		EXPR_COMPAT="yes"
-			INSTALL_MAN="{{INSTALL_MAN}}
+			INSTALL_MAN="{{INSTALL_MAN}}"
 
 [MPM_PREFORK].DESCRIPTION=		Build non-threaded, pre-forking web server
 [MPM_PREFORK].CONFIGURE_ARGS_ON=	--with-mpm=prefork
@@ -190,3 +200,14 @@ MAKE_ENV=		EXPR_COMPAT="yes"
 
 [MPM_EVENT].DESCRIPTION=		Build thread-safe polling web server
 [MPM_EVENT].CONFIGURE_ARGS_ON=		--with-mpm=event
+
+post-install:
+	${FIND} ${STAGEDIR}${STD_DOCDIR} -type d -empty -delete
+	${FIND} ${STAGEDIR}/var -type d -empty -delete
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/apache/*.so
+.for binary in ab htdbm htdigest htpasswd httxt2dbm logresolve
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${binary}
+.endfor
+.for binary in checkgid fcgistarter htcacheclean httpd rotatelogs
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/sbin/${binary}
+.endfor
