@@ -3,6 +3,12 @@ RB_SET_CONF_VAR=${SH} -c '${REINPLACE_CMD} -E -e "s,(CONFIG\[\"$$0\"\][[:space:]
 
 POST_PLIST_TARGET=	rdoc-autolist
 
+.if "${OPSYS}" == "Darwin"
+PLIST_SUB+=	MODULE=bundle
+.else
+PLIST_SUB+=	MODULE=so
+.endif
+
 rdoc-autolist:
 	@(cd ${STAGEDIR}${PREFIX} && ${FIND} share/ri \
 	\( -type f -o -type l \) 2>/dev/null | ${SORT}) \

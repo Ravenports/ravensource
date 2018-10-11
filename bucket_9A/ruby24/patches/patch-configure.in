@@ -1,6 +1,15 @@
---- configure.in.orig	2017-09-14 22:22:39 UTC
+--- configure.in.orig	2018-03-02 12:59:11 UTC
 +++ configure.in
-@@ -3879,21 +3879,17 @@ AS_CASE("$enable_shared", [yes], [
+@@ -1112,7 +1112,7 @@ AS_CASE(["$target_os"],
+ [nextstep*], [	],
+ [openstep*], [	],
+ [rhapsody*], [	],
+-[darwin*], [	RUBY_PREPEND_OPTION(LIBS, -lobjc)
++[darwin*], [
+ 		RUBY_APPEND_OPTIONS(CPPFLAGS, -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT)
+ 		AC_MSG_CHECKING(whether Mac OS X 10.5 or later)
+ 		AC_TRY_CPP([#include <AvailabilityMacros.h>
+@@ -3885,21 +3885,17 @@ AS_CASE("$enable_shared", [yes], [
  	LIBRUBY_ALIASES='lib$(RUBY_SO_NAME).so.$(MAJOR).$(MINOR) lib$(RUBY_SO_NAME).so'
  	],
      [linux* | gnu* | k*bsd*-gnu | atheos* | kopensolaris*-gnu | haiku*], [
@@ -25,3 +34,20 @@
  	],
      [netbsd*], [
  	SOLIBS='$(LIBS)'
+@@ -3937,7 +3933,6 @@ AS_CASE("$enable_shared", [yes], [
+ 	SOLIBS='-lm -lc'
+ 	],
+     [darwin*], [
+-	RUBY_SO_NAME="$RUBY_SO_NAME"'.$(RUBY_PROGRAM_VERSION)'
+ 	LIBRUBY_LDSHARED='$(CC) -dynamiclib'
+ 	if test "$load_relative" = yes; then
+ 	    libprefix="@executable_path/../${libdir_basename}"
+@@ -3953,7 +3948,7 @@ AS_CASE("$enable_shared", [yes], [
+ 	fi
+ 	LIBRUBY_DLDFLAGS="$LIBRUBY_DLDFLAGS "' $(XLDFLAGS)'
+ 	LIBRUBY_SO='lib$(RUBY_SO_NAME).dylib'
+-	LIBRUBY_ALIASES='lib$(RUBY_BASE_NAME).$(MAJOR).$(MINOR).dylib lib$(RUBY_INSTALL_NAME).dylib'
++	LIBRUBY_ALIASES='lib$(RUBY_SO_NAME).$(MAJOR)$(MINOR).dylib'
+ 	SOLIBS='$(LIBS)'
+ 	],
+     [interix*], [

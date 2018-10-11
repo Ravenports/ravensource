@@ -51,6 +51,8 @@ CONFIGURE_ARGS=		--enable-pthread
 			{{RUBY_CONFIGURE_ARGS}}
 CONFIGURE_ENV=		debugflags=
 			ac_cv_build={{CONFIGURE_TARGET}}
+			stack_protector=no
+CFLAGS=			-Wno-attributes
 PLIST_SUB=		XY={{RUBY_SUFFIX}}
 			XDOTY={{RUBY_VER}}
 CPE_VENDOR=		ruby-lang
@@ -58,7 +60,9 @@ CPE_VERSION=		${PORTVERSION}
 CPE_UPDATE=		p${PATCHLEVEL}
 INSTALL_REQ_TOOLCHAIN=	yes
 
-post-patch:
+VAR_OPSYS[darwin]=	CONFIGURE_ENV=ac_cv_func_backtrace=no
+
+post-patch-linux:
 	${FIND} ${WRKSRC}/ -name "*.orig" -delete
 	# We install these from other ports
 .for d in bin/rake doc/rake lib/rake test/rake man/rake.1 lib/rake.rb ext/win32ole bin/gem
@@ -85,8 +89,8 @@ pre-install:
 post-install:
 	# strip ruby binaries
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${RUBY_NAME}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libruby${RUBY_SHLIBVER}.so
-	${FIND} ${STAGEDIR}${RUBY_ARCHLIBDIR} -type f -name '*\.so' -exec ${STRIP_CMD} {} \;
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libruby${RUBY_SHLIBVER}.${LIBEXT}
+	${FIND} ${STAGEDIR}${RUBY_ARCHLIBDIR} -type f -name '*\.${LIBEXT}' -exec ${STRIP_CMD} {} \;
 
 	# install docs
 	(cd ${WRKSRC}/doc/ && ${COPYTREE_SHARE} . ${STAGEDIR}${RUBY_DOCDIR}/)
@@ -104,3 +108,7 @@ post-install:
 	(cd ${WRKSRC}/sample/ && ${COPYTREE_SHARE} . ${STAGEDIR}${RUBY_EXAMPLESDIR}/)
 	${INSTALL_DATA} ${WRKSRC}/ext/bigdecimal/sample/*.rb \
 		${STAGEDIR}${RUBY_EXAMPLESDIR}/bigdecimal/
+
+post-install-darwin:
+	# Not sure where this file comes from on MacOS
+	${RM} ${STAGEDIR}${PREFIX}/bin/gem24
