@@ -1,4 +1,4 @@
---- configure.ac.orig	2017-12-15 09:43:40 UTC
+--- configure.ac.orig	2018-01-03 18:12:16 UTC
 +++ configure.ac
 @@ -401,7 +401,7 @@ AS_CASE(["$target_os"],
  AC_SUBST(LD)
@@ -9,7 +9,16 @@
      gcc_major=`echo =__GNUC__ | $CC -E -xc - | sed '/^=/!d;s///'`
      gcc_minor=`echo =__GNUC_MINOR__ | $CC -E -xc - | sed '/^=/!d;s///'`
      test -n "$gcc_major" || gcc_major=0
-@@ -3710,7 +3710,7 @@ AS_CASE("$enable_shared", [yes], [
+@@ -1010,7 +1010,7 @@ AS_CASE(["$target_os"],
+ [nextstep*], [	],
+ [openstep*], [	],
+ [rhapsody*], [	],
+-[darwin*], [	RUBY_PREPEND_OPTION(LIBS, -lobjc)
++[darwin*], [
+ 		RUBY_APPEND_OPTIONS(CPPFLAGS, -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT)
+ 		AC_MSG_CHECKING(whether Mac OS X 10.5 or later)
+ 		AC_TRY_CPP([#include <AvailabilityMacros.h>
+@@ -3711,7 +3711,7 @@ AS_CASE("$enable_shared", [yes], [
      [sunos4*], [
  	LIBRUBY_ALIASES='$(LIBRUBY_SONAME) lib$(RUBY_SO_NAME).$(SOEXT)'
  	],
@@ -18,7 +27,7 @@
  	RUBY_APPEND_OPTIONS(LIBRUBY_DLDFLAGS, ['-Wl,-soname,$(LIBRUBY_SONAME)' "$LDFLAGS_OPTDIR"])
  	LIBRUBY_ALIASES='$(LIBRUBY_SONAME) lib$(RUBY_SO_NAME).$(SOEXT)'
  	AS_IF([test "$load_relative" = yes], [
-@@ -3719,14 +3719,10 @@ AS_CASE("$enable_shared", [yes], [
+@@ -3720,14 +3720,10 @@ AS_CASE("$enable_shared", [yes], [
  	    LIBRUBY_RELATIVE=yes
  	])
  	],
@@ -34,3 +43,14 @@
  	],
      [netbsd*], [
  	SOLIBS='$(LIBS)'
+@@ -3781,8 +3774,8 @@ AS_CASE("$enable_shared", [yes], [
+ 	])
+ 	LIBRUBY_DLDFLAGS="$LIBRUBY_DLDFLAGS "' $(XLDFLAGS)'
+ 	LIBRUBY_SO='lib$(RUBY_SO_NAME).$(SOEXT)'
+-	LIBRUBY_SONAME='lib$(RUBY_BASE_NAME).$(RUBY_API_VERSION).$(SOEXT)'
+-	LIBRUBY_ALIASES='$(LIBRUBY_SONAME) lib$(RUBY_INSTALL_NAME).$(SOEXT)'
++	LIBRUBY_SONAME='lib$(RUBY_SO_NAME).$(SOEXT)'
++	LIBRUBY_ALIASES='lib$(RUBY_SO_NAME).$(MAJOR)$(MINOR).$(SOEXT)'
+ 	SOLIBS='$(LIBS)'
+ 	],
+     [interix*], [
