@@ -17,7 +17,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://ftp.gnome.org/pub/GNOME/sources/libsoup/${PORTVERSION:R}/
 DISTFILE[1]=		libsoup-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete gnome primary docs
+SPKGS[standard]=	complete primary gnome docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -54,6 +54,7 @@ INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		LIBVERSION=${LIBVERSION}
 
+EXRUN[gnome]=		libsoup:primary:standard
 VAR_OPSYS[linux]=	CFLAGS=-D_GNU_SOURCE
 
 post-install:
