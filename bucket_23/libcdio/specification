@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	2.0.0
+DEF[SOVERSION]=		18.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libcdio
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel audio
+VARIANTS=		standard
+SDESC[standard]=	Compact Disk input and control library
+HOMEPAGE=		https://www.gnu.org/software/libcdio
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://ftp.gnu.org/gnu/libcdio/
+DISTFILE[1]=		libcdio-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary utils
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		sysutils/libcdio
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/cdio/cdio.h
+LICENSE_AWK=		TERMS:"file"
+LICENSE_SCHEME=		solo
+
+# configure doesn't find ncurses, so we have to build without the cdda-player
+# for now.
+BUILDRUN_DEPENDS=	libcddb:single:standard
+USES=			c++:utils iconv gmake libtool pkgconfig
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--without-cdda-player
+
+INSTALL_REQ_TOOLCHAIN=	yes
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
