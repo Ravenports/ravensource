@@ -1,0 +1,40 @@
+DEF[VERSION_FRAGMENT1]=	10.2
+DEF[VERSION_FRAGMENT2]=	0.94
+DEF[VERSION_FRAGMENT3]=	2
+DEF[SOVERSION]=		2.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libcdio-paranoia
+VERSION=		${VERSION_FRAGMENT1}-${VERSION_FRAGMENT2}-${VERSION_FRAGMENT3}
+KEYWORDS=		devel audio
+VARIANTS=		standard
+SDESC[standard]=	Accurately read audio from Compact Discs
+HOMEPAGE=		https://github.com/rocky/libcdio-paranoia
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/rocky:libcdio-paranoia:release-${VERSION_FRAGMENT1}+${VERSION_FRAGMENT2}+${VERSION_FRAGMENT3}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		sysutils/libcdio-paranoia
+
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/cdio/paranoia/paranoia.h
+LICENSE_AWK=		TERMS:"file"
+LICENSE_SCHEME=		solo
+
+BUILDRUN_DEPENDS=	libcdio:primary:standard
+USES=			autoreconf gmake libtool pkgconfig
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+DISTNAME=		libcdio-paranoia-release-${VERSION_FRAGMENT1}-${VERSION_FRAGMENT2}-${VERSION_FRAGMENT3}
+INSTALL_REQ_TOOLCHAIN=	yes
+
+SOVERSION=		${SOVERSION}
