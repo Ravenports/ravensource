@@ -1,12 +1,11 @@
---- ./Makefile.orig	2014-03-27 18:47:15.000000000 +0000
-+++ ./Makefile	2014-06-21 22:53:57.000000000 +0000
-@@ -1,24 +1,22 @@
+--- Makefile.orig	2014-03-27 18:47:15 UTC
++++ Makefile
+@@ -1,24 +1,27 @@
  # Unix makefile for JBIG-KIT
  
- # Select an ANSI/ISO C compiler here, GNU gcc is recommended
+-# Select an ANSI/ISO C compiler here, GNU gcc is recommended
 -CC = gcc
-+#CC = gcc
- 
+-
  # Options for the compiler: A high optimization level is suggested
 -CFLAGS = -O2 -W -Wno-unused-result
 +CFLAGS += -W # -Wno-unused-result -- older compilers don't have this
@@ -19,6 +18,8 @@
  all: lib pbm
  	@echo "Enter 'make test' in order to start some automatic tests."
  
++install: install-pbm install-lib
++
  lib:
 -	cd libjbig && $(MAKE) -e
 +	cd libjbig && $(MAKE)
@@ -26,6 +27,12 @@
  pbm: lib
 -	cd pbmtools && $(MAKE) -e
 +	cd pbmtools && $(MAKE)
++
++install-lib:
++	$(MAKE) -C libjbig install
++
++install-pbm:
++	$(MAKE) -C pbmtools install
  
  test: lib pbm
  	cd libjbig  && $(MAKE) test

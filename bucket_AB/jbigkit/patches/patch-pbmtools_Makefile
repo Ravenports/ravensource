@@ -1,11 +1,11 @@
---- pbmtools/Makefile	2014-03-27 14:47:15.000000000 -0400
-+++ pbmtools/Makefile	2014-04-08 09:18:42.000000000 -0400
-@@ -2,14 +2,14 @@
+--- pbmtools/Makefile.orig	2014-03-27 18:47:15 UTC
++++ pbmtools/Makefile
+@@ -1,16 +1,13 @@
+ # Unix makefile for the JBIG-KIT PBM tools
  
- # Select an ANSI/ISO C compiler here, e.g. GNU gcc is recommended
+-# Select an ANSI/ISO C compiler here, e.g. GNU gcc is recommended
 -CC = gcc
-+#CC = gcc
- 
+-
  # Options for the compiler
 -CFLAGS = -g -O -W -Wall -Wno-unused-result -ansi -pedantic # --coverage
 -CPPFLAGS = -I../libjbig 
@@ -19,7 +19,24 @@
 +all: pbmtojbg jbgtopbm pbmtojbg85 jbgtopbm85
  
  txt: pbmtojbg.txt jbgtopbm.txt pbm.txt pgm.txt
-@@ -144,6 +144,8 @@
+ 
+@@ -39,6 +36,14 @@ pbmtojbg85.o: pbmtojbg85.c ../libjbig/jb
+ 	../libjbig/jbig_ar.c ../libjbig/jbig_ar.h
+ 	make -C ../libjbig libjbig85.a
+ 
++install:
++.for item in jbgtopbm pbmtojbg jbgtopbm85 pbmtojbg85
++	${BSD_INSTALL_PROGRAM} ${item} ${DESTDIR}${PREFIX}/bin/
++.endfor
++.for item in jbgtopbm.1 pbmtojbg.1
++	${BSD_INSTALL_MAN} ${item} ${DESTDIR}${MANPREFIX}/man/man1/
++.endfor
++
+ analyze:
+ 	clang $(CPPFLAGS) --analyze *.c
+ 
+@@ -143,8 +148,10 @@ dotest85b: test-$(IMG).pbm
+ 	./jbgtopbm85 -B 1 test-$(IMG).jbg85 test-$(IMG).pbm85
  	cmp test-$(IMG).pbm test-$(IMG).pbm85
  
 -test-%.pbm: ../examples/%.jbg
@@ -30,3 +47,4 @@
 +.endfor
  
  test-t82.pbm:
+ 	make -C ../libjbig tstcodec

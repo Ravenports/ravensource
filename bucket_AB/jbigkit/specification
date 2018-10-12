@@ -18,25 +18,11 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-FPC_EQUIVALENT=		graphics/jbigkit
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libjbig/jbig.c
+LICENSE_SCHEME=		solo
 
-do-install:
-.for item in jbgtopbm pbmtojbg jbgtopbm85 pbmtojbg85
-	${INSTALL_PROGRAM} ${WRKSRC}/pbmtools/${item} \
-		${STAGEDIR}${PREFIX}/bin
-.endfor
-.for item in jbgtopbm.1 pbmtojbg.1
-	${INSTALL_MAN} ${WRKSRC}/pbmtools/${item} \
-		${STAGEDIR}${MANPREFIX}/man/man1
-.endfor
-.for item in libjbig.a libjbig85.a
-	${INSTALL_DATA} ${WRKSRC}/libjbig/${item} \
-		${STAGEDIR}${PREFIX}/lib
-.endfor
-.for item in libjbig.so.2 libjbig85.so.1
-	${INSTALL_LIB} ${WRKSRC}/libjbig/${item} \
-		${STAGEDIR}${PREFIX}/lib
-.endfor
-	${INSTALL_DATA} ${WRKSRC}/libjbig/*.h ${STAGEDIR}${PREFIX}/include
-	${LN} -sf libjbig.so.2 ${STAGEDIR}${PREFIX}/lib/libjbig.so
-	${LN} -sf libjbig85.so.1 ${STAGEDIR}${PREFIX}/lib/libjbig85.so
+FPC_EQUIVALENT=		graphics/jbigkit
