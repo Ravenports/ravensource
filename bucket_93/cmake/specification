@@ -64,6 +64,8 @@ post-patch:
 		${WRKSRC}/Modules/FindKDE4.cmake
 	${REINPLACE_CMD} -e 's,/usr/include,${LOCALBASE}/include,' \
 		${WRKSRC}/Modules/FindDCMTK.cmake
+	${REINPLACE_CMD} -e 's|__APPLE__|__SKIPME__|' \
+		${WRKSRC}/Source/cmGlobalXCodeGenerator.cxx
 	${FIND} ${WRKSRC} -name "*.bak" -delete -o -name "*.orig" -delete
 
 	# cmake-gui(1) will be installed by a separate port.  Remove the man page's
