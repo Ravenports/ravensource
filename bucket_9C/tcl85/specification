@@ -66,5 +66,9 @@ post-configure:
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib${NAMEBASE}.so
 
+post-install-darwin:
+	${MV} ${STAGEDIR}${PREFIX}/lib/lib${NAMEBASE}.so \
+		${STAGEDIR}${PREFIX}/lib/lib${NAMEBASE}.dylib
+
 do-test:
 	${SETENV} ${MAKE_ENV} ${MAKE} -C ${BUILD_WRKSRC} test
