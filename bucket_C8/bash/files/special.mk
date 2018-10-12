@@ -6,7 +6,6 @@
 .if ${OPSYS} == Linux
 .  if "${PLIST_SUB:MSTATIC-ON=*}" == "STATIC-ON="
 CONFIGURE_ARGS:=	${CONFIGURE_ARGS:N--enable-static-link}
-CFLAGS+=		-Wl,-export-dynamic
 CONFIGURE_ENV+=		ac_cv_func_dlopen=no
 
 TINFOLIBS=		${LOCALBASE}/lib/libtinfo.a \
@@ -16,4 +15,11 @@ TINFOLIBS=		${LOCALBASE}/lib/libtinfo.a \
 post-configure-opsys:
 	${REINPLACE_CMD} -e 's|-ltinfo|${TINFOLIBS}|' ${WRKSRC}/Makefile
 .  endif
+.endif
+
+# we could have used LDFLAGS_OFF options helper, but it doesn't
+# currently exist
+
+.if ${VARIANT} != static
+LDFLAGS+=	${VAR1}
 .endif

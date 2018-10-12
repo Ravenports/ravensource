@@ -87,7 +87,12 @@ CONFIGURE_ARGS=		--enable-readline
 			--without-bash-malloc
 CPPFLAGS=		-DDEFAULT_PATH_VALUE='\"{{STANDARD_PATH}}:{{LOCALBASE}}/sbin:{{LOCALBASE}}/bin\"'
 			-DSTANDARD_UTILS_PATH='\"{{STANDARD_PATH}}\"'
-			-Wl,--export-dynamic
+
+# Sun linker exports all symbols by default
+# Mac linker doesn't have -export-dynamic equivalent
+VAR_OPSYS[dragonfly]=	VAR1=-Wl,--export-dynamic
+VAR_OPSYS[freebsd]=	VAR1=-Wl,--export-dynamic
+VAR_OPSYS[linux]=	VAR1=-Wl,--export-dynamic
 
 [NLS].USES_ON=				gettext-runtime iconv
 [NLS].CONFIGURE_ENABLE_BOTH=		nls
