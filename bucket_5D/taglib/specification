@@ -22,6 +22,9 @@ LICENSE=		LGPL21:single
 			MPL:single
 LICENSE_FILE=		LGPL21:{{WRKSRC}}/COPYING.LGPL
 			MPL:{{WRKSRC}}/COPYING.MPL
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"TAGLIB_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/taglib/toolkit/taglib.h
 LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		audio/taglib
@@ -33,5 +36,4 @@ CMAKE_ARGS=		-DWITH_ASF:BOOL=ON
 CPE_VENDOR=		scott_wheeler
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
-
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.${LIBEXT}
