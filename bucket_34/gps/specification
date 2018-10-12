@@ -1,7 +1,6 @@
 DEF[PORTVERSION]=	2017
 DEF[RELEASE_TAG]=	ba0c4c0
 DEF[PYCOMPILE]=		{{PREFIX}}/lib/python{{PYTHON_VER}}/compileall.py
-DEF[LLVM_VERSION]=	40
 DEF[GCCVER]=		EXTRACT_INFO(CURRENT_GCC)
 DEF[PYVER]=		py27
 # ----------------------------------------------------------------------------
@@ -36,7 +35,7 @@ BUILD_DEPENDS=		gnat-util:single:standard
 			python-Sphinx:single:${PYVER}
 BUILDRUN_DEPENDS=	fontconfig:primary:standard
 			freetype:primary:standard
-			llvm${LLVM_VERSION}:clang:standard
+			llvm:clang:standard
 			gtkada:primary:standard
 			python-pygobject:primary:${PYVER}
 			libadalang:single:${PYVER}
@@ -55,7 +54,7 @@ GNOME_COMPONENTS=	gtk3 cairo gdkpixbuf
 MUST_CONFIGURE=		gnu
 CONFIGURE_ENV=		AWK=/usr/bin/awk
 CONFIGURE_ARGS=		--with-gtk=3.0
-			--with-clang={{LOCALBASE}}/llvm${LLVM_VERSION}/lib
+			--with-clang={{LOCALBASE}}/lib
 BUILD_TARGET=		default
 MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
 			PYTHON_CMD={{PYTHON_CMD}}
@@ -96,7 +95,7 @@ post-patch:
 		${WRKSRC}/cli/src/gps-cli_scripts.adb \
 		${WRKSRC}/cli/src/gnatdoc_main.adb
 	${REINPLACE_CMD} \
-		-e 's|-lclang|-Wl,-rpath,${LOCALBASE}/llvm${LLVM_VERSION}/lib -lclang|' \
+		-e 's|-lclang|-Wl,-rpath,${LOCALBASE}/lib -lclang|' \
 		${WRKSRC}/configure
 
 do-build:
