@@ -54,6 +54,7 @@ pathtoexec=$(realpath $0)
 thisdir=$(dirname ${pathtoexec})
 DEADLIST=${thisdir}/dead-homepage.list
 SUMOVER=${thisdir}/summary-override.list
+DESCOVERLIST=${thisdir}/description-override.list
 INHIBIT_VARIANTS=
 
 LANG=en_US.UTF-8
@@ -72,9 +73,16 @@ homepage_status()
 END { print (found) ? "dead" : "ok"}' ${DEADLIST}
 }
 
+# return summary string or blank
 summary_override()
 {
    awk -vportname="${1}" -F"\t" '{ if (portname == $1) { print $2 ; exit 0 }}' ${SUMOVER}
+}
+
+# return description string or blank
+description_override()
+{
+   awk -vportname="${1}" -F"\t" '{ if (portname == $1) { gsub(/\\n/, "\n", $2);  print $2 ; exit 0 }}' ${DESCOVERLIST}
 }
 
 arg_1() {
@@ -267,13 +275,18 @@ dump_vopts() {
 create_description() {
    mkdir -p ${NEWPORT}/descriptions
    local desc1
-   # can't use head, it causes python to emit close failure message
-   exec_setup ${FIRST_SNAKE} --long-description | awk 'NR <= 100' |\
-      fold -s -w75 | sed 's/[[:blank:]]*$//' > ${NEWPORT}/descriptions/desc.single
-   desc1=$(/usr/bin/head -1 ${NEWPORT}/descriptions/desc.single)
-   if [ "${desc1}" = "UNKNOWN" ]; then
-      exec_setup ${FIRST_SNAKE} --description | awk 'NR <= 100' | fold -s -w75 |\
-         sed 's/[[:blank:]]*$//' > ${NEWPORT}/descriptions/desc.single
+   local descover=$(description_override ${PYPINAME})
+   if [ -n "${descover}" ]; then
+      echo "${descover}" | fold -s -w75 | sed 's/[[:blank:]]*$//' > ${NEWPORT}/descriptions/desc.single
+   else
+      # can't use head, it causes python to emit close failure message
+      exec_setup ${FIRST_SNAKE} --long-description | awk 'NR <= 100' |\
+         fold -s -w75 | sed 's/[[:blank:]]*$//' > ${NEWPORT}/descriptions/desc.single
+      desc1=$(/usr/bin/head -1 ${NEWPORT}/descriptions/desc.single)
+      if [ "${desc1}" = "UNKNOWN" ]; then
+         exec_setup ${FIRST_SNAKE} --description | awk 'NR <= 100' | fold -s -w75 |\
+            sed 's/[[:blank:]]*$//' > ${NEWPORT}/descriptions/desc.single
+      fi
    fi
 }
 
