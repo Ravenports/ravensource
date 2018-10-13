@@ -512,6 +512,7 @@ function filter(dep) {\
    else if (dep == "python-validate-email") return "python-validate_email";\
    else if (dep == "python-sphinx") return "python-Sphinx";\
    else if (dep == "python-setuptools-scm") return "python-setuptools_scm";\
+   else if (dep == "python-requests_toolbelt") return "python-requests-toolbelt";\
    else return dep;\
 }\
 BEGIN {\
