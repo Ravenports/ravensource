@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	1.0.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-requests-oauthlib
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py27 py36 py37
+SDESC[py27]=		OAuthlib authentication support for Reques (PY 27)
+SDESC[py36]=		OAuthlib authentication support for Reques (PY 36)
+SDESC[py37]=		OAuthlib authentication support for Reques (PY 37)
+HOMEPAGE=		https://github.com/requests/requests-oauthlib
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/r/requests-oauthlib
+DISTFILE[1]=		requests-oauthlib-1.0.0.tar.gz:main
+
+SPKGS[py27]=		single
+SPKGS[py36]=		single
+SPKGS[py37]=		single
+
+OPTIONS_AVAILABLE=	PY27 PY36 PY37
+OPTIONS_STANDARD=	none
+VOPTS[py27]=		PY27=ON PY36=OFF PY37=OFF
+VOPTS[py36]=		PY27=OFF PY36=ON PY37=OFF
+VOPTS[py37]=		PY27=OFF PY36=OFF PY37=ON
+
+# Output of setup.py --license
+# ISC
+
+GENERATED=		yes
+
+# install_requires extracted from setup.py (using python 2.7)
+# oauthlib>=0.6.2
+# requests>=2.0.0
+
+DISTNAME=		requests-oauthlib-${PORTVERSION}
+
+[PY27].USES_ON=				python:py27
+[PY27].BUILDRUN_DEPENDS_ON=		python-oauthlib:single:py27
+					python-requests:single:py27
+
+[PY36].USES_ON=				python:py36
+[PY36].BUILDRUN_DEPENDS_ON=		python-oauthlib:single:py36
+					python-requests:single:py36
+
+[PY37].USES_ON=				python:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-oauthlib:single:py37
+					python-requests:single:py37
+

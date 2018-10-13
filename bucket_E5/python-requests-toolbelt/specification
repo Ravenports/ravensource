@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	0.8.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-requests-toolbelt
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py27 py36 py37
+SDESC[py27]=		Utility belt for advanced users of python- (PY 27)
+SDESC[py36]=		Utility belt for advanced users of python- (PY 36)
+SDESC[py37]=		Utility belt for advanced users of python- (PY 37)
+HOMEPAGE=		https://toolbelt.readthedocs.org
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/r/requests-toolbelt
+DISTFILE[1]=		requests-toolbelt-0.8.0.tar.gz:main
+
+SPKGS[py27]=		single
+SPKGS[py36]=		single
+SPKGS[py37]=		single
+
+OPTIONS_AVAILABLE=	PY27 PY36 PY37
+OPTIONS_STANDARD=	none
+VOPTS[py27]=		PY27=ON PY36=OFF PY37=OFF
+VOPTS[py36]=		PY27=OFF PY36=ON PY37=OFF
+VOPTS[py37]=		PY27=OFF PY36=OFF PY37=ON
+
+# Output of setup.py --license
+# Apache 2.0
+
+GENERATED=		yes
+
+# install_requires extracted from setup.py (using python 2.7)
+# requests>=2.0.1,<3.0.0
+
+DISTNAME=		requests-toolbelt-${PORTVERSION}
+
+[PY27].USES_ON=				python:py27
+[PY27].BUILDRUN_DEPENDS_ON=		python-requests:single:py27
+
+[PY36].USES_ON=				python:py36
+[PY36].BUILDRUN_DEPENDS_ON=		python-requests:single:py36
+
+[PY37].USES_ON=				python:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-requests:single:py37
+
