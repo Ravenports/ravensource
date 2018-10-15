@@ -1,4 +1,4 @@
---- OpenAL32/alBuffer.c.orig	2018-09-06 21:35:18 UTC
+--- OpenAL32/alBuffer.c.orig	2018-10-11 22:05:31 UTC
 +++ OpenAL32/alBuffer.c
 @@ -1118,7 +1118,7 @@ static ALboolean DecomposeUserFormat(ALe
          { AL_FORMAT_BFORMAT3D_FLOAT32, UserFmtBFormat3D, UserFmtFloat },
