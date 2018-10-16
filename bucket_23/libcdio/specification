@@ -11,7 +11,7 @@ HOMEPAGE=		https://www.gnu.org/software/libcdio
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://ftp.gnu.org/gnu/libcdio/
+SITES[main]=		GNU/libcdio/
 DISTFILE[1]=		libcdio-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	complete primary utils
@@ -31,10 +31,14 @@ LICENSE_SCHEME=		solo
 # configure doesn't find ncurses, so we have to build without the cdda-player
 # for now.
 BUILDRUN_DEPENDS=	libcddb:single:standard
-USES=			c++:utils iconv gmake libtool pkgconfig
+
+EXRUN[utils]=		libcdio:primary:standard
+
+USES=			c++:utils cpe iconv gmake libtool pkgconfig
+CPE_VENDOR=		gnu
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--without-cdda-player
-
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
+INFO=			primary:libcdio
