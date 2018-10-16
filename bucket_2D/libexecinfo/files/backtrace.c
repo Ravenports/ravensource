@@ -1,4 +1,3 @@
-#include <sys/cdefs.h>
 #include <sys/param.h>
 #include <assert.h>
 #include <stdio.h>
@@ -138,18 +137,20 @@ format_address(symtab_t *st, char **buf, size_t *bufsiz, size_t offs,
 	Dl_info dli;
 
 	memset(&dli, 0, sizeof(dli));
-	(void)dladdr(addr, &dli);
-	if (st)
-		symtab_find(st, addr, &dli);
+	if (dladdr(addr, &dli) != 0) {
+		/* success */
+		if (st)
+			symtab_find(st, addr, &dli);
 
-	if (dli.dli_sname == NULL)
-		dli.dli_sname = "???";
-	if (dli.dli_fname == NULL)
-		dli.dli_fname = "???";
-	if (dli.dli_saddr == NULL)
-		dli.dli_saddr = (void *)(intptr_t)addr;
-
-	return format_string(buf, bufsiz, offs, fmt, &dli, addr);
+		if (dli.dli_sname == NULL)
+			dli.dli_sname = "???";
+		if (dli.dli_fname == NULL)
+			dli.dli_fname = "???";
+		if (dli.dli_saddr == NULL)
+			dli.dli_saddr = (void *)(intptr_t)addr;
+		return format_string(buf, bufsiz, offs, fmt, &dli, addr);
+	}
+	return -1;
 }
 
 char **

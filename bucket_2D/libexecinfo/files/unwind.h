@@ -1,7 +1,6 @@
 #ifndef _UNWIND_H_
 #define _UNWIND_H_
 
-__BEGIN_DECLS
 struct _Unwind_Context;
 struct _Unwind_Exception;
 typedef int _Unwind_Reason_Code;
@@ -37,5 +36,4 @@ _Unwind_Reason_Code	 _Unwind_Resume_or_Rethrow(struct _Unwind_Exception *);
 void			 _Unwind_SetGR(struct _Unwind_Context *, int,
     _Unwind_Ptr);
 void			 _Unwind_SetIP(struct _Unwind_Context *, _Unwind_Ptr);
-__END_DECLS
 #endif /* _UNWIND_H_ */

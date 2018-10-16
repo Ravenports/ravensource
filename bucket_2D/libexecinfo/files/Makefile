@@ -101,7 +101,7 @@ ${SRCS}: native-elf-format.h
 
 .if "${OPSYS}" == "SunOS"
 CFLAGS+=	-I${PREFIX}/include/bsd
-SRCS+=		progname.c
+SRCS+=		dprintf.c
 .endif
 
 # libexec sources
