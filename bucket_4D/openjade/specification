@@ -39,3 +39,7 @@ PLIST_SUB=		XMLCATMGR={{LOCALBASE}}/bin/xmlcatmgr
 post-install:
 	${FIND} ${WRKSRC}/dsssl -depth -maxdepth 1 -type f \
 		-exec ${INSTALL_DATA} {} ${STAGEDIR}/${DATADIR} \;
+
+# Note: We can modify patch configure to force shared libraries to build
+# but with gcc, they emit errors.  Adding -lstdc++ will fix one but
+# not all.  For now, just leave it as static libraries only
