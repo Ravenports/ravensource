@@ -164,7 +164,9 @@ static_lib_FreeBSD=	${static_lib_generic} \
 			/usr/lib/crti.o \
 			/usr/lib/crtn.o
 static_lib_DragonFly=	${static_lib_generic} \
+			/usr/lib/libcam.a \
 			/usr/lib/libkvm.a \
+			/usr/lib/libsbuf.a \
 			/usr/lib/libusb.a \
 			/usr/lib/libusbhid.a \
 			/usr/lib/Scrt1.o \
@@ -214,6 +216,8 @@ dynamic_lib_FreeBSD=	${dynamic_generic} \
 			/usr/lib/${libusb} \
 			/usr/lib/${libusbhid}
 dynamic_lib_DragonFly=	${dynamic_generic} \
+			/lib/libcam.so.3 \
+			/lib/libsbuf.so.3 \
 			/usr/lib/libpthread.so \
 			/usr/lib/libpthread.so.0 \
 			/usr/lib/libexecinfo.so.1 \
@@ -376,6 +380,7 @@ headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
 			usb.h \
 			usbhid.h \
 			ar.h \
+			camlib.h \
 			devstat.h \
 			elf.h \
 			err.h \
@@ -671,6 +676,13 @@ install:
 		ln -s ${Libprocstat_FreeBSD} libprocstat.so && \
 		ln -s ${Libgeom_FreeBSD} libgeom.so && \
 		ln -s libthr.so libpthread.so)
+.endif
+.if ${OPSYS} == DragonFly
+	(cd ${DESTDIR}${BASE}/usr/lib && \
+		ln -s libsbuf.so.3 libsbuf.so && \
+		ln -s libcam.so.3 libcam.so)
+	(cd ${DESTDIR}${BASE}/usr/include && \
+		ln -s bus/cam cam)
 .endif
 .if ${OPSYS} == Linux
 .  for item in ${Linux_static_libs}
