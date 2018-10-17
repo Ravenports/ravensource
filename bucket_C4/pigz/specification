@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	2.4
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		pigz
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers
+VARIANTS=		standard
+SDESC[standard]=	Parallel Implementation of GZip
+HOMEPAGE=		https://zlib.net/pigz/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://zlib.net/pigz/
+DISTFILE[1]=		pigz-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:single
+LICENSE_NAME=		CUSTOM1:"Pigz License (similar to BSD)"
+LICENSE_FILE=		CUSTOM1:{{WRKDIR}}/LICENSE
+LICENSE_AWK=		CUSTOM1:"Version history:"
+LICENSE_SOURCE=		CUSTOM1:{{WRKSRC}}/pigz.c
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		archivers/pigz
+
+USES=			cpe gmake zlib
+CPE_VENDOR=		zlib
+BUILD_TARGET=		pigz
+MAKE_ARGS=		CC="{{CC}}"
+			CFLAGS="{{CFLAGS}}"
+			LDFLAGS="{{LDFLAGS}}"
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/pigz ${STAGEDIR}${PREFIX}/bin
+	${LN} -sf pigz ${STAGEDIR}${PREFIX}/bin/unpigz
+	${INSTALL_MAN} ${WRKSRC}/pigz.1 ${STAGEDIR}${MANPREFIX}/man/man1/
