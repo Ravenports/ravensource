@@ -24,6 +24,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11/i3lock
 
+BROKEN[freebsd]=	Can't find reference to iconv_open on conftests
+
 BUILDRUN_DEPENDS=	cairo:single:standard
 			xorg-xcb-util:single:standard
 			xorg-xcb-util-keysyms:single:standard
@@ -37,4 +39,3 @@ BUILDRUN_DEPENDS=	cairo:single:standard
 USES=			gmake iconv pkgconfig
 XORG_COMPONENTS=	x11 xcb xt xext
 MUST_CONFIGURE=		gnu
-LDFLAGS=		-liconv
