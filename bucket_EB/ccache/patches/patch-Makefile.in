@@ -1,11 +1,11 @@
---- Makefile.in.orig	2018-09-02 08:28:30 UTC
+--- Makefile.in.orig	2018-10-15 19:29:45 UTC
 +++ Makefile.in
-@@ -113,7 +113,7 @@ clean:
+@@ -122,8 +122,6 @@ clean:
  
  conf.c: confitems_lookup.c envtoconfitems_lookup.c
  
 -$(zlib_objs): CPPFLAGS += -include config.h
-+
+-$(zlib_objs): CFLAGS += @no_implicit_fallthrough_warning@
  
  src/zlib/libz.a: $(zlib_objs)
- 	$(AR) cr $@ $(zlib_objs)
+ 	$(if $(quiet),@echo "  AR       $@")
