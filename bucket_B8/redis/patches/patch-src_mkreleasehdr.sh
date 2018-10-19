@@ -1,4 +1,4 @@
---- src/mkreleasehdr.sh.orig	2018-08-03 22:44:56 UTC
+--- src/mkreleasehdr.sh.orig	2018-10-17 15:31:39 UTC
 +++ src/mkreleasehdr.sh
 @@ -1,6 +1,6 @@
  #!/bin/sh
@@ -7,5 +7,5 @@
 +GIT_SHA1="00000000"
 +GIT_DIRTY="0"
  BUILD_ID=`uname -n`"-"`date +%s`
- test -f release.h || touch release.h
- (cat release.h | grep SHA1 | grep $GIT_SHA1) && \
+ if [ -n "$SOURCE_DATE_EPOCH" ]; then
+   BUILD_ID=$(date -u -d "@$SOURCE_DATE_EPOCH" +%s 2>/dev/null || date -u -r "$SOURCE_DATE_EPOCH" +%s 2>/dev/null || date -u %s)

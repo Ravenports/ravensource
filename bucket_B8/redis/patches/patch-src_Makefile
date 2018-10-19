@@ -1,4 +1,4 @@
---- src/Makefile.orig	2018-08-03 22:44:56 UTC
+--- src/Makefile.orig	2018-10-17 15:31:39 UTC
 +++ src/Makefile
 @@ -66,7 +66,6 @@ endif
  FINAL_CFLAGS=$(STD) $(WARN) $(OPT) $(DEBUG) $(CFLAGS) $(REDIS_CFLAGS)
@@ -17,7 +17,7 @@
 +else
  	# All the other OSes (notably Linux)
  	FINAL_LDFLAGS+= -rdynamic
- 	FINAL_LIBS+=-ldl -pthread
+ 	FINAL_LIBS+=-ldl -pthread -lrt
  endif
  endif
  endif
