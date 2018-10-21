@@ -1,4 +1,4 @@
---- src/cairo-gl.h.orig	2015-03-10 22:21:07 UTC
+--- src/cairo-gl.h.orig	2018-08-17 01:10:53 UTC
 +++ src/cairo-gl.h
 @@ -92,7 +92,7 @@ cairo_public void
  cairo_gl_device_set_thread_aware (cairo_device_t	*device,

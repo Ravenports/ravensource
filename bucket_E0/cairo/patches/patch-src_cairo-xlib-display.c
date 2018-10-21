@@ -1,4 +1,4 @@
---- src/cairo-xlib-display.c.orig	2015-03-10 22:21:07 UTC
+--- src/cairo-xlib-display.c.orig	2018-08-17 01:10:53 UTC
 +++ src/cairo-xlib-display.c
 @@ -263,11 +263,7 @@ _cairo_xlib_device_create (Display *dpy)
      /* Prior to Render 0.10, there is no protocol support for gradients and

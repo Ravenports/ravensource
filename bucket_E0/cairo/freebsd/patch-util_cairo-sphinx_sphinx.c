@@ -1,4 +1,4 @@
---- util/cairo-sphinx/sphinx.c.orig	2015-03-10 22:21:07 UTC
+--- util/cairo-sphinx/sphinx.c.orig	2018-08-17 01:10:53 UTC
 +++ util/cairo-sphinx/sphinx.c
 @@ -1337,7 +1337,7 @@ client_shm (const char *shm_path)
  
