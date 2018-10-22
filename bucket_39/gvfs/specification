@@ -1,0 +1,69 @@
+DEF[PORTVERSION]=	1.38.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gvfs
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	GNOME virtual file system
+HOMEPAGE=		https://wiki.gnome.org/Projects/gvfs
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/gvfs/${PORTVERSION:R}/
+DISTFILE[1]=		gvfs-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/gvfs
+
+LICENSE=		LGPL20+:single
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/common/gvfsutils.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		autoselect-python:single:standard
+BUILDRUN_DEPENDS=	dbus:single:standard
+			gcr:primary:standard
+			libarchive:single:standard
+			libsecret:primary:standard
+			libsoup:primary:standard
+			libsoup:gnome:standard
+USES=			gettext-runtime gettext-tools:build meson pkgconfig python:build shebangfix
+GNOME_COMPONENTS=	glib
+SHEBANG_FILES=		codegen.py
+			meson_post_install.py
+
+# LibUSB deactivated for now; FreeBSD has it built-in but for 11.1
+# the base system ships with a version too old for GVFS...
+# CDDA support cannot be added on *BSD currently. GVFS does not support
+# HAL anymore and thus eudev is required. However that's Linux-only.
+#
+# More backends can be added as more required libs become available.
+
+MESON_ARGS=		-Dsystemduserunitdir="no"
+			-Dtmpfilesdir="no"
+			-Dadmin=false
+			-Dafc=false
+			-Dbluray=false
+			-Dcdda=false
+			-Ddnssd=false
+			-Dfuse=false
+			-Dgoa=false
+			-Dgoogle=false
+			-Dgphoto2=false
+			-Dgudev=false
+			-Dlibusb=false
+			-Dlogind=false
+			-Dmtp=false
+			-Dnfs=false
+			-Dsftp=false
+			-Dsmb=false
+			-Dudisks2=false
+MESON_INSERT_RPATH=	daemon/meson.build
+			common/meson.build
