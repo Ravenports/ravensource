@@ -1,4 +1,4 @@
---- ext/openssl/openssl_missing.h.orig	2018-03-22 19:37:19 UTC
+--- ext/openssl/openssl_missing.h.orig	2018-10-17 15:26:54 UTC
 +++ ext/openssl/openssl_missing.h
 @@ -72,6 +72,9 @@ void ossl_HMAC_CTX_free(HMAC_CTX *);
  #if !defined(HAVE_X509_STORE_SET_EX_DATA)
@@ -10,7 +10,7 @@
  #  define X509_STORE_get_ex_new_index(l, p, newf, dupf, freef) \
  	CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_X509_STORE, (l), (p), \
  				(newf), (dupf), (freef))
-@@ -145,6 +148,7 @@ void ossl_X509_REQ_get0_signature(const 
+@@ -145,6 +148,7 @@ void ossl_X509_REQ_get0_signature(const
  #endif
  
  #if !defined(HAVE_OPAQUE_OPENSSL)

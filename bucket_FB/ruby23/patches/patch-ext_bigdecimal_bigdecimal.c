@@ -1,4 +1,4 @@
---- ext/bigdecimal/bigdecimal.c.orig	2017-09-14 04:16:51 UTC
+--- ext/bigdecimal/bigdecimal.c.orig	2018-01-31 13:38:59 UTC
 +++ ext/bigdecimal/bigdecimal.c
 @@ -102,29 +102,6 @@ static ID id_eq;
  # define RB_OBJ_STRING(obj) StringValueCStr(obj)
