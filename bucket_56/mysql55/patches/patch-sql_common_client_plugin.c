@@ -1,4 +1,4 @@
---- sql-common/client_plugin.c.orig	2017-11-27 12:03:17 UTC
+--- sql-common/client_plugin.c.orig	2018-08-28 21:12:51 UTC
 +++ sql-common/client_plugin.c
 @@ -233,11 +233,13 @@ int mysql_client_plugin_init()
  {

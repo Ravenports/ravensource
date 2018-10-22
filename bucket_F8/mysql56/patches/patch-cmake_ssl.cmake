@@ -1,4 +1,4 @@
---- cmake/ssl.cmake.orig	2017-12-09 07:33:37 UTC
+--- cmake/ssl.cmake.orig	2018-09-10 10:17:55 UTC
 +++ cmake/ssl.cmake
 @@ -176,7 +176,7 @@ MACRO (MYSQL_CHECK_SSL)
      IF(OPENSSL_INCLUDE_DIR AND

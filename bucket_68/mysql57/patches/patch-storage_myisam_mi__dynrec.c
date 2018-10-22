@@ -1,4 +1,4 @@
---- storage/myisam/mi_dynrec.c.orig	2017-12-28 03:46:26 UTC
+--- storage/myisam/mi_dynrec.c.orig	2018-10-04 05:48:22 UTC
 +++ storage/myisam/mi_dynrec.c
 @@ -65,18 +65,13 @@ my_bool mi_dynmap_file(MI_INFO *info, my
      DBUG_RETURN(1);

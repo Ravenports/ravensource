@@ -1,6 +1,6 @@
---- CMakeLists.txt.orig	2017-11-27 12:03:17 UTC
+--- CMakeLists.txt.orig	2018-08-28 21:12:51 UTC
 +++ CMakeLists.txt
-@@ -425,7 +425,6 @@ ENDIF()
+@@ -431,7 +431,6 @@ ENDIF()
  
  ADD_SUBDIRECTORY(extra)
  IF(NOT WITHOUT_SERVER)
@@ -8,7 +8,7 @@
    ADD_SUBDIRECTORY(client)
    ADD_SUBDIRECTORY(sql)
    ADD_SUBDIRECTORY(sql/share)
-@@ -433,14 +432,10 @@ IF(NOT WITHOUT_SERVER)
+@@ -439,14 +438,10 @@ IF(NOT WITHOUT_SERVER)
    OPTION (WITH_EMBEDDED_SERVER "Compile MySQL with embedded server" OFF)
    IF(WITH_EMBEDDED_SERVER) 
     ADD_SUBDIRECTORY(libmysqld)
@@ -23,7 +23,7 @@
    IF(UNIX)
      ADD_SUBDIRECTORY(man)
    ENDIF()
-@@ -487,8 +482,10 @@ IF(WIN32)
+@@ -493,8 +488,10 @@ IF(WIN32)
  ELSE()
    SET(CPACK_GENERATOR "TGZ")
  ENDIF() 
@@ -34,7 +34,7 @@
  
  # Create a single package with "make package"
  # (see http://public.kitware.com/Bug/view.php?id=11452)
-@@ -500,6 +497,7 @@ ENDIF()
+@@ -506,6 +503,7 @@ ENDIF()
  #
  # RPM installs documentation directly from the source tree
  #
@@ -42,7 +42,7 @@
  IF(NOT INSTALL_LAYOUT MATCHES "RPM")
    INSTALL(FILES COPYING LICENSE.mysql 
    DESTINATION ${INSTALL_DOCREADMEDIR} 
-@@ -561,3 +559,4 @@ IF(NOT CMAKE_GENERATOR MATCHES "Makefile
+@@ -567,3 +565,4 @@ IF(NOT CMAKE_GENERATOR MATCHES "Makefile
    MESSAGE(STATUS
      "CMAKE_CXX_FLAGS_RELWITHDEBINFO: ${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
  ENDIF()

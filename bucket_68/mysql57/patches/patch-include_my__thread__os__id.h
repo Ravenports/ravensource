@@ -1,6 +1,6 @@
---- include/my_thread_os_id.h.orig	2017-12-28 03:46:26 UTC
+--- include/my_thread_os_id.h.orig	2018-10-04 05:48:22 UTC
 +++ include/my_thread_os_id.h
-@@ -75,8 +75,12 @@ static inline my_thread_os_id_t my_threa
+@@ -81,8 +81,12 @@ static inline my_thread_os_id_t my_threa
    return pthread_getthreadid_np();
  #else
  #ifdef HAVE_INTEGER_PTHREAD_SELF
