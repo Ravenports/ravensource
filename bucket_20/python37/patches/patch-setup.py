@@ -1,4 +1,4 @@
---- setup.py.orig	2018-06-27 03:07:35 UTC
+--- setup.py.orig	2018-10-20 06:04:19 UTC
 +++ setup.py
 @@ -43,7 +43,10 @@ host_platform = get_platform()
  COMPILED_WITH_PYDEBUG = ('--with-pydebug' in sysconfig.get_config_var("CONFIG_ARGS"))

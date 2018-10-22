@@ -6,7 +6,7 @@
 # Submitted by: antoine@ (r358029)
 # TODO: Upstream
 
---- Makefile.pre.in.orig	2017-12-19 04:53:56 UTC
+--- Makefile.pre.in.orig	2018-10-20 05:24:09 UTC
 +++ Makefile.pre.in
 @@ -80,23 +80,20 @@ MAKESETUP=      $(srcdir)/Modules/makese
  OPT=		@OPT@
@@ -44,15 +44,15 @@
  
  # Subdirectories with code
  SRCDIRS= 	@SRCDIRS@
-@@ -586,6 +585,7 @@ sharedmods: $(BUILDPYTHON) pybuilddir.tx
- 	esac; \
+@@ -589,6 +588,7 @@ sharedmods: $(BUILDPYTHON) pybuilddir.tx
+ 		$(PYTHON_FOR_BUILD) $(srcdir)/setup.py $$quiet build"; \
  	$(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' \
  		_TCLTK_INCLUDES='$(TCLTK_INCLUDES)' _TCLTK_LIBS='$(TCLTK_LIBS)' \
 +		DISABLED_EXTENSIONS="$(DISABLED_EXTENSIONS)" \
  		$(PYTHON_FOR_BUILD) $(srcdir)/setup.py $$quiet build
  
  
-@@ -1180,12 +1180,6 @@ bininstall: altbininstall
+@@ -1184,12 +1184,6 @@ bininstall: altbininstall
  	else true; \
  	fi
  	(cd $(DESTDIR)$(BINDIR); $(LN) -s python$(VERSION)$(EXE) python3$(EXE))
@@ -65,7 +65,7 @@
  	-rm -f $(DESTDIR)$(BINDIR)/python3-config
  	(cd $(DESTDIR)$(BINDIR); $(LN) -s python$(VERSION)-config python3-config)
  	-rm -f $(DESTDIR)$(LIBPC)/python3.pc
-@@ -1449,6 +1443,12 @@ libainstall:	@DEF_MAKE_RULE@ python-conf
+@@ -1453,6 +1447,12 @@ libainstall:	@DEF_MAKE_RULE@ python-conf
  	$(INSTALL_SCRIPT) $(srcdir)/install-sh $(DESTDIR)$(LIBPL)/install-sh
  	$(INSTALL_SCRIPT) python-config.py $(DESTDIR)$(LIBPL)/python-config.py
  	$(INSTALL_SCRIPT) python-config $(DESTDIR)$(BINDIR)/python$(LDVERSION)-config
@@ -78,7 +78,7 @@
  	@if [ -s Modules/python.exp -a \
  		"`echo $(MACHDEP) | sed 's/^\(...\).*/\1/'`" = "aix" ]; then \
  		echo; echo "Installing support files for building shared extension modules on AIX:"; \
-@@ -1468,7 +1468,8 @@ libainstall:	@DEF_MAKE_RULE@ python-conf
+@@ -1472,7 +1472,8 @@ libainstall:	@DEF_MAKE_RULE@ python-conf
  # Install the dynamically loadable modules
  # This goes into $(exec_prefix)
  sharedinstall: sharedmods

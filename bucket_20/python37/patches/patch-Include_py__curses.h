@@ -1,4 +1,4 @@
---- Include/py_curses.h.orig	2018-06-27 03:07:35 UTC
+--- Include/py_curses.h.orig	2018-10-20 06:04:19 UTC
 +++ Include/py_curses.h
 @@ -12,6 +12,10 @@
  #endif
