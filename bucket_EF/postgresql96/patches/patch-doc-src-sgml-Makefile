@@ -1,5 +1,5 @@
---- doc/src/sgml/Makefile.orig	2015-10-05 21:09:44.000000000 +0200
-+++ doc/src/sgml/Makefile	2015-10-09 01:02:37.164797000 +0200
+--- doc/src/sgml/Makefile.orig	2018-08-06 20:07:43 UTC
++++ doc/src/sgml/Makefile
 @@ -15,7 +15,7 @@
  
  # Make "html" the default target, since that is what most people tend
@@ -9,7 +9,7 @@
  
  NO_TEMP_INSTALL=yes
  
-@@ -24,7 +24,7 @@
+@@ -24,7 +24,7 @@ top_builddir = ../../..
  include $(top_builddir)/src/Makefile.global
  
  
@@ -18,7 +18,7 @@
  
  distprep: html distprep-man
  
-@@ -81,8 +81,6 @@
+@@ -82,8 +82,6 @@ override SPFLAGS += -wall -wno-unused-pa
  ## Man pages
  ##
  
@@ -27,7 +27,7 @@
  man-stamp: stylesheet-man.xsl postgres.xml
  	$(XMLLINT) --noout --valid postgres.xml
  	$(XSLTPROC) $(XSLTPROCFLAGS) $(XSLTPROC_MAN_FLAGS) $^
-@@ -326,14 +324,14 @@
+@@ -327,14 +325,14 @@ check: postgres.sgml $(ALMOSTALLSGML) ch
  ## Install
  ##
  
