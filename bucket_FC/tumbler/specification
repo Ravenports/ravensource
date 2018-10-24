@@ -1,0 +1,47 @@
+DEF[PORTVERSION]=	0.2.3
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		tumbler
+VERSION=		${PORTVERSION}
+KEYWORDS=		deskutils
+VARIANTS=		standard
+SDESC[standard]=	D-Bus thumbnailing service for Xfce
+HOMEPAGE=		https://docs.xfce.org/xfce/thunar/tumbler
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://archive.xfce.org/src/xfce/tumbler/0.2/
+DISTFILE[1]=		tumbler-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		deskutils/xfce4-tumbler
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/tumbler/tumbler.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+# Very basic configuration to start with. Many more features could be enabled
+# if somebody actually wants them.
+
+USES=			gettext-tools:build gettext-runtime gmake libtool pkgconfig python:build
+GNOME_COMPONENTS=	glib intltool
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-nls
+INSTALL_TARGET=		install-strip
+
+SUB_FILES=		pkg-message
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/tumbler \
+		${STAGEDIR}${PREFIX}/share/doc/tumbler
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
