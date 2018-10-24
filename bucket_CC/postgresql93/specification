@@ -41,6 +41,7 @@ BUILDRUN_DEPENDS=	libxslt:single:standard
 
 BR_DEPS[linux]=		ossp-uuid:single:standard
 BR_DEPS[sunos]=		ossp-uuid:single:standard
+BR_DEPS[darwin]=	libuuid:single:standard
 
 EXRUN[server]=		postgresql${SUFFIX}:client:standard
 EXRUN[client]=		gettext:runtime:standard
@@ -105,7 +106,7 @@ post-install:
 		${STAGEDIR}${PREFIX}/etc/periodic/daily
 	# install-world doesn't strip (and install-strip won't install enough)
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/postgresql/*.so
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.${LIBEXT}
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/postgresql/pgxs/src/test/regress/pg_regress
 	list=$$(${LS} ${STAGEDIR}${PREFIX}/bin/* | ${GREP} -v pltcl_); \
 		${STRIP_CMD} $${list}
