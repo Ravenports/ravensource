@@ -12,7 +12,7 @@ TEMPLATE_ARG=	--with-template=openbsd
 UUID_ARG=	--with-uuid=bsd
 .elif ${OPSYS:MDarwin}
 TEMPLATE_ARG=	--with-template=darwin
-UUID_ARG=	--with-uuid=ossp
+UUID_ARG=	--with-uuid=e2fs
 .elif ${OPSYS:MSunOS}
 TEMPLATE_ARG=	--with-template=solaris
 UUID_ARG=	--with-uuid=ossp
