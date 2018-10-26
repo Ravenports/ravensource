@@ -1,4 +1,4 @@
---- test/simple-xinit.c.orig	2018-05-10 16:32:37 UTC
+--- test/simple-xinit.c.orig	2018-10-25 14:13:21 UTC
 +++ test/simple-xinit.c
 @@ -34,6 +34,47 @@
  #include <sys/wait.h>

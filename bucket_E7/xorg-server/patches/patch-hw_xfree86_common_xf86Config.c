@@ -1,6 +1,6 @@
---- hw/xfree86/common/xf86Config.c.orig	2018-05-10 16:32:35 UTC
+--- hw/xfree86/common/xf86Config.c.orig	2018-10-25 14:13:21 UTC
 +++ hw/xfree86/common/xf86Config.c
-@@ -1262,13 +1262,16 @@ checkCoreInputDevices(serverLayoutPtr se
+@@ -1264,13 +1264,16 @@ checkCoreInputDevices(serverLayoutPtr se
      }
  
      if (!xf86Info.forceInputDevices && !(foundPointer && foundKeyboard)) {

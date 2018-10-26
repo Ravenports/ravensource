@@ -1,5 +1,5 @@
 Index: programs/Xserver/hw/xfree86/os-support/bsd/i386_video.c
---- hw/xfree86/os-support/bsd/i386_video.c.orig	2018-05-10 16:32:35 UTC
+--- hw/xfree86/os-support/bsd/i386_video.c.orig	2018-10-25 14:13:21 UTC
 +++ hw/xfree86/os-support/bsd/i386_video.c
 @@ -32,6 +32,7 @@
  #include "xf86Priv.h"
