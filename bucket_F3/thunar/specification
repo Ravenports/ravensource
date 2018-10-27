@@ -1,0 +1,76 @@
+DEF[PORTVERSION]=	1.8.2
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		thunar
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_fm
+VARIANTS=		standard
+SDESC[standard]=	File manager for Xfce
+HOMEPAGE=		https://docs.xfce.org/xfce/thunar/start
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://archive.xfce.org/src/xfce/thunar/${PORTVERSION:R}/
+DISTFILE[1]=		Thunar-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary docs nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11-fm/thunar
+
+# Licensing is complicated... Thunar is licensed under GPLv2 and LGPL2+.
+# Icons are licensed under GPLv2 according to AUTHORS. According to ChangeLog,
+# the "thunar-vfs library" is under LGPL. Various headers declare the work is
+# licensed LGPL20, but there are no terms for GPL whatsoever.
+
+LICENSE=		LGPL20+:primary
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING.LIB
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/thunar/thunar-private.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+# Enabling introspection breaks the port. Needs to be looked into if anybody
+# really needs it.
+# gobject-introspection:single:standard
+
+BUILDRUN_DEPENDS=	dbus-glib:primary:standard
+			desktop-file-utils:single:standard
+			freetype:primary:standard
+			fontconfig:primary:standard
+			gvfs:single:standard
+			hicolor-icon-theme:single:standard
+			libexif:single:standard
+			libexo:primary:standard
+			libnotify:primary:standard
+			png:single:standard
+			tumbler:primary:standard
+			xfce4-panel:primary:standard
+RUN_DEPENDS=		polkit:single:standard
+USES=			gettext-tools:build gmake libtool pkgconfig python:py27,build
+GNOME_COMPONENTS=	cairo gdkpixbuf glib gtk2 intltool
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-apr-plugin
+			--enable-dbus
+			--enable-exif
+			--enable-gio-unix
+			--disable-introspection
+			--enable-notifications
+			--enable-pcre
+			--enable-sbr-plugin
+			--enable-tpa-plugin
+			--enable-uca-plugin
+			--enable-wallpaper-plugin
+DISTNAME=		Thunar-${PORTVERSION}
+INSTALL_REQ_TOOLCHAIN=	yes
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/thunarx \
+		${STAGEDIR}${PREFIX}/share/doc/thunarx
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
