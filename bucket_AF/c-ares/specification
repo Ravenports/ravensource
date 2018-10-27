@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	1.14.0
+DEF[PORTVERSION]=	1.15.0
+DEF[SOVERSION]=		2.3.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		c-ares
@@ -24,7 +25,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		dns/c-ares
 
-USES=			libtool
+USES=			gmake libtool
 SINGLE_JOB=		yes
 INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
@@ -32,6 +33,8 @@ CONFIGURE_ARGS=		--disable-werror
 			--disable-debug
 			--disable-optimize
 			--enable-symbol-hiding
+
+SOVERSION=		${SOVERSION}
 
 post-install:
 .for P in acountry adig ahost
