@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	1.0.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-html5lib
+VERSION=		${PORTVERSION}
+KEYWORDS=		python devel textproc
+VARIANTS=		py27 py36 py37
+SDESC[py27]=		HTML parser based on the WHATWG HTML speci (PY 27)
+SDESC[py36]=		HTML parser based on the WHATWG HTML speci (PY 36)
+SDESC[py37]=		HTML parser based on the WHATWG HTML speci (PY 37)
+HOMEPAGE=		https://github.com/html5lib/html5lib-python
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/h/html5lib
+DISTFILE[1]=		html5lib-1.0.1.tar.gz:main
+
+SPKGS[py27]=		single
+SPKGS[py36]=		single
+SPKGS[py37]=		single
+
+OPTIONS_AVAILABLE=	PY27 PY36 PY37
+OPTIONS_STANDARD=	none
+VOPTS[py27]=		PY27=ON PY36=OFF PY37=OFF
+VOPTS[py36]=		PY27=OFF PY36=ON PY37=OFF
+VOPTS[py37]=		PY27=OFF PY36=OFF PY37=ON
+
+# Output of setup.py --license
+# MIT License
+
+GENERATED=		yes
+
+# install_requires extracted from setup.py (using python 2.7)
+# six>=1.9
+# webencodings
+
+DISTNAME=		html5lib-${PORTVERSION}
+
+[PY27].USES_ON=				python:py27
+[PY27].BUILDRUN_DEPENDS_ON=		python-six:single:py27
+					python-webencodings:single:py27
+
+[PY36].USES_ON=				python:py36
+[PY36].BUILDRUN_DEPENDS_ON=		python-six:single:py36
+					python-webencodings:single:py36
+
+[PY37].USES_ON=				python:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-six:single:py37
+					python-webencodings:single:py37
+
