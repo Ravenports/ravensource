@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	3.05.02
-DEF[SOVERSION]=		3.0.5
+DEF[PORTVERSION]=	4.0.0
+DEF[SOVERSION]=		4.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		tesseract
@@ -22,14 +22,17 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		graphics/tesseract
 
-BUILDRUN_DEPENDS=	icu:single:standard
-			fontconfig:primary:standard
-			pango:primary:standard
+BUILDRUN_DEPENDS=	fontconfig:primary:standard
+			icu:single:standard
 			leptonica:single:standard
+			llvm:llvm:standard
+			pango:primary:standard
 RUN_DEPENDS=		tesseract-data:latin:standard
 EXRUN[tools]=		tesseract:library:standard
 
-USES=			autoreconf libtool pkgconfig
+USES=			autoreconf libtool pkgconfig shebangfix
+SHEBANG_FILES=		{{WRKSRC}}/src/training/tesstrain.sh
+			{{WRKSRC}}/src/training/language-specific.sh
 MUST_CONFIGURE=		gnu
 CONFIGURE_ENV=		LIBLEPT_HEADERSDIR="{{LOCALBASE}}/include/leptonica"
 MAKE_ARGS=		datadir={{LOCALBASE}}/share/tesseract-data
