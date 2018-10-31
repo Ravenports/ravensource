@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	4.13.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xfdesktop
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Desktop manager for the Xfce DE
+HOMEPAGE=		https://docs.xfce.org/xfce/xfdesktop/start
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://archive.xfce.org/src/xfce/xfdesktop/${PORTVERSION:R}/
+DISTFILE[1]=		xfdesktop-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11-wm/xfce4-desktop
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/xfce-desktop.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+BUILDRUN_DEPENDS=	libexo:primary:standard
+			libwnck:primary:standard
+			libxfce4ui:primary:standard
+			libxfce4util:primary:standard
+
+USES=			gettext-tools:build gettext-runtime gmake pkgconfig
+GNOME_COMPONENTS=	glib gtk3 intltool
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-gio-unix
+			--enable-nls
+			--enable-notifications
+			--enable-thunarx
+			--with-file-manager-fallback=Thunar
+INSTALL_TARGET=		install-strip
