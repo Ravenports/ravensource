@@ -1,0 +1,29 @@
+--- Makefile.orig	2014-04-18 19:35:39.000000000 +0200
++++ Makefile	2018-10-31 07:27:12.917665000 +0100
+@@ -16,7 +16,7 @@
+ # along with this program; if not, write to the Free Software
+ # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ 
+-prefix = /usr
++prefix = __TARGET__
+ 
+ CC=gcc
+ 
+@@ -30,14 +30,13 @@
+ # Uncomment options below for your particular OS:
+ 
+ # Linux defaults:
+-CFLAGS=-ggdb -Wall -DLINUX -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+ #CFLAGS=-O4 -Wall  -DLINUX -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+ #LDFLAGS=-s
+ 
+ # Uncomment for FreeBSD:
+-#CFLAGS=-O2 -Wall -fomit-frame-pointer
+-#LDFLAGS=-s
+-#OBJS+=strverscmp.o
++CFLAGS=-O2 -Wall -fomit-frame-pointer
++LDFLAGS=-s
++OBJS+=strverscmp.o
+ 
+ # Uncomment for Solaris:
+ #CC=cc
