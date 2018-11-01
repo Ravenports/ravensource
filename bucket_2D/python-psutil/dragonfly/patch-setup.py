@@ -1,4 +1,4 @@
---- setup.py.orig	2018-08-13 23:51:39 UTC
+--- setup.py.orig	2018-10-20 10:56:04 UTC
 +++ setup.py
 @@ -35,6 +35,7 @@ from _common import LINUX  # NOQA
  from _common import MACOS  # NOQA

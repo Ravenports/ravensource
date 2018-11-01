@@ -1,4 +1,4 @@
---- psutil/_common.py.orig	2018-07-28 19:10:45 UTC
+--- psutil/_common.py.orig	2018-09-26 11:09:27 UTC
 +++ psutil/_common.py
 @@ -43,7 +43,7 @@ PY3 = sys.version_info[0] == 3
  __all__ = [
