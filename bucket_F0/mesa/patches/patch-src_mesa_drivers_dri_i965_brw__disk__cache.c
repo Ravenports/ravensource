@@ -1,4 +1,4 @@
---- src/mesa/drivers/dri/i965/brw_disk_cache.c.orig	2018-10-19 16:36:42 UTC
+--- src/mesa/drivers/dri/i965/brw_disk_cache.c.orig	2018-10-31 18:26:26 UTC
 +++ src/mesa/drivers/dri/i965/brw_disk_cache.c
 @@ -380,6 +380,7 @@ brw_disk_cache_init(struct intel_screen
     if (INTEL_DEBUG & DEBUG_DISK_CACHE_DISABLE_MASK)

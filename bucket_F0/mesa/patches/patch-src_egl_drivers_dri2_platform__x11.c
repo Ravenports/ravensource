@@ -1,6 +1,6 @@
 # work-around for https://bugs.freedesktop.org/show_bug.cgi?id=100627
 #
---- src/egl/drivers/dri2/platform_x11.c.orig	2018-10-19 16:36:42 UTC
+--- src/egl/drivers/dri2/platform_x11.c.orig	2018-10-31 18:26:26 UTC
 +++ src/egl/drivers/dri2/platform_x11.c
 @@ -1516,6 +1516,9 @@ dri2_initialize_x11(_EGLDriver *drv, _EG
  
