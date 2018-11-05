@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.7.0
+DEF[PORTVERSION]=	18.1
 DEF[CURRENTGCC]=	EXTRACT_INFO(CURRENT_GCC_VERSION)
 DEF[LIBSUFFIX]=		${CURRENTGCC:R}
 # ----------------------------------------------------------------------------
@@ -30,6 +30,7 @@ SINGLE_JOB=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
 MAKE_ENV=		SMP_MFLAGS=-j{{MAKE_JOBS_NUMBER}}
 PLIST_SUB=		LIBSUFFIX=${LIBSUFFIX}
+SOVERSION=		${PORTVERSION}
 
 [AMF].DESCRIPTION=			Build Ada Modeling Framework
 [ORACLE].DESCRIPTION=			Oracle database support
@@ -59,6 +60,6 @@ pre-configure:
 	(cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} ${MAKE_CMD} config)
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/matreshka/*/*.${LIBEXT}
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/wsdl2ada
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/uaflex
