@@ -1,7 +1,7 @@
---- tools/install.py.orig	2018-04-24 14:41:41 UTC
+--- tools/install.py.orig	2018-11-02 08:38:39 UTC
 +++ tools/install.py
-@@ -149,7 +149,7 @@ def files(action):
-   action(['deps/v8/tools/lldbinit'], 'share/doc/node/')
+@@ -146,7 +146,7 @@ def files(action):
+   action(['deps/v8/tools/gdbinit'], 'share/doc/node/')
    action(['deps/v8/tools/lldb_commands.py'], 'share/doc/node/')
  
 -  if 'freebsd' in sys.platform or 'openbsd' in sys.platform:

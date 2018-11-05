@@ -1,6 +1,6 @@
---- deps/v8/gypfiles/v8.gyp.orig	2018-09-06 20:44:16 UTC
+--- deps/v8/gypfiles/v8.gyp.orig	2018-11-02 08:38:34 UTC
 +++ deps/v8/gypfiles/v8.gyp
-@@ -2014,6 +2014,7 @@
+@@ -2025,6 +2025,7 @@
          ['OS=="linux"', {
              'link_settings': {
                'libraries': [
@@ -8,7 +8,7 @@
                  '-ldl',
                  '-lrt'
                ],
-@@ -2190,7 +2191,7 @@
+@@ -2201,7 +2202,7 @@
          ['OS=="freebsd"', {
              'link_settings': {
                'libraries': [
@@ -17,7 +17,7 @@
              ]},
              'sources': [
                '../src/base/debug/stack_trace_posix.cc',
-@@ -2220,7 +2221,7 @@
+@@ -2231,7 +2232,7 @@
          ['OS=="netbsd"', {
              'link_settings': {
                'libraries': [
@@ -26,7 +26,7 @@
              ]},
              'sources': [
                '../src/base/debug/stack_trace_posix.cc',
-@@ -2235,7 +2236,7 @@
+@@ -2246,7 +2247,7 @@
          ['OS=="solaris"', {
              'link_settings': {
                'libraries': [
