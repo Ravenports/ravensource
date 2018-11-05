@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	20170822
+DEF[PORTVERSION]=	20180613
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		freepats
@@ -20,14 +20,20 @@ OPTIONS_STANDARD=	none
 
 LICENSE=		GPLv3+:single
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/gpl.txt
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		audio/freepats
 
 DISTNAME=		FreePats2-GM-${PORTVERSION}
 SKIP_BUILD=		yes
+PLIST_SUB=		VERSION=${PORTVERSION}
+
+post-extract:
+	${AWK} '/^License/,/keepgoingandgoing/' ${WRKSRC}/readme.txt \
+		> ${WRKDIR}/TERMS
 
 do-install:
 	(cd ${WRKSRC} && \
 		${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/share/freepats)
-	${RM} ${STAGEDIR}${PREFIX}/share/freepats/gpl.txt
+	${RM} ${STAGEDIR}${PREFIX}/share/freepats/*.txt
