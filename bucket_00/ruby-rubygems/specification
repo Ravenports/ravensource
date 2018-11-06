@@ -1,11 +1,10 @@
-# revert back to 2.7.6, something crashes with 2.7.7
-DEF[PORTVERSION]=	2.7.6
+DEF[PORTVERSION]=	2.7.8
 DEF[GEMS_BASE_DIR]=	lib/ruby/gems
+DEF[BUNDLERVER]=	1.16.6
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ruby-rubygems
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		ruby devel
 VARIANTS=		v23 v24 v25
 SDESC[v23]=		Package management framework for Ruby (v2.3)
@@ -42,6 +41,7 @@ DISTNAME=		rubygems-${PORTVERSION}
 PLIST_SUB=		DISTNAME="{{DISTNAME}}"
 			SUFFIX="{{RUBY_SUFFIX}}"
 			GEMS_BASE_DIR="${GEMS_BASE_DIR}/{{RUBY_VER}}"
+			BUNDLERVER=${BUNDLERVER}
 
 [RUBY23].USES_ON=			ruby:v23
 [RUBY24].USES_ON=			ruby:v24
@@ -50,7 +50,12 @@ PLIST_SUB=		DISTNAME="{{DISTNAME}}"
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/${GEMS_BASE_DIR}/${RUBY_VER}
 	cd ${WRKSRC} && ${SETENV} \
-		GEM_HOME=${STAGEDIR}${PREFIX}/${GEMS_BASE_DIR}/${RUBY_VER} \
+		GEM_HOME=${PREFIX}/${GEMS_BASE_DIR}/${RUBY_VER} \
 		${RUBY} ${RUBY_SETUP} --destdir=${STAGEDIR} \
-		--no-ri --no-rdoc || ${TRUE}
-	${RM} ${STAGEDIR}${PREFIX}/bin/bundle${RUBY_SUFFIX}
+		--verbose --no-ri --no-rdoc || ${TRUE}
+
+post-install:
+	# why don't these guys actually test destdir??
+	${MV} ${STAGEDIR}${STAGEDIR}${PREFIX}/${GEMS_BASE_DIR}/${RUBY_VER}/specifications/gems \
+		${STAGEDIR}${PREFIX}/${GEMS_BASE_DIR}/${RUBY_VER}/specifications/
+	${RM} -r ${STAGEDIR}/construction

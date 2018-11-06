@@ -254,6 +254,9 @@ BEGIN {\
     if (length ($1) > 0) {\
       dev = index ($0, ", development");\
       if (dev == 0) {\
+         if ($1 == "bundler") dev=1;\
+      };\
+      if (dev == 0) {\
         if (virgin) {\
           printf ("[%s].BUILDRUN_DEPENDS_ON=		", rubyXX);\
         };\
