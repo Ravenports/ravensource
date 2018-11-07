@@ -69,6 +69,10 @@ post-patch:
 	${RM} -r ${BUILD_WRKSRC}/${d}
 .endfor
 
+post-patch-linux:
+	# <sys/vnode.h> does not exist on linux
+	${REINPLACE_CMD} -e '/vnode\.h/d' ${WRKSRC}/dir.c
+
 post-build:
 	# Hack to allow modules to be installed into separate PREFIX and/or under
 	# user privilegies
