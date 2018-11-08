@@ -286,6 +286,9 @@ populate_queue() {
      package=$1;\
      if (package in seen == 0) {\
        dev = index ($0, ", development");\
+       if (dev == 0) {\
+          if ($1 == "bundler") dev=1;\
+       };\
        if (dev == 0) { print $1 };\
      };\
      seen[package]=1;\
