@@ -1,6 +1,4 @@
-DEF[PORTVERSION]=	2.9.7
-DEF[SOVERSION]=		${PORTVERSION}
-DEF[SOMAJOR]=		${SOVERSION:R:R}
+DEF[PORTVERSION]=	2.9.8
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fuse2
@@ -37,8 +35,7 @@ INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-pkgconfigdir={{PREFIX}}/lib/pkgconfig
 CONFIGURE_ENV=		MOUNT_FUSE_PATH={{PREFIX}}/sbin
-PLIST_SUB=		SOVERSION=${SOVERSION}
-			SOMAJOR=${SOMAJOR}
+SOVERSION=		${PORTVERSION}
 
 pre-configure:
 	${CP} ${LOCALBASE}/share/gettext/config.rpath ${WRKSRC}
