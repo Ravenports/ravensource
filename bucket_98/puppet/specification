@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.5.6
+DEF[PORTVERSION]=	6.0.4
 DEF[ETCDIR]=		{{PREFIX}}/etc/puppet
 # ----------------------------------------------------------------------------
 
@@ -29,6 +29,7 @@ FPC_EQUIVALENT=		sysutils/puppet5
 BUILDRUN_DEPENDS=	facter:single:standard
 			ruby-hiera:single:ruby_default
 			ruby-json_pure:single:ruby_default
+			ruby-semantic_puppet:single:ruby_default
 RUN_DEPENDS=		ruby-gettext-setup:single:ruby_default
 			ruby-hocon:single:ruby_default
 			ruby-ruby-augeas:single:ruby_default
@@ -73,9 +74,6 @@ post-patch:
 		${WRKSRC}/lib/puppet/defaults.rb
 	${REINPLACE_CMD} -e "s|\.\./\.\./\.\./locales|../locales|" \
 		${WRKSRC}/lib/puppet/gettext/config.rb
-	${REINPLACE_CMD} -e "s|%%PREFIX%%|${PREFIX}|" \
-		${WRKSRC}/lib/puppet/provider/service/daemontools.rb \
-		${WRKSRC}/ext/rack/config.ru
 
 do-build:
 	(cd ${WRKSRC} && ${SETENV} PREFIX=${PREFIX} LC_ALL=C.UTF-8 \
@@ -87,7 +85,6 @@ do-install:
 	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR} \
 		${STAGEDIR}${ETCDIR}/manifests \
 		${STAGEDIR}${ETCDIR}/modules \
-		${STAGEDIR}${PREFIX}/www/puppet \
 		${STAGEDIR}/var/puppet
 	${INSTALL_DATA} ${WRKSRC}/conf/auth.conf \
 		${STAGEDIR}${ETCDIR}/auth.conf-dist
@@ -100,11 +97,7 @@ do-install:
 		--logdir=/var/log/puppet \
 		--codedir=${ETCDIR} \
 		> ${STAGEDIR}${ETCDIR}/puppet.conf-dist
-	${INSTALL_DATA} ${WRKSRC}/ext/rack/config.ru \
-		${STAGEDIR}${PREFIX}/www/puppet/
 
 	# handle examples
 	(cd ${WRKSRC}/examples && \
 		${COPYTREE_SHARE} . ${STAGEDIR}${STD_EXAMPLESDIR})
-	${INSTALL_DATA} ${WRKSRC}/ext/rack/example-passenger-vhost.conf \
-		${STAGEDIR}${STD_EXAMPLESDIR}
