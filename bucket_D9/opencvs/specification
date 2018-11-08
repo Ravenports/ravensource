@@ -19,6 +19,10 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+# Will not build on linux, way too many BSDisms (libsd inclusion doesn't
+# fix all of them)
+NOT_FOR_OPSYS=		linux
+
 LICENSE=		BSD2CLAUSE:single
 LICENSE_FILE=		BSD2CLAUSE:{{WRKDIR}}/LICENSE
 LICENSE_AWK=		BSD2CLAUSE:"^\#include"
