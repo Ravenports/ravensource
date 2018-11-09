@@ -1,4 +1,4 @@
---- src/config.h.orig	2018-10-17 15:31:39 UTC
+--- src/config.h.orig	2018-11-07 12:23:06 UTC
 +++ src/config.h
 @@ -62,7 +62,7 @@
  #endif
