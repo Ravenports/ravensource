@@ -4,8 +4,8 @@ ruamel.yaml
 
 ``ruamel.yaml`` is a YAML 1.2 loader/dumper package for Python.
 
-:version:       0.15.76
-:updated:       2018-11-01
+:version:       0.15.77
+:updated:       2018-11-09
 :documentation: http://yaml.readthedocs.io
 :repository:    https://bitbucket.org/ruamel/
 :pypi:          https://pypi.org/project/ruamel.yaml/
@@ -59,6 +59,15 @@ ChangeLog
 .. should insert NEXT: at the beginning of line for next key (with empty
 line)
 
+0.15.77 (2018-11-09):
+  - setting `yaml.sort_base_mapping_type_on_output = False`, will prevent
+    explicit sorting by keys in the base representer of mappings. Roundtrip
+    already did not do this. Usage only makes real sense for Python 3.6+
+    (feature request by `Sebastian Gerber
+<https://bitbucket.org/spacemanspiff2007/>`__).
+  - implement Python version check in YAML metadata in
+``_test/test_z_data.py``
+
 0.15.76 (2018-11-01):
   - fix issue with empty mapping and sequence loaded as flow-style
     (mapping reported by `Min RK <https://bitbucket.org/minrk/>`__,
@@ -104,15 +113,3 @@ indicator
     (reported by `Douglas RAILLARD
 <https://bitbucket.org/DouglasRaillard/>`__)
   - issue with self-referring object creation
-    (reported and fix by `Douglas RAILLARD
-<https://bitbucket.org/DouglasRaillard/>`__)
-
-0.15.70 (2018-09-21):
-  - reverted CommentedMap and CommentedSeq to subclass ordereddict resp.
-list,
-    reimplemented merge maps so that both
-``dict(**commented_map_instance)`` and JSON
-    dumping works. This also allows checking with ``isinstance()`` on
-``dict`` resp. ``list``.
-    (Proposed by `Stuart Berg <https://bitbucket.org/stuarteberg/>`__,
-with feedback
