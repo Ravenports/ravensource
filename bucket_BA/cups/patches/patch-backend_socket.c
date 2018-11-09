@@ -1,4 +1,4 @@
---- backend/socket.c.orig	2018-06-05 16:06:54 UTC
+--- backend/socket.c.orig	2018-11-08 13:49:36 UTC
 +++ backend/socket.c
 @@ -297,7 +297,6 @@ main(int  argc,				/* I - Number of comm
    */
@@ -16,8 +16,8 @@
  
    fprintf(stderr, "DEBUG: Connected to %s:%d...\n",
  	  httpAddrString(&(addr->addr), addrname, sizeof(addrname)),
-@@ -406,7 +404,7 @@ main(int  argc,				/* I - Number of comm
-                             0, backendNetworkSideCB);
+@@ -408,7 +406,7 @@ main(int  argc,				/* I - Number of comm
+       tbytes = bytes;
  
      if (print_fd != 0 && tbytes >= 0)
 -      _cupsLangPrintFilter(stderr, "INFO", _("Print file sent."));
@@ -25,7 +25,7 @@
    }
  
    fputs("STATE: +cups-waiting-for-job-completed\n", stderr);
-@@ -417,7 +415,7 @@ main(int  argc,				/* I - Number of comm
+@@ -419,7 +417,7 @@ main(int  argc,				/* I - Number of comm
      * Shutdown the socket and wait for the other end to finish...
      */
  
