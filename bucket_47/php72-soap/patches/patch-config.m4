@@ -1,18 +1,18 @@
---- config.m4.orig	2014-05-14 10:14:22.929420181 +0000
-+++ config.m4	2014-05-14 10:15:36.967414693 +0000
-@@ -4,6 +4,9 @@
- PHP_ARG_ENABLE(simplexml, whether to enable SimpleXML support,
- [  --disable-simplexml     Disable SimpleXML support], yes)
+--- config.m4.orig	2018-11-06 10:48:43 UTC
++++ config.m4
+@@ -4,6 +4,9 @@ dnl config.m4 for extension soap
+ PHP_ARG_ENABLE(soap, whether to enable SOAP support,
+ [  --enable-soap           Enable SOAP support])
  
 +PHP_ARG_WITH(pcre-dir, pcre install prefix,
 +[  --with-pcre-dir           SimpleXML: pcre install prefix], no, no)
 +
  if test -z "$PHP_LIBXML_DIR"; then
    PHP_ARG_WITH(libxml-dir, libxml2 install dir,
-   [  --with-libxml-dir=DIR     SimpleXML: libxml2 install prefix], no, no)
-@@ -11,6 +14,30 @@
+   [  --with-libxml-dir=DIR   SOAP: libxml2 install prefix], no, no)
+@@ -11,6 +14,30 @@ fi
  
- if test "$PHP_SIMPLEXML" != "no"; then
+ if test "$PHP_SOAP" != "no"; then
  
 +  dnl This is PECL build, check if bundled PCRE library is used
 +  old_CPPFLAGS=$CPPFLAGS
@@ -38,6 +38,6 @@
 +    ])
 +  ])
 +
-   if test "$PHP_LIBXML" = "no"; then   
-     AC_MSG_ERROR([SimpleXML extension requires LIBXML extension, add --enable-libxml])                
+   if test "$PHP_LIBXML" = "no"; then
+     AC_MSG_ERROR([SOAP extension requires LIBXML extension, add --enable-libxml])
    fi

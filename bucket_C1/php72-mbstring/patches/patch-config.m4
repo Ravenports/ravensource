@@ -1,4 +1,4 @@
---- config.m4.orig	2018-04-24 15:09:55 UTC
+--- config.m4.orig	2018-11-06 10:48:37 UTC
 +++ config.m4
 @@ -43,6 +43,30 @@ AC_DEFUN([PHP_MBSTRING_EXTENSION], [
      PHP_ADD_INCLUDE([$ext_builddir/$dir])
@@ -46,6 +46,6 @@
 +PHP_ARG_WITH(pcre-dir, pcre install prefix,
 +[  --with-pcre-dir           MBSTRING: pcre install prefix], no, no)
 +
- if test "$PHP_MBSTRING" != "no"; then  
+ if test "$PHP_MBSTRING" != "no"; then
    AC_DEFINE([HAVE_MBSTRING],1,[whether to have multibyte string support])
  
