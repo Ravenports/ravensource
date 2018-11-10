@@ -1,0 +1,63 @@
+DEF[PORTVERSION]=	0.99.9
+DEF[SOVERSION]=		3.0.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		upower
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	D-Bus daemon for power management tasks
+HOMEPAGE=		https://upower.freedesktop.org
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://ravenports.elderlinux.org/distcache/
+DISTFILE[1]=		upower-${PORTVERSION}.txz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		sysutils/upower
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/up-native.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		automake:single:standard
+			autoconf:single:standard
+			docbook-xsl:primary:standard
+			gobject-introspection:single:standard
+			gtk-doc:single:standard
+			libtool:single:standard
+BUILDRUN_DEPENDS=	dbus-glib:primary:standard
+			polkit:single:standard
+USES=			gettext-tools:build gettext-runtime gmake libtool pkgconfig python:py27,build
+GNOME_COMPONENTS=	glib intltool
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-gtk-doc
+			--without-idevice
+INSTALL_TARGET=		install-strip
+
+VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--with-backend=freebsd
+SOVERSION=		${SOVERSION}
+DISTNAME=		upower
+
+post-patch:
+	${REINPLACE_CMD} -e 's|__DBPATH__|${PREFIX}/share/xsl/docbook/manpages|' \
+		${WRKSRC}/doc/man/Makefile.am
+	( cd ${WRKSRC} && \
+		gtkdocize && \
+		intltoolize --force && \
+		libtoolize && \
+		NOCONFIGURE=1 ./autogen.sh )
+
+post-stage:
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/UPower \
+		${STAGEDIR}${PREFIX}/share/doc
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
+	${RM} -r ${STAGEDIR}/var

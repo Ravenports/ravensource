@@ -1,0 +1,11 @@
+--- doc/man/Makefile.am.orig	2018-10-30 13:38:11.032276000 +0100
++++ doc/man/Makefile.am	2018-10-30 13:38:59.935532000 +0100
+@@ -6,7 +6,7 @@
+ 	UPower.7
+ 
+ %.1 %.7 %.8 : %.xml
+-	$(XSLTPROC) -nonet http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl $<
++	$(XSLTPROC) -nonet --path __DBPATH__ http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl $<
+ 
+ MAINTAINERCLEANFILES = $(man_MANS)
+ 
