@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	4.13.1
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xfce4-session
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Session manager for the Xfce DE
+HOMEPAGE=		https://docs.xfce.org/xfce/xfce4-session/start
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://archive.xfce.org/src/xfce/xfce4-session/${PORTVERSION:R}/
+DISTFILE[1]=		xfce4-session-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11-wm/xfce4-session
+
+BUILDRUN_DEPENDS=	dbus-glib:primary:standard
+			libwnck:primary:standard
+			libxfce4ui:primary:standard
+			libxfce4util:primary:standard
+			upower:primary:standard
+			xorg-iceauth:single:standard
+RUN_DEPENDS=		consolekit:primary:standard
+
+USES=			gettext-tools:build gettext-runtime gmake libtool pkgconfig
+XORG_COMPONENTS=	x11
+GNOME_COMPONENTS=	glib intltool
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-nls
+			--enable-polkit
+			--with-xsession-prefix={{PREFIX}}
+VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--with-backend=freebsd
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
