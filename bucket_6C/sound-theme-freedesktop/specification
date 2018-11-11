@@ -1,0 +1,29 @@
+DEF[PORTVERSION]=	0.8
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		sound-theme-freedesktop
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		standard
+SDESC[standard]=	Default sound theme based on FreeDesktop spec
+HOMEPAGE=		https://freedesktop.org/wiki/Specifications/sound-theme-spec
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://people.freedesktop.org/~mccann/dist/
+DISTFILE[1]=		sound-theme-freedesktop-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+# Complex licensing: All audio files are licensed on their own.
+# See CREDITS for details (usually GPLv2(+) or CC-xx-yy-zz).
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		audio/freedesktop-sound-theme
+
+USES=			gettext-tools:build gettext-runtime gmake
+GNOME_COMPONENTS=	intltool
+
+MUST_CONFIGURE=		gnu
