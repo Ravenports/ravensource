@@ -1,4 +1,4 @@
---- Source/WTF/wtf/NumberOfCores.cpp.orig	2018-04-18 06:26:40 UTC
+--- Source/WTF/wtf/NumberOfCores.cpp.orig	2018-10-27 21:20:57 UTC
 +++ Source/WTF/wtf/NumberOfCores.cpp
 @@ -35,6 +35,7 @@
  #include <sys/types.h>
