@@ -1,11 +1,9 @@
-diff --git gdb/python/python-config.py gdb/python/python-config.py
-index c2b2969..39af8d9 100644
---- gdb/python/python-config.py.orig	2018-07-31 14:47:55 UTC
+--- gdb/python/python-config.py.orig	2018-09-05 07:27:13 UTC
 +++ gdb/python/python-config.py
 @@ -59,6 +59,8 @@ for opt in opt_flags:
  
      elif opt in ('--libs', '--ldflags'):
-         libs = []
+         libs = ['-lpython' + pyver + abiflags]
 +        if getvar('LDFLAGS') is not None:
 +            libs.extend(getvar('LDFLAGS').split())
          if getvar('LIBS') is not None:

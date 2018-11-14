@@ -1,6 +1,6 @@
---- gdb/fbsd-nat.c.orig	2018-07-31 14:47:55 UTC
+--- gdb/fbsd-nat.c.orig	2018-09-05 07:27:13 UTC
 +++ gdb/fbsd-nat.c
-@@ -810,6 +810,14 @@ fbsd_resume (struct target_ops *ops,
+@@ -1108,6 +1108,14 @@ fbsd_nat_target::resume (ptid_t ptid, in
        struct thread_info *tp;
        int request;
  
@@ -14,4 +14,4 @@
 +#endif
        ALL_NON_EXITED_THREADS (tp)
          {
- 	  if (ptid_get_pid (tp->ptid) != ptid_get_pid (ptid))
+ 	  if (tp->ptid.pid () != ptid.pid ())

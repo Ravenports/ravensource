@@ -153,7 +153,7 @@ amd64dfly_init_abi (struct gdbarch_info info, struct gdbarch *gdbarch)
   tdep->sizeof_gregset = 25 * 8;
 
   amd64_init_abi (info, gdbarch,
-                 amd64_target_description (X86_XSTATE_SSE_MASK));
+                 amd64_target_description (X86_XSTATE_SSE_MASK, true));
 
   tdep->sigtramp_start = amd64dfly_sigtramp_start_addr;
   tdep->sigtramp_end = amd64dfly_sigtramp_end_addr;

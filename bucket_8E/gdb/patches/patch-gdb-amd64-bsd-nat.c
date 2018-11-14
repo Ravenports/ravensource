@@ -1,4 +1,4 @@
---- gdb/amd64-bsd-nat.c.orig	2018-07-31 14:47:55 UTC
+--- gdb/amd64-bsd-nat.c.orig	2018-09-05 07:27:13 UTC
 +++ gdb/amd64-bsd-nat.c
 @@ -28,6 +28,7 @@
  #include <sys/types.h>
@@ -8,7 +8,7 @@
  
  #include "amd64-tdep.h"
  #include "amd64-nat.h"
-@@ -122,12 +123,19 @@ amd64bsd_store_inferior_registers (struc
+@@ -120,12 +121,19 @@ amd64bsd_store_inferior_registers (struc
    if (regnum == -1 || amd64_native_gregset_supplies_p (gdbarch, regnum))
      {
        struct reg regs;
