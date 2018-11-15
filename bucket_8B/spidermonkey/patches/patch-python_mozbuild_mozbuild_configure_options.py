@@ -1,6 +1,6 @@
---- ../../python/mozbuild/mozbuild/configure/options.py.orig	2018-01-11 18:49:46 UTC
+--- ../../python/mozbuild/mozbuild/configure/options.py.orig	2018-10-17 20:39:32 UTC
 +++ ../../python/mozbuild/mozbuild/configure/options.py
-@@ -402,7 +402,11 @@ class CommandLineHelper(object):
+@@ -420,7 +420,11 @@ class CommandLineHelper(object):
  
      def add(self, arg, origin='command-line', args=None):
          assert origin != 'default'
