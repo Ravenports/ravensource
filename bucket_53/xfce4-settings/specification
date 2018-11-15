@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	4.13.5
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xfce4-settings
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	Settings manager for Xfce
+HOMEPAGE=		https://docs.xfce.org/xfce/xfce4-settings/start
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://archive.xfce.org/src/xfce/xfce4-settings/${PORTVERSION:R}/
+DISTFILE[1]=		xfce4-settings-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		sysutils/xfce4-settings
+
+LICENSE=		GPLv2:primary
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/xfce4-settings-manager/xfce-settings-manager-dialog.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+BUILDRUN_DEPENDS=	garcon:primary:standard
+			libcanberra:primary:standard
+			libexo:primary:standard
+			libnotify:primary:standard
+			libxklavier:primary:standard
+			upower:primary:standard
+
+USES=			gettext-tools:build gettext-runtime gmake pkgconfig
+GNOME_COMPONENTS=	intltool
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-pluggable-dialogs
+			--enable-sound-settings
+			--disable-xorg-libinput
