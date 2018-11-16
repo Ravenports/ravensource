@@ -1,6 +1,6 @@
 # Fix error: no matching constructor for initialization of 'std::vector<const ::llvm::MDNode *>' 
 #
---- src/gallium/state_trackers/clover/llvm/metadata.hpp.orig	2018-10-31 18:26:26 UTC
+--- src/gallium/state_trackers/clover/llvm/metadata.hpp.orig	2018-11-15 12:32:30 UTC
 +++ src/gallium/state_trackers/clover/llvm/metadata.hpp
 @@ -42,7 +42,7 @@ namespace clover {
           get_kernel_nodes(const ::llvm::Module &mod) {
