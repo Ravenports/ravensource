@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	11.3.1
+DEF[PORTVERSION]=	11.3.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ntl
@@ -17,6 +17,11 @@ SPKGS[standard]=	complete primary docs
 
 OPTIONS_AVAILABLE=	NATIVE
 OPTIONS_STANDARD=	NATIVE
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:stock
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		math/ntl
 
@@ -40,6 +45,10 @@ DISTNAME=		ntl-${PORTVERSION}/src
 [NATIVE].DESCRIPTION=			Compiles code targeted to current hardware
 [NATIVE].CONFIGURE_ARGS_ON=		NATIVE=on
 [NATIVE].CONFIGURE_ARGS_OFF=		NATIVE=off
+
+post-extract:
+	${AWK} '/^COPYRIGHT NOTICE/,/^END COPYRIGHT/' \
+		${WRKSRC}/../doc/copying.txt > ${WRKDIR}/TERMS
 
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/include/NTL
