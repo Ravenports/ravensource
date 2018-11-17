@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	0.4.3
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xfce4-notifyd
+VERSION=		${PORTVERSION}
+KEYWORDS=		deskutils
+VARIANTS=		standard
+SDESC[standard]=	Simple notification daemon for Xfce
+HOMEPAGE=		https://docs.xfce.org/apps/notifyd/start
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://archive.xfce.org/src/apps/xfce4-notifyd/${PORTVERSION:R}/
+DISTFILE[1]=		xfce4-notifyd-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		deskutils/xfce4-notifyd
+
+LICENSE=		GPLv2:primary
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/xfce4-notifyd/xfce-notify-daemon.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+BUILDRUN_DEPENDS=	libnotify:primary:standard
+			libxfce4ui:primary:standard
+			libxfce4util:primary:standard
+			xfce4-panel:primary:standard
+
+USES=			gettext-tools:build gettext-runtime gmake libtool
+XORG_COMPONENTS=	x11
+GNOME_COMPONENTS=	intltool
+
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
