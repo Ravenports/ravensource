@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	4.13.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xfce4-appfinder
+VERSION=		${PORTVERSION}
+KEYWORDS=		misc
+VARIANTS=		standard
+SDESC[standard]=	Application finder and launcher for Xfce
+HOMEPAGE=		https://docs.xfce.org/xfce/xfce4-appfinder/start
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://archive.xfce.org/src/xfce/xfce4-appfinder/${PORTVERSION:R}/
+DISTFILE[1]=		xfce4-appfinder-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		misc/xfce4-appfinder
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/appfinder-private.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+BUILDRUN_DEPENDS=	garcon:primary:standard
+			libxfce4ui:primary:standard
+
+USES=			gettext-tools:build gettext-runtime gmake pkgconfig
+GNOME_COMPONENTS=	glib gtk3 intltool
+
+MUST_CONFIGURE=		gnu
