@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.4.3
+DEF[PORTVERSION]=	3.4.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		opencv
@@ -32,7 +32,10 @@ BUILDRUN_DEPENDS=	jasper:primary:standard
 			video4linux:primary:standard
 EXRUN[primary]=		opencv:core:standard
 
-USES=			cmake:outsource pkgconfig jpeg png zlib
+USES=			cmake:outsource pkgconfig jpeg png shebangfix zlib
+SHEBANG_FILES=		cmake/templates/opencv_run_all_tests_unix.sh.in
+			cmake/templates/setup_vars_linux.sh.in
+			cmake/templates/setup_vars_macosx.sh.in
 CMAKE_ARGS=		-DWITH_VTK:BOOL=OFF
 			-DWITH_CUDA:BOOL=OFF
 			-DWITH_CUFFT:BOOL=OFF
@@ -108,6 +111,10 @@ post-patch:
 		-e 's|share/OpenCV/samples|${EXAMPLESDIR_REL}|g' \
 		${WRKSRC}/CMakeLists.txt
 	${FIND} ${WRKSRC} -name '*.orig' -delete
+	${REINPLACE_CMD} -e 's|__PREFIX__|${PREFIX}|' \
+		${WRKSRC}/cmake/templates/opencv_run_all_tests_unix.sh.in \
+		${WRKSRC}/cmake/templates/setup_vars_linux.sh.in \
+		${WRKSRC}/cmake/templates/setup_vars_macosx.sh.in \
 
 post-install:
 	${SED} -e 's|Name:.*|Name: OpenCV-core|' \
