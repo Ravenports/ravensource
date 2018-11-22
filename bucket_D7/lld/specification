@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(LLVM_VERSION)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		lld
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang sysutils
+VARIANTS=		standard
+SDESC[standard]=	Linker from the LLVM project
+HOMEPAGE=		http://llvm.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://llvm.org/releases/${PORTVERSION}/
+DISTFILE[1]=		lld-${PORTVERSION}.src.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:single
+LICENSE_NAME=		CUSTOM1:"University of Illinois/NCSA Open Source License"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.TXT
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		python-Sphinx:single:python_default
+			llvm:llvm:standard
+
+USES=			cmake:outsource ncurses zlib c++:single
+GNOME_COMPONENTS=	libxml2
+CMAKE_BUILD_TYPE=	Release
+CMAKE_ARGS=		-DLLVM_BUILD_LLVM_DYLIB=ON
+			-DLLVM_HOST_TRIPLE:STRING="{{CONFIGURE_TARGET}}"
+			-DLLVM_ENABLE_SPHINX=ON
+DISTNAME=		lld-${PORTVERSION}.src
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
