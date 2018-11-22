@@ -4,8 +4,8 @@ ruamel.yaml
 
 ``ruamel.yaml`` is a YAML 1.2 loader/dumper package for Python.
 
-:version:       0.15.78
-:updated:       2018-11-15
+:version:       0.15.79
+:updated:       2018-11-21
 :documentation: http://yaml.readthedocs.io
 :repository:    https://bitbucket.org/ruamel/
 :pypi:          https://pypi.org/project/ruamel.yaml/
@@ -59,6 +59,10 @@ ChangeLog
 .. should insert NEXT: at the beginning of line for next key (with empty
 line)
 
+0.15.79 (2018-11-21):
+  - fix issue with anchors nested deeper than alias (reported by gaFF on
+    `StackOverflow <https://stackoverflow.com/a/53397781/1307905>`__)
+
 0.15.78 (2018-11-15):
   - fix setup issue for 3.8 (reported by `Sidney Kuyateh
     <https://bitbucket.org/autinerd/>`__)
@@ -106,9 +110,3 @@ sequence.
 0.15.71 (2018-09-26):
   - some of the tests now live in YAML files in the
     `yaml.data <https://bitbucket.org/ruamel/yaml.data>`__ repository.
-    ``_test/test_z_data.py`` processes these.
-  - fix regression where handcrafted CommentedMaps could not be initiated
-(reported by
-    `Dan Helfman <https://bitbucket.org/dhelfman/>`__)
-  - fix regression with non-root literal scalars that needed indent
-indicator
