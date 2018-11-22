@@ -62,6 +62,7 @@ while read ravenport version fpc_port; do
 	ncurses60) ;;		# required for 1 or 2 apps
 
 	libexecinfo) ;;		# Different source from FPC
+	doas) ;;		# ditto
 
 	qt5-qtbase) ;;		# FreeBSD splits these packages into sep one
 	qt5-qttools) ;;		#
@@ -69,6 +70,8 @@ while read ravenport version fpc_port; do
 	
 	usb-modeswitch-data) ;;	# combined with sysutils/usb_modeswitch
 	rustless-firefox) ;;	# currently like www/firefox-esr, but RP is frozen
+
+	gps);;			# removed from FPC (stupidly)
 
 	libadalang) ;;		# Rest are ports that FPC doesn't have yet
 	libtickit) ;;
