@@ -1,5 +1,6 @@
-DEF[PORTVERSION]=	2.1.26
+DEF[PORTVERSION]=	2.1.27
 DEF[SOVERSION]=		3.0.0
+DEF[DOCS]=		AUTHORS ChangeLog INSTALL INSTALL.TXT README
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		cyrus-sasl
@@ -30,7 +31,7 @@ USERS=			cyrus
 GROUPS=			cyrus
 USERGROUP_SPKG=		primary
 
-USES=			cpe libtool:keepla perl:build bdb ssl fbsd10fix
+USES=			cpe gmake libtool:keepla perl:build bdb ssl fbsd10fix
 CPE_VENDOR=		cmu
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-alwaystrue
@@ -79,14 +80,19 @@ post-configure:
 		${WRKSRC}/libtool
 
 post-install:
-	${MKDIR} ${STAGEDIR}${STD_DOCDIR}/html
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	(cd ${WRKSRC}/doc && ${COPYTREE_SHARE} . ${STAGEDIR}${STD_DOCDIR} \
+		"! \( -path */html/_sources* \
+		-o -name .buildinfo \
+		-o -name Makefile \
+		-o -name Makefile.in \
+		-o -name Makefile.in.bak \
+		-o -name Makefile.am \
+		-o -name NTMakefile \
+		-o -name .cvsignore \)" \
+	)
 	(cd ${WRKSRC} && \
 		${INSTALL_DATA} ${DOCS} ${STAGEDIR}${STD_DOCDIR})
-	(cd ${WRKSRC}/doc && \
-		${INSTALL_DATA} ${DOC2} ${STAGEDIR}${STD_DOCDIR})
-	(cd ${WRKSRC}/doc && \
-		${INSTALL_DATA} ${HTDOCS:S/$$/.html/} \
-		${STAGEDIR}${STD_DOCDIR}/html)
 	${INSTALL_DATA} ${FILESDIR}/Sendmail.README ${STAGEDIR}${STD_DOCDIR}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/sasl2/*.so
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/sasl2/*.${LIBEXT}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.${LIBEXT}
