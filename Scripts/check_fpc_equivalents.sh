@@ -90,6 +90,8 @@ while read ravenport version fpc_port; do
 	pekwm-themepack) ;;
 	spidermonkey) ;;		# check occasionally
 	libxmlxx) ;;			# check libxml++ occ.
+	hardlink-osx) ;;
+	lld) ;;
 	*) echo "${ravenport} ${version}"
    esac
 done < ${tmpfile}
