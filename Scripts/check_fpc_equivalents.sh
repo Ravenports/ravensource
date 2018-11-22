@@ -60,6 +60,7 @@ while read ravenport version fpc_port; do
 	python-*) ;;            # manual python port
 	ncurses) ;;		# FreeBSD uses dev version now
 	ncurses60) ;;		# required for 1 or 2 apps
+	gsfonts) ;;		# noschema (8.11 vs 8.11pre)
 
 	libexecinfo) ;;		# Different source from FPC
 	doas) ;;		# ditto
