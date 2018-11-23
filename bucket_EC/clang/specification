@@ -75,3 +75,9 @@ post-patch:
 post-install:
 	${INSTALL_PROGRAM} ${WRKDIR}/.build/bin/clang-tblgen \
 		${STAGEDIR}${PREFIX}/bin/
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libclang.${LIBEXT}
+	(cd ${STAGEDIR}${PREFIX}/bin && ${STRIP_CMD} \
+		c-index-test clang-${MAJOR} clang-check \
+		clang-format clang-func-mapping clang-import-test \
+		clang-offload-bundler clang-refactor clang-rename \
+		diagtool)
