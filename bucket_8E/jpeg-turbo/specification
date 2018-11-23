@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	1.5.3
+DEF[PORTVERSION]=	2.0.1
+DEF[SOVERSION]=		8.2.2
+DEF[TURBOVERSION]=	0.2.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		jpeg-turbo
@@ -13,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/libjpeg-turbo/${PORTVERSION}
 DISTFILE[1]=		libjpeg-turbo-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary turbo docs examples
+SPKGS[standard]=	complete primary turbo docs
 
 OPTIONS_AVAILABLE=	NASM
 OPTIONS_STANDARD=	NASM
@@ -31,17 +33,15 @@ FPC_EQUIVALENT=		graphics/jpeg-turbo
 
 EXRUN[turbo]=		jpeg-turbo:primary:standard
 
-USES=			cpe libtool
+USES=			cpe cmake:outsource
 DISTNAME=		libjpeg-turbo-${PORTVERSION}
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-jpeg8
-			--with-pic
-MAKE_ARGS=		docdir="{{STD_DOCDIR}}"
-			exampledir="{{STD_EXAMPLESDIR}}"
-INSTALL_TARGET=		install-strip
-TEST_TARGET=		test
+CMAKE_ARGS=		-DWITH_JPEG8=ON
+
 CPE_VENDOR=		d.r.commander
 CPE_PRODUCT=		libjpeg-turbo
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		TURBOVERSION=${TURBOVERSION}
+			TURBOMAJOR=${TURBOVERSION:R:R}
 
 [NASM].DESCRIPTION=			Use nasm to construct optimized assembly
 [NASM].BUILD_DEPENDS_ON=		nasm:primary:standard
