@@ -1,4 +1,4 @@
---- src/sna/kgem.c.orig	2017-09-27 18:01:05 UTC
+--- src/sna/kgem.c.orig	2018-09-06 12:00:04 UTC
 +++ src/sna/kgem.c
 @@ -29,6 +29,9 @@
  #include "config.h"
@@ -10,16 +10,16 @@
  #include "sna.h"
  #include "sna_reg.h"
  
-@@ -70,7 +73,7 @@ search_snoop_cache(struct kgem *kgem, un
- #define DBG_NO_CREATE2 0
+@@ -71,7 +74,7 @@ search_snoop_cache(struct kgem *kgem, un
  #define DBG_NO_USERPTR 0
  #define DBG_NO_UNSYNCHRONIZED_USERPTR 0
+ #define DBG_NO_COHERENT_MMAP_GTT 0
 -#define DBG_NO_LLC 0
 +#define DBG_NO_LLC 1
  #define DBG_NO_SEMAPHORES 0
  #define DBG_NO_MADV 0
  #define DBG_NO_UPLOAD_CACHE 0
-@@ -3299,7 +3302,9 @@ bool __kgem_ring_is_idle(struct kgem *kg
+@@ -3313,7 +3316,9 @@ bool __kgem_ring_is_idle(struct kgem *kg
  	if (rq) {
  		struct kgem_request *tmp;
  

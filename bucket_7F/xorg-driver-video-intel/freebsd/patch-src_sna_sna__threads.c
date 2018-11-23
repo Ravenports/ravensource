@@ -1,4 +1,4 @@
---- src/sna/sna_threads.c.orig	2017-09-27 18:01:05 UTC
+--- src/sna/sna_threads.c.orig	2018-09-06 12:00:04 UTC
 +++ src/sna/sna_threads.c
 @@ -29,6 +29,9 @@
  #include "config.h"
