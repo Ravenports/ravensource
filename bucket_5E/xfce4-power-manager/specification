@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	1.6.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xfce4-power-manager
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	Power manager for Xfce
+HOMEPAGE=		https://docs.xfce.org/xfce/xfce4-power-manager/1.4/start
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://archive.xfce.org/src/xfce/xfce4-power-manager/${PORTVERSION:R}/
+DISTFILE[1]=		xfce4-power-manager-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		sysutils/xfce4-power-manager
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/xfpm-manager.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+BUILDRUN_DEPENDS=	libnotify:primary:standard
+			libxfce4ui:primary:standard
+			upower:primary:standard
+			xfce4-panel:primary:standard
+			xfconf:primary:standard
+
+USES=			gettext-tools:build gettext-runtime gmake libtool pkgconfig
+XORG_COMPONENTS=	x11
+GNOME_COMPONENTS=	gtk3 intltool
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-polkit
+			--enable-xfce4panel
+INSTALL_TARGET=		install-strip
