@@ -34,9 +34,7 @@ LICENSE_NAME=		CUSTOM1:"University of Illinois/NCSA Open Source License"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.TXT
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		llvm:llvm:standard
-# #			llvm40:complete:standard
-# #			lld:single:standard
+BUILD_DEPENDS=		llvm:single:standard
 
 USES=			cmake:outsource ncurses zlib execinfo
 			shebangfix python:build
@@ -55,9 +53,7 @@ SHEBANG_FILES=		utils/hmaptool/hmaptool
 CMAKE_ARGS=		-DLLVM_BUILD_LLVM_DYLIB=ON
 			-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
 			-DLLVM_HOST_TRIPLE:STRING="{{CONFIGURE_TARGET}}"
-# #			-DLLVM_ENABLE_LLD=ON
 PLIST_SUB=		LLVM_RELEASE="${LLVM_VERSION}"
-			LLVM_MAJORMIN="${MAJORMIN}"
 			LLVM_MAJOR="${MAJOR}"
 
 VAR_OPSYS[dragonfly]=	CMAKE_ARGS=-DLLVM_USE_LINKER=gold
