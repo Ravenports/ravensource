@@ -21,13 +21,15 @@ CONTACT=		nobody
 DOWNLOAD_GROUPS=	main
 SITES[main]=		http://llvm.org/releases/${LLVM_VERSION}/
 DISTFILE[1]=		cfe-${PORTVERSION}.src.tar.xz:main
+DISTFILE[2]=		clang-tools-extra-${PORTVERSION}.src.tar.xz:main
+DF_INDEX=		1 2
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete compiler extra
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		CUSTOM1:single
+LICENSE=		CUSTOM1:compiler
 LICENSE_NAME=		CUSTOM1:"University of Illinois/NCSA Open Source License"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.TXT
 LICENSE_SCHEME=		solo
@@ -36,8 +38,9 @@ BUILD_DEPENDS=		llvm:llvm:standard
 # #			llvm40:complete:standard
 # #			lld:single:standard
 
-USES=			cmake:outsource ncurses zlib execinfo c++:single
+USES=			cmake:outsource ncurses zlib execinfo
 			shebangfix python:build
+			c++:compiler,extra
 
 GNOME_COMPONENTS=	libxml2
 CMAKE_BUILD_TYPE=	Release
@@ -46,6 +49,9 @@ SHEBANG_FILES=		utils/hmaptool/hmaptool
 			tools/scan-view/bin/scan-view
 			tools/clang-format/git-clang-format
 			tools/clang-format/clang-format-diff.py
+			tools/extra/clang-tidy/tool/clang-tidy-diff.py
+			tools/extra/clang-tidy/tool/run-clang-tidy.py
+			tools/extra/include-fixer/find-all-symbols/tool/run-find-all-symbols.py
 CMAKE_ARGS=		-DLLVM_BUILD_LLVM_DYLIB=ON
 			-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
 			-DLLVM_HOST_TRIPLE:STRING="{{CONFIGURE_TARGET}}"
@@ -58,6 +64,10 @@ VAR_OPSYS[dragonfly]=	CMAKE_ARGS=-DLLVM_USE_LINKER=gold
 VAR_OPSYS[freebsd]=	CMAKE_ARGS=-DLLVM_USE_LINKER=gold
 VAR_OPSYS[sunos]=	CMAKE_ARGS=-DLLVM_USE_LINKER=gold
 VAR_OPSYS[linux]=	CMAKE_ARGS=-DLLVM_USE_LINKER-gold
+
+post-extract:
+	${MV} ${WRKDIR}/clang-tools-extra-${PORTVERSION}.src \
+		${WRKSRC}/tools/extra
 
 post-patch:
 	${REINPLACE_CMD} -e 's,/usr/local/,${LOCALBASE}/,' \
@@ -80,4 +90,7 @@ post-install:
 		c-index-test clang-${MAJOR} clang-check \
 		clang-format clang-func-mapping clang-import-test \
 		clang-offload-bundler clang-refactor clang-rename \
+		clang-apply-replacements clang-change-namespace \
+		clang-include-fixer clang-query clang-reorder-fields \
+		clang-tidy clangd find-all-symbols modularize \
 		diagtool)
