@@ -41,6 +41,10 @@ DISTNAME=		llvm-${PORTVERSION}.src
 CMAKE_ARGS=		-DLLVM_BUILD_LLVM_DYLIB=ON
 			-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
 			-DLLVM_HOST_TRIPLE:STRING="{{CONFIGURE_TARGET}}"
+			-DLLVM_PARALLEL_LINK_JOBS=1
+			-DLLVM_INCLUDE_TESTS:BOOL=OFF
+			-DLLVM_INCLUDE_EXAMPLES:BOOL=OFF
+			-DLLVM_BUILD_32_BITS:BOOL=OFF
 CMAKE_BUILD_TYPE=	Release
 PLIST_SUB=		LLVM_RELEASE="${LLVM_VERSION}"
 			LLVM_MAJOR="${MAJOR}"
@@ -70,7 +74,7 @@ post-install:
 	verify-uselistorder yaml2obj
 	${STAGEDIR}${PREFIX}/bin/llvm-strip ${STAGEDIR}${PREFIX}/bin/${F}
 .endfor
-.for F in BugpointPasses.so LLVMHello.so LLVMgold.so TestPlugin.so \
-	libLLVM-${MAJOR}.so libLTO.so.${MAJOR}
+.for F in BugpointPasses.so LLVMHello.so LLVMgold.so libLLVM-${MAJOR}.so \
+	libLTO.so.${MAJOR}
 	${STAGEDIR}${PREFIX}/bin/llvm-strip ${STAGEDIR}${PREFIX}/lib/${F}
 .endfor

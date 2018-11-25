@@ -27,6 +27,7 @@ LICENSE_SCHEME=		dual
 FPC_EQUIVALENT=		devel/libclc
 
 BUILD_DEPENDS=		llvm:single:standard
+			clang:compiler:standard
 			libedit:single:standard
 
 USES=			gmake python:py27,build
@@ -39,9 +40,7 @@ post-patch:
 		${WRKSRC}/configure.py
 
 do-configure:
-	# use port's c++ compiler instead of clang++
 	(cd ${WRKSRC} && ${PYTHON_CMD} configure.py ${CONFIGURE_ARGS} -g make \
-		--with-cxx-compiler="c++" \
 		--pkgconfigdir=${PREFIX}/lib/pkgconfig \
 		--with-llvm-config=${LOCALBASE}/bin/llvm-config \
 		--prefix=${PREFIX})
