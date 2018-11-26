@@ -1,8 +1,11 @@
 DEF[PORTVERSION]=	3.3.0
+# DEF[HASH]=		fuse-${PORTVERSION}
+DEF[HASH]=		d1ab94c
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fuse3
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		standard
 SDESC[standard]=	File System in Userspace (FUSE) utilities
@@ -10,7 +13,7 @@ HOMEPAGE=		https://github.com/libfuse/libfuse
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/libfuse:libfuse:fuse-${PORTVERSION}
+SITES[main]=		GITHUB/libfuse:libfuse:${HASH}
 DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
@@ -34,6 +37,10 @@ NOT_FOR_OPSYS=		dragonfly sunos
 USES=			meson pkgconfig
 SOVERSION=		${PORTVERSION}
 MESON_INSERT_RPATH=	util/meson.build
+
+post-patch:
+	# temporary, remove when 3.4.0 released
+	${REINPLACE_CMD} -e 's|3.4.0|${PORTVERSION}|' ${WRKSRC}/meson.build
 
 post-install-linux:
 	${RM} -r ${STAGEDIR}/dev
