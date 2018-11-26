@@ -420,6 +420,7 @@ headers_FreeBSD=	${headers_DragonFly:Nnet/*:Nutil.h} \
 			kenv.h \
 			libgeom.h \
 			libprocstat.h \
+			malloc_np.h \
 			# end
 
 headers_Linux_dirs=	arpa \
