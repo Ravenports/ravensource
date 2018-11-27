@@ -4,12 +4,12 @@
 BUILD_GOLD=		yes
 GOLD_CONFIG=		--enable-gold
 .elif "${OPSYS}" == "FreeBSD"
-.  if "${STANDARD_ARCH}" == "x86_64" && "${STANDARD_ARCH}" == "aarch64"
+.  if "${STANDARD_ARCH}" == "x86_64" || "${STANDARD_ARCH}" == "aarch64"
 BUILD_GOLD=		yes
 GOLD_CONFIG=		--enable-gold=default
 .  endif
 .elif "${OPSYS}" == "Linux"
-.  if "${STANDARD_ARCH}" == "x86_64" && "${STANDARD_ARCH}" == "aarch64"
+.  if "${STANDARD_ARCH}" == "x86_64" || "${STANDARD_ARCH}" == "aarch64"
 BUILD_GOLD=		yes
 GOLD_CONFIG=		--enable-gold
 .  endif
