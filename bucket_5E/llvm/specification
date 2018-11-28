@@ -25,7 +25,6 @@ OPTIONS_STANDARD=	GOLD
 OPT_ON[freebsd]=	GOLD//x86_64
 OPT_ON[dragonfly]=	GOLD//x86_64
 OPT_ON[linux]=		GOLD//x86_64
-OPT_ON[sunos]=		GOLD//x86_64
 
 LICENSE=		CUSTOM1:single
 LICENSE_NAME=		CUSTOM1:"University of Illinois/NCSA Open Source License"
@@ -40,6 +39,7 @@ GNOME_COMPONENTS=	libxml2
 DISTNAME=		llvm-${PORTVERSION}.src
 CMAKE_ARGS=		-DLLVM_BUILD_LLVM_DYLIB=ON
 			-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
+			-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON
 			-DLLVM_HOST_TRIPLE:STRING="{{CONFIGURE_TARGET}}"
 			-DLLVM_PARALLEL_LINK_JOBS=1
 			-DLLVM_INCLUDE_TESTS:BOOL=OFF
@@ -62,6 +62,7 @@ post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/man
 	${RM} -r ${STAGEDIR}${PREFIX}/include/llvm/MC/MCAnalysis
 	${RM} -r ${STAGEDIR}${PREFIX}/include/llvm/BinaryFormat/WasmRelocs
+	# don't use llvm-strip yet, it doesn't work on SunOS or MacOS
 .for F in bugpoint dsymutil llc lli llvm-ar llvm-as llvm-bcanalyzer \
 	llvm-c-test llvm-cat llvm-cfi-verify llvm-config llvm-cov \
 	llvm-cvtres llvm-cxxdump llvm-cxxfilt llvm-diff llvm-dis \
@@ -72,9 +73,11 @@ post-install:
 	llvm-split llvm-stress llvm-strings llvm-symbolizer llvm-tblgen \
 	llvm-undname llvm-xray obj2yaml opt sancov sanstats \
 	verify-uselistorder yaml2obj
-	${STAGEDIR}${PREFIX}/bin/llvm-strip ${STAGEDIR}${PREFIX}/bin/${F}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${F}
 .endfor
-.for F in BugpointPasses.so LLVMHello.so LLVMgold.so libLLVM-${MAJOR}.so \
-	libLTO.so.${MAJOR}
-	${STAGEDIR}${PREFIX}/bin/llvm-strip ${STAGEDIR}${PREFIX}/lib/${F}
+.for F in BugpointPasses.so LLVMHello.so libLLVM-${MAJOR}.so libLTO.so.${MAJOR}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/${F}
 .endfor
+
+post-install-GOLD-ON:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/LLVMgold.so
