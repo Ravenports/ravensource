@@ -1,4 +1,4 @@
---- ../../python/mozbuild/mozbuild/backend/recursivemake.py.orig	2018-01-11 18:49:46 UTC
+--- ../../python/mozbuild/mozbuild/backend/recursivemake.py.orig	2017-04-11 02:13:23 UTC
 +++ ../../python/mozbuild/mozbuild/backend/recursivemake.py
 @@ -1307,11 +1307,11 @@ class RecursiveMakeBackend(CommonBackend
                                  raise Exception("Wildcards are only supported in the filename part of "

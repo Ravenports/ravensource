@@ -1,6 +1,15 @@
---- ../../build/moz.configure/init.configure.orig	2018-01-11 18:49:42 UTC
+--- ../../build/moz.configure/init.configure.orig	2017-04-11 02:13:08 UTC
 +++ ../../build/moz.configure/init.configure
-@@ -344,8 +344,8 @@ def split_triplet(triplet):
+@@ -336,6 +336,8 @@ def split_triplet(triplet):
+         canonical_os = canonical_kernel = 'NetBSD'
+     elif os.startswith('openbsd'):
+         canonical_os = canonical_kernel = 'OpenBSD'
++    elif os.startswith('solaris'):
++        canonical_os = canonical_kernel = 'SunOS'
+     else:
+         die('Unknown OS: %s' % os)
+ 
+@@ -344,8 +346,8 @@ def split_triplet(triplet):
      if cpu.endswith('86') or (cpu.startswith('i') and '86' in cpu):
          canonical_cpu = 'x86'
          endianness = 'little'

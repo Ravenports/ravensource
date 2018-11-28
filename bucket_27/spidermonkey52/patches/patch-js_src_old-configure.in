@@ -1,6 +1,17 @@
---- old-configure.in.orig	2018-01-11 18:49:44 UTC
+--- old-configure.in.orig	2017-04-11 02:13:16 UTC
 +++ old-configure.in
-@@ -1623,16 +1623,21 @@ dnl ====================================
+@@ -599,6 +599,10 @@ dnl System overrides of the defaults for
+ dnl ========================================================
+ 
+ case "$target" in
++*-solaris*)
++	MOZ_FIX_LINK_PATHS=
++	;;
++
+ *-darwin*)
+     MKSHLIB='$(CXX) $(CXXFLAGS) $(DSO_PIC_CFLAGS) $(DSO_LDOPTS) -o $@'
+     MKCSHLIB='$(CC) $(CFLAGS) $(DSO_PIC_CFLAGS) $(DSO_LDOPTS) -o $@'
+@@ -1623,16 +1627,21 @@ dnl ====================================
  dnl = Enable jemalloc
  dnl ========================================================
  

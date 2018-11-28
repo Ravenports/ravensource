@@ -1,4 +1,4 @@
---- ../../config/rules.mk.orig	2018-01-11 18:49:42 UTC
+--- ../../config/rules.mk.orig	2017-04-11 02:13:09 UTC
 +++ ../../config/rules.mk
 @@ -418,7 +418,7 @@ endif # AIX
  #
