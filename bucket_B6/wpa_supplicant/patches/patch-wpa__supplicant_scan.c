@@ -1,6 +1,6 @@
---- wpa_supplicant/scan.c.orig	2016-10-02 18:51:11 UTC
+--- wpa_supplicant/scan.c.orig	2018-12-02 19:34:59 UTC
 +++ wpa_supplicant/scan.c
-@@ -1746,7 +1746,7 @@ struct wpabuf * wpa_scan_get_vendor_ie_m
+@@ -1951,7 +1951,7 @@ struct wpabuf * wpa_scan_get_vendor_ie_m
   * better. */
  static int wpa_scan_result_compar(const void *a, const void *b)
  {
@@ -9,7 +9,7 @@
  	struct wpa_scan_res **_wa = (void *) a;
  	struct wpa_scan_res **_wb = (void *) b;
  	struct wpa_scan_res *wa = *_wa;
-@@ -1775,9 +1775,9 @@ static int wpa_scan_result_compar(const
+@@ -1980,9 +1980,9 @@ static int wpa_scan_result_compar(const
  
  	if (wa->flags & wb->flags & WPA_SCAN_LEVEL_DBM) {
  		snr_a_full = wa->snr;
@@ -21,7 +21,7 @@
  	} else {
  		/* Level is not in dBm, so we can't calculate
  		 * SNR. Just use raw level (units unknown). */
-@@ -1800,7 +1800,7 @@ static int wpa_scan_result_compar(const
+@@ -2007,7 +2007,7 @@ static int wpa_scan_result_compar(const
  	if (snr_b_full == snr_a_full)
  		return wb->qual - wa->qual;
  	return snr_b_full - snr_a_full;

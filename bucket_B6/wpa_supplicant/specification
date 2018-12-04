@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.6
+DEF[PORTVERSION]=	2.7
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		wpa_supplicant
@@ -11,16 +11,10 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main patchsite
 SITES[main]=		https://w1.fi/releases/
-SITES[patchsite]=	https://w1.fi/security/2017-1/
+SITES[patchsite]=	https://w1.fi/security/2018-1/
 DISTFILE[1]=		wpa_supplicant-${PORTVERSION}.tar.gz:main
-DISTFILE[2]=		rebased-v2.6-0001-hostapd-Avoid-key-reinstallation-in-FT-handshake.patch:patchsite
-DISTFILE[3]=		rebased-v2.6-0002-Prevent-reinstallation-of-an-already-in-use-group-ke.patch:patchsite
-DISTFILE[4]=		rebased-v2.6-0003-Extend-protection-of-GTK-IGTK-reinstallation-of-WNM-.patch:patchsite
-DISTFILE[5]=		rebased-v2.6-0004-Prevent-installation-of-an-all-zero-TK.patch:patchsite
-DISTFILE[6]=		rebased-v2.6-0005-Fix-PTK-rekeying-to-generate-a-new-ANonce.patch:patchsite
-DISTFILE[7]=		rebased-v2.6-0006-TDLS-Reject-TPK-TK-reconfiguration.patch:patchsite
-DISTFILE[8]=		rebased-v2.6-0007-WNM-Ignore-WNM-Sleep-Mode-Response-without-pending-r.patch:patchsite
-DISTFILE[9]=		rebased-v2.6-0008-FT-Do-not-allow-multiple-Reassociation-Response-fram.patch:patchsite
+# DISTFILE[2]=		rebased-v2.6-0001-hostapd-Avoid-key.patch:patchsite
+# DISTFILE[3]=		rebased-v2.6-0002-Prevent-reinstallati.patch:patchsite
 
 SPKGS[standard]=	single
 
@@ -59,7 +53,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/wpa_supplicant
 
-PATCHFILES=		2 3 4 5 6 7 8 9
+# PATCHFILES=		2 3 4 5 6 7 8 9
 PATCHFILES_STRIP=	-p1
 
 BUILDRUN_DEPENDS=	libpcap:single:standard
