@@ -2,7 +2,7 @@ $OpenBSD: patch-src_tls_tls_h,v 1.2 2017/03/04 22:09:43 sthen Exp $
 
 Fix building with LibreSSL
 
---- src/tls/tls.h.orig	2017-01-01 22:22:13 UTC
+--- src/tls/tls.h.orig	2018-11-17 22:55:55 UTC
 +++ src/tls/tls.h
 @@ -89,7 +89,7 @@ extern const char *str_tls_level(int);
  #endif

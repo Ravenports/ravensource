@@ -1,6 +1,6 @@
---- src/tls/tls_dane.c.orig	2017-12-27 21:53:13 UTC
+--- src/tls/tls_dane.c.orig	2018-11-04 23:47:50 UTC
 +++ src/tls/tls_dane.c
-@@ -2134,7 +2134,7 @@ static SSL_CTX *ctx_init(const char *CAf
+@@ -2127,7 +2127,7 @@ static SSL_CTX *ctx_init(const char *CAf
      tls_param_init();
      tls_check_version();
  

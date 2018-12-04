@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.3.1
+DEF[PORTVERSION]=	3.3.2
 DEF[DAEMONDIR]=		{{PREFIX}}/libexec/postfix
 DEF[METADIR]=		{{PREFIX}}/etc/postfix
 DEF[SHLIBDIR]=		{{PREFIX}}/lib/postfix
@@ -23,6 +23,16 @@ SPKGS[standard]=	complete primary cdb ldap lmdb mysql pgsql test docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:primary CUSTOM2:primary
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"remainder of this text contains a copy"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/LICENSE
+LICENSE_FILE=		CUSTOM1:{{WRKDIR}}/LICENSE_EPL
+			CUSTOM2:{{WRKDIR}}/LICENSE_IBM
+LICENSE_NAME=		CUSTOM1:"Eclipse Public License v2.0"
+			CUSTOM2:"IBM Public License v1.0"
+LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		mail/postfix
 
@@ -88,6 +98,12 @@ QMAKE_ARGS=		-DDEF_CONFIG_DIR=\\\"{{PREFIX}}/etc/postfix\\\"
 			-DUSE_SASL_AUTH
 			-DNO_DB
 			-Wmissing-prototypes -Wformat -Wno-comment
+
+post-extract:
+	${AWK} '/^Eclipse Public License/,/additional accurate notices/' \
+		${WRKSRC}/LICENSE > ${WRKDIR}/LICENSE_EPL
+	${AWK} '/^IBM PUBLIC LICENSE/,EOF' \
+		${WRKSRC}/LICENSE > ${WRKDIR}/LICENSE_IBM
 
 post-patch:
 	${ECHO_CMD} '$$manpage_directory/man1/posttls-finger.1:f:root:-:644' \
