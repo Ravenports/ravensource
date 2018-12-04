@@ -1,29 +1,23 @@
-DEF[PORTVERSION]=	2.13.1
+DEF[PORTVERSION]=	2.15.2
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-xml2rfc
 VERSION=		${PORTVERSION}
 KEYWORDS=		python textproc
-VARIANTS=		py27 py36 py37
+VARIANTS=		py27
 SDESC[py27]=		Request For Comment authoring with XML (PY 27)
-SDESC[py36]=		Request For Comment authoring with XML (PY 36)
-SDESC[py37]=		Request For Comment authoring with XML (PY 37)
 HOMEPAGE=		https://tools.ietf.org/tools/xml2rfc/trac/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/x/xml2rfc
-DISTFILE[1]=		xml2rfc-2.13.1.tar.gz:main
+DISTFILE[1]=		xml2rfc-2.15.2.tar.gz:main
 
 SPKGS[py27]=		single
-SPKGS[py36]=		single
-SPKGS[py37]=		single
 
-OPTIONS_AVAILABLE=	PY27 PY36 PY37
+OPTIONS_AVAILABLE=	PY27
 OPTIONS_STANDARD=	none
-VOPTS[py27]=		PY27=ON PY36=OFF PY37=OFF
-VOPTS[py36]=		PY27=OFF PY36=ON PY37=OFF
-VOPTS[py37]=		PY27=OFF PY36=OFF PY37=ON
+VOPTS[py27]=		PY27=ON
 
 # Output of setup.py --license
 # Simplified BSD Licence
@@ -31,44 +25,26 @@ VOPTS[py37]=		PY27=OFF PY36=OFF PY37=ON
 GENERATED=		yes
 
 # install_requires extracted from setup.py (using python 2.7)
-# html5lib>=1.0.1
 # google-i18n-address>=2.3.2
+# html5lib>=1.0.1
 # intervaltree>=2.1.0
 # lxml>=2.2.8
-# pycountry>=18.5.26
+# pycountry>=1.8
 # pyflakes>=0.8.1
 # requests>=2.5.0
+# setuptools>=18.0
 # six>=1.4.1
 
 DISTNAME=		xml2rfc-${PORTVERSION}
 
 [PY27].USES_ON=				python:py27
-[PY27].BUILDRUN_DEPENDS_ON=		python-html5lib:single:py27
-					python-google-i18n-address:single:py27
+[PY27].BUILDRUN_DEPENDS_ON=		python-google-i18n-address:single:py27
+					python-html5lib:single:py27
 					python-intervaltree:single:py27
 					python-lxml:single:py27
 					python-pycountry:single:py27
 					python-pyflakes:single:py27
 					python-requests:single:py27
+					python-setuptools:single:py27
 					python-six:single:py27
-
-[PY36].USES_ON=				python:py36
-[PY36].BUILDRUN_DEPENDS_ON=		python-html5lib:single:py36
-					python-google-i18n-address:single:py36
-					python-intervaltree:single:py36
-					python-lxml:single:py36
-					python-pycountry:single:py36
-					python-pyflakes:single:py36
-					python-requests:single:py36
-					python-six:single:py36
-
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-html5lib:single:py37
-					python-google-i18n-address:single:py37
-					python-intervaltree:single:py37
-					python-lxml:single:py37
-					python-pycountry:single:py37
-					python-pyflakes:single:py37
-					python-requests:single:py37
-					python-six:single:py37
 
