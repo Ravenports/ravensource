@@ -1,4 +1,4 @@
---- ext/NDBM_File/Makefile.PL.orig	2018-05-21 12:29:23 UTC
+--- ext/NDBM_File/Makefile.PL.orig	2018-11-01 22:07:48 UTC
 +++ ext/NDBM_File/Makefile.PL
 @@ -4,4 +4,5 @@ WriteMakefile(
      LIBS => ["-L/usr/local/lib -lndbm", "-ldbm -lucb"],
