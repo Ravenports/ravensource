@@ -1,4 +1,4 @@
---- shell/source/unix/exec/shellexec.cxx.orig	2018-02-08 14:35:19 UTC
+--- shell/source/unix/exec/shellexec.cxx.orig	2018-10-30 16:55:21 UTC
 +++ shell/source/unix/exec/shellexec.cxx
 @@ -145,7 +145,7 @@ void SAL_CALL ShellExec::execute( const
          aBuffer.append("open --");

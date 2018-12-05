@@ -1,4 +1,4 @@
---- sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.hxx.orig	2018-10-18 16:22:38 UTC
+--- sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.hxx.orig	2018-10-30 16:55:21 UTC
 +++ sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.hxx
 @@ -150,22 +150,22 @@ namespace pdfi
  

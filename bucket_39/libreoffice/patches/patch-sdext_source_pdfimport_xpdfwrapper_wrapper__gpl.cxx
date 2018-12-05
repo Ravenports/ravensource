@@ -1,4 +1,4 @@
---- sdext/source/pdfimport/xpdfwrapper/wrapper_gpl.cxx.orig	2018-10-18 16:22:38 UTC
+--- sdext/source/pdfimport/xpdfwrapper/wrapper_gpl.cxx.orig	2018-10-30 16:55:21 UTC
 +++ sdext/source/pdfimport/xpdfwrapper/wrapper_gpl.cxx
 @@ -69,7 +69,7 @@ int main(int argc, char **argv)
  

@@ -1,4 +1,4 @@
---- sal/osl/unx/system.hxx.orig	2018-02-08 14:35:19 UTC
+--- sal/osl/unx/system.hxx.orig	2018-10-30 16:55:21 UTC
 +++ sal/osl/unx/system.hxx
 @@ -106,7 +106,9 @@
  #endif

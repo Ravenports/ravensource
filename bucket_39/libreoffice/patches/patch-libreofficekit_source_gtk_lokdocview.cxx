@@ -1,4 +1,4 @@
---- libreofficekit/source/gtk/lokdocview.cxx.orig	2018-02-08 14:35:19 UTC
+--- libreofficekit/source/gtk/lokdocview.cxx.orig	2018-10-30 16:55:21 UTC
 +++ libreofficekit/source/gtk/lokdocview.cxx
 @@ -3218,6 +3218,7 @@ static void lok_doc_view_class_init (LOK
                       G_TYPE_STRING);
