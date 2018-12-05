@@ -1,4 +1,4 @@
-DEF[DF_RELEASE]=	5.0.0
+DEF[DF_RELEASE]=	5.4.0
 DEF[LINUX_KERNEL]=	4.4.0-53
 DEF[LINUX_OSREL]=	${LINUX_KERNEL:DL="-":H}
 DEF[LINUX_MAJOR]=	${LINUX_OSREL:R}
@@ -6,12 +6,13 @@ DEF[LINUX_VERSION]=	${LINUX_KERNEL:S/-//:S/.//:S/./0/}
 DEF[EXTRA_UBUNTU]=	4 5 6 7 8 9 10 11 12 13 17 18 19
 DEF[FREEBSD_RELEASE]=	11.1
 DEF[FREE_KERNEL_VER]=	1101001
+DEF[DFLY_KERNEL_VER]=	500400
 DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravensys-root
-VERSION=		1.4
-REVISION=		9
+VERSION=		1.5
+REVISION=		0
 KEYWORDS=		raven
 VARIANTS=		dragonfly freebsd_amd64 linux sunos macos
 SDESC[dragonfly]=	DragonFly64 system root for Ravenports build env
@@ -26,7 +27,7 @@ DOWNLOAD_GROUPS=	main avalon ubuntu1 ubuntu2 ubuntu3 ubuntu4 ubuntu5
 			ubuntu6 ubuntu7 ubuntu8 ubuntu9
 			freebsd_amd64 dragonlace
 SITES[main]=		https://leaf.dragonflybsd.org/~marino/dports-src/
-SITES[avalon]=		http://mirror-master.dragonflybsd.org/iso-images/
+SITES[avalon]=		https://mirror-master.dragonflybsd.org/iso-images/
 SITES[freebsd_amd64]=	https://download.freebsd.org/ftp/releases/amd64/amd64/ISO-IMAGES/${FREEBSD_RELEASE}/
 SITES[dragonlace]=	http://downloads.dragonlace.net/misc/
 SITES[ubuntu1]=		http://security.ubuntu.com/ubuntu/pool/main/g/glibc/
@@ -185,11 +186,10 @@ post-install-DRAGONFLY-ON:
 		${STAGEDIR}${RSYS}/usr/share/
 	${RM} -r ${STAGEDIR}${RSYS}/var
 
-	# Approach only works for DragonFly.
-	${FOS}/usr/bin/make -V .MAKE.DF.OSREL   > ${STAGEDIR}${RSYS}/usr/share/OSRELEASE
-	${FOS}/usr/bin/make -V .MAKE.DF.OSREL   > ${STAGEDIR}${RSYS}/usr/share/OSMAJOR
-	${FOS}/usr/bin/make -V .MAKE.DF.VERSION > ${STAGEDIR}${RSYS}/usr/share/OSVERSION
-	echo "x86_64"                           > ${STAGEDIR}${RSYS}/usr/share/STDARCH
+	${ECHO} "${DF_RELEASE:R}"    > ${STAGEDIR}${RSYS}/usr/share/OSRELEASE
+	${ECHO} "${DF_RELEASE:R}"    > ${STAGEDIR}${RSYS}/usr/share/OSMAJOR
+	${ECHO} "${DFLY_KERNEL_VER}" > ${STAGEDIR}${RSYS}/usr/share/OSVERSION
+	${ECHO} "x86_64"             > ${STAGEDIR}${RSYS}/usr/share/STDARCH
 
 post-extract-LINUX-ON:
 	${MV} ${WRKDIR}/${NAMEBASE}_3 ${WRKDIR}/linux
@@ -207,11 +207,11 @@ post-install-LINUX-ON:
 		${STAGEDIR}${RSYS}/usr/share/passwd
 	${INSTALL_DATA} ${FOS}/etc/ld.so.conf.d/x86_64-linux-gnu.conf \
 		${STAGEDIR}${RSYS}/usr/share/x86_64-linux-gnu.conf
-	echo "${LINUX_OSREL}"   > ${STAGEDIR}${RSYS}/usr/share/OSRELEASE
-	echo "${LINUX_MAJOR}"   > ${STAGEDIR}${RSYS}/usr/share/OSMAJOR
-	echo "${LINUX_VERSION}" > ${STAGEDIR}${RSYS}/usr/share/OSVERSION
-	echo "x86_64"           > ${STAGEDIR}${RSYS}/usr/share/STDARCH
-	echo "include /etc/ld.so.conf.d/*.conf" > ${STAGEDIR}${RSYS}/usr/share/ld.so.conf
+	${ECHO} "${LINUX_OSREL}"   > ${STAGEDIR}${RSYS}/usr/share/OSRELEASE
+	${ECHO} "${LINUX_MAJOR}"   > ${STAGEDIR}${RSYS}/usr/share/OSMAJOR
+	${ECHO} "${LINUX_VERSION}" > ${STAGEDIR}${RSYS}/usr/share/OSVERSION
+	${ECHO} "x86_64"           > ${STAGEDIR}${RSYS}/usr/share/STDARCH
+	${ECHO} "include /etc/ld.so.conf.d/*.conf" > ${STAGEDIR}${RSYS}/usr/share/ld.so.conf
 	${LN} -s asm-generic ${STAGEDIR}${RSYS}/usr/include/asm
 
 post-extract-FREEBSDAMD64-ON:
@@ -243,7 +243,7 @@ post-install-FREEBSDAMD64-ON:
 	${ECHO} ${FREEBSD_RELEASE}   > ${STAGEDIR}${RSYS}/usr/share/OSRELEASE
 	${ECHO} ${FREEBSD_RELEASE:R} > ${STAGEDIR}${RSYS}/usr/share/OSMAJOR
 	${ECHO} ${FREE_KERNEL_VER}   > ${STAGEDIR}${RSYS}/usr/share/OSVERSION
-	echo "x86_64"                > ${STAGEDIR}${RSYS}/usr/share/STDARCH
+	${ECHO} "x86_64"             > ${STAGEDIR}${RSYS}/usr/share/STDARCH
 
 post-extract-SUNOS-ON:
 	${MV} ${WRKDIR}/solaris_root_10_u8 ${WRKDIR}/sunos

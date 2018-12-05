@@ -31,7 +31,7 @@ Bin_DragonFly=	/bin/[ \
 		/bin/kill \
 		/bin/link \
 		/bin/ln \
-		/usr/share/initrd/bin/ls \
+		/rescue/ls \
 		/bin/mkdir \
 		/bin/mv \
 		/bin/pax \
@@ -39,7 +39,7 @@ Bin_DragonFly=	/bin/[ \
 		/bin/realpath \
 		/bin/rm \
 		/bin/rmdir \
-		/usr/share/initrd/bin/sh \
+		/rescue/sh \
 		/bin/sleep \
 		/bin/test \
 		/bin/unlink
@@ -284,10 +284,7 @@ posix_headers=		aio.h \
 			monetary.h \
 			mqueue.h \
 			ndbm.h \
-			net/if.h \
 			netdb.h \
-			netinet/in.h \
-			netinet/tcp.h \
 			nl_types.h \
 			poll.h \
 			pthread.h \
@@ -308,23 +305,6 @@ posix_headers=		aio.h \
 			string.h \
 			strings.h \
 			stropts.h \
-			sys/ipc.h \
-			sys/mman.h \
-			sys/msg.h \
-			sys/resource.h \
-			sys/select.h \
-			sys/sem.h \
-			sys/shm.h \
-			sys/socket.h \
-			sys/stat.h \
-			sys/statvfs.h \
-			sys/time.h \
-			sys/times.h \
-			sys/types.h \
-			sys/uio.h \
-			sys/un.h \
-			sys/utsname.h \
-			sys/wait.h \
 			syslog.h \
 			tar.h \
 			termios.h \
@@ -349,6 +329,7 @@ headers_Darwin=		#end
 headers_FreeBSD_dirs=	arpa \
 			dev \
 			geom \
+			machine \
 			net \
 			net80211 \
 			netipsec \
@@ -356,34 +337,44 @@ headers_FreeBSD_dirs=	arpa \
 			netinet6 \
 			rpc \
 			rpcsvc \
+			sys \
 			vm \
+			x86 \
 			xlocale \
 			# end
 
 headers_DragonFly_dirs=	arpa \
 			bus \
+			cpu \
 			dev \
 			libprop \
+			machine \
 			net \
+			netbt \
 			netinet \
 			netinet6 \
 			netproto \
+			protocols \
 			rpc \
 			rpcsvc \
+			sys \
+			vfs \
 			vm \
 			xlocale \
 			# end
 
 headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
-			libutil.h \
-			pthread_np.h \
-			usb.h \
-			usbhid.h \
 			ar.h \
+			bitstring.h \
+			bluetooth.h \
 			camlib.h \
-			devstat.h \
+			dfregress.h \
+			disktab.h \
+			efivar.h \
+			elf-hints.h \
 			elf.h \
 			err.h \
+			evtr.h \
 			floatingpoint.h \
 			fstab.h \
 			fts.h \
@@ -391,28 +382,50 @@ headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
 			ieeefp.h \
 			ifaddrs.h \
 			kvm.h \
+			libcryptsetup.h \
+			libusb.h \
+			libusb20.h \
+			libusb20_desc.h \
+			libutil.h \
 			link.h \
+			linker_set.h \
 			login_cap.h \
+			luks.h \
 			memory.h \
+			mntopts.h \
+			mpool.h \
+			netconfig.h \
 			nlist.h \
 			osreldate.h \
 			paths.h \
-			resolv.h \
-			util.h \
-			vis.h \
-			libusb.h \
-			netconfig.h \
+			printf.h \
+			pthread_np.h \
+			re_comp.h \
 			readpassphrase.h \
+			res_update.h \
+			resolv.h \
 			runetype.h \
+			sdp.h \
+			stdalign.h \
+			stdnoreturn.h \
 			stringlist.h \
 			sysexits.h \
+			syslog.h \
+			timeconv.h \
+			timers.h \
 			ttyent.h \
+			uchar.h \
 			ucontext.h \
+			usb.h \
+			usbhid.h \
+			util.h \
+			utmp.h \
 			uuid.h \
+			vis.h \
 			xlocale.h \
 			# end
 
-headers_FreeBSD=	${headers_DragonFly:Nnet/*:Nutil.h} \
+headers_FreeBSD=	${headers_DragonFly:Nutil.h} \
 			_ctype.h \
 			bsm/audit.h \
 			libusb20.h \
@@ -683,6 +696,14 @@ install:
 		ln -s libsbuf.so.3 libsbuf.so && \
 		ln -s libcam.so.3 libcam.so)
 	(cd ${DESTDIR}${BASE}/usr/include && \
+		ln -s vfs fs && \
+		ln -s vfs ufs && \
+		ln -s vfs/nfs nfs && \
+		ln -s vfs/ntfs ntfs && \
+		ln -s vfs/isofs isofs && \
+		ln -s vfs/msdos msdosfs && \
+		ln -s netproto/smb netsmb && \
+		ln -s bus/pccard pccard && \
 		ln -s bus/cam cam)
 .endif
 .if ${OPSYS} == Linux
@@ -794,16 +815,13 @@ install:
 .endfor
 .if ${OPSYS} == DragonFly
 	cp ${LOCALBASE}/lib/libdl.a ${DESTDIR}${BASE}/usr/lib/
-	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/include/cpu/*.h ${DESTDIR}${BASE}/usr/include/cpu/
-	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/include/machine/*.h ${DESTDIR}${BASE}/usr/include/machine/
-	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/include/sys/*.h ${DESTDIR}${BASE}/usr/include/sys/
 	rm ${DESTDIR}${BASE}/usr/include/net/zlib.h
+	rm -rf ${DESTDIR}${BASE}/usr/include/net/ipfw*
+	rm -rf ${DESTDIR}${BASE}/usr/include/net/pf
+	rmdir  ${DESTDIR}${BASE}/usr/include/vfs/mfs
 .endif
 .if ${OPSYS} == FreeBSD
 	cp ${LOCALBASE}/lib/libdl.a ${DESTDIR}${BASE}/usr/lib/
-	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/include/x86/*.h ${DESTDIR}${BASE}/usr/include/x86/
-	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/include/machine/*.h ${DESTDIR}${BASE}/usr/include/machine/
-	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/include/sys/*.h ${DESTDIR}${BASE}/usr/include/sys/
 	rmdir ${DESTDIR}${BASE}/usr/include/dev/nand
 	rmdir ${DESTDIR}${BASE}/usr/include/dev/powermac_nvram
 .endif
