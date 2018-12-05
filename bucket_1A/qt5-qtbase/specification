@@ -65,6 +65,7 @@ SUB_LIST=		CC={{CC:Q}}
 			PTHREAD_LIBS={{QMAKE_LIBS_THREAD:Q}}
 			PTHREAD_LDFLAGS={{QMAKE_LFLAGS_THREAD:Q}}
 			SYS_LIBS={{QMAKE_X11_SYS_LIBS:Q}}
+			PLATFORM={{VAR1}}
 PLIST_SUB=		QTVER=${PORTVERSION}
 			SOMAJORMIN=${PORTVERSION:R}
 SOVERSION=		${PORTVERSION}
@@ -72,6 +73,11 @@ INSTALL_REQ_TOOLCHAIN=	yes
 SHEBANG_FILES=		mkspecs/features/uikit/devices.py
 			mkspecs/features/uikit/device_destinations.sh
 			mkspecs/features/data/mac/objc_namespace.sh
+
+VAR_OPSYS[dragonfly]=	VAR1=dragonfly
+VAR_OPSYS[freebsd]=	VAR1=freebsd
+VAR_OPSYS[sunos]=	VAR1=solaris
+VAR_OPSYS[linux]=	VAR1=linux
 
 post-patch:
 	${MKDIR} ${WRKSRC}/mkspecs/dragonfly-g++
