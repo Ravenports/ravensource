@@ -1,4 +1,4 @@
---- src/network/ssl/qsslcontext_openssl.cpp.orig	2018-05-14 04:46:28 UTC
+--- src/network/ssl/qsslcontext_openssl.cpp.orig	2018-11-25 12:51:11 UTC
 +++ src/network/ssl/qsslcontext_openssl.cpp
 @@ -248,7 +248,7 @@ void QSslContext::applyBackendConfig(QSs
      if (sslContext->sslConfiguration.backendConfiguration().isEmpty())

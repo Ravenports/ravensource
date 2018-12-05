@@ -1,6 +1,6 @@
---- src/network/ssl/qsslsocket_openssl_symbols.cpp.orig	2018-05-14 04:46:28 UTC
+--- src/network/ssl/qsslsocket_openssl_symbols.cpp.orig	2018-11-25 12:51:11 UTC
 +++ src/network/ssl/qsslsocket_openssl_symbols.cpp
-@@ -402,7 +402,7 @@ DEFINEFUNC2(int, SSL_CTX_use_PrivateKey,
+@@ -406,7 +406,7 @@ DEFINEFUNC2(int, SSL_CTX_use_PrivateKey,
  DEFINEFUNC2(int, SSL_CTX_use_RSAPrivateKey, SSL_CTX *a, a, RSA *b, b, return -1, return)
  DEFINEFUNC3(int, SSL_CTX_use_PrivateKey_file, SSL_CTX *a, a, const char *b, b, int c, c, return -1, return)
  DEFINEFUNC(X509_STORE *, SSL_CTX_get_cert_store, const SSL_CTX *a, a, return 0, return)
