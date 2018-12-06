@@ -608,22 +608,16 @@ install:
 .if "${OPSYS}" == "DragonFly"
 	${MKDIR} \
 		${DESTDIR}${BASE}/libexec \
-		${DESTDIR}${BASE}/usr/include/cpu \
-		${DESTDIR}${BASE}/usr/include/sys \
-		${DESTDIR}${BASE}/usr/include/machine \
-		${DESTDIR}${BASE}/usr/include/vm \
 		${DESTDIR}${BASE}/usr/include/xlocale \
 		${DESTDIR}${BASE}/usr/share/locale/en_US.UTF-8 \
+		${DESTDIR}${BASE}/usr/lib/gcc50 \
+		${DESTDIR}${BASE}/usr/lib/gcc80 \
 		# end
 .endif
 .if "${OPSYS}" == "FreeBSD"
 	${MKDIR} \
 		${DESTDIR}${BASE}/libexec \
 		${DESTDIR}${BASE}/usr/include/bsm \
-		${DESTDIR}${BASE}/usr/include/x86 \
-		${DESTDIR}${BASE}/usr/include/sys \
-		${DESTDIR}${BASE}/usr/include/machine \
-		${DESTDIR}${BASE}/usr/include/vm \
 		${DESTDIR}${BASE}/usr/include/xlocale \
 		${DESTDIR}${BASE}/usr/share/locale/en_US.UTF-8 \
 		# end
@@ -705,6 +699,12 @@ install:
 		ln -s netproto/smb netsmb && \
 		ln -s bus/pccard pccard && \
 		ln -s bus/cam cam)
+.  for item in gcc50/libstdc++.so.9 gcc80/libstdc++.so.9
+	${BSD_INSTALL_LIB} ../${OPSYS:tl}/usr/lib/${item} ${DESTDIR}${BASE}/usr/lib/${item}
+.  endfor
+.  for item in gcc50/libgcc_pic.a gcc80/libgcc_pic.a
+	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/lib/${item} ${DESTDIR}${BASE}/usr/lib/${item}
+.  endfor
 .endif
 .if ${OPSYS} == Linux
 .  for item in ${Linux_static_libs}
