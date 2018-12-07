@@ -218,6 +218,11 @@ dynamic_lib_FreeBSD=	${dynamic_generic} \
 dynamic_lib_DragonFly=	${dynamic_generic} \
 			/lib/libcam.so.3 \
 			/lib/libsbuf.so.3 \
+			/lib/libprop.so.3 \
+			/lib/libdevattr.so.3 \
+			/lib/libdevstat.so.3 \
+			/usr/lib/libdevinfo.so.3 \
+			/usr/lib/libdevmapper.so.0 \
 			/usr/lib/libpthread.so \
 			/usr/lib/libpthread.so.0 \
 			/usr/lib/libexecinfo.so.1 \
@@ -368,6 +373,9 @@ headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
 			bitstring.h \
 			bluetooth.h \
 			camlib.h \
+			devattr.h \
+			devinfo.h \
+			devstat.h \
 			dfregress.h \
 			disktab.h \
 			efivar.h \
@@ -608,7 +616,7 @@ install:
 .if "${OPSYS}" == "DragonFly"
 	${MKDIR} \
 		${DESTDIR}${BASE}/libexec \
-		${DESTDIR}${BASE}/usr/include/xlocale \
+		${DESTDIR}${BASE}/usr/include/compat \
 		${DESTDIR}${BASE}/usr/share/locale/en_US.UTF-8 \
 		${DESTDIR}${BASE}/usr/lib/gcc50 \
 		${DESTDIR}${BASE}/usr/lib/gcc80 \
@@ -618,7 +626,6 @@ install:
 	${MKDIR} \
 		${DESTDIR}${BASE}/libexec \
 		${DESTDIR}${BASE}/usr/include/bsm \
-		${DESTDIR}${BASE}/usr/include/xlocale \
 		${DESTDIR}${BASE}/usr/share/locale/en_US.UTF-8 \
 		# end
 .endif
@@ -690,6 +697,7 @@ install:
 		ln -s libsbuf.so.3 libsbuf.so && \
 		ln -s libcam.so.3 libcam.so)
 	(cd ${DESTDIR}${BASE}/usr/include && \
+		ln -s /usr/include/dev/misc/evdev compat/linux && \
 		ln -s vfs fs && \
 		ln -s vfs ufs && \
 		ln -s vfs/nfs nfs && \
