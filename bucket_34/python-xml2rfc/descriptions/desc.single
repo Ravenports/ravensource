@@ -39,6 +39,29 @@ Changelog
 =========
 
 
+Version 2.15.3 (05 Dec 2018)
+------------------------------------------------
+
+
+  This release fixes some issues found when running the html renderer over
+  a corpus of all drafts submitted with xml format over the last 30 days,
+  and an installation issue.
+
+  * Handled utf-8 reloading in setup.py under py27 without using six,
+which
+    might be unavailable before the installation completes.
+
+  * Always convert python lists to comma-separated strings before calling
+    on i18n address validation.
+
+  * Added some guards to prevent operations on None.
+
+
+
+
+
+
+
 Version 2.15.2 (02 Dec 2018)
 ------------------------------------------------
 
@@ -85,25 +108,3 @@ schema), and
   * Changed the workaround for non-ascii metadata in setup.py to only be
     active under py2.  Fixes a problem with setup.py under python 3.x
 
-  * Reverted [2786], which permitted non-ascii characters inside artwork
-    for the v2 renderers, but broke when trying to write to file without
-    utf-8 encoding.  Fixes issue #387.
-
-
-
-
-
-
-
-Version 2.15.0 (30 Nov 2018)
-------------------------------------------------
-
-
-  * Added support for a new element <u>, to be used to insert unicode in
-    protocol descriptions.
-
-    In xml2rfc vocabulary version 3, the elements <author>,
-    <organisation>, <street>, <city>, <region>, <code>, <country>,
-    <postalLine>, <email>, and <seriesInfo> may contain non-ascii
-    characters for the purpose of rendering author names, addresses, and
-    reference titles correctly.  They also have an additional "ascii"
