@@ -695,6 +695,11 @@ install:
 .if ${OPSYS} == DragonFly
 	(cd ${DESTDIR}${BASE}/usr/lib && \
 		ln -s libsbuf.so.3 libsbuf.so && \
+		ln -s libprop.so.3 libprop.so && \
+		ln -s libdevattr.so.3 libdevattr.so && \
+		ln -s libdevstat.so.3 libdevstat.so && \
+		ln -s libdevinfo.so.3 libdevinfo.so && \
+		ln -s libdevmapper.so.0 libdevmapper.so && \
 		ln -s libcam.so.3 libcam.so)
 	(cd ${DESTDIR}${BASE}/usr/include && \
 		ln -s /usr/include/dev/misc/evdev compat/linux && \
