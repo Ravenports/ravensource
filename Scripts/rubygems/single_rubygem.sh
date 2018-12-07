@@ -24,7 +24,7 @@ SPEC=${NEWPORT}/specification
 mirror_base=/mech/var/cache/rubygems
 specsdir=${mirror_base}/specs
 reqsdir=${mirror_base}/reqs
-gemline="gs = Marshal.load Gem.inflate File.read '${specsdir}"
+gemline="gs = Marshal.load Gem::Util.inflate File.read '${specsdir}"
 min_ruby23="2.3.7"
 min_ruby24="2.4.4"
 min_ruby25="2.5.1"
