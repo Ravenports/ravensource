@@ -1,6 +1,6 @@
---- src/network/ssl/qsslsocket_openssl_symbols_p.h.orig	2018-11-25 12:51:11 UTC
+--- src/network/ssl/qsslsocket_openssl_symbols_p.h.orig	2018-12-03 11:15:26 UTC
 +++ src/network/ssl/qsslsocket_openssl_symbols_p.h
-@@ -356,7 +356,7 @@ int q_SSL_CTX_use_PrivateKey(SSL_CTX *a,
+@@ -359,7 +359,7 @@ int q_SSL_CTX_use_PrivateKey(SSL_CTX *a,
  int q_SSL_CTX_use_RSAPrivateKey(SSL_CTX *a, RSA *b);
  int q_SSL_CTX_use_PrivateKey_file(SSL_CTX *a, const char *b, int c);
  X509_STORE *q_SSL_CTX_get_cert_store(const SSL_CTX *a);

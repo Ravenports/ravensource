@@ -1,4 +1,4 @@
---- qmake/generators/unix/unixmake2.cpp.orig	2018-11-25 12:51:11 UTC
+--- qmake/generators/unix/unixmake2.cpp.orig	2018-12-03 11:15:26 UTC
 +++ qmake/generators/unix/unixmake2.cpp
 @@ -183,12 +183,12 @@ UnixMakefileGenerator::writeMakeParts(QT
      t << "####### Compiler, tools and options\n\n";
@@ -22,9 +22,9 @@
      if(!project->isActiveConfig("staticlib")) {
          t << "LINK          = " << var("QMAKE_LINK") << endl;
 -        t << "LFLAGS        = " << var("QMAKE_LFLAGS") << endl;
--        t << "LIBS          = $(SUBLIBS) " << fixLibFlags("QMAKE_LIBS").join(' ') << ' '
+-        t << "LIBS          = $(SUBLIBS) " << fixLibFlags("LIBS").join(' ') << ' '
 +        t << "LFLAGS       += " << var("QMAKE_LFLAGS") << endl;
-+        t << "LIBS         += $(SUBLIBS) " << fixLibFlags("QMAKE_LIBS").join(' ') << ' '
++        t << "LIBS         += $(SUBLIBS) " << fixLibFlags("LIBS").join(' ') << ' '
+                                            << fixLibFlags("LIBS_PRIVATE").join(' ') << ' '
+                                            << fixLibFlags("QMAKE_LIBS").join(' ') << ' '
                                             << fixLibFlags("QMAKE_LIBS_PRIVATE").join(' ') << endl;
-     }
- 
