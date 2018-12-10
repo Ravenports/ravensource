@@ -1,5 +1,5 @@
---- xf86drm.c.orig	2018-10-16 14:49:03 UTC
-+++ xf86drm.c
+--- ./xf86drm.c.orig	2018-10-16 17:49:03.000000000 +0300
++++ ./xf86drm.c	2018-12-10 13:06:28.583496000 +0200
 @@ -46,6 +46,9 @@
  #include <signal.h>
  #include <time.h>
@@ -332,10 +332,9 @@
 +            return strdup(name);
      }
 -    if (i == DRM_MAX_MINOR)
--        return NULL;
+         return NULL;
 -
 -    return strdup(name);
-+    return NULL;
  }
  
  static bool drmNodeIsDRM(int maj, int min)
@@ -725,6 +724,15 @@
        return -errno;
      if (stat(node, &sbuf))
          return -EINVAL;
+@@ -3923,7 +4037,7 @@ drm_public int drmGetDevice2(int fd, uin
+     maj = major(sbuf.st_rdev);
+     min = minor(sbuf.st_rdev);
+ 
+-    if (!drmNodeIsDRM(maj, min) || !S_ISCHR(sbuf.st_mode))
++    if ((DRM_MAJOR && !drmNodeIsDRM(maj, min)) || !S_ISCHR(sbuf.st_mode))
+         return -EINVAL;
+ 
+     subsystem_type = drmParseSubsystemType(maj, min);
 @@ -3989,7 +4103,7 @@ drm_public int drmGetDevice(int fd, drmD
  /**
   * Get drm devices on the system
