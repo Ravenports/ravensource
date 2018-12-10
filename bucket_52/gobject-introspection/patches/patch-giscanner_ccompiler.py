@@ -1,4 +1,4 @@
---- giscanner/ccompiler.py.orig	2018-04-09 05:40:56 UTC
+--- giscanner/ccompiler.py.orig	2018-11-17 17:48:27 UTC
 +++ giscanner/ccompiler.py
 @@ -130,7 +130,7 @@ class CCompiler(object):
  
@@ -8,4 +8,4 @@
 +                if sys.platform != 'darwin' and sys.platform != 'sunos5':
                      args.append('-Wl,--no-as-needed')
  
-         for library in libraries + extra_libraries:
+         for library_path in libpaths:
