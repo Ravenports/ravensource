@@ -1,0 +1,82 @@
+DEF[PORTVERSION]=	1.31.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		rust
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		standard
+SDESC[standard]=	Systems programming language from Mozilla
+HOMEPAGE=		https://www.rust-lang.org/
+CONTACT=		Michael_Neumann[mneumann@ntecs.de]
+
+DOWNLOAD_GROUPS=	main dflyboot
+SITES[main]=		https://static.rust-lang.org/dist/
+SITES[dflyboot]=	https://www.ntecs.de/downloads/rust/1.31.0/
+DISTFILE[1]=		rustc-${PORTVERSION}-src.tar.xz:main
+DISTFILE[2]=		rustc-1.31.0-x86_64-unknown-dragonfly.tar.xz:dflyboot
+DISTFILE[3]=		rust-std-1.31.0-x86_64-unknown-dragonfly.tar.xz:dflyboot
+DISTFILE[4]=		cargo-0.32.0-x86_64-unknown-dragonfly.tar.xz:dflyboot
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		APACHE20:single MIT:single
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE-APACHE
+			MIT:{{WRKSRC}}/LICENSE-MIT
+LICENSE_TERMS=		single:{{WRKSRC}}/COPYRIGHT
+LICENSE_SCHEME=		dual
+
+FPC_EQUIVALENT=		lang/rust
+ONLY_FOR_OPSYS=		dragonfly
+BROKEN[all]=		WIP
+
+EXTRACT_ONLY=		1
+BUILD_DEPENDS=		bash:primary:standard
+			cmake:single:standard
+			llvm:single:standard
+
+USES=			gmake python:py27,build
+MUST_CONFIGURE=		yes
+CONFIGURE_ARGS=		--release-channel=stable
+			--enable-cargo-native-static
+			--enable-extended
+			--enable-vendor
+			--enable-locked-deps
+			--disable-jemalloc
+			--local-rust-root={{WRKDIR}}/bootstrap
+			--llvm-root={{LOCALBASE}}
+			--disable-rpath
+DISTNAME=		rustc-${PORTVERSION}-src
+
+MAKE_ENV=		LIBSSH2_NO_PKG_CONFIG=1
+			LIBCURL_NO_PKG_CONFIG=1
+			LIBZ_NO_PKG_CONFIG=1
+			PROFILE=release
+			LIBZ_SYS_STATIC=1
+			OPENSSL_NO_PKG_CONFIG=1
+			LD_LIBRARY_PATH={{WRKDIR}}/bootstrap/lib
+
+
+pre-build:
+	${MKDIR} ${WRKDIR}/bootstrap
+	# Extract OS-specific bootstrap components
+	# then install bootstrap components
+
+	for F in ${SRC_RUSTC} ${SRC_RUSTSTD} ${SRC_CARGO}; do\
+	   ${TAR} -C ${WRKDIR} -xf ${DISTDIR}/$$F.tar.xz\
+	     --no-same-owner --no-same-permissions;\
+	   ${LOCALBASE}/bin/bash ${WRKDIR}/$$F/install.sh\
+	     --prefix=${WRKDIR}/bootstrap;\
+	done
+
+pre-build-dragonfly:
+	${LN} -s /raven/toolchain/gcc8/lib/libgcc_s.so \
+	${WRKDIR}/bootstrap/lib/rustlib/x86_64-unknown-dragonfly/lib/libgcc_pic.so
+
+do-build:
+	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		${PYTHON_CMD} x.py build --verbose --config ./config.toml \
+		--jobs ${MAKE_JOBS_NUMBER})

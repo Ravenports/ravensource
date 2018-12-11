@@ -1,5 +1,5 @@
 DEF[LLVM_VERSION]=	7.0.0
-DEF[PORTREVISION]=	2
+DEF[PORTREVISION]=	3
 DEF[PORTVERSION]=	${LLVM_VERSION}
 DEF[MAJORMIN]=		${PORTVERSION:R}
 DEF[MAJOR]=		${PORTVERSION:R:R}
@@ -34,7 +34,7 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		devel/llvm50
 
 USES=			cmake:outsource ncurses python:build
-			execinfo zlib c++:single
+			execinfo zlib shebangfix c++:single
 GNOME_COMPONENTS=	libxml2
 DISTNAME=		llvm-${PORTVERSION}.src
 CMAKE_ARGS=		-DLLVM_BUILD_LLVM_DYLIB=ON
@@ -45,9 +45,11 @@ CMAKE_ARGS=		-DLLVM_BUILD_LLVM_DYLIB=ON
 			-DLLVM_INCLUDE_TESTS:BOOL=OFF
 			-DLLVM_INCLUDE_EXAMPLES:BOOL=OFF
 			-DLLVM_BUILD_32_BITS:BOOL=OFF
+			-DLLVM_INSTALL_UTILS=ON
 CMAKE_BUILD_TYPE=	Release
 PLIST_SUB=		LLVM_RELEASE="${LLVM_VERSION}"
 			LLVM_MAJOR="${MAJOR}"
+SHEBANG_FILES=		utils/llvm-lit/llvm-lit.in
 
 [GOLD].DESCRIPTION=			Build the LLVM Gold plugin for LTO
 [GOLD].CMAKE_ARGS_ON=			-DLLVM_BINUTILS_INCDIR={{LOCALBASE}}/toolchain/include
@@ -58,10 +60,9 @@ post-patch:
 		${WRKSRC}/CMakeLists.txt
 
 post-install:
-	${RM} -r ${STAGEDIR}${MANPREFIX}/man
-	${RM} -r ${STAGEDIR}${PREFIX}/share/man
 	${RM} -r ${STAGEDIR}${PREFIX}/include/llvm/MC/MCAnalysis
 	${RM} -r ${STAGEDIR}${PREFIX}/include/llvm/BinaryFormat/WasmRelocs
+
 	# don't use llvm-strip yet, it doesn't work on SunOS or MacOS
 .for F in bugpoint dsymutil llc lli llvm-ar llvm-as llvm-bcanalyzer \
 	llvm-c-test llvm-cat llvm-cfi-verify llvm-config llvm-cov \
@@ -72,7 +73,8 @@ post-install:
 	llvm-profdata llvm-rc llvm-readobj llvm-rtdyld llvm-size \
 	llvm-split llvm-stress llvm-strings llvm-symbolizer llvm-tblgen \
 	llvm-undname llvm-xray obj2yaml opt sancov sanstats \
-	verify-uselistorder yaml2obj
+	verify-uselistorder yaml2obj FileCheck count not yaml-bench \
+	lli-child-target llvm-PerfectShuffle
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${F}
 .endfor
 .for F in BugpointPasses.so LLVMHello.so libLLVM-${MAJOR}.so libLTO.so.${MAJOR}

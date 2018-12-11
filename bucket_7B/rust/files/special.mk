@@ -1,0 +1,10 @@
+.if "${OPSYS}" == "DragonFly"
+BOOTSTRAP_RUST=		1.31.0
+BOOTSTRAP_CARGO=	0.32.0
+# DF_INDEX+=		2 3 4
+# EXTRACT_ONLY+=		2 3 4
+SFX=			${ARCH_STANDARD}-unknown-${OPSYS:tl}
+SRC_RUSTC=		rustc-${BOOTSTRAP_RUST}-${SFX}
+SRC_RUSTSTD=		rust-std-${BOOTSTRAP_RUST}-${SFX}
+SRC_CARGO=		cargo-${BOOTSTRAP_CARGO}-${SFX}
+.endif
