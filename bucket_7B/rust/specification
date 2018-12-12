@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	1.31.0
+DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rust
@@ -37,30 +38,39 @@ EXTRACT_ONLY=		1
 BUILD_DEPENDS=		bash:primary:standard
 			cmake:single:standard
 			llvm:single:standard
+BUILDRUN_DEPENDS=	curl:primary:standard
+			libssh2:single:standard
+			libgit2:single:standard
 
-USES=			gmake python:py27,build
+USES=			gmake ssl zlib python:py27,build
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--release-channel=stable
 			--enable-cargo-native-static
+			--enable-rpath
 			--enable-extended
 			--enable-vendor
 			--enable-locked-deps
 			--disable-jemalloc
 			--local-rust-root={{WRKDIR}}/bootstrap
 			--llvm-root={{LOCALBASE}}
-			--disable-rpath
+			--prefix={{PREFIX}}
+			--disable-ninja
 DISTNAME=		rustc-${PORTVERSION}-src
 
-MAKE_ENV=		LIBSSH2_NO_PKG_CONFIG=1
-			LIBCURL_NO_PKG_CONFIG=1
-			LIBZ_NO_PKG_CONFIG=1
+MAKE_ENV=		LD_LIBRARY_PATH={{WRKDIR}}/bootstrap/lib
+			LIBGIT2_SYS_USE_PKG_CONFIG=1
+			LIBSSH2_SYS_USE_PKG_CONFIG=1
+			RUST_BACKTRACE=1
 			PROFILE=release
-			LIBZ_SYS_STATIC=1
-			OPENSSL_NO_PKG_CONFIG=1
-			LD_LIBRARY_PATH={{WRKDIR}}/bootstrap/lib
+			OPENSSL_DIR="{{OPENSSLBASE}}"
+			HOME="{{WRKDIR}}"
 
+post-patch:
+	# Use rpath suitable for libz et al.
+	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|g' \
+		${WRKSRC}/src/bootstrap/bin/rustc.rs
 
-pre-build:
+post-configure:
 	${MKDIR} ${WRKDIR}/bootstrap
 	# Extract OS-specific bootstrap components
 	# then install bootstrap components
@@ -72,8 +82,8 @@ pre-build:
 	     --prefix=${WRKDIR}/bootstrap;\
 	done
 
-pre-build-dragonfly:
-	${LN} -s /raven/toolchain/gcc8/lib/libgcc_s.so \
+post-configure-dragonfly:
+	${LN} -s /raven/toolchain/${GCCX}/lib/libgcc_s.so \
 	${WRKDIR}/bootstrap/lib/rustlib/x86_64-unknown-dragonfly/lib/libgcc_pic.so
 
 do-build:
