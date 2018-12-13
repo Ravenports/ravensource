@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	1.31.0
 DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
+DEF[VENDOR_MODS]=	openssl-src
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rust
@@ -45,7 +46,7 @@ BUILDRUN_DEPENDS=	curl:primary:standard
 USES=			gmake ssl zlib python:py27,build
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--release-channel=stable
-			--enable-cargo-native-static
+# #			--enable-cargo-native-static
 			--enable-rpath
 			--enable-extended
 			--enable-vendor
@@ -56,19 +57,38 @@ CONFIGURE_ARGS=		--release-channel=stable
 			--prefix={{PREFIX}}
 			--disable-ninja
 DISTNAME=		rustc-${PORTVERSION}-src
-
 MAKE_ENV=		LD_LIBRARY_PATH={{WRKDIR}}/bootstrap/lib
 			LIBGIT2_SYS_USE_PKG_CONFIG=1
 			LIBSSH2_SYS_USE_PKG_CONFIG=1
+			OPENSSL_NO_PKG_CONFIG=1
 			RUST_BACKTRACE=1
 			PROFILE=release
 			OPENSSL_DIR="{{OPENSSLBASE}}"
 			HOME="{{WRKDIR}}"
+INSTALL_REQ_TOOLCHAIN=	yes
 
 post-patch:
 	# Use rpath suitable for libz et al.
 	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|g' \
 		${WRKSRC}/src/bootstrap/bin/rustc.rs
+
+	# After patching crates, we need to update their corresponding
+	# `.cargo-checksum.json` to reflect the new checksums verified by Cargo
+	for vendor in ${VENDOR_MODS}; do \
+		dir=${WRKSRC}/src/vendor/$$vendor; \
+		if ! test -d "$$dir"; then \
+			continue; \
+		fi; \
+		cd "$$dir"; \
+		for file in $$(${FIND} * -name "*.orig"); do \
+			old_checksum=$$(${SHA256} -q "$$file"); \
+			new_checksum=$$(${SHA256} -q "$${file%%.orig}"); \
+			regex="$$regex -e s|\"$${file%%.orig}\":\"$$old_checksum\"|\"$${file%%.orig}\":\"$$new_checksum\"|"; \
+		done; \
+		if test "$$regex"; then \
+			${REINPLACE_CMD} -E $$regex .cargo-checksum.json; \
+		fi; \
+	done
 
 post-configure:
 	${MKDIR} ${WRKDIR}/bootstrap
