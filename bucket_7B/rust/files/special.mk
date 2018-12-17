@@ -7,3 +7,15 @@ SRC_RUSTC=		rustc-${BOOTSTRAP_RUST}-${SFX}
 SRC_RUSTSTD=		rust-std-${BOOTSTRAP_RUST}-${SFX}
 SRC_CARGO=		cargo-${BOOTSTRAP_CARGO}-${SFX}
 .endif
+
+# Manifest files
+RUST_MANIFESTS= \
+	lib/rustlib/manifest-cargo \
+	lib/rustlib/manifest-clippy-preview \
+	lib/rustlib/manifest-rls-preview \
+	lib/rustlib/manifest-rustc \
+	lib/rustlib/manifest-rustfmt-preview \
+	lib/rustlib/manifest-rust-analysis-${SFX} \
+	lib/rustlib/manifest-rust-std-${SFX} \
+	lib/rustlib/manifest-rust-src \
+	lib/rustlib/manifest-rust-docs
