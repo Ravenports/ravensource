@@ -42,6 +42,10 @@ BUILDRUN_DEPENDS=	curl:primary:standard
 			libssh2:single:standard
 			libgit2:single:standard
 
+# required for rust linking (also pulls in c++ and gcc-libs so
+# USES=c++:single is redundant
+EXRUN[single]=		${GCCX}:compilers:standard
+
 USES=			gmake ssl zlib python:py27,build shebangfix
 			ncurses execinfo c++:single
 MUST_CONFIGURE=		yes
@@ -56,6 +60,7 @@ CONFIGURE_ARGS=		--release-channel=stable
 			--llvm-root={{LOCALBASE}}
 			--prefix={{PREFIX}}
 			--disable-ninja
+			--default-linker={{LOCALBASE}}/toolchain/${GCCX}/bin/cc
 DISTNAME=		rustc-${PORTVERSION}-src
 MAKE_ENV=		LD_LIBRARY_PATH={{WRKDIR}}/bootstrap/lib
 			LIBGIT2_SYS_USE_PKG_CONFIG=1

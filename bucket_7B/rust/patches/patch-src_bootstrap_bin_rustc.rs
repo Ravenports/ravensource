@@ -5,7 +5,7 @@
                  Some("-Wl,-rpath,@loader_path/../lib")
              } else if !target.contains("windows") && !target.contains("wasm32") {
 -                Some("-Wl,-rpath,$ORIGIN/../lib")
-+                Some("-Wl,-rpath,$ORIGIN/../lib:@PREFIX@/lib")
++                Some("-Wl,-z,origin -Wl,-rpath,$ORIGIN/../lib:@PREFIX@/lib")
              } else {
                  None
              };
