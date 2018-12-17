@@ -1,6 +1,6 @@
---- src/unix/getaddrinfo.c.orig	2018-10-08 16:52:30 UTC
+--- src/unix/getaddrinfo.c.orig	2018-12-16 19:11:04 UTC
 +++ src/unix/getaddrinfo.c
-@@ -37,6 +37,17 @@
+@@ -38,6 +38,17 @@
  /* EAI_* constants. */
  #include <netdb.h>
  
