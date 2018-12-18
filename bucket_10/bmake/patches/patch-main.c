@@ -1,6 +1,6 @@
---- main.c.orig	2017-01-14 23:09:40 UTC
+--- main.c.orig	2017-10-28 21:58:53 UTC
 +++ main.c
-@@ -1063,6 +1063,12 @@ main(int argc, char **argv)
+@@ -1187,6 +1187,12 @@ main(int argc, char **argv)
  	    Var_Set(".MAKE.PID", tmp, VAR_GLOBAL, 0);
  	    snprintf(tmp, sizeof(tmp), "%u", getppid());
  	    Var_Set(".MAKE.PPID", tmp, VAR_GLOBAL, 0);
