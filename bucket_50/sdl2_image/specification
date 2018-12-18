@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	2.0.4
+DEF[SOVERSION]=		0.2.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		sdl2_image
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Load images of various formats as SDL surfaces
+HOMEPAGE=		https://www.libsdl.org/projects/SDL_image
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.libsdl.org/projects/SDL_image/release/
+DISTFILE[1]=		SDL2_image-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		graphics/sdl2_image
+
+LICENSE=		ZLIB:single
+LICENSE_FILE=		ZLIB:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+BUILDRUN_DEPENDS=	jpeg-turbo:primary:standard
+			png:single:standard
+			tiff:primary:standard
+			WebP:single:standard
+
+USES=			fbsd10fix libtool pkgconfig
+SDL_COMPONENTS=		sdl2
+
+MUST_CONFIGURE=		gnu
+
+DISTNAME=		SDL2_image-${PORTVERSION}
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
