@@ -433,7 +433,7 @@ headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
 			xlocale.h \
 			# end
 
-headers_FreeBSD=	${headers_DragonFly:Nutil.h} \
+headers_FreeBSD=	${headers_DragonFly:Nutil.h:Ndevattr.h:Ndfregress.h:Ndisktab.h:Nevtr.h:Nlibcryptsetup.h:Nluks.h:Nmntopts.h:Nre_comp.h:Nutmp.h} \
 			_ctype.h \
 			bsm/audit.h \
 			libusb20.h \
