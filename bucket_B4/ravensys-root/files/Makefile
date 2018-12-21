@@ -690,7 +690,11 @@ install:
 		ln -s ${Libdevstat_FreeBSD} libdevstat.so && \
 		ln -s ${Libprocstat_FreeBSD} libprocstat.so && \
 		ln -s ${Libgeom_FreeBSD} libgeom.so && \
+		ln -s ${PREFIX}/lib/libexecinfo.so libexecinfo.so && \
 		ln -s libthr.so libpthread.so)
+	${BSD_INSTALL_LIB} ../${OPSYS:tl}/lib/libgcc_s.so.1 ${DESTDIR}${BASE}/usr/lib/
+	${BSD_INSTALL_LIB} ../${OPSYS:tl}/lib/libcxxrt.so.1 ${DESTDIR}${BASE}/usr/lib/
+	${BSD_INSTALL_LIB} ../${OPSYS:tl}/usr/lib/libc++.so.1 ${DESTDIR}${BASE}/usr/lib/
 .endif
 .if ${OPSYS} == DragonFly
 	(cd ${DESTDIR}${BASE}/usr/lib && \
