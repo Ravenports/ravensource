@@ -1,6 +1,6 @@
---- mdb.c.orig	2017-06-01 16:51:10 UTC
+--- mdb.c.orig	2018-12-19 15:51:03 UTC
 +++ mdb.c
-@@ -125,6 +125,8 @@ typedef SSIZE_T	ssize_t;
+@@ -129,6 +129,8 @@ typedef SSIZE_T	ssize_t;
  # define MDB_FDATASYNC		fsync
  #elif defined(ANDROID)
  # define MDB_FDATASYNC		fsync
