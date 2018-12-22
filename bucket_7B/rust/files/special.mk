@@ -8,6 +8,12 @@ BOOTSTRAP_RUST=		1.30.0
 BOOTSTRAP_CARGO=	0.31.0
 DF_INDEX+=		5 6 7
 COMPEXT=		gz
+.elif "${OPSYS}" == "Linux"
+BOOTSTRAP_RUST=		1.31.0
+BOOTSTRAP_CARGO=	0.32.0
+DF_INDEX+=		8 9 10
+COMPEXT=		gz
+SFX=			${ARCH_STANDARD}-unknown-linux-gnu
 .endif
 SFX?=			${ARCH_STANDARD}-unknown-${OPSYS:tl}
 SRC_RUSTC?=		rustc-${BOOTSTRAP_RUST}-${SFX}
