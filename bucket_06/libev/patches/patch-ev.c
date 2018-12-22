@@ -1,6 +1,6 @@
---- ev.c.orig	2016-12-28 04:23:00 UTC
+--- ev.c.orig	2018-12-21 06:59:16 UTC
 +++ ev.c
-@@ -2753,7 +2753,7 @@ ev_recommended_backends (void) EV_THROW
+@@ -2760,7 +2760,7 @@ ev_recommended_backends (void) EV_NOEXCE
  {
    unsigned int flags = ev_supported_backends ();
  
