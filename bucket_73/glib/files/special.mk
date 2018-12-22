@@ -6,7 +6,6 @@ gobject_MAN=	glib-genmarshal.1 glib-mkenums.1 gobject-query.1
 pyscripts=	gio/tests/gengiotypefuncs.py \
 		gio/gio-querymodules-wrapper.py \
 		glib/update-gtranslit.py \
-		glib/gtester-report \
 		tests/gen-casefold-txt.py \
 		tests/gen-casemap-txt.py
 

@@ -1,4 +1,4 @@
---- gio/xdgmime/xdgmime.c.orig	2018-08-30 17:12:08 UTC
+--- gio/xdgmime/xdgmime.c.orig	2018-12-18 14:51:13 UTC
 +++ gio/xdgmime/xdgmime.c
 @@ -255,7 +255,7 @@ xdg_run_command_on_dirs (XdgDirectoryFun
  
