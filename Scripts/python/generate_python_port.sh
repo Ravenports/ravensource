@@ -203,6 +203,7 @@ get_filtered_url() {
          http://github.com/* | http://pypi.python.org/* | http://bitbucket.org/* | \
          http://lxml.de/* | http://pyyaml.org/* | \
          http://www.django-rest-framework.org* | \
+         http://*djangosuit.com* | \
          http://gnupg.readthedocs.io/* | \
          http://certifi.io/* | http://docs.openstack.org/* | http://msgpack.org/* )
             echo ${url} | sed -e "s/^http:/https:/"
