@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.1.0
+DEF[PORTVERSION]=	3.0.2
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-intervaltree
@@ -13,7 +13,7 @@ CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/i/intervaltree
-DISTFILE[1]=		intervaltree-2.1.0.tar.gz:main
+DISTFILE[1]=		intervaltree-3.0.2.tar.gz:main
 
 SPKGS[py27]=		single
 SPKGS[py36]=		single
@@ -26,21 +26,25 @@ VOPTS[py36]=		PY27=OFF PY36=ON PY37=OFF
 VOPTS[py37]=		PY27=OFF PY36=OFF PY37=ON
 
 # Output of setup.py --license
-# Apache License, Version 2.0
+# !!!>>> This is a RELEASE version <<<!!! Apache License, Version 2.0
 
 GENERATED=		yes
 
 # install_requires extracted from setup.py (using python 2.7)
+# !!!>>>
 # sortedcontainers
 
 DISTNAME=		intervaltree-${PORTVERSION}
 
 [PY27].USES_ON=				python:py27
-[PY27].BUILDRUN_DEPENDS_ON=		python-sortedcontainers:single:py27
+[PY27].BUILDRUN_DEPENDS_ON=		python-!!!:single:py27
+					python-sortedcontainers:single:py27
 
 [PY36].USES_ON=				python:py36
-[PY36].BUILDRUN_DEPENDS_ON=		python-sortedcontainers:single:py36
+[PY36].BUILDRUN_DEPENDS_ON=		python-!!!:single:py36
+					python-sortedcontainers:single:py36
 
 [PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-sortedcontainers:single:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-!!!:single:py37
+					python-sortedcontainers:single:py37
 
