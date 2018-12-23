@@ -586,7 +586,7 @@ replace_inline() {
       lxml) sedcmd="/Building lxml/d"
          sed -i.bak -E -e '/Building without/d; /Using build/ s/^.*$$/        pass/; /lib_versions[[]?[1]?[]]?)/d; s/if _library_dirs:/if 0:/' /tmp/expand/${DISTNAME}-${VERSION}/setupinfo.py
          ;;
-      intervaltree) sedcmd='/print("Version/d; /print("Reading/d' ;;
+      intervaltree) sedcmd='/print("Version/d; s/print("!!!.*/    pass/' ;;
       *) ;;
    esac
    if [ -n "${sedcmd}" ]; then
