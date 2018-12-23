@@ -5,6 +5,8 @@
 #
 # The script invokes "ravenadm dev distinfo" then "ravenadm dev buildsheet"
 # to regenerate the extension after preparing it.
+#
+# Existing entries are skipped unless FORCE is defined in environment
 
 RPATH=$(realpath $0)
 MISCDIR=$(dirname ${RPATH})
@@ -56,15 +58,17 @@ while read extension; do
 	oldbucket=$(get_bucket ${oldport})
 	newbucket=$(get_bucket ${newport})
 
-	if [ -d ${RAVENSRC}/${newbucket} ]; then
+	if [ -d ${RAVENSRC}/${newbucket} -a "${FORCE}" = "" ]; then
 		echo "The ${newbucket} directory already exists, skipping ..."
 	else
+ 		rm -rf ${RAVENSRC}/${newbucket}
 		bucketdir=$(dirname ${newbucket})
 		if [ -d ${RAVENSRC}/${bucketdir} ]; then
 			mkdir -p ${RAVENSRC}/${bucketdir}
 		fi
 		cp -a ${RAVENSRC}/${oldbucket} ${RAVENSRC}/${newbucket}
 		sed -i '' -e "s|PHP_7.2_|PHP_${1}.${2}_|" ${RAVENSRC}/${newbucket}/specification
+		sed -i '' -e "s|7\.2|${1}.${2}|g" ${RAVENSRC}/${newbucket}/descriptions/*
 	fi
 	(cd ${RAVENSRC}/${newbucket} && \
 		/raven/bin/ravenadm dev distinfo &&
