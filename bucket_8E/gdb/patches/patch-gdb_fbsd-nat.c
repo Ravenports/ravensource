@@ -1,4 +1,4 @@
---- gdb/fbsd-nat.c.orig	2018-09-05 07:27:13 UTC
+--- gdb/fbsd-nat.c.orig	2018-12-23 05:51:54 UTC
 +++ gdb/fbsd-nat.c
 @@ -1108,6 +1108,14 @@ fbsd_nat_target::resume (ptid_t ptid, in
        struct thread_info *tp;
