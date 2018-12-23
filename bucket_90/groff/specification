@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.22.3
+DEF[PORTVERSION]=	1.22.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		groff
@@ -24,9 +24,10 @@ BUILD_DEPENDS=		gsfonts:single:standard
 BUILDRUN_DEPENDS=	psutils:single:standard
 			ghostscript:primary:standard
 			ghostscript:x11:standard
+			uchardet:single:standard
 			netpbm:single:standard
 
-USES=			cpe gmake perl shebangfix
+USES=			cpe gmake perl autoreconf makeinfo shebangfix
 XORG_COMPONENTS=	xaw
 CPE_VENDOR=		gnu
 SINGLE_JOB=		yes
@@ -43,7 +44,3 @@ MAKE_ARGS=		docdir={{STD_DOCDIR}}
 			datasubdir={{PREFIX}}/share/groff
 SHEBANG_LANG=		sed
 INFO=			primary:groff
-
-post-install:
-	# ${MV} ${STAGEDIR}${PREFIX}/share/doc/groff-${PORTVERSION}/examples \
-	#	${STAGEDIR}${STD_EXAMPLESDIR}
