@@ -1,4 +1,4 @@
---- modules/dnn/src/torch/THGeneral.cpp.orig	2018-07-04 11:05:47 UTC
+--- modules/dnn/src/torch/THGeneral.cpp.orig	2018-12-21 14:31:20 UTC
 +++ modules/dnn/src/torch/THGeneral.cpp
 @@ -2,7 +2,11 @@
  

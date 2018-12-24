@@ -1,6 +1,6 @@
---- modules/core/src/system.cpp.orig	2018-07-04 11:05:47 UTC
+--- modules/core/src/system.cpp.orig	2018-12-21 14:31:20 UTC
 +++ modules/core/src/system.cpp
-@@ -91,7 +91,7 @@ static bool param_dumpErrors = utils::ge
+@@ -94,7 +94,7 @@ void* allocSingletonBuffer(size_t size)
  #include <cstdlib>        // std::abort
  #endif
  
@@ -9,7 +9,7 @@
  #  include <unistd.h>
  #  include <fcntl.h>
  #  include <elf.h>
-@@ -200,7 +200,7 @@ std::wstring GetTempFileNameWinRT(std::w
+@@ -202,7 +202,7 @@ std::wstring GetTempFileNameWinRT(std::w
  #include "omp.h"
  #endif
  
