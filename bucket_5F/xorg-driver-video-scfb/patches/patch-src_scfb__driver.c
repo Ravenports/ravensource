@@ -40,7 +40,27 @@
  static void ScfbLoadPalette(ScrnInfoPtr, int, int *, LOCO *, VisualPtr);
  static Bool ScfbSaveScreen(ScreenPtr, int);
  static void ScfbSave(ScrnInfoPtr);
-@@ -231,7 +232,7 @@ typedef struct {
+@@ -197,16 +198,9 @@ ScfbSetup(pointer module, pointer opts,
+ 	static Bool setupDone = FALSE;
+ 	const char *osname;
+ 
+-	/* Check that we're being loaded on a OpenBSD or NetBSD system. */
+-	LoaderGetOS(&osname, NULL, NULL, NULL);
+-	if (!osname || (strcmp(osname, "freebsd") != 0 && strcmp(osname, "openbsd") != 0 &&
+-	                strcmp(osname, "netbsd") != 0)) {
+-		if (errmaj)
+-			*errmaj = LDR_BADOS;
+-		if (errmin)
+-			*errmin = 0;
+-		return NULL;
+-	}
++#if !defined(__DragonFly__) && !defined(__FreeBSD__)
++	return NULL;
++#endif
+ 	if (!setupDone) {
+ 		setupDone = TRUE;
+ 		xf86AddDriver(&SCFB, module, HaveDriverFuncs);
+@@ -231,7 +225,7 @@ typedef struct {
  	void *			shadow;
  	CloseScreenProcPtr	CloseScreen;
  	CreateScreenResourcesProcPtr CreateScreenResources;
@@ -49,7 +69,7 @@
  	EntityInfoPtr		pEnt;
  
  #ifdef XFreeXDGA
-@@ -302,7 +303,7 @@ scfb_mmap(size_t len, off_t off, int fd)
+@@ -302,7 +296,7 @@ scfb_mmap(size_t len, off_t off, int fd)
  		mapaddr = NULL;
  	}
  #if DEBUG
@@ -58,7 +78,7 @@
  #endif
  	return mapaddr;
  }
-@@ -314,6 +315,7 @@ ScfbProbe(DriverPtr drv, int flags)
+@@ -314,6 +308,7 @@ ScfbProbe(DriverPtr drv, int flags)
         	GDevPtr *devSections;
  	int numDevSections;
  	const char *dev;
@@ -66,7 +86,7 @@
  	Bool foundScreen = FALSE;
  
  	TRACE("probe start");
-@@ -330,7 +332,8 @@ ScfbProbe(DriverPtr drv, int flags)
+@@ -330,7 +325,8 @@ ScfbProbe(DriverPtr drv, int flags)
  	for (i = 0; i < numDevSections; i++) {
  		ScrnInfoPtr pScrn = NULL;
  		dev = xf86FindOptionValue(devSections[i]->options, "device");
@@ -76,7 +96,7 @@
  			entity = xf86ClaimFbSlot(drv, 0, devSections[i], TRUE);
  			pScrn = xf86ConfigFbEntity(NULL,0,entity,
  						   NULL,NULL,NULL,NULL);
-@@ -366,8 +369,8 @@ ScfbPreInit(ScrnInfoPtr pScrn, int flags
+@@ -366,8 +362,8 @@ ScfbPreInit(ScrnInfoPtr pScrn, int flags
  	struct fbtype fb;
  	int default_depth, wstype;
  	const char *dev;
@@ -87,7 +107,35 @@
  	Gamma zeros = {0.0, 0.0, 0.0};
  	DisplayModePtr mode;
  
-@@ -633,9 +636,9 @@ ScfbShadowInit(ScreenPtr pScreen)
+@@ -592,6 +588,18 @@ ScfbPreInit(ScrnInfoPtr pScrn, int flags
+ 	return TRUE;
+ }
+ 
++static void
++scfbUpdateRotatePacked(ScreenPtr pScreen, shadowBufPtr pBuf)
++{
++    shadowUpdateRotatePacked(pScreen, pBuf);
++}
++
++static void
++scfbUpdatePacked(ScreenPtr pScreen, shadowBufPtr pBuf)
++{
++    shadowUpdatePacked(pScreen, pBuf);
++}
++
+ static Bool
+ ScfbCreateScreenResources(ScreenPtr pScreen)
+ {
+@@ -610,7 +618,7 @@ ScfbCreateScreenResources(ScreenPtr pScr
+ 	pPixmap = pScreen->GetScreenPixmap(pScreen);
+ 
+ 	if (!shadowAdd(pScreen, pPixmap, fPtr->rotate ?
+-		shadowUpdateRotatePackedWeak() : shadowUpdatePackedWeak(),
++		scfbUpdateRotatePacked : scfbUpdatePacked,
+ 		ScfbWindowLinear, fPtr->rotate, NULL)) {
+ 		return FALSE;
+ 	}
+@@ -633,9 +641,9 @@ ScfbShadowInit(ScreenPtr pScreen)
  }
  
  static Bool
@@ -99,7 +147,7 @@
  	ScfbPtr fPtr = SCFBPTR(pScrn);
  	VisualPtr visual;
  	int ret, flags, ncolors;
-@@ -792,7 +795,7 @@ ScfbScreenInit(int scrnIndex, ScreenPtr 
+@@ -792,7 +800,7 @@ ScfbScreenInit(int scrnIndex, ScreenPtr
  				   "RENDER extension initialisation failed.");
  	}
  	if (fPtr->shadowFB && !ScfbShadowInit(pScreen)) {
@@ -108,7 +156,7 @@
  		    "shadow framebuffer initialization failed\n");
  		return FALSE;
  	}
-@@ -801,20 +804,19 @@ ScfbScreenInit(int scrnIndex, ScreenPtr 
+@@ -801,20 +809,19 @@ ScfbScreenInit(int scrnIndex, ScreenPtr
  	if (!fPtr->rotate)
  		ScfbDGAInit(pScrn, pScreen);
  	else
@@ -132,7 +180,7 @@
  	xf86SetBackingStore(pScreen);
  
  	/* Software cursor. */
-@@ -858,9 +860,9 @@ ScfbScreenInit(int scrnIndex, ScreenPtr 
+@@ -858,9 +865,9 @@ ScfbScreenInit(int scrnIndex, ScreenPtr
  }
  
  static Bool
@@ -144,7 +192,7 @@
  	PixmapPtr pPixmap;
  	ScfbPtr fPtr = SCFBPTR(pScrn);
  
-@@ -892,7 +894,7 @@ ScfbCloseScreen(int scrnIndex, ScreenPtr
+@@ -892,7 +899,7 @@ ScfbCloseScreen(int scrnIndex, ScreenPtr
  	/* Unwrap CloseScreen. */
  	pScreen->CloseScreen = fPtr->CloseScreen;
  	TRACE_EXIT("ScfbCloseScreen");
@@ -153,7 +201,7 @@
  }
  
  static void *
-@@ -907,9 +909,9 @@ ScfbWindowLinear(ScreenPtr pScreen, CARD
+@@ -907,9 +914,9 @@ ScfbWindowLinear(ScreenPtr pScreen, CARD
  }
  
  static void
@@ -165,7 +213,7 @@
      ScfbPtr fPtr = SCFBPTR(pScrn);
      int newX, newY;
  
-@@ -941,13 +943,13 @@ ScfbPointerMoved(int index, int x, int y
+@@ -941,13 +948,13 @@ ScfbPointerMoved(int index, int x, int y
      }
  
      /* Pass adjusted pointer coordinates to wrapped PointerMoved function. */
@@ -182,7 +230,7 @@
  
  	TRACE_ENTER("EnterVT");
  	pScrn->vtSema = TRUE;
-@@ -956,20 +958,20 @@ ScfbEnterVT(int scrnIndex, int flags)
+@@ -956,20 +963,20 @@ ScfbEnterVT(int scrnIndex, int flags)
  }
  
  static void
@@ -207,7 +255,7 @@
  #endif
  
  	TRACE_ENTER("SwitchMode");
-@@ -978,10 +980,10 @@ ScfbSwitchMode(int scrnIndex, DisplayMod
+@@ -978,10 +985,10 @@ ScfbSwitchMode(int scrnIndex, DisplayMod
  }
  
  static int
@@ -220,7 +268,7 @@
  #endif
  
  	TRACE_ENTER("ValidMode");
-@@ -1067,7 +1069,6 @@ static Bool
+@@ -1067,7 +1074,6 @@ static Bool
  ScfbDGASetMode(ScrnInfoPtr pScrn, DGAModePtr pDGAMode)
  {
  	DisplayModePtr pMode;
@@ -228,7 +276,7 @@
  	int frameX0, frameY0;
  
  	if (pDGAMode) {
-@@ -1081,9 +1082,9 @@ ScfbDGASetMode(ScrnInfoPtr pScrn, DGAMod
+@@ -1081,9 +1087,9 @@ ScfbDGASetMode(ScrnInfoPtr pScrn, DGAMod
  		frameY0 = pScrn->frameY0;
  	}
  
@@ -240,7 +288,7 @@
  
  	return TRUE;
  }
-@@ -1091,7 +1092,7 @@ ScfbDGASetMode(ScrnInfoPtr pScrn, DGAMod
+@@ -1091,7 +1097,7 @@ ScfbDGASetMode(ScrnInfoPtr pScrn, DGAMod
  static void
  ScfbDGASetViewport(ScrnInfoPtr pScrn, int x, int y, int flags)
  {
