@@ -1,4 +1,4 @@
---- modules/core/include/opencv2/core/utils/filesystem.private.hpp.orig	2018-07-04 11:05:47 UTC
+--- modules/core/include/opencv2/core/utils/filesystem.private.hpp.orig	2018-12-21 14:31:20 UTC
 +++ modules/core/include/opencv2/core/utils/filesystem.private.hpp
 @@ -12,7 +12,7 @@
  #  elif defined WINRT
