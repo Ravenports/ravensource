@@ -1,0 +1,16 @@
+--- CMakeLists.txt.orig	2018-10-31 13:16:28 UTC
++++ CMakeLists.txt
+@@ -227,7 +227,12 @@ add_subdirectory(glm)
+ add_subdirectory(test)
+ 
+ set(GLM_INSTALL_CONFIGDIR "${CMAKE_INSTALL_LIBDIR}/cmake/glm")
+-install(DIRECTORY glm DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
++install(DIRECTORY glm
++		DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
++		FILES_MATCHING
++			PATTERN "*.h"
++			PATTERN "*.hpp"
++			PATTERN "*.inl")
+ 
+ write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/glmConfigVersion.cmake" VERSION ${GLM_VERSION} COMPATIBILITY AnyNewerVersion)
+ 
