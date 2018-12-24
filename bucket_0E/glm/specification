@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	0.9.9.0
+DEF[PORTVERSION]=	0.9.9.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		glm
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		math graphics
 VARIANTS=		standard
 SDESC[standard]=	C++ mathematics library for graphics programming
@@ -26,7 +25,9 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		math/glm
 
 USES=			cmake:outsource pkgconfig
-CMAKE_ARGS=		-DGLM_ENABLE_EXPERIMENTAL=ON
 
 post-patch:
-	${FIND} ${WRKSRC} -name "*.orig" -type f -delete
+	${GREP} -rl GLM_ENABLE_EXPERIMENTAL ${WRKSRC}/glm | ${XARGS}\
+		${SED} -i'' 's|#ifndef GLM_ENABLE_EXPERIMENTAL|#if 0|'
+	${SED} -i'' 's|#ifdef GLM_ENABLE_EXPERIMENTAL|#if 1|' \
+		${WRKSRC}/glm/ext.hpp
