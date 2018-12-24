@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.5.3
+DEF[PORTVERSION]=	1.5.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		leatherman
@@ -31,6 +31,8 @@ BUILDRUN_DEPENDS=	curl:primary:standard
 USES=			cmake:outsource ruby gettext-tools
 CMAKE_ARGS=		-DLEATHERMAN_SHARED:BOOL=ON
 			-DLEATHERMAN_ENABLE_TESTING:BOOL=OFF
+CXXFLAGS=		-Wno-class-memaccess
+			-Wno-ignored-qualifiers
 SOVERSION=		${PORTVERSION}
 
 post-patch:
