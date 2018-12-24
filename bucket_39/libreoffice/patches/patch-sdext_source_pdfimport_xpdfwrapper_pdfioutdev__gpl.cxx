@@ -9,6 +9,33 @@
      m_bSkipImages(false)
  {
  }
+@@ -569,7 +569,7 @@ void PDFOutDev::processLink(Link* link,
+     LinkAction* pAction = link->getAction();
+     if (pAction && pAction->getKind() == actionURI)
+     {
+-        const char* pURI = static_cast<LinkURI*>(pAction)->getURI()->getCString();
++        const char* pURI = static_cast<LinkURI*>(pAction)->getURI()->c_str();
+ 
+         std::vector<char> aEsc( lcl_escapeLineFeeds(pURI) );
+ 
+@@ -592,7 +592,7 @@ void PDFOutDev::restoreState(GfxState*)
+     printf( "restoreState\n" );
+ }
+ 
+-void PDFOutDev::setDefaultCTM(double *pMat)
++void PDFOutDev::setDefaultCTM(const double *pMat)
+ {
+     assert(pMat);
+ 
+@@ -767,7 +767,7 @@ void PDFOutDev::updateFont(GfxState *sta
+ 
+             aFont = it->second;
+ 
+-            std::vector<char> aEsc( lcl_escapeLineFeeds(aFont.familyName.getCString()) );
++            std::vector<char> aEsc( lcl_escapeLineFeeds(aFont.familyName.c_str()) );
+             printf( " %d %d %d %d %f %d %s",
+                     aFont.isEmbedded,
+                     aFont.isBold,
 @@ -953,11 +953,11 @@ void PDFOutDev::endTextObject(GfxState*)
  }
  
