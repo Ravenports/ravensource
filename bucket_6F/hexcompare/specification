@@ -18,8 +18,11 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv3:single
-LICENSE_FILE=		GPLv3:{{WRKSRC}}/README
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:stock
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"\#include"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/main.c
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/hexcompare
@@ -35,6 +38,10 @@ post-patch:
 		${WRKSRC}/Makefile
 
 post-patch-sunos:
+	${REINPLACE_CMD} -e 's|-lncurses|-lncurses -ltinfo|' \
+		${WRKSRC}/Makefile
+
+post-patch-darwin:
 	${REINPLACE_CMD} -e 's|-lncurses|-lncurses -ltinfo|' \
 		${WRKSRC}/Makefile
 
