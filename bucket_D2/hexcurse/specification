@@ -18,6 +18,13 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"\#include"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/hex.h
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		editors/hexcurse
 
 USES=			ncurses
@@ -28,5 +35,9 @@ post-patch:
 	${REINPLACE_CMD} -e 's/ -Werror//' ${WRKSRC}/src/Makefile.in
 
 post-patch-sunos:
+	${REINPLACE_CMD} -e '/LIBS=/ s/-lncurses /-lncurses -ltinfo /' \
+		${WRKSRC}/configure
+
+post-patch-darwin:
 	${REINPLACE_CMD} -e '/LIBS=/ s/-lncurses /-lncurses -ltinfo /' \
 		${WRKSRC}/configure
