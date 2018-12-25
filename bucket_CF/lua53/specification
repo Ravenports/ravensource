@@ -34,16 +34,17 @@ LDFLAGS=		-lm -pthread
 BUILD_WRKSRC=		{{WRKSRC}}/src
 MAKE_ARGS=		MYCFLAGS="{{CFLAGS}} {{CPPFLAGS}}"
 			MYLDFLAGS="{{LDFLAGS}}"
-			MYLIBS="-Wl,-E -L{{LOCALBASE}}/lib -lreadline"
+			MYLIBS="-L{{LOCALBASE}}/lib -lreadline"
 			CC="{{CC}}"
 			ARFLAGS=rl
 			LUA_T=lua${SUFFIX}
 			LUAC_T=luac${SUFFIX}
 			LUA_A=liblua-${LUA_VER}.a
-			LUA_SO=liblua-${LUA_VER}.so
-			LUA_SONAME=liblua-${LUA_VER}.so
+			LUALIB=liblua-${LUA_VER}
+			LUA_SO=liblua-${LUA_VER}.{{LIBEXT}}
+			LUA_SONAME=liblua-${LUA_VER}.{{LIBEXT}}
 			TO_BIN="lua${SUFFIX} luac${SUFFIX}"
-			TO_LIB="liblua-${LUA_VER}.a liblua-${LUA_VER}.so"
+			TO_LIB="liblua-${LUA_VER}.a liblua-${LUA_VER}.{{LIBEXT}}"
 			INSTALL_TOP={{STAGEDIR}}{{PREFIX}}
 			INSTALL_INC={{STAGEDIR}}{{PREFIX}}/include/lua${SUFFIX}
 			INSTALL_EXEC="{{INSTALL_PROGRAM}}"
@@ -66,7 +67,7 @@ post-patch:
 	${REINPLACE_CMD} -e 's|man/man1|share/man/man1|' ${WRKSRC}/Makefile
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/liblua-${LUA_VER}.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/liblua-${LUA_VER}.${LIBEXT}
 	${MV} ${STAGEDIR}${MANPREFIX}/man/man1/lua.1 \
 		${STAGEDIR}${MANPREFIX}/man/man1/lua${SUFFIX}.1
 	${MV} ${STAGEDIR}${MANPREFIX}/man/man1/luac.1 \
