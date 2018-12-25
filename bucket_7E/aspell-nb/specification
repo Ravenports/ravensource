@@ -24,6 +24,11 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKSRC}}/Copyright
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		textproc/${SUFFIX}-aspell
 
 BUILDRUN_DEPENDS=	aspell:single:standard
@@ -32,3 +37,13 @@ USES=			gmake
 MUST_CONFIGURE=		yes
 PLIST_SUB=		VER=${VERINST}
 DISTNAME=		${DISTPREFIX}-${SUFFIX}-${PORTVERSION}-${DIST_ITERATION}
+
+# The bokm\xE5l.alias filename is non-ascii, issues with extraction on macos
+# Just remove and use the english version (bokmal.alias)
+EXTRACT_HEAD[1]=	{{TAR}} -xf
+EXTRACT_TAIL[1]=	--exclude "bokm?l.alias" --no-same-owner --no-same-permissions
+
+post-patch:
+	${CP} -pRP ${WRKSRC}/no.alias ${WRKSRC}/bokmal.alias
+	${REINPLACE_CMD} -e '/multi_files =/ s/bokm.*l.alias/bokmal.alias/' \
+		${WRKSRC}/Makefile.pre
