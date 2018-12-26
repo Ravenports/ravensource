@@ -1,5 +1,4 @@
 DEF[PORTVERSION]=	6.0b
-DEF[OTLIBVER]=		5.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		opentoken
@@ -31,7 +30,7 @@ FPC_EQUIVALENT=		textproc/opentoken
 USES=			gprbuild ada:single
 DISTNAME=		org.opentoken-${PORTVERSION}
 BUILD_WRKSRC=		{{WRKSRC}}/build/release
-PLIST_SUB=		OTLIBVER=${OTLIBVER}
+PLIST_SUB=		OTLIBVER={{OTLIBVER}}
 
 do-build:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
@@ -44,9 +43,9 @@ do-install:
 	${INSTALL_DATA} ${BUILD_WRKSRC}/lib/*.ali \
 		${STAGEDIR}${PREFIX}/lib/opentoken
 	${INSTALL_LIB} ${BUILD_WRKSRC}/lib/libopentoken.so.${OTLIBVER} \
-		${STAGEDIR}${PREFIX}/lib/opentoken
+		${STAGEDIR}${PREFIX}/lib/opentoken/${FINALLIB}
 	(cd ${STAGEDIR}${PREFIX}/lib/opentoken && \
-		${LN} -s libopentoken.so.${OTLIBVER} libopentoken.so)
+		${LN} -s ${FINALLIB} libopentoken.${LIBEXT})
 	${INSTALL_DATA} ${WRKSRC}/*.ad[bs] \
 		${WRKSRC}/Language_Lexers/*.ad[bs] \
 		${STAGEDIR}${PREFIX}/include/opentoken
