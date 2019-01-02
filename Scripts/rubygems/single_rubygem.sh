@@ -109,7 +109,7 @@ create_description()
 	mkdir -p ${NEWPORT}/descriptions
 	$RUBYEXE -e "${gemline}/${gemspec}'; puts gs.description" | \
 		awk '{ if (!found && NF==0) { next } found=1; print}' | \
-		fold -s -w 75 | awk 'NR <= 100' \
+		fold -s -w 75 | sed 's/[[:blank:]]*$//' | awk 'NR <= 100' \
 		> ${NEWPORT}/descriptions/desc.single
 	if [ ! -s ${NEWPORT}/descriptions/desc.single ]; then
 		obtain_summary ${1} ${2} | awk 'NR <= 100' \

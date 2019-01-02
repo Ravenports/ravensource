@@ -1,19 +1,19 @@
-DEF[PORTVERSION]=	1.2.5
+DEF[PORTVERSION]=	2.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-tzinfo
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v23 v24 v25
-SDESC[v23]=		Daylight savings aware timezone library (v23)
-SDESC[v24]=		Daylight savings aware timezone library (v24)
-SDESC[v25]=		Daylight savings aware timezone library (v25)
+SDESC[v23]=		Time Zone Library (v23)
+SDESC[v24]=		Time Zone Library (v24)
+SDESC[v25]=		Time Zone Library (v25)
 HOMEPAGE=		https://tzinfo.github.io
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		tzinfo-1.2.5.gem:main
+DISTFILE[1]=		tzinfo-2.0.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v23]=		single
@@ -29,16 +29,16 @@ VOPTS[v25]=		RUBY23=OFF RUBY24=OFF RUBY25=ON
 GENERATED=		yes
 
 # Requirements specified by gem dependency --remote --version command
-#   thread_safe (~> 0.1)
+#   concurrent-ruby (~> 1.0)
 
 DISTNAME=		tzinfo-${PORTVERSION}
 
 [RUBY23].USES_ON=			gem:v23
-[RUBY23].BUILDRUN_DEPENDS_ON=		ruby-thread_safe:single:v23
+[RUBY23].BUILDRUN_DEPENDS_ON=		ruby-concurrent-ruby:single:v23
 
 [RUBY24].USES_ON=			gem:v24
-[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-thread_safe:single:v24
+[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-concurrent-ruby:single:v24
 
 [RUBY25].USES_ON=			gem:v25
-[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-thread_safe:single:v25
+[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-concurrent-ruby:single:v25
 
