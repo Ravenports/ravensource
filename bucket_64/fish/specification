@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.7.1
+DEF[PORTVERSION]=	3.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fish
@@ -27,15 +27,15 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		shells/fish
 
+BUILD_DEPENDS=		doxygen:single:standard
 BUILDRUN_DEPENDS=	pcre2:primary:standard
 
-USES=			cpe autoreconf gmake libtool ncurses pkgconfig
-			python shebangfix gettext-tools gettext-runtime
+USES=			cmake cpe ncurses shebangfix python:build
+			gettext-tools gettext-runtime c++:primary
 CPE_VENDOR=		fishshell
 SHEBANG_FILES=		share/tools/*.py
 			share/tools/web_config/webconfig.py
-MUST_CONFIGURE=		gnu
-LDFLAGS=		-lpthread
+CMAKE_ARGS=		-DWITH_GETTEXT:BOOL=ON
 MANDIRS=		{{PREFIX}}/share/fish/man/man1
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
@@ -43,15 +43,6 @@ VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 post-extract:
 	${AWK} '/## License for/,0' ${WRKSRC}/doc_src/license.hdr \
 		> ${WRKDIR}/LIC_REMAINING
-
-post-patch:
-	${REINPLACE_CMD} -e \
-		'/^all:/s|user_doc|| ; \
-		 s| "$$(HAVE_GETTEXT)" = 1| x$$(HAVE_GETTEXT) = x1| ; \
-		 s| $$(HAVE_GETTEXT) = 1| x$$(HAVE_GETTEXT) = x1| ; \
-		 s|$$(DESTDIR)$$(bindir)/fish|$$(bindir)/fish|g ; \
-		 s|$$(datadir)/pkgconfig|$$(prefix)/lib/pkgconfig|g' \
-		 ${WRKSRC}/Makefile.in
 
 post-install:
 .for i in fish fish_indent fish_key_reader
