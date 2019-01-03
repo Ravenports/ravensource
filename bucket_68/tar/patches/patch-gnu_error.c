@@ -1,7 +1,7 @@
 Fix remfiles01.at and remfiles02.at: error() needs to fetch the
 name set by set_program_name().
 
---- gnu/error.c.orig	2017-12-16 21:23:33 UTC
+--- gnu/error.c.orig	2019-01-02 18:15:58 UTC
 +++ gnu/error.c
 @@ -42,8 +42,6 @@
  # define USE_UNLOCKED_IO 0
