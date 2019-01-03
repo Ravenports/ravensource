@@ -2,7 +2,7 @@
   There's no reason to not use the cache in either of these cases if it is
   already available.
 
---- src/ccache.c.orig	2018-10-15 19:29:45 UTC
+--- src/ccache.c.orig	2019-01-02 16:20:12 UTC
 +++ src/ccache.c
 @@ -1736,6 +1736,7 @@ calculate_common_hash(struct args *args,
  		free(p);
