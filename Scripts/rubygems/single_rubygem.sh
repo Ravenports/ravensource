@@ -25,9 +25,9 @@ mirror_base=/mech/var/cache/rubygems
 specsdir=${mirror_base}/specs
 reqsdir=${mirror_base}/reqs
 gemline="gs = Marshal.load Gem::Util.inflate File.read '${specsdir}"
-min_ruby23="2.3.7"
-min_ruby24="2.4.4"
-min_ruby25="2.5.1"
+min_ruby24="2.4.5"
+min_ruby25="2.5.3"
+min_ruby26="2.6.0"
 secondarg="$2"
 #VARIANTS=
 
@@ -155,10 +155,6 @@ get_filtered_url() {
 determine_variants() {
    local vrt
    local rubyreq=$(obtain_ruby_requirement ${1} ${2})  # >= 0, >= 1.9.2
-   local good23=$(echo "${rubyreq}" | awk -vmin=${min_ruby23} '{ print ($2 < min ? "good" : "bad")}')
-   if [ "${good23}" == "good" ]; then
-      vrt="${vrt} v23"
-   fi
    local good24=$(echo "${rubyreq}" | awk -vmin=${min_ruby24} '{ print ($2 < min ? "good" : "bad")}')
    if [ "${good24}" == "good" ]; then
       vrt="${vrt} v24"
@@ -166,6 +162,10 @@ determine_variants() {
    local good25=$(echo "${rubyreq}" | awk -vmin=${min_ruby25} '{ print ($2 < min ? "good" : "bad")}')
    if [ "${good25}" == "good" ]; then
       vrt="${vrt} v25"
+   fi
+   local good26=$(echo "${rubyreq}" | awk -vmin=${min_ruby26} '{ print ($2 < min ? "good" : "bad")}')
+   if [ "${good26}" == "good" ]; then
+      vrt="${vrt} v26"
    fi
    for v in ${vrt}; do
       if [ -z "${VARIANTS}" ]; then
