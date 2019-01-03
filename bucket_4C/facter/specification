@@ -38,8 +38,7 @@ NOT_FOR_OPSYS=		dragonfly
 USES=			ssl cmake ruby
 CMAKE_ARGS=		-DWITHOUT_JRUBY:BOOL=ON
 SOVERSION=		${PORTVERSION}
-
-VAR_OPSYS[freebsd]=	CXXFLAGS=-Wno-catch-value
+CXXFLAGS=		-Wno-catch-value
 
 post-patch:
 	${REINPLACE_CMD} -e 's|%%PREFIX%%|${PREFIX}|g' \
