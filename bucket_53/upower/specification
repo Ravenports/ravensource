@@ -28,8 +28,6 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/up-native.h
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
-BROKEN[linux]=		requires gudev package during configuration
-
 BUILD_DEPENDS=		automake:single:standard
 			autoconf:single:standard
 			docbook-xsl:primary:standard
@@ -44,10 +42,16 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-gtk-doc
 			--without-idevice
 INSTALL_TARGET=		install-strip
-
-VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--with-backend=freebsd
 SOVERSION=		${SOVERSION}
 DISTNAME=		upower
+
+VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--with-backend=freebsd
+
+# The linux backend requires gudev which is built upon systemd's
+# libudev which isn't currently installed in the linux build environment
+# Until gudev is a ravenport, cripple upower as a dummy backend
+
+VAR_OPSYS[linux]=	CONFIGURE_ARGS=--with-backend=dummy
 
 post-patch:
 	${REINPLACE_CMD} -e 's|__DBPATH__|${PREFIX}/share/xsl/docbook/manpages|' \
