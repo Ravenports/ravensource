@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	5.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		texi2html
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	Texinfo to HTML converter
+HOMEPAGE=		http://www.nongnu.org/texi2html/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SAVANNAH/texi2html/
+DISTFILE[1]=		texi2html-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		textproc/texi2html
+
+USES=			gmake perl shebangfix
+			gettext-runtime gettext-tools
+SHEBANG_FILES=		*.pl
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-multiplatform
+CONFIGURE_ENV=		PERL={{PERL}}
+INFO=			primary:texi2html
+
+post-extract:
+	# extract license terms
+	${AWK} '/^\#\+\#\#/,/^\#\-\#\#/' ${WRKSRC}/texi2html.pl \
+		> ${WRKDIR}/TERMS
+
+post-patch:
+	${REINPLACE_CMD} -e 's/^translations.pl/_&/' \
+		-e '/^install-data/s|i18n|&/en.thl|' ${WRKSRC}/Makefile.in
+	${CHMOD} +x ${WRKSRC}/install-sh
