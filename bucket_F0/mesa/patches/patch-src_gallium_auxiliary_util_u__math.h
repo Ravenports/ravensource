@@ -1,4 +1,4 @@
---- src/gallium/auxiliary/util/u_math.h.orig	2018-11-15 12:32:30 UTC
+--- src/gallium/auxiliary/util/u_math.h.orig	2018-12-13 14:02:20 UTC
 +++ src/gallium/auxiliary/util/u_math.h
 @@ -49,6 +49,9 @@
  #include "util/bitscan.h"

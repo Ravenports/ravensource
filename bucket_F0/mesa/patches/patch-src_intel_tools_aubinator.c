@@ -1,4 +1,4 @@
---- src/intel/tools/aubinator.c.orig	2018-11-15 12:32:30 UTC
+--- src/intel/tools/aubinator.c.orig	2018-12-13 14:02:20 UTC
 +++ src/intel/tools/aubinator.c
 @@ -47,6 +47,7 @@
  #include "intel_aub.h"
