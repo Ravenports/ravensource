@@ -1,0 +1,79 @@
+DEF[PORTVERSION]=	2.6.5
+DEF[SOVERSION]=		10.1.5
+DEF[SO_WIRETAP]=	8.0.5
+DEF[SO_WSCODECS]=	2.0.0
+DEF[SO_WSUTIL]=		9.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		wireshark
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		standard
+SDESC[standard]=	Network traffic analyzer
+HOMEPAGE=		https://www.wireshark.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.wireshark.org/download/src/
+DISTFILE[1]=		wireshark-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		net/wireshark
+
+BUILD_DEPENDS=		lz4:static:standard
+BUILDRUN_DEPENDS=	lz4:shared:standard
+			libgpg-error:single:standard
+			libgcrypt:single:standard
+			libnghttp2:single:standard
+			c-ares:single:standard
+			GeoIP:single:standard
+			gnutls:single:standard
+			libpcap:single:standard
+			libssh:single:standard
+
+USES=			cpe gmake libtool gettext-runtime ssl lua:5.2
+			perl:build python:build pkgconfig
+GNOME_COMPONENTS=	glib libxml2 gtk3 cairo
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--without-krb5
+			--with-lz4
+			--with-nghttp2
+			--with-c-ares
+			--with-geoip
+			--with-gnutls
+			--with-lua
+			--with-ssl={{OPENSSLBASE}}
+			--with-gtk=3
+			--with-qt=no
+			--with-snappy=no
+			--enable-androiddump=yes
+			--enable-sshdump=yes
+			--enable-ciscodump=yes
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+CPPFLAGS=		-I{{LUA_INCDIR}}
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		SO_WIRETAP=${SO_WIRETAP}
+			SO_WSCODECS=${SO_WSCODECS}
+			SO_WSUTIL=${SO_WSUTIL}
+			MAJ_WIRETAP=${SO_WIRETAP:R:R}
+			MAJ_WSCODECS=${SO_WSCODECS:R:R}
+			MAJ_WSUTIL=${SO_WSUTIL:R:R}
+
+post-patch:
+	${REINPLACE_CMD} -e 's|llua|llua-${LUA_VER}|g ; \
+		s|-DQT_GUI_LIB|-DQT_GUI_LIB $$CPPFLAGS| ' \
+		${WRKSRC}/configure
+	${REINPLACE_CMD} -e 's|/usr/share/applications|${DESKTOPDIR}|g ; \
+		s|/usr/share|${LOCALBASE}/share|g ; \
+		s|{mime/packages,applications}|mime/packages| ; \
+		s|{apps,mimetypes}|apps $$(DESTDIR)${LOCALBASE}/share/icons/hicolor/$$$${size}x$$$${size}/mimetypes|' \
+		${WRKSRC}/Makefile.in
+
+post-install:
+	${MV} ${STAGEDIR}${PREFIX}/bin/wireshark-gtk \
+		${STAGEDIR}${PREFIX}/bin/wireshark
