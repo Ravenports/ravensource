@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	3.5.1
+DEF[ORIGVERSION]=	3.5.1
+DEF[PORTVERSION]=	${ORIGVERSION}a
 DEF[CCLINKDIR]=		libexec/ccache
 # Don't link "CC" because it is same as "cc" on case-insensitive file systems
 # CC should not be used anyway as it is specific to Solaris
@@ -33,6 +34,7 @@ SKIP_CCACHE=		yes
 MUST_CONFIGURE=		gnu
 CPPFLAGS=		-DCC_IS_GCC -Wno-implicit-fallthrough
 PLIST_SUB=		CCLINKDIR="${CCLINKDIR}"
+DISTNAME=		ccache-${ORIGVERSION}
 
 VAR_OPSYS[sunos]=	CPPFLAGS=-D_XPG6
 			CPPFLAGS=-D_STDC_C99=
