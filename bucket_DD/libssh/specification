@@ -1,0 +1,47 @@
+DEF[PORTVERSION]=	0.8.6
+DEF[SOVERSION]=		4.7.3
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libssh
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		standard
+SDESC[standard]=	Library implementing the SSH2 protocol
+HOMEPAGE=		https://www.libssh.org
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.libssh.org/files/${PORTVERSION:R}/
+DISTFILE[1]=		libssh-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:single
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/libssh/libssh.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		security/libssh
+
+USES=			cmake:outsource cpe zlib ssl
+CMAKE_ARGS=		-DWITH_EXAMPLES:BOOL=OFF
+			-DWITH_GSSAPI:BOOL=ON
+			-DWITH_ZLIB:BOOL=ON
+			-DWITH_STATIC_LIB:BOOL=ON
+SOVERSION=		${SOVERSION}
+
+post-patch:
+	${RM} ${PATCH_WRKSRC}/cmake/Modules/UseDoxygen.cmake
+	${REINPLACE_CMD} \
+		-e 's|CMAKE_INSTALL_DIR}|CMAKE_INSTALL_DIR}/libssh|' \
+		${WRKSRC}/CMakeLists.txt
+	${REINPLACE_CMD} -e 's| -pedantic-errors||' \
+		${WRKSRC}/cmake/Modules/DefineCompilerFlags.cmake
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libssh.${LIBEXT}
