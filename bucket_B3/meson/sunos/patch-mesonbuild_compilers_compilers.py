@@ -9,7 +9,17 @@
                                   'minsize': [],
                                   'custom': [],
                                   }
-@@ -1210,19 +1210,6 @@ class Compiler:
+@@ -522,9 +522,6 @@ def get_base_link_args(options, linker,
+     # -bitcode_bundle is incompatible with -undefined and -bundle
+     if bitcode and not is_shared_module:
+         args.append('-Wl,-bitcode_bundle')
+-    elif as_needed:
+-        # -Wl,-dead_strip_dylibs is incompatible with bitcode
+-        args.append(linker.get_asneeded_args())
+     try:
+         crt_val = options['b_vscrt'].value
+         buildtype = options['buildtype'].value
+@@ -1210,19 +1207,6 @@ class Compiler:
                      paths = paths + ':' + padding
              args.append('-Wl,-rpath,' + paths)
  
@@ -29,7 +39,7 @@
          return args
  
      def thread_flags(self, env):
-@@ -1354,15 +1341,7 @@ def get_compiler_is_linuxlike(compiler):
+@@ -1354,15 +1338,7 @@ def get_compiler_is_linuxlike(compiler):
  def get_compiler_uses_gnuld(c):
      # FIXME: Perhaps we should detect the linker in the environment?
      # FIXME: Assumes that *BSD use GNU ld, but they might start using lld soon
@@ -46,7 +56,7 @@
  
  def get_largefile_args(compiler):
      '''
-@@ -1433,8 +1412,6 @@ class GnuLikeCompiler(abc.ABC):
+@@ -1433,8 +1409,6 @@ class GnuLikeCompiler(abc.ABC):
          self.compiler_type = compiler_type
          self.base_options = ['b_pch', 'b_lto', 'b_pgo', 'b_sanitize', 'b_coverage',
                               'b_ndebug', 'b_staticpic', 'b_pie']
@@ -55,7 +65,7 @@
          if not self.compiler_type.is_windows_compiler:
              self.base_options.append('b_asneeded')
          # All GCC-like backends can do assembly
-@@ -1542,8 +1519,8 @@ class GnuLikeCompiler(abc.ABC):
+@@ -1542,8 +1516,8 @@ class GnuLikeCompiler(abc.ABC):
              # For PE/COFF this is impossible
              return []
          else:
