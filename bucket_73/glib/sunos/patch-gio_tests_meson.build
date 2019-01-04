@@ -1,6 +1,6 @@
---- gio/tests/meson.build.orig	2018-09-21 14:23:52 UTC
+--- gio/tests/meson.build.orig	2018-12-18 14:51:13 UTC
 +++ gio/tests/meson.build
-@@ -14,6 +14,8 @@ giotypefuncs_inc = custom_target(
+@@ -25,6 +25,8 @@ giotypefuncs_inc = custom_target(
    input : gio_headers + [gioenumtypes_h] + gobject_install_headers,
    command: [gengiotypefuncs_prog, '@OUTPUT@', '@INPUT@'])
  
@@ -9,7 +9,7 @@
  #  Test programs buildable on all platforms
  # FIXME: We are using list of dictionnaries until we can depend on Meson 0.48.0
  # that supports '+=' operator on dictionnaries.
-@@ -56,7 +58,7 @@ gio_tests = [{
+@@ -67,7 +69,7 @@ gio_tests = [{
    'simple-async-result' : {},
    'simple-proxy' : {},
    'sleepy-stream' : {},
@@ -18,10 +18,10 @@
    'socket-listener' : {},
    'socket-service' : {},
    'srvtarget' : {},
-@@ -121,11 +123,11 @@ if host_machine.system() != 'windows'
-   gio_tests += [{
-     'file' : {},
-     'gdbus-peer' : {'dependencies' : [libgdbus_example_objectmanager_dep]},
+@@ -129,11 +131,11 @@ if host_machine.system() != 'windows'
+       'dependencies' : [libgdbus_example_objectmanager_dep],
+       'install_rpath' : installed_tests_execdir
+     },
 -    'gdbus-peer-object-manager' : {},
 +    'gdbus-peer-object-manager' : {'dependencies' : [sun_socket]},
      'live-g-file' : {},
@@ -33,12 +33,12 @@
      'unix-mounts' : {},
      'unix-streams' : {},
      'g-file-info-filesystem-readonly' : {},
-@@ -248,7 +250,7 @@ if host_machine.system() != 'windows'
+@@ -285,7 +287,7 @@ if host_machine.system() != 'windows'
+   # This test is currently unreliable
    executable('gdbus-overflow', 'gdbus-overflow.c',
-       install : false,
        c_args : test_c_args,
--      dependencies : common_gio_tests_deps)
-+      dependencies : [common_gio_tests_deps, sun_socket])
+-      dependencies : common_gio_tests_deps,
++      dependencies : [common_gio_tests_deps, sun_socket],
+       install_dir : installed_tests_execdir,
+       install : installed_tests_enabled)
  
-   gio_tests += [{
-     'gdbus-connection-flush' : {
