@@ -1,0 +1,30 @@
+DEF[PORTVERSION]=	1.2.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		scrypt
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		standard
+SDESC[standard]=	Key Derivation Function
+HOMEPAGE=		https://www.tarsnap.com/scrypt.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.tarsnap.com/scrypt/
+DISTFILE[1]=		scrypt-${PORTVERSION}.tgz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYRIGHT
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		security/scrypt
+
+USES=			ssl
+MUST_CONFIGURE=		gnu
+CFLAGS=			-I{{OPENSSLINC}}
+			-L{{OPENSSLLIB}}
