@@ -1,19 +1,19 @@
-DEF[PORTVERSION]=	1.9.1
+DEF[PORTVERSION]=	1.6.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-nokogiri
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v24 v25 v26
-SDESC[v24]=		Nokogiri (鋸) is an HTML, XML, SAX, and Rea (v24)
-SDESC[v25]=		Nokogiri (鋸) is an HTML, XML, SAX, and Rea (v25)
-SDESC[v26]=		Nokogiri (鋸) is an HTML, XML, SAX, and Rea (v26)
-HOMEPAGE=		none
+SDESC[v24]=		Nokogiri (é‹¸) is an HTML, XML, SAX, and (v24)
+SDESC[v25]=		Nokogiri (é‹¸) is an HTML, XML, SAX, and (v25)
+SDESC[v26]=		Nokogiri (é‹¸) is an HTML, XML, SAX, and (v26)
+HOMEPAGE=		http://nokogiri.org
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		nokogiri-1.9.1.gem:main
+DISTFILE[1]=		nokogiri-1.6.1.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v24]=		single
@@ -29,31 +29,29 @@ VOPTS[v26]=		RUBY24=OFF RUBY25=OFF RUBY26=ON
 GENERATED=		yes
 
 # Requirements specified by gem dependency --remote --version command
-#   concourse (~> 0.15, development)
-#   hoe (~> 3.17, development)
-#   hoe-bundler (~> 1.2, development)
-#   hoe-debugging (~> 2.0, development)
-#   hoe-gemspec (~> 1.0, development)
-#   hoe-git (~> 1.6, development)
-#   mini_portile2 (~> 2.4.0)
-#   minitest (~> 5.8.4, development)
-#   racc (~> 1.4.14, development)
-#   rake (~> 12.0, development)
-#   rake-compiler (~> 1.0.3, development)
-#   rake-compiler-dock (~> 0.6.2, development)
-#   rdoc (>= 4.0, < 7, development)
-#   rexical (~> 1.0.5, development)
+#   hoe (~> 3.7, development)
+#   hoe-bundler (>= 1.1, development)
+#   hoe-debugging (>= 1.0.3, development)
+#   hoe-gemspec (>= 1.0, development)
+#   hoe-git (>= 1.4, development)
+#   mini_portile (~> 0.5.0)
+#   minitest (~> 2.2.2, development)
+#   racc (>= 1.4.6, development)
+#   rake (>= 0.9, development)
+#   rake-compiler (~> 0.8.0, development)
+#   rdoc (~> 4.0, development)
+#   rexical (>= 1.0.5, development)
 
 DISTNAME=		nokogiri-${PORTVERSION}
 
 [RUBY24].USES_ON=			gem:v24
-[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-mini_portile2:single:v24
+[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-mini_portile:single:v24
 
 [RUBY25].USES_ON=			gem:v25
-[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-mini_portile2:single:v25
+[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-mini_portile:single:v25
 
 [RUBY26].USES_ON=			gem:v26
-[RUBY26].BUILDRUN_DEPENDS_ON=		ruby-mini_portile2:single:v26
+[RUBY26].BUILDRUN_DEPENDS_ON=		ruby-mini_portile:single:v26
 BUILDRUN_DEPENDS=	libgcrypt:single:standard
 USES=			pkgconfig
 GNOME_COMPONENTS=	libxml2 libxslt
