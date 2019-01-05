@@ -1,0 +1,63 @@
+DEF[PORTVERSION]=	3.0.12
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		swig
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel lang
+VARIANTS=		standard
+SDESC[standard]=	Scripting Language Interface Compiler for C/C++
+HOMEPAGE=		http://www.swig.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/swig/swig/swig-${PORTVERSION}
+DISTFILE[1]=		swig-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:primary CUSTOM1:primary
+LICENSE_NAME=		CUSTOM1:"SWIG Universities licenses (BSD-like)"
+LICENSE_TERMS=		primary:{{WRKSRC}}/LICENSE
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/LICENSE-GPL
+			CUSTOM1:{{WRKSRC}}/LICENSE-UNIVERSITIES
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		devel/swig30
+
+BUILD_DEPENDS=		pcre:static:standard
+BUILDRUN_DEPENDS=	pcre:shared:standard
+
+USES=			gmake lua
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-lua={{LOCALBASE}}/bin/{{LUA_CMD}}
+			--with-luaincl={{LUA_INCDIR}}
+			--with-lualib={{LUA_LIBDIR}}
+BUILD_TARGET=		swig
+CFLAGS=			-fPIC -DPIC
+PLIST_SUB=		SWIGVER=${PORTVERSION}
+
+post-patch:
+	${SETENV} OCTAVE_VER=$$(${LOCALBASE}/bin/octave-config -v 2>/dev/null || ${TRUE}) \
+	    ${REINPLACE_CMD} \
+		-e 's|$$RUBY |${RUBY} |' \
+		-e 's|^PHP4CONFIG=.*$$|PHP4CONFIG=php-config|' \
+		-e 's|OCTAVEDIR=".*"|OCTAVEDIR="${LOCALBASE}/include/octave-$${OCTAVE_VER}"|' \
+		-e 's|MZSCHEME --mute-banner|MZSCHEME|' \
+		-e '/^MZDYNOBJ/s|`$$|\| tail -n 1`|' \
+			${WRKSRC}/configure
+
+post-configure:
+	${REINPLACE_CMD} -e 's#null#&|| true#' ${WRKSRC}/Makefile
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ccache-swig
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/swig
+	# install docs
+	(cd ${WRKSRC}/Doc/ && \
+		${COPYTREE_SHARE} . ${STAGEDIR}${STD_DOCDIR}/)
+	# install examples
+	(cd ${WRKSRC}/Examples/ && \
+		${COPYTREE_SHARE} . ${STAGEDIR}${STD_EXAMPLESDIR})
