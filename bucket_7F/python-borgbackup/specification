@@ -1,0 +1,51 @@
+DEF[PORTVERSION]=	1.1.8
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-borgbackup
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py36 py37
+SDESC[py36]=		Deduplicated, encrypted, authenticated and (PY 36)
+SDESC[py37]=		Deduplicated, encrypted, authenticated and (PY 37)
+HOMEPAGE=		https://borgbackup.readthedocs.io/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/b/borgbackup
+DISTFILE[1]=		borgbackup-1.1.8.tar.gz:main
+
+SPKGS[py36]=		single
+SPKGS[py37]=		single
+
+OPTIONS_AVAILABLE=	PY36 PY37
+OPTIONS_STANDARD=	none
+VOPTS[py36]=		PY36=ON PY37=OFF
+VOPTS[py37]=		PY36=OFF PY37=ON
+
+# Output of setup.py --license
+# BSD
+
+GENERATED=		yes
+
+# install_requires extracted from setup.py (using python 2.7)
+
+DISTNAME=		borgbackup-${PORTVERSION}
+
+[PY36].USES_ON=				python:py36
+[PY36].BUILDRUN_DEPENDS_ON=		python-msgpack:single:py36
+					python-setuptools_scm:single:py36
+
+[PY37].USES_ON=				python:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-msgpack:single:py37
+					python-setuptools_scm:single:py37
+USES=			ssl
+BUILD_DEPENDS=		Zstandard:static:standard
+			lz4:static:standard
+BUILDRUN_DEPENDS=	Zstandard:shared:standard
+			lz4:shared:standard
+
+MAKE_ENV=		BORG_OPENSSL_PREFIX={{OPENSSLBASE}}
+
+post-patch:
+	${SED} -i'' -e 's|msgpack-python|msgpack|' \
+	${WRKSRC}/setup.py ${WRKSRC}/src/borgbackup.egg-info/requires.txt
