@@ -1,0 +1,52 @@
+DEF[PORTVERSION]=	1.8.4
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		rdesktop
+VERSION=		${PORTVERSION}
+KEYWORDS=		net comms
+VARIANTS=		standard
+SDESC[standard]=	RDP client - Windows NT/2000/2003 Terminal Server
+HOMEPAGE=		https://www.rdesktop.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/rdesktop/rdesktop/releases/download/v${PORTVERSION}/
+DISTFILE[1]=		rdesktop-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^\#include"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/rdesktop.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net/rdesktop
+
+BUILDRUN_DEPENDS=	libao:primary:standard
+			libsamplerate:primary:standard
+			pcsc-lite:primary:standard
+
+USES=			gmake iconv pkgconfig ssl
+XORG_COMPONENTS=	x11
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-credssp
+			--with-ipv6
+			--with-sound=libao
+			--with-openssl={{OPENSSLBASE}}
+			{{ICONV_CONFIGURE_ARG}}
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/rdesktop/keymaps
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_PROGRAM} ${WRKSRC}/rdesktop ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/doc/rdesktop.1 \
+		${STAGEDIR}${MAN1PREFIX}/man/man1
+	${INSTALL_DATA} ${WRKSRC}/keymaps/* \
+		${STAGEDIR}${PREFIX}/share/rdesktop/keymaps
+	(cd ${WRKSRC} && ${INSTALL_DATA} doc/AUTHORS doc/TODO doc/*.txt \
+		${STAGEDIR}${STD_DOCDIR})
