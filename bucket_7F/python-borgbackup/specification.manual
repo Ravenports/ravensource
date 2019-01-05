@@ -1,0 +1,11 @@
+USES=			ssl
+BUILD_DEPENDS=		Zstandard:static:standard
+			lz4:static:standard
+BUILDRUN_DEPENDS=	Zstandard:shared:standard
+			lz4:shared:standard
+
+MAKE_ENV=		BORG_OPENSSL_PREFIX={{OPENSSLBASE}}
+
+post-patch:
+	${SED} -i'' -e 's|msgpack-python|msgpack|' \
+	${WRKSRC}/setup.py ${WRKSRC}/src/borgbackup.egg-info/requires.txt
