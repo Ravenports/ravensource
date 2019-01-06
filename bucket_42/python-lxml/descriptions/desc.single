@@ -23,22 +23,42 @@ an appropriate version of Cython installed.
 
 After an official release of a new stable series, bug fixes may become
 available at
-https://github.com/lxml/lxml/tree/lxml-4.2 .
-Running ``easy_install lxml==4.2bugfix`` will install
+https://github.com/lxml/lxml/tree/lxml-4.3 .
+Running ``easy_install lxml==4.3bugfix`` will install
 the unreleased branch state from
-https://github.com/lxml/lxml/tarball/lxml-4.2#egg=lxml-4.2bugfix
+https://github.com/lxml/lxml/tarball/lxml-4.3#egg=lxml-4.3bugfix
 as soon as a maintenance branch has been established.  Note that this
 requires Cython to be installed at an appropriate version for the build.
 
-4.2.6 (2019-01-02)
+4.3.0 (2019-01-04)
 ==================
 
-Bugs fixed
-----------
+Features added
+--------------
 
-* LP#1799755: Fix a DeprecationWarning in Py3.7+.
+* The module ``lxml.sax`` is compiled using Cython in order to speed it up.
 
-* Import warnings in Python 3.6+ were resolved.
+* GH#267: ``lxml.sax.ElementTreeProducer`` now preserves the namespace
+prefixes.
+  If two prefixes point to the same URI, the first prefix in alphabetical
+order
+  is used.  Patch by Lennart Regebro.
+
+* Updated ISO-Schematron implementation to 2013 version (now MIT licensed)
+  and the corresponding schema to the 2016 version (with optional
+"properties").
+
+Other changes
+-------------
+
+* GH#270, GH#271: Support for Python 2.6 and 3.3 was removed.
+  Patch by hugovk.
+
+* The minimum dependency versions were raised to libxml2 2.9.2 and libxslt
+1.1.27,
+  which were released in 2014 and 2012 respectively.
+
+* Built with Cython 0.29.2.
 
 
 
