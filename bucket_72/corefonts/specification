@@ -1,0 +1,73 @@
+DEF[PORTVERSION]=	1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		corefonts
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_fonts
+VARIANTS=		standard
+SDESC[standard]=	Microsoft's TrueType core fonts
+HOMEPAGE=		http://corefonts.sourceforge.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main core2
+SITES[main]=		SF/corefonts/the%20fonts/final
+SITES[core2]=		SF/mscorefonts2/cabs
+DISTFILE[1]=		andale32.exe:main
+DISTFILE[2]=		arialb32.exe:main
+DISTFILE[3]=		comic32.exe:main
+DISTFILE[4]=		courie32.exe:main
+DISTFILE[5]=		georgi32.exe:main
+DISTFILE[6]=		impact32.exe:main
+DISTFILE[7]=		webdin32.exe:main
+DISTFILE[8]=		EUupdate.EXE:core2
+DISTFILE[9]=		PowerPointViewer.exe:core2
+DF_INDEX=		1 2 3 4 5 6 7 8 9
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:single
+LICENSE_NAME=		CUSTOM1:"Microsoft TrueType Fonts EULA"
+LICENSE_FILE=		CUSTOM1:{{WRKDIR}}/corefonts_7/licen.txt
+LICENSE_SCHEME=		solo
+
+# equivalent to webfonts, but version numbers incompatible
+# FPC_EQUIVALENT=	x11-fonts/webfonts
+
+BUILD_DEPENDS=		cabextract:primary:standard
+
+USES=			fonts
+EXTRACT_DIRTY=		1 2 3 4 5 6 7 8 9
+EXTRACT_HEAD[1]=	{{LOCALBASE}}/bin/cabextract
+EXTRACT_HEAD[2]=	{{LOCALBASE}}/bin/cabextract
+EXTRACT_HEAD[3]=	{{LOCALBASE}}/bin/cabextract
+EXTRACT_HEAD[4]=	{{LOCALBASE}}/bin/cabextract
+EXTRACT_HEAD[5]=	{{LOCALBASE}}/bin/cabextract
+EXTRACT_HEAD[6]=	{{LOCALBASE}}/bin/cabextract
+EXTRACT_HEAD[7]=	{{LOCALBASE}}/bin/cabextract
+EXTRACT_HEAD[8]=	{{LOCALBASE}}/bin/cabextract
+EXTRACT_HEAD[9]=	{{LOCALBASE}}/bin/cabextract
+EXTRACT_TAIL[1]=	-qLF '*.[t][tx][ft]' -d {{WRKDIR}}/corefonts_1
+EXTRACT_TAIL[2]=	-qLF '*.[t][tx][ft]' -d {{WRKDIR}}/corefonts_2
+EXTRACT_TAIL[3]=	-qLF '*.[t][tx][ft]' -d {{WRKDIR}}/corefonts_3
+EXTRACT_TAIL[4]=	-qLF '*.[t][tx][ft]' -d {{WRKDIR}}/corefonts_4
+EXTRACT_TAIL[5]=	-qLF '*.[t][tx][ft]' -d {{WRKDIR}}/corefonts_5
+EXTRACT_TAIL[6]=	-qLF '*.[t][tx][ft]' -d {{WRKDIR}}/corefonts_6
+EXTRACT_TAIL[7]=	-qLF '*.[t][tx][ft]' -d {{WRKDIR}}/corefonts_7
+EXTRACT_TAIL[8]=	-qLF '*.[t][tx][ft]' -d {{WRKDIR}}/corefonts_8
+EXTRACT_TAIL[9]=	-qLF '*.[ct][ax][bt]' -d {{WRKDIR}}/corefonts_9
+
+FONTNAME=		corefonts
+SKIP_BUILD=		yes
+SUB_FILES=		pkg-message-single
+
+post-extract:
+	${LOCALBASE}/bin/cabextract -qLF '*.ttf' \
+		-d ${WRKDIR}/corefonts_9 \
+		${WRKDIR}/corefonts_9/ppviewer.cab
+
+do-install:
+	${MKDIR} ${STAGEDIR}${FONTSDIR}
+	${INSTALL_DATA} ${WRKDIR}/corefonts_*/*.ttf ${STAGEDIR}${FONTSDIR}
