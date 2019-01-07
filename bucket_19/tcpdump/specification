@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	4.9.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		tcpdump
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		standard
+SDESC[standard]=	Tool for network monitoring and data acquisition
+HOMEPAGE=		https://www.tcpdump.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.tcpdump.org/release/
+DISTFILE[1]=		tcpdump-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net/tcpdump
+
+BUILDRUN_DEPENDS=	libsmi:library:standard
+			libpcap:single:standard
+
+USES=			gmake ssl
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-crypto
+			--with-smi
+			--enable-smb
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/tcpdump ${STAGEDIR}/${PREFIX}/sbin
+	${INSTALL_MAN} ${WRKSRC}/tcpdump.1 \
+		${STAGEDIR}/${MAN1PREFIX}/man/man1
