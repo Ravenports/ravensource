@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	1.9
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		cabextract
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers
+VARIANTS=		standard
+SDESC[standard]=	Utility for extracting cabinet (.cab) archives
+HOMEPAGE=		https://www.cabextract.org.uk/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.cabextract.org.uk/
+DISTFILE[1]=		cabextract-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# COPYING doesn't match TERMS, so use stock license
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:stock
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/cabextract.c
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		archivers/cabextract
+
+USES=			cpe iconv
+MUST_CONFIGURE=		gnu
+
+post-install:
+	${INSTALL_MAN} ${WRKSRC}/doc/cabextract.1 \
+		${STAGEDIR}${MAN1PREFIX}/man/man1
+	# install docs
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	(cd ${WRKSRC} && ${INSTALL_DATA} \
+		AUTHORS ChangeLog NEWS README TODO \
+		doc/magic doc/wince_cab_format.html \
+		src/wince_info src/wince_rename \
+		${STAGEDIR}${STD_DOCDIR})
