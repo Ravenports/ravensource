@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	1.3.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mosh
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		standard
+SDESC[standard]=	Mobile terminal that supports ratty connectivity
+HOMEPAGE=		https://mosh.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://mosh.org/
+DISTFILE[1]=		mosh-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^\#include"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/frontend/mosh-client.cc
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net/mosh
+
+BUILDRUN_DEPENDS=	protobuf:single:standard
+
+USES=			autoreconf ncurses perl pkgconfig ssl zlib
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--without-utempter
+CONFIGURE_ENV=		CRYPTO_CFLAGS="-I{{OPENSSLINC}}"
+			CRYPTO_LIBS="-L{{OPENSSLLIB}} -lssl -lcrypto"
+			TINFO_CFLAGS="-I{{NCURSESINC}}"
+INSTALL_TARGET=		install-strip
