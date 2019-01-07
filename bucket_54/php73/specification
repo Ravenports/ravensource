@@ -5,6 +5,7 @@ DEF[SOMAJOR]=		${PORTVERSION:R:R}
 
 NAMEBASE=		php${SUFFIX}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		lang www php
 VARIANTS=		standard
 SDESC[standard]=	PHP Hypertext Preprocessor version ${PORTVERSION:R}
@@ -33,7 +34,7 @@ USES=			cpe gmake
 CPE_PRODUCT=		php
 GNOME_COMPONENTS=	libxml2
 DISTNAME=		php-${PORTVERSION}
-RC_SUBR=		php-fpm:single
+RC_SUBR=		php${SUFFIX}-fpm:single
 MUST_CONFIGURE=		gnu
 DESTDIRNAME=		INSTALL_ROOT
 
@@ -53,6 +54,7 @@ CONFIGURE_ARGS=		--with-layout=GNU
 CONFIGURE_ENV=		ac_cv_decimal_fp_supported="no"
 			lt_cv_path_SED="sed"
 PLIST_SUB=		SUFFIX=${SUFFIX} SOMAJOR=${SOMAJOR}
+SUB_LIST=		SUFFIX=${SUFFIX}
 
 BR_DEPS[darwin]=	libiconv:static:standard
 
