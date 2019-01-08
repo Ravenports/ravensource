@@ -1,0 +1,63 @@
+DEF[PORTVERSION]=	1.16.3
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		krb5
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		standard
+SDESC[standard]=	MIT Kerberos 5 authentication system
+HOMEPAGE=		http://web.mit.edu/kerberos/www/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://web.mit.edu/kerberos/dist/krb5/${PORTVERSION:R}/
+DISTFILE[1]=		krb5-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary examples docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/../NOTICE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		security/krb5
+
+RC_SUBR=		kpropd:primary
+
+USES=			cpe gmake perl:build libtool:build pkgconfig ssl
+			gettext-runtime gettext-tools readline
+CPE_VENDOR=		mit
+CPE_VERSION=		5-${PORTVERSION}
+CPE_PRODUCT=		kerberos
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-shared
+			--with-readline
+			--without-system-verto
+			--disable-rpath
+			--localstatedir="{{PREFIX}}/var"
+			--runstatedir="{{PREFIX}}/var/run"
+DISTNAME=		krb5-${PORTVERSION}/src
+CONFIGURE_ENV=		INSTALL="{{INSTALL}}"
+			INSTALL_LIB="{{INSTALL_LIB}}"
+			YACC="{{YACC}}"
+MAKE_ARGS=		INSTALL="{{INSTALL}}"
+			INSTALL_LIB="{{INSTALL_LIB}}"
+CPPFLAGS=		-I{{OPENSSLINC}}
+LDFLAGS=		-L{{OPENSSLLIB}}
+
+post-install:
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+
+	# install PDF documentation
+	(cd ${WRKSRC}/../doc && \
+		${COPYTREE_SHARE} pdf ${STAGEDIR}${STD_DOCDIR})
+
+	# install HTML documentation
+	(cd ${WRKSRC}/../doc && \
+		${COPYTREE_SHARE} html ${STAGEDIR}${STD_DOCDIR} \
+		"! -path 'html/_sources*'")
+
+	# remove cat directories
+	${FIND} ${STAGEDIR}${PREFIX}/share/man -type d -empty -delete

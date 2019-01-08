@@ -1,0 +1,20 @@
+--- include/krb5/krb5.hin.orig	2019-01-07 17:19:42 UTC
++++ include/krb5/krb5.hin
+@@ -106,7 +106,7 @@
+ 
+ KRB5INT_BEGIN_DECLS
+ 
+-#if TARGET_OS_MAC
++#if defined(TARGET_OS_MAC) && TARGET_OS_MAC
+ #    pragma pack(push,2)
+ #endif
+ 
+@@ -8481,7 +8481,7 @@ krb5_set_kdc_recv_hook(krb5_context cont
+                        void *data);
+ 
+ 
+-#if TARGET_OS_MAC
++#if defined(TARGET_OS_MAC) && TARGET_OS_MAC
+ #    pragma pack(pop)
+ #endif
+ 
