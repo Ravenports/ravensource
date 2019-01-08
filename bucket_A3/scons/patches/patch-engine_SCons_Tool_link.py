@@ -1,6 +1,6 @@
---- engine/SCons/Tool/link.py.orig	2017-11-14 21:16:57 UTC
+--- engine/SCons/Tool/link.py.orig	2019-01-08 02:59:06 UTC
 +++ engine/SCons/Tool/link.py
-@@ -265,8 +265,8 @@ def _setup_versioned_lib_variables(env,
+@@ -289,8 +289,8 @@ def _setup_versioned_lib_variables(env,
              env['_SHLIBVERSIONFLAGS'] = '$SHLIBVERSIONFLAGS -h $_SHLIBSONAME'
              env['_LDMODULEVERSIONFLAGS'] = '$LDMODULEVERSIONFLAGS -h $_LDMODULESONAME'
          else:
