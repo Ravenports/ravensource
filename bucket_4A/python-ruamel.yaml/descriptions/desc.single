@@ -4,8 +4,8 @@ ruamel.yaml
 
 ``ruamel.yaml`` is a YAML 1.2 loader/dumper package for Python.
 
-:version:       0.15.83
-:updated:       2019-01-02
+:version:       0.15.85
+:updated:       2019-01-08
 :documentation: http://yaml.readthedocs.io
 :repository:    https://bitbucket.org/ruamel/
 :pypi:          https://pypi.org/project/ruamel.yaml/
@@ -59,6 +59,19 @@ ChangeLog
 .. should insert NEXT: at the beginning of line for next key (with empty
 line)
 
+0.15.85 (2019-01-08):
+  - the types used by `SafeConstructor` for mappings and sequences can
+    now by set by assigning to `XXXConstructor.yaml_base_dict_type`
+    (and `..._list_type`), preventing the need to copy two methods
+    with 50+ lines that had `var = {}` hardcoded.  (Implemented to
+    help solve an feature request by `Anthony Sottile
+    <https://bitbucket.org/asottile/>`__ in an easier way)
+
+0.15.84 (2019-01-07):
+  - fix for `CommentedMap.copy()` not returning `CommentedMap`, let alone
+copying comments etc.
+    (reported by `Anthony Sottile <https://bitbucket.org/asottile/>`__)
+
 0.15.83 (2019-01-02):
   - fix for bug in roundtripping aliases used as key (reported via email
 by Zaloo)
@@ -99,17 +112,3 @@ input
 <https://bitbucket.org/spacemanspiff2007/>`__).
   - implement Python version check in YAML metadata in
 ``_test/test_z_data.py``
-
-0.15.76 (2018-11-01):
-  - fix issue with empty mapping and sequence loaded as flow-style
-    (mapping reported by `Min RK <https://bitbucket.org/minrk/>`__,
-sequence
-    by `Maged Ahmed <https://bitbucket.org/maged2/>`__)
-
-0.15.75 (2018-10-27):
-  - fix issue with single '?' scalar (reported by `Terrance
-    <https://bitbucket.org/OllieTerrance/>`__)
-  - fix issue with duplicate merge keys (prompted by `answering
-    <https://stackoverflow.com/a/52852106/1307905>`__ a
-    `StackOverflow question
-<https://stackoverflow.com/q/52851168/1307905>`__
