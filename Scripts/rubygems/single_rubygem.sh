@@ -48,7 +48,9 @@ END { print (found) ? "dead" : "ok"}' ${DEADLIST}
 extract_version()
 {
    local gem=${1}
-   awk -vgem=$gem '{ if ($1 == gem) { print $2; exit }}' ${ENTRY_LIST}
+   # work around nokogiri version regression manually
+   awk -vgem=$gem '{ if ($1 == "nokogiri") { print "1.10.0"; exit}; \
+   	if ($1 == gem) { print $2; exit }}' ${ENTRY_LIST}
 }
 
 # target directory in ravensource
