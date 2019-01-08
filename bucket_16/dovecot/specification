@@ -1,0 +1,84 @@
+DEF[PORTVERSION]=	2.3.4
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		dovecot
+VERSION=		${PORTVERSION}
+KEYWORDS=		mail
+VARIANTS=		standard
+SDESC[standard]=	Secure IMAP and POP3 server
+HOMEPAGE=		https://www.dovecot.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.dovecot.org/releases/${PORTVERSION:R}/
+DISTFILE[1]=		dovecot-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary LGPL21:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING.MIT
+			LGPL21:{{WRKSRC}}/COPYING.LGPL
+LICENSE_TERMS=		primary:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		dual
+
+FPC_EQUIVALENT=		mail/dovecot
+
+BUILD_DEPENDS=		lz4:static:standard
+BUILDRUN_DEPENDS=	lz4:shared:standard
+			krb5:primary:standard
+			clucene:single:standard
+
+RC_SUBR=		dovecot:primary
+SUB_FILES=		pkg-message-primary
+
+USERS=			dovecot dovenull
+GROUPS=			dovecot dovenull
+USERGROUP_SPKG=		primary
+
+USES=			cpe iconv libtool pkgconfig ssl sqlite
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--localstatedir=/var
+			--with-statedir=/var/db/dovecot
+			--with-ssl=openssl
+			--with-gssapi
+			--with-docs
+			--with-lz4
+			--with-sqlite
+			--with-lucene
+			--without-libwrap
+			--without-shadow
+			--without-sodium
+			--without-lua
+			--without-vpopmail
+			--without-cdb
+			--without-ldap
+			--without-mysql
+			--without-pgsql
+			--without-icu
+			--without-squat
+			--without-solr
+			--without-textcat
+CPPFLAGS=		-I{{OPENSSLINC}}
+LDFLAGS=		-L{{OPENSSLLIB}}
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+PLIST_SUB=		REQUIRE="LOGIN"
+
+post-patch:
+	${REINPLACE_CMD} \
+		-e 's|/usr/bin|${LOCALBASE}/bin|g' \
+		-e 's|/usr/local|${PREFIX}|g' \
+		${WRKSRC}/src/plugins/fts/decode2text.sh
+	${REINPLACE_CMD} -e 's,/etc/dovecot,${PREFIX}/etc/dovecot,g; \
+		s,sysconfdir=/etc,sysconfdir=${PREFIX}/etc,g' \
+		${WRKSRC}/doc/example-config/*.conf ${WRKSRC}/doc/example-config/conf.d/*
+	${REINPLACE_CMD} -e '/^LIBS =/s/$$/ @LTLIBICONV@/' \
+		${WRKSRC}/src/lib-mail/Makefile.in
+
+	# Install the sample config files into ETCDIR/example-config/
+	${REINPLACE_CMD} -e '/^exampledir =/s|\$$(docdir)|${PREFIX}/etc/dovecot|' \
+		${WRKSRC}/doc/example-config/Makefile.in \
+		${WRKSRC}/doc/example-config/conf.d/Makefile.in
