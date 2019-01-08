@@ -1,24 +1,24 @@
---- setup.py.orig	2017-09-18 20:00:09 UTC
+--- setup.py.orig	2019-01-08 03:00:38 UTC
 +++ setup.py
-@@ -68,7 +68,7 @@ else:
- 
- import distutils
- import distutils.core
+@@ -27,7 +27,7 @@ import distutils.command.build_scripts
+ import distutils.command.install_scripts
+ import distutils.command.install_lib
+ import distutils.command.install_data
 -import distutils.command.install
 +import setuptools.command.install
- import distutils.command.install_data
- import distutils.command.install_lib
- import distutils.command.install_scripts
-@@ -86,7 +86,7 @@ def get_build_version():
+ import distutils.core
+ import distutils
+ # import setuptools
+@@ -77,7 +77,7 @@ else:
+     is_win32 = 1
  
- distutils.msvccompiler.get_build_version = get_build_version
  
 -_install = distutils.command.install.install
 +_install = setuptools.command.install.install
  _install_data = distutils.command.install_data.install_data
  _install_lib = distutils.command.install_lib.install_lib
  _install_scripts = distutils.command.install_scripts.install_scripts
-@@ -386,7 +386,7 @@ class install_data(_install_data):
+@@ -380,7 +380,7 @@ class install_data(_install_data):
              if is_win32:
                  dir = 'Doc'
              else:
