@@ -1,0 +1,53 @@
+DEF[PORTVERSION]=	1.0.2
+DEF[SOVERSION]=		0.0.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libasr
+VERSION=		${PORTVERSION}
+KEYWORDS=		dns
+VARIANTS=		standard
+SDESC[standard]=	Asynchronous DNS resolver library
+HOMEPAGE=		https://github.com/OpenSMTPD/libasr
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.opensmtpd.org/archives/
+DISTFILE[1]=		libasr-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		ISCL:single
+			BSD2CLAUSE:single
+			BSD3CLAUSE:single
+			CUSTOM1:single
+LICENSE_NAME=		CUSTOM1:"ISC License - OpenBSD Compat"
+LICENSE_TERMS=		single:{{WRKSRC}}/LICENCE
+LICENSE_FILE=		ISCL:{{WRKDIR}}/ISCL_MAIN
+			BSD2CLAUSE:{{WRKDIR}}/BSD2
+			BSD3CLAUSE:{{WRKDIR}}/BSD3
+			CUSTOM1:{{WRKDIR}}/ISCL_OPENBSD
+LICENSE_AWK=		ISCL:"^$$"
+LICENSE_SOURCE=		ISCL:{{WRKSRC}}/src/asr.h
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		dns/libasr
+
+BUILD_DEPENDS=		groff:primary:standard
+
+USES=			libtool ssl:build
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-mantype="man"
+INSTALL_TARGET=		install-strip
+CFLAGS=			-I{{OPENSSLINC}}
+SOVERSION=		${SOVERSION}
+
+post-extract:
+	${AWK} '/Jakob Schlyter/,/POSSIBILITY OF SUCH DAMAGE/' \
+		${WRKSRC}/LICENCE > ${WRKDIR}/BSD2
+	${AWK} '/3-clause BSD license/,/\* SUCH DAMAGE/' \
+		${WRKSRC}/LICENCE > ${WRKDIR}/BSD3
+	${AWK} '/work by Damien Miller/,/\* OR IN CONNECTION/' \
+		${WRKSRC}/LICENCE > ${WRKDIR}/ISCL_OPENBSD
