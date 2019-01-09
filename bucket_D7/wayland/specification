@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	1.16.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		wayland
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Wayland Display Protocol implementation
+HOMEPAGE=		https://wayland.freedesktop.org/
+CONTACT=		Peeter_Must[karu.pruun@gmail.com]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://wayland.freedesktop.org/releases/
+DISTFILE[1]=		wayland-${PORTVERSION}.tar.xz:main
+
+# SPKGS[standard]=	single
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:complete
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/wayland
+
+# start with dragonfly
+ONLY_FOR_OPSYS=		dragonfly
+
+USES=			autoreconf gmake libtool pkgconfig
+
+BUILD_DEPENDS=		libxslt:single:standard
+			doxygen:single:standard
+			xmlto:single:standard
+			graphviz:primary:standard
+			docbook-xsl:primary:standard
+
+BUILDRUN_DEPENDS=	libffi:single:standard
+			expat:shared:standard
+			libxml2:single:standard
+
+MUST_CONFIGURE=		gnu
+
+INSTALL_REQ_TOOLCHAIN=	yes
+INSTALL_TARGET=		install-strip
