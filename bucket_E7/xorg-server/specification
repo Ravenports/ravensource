@@ -83,6 +83,7 @@ VAR_OPSYS[sunos]=	CFLAGS=-DO_CLOEXEC=0
 					libepoxy:single:standard
 [WAYLAND].BUILDRUN_DEPENDS_ON=		libdrm:single:standard
 					libepoxy:single:standard
+					wayland:primary:standard
 # + libinput:single:standard
 
 [VIRTUAL].BUILD_DEPENDS_ON=		libepoxy:single:standard
@@ -95,7 +96,8 @@ VAR_OPSYS[sunos]=	CFLAGS=-DO_CLOEXEC=0
 					mesa:drivers:standard
 [XEPHYR].BUILD_DEPENDS_ON=		mesa:drivers:standard
 [WAYLAND].BUILD_DEPENDS_ON=		mesa:drivers:standard
-# wayland-protocols:single:standard
+					wayland-protocols:single:standard
+					evdev-proto:single:standard
 
 [XORG].USES_ON=				mesa
 [NEST].USES_ON=				mesa
@@ -110,7 +112,6 @@ VAR_OPSYS[sunos]=	CFLAGS=-DO_CLOEXEC=0
 [XORG].CONFIGURE_ENABLE_BOTH=		docs devel-docs xorg
 
 [WAYLAND].CONFIGURE_ARGS_ON=		--disable-xquartz --disable-xwin
-[WAYLAND].BROKEN_ON=			Wayland itself not yet implemented
 
 [NEST].XORG_COMPONENTS_ON=		x11 xext
 [WAYLAND].XORG_COMPONENTS_ON=		x11 xext
