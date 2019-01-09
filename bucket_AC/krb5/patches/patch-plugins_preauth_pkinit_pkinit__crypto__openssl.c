@@ -1,6 +1,6 @@
---- plugins/preauth/pkinit/pkinit_crypto_openssl.c.orig	2019-01-07 17:19:42 UTC
+--- plugins/preauth/pkinit/pkinit_crypto_openssl.c.orig	2019-01-08 16:02:37 UTC
 +++ plugins/preauth/pkinit/pkinit_crypto_openssl.c
-@@ -188,7 +188,8 @@ pkinit_pkcs11_code_to_text(int err);
+@@ -189,7 +189,8 @@ pkinit_pkcs11_code_to_text(int err);
      (*_x509_pp) = PKCS7_cert_from_signer_info(_p7,_si)
  #endif
  
@@ -10,7 +10,7 @@
  
  /* 1.1 standardizes constructor and destructor names, renaming
   * EVP_MD_CTX_{create,destroy} and deprecating ASN1_STRING_data. */
-@@ -3040,7 +3041,8 @@ cleanup:
+@@ -3053,7 +3054,8 @@ cleanup:
      return retval;
  }
  

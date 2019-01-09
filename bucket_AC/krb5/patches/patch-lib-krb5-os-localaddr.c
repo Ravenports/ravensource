@@ -1,4 +1,4 @@
---- lib/krb5/os/localaddr.c.orig	2019-01-07 17:19:42 UTC
+--- lib/krb5/os/localaddr.c.orig	2019-01-08 16:02:37 UTC
 +++ lib/krb5/os/localaddr.c
 @@ -176,6 +176,7 @@ printaddr(struct sockaddr *sa)
  }
@@ -16,7 +16,7 @@
  
  #ifdef HAVE_IFADDRS_H
  #include <ifaddrs.h>
-@@ -463,12 +465,14 @@ foreach_localaddr (/*@null@*/ void *data
+@@ -449,12 +451,14 @@ foreach_localaddr (/*@null@*/ void *data
              ifp->ifa_flags &= ~IFF_UP;
              continue;
          }
@@ -31,7 +31,7 @@
          /* If this address is a duplicate, punt.  */
          match = 0;
          for (ifp2 = ifp_head; ifp2 && ifp2 != ifp; ifp2 = ifp2->ifa_next) {
-@@ -597,11 +601,13 @@ foreach_localaddr (/*@null@*/ void *data
+@@ -583,11 +587,13 @@ foreach_localaddr (/*@null@*/ void *data
              }
              /*@=moduncon@*/
  
@@ -45,7 +45,7 @@
              /* Ignore interfaces that are down.  */
              if ((lifreq.lifr_flags & IFF_UP) == 0) {
                  Tprintf (("  down\n"));
-@@ -768,11 +774,13 @@ foreach_localaddr (/*@null@*/ void *data
+@@ -754,11 +760,13 @@ foreach_localaddr (/*@null@*/ void *data
              }
              /*@=moduncon@*/
  
@@ -59,7 +59,7 @@
              /* Ignore interfaces that are down.  */
              if ((lifreq.iflr_flags & IFF_UP) == 0) {
                  Tprintf (("  down\n"));
-@@ -986,11 +994,13 @@ foreach_localaddr (/*@null@*/ void *data
+@@ -972,11 +980,13 @@ foreach_localaddr (/*@null@*/ void *data
          }
          /*@=moduncon@*/
  
