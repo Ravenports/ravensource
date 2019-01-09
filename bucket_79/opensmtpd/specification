@@ -1,0 +1,56 @@
+DEF[PORTVERSION]=	6.4.1p2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		opensmtpd
+VERSION=		${PORTVERSION}
+KEYWORDS=		mail
+VARIANTS=		standard
+SDESC[standard]=	Free implementation of server-side SMTP protocol
+HOMEPAGE=		https://www.opensmtpd.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.opensmtpd.org/archives/
+DISTFILE[1]=		opensmtpd-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		ISCL:single
+LICENSE_FILE=		ISCL:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		mail/opensmtpd
+
+BUILD_DEPENDS=		groff:primary:standard
+BUILDRUN_DEPENDS=	libevent:single:standard
+			libasr:single:standard
+RUN_DEPENDS=		nss:caroot:standard
+
+RC_SUBR=		smtpd:single
+SUB_FILES=		pkg-message-single
+
+USERS=			_smtpd _smtpq
+GROUPS=			_smtpd _smtpq
+USERGROUP_SPKG=		single
+
+USES=			cpe libtool ssl zlib
+CPE_VENDOR=		openbsd
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--without-table-db
+			--with-libasr={{LOCALBASE}}
+			--with-libevent={{LOCALBASE}}
+			--with-libssl={{OPENSSLBASE}}
+			--sysconfdir={{PREFIX}}/etc/mail
+
+post-patch-dragonfly:
+	${RM} -rf ${WRKSRC}/openbsd-compat/vis.h \
+		${WRKSRC}/openbsd-compat/sys
+	${REINPLACE_CMD} -e 's|TAILQ_FOREACH_SAFE|TAILQ_FOREACH_MUTABLE|' \
+		${WRKSRC}/smtpd/parse.y
+
+post-install:
+	${LN} -sf ../../sbin/smtpctl \
+	${STAGEDIR}${PREFIX}/libexec/opensmtpd/makemap
