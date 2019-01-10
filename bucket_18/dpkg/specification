@@ -1,0 +1,48 @@
+DEF[PORTVERSION]=	1.19.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		dpkg
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers sysutils
+VARIANTS=		standard
+SDESC[standard]=	Debian package maintenance system
+HOMEPAGE=		https://tracker.debian.org/pkg/dpkg
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		DEBIAN/pool/main/d/dpkg
+DISTFILE[1]=		dpkg_${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/main.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		archivers/dpkg
+
+BUILD_DEPENDS=		po4a:single:standard
+BUILDRUN_DEPENDS=	tar:single:standard
+			patch:single:standard
+
+USES=			cpe gmake iconv libtool ncurses perl pkgconfig
+			gettext-runtime
+CPE_VENDOR=		debian
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-admindir=/var/db/dpkg
+			--libdir={{PREFIX}}/libexec
+			--with-libintl-prefix={{LOCALBASE}}
+			--with-logdir=/var/log
+			--enable-nls
+CONFIGURE_ENV=		PERL_LIBDIR="{{PREFIX}}/{{SITE_PERL_REL}}"
+
+post-install:
+	(cd ${STAGEDIR}/var/db/dpkg && ${TOUCH} available.sample \
+		diversions.sample statoverride.sample status.sample)
+	${FIND} ${STAGEDIR}${PREFIX}/share/man -type d -empty -delete
