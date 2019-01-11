@@ -1,12 +1,9 @@
-# DF problem upgrading to 1.0.17
-# unresolvable R_X86_64_DTPOFF32 relocation against symbol errno@DF404
-DEF[PORTVERSION]=	1.0.16
-DEF[SOVERSION]=		23.1.0
+DEF[PORTVERSION]=	1.0.17
+DEF[SOVERSION]=		23.2.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libsodium
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Library to build higher-level cryptographic tools
@@ -34,3 +31,8 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-blocking-random
 			--disable-ssp
 SOVERSION=		${SOVERSION}
+
+# DF problem upgrading to 1.0.17
+# unresolvable R_X86_64_DTPOFF32 relocation against symbol errno@DF404
+# feature was added between 1.0.16 and 1.0.17
+CONFIGURE_ENV=		ax_cv_check_cflags___ftls_model_local_dynamic=no
