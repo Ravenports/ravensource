@@ -76,7 +76,13 @@ fi
 extract_info()
 {
    local perlname=${1}
-   awk -vperlname=$perlname '{ if ($1 == perlname) { print; exit }}' ${ENTRY_LIST}
+   if [ $perlname = "File::chdir" ]
+   then
+      echo "File::chdir  0.1011  D/DA/DAGOLDEN/File-chdir-0.1011.tar.gz"
+   else
+      awk -vperlname=$perlname \
+      '{ if ($1 == perlname) { print; exit }}' ${ENTRY_LIST}
+   fi
 }
 
 # URL to download META.json or META.yaml
