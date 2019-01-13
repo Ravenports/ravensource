@@ -1,0 +1,11 @@
+--- pcscada_lib.gpr.orig	2018-08-08 09:00:51 UTC
++++ pcscada_lib.gpr
+@@ -30,7 +30,7 @@ library project PCSCAda_Lib is
+    for Library_Dir use "lib/" & PCSCAda_Common.Libtype;
+    for Library_Kind use PCSCAda_Common.Libtype;
+ 
+-   Ldlibs := ("-lpcsclite");
++   Ldlibs := (@LINK_OPTIONS@"-lpcsclite");
+ 
+    case PCSCAda_Common.Libtype is
+       when "static" =>
