@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.7.3
+DEF[PORTVERSION]=	0.7.4
 DEF[GPRLINK]=		"-L{{LOCALBASE}}/lib", "-Wl,-rpath,{{LOCALBASE}}/lib",
 # ----------------------------------------------------------------------------
 
@@ -49,7 +49,7 @@ MAKE_ARGS=		NUM_CPUS={{MAKE_JOBS_NUMBER}}
 
 post-patch:
 	${REINPLACE_CMD} -e 's|@LINK_OPTIONS@|${GPRLINK} |' \
-		${WRKSRC}/pcscada_common.gpr
+		${WRKSRC}/pcscada_lib.gpr
 
 do-build:
 	# We cannot use a redefined ALL_TARGET because MAKE_JOBS_SAFE is set
