@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	1.6.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		lua-penlight
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		lua52 lua53
+SDESC[lua52]=		Various python-inspired functions for Lua 5.2
+SDESC[lua53]=		Various python-inspired functions for Lua 5.3
+HOMEPAGE=		https://github.com/stevedonovan/Penlight
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/stevedonovan:Penlight:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[lua52]=		complete primary docs examples
+SPKGS[lua53]=		complete primary docs examples
+
+OPTIONS_AVAILABLE=	LUA52 LUA53
+OPTIONS_STANDARD=	none
+VOPTS[lua52]=		LUA52=ON LUA53=OFF
+VOPTS[lua53]=		LUA52=OFF LUA53=ON
+
+SKIP_BUILD=		yes
+
+[LUA52].DESCRIPTION=			Build with Lua 5.2
+[LUA52].USES_ON=			lua:5.2
+[LUA52].RUN_DEPENDS_ON=			lua-filesystem:single:lua52
+
+[LUA53].DESCRIPTION=			Build with Lua 5.3
+[LUA53].USES_ON=			lua:5.3
+[LUA53].RUN_DEPENDS_ON=			lua-filesystem:single:lua53
+
+do-install:
+	${MKDIR} ${STAGEDIR}${LUA_MODSHAREDIR} ${STAGEDIR}${STD_DOCDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+	(cd ${WRKSRC}/lua && ${COPYTREE_SHARE} pl ${STAGEDIR}${LUA_MODSHAREDIR})
+	${CP} ${WRKSRC}/docs/manual/* ${STAGEDIR}${STD_DOCDIR}
+	${CP} ${WRKSRC}/docs/examples/* ${STAGEDIR}${STD_EXAMPLESDIR}
