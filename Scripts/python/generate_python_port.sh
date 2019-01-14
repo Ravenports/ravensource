@@ -588,6 +588,9 @@ replace_inline() {
          sed -i.bak -E -e '/Building without/d; /Using build/ s/^.*$$/        pass/; /lib_versions[[]?[1]?[]]?)/d; s/if _library_dirs:/if 0:/' /tmp/expand/${DISTNAME}-${VERSION}/setupinfo.py
          ;;
       intervaltree) sedcmd='/print("Version/d; s/print("!!!.*/    pass/' ;;
+      eyeD3) sed -i.bak -e 's/\;.*/ == 1/' /tmp/expand/eyeD3-${VERSION}/requirements.txt \
+      	 /tmp/expand/eyeD3-${VERSION}/requirements/main.txt \
+      	 /tmp/expand/eyeD3-${VERSION}/requirements/requirements.yml ;;
       *) ;;
    esac
    if [ -n "${sedcmd}" ]; then
