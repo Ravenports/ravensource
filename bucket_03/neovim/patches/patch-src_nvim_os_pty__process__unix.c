@@ -1,4 +1,4 @@
---- src/nvim/os/pty_process_unix.c.orig	2019-01-04 19:05:23 UTC
+--- src/nvim/os/pty_process_unix.c.orig	2019-01-13 13:25:08 UTC
 +++ src/nvim/os/pty_process_unix.c
 @@ -16,6 +16,78 @@
  # include <libutil.h>
