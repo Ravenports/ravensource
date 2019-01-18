@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.3.16
+DEF[PORTVERSION]=	1.3.17
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		tdb
@@ -32,7 +32,12 @@ BUILD_DEPENDS=		autoselect-python:single:standard
 			docbook-xsl:primary:standard
 			libxslt:single:standard
 
-USES=			compiler pkgconfig python:py27
+USES=			compiler pkgconfig python shebangfix
+SHEBANG_FILES=		python/tdbdump.py
+			python/tests/simple.py
+			buildtools/bin/waf
+			buildtools/examples/run_on_target.py
+SHEBANG_OLD_PYTHON=	"/usr/bin/env python3"
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--prefix={{PREFIX}}
 			--mandir={{MANPREFIX}}/man
@@ -45,6 +50,9 @@ post-patch:
 	${REINPLACE_CMD} -e 's|/docbook.sourceforge.net/|/cdn.docbook.org/|' \
 		${WRKSRC}/buildtools/wafsamba/wafsamba.py \
 		${WRKSRC}/buildtools/wafsamba/samba_conftests.py
+	${REINPLACE_CMD} -e 's|python3|python${PYTHON_VER}|g' \
+		${WRKSRC}/buildtools/wafsamba/samba_python.py \
+		${WRKSRC}/third_party/waf/waflib/extras/run_py_script.py
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/tdb*
