@@ -189,6 +189,13 @@ function chop(summary,front) {\
  else\
    return summary;\
 }\
+function nodot(summary) {\
+ len=length(summary);\
+ if (substr(summary,len,1) == ".")\
+   return substr(summary, 1, len-1);\
+ else
+   return summary;\
+}\
 {\
  raw=chop($0,  "a ");\
  raw=chop(raw, "an ");\
@@ -196,6 +203,7 @@ function chop(summary,front) {\
  raw=chop(raw, sprintf ("%s is an ", module));\
  raw=chop(raw, sprintf ("%s - ", module));\
  raw=chop(raw, "the ");\
+ raw=nodot(raw);\
  final=toupper(substr(raw, 1, 1)) substr(raw, 2); \
  print substr (final, 1, 44) }')
    for v in ${VARIANTS}; do
