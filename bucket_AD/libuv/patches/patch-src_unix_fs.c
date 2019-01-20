@@ -1,4 +1,4 @@
---- src/unix/fs.c.orig	2018-12-16 19:11:04 UTC
+--- src/unix/fs.c.orig	2019-01-18 18:27:40 UTC
 +++ src/unix/fs.c
 @@ -221,7 +221,15 @@ static ssize_t uv__fs_futime(uv_fs_t* re
  
@@ -16,7 +16,7 @@
  }
  
  
-@@ -692,7 +700,6 @@ static ssize_t uv__fs_sendfile(uv_fs_t*
+@@ -704,7 +712,6 @@ static ssize_t uv__fs_sendfile(uv_fs_t*
  static ssize_t uv__fs_utime(uv_fs_t* req) {
  #if defined(__linux__)                                                         \
      || defined(_AIX71)                                                         \
