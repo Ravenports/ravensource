@@ -1,4 +1,4 @@
---- lib/src/facts/posix/cache.cc.orig	2018-09-14 15:27:42 UTC
+--- lib/src/facts/posix/cache.cc.orig	2018-12-03 19:36:37 UTC
 +++ lib/src/facts/posix/cache.cc
 @@ -3,7 +3,7 @@
  namespace facter { namespace facts { namespace cache {
