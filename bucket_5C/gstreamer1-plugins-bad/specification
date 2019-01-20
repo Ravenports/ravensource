@@ -71,6 +71,7 @@ CONFIGURE_ARGS=		--disable-assrender
 			--disable-spandsp
 			--disable-spc
 			--disable-srtp
+			--disable-sctp
 			--disable-ttml
 			--disable-vdpau
 			--disable-wayland
@@ -114,6 +115,8 @@ SOVERSION=		${SOVERSION}
 
 post-patch:
 	${REINPLACE_CMD} -e 's|FLAGS -Werror|FLAGS|' ${WRKSRC}/configure
+	# even though sctp is disabled, libsctp is being build
+	${REINPLACE_CMD} -e 's| sctp||' ${WRKSRC}/gst-libs/gst/Makefile.in
 
 do-build:
 .for dir in ${BUILD_DIRS}
@@ -126,3 +129,4 @@ do-install:
 	${MAKE_CMD} ${MAKE_FLAGS} ${MAKEFILE} ${MAKE_ARGS} \
 	${INSTALL_TARGET})
 .endfor
+	${RM} ${STAGEDIR}${PREFIX}/lib/pkgconfig/gstreamer-sctp-1.0.pc
