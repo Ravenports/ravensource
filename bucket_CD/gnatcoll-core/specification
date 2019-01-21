@@ -1,0 +1,54 @@
+DEF[PORTVERSION]=	2018
+DEF[DATE]=		20180524
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gnatcoll-core
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Core packages of GNAT Components Collection
+HOMEPAGE=		https://github.com/AdaCore/gnatcoll-core
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://downloads.dragonlace.net/src/
+DISTFILE[1]=		gnatcoll-core-gpl-${PORTVERSION}-${DATE}-src.tar.gz:main
+
+SPKGS[standard]=	complete primary docs examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/gnatcoll.ads
+LICENSE_SCHEME=		solo
+
+BUILDRUN_DEPENDS=	xmlada:primary:standard
+			gprbuild:gprlib:standard
+
+USES=			gprbuild gmake
+DISTNAME=		gnatcoll-core-gpl-${PORTVERSION}-src
+MAKE_ARGS=		prefix={{STAGEDIR}}{{PREFIX}}
+			ENABLE_SHARED=yes
+			BUILD=PROD
+			PROCESSORS={{MAKE_JOBS_NUMBER}}
+			TARGET={{CONFIGURE_TARGET}}
+			NORMALIZED_TARGET={{CONFIGURE_TARGET}}
+			INTEGRATED=no
+BUILD_TARGET=		build
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${PORTVERSION}
+
+post-patch:
+	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|' ${WRKSRC}/gnatcoll.gpr
+
+do-configure:
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} setup)
+
+post-install:
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/gnat/manifests
+	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/gnatcoll/html/_sources
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgnatcoll.so

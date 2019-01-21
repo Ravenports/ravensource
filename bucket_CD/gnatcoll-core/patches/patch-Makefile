@@ -1,0 +1,11 @@
+--- Makefile.orig	2018-05-10 05:48:27 UTC
++++ Makefile
+@@ -117,7 +117,7 @@ GPRBUILD_OPTIONS=
+ 
+ BUILDER=gprbuild -p -m $(GTARGET) $(RBD) -j$(PROCESSORS) $(GPR_VARS) \
+ 	$(GPRBUILD_OPTIONS)
+-INSTALLER=gprinstall -p -f $(GTARGET) $(GPR_VARS) \
++INSTALLER=gprinstall -p -f $(GTARGET) $(GPR_VARS) --project-subdir=lib/gnat \
+ 	$(RBD) --sources-subdir=include/gnatcoll --prefix=$(prefix)$(integrated_install)
+ CLEANER=gprclean -q $(RBD) $(GTARGET)
+ UNINSTALLER=$(INSTALLER) -p -f --install-name=gnatcoll --uninstall
