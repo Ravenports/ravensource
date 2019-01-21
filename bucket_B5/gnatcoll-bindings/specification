@@ -1,0 +1,71 @@
+DEF[PORTVERSION]=	2018
+DEF[DATE]=		20180524
+DEF[COMPONENTS_4]=	gmp iconv readline syslog
+DEF[COMPONENTS]=	${COMPONENTS_4} python
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gnatcoll-bindings
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Core packages of GNAT Components Collection
+HOMEPAGE=		https://github.com/AdaCore/gnatcoll-core
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://downloads.dragonlace.net/src/
+DISTFILE[1]=		gnatcoll-bindings-gpl-${PORTVERSION}-${DATE}-src.tar.gz:main
+
+SPKGS[standard]=	complete gmp iconv python readline syslog examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:iconv
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
+LICENSE_TERMS=		iconv:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/iconv/gnatcoll-iconv.ads
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		gmp:static:standard
+			gmp:shared:standard
+			gprbuild:gprlib:standard
+			readline:single:standard
+BUILDRUN_DEPENDS=	gnatcoll-core:primary:standard
+EXRUN[gmp]=		gmp:shared:standard
+EXRUN[iconv]=		libiconv:shared:standard
+EXRUN[readline]=	readline:single:standard
+EXRUN[python]=		python27:single:standard
+
+USES=			gprbuild gmake iconv:build python:py27,build
+DISTNAME=		gnatcoll-bindings-gpl-${PORTVERSION}-src
+MAKE_ENV=		BUILD=PROD
+			LIBRARY_TYPE=static
+			GNATCOLL_PYTHON_CFLAGS="-I{{PYTHON_INCLUDEDIR}}"
+			GNATCOLL_PYTHON_LIBS="-L{{PREFIX}}/lib/python{{PYTHON_VER}}/config -lpython{{PYTHON_VER}}"
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-patch:
+	# no rpath linker commands necessary on static libraries
+.for component in ${COMPONENTS_4}
+	${REINPLACE_CMD} \
+	-e 's|Library_Options use|Library_Options use ("-L${PREFIX}/lib") \&|' \
+	-e 's|Linker_Options use|Linker_Options use ("-L${PREFIX}/lib") \&|' \
+	${WRKSRC}/${component}/gnatcoll_${component}.gpr
+.endfor
+
+do-build:
+.for component in ${COMPONENTS}
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		gprbuild -p -P ${component}/gnatcoll_${component}.gpr)
+.endfor
+
+do-install:
+.for component in ${COMPONENTS}
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprinstall -p\
+		--prefix=${STAGEDIR}${PREFIX}\
+		--project-subdir=${STAGEDIR}${PREFIX}/lib/gnat\
+		${component}/gnatcoll_${component}.gpr)
+.endfor
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/gnat/manifests

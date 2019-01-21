@@ -1,0 +1,20 @@
+--- gnatcoll.gpr.orig	2018-05-25 05:42:27 UTC
++++ gnatcoll.gpr
+@@ -94,7 +94,7 @@ project GnatColl is
+ 
+    case Library_Type is
+       when "relocatable" =>
+-         for Library_Options use Extra_Libs;
++         for Library_Options use Extra_Libs & gpr.Linker'Linker_options & ("-Wl,-R,@PREFIX@/lib");
+       when others =>
+          null;
+    end case;
+@@ -182,7 +182,7 @@ project GnatColl is
+ 
+    package Install is
+       for Artifacts ("share/examples/gnatcoll") use ("examples/*");
+-      for Artifacts ("share/doc/gnatcoll/html") use ("docs/_build/html");
++      for Artifacts ("share/doc/gnatcoll/html") use ("docs/_build/html/*");
+       for Artifacts ("share/doc/gnatcoll")
+         use ("docs/_build/latex/GNATColl.pdf");
+    end Install;
