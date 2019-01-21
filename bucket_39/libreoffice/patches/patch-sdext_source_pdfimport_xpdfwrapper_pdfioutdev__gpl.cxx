@@ -1,5 +1,23 @@
 --- sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx.orig	2018-10-30 16:55:21 UTC
 +++ sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx
+@@ -310,7 +310,7 @@ void writePpm_( OutputBuffer&     o_rOut
+     o_rOutputBuf.resize(header_size);
+ 
+     // initialize stream
+-    Guchar *p;
++    unsigned char *p;
+     GfxRGB rgb;
+     std::unique_ptr<ImageStream> imgStr(
+         new ImageStream(str,
+@@ -415,7 +415,7 @@ void writeImage_( OutputBuffer&     o_rO
+                 oneColor = { byteToCol( 0xff ), byteToCol( 0xff ), byteToCol( 0xff ) };
+         if( colorMap->getColorSpace()->getMode() == csIndexed || colorMap->getColorSpace()->getMode() == csDeviceGray )
+         {
+-            Guchar nIndex = 0;
++            unsigned char nIndex = 0;
+             colorMap->getRGB( &nIndex, &zeroColor );
+             nIndex = 1;
+             colorMap->getRGB( &nIndex, &oneColor );
 @@ -528,7 +528,7 @@ void PDFOutDev::printPath( GfxPath* pPat
  PDFOutDev::PDFOutDev( PDFDoc* pDoc ) :
      m_pDoc( pDoc ),

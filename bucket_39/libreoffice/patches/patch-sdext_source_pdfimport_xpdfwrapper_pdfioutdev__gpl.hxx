@@ -79,3 +79,12 @@
  #endif
                                          ) override;
  
+@@ -278,7 +278,7 @@ extern FILE* g_binary_out;
+ 
+ // note: if you ever change Output_t, please keep in mind that the current code
+ // relies on it being of 8 bit size
+-typedef Guchar Output_t;
++typedef unsigned char Output_t;
+ typedef std::vector< Output_t > OutputBuffer;
+ 
+ #endif // INCLUDED_SDEXT_SOURCE_PDFIMPORT_XPDFWRAPPER_PDFIOUTDEV_GPL_HXX
