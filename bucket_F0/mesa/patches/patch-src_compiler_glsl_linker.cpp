@@ -1,6 +1,6 @@
---- src/compiler/glsl/linker.cpp.orig	2018-12-13 14:02:20 UTC
+--- src/compiler/glsl/linker.cpp.orig	2019-01-17 11:26:22 UTC
 +++ src/compiler/glsl/linker.cpp
-@@ -90,6 +90,38 @@
+@@ -91,6 +91,38 @@
  #include "main/enums.h"
  #include "main/mtypes.h"
  

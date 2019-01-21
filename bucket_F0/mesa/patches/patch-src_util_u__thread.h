@@ -1,20 +1,23 @@
 - Implement setting thread name
 - Use monotonic clock for timeouts
 
---- src/util/u_thread.h.orig	2018-12-13 14:02:21 UTC
+--- src/util/u_thread.h.orig	2019-01-17 11:26:23 UTC
 +++ src/util/u_thread.h
-@@ -34,6 +34,10 @@
+@@ -34,6 +34,13 @@
  
  #ifdef HAVE_PTHREAD
  #include <signal.h>
 +#if defined(__DragonFly__) || defined(__FreeBSD__) || defined(__OpenBSD__)
 +#include <pthread_np.h>
++# ifndef __DragonFly__
++#  define cpu_set_t cpuset_t
++# endif
 +#undef ALIGN /* Avoid conflict on FreeBSD in main/macros.h */
 +#endif
  #endif
  
- 
-@@ -65,6 +69,12 @@ static inline void u_thread_setname( con
+ static inline thrd_t u_thread_create(int (*routine)(void *), void *param)
+@@ -64,6 +71,12 @@ static inline void u_thread_setname( con
        (__GLIBC__ >= 3 || (__GLIBC__ == 2 && __GLIBC_MINOR__ >= 12)) && \
        defined(__linux__)
     pthread_setname_np(pthread_self(), name);
@@ -27,7 +30,7 @@
  #  endif
  #endif
     (void)name;
-@@ -78,7 +88,7 @@ static inline void u_thread_setname( con
+@@ -134,7 +147,7 @@ util_get_L3_for_pinned_thread(thrd_t thr
  static inline int64_t
  u_thread_get_time_nano(thrd_t thread)
  {

@@ -1,7 +1,7 @@
---- src/gallium/winsys/amdgpu/drm/amdgpu_cs.c.orig	2018-12-13 14:02:20 UTC
+--- src/gallium/winsys/amdgpu/drm/amdgpu_cs.c.orig	2019-01-17 11:26:23 UTC
 +++ src/gallium/winsys/amdgpu/drm/amdgpu_cs.c
-@@ -37,6 +37,10 @@
- #define AMDGPU_IB_FLAG_TC_WB_NOT_INVALIDATE (1 << 3)
+@@ -41,6 +41,10 @@
+ #define AMDGPU_CHUNK_ID_BO_HANDLES 0x06
  #endif
  
 +#ifdef __sun__

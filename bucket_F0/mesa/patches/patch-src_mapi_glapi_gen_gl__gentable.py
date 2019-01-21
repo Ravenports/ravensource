@@ -1,4 +1,4 @@
---- src/mapi/glapi/gen/gl_gentable.py.orig	2018-12-13 14:02:21 UTC
+--- src/mapi/glapi/gen/gl_gentable.py.orig	2019-01-17 11:26:23 UTC
 +++ src/mapi/glapi/gen/gl_gentable.py
 @@ -45,7 +45,7 @@ header = """/* GLXEXT is the define used
  #endif
