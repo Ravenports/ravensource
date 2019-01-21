@@ -1,6 +1,6 @@
---- share/plug-ins/dispatching.py.orig	2014-11-13 18:15:57 UTC
+--- share/plug-ins/dispatching.py.orig	2018-03-05 13:39:59 UTC
 +++ share/plug-ins/dispatching.py
-@@ -35,11 +35,8 @@ class Dispatching_Highlighter(Location_H
+@@ -39,11 +39,8 @@ class Dispatching_Highlighter(Location_H
          GPS.Hook("file_edited").add(self.__on_file_edited)
          GPS.Hook("file_changed_on_disk").add(self.__on_file_edited)
  
@@ -14,7 +14,7 @@
  
      def __del__(self):
          Location_Highlighter.__del__(self)
-@@ -47,11 +44,8 @@ class Dispatching_Highlighter(Location_H
+@@ -51,11 +48,8 @@ class Dispatching_Highlighter(Location_H
          GPS.Hook("file_edited").remove(self.__on_file_edited)
          GPS.Hook("file_changed_on_disk").remove(self.__on_file_edited)
  

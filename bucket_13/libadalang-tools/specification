@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	2018
+DEF[DATE]=		20180524
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libadalang-tools
+VERSION=		${PORTVERSION}
+KEYWORDS=		python lang devel
+VARIANTS=		standard
+SDESC[standard]=	Development tools based on libadalang
+HOMEPAGE=		https://github.com/AdaCore/libadalang-tools
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://downloads.dragonlace.net/src/
+DISTFILE[1]=		libadalang-tools-gpl-${PORTVERSION}-${DATE}-src.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/pp.ads
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		libadalang:single:py27
+RUN_DEPENDS=		libiconv:shared:standard
+
+USES=			gprbuild
+INSTALL_REQ_TOOLCHAIN=	yes
+DISTNAME=		libadalang-tools-src
+
+do-build:
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		gprbuild -p -v -k -XLIBRARY_TYPE=static \
+		-XXMLADA_BUILD=static -XBUILD_MODE=prod -p \
+		-j${MAKE_JOBS_NUMBER} -P src/build.gpr)
+
+do-install:
+.for prog in gnatpp gnatmetric gnatstub
+	${INSTALL_PROGRAM} ${WRKSRC}/bin/${prog} ${STAGEDIR}${PREFIX}/bin/
+.endfor

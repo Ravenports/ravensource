@@ -1,8 +1,6 @@
-# version 2018 has gprlib failing with STORAGE_ERROR
-# roll back to 2017. (try again in 2019?)
-# too bad, sphinx was workign again in 2018 version
-DEF[PORTVERSION]=	2017
-DEF[RELEASE_TAG]=	a146066
+DEF[PORTVERSION]=	2018
+DEF[DATE]=		20180524
+DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gprbuild
@@ -14,10 +12,12 @@ HOMEPAGE=		http://docs.adacore.com/live/wave/gprbuild/html/gprbuild_ug/gprbuild_
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/Adacore:gprbuild:${RELEASE_TAG}
-DISTFILE[1]=		generated:main
+SITES[main]=		http://downloads.dragonlace.net/src/
+DISTFILE[1]=		gprbuild-gpl-${PORTVERSION}-${DATE}-src.tar.gz:main
+DISTFILE[2]=		xmlada-gpl-${PORTVERSION}-${DATE}-src.tar.gz:main
+DF_INDEX=		1 2
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary gprlib docs examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -33,18 +33,52 @@ LICENSE_SCHEME=		solo
 # FPC_EQUIVALENT=		devel/gprbuild
 
 BUILD_DEPENDS=		xmlada:primary:standard
-# |			python-Sphinx:single:python_default
+			python-Sphinx:single:python_default
+EXRUN[gprlib]=		xmlada:primary:standard
 
-MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
-BUILD_WRKSRC=		{{WRKSRC}}/construction
-INSTALL_WRKSRC=		{{BUILD_WRKSRC}}
-INSTALL_TARGET=		install
-# |			install-docs
-BUILD_TARGET=		all
-# |			gen-docs
+USES=			gmake
+DISTNAME=		gprbuild-gpl-${PORTVERSION}-src
+MAKE_ARGS=		prefix={{STAGEDIR}}{{PREFIX}}
+			ENABLE_SHARED=yes
+			BUILD=production
+# #			BUILD=debug
+			PROCESSORS={{MAKE_JOBS_NUMBER}}
+			TARGET={{CONFIGURE_TARGET}}
+INSTALL_REQ_TOOLCHAIN=	yes
+BUILD_TARGET=		all libgpr.build
+INSTALL_TARGET=		install libgpr.install
+# # SET_DEBUGGING_ON=	yes
 
 post-patch:
-	@${MKDIR} ${WRKDIR}/trash ${BUILD_WRKSRC}
-	${INSTALL_DATA} ${FILESDIR}/Makefile.BSD ${BUILD_WRKSRC}/Makefile
-	${SED} -i"" -e "s|@LOCALBASE@|${LOCALBASE}|" \
+	${SED} -i"" \
+		-e "s|@LOCALBASE@|${LOCALBASE}|" \
+		-e "s|@GCCX@|${GCCX}|" \
 		${WRKSRC}/share/gprconfig/compilers.xml
+	# the relocatable library fails to build, limit to static(-pic)
+	${REINPLACE_CMD} \
+		-e '/^LIB_INSTALLER=/ s|$$| --project-subdir=lib/gnat|' \
+		${WRKSRC}/Makefile
+	${RM} ${WRKSRC}/share/gprconfig/*.orig
+	${REINPLACE_CMD} -e 's|"-gnatwe", ||' ${WRKSRC}/gprbuild.gpr
+
+post-patch-dragonfly:
+	# dragonfly has different install program than freebsd, linux (!)
+	${REINPLACE_CMD} -e 's| -t||' ${WRKSRC}/bootstrap.sh
+
+do-configure:
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} setup)
+
+post-configure:
+	# create bootstrap version of gprbuild
+	${MKDIR} ${WRKDIR}/bootstrap_construction
+	(cd ${WRKDIR}/bootstrap_construction && ${WRKSRC}/bootstrap.sh \
+	  --with-xmlada=${WRKDIR}/xmlada-gpl-${PORTVERSION}-src \
+	  --srcdir=${WRKSRC} \
+	  --prefix=${WRKDIR}/bootstrap)
+
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/doinstall
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}/html/_sources
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/gnat/manifests
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/gprbuild/*

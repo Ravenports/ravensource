@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2017
-DEF[RELEASE_TAG]=	0c592ca
+DEF[PORTVERSION]=	2018
+DEF[DATE]=		20180524
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gtkada
@@ -11,13 +11,20 @@ HOMEPAGE=		http://libre.adacore.com/libre/tools/gtkada/
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/AdaCore:gtkada:${RELEASE_TAG}
-DISTFILE[1]=		generated:main
+SITES[main]=		http://downloads.dragonlace.net/src/
+DISTFILE[1]=		gtkada-gpl-${PORTVERSION}-${DATE}-src.tar.gz:main
 
 SPKGS[standard]=	complete primary docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/gtkada.ads
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11-toolkits/gtkada3
 
@@ -26,6 +33,7 @@ BUILD_DEPENDS=		python-Sphinx:single:python_default
 USES=			gmake perl:build pkgconfig mesa gettext-tools
 			gprbuild ada:primary
 GNOME_COMPONENTS=	gtk3 cairo gdkpixbuf
+DISTNAME=		gtkada-gpl-${PORTVERSION}-src
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-GL=no
 			--enable-shared
@@ -34,10 +42,8 @@ CONFIGURE_ARGS=		--with-GL=no
 BUILD_TARGET=		tools static relocatable docs
 MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
 INSTALL_REQ_TOOLCHAIN=	yes
-
-# post-patch:
-# |	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|' \
-# |		${WRKSRC}/src/opengl/gtkada_gl.gpr
+SOVERSION=		${PORTVERSION}
+SET_DEBUGGING_ON=	yes
 
 do-build:
 	# This target is recreated because -j cannot be set, but

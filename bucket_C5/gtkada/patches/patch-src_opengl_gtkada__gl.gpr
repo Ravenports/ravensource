@@ -1,4 +1,4 @@
---- src/opengl/gtkada_gl.gpr.orig	2017-05-13 01:56:35 UTC
+--- src/opengl/gtkada_gl.gpr.orig	2018-05-29 06:48:36 UTC
 +++ src/opengl/gtkada_gl.gpr
 @@ -42,7 +42,8 @@ library project GtkAda_GL is
  
@@ -6,7 +6,7 @@
        when "relocatable" =>
 -         for Library_Options use Shared.GL_Libs & Shared.Gtk_Libs;
 +         for Library_Options use Shared.GL_Libs & Shared.Gtk_Libs &
-+             ("-Wl,-rpath,@PREFIX@/lib");
++             ("-Wl,-R,@PREFIX@/lib");
        when others =>
           null;
     end case;

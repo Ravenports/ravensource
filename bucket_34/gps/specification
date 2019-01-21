@@ -1,8 +1,8 @@
-DEF[PORTVERSION]=	2017
-DEF[RELEASE_TAG]=	ba0c4c0
+DEF[PORTVERSION]=	2018
 DEF[PYCOMPILE]=		{{PREFIX}}/lib/python{{PYTHON_VER}}/compileall.py
 DEF[GCCVER]=		EXTRACT_INFO(CURRENT_GCC)
 DEF[PYVER]=		py27
+DEF[DATE]=		20180524
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gps
@@ -14,8 +14,10 @@ HOMEPAGE=		https://www.adacore.com/gnatpro/toolsuite/gps/
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/AdaCore:gps:${RELEASE_TAG}
-DISTFILE[1]=		generated:main
+SITES[main]=		http://downloads.dragonlace.net/src/
+DISTFILE[1]=		gps-gpl-${PORTVERSION}-${DATE}-src.tar.gz:main
+DISTFILE[2]=		libadalang-tools-gpl-${PORTVERSION}-${DATE}-src.tar.gz:main
+DF_INDEX=		1 2
 
 SPKGS[standard]=	complete primary docs examples
 
@@ -29,10 +31,9 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gps/src/gps-main.adb
 LICENSE_SCHEME=		solo
 
-# FreeBSD deleted because Brooks and Antoine too lazy to change llvm reference
-# FPC_EQUIVALENT=		devel/gps
-
 BUILD_DEPENDS=		gnat-util:single:standard
+			gnatcoll-db:complete:standard
+			gnatcoll-bindings:python:standard
 			python-Sphinx:single:${PYVER}
 BUILDRUN_DEPENDS=	fontconfig:primary:standard
 			freetype:primary:standard
@@ -40,7 +41,6 @@ BUILDRUN_DEPENDS=	fontconfig:primary:standard
 			gtkada:primary:standard
 			python-pygobject:primary:${PYVER}
 			libadalang:single:${PYVER}
-			gnatcoll:primary:standard
 RUN_DEPENDS=		librsvg:primary:standard
 			gdb:single:standard
 			python-pep8:single:${PYVER}
@@ -59,6 +59,7 @@ CONFIGURE_ARGS=		--with-gtk=3.0
 BUILD_TARGET=		default
 MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
 			PYTHON_CMD={{PYTHON_CMD}}
+DISTNAME=		gps-gpl-${PORTVERSION}-src
 SUB_FILES=		gps
 SUB_LIST=		ADA_PATH={{PREFIX}}/toolchain/${GCCVER}/bin
 SHEBANG_FILES=		share/support/core/gps_utils/internal/dialogs.py
@@ -72,8 +73,10 @@ SHEBANG_FILES=		share/support/core/gps_utils/internal/dialogs.py
 
 [DEBUG].MAKE_ARGS_ON=			Build=Debug
 [DEBUG].MAKE_ARGS_OFF=			Build=Production
+[DEBUG].MAKEFILE_ON=			WITH_DEBUG=yes
 
 post-extract:
+	${MV} ${WRKDIR}/libadalang-tools-src ${WRKSRC}/laltools
 	${MV} ${WRKSRC}/Makefile.gnat ${WRKSRC}/Makefile.gnat.ignore
 	${FIND} ${WRKSRC}/share -name "*.pyc" -delete
 	${RM} ${WRKSRC}/share/support/core/cross_references.py
@@ -98,11 +101,16 @@ post-patch:
 	${REINPLACE_CMD} \
 		-e 's|-lclang|-Wl,-rpath,${LOCALBASE}/lib -lclang|' \
 		${WRKSRC}/configure
+	${REINPLACE_CMD} -e 's/relocatable/static/g' \
+		-e '/GPRBUILD_BUILD_TYPE_FLAGS=/ s|FLAGS=|FLAGS=-j${MAKE_JOBS_NUMBER} |' \
+		${WRKSRC}/gps/Makefile
+	${REINPLACE_CMD} -e 's/relocatable/static/g' \
+		${WRKSRC}/testsuite/Makefile
 
 do-build:
 	${CP} ${PREFIX}/include/gnat-util/impunit.* ${WRKSRC}/distrib
 	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
-		${MAKE_CMD} ${MAKE_ARGS} ${ALL_TARGET}
+		${MAKE_CMD} ${MAKE_ARGS} ${BUILD_TARGET}
 	cd ${WRKSRC}/docs && ${SETENV} ${MAKE_ENV} \
 		${MAKE_CMD} ${MAKE_ARGS} all
 	${PYTHON_CMD} ${PYCOMPILE} ${WRKSRC}/share/plug-ins
