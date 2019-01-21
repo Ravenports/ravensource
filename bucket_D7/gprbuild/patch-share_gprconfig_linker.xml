@@ -16,7 +16,7 @@
         <target name="^.*irix.*$" />
         <target name="^.*qnx[0-9]*$" />
      </targets>
-@@ -1061,13 +1064,35 @@
+@@ -1061,15 +1064,39 @@
      </config>
    </configuration>
  
@@ -30,11 +30,9 @@
 +       <target name="^.*netbsd.*$" />
      </targets>
      <config>
--   for Run_Path_Option  use ("-Wl,-rpath,");
-+   for Run_Path_Option  use ("-Wl,-z,origin,-rpath,");
-+   for Run_Path_Origin use "$$ORIGIN";
-+    </config>
-+  </configuration>
+    for Run_Path_Option  use ("-Wl,-rpath,");
+     </config>
+   </configuration>
 +  <configuration>
 +    <compilers>
 +       <compiler language="Ada" />
@@ -46,15 +44,20 @@
 +       <target name="^.*netbsd.*$" />
 +    </targets>
 +    <config>
++   for Leading_Library_Options use
++     Leading_Library_Options
++     &amp; ("-Wl,-rpath,${RUNTIME_DIR(ada)}adalib");
 +   package Linker is
 +      for Required_Switches use
 +        Linker'Required_Switches
 +        &amp; ("-Wl,-rpath,${RUNTIME_DIR(ada)}adalib");
 +   end Linker;
-     </config>
-   </configuration>
++    </config>
++  </configuration>
  
-@@ -1519,6 +1544,9 @@
+   <!-- irix -->
+   <configuration>
+@@ -1519,6 +1546,9 @@
         <target name="^.*mingw.*$" />
         <target name="^.*linux.*$" />
         <target name="^.*freebsd.*$" />

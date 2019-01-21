@@ -1,13 +1,12 @@
-DEF[PORTVERSION]=	1.19r10
+DEF[PORTVERSION]=	1.20r7
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		adacontrol
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang ada
-VARIANTS=		standard projects
-SDESC[standard]=	Ada constructs lint tool
-SDESC[projects]=	Ada constructs lint tool with project support
-HOMEPAGE=		http://www.adalog.fr
+VARIANTS=		standard
+SDESC[standard]=	Ada constructs lint tool with project support
+HOMEPAGE=		http://www.adalog.fr/en/adacontrol.html
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
@@ -15,37 +14,26 @@ SITES[main]=		SF/adacontrol
 DISTFILE[1]=		adactl-${PORTVERSION}-src.tgz:main
 
 SPKGS[standard]=	complete primary docs
-SPKGS[projects]=	primary
 
-OPTIONS_AVAILABLE=	PROJECTS
+OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
-VOPTS[projects]=	PROJECTS=ON
 
-LICENSE=		GPLv2+:primary GMGPL:primary
-LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-			GMGPL:{{WRKDIR}}/LICENSE
-LICENSE_SCHEME=		multi
+LICENSE=		GMGPL:primary
+LICENSE_FILE=		GMGPL:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/LICENSE
+LICENSE_AWK=		TERMS:"^-- Ada$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/adactl.adb
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		lang/adacontrol
 
 BUILD_DEPENDS=		asis:primary:standard
+			gnatcoll-core:primary:standard
 
 USES=			gprbuild
 DISTNAME=		adactl-${PORTVERSION}
 BUILD_WRKSRC=		{{WRKSRC}}/src
 BUILD_TARGET=		build
-
-[PROJECTS].DESCRIPTION=			Use project support from gnatcoll
-[PROJECTS].BUILD_DEPENDS_ON=		gnatcoll:single:project
-
-post-extract:
-	 ${AWK} '/^-- Ada$$/ {exit}; {print $$0}' ${WRKSRC}/src/adactl.adb \
-		> ${WRKDIR}/LICENSE
-
-do-patch-PROJECTS-OFF:
-	${REINPLACE_CMD} -e 's|GPR_Project_File|No_Project_File|' \
-		${WRKSRC}/src/implementation_options-project_file.ads
-	${REINPLACE_CMD} -e '/gnatcoll/d' ${WRKSRC}/build.gpr
 
 do-build:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -P build)
@@ -63,7 +51,6 @@ do-install:
 		${STAGEDIR}${PREFIX}/share/gps/plug-ins
 	${INSTALL_DATA} ${WRKSRC}/doc/*.html \
 		${STAGEDIR}${PREFIX}/share/doc/gps/html
-
-do-install-PROJECTS-OFF:
+	# install docs
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 	${INSTALL_DATA} ${WRKSRC}/doc/*.pdf ${STAGEDIR}${STD_DOCDIR}

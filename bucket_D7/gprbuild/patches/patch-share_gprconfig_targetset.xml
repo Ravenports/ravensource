@@ -1,9 +1,9 @@
---- share/gprconfig/targetset.xml.orig	2016-12-23 15:59:49 UTC
+--- share/gprconfig/targetset.xml.orig	2018-05-24 06:18:29 UTC
 +++ share/gprconfig/targetset.xml
 @@ -92,8 +92,8 @@
  
    <!-- x86-solaris -->
-   <targetset>
+   <targetset canonical="x86-solaris">
 -    <target>x86-solaris</target>
 -    <target>i.86-(pc-)?solaris.*</target>
 +    <target>i.86-.*-solaris.*</target>
@@ -11,43 +11,29 @@
    </targetset>
  
    <!-- x86-windows (mingw) -->
-@@ -201,19 +201,34 @@
-     <target>pent.*-cygwin.*</target>
+@@ -214,6 +214,26 @@
+     <target>amd64-.*freebsd.*</target>
    </targetset>
  
--  <!-- x86 Freebsd -->
-+  <!-- Freebsd -->
-   <targetset>
--    <target>x86-freebsd</target>
-     <target>i.86-.*freebsd.*</target>
-+    <target>amd64-.*-freebsd.*</target>
-+    <target>x86_64-.*-freebsd.*</target>
-   </targetset>
- 
--  <!-- x86_64 Freebsd -->
-+  <!-- DragonFlyBSD -->
-   <targetset>
--    <target>x86_64-freebsd</target>
--    <target>x86_64-.*freebsd.*</target>
--    <target>amd64-.*freebsd.*</target>
-+    <target>i.86-.*-dragonfly.*</target>
-+    <target>x86_64-.*-dragonfly.*</target>
-   </targetset>
- 
-+  <!-- NetBSD -->
-+  <targetset>
-+    <target>i.86-.*-netbsd.*</target>
-+    <target>amd64-.*-netbsd.*</target>
-+    <target>x86_64-.*-netbsd.*</target>
++  <!-- x86_64 DragonFly -->
++  <targetset canonical="x86_64-dragonfly">
++    <target>x86_64-dragonfly</target>
++    <target>x86_64-.*dragonfly.*</target>
 +  </targetset>
 +
-+  <!-- OpenBSD -->
-+  <targetset>
-+    <target>i.86-.*-openbsd.*</target>
-+    <target>amd64-.*-openbsd.*</target>
-+    <target>x86_64-.*-openbsd.*</target>
++  <!-- x86_64 NetBSD -->
++  <targetset canonical="x86_64-netbsd">
++    <target>x86_64-netbsd</target>
++    <target>x86_64-.*netbsd.*</target>
++    <target>amd64-.*netbsd.*</target>
 +  </targetset>
 +
++  <!-- x86_64 OpenBSD -->
++  <targetset canonical="x86_64-openbsd">
++    <target>x86_64-openbsd</target>
++    <target>x86_64-.*openbsd.*</target>
++    <target>amd64-.*openbsd.*</target>
++  </targetset>
 +
  <!-- Cross Ports -->
  <!-- *********** -->

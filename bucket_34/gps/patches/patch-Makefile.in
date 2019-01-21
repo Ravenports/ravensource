@@ -1,4 +1,4 @@
---- Makefile.in.orig	2017-05-12 17:58:17 UTC
+--- Makefile.in.orig	2018-05-10 06:26:58 UTC
 +++ Makefile.in
 @@ -3,17 +3,16 @@ MV              = mv
  MKDIR           = mkdir -p
@@ -26,11 +26,12 @@
  
  SYS := $(shell gcc -dumpmachine)
  
-@@ -57,13 +56,6 @@ ifeq ($(OS),Windows_NT)
+@@ -53,14 +52,6 @@ ifeq ($(OS),Windows_NT)
  		share/support/core/vcs/_subversion_ \
  		> share/support/core/vcs/subversion_native_windows.py
  endif
 -	$(RM) -f $(sharedir)/gps/GPS_old
+-	$(RM) -rf $(sharedir)/gps/color_themes/
 -	$(RM) -rf $(sharedir)/gps/library/
 -	$(RM) -rf $(sharedir)/gps/plug-ins/
 -	$(RM) -rf $(sharedir)/gps/support/core/
@@ -40,18 +41,7 @@
  
  	(cd share; tar cf - plug-ins/*) | (cd $(sharedir)/gps; tar xf -)
  ifeq ($(OS),Windows_NT)
-@@ -75,10 +67,8 @@ endif
- # Regenerate predefined_ada.xml before we install it
- 	-${PYTHON} design/scripts/update_predefined_ada.py
- 
--	(cd share; tar cf - plug-ins/spark/*.py) | (cd $(sharedir)/gps; tar xf -)
- 	(cd share; tar cf - plug-ins/images/*.png) | (cd $(sharedir)/gps; tar xf -)
- 	(cd share; tar cf - library/*.py) | (cd $(sharedir)/gps; tar xf -)
--	(cd share; tar cf - library/GPS_old/*.py) | (cd $(sharedir)/gps; tar xf -)
- 	(cd share; tar cf - support/) | (cd $(sharedir)/gps; tar xf -)
- 	-${PYTHON} distrib/gnat_switches.py > $(sharedir)/gps/support/core/gnat_switches.py
- 	$(RM) $(sharedir)/gps/plug-ins/emacs.xml
-@@ -114,7 +104,7 @@ endif
+@@ -108,7 +99,7 @@ endif
  endif
  	$(MAKE) -C common/expect install
  else

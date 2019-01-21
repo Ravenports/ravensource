@@ -1,52 +1,40 @@
---- src/gprlib.adb.orig	2016-12-23 15:59:49 UTC
+--- src/gprlib.adb.orig	2018-05-25 06:23:18 UTC
 +++ src/gprlib.adb
-@@ -413,6 +413,11 @@ procedure Gprlib is
+@@ -720,9 +720,6 @@ procedure Gprlib is
  
-    Separate_Run_Path_Options : Boolean := False;
- 
-+      Rpath_Disabled : Boolean := False;
-+      --  If -R is passed through the library options for the linker, it will
-+      --  prevent the implemented libraries portion of the rpath switch from
-+      --  being built, even if the linker is capable of supporting rpath.
-+
-    Rpath : String_List_Access := null;
-    --  Allocated only if Path Option is supported
- 
-@@ -908,7 +913,7 @@ procedure Gprlib is
-          Library_Switches_Table.Append
-            (new String'("-L" & Imported_Library_Directories.Table (J).all));
- 
+       for Dir of Imported_Library_Directories loop
+          Library_Switches_Table.Append ("-L" & Dir);
 -         if Path_Option /= null then
-+         if not Rpath_Disabled and then Path_Option /= null then
-             Add_Rpath (Imported_Library_Directories.Table (J));
-          end if;
+-            Add_Rpath (Dir);
+-         end if;
+       end loop;
  
-@@ -1721,9 +1726,7 @@ procedure Gprlib is
-                if Is_Regular_File (Object_Path.all) then
+       for Libname of Imported_Library_Names loop
+@@ -917,12 +914,6 @@ procedure Gprlib is
+               Shared_Lib_Suffix.all);
+       end if;
+ 
+-      if Path_Option /= null then
+-         for Path of Library_Rpath_Options_Table loop
+-            Add_Rpath (Path);
+-         end loop;
+-      end if;
+-
+       if Path_Option /= null and then not Rpath.Is_Empty then
+          if Separate_Run_Path_Options then
+             for J in 1 .. Rpath.Last_Index loop
+@@ -1468,9 +1459,7 @@ procedure Gprlib is
+                if Is_Regular_File (Object_Path) then
                    Object_Files.Append (Object_Path);
                 else
 -                  Fail_Program
 -                    (null,
--                     "unknown object file """ & Object_Path.all & """");
-+                  Put_Line ("WARNING: unknown object """ & Object_Path.all & """");
+-                     "unknown object file """ & Object_Path & """");
++                  Put_Line ("WARNING: unknown object '" & Object_Path & "'");
                 end if;
              end;
           end loop;
-@@ -2160,7 +2163,12 @@ procedure Gprlib is
-                   Use_GNAT_Lib := False;
-                end if;
- 
--               Library_Options_Table.Append (new String'(Line (1 .. Last)));
-+               if Line (1 .. Last) = "-R" then
-+                  Rpath_Disabled := True;
-+               else
-+                  Library_Options_Table.Append
-+                    (new String'(Line (1 .. Last)));
-+               end if;
- 
-             when Gprexch.Library_Rpath_Options =>
-                Library_Rpath_Options_Table.Append
-@@ -2295,10 +2303,10 @@ procedure Gprlib is
+@@ -2002,10 +1991,10 @@ procedure Gprlib is
  
                       Libgnat :=
                         new String'
