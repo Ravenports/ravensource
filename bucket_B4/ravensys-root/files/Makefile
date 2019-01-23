@@ -254,14 +254,13 @@ Linux_shared_libs=	${Linux_C_lib} \
 			libnss_nisplus-2.23.so/libnss_nisplus.so.2 \
 			# end
 Linux_extra_libs1=	libattr.so.1.1.0/libattr.so.1 \
+			libacl.so.1.1.0/libacl.so.1 \
 			# end (/lib)
 Linux_extra_libs2=	# libustr-1.0.so.1.0.4/libustr-1.0.so.1 \
 			# end (/usr/lib)
-Linux_single_libs1=	# libsepol.so.1 \
-			# libselinux.so.1 \
-			# end (/lib)
+Linux_single_libs1=	# end (/lib/TARGET)
 Linux_single_libs2=	# libsemanage.so.1 \
-			# end (/usr/lib)
+			# end (/usr/lib/TARGET)
 posix_headers=		aio.h \
 			assert.h \
 			complex.h \
@@ -444,7 +443,8 @@ headers_FreeBSD=	${headers_DragonFly:Nutil.h:Ndevattr.h:Ndfregress.h:Ndisktab.h:
 			malloc_np.h \
 			# end
 
-headers_Linux_dirs=	arpa \
+headers_Linux_dirs=	acl \
+			arpa \
 			attr \
 			asm-generic \
 			drm \
