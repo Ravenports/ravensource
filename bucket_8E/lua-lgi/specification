@@ -1,0 +1,49 @@
+DEF[PORTVERSION]=	0.9.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		lua-lgi
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		lua52 lua53
+SDESC[lua52]=		Bindings using gobject-introspection for Lua 5.2
+SDESC[lua53]=		Bindings using gobject-introspection for Lua 5.3
+HOMEPAGE=		https://github.com/pavouk/lgi
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/pavouk:lgi:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[lua52]=		single
+SPKGS[lua53]=		single
+
+OPTIONS_AVAILABLE=	LUA52 LUA53
+OPTIONS_STANDARD=	none
+VOPTS[lua52]=		LUA52=ON LUA53=OFF
+VOPTS[lua53]=		LUA52=OFF LUA53=ON
+
+FPC_EQUIVALENT=		devel/lua-lgi
+
+[LUA52].DESCRIPTION=			Build with Lua 5.2
+[LUA52].USES_ON=			lua:5.2
+
+[LUA53].DESCRIPTION=			Build with Lua 5.3
+[LUA53].USES_ON=			lua:5.3
+
+BUILDRUN_DEPENDS=	gobject-introspection:single:standard
+USES=			gmake pkgconfig
+
+MAKE_ENV=		LUA_CFLAGS="-I{{LUA_INCDIR}}"
+MAKE_ARGS=		PREFIX="{{PREFIX}}"
+			LUA_LIBDIR="{{LUA_MODLIBDIR}}"
+			LUA_INCDIR="{{LUA_INCDIR}}"
+			LUA_VERSION="{{LUA_VER}}"
+			CORE="corelgilua{{LUA_VER_STR}}.so"
+			LUA="{{LUA_CMD}}"
+
+post-patch:
+	${REINPLACE_CMD} -e 's/51/${LUA_VER_STR}/g' \
+		${WRKSRC}/lgi/core.c ${WRKSRC}/lgi/core.lua
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${LUA_MODLIBDIR}/lgi/*.so
