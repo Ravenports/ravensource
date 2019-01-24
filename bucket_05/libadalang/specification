@@ -66,6 +66,10 @@ post-patch:
 		${WRKSRC}/langkit/langkit/templates/project_file.mako \
 		${WRKSRC}/langkit/langkit/templates/langkit_support_gpr.mako
 
+post-patch-linux:
+	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|' \
+		${WRKSRC}/langkit/langkit/templates/mains_project_file.mako
+
 do-configure:
 	# must build as static since rpaths are either missing,
 	# refer to /construction, ignore gpr settings, etc
