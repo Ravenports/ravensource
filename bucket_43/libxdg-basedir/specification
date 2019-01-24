@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	1.2.0
+DEF[SOVERSION]=		1.2.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libxdg-basedir
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Implementation of the XDG Base Directory spec
+HOMEPAGE=		https://github.com/devnev/libxdg-basedir
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/devnev:libxdg-basedir:libxdg-basedir-${PORTVERSION}
+DISTFILE[1]=		generated:main
+# DISTFILE[1]=		x-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11/libxdg-basedir
+
+MUST_CONFIGURE=		gnu
+USES=			autoreconf libtool
+
+SOVERSION=		${SOVERSION}
+
+post-extract:
+	${REINPLACE_CMD} -e 's|"etc"|"${PREFIX}/etc"|' \
+		-e '/DefaultConfigDirectories\[\]/,/DefaultRelativeCacheHome\[\]/ s|"/\([^"]\)|"\1|' \
+		-e '/DefaultConfigDirectories\[\]/,/DefaultRelativeCacheHome\[\]/ s|/|" DIR_SEPARATOR_STR "|g' \
+		${WRKSRC}/src/basedir.c
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libxdg-basedir.so.${SOVERSION}
