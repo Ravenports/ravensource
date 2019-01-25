@@ -1,4 +1,4 @@
---- engine/SCons/Tool/link.py.orig	2019-01-08 02:59:06 UTC
+--- engine/SCons/Tool/link.py.orig	2019-01-23 17:30:36 UTC
 +++ engine/SCons/Tool/link.py
 @@ -289,8 +289,8 @@ def _setup_versioned_lib_variables(env,
              env['_SHLIBVERSIONFLAGS'] = '$SHLIBVERSIONFLAGS -h $_SHLIBSONAME'
