@@ -34,6 +34,21 @@ rooms, and mailing lists is expected to follow the `PyPA Code of Conduct`_.
 Changelog
 ---------
 
+19.0 - 2019-01-20
+~~~~~~~~~~~~~~~~~
+
+* Fix string representation of PEP 508 direct URL requirements with
+markers.
+
+* Better handling of file URLs
+
+  This allows for using ``file:///absolute/path``, which was previously
+  prevented due to the missing ``netloc``.
+
+  This allows for all file URLs that ``urlunparse`` turns back into the
+  original URL to be valid.
+
+
 18.0 - 2018-09-26
 ~~~~~~~~~~~~~~~~~
 
@@ -90,18 +105,3 @@ to
   the newer markers.
 
 
-16.5 - 2016-02-26
-~~~~~~~~~~~~~~~~~
-
-* Fix a regression in parsing requirements with whitespaces between the
-comma
-  separators.
-
-
-16.4 - 2016-02-22
-~~~~~~~~~~~~~~~~~
-
-* Fix a regression in parsing requirements like ``foo (==4)``.
-
-
-16.3 - 2016-02-21
