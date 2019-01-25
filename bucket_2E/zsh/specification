@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.6.2
+DEF[PORTVERSION]=	5.7
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		zsh
@@ -10,10 +10,10 @@ HOMEPAGE=		http://www.zsh.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://www.zsh.org/pub/
+SITES[main]=		SF/zsh/zsh/${PORTVERSION}
 DISTFILE[1]=		zsh-${PORTVERSION}.tar.xz:main
-DISTFILE[2]=		zsh-${PORTVERSION}-doc.tar.xz:main
-DF_INDEX=		1 2
+# DISTFILE[2]=		zsh-${PORTVERSION}-doc.tar.xz:main
+# DF_INDEX=		1 2
 
 SPKGS[standard]=	complete primary examples docs
 
@@ -81,10 +81,10 @@ post-install:
 			zcompile -U -M $$i.zwc $$i/*~*.zwc(^/);\
 			${CHMOD} 644 $$i.zwc;\
 		done')
-	@${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR} ${STAGEDIR}${STD_DOCDIR}
+	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR} ${STAGEDIR}${STD_DOCDIR}
 	(cd ${WRKSRC}/StartupFiles && ${INSTALL_DATA} \
 		zlogin zshenv zshrc ${STAGEDIR}${STD_EXAMPLESDIR})
 	(cd ${WRKSRC} && ${INSTALL_DATA} \
 		META-FAQ README Etc/BUGS Etc/CONTRIBUTORS \
 		Etc/FAQ Etc/completion-style-guide \
-		Doc/zsh*.html Doc/zsh.dvi ${STAGEDIR}${STD_DOCDIR})
+		${STAGEDIR}${STD_DOCDIR})
