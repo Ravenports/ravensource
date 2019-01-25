@@ -1,4 +1,4 @@
---- coreconf/SunOS5.mk.orig	2018-01-18 14:19:59 UTC
+--- coreconf/SunOS5.mk.orig	2019-01-23 08:35:38 UTC
 +++ coreconf/SunOS5.mk
 @@ -14,14 +14,14 @@ ifeq ($(USE_64), 1)
    ifdef NS_USE_GCC
