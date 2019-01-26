@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	3.3.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		vimb
+VERSION=		${PORTVERSION}
+KEYWORDS=		www
+VARIANTS=		standard
+SDESC[standard]=	Vim-like browser
+HOMEPAGE=		https://fanglingsu.github.io/vimb/
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/fanglingsu:vimb:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^\#include"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/main.c
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		www/vimb-gtk3
+
+USES=			desktop-utils:single gmake pkgconfig
+BUILDRUN_DEPENDS=	webkit2:single:gtk3
+CFLAGS=			-D_BSD_SOURCE
+MAKE_ENV=		V=1
