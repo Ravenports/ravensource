@@ -1,0 +1,47 @@
+DEF[PORTVERSION]=	4.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		awesome
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_wm
+VARIANTS=		standard
+SDESC[standard]=	Dynamic WM for X, highly configurable in Lua
+HOMEPAGE=		https://awesomewm.org
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/awesomeWM/awesome-releases/raw/master/
+DISTFILE[1]=		awesome-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11-wm/awesome
+
+BUILD_DEPENDS=		asciidoc:single:py27
+			ldoc:single:lua53
+			xmlto:single:standard
+			ImageMagick:primary:standard
+BUILDRUN_DEPENDS=	dbus:single:standard
+			libexecinfo:single:standard
+			libxdg-basedir:single:standard
+			libxkbcommon:single:standard
+			lua-lgi:single:lua53
+			startup-notification:single:standard
+			xorg-xcb-util-cursor:single:standard
+			xorg-xcb-util-keysyms:single:standard
+			xorg-xcb-util-wm:single:standard
+			xorg-xcb-util-xrm:single:standard
+USES=			cmake gmake lua pkgconfig
+GNOME_COMPONENTS=	gdkpixbuf cairo
+CMAKE_ARGS=		-DSYSCONFDIR={{PREFIX}}/etc
+
+SUB_FILES=		pkg-message-primary
+
+post-patch:
+	${REINPLACE_CMD} -e "/COMMAND lua/ s,lua,${LUA_CMD}," \
+		${WRKSRC}/awesomeConfig.cmake
+	${REINPLACE_CMD} -e "s,^lua ,${LUA_CMD} ," \
+		${WRKSRC}/build-utils/lgi-check.sh
