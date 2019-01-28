@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	2019.01.06
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		autoconf-archive
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Collection of freely re-usable Autoconf macros
+HOMEPAGE=		https://www.gnu.org/software/autoconf-archive/
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/autoconf-archive
+DISTFILE[1]=		autoconf-archive-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:single CUSTOM1:single
+LICENSE_NAME=		CUSTOM1:"AUTOCONF CONFIGURE SCRIPT EXCEPTION"
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+			CUSTOM1:{{WRKSRC}}/COPYING.EXCEPTION
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		devel/autoconf-archive
+
+USES=			makeinfo
+MUST_CONFIGURE=		gnu
+INFO=			single:autoconf-archive
+
+post-extract:
+	# extract license terms from m4 script
+	${AWK} '/^# LICENSE/,/^$$/' ${WRKSRC}/m4/ax_blas.m4 \
+		> ${WRKDIR}/TERMS
