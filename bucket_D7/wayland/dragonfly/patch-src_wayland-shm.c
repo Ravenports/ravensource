@@ -1,17 +1,20 @@
---- src/wayland-shm.c.orig	2018-08-24 18:04:36 UTC
+Index: src/wayland-shm.c
+--- src/wayland-shm.c.orig
 +++ src/wayland-shm.c
-@@ -30,6 +30,10 @@
+@@ -30,6 +30,12 @@
  
  #define _GNU_SOURCE
  
-+#if defined(__DragonFly__)
++#include "../config.h"
++
++#ifdef HAVE_SYS_PARAM_H
 +#include <sys/param.h>
 +#endif
 +
  #include <stdbool.h>
  #include <stdio.h>
  #include <stdlib.h>
-@@ -40,6 +44,7 @@
+@@ -40,6 +46,7 @@
  #include <assert.h>
  #include <signal.h>
  #include <pthread.h>
@@ -19,22 +22,24 @@
  
  #include "wayland-util.h"
  #include "wayland-private.h"
-@@ -59,6 +64,9 @@ struct wl_shm_pool {
+@@ -59,6 +66,9 @@ struct wl_shm_pool {
  	char *data;
  	int32_t size;
  	int32_t new_size;
-+#if defined(__DragonFly__)
++#ifdef HAVE_SYS_UCRED_H
 +	int fd;
 +#endif
  };
  
  struct wl_shm_buffer {
-@@ -84,7 +92,24 @@ shm_pool_finish_resize(struct wl_shm_poo
+@@ -84,8 +94,25 @@ shm_pool_finish_resize(struct wl_shm_pool *pool)
  	if (pool->size == pool->new_size)
  		return;
  
 -	data = mremap(pool->data, pool->size, pool->new_size, MREMAP_MAYMOVE);
-+#if defined(__DragonFly__)
++#ifdef HAVE_MREMAP
++ 	data = mremap(pool->data, pool->size, size, MREMAP_MAYMOVE);
++#else
 +	int32_t osize = (pool->size + PAGE_SIZE - 1) & ~PAGE_MASK;
 +	if (pool->new_size <= osize) {
 +		pool->size = pool->new_size;
@@ -42,30 +47,29 @@
 +	}
 +	data = mmap(pool->data + osize, pool->new_size - osize, PROT_READ,
 +	    MAP_SHARED | MAP_TRYFIXED, pool->fd, osize);
-+	if (data == MAP_FAILED) {
+ 	if (data == MAP_FAILED) {
 +		munmap(pool->data, pool->size);
 +		data = mmap(NULL, pool->new_size, PROT_READ, MAP_SHARED, pool->fd, 0);
 +	} else {
 +		pool->size = pool->new_size;
 +		return;
 +	}
-+#else
-+ 	data = mremap(pool->data, pool->size, size, MREMAP_MAYMOVE);
 +#endif
- 	if (data == MAP_FAILED) {
++	if (data == MAP_FAILED) {
  		wl_resource_post_error(pool->resource,
  				       WL_SHM_ERROR_INVALID_FD,
-@@ -111,6 +136,9 @@ shm_pool_unref(struct wl_shm_pool *pool,
+ 				       "failed mremap");
+@@ -111,6 +138,9 @@ shm_pool_unref(struct wl_shm_pool *pool, bool external
  		return;
  
  	munmap(pool->data, pool->size);
-+#if defined(__DragonFly__)
++#ifdef HAVE_SYS_UCRED_H
 +	close(pool->fd);
 +#endif
  	free(pool);
  }
  
-@@ -235,6 +263,8 @@ shm_pool_resize(struct wl_client *client
+@@ -235,6 +265,8 @@ shm_pool_resize(struct wl_client *client, struct wl_re
  				       "shrinking pool invalid");
  		return;
  	}
@@ -74,7 +78,7 @@
  
  	pool->new_size = size;
  
-@@ -276,21 +306,28 @@ shm_create_pool(struct wl_client *client
+@@ -276,21 +308,28 @@ shm_create_pool(struct wl_client *client, struct wl_re
  	pool->external_refcount = 0;
  	pool->size = size;
  	pool->new_size = size;
@@ -90,7 +94,7 @@
  		goto err_free;
  	}
 -	close(fd);
-+#if defined(__DragonFly__)
++#ifdef HAVE_SYS_UCRED_H
 +	pool->fd = fd;
 +#else
 + 	close(fd);
@@ -101,28 +105,28 @@
  	if (!pool->resource) {
  		wl_client_post_no_memory(client);
  		munmap(pool->data, pool->size);
-+#if defined(__DragonFly__)
++#ifdef HAVE_SYS_UCRED_H
 +		close(fd);
 +#endif
  		free(pool);
  		return;
  	}
-@@ -495,6 +532,14 @@ sigbus_handler(int signum, siginfo_t *in
+@@ -495,13 +534,22 @@ sigbus_handler(int signum, siginfo_t *info, void *cont
  	sigbus_data->fallback_mapping_used = 1;
  
  	/* This should replace the previous mapping */
-+#if defined(__DragonFly__)
-+	if (mmap(pool->data, pool->size,
++#ifdef HAVE_SYS_UCRED_H
+ 	if (mmap(pool->data, pool->size,
 +		 PROT_READ, MAP_PRIVATE | MAP_FIXED | MAP_ANON,
 +		 0, 0) == MAP_FAILED) {
 +		reraise_sigbus();
 +		return;
 +	}
 +#else
- 	if (mmap(pool->data, pool->size,
++	if (mmap(pool->data, pool->size,
  		 PROT_READ | PROT_WRITE,
  		 MAP_PRIVATE | MAP_FIXED | MAP_ANONYMOUS,
-@@ -502,6 +547,7 @@ sigbus_handler(int signum, siginfo_t *in
+ 		 0, 0) == (void *) -1) {
  		reraise_sigbus();
  		return;
  	}

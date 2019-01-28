@@ -1,6 +1,16 @@
---- tests/test-runner.c.orig	2018-08-24 18:04:36 UTC
+Index: tests/test-runner.c
+--- tests/test-runner.c.orig
 +++ tests/test-runner.c
-@@ -28,6 +28,7 @@
+@@ -25,9 +25,16 @@
+ 
+ #define _GNU_SOURCE
+ 
++#include "../config.h"
++
++#ifdef HAVE_SYS_PARAM_H
++#include <sys/param.h>
++#endif
++
  #include <unistd.h>
  #include <stdio.h>
  #include <stdlib.h>
@@ -8,40 +18,65 @@
  #include <sys/types.h>
  #include <sys/wait.h>
  #include <sys/stat.h>
-@@ -37,7 +38,9 @@
+@@ -37,7 +44,9 @@
  #include <errno.h>
  #include <limits.h>
  #include <sys/ptrace.h>
-+#ifndef __DragonFly__
++#ifdef HAVE_SYS_PRCTL_H
  #include <sys/prctl.h>
 +#endif
  #ifndef PR_SET_PTRACER
  # define PR_SET_PTRACER 0x59616d61
  #endif
-@@ -308,17 +311,22 @@ is_debugger_attached(void)
- 		close(pipefd[0]);
- 		if (buf == '-')
- 			_exit(1);
-+#ifndef __DragonFly__
- 		if (ptrace(PTRACE_ATTACH, ppid, NULL, NULL) != 0)
- 			_exit(1);
+@@ -45,11 +54,20 @@
+ #include "test-runner.h"
+ 
+ static int num_alloc;
++
++extern const struct test __start_test_section, __stop_test_section;
++
+ static void* (*sys_malloc)(size_t);
+ static void (*sys_free)(void*);
+ static void* (*sys_realloc)(void*, size_t);
+ static void* (*sys_calloc)(size_t, size_t);
+ 
++#ifndef __linux__
++#define PTRACE_ATTACH PT_ATTACH
++#define PTRACE_CONT PT_CONTINUE
++#define PTRACE_DETACH PT_DETACH
 +#endif
++
+ /* when set to 1, check if tests are not leaking memory and opened files.
+  * It is turned on by default. It can be turned off by
+  * WAYLAND_TEST_NO_LEAK_CHECK environment variable. */
+@@ -282,6 +300,10 @@ stderr_reset_color(void)
+ static int
+ is_debugger_attached(void)
+ {
++#ifdef __OpenBSD__
++	/* OpenBSD doesn't allow to trace parent process */
++	return 0;
++#else
+ 	int status;
+ 	int rc;
+ 	pid_t pid;
+@@ -312,13 +334,14 @@ is_debugger_attached(void)
+ 			_exit(1);
  		if (!waitpid(-1, NULL, 0))
  			_exit(1);
-+#ifndef __DragonFly__
- 		ptrace(PTRACE_CONT, NULL, NULL);
+-		ptrace(PTRACE_CONT, NULL, NULL);
++		ptrace(PTRACE_CONT, ppid, NULL, NULL);
  		ptrace(PTRACE_DETACH, ppid, NULL, NULL);
-+#endif
  		_exit(0);
  	} else {
  		close(pipefd[0]);
  
  		/* Enable child to ptrace the parent process */
-+#ifndef __DragonFly__
++#ifdef HAVE_SYS_PRCTL_H
  		rc = prctl(PR_SET_PTRACER, pid);
  		if (rc != 0 && errno != EINVAL) {
  			/* An error prevents us from telling if a debugger is attached.
-@@ -332,6 +340,7 @@ is_debugger_attached(void)
+@@ -332,6 +355,7 @@ is_debugger_attached(void)
  			/* Signal to client that parent is ready by passing '+' */
  			write(pipefd[1], "+", 1);
  		}
@@ -49,39 +84,45 @@
  		close(pipefd[1]);
  
  		waitpid(pid, &status, 0);
-@@ -346,7 +355,11 @@ int main(int argc, char *argv[])
+@@ -339,6 +363,7 @@ is_debugger_attached(void)
+ 	}
+ 
+ 	return rc;
++#endif
+ }
+ 
+ int main(int argc, char *argv[])
+@@ -346,7 +371,11 @@ int main(int argc, char *argv[])
  	const struct test *t;
  	pid_t pid;
  	int total, pass;
-+#ifdef __DragonFly__
-+	int status;
-+#else
++#ifdef HAVE_WAITID
  	siginfo_t info;
++#else
++	int status;
 +#endif
  
  	/* Load system malloc, free, and realloc */
  	sys_calloc = dlsym(RTLD_NEXT, "calloc");
-@@ -395,6 +408,12 @@ int main(int argc, char *argv[])
+@@ -395,6 +424,7 @@ int main(int argc, char *argv[])
  		if (pid == 0)
  			run_test(t); /* never returns */
  
-+#ifdef __DragonFly__
++#ifdef HAVE_WAITID
+ 		if (waitid(P_PID, pid, &info, WEXITED)) {
+ 			stderr_set_color(RED);
+ 			fprintf(stderr, "waitid failed: %m\n");
+@@ -426,6 +456,26 @@ int main(int argc, char *argv[])
+ 
+ 			break;
+ 		}
++#else
 +		if (wait(&status)) {
 +			fprintf(stderr, "waitid failed: %m\n");
 +			abort();
 +		}
-+#else
- 		if (waitid(P_PID, pid, &info, WEXITED)) {
- 			stderr_set_color(RED);
- 			fprintf(stderr, "waitid failed: %m\n");
-@@ -402,7 +421,20 @@ int main(int argc, char *argv[])
- 
- 			abort();
- 		}
-+#endif
- 
++
 +		fprintf(stderr, "test \"%s\":\t", t->name);
-+#ifdef __DragonFly__
 +		if (WIFEXITED(status)) {
 +			fprintf(stderr, "exit status %d", WEXITSTATUS(status));
 +			if (WEXITSTATUS(status) == EXIT_SUCCESS)
@@ -91,15 +132,10 @@
 +			fprintf(stderr, "signal %d", WTERMSIG(status));
 +			break;
 +		}
-+#else
- 		switch (info.si_code) {
- 		case CLD_EXITED:
- 			if (info.si_status == EXIT_SUCCESS)
-@@ -426,6 +458,7 @@ int main(int argc, char *argv[])
- 
- 			break;
- 		}
 +#endif
++
++		if (t->must_fail)
++			success = !success;
  
  		if (success) {
  			pass++;
