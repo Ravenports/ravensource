@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	4.1.1
+DEF[SOVERSION]=		5.1.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libotr
+VERSION=		${PORTVERSION}
+KEYWORDS=		net net_im security
+VARIANTS=		standard
+SDESC[standard]=	OTR library and toolkit
+HOMEPAGE=		https://otr.cypherpunks.ca/
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://otr.cypherpunks.ca/
+			http://www.c-s.li/ports/
+DISTFILE[1]=		libotr-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:single
+			LGPL21:single
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/LICENSE
+			LGPL21:{{WRKSRC}}/LICENSE.lib
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^\#"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/toolkit/parse.h
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		security/libotr
+
+USES=			cclibs:single cpe libtool
+BUILDRUN_DEPENDS=	libgpg-error:single:standard
+			libgcrypt:single:standard
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+CPE_VENDOR=		cypherpunks
+SOVERSION=		${SOVERSION}
