@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	0.5.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		profanity
+VERSION=		${PORTVERSION}
+KEYWORDS=		net net_im
+VARIANTS=		standard
+SDESC[standard]=	Console based XMPP client
+HOMEPAGE=		http://www.profanity.im/
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.profanity.im/
+DISTFILE[1]=		profanity-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKSRC}}/LICENSE.txt
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net-im/profanity
+
+USES=			autoreconf libtool ncurses pkgconfig python readline ssl
+MUST_CONFIGURE=		gnu
+CFLAGS=			-I{{NCURSESINC}}
+CONFIGURE_ENV=		LIBS="{{CFLAGS}} -lcrypto"
+CONFIGURE_ARGS=		--enable-c-plugins
+			--enable-icons=no
+			--enable-notifications
+			--enable-otr
+			--enable-pgp
+			--with-xscreensaver=no
+GNOME_COMPONENTS=	glib
+BUILD_DEPENDS=		autoconf-archive:single:standard
+BUILDRUN_DEPENDS=	curl:primary:standard
+			gpgme:primary:standard
+			libmesode:single:standard
+			libnotify:primary:standard
+			libotr:single:standard
+			libuuid:single:standard
+INSTALL_TARGET=		install-strip
+
+post-patch:
+	${REINPLACE_CMD} "s,python,python${PYTHON_VER},g" \
+		${WRKSRC}/configure.ac
