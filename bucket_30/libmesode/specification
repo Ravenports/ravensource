@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.9.2
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libmesode
+VERSION=		${PORTVERSION}
+KEYWORDS=		net net_im
+VARIANTS=		standard
+SDESC[standard]=	Lightweight XMPP library
+HOMEPAGE=		https://github.com/boothj5/libmesode
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/boothj5:libmesode:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+			GPLv3+:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/MIT-LICENSE.txt
+			GPLv3+:{{WRKSRC}}/GPL-LICENSE.txt
+LICENSE_TERMS=		single:{{WRKSRC}}/LICENSE.txt
+LICENSE_SCHEME=		dual
+
+FPC_EQUIVALENT=		net-im/libmesode
+
+USES=			autoreconf libtool pkgconfig ssl
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+BUILD_DEPENDS=		expat:static:standard
+BUILDRUN_DEPENDS=	expat:shared:standard
+SOVERSION=		${SOVERSION}
