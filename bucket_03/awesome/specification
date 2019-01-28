@@ -18,6 +18,13 @@ SPKGS[standard]=	complete primary docs
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/awesome.h
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		x11-wm/awesome
 
 BUILD_DEPENDS=		asciidoc:single:py27
@@ -45,3 +52,6 @@ post-patch:
 		${WRKSRC}/awesomeConfig.cmake
 	${REINPLACE_CMD} -e "s,^lua ,${LUA_CMD} ," \
 		${WRKSRC}/build-utils/lgi-check.sh
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/awesome
