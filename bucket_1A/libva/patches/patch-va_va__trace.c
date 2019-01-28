@@ -1,4 +1,4 @@
---- va/va_trace.c.orig	2018-02-12 06:32:11 UTC
+--- va/va_trace.c.orig	2019-01-25 18:53:40 UTC
 +++ va/va_trace.c
 @@ -50,6 +50,9 @@
  #include <sys/stat.h>
@@ -77,7 +77,7 @@
      int i = 0;
  
      plog_file = ptra_ctx->plog_file;
-@@ -1230,7 +1269,15 @@ static void internal_TraceUpdateContext
+@@ -1238,7 +1277,15 @@ static void internal_TraceUpdateContext
  {
      struct trace_context *trace_ctx = NULL;
      int i = 0, delete = 1;
