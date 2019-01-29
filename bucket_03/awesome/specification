@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.2
+DEF[PORTVERSION]=	4.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		awesome
@@ -27,10 +27,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11-wm/awesome
 
-BUILD_DEPENDS=		asciidoc:single:py27
-			ldoc:single:lua53
-			xmlto:single:standard
-			ImageMagick:primary:standard
+# changed need from asciidoc to asciidoctor, so no man pages
+BUILD_DEPENDS=		ImageMagick:primary:standard
 BUILDRUN_DEPENDS=	dbus:single:standard
 			libexecinfo:single:standard
 			libxdg-basedir:single:standard
@@ -50,8 +48,6 @@ SUB_FILES=		pkg-message-primary
 post-patch:
 	${REINPLACE_CMD} -e "/COMMAND lua/ s,lua,${LUA_CMD}," \
 		${WRKSRC}/awesomeConfig.cmake
-	${REINPLACE_CMD} -e "s,^lua ,${LUA_CMD} ," \
-		${WRKSRC}/build-utils/lgi-check.sh
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/awesome
