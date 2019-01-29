@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	20181009
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ksh
+VERSION=		${PORTVERSION}
+KEYWORDS=		shells
+VARIANTS=		standard
+SDESC[standard]=	Portable OpenBSD Korn Shell
+HOMEPAGE=		https://devio.us/~bcallah/oksh/
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/ibara:oksh:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		PUBDOM:single
+LICENSE_FILE=		PUBDOM:{{WRKSRC}}/LEGAL
+LICENSE_AWK=		PUBDOM:"^\#include"
+LICENSE_SOURCE=		PUBDOM:{{WRKSRC}}/sh.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		shells/oksh
+
+USES=			ncurses
+MUST_CONFIGURE=		yes
+CONFIGURE_ARGS=		--disable-static
+			--enable-curses
+			--enable-ksh
+			--mandir={{MANPREFIX}}/man
+			--prefix={{PREFIX}}
