@@ -1,4 +1,4 @@
---- mesonbuild/compilers/compilers.py.orig	2018-12-09 14:27:23 UTC
+--- mesonbuild/compilers/compilers.py.orig	2019-01-23 16:46:09 UTC
 +++ mesonbuild/compilers/compilers.py
 @@ -177,7 +177,7 @@ apple_buildtype_linker_args = {'plain':
  gnulike_buildtype_linker_args = {'plain': [],

@@ -1,7 +1,7 @@
---- mesonbuild/dependencies/base.py.orig	2018-08-25 08:05:50 UTC
+--- mesonbuild/dependencies/base.py.orig	2019-01-23 16:46:09 UTC
 +++ mesonbuild/dependencies/base.py
-@@ -1080,7 +1080,7 @@ class ExtraFrameworkDependency(ExternalD
-     def detect(self, name, path):
+@@ -1941,7 +1941,7 @@ class ExtraFrameworkDependency(ExternalD
+ 
          lname = name.lower()
          if path is None:
 -            paths = ['/System/Library/Frameworks', '/Library/Frameworks']
