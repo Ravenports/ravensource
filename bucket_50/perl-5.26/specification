@@ -7,7 +7,7 @@ DEF[MAINT_MAIL]=	draco@marino.st
 
 NAMEBASE=		perl-${PERL_VER}
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		lang perl devel
 VARIANTS=		standard
 SDESC[standard]=	Practical Extraction and Report Language
@@ -37,6 +37,7 @@ FPC_EQUIVALENT=		lang/perl5.26
 BUILDRUN_DEPENDS=	gdbm:single:standard
 			db5:static:standard
 RUN_DEPENDS=		autoselect-perl:single:standard
+			mandoc:single:standard
 
 USES=			bdb cpe perl-interp cclibs:primary
 
@@ -49,6 +50,7 @@ CONFIGURE_ARGS=		-Dcf_by="${MAINTAINER}"
 			-Dlocincpth="{{BDB_INCLUDE_DIR}} {{PREFIX}}/include"
 			-Dloclibpth="{{BDB_LIB_DIR}} {{PREFIX}}/lib"
 			-Aldflags="-Wl,-rpath,{{PREFIX}}/lib:{{PREFIX}}/toolchain/${GCC_CURRENT}/{{MULTILIB}}"
+PLIST_SUB=		PREFIX={{PREFIX}}
 INSTALL_REQ_TOOLCHAIN=	yes
 TEST_TARGET=		test_harness
 TEST_ENV=		{{MAKE_ENV}}
