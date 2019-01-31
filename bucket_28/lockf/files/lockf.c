@@ -183,6 +183,10 @@ acquire_lock(const char *name, int flags)
 	if ((fd = open(name, OPEN_MODE|O_CREAT|O_EXLOCK|flags, 0666)) == -1) {
 		if (errno == EAGAIN || errno == EINTR)
 			return (-1);
+		if (errno == ESTALE) { // NFS stale handle, wait 3.0 secs
+			sleep (3);
+			return (-1);
+		}
 		err(EX_CANTCREAT, "cannot open %s", name);
 	}
 	if (O_EXLOCK == 0) {
@@ -241,6 +245,7 @@ usage(void)
 /*
  * Wait until it might be possible to acquire a lock on the given file.
  * If the file does not exist, return immediately without creating it.
+ * If a stale NFS handle error comes, also return immediately
  */
 static void
 wait_for_lock(const char *name)
@@ -248,7 +253,7 @@ wait_for_lock(const char *name)
 	int fd;
 
 	if ((fd = open(name, OPEN_MODE|O_EXLOCK, 0666)) == -1) {
-		if (errno == ENOENT || errno == EINTR)
+		if (errno == ENOENT || errno == EINTR || errno == ESTALE)
 			return;
 		err(EX_CANTCREAT, "cannot open %s", name);
 	}
