@@ -819,8 +819,7 @@ install:
 	grep file flex flex++ gzip gunzip zcat zcmp zdiff zegrep \
 	zfgrep zgrep lzcat lzcmp lzdiff lzegrep lzfgrep lzgrep lzma \
 	unlzma unxz xz xzcat xzcmp xzdiff xzegrep xzfgrep xzgrep yacc \
-	unzip less mtree bsdcat makewhatis dupe genpatch portfix patch \
-	fetch
+	unzip less mtree bsdcat dupe genpatch portfix patch fetch
 	cp ${LOCALBASE}/bin/${item} ${DESTDIR}${BASE}/usr/bin/
 .endfor
 .  for item in sed find xargs cmp diff diff3 sdiff \
@@ -849,6 +848,7 @@ install:
 	ln -s m4 ${DESTDIR}${BASE}/usr/bin/gm4
 	cp ${LOCALBASE}/share/misc/terminfo.db.default ${DESTDIR}${BASE}/usr/share/terminfo.db
 	cp ${LOCALBASE}/sbin/pkg-static ${DESTDIR}${BASE}/usr/bin/
+	cp ${LOCALBASE}/sbin/makewhatis ${DESTDIR}${BASE}/usr/bin/
 	cp ${LOCALBASE}/share/file/magic.mgc ${DESTDIR}${BASE}/usr/share/file/
 	sed -e "s|${LOCALBASE}|/usr|g" ${LOCALBASE}/bin/egrep \
 		> ${DESTDIR}${BASE}/usr/bin/egrep
