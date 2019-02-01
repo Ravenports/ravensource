@@ -51,12 +51,7 @@ do-build:
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/bmake ${STAGEDIR}${PREFIX}/bin
 	${INSTALL_MAN} ${WRKSRC}/bmake.1 ${STAGEDIR}${MAN1PREFIX}/man/man1
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/mk
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/mk/sys
 	${INSTALL_DATA} ${WRKSRC}/mk/*.mk ${STAGEDIR}${PREFIX}/share/mk/
-	if [ -f "${WRKSRC}/mk/sys/${OPSYS}.mk" ]; then\
-		${INSTALL_DATA} ${WRKSRC}/mk/sys/${OPSYS}.mk\
-		${STAGEDIR}${PREFIX}/share/mk/sys.mk ;\
-	else\
-		${INSTALL_DATA} ${WRKSRC}/mk/sys/Generic.mk\
-		${STAGEDIR}${PREFIX}/share/mk/sys.mk ;\
-	fi
+	${INSTALL_DATA} ${WRKSRC}/mk/sys/*.mk \
+		${STAGEDIR}${PREFIX}/share/mk/sys/
