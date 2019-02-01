@@ -1,6 +1,6 @@
 - Use monotonic clock for timeouts
 
---- src/util/os_time.c.orig	2019-01-17 11:26:23 UTC
+--- src/util/os_time.c.orig	2019-01-31 21:05:07 UTC
 +++ src/util/os_time.c
 @@ -95,7 +95,7 @@ os_time_get_nano(void)
  void
