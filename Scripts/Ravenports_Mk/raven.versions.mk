@@ -95,12 +95,13 @@ PGSQL_11_VERSION=	11.1
 
 #-------------------------------------------------------------------------
 # MYSQL and derivatives
-# Possible values: oracle-(5.5,5.6,5.7), mariadb-(10.1,10.2),
+# Possible values: oracle-(5.5,5.6,5.7,8.0), mariadb-(10.1,10.2),
 #                  percona-(5.5,5.6,5.7), galera-(5.5,5.6,5.7)
 #-------------------------------------------------------------------------
 
 MYSQL_DEFAULT=			oracle-5.7
 
+MYSQL_oracle-8.0_VERSION=	8.0.15
 MYSQL_oracle-5.7_VERSION=	5.7.25
 MYSQL_oracle-5.6_VERSION=	5.6.43
 MYSQL_oracle-5.5_VERSION=	5.5.62
