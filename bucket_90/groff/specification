@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.22.4
 
 NAMEBASE=		groff
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		standard
 SDESC[standard]=	GNU troff text-formatting system
@@ -17,6 +18,13 @@ SPKGS[standard]=	complete primary examples docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"\#include"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/roff/troff/troff.h
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		textproc/groff
 
@@ -44,3 +52,12 @@ MAKE_ARGS=		docdir={{STD_DOCDIR}}
 			datasubdir={{PREFIX}}/share/groff
 SHEBANG_LANG=		sed
 INFO=			primary:groff
+
+post-install:
+	# avoid conflict with mandoc's soelim and man pages
+	${MV} ${STAGEDIR}${PREFIX}/bin/soelim \
+		${STAGEDIR}${PREFIX}/bin/groff_soelim
+	${MV} ${STAGEDIR}${MANPREFIX}/man/man1/soelim.1 \
+		${STAGEDIR}${MANPREFIX}/man/man1/groff_soelim.1
+	${MV} ${STAGEDIR}${MANPREFIX}/man/man7/roff.7 \
+		${STAGEDIR}${MANPREFIX}/man/man7/groff_roff.7
