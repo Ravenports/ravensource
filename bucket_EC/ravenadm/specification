@@ -1,7 +1,8 @@
-DEF[PORTVERSION]=	1.18
+DEF[PORTVERSION]=	1.19
 DEF[PORTREVISION]=	0
 DEF[GPR]=		{{LOCALBASE}}/lib/gnat
-DEF[RELEASE_TAG]=	v${PORTVERSION}
+# DEF[RELEASE_TAG]=	v${PORTVERSION}
+DEF[RELEASE_TAG]=	431bc26
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravenadm
@@ -19,22 +20,25 @@ DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
-OPTIONS_AVAILABLE=	WATCHDOG
-OPTIONS_STANDARD=	WATCHDOG
+OPTIONS_AVAILABLE=	WATCHDOG NCURSES
+OPTIONS_STANDARD=	WATCHDOG NCURSES
 OPT_ON[dragonfly]=	WATCHDOG
 OPT_ON[freebsd]=	WATCHDOG
+OPT_ON[all]=		NCURSES
 
 LICENSE=		ISCL:single
 LICENSE_FILE=		ISCL:{{WRKSRC}}/License.txt
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		adacurses:primary:standard
 R_DEPS[sunos]=		mandoc:single:standard
 
-USES=			gprbuild ncurses
+USES=			gprbuild
 SET_DEBUGGING_ON=	yes
 
 [WATCHDOG].DESCRIPTION=			Use "watchdog" monitor to abort stalled builds
+[NCURSES].DESCRIPTION=			Activate options dialog and pretty build monitor
+[NCURSES].USES_ON=			ncurses
+[NCURSES].BUILD_DEPENDS_ON=		adacurses:primary:standard
 
 # We have to link ncurses dynamically to force the terminfo database
 # to be installed as well.  Otherwises a term error will probably occur.
@@ -60,6 +64,17 @@ post-patch-WATCHDOG-OFF:
 	@${ECHO_MSG} "Disabling watchdog monitor ..."
 	${REINPLACE_CMD} -e "/hangmonitor :/ s|True|False|" \
 		${WRKSRC}/src/portscan-buildcycle.adb
+
+post-patch-NCURSES-ON:
+	# Code disabled curses support by default, we have to
+	# inline patch to activate it.
+	${REINPLACE_CMD} -e '/adacurses.gpr/ s|-- ||' \
+		${WRKSRC}/ravenadm.gpr
+	${REINPLACE_CMD} \
+		-e 's|Options_Dialog_Console|Options_Dialog|' \
+		-e 's|Display\.Console|Display.Curses|' \
+		${WRKSRC}/src/portscan-operations.adb \
+		${WRKSRC}/src/pilot.adb
 
 do-build:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
