@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	20180714
-DEF[RELEASE_TAG]=	20181007
+DEF[PORTVERSION]=	20181230
+DEF[RELEASE_TAG]=	20190201
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		opencvs
@@ -19,10 +19,6 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-# Will not build on linux, way too many BSDisms (libsd inclusion doesn't
-# fix all of them)
-NOT_FOR_OPSYS=		linux
-
 LICENSE=		BSD2CLAUSE:single
 LICENSE_FILE=		BSD2CLAUSE:{{WRKDIR}}/LICENSE
 LICENSE_AWK=		BSD2CLAUSE:"^\#include"
@@ -30,6 +26,13 @@ LICENSE_SOURCE=		BSD2CLAUSE:{{WRKSRC}}/cvs.c
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/opencvs
+
+USES=			pkgconfig
+BUILD_DEPENDS=		bmake:single:standard
+BR_DEPS[linux]=		libbsd:single:standard
+
+do-build:
+	(cd ${WRKSRC} && ${ENV} ${MAKE_ENV} bmake)
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/cvs ${STAGEDIR}${PREFIX}/bin
