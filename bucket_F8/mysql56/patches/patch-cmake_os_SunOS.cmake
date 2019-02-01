@@ -2,7 +2,7 @@ $NetBSD: patch-cmake_os_SunOS.cmake,v 1.2 2017/04/11 20:21:02 adam Exp $
 
 Backport section from MySQL 5.7 to fix SunOS/gcc.
 
---- cmake/os/SunOS.cmake.orig	2018-09-10 10:17:55 UTC
+--- cmake/os/SunOS.cmake.orig	2018-12-21 07:46:08 UTC
 +++ cmake/os/SunOS.cmake
 @@ -19,7 +19,13 @@ INCLUDE(CheckCSourceCompiles)
  

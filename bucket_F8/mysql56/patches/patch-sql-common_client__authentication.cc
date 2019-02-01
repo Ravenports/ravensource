@@ -1,4 +1,4 @@
---- sql-common/client_authentication.cc.orig	2018-09-10 10:17:55 UTC
+--- sql-common/client_authentication.cc.orig	2018-12-21 07:46:08 UTC
 +++ sql-common/client_authentication.cc
 @@ -84,7 +84,7 @@ RSA *rsa_init(MYSQL *mysql)
  
