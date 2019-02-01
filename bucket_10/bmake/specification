@@ -4,14 +4,15 @@ DEF[OSDEFINE]=		-DOSNAME=\\\"{{OPSYS}}\\\" -DOSARCH=\\\"{{ARCH}}\\\"
 
 NAMEBASE=		bmake
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Portable version of NetBSD 'make' utility
 HOMEPAGE=		http://www.crufty.net/help/sjg/bmake.html
-CONTACT=		nobody
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		ftp://ftp.netbsd.org/pub/NetBSD/misc/sjg/
+SITES[main]=		https://cdn.netbsd.org/pub/NetBSD/misc/sjg/
 DISTFILE[1]=		bmake-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	single
@@ -28,11 +29,14 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		devel/bmake
 
 DISTNAME=		bmake
-BUILDRUN_DEPENDS=	bmake-mk-files:single:standard
+USES=			python
+MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-default-sys-path="/xports/Mk:{{PREFIX}}/share/mk"
 			--with-machine-arch={{ARCH}}
 			--with-mksrc=no
-MUST_CONFIGURE=		gnu
+
+post-extract:
+	${LN} -s ${WRKSRC}/mk ${PREFIX}/share/mk
 
 post-patch:
 	${REINPLACE_CMD} 's/^\.Nx/NetBSD/' ${WRKDIR}/bmake/bmake.1
@@ -50,3 +54,9 @@ do-build:
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/bmake ${STAGEDIR}${PREFIX}/bin
 	${INSTALL_MAN} ${WRKSRC}/bmake.1 ${STAGEDIR}${MAN1PREFIX}/man/man1
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/mk
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/mk/sys
+	${INSTALL_DATA} ${WRKSRC}/mk/*.mk ${STAGEDIR}${PREFIX}/share/mk
+	${INSTALL_DATA} ${WRKSRC}/mk/*.py ${STAGEDIR}${PREFIX}/share/mk
+	${INSTALL_DATA} ${WRKSRC}/mk/*.sh ${STAGEDIR}${PREFIX}/share/mk
+	${INSTALL_DATA} ${WRKSRC}/mk/sys/*.mk ${STAGEDIR}${PREFIX}/share/mk/sys
