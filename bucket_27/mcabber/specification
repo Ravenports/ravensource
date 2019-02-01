@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	1.1.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mcabber
+VERSION=		${PORTVERSION}
+KEYWORDS=		net net_im
+VARIANTS=		standard
+SDESC[standard]=	Small Jabber console client
+HOMEPAGE=		https://mcabber.com/
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://mcabber.com/files/
+DISTFILE[1]=		mcabber-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^\#include"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/mcabber/main.c
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net-im/mcabber
+
+USES=			desktop-utils:single gettext-runtime iconv libtool ncurses pkgconfig
+GNOME_COMPONENTS=	glib
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-hgcset
+			--enable-gpgme
+			--enable-otr
+			--without-libidn
+# libidn2 can't be used, it depends on stringprep
+BUILDRUN_DEPENDS=	gpgme:primary:standard
+			loudmouth:single:standard
+			libotr:single:standard
+INSTALL_TARGET=		install-strip
+
+post-patch:
+	${REINPLACE_CMD} -e 's|$$"$${libdir}|"$${libdir}|' \
+		-e 's|-O2 $$CFLAGS|$$CFLAGS|' ${WRKSRC}/configure
+
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/applications
+	${INSTALL_DATA} ${WRKSRC}/mcabber.desktop \
+		${STAGEDIR}${PREFIX}/share/applications
