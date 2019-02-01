@@ -4,6 +4,7 @@ DEF[OSDEFINE]=		-DOSNAME=\\\"{{OPSYS}}\\\" -DOSARCH=\\\"{{ARCH}}\\\"
 
 NAMEBASE=		bmake
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Portable version of NetBSD 'make' utility
@@ -11,7 +12,8 @@ HOMEPAGE=		http://www.crufty.net/help/sjg/bmake.html
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		ftp://ftp.netbsd.org/pub/NetBSD/misc/sjg/
+SITES[main]=		https://cdn.netbsd.org/pub/NetBSD/misc/sjg/
+			ftp://ftp.netbsd.org/pub/NetBSD/misc/sjg/
 DISTFILE[1]=		bmake-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	single
@@ -28,7 +30,6 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		devel/bmake
 
 DISTNAME=		bmake
-BUILDRUN_DEPENDS=	bmake-mk-files:single:standard
 CONFIGURE_ARGS=		--with-default-sys-path="/xports/Mk:{{PREFIX}}/share/mk"
 			--with-machine-arch={{ARCH}}
 			--with-mksrc=no
@@ -50,3 +51,12 @@ do-build:
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/bmake ${STAGEDIR}${PREFIX}/bin
 	${INSTALL_MAN} ${WRKSRC}/bmake.1 ${STAGEDIR}${MAN1PREFIX}/man/man1
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/mk
+	${INSTALL_DATA} ${WRKSRC}/mk/*.mk ${STAGEDIR}${PREFIX}/share/mk/
+	if [ -f "${WRKSRC}/mk/sys/${OPSYS}.mk" ]; then\
+		${INSTALL_DATA} ${WRKSRC}/mk/sys/${OPSYS}.mk\
+		${STAGEDIR}${PREFIX}/share/mk/sys.mk ;\
+	else\
+		${INSTALL_DATA} ${WRKSRC}/mk/sys/Generic.mk\
+		${STAGEDIR}${PREFIX}/share/mk/sys.mk ;\
+	fi
