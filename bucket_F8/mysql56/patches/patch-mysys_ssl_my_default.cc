@@ -1,4 +1,4 @@
---- mysys_ssl/my_default.cc.orig	2018-09-10 10:17:55 UTC
+--- mysys_ssl/my_default.cc.orig	2018-12-21 07:46:08 UTC
 +++ mysys_ssl/my_default.cc
 @@ -110,7 +110,7 @@ static my_bool defaults_already_read= FA
  

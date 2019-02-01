@@ -1,4 +1,4 @@
---- cmake/plugin.cmake.orig	2018-09-10 10:17:55 UTC
+--- cmake/plugin.cmake.orig	2018-12-21 07:46:08 UTC
 +++ cmake/plugin.cmake
 @@ -205,7 +205,6 @@ MACRO(MYSQL_ADD_PLUGIN)
        OUTPUT_NAME "${ARG_MODULE_OUTPUT_NAME}")  

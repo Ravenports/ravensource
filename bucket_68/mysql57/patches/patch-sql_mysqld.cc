@@ -1,6 +1,6 @@
---- sql/mysqld.cc.orig	2018-10-04 05:48:22 UTC
+--- sql/mysqld.cc.orig	2018-12-21 10:39:40 UTC
 +++ sql/mysqld.cc
-@@ -3405,7 +3405,7 @@ static int init_ssl()
+@@ -3415,7 +3415,7 @@ static int init_ssl()
  {
  #ifdef HAVE_OPENSSL
  #ifndef HAVE_YASSL
