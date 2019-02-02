@@ -1,0 +1,14 @@
+Apple doesn't support cpu binding to threads.
+Make DragonFly link by using same (non)interface.
+
+--- sql/CMakeLists.txt.orig	2019-01-25 22:33:03 UTC
++++ sql/CMakeLists.txt
+@@ -535,7 +535,7 @@ IF(CMAKE_SYSTEM_NAME MATCHES "Linux")
+   LIST(APPEND SQL_SHARED_SOURCES resourcegroups/platform/thread_attrs_api_linux.cc)
+ ENDIF()
+ 
+-IF(APPLE)
++IF(APPLE OR CMAKE_SYSTEM_NAME MATCHES "DragonFly")
+   LIST(APPEND SQL_SHARED_SOURCES resourcegroups/platform/thread_attrs_api_apple.cc)
+ ENDIF()
+ 

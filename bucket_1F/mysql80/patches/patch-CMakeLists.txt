@@ -1,0 +1,43 @@
+--- CMakeLists.txt.orig	2019-01-25 22:33:03 UTC
++++ CMakeLists.txt
+@@ -1045,7 +1045,6 @@ IF(UNIX)
+ ENDIF()
+ 
+ IF(NOT WITHOUT_SERVER)
+-  ADD_SUBDIRECTORY(testclients)
+   ADD_SUBDIRECTORY(sql)
+ ENDIF()
+ 
+@@ -1054,8 +1053,6 @@ ENDIF()
+ ADD_SUBDIRECTORY(scripts)
+ 
+ IF(NOT WITHOUT_SERVER)
+-  ADD_SUBDIRECTORY(mysql-test)
+-  ADD_SUBDIRECTORY(mysql-test/lib/My/SafeProcess)
+   ADD_SUBDIRECTORY(support-files)
+   IF(EXISTS ${CMAKE_SOURCE_DIR}/internal/CMakeLists.txt)
+     ADD_SUBDIRECTORY(internal)
+@@ -1144,7 +1141,6 @@ ELSE()
+   SET(CPACK_GENERATOR "TGZ")
+ ENDIF() 
+ ADD_SUBDIRECTORY(packaging/WiX)
+-ADD_SUBDIRECTORY(packaging/solaris)
+ 
+ IF(UNIX)
+   INSTALL(FILES Docs/mysql.info DESTINATION ${INSTALL_INFODIR} OPTIONAL COMPONENT Info)
+@@ -1152,6 +1148,7 @@ ENDIF()
+ #
+ # RPM installs documentation directly from the source tree
+ #
++IF(FALSE)
+ IF(NOT INSTALL_LAYOUT MATCHES "RPM")
+   INSTALL(FILES README LICENSE DESTINATION ${INSTALL_DOCREADMEDIR} COMPONENT Readme)
+   INSTALL(FILES ${CMAKE_BINARY_DIR}/Docs/INFO_SRC ${CMAKE_BINARY_DIR}/Docs/INFO_BIN DESTINATION ${INSTALL_DOCDIR})
+@@ -1170,6 +1167,7 @@ IF(NOT INSTALL_LAYOUT MATCHES "RPM")
+     PATTERN "README.build" EXCLUDE
+   )
+ ENDIF()
++ENDIF()
+ 
+ # Now that we're done with all ADD_SUBDIRECTORY and thus all feature tests,
+ # we can safely enable ASan on Clang/Win32 if needed.
