@@ -1,0 +1,160 @@
+DEF[PORTVERSION]=	EXTRACT_VERSION(MYSQL_oracle-8.0_VERSION)
+DEF[MYSQL_RELEASE]=	${PORTVERSION:R}
+DEF[SUFFIX]=		${MYSQL_RELEASE:S/.//g}
+DEF[MY_DBDIR]=		/var/db/mysql
+DEF[MY_SECDIR]=		/var/db/mysql_secure
+DEF[MY_TMPDIR]=		/var/db/mysql_tmpdir
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mysql${SUFFIX}
+VERSION=		${PORTVERSION}
+KEYWORDS=		databases
+VARIANTS=		standard
+SDESC[standard]=	Multithreaded SQL database (server)
+HOMEPAGE=		https://www.mysql.com/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		MYSQL/MySQL-${MYSQL_RELEASE}
+DISTFILE[1]=		mysql-boost-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete server client
+
+OPTIONS_AVAILABLE=	ARCHIVE BLACKHOLE EXAMPLE FEDERATED INNOBASE PERFSCHEMA PERFORMANCE
+OPTIONS_STANDARD=	ARCHIVE BLACKHOLE EXAMPLE FEDERATED INNOBASE PERFSCHEMA PERFORMANCE
+OPTGROUP_UNLIMITED=	STORAGE
+OPTDESCR[STORAGE]=	Storage engines statically compiled into server
+OPTGROUP[STORAGE]=	ARCHIVE BLACKHOLE EXAMPLE FEDERATED INNOBASE PERFSCHEMA
+OPT_ON[all]=		PERFORMANCE
+
+LICENSE=		GPLv2:server CUSTOM1:server
+LICENSE_NAME=		CUSTOM1:"MySQL Router License"
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/README
+			CUSTOM1:{{WRKSRC}}/router/LICENSE.router
+LICENSE_TERMS=		server:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^\/\*$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/mysql.h
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		databases/mysql80-server
+
+BUILD_DEPENDS=		rpcgen:single:standard
+			libedit:single:standard
+BUILDRUN_DEPENDS=	libevent:single:standard
+			lz4:complete:standard
+EXRUN[client]=		libedit:single:standard
+			zlib:complete:standard
+
+USES=			bison cmake perl:run shebangfix ssl:build
+			c++:server,client cclibs:server,client
+			pkgconfig
+DISTNAME=		mysql-${PORTVERSION}
+SHEBANG_FILES=		scripts/*.pl
+CMAKE_BUILD_TYPE=	Release
+CMAKE_ARGS=		-DINSTALL_PKGCONFIGDIR="{{LOCALBASE}}/lib/pkgconfig"
+			-DINSTALL_DOCDIR="share/doc/mysql"
+			-DINSTALL_DOCREADMEDIR="share/doc/mysql"
+			-DINSTALL_INCLUDEDIR="include/mysql"
+			-DINSTALL_INFODIR="share/info"
+			-DINSTALL_LIBDIR="lib/mysql"
+			-DINSTALL_MANDIR="share/man"
+			-DINSTALL_MYSQLDATADIR="${MY_DBDIR}"
+			-DINSTALL_MYSQLKEYRINGDIR="etc/mysql/keyring"
+			-DINSTALL_MYSQLSHAREDIR="share/mysql"
+			-DINSTALL_MYSQLTESTDIR="share/mysql/tests"
+			-DINSTALL_PLUGINDIR="lib/mysql/plugin"
+			-DINSTALL_SBINDIR="libexec"
+			-DINSTALL_SECURE_FILE_PRIVDIR="${MY_SECDIR}"
+			-DINSTALL_SHAREDIR="share"
+			-DINSTALL_SUPPORTFILESDIR="share/mysql"
+			-DMYSQL_KEYRINGDIR="etc/mysql/keyring"
+			-DWITH_BOOST="{{WRKSRC}}/boost"
+			-DWITH_EDITLINE=system
+			-DWITH_LIBEVENT=system
+			-DWITH_LZ4=system
+			-DWITH_ZLIB=system
+			-DWITH_SSL={{OPENSSLBASE}}
+			-DINSTALL_MYSQLTESTDIR=0
+			-DZLIB_INCLUDE_DIR={{LOCALBASE}}/include
+CFLAGS=			-Wno-deprecated-declarations
+SUB_FILES=		my.cnf.sample
+SUB_LIST=		MY_DBDIR=${MY_DBDIR}
+			MY_SECDIR=${MY_SECDIR}
+			MY_TMPDIR=${MY_TMPDIR}
+PLIST_SUB=		MY_DBDIR=${MY_DBDIR}
+			MY_SECDIR=${MY_SECDIR}
+			MY_TMPDIR=${MY_TMPDIR}
+RC_SUBR=		mysql-server:server
+USERS=			mysql
+GROUPS=			mysql
+USERGROUP_SPKG=		server
+
+# abi check requires compiler in stage
+INSTALL_REQ_TOOLCHAIN=	yes
+
+[ARCHIVE].DESCRIPTION=			Provide "Archive Storage" engine
+[ARCHIVE].CMAKE_ARGS_ON=		-DWITH_ARCHIVE_STORAGE_ENGINE=1
+[ARCHIVE].CMAKE_ARGS_OFF=		-DWITHOUT_ARCHIVE_STORAGE_ENGINE=1
+
+[BLACKHOLE].DESCRIPTION=		Provide "Blackhole Storage" engine
+[BLACKHOLE].CMAKE_ARGS_ON=		-DWITH_BLACKHOLE_STORAGE_ENGINE=1
+[BLACKHOLE].CMAKE_ARGS_OFF=		-DWITHOUT_BLACKHOLE_STORAGE_ENGINE=1
+
+[EXAMPLE].DESCRIPTION=			Provide "Example Storage" engine
+[EXAMPLE].CMAKE_ARGS_ON=		-DWITH_EXAMPLE_STORAGE_ENGINE=1
+[EXAMPLE].CMAKE_ARGS_OFF=		-DWITHOUT_EXAMPLE_STORAGE_ENGINE=1
+
+[INNOBASE].DESCRIPTION=			Provide "InnoDB Storage" engine
+[INNOBASE].CMAKE_ARGS_ON=		-DWITH_INNOBASE_STORAGE_ENGINE=1
+[INNOBASE].CMAKE_ARGS_OFF=		-DWITHOUT_INNOBASE_STORAGE_ENGINE=1
+
+[PERFSCHEMA].DESCRIPTION=		Provide "Performance Schema Storage" engine
+[PERFSCHEMA].CMAKE_ARGS_ON=		-DWITH_PERFSCHEMA_STORAGE_ENGINE=1
+[PERFSCHEMA].CMAKE_ARGS_OFF=		-DWITHOUT_PERFSCHEMA_STORAGE_ENGINE=1
+
+[PERFORMANCE].DESCRIPTION=		Enable "Performance Schema" (High RAM usage)
+[PERFORMANCE].SUB_LIST_ON=		PERFSCHEMRC=""
+[PERFORMANCE].SUB_LIST_OFF=		PERFSCHEMRC="--skip-performance-schema"
+
+[FEDERATED].DESCRIPTION=		Provide "Federated Storage" engine
+[FEDERATED].CMAKE_ARGS_ON=		-DWITH_FEDERATED_STORAGE_ENGINE=1
+[FEDERATED].CMAKE_ARGS_OFF=		-DWITHOUT_FEDERATED_STORAGE_ENGINE=1
+[FEDERATED].SUB_LIST_ON=		FEDER="--federated"
+[FEDERATED].SUB_LIST_OFF=		FEDER=""
+
+post-extract:
+	${RM} -rv ${WRKSRC}/sql/sql_hints.yy.cc ${WRKSRC}/sql/sql_hints.yy.h
+
+post-patch:
+	${REINPLACE_CMD} -e 's|/usr/bin/perl|${PREFIX}/bin/perl|' \
+		${WRKSRC}/scripts/CMakeLists.txt
+
+post-patch-freebsd:
+	${RM} ${WRKSRC}/cmake/os/FreeBSD.cmake
+
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/mysql/keyring \
+		${STAGEDIR}${MY_SECDIR} \
+		${STAGEDIR}${MY_TMPDIR}
+	${INSTALL_DATA} ${WRKDIR}/my.cnf.sample \
+		${STAGEDIR}${ETCDIR}/my.cnf.sample
+	${MV} ${STAGEDIR}${PREFIX}/share/doc/mysql/sample_mysqlrouter.conf \
+		${STAGEDIR}${ETCDIR}/mysqlrouter.conf.sample
+	${RM} ${STAGEDIR}${MANPREFIX}/man/man1/zlib_decompress.1 \
+		${STAGEDIR}${MANPREFIX}/man/man1/lz4_decompress.1
+	${RM} ${STAGEDIR}${PREFIX}/*.router
+	${RMDIR} ${STAGEDIR}${PREFIX}/lib/mysql/plugin/debug
+	${RMDIR} ${STAGEDIR}${PREFIX}/run
+	${RM} -r ${STAGEDIR}${PREFIX}/share/doc
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/lib*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/plugin/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/mysqlrouter/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/mysqld
+	# Linux doesn't like -R flags
+	${SED} -i'' -e 's| -R| -Wl,-rpath,|g' \
+		${STAGEDIR}${PREFIX}/bin/mysql_config
+	list=$$(cd ${STAGEDIR}${PREFIX}/bin && ${LS} * | ${AWK} \
+		'{ if ($$1 != "mysql_config" && $$1 != "mysqld_mult" && \
+		$$1 != "mysqld_safe" && $$1 != "mysqldumpslow" && \
+		$$1 != "mysqld_multi") print}'); \
+	(cd ${STAGEDIR}${PREFIX}/bin && ${STRIP_CMD} $$list)

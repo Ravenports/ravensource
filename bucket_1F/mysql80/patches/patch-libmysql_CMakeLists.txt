@@ -1,0 +1,19 @@
+--- libmysql/CMakeLists.txt.orig	2019-01-25 22:33:03 UTC
++++ libmysql/CMakeLists.txt
+@@ -236,7 +236,6 @@ ENDIF()
+ 
+ # LDAP authentication SASL client plugin
+ MESSAGE(STATUS "Creating LDAP authentication SASL client library.")
+-ADD_SUBDIRECTORY(authentication_ldap)
+   
+ # Merge several convenience libraries into one big mysqlclient
+ MERGE_CONVENIENCE_LIBRARIES(mysqlclient ${LIBS_TO_MERGE} COMPONENT Development)
+@@ -293,7 +292,7 @@ IF(NOT DISABLE_SHARED)
+   ENDIF()
+   IF(UNIX)
+     # libtool compatability
+-    IF(CMAKE_SYSTEM_NAME MATCHES "FreeBSD" OR APPLE)
++    IF(CMAKE_SYSTEM_NAME MATCHES "FreeBSD|DragonFly|Linux|SunOS" OR APPLE)
+       SET(OS_SHARED_LIB_VERSION "${SHARED_LIB_MAJOR_VERSION}")
+     ELSE()
+       SET(OS_SHARED_LIB_VERSION
