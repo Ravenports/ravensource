@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	1.0.3
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		fonts-spleen
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_fonts
+VARIANTS=		standard
+SDESC[standard]=	Monospaced bitmap fonts for consoles and terminals
+HOMEPAGE=		https://www.cambus.net/spleen-monospaced-bitmap-fonts/
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/fcambus:spleen:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11-fonts/spleen
+
+FONTNAME=		spleen
+
+USES=			fonts
+BUILD_DEPENDS=		xorg-bdftopcf:single:standard
+
+do-build:
+	cd ${WRKSRC}; \
+	for file in *.bdf; do \
+		font=`basename $$file .bdf`; \
+		${LOCALBASE}/bin/bdftopcf -t -o $$font.pcf $$font.bdf; \
+	done
+	${GZIP_CMD} ${WRKSRC}/*.pcf
+
+do-install:
+	${MKDIR} ${STAGEDIR}${FONTSDIR}
+	${INSTALL_DATA} ${WRKSRC}/fonts.alias-spleen ${STAGEDIR}${FONTSDIR}
+	${INSTALL_DATA} ${WRKSRC}/*.pcf.gz ${STAGEDIR}${FONTSDIR}
