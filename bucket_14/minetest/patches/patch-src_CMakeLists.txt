@@ -1,0 +1,17 @@
+--- src/CMakeLists.txt.orig	2018-06-10 15:18:11 UTC
++++ src/CMakeLists.txt
+@@ -757,13 +757,8 @@ else()
+ 	endif()
+ 
+ 	set(CMAKE_CXX_FLAGS_RELEASE "-DNDEBUG ${RELEASE_WARNING_FLAGS} ${WARNING_FLAGS} ${OTHER_FLAGS} -Wall -pipe -funroll-loops")
+-	if(CMAKE_SYSTEM_NAME MATCHES "(Darwin|FreeBSD)")
+-		set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Os")
+-	else()
+-		set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -ffast-math -fomit-frame-pointer")
+-	endif(CMAKE_SYSTEM_NAME MATCHES "(Darwin|FreeBSD)")
+ 	set(CMAKE_CXX_FLAGS_SEMIDEBUG "-g -O1 -Wall -Wabi ${WARNING_FLAGS} ${OTHER_FLAGS}")
+-	set(CMAKE_CXX_FLAGS_DEBUG "-g -O0 -Wall -Wabi ${WARNING_FLAGS} ${OTHER_FLAGS}")
++	set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall -Wabi ${WARNING_FLAGS} ${OTHER_FLAGS}")
+ 
+ 	if(USE_GPROF)
+ 		set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pg")

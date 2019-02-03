@@ -1,0 +1,70 @@
+DEF[PORTVERSION]=	0.4.17.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		minetest
+VERSION=		${PORTVERSION}
+KEYWORDS=		games
+VARIANTS=		standard
+SDESC[standard]=	Infinite-world block sandbox game
+HOMEPAGE=		https://www.minetest.net/
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main game
+SITES[main]=		GITHUB/minetest:minetest:${PORTVERSION}
+SITES[game]=		GITHUB/minetest:minetest_game:${PORTVERSION}
+DISTFILE[1]=		generated:main
+DISTFILE[2]=		generated:game
+DF_INDEX=		1 2
+
+SPKGS[standard]=	complete client server data docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		APACHE20:data
+			CUSTOM1:data
+			LGPL21+:data
+LICENSE_NAME=		CUSTOM1:"Attribution-ShareAlike 3.0 Unported"
+LICENSE_FILE=		APACHE20:stock
+			CUSTOM1:{{FILESDIR}}/LICENSE_CC_BY_SA_30
+			LGPL21+:stock
+LICENSE_TERMS=		data:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		games/minetest
+
+USES=			cmake gettext-tools iconv jpeg
+			ncurses png pgsql:client sqlite
+CMAKE_ARGS=		-DBUILD_SERVER=TRUE
+			-DENABLE_GETTEXT=ON
+			-DENABLE_GLES=ON
+			-DENABLE_SYSTEM_JSONCPP=ON
+XORG_COMPONENTS=	x11 xext xxf86vm
+BUILD_DEPENDS=		bzip2:static:standard
+			doxygen:single:standard
+			gmp:static:standard
+BUILDRUN_DEPENDS=	bzip2:shared:standard
+			curl:primary:standard
+			freetype:primary:standard
+			gmp:shared:standard
+			hiredis:single:standard
+			irrlicht:single:standard
+			jsoncpp:single:standard
+			leveldb:single:standard
+			libogg:primary:standard
+			libvorbis:primary:standard
+			luajit:single:standard
+			mesa:libs:standard
+			openal:single:standard
+			spatialindex:single:standard
+EXRUN[client]=		minetest:data:standard
+EXRUN[server]=		minetest:data:standard
+
+post-extract:
+	${AWK} '/^License of Minetest textures/,0' ${WRKSRC}/README.txt\
+		> ${WRKDIR}/TERMS
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/minetest*
+	${MV} ${WRKDIR}/minetest_game-${PORTVERSION} \
+		${STAGEDIR}${PREFIX}/share/minetest/games/minetest
