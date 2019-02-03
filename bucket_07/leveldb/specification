@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	1.20
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		leveldb
+VERSION=		${PORTVERSION}
+KEYWORDS=		databases
+VARIANTS=		standard
+SDESC[standard]=	Fast key-value storage library
+HOMEPAGE=		https://github.com/google/leveldb
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/google:leveldb:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		databases/leveldb
+
+USES=			c++:single cclibs:single gmake
+BUILDRUN_DEPENDS=	snappy:single:standard
+SOVERSION=		${SOVERSION}
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/out-static/leveldbutil \
+		${STAGEDIR}${PREFIX}/bin
+	${INSTALL_PROGRAM} ${WRKSRC}/out-static/db_bench \
+		${STAGEDIR}${PREFIX}/bin
+	${MKDIR} ${STAGEDIR}${PREFIX}/include/leveldb
+	${INSTALL_DATA} ${WRKSRC}/include/leveldb/* \
+		${STAGEDIR}${PREFIX}/include/leveldb
+	${INSTALL_LIB} ${WRKSRC}/out-shared/libleveldb.so* \
+		${STAGEDIR}${PREFIX}/lib/
+	${INSTALL_DATA} ${WRKSRC}/out-static/libleveldb.a \
+		${STAGEDIR}${PREFIX}/lib/
