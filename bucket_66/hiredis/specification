@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	0.14.0
+DEF[SOVERSION]=		${PORTVERSION:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		hiredis
+VERSION=		${PORTVERSION}
+KEYWORDS=		databases
+VARIANTS=		standard
+SDESC[standard]=	Minimalistic C client for Redis >= 1.2
+HOMEPAGE=		https://redis.io/
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/redis:hiredis:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		databases/hiredis
+
+USES=			gmake
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libhiredis.so.${SOVERSION}
