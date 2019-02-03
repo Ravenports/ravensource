@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	1.8.5
+DEF[SOVERSION]=		4.1.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		spatialindex
+VERSION=		${PORTVERSION}
+KEYWORDS=		geography devel
+VARIANTS=		standard
+SDESC[standard]=	Library for spatial indexing and querying
+HOMEPAGE=		https://libspatialindex.github.io/
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/libspatialindex:libspatialindex:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/spatialindex
+
+USES=			c++:single cclibs:single cmake
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libspatialindex*.so.${SOVERSION}
