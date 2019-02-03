@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.0.0
+DEF[PORTVERSION]=	1.0.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-childprocess
@@ -13,7 +13,7 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		childprocess-1.0.0.gem:main
+DISTFILE[1]=		childprocess-1.0.1.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v24]=		single
@@ -30,17 +30,20 @@ GENERATED=		yes
 
 # Requirements specified by gem dependency --remote --version command
 #   coveralls (< 1.0, development)
-#   rake (< 12.0, development)
+#   rake (< 13.0)
 #   rspec (~> 3.0, development)
 #   yard (~> 0.0, development)
 
 DISTNAME=		childprocess-${PORTVERSION}
 
 [RUBY24].USES_ON=			gem:v24
+[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-rake:single:v24
 
 [RUBY25].USES_ON=			gem:v25
+[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-rake:single:v25
 
 [RUBY26].USES_ON=			gem:v26
+[RUBY26].BUILDRUN_DEPENDS_ON=		ruby-rake:single:v26
 post-patch:
 	# Enable build on DragonFly (file has DOS endings)
 	${REINPLACE_CMD} 's@/bsd/@/bsd|dragonfly/@' \
