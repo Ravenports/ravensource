@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	1.1.7
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		snappy
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers
+VARIANTS=		standard
+SDESC[standard]=	Fast compressor/decompressor library
+HOMEPAGE=		http://google.github.io/snappy/
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/google:snappy:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		archivers/snappy
+
+USES=			c++:single cclibs:single cmake
+CMAKE_ARGS=		-DBUILD_SHARED_LIBS=ON
+			-DSNAPPY_BUILD_TESTS=OFF
+			-DSNAPPY_REQUIRE_AVX=ON
+			-DSNAPPY_REQUIRE_AVX2=ON
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${LOCALBASE}/lib/libsnappy.so.${SOVERSION}
