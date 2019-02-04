@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.30.0
+DEF[PORTVERSION]=	3.31.4
 DEF[SOVERSION]=		0.3.0
 # ----------------------------------------------------------------------------
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://ftp.gnome.org/pub/GNOME/sources/libwnck/${PORTVERSION:R}/
 DISTFILE[1]=		libwnck-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary docs nls
+SPKGS[standard]=	complete primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,13 +28,14 @@ LICENSE_TERMS=		complete:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"ifndef"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libwnck/libwnck.h
 
+# BUILD_DEPENDS=	gtk-doc:single:standard
 BUILDRUN_DEPENDS=	startup-notification:single:standard
-USES=			bison gettext-runtime gettext-tools:build gmake libtool pkgconfig
+USES=			bison gettext-runtime gettext-tools:build
+			gmake libtool pkgconfig meson
 XORG_COMPONENTS=	xres x11
 GNOME_COMPONENTS=	gtk3 intltool introspection
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-tools
-			--with-html-dir={{PREFIX}}/share/doc
 INSTALL_TARGET=		install-strip
-
+MESON_INSERT_RPATH=	libwnck/meson.build
+MESON_ARGS=		-Dinstall_tools=false
+			-Dgtk_doc=false
 SOVERSION=		${SOVERSION}
