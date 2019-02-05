@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.31.1
+DEF[PORTVERSION]=	1.32.0
 DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
 DEF[VENDOR_MODS]=	openssl-src
 # ----------------------------------------------------------------------------
@@ -43,7 +43,6 @@ ONLY_FOR_OPSYS=		dragonfly freebsd linux
 EXTRACT_ONLY=		1
 BUILD_DEPENDS=		bash:primary:standard
 			cmake:single:standard
-			llvm:single:standard
 BUILDRUN_DEPENDS=	curl:primary:standard
 			libssh2:single:standard
 			libgit2:single:standard
@@ -56,14 +55,11 @@ USES=			gmake ssl zlib python:py27,build shebangfix
 			ncurses execinfo c++:single
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--release-channel=stable
-# #			--enable-cargo-native-static
 			--enable-rpath
 			--enable-extended
 			--enable-vendor
 			--enable-locked-deps
-			--disable-jemalloc
 			--local-rust-root={{WRKDIR}}/bootstrap
-			--llvm-root={{LOCALBASE}}
 			--prefix={{PREFIX}}
 			--disable-ninja
 			--default-linker={{LOCALBASE}}/toolchain/${GCCX}/bin/cc
@@ -85,7 +81,6 @@ SHEBANG_FILES=		src/libcompiler_builtins/compiler-rt/lib/sanitizer_common/symbol
 			src/libcompiler_builtins/compiler-rt/lib/sanitizer_common/scripts/*.py
 			src/libcompiler_builtins/compiler-rt/lib/asan/scripts/asan_symbolize.py
 			src/libcore/unicode/unicode.py
-			src/jemalloc/scripts/gen_travis.py
 
 BLOCK_WATCHDOG=		yes
 
