@@ -528,6 +528,7 @@ function filter(dep) {\
    else if (dep == "python-setuptools-scm") return "python-setuptools_scm";\
    else if (dep == "python-requests_toolbelt") return "python-requests-toolbelt";\
    else if (dep == "python-msgpack-python") return "python-msgpack";\
+   else if (dep == "python-pynacl") return "python-PyNaCl";\
    else return dep;\
 }\
 BEGIN {\
