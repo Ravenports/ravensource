@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.1.0
+DEF[PORTVERSION]=	6.2.0
 DEF[ETCDIR]=		{{PREFIX}}/etc/puppet
 # ----------------------------------------------------------------------------
 
@@ -20,8 +20,8 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 LICENSE=		APACHE20:primary
-LICENSE_FILE=		APACHE20:stock
-LICENSE_TERMS=		primary:{{WRKSRC}}/LICENSE
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		sysutils/puppet6
@@ -46,6 +46,10 @@ RC_SUBR=		puppet:primary
 SUB_LIST=		RUBY={{RUBY}}
 SUB_FILES=		pkg-message-primary-freebsd
 			pkg-message-primary-dragonfly
+
+post-extract:
+	${AWK} '/Licensing/,/info@puppet.com/' \
+		${WRKSRC}/README.md > ${WRKDIR}/TERMS
 
 post-patch:
 	${REINPLACE_CMD} -e "s|/etc/puppetlabs/puppet|${ETCDIR}|" \
