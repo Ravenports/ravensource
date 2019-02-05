@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	3.1.6
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-bcrypt
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py27 py36 py37
+SDESC[py27]=		Modern password hashing for your software  (PY 27)
+SDESC[py36]=		Modern password hashing for your software  (PY 36)
+SDESC[py37]=		Modern password hashing for your software  (PY 37)
+HOMEPAGE=		https://github.com/pyca/bcrypt/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/b/bcrypt
+DISTFILE[1]=		bcrypt-3.1.6.tar.gz:main
+
+SPKGS[py27]=		single
+SPKGS[py36]=		single
+SPKGS[py37]=		single
+
+OPTIONS_AVAILABLE=	PY27 PY36 PY37
+OPTIONS_STANDARD=	none
+VOPTS[py27]=		PY27=ON PY36=OFF PY37=OFF
+VOPTS[py36]=		PY27=OFF PY36=ON PY37=OFF
+VOPTS[py37]=		PY27=OFF PY36=OFF PY37=ON
+
+# Output of setup.py --license
+# Apache License, Version 2.0
+
+GENERATED=		yes
+
+# install_requires extracted from setup.py (using python 2.7)
+# cffi>=1.1
+# six>=1.4.1
+
+DISTNAME=		bcrypt-${PORTVERSION}
+
+[PY27].USES_ON=				python:py27
+[PY27].BUILDRUN_DEPENDS_ON=		python-cffi:single:py27
+					python-six:single:py27
+
+[PY36].USES_ON=				python:py36
+[PY36].BUILDRUN_DEPENDS_ON=		python-cffi:single:py36
+					python-six:single:py36
+
+[PY37].USES_ON=				python:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-cffi:single:py37
+					python-six:single:py37
+
