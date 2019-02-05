@@ -1,4 +1,4 @@
---- src/libunwind/build.rs.orig	2018-12-04 23:41:40 UTC
+--- src/libunwind/build.rs.orig	2019-01-16 09:30:27 UTC
 +++ src/libunwind/build.rs
 @@ -33,7 +33,7 @@ fn main() {
      } else if target.contains("bitrig") {
