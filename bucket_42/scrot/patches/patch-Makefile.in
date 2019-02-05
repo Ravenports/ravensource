@@ -1,0 +1,27 @@
+--- Makefile.in.orig	2013-10-30 14:45:47 UTC
++++ Makefile.in
+@@ -349,13 +349,13 @@ installcheck: installcheck-recursive
+ install-exec-am:
+ install-exec: install-exec-recursive
+ 
+-install-data-am: install-man install-docsDATA
++install-data-am: install-man
+ install-data: install-data-recursive
+ 
+ install-am: all-am
+ 	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
+ install: install-recursive
+-uninstall-am: uninstall-man uninstall-docsDATA
++uninstall-am: uninstall-man
+ uninstall: uninstall-recursive
+ all-am: Makefile $(MANS) $(DATA)
+ all-redirect: all-recursive
+@@ -399,7 +399,7 @@ maintainer-clean: maintainer-clean-recur
+ 
+ .PHONY: mostlyclean-hdr distclean-hdr clean-hdr maintainer-clean-hdr \
+ install-man1 uninstall-man1 install-man uninstall-man \
+-uninstall-docsDATA install-docsDATA install-data-recursive \
++install-data-recursive \
+ uninstall-data-recursive install-exec-recursive \
+ uninstall-exec-recursive installdirs-recursive uninstalldirs-recursive \
+ all-recursive check-recursive installcheck-recursive info-recursive \
