@@ -1,0 +1,31 @@
+DEF[PORTVERSION]=	0.8-26
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		scrot
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Simple screen capture utility (SCReen shOT)
+HOMEPAGE=		https://github.com/slabua/scrot.git
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/slabua:scrot:scrot-${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/scrot
+
+BUILDRUN_DEPENDS=	giblib:single:standard
+
+XORG_COMPONENTS=	x11
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--mandir={{MANPREFIX}}/man
