@@ -1,4 +1,4 @@
---- src/tool_operate.c.orig	2018-09-04 20:48:37 UTC
+--- src/tool_operate.c.orig	2019-02-05 14:00:12 UTC
 +++ src/tool_operate.c
 @@ -603,20 +603,7 @@ static CURLcode operate_do(struct Global
              DEBUGASSERT(!outs.filename);
