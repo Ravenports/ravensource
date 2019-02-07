@@ -4,9 +4,11 @@ DEF[OPENSSL_SHLIBVER]=	9
 
 NAMEBASE=		openssl
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security devel
-VARIANTS=		standard
+VARIANTS=		standard static
 SDESC[standard]=	SSL and crypto library
+SDESC[static]=		Static minimal version of OpenSSL
 HOMEPAGE=		https://www.openssl.org/
 CONTACT=		nobody
 
@@ -15,12 +17,18 @@ SITES[main]=		https://www.openssl.org/source/
 DISTFILE[1]=		openssl-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	single
+SPKGS[static]=		single
 
-OPTIONS_AVAILABLE=	SKIP_MANPAGES ASM EC SHARED SSE2 SSL2 SSL3 I386 THREADS
+OPTIONS_AVAILABLE=	SKIP_MANPAGES ASM EC SHARED SSE2 SSL2 SSL3 I386 THREADS STATIC
 OPTIONS_STANDARD=	SKIP_MANPAGES ASM EC SHARED SSE2 SSL2 SSL3 I386 THREADS
 OPT_ON[all]=		SHARED SSE2 SSL2 SSL3 THREADS
 OPT_ON[x86_64]=		ASM EC
 OPT_ON[i386]=		I386
+VOPTS[static]=		STATIC=ON
+			SKIP_MANPAGES=ON
+			ASM=ON EC=ON SSE2=ON SSL2=ON SSL3=ON THREADS=ON
+			SHARED=OFF
+			I386=OFF
 
 LICENSE=		OpenSSL:single
 LICENSE_FILE=		OpenSSL:{{WRKSRC}}/LICENSE
@@ -114,6 +122,12 @@ post-install-SHARED-ON:
 	${LN} -sf $i.so.${OPENSSL_SHLIBVER} ${STAGEDIR}${PREFIX}/lib/$i.so
 .endfor
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/engines/*.so
+
+post-install-SHARED-OFF:
+	${RMDIR} ${STAGEDIR}${PREFIX}/lib/engines
+
+post-install-SKIP_MANPAGES-ON:
+	${RM} -r ${STAGEDIR}${MANPREFIX}/man
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/openssl
