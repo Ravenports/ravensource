@@ -9,3 +9,12 @@
        )
        SET(OPENSSL_FOUND TRUE)
        FIND_PROGRAM(OPENSSL_EXECUTABLE openssl
+@@ -417,7 +417,7 @@ ENDMACRO()
+ # then copy the dlls to runtime_output_directory, and add INSTALL them.
+ # Currently only relevant for Windows, Mac and Linux.
+ MACRO(MYSQL_CHECK_SSL_DLLS)
+-  IF (WITH_SSL_PATH AND (APPLE OR WIN32 OR LINUX_STANDALONE))
++  IF (FALSE)
+     MESSAGE(STATUS "WITH_SSL_PATH ${WITH_SSL_PATH}")
+     IF(LINUX_STANDALONE)
+       GET_FILENAME_COMPONENT(CRYPTO_EXT "${CRYPTO_LIBRARY}" EXT)
