@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.0.3
+DEF[PORTVERSION]=	1.0.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fonts-spleen
@@ -28,13 +28,9 @@ FONTNAME=		spleen
 
 USES=			fonts
 BUILD_DEPENDS=		xorg-bdftopcf:single:standard
+BUILD_TARGET=		pcf
 
-do-build:
-	cd ${WRKSRC}; \
-	for file in *.bdf; do \
-		font=`basename $$file .bdf`; \
-		${LOCALBASE}/bin/bdftopcf -t -o $$font.pcf $$font.bdf; \
-	done
+post-build:
 	${GZIP_CMD} ${WRKSRC}/*.pcf
 
 do-install:
