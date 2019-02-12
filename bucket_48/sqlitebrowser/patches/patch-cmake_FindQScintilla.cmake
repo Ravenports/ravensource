@@ -1,4 +1,4 @@
---- cmake/FindQScintilla.cmake.orig	2017-09-20 13:59:51 UTC
+--- cmake/FindQScintilla.cmake.orig	2019-02-02 13:03:07 UTC
 +++ cmake/FindQScintilla.cmake
 @@ -80,7 +80,7 @@ endif ()
  
