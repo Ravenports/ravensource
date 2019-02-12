@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2.1.0
-DEF[SOVERSION]=		4.0.0
+DEF[PORTVERSION]=	2.1.1a
+DEF[SOVERSION]=		0.3.5
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libidn2
@@ -43,6 +43,7 @@ CONFIGURE_ARGS=		--disable-nls
 INSTALL_TARGET=		install-strip
 INFO=			primary:libidn2
 SOVERSION=		${SOVERSION}
+DISTNAME=		libidn2-${PORTVERSION:S/a//}
 
 post-patch:
 	${REINPLACE_CMD} -e '/^TMPDIR = /d' ${WRKSRC}/Makefile.in
