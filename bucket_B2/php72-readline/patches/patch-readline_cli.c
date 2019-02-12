@@ -1,8 +1,8 @@
---- readline_cli.c.orig	2012-03-02 16:40:26.000000000 +0100
-+++ readline_cli.c	2012-03-02 16:40:43.000000000 +0100
-@@ -19,6 +19,10 @@
- 
- /* $Id: readline_cli.c 321634 2012-01-01 13:15:04Z felipe $ */
+--- readline_cli.c.orig	2019-02-05 13:10:04 UTC
++++ readline_cli.c
+@@ -21,6 +21,10 @@
+ #include "config.h"
+ #endif
  
 +#ifdef HAVE_CONFIG_H
 +#include "config.h"
