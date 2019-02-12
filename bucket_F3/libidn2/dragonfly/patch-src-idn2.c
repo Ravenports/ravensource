@@ -1,4 +1,4 @@
---- src/idn2.c.orig	2017-04-12 18:43:32 UTC
+--- src/idn2.c.orig	2018-03-31 12:30:23 UTC
 +++ src/idn2.c
 @@ -33,7 +33,7 @@
  #include <unistring/localcharset.h>
@@ -9,7 +9,7 @@
  #include "gettext.h"
  #define _(String) dgettext (PACKAGE, String)
  #include "progname.h"
-@@ -176,7 +176,7 @@ process_input (char *readbuf, int flags)
+@@ -181,7 +181,7 @@ process_input (char *readbuf, int flags)
        free (output);
      }
    else
@@ -18,7 +18,7 @@
  }
  
  int
-@@ -237,7 +237,7 @@ main (int argc, char *argv[])
+@@ -245,7 +245,7 @@ main (int argc, char *argv[])
      }
  
    if (ferror (stdin))
