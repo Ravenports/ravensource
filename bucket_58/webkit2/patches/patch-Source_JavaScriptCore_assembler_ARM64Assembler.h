@@ -1,4 +1,4 @@
---- Source/JavaScriptCore/assembler/ARM64Assembler.h.orig	2018-11-21 16:24:21 UTC
+--- Source/JavaScriptCore/assembler/ARM64Assembler.h.orig	2019-02-08 16:17:00 UTC
 +++ Source/JavaScriptCore/assembler/ARM64Assembler.h
 @@ -2865,6 +2865,8 @@ public:
          sys_cache_control(kCacheFunctionPrepareForExecution, code, size);

@@ -1,4 +1,4 @@
---- Source/WebCore/PAL/pal/PlatformGTK.cmake.orig	2018-03-14 16:44:18 UTC
+--- Source/WebCore/PAL/pal/PlatformGTK.cmake.orig	2019-02-08 16:17:03 UTC
 +++ Source/WebCore/PAL/pal/PlatformGTK.cmake
 @@ -20,6 +20,13 @@ list(APPEND PAL_SOURCES
      unix/LoggingUnix.cpp
