@@ -1,6 +1,6 @@
---- tests/clar/sandbox.h.orig	2018-03-23 14:38:34 UTC
+--- tests/clar/sandbox.h.orig	2019-02-02 10:25:54 UTC
 +++ tests/clar/sandbox.h
-@@ -113,6 +113,11 @@ static int build_sandbox_path(void)
+@@ -125,6 +125,11 @@ static int build_sandbox_path(void)
  
  	if (mkdir(_clar_path, 0700) != 0)
  		return -1;
