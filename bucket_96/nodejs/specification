@@ -65,10 +65,6 @@ post-patch:
 		${WRKSRC}/deps/v8/gypfiles/v8.gyp
 	${FIND} ${WRKSRC} -name "*.bak" -delete
 
-post-patch-freebsd:
-	${REINPLACE_CMD} -e '/define HAVE_CRYPTODEV/d' \
-		${WRKSRC}/deps/openssl/openssl/crypto/engine/eng_cryptodev.c
-
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/node
 	${CHOWN} ${MANMODE} ${STAGEDIR}${PREFIX}/share/man/man1/node.1
