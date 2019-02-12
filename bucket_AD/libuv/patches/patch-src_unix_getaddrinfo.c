@@ -1,4 +1,4 @@
---- src/unix/getaddrinfo.c.orig	2019-01-18 18:27:40 UTC
+--- src/unix/getaddrinfo.c.orig	2019-02-10 16:44:47 UTC
 +++ src/unix/getaddrinfo.c
 @@ -38,6 +38,17 @@
  /* EAI_* constants. */
