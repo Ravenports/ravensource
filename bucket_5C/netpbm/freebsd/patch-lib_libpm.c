@@ -1,6 +1,6 @@
---- lib/libpm.c.orig	2018-12-17 15:45:36 UTC
+--- lib/libpm.c.orig	2019-02-10 23:03:15 UTC
 +++ lib/libpm.c
-@@ -18,6 +18,7 @@
+@@ -17,6 +17,7 @@
  #include <unistd.h>
  #include <stdio.h>
  #include <stdarg.h>
