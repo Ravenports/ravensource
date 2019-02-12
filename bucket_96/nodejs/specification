@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	11.9.0
 
 NAMEBASE=		nodejs
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		www lang
 VARIANTS=		standard
 SDESC[standard]=	Evented I/O for V8 JavaScript
@@ -27,6 +28,7 @@ FPC_EQUIVALENT=		www/node
 BUILDRUN_DEPENDS=	icu:single:standard
 			libuv:single:standard
 			c-ares:single:standard
+			libnghttp2:single:standard
 
 USES=			execinfo gmake python:build,py27 pkgconfig shebangfix
 			zlib
@@ -38,9 +40,9 @@ CONFIGURE_ARGS=		--prefix={{PREFIX}}
 			--shared-cares
 			--shared-libuv
 			--shared-zlib
+			--shared-nghttp2
 			--with-intl=system-icu
-			--openssl-no-asm
-# |			--debug
+# #			--debug
 SHEBANG_FILES=		tools/specialize_node_d.py
 			tools/genv8constants.py
 MAKE_ENV=		CC.host={{CC}}
