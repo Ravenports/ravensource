@@ -1,0 +1,44 @@
+--- Makefile.orig	2019-02-12 14:26:13 UTC
++++ Makefile
+@@ -29,6 +29,7 @@ LIBMAJOR=7
+ LIBMINOR=1
+ LIBPOINT=0
+ LIBVER=$(LIBMAJOR).$(LIBMINOR).$(LIBPOINT)
++SONAME=-Wl,-soname,libgif.so.$(LIBMAJOR)
+ 
+ SOURCES = dgif_lib.c egif_lib.c getarg.c gifalloc.c gif_err.c gif_font.c \
+ 	gif_hash.c openbsd-reallocarray.c qprintf.c quantize.c
+@@ -66,7 +67,7 @@ all: libgif.so libgif.a $(UTILS)
+ $(UTILS):: libgif.a
+ 
+ libgif.so: $(OBJECTS) $(HEADERS)
+-	$(CC) $(CFLAGS) -shared $(OFLAGS) -o libgif.so $(OBJECTS)
++	$(CC) $(CFLAGS) -shared $(OFLAGS) $(SONAME) -o libgif.so $(OBJECTS)
+ 
+ libgif.a: $(OBJECTS) $(HEADERS)
+ 	ar rcs libgif.a $(OBJECTS)
+@@ -85,19 +86,19 @@ check: all
+ install: all install-bin install-include install-lib install-man
+ install-bin: $(INSTALLABLE)
+ 	$(INSTALL) -d "$(DESTDIR)$(BINDIR)"
+-	$(INSTALL) $^ "$(DESTDIR)$(BINDIR)"
++	$(BSD_INSTALL_PROGRAM) ${.ALLSRC} "$(DESTDIR)$(BINDIR)"
+ install-include:
+ 	$(INSTALL) -d "$(DESTDIR)$(INCDIR)"
+-	$(INSTALL) -m 644 gif_lib.h "$(DESTDIR)$(INCDIR)"
++	$(BSD_INSTALL_DATA) gif_lib.h "$(DESTDIR)$(INCDIR)"
+ install-lib:
+ 	$(INSTALL) -d "$(DESTDIR)$(LIBDIR)"
+-	$(INSTALL) -m 644 libgif.a "$(DESTDIR)$(LIBDIR)/libgif.a"
+-	$(INSTALL) -m 755 libgif.so "$(DESTDIR)$(LIBDIR)/libgif.so.$(LIBVER)"
++	$(BSD_INSTALL_DATA) libgif.a "$(DESTDIR)$(LIBDIR)/libgif.a"
++	$(BSD_INSTALL_LIB) libgif.so "$(DESTDIR)$(LIBDIR)/libgif.so.$(LIBVER)"
+ 	ln -sf libgif.so.$(LIBVER) "$(DESTDIR)$(LIBDIR)/libgif.so.$(LIBMAJOR)"
+ 	ln -sf libgif.so.$(LIBMAJOR) "$(DESTDIR)$(LIBDIR)/libgif.so"
+ install-man:
+ 	$(INSTALL) -d "$(DESTDIR)$(MANDIR)"
+-	$(INSTALL) -m 644 doc/*.1 "$(DESTDIR)$(MANDIR)"
++	$(BSD_INSTALL_MAN) doc/*.1 "$(DESTDIR)$(MANDIR)"
+ uninstall: uninstall-man uninstall-include uninstall-lib uninstall-bin
+ uninstall-bin:
+ 	cd "$(DESTDIR)$(BINDIR)" && rm -f $(INSTALLABLE)

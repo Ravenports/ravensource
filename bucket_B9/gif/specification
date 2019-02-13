@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	5.1.4
+DEF[PORTVERSION]=	5.1.6
+DEF[SOVERSION]=		7.1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gif
@@ -11,7 +12,7 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/giflib
-DISTFILE[1]=		giflib-${PORTVERSION}.tar.bz2:main
+DISTFILE[1]=		giflib-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	single
 
@@ -24,11 +25,17 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/giflib
 
-USES=			libtool
+BUILD_DEPENDS=		tar:single:standard
+			xmlto:single:standard
+
 DISTNAME=		giflib-${PORTVERSION}
-MUST_CONFIGURE=		gnu
-INSTALL_TARGET=		install-strip
-TEST_TARGET=		check-TESTS
+SINGLE_JOB=		yes
+MAKE_ARGS=		PREFIX={{PREFIX}}
+			MANDIR={{MANPREFIX}}/man/man1
+SOVERSION=		${SOVERSION}
+
+EXTRACT_HEAD[1]=	{{LOCALBASE}}/bin/gtar -xf
+EXTRACT_TAIL[1]=	--no-same-owner --no-same-permissions
 
 post-install:
 	${INSTALL_MAN} ${WRKSRC}/doc/*.1 ${STAGEDIR}${MANPREFIX}/man/man1/
