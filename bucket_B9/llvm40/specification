@@ -23,17 +23,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://llvm.org/releases/${LLVM_VERSION}/
 DISTFILE[1]=		llvm-${PORTVERSION}.src.tar.xz:main
 DISTFILE[2]=		cfe-${PORTVERSION}.src.tar.xz:main
-DISTFILE[3]=		clang-tools-extra-${PORTVERSION}.src.tar.xz:main
-DISTFILE[4]=		openmp-${PORTVERSION}.src.tar.xz:main
-DF_INDEX=		1 2 3 4
+DF_INDEX=		1 2
 
 SPKGS[standard]=	complete clang llvm
 
-OPTIONS_AVAILABLE=	GOLD OPENMP
-OPTIONS_STANDARD=	GOLD OPENMP
-OPT_ON[dragonfly]=	OPENMP//x86_64 GOLD//x86_64
-OPT_ON[freebsd]=	OPENMP//x86_64 GOLD//x86_64
-OPT_ON[linux]=		GOLD//x86_64
+OPTIONS_AVAILABLE=	GOLD
+OPTIONS_STANDARD=	GOLD
+OPT_ON[dragonfly]=	GOLD//x86_64
 
 LICENSE=		CUSTOM1:llvm
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.TXT
@@ -59,21 +55,14 @@ CMAKE_ARGS=		-DLLVM_BUILD_LLVM_DYLIB=ON
 			-DCMAKE_BUILD_WITH_INSTALL_RPATH=1
 			-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm${SUFFIX}/lib"
 			-DLLVM_HOST_TRIPLE:STRING="{{CONFIGURE_TARGET}}"
+			-DLLVM_PARALLEL_LINK_JOBS=1
+			-DLLVM_PARALLEL_COMPILE_JOBS={{MAKE_JOBS_NUMBER}}
 CMAKE_BUILD_TYPE=	Release
 PLIST_SUB=		NAMEBASE="llvm${SUFFIX}"
 			LLVM_RELEASE="${LLVM_VERSION}"
 			LLVM_MAJOR="${MAJOR}"
 
-# llvm linking requires vast amounts of memory per builder
-# On FreeBSD and Linux using swapfiles, the build can thrash the disk so much
-# that the watchdog always kicks in.  Limiting to 2 builders seems to allow
-# jobs to complete using mechanical disk swap files
-
-MAKE_JOBS_NUMBER_LIMIT=	2
-
 [GOLD].DESCRIPTION=			Build the LLVM Gold plugin for LTO
-[OPENMP].DESCRIPTION=			Install libomp, the LLVM OpenMP runtime library
-
 [GOLD].CMAKE_ARGS_ON=			-DLLVM_BINUTILS_INCDIR={{LOCALBASE}}/toolchain/include
 
 post-extract:
@@ -93,8 +82,7 @@ post-patch:
 		-e 's|@RAVEN_GXX_HEADERS_DIR@|${LOCALBASE}/${GXX_INCLUDE}|' \
 		${WRKSRC}/tools/clang/lib/Driver/ToolChains.cpp \
 		${WRKSRC}/tools/clang/lib/Frontend/InitHeaderSearch.cpp
-
-post-patch-OPENMP-OFF:
+	# post-patch-OPENMP-OFF:
 	${MV} ${WRKSRC}/tools/openmp ${WRKDIR}/unused-openmp-source
 
 post-install:
