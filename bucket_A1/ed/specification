@@ -1,31 +1,30 @@
-DEF[PORTVERSION]=	1.15
+DEF[PORTVERSION]=	6.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ed
 VERSION=		${PORTVERSION}
 KEYWORDS=		editors
 VARIANTS=		standard
-SDESC[standard]=	GNU version of line-oriented text editor
-HOMEPAGE=		https://www.gnu.org/software/ed/
-CONTACT=		nobody
+SDESC[standard]=	OpenBSD version of line-oriented text editor
+HOMEPAGE=		https://github.com/ibara/oed
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GNU/ed
-DISTFILE[1]=		ed-${PORTVERSION}.tar.lz:main
+SITES[main]=		GITHUB/ibara:oed:oed-${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
-LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
-LICENSE_AWK=		TERMS:"__cplusplus"
-LICENSE_SOURCE=		TERMS:{{WRKSRC}}/ed.h
+LICENSE=		BSD2CLAUSE:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKDIR}}/LICENSE
+LICENSE_AWK=		BSD2CLAUSE:"^\#include"
+LICENSE_SOURCE=		BSD2CLAUSE:{{WRKSRC}}/main.c
 LICENSE_SCHEME=		solo
 
-USES=			makeinfo
-MUST_CONFIGURE=		gnu
-INSTALL_TARGET=		install-strip install-man
-INFO=			single:ed
+MUST_CONFIGURE=		yes
+CONFIGURE_ARGS=		--mandir={{MANPREFIX}}/man
+			--prefix={{PREFIX}}
+			--program-name=ed
