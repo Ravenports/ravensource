@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	1.002
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		fonts-anonymous-pro
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_fonts
+VARIANTS=		standard
+SDESC[standard]=	Fixed width sans designed especially for coders
+HOMEPAGE=		https://www.marksimonson.com/fonts/view/anonymous-pro
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.marksimonson.com/assets/content/fonts/
+DISTFILE[1]=		AnonymousPro-${PORTVERSION}.zip:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:single
+LICENSE_NAME=		CUSTOM1:"Open Font License (OFL)"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/OFL.txt
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11-fonts/anonymous-pro
+
+USES=			fonts
+SKIP_BUILD=		yes
+FONTNAME=		anonymous-pro
+DISTNAME=		AnonymousPro-${PORTVERSION}.001
+
+do-install:
+	${MKDIR} ${STAGEDIR}${FONTSDIR}
+	${INSTALL_DATA} ${WRKSRC}/*.ttf ${STAGEDIR}${FONTSDIR}
