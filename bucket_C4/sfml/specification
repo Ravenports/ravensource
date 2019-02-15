@@ -1,0 +1,56 @@
+DEF[PORTVERSION]=	2.5.1
+DEF[SOVERSION]=		${PORTVERSION}
+DEF[SOMINOR]=		${PORTVERSION:R:E}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		sfml
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel multimedia
+VARIANTS=		standard
+SDESC[standard]=	Simple Fast Multimedia Library
+HOMEPAGE=		https://www.sfml-dev.org/
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/SFML:SFML:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		ZLIB:single
+LICENSE_FILE=		ZLIB:{{WRKSRC}}/license.md
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/sfml
+
+USES=			cmake jpeg
+CMAKE_ARGS=		-DSFML_INSTALL_PKGCONFIG_FILES=ON
+			-DSFML_USE_SYSTEM_DEPS=ON
+XORG_COMPONENTS=	x11 xrandr
+BUILDRUN_DEPENDS=	flac:primary:standard
+			freetype:primary:standard
+			libogg:primary:standard
+			libvorbis:primary:standard
+			mesa:libs:standard
+			openal:single:standard
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		SOMINOR=${SOMINOR}
+
+post-patch:
+	${REINPLACE_CMD} 's|libdata/pkgconfig|lib/pkgconfig|' \
+		${WRKSRC}/cmake/Config.cmake
+
+post-patch-dragonfly:
+	${REINPLACE_CMD} 's|FreeBSD|DragonFly|' \
+		${WRKSRC}/cmake/Config.cmake \
+		${WRKSRC}/include/SFML/Window/WindowHandle.hpp \
+		${WRKSRC}/include/SFML/Config.hpp
+	${REINPLACE_CMD} 's|dev/usb/usbhid.h|bus/u4b/usbhid.h|' \
+		${WRKSRC}/src/SFML/Window/FreeBSD/JoystickImpl.hpp
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so.${SOVERSION}
+	${RM} -r ${STAGEDIR}${PREFIX}/share/SFML
