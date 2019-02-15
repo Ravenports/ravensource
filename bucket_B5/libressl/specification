@@ -1,7 +1,7 @@
-DEF[PORTVERSION]=	2.7.4
-DEF[SOVERSION]=		45.0.1
-DEF[TLS_SOVERSION]=	17.0.1
-DEF[CRY_SOVERSION]=	43.0.1
+DEF[PORTVERSION]=	2.8.3
+DEF[SOVERSION]=		46.0.1
+DEF[TLS_SOVERSION]=	18.0.1
+DEF[CRY_SOVERSION]=	44.0.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libressl
@@ -31,7 +31,7 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		security/libressl
 
-USES=			cpe libtool pkgconfig solfix
+USES=			cpe libtool pkgconfig
 DISTNAME=		libressl-${PORTVERSION}
 CPE_VENDOR=		openbsd
 MUST_CONFIGURE=		gnu
@@ -46,20 +46,14 @@ PLIST_SUB=		CRY_SOMAJOR=${CRY_SOVERSION:R:R}
 			TLS_SOMAJOR=${TLS_SOVERSION:R:R}
 			TLS_SOVERSION=${TLS_SOVERSION}
 
-# relocation linking issues with assembly files
-VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--disable-asm
-
-# missing reference to _OPENSSL_ia32cap_P on MacOS
-VAR_OPSYS[darwin]=	CONFIGURE_ARGS=--disable-asm
-
 [STATIC].CFLAGS_OFF=			-fpic -DPIC
 [STATIC].CONFIGURE_ARGS_ON=		--enable-shared=no
 [SKIP_MANPAGES].DESCRIPTION=		Avoid installing LibreSSL manpages
 [SKIP_MANPAGES].EXTRA_PATCHES_ON=	extra-patch-MAN3
 
-post-patch:
+post-patch-darwin:
 	# These two manpages clash with similar on case-insensitive
-	# file systems.  Just remove them from *all* systems.
+	# file systems.  Just remove from all platforms (needs testing)
 	${REINPLACE_CMD} -e '/OCSP_crlID_new\.3/d' \
 		-e '/bn_print\.3/d' ${WRKSRC}/man/Makefile.in
 
