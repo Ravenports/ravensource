@@ -1,6 +1,5 @@
 DEF[PORTVERSION]=	1.32.0
 DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
-DEF[VENDOR_MODS]=	openssl-src
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rust
@@ -89,23 +88,9 @@ post-patch:
 	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|g' \
 		${WRKSRC}/src/bootstrap/bin/rustc.rs
 
-	# After patching crates, we need to update their corresponding
-	# `.cargo-checksum.json` to reflect the new checksums verified by Cargo
-	for vendor in ${VENDOR_MODS}; do \
-		dir=${WRKSRC}/src/vendor/$$vendor; \
-		if ! test -d "$$dir"; then \
-			continue; \
-		fi; \
-		cd "$$dir"; \
-		for file in $$(${FIND} * -name "*.orig"); do \
-			old_checksum=$$(${SHA256} -q "$$file"); \
-			new_checksum=$$(${SHA256} -q "$${file%%.orig}"); \
-			regex="$$regex -e s|\"$${file%%.orig}\":\"$$old_checksum\"|\"$${file%%.orig}\":\"$$new_checksum\"|"; \
-		done; \
-		if test "$$regex"; then \
-			${REINPLACE_CMD} -E $$regex .cargo-checksum.json; \
-		fi; \
-	done
+	# Disable vendor checksums
+	${REINPLACE_CMD} -e 's/"files":{[^}]*}/"files":{}/' \
+		 ${WRKSRC}/vendor/*/.cargo-checksum.json
 
 post-configure:
 	${MKDIR} ${WRKDIR}/bootstrap
