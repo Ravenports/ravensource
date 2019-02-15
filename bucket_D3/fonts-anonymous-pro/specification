@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	1.002
+DEF[PRO]=		1.002
+DEF[PROMINUS]=		1.003
+DEF[PORTVERSION]=	${PROMINUS}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fonts-anonymous-pro
@@ -11,7 +13,9 @@ CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.marksimonson.com/assets/content/fonts/
-DISTFILE[1]=		AnonymousPro-${PORTVERSION}.zip:main
+DISTFILE[1]=		AnonymousPro-${PRO}.zip:main
+DISTFILE[2]=		AnonymousProMinus-${PROMINUS}.zip:main
+DF_INDEX=		1 2
 
 SPKGS[standard]=	single
 
@@ -28,8 +32,10 @@ FPC_EQUIVALENT=		x11-fonts/anonymous-pro
 USES=			fonts
 SKIP_BUILD=		yes
 FONTNAME=		anonymous-pro
-DISTNAME=		AnonymousPro-${PORTVERSION}.001
+DISTNAME=		AnonymousPro-${PRO}.001
 
 do-install:
 	${MKDIR} ${STAGEDIR}${FONTSDIR}
 	${INSTALL_DATA} ${WRKSRC}/*.ttf ${STAGEDIR}${FONTSDIR}
+	${INSTALL_DATA} ${WRKDIR}/AnonymousProMinus-${PROMINUS}/*.ttf \
+		${STAGEDIR}${FONTSDIR}
