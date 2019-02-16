@@ -1,2 +1,7 @@
 BUILDRUN_DEPENDS=	libgit2:single:standard
 MAKE_ENV=		LIBGIT2={{LOCALBASE}}
+
+post-patch:
+	# This version check is always too conservative, causing breakage
+	${REINPLACE_CMD} -e '/#error You need a compatible libgit2/d' \
+		${WRKSRC}/src/types.h
