@@ -1,0 +1,1 @@
+MANPREFIX=		${PREFIX}/openssl/share

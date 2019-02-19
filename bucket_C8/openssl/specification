@@ -1,14 +1,14 @@
 DEF[PORTVERSION]=	1.0.2q
 DEF[OPENSSL_SHLIBVER]=	9
+DEF[BASE]=		{{PREFIX}}/openssl
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		openssl
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		security devel
-VARIANTS=		standard static
+VARIANTS=		standard
 SDESC[standard]=	SSL and crypto library
-SDESC[static]=		Static minimal version of OpenSSL
 HOMEPAGE=		https://www.openssl.org/
 CONTACT=		nobody
 
@@ -17,24 +17,20 @@ SITES[main]=		https://www.openssl.org/source/
 DISTFILE[1]=		openssl-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	single
-SPKGS[static]=		single
 
-OPTIONS_AVAILABLE=	SKIP_MANPAGES ASM EC SHARED SSE2 SSL2 SSL3 I386 THREADS STATIC
+OPTIONS_AVAILABLE=	SKIP_MANPAGES ASM EC SHARED SSE2 SSL2 SSL3 I386 THREADS
 OPTIONS_STANDARD=	SKIP_MANPAGES ASM EC SHARED SSE2 SSL2 SSL3 I386 THREADS
 OPT_ON[all]=		SHARED SSE2 SSL2 SSL3 THREADS
 OPT_ON[x86_64]=		ASM EC
 OPT_ON[i386]=		I386
-VOPTS[static]=		STATIC=ON
-			SKIP_MANPAGES=ON
-			ASM=ON EC=ON SSE2=ON SSL2=ON SSL3=ON THREADS=ON
-			SHARED=OFF
-			I386=OFF
 
 LICENSE=		OpenSSL:single
 LICENSE_FILE=		OpenSSL:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/openssl
+
+RUN_DEPENDS=		autoselect-ssl:single:standard
 
 USES=			cpe perl:build
 DISTNAME=		openssl-${PORTVERSION}
@@ -46,9 +42,8 @@ CONFIGURE_ARGS=		no-md2
 			no-sctp
 			no-gmp
 MAKE_ARGS=		WHOLE_ARCHIVE_FLAG=--whole-archive
-MAKE_ENV=		LIBRPATH="{{PREFIX}}/lib"
+MAKE_ENV=		LIBRPATH="{{BASE}}/lib"
 			GREP_OPTIONS=
-TEST_TARGET=		test
 
 [SKIP_MANPAGES].DESCRIPTION=		Avoid installing OpenSSL manpages
 
@@ -105,9 +100,10 @@ do-configure:
 	${REINPLACE_CMD} -e "s|options 386|options|" ${WRKSRC}/config
 	(cd ${WRKSRC} && ${SETENV} CC="${CC}" FREEBSDCC="${CC}" \
 		CFLAGS="${CFLAGS}" PERL="${PERL}" \
-		./config --prefix=${PREFIX} --openssldir=openssl \
-		--install_prefix=${STAGEDIR} -L${PREFIX}/lib \
-		${CONFIGURE_ARGS})
+		./config --prefix=${BASE} \
+		--openssldir=${PREFIX}/etc/openssl \
+		--install_prefix=${STAGEDIR} \
+		-L${BASE}/lib ${CONFIGURE_ARGS})
 
 post-configure:
 	${REINPLACE_CMD} \
@@ -117,17 +113,17 @@ post-configure:
 
 post-install-SHARED-ON:
 .for i in libcrypto libssl
-	${INSTALL_LIB} ${WRKSRC}/$i.so.${OPENSSL_SHLIBVER} ${STAGEDIR}${PREFIX}/lib
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/$i.so.${OPENSSL_SHLIBVER}
-	${LN} -sf $i.so.${OPENSSL_SHLIBVER} ${STAGEDIR}${PREFIX}/lib/$i.so
+	${INSTALL_LIB} ${WRKSRC}/$i.so.${OPENSSL_SHLIBVER} ${STAGEDIR}${BASE}/lib
+	${STRIP_CMD} ${STAGEDIR}${BASE}/lib/$i.so.${OPENSSL_SHLIBVER}
+	${LN} -sf $i.so.${OPENSSL_SHLIBVER} ${STAGEDIR}${BASE}/lib/$i.so
 .endfor
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/engines/*.so
+	${STRIP_CMD} ${STAGEDIR}${BASE}/lib/engines/*.so
 
 post-install-SHARED-OFF:
-	${RMDIR} ${STAGEDIR}${PREFIX}/lib/engines
+	${RMDIR} ${STAGEDIR}${BASE}/lib/engines
 
 post-install-SKIP_MANPAGES-ON:
 	${RM} -r ${STAGEDIR}${MANPREFIX}/man
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/openssl
+	${STRIP_CMD} ${STAGEDIR}${BASE}/bin/openssl
