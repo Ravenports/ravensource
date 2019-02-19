@@ -1,9 +1,11 @@
 DEF[PORTVERSION]=	1.1.1a
 DEF[SOVERSION]=		1.1
+DEF[BASE]=		{{PREFIX}}/openssl-devel
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		openssl-devel
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security devel
 VARIANTS=		standard
 SDESC[standard]=	SSL and crypto library
@@ -28,13 +30,15 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/openssl111
 
+RUN_DEPENDS=		autoselect-ssl:single:standard
+
 USES=			cpe perl:build
 DISTNAME=		openssl-${PORTVERSION}
 MUST_CONFIGURE=		yes
 CONFIGURE_SCRIPT=	config
 CONFIGURE_ENV=		PERL="{{PERL}}"
-CONFIGURE_ARGS=		--openssldir={{PREFIX}}/openssl
-			--prefix={{PREFIX}}
+CONFIGURE_ARGS=		--openssldir={{PREFIX}}/etc/openssl-devel
+			--prefix=${BASE}
 			no-md2
 			no-rc5
 			no-rfc3779
@@ -43,8 +47,8 @@ CONFIGURE_ARGS=		--openssldir={{PREFIX}}/openssl
 			no-idea
 			no-mdc2
 			no-nextprotoneg
-MAKE_ENV=		LIBRPATH="{{PREFIX}}/lib"
-			GREP_OPTIONS=
+LDFLAGS=		-Wl,-rpath,${BASE}/lib
+MAKE_ENV=		GREP_OPTIONS=
 SOVERSION=		${SOVERSION}
 
 [SKIP_MANPAGES].DESCRIPTION=		Avoid installing OpenSSL section 3 manpages
@@ -84,19 +88,19 @@ post-patch-SKIP_MANPAGES-ON:
 
 post-install-SHARED-ON:
 .for i in libcrypto libssl
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.${LIBEXT}
+	${STRIP_CMD} ${STAGEDIR}${BASE}/lib/lib*.${LIBEXT}
 .endfor
 .for i in capi padlock
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/engines-*/${i}.${LIBEXT}
+	${STRIP_CMD} ${STAGEDIR}${BASE}/lib/engines-*/${i}.${LIBEXT}
 .endfor
 
 post-install-SHARED-OFF:
-	${RMDIR} ${STAGEDIR}${PREFIX}/lib/engines-*
+	${RMDIR} ${STAGEDIR}${BASE}/lib/engines-*
 
 post-install:
 .for i in rc4 md4 idea rc5 md2 rc2 ripemd mdc2
-	${RM} ${STAGEDIR}${PREFIX}/include/openssl/${i}.h
+	${RM} ${STAGEDIR}${BASE}/include/openssl/${i}.h
 .endfor
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/openssl
-	${RM} ${STAGEDIR}${PREFIX}/openssl/openssl.cnf
-	${RM} ${STAGEDIR}${PREFIX}/openssl/ct_log_list.cnf
+	${STRIP_CMD} ${STAGEDIR}${BASE}/bin/openssl
+	${RM} ${STAGEDIR}${PREFIX}/etc/openssl-devel/openssl.cnf
+	${RM} ${STAGEDIR}${PREFIX}/etc/openssl-devel/ct_log_list.cnf
