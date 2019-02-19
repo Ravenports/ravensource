@@ -2,10 +2,12 @@ DEF[PORTVERSION]=	2.8.3
 DEF[SOVERSION]=		46.0.1
 DEF[TLS_SOVERSION]=	18.0.1
 DEF[CRY_SOVERSION]=	44.0.1
+DEF[BASE]=		{{PREFIX}}/libressl
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libressl
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security devel
 VARIANTS=		standard static
 SDESC[standard]=	OpenBSD fork of the OpenSSL SSL/TLS protocol
@@ -34,9 +36,11 @@ FPC_EQUIVALENT=		security/libressl
 USES=			cpe libtool pkgconfig
 DISTNAME=		libressl-${PORTVERSION}
 CPE_VENDOR=		openbsd
-MUST_CONFIGURE=		gnu
+MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--enable-nc
 			--disable-hardening
+			--with-openssldir={{PREFIX}}/etc/libressl
+			--prefix=${BASE}
 INSTALL_TARGET=		install-strip
 TEST_TARGET=		check
 INSTALL_REQ_TOOLCHAIN=	yes
@@ -58,11 +62,10 @@ post-patch-darwin:
 		-e '/bn_print\.3/d' ${WRKSRC}/man/Makefile.in
 
 post-install:
-	${RM} -r ${STAGEDIR}/${PREFIX}/etc/ssl/cert.pem
+	${RM} -r ${STAGEDIR}/${PREFIX}/etc/libressl/cert.pem
 
 post-install-dragonfly:
-	${INSTALL_SCRIPT} ${WRKSRC}/apps/nc/nc ${STAGEDIR}${PREFIX}/bin/nc
+	${INSTALL_SCRIPT} ${WRKSRC}/apps/nc/nc ${STAGEDIR}${BASE}/bin/nc
 
 post-install-SKIP_MANPAGES-ON:
-	${RM} ${STAGEDIR}${PREFIX}/share/man/man1/openssl.1
-	${RM} ${STAGEDIR}${PREFIX}/share/man/man1/nc.1
+	${RM} -r ${STAGEDIR}${BASE}/share
