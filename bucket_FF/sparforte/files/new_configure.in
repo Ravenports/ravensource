@@ -46,7 +46,7 @@ if [ ${SETAPQ} -eq 1 ]; then
      fi
   fi
   if [ ${SETPGSQL} -eq 1 ]; then
-     PGLIBSSUB="-L@PREFIX@/lib -lintl -lssl -lcrypto"
+     PGLIBSSUB="-L@PREFIX@/lib -lintl -L@OPENSSLLIB@ -lssl -lcrypto -Wl,-rpath,@OPENSSLLIB@"
      if [ ${SETMYSQL} -eq 1 ]; then
         echo "Executing APQ's configure"
         (cd src/${APQ} && /usr/bin/env HAVE_MY=1 HAVE_PG=1 ./configure)
