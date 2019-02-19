@@ -1,0 +1,19 @@
+This package provides:
+  bin/openssl
+  bin/c_rehash
+  bin/nc
+  bin/ocspcheck
+
+There can be up to 4 variants of SSL installed on a system:
+ openssl, libressl, openssl-devel, and libressl-devel
+
+These selector programs will exec one of variants based on the ravenadm's
+set SSL default and the SSL_VARIANT environment variable.
+
+The environment variable has the highest priority.  If SSL_VARIANT is
+set, the search will be limited to /raven/bin/ssl_${SSL_VARIANT}/${ARG0}.
+If that doesn't exist, an appropriate error will be produced instead.
+
+Without the environment directive, the SSL default of the ravenadm profile
+is checked first, and then this order: openssl, libressl, openssl-devel,
+libressl-devel.  The program will exec the first variant that it finds.
