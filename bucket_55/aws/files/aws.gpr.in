@@ -19,9 +19,9 @@ project AWS is
    for Externally_Built use "true";
 
    package Linker is
-      for Linker_Options use ("-L@PREFIX@/lib", "-Wl,-R,@PREFIX@/lib"
-         @SSL@  , "-lssl", "-lcrypto"
-         @TLS@  , "-L@PREFIX@/lib/gnutls3", "-Wl,-R,@PREFIX@/lib/gnutls3"
+      for Linker_Options use ("-L@PREFIX@/lib", "-Wl,-rpath,@PREFIX@/lib"
+         @SSL@  , "-L@SSLLIB@", "-Wl,-rpath,@SSLLIB@", "-lssl", "-lcrypto"
+         @TLS@  , "-L@PREFIX@/lib/gnutls3", "-Wl,-rpath,@PREFIX@/lib/gnutls3"
          @TLS@  , "-lgnutls"
          @LDP@  , "-lldap"
       );

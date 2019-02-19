@@ -1,6 +1,6 @@
 DEF[PORTVERSION]=	2018
 DEF[DATE]=		20180524
-DEF[ADDL_RPATH]=	{{LOCALBASE}}/lib:{{LOCALBASE}}/lib/aws/native/relocatable
+DEF[ADDL_RPATH]=	{{LOCALBASE}}/lib:{{OPENSSLLIB}}:{{LOCALBASE}}/lib/xmlada/relocatable
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		aws
@@ -36,7 +36,7 @@ BUILD_DEPENDS=		python-Sphinx:single:python_default
 BUILDRUN_DEPENDS=	xmlada:primary:standard
 
 USES=			ada:primary gmake gprbuild python:py27,build shebangfix
-			ssl zlib
+			ssl
 DISTNAME=		aws-gpl-${PORTVERSION}-src
 SHEBANG_FILES=		tools/awsascb
 INSTALL_REQ_TOOLCHAIN=	yes
@@ -49,9 +49,9 @@ CONFIGURE_ARGS=		prefix={{PREFIX}}
 			XMLADA=true
 			SOCKET=openssl
 			LPATH={{OPENSSLLIB}}
-			ZPATH={{LOCALBASE}}/lib
-			ZLIB=true
+			ZLIB=false
 			ASIS=true
+			CFLAGS=-I{{OPENSSLINC}}
 
 [SHARED].DESCRIPTION=			Build shared libraries in addition to static ones
 [IPV6].DESCRIPTION=			Support IPv6 instead of IPv4
@@ -68,9 +68,11 @@ CONFIGURE_ARGS=		prefix={{PREFIX}}
 post-patch:
 	${REINPLACE_CMD} \
 		-e 's|@ADDITIONAL_RPATH@|${ADDL_RPATH}|' \
+		${WRKSRC}/aws.gpr \
 		${WRKSRC}/src/src.gpr \
 		${WRKSRC}/include/include.gpr
 	${REINPLACE_CMD} -e 's|latexpdf||' ${WRKSRC}/Makefile
+	${REINPLACE_CMD} -e 's|GPROPTS = |GPROPTS = -v |' ${WRKSRC}/Makefile
 
 do-configure:
 	(cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} \
@@ -93,7 +95,9 @@ post-install:
 	${RM} ${STAGEDIR}${PREFIX}/include/aws.static/Makefile
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gnat \
 		${STAGEDIR}${PREFIX}/share/gps/plug-ins
-	${CAT} ${FILESDIR}/aws.gpr.in | ${SED} -e 's|@PREFIX@|${PREFIX}|g' \
+	${CAT} ${FILESDIR}/aws.gpr.in | ${SED} \
+		-e 's|@PREFIX@|${PREFIX}|g' \
+		-e 's|@SSLLIB@|${OPENSSLLIB}|g' \
 		-e 's|@SSL@||g' \
 		-e 's|@TLS@|--|g' \
 		-e 's|@LDP@|--|g' \
