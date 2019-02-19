@@ -26,11 +26,20 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		multimedia/rtmpdump
 
+LICENSE=		GPLv2+:library
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		library:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/rtmpdump.c
+LICENSE_SCHEME=		solo
+
 EXRUN[program]=		rtmpdump:library:standard
 
 USES=			pkgconfig ssl zlib
 MAKE_ENV=		THREADLIB="-lpthread"
 LDFLAGS=		-L{{OPENSSLLIB}}
+			-Wl,-rpath,{{OPENSSLLIB}}
+CFLAGS=			-I{{OPENSSLINC}}
 PATCHFILES=		2
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
