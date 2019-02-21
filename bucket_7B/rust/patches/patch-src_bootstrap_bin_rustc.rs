@@ -5,7 +5,7 @@
                        !target.contains("wasm32") &&
                        !target.contains("fuchsia") {
 -                Some("-Wl,-rpath,$ORIGIN/../lib")
-+                Some("-Wl,-z,origin -Wl,-rpath,$ORIGIN/../lib:@PREFIX@/lib -L@PREFIX@/lib")
++                Some("-Wl,-z,origin -Wl,-rpath,$ORIGIN/../lib:@PREFIX@/lib:@OPENSSLLIB@ -L@PREFIX@/lib")
              } else {
                  None
              };

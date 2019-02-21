@@ -4,6 +4,7 @@ DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
 
 NAMEBASE=		rust
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		lang
 VARIANTS=		standard
 SDESC[standard]=	Systems programming language from Mozilla
@@ -86,6 +87,7 @@ BLOCK_WATCHDOG=		yes
 post-patch:
 	# Use rpath suitable for libz et al.
 	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|g' \
+		-e 's|@OPENSSLLIB@|${OPENSSLLIB}|g' \
 		${WRKSRC}/src/bootstrap/bin/rustc.rs
 
 	# Disable vendor checksums
