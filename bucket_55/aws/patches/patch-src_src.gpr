@@ -5,7 +5,7 @@
                 for Library_Options use ("-lwsock32", "-lws2_32");
              when others =>
 -               null;
-+               for Library_Options use ("-R", "-Wl,-rpath,@ADDITIONAL_RPATH@");
++               for Library_Options use ("-Wl,-rpath,@ADDITIONAL_RPATH@");
           end case;
  
           case Shared.LDAP is
