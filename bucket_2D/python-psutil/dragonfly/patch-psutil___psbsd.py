@@ -1,6 +1,6 @@
---- psutil/_psbsd.py.orig	2018-10-16 20:17:04 UTC
+--- psutil/_psbsd.py.orig	2019-02-04 11:42:58 UTC
 +++ psutil/_psbsd.py
-@@ -23,6 +23,7 @@ from ._common import memoize
+@@ -24,6 +24,7 @@ from ._common import memoize
  from ._common import memoize_when_activated
  from ._common import NETBSD
  from ._common import OPENBSD
