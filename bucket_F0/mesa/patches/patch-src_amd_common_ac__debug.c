@@ -1,4 +1,4 @@
---- src/amd/common/ac_debug.c.orig	2019-01-31 21:05:07 UTC
+--- src/amd/common/ac_debug.c.orig	2019-02-18 18:28:15 UTC
 +++ src/amd/common/ac_debug.c
 @@ -560,6 +560,10 @@ void ac_parse_ib_chunk(FILE *f, uint32_t
  		       unsigned trace_id_count, enum chip_class chip_class,

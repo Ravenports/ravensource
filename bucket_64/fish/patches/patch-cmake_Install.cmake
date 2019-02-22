@@ -1,4 +1,4 @@
---- cmake/Install.cmake.orig	2019-02-11 12:13:15 UTC
+--- cmake/Install.cmake.orig	2019-02-19 13:39:17 UTC
 +++ cmake/Install.cmake
 @@ -113,7 +113,7 @@ INSTALL(FILES share/config.fish
  # -$v $(INSTALL) -m 755 -d $(DESTDIR)$(extra_completionsdir)

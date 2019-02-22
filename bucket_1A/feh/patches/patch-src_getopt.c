@@ -1,4 +1,4 @@
---- src/getopt.c.orig	2019-02-11 16:32:57 UTC
+--- src/getopt.c.orig	2019-02-17 07:47:27 UTC
 +++ src/getopt.c
 @@ -36,6 +36,7 @@
  #endif

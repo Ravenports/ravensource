@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	0.20
+DEF[PORTVERSION]=	0.21.1
+DEF[SOVERSION]=		1.14.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libtermkey
@@ -28,6 +29,7 @@ BUILDRUN_DEPENDS=	unibilium:single:standard
 
 USES=			gmake libtool:build ncurses pkgconfig
 MAKE_ARGS=		PREFIX={{PREFIX}}
+SOVERSION=		${SOVERSION}
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libtermkey.so
