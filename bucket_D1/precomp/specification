@@ -1,0 +1,31 @@
+DEF[PORTVERSION]=	0.4.7
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		precomp
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers
+VARIANTS=		standard
+SDESC[standard]=	Further compress some already compressed files
+HOMEPAGE=		https://github.com/schnaader/precomp-cpp
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/schnaader:precomp-cpp:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		APACHE20:single
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/precomp.cpp
+LICENSE_AWK=		TERMS:"\#ifdef PRECOMPDLL"
+LICENSE_SCHEME=		solo
+
+USES=			c++:single cmake
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKDIR}/.build/precomp ${STAGEDIR}${PREFIX}/bin/precomp
