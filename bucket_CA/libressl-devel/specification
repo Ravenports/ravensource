@@ -65,3 +65,8 @@ post-install-dragonfly:
 
 post-install-SKIP_MANPAGES-ON:
 	${RM} -r ${STAGEDIR}${BASE}/share
+
+post-install-SKIP_MANPAGES-OFF:
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/man.d
+	${ECHO_CMD} "MANPATH ${PREFIX}/libressl-devel/share/man" \
+		>> ${STAGEDIR}${PREFIX}/etc/man.d/libressl-devel.conf

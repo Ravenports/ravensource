@@ -111,6 +111,9 @@ post-configure:
 		-e 's|LIBVERSION=[^ ]* |LIBVERSION=${OPENSSL_SHLIBVER} |' \
 		${WRKSRC}/Makefile
 
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${BASE}/bin/openssl
+
 post-install-SHARED-ON:
 .for i in libcrypto libssl
 	${INSTALL_LIB} ${WRKSRC}/$i.so.${OPENSSL_SHLIBVER} ${STAGEDIR}${BASE}/lib
@@ -125,5 +128,7 @@ post-install-SHARED-OFF:
 post-install-SKIP_MANPAGES-ON:
 	${RM} -r ${STAGEDIR}${MANPREFIX}/man
 
-post-install:
-	${STRIP_CMD} ${STAGEDIR}${BASE}/bin/openssl
+post-install-SKIP_MANPAGES-OFF:
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/man.d
+	${ECHO_CMD} "MANPATH ${PREFIX}/openssl/share/man" \
+		>> ${STAGEDIR}${PREFIX}/etc/man.d/openssl.conf

@@ -104,3 +104,8 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${BASE}/bin/openssl
 	${RM} ${STAGEDIR}${PREFIX}/etc/openssl-devel/openssl.cnf
 	${RM} ${STAGEDIR}${PREFIX}/etc/openssl-devel/ct_log_list.cnf
+
+post-install-SKIP_MANPAGES-OFF:
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/man.d
+	${ECHO_CMD} "MANPATH ${PREFIX}/openssl-devel/share/man" \
+		>> ${STAGEDIR}${PREFIX}/etc/man.d/openssl-devel.conf
