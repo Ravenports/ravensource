@@ -3,8 +3,9 @@
 SRCS=		md5c.c md5hl.c sha256hl.c
 OBJS=		${SRCS:.c=.o}
 PREFIX?=	/usr/local
-LIBS=		${PREFIX}/lib/libcrypto.a
-CFLAGS=		-I${PREFIX}/include -I.	
+LIBS=		${PREFIX}/libressl/lib/libcrypto.a
+CFLAGS=		-I${PREFIX}/libressl/include
+CFLAGS+=	-I${PREFIX}/include -I.	
 
 .if "${OPSYS}" == "Linux"
 LIBS+=		${PREFIX}/lib/libbsd.a
