@@ -2,7 +2,8 @@ PREFIX?=	/usr/local
 SRCS=		compare.c create.c excludes.c misc.c mtree.c spec.c \
 		verify.c crc.c sha1hl.c
 OBJS=		${SRCS:.c=.o}
-STATIC_LIBS=	${PREFIX}/lib/libcrypto.a
+STATIC_LIBS=	${PREFIX}/libressl/lib/libcrypto.a
+CFLAGS=		-I${PREFIX}/libressl/include
 
 .if "${OPSYS}" == "Linux"
 STATIC_LIBS+=	${PREFIX}/lib/libbsd.a
