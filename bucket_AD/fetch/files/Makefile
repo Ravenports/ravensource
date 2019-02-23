@@ -5,9 +5,10 @@ CSRC=		${SRCS:M*.c}
 OBJS=		${CSRC:.c=.o}
 PREFIX?=	/usr/local
 CFLAGS=		-DINET6 -DWITH_SSL -DFTP_COMBINE_CWDS
+CFLAGS+=	-I${PREFIX}/libressl/include
 CFLAGS+=	-I${PREFIX}/include -I.
-LIBS=		${PREFIX}/lib/libssl.a \
-		${PREFIX}/lib/libcrypto.a \
+LIBS=		${PREFIX}/libressl/lib/libssl.a \
+		${PREFIX}/libressl/lib/libcrypto.a \
 
 .if "${OPSYS}" == "Linux"
 LIBS+=		${PREFIX}/lib/libbsd.a
