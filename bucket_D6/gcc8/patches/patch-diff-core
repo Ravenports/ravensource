@@ -1,11 +1,11 @@
 --- gcc/config/darwin.h.orig
 +++ gcc/config/darwin.h
-@@ -238,7 +238,7 @@
+@@ -240,7 +240,7 @@
     multiple times on a command line with different arguments each time,
     so put a * after their names so all of them get passed.  */
  #define LINK_SPEC  \
 -  "%{static}%{!static:-dynamic} \
-+  "%{static}%{!static:-dynamic -rpath @PREFIX@/@GCCAUX@/lib} \
++  "%{static}%{!static:-dynamic -rpath @PREFIX@/@GCCAUX@/lib:@PREFIX@/lib} \
     %:remove-outfile(-ldl) \
     %:remove-outfile(-lm) \
     %:remove-outfile(-lpthread) \
@@ -16,7 +16,7 @@
     %{static:-Bstatic} \
    } \
 -  %{!static:--hash-style=gnu} \
-+  %{!static:--hash-style=gnu --enable-new-dtags -rpath @PREFIX@/@GCCAUX@/lib} \
++  %{!static:--hash-style=gnu --enable-new-dtags -rpath @PREFIX@/@GCCAUX@/lib:@PREFIX@/lib} \
    %{symbolic:-Bsymbolic}"
  
  #undef  LINK_SPEC
@@ -33,7 +33,7 @@
     %{static:-dn -Bstatic} \
     %{shared:-G -dy %{!mimpure-text:-z text}} " \
     LINK_LIBGCC_MAPFILE_SPEC LINK_CLEARCAP_SPEC " \
-+   %{!static:-R/lib/amd64:@PREFIX@/@GCCAUX@/lib/amd64} \
++   %{!static:-R/lib/amd64:@PREFIX@/@GCCAUX@/lib/amd64:@PREFIX@/lib} \
     %{symbolic:-Bsymbolic -G -dy -z text} \
     %(link_arch) \
     %{Qy:} %{!Qn:-Qy}"
@@ -43,7 +43,7 @@
      %{symbolic:-Bsymbolic}                                      \
      %{static:-Bstatic}                                          \
      %{!static:                                                  \
-+    %{!static:--hash-style=gnu --enable-new-dtags -rpath @PREFIX@/@GCCAUX@/lib}   \
++    %{!static:--hash-style=gnu --enable-new-dtags -rpath @PREFIX@/@GCCAUX@/lib:@PREFIX@/lib}   \
        %{rdynamic:-export-dynamic}                               \
        %{!shared:-dynamic-linker " FBSD_DYNAMIC_LINKER " }}      \
      -X" SUBTARGET_EXTRA_LINK_SPEC "                             \
@@ -60,7 +60,7 @@
          %{rdynamic:-export-dynamic} \
          -dynamic-linker %(fbsd_dynamic_linker) } \
      %{static:-Bstatic}} \
-+  %{!static:--hash-style=gnu --enable-new-dtags -rpath @PREFIX@/@GCCAUX@/lib} \
++  %{!static:--hash-style=gnu --enable-new-dtags -rpath @PREFIX@/@GCCAUX@/lib:@PREFIX@/lib} \
    %{symbolic:-Bsymbolic}"
  
  /* A C statement to output to the stdio stream FILE an assembler
@@ -70,7 +70,7 @@
          %{rdynamic:-export-dynamic} \
  	-dynamic-linker %(fbsd_dynamic_linker) } \
      %{static:-Bstatic}} \
-+  %{!static:--hash-style=gnu -rpath @PREFIX@/@GCCAUX@/lib} \
++  %{!static:--hash-style=gnu -rpath @PREFIX@/@GCCAUX@/lib:@PREFIX@/lib} \
    %{symbolic:-Bsymbolic}"
 --- gcc/Makefile.in.orig
 +++ gcc/Makefile.in

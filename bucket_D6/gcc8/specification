@@ -108,7 +108,7 @@ post-extract:
 post-patch:
 	# Update LINK_SPEC to add gcc-aux lib runpath in every binary
 	@${ECHO} "Configuring LINK_SPEC runpath"
-	${REINPLACE_CMD} -e 's;\@PREFIX\@;${PREFIX:H};' \
+	${REINPLACE_CMD} -e 's;\@PREFIX\@;${PREFIX:H};g' \
 		-e 's;\@GCCAUX\@;${NAMEBASE};' \
 		${WRKSRC}/gcc/config/darwin.h \
 		${WRKSRC}/gcc/config/dragonfly.h \
@@ -116,7 +116,8 @@ post-patch:
 		${WRKSRC}/gcc/config/i386/freebsd64.h \
 		${WRKSRC}/gcc/config/i386/freebsd.h \
 		${WRKSRC}/gcc/config/i386/gnu-user64.h \
-		${WRKSRC}/gcc/config/aarch64/aarch64-freebsd.h
+		${WRKSRC}/gcc/config/aarch64/aarch64-freebsd.h \
+		${WRKSRC}/gcc/ada/gnatls.adb
 	# Ensure dwarf4-compatible addr2line
 	${REINPLACE_CMD} -e 's|/usr/bin/addr2line|${PREFIX:H}/bin/addr2line|g'\
 		${WRKSRC}/gcc/ada/traceback_symbolic.c

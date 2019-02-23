@@ -101,6 +101,135 @@
  
     Read_Mode : constant String := "r" & ASCII.NUL;
  
+--- gcc/ada/gnatls.adb.orig
++++ gcc/ada/gnatls.adb
+@@ -32,7 +32,6 @@
+ with Csets;
+ with Fname;       use Fname;
+ with Gnatvsn;     use Gnatvsn;
+-with Make_Util;   use Make_Util;
+ with Namet;       use Namet;
+ with Opt;         use Opt;
+ with Osint;       use Osint;
+@@ -1286,31 +1285,10 @@
+          --  The path name(s) of directories where project files may reside.
+          --  May be empty.
+ 
+-         Prefix  : String_Ptr;
+-         Runtime : String_Ptr;
+-
+-         procedure Add_Target (Suffix : String);
+-         --  Add :<prefix>/<target>/Suffix to the project path
+-
+          FD  : File_Descriptor;
+          Len : Integer;
+ 
+-         ----------------
+-         -- Add_Target --
+-         ----------------
+-
+-         procedure Add_Target (Suffix : String) is
+-            Extra_Sep : constant String :=
+-               (if Target_Name (Target_Name'Last) = '/' then
+-                  ""
+-                else
+-                  (1 => Directory_Separator));
+-            --  Note: Target_Name has a trailing / when it comes from Sdefault
+-
+-         begin
+-            Add_Str_To_Name_Buffer
+-              (Path_Separator & Prefix.all & Target_Name & Extra_Sep & Suffix);
+-         end Add_Target;
++         pragma Unreferenced (Runtime_Name);
+ 
+       --  Start of processing for Initialize_Default_Project_Path
+ 
+@@ -1494,81 +1472,13 @@
+          --  Set the initial value of Current_Project_Path
+ 
+          if Add_Default_Dir then
+-            if Sdefault.Search_Dir_Prefix = null then
+-
+-               --  gprbuild case
+-
+-               Prefix := new String'(Executable_Prefix_Path);
+-
+-            else
+-               Prefix := new String'(Sdefault.Search_Dir_Prefix.all
+-                                     & ".." & Dir_Separator
+-                                     & ".." & Dir_Separator
+-                                     & ".." & Dir_Separator
+-                                     & ".." & Dir_Separator);
+-            end if;
+-
+-            if Prefix.all /= "" then
+-               if Target_Name /= "" then
+-
+-                  if Runtime_Name /= "" then
+-                     if Base_Name (Runtime_Name) = Runtime_Name then
+-
+-                        --  $prefix/$target/$runtime/lib/gnat
+-
+-                        Add_Target
+-                          (Runtime_Name & Directory_Separator &
+-                           "lib" & Directory_Separator & "gnat");
+-
+-                        --  $prefix/$target/$runtime/share/gpr
+-
+-                        Add_Target
+-                          (Runtime_Name & Directory_Separator &
+-                             "share" & Directory_Separator & "gpr");
+-
+-                     else
+-                        Runtime :=
+-                          new String'(Normalize_Pathname (Runtime_Name));
+ 
+-                        --  $runtime_dir/lib/gnat
++            --  /raven/share/gpr
++            Add_Str_To_Name_Buffer (Path_Separator & "@PREFIX@/share/gpr");
+ 
+-                        Add_Str_To_Name_Buffer
+-                          (Path_Separator & Runtime.all & Directory_Separator &
+-                           "lib" & Directory_Separator & "gnat");
+-
+-                        --  $runtime_dir/share/gpr
+-
+-                        Add_Str_To_Name_Buffer
+-                          (Path_Separator & Runtime.all & Directory_Separator &
+-                           "share" & Directory_Separator & "gpr");
+-                     end if;
+-                  end if;
+-
+-                  --  $prefix/$target/lib/gnat
+-
+-                  Add_Target
+-                    ("lib" & Directory_Separator & "gnat");
+-
+-                  --  $prefix/$target/share/gpr
+-
+-                  Add_Target
+-                    ("share" & Directory_Separator & "gpr");
+-               end if;
+-
+-               --  $prefix/share/gpr
+-
+-               Add_Str_To_Name_Buffer
+-                 (Path_Separator & Prefix.all & "share"
+-                  & Directory_Separator & "gpr");
+-
+-               --  $prefix/lib/gnat
+-
+-               Add_Str_To_Name_Buffer
+-                 (Path_Separator & Prefix.all & "lib"
+-                  & Directory_Separator & "gnat");
+-            end if;
++            --  /raven/lib/gnat
++            Add_Str_To_Name_Buffer (Path_Separator & "@PREFIX@/lib/gnat");
+ 
+-            Free (Prefix);
+          end if;
+ 
+          Self := new String'(Name_Buffer (1 .. Name_Len));
 --- gcc/ada/make.adb.orig
 +++ gcc/ada/make.adb
 @@ -443,7 +443,7 @@
