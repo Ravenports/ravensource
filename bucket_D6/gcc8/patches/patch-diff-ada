@@ -144,7 +144,7 @@
  
        --  Start of processing for Initialize_Default_Project_Path
  
-@@ -1494,81 +1472,13 @@
+@@ -1494,81 +1472,15 @@
           --  Set the initial value of Current_Project_Path
  
           if Add_Default_Dir then
@@ -183,10 +183,8 @@
 -                     else
 -                        Runtime :=
 -                          new String'(Normalize_Pathname (Runtime_Name));
- 
+-
 -                        --  $runtime_dir/lib/gnat
-+            --  /raven/share/gpr
-+            Add_Str_To_Name_Buffer (Path_Separator & "@PREFIX@/share/gpr");
  
 -                        Add_Str_To_Name_Buffer
 -                          (Path_Separator & Runtime.all & Directory_Separator &
@@ -223,8 +221,13 @@
 -                 (Path_Separator & Prefix.all & "lib"
 -                  & Directory_Separator & "gnat");
 -            end if;
++            --  /raven/share/gpr
++            Add_Str_To_Name_Buffer (Path_Separator &
++              "@PREFIX@/share/gpr");
++
 +            --  /raven/lib/gnat
-+            Add_Str_To_Name_Buffer (Path_Separator & "@PREFIX@/lib/gnat");
++            Add_Str_To_Name_Buffer (Path_Separator &
++              "@PREFIX@/lib/gnat");
  
 -            Free (Prefix);
           end if;
