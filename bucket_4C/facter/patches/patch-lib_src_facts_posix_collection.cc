@@ -1,4 +1,4 @@
---- lib/src/facts/posix/collection.cc.orig	2018-12-03 19:36:37 UTC
+--- lib/src/facts/posix/collection.cc.orig	2019-02-02 20:53:13 UTC
 +++ lib/src/facts/posix/collection.cc
 @@ -26,9 +26,8 @@ namespace facter { namespace facts {
                  directories.emplace_back(home + "/.facter/facts.d");
