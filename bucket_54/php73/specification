@@ -85,6 +85,7 @@ post-patch:
 	${REINPLACE_CMD} -e "/includedir=/ s|php|php${SUFFIX}|" \
 		${WRKSRC}/scripts/phpize.in
 	${REINPLACE_CMD} -e "/include_dir=/ s|php|php${SUFFIX}|" \
+		-e "/^ldflags=/ s|@PHP|-L${PREFIX}/lib/php${SUFFIX} @PHP|" \
 		${WRKSRC}/scripts/php-config.in
 	${REINPLACE_CMD} -e "s|darwin|darwin-disable|" \
 		${WRKSRC}/sapi/cgi/config9.m4 \
