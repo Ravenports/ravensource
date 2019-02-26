@@ -110,6 +110,7 @@ post-patch:
 	@${ECHO} "Configuring LINK_SPEC runpath"
 	${REINPLACE_CMD} -e 's;\@PREFIX\@;${PREFIX:H};g' \
 		-e 's;\@GCCAUX\@;${NAMEBASE};' \
+		-e 's;\@LOCALBASE\@;${LOCALBASE};g' \
 		${WRKSRC}/gcc/config/darwin.h \
 		${WRKSRC}/gcc/config/dragonfly.h \
 		${WRKSRC}/gcc/config/sol2.h \
@@ -117,7 +118,6 @@ post-patch:
 		${WRKSRC}/gcc/config/i386/freebsd.h \
 		${WRKSRC}/gcc/config/i386/gnu-user64.h \
 		${WRKSRC}/gcc/config/aarch64/aarch64-freebsd.h
-	${REINPLACE_CMD} -e 's;\@PREFIX\@;${LOCALBASE};g' \
 		${WRKSRC}/gcc/ada/gnatls.adb
 	# Ensure dwarf4-compatible addr2line
 	${REINPLACE_CMD} -e 's|/usr/bin/addr2line|${PREFIX:H}/bin/addr2line|g'\
