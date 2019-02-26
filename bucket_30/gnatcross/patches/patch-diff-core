@@ -1,3 +1,14 @@
+--- gcc/config/darwin.h.orig
++++ gcc/config/darwin.h
+@@ -240,7 +240,7 @@
+    multiple times on a command line with different arguments each time,
+    so put a * after their names so all of them get passed.  */
+ #define LINK_SPEC  \
+-  "%{static}%{!static:-dynamic} \
++  "%{static}%{!static:-dynamic -rpath @PREFIX@/lib} \
+    %:remove-outfile(-ldl) \
+    %:remove-outfile(-lm) \
+    %:remove-outfile(-lpthread) \
 --- gcc/config/dragonfly.h.orig
 +++ gcc/config/dragonfly.h
 @@ -84,13 +84,13 @@
