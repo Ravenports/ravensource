@@ -54,6 +54,7 @@ CMAKE_ARGS=		-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
 			-DLLVM_PARALLEL_LINK_JOBS=1
 			-DLLVM_INCLUDE_TESTS:BOOL=OFF
 			-DLLVM_BUILD_32_BITS:BOOL=OFF
+			-DGCC_INSTALL_PREFIX={{LOCALBASE}}/toolchain/${TOOLCHAIN_GCC}
 PLIST_SUB=		LLVM_RELEASE="${LLVM_VERSION}"
 			LLVM_MAJOR="${MAJOR}"
 
@@ -74,7 +75,6 @@ post-patch:
 		-e 's|@RAVEN_GXX_HEADERS_DIR@|${LOCALBASE}/${GXX_INCLUDE}|' \
 		${WRKSRC}/lib/Driver/ToolChains/DragonFly.cpp \
 		${WRKSRC}/lib/Driver/ToolChains/FreeBSD.cpp \
-		${WRKSRC}/lib/Driver/ToolChains/Linux.cpp \
 		${WRKSRC}/lib/Driver/ToolChains/Gnu.cpp \
 		${WRKSRC}/lib/Frontend/InitHeaderSearch.cpp
 
