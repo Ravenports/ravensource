@@ -1,7 +1,7 @@
 #!/bin/sh
 
 maintainer=marino
-location=/usr/raven
+location=$(/raven/bin/ravenadm dev info D)
 MISC=${location}/Mk/Misc
 infofile=${MISC}/latest_release.txt
 myid=$(id -un)
