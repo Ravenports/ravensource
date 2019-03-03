@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.0.2
+DEF[PORTVERSION]=	1.0.3
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-django-appconf
@@ -7,12 +7,12 @@ KEYWORDS=		python devel
 VARIANTS=		py36 py37
 SDESC[py36]=		Django configure defaults helper class (PY 36)
 SDESC[py37]=		Django configure defaults helper class (PY 37)
-HOMEPAGE=		http://django-appconf.readthedocs.org/
+HOMEPAGE=		https://django-appconf.readthedocs.io/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/d/django-appconf
-DISTFILE[1]=		django-appconf-1.0.2.tar.gz:main
+DISTFILE[1]=		django-appconf-1.0.3.tar.gz:main
 
 SPKGS[py36]=		single
 SPKGS[py37]=		single
@@ -28,10 +28,16 @@ VOPTS[py37]=		PY36=OFF PY37=ON
 GENERATED=		yes
 
 # install_requires extracted from setup.py (using python 2.7)
+# django
+# six
 
 DISTNAME=		django-appconf-${PORTVERSION}
 
 [PY36].USES_ON=				python:py36
+[PY36].BUILDRUN_DEPENDS_ON=		python-Django:single:py36
+					python-six:single:py36
 
 [PY37].USES_ON=				python:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-Django:single:py37
+					python-six:single:py37
 

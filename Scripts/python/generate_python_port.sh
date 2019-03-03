@@ -592,6 +592,7 @@ replace_inline() {
       eyeD3) sed -i.bak -e 's/\;.*/ == 1/' /tmp/expand/eyeD3-${VERSION}/requirements.txt \
       	 /tmp/expand/eyeD3-${VERSION}/requirements/main.txt \
       	 /tmp/expand/eyeD3-${VERSION}/requirements/requirements.yml ;;
+      aniso8601) sedcmd='/install_requires=/d' ;;
       *) ;;
    esac
    if [ -n "${sedcmd}" ]; then

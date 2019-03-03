@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.1.1
+DEF[PORTVERSION]=	6.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-tornado
@@ -13,7 +13,7 @@ CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/t/tornado
-DISTFILE[1]=		tornado-5.1.1.tar.gz:main
+DISTFILE[1]=		tornado-6.0.tar.gz:main
 
 SPKGS[py27]=		single
 SPKGS[py36]=		single
@@ -31,16 +31,10 @@ VOPTS[py37]=		PY27=OFF PY36=OFF PY37=ON
 GENERATED=		yes
 
 # install_requires extracted from setup.py (using python 2.7)
-# futures
-# singledispatch
-# backports_abc>=0.4
 
 DISTNAME=		tornado-${PORTVERSION}
 
 [PY27].USES_ON=				python:py27
-[PY27].BUILDRUN_DEPENDS_ON=		python-futures:single:py27
-					python-singledispatch:single:py27
-					python-backports_abc:single:py27
 
 [PY36].USES_ON=				python:py36
 
