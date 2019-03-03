@@ -6,7 +6,7 @@ DYN_AUXLIBS+=	"AUXLIBS_LDAP=${LDFLAGS} -lldap -llber"
 DYN_AUXLIBS+=	"AUXLIBS_CDB=${LDFLAGS} -lcdb"
 DYN_AUXLIBS+=	"AUXLIBS_LMDB=${LDFLAGS} -llmdb"
 
-AUXLIBS=	-L${LOCALBASE}/lib -licuuc
+AUXLIBS=	-licuuc
 AUXLIBS+=	-L${OPENSSLLIB} ${LDFLAGS} -lssl -lcrypto
 
 MAKEFILEFLAGS+=	pie=yes CC="${CC}" OPT="${CFLAGS}"
