@@ -1,10 +1,10 @@
---- Makefile.orig	2019-01-14 22:24:45 UTC
+--- Makefile.orig	2019-02-26 07:01:14 UTC
 +++ Makefile
 @@ -1,6 +1,6 @@
  # simple makefile wrapper to run waf
  
--WAF_BINARY=$(PYTHON) ../../buildtools/bin/waf
-+WAF_BINARY=$(PYTHON) buildtools/bin/waf
+-WAF_BIN=`PATH=buildtools/bin:../../buildtools/bin:$$PATH which waf`
++WAF_BIN=buildtools/bin/waf
+ WAF_BINARY=$(PYTHON) $(WAF_BIN)
  WAF=PYTHONHASHSEED=1 WAF_MAKE=1 $(WAF_BINARY)
  
- all:
