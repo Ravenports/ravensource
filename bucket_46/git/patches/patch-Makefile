@@ -1,6 +1,6 @@
---- Makefile.orig	2018-12-09 04:51:13 UTC
+--- Makefile.orig	2019-02-24 16:31:46 UTC
 +++ Makefile
-@@ -528,11 +528,11 @@ infodir = $(prefix)/share/info
+@@ -540,11 +540,11 @@ infodir = $(prefix)/share/info
  gitexecdir = libexec/git-core
  mergetoolsdir = $(gitexecdir)/mergetools
  sharedir = $(prefix)/share
@@ -14,7 +14,7 @@
  ETC_GITCONFIG = $(sysconfdir)/gitconfig
  ETC_GITATTRIBUTES = $(sysconfdir)/gitattributes
  lib = lib
-@@ -1362,9 +1362,9 @@ EXTLIBS += -lz
+@@ -1383,9 +1383,9 @@ EXTLIBS += -lz
  
  ifndef NO_OPENSSL
  	OPENSSL_LIBSSL = -lssl
@@ -27,7 +27,7 @@
  	else
  		OPENSSL_LINK =
  	endif
-@@ -2192,7 +2192,7 @@ git-instaweb: git-instaweb.sh GIT-SCRIPT
+@@ -2234,7 +2234,7 @@ git-instaweb: git-instaweb.sh GIT-SCRIPT
  	chmod +x $@+ && \
  	mv $@+ $@
  else # NO_PERL
@@ -36,7 +36,7 @@
  	$(QUIET_GEN)$(RM) $@ $@+ && \
  	sed -e '1s|#!.*/sh|#!$(SHELL_PATH_SQ)|' \
  	    -e 's|@@REASON@@|NO_PERL=$(NO_PERL)|g' \
-@@ -2794,12 +2794,12 @@ install: all
+@@ -2836,12 +2836,12 @@ install: all
  ifndef NO_GETTEXT
  	$(INSTALL) -d -m 755 '$(DESTDIR_SQ)$(localedir_SQ)'
  	(cd po/build/locale && $(TAR) cf - .) | \
