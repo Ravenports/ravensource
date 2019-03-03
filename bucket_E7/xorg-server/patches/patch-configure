@@ -1,38 +1,15 @@
---- configure.orig	2018-10-25 14:13:27 UTC
+--- configure.orig	2019-02-26 19:28:59 UTC
 +++ configure
-@@ -12074,7 +12074,6 @@ fi
+@@ -12061,7 +12061,7 @@ echo 'failed to copy INSTALL from util-m
  
- if test x$FILE_MAN_SUFFIX = x    ; then
-     case $host_os in
--	solaris*)	FILE_MAN_SUFFIX=4  ;;
- 	*)		FILE_MAN_SUFFIX=5  ;;
-     esac
- fi
-@@ -12084,7 +12083,6 @@ fi
  
- if test x$MISC_MAN_SUFFIX = x    ; then
-     case $host_os in
--	solaris*)	MISC_MAN_SUFFIX=5  ;;
- 	*)		MISC_MAN_SUFFIX=7  ;;
-     esac
- fi
-@@ -12094,7 +12092,6 @@ fi
- 
- if test x$DRIVER_MAN_SUFFIX = x    ; then
-     case $host_os in
--	solaris*)	DRIVER_MAN_SUFFIX=7  ;;
- 	*)		DRIVER_MAN_SUFFIX=4  ;;
-     esac
- fi
-@@ -12104,7 +12101,6 @@ fi
- 
- if test x$ADMIN_MAN_SUFFIX = x    ; then
-     case $host_os in
--	solaris*)	ADMIN_MAN_SUFFIX=1m ;;
- 	*)		ADMIN_MAN_SUFFIX=8  ;;
-     esac
- fi
-@@ -21727,7 +21723,7 @@ if test `${RAWCPP} < conftest.$ac_ext |
+ case $host_os in
+-    solaris*)
++    nothing*)
+         # Solaris 2.0 - 11.3 use SysV man page section numbers, so we
+         # check for a man page file found in later versions that use
+         # traditional section numbers instead
+@@ -21772,7 +21772,7 @@ if test `${RAWCPP} < conftest.$ac_ext |
  	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
  $as_echo "no" >&6; }
  else
@@ -41,7 +18,7 @@
  		TRADITIONALCPPFLAGS="-traditional"
  		RAWCPPFLAGS="${RAWCPPFLAGS} -traditional"
  		{ $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-@@ -23096,9 +23092,14 @@ $as_echo "#define USE_ALPHA_PIO 1" >>con
+@@ -23141,9 +23141,14 @@ $as_echo "#define USE_ALPHA_PIO 1" >>con
  	esac
  	GLX_ARCH_DEFINES="-D__GLX_ALIGN64 -mieee"
  	;;
