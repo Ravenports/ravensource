@@ -1,11 +1,10 @@
-DEF[PORTVERSION]=	1.1.1a
+DEF[PORTVERSION]=	1.1.1b
 DEF[SOVERSION]=		1.1
 DEF[BASE]=		{{PREFIX}}/openssl-devel
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		openssl-devel
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		security devel
 VARIANTS=		standard
 SDESC[standard]=	SSL and crypto library
@@ -47,6 +46,7 @@ CONFIGURE_ARGS=		--openssldir={{PREFIX}}/etc/openssl-devel
 			no-idea
 			no-mdc2
 			no-nextprotoneg
+			no-devcryptoeng
 LDFLAGS=		-Wl,-rpath,${BASE}/lib
 MAKE_ENV=		GREP_OPTIONS=
 SOVERSION=		${SOVERSION}
