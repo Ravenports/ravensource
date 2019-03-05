@@ -1,8 +1,9 @@
-DEF[PORTVERSION]=	2.6.6
-DEF[SOVERSION]=		10.1.6
-DEF[SO_WIRETAP]=	8.0.6
+DEF[PORTVERSION]=	3.0.0
+DEF[SOVERSION]=		12.0.0
+DEF[SO_WIRETAP]=	9.0.0
 DEF[SO_WSCODECS]=	2.0.0
-DEF[SO_WSUTIL]=		9.0.0
+DEF[SO_WSUTIL]=		10.0.0
+DEF[PLUGIN_VER]=	${PORTVERSION:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		wireshark
@@ -17,7 +18,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://www.wireshark.org/download/src/
 DISTFILE[1]=		wireshark-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,6 +26,8 @@ OPTIONS_STANDARD=	none
 FPC_EQUIVALENT=		net/wireshark
 
 BUILD_DEPENDS=		lz4:static:standard
+			doxygen:single:standard
+			qt5-qttools:single:standard
 BUILDRUN_DEPENDS=	lz4:shared:standard
 			libgpg-error:single:standard
 			libgcrypt:single:standard
@@ -35,28 +38,41 @@ BUILDRUN_DEPENDS=	lz4:shared:standard
 			libssh:single:standard
 			libsmi:library:standard
 			krb5:primary:standard
+			snappy:single:standard
+			qt5-qtmultimedia:single:standard
+			qt5-qtsvg:single:standard
+			libmaxminddb:single:standard
 
 # worked with libressl 2.7.x, but seeing floating point exception
 # (core dump) with libressl 2.8.x
-USES=			cpe gmake libtool gettext-runtime ssl:openssl-devel
+USES=			cpe gmake cmake ssl:openssl-devel zlib qt5
 			lua:5.2 perl:build python:build pkgconfig
-GNOME_COMPONENTS=	glib libxml2 gtk3 cairo
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-krb5
-			--with-krb5-crypto-openssl
-			--with-lz4
-			--with-nghttp2
-			--with-c-ares
-			--with-gnutls
-			--with-lua
-			--with-libsmi
-			--with-gtk=3
-			--with-qt=no
-			--with-snappy=no
-			--enable-androiddump=yes
-			--enable-sshdump=yes
-			--enable-ciscodump=yes
-INSTALL_TARGET=		install-strip
+			gettext-tools gettext-runtime
+GNOME_COMPONENTS=	glib libxml2
+CMAKE_ARGS=		-DBUILD_wireshark:BOOL=ON
+			-DBUILD_tshark:BOOL=ON
+			-DBUILD_tfshark:BOOL=OFF
+			-DBUILD_rawshark:BOOL=ON
+			-DBUILD_androiddump:BOOL=ON
+			-DBUILD_sshdump:BOOL=ON
+			-DBUILD_ciscodump:BOOL=ON
+			-DENABLE_ZLIB:BOOL=ON
+			-DENABLE_LZ4:BOOL=ON
+			-DENABLE_SNAPPY:BOOL=ON
+			-DENABLE_NGHTTP2:BOOL=ON
+			-DENABLE_LUA:BOOL=ON
+			-DENABLE_SMI:BOOL=ON
+			-DENABLE_GNUTLS:BOOL=ON
+			-DENABLE_CAP:BOOL=ON
+			-DENABLE_CARES:BOOL=ON
+			-DENABLE_KERBEROS:BOOL=ON
+			-DENABLE_SBC:BOOL=OFF
+			-DENABLE_SPANDSP:BOOL=OFF
+			-DENABLE_BCG729:BOOL=OFF
+			-DENABLE_CAP:BOOL=OFF
+			-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
+			-DLUA_INCLUDEDIR:PATH="{{LUA_INCDIR}}"
+			-DLUA_LIBDIR:PATH="{{LUA_LIBDIR}}"
 INSTALL_REQ_TOOLCHAIN=	yes
 CPPFLAGS=		-I{{LUA_INCDIR}}
 SOVERSION=		${SOVERSION}
@@ -66,17 +82,22 @@ PLIST_SUB=		SO_WIRETAP=${SO_WIRETAP}
 			MAJ_WIRETAP=${SO_WIRETAP:R:R}
 			MAJ_WSCODECS=${SO_WSCODECS:R:R}
 			MAJ_WSUTIL=${SO_WSUTIL:R:R}
+			PLUGIN_VER=${PLUGIN_VER}
+
+# USES=cmake + qt5 don't play nice together wrt DESTDIR
+# manually set until a framework fix is found
+MAKE_ARGS=		DESTDIR={{STAGEDIR}}
+
 
 post-patch:
-	${REINPLACE_CMD} -e 's|llua|llua-${LUA_VER}|g ; \
-		s|-DQT_GUI_LIB|-DQT_GUI_LIB $$CPPFLAGS| ' \
-		${WRKSRC}/configure
-	${REINPLACE_CMD} -e 's|/usr/share/applications|${DESKTOPDIR}|g ; \
-		s|/usr/share|${LOCALBASE}/share|g ; \
-		s|{mime/packages,applications}|mime/packages| ; \
-		s|{apps,mimetypes}|apps $$(DESTDIR)${LOCALBASE}/share/icons/hicolor/$$$${size}x$$$${size}/mimetypes|' \
-		${WRKSRC}/Makefile.in
+	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|' \
+		-e 's|.{PERL_EXECUTABLE} ||' \
+		${WRKSRC}/cmake/modules/FindPOD.cmake
+	${REINPLACE_CMD} -e '/NAMES lua/ s|lua52|lua-${LUA_VER}|' \
+		${WRKSRC}/cmake/modules/FindLUA.cmake
 
 post-install:
-	${MV} ${STAGEDIR}${PREFIX}/bin/wireshark-gtk \
-		${STAGEDIR}${PREFIX}/bin/wireshark
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/wireshark/extcap/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/wireshark/plugins/${PLUGIN_VER}/*/*.so
