@@ -3,8 +3,8 @@
 # installation.
 # Submitted by: mva
 
---- Lib/distutils/command/build_scripts.py.orig	2014-07-26 09:52:20.000000000 UTC
-+++ Lib/distutils/command/build_scripts.py	2014-07-26 09:52:56.000000000 UTC
+--- Lib/distutils/command/build_scripts.py.orig	2019-03-02 18:17:42 UTC
++++ Lib/distutils/command/build_scripts.py
 @@ -126,6 +126,9 @@ class build_scripts (Command):
                                   file, oldmode, newmode)
                          os.chmod(file, newmode)

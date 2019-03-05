@@ -1,5 +1,5 @@
---- ./Modules/fcntlmodule.c.orig	2014-07-03 21:57:10.429953240 +1000
-+++ ./Modules/fcntlmodule.c	2014-07-03 21:59:36.517210444 +1000
+--- ./Modules/fcntlmodule.c.orig	2019-03-02 18:17:42 UTC
++++ ./Modules/fcntlmodule.c
 @@ -98,20 +98,15 @@ fcntl_ioctl(PyObject *self, PyObject *ar
  {
  #define IOCTL_BUFSZ 1024
