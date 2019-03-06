@@ -1,4 +1,4 @@
---- gmodule/gmodule-dl.c.orig	2018-12-18 14:51:14 UTC
+--- gmodule/gmodule-dl.c.orig	2019-03-04 20:06:14 UTC
 +++ gmodule/gmodule-dl.c
 @@ -106,6 +106,7 @@ _g_module_open (const gchar *file_name,
  static gpointer
