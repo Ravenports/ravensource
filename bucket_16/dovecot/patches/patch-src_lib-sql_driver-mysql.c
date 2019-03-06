@@ -1,4 +1,4 @@
---- src/lib-sql/driver-mysql.c.orig	2019-01-23 10:05:58 UTC
+--- src/lib-sql/driver-mysql.c.orig	2019-03-05 11:51:52 UTC
 +++ src/lib-sql/driver-mysql.c
 @@ -173,7 +173,9 @@ static int driver_mysql_connect(struct s
  static void driver_mysql_disconnect(struct sql_db *_db)
