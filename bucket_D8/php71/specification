@@ -5,7 +5,7 @@ DEF[SOMAJOR]=		${PORTVERSION:R:R}
 
 NAMEBASE=		php${SUFFIX}
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		lang www php
 VARIANTS=		standard
 SDESC[standard]=	PHP Hypertext Preprocessor version ${PORTVERSION:R}
@@ -49,11 +49,13 @@ CONFIGURE_ARGS=		--with-layout=GNU
 			--enable-libxml
 			--enable-mysqlnd
 			--enable-hash
+			--enable-maintainer-zts
 			--with-libxml-dir={{LOCALBASE}}
 			--with-pcre-regex={{LOCALBASE}}
 			--program-suffix=${SUFFIX}
 CONFIGURE_ENV=		ac_cv_decimal_fp_supported="no"
 			lt_cv_path_SED="sed"
+			pthreads_working="yes"
 PLIST_SUB=		SUFFIX=${SUFFIX} SOMAJOR=${SOMAJOR}
 SUB_LIST=		SUFFIX=${SUFFIX}
 
