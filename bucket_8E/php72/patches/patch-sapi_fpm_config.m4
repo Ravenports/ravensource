@@ -1,4 +1,4 @@
---- sapi/fpm/config.m4.orig	2017-11-28 09:23:05 UTC
+--- sapi/fpm/config.m4.orig	2019-03-05 11:05:59 UTC
 +++ sapi/fpm/config.m4
 @@ -317,14 +317,14 @@ AC_DEFUN([AC_FPM_LQ],
  
