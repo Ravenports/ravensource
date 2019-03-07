@@ -48,6 +48,7 @@ while read ravenport version fpc_port; do
 	gnat-util) ;;		# Different version scheme from FPC
 	gprbuild) ;;		# Different version scheme from FPC
 	apr1|apr-util) ;;	# Different version scheme from FPC
+	libcdio-paranoia) ;;	# Symbols in version fake as older
 	libunwind) ;;		# ditto
 	unrar) ;;		# ditto
 	autoconf213) ;;		# ditto
@@ -74,11 +75,15 @@ while read ravenport version fpc_port; do
 	rustless-firefox) ;;	# currently like www/firefox-esr, but RP is frozen
 
 	gps);;			# removed from FPC (stupidly)
+	GeoIP);;		# removed from FPC
 
-	libadalang) ;;		# Rest are ports that FPC doesn't have yet
+	ruby26);;		# what the hell?
+
+	libadalang*) ;;		# Rest are ports that FPC doesn't have yet
 	libtickit) ;;
 	libmpack) ;;
 	lua-mpack) ;;
+	lua-penlight) ;;
 	quex) ;;
 	slider) ;;
 	firebird30) ;;
@@ -96,7 +101,11 @@ while read ravenport version fpc_port; do
 	spidermonkey) ;;		# check occasionally
 	libxmlxx) ;;			# check libxml++ occ.
 	hardlink-osx) ;;
-	lld) ;;
+	gnatcoll-*) ;;
+	openmp|clang|lld) ;;
+	ldoc) ;;
+	corefonts) ;;
+	precomp) ;;
 	*) echo "${ravenport} ${version}"
    esac
 done < ${tmpfile}
