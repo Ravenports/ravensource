@@ -37,22 +37,17 @@ CONFIGURE_ARGS=		-system-harfbuzz
 			-system-sqlite
 			-system-zlib
 			-system-xcb
-			-system-xkbcommon
 			-system-freetype
+			-xkbcommon
 			-shared
 			-icu
-			-no-sql-db2
-			-no-sql-ibase
-			-no-sql-mysql
-			-no-sql-oci
-			-no-sql-odbc
-			-no-sql-psql
-			-no-sql-sqlite2
-			-no-sql-tds
+			-sql-sqlite
 			-dbus-runtime
 			-accessibility
 			-openssl-linked
 			OPENSSL_PATH={{OPENSSLBASE}}
+			-L {{LOCALBASE}}/lib
+			-I {{LOCALBASE}}/include
 # |			-libproxy
 
 LDFLAGS=		-Wl,-rpath,{{OPENSSLLIB}}

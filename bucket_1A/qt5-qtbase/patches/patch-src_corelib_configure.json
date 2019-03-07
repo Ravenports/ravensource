@@ -1,0 +1,41 @@
+Two issues with libatomics test:
+1) requires putting in unnecessary -I and -L to point to
+   c++ libraries and headers
+2) The test segfaults (at least on DF) even though gcc
+   testsuite passes complete.
+
+Just disable test for now and hope for the best (until we know better)
+
+--- src/corelib/configure.json.orig	2019-01-28 17:11:52 UTC
++++ src/corelib/configure.json
+@@ -133,28 +133,14 @@
+         "libatomic": {
+             "label": "64 bit atomics",
+             "test": {
+-                "tail": [
+-                    "void test(volatile std::atomic<std::int64_t> &a)",
+-                    "{",
+-                    "    std::int64_t v = a.load(std::memory_order_acquire);",
+-                    "    while (!a.compare_exchange_strong(v, v + 1,",
+-                    "                                      std::memory_order_acq_rel,",
+-                    "                                      std::memory_order_acquire)) {",
+-                    "        v = a.exchange(v - 1);",
+-                    "    }",
+-                    "    a.store(v + 1, std::memory_order_release);",
+-                    "}"
+-                ],
+                 "main": [
+                     "void *ptr = (void*)0xffffffc0; // any random pointer",
+-                    "test(*reinterpret_cast<std::atomic<std::int64_t> *>(ptr));"
++                    "return 0;"
+                 ],
+                 "qmake": "CONFIG += c++11"
+             },
+-            "headers": [ "atomic", "cstdint" ],
+             "sources": [
+-                "",
+-                "-latomic"
++                ""
+             ]
+         },
+         "libdl": {

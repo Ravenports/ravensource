@@ -1,6 +1,6 @@
---- qmake/generators/unix/unixmake2.cpp.orig	2018-12-03 11:15:26 UTC
+--- qmake/generators/unix/unixmake2.cpp.orig	2019-01-28 17:11:52 UTC
 +++ qmake/generators/unix/unixmake2.cpp
-@@ -183,12 +183,12 @@ UnixMakefileGenerator::writeMakeParts(QT
+@@ -185,12 +185,12 @@ UnixMakefileGenerator::writeMakeParts(QT
      t << "####### Compiler, tools and options\n\n";
      t << "CC            = " << var("QMAKE_CC") << endl;
      t << "CXX           = " << var("QMAKE_CXX") << endl;
@@ -17,7 +17,7 @@
      {
          QString isystem = var("QMAKE_CFLAGS_ISYSTEM");
          const ProStringList &incs = project->values("INCLUDEPATH");
-@@ -212,8 +212,8 @@ UnixMakefileGenerator::writeMakeParts(QT
+@@ -214,8 +214,8 @@ UnixMakefileGenerator::writeMakeParts(QT
  
      if(!project->isActiveConfig("staticlib")) {
          t << "LINK          = " << var("QMAKE_LINK") << endl;
