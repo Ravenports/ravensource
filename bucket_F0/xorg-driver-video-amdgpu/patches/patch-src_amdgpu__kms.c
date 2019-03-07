@@ -1,6 +1,6 @@
---- src/amdgpu_kms.c.orig	2018-03-02 17:31:02 UTC
+--- src/amdgpu_kms.c.orig	2019-03-06 11:42:30 UTC
 +++ src/amdgpu_kms.c
-@@ -756,7 +756,7 @@ static void
+@@ -930,7 +930,7 @@ static void
  amdgpu_dirty_update(ScrnInfoPtr scrn)
  {
  	ScreenPtr screen = scrn->pScreen;
