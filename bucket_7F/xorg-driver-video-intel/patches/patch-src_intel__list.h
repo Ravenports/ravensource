@@ -1,4 +1,4 @@
---- src/intel_list.h.orig	2018-09-06 12:00:04 UTC
+--- src/intel_list.h.orig	2018-12-03 09:01:25 UTC
 +++ src/intel_list.h
 @@ -305,8 +305,6 @@ list_is_empty(const struct list *head)
  #define list_last_entry(ptr, type, member) \

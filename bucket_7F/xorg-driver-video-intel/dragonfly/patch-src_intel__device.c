@@ -1,7 +1,7 @@
 i915 does not use hw.dri.0.busid
 so simplify to basics.
 
---- src/intel_device.c.orig	2018-09-06 12:00:04 UTC
+--- src/intel_device.c.orig	2018-12-03 09:01:25 UTC
 +++ src/intel_device.c
 @@ -28,6 +28,9 @@
  #include "config.h"

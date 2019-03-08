@@ -1,4 +1,4 @@
---- src/sna/kgem.c.orig	2018-09-06 12:00:04 UTC
+--- src/sna/kgem.c.orig	2018-12-03 09:01:25 UTC
 +++ src/sna/kgem.c
 @@ -29,6 +29,9 @@
  #include "config.h"
