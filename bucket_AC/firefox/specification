@@ -1,0 +1,140 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(FIREFOX_VERSION)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		firefox
+VERSION=		${PORTVERSION}
+KEYWORDS=		www
+VARIANTS=		standard
+SDESC[standard]=	Mozilla web browser
+HOMEPAGE=		https://www.mozilla.org/en-US/firefox/
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		MOZILLA/firefox/releases/${PORTVERSION}/source
+DISTFILE[1]=		firefox-${PORTVERSION}.source.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MPL:single
+LICENSE_FILE=		MPL:stock
+LICENSE_TERMS=		single:{{WRKSRC}}/toolkit/content/license.html
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		www/firefox
+
+BUILD_DEPENDS=		autoconf213:single:standard
+			bzip2:static:standard
+			cbindgen:single:standard
+			nodejs:primary:standard
+			python-sqlite3:single:py27
+			rust:single:standard
+			video4linux:headers:standard
+			yasm:single:standard
+			zip:single:standard
+			clang:compiler:standard
+			llvm:single:standard
+BUILDRUN_DEPENDS=	bzip2:shared:standard
+			dbus-glib:primary:standard
+			ffmpeg:primary:standard
+			harfbuzz:primary:standard
+			icu:single:standard
+			libcanberra:primary:standard
+			libevent:single:standard
+			libffi:single:standard
+			libnotify:primary:standard
+			libproxy:single:standard
+			nss:primary:standard
+			sqlite:single:standard
+			startup-notification:single:standard
+			video4linux:primary:standard
+
+USES=			cpe desktop-utils:single gmake jpeg perl:build
+			pkgconfig png python:py27 zlib
+XORG_COMPONENTS=	pixman xcb
+GNOME_COMPONENTS=	gconf gdkpixbuf gtk2 gtk3
+CPE_VENDOR=		mozilla
+MUST_CONFIGURE=		yes
+CONFIGURE_OUTSOURCE=	yes
+QMAKE_ARGS=		--enable-application=browser
+			--enable-chrome-format=omni
+			--enable-default-toolkit=cairo-gtk3
+			--enable-gconf
+			--enable-install-strip
+			--enable-official-branding
+			--enable-optimize
+			--enable-release
+			--enable-startup-notification
+			--enable-strip
+			--enable-libproxy
+			--enable-system-ffi
+			--enable-system-pixman
+			--enable-system-sqlite
+			--disable-alsa
+			--disable-debug
+			--disable-debug-symbols
+			--disable-dtrace
+			--disable-jack
+			--disable-profiling
+			--disable-pulseaudio
+			--disable-tests
+			--disable-updater
+			--disable-webrtc
+			--disable-hardening
+			--prefix="{{PREFIX}}"
+			--with-intl-api
+			--with-system-bz2
+			--with-system-graphite2
+			--with-system-harfbuzz
+			--with-system-icu
+			--with-system-jpeg="{{LOCALBASE}}"
+			--with-system-libevent
+			--with-system-nspr
+			--with-system-nss
+			--with-system-png="{{LOCALBASE}}"
+			--with-system-zlib
+
+VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-jemalloc=4
+VAR_OPSYS[linux]=	QMAKE_ARGS=--disable-elf-hack
+
+SUB_FILES=		pkg-install-single
+			pkg-deinstall-single
+SUB_LIST=		MOZILLA=firefox
+			MOZILLA_BIN=firefox-bin
+			MOZILLA_NAME=Firefox
+			MOZDIR={{PREFIX}}/lib/firefox
+
+post-patch:
+	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
+		${WRKSRC}/browser/app/nsBrowserApp.cpp
+	${REINPLACE_CMD} -e 's/%u/%U/' -e '/X-MultipleArgs/d' \
+		-e '/^Icon/s/=.*/=firefox/' \
+		${WRKSRC}/taskcluster/docker/firefox-snap/firefox.desktop
+	(cd ${WRKSRC}/gfx/angle/checkout/src/compiler/translator && \
+		${REINPLACE_CMD} -e 's|<math.h>|<cmath>|' \
+		InfoSink.h IntermNode.cpp)
+	# disable SCTP
+	${REINPLACE_CMD} -e 's|MOZ_SCTP|MOZ_DISABLE_SCTP|' \
+		${WRKSRC}/netwerk/moz.build
+	# Set mozilla options
+	@${ECHO_CMD} "--=> Setting configuration <=--"
+	@for arg in ${QMAKE_ARGS}; do \
+		${ECHO_CMD} ".mozconfig <<  $$arg" ;\
+		${ECHO_CMD} ac_add_options $$arg >> ${WRKSRC}/.mozconfig ;\
+	done
+	@${ECHO_CMD} LDFLAGS=\"-Wl,-rpath,${PREFIX}/lib/firefox\" \
+		>> ${WRKSRC}/.mozconfig
+
+pre-configure:
+	(cd ${WRKSRC} && ${LOCALBASE}/bin/autoconf-2.13)
+	(cd ${WRKSRC}/js/src/ && ${LOCALBASE}/bin/autoconf-2.13)
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/pixmaps \
+		${STAGEDIR}${PREFIX}/share/applications
+	${INSTALL_DATA} ${WRKSRC}/taskcluster/docker/firefox-snap/firefox.desktop \
+		${STAGEDIR}${PREFIX}/share/applications/
+	${LN} -sf ${PREFIX}/lib/firefox/browser/chrome/icons/default/default48.png \
+		${STAGEDIR}${PREFIX}/share/pixmaps/firefox.png
