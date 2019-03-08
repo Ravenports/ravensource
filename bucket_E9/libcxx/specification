@@ -1,0 +1,52 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(LLVM_VERSION)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libcxx
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		standard
+SDESC[standard]=	LLVM C++ standard library
+HOMEPAGE=		https://libcxx.llvm.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://llvm.org/releases/${PORTVERSION}/
+DISTFILE[1]=		libcxx-${PORTVERSION}.src.tar.xz:main
+DISTFILE[2]=		libcxxabi-${PORTVERSION}.src.tar.xz:main
+DF_INDEX=		1 2
+
+SPKGS[standard]=	complete primary abi experimental
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:primary CUSTOM2:abi
+LICENSE_NAME=		CUSTOM1:"University of Illinois/NCSA Open Source License"
+			CUSTOM2:"University of Illinois/NCSA Open Source License"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/projects/libcxx/LICENSE.TXT
+			CUSTOM2:{{WRKSRC}}/projects/libcxxabi/LICENSE.TXT
+LICENSE_SCHEME=		multi
+
+BUILD_DEPENDS=		python-Sphinx:single:python_default
+			llvm:single:standard
+BUILDRUN_DEPENDS=	llvm-libunwind:single:standard
+
+USES=			cmake cclibs:primary
+CMAKE_BUILD_TYPE=	Release
+CMAKE_ARGS=		-DLLVM_HOST_TRIPLE:STRING="{{CONFIGURE_TARGET}}"
+			-DLLVM_ENABLE_SPHINX=ON
+			-DLIBCXX_CXX_ABI_LIBRARY_PATH={{WRKDIR}}/.build/lib
+DISTNAME=		llvm
+
+post-extract:
+	${MKDIR} ${WRKSRC}/projects
+	${MV} ${WRKDIR}/libcxx-${PORTVERSION}.src \
+		${WRKSRC}/projects/libcxx
+	${MV} ${WRKDIR}/libcxxabi-${PORTVERSION}.src \
+		${WRKSRC}/projects/libcxxabi
+	${SED} -e 's|%%VERSION%%|${PORTVERSION}|' ${FILESDIR}/CMakeLists.txt \
+		> ${WRKSRC}/CMakeLists.txt
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libc++.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libc++abi.so
