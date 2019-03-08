@@ -1,4 +1,4 @@
---- cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Any.pm.orig	2017-07-18 22:59:59 UTC
+--- cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Any.pm.orig	2018-03-23 19:34:31 UTC
 +++ cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Any.pm
 @@ -2018,13 +2018,14 @@ sub init_INSTALL_from_PREFIX {
            ('$(PREFIX)') x 3;

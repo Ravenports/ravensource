@@ -1,4 +1,4 @@
---- hints/linux.sh.orig	2017-07-18 22:50:00 UTC
+--- hints/linux.sh.orig	2018-03-23 19:34:34 UTC
 +++ hints/linux.sh
 @@ -150,6 +150,10 @@ case "$optimize" in
      ;;
