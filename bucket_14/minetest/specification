@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.4.17.1
+DEF[PORTVERSION]=	5.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		minetest
@@ -28,7 +28,7 @@ LICENSE_NAME=		CUSTOM1:"Attribution-ShareAlike 3.0 Unported"
 LICENSE_FILE=		APACHE20:stock
 			CUSTOM1:{{FILESDIR}}/LICENSE_CC_BY_SA_30
 			LGPL21+:stock
-LICENSE_TERMS=		data:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		data:{{WRKSRC}}/LICENSE.txt
 LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		games/minetest
@@ -36,9 +36,7 @@ FPC_EQUIVALENT=		games/minetest
 USES=			cmake gettext-tools iconv jpeg mesa
 			ncurses png pgsql:client sqlite
 CMAKE_ARGS=		-DBUILD_SERVER=TRUE
-			-DENABLE_GETTEXT=ON
-			-DENABLE_GLES=ON
-			-DENABLE_SYSTEM_JSONCPP=ON
+			-DENABLE_SYSTEM_JSONCPP=TRUE
 XORG_COMPONENTS=	x11 xext xxf86vm
 BUILD_DEPENDS=		bzip2:static:standard
 			doxygen:single:standard
@@ -58,10 +56,6 @@ BUILDRUN_DEPENDS=	bzip2:shared:standard
 			spatialindex:single:standard
 EXRUN[client]=		minetest:data:standard
 EXRUN[server]=		minetest:data:standard
-
-post-extract:
-	${AWK} '/^License of Minetest textures/,0' ${WRKSRC}/README.txt\
-		> ${WRKDIR}/TERMS
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/minetest*
