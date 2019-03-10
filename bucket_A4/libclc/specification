@@ -31,7 +31,10 @@ BUILD_DEPENDS=		llvm:single:standard
 			libedit:single:standard
 
 USES=			python:py27,build gmake cmake:insource
-MAKE_ENV=		MAKE={{GMAKE}} DESTDIR={{STAGEDIR}}
+MAKE_ENV=		MAKE={{GMAKE}}
+			DESTDIR={{STAGEDIR}}
+# Force ccache to work with clang
+			CCACHE_CPP2=yes
 
 post-patch:
 	${REINPLACE_CMD} -e 's|/usr/bin/python|${PYTHON_CMD}|g' \
