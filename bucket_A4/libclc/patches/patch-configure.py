@@ -4,9 +4,9 @@ In order to support builds on platforms without base ncurses (e.g. DF),
 require base libedit.  This requires an additional -L LDFLAGS to search
 ${LOCALBASE}/lib for the needed libs.  (prepare-builtins is not installed)
 
---- configure.py.orig	2015-07-10 13:37:04 UTC
+--- configure.py.orig	2019-01-29 16:37:27 UTC
 +++ configure.py
-@@ -118,7 +118,8 @@ b.rule("OPT", command = llvm_opt + " -O3
+@@ -141,7 +141,8 @@ b.rule("OPT", command = llvm_opt + " -O3
         description = 'OPT $out')
  
  c_compiler_rule(b, "LLVM_TOOL_CXX", 'CXX', cxx_compiler, llvm_cxxflags)
@@ -16,7 +16,7 @@ ${LOCALBASE}/lib for the needed libs.  (prepare-builtins is not installed)
  
  prepare_builtins = os.path.join('utils', 'prepare-builtins')
  b.build(os.path.join('utils', 'prepare-builtins.o'), "LLVM_TOOL_CXX",
-@@ -264,7 +265,7 @@ install_cmd = ' && '.join(['mkdir -p ${D
+@@ -300,7 +301,7 @@ install_cmd = ' && '.join(['mkdir -p ${D
                             {'src': file,
                              'dst': libexecdir}
                             for (file, dest) in install_files_bc])

@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	0.3.0.20180518
-DEF[TAG]=		a2118d5
+DEF[PORTVERSION]=	0.3.0.20190129
+DEF[TAG]=		ec20c20
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libclc
@@ -30,7 +30,7 @@ BUILD_DEPENDS=		llvm:single:standard
 			clang:compiler:standard
 			libedit:single:standard
 
-USES=			gmake python:py27,build
+USES=			python:py27,build gmake cmake:insource
 MAKE_ENV=		MAKE={{GMAKE}} DESTDIR={{STAGEDIR}}
 
 post-patch:
@@ -38,9 +38,17 @@ post-patch:
 		-e 's|"python |"${PYTHON_VERSION} |g' \
 		${WRKSRC}/build/ninja_syntax.py \
 		${WRKSRC}/configure.py
+	# add ccache support
+	if [ -n "${BUILD_WITH_CCACHE}" ]; then \
+	  ${SED} -i.ccache \
+	  -e "s|llvm_clang =.*|llvm_clang = '${LOCALBASE}/libexec/ccache/clang'|"\
+	  -e "s|cxx_compiler = os.*|cxx_compiler = '${LOCALBASE}/libexec/ccache/clang++'|"\
+	  ${WRKSRC}/configure.py ;\
+	fi
 
 do-configure:
-	(cd ${WRKSRC} && ${PYTHON_CMD} configure.py ${CONFIGURE_ARGS} -g make \
+	(cd ${WRKSRC} && ${PYTHON_CMD} configure.py ${CONFIGURE_ARGS} \
+		-g make \
 		--pkgconfigdir=${PREFIX}/lib/pkgconfig \
 		--with-llvm-config=${LOCALBASE}/bin/llvm-config \
 		--prefix=${PREFIX})
