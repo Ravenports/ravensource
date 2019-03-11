@@ -5,6 +5,7 @@ DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
 
 NAMEBASE=		gprbuild
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel ada
 VARIANTS=		standard
 SDESC[standard]=	Adacore multi-language software build tool
@@ -33,7 +34,6 @@ LICENSE_SCHEME=		solo
 # FPC_EQUIVALENT=		devel/gprbuild
 
 BUILD_DEPENDS=		xmlada:primary:standard
-			python-Sphinx:single:python_default
 EXRUN[gprlib]=		xmlada:primary:standard
 
 USES=			gmake
@@ -47,6 +47,7 @@ MAKE_ARGS=		prefix={{STAGEDIR}}{{PREFIX}}
 INSTALL_REQ_TOOLCHAIN=	yes
 BUILD_TARGET=		all libgpr.build
 INSTALL_TARGET=		install libgpr.install
+INFO=			primary:gprbuild_ug
 # # SET_DEBUGGING_ON=	yes
 
 post-patch:
@@ -80,5 +81,8 @@ post-install:
 	${RM} ${STAGEDIR}${PREFIX}/doinstall
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}/html/_sources
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/gnat/manifests
+	${MV} ${STAGEDIR}${STD_DOCDIR}/info/gprbuild_ug.info \
+		${STAGEDIR}${PREFIX}/share/info
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}/info
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/gprbuild/*
