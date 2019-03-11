@@ -1,4 +1,4 @@
---- src/util/sys_defs.h.orig	2018-03-04 19:01:27 UTC
+--- src/util/sys_defs.h.orig	2019-03-10 16:58:04 UTC
 +++ src/util/sys_defs.h
 @@ -31,6 +31,8 @@
      || defined(FREEBSD5) || defined(FREEBSD6) || defined(FREEBSD7) \
