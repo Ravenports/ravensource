@@ -27,15 +27,17 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net-im/toxic
 
-USES=			desktop-utils:single gmake ncurses pkgconfig python shebangfix
-SHEBANG_FILES=		apidoc/python/source/conf.py
-XORG_COMPONENTS=	x11
 BUILD_DEPENDS=		video4linux:headers:standard
 BUILDRUN_DEPENDS=	curl:primary:standard
 			freealut:single:standard
 			libnotify:primary:standard
 			qrencode:single:standard
 			toxcore:single:standard
+
+USES=			desktop-utils:single gmake ncurses pkgconfig
+			python shebangfix
+XORG_COMPONENTS=	x11
+SHEBANG_FILES=		apidoc/python/source/conf.py
 CFLAGS=			-I{{NCURSESINC}}
 MAKE_ARGS=		ENABLE_PYTHON=1
 			MANDIR="{{MANPREFIX}}/man"
