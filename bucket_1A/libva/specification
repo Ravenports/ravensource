@@ -4,6 +4,7 @@ DEF[SOVERSION]=		2.400.0
 
 NAMEBASE=		libva
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		standard
 SDESC[standard]=	VAAPI wrapper and dummy driver
@@ -26,7 +27,6 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		multimedia/libva
 
 BUILDRUN_DEPENDS=	libdrm:single:standard
-			video4linux:headers:standard
 
 USES=			autoreconf gmake libtool pkgconfig
 XORG_COMPONENTS=	xorgproto pciaccess xext xfixes
@@ -36,6 +36,7 @@ MUST_CONFIGURE=		gnu
 # libva needs mesa to provide egl and glx, but mesa needs libva
 # for the drivers.  The current solution to resolve this is just
 # avoid egl and glx capability in libva.
+# Also wayland needs libva, so wayland has to be disabled too.
 
 CONFIGURE_ARGS=		--program-prefix=va
 			--disable-glx
@@ -52,3 +53,5 @@ CFLAGS=			-DHAVE_LINUX_INTEGER_TYPES
 post-patch:
 	${REINPLACE_CMD} '/^export VA_HEADER_/d' ${WRKSRC}/doc/Makefile.am
 	${REINPLACE_CMD} -e '/stack-protector/d' ${WRKSRC}/va/Makefile.am
+	# V4L2 is unused since http://github.com/intel/libva/commit/70074679333c
+	${REINPLACE_CMD} '/videodev2\.h/d' ${WRKSRC}/va/va_backend.h
