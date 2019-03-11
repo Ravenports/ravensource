@@ -1,4 +1,4 @@
---- lib/helper.c.orig	2015-05-22 09:24:02 UTC
+--- lib/helper.c.orig	2019-01-04 13:38:34 UTC
 +++ lib/helper.c
 @@ -31,7 +31,7 @@ enum  {
  struct helper_opts {
@@ -59,7 +59,7 @@
  	return res;
  }
  
-@@ -156,8 +154,8 @@ int fuse_parse_cmdline(struct fuse_args 
+@@ -156,8 +154,8 @@ int fuse_parse_cmdline(struct fuse_args
  	if (res == -1)
  		return -1;
  

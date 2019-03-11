@@ -1,4 +1,4 @@
---- lib/mount_bsd.c.orig	2015-05-22 09:24:02 UTC
+--- lib/mount_bsd.c.orig	2019-01-04 13:38:34 UTC
 +++ lib/mount_bsd.c
 @@ -10,6 +10,8 @@
  #include "fuse_misc.h"

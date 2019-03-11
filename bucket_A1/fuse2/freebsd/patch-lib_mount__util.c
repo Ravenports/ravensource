@@ -1,4 +1,4 @@
---- lib/mount_util.c.orig	2015-05-22 09:24:02 UTC
+--- lib/mount_util.c.orig	2019-01-04 13:38:34 UTC
 +++ lib/mount_util.c
 @@ -344,20 +344,3 @@ int fuse_mnt_check_empty(const char *pro
  	}
