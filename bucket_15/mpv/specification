@@ -7,6 +7,7 @@ DEF[PY_BUILD]=		py36
 
 NAMEBASE=		mpv
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		standard
 SDESC[standard]=	Advanced general-purpose multimedia player
@@ -34,7 +35,6 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		multimedia/mpv
 
 BUILD_DEPENDS=		python-docutils:single:${PY_BUILD}
-			video4linux:headers:standard
 BUILDRUN_DEPENDS=	ffmpeg:primary:standard
 			libarchive:single:standard
 			libass:single:standard
@@ -67,8 +67,6 @@ CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
 			--enable-dvdnav
 			--enable-dvdread
 			--enable-sdl2
-			--enable-tv
-			--enable-dvbin
 			--enable-zsh-comp
 			--disable-debug-build
 			--disable-optimize
