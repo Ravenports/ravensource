@@ -74,8 +74,9 @@ while read ravenport version fpc_port; do
 	usb-modeswitch-data) ;;	# combined with sysutils/usb_modeswitch
 	rustless-firefox) ;;	# currently like www/firefox-esr, but RP is frozen
 
-	gps);;			# removed from FPC (stupidly)
-	GeoIP);;		# removed from FPC
+	gps) ;;			# removed from FPC (stupidly)
+	GeoIP) ;;		# removed from FPC
+	libcxx) ;;		# removed from FPC
 
 	ruby26);;		# what the hell?
 
@@ -102,10 +103,11 @@ while read ravenport version fpc_port; do
 	libxmlxx) ;;			# check libxml++ occ.
 	hardlink-osx) ;;
 	gnatcoll-*) ;;
-	openmp|clang|lld) ;;
+	openmp|clang|lld|llvm-libunwind) ;;
 	ldoc) ;;
 	corefonts) ;;
 	precomp) ;;
+	oed) ;;
 	*) echo "${ravenport} ${version}"
    esac
 done < ${tmpfile}
