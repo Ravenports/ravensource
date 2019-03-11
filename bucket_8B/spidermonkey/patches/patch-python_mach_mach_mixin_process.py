@@ -1,4 +1,4 @@
---- ../../python/mach/mach/mixin/process.py.orig	2019-01-24 17:31:10 UTC
+--- ../../python/mach/mach/mixin/process.py.orig	2019-02-21 19:22:50 UTC
 +++ ../../python/mach/mach/mixin/process.py
 @@ -26,7 +26,7 @@ elif 'MOZILLABUILD' in os.environ:
  elif 'COMSPEC' in os.environ:
