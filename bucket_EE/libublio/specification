@@ -1,0 +1,49 @@
+DEF[PORTVERSION]=	20070103
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libublio
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	User space caching library
+HOMEPAGE=		none
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://ravenports.elderlinux.org/distcache/
+DISTFILE[1]=		libublio-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/libublio
+ONLY_FOR_OPSYS=		dragonfly freebsd darwin
+
+# queue.h is an ancient header from OpenBSD and BSD3CLAUSE
+# Rest is BSD2CLAUSE but with different copyright statements
+# LICENSE=		BSD2CLAUSE:single
+# BSD3CLAUSE:single
+# LICENSE_FILE=		BSD2CLAUSE:stock
+# BSD3CLAUSE:stock
+# LICENSE_SCHEME=		multi
+
+SUB_FILES=		libublio.pc
+SUB_LIST=		PREFIX={{PREFIX}} PORTVERSION={{PORTVERSION}}
+
+post-extract:
+	${CP} ${FILESDIR}/compile.sh ${WRKSRC}
+
+do-build:
+	(cd ${WRKSRC} && sh compile.sh)
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/include
+	${MKDIR} -p ${STAGEDIR}${PREFIX}/lib/pkgconfig
+	${INSTALL_DATA} ${WRKSRC}/ublio.h ${STAGEDIR}${PREFIX}/include
+	${INSTALL_DATA} ${WRKDIR}/libublio.pc ${STAGEDIR}${PREFIX}/lib/pkgconfig
+	${CP} ${WRKSRC}/libublio.a ${STAGEDIR}${PREFIX}/lib
+	${CP} ${WRKSRC}/libublio.so.1 ${STAGEDIR}${PREFIX}/lib
+	${LN} -s ${PREFIX}/lib/libublio.so.1 ${STAGEDIR}${PREFIX}/lib/libublio.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libublio.so.1
