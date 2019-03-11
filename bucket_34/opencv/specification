@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	3.4.5
 
 NAMEBASE=		opencv
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Open Source Computer Vision library
@@ -25,7 +26,6 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		graphics/opencv
 
 BUILD_DEPENDS=		eigen:single:standard
-			video4linux:headers:standard
 BUILDRUN_DEPENDS=	jasper:primary:standard
 			tiff:primary:standard
 			WebP:single:standard
@@ -60,8 +60,8 @@ CMAKE_ARGS=		-DWITH_VTK:BOOL=OFF
 			-DWITH_PNG:BOOL=ON
 			-DWITH_TIFF:BOOL=ON
 			-DWITH_WEBP:BOOL=ON
-			-DWITH_V4L:BOOL=ON
-			-DWITH-LIB4VL:BOOL=ON
+			-DWITH_V4L:BOOL=OFF
+			-DWITH-LIB4VL:BOOL=OFF
 			-DBUILD_SHARED_LIBS:BOOL=ON
 			-DBUILD_ANDROID_EXAMPLES:BOOL=OFF
 			-DBUILD_DOCS:BOOL=OFF
