@@ -12,6 +12,7 @@ DEF[SO_SCALE]=		5.3.100
 
 NAMEBASE=		ffmpeg
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		multimedia audio net
 VARIANTS=		standard
 SDESC[standard]=	Play, record, convert, and stream audio and video
@@ -36,7 +37,6 @@ LICENSE_SCHEME=		multi
 FPC_EQUIVALENT=		multimedia/ffmpeg
 
 BUILD_DEPENDS=		nasm:primary:standard
-			video4linux:headers:standard
 			gmp:static:standard
 BUILDRUN_DEPENDS=	gmp:shared:standard
 			libass:single:standard
@@ -130,6 +130,9 @@ CONFIGURE_ARGS=		--cc="{{CC}}"
 			--disable-libzmq
 			--disable-libzvbi
 			--disable-libmysofa
+			--disable-libv4l2
+			--disable-indev=v4l2
+			--disable-outdev=v4l2
 			--enable-libass
 			--enable-fontconfig
 			--enable-libfreetype
@@ -139,7 +142,6 @@ CONFIGURE_ARGS=		--cc="{{CC}}"
 			--enable-gnutls
 			--enable-gmp
 			--enable-iconv
-			--enable-libv4l2
 # |			--enable-libopencv
 			--enable-optimizations
 			--enable-runtime-cpudetect
