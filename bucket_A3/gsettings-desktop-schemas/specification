@@ -1,5 +1,5 @@
 # Uses even/odd scheme, so stick to even, e.g. 3.24.x, 3.28.x, etc
-DEF[PORTVERSION]=	3.28.1
+DEF[PORTVERSION]=	3.32.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gsettings-desktop-schemas
@@ -21,15 +21,22 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		devel/gsettings-desktop-schemas
 
+LICENSE=		LGPL21+:single
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/headers/gdesktop-enums.h
+LICENSE_SCHEME=		solo
+
 # circular dep on cantarell, needed by libsoup, which is a required
 # dependency for font dep appstream-glib (needed to build fonts-cantarell)
 # RUN_DEPENDS=		fonts-cantarell:single:standard
 
 USES=			gettext-tools gmake perl:build pkgconfig schemas:single
-			python:build
+			python:build meson shebangfix
 GNOME_COMPONENTS=	intltool glib introspection
-MUST_CONFIGURE=		gnu
-MAKE_ARGS=		pkgconfigdir={{PREFIX}}/lib/pkgconfig
+SHEBANG_FILES=		build-aux/meson/post-install.py
+MESON_ARGS=		-Dintrospection=true
 
 GLIB_SCHEMAS=		org.gnome.desktop.a11y.applications.gschema.xml
 			org.gnome.desktop.a11y.gschema.xml
@@ -60,3 +67,6 @@ GLIB_SCHEMAS=		org.gnome.desktop.a11y.applications.gschema.xml
 			org.gnome.system.locale.gschema.xml
 			org.gnome.system.location.gschema.xml
 			org.gnome.system.proxy.gschema.xml
+
+post-patch:
+	${REINPLACE_CMD} -e "/pkgconfig/ s|datadir|'${PREFIX}/lib'|" ${WRKSRC}/meson.build
