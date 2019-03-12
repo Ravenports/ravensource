@@ -1,6 +1,6 @@
---- bin/distro-install-desktop-integration.orig	2018-10-30 16:55:21 UTC
+--- bin/distro-install-desktop-integration.orig	2019-01-23 19:35:25 UTC
 +++ bin/distro-install-desktop-integration
-@@ -99,7 +99,7 @@ cp -a workdir/CustomTarget/sysui/share/l
+@@ -98,7 +98,7 @@ cp -a workdir/CustomTarget/sysui/share/l
  cp -a "${SRCDIR?}"/sysui/desktop/share/create_tree.sh "$sysui_temp"
  cd $sysui_temp
  # we want non-versioned stuff in the distro packages
@@ -9,7 +9,7 @@
      -e "s/\($INSTALLDIRNAME\)$PRODUCTVERSION_NODOT/\1/" \
      -e "s/\($INSTALLDIRNAME\)$PRODUCTVERSION/\1/" \
      -e "s/\($PRODUCTNAME\) $PRODUCTVERSION/\1/" \
-@@ -109,13 +109,13 @@ sed -i \
+@@ -108,13 +108,13 @@ sed -i \
      export OFFICE_PREFIX=$LIBDIR
      export PREFIX=$INSTALLDIRNAME
      export ICON_PREFIX=$INSTALLDIRNAME
@@ -25,7 +25,7 @@
      bash ./create_tree.sh
  )
  cd -
-@@ -130,7 +130,7 @@ fi
+@@ -129,7 +129,7 @@ fi
  # we want non-versioned desktop files
  cd $DESTDIR/$INSTALLDIR/share/xdg
  # we want non-versioned stuff in the distro packages
@@ -34,7 +34,7 @@
      -e "s/\($INSTALLDIRNAME\)$PRODUCTVERSION_NODOT/\1/" \
      -e "s/\($INSTALLDIRNAME\)$PRODUCTVERSION/\1/" \
      -e "s/\($PRODUCTNAME\) $PRODUCTVERSION/\1/" \
-@@ -144,7 +144,7 @@ if test -f $DESTDIR/gid_Module_Root_Bran
+@@ -143,7 +143,7 @@ if test -f $DESTDIR/gid_Module_Root_Bran
                 $PREFIXDIR/share/mime/packages \
                 $PREFIXDIR/share/mime-info \
                 $PREFIXDIR/share/icons ; do
@@ -43,8 +43,8 @@
      done
  fi
  
-@@ -176,12 +176,12 @@ ln -sf $INSTALLDIR/program/soffice $DEST
- test -f $DESTDIR/gid_Module_Root_Brand && echo "$PREFIXDIR/bin/soffice" >>$DESTDIR/gid_Module_Root_Brand
+@@ -175,12 +175,12 @@ ln -sf "$INSTALLDIR/program/soffice" "$D
+ test -f $DESTDIR/gid_Module_Root_Brand && echo "$BINDIR/soffice" >>$DESTDIR/gid_Module_Root_Brand
  
  # create bash completion
 -mkdir -p $DESTDIR/usr/share/bash-completion/completions

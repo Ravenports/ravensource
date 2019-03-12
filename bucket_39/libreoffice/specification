@@ -1,6 +1,7 @@
-DEF[PORTVERSION]=	6.0.7.3
+DEF[PORTVERSION]=	6.2.0.3
 DEF[CXXWARN]=		-Wno-deprecated-declarations -Wno-undef Wno-unused-parameter -Wno-unused-function -Wno-unused-local-typedefs -Wno-unused-variable -Wno-ignored-qualifiers -Woverloaded-virtual
 DEF[PROGRAM_BINARIES]=	oosplash regmerge regview ui-previewer uri-encode xpdfimport
+DEF[OPENSTTF]=		49a64f3bcf20a7909ba2751349231d6652ded9cd2840e961b5164d09de3ffa63-opens___.ttf
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libreoffice
@@ -11,11 +12,13 @@ SDESC[standard]=	Free Software Productivity Suite
 HOMEPAGE=		https://www.libreoffice.org/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main opens
 SITES[main]=		https://fossies.org/linux/misc/libreoffice/src/
 			https://downloadarchive.documentfoundation.org/libreoffice/old/${PORTVERSION}/src/
+SITES[opens]=		https://dev-www.libreoffice.org/extern/
 DISTFILE[1]=		libreoffice-${PORTVERSION}.tar.xz:main
 DISTFILE[2]=		libreoffice-help-${PORTVERSION}.tar.xz:main
+DISTFILE[3]=		${OPENSTTF}:opens
 
 SPKGS[standard]=	complete primary docs
 
@@ -37,6 +40,7 @@ BUILD_DEPENDS=		perl-Archive-Zip:single:perl_default
 			cppunit:single:standard
 			poppler:primary:standard
 			autoselect-python:single:standard
+			python-lxml:single:python_used
 RUN_DEPENDS=		fonts-crosextra-caladea:single:standard
 			fonts-crosextra-carlito:single:standard
 			fonts-dejavu:single:standard
@@ -82,12 +86,13 @@ BUILDRUN_DEPENDS=	serf:single:standard
 			gstreamer1:single:standard
 			gstreamer1-plugins-base:single:standard
 			openldap:client:standard
+			libnumbertext:single:standard
 
 BR_DEPS[linux]=		gpgme:cpp:standard
 
 USES=			autoreconf:build perl:build gmake jpeg pkgconfig
-			python:py36 mesa zlib gnome-icons:primary shebangfix
-			mime-info:primary ssl
+			python mesa zlib gnome-icons:primary shebangfix
+			mime-info:primary ssl mysql:client pgsql:client
 XORG_COMPONENTS=	xaw xrandr
 GNOME_COMPONENTS=	gtk3
 SHEBANG_GLOB=		*.py
@@ -106,14 +111,12 @@ CONFIGURE_ARGS=		--enable-gtk3
 			--disable-mergelibs
 			--disable-online-update
 			--disable-pdfium
-			--disable-systray
 			--disable-neon
 			--disable-kde4
 			--disable-cups
 			--disable-dbus
 			--disable-dconf
 			--exec-prefix={{PREFIX}}
-			--with-alloc=system
 			--with-boost={{LOCALBASE}}
 			--with-vendor="Ravenports"
 			--with-build-version="Ravenports v{{VERSION}}"
@@ -131,6 +134,8 @@ CONFIGURE_ARGS=		--enable-gtk3
 			--with-system-ucpp
 			--with-system-zlib
 			--with-system-openssl
+			--with-system-postgresql
+			--with-system-mariadb
 			--without-fonts
 			--without-myspell-dicts
 			--without-doxygen
@@ -143,8 +148,6 @@ CONFIGURE_ENV=		GNUTAR="{{TAR}}"
 			PYTHON="{{PYTHON_VERSION}}"
 			PYTHON_CFLAGS="`{{PYTHON_CMD}}-config --cflags`"
 			PYTHON_LIBS="`{{PYTHON_VERSION}}-config --libs`"
-# #			OPENSSL_CFLAGS="-I{{OPENSSLINC}}"
-# #			OPENSSL_LIBS="-L{{OPENSSLLIB}} -Wl,-rpath,{{OPENSSLLIB}}"
 MAKE_ARGS=		TMPDIR={{WRKDIR}}
 MAKE_ENV=		CXXFLAGS_WARN="{{CXXFLAGS_WARN}}"
 			GNUSED="{{LOCALBASE}}/bin/gsed"
@@ -154,6 +157,10 @@ MAKE_ENV=		CXXFLAGS_WARN="{{CXXFLAGS_WARN}}"
 BUILD_TARGET=		build-nocheck
 INSTALL_TARGET=		distro-pack-install
 PLIST_SUB=		LOCALBASE="{{LOCALBASE}}"
+
+post-extract:
+	${MKDIR} ${WRKSRC}/src
+	${LN} -s ${DISTDIR}/${OPENSTTF} ${WRKSRC}/src/
 
 pre-configure:
 	${TOUCH} ${WRKSRC}/autogen.lastrun
