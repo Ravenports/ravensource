@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.38.1
+DEF[PORTVERSION]=	1.40.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gvfs
@@ -36,8 +36,7 @@ BUILDRUN_DEPENDS=	dbus:single:standard
 			libsoup:gnome:standard
 USES=			gettext-runtime gettext-tools:build meson pkgconfig python:build shebangfix
 GNOME_COMPONENTS=	glib
-SHEBANG_FILES=		codegen.py
-			meson_post_install.py
+SHEBANG_FILES=		meson_post_install.py
 
 # LibUSB deactivated for now; FreeBSD has it built-in but for 11.1
 # the base system ships with a version too old for GVFS...
@@ -65,5 +64,4 @@ MESON_ARGS=		-Dsystemduserunitdir="no"
 			-Dsftp=false
 			-Dsmb=false
 			-Dudisks2=false
-MESON_INSERT_RPATH=	daemon/meson.build
-			common/meson.build
+LDFLAGS=		-Wl,-rpath,{{PREFIX}}/lib/gvfs
