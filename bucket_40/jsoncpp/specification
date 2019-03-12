@@ -30,10 +30,6 @@ PLIST_SUB=		SOVER=${SOVER}
 
 # meson is incapable of building static + dynamic libs
 # simultaneously.  Devs don't even see why it should (garbage)
-# meson is also crap wrt to rpath.  It's stripping out our
-# compilers inherent rpath settings.  (more garbage)
-
-MESON_INSERT_RPATH=	meson.build
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/include/jsoncpp
