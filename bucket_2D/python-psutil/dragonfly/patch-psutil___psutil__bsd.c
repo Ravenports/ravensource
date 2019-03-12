@@ -1,4 +1,4 @@
---- psutil/_psutil_bsd.c.orig	2018-12-01 18:15:36 UTC
+--- psutil/_psutil_bsd.c.orig	2019-03-03 21:24:19 UTC
 +++ psutil/_psutil_bsd.c
 @@ -19,6 +19,7 @@
      #define _KMEMUSER
@@ -27,7 +27,7 @@
  #endif
  
  
-@@ -231,6 +235,12 @@ psutil_proc_oneshot_info(PyObject *self,
+@@ -232,6 +236,12 @@ psutil_proc_oneshot_info(PyObject *self,
      memtext = (long)kp.ki_tsize * pagesize;
      memdata = (long)kp.ki_dsize * pagesize;
      memstack = (long)kp.ki_ssize * pagesize;

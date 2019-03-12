@@ -1,4 +1,4 @@
---- psutil/__init__.py.orig	2019-02-15 19:11:33 UTC
+--- psutil/__init__.py.orig	2019-03-11 14:26:28 UTC
 +++ psutil/__init__.py
 @@ -82,6 +82,7 @@ from ._common import LINUX
  from ._common import MACOS
