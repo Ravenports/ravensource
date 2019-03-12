@@ -43,9 +43,7 @@ SHEBANG_FILES=		meson_post_install.py
 MESON_ARGS=		-Dwith-lua=false
 			-Dwith-python=false
 MAKE_ENV=		GETTEXTDATADIRS={{PREFIX}}/share/gettext/0.19.8
-MESON_INSERT_RPATH=	plugins/checksum/meson.build
-			plugins/fishlim/meson.build
-			plugins/sysinfo/meson.build
+LDFLAGS=		{{PERL_RPATH}}
 
 post-patch:
 	${REINPLACE_CMD} -e 's|%%CA_BUNDLE%%|${CA_BUNDLE}|' \
@@ -55,11 +53,4 @@ post-patch:
 	${REINPLACE_CMD} \
 	-e 's|%%PREFIX%%|${PREFIX}|g'\
 	-e 's|%%PERL_VER%%|${PERL_VER}|g'\
-	-e "s|%%RPATH_OVERRIDE%%|${COMP_RPATH}:${PREFIX}/lib/perl5/${PERL_VER}/${PERL_ARCH}/CORE|"\
 	${WRKSRC}/plugins/perl/meson.build
-
-	# can't use MESON_INSERT_RPATH, needs path to ssl too
-	${REINPLACE_CMD} \
-	-E "s|install[ ]?: true|install : true, install_rpath : '${COMP_RPATH}:${OPENSSLLIB}'|"\
-	${WRKSRC}/src/fe-text/meson.build \
-	${WRKSRC}/src/fe-gtk/meson.build
