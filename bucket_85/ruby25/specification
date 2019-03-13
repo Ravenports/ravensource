@@ -67,9 +67,11 @@ VAR_OPSYS[darwin]=	CONFIGURE_ENV=ac_cv_func_backtrace=no
 post-patch:
 	${FIND} ${WRKSRC}/ -name "*.orig" -delete
 	# We install these from other ports
-.for d in bin/rake doc/rake lib/rake test/rake man/rake.1 lib/rake.rb ext/win32ole bin/gem
+.for d in gems bin/bundle bin/bundler bin/gem lib/bundler
 	${RM} -r ${BUILD_WRKSRC}/${d}
 .endfor
+	${RM} ${BUILD_WRKSRC}/man/bundle*
+	${RM} ${BUILD_WRKSRC}/man/gemfile*
 
 post-patch-linux:
 	# <sys/vnode.h> does not exist on linux
@@ -109,6 +111,9 @@ post-install:
 	${RM} ${STAGEDIR}${STD_DOCDIR}/NEWS-*
 	${RM} ${STAGEDIR}${STD_DOCDIR}/ChangeLog-*
 	${RM} ${STAGEDIR}${STD_DOCDIR}/.document
+
+	# remove rubygems
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/ruby/gems
 
 	# install examples
 	(cd ${WRKSRC}/sample/ && ${COPYTREE_SHARE} . ${STAGEDIR}${RUBY_EXAMPLESDIR}/)

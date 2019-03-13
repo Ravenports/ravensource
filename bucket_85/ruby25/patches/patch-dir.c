@@ -1,6 +1,6 @@
---- dir.c.orig	2018-03-28 09:26:04 UTC
+--- dir.c.orig	2019-01-20 04:51:41 UTC
 +++ dir.c
-@@ -115,16 +115,16 @@ char *strchr(char*,char);
+@@ -119,16 +119,16 @@ char *strchr(char*,char);
  # define USE_NAME_ON_FS 0
  #endif
  
@@ -19,7 +19,7 @@
  
  # if defined HAVE_FGETATTRLIST || !defined HAVE_GETATTRLIST
  #   define need_normalization(dirp, path) need_normalization(dirp)
-@@ -1122,7 +1122,7 @@ rb_dir_getwd_ospath(void)
+@@ -1126,7 +1126,7 @@ rb_dir_getwd_ospath(void)
      path_guard = Data_Wrap_Struct((VALUE)0, NULL, RUBY_DEFAULT_FREE, NULL);
      path = ruby_getcwd();
      DATA_PTR(path_guard) = path;
