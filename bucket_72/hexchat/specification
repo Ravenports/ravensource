@@ -1,8 +1,10 @@
 DEF[PORTVERSION]=	2.14.2
+DEF[CA_BUNDLE]=		{{LOCALBASE}}/share/certs/ca-root-nss.crt
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		hexchat
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		irc
 VARIANTS=		standard
 SDESC[standard]=	Graphical IRC client based on XChat
@@ -33,6 +35,7 @@ BUILDRUN_DEPENDS=	dbus-glib:primary:standard
 			libnotify:primary:standard
 			libproxy:single:standard
 			iso-codes:single:standard
+RUN_DEPENDS=		nss:caroot:standard
 
 USES=			gettext-runtime gettext-tools ssl
 			meson perl pkgconfig python shebangfix
