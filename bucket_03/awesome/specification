@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	4.3
 
 NAMEBASE=		awesome
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11_wm
 VARIANTS=		standard
 SDESC[standard]=	Dynamic WM for X, highly configurable in Lua
@@ -39,6 +40,7 @@ BUILDRUN_DEPENDS=	dbus:single:standard
 			xorg-xcb-util-keysyms:single:standard
 			xorg-xcb-util-wm:single:standard
 			xorg-xcb-util-xrm:single:standard
+RUN_DEPENDS=		pango:primary:standard
 USES=			cmake gmake lua pkgconfig
 GNOME_COMPONENTS=	gdkpixbuf cairo
 CMAKE_ARGS=		-DSYSCONFDIR={{PREFIX}}/etc
