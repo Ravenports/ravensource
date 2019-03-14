@@ -1,4 +1,4 @@
---- Source/WebCore/platform/graphics/egl/GLContextEGL.cpp.orig	2018-07-25 11:56:31 UTC
+--- Source/WebCore/platform/graphics/egl/GLContextEGL.cpp.orig	2019-03-13 09:18:29 UTC
 +++ Source/WebCore/platform/graphics/egl/GLContextEGL.cpp
 @@ -45,6 +45,8 @@
  #include "OpenGLShims.h"
