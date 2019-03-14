@@ -19,10 +19,17 @@ SPKGS[standard]=	complete primary docs
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-# Additional dependencies to probably add later:
-# esound, nas, pulseaudio, sndio
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/ao/ao.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		audio/libao
+
+# Additional dependencies to probably add later:
+# esound, nas, pulseaudio, sndio
 
 USES=			autoreconf libtool pkgconfig
 MUST_CONFIGURE=		gnu
