@@ -1,0 +1,93 @@
+#!/bin/sh
+#
+# This script builds dragonfly's rust bootstrap packages.
+# It accepts two arguments
+#   1) version in the format "x.yy.z".
+#   2) optional: revison + epoch value
+#
+# This is the current version of rust in the ravenports repository, and
+# the corresponding package is considered to already be built.
+#
+# e.g. <DISTDIR>/rust-single-standard-1.32.0_1.tzst
+# would require invocation of: create_rust_bootstrap.sh 1.32.0 1
+#
+# Output: <DISTDIR>/rust-std-1.32.0-x86_64-unknown-dragonfly.tar.xz
+#         <DISTDIR>/rustc-1.32.0-x86_64-unknown-dragonfly.tar.xz
+#         <DISTDIR>/cargo-<calc>-x86_64-unknown-dragonfly.tar.xz
+#
+
+if [ $# -lt 1 ]; then
+   echo "Usage: $0 rust_version <revision,epoch>"
+   exit 0
+fi
+REVEPOCH=
+if [ $# -ge 2 ]; then
+   REVEPOCH=_$2
+fi
+
+THISDIR=$(dirname $0)
+SCRIPTSDIR=$(cd ${THISDIR} && pwd -P)
+DISTDIR=$(/raven/bin/ravenadm dev info F)
+BBASE=$(/raven/bin/ravenadm dev info J)
+PKGDIR=$(/raven/bin/ravenadm dev info H)/All
+RASSY=${BBASE}/rust-assy
+RPKG=${PKGDIR}/rust-single-standard-${1}${REVEPOCH}.tzst
+MYTAR=/raven/share/raven/sysroot/DragonFly/usr/bin/tar
+DFLY=x86_64-unknown-dragonfly
+NAME_STD=rust-std-${1}-${DFLY}
+NAME_STD_PKG=${NAME_STD}.tar.zst
+NAME_C=rustc-${1}-${DFLY}
+NAME_C_PKG=${NAME_C}.tar.zst
+RUSTLIB=rust-std-${DFLY}/lib/rustlib
+
+rm -rf ${RASSY}
+
+if [ ! -f ${RPKG} ]; then
+   echo "Package not found: ${RPKG}"
+   exit 1
+fi
+
+mkdir -p ${RASSY}/${NAME_STD}/${RUSTLIB}/${DFLY}
+echo "Extracting ${RPKG} ..."
+(cd ${RASSY} && ${MYTAR} -xf ${RPKG})
+
+CARGOVER=$(awk -f ${SCRIPTSDIR}/cargo.awk ${RASSY}/raven/lib/rustlib/src/rust/Cargo.lock)
+NAME_CARGO=cargo-${CARGOVER}-${DFLY}
+NAME_CARGO_PKG=${NAME_CARGO}.tar.zst
+
+# rust-std package
+echo rust-std-${DFLY} > ${RASSY}/${NAME_STD}/components
+cp -a ${RASSY}/raven/lib/rustlib/rust-installer-version ${RASSY}/${NAME_STD}/
+cp -a ${RASSY}/raven/lib/rustlib/${DFLY}/lib ${RASSY}/${NAME_STD}/${RUSTLIB}/${DFLY}/
+rm -f ${DISTDIR}/${NAME_STD_PKG}
+echo "Creating and relocating ${NAME_STD_PKG}."
+(cd ${RASSY} && ${MYTAR} -c --zstd -f ${NAME_STD_PKG} ${NAME_STD}) && mv ${RASSY}/${NAME_STD_PKG} ${DISTDIR}/
+
+# rustc package
+mkdir -p ${RASSY}/${NAME_C}/rustc/bin
+mkdir -p ${RASSY}/${NAME_C}/rustc/lib/rustlib/etc
+mkdir -p ${RASSY}/${NAME_C}/rustc/lib/rustlib/${DFLY}/codegen-backends
+echo ${1} > ${RASSY}/${NAME_C}/version
+echo rustc > ${RASSY}/${NAME_C}/components
+cp -a ${RASSY}/raven/lib/rustlib/rust-installer-version ${RASSY}/${NAME_C}/
+for B in rust-gdb rust-lldb rustc rustdoc; do
+  cp -a ${RASSY}/raven/bin/${B} ${RASSY}/${NAME_C}/rustc/bin/
+done
+cp -a ${RASSY}/raven/lib/lib* ${RASSY}/${NAME_C}/rustc/lib/
+cp -a ${RASSY}/raven/lib/rustlib/etc/* ${RASSY}/${NAME_C}/rustc/lib/rustlib/etc/
+cp -a ${RASSY}/raven/lib/rustlib/${DFLY}/codegen-backends/* ${RASSY}/${NAME_C}/rustc/lib/rustlib/${DFLY}/codegen-backends/
+rm -f ${DISTDIR}/${NAME_C_PKG}
+echo "Creating and relocating ${NAME_C_PKG}."
+(cd ${RASSY} && ${MYTAR} -c --zstd -f ${NAME_C_PKG} ${NAME_C}) && mv ${RASSY}/${NAME_C_PKG} ${DISTDIR}/
+
+#cargo package
+mkdir -p ${RASSY}/${NAME_CARGO}/cargo/bin
+mkdir -p ${RASSY}/${NAME_CARGO}/cargo/share/zsh/site-functions
+echo ${CARGOVER} > ${RASSY}/${NAME_CARGO}/version
+echo cargo > ${RASSY}/${NAME_CARGO}/components
+cp -a ${RASSY}/raven/lib/rustlib/rust-installer-version ${RASSY}/${NAME_CARGO}/
+cp -a ${RASSY}/raven/bin/cargo ${RASSY}/${NAME_CARGO}/cargo/bin/
+cp -a ${RASSY}/raven/share/zsh/site-functions/_cargo ${RASSY}/${NAME_CARGO}/cargo/share/zsh/site-functions
+rm -f ${DISTDIR}/${NAME_CARGO_PKG}
+echo "Creating and relocating ${NAME_CARGO_PKG}."
+(cd ${RASSY} && ${MYTAR} -c --zstd -f ${NAME_CARGO_PKG} ${NAME_CARGO}) && mv ${RASSY}/${NAME_CARGO_PKG} ${DISTDIR}/
