@@ -18,6 +18,15 @@ SPKGS[standard]=	complete primary docs
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+# License is extracted from terms, too, since there is no separate file
+LICENSE=		CUSTOM1:primary
+LICENSE_NAME=		CUSTOM1:"Perforce Jam License"
+LICENSE_FILE=		CUSTOM1:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/jam.c
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		devel/jam
 
 do-install:
