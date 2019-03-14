@@ -20,6 +20,20 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+# Licensing chaos! The file COPYING mentions that the application is
+# tri-licensed. The terms however disagree by mentioning only two licenses and
+# a different version for MPL...
+LICENSE=		GPLv2+:single
+			LGPL21+:single
+			MPL:single
+LICENSE_FILE=		GPLv2+:stock
+			LGPL21+:{{WRKSRC}}/COPYING.LGPL
+			MPL:{{WRKSRC}}/COPYING.MPL
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/hyphen.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		dual
+
 FPC_EQUIVALENT=		textproc/hyphen
 
 BUILD_DEPENDS=		gawk:single:standard
