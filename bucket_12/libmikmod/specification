@@ -19,6 +19,15 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+# COPYING.LESSER is provided for people who want to make use of "or later" to
+# use LGPL21 instead.
+LICENSE=		LGPL20+:single
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING.LIB
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/mikmod.h
+LICENSE_AWK=		TERMS:"ifndef _MIKMOD_H_"
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		audio/libmikmod
 
 USES=			gmake libtool pkgconfig
