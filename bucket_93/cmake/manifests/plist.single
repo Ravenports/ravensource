@@ -153,6 +153,7 @@ share/cmake/Help/envvar/CFLAGS.rst
 share/cmake/Help/envvar/CMAKE_BUILD_PARALLEL_LEVEL.rst
 share/cmake/Help/envvar/CMAKE_CONFIG_TYPE.rst
 share/cmake/Help/envvar/CMAKE_MSVCIDE_RUN_PATH.rst
+share/cmake/Help/envvar/CMAKE_NO_VERBOSE.rst
 share/cmake/Help/envvar/CMAKE_OSX_ARCHITECTURES.rst
 share/cmake/Help/envvar/CSFLAGS.rst
 share/cmake/Help/envvar/CTEST_INTERACTIVE_DEBUG_MODE.rst
@@ -167,6 +168,7 @@ share/cmake/Help/envvar/CXX.rst
 share/cmake/Help/envvar/CXXFLAGS.rst
 share/cmake/Help/envvar/DASHBOARD_TEST_FROM_CTEST.rst
 share/cmake/Help/envvar/DESTDIR.rst
+share/cmake/Help/envvar/ENV_VAR.txt
 share/cmake/Help/envvar/FC.rst
 share/cmake/Help/envvar/FFLAGS.rst
 share/cmake/Help/envvar/LDFLAGS.rst
@@ -174,6 +176,7 @@ share/cmake/Help/envvar/MACOSX_DEPLOYMENT_TARGET.rst
 share/cmake/Help/envvar/PackageName_ROOT.rst
 share/cmake/Help/envvar/RC.rst
 share/cmake/Help/envvar/RCFLAGS.rst
+share/cmake/Help/envvar/VERBOSE.rst
 share/cmake/Help/generator/Borland Makefiles.rst
 share/cmake/Help/generator/CodeBlocks.rst
 share/cmake/Help/generator/CodeLite.rst
@@ -193,6 +196,7 @@ share/cmake/Help/generator/Visual Studio 11 2012.rst
 share/cmake/Help/generator/Visual Studio 12 2013.rst
 share/cmake/Help/generator/Visual Studio 14 2015.rst
 share/cmake/Help/generator/Visual Studio 15 2017.rst
+share/cmake/Help/generator/Visual Studio 16 2019.rst
 share/cmake/Help/generator/Visual Studio 6.rst
 share/cmake/Help/generator/Visual Studio 7 .NET 2003.rst
 share/cmake/Help/generator/Visual Studio 7.rst
@@ -212,6 +216,7 @@ share/cmake/Help/manual/cmake-commands.7.rst
 share/cmake/Help/manual/cmake-compile-features.7.rst
 share/cmake/Help/manual/cmake-developer.7.rst
 share/cmake/Help/manual/cmake-env-variables.7.rst
+share/cmake/Help/manual/cmake-file-api.7.rst
 share/cmake/Help/manual/cmake-generator-expressions.7.rst
 share/cmake/Help/manual/cmake-generators.7.rst
 share/cmake/Help/manual/cmake-language.7.rst
@@ -277,6 +282,7 @@ share/cmake/Help/module/CheckCXXSymbolExists.rst
 share/cmake/Help/module/CheckFortranCompilerFlag.rst
 share/cmake/Help/module/CheckFortranFunctionExists.rst
 share/cmake/Help/module/CheckFortranSourceCompiles.rst
+share/cmake/Help/module/CheckFortranSourceRuns.rst
 share/cmake/Help/module/CheckFunctionExists.rst
 share/cmake/Help/module/CheckIPOSupported.rst
 share/cmake/Help/module/CheckIncludeFile.rst
@@ -284,6 +290,7 @@ share/cmake/Help/module/CheckIncludeFileCXX.rst
 share/cmake/Help/module/CheckIncludeFiles.rst
 share/cmake/Help/module/CheckLanguage.rst
 share/cmake/Help/module/CheckLibraryExists.rst
+share/cmake/Help/module/CheckPIESupported.rst
 share/cmake/Help/module/CheckPrototypeDefinition.rst
 share/cmake/Help/module/CheckStructHasMember.rst
 share/cmake/Help/module/CheckSymbolExists.rst
@@ -323,6 +330,7 @@ share/cmake/Help/module/FindEXPAT.rst
 share/cmake/Help/module/FindFLEX.rst
 share/cmake/Help/module/FindFLTK.rst
 share/cmake/Help/module/FindFLTK2.rst
+share/cmake/Help/module/FindFontconfig.rst
 share/cmake/Help/module/FindFreetype.rst
 share/cmake/Help/module/FindGCCXML.rst
 share/cmake/Help/module/FindGDAL.rst
@@ -361,6 +369,7 @@ share/cmake/Help/module/FindLibArchive.rst
 share/cmake/Help/module/FindLibLZMA.rst
 share/cmake/Help/module/FindLibXml2.rst
 share/cmake/Help/module/FindLibXslt.rst
+share/cmake/Help/module/FindLibinput.rst
 share/cmake/Help/module/FindLua.rst
 share/cmake/Help/module/FindLua50.rst
 share/cmake/Help/module/FindLua51.rst
@@ -409,6 +418,7 @@ share/cmake/Help/module/FindSDL_mixer.rst
 share/cmake/Help/module/FindSDL_net.rst
 share/cmake/Help/module/FindSDL_sound.rst
 share/cmake/Help/module/FindSDL_ttf.rst
+share/cmake/Help/module/FindSQLite3.rst
 share/cmake/Help/module/FindSWIG.rst
 share/cmake/Help/module/FindSelfPackers.rst
 share/cmake/Help/module/FindSquish.rst
@@ -559,6 +569,13 @@ share/cmake/Help/policy/CMP0078.rst
 share/cmake/Help/policy/CMP0079.rst
 share/cmake/Help/policy/CMP0080.rst
 share/cmake/Help/policy/CMP0081.rst
+share/cmake/Help/policy/CMP0082.rst
+share/cmake/Help/policy/CMP0083.rst
+share/cmake/Help/policy/CMP0084.rst
+share/cmake/Help/policy/CMP0085.rst
+share/cmake/Help/policy/CMP0086.rst
+share/cmake/Help/policy/CMP0087.rst
+share/cmake/Help/policy/CMP0088.rst
 share/cmake/Help/policy/DEPRECATED.txt
 share/cmake/Help/policy/DISALLOWED_COMMAND.txt
 share/cmake/Help/prop_cache/ADVANCED.rst
@@ -609,6 +626,7 @@ share/cmake/Help/prop_gbl/AUTOMOC_TARGETS_FOLDER.rst
 share/cmake/Help/prop_gbl/AUTORCC_SOURCE_GROUP.rst
 share/cmake/Help/prop_gbl/CMAKE_CXX_KNOWN_FEATURES.rst
 share/cmake/Help/prop_gbl/CMAKE_C_KNOWN_FEATURES.rst
+share/cmake/Help/prop_gbl/CMAKE_ROLE.rst
 share/cmake/Help/prop_gbl/DEBUG_CONFIGURATIONS.rst
 share/cmake/Help/prop_gbl/DISABLED_FEATURES.rst
 share/cmake/Help/prop_gbl/ECLIPSE_EXTRA_CPROJECT_CONTENTS.rst
@@ -734,20 +752,25 @@ share/cmake/Help/prop_tgt/ARCHIVE_OUTPUT_DIRECTORY_CONFIG.rst
 share/cmake/Help/prop_tgt/ARCHIVE_OUTPUT_NAME.rst
 share/cmake/Help/prop_tgt/ARCHIVE_OUTPUT_NAME_CONFIG.rst
 share/cmake/Help/prop_tgt/AUTOGEN_BUILD_DIR.rst
+share/cmake/Help/prop_tgt/AUTOGEN_ORIGIN_DEPENDS.rst
 share/cmake/Help/prop_tgt/AUTOGEN_PARALLEL.rst
 share/cmake/Help/prop_tgt/AUTOGEN_TARGET_DEPENDS.rst
 share/cmake/Help/prop_tgt/AUTOMOC.rst
 share/cmake/Help/prop_tgt/AUTOMOC_COMPILER_PREDEFINES.rst
 share/cmake/Help/prop_tgt/AUTOMOC_DEPEND_FILTERS.rst
+share/cmake/Help/prop_tgt/AUTOMOC_EXECUTABLE.rst
 share/cmake/Help/prop_tgt/AUTOMOC_MACRO_NAMES.rst
 share/cmake/Help/prop_tgt/AUTOMOC_MOC_OPTIONS.rst
 share/cmake/Help/prop_tgt/AUTORCC.rst
+share/cmake/Help/prop_tgt/AUTORCC_EXECUTABLE.rst
 share/cmake/Help/prop_tgt/AUTORCC_OPTIONS.rst
 share/cmake/Help/prop_tgt/AUTOUIC.rst
+share/cmake/Help/prop_tgt/AUTOUIC_EXECUTABLE.rst
 share/cmake/Help/prop_tgt/AUTOUIC_OPTIONS.rst
 share/cmake/Help/prop_tgt/AUTOUIC_SEARCH_PATHS.rst
 share/cmake/Help/prop_tgt/BINARY_DIR.rst
 share/cmake/Help/prop_tgt/BUILD_RPATH.rst
+share/cmake/Help/prop_tgt/BUILD_RPATH_USE_ORIGIN.rst
 share/cmake/Help/prop_tgt/BUILD_WITH_INSTALL_NAME_DIR.rst
 share/cmake/Help/prop_tgt/BUILD_WITH_INSTALL_RPATH.rst
 share/cmake/Help/prop_tgt/BUNDLE.rst
@@ -800,6 +823,8 @@ share/cmake/Help/prop_tgt/FRAMEWORK_VERSION.rst
 share/cmake/Help/prop_tgt/Fortran_FORMAT.rst
 share/cmake/Help/prop_tgt/Fortran_MODULE_DIRECTORY.rst
 share/cmake/Help/prop_tgt/GENERATOR_FILE_NAME.rst
+share/cmake/Help/prop_tgt/GHS_INTEGRITY_APP.rst
+share/cmake/Help/prop_tgt/GHS_NO_SOURCE_GROUP_FILE.rst
 share/cmake/Help/prop_tgt/GNUtoMS.rst
 share/cmake/Help/prop_tgt/HAS_CXX.rst
 share/cmake/Help/prop_tgt/IMPLICIT_DEPENDS_INCLUDE_TRANSFORM.rst
@@ -985,6 +1010,7 @@ share/cmake/Help/release/3.10.rst
 share/cmake/Help/release/3.11.rst
 share/cmake/Help/release/3.12.rst
 share/cmake/Help/release/3.13.rst
+share/cmake/Help/release/3.14.rst
 share/cmake/Help/release/3.2.rst
 share/cmake/Help/release/3.3.rst
 share/cmake/Help/release/3.4.rst
@@ -1032,6 +1058,7 @@ share/cmake/Help/variable/CMAKE_ARCHIVE_OUTPUT_DIRECTORY.rst
 share/cmake/Help/variable/CMAKE_ARCHIVE_OUTPUT_DIRECTORY_CONFIG.rst
 share/cmake/Help/variable/CMAKE_ARGC.rst
 share/cmake/Help/variable/CMAKE_ARGV0.rst
+share/cmake/Help/variable/CMAKE_AUTOGEN_ORIGIN_DEPENDS.rst
 share/cmake/Help/variable/CMAKE_AUTOGEN_PARALLEL.rst
 share/cmake/Help/variable/CMAKE_AUTOGEN_VERBOSE.rst
 share/cmake/Help/variable/CMAKE_AUTOMOC.rst
@@ -1048,6 +1075,7 @@ share/cmake/Help/variable/CMAKE_AUTOUIC_SEARCH_PATHS.rst
 share/cmake/Help/variable/CMAKE_BACKWARDS_COMPATIBILITY.rst
 share/cmake/Help/variable/CMAKE_BINARY_DIR.rst
 share/cmake/Help/variable/CMAKE_BUILD_RPATH.rst
+share/cmake/Help/variable/CMAKE_BUILD_RPATH_USE_ORIGIN.rst
 share/cmake/Help/variable/CMAKE_BUILD_TOOL.rst
 share/cmake/Help/variable/CMAKE_BUILD_TYPE.rst
 share/cmake/Help/variable/CMAKE_BUILD_WITH_INSTALL_NAME_DIR.rst
@@ -1127,6 +1155,7 @@ share/cmake/Help/variable/CMAKE_FIND_NO_INSTALL_PREFIX.rst
 share/cmake/Help/variable/CMAKE_FIND_PACKAGE_NAME.rst
 share/cmake/Help/variable/CMAKE_FIND_PACKAGE_NO_PACKAGE_REGISTRY.rst
 share/cmake/Help/variable/CMAKE_FIND_PACKAGE_NO_SYSTEM_PACKAGE_REGISTRY.rst
+share/cmake/Help/variable/CMAKE_FIND_PACKAGE_RESOLVE_SYMLINKS.rst
 share/cmake/Help/variable/CMAKE_FIND_PACKAGE_SORT_DIRECTION.rst
 share/cmake/Help/variable/CMAKE_FIND_PACKAGE_SORT_ORDER.rst
 share/cmake/Help/variable/CMAKE_FIND_PACKAGE_WARN_NO_MODULE.rst
@@ -1147,6 +1176,11 @@ share/cmake/Help/variable/CMAKE_GENERATOR.rst
 share/cmake/Help/variable/CMAKE_GENERATOR_INSTANCE.rst
 share/cmake/Help/variable/CMAKE_GENERATOR_PLATFORM.rst
 share/cmake/Help/variable/CMAKE_GENERATOR_TOOLSET.rst
+share/cmake/Help/variable/CMAKE_GHS_NO_SOURCE_GROUP_FILE.rst
+share/cmake/Help/variable/CMAKE_GLOBAL_AUTOGEN_TARGET.rst
+share/cmake/Help/variable/CMAKE_GLOBAL_AUTOGEN_TARGET_NAME.rst
+share/cmake/Help/variable/CMAKE_GLOBAL_AUTORCC_TARGET.rst
+share/cmake/Help/variable/CMAKE_GLOBAL_AUTORCC_TARGET_NAME.rst
 share/cmake/Help/variable/CMAKE_GNUtoMS.rst
 share/cmake/Help/variable/CMAKE_HOME_DIRECTORY.rst
 share/cmake/Help/variable/CMAKE_HOST_APPLE.rst
@@ -1218,11 +1252,6 @@ share/cmake/Help/variable/CMAKE_LANG_FLAGS_RELEASE.rst
 share/cmake/Help/variable/CMAKE_LANG_FLAGS_RELEASE_INIT.rst
 share/cmake/Help/variable/CMAKE_LANG_FLAGS_RELWITHDEBINFO.rst
 share/cmake/Help/variable/CMAKE_LANG_FLAGS_RELWITHDEBINFO_INIT.rst
-share/cmake/Help/variable/CMAKE_LANG_GHS_KERNEL_FLAGS_CONFIG.rst
-share/cmake/Help/variable/CMAKE_LANG_GHS_KERNEL_FLAGS_DEBUG.rst
-share/cmake/Help/variable/CMAKE_LANG_GHS_KERNEL_FLAGS_MINSIZEREL.rst
-share/cmake/Help/variable/CMAKE_LANG_GHS_KERNEL_FLAGS_RELEASE.rst
-share/cmake/Help/variable/CMAKE_LANG_GHS_KERNEL_FLAGS_RELWITHDEBINFO.rst
 share/cmake/Help/variable/CMAKE_LANG_IGNORE_EXTENSIONS.rst
 share/cmake/Help/variable/CMAKE_LANG_IMPLICIT_INCLUDE_DIRECTORIES.rst
 share/cmake/Help/variable/CMAKE_LANG_IMPLICIT_LINK_DIRECTORIES.rst
@@ -1267,6 +1296,7 @@ share/cmake/Help/variable/CMAKE_MAKE_PROGRAM.rst
 share/cmake/Help/variable/CMAKE_MAP_IMPORTED_CONFIG_CONFIG.rst
 share/cmake/Help/variable/CMAKE_MATCH_COUNT.rst
 share/cmake/Help/variable/CMAKE_MATCH_n.rst
+share/cmake/Help/variable/CMAKE_MAXIMUM_RECURSION_DEPTH.rst
 share/cmake/Help/variable/CMAKE_MFC_FLAG.rst
 share/cmake/Help/variable/CMAKE_MINIMUM_REQUIRED_VERSION.rst
 share/cmake/Help/variable/CMAKE_MINOR_VERSION.rst
@@ -1441,7 +1471,7 @@ share/cmake/Help/variable/CTEST_CUSTOM_POST_MEMCHECK.rst
 share/cmake/Help/variable/CTEST_CUSTOM_POST_TEST.rst
 share/cmake/Help/variable/CTEST_CUSTOM_PRE_MEMCHECK.rst
 share/cmake/Help/variable/CTEST_CUSTOM_PRE_TEST.rst
-share/cmake/Help/variable/CTEST_CUSTOM_TEST_IGNORE.rst
+share/cmake/Help/variable/CTEST_CUSTOM_TESTS_IGNORE.rst
 share/cmake/Help/variable/CTEST_CUSTOM_WARNING_EXCEPTION.rst
 share/cmake/Help/variable/CTEST_CUSTOM_WARNING_MATCH.rst
 share/cmake/Help/variable/CTEST_CUSTOM_XXX.txt
@@ -1476,6 +1506,7 @@ share/cmake/Help/variable/CTEST_RUN_CURRENT_SCRIPT.rst
 share/cmake/Help/variable/CTEST_SCP_COMMAND.rst
 share/cmake/Help/variable/CTEST_SITE.rst
 share/cmake/Help/variable/CTEST_SOURCE_DIRECTORY.rst
+share/cmake/Help/variable/CTEST_SUBMIT_URL.rst
 share/cmake/Help/variable/CTEST_SVN_COMMAND.rst
 share/cmake/Help/variable/CTEST_SVN_OPTIONS.rst
 share/cmake/Help/variable/CTEST_SVN_UPDATE_OPTIONS.rst
@@ -1490,6 +1521,7 @@ share/cmake/Help/variable/CYGWIN.rst
 share/cmake/Help/variable/ENV.rst
 share/cmake/Help/variable/EXECUTABLE_OUTPUT_PATH.rst
 share/cmake/Help/variable/GHS-MULTI.rst
+share/cmake/Help/variable/IOS.rst
 share/cmake/Help/variable/LIBRARY_OUTPUT_PATH.rst
 share/cmake/Help/variable/MINGW.rst
 share/cmake/Help/variable/MSVC.rst
@@ -1505,6 +1537,7 @@ share/cmake/Help/variable/MSVC90.rst
 share/cmake/Help/variable/MSVC_IDE.rst
 share/cmake/Help/variable/MSVC_TOOLSET_VERSION.rst
 share/cmake/Help/variable/MSVC_VERSION.rst
+share/cmake/Help/variable/MSYS.rst
 share/cmake/Help/variable/PROJECT-NAME_BINARY_DIR.rst
 share/cmake/Help/variable/PROJECT-NAME_DESCRIPTION.rst
 share/cmake/Help/variable/PROJECT-NAME_HOMEPAGE_URL.rst
@@ -1625,6 +1658,7 @@ share/cmake/Modules/CMakeNMakeFindMake.cmake
 share/cmake/Modules/CMakeNinjaFindMake.cmake
 share/cmake/Modules/CMakePackageConfigHelpers.cmake
 share/cmake/Modules/CMakeParseArguments.cmake
+share/cmake/Modules/CMakeParseImplicitIncludeInfo.cmake
 share/cmake/Modules/CMakeParseImplicitLinkInfo.cmake
 share/cmake/Modules/CMakePlatformId.h.in
 share/cmake/Modules/CMakePrintHelpers.cmake
@@ -1687,6 +1721,7 @@ share/cmake/Modules/CheckForPthreads.c
 share/cmake/Modules/CheckFortranCompilerFlag.cmake
 share/cmake/Modules/CheckFortranFunctionExists.cmake
 share/cmake/Modules/CheckFortranSourceCompiles.cmake
+share/cmake/Modules/CheckFortranSourceRuns.cmake
 share/cmake/Modules/CheckFunctionExists.c
 share/cmake/Modules/CheckFunctionExists.cmake
 share/cmake/Modules/CheckIPOSupported.cmake
@@ -1698,6 +1733,7 @@ share/cmake/Modules/CheckIncludeFiles.cmake
 share/cmake/Modules/CheckLanguage.cmake
 share/cmake/Modules/CheckLibraryExists.cmake
 share/cmake/Modules/CheckLibraryExists.lists.in
+share/cmake/Modules/CheckPIESupported.cmake
 share/cmake/Modules/CheckPrototypeDefinition.c.in
 share/cmake/Modules/CheckPrototypeDefinition.cmake
 share/cmake/Modules/CheckSizeOf.cmake
@@ -1748,6 +1784,7 @@ share/cmake/Modules/FindEXPAT.cmake
 share/cmake/Modules/FindFLEX.cmake
 share/cmake/Modules/FindFLTK.cmake
 share/cmake/Modules/FindFLTK2.cmake
+share/cmake/Modules/FindFontconfig.cmake
 share/cmake/Modules/FindFreetype.cmake
 share/cmake/Modules/FindGCCXML.cmake
 share/cmake/Modules/FindGDAL.cmake
@@ -1786,6 +1823,7 @@ share/cmake/Modules/FindLibArchive.cmake
 share/cmake/Modules/FindLibLZMA.cmake
 share/cmake/Modules/FindLibXml2.cmake
 share/cmake/Modules/FindLibXslt.cmake
+share/cmake/Modules/FindLibinput.cmake
 share/cmake/Modules/FindLua.cmake
 share/cmake/Modules/FindLua50.cmake
 share/cmake/Modules/FindLua51.cmake
@@ -1834,6 +1872,7 @@ share/cmake/Modules/FindSDL_mixer.cmake
 share/cmake/Modules/FindSDL_net.cmake
 share/cmake/Modules/FindSDL_sound.cmake
 share/cmake/Modules/FindSDL_ttf.cmake
+share/cmake/Modules/FindSQLite3.cmake
 share/cmake/Modules/FindSWIG.cmake
 share/cmake/Modules/FindSelfPackers.cmake
 share/cmake/Modules/FindSquish.cmake
@@ -1982,19 +2021,7 @@ share/cmake/Modules/Compiler/Cray-Fortran.cmake
 share/cmake/Modules/Compiler/Cray.cmake
 share/cmake/Modules/Compiler/CrayPrgEnv-C.cmake
 share/cmake/Modules/Compiler/CrayPrgEnv-CXX.cmake
-share/cmake/Modules/Compiler/CrayPrgEnv-Cray-C.cmake
-share/cmake/Modules/Compiler/CrayPrgEnv-Cray-CXX.cmake
-share/cmake/Modules/Compiler/CrayPrgEnv-Cray-Fortran.cmake
 share/cmake/Modules/Compiler/CrayPrgEnv-Fortran.cmake
-share/cmake/Modules/Compiler/CrayPrgEnv-GNU-C.cmake
-share/cmake/Modules/Compiler/CrayPrgEnv-GNU-CXX.cmake
-share/cmake/Modules/Compiler/CrayPrgEnv-GNU-Fortran.cmake
-share/cmake/Modules/Compiler/CrayPrgEnv-Intel-C.cmake
-share/cmake/Modules/Compiler/CrayPrgEnv-Intel-CXX.cmake
-share/cmake/Modules/Compiler/CrayPrgEnv-Intel-Fortran.cmake
-share/cmake/Modules/Compiler/CrayPrgEnv-PGI-C.cmake
-share/cmake/Modules/Compiler/CrayPrgEnv-PGI-CXX.cmake
-share/cmake/Modules/Compiler/CrayPrgEnv-PGI-Fortran.cmake
 share/cmake/Modules/Compiler/CrayPrgEnv.cmake
 share/cmake/Modules/Compiler/Embarcadero-DetermineCompiler.cmake
 share/cmake/Modules/Compiler/Flang-FindBinUtils.cmake
@@ -2061,7 +2088,10 @@ share/cmake/Modules/Compiler/PathScale-CXX.cmake
 share/cmake/Modules/Compiler/PathScale-DetermineCompiler.cmake
 share/cmake/Modules/Compiler/PathScale-Fortran.cmake
 share/cmake/Modules/Compiler/PathScale.cmake
+share/cmake/Modules/Compiler/QCC-ASM.cmake
+share/cmake/Modules/Compiler/QCC-C-FeatureTests.cmake
 share/cmake/Modules/Compiler/QCC-C.cmake
+share/cmake/Modules/Compiler/QCC-CXX-FeatureTests.cmake
 share/cmake/Modules/Compiler/QCC-CXX.cmake
 share/cmake/Modules/Compiler/QCC.cmake
 share/cmake/Modules/Compiler/SCO-C.cmake
@@ -2099,6 +2129,8 @@ share/cmake/Modules/Compiler/XL-Fortran.cmake
 share/cmake/Modules/Compiler/XL.cmake
 share/cmake/Modules/Compiler/zOS-C-DetermineCompiler.cmake
 share/cmake/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake
+share/cmake/Modules/CompilerId/GHS_default.gpj.in
+share/cmake/Modules/CompilerId/GHS_lib.gpj.in
 share/cmake/Modules/CompilerId/VS-10.csproj.in
 share/cmake/Modules/CompilerId/VS-10.vcxproj.in
 share/cmake/Modules/CompilerId/VS-7.vcproj.in
@@ -2143,6 +2175,7 @@ share/cmake/Modules/FortranCInterface/Verify/main.c
 share/cmake/Modules/IntelVSImplicitPath/CMakeLists.txt
 share/cmake/Modules/IntelVSImplicitPath/detect.cmake
 share/cmake/Modules/IntelVSImplicitPath/hello.f
+share/cmake/Modules/Internal/CMakeCheckCompilerFlag.cmake
 share/cmake/Modules/Internal/FeatureTesting.cmake
 share/cmake/Modules/Internal/CPack/CPackDeb.cmake
 share/cmake/Modules/Internal/CPack/CPackExternal.cmake
@@ -2281,8 +2314,6 @@ share/cmake/Modules/Platform/HP-UX-HP-Fortran.cmake
 share/cmake/Modules/Platform/HP-UX-HP.cmake
 share/cmake/Modules/Platform/HP-UX.cmake
 share/cmake/Modules/Platform/Haiku.cmake
-share/cmake/Modules/Platform/IRIX.cmake
-share/cmake/Modules/Platform/IRIX64.cmake
 share/cmake/Modules/Platform/Linux-Absoft-Fortran.cmake
 share/cmake/Modules/Platform/Linux-CCur-Fortran.cmake
 share/cmake/Modules/Platform/Linux-Clang-C.cmake
@@ -2399,8 +2430,17 @@ share/cmake/Modules/Platform/WindowsStore.cmake
 share/cmake/Modules/Platform/Xenix.cmake
 share/cmake/Modules/Platform/eCos.cmake
 share/cmake/Modules/Platform/gas.cmake
+share/cmake/Modules/Platform/iOS-Determine-CXX.cmake
+share/cmake/Modules/Platform/iOS-Initialize.cmake
+share/cmake/Modules/Platform/iOS.cmake
 share/cmake/Modules/Platform/kFreeBSD.cmake
 share/cmake/Modules/Platform/syllable.cmake
+share/cmake/Modules/Platform/tvOS-Determine-CXX.cmake
+share/cmake/Modules/Platform/tvOS-Initialize.cmake
+share/cmake/Modules/Platform/tvOS.cmake
+share/cmake/Modules/Platform/watchOS-Determine-CXX.cmake
+share/cmake/Modules/Platform/watchOS-Initialize.cmake
+share/cmake/Modules/Platform/watchOS.cmake
 share/cmake/Modules/Platform/Android/Determine-Compiler-NDK.cmake
 share/cmake/Modules/Platform/Android/Determine-Compiler-Standalone.cmake
 share/cmake/Modules/Platform/Android/Determine-Compiler.cmake
@@ -2450,6 +2490,38 @@ share/cmake/Templates/TestDriver.cxx.in
 share/cmake/Templates/MSBuild/nasm.props.in
 share/cmake/Templates/MSBuild/nasm.targets
 share/cmake/Templates/MSBuild/nasm.xml
+share/cmake/Templates/MSBuild/FlagTables/v10_CL.json
+share/cmake/Templates/MSBuild/FlagTables/v10_CSharp.json
+share/cmake/Templates/MSBuild/FlagTables/v10_Cuda.json
+share/cmake/Templates/MSBuild/FlagTables/v10_CudaHost.json
+share/cmake/Templates/MSBuild/FlagTables/v10_LIB.json
+share/cmake/Templates/MSBuild/FlagTables/v10_Link.json
+share/cmake/Templates/MSBuild/FlagTables/v10_MASM.json
+share/cmake/Templates/MSBuild/FlagTables/v10_NASM.json
+share/cmake/Templates/MSBuild/FlagTables/v10_RC.json
+share/cmake/Templates/MSBuild/FlagTables/v11_CL.json
+share/cmake/Templates/MSBuild/FlagTables/v11_CSharp.json
+share/cmake/Templates/MSBuild/FlagTables/v11_LIB.json
+share/cmake/Templates/MSBuild/FlagTables/v11_Link.json
+share/cmake/Templates/MSBuild/FlagTables/v11_MASM.json
+share/cmake/Templates/MSBuild/FlagTables/v11_RC.json
+share/cmake/Templates/MSBuild/FlagTables/v12_CL.json
+share/cmake/Templates/MSBuild/FlagTables/v12_CSharp.json
+share/cmake/Templates/MSBuild/FlagTables/v12_LIB.json
+share/cmake/Templates/MSBuild/FlagTables/v12_Link.json
+share/cmake/Templates/MSBuild/FlagTables/v12_MASM.json
+share/cmake/Templates/MSBuild/FlagTables/v12_RC.json
+share/cmake/Templates/MSBuild/FlagTables/v140_CL.json
+share/cmake/Templates/MSBuild/FlagTables/v140_CSharp.json
+share/cmake/Templates/MSBuild/FlagTables/v140_Link.json
+share/cmake/Templates/MSBuild/FlagTables/v141_CL.json
+share/cmake/Templates/MSBuild/FlagTables/v141_CSharp.json
+share/cmake/Templates/MSBuild/FlagTables/v141_Link.json
+share/cmake/Templates/MSBuild/FlagTables/v142_CL.json
+share/cmake/Templates/MSBuild/FlagTables/v142_Link.json
+share/cmake/Templates/MSBuild/FlagTables/v14_LIB.json
+share/cmake/Templates/MSBuild/FlagTables/v14_MASM.json
+share/cmake/Templates/MSBuild/FlagTables/v14_RC.json
 share/cmake/Templates/Windows/ApplicationIcon.png
 share/cmake/Templates/Windows/Logo.png
 share/cmake/Templates/Windows/SmallLogo.png
@@ -2474,6 +2546,7 @@ share/man/man7/cmake-commands.7.gz
 share/man/man7/cmake-compile-features.7.gz
 share/man/man7/cmake-developer.7.gz
 share/man/man7/cmake-env-variables.7.gz
+share/man/man7/cmake-file-api.7.gz
 share/man/man7/cmake-generator-expressions.7.gz
 share/man/man7/cmake-generators.7.gz
 share/man/man7/cmake-language.7.gz
