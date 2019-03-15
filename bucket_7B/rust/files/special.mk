@@ -1,16 +1,16 @@
 .if "${OPSYS}" == "DragonFly"
-BOOTSTRAP_RUST=		1.31.0
-BOOTSTRAP_CARGO=	0.32.0
+BOOTSTRAP_RUST=		1.32.0
+BOOTSTRAP_CARGO=	0.33.0
 DF_INDEX+=		2 3 4
-COMPEXT=		xz
+COMPEXT=		zst
 .elif "${OPSYS}" == "FreeBSD"
-BOOTSTRAP_RUST=		1.31.0
-BOOTSTRAP_CARGO=	0.32.0
+BOOTSTRAP_RUST=		1.32.0
+BOOTSTRAP_CARGO=	0.33.0
 DF_INDEX+=		5 6 7
 COMPEXT=		gz
 .elif "${OPSYS}" == "Linux"
-BOOTSTRAP_RUST=		1.31.0
-BOOTSTRAP_CARGO=	0.32.0
+BOOTSTRAP_RUST=		1.32.0
+BOOTSTRAP_CARGO=	0.33.0
 DF_INDEX+=		8 9 10
 COMPEXT=		gz
 SFX=			${ARCH_STANDARD}-unknown-linux-gnu
@@ -24,6 +24,7 @@ SRC_CARGO?=		cargo-${BOOTSTRAP_CARGO}-${SFX}
 RUST_MANIFESTS= \
 	lib/rustlib/manifest-cargo \
 	lib/rustlib/manifest-clippy-preview \
+	lib/rustlib/manifest-miri-preview \
 	lib/rustlib/manifest-rls-preview \
 	lib/rustlib/manifest-rustc \
 	lib/rustlib/manifest-rustfmt-preview \

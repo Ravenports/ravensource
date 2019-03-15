@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	1.32.0
+DEF[PORTVERSION]=	1.33.0
 DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rust
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		lang
 VARIANTS=		standard
 SDESC[standard]=	Systems programming language from Mozilla
@@ -13,17 +12,17 @@ CONTACT=		Michael_Neumann[mneumann@ntecs.de]
 
 DOWNLOAD_GROUPS=	main dflyboot
 SITES[main]=		https://static.rust-lang.org/dist/
-SITES[dflyboot]=	https://www.ntecs.de/downloads/rust/1.31.0/
+SITES[dflyboot]=	https://leaf.dragonflybsd.org/~marino/dports-src/rust/
 DISTFILE[1]=		rustc-${PORTVERSION}-src.tar.xz:main
-DISTFILE[2]=		rustc-1.31.0-x86_64-unknown-dragonfly.tar.xz:dflyboot
-DISTFILE[3]=		rust-std-1.31.0-x86_64-unknown-dragonfly.tar.xz:dflyboot
-DISTFILE[4]=		cargo-0.32.0-x86_64-unknown-dragonfly.tar.xz:dflyboot
-DISTFILE[5]=		rustc-1.31.0-x86_64-unknown-freebsd.tar.gz:main
-DISTFILE[6]=		rust-std-1.31.0-x86_64-unknown-freebsd.tar.gz:main
-DISTFILE[7]=		cargo-0.32.0-x86_64-unknown-freebsd.tar.gz:main
-DISTFILE[8]=		rustc-1.31.0-x86_64-unknown-linux-gnu.tar.gz:main
-DISTFILE[9]=		rust-std-1.31.0-x86_64-unknown-linux-gnu.tar.gz:main
-DISTFILE[10]=		cargo-0.32.0-x86_64-unknown-linux-gnu.tar.gz:main
+DISTFILE[2]=		rustc-1.32.0-x86_64-unknown-dragonfly.tar.zst:dflyboot
+DISTFILE[3]=		rust-std-1.32.0-x86_64-unknown-dragonfly.tar.zst:dflyboot
+DISTFILE[4]=		cargo-0.33.0-x86_64-unknown-dragonfly.tar.zst:dflyboot
+DISTFILE[5]=		rustc-1.32.0-x86_64-unknown-freebsd.tar.gz:main
+DISTFILE[6]=		rust-std-1.32.0-x86_64-unknown-freebsd.tar.gz:main
+DISTFILE[7]=		cargo-0.33.0-x86_64-unknown-freebsd.tar.gz:main
+DISTFILE[8]=		rustc-1.32.0-x86_64-unknown-linux-gnu.tar.gz:main
+DISTFILE[9]=		rust-std-1.32.0-x86_64-unknown-linux-gnu.tar.gz:main
+DISTFILE[10]=		cargo-0.33.0-x86_64-unknown-linux-gnu.tar.gz:main
 DF_INDEX=		1
 
 SPKGS[standard]=	single
@@ -73,13 +72,13 @@ MAKE_ENV=		LD_LIBRARY_PATH={{WRKDIR}}/bootstrap/lib
 			OPENSSL_DIR="{{OPENSSLBASE}}"
 			HOME="{{WRKDIR}}"
 INSTALL_REQ_TOOLCHAIN=	yes
-SHEBANG_FILES=		src/libcompiler_builtins/compiler-rt/lib/sanitizer_common/symbolizer/scripts/*.sh
-			src/libcompiler_builtins/compiler-rt/lib/asan/scripts/asan_device_setup
-			src/libcompiler_builtins/compiler-rt/lib/tsan/*.sh
-			src/libcompiler_builtins/compiler-rt/lib/fuzzer/scripts/*.py
-			src/libcompiler_builtins/compiler-rt/lib/dfsan/scripts/build-libc-list.py
-			src/libcompiler_builtins/compiler-rt/lib/sanitizer_common/scripts/*.py
-			src/libcompiler_builtins/compiler-rt/lib/asan/scripts/asan_symbolize.py
+SHEBANG_FILES=		vendor/compiler_builtins/compiler-rt/lib/sanitizer_common/symbolizer/scripts/*.sh
+			vendor/compiler_builtins/compiler-rt/lib/asan/scripts/asan_device_setup
+			vendor/compiler_builtins/compiler-rt/lib/tsan/*.sh
+			vendor/compiler_builtins/compiler-rt/lib/fuzzer/scripts/*.py
+			vendor/compiler_builtins/compiler-rt/lib/dfsan/scripts/build-libc-list.py
+			vendor/compiler_builtins/compiler-rt/lib/sanitizer_common/scripts/*.py
+			vendor/compiler_builtins/compiler-rt/lib/asan/scripts/asan_symbolize.py
 			src/libcore/unicode/unicode.py
 
 BLOCK_WATCHDOG=		yes
@@ -174,8 +173,10 @@ post-install:
 	${STRIP_CMD} \
 		${STAGEDIR}${PREFIX}/bin/cargo \
 		${STAGEDIR}${PREFIX}/bin/cargo-clippy \
+		${STAGEDIR}${PREFIX}/bin/cargo-miri \
 		${STAGEDIR}${PREFIX}/bin/cargo-fmt \
 		${STAGEDIR}${PREFIX}/bin/clippy-driver \
+		${STAGEDIR}${PREFIX}/bin/miri \
 		${STAGEDIR}${PREFIX}/bin/rls \
 		${STAGEDIR}${PREFIX}/bin/rustc \
 		${STAGEDIR}${PREFIX}/bin/rustdoc \

@@ -1,4 +1,4 @@
---- src/llvm/cmake/modules/HandleLLVMOptions.cmake.orig	2018-12-13 15:33:50 UTC
+--- src/llvm/cmake/modules/HandleLLVMOptions.cmake.orig	2018-12-18 09:55:21 UTC
 +++ src/llvm/cmake/modules/HandleLLVMOptions.cmake
 @@ -138,6 +138,7 @@ endif()
  # build might work on ELF but fail on MachO/COFF.
