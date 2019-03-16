@@ -101,8 +101,9 @@ post-install:
 	${LN} -s -f db5/${i}-${BDBVER}.so.0.0.0 \
 		${STAGEDIR}${PREFIX}/lib/${i}-${BDBMAJ}.so
 .endif
-	${LN} -s -f ${i}-${BDBVER}.a ${STAGEDIR}${PREFIX}/lib/db5/${i}.a
-	${LN} -s -f ${i}-${BDBVER}.a ${STAGEDIR}${PREFIX}/lib/db5/${i}-${BDBMAJ}.a
+	${RM} ${STAGEDIR}${PREFIX}/lib/db5/${i}.a
+	${LN} -s ${i}-${BDBVER}.a ${STAGEDIR}${PREFIX}/lib/db5/${i}.a
+	${LN} -s ${i}-${BDBVER}.a ${STAGEDIR}${PREFIX}/lib/db5/${i}-${BDBMAJ}.a
 .endfor
 	cd ${STAGEDIR}${PREFIX}/bin/db5; \
 	for i in *; do ${LN} -s -f db5/$$i ../$$i-${BDBVER} ; \
