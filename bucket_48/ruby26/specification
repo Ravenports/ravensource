@@ -69,6 +69,7 @@ INSTALL_REQ_TOOLCHAIN=	yes
 SINGLE_JOB=		yes
 
 VAR_OPSYS[darwin]=	CONFIGURE_ENV=ac_cv_func_backtrace=no
+VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--disable-jit-support
 
 post-patch:
 	${FIND} ${WRKSRC}/ -name "*.orig" -delete
