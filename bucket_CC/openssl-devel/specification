@@ -47,9 +47,11 @@ CONFIGURE_ARGS=		--openssldir={{PREFIX}}/etc/openssl-devel
 			no-mdc2
 			no-nextprotoneg
 			no-devcryptoeng
-LDFLAGS=		-Wl,-rpath,${BASE}/lib
+			-Wl,-rpath,${BASE}/lib
 MAKE_ENV=		GREP_OPTIONS=
 SOVERSION=		${SOVERSION}
+
+VAR_OPSYS[sunos]=	CONFIGURE_ARGS=-lrt
 
 [SKIP_MANPAGES].DESCRIPTION=		Avoid installing OpenSSL section 3 manpages
 
