@@ -66,12 +66,6 @@ post-patch-dragonfly:
 	# dragonfly has different install program than freebsd, linux (!)
 	${REINPLACE_CMD} -e 's| -t||' ${WRKSRC}/bootstrap.sh
 
-post-patch-sunos:
-	# not sure what host target bootstrap gprbuild uses ...
-	${SED} -i.sunos -e\
-	"s|^GTARGET=$$|GTARGET=--target=$$\(TARGET\)|"\
-	${WRKSRC}/Makefile
-
 do-configure:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} setup)
 
