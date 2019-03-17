@@ -21,11 +21,14 @@ DISTFILE[1]=		mysql-boost-${PORTVERSION}.tar.gz:main
 SPKGS[standard]=	complete server client
 
 OPTIONS_AVAILABLE=	ARCHIVE BLACKHOLE EXAMPLE FEDERATED INNOBASE PARTITION PERFSCHEMA PERFORMANCE
+			ALTSSL
 OPTIONS_STANDARD=	ARCHIVE BLACKHOLE EXAMPLE FEDERATED INNOBASE PARTITION PERFSCHEMA PERFORMANCE
+			ALTSSL
 OPTGROUP_UNLIMITED=	STORAGE
 OPTDESCR[STORAGE]=	Storage engines statically compiled into server
 OPTGROUP[STORAGE]=	ARCHIVE BLACKHOLE EXAMPLE FEDERATED INNOBASE PARTITION PERFSCHEMA
 OPT_ON[all]=		PERFORMANCE
+OPT_ON[sunos]=		ALTSSL
 
 LICENSE=		GPLv2:server
 LICENSE_FILE=		GPLv2:{{WRKSRC}}/README
@@ -45,8 +48,7 @@ EXRUN[client]=		libedit:single:standard
 # should add execinfo to client list, but USES=execinfo is a no-op
 # on some platforms, so it can't be hardcoded here.
 
-USES=			bison cmake perl:run shebangfix ssl:build
-			execinfo:build
+USES=			bison cmake perl:run shebangfix execinfo
 			c++:server,client cclibs:server,client
 DISTNAME=		mysql-${PORTVERSION}
 SHEBANG_FILES=		scripts/*.pl
@@ -101,6 +103,7 @@ INSTALL_REQ_TOOLCHAIN=	yes
 [PARTITION].DESCRIPTION=		Provide "Partitioning support Storage" engine
 [PERFSCHEMA].DESCRIPTION=		Provide "Performance Schema Storage" engine
 [PERFORMANCE].DESCRIPTION=		Enable "Performance Schema" (High RAM usage)
+[ALTSSL].DESCRIPTION=			Use OpenSSL 1.1 instead of default SSL variant
 
 [ARCHIVE].CMAKE_ARGS_ON=		-DWITH_ARCHIVE_STORAGE_ENGINE=1
 [BLACKHOLE].CMAKE_ARGS_ON=		-DWITH_BLACKHOLE_STORAGE_ENGINE=1
@@ -114,6 +117,9 @@ INSTALL_REQ_TOOLCHAIN=	yes
 [PERFORMANCE].SUB_LIST_OFF=		PERFSCHEMRC="--skip-performance-schema"
 [FEDERATED].SUB_LIST_ON=		FEDER="--federated"
 [FEDERATED].SUB_LIST_OFF=		FEDER=""
+
+[ALTSSL].USES_ON=			ssl:openssl-devel,build
+[ALTSSL].USES_OFF=			ssl:build
 
 post-extract:
 	${RM} -rv ${WRKSRC}/sql/sql_hints.yy.cc ${WRKSRC}/sql/sql_hints.yy.h
