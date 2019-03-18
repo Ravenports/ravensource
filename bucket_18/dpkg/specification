@@ -15,8 +15,13 @@ DISTFILE[1]=		dpkg_${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	single
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	DAEMON
+OPTIONS_STANDARD=	DAEMON
+OPT_ON[dragonfly]=	DAEMON
+OPT_ON[freebsd]=	DAEMON
+OPT_ON[linux]=		DAEMON
+OPT_ON[darwin]=		DAEMON
+# Setting daemon on sunos will result in broken build
 
 LICENSE=		GPLv2+:single
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
@@ -41,6 +46,11 @@ CONFIGURE_ARGS=		--with-admindir=/var/db/dpkg
 			--with-logdir=/var/log
 			--enable-nls
 CONFIGURE_ENV=		PERL_LIBDIR="{{PREFIX}}/{{SITE_PERL_REL}}"
+
+VAR_OPSYS[sunos]=	LDFLAGS=-ltinfow
+
+[DAEMON].DESCRIPTION=			Include start-stop daemon
+[DAEMON].CONFIGURE_ARGS_OFF=		--disable-start-stop-daemon
 
 post-install:
 	(cd ${STAGEDIR}/var/db/dpkg && ${TOUCH} available.sample \
