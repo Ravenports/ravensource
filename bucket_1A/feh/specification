@@ -36,6 +36,8 @@ MAKE_ENV=		exif=1
 			verscmp=0
 			LDFLAGS="{{LDFLAGS}}"
 
+VAR_OPSYS[sunos]=	CFLAGS=-DNAME_MAX=14
+
 post-patch:
 	${REINPLACE_CMD} \
 		-e 's|install-doc||' \
