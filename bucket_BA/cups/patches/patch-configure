@@ -5,7 +5,7 @@
  
  case $host_os_name in
 -        darwin* | *bsd*)
-+        darwin* | *bsd* | dragonfly*)
++        darwin* | *bsd* | dragonfly* | solaris*)
                  ARFLAGS="-rcv"
                  ;;
          *)
@@ -22,7 +22,7 @@
  if test "$localedir" = "\${datarootdir}/locale"; then
  	case "$host_os_name" in
 -		linux* | gnu* | *bsd* | darwin*)
-+		linux* | gnu* | *bsd* | dragonfly*| darwin*)
++		linux* | gnu* | *bsd* | dragonfly*| darwin* | solaris*)
  			CUPS_LOCALEDIR="$datarootdir/locale"
  			;;
  
@@ -31,7 +31,7 @@
  # Server executables...
  case "$host_os_name" in
 -	*bsd* | darwin*)
-+	*bsd* | dragonfly* | darwin*)
++	*bsd* | dragonfly* | darwin* | solaris*)
  		# *BSD and Darwin (macOS)
  		INSTALL_SYSV=""
  		CUPS_SERVERBIN="$exec_prefix/libexec/cups"
@@ -48,11 +48,34 @@
  if test "$mandir" = "\${prefix}/man" -a "$prefix" = "/"; then
  	case "$host_os_name" in
 -        	darwin* | linux* | gnu* | *bsd*)
-+        	darwin* | linux* | gnu* | *bsd* | dragonfly*)
++        	darwin* | linux* | gnu* | *bsd* | dragonfly* | solaris*)
          		# Darwin, macOS, Linux, GNU HURD, and *BSD
          		mandir="/usr/share/man"
          		AMANDIR="/usr/share/man"
-@@ -6628,7 +6631,7 @@ if test x$enable_shared != xno; then
+@@ -6572,22 +6575,6 @@ fi
+ 
+ 
+ case "$host_os_name" in
+-	sunos*)
+-		# Solaris
+-		MAN1EXT=1
+-		MAN5EXT=5
+-		MAN7EXT=7
+-		MAN8EXT=1m
+-		MAN8DIR=1m
+-		;;
+-	linux* | gnu* | darwin*)
+-		# Linux, GNU Hurd, and macOS
+-		MAN1EXT=1.gz
+-		MAN5EXT=5.gz
+-		MAN7EXT=7.gz
+-		MAN8EXT=8.gz
+-		MAN8DIR=8
+-		;;
+ 	*)
+ 		# All others
+ 		MAN1EXT=1
+@@ -6628,7 +6615,7 @@ if test x$enable_shared != xno; then
  			DSOXX="\$(CXX)"
  			DSOFLAGS="$DSOFLAGS -Wl,-h\`basename \$@\` -G \$(OPTIM)"
  			;;
@@ -61,7 +84,7 @@
  			LIBCUPS="lib$cupsbase.so.2"
  			LIBCUPSIMAGE="libcupsimage.so.2"
  			DSO="\$(CC)"
-@@ -6709,12 +6712,11 @@ if test "$DSO" != ":"; then
+@@ -6709,12 +6696,11 @@ if test "$DSO" != ":"; then
  				EXPORT_LDFLAGS="-R$libdir"
  			fi
  			;;
@@ -75,7 +98,34 @@
  			fi
  			;;
                  linux* | gnu*)
-@@ -8733,13 +8735,7 @@ fi
+@@ -6914,13 +6900,13 @@ if test -n "$GCC"; then
+     		OPTIM="-fPIC $OPTIM"
+ 	fi
+ 
+-	# The -fstack-protector option is available with some versions of
++	# The  option is available with some versions of
+ 	# GCC and adds "stack canaries" which detect when the return address
+ 	# has been overwritten, preventing many types of exploit attacks.
+-	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether compiler supports -fstack-protector" >&5
+-$as_echo_n "checking whether compiler supports -fstack-protector... " >&6; }
++	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether compiler supports " >&5
++$as_echo_n "checking whether compiler supports ... " >&6; }
+ 	OLDCFLAGS="$CFLAGS"
+-	CFLAGS="$CFLAGS -fstack-protector"
++	CFLAGS="$CFLAGS "
+ 	cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
+@@ -6937,7 +6923,7 @@ if ac_fn_c_try_link "$LINENO"; then :
+ 			# Can't use stack-protector with LSB binaries...
+ 			OPTIM="$OPTIM -fno-stack-protector"
+ 		else
+-			OPTIM="$OPTIM -fstack-protector"
++			OPTIM="$OPTIM "
+ 		fi
+ 		{ $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+ $as_echo "yes" >&6; }
+@@ -8733,13 +8719,7 @@ fi
  			PAMLIBS="-lpam"
  		fi
  
@@ -86,7 +136,7 @@
 -				break;
 -			fi
 -		done
-+		PAMDIR=/usr/local/etc/pam.d
++		PAMDIR=/raven/etc/pam.d
  	fi
  
  	LIBS="$SAVELIBS"
