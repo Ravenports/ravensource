@@ -25,7 +25,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libuv
 
-USES=			autoreconf libtool pkgconfig
+USES=			autoreconf libtool pkgconfig solaris-funcs
+SOL_FUNCTIONS=		mkdtemp:src/unix/fs.c
+			strnlen:src/unix/getaddrinfo.c
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
