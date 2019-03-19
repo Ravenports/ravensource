@@ -37,7 +37,10 @@ BUILDRUN_DEPENDS=	tar:single:standard
 			patch:single:standard
 
 USES=			cpe gmake iconv libtool ncurses perl pkgconfig
-			gettext-runtime
+			gettext-runtime solaris-funcs
+SOL_FUNCTIONS=		mkdtemp:dpkg-deb/info.c
+			mkdtemp:src/unpack.c
+			dirfd:lib/dpkg/dir.c
 CPE_VENDOR=		debian
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-admindir=/var/db/dpkg
