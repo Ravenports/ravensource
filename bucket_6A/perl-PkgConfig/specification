@@ -37,4 +37,10 @@ DISTNAME=		PkgConfig-0.23026
 [PERL_528].USES_ON=			perl:528,configure
 [PERL_526].USES_ON=			perl:526,configure
 
+post-patch:
+	${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|' \
+		-e 's|.ENV{PKG_CONFIG_NO_OS_CUSTOMIZATION}|1|' \
+		${WRKSRC}/lib/PkgConfig.pm \
+		${WRKSRC}/script/pkg-config \
+		${WRKSRC}/script/ppkg-config
 

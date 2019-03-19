@@ -1,0 +1,6 @@
+post-patch:
+	${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|' \
+		-e 's|.ENV{PKG_CONFIG_NO_OS_CUSTOMIZATION}|1|' \
+		${WRKSRC}/lib/PkgConfig.pm \
+		${WRKSRC}/script/pkg-config \
+		${WRKSRC}/script/ppkg-config
