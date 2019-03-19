@@ -86,6 +86,9 @@ post-patch:
 		${WRKSRC}/cpan/Encode/bin/enc2xs
 
 post-patch-sunos:
+	${SED} -i.sunos \
+		-e 's| -fstack-protector-strong||' \
+		-e 's| -fstack-protector||' ${WRKSRC}/Configure
 	${REINPLACE_CMD} -e '/^libs = / s/= /= -lm /' \
 		${WRKSRC}/Makefile.SH
 
