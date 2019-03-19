@@ -28,9 +28,14 @@ BUILD_DEPENDS=		flex:primary:standard
 USES=			gmake
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-dbus=no
-			--with-pcap=bpf
 CONFIGURE_ENV=		LEX={{LOCALBASE}}/bin/flex
 CFLAGS=			-fPIC
 INSTALL_REQ_TOOLCHAIN=	yes
+
+VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-pcap=bpf
+VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--with-pcap=bpf
+VAR_OPSYS[linux]=	CONFIGURE_ARGS=--with-pcap=bpf
+VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--with-pcap=dlpi
+			CONFIGURE_ENV=ac_cv_func_getifaddrs=no
 
 SOVERSION=		${PORTVERSION}
