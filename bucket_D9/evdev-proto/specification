@@ -32,7 +32,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/evdev-proto
 
-NOT_FOR_OPSYS=		sunos darwin
+NOT_FOR_OPSYS=		darwin
 SKIP_BUILD=		yes
 
 
@@ -85,3 +85,11 @@ do-install-dragonfly:
 
 do-install-linux:
 	${INSTALL_DATA} ${WRKSRC}/*.h ${STAGEDIR}${PREFIX}/include/linux/
+
+do-install-sunos:
+	${INSTALL_DATA} ${WRKDIR}/.headers/input.h.freebsd \
+		${STAGEDIR}${PREFIX}/include/linux/input.h
+	${INSTALL_DATA} ${WRKDIR}/.headers/uinput.h.freebsd \
+		${STAGEDIR}${PREFIX}/include/linux/uinput.h
+	${INSTALL_DATA} ${WRKSRC}/input-event-codes.h \
+		${STAGEDIR}${PREFIX}/include/linux/
