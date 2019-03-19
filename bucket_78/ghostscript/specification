@@ -79,6 +79,8 @@ DISTNAME=		ghostscript-${PORTVERSION}
 PATCHFILES=		2
 PATCHFILES_STRIP=	-p1
 
+VAR_OPSYS[sunos]=	CFLAGS=-D_XPG6
+
 post-patch:
 	${RM} -r ${WRKSRC}/freetype \
 		${WRKSRC}/ijs \
