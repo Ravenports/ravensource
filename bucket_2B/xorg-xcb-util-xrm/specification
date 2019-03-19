@@ -25,8 +25,11 @@ LICENSE=		MIT:single
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-USES=			libtool gmake pkgconfig
+USES=			libtool gmake pkgconfig solaris-funcs
 XORG_COMPONENTS=	x11 xcb xcb-util
+SOL_FUNCTIONS=		asprintf:src/entry.c
+			asprintf:src/database.c
+			asprintf:src/util.c
 DISTNAME=		${ALTNAME}-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--without-doxygen
