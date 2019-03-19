@@ -32,4 +32,8 @@ DISTNAME=		Algorithm-Cluster-1.57
 [PERL_528].USES_ON=			perl:528,configure
 [PERL_526].USES_ON=			perl:526,configure
 
+post-patch:
+	${REINPLACE_CMD} -e 's|.machine =~ \/64\/|1|' \
+		${WRKSRC}/src/Makefile.PL
+
 
