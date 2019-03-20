@@ -1,4 +1,4 @@
---- src/term.c.orig	2018-01-05 14:57:48 UTC
+--- src/term.c.orig	2019-03-17 22:19:36 UTC
 +++ src/term.c
 @@ -28,6 +28,10 @@
  #include <sys/select.h>
