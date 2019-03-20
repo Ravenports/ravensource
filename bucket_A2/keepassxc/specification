@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.3.4
+DEF[PORTVERSION]=	2.4.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		keepassxc
@@ -48,9 +48,14 @@ USES=			cmake pkgconfig qt5 desktop-utils:single
 BUILDRUN_DEPENDS=	argon2:single:standard
 			qt5-qtbase:single:standard
 			qt5-qttools:single:standard
+			qt5-qtsvg:single:standard
+			qt5-qtx11extras:single:standard
+			qrencode:single:standard
 
 post-patch:
-	${REINPLACE_CMD} -e "s|__PREFIX__|${PREFIX}|" ${WRKSRC}/CMakeLists.txt
+	${REINPLACE_CMD} -e "s|__PREFIX__|${PREFIX}|" \
+		${WRKSRC}/CMakeLists.txt \
+		${WRKSRC}/src/autotype/CMakeLists.txt
 
 do-install:
 	(cd ${WRKDIR}/.build ; \
@@ -59,3 +64,4 @@ do-install:
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/keepassxc
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/keepassxc-cli
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/keepassxc/libkeepassx-autotype-xcb.so

@@ -1,13 +1,11 @@
---- CMakeLists.txt.orig	2018-04-21 22:33:05.195861000 +0200
-+++ CMakeLists.txt	2018-04-21 22:34:46.736241000 +0200
-@@ -288,7 +288,9 @@
- endif(WITH_TESTS)
+--- CMakeLists.txt.orig	2019-03-19 22:59:14 UTC
++++ CMakeLists.txt
+@@ -327,7 +327,7 @@ include(CLangFormat)
  
+ set(QT_COMPONENTS Core Network Concurrent Gui Svg Widgets Test LinguistTools)
  if(UNIX AND NOT APPLE)
--  find_package(Qt5 COMPONENTS Core Network Concurrent Widgets Test LinguistTools DBus REQUIRED)
-+  find_package(Qt5 COMPONENTS Core Network Concurrent Widgets Test LinguistTools DBus REQUIRED
-+    HINTS /__PREFIX__/lib/qt5/cmake ENV PATH
-+  )
+-    find_package(Qt5 COMPONENTS ${QT_COMPONENTS} DBus REQUIRED)
++    find_package(Qt5 COMPONENTS ${QT_COMPONENTS} DBus REQUIRED HINTS /__PREFIX__/lib/qt5/cmake ENV PATH)
  elseif(APPLE)
-   find_package(Qt5 COMPONENTS Core Network Concurrent Widgets Test LinguistTools REQUIRED
-     HINTS /usr/local/Cellar/qt/*/lib/cmake ENV PATH
+     find_package(Qt5 COMPONENTS ${QT_COMPONENTS} REQUIRED HINTS /usr/local/opt/qt/lib/cmake /usr/local/Cellar/qt/*/lib/cmake ENV PATH)
+     find_package(Qt5 COMPONENTS MacExtras HINTS /usr/local/opt/qt/lib/cmake /usr/local/Cellar/qt/*/lib/cmake ENV PATH)
