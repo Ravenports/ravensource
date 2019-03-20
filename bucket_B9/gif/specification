@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.1.7
+DEF[PORTVERSION]=	5.1.8
 DEF[SOVERSION]=		7.1.0
 # ----------------------------------------------------------------------------
 
@@ -31,11 +31,4 @@ BUILD_DEPENDS=		tar:single:standard
 DISTNAME=		giflib-${PORTVERSION}
 SINGLE_JOB=		yes
 MAKE_ARGS=		PREFIX={{PREFIX}}
-			MANDIR={{MANPREFIX}}/man/man1
 SOVERSION=		${SOVERSION}
-
-EXTRACT_HEAD[1]=	{{LOCALBASE}}/bin/gtar -xf
-EXTRACT_TAIL[1]=	--no-same-owner --no-same-permissions
-
-post-install:
-	${INSTALL_MAN} ${WRKSRC}/doc/*.1 ${STAGEDIR}${MANPREFIX}/man/man1/
