@@ -65,6 +65,31 @@ Also if you are using ``CORS_REPLACE_HTTPS_REFERER`` it should be placed
 before
 Django's ``CsrfViewMiddleware`` (see more below).
 
+About
+-----
+
+**django-cors-headers** was created in January 2013 by Otto Yiu. It went
+unmaintained from August 2015 and was forked in January 2016 to the package
+`django-cors-middleware
+<https://github.com/zestedesavoir/django-cors-middleware>`_
+by Laville Augustin at Zeste de Savoir.
+In September 2016, Adam Johnson, Ed Morley, and others gained maintenance
+responsibility for **django-cors-headers**
+(`Issue 110 <https://github.com/ottoyiu/django-cors-headers/issues/110>`_)
+from
+Otto Yiu.
+Basically all of the changes in the forked **django-cors-middleware** were
+merged back, or re-implemented in a different way, so it should be
+possible to
+switch back. If there's a feature that hasn't been merged, please open an
+issue
+about it.
+
+**django-cors-headers** has had `40+
+contributors
+<https://github.com/ottoyiu/django-cors-headers/graphs/contributors>`_
+in its time; thanks to every one of them.
+
 Configuration
 -------------
 
@@ -87,25 +112,3 @@ A list of origin hostnames that are authorized to make cross-site HTTP
 requests. The value ``'null'`` can also appear in this list, and will
 match the
 ``Origin: null`` header that is used in `"privacy-sensitive contexts"
-<https://tools.ietf.org/html/rfc6454#section-6>`_, such as when the client
-is
-running from a ``file://`` domain. Defaults to ``[]``.
-
-Example:
-
-.. code-block:: python
-
-    CORS_ORIGIN_WHITELIST = (
-        'google.com',
-        'hostname.example.com',
-        'localhost:8000',
-        '127.0.0.1:9000'
-    )
-
-
-``CORS_ORIGIN_REGEX_WHITELIST``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-A list of regexes that match origin regex list of origin hostnames that are
-authorized to make cross-site HTTP requests. Defaults to ``[]``. Useful
-when
