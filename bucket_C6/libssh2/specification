@@ -1,6 +1,5 @@
-DEF[PORTVERSION]=	1.8.0
+DEF[PORTVERSION]=	1.8.1
 DEF[SOVERSION]=		1.0.1
-DEF[SOMAJOR]=		${SOVERSION:R:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libssh2
@@ -33,8 +32,7 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-openssl
 			--with-libz
 INSTALL_TARGET=		install-strip
-PLIST_SUB=		SOVERSION=${SOVERSION}
-			SOMAJOR=${SOMAJOR}
+SOVERSION=		${SOVERSION}
 
 post-patch:
 	${REINPLACE_CMD} -e '/Libs:/s/@LIBS@//' \
