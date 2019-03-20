@@ -331,6 +331,7 @@ headers_Darwin_dirs=	#end
 headers_Darwin=		#end
 
 headers_FreeBSD_dirs=	arpa \
+			crypto \
 			dev \
 			geom \
 			machine \
@@ -350,6 +351,7 @@ headers_FreeBSD_dirs=	arpa \
 headers_DragonFly_dirs=	arpa \
 			bus \
 			cpu \
+			crypto \
 			dev \
 			libprop \
 			machine \
