@@ -50,6 +50,9 @@ CMAKE_BUILD_TYPE=	Release
 BUILDRUN_DEPENDS=	sndio:single:standard
 SOVERSION=		${SOVERSION}
 
+VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
+			LDFLAGS=-lrt
+
 post-patch:
 	${REINPLACE_CMD} 's|/etc/openal|${PREFIX}/etc/openal|' \
 		${WRKSRC}/Alc/alconfig.c

@@ -1,0 +1,11 @@
+--- CMakeLists.txt.orig	2018-10-11 22:05:31 UTC
++++ CMakeLists.txt
+@@ -634,7 +634,7 @@ IF(NOT HAVE_WINDOWS_H)
+ 
+     CHECK_SYMBOL_EXISTS(nanosleep time.h HAVE_NANOSLEEP)
+     IF(NOT HAVE_NANOSLEEP)
+-        MESSAGE(FATAL_ERROR "No sleep function found!")
++        SET(EXTRA_LIBS rt ${EXTRA_LIBS})
+     ENDIF()
+ 
+     # We need pthreads outside of Windows
