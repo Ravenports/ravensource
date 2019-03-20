@@ -40,7 +40,6 @@ FPC_EQUIVALENT=		graphics/mesa-libs
 
 BUILD_DEPENDS=		libpthread-stubs:single:standard
 			libclc:single:standard
-			llvm:single:standard
 			clang:compiler:standard
 			zlib:static:standard
 			libelf:single:standard
@@ -67,9 +66,10 @@ EXRUN[osmesa]=		llvm:single:standard
 B_DEPS[sunos]=		libbsd4sol:single:standard
 
 USES=			bison gettext-tools gmake libtool pkgconfig
-			python:py27,build shebangfix
+			python:py27,build shebangfix solaris-funcs
 			c++:clover,drivers,osmesa
 XORG_COMPONENTS=	x11 xcb xdamage xext xfixes xshmfence xxf86vm xv xvmc xrandr
+SOL_FUNCTIONS=		dirfd:src/util/disk_cache.c
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-llvm
 			--enable-texture-float

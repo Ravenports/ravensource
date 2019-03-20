@@ -11,15 +11,3 @@
  /* Number of bits to mask off from a cache key to get an index. */
  #define CACHE_INDEX_KEY_BITS 16
  
-@@ -514,7 +518,11 @@ choose_lru_file_matching(const char *dir
-          break;
- 
-       struct stat sb;
-+#ifdef __sun__
-+      if (fstatat(dir->dd_fd, entry->d_name, &sb, 0) == 0) {
-+#else
-       if (fstatat(dirfd(dir), entry->d_name, &sb, 0) == 0) {
-+#endif
-          if (!lru_atime || (sb.st_atime < lru_atime)) {
-             size_t len = strlen(entry->d_name);
- 
