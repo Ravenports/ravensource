@@ -1,6 +1,6 @@
 - Implement futex_wake() and futex_wait() via _umtx_op()
 
---- src/util/futex.h.orig	2019-02-18 18:28:16 UTC
+--- src/util/futex.h.orig	2019-03-18 15:52:18 UTC
 +++ src/util/futex.h
 @@ -29,10 +29,35 @@
  #include <limits.h>
