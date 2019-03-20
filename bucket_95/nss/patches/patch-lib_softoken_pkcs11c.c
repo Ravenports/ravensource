@@ -1,6 +1,6 @@
---- lib/softoken/pkcs11c.c.orig	2019-01-25 23:52:51 UTC
+--- lib/softoken/pkcs11c.c.orig	2019-03-16 00:25:08 UTC
 +++ lib/softoken/pkcs11c.c
-@@ -5772,9 +5772,6 @@ sftk_unwrapPrivateKey(SFTKObject *key, S
+@@ -5773,9 +5773,6 @@ sftk_unwrapPrivateKey(SFTKObject *key, S
              break;
          case NSSLOWKEYDSAKey:
              keyType = CKK_DSA;
@@ -10,7 +10,7 @@
              crv = sftk_AddAttributeType(key, CKA_KEY_TYPE, &keyType,
                                          sizeof(keyType));
              if (crv != CKR_OK)
-@@ -5814,9 +5811,6 @@ sftk_unwrapPrivateKey(SFTKObject *key, S
+@@ -5815,9 +5812,6 @@ sftk_unwrapPrivateKey(SFTKObject *key, S
          /* what about fortezza??? */
          case NSSLOWKEYECKey:
              keyType = CKK_EC;
