@@ -1,6 +1,6 @@
-DEF[PORTVERSION]=	5.2.0
-DEF[SOVERSION]=		13.1.1
-DEF[DATUMGRID_VER]=	1.7
+DEF[PORTVERSION]=	6.0.0
+DEF[SOVERSION]=		15.0.0
+DEF[DATUMGRID_VER]=	1.8
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		proj
@@ -28,11 +28,16 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/proj
 
-USES=			gmake libtool
-MUST_CONFIGURE=		gnu
-INSTALL_TARGET=		install-strip
+USES=			cmake pkgconfig sqlite c++:single
 EXTRACT_DIRTY=		2
 SOVERSION=		${SOVERSION}
 
 post-extract:
-	${MV} ${WRKDIR}/proj_2/* ${WRKSRC}/nad/
+	${MV} ${WRKDIR}/proj_2/README.* ${WRKDIR}/
+
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/proj
+	(cd ${WRKDIR}/proj_2 && \
+	${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/share/proj)
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libproj.so
