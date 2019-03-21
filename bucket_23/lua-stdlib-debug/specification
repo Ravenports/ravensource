@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	1.0.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		lua-stdlib-debug
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		lua52 lua53
+SDESC[lua52]=		Debug hints management library for Lua 5.2
+SDESC[lua53]=		Debug hints management library for Lua 5.3
+HOMEPAGE=		https://github.com/lua-stdlib/_debug
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/lua-stdlib:_debug:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[lua52]=		single
+SPKGS[lua53]=		single
+
+OPTIONS_AVAILABLE=	LUA52 LUA53
+OPTIONS_STANDARD=	none
+VOPTS[lua52]=		LUA52=ON LUA53=OFF
+VOPTS[lua53]=		LUA52=OFF LUA53=ON
+
+FPC_EQUIVALENT=		devel/lua-stdlib-debug
+
+SKIP_BUILD=		yes
+
+[LUA52].DESCRIPTION=			Build with Lua 5.2
+[LUA52].USES_ON=			lua:5.2
+
+[LUA53].DESCRIPTION=			Build with Lua 5.3
+[LUA53].USES_ON=			lua:5.3
+
+do-install:
+	${MKDIR} -p ${STAGEDIR}${LUA_MODSHAREDIR}/std/_debug
+	${INSTALL_DATA} ${WRKSRC}/lib/std/_debug/init.lua ${STAGEDIR}${LUA_MODSHAREDIR}/std/_debug
+	${INSTALL_DATA} ${WRKSRC}/lib/std/_debug/version.lua ${STAGEDIR}${LUA_MODSHAREDIR}/std/_debug
