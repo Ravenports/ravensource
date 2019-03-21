@@ -36,7 +36,7 @@ LICENSE_SCHEME=		solo
 
 BUILDRUN_DEPENDS=	llvm:single:standard
 
-USES=			cmake ncurses zlib execinfo
+USES=			cmake ninja ncurses zlib execinfo
 			shebangfix python:build
 			c++:compiler,extra
 
@@ -50,8 +50,10 @@ SHEBANG_FILES=		utils/hmaptool/hmaptool
 			tools/extra/clang-tidy/tool/clang-tidy-diff.py
 			tools/extra/clang-tidy/tool/run-clang-tidy.py
 			tools/extra/include-fixer/find-all-symbols/tool/run-find-all-symbols.py
-CMAKE_ARGS=		-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
+CMAKE_ARGS=		-DCMAKE_BUILD_TYPE=Release
+			-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
 			-DLLVM_PARALLEL_LINK_JOBS=1
+			-DLLVM_PARALLEL_COMPILE_JOBS={{MAKE_JOBS_NUMBER}}
 			-DLLVM_INCLUDE_TESTS:BOOL=OFF
 			-DLLVM_BUILD_32_BITS:BOOL=OFF
 			-DGCC_INSTALL_PREFIX={{LOCALBASE}}/toolchain/${TOOLCHAIN_GCC}
