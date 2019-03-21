@@ -11,6 +11,7 @@
  *   LINKER      bfd         ld         $BIN_PREFIX/bin/ld.bfd
  *   LINKER      gold        ld         $BIN_PREFIX/bin/ld.gold
  *   LINKER      sun         ld         $BIN_PREFIX/bin/ld.sun
+ *   LINKER      lld         ld         $BIN_PREFIX/bin/ld.lld
  *   LINKER      all else    ld         $BIN_PREFIX/bin/ld.sun
  *
  *   BIN_PREFIX = "/raven/toolchain" unless SWITCH_PREFIX is
@@ -26,6 +27,7 @@
 #define LINKER_BFD     "ld.bfd"
 #define LINKER_GOLD    "ld.gold"
 #define LINKER_SUN     "ld.sun"
+#define LINKER_LLD     "ld.lld"
 
 #undef NELEM
 #undef BIN_PREFIX_DEFAULT
@@ -54,6 +56,7 @@ main(int argc, char **argv)
 	char ld_bfd[] = LINKER_BFD;
 	char ld_gld[] = LINKER_GOLD;
 	char ld_sun[] = LINKER_SUN;
+	char ld_lld[] = LINKER_LLD;
 	char *cmd;
 	char *ldcmd = ld_sun;
 	char *newargv[argc];
@@ -96,6 +99,8 @@ main(int argc, char **argv)
 					ldcmd = ld_gld;
 				else if (strcmp(ldver, "bfd") == 0)
 					ldcmd = ld_bfd;
+				else if (strcmp(ldver, "lld") == 0)
+					ldcmd = ld_lld;
 			}
 			cmd = ldcmd;
 			break;
