@@ -1,4 +1,4 @@
---- tests/test-compositor.c.orig	2018-08-24 18:04:36 UTC
+--- tests/test-compositor.c.orig	2019-03-21 00:55:25 UTC
 +++ tests/test-compositor.c
 @@ -97,12 +97,33 @@ handle_client_destroy(void *data)
  {

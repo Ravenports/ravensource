@@ -1,4 +1,4 @@
---- cursor/wayland-cursor.c.orig	2018-08-24 18:04:36 UTC
+--- cursor/wayland-cursor.c.orig	2019-03-21 00:55:25 UTC
 +++ cursor/wayland-cursor.c
 @@ -98,7 +98,11 @@ shm_pool_resize(struct shm_pool *pool, i
  

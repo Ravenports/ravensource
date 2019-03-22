@@ -1,4 +1,4 @@
---- src/wayland-server.c.orig	2018-08-24 18:04:36 UTC
+--- src/wayland-server.c.orig	2019-03-21 00:55:25 UTC
 +++ src/wayland-server.c
 @@ -43,6 +43,13 @@
  #include <sys/file.h>
@@ -26,7 +26,7 @@
  	int error;
  	struct wl_priv_signal resource_created_signal;
  };
-@@ -303,7 +314,11 @@ wl_resource_post_error(struct wl_resourc
+@@ -312,7 +323,11 @@ wl_resource_post_error(struct wl_resourc
  static void
  destroy_client_with_error(struct wl_client *client, const char *reason)
  {
@@ -38,7 +38,7 @@
  	wl_client_destroy(client);
  }
  
-@@ -502,7 +517,9 @@ WL_EXPORT struct wl_client *
+@@ -511,7 +526,9 @@ WL_EXPORT struct wl_client *
  wl_client_create(struct wl_display *display, int fd)
  {
  	struct wl_client *client;
@@ -48,7 +48,7 @@
  
  	client = zalloc(sizeof *client);
  	if (client == NULL)
-@@ -517,10 +534,12 @@ wl_client_create(struct wl_display *disp
+@@ -526,10 +543,12 @@ wl_client_create(struct wl_display *disp
  	if (!client->source)
  		goto err_client;
  
@@ -61,7 +61,7 @@
  
  	client->connection = wl_connection_create(fd);
  	if (client->connection == NULL)
-@@ -574,12 +593,21 @@ WL_EXPORT void
+@@ -583,12 +602,21 @@ WL_EXPORT void
  wl_client_get_credentials(struct wl_client *client,
  			  pid_t *pid, uid_t *uid, gid_t *gid)
  {
@@ -83,7 +83,7 @@
  }
  
  /** Get the file descriptor for the client
-@@ -1329,7 +1357,7 @@ socket_data(int fd, uint32_t mask, void
+@@ -1362,7 +1390,7 @@ socket_data(int fd, uint32_t mask, void
  	client_fd = wl_os_accept_cloexec(fd, (struct sockaddr *) &name,
  					 &length);
  	if (client_fd < 0)
@@ -92,7 +92,7 @@
  	else
  		if (!wl_client_create(display, client_fd))
  			close(client_fd);
-@@ -1434,12 +1462,12 @@ _wl_display_add_socket(struct wl_display
+@@ -1467,12 +1495,12 @@ _wl_display_add_socket(struct wl_display
  
  	size = offsetof (struct sockaddr_un, sun_path) + strlen(s->addr.sun_path);
  	if (bind(s->fd, (struct sockaddr *) &s->addr, size) < 0) {

@@ -1,4 +1,4 @@
---- src/wayland-shm.c.orig	2018-08-24 18:04:36 UTC
+--- src/wayland-shm.c.orig	2019-03-21 00:55:25 UTC
 +++ src/wayland-shm.c
 @@ -30,6 +30,10 @@
  

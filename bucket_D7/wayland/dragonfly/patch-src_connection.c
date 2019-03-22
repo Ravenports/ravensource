@@ -1,4 +1,4 @@
---- src/connection.c.orig	2018-08-24 18:04:36 UTC
+--- src/connection.c.orig	2019-03-21 00:55:25 UTC
 +++ src/connection.c
 @@ -38,6 +38,7 @@
  #include <sys/types.h>
