@@ -3,18 +3,31 @@ DEF[GCC_VERSION]=	EXTRACT_INFO(GCC8_VERSION)
 DEF[GCC_BRANCH]=	EXTRACT_INFO(GCC8_BRANCH)
 DEF[BUVER]=		EXTRACT_INFO(BINUTILS_VERSION)
 DEF[GCCX]=		gcc${GCC_BRANCH}
+DEF[INDICES]=		1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravensys-toolchain
 VERSION=		3.0
-REVISION=		1
+REVISION=		2
 KEYWORDS=		raven
 VARIANTS=		standard
 SDESC[standard]=	Compiler and binutils toolchain for Ravenports
 HOMEPAGE=		none
 CONTACT=		John_Marino[draco@marino.st]
 
-DOWNLOAD_GROUPS=	none
+# lld takes an absurd amount of time to combine on solaris (over 6 hours
+# combined with llvm) and it will have to be rebuild constantly if
+# the toolchain package pulls it in as a metapackage.  Make an exception
+# and prebuild as-static-as-possible versions of lld and install them
+# as binary blobs (used for gcc8:lld port)
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://leaf.dragonflybsd.org/~marino/dports-src/lld/
+DISTFILE[1]=		lld-single-standard-7.0.1.sunos.tar.zst:main
+# DISTFILE[2]=		lld-single-standard-7.0.1.dragonfly.tar.zst:main
+# DISTFILE[3]=		lld-single-standard-7.0.1.freebsd_amd64.tar.zst:main
+# DISTFILE[4]=		lld-single-standard-7.0.1.linux.tar.zst:main
+DF_INDEX=		${INDICES}
 
 SPKGS[standard]=	single
 
@@ -39,8 +52,9 @@ MAKE_ENV=		COMPVER=${COMPILER_VER}
 			OPSYS={{OPSYS}}
 			BUVER=${BUVER}
 			GCCX=${GCCX}
+EXTRACT_DIRTY=		${INDICES}
 
-do-extract:
+post-extract:
 	${MKDIR} ${WRKSRC}
 	${CP} ${FILESDIR}/Makefile ${WRKSRC}/
 
