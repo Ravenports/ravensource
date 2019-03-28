@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.3.0
+DEF[PORTVERSION]=	3.4.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		vimb
@@ -31,6 +31,10 @@ USES=			desktop-utils:single gmake pkgconfig
 BUILDRUN_DEPENDS=	webkit2:single:gtk3
 CFLAGS=			-D_BSD_SOURCE
 MAKE_ENV=		V=1
+
+post-extract:
+	${MKDIR} ${WRKSRC}/.git
+	${TOUCH} ${WRKSRC}/.git/index
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/vimb
