@@ -1,4 +1,4 @@
---- m4/ax_pthread.m4.orig	2018-12-04 23:52:48 UTC
+--- m4/ax_pthread.m4.orig	2019-03-26 16:30:12 UTC
 +++ m4/ax_pthread.m4
 @@ -212,7 +212,7 @@ case $host_os in
  	ax_pthread_check_macro="_REENTRANT"
