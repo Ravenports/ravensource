@@ -1,4 +1,4 @@
---- scheduler/client.c.orig	2018-12-07 19:41:56 UTC
+--- scheduler/client.c.orig	2019-03-22 19:51:36 UTC
 +++ scheduler/client.c
 @@ -3816,8 +3816,8 @@ pipe_command(cupsd_client_t *con,	/* I -
    * Then execute the command...
