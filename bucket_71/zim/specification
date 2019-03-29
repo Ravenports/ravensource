@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.69.1
+DEF[PORTVERSION]=	0.70
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		zim
@@ -27,20 +27,21 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		deskutils/zim
 
-BUILDRUN_DEPENDS=	python-sqlite3:single:py27
-RUN_DEPENDS=		python-pyxdg:single:py27
-			xdg-utils:single:standard
+BUILDRUN_DEPENDS=	python-sqlite3:single:python_used
+			python-pygobject:primary:python_used
+			python-pyxdg:single:python_used
+RUN_DEPENDS=		xdg-utils:single:standard
 
-USES=			gettext-runtime python:py27
+USES=			gettext-runtime python
 			desktop-utils:single
 			gnome-icons:single
 			mime-info:single
-GNOME_COMPONENTS=	pygtk2
+GNOME_COMPONENTS=	gtk3
 
 post-patch:
 	${REINPLACE_CMD} -e \
-		'/.command.install /s|distutils|setuptools| ; \
-		 /.skip_xdg_cmd = /s|0|1|' ${WRKSRC}/setup.py
+		'/.command.install /s|distutils|setuptools|' \
+		${WRKSRC}/setup.py
 	${REINPLACE_CMD} -e "s|/usr/local|${LOCALBASE}|" \
 		${WRKSRC}/zim/config/basedirs.py \
 		${WRKSRC}/tests/config.py
