@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	1.20
-DEF[SOVERSION]=		${PORTVERSION}
+DEF[PORTVERSION]=	1.21
+DEF[SOVERSION]=		${PORTVERSION}.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		leveldb
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/google/leveldb
 CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/google:leveldb:v${PORTVERSION}
+SITES[main]=		GITHUB/google:leveldb:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
@@ -25,19 +25,11 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		databases/leveldb
 
-USES=			c++:single cclibs:single gmake
+USES=			c++:single cclibs:single cmake
 BUILDRUN_DEPENDS=	snappy:single:standard
+			sqlite:single:standard
+CMAKE_ARGS=		-DCMAKE_BUILD_TYPE=Release
+			-DBUILD_SHARED_LIBS=ON
+			-DLEVELDB_BUILD_BENCHMARKS=ON
+			-DLEVELDB_BUILD_TESTS=ON
 SOVERSION=		${SOVERSION}
-
-do-install:
-	${INSTALL_PROGRAM} ${WRKSRC}/out-static/leveldbutil \
-		${STAGEDIR}${PREFIX}/bin
-	${INSTALL_PROGRAM} ${WRKSRC}/out-static/db_bench \
-		${STAGEDIR}${PREFIX}/bin
-	${MKDIR} ${STAGEDIR}${PREFIX}/include/leveldb
-	${INSTALL_DATA} ${WRKSRC}/include/leveldb/* \
-		${STAGEDIR}${PREFIX}/include/leveldb
-	${INSTALL_LIB} ${WRKSRC}/out-shared/libleveldb.so* \
-		${STAGEDIR}${PREFIX}/lib/
-	${INSTALL_DATA} ${WRKSRC}/out-static/libleveldb.a \
-		${STAGEDIR}${PREFIX}/lib/
