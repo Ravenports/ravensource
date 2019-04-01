@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	1.0.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-sphinxcontrib-jsmath
+VERSION=		${PORTVERSION}
+KEYWORDS=		python devel textproc
+VARIANTS=		py27 py36 py37
+SDESC[py27]=		Sphinx extension: Math via javascript (PY 27)
+SDESC[py36]=		Sphinx extension: Math via javascript (PY 36)
+SDESC[py37]=		Sphinx extension: Math via javascript (PY 37)
+HOMEPAGE=		http://sphinx-doc.org/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/s/sphinxcontrib-jsmath
+DISTFILE[1]=		sphinxcontrib-jsmath-1.0.1.tar.gz:main
+
+SPKGS[py27]=		single
+SPKGS[py36]=		single
+SPKGS[py37]=		single
+
+OPTIONS_AVAILABLE=	PY27 PY36 PY37
+OPTIONS_STANDARD=	none
+VOPTS[py27]=		PY27=ON PY36=OFF PY37=OFF
+VOPTS[py36]=		PY27=OFF PY36=ON PY37=OFF
+VOPTS[py37]=		PY27=OFF PY36=OFF PY37=ON
+
+# Output of setup.py --license
+# BSD
+
+GENERATED=		yes
+
+# install_requires extracted from setup.py (using python 2.7)
+
+DISTNAME=		sphinxcontrib-jsmath-${PORTVERSION}
+
+[PY27].USES_ON=				python:py27
+
+[PY36].USES_ON=				python:py36
+
+[PY37].USES_ON=				python:py37
+
