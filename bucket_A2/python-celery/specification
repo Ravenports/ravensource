@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.2.2
+DEF[PORTVERSION]=	4.3.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-celery
@@ -13,7 +13,7 @@ CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/c/celery
-DISTFILE[1]=		celery-4.2.2.tar.gz:main
+DISTFILE[1]=		celery-4.3.0.tar.gz:main
 
 SPKGS[py27]=		single
 SPKGS[py36]=		single
@@ -32,8 +32,9 @@ GENERATED=		yes
 
 # install_requires extracted from setup.py (using python 2.7)
 # pytz>dev
-# billiard>=3.5.0.2,<3.6.0
-# kombu>=4.2.0,<4.4
+# billiard>=3.6.0,<4.0
+# kombu>=4.4.0,<5.0
+# vine>=1.3.0
 
 DISTNAME=		celery-${PORTVERSION}
 
@@ -41,14 +42,17 @@ DISTNAME=		celery-${PORTVERSION}
 [PY27].BUILDRUN_DEPENDS_ON=		python-pytz:single:py27
 					python-billiard:single:py27
 					python-kombu:single:py27
+					python-vine:single:py27
 
 [PY36].USES_ON=				python:py36
 [PY36].BUILDRUN_DEPENDS_ON=		python-pytz:single:py36
 					python-billiard:single:py36
 					python-kombu:single:py36
+					python-vine:single:py36
 
 [PY37].USES_ON=				python:py37
 [PY37].BUILDRUN_DEPENDS_ON=		python-pytz:single:py37
 					python-billiard:single:py37
 					python-kombu:single:py37
+					python-vine:single:py37
 
