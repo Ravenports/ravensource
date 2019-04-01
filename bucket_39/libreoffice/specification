@@ -2,6 +2,8 @@ DEF[PORTVERSION]=	6.2.0.3
 DEF[CXXWARN]=		-Wno-deprecated-declarations -Wno-undef Wno-unused-parameter -Wno-unused-function -Wno-unused-local-typedefs -Wno-unused-variable -Wno-ignored-qualifiers -Woverloaded-virtual
 DEF[PROGRAM_BINARIES]=	oosplash regmerge regview ui-previewer uri-encode xpdfimport
 DEF[OPENSTTF]=		49a64f3bcf20a7909ba2751349231d6652ded9cd2840e961b5164d09de3ffa63-opens___.ttf
+# TODO - DF_INDEX for libreoffice-help missing.
+# Help hasn't be implemented?  investigate
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libreoffice
@@ -19,6 +21,7 @@ SITES[opens]=		https://dev-www.libreoffice.org/extern/
 DISTFILE[1]=		libreoffice-${PORTVERSION}.tar.xz:main
 DISTFILE[2]=		libreoffice-help-${PORTVERSION}.tar.xz:main
 DISTFILE[3]=		${OPENSTTF}:opens
+DF_INDEX=		1 3
 
 SPKGS[standard]=	complete primary docs
 
@@ -97,6 +100,7 @@ USES=			autoreconf:build perl:build gmake jpeg pkgconfig
 XORG_COMPONENTS=	xaw xrandr
 GNOME_COMPONENTS=	gtk3
 SHEBANG_GLOB=		*.py
+EXTRACT_ONLY=		1
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-gtk3
 			--enable-gstreamer-1-0
