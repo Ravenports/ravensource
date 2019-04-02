@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	0.8.13
+DEF[HASH]=		7e0b504
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libelf
@@ -6,22 +7,27 @@ VERSION=		${PORTVERSION}
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Public ELF file access library similar to Solaris
-HOMEPAGE=		http://www.mr511.de/software/
+HOMEPAGE=		https://github.com/Distrotech/libelf
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://www.mr511.de/software/
-			http://ravenports.elderlinux.org/distcache/
-DISTFILE[1]=		libelf-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/Distrotech:libelf:${HASH}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		LGPL20+:single
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING.LIB
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/lib/libelf.h
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		devel/libelf
 
-USES=			destdirfix
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-shared
 			--enable-extended-format
