@@ -36,6 +36,11 @@ done
 cp ${DATADIR}/raverreq ${CONSPIR}/Mk/Misc/
 
 /raven/bin/ravenadm dev generate-conspiracy ${RAVENSRC}
+if [ $? -ne 0 ]; then
+   echo "Conspiracy generation failed --- aborting!"
+   exit 1;
+fi
+
 /raven/bin/ravenadm dev generate-index
 
 if [ $# -lt 1 -o "${1}" != "confirm" ]; then
