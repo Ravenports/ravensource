@@ -1,6 +1,8 @@
 # note that branch 3.6 is consider devel
 # currently 3.5 is considered the latest stable (oops).
-DEF[PORTVERSION]=	3.6.7
+DEF[BASEVERSION]=	3.6.7
+DEF[PORTVERSION]=	${BASEVERSION}.1
+DEF[DL_FOLDER]=		${BASEVERSION:R}
 DEF[SOVERSION]=		30.23.2
 DEF[SOXXVERSION]=	28.1.0
 DEF[SOXXMAJOR]=		${SOXXVERSION:R:R}
@@ -15,7 +17,7 @@ HOMEPAGE=		https://gnutls.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GNUPG/gnutls/v${PORTVERSION:R}
+SITES[main]=		GNUPG/gnutls/v${DL_FOLDER}
 DISTFILE[1]=		gnutls-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	single
@@ -52,6 +54,7 @@ CONFIGURE_ARGS=		--disable-guile
 			--with-p11-kit
 			--without-tpm
 MAKE_ENV=		MAKEINFOFLAGS=--no-split
+DISTNAME=		gnutls-${BASEVERSION}
 PLIST_SUB=		SOXXVERSION=${SOXXVERSION}
 			SOXXMAJOR=${SOXXMAJOR}
 SOVERSION=		${SOVERSION}
