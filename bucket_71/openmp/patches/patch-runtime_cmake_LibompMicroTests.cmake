@@ -1,4 +1,4 @@
---- runtime/cmake/LibompMicroTests.cmake.orig	2016-12-08 09:22:24 UTC
+--- runtime/cmake/LibompMicroTests.cmake.orig	2018-12-09 16:40:33 UTC
 +++ runtime/cmake/LibompMicroTests.cmake
 @@ -171,7 +171,7 @@ add_custom_command(
  add_custom_target(libomp-test-deps DEPENDS test-deps/.success)

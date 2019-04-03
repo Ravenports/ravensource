@@ -1,6 +1,6 @@
---- lib/Driver/ToolChains/CommonArgs.cpp.orig	2018-06-26 16:14:35 UTC
+--- lib/Driver/ToolChains/CommonArgs.cpp.orig	2019-01-15 19:58:36 UTC
 +++ lib/Driver/ToolChains/CommonArgs.cpp
-@@ -499,16 +499,16 @@ bool tools::addOpenMPRuntime(ArgStringLi
+@@ -481,16 +481,16 @@ bool tools::addOpenMPRuntime(ArgStringLi
  
    switch (TC.getDriver().getOpenMPRuntime(Args)) {
    case Driver::OMPRT_OMP:

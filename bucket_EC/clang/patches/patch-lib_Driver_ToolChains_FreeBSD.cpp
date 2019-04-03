@@ -1,4 +1,4 @@
---- lib/Driver/ToolChains/FreeBSD.cpp.orig	2018-07-10 17:44:08 UTC
+--- lib/Driver/ToolChains/FreeBSD.cpp.orig	2018-10-10 13:27:25 UTC
 +++ lib/Driver/ToolChains/FreeBSD.cpp
 @@ -263,6 +263,11 @@ void freebsd::Linker::ConstructJob(Compi
    AddLinkerInputs(ToolChain, Inputs, Args, CmdArgs, JA);

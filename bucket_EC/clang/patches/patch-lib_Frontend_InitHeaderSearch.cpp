@@ -1,4 +1,4 @@
---- lib/Frontend/InitHeaderSearch.cpp.orig	2018-06-28 23:23:45 UTC
+--- lib/Frontend/InitHeaderSearch.cpp.orig	2019-02-26 10:28:10 UTC
 +++ lib/Frontend/InitHeaderSearch.cpp
 @@ -214,7 +214,6 @@ void InitHeaderSearch::AddDefaultCInclud
    if (HSOpts.UseStandardSystemIncludes) {
@@ -8,7 +8,7 @@
      case llvm::Triple::NetBSD:
      case llvm::Triple::OpenBSD:
      case llvm::Triple::NaCl:
-@@ -428,8 +427,15 @@ void InitHeaderSearch::AddDefaultCPlusPl
+@@ -430,8 +429,15 @@ void InitHeaderSearch::AddDefaultCPlusPl
        break;
      }
      break;
@@ -23,5 +23,5 @@
 +    AddPath("@RAVEN_GXX_HEADERS_DIR@/backward", CXXSystem, false);
 +    AddPath("@RAVEN_GXX_HEADERS_DIR@/" + triple.getTriple(), CXXSystem, false);
      break;
-   case llvm::Triple::OpenBSD: {
-     std::string t = triple.getTriple();
+   case llvm::Triple::Minix:
+     AddGnuCPlusPlusIncludePaths("/usr/gnu/include/c++/4.4.3",

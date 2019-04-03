@@ -51,6 +51,7 @@ CMAKE_BUILD_TYPE=	Release
 PLIST_SUB=		LLVM_RELEASE="${LLVM_VERSION}"
 			LLVM_MAJOR="${MAJOR}"
 SHEBANG_FILES=		utils/llvm-lit/llvm-lit.in
+			tools/opt-viewer/*.py
 
 BLOCK_WATCHDOG=		yes
 
@@ -65,13 +66,14 @@ post-patch:
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/include/llvm/MC/MCAnalysis
 	${RM} -r ${STAGEDIR}${PREFIX}/include/llvm/BinaryFormat/WasmRelocs
+	${RM} -r ${STAGEDIR}${PREFIX}/include/llvm/TextAPI/MachO
 
 	# don't use llvm-strip yet, it doesn't work on SunOS or MacOS
 .for F in bugpoint dsymutil llc lli llvm-ar llvm-as llvm-bcanalyzer \
 	llvm-c-test llvm-cat llvm-cfi-verify llvm-config llvm-cov \
-	llvm-cvtres llvm-cxxdump llvm-cxxfilt llvm-diff llvm-dis \
-	llvm-dwarfdump llvm-dwp llvm-exegesis llvm-extract llvm-link \
-	llvm-lto llvm-lto2 llvm-mc llvm-mca llvm-modextract llvm-mt \
+	llvm-cvtres llvm-cxxdump llvm-cxxfilt llvm-cxxmap llvm-diff llvm-dis \
+	llvm-dwarfdump llvm-dwp llvm-elfabi llvm-exegesis llvm-extract \
+	llvm-link llvm-lto llvm-lto2 llvm-mc llvm-mca llvm-modextract llvm-mt \
 	llvm-nm llvm-objcopy llvm-objdump llvm-opt-report llvm-pdbutil \
 	llvm-profdata llvm-rc llvm-readobj llvm-rtdyld llvm-size \
 	llvm-split llvm-stress llvm-strings llvm-symbolizer llvm-tblgen \
@@ -80,7 +82,7 @@ post-install:
 	lli-child-target llvm-PerfectShuffle
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${F}
 .endfor
-.for F in BugpointPasses.so LLVMHello.so libLLVM-${MAJOR}.so libLTO.so.${MAJOR}
+.for F in libLLVM-${MAJOR}.so libLTO.so.${MAJOR} libOptRemarks.so.${MAJOR}
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/${F}
 .endfor
 
