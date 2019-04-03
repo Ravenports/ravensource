@@ -1,4 +1,4 @@
---- src/runtime/thread.c.orig	2019-01-26 20:47:12 UTC
+--- src/runtime/thread.c.orig	2019-03-31 13:43:24 UTC
 +++ src/runtime/thread.c
 @@ -50,7 +50,7 @@
  
@@ -9,8 +9,8 @@
  #include <pthread_np.h>
  #endif
  
-@@ -537,7 +537,7 @@ attach_os_thread(init_thread_data *scrib
-     stack_addr = pthread_get_stackaddr_np(os) - stack_size;
+@@ -547,7 +547,7 @@ attach_os_thread(init_thread_data *scrib
+     stack_addr = (char*)pthread_get_stackaddr_np(os) - stack_size;
  #else
      pthread_attr_t attr;
 -#ifdef LISP_FEATURE_FREEBSD
