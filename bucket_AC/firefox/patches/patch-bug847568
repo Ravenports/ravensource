@@ -2,7 +2,7 @@
 
 diff --git config/system-headers.mozbuild config/system-headers.mozbuild
 index 7620b4d00623..09d3db5ca8c0 100644
---- config/system-headers.mozbuild.orig	2019-02-27 22:18:21 UTC
+--- config/system-headers.mozbuild.orig	2019-03-26 21:19:42 UTC
 +++ config/system-headers.mozbuild
 @@ -1304,6 +1304,19 @@ if CONFIG['MOZ_ENABLE_CONTENTMANAGER']:
          'SelectSingleContentItemPage.h',
@@ -24,9 +24,9 @@ index 7620b4d00623..09d3db5ca8c0 100644
  if CONFIG['MOZ_SYSTEM_LIBVPX']:
      system_headers += [
          'vpx_mem/vpx_mem.h',
---- dom/base/moz.build.orig	2019-02-27 22:18:22 UTC
+--- dom/base/moz.build.orig	2019-03-26 21:19:43 UTC
 +++ dom/base/moz.build
-@@ -506,6 +506,9 @@ if CONFIG['MOZ_BUILD_APP'] in ['browser'
+@@ -518,6 +518,9 @@ if CONFIG['MOZ_BUILD_APP'] in ['browser'
  if CONFIG['MOZ_X11']:
      CXXFLAGS += CONFIG['TK_CFLAGS']
  
@@ -36,7 +36,7 @@ index 7620b4d00623..09d3db5ca8c0 100644
  GENERATED_FILES += [
      'PropertyUseCounterMap.inc',
      'UseCounterList.h',
---- gfx/graphite2/moz-gr-update.sh.orig	2019-02-27 22:18:23 UTC
+--- gfx/graphite2/moz-gr-update.sh.orig	2019-03-26 21:19:44 UTC
 +++ gfx/graphite2/moz-gr-update.sh
 @@ -1,6 +1,7 @@
  #!/bin/bash
@@ -64,7 +64,7 @@ index 7620b4d00623..09d3db5ca8c0 100644
  
  echo
  echo If gfx/graphite2/src/files.mk has changed, please make corresponding
---- gfx/harfbuzz/README-mozilla.orig	2019-02-27 22:18:23 UTC
+--- gfx/harfbuzz/README-mozilla.orig	2019-03-26 21:19:44 UTC
 +++ gfx/harfbuzz/README-mozilla
 @@ -15,3 +15,8 @@ from within the gfx/harfbuzz directory.
  
@@ -75,7 +75,7 @@ index 7620b4d00623..09d3db5ca8c0 100644
 +Make sure to keep pkg-config version check within toolkit/moz.configure in sync
 +with checkout version or increment latest tag by one if it's not based
 +on upstream release.
---- gfx/moz.build.orig	2019-02-27 22:18:23 UTC
+--- gfx/moz.build.orig	2019-03-26 21:19:44 UTC
 +++ gfx/moz.build
 @@ -10,6 +10,12 @@ with Files('**'):
  if CONFIG['MOZ_TREE_CAIRO']:
@@ -99,7 +99,7 @@ index 7620b4d00623..09d3db5ca8c0 100644
      'ots/src',
      'thebes',
      'ipc',
---- gfx/skia/generate_mozbuild.py.orig	2019-02-27 22:18:23 UTC
+--- gfx/skia/generate_mozbuild.py.orig	2019-03-26 21:19:44 UTC
 +++ gfx/skia/generate_mozbuild.py
 @@ -138,6 +138,9 @@ if CONFIG['CC_TYPE'] in ('clang', 'clang
          '-Wno-unused-private-field',
@@ -111,7 +111,7 @@ index 7620b4d00623..09d3db5ca8c0 100644
  if CONFIG['MOZ_WIDGET_TOOLKIT'] in ('gtk3', 'android'):
      CXXFLAGS += CONFIG['MOZ_CAIRO_CFLAGS']
      CXXFLAGS += CONFIG['CAIRO_FT_CFLAGS']
---- gfx/skia/moz.build.orig	2019-02-27 22:18:23 UTC
+--- gfx/skia/moz.build.orig	2019-03-26 21:19:44 UTC
 +++ gfx/skia/moz.build
 @@ -818,6 +818,9 @@ if CONFIG['CC_TYPE'] in ('clang', 'clang
          '-Wno-unused-private-field',
@@ -123,7 +123,7 @@ index 7620b4d00623..09d3db5ca8c0 100644
  if CONFIG['MOZ_WIDGET_TOOLKIT'] in ('gtk3', 'android'):
      CXXFLAGS += CONFIG['MOZ_CAIRO_CFLAGS']
      CXXFLAGS += CONFIG['CAIRO_FT_CFLAGS']
---- gfx/thebes/moz.build.orig	2019-02-27 22:18:23 UTC
+--- gfx/thebes/moz.build.orig	2019-03-26 21:19:44 UTC
 +++ gfx/thebes/moz.build
 @@ -276,7 +276,13 @@ if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'gtk3
  
@@ -140,7 +140,7 @@ index 7620b4d00623..09d3db5ca8c0 100644
  
  if CONFIG['CC_TYPE'] == 'clang':
      # Suppress warnings from Skia header files.
---- intl/unicharutil/util/moz.build.orig	2019-02-27 22:18:23 UTC
+--- intl/unicharutil/util/moz.build.orig	2019-03-26 21:19:44 UTC
 +++ intl/unicharutil/util/moz.build
 @@ -25,4 +25,7 @@ UNIFIED_SOURCES += [
      'nsUnicodeProperties.cpp',
@@ -150,7 +150,7 @@ index 7620b4d00623..09d3db5ca8c0 100644
 +    CXXFLAGS += CONFIG['MOZ_HARFBUZZ_CFLAGS']
 +
  FINAL_LIBRARY = 'xul'
---- netwerk/dns/moz.build.orig	2019-02-27 22:18:28 UTC
+--- netwerk/dns/moz.build.orig	2019-03-26 21:19:48 UTC
 +++ netwerk/dns/moz.build
 @@ -79,3 +79,6 @@ USE_LIBS += ['icu']
  
@@ -159,9 +159,9 @@ index 7620b4d00623..09d3db5ca8c0 100644
 +
 +if CONFIG['MOZ_SYSTEM_HARFBUZZ']:
 +    CXXFLAGS += CONFIG['MOZ_HARFBUZZ_CFLAGS']
---- old-configure.in.orig	2019-02-27 22:18:27 UTC
+--- old-configure.in.orig	2019-03-26 21:19:48 UTC
 +++ old-configure.in
-@@ -3652,6 +3652,27 @@ dnl ====================================
+@@ -3035,6 +3035,27 @@ dnl ====================================
  AC_SUBST(MOZ_LINUX_32_SSE2_STARTUP_ERROR)
  
  dnl ========================================================
@@ -189,9 +189,9 @@ index 7620b4d00623..09d3db5ca8c0 100644
  dnl Check for pixman and cairo
  dnl ========================================================
  
---- toolkit/library/moz.build.orig	2019-02-27 22:18:32 UTC
+--- toolkit/library/moz.build.orig	2019-03-26 21:19:52 UTC
 +++ toolkit/library/moz.build
-@@ -226,6 +226,12 @@ if CONFIG['MOZ_SYSTEM_PNG']:
+@@ -231,6 +231,12 @@ if CONFIG['MOZ_SYSTEM_PNG']:
  if CONFIG['MOZ_SYSTEM_WEBP']:
      OS_LIBS += CONFIG['MOZ_WEBP_LIBS']
  
@@ -204,9 +204,9 @@ index 7620b4d00623..09d3db5ca8c0 100644
  if CONFIG['MOZ_SYSTEM_LIBEVENT']:
      OS_LIBS += CONFIG['MOZ_LIBEVENT_LIBS']
  
---- toolkit/moz.configure.orig	2019-02-27 22:18:32 UTC
+--- toolkit/moz.configure.orig	2019-03-26 21:19:52 UTC
 +++ toolkit/moz.configure
-@@ -870,6 +870,26 @@ add_old_configure_assignment('FT2_LIBS',
+@@ -910,6 +910,26 @@ add_old_configure_assignment('FT2_LIBS',
  add_old_configure_assignment('FT2_CFLAGS',
                               ft2_info.cflags)
  
@@ -225,7 +225,7 @@ index 7620b4d00623..09d3db5ca8c0 100644
 +option('--with-system-harfbuzz',
 +       help="Use system harfbuzz (located with pkgconfig)")
 +
-+system_harfbuzz = pkg_check_modules('MOZ_HARFBUZZ', 'harfbuzz >= 1.9.0',
++system_harfbuzz = pkg_check_modules('MOZ_HARFBUZZ', 'harfbuzz >= 2.3.1',
 +                                    when='--with-system-harfbuzz')
 +
 +set_config('MOZ_SYSTEM_HARFBUZZ', depends_if(system_harfbuzz)(lambda _: True))
