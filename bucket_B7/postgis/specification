@@ -15,8 +15,8 @@ DISTFILE[1]=		postgis-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	single
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	SFCGAL
+OPTIONS_STANDARD=	SFCGAL
 
 LICENSE=		GPLv2:single
 LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
@@ -30,7 +30,6 @@ BUILDRUN_DEPENDS=	pcre:shared:standard
 			proj:single:standard
 			geos:single:standard
 			gdal:single:standard
-			sfcgal:single:standard
 			json-c:single:standard
 
 USES=			gmake iconv libtool:keepla perl:build pkgconfig
@@ -45,9 +44,12 @@ CONFIGURE_ARGS=		{{ICONV_CONFIGURE_BASE}}
 			--with-address-standardizer
 			--with-gui
 			--with-gdalconfig={{LOCALBASE}}/bin/gdal-config
-			--with-sfcgal={{LOCALBASE}}/bin/sfcgal-config
 PLIST_SUB=		VERSION=${PORTVERSION}
 			XDOTY=${PORTVERSION:R}
+
+[SFCGAL].DESCRIPTION=			Build with sfcgal support
+[SFCGAL].CONFIGURE_ARGS_ON=		--with-sfcgal={{LOCALBASE}}/bin/sfcgal-config
+[SFCGAL].BUILDRUN_DEPENDS_ON=		sfcgal:single:standard
 
 post-patch:
 	${FIND} ${WRKSRC}/extras/tiger_geocoder ${WRKSRC}/utils \
