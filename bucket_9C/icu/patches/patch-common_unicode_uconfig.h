@@ -1,6 +1,6 @@
---- common/unicode/uconfig.h.orig	2016-03-23 20:49:54 UTC
+--- common/unicode/uconfig.h.orig	2019-03-27 18:47:14 UTC
 +++ common/unicode/uconfig.h
-@@ -87,7 +87,7 @@
+@@ -89,7 +89,7 @@
   * @internal
   */
  #ifndef U_DISABLE_RENAMING
