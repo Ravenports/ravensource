@@ -1,7 +1,9 @@
-DEF[PORTVERSION]=	1.6.1
+DEF[PORTVERSION]=	1.7
+DEF[LO_VER]=		6.1.4.1
 DEF[SUFFIX]=		hu
 DEF[LANGUAGE]=		Hungarian
 DEF[INSTLOC]=		{{STAGEDIR}}{{PREFIX}}/share/hunspell
+DEF[FILENAME]=		LibreOffice_${LO_VER}_Linux_x86-64_rpm_langpack_hu
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		hunspell-${SUFFIX}
@@ -13,20 +15,35 @@ HOMEPAGE=		http://magyarispell.sourceforge.net/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/magyarispell/Magyar%20Ispell/${PORTVERSION}
-DISTFILE[1]=		hu_HU-${PORTVERSION}.tar.gz:main
+SITES[main]=		http://downloadarchive.documentfoundation.org/libreoffice/old/${LO_VER}/rpm/x86_64/
+DISTFILE[1]=		${FILENAME}.tar.gz:main
+# SITES[main]=		SF/magyarispell/Magyar%20Ispell/${PORTVERSION}
+# DISTFILE[1]=		hu_HU-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		LGPL3+:single MPL:single
+LICENSE_FILE=		LGPL3+:stock MPL:stock
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		dual
+
 FPC_EQUIVALENT=		hungarian/hunspell
 
 SKIP_BUILD=		yes
-DISTNAME=		hu_HU-${PORTVERSION}
+DISTNAME=		${FILENAME}
+
+post-extract:
+	${TAR} -C ${WRKDIR}/ \
+	-xf ${WRKSRC}/RPMS/libreoffice6.1-dict-hu-${LO_VER}-1.x86_64.rpm
+	(cd ${WRKDIR} && \
+	${LN} -s opt/libreoffice6.1/share/extensions/dict-hu dict)
+	${AWK} '/License/,EOF' ${WRKDIR}/dict/README_hu_HU.txt \
+		> ${WRKDIR}/TERMS
 
 do-install:
 	${MKDIR} ${INSTLOC}
-	${INSTALL_DATA} ${WRKSRC}/hu_HU.aff ${INSTLOC}/hu_HU.aff
-	${INSTALL_DATA} ${WRKSRC}/hu_HU.dic ${INSTLOC}/hu_HU.dic
+	${INSTALL_DATA} ${WRKDIR}/dict/hu_HU.aff ${INSTLOC}/hu_HU.aff
+	${INSTALL_DATA} ${WRKDIR}/dict/hu_HU.dic ${INSTLOC}/hu_HU.dic
