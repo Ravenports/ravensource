@@ -1,12 +1,12 @@
 DEF[PORTVERSION]=	2018
 DEF[PYCOMPILE]=		{{PREFIX}}/lib/python{{PYTHON_VER}}/compileall.py
 DEF[GCCVER]=		EXTRACT_INFO(CURRENT_GCC)
-DEF[PYVER]=		py27
 DEF[DATE]=		20180524
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gps
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	GNAT Programming Studio - IDE for Ada plus
@@ -34,21 +34,22 @@ LICENSE_SCHEME=		solo
 BUILD_DEPENDS=		gnat-util:single:standard
 			gnatcoll-db:complete:standard
 			gnatcoll-bindings:python:standard
-			python-Sphinx:single:${PYVER}
+# Sphinx is now python3 only, we can't build docs anymore
+# #			python-Sphinx:single:python_default
 BUILDRUN_DEPENDS=	fontconfig:primary:standard
 			freetype:primary:standard
 			clang:compiler:standard
 			gtkada:primary:standard
-			python-pygobject:primary:${PYVER}
-			libadalang:single:${PYVER}
+			python-pygobject:primary:python_used
+			libadalang:single:python_used
 RUN_DEPENDS=		librsvg:primary:standard
 			gdb:single:standard
-			python-pep8:single:${PYVER}
-			python-jedi:single:${PYVER}
+			python-pep8:single:python_used
+			python-jedi:single:python_used
 EXRUN[primary]=		${GCCVER}:complete:standard
 
 USES=			gprbuild:buildrun gettext-tools gmake pkgconfig zlib
-			perl:build python:${PYVER} shebangfix iconv
+			perl:build python:py27 shebangfix iconv
 XORG_COMPONENTS=	x11
 GNOME_COMPONENTS=	gtk3 cairo gdkpixbuf
 
@@ -111,14 +112,15 @@ do-build:
 	${CP} ${PREFIX}/include/gnat-util/impunit.* ${WRKSRC}/distrib
 	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${MAKE_CMD} ${MAKE_ARGS} ${BUILD_TARGET}
-	cd ${WRKSRC}/docs && ${SETENV} ${MAKE_ENV} \
-		${MAKE_CMD} ${MAKE_ARGS} all
+	# block all docs (Sphinx is python3 only)
+	# cd ${WRKSRC}/docs && ${SETENV} ${MAKE_ENV} \
+	#	${MAKE_CMD} ${MAKE_ARGS} all
 	${PYTHON_CMD} ${PYCOMPILE} ${WRKSRC}/share/plug-ins
 	${PYTHON_CMD} ${PYCOMPILE} ${WRKSRC}/share/library
 	${PYTHON_CMD} ${PYCOMPILE} ${WRKSRC}/share/support
 
 post-install:
-	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/gps/html/*/_sources
+	# ${RM} -r ${STAGEDIR}${PREFIX}/share/doc/gps/html/*/_sources
 	${FIND} ${STAGEDIR}${PREFIX} -type f -name ".gitignore" -delete
 	${INSTALL_SCRIPT} ${WRKDIR}/gps ${STAGEDIR}${PREFIX}/bin
 	echo "This is the GPS GPL Edition for Ravenports." \
