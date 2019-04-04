@@ -152,6 +152,8 @@ determine_variants() {
    case ${PYPINAME} in
      django-*)	# skip, django is 3.5+
         ;;
+     sphinx_rtd_theme)  # skip, sphinx is 3+ now
+        ;;
      *)
         exec_setup python2.7 --name > /dev/null
         if [ $? -eq 0 ]; then
