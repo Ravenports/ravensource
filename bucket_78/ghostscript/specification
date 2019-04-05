@@ -1,10 +1,10 @@
-DEF[PORTVERSION]=	9.26
+DEF[PORTVERSION]=	9.27
 DEF[DLFOLDER]=		${PORTVERSION:S/.//}
 DEF[DATADIR]=		{{PREFIX}}/share/ghostscript/${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ghostscript
-VERSION=		${PORTVERSION}a
+VERSION=		${PORTVERSION}
 KEYWORDS=		print
 VARIANTS=		standard
 SDESC[standard]=	Postscript and PDF Rendering Engine
@@ -14,7 +14,6 @@ CONTACT=		nobody
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs${DLFOLDER}/
 DISTFILE[1]=		ghostscript-${PORTVERSION}.tar.xz:main
-DISTFILE[2]=		0001-Bug700317-Address-.force-operators-exposure.tgz:main
 
 SPKGS[standard]=	complete primary x11 docs
 
@@ -22,7 +21,7 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 LICENSE=		AGPLv3+:primary
-LICENSE_FILE=		AGPLv3+:stock
+LICENSE_FILE=		AGPLv3+:{{WRKSRC}}/doc/COPYING
 LICENSE_TERMS=		primary:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
@@ -76,8 +75,8 @@ INSTALL_TARGET=		soinstall install-shared
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${PORTVERSION}
 DISTNAME=		ghostscript-${PORTVERSION}
-PATCHFILES=		2
-PATCHFILES_STRIP=	-p1
+# PATCHFILES=		2
+# PATCHFILES_STRIP=	-p1
 
 VAR_OPSYS[sunos]=	CFLAGS=-D_XPG6
 
@@ -98,8 +97,7 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgs.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/ghostscript/${PORTVERSION}/X11.so
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/color/icc \
-		${STAGEDIR}${PREFIX}/share/cmap \
-		${STAGEDIR}${STD_DOCDIR}
+		${STAGEDIR}${PREFIX}/share/cmap
 	${MV} ${STAGEDIR}${DATADIR}/iccprofiles \
 		${STAGEDIR}${PREFIX}/share/color/icc/ghostscript
 	${LN} -s ../../color/icc/ghostscript \
@@ -110,3 +108,4 @@ post-install:
 	${LN} -s ../../../cmap \
 		${STAGEDIR}${DATADIR}/Resource/CMap
 	${RM} ${STAGEDIR}${DATADIR}/doc
+	${RM} ${STAGEDIR}${STD_DOCDIR}/${PORTVERSION}/COPYING
