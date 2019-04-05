@@ -154,6 +154,8 @@ determine_variants() {
         ;;
      sphinx_rtd_theme)  # skip, sphinx is 3+ now
         ;;
+     sphinxcontrib-adadomain) # same
+        ;;
      *)
         exec_setup python2.7 --name > /dev/null
         if [ $? -eq 0 ]; then
