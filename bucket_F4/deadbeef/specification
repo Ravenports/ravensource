@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	0.7.2
+DEF[PORTVERSION]=	1.8.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		deadbeef
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		audio
 VARIANTS=		standard
 SDESC[standard]=	Ultimate music player for Unix-like systems
@@ -11,8 +10,8 @@ HOMEPAGE=		http://deadbeef.sourceforge.net/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/deadbeef
-DISTFILE[1]=		deadbeef-${PORTVERSION}.tar.bz2:main
+SITES[main]=		GITHUB/DeaDBeeF-Player:deadbeef:${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
@@ -52,6 +51,7 @@ BUILDRUN_DEPENDS=	libmad:single:standard
 
 USES=			gmake iconv libtool pkgconfig jpeg gettext-tools
 			shebangfix gnome-icons:single desktop-utils:single
+			autoreconf
 GNOME_COMPONENTS=	intltool gtk3
 INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
@@ -70,19 +70,20 @@ SHEBANG_FILES=		yasmwrapper.sh
 post-extract:
 	(cd ${WRKSRC} && ${HEAD} -n 100 plugins/*/COPYING \
 		> ${WRKDIR}/LICENSE_PLUGINS)
+	(cd ${WRKSRC} && ${SH} ${WRKSRC}/autogen.sh)
 
 post-patch:
 	# Do not link to libsupc++ which may be PIC-unsafe (breaks 64-bit arches)
-	${REINPLACE_CMD} -e 's, -lsupc++,,' \
-		${WRKSRC}/plugins/adplug/Makefile.in \
-		${WRKSRC}/plugins/gme/Makefile.in \
-		${WRKSRC}/plugins/sid/Makefile.in \
-		${WRKSRC}/plugins/supereq/Makefile.in
+	# ${REINPLACE_CMD} -e 's, -lsupc++,,' \
+	#	${WRKSRC}/plugins/adplug/Makefile.in \
+	#	${WRKSRC}/plugins/gme/Makefile.in \
+	#	${WRKSRC}/plugins/sid/Makefile.in \
+	#	${WRKSRC}/plugins/supereq/Makefile.in
 	${REINPLACE_CMD} -e 's,/etc/timidity++/timidity-freepats.cfg:/etc/timidity/freepats.cfg:/etc/timidity/,${LOCALBASE}/share/,' \
 		${WRKSRC}/plugins/wildmidi/wildmidiplug.c
-	${REINPLACE_CMD} \
-		-e '/HAVE_OGG" = "yes"/ {n; n; /HAVE_VORBISPLUGIN=yes/d;}' \
-		${WRKSRC}/configure
+	# ${REINPLACE_CMD} \
+	#	-e '/HAVE_OGG" = "yes"/ {n; n; /HAVE_VORBISPLUGIN=yes/d;}' \
+	#	${WRKSRC}/configure
 
 	# Fix build with libzip-1.0
 	${REINPLACE_CMD} 's,zip_file_t,zip_file_DB,g' \
