@@ -4,6 +4,7 @@ DEF[SOVERSION]=		0.0.0
 
 NAMEBASE=		tumbler
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		deskutils
 VARIANTS=		standard
 SDESC[standard]=	D-Bus thumbnailing service for Xfce
@@ -28,15 +29,24 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/tumbler/tumbler.h
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
-# Very basic configuration to start with. Many more features could be enabled
-# if somebody actually wants them.
+# Some more features can potentially be added if anybody wants them.
 
-USES=			gettext-tools:build gettext-runtime gmake libtool pkgconfig python:build
-GNOME_COMPONENTS=	glib intltool
+BUILDRUN_DEPENDS=	freetype:primary:standard
+			libexif:single:standard
+			gstreamer1:single:standard
+USES=			gettext-tools:build gettext-runtime gmake jpeg libtool pkgconfig python:build
+GNOME_COMPONENTS=	gdkpixbuf glib intltool libgsf
 
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-nls
+			--enable-font-thumbnailer
+			--enable-gstreamer-thumbnailer
+			--enable-jpeg-thumbnailer
+			--enable-odf-thumbnailer
+			--enable-pixbuf-thumbnailer
 INSTALL_TARGET=		install-strip
+
+INSTALL_REQ_TOOLCHAIN=	yes
 
 SUB_FILES=		pkg-message
 SOVERSION=		${SOVERSION}
