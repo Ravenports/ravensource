@@ -1,6 +1,6 @@
---- src/intel/compiler/brw_eu_validate.c.orig	2019-03-18 15:52:18 UTC
+--- src/intel/compiler/brw_eu_validate.c.orig	2019-04-11 03:36:10 UTC
 +++ src/intel/compiler/brw_eu_validate.c
-@@ -28,6 +28,39 @@
+@@ -40,6 +40,39 @@
  
  #include "brw_eu.h"
  

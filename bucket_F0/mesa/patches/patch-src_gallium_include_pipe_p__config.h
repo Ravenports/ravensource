@@ -1,4 +1,4 @@
---- src/gallium/include/pipe/p_config.h.orig	2019-03-18 15:52:18 UTC
+--- src/gallium/include/pipe/p_config.h.orig	2019-04-11 03:36:10 UTC
 +++ src/gallium/include/pipe/p_config.h
 @@ -77,6 +77,13 @@
  #define PIPE_CC_ICL

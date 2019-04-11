@@ -1,6 +1,6 @@
---- configure.orig	2019-03-18 15:52:24 UTC
+--- configure.orig	2019-04-11 03:36:22 UTC
 +++ configure
-@@ -22218,7 +22218,7 @@ LDFLAGS=$save_LDFLAGS
+@@ -22237,7 +22237,7 @@ LDFLAGS=$save_LDFLAGS
  
  
  case "$host_os" in
@@ -9,7 +9,7 @@
      LD_NO_UNDEFINED="" ;;
  *)
      if test "x$enable_sanitize" = xno; then
-@@ -22286,7 +22286,7 @@ fi
+@@ -22305,7 +22305,7 @@ fi
  
  
  case "$host_os" in
@@ -18,7 +18,7 @@
      LD_BUILD_ID=""
      ;;
  *)
-@@ -24241,7 +24241,7 @@ fi
+@@ -24260,7 +24260,7 @@ fi
  
  
  case "$host_os" in
@@ -27,7 +27,7 @@
      dri3_default=yes
      ;;
  *)
-@@ -28695,9 +28695,6 @@ rm -f core conftest.err conftest.$ac_obj
+@@ -28714,9 +28714,6 @@ rm -f core conftest.err conftest.$ac_obj
          CLANG_LIBDIR=${LLVM_LIBDIR}
      fi
      CLANG_RESOURCE_DIR=$CLANG_LIBDIR/clang/${LLVM_VERSION}
@@ -37,8 +37,8 @@
  fi
   if test "x$enable_opencl" = xyes; then
    HAVE_CLOVER_TRUE=
-@@ -30031,7 +30028,7 @@ if test "x$enable_llvm" = xyes; then
-     LLVM_CXXFLAGS=`strip_unwanted_llvm_flags "$LLVM_CONFIG --cxxflags"`
+@@ -30044,7 +30041,7 @@ if test "x$enable_llvm" = xyes; then
+     LLVM_CXXFLAGS="$CXX11_CXXFLAGS $LLVM_CXXFLAGS"
  
  
 -    if test $LLVM_VERSION_MAJOR -ge 4 -o $LLVM_VERSION_MAJOR -eq 3 -a $LLVM_VERSION_MINOR -ge 9; then
@@ -46,7 +46,7 @@
          if test "x$enable_llvm_shared_libs" = xyes; then
              LLVM_LIBS="`$LLVM_CONFIG --link-shared --libs ${LLVM_COMPONENTS}`"
          else
-@@ -30045,7 +30042,7 @@ if test "x$enable_llvm" = xyes; then
+@@ -30058,7 +30055,7 @@ if test "x$enable_llvm" = xyes; then
          else
              { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Building mesa with statically linked LLVM may cause compilation issues" >&5
  $as_echo "$as_me: WARNING: Building mesa with statically linked LLVM may cause compilation issues" >&2;}

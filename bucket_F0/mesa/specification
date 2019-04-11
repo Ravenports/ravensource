@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	18.3.6
+DEF[PORTVERSION]=	19.0.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mesa
@@ -84,6 +84,8 @@ CONFIGURE_ARGS=		--enable-llvm
 			--with-llvm-prefix={{LOCALBASE}}
 			--with-dri-drivers="{{DRI_DRIVERS:tl}}"
 			--with-gallium_drivers="{{GALLIUM_DRIVERS:tl}}"
+# meson preferred, so remove this eventually
+			--enable-autotools
 
 # There are issues that need to be fixed to use TLS model "initial-exec"
 # So stick with "global-dynamic"'s model for now. kan@ is working on a

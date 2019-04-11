@@ -1,6 +1,6 @@
---- src/util/Makefile.in.orig	2018-07-13 18:41:40 UTC
+--- src/util/Makefile.in.orig	2019-04-11 03:36:28 UTC
 +++ src/util/Makefile.in
-@@ -879,6 +879,7 @@ libmesautil_la_CPPFLAGS = \
+@@ -953,6 +953,7 @@ libmesautil_la_CPPFLAGS = \
  	-I$(top_srcdir)/src/mesa \
  	-I$(top_srcdir)/src/gallium/include \
  	-I$(top_srcdir)/src/gallium/auxiliary \
@@ -8,12 +8,12 @@
  	$(VISIBILITY_CFLAGS) \
  	$(MSVC2013_COMPAT_CFLAGS) \
  	$(ZLIB_CFLAGS)
-@@ -891,18 +892,19 @@ libmesautil_la_LIBADD = \
- 	$(PTHREAD_LIBS) \
+@@ -966,19 +967,20 @@ libmesautil_la_LIBADD = \
  	$(CLOCK_LIB) \
  	$(ZLIB_LIBS) \
--	$(LIBATOMIC_LIBS)
-+	$(LIBATOMIC_LIBS) -lbsd
+ 	$(LIBATOMIC_LIBS) \
+-	-lm
++	-lm -lbsd
  
  libxmlconfig_la_SOURCES = $(XMLCONFIG_FILES)
  libxmlconfig_la_CFLAGS = \
@@ -22,11 +22,12 @@
  	-I$(top_srcdir)/src \
 +	-I$(prefix)/include/bsd \
  	-DSYSCONFDIR=\"$(sysconfdir)\" \
+ 	-DDATADIR=\"$(datadir)\" \
  	$(VISIBILITY_CFLAGS) \
  	$(EXPAT_CFLAGS)
  
 -libxmlconfig_la_LIBADD = $(EXPAT_LIBS) -lm
 +libxmlconfig_la_LIBADD = $(EXPAT_LIBS) -lm -lbsd
- sysconf_DATA = drirc
+ drircdir = $(datadir)/drirc.d
+ drirc_DATA = 00-mesa-defaults.conf
  u_atomic_test_LDADD = libmesautil.la
- roundeven_test_LDADD = -lm

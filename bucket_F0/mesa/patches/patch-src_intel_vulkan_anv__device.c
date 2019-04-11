@@ -1,7 +1,7 @@
 - Without sysinfo() fall back to sysconf()
 - Define ETIME if missing
 
---- src/intel/vulkan/anv_device.c.orig	2019-03-18 15:52:18 UTC
+--- src/intel/vulkan/anv_device.c.orig	2019-04-11 03:36:10 UTC
 +++ src/intel/vulkan/anv_device.c
 @@ -25,7 +25,9 @@
  #include <stdbool.h>
@@ -24,8 +24,8 @@
  static void
  compiler_debug_log(void *data, const char *fmt, ...)
  { }
-@@ -64,10 +70,15 @@ static VkResult
- anv_compute_heap_size(int fd, uint64_t gtt_size, uint64_t *heap_size)
+@@ -64,10 +70,15 @@ static uint64_t
+ anv_compute_heap_size(int fd, uint64_t gtt_size)
  {
     /* Query the total ram from the system */
 +#ifdef __GLIBC__
