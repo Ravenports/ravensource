@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	0.74-2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		dosbox
+VERSION=		${PORTVERSION}
+KEYWORDS=		emulators
+VARIANTS=		standard
+SDESC[standard]=	X86 PC emulator with built-in DOS
+HOMEPAGE=		https://www.dosbox.com
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/dosbox/dosbox/${PORTVERSION}
+DISTFILE[1]=		dosbox-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/dosbox.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		emulators/dosbox
+
+BUILDRUN_DEPENDS=	sdl_sound:single:standard
+SDL_COMPONENTS=		sdl1 net1
+
+MUST_CONFIGURE=		gnu
