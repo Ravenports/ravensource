@@ -12,7 +12,7 @@ DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
 
 NAMEBASE=		ravensys-root
 VERSION=		2.0
-REVISION=		1
+REVISION=		2
 KEYWORDS=		raven
 VARIANTS=		dragonfly freebsd_amd64 linux sunos macos
 SDESC[dragonfly]=	DragonFly64 system root for Ravenports build env
@@ -130,6 +130,7 @@ PLIST_SUB=		SONAME_LIBM={{Libm_{{OPSYS}}}}
 			SONAME_LIBCRYPT={{Libcrypt_{{OPSYS}}}}
 			SONAME_LIBKVM={{Libkvm_{{OPSYS}}}}
 			SONAME_LIBRT={{Librt_{{OPSYS}}}}
+			SONAME_LIBRPCSVC={{Librpcsvc_{{OPSYS}}}}
 			BASE={{SYSPATH}}
 
 MAKE_ENV=		OPSYS="{{OPSYS}}"
@@ -143,6 +144,7 @@ MAKE_ENV=		OPSYS="{{OPSYS}}"
 			libcrypt={{Libcrypt_{{OPSYS}}}}
 			libkvm={{Libkvm_{{OPSYS}}}}
 			librt={{Librt_{{OPSYS}}}}
+			librpcsvc={{Librpcsvc_{{OPSYS}}}}
 MAKE_ARGS=		BASE={{RSYS}}
 
 [DRAGONFLY].DESCRIPTION=		Ravenports system root for DragonFly

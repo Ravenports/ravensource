@@ -147,6 +147,7 @@ static_lib_generic=	/usr/lib/libc.a \
 			/usr/lib/librt.a \
 			/usr/lib/libutil.a \
 			/usr/lib/libcrypt.a \
+			/usr/lib/librpcsvc.a \
 			/usr/lib/libpthread.a
 static_lib_FreeBSD=	${static_lib_generic} \
 			/usr/lib/libbsdxml.a \
@@ -203,6 +204,7 @@ dynamic_generic=	/lib/${libc} \
 			/lib/${libutil} \
 			/lib/${libcrypt} \
 			/lib/${libkvm} \
+			/usr/lib/${librpcsvc} \
 			/usr/lib/${librt}
 dynamic_lib_FreeBSD=	${dynamic_generic} \
 			/lib/${Libbsdxml_FreeBSD} \
@@ -681,6 +683,7 @@ install:
 		ln -s ${libkvm} libkvm.so && \
 		ln -s ${libcrypt} libcrypt.so && \
 		ln -s ${libutil} libutil.so && \
+		ln -s ${librpcsvc} librpcsvc.so && \
 		ln -s ${libusb} libusb.so && \
 		ln -s ${libusbhid} libusbhid.so)
 	${BSD_INSTALL_SCRIPT} ../${OPSYS:tl}/usr/bin/lorder ${DESTDIR}${BASE}/usr/bin/
