@@ -37,7 +37,7 @@ FPC_EQUIVALENT=		editors/vim
 RUN_DEPENDS=		cscope:single:standard
 			ctags:single:standard
 
-USES=			cpe iconv ncurses pkgconfig shebangfix
+USES=			cpe iconv ncurses pkgconfig shebangfix gmake
 			desktop-utils:single
 SINGLE_JOB=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
@@ -85,7 +85,6 @@ post-extract:
 		${WRKSRC}/runtime/doc/uganda.txt > ${WRKDIR}/VIM_LICENSE
 
 post-patch:
-	${FIND} ${WRKSRC}/ -name 'Makefile' | ${XARGS} ${REINPLACE_CMD} -e 's| $$<| $$>|'
 	${REINPLACE_CMD} -e 's|-liconv|${ICONV_LIB}|g' ${WRKSRC}/src/auto/configure
 	${ECHO_CMD} '#define SYS_VIMRC_FILE "'${ETCDIR}'/vimrc"' >> ${WRKSRC}/src/feature.h
 	${ECHO_CMD} '#define SYS_GVIMRC_FILE "'${ETCDIR}'/gvimrc"' >> ${WRKSRC}/src/feature.h
