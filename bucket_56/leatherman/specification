@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.6.0
 
 NAMEBASE=		leatherman
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	C++ and CMake utility libraries
@@ -30,7 +31,9 @@ BUILDRUN_DEPENDS=	curl:primary:standard
 
 USES=			cmake ruby gettext-tools
 CMAKE_ARGS=		-DLEATHERMAN_SHARED:BOOL=ON
-			-DLEATHERMAN_ENABLE_TESTING:BOOL=OFF
+			-DENABLE_CXX_WERROR:BOOL=OFF
+# Problem with boost cmake and linking
+			-DBoost_NO_BOOST_CMAKE:BOOL=ON
 CXXFLAGS=		-Wno-class-memaccess
 			-Wno-ignored-qualifiers
 SOVERSION=		${PORTVERSION}
