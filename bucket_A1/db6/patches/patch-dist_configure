@@ -1,8 +1,8 @@
---- dist/configure.orig	2016-03-28 19:45:49 UTC
+--- dist/configure.orig	2019-01-30 16:46:19 UTC
 +++ dist/configure
-@@ -27807,7 +27807,7 @@ jdbc_variables=""
- if test "$db_cv_build_cryptography" = "yes"; then
- 	CPPFLAGS="$CPPFLAGS -DSQLITE_HAS_CODEC=1"
+@@ -27779,7 +27779,7 @@ fi
+ if test "$db_cv_debug" = "yes"; then
+   CPPFLAGS="$CPPFLAGS -g"
  fi
 -(cd sql && eval "\$SHELL ../$sqlite_dir/configure --disable-option-checking $ac_sub_configure_args CPPFLAGS=\"-I.. $CPPFLAGS\" --enable-amalgamation=$db_cv_sql_amalgamation --enable-readline=$with_readline " && cat build_config.h >> config.h) || exit 1
 +(cd sql && eval "\$SHELL $sqlite_dir/configure --disable-option-checking $ac_sub_configure_args CPPFLAGS=\"-I.. $CPPFLAGS\" --enable-amalgamation=$db_cv_sql_amalgamation --enable-readline=$with_readline " && cat build_config.h >> config.h) || exit 1

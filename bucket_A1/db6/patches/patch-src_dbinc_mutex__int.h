@@ -1,4 +1,4 @@
---- src/dbinc/mutex_int.h.orig	2016-03-28 19:45:54 UTC
+--- src/dbinc/mutex_int.h.orig	2019-01-30 16:46:22 UTC
 +++ src/dbinc/mutex_int.h
 @@ -9,6 +9,10 @@
  #ifndef _DB_MUTEX_INT_H_
@@ -11,7 +11,7 @@
  #include "dbinc/atomic.h"
  
  #if defined(__cplusplus)
-@@ -506,11 +510,11 @@ typedef unsigned int tsl_t;
+@@ -487,11 +491,11 @@ typedef unsigned int tsl_t;
  #define	MUTEX_UNSET(tsl)	(*(volatile tsl_t *)(tsl) = 0)
  #define	MUTEX_INIT(tsl)         (MUTEX_UNSET(tsl), 0)
  #define	MUTEX_MEMBAR(x) \
@@ -26,7 +26,7 @@
  #endif
  #endif
  
-@@ -652,7 +656,7 @@ MUTEX_SET(int *tsl)  {
+@@ -633,7 +637,7 @@ MUTEX_SET(int *tsl)  {
  	 : "=&r" (__r), "+r" (tsl)
  	 :
  	 : "cr0", "memory");
