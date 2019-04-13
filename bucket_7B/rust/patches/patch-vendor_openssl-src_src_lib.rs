@@ -1,4 +1,4 @@
---- vendor/openssl-src/src/lib.rs.orig	2019-02-28 10:22:24 UTC
+--- vendor/openssl-src/src/lib.rs.orig	2019-04-10 20:18:53 UTC
 +++ vendor/openssl-src/src/lib.rs
 @@ -145,6 +145,7 @@ impl Build {
              "i686-linux-android" => "linux-elf",
