@@ -1,6 +1,6 @@
---- src/term.c.orig	2019-03-17 22:19:36 UTC
+--- src/term.c.orig	2019-04-12 15:53:40 UTC
 +++ src/term.c
-@@ -28,6 +28,10 @@
+@@ -33,6 +33,10 @@
  #include <sys/select.h>
  #include <sys/time.h>
  

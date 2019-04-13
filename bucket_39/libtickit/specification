@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	0.3.1
-DEF[SOVERSION]=		2.0.1
+DEF[PORTVERSION]=	0.3.2
+DEF[SOVERSION]=		2.0.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libtickit
@@ -41,6 +41,12 @@ post-patch-sunos:
 		${WRKSRC}/src/debug.c \
 		${WRKSRC}/src/rectset.c \
 		${WRKSRC}/src/mockterm.c
+
+post-patch:
+	# remove ill-advised _POSIX_C_SOURCE from version 0.3.2 on
+	${REINPLACE_CMD} -e '/_POSIX_C_SOURCE/d' \
+		${WRKSRC}/src/term.c \
+		${WRKSRC}/src/evloop-default.c
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libtickit.so
