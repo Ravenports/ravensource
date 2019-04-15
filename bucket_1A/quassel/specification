@@ -1,0 +1,78 @@
+DEF[PORTVERSION]=	0.13.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		quassel
+VERSION=		${PORTVERSION}
+KEYWORDS=		irc
+VARIANTS=		standard
+SDESC[standard]=	Cross-platform distributed IRC client
+HOMEPAGE=		https://www.quassel-irc.org
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://quassel-irc.org/pub/
+DISTFILE[1]=		quassel-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete client common core icons monolithic nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:complete
+			GPLv3:complete
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/gpl-2.0.txt
+			GPLv3:{{WRKSRC}}/gpl-3.0.txt
+LICENSE_TERMS=		complete:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/common/quassel.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		dual
+
+FPC_EQUIVALENT=		irc/quassel
+
+# This is a somewhat light-weight configuration; some features
+# are deactivated due to missing dependencies.
+
+BUILD_DEPENDS=		libdbusmenu-qt:primary:standard
+			qca:single:standard
+			qt5-qtmultimedia:single:standard
+			qt5-qtscript:single:standard
+			qt5-qttools:single:standard
+
+USES=			cmake pkgconfig qt5
+
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH={{PREFIX}}/lib/qt5/cmake
+			-DWANT_MONO=ON
+			-DWANT_CORE=ON
+			-DWANT_QTCLIENT=ON
+			-DEMBED_DATA=OFF
+			-DHAVE_SSL=ON
+			-DUSE_QT5=ON
+			-DWITH_BUNDLED_ICONS=ON
+			-DWITH_KDE=OFF
+			-DWITH_OXYGEN_ICONS=OFF
+			-WITH_WEBENGINE=OFF
+			-DWITH_WEBKIT=OFF
+
+EXRUN[client]=		libdbusmenu-qt:primary:standard
+			qca:single:standard
+			qt5-qtscript:single:standard
+			qt5-qtmultimedia:single:standard
+			qt5-qttools:single:standard
+			quassel:common:standard
+			quassel:icons:standard
+
+EXRUN[monolithic]=	libdbusmenu-qt:primary:standard
+			qca:single:standard
+			qt5-qtscript:single:standard
+			qt5-qtmultimedia:single:standard
+			qt5-qttools:single:standard
+			quassel:common:standard
+			quassel:icons:standard
+
+do-install:
+	cd ${WRKDIR}/.build && make DESTDIR="${STAGEDIR}" install
+
+post-stage:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/quassel
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/quasselclient
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/quasselcore
