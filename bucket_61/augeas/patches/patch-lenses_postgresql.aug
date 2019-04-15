@@ -1,4 +1,4 @@
---- lenses/postgresql.aug.orig	2016-05-07 22:55:54 UTC
+--- lenses/postgresql.aug.orig	2018-03-08 17:37:53 UTC
 +++ lenses/postgresql.aug
 @@ -70,6 +70,7 @@ let lns = (Util.empty | Util.comment | e
  
