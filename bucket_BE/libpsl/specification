@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.20.2
+DEF[PORTVERSION]=	0.21.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libpsl
@@ -28,15 +28,22 @@ BUILD_DEPENDS=		publicsuffix-list:single:standard
 BUILDRUN_DEPENDS=	libidn2:primary:standard
 			libunistring:primary:standard
 
-USES=			autoreconf libtool pkgconfig python:build shebangfix
-			iconv gettext-runtime gettext-tools
+USES=			pkgconfig shebangfix iconv meson
+			gettext-runtime gettext-tools
 GNOME_COMPONENTS=	libxslt
 SHEBANG_FILES=		src/psl-make-dafsa
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-psl-file={{LOCALBASE}}/share/publicsuffix-list/public_suffix_list.dat
-			--with-psl-testfile={{LOCALBASE}}/share/publicsuffix-list/test_psl.txt
-			--enable-nls
-			--enable-man
-			--enable-builtin=libidn2
-			--enable-runtime=libidn2
+MESON_ARGS=		-Dpsl_testfile="{{LOCALBASE}}/share/publicsuffix-list/test_psl.txt"
+			-Dpsl_file="{{LOCALBASE}}/share/publicsuffix-list/public_suffix_list.dat"
+			-Dbuiltin="libidn2"
+			-Druntime="libidn2"
+LDFLAGS=		{{ICONV_LIB}}
 INSTALL_TARGET=		install-strip
+
+post-install:
+	${INSTALL_MAN} \
+		${WRKSRC}/tools/psl.1 \
+		${WRKSRC}/src/psl-make-dafsa.1 \
+		${STAGEDIR}${MANPREFIX}/man/man1/
+	${INSTALL_PROGRAM} \
+		${WRKSRC}/_build/tools/psl \
+		${STAGEDIR}${PREFIX}/bin/
