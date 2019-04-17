@@ -1,4 +1,4 @@
---- gio/gsocket.c.orig	2019-03-04 20:06:13 UTC
+--- gio/gsocket.c.orig	2019-04-15 11:47:57 UTC
 +++ gio/gsocket.c
 @@ -56,6 +56,10 @@
  #include <sys/uio.h>

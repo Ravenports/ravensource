@@ -1,4 +1,4 @@
---- glib/tests/gdatetime.c.orig	2019-03-04 20:06:14 UTC
+--- glib/tests/gdatetime.c.orig	2019-04-15 11:47:57 UTC
 +++ glib/tests/gdatetime.c
 @@ -2092,7 +2092,7 @@ test_find_interval (void)
    gint i1, i2;
