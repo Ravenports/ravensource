@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	2019-04-01
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		re2
+VERSION=		${PORTVERSION:S|-||g}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Fast, safe, thread-friendly C++ regex library
+HOMEPAGE=		https://github.com/google/re2
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+# SITES[main]=		GITHUB/google:re2:2019-04-01
+SITES[main]=		GITHUB/google:re2:${PORTVERSION}
+DISTFILE[1]=		generated:main
+# DISTFILE[1]=		x-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/re2
+
+USES=			c++:single gmake
+MAKE_ARGS=		prefix={{PREFIX}}
+
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libre2.so
