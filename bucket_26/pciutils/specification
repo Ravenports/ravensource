@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	3.6.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		pciutils
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils devel
+VARIANTS=		standard
+SDESC[standard]=	Library / tools to access PCI bus config registers
+HOMEPAGE=		https://mj.ucw.cz/sw/pciutils
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		ftp://atrey.karlin.mff.cuni.cz/pub/linux/pci/
+DISTFILE[1]=		pciutils-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete library primary
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:complete
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		complete:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/pciutils.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+# FPC_EQUIVALENT=		devel/libpci & sysutils/pciutils
+
+USES=			gmake
+
+RUN_DEPENDS=		pciids:single:standard
+
+MAKE_ARGS=		PREFIX={{PREFIX}} SHARED=yes
+CFLAGS=			-fPIC
+INSTALL_TARGET=		install
+			install-lib
+
+EXRUN[primary]=		pciutils:library:standard
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libpci.so
