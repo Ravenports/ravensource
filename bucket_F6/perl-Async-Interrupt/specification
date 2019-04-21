@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.24
+DEF[PORTVERSION]=	1.25
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Async-Interrupt
@@ -13,7 +13,7 @@ CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:M/ML/MLEHMANN
-DISTFILE[1]=		Async-Interrupt-1.24.tar.gz:main
+DISTFILE[1]=		Async-Interrupt-1.25.tar.gz:main
 
 SPKGS[528]=		single
 SPKGS[526]=		single
@@ -25,22 +25,21 @@ VOPTS[526]=		PERL_528=OFF PERL_526=ON
 
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		Async-Interrupt-1.24
+DISTNAME=		Async-Interrupt-1.25
 
 # -----------------------------------------------
 # |   Prerequisites extracted from META.json
 # -----------------------------------------------
-# |      runtime : Canary::Stability
-# |      runtime : ExtUtils::MakeMaker (perl 5.28 core) (perl 5.26 core)
 # |      runtime : common::sense
 # |        build : ExtUtils::MakeMaker (perl 5.28 core) (perl 5.26 core)
+# |    configure : Canary::Stability
 # |    configure : ExtUtils::MakeMaker (perl 5.28 core) (perl 5.26 core)
 
 [PERL_528].USES_ON=			perl:528,configure
 [PERL_526].USES_ON=			perl:526,configure
-[PERL_528].BUILDRUN_DEPENDS_ON=		perl-Canary-Stability:single:528
-					perl-common-sense:single:528
-[PERL_526].BUILDRUN_DEPENDS_ON=		perl-Canary-Stability:single:526
-					perl-common-sense:single:526
+[PERL_528].BUILD_DEPENDS_ON=		perl-Canary-Stability:single:528
+[PERL_528].BUILDRUN_DEPENDS_ON=		perl-common-sense:single:528
+[PERL_526].BUILD_DEPENDS_ON=		perl-Canary-Stability:single:526
+[PERL_526].BUILDRUN_DEPENDS_ON=		perl-common-sense:single:526
 
 
