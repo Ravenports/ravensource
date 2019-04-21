@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.28.0
+DEF[PORTVERSION]=	0.28.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pygit2
@@ -13,7 +13,7 @@ CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/p/pygit2
-DISTFILE[1]=		pygit2-0.28.0.tar.gz:main
+DISTFILE[1]=		pygit2-0.28.1.tar.gz:main
 
 SPKGS[py27]=		single
 SPKGS[py36]=		single
@@ -33,7 +33,6 @@ GENERATED=		yes
 # install_requires extracted from setup.py (using python 2.7)
 # cffi
 # six
-# pycparser<2.18
 # cffi
 
 DISTNAME=		pygit2-${PORTVERSION}
@@ -41,17 +40,14 @@ DISTNAME=		pygit2-${PORTVERSION}
 [PY27].USES_ON=				python:py27
 [PY27].BUILDRUN_DEPENDS_ON=		python-cffi:single:py27
 					python-six:single:py27
-					python-pycparser:single:py27
 
 [PY36].USES_ON=				python:py36
 [PY36].BUILDRUN_DEPENDS_ON=		python-cffi:single:py36
 					python-six:single:py36
-					python-pycparser:single:py36
 
 [PY37].USES_ON=				python:py37
 [PY37].BUILDRUN_DEPENDS_ON=		python-cffi:single:py37
 					python-six:single:py37
-					python-pycparser:single:py37
 BUILDRUN_DEPENDS=	libgit2:single:standard
 MAKE_ENV=		LIBGIT2={{LOCALBASE}}
 
