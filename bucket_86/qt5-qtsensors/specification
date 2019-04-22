@@ -1,0 +1,31 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(QT5_VERSION)
+DEF[MINOR_VER]=		${PORTVERSION:R}
+DEF[COMPONENT]=		qtsensors
+DEF[COMPONENT_CASED]=	QtSensors
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		qt5-${COMPONENT}
+VERSION=		${PORTVERSION}
+KEYWORDS=		comms
+VARIANTS=		standard
+SDESC[standard]=	Qt5 - ${COMPONENT_CASED} component
+HOMEPAGE=		https://www.qt.io/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://download.qt.io/official_releases/qt/${MINOR_VER}/${PORTVERSION}/submodules/
+DISTFILE[1]=		${COMPONENT}-everywhere-src-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+BUILDRUN_DEPENDS=	qt5-qtdeclarative:single:standard
+
+USES=			qt5 perl:build
+
+DISTNAME=		${COMPONENT}-everywhere-src-${PORTVERSION}
+PLIST_SUB=		QTVER=${PORTVERSION}
+			SOMAJORMIN=${PORTVERSION:R}
+SOVERSION=		${PORTVERSION}
