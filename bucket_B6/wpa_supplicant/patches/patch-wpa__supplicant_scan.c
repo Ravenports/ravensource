@@ -1,4 +1,4 @@
---- wpa_supplicant/scan.c.orig	2018-12-02 19:34:59 UTC
+--- wpa_supplicant/scan.c.orig	2019-04-21 07:10:22 UTC
 +++ wpa_supplicant/scan.c
 @@ -1951,7 +1951,7 @@ struct wpabuf * wpa_scan_get_vendor_ie_m
   * better. */
@@ -21,7 +21,7 @@
  	} else {
  		/* Level is not in dBm, so we can't calculate
  		 * SNR. Just use raw level (units unknown). */
-@@ -2007,7 +2007,7 @@ static int wpa_scan_result_compar(const
+@@ -2008,7 +2008,7 @@ static int wpa_scan_result_compar(const
  	if (snr_b_full == snr_a_full)
  		return wb->qual - wa->qual;
  	return snr_b_full - snr_a_full;

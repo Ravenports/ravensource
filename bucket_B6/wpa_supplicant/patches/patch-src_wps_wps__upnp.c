@@ -1,4 +1,4 @@
---- src/wps/wps_upnp.c.orig	2018-12-02 19:34:59 UTC
+--- src/wps/wps_upnp.c.orig	2019-04-21 07:10:22 UTC
 +++ src/wps/wps_upnp.c
 @@ -840,7 +840,8 @@ fail:
  }
