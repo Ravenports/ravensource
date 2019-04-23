@@ -1,4 +1,4 @@
---- xf86drm.c.orig	2019-01-22 16:32:41 UTC
+--- xf86drm.c.orig	2019-04-19 15:52:29 UTC
 +++ xf86drm.c
 @@ -46,6 +46,9 @@
  #include <signal.h>
@@ -48,15 +48,6 @@
  #endif
  
  #ifdef __NetBSD__
-@@ -179,7 +180,7 @@ drm_public void drmFree(void *pt)
- }
- 
- /**
-- * Call ioctl, restarting if it is interupted
-+ * Call ioctl, restarting if it is interrupted
-  */
- drm_public int
- drmIoctl(int fd, unsigned long request, void *arg)
 @@ -222,6 +223,103 @@ drm_public drmHashEntry *drmGetEntry(int
      return entry;
  }
@@ -161,15 +152,6 @@
  /**
   * Compare two busid strings
   *
-@@ -289,7 +387,7 @@ static int drmMatchBusID(const char *id1
-  *
-  * \internal
-  * Checks for failure. If failure was caused by signal call chown again.
-- * If any other failure happened then it will output error mesage using
-+ * If any other failure happened then it will output error message using
-  * drmMsg() call.
-  */
- #if !UDEV
 @@ -326,8 +424,8 @@ static int chown_check_return(const char
  static int drmOpenDevice(dev_t dev, int minor, int type)
  {
@@ -304,7 +286,7 @@
  
      if (drmIoctl(fd, request, NULL)) {
          return -errno;
-@@ -2745,28 +2784,24 @@ drm_public int drmDropMaster(int fd)
+@@ -2763,28 +2802,24 @@ drm_public int drmIsMaster(int fd)
  
  drm_public char *drmGetDeviceNameFromFd(int fd)
  {
@@ -338,7 +320,7 @@
  }
  
  static bool drmNodeIsDRM(int maj, int min)
-@@ -2785,7 +2820,20 @@ static bool drmNodeIsDRM(int maj, int mi
+@@ -2803,7 +2838,20 @@ static bool drmNodeIsDRM(int maj, int mi
  
  drm_public int drmGetNodeTypeFromFd(int fd)
  {
@@ -360,7 +342,7 @@
      int maj, min, type;
  
      if (fstat(fd, &sbuf))
-@@ -2803,6 +2851,7 @@ drm_public int drmGetNodeTypeFromFd(int
+@@ -2821,6 +2869,7 @@ drm_public int drmGetNodeTypeFromFd(int
      if (type == -1)
          errno = ENODEV;
      return type;
@@ -368,7 +350,7 @@
  }
  
  drm_public int drmPrimeHandleToFD(int fd, uint32_t handle, uint32_t flags,
-@@ -2843,7 +2892,7 @@ static char *drmGetMinorNameForFD(int fd
+@@ -2861,7 +2910,7 @@ static char *drmGetMinorNameForFD(int fd
  #ifdef __linux__
      DIR *sysdir;
      struct dirent *ent;
@@ -377,7 +359,7 @@
      const char *name = drmGetMinorName(type);
      int len;
      char dev_name[64], buf[64];
-@@ -2881,13 +2930,35 @@ static char *drmGetMinorNameForFD(int fd
+@@ -2899,13 +2948,35 @@ static char *drmGetMinorNameForFD(int fd
  
      closedir(sysdir);
      return NULL;
@@ -416,7 +398,7 @@
      if (fstat(fd, &sbuf))
          return NULL;
  
-@@ -2897,26 +2968,12 @@ static char *drmGetMinorNameForFD(int fd
+@@ -2915,26 +2986,12 @@ static char *drmGetMinorNameForFD(int fd
      if (!drmNodeIsDRM(maj, min) || !S_ISCHR(sbuf.st_mode))
          return NULL;
  
@@ -444,7 +426,7 @@
          return NULL;
  
      return strdup(buf);
-@@ -3014,7 +3071,7 @@ static int drmParseSubsystemType(int maj
+@@ -3032,7 +3089,7 @@ static int drmParseSubsystemType(int maj
      }
  
      return -EINVAL;
@@ -453,7 +435,7 @@
      return DRM_BUS_PCI;
  #else
  #warning "Missing implementation of drmParseSubsystemType"
-@@ -3038,7 +3095,8 @@ get_pci_path(int maj, int min, char *pci
+@@ -3056,7 +3113,8 @@ get_pci_path(int maj, int min, char *pci
          *term = 0;
  }
  
@@ -463,7 +445,7 @@
  {
  #ifdef __linux__
      unsigned int domain, bus, dev, func;
-@@ -3087,6 +3145,60 @@ static int drmParsePciBusInfo(int maj, i
+@@ -3105,6 +3163,60 @@ static int drmParsePciBusInfo(int maj, i
      info->func = pinfo.func;
  
      return 0;
@@ -524,7 +506,7 @@
  #else
  #warning "Missing implementation of drmParsePciBusInfo"
      return -EINVAL;
-@@ -3121,32 +3233,6 @@ drm_public int drmDevicesEqual(drmDevice
+@@ -3139,32 +3251,6 @@ drm_public int drmDevicesEqual(drmDevice
      return 0;
  }
  
@@ -557,7 +539,7 @@
  #ifdef __linux__
  static int parse_separate_sysfs_files(int maj, int min,
                                        drmPciDeviceInfoPtr device,
-@@ -3218,6 +3304,7 @@ static int parse_config_sysfs_file(int m
+@@ -3236,6 +3322,7 @@ static int parse_config_sysfs_file(int m
  #endif
  
  static int drmParsePciDeviceInfo(int maj, int min,
@@ -565,7 +547,7 @@
                                   drmPciDeviceInfoPtr device,
                                   uint32_t flags)
  {
-@@ -3254,6 +3341,43 @@ static int drmParsePciDeviceInfo(int maj
+@@ -3272,6 +3359,43 @@ static int drmParsePciDeviceInfo(int maj
      device->subdevice_id = pinfo.subdevice_id;
  
      return 0;
@@ -609,7 +591,7 @@
  #else
  #warning "Missing implementation of drmParsePciDeviceInfo"
      return -EINVAL;
-@@ -3334,7 +3458,7 @@ static drmDevicePtr drmDeviceAlloc(unsig
+@@ -3352,7 +3476,7 @@ static drmDevicePtr drmDeviceAlloc(unsig
      unsigned int i;
      char *ptr;
  
@@ -618,7 +600,7 @@
      extra = DRM_NODE_MAX * (sizeof(void *) + max_node_length);
  
      size = sizeof(*device) + extra + bus_size + device_size;
-@@ -3380,7 +3504,7 @@ static int drmProcessPciDevice(drmDevice
+@@ -3398,7 +3522,7 @@ static int drmProcessPciDevice(drmDevice
  
      dev->businfo.pci = (drmPciBusInfoPtr)addr;
  
@@ -627,7 +609,7 @@
      if (ret)
          goto free_device;
  
-@@ -3389,7 +3513,7 @@ static int drmProcessPciDevice(drmDevice
+@@ -3407,7 +3531,7 @@ static int drmProcessPciDevice(drmDevice
          addr += sizeof(drmPciBusInfo);
          dev->deviceinfo.pci = (drmPciDeviceInfoPtr)addr;
  
@@ -636,7 +618,7 @@
          if (ret)
              goto free_device;
      }
-@@ -3729,8 +3853,8 @@ process_device(drmDevicePtr *device, con
+@@ -3708,8 +3832,8 @@ process_device(drmDevicePtr *device, con
                 int req_subsystem_type,
                 bool fetch_deviceinfo, uint32_t flags)
  {
@@ -647,7 +629,7 @@
      int node_type, subsystem_type;
      unsigned int maj, min;
  
-@@ -3738,14 +3862,14 @@ process_device(drmDevicePtr *device, con
+@@ -3717,14 +3841,14 @@ process_device(drmDevicePtr *device, con
      if (node_type < 0)
          return -1;
  
@@ -664,7 +646,7 @@
          return -1;
  
      subsystem_type = drmParseSubsystemType(maj, min);
-@@ -3786,7 +3910,7 @@ static void drmFoldDuplicatedDevices(drm
+@@ -3765,7 +3889,7 @@ static void drmFoldDuplicatedDevices(drm
                  local_devices[i]->available_nodes |= local_devices[j]->available_nodes;
                  node_type = log2(local_devices[j]->available_nodes);
                  memcpy(local_devices[i]->nodes[node_type],
@@ -673,7 +655,7 @@
                  drmFreeDevice(&local_devices[j]);
              }
          }
-@@ -3826,7 +3950,7 @@ drm_device_has_rdev(drmDevicePtr device,
+@@ -3805,7 +3929,7 @@ drm_device_has_rdev(drmDevicePtr device,
   * Get information about the opened drm device
   *
   * \param fd file descriptor of the drm device
@@ -682,7 +664,7 @@
   * \param device the address of a drmDevicePtr where the information
   *               will be allocated in stored
   *
-@@ -3844,8 +3968,8 @@ drm_public int drmGetDevice2(int fd, uin
+@@ -3823,8 +3947,8 @@ drm_public int drmGetDevice2(int fd, uin
       * Avoid stat'ing all of /dev needlessly by implementing this custom path.
       */
      drmDevicePtr     d;
@@ -693,7 +675,7 @@
      const char      *dev_name;
      int              node_type, subsystem_type;
      int              maj, min, n, ret, base;
-@@ -3866,26 +3990,16 @@ drm_public int drmGetDevice2(int fd, uin
+@@ -3845,26 +3969,16 @@ drm_public int drmGetDevice2(int fd, uin
      if (node_type == -1)
          return -ENODEV;
  
@@ -724,7 +706,7 @@
        return -errno;
      if (stat(node, &sbuf))
          return -EINVAL;
-@@ -3925,7 +4039,7 @@ drm_public int drmGetDevice2(int fd, uin
+@@ -3904,7 +4018,7 @@ drm_public int drmGetDevice2(int fd, uin
      maj = major(sbuf.st_rdev);
      min = minor(sbuf.st_rdev);
  
@@ -733,7 +715,7 @@
          return -EINVAL;
  
      subsystem_type = drmParseSubsystemType(maj, min);
-@@ -3991,7 +4105,7 @@ drm_public int drmGetDevice(int fd, drmD
+@@ -3970,7 +4084,7 @@ drm_public int drmGetDevice(int fd, drmD
  /**
   * Get drm devices on the system
   *
@@ -742,7 +724,7 @@
   * \param devices the array of devices with drmDevicePtr elements
   *                can be NULL to get the device number first
   * \param max_devices the maximum number of devices for the array
-@@ -4076,7 +4190,7 @@ drm_public int drmGetDevices(drmDevicePt
+@@ -4055,7 +4169,7 @@ drm_public int drmGetDevices(drmDevicePt
  drm_public char *drmGetDeviceNameFromFd2(int fd)
  {
  #ifdef __linux__
@@ -751,7 +733,7 @@
      char path[PATH_MAX + 1], *value;
      unsigned int maj, min;
  
-@@ -4099,9 +4213,26 @@ drm_public char *drmGetDeviceNameFromFd2
+@@ -4078,9 +4192,26 @@ drm_public char *drmGetDeviceNameFromFd2
      free(value);
  
      return strdup(path);
@@ -780,7 +762,7 @@
      const char      *dev_name;
      int              node_type;
      int              maj, min, n, base;
-@@ -4119,26 +4250,16 @@ drm_public char *drmGetDeviceNameFromFd2
+@@ -4098,26 +4229,16 @@ drm_public char *drmGetDeviceNameFromFd2
      if (node_type == -1)
          return NULL;
  
