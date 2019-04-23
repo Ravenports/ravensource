@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.5.2
+DEF[PORTVERSION]=	5.5.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		maim
@@ -37,3 +37,6 @@ BUILDRUN_DEPENDS=	icu:single:standard
 			xorg-xcomposite:single:standard
 			xorg-xext:single:standard
 			xorg-xrender:single:standard
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/maim
