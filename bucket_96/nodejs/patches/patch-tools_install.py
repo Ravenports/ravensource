@@ -1,6 +1,6 @@
---- tools/install.py.orig	2019-02-14 21:22:49 UTC
+--- tools/install.py.orig	2019-04-23 12:30:45 UTC
 +++ tools/install.py
-@@ -152,7 +152,7 @@ def files(action):
+@@ -151,7 +151,7 @@ def files(action):
    action(['deps/v8/tools/gdbinit'], 'share/doc/node/')
    action(['deps/v8/tools/lldb_commands.py'], 'share/doc/node/')
  
