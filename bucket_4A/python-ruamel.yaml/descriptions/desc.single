@@ -4,8 +4,8 @@ ruamel.yaml
 
 ``ruamel.yaml`` is a YAML 1.2 loader/dumper package for Python.
 
-:version:       0.15.92
-:updated:       2019-04-16
+:version:       0.15.94
+:updated:       2019-04-23
 :documentation: http://yaml.readthedocs.io
 :repository:    https://bitbucket.org/ruamel/
 :pypi:          https://pypi.org/project/ruamel.yaml/
@@ -59,6 +59,18 @@ ChangeLog
 .. should insert NEXT: at the beginning of line for next key (with empty
 line)
 
+0.15.94 (2019-04-23):
+  - fix missing line-break after end-of-file comments not ending in
+    line-break (reported by `Philip Thompson
+    <https://bitbucket.org/%7Be42ba205-0876-4151-bcbe-ccaea5bd13ce%7D/>`__)
+
+0.15.93 (2019-04-21):
+  - fix failure to parse empty implicit flow mapping key
+  - in YAML 1.1 plains scalars `y`, 'n', `Y`, and 'N' are now
+    correctly recognised as booleans and such strings dumped quoted
+    (reported by `Marcel Bollmann
+    <https://bitbucket.org/%7Bd8850921-9145-4ad0-ac30-64c3bd9b036d%7D/>`__)
+
 0.15.92 (2019-04-16):
   - fix failure to parse empty implicit block mapping key (reported by
     `Nolan W <https://bitbucket.org/i2labs/>`__)
@@ -98,16 +110,3 @@ extra tests,
     provided by Dandaleon Flux via email)
   - fix for issue when parsing flow mapping value starting with colon (in
 pure Python only)
-    (reported by `FichteFoll <https://bitbucket.org/FichteFoll/>`__)
-
-0.15.85 (2019-01-08):
-  - the types used by ``SafeConstructor`` for mappings and sequences can
-    now by set by assigning to ``XXXConstructor.yaml_base_dict_type``
-    (and ``..._list_type``), preventing the need to copy two methods
-    with 50+ lines that had ``var = {}`` hardcoded.  (Implemented to
-    help solve an feature request by `Anthony Sottile
-    <https://bitbucket.org/asottile/>`__ in an easier way)
-
-0.15.84 (2019-01-07):
-  - fix for ``CommentedMap.copy()`` not returning ``CommentedMap``, let
-alone copying comments etc.
