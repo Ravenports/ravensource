@@ -1,4 +1,4 @@
---- youtube_dl/__init__.py.orig	2019-03-08 19:52:40 UTC
+--- youtube_dl/__init__.py.orig	2019-04-16 18:08:06 UTC
 +++ youtube_dl/__init__.py
 @@ -36,7 +36,6 @@ from .utils import (
      write_string,
@@ -8,7 +8,7 @@
  from .downloader import (
      FileDownloader,
  )
-@@ -437,17 +436,13 @@ def _real_main(argv=None):
+@@ -439,17 +438,13 @@ def _real_main(argv=None):
      }
  
      with YoutubeDL(ydl_opts) as ydl:
