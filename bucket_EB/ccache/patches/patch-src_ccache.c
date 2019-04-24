@@ -2,9 +2,9 @@
   There's no reason to not use the cache in either of these cases if it is
   already available.
 
---- src/ccache.c.orig	2019-01-14 20:12:00 UTC
+--- src/ccache.c.orig	2019-04-23 19:35:23 UTC
 +++ src/ccache.c
-@@ -1884,6 +1884,7 @@ calculate_common_hash(struct args *args,
+@@ -1941,6 +1941,7 @@ calculate_common_hash(struct args *args,
  		free(p);
  	}
  
@@ -12,7 +12,7 @@
  	// Possibly hash GCC_COLORS (for color diagnostics).
  	if (guessed_compiler == GUESSED_GCC) {
  		const char *gcc_colors = getenv("GCC_COLORS");
-@@ -1892,6 +1893,7 @@ calculate_common_hash(struct args *args,
+@@ -1949,6 +1950,7 @@ calculate_common_hash(struct args *args,
  			hash_string(hash, gcc_colors);
  		}
  	}
@@ -20,7 +20,7 @@
  }
  
  // Update a hash sum with information specific to the direct and preprocessor
-@@ -1928,6 +1930,13 @@ calculate_object_hash(struct args *args,
+@@ -1985,6 +1987,13 @@ calculate_object_hash(struct args *args,
  			continue;
  		}
  
@@ -32,5 +32,5 @@
 +		}
 +
  		// The -fdebug-prefix-map option may be used in combination with
- 		// CCACHE_BASEDIR to reuse results across different directories. Skip it
- 		// from hashing.
+ 		// CCACHE_BASEDIR to reuse results across different directories. Skip using
+ 		// the value of the option from hashing but still hash the existence of the
