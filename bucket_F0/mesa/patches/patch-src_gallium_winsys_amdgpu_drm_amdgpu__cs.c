@@ -1,4 +1,4 @@
---- src/gallium/winsys/amdgpu/drm/amdgpu_cs.c.orig	2019-04-11 03:36:10 UTC
+--- src/gallium/winsys/amdgpu/drm/amdgpu_cs.c.orig	2019-04-24 17:40:00 UTC
 +++ src/gallium/winsys/amdgpu/drm/amdgpu_cs.c
 @@ -41,6 +41,10 @@
  #define AMDGPU_CHUNK_ID_BO_HANDLES 0x06
