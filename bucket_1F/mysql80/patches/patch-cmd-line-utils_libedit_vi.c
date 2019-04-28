@@ -1,4 +1,4 @@
---- extra/libedit/vi.c.orig	2019-01-25 22:33:03 UTC
+--- extra/libedit/vi.c.orig	2019-04-13 11:46:31 UTC
 +++ extra/libedit/vi.c
 @@ -919,7 +919,7 @@ vi_comment_out(EditLine *el, Int c __att
   * NB: posix implies that we should enter insert mode, however

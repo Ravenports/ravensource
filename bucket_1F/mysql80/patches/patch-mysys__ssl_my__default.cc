@@ -1,4 +1,4 @@
---- mysys_ssl/my_default.cc.orig	2019-01-25 22:33:03 UTC
+--- mysys_ssl/my_default.cc.orig	2019-04-13 11:46:31 UTC
 +++ mysys_ssl/my_default.cc
 @@ -203,7 +203,7 @@ bool no_defaults = false;
  
@@ -9,7 +9,7 @@
  #define DEFAULT_DIRS_SIZE (MAX_DEFAULT_DIRS + 1) /* Terminate with NULL */
  static const char **default_directories = NULL;
  
-@@ -908,6 +908,14 @@ static int search_default_file_with_ext(
+@@ -911,6 +911,14 @@ static int search_default_file_with_ext(
        return 1; /* Ignore wrong files */
    }
  
@@ -24,7 +24,7 @@
    while (mysql_file_getline(buff, sizeof(buff) - 1, fp, is_login_file)) {
      line++;
      /* Ignore comment and empty lines */
-@@ -1226,7 +1234,8 @@ void my_print_default_files(const char *
+@@ -1230,7 +1238,8 @@ void my_print_default_files(const char *
              end[(strlen(end) - 1)] = ' ';
            else
              strxmov(end, conf_file, *ext, " ", NullS);
@@ -34,7 +34,7 @@
          }
        }
      }
-@@ -1563,13 +1572,8 @@ static const char **init_default_directo
+@@ -1567,13 +1576,8 @@ static const char **init_default_directo
  
  #else
  
@@ -50,7 +50,7 @@
  
  #endif
  
-@@ -1633,7 +1637,7 @@ int check_file_permissions(const char *f
+@@ -1637,7 +1641,7 @@ int check_file_permissions(const char *f
  #if !defined(_WIN32)
    MY_STAT stat_info;
  

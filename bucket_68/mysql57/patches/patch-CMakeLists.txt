@@ -1,6 +1,6 @@
---- CMakeLists.txt.orig	2018-12-21 10:39:40 UTC
+--- CMakeLists.txt.orig	2019-04-13 13:32:15 UTC
 +++ CMakeLists.txt
-@@ -590,6 +590,7 @@ IF(CMAKE_SYSTEM_NAME MATCHES "Linux")
+@@ -591,6 +591,7 @@ IF(CMAKE_SYSTEM_NAME MATCHES "Linux")
  ENDIF()
  
  # Check for pthread_getthreadid_np()
@@ -8,7 +8,7 @@
  CHECK_C_SOURCE_COMPILES("
  #include <pthread_np.h>
  int main(int ac, char **av)
-@@ -598,6 +599,7 @@ int main(int ac, char **av)
+@@ -599,6 +600,7 @@ int main(int ac, char **av)
    return (tid != 0 ? 0 : 1);
  }"
  HAVE_PTHREAD_GETTHREADID_NP)
@@ -16,7 +16,7 @@
  
  # Check for pthread_self() returning an integer type
  CHECK_C_SOURCE_COMPILES("
-@@ -684,7 +686,6 @@ IF(NOT WITHOUT_SERVER)
+@@ -685,7 +687,6 @@ IF(NOT WITHOUT_SERVER)
    OPTION (WITH_EMBEDDED_SERVER "Compile MySQL with embedded server" OFF)
    IF(WITH_EMBEDDED_SERVER) 
     ADD_SUBDIRECTORY(libmysqld)
@@ -24,7 +24,7 @@
    ENDIF(WITH_EMBEDDED_SERVER)
  ENDIF()
  
-@@ -745,7 +746,6 @@ ELSE()
+@@ -746,7 +747,6 @@ ELSE()
    SET(CPACK_GENERATOR "TGZ")
  ENDIF() 
  ADD_SUBDIRECTORY(packaging/WiX)
@@ -32,7 +32,7 @@
  
  IF(UNIX)
    INSTALL(FILES Docs/mysql.info DESTINATION ${INSTALL_INFODIR} OPTIONAL COMPONENT Info)
-@@ -753,6 +753,7 @@ ENDIF()
+@@ -754,6 +754,7 @@ ENDIF()
  #
  # RPM installs documentation directly from the source tree
  #
@@ -40,7 +40,7 @@
  IF(NOT INSTALL_LAYOUT MATCHES "RPM")
    INSTALL(FILES COPYING LICENSE.mysql 
    DESTINATION ${INSTALL_DOCREADMEDIR} 
-@@ -775,6 +776,7 @@ IF(NOT INSTALL_LAYOUT MATCHES "RPM")
+@@ -776,6 +777,7 @@ IF(NOT INSTALL_LAYOUT MATCHES "RPM")
      PATTERN "sp-imp-spec.txt" EXCLUDE
    )
  ENDIF()

@@ -1,4 +1,4 @@
---- sql/mysqld.cc.orig	2018-12-21 10:39:40 UTC
+--- sql/mysqld.cc.orig	2019-04-13 13:32:15 UTC
 +++ sql/mysqld.cc
 @@ -3415,7 +3415,7 @@ static int init_ssl()
  {

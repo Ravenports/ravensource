@@ -1,4 +1,4 @@
---- sql/sql_view.cc.orig	2018-12-21 07:46:08 UTC
+--- sql/sql_view.cc.orig	2019-03-15 07:38:15 UTC
 +++ sql/sql_view.cc
 @@ -767,46 +767,46 @@ static const int required_view_parameter
  */

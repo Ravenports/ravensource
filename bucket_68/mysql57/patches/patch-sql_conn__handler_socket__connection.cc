@@ -1,4 +1,4 @@
---- sql/conn_handler/socket_connection.cc.orig	2018-12-21 10:39:40 UTC
+--- sql/conn_handler/socket_connection.cc.orig	2019-04-13 13:32:15 UTC
 +++ sql/conn_handler/socket_connection.cc
 @@ -943,22 +943,25 @@ Channel_info* Mysqld_socket_listener::li
      signal(SIGCHLD, SIG_DFL);
