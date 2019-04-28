@@ -15,9 +15,9 @@ platform/default/thread.cpp:23:9: error: use of undeclared identifier 'pthread_s
 platform/default/thread.cpp:31:31: error: use of undeclared identifier 'SCHED_IDLE'
     if (sched_setscheduler(0, SCHED_IDLE, &param) != 0) {
                               ^
---- src/plugins/geoservices/geoservices.pro.orig	2017-11-10 10:54:34 UTC
+--- src/plugins/geoservices/geoservices.pro.orig	2019-04-03 04:15:53 UTC
 +++ src/plugins/geoservices/geoservices.pro
-@@ -7,12 +7,3 @@ qtConfig(geoservices_mapbox): SUBDIRS += mapbox
+@@ -7,12 +7,3 @@ qtConfig(geoservices_mapbox): SUBDIRS +=
  qtConfig(geoservices_esri): SUBDIRS += esri
  qtConfig(geoservices_itemsoverlay): SUBDIRS += itemsoverlay
  qtConfig(geoservices_osm): SUBDIRS += osm
