@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	8.0
+DEF[SOVERSION]=		0.6
+DEF[STRIP_LIBS]=	activatable adblock bookmarks colorful-tabs session status-clock statusbar-features web-extensions
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		midori
+VERSION=		${PORTVERSION}
+KEYWORDS=		www
+VARIANTS=		standard
+SDESC[standard]=	Lightweight and fast WebkitGTK-based www browser
+HOMEPAGE=		https://www.midori-browser.org
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/midori-browser:core:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+# DISTFILE[1]=		x-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/core/main.vala
+LICENSE_AWK=		TERMS:"static int main"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		www/midori
+
+USES=			cmake gettext-runtime gettext-tools:build pkgconfig sqlite
+GNOME_COMPONENTS=	intltool
+
+BUILD_DEPENDS=		vala:single:standard
+BUILDRUN_DEPENDS=	gcr:primary:standard
+			libpeas:primary:py37
+			libsoup:primary:standard
+			webkit2:single:gtk3
+RUN_DEPENDS=		libarchive:single:standard
+
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/midori
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmidori-core.so.${SOVERSION}
+.for l in ${STRIP_LIBS}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/midori/lib${l}.so
+.endfor
