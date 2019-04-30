@@ -75,7 +75,7 @@ post-patch:
 	${FIND} ${WRKSRC}/ -name "*.orig" -delete
 	# Disable all bundled gems
 	# We install these from other ports
-.for d in gems bin/bundle bin/bundler bin/gem lib/bundler
+.for d in gems bin/bundle bin/bundler bin/gem lib/bundler ext/dbm ext/gdbm
 	${RM} -r ${BUILD_WRKSRC}/${d}
 .endfor
 	${RM} ${BUILD_WRKSRC}/man/bundle*

@@ -67,7 +67,7 @@ VAR_OPSYS[darwin]=	CONFIGURE_ENV=ac_cv_func_backtrace=no
 post-patch:
 	${FIND} ${WRKSRC}/ -name "*.orig" -delete
 	# We install these from other ports
-.for d in gems bin/bundle bin/bundler bin/gem lib/bundler
+.for d in gems bin/bundle bin/bundler bin/gem lib/bundler ext/dbm ext/gdbm
 	${RM} -r ${BUILD_WRKSRC}/${d}
 .endfor
 	${RM} ${BUILD_WRKSRC}/man/bundle*
