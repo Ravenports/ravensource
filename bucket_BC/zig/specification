@@ -1,0 +1,48 @@
+DEF[PORTVERSION]=	0.4.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		zig
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel lang
+VARIANTS=		standard
+SDESC[standard]=	Programming language
+HOMEPAGE=		https://ziglang.org/
+CONTACT=		Tse_[tse@tse.gratis]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/ziglang:zig:${PORTVERSION}
+DISTFILE[1]=		generated:main
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+ONLY_FOR_OPSYS=		freebsd dragonfly netbsd linux
+BUILDRUN_DEPENDS=	llvm:single:standard
+			clang:compiler:standard
+			lld:single:standard
+RUN_DEPENDS=		libcxx:primary:standard
+USES=			cmake
+
+post-extract:
+	${MKDIR} ${WRKSRC}/zig-cache
+	${MKDIR} ${WRKSRC}/std/os/dragonfly
+	${MV}    ${FILESDIR}/c_dragonfly.zig  ${WRKSRC}/std/c/dragonfly.zig
+	${MV}    ${FILESDIR}/os_dragonfly.zig ${WRKSRC}/std/os/dragonfly.zig
+	${MV}    ${FILESDIR}/errno.zig        ${WRKSRC}/std/os/dragonfly/
+	# native_libc.txt needs fixing up with os-specific values
+	# could use os-patches, but it's effectively the same, at-least until os testing!!
+	# ${MV}    ${FILESDIR}/native_libc.txt  ${WRKSRC}/zig-cache/
+	cat ${FILESDIR}/native_libc.txt|sed "s/DragonFly/`uname`/" > ${WRKSRC}/zig-cache/native_libc.txt
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/zig
+	rm -r        ${STAGEDIR}/construction
+
+# ${MV}        ${WRKSRC}/zig-cache/langref.html release/
+# :<c-r>. set buffer tabstop 8
+# sudo ravenadm dev buildsheet ~/Packages/zig save
