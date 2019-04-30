@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(LUMINA_VERSION)
-DEF[TAG]=		EXTRACT_INFO(LUMINA_RELEASE_TAG)
+# DEF[TAG]=		EXTRACT_INFO(LUMINA_RELEASE_TAG)
+DEF[TAG]=		ccb792fc
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		lumina-calculator
@@ -12,7 +13,7 @@ HOMEPAGE=		https://lumina-desktop.org
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/trueos:lumina:v${TAG}
+SITES[main]=		GITHUB/lumina-desktop:lumina-calculator:${TAG}
 DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
@@ -22,6 +23,10 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		deskutils/lumina-calculator
 
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC:H}}/LICENSE
+LICENSE_SCHEME=		solo
+
 BUILD_DEPENDS=		qt5-qttools:single:standard
 BUILDRUN_DEPENDS=	qt5-qtmultimedia:single:standard
 			qt5-qtsvg:single:standard
@@ -29,13 +34,12 @@ BUILDRUN_DEPENDS=	qt5-qtmultimedia:single:standard
 USES=			qt5
 XORG_COMPONENTS=	xcb-util xcb-util-wm xcb-util-image
 			xcb x11 xdamage
-DISTNAME=		lumina-${TAG}/src-qt5/desktop-utils/{{NAMEBASE}}
+DISTNAME=		lumina-calculator-${TAG}/src-qt5
 QMAKE_ARGS=		PREFIX="{{PREFIX}}"
 			LIBPREFIX="{{PREFIX}}/lib"
 			L_MANDIR="{{PREFIX}}/share/man"
 			CONFIG+=WITH_I18N
 
 post-patch:
-	${GREP} -rl "/usr/local" ${WRKDIR}/lumina-${TAG} | \
+	${GREP} -rl "/usr/local" ${WRKSRC} | \
 		${XARGS} ${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|g'
-	${FIND} ${WRKDIR}/lumina-${TAG} -name "*.bak" -type f -delete

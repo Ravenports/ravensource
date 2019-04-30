@@ -12,7 +12,7 @@ HOMEPAGE=		https://lumina-desktop.org
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/trueos:lumina:v${TAG}
+SITES[main]=		GITHUB/lumina-desktop:lumina:v${TAG}
 DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
@@ -20,7 +20,11 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-FPC_EQUIVALENT=		deskutils/lumina-fileinfo
+FPC_EQUIVALENT=		deskutils/lumina-fm
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC:H:H:H}}/LICENSE
+LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		qt5-qttools:single:standard
 BUILDRUN_DEPENDS=	qt5-qtmultimedia:single:standard
@@ -28,7 +32,7 @@ BUILDRUN_DEPENDS=	qt5-qtmultimedia:single:standard
 			qt5-qtimageformats:single:standard
 			qt5-qtx11extras:single:standard
 
-USES=			qt5
+USES=			qt5 desktop-utils:single
 DISTNAME=		lumina-${TAG}/src-qt5/desktop-utils/{{NAMEBASE}}
 QMAKE_ARGS=		PREFIX="{{PREFIX}}"
 			LIBPREFIX="{{PREFIX}}/lib"
