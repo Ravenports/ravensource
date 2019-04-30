@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.115
+DEF[PORTVERSION]=	0.116
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		polkit
@@ -38,7 +38,7 @@ BUILD_DEPENDS=		docbook-xsl:primary:standard
 BUILDRUN_DEPENDS=	dbus:single:standard
 			expat:complete:standard
 			openpam:single:standard
-			spidermonkey52:single:standard
+			spidermonkey:single:standard
 
 GNOME_COMPONENTS=	glib introspection libxslt
 USES=			gettext-tools gmake libtool pkgconfig python shebangfix
@@ -46,7 +46,6 @@ SHEBANG_FILES=		{{WRKSRC}}/src/polkitbackend/toarray.pl
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-authfw=pam
 			--with-pam-include=system
-			--with-mozjs=mozjs-17.0
 			--with-os-type={{OPSYS}}
 			--disable-libsystemd-login
 			--disable-libelogind
