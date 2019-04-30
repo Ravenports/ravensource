@@ -1,6 +1,6 @@
---- ../zig-0.4.0.orig/std/event/net.zig	2019-04-08 22:41:41.000000000 +0300
-+++ std/event/net.zig	2019-04-26 15:57:32.304444000 +0300
-@@ -202,7 +202,7 @@
+--- std/event/net.zig.orig	2019-04-08 19:41:41 UTC
++++ std/event/net.zig
+@@ -202,7 +202,7 @@ pub async fn writevPosix(loop: *Loop, fd
  pub async fn readvPosix(loop: *std.event.Loop, fd: i32, iov: [*]posix.iovec, count: usize) !usize {
      while (true) {
          switch (builtin.os) {

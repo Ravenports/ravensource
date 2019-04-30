@@ -1,6 +1,6 @@
---- ../zig-0.4.0.orig/src/zig_llvm.cpp	2019-04-09 01:30:42.000000000 +0300
-+++ src/zig_llvm.cpp	2019-04-29 23:23:24.829139000 +0300
-@@ -883,6 +883,7 @@
+--- src/zig_llvm.cpp.orig	2019-04-08 19:41:41 UTC
++++ src/zig_llvm.cpp
+@@ -883,6 +883,7 @@ bool ZigLLVMWriteArchive(const char *arc
              break;
          case ZigLLVM_OpenBSD:
          case ZigLLVM_FreeBSD:

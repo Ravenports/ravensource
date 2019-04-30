@@ -1,6 +1,6 @@
---- /home/tse/Packages/zig-0.4.0.orig/src/target.cpp	2019-04-08 22:41:41.000000000 +0300
-+++ src/target.cpp	2019-04-26 14:57:42.627652000 +0300
-@@ -857,6 +857,7 @@
+--- src/target.cpp.orig	2019-04-08 19:41:41 UTC
++++ src/target.cpp
+@@ -857,6 +857,7 @@ uint32_t target_c_type_size_in_bits(cons
          case OsLinux:
          case OsMacOSX:
          case OsZen:
@@ -8,7 +8,7 @@
          case OsFreeBSD:
          case OsNetBSD:
          case OsOpenBSD:
-@@ -896,7 +897,6 @@
+@@ -896,7 +897,6 @@ uint32_t target_c_type_size_in_bits(cons
              }
          case OsAnanas:
          case OsCloudABI:
@@ -16,7 +16,7 @@
          case OsIOS:
          case OsKFreeBSD:
          case OsLv2:
-@@ -1009,6 +1009,8 @@
+@@ -1009,6 +1009,8 @@ static bool is_64_bit(ZigLLVM_ArchType a
  
  const char *target_dynamic_linker(const ZigTarget *target) {
      switch (target->os) {
@@ -25,7 +25,7 @@
          case OsFreeBSD:
              return "/libexec/ld-elf.so.1";
          case OsNetBSD:
-@@ -1133,7 +1135,6 @@
+@@ -1133,7 +1135,6 @@ const char *target_dynamic_linker(const
  
          case OsAnanas:
          case OsCloudABI:
@@ -33,7 +33,7 @@
          case OsFuchsia:
          case OsKFreeBSD:
          case OsLv2:
-@@ -1327,7 +1328,7 @@
+@@ -1327,7 +1328,7 @@ bool target_os_requires_libc(Os os) {
      // On Darwin, we always link libSystem which contains libc.
      // Similarly on FreeBSD and NetBSD we always link system libc
      // since this is the stable syscall interface.
@@ -42,7 +42,7 @@
  }
  
  bool target_supports_fpic(const ZigTarget *target) {
-@@ -1355,7 +1356,6 @@
+@@ -1355,7 +1356,6 @@ ZigLLVM_EnvironmentType target_default_a
          case OsFreestanding:
          case OsAnanas:
          case OsCloudABI:
@@ -50,7 +50,7 @@
          case OsLv2:
          case OsSolaris:
          case OsHaiku:
-@@ -1378,6 +1378,7 @@
+@@ -1378,6 +1378,7 @@ ZigLLVM_EnvironmentType target_default_a
          case OsOpenBSD:
          case OsMacOSX:
          case OsFreeBSD:

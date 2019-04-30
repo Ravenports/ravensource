@@ -1,5 +1,5 @@
---- /home/tse/Packages/zig-0.4.0.orig/src/os.hpp	2019-04-08 22:41:41.000000000 +0300
-+++ src/os.hpp	2019-04-26 14:16:42.462393000 +0300
+--- src/os.hpp.orig	2019-04-08 19:41:41 UTC
++++ src/os.hpp
 @@ -27,6 +27,8 @@
  #define ZIG_OS_FREEBSD
  #elif defined(__NetBSD__)

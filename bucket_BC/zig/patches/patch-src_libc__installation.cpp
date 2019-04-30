@@ -1,6 +1,6 @@
---- ../zig-0.4.0.orig/src/libc_installation.cpp	2019-04-08 22:41:41.000000000 +0300
-+++ src/libc_installation.cpp	2019-04-26 14:14:34.411752000 +0300
-@@ -459,7 +459,7 @@
+--- src/libc_installation.cpp.orig	2019-04-08 19:41:41 UTC
++++ src/libc_installation.cpp
+@@ -459,7 +459,7 @@ Error zig_libc_find_native(ZigLibCInstal
  #else
      if ((err = zig_libc_find_native_include_dir_posix(self, verbose)))
          return err;

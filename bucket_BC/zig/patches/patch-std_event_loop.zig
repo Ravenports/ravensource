@@ -1,6 +1,6 @@
---- ../zig-0.4.0.orig/std/event/loop.zig	2019-04-09 01:30:42.000000000 +0300
-+++ std/event/loop.zig	2019-04-29 22:42:17.860791000 +0300
-@@ -50,7 +50,7 @@
+--- std/event/loop.zig.orig	2019-04-08 19:41:41 UTC
++++ std/event/loop.zig
+@@ -50,7 +50,7 @@ pub const Loop = struct {
          };
  
          pub const EventFd = switch (builtin.os) {
@@ -9,7 +9,7 @@
              builtin.Os.linux => struct {
                  base: ResumeNode,
                  epoll_op: u32,
-@@ -69,7 +69,7 @@
+@@ -69,7 +69,7 @@ pub const Loop = struct {
          };
  
          pub const Basic = switch (builtin.os) {
@@ -18,7 +18,7 @@
              builtin.Os.linux => struct {
                  base: ResumeNode,
              },
-@@ -221,7 +221,7 @@
+@@ -221,7 +221,7 @@ pub const Loop = struct {
                      self.extra_threads[extra_thread_index] = try os.spawnThread(self, workerRun);
                  }
              },
@@ -27,7 +27,7 @@
                  self.os_data.kqfd = try os.bsdKQueue();
                  errdefer os.close(self.os_data.kqfd);
  
-@@ -386,7 +386,7 @@
+@@ -386,7 +386,7 @@ pub const Loop = struct {
                  os.close(self.os_data.epollfd);
                  self.allocator.free(self.eventfd_resume_nodes);
              },
@@ -36,7 +36,7 @@
                  os.close(self.os_data.kqfd);
                  os.close(self.os_data.fs_kqfd);
              },
-@@ -501,7 +501,7 @@
+@@ -501,7 +501,7 @@ pub const Loop = struct {
              const eventfd_node = &resume_stack_node.data;
              eventfd_node.base.handle = next_tick_node.data;
              switch (builtin.os) {
@@ -45,7 +45,7 @@
                      const kevent_array = (*const [1]posix.Kevent)(&eventfd_node.kevent);
                      const empty_kevs = ([*]posix.Kevent)(undefined)[0..0];
                      _ = os.bsdKEvent(self.os_data.kqfd, kevent_array, empty_kevs, null) catch {
-@@ -565,6 +565,7 @@
+@@ -565,6 +565,7 @@ pub const Loop = struct {
              builtin.Os.macosx,
              builtin.Os.freebsd,
              builtin.Os.netbsd,
@@ -53,7 +53,7 @@
              => self.os_data.fs_thread.wait(),
              else => {},
          }
-@@ -629,7 +630,7 @@
+@@ -629,7 +630,7 @@ pub const Loop = struct {
                      os.posixWrite(self.os_data.final_eventfd, wakeup_bytes) catch unreachable;
                      return;
                  },
@@ -62,7 +62,7 @@
                      self.posixFsRequest(&self.os_data.fs_end_request);
                      const final_kevent = (*const [1]posix.Kevent)(&self.os_data.final_kevent);
                      const empty_kevs = ([*]posix.Kevent)(undefined)[0..0];
-@@ -687,7 +688,7 @@
+@@ -687,7 +688,7 @@ pub const Loop = struct {
                          }
                      }
                  },
@@ -71,7 +71,7 @@
                      var eventlist: [1]posix.Kevent = undefined;
                      const empty_kevs = ([*]posix.Kevent)(undefined)[0..0];
                      const count = os.bsdKEvent(self.os_data.kqfd, empty_kevs, eventlist[0..], null) catch unreachable;
-@@ -750,7 +751,7 @@
+@@ -750,7 +751,7 @@ pub const Loop = struct {
          self.beginOneEvent(); // finished in posixFsRun after processing the msg
          self.os_data.fs_queue.put(request_node);
          switch (builtin.os) {
@@ -80,7 +80,7 @@
                  const fs_kevs = (*const [1]posix.Kevent)(&self.os_data.fs_kevent_wake);
                  const empty_kevs = ([*]posix.Kevent)(undefined)[0..0];
                  _ = os.bsdKEvent(self.os_data.fs_kqfd, fs_kevs, empty_kevs, null) catch unreachable;
-@@ -820,7 +821,7 @@
+@@ -820,7 +821,7 @@ pub const Loop = struct {
                          else => unreachable,
                      }
                  },
@@ -89,7 +89,7 @@
                      const fs_kevs = (*const [1]posix.Kevent)(&self.os_data.fs_kevent_wait);
                      var out_kevs: [1]posix.Kevent = undefined;
                      _ = os.bsdKEvent(self.os_data.fs_kqfd, fs_kevs, out_kevs[0..], null) catch unreachable;
-@@ -832,7 +833,7 @@
+@@ -832,7 +833,7 @@ pub const Loop = struct {
  
      const OsData = switch (builtin.os) {
          builtin.Os.linux => LinuxOsData,

@@ -1,6 +1,6 @@
---- ../zig-0.4.0.orig/std/os/path.zig	2019-04-08 22:41:41.000000000 +0300
-+++ std/os/path.zig	2019-04-26 15:42:19.949871000 +0300
-@@ -1226,7 +1226,7 @@
+--- std/os/path.zig.orig	2019-04-08 19:41:41 UTC
++++ std/os/path.zig
+@@ -1226,7 +1226,7 @@ pub fn realC(out_buffer: *[os.MAX_PATH_B
              const pathname_w = try windows_util.cStrToPrefixedFileW(pathname);
              return realW(out_buffer, pathname_w);
          },
@@ -9,7 +9,7 @@
              // TODO instead of calling the libc function here, port the implementation to Zig
              const err = posix.getErrno(posix.realpath(pathname, out_buffer));
              switch (err) {
-@@ -1267,7 +1267,7 @@
+@@ -1267,7 +1267,7 @@ pub fn real(out_buffer: *[os.MAX_PATH_BY
              const pathname_w = try windows_util.sliceToPrefixedFileW(pathname);
              return realW(out_buffer, &pathname_w);
          },

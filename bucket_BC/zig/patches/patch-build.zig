@@ -1,8 +1,6 @@
---- ../zig-0.4.0.orig/build.zig	2019-04-09 01:30:42.000000000 +0300
-+++ build.zig	2019-04-29 23:05:09.457538000 +0300
-@@ -310,11 +310,11 @@
-         addCppLib(b, exe, ctx.cmake_binary_dir, "embedded_lld_coff");
-         addCppLib(b, exe, ctx.cmake_binary_dir, "embedded_lld_lib");
+--- build.zig.orig	2019-04-08 19:41:41 UTC
++++ build.zig
+@@ -312,7 +312,7 @@ fn configureStage2(b: *Builder, exe: var
      }
      dependOnLib(b, exe, ctx.llvm);
  
@@ -11,5 +9,3 @@
          try addCxxKnownPath(b, ctx, exe, "libstdc++.a",
              \\Unable to determine path to libstdc++.a
              \\On Fedora, install libstdc++-static and try again.
-         );
- 

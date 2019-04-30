@@ -1,6 +1,6 @@
---- ../zig-0.4.0.orig/src/link.cpp	2019-04-09 01:30:42.000000000 +0300
-+++ src/link.cpp	2019-04-29 22:23:30.505394000 +0300
-@@ -872,7 +872,7 @@
+--- src/link.cpp.orig	2019-04-08 19:41:41 UTC
++++ src/link.cpp
+@@ -872,7 +872,7 @@ static const char *getLDMOption(const Zi
                  return "elf32_x86_64";
              }
              // Any target elf will use the freebsd osabi if suffixed with "_fbsd".
@@ -9,7 +9,7 @@
                  return "elf_x86_64_fbsd";
              }
              return "elf_x86_64";
-@@ -1043,6 +1043,17 @@
+@@ -1043,6 +1043,17 @@ static void construct_linker_job_elf(Lin
                  lj->args.append("-lm");
                  lj->args.append("--end-group");
              } else {

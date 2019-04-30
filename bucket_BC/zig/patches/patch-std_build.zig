@@ -1,6 +1,6 @@
---- ../zig-0.4.0.orig/std/build.zig	2019-04-08 22:41:41.000000000 +0300
-+++ std/build.zig	2019-04-26 17:03:40.584496000 +0300
-@@ -894,6 +894,13 @@
+--- std/build.zig.orig	2019-04-08 19:41:41 UTC
++++ std/build.zig
+@@ -894,6 +894,13 @@ pub const Target = union(enum) {
          };
      }
  
