@@ -1,6 +1,6 @@
---- mesonbuild/compilers/compilers.py.orig	2019-01-23 16:46:09 UTC
+--- mesonbuild/compilers/compilers.py.orig	2019-04-16 22:10:21 UTC
 +++ mesonbuild/compilers/compilers.py
-@@ -177,7 +177,7 @@ apple_buildtype_linker_args = {'plain':
+@@ -200,7 +200,7 @@ apple_buildtype_linker_args = {'plain':
  gnulike_buildtype_linker_args = {'plain': [],
                                   'debug': [],
                                   'debugoptimized': [],
@@ -9,7 +9,7 @@
                                   'minsize': [],
                                   'custom': [],
                                   }
-@@ -522,9 +522,6 @@ def get_base_link_args(options, linker,
+@@ -563,9 +563,6 @@ def get_base_link_args(options, linker,
      # -bitcode_bundle is incompatible with -undefined and -bundle
      if bitcode and not is_shared_module:
          args.append('-Wl,-bitcode_bundle')
@@ -19,7 +19,7 @@
      try:
          crt_val = options['b_vscrt'].value
          buildtype = options['buildtype'].value
-@@ -1210,19 +1207,6 @@ class Compiler:
+@@ -1266,19 +1263,6 @@ class Compiler:
                      paths = paths + ':' + padding
              args.append('-Wl,-rpath,' + paths)
  
@@ -39,7 +39,7 @@
          return args
  
      def thread_flags(self, env):
-@@ -1354,15 +1338,7 @@ def get_compiler_is_linuxlike(compiler):
+@@ -1412,15 +1396,7 @@ def get_compiler_is_linuxlike(compiler):
  def get_compiler_uses_gnuld(c):
      # FIXME: Perhaps we should detect the linker in the environment?
      # FIXME: Assumes that *BSD use GNU ld, but they might start using lld soon
@@ -56,7 +56,7 @@
  
  def get_largefile_args(compiler):
      '''
-@@ -1433,8 +1409,6 @@ class GnuLikeCompiler(abc.ABC):
+@@ -1491,8 +1467,6 @@ class GnuLikeCompiler(abc.ABC):
          self.compiler_type = compiler_type
          self.base_options = ['b_pch', 'b_lto', 'b_pgo', 'b_sanitize', 'b_coverage',
                               'b_ndebug', 'b_staticpic', 'b_pie']
@@ -65,7 +65,7 @@
          if not self.compiler_type.is_windows_compiler:
              self.base_options.append('b_asneeded')
          # All GCC-like backends can do assembly
-@@ -1542,8 +1516,8 @@ class GnuLikeCompiler(abc.ABC):
+@@ -1600,8 +1574,8 @@ class GnuLikeCompiler(abc.ABC):
              # For PE/COFF this is impossible
              return []
          else:
@@ -74,5 +74,5 @@
 +            # sun linker
 +            return []
  
- 
- class GnuCompiler(GnuLikeCompiler):
+     def get_gui_app_args(self, value):
+         if self.compiler_type.is_windows_compiler:
