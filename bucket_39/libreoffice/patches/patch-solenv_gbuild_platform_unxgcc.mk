@@ -1,4 +1,4 @@
---- solenv/gbuild/platform/unxgcc.mk.orig	2019-01-23 19:35:25 UTC
+--- solenv/gbuild/platform/unxgcc.mk.orig	2019-04-10 10:10:51 UTC
 +++ solenv/gbuild/platform/unxgcc.mk
 @@ -45,8 +45,7 @@ gb_CFLAGS := \
  gb_CXXFLAGS := \

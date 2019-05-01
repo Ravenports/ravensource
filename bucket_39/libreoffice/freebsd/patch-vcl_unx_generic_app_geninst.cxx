@@ -1,4 +1,4 @@
---- vcl/unx/generic/app/geninst.cxx.orig	2019-01-23 19:35:25 UTC
+--- vcl/unx/generic/app/geninst.cxx.orig	2019-04-10 10:10:51 UTC
 +++ vcl/unx/generic/app/geninst.cxx
 @@ -22,10 +22,7 @@
  #include <cassert>

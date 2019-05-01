@@ -1,4 +1,4 @@
---- bin/distro-install-desktop-integration.orig	2019-01-23 19:35:25 UTC
+--- bin/distro-install-desktop-integration.orig	2019-04-10 10:10:51 UTC
 +++ bin/distro-install-desktop-integration
 @@ -98,7 +98,7 @@ cp -a workdir/CustomTarget/sysui/share/l
  cp -a "${SRCDIR?}"/sysui/desktop/share/create_tree.sh "$sysui_temp"
@@ -43,7 +43,12 @@
      done
  fi
  
-@@ -175,12 +175,12 @@ ln -sf "$INSTALLDIR/program/soffice" "$D
+@@ -171,16 +171,16 @@ test -f $DESTDIR/gid_Module_Optional_Xsl
+ #       you cannot include this link directly into the package
+ #       For example, the Novell package mark this symlink as %ghost
+ #	and update it in %post and %postun
+-ln -sf "$INSTALLDIR/program/soffice" "$DESTDIR$BINDIR/soffice"
++ln -sf ../lib/libreoffice/program/soffice $DESTDIR$PREFIXDIR/bin/soffice
  test -f $DESTDIR/gid_Module_Root_Brand && echo "$BINDIR/soffice" >>$DESTDIR/gid_Module_Root_Brand
  
  # create bash completion
