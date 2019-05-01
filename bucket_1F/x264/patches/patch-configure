@@ -1,6 +1,6 @@
---- configure.orig	2017-12-25 21:45:05 UTC
+--- configure.orig	2019-03-11 21:45:04 UTC
 +++ configure
-@@ -608,6 +608,10 @@ case $host_os in
+@@ -626,6 +626,10 @@ case $host_os in
              cc_check "" -mdynamic-no-pic && CFLAGS="$CFLAGS -mdynamic-no-pic"
          fi
          ;;
@@ -11,9 +11,9 @@
      freebsd*)
          SYS="FREEBSD"
          libm="-lm"
-@@ -1296,6 +1300,9 @@ if [ "$opencl" = "yes" ]; then
+@@ -1343,6 +1347,9 @@ if [ "$opencl" = "yes" ]; then
          opencl="yes"
-         define HAVE_OPENCL
+         define HAVE_OPENCL "(BIT_DEPTH==8)"
          libdl="-ldl"
 +    else
 +        opencl="yes"
