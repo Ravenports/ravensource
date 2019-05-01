@@ -108,6 +108,9 @@ while read ravenport version fpc_port; do
 	corefonts) ;;
 	precomp) ;;
 	oed) ;;
+	zig) ;;
+	libmnl) ;;
+	libnftnl) ;;
 	*) echo "${ravenport} ${version}"
    esac
 done < ${tmpfile}
