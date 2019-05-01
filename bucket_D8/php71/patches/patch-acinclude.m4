@@ -1,4 +1,4 @@
---- acinclude.m4.orig	2019-03-05 19:28:43 UTC
+--- acinclude.m4.orig	2019-05-01 05:19:30 UTC
 +++ acinclude.m4
 @@ -985,15 +985,9 @@ dnl ------------------------------------
    if test "$3" != "shared" && test "$3" != "yes" && test "$4" = "cli"; then
@@ -14,8 +14,8 @@
 -        ;;
 -    esac
 +
-+	PHP_ADD_SOURCES(PHP_EXT_DIR($1),$2,$ac_extra,cgi)
-+	PHP_ADD_SOURCES(PHP_EXT_DIR($1),$2,$ac_extra,fpm)
++	PHP_ADD_SOURCES($ext_dir,$2,$ac_extra,cgi)
++	PHP_ADD_SOURCES($ext_dir,$2,$ac_extra,fpm)
      EXT_CLI_STATIC="$EXT_CLI_STATIC $1;$ext_dir"
    fi
    PHP_ADD_BUILD_DIR($ext_builddir)
