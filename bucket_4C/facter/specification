@@ -40,6 +40,13 @@ CMAKE_ARGS=		-DWITHOUT_JRUBY:BOOL=ON
 SOVERSION=		${PORTVERSION}
 CXXFLAGS=		-Wno-catch-value
 
+VAR_OPSYS[linux]=	LDFLAGS=-lboost_locale
+			LDFLAGS=-lboost_program_options
+			LDFLAGS=-lboost_chrono
+			LDFLAGS=-lboost_thread
+			LDFLAGS=-lboost_regex
+			LDFLAGS=-lboost_filesystem
+
 post-patch:
 	${REINPLACE_CMD} -e 's|%%PREFIX%%|${PREFIX}|g' \
 		${WRKSRC}/lib/src/facts/posix/cache.cc \
