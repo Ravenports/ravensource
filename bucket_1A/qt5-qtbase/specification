@@ -26,7 +26,7 @@ BUILDRUN_DEPENDS=	pcre2:primary:standard
 			libxkbcommon:single:standard
 			at-spi2-atk:single:standard
 
-USES=			qt5 zlib png sqlite jpeg pkgconfig execinfo
+USES=			qt5 gmake zlib png sqlite jpeg pkgconfig execinfo
 			iconv perl:build shebangfix ssl:openssl-devel
 XORG_COMPONENTS=	xcb xcb-util xcb-util-image xcb-util-keysyms
 			xcb-util-wm xcb-render-util
@@ -40,6 +40,7 @@ CONFIGURE_ARGS=		-system-harfbuzz
 			-system-freetype
 			-xkbcommon
 			-shared
+			-release
 			-icu
 			-sql-sqlite
 			-dbus-runtime
@@ -48,6 +49,9 @@ CONFIGURE_ARGS=		-system-harfbuzz
 			OPENSSL_PATH={{OPENSSLBASE}}
 			-L {{LOCALBASE}}/lib
 			-I {{LOCALBASE}}/include
+			-nomake examples
+			-nomake tests
+			-verbose
 # |			-libproxy
 
 LDFLAGS=		-Wl,-rpath,{{OPENSSLLIB}}
@@ -75,6 +79,8 @@ VAR_OPSYS[dragonfly]=	VAR1=dragonfly
 VAR_OPSYS[freebsd]=	VAR1=freebsd
 VAR_OPSYS[sunos]=	VAR1=solaris
 VAR_OPSYS[linux]=	VAR1=linux
+			CONFIGURE_ARGS=-L
+			CONFIGURE_ARGS=/usr/lib/x86_64-linux-gnu/
 
 post-patch:
 	${MKDIR} ${WRKSRC}/mkspecs/dragonfly-g++
