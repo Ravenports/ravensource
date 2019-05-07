@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	1.14.0
+DEF[PORTVERSION]=	1.15.0
 # known to re-roll distfiles
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mupdf
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Lightweight PDF and XPS viewer
@@ -41,7 +40,6 @@ XORG_COMPONENTS=	x11 xcursor xext xinerama xrandr
 CPE_VENDOR=		artifex
 DISTNAME=		mupdf-${PORTVERSION}-source
 SOVERSION=		${PORTVERSION}
-BUILD_TARGET=		all extra
 MAKE_ARGS=		build=release
 			prefix={{PREFIX}}
 			mandir={{MANPREFIX}}/man
@@ -74,11 +72,7 @@ post-patch-sunos:
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/bin/mupdf-x11 ${STAGEDIR}${PREFIX}/bin/mupdf
-	${INSTALL_PROGRAM} \
-		${WRKSRC}/build/release/mjsgen \
-		${WRKSRC}/build/release/mujstest \
-		${WRKSRC}/build/release/mupdf-x11-curl \
-		${WRKSRC}/build/release/muraster \
+	${INSTALL_PROGRAM} ${WRKSRC}/build/release/muraster \
 		${STAGEDIR}${PREFIX}/bin
 	${LN} -s libmupdf.so.${PORTVERSION} \
 		${STAGEDIR}${PREFIX}/lib/libmupdf.so

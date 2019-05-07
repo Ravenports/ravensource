@@ -1,4 +1,4 @@
---- Makethird.orig	2018-10-03 11:29:14 UTC
+--- Makethird.orig	2019-05-06 11:53:09 UTC
 +++ Makethird
 @@ -1,12 +1,12 @@
  # GNU Makefile for third party libraries used by MuPDF
@@ -14,12 +14,3 @@
    USE_SYSTEM_MUJS := no # not available
    USE_SYSTEM_OPENJPEG := yes
    USE_SYSTEM_ZLIB := yes
-@@ -381,7 +381,7 @@ endif
- 
- ifeq ($(USE_SYSTEM_CURL),yes)
-   CURL_CFLAGS := $(SYS_CURL_CFLAGS)
--  CURL_LIBS := $(SYS_CURL_LIBS)
-+  CURL_LIBS := $(SYS_CURL_LIBS) -lpthread
- else
- 
- CURL_SRC += $(sort $(wildcard thirdparty/curl/lib/*.c))
