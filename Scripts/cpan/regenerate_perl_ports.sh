@@ -79,6 +79,9 @@ extract_info()
    if [ $perlname = "File::chdir" ]
    then
       echo "File::chdir  0.1011  D/DA/DAGOLDEN/File-chdir-0.1011.tar.gz"
+   elif [ $perlname = "Inline" ]
+   then
+      echo "Inline  0.83  T/TI/TINITA/Inline-0.83.tar.gz"
    else
       awk -vperlname=$perlname \
       '{ if ($1 == perlname) { print; exit }}' ${ENTRY_LIST}
