@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.0.0
+DEF[PORTVERSION]=	3.0.4
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-mock
@@ -8,12 +8,12 @@ VARIANTS=		py27 py36 py37
 SDESC[py27]=		Rolling backport of standard mock library (PY 27)
 SDESC[py36]=		Rolling backport of standard mock library (PY 36)
 SDESC[py37]=		Rolling backport of standard mock library (PY 37)
-HOMEPAGE=		https://github.com/testing-cabal/mock
+HOMEPAGE=		http://mock.readthedocs.org/en/latest/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/m/mock
-DISTFILE[1]=		mock-2.0.0.tar.gz:main
+DISTFILE[1]=		mock-3.0.4.tar.gz:main
 
 SPKGS[py27]=		single
 SPKGS[py36]=		single
@@ -26,25 +26,17 @@ VOPTS[py36]=		PY27=OFF PY36=ON PY37=OFF
 VOPTS[py37]=		PY27=OFF PY36=OFF PY37=ON
 
 # Output of setup.py --license
-# UNKNOWN
+# OSI Approved :: BSD License
 
 GENERATED=		yes
 
 # install_requires extracted from setup.py (using python 2.7)
-# pbr>=1.3
-# setuptools>=17.1
 
 DISTNAME=		mock-${PORTVERSION}
 
 [PY27].USES_ON=				python:py27
-[PY27].BUILDRUN_DEPENDS_ON=		python-pbr:single:py27
-					python-setuptools:single:py27
 
 [PY36].USES_ON=				python:py36
-[PY36].BUILDRUN_DEPENDS_ON=		python-pbr:single:py36
-					python-setuptools:single:py36
 
 [PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-pbr:single:py37
-					python-setuptools:single:py37
 
