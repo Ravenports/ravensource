@@ -1,4 +1,4 @@
---- src/intel/isl/isl.h.orig	2019-04-24 17:40:00 UTC
+--- src/intel/isl/isl.h.orig	2019-05-09 20:33:26 UTC
 +++ src/intel/isl/isl.h
 @@ -46,6 +46,9 @@
  #include "util/macros.h"
