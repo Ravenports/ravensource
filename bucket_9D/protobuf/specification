@@ -1,11 +1,12 @@
 # Note: protobuf-c is tightly coupled to protobuf and needs to be updated
 #       and tested together
 DEF[PORTVERSION]=	3.7.1
-DEF[SOVERSION]=		18.0.1
+DEF[SOVERSION]=		${PORTVERSION}.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		protobuf
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Google's data interchange format
@@ -27,15 +28,12 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/protobuf
 
-USES=			autoreconf gmake libtool pkgconfig c++:single
-MUST_CONFIGURE=		gnu
-INSTALL_TARGET=		install-strip
-INSTALL_REQ_TOOLCHAIN=	yes
-CFLAGS=			-DGOOGLE_PROTOBUF_NO_RTTI
-SOVERSION=		${SOVERSION}
+USES=			cmake pkgconfig zlib c++:single
+CMAKE_ARGS=		-Dprotobuf_BUILD_TESTS:BOOL=OFF
+			-DBUILD_SHARED_LIBS:BOOL=ON
+DISTNAME=		protobuf-${PORTVERSION}/cmake
+PLIST_SUB=		PROTOCVER=${SOVERSION}
 
-post-patch:
-	${REINPLACE_CMD} -e 's|^check-local:|disabled-&|' \
-		${WRKSRC}/Makefile.am
-	${REINPLACE_CMD} -Ee '/gtest|mock/ s|[^ ]*lib(.*)\.la|-l\1|' \
-		${WRKSRC}/src/Makefile.am
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/protoc
