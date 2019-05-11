@@ -39,13 +39,12 @@ USES=			ssl cmake ruby
 CMAKE_ARGS=		-DWITHOUT_JRUBY:BOOL=ON
 SOVERSION=		${PORTVERSION}
 CXXFLAGS=		-Wno-catch-value
-
-VAR_OPSYS[linux]=	LDFLAGS=-lboost_locale
-			LDFLAGS=-lboost_program_options
-			LDFLAGS=-lboost_chrono
-			LDFLAGS=-lboost_thread
-			LDFLAGS=-lboost_regex
-			LDFLAGS=-lboost_filesystem
+LDFLAGS=		-lboost_locale
+			-lboost_program_options
+			-lboost_chrono
+			-lboost_thread
+			-lboost_regex
+			-lboost_filesystem
 
 post-patch:
 	${REINPLACE_CMD} -e 's|%%PREFIX%%|${PREFIX}|g' \
