@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	4.5.3
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-tornado4
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py27 py36 py37
+SDESC[py27]=		Pythonic web framework, legacy version (PY 27)
+SDESC[py36]=		Pythonic web framework, legacy version (PY 36)
+SDESC[py37]=		Pythonic web framework, legacy version (PY 37)
+HOMEPAGE=		http://www.tornadoweb.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/t/tornado
+DISTFILE[1]=		tornado-${PORTVERSION}.tar.gz:main
+
+SPKGS[py27]=		single
+SPKGS[py36]=		single
+SPKGS[py37]=		single
+
+OPTIONS_AVAILABLE=	PY27 PY36 PY37
+OPTIONS_STANDARD=	none
+VOPTS[py27]=		PY27=ON PY36=OFF PY37=OFF
+VOPTS[py36]=		PY27=OFF PY36=ON PY37=OFF
+VOPTS[py37]=		PY27=OFF PY36=OFF PY37=ON
+
+LICENSE=		APACHE20:single
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/tornado/web.py
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+DISTNAME=		tornado-${PORTVERSION}
+
+[PY27].USES_ON=				python:py27
+
+[PY36].USES_ON=				python:py36
+
+[PY37].USES_ON=				python:py37
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/python${PYTHON_VER}/site-packages/tornado/speedups.so
