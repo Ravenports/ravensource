@@ -1,6 +1,6 @@
 Solaris 10u8 has an older prototype
 
---- lib/ofx_preproc.cpp.orig	2018-05-02 19:39:38 UTC
+--- lib/ofx_preproc.cpp.orig	2019-02-11 22:26:59 UTC
 +++ lib/ofx_preproc.cpp
 @@ -306,7 +306,7 @@ int ofx_proc_file(LibofxContextPtr ctx,
              size_t outbytesleft = inbytesleft * 2 - 1;
