@@ -1,0 +1,85 @@
+DEF[PORTVERSION]=	0.92.4
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		inkscape
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics editors
+VARIANTS=		standard
+SDESC[standard]=	Scalable Vector Graphics (SVG) editor
+HOMEPAGE=		https://inkscape.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://media.inkscape.org/dl/resources/file/
+DISTFILE[1]=		inkscape-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/GPL3.txt
+LICENSE_TERMS=		single:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/inkscape
+
+BUILD_DEPENDS=		appstream-glib:primary:standard
+BUILDRUN_DEPENDS=	popt:single:standard
+			boehm_garbage_collector:single:standard
+			gsl:single:standard
+			lcms2:primary:standard
+			fribidi:single:standard
+			freetype:primary:standard
+			poppler:primary:standard
+			poppler:glib:standard
+			libcdr:single:standard
+			librevenge:single:standard
+			libvisio:single:standard
+			libwpg:single:standard
+			boost-libraries:rest:python_default
+			aspell:single:standard
+
+USES=			cmake cpe png jpeg pkgconfig python:build perl:build
+			shebangfix gettext-runtime gettext-tools
+			desktop-utils:single gnome-icons:single
+GNOME_COMPONENTS=	libxslt gtkmm24
+XORG_COMPONENTS=	x11
+SHEBANG_FILES=		cxxtest/cxxtestgen.pl
+			share/extensions/*.p[lm]
+			share/extensions/*.py
+			share/extensions/genpofiles.sh
+			share/*/i18n.py
+			fix-roff-punct
+# ImageMagick version 6 is required
+CMAKE_ARGS=		-DWITH_GNOME_VFS:BOOL=OFF
+			-DWITH_DBUS:BOOL=OFF
+			-DWITH_IMAGE_MAGICK:BOOL=OFF
+			-DWITH_OPENMP:BOOL=OFF
+			-DWITH_PROFILING:BOOL=OFF
+			-DENABLE_LCMS:BOOL=ON
+			-DENABLE_POPPLER:BOOL=ON
+			-DENABLE_POPPLER_CAIRO:BOOL=ON
+			-DWITH_SVG2:BOOL=ON
+			-DWITH_LPETOOL:BOOL=ON
+			-DWITH_LIBCDR:BOOL=ON
+			-DWITH_LIBVISIO:BOOL=ON
+			-DWITH_LIBWPG:BOOL=ON
+			-DWITH_NLS:BOOL=ON
+			-DBUILD_SHARED_LIBS:BOOL=OFF
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-patch:
+	${REINPLACE_CMD} -e 's|COMMAND python|COMMAND ${PYTHON_VERSION}|g' \
+		${WRKSRC}/share/*/CMakeLists.txt
+	# Obtained from Arch Linux
+	${REINPLACE_CMD} -e 's|gTrue|true|g' -e 's|gFalse|false|g' -e 's|GBool|bool|g' \
+		${WRKSRC}/src/extension/internal/pdfinput/pdf-parser.*
+	# Fix with poppler 0.73
+	${REINPLACE_CMD} -E '/#include "goo\/gtypes.h"/d' \
+		${WRKSRC}/src/extension/internal/pdfinput/pdf-parser.h
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/inkscape/libinkscape_base.so
