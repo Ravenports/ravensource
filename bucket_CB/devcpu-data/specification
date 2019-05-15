@@ -1,7 +1,7 @@
-DEF[PORTVERSION]=	1.21
-DEF[INTEL_SITE]=	28039
-DEF[INTEL_DATE]=	20180807
+DEF[PORTVERSION]=	1.22
+DEF[INTEL_VERSION]=	20190514
 DEF[AMD_VERSION]=	20181214
+DEF[TAG]=		microcode-${INTEL_VERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		devcpu-data
@@ -12,11 +12,10 @@ SDESC[standard]=	Intel and AMD CPUs microcode updates
 HOMEPAGE=		none
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main intel amd
-SITES[main]=		https://downloadmirror.intel.com/${INTEL_SITE}/eng/
-SITES[intel]=		https://downloadmirror.intel.com/${INTEL_SITE}/eng/
+DOWNLOAD_GROUPS=	main amd
+SITES[main]=		GITHUB/intel:Intel-Linux-Processor-Microcode-Data-Files:${TAG}
 SITES[amd]=		FREELOCAL/sbruno
-DISTFILE[1]=		microcode-${INTEL_DATE}.tgz:intel
+DISTFILE[1]=		generated:main
 DISTFILE[2]=		amd64-microcode.${AMD_VERSION}.tar.xz:amd
 DF_INDEX=		1 2
 
@@ -36,11 +35,12 @@ NOT_FOR_ARCH=		aarch64
 ONLY_FOR_OPSYS=		freebsd dragonfly
 
 RC_SUBR=		microcode_update:single
-EXTRACT_DIRTY=		1 2
+EXTRACT_DIRTY=		2
 
 post-extract:
-	${INSTALL_DATA} ${FILESDIR}/Makefile ${FILESDIR}/ucode-split.c \
-		${WRKSRC}
+	${INSTALL_DATA} ${FILESDIR}/ucode-split.c ${WRKSRC}
+	${SED} -e 's|%%GH_TAGNAME%%|${TAG}|' ${FILESDIR}/Makefile \
+		> ${WRKSRC}/Makefile
 	${CAT} ${WRKSRC}/intel-ucode/* ${WRKSRC}/intel-ucode-with-caveats/* \
 		> ${WRKSRC}/intel-ucode.bin
 
