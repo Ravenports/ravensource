@@ -1,4 +1,4 @@
---- lib/stdlib/src/calendar.erl.orig	2019-01-15 18:35:10 UTC
+--- lib/stdlib/src/calendar.erl.orig	2019-05-10 12:42:49 UTC
 +++ lib/stdlib/src/calendar.erl
 @@ -296,11 +296,19 @@ local_time_to_universal_time(DateTime, I
        DateTime1 :: datetime1970(),
