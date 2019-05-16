@@ -1,5 +1,5 @@
---- libsoup/soup-auth-negotiate.c.orig	2017-12-09 08:28:36.594795000 +0100
-+++ libsoup/soup-auth-negotiate.c	2017-12-09 08:28:59.421891000 +0100
+--- libsoup/soup-auth-negotiate.c.orig	2019-05-15 13:36:29 UTC
++++ libsoup/soup-auth-negotiate.c
 @@ -13,7 +13,7 @@
  #include <string.h>
  
