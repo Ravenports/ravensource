@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	0.27.1
+DEF[SOMAJOR]=		27
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		exiv2
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Exif and Iptc metadata manipulation library
+HOMEPAGE=		https://www.exiv2.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.exiv2.org/builds/
+DISTFILE[1]=		exiv2-${PORTVERSION}-Source.tar.gz:main
+
+SPKGS[standard]=	complete primary examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"Abstract:"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/exiv2.cpp
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/exiv2
+
+
+BUILD_DEPENDS=		expat:static:standard
+# #			doxygen:single:standard
+BUILDRUN_DEPENDS=	expat:shared:standard
+
+USES=			cpe cmake iconv zlib c++:primary,examples
+			gettext-runtime gettext-tools
+DISTNAME=		exiv2-${PORTVERSION}-Source
+CMAKE_ARGS=		-DEXIV2_ENABLE_VIDEO:BOOL=ON
+			-DEXIV2_BUILD_PO:BOOL=ON
+			-DEXIV2_BUILD_DOC:BOOL=OFF
+			-DEXIV2_BUILD_SAMPLES:BOOL=ON
+			-DEXIV2_ENABLE_EXTERNAL_XMP:BOOL=OFF
+			-DEXIV2_ENABLE_WEBREADY:BOOL=OFF
+PLIST_SUB=		SOVERSION=${PORTVERSION}
+			SOMAJOR=${SOMAJOR}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libexiv2.so
