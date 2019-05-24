@@ -273,7 +273,9 @@ VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-file-aio
 					--add-module={{WRKDIR}}/encrypted-session-nginx-module-${TAG_SESSCRYPT:S/v//}
 					--add-module={{WRKDIR}}/array-var-nginx-module-${TAG_ARRAYVAR:S/v//}
 					--add-module={{WRKDIR}}/xss-nginx-module-${TAG_XSS:S/v//}
-					--add-module={{WRKDIR}}/nginx-dav-ext-module-${TAG_DAV_EXT:S/v//}
+# NGX_HTTP_PRECONTENT_PHASE constant eliminated from dav ext,
+# can't build extension anymore
+# --add-module={{WRKDIR}}/nginx-dav-ext-module-${TAG_DAV_EXT:S/v//}
 					--add-module={{WRKDIR}}/nginx-http-footer-filter-${TAG_FOOTER}
 					--add-module={{WRKDIR}}/ngx_http_json_status_module-${TAG_STUB_JSON}
 					--add-module={{WRKDIR}}/nginx-upload-module-${TAG_UPLOAD}
@@ -289,7 +291,8 @@ VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-file-aio
 					--add-dynamic-module={{WRKDIR}}/nginx-eval-module-${TAG_EVAL:S/v//}
 					--add-dynamic-module={{WRKDIR}}/memc-nginx-module-${TAG_MEMC:S/v//}
 					--add-dynamic-module={{WRKDIR}}/set-misc-nginx-module-${TAG_SETMISC:S/v//}
-					--add-dynamic-module={{WRKDIR}}/njs-${TAG_NJS}/nginx
+# can't find nxt_autoconfig.h (in nxt subdir)
+# --add-dynamic-module={{WRKDIR}}/njs-${TAG_NJS}/nginx
 					--add-dynamic-module={{WRKDIR}}/nginx-upstream-fair-${TAG_FAIR_LOAD}
 					--add-dynamic-module={{WRKDIR}}/mod_zip-${TAG_ZIP}
 					--add-dynamic-module={{WRKDIR}}/ngx_dynamic_upstream-${TAG_DYN_UPSTREAM:S/v//}
