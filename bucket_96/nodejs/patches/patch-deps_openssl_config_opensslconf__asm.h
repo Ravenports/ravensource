@@ -1,4 +1,4 @@
---- deps/openssl/config/opensslconf_asm.h.orig	2019-04-29 12:57:52 UTC
+--- deps/openssl/config/opensslconf_asm.h.orig	2019-05-22 12:21:52 UTC
 +++ deps/openssl/config/opensslconf_asm.h
 @@ -110,7 +110,7 @@
  # include "./archs/VC-WIN64A/asm/include/openssl/opensslconf.h"
