@@ -1,7 +1,7 @@
 - Implement setting thread name
 - Use monotonic clock for timeouts
 
---- src/util/u_thread.h.orig	2019-05-09 20:33:27 UTC
+--- src/util/u_thread.h.orig	2019-05-21 21:11:01 UTC
 +++ src/util/u_thread.h
 @@ -34,6 +34,13 @@
  
