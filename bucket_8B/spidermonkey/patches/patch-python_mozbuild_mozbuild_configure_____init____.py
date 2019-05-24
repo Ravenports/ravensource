@@ -1,4 +1,4 @@
---- ../../python/mozbuild/mozbuild/configure/__init__.py.orig	2019-05-05 01:09:41 UTC
+--- ../../python/mozbuild/mozbuild/configure/__init__.py.orig	2019-05-14 19:13:24 UTC
 +++ ../../python/mozbuild/mozbuild/configure/__init__.py
 @@ -421,7 +421,7 @@ class ConfigureSandbox(dict):
          # All options should have been removed (handled) by now.
