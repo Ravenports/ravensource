@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.0.4
+DEF[PORTVERSION]=	3.0.5
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libical
@@ -37,3 +37,6 @@ CMAKE_ARGS=		-DGOBJECT_INTROSPECTION=true
 			-DICAL_BUILD_DOCS=false
 SOVERSION=		${PORTVERSION}
 CFLAGS=			-fPIC
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
