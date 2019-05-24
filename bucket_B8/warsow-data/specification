@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	2.1.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		warsow-data
+VERSION=		${PORTVERSION}
+KEYWORDS=		games
+VARIANTS=		standard
+SDESC[standard]=	Warsow game data
+HOMEPAGE=		https://warsow.net/
+CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://sebastian.network/warsow/
+			http://slice.sh/warsow/
+DISTFILE[1]=		warsow-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+DISTNAME=		warsow-${PORTVERSION}
+
+LICENSE=		CC_SA_40:single
+			CC_ND_40:single
+LICENSE_FILE=		CC_SA_40:stock
+			CC_ND_40:stock
+LICENSE_TERMS=		single:{{WRKSRC}}/docs/license.txt
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		games/warsow-data
+
+SKIP_BUILD=		yes
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/warsow
+	${CP} -R ${WRKSRC}/basewsw ${STAGEDIR}${PREFIX}/share/warsow/
