@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.1.2
 
 NAMEBASE=		warsow
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		games
 VARIANTS=		standard
 SDESC[standard]=	Futuristic, fast-paced first person shooter
@@ -10,7 +11,7 @@ HOMEPAGE=		https://warsow.net/
 CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/OrangeGrayCyan:warsow:${PORTVERSION}-source
+SITES[main]=		GITHUB/OrangeGrayCyan:warsow:${PORTVERSION}-qf
 DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
@@ -29,8 +30,7 @@ FPC_EQUIVALENT=		games/warsow
 
 USES=			c++:single cmake
 CMAKE_SOURCE_PATH=	{{WRKSRC}}/source
-BUILD_DEPENDS=		openal:single:standard
-			zlib:static:standard
+BUILD_DEPENDS=		zlib:static:standard
 RUN_DEPENDS=		warsow-data:single:standard
 BUILDRUN_DEPENDS=	curl:primary:standard
 			freetype:primary:standard
