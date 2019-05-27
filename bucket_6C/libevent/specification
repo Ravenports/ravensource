@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	2.1.8
+DEF[PORTVERSION]=	2.1.10
+DEF[SOVERSION]=		6.0.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libevent
@@ -18,9 +19,14 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		devel/libevent
 
-USES=			autoreconf libtool ssl
+USES=			autoreconf libtool ssl shebangfix
+SHEBANG_FILES=		event_rpcgen.py
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-openssl
 			--enable-thread-support
@@ -28,3 +34,4 @@ INSTALL_TARGET=		install-strip
 TEST_TARGET=		check
 LDFLAGS=		-L{{OPENSSLLIB}}
 CPPFLAGS=		-I{{OPENSSLINC}}
+SOVERSION=		${SOVERSION}
