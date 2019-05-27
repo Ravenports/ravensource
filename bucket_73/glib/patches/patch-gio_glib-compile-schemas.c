@@ -1,4 +1,4 @@
---- gio/glib-compile-schemas.c.orig	2019-04-15 11:47:57 UTC
+--- gio/glib-compile-schemas.c.orig	2019-05-24 17:00:33 UTC
 +++ gio/glib-compile-schemas.c
 @@ -1235,6 +1235,7 @@ parse_state_start_schema (ParseState  *s
        return;
