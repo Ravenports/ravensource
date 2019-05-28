@@ -2,9 +2,9 @@
 
 diff --git config/system-headers.mozbuild config/system-headers.mozbuild
 index 7620b4d00623..09d3db5ca8c0 100644
---- config/system-headers.mozbuild.orig	2019-03-26 21:19:42 UTC
+--- config/system-headers.mozbuild
 +++ config/system-headers.mozbuild
-@@ -1304,6 +1304,19 @@ if CONFIG['MOZ_ENABLE_CONTENTMANAGER']:
+@@ -1300,6 +1300,19 @@ if CONFIG['MOZ_ENABLE_CONTENTMANAGER']:
          'SelectSingleContentItemPage.h',
      ]
  
@@ -24,9 +24,11 @@ index 7620b4d00623..09d3db5ca8c0 100644
  if CONFIG['MOZ_SYSTEM_LIBVPX']:
      system_headers += [
          'vpx_mem/vpx_mem.h',
---- dom/base/moz.build.orig	2019-03-26 21:19:43 UTC
+diff --git dom/base/moz.build dom/base/moz.build
+index 8e19020315ae..2fcdbb6f7b42 100644
+--- dom/base/moz.build
 +++ dom/base/moz.build
-@@ -518,6 +518,9 @@ if CONFIG['MOZ_BUILD_APP'] in ['browser'
+@@ -495,6 +495,9 @@ if CONFIG['MOZ_BUILD_APP'] in ['browser', 'mobile/android', 'xulrunner']:
  if CONFIG['MOZ_X11']:
      CXXFLAGS += CONFIG['TK_CFLAGS']
  
@@ -36,7 +38,9 @@ index 7620b4d00623..09d3db5ca8c0 100644
  GENERATED_FILES += [
      'PropertyUseCounterMap.inc',
      'UseCounterList.h',
---- gfx/graphite2/moz-gr-update.sh.orig	2019-03-26 21:19:44 UTC
+diff --git gfx/graphite2/moz-gr-update.sh gfx/graphite2/moz-gr-update.sh
+index faaab1b17971..04eff5f09882 100644
+--- gfx/graphite2/moz-gr-update.sh
 +++ gfx/graphite2/moz-gr-update.sh
 @@ -1,6 +1,7 @@
  #!/bin/bash
@@ -46,7 +50,7 @@ index 7620b4d00623..09d3db5ca8c0 100644
  
  # This script lives in gfx/graphite2, along with the library source,
  # but must be run from the top level of the mozilla-central tree.
-@@ -37,12 +38,16 @@ echo "See" $0 "for update procedure." >>
+@@ -37,12 +38,16 @@ echo "See" $0 "for update procedure." >> gfx/graphite2/README.mozilla
  #find gfx/graphite2/ -name "*.cpp" -exec perl -p -i -e "s/<cstdio>/<stdio.h>/;s/Windows.h/windows.h/;" {} \;
  #find gfx/graphite2/ -name "*.h" -exec perl -p -i -e "s/<cstdio>/<stdio.h>/;s/Windows.h/windows.h/;" {} \;
  
@@ -64,7 +68,9 @@ index 7620b4d00623..09d3db5ca8c0 100644
  
  echo
  echo If gfx/graphite2/src/files.mk has changed, please make corresponding
---- gfx/harfbuzz/README-mozilla.orig	2019-03-26 21:19:44 UTC
+diff --git gfx/harfbuzz/README-mozilla gfx/harfbuzz/README-mozilla
+index 22c76a7df020..a01490bd49ee 100644
+--- gfx/harfbuzz/README-mozilla
 +++ gfx/harfbuzz/README-mozilla
 @@ -15,3 +15,8 @@ from within the gfx/harfbuzz directory.
  
@@ -75,7 +81,9 @@ index 7620b4d00623..09d3db5ca8c0 100644
 +Make sure to keep pkg-config version check within toolkit/moz.configure in sync
 +with checkout version or increment latest tag by one if it's not based
 +on upstream release.
---- gfx/moz.build.orig	2019-03-26 21:19:44 UTC
+diff --git gfx/moz.build gfx/moz.build
+index 771f652e837a..3b358d84e384 100644
+--- gfx/moz.build
 +++ gfx/moz.build
 @@ -10,6 +10,12 @@ with Files('**'):
  if CONFIG['MOZ_TREE_CAIRO']:
@@ -99,9 +107,11 @@ index 7620b4d00623..09d3db5ca8c0 100644
      'ots/src',
      'thebes',
      'ipc',
---- gfx/skia/generate_mozbuild.py.orig	2019-03-26 21:19:44 UTC
+diff --git gfx/skia/generate_mozbuild.py gfx/skia/generate_mozbuild.py
+index e06ae3457a47..93faa61594a3 100755
+--- gfx/skia/generate_mozbuild.py
 +++ gfx/skia/generate_mozbuild.py
-@@ -138,6 +138,9 @@ if CONFIG['CC_TYPE'] in ('clang', 'clang
+@@ -148,6 +148,9 @@ if CONFIG['CC_TYPE'] in ('clang', 'clang-cl'):
          '-Wno-unused-private-field',
      ]
  
@@ -111,9 +121,11 @@ index 7620b4d00623..09d3db5ca8c0 100644
  if CONFIG['MOZ_WIDGET_TOOLKIT'] in ('gtk3', 'android'):
      CXXFLAGS += CONFIG['MOZ_CAIRO_CFLAGS']
      CXXFLAGS += CONFIG['CAIRO_FT_CFLAGS']
---- gfx/skia/moz.build.orig	2019-03-26 21:19:44 UTC
+diff --git gfx/skia/moz.build gfx/skia/moz.build
+index 2118677ca3a8..e4978b413784 100644
+--- gfx/skia/moz.build
 +++ gfx/skia/moz.build
-@@ -818,6 +818,9 @@ if CONFIG['CC_TYPE'] in ('clang', 'clang
+@@ -822,6 +822,9 @@ if CONFIG['CC_TYPE'] in ('clang', 'clang-cl'):
          '-Wno-unused-private-field',
      ]
  
@@ -123,9 +135,11 @@ index 7620b4d00623..09d3db5ca8c0 100644
  if CONFIG['MOZ_WIDGET_TOOLKIT'] in ('gtk3', 'android'):
      CXXFLAGS += CONFIG['MOZ_CAIRO_CFLAGS']
      CXXFLAGS += CONFIG['CAIRO_FT_CFLAGS']
---- gfx/thebes/moz.build.orig	2019-03-26 21:19:44 UTC
+diff --git gfx/thebes/moz.build gfx/thebes/moz.build
+index 56f1b9fe3f4b..0ac1100b0df3 100644
+--- gfx/thebes/moz.build
 +++ gfx/thebes/moz.build
-@@ -276,7 +276,13 @@ if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'gtk3
+@@ -288,7 +288,13 @@ if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'gtk3':
  
  LOCAL_INCLUDES += CONFIG['SKIA_INCLUDES']
  
@@ -140,7 +154,9 @@ index 7620b4d00623..09d3db5ca8c0 100644
  
  if CONFIG['CC_TYPE'] == 'clang':
      # Suppress warnings from Skia header files.
---- intl/unicharutil/util/moz.build.orig	2019-03-26 21:19:44 UTC
+diff --git intl/unicharutil/util/moz.build intl/unicharutil/util/moz.build
+index cb1233c56d7e..06fb1f9f174b 100644
+--- intl/unicharutil/util/moz.build
 +++ intl/unicharutil/util/moz.build
 @@ -25,4 +25,7 @@ UNIFIED_SOURCES += [
      'nsUnicodeProperties.cpp',
@@ -150,21 +166,26 @@ index 7620b4d00623..09d3db5ca8c0 100644
 +    CXXFLAGS += CONFIG['MOZ_HARFBUZZ_CFLAGS']
 +
  FINAL_LIBRARY = 'xul'
---- netwerk/dns/moz.build.orig	2019-03-26 21:19:48 UTC
+diff --git netwerk/dns/moz.build netwerk/dns/moz.build
+index 79c26e3e7001..c4d93bc5f7dc 100644
+--- netwerk/dns/moz.build
 +++ netwerk/dns/moz.build
-@@ -79,3 +79,6 @@ USE_LIBS += ['icu']
+@@ -76,3 +76,6 @@ USE_LIBS += ['icu']
  
  if CONFIG['CC_TYPE'] in ('clang', 'gcc'):
      CXXFLAGS += ['-Wno-error=shadow']
 +
 +if CONFIG['MOZ_SYSTEM_HARFBUZZ']:
 +    CXXFLAGS += CONFIG['MOZ_HARFBUZZ_CFLAGS']
---- old-configure.in.orig	2019-03-26 21:19:48 UTC
+diff --git old-configure.in old-configure.in
+index 95a58b634593..b614eef85c89 100644
+--- old-configure.in
 +++ old-configure.in
-@@ -3035,6 +3035,27 @@ dnl ====================================
+@@ -3951,6 +3951,27 @@ dnl ========================================================
+ 
  AC_SUBST(MOZ_LINUX_32_SSE2_STARTUP_ERROR)
  
- dnl ========================================================
++dnl ========================================================
 +dnl Check for graphite2
 +dnl ========================================================
 +if test -n "$MOZ_SYSTEM_GRAPHITE2"; then
@@ -185,13 +206,14 @@ index 7620b4d00623..09d3db5ca8c0 100644
 +    CFLAGS=$_SAVE_CFLAGS
 +fi
 +
-+dnl ========================================================
+ dnl ========================================================
  dnl Check for pixman and cairo
  dnl ========================================================
- 
---- toolkit/library/moz.build.orig	2019-03-26 21:19:52 UTC
+diff --git toolkit/library/moz.build toolkit/library/moz.build
+index 24f940e1ed7e..079a575adec3 100644
+--- toolkit/library/moz.build
 +++ toolkit/library/moz.build
-@@ -231,6 +231,12 @@ if CONFIG['MOZ_SYSTEM_PNG']:
+@@ -226,6 +226,12 @@ if CONFIG['MOZ_SYSTEM_PNG']:
  if CONFIG['MOZ_SYSTEM_WEBP']:
      OS_LIBS += CONFIG['MOZ_WEBP_LIBS']
  
@@ -204,9 +226,11 @@ index 7620b4d00623..09d3db5ca8c0 100644
  if CONFIG['MOZ_SYSTEM_LIBEVENT']:
      OS_LIBS += CONFIG['MOZ_LIBEVENT_LIBS']
  
---- toolkit/moz.configure.orig	2019-03-26 21:19:52 UTC
+diff --git toolkit/moz.configure toolkit/moz.configure
+index 9297e4d6f501..d8e273887e4b 100644
+--- toolkit/moz.configure
 +++ toolkit/moz.configure
-@@ -910,6 +910,26 @@ add_old_configure_assignment('FT2_LIBS',
+@@ -894,6 +894,26 @@ add_old_configure_assignment('FT2_LIBS',
  add_old_configure_assignment('FT2_CFLAGS',
                               ft2_info.cflags)
  

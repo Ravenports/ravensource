@@ -2,9 +2,9 @@ Enable FLAC on platforms without ffvpx like powerpc*
 
 diff --git dom/media/flac/FlacDecoder.cpp dom/media/flac/FlacDecoder.cpp
 index 53fc3c9937f7..b23771ab80fa 100644
---- dom/media/flac/FlacDecoder.cpp.orig	2019-03-26 21:19:43 UTC
+--- dom/media/flac/FlacDecoder.cpp.orig	2019-05-17 00:33:25 UTC
 +++ dom/media/flac/FlacDecoder.cpp
-@@ -7,12 +7,17 @@
+@@ -7,6 +7,7 @@
  #include "FlacDecoder.h"
  #include "MediaContainerType.h"
  #include "mozilla/StaticPrefs.h"
@@ -12,7 +12,8 @@ index 53fc3c9937f7..b23771ab80fa 100644
  
  namespace mozilla {
  
- /* static */ bool FlacDecoder::IsEnabled() {
+@@ -14,6 +15,10 @@ namespace mozilla {
+ bool FlacDecoder::IsEnabled() {
  #ifdef MOZ_FFVPX
    return StaticPrefs::MediaFlacEnabled();
 +#elif defined(MOZ_FFMPEG)

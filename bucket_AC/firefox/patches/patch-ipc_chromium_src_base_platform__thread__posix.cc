@@ -1,4 +1,4 @@
---- ipc/chromium/src/base/platform_thread_posix.cc.orig	2019-03-26 21:19:44 UTC
+--- ipc/chromium/src/base/platform_thread_posix.cc.orig	2019-05-17 00:33:26 UTC
 +++ ipc/chromium/src/base/platform_thread_posix.cc
 @@ -16,6 +16,8 @@
  #elif defined(OS_LINUX)

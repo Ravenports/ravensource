@@ -3,7 +3,7 @@ https://github.com/mozilla/addons-frontend/issues/4610
 
 diff --git browser/app/profile/firefox.js browser/app/profile/firefox.js
 index 75c2c5e435e35..4d8c09c02759b 100644
---- browser/app/profile/firefox.js.orig	2019-03-26 21:19:42 UTC
+--- browser/app/profile/firefox.js.orig	2019-05-17 00:33:14 UTC
 +++ browser/app/profile/firefox.js
 @@ -40,8 +40,8 @@ pref("extensions.webextOptionalPermissio
  pref("extensions.getAddons.cache.enabled", true);
@@ -16,7 +16,7 @@ index 75c2c5e435e35..4d8c09c02759b 100644
  pref("extensions.getAddons.link.url", "https://addons.mozilla.org/%LOCALE%/firefox/");
  pref("extensions.getAddons.langpacks.url", "https://services.addons.mozilla.org/api/v3/addons/language-tools/?app=firefox&type=language&appversion=%VERSION%");
  
-@@ -181,8 +181,8 @@ pref("app.update.service.enabled", true)
+@@ -175,8 +175,8 @@ pref("app.update.service.enabled", true)
  //  .. etc ..
  //
  pref("extensions.update.enabled", true);
@@ -27,7 +27,7 @@ index 75c2c5e435e35..4d8c09c02759b 100644
  pref("extensions.update.interval", 86400);  // Check for updates to Extensions and
                                              // Themes every day
  
---- toolkit/mozapps/extensions/internal/AddonRepository.jsm.orig	2019-03-26 21:19:52 UTC
+--- toolkit/mozapps/extensions/internal/AddonRepository.jsm.orig	2019-05-17 00:35:08 UTC
 +++ toolkit/mozapps/extensions/internal/AddonRepository.jsm
 @@ -610,7 +610,7 @@ var AddonRepository = {
        addon.version = String(aEntry.current_version.version);
@@ -38,9 +38,9 @@ index 75c2c5e435e35..4d8c09c02759b 100644
              if (file.url) {
                addon.sourceURI = NetUtil.newURI(file.url);
              }
---- toolkit/mozapps/extensions/internal/XPIDatabase.jsm.orig	2019-03-26 21:19:52 UTC
+--- toolkit/mozapps/extensions/internal/XPIDatabase.jsm.orig	2019-05-17 00:35:08 UTC
 +++ toolkit/mozapps/extensions/internal/XPIDatabase.jsm
-@@ -397,7 +397,7 @@ class AddonInternal {
+@@ -400,7 +400,7 @@ class AddonInternal {
      // Something is causing errors in here
      try {
        for (let platform of this.targetPlatforms) {
