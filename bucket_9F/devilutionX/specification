@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	0.4.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		devilutionX
+VERSION=		${PORTVERSION}
+KEYWORDS=		games
+VARIANTS=		standard
+SDESC[standard]=	Reverse-engeneered Diablo 1 engine made portable
+HOMEPAGE=		https://github.com/diasurgical/devilutionX
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/diasurgical:devilutionX:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Not known to RP, yet
+# LICENSE=		UNLICENSE:single
+
+BUILDRUN_DEPENDS=	libsodium:single:standard
+
+USES=			cmake pkgconfig
+SDL_COMPONENTS=		mixer2 ttf2
+
+SUB_FILES=		pkg-message-single
+
+do-install:
+	${CP} ${WRKDIR}/.build/devilutionx ${STAGEDIR}${PREFIX}/bin
