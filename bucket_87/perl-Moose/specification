@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.2011
 NAMEBASE=		perl-Moose
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		528 526
+VARIANTS=		530 528
+SDESC[530]=		Postmodern object system for Perl 5 (v530)
 SDESC[528]=		Postmodern object system for Perl 5 (v528)
-SDESC[526]=		Postmodern object system for Perl 5 (v526)
 
 HOMEPAGE=		https://github.com/moose/Moose
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
@@ -15,13 +15,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:E/ET/ETHER
 DISTFILE[1]=		Moose-2.2011.tar.gz:main
 
+SPKGS[530]=		single
 SPKGS[528]=		single
-SPKGS[526]=		single
 
-OPTIONS_AVAILABLE=	PERL_528 PERL_526
+OPTIONS_AVAILABLE=	PERL_530 PERL_528
 OPTIONS_STANDARD=	none
-VOPTS[528]=		PERL_528=ON PERL_526=OFF
-VOPTS[526]=		PERL_528=OFF PERL_526=ON
+VOPTS[530]=		PERL_530=ON PERL_528=OFF
+VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
 GENERATED=		yes
 SINGLE_JOB=		yes
@@ -30,7 +30,7 @@ DISTNAME=		Moose-2.2011
 # -----------------------------------------------
 # |   Prerequisites extracted from META.json
 # -----------------------------------------------
-# |      runtime : Carp (perl 5.28 core) (perl 5.26 core)
+# |      runtime : Carp (perl 5.3 core) (perl 5.28 core)
 # |      runtime : Class::Load
 # |      runtime : Class::Load::XS
 # |      runtime : Data::OptList
@@ -39,7 +39,7 @@ DISTNAME=		Moose-2.2011
 # |      runtime : Devel::StackTrace
 # |      runtime : Dist::CheckConflicts
 # |      runtime : Eval::Closure
-# |      runtime : List::Util (perl 5.28 core) (perl 5.26 core)
+# |      runtime : List::Util (perl 5.3 core) (perl 5.28 core)
 # |      runtime : MRO::Compat
 # |      runtime : Module::Runtime
 # |      runtime : Module::Runtime::Conflicts
@@ -47,29 +47,48 @@ DISTNAME=		Moose-2.2011
 # |      runtime : Package::Stash
 # |      runtime : Package::Stash::XS
 # |      runtime : Params::Util
-# |      runtime : Scalar::Util (perl 5.28 core) (perl 5.26 core)
+# |      runtime : Scalar::Util (perl 5.3 core) (perl 5.28 core)
 # |      runtime : Sub::Exporter
 # |      runtime : Sub::Identify
 # |      runtime : Sub::Name
 # |      runtime : Try::Tiny
-# |      runtime : parent (perl 5.28 core) (perl 5.26 core)
-# |      runtime : strict (perl 5.28 core) (perl 5.26 core)
-# |      runtime : warnings (perl 5.28 core) (perl 5.26 core)
+# |      runtime : parent (perl 5.3 core) (perl 5.28 core)
+# |      runtime : strict (perl 5.3 core) (perl 5.28 core)
+# |      runtime : warnings (perl 5.3 core) (perl 5.28 core)
 # |      runtime : Data::OptList
 # |    configure : Dist::CheckConflicts
-# |    configure : ExtUtils::MakeMaker (perl 5.28 core) (perl 5.26 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
 # |         test : CPAN::Meta::Check
-# |         test : CPAN::Meta::Requirements (perl 5.28 core) (perl 5.26 core)
-# |         test : File::Spec (perl 5.28 core) (perl 5.26 core)
-# |         test : Module::Metadata (perl 5.28 core) (perl 5.26 core)
+# |         test : CPAN::Meta::Requirements (perl 5.3 core) (perl 5.28 core)
+# |         test : File::Spec (perl 5.3 core) (perl 5.28 core)
+# |         test : Module::Metadata (perl 5.3 core) (perl 5.28 core)
 # |         test : Test::CleanNamespaces
 # |         test : Test::Fatal
-# |         test : Test::More (perl 5.28 core) (perl 5.26 core)
+# |         test : Test::More (perl 5.3 core) (perl 5.28 core)
 # |         test : Test::Requires
-# |         test : CPAN::Meta (perl 5.28 core) (perl 5.26 core)
+# |         test : CPAN::Meta (perl 5.3 core) (perl 5.28 core)
 
+[PERL_530].USES_ON=			perl:530,configure
 [PERL_528].USES_ON=			perl:528,configure
-[PERL_526].USES_ON=			perl:526,configure
+[PERL_530].BUILDRUN_DEPENDS_ON=		perl-Class-Load:single:530
+					perl-Class-Load-XS:single:530
+					perl-Data-OptList:single:530
+					perl-Devel-GlobalDestruction:single:530
+					perl-Devel-OverloadInfo:single:530
+					perl-Devel-StackTrace:single:530
+					perl-Dist-CheckConflicts:single:530
+					perl-Eval-Closure:single:530
+					perl-MRO-Compat:single:530
+					perl-Module-Runtime:single:530
+					perl-Module-Runtime-Conflicts:single:530
+					perl-Package-DeprecationManager:single:530
+					perl-Package-Stash:single:530
+					perl-Package-Stash-XS:single:530
+					perl-Params-Util:single:530
+					perl-Sub-Exporter:single:530
+					perl-Sub-Identify:single:530
+					perl-Sub-Name:single:530
+					perl-Try-Tiny:single:530
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-Class-Load:single:528
 					perl-Class-Load-XS:single:528
 					perl-Data-OptList:single:528
@@ -89,25 +108,6 @@ DISTNAME=		Moose-2.2011
 					perl-Sub-Identify:single:528
 					perl-Sub-Name:single:528
 					perl-Try-Tiny:single:528
-[PERL_526].BUILDRUN_DEPENDS_ON=		perl-Class-Load:single:526
-					perl-Class-Load-XS:single:526
-					perl-Data-OptList:single:526
-					perl-Devel-GlobalDestruction:single:526
-					perl-Devel-OverloadInfo:single:526
-					perl-Devel-StackTrace:single:526
-					perl-Dist-CheckConflicts:single:526
-					perl-Eval-Closure:single:526
-					perl-MRO-Compat:single:526
-					perl-Module-Runtime:single:526
-					perl-Module-Runtime-Conflicts:single:526
-					perl-Package-DeprecationManager:single:526
-					perl-Package-Stash:single:526
-					perl-Package-Stash-XS:single:526
-					perl-Params-Util:single:526
-					perl-Sub-Exporter:single:526
-					perl-Sub-Identify:single:526
-					perl-Sub-Name:single:526
-					perl-Try-Tiny:single:526
 
 CFLAGS=			-I.
 

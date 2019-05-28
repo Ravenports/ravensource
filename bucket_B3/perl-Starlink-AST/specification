@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.05
 NAMEBASE=		perl-Starlink-AST
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		528 526
+VARIANTS=		530 528
+SDESC[530]=		Interface to the Starlink AST library (v530)
 SDESC[528]=		Interface to the Starlink AST library (v528)
-SDESC[526]=		Interface to the Starlink AST library (v526)
 
 HOMEPAGE=		https://github.com/Starlink/perl-Starlink-AST.git
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
@@ -15,13 +15,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:T/TJ/TJENNESS
 DISTFILE[1]=		Starlink-AST-1.05.tar.gz:main
 
+SPKGS[530]=		single
 SPKGS[528]=		single
-SPKGS[526]=		single
 
-OPTIONS_AVAILABLE=	PERL_528 PERL_526
+OPTIONS_AVAILABLE=	PERL_530 PERL_528
 OPTIONS_STANDARD=	none
-VOPTS[528]=		PERL_528=ON PERL_526=OFF
-VOPTS[526]=		PERL_528=OFF PERL_526=ON
+VOPTS[530]=		PERL_530=ON PERL_528=OFF
+VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
 GENERATED=		yes
 SINGLE_JOB=		yes
@@ -34,14 +34,21 @@ DISTNAME=		Starlink-AST-1.05
 # |      runtime : Astro::FITS::Header
 # |      runtime : Tk
 # |      runtime : Tk::Zinc
-# |        build : ExtUtils::CBuilder (perl 5.28 core) (perl 5.26 core)
+# |        build : ExtUtils::CBuilder (perl 5.3 core) (perl 5.28 core)
 # |        build : Test::Deep
-# |        build : Test::More (perl 5.28 core) (perl 5.26 core)
+# |        build : Test::More (perl 5.3 core) (perl 5.28 core)
 # |        build : Test::Number::Delta
 # |    configure : Module::Build
 
+[PERL_530].USES_ON=			perl:530,buildmod,run
 [PERL_528].USES_ON=			perl:528,buildmod,run
-[PERL_526].USES_ON=			perl:526,buildmod,run
+[PERL_530].BUILD_DEPENDS_ON=		perl-Test-Deep:single:530
+					perl-Test-Number-Delta:single:530
+					perl-Module-Build:single:530
+[PERL_530].BUILDRUN_DEPENDS_ON=		perl-Astro-FITS-CFITSIO:single:530
+					perl-Astro-FITS-Header:single:530
+					perl-Tk:single:530
+					perl-tk-zinc:single:530
 [PERL_528].BUILD_DEPENDS_ON=		perl-Test-Deep:single:528
 					perl-Test-Number-Delta:single:528
 					perl-Module-Build:single:528
@@ -49,12 +56,5 @@ DISTNAME=		Starlink-AST-1.05
 					perl-Astro-FITS-Header:single:528
 					perl-Tk:single:528
 					perl-tk-zinc:single:528
-[PERL_526].BUILD_DEPENDS_ON=		perl-Test-Deep:single:526
-					perl-Test-Number-Delta:single:526
-					perl-Module-Build:single:526
-[PERL_526].BUILDRUN_DEPENDS_ON=		perl-Astro-FITS-CFITSIO:single:526
-					perl-Astro-FITS-Header:single:526
-					perl-Tk:single:526
-					perl-tk-zinc:single:526
 
 

@@ -42,7 +42,7 @@ my $distversion = $portversion;
 my $trunc_sdesc;
 my $distname;
 my $homepage    = "none";
-my %perlver     = ("528" => 5.28, "526" => 5.26);
+my %perlver     = ("530" => 5.30, "528" => 5.28);
 my @perlverkeys = ();   # add versions below
 my @variants    = ();
 my %reqs = ();
@@ -69,8 +69,8 @@ my $pinged = 0;
 my %cache_portname;
 
 if (! -f "${ravensource}/block_meta_recommends") { push @reqs_level, "recommends" }
+if (! -f "${ravensource}/broken_530") { push @perlverkeys, "530" }
 if (! -f "${ravensource}/broken_528") { push @perlverkeys, "528" }
-if (! -f "${ravensource}/broken_526") { push @perlverkeys, "526" }
 
 # given a perl module name, return the equivalent port namebase
 # requires: perl module index already in place

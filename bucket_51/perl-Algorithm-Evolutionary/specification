@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.80
 NAMEBASE=		perl-Algorithm-Evolutionary
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		528 526
+VARIANTS=		530 528
+SDESC[530]=		Paradigm-free evolutionary algorithms (v530)
 SDESC[528]=		Paradigm-free evolutionary algorithms (v528)
-SDESC[526]=		Paradigm-free evolutionary algorithms (v526)
 
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
@@ -15,13 +15,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:J/JM/JMERELO
 DISTFILE[1]=		Algorithm-Evolutionary-0.80.tar.gz:main
 
+SPKGS[530]=		single
 SPKGS[528]=		single
-SPKGS[526]=		single
 
-OPTIONS_AVAILABLE=	PERL_528 PERL_526
+OPTIONS_AVAILABLE=	PERL_530 PERL_528
 OPTIONS_STANDARD=	none
-VOPTS[528]=		PERL_528=ON PERL_526=OFF
-VOPTS[526]=		PERL_528=OFF PERL_526=ON
+VOPTS[530]=		PERL_530=ON PERL_528=OFF
+VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
 GENERATED=		yes
 SINGLE_JOB=		yes
@@ -31,31 +31,45 @@ DISTNAME=		Algorithm-Evolutionary-0.80
 # |   Prerequisites extracted from META.json
 # -----------------------------------------------
 # |      runtime : Algorithm::Permute
-# |      runtime : B::Deparse (perl 5.28 core) (perl 5.26 core)
+# |      runtime : B::Deparse (perl 5.3 core) (perl 5.28 core)
 # |      runtime : Bit::Vector
 # |      runtime : Clone
 # |      runtime : GD
 # |      runtime : Math::Random
-# |      runtime : Memoize (perl 5.28 core) (perl 5.26 core)
+# |      runtime : Memoize (perl 5.3 core) (perl 5.28 core)
 # |      runtime : Object::Array
-# |      runtime : Pod::Escapes (perl 5.28 core) (perl 5.26 core)
+# |      runtime : Pod::Escapes (perl 5.3 core) (perl 5.28 core)
 # |      runtime : Sort::Key
 # |      runtime : Statistics::Basic
 # |      runtime : String::Random
-# |      runtime : Test::More (perl 5.28 core) (perl 5.26 core)
+# |      runtime : Test::More (perl 5.3 core) (perl 5.28 core)
 # |      runtime : Test::Pod
-# |      runtime : Time::HiRes (perl 5.28 core) (perl 5.26 core)
+# |      runtime : Time::HiRes (perl 5.3 core) (perl 5.28 core)
 # |      runtime : Tree::DAG_Node
 # |      runtime : XML::Parser
 # |      runtime : XML::Parser::Style::EasyTree
 # |      runtime : YAML
-# |      runtime : constant (perl 5.28 core) (perl 5.26 core)
-# |      runtime : version (perl 5.28 core) (perl 5.26 core)
-# |        build : ExtUtils::MakeMaker (perl 5.28 core) (perl 5.26 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.28 core) (perl 5.26 core)
+# |      runtime : constant (perl 5.3 core) (perl 5.28 core)
+# |      runtime : version (perl 5.3 core) (perl 5.28 core)
+# |        build : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
 
+[PERL_530].USES_ON=			perl:530,configure
 [PERL_528].USES_ON=			perl:528,configure
-[PERL_526].USES_ON=			perl:526,configure
+[PERL_530].BUILDRUN_DEPENDS_ON=		perl-Algorithm-Permute:single:530
+					perl-Bit-Vector:single:530
+					perl-Clone:single:530
+					perl-GD:single:530
+					perl-Math-Random:single:530
+					perl-Object-Array:single:530
+					perl-Sort-Key:single:530
+					perl-Statistics-Basic:single:530
+					perl-String-Random:single:530
+					perl-Test-Pod:single:530
+					perl-Tree-DAG_Node:single:530
+					perl-XML-Parser:single:530
+					perl-XML-Parser-Style-EasyTree:single:530
+					perl-YAML:single:530
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-Algorithm-Permute:single:528
 					perl-Bit-Vector:single:528
 					perl-Clone:single:528
@@ -70,19 +84,5 @@ DISTNAME=		Algorithm-Evolutionary-0.80
 					perl-XML-Parser:single:528
 					perl-XML-Parser-Style-EasyTree:single:528
 					perl-YAML:single:528
-[PERL_526].BUILDRUN_DEPENDS_ON=		perl-Algorithm-Permute:single:526
-					perl-Bit-Vector:single:526
-					perl-Clone:single:526
-					perl-GD:single:526
-					perl-Math-Random:single:526
-					perl-Object-Array:single:526
-					perl-Sort-Key:single:526
-					perl-Statistics-Basic:single:526
-					perl-String-Random:single:526
-					perl-Test-Pod:single:526
-					perl-Tree-DAG_Node:single:526
-					perl-XML-Parser:single:526
-					perl-XML-Parser-Style-EasyTree:single:526
-					perl-YAML:single:526
 
 

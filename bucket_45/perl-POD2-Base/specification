@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.043
 NAMEBASE=		perl-POD2-Base
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		528 526
+VARIANTS=		530 528
+SDESC[530]=		Base module for translations of Perl docume (v530)
 SDESC[528]=		Base module for translations of Perl docume (v528)
-SDESC[526]=		Base module for translations of Perl docume (v526)
 
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
@@ -15,13 +15,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:F/FE/FERREIRA
 DISTFILE[1]=		POD2-Base-0.043.tar.gz:main
 
+SPKGS[530]=		single
 SPKGS[528]=		single
-SPKGS[526]=		single
 
-OPTIONS_AVAILABLE=	PERL_528 PERL_526
+OPTIONS_AVAILABLE=	PERL_530 PERL_528
 OPTIONS_STANDARD=	none
-VOPTS[528]=		PERL_528=ON PERL_526=OFF
-VOPTS[526]=		PERL_528=OFF PERL_526=ON
+VOPTS[530]=		PERL_530=ON PERL_528=OFF
+VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
 GENERATED=		yes
 SINGLE_JOB=		yes
@@ -30,20 +30,20 @@ DISTNAME=		POD2-Base-0.043
 # -----------------------------------------------
 # |   Prerequisites extracted from META.yml
 # -----------------------------------------------
-# |           requires : File::Spec (perl 5.28 core) (perl 5.26 core)
-# |           requires : Test::More (perl 5.28 core) (perl 5.26 core)
-# |           requires : strict (perl 5.28 core) (perl 5.26 core)
-# |           requires : vars (perl 5.28 core) (perl 5.26 core)
-# |           requires : warnings (perl 5.28 core) (perl 5.26 core)
-# |         recommends : ExtUtils::MakeMaker (perl 5.28 core) (perl 5.26 core)
+# |           requires : File::Spec (perl 5.3 core) (perl 5.28 core)
+# |           requires : Test::More (perl 5.3 core) (perl 5.28 core)
+# |           requires : strict (perl 5.3 core) (perl 5.28 core)
+# |           requires : vars (perl 5.3 core) (perl 5.28 core)
+# |           requires : warnings (perl 5.3 core) (perl 5.28 core)
+# |         recommends : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
 # |         recommends : Test::Pod
 # |         recommends : Test::Pod::Coverage
 
+[PERL_530].USES_ON=			perl:530,configure
 [PERL_528].USES_ON=			perl:528,configure
-[PERL_526].USES_ON=			perl:526,configure
+[PERL_530].BUILDRUN_DEPENDS_ON=		perl-Test-Pod:single:530
+					perl-Test-Pod-Coverage:single:530
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-Test-Pod:single:528
 					perl-Test-Pod-Coverage:single:528
-[PERL_526].BUILDRUN_DEPENDS_ON=		perl-Test-Pod:single:526
-					perl-Test-Pod-Coverage:single:526
 
 

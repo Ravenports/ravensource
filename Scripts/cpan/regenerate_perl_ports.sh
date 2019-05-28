@@ -41,9 +41,9 @@
 #   elaborated in the files (so they may not be zero-length like the others)
 #
 # Install:
-# perl-5.28-complete-standard
-# perl-File-Slurp-single-528
-# perl-JSON-single-528
+# perl-5.30-complete-standard
+# perl-File-Slurp-single-530
+# perl-JSON-single-530
 
 [ -n "${DEBUG_MK_SCRIPTS}" -o -n "${DEBUG_MK_SCRIPTS_MAKESUM}" ] && set -x
 
@@ -63,8 +63,8 @@ RMVLIST=${thisdir}/bad-v.list
 urlstub="https://st.aticpan.org/source/"
 mirror_base="/mech/var/cache/cpan/"
 
-perlv1="5.28.2"
-perlv2="5.26.3"
+perlv1="5.30.0"
+perlv2="5.28.2"
 
 if [ "${1}" == "check-core" ]; then
    check_core=1;

@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.005
 NAMEBASE=		perl-Devel-OverloadInfo
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		528 526
+VARIANTS=		530 528
+SDESC[530]=		Introspect overloaded operators (v530)
 SDESC[528]=		Introspect overloaded operators (v528)
-SDESC[526]=		Introspect overloaded operators (v526)
 
 HOMEPAGE=		https://github.com/ilmari/Devel-OverloadInfo
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
@@ -15,13 +15,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:I/IL/ILMARI
 DISTFILE[1]=		Devel-OverloadInfo-0.005.tar.gz:main
 
+SPKGS[530]=		single
 SPKGS[528]=		single
-SPKGS[526]=		single
 
-OPTIONS_AVAILABLE=	PERL_528 PERL_526
+OPTIONS_AVAILABLE=	PERL_530 PERL_528
 OPTIONS_STANDARD=	none
-VOPTS[528]=		PERL_528=ON PERL_526=OFF
-VOPTS[526]=		PERL_528=OFF PERL_526=ON
+VOPTS[530]=		PERL_530=ON PERL_528=OFF
+VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
 GENERATED=		yes
 SINGLE_JOB=		yes
@@ -30,26 +30,26 @@ DISTNAME=		Devel-OverloadInfo-0.005
 # -----------------------------------------------
 # |   Prerequisites extracted from META.json
 # -----------------------------------------------
-# |      runtime : Exporter (perl 5.28 core) (perl 5.26 core)
+# |      runtime : Exporter (perl 5.3 core) (perl 5.28 core)
 # |      runtime : MRO::Compat
 # |      runtime : Package::Stash
-# |      runtime : Scalar::Util (perl 5.28 core) (perl 5.26 core)
+# |      runtime : Scalar::Util (perl 5.3 core) (perl 5.28 core)
 # |      runtime : Sub::Identify
-# |      runtime : overload (perl 5.28 core) (perl 5.26 core)
-# |      runtime : strict (perl 5.28 core) (perl 5.26 core)
-# |      runtime : warnings (perl 5.28 core) (perl 5.26 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.28 core) (perl 5.26 core)
+# |      runtime : overload (perl 5.3 core) (perl 5.28 core)
+# |      runtime : strict (perl 5.3 core) (perl 5.28 core)
+# |      runtime : warnings (perl 5.3 core) (perl 5.28 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
 # |         test : Test::Fatal
-# |         test : Test::More (perl 5.28 core) (perl 5.26 core)
-# |         test : parent (perl 5.28 core) (perl 5.26 core)
+# |         test : Test::More (perl 5.3 core) (perl 5.28 core)
+# |         test : parent (perl 5.3 core) (perl 5.28 core)
 
+[PERL_530].USES_ON=			perl:530,configure
 [PERL_528].USES_ON=			perl:528,configure
-[PERL_526].USES_ON=			perl:526,configure
+[PERL_530].BUILDRUN_DEPENDS_ON=		perl-MRO-Compat:single:530
+					perl-Package-Stash:single:530
+					perl-Sub-Identify:single:530
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-MRO-Compat:single:528
 					perl-Package-Stash:single:528
 					perl-Sub-Identify:single:528
-[PERL_526].BUILDRUN_DEPENDS_ON=		perl-MRO-Compat:single:526
-					perl-Package-Stash:single:526
-					perl-Sub-Identify:single:526
 
 

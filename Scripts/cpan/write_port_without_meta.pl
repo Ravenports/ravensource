@@ -33,7 +33,7 @@ my $trunc_sdesc = $shortdesc;
 my $distname;
 my $portversion;
 my $homepage    = "none";
-my %perlver     = ("528" => 5.28, "526" => 5.26);
+my %perlver     = ("530" => 5.30, "528" => 5.28);
 my @perlverkeys = ();	# add versions below
 my @variants    = ();
 my %reqs = ();
@@ -50,8 +50,8 @@ my $depname = "";
 
 my %cache_portname;
 
+if (! -f "${ravensource}/broken_530") { push @perlverkeys, "530" }
 if (! -f "${ravensource}/broken_528") { push @perlverkeys, "528" }
-if (! -f "${ravensource}/broken_526") { push @perlverkeys, "526" }
 
 sub make_distname {
    $distname = $port_namebase . "-" . $portversion;
