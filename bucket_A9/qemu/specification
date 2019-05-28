@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.12.1
+DEF[PORTVERSION]=	3.1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		qemu
@@ -33,6 +33,7 @@ BUILDRUN_DEPENDS=	nettle:primary:standard
 			cyrus-sasl:primary:standard
 			curl:primary:standard
 			vde2:single:standard
+			libepoxy:single:standard
 
 USES=			cpe gmake pkgconfig bison perl:build python:2.7,build
 			jpeg png mesa gettext-runtime gettext-tools
@@ -45,10 +46,9 @@ MAKE_ENV=		BSD_MAKE="{{MAKE}}" V=1
 CONFIGURE_ARGS=		--disable-usb-redir
 			--disable-stack-protector
 			--disable-kvm
-			--disable-linux-user
-			--disable-linux-aio
 			--disable-xen
 			--disable-libssh2
+			--disable-vde
 			--enable-pcap
 			--enable-docs
 			--enable-debug
@@ -59,6 +59,14 @@ CONFIGURE_ARGS=		--disable-usb-redir
 			--localstatedir=/var
 			--extra-cflags="-I{{WRKSRC}} -I{{LOCALBASE}}/include -DPREFIX=\\\"\"{{PREFIX}}\\\"\""
 			--extra-ldflags="-L/usr/lib -L{{LOCALBASE}}/lib"
+
+VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--disable-netmap
+			CONFIGURE_ARGS=--disable-linux-user
+			CONFIGURE_ARGS=--disable-linux-aio
+VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-netmap
+			CONFIGURE_ARGS=--disable-linux-user
+			CONFIGURE_ARGS=--disable-linux-aio
+VAR_OPSYS[linux]=	CONFIGURE_ARGS=--enable-netmap
 
 post-patch:
 	${REINPLACE_CMD} -e '/LIBS/s|-lprocstat|-lprocstat -lelf|' \
@@ -87,6 +95,9 @@ post-patch:
 
 	# broken build for optionrom
 	${REINPLACE_CMD} -e '/roms="optionrom"/d' ${WRKSRC}/configure
+
+	# silence some include warnings
+	${MKDIR} ${WRKSRC}/bsd-user/dragonfly
 
 # XXX need to disable usb host code on head while it's not ported to the
 # new usb stack yet

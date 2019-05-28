@@ -1,4 +1,4 @@
---- disas/libvixl/vixl/a64/disasm-a64.cc.orig	2018-08-02 21:48:53 UTC
+--- disas/libvixl/vixl/a64/disasm-a64.cc.orig	2018-12-11 17:44:34 UTC
 +++ disas/libvixl/vixl/a64/disasm-a64.cc
 @@ -2693,7 +2693,7 @@ void Disassembler::AppendPCRelativeOffse
    if (offset < 0) {
