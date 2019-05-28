@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.34.2
+DEF[PORTVERSION]=	1.35.0
 DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
 # ----------------------------------------------------------------------------
 
@@ -14,15 +14,15 @@ DOWNLOAD_GROUPS=	main dflyboot
 SITES[main]=		https://static.rust-lang.org/dist/
 SITES[dflyboot]=	https://leaf.dragonflybsd.org/~marino/dports-src/rust/
 DISTFILE[1]=		rustc-${PORTVERSION}-src.tar.xz:main
-DISTFILE[2]=		rustc-1.33.0-x86_64-unknown-dragonfly.tar.zst:dflyboot
-DISTFILE[3]=		rust-std-1.33.0-x86_64-unknown-dragonfly.tar.zst:dflyboot
-DISTFILE[4]=		cargo-0.34.0-x86_64-unknown-dragonfly.tar.zst:dflyboot
-DISTFILE[5]=		rustc-1.33.0-x86_64-unknown-freebsd.tar.gz:main
-DISTFILE[6]=		rust-std-1.33.0-x86_64-unknown-freebsd.tar.gz:main
-DISTFILE[7]=		cargo-0.34.0-x86_64-unknown-freebsd.tar.gz:main
-DISTFILE[8]=		rustc-1.33.0-x86_64-unknown-linux-gnu.tar.gz:main
-DISTFILE[9]=		rust-std-1.33.0-x86_64-unknown-linux-gnu.tar.gz:main
-DISTFILE[10]=		cargo-0.34.0-x86_64-unknown-linux-gnu.tar.gz:main
+DISTFILE[2]=		rustc-1.34.2-x86_64-unknown-dragonfly.tar.zst:dflyboot
+DISTFILE[3]=		rust-std-1.34.2-x86_64-unknown-dragonfly.tar.zst:dflyboot
+DISTFILE[4]=		cargo-0.35.0-x86_64-unknown-dragonfly.tar.zst:dflyboot
+DISTFILE[5]=		rustc-1.34.2-x86_64-unknown-freebsd.tar.gz:main
+DISTFILE[6]=		rust-std-1.34.2-x86_64-unknown-freebsd.tar.gz:main
+DISTFILE[7]=		cargo-0.35.0-x86_64-unknown-freebsd.tar.gz:main
+DISTFILE[8]=		rustc-1.34.2-x86_64-unknown-linux-gnu.tar.gz:main
+DISTFILE[9]=		rust-std-1.34.2-x86_64-unknown-linux-gnu.tar.gz:main
+DISTFILE[10]=		cargo-0.35.0-x86_64-unknown-linux-gnu.tar.gz:main
 DF_INDEX=		1
 
 SPKGS[standard]=	single
@@ -146,12 +146,12 @@ post-install:
 	#
 	# We fix manpage entries in the generated manifests because Rust
 	# installs them uncompressed but the Ports framework compresses them.
-	for f in ${RUST_MANIFESTS}; do \
+	for f in ${STAGEDIR}${PREFIX}/lib/rustlib/manifest-*; do \
 	    ${SED} -i'' -E \
 		-e '/share\/doc\/rust/d' \
 	        -e 's|:${STAGEDIR}|:|' \
 	        -e 's|(man/man[1-9]/.*\.[0-9])|\1.gz|' \
-	        ${STAGEDIR}${PREFIX}/$$f; \
+	        $$f; \
 	    ${AWK} '\
 	        /^file:/ { \
 	            file=$$0; \
@@ -163,9 +163,9 @@ post-install:
 	            sub(/^dir:/, "", dir); \
 	            system("find ${STAGEDIR}" dir " -type f | ${SED} -E -e \"s|${STAGEDIR}||\""); \
 	        }' \
-	        ${STAGEDIR}${PREFIX}/$$f >> ${WRKDIR}/.manifest.gen.unsorted; \
+	        $$f >> ${WRKDIR}/.manifest.gen.unsorted; \
+	    ${RM} $$f; \
 	done
-	(cd ${STAGEDIR}${PREFIX} && ${RM} ${RUST_MANIFESTS})
 	${SORT} -u ${WRKDIR}/.manifest.gen.unsorted > ${WRKDIR}/.manifest.gen.sorted
 	${CAT} ${WRKDIR}/.manifest.gen.sorted >> ${WRKDIR}/.manifest.single.mktmp
 
