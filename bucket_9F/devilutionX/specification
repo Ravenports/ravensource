@@ -18,15 +18,20 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-# Not known to RP, yet
-# LICENSE=		UNLICENSE:single
+LICENSE=		PUBDOM:single
+LICENSE_FILE=		PUBDOM:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		games/devilutionX
 
 BUILDRUN_DEPENDS=	libsodium:single:standard
 
-USES=			cmake pkgconfig
+USES=			cmake pkgconfig dos2unix
+DOS2UNIX_FILES=		CMakeLists.txt
 SDL_COMPONENTS=		mixer2 ttf2
 
 SUB_FILES=		pkg-message-single
 
 do-install:
-	${CP} ${WRKDIR}/.build/devilutionx ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_PROGRAM} ${WRKDIR}/.build/devilutionx \
+		${STAGEDIR}${PREFIX}/bin
