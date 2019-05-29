@@ -18,6 +18,11 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		GPLv2:single
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		textproc/po4a
 
 BUILD_DEPENDS=		OpenSP:single:standard
@@ -31,6 +36,10 @@ BUILDRUN_DEPENDS=	docbook-xsl:primary:standard
 
 USES=			perl:buildmod gettext-tools
 GNOME_COMPONENTS=	libxslt
+
+post-extract:
+	${AWK} '/^\# Copyright and license/,EOF' \
+		${WRKSRC}/README.md > ${WRKDIR}/TERMS
 
 post-patch:
 	${REINPLACE_CMD} -e 's|docbook.sourceforge.net|cdn.docbook.org|g' \
