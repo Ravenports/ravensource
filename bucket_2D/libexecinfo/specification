@@ -1,19 +1,18 @@
-DEF[PORTVERSION]=	100
-DEF[ETCVER]=		0.7.1
+DEF[PORTVERSION]=	1.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libexecinfo
 VERSION=		${PORTVERSION}
-REVISION=		4
+EPOCH=			1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Backtrace Information Library
-HOMEPAGE=		none
+HOMEPAGE=		http://www.freshports.org/devel/libexecinfo
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/elftoolchain/Sources/elftoolchain-${ETCVER}
-DISTFILE[1]=		elftoolchain-${ETCVER}.tgz:main
+SITES[main]=		FREELOCAL/itetcu
+DISTFILE[1]=		libexecinfo-${PORTVERSION}.tar.bz2:main
 
 SPKGS[standard]=	single
 
@@ -21,15 +20,11 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 LICENSE=		BSD2CLAUSE:single
-LICENSE_FILE=		BSD2CLAUSE:{{FILESDIR}}/LICENSE
+LICENSE_FILE=		BSD2CLAUSE:{{WRKDIR}}/LICENSE
+LICENSE_AWK=		BSD2CLAUSE:"^$$"
+LICENSE_SOURCE=		BSD2CLAUSE:{{WRKSRC}}/execinfo.h
 LICENSE_SCHEME=		solo
 
-B_DEPS[sunos]=		libbsd4sol:single:standard
-
-USES=			cclibs:single
-DISTNAME=		libexecinfo
-MAKE_ENV=		TOOLCHAINDIR={{WRKDIR}}/elftoolchain-${ETCVER}
-
-post-extract:
-	@${MKDIR} ${WRKSRC}
-	${CP} ${FILESDIR}/* ${WRKSRC}
+post-install:
+	${INSTALL_MAN} ${FILESDIR}/backtrace.3 \
+		${STAGEDIR}${MANPREFIX}/man/man3/
