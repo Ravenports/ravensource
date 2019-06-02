@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	1.15
+DEF[SOVERSION]=		0.0.5
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		potrace
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Transfer bitmaps into vector graphics
+HOMEPAGE=		http://potrace.sourceforge.net/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/potrace/${PORTVERSION}
+DISTFILE[1]=		potrace-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary library docs
+
+OPTIONS_AVAILABLE=	METRIC A4
+OPTIONS_STANDARD=	METRIC A4
+OPT_ON[all]=		METRIC A4
+
+LICENSE=		GPLv2:primary
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/main.h
+LICENSE_SCHEME=		solo
+
+# FPC_EQUIVALENT=		graphics/potrace + graphics/libpotrace
+
+USES=			libtool zlib
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-libpotrace
+
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
+
+[METRIC].DESCRIPTION=			Use metric units (cm) as default
+[A4].DESCRIPTION=			Use A4 as the default papersize
+
+[METRIC].CONFIGURE_ENABLE_BOTH=		metric
+[A4].CONFIGURE_ENABLE_BOTH=		a4
