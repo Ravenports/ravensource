@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.69.3
+DEF[PORTVERSION]=	0.69.4
 DEF[ADALANG_REQ]=	0.65.4
 # ----------------------------------------------------------------------------
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main adalang
 SITES[main]=		SF/quex
 			SF/quex/HISTORY/${PORTVERSION:R}
 SITES[adalang]=		SF/quex/HISTORY/${ADALANG_REQ:R}
-DISTFILE[1]=		quex-${PORTVERSION}.tar.gz:main
+DISTFILE[1]=		quex-${PORTVERSION}.zip:main
 DISTFILE[2]=		quex-${ADALANG_REQ}.tar.gz:adalang
 
 SPKGS[standard]=	single
@@ -24,6 +24,10 @@ SPKGS[adalang]=		single
 OPTIONS_AVAILABLE=	ADALANG
 OPTIONS_STANDARD=	none
 VOPTS[adalang]=		ADALANG=ON
+
+# LICENSE differs, ravenports can't support this
+# current: MIT
+# adalang: LGPL
 
 SKIP_BUILD=		yes
 DISTNAME=		quex-source
