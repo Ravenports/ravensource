@@ -1,7 +1,5 @@
-# Scrot has a couple of forks.  Keep version 0.8 to avoid showing
-# as obsolete by repology
-DEF[PORTVERSION]=	0.8
-DEF[TAG]=		scrot-${PORTVERSION}-26
+DEF[SCROT_VER]=		0.9-1
+DEF[PORTVERSION]=	0.9.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		scrot
@@ -9,12 +7,12 @@ VERSION=		${PORTVERSION}
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Simple screen capture utility (SCReen shOT)
-HOMEPAGE=		https://github.com/slabua/scrot
+HOMEPAGE=		https://tracker.debian.org/pkg/scrot
 CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/slabua:scrot:${TAG}
-DISTFILE[1]=		generated:main
+SITES[main]=		https://salsa.debian.org/debian/scrot/-/archive/debian/${SCROT_VER}/
+DISTFILE[1]=		scrot-debian-${SCROT_VER}.tar.bz2:main
 
 SPKGS[standard]=	single
 
@@ -27,8 +25,14 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/scrot
 
+BUILD_DEPENDS=		autoconf:single:standard
+			automake:single:standard
 BUILDRUN_DEPENDS=	giblib:single:standard
 
 XORG_COMPONENTS=	x11
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--mandir={{MANPREFIX}}/man
+DISTNAME=		scrot-debian-${SCROT_VER}
+
+pre-configure:
+	(cd ${WRKSRC} && ./autogen.sh)
