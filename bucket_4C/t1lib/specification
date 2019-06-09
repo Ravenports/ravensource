@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	5.1.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		t1lib
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Adobe Type 1 font rasterizing library
+HOMEPAGE=		https://www.t1lib.org
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.ibiblio.org/pub/Linux/libs/graphics/
+DISTFILE[1]=		t1lib-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary x11 docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Some parts are copyrighted by Adobe or IBM.
+LICENSE=		LGPL20:primary
+			MIT:primary
+LICENSE_FILE=		LGPL20:{{WRKSRC}}/LGPL
+			MIT:{{WRKDIR}}/MIT
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+			MIT:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/lib/t1lib/t1lib.h
+			MIT:{{WRKSRC}}/lib/type1/type1.c
+LICENSE_SCHEME=		multi
+
+USES=			libtool
+XORG_COMPONENTS=	xaw
+
+FPC_EQUIVALENT=		devel/t1lib
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		"--with-x"
+BUILD_TARGET=		"without_doc"
