@@ -105,7 +105,7 @@ acquire_tarball_and_version() {
    local www url summd5 info
 
    www="https://pypi.python.org/pypi/${PYPINAME}/json"
-   fetch -o ${JSONFILE} ${www}
+   env SSL_NO_VERIFY_PEER=1 fetch -o ${JSONFILE} ${www}
    if [ $? -ne 0 ]; then
       echo "'${PYPINAME}' doesn't seem to be a valid package name"
       exit 1;
@@ -134,7 +134,7 @@ acquire_tarball_and_version() {
    fi
 
    url="${PYPISITE}${PYPITWO}/${tarball}"
-   fetch -o ${distfiles} ${url}
+   env SSL_NO_VERIFY_PEER=1 fetch -o ${distfiles} ${url}
    if [ $? -ne 0 ]; then
       echo "Failed to fetch ${tarball}"
       exit 1
