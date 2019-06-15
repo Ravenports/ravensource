@@ -1,0 +1,50 @@
+DEF[LIBVERSION]=	13.0.69
+DEF[PORTVERSION]=	0.13.69
+DEF[LIBS]=		zzip zzipfseeko zzipmmapped zzipwrap
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		zziplib
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Provide transparent read access to zipped data
+HOMEPAGE=		https://github.com/gdraheim/zziplib
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/gdraheim:zziplib:v${PORTVERSION}
+DISTFILE[1]=		zziplib-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary sdl
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL20:primary
+			MPL:primary
+LICENSE_FILE=		LGPL20:{{WRKSRC}}/docs/COPYING.LIB
+			MPL:{{WRKSRC}}/docs/COPYING.MPL
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/zzip/zzip.h
+LICENSE_SCHEME=		dual
+
+FPC_EQUIVALENT=		devel/zziplib
+
+USES=			libtool shebangfix pkgconfig python:py27,build zlib
+SHEBANG_FILES=		docs/*.py
+BUILD_DEPENDS=		sdl1:primary:standard
+			xmlto:single:standard
+			zip:single:standard
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-sdl
+INSTALL_REQ_TOOLCHAIN=	yes
+
+EXRUN[sdl]=		sdl1:primary:standard
+SOVERSION=		${LIBVERSION}
+
+post-install:
+.for l in ${LIBS}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib${l}-0.so.${LIBVERSION}
+.endfor
