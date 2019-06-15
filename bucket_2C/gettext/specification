@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	0.19.8.1
+DEF[PORTVERSION]=	0.20.1
+DEF[GETTEXTPO]=		0.5.5
+DEF[LIBINTL]=		8.1.6
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gettext
@@ -44,6 +46,8 @@ CONFIGURE_ENV=		ac_cv_lib_rt_sched_yield=no
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 PLIST_SUB=		VERSION=${PORTVERSION:R}
+			GETTEXTPO=${GETTEXTPO}
+			LIBINTL=${LIBINTL}
 TEST_TARGET=		check
 INFO=			runtime:autosprintf runtime:gettext
 CPE_PRODUCT=		gettext
@@ -75,3 +79,4 @@ post-install:
 .else
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libintl.${LIBEXT}
 .endif
+	${RM} ${STAGEDIR}${PREFIX}/share/info/libtextstyle.info
