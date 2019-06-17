@@ -5,7 +5,7 @@ Subject: [PATCH 3/3] Work around for clang 3.4 which fails to build Clover
 
 See:
   https://bugs.freedesktop.org/show_bug.cgi?id=74098#c3
---- src/gallium/state_trackers/clover/util/range.hpp.orig	2019-05-21 21:11:01 UTC
+--- src/gallium/state_trackers/clover/util/range.hpp.orig	2019-06-05 23:33:05 UTC
 +++ src/gallium/state_trackers/clover/util/range.hpp
 @@ -362,6 +362,12 @@ namespace clover {
        return { i, i + n };
