@@ -1,6 +1,6 @@
---- src/filemanager/midnight.c.orig	2017-03-04 17:51:38 UTC
+--- src/filemanager/midnight.c.orig	2018-12-28 19:35:25 UTC
 +++ src/filemanager/midnight.c
-@@ -879,7 +879,7 @@ setup_mc (void)
+@@ -867,7 +867,7 @@ setup_mc (void)
          add_select_channel (mc_global.tty.subshell_pty, load_prompt, 0);
  #endif /* !ENABLE_SUBSHELL */
  
