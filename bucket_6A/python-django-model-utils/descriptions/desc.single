@@ -17,7 +17,7 @@ https://codecov.io/gh/jazzband/django-model-utils/branch/master/graph/badge
 
 Django model mixins and utilities.
 
-``django-model-utils`` supports `Django`_ 1.8 to 2.0.
+``django-model-utils`` supports `Django`_ 1.11 and 2.1+.
 
 .. _Django: http://www.djangoproject.com/
 
@@ -30,6 +30,15 @@ Getting Help
 
 Documentation for django-model-utils is available
 https://django-model-utils.readthedocs.io/
+
+
+Run tests
+---------
+
+.. code-block
+
+    pip install -e .
+    py.test
 
 Contributing
 ============
@@ -47,14 +56,32 @@ https://github.com/jazzband/django-model-utils/blob/master/CONTRIBUTING.rst
 CHANGES
 =======
 
-master (unreleased)
+3.2.0 (2019.06.21)
 -------------------
+- Catch `AttributeError` for deferred abstract fields, fixes GH-331.
+- Update documentation to explain usage of `timeframed` model manager,
+fixes GH-118
+- Honor `OneToOneField.parent_link=False`.
+- Fix handling of deferred attributes on Django 1.10+, fixes GH-278
+- Fix `FieldTracker.has_changed()` and `FieldTracker.previous()` to return
+  correct responses for deferred fields.
+- Add Simplified Chinese translations.
+- Update AutoLastModifiedField so that at instance creation it will
+  always be set equal to created to make querying easier. Fixes GH-254
+- Support `reversed` for all kinds of `Choices` objects, fixes GH-309
+- Fix Model instance non picklable GH-330
+- Fix patched `save` in FieldTracker
+- Upgrades test requirements (pytest, pytest-django, pytest-cov) and
+  skips tox test with Python 3.5 and Django (trunk)
+- Add UUIDModel and UUIDField support.
 
 3.1.2 (2018.05.09)
 ------------------
 * Update InheritanceIterable to inherit from
   ModelIterable instead of BaseIterable, fixes GH-277.
 
+* Add all_objects Manager for 'SoftDeletableModel' to include soft
+  deleted objects on queries as per issue GH-255
 
 3.1.1 (2017.12.17)
 ------------------
@@ -75,36 +102,5 @@ master (unreleased)
 * Drop support for Django 1.4, 1.5, 1.6, 1.7.
 * Exclude tests from the distribution, fixes GH-258.
 * Add support for Django 1.11 GH-269
+* Add a new model to disable pre_save/post_save signals
 
-
-2.6.1 (2017.01.11)
-------------------
-
-* Fix infinite recursion with multiple `MonitorField` and `defer()` or
-`only()`
-  on Django 1.10+. Thanks Romain Garrigues. Merge of GH-242, fixes GH-241.
-
-* Fix `InheritanceManager` and `SoftDeletableManager` to respect
-  `self._queryset_class` instead of hardcoding the queryset class. Merge of
-  GH-250, fixes GH-249.
-
-* Add mixins for `SoftDeletableQuerySet` and `SoftDeletableManager`, as
-stated
-  in the the documentation.
-
-* Fix `SoftDeletableModel.delete()` to use the correct database connection.
-  Merge of GH-239.
-
-* Added boolean keyword argument `soft` to `SoftDeletableModel.delete()`
-that
-  revert to default behavior when set to `False`. Merge of GH-240.
-
-* Enforced default manager in `StatusModel` to avoid manager order issues
-when
-  using abstract models that redefine `objects` manager. Merge of GH-253,
-fixes
-  GH-251.
-
-
-2.6 (2016.09.19)
-----------------
