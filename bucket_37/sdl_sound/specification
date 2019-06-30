@@ -1,8 +1,10 @@
 DEF[PORTVERSION]=	1.0.3
+DEF[SOVERSION]=		1.0.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		sdl_sound
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		audio
 VARIANTS=		standard
 SDESC[standard]=	SDL audio library/player for popular formats
@@ -46,6 +48,7 @@ CONFIGURE_ARGS=		--disable-mpglib
 
 CPPFLAGS=		-isystem {{LOCALBASE}}/include/smpeg
 LDFLAGS=		-lm
+SOVERSION=		${SOVERSION}
 
 post-patch:
 	${REINPLACE_CMD} 's|timidity.cfg|${PREFIX}/share/timidity/&|' \
