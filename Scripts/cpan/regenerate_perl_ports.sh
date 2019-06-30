@@ -276,13 +276,13 @@ generate_ravensource()
          # We've got no meta files cached.
          # Either this port has none, or we haven't downloaded them yet.
          # check remotely for meta.json, then meta.yaml, then fall back to no meta files
-         fetch ${base_url}/META.json -o ${meta_json} 2>/dev/null
+         env SSL_NO_VERIFY_PEER=1 fetch ${base_url}/META.json -o ${meta_json} # 2>/dev/null
          if [ $? -eq 0 ]; then
             echo "Retrieved meta.json for ${port_name}"
             perl ${thisdir}/write_port_from_json.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${meta_json}" ${hp_status} ${distgood} "${sumover}" "${descover}"
             result=$?
          else
-            fetch ${base_url}/META.yml -o ${meta_yaml} 2>/dev/null
+            env SSL_NO_VERIFY_PEER=1 fetch ${base_url}/META.yml -o ${meta_yaml} 2>/dev/null
             if [ $? -eq 0 ]; then
                echo "Retrieved meta.yaml for ${port_name}"
                perl ${thisdir}/write_port_from_yaml.pl ${port_name} ${port_author} ${perl_builder} ${ravsrc_dir} "${meta_yaml}" ${hp_status} "${sumover}" "${descover}"
