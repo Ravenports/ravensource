@@ -1,10 +1,10 @@
---- junklib.c.orig	2019-04-06 21:21:38 UTC
+--- junklib.c.orig	2019-06-23 19:51:04 UTC
 +++ junklib.c
-@@ -32,7 +32,6 @@
- #include <stdlib.h>
+@@ -33,7 +33,6 @@
  #include <string.h>
  #if HAVE_ICONV
+   #ifndef __MINGW32__
 -  #define LIBICONV_PLUG
+   #endif
    #include <iconv.h>
  #elif HAVE_ICU
-   #warning icu
