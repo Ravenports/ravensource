@@ -1,11 +1,11 @@
---- Makefile.orig	2019-03-17 16:33:02 UTC
+--- Makefile.orig	2019-06-24 16:08:57 UTC
 +++ Makefile
-@@ -85,19 +85,19 @@ check: all
+@@ -92,19 +92,19 @@ check: all
  install: all install-bin install-include install-lib install-man
  install-bin: $(INSTALLABLE)
  	$(INSTALL) -d "$(DESTDIR)$(BINDIR)"
 -	$(INSTALL) $^ "$(DESTDIR)$(BINDIR)"
-+	$(BSD_INSTALL_PROGRAM) ${.ALLSRC} "$(DESTDIR)$(BINDIR)"
++	$(BSD_INSTALL_PROGRAM) $^ "$(DESTDIR)$(BINDIR)"
  install-include:
  	$(INSTALL) -d "$(DESTDIR)$(INCDIR)"
 -	$(INSTALL) -m 644 gif_lib.h "$(DESTDIR)$(INCDIR)"
