@@ -1,7 +1,7 @@
 $NetBSD: patch-src_putty_unix_uxshare.c,v 1.1 2015/07/08 16:46:43 richard Exp $
 Use POSIX fcntl instead of flock for setting file locking options on SunOS
 
---- src/putty/unix/uxshare.c.orig	2016-02-05 08:54:46 UTC
+--- src/putty/unix/uxshare.c.orig	2019-05-02 19:33:45 UTC
 +++ src/putty/unix/uxshare.c
 @@ -267,6 +267,13 @@ int platform_ssh_share(const char *pi_na
      int lockfd;
