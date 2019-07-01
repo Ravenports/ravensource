@@ -1,4 +1,4 @@
---- mesonbuild/scripts/depfixer.py.orig	2018-12-09 14:27:16 UTC
+--- mesonbuild/scripts/depfixer.py.orig	2019-05-05 19:11:16 UTC
 +++ mesonbuild/scripts/depfixer.py
 @@ -439,12 +439,10 @@ def fix_rpath(fname, new_rpath, final_pa
          if fname.endswith('.jar'):
