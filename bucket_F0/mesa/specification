@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	19.0.6
+DEF[PORTVERSION]=	19.1.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mesa
@@ -38,7 +38,9 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		graphics/mesa-libs
 
-BUILD_DEPENDS=		libpthread-stubs:single:standard
+BUILD_DEPENDS=		autoselect-python:single:standard
+			python-Mako:single:python_used
+			libpthread-stubs:single:standard
 			libclc:single:standard
 			clang:compiler:standard
 			zlib:static:standard
@@ -65,27 +67,23 @@ EXRUN[osmesa]=		llvm:single:standard
 			zlib:shared:standard
 B_DEPS[sunos]=		libbsd4sol:single:standard
 
-USES=			bison gettext-tools gmake libtool pkgconfig
-			python:py27,build shebangfix solaris-funcs
+USES=			bison gettext-tools gmake meson pkgconfig
+			python:build shebangfix solaris-funcs
 			c++:clover,drivers,osmesa
 XORG_COMPONENTS=	x11 xcb xdamage xext xfixes xshmfence xxf86vm xv xvmc xrandr
 SOL_FUNCTIONS=		dirfd:src/util/disk_cache.c
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-llvm
-			--enable-texture-float
-			--enable-vdpau
-			--enable-va
-			--enable-xvmc
-			--disable-glx-tls
-			--disable-gles1
-			--disable-libunwind
-			--with-platforms=x11,drm
-			--enable-gallium-osmesa
-			--with-llvm-prefix={{LOCALBASE}}
-			--with-dri-drivers="{{DRI_DRIVERS:tl}}"
-			--with-gallium_drivers="{{GALLIUM_DRIVERS:tl}}"
-# meson preferred, so remove this eventually
-			--enable-autotools
+MESON_ARGS=		-Dplatforms=x11,drm
+			-Ddri3=true
+			-Ddri-drivers={{DRI_DRIVERS:tW:tl:C/[[:space:]]/,/g}}
+			-Dgallium-drivers={{GALLIUM_DRIVERS:tW:tl:C/[[:space:]]/,/g}}
+			-Dgallium-vdpau=true
+			-Dgallium-xvmc=true
+			-Dgallium-va=true
+			-Dosmesa=gallium
+			-Dllvm=true
+			-Dlibunwind=false
+			-Dgles1=false
+			-Dvulkan-drivers=
 
 # There are issues that need to be fixed to use TLS model "initial-exec"
 # So stick with "global-dynamic"'s model for now. kan@ is working on a
@@ -118,8 +116,9 @@ VAR_OPSYS[sunos]=	CPPFLAGS=-D__EXTENSIONS__=1
 [X86_DRIVERS].DESCRIPTION=		Build drivers for i386 and x86_64 architectures
 [ARM_DRIVERS].DESCRIPTION=		Build drivers for aarch64 architecture
 
-[X86_DRIVERS].CONFIGURE_ENABLE_BOTH=	opencl opencl-icd
-[X86_DRIVERS].MAKEFILE_ON=		DRI_DRIVERS+=RADEON
+[X86_DRIVERS].CONFIGURE_ARGS_ON=	-Dgallium-opencl=icd
+[X86_DRIVERS].CONFIGURE_ARGS_OFF=	-Dgallium-opencl=disabled
+[X86_DRIVERS].MAKEFILE_ON=		DRI_DRIVERS+=R100
 					DRI_DRIVERS+=R200
 					DRI_DRIVERS+=I915
 					DRI_DRIVERS+=I965
@@ -133,29 +132,6 @@ VAR_OPSYS[sunos]=	CPPFLAGS=-D__EXTENSIONS__=1
 post-extract:
 	${AWK} '/Copyright/,/DEALINGS/' ${WRKSRC}/include/GL/glext.h \
 		> ${WRKDIR}/LICENSE_KHRONOS
-
-post-patch-freebsd:
-	${REINPLACE_CMD} -e 's|x86_64|amd64|' ${WRKSRC}/configure
-
-post-patch-dragonfly:
-	# shm_open doesn't support SHM_ANON, and no memfd_create syscall
-	${REINPLACE_CMD} -e '/^noinst_PROGRAMS =/ s|tools/aubinator.(EXEEXT)||' \
-		${WRKSRC}/src/intel/Makefile.in
-
-post-patch-linux:
-	# memfd_create is too new for linux base
-	${REINPLACE_CMD} -e '/^noinst_PROGRAMS =/ s|tools/aubinator.(EXEEXT)||' \
-		${WRKSRC}/src/intel/Makefile.in
-
-post-patch-sunos:
-	${REINPLACE_CMD}\
-		-e '/^CFLAGS =/ s|$$| -I$$(prefix)/include/bsd|' \
-		-e '/^LDFLAGS =/ s|$$| -lbsd|' \
-		${WRKSRC}/src/egl/Makefile.in \
-		${WRKSRC}/src/gallium/drivers/r600/Makefile.in \
-		${WRKSRC}/src/gallium/drivers/radeonsi/Makefile.in \
-		${WRKSRC}/src/gallium/auxiliary/Makefile.in \
-		${WRKSRC}/src/loader/Makefile.in
 
 post-patch:
 	${REINPLACE_CMD} -e 's|/etc/|${PREFIX}/etc/|g' \

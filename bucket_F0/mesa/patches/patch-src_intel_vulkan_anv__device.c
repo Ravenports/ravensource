@@ -1,7 +1,7 @@
 - Without sysinfo() fall back to sysconf()
 - Define ETIME if missing
 
---- src/intel/vulkan/anv_device.c.orig	2019-06-05 23:33:05 UTC
+--- src/intel/vulkan/anv_device.c.orig	2019-06-25 10:45:22 UTC
 +++ src/intel/vulkan/anv_device.c
 @@ -25,7 +25,9 @@
  #include <stdbool.h>
@@ -13,9 +13,9 @@
  #include <unistd.h>
  #include <fcntl.h>
  #include <xf86drm.h>
-@@ -44,6 +46,10 @@
- 
- #include "genxml/gen7_pack.h"
+@@ -52,6 +54,10 @@
+  */
+ #define MAX_DEBUG_MESSAGE_LENGTH    4096
  
 +#ifndef ETIME
 +#define ETIME ETIMEDOUT
@@ -23,8 +23,8 @@
 +
  static void
  compiler_debug_log(void *data, const char *fmt, ...)
- { }
-@@ -64,10 +70,15 @@ static uint64_t
+ {
+@@ -88,10 +94,15 @@ static uint64_t
  anv_compute_heap_size(int fd, uint64_t gtt_size)
  {
     /* Query the total ram from the system */

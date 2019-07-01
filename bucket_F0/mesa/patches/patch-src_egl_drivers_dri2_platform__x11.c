@@ -1,8 +1,8 @@
 # work-around for https://bugs.freedesktop.org/show_bug.cgi?id=100627
 #
---- src/egl/drivers/dri2/platform_x11.c.orig	2019-06-05 23:33:04 UTC
+--- src/egl/drivers/dri2/platform_x11.c.orig	2019-06-25 10:45:22 UTC
 +++ src/egl/drivers/dri2/platform_x11.c
-@@ -1527,6 +1527,9 @@ dri2_initialize_x11(_EGLDriver *drv, _EG
+@@ -1574,6 +1574,9 @@ dri2_initialize_x11(_EGLDriver *drv, _EG
  
     if (!disp->Options.ForceSoftware) {
  #ifdef HAVE_DRI3

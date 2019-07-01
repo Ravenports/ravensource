@@ -1,7 +1,7 @@
 - Implement setting thread name
 - Use monotonic clock for timeouts
 
---- src/util/u_thread.h.orig	2019-06-05 23:33:05 UTC
+--- src/util/u_thread.h.orig	2019-06-25 10:45:22 UTC
 +++ src/util/u_thread.h
 @@ -34,6 +34,13 @@
  
@@ -17,7 +17,7 @@
  #endif
  
  static inline thrd_t u_thread_create(int (*routine)(void *), void *param)
-@@ -64,6 +71,12 @@ static inline void u_thread_setname( con
+@@ -65,6 +72,12 @@ static inline void u_thread_setname( con
        (__GLIBC__ >= 3 || (__GLIBC__ == 2 && __GLIBC_MINOR__ >= 12)) && \
        defined(__linux__)
     pthread_setname_np(pthread_self(), name);
@@ -30,7 +30,7 @@
  #  endif
  #endif
     (void)name;
-@@ -134,7 +147,7 @@ util_get_L3_for_pinned_thread(thrd_t thr
+@@ -135,7 +148,7 @@ util_get_L3_for_pinned_thread(thrd_t thr
  static inline int64_t
  u_thread_get_time_nano(thrd_t thread)
  {
