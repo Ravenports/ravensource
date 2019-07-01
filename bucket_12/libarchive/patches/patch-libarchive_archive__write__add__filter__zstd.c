@@ -1,4 +1,4 @@
---- libarchive/archive_write_add_filter_zstd.c.orig	2017-10-01 00:17:22 UTC
+--- libarchive/archive_write_add_filter_zstd.c.orig	2019-06-12 21:05:16 UTC
 +++ libarchive/archive_write_add_filter_zstd.c
 @@ -96,7 +96,7 @@ archive_write_add_filter_zstd(struct arc
  	f->free = &archive_compressor_zstd_free;

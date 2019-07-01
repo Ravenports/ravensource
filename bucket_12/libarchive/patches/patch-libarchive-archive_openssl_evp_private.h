@@ -1,4 +1,4 @@
---- libarchive/archive_openssl_evp_private.h.orig	2017-10-01 00:17:22 UTC
+--- libarchive/archive_openssl_evp_private.h.orig	2019-06-12 21:05:16 UTC
 +++ libarchive/archive_openssl_evp_private.h
 @@ -28,7 +28,8 @@
  #include <openssl/evp.h>
