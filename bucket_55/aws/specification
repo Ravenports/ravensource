@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2018
-DEF[DATE]=		20180524
+DEF[PORTVERSION]=	2019
+DEF[DATE]=		20190512-18AB9
 DEF[ADDL_RPATH]=	{{LOCALBASE}}/lib:{{OPENSSLLIB}}:{{LOCALBASE}}/lib/xmlada/relocatable
 # ----------------------------------------------------------------------------
 
@@ -13,7 +13,7 @@ CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		http://downloads.dragonlace.net/src/
-DISTFILE[1]=		aws-gpl-${PORTVERSION}-${DATE}-src.tar.gz:main
+DISTFILE[1]=		aws-${PORTVERSION}-${DATE}-src.tar.gz:main
 
 SPKGS[standard]=	complete primary examples docs
 
@@ -37,7 +37,7 @@ BUILDRUN_DEPENDS=	xmlada:primary:standard
 
 USES=			ada:primary gmake gprbuild python:py27,build shebangfix
 			ssl
-DISTNAME=		aws-gpl-${PORTVERSION}-src
+DISTNAME=		aws-${PORTVERSION}-${DATE}-src
 SHEBANG_FILES=		tools/awsascb
 INSTALL_REQ_TOOLCHAIN=	yes
 MUST_CONFIGURE=		yes
@@ -59,7 +59,8 @@ CONFIGURE_ARGS=		prefix={{PREFIX}}
 [SHARED].CONFIGURE_ARGS_ON=		ENABLE_SHARED=true
 [SHARED].CONFIGURE_ARGS_OFF=		ENABLE_SHARED=false
 [DEBUG].CONFIGURE_ARGS_ON=		DEBUG=true
-[IPV6].CONFIGURE_ARGS_ON=		IPv6=true
+[IPV6].CONFIGURE_ARGS_ON=		NETLIB=ipv6
+[IPV6].CONFIGURE_ARGS_OFF=		NETLIB=ipv4
 [IPV6].MAKEFILE_ON=			NAME_IP6=
 					NAME_IP4=--
 [IPV6].MAKEFILE_OFF=			NAME_IP6=--
@@ -107,5 +108,9 @@ post-install:
 		> ${STAGEDIR}${PREFIX}/lib/gnat/aws.gpr
 	cd ${WRKSRC}/gps && ${INSTALL_DATA} *.xml aws.py \
 		${STAGEDIR}${PREFIX}/share/gps/plug-ins
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/[tw]*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/a[dw][as][2_r]*
+
+post-install-SHARED-ON:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libaws.so \
 		${STAGEDIR}${PREFIX}/lib/aws.relocatable/libaws.so
