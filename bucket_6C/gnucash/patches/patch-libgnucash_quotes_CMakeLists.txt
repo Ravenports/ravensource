@@ -1,11 +1,11 @@
---- libgnucash/quotes/CMakeLists.txt.orig	2019-01-11 23:57:38 UTC
+--- libgnucash/quotes/CMakeLists.txt.orig	2019-07-02 15:01:19 UTC
 +++ libgnucash/quotes/CMakeLists.txt
-@@ -21,7 +21,7 @@ foreach(file gnc-fq-dump gnc-fq-helper)
+@@ -15,7 +15,7 @@ foreach(file gnc-fq-dump gnc-fq-helper)
+   list(APPEND _MAN_FILES ${_MAN_OUTPUT})
    add_custom_command(
        OUTPUT ${_MAN_OUTPUT}
-       COMMAND
--        ${CMAKE_COMMAND_TMP} ${PERL_EXECUTABLE} ${POD2MAN_EXECUTABLE} ${_POD_INPUT} ${_MAN_OUTPUT}
-+        ${CMAKE_COMMAND_TMP} ${POD2MAN_EXECUTABLE} ${_POD_INPUT} ${_MAN_OUTPUT}
+-      COMMAND ${CMAKE_COMMAND} -E env ${PERL_EXECUTABLE} ${POD2MAN_EXECUTABLE} ${_POD_INPUT} ${_MAN_OUTPUT}
++      COMMAND ${CMAKE_COMMAND} ${POD2MAN_EXECUTABLE} ${_POD_INPUT} ${_MAN_OUTPUT}
        DEPENDS ${_POD_INPUT}
    )
  endforeach(file)

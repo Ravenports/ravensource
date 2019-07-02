@@ -1,4 +1,4 @@
-DEF[BASEVER]=		3.5
+DEF[BASEVER]=		3.6
 # DEF[DASH]=		-1
 # DEF[PORTVERSION]=	${BASEVER}${DASH:S/-/./}
 # DEF[DISTVERSION]=	${BASEVER}${DASH}
@@ -34,7 +34,7 @@ LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		finance/gnucash
 
-BROKEN[all]=		No longer build with updates to dependencies
+BROKEN[all]=		guile issue: In procedure dynamic-link: file: "libgncmod-app-utils", message: "file not found"
 
 BUILD_DEPENDS=		gmp:static:standard
 			appstream-glib:primary:standard
@@ -55,7 +55,7 @@ RUN_DEPENDS=		perl-Date-Manip:single:perl_default
 			perl-Finance-Quote:single:perl_default
 			perl-libwww-perl:single:perl_default
 
-USES=			cmake desktop-utils:primary gnome-icons:primary
+USES=			cmake:insource desktop-utils:primary gnome-icons:primary
 			pkgconfig gettext-tools gettext-runtime
 			libtool perl shebangfix zlib
 XORG_COMPONENTS=	x11
@@ -65,6 +65,7 @@ CMAKE_ARGS=		-DWITH_AQBANKING:BOOL=true
 			-DWITH_OFX:BOOL=true
 			-DCOMPILE_GSCHEMAS=OFF
 			-DENABLE_BINRELOC=OFF
+			-DGNC_SHELL=/bin/sh
 SHEBANG_FILES=		common/gnc-test-env.pl
 			libgnucash/quotes/gnc-fq-dump
 DISTNAME=		gnucash-${BASEVER}
