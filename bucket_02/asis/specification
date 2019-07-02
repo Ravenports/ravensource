@@ -1,3 +1,5 @@
+# DEF[PORTVERSION]=	2019
+# DEF[DATE]=		20190517-18AB5
 DEF[PORTVERSION]=	2018
 DEF[DATE]=		20180524
 # ----------------------------------------------------------------------------
@@ -44,9 +46,9 @@ post-extract:
 		${WRKSRC}/common.gpr
 	${MV} ${WRKSRC}/gnat ${WRKSRC}/gnat.gpl
 	${MKDIR} ${WRKSRC}/gnat
-	${CP} ${LOCALBASE}/include/gnat-util/* ${WRKSRC}/gnat
 
 post-patch:
+	${CP} ${LOCALBASE}/include/gnat-util/* ${WRKSRC}/gnat
 	${REINPLACE_CMD} -e 's|: setup-snames|:|' ${WRKSRC}/Makefile
 
 do-build:
