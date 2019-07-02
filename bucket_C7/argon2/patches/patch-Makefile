@@ -1,0 +1,14 @@
+--- Makefile.orig	2019-07-02 16:38:45 UTC
++++ Makefile
+@@ -77,8 +77,10 @@ ifeq ($(KERNEL_NAME), Linux)
+ 	PC_EXTRA_LIBS ?= -lrt -ldl
+ endif
+ ifeq ($(KERNEL_NAME), $(filter $(KERNEL_NAME),DragonFly FreeBSD NetBSD OpenBSD))
+-	LIB_EXT := so
++	LIB_EXT := so.$(ABI_VERSION)
+ 	LIB_CFLAGS := -shared -fPIC
++	SO_LDFLAGS := -Wl,-soname,lib$(LIB_NAME).$(LIB_EXT)
++	LINKED_LIB_EXT := so
+ 	PC_EXTRA_LIBS ?=
+ endif
+ ifeq ($(KERNEL_NAME), Darwin)

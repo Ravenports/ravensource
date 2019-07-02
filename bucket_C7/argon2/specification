@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	20171227
+DEF[PORTVERSION]=	20190702
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		argon2
@@ -32,6 +32,7 @@ FPC_EQUIVALENT=		security/libargon2
 USES=			gmake
 DISTNAME=		phc-winner-argon2-${PORTVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
+MAKE_ARGS=		PKGCONFIG_REL=lib
 
 post-patch:
 	${REINPLACE_CMD} -e "s|PREFIX = /usr|PREFIX = ${PREFIX}|" \
