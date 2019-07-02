@@ -1,11 +1,11 @@
-DEF[PORTVERSION]=	2018
-DEF[DATE]=		20180524
+DEF[PORTVERSION]=	2019
+DEF[DATE]=		20190517-194D8
+DEF[XMLADA_DATE]=	20190429-19B9D
 DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gprbuild
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel ada
 VARIANTS=		standard
 SDESC[standard]=	Adacore multi-language software build tool
@@ -14,8 +14,8 @@ CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		http://downloads.dragonlace.net/src/
-DISTFILE[1]=		gprbuild-gpl-${PORTVERSION}-${DATE}-src.tar.gz:main
-DISTFILE[2]=		xmlada-gpl-${PORTVERSION}-${DATE}-src.tar.gz:main
+DISTFILE[1]=		gprbuild-${PORTVERSION}-${DATE}-src.tar.gz:main
+DISTFILE[2]=		xmlada-${PORTVERSION}-${XMLADA_DATE}-src.tar.gz:main
 DF_INDEX=		1 2
 
 SPKGS[standard]=	complete primary gprlib docs examples
@@ -37,7 +37,7 @@ BUILD_DEPENDS=		xmlada:primary:standard
 EXRUN[gprlib]=		xmlada:primary:standard
 
 USES=			gmake
-DISTNAME=		gprbuild-gpl-${PORTVERSION}-src
+DISTNAME=		gprbuild-${PORTVERSION}-${DATE}-src
 MAKE_ARGS=		prefix={{STAGEDIR}}{{PREFIX}}
 			ENABLE_SHARED=yes
 			BUILD=production
@@ -73,7 +73,7 @@ post-configure:
 	# create bootstrap version of gprbuild
 	${MKDIR} ${WRKDIR}/bootstrap_construction
 	(cd ${WRKDIR}/bootstrap_construction && ${WRKSRC}/bootstrap.sh \
-	  --with-xmlada=${WRKDIR}/xmlada-gpl-${PORTVERSION}-src \
+	  --with-xmlada=${WRKDIR}/xmlada-${PORTVERSION}-${XMLADA_DATE}-src \
 	  --srcdir=${WRKSRC} \
 	  --prefix=${WRKDIR}/bootstrap)
 
@@ -86,3 +86,4 @@ post-install:
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}/info
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/gprbuild/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gpr/relocatable/gpr/libgpr.so
