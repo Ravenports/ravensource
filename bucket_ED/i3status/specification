@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.12
+DEF[PORTVERSION]=	2.13
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		i3status
@@ -24,19 +24,24 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11/i3status
 
+BUILD_DEPENDS=		asciidoc:single:py27
+			xmlto:single:standard
 BUILDRUN_DEPENDS=	libconfuse:single:standard
 			yajl:single:standard
 
 USES=			gmake pkgconfig
+MUST_CONFIGURE=		gnu
 
 BROKEN[linux]=		Assumes netlink and alsa headers present
 
 post-patch:
 	${REINPLACE_CMD} -e 's|/etc|${PREFIX}/etc|g' ${WRKSRC}/i3status.c
 
-do-install:
-	${INSTALL_PROGRAM} ${WRKSRC}/i3status ${STAGEDIR}${PREFIX}/bin
-	${INSTALL_DATA} ${WRKSRC}/man/i3status.1 \
-		${STAGEDIR}${MANPREFIX}/man/man1
-	${INSTALL_MAN} ${WRKSRC}/i3status.conf \
+post-configure:
+	# something wrong with autotools templates
+	${REINPLACE_CMD} -e '/am--fnord am--fnord-all/ s|..TEST_LOGS:|:|' \
+		${WRKSRC}/Makefile
+
+post-install:
+	${MV} ${STAGEDIR}${PREFIX}/etc/i3status.conf \
 		${STAGEDIR}${PREFIX}/etc/i3status.conf.sample
