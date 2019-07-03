@@ -1,8 +1,10 @@
 DEF[PORTVERSION]=	5.1.2
+DEF[SOVERSION]=		5.1.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		t1lib
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Adobe Type 1 font rasterizing library
@@ -30,7 +32,7 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/lib/t1lib/t1lib.h
 			MIT:{{WRKSRC}}/lib/type1/type1.c
 LICENSE_SCHEME=		multi
 
-USES=			libtool
+USES=			libtool fbsd10fix
 XORG_COMPONENTS=	xaw
 
 FPC_EQUIVALENT=		devel/t1lib
@@ -38,3 +40,8 @@ FPC_EQUIVALENT=		devel/t1lib
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		"--with-x"
 BUILD_TARGET=		"without_doc"
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
