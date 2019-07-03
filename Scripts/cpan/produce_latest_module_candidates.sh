@@ -15,7 +15,7 @@ newfile="${workdir}/latest_candidates.txt"
 
 rm -rf ${workdir}
 mkdir -p ${workdir}
-fetch ${archurl} -o ${workdir}
+env SSL_NO_VERIFY_PEER=1 fetch ${archurl} -o ${workdir}
 
 if [ $? -ne 0 ]; then
   echo "download failed"

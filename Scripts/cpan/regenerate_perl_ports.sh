@@ -245,7 +245,7 @@ generate_ravensource()
       if [ -f ${build_pl} ]; then
          fetch_result=0;
       else
-         fetch ${base_url}/Build.PL -o ${build_pl} 2>/dev/null
+         env SSL_NO_VERIFY_PEER=1 fetch ${base_url}/Build.PL -o ${build_pl} 2>/dev/null
          fetch_result=$?
       fi
       if [ ${fetch_result} -eq 0 ]; then
