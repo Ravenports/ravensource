@@ -1,4 +1,4 @@
---- intel/test_decode.c.orig	2019-04-19 15:52:29 UTC
+--- intel/test_decode.c.orig	2019-07-02 18:36:50 UTC
 +++ intel/test_decode.c
 @@ -28,7 +28,13 @@
  #include <fcntl.h>

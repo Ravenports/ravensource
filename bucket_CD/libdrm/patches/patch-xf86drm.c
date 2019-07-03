@@ -1,4 +1,4 @@
---- xf86drm.c.orig	2019-04-19 15:52:29 UTC
+--- xf86drm.c.orig	2019-07-02 18:36:50 UTC
 +++ xf86drm.c
 @@ -46,6 +46,9 @@
  #include <signal.h>
