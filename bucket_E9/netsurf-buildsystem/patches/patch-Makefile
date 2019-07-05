@@ -1,0 +1,28 @@
+--- Makefile.orig	2019-06-20 06:05:31.656073000 +0200
++++ Makefile	2019-06-20 06:09:15.963637000 +0200
+@@ -19,7 +19,7 @@
+ 	@echo ""
+ 	@echo "Which is where the libraries etc look for it."
+ 
+-PREFIX?=/opt/netsurf
++PREFIX?=%%PREFIX%%
+ 
+ BASE=$(DESTDIR)$(PREFIX)/share/netsurf-buildsystem
+ 
+@@ -33,15 +33,12 @@
+ CITOOLS := jenkins-build.sh
+ 
+ install:
+-	mkdir -p $(BASE)/makefiles $(BASE)/testtools $(BASE)/citools
++	mkdir -p $(BASE)/makefiles $(BASE)/testtools
+ 	for M in $(MAKEFILES); do \
+ 		cp makefiles/$$M $(BASE)/makefiles/; \
+ 	done
+ 	for T in $(TESTTOOLS); do \
+ 		cp testtools/$$T $(BASE)/testtools/; \
+-	done
+-	for C in $(CITOOLS); do \
+-		cp citools/$$C $(BASE)/citools/; \
+ 	done
+ 
+ # Distribution

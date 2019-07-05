@@ -1,0 +1,34 @@
+--- makefiles/Makefile.tools.orig	2019-06-20 06:13:03.962897000 +0200
++++ makefiles/Makefile.tools	2019-06-20 06:18:02.241808000 +0200
+@@ -111,6 +111,13 @@
+     LDFLAGS := $(LDFLAGS) -L$(GCCSDK_INSTALL_ENV)/lib -L/usr/local/lib
+   endif
+ 
++  ifeq ($(findstring dragonfly,$(HOST)),dragonfly)
++    # Building on+for DragonFly BSD
++    CFLAGS := $(CFLAGS) -I$(GCCSDK_INSTALL_ENV)/include -I/usr/local/include
++    CXXFLAGS := $(CXXFLAGS) -I$(GCCSDK_INSTALL_ENV)/include -I/usr/local/include
++    LDFLAGS := $(LDFLAGS) -L$(GCCSDK_INSTALL_ENV)/lib -L/usr/local/lib
++  endif
++
+   ifeq ($(findstring arwin,$(HOST)),arwin)
+     # Building on+for Mac OS X (Darwin) with MAC ports
+     CFLAGS := $(CFLAGS) -I/opt/local/include
+@@ -130,7 +137,7 @@
+   endif
+ 
+   # Search the path for the compiler
+-  toolpath_ := $(shell /bin/which $(CC__))
++  toolpath_ := $(shell /usr/bin/which $(CC__))
+   ifeq ($(toolpath_),)
+     toolpath_ := /opt/netsurf/$(HOST)/cross/bin/
+     CC__  := $(toolpath_)$(HOST)-gcc
+@@ -141,7 +148,7 @@
+     toolpath_ := $(dir $(CC__))
+     toolprefix_ := $(subst :,/,$(dir $(subst -,/,$(subst /,:,$(CC__)))))
+     ifeq ($(origin AR),default)
+-      AR__ := $(toolprefix_)-ar
++      AR__ := $(shell /usr/bin/which ar)
+     endif
+     ifeq ($(origin CXX),default)
+       CXX__ := $(toolprefix_)-g++
