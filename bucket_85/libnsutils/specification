@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.0.5
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libnsutils
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	NetSurf generalised utility library
+HOMEPAGE=		http://source.netsurf-browser.org/libnsutils.git
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.netsurf-browser.org/libs/releases/
+DISTFILE[1]=		libnsutils-${PORTVERSION}-src.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/libnsutils
+
+BUILD_DEPENDS=		netsurf-buildsystem:single:standard
+USES=			gmake
+
+MAKE_ENV=		COMPONENT_TYPE="lib-shared"
+INSTALL_REQ_TOOLCHAIN=	yes
+
+SOVERSION=		${PORTVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libnsutils.so.${PORTVERSION}
