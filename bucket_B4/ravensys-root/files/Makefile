@@ -159,6 +159,7 @@ static_lib_FreeBSD=	${static_lib_generic} \
 			/usr/lib/libthr.a \
 			/usr/lib/libusb.a \
 			/usr/lib/libusbhid.a \
+			/usr/lib/libjail.a \
 			/usr/lib/Scrt1.o \
 			/usr/lib/gcrt1.o \
 			/usr/lib/crt1.o \
