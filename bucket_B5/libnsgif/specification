@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.2.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libnsgif
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Decoding library for the GIF image file format
+HOMEPAGE=		https://repology.org/project/libnsgif/information
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.netsurf-browser.org/libs/releases/
+DISTFILE[1]=		libnsgif-${PORTVERSION}-src.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/libnsgif
+
+BUILD_DEPENDS=		netsurf-buildsystem:single:standard
+USES=			gmake
+
+MAKE_ENV=		COMPONENT_TYPE="lib-shared"
+INSTALL_REQ_TOOLCHAIN=	yes
+
+SOVERSION=		${PORTVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libnsgif.so.${PORTVERSION}
