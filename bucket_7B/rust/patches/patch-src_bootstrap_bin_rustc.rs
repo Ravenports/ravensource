@@ -1,4 +1,4 @@
---- src/bootstrap/bin/rustc.rs.orig	2019-05-20 12:10:15 UTC
+--- src/bootstrap/bin/rustc.rs.orig	2019-07-03 08:00:00 UTC
 +++ src/bootstrap/bin/rustc.rs
 @@ -239,7 +239,7 @@ fn main() {
              } else if !target.contains("windows") &&
