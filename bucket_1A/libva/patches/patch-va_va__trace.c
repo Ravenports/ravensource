@@ -1,4 +1,4 @@
---- va/va_trace.c.orig	2019-04-07 17:44:47 UTC
+--- va/va_trace.c.orig	2019-07-05 13:14:31 UTC
 +++ va/va_trace.c
 @@ -50,6 +50,9 @@
  #include <sys/stat.h>
@@ -8,7 +8,7 @@
 +#include <pthread_np.h>
 +#endif
  #include <unistd.h>
- #include <time.h>
+ #include <sys/time.h>
  #include <errno.h>
 @@ -290,7 +293,15 @@ static void add_trace_config_info(
  {

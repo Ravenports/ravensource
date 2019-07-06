@@ -1,6 +1,6 @@
---- va/va.c.orig	2019-04-07 17:44:47 UTC
+--- va/va.c.orig	2019-07-05 13:14:31 UTC
 +++ va/va.c
-@@ -393,7 +393,7 @@ static VAStatus va_openDriver(VADisplay
+@@ -398,7 +398,7 @@ static VAStatus va_openDriver(VADisplay
          }
  
          va_infoMessage(dpy, "Trying to open %s\n", driver_path);
