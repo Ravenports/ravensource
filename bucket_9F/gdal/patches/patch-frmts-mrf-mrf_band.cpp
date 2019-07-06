@@ -1,4 +1,4 @@
---- frmts/mrf/mrf_band.cpp.orig	2019-05-05 09:46:29 UTC
+--- frmts/mrf/mrf_band.cpp.orig	2019-06-28 10:58:08 UTC
 +++ frmts/mrf/mrf_band.cpp
 @@ -49,7 +49,7 @@
  
