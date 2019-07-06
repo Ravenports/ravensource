@@ -1,6 +1,6 @@
---- charset.c.orig	2016-10-25 14:37:35 UTC
+--- charset.c.orig	2019-06-11 18:12:01 UTC
 +++ charset.c
-@@ -409,6 +409,10 @@ binary_char(c)
+@@ -432,6 +432,10 @@ binary_char(c)
  control_char(c)
  	LWCHAR c;
  {
@@ -11,7 +11,7 @@
  	c &= 0377;
  	return (chardef[c] & IS_CONTROL_CHAR);
  }
-@@ -424,6 +428,20 @@ prchar(c)
+@@ -447,6 +451,20 @@ prchar(c)
  	/* {{ This buffer can be overrun if LESSBINFMT is a long string. }} */
  	static char buf[32];
  
@@ -32,7 +32,7 @@
  	c &= 0377;
  	if ((c < 128 || !utf_mode) && !control_char(c))
  		SNPRINTF1(buf, sizeof(buf), "%c", (int) c);
-@@ -447,6 +465,7 @@ prchar(c)
+@@ -470,6 +488,7 @@ prchar(c)
  #endif
  	else
  		SNPRINTF1(buf, sizeof(buf), binfmt, c);
