@@ -214,6 +214,7 @@ dynamic_lib_FreeBSD=	${dynamic_generic} \
 			/lib/${Libthr_FreeBSD} \
 			/lib/${Libdevstat_FreeBSD} \
 			/usr/lib/libexecinfo.so.1 \
+			/lib/libjail.so.1 \
 			/usr/lib/${Libprocstat_FreeBSD} \
 			/usr/lib/${libusb} \
 			/usr/lib/${libusbhid}
@@ -445,6 +446,7 @@ headers_FreeBSD=	${headers_DragonFly:Nutil.h:Ndevattr.h:Ndfregress.h:Ndisktab.h:
 			libgeom.h \
 			libprocstat.h \
 			malloc_np.h \
+			jail.h \
 			# end
 
 headers_Linux_dirs=	acl \
@@ -696,7 +698,8 @@ install:
 		ln -s ${Libprocstat_FreeBSD} libprocstat.so && \
 		ln -s ${Libgeom_FreeBSD} libgeom.so && \
 		ln -s ${PREFIX}/lib/libexecinfo.so libexecinfo.so && \
-		ln -s libthr.so libpthread.so)
+		ln -s libthr.so libpthread.so && \
+		ln -s libjail.so.1 libjail.so)
 	${BSD_INSTALL_LIB} ../${OPSYS:tl}/lib/libgcc_s.so.1 ${DESTDIR}${BASE}/usr/lib/
 	${BSD_INSTALL_LIB} ../${OPSYS:tl}/lib/libcxxrt.so.1 ${DESTDIR}${BASE}/usr/lib/
 	${BSD_INSTALL_LIB} ../${OPSYS:tl}/usr/lib/libc++.so.1 ${DESTDIR}${BASE}/usr/lib/
