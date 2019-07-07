@@ -36,6 +36,8 @@ USES=			ssl bison gmake zlib
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-ssl-dir={{OPENSSLBASE}}
 CONFIGURE_ENV=		ac_cv_type_boolean_t=no
+# needed on linux
+INSTALL_REQ_TOOLCHAIN=	yes
 
 post-patch:
 	# don't use system boolean_t to avoid potential conflicts
