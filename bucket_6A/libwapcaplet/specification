@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	0.4.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libwapcaplet
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	String internment library
+HOMEPAGE=		https://www.netsurf-browser.org/projects/libwapcaplet/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.netsurf-browser.org/libs/releases/
+DISTFILE[1]=		libwapcaplet-${PORTVERSION}-src.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		textproc/libwapcaplet
+
+BUILD_DEPENDS=		flex:primary:standard
+			netsurf-buildsystem:single:standard
+USES=			gmake
+
+MAKE_ENV=		COMPONENT_TYPE="lib-shared"
+INSTALL_REQ_TOOLCHAIN=	yes
+
+SOVERSION=		${PORTVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libwapcaplet.so.${PORTVERSION}
