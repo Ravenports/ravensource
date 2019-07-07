@@ -25,11 +25,12 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		devel/libparserutils
 
 BUILD_DEPENDS=		netsurf-buildsystem:single:standard
-USES=			gmake iconv perl:build pkgconfig
+USES=			gmake perl:build pkgconfig
 
 MAKE_ENV=		COMPONENT_TYPE="lib-shared"
-			INCLUDEDIR=include
-			LIBDIR=lib
+# Build without iconv for now since I could not get NetSurf working with
+# iconv enabled in libparserutils
+CFLAGS=			-DWITHOUT_ICONV_FILTER
 INSTALL_REQ_TOOLCHAIN=	yes
 
 SOVERSION=		${PORTVERSION}
