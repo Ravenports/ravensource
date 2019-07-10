@@ -1,4 +1,4 @@
---- ffbuild/libversion.sh.orig	2019-02-09 20:56:02 UTC
+--- ffbuild/libversion.sh.orig	2019-07-08 17:45:25 UTC
 +++ ffbuild/libversion.sh
 @@ -1,3 +1,5 @@
 +#!/bin/sh
