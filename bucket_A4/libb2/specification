@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	0.98.1
+DEF[SOVERSION]=		1.0.4
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libb2
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	BLAKE2: fast secure hashing
+HOMEPAGE=		https://blake2.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/BLAKE2:libb2:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CC0_10:single
+LICENSE_FILE=		CC0_10:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		dev/libb2
+
+USES=			autoreconf libtool pkgconfig
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-openmp
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
