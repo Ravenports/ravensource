@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	103
+DEF[PORTVERSION]=	12.0
 DEF[LIB_MAJOR]=		1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fetch
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		ftp
 VARIANTS=		standard library
 SDESC[standard]=	Tool to retrieve file by Uniform Resource Locator
@@ -12,7 +11,9 @@ SDESC[library]=		Library to retrieve file by URL
 HOMEPAGE=		https://www.freebsd.org/cgi/man.cgi?fetch(1)
 CONTACT=		John_Marino[draco@marino.st]
 
-DOWNLOAD_GROUPS=	none
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/jrmarino:fetch-freebsd:v${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 SPKGS[library]=		single
@@ -25,9 +26,6 @@ LICENSE=		BSD3CLAUSE:single
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
-B_DEPS[linux]=		libbsd:single:standard
-B_DEPS[sunos]=		libbsd4sol:single:standard
-
 MAKE_ARGS=		LIB_MAJOR=${LIB_MAJOR}
 
 [LIBRARY].DESCRIPTION=			Build library instead of executable
@@ -35,7 +33,3 @@ MAKE_ARGS=		LIB_MAJOR=${LIB_MAJOR}
 [LIBRARY].BUILD_DEPENDS_OFF=		libressl:single:static
 [LIBRARY].BUILD_TARGET_ON=		library
 [LIBRARY].INSTALL_TARGET_ON=		install-library
-
-do-extract:
-	${MKDIR} ${WRKSRC}
-	cp ${FILESDIR}/* ${WRKSRC}/
