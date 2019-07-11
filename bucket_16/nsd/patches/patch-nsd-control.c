@@ -1,8 +1,8 @@
---- nsd-control.c.orig	2018-06-12 08:16:08 UTC
+--- nsd-control.c.orig	2019-06-11 12:15:24 UTC
 +++ nsd-control.c
-@@ -63,6 +63,10 @@
- #include "tsig.h"
- #include "options.h"
+@@ -67,6 +67,10 @@ static void usage() ATTR_NORETURN;
+ static void ssl_err(const char* s) ATTR_NORETURN;
+ static void ssl_path_err(const char* s, const char *path) ATTR_NORETURN;
  
 +#ifndef AF_LOCAL
 +#define AF_LOCAL AF_UNIX
