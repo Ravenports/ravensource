@@ -1,4 +1,4 @@
---- src/lib_json/json_reader.cpp.orig	2017-12-20 21:07:10 UTC
+--- src/lib_json/json_reader.cpp.orig	2019-07-11 21:38:06 UTC
 +++ src/lib_json/json_reader.cpp
 @@ -4,6 +4,11 @@
  // recognized in your jurisdiction.
@@ -10,5 +10,5 @@
 +#endif
 +
  #if !defined(JSON_IS_AMALGAMATION)
+ #include "json_tool.h"
  #include <json/assertions.h>
- #include <json/reader.h>
