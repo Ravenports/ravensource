@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.7.7
+DEF[PORTVERSION]=	0.7.8
 DEF[SOVERSION]=		4.0.0
 # ----------------------------------------------------------------------------
 
@@ -28,12 +28,16 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libnotify
 
-USES=			gettext-runtime gmake libtool pkgconfig python
-GNOME_COMPONENTS=	glib gdkpixbuf intltool introspection
-MUST_CONFIGURE=		gnu
-INSTALL_TARGET=		install-strip
-CONFIGURE_ARGS=		--disable-tests
+BUILD_DEPENDS=		gtk-doc:single:standard
 
+USES=			gettext-runtime gmake meson pkgconfig python
+GNOME_COMPONENTS=	glib gdkpixbuf intltool introspection
+INSTALL_REQ_TOOLCHAIN=	yes
+INSTALL_TARGET=		install-strip
+MESON_ARGS=		-Dtests=false
+			-Dintrospection=enabled
+			-Dgtk_doc=true
+			-Ddocbook_docs=disabled
 SOVERSION=		${SOVERSION}
 
 post-install:
