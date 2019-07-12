@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	4.2
-DEF[DISTHASH]=		049ce6aac94d842be809f4063950646c
+DEF[PORTVERSION]=	4.3
+DEF[DISTHASH]=		43398a317371e309361ce43072603863cb2f57e1
 DEF[ISO_DIRS]=		639-2 639-3 639-5 3166-1 3166-2 3166-3 4217 15924
 # ----------------------------------------------------------------------------
 
@@ -11,10 +11,9 @@ SDESC[standard]=	Lists of country, language and currency iso names
 HOMEPAGE=		https://salsa.debian.org/iso-codes-team/iso-codes
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
-DOWNLOAD_GROUPS=	main alt
-SITES[main]=		https://salsa.debian.org/iso-codes-team/iso-codes/uploads/${DISTHASH}/
-SITES[alt]=		https://salsa.debian.org/iso-codes-team/iso-codes/-/archive/iso-codes-4.2/
-DISTFILE[1]=		iso-codes-iso-codes-${PORTVERSION}.tar.bz2:alt
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://salsa.debian.org/iso-codes-team/iso-codes/-/archive/iso-codes-${PORTVERSION}/
+DISTFILE[1]=		iso-codes-${PORTVERSION}.tar.bz2:main
 
 SPKGS[standard]=	single
 
@@ -35,7 +34,7 @@ SHEBANG_GLOB=		*.py
 SHEBANG_OLD_PYTHON=	/usr/bin/env[[:space:]]python3
 MUST_CONFIGURE=		gnu
 MAKE_ARGS=		pkgconfigdir={{PREFIX}}/lib/pkgconfig
-DISTNAME=		iso-codes-iso-codes-${PORTVERSION}
+DISTNAME=		iso-codes-iso-codes-${PORTVERSION}-${DISTHASH}
 
 post-patch:
 	${REINPLACE_CMD} -e 's|python3|python${PYTHON_VER}|g' \
