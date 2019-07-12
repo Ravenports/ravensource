@@ -1,4 +1,4 @@
---- mesonbuild/compilers/compilers.py.orig	2019-06-16 18:54:18 UTC
+--- mesonbuild/compilers/compilers.py.orig	2019-07-09 16:34:42 UTC
 +++ mesonbuild/compilers/compilers.py
 @@ -201,7 +201,7 @@ apple_buildtype_linker_args = {'plain':
  gnulike_buildtype_linker_args = {'plain': [],
@@ -19,7 +19,7 @@
      try:
          crt_val = options['b_vscrt'].value
          buildtype = options['buildtype'].value
-@@ -1304,25 +1301,6 @@ class Compiler:
+@@ -1309,25 +1306,6 @@ class Compiler:
          if mesonlib.is_sunos():
              return args
  
@@ -45,7 +45,7 @@
          return args
  
      def thread_flags(self, env):
-@@ -1458,15 +1436,7 @@ def get_compiler_is_linuxlike(compiler):
+@@ -1463,15 +1441,7 @@ def get_compiler_is_linuxlike(compiler):
  def get_compiler_uses_gnuld(c):
      # FIXME: Perhaps we should detect the linker in the environment?
      # FIXME: Assumes that *BSD use GNU ld, but they might start using lld soon
@@ -62,7 +62,7 @@
  
  def get_largefile_args(compiler):
      '''
-@@ -1869,10 +1839,6 @@ class GnuLikeCompiler(abc.ABC):
+@@ -1874,10 +1844,6 @@ class GnuLikeCompiler(abc.ABC):
          self.compiler_type = compiler_type
          self.base_options = ['b_pch', 'b_lto', 'b_pgo', 'b_sanitize', 'b_coverage',
                               'b_ndebug', 'b_staticpic', 'b_pie']
@@ -73,7 +73,7 @@
          if not self.compiler_type.is_windows_compiler:
              self.base_options.append('b_asneeded')
          # All GCC-like backends can do assembly
-@@ -1982,8 +1948,8 @@ class GnuLikeCompiler(abc.ABC):
+@@ -1987,8 +1953,8 @@ class GnuLikeCompiler(abc.ABC):
          elif mesonlib.is_sunos():
              return []
          else:
