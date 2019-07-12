@@ -1,0 +1,14 @@
+--- makefile.in.orig	2016-01-13 07:19:13 UTC
++++ makefile.in
+@@ -56,4 +56,11 @@ SONAME=-Xlinker -soname -Xlinker libpico
+ libpicosat.so: picosat.o version.o
+ 	$(CC) $(CFLAGS) -shared -o $@ picosat.o version.o $(SONAME)
+ 
++install:
++	${BSD_INSTALL_PROGRAM} picosat picomcs picomus picogcnf \
++		${DESTDIR}${PREFIX}/bin/
++	${BSD_INSTALL_DATA} picosat.h ${DESTDIR}${PREFIX}/include
++	${BSD_INSTALL_DATA} libpicosat.a ${DESTDIR}${PREFIX}/lib/
++	${BSD_INSTALL_LIB} libpicosat.so ${DESTDIR}${PREFIX}/lib/
++
+ .PHONY: all clean

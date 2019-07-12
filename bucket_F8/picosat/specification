@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	965
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		picosat
+VERSION=		${PORTVERSION}
+KEYWORDS=		math
+VARIANTS=		standard
+SDESC[standard]=	Satisfiability (SAT) solver for boolean variables
+HOMEPAGE=		http://fmv.jku.at/picosat/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://fmv.jku.at/picosat/
+DISTFILE[1]=		picosat-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		math/picosat
+
+MUST_CONFIGURE=		yes
+CONFIGURE_ARGS=		--shared
+			--static
+CONFIGURE_SCRIPT=	configure.sh
+MAKEFILE=		makefile
+SINGLE_JOB=		yes
