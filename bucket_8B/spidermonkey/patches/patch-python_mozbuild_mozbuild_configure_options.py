@@ -1,4 +1,4 @@
---- ../../python/mozbuild/mozbuild/configure/options.py.orig	2019-06-20 01:00:44 UTC
+--- ../../python/mozbuild/mozbuild/configure/options.py.orig	2019-07-03 00:08:10 UTC
 +++ ../../python/mozbuild/mozbuild/configure/options.py
 @@ -420,7 +420,11 @@ class CommandLineHelper(object):
  
