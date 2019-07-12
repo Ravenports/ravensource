@@ -5,10 +5,11 @@ DEF[SOVERSION]=		13.4.0
 NAMEBASE=		libarchive
 VERSION=		${PORTVERSION}
 KEYWORDS=		archivers
-VARIANTS=		standard static extended
+VARIANTS=		standard static extended ravensw
 SDESC[standard]=	Library to handle many streaming archive formats
 SDESC[static]=		Static build of libarchive
 SDESC[extended]=	Extended libarchive with lzo and lz4 capability
+SDESC[ravensw]=		Zstd-only libarchive for ravensw
 HOMEPAGE=		http://libarchive.org/
 CONTACT=		nobody
 
@@ -20,11 +21,13 @@ DISTFILE[1]=		libarchive-${PORTVERSION}.tar.gz:main
 SPKGS[standard]=	single
 SPKGS[static]=		single
 SPKGS[extended]=	single
+SPKGS[ravensw]=		single
 
-OPTIONS_AVAILABLE=	STATIC EXTENDED
+OPTIONS_AVAILABLE=	NOT_STD STATIC EXTENDED RAVENSW
 OPTIONS_STANDARD=	none
-VOPTS[static]=		STATIC=ON EXTENDED=OFF
-VOPTS[extended]=	STATIC=OFF EXTENDED=ON
+VOPTS[static]=		NOT_STD=ON STATIC=ON EXTENDED=OFF RAVENSW=OFF
+VOPTS[extended]=	NOT_STD=ON STATIC=OFF EXTENDED=ON RAVENSW=OFF
+VOPTS[ravensw]=		NOT_STD=ON STATIC=OFF EXTENDED=OFF RAVENSW=ON
 
 LICENSE=		BSD2CLAUSE:single BSD3CLAUSE:single PUBDOM:single
 LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
@@ -34,9 +37,7 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		archivers/libarchive
 
-BUILD_DEPENDS=		bzip2:static:standard
-			zlib:static:standard
-			expat:static:standard
+BUILD_DEPENDS=		expat:static:standard
 			Zstandard:static:standard
 
 USES=			cpe libtool
@@ -48,25 +49,59 @@ CONFIGURE_ARGS=		--without-xml2
 LDFLAGS=		-lpthread
 SOVERSION=		${SOVERSION}
 
-[STATIC].BUILDRUN_DEPENDS_OFF=		libressl:single:standard
+[NOT_STD].DESCRIPTION=			Don't build common user version
+[STATIC].DESCRIPTION=			Build version for raven sysroots
+[EXTENDED].DESCRIPTION=			Build loaded version (common + lzo + lz4)
+[RAVENSW].DESCRIPTION=			Build zstd-only version for ravensw
+
+[NOT_STD].BUILD_DEPENDS_OFF=		bzip2:static:standard
+					zlib:static:standard
+[NOT_STD].BUILDRUN_DEPENDS_OFF=		libressl:single:standard
+					expat:shared:standard
 					xz:single:standard
 					bzip2:shared:standard
 					zlib:shared:standard
-					expat:shared:standard
 					Zstandard:shared:standard
+[NOT_STD].CONFIGURE_ARGS_OFF=		--enable-shared=yes
+
 [STATIC].BUILD_DEPENDS_ON=		libressl:single:static
 					xz:single:static
-[STATIC].CONFIGURE_ARGS_OFF=		--enable-shared=yes
+					bzip2:static:standard
+					zlib:static:standard
 [STATIC].CONFIGURE_ARGS_ON=		--enable-shared=no
 					--enable-static=yes
 
-[EXTENDED].DESCRIPTION=			Add support for lz4 and lzo compression
-[EXTENDED].BUILD_DEPENDS_ON=		lzo:static:standard
+[EXTENDED].BUILD_DEPENDS_ON=		bzip2:static:standard
+					zlib:static:standard
+					lzo:static:standard
 					lz4:static:standard
-[EXTENDED].BUILDRUN_DEPENDS_ON=		lzo:shared:standard
+[EXTENDED].BUILDRUN_DEPENDS_ON=		expat:shared:standard
+					Zstandard:shared:standard
+					libressl:single:standard
+					xz:single:standard
+					bzip2:shared:standard
+					zlib:shared:standard
+					lzo:shared:standard
 					lz4:shared:standard
-[EXTENDED].CONFIGURE_ARGS_ON=		--with-lzo2
+[EXTENDED].CONFIGURE_ARGS_ON=		--enable-shared=yes
+					--with-lzo2
 					--with-lz4
+
+[RAVENSW].BUILD_DEPENDS_ON=		libressl:single:static
+[RAVENSW].CONFIGURE_ARGS_ON=		--enable-shared=no
+					--enable-static=yes
+					--without-zlib
+					--without-bz2lib
+					--without-libb2
+					--without-lz4
+					--without-lzo2
+					--without-lzma
+					--enable-bsdtar=no
+					--enable-bsdcat=no
+					--enable-bsdcpio=no
 
 do-test:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} check)
+
+post-install-RAVENSW-ON:
+	${RM} -r ${STAGEDIR}${MANPREFIX}/man/man[135]
