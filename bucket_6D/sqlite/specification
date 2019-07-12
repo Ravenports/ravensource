@@ -5,8 +5,10 @@ DEF[LONGVERSION]=	${PORTVERSION:S/.//:S/./0/}00
 NAMEBASE=		sqlite
 VERSION=		${PORTVERSION}
 KEYWORDS=		databases
-VARIANTS=		standard
-SDESC[standard]=	SQL database engine in a C library
+VARIANTS=		standard editline
+# variants only affect sqlite binary (history not linked to library)
+SDESC[standard]=	SQL database engine library (GNU/readline)
+SDESC[editline]=	SQL database engine library (BSD/editline)
 HOMEPAGE=		https://www.sqlite.org/
 CONTACT=		nobody
 
@@ -17,9 +19,11 @@ SITES[main]=		https://www.sqlite.org/2019/
 DISTFILE[1]=		sqlite-autoconf-${LONGVERSION}.tar.gz:main
 
 SPKGS[standard]=	single
+SPKGS[editline]=	single
 
-OPTIONS_AVAILABLE=	none
+OPTIONS_AVAILABLE=	EDITLINE SKIP_READLINE
 OPTIONS_STANDARD=	none
+VOPTS[editline]=	EDITLINE=ON SKIP_READLINE=ON
 
 LICENSE=		PUBDOM:single
 LICENSE_FILE=		PUBDOM:{{WRKDIR}}/LICENSE
@@ -29,7 +33,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		databases/sqlite3
 
-USES=			libtool ncurses readline
+USES=			libtool ncurses
 DISTNAME=		sqlite-autoconf-${LONGVERSION}
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
@@ -48,8 +52,17 @@ CPPFLAGS=		-DSQLITE_ENABLE_DBSTAT_VTAB=1
 CONFIGURE_ARGS=		--enable-dynamic-extensions
 			--enable-static-shell
 			--enable-threadsafe
-			--enable-readline
 LDFLAGS=		-lpthread
+
+[EDITLINE].DESCRIPTION=			Build with editline shell history
+[EDITLINE].CONFIGURE_ARGS_ON=		--enable-editline
+[EDITLINE].BUILDRUN_DEPENDS_ON=		libedit:single:standard
+
+[SKIP_READLINE].DESCRIPTION=		Don't build with readline shell history
+[SKIP_READLINE].CONFIGURE_ARGS_ON=	--disable-readline
+[SKIP_READLINE].CONFIGURE_ARGS_OFF=	--enable-readline
+[SKIP_READLINE].USES_OFF=		readline
+
 
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/include/msvc.h
