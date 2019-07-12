@@ -1,5 +1,5 @@
-DEF[SCROT_VER]=		0.9-1
-DEF[PORTVERSION]=	0.9.1
+DEF[SCROT_VER]=		1.1-1
+DEF[PORTVERSION]=	1.1.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		scrot
@@ -27,9 +27,10 @@ FPC_EQUIVALENT=		graphics/scrot
 
 BUILD_DEPENDS=		autoconf:single:standard
 			automake:single:standard
+			autoconf-archive:single:standard
 BUILDRUN_DEPENDS=	giblib:single:standard
 
-XORG_COMPONENTS=	x11
+XORG_COMPONENTS=	x11 xfixes xcursor
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--mandir={{MANPREFIX}}/man
 DISTNAME=		scrot-debian-${SCROT_VER}
