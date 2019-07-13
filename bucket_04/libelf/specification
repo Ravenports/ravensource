@@ -4,6 +4,7 @@ DEF[HASH]=		7e0b504
 
 NAMEBASE=		libelf
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Public ELF file access library similar to Solaris
@@ -34,3 +35,14 @@ CONFIGURE_ARGS=		--enable-shared
 			--enable-sanity-checks
 			--disable-compat
 			--disable-nls
+
+post-build:
+	# assemble PIC library
+	(cd ${WRKSRC}/lib &&\
+	 ${AR} -crv libelf_pic.a *.os &&\
+	 ranlib libelf_pic.a)
+
+post-install:
+	# install our PIC library
+	${INSTALL_DATA} ${WRKSRC}/lib/libelf_pic.a \
+		${STAGEDIR}${PREFIX}/lib/
