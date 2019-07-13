@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	0.1.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libnslog
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	NetSurf Parametric Logging Library
+HOMEPAGE=		http://git.netsurf-browser.org/libnslog.git
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://download.netsurf-browser.org/libs/releases/
+DISTFILE[1]=		libnslog-${PORTVERSION}-src.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		bison:primary:standard
+			netsurf-buildsystem:single:standard
+USES=			gmake pkgconfig
+
+MAKE_ENV=		COMPONENT_TYPE="lib-shared"
+INSTALL_REQ_TOOLCHAIN=	yes
+
+SOVERSION=		${PORTVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libnslog.so.${PORTVERSION}
