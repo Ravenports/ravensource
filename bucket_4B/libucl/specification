@@ -6,8 +6,9 @@ NAMEBASE=		libucl
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		textproc
-VARIANTS=		standard
+VARIANTS=		standard ravensw
 SDESC[standard]=	Universal configuration library parser
+SDESC[ravensw]=		Libucl without utils, curl, lua, or ssl support
 HOMEPAGE=		https://github.com/vstakhov/libucl
 CONTACT=		nobody
 
@@ -16,9 +17,12 @@ SITES[main]=		GITHUB/vstakhov:libucl:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
+SPKGS[ravensw]=		single
 
-OPTIONS_AVAILABLE=	LUA
+OPTIONS_AVAILABLE=	LUA RAVENSW
 OPTIONS_STANDARD=	LUA
+# OPT_ON[all]=		LUA
+VOPTS[ravensw]=		LUA=OFF RAVENSW=ON
 
 LICENSE=		BSD2CLAUSE:single
 LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
@@ -26,23 +30,27 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		textproc/libucl
 
-BUILDRUN_DEPENDS=	curl:primary:standard
-
-USES=			autoreconf gmake libtool pkgconfig ssl
+USES=			autoreconf gmake libtool pkgconfig
 INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-signatures
-			--enable-utils
-			--enable-urls
-			--enable-regex
-CPPFLAGS=		-I{{OPENSSLINC}}
-LDFLAGS=		-L{{OPENSSLLIB}}
+CONFIGURE_ARGS=		--enable-regex
 SOVERSION=		${SOVERSION}
 
 [LUA].DESCRIPTION=			Enable support for LUA scripting language
 [LUA].CONFIGURE_ENV_ON=			LUA={{LOCALBASE}}/bin/{{LUA_CMD}}
 [LUA].LDFLAGS_ON=			-L{{LUA_LIBDIR}}
 [LUA].USES_ON=				lua
+[LUA].CONFIGURE_ARGS_ON=		--enable-lua
+[LUA].BROKEN_ON=			can't find lua.h and other headers
+
+[RAVENSW].DESCRIPTION=			Minimal variant used by ravensw
+[RAVENSW].USES_OFF=			ssl
+[RAVENSW].BUILDRUN_DEPENDS_OFF=		curl:primary:standard
+[RAVENSW].CONFIGURE_ARGS_OFF=		--enable-signatures
+					--enable-urls
+					--enable-utils
+[RAVENSW].CPPFLAGS_OFF=			-I{{OPENSSLINC}}
+[RAVENSW].LDFLAGS_OFF=			-L{{OPENSSLLIB}}
 
 post-build:
 	# assemble PIC library
