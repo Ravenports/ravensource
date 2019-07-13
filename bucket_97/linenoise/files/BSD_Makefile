@@ -9,10 +9,10 @@ SOBJS		= ${SRCS:.c=.So}
 all: ${LIB_PIC} ${LIB_STATIC}
 
 .c.o:
-	${CC} -o ${.TARGET} -c ${.ALLSRC}
+	${CC} ${CFLAGS} -c ${.ALLSRC} -o ${.TARGET}
 
 .c.So:
-	${CC} -o ${.TARGET} -c ${.ALLSRC} -fpic -DPIC
+	${CC} ${CFLAGS} -fpic -DPIC -c ${.ALLSRC} -o ${.TARGET}
 
 ${LIB_STATIC}: ${OBJS}
 	${AR} -cq ${.TARGET} ${.ALLSRC}
