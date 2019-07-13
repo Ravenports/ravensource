@@ -4,6 +4,7 @@ DEF[SOVER]=		1.6.9
 
 NAMEBASE=		expat
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		standard
 SDESC[standard]=	XML 1.0 parser written in C
@@ -30,5 +31,16 @@ MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVER}
 
+post-build:
+	# assemble PIC library
+	(cd ${WRKSRC}/lib/.libs &&\
+	 ${AR} -cq libexpat_pic.a *.o &&\
+	 ranlib libexpat_pic.a)
+
 post-install:
+	# remove installed documents
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
+
+	# install our PIC library
+	${INSTALL_DATA} ${WRKSRC}/lib/.libs/libexpat_pic.a \
+		${STAGEDIR}${PREFIX}/lib/
