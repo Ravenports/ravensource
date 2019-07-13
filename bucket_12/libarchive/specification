@@ -88,7 +88,9 @@ SOVERSION=		${SOVERSION}
 					--with-lz4
 
 [RAVENSW].BUILD_DEPENDS_ON=		libressl:single:static
-[RAVENSW].CONFIGURE_ARGS_ON=		--enable-shared=no
+					Zstandard:shared:standard
+					expat:shared:standard
+[RAVENSW].CONFIGURE_ARGS_ON=		--enable-shared=yes
 					--enable-static=yes
 					--without-zlib
 					--without-bz2lib
@@ -103,5 +105,16 @@ SOVERSION=		${SOVERSION}
 do-test:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} check)
 
+post-build-RAVENSW-ON:
+	# assemble PIC library
+	(cd ${WRKSRC}/libarchive/.libs &&\
+	 ${AR} -cruv libarchive_pic.a *.o &&\
+	 ranlib libarchive_pic.a)
+
 post-install-RAVENSW-ON:
 	${RM} -r ${STAGEDIR}${MANPREFIX}/man/man[135]
+	${RM} ${STAGEDIR}${PREFIX}/lib/libarchive.so*
+
+	# install our PIC library
+	${INSTALL_DATA} ${WRKSRC}/libarchive/.libs/libarchive_pic.a \
+		${STAGEDIR}${PREFIX}/lib/
