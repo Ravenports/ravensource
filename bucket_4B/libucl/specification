@@ -4,6 +4,7 @@ DEF[SOVERSION]=		5.1.0
 
 NAMEBASE=		libucl
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		standard
 SDESC[standard]=	Universal configuration library parser
@@ -42,3 +43,14 @@ SOVERSION=		${SOVERSION}
 [LUA].CONFIGURE_ENV_ON=			LUA={{LOCALBASE}}/bin/{{LUA_CMD}}
 [LUA].LDFLAGS_ON=			-L{{LUA_LIBDIR}}
 [LUA].USES_ON=				lua
+
+post-build:
+	# assemble PIC library
+	(cd ${WRKSRC}/src/.libs &&\
+	 ${AR} -cq libucl_pic.a *.o &&\
+	 ranlib libucl_pic.a)
+
+post-install:
+	# install our PIC library
+	${INSTALL_DATA} ${WRKSRC}/src/.libs/libucl_pic.a \
+		${STAGEDIR}${PREFIX}/lib/
