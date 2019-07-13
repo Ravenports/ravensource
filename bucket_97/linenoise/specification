@@ -22,12 +22,5 @@ LICENSE=		BSD2CLAUSE:single
 LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
-do-build:
-	cd ${WRKSRC} &&\
-	${CC} -fpic -DPIC -c linenoise.c &&\
-	${AR} cq liblinenoise.a linenoise.o &&\
-	ranlib liblinenoise.a
-
-do-install:
-	${INSTALL_DATA} ${WRKSRC}/linenoise.h ${STAGEDIR}${PREFIX}/include/
-	${INSTALL_LIB} ${WRKSRC}/liblinenoise.a ${STAGEDIR}${PREFIX}/lib/
+post-extract:
+	${CP} ${FILESDIR}/BSD_Makefile ${WRKSRC}/Makefile

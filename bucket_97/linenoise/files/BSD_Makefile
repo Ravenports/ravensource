@@ -1,0 +1,27 @@
+LIB_PIC		= liblinenoise_pic.a
+LIB_STATIC	= liblinenoise.a
+SRCS		= linenoise.c
+OBJS		= ${SRCS:.c=.o}
+SOBJS		= ${SRCS:.c=.So}
+
+.SUFFIXES:	.o .So
+
+all: ${LIB_PIC} ${LIB_STATIC}
+
+.c.o:
+	${CC} -o ${.TARGET} -c ${.ALLSRC}
+
+.c.So:
+	${CC} -o ${.TARGET} -c ${.ALLSRC} -fpic -DPIC
+
+${LIB_STATIC}: ${OBJS}
+	${AR} -cq ${.TARGET} ${.ALLSRC}
+	ranlib ${.TARGET}
+
+${LIB_PIC}: ${SOBJS}
+	${AR} -cq ${.TARGET} ${.ALLSRC}
+	ranlib ${.TARGET}
+
+install:
+	${BSD_INSTALL_DATA} linenoise.h ${DESTDIR}${PREFIX}/include/
+	${BSD_INSTALL_LIB} ${LIB_STATIC} ${LIB_PIC} ${DESTDIR}${PREFIX}/lib/
