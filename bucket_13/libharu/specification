@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	2.3.0
+DEF[VERSION]=		${PORTVERSION:S/./_/g}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libharu
+VERSION=		${PORTVERSION}
+KEYWORDS=		print
+VARIANTS=		standard
+SDESC[standard]=	Cross-platform library for generating PDF files
+HOMEPAGE=		http://libharu.org
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/libharu/libharu/archive/
+DISTFILE[1]=		RELEASE_${VERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		ZLIB:single
+LICENSE_FILE=		ZLIB:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		zlib:static:standard
+BUILDRUN_DEPENDS=	png:single:standard
+			zlib:shared:standard
+
+USES=			autoreconf dos2unix libtool
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-png=/raven
+			--with-zlib=/raven
+
+DISTNAME=		libharu-RELEASE_${VERSION}
+
+SOVERSION=		${PORTVERSION}
+
+post-patch:
+		awk '/The license of Haru/{f=1;next} /Acknowledgment/{f=0} f' ${WRKSRC}/README > ${WRKDIR}/TERMS
