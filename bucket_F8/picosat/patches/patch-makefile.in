@@ -1,14 +1,41 @@
 --- makefile.in.orig	2016-01-13 07:19:13 UTC
 +++ makefile.in
-@@ -56,4 +56,11 @@ SONAME=-Xlinker -soname -Xlinker libpico
- libpicosat.so: picosat.o version.o
- 	$(CC) $(CFLAGS) -shared -o $@ picosat.o version.o $(SONAME)
+@@ -52,8 +52,35 @@ libpicosat.a: picosat.o version.o
+ 	ar rc $@ picosat.o version.o
+ 	ranlib $@
  
+-SONAME=-Xlinker -soname -Xlinker libpicosat.so
+-libpicosat.so: picosat.o version.o
+-	$(CC) $(CFLAGS) -shared -o $@ picosat.o version.o $(SONAME)
++.SUFFIXES:	.o .So
++
++.c.So:
++	$(CC) $(CFLAGS) -fpic -DPIC -o $(.TARGET) -c $(.ALLSRC)
++
++SONAME=-Wl,-soname,libpicosat.so.1
++libpicosat.so.1: picosat.So version.So
++	$(CC) $(CFLAGS) -shared -o $(.TARGET) $(.ALLSRC) $(SONAME)
++
++libpicosat.so: libpicosat.so.1
++	ln -s $(.ALLSRC) $(.TARGET)
++
++libpicosat_pic.a: picosat.So version.So
++	ar rc $(.TARGET) $(.ALLSRC)
++	ranlib $(.TARGET)
++
++install-shared:
++	${BSD_INSTALL_PROGRAM} picosat picomcs picomus picogcnf \
++		${DESTDIR}${PREFIX}/bin/
++	${BSD_INSTALL_DATA} picosat.h ${DESTDIR}${PREFIX}/include
++	${BSD_INSTALL_DATA} libpicosat.a ${DESTDIR}${PREFIX}/lib/
++	${BSD_INSTALL_DATA} libpicosat_pic.a ${DESTDIR}${PREFIX}/lib/
++	${BSD_INSTALL_LIB} libpicosat.so.1 ${DESTDIR}${PREFIX}/lib/
++	(cd ${DESTDIR}${PREFIX}/lib && ln -s libpicosat.so.1 libpicosat.so)
++
 +install:
 +	${BSD_INSTALL_PROGRAM} picosat picomcs picomus picogcnf \
 +		${DESTDIR}${PREFIX}/bin/
 +	${BSD_INSTALL_DATA} picosat.h ${DESTDIR}${PREFIX}/include
 +	${BSD_INSTALL_DATA} libpicosat.a ${DESTDIR}${PREFIX}/lib/
-+	${BSD_INSTALL_LIB} libpicosat.so ${DESTDIR}${PREFIX}/lib/
-+
+ 
  .PHONY: all clean
