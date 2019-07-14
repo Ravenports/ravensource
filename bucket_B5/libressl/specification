@@ -64,8 +64,28 @@ post-patch-darwin:
 	${REINPLACE_CMD} -e '/OCSP_crlID_new\.3/d' \
 		-e '/bn_print\.3/d' ${WRKSRC}/man/Makefile.in
 
+post-build-STATIC-OFF:
+	# assemble PIC libraries
+	(cd ${WRKSRC}/crypto/.libs &&\
+	 ${AR} -cq libcrypto_pic.a *.o &&\
+	 ranlib libcrypto_pic.a)
+	(cd ${WRKSRC}/ssl/.libs &&\
+	 ${AR} -cq libssl_pic.a *.o &&\
+	 ranlib libssl_pic.a)
+	(cd ${WRKSRC}/tls/.libs &&\
+	 ${AR} -cq libtls_pic.a *.o &&\
+	 ranlib libtls_pic.a)
+
 post-install:
 	${RM} -r ${STAGEDIR}/${PREFIX}/etc/libressl/cert.pem
+
+post-install-STATIC-OFF:
+	# install our PIC libraries
+	${INSTALL_DATA} \
+		${WRKSRC}/crypto/.libs/libcrypto_pic.a \
+		${WRKSRC}/ssl/.libs/libssl_pic.a \
+		${WRKSRC}/tls/.libs/libtls_pic.a \
+		${STAGEDIR}${PREFIX}/libressl/lib/
 
 post-install-dragonfly:
 	${INSTALL_SCRIPT} ${WRKSRC}/apps/nc/nc ${STAGEDIR}${BASE}/bin/nc
