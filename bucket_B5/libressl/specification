@@ -66,14 +66,14 @@ post-patch-darwin:
 
 post-build-STATIC-OFF:
 	# assemble PIC libraries
-	(cd ${WRKSRC}/crypto/.libs &&\
-	 ${AR} -cq libcrypto_pic.a *.o &&\
-	 ranlib libcrypto_pic.a)
+	(cd ${WRKSRC}/crypto &&\
+	 ${AR} -crsv .libs/libcrypto_pic.a .libs/*.o */.libs/*.o &&\
+	 ranlib .libs/libcrypto_pic.a)
 	(cd ${WRKSRC}/ssl/.libs &&\
-	 ${AR} -cq libssl_pic.a *.o &&\
+	 ${AR} -crsv libssl_pic.a *.o &&\
 	 ranlib libssl_pic.a)
 	(cd ${WRKSRC}/tls/.libs &&\
-	 ${AR} -cq libtls_pic.a *.o &&\
+	 ${AR} -crsv libtls_pic.a *.o &&\
 	 ranlib libtls_pic.a)
 
 post-install:
