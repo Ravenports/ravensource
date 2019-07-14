@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	4.0.0
-DEF[SOVERSION]=		4.0.0
+DEF[PORTVERSION]=	4.1.0
+DEF[SOVERSION]=		4.0.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		tesseract
@@ -29,6 +29,9 @@ BUILDRUN_DEPENDS=	fontconfig:primary:standard
 			pango:primary:standard
 RUN_DEPENDS=		tesseract-data:latin:standard
 EXRUN[tools]=		tesseract:library:standard
+			gcc8:fortran_run:standard
+# See patch freebsd/patch-configure.ac
+# R_DEPS[freebsd]=	gcc8:fortran_run:standard
 
 USES=			autoreconf libtool pkgconfig shebangfix
 SHEBANG_FILES=		{{WRKSRC}}/src/training/tesstrain.sh
