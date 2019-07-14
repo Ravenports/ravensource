@@ -3,10 +3,11 @@ DEF[PORTVERSION]=	1.4.0
 
 NAMEBASE=		Zstandard
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		archivers
 VARIANTS=		standard
 SDESC[standard]=	Fast real-time compression algorithm (aka zstd)
-HOMEPAGE=		none
+HOMEPAGE=		https://facebook.github.io/zstd/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
@@ -36,11 +37,13 @@ MAKE_ARGS=		INCLUDEDIR="{{PREFIX}}/include"
 			LIBDIR="{{PREFIX}}/lib"
 			MANDIR="{{MANPREFIX}}/man"
 			PKGCONFIGDIR="{{PREFIX}}/lib/pkgconfig"
+			INSTALL_PROGRAM="{{INSTALL_PROGRAM}}"
+			INSTALL_SCRIPT="{{INSTALL_SCRIPT}}"
+			INSTALL_DATA="{{INSTALL_DATA}}"
+			INSTALL_MAN="{{INSTALL_MAN}}"
 SOVERSION=		${PORTVERSION}
 
 post-patch:
-	${REINPLACE_CMD} -e 's|INSTALL_|BSD_&|' ${WRKSRC}/lib/Makefile \
-		${WRKSRC}/programs/Makefile
 	${REINPLACE_CMD} -e '/define BACKTRACES_ENABLE/d' \
 		${WRKSRC}/programs/fileio.c
 
@@ -50,5 +53,4 @@ post-patch-sunos:
 	${REINPLACE_CMD} -e 's|LDFLAGS +=|LDFLAGS += -lrt|' \
 		${WRKSRC}/programs/Makefile
 	${REINPLACE_CMD} -e 's|ginstall|install|' \
-		${WRKSRC}/programs/Makefile \
-		${WRKSRC}/lib/Makefile
+		${WRKSRC}/programs/Makefile

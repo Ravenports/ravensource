@@ -1,0 +1,76 @@
+--- lib/Makefile.orig	2019-04-16 22:37:24 UTC
++++ lib/Makefile
+@@ -121,6 +121,7 @@ endif
+ CPPFLAGS  += -DZSTD_LEGACY_SUPPORT=$(ZSTD_LEGACY_SUPPORT)
+ 
+ ZSTD_OBJ   := $(patsubst %.c,%.o,$(ZSTD_FILES))
++ZSTD_SOBJ  := $(patsubst %.c,%.So,$(ZSTD_FILES))
+ 
+ # macOS linker doesn't support -soname, and use different extension
+ # see : https://developer.apple.com/library/mac/documentation/DeveloperTools/Conceptual/DynamicLibraries/100-Articles/DynamicLibraryDesignGuidelines.html
+@@ -146,11 +147,18 @@ all: lib
+ libzstd.a: ARFLAGS = rcs
+ libzstd.a: $(ZSTD_OBJ)
+ 	@echo compiling static library
+-	@$(AR) $(ARFLAGS) $@ $^
++	$(AR) $(ARFLAGS) $@ $^
+ 
+ libzstd.a-mt: CPPFLAGS += -DZSTD_MULTITHREAD
+ libzstd.a-mt: libzstd.a
+ 
++%.So: %.c
++	$(CC) $(FLAGS) -fpic -DPIC -c $< -o $@ 
++
++libzstd_pic.a: $(ZSTD_SOBJ)
++	@echo assembling PIC library
++	$(AR) rcsv $@ $^
++
+ ifneq (,$(filter Windows%,$(OS)))
+ 
+ LIBZSTD = dll\libzstd.dll
+@@ -162,9 +170,9 @@ else
+ 
+ LIBZSTD = libzstd.$(SHARED_EXT_VER)
+ $(LIBZSTD): LDFLAGS += -shared -fPIC -fvisibility=hidden
+-$(LIBZSTD): $(ZSTD_FILES)
++$(LIBZSTD): $(ZSTD_SOBJ)
+ 	@echo compiling dynamic library $(LIBVER)
+-	@$(CC) $(FLAGS) $^ $(LDFLAGS) $(SONAME_FLAGS) -o $@
++	$(CC) -shared $^ $(LDFLAGS) $(SONAME_FLAGS) -o $@
+ 	@echo creating versioned links
+ 	@ln -sf $@ libzstd.$(SHARED_EXT_MAJOR)
+ 	@ln -sf $@ libzstd.$(SHARED_EXT)
+@@ -177,7 +185,7 @@ libzstd : $(LIBZSTD)
+ libzstd-mt : CPPFLAGS += -DZSTD_MULTITHREAD
+ libzstd-mt : libzstd
+ 
+-lib: libzstd.a libzstd
++lib: libzstd.a libzstd libzstd_pic.a
+ 
+ lib-mt: CPPFLAGS += -DZSTD_MULTITHREAD
+ lib-mt: lib
+@@ -225,11 +233,7 @@ else
+ PKGCONFIGDIR ?= $(LIBDIR)/pkgconfig
+ endif
+ 
+-ifneq (,$(filter $(shell uname),SunOS))
+-INSTALL ?= ginstall
+-else
+ INSTALL ?= install
+-endif
+ 
+ INSTALL_PROGRAM ?= $(INSTALL)
+ INSTALL_DATA    ?= $(INSTALL) -m 644
+@@ -251,10 +255,11 @@ install-pc: libzstd.pc
+ 	@$(INSTALL) -d -m 755 $(DESTDIR)$(PKGCONFIGDIR)/
+ 	@$(INSTALL_DATA) libzstd.pc $(DESTDIR)$(PKGCONFIGDIR)/
+ 
+-install-static: libzstd.a
++install-static: libzstd.a libzstd_pic.a
+ 	@echo Installing static library
+ 	@$(INSTALL) -d -m 755 $(DESTDIR)$(LIBDIR)/
+ 	@$(INSTALL_DATA) libzstd.a $(DESTDIR)$(LIBDIR)
++	@$(INSTALL_DATA) libzstd_pic.a $(DESTDIR)$(LIBDIR)
+ 
+ install-shared: libzstd
+ 	@echo Installing shared library
