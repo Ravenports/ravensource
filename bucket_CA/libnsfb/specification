@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	0.2.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libnsfb
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	NetSurf framebuffer library
+HOMEPAGE=		http://www.netsurf-browser.org/projects/libnsfb
+CONTACT=		Jay_Leno[jay@aarp.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.netsurf-browser.org/libs/releases/
+DISTFILE[1]=		libnsfb-${PORTVERSION}-src.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		netsurf-buildsystem:single:standard
+USES=			gmake pkgconfig
+
+MAKE_ENV=		COMPONENT_TYPE="lib-shared"
+INSTALL_REQ_TOOLCHAIN=	yes
+
+SOVERSION=		${PORTVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libnsfb.so.${PORTVERSION}
