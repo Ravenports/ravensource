@@ -29,13 +29,13 @@ BUILDRUN_DEPENDS=	fontconfig:primary:standard
 			pango:primary:standard
 RUN_DEPENDS=		tesseract-data:latin:standard
 EXRUN[tools]=		tesseract:library:standard
-			gcc8:fortran_run:standard
-# See patch freebsd/patch-configure.ac
-# R_DEPS[freebsd]=	gcc8:fortran_run:standard
 
+# See patch freebsd/patch-configure.ac
+C_USES[freebsd]=	fortran:library
 USES=			autoreconf libtool pkgconfig shebangfix
 SHEBANG_FILES=		{{WRKSRC}}/src/training/tesstrain.sh
 			{{WRKSRC}}/src/training/language-specific.sh
+
 MUST_CONFIGURE=		gnu
 CONFIGURE_ENV=		LIBLEPT_HEADERSDIR="{{LOCALBASE}}/include/leptonica"
 MAKE_ARGS=		datadir={{LOCALBASE}}/share/tesseract-data
