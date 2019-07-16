@@ -1,0 +1,55 @@
+DEF[PORTVERSION]=	2.1
+DEF[AVCALL]=		1.0.1
+DEF[CALLBACK]=		1.0.1
+DEF[FFCALL]=		0.0.1
+DEF[TRAMPOLINE]=	1.0.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libffcall
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Foreign funct call ifaces for embed interpreters
+HOMEPAGE=		https://www.gnu.org/software/libffcall
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://ftp.gnu.org/gnu/libffcall/
+DISTFILE[1]=		libffcall-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/ffcall-abi.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/libffcall
+
+USES=			gmake libtool
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-shared
+
+PLIST_SUB=		AVCALL=${AVCALL}
+			AVMAJOR=${AVCALL:R:R}
+			CALLBACK=${CALLBACK}
+			CAMAJOR=${CALLBACK:R:R}
+			FFCALL=${FFCALL}
+			FFMAJOR=${FFCALL:R:R}
+			TRAMPOLINE=${TRAMPOLINE}
+			TRMAJOR=${TRAMPOLINE:R:R}
+
+do-build:
+	( cd ${WRKSRC} && gmake )
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libavcall.so.${AVCALL}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libcallback.so.${CALLBACK}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libffcall.so.${FFCALL}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libtrampoline.so.${TRAMPOLINE}
