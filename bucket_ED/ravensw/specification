@@ -1,0 +1,62 @@
+DEF[PORTVERSION]=	1.11.1
+DEF[ROLLING_TAG]=	aef94d2
+DEF[SQLITE_VER]=	3.28.0
+DEF[SQLITE_LONGVER]=	${SQLITE_VER:S/.//:S/./0/}00
+DEF[SQLITE_YEAR]=	2019
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ravensw
+VERSION=		${PORTVERSION}
+KEYWORDS=		raven
+VARIANTS=		standard
+SDESC[standard]=	Ravenports binary package manager
+HOMEPAGE=		https://github.com/jrmarino/ravensw/blob/master/README.md
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main sqlite
+SITES[main]=		GITHUB/jrmarino:ravensw:${ROLLING_TAG}
+SITES[sqlite]=		https://www.sqlite.org/${SQLITE_YEAR}/
+			http://www2.sqlite.org/${SQLITE_YEAR}/
+DISTFILE[1]=		generated:main
+DISTFILE[2]=		sqlite-autoconf-${SQLITE_LONGVER}.tar.gz:sqlite
+DF_INDEX=		1 2
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		ports-mgmt/pkg
+
+BUILD_DEPENDS=		libarchive:single:ravensw
+			libucl:single:ravensw
+			fetch:single:library
+			linenoise:single:standard
+			expat:static:standard
+			libb2:single:standard
+			elftoolchain:libraries:standard
+			uthash:primary:standard
+			picosat:single:standard
+			Zstandard:static:standard
+			autoconf:single:standard
+			automake:single:standard
+B_DEPS[sunos]=		musl-fts:single:standard
+
+USES=			pkgconfig ssl:build
+MUST_CONFIGURE=		yes
+CONFIGURE_ARGS=		--mandir={{MANPREFIX}}/man
+			--pkgconfigdir={{PREFIX}}/lib/pkgconfig
+			--prefix={{PREFIX}}
+CFLAGS=			-Wno-error
+# debugging		-O0 -g
+
+post-extract:
+	# Install SQLite source
+	(cd ${WRKDIR}/sqlite-autoconf-${SQLITE_LONGVER}/ && \
+		cp sqlite3.[ch] shell.c ${WRKSRC}/external/sqlite/)
+	${REINPLACE_CMD} -e 's|SQLITE_CDECL main|SQLITE_CDECL sqlite3_shell|'\
+		${WRKSRC}/external/sqlite/shell.c
