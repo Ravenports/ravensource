@@ -1,0 +1,49 @@
+include_directories(
+	${CMAKE_CURRENT_SOURCE_DIR}
+	${CMAKE_CURRENT_SOURCE_DIR}/../common
+)
+
+set(libsrcs
+	libpe_buffer.c
+	libpe_coff.c
+	libpe_dos.c
+	libpe_init.c
+	libpe_rich.c
+	libpe_section.c
+	libpe_utils.c
+	pe_buffer.c
+	pe_cntl.c
+	pe_coff.c
+	pe_dos.c
+	pe_flag.c
+	pe_init.c
+	pe_rich.c
+	pe_section.c
+	pe_symtab.c
+	pe_update.c
+)
+
+add_library(peobj OBJECT ${libsrcs})
+set_property(TARGET peobj PROPERTY POSITION_INDEPENDENT_CODE 1)
+
+add_library(pe SHARED $<TARGET_OBJECTS:peobj>)
+add_library(pe_pic STATIC $<TARGET_OBJECTS:peobj>)
+add_library(pe_static ${libsrcs})
+
+set_target_properties(pe PROPERTIES VERSION 1.0)
+set_target_properties(pe PROPERTIES SOVERSION 1)
+set_target_properties(pe PROPERTIES PUBLIC_HEADER libpe.h)
+
+install(TARGETS pe
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+install(TARGETS pe_pic
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libpe_static.a
+	RENAME libpe.a
+	DESTINATION lib)
+
+install(FILES pe.h DESTINATION include)

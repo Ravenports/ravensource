@@ -1,0 +1,16 @@
+set(prog strings)
+
+include_directories(
+	${CMAKE_CURRENT_SOURCE_DIR}
+	${CMAKE_CURRENT_SOURCE_DIR}/../libdwarf
+	${CMAKE_CURRENT_SOURCE_DIR}/../libelf
+	${CMAKE_CURRENT_SOURCE_DIR}/../libelftc
+	${CMAKE_CURRENT_SOURCE_DIR}/../common
+)
+
+add_executable(${prog} ${prog}.c)
+
+target_link_libraries(${prog} elf elftc)
+
+install(TARGETS ${prog} DESTINATION bin)
+install(FILES ${prog}.1 DESTINATION share/man/man1)

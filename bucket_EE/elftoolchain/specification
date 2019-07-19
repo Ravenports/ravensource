@@ -1,0 +1,66 @@
+DEF[PORTVERSION]=	0.7.1
+DEF[CM]=		CMakeLists.txt
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		elftoolchain
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Compilation tools and libraries for ELF
+HOMEPAGE=		https://sourceforge.net/p/elftoolchain/wiki/Home/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/elftoolchain/Sources/elftoolchain-${PORTVERSION}
+DISTFILE[1]=		elftoolchain-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete libraries tools
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:libraries
+LICENSE_FILE=		BSD2CLAUSE:{{WRKDIR}}/LICENSE
+LICENSE_AWK=		BSD2CLAUSE:"^$$"
+LICENSE_SOURCE=		BSD2CLAUSE:{{WRKSRC}}/libelf/libelf.h
+LICENSE_SCHEME=		solo
+
+USES=			cmake
+CMAKE_ARGS=		-DRAVDEST:STRING="{{STAGEDIR}}"
+CFLAGS=			-Wno-error=sign-conversion
+			-Wno-error=conversion
+			-Wno-error=unused-but-set-variable
+			-Wno-error=old-style-definition
+			-Wno-error=shift-negative-value
+SUB_FILES=		elftc_version.c
+SUB_LIST=		VERSION=${PORTVERSION}
+
+EXRUN[tools]=		elftoolchain:libraries:standard
+
+post-extract:
+	${CP} ${FILESDIR}/top_${CM} ${WRKSRC}/${CM}
+	${CP} ${FILESDIR}/libelf_${CM} ${WRKSRC}/libelf/${CM}
+	${CP} ${FILESDIR}/libdwarf_${CM} ${WRKSRC}/libdwarf/${CM}
+	${CP} ${FILESDIR}/libpe_${CM} ${WRKSRC}/libpe/${CM}
+	${CP} ${FILESDIR}/libelftc_${CM} ${WRKSRC}/libelftc/${CM}
+.for prog in addr2line readelf brandelf cxxfilt elfdump findtextrel \
+	nm size strings
+	# todo elfcopy/strip/mac ar/ranlib ld
+	${CP} ${FILESDIR}/${prog}_${CM} ${WRKSRC}/${prog}/${CM}
+.endfor
+
+post-patch:
+	${MV} ${WRKDIR}/elftc_version.c ${WRKSRC}/libelftc/
+
+post-patch-sunos:
+	${CP} ${FILESDIR}/sun_err.h ${WRKSRC}/common/
+.for prog in nm brandelf cxxfilt elfdump size addr2line \
+	findtextrel readelf strings
+	${REINPLACE_CMD} -e '/<err.h>/d' \
+		-e 's|^ELFTC_VCSID.*|#include <sun_err.h>|' \
+		${WRKSRC}/${prog}/${prog}.c
+.endfor
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
