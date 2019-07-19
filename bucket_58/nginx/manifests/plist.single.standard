@@ -16,6 +16,4 @@ www/nginx-dist/index.html
 @dir %%NGINX_LOGDIR%%
 @dir %%NGINX_TMPDIR%%
 @postunexec if [ -L %D/www/nginx ]; then rm -f %D/www/nginx; fi
-@preexec chmod a-w %D/www/nginx-dist
-@preexec if [ ! -d %D/www/nginx/ ] ; then ln -fs %D/www/nginx-dist %D/www/nginx; fi
-@preexec mkdir -p -m 755 %D/www/nginx-dist
+@preexec mkdir -p -m 755 %D/www/nginx-dist && if [ ! -d %D/www/nginx/ ] ; then ln -fs %D/www/nginx-dist %D/www/nginx; fi && chmod a-w %D/www/nginx-dist
