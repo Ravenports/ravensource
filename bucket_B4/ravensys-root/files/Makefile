@@ -98,7 +98,6 @@ Bin_Linux=	/bin/hostname \
 # /usr/bin/less*  (sysutils/less)
 # /usr/bin/mtree  (sysutils/mtree)
 # /usr/bin/sort   (sysutils/coreutils)
-# /usr/bin/pkg-static (ports-mgmt/pkg)
 # /usr/bin/objdump-sysroot (devel/binutils)
 
 Usr_Bin_DragonFly= \
@@ -856,7 +855,7 @@ install:
 .endfor
 	ln -s m4 ${DESTDIR}${BASE}/usr/bin/gm4
 	cp ${LOCALBASE}/share/misc/terminfo.db.default ${DESTDIR}${BASE}/usr/share/terminfo.db
-	cp ${LOCALBASE}/sbin/pkg-static ${DESTDIR}${BASE}/usr/bin/
+	cp ${LOCALBASE}/sbin/ravensw ${DESTDIR}${BASE}/usr/bin/
 	cp ${LOCALBASE}/sbin/makewhatis ${DESTDIR}${BASE}/usr/bin/
 	cp ${LOCALBASE}/share/file/magic.mgc ${DESTDIR}${BASE}/usr/share/file/
 	sed -e "s|${LOCALBASE}|/usr|g" ${LOCALBASE}/bin/egrep \
