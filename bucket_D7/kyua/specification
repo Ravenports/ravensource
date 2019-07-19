@@ -1,0 +1,47 @@
+DEF[PORTVERSION]=	0.13
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kyua
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Testing framework for infrastructure software
+HOMEPAGE=		https://github.com/jmmv
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/jmmv/kyua/releases/download/kyua-${PORTVERSION}/
+DISTFILE[1]=		kyua-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/kyua
+
+BUILDRUN_DEPENDS=	lutok:primary:standard
+			sqlite:single:standard
+			atf:single:standard
+
+USERS=			tests
+GROUPS=			rpnobody
+USERGROUP_SPKG=		single
+
+USES=			lua pkgconfig
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-atf
+			--without-doxygen
+			--docdir={{STD_DOCDIR}}
+MAKE_ARGS=		examplesdir={{STD_EXAMPLESDIR}}
+
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/kyua/
+	${INSTALL_DATA} ${FILESDIR}/kyua.conf \
+		${STAGEDIR}${PREFIX}/etc/kyua/kyua.conf.sample
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}
+	${RM} -r ${STAGEDIR}${STD_EXAMPLESDIR}
