@@ -1,5 +1,5 @@
 DEF[PORTVERSION]=	1.11.1
-DEF[ROLLING_TAG]=	aef94d2
+DEF[ROLLING_TAG]=	c213d67
 DEF[SQLITE_VER]=	3.28.0
 DEF[SQLITE_LONGVER]=	${SQLITE_VER:S/.//:S/./0/}00
 DEF[SQLITE_YEAR]=	2019
@@ -23,8 +23,8 @@ DF_INDEX=		1 2
 
 SPKGS[standard]=	single
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	RUNTESTS
+OPTIONS_STANDARD=	RUNTESTS
 
 LICENSE=		BSD2CLAUSE:single
 LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
@@ -52,7 +52,13 @@ CONFIGURE_ARGS=		--mandir={{MANPREFIX}}/man
 			--pkgconfigdir={{PREFIX}}/lib/pkgconfig
 			--prefix={{PREFIX}}
 CFLAGS=			-Wno-error
-# debugging		-O0 -g
+
+# SET_DEBUGGING_ON=	yes
+# OPTIMIZER_LEVEL=	0
+
+[RUNTESTS].DESCRIPTION=			Run kyua tests after build
+[RUNTESTS].BUILD_DEPENDS_ON=		kyua:single:standard
+					Zstandard:complete:standard
 
 post-extract:
 	# Install SQLite source
@@ -60,3 +66,12 @@ post-extract:
 		cp sqlite3.[ch] shell.c ${WRKSRC}/external/sqlite/)
 	${REINPLACE_CMD} -e 's|SQLITE_CDECL main|SQLITE_CDECL sqlite3_shell|'\
 		${WRKSRC}/external/sqlite/shell.c
+
+post-build-RUNTESTS-ON:
+	# All the tests are hardcoded with "pkg" executable
+	(cd ${WRKSRC}/src && ${LN} -s ravensw pkg)
+	${ECHO} "!/bin/sh"                   >> ${WRKSRC}/tests/exec_test.sh
+	${ECHO} "export -n RAVENSW_CACHEDIR" >> ${WRKSRC}/tests/exec_test.sh
+	${ECHO} "export -n RAVENSW_DBDIR"    >> ${WRKSRC}/tests/exec_test.sh
+	${ECHO} "kyua test"                  >> ${WRKSRC}/tests/exec_test.sh
+	${CHMOD} ${BINMODE} ${WRKSRC}/tests/exec_test.sh
