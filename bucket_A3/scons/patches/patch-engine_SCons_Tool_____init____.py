@@ -1,6 +1,6 @@
---- engine/SCons/Tool/__init__.py.orig	2019-01-23 17:30:36 UTC
+--- engine/SCons/Tool/__init__.py.orig	2019-07-21 00:04:49 UTC
 +++ engine/SCons/Tool/__init__.py
-@@ -1212,13 +1212,12 @@ def tool_list(platform, env):
+@@ -1217,13 +1217,12 @@ def tool_list(platform, env):
          ars = ['sgiar']
      elif str(platform) == 'sunos':
          "prefer Forte tools on SunOS"
