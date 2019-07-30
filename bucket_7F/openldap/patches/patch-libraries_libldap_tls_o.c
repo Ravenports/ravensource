@@ -1,8 +1,8 @@
 Fix build with LibreSSL.
 
---- libraries/libldap/tls_o.c.orig	2018-03-22 15:44:27 UTC
+--- libraries/libldap/tls_o.c.orig	2019-07-23 14:46:22 UTC
 +++ libraries/libldap/tls_o.c
-@@ -47,7 +47,7 @@
+@@ -50,7 +50,7 @@
  #include <ssl.h>
  #endif
  
@@ -11,7 +11,7 @@ Fix build with LibreSSL.
  #define ASN1_STRING_data(x)	ASN1_STRING_get0_data(x)
  #endif
  
-@@ -116,7 +116,7 @@ static void tlso_thr_init( void ) {}
+@@ -127,7 +127,7 @@ static void tlso_thr_init( void ) {}
  #endif
  #endif /* OpenSSL 1.1 */
  
@@ -20,7 +20,7 @@ Fix build with LibreSSL.
  /*
   * OpenSSL 1.1 API and later makes the BIO method concrete types internal.
   */
-@@ -197,7 +197,7 @@ tlso_init( void )
+@@ -208,7 +208,7 @@ tlso_init( void )
  	(void) tlso_seed_PRNG( lo->ldo_tls_randfile );
  #endif
  
@@ -29,7 +29,7 @@ Fix build with LibreSSL.
  	SSL_load_error_strings();
  	SSL_library_init();
  	OpenSSL_add_all_digests();
-@@ -249,7 +249,7 @@ static void
+@@ -260,7 +260,7 @@ static void
  tlso_ctx_ref( tls_ctx *ctx )
  {
  	tlso_ctx *c = (tlso_ctx *)ctx;
@@ -38,7 +38,7 @@ Fix build with LibreSSL.
  #define	SSL_CTX_up_ref(ctx)	CRYPTO_add( &(ctx->references), 1, CRYPTO_LOCK_SSL_CTX )
  #endif
  	SSL_CTX_up_ref( c );
-@@ -508,7 +508,7 @@ tlso_session_my_dn( tls_session *sess, s
+@@ -563,7 +563,7 @@ tlso_session_my_dn( tls_session *sess, s
  	if (!x) return LDAP_INVALID_CREDENTIALS;
  	
  	xn = X509_get_subject_name(x);
@@ -47,7 +47,7 @@ Fix build with LibreSSL.
  	der_dn->bv_len = i2d_X509_NAME( xn, NULL );
  	der_dn->bv_val = xn->bytes->data;
  #else
-@@ -544,7 +544,7 @@ tlso_session_peer_dn( tls_session *sess,
+@@ -599,7 +599,7 @@ tlso_session_peer_dn( tls_session *sess,
  		return LDAP_INVALID_CREDENTIALS;
  
  	xn = X509_get_subject_name(x);
@@ -56,7 +56,7 @@ Fix build with LibreSSL.
  	der_dn->bv_len = i2d_X509_NAME( xn, NULL );
  	der_dn->bv_val = xn->bytes->data;
  #else
-@@ -765,7 +765,7 @@ struct tls_data {
+@@ -820,7 +820,7 @@ struct tls_data {
  	Sockbuf_IO_Desc		*sbiod;
  };
  
