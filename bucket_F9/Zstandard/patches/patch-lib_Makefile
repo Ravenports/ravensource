@@ -1,6 +1,6 @@
---- lib/Makefile.orig	2019-04-16 22:37:24 UTC
+--- lib/Makefile.orig	2019-07-25 17:44:51 UTC
 +++ lib/Makefile
-@@ -121,6 +121,7 @@ endif
+@@ -126,6 +126,7 @@ endif
  CPPFLAGS  += -DZSTD_LEGACY_SUPPORT=$(ZSTD_LEGACY_SUPPORT)
  
  ZSTD_OBJ   := $(patsubst %.c,%.o,$(ZSTD_FILES))
@@ -8,7 +8,7 @@
  
  # macOS linker doesn't support -soname, and use different extension
  # see : https://developer.apple.com/library/mac/documentation/DeveloperTools/Conceptual/DynamicLibraries/100-Articles/DynamicLibraryDesignGuidelines.html
-@@ -146,11 +147,18 @@ all: lib
+@@ -151,11 +152,18 @@ all: lib
  libzstd.a: ARFLAGS = rcs
  libzstd.a: $(ZSTD_OBJ)
  	@echo compiling static library
@@ -28,7 +28,7 @@
  ifneq (,$(filter Windows%,$(OS)))
  
  LIBZSTD = dll\libzstd.dll
-@@ -162,9 +170,9 @@ else
+@@ -167,9 +175,9 @@ else
  
  LIBZSTD = libzstd.$(SHARED_EXT_VER)
  $(LIBZSTD): LDFLAGS += -shared -fPIC -fvisibility=hidden
@@ -40,7 +40,7 @@
  	@echo creating versioned links
  	@ln -sf $@ libzstd.$(SHARED_EXT_MAJOR)
  	@ln -sf $@ libzstd.$(SHARED_EXT)
-@@ -177,7 +185,7 @@ libzstd : $(LIBZSTD)
+@@ -182,7 +190,7 @@ libzstd : $(LIBZSTD)
  libzstd-mt : CPPFLAGS += -DZSTD_MULTITHREAD
  libzstd-mt : libzstd
  
@@ -49,7 +49,7 @@
  
  lib-mt: CPPFLAGS += -DZSTD_MULTITHREAD
  lib-mt: lib
-@@ -225,11 +233,7 @@ else
+@@ -230,11 +238,7 @@ else
  PKGCONFIGDIR ?= $(LIBDIR)/pkgconfig
  endif
  
@@ -61,7 +61,7 @@
  
  INSTALL_PROGRAM ?= $(INSTALL)
  INSTALL_DATA    ?= $(INSTALL) -m 644
-@@ -251,10 +255,11 @@ install-pc: libzstd.pc
+@@ -256,10 +260,11 @@ install-pc: libzstd.pc
  	@$(INSTALL) -d -m 755 $(DESTDIR)$(PKGCONFIGDIR)/
  	@$(INSTALL_DATA) libzstd.pc $(DESTDIR)$(PKGCONFIGDIR)/
  
