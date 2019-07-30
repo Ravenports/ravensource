@@ -1,6 +1,6 @@
---- src/runtime/x86-64-bsd-os.c.orig	2016-12-31 08:38:30 UTC
+--- src/runtime/x86-64-bsd-os.c.orig	2019-07-28 08:36:10 UTC
 +++ src/runtime/x86-64-bsd-os.c
-@@ -142,6 +142,13 @@ os_flush_icache(os_vm_address_t address,
+@@ -148,6 +148,13 @@ os_flush_icache(os_vm_address_t address,
  {
  }
  
@@ -12,5 +12,5 @@
 +#endif
 +
  int arch_os_thread_init(struct thread *thread) {
-     stack_t sigstack;
  #ifdef LISP_FEATURE_SB_THREAD
+ #ifdef LISP_FEATURE_GCC_TLS
