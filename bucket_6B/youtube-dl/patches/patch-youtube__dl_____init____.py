@@ -1,4 +1,4 @@
---- youtube_dl/__init__.py.orig	2019-04-16 18:08:06 UTC
+--- youtube_dl/__init__.py.orig	2019-07-26 20:44:25 UTC
 +++ youtube_dl/__init__.py
 @@ -36,7 +36,6 @@ from .utils import (
      write_string,
