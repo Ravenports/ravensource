@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	2.49.93
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		clisp
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		standard
+SDESC[standard]=	ANSI Common Lisp Implementation
+HOMEPAGE=		http://www.gnu.org/software/clisp
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://ravenports.elderlinux.org/distcache/
+DISTFILE[1]=		clisp-${PORTVERSION}.txz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		lang/clisp
+
+MUST_CONFIGURE=		yes
+CONFIGURE_ENV=		FORCE_UNSAFE_CONFIGURE=1
+CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
+
+# The FreeBSD port has a lot of options that could be added here, too.
+BUILD_DEPENDS=		libsigsegv:static:standard
+BUILDRUN_DEPENDS=	libsigsegv:shared:standard
+			libffcall:single:standard
+			readline:single:standard
+
+INSTALL_REQ_TOOLCHAIN=	yes
+PLIST_SUB=		VERSION="${PORTVERSION}+"
+
+do-build:
+	( cd ${WRKSRC}/src && make )
