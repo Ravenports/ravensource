@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	19.0
+DEF[PORTVERSION]=	19.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-packaging
@@ -13,7 +13,7 @@ CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/p/packaging
-DISTFILE[1]=		packaging-19.0.tar.gz:main
+DISTFILE[1]=		packaging-19.1.tar.gz:main
 
 SPKGS[py27]=		single
 SPKGS[py36]=		single
@@ -31,20 +31,24 @@ VOPTS[py37]=		PY27=OFF PY36=OFF PY37=ON
 GENERATED=		yes
 
 # install_requires extracted from setup.py (using python 2.7)
+# attrs
 # pyparsing>=2.0.2
 # six
 
 DISTNAME=		packaging-${PORTVERSION}
 
 [PY27].USES_ON=				python:py27
-[PY27].BUILDRUN_DEPENDS_ON=		python-pyparsing:single:py27
+[PY27].BUILDRUN_DEPENDS_ON=		python-attrs:single:py27
+					python-pyparsing:single:py27
 					python-six:single:py27
 
 [PY36].USES_ON=				python:py36
-[PY36].BUILDRUN_DEPENDS_ON=		python-pyparsing:single:py36
+[PY36].BUILDRUN_DEPENDS_ON=		python-attrs:single:py36
+					python-pyparsing:single:py36
 					python-six:single:py36
 
 [PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-pyparsing:single:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-attrs:single:py37
+					python-pyparsing:single:py37
 					python-six:single:py37
 

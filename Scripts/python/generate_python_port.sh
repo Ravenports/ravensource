@@ -516,6 +516,8 @@ function strip_dep(dep) {\
        return "python-" substr (dep, 1, index (dep, "!=") - 1);\
   else if (index (dep, "<")) \
        return "python-" substr (dep, 1, index (dep, "<") - 1);\
+  else if (index (dep, "(")) \
+       return "python-" substr (dep, 1, index (dep, "(") - 1);\
   else \
        return "python-" dep;\
 }\
