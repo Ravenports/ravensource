@@ -1,11 +1,12 @@
-DEF[PORTVERSION]=	2.9.2
-DEF[SOVERSION]=		47.0.5
-DEF[TLS_SOVERSION]=	19.0.6
-DEF[CRY_SOVERSION]=	45.0.4
-DEF[BASE]=		{{PREFIX}}/libressl-devel
+DEF[PORTVERSION]=	3.0.0
+DEF[SOVERSION]=		47.0.6
+DEF[TLS_SOVERSION]=	19.0.7
+DEF[CRY_SOVERSION]=	45.0.5
+DEF[NAMEBASE]=		libressl-devel
+DEF[BASE]=		{{PREFIX}}/${NAMEBASE}
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		libressl-devel
+NAMEBASE=		${NAMEBASE}
 VERSION=		${PORTVERSION}
 KEYWORDS=		security devel
 VARIANTS=		standard static
@@ -30,7 +31,7 @@ LICENSE_FILE=		OpenSSL:{{WRKSRC}}/COPYING
 			ISCL:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		multi
 
-FPC_EQUIVALENT=		security/libressl-devel
+FPC_EQUIVALENT=		security/${NAMEBASE}
 
 RUN_DEPENDS=		autoselect-ssl:single:standard
 
@@ -40,7 +41,7 @@ CPE_VENDOR=		openbsd
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--enable-nc
 			--disable-hardening
-			--with-openssldir={{PREFIX}}/etc/libressl-devel
+			--with-openssldir={{PREFIX}}/etc/${NAMEBASE}
 			--prefix=${BASE}
 			--build={{CONFIGURE_TARGET}}
 INSTALL_TARGET=		install-strip
@@ -57,8 +58,28 @@ PLIST_SUB=		CRY_SOMAJOR=${CRY_SOVERSION:R:R}
 [SKIP_MANPAGES].DESCRIPTION=		Avoid installing LibreSSL manpages
 [SKIP_MANPAGES].EXTRA_PATCHES_ON=	extra-patch-MAN3
 
+post-build-STATIC-OFF:
+	# assemble PIC libraries
+	(cd ${WRKSRC}/crypto &&\
+	 ${AR} -crsv .libs/libcrypto_pic.a .libs/*.o */.libs/*.o &&\
+	 ranlib .libs/libcrypto_pic.a)
+	(cd ${WRKSRC}/ssl/.libs &&\
+	 ${AR} -crsv libssl_pic.a *.o &&\
+	 ranlib libssl_pic.a)
+	(cd ${WRKSRC}/tls/.libs &&\
+	 ${AR} -crsv libtls_pic.a *.o &&\
+	 ranlib libtls_pic.a)
+
 post-install:
-	${RM} -r ${STAGEDIR}/${PREFIX}/etc/libressl-devel/cert.pem
+	${RM} -r ${STAGEDIR}/${PREFIX}/etc/${NAMEBASE}/cert.pem
+
+post-install-STATIC-OFF:
+	# install our PIC libraries
+	${INSTALL_DATA} \
+		${WRKSRC}/crypto/.libs/libcrypto_pic.a \
+		${WRKSRC}/ssl/.libs/libssl_pic.a \
+		${WRKSRC}/tls/.libs/libtls_pic.a \
+		${STAGEDIR}${PREFIX}/${NAMEBASE}/lib/
 
 post-install-dragonfly:
 	${INSTALL_SCRIPT} ${WRKSRC}/apps/nc/nc ${STAGEDIR}${BASE}/bin/nc
@@ -68,5 +89,5 @@ post-install-SKIP_MANPAGES-ON:
 
 post-install-SKIP_MANPAGES-OFF:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/man.d
-	${ECHO_CMD} "MANPATH ${PREFIX}/libressl-devel/share/man" \
-		>> ${STAGEDIR}${PREFIX}/etc/man.d/libressl-devel.conf
+	${ECHO_CMD} "MANPATH ${PREFIX}/${NAMEBASE}/share/man" \
+		>> ${STAGEDIR}${PREFIX}/etc/man.d/${NAMEBASE}.conf
