@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	1.11.1
-DEF[ROLLING_TAG]=	c213d67
+DEF[ROLLING_TAG]=	16e7810
+DEF[REVISION]=		1
 DEF[SQLITE_VER]=	3.28.0
 DEF[SQLITE_LONGVER]=	${SQLITE_VER:S/.//:S/./0/}00
 DEF[SQLITE_YEAR]=	2019
@@ -7,6 +8,7 @@ DEF[SQLITE_YEAR]=	2019
 
 NAMEBASE=		ravensw
 VERSION=		${PORTVERSION}
+REVISION=		${REVISION}
 KEYWORDS=		raven
 VARIANTS=		standard
 SDESC[standard]=	Ravenports binary package manager
@@ -53,8 +55,9 @@ CONFIGURE_ARGS=		--mandir={{MANPREFIX}}/man
 			--prefix={{PREFIX}}
 CFLAGS=			-Wno-error
 
-# SET_DEBUGGING_ON=	yes
-# OPTIMIZER_LEVEL=	0
+# comment next 2 lines out later
+SET_DEBUGGING_ON=	yes
+OPTIMIZER_LEVEL=	0
 
 [RUNTESTS].DESCRIPTION=			Run kyua tests after build
 [RUNTESTS].BUILD_DEPENDS_ON=		kyua:single:standard
@@ -71,7 +74,12 @@ post-build-RUNTESTS-ON:
 	# All the tests are hardcoded with "pkg" executable
 	(cd ${WRKSRC}/src && ${LN} -s ravensw pkg)
 	${ECHO} "!/bin/sh"                   >> ${WRKSRC}/tests/exec_test.sh
+.if "${OPSYS}" == "Linux"
 	${ECHO} "export -n RAVENSW_CACHEDIR" >> ${WRKSRC}/tests/exec_test.sh
 	${ECHO} "export -n RAVENSW_DBDIR"    >> ${WRKSRC}/tests/exec_test.sh
+.else
+	${ECHO} "unset RAVENSW_CACHEDIR"  >> ${WRKSRC}/tests/exec_test.sh
+	${ECHO} "unset RAVENSW_DBDIR"     >> ${WRKSRC}/tests/exec_test.sh
+.endif
 	${ECHO} "kyua test"                  >> ${WRKSRC}/tests/exec_test.sh
 	${CHMOD} ${BINMODE} ${WRKSRC}/tests/exec_test.sh
