@@ -1,11 +1,10 @@
-DEF[PORTVERSION]=	1.42.4
+DEF[PORTVERSION]=	1.44.3
 DEF[PANGO_VERSION]=	1.8.0
-DEF[LIBVERSION]=	0.4200.4
+DEF[LIBVERSION]=	0.4400.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		pango
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		x11_toolkits
 VARIANTS=		standard
 SDESC[standard]=	Open-source framework for rendering of i18n text
@@ -42,19 +41,13 @@ RUN_DEPENDS=		xorg-truetype-fonts:single:standard
 USES=			gmake perl:build pkgconfig python:build meson
 GNOME_COMPONENTS=	cairo glib introspection
 XORG_COMPONENTS=	x11 xft xrender
-CONFIGURE_ARGS=		-Denable_docs=true
+CONFIGURE_ARGS=		-Dgtk_doc=true
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
 PLIST_SUB=		VERSION=${PANGO_VERSION} LIBVERSION=${LIBVERSION}
 
-post-patch:
-	# meson version doesn't match GNU configure version
-	# Also, don't install test results
-	${REINPLACE_CMD} -e 's|1.42.3|1.42.4|; /'tests'/d' \
-		${WRKSRC}/meson.build
-
 post-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/share/doc
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/doc
 	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/pango \
 		${STAGEDIR}${PREFIX}/share/doc
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
