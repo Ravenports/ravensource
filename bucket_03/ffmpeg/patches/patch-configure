@@ -1,21 +1,13 @@
---- configure.orig	2019-07-08 17:45:24 UTC
+--- configure.orig	2019-08-05 21:11:40 UTC
 +++ configure
-@@ -502,7 +502,7 @@ log(){
- 
- log_file(){
-     log BEGIN $1
--    pr -n -t $1 >> $logfile
-+    cat $1 >> $logfile
-     log END $1
- }
- 
-@@ -3598,12 +3598,7 @@ target_os_default=$(tolower $(uname -s))
+@@ -3667,13 +3667,7 @@ target_os_default=$(tolower $(uname -s))
  host_os=$target_os_default
  
  # machine
 -if test "$target_os_default" = aix; then
 -    arch_default=$(uname -p)
 -    strip_default="strip -X32_64"
+-    nm_default="nm -g -X32_64"
 -else
 -    arch_default=$(uname -m)
 -fi
@@ -23,12 +15,3 @@
  cpu="generic"
  intrinsics="none"
  
-@@ -3783,7 +3778,7 @@ die_unknown(){
- 
- print_in_columns() {
-     cols=$(expr $ncols / 24)
--    cat | tr ' ' '\n' | sort | pr -r "-$cols" -w $ncols -t
-+    cat | tr ' ' '\n' | sort 
- }
- 
- show_list() {
