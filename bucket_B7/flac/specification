@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.3.2
+DEF[PORTVERSION]=	1.3.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		flac
@@ -18,6 +18,20 @@ SPKGS[standard]=	complete primary docs
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		CUSTOM1:primary
+			GPLv2:primary
+			LGPL21:primary
+			GFDL:primary
+LICENSE_NAME=		CUSTOM1:"FLAC Library BSD-like License"
+LICENSE_TERMS=		primary:{{WRKDIR}}/LICENSE
+LICENSE_FILE=		GFDL:{{WRKSRC}}/COPYING.FDL
+			GPLv2:{{WRKSRC}}/COPYING.GPL
+			LGPL21:{{WRKSRC}}/COPYING.LGPL
+			CUSTOM1:{{WRKSRC}}/COPYING.Xiph
+LICENSE_AWK=		TERMS:"^========="
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/README
+LICENSE_SCHEME=		multi
+
 FPC_EQUIVALENT=		audio/flac
 
 BUILDRUN_DEPENDS=	libogg:primary:standard
@@ -33,7 +47,7 @@ CONFIGURE_ARGS=		--enable-static
 			--disable-thorough-tests
 			--disable-xmms-plugin
 
-post-install:
+post-install-linux:
 	(cd ${STAGEDIR}${PREFIX}/share/doc && ${MV} ${DISTNAME} flac)
 	${REINPLACE_CMD} -i'' -e 's:%%PREFIX%%:${PREFIX}:' \
 	    ${STAGEDIR}${MANPREFIX}/man/man1/flac.1
