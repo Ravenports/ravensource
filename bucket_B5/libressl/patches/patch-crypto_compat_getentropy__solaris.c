@@ -1,4 +1,4 @@
---- crypto/compat/getentropy_solaris.c.orig	2018-12-15 16:56:31 UTC
+--- crypto/compat/getentropy_solaris.c.orig	2019-05-16 02:26:02 UTC
 +++ crypto/compat/getentropy_solaris.c
 @@ -43,9 +43,6 @@
  #include <unistd.h>
@@ -10,12 +10,12 @@
  
  #include <sys/vfs.h>
  #include <sys/statfs.h>
-@@ -66,12 +63,9 @@
+@@ -66,12 +63,8 @@
  #define HD(x)	 (SHA512_Update(&ctx, (char *)&(x), sizeof (x)))
  #define HF(x)    (SHA512_Update(&ctx, (char *)&(x), sizeof (void*)))
  
 -int	getentropy(void *buf, size_t len);
- 
+-
  static int getentropy_urandom(void *buf, size_t len, const char *path,
      int devfscheck);
 -static int getentropy_fallback(void *buf, size_t len);
@@ -23,7 +23,7 @@
  
  int
  getentropy(void *buf, size_t len)
-@@ -95,7 +89,7 @@ getentropy(void *buf, size_t len)
+@@ -95,7 +88,7 @@ getentropy(void *buf, size_t len)
  	 * the devfs mount, or if file descriptors are exhausted.
  	 */
  	ret = getentropy_urandom(buf, len,
@@ -32,7 +32,7 @@
  	if (ret != -1)
  		return (ret);
  
-@@ -135,16 +129,8 @@ getentropy(void *buf, size_t len)
+@@ -135,16 +128,8 @@ getentropy(void *buf, size_t len)
  	 * providing a new failsafe API which works in a chroot or
  	 * when file descriptors are exhausted.
  	 */
@@ -51,7 +51,7 @@
  }
  
  static int
-@@ -224,199 +210,3 @@ static const int cl[] = {
+@@ -224,199 +209,3 @@ static const int cl[] = {
  	CLOCK_THREAD_CPUTIME_ID,
  #endif
  };
