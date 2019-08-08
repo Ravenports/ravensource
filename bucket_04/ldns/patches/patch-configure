@@ -1,11 +1,11 @@
---- configure.orig	2016-12-20 10:48:27 UTC
+--- configure.orig	2019-07-26 15:07:50 UTC
 +++ configure
-@@ -17775,7 +17775,7 @@ fi
+@@ -17831,7 +17831,7 @@ fi
  
- 
- # check OSX deployment target, if needed
--if echo $build_os | grep darwin > /dev/null; then
-+if echo $build_os | grep darwin-disable > /dev/null; then
-   sdk_p=`xcode-select -print-path`;
-   sdk_v="$( /usr/bin/xcrun --show-sdk-version )";
-   case $sdk_v in
+ if test "x_$with_xcode_sdk" != "x_no" ; then
+    # check OSX deployment target, if needed
+-   if echo $build_os | grep darwin > /dev/null; then
++   if echo $build_os | grep darwin-disable > /dev/null; then
+      sdk_p=`xcode-select -print-path`;
+      if test "x_$with_xcode_sdk" = "x_yes" ; then
+         sdk_v="$( /usr/bin/xcrun --show-sdk-version 2>/dev/null )"

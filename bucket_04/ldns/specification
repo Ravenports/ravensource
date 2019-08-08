@@ -1,9 +1,9 @@
-DEF[PORTVERSION]=	1.7.0
+DEF[PORTVERSION]=	1.7.1
+DEF[SOVERSION]=		3.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ldns
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		dns
 VARIANTS=		standard
 SDESC[standard]=	Library for programs conforming to DNS RFCs
@@ -44,6 +44,7 @@ CONFIGURE_ARGS=		--with-ssl={{OPENSSLBASE}}
 			--enable-rrtype-ta
 			--enable-rrtype-avc
 			--disable-dane-ta-usage
+SOVERSION=		${SOVERSION}
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/packaging/libldns.pc \
