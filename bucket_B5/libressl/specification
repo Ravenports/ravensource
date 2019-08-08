@@ -2,10 +2,11 @@ DEF[PORTVERSION]=	2.9.2
 DEF[SOVERSION]=		47.0.5
 DEF[TLS_SOVERSION]=	19.0.6
 DEF[CRY_SOVERSION]=	45.0.4
-DEF[BASE]=		{{PREFIX}}/libressl
+DEF[NAMEBASE]=		libressl
+DEF[BASE]=		{{PREFIX}}/${NAMEBASE}
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		libressl
+NAMEBASE=		${NAMEBASE}
 VERSION=		${PORTVERSION}
 KEYWORDS=		security devel
 VARIANTS=		standard static
@@ -30,7 +31,7 @@ LICENSE_FILE=		OpenSSL:{{WRKSRC}}/COPYING
 			ISCL:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		multi
 
-FPC_EQUIVALENT=		security/libressl
+FPC_EQUIVALENT=		security/${NAMEBASE}
 
 RUN_DEPENDS=		autoselect-ssl:single:standard
 
@@ -40,7 +41,7 @@ CPE_VENDOR=		openbsd
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--enable-nc
 			--disable-hardening
-			--with-openssldir={{PREFIX}}/etc/libressl
+			--with-openssldir={{PREFIX}}/etc/${NAMEBASE}
 			--prefix=${BASE}
 			--build={{CONFIGURE_TARGET}}
 INSTALL_TARGET=		install-strip
@@ -57,12 +58,6 @@ PLIST_SUB=		CRY_SOMAJOR=${CRY_SOVERSION:R:R}
 [SKIP_MANPAGES].DESCRIPTION=		Avoid installing LibreSSL manpages
 [SKIP_MANPAGES].EXTRA_PATCHES_ON=	extra-patch-MAN3
 
-post-patch-darwin:
-	# These two manpages clash with similar on case-insensitive
-	# file systems.  Just remove from all platforms (needs testing)
-	${REINPLACE_CMD} -e '/OCSP_crlID_new\.3/d' \
-		-e '/bn_print\.3/d' ${WRKSRC}/man/Makefile.in
-
 post-build-STATIC-OFF:
 	# assemble PIC libraries
 	(cd ${WRKSRC}/crypto &&\
@@ -76,7 +71,7 @@ post-build-STATIC-OFF:
 	 ranlib libtls_pic.a)
 
 post-install:
-	${RM} -r ${STAGEDIR}/${PREFIX}/etc/libressl/cert.pem
+	${RM} -r ${STAGEDIR}/${PREFIX}/etc/${NAMEBASE}/cert.pem
 
 post-install-STATIC-OFF:
 	# install our PIC libraries
@@ -84,7 +79,7 @@ post-install-STATIC-OFF:
 		${WRKSRC}/crypto/.libs/libcrypto_pic.a \
 		${WRKSRC}/ssl/.libs/libssl_pic.a \
 		${WRKSRC}/tls/.libs/libtls_pic.a \
-		${STAGEDIR}${PREFIX}/libressl/lib/
+		${STAGEDIR}${PREFIX}/${NAMEBASE}/lib/
 
 post-install-dragonfly:
 	${INSTALL_SCRIPT} ${WRKSRC}/apps/nc/nc ${STAGEDIR}${BASE}/bin/nc
@@ -94,5 +89,5 @@ post-install-SKIP_MANPAGES-ON:
 
 post-install-SKIP_MANPAGES-OFF:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/man.d
-	${ECHO_CMD} "MANPATH ${PREFIX}/libressl/share/man" \
-		>> ${STAGEDIR}${PREFIX}/etc/man.d/libressl.conf
+	${ECHO_CMD} "MANPATH ${PREFIX}/${NAMEBASE}/share/man" \
+		>> ${STAGEDIR}${PREFIX}/etc/man.d/${NAMEBASE}.conf
