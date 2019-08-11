@@ -1,4 +1,4 @@
---- engine/SCons/Tool/m4.py.orig	2019-07-21 00:04:50 UTC
+--- engine/SCons/Tool/m4.py.orig	2019-08-08 14:50:08 UTC
 +++ engine/SCons/Tool/m4.py
 @@ -49,7 +49,7 @@ def generate(env):
      # file and run from there.
