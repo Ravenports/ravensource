@@ -1,8 +1,8 @@
---- nmap.cc.orig	2017-07-31 16:56:48 UTC
+--- nmap.cc.orig	2019-07-14 16:54:55 UTC
 +++ nmap.cc
-@@ -130,6 +130,7 @@
- 
- /* $Id: nmap.cc 36896 2017-07-31 16:56:48Z dmiller $ */
+@@ -137,6 +137,7 @@
+ #include <shlobj.h>
+ #endif
  
 +#include <getopt.h>
  #include "nmap.h"
