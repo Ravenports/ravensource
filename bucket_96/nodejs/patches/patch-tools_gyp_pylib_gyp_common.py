@@ -1,6 +1,6 @@
---- tools/gyp/pylib/gyp/common.py.orig	2019-06-27 10:12:19 UTC
+--- tools/gyp/pylib/gyp/common.py.orig	2019-08-06 20:46:26 UTC
 +++ tools/gyp/pylib/gyp/common.py
-@@ -423,6 +423,8 @@ def GetFlavor(params):
+@@ -421,6 +421,8 @@ def GetFlavor(params):
      return 'solaris'
    if sys.platform.startswith('freebsd'):
      return 'freebsd'

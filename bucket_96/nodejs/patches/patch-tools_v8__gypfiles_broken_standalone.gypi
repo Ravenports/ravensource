@@ -1,4 +1,4 @@
---- tools/v8_gypfiles/broken/standalone.gypi.orig	2019-06-27 10:12:20 UTC
+--- tools/v8_gypfiles/broken/standalone.gypi.orig	2019-08-06 20:46:26 UTC
 +++ tools/v8_gypfiles/broken/standalone.gypi
 @@ -53,6 +53,7 @@
            'variables': {
