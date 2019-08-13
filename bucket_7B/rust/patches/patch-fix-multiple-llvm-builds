@@ -16,16 +16,14 @@ https://github.com/rust-lang/rust/commit/e1daa36ba7df88788c2684bbe5ff6eb37f1cda6
 diff --git a/src/bootstrap/llvm-rebuild-trigger b/src/bootstrap/llvm-rebuild-trigger
 new file mode 100644
 index 0000000000..0f18c6a4ac
---- /dev/null
+--- /dev/null	2019-08-13 13:32:28 UTC
 +++ src/rustllvm/llvm-rebuild-trigger
 @@ -0,0 +1,4 @@
 +# If this file is modified, then llvm will be (optionally) cleaned and then rebuilt.
 +# The actual contents of this file do not matter, but to trigger a change on the
 +# build bots then the contents should be changed so git updates the mtime.
 +2019-03-18
-diff --git a/src/bootstrap/native.rs b/src/bootstrap/native.rs
-index fde40b0d1b..3babbc9e10 100644
---- src/bootstrap/native.rs.orig
+--- src/bootstrap/native.rs.orig	2019-07-03 08:00:00 UTC
 +++ src/bootstrap/native.rs
 @@ -67,40 +67,30 @@ impl Step for Llvm {
              }
@@ -62,13 +60,13 @@ index fde40b0d1b..3babbc9e10 100644
          let build_llvm_config = llvm_config_ret_dir
              .join(exe("llvm-config", &*builder.config.build));
 -        let done_stamp = out_dir.join("llvm-finished-building");
--
--        if let Some(llvm_commit) = llvm_info.sha() {
--            if done_stamp.exists() {
--                let done_contents = t!(fs::read(&done_stamp));
 +        if done_stamp.exists() {
 +            let done_contents = t!(fs::read_to_string(&done_stamp));
  
+-        if let Some(llvm_commit) = llvm_info.sha() {
+-            if done_stamp.exists() {
+-                let done_contents = t!(fs::read(&done_stamp));
+-
 -                // If LLVM was already built previously and the submodule's commit didn't change
 -                // from the previous build, then no action is required.
 -                if done_contents == llvm_commit.as_bytes() {
@@ -89,7 +87,7 @@ index fde40b0d1b..3babbc9e10 100644
          let mut cfg = cmake::Config::new(builder.src.join(root));
  
          let profile = match (builder.config.llvm_optimize, builder.config.llvm_release_debuginfo) {
-@@ -251,6 +242,11 @@ impl Step for Llvm {
+@@ -253,6 +244,11 @@ impl Step for Llvm {
                  channel::CFG_RELEASE_NUM,
                  builder.config.channel,
              );
@@ -101,7 +99,7 @@ index fde40b0d1b..3babbc9e10 100644
              if let Some(sha) = llvm_info.sha_short() {
                  default_suffix.push_str("-");
                  default_suffix.push_str(sha);
-@@ -283,9 +279,7 @@ impl Step for Llvm {
+@@ -285,9 +281,7 @@ impl Step for Llvm {
  
          cfg.build();
  
@@ -112,6 +110,3 @@ index fde40b0d1b..3babbc9e10 100644
  
          build_llvm_config
      }
--- 
-2.21.0
-

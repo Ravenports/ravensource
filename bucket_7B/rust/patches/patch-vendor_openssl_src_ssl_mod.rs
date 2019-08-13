@@ -1,4 +1,4 @@
---- vendor/openssl/src/ssl/mod.rs.orig	2019-05-13 21:50:34 UTC
+--- vendor/openssl/src/ssl/mod.rs.orig	2019-07-03 09:36:21 UTC
 +++ vendor/openssl/src/ssl/mod.rs
 @@ -3690,9 +3690,14 @@ cfg_if! {
  }

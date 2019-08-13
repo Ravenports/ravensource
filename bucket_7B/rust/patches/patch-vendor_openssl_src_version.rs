@@ -1,4 +1,4 @@
---- vendor/openssl/src/version.rs.orig	2019-05-13 21:50:34 UTC
+--- vendor/openssl/src/version.rs.orig	2019-07-03 09:36:21 UTC
 +++ vendor/openssl/src/version.rs
 @@ -14,7 +14,7 @@
  use std::ffi::CStr;

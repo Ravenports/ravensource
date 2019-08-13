@@ -1,4 +1,4 @@
---- vendor/openssl-sys/src/crypto.rs.orig	2019-05-13 21:50:35 UTC
+--- vendor/openssl-sys/src/crypto.rs.orig	2019-07-03 09:36:21 UTC
 +++ vendor/openssl-sys/src/crypto.rs
 @@ -15,7 +15,13 @@ cfg_if! {
      if #[cfg(ossl110)] {
@@ -15,7 +15,7 @@
          extern "C" {
              pub fn OpenSSL_version_num() -> c_ulong;
              pub fn OpenSSL_version(key: c_int) -> *const c_char;
-@@ -64,7 +70,7 @@ pub type CRYPTO_EX_free = unsafe extern "C" fn(
+@@ -64,7 +70,7 @@ pub type CRYPTO_EX_free = unsafe extern
      argp: *mut c_void,
  );
  extern "C" {

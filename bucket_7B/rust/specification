@@ -84,12 +84,6 @@ SHEBANG_FILES=		vendor/compiler_builtins/compiler-rt/lib/sanitizer_common/symbol
 
 BLOCK_WATCHDOG=		yes
 
-post-extract:
-	# for rust 1.36 bootstrap built with libressl 2.8
-	(cd ${LOCALBASE}/libressl/lib && \
-		${LN} -s libssl.so libssl.so.46 && \
-		${LN} -s libcrypto.so libcrypto.so.44)
-
 post-patch:
 	# Use rpath suitable for libz et al.
 	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|g' \
@@ -99,6 +93,11 @@ post-patch:
 	# Disable vendor checksums
 	${REINPLACE_CMD} -e 's/"files":{[^}]*}/"files":{}/' \
 		 ${WRKSRC}/vendor/*/.cargo-checksum.json
+
+	# for rust 1.36 bootstrap built with libressl 2.8
+	(cd ${LOCALBASE}/libressl/lib && \
+		${LN} -s libssl.so libssl.so.46 && \
+		${LN} -s libcrypto.so libcrypto.so.44)
 
 post-configure:
 	${MKDIR} ${WRKDIR}/bootstrap
