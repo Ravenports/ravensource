@@ -97,13 +97,6 @@ QMAKE_ARGS=		--enable-application=browser
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-jemalloc
 VAR_OPSYS[linux]=	QMAKE_ARGS=--disable-elf-hack
 
-SUB_FILES=		pkg-install-single
-			pkg-deinstall-single
-SUB_LIST=		MOZILLA=firefox
-			MOZILLA_BIN=firefox-bin
-			MOZILLA_NAME=Firefox
-			MOZDIR={{PREFIX}}/lib/firefox
-
 post-patch:
 	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
 		${WRKSRC}/browser/app/nsBrowserApp.cpp
