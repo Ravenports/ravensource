@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	2.2
+DEF[PORTVERSION]=	2.2.2
+DEF[TAG]=		bb2d5a9
 DEF[SF_SRC]=		{{WRKSRC}}/src
 DEF[SCAL]=		scanner-calendar
 DEF[PREPFILES]=		world.ads user_io-getline.adb scanner_res.ads scanner_res.adb builtins.adb parser_db.adb parser_dbm.adb parser_mysql.adb parser_mysqlm.adb parser_sound.adb parser_pen.adb parser_gnat_cgi.adb parser_bdb.adb parser_btree_io.adb parser_hash_io.adb
@@ -13,7 +14,7 @@ HOMEPAGE=		http://www.sparforte.com
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/kburtch:SparForte:v${PORTVERSION}
+SITES[main]=		GITHUB/kburtch:SparForte:${TAG}
 DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete primary examples docs
@@ -99,6 +100,7 @@ post-patch:
 	${REINPLACE_CMD} \
 		-e "s|cc |gcc |" \
 		-e "s| -fstack-protector||" \
+		-e "s| -Werror||" \
 		${WRKSRC}/src/pegasock/Makefile
 	# Avoid use of malloc.h
 	${REINPLACE_CMD} -e "s|<malloc.h>|<stdlib.h>|" \
@@ -116,7 +118,9 @@ post-patch:
 	${REINPLACE_CMD} -e "s|\.\/mysql_x|/bin/sh ./mysql_x|" \
 		${WRKSRC}/src/apq-2.1/Makefile
 	# stack-protector broken on several platforms, fix template
-	${REINPLACE_CMD} -e "s| -fstack-protector||" \
+	${REINPLACE_CMD} \
+		-e "s| -fstack-protector||" \
+		-e "s| -Werror||" \
 		${WRKSRC}/src/GNUmakefile.orig
 
 post-patch-linux:
