@@ -10,13 +10,25 @@
  
  /* 1.1 standardizes constructor and destructor names, renaming
   * EVP_MD_CTX_{create,destroy} and deprecating ASN1_STRING_data. */
-@@ -3053,7 +3054,8 @@ cleanup:
+@@ -249,6 +250,10 @@ static void compat_dh_get0_key(const DH
+ 
+ #endif
+ 
++#if defined(LIBRESSL_VERSION_NUMBER) && !defined(static_ASN1_SEQUENCE_END_name)
++#define static_ASN1_SEQUENCE_END_name	ASN1_SEQUENCE_END_name
++#endif
++
+ static struct pkcs11_errstrings {
+     short code;
+     char *text;
+@@ -3053,7 +3058,9 @@ cleanup:
      return retval;
  }
  
 -#if OPENSSL_VERSION_NUMBER >= 0x10100000L
-+#if (defined(OPENSSL_VERSION_NUMBER) && OPENSSL_VERSION_NUMBER >= 0x10100000L) && \
-+     !defined(LIBRESSL_VERSION_NUMBER)
++#if ((defined(OPENSSL_VERSION_NUMBER) && OPENSSL_VERSION_NUMBER >= 0x10100000L) && \
++     !defined(LIBRESSL_VERSION_NUMBER)) || \
++     (defined(LIBRESSL_VERSION_NUMBER) && LIBRESSL_VERSION_NUMBER >= 0x20900000L)
  
  /*
   * We need to decode DomainParameters from RFC 3279 section 2.3.3.  We would
