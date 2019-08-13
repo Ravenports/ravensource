@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.49.93
 
 NAMEBASE=		clisp
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		lang
 VARIANTS=		standard
 SDESC[standard]=	ANSI Common Lisp Implementation
@@ -13,16 +14,22 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://ravenports.elderlinux.org/distcache/
 DISTFILE[1]=		clisp-${PORTVERSION}.txz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/GNU-GPL
+LICENSE_TERMS=		primary:{{WRKSRC}}/COPYRIGHT
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		lang/clisp
 
 MUST_CONFIGURE=		yes
 CONFIGURE_ENV=		FORCE_UNSAFE_CONFIGURE=1
 CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
+			--docdir="{{PREFIX}}/share/doc/clisp"
 
 # The FreeBSD port has a lot of options that could be added here, too.
 BUILD_DEPENDS=		libsigsegv:static:standard
