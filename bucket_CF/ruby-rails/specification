@@ -1,11 +1,10 @@
-DEF[PORTVERSION]=	5.2.3
+DEF[PORTVERSION]=	6.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-rails
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
-VARIANTS=		v24 v25 v26
-SDESC[v24]=		Full-stack web application framework (v24)
+VARIANTS=		v25 v26
 SDESC[v25]=		Full-stack web application framework (v25)
 SDESC[v26]=		Full-stack web application framework (v26)
 HOMEPAGE=		https://rubyonrails.org
@@ -13,54 +12,43 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		rails-5.2.3.gem:main
+DISTFILE[1]=		rails-6.0.0.gem:main
 DIST_SUBDIR=		ruby
 
-SPKGS[v24]=		single
 SPKGS[v25]=		single
 SPKGS[v26]=		single
 
-OPTIONS_AVAILABLE=	RUBY24 RUBY25 RUBY26
+OPTIONS_AVAILABLE=	RUBY25 RUBY26
 OPTIONS_STANDARD=	none
-VOPTS[v24]=		RUBY24=ON RUBY25=OFF RUBY26=OFF
-VOPTS[v25]=		RUBY24=OFF RUBY25=ON RUBY26=OFF
-VOPTS[v26]=		RUBY24=OFF RUBY25=OFF RUBY26=ON
+VOPTS[v25]=		RUBY25=ON RUBY26=OFF
+VOPTS[v26]=		RUBY25=OFF RUBY26=ON
 
 GENERATED=		yes
 
 # Requirements specified by gem dependency --remote --version command
-#   actioncable (= 5.2.3)
-#   actionmailer (= 5.2.3)
-#   actionpack (= 5.2.3)
-#   actionview (= 5.2.3)
-#   activejob (= 5.2.3)
-#   activemodel (= 5.2.3)
-#   activerecord (= 5.2.3)
-#   activestorage (= 5.2.3)
-#   activesupport (= 5.2.3)
+#   actioncable (= 6.0.0)
+#   actionmailbox (= 6.0.0)
+#   actionmailer (= 6.0.0)
+#   actionpack (= 6.0.0)
+#   actiontext (= 6.0.0)
+#   actionview (= 6.0.0)
+#   activejob (= 6.0.0)
+#   activemodel (= 6.0.0)
+#   activerecord (= 6.0.0)
+#   activestorage (= 6.0.0)
+#   activesupport (= 6.0.0)
 #   bundler (>= 1.3.0)
-#   railties (= 5.2.3)
+#   railties (= 6.0.0)
 #   sprockets-rails (>= 2.0.0)
 
 DISTNAME=		rails-${PORTVERSION}
 
-[RUBY24].USES_ON=			gem:v24
-[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-actioncable:single:v24
-					ruby-actionmailer:single:v24
-					ruby-actionpack:single:v24
-					ruby-actionview:single:v24
-					ruby-activejob:single:v24
-					ruby-activemodel:single:v24
-					ruby-activerecord:single:v24
-					ruby-activestorage:single:v24
-					ruby-activesupport:single:v24
-					ruby-railties:single:v24
-					ruby-sprockets-rails:single:v24
-
 [RUBY25].USES_ON=			gem:v25
 [RUBY25].BUILDRUN_DEPENDS_ON=		ruby-actioncable:single:v25
+					ruby-actionmailbox:single:v25
 					ruby-actionmailer:single:v25
 					ruby-actionpack:single:v25
+					ruby-actiontext:single:v25
 					ruby-actionview:single:v25
 					ruby-activejob:single:v25
 					ruby-activemodel:single:v25
@@ -72,8 +60,10 @@ DISTNAME=		rails-${PORTVERSION}
 
 [RUBY26].USES_ON=			gem:v26
 [RUBY26].BUILDRUN_DEPENDS_ON=		ruby-actioncable:single:v26
+					ruby-actionmailbox:single:v26
 					ruby-actionmailer:single:v26
 					ruby-actionpack:single:v26
+					ruby-actiontext:single:v26
 					ruby-actionview:single:v26
 					ruby-activejob:single:v26
 					ruby-activemodel:single:v26

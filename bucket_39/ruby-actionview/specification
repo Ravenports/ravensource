@@ -1,11 +1,10 @@
-DEF[PORTVERSION]=	5.2.3
+DEF[PORTVERSION]=	6.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-actionview
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
-VARIANTS=		v24 v25 v26
-SDESC[v24]=		Rendering framework putting the V in MVC (pa (v24)
+VARIANTS=		v25 v26
 SDESC[v25]=		Rendering framework putting the V in MVC (pa (v25)
 SDESC[v26]=		Rendering framework putting the V in MVC (pa (v26)
 HOMEPAGE=		https://rubyonrails.org
@@ -13,38 +12,29 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		actionview-5.2.3.gem:main
+DISTFILE[1]=		actionview-6.0.0.gem:main
 DIST_SUBDIR=		ruby
 
-SPKGS[v24]=		single
 SPKGS[v25]=		single
 SPKGS[v26]=		single
 
-OPTIONS_AVAILABLE=	RUBY24 RUBY25 RUBY26
+OPTIONS_AVAILABLE=	RUBY25 RUBY26
 OPTIONS_STANDARD=	none
-VOPTS[v24]=		RUBY24=ON RUBY25=OFF RUBY26=OFF
-VOPTS[v25]=		RUBY24=OFF RUBY25=ON RUBY26=OFF
-VOPTS[v26]=		RUBY24=OFF RUBY25=OFF RUBY26=ON
+VOPTS[v25]=		RUBY25=ON RUBY26=OFF
+VOPTS[v26]=		RUBY25=OFF RUBY26=ON
 
 GENERATED=		yes
 
 # Requirements specified by gem dependency --remote --version command
-#   actionpack (= 5.2.3, development)
-#   activemodel (= 5.2.3, development)
-#   activesupport (= 5.2.3)
+#   actionpack (= 6.0.0, development)
+#   activemodel (= 6.0.0, development)
+#   activesupport (= 6.0.0)
 #   builder (~> 3.1)
 #   erubi (~> 1.4)
 #   rails-dom-testing (~> 2.0)
-#   rails-html-sanitizer (~> 1.0, >= 1.0.3)
+#   rails-html-sanitizer (~> 1.1, >= 1.2.0)
 
 DISTNAME=		actionview-${PORTVERSION}
-
-[RUBY24].USES_ON=			gem:v24
-[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v24
-					ruby-builder:single:v24
-					ruby-erubi:single:v24
-					ruby-rails-dom-testing:single:v24
-					ruby-rails-html-sanitizer:single:v24
 
 [RUBY25].USES_ON=			gem:v25
 [RUBY25].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v25

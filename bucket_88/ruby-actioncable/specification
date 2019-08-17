@@ -1,11 +1,10 @@
-DEF[PORTVERSION]=	5.2.3
+DEF[PORTVERSION]=	6.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-actioncable
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
-VARIANTS=		v24 v25 v26
-SDESC[v24]=		WebSocket framework for Rails (v24)
+VARIANTS=		v25 v26
 SDESC[v25]=		WebSocket framework for Rails (v25)
 SDESC[v26]=		WebSocket framework for Rails (v26)
 HOMEPAGE=		https://rubyonrails.org
@@ -13,32 +12,25 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		actioncable-5.2.3.gem:main
+DISTFILE[1]=		actioncable-6.0.0.gem:main
 DIST_SUBDIR=		ruby
 
-SPKGS[v24]=		single
 SPKGS[v25]=		single
 SPKGS[v26]=		single
 
-OPTIONS_AVAILABLE=	RUBY24 RUBY25 RUBY26
+OPTIONS_AVAILABLE=	RUBY25 RUBY26
 OPTIONS_STANDARD=	none
-VOPTS[v24]=		RUBY24=ON RUBY25=OFF RUBY26=OFF
-VOPTS[v25]=		RUBY24=OFF RUBY25=ON RUBY26=OFF
-VOPTS[v26]=		RUBY24=OFF RUBY25=OFF RUBY26=ON
+VOPTS[v25]=		RUBY25=ON RUBY26=OFF
+VOPTS[v26]=		RUBY25=OFF RUBY26=ON
 
 GENERATED=		yes
 
 # Requirements specified by gem dependency --remote --version command
-#   actionpack (= 5.2.3)
+#   actionpack (= 6.0.0)
 #   nio4r (~> 2.0)
 #   websocket-driver (>= 0.6.1)
 
 DISTNAME=		actioncable-${PORTVERSION}
-
-[RUBY24].USES_ON=			gem:v24
-[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-actionpack:single:v24
-					ruby-nio4r:single:v24
-					ruby-websocket-driver:single:v24
 
 [RUBY25].USES_ON=			gem:v25
 [RUBY25].BUILDRUN_DEPENDS_ON=		ruby-actionpack:single:v25
