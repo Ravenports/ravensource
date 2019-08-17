@@ -535,6 +535,7 @@ function filter(dep) {\
    else if (dep == "python-requests_toolbelt") return "python-requests-toolbelt";\
    else if (dep == "python-msgpack-python") return "python-msgpack";\
    else if (dep == "python-pynacl") return "python-PyNaCl";\
+   else if (dep == "python-importlib-metadata") return "python-importlib_metadata";\
    else return dep;\
 }\
 BEGIN {\
