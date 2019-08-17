@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	10.2
+DEF[PORTVERSION]=	10.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		iverilog
@@ -21,8 +21,11 @@ OPTIONS_STANDARD=	none
 DISTNAME=		verilog-${PORTVERSION}
 FPC_EQUIVALENT=		cad/iverilog
 
-LICENSE=		GPLv2:single
-LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/named.h
+LICENSE_AWK=		TERMS:"StringHeap.h"
 LICENSE_SCHEME=		solo
 
 USES=			bison gmake readline c++:single
