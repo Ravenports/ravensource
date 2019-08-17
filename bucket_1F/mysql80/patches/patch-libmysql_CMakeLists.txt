@@ -1,4 +1,4 @@
---- libmysql/CMakeLists.txt.orig	2019-04-13 11:46:31 UTC
+--- libmysql/CMakeLists.txt.orig	2019-06-25 10:23:30 UTC
 +++ libmysql/CMakeLists.txt
 @@ -242,7 +242,6 @@ ENDIF()
  
@@ -8,11 +8,11 @@
    
  # Merge several convenience libraries into one big mysqlclient
  MERGE_CONVENIENCE_LIBRARIES(mysqlclient ${LIBS_TO_MERGE} COMPONENT Development)
-@@ -299,7 +298,7 @@ IF(NOT DISABLE_SHARED)
+@@ -298,7 +297,7 @@ IF(NOT DISABLE_SHARED)
    ENDIF()
    IF(UNIX)
      # libtool compatability
--    IF(CMAKE_SYSTEM_NAME MATCHES "FreeBSD" OR APPLE)
+-    IF(FREEBSD OR APPLE)
 +    IF(CMAKE_SYSTEM_NAME MATCHES "FreeBSD|DragonFly|Linux|SunOS" OR APPLE)
        SET(OS_SHARED_LIB_VERSION "${SHARED_LIB_MAJOR_VERSION}")
      ELSE()

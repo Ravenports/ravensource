@@ -1,4 +1,4 @@
---- include/myisam.h.orig	2019-03-15 07:38:15 UTC
+--- include/myisam.h.orig	2019-06-10 10:25:32 UTC
 +++ include/myisam.h
 @@ -49,7 +49,7 @@ extern "C" {
    The following defines can be increased if necessary.

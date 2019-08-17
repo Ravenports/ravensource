@@ -1,4 +1,4 @@
---- cmake/plugin.cmake.orig	2019-04-13 13:32:15 UTC
+--- cmake/plugin.cmake.orig	2019-06-10 14:43:20 UTC
 +++ cmake/plugin.cmake
 @@ -271,9 +271,6 @@ MACRO(MYSQL_ADD_PLUGIN)
        MYSQL_INSTALL_TARGETS(${target}

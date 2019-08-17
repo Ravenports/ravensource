@@ -1,4 +1,4 @@
---- sql/sql_trigger.cc.orig	2019-03-15 07:38:15 UTC
+--- sql/sql_trigger.cc.orig	2019-06-10 10:25:32 UTC
 +++ sql/sql_trigger.cc
 @@ -192,32 +192,32 @@ static File_option triggers_file_paramet
  {
