@@ -1,6 +1,6 @@
 - Partially implement memfd_create() via mkostemp()
 
---- src/intel/tools/aub_mem.c.orig	2019-06-25 10:45:22 UTC
+--- src/intel/tools/aub_mem.c.orig	2019-07-23 11:08:56 UTC
 +++ src/intel/tools/aub_mem.c
 @@ -30,11 +30,34 @@
  

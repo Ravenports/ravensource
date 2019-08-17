@@ -1,7 +1,7 @@
 - Without sysinfo() fall back to sysconf()
 - Define ETIME if missing
 
---- src/intel/vulkan/anv_device.c.orig	2019-06-25 10:45:22 UTC
+--- src/intel/vulkan/anv_device.c.orig	2019-07-23 11:08:57 UTC
 +++ src/intel/vulkan/anv_device.c
 @@ -25,7 +25,9 @@
  #include <stdbool.h>
