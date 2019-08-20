@@ -1,6 +1,6 @@
---- src/lib/VSDMetaData.cpp.orig	2015-07-25 07:17:57 UTC
+--- src/lib/VSDMetaData.cpp.orig	2017-10-21 14:38:56 UTC
 +++ src/lib/VSDMetaData.cpp
-@@ -302,7 +302,7 @@ bool libvisio::VSDMetaData::parseTimes(l
+@@ -312,7 +312,7 @@ bool libvisio::VSDMetaData::parseTimes(l
    uint32_t firstDirSectorLocation = readU32(input);
  
    // Seek to the Root Directory Entry
