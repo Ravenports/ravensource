@@ -1,4 +1,4 @@
---- ieee-utils/fp.c.orig	2014-09-16 17:19:39 UTC
+--- ieee-utils/fp.c.orig	2017-07-23 14:03:11 UTC
 +++ ieee-utils/fp.c
 @@ -22,6 +22,8 @@
  #include "fp-aix.c"
