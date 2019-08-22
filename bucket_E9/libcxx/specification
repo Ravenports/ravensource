@@ -1,8 +1,8 @@
-DEF[PORTVERSION]=	EXTRACT_INFO(LLVM_VERSION)
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM_VERSION)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libcxx
-VERSION=		${PORTVERSION}
+VERSION=		${LLVM_VERSION}
 KEYWORDS=		lang
 VARIANTS=		standard
 SDESC[standard]=	LLVM C++ standard library
@@ -10,9 +10,10 @@ HOMEPAGE=		https://libcxx.llvm.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://llvm.org/releases/${PORTVERSION}/
-DISTFILE[1]=		libcxx-${PORTVERSION}.src.tar.xz:main
-DISTFILE[2]=		libcxxabi-${PORTVERSION}.src.tar.xz:main
+SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/
+			http://llvm.org/releases/${LLVM_VERSION}/
+DISTFILE[1]=		libcxx-${LLVM_VERSION}.src.tar.xz:main
+DISTFILE[2]=		libcxxabi-${LLVM_VERSION}.src.tar.xz:main
 DF_INDEX=		1 2
 
 SPKGS[standard]=	complete primary abi experimental
@@ -40,11 +41,11 @@ DISTNAME=		llvm
 
 post-extract:
 	${MKDIR} ${WRKSRC}/projects
-	${MV} ${WRKDIR}/libcxx-${PORTVERSION}.src \
+	${MV} ${WRKDIR}/libcxx-${LLVM_VERSION}.src \
 		${WRKSRC}/projects/libcxx
-	${MV} ${WRKDIR}/libcxxabi-${PORTVERSION}.src \
+	${MV} ${WRKDIR}/libcxxabi-${LLVM_VERSION}.src \
 		${WRKSRC}/projects/libcxxabi
-	${SED} -e 's|%%VERSION%%|${PORTVERSION}|' ${FILESDIR}/CMakeLists.txt \
+	${SED} -e 's|%%VERSION%%|${LLVM_VERSION}|' ${FILESDIR}/CMakeLists.txt \
 		> ${WRKSRC}/CMakeLists.txt
 
 post-install:

@@ -1,9 +1,9 @@
-DEF[PORTVERSION]=	EXTRACT_INFO(LLVM_VERSION)
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM_VERSION)
 DEF[SOVERSION]=		1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		llvm-libunwind
-VERSION=		${PORTVERSION}
+VERSION=		${LLVM_VERSION}
 KEYWORDS=		lang devel
 VARIANTS=		standard
 SDESC[standard]=	LLVM version of libunwind library
@@ -11,8 +11,9 @@ HOMEPAGE=		https://github.com/llvm-mirror/libunwind
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://llvm.org/releases/${PORTVERSION}/
-DISTFILE[1]=		libunwind-${PORTVERSION}.src.tar.xz:main
+SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/
+			http://llvm.org/releases/${LLVM_VERSION}/
+DISTFILE[1]=		libunwind-${LLVM_VERSION}.src.tar.xz:main
 
 SPKGS[standard]=	single
 
@@ -29,7 +30,7 @@ BUILD_DEPENDS=		llvm:single:standard
 USES=			cmake cclibs:single
 CMAKE_BUILD_TYPE=	Release
 CMAKE_ARGS=		-DLLVM_HOST_TRIPLE:STRING="{{CONFIGURE_TARGET}}"
-DISTNAME=		libunwind-${PORTVERSION}.src
+DISTNAME=		libunwind-${LLVM_VERSION}.src
 SOVERSION=		${SOVERSION}
 
 post-install:

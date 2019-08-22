@@ -1,10 +1,9 @@
 DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM_VERSION)
-DEF[PORTVERSION]=	${LLVM_VERSION}
 DEF[PORTREVISION]=	0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		openmp
-VERSION=		${PORTVERSION}
+VERSION=		${LLVM_VERSION}
 KEYWORDS=		devel lang
 VARIANTS=		standard
 SDESC[standard]=	LLVM Open Multi-Processing Runtime Library
@@ -12,8 +11,9 @@ HOMEPAGE=		http://llvm.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://llvm.org/releases/${LLVM_VERSION}/
-DISTFILE[1]=		openmp-${PORTVERSION}.src.tar.xz:main
+SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/
+			http://llvm.org/releases/${LLVM_VERSION}/
+DISTFILE[1]=		openmp-${LLVM_VERSION}.src.tar.xz:main
 
 SPKGS[standard]=	single
 
@@ -29,7 +29,7 @@ USES=			cmake perl:build pkgconfig
 			c++:single
 
 CMAKE_BUILD_TYPE=	Release
-DISTNAME=		openmp-${PORTVERSION}.src
+DISTNAME=		openmp-${LLVM_VERSION}.src
 CMAKE_ARGS=		-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
 
 post-install:

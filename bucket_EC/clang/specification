@@ -1,6 +1,5 @@
 DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM_VERSION)
-DEF[PORTVERSION]=	${LLVM_VERSION}
-DEF[PORTREVISION]=	1
+DEF[PORTREVISION]=	0
 DEF[MAJORMIN]=		${LLVM_VERSION:R}
 DEF[MAJOR]=		${LLVM_VERSION:R:R}
 DEF[TOOLCHAIN_GCC]=	EXTRACT_INFO(CURRENT_GCC)
@@ -11,7 +10,7 @@ DEF[GCC_TARGET_LIB]=	${GCC_LIB}/gcc/{{CONFIGURE_TARGET}}/${GCC_VERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		clang
-VERSION=		${PORTVERSION}
+VERSION=		${LLVM_VERSION}
 KEYWORDS=		lang
 VARIANTS=		standard
 SDESC[standard]=	C language family frontend for LLVM ${MAJORMIN}
@@ -19,9 +18,10 @@ HOMEPAGE=		http://llvm.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://llvm.org/releases/${LLVM_VERSION}/
-DISTFILE[1]=		cfe-${PORTVERSION}.src.tar.xz:main
-DISTFILE[2]=		clang-tools-extra-${PORTVERSION}.src.tar.xz:main
+SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/
+			http://llvm.org/releases/${LLVM_VERSION}/
+DISTFILE[1]=		cfe-${LLVM_VERSION}.src.tar.xz:main
+DISTFILE[2]=		clang-tools-extra-${LLVM_VERSION}.src.tar.xz:main
 DF_INDEX=		1 2
 
 SPKGS[standard]=	complete compiler extra
@@ -42,7 +42,7 @@ USES=			cmake ninja ncurses zlib execinfo
 
 GNOME_COMPONENTS=	libxml2
 CMAKE_BUILD_TYPE=	Release
-DISTNAME=		cfe-${PORTVERSION}.src
+DISTNAME=		cfe-${LLVM_VERSION}.src
 SHEBANG_FILES=		utils/hmaptool/hmaptool
 			tools/scan-view/bin/scan-view
 			tools/clang-format/git-clang-format
@@ -64,7 +64,7 @@ VAR_OPSYS[freebsd]=	CMAKE_ARGS=-DLLVM_USE_LINKER=gold
 VAR_OPSYS[linux]=	CMAKE_ARGS=-DLLVM_USE_LINKER=gold
 
 post-extract:
-	${MV} ${WRKDIR}/clang-tools-extra-${PORTVERSION}.src \
+	${MV} ${WRKDIR}/clang-tools-extra-${LLVM_VERSION}.src \
 		${WRKSRC}/tools/extra
 
 post-patch:

@@ -1,8 +1,8 @@
-DEF[PORTVERSION]=	EXTRACT_INFO(LLVM_VERSION)
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM_VERSION)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		lld
-VERSION=		${PORTVERSION}
+VERSION=		${LLVM_VERSION}
 KEYWORDS=		lang sysutils
 VARIANTS=		standard
 SDESC[standard]=	Linker from the LLVM project
@@ -10,8 +10,9 @@ HOMEPAGE=		http://llvm.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://llvm.org/releases/${PORTVERSION}/
-DISTFILE[1]=		lld-${PORTVERSION}.src.tar.xz:main
+SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/
+			http://llvm.org/releases/${LLVM_VERSION}/
+DISTFILE[1]=		lld-${LLVM_VERSION}.src.tar.xz:main
 
 SPKGS[standard]=	single
 
@@ -33,7 +34,7 @@ BUILD_DEPENDS=		llvm:single:standard
 USES=			cmake c++:single solaris-funcs bdb:static
 SOL_FUNCTIONS=		strnlen:lib/ReaderWriter/MachO/MachONormalizedFileBinaryUtils.h
 CMAKE_BUILD_TYPE=	Release
-DISTNAME=		lld-${PORTVERSION}.src
+DISTNAME=		lld-${LLVM_VERSION}.src
 VAR_OPSYS[sunos]=	VAR1=socket;nsl;
 
 post-extract:
