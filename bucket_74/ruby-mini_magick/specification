@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	4.9.5
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-mini_magick
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v24 v25 v26
+SDESC[v24]=		Manipulate images with minimal use of memory (v24)
+SDESC[v25]=		Manipulate images with minimal use of memory (v25)
+SDESC[v26]=		Manipulate images with minimal use of memory (v26)
+HOMEPAGE=		https://github.com/minimagick/minimagick
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		mini_magick-4.9.5.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v24]=		single
+SPKGS[v25]=		single
+SPKGS[v26]=		single
+
+OPTIONS_AVAILABLE=	RUBY24 RUBY25 RUBY26
+OPTIONS_STANDARD=	none
+VOPTS[v24]=		RUBY24=ON RUBY25=OFF RUBY26=OFF
+VOPTS[v25]=		RUBY24=OFF RUBY25=ON RUBY26=OFF
+VOPTS[v26]=		RUBY24=OFF RUBY25=OFF RUBY26=ON
+
+GENERATED=		yes
+
+# Requirements specified by gem dependency --remote --version command
+#   guard (>= 0, development)
+#   guard-rspec (>= 0, development)
+#   posix-spawn (>= 0, development)
+#   rake (>= 0, development)
+#   rspec (~> 3.5.0, development)
+#   webmock (>= 0, development)
+
+DISTNAME=		mini_magick-${PORTVERSION}
+
+[RUBY24].USES_ON=			gem:v24
+
+[RUBY25].USES_ON=			gem:v25
+
+[RUBY26].USES_ON=			gem:v26
+

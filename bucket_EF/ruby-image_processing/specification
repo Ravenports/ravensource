@@ -1,0 +1,53 @@
+DEF[PORTVERSION]=	1.9.3
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-image_processing
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v24 v25 v26
+SDESC[v24]=		Set of higher-level helper methods for image (v24)
+SDESC[v25]=		Set of higher-level helper methods for image (v25)
+SDESC[v26]=		Set of higher-level helper methods for image (v26)
+HOMEPAGE=		https://github.com/janko/image_processing
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		image_processing-1.9.3.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v24]=		single
+SPKGS[v25]=		single
+SPKGS[v26]=		single
+
+OPTIONS_AVAILABLE=	RUBY24 RUBY25 RUBY26
+OPTIONS_STANDARD=	none
+VOPTS[v24]=		RUBY24=ON RUBY25=OFF RUBY26=OFF
+VOPTS[v25]=		RUBY24=OFF RUBY25=ON RUBY26=OFF
+VOPTS[v26]=		RUBY24=OFF RUBY25=OFF RUBY26=ON
+
+GENERATED=		yes
+
+# Requirements specified by gem dependency --remote --version command
+#   mini_magick (>= 4.9.5, < 5)
+#   minispec-metadata (>= 0, development)
+#   minitest (~> 5.8, development)
+#   minitest-hooks (>= 1.4.2, development)
+#   phashion (>= 0, development)
+#   rake (>= 0, development)
+#   ruby-vips (>= 2.0.13, < 3)
+
+DISTNAME=		image_processing-${PORTVERSION}
+
+[RUBY24].USES_ON=			gem:v24
+[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-mini_magick:single:v24
+					ruby-ruby-vips:single:v24
+
+[RUBY25].USES_ON=			gem:v25
+[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-mini_magick:single:v25
+					ruby-ruby-vips:single:v25
+
+[RUBY26].USES_ON=			gem:v26
+[RUBY26].BUILDRUN_DEPENDS_ON=		ruby-mini_magick:single:v26
+					ruby-ruby-vips:single:v26
+

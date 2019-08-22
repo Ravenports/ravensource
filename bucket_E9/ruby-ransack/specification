@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.1.1
+DEF[PORTVERSION]=	2.3.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-ransack
@@ -13,7 +13,7 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		ransack-2.1.1.gem:main
+DISTFILE[1]=		ransack-2.3.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v24]=		single
@@ -32,14 +32,16 @@ GENERATED=		yes
 #   actionpack (>= 5.0)
 #   activerecord (>= 5.0)
 #   activesupport (>= 5.0)
+#   byebug (>= 0, development)
 #   faker (~> 0.9.5, development)
 #   i18n (>= 0)
 #   machinist (~> 1.0.6, development)
 #   mysql2 (= 0.3.20, development)
 #   pg (~> 0.21, development)
+#   polyamorous (= 2.3.0)
 #   pry (= 0.10, development)
 #   rspec (~> 3, development)
-#   sqlite3 (~> 1.3.3, development)
+#   sqlite3 (~> 1.4.1, development)
 
 DISTNAME=		ransack-${PORTVERSION}
 
@@ -48,16 +50,19 @@ DISTNAME=		ransack-${PORTVERSION}
 					ruby-activerecord:single:v24
 					ruby-activesupport:single:v24
 					ruby-i18n:single:v24
+					ruby-polyamorous:single:v24
 
 [RUBY25].USES_ON=			gem:v25
 [RUBY25].BUILDRUN_DEPENDS_ON=		ruby-actionpack:single:v25
 					ruby-activerecord:single:v25
 					ruby-activesupport:single:v25
 					ruby-i18n:single:v25
+					ruby-polyamorous:single:v25
 
 [RUBY26].USES_ON=			gem:v26
 [RUBY26].BUILDRUN_DEPENDS_ON=		ruby-actionpack:single:v26
 					ruby-activerecord:single:v26
 					ruby-activesupport:single:v26
 					ruby-i18n:single:v26
+					ruby-polyamorous:single:v26
 
