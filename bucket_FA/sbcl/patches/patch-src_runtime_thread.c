@@ -1,4 +1,4 @@
---- src/runtime/thread.c.orig	2019-07-28 08:36:10 UTC
+--- src/runtime/thread.c.orig	2019-08-26 08:51:58 UTC
 +++ src/runtime/thread.c
 @@ -50,7 +50,7 @@
  
@@ -9,7 +9,7 @@
  #include <pthread_np.h>
  #endif
  
-@@ -547,7 +547,7 @@ attach_os_thread(init_thread_data *scrib
+@@ -548,7 +548,7 @@ attach_os_thread(init_thread_data *scrib
      stack_addr = (char*)pthread_get_stackaddr_np(os) - stack_size;
  #else
      pthread_attr_t attr;
