@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.2
+DEF[PORTVERSION]=	1.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libvdpau
@@ -24,14 +24,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		multimedia/libvdpau
 
-USES=			autoreconf libtool pkgconfig c++:single
+USES=			meson c++:single
 XORG_COMPONENTS=	xorgproto xext
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-documentation
-INSTALL_TARGET=		install-strip
 
-post-patch:
-	${REINPLACE_CMD} '/^export /d' ${WRKSRC}/doc/Makefile.am
-	(cd ${WRKSRC}/src && ${MV} vdpau_wrapper.cfg vdpau_wrapper.cfg.sample)
-	${REINPLACE_CMD} 's/vdpau_wrapper.cfg/&.sample/' \
-		${WRKSRC}/src/Makefile.am
+post-install:
+	${MV} ${STAGEDIR}${PREFIX}/etc/vdpau_wrapper.cfg \
+		${STAGEDIR}${PREFIX}/etc/vdpau_wrapper.cfg.sample
