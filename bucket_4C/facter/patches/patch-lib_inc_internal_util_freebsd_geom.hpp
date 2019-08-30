@@ -1,7 +1,7 @@
---- lib/inc/internal/util/freebsd/geom.hpp.orig	2019-02-02 20:53:13 UTC
+--- lib/inc/internal/util/freebsd/geom.hpp.orig	2019-06-25 11:27:04 UTC
 +++ lib/inc/internal/util/freebsd/geom.hpp
-@@ -6,6 +6,7 @@
- 
+@@ -7,6 +7,7 @@
+ #include <stdexcept>
  #include <string>
  #include <vector>
 +#include <stdexcept>
