@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.99.10
+DEF[PORTVERSION]=	0.99.11
 DEF[SOVERSION]=		3.0.1
 # ----------------------------------------------------------------------------
 
@@ -11,8 +11,8 @@ HOMEPAGE=		https://upower.freedesktop.org
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://ravenports.elderlinux.org/distcache/
-DISTFILE[1]=		upower-${PORTVERSION}.txz:main
+SITES[main]=		https://upower.freedesktop.org/releases/
+DISTFILE[1]=		upower-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	complete primary docs
 
@@ -43,7 +43,6 @@ CONFIGURE_ARGS=		--enable-gtk-doc
 			--without-idevice
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
-DISTNAME=		upower
 
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--with-backend=freebsd
 
@@ -56,11 +55,11 @@ VAR_OPSYS[linux]=	CONFIGURE_ARGS=--with-backend=dummy
 post-patch:
 	${REINPLACE_CMD} -e 's|__DBPATH__|${PREFIX}/share/xsl/docbook/manpages|' \
 		${WRKSRC}/doc/man/Makefile.am
-	( cd ${WRKSRC} && \
-		gtkdocize && \
-		intltoolize --force && \
-		libtoolize && \
-		NOCONFIGURE=1 ./autogen.sh )
+# ( cd ${WRKSRC} && \
+# gtkdocize && \
+# intltoolize --force && \
+# libtoolize && \
+# NOCONFIGURE=1 ./autogen.sh )
 
 post-stage:
 	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/UPower \
