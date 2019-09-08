@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.12.9
+DEF[PORTVERSION]=	1.13
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		golang
@@ -40,7 +40,6 @@ SHEBANG_FILES=		src/*.bash
 			misc/wasm/go_js_wasm_exec
 			src/cmd/go/*.sh
 			src/regexp/syntax/*.pl
-			src/internal/x/fiximports.bash
 SHEBANG_OLD_BASH=	"/usr/bin/env bash"
 SHEBANG_NEW_BASH=	{{SH}}
 DISTNAME=		go
@@ -70,4 +69,4 @@ do-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${f}
 .endfor
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/go/pkg/tool/${OPSYS:tl}_${GOARCH}/*
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/go/pkg/bootstrap/bin/*
+# ${STRIP_CMD} ${STAGEDIR}${PREFIX}/go/pkg/bootstrap/bin/*
