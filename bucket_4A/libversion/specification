@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2.9.1
-DEF[SOVERSION]=		0.1.0
+DEF[PORTVERSION]=	3.0.0
+DEF[SOVERSION]=		1.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libversion
@@ -25,7 +25,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libversion
 
-USES=			cmake
+USES=			cmake c++:single
 SOVERSION=		${SOVERSION}
 
 post-patch:
@@ -34,4 +34,5 @@ post-patch:
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/version_compare
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/version_sort
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libversion.${LIBEXT}
