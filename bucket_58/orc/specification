@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	0.4.29
-DEF[SOVERSION]=		0.29.0
+DEF[PORTVERSION]=	0.4.30
+DEF[SOVERSION]=		0.30.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		orc
@@ -21,18 +21,9 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		devel/orc
 
-USES=			gmake libtool pkgconfig
+USES=			meson pkgconfig
 INSTALL_TARGET=		install-strip
-INSTALL_REQ_TOOLCHAIN=	yes
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-gtk-doc
-MAKE_ARGS=		orc orc-test tools doc examples
 SOVERSION=		${SOVERSION}
-
-post-patch:
-	${REINPLACE_CMD} \
-		-E -e '/LIBS/s/-lrt(\ )*//; /LIBRT/s/-lrt//' \
-		${WRKSRC}/configure
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
@@ -40,6 +31,3 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/examples/${FILE} \
 		${STAGEDIR}${STD_EXAMPLESDIR}/${FILE}
 .endfor
-	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/orc \
-		${STAGEDIR}${STD_DOCDIR}
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
