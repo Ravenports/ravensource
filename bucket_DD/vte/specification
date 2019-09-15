@@ -1,7 +1,7 @@
 # vte uses even/odd releases, so stick to e.g. 0.50.x, 0.52.x
-DEF[PORTVERSION]=	0.56.3
+DEF[PORTVERSION]=	0.58.0
 DEF[VTE_VERSION]=	2.91
-DEF[SOVERSION]=		0.5600.3
+DEF[SOVERSION]=		0.5800.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		vte
@@ -31,27 +31,15 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11-toolkits/vte3
 
-BUILD_DEPENDS=		vala:single:standard
-			bash:primary:standard
-			gperf:single:standard
+BUILD_DEPENDS=		bash:primary:standard
+			cmake:single:standard
+			vala:single:standard
 BUILDRUN_DEPENDS=	gnutls:single:standard
 			pcre2:primary:standard
 
-USES=			gettext-runtime gettext-tools gmake libtool
-			pkgconfig python:build
+USES=			gettext-runtime gettext-tools:build meson pkgconfig
 GNOME_COMPONENTS=	cairo gdkpixbuf gtk3 intltool introspection
 INSTALL_TARGET=		install-strip
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-introspection
-			--disable-static
+INSTALL_REQ_TOOLCHAIN=	yes
 PLIST_SUB=		VERSION=${VTE_VERSION}
 SOVERSION=		${SOVERSION}
-
-post-patch:
-	${FIND} ${WRKSRC} -name "Makefile.in" -type f | ${XARGS} ${REINPLACE_CMD} -e \
-		"s|test \"\$$\$$installfiles\" = '\$$(srcdir)/html/\*'|:|"
-
-post-install:
-	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/vte-${VTE_VERSION} \
-		${STAGEDIR}${STD_DOCDIR}
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
