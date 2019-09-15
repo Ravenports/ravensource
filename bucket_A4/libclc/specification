@@ -35,6 +35,8 @@ MAKE_ENV=		MAKE={{GMAKE}}
 # Force ccache to work with clang
 			CCACHE_CPP2=yes
 
+BLOCK_WATCHDOG=		yes
+
 post-patch:
 	${REINPLACE_CMD} -e 's|/usr/bin/python|${PYTHON_CMD}|g' \
 		-e 's|"python |"${PYTHON_VERSION} |g' \
