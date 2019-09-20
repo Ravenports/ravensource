@@ -1,4 +1,4 @@
---- coreconf/UNIX.mk.orig	2019-07-05 16:02:31 UTC
+--- coreconf/UNIX.mk.orig	2019-08-30 15:46:32 UTC
 +++ coreconf/UNIX.mk
 @@ -10,10 +10,8 @@ AR          = ar cr $@
  LDOPTS     += -L$(SOURCE_LIB_DIR)
@@ -8,6 +8,6 @@
  	DEFINES    += -UDEBUG -DNDEBUG
  else
 -	OPTIMIZER  += -g
- 	USERNAME   := $(shell whoami)
- 	USERNAME   := $(subst -,_,$(USERNAME))
- 	DEFINES    += -DDEBUG -UNDEBUG -DDEBUG_$(USERNAME)
+ 	DEFINES    += -DDEBUG -UNDEBUG
+ endif
+ 
