@@ -2,9 +2,9 @@
   There's no reason to not use the cache in either of these cases if it is
   already available.
 
---- src/ccache.c.orig	2019-07-19 07:59:10 UTC
+--- src/ccache.c.orig	2019-09-12 19:14:51 UTC
 +++ src/ccache.c
-@@ -1964,6 +1964,7 @@ calculate_common_hash(struct args *args,
+@@ -1972,6 +1972,7 @@ calculate_common_hash(struct args *args,
  		free(p);
  	}
  
@@ -12,7 +12,7 @@
  	// Possibly hash GCC_COLORS (for color diagnostics).
  	if (guessed_compiler == GUESSED_GCC) {
  		const char *gcc_colors = getenv("GCC_COLORS");
-@@ -1972,6 +1973,7 @@ calculate_common_hash(struct args *args,
+@@ -1980,6 +1981,7 @@ calculate_common_hash(struct args *args,
  			hash_string(hash, gcc_colors);
  		}
  	}
@@ -20,7 +20,7 @@
  }
  
  // Update a hash sum with information specific to the direct and preprocessor
-@@ -2008,6 +2010,13 @@ calculate_object_hash(struct args *args,
+@@ -2016,6 +2018,13 @@ calculate_object_hash(struct args *args,
  			continue;
  		}
  
