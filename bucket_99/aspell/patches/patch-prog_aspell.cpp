@@ -1,4 +1,4 @@
---- prog/aspell.cpp.orig	2011-07-04 09:13:58 UTC
+--- prog/aspell.cpp.orig	2019-07-29 06:33:31 UTC
 +++ prog/aspell.cpp
 @@ -25,6 +25,7 @@
  # include <langinfo.h>
@@ -7,8 +7,8 @@
 +#include "errors.hpp"
  #include "aspell.h"
  
- #ifdef USE_FILE_INO
-@@ -40,7 +41,6 @@
+ #include <sys/types.h>
+@@ -41,7 +42,6 @@
  #include "convert.hpp"
  #include "document_checker.hpp"
  #include "enumeration.hpp"

@@ -1,4 +1,4 @@
---- prog/checker_string.cpp.orig	2011-07-04 09:22:23 UTC
+--- prog/checker_string.cpp.orig	2019-07-16 02:02:10 UTC
 +++ prog/checker_string.cpp
 @@ -6,6 +6,7 @@
  

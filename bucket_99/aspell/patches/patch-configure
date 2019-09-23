@@ -1,31 +1,22 @@
---- configure.orig	2011-07-04 08:58:50 UTC
+--- configure.orig	2019-07-29 06:38:03 UTC
 +++ configure
-@@ -3524,7 +3524,7 @@ else
- fi
- 
- 
--if test "$GXX" = "yes" && expr "$CXXFLAGS" : '.*-O' > /dev/null
-+if test "$GXX" = "yes" && expr -- "$CXXFLAGS" : '.*-O' > /dev/null
- then
-   CXXFLAGS="$CXXFLAGS -fno-exceptions"
- fi
-@@ -18243,7 +18243,7 @@ eval "echo \"\$as_me:$LINENO: $ac_try_ec
+@@ -18289,7 +18289,7 @@ _ACEOF
+ if ac_fn_cxx_try_link "$LINENO"; then :
    CURSES_LIB=-lncurses
  
- cat >>confdefs.h <<\_ACEOF
--#define CURSES_HEADER <ncurses/curses.h>
-+#define CURSES_HEADER <ncurses/ncurses.h>
- _ACEOF
+-$as_echo "#define CURSES_HEADER <ncurses/curses.h>" >>confdefs.h
++$as_echo "#define CURSES_HEADER <ncurses/ncurses.h>" >>confdefs.h
  
  
-@@ -18455,8 +18455,8 @@ _ACEOF
+ $as_echo "#define TERM_HEADER <ncurses/term.h>" >>confdefs.h
+@@ -18401,8 +18401,8 @@ $as_echo "#define TERM_HEADER <term.h>"
       if test "$enable_wide_curses" != "no"
       then
  
--       { echo "$as_me:$LINENO: checking for wide character support in curses libraray" >&5
--echo $ECHO_N "checking for wide character support in curses libraray... $ECHO_C" >&6; }
-+       { echo "$as_me:$LINENO: checking for wide character support in curses library" >&5
-+echo $ECHO_N "checking for wide character support in curses library... $ECHO_C" >&6; }
+-       { $as_echo "$as_me:${as_lineno-$LINENO}: checking for wide character support in curses libraray" >&5
+-$as_echo_n "checking for wide character support in curses libraray... " >&6; }
++       { $as_echo "$as_me:${as_lineno-$LINENO}: checking for wide character support in curses library" >&5
++$as_echo_n "checking for wide character support in curses library... " >&6; }
         if test -n "$have_mblen"
         then
-          cat >conftest.$ac_ext <<_ACEOF
+          cat confdefs.h - <<_ACEOF >conftest.$ac_ext
