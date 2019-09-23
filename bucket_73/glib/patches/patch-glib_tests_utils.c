@@ -1,4 +1,4 @@
---- glib/tests/utils.c.orig	2019-07-29 13:06:37 UTC
+--- glib/tests/utils.c.orig	2019-09-05 16:56:49 UTC
 +++ glib/tests/utils.c
 @@ -480,7 +480,7 @@ test_xdg_dirs (void)
  

@@ -1,4 +1,4 @@
---- glib/gutils.c.orig	2019-07-29 13:06:37 UTC
+--- glib/gutils.c.orig	2019-09-05 16:56:49 UTC
 +++ glib/gutils.c
 @@ -28,6 +28,10 @@
  
@@ -11,7 +11,7 @@
  #include "gutils.h"
  #include "gutilsprivate.h"
  
-@@ -2089,7 +2093,7 @@ g_build_system_data_dirs (void)
+@@ -2067,7 +2071,7 @@ g_build_system_data_dirs (void)
     */
  #ifndef G_OS_WIN32
    if (!data_dirs || !data_dirs[0])
@@ -20,7 +20,7 @@
  
    data_dir_vector = g_strsplit (data_dirs, G_SEARCHPATH_SEPARATOR_S, 0);
  #else
-@@ -2183,7 +2187,7 @@ g_build_system_config_dirs (void)
+@@ -2161,7 +2165,7 @@ g_build_system_config_dirs (void)
      }
  #else
    if (!conf_dirs || !conf_dirs[0])
