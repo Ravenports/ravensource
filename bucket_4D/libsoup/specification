@@ -1,5 +1,5 @@
 # libsoup has even/odd releases, so stick to e.g. 2.60.x, 2.62.x, etc
-DEF[PORTVERSION]=	2.66.2
+DEF[PORTVERSION]=	2.68.1
 DEF[LIBVERSION]=	2.4
 DEF[SOVERSION]=		1.8.0
 # ----------------------------------------------------------------------------
@@ -31,21 +31,17 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		devel/libsoup
 
 BUILD_DEPENDS=		gtk-doc:single:standard
-BUILDRUN_DEPENDS=	glib-networking:single:standard
+BUILDRUN_DEPENDS=	brotli:single:standard
+			glib-networking:single:standard
 			libpsl:single:standard
 RUN_DEPENDS=		libgcrypt:single:standard
 
 USES=			gettext-tools gmake libtool pkgconfig python:build
 			sqlite meson
 GNOME_COMPONENTS=	glib intltool introspection libxml2
-MESON_ARGS=		-Dgssapi=false
-			-Dntlm=false
-			-Dtls_check=true
-			-Dgnome=true
-			-Dintrospection=true
-			-Dvapi=false
-			-Ddoc=true
-			-Dtests=false
+MESON_ARGS=		-Dgtk_doc=true
+			-Dintrospection=enabled
+
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 
