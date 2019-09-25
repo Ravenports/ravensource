@@ -188,6 +188,7 @@ BINUTILS_VERSION=		2.32
 # ------------------------------------------------------------------------
 
 ASPELL_CORE_VERSION=		0.60.7
+ASPELL_INSTALL_VERSION=		${ASPELL_CORE_VERSION:R}
 
 # ------------------------------------------------------------------------
 # apr1 and other apache projects
