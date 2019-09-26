@@ -1,18 +1,16 @@
-DEF[PORTVERSION]=	2.40.1
+DEF[PORTVERSION]=	2.42.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		graphviz
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Graph visualization tools
 HOMEPAGE=		http://www.graphviz.org/
 CONTACT=		nobody
 
-# upstream site no longer suitable - old versions aren't archived (?)
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://ftp.osuosl.org/pub/blfs/conglomeration/graphviz/
+SITES[main]=		https://gitlab.com/graphviz/graphviz/-/archive/${PORTVERSION}/
 DISTFILE[1]=		graphviz-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	complete primary examples docs
@@ -20,14 +18,21 @@ SPKGS[standard]=	complete primary examples docs
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		CUSTOM1:primary
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE
+LICENSE_NAME=		CUSTOM1:"Eclipse Public License"
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		graphics/graphviz
 
 BUILDRUN_DEPENDS=	freeglut:primary:standard
 			libGD:single:standard
 			gts:single:standard
+			WebP:single:standard
 
 USES=			bison cpe gmake jpeg mesa libtool:keepla pkgconfig
 			shebangfix iconv gettext-tools gettext-runtime
+			autoreconf
 XORG_COMPONENTS=	xaw xpm xmu xt sm ice xext x11 xau xdmcp xp xrender
 			xinerama xi xrandr xcursor xfixes
 GNOME_COMPONENTS=	pango cairo librsvg gtk2
@@ -40,6 +45,7 @@ CONFIGURE_ARGS=		--with-x
 			--with-gdk-pixbuf
 			--with-gnomeui
 			--with-rsvg
+			--with-webp
 			--with-digcola
 			--with-ipsepcola
 			--with-pangocairo
@@ -80,45 +86,21 @@ INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 
 post-patch:
-	${FIND} ${WRKSRC} -name Makefile.in | \
-		${XARGS} ${REINPLACE_CMD} \
-		-e "s|\([^:]*:.*\) install-pdfDATA\(.*\)|\1\2|g" \
-		-e "s|\([^:]*:.*\) install-htmlDATA\(.*\)|\1\2|g" \
-		-e "s|\([^:]*:.*\) install-txtDATA\(.*\)|\1\2|g" \
-		-e "s|\([^:]*:.*\) install-demoDATA\(.*\)|\1\2|g" \
-		-e "s|\([^:]*:.*\) install-demoSCRIPTS\(.*\)|\1\2|g" \
-		-e "s|\([^:]*:.*\) install-pathplanexampleDATA\(.*\)|\1\2|g" \
-		-e 's|txtdir = $$(pkgdatadir)/doc|txtdir = ${DOCSDIR}|' \
-		-e 's|demodir = $$(pkgdatadir)/demo|demodir = ${EXAMPLESDIR}|';
-	${REINPLACE_CMD} \
-		-e 's|^\.SUFFIXES: \(.*\)\.1\(.*\)|.SUFFIXES: \1 \2|' \
-		${WRKSRC}/cmd/tools/Makefile.in \
-		${WRKSRC}/cmd/gvpr/Makefile.in
-	${FIND} ${WRKSRC}/lib -name 'Makefile.in' | \
-		${XARGS} ${REINPLACE_CMD} \
-		-e 's|pkglibdir = $$(libdir)/@PACKAGE@|pkglibdir = $$(libdir)|g' \
-		-e 's|libdir = @libdir@|libdir = @libdir@/@PACKAGE@|g';
-	${FIND} ${WRKSRC}/lib -name '*.pc.in' | \
-		${XARGS} ${REINPLACE_CMD} \
-		-e 's|libdir=@libdir@|libdir=@libdir@/@PACKAGE@|';
-	${REINPLACE_CMD} -e "s|/usr/include/php|${LOCALBASE}/include/php|g" \
-		-e "s|vendorarchdir|sitearchdir|g" \
-		-e "s|-lruby|-lruby${RUBY_SUFFIX}|g" \
-		-e "s|ruby-1[.]9|ruby-${RUBY_VER}|g" \
-		-e 's|PHP_INSTALL_DIR=.*|PHP_INSTALL_DIR="${PREFIX}/lib/php/${PHP_EXT_DIR}"|' \
-		-e 's|PHP_INSTALL_DATADIR=.*|PHP_INSTALL_DATADIR="${PREFIX}/share/php"|' \
-		-e '/if test/ s| == | = |g' ${WRKSRC}/configure
 	${REINPLACE_CMD} -e 's|#include "gui.h"|#include "gui/gui.h"|' \
 		${WRKSRC}/cmd/smyrna/tvnodes.h
-	${REINPLACE_CMD} -e 's|GTS_LIBS)|GTS_LIBS) $$(MATH_LIBS)|' \
-		${WRKSRC}/cmd/smyrna/Makefile.in
-	${CP} ${WRKSRC}/lib/cgraph/cgraph.h ${WRKSRC}/plugin/ming/
+	${FIND} ${WRKSRC} -name Makefile.am | \
+		${XARGS} ${REINPLACE_CMD} \
+		-e 's| $$(pkgdatadir)/doc/pdf| ${STD_DOCDIR}/pdf|' \
+		-e 's| $$(pkgdatadir)/doc/html/schema| ${STD_DOCDIR}/html/schema|' \
+		-e 's| $$(pkgdatadir)/doc/html/info| ${STD_DOCDIR}/html/info|' \
+		-e 's| $$(pkgdatadir)/doc/html| ${STD_DOCDIR}/html|' \
+		-e 's| $$(pkgdatadir)/doc| ${STD_DOCDIR}|' \
+		-e 's| $$(pkgdatadir)/demo| ${STD_EXAMPLESDIR}|' \
+		-e 's| $$(datadir)/@PACKAGE@/demo| ${STD_EXAMPLESDIR}|';
+	${CP} ${FILESDIR}/version.m4 ${WRKSRC}/version.m4
 
 post-patch-freebsd:
-	if [ ${OSVERSION} -ge 1100093 ]; then \
-		${REINPLACE_CMD} -e 's|SF_FLAGS|SFIO_FLAGS|g' \
-			${WRKSRC}/lib/sfio/*.[ch]; \
-	fi
+	${REINPLACE_CMD} -e 's|SF_FLAGS|SFIO_FLAGS|g' ${WRKSRC}/lib/sfio/*.[ch]; \
 
 post-install:
 	# various
@@ -148,6 +130,7 @@ post-install:
 			${STAGEDIR}${STD_DOCDIR}/pdf/ && \
 		${INSTALL_DATA} doc/*.html doc/info/*.gif \
 			${STAGEDIR}${STD_DOCDIR}/html/
+	${RM} ${STAGEDIR}${STD_DOCDIR}/COPYING
 
 	# examples
 	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}/pathplan_data
