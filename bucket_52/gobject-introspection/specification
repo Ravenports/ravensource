@@ -19,13 +19,27 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		GPLv2+:single LGPL21+:single
+LICENSE_TERMS=		single:{{WRKSRC}}/COPYING
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING.GPL
+			LGPL21+:{{WRKSRC}}/COPYING.LGPL
+LICENSE_SCHEME=		multi
+
 FPC_EQUIVALENT=		devel/gobject-introspection
 
 BUILD_DEPENDS=		cairo:single:standard
 BUILDRUN_DEPENDS=	libffi:single:standard
 
-USES=			bison meson pkgconfig python:build
+USES=			bison meson pkgconfig python:build shebangfix
 GNOME_COMPONENTS=	glib
 CONFIGURE_ARGS=		-Dpython={{PYTHON}}
 MAKE_ENV=		HOME={{WRKDIR}}
 INSTALL_TARGET=		install-strip
+SHEBANG_FILES=		misc/update-gtkdoc-tests.py
+			misc/update-vulkan-gir.py
+			misc/update-glib-annotations.py
+			tests/gi-tester
+
+post-patch:
+	${REINPLACE_CMD} -e 's|python@0@|python${PYTHON_VER}|' \
+		${WRKSRC}/tools/meson.build
