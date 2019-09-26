@@ -25,9 +25,9 @@ mirror_base=/mech/var/cache/rubygems
 specsdir=${mirror_base}/specs
 reqsdir=${mirror_base}/reqs
 gemline="gs = Marshal.load Gem::Util.inflate File.read '${specsdir}"
-min_ruby24="2.4.5"
-min_ruby25="2.5.3"
-min_ruby26="2.6.0"
+min_ruby24="2.4.7"
+min_ruby25="2.5.6"
+min_ruby26="2.6.4"
 secondarg="$2"
 #VARIANTS=
 
@@ -159,9 +159,16 @@ determine_variants() {
    local vrt
    local rubyreq=$(obtain_ruby_requirement ${1} ${2})  # >= 0, >= 1.9.2
    local good24=$(echo "${rubyreq}" | awk -vmin=${min_ruby24} '{ print ($2 < min ? "good" : "bad")}')
-   if [ "${good24}" == "good" ]; then
-      vrt="${vrt} v24"
-   fi
+   case ${1} in
+      sprockets-rails | devise | delayed_job | jquery-rails) ;;
+      carrierwave | globalid | kaminari-actionview | searchkick) ;;
+      simple_form | polyamorous | ransack | kaminari | responders) ;;
+      kaminari-activerecord | rails-dom-testing) ;;
+      *)
+        if [ "${good24}" == "good" ]; then
+           vrt="${vrt} v24"
+        fi ;;
+   esac
    local good25=$(echo "${rubyreq}" | awk -vmin=${min_ruby25} '{ print ($2 < min ? "good" : "bad")}')
    if [ "${good25}" == "good" ]; then
       vrt="${vrt} v25"

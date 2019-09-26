@@ -4,8 +4,7 @@ DEF[PORTVERSION]=	4.1.0
 NAMEBASE=		ruby-searchkick
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
-VARIANTS=		v24 v25 v26
-SDESC[v24]=		Intelligent search made easy with Rails and  (v24)
+VARIANTS=		v25 v26
 SDESC[v25]=		Intelligent search made easy with Rails and  (v25)
 SDESC[v26]=		Intelligent search made easy with Rails and  (v26)
 HOMEPAGE=		https://github.com/ankane/searchkick
@@ -16,15 +15,13 @@ SITES[main]=		RUBYGEMS/
 DISTFILE[1]=		searchkick-4.1.0.gem:main
 DIST_SUBDIR=		ruby
 
-SPKGS[v24]=		single
 SPKGS[v25]=		single
 SPKGS[v26]=		single
 
-OPTIONS_AVAILABLE=	RUBY24 RUBY25 RUBY26
+OPTIONS_AVAILABLE=	RUBY25 RUBY26
 OPTIONS_STANDARD=	none
-VOPTS[v24]=		RUBY24=ON RUBY25=OFF RUBY26=OFF
-VOPTS[v25]=		RUBY24=OFF RUBY25=ON RUBY26=OFF
-VOPTS[v26]=		RUBY24=OFF RUBY25=OFF RUBY26=ON
+VOPTS[v25]=		RUBY25=ON RUBY26=OFF
+VOPTS[v26]=		RUBY25=OFF RUBY26=ON
 
 GENERATED=		yes
 
@@ -37,11 +34,6 @@ GENERATED=		yes
 #   rake (>= 0, development)
 
 DISTNAME=		searchkick-${PORTVERSION}
-
-[RUBY24].USES_ON=			gem:v24
-[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-activemodel:single:v24
-					ruby-elasticsearch:single:v24
-					ruby-hashie:single:v24
 
 [RUBY25].USES_ON=			gem:v25
 [RUBY25].BUILDRUN_DEPENDS_ON=		ruby-activemodel:single:v25

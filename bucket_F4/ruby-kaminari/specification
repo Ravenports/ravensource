@@ -4,8 +4,7 @@ DEF[PORTVERSION]=	1.1.1
 NAMEBASE=		ruby-kaminari
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
-VARIANTS=		v24 v25 v26
-SDESC[v24]=		Pagination engine plugin for Rails 4+ and ot (v24)
+VARIANTS=		v25 v26
 SDESC[v25]=		Pagination engine plugin for Rails 4+ and ot (v25)
 SDESC[v26]=		Pagination engine plugin for Rails 4+ and ot (v26)
 HOMEPAGE=		https://github.com/kaminari/kaminari
@@ -16,15 +15,13 @@ SITES[main]=		RUBYGEMS/
 DISTFILE[1]=		kaminari-1.1.1.gem:main
 DIST_SUBDIR=		ruby
 
-SPKGS[v24]=		single
 SPKGS[v25]=		single
 SPKGS[v26]=		single
 
-OPTIONS_AVAILABLE=	RUBY24 RUBY25 RUBY26
+OPTIONS_AVAILABLE=	RUBY25 RUBY26
 OPTIONS_STANDARD=	none
-VOPTS[v24]=		RUBY24=ON RUBY25=OFF RUBY26=OFF
-VOPTS[v25]=		RUBY24=OFF RUBY25=ON RUBY26=OFF
-VOPTS[v26]=		RUBY24=OFF RUBY25=OFF RUBY26=ON
+VOPTS[v25]=		RUBY25=ON RUBY26=OFF
+VOPTS[v26]=		RUBY25=OFF RUBY26=ON
 
 GENERATED=		yes
 
@@ -40,12 +37,6 @@ GENERATED=		yes
 #   test-unit-rails (>= 0, development)
 
 DISTNAME=		kaminari-${PORTVERSION}
-
-[RUBY24].USES_ON=			gem:v24
-[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v24
-					ruby-kaminari-actionview:single:v24
-					ruby-kaminari-activerecord:single:v24
-					ruby-kaminari-core:single:v24
 
 [RUBY25].USES_ON=			gem:v25
 [RUBY25].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v25
