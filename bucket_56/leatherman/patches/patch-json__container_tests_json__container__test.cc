@@ -1,4 +1,4 @@
---- json_container/tests/json_container_test.cc.orig	2019-06-11 10:09:46 UTC
+--- json_container/tests/json_container_test.cc.orig	2019-09-04 17:34:23 UTC
 +++ json_container/tests/json_container_test.cc
 @@ -22,11 +22,13 @@ TEST_CASE("JsonContainer::JsonContainer
      std::string json_value {};
