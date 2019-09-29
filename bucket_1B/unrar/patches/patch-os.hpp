@@ -1,4 +1,4 @@
---- os.hpp.orig	2019-04-27 20:05:18 UTC
+--- os.hpp.orig	2019-08-29 20:34:43 UTC
 +++ os.hpp
 @@ -166,6 +166,10 @@
  #include <locale.h>
