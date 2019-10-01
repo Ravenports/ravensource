@@ -1,4 +1,4 @@
---- common/compat.c.orig	2019-03-25 08:56:48 UTC
+--- common/compat.c.orig	2019-06-18 15:25:53 UTC
 +++ common/compat.c
 @@ -38,7 +38,11 @@
   * This is needed to expose pthread_mutexattr_settype and PTHREAD_MUTEX_DEFAULT
@@ -10,9 +10,9 @@
  #define _XOPEN_SOURCE 700
 +#endif
  
- #if defined(HAVE_ISSETUGID) && defined(__FreeBSD__)
- #define __BSD_VISIBLE 1
-@@ -52,6 +56,7 @@
+ #include "compat.h"
+ #include "debug.h"
+@@ -48,6 +52,7 @@
  #include <errno.h>
  #include <stdint.h>
  #include <stdlib.h>

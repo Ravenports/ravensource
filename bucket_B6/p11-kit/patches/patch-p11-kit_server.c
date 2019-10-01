@@ -1,4 +1,4 @@
---- p11-kit/server.c.orig	2019-02-26 15:04:41 UTC
+--- p11-kit/server.c.orig	2019-06-14 13:29:39 UTC
 +++ p11-kit/server.c
 @@ -79,6 +79,12 @@ typedef void (*sighandler_t)(int);
  
