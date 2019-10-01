@@ -1,9 +1,10 @@
-DEF[PORTVERSION]=	1.22.0
+# Even releases are for production, uneven are development versions
+DEF[PORTVERSION]=	1.24.0
+DEF[SOVERSION]=		0.2400.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libpeas
 VERSION=		${PORTVERSION}
-EPOCH=			1
 KEYWORDS=		devel
 VARIANTS=		py27 py36 py37
 SDESC[py27]=		GObject-based plugins engine (PY 27)
@@ -16,9 +17,9 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNOME/libpeas/${PORTVERSION:R}/
 DISTFILE[1]=		libpeas-${PORTVERSION}.tar.xz:main
 
-SPKGS[py27]=		complete primary python docs
-SPKGS[py36]=		complete primary python docs python_examples
-SPKGS[py37]=		complete primary python docs python_examples
+SPKGS[py27]=		complete primary python examples docs
+SPKGS[py36]=		complete primary python examples docs
+SPKGS[py37]=		complete primary python examples docs
 
 OPTIONS_AVAILABLE=	PY27 PY36 PY37
 OPTIONS_STANDARD=	none
@@ -35,12 +36,28 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libpeas
 
-# We don't have Lua5.1, so Lua cannot be supported here.
-
-USES=			gettext-runtime gettext-tools:build gmake libtool pkgconfig
-GNOME_COMPONENTS=	gtk3 intltool introspection
-
+BUILD_DEPENDS=		gtk-doc:single:standard
 RUN_DEPENDS=		gobject-introspection:single:standard
+
+# We don't have Lua5.1, so Lua cannot be supported here.
+# Libpeas still supports 5.1 only as of 1.24.0. Maybe re-check later.
+
+USES=			meson pkgconfig
+			gettext-runtime gettext-tools:build
+GNOME_COMPONENTS=	gtk3 intltool introspection
+MESON_ARGS=		-Dlua51=false
+			-Dvapi=false
+			-Dglade_catalog=false
+			-Dintrospection=true
+			-Dwidgetry=true
+			-Dgtk_doc=true
+			-Ddemos=true
+			-Dpython3={{P3USED}}
+			-Dpython2={{P2USED}}
+			-Dlocaledir=lib/locale
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
 
 [PY27].USES_ON=				python:py27
 [PY36].USES_ON=				python:py36
@@ -53,17 +70,27 @@ RUN_DEPENDS=		gobject-introspection:single:standard
 [PY36].BUILDRUN_DEPENDS_ON=		python-pygobject:primary:py36
 [PY37].BUILDRUN_DEPENDS_ON=		python-pygobject:primary:py37
 
-[PY27].CONFIGURE_ARGS_ON=		--disable-python3
-[PY36].CONFIGURE_ARGS_ON=		--disable-python2
-[PY37].CONFIGURE_ARGS_ON=		--disable-python2
+[PY27].MAKEFILE_ON=			P3USED=false
+					P2USED=true
+[PY36].MAKEFILE_ON=			P3USED=true
+					P2USED=false
+[PY37].MAKEFILE_ON=			P3USED=true
+					P2USED=false
 
-EXRUN[primary]=		python27:single:standard
+post-patch-PY37-ON:
+	${REINPLACE_CMD} \
+		-e "/python3_dep =/ s|'python3'|'python-${PYTHON_VER}'|" \
+		${WRKSRC}/meson.build
 
-CONFIGURE_ENV=		ac_cv_path_PYTHON3_CONFIG=python{{PYTHON_VER}}-config
-MAKE_ARGS=		DATADIRNAME=lib
-MUST_CONFIGURE=		gnu
-INSTALL_TARGET=		install-strip
-INSTALL_REQ_TOOLCHAIN=	yes
+post-patch-PY36-ON:
+	${REINPLACE_CMD} \
+		-e "/python3_dep =/ s|'python3'|'python-${PYTHON_VER}'|" \
+		${WRKSRC}/meson.build
+
+post-patch-PY27-ON:
+	${REINPLACE_CMD} \
+		-e "/^python2_dep =/ s|'python2'|'python-${PYTHON_VER}'|" \
+		${WRKSRC}/meson.build
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/libpeas \
