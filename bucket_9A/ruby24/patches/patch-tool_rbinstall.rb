@@ -1,4 +1,4 @@
---- tool/rbinstall.rb.orig	2017-03-12 08:02:52 UTC
+--- tool/rbinstall.rb.orig	2019-10-01 11:06:27 UTC
 +++ tool/rbinstall.rb
 @@ -694,110 +694,6 @@ end
  
