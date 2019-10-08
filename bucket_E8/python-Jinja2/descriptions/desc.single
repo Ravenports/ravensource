@@ -1,18 +1,50 @@
+Jinja
+=====
 
-Jinja2
-~~~~~~
+Jinja is a fast, expressive, extensible templating engine. Special
+placeholders in the template allow writing code similar to Python
+syntax. Then the template is passed data to render the final document.
 
-Jinja2 is a template engine written in pure Python.  It provides a
-`Django`_ inspired non-XML syntax but supports inline expressions and
-an optional `sandboxed`_ environment.
+It includes:
 
-Nutshell
---------
+-   Template inheritance and inclusion.
+-   Define and import macros within templates.
+-   HTML templates can use autoescaping to prevent XSS from untrusted
+    user input.
+-   A sandboxed environment can safely render untrusted templates.
+-   AsyncIO support for generating templates and calling async
+    functions.
+-   I18N support with Babel.
+-   Templates are compiled to optimized Python code just-in-time and
+    cached, or can be compiled ahead-of-time.
+-   Exceptions point to the correct line in templates to make debugging
+    easier.
+-   Extensible filters, tests, functions, and even syntax.
 
-Here a small example of a Jinja template::
+Jinja's philosophy is that while application logic belongs in Python if
+possible, it shouldn't make the template designer's job difficult by
+restricting functionality too much.
 
-    {% extends 'base.html' %}
-    {% block title %}Memberlist{% endblock %}
+
+Installing
+----------
+
+Install and update using `pip`_:
+
+.. code-block:: text
+
+    $ pip install -U Jinja2
+
+.. _pip: https://pip.pypa.io/en/stable/quickstart/
+
+
+In A Nutshell
+-------------
+
+.. code-block:: jinja
+
+    {% extends "base.html" %}
+    {% block title %}Members{% endblock %}
     {% block content %}
       <ul>
       {% for user in users %}
@@ -21,16 +53,15 @@ Here a small example of a Jinja template::
       </ul>
     {% endblock %}
 
-Philosophy
-----------
 
-Application logic is for the controller but don't try to make the life
-for the template designer too hard by giving him too few functionality.
+Links
+-----
 
-For more informations visit the new `Jinja2 webpage`_ and `documentation`_.
-
-.. _sandboxed: https://en.wikipedia.org/wiki/Sandbox_(computer_security)
-.. _Django: https://www.djangoproject.com/
-.. _Jinja2 webpage: http://jinja.pocoo.org/
-.. _documentation: http://jinja.pocoo.org/2/documentation/
+-   Website: https://palletsprojects.com/p/jinja/
+-   Documentation: https://jinja.palletsprojects.com/
+-   Releases: https://pypi.org/project/Jinja2/
+-   Code: https://github.com/pallets/jinja
+-   Issue tracker: https://github.com/pallets/jinja/issues
+-   Test status: https://dev.azure.com/pallets/jinja/_build
+-   Official chat: https://discord.gg/t6rrQZH
 
