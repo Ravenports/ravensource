@@ -1,4 +1,4 @@
---- src/nvim/os/process.c.orig	2019-07-03 01:11:42 UTC
+--- src/nvim/os/process.c.orig	2019-09-16 02:36:35 UTC
 +++ src/nvim/os/process.c
 @@ -12,13 +12,13 @@
  # include <tlhelp32.h>  // for CreateToolhelp32Snapshot
@@ -16,7 +16,7 @@
  # include <sys/param.h>
  #endif
  
-@@ -155,6 +155,9 @@ int os_proc_children(int ppid, int **pro
+@@ -146,6 +146,9 @@ int os_proc_children(int ppid, int **pro
  # elif defined(__FreeBSD__)
  #  define KP_PID(o) o.ki_pid
  #  define KP_PPID(o) o.ki_ppid

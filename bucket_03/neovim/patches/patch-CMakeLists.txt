@@ -1,7 +1,7 @@
---- CMakeLists.txt.orig	2019-07-03 01:11:42 UTC
+--- CMakeLists.txt.orig	2019-09-16 02:36:35 UTC
 +++ CMakeLists.txt
-@@ -283,17 +283,6 @@ if(HAS_WVLA_FLAG)
-   add_definitions(-Wvla)
+@@ -302,18 +302,6 @@ if(HAS_WVLA_FLAG)
+   add_compile_options(-Wvla)
  endif()
  
 -if(UNIX)
@@ -10,15 +10,16 @@
 -  check_c_compiler_flag(-fstack-protector HAS_FSTACK_PROTECTOR_FLAG)
 -
 -  if(HAS_FSTACK_PROTECTOR_STRONG_FLAG)
--    add_definitions(-fstack-protector-strong)
+-    add_compile_options(-fstack-protector-strong)
 -  elseif(HAS_FSTACK_PROTECTOR_FLAG)
--    add_definitions(-fstack-protector --param ssp-buffer-size=4)
+-    add_compile_options(-fstack-protector --param ssp-buffer-size=4)
 -  endif()
 -endif()
- 
+-
  check_c_compiler_flag(-fdiagnostics-color=auto HAS_DIAG_COLOR_FLAG)
  if(HAS_DIAG_COLOR_FLAG)
-@@ -335,7 +324,7 @@ add_definitions(-DINCLUDE_GENERATED_DECL
+   if(CMAKE_GENERATOR MATCHES "Ninja")
+@@ -340,7 +328,7 @@ add_definitions(-DINCLUDE_GENERATED_DECL
  
  if(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "Clang")
    if(CMAKE_SYSTEM_NAME STREQUAL "SunOS")
