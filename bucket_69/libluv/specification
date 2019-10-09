@@ -1,0 +1,34 @@
+DEF[TAG]=		1.30.1-1
+DEF[PORTVERSION]=	${TAG:S/-/./}
+DEF[SOVERSION]=		1.30.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libluv
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		standard
+SDESC[standard]=	Bare libuv bindings for lua
+HOMEPAGE=		https://github.com/luvit/luv
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/luvit:luv:${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+BUILDRUN_DEPENDS=	libuv:single:standard
+
+USES=			cmake lua
+CMAKE_ARGS=		-DWITH_SHARED_LIBUV:BOOL=ON
+			-DBUILD_MODULE:BOOL=OFF
+			-DBUILD_SHARED_LIBS:BOOL=ON
+			-DWITH_LUA_ENGINE=Lua
+			-DLUA_BUILD_TYPE=System
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libluv.so
