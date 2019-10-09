@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.7.15
+DEF[PORTVERSION]=	0.7.16
 DEF[SOVERSION]=		8.0.10
 # ----------------------------------------------------------------------------
 
@@ -33,7 +33,7 @@ BUILD_DEPENDS=		gtk-doc:single:standard
 			gperf:single:standard
 BUILDRUN_DEPENDS=	libsoup:primary:standard
 			libyaml:single:standard
-			ossp-uuid:single:standard
+			libuuid:single:standard
 			fontconfig:primary:standard
 			freetype:primary:standard
 			libarchive:single:standard
@@ -49,7 +49,6 @@ INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 
 post-patch:
-	${REINPLACE_CMD} -e "s/'uuid'/'ossp-uuid'/" ${WRKSRC}/meson.build
 	${REINPLACE_CMD} -e "s|http://docbook.sourceforge.net|http://cdn.docbook.org|" \
 		${WRKSRC}/data/meson.build
 
