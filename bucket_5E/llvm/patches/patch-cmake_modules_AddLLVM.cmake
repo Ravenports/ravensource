@@ -1,6 +1,6 @@
---- cmake/modules/AddLLVM.cmake.orig	2019-01-29 14:23:17 UTC
+--- cmake/modules/AddLLVM.cmake.orig	2019-07-12 14:40:18 UTC
 +++ cmake/modules/AddLLVM.cmake
-@@ -183,13 +183,9 @@ elseif(NOT WIN32)
+@@ -187,13 +187,9 @@ elseif(NOT WIN32)
    elseif("${stdout}" MATCHES "GNU ld")
      set(LLVM_LINKER_IS_GNULD YES)
      message(STATUS "Linker detection: GNU ld")
@@ -15,13 +15,13 @@
    endif()
  endif()
  
-@@ -218,9 +214,6 @@ function(add_link_opts target_name)
+@@ -222,9 +218,6 @@ function(add_link_opts target_name)
          # ld64's implementation of -dead_strip breaks tools that use plugins.
          set_property(TARGET ${target_name} APPEND_STRING PROPERTY
                       LINK_FLAGS " -Wl,-dead_strip")
 -      elseif(${CMAKE_SYSTEM_NAME} MATCHES "SunOS")
 -        set_property(TARGET ${target_name} APPEND_STRING PROPERTY
 -                     LINK_FLAGS " -Wl,-z -Wl,discard-unused=sections")
-       elseif(NOT WIN32 AND NOT LLVM_LINKER_IS_GOLD AND NOT ${CMAKE_SYSTEM_NAME} MATCHES "OpenBSD")
+       elseif(NOT WIN32 AND NOT LLVM_LINKER_IS_GOLD AND
+              NOT ${CMAKE_SYSTEM_NAME} MATCHES "OpenBSD|AIX")
          # Object files are compiled with -ffunction-data-sections.
-         # Versions of bfd ld < 2.23.1 have a bug in --gc-sections that breaks

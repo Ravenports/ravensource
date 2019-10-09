@@ -20,6 +20,7 @@ bin/clang-import-test
 bin/clang-offload-bundler
 bin/clang-refactor
 bin/clang-rename
+bin/clang-scan-deps
 bin/clang-tblgen
 bin/diagtool
 bin/git-clang-format
@@ -42,12 +43,15 @@ include/clang/AST/ASTConsumer.h
 include/clang/AST/ASTContext.h
 include/clang/AST/ASTContextAllocate.h
 include/clang/AST/ASTDiagnostic.h
+include/clang/AST/ASTDumper.h
 include/clang/AST/ASTDumperUtils.h
 include/clang/AST/ASTFwd.h
 include/clang/AST/ASTImporter.h
 include/clang/AST/ASTImporterLookupTable.h
+include/clang/AST/ASTImporterSharedState.h
 include/clang/AST/ASTLambda.h
 include/clang/AST/ASTMutationListener.h
+include/clang/AST/ASTNodeTraverser.h
 include/clang/AST/ASTStructuralEquivalence.h
 include/clang/AST/ASTTypeTraits.h
 include/clang/AST/ASTUnresolvedSet.h
@@ -81,6 +85,7 @@ include/clang/AST/CommentParser.h
 include/clang/AST/CommentSema.h
 include/clang/AST/CommentVisitor.h
 include/clang/AST/ComparisonCategories.h
+include/clang/AST/CurrentSourceLocExprScope.h
 include/clang/AST/DataCollection.h
 include/clang/AST/Decl.h
 include/clang/AST/DeclAccessPair.h
@@ -106,6 +111,7 @@ include/clang/AST/ExternalASTMerger.h
 include/clang/AST/ExternalASTSource.h
 include/clang/AST/FormatString.h
 include/clang/AST/GlobalDecl.h
+include/clang/AST/JSONNodeDumper.h
 include/clang/AST/LambdaCapture.h
 include/clang/AST/LexicallyOrderedRecursiveASTVisitor.h
 include/clang/AST/LocInfoType.h
@@ -161,6 +167,7 @@ include/clang/ASTMatchers/Dynamic/Registry.h
 include/clang/ASTMatchers/Dynamic/VariantValue.h
 include/clang/Analysis/AnalysisDeclContext.h
 include/clang/Analysis/AnalysisDiagnostic.h
+include/clang/Analysis/AnyCall.h
 include/clang/Analysis/BodyFarm.h
 include/clang/Analysis/CFG.h
 include/clang/Analysis/CFGStmtMap.h
@@ -169,6 +176,7 @@ include/clang/Analysis/CloneDetection.h
 include/clang/Analysis/CodeInjector.h
 include/clang/Analysis/ConstructionContext.h
 include/clang/Analysis/ProgramPoint.h
+include/clang/Analysis/RetainSummaryManager.h
 include/clang/Analysis/SelectorExtras.h
 include/clang/Analysis/Analyses/CFGReachabilityAnalysis.h
 include/clang/Analysis/Analyses/Consumed.h
@@ -262,6 +270,7 @@ include/clang/Basic/FileSystemOptions.h
 include/clang/Basic/FileSystemStatCache.h
 include/clang/Basic/FixedPoint.h
 include/clang/Basic/IdentifierTable.h
+include/clang/Basic/JsonSupport.h
 include/clang/Basic/LLVM.h
 include/clang/Basic/Lambda.h
 include/clang/Basic/LangOptions.def
@@ -269,7 +278,6 @@ include/clang/Basic/LangOptions.h
 include/clang/Basic/Linkage.h
 include/clang/Basic/MSP430Target.def
 include/clang/Basic/MacroBuilder.h
-include/clang/Basic/MemoryBufferCache.h
 include/clang/Basic/Module.h
 include/clang/Basic/ObjCRuntime.h
 include/clang/Basic/OpenCLExtensionTypes.def
@@ -323,6 +331,7 @@ include/clang/CodeGen/SwiftCallingConv.h
 include/clang/Config/config.h
 include/clang/CrossTU/CrossTUDiagnostic.h
 include/clang/CrossTU/CrossTranslationUnit.h
+include/clang/DirectoryWatcher/DirectoryWatcher.h
 include/clang/Driver/Action.h
 include/clang/Driver/Compilation.h
 include/clang/Driver/DarwinSDKInfo.h
@@ -380,11 +389,13 @@ include/clang/Frontend/VerifyDiagnosticConsumer.h
 include/clang/FrontendTool/Utils.h
 include/clang/Index/CodegenNameGenerator.h
 include/clang/Index/CommentToXML.h
+include/clang/Index/DeclOccurrence.h
 include/clang/Index/IndexDataConsumer.h
 include/clang/Index/IndexSymbol.h
 include/clang/Index/IndexingAction.h
 include/clang/Index/USRGeneration.h
 include/clang/Lex/CodeCompletionHandler.h
+include/clang/Lex/DependencyDirectivesSourceMinimizer.h
 include/clang/Lex/DirectoryLookup.h
 include/clang/Lex/ExternalPreprocessorSource.h
 include/clang/Lex/HeaderMap.h
@@ -472,6 +483,7 @@ include/clang/Serialization/AttrPCHRead.inc
 include/clang/Serialization/AttrPCHWrite.inc
 include/clang/Serialization/ContinuousRangeMap.h
 include/clang/Serialization/GlobalModuleIndex.h
+include/clang/Serialization/InMemoryModuleCache.h
 include/clang/Serialization/Module.h
 include/clang/Serialization/ModuleFileExtension.h
 include/clang/Serialization/ModuleManager.h
@@ -489,7 +501,6 @@ include/clang/StaticAnalyzer/Core/Checker.h
 include/clang/StaticAnalyzer/Core/CheckerManager.h
 include/clang/StaticAnalyzer/Core/IssueHash.h
 include/clang/StaticAnalyzer/Core/PathDiagnosticConsumers.h
-include/clang/StaticAnalyzer/Core/RetainSummaryManager.h
 include/clang/StaticAnalyzer/Core/BugReporter/BugReporter.h
 include/clang/StaticAnalyzer/Core/BugReporter/BugReporterVisitors.h
 include/clang/StaticAnalyzer/Core/BugReporter/BugType.h
@@ -520,9 +531,6 @@ include/clang/StaticAnalyzer/Core/PathSensitive/RangedConstraintManager.h
 include/clang/StaticAnalyzer/Core/PathSensitive/Regions.def
 include/clang/StaticAnalyzer/Core/PathSensitive/SMTConstraintManager.h
 include/clang/StaticAnalyzer/Core/PathSensitive/SMTConv.h
-include/clang/StaticAnalyzer/Core/PathSensitive/SMTExpr.h
-include/clang/StaticAnalyzer/Core/PathSensitive/SMTSolver.h
-include/clang/StaticAnalyzer/Core/PathSensitive/SMTSort.h
 include/clang/StaticAnalyzer/Core/PathSensitive/SValBuilder.h
 include/clang/StaticAnalyzer/Core/PathSensitive/SValVisitor.h
 include/clang/StaticAnalyzer/Core/PathSensitive/SVals.def
@@ -535,8 +543,6 @@ include/clang/StaticAnalyzer/Core/PathSensitive/SummaryManager.h
 include/clang/StaticAnalyzer/Core/PathSensitive/SymExpr.h
 include/clang/StaticAnalyzer/Core/PathSensitive/SymbolManager.h
 include/clang/StaticAnalyzer/Core/PathSensitive/Symbols.def
-include/clang/StaticAnalyzer/Core/PathSensitive/TaintManager.h
-include/clang/StaticAnalyzer/Core/PathSensitive/TaintTag.h
 include/clang/StaticAnalyzer/Core/PathSensitive/WorkList.h
 include/clang/StaticAnalyzer/Frontend/AnalysisConsumer.h
 include/clang/StaticAnalyzer/Frontend/CheckerRegistration.h
@@ -564,10 +570,12 @@ include/clang/Tooling/ASTDiff/ASTDiffInternal.h
 include/clang/Tooling/Core/Diagnostic.h
 include/clang/Tooling/Core/Lookup.h
 include/clang/Tooling/Core/Replacement.h
+include/clang/Tooling/DependencyScanning/DependencyScanningWorker.h
 include/clang/Tooling/Inclusions/HeaderIncludes.h
 include/clang/Tooling/Inclusions/IncludeStyle.h
 include/clang/Tooling/Refactoring/ASTSelection.h
 include/clang/Tooling/Refactoring/AtomicChange.h
+include/clang/Tooling/Refactoring/RangeSelector.h
 include/clang/Tooling/Refactoring/RecursiveSymbolVisitor.h
 include/clang/Tooling/Refactoring/RefactoringAction.h
 include/clang/Tooling/Refactoring/RefactoringActionRule.h
@@ -580,6 +588,9 @@ include/clang/Tooling/Refactoring/RefactoringOptionVisitor.h
 include/clang/Tooling/Refactoring/RefactoringOptions.h
 include/clang/Tooling/Refactoring/RefactoringResultConsumer.h
 include/clang/Tooling/Refactoring/RefactoringRuleContext.h
+include/clang/Tooling/Refactoring/SourceCode.h
+include/clang/Tooling/Refactoring/Stencil.h
+include/clang/Tooling/Refactoring/Transformer.h
 include/clang/Tooling/Refactoring/Extract/Extract.h
 include/clang/Tooling/Refactoring/Rename/RenamingAction.h
 include/clang/Tooling/Refactoring/Rename/SymbolName.h
@@ -587,6 +598,12 @@ include/clang/Tooling/Refactoring/Rename/SymbolOccurrences.h
 include/clang/Tooling/Refactoring/Rename/USRFinder.h
 include/clang/Tooling/Refactoring/Rename/USRFindingAction.h
 include/clang/Tooling/Refactoring/Rename/USRLocFinder.h
+include/clang/Tooling/Syntax/BuildTree.h
+include/clang/Tooling/Syntax/Nodes.h
+include/clang/Tooling/Syntax/Tokens.h
+include/clang/Tooling/Syntax/Tree.h
+lib/libclang-cpp.so
+lib/libclang-cpp.so.%%LLVM_MAJOR%%
 lib/libclang.so
 lib/libclang.so.%%LLVM_MAJOR%%
 lib/libclangARCMigrate.a
@@ -618,7 +635,6 @@ lib/libclangTooling.a
 lib/libclangToolingASTDiff.a
 lib/libclangToolingCore.a
 lib/libclangToolingInclusions.a
-lib/libclangToolingRefactor.a
 lib/clang/%%LLVM_RELEASE%%/include/__clang_cuda_builtin_vars.h
 lib/clang/%%LLVM_RELEASE%%/include/__clang_cuda_cmath.h
 lib/clang/%%LLVM_RELEASE%%/include/__clang_cuda_complex_builtins.h
@@ -639,6 +655,7 @@ lib/clang/%%LLVM_RELEASE%%/include/arm_fp16.h
 lib/clang/%%LLVM_RELEASE%%/include/arm_neon.h
 lib/clang/%%LLVM_RELEASE%%/include/armintr.h
 lib/clang/%%LLVM_RELEASE%%/include/avx2intrin.h
+lib/clang/%%LLVM_RELEASE%%/include/avx512bf16intrin.h
 lib/clang/%%LLVM_RELEASE%%/include/avx512bitalgintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/avx512bwintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/avx512cdintrin.h
@@ -651,6 +668,7 @@ lib/clang/%%LLVM_RELEASE%%/include/avx512pfintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/avx512vbmi2intrin.h
 lib/clang/%%LLVM_RELEASE%%/include/avx512vbmiintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/avx512vbmivlintrin.h
+lib/clang/%%LLVM_RELEASE%%/include/avx512vlbf16intrin.h
 lib/clang/%%LLVM_RELEASE%%/include/avx512vlbitalgintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/avx512vlbwintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/avx512vlcdintrin.h
@@ -658,7 +676,9 @@ lib/clang/%%LLVM_RELEASE%%/include/avx512vldqintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/avx512vlintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/avx512vlvbmi2intrin.h
 lib/clang/%%LLVM_RELEASE%%/include/avx512vlvnniintrin.h
+lib/clang/%%LLVM_RELEASE%%/include/avx512vlvp2intersectintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/avx512vnniintrin.h
+lib/clang/%%LLVM_RELEASE%%/include/avx512vp2intersectintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/avx512vpopcntdqintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/avx512vpopcntdqvlintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/avxintrin.h
@@ -671,6 +691,7 @@ lib/clang/%%LLVM_RELEASE%%/include/clwbintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/clzerointrin.h
 lib/clang/%%LLVM_RELEASE%%/include/cpuid.h
 lib/clang/%%LLVM_RELEASE%%/include/emmintrin.h
+lib/clang/%%LLVM_RELEASE%%/include/enqcmdintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/f16cintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/float.h
 lib/clang/%%LLVM_RELEASE%%/include/fma4intrin.h
@@ -695,6 +716,7 @@ lib/clang/%%LLVM_RELEASE%%/include/movdirintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/msa.h
 lib/clang/%%LLVM_RELEASE%%/include/mwaitxintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/nmmintrin.h
+lib/clang/%%LLVM_RELEASE%%/include/opencl-c-base.h
 lib/clang/%%LLVM_RELEASE%%/include/opencl-c.h
 lib/clang/%%LLVM_RELEASE%%/include/pconfigintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/pkuintrin.h
@@ -730,6 +752,14 @@ lib/clang/%%LLVM_RELEASE%%/include/xtestintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/cuda_wrappers/algorithm
 lib/clang/%%LLVM_RELEASE%%/include/cuda_wrappers/complex
 lib/clang/%%LLVM_RELEASE%%/include/cuda_wrappers/new
+lib/clang/%%LLVM_RELEASE%%/include/openmp_wrappers/__clang_openmp_math.h
+lib/clang/%%LLVM_RELEASE%%/include/openmp_wrappers/__clang_openmp_math_declares.h
+lib/clang/%%LLVM_RELEASE%%/include/openmp_wrappers/cmath
+lib/clang/%%LLVM_RELEASE%%/include/openmp_wrappers/math.h
+lib/clang/%%LLVM_RELEASE%%/include/ppc_wrappers/emmintrin.h
+lib/clang/%%LLVM_RELEASE%%/include/ppc_wrappers/mm_malloc.h
+lib/clang/%%LLVM_RELEASE%%/include/ppc_wrappers/mmintrin.h
+lib/clang/%%LLVM_RELEASE%%/include/ppc_wrappers/xmmintrin.h
 lib/cmake/clang/ClangConfig.cmake
 lib/cmake/clang/ClangTargets-%%CMAKE_BUILD_TYPE%%.cmake
 lib/cmake/clang/ClangTargets.cmake

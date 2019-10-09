@@ -1,21 +1,21 @@
---- lib/Driver/ToolChains/Gnu.cpp.orig	2019-01-15 21:04:36 UTC
+--- lib/Driver/ToolChains/Gnu.cpp.orig	2019-07-08 15:07:12 UTC
 +++ lib/Driver/ToolChains/Gnu.cpp
-@@ -400,6 +400,9 @@ void tools::gnutools::Linker::ConstructJ
+@@ -442,6 +442,9 @@ void tools::gnutools::Linker::ConstructJ
    }
  
-   if (!Args.hasArg(options::OPT_static)) {
+   if (!IsStatic) {
 +    CmdArgs.push_back("-rpath");
 +    CmdArgs.push_back("@RAVEN_GCC@");
 +
      if (Args.hasArg(options::OPT_rdynamic))
        CmdArgs.push_back("-export-dynamic");
  
-@@ -490,6 +493,8 @@ void tools::gnutools::Linker::ConstructJ
+@@ -543,6 +546,8 @@ void tools::gnutools::Linker::ConstructJ
  
    if (!Args.hasArg(options::OPT_nostdlib)) {
      if (!Args.hasArg(options::OPT_nodefaultlibs)) {
 +      CmdArgs.push_back("-L@RAVEN_GCC@");
 +
-       if (Args.hasArg(options::OPT_static))
+       if (IsStatic || IsStaticPIE)
          CmdArgs.push_back("--start-group");
  

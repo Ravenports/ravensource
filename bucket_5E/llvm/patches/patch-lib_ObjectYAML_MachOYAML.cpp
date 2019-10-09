@@ -1,6 +1,6 @@
---- lib/ObjectYAML/MachOYAML.cpp.orig	2017-12-18 17:38:03 UTC
+--- lib/ObjectYAML/MachOYAML.cpp.orig	2019-01-19 08:50:56 UTC
 +++ lib/ObjectYAML/MachOYAML.cpp
-@@ -22,6 +22,18 @@
+@@ -21,6 +21,18 @@
  #include <cstdint>
  #include <cstring>
  

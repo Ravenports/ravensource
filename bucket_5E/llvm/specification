@@ -80,12 +80,13 @@ post-install:
 	llvm-nm llvm-objcopy llvm-objdump llvm-opt-report llvm-pdbutil \
 	llvm-profdata llvm-rc llvm-readobj llvm-rtdyld llvm-size \
 	llvm-split llvm-stress llvm-strings llvm-symbolizer llvm-tblgen \
-	llvm-undname llvm-xray obj2yaml opt sancov sanstats \
+	llvm-undname llvm-xray llvm-jitlink llvm-lipo \
+	obj2yaml opt sancov sanstats \
 	verify-uselistorder yaml2obj FileCheck count not yaml-bench \
 	lli-child-target llvm-PerfectShuffle
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${F}
 .endfor
-.for F in libLLVM-${MAJOR}.so libLTO.so.${MAJOR} libOptRemarks.so.${MAJOR}
+.for F in libLLVM-${MAJOR}.so libLTO.so.${MAJOR} libRemarks.so.${MAJOR}
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/${F}
 .endfor
 

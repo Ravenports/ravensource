@@ -1,8 +1,8 @@
---- tools/llvm-readobj/ObjDumper.cpp.orig	2018-07-26 15:31:41 UTC
+--- tools/llvm-readobj/ObjDumper.cpp.orig	2019-06-18 14:01:03 UTC
 +++ tools/llvm-readobj/ObjDumper.cpp
-@@ -20,6 +20,18 @@
- #include "llvm/Support/ScopedPrinter.h"
+@@ -21,6 +21,18 @@
  #include "llvm/Support/raw_ostream.h"
+ #include <map>
  
 +#ifdef __sun__
 +static size_t

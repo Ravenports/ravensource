@@ -1,6 +1,6 @@
---- lib/Driver/ToolChains/DragonFly.cpp.orig	2017-07-25 18:02:57 UTC
+--- lib/Driver/ToolChains/DragonFly.cpp.orig	2019-01-19 08:50:56 UTC
 +++ lib/Driver/ToolChains/DragonFly.cpp
-@@ -70,7 +70,7 @@ void dragonfly::Linker::ConstructJob(Com
+@@ -69,7 +69,7 @@ void dragonfly::Linker::ConstructJob(Com
        CmdArgs.push_back("-Bshareable");
      else {
        CmdArgs.push_back("-dynamic-linker");
@@ -9,7 +9,7 @@
      }
      CmdArgs.push_back("--hash-style=gnu");
      CmdArgs.push_back("--enable-new-dtags");
-@@ -113,18 +113,28 @@ void dragonfly::Linker::ConstructJob(Com
+@@ -112,18 +112,28 @@ void dragonfly::Linker::ConstructJob(Com
            Args.MakeArgString(getToolChain().GetFilePath("crtbegin.o")));
    }
  
@@ -44,7 +44,7 @@
  
      if (D.CCCIsCXX()) {
        if (getToolChain().ShouldLinkCXXStdlib(Args))
-@@ -144,16 +154,7 @@ void dragonfly::Linker::ConstructJob(Com
+@@ -143,16 +153,7 @@ void dragonfly::Linker::ConstructJob(Com
          CmdArgs.push_back("-lgcc");
          CmdArgs.push_back("-lgcc_eh");
      } else {
@@ -62,7 +62,7 @@
      }
    }
  
-@@ -186,7 +187,8 @@ DragonFly::DragonFly(const Driver &D, co
+@@ -185,7 +186,8 @@ DragonFly::DragonFly(const Driver &D, co
  
    getFilePaths().push_back(getDriver().Dir + "/../lib");
    getFilePaths().push_back("/usr/lib");
@@ -72,7 +72,7 @@
  }
  
  Tool *DragonFly::buildAssembler() const {
-@@ -196,3 +198,5 @@ Tool *DragonFly::buildAssembler() const
+@@ -195,3 +197,5 @@ Tool *DragonFly::buildAssembler() const
  Tool *DragonFly::buildLinker() const {
    return new tools::dragonfly::Linker(*this);
  }

@@ -1,6 +1,6 @@
---- lib/Driver/ToolChains/FreeBSD.cpp.orig	2018-10-10 13:27:25 UTC
+--- lib/Driver/ToolChains/FreeBSD.cpp.orig	2019-04-12 14:14:58 UTC
 +++ lib/Driver/ToolChains/FreeBSD.cpp
-@@ -262,6 +262,16 @@ void freebsd::Linker::ConstructJob(Compi
+@@ -261,6 +261,16 @@ void freebsd::Linker::ConstructJob(Compi
    bool NeedsXRayDeps = addXRayRuntime(ToolChain, Args, CmdArgs);
    AddLinkerInputs(ToolChain, Inputs, Args, CmdArgs, JA);
  
@@ -17,7 +17,7 @@
    if (!Args.hasArg(options::OPT_nostdlib, options::OPT_nodefaultlibs)) {
      addOpenMPRuntime(CmdArgs, ToolChain, Args);
      if (D.CCCIsCXX()) {
-@@ -349,11 +359,11 @@ FreeBSD::FreeBSD(const Driver &D, const
+@@ -348,11 +358,11 @@ FreeBSD::FreeBSD(const Driver &D, const
      getFilePaths().push_back(getDriver().SysRoot + "/usr/lib32");
    else
      getFilePaths().push_back(getDriver().SysRoot + "/usr/lib");
