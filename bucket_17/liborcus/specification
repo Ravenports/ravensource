@@ -1,6 +1,7 @@
-# Don't upgrade past 0.13.x until libreoffice looks for version 0.14
-DEF[PORTVERSION]=	0.14.1
-DEF[ORCUS_VERSION]=	0.14
+# Don't upgrade past 0.15.x until libreoffice looks for version 0.14
+DEF[PORTVERSION]=	0.15.2
+DEF[ORCUS_VERSION]=	0.15
+DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		liborcus
@@ -23,7 +24,6 @@ OPTIONS_STANDARD=	none
 FPC_EQUIVALENT=		devel/liborcus
 
 PLIST_SUB=		VER=${ORCUS_VERSION}
-SOVERSION=		0.0.0
 
 BUILD_DEPENDS=		mdds:single:standard
 			bzip2:static:standard
@@ -38,3 +38,4 @@ CONFIGURE_ARGS=		--with-boost="{{LOCALBASE}}"
 			--disable-werror
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
