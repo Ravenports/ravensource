@@ -1,6 +1,6 @@
 - Define CLOCK_MONOTONIC_RAW if missing
 
---- src/amd/vulkan/radv_device.c.orig	2019-07-23 11:08:56 UTC
+--- src/amd/vulkan/radv_device.c.orig	2019-09-17 10:33:12 UTC
 +++ src/amd/vulkan/radv_device.c
 @@ -51,6 +51,14 @@
  #include "compiler/glsl_types.h"
