@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.17.0
+DEF[PORTVERSION]=	0.17.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		utox
@@ -39,5 +39,5 @@ RUN_DEPENDS=		gtk3:single:standard
 CMAKE_ARGS=		-DENABLE_FILTERAUDIO=Off
 DOS2UNIX_GLOB=		*
 
-post-extract:
-	${CP} ${FILESDIR}/* ${WRKSRC}/cmake/
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/utox
