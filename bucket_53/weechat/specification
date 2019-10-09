@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.5
+DEF[PORTVERSION]=	2.6
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		weechat
@@ -40,11 +40,14 @@ BUILDRUN_DEPENDS=	aspell:single:standard
 			zlib:shared:standard
 
 post-patch:
-	${REINPLACE_CMD} 's|/usr/local|${LOCALBASE}|' \
+	${GREP} -l '/usr/local' \
 		${WRKSRC}/CMakeLists.txt \
 		${WRKSRC}/src/CMakeLists.txt \
 		${WRKSRC}/src/core/CMakeLists.txt \
-		${WRKSRC}/cmake/*.cmake
+		${WRKSRC}/cmake/*.cmake | ${XARGS} \
+		${REINPLACE_CMD} 's|/usr/local|${LOCALBASE}|'
+	${REINPLACE_CMD} 's|python3|python-${PYTHON_VER}|' \
+		${WRKSRC}/cmake/FindPython.cmake
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/* \
