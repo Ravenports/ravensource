@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	20161207
-DEF[DISTPREFIX]=	igerman98
+DEF[PORTVERSION]=	20161207.7.0
+DEF[DISTPREFIX]=	aspell6
 DEF[LANGUAGE]=		standard German
 DEF[SUFFIX]=		de
 DEF[CORE_VERSION]=	EXTRACT_INFO(ASPELL_CORE_VERSION)
@@ -11,12 +11,12 @@ VERSION=		${PORTVERSION}
 KEYWORDS=		textproc
 VARIANTS=		standard
 SDESC[standard]=	Aspell ${LANGUAGE} dictionary
-HOMEPAGE=		http://j3e.de/ispell/igerman98/index.html
+HOMEPAGE=		http://aspell.net/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://j3e.de/ispell/igerman98/dict/
-DISTFILE[1]=		${DISTPREFIX}-${PORTVERSION}.tar.bz2:main
+SITES[main]=		GNU/aspell/dict/${SUFFIX}
+DISTFILE[1]=		${DISTPREFIX}-${SUFFIX}-${PORTVERSION:S/./-/g}.tar.bz2:main
 
 SPKGS[standard]=	single
 
@@ -28,23 +28,6 @@ FPC_EQUIVALENT=		german/aspell
 BUILDRUN_DEPENDS=	aspell:single:standard
 
 USES=			gmake
+MUST_CONFIGURE=		yes
+DISTNAME=		${DISTPREFIX}-${SUFFIX}-${PORTVERSION:S/./-/g}
 PLIST_SUB=		VER=${VERINST}
-DISTNAME=		${DISTPREFIX}-${PORTVERSION}
-BUILD_TARGET=		aspell/de_DE.rws
-			aspell/de_AT.rws
-			aspell/de_CH.rws
-
-do-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/share/aspell \
-		${STAGEDIR}${PREFIX}/lib/aspell-${VERINST}
-.for lang in de_DE de_AT de_CH
-	${INSTALL_DATA} ${WRKSRC}/aspell/${lang}.dat \
-		${WRKSRC}/aspell/${lang}_affix.dat \
-		${WRKSRC}/aspell/${lang}.multi \
-		${STAGEDIR}${PREFIX}/lib/aspell-${VERINST}
-	${INSTALL_DATA} ${WRKSRC}/aspell/${lang}.rws \
-		${STAGEDIR}${PREFIX}/share/aspell
-.endfor
-	${ECHO} "add de_DE.multi" > ${STAGEDIR}${PREFIX}/share/aspell/deutsch.alias
-	${ECHO} "add de_DE.multi" > ${STAGEDIR}${PREFIX}/share/aspell/german.alias
-	${ECHO} "add de_CH.multi" > ${STAGEDIR}${PREFIX}/share/aspell/swiss.alias
