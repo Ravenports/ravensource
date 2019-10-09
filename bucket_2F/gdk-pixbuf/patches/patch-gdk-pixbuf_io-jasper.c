@@ -1,4 +1,4 @@
---- gdk-pixbuf/io-jasper.c.orig	2019-02-28 16:22:57 UTC
+--- gdk-pixbuf/io-jasper.c.orig	2019-10-08 10:44:10 UTC
 +++ gdk-pixbuf/io-jasper.c
 @@ -22,6 +22,10 @@
  #include <string.h>
