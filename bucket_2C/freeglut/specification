@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	3.0.0
+DEF[PORTVERSION]=	3.2.1
+DEF[SOVERSION]=		3.11.0
 DEF[DOCS]=		download.html freeglut.html freeglut_logo.png freeglut_user_interface.html index.html ogl_sm.png progress.html structure.html
 DEF[BINS]=		CallbackMaker Fractals Fractals_random Lorenz One Resizer multi-touch shapes smooth_opengl3 spaceball subwin timer
 # ----------------------------------------------------------------------------
@@ -31,6 +32,7 @@ BUILDRUN_DEPENDS=	libGLU:single:standard
 USES=			cmake:insource mesa
 XORG_COMPONENTS=	ice x11 xi xrandr
 INSTALL_TARGET=		install/strip
+SOVERSION=		${SOVERSION}
 VAR_OPSYS[freebsd]=	LDFLAGS=-lusbhid
 			LDFLAGS=-lm
 VAR_OPSYS[sunos]=	LDFLAGS=-lrt

@@ -1,6 +1,6 @@
---- src/fg_internal.h.orig	2014-12-22 16:27:02 UTC
+--- src/fg_internal.h.orig	2019-09-25 10:08:07 UTC
 +++ src/fg_internal.h
-@@ -967,6 +967,7 @@ int         fgJoystickDetect( void );
+@@ -1067,6 +1067,7 @@ int         fgJoystickDetect( void );
  void        fgInitialiseJoysticks( void );
  void        fgJoystickClose( void );
  void        fgJoystickPollWindow( SFG_Window* window );
