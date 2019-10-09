@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.0
+DEF[PORTVERSION]=	5.0.1
 DEF[OASIS]=		http://docbook.org/xml
 DEF[DBKDIR]=		share/xml/docbook
 DEF[DBCAT_SGML]=	{{PREFIX}}/${DBKDIR}/catalog
@@ -7,26 +7,25 @@ DEF[DBCAT_XML]=		{{PREFIX}}/${DBKDIR}/catalog.xml
 
 NAMEBASE=		docbook-xml
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		textproc
 VARIANTS=		standard
 SDESC[standard]=	DocBook XML DTD
 HOMEPAGE=		http://www.oasis-open.org/docbook/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main db42 db43 db44 db45 db50
+DOWNLOAD_GROUPS=	main db42 db43 db44 db45 db501
 SITES[main]=		${OASIS}/4.1.2/
 SITES[db42]=		${OASIS}/4.2/
 SITES[db43]=		${OASIS}/4.3/
 SITES[db44]=		${OASIS}/4.4/
 SITES[db45]=		${OASIS}/4.5/
-SITES[db50]=		${OASIS}/5.0/
+SITES[db501]=		${OASIS}/5.0.1/
 DISTFILE[1]=		docbkx412.zip:main
 DISTFILE[2]=		docbook-xml-4.2.zip:db42
 DISTFILE[3]=		docbook-xml-4.3.zip:db43
 DISTFILE[4]=		docbook-xml-4.4.zip:db44
 DISTFILE[5]=		docbook-xml-4.5.zip:db45
-DISTFILE[6]=		docbook-5.0.zip:db50
+DISTFILE[6]=		docbook-${PORTVERSION}.zip:db501
 DF_INDEX=		1 2 3 4 5 6
 
 SPKGS[standard]=	single
@@ -42,9 +41,10 @@ BUILDRUN_DEPENDS=	xmlcharent:single:standard
 SKIP_BUILD=		yes
 EXTRACT_DIRTY=		1 2 3 4 5
 PLIST_SUB=		DBKDIR=${DBKDIR}
+			DBV=${PORTVERSION}
 
 post-extract:
-	${MV} ${WRKDIR}/docbook-5.0 ${WRKDIR}/docbook-xml_6
+	${MV} ${WRKDIR}/docbook-${PORTVERSION} ${WRKDIR}/docbook-xml_6
 
 pre-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/${DBKDIR}
