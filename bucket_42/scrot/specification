@@ -1,5 +1,4 @@
-DEF[SCROT_VER]=		1.1-1
-DEF[PORTVERSION]=	1.1.1
+DEF[PORTVERSION]=	1.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		scrot
@@ -11,8 +10,11 @@ HOMEPAGE=		https://tracker.debian.org/pkg/scrot
 CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://salsa.debian.org/debian/scrot/-/archive/debian/${SCROT_VER}/
-DISTFILE[1]=		scrot-debian-${SCROT_VER}.tar.bz2:main
+# SITES[main]=		https://salsa.debian.org/debian/scrot/-/
+# #                     archive/debian/${SCROT_VER}/
+# DISTFILE[1]=		scrot-debian-${SCROT_VER}.tar.bz2:main
+SITES[main]=		GITHUB/resurrecting-open-source-projects:scrot:${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
@@ -33,7 +35,7 @@ BUILDRUN_DEPENDS=	giblib:single:standard
 XORG_COMPONENTS=	x11 xfixes xcursor
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--mandir={{MANPREFIX}}/man
-DISTNAME=		scrot-debian-${SCROT_VER}
+# DISTNAME=		scrot-debian-${SCROT_VER}
 
 pre-configure:
 	(cd ${WRKSRC} && ./autogen.sh)
