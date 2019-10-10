@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.6.8
+DEF[PORTVERSION]=	1.6.9
 DEF[XNAME]=		x11
 DEF[ALTNAME]=		libX11
 # ----------------------------------------------------------------------------
@@ -47,3 +47,7 @@ post-patch:
 		${WRKSRC}/configure
 	${REINPLACE_CMD} '/^install-data-am:/,/^$$/ \
 		s/install-specDATA//' ${WRKSRC}/nls/Makefile.in
+
+post-install:
+	# already installed by xorgproto
+	${RM} -r ${STAGEDIR}${PREFIX}/include/X11/extensions
