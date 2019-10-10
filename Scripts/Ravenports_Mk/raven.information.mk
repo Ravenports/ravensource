@@ -108,9 +108,9 @@ GCC8_PHASE=			release
 # ------------------------------------------------------------------------
 
 GCC9_BRANCH=			9
-GCC9_POINT=			1.0
+GCC9_POINT=			2.0
 GCC9_VERSION=			${GCC9_BRANCH}.${GCC9_POINT}
-GCC9_SNAPSHOT=			20190503
+GCC9_SNAPSHOT=			20190812
 GCC9_BUILD_RELEASE=		yes
 GCC9_REVISION=			0
 GCC9_GNAT_UTIL_REVISION=	0
