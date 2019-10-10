@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	1.49
+DEF[PORTVERSION]=	1.50
+DEF[BANKDATE]=		20191010
+DEF[SOVERSION]=		1.5.26
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ktoblzcheck
@@ -31,9 +33,11 @@ RUN_DEPENDS=		wget:complete:standard
 
 SUB_FILES=		pkg-deinstall-single pkg-message-single
 SUB_LIST=		DATADIR={{PREFIX}}/share/ktoblzcheck
+PLIST_SUB=		BANKDATE=${BANKDATE}
 
-USES=			libtool perl
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-python
-			--with-wget={{LOCALBASE}}/bin/wget
-INSTALL_TARGET=		install-strip
+USES=			cmake python:py27
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ktoblzcheck
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libktoblzcheck.so
