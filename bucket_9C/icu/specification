@@ -1,6 +1,7 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(ICU_VERSION)
 DEF[PORTREVISION]=	EXTRACT_INFO(ICU_REVISION)
 DEF[NAMEDVERSION]=	${PORTVERSION:S/./_/g}
+DEF[FOLDER]=		${PORTVERSION:S/./-/g}
 DEF[ICUMAJOR]=		${PORTVERSION:R}
 # ----------------------------------------------------------------------------
 
@@ -14,7 +15,7 @@ HOMEPAGE=		http://site.icu-project.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://download.icu-project.org/files/icu4c/${PORTVERSION}/
+SITES[main]=		https://github.com/unicode-org/icu/releases/download/release-${FOLDER}/
 DISTFILE[1]=		icu4c-${NAMEDVERSION}-src.tgz:main
 
 SPKGS[standard]=	single
