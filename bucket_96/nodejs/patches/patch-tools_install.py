@@ -1,4 +1,4 @@
---- tools/install.py.orig	2019-08-06 20:46:26 UTC
+--- tools/install.py.orig	2019-10-01 13:32:44 UTC
 +++ tools/install.py
 @@ -151,7 +151,7 @@ def files(action):
    action(['deps/v8/tools/gdbinit'], 'share/doc/node/')
