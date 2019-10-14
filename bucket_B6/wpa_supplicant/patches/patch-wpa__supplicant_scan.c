@@ -1,4 +1,4 @@
---- wpa_supplicant/scan.c.orig	2019-04-21 07:10:22 UTC
+--- wpa_supplicant/scan.c.orig	2019-08-07 13:25:25 UTC
 +++ wpa_supplicant/scan.c
 @@ -1951,7 +1951,7 @@ struct wpabuf * wpa_scan_get_vendor_ie_m
   * better. */
