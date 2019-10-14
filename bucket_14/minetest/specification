@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.0.1
+DEF[PORTVERSION]=	5.1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		minetest
@@ -37,7 +37,7 @@ USES=			cmake gettext-tools iconv jpeg mesa
 			ncurses png pgsql:client sqlite
 CMAKE_ARGS=		-DBUILD_SERVER=TRUE
 			-DENABLE_SYSTEM_JSONCPP=TRUE
-XORG_COMPONENTS=	x11 xext xxf86vm
+XORG_COMPONENTS=	x11 xext xxf86vm sm ice
 BUILD_DEPENDS=		bzip2:static:standard
 			doxygen:single:standard
 			gmp:static:standard
@@ -54,6 +54,7 @@ BUILDRUN_DEPENDS=	bzip2:shared:standard
 			luajit:single:standard
 			openal:single:standard
 			spatialindex:single:standard
+			libGLU:single:standard
 EXRUN[client]=		minetest:data:standard
 EXRUN[server]=		minetest:data:standard
 
