@@ -1,4 +1,4 @@
---- prog/aspell.cpp.orig	2019-07-29 06:33:31 UTC
+--- prog/aspell.cpp.orig	2019-10-08 00:15:21 UTC
 +++ prog/aspell.cpp
 @@ -25,6 +25,7 @@
  # include <langinfo.h>
