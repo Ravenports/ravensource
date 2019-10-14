@@ -1,4 +1,4 @@
---- gl/stdbool.in.h.orig	2011-12-16 17:10:10 UTC
+--- gl/stdbool.in.h.orig	2018-10-09 17:21:21 UTC
 +++ gl/stdbool.in.h
 @@ -105,11 +105,6 @@ typedef bool _Bool;
          The only benefit of the enum, debuggability, is not important

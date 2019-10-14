@@ -1,4 +1,4 @@
---- gl/getopt.in.h.orig	2011-12-16 17:10:10 UTC
+--- gl/getopt.in.h.orig	2018-10-09 17:21:21 UTC
 +++ gl/getopt.in.h
 @@ -23,15 +23,6 @@
  #endif
