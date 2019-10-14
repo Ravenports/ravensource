@@ -1,10 +1,8 @@
-DEF[PORTVERSION]=	1.8.6
+DEF[PORTVERSION]=	1.9.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rdesktop
 VERSION=		${PORTVERSION}
-# retagged at github! tisk, tisk
-REVISION=		1
 KEYWORDS=		net comms
 VARIANTS=		standard
 SDESC[standard]=	RDP client - Windows NT/2000/2003 Terminal Server
@@ -29,12 +27,16 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net/rdesktop
 
+BUILD_DEPENDS=		gmp:static:standard
 BUILDRUN_DEPENDS=	libao:primary:standard
 			libsamplerate:primary:standard
 			pcsc-lite:primary:standard
+			libtasn1:primary:standard
+			nettle:primary:standard
+			gnutls:single:standard
 
 USES=			autoreconf gmake iconv pkgconfig ssl
-XORG_COMPONENTS=	x11
+XORG_COMPONENTS=	x11 xcursor xrandr
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-credssp
 			--with-ipv6
