@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.9.14
+DEF[PORTVERSION]=	0.9.15
 DEF[SOVERSION]=		7.0.2
 # ----------------------------------------------------------------------------
 
@@ -11,8 +11,8 @@ HOMEPAGE=		http://libofx.sourceforge.net/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/libofx/libofx
-DISTFILE[1]=		libofx-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/libofx:libofx:${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete primary docs
 
@@ -23,24 +23,32 @@ LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"LIBOFX_H"
-LICENSE_SOURCE=		TERMS:{{WRKSRC}}/inc/libofx.h
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/inc/libofx.h.in
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		finance/libofx
 
+BUILD_DEPENDS=		libtool:single:standard
+			gengetopt:primary:standard
+			help2man:single:standard
+			doxygen:single:standard
 BUILDRUN_DEPENDS=	OpenSP:single:standard
 			curl:primary:standard
 
 USES=			gmake iconv libtool pkgconfig gettext-runtime ssl
+			autoreconf:build
 GNOME_COMPONENTS=	libxml++26
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-doxygen
-			--disable-dot
-			--disable-gengetopt
+CONFIGURE_ARGS=		--enable-html-docs
 			--with-opensp-includes={{LOCALBASE}}/include/OpenSP
 			--with-opensp-libs={{LOCALBASE}}/lib
+SINGLE_JOB=		yes
+BUILD_TARGET=		all doc
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
+
+pre-configure:
+	cd ${WRKSRC} && sh autogen.sh
 
 post-install:
 	${RM} ${STAGEDIR}${STD_DOCDIR}/COPYING
