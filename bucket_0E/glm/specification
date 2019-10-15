@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.9.9.5
+DEF[PORTVERSION]=	0.9.9.6
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		glm
@@ -31,3 +31,28 @@ post-patch:
 		${SED} -i'' 's|#ifndef GLM_ENABLE_EXPERIMENTAL|#if 0|'
 	${SED} -i'' 's|#ifdef GLM_ENABLE_EXPERIMENTAL|#if 1|' \
 		${WRKSRC}/glm/ext.hpp
+
+do-install:
+	# from arch linux (0.9.9.6)
+	# For some stupid reason, glm upstream removed the CMake install
+	# target here: https://github.com/g-truc/glm/commit/5f352ec
+	# There is no reasoning for it. Discussion here:
+	# https://github.com/g-truc/glm/issues/947
+
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pkgconfig
+	${SED} "s/@VERSION@/${PORTVERSION}/" ${FILESDIR}/glm.pc.in \
+		> ${STAGEDIR}${PREFIX}/lib/pkgconfig/glm.pc
+
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/cmake/glm
+	${SED} "s/@VERSION@/${PORTVERSION}/" \
+		${FILESDIR}/glmConfigVersion.cmake.in \
+		> ${STAGEDIR}${PREFIX}/lib/cmake/glm/glmConfigVersion.cmake
+	${SED} "s/@VERSION@/${PORTVERSION}/" \
+		${FILESDIR}/glmConfig.cmake.in \
+		> ${STAGEDIR}${PREFIX}/lib/cmake/glm/glmConfig.cmake
+	${INSTALL_DATA} ${FILESDIR}/glmTargets.cmake \
+		${STAGEDIR}${PREFIX}/lib/cmake/glm/glmTargets.cmake
+
+	(cd ${WRKSRC} && \
+		${COPYTREE_SHARE} glm ${STAGEDIR}${PREFIX}/include)
+	${RM} ${STAGEDIR}${PREFIX}/include/glm/CMakeLists.txt
