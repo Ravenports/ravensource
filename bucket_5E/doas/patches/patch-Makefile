@@ -1,0 +1,13 @@
+--- Makefile.orig	2019-10-12 15:07:28 UTC
++++ Makefile
+@@ -23,6 +23,10 @@ ifeq ($(UNAME_S),FreeBSD)
+     CFLAGS+=-DHAVE_LOGIN_CAP_H
+     LDFLAGS+=-lutil
+ endif
++ifeq ($(UNAME_S),DragonFly)
++    CFLAGS+=-DHAVE_LOGIN_CAP_H
++    LDFLAGS+=-lutil
++endif
+ ifeq ($(UNAME_S),SunOS)
+     SAFE_PATH?=/bin:/sbin:/usr/bin:/usr/sbin:$(PREFIX)/bin:$(PREFIX)/sbin
+     GLOBAL_PATH?=/bin:/sbin:/usr/bin:/usr/sbin:$(PREFIX)/bin:$(PREFIX)/sbin
