@@ -1,6 +1,6 @@
---- include/my_compare.h.orig	2019-06-10 10:25:32 UTC
+--- include/my_compare.h.orig	2019-09-27 07:04:56 UTC
 +++ include/my_compare.h
-@@ -39,7 +39,7 @@ extern "C" {
+@@ -46,7 +46,7 @@ extern "C" {
    But beware the dependency of MI_MAX_POSSIBLE_KEY_BUFF and HA_MAX_KEY_LENGTH.
  */
  

@@ -1,10 +1,10 @@
---- router/cmake/set_rpath.cmake.orig	2019-06-25 10:23:30 UTC
+--- router/cmake/set_rpath.cmake.orig	2019-09-20 08:30:51 UTC
 +++ router/cmake/set_rpath.cmake
-@@ -137,8 +137,7 @@ ELSE()
+@@ -27,8 +27,7 @@ ELSE()
  ENDIF()
  
  SET(CMAKE_INSTALL_RPATH)
--IF(INSTALL_LAYOUT STREQUAL "STANDALONE" OR INSTALL_LAYOUT STREQUAL "WIN"
+-IF(INSTALL_LAYOUT STREQUAL "STANDALONE"
 -    OR INSTALL_LAYOUT STREQUAL "SVR4")
 +IF(FALSE)
    # rpath for lib/mysqlrouter/ plugins that want to find lib/

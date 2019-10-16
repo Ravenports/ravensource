@@ -1,6 +1,6 @@
---- sql/mysqld.cc.orig	2019-09-27 07:00:15 UTC
+--- sql/mysqld.cc.orig	2019-09-27 07:04:56 UTC
 +++ sql/mysqld.cc
-@@ -3419,7 +3419,7 @@ int warn_self_signed_ca()
+@@ -4375,7 +4375,7 @@ static void openssl_lock(int mode, opens
  static int init_ssl()
  {
  #ifdef HAVE_OPENSSL

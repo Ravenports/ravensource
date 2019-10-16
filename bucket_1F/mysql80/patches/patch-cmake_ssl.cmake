@@ -1,6 +1,6 @@
---- cmake/ssl.cmake.orig	2019-06-25 10:23:30 UTC
+--- cmake/ssl.cmake.orig	2019-09-20 08:30:51 UTC
 +++ cmake/ssl.cmake
-@@ -310,7 +310,7 @@ MACRO (MYSQL_CHECK_SSL)
+@@ -220,7 +220,7 @@ MACRO (MYSQL_CHECK_SSL)
      IF(OPENSSL_INCLUDE_DIR AND
         OPENSSL_LIBRARY   AND
         CRYPTO_LIBRARY      AND
@@ -9,7 +9,7 @@
        )
        SET(OPENSSL_FOUND TRUE)
        FIND_PROGRAM(OPENSSL_EXECUTABLE openssl
-@@ -395,7 +395,7 @@ ENDMACRO()
+@@ -305,7 +305,7 @@ ENDMACRO()
  # then copy the dlls to runtime_output_directory, and add INSTALL them.
  # Currently only relevant for Windows, Mac and Linux.
  MACRO(MYSQL_CHECK_SSL_DLLS)

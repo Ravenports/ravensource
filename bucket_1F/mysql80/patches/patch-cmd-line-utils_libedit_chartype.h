@@ -1,4 +1,4 @@
---- extra/libedit/chartype.h.orig	2019-06-25 10:23:30 UTC
+--- extra/libedit/chartype.h.orig	2019-09-20 08:30:51 UTC
 +++ extra/libedit/chartype.h
 @@ -49,7 +49,7 @@
    TODO : Verify if FreeBSD & AIX stores ISO 10646 in wchar_t. */
