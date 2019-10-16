@@ -1,6 +1,6 @@
---- solenv/gbuild/platform/unxgcc.mk.orig	2019-04-10 10:10:51 UTC
+--- solenv/gbuild/platform/unxgcc.mk.orig	2019-09-18 14:12:06 UTC
 +++ solenv/gbuild/platform/unxgcc.mk
-@@ -45,8 +45,7 @@ gb_CFLAGS := \
+@@ -52,8 +52,7 @@ endif
  gb_CXXFLAGS := \
  	$(gb_CXXFLAGS_COMMON) \
  	-fPIC \
@@ -8,5 +8,5 @@
 -	-Woverloaded-virtual \
 +	$(CXXFLAGS_WARN) \
  	$(CXXFLAGS_CXX11) \
- 
+ 	$(gb_CXX_LINKFLAGS) \
  

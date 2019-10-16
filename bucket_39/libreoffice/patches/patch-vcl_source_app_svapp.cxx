@@ -1,6 +1,6 @@
---- vcl/source/app/svapp.cxx.orig	2019-04-10 10:10:51 UTC
+--- vcl/source/app/svapp.cxx.orig	2019-09-18 14:12:06 UTC
 +++ vcl/source/app/svapp.cxx
-@@ -1103,7 +1103,7 @@ OUString Application::GetHWOSConfInfo()
+@@ -1163,7 +1163,7 @@ OUString Application::GetHWOSConfInfo()
          aDetails.append( VclResId(SV_APP_DEFAULT) );
      aDetails.append( "; " );
  
