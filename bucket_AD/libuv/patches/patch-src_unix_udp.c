@@ -1,38 +1,20 @@
---- src/unix/udp.c.orig	2019-09-09 16:53:10 UTC
+--- src/unix/udp.c.orig	2019-10-16 18:53:28 UTC
 +++ src/unix/udp.c
-@@ -664,6 +664,9 @@ static int uv__udp_set_source_membership
+@@ -653,7 +653,7 @@ static int uv__udp_set_membership6(uv_ud
+ }
+ 
+ 
+-#if !defined(__OpenBSD__) && !defined(__NetBSD__)
++#if !defined(__OpenBSD__) && !defined(__NetBSD__) && !defined(__DragonFly__)
+ static int uv__udp_set_source_membership4(uv_udp_t* handle,
+                                           const struct sockaddr_in* multicast_addr,
                                            const char* interface_addr,
-                                           const struct sockaddr_in* source_addr,
-                                           uv_membership membership) {
-+#ifdef __DragonFly__
-+    return UV_EINVAL;
-+#else
-   struct ip_mreq_source mreq;
-   int optname;
+@@ -842,7 +842,7 @@ int uv_udp_set_source_membership(uv_udp_
+                                  const char* interface_addr,
+                                  const char* source_addr,
+                                  uv_membership membership) {
+-#if !defined(__OpenBSD__) && !defined(__NetBSD__)
++#if !defined(__OpenBSD__) && !defined(__NetBSD__) && !defined(__DragonFly__)
    int err;
-@@ -701,6 +704,7 @@ static int uv__udp_set_source_membership
-   }
- 
-   return 0;
-+#endif
- }
- 
- 
-@@ -709,6 +713,9 @@ static int uv__udp_set_source_membership
-                                           const char* interface_addr,
-                                           const struct sockaddr_in6* source_addr,
-                                           uv_membership membership) {
-+#ifdef __DragonFly__
-+    return UV_EINVAL;
-+#else
-   struct group_source_req mreq;
-   struct sockaddr_in6 addr6;
-   int optname;
-@@ -748,6 +755,7 @@ static int uv__udp_set_source_membership
-   }
- 
-   return 0;
-+#endif
- }
- 
- 
+   struct sockaddr_storage mcast_addr;
+   struct sockaddr_in* mcast_addr4;
