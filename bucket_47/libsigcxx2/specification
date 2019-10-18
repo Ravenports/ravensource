@@ -1,9 +1,9 @@
-DEF[PORTVERSION]=	3.0.0
+DEF[PORTVERSION]=	2.10.2
 DEF[FOLDER]=		${PORTVERSION:R}
 DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		libsigcxx
+NAMEBASE=		libsigcxx2
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
 VARIANTS=		standard
@@ -27,11 +27,13 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/sigc++/sigc++.h
 LICENSE_SCHEME=		solo
 
+FPC_EQUIVALENT=		devel/libsigc++20
+
 USES=			gmake libtool perl:build c++:primary
 DISTNAME=		libsigc++-${PORTVERSION}
 INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
-PLIST_SUB=		API_VERSION="3.0"
+PLIST_SUB=		API_VERSION="2.0"
 SOVERSION=		${SOVERSION}
 
 post-patch:
