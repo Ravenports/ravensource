@@ -28,7 +28,7 @@
      }
 -#endif
      return aKernelVer;
-+#elsif defined(__FreeBSD__) || defined(__DragonFly__)
++#elif defined(__FreeBSD__) || defined(__DragonFly__)
 +    struct utsname stName;
 +
 +    if ( uname( &stName ) != 0 )
