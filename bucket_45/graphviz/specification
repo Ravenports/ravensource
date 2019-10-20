@@ -97,7 +97,7 @@ post-patch:
 		-e 's| $$(pkgdatadir)/doc| ${STD_DOCDIR}|' \
 		-e 's| $$(pkgdatadir)/demo| ${STD_EXAMPLESDIR}|' \
 		-e 's| $$(datadir)/@PACKAGE@/demo| ${STD_EXAMPLESDIR}|';
-	${CP} ${FILESDIR}/version.m4 ${WRKSRC}/version.m4
+	(cd ${WRKSRC} && ${SH} ${WRKSRC}/autogen.sh)
 
 post-patch-freebsd:
 	${REINPLACE_CMD} -e 's|SF_FLAGS|SFIO_FLAGS|g' ${WRKSRC}/lib/sfio/*.[ch]; \
