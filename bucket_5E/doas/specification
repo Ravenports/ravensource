@@ -24,19 +24,13 @@ LICENSE=		BSD2CLAUSE:single
 LICENSE_SCHEME=		solo
 LICENSE_FILE=		BSD2CLAUSE:{{WRKDIR}}/LICENSE
 
-# FreeBSD's based on a fork, not comparable
-# FPC_EQUIVALENT=		security/doas
+# FreeBSD's based on a slicer69, not comparable
+FPC_EQUIVALENT=		security/doas
 
 BUILD_DEPENDS=		byacc:single:standard
 BUILDRUN_DEPENDS=	openpam:single:standard
 
 USES=			gmake
-# BUILD_TARGET=		doas
-
-# post-patch:
-# #	${REINPLACE_CMD} -e 's|/etc/doas.conf|${PREFIX}&|g' \
-# #		${WRKSRC}/doas.c
-# #	${REINPLACE_CMD} -e 's/-Werror//' ${WRKSRC}/Makefile
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/doas ${STAGEDIR}${PREFIX}/bin
