@@ -43,3 +43,6 @@ INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 PLIST_SUB=		VERSION=${VTE_VERSION}
 SOVERSION=		${SOVERSION}
+
+post-patch:
+	${REINPLACE_CMD} -e 's|linux|skipx|' ${WRKSRC}/src/pty.cc
