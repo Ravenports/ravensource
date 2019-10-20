@@ -1,11 +1,12 @@
 DEF[PORTVERSION]=	4.20.2
-DEF[RELEASE]=		208
-DEF[RFILE]=		02
-DEF[SOVERSION]=		60.19.1
+DEF[FOLDER]=		108
+DEF[SOVERSION]=		60.19.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gwenhywfar
 VERSION=		${PORTVERSION}
+# new download scheme, rerolled to fix DISTNAME, SOVERSION
+REVISION=		1
 KEYWORDS=		devel net security
 VARIANTS=		standard
 SDESC[standard]=	Networking and security application library
@@ -13,7 +14,7 @@ HOMEPAGE=		http://gwenhywfar.sourceforge.net/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://www.aquamaniac.de/sites/download/download.php?package=01&release=${RELEASE}&file=${RFILE}&dummy=/
+SITES[main]=		https://www.aquamaniac.de/rdm/attachments/download/${FOLDER}/
 DISTFILE[1]=		gwenhywfar-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	complete primary gtk2 gtk3 qt5
@@ -57,9 +58,6 @@ EXRUN[gtk3]=		gwenhywfar:primary:standard
 
 EXRUN[qt5]=		gwenhywfar:primary:standard
 			qt5-qtbase:primary:standard
-
-# Seems that the 4.20.1 tarball still uses 4.20.0 for the directory...
-DISTNAME=		gwenhywfar-4.20.0
 
 USES=			gmake iconv libtool pkgconfig ssl gettext-tools
 MUST_CONFIGURE=		gnu
