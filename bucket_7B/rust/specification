@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.37.0
+DEF[PORTVERSION]=	1.38.0
 DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
 # ----------------------------------------------------------------------------
 
@@ -14,15 +14,15 @@ DOWNLOAD_GROUPS=	main dflyboot
 SITES[main]=		https://static.rust-lang.org/dist/
 SITES[dflyboot]=	https://leaf.dragonflybsd.org/~marino/dports-src/rust/
 DISTFILE[1]=		rustc-${PORTVERSION}-src.tar.xz:main
-DISTFILE[2]=		rustc-1.36.0-x86_64-unknown-dragonfly.tar.zst:dflyboot
-DISTFILE[3]=		rust-std-1.36.0-x86_64-unknown-dragonfly.tar.zst:dflyboot
-DISTFILE[4]=		cargo-0.37.0-x86_64-unknown-dragonfly.tar.zst:dflyboot
-DISTFILE[5]=		rustc-1.36.0-x86_64-unknown-freebsd.tar.gz:main
-DISTFILE[6]=		rust-std-1.36.0-x86_64-unknown-freebsd.tar.gz:main
-DISTFILE[7]=		cargo-0.37.0-x86_64-unknown-freebsd.tar.gz:main
-DISTFILE[8]=		rustc-1.36.0-x86_64-unknown-linux-gnu.tar.gz:main
-DISTFILE[9]=		rust-std-1.36.0-x86_64-unknown-linux-gnu.tar.gz:main
-DISTFILE[10]=		cargo-0.37.0-x86_64-unknown-linux-gnu.tar.gz:main
+DISTFILE[2]=		rustc-1.37.0-x86_64-unknown-dragonfly.tar.zst:dflyboot
+DISTFILE[3]=		rust-std-1.37.0-x86_64-unknown-dragonfly.tar.zst:dflyboot
+DISTFILE[4]=		cargo-0.38.0-x86_64-unknown-dragonfly.tar.zst:dflyboot
+DISTFILE[5]=		rustc-1.37.0-x86_64-unknown-freebsd.tar.gz:main
+DISTFILE[6]=		rust-std-1.37.0-x86_64-unknown-freebsd.tar.gz:main
+DISTFILE[7]=		cargo-0.38.0-x86_64-unknown-freebsd.tar.gz:main
+DISTFILE[8]=		rustc-1.37.0-x86_64-unknown-linux-gnu.tar.gz:main
+DISTFILE[9]=		rust-std-1.37.0-x86_64-unknown-linux-gnu.tar.gz:main
+DISTFILE[10]=		cargo-0.38.0-x86_64-unknown-linux-gnu.tar.gz:main
 DF_INDEX=		1
 
 SPKGS[standard]=	single
@@ -73,15 +73,14 @@ MAKE_ENV=		LD_LIBRARY_PATH={{WRKDIR}}/bootstrap/lib
 			OPENSSL_DIR="{{OPENSSLBASE}}"
 			HOME="{{WRKDIR}}"
 INSTALL_REQ_TOOLCHAIN=	yes
-# SHEBANG_FILES=
-# # src/llvm-project/compiler-rt/lib/sanitizer_common/symbolizer/scripts/*.sh
-# #	src/llvm-project/compiler-rt/lib/asan/scripts/asan_device_setup
-# #	src/llvm-project/compiler-rt/lib/tsan/*.sh
-# #	src/llvm-project/compiler-rt/lib/fuzzer/scripts/*.py
-# #	src/llvm-project/compiler-rt/lib/dfsan/scripts/build-libc-list.py
-# #	src/llvm-project/compiler-rt/lib/sanitizer_common/scripts/*.py
-# #	src/llvm-project/compiler-rt/lib/asan/scripts/asan_symbolize.py
-SHEBANG_FILES=		src/libcore/unicode/unicode.py
+SHEBANG_FILES=		src/llvm-project/compiler-rt/lib/sanitizer_common/symbolizer/scripts/*.sh
+			src/llvm-project/compiler-rt/lib/asan/scripts/asan_device_setup
+			src/llvm-project/compiler-rt/lib/tsan/*.sh
+			src/llvm-project/compiler-rt/lib/fuzzer/scripts/*.py
+			src/llvm-project/compiler-rt/lib/dfsan/scripts/build-libc-list.py
+			src/llvm-project/compiler-rt/lib/sanitizer_common/scripts/*.py
+			src/llvm-project/compiler-rt/lib/asan/scripts/asan_symbolize.py
+			src/libcore/unicode/unicode.py
 
 BLOCK_WATCHDOG=		yes
 
@@ -94,10 +93,10 @@ post-patch:
 	${REINPLACE_CMD} -e 's/"files":{[^}]*}/"files":{}/' \
 		 ${WRKSRC}/vendor/*/.cargo-checksum.json
 
-	# for rust 1.37 bootstrap built with libressl 2.8
-	(cd ${LOCALBASE}/libressl/lib && \
-		${LN} -s libssl.so libssl.so.46 && \
-		${LN} -s libcrypto.so libcrypto.so.44)
+# #	# for rust 1.37 bootstrap built with libressl 2.8
+# #	(cd ${LOCALBASE}/libressl/lib && \
+# #		${LN} -s libssl.so libssl.so.46 && \
+# #		${LN} -s libcrypto.so libcrypto.so.44)
 
 post-configure:
 	${MKDIR} ${WRKDIR}/bootstrap
