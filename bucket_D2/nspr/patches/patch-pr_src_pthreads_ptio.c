@@ -16,11 +16,3 @@
      || defined(OPENBSD) || defined(BSDI) || defined(NTO) \
      || defined(DARWIN) || defined(UNIXWARE) || defined(RISCOS) \
      || defined(SYMBIAN)
-@@ -5036,6 +5038,7 @@ PR_IMPLEMENT(PRInt32) PR_Select(
- 
-     if (timeout == PR_INTERVAL_NO_TIMEOUT) {
-         tvp = NULL;
-+        start = 0; /* Not needed, but shuts down a warning */
-     } else {
-         tv.tv_sec = (PRInt32)PR_IntervalToSeconds(timeout);
-         tv.tv_usec = (PRInt32)PR_IntervalToMicroseconds(
