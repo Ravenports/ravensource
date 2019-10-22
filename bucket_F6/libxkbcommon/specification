@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.8.4
+DEF[PORTVERSION]=	0.9.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libxkbcommon
@@ -22,21 +22,18 @@ FPC_EQUIVALENT=		x11/libxkbcommon
 
 B_DEPS[sunos]=		libbsd4sol:single:standard
 
-USES=			bison gmake libtool
+USES=			bison meson
 XORG_COMPONENTS=	xcb xorgproto
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--without-doxygen
-			--with-default-rules="xorg"
-			--with-x-locale-root={{PREFIX}}/lib/X11/locale
-INSTALL_TARGET=		install-strip
+MESON_ARGS=		-Dx-locale-root={{PREFIX}}/lib/X11/locale
+			-Ddefault-rules=xorg
+			-Denable-wayland=false
+			-Denable-docs=false
 INSTALL_REQ_TOOLCHAIN=	yes
 
 VAR_OPSYS[sunos]=	CFLAGS=-I{{LOCALBASE}}/include/bsd
 
 post-patch:
 	${REINPLACE_CMD} -e '/version-script=/ s/script=/script,/' \
-		${WRKSRC}/Makefile.in \
-		${WRKSRC}/configure \
 		${WRKSRC}/meson.build
 	${REINPLACE_CMD} \
 		-e 's|DFLT_XKB_CONFIG_ROOT|"${PREFIX}/share/X11/xkb"|' \
