@@ -1,6 +1,6 @@
---- configure.orig	2019-04-04 07:43:48 UTC
+--- configure.orig	2019-10-15 09:06:15 UTC
 +++ configure
-@@ -4355,7 +4355,7 @@ else
+@@ -4366,7 +4366,7 @@ else
              CC_DBG_FLAGS_TO_TRY="-gdwarf-2 -g3 -O0"
          fi
          ;;
@@ -9,7 +9,7 @@
          if test $ac_cv_c_compiler_gnu = yes; then
              CC_OPT_FLAGS_TO_TRY="-O2"
              CC_DBG_FLAGS_TO_TRY="-gdwarf-2 -g3 -O0"
-@@ -5143,7 +5143,7 @@ if test "${enable_threadsafe+set}" = set
+@@ -5154,7 +5154,7 @@ if test "${enable_threadsafe+set}" = set
  fi
  
  if test x$enable_threadsafe = xyes ; then
@@ -18,7 +18,7 @@
  fi
  
  
-@@ -5435,7 +5435,7 @@ done
+@@ -5446,7 +5446,7 @@ done
  OBJDIR_BSDMAKE_WORKAROUND=obj
  
  case `uname` in
@@ -27,7 +27,7 @@
          OBJDIR_BSDMAKEWORKAOROUND="notobj"
          ;;
  esac
-@@ -5805,7 +5805,6 @@ if ${ac_cv_lib_dl_dlopen+:} false; then
+@@ -5816,7 +5816,6 @@ if ${ac_cv_lib_dl_dlopen+:} false; then
    $as_echo_n "(cached) " >&6
  else
    ac_check_lib_save_LIBS=$LIBS
@@ -35,7 +35,7 @@
  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
  
-@@ -5838,7 +5837,7 @@ $as_echo "$ac_cv_lib_dl_dlopen" >&6; }
+@@ -5849,7 +5848,7 @@ $as_echo "$ac_cv_lib_dl_dlopen" >&6; }
  if test "x$ac_cv_lib_dl_dlopen" = xyes; then :
    ac_fn_c_check_header_mongrel "$LINENO" "dlfcn.h" "ac_cv_header_dlfcn_h" "$ac_includes_default"
  if test "x$ac_cv_header_dlfcn_h" = xyes; then :
@@ -44,7 +44,7 @@
  fi
  
  
-@@ -10041,42 +10040,42 @@ if test x$enable_threadsafe = xyes; then
+@@ -10263,42 +10262,42 @@ if test x$enable_threadsafe = xyes; then
  
    for ntsdev in $NTS_DEVS ; do
      NTS_EXCLUDES="$(echo \"$P_DEVS0{@:0}\" | grep -o $ntsdev) $NTS_EXCLUDES"
@@ -95,7 +95,7 @@
    done
  
    NTS_EXCLUDES=`echo "$NTS_EXCLUDES" | tr " " "\n" | sort | uniq | tr "\n" " "`
-@@ -10184,7 +10183,7 @@ else
+@@ -10406,7 +10405,7 @@ else
        DLL_EXT=".dll"
        SO_LIB_VERSION_SEPARATOR="-"
      ;;
@@ -104,7 +104,7 @@
        DYNAMIC_CFLAGS="-fPIC"
        GS_DYNAMIC_LDFLAGS="-shared -Wl,\$(LD_SET_DT_SONAME)\$(LDFLAGS_SO_PREFIX)\$(GS_SONAME_MAJOR)"
        PCL_DYNAMIC_LDFLAGS="-shared -Wl,\$(LD_SET_DT_SONAME)\$(LDFLAGS_SO_PREFIX)\$(PCL_SONAME_MAJOR)"
-@@ -10250,8 +10249,13 @@ if test "${enable_dynamic+set}" = set; t
+@@ -10472,8 +10471,13 @@ if test "${enable_dynamic+set}" = set; t
        OPT_CFLAGS="$DYNAMIC_CFLAGS $OPT_CFLAGS"
        DBG_CFLAGS="$DYNAMIC_CFLAGS $DBG_CFLAGS"
        ;;
