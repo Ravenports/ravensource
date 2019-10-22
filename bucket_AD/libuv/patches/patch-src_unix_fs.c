@@ -1,4 +1,4 @@
---- src/unix/fs.c.orig	2019-10-16 18:53:28 UTC
+--- src/unix/fs.c.orig	2019-10-19 21:32:27 UTC
 +++ src/unix/fs.c
 @@ -884,7 +884,6 @@ static ssize_t uv__fs_sendfile(uv_fs_t*
  static ssize_t uv__fs_utime(uv_fs_t* req) {
