@@ -1,4 +1,4 @@
---- vendor/openssl-sys/src/crypto.rs.orig	2019-07-03 09:36:21 UTC
+--- vendor/openssl-sys/src/crypto.rs.orig	2019-08-13 08:30:02 UTC
 +++ vendor/openssl-sys/src/crypto.rs
 @@ -15,7 +15,13 @@ cfg_if! {
      if #[cfg(ossl110)] {

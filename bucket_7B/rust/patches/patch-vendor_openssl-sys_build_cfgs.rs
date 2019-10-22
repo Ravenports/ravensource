@@ -1,4 +1,4 @@
---- vendor/openssl-sys/build/cfgs.rs.orig	2019-07-03 09:36:21 UTC
+--- vendor/openssl-sys/build/cfgs.rs.orig	2019-08-13 08:30:02 UTC
 +++ vendor/openssl-sys/build/cfgs.rs
 @@ -13,6 +13,9 @@ pub fn get(openssl_version: Option<u64>,
          if libressl_version >= 0x2_07_00_00_0 {

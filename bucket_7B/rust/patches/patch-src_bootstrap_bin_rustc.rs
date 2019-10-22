@@ -1,6 +1,6 @@
---- src/bootstrap/bin/rustc.rs.orig	2019-07-03 08:00:00 UTC
+--- src/bootstrap/bin/rustc.rs.orig	2019-08-13 06:27:22 UTC
 +++ src/bootstrap/bin/rustc.rs
-@@ -239,7 +239,7 @@ fn main() {
+@@ -254,7 +254,7 @@ fn main() {
              } else if !target.contains("windows") &&
                        !target.contains("wasm32") &&
                        !target.contains("fuchsia") {
