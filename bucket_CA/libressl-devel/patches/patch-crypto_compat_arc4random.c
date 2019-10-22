@@ -1,4 +1,4 @@
---- crypto/compat/arc4random.c.orig	2019-05-16 02:26:02 UTC
+--- crypto/compat/arc4random.c.orig	2019-10-15 19:30:30 UTC
 +++ crypto/compat/arc4random.c
 @@ -88,7 +88,7 @@ _rs_stir(void)
  	u_char rnd[KEYSZ + IVSZ];
