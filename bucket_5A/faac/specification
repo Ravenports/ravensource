@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	1.29.9.2
+DEF[PORTVERSION]=	1.30
+DEF[DASH]=		-1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		faac
@@ -10,26 +11,27 @@ HOMEPAGE=		https://www.audiocoding.com/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/faac/faac-src/faac-${PORTVERSION:R:R}
-DISTFILE[1]=		faac-${PORTVERSION}.tar.gz:main
+SITES[main]=		https://salsa.debian.org/multimedia-team/faac/-/archive/debian/${PORTVERSION}${DASH}/
+DISTFILE[1]=		faac-debian-${PORTVERSION}${DASH}.tar.bz2:main
 
 SPKGS[standard]=	single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2:single
-			LGPL21+:single
+LICENSE=		LGPL21+:single
 			CUSTOM1:single
-LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
-			LGPL21+:{{WRKSRC}}/COPYING
-			CUSTOM1:{{WRKSRC}}/README
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+			CUSTOM1:{{WRKDIR}}/ORIG-LICENSE
 LICENSE_NAME=		CUSTOM1:"ISO/IEC14496 LICENSE"
+LICENSE_TERMS=		single:{{WRKSRC}}/README
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libfaac/filtbank.c
+LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		audio/faac
 
-USES=			gmake libtool
+USES=			gmake libtool autoreconf
 INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
-
+DISTNAME=		faac-debian-${PORTVERSION}${DASH}
