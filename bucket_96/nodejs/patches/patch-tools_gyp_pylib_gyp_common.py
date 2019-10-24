@@ -1,6 +1,6 @@
---- tools/gyp/pylib/gyp/common.py.orig	2019-10-21 07:32:22 UTC
+--- tools/gyp/pylib/gyp/common.py.orig	2019-10-23 09:52:41 UTC
 +++ tools/gyp/pylib/gyp/common.py
-@@ -423,6 +423,8 @@ def GetFlavor(params):
+@@ -426,6 +426,8 @@ def GetFlavor(params):
      return 'freebsd'
    if sys.platform.startswith('dragonfly'):
      return 'freebsd'
