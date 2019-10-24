@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	2.8.8
+DEF[PORTVERSION]=	2.9.0
+DEF[DASH]=		-1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		faad2
@@ -10,13 +11,18 @@ HOMEPAGE=		https://www.audiocoding.com/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/faac/faad2-src/faad2-${PORTVERSION:R}.0
-DISTFILE[1]=		faad2-${PORTVERSION}.tar.gz:main
+SITES[main]=		https://salsa.debian.org/multimedia-team/faad2/-/archive/debian/${PORTVERSION}${DASH}/
+DISTFILE[1]=		faad2-debian-${PORTVERSION}${DASH}.tar.gz:main
 
 SPKGS[standard]=	single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:single
+LICENSE_TERMS=		single:{{WRKSRC}}/README
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		audio/faad
 
@@ -24,6 +30,7 @@ USES=			autoreconf gmake libtool
 MUST_CONFIGURE=		gnu
 LDFLAGS=		-lpthread
 CFLAGS=			-D__GNU_LIBRARY__=1
+DISTNAME=		faad2-debian-${PORTVERSION}${DASH}
 
 post-extract:
 	${LN} -sf faad.man ${WRKSRC}/frontend/faad.1
@@ -31,15 +38,6 @@ post-extract:
 post-patch:
 	${REINPLACE_CMD} -e 's|faad.man|faad.1|g' \
 		${WRKSRC}/frontend/Makefile.am
-	${REINPLACE_CMD} -e 's|^AM_CFLAGS|AM_CPPFLAGS|g ; \
-		 s|-iquote |-I|g' ${WRKSRC}/libfaad/Makefile.am
-	${REINPLACE_CMD} -e 's|= -DUSE_|= -fPIC -DPIC -DUSE_|g' \
-		${WRKSRC}/common/mp4ff/Makefile.am
-	${ECHO_CMD} "SUBDIRS = libfaad common frontend" > \
-		${WRKSRC}/Makefile.am
-
-post-configure:
-	${REINPLACE_CMD} "s/444/644/g" ${WRKSRC}/common/mp4ff/Makefile
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libfaad.${LIBEXT}
