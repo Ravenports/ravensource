@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	0.4.0
+DEF[PORTVERSION]=	0.5.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		devilutionX
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		games
 VARIANTS=		standard
 SDESC[standard]=	Reverse-engineered Diablo 1 engine made portable
@@ -30,7 +29,7 @@ BUILDRUN_DEPENDS=	libsodium:single:standard
 USES=			cmake pkgconfig dos2unix
 DOS2UNIX_FILES=		CMakeLists.txt
 SDL_COMPONENTS=		mixer2 ttf2
-
+CMAKE_ARGS=		-DBINARY_RELEASE:BOOL=ON
 SUB_FILES=		pkg-message-single
 
 do-install:
