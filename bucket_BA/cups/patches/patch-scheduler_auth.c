@@ -1,6 +1,6 @@
---- scheduler/auth.c.orig	2019-03-22 19:51:36 UTC
+--- scheduler/auth.c.orig	2019-08-23 15:19:38 UTC
 +++ scheduler/auth.c
-@@ -451,7 +451,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I
+@@ -441,7 +441,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I
  
      peersize = sizeof(peercred);
  
@@ -9,7 +9,7 @@
      if (getsockopt(httpGetFd(con->http), 0, LOCAL_PEERCRED, &peercred, &peersize))
  #  else
      if (getsockopt(httpGetFd(con->http), SOL_SOCKET, SO_PEERCRED, &peercred, &peersize))
-@@ -849,7 +849,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I
+@@ -839,7 +839,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I
  
        peersize = sizeof(peercred);
  

@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.2.12
+DEF[PORTVERSION]=	2.3.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		cups
@@ -76,8 +76,8 @@ post-patch:
 	${FIND} ${WRKSRC}/doc ${WRKSRC}/templates -type f -exec ${SED} -i'' \
 		's|http://www.cups.org|https://www.cups.org|g' {} +
 	${REINPLACE_CMD} '/stripopt=/s/-x//' ${WRKSRC}/install-sh
-	${REINPLACE_CMD} 's|/etc/cups|${LOCALBASE}/etc/cups|g' \
-		${WRKSRC}/man/*.man*
+	${GREP} -l '/etc/cups/' ${WRKSRC}/man/*.[1-7] | ${XARGS} \
+		${REINPLACE_CMD} 's|/etc/cups|${LOCALBASE}/etc/cups|g'
 	${REINPLACE_CMD} -e 's|\.default|.sample|'\
 		-e 's|-g .(.*_GROUP)||g' \
 		${WRKSRC}/cgi-bin/admin.c\

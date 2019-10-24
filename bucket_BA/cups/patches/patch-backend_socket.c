@@ -1,6 +1,6 @@
---- backend/socket.c.orig	2019-03-22 19:51:36 UTC
+--- backend/socket.c.orig	2019-08-23 15:19:38 UTC
 +++ backend/socket.c
-@@ -297,7 +297,6 @@ main(int  argc,				/* I - Number of comm
+@@ -292,7 +292,6 @@ main(int  argc,				/* I - Number of comm
    */
  
    fprintf(stderr, "DEBUG: Connecting to %s:%d\n", hostname, port);
@@ -8,7 +8,7 @@
  
    for (delay = 5;;)
    {
-@@ -377,7 +376,6 @@ main(int  argc,				/* I - Number of comm
+@@ -372,7 +371,6 @@ main(int  argc,				/* I - Number of comm
    }
  
    fputs("STATE: -connecting-to-device\n", stderr);
@@ -16,7 +16,7 @@
  
    fprintf(stderr, "DEBUG: Connected to %s:%d...\n",
  	  httpAddrString(&(addr->addr), addrname, sizeof(addrname)),
-@@ -408,7 +406,7 @@ main(int  argc,				/* I - Number of comm
+@@ -403,7 +401,7 @@ main(int  argc,				/* I - Number of comm
        tbytes = bytes;
  
      if (print_fd != 0 && tbytes >= 0)
@@ -25,7 +25,7 @@
    }
  
    fputs("STATE: +cups-waiting-for-job-completed\n", stderr);
-@@ -419,7 +417,7 @@ main(int  argc,				/* I - Number of comm
+@@ -414,7 +412,7 @@ main(int  argc,				/* I - Number of comm
      * Shutdown the socket and wait for the other end to finish...
      */
  

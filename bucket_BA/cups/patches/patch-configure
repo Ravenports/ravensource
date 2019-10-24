@@ -1,6 +1,6 @@
---- configure.orig	2019-03-22 19:51:36 UTC
+--- configure.orig	2019-08-23 15:19:38 UTC
 +++ configure
-@@ -5775,7 +5775,7 @@ fi
+@@ -5691,7 +5691,7 @@ fi
  
  
  case $host_os_name in
@@ -9,7 +9,7 @@
                  ARFLAGS="-rcv"
                  ;;
          *)
-@@ -5871,7 +5871,6 @@ if test "${with_dbusdir+set}" = set; the
+@@ -5787,7 +5787,6 @@ if test "${with_dbusdir+set}" = set; the
  fi
  
  
@@ -17,7 +17,7 @@
  DBUS_NOTIFIER=""
  DBUS_NOTIFIERLIBS=""
  
-@@ -6435,7 +6434,7 @@ _ACEOF
+@@ -6358,7 +6357,7 @@ _ACEOF
  # Locale data
  if test "$localedir" = "\${datarootdir}/locale"; then
  	case "$host_os_name" in
@@ -26,7 +26,7 @@
  			CUPS_LOCALEDIR="$datarootdir/locale"
  			;;
  
-@@ -6489,11 +6488,15 @@ _ACEOF
+@@ -6412,11 +6411,15 @@ _ACEOF
  
  # Server executables...
  case "$host_os_name" in
@@ -43,7 +43,7 @@
  	*)
  		# All others
  		INSTALL_SYSV="install-sysv"
-@@ -6550,7 +6553,7 @@ fi
+@@ -6473,7 +6476,7 @@ fi
  
  if test "$mandir" = "\${prefix}/man" -a "$prefix" = "/"; then
  	case "$host_os_name" in
@@ -51,40 +51,17 @@
 +        	darwin* | linux* | gnu* | *bsd* | dragonfly* | solaris*)
          		# Darwin, macOS, Linux, GNU HURD, and *BSD
          		mandir="/usr/share/man"
-         		AMANDIR="/usr/share/man"
-@@ -6572,22 +6575,6 @@ fi
- 
- 
- case "$host_os_name" in
--	sunos*)
--		# Solaris
--		MAN1EXT=1
--		MAN5EXT=5
--		MAN7EXT=7
--		MAN8EXT=1m
--		MAN8DIR=1m
--		;;
--	linux* | gnu* | darwin*)
--		# Linux, GNU Hurd, and macOS
--		MAN1EXT=1.gz
--		MAN5EXT=5.gz
--		MAN7EXT=7.gz
--		MAN8EXT=8.gz
--		MAN8DIR=8
--		;;
- 	*)
- 		# All others
- 		MAN1EXT=1
-@@ -6628,7 +6615,7 @@ if test x$enable_shared != xno; then
+         		;;
+@@ -6511,7 +6514,7 @@ if test x$enable_shared != xno; then
  			DSOXX="\$(CXX)"
- 			DSOFLAGS="$DSOFLAGS -Wl,-h\`basename \$@\` -G \$(OPTIM)"
+ 			DSOFLAGS="$DSOFLAGS -Wl,-h\`basename \$@\` -G"
  			;;
 -		linux* | gnu* | *bsd*)
 +		linux* | gnu* | *bsd* | dragonfly*)
  			LIBCUPS="lib$cupsbase.so.2"
- 			LIBCUPSIMAGE="libcupsimage.so.2"
- 			DSO="\$(CC)"
-@@ -6709,12 +6696,11 @@ if test "$DSO" != ":"; then
+ 			if test "x$cupsimagebase" != x; then
+ 				LIBCUPSIMAGE="lib$cupsimagebase.so.2"
+@@ -6585,12 +6588,11 @@ if test "$DSO" != ":"; then
  				EXPORT_LDFLAGS="-R$libdir"
  			fi
  			;;
@@ -98,7 +75,7 @@
  			fi
  			;;
                  linux* | gnu*)
-@@ -6914,13 +6900,13 @@ if test -n "$GCC"; then
+@@ -6806,13 +6808,13 @@ if test -n "$GCC"; then
      		OPTIM="-fPIC $OPTIM"
  	fi
  
@@ -116,7 +93,7 @@
  	cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
  
-@@ -6937,7 +6923,7 @@ if ac_fn_c_try_link "$LINENO"; then :
+@@ -6829,7 +6831,7 @@ if ac_fn_c_try_link "$LINENO"; then :
  			# Can't use stack-protector with LSB binaries...
  			OPTIM="$OPTIM -fno-stack-protector"
  		else
@@ -125,7 +102,7 @@
  		fi
  		{ $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
  $as_echo "yes" >&6; }
-@@ -8733,13 +8719,7 @@ fi
+@@ -8568,13 +8570,7 @@ fi
  			PAMLIBS="-lpam"
  		fi
  
