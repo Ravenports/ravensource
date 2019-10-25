@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	8.2.1
+DEF[PORTVERSION]=	8.3
 DEF[SUFFIX]=		${PORTVERSION:S/.//g}
 # ----------------------------------------------------------------------------
 
@@ -25,8 +25,9 @@ NOT_FOR_ARCH=		aarch64
 
 BUILD_DEPENDS=		expat:static:standard
 BUILDRUN_DEPENDS=	expat:shared:standard
+			source-highlight:primary:standard
 
-USES=			cpe iconv gmake libtool readline python:py36
+USES=			cpe iconv gmake libtool readline pkgconfig python:py36
 CPE_VENDOR=		gnu
 MUST_CONFIGURE=		gnu
 CONFIGURE_ENV=		CONFIGURED_M4=m4
@@ -43,6 +44,7 @@ CONFIGURE_ARGS=		--program-suffix=${SUFFIX}
 			--with-libexpat-prefix={{LOCALBASE}}
 			--without-libunwind-ia64
 			--with-python={{PYTHON_CMD}}
+			--with-source-highlight
 CFLAGS=			-DRL_NO_COMPAT
 			-D__STDC_CONSTANT_MACROS
 			-D__STDC_LIMIT_MACROS
@@ -57,10 +59,10 @@ post-patch:
 		${WRKSRC}/gdb/version.in
 
 post-patch-dragonfly:
-	${CP} ${OPSYSDIR}/dfly64.mh  ${WRKSRC}/gdb/config/i386/
-	${CP} ${OPSYSDIR}/dfly-nat.* ${WRKSRC}/gdb/
-	${CP} ${OPSYSDIR}/i386*      ${WRKSRC}/gdb/
-	${CP} ${OPSYSDIR}/amd64*     ${WRKSRC}/gdb/
+	${CP} ${OPSYSDIR}/dfly-tdep.* ${WRKSRC}/gdb/
+	${CP} ${OPSYSDIR}/dfly-nat.*  ${WRKSRC}/gdb/
+	${CP} ${OPSYSDIR}/i386*       ${WRKSRC}/gdb/
+	${CP} ${OPSYSDIR}/amd64*      ${WRKSRC}/gdb/
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/gdb/gdb \
