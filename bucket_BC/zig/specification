@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	0.4.0
+DEF[PORTVERSION]=	0.5.0
+DEF[TSE_HASH]=		7468055
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		zig
@@ -10,7 +11,8 @@ HOMEPAGE=		https://ziglang.org/
 CONTACT=		Tse_[tse@tse.gratis]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/ziglang:zig:${PORTVERSION}
+# SITES[main]=		GITHUB/ziglang:zig:${PORTVERSION}
+SITES[main]=		GITHUB/tse-gratis:zig:${TSE_HASH}
 DISTFILE[1]=		generated:main
 SPKGS[standard]=	single
 
@@ -22,29 +24,18 @@ LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 ONLY_FOR_OPSYS=		freebsd dragonfly netbsd linux
+
+BROKEN[dragonfly]=	Assertion failed: (ActualSize >= (NumVecElements * ElementSize) && "Invalid vector size")
+
 BUILDRUN_DEPENDS=	llvm:single:standard
 			clang:compiler:standard
 			lld:single:standard
 RUN_DEPENDS=		libcxx:primary:standard
+
 USES=			cmake
-
-BROKEN[all]=		zig requires llvm 8, but llvm has been upgraded to 9
-
-post-extract:
-	${MKDIR} ${WRKSRC}/zig-cache
-	${MKDIR} ${WRKSRC}/std/os/dragonfly
-	${MV}    ${FILESDIR}/c_dragonfly.zig  ${WRKSRC}/std/c/dragonfly.zig
-	${MV}    ${FILESDIR}/os_dragonfly.zig ${WRKSRC}/std/os/dragonfly.zig
-	${MV}    ${FILESDIR}/errno.zig        ${WRKSRC}/std/os/dragonfly/
-	# native_libc.txt needs fixing up with os-specific values
-	# could use os-patches, but it's effectively the same, at-least until os testing!!
-	# ${MV}    ${FILESDIR}/native_libc.txt  ${WRKSRC}/zig-cache/
-	cat ${FILESDIR}/native_libc.txt|sed "s/DragonFly/`uname`/" > ${WRKSRC}/zig-cache/native_libc.txt
+INSTALL_REQ_TOOLCHAIN=	yes
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/zig
-	rm -r        ${STAGEDIR}/construction
-
-# ${MV}        ${WRKSRC}/zig-cache/langref.html release/
-# :<c-r>. set buffer tabstop 8
-# sudo ravenadm dev buildsheet ~/Packages/zig save
+	# remove empty directory
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/zig/std/unicode
