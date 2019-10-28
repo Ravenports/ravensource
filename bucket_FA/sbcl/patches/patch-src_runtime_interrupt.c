@@ -1,8 +1,8 @@
---- src/runtime/interrupt.c.orig	2019-06-29 18:37:44 UTC
+--- src/runtime/interrupt.c.orig	2019-10-26 11:03:42 UTC
 +++ src/runtime/interrupt.c
-@@ -68,6 +68,10 @@
- #include "genesis/simple-fun.h"
+@@ -69,6 +69,10 @@
  #include "genesis/cons.h"
+ #include "genesis/vector.h"
  
 +#ifndef SIGRTMIN
 +#define SIGRTMIN 50
