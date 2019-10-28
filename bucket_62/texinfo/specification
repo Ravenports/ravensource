@@ -1,4 +1,7 @@
-DEF[PORTVERSION]=	6.6
+DEF[PORTVERSION]=	6.7
+DEF[DATE_HTMLXREF]=	20190611
+DEF[DATE_TEXI2DVI]=	20190818
+DEF[DATE_TEXINFO_TEX]=	20190924
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		texinfo
@@ -14,9 +17,9 @@ DOWNLOAD_GROUPS=	main dports
 SITES[main]=		GNU/texinfo
 SITES[dports]=		https://leaf.dragonflybsd.org/~marino/dports-src/texinfo/${PORTVERSION}/
 DISTFILE[1]=		texinfo-${PORTVERSION}.tar.xz:main
-DISTFILE[2]=		htmlxref.cnf:dports
-DISTFILE[3]=		texinfo.tex:dports
-DISTFILE[4]=		texi2dvi:dports
+DISTFILE[2]=		htmlxref.cnf-${DATE_HTMLXREF}:dports
+DISTFILE[3]=		texinfo.tex-${DATE_TEXINFO_TEX}:dports
+DISTFILE[4]=		texi2dvi-${DATE_TEXI2DVI}:dports
 DIST_SUBDIR=		texinfo/${PORTVERSION}
 DF_INDEX=		1 2 3 4
 
@@ -55,8 +58,10 @@ INSTALL_REQ_TOOLCHAIN=	yes
 
 post-patch:
 	${CHMOD} 755 ${WRKSRC}/build-aux/install-sh
-	${CP} ${DISTDIR}/${DIST_SUBDIR}/texinfo.tex ${WRKSRC}/doc/
-	${INSTALL_SCRIPT} ${DISTDIR}/${DIST_SUBDIR}/texi2dvi ${WRKSRC}/util/
+	${CP} ${DISTDIR}/${DIST_SUBDIR}/texinfo.tex-${DATE_TEXINFO_TEX} \
+		${WRKSRC}/doc/texinfo.txt
+	${INSTALL_SCRIPT} ${DISTDIR}/${DIST_SUBDIR}/texi2dvi-${DATE_TEXI2DVI} \
+		${WRKSRC}/util/texi2dvi
 	${REINPLACE_CMD} -e '/rm -f $$(DESTDIR)/ s|$$| $$(DESTDIR)$$(xsdir)/XSParagraph.*|' \
 		${WRKSRC}/tp/Texinfo/XS/Makefile.in
 	${REINPLACE_CMD} -e 's|free (.*)|Safe&|' ${WRKSRC}/tp/Texinfo/XS/misc.c

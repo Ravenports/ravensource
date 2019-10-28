@@ -1,4 +1,4 @@
---- tp/Texinfo/XS/parsetexi/Parser-5556.pm.orig	2019-02-16 17:11:56 UTC
+--- tp/Texinfo/XS/parsetexi/Parser-5556.pm.orig	2019-09-23 18:31:55 UTC
 +++ tp/Texinfo/XS/parsetexi/Parser-5556.pm
 @@ -5438,12 +5438,12 @@ sub _parse_special_misc_command($$$$)
          }
