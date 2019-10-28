@@ -1,13 +1,13 @@
-DEF[PORTVERSION]=	0.29.1
-DEF[WAF_TAG]=		1.9.8
-DEF[SOVERSION]=		1.101.0
-# should be "python_default", py37 doesn't work though
-DEF[PY_BUILD]=		py36
+DEF[PORTVERSION]=	0.30.0
+DEF[WAF_TAG]=		2.0.8
+DEF[SOVERSION]=		1.106.0
+# previously was py36 -- if python_default doesn't work then
+# the WAF_TAG should be updated
+DEF[PY_BUILD]=		python_default
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mpv
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		standard
 SDESC[standard]=	Advanced general-purpose multimedia player
@@ -39,7 +39,6 @@ BUILDRUN_DEPENDS=	ffmpeg:primary:standard
 			libarchive:single:standard
 			libass:single:standard
 			libdvdnav:single:standard
-			libdvdread:single:standard
 			libvdpau:single:standard
 			libva:single:standard
 			uchardet:single:standard
@@ -64,16 +63,13 @@ CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
 			--enable-libarchive
 			--enable-html
 			--enable-dvdnav
-			--enable-dvdread
 			--enable-sdl2
-			--enable-zsh-comp
 			--disable-debug-build
 			--disable-optimize
 			--disable-pdf
 			--disable-rubberband
 			--disable-vaapi-wayland
 			--disable-vapoursynth
-			--disable-vapoursynth-lazy
 			--disable-wayland
 			--disable-alsa
 			--disable-caca
