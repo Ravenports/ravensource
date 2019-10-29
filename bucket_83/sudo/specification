@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.8.27
+DEF[PORTVERSION]=	1.8.29
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		sudo
@@ -61,11 +61,6 @@ post-install:
 	${INSTALL_DATA} ${FILESDIR}/pam.conf \
 		${STAGEDIR}${PREFIX}/etc/pam.d/sudo.default
 	${RM} ${STAGEDIR}${PREFIX}/etc/sudoers
-	(cd ${STAGEDIR}${PREFIX}/share/man && \
-		${RMDIR} man[158] && \
-		${MV} cat1 man1 && \
-		${MV} cat8 man8 && \
-		${MV} cat5 man5)
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/sudoreplay
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/sbin/visudo
 .for f in group_file.so libsudo_util.so sudoers.so system_group.so
