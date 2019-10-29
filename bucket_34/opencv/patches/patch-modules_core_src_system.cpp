@@ -1,15 +1,15 @@
---- modules/core/src/system.cpp.orig	2018-12-21 14:31:20 UTC
+--- modules/core/src/system.cpp.orig	2019-10-09 11:42:29 UTC
 +++ modules/core/src/system.cpp
-@@ -94,7 +94,7 @@ void* allocSingletonBuffer(size_t size)
+@@ -96,7 +96,7 @@ void* allocSingletonNewBuffer(size_t siz
  #include <cstdlib>        // std::abort
  #endif
  
--#if defined __ANDROID__ || defined __linux__ || defined __FreeBSD__ || defined __HAIKU__
-+#if defined __ANDROID__ || defined __linux__ || defined __FreeBSD__ || defined __HAIKU__ || defined __DragonFly__ || defined __sun__
+-#if defined __ANDROID__ || defined __linux__ || defined __FreeBSD__ || defined __OpenBSD__ || defined __HAIKU__
++#if defined __ANDROID__ || defined __linux__ || defined __FreeBSD__ || defined __OpenBSD__ || defined __HAIKU__ || defined __DragonFly__ || defined __sun__
  #  include <unistd.h>
  #  include <fcntl.h>
  #  include <elf.h>
-@@ -202,7 +202,7 @@ std::wstring GetTempFileNameWinRT(std::w
+@@ -204,7 +204,7 @@ std::wstring GetTempFileNameWinRT(std::w
  #include "omp.h"
  #endif
  
