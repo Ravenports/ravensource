@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.5.3
+DEF[PORTVERSION]=	3.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		postgis
@@ -32,7 +32,7 @@ BUILDRUN_DEPENDS=	pcre:shared:standard
 			gdal:single:standard
 			json-c:single:standard
 
-USES=			gmake iconv libtool:keepla perl:build pkgconfig
+USES=			gmake iconv libtool perl:build pkgconfig
 			shebangfix gettext-tools gettext-runtime
 			pgsql:server,contrib
 GNOME_COMPONENTS=	libxml2 gtk2
@@ -46,6 +46,7 @@ CONFIGURE_ARGS=		{{ICONV_CONFIGURE_BASE}}
 			--with-gdalconfig={{LOCALBASE}}/bin/gdal-config
 PLIST_SUB=		VERSION=${PORTVERSION}
 			XDOTY=${PORTVERSION:R}
+			X=${PORTVERSION:R:R}
 
 [SFCGAL].DESCRIPTION=			Build with sfcgal support
 [SFCGAL].CONFIGURE_ARGS_ON=		--with-sfcgal={{LOCALBASE}}/bin/sfcgal-config
@@ -57,12 +58,8 @@ post-patch:
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/postgresql/*.so
 	(cd ${WRKSRC}/extras/tiger_geocoder && \
 		${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/share/postgis/tiger_geocoder )
 	(cd ${WRKSRC}/utils/ && \
 		${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/share/postgis/utils )
-	${RM} ${STAGEDIR}${PREFIX}/share/postgis/utils/*.in
-	${RM} ${STAGEDIR}${PREFIX}/share/postgis/utils/uninstall_script
-	${RM} ${STAGEDIR}${PREFIX}/share/postgis/utils/Makefile
