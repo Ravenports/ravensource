@@ -8,6 +8,7 @@ DEF[PLUGIN_VER]=	${PORTVERSION:R}
 
 NAMEBASE=		wireshark
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net
 VARIANTS=		standard
 SDESC[standard]=	Network traffic analyzer
@@ -22,6 +23,13 @@ SPKGS[standard]=	complete primary docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+			BSD3CLAUSE:primary
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_FILE=		GPLv2+:{{WRKDIR}}/GPL2
+			BSD3CLAUSE:{{WRKDIR}}/BSD_LICENSE
+LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		net/wireshark
 
@@ -48,6 +56,8 @@ BUILDRUN_DEPENDS=	lz4:shared:standard
 USES=			cpe gmake cmake ssl:openssl-devel zlib qt5
 			lua:5.2 perl:build python:build pkgconfig
 			gettext-tools gettext-runtime
+			mime-info:primary
+			desktop-utils:primary
 GNOME_COMPONENTS=	glib libxml2
 CMAKE_ARGS=		-DBUILD_wireshark:BOOL=ON
 			-DBUILD_tshark:BOOL=ON
@@ -88,6 +98,13 @@ PLIST_SUB=		SO_WIRETAP=${SO_WIRETAP}
 # manually set until a framework fix is found
 MAKE_ARGS=		DESTDIR={{STAGEDIR}}
 
+post-extract:
+	${AWK} '/^Part I:$$/,/^The full text of the GNU GPL/' \
+		${WRKSRC}/COPYING > ${WRKDIR}/TERMS
+	${AWK} '/^Part II:$$/,/^Public License instead of this License./' \
+		${WRKSRC}/COPYING > ${WRKDIR}/GPL2
+	${AWK} '/^Part III:$$/,/^---------------/' \
+		${WRKSRC}/COPYING > ${WRKDIR}/BSD_LICENSE
 
 post-patch:
 	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|' \
