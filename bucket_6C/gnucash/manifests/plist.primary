@@ -23,7 +23,6 @@ include/gnucash/Transaction.h
 include/gnucash/account-quickfill.h
 include/gnucash/assistant-xml-encoding.h
 include/gnucash/basiccell.h
-include/gnucash/business-helpers.h
 include/gnucash/business-options.h
 include/gnucash/cap-gains.h
 include/gnucash/cashobjects.h
@@ -289,6 +288,7 @@ lib/gnucash/scm/ccache/2.2/prefs.go
 lib/gnucash/scm/ccache/2.2/report-utilities.go
 lib/gnucash/scm/ccache/2.2/report.go
 lib/gnucash/scm/ccache/2.2/simple-obj.go
+lib/gnucash/scm/ccache/2.2/trep-engine.go
 lib/gnucash/scm/ccache/2.2/txf-de_DE.go
 lib/gnucash/scm/ccache/2.2/txf-help-de_DE.go
 lib/gnucash/scm/ccache/2.2/txf-help.go
@@ -343,6 +343,7 @@ lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/advanced-portfolio.go
 lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/average-balance.go
 lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/balance-forecast.go
 lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/balance-sheet.go
+lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/balsheet-pnl.go
 lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/budget-balance-sheet.go
 lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/budget-barchart.go
 lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/budget-flow.go
@@ -360,6 +361,7 @@ lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/income-statement.go
 lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/net-charts.go
 lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/portfolio.go
 lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/price-scatter.go
+lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/reconcile-report.go
 lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/register.go
 lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/sx-summary.go
 lib/gnucash/scm/ccache/2.2/gnucash/report/standard-reports/transaction.go
@@ -596,6 +598,22 @@ share/gnucash/accounts/fr_FR/acctchrt_renter.gnucash-xea
 share/gnucash/accounts/fr_FR/acctchrt_retiremt.gnucash-xea
 share/gnucash/accounts/fr_FR/acctchrt_spouseinc.gnucash-xea
 share/gnucash/accounts/fr_FR/acctchrt_spouseretire.gnucash-xea
+share/gnucash/accounts/he/acctchrt_brokerage.gnucash-xea
+share/gnucash/accounts/he/acctchrt_business.gnucash-xea
+share/gnucash/accounts/he/acctchrt_carloan.gnucash-xea
+share/gnucash/accounts/he/acctchrt_cdmoneymkt.gnucash-xea
+share/gnucash/accounts/he/acctchrt_checkbook.gnucash-xea
+share/gnucash/accounts/he/acctchrt_childcare.gnucash-xea
+share/gnucash/accounts/he/acctchrt_common.gnucash-xea
+share/gnucash/accounts/he/acctchrt_eduloan.gnucash-xea
+share/gnucash/accounts/he/acctchrt_fixedassets.gnucash-xea
+share/gnucash/accounts/he/acctchrt_homeloan.gnucash-xea
+share/gnucash/accounts/he/acctchrt_homeown.gnucash-xea
+share/gnucash/accounts/he/acctchrt_otherloan.gnucash-xea
+share/gnucash/accounts/he/acctchrt_renter.gnucash-xea
+share/gnucash/accounts/he/acctchrt_retiremt.gnucash-xea
+share/gnucash/accounts/he/acctchrt_spouseinc.gnucash-xea
+share/gnucash/accounts/he/acctchrt_spouseretire.gnucash-xea
 share/gnucash/accounts/hr/acctchrt_car.gnucash-xea
 share/gnucash/accounts/hr/acctchrt_cdmoneymkt.gnucash-xea
 share/gnucash/accounts/hr/acctchrt_checkbook.gnucash-xea
@@ -978,6 +996,7 @@ share/gnucash/scm/prefs.scm
 share/gnucash/scm/report-utilities.scm
 share/gnucash/scm/report.scm
 share/gnucash/scm/simple-obj.scm
+share/gnucash/scm/trep-engine.scm
 share/gnucash/scm/txf-de_DE.scm
 share/gnucash/scm/txf-help-de_DE.scm
 share/gnucash/scm/txf-help.scm
@@ -1038,6 +1057,7 @@ share/gnucash/scm/gnucash/report/standard-reports/advanced-portfolio.scm
 share/gnucash/scm/gnucash/report/standard-reports/average-balance.scm
 share/gnucash/scm/gnucash/report/standard-reports/balance-forecast.scm
 share/gnucash/scm/gnucash/report/standard-reports/balance-sheet.scm
+share/gnucash/scm/gnucash/report/standard-reports/balsheet-pnl.scm
 share/gnucash/scm/gnucash/report/standard-reports/budget-balance-sheet.scm
 share/gnucash/scm/gnucash/report/standard-reports/budget-barchart.scm
 share/gnucash/scm/gnucash/report/standard-reports/budget-flow.scm
@@ -1055,6 +1075,7 @@ share/gnucash/scm/gnucash/report/standard-reports/income-statement.scm
 share/gnucash/scm/gnucash/report/standard-reports/net-charts.scm
 share/gnucash/scm/gnucash/report/standard-reports/portfolio.scm
 share/gnucash/scm/gnucash/report/standard-reports/price-scatter.scm
+share/gnucash/scm/gnucash/report/standard-reports/reconcile-report.scm
 share/gnucash/scm/gnucash/report/standard-reports/register.scm
 share/gnucash/scm/gnucash/report/standard-reports/sx-summary.scm
 share/gnucash/scm/gnucash/report/standard-reports/transaction.scm

@@ -1,4 +1,4 @@
-DEF[BASEVER]=		3.6
+DEF[BASEVER]=		3.7
 # DEF[DASH]=		-1
 # DEF[PORTVERSION]=	${BASEVER}${DASH:S/-/./}
 # DEF[DISTVERSION]=	${BASEVER}${DASH}
@@ -34,7 +34,8 @@ LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		finance/gnucash
 
-BROKEN[all]=		guile issue: In procedure dynamic-link: file: "libgncmod-app-utils", message: "file not found"
+# BROKEN[all]=		guile issue: In procedure dynamic-link:
+# file: "libgncmod-app-utils", message: "file not found"
 
 BUILD_DEPENDS=		gmp:static:standard
 			appstream-glib:primary:standard
@@ -104,6 +105,7 @@ post-patch:
 		-e '/gnc_gtest_configure()/d' {} +)
 	${SED} -i.flag -e '/-Wno-deprecated-register/d' \
 		${WRKSRC}/libgnucash/engine/CMakeLists.txt
+	${MKDIR} ${WRKSRC}/bin
 
 post-install:
 	(cd ${STAGEDIR}${PREFIX}/etc/gnucash && \
