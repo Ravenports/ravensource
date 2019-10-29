@@ -1,4 +1,4 @@
---- src/terminal.h.orig	2017-03-29 18:08:21 UTC
+--- src/terminal.h.orig	2018-05-25 17:50:45 UTC
 +++ src/terminal.h
 @@ -80,14 +80,6 @@ typedef struct {
  #define	A_K_DE		6

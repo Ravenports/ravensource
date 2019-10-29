@@ -1,4 +1,4 @@
---- src/sys.h.orig	2017-03-29 18:08:21 UTC
+--- src/sys.h.orig	2018-05-25 17:50:45 UTC
 +++ src/sys.h
 @@ -44,6 +44,10 @@
  #include <sys/cdefs.h>

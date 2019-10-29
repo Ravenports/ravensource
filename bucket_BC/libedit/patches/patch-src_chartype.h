@@ -1,4 +1,4 @@
---- src/chartype.h.orig	2018-05-25 18:09:38 UTC
+--- src/chartype.h.orig	2019-10-25 20:12:05 UTC
 +++ src/chartype.h
 @@ -43,7 +43,6 @@
  /* In many places it is assumed that the first 127 code points are ASCII
