@@ -62,6 +62,7 @@ post-install:
 		${STAGEDIR}${PREFIX}/etc/pam.d/sudo.default
 	${RM} ${STAGEDIR}${PREFIX}/etc/sudoers
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/sudoreplay
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/cvtsudoers
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/sbin/visudo
 .for f in group_file.so libsudo_util.so sudoers.so system_group.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/sudo/${f}
