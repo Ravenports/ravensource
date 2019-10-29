@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.4.3
+DEF[PORTVERSION]=	2.5.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		keepassxc
@@ -60,9 +60,8 @@ post-patch:
 
 do-install:
 	(cd ${WRKDIR}/.build ; \
-	make DESTDIR=${STAGEDIR} install)
-
-post-install:
+	${MAKE_CMD} DESTDIR=${STAGEDIR} install)
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/keepassxc
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/keepassxc-cli
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/keepassxc/libkeepassx-autotype-xcb.so
+	${RMDIR} ${STAGEDIR}${PREFIX}/share/keepassxc/docs/man
