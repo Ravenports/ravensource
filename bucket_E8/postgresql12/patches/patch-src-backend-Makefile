@@ -1,0 +1,11 @@
+--- src/backend/Makefile.orig	2019-09-30 20:06:55 UTC
++++ src/backend/Makefile
+@@ -113,6 +113,8 @@ endif # aix
+ 
+ $(top_builddir)/src/port/libpgport_srv.a: | submake-libpgport
+ 
++symlinks: $(top_builddir)/src/include/parser/gram.h $(top_builddir)/src/include/utils/fmgroids.h $(top_builddir)/src/include/utils/probes.h $(top_builddir)/src/include/storage/lwlocknames.h
++
+ 
+ # The postgres.o target is needed by the rule in Makefile.global that
+ # creates the exports file when MAKE_EXPORTS = true.
