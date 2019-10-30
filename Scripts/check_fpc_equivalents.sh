@@ -49,6 +49,7 @@ while read ravenport version fpc_port; do
 	gnat-util) ;;		# Different version scheme from FPC
 	gprbuild) ;;		# Different version scheme from FPC
 	apr1|apr-util) ;;	# Different version scheme from FPC
+	ImageMagick) ;;		# W.X.Y.Z rather than W.X.Y-Z
 	libcdio-paranoia) ;;	# Symbols in version fake as older
 	libunwind) ;;		# ditto
 	unrar) ;;		# ditto
