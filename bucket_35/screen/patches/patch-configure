@@ -1,6 +1,6 @@
---- configure.orig	2017-10-23 12:19:08 UTC
+--- configure.orig	2019-10-01 22:27:14 UTC
 +++ configure
-@@ -4825,63 +4825,6 @@ if ac_fn_c_try_link "$LINENO"; then :
+@@ -4756,63 +4756,6 @@ if ac_fn_c_try_link "$LINENO"; then :
  
  else
    olibs="$LIBS"
@@ -64,7 +64,7 @@
    LIBS="-lncursesw $olibs"
  { $as_echo "$as_me:${as_lineno-$LINENO}: checking libncursesw..." >&5
  $as_echo "$as_me: checking libncursesw..." >&6;}
-@@ -4966,15 +4909,6 @@ rm -f core conftest.err conftest.$ac_obj
+@@ -4897,15 +4840,6 @@ rm -f core conftest.err conftest.$ac_obj
  fi
  rm -f core conftest.err conftest.$ac_objext \
      conftest$ac_exeext conftest.$ac_ext
@@ -79,12 +79,9 @@
 -    conftest$ac_exeext conftest.$ac_ext
  
  if test "$cross_compiling" = yes; then :
-   { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
-@@ -4985,9 +4919,11 @@ else
-   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
- /* end confdefs.h.  */
+   echo "- skipping check because we are cross compiling; assuming terminfo database is used" 1>&6
+@@ -4917,7 +4851,8 @@ else
  
-+#include <curses.h>
  main()
  {
 - exit(strcmp(tgoto("%p1%d", 0, 1), "1") ? 0 : 1);
@@ -93,7 +90,7 @@
  }
  _ACEOF
  if ac_fn_c_try_run "$LINENO"; then :
-@@ -5034,7 +4970,7 @@ fi
+@@ -4967,7 +4902,7 @@ if test "$cross_compiling" = no ; then
  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for SVR4 ptys..." >&5
  $as_echo "$as_me: checking for SVR4 ptys..." >&6;}
  sysvr4ptys=
@@ -102,7 +99,7 @@
  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
  
-@@ -5145,19 +5081,16 @@ else
+@@ -5080,19 +5015,17 @@ else
  fi
  rm -f conftest*
  
@@ -121,17 +118,17 @@
 +#define PTYRANGE1 "0123456789abcdefghijklmnopqrstuv"
  _ACEOF
  
+ fi
 -fi
--
+ 
  
  # Check whether --with-pty-mode was given.
- if test "${with_pty_mode+set}" = set; then :
-@@ -5381,9 +5314,11 @@ cat confdefs.h - <<_ACEOF >conftest.$ac_
+@@ -5315,9 +5248,11 @@ cat confdefs.h - <<_ACEOF >conftest.$ac_
  
  #include <time.h> /* to get time_t on SCO */
  #include <sys/types.h>
 -#if defined(SVR4) && !defined(DGUX)
-+#if defined __DragonFly__ || defined __FreeBSD__
++#if (defined(SVR4) && !defined(DGUX)) || defined(__FreeBSD__) || defined(__DragonFly__)
  #include <utmpx.h>
  #define utmp utmpx
 +#define pututline pututxline
@@ -139,8 +136,21 @@
  #else
  #include <utmp.h>
  #endif
-@@ -5452,6 +5387,10 @@ cat confdefs.h - <<_ACEOF >conftest.$ac_
- #if defined(SVR4) && !defined(DGUX)
+@@ -5346,7 +5281,7 @@ cat confdefs.h - <<_ACEOF >conftest.$ac_
+ 
+ #include <time.h>
+ #include <sys/types.h>
+-#if defined(SVR4) && !defined(DGUX)
++#if (defined(SVR4) && !defined(DGUX)) || defined(__FreeBSD__) || defined(__DragonFly__)
+ #include <utmpx.h>
+ #define utmp utmpx
+ #else
+@@ -5383,9 +5318,13 @@ cat confdefs.h - <<_ACEOF >conftest.$ac_
+ 
+ #include <time.h>
+ #include <sys/types.h>
+-#if defined(SVR4) && !defined(DGUX)
++#if (defined(SVR4) && !defined(DGUX)) || defined(__FreeBSD__) || defined(__DragonFly__)
  #include <utmpx.h>
  #define utmp utmpx
 +#define pututline pututxline

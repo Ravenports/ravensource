@@ -1,11 +1,13 @@
---- socket.c.orig	Mon Aug 26 19:27:26 2019
-+++ socket.c	Mon Aug 26 20:13:11 2019
-@@ -26,6 +26,9 @@
+--- socket.c.orig	2019-10-01 22:08:00 UTC
++++ socket.c
+@@ -26,6 +26,11 @@
   ****************************************************************
   */
  
++#ifdef __sun__ 
 +#define _XPG6
 +#define _XOPEN_SOURCE 500
++#endif
 +
  #include "config.h"
  #include <stdbool.h>

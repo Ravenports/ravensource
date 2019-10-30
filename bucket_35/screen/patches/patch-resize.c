@@ -1,4 +1,4 @@
---- resize.c.orig	2017-10-23 11:32:41 UTC
+--- resize.c.orig	2019-10-01 22:08:00 UTC
 +++ resize.c
 @@ -683,6 +683,17 @@ int wi, he, hi;
        he = MAXWIDTH;

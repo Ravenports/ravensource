@@ -1,6 +1,6 @@
---- attacher.c.orig	2017-10-23 11:32:41 UTC
+--- attacher.c.orig	2019-10-01 22:07:59 UTC
 +++ attacher.c
-@@ -730,7 +730,7 @@ LockTerminal()
+@@ -732,7 +732,7 @@ LockTerminal()
    printf("\n");
  
    prg = getenv("LOCKPRG");
@@ -9,7 +9,7 @@
      {
        signal(SIGCHLD, SIG_DFL);
        debug1("lockterminal: '%s' seems executable, execl it!\n", prg);
-@@ -747,7 +747,11 @@ LockTerminal()
+@@ -751,7 +751,11 @@ LockTerminal()
              Panic(errno, "setuid");
  #endif
            closeallfiles(0);	/* important: /etc/shadow may be open */

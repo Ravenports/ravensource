@@ -1,4 +1,4 @@
---- screen.c.orig	2017-10-23 11:32:41 UTC
+--- screen.c.orig	2019-10-01 22:08:00 UTC
 +++ screen.c
 @@ -2214,7 +2214,7 @@ static char *pad_expand(char *buf, char
    pn2 = pn = p + padlen;
