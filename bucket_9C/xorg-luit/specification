@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.1.1
+DEF[PORTVERSION]=	20190106
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xorg-luit
@@ -6,21 +6,33 @@ VERSION=		${PORTVERSION}
 KEYWORDS=		x11
 VARIANTS=		standard
 SDESC[standard]=	Locale and ISO 2022 support for Unicode terminals
-HOMEPAGE=		https://www.x.org/wiki/
+HOMEPAGE=		https://invisible-island.net/luit/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		XORG/individual/app/
-DISTFILE[1]=		luit-${PORTVERSION}.tar.bz2:main
+SITES[main]=		http://download.openpkg.org/components/cache/luit/
+			ftp://ftp.invisible-island.net/luit/
+DISTFILE[1]=		luit-${PORTVERSION}.tgz:main
 
 SPKGS[standard]=	single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		x11/luit
 
-XORG_COMPONENTS=	fontenc
+BUILD_DEPENDS=		xorg-encodings:single:standard
+
+USES=			iconv pkgconfig
+XORG_COMPONENTS=	ice xt
 DISTNAME=		luit-${PORTVERSION}
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--datadir={{LOCALBASE}}/lib
+CONFIGURE_ARGS=		--x-libraries={{LOCALBASE}}/lib
+			--x-includes={{LOCALBASE}}/include
+			--with-encodings-dir={{LOCALBASE}}/share/fonts/encodings/encodings.dir
+			--with-locale-alias={{LOCALBASE}}/lib/X11/locale/locale.alias
+			--with-pkg-config={{LOCALBASE}}/bin/pkg-config
