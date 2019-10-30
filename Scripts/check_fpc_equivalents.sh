@@ -79,7 +79,8 @@ while read ravenport version fpc_port; do
 	GeoIP) ;;		# removed from FPC
 	libcxx) ;;		# removed from FPC
 
-	ruby26);;		# what the hell?
+	liborcus-1.4) ;;	# legacy for libreoffice
+	mdds-1.4) ;;		# legacy for libreoffice
 
 	libadalang*) ;;		# Rest are ports that FPC doesn't have yet
 	libtickit) ;;
@@ -112,6 +113,12 @@ while read ravenport version fpc_port; do
 	zig) ;;
 	libmnl) ;;
 	libnftnl) ;;
+	libsvgtiny) ;;
+	linenoise) ;;
+	libnsfb) ;;
+	elftoolchain) ;;
+	libnslog) ;;
+	libluv) ;;
 	*) echo "${ravenport} ${version}"
    esac
 done < ${tmpfile}
