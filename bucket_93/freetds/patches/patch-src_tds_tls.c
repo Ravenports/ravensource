@@ -1,4 +1,4 @@
---- src/tds/tls.c.orig	2019-02-04 19:03:20 UTC
+--- src/tds/tls.c.orig	2019-10-17 08:51:16 UTC
 +++ src/tds/tls.c
 @@ -53,6 +53,10 @@
  #include <sys/socket.h>
