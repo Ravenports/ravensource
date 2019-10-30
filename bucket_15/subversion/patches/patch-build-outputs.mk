@@ -1,4 +1,4 @@
---- build-outputs.mk.orig	2019-07-19 10:42:36 UTC
+--- build-outputs.mk.orig	2019-10-25 09:30:49 UTC
 +++ build-outputs.mk
 @@ -1354,11 +1354,11 @@ install-swig-rb-lib: subversion/bindings
  
