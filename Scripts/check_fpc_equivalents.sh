@@ -27,6 +27,7 @@ while read ravenport version fpc_port; do
 	bmake-mk-files) ;;	# unique to ravenports
 	ravenadm) ;;		# unique to ravenports
 	autoselect-*) ;;	# unique to ravenports
+	ravensw) ;;		# unique to ravenports
 
 	lockf) ;;		# for sysroot
 	bc) ;;			# for sysroot
@@ -78,6 +79,10 @@ while read ravenport version fpc_port; do
 	gps) ;;			# removed from FPC (stupidly)
 	GeoIP) ;;		# removed from FPC
 	libcxx) ;;		# removed from FPC
+	warsow*) ;;		# removed
+	llvm40) ;;		# removed
+	XML_EZ_Out) ;;		# removed
+	libsparkcrypto) ;;	# removed
 
 	liborcus-1.4) ;;	# legacy for libreoffice
 	mdds-1.4) ;;		# legacy for libreoffice
