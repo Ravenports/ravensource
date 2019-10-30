@@ -1,6 +1,6 @@
---- configure.orig	2018-12-11 17:44:34 UTC
+--- configure.orig	2019-10-01 22:31:44 UTC
 +++ configure
-@@ -469,6 +469,9 @@ numa=""
+@@ -471,6 +471,9 @@ numa=""
  tcmalloc="no"
  jemalloc="no"
  replication="yes"
@@ -10,7 +10,7 @@
  vxhs=""
  bochs="yes"
  cloop="yes"
-@@ -1097,6 +1100,10 @@ for opt do
+@@ -1099,6 +1102,10 @@ for opt do
    ;;
    --enable-vnc-png) vnc_png="yes"
    ;;
@@ -21,7 +21,7 @@
    --disable-slirp) slirp="no"
    ;;
    --disable-vde) vde="no"
-@@ -2860,6 +2867,14 @@ if ! check_include "ifaddrs.h" ; then
+@@ -2862,6 +2869,14 @@ if ! check_include "ifaddrs.h" ; then
  fi
  
  ##########################################
@@ -36,7 +36,7 @@
  # VTE probe
  
  if test "$vte" != "no"; then
-@@ -4466,11 +4481,6 @@ fi
+@@ -4515,11 +4530,6 @@ fi
  if test "$docs" != "no" ; then
    if has makeinfo && has pod2man; then
      docs=yes
@@ -48,7 +48,7 @@
    fi
  fi
  
-@@ -4984,6 +4994,50 @@ if test "$debug_stack_usage" = "yes"; th
+@@ -5033,6 +5043,50 @@ if test "$debug_stack_usage" = "yes"; th
    fi
  fi
  
@@ -99,7 +99,7 @@
  
  ##########################################
  # check if we have open_by_handle_at
-@@ -6005,6 +6059,7 @@ echo "Audio drivers     $audio_drv_list"
+@@ -6054,6 +6108,7 @@ echo "Audio drivers     $audio_drv_list"
  echo "Block whitelist (rw) $block_drv_rw_whitelist"
  echo "Block whitelist (ro) $block_drv_ro_whitelist"
  echo "VirtFS support    $virtfs"
@@ -107,7 +107,7 @@
  echo "Multipath support $mpath"
  echo "VNC support       $vnc"
  if test "$vnc" = "yes" ; then
-@@ -6240,6 +6295,15 @@ fi
+@@ -6289,6 +6344,15 @@ fi
  if test "$profiler" = "yes" ; then
    echo "CONFIG_PROFILER=y" >> $config_host_mak
  fi
@@ -123,7 +123,7 @@
  if test "$slirp" = "yes" ; then
    echo "CONFIG_SLIRP=y" >> $config_host_mak
    echo "CONFIG_SMBD_COMMAND=\"$smbd\"" >> $config_host_mak
-@@ -6471,6 +6535,9 @@ fi
+@@ -6520,6 +6584,9 @@ fi
  if test "$have_fsxattr" = "yes" ; then
      echo "HAVE_FSXATTR=y" >> $config_host_mak
  fi
