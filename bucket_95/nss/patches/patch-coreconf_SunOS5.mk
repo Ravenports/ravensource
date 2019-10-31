@@ -56,7 +56,7 @@
  
  # -KPIC generates position independent code for use in shared libraries.
  # (Similarly for -fPIC in case of gcc.)
-@@ -129,16 +125,4 @@ endif
+@@ -129,16 +125,5 @@ endif
  
  NOSUCHFILE   = /solaris-rm-f-sucks
  
@@ -73,4 +73,5 @@
 -endif
 -
 -OS_LIBS += -lthread -lnsl -lsocket -lposix4 -ldl -lc
++OS_LIBS += -lrt
 +RPATH = $(LDFLAGS) #-Wl,-rpath,$(PREFIX)/lib/nss
