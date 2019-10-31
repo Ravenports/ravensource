@@ -76,8 +76,12 @@ post-patch:
 	${REINPLACE_CMD} -e 's|COMMAND python|COMMAND ${PYTHON_VERSION}|g' \
 		${WRKSRC}/share/*/CMakeLists.txt
 	# Obtained from Arch Linux
-	${REINPLACE_CMD} -e 's|gTrue|true|g' -e 's|gFalse|false|g' -e 's|GBool|bool|g' \
-		${WRKSRC}/src/extension/internal/pdfinput/pdf-parser.*
+	${REINPLACE_CMD} \
+		-e 's|gTrue|true|g' \
+		-e 's|gFalse|false|g' \
+		-e 's|GBool|bool|g' \
+		${WRKSRC}/src/extension/internal/pdfinput/pdf-parser.cpp \
+		${WRKSRC}/src/extension/internal/pdfinput/pdf-parser.h
 	# Fix with poppler 0.73
 	${REINPLACE_CMD} -E '/#include "goo\/gtypes.h"/d' \
 		${WRKSRC}/src/extension/internal/pdfinput/pdf-parser.h
