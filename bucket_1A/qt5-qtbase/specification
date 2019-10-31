@@ -19,6 +19,7 @@ SPKGS[standard]=	complete primary docs
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+BUILD_DEPENDS=		evdev-proto:single:standard
 BUILDRUN_DEPENDS=	pcre2:primary:standard
 			harfbuzz:icu:standard
 			icu:single:standard
@@ -90,7 +91,7 @@ post-patch:
 	${INSTALL_DATA} ${WRKDIR}/qmake.conf ${WRKSRC}/mkspecs/${MKS}/
 .endfor
 	# Clean up files created by patching
-	${RM} ${WRKSRC}/mkspecs/*/*.orig
+	find ${WRKSRC}/mkspecs/ -name "*.orig" -delete
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt5/bin/qmake
