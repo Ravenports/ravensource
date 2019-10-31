@@ -10,3 +10,14 @@
  
      # Apple's ld (the only one that supports bitcode) does not like any
      # -undefined arguments at all, so don't pass these when using bitcode
+@@ -544,10 +541,6 @@ class CompilerArgs(list):
+                 if group_start < 0:
+                     # First occurrence of a library
+                     group_start = i
+-            if group_start >= 0:
+-                # Last occurrence of a library
+-                new.insert(group_end + 1, '-Wl,--end-group')
+-                new.insert(group_start, '-Wl,--start-group')
+         # Remove system/default include paths added with -isystem
+         if hasattr(self.compiler, 'get_default_include_dirs'):
+             default_dirs = self.compiler.get_default_include_dirs()
