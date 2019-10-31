@@ -156,6 +156,8 @@ determine_variants() {
         ;;
      sphinxcontrib-adadomain) # same
         ;;
+     raet) # required ioflo is 3.7+ now
+        ;;
      *)
         exec_setup python2.7 --name > /dev/null
         if [ $? -eq 0 ]; then
@@ -164,11 +166,16 @@ determine_variants() {
         fi
         ;;
    esac
-   exec_setup python3.6 --name > /dev/null
-   if [ $? -eq 0 ]; then
-      vrt="${vrt} py36"
-      [ -z "${FIRST_SNAKE}" ] && FIRST_SNAKE=python3.6
-   fi
+   case ${PYPINAME} in
+     raet) # required ioflo is 3.7+ now
+        ;;
+     *)
+     exec_setup python3.6 --name > /dev/null
+     if [ $? -eq 0 ]; then
+        vrt="${vrt} py36"
+        [ -z "${FIRST_SNAKE}" ] && FIRST_SNAKE=python3.6
+     fi
+   esac
    exec_setup python3.7 --name > /dev/null
    if [ $? -eq 0 ]; then
       vrt="${vrt} py37"
