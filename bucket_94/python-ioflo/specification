@@ -1,29 +1,23 @@
-DEF[PORTVERSION]=	1.7.6
+DEF[PORTVERSION]=	2.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-ioflo
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py27 py36 py37
-SDESC[py27]=		Flow Based Programming Automated Reasoning (PY 27)
-SDESC[py36]=		Flow Based Programming Automated Reasoning (PY 36)
+VARIANTS=		py37
 SDESC[py37]=		Flow Based Programming Automated Reasoning (PY 37)
 HOMEPAGE=		https://github.com/ioflo/ioflo
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/i/ioflo
-DISTFILE[1]=		ioflo-1.7.6.tar.gz:main
+DISTFILE[1]=		ioflo-2.0.0.tar.gz:main
 
-SPKGS[py27]=		single
-SPKGS[py36]=		single
 SPKGS[py37]=		single
 
-OPTIONS_AVAILABLE=	PY27 PY36 PY37
+OPTIONS_AVAILABLE=	PY37
 OPTIONS_STANDARD=	none
-VOPTS[py27]=		PY27=ON PY36=OFF PY37=OFF
-VOPTS[py36]=		PY27=OFF PY36=ON PY37=OFF
-VOPTS[py37]=		PY27=OFF PY36=OFF PY37=ON
+VOPTS[py37]=		PY37=ON
 
 # Output of setup.py --license
 # Apache 2.0
@@ -31,15 +25,10 @@ VOPTS[py37]=		PY27=OFF PY36=OFF PY37=ON
 GENERATED=		yes
 
 # install_requires extracted from setup.py (using python 2.7)
-# setuptools_git
+# FAIL:
+# NOTE:
 
 DISTNAME=		ioflo-${PORTVERSION}
-
-[PY27].USES_ON=				python:py27
-[PY27].BUILDRUN_DEPENDS_ON=		python-setuptools_git:single:py27
-
-[PY36].USES_ON=				python:py36
-[PY36].BUILDRUN_DEPENDS_ON=		python-setuptools_git:single:py36
 
 [PY37].USES_ON=				python:py37
 [PY37].BUILDRUN_DEPENDS_ON=		python-setuptools_git:single:py37
