@@ -9,8 +9,8 @@ if [ "${myid}" != "root" ]; then
    exit 1
 fi
 
-RPATH=$(realpath $0)
-SCRIPTSDIR=$(dirname ${RPATH})
+DPATH=$(dirname $0)
+SCRIPTSDIR=$(cd ${DPATH} && pwd -P)
 RAVENSRC=$(dirname ${SCRIPTSDIR})
 HEXRANGE="0 1 2 3 4 5 6 7 8 9 A B C D E F"
 

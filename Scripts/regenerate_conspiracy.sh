@@ -16,8 +16,8 @@ fi
 # Requires ravenadm v1.06 or later
 CONSPIR=$(/raven/bin/ravenadm dev info D)
 
-RPATH=$(realpath $0)
-SCRIPTSDIR=$(dirname ${RPATH})
+DPATH=$(dirname $0)
+SCRIPTSDIR=$(cd ${DPATH} && pwd -P)
 RAVENSRC=$(dirname ${SCRIPTSDIR})
 PD_AWK=${SCRIPTSDIR}/miscellaneous/port_dates.awk
 PD_FILE=${CONSPIR}/Mk/Misc/port_dates

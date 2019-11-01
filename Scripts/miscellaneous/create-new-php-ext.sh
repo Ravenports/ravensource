@@ -8,8 +8,8 @@
 #
 # Existing entries are skipped unless FORCE is defined in environment
 
-RPATH=$(realpath $0)
-MISCDIR=$(dirname ${RPATH})
+DPATH=$(dirname $0)
+MISCDIR=$(cd ${DPATH} && pwd -P)
 SCRIPTSDIR=$(dirname ${MISCDIR})
 RAVENSRC=$(dirname ${SCRIPTSDIR})
 myid=$(id -un)

@@ -8,8 +8,8 @@
 # This script strips "bucket_XX/" and outputs the rest which can be used
 # as a build list for ravenadm.
 
-RPATH=$(realpath $0)
-MISCDIR=$(dirname ${RPATH})
+DPATH=$(dirname $0)
+MISCDIR=$(cd ${DPATH} && pwd -P)
 LISTFILE=${MISCDIR}/${1%.list}.list
 
 if [ ! -f ${LISTFILE} ]; then

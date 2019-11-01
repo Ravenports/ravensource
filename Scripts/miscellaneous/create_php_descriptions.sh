@@ -7,8 +7,8 @@
 #
 # This script creates descriptions/desc.single in each given port
 
-RPATH=$(realpath $0)
-MISCDIR=$(dirname ${RPATH})
+DPATH=$(dirname $0)
+MISCDIR=$(cd ${DPATH} && pwd -P)
 SCRIPTSDIR=$(dirname ${MISCDIR})
 RAVENSRC=$(dirname ${SCRIPTSDIR})
 myid=$(id -un)
