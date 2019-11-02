@@ -2,7 +2,7 @@ $NetBSD: patch-src_platformsupport_platformsupport.pro,v 1.3 2019/08/09 17:41:39
 
 Fix building xkbcommon when other libraries are not available.
 
---- src/platformsupport/platformsupport.pro.orig	2019-08-08 18:28:51.325203043 +0000
+--- src/platformsupport/platformsupport.pro.orig	2019-10-25 07:16:48 UTC
 +++ src/platformsupport/platformsupport.pro
 @@ -11,7 +11,7 @@ SUBDIRS = \
  qtConfig(freetype)|darwin|win32: \

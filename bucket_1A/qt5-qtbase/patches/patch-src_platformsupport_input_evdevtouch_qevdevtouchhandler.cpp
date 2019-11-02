@@ -1,4 +1,4 @@
---- src/platformsupport/input/evdevtouch/qevdevtouchhandler.cpp.orig	2019-08-31 08:29:31 UTC
+--- src/platformsupport/input/evdevtouch/qevdevtouchhandler.cpp.orig	2019-10-25 07:16:48 UTC
 +++ src/platformsupport/input/evdevtouch/qevdevtouchhandler.cpp
 @@ -49,11 +49,7 @@
  #include <QtCore/private/qcore_unix_p.h>

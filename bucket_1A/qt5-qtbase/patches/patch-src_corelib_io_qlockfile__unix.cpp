@@ -1,4 +1,4 @@
---- src/corelib/io/qlockfile_unix.cpp.orig	2019-08-31 08:29:31 UTC
+--- src/corelib/io/qlockfile_unix.cpp.orig	2019-10-25 07:16:48 UTC
 +++ src/corelib/io/qlockfile_unix.cpp
 @@ -260,9 +260,15 @@ QString QLockFilePrivate::processNameByP
          return QString();
