@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	19.1.8
 
 NAMEBASE=		mesa
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Mesa 3D Graphics Library
@@ -14,13 +15,18 @@ SITES[main]=		https://mesa.freedesktop.org/archive/
 			ftp://ftp.freedesktop.org/pub/mesa/
 DISTFILE[1]=		mesa-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete libs clover drivers osmesa
+SPKGS[standard]=	complete libs drivers
 
-OPTIONS_AVAILABLE=	X86_DRIVERS ARM_DRIVERS
-OPTIONS_STANDARD=	X86_DRIVERS ARM_DRIVERS
+# WAYLAND only for DF and can't be used due to circularly dep
+# from graphviz (mesa)
+OPTIONS_AVAILABLE=	X86_DRIVERS ARM_DRIVERS LLVMPIPE WAYLAND
+OPTIONS_STANDARD=	X86_DRIVERS ARM_DRIVERS LLVMPIPE
 OPT_ON[x86_64]=		X86_DRIVERS
 OPT_ON[i386]=		X86_DRIVERS
 OPT_ON[aarch64]=	ARM_DRIVERS
+OPT_ON[freebsd]=	LLVMPIPE//i386|x86_64
+OPT_ON[dragonfly]=	LLVMPIPE//i386|x86_64
+OPT_ON[linux]=		LLVMPIPE//i386|x86_64
 
 LICENSE=		MIT:libs
 			CUSTOM1:libs
@@ -41,8 +47,6 @@ FPC_EQUIVALENT=		graphics/mesa-libs
 BUILD_DEPENDS=		autoselect-python:single:standard
 			python-Mako:single:python_used
 			libpthread-stubs:single:standard
-			libclc:single:standard
-			clang:compiler:standard
 			zlib:static:standard
 			libelf:single:standard
 			libvdpau:single:standard
@@ -51,39 +55,23 @@ BUILD_DEPENDS=		autoselect-python:single:standard
 BUILDRUN_DEPENDS=	expat:shared:standard
 			zlib:shared:standard
 			libdrm:single:standard
-			ocl-icd:primary:standard
-			opencl:single:standard
-EXRUN[clover]=		llvm:single:standard
-			zlib:shared:standard
+EXRUN[drivers]=		mesa:libs:standard
 			libelf:single:standard
-			expat:shared:standard
-			libdrm:single:standard
-EXRUN[drivers]=		llvm:single:standard
-			mesa:libs:standard
-			zlib:shared:standard
-			libelf:single:standard
-EXRUN[osmesa]=		llvm:single:standard
-			mesa:libs:standard
-			zlib:shared:standard
 B_DEPS[sunos]=		libbsd4sol:single:standard
 
 USES=			bison gettext-tools gmake meson pkgconfig
-			python:build shebangfix solaris-funcs
-			c++:clover,drivers,osmesa
-XORG_COMPONENTS=	x11 xcb xdamage xext xfixes xshmfence xxf86vm xv xvmc xrandr
+			python:build shebangfix solaris-funcs c++:libs,drivers
+XORG_COMPONENTS=	x11 xdamage xext xfixes xshmfence xxf86vm xv xrandr xcb
 SOL_FUNCTIONS=		dirfd:src/util/disk_cache.c
-MESON_ARGS=		-Dplatforms=x11,drm
+MESON_ARGS=		-Dplatforms=x11,drm{{WAYPLAT}}
 			-Ddri3=true
 			-Ddri-drivers={{DRI_DRIVERS:tW:tl:C/[[:space:]]/,/g}}
 			-Dgallium-drivers={{GALLIUM_DRIVERS:tW:tl:C/[[:space:]]/,/g}}
 			-Dgallium-vdpau=true
-			-Dgallium-xvmc=true
-			-Dgallium-va=true
 			-Dosmesa=gallium
-			-Dllvm=true
 			-Dlibunwind=false
 			-Dgles1=false
-			-Dvulkan-drivers=
+			-Dvulkan-drivers={{VULKAN_DRIVERS:tW:tl:C/[[:space:]]/,/g}}
 
 # There are issues that need to be fixed to use TLS model "initial-exec"
 # So stick with "global-dynamic"'s model for now. kan@ is working on a
@@ -115,19 +103,40 @@ VAR_OPSYS[sunos]=	CPPFLAGS=-D__EXTENSIONS__=1
 
 [X86_DRIVERS].DESCRIPTION=		Build drivers for i386 and x86_64 architectures
 [ARM_DRIVERS].DESCRIPTION=		Build drivers for aarch64 architecture
+[LLVMPIPE].DESCRIPTION=			Build LLVM-based drivers and libraries
+[WAYLAND].DESCRIPTION=			Build Vulkan drivers for Wayland platform
 
-[X86_DRIVERS].CONFIGURE_ARGS_ON=	-Dgallium-opencl=icd
-[X86_DRIVERS].CONFIGURE_ARGS_OFF=	-Dgallium-opencl=disabled
+[LLVMPIPE].XORG_COMPONENTS_ON=		xvmc
+[LLVMPIPE].BUILD_DEPENDS_ON=		libclc:single:standard
+					clang:compiler:standard
+[LLVMPIPE].BUILDRUN_DEPENDS_ON=		llvm:single:standard
+					opencl:single:standard
+					ocl-icd:primary:standard
+[LLVMPIPE].MAKEFILE_ON=			GALLIUM_LLVM_DRIVERS+=R600
+					GALLIUM_LLVM_DRIVERS+=RADEONSI
+					MESON_ARGS+=-Dllvm=true
+					MESON_ARGS+=-Dgallium-xvmc=true
+					MESON_ARGS+=-Dgallium-va=true
+					MESON_ARGS+=-Dgallium-opencl=icd
+[LLVMPIPE].MAKEFILE_OFF=		MESON_ARGS+=-Dgallium-opencl=disabled
+
 [X86_DRIVERS].MAKEFILE_ON=		DRI_DRIVERS+=R100
 					DRI_DRIVERS+=R200
 					DRI_DRIVERS+=I915
 					DRI_DRIVERS+=I965
 					GALLIUM_DRIVERS+=R300
-					GALLIUM_DRIVERS+=R600
-					GALLIUM_DRIVERS+=RADEONSI
 					GALLIUM_DRIVERS+=SVGA
+					GALLIUM_DRIVERS+={{GALLIUM_LLVM_DRIVERS}}
+					VULKAN_DRIVERS+={{VULKAN_DRIVERS_X86}}
 [ARM_DRIVERS].MAKEFILE_ON=		GALLIUM_DRIVERS+=FREEDRENO
 					GALLIUM_DRIVERS+=VC4
+
+[WAYLAND].BUILD_DEPENDS_ON=		wayland-protocols:single:standard
+					python-Mako:single:python_default
+[WAYLAND].BUILDRUN_DEPENDS_ON=		wayland:primary:standard
+[WAYLAND].MAKEFILE_ON=			WAYPLAT=,surfaceless,wayland
+					VULKAN_DRIVERS+=INTEL
+					VULKAN_DRIVERS_X86+=RADEON
 
 post-extract:
 	${AWK} '/Copyright/,/DEALINGS/' ${WRKSRC}/include/GL/glext.h \
