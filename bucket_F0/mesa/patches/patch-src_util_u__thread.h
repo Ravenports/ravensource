@@ -1,36 +1,15 @@
---- src/util/u_thread.h.orig	2019-10-21 16:53:58 UTC
+--- src/util/u_thread.h.orig	2019-10-24 16:13:04 UTC
 +++ src/util/u_thread.h
-@@ -34,6 +34,13 @@
- 
- #ifdef HAVE_PTHREAD
- #include <signal.h>
-+#if defined(__DragonFly__) || defined(__FreeBSD__) || defined(__OpenBSD__)
-+#include <pthread_np.h>
-+# ifndef __DragonFly__
-+#  define cpu_set_t cpuset_t
-+# endif
-+#undef ALIGN /* Avoid conflict on FreeBSD in main/macros.h */
-+#endif
- #endif
- 
- static inline thrd_t u_thread_create(int (*routine)(void *), void *param)
-@@ -61,7 +68,15 @@ static inline thrd_t u_thread_create(int
- static inline void u_thread_setname( const char *name )
- {
+@@ -71,7 +71,7 @@ static inline void u_thread_setname( con
  #if defined(HAVE_PTHREAD)
-+#  if defined (__sun)
-+   (void)name;
-+#  elif defined(__DragonFly__) || defined(__FreeBSD__) || defined(__OpenBSD__)
-+   pthread_set_name_np(pthread_self(), name);
-+#  elif defined(__NetBSD__)
-+   pthread_setname_np(pthread_self(), "%s", (void*)name);
-+#  else
+ #if DETECT_OS_LINUX || DETECT_OS_CYGWIN || DETECT_OS_SOLARIS
     pthread_setname_np(pthread_self(), name);
-+#  endif
- #endif
-    (void)name;
- }
-@@ -131,7 +146,7 @@ util_get_L3_for_pinned_thread(thrd_t thr
+-#elif DETECT_OS_FREEBSD || DETECT_OS_OPENBSD
++#elif DETECT_OS_FREEBSD || DETECT_OS_OPENBSD || DETECT_OS_DRAGONFLY
+    pthread_set_name_np(pthread_self(), name);
+ #elif DETECT_OS_NETBSD
+    pthread_setname_np(pthread_self(), "%s", (void *)name);
+@@ -149,7 +149,7 @@ util_get_L3_for_pinned_thread(thrd_t thr
  static inline int64_t
  u_thread_get_time_nano(thrd_t thread)
  {

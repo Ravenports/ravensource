@@ -1,6 +1,6 @@
---- src/amd/common/ac_debug.c.orig	2019-10-21 16:53:57 UTC
+--- src/amd/common/ac_debug.c.orig	2019-10-24 16:13:03 UTC
 +++ src/amd/common/ac_debug.c
-@@ -562,6 +562,10 @@ void ac_parse_ib_chunk(FILE *f, uint32_t
+@@ -573,6 +573,10 @@ void ac_parse_ib_chunk(FILE *f, uint32_t
  		       unsigned trace_id_count, enum chip_class chip_class,
                         ac_debug_addr_callback addr_callback, void *addr_callback_data)
  {
@@ -11,7 +11,7 @@
  	struct ac_ib_parser ib = {};
  	ib.ib = ib_ptr;
  	ib.num_dw = num_dw;
-@@ -587,6 +591,7 @@ void ac_parse_ib_chunk(FILE *f, uint32_t
+@@ -598,6 +602,7 @@ void ac_parse_ib_chunk(FILE *f, uint32_t
  		printf("\nPacket ends after the end of IB.\n");
  		exit(1);
  	}
