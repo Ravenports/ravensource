@@ -1,6 +1,6 @@
---- setup.py.orig	2019-04-11 21:10:12 UTC
+--- setup.py.orig	2019-11-04 07:46:00 UTC
 +++ setup.py
-@@ -35,6 +35,7 @@ from _common import LINUX  # NOQA
+@@ -36,6 +36,7 @@ from _common import LINUX  # NOQA
  from _common import MACOS  # NOQA
  from _common import NETBSD  # NOQA
  from _common import OPENBSD  # NOQA
@@ -8,7 +8,7 @@
  from _common import POSIX  # NOQA
  from _common import SUNOS  # NOQA
  from _common import WINDOWS  # NOQA
-@@ -194,6 +195,17 @@ elif NETBSD:
+@@ -195,6 +196,17 @@ elif NETBSD:
          ],
          define_macros=macros,
          libraries=["kvm"])
