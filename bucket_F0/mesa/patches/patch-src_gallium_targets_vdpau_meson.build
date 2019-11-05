@@ -1,4 +1,4 @@
---- src/gallium/targets/vdpau/meson.build.orig	2019-10-21 16:53:57 UTC
+--- src/gallium/targets/vdpau/meson.build.orig	2019-10-24 16:13:03 UTC
 +++ src/gallium/targets/vdpau/meson.build
 @@ -45,10 +45,10 @@ libvdpau_gallium = shared_library(
    include_directories : [
@@ -7,9 +7,9 @@
 -  link_whole : [libvdpau_st],
 +  link_whole : [libvdpau_st, libr300, libradeonwinsys, libpipe_loader_static],
    link_with : [
-     libgalliumvlwinsys, libgalliumvl, libgallium, libmesa_util,
+     libgalliumvlwinsys, libgalliumvl, libgallium,
 -    libpipe_loader_static, libws_null, libwsw, libswdri, libswkmsdri,
 +    libws_null, libwsw, libswdri, libswkmsdri,
    ],
    dependencies : [
-     dep_thread, driver_r300, driver_r600, driver_radeonsi, driver_nouveau,
+     idep_mesautil,

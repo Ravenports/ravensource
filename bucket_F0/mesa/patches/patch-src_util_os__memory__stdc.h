@@ -1,6 +1,6 @@
---- src/util/os_memory_stdc.h.orig	2019-10-21 16:53:58 UTC
+--- src/util/os_memory_stdc.h.orig	2019-10-24 16:13:04 UTC
 +++ src/util/os_memory_stdc.h
-@@ -53,11 +53,16 @@
+@@ -51,11 +51,16 @@
  static inline void *
  os_malloc_aligned(size_t size, size_t alignment)
  {

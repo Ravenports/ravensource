@@ -1,4 +1,4 @@
---- src/gallium/targets/xa/meson.build.orig	2019-10-21 16:53:57 UTC
+--- src/gallium/targets/xa/meson.build.orig	2019-10-24 16:13:03 UTC
 +++ src/gallium/targets/xa/meson.build
 @@ -41,9 +41,9 @@ libxatracker = shared_library(
    include_directories : [
@@ -7,8 +7,8 @@
 -  link_whole : [libxa_st],
 +  link_whole : [libxa_st, libsvga, libsvgadrm, libpipe_loader_static],
    link_with : [
--    libgalliumvl_stub, libgallium, libmesa_util, libpipe_loader_static,
-+    libgalliumvl_stub, libgallium, libmesa_util,
+-    libgalliumvl_stub, libgallium, libpipe_loader_static,
++    libgalliumvl_stub, libgallium,
      libws_null, libwsw, libswdri, libswkmsdri,
    ],
    link_depends : xa_link_depends,

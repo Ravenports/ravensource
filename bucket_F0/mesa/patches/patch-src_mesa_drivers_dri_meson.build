@@ -1,4 +1,4 @@
---- src/mesa/drivers/dri/meson.build.orig	2019-10-21 16:53:58 UTC
+--- src/mesa/drivers/dri/meson.build.orig	2019-10-24 16:13:04 UTC
 +++ src/mesa/drivers/dri/meson.build
 @@ -20,7 +20,7 @@
  
@@ -9,18 +9,18 @@
  _dri_link = []
  if with_dri_swrast
    subdir('swrast')
-@@ -59,13 +59,13 @@ if _dri_drivers != []
+@@ -59,14 +59,13 @@ if _dri_drivers != []
      [],
      link_whole : _dri_drivers,
      link_with : [
--      libmegadriver_stub, libdricommon, libxmlconfig, libglapi, libmesa_util,
+-      libmegadriver_stub, libdricommon, libglapi,
 -      libmesa_classic,
-+      libmegadriver_stub, libxmlconfig, libglapi,
-+      libmesa_util,
++      libmegadriver_stub, libglapi,
      ],
      dependencies : [
--      dep_selinux, dep_libdrm, dep_expat, dep_m, dep_thread, dep_dl, idep_nir,
-+      dep_selinux, dep_libdrm, dep_expat, dep_m, dep_thread, dep_dl,
+       dep_selinux, dep_libdrm, dep_m, dep_thread, dep_dl,
+-      idep_nir, idep_xmlconfig, idep_mesautil,
++      idep_xmlconfig, idep_mesautil,
      ],
 -    link_args : [ld_args_build_id, ld_args_bsymbolic, ld_args_gc_sections],
 +    link_args : [ld_args_bsymbolic, ld_args_gc_sections],
