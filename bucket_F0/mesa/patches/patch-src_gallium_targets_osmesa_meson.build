@@ -1,0 +1,14 @@
+--- src/gallium/targets/osmesa/meson.build.orig	2019-10-21 16:53:57 UTC
++++ src/gallium/targets/osmesa/meson.build
+@@ -43,9 +43,9 @@ libosmesa = shared_library(
+     inc_gallium_drivers,
+   ],
+   link_depends : osmesa_link_deps,
+-  link_whole : [libosmesa_st, libglapi_static],
++  link_whole : [libosmesa_st, libglapi_static, libsoftpipe, libgallium, libnir],
+   link_with : [
+-    libmesa_gallium, libgallium, libws_null, osmesa_link_with,
++    libmesa_gallium, libws_null, osmesa_link_with,
+   ],
+   dependencies : [
+     dep_selinux, dep_thread, dep_clock, dep_unwind,

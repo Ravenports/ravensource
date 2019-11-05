@@ -1,0 +1,15 @@
+--- src/gallium/targets/dri/meson.build.orig	2019-10-21 16:53:57 UTC
++++ src/gallium/targets/dri/meson.build
+@@ -48,9 +48,10 @@ libgallium_dri = shared_library(
+   cpp_args : [cpp_vis_args],
+   link_args : [ld_args_gc_sections, gallium_dri_ld_args],
+   link_depends : gallium_dri_link_depends,
++  link_whole : [libdricommon, libgallium, libr300, libdri, libnir],
+   link_with : [
+-    libmesa_gallium, libdricommon, libmegadriver_stub, libdri, libgalliumvl,
+-    libgallium, libglapi, libpipe_loader_static, libws_null, libwsw, libswdri,
++    libmesa_gallium, libmegadriver_stub, libgalliumvl,
++    libglapi, libpipe_loader_static, libws_null, libwsw, libswdri,
+     libswkmsdri,
+   ],
+   dependencies : [
