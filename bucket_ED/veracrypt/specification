@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	1.24
+DEF[PORTVERSION]=	1.24p1
+DEF[TAG]=		VeraCrypt_1.24-Hotfix1
 DEF[WXCONFIG]=		/bin/wxgtk3u-3.0-config
 # ----------------------------------------------------------------------------
 
@@ -11,8 +12,8 @@ HOMEPAGE=		https://www.veracrypt.fr/en/Home.html
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/veracrypt/VeraCrypt%20${PORTVERSION}
-DISTFILE[1]=		VeraCrypt_${PORTVERSION}_Source.tar.bz2:main
+SITES[main]=		GITHUB/veracrypt:VeraCrypt:${TAG}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete primary docs
 
@@ -39,7 +40,6 @@ BUILDRUN_DEPENDS=	fuse2:single:standard
 RUN_DEPENDS=		sudo:primary:standard
 
 USES=			desktop-utils:primary gmake iconv pkgconfig
-EXTRACT_DIRTY=		1
 BUILD_WRKSRC=		{{WRKSRC}}/src
 BUILD_TARGET=		#
 CONFIGURE_ARGS=		--wxWidgets-build=0
