@@ -46,6 +46,10 @@ INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
 PLIST_SUB=		VERSION=${PANGO_VERSION} LIBVERSION=${LIBVERSION}
 
+post-patch-sunos:
+	${REINPLACE_CMD} -e "s|'-D_POSIX_C_SOURCE=200809L', ||" \
+		${WRKSRC}/meson.build
+
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/doc
 	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/pango \
