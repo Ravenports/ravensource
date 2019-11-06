@@ -40,6 +40,10 @@ MESON_ARGS=		-Dtests=false
 			-Ddocbook_docs=disabled
 SOVERSION=		${SOVERSION}
 
+post-patch-sunos:
+	${REINPLACE_CMD} -e 's|link_args: libnotify_ldflags|link_args: []|'\
+		${WRKSRC}/libnotify/meson.build
+
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/libnotify \
 		${STAGEDIR}${PREFIX}/share/doc
