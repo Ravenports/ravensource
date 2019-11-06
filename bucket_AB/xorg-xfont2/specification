@@ -25,15 +25,18 @@ LICENSE=		MIT:single
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
+FPC_EQUIVALENT=		x11-fonts/${ALTNAME}
+
 BUILDRUN_DEPENDS=	freetype:primary:standard
 
 USES=			libtool zlib solaris-funcs
 XORG_COMPONENTS=	xorgproto xtransproto fontenc
 SOL_FUNCTIONS=		strnlen:src/bitmap/pcfread.c
+			err.h:include/err.h
+CFLAGS=			-Wno-unused-function
 DISTNAME=		${ALTNAME}-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--without-xmlto
 			--disable-devel-docs
 			--without-fop
 INSTALL_TARGET=		install-strip
-FPC_EQUIVALENT=		x11-fonts/${ALTNAME}
