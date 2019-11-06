@@ -38,3 +38,7 @@ INSTALL_TARGET=		install-strip
 MESON_ARGS=		-Dinstall_tools=false
 			-Dgtk_doc=false
 SOVERSION=		${SOVERSION}
+
+post-patch-sunos:
+	${REINPLACE_CMD} -e 's|link_args: libwnck_ldflags|link_args: []|'\
+		${WRKSRC}/libwnck/meson.build
