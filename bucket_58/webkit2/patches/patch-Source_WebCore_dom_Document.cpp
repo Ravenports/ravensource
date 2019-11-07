@@ -14,9 +14,9 @@ Source/WebCore/dom/Document.cpp:5140:46: error: expected ';' after do/while stat
                                              ^
                                              ;
 
---- Source/WebCore/dom/Document.cpp.orig	2019-08-26 14:55:45 UTC
+--- Source/WebCore/dom/Document.cpp.orig	2019-09-02 09:41:47 UTC
 +++ Source/WebCore/dom/Document.cpp
-@@ -5072,12 +5072,12 @@ static bool isValidNameNonASCII(const UChar* character
+@@ -4944,12 +4944,12 @@ static bool isValidNameNonASCII(const UC
      unsigned i = 0;
  
      UChar32 c;
@@ -31,7 +31,7 @@ Source/WebCore/dom/Document.cpp:5140:46: error: expected ';' after do/while stat
          if (!isValidNamePart(c))
              return false;
      }
-@@ -5137,7 +5137,7 @@ ExceptionOr<std::pair<AtomicString, AtomicString>> Doc
+@@ -5009,7 +5009,7 @@ ExceptionOr<std::pair<AtomString, AtomSt
  
      for (unsigned i = 0; i < length; ) {
          UChar32 c;

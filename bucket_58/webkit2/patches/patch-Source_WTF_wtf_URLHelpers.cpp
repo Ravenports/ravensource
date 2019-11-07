@@ -11,9 +11,9 @@ Source/WTF/wtf/URLHelpers.cpp:304:13: error: use of undeclared identifier 'error
         if (error != U_ZERO_ERROR) {
             ^
 
---- Source/WTF/wtf/URLHelpers.cpp.orig	2019-08-26 14:55:44 UTC
+--- Source/WTF/wtf/URLHelpers.cpp.orig	2019-08-28 11:46:29 UTC
 +++ Source/WTF/wtf/URLHelpers.cpp
-@@ -298,7 +298,7 @@ static bool allCharactersInIDNScriptWhiteList(const UC
+@@ -301,7 +301,7 @@ static bool allCharactersInIDNScriptWhit
      Optional<UChar32> previousCodePoint;
      while (i < length) {
          UChar32 c;
