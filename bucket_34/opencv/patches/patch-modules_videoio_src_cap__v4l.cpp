@@ -1,4 +1,4 @@
---- modules/videoio/src/cap_v4l.cpp.orig	2019-10-09 11:42:29 UTC
+--- modules/videoio/src/cap_v4l.cpp.orig	2019-10-09 22:53:14 UTC
 +++ modules/videoio/src/cap_v4l.cpp
 @@ -229,7 +229,9 @@ make & enjoy!
  #include <limits>

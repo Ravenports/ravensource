@@ -1,4 +1,4 @@
---- modules/core/src/utils/filesystem.cpp.orig	2019-10-09 11:42:29 UTC
+--- modules/core/src/utils/filesystem.cpp.orig	2019-10-09 22:53:14 UTC
 +++ modules/core/src/utils/filesystem.cpp
 @@ -34,7 +34,7 @@
  #include <errno.h>
@@ -9,7 +9,7 @@
  #include <sys/types.h>
  #include <sys/stat.h>
  #include <fcntl.h>
-@@ -178,7 +178,7 @@ cv::String getcwd()
+@@ -194,7 +194,7 @@ cv::String getcwd()
      sz = GetCurrentDirectoryA((DWORD)buf.size(), buf.data());
      return cv::String(buf.data(), (size_t)sz);
  #endif
@@ -18,7 +18,7 @@
      for(;;)
      {
          char* p = ::getcwd(buf.data(), buf.size());
-@@ -212,7 +212,7 @@ bool createDirectory(const cv::String& p
+@@ -228,7 +228,7 @@ bool createDirectory(const cv::String& p
  #else
      int result = _mkdir(path.c_str());
  #endif
@@ -27,7 +27,7 @@
      int result = mkdir(path.c_str(), 0777);
  #else
      int result = -1;
-@@ -327,7 +327,7 @@ private:
+@@ -343,7 +343,7 @@ private:
      Impl& operator=(const Impl&); // disabled
  };
  

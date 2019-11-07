@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.4.8
+DEF[PORTVERSION]=	4.1.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		opencv
@@ -94,6 +94,8 @@ CMAKE_ARGS=		-DWITH_VTK:BOOL=OFF
 			-DBUILD_opencv_java:BOOL=OFF
 			-DBUILD_opencv_python2:BOOL=OFF
 			-DBUILD_opencv_python3:BOOL=OFF
+			-DOPENCV_GENERATE_PKGCONFIG:BOOL=ON
+			-DOPENCV_ENABLE_NONFREE:BOOL=ON
 # |			-DPYTHON_EXECUTABLE:FILEPATH="{{PYTHON_CMD}}"
 
 SUB_FILES=		FindOpenCVCore.cmake
@@ -115,11 +117,5 @@ post-patch:
 		${WRKSRC}/cmake/templates/setup_vars_macosx.sh.in \
 
 post-install:
-	${SED} -e 's|Name:.*|Name: OpenCV-core|' \
-		${STAGEDIR}${PREFIX}/lib/pkgconfig/opencv.pc \
-		> ${STAGEDIR}${PREFIX}/lib/pkgconfig/opencv-core.pc
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/cmake/Modules
-	${INSTALL_DATA} ${WRKDIR}/FindOpenCVCore.cmake \
-		${STAGEDIR}${PREFIX}/share/cmake/Modules
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/opencv_*
