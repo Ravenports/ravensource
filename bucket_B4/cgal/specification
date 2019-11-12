@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.14
+DEF[PORTVERSION]=	5.0
 DEF[SOVERSION]=		13.0.3
 DEF[IIO_SOVERSION]=	14.0.0
 # ----------------------------------------------------------------------------
@@ -35,18 +35,19 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		math/cgal
 
-BUILD_DEPENDS=		eigen:single:standard
-			gmp:static:standard
+BUILD_DEPENDS=		gmp:static:standard
 			mpfr:static:standard
-			ntl:primary:standard
-BUILDRUN_DEPENDS=	gmp:shared:standard
-			mpfr:shared:standard
+			zlib:static:standard
+# #			ntl:primary:standard
+# #			eigen:single:standard
+# #			zlib:shared:standard
+# #			gmp:shared:standard
+# #			mpfr:shared:standard
 			boost-libraries:rest:python_default
 
 USES=			cmake shebangfix
 SHEBANG_FILES=		scripts/cgal_create_CMakeLists
 			scripts/cgal_create_cmake_script
-CMAKE_ARGS=		-DWITH_CGAL_Qt5=OFF
 DISTNAME=		CGAL-${PORTVERSION}
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		IIO_SOVERSION=${IIO_SOVERSION}
@@ -54,4 +55,3 @@ PLIST_SUB=		IIO_SOVERSION=${IIO_SOVERSION}
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/CGAL-${PORTVERSION}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
