@@ -1,4 +1,6 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(FIREFOX_ESR_VERSION)
+DEF[PY3DEF]=		EXTRACT_VERSION(PYTHON3_DEFAULT)
+DEF[PY3DEFNODOT]=	${PY3DEF:S/.//}
 DEF[MAJOR]=		${PORTVERSION:R:R}
 # ----------------------------------------------------------------------------
 
@@ -28,32 +30,35 @@ LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		autoconf213:single:standard
 			zip:single:standard
+			python${PY3DEFNODOT}:single:standard
+			rust:single:standard
+			clang:compiler:standard
 BUILDRUN_DEPENDS=	icu:single:standard
 			nspr:single:standard
 
 DISTNAME=		firefox-${PORTVERSION}/js/src
 
 USES=			gmake perl pkgconfig python:py27,build zlib readline
-MUST_CONFIGURE=		gnu
+MUST_CONFIGURE=		yes
 CONFIGURE_OUTSOURCE=	yes
-CONFIGURE_ARGS=		--disable-debug
+CONFIGURE_ARGS=		--prefix={{PREFIX}}
+			--target={{CONFIGURE_TARGET}}
+			--disable-debug
 			--disable-debug-symbols
 			--disable-jemalloc
-			--disable-replace-malloc
 			--enable-readline
 			--enable-release
 			--enable-shared-js
 			--enable-tests
+			--enable-optimize
+			--enable-gczeal
 			--with-intl-api
-			--with-pthreads
 			--with-system-nspr
 			--with-system-icu
 			--with-system-zlib
 
 PLIST_SUB=		MOZJS_MAJOR=${MAJOR}
 			MOZJS_MINOR=${PORTVERSION:R:E}
-
-VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--disable-jemalloc
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/js${MAJOR}
