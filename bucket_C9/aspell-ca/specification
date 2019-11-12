@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.1.5
+DEF[PORTVERSION]=	2.5.0
 DEF[DISTPREFIX]=	aspell6
 DEF[DIST_ITERATION]=	1
 DEF[LANGUAGE]=		Catalan
@@ -16,8 +16,11 @@ HOMEPAGE=		http://aspell.net/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GNU/aspell/dict/${SUFFIX}
-DISTFILE[1]=		${DISTPREFIX}-${SUFFIX}-${PORTVERSION}-${DIST_ITERATION}.tar.bz2:main
+# SITES[main]=		GNU/aspell/dict/${SUFFIX}
+# DISTFILE[1]=		${DISTPREFIX}-${SUFFIX}-${PORTVERSION}
+# #				-${DIST_ITERATION}.tar.bz2:main
+SITES[main]=		https://www.softcatala.org/pub/softcatala/aspell/${PORTVERSION}/
+DISTFILE[1]=		${DISTPREFIX}-${SUFFIX}-${PORTVERSION}.tar.bz2:main
 
 SPKGS[standard]=	single
 
@@ -31,4 +34,4 @@ BUILDRUN_DEPENDS=	aspell:single:standard
 USES=			gmake
 MUST_CONFIGURE=		yes
 PLIST_SUB=		VER=${VERINST}
-DISTNAME=		${DISTPREFIX}-${SUFFIX}-${PORTVERSION}-${DIST_ITERATION}
+DISTNAME=		${DISTPREFIX}-${SUFFIX}-${PORTVERSION}
