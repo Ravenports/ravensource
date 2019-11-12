@@ -63,7 +63,7 @@ RMVLIST=${thisdir}/bad-v.list
 urlstub="https://st.aticpan.org/source/"
 mirror_base="/mech/var/cache/cpan/"
 
-perlv1="5.30.0"
+perlv1="5.30.1"
 perlv2="5.28.2"
 
 if [ "${1}" == "check-core" ]; then

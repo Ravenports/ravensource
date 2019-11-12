@@ -1,4 +1,4 @@
---- hints/freebsd.sh.orig	2018-11-01 22:07:50 UTC
+--- hints/freebsd.sh.orig	2019-10-24 20:18:04 UTC
 +++ hints/freebsd.sh
 @@ -88,6 +88,8 @@ case "$osvers" in
  	esac

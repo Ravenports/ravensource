@@ -1,4 +1,4 @@
---- cpan/Pod-Perldoc/lib/Pod/Perldoc/ToTerm.pm.orig	2018-11-01 22:07:31 UTC
+--- cpan/Pod-Perldoc/lib/Pod/Perldoc/ToTerm.pm.orig	2019-10-24 20:18:00 UTC
 +++ cpan/Pod-Perldoc/lib/Pod/Perldoc/ToTerm.pm
 @@ -69,6 +69,8 @@ sub _get_columns_from_manwidth {
  

@@ -1,4 +1,4 @@
---- hints/solaris_2.sh.orig	2018-06-27 11:17:56 UTC
+--- hints/solaris_2.sh.orig	2019-10-24 20:18:04 UTC
 +++ hints/solaris_2.sh
 @@ -20,6 +20,9 @@
  #  gcc will occasionally emit warnings about "unused prefix", but
