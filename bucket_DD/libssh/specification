@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	0.9.1
-DEF[SOVERSION]=		4.8.2
+DEF[PORTVERSION]=	0.9.2
+DEF[SOVERSION]=		4.8.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libssh
@@ -32,7 +32,9 @@ USES=			cmake cpe zlib ssl:openssl-devel
 CMAKE_ARGS=		-DWITH_EXAMPLES:BOOL=OFF
 			-DWITH_GSSAPI:BOOL=ON
 			-DWITH_ZLIB:BOOL=ON
-			-DWITH_STATIC_LIB:BOOL=ON
+# STATIC_LIB option ignored starting on version 0.9.2
+			-DBUILD_STATIC_LIB:BOOL=ON
+			-DBUILD_SHARED_LIBS:BOOL=ON
 			-DOPENSSL_ROOT_DIR={{OPENSSLBASE}}
 SOVERSION=		${SOVERSION}
 
