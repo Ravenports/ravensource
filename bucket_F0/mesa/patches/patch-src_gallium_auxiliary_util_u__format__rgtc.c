@@ -1,4 +1,4 @@
---- src/gallium/auxiliary/util/u_format_rgtc.c.orig	2019-11-06 16:53:31 UTC
+--- src/gallium/auxiliary/util/u_format_rgtc.c.orig	2019-11-13 18:45:06 UTC
 +++ src/gallium/auxiliary/util/u_format_rgtc.c
 @@ -175,13 +175,13 @@ util_format_rgtc1_snorm_pack_rgba_float(
     for(y = 0; y < height; y += bh) {
