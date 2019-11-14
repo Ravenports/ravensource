@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.4.99
+DEF[PORTVERSION]=	2.4.100
 DEF[xslsheet]=		http://cdn.docbook.org/release/xsl/current/manpages/docbook.xsl
 # ----------------------------------------------------------------------------
 
@@ -34,9 +34,9 @@ BUILD_DEPENDS=		libpthread-stubs:single:standard
 			docbook-xsl:primary:standard
 			libxslt:single:standard
 			libxml2:single:standard
-B_DEPS[sunos]=		libbsd4sol:single:standard
 
-USES=			gmake libtool pkgconfig
+USES=			gmake libtool pkgconfig solaris-funcs
+SOL_FUNCTIONS=		strnlen:xf86drm.c
 XORG_COMPONENTS=	pciaccess
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-cairo-tests

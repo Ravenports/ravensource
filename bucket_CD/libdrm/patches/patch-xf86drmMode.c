@@ -1,4 +1,4 @@
---- xf86drmMode.c.orig	2019-07-02 18:36:50 UTC
+--- xf86drmMode.c.orig	2019-10-16 21:36:48 UTC
 +++ xf86drmMode.c
 @@ -43,6 +43,7 @@
  #include <stdlib.h>
@@ -30,6 +30,7 @@
 +	 */
 +	for (int i = 0; i < DRM_MAX_MINOR; ++i) {
 +		char name[22], value[256];
++		unsigned int d2 = 0, b2 = 0, s2 = 0, f2 = 0;
 +		size_t length = sizeof(value);
 +		snprintf(name, sizeof(name), "hw.dri.%i.name", i);
 +		if (sysctlbyname(name, value, &length, NULL, 0))
@@ -42,7 +43,6 @@
 -	snprintf(kbusid, sizeof(kbusid), "pci:%04x:%02x:%02x.%d", domain, bus,
 -	    dev, func);
 +		value[length] = '\0';
-+		unsigned int d2 = 0, b2 = 0, s2 = 0, f2 = 0;
 +		switch (sscanf(value, name_fmt, &d2, &b2, &s2, &f2)) {
 +		case 0: /* busid not in the name, try busid */
 +			length = sizeof(value);
