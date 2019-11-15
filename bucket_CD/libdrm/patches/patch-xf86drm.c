@@ -83,6 +83,7 @@
 +        --name_len;
 +    return strtol(name + name_len, NULL, 10);
 +}
++#endif /* FREEDFLY */
 +
 +static int drmGetNodeType(const char *name)
 +{
@@ -100,7 +101,6 @@
 +
 +    return -EINVAL;
 +}
-+#endif /* FREEDFLY */
 +
  /**
   * Compare two busid strings
@@ -552,15 +552,6 @@
      const char      *dev_name;
      int              node_type;
      int              maj, min, n;
-@@ -4043,7 +4245,7 @@ drm_public char *drmGetDeviceNameFromFd2
-     maj = major(sbuf.st_rdev);
-     min = minor(sbuf.st_rdev);
- 
--    if (!drmNodeIsDRM(maj, min) || !S_ISCHR(sbuf.st_mode))
-+    if (DRM_MAJOR && !drmNodeIsDRM(maj, min) || !S_ISCHR(sbuf.st_mode))
-         return NULL;
- 
-     node_type = drmGetMinorType(min);
 @@ -4054,8 +4256,8 @@ drm_public char *drmGetDeviceNameFromFd2
      if (!dev_name)
          return NULL;
