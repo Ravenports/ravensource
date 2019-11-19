@@ -1,18 +1,22 @@
 DEF[PORTVERSION]=	1.5.8
+DEF[PROTOLIB_HASH]=	16c5ab
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		norm
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net
 VARIANTS=		standard
 SDESC[standard]=	NACK-Oriented Reliable Multicast (NORM)
 HOMEPAGE=		https://www.nrl.navy.mil/itd/ncs/products/norm
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main
-SITES[main]=		https://downloads.pf.itd.nrl.navy.mil/norm/
-			https://downloads.pf.itd.nrl.navy.mil/norm/archive/
-DISTFILE[1]=		src-norm-${PORTVERSION}.tgz:main
+DOWNLOAD_GROUPS=	main protolib
+SITES[main]=		GITHUB/USNavalResearchLaboratory:norm:v${PORTVERSION}
+SITES[protolib]=	GITHUB/USNavalResearchLaboratory:protolib:${PROTOLIB_HASH}:protolib
+DISTFILE[1]=		generated:main
+DISTFILE[2]=		generated:protolib
+DF_INDEX=		1 2
 
 SPKGS[standard]=	single
 
