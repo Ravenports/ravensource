@@ -4,7 +4,7 @@
  #include <sys/uio.h>
  #include <arpa/nameser.h>
  #include <netdb.h>
-+#ifdef __DragonFly__
++#if defined __DragonFly__ || defined __FreeBSD__
 +#include <netinet/in.h>
 +#endif
  

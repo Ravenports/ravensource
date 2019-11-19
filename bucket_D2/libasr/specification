@@ -4,7 +4,7 @@ DEF[SOVERSION]=		0.0.3
 
 NAMEBASE=		libasr
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		dns
 VARIANTS=		standard
 SDESC[standard]=	Asynchronous DNS resolver library
@@ -37,12 +37,13 @@ LICENSE_SCHEME=		multi
 FPC_EQUIVALENT=		dns/libasr
 
 BUILD_DEPENDS=		groff:primary:standard
+BUILDRUN_DEPENDS=	nss:caroot:standard
 
-USES=			libtool ssl:build autoreconf
+USES=			cpe autoreconf libtool
+CPE_VENDOR=		openbsd
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-mantype="man"
 INSTALL_TARGET=		install-strip
-CFLAGS=			-I{{OPENSSLINC}}
 SOVERSION=		${SOVERSION}
 
 post-extract:
