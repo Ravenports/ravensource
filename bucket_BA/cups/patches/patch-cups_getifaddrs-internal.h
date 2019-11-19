@@ -4,7 +4,7 @@
  #    define CUPS_SOCAST
  #  endif /* _WIN32 */
  
-+#  if defined(__DragonFly__)
++#  if defined(__DragonFly__) || defined(__FreeBSD__)
 +#    include <netinet/in.h>
 +#  endif
 +
