@@ -1,6 +1,6 @@
 --- sql/CMakeLists.txt.orig	2019-09-20 08:30:51 UTC
 +++ sql/CMakeLists.txt
-@@ -633,7 +633,7 @@ ENDIF()
+@@ -633,10 +633,10 @@ ENDIF()
  IF(LINUX)
    LIST(APPEND SQL_SHARED_SOURCES
      resourcegroups/platform/thread_attrs_api_linux.cc)
@@ -8,4 +8,8 @@
 +ELSEIF(APPLE OR CMAKE_SYSTEM_NAME MATCHES "DragonFly")
    LIST(APPEND SQL_SHARED_SOURCES
      resourcegroups/platform/thread_attrs_api_apple.cc)
- ELSEIF(FREEBSD)
+-ELSEIF(FREEBSD)
++ELSEIF(CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
+   LIST(APPEND SQL_SHARED_SOURCES
+     resourcegroups/platform/thread_attrs_api_freebsd.cc)
+ ELSEIF(SOLARIS)
