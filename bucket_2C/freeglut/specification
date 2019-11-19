@@ -42,6 +42,10 @@ post-patch:
 	${REINPLACE_CMD} -e "s|/usr/local|${PREFIX}|g"		\
 		${WRKSRC}/progs/demos/${fract}
 .endfor
+	${REINPLACE_CMD} -e 's|__FreeBSD__|__NOPE__|g' \
+		-e 's|__FreeBSD_kernel__|__NYET__|g' \
+		${WRKSRC}/src/x11/fg_joystick_x11.c \
+		${WRKSRC}/src/x11/fg_internal_x11.h
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}  ${STAGEDIR}${STD_EXAMPLESDIR}
