@@ -1,35 +1,34 @@
 DEF[PORTVERSION]=	0.1.1
+DEF[HASH]=		5901d2c
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libsparkcrypto
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		security ada
 VARIANTS=		standard
 SDESC[standard]=	Cryptographic library implemented in SPARK
-HOMEPAGE=		http://senier.net/libsparkcrypto/
+HOMEPAGE=		https://github.com/Componolit/libsparkcrypto
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://senier.net/libsparkcrypto/
-DISTFILE[1]=		libsparkcrypto-${PORTVERSION}.tgz:main
+SITES[main]=		GITHUB/Componolit:libsparkcrypto:${HASH}
+DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		BSD3CLAUSE:primary
-LICENSE_FILE=		BSD3CLAUSE:{{WKRSRC}}/README
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/README.rst
 LICENSE_SCHEME=		solo
 
 # gone! FPC_EQUIVALENT=		security/libsparkcrypto
 
 BROKEN[aarch64]=	fails to compile: unsupported architecture: aarch64
 
-BUILD_DEPENDS=		AdaBrowse:primary:standard
-
-USES=			dos2unix gmake gprbuild
+USES=			gmake gprbuild
 INSTALL_REQ_TOOLCHAIN=	yes
 BUILD_TARGET=		all build
 MAKE_ENV=		SPARKARCH={{ARCH_STANDARD:S/i386/i686/}}
@@ -37,7 +36,7 @@ MAKE_ENV=		SPARKARCH={{ARCH_STANDARD:S/i386/i686/}}
 			MODE=release
 			RUNTIME=native
 			NO_TESTS=true
-			NO_PROOF=true
+			NO_SPARK=true
 
 post-patch:
 	#ports passed unwanted ARCH definition to Makefile
