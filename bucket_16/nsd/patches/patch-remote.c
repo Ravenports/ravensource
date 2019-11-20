@@ -1,4 +1,4 @@
---- remote.c.orig	2019-07-09 07:24:20 UTC
+--- remote.c.orig	2019-11-20 06:52:15 UTC
 +++ remote.c
 @@ -92,6 +92,10 @@
  #  include <sys/un.h>
