@@ -1,12 +1,8 @@
-DEF[PORTVERSION]=	1.6.3
-DEF[BASE_HEADERS]=	ivtv.h v4l2-controls.h v4l2-common.h videodev2.h
-DEF[DVB_HEADERS]=	audio.h dmx.h frontend.h video.h
-DEF[EXTRA_HEADERS]=	ca.h osd.h version.h
+DEF[PORTVERSION]=	1.18.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		video4linux
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		multimedia
 VARIANTS=		standard
 SDESC[standard]=	Video device drivers
@@ -15,12 +11,9 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main dvb
 SITES[main]=		http://linuxtv.org/downloads/v4l-utils/
-SITES[dvb]=		FREELOCAL/kwm
 DISTFILE[1]=		v4l-utils-${PORTVERSION}.tar.bz2:main
-DISTFILE[2]=		linux-3.16.7-dvb-headers.tar.xz:dvb
-DF_INDEX=		1 2
 
-SPKGS[standard]=	complete primary headers utils
+SPKGS[standard]=	single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,76 +23,28 @@ FPC_EQUIVALENT=		multimedia/libv4l
 BR_DEPS[dragonfly]=	argp-standalone:single:standard
 BR_DEPS[freebsd]=	argp-standalone:single:standard
 BR_DEPS[sunos]=		argp-standalone:single:standard
-B_DEPS[sunos]=		libbsd4sol:single:standard
 
-EXRUN[utils]=		video4linux:primary:standard
+BUILD_DEPENDS=		evdev-proto:single:standard
 
-USES=			gmake iconv jpeg libtool pkgconfig c++:utils
+USES=			gmake jpeg libtool pkgconfig
 DISTNAME=		v4l-utils-${PORTVERSION}
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-libdvbv5
-			--enable-v4l-utils
-			--enable-libv4l
-			--disable-qv4l2
-			--without-libudev
+CONFIGURE_ARGS=		--disable-doxygen-doc
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
 
 post-extract:
-	${MV} ${WRKDIR}/linux ${WRKSRC}/
-
-post-patch-dragonfly:
-	# fix weird types, except a few headers which have compat code for these types.
-	${FIND} ${WRKDIR} -type f \( -iname "*.h" ! -iname "input.h" ! -iname "videodev2.h" \) | \
-		${XARGS} -n 10 ${REINPLACE_CMD} \
-		-e 's|linux/types.h|sys/types.h|g; s|__user||g; \
-		s|__u8|uint8_t|g; s|__s8|int8_t|g; \
-		s|__u16|uint16_t|g; s|__s16|int16_t|g; \
-		s|__u32|uint32_t|g; s|__s32|int32_t|g; \
-		s|__u64|uint64_t|g; s|__s64|int64_t|g'
+	${REINPLACE_CMD} -e '/CPPFLAGS=.*freebsd/d' ${WRKSRC}/configure
+	${MKDIR} ${WRKSRC}/lib/include/sys
 
 post-patch-freebsd:
-	# fix weird types, except a few headers which have compat code for these types.
-	${FIND} ${WRKDIR} -type f \( -iname "*.h" ! -iname "input.h" ! -iname "videodev2.h" \) | \
-		${XARGS} -n 10 ${REINPLACE_CMD} \
-		-e 's|linux/types.h|sys/types.h|g; s|__user||g; \
-		s|__u8|uint8_t|g; s|__s8|int8_t|g; \
-		s|__u16|uint16_t|g; s|__s16|int16_t|g; \
-		s|__u32|uint32_t|g; s|__s32|int32_t|g; \
-		s|__u64|uint64_t|g; s|__s64|int64_t|g'
+	${REINPLACE_CMD} -e 's| -lrt||' \
+		${WRKSRC}/lib/libv4lconvert/Makefile.in \
+		${WRKSRC}/lib/libv4lconvert/libv4lconvert.pc.in
+	${TOUCH} ${WRKSRC}/lib/include/sys/sysmacros.h
 
-post-configure-sunos:
-	${FIND} ${WRKDIR} -type f \( -iname "*.h" ! -iname "input.h" ! -iname "videodev2.h" \) | \
-		${XARGS} -n 10 ${REINPLACE_CMD} \
-		-e 's|linux/types.h|sys/types.h|g; s|__user||g; \
-		s|sys/fcntl.h|fcntl.h|g; \
-		s|__u8|uint8_t|g; s|__s8|int8_t|g; \
-		s|__u16|uint16_t|g; s|__s16|int16_t|g; \
-		s|__u32|uint32_t|g; s|__s32|int32_t|g; \
-		s|__u64|uint64_t|g; s|__s64|int64_t|g'
-	${REINPLACE_CMD} \
-		-e 's|u_int8_t|uint8_t|g' \
-		-e 's|u_int16_t|uint16_t|g' \
-		-e 's|u_int32_t|uint32_t|g' \
-		${WRKSRC}/utils/keytable/keytable.c
-
-post-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/include/linux/dvb/
-.for i in ${BASE_HEADERS}
-	${INSTALL_DATA} ${WRKSRC}/contrib/freebsd/include/linux/${i} \
-		${STAGEDIR}${PREFIX}/include/linux/
-.endfor
-.for i in ${DVB_HEADERS}
-	${INSTALL_DATA} ${WRKSRC}/include/linux/dvb/${i} \
-		${STAGEDIR}${PREFIX}/include/linux/dvb
-.endfor
-	# V4L1 is dead in linux, however webcamd still supports it.
-	${INSTALL_DATA} ${FILESDIR}/videodev.h \
-		${STAGEDIR}${PREFIX}/include/linux/
-	# Extra dvb headers supplied taken from the linux kernel distfile.
-	# vdr and the gst dvb plugin need them at least
-.for i in ${EXTRA_HEADERS}
-	${INSTALL_DATA} ${WRKSRC}/linux/dvb/${i} \
-		${STAGEDIR}${PREFIX}/include/linux/dvb/
-.endfor
-	${RM} -r ${STAGEDIR}/lib
+post-patch-dragonfly:
+	${REINPLACE_CMD} -e 's| -lrt||' \
+		${WRKSRC}/lib/libv4lconvert/Makefile.in \
+		${WRKSRC}/lib/libv4lconvert/libv4lconvert.pc.in
+	${TOUCH} ${WRKSRC}/lib/include/sys/sysmacros.h
