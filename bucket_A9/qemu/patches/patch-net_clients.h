@@ -1,4 +1,4 @@
---- net/clients.h.orig	2019-10-01 22:31:45 UTC
+--- net/clients.h.orig	2019-11-14 18:06:20 UTC
 +++ net/clients.h
 @@ -61,4 +61,10 @@ int net_init_netmap(const Netdev *netdev
  int net_init_vhost_user(const Netdev *netdev, const char *name,

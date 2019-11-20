@@ -1,6 +1,6 @@
---- hw/ppc/mac_oldworld.c.orig	2019-10-01 22:31:44 UTC
+--- hw/ppc/mac_oldworld.c.orig	2019-11-14 18:06:20 UTC
 +++ hw/ppc/mac_oldworld.c
-@@ -59,6 +59,11 @@
+@@ -60,6 +60,11 @@
  
  #define GRACKLE_BASE 0xfec00000
  
