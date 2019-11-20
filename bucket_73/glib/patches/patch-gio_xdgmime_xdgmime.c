@@ -1,4 +1,4 @@
---- gio/xdgmime/xdgmime.c.orig	2019-10-21 17:18:40 UTC
+--- gio/xdgmime/xdgmime.c.orig	2019-11-19 17:51:31 UTC
 +++ gio/xdgmime/xdgmime.c
 @@ -235,7 +235,7 @@ xdg_init_dirs (void)
    xdg_data_dirs = getenv ("XDG_DATA_DIRS");
