@@ -100,7 +100,7 @@ function crid (id) {
 
 function CR_SITES () {
    for (j=1; j <= ll; j++) {
-      print "SITES[" crid(j) "]=\t\tCRATES/" name[j""] ":${" CR_NAME(j) "}"
+      print "SITES[" crid(j) "]=\t\tCRATES/" name[j""] ":" version[j""]
    }
 }
 
