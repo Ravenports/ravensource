@@ -34,3 +34,5 @@ sed -e "s|%%VERSION%%|${VERSION}|" ${FILE_SPTEMP} > /tmp/spec.1
 
 awk -f ${SCRIPTSDIR}/assembler/_rustcrate.awk ${FILE_CRATES} /tmp/spec.1 > ${TARGET}
 echo "file written: ${TARGET}"
+
+rm -f /tmp/spec.1
