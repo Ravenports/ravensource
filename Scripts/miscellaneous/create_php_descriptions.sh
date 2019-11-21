@@ -1,10 +1,5 @@
 #!/bin/sh
 #
-# This script requires an argument which is the base filename of a list
-# file in the same directory.  E.g. "./full_regen_by_list.sh php" means
-# that "php.list" is expected in the same directory.  The list file
-# is the bucket_XX/namebase, one per line.
-#
 # This script creates descriptions/desc.single in each given port
 
 DPATH=$(dirname $0)

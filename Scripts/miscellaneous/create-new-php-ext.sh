@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# This script copies php72 extensions to phpXY extensions where 
+# This script copies php73 extensions to phpXY extensions where
 # argument 1 is "X" and argument 2 is "Y".
 #
 # The script invokes "ravenadm dev distinfo" then "ravenadm dev buildsheet"
@@ -33,7 +33,7 @@ if [ ! -f ${LISTFILE} ]; then
 fi
 
 case "${1}" in
-	5|7|8) ;;	# valid php 5 major version
+	5|7|8) ;;	# valid php major version
 	*)
 	echo "The '${1}' setting is not a valid PHP major version"
 	return 1
@@ -41,7 +41,7 @@ case "${1}" in
 esac
 
 case "${2}" in
-	0|1|2|3|4|5|6|7|8|9) ;;	# valid php 5 minor version
+	0|1|2|3|4|5|6|7|8|9) ;;	# valid php minor version
 	*)
 	echo "The '${2}' setting is not a valid PHP minor version"
 	return 1
@@ -53,7 +53,7 @@ get_bucket() {
 }
 
 while read extension; do
-	oldport=php72-${extension}
+	oldport=php73-${extension}
 	newport=php${1}${2}-${extension}
 	oldbucket=$(get_bucket ${oldport})
 	newbucket=$(get_bucket ${newport})
@@ -67,8 +67,8 @@ while read extension; do
 			mkdir -p ${RAVENSRC}/${bucketdir}
 		fi
 		cp -a ${RAVENSRC}/${oldbucket} ${RAVENSRC}/${newbucket}
-		sed -i '' -e "s|PHP_7.2_|PHP_${1}.${2}_|" ${RAVENSRC}/${newbucket}/specification
-		sed -i '' -e "s|7\.2|${1}.${2}|g" ${RAVENSRC}/${newbucket}/descriptions/*
+		sed -i '' -e "s|PHP_7.3_|PHP_${1}.${2}_|" ${RAVENSRC}/${newbucket}/specification
+		sed -i '' -e "s|7\.3|${1}.${2}|g" ${RAVENSRC}/${newbucket}/descriptions/*
 	fi
 	(cd ${RAVENSRC}/${newbucket} && \
 		/raven/bin/ravenadm dev distinfo &&
