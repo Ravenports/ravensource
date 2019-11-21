@@ -2,7 +2,7 @@ $NetBSD: patch-src_loader_loader.c,v 1.5 2019/08/29 14:12:57 nia Exp $
 
 Include limits.h for PATH_MAX.
 
---- src/loader/loader.c.orig	2019-11-13 18:45:07 UTC
+--- src/loader/loader.c.orig	2019-11-20 16:57:32 UTC
 +++ src/loader/loader.c
 @@ -36,6 +36,7 @@
  #include <string.h>

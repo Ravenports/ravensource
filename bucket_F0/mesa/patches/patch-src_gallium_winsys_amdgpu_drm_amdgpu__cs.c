@@ -1,4 +1,4 @@
---- src/gallium/winsys/amdgpu/drm/amdgpu_cs.c.orig	2019-11-13 18:45:06 UTC
+--- src/gallium/winsys/amdgpu/drm/amdgpu_cs.c.orig	2019-11-20 16:57:32 UTC
 +++ src/gallium/winsys/amdgpu/drm/amdgpu_cs.c
 @@ -33,6 +33,10 @@
  
