@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	%%VERSION%%
+%%CR_DEFINITIONS%%
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		cbindgen
+VERSION=		${PORTVERSION}
+KEYWORDS=		rust devel
+VARIANTS=		standard
+SDESC[standard]=	Tool for generating C bindings to Rust code
+HOMEPAGE=		https://github.com/eqrion/cbindgen
+CONTACT=		nobody
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		https://crates.io/api/v1/crates/cbindgen/${PORTVERSION}/download?dummy=/
+%%CR_SITES%%
+
+DISTFILE[1]=		cbindgen-${PORTVERSION}.tar.gz:main
+%%CR_DISTFILES%%
+%%DF_INDEX%%
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MPL:single
+LICENSE_FILE=		MPL:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/main.rs
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/rust-cbindgen
+
+USES=			cargo cclibs:single
+
+B_DEPS[linux]=		libiconv:shared:standard

@@ -63,7 +63,7 @@ if [ $? -ne 0 ]; then
    exit 1
 fi
 
-CARGOVER=$(awk -f ${SCRIPTSDIR}/cargo.awk ${RASSY}/raven/lib/rustlib/src/rust/Cargo.lock)
+CARGOVER=$(awk -f ${SCRIPTSDIR}/_cargo.awk ${RASSY}/raven/lib/rustlib/src/rust/Cargo.lock)
 NAME_CARGO=cargo-${CARGOVER}-${DFLY}
 NAME_CARGO_PKG=${NAME_CARGO}.tar.zst
 
