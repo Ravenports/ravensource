@@ -7,10 +7,10 @@ NAMEBASE=		python-libxml2
 VERSION=		${PORTVERSION}
 REVISION=		${PORTREVISION}
 KEYWORDS=		python textproc
-VARIANTS=		py27 py37 py36
+VARIANTS=		py27 py37 py38
 SDESC[py27]=		Python bindings for libxml2 (PY 27)
 SDESC[py37]=		Python bindings for libxml2 (PY 37)
-SDESC[py36]=		Python bindings for libxml2 (PY 36)
+SDESC[py38]=		Python bindings for libxml2 (PY 38)
 HOMEPAGE=		http://xmlsoft.org/
 CONTACT=		nobody
 
@@ -21,13 +21,13 @@ DIST_SUBDIR=		gnome2
 
 SPKGS[py27]=		single
 SPKGS[py37]=		single
-SPKGS[py36]=		single
+SPKGS[py38]=		single
 
-OPTIONS_AVAILABLE=	PY27 PY37 PY36
+OPTIONS_AVAILABLE=	PY27 PY37 PY38
 OPTIONS_STANDARD=	none
-VOPTS[py27]=		PY27=ON PY37=OFF PY36=OFF
-VOPTS[py37]=		PY27=OFF PY37=ON PY36=OFF
-VOPTS[py36]=		PY27=OFF PY37=OFF PY36=ON
+VOPTS[py27]=		PY27=ON PY37=OFF PY38=OFF
+VOPTS[py37]=		PY27=OFF PY37=ON PY38=OFF
+VOPTS[py38]=		PY27=OFF PY37=OFF PY38=ON
 
 FPC_EQUIVALENT=		textproc/py-libxml2
 
@@ -46,7 +46,7 @@ CPE_VENDOR=		xmlsoft
 
 [PY27].USES_ON=				python:py27
 [PY37].USES_ON=				python:py37
-[PY36].USES_ON=				python:py36
+[PY38].USES_ON=				python:py38
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/libxml2mod.so

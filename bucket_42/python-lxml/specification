@@ -26,32 +26,17 @@ VOPTS[py38]=		PY27=OFF PY38=ON PY37=OFF
 VOPTS[py37]=		PY27=OFF PY38=OFF PY37=ON
 
 # Output of setup.py --license
-# ERROR: /bin/sh: xslt-config: not found dead-homepage.list
-# description-override.list extract_info.pl extract_summary.pl
-# generate_python_port.sh md5.awk pypi_bsd_licenses.txt python.list
-# python.manual.list regenerate_python_ports.sh summary-override.list make
-# sure the development packages of libxml2 and libxslt are installed
-# dead-homepage.list description-override.list extract_info.pl
-# extract_summary.pl generate_python_port.sh md5.awk pypi_bsd_licenses.txt
-# python.list python.manual.list regenerate
+# BSD
 
 GENERATED=		yes
 
 # install_requires extracted from setup.py (using python 2.7)
-# ERROR:
-# **
 
 DISTNAME=		lxml-${PORTVERSION}
 
 [PY27].USES_ON=				python:py27
-[PY27].BUILDRUN_DEPENDS_ON=		python-ERROR:/bin/sh:xslt-config:notfound:single:py27
-					python-**makesurethedevelopmentpackagesoflibxml2andlibxsltareinstalled**:single:py27
 
 [PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-ERROR:b'/bin/sh:xslt-config:notfound\n':single:py38
-					python-**makesurethedevelopmentpackagesoflibxml2andlibxsltareinstalled**:single:py38
 
 [PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-ERROR:b'/bin/sh:xslt-config:notfound\n':single:py37
-					python-**makesurethedevelopmentpackagesoflibxml2andlibxsltareinstalled**:single:py37
 GNOME_COMPONENTS=	libxslt

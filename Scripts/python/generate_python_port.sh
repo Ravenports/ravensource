@@ -15,6 +15,7 @@
 #           python-pbr-py37 (conflict issue with python-pbr-py27)
 #           perl-JSON
 #           perl-File-Slurp
+#           libxslt
 
 [ -n "${DEBUG_MK_SCRIPTS}" -o -n "${DEBUG_MK_SCRIPTS_MAKESUM}" ] && set -x
 
