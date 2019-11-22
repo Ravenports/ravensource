@@ -1,7 +1,7 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(BINUTILS_VERSION)
 DEF[BUREMOVE]=		coffdump dlltool dllwrap nlmconv srconv sysdump windmc windres
 
-# Version is frozen to 2.32 (no revision) because ravenadm has to pre-copy
+# Version is frozen to 2.33.1 (no revision) because ravenadm has to pre-copy
 # the ravensys variant with the other compiler packages.  Don't upgrade the
 # version without a corresponding update to ravenadm.
 # ----------------------------------------------------------------------------
@@ -42,7 +42,7 @@ BUILD_DEPENDS=		zlib:static:standard
 			mpfr:static:standard
 			gmp:static:standard
 
-USES=			bison gmake libtool
+USES=			bison gmake libtool c++:single
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
 CONFIGURE_ARGS=		--disable-werror
