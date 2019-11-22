@@ -14,9 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://downloads.dragonlace.net/src/
 DISTFILE[1]=		xmlada-${PORTVERSION}-${DATE}-src.tar.gz:main
 DF_INDEX=		1
-SPKGS[standard]=	complete
-			primary
-			docs
+SPKGS[standard]=	complete primary docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,11 +28,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		textproc/xmlada
 
-BUILD_DEPENDS=		python-Sphinx:single:python_default
-
 USES=			cclibs:primary ada:primary
 DISTNAME=		xmlada-${PORTVERSION}-${DATE}-src
-BUILD_TARGET=		schema_libs gen-docs
+BUILD_TARGET=		schema_libs
 MAKEFILE=		Makefile.bsd
 MAKE_ARGS=		LIBVER=${PORTVERSION}
 			PROCESSORS={{MAKE_JOBS_NUMBER}}
