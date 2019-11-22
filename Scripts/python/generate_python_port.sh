@@ -7,7 +7,7 @@
 # requires: python-six:py27
 #           python-funcsigs:py27
 #           python-mock-single-py27
-#           python-setuptools-py36
+#           python-setuptools-py38
 #           python-setuptools-py37
 #           python-setuptools_scm-py37
 #           python-setuptools_git-py37
