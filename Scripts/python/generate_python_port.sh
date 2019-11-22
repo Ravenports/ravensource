@@ -13,6 +13,8 @@
 #           python-setuptools_git-py37
 #           python-vcversioner-py37
 #           python-pbr-py37 (conflict issue with python-pbr-py27)
+#           perl-JSON
+#           perl-File-Slurp
 
 [ -n "${DEBUG_MK_SCRIPTS}" -o -n "${DEBUG_MK_SCRIPTS_MAKESUM}" ] && set -x
 
@@ -167,13 +169,13 @@ determine_variants() {
         ;;
    esac
    case ${PYPINAME} in
-     raet) # required ioflo is 3.7+ now
-        ;;
+#     raet) # required ioflo is 3.7+ now
+#        ;;
      *)
-     exec_setup python3.6 --name > /dev/null
+     exec_setup python3.8 --name > /dev/null
      if [ $? -eq 0 ]; then
-        vrt="${vrt} py36"
-        [ -z "${FIRST_SNAKE}" ] && FIRST_SNAKE=python3.6
+        vrt="${vrt} py38"
+        [ -z "${FIRST_SNAKE}" ] && FIRST_SNAKE=python3.8
      fi
    esac
    exec_setup python3.7 --name > /dev/null
@@ -460,7 +462,7 @@ EOF
       cat ${raven_req3a}
    fi
 
-   (cd /tmp/expand/${DISTNAME}-${VERSION}/ && python3.6 obtain-req.py | sed '/^$/d') \
+   (cd /tmp/expand/${DISTNAME}-${VERSION}/ && python3.8 obtain-req.py | sed '/^$/d') \
     > ${raven_req3b}
    if [ $? -ne 0 ]; then
       echo "### Python script to obtain dependencies failed! ###";
@@ -513,7 +515,7 @@ dump_buildrun_options() {
    for v in ${VARIANTS}; do
       case "${v}" in
        py37) reqfile=${raven_req3a} ;;
-       py36) reqfile=${raven_req3b} ;;
+       py38) reqfile=${raven_req3b} ;;
         *)   reqfile=${raven_req2} ;;
       esac
       awk -F ">" -v variant=${v} '\

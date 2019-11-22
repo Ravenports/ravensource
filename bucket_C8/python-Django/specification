@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	2.2.7
 NAMEBASE=		python-Django
 VERSION=		${PORTVERSION}
 KEYWORDS=		python devel
-VARIANTS=		py36 py37
-SDESC[py36]=		High-level Python Web framework (PY 36)
+VARIANTS=		py38 py37
+SDESC[py38]=		High-level Python Web framework (PY 38)
 SDESC[py37]=		High-level Python Web framework (PY 37)
 HOMEPAGE=		https://www.djangoproject.com/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/D/Django
 DISTFILE[1]=		Django-2.2.7.tar.gz:main
 
-SPKGS[py36]=		single
+SPKGS[py38]=		single
 SPKGS[py37]=		single
 
-OPTIONS_AVAILABLE=	PY36 PY37
+OPTIONS_AVAILABLE=	PY38 PY37
 OPTIONS_STANDARD=	none
-VOPTS[py36]=		PY36=ON PY37=OFF
-VOPTS[py37]=		PY36=OFF PY37=ON
+VOPTS[py38]=		PY38=ON PY37=OFF
+VOPTS[py37]=		PY38=OFF PY37=ON
 
 # Output of setup.py --license
 # BSD
@@ -31,9 +31,9 @@ GENERATED=		yes
 
 DISTNAME=		Django-${PORTVERSION}
 
-[PY36].USES_ON=				python:py36
-[PY36].BUILDRUN_DEPENDS_ON=		python-pytz:single:py36
-					python-sqlparse:single:py36
+[PY38].USES_ON=				python:py38
+[PY38].BUILDRUN_DEPENDS_ON=		python-pytz:single:py38
+					python-sqlparse:single:py38
 
 [PY37].USES_ON=				python:py37
 [PY37].BUILDRUN_DEPENDS_ON=		python-pytz:single:py37
