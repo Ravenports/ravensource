@@ -3,10 +3,12 @@
 # Utility to remove ports that are no longer present in ravensource
 #
 
-rports=/usr/raven
-rsource=/mech/ravensource
+DPATH=$(dirname $0)
+SCRIPTSDIR=$(cd ${DPATH} && pwd -P)
+RAVENSRC=$(dirname ${SCRIPTSDIR})
+CONSPIR=$(/raven/bin/ravenadm dev info D)
 
-list=$(cd ${rports} && find bucket_* -type f)
+list=$(cd ${CONSPIR} && find bucket_* -type f)
 
 if [ $# -lt 1 -o "${1}" != "confirm" ]; then
    echo "add 'confirm' argument to execute (this is dry run)"
@@ -17,8 +19,8 @@ fi
 
 
 for item in ${list}; do
-   if [ ! -d "${rsource}/${item}" ]; then
-      echo "removing ${rsource}/$item"
-      if [ $xc -eq 1 ]; then rm ${rports}/$item; fi
+   if [ ! -d "${RAVENSRC}/${item}" ]; then
+      echo "removing ${RAVENSRC}/$item"
+      if [ $xc -eq 1 ]; then rm ${CONSPIR}/$item; fi
    fi
 done
