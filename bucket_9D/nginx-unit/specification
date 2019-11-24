@@ -14,7 +14,7 @@ SITES[main]=		https://unit.nginx.org/download/
 DISTFILE[1]=		unit-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	complete unitd python2 python3 perl
-			php71 php72 php73
+			php72 php73 php74
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,13 +29,13 @@ FPC_EQUIVALENT=		www/unit
 RC_SUBR=		unitd:unitd
 
 BUILD_DEPENDS=		python27:single:standard
-			php71:single:standard
+			php74:single:standard
 			php72:single:standard
 			php73:single:standard
 EXRUN[python2]=		python27:single:standard
 EXRUN[python3]=		python
 EXRUN[perl]=		perl
-EXRUN[php71]=		php71:single:standard
+EXRUN[php74]=		php74:single:standard
 EXRUN[php72]=		php72:single:standard
 EXRUN[php73]=		php73:single:standard
 
@@ -61,9 +61,9 @@ post-configure:
 	  && ./configure python --config=python2.7-config \
 	  && ./configure python --config=python${PYTHON_VER}-config \
 	  && ./configure perl --module=perl${PERL_VER} \
-	  && ./configure php --module=php71\
-			--config=php-config71\
-			--lib-path=${PREFIX}/lib/php71 \
+	  && ./configure php --module=php74\
+			--config=php-config74\
+			--lib-path=${PREFIX}/lib/php74 \
 	  && ./configure php --module=php72\
 			--config=php-config72\
 			--lib-path=${PREFIX}/lib/php72 \
