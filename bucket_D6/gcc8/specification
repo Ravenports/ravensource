@@ -19,7 +19,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GCC/${MS_SUBDIR}
 DISTFILE[1]=		${IDENTIFICATION}.tar.xz:main
 
-SPKGS[standard]=	complete compilers ada_run cxx_run fortran_run libs infopages
+SPKGS[standard]=	complete compilers cxx_run fortran_run libs infopages
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -40,7 +40,6 @@ BUILD_DEPENDS=		gmp:static:standard
 			mpc:static:standard
 			zlib:static:standard
 BUILDRUN_DEPENDS=	binutils:single:ravensys
-EXRUN[ada_run]=		gcc8:libs:standard
 EXRUN[cxx_run]=		gcc8:libs:standard
 EXRUN[fortran_run]=	gcc8:libs:standard
 EXRUN[compilers]=	gcc8:cxx_run:standard
@@ -55,7 +54,12 @@ PLIST_SUB=		GCCVER=${GCC_VERSION}
 PREFIX=			{{LOCALBASE}}/toolchain/{{NAMEBASE}}
 INSTALL_TARGET=		install-strip
 CONFIGURE_OUTSOURCE=	yes
-CONFIGURE_ARGS=		--enable-languages="c,c++,ada,fortran"
+
+# gcc9 cannot build gcc8 with ada
+# Apparently it's similar to how gcc8 ada can't build gcc7 ada
+# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=86211
+
+CONFIGURE_ARGS=		--enable-languages="c,c++,fortran"
 			--with-local-prefix={{LOCALBASE}}
 			--with-system-zlib
 			--with-gmp={{LOCALBASE}}
@@ -120,21 +124,10 @@ post-patch:
 		${WRKSRC}/gcc/config/i386/gnu-user64.h \
 		${WRKSRC}/gcc/config/aarch64/aarch64-freebsd.h \
 		${WRKSRC}/gcc/ada/gnatls.adb
-	# Ensure dwarf4-compatible addr2line
-	${REINPLACE_CMD} -e 's|/usr/bin/addr2line|${PREFIX:H}/bin/addr2line|g'\
-		${WRKSRC}/gcc/ada/traceback_symbolic.c
 	${REINPLACE_CMD} -e 's|static:crtbeginT.o%s;||' \
 		${WRKSRC}/gcc/config/freebsd-spec.h
 
-post-patch-linux:
-	# undo BSD thin socket modification
-	${MV} ${WRKSRC}/gcc/ada/libgnat/g-socthi.ads.orig \
-		${WRKSRC}/gcc/ada/libgnat/g-socthi.ads
-
 post-patch-darwin:
-	# undo BSD thin socket modification
-	${MV} ${WRKSRC}/gcc/ada/libgnat/g-socthi.ads.orig \
-		${WRKSRC}/gcc/ada/libgnat/g-socthi.ads
 	${FIND} ${WRKSRC} -name configure | ${XARGS} \
 		${SED} -i.mac -e 's|apple-darwin|raven-darwin|' \
 		${WRKSRC}/gcc/configure
@@ -144,15 +137,10 @@ post-patch-sunos:
 		${WRKSRC}/gcc/Makefile.in
 	${REINPLACE_CMD} -e 's| install-gcc-specs||' \
 		${WRKSRC}/gcc/ada/gcc-interface/Makefile.in
-	# undo BSD thin socket modification
-	${MV} ${WRKSRC}/gcc/ada/libgnat/g-socthi.ads.orig \
-		${WRKSRC}/gcc/ada/libgnat/g-socthi.ads
 
 post-install:
 	cp ${STAGEDIR}${PREFIX}/bin/gcc ${STAGEDIR}${PREFIX}/bin/cc
 	${RM} ${STAGEDIR}${MANPREFIX}/man/man7/*
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/adalib/libgnarl.${LIBEXT}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/adalib/libgnat.${LIBEXT}
 	# remove when info pages re-enabled
 	${RM} ${STAGEDIR}${PREFIX}/share/info/libitm.info
 	${RM} ${STAGEDIR}${PREFIX}/share/info/libgomp.info
