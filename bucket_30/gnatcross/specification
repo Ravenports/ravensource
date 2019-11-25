@@ -98,7 +98,7 @@ SUB_LIST=		TARGET="{{XCCTARGET}}"
 					PREFIX={{LOCALBASE}}/FreeBSD12_AMD64
 					SRPREFIX={{PREFIX}}/sysroot
 					XCCTARGET=x86_64-raven-freebsd${FREEBSD_12}
-					TARGET_SPECIFIC=#none
+					TARGET_SPECIFIC=--disable-multilib
 
 [FI386R12].DESCRIPTION=			Set target to FreeBSD/I386 (Release 12)
 [FI386R12].BUILDRUN_DEPENDS_ON=		gnatcross-binutils:single:FI386_R12
@@ -116,7 +116,8 @@ SUB_LIST=		TARGET="{{XCCTARGET}}"
 					XCCTARGET=x86_64-raven-solaris2.10
 					TARGET_SPECIFIC=--with-gnu-ld\
 					--with-gnu-as\
-					--enable-multilib
+					--enable-multilib\
+					--enable-obsolete
 [SOL10].CONFIGURE_ENV_ON=		LD=ld.bfd
 
 post-extract:
