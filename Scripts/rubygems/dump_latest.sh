@@ -1,6 +1,6 @@
 #!/bin/sh
 
-RUBYEXE=ruby25
+RUBYEXE=ruby26
 pathtoexec=$(realpath $0)
 thisdir=$(dirname ${pathtoexec})
 wrkdir=/tmp/rubygems

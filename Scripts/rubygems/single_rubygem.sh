@@ -6,10 +6,14 @@
 #
 # argument 1: ruby gem name
 # argument 2: optional, "force" to ignore "done" in cache and force rebuild
+#
+# install ruby26-complete-standard (or latest ruby)
+# install ruby-rubygems:single:v26
+
 
 [ -n "${DEBUG_MK_SCRIPTS}" -o -n "${DEBUG_MK_SCRIPTS_MAKESUM}" ] && set -x
 
-RUBYEXE=ruby25
+RUBYEXE=ruby26
 pathtoexec=$(realpath $0)
 thisdir=$(dirname ${pathtoexec})
 tmpdir=/tmp/rubygems
