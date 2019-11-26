@@ -1,9 +1,11 @@
 DEF[PORTVERSION]=	6.10.1
 DEF[ETCDIR]=		{{PREFIX}}/etc/puppet
+DEF[RV]=		v26
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		puppet
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		standard
 SDESC[standard]=	Server automation framework and application
@@ -27,15 +29,15 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		sysutils/puppet6
 
 BUILDRUN_DEPENDS=	facter:single:standard
-			ruby-hiera:single:ruby_default
-			ruby-json_pure:single:ruby_default
-			ruby-semantic_puppet:single:ruby_default
-			ruby-concurrent-ruby:single:ruby_default
-RUN_DEPENDS=		ruby-gettext-setup:single:ruby_default
-			ruby-hocon:single:ruby_default
-			ruby-ruby-augeas:single:ruby_default
+			ruby-hiera:single:${RV}
+			ruby-json:single:${RV}
+			ruby-semantic_puppet:single:${RV}
+			ruby-concurrent-ruby:single:${RV}
+RUN_DEPENDS=		ruby-gettext-setup:single:${RV}
+			ruby-hocon:single:${RV}
+			ruby-ruby-augeas:single:${RV}
 
-USES=			cpe ruby
+USES=			cpe ruby:${RV}
 CPE_VENDOR=		puppetlabs
 
 USERS=			puppet
