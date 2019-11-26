@@ -1,19 +1,19 @@
-DEF[PORTVERSION]=	5.4.4
+DEF[PORTVERSION]=	2.3.1
 # ------------------------------------------------------------------------
 
-NAMEBASE=		python-pbr
+NAMEBASE=		python-gnupg
 VERSION=		${PORTVERSION}
-KEYWORDS=		python
+KEYWORDS=		python devel
 VARIANTS=		py27 py38 py37
-SDESC[py27]=		Python Build Reasonableness (PY 27)
-SDESC[py38]=		Python Build Reasonableness (PY 38)
-SDESC[py37]=		Python Build Reasonableness (PY 37)
-HOMEPAGE=		https://docs.openstack.org/pbr/latest/
+SDESC[py27]=		Python wrapper for GnuPG (PY 27)
+SDESC[py38]=		Python wrapper for GnuPG (PY 38)
+SDESC[py37]=		Python wrapper for GnuPG (PY 37)
+HOMEPAGE=		https://github.com/isislovecruft/python-gnupg
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/p/pbr
-DISTFILE[1]=		pbr-5.4.4.tar.gz:main
+SITES[main]=		PYPI/g/gnupg
+DISTFILE[1]=		gnupg-2.3.1.tar.gz:main
 
 SPKGS[py27]=		single
 SPKGS[py38]=		single
@@ -26,18 +26,21 @@ VOPTS[py38]=		PY27=OFF PY38=ON PY37=OFF
 VOPTS[py37]=		PY27=OFF PY38=OFF PY37=ON
 
 # Output of setup.py --license
-# UNKNOWN
+# GPLv3+
 
 GENERATED=		yes
 
 # install_requires extracted from setup.py (using python 2.7)
+# psutil>=1.2.1
 
-DISTNAME=		pbr-${PORTVERSION}
+DISTNAME=		gnupg-${PORTVERSION}
 
 [PY27].USES_ON=				python:py27
+[PY27].BUILDRUN_DEPENDS_ON=		python-psutil:single:py27
 
 [PY38].USES_ON=				python:py38
+[PY38].BUILDRUN_DEPENDS_ON=		python-psutil:single:py38
 
 [PY37].USES_ON=				python:py37
-USES=			shebangfix
-SHEBANG_FILES=		pbr/tests/testpackage/setup.py
+[PY37].BUILDRUN_DEPENDS_ON=		python-psutil:single:py37
+
