@@ -1,4 +1,4 @@
---- asis/a4g-gnat_int.adb.orig	2018-05-25 04:53:29 UTC
+--- asis/a4g-gnat_int.adb.orig	2019-05-18 04:05:30 UTC
 +++ asis/a4g-gnat_int.adb
 @@ -234,46 +234,10 @@ package body A4G.GNAT_Int is
        Opt.Tree_Read;
