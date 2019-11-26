@@ -1,4 +1,4 @@
---- hw/xfree86/common/xf86AutoConfig.c.orig	2019-02-26 19:28:50 UTC
+--- hw/xfree86/common/xf86AutoConfig.c.orig	2019-11-22 23:44:19 UTC
 +++ hw/xfree86/common/xf86AutoConfig.c
 @@ -294,7 +294,7 @@ listPossibleVideoDrivers(XF86MatchedDriv
      xf86PciMatchDriver(md);

@@ -1,4 +1,4 @@
---- hw/kdrive/ephyr/hostx.c.orig	2019-02-26 19:28:50 UTC
+--- hw/kdrive/ephyr/hostx.c.orig	2019-11-22 23:44:19 UTC
 +++ hw/kdrive/ephyr/hostx.c
 @@ -36,7 +36,6 @@
  #include <string.h>             /* for memset */
