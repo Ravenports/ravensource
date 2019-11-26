@@ -1,6 +1,6 @@
---- unix/Makefile.in.orig	2018-11-12 18:04:49 UTC
+--- unix/Makefile.in.orig	2019-11-21 19:10:50 UTC
 +++ unix/Makefile.in
-@@ -54,6 +54,8 @@ SCRIPT_INSTALL_DIR	= $(INSTALL_ROOT)$(TC
+@@ -55,6 +55,8 @@ SCRIPT_INSTALL_DIR	= $(INSTALL_ROOT)$(TC
  
  # Directory in which to install the include file tcl.h:
  INCLUDE_INSTALL_DIR	= $(INSTALL_ROOT)$(includedir)
@@ -9,7 +9,7 @@
  
  # Path to the private tcl header dir:
  PRIVATE_INCLUDE_DIR	= @PRIVATE_INCLUDE_DIR@
-@@ -80,10 +82,10 @@ HTML_DIR		= @HTML_DIR@
+@@ -81,10 +83,10 @@ HTML_DIR		= @HTML_DIR@
  HTML_INSTALL_DIR	= $(INSTALL_ROOT)$(HTML_DIR)
  
  # Directory in which to install the configuration file tclConfig.sh
@@ -22,7 +22,7 @@
  
  # Package search path.
  TCL_PACKAGE_PATH	= @TCL_PACKAGE_PATH@
-@@ -614,9 +616,9 @@ SRCS = $(GENERIC_SRCS) $(TOMMATH_SRCS) $
+@@ -710,9 +712,9 @@ SRCS = $(GENERIC_SRCS) $(TOMMATH_SRCS) $
  # Start of rules
  #--------------------------------------------------------------------------
  
@@ -34,7 +34,7 @@
  
  libraries:
  
-@@ -627,6 +629,12 @@ doc:
+@@ -723,6 +725,12 @@ doc:
  ${LIB_FILE}: ${STUB_LIB_FILE} ${OBJS}
  	rm -f $@
  	@MAKE_LIB@
@@ -47,7 +47,7 @@
  
  ${STUB_LIB_FILE}: ${STUB_LIB_OBJS}
  	@if test "x${LIB_FILE}" = "xlibtcl${MAJOR_VERSION}.${MINOR_VERSION}.dll"; then \
-@@ -770,13 +778,13 @@ trace-test: ${TCLTEST_EXE}
+@@ -866,13 +874,13 @@ trace-test: ${TCLTEST_EXE}
  # Installation rules
  #--------------------------------------------------------------------------
  
@@ -64,7 +64,7 @@
  
  install: $(INSTALL_TARGETS)
  
-@@ -798,6 +806,11 @@ install-binaries: binaries
+@@ -894,6 +902,11 @@ install-binaries: binaries
  	@echo "Installing $(LIB_FILE) to $(DLL_INSTALL_DIR)/"
  	@@INSTALL_LIB@
  	@chmod 555 "$(DLL_INSTALL_DIR)/$(LIB_FILE)"
@@ -76,7 +76,7 @@
  	@echo "Installing ${TCL_EXE} as $(BIN_INSTALL_DIR)/tclsh$(VERSION)${EXE_SUFFIX}"
  	@$(INSTALL_PROGRAM) ${TCL_EXE} "$(BIN_INSTALL_DIR)/tclsh$(VERSION)${EXE_SUFFIX}"
  	@echo "Installing tclConfig.sh to $(CONFIG_INSTALL_DIR)/"
-@@ -813,9 +826,14 @@ install-binaries: binaries
+@@ -909,9 +922,14 @@ install-binaries: binaries
  	@echo "Installing pkg-config file to $(LIB_INSTALL_DIR)/pkgconfig/"
  	@$(INSTALL_DATA_DIR) $(LIB_INSTALL_DIR)/pkgconfig
  	@$(INSTALL_DATA) tcl.pc $(LIB_INSTALL_DIR)/pkgconfig/tcl.pc
@@ -92,7 +92,7 @@
  	    do \
  	    if [ ! -d "$$i" ] ; then \
  		echo "Making directory $$i"; \
-@@ -823,7 +841,13 @@ install-libraries: libraries
+@@ -919,7 +937,13 @@ install-libraries: libraries
  		else true; \
  		fi; \
  	    done;
@@ -107,12 +107,12 @@
  	    do \
  	    if [ ! -d "$(SCRIPT_INSTALL_DIR)"/$$i ] ; then \
  		echo "Making directory $(SCRIPT_INSTALL_DIR)/$$i"; \
-@@ -843,31 +867,29 @@ install-libraries: libraries
+@@ -939,31 +963,29 @@ install-libraries: libraries
  	    $(INSTALL_DATA) $$i "$(SCRIPT_INSTALL_DIR)"/http1.0; \
  	    done;
- 	@echo "Installing package http 2.9.0 as a Tcl Module";
--	@$(INSTALL_DATA) $(TOP_DIR)/library/http/http.tcl "$(SCRIPT_INSTALL_DIR)"/../tcl8/8.6/http-2.9.0.tm;
-+	@$(INSTALL_DATA) $(TOP_DIR)/library/http/http.tcl "$(SCRIPT_INSTALL_DIR)"/http-2.9.0.tm;
+ 	@echo "Installing package http 2.9.1 as a Tcl Module";
+-	@$(INSTALL_DATA) $(TOP_DIR)/library/http/http.tcl "$(SCRIPT_INSTALL_DIR)"/../tcl8/8.6/http-2.9.1.tm;
++	@$(INSTALL_DATA) $(TOP_DIR)/library/http/http.tcl "$(SCRIPT_INSTALL_DIR)"/http-2.9.1.tm;
  	@echo "Installing package opt0.4 files to $(SCRIPT_INSTALL_DIR)/opt0.4/";
  	@for i in $(TOP_DIR)/library/opt/*.tcl ; \
  	    do \
@@ -121,9 +121,9 @@
  	@echo "Installing package msgcat 1.6.1 as a Tcl Module";
 -	@$(INSTALL_DATA) $(TOP_DIR)/library/msgcat/msgcat.tcl "$(SCRIPT_INSTALL_DIR)"/../tcl8/8.5/msgcat-1.6.1.tm;
 +	@$(INSTALL_DATA) $(TOP_DIR)/library/msgcat/msgcat.tcl "$(SCRIPT_INSTALL_DIR)"/msgcat-1.6.1.tm;
- 	@echo "Installing package tcltest 2.5.0 as a Tcl Module";
--	@$(INSTALL_DATA) $(TOP_DIR)/library/tcltest/tcltest.tcl "$(SCRIPT_INSTALL_DIR)"/../tcl8/8.5/tcltest-2.5.0.tm;
-+	@$(INSTALL_DATA) $(TOP_DIR)/library/tcltest/tcltest.tcl "$(SCRIPT_INSTALL_DIR)"/tcltest-2.5.0.tm;
+ 	@echo "Installing package tcltest 2.5.1 as a Tcl Module";
+-	@$(INSTALL_DATA) $(TOP_DIR)/library/tcltest/tcltest.tcl "$(SCRIPT_INSTALL_DIR)"/../tcl8/8.5/tcltest-2.5.1.tm;
++	@$(INSTALL_DATA) $(TOP_DIR)/library/tcltest/tcltest.tcl "$(SCRIPT_INSTALL_DIR)"/tcltest-2.5.1.tm;
  
  	@echo "Installing package platform 1.0.14 as a Tcl Module";
 -	@$(INSTALL_DATA) $(TOP_DIR)/library/platform/platform.tcl "$(SCRIPT_INSTALL_DIR)"/../tcl8/8.4/platform-1.0.14.tm;
@@ -144,7 +144,7 @@
  
  install-tzdata:
  	@for i in tzdata; \
-@@ -942,7 +964,7 @@ install-doc: doc
+@@ -1038,7 +1060,7 @@ install-doc: doc
  	done
  
  install-headers:
@@ -153,7 +153,7 @@
  	    do \
  	    if [ ! -d "$$i" ] ; then \
  		echo "Making directory $$i"; \
-@@ -951,14 +973,19 @@ install-headers:
+@@ -1047,14 +1069,19 @@ install-headers:
  		fi; \
  	    done;
  	@echo "Installing header files to $(INCLUDE_INSTALL_DIR)/";
