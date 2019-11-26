@@ -1,0 +1,18 @@
+--- shared.gpr.in.orig	2019-04-25 05:40:59 UTC
++++ shared.gpr.in
+@@ -61,13 +61,11 @@ project Shared is
+       case Build is
+          when "Debug" =>
+              for Switches ("Ada") use
+-                ("-gnatQ", "-gnatwae", "-gnatay", "-g", "-O0",
+-                 "-Werror=format-security");
++                ("-gnatQ", "-gnatwae", "-gnatay", "-g", "-O0");
+              for Switches ("C") use ("-g", "-O0");
+          when "Production" =>
+              for Switches ("Ada") use
+-                ("-gnatQ", "-O2", "-gnatn", "-gnatwa", "-gnaty",
+-                 "-Werror=format-security");
++                ("-gnatQ", "-O2", "-gnatn", "-gnatwa", "-gnaty");
+              for Switches ("C") use ("-O2");
+       end case;
+ 
