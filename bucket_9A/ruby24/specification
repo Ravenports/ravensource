@@ -61,6 +61,7 @@ CPE_UPDATE=		p${PATCHLEVEL}
 INSTALL_REQ_TOOLCHAIN=	yes
 
 VAR_OPSYS[darwin]=	CONFIGURE_ENV=ac_cv_func_backtrace=no
+VAR_OPSYS[dragonfly]=	CFLAGS=-fuse-ld=gold
 
 post-patch:
 	${FIND} ${WRKSRC}/ -name "*.orig" -delete
