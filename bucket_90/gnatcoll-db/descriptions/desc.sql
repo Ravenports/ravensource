@@ -1,2 +1,0 @@
-This is the DB module of the GNAT Components Collection.
-This package contains gnatcoll_sql.
