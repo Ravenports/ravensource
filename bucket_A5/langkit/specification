@@ -69,6 +69,8 @@ do-build:
 
 do-install:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		${PYTHON_CMD} setup.py install --root ${STAGEDIR})
+	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${PYTHON_CMD} scripts/build-langkit_support.py\
 		--library-types=${LIBTYPES}\
 		install ${STAGEDIR}${PREFIX})
