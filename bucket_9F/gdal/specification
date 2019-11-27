@@ -56,13 +56,13 @@ CONFIGURE_ARGS=		--datadir={{LOCALBASE}}/share/gdal
 			--with-webp={{LOCALBASE}}
 			--with-sqlite3={{LOCALBASE}}
 			--with-threads=yes
-			--with-static-proj4=no
 			--with-curl=no
 			--with-geos=no
 			--with-xml2=no
 			--with-pg=no
 			--with-mysql=no
 			--with-sfcgal=no
+			--with-ld-shared="{{CXX}} -shared"
 			--without-libtool
 			--without-armadillo
 			--without-ecw
@@ -82,6 +82,7 @@ CFLAGS=			-fPIC
 SOVERSION=		${PORTVERSION}
 
 VAR_OPSYS[dragonfly]=	CFLAGS=-fuse-ld=gold
+			CXXFLAGS=-fuse-ld=gold
 
 post-patch:
 	${REINPLACE_CMD} -e '/^#GDAL_SLIB_SONAME/ s|^#||' ${WRKSRC}/GDALmake.opt.in
