@@ -31,6 +31,7 @@ install:
 	cp -a ${LOCALBASE:T}/toolchain/${GCCX} ${DESTDIR}${PREFIX}/
 	cp -a ${LOCALBASE:T}/toolchain/include ${DESTDIR}${PREFIX}/
 	rm -rf ${DESTDIR}${PREFIX}/${GCCX}/share/licenses
+	(cd ${DESTDIR}${PREFIX} && ln -s ${GCCX} ${PREVGCC})
 
 .if "${OPSYS}" == "SunOS"
 	rm ${DESTDIR}${PREFIX}/bin/ld
