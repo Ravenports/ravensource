@@ -1,4 +1,4 @@
---- psutil/_psutil_bsd.c.orig	2019-10-21 06:43:32 UTC
+--- psutil/_psutil_bsd.c.orig	2019-11-20 08:39:49 UTC
 +++ psutil/_psutil_bsd.c
 @@ -19,6 +19,7 @@
      #define _KMEMUSER
