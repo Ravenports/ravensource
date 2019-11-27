@@ -843,6 +843,9 @@ install:
 	rm -rf ${DESTDIR}${BASE}/usr/include/net/ipfw*
 	rm -rf ${DESTDIR}${BASE}/usr/include/net/pf
 	rmdir  ${DESTDIR}${BASE}/usr/include/vfs/mfs
+	# fix timespec* for c++17
+	sed -i '/if __ISO_C_VISIBLE >= 2011$$/ s#$$# || (defined(__cplusplus) \&\& __cplusplus >= 201703) &#' \
+		${DESTDIR}${BASE}/usr/include/time.h
 .endif
 .if ${OPSYS} == FreeBSD
 	cp ${LOCALBASE}/lib/libdl.a ${DESTDIR}${BASE}/usr/lib/
