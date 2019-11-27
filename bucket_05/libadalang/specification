@@ -1,112 +1,91 @@
-DEF[PORTVERSION]=	2018
-DEF[DATE]=		20180524
+DEF[PORTVERSION]=	2019
+DEF[DATE]=		20190510-19916
+DEF[LIBTYPES]=		static
+DEF[GNARL]=		"-lgnarl", "-Wl,-rpath,{{PREFIX}}/lib"
 # ------------------------------------------------------------------------
 
 NAMEBASE=		libadalang
 VERSION=		${PORTVERSION}
-REVISION=		1
-KEYWORDS=		python lang devel
-VARIANTS=		py27
-SDESC[py27]=		High-performance semantic engine for Ada (PY 27)
+KEYWORDS=		lang devel
+VARIANTS=		standard
+SDESC[standard]=	High-performance semantic engine for Ada
 HOMEPAGE=		https://github.com/AdaCore/libadalang
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main langkit
 SITES[main]=		http://downloads.dragonlace.net/src/
-DISTFILE[1]=		libadalang-gpl-${PORTVERSION}-${DATE}-src.tar.gz:main
-DISTFILE[2]=		langkit-gpl-${PORTVERSION}-${DATE}-src.tar.gz:main
-DF_INDEX=		1 2
+DISTFILE[1]=		libadalang-${PORTVERSION}-${DATE}-src.tar.gz:main
 
-SPKGS[py27]=		single
+SPKGS[standard]=	single
 
-OPTIONS_AVAILABLE=	DEBUG PY27
+OPTIONS_AVAILABLE=	DEBUG
 OPTIONS_STANDARD=	DEBUG
-VOPTS[py27]=		PY27=ON DEBUG=ON
 
 # Fixed in later versions, TERMS missing (GPLv3 not valid)
-# LICENSE=		GPLv3+:single
-# LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
-# LICENSE_TERMS=	single:{{WRKDIR}}/TERMS
-# LICENSE_SCHEME=	multi
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
 
-BROKEN[sunos]=		Source file navigate.adb fails to link
-
-BUILD_DEPENDS=		quex:single:adalang
-BUILDRUN_DEPENDS=	gnatcoll-core:primary:standard
+BUILD_DEPENDS=		gnatcoll-core:primary:standard
+			gnatcoll-bindings:gmp:standard
 			gnatcoll-bindings:iconv:standard
+			langkit:single:standard
+BUILDRUN_DEPENDS=	gmp:shared:standard
+			libiconv:shared:standard
 
-USES=			gprbuild
+USES=			gprbuild python:build,py27 ada:single
 MUST_CONFIGURE=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
-DISTNAME=		libadalang-gpl-${PORTVERSION}-src
+DISTNAME=		libadalang-${PORTVERSION}-${DATE}-src
 
-[PY27].USES_ON=				python:py27
-[PY27].BUILD_DEPENDS_ON=		python-funcy:single:py27
-# required for docs which aren't built
-# #					python-docutils:single:py37
-# #					python-sphinx_rtd_theme:single:py37
-[PY27].BUILDRUN_DEPENDS_ON=		python-Mako:single:py27
-					python-PyYAML:single:py27
-					python-coverage:single:py27
-					python-psutil:single:py27
-					python-autopep8:single:py27
-					python-yapf:single:py27
-					python-enum:single:py27
-					python-enum34:single:py27
-
-[DEBUG].MAKE_ARGS_ON=			--debug
-					--full-error-traces
-[DEBUG].MAKEFILE_ON=			WITH_DEBUG=yes
+# [DEBUG].MAKE_ARGS_ON=		--build-mode=dev (not supported in ver 2019)
+# [DEBUG].MAKE_ARGS_OFF=	--build-mode=prod
 
 post-extract:
-	${MV} ${WRKDIR}/langkit-* ${WRKSRC}/langkit
-# #	${AWK} '/Libadalang is free software/,/www.gnu.org/' \
-# #		${WRKSRC}/ada/copyright.py > ${WRKDIR}/TERMS
-
-post-patch:
-	# disable -Werror
-	${REINPLACE_CMD} -e 's|, "-gnatwe"||' \
-		${WRKSRC}/langkit/langkit/templates/project_file.mako \
-		${WRKSRC}/langkit/langkit/templates/langkit_support_gpr.mako
-
-post-patch-linux:
-	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|' \
-		${WRKSRC}/langkit/langkit/templates/mains_project_file.mako
+	${AWK} '/Libadalang is free software/,/www.gnu.org/' \
+		${WRKSRC}/ada/copyright.py > ${WRKDIR}/TERMS
 
 do-configure:
 	# must build as static since rpaths are either missing,
 	# refer to /construction, ignore gpr settings, etc
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${PYTHON_CMD} ada/manage.py\
-		--verbosity info\
-		--disable-shared\
-		--enable-static\
+		--verbosity=info\
+		--library-types=${LIBTYPES}\
+		--no-langkit-support\
 		generate)
-
-post-configure-dragonfly:
-	# link executables with -lutil
+	# prepare for mains.gpr modification
 	${PATCH} -d ${PATCH_WRKSRC} --backup --forward -E -p0 --batch \
 		< ${FILESDIR}/pc-patch-build_src_mains.gpr
 
 post-configure-freebsd:
-	# link executables with -lutil
-	${PATCH} -d ${PATCH_WRKSRC} --backup --forward -E -p0 --batch \
-		< ${FILESDIR}/pc-patch-build_src_mains.gpr
+	${REINPLACE_CMD} -e 's|@LIBS@|"-lutil", ${GNARL}|' \
+		${WRKSRC}/build/src/mains.gpr
+
+post-configure-dragonfly:
+	${REINPLACE_CMD} -e 's|@LIBS@|"-lutil", ${GNARL}|' \
+		${WRKSRC}/build/src/mains.gpr
+
+post-configure-linux:
+	${REINPLACE_CMD} -e 's|@LIBS@|${GNARL}|' \
+		${WRKSRC}/build/src/mains.gpr
 
 do-build:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${PYTHON_CMD} ada/manage.py\
-		--verbosity info\
-		--disable-shared\
-		--enable-static\
+		--verbosity=info\
+		--library-types=${LIBTYPES}\
+		--no-langkit-support\
 		${MAKE_ARGS:NDESTDIR=*}\
 		build)
 
 do-install:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${PYTHON_CMD} ada/manage.py \
-		--disable-shared \
-		--enable-static \
+		--library-types=${LIBTYPES}\
+		--no-langkit-support\
 		install ${STAGEDIR}${PREFIX})
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/gnat/manifests
+	${RM} ${STAGEDIR}${PREFIX}/python/setup.py
