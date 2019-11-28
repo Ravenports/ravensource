@@ -1,5 +1,4 @@
-DEF[PORTVERSION]=	3.3
-DEF[SOVERSION]=		7.1.0
+DEF[PORTVERSION]=	3.2.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libffi
@@ -25,13 +24,12 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libffi
 
-USES=			libtool solfix gmake
+USES=			libtool solfix
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
 INFO=			single:libffi
 PLIST_SUB=		PORTVERSION=${PORTVERSION}
 MAKE_ARGS=		toolexeclibdir={{PREFIX}}/lib
-SOVERSION=		${SOVERSION}
 
 post-install:
 	${LN} -sf ../lib/libffi-${PORTVERSION}/include/ffi.h \
