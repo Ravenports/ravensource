@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2018
-DEF[DATE]=		20180524
+DEF[PORTVERSION]=	2019
+DEF[DATE]=		20190517-195C4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libadalang-tools
@@ -12,7 +12,7 @@ CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		http://downloads.dragonlace.net/src/
-DISTFILE[1]=		libadalang-tools-gpl-${PORTVERSION}-${DATE}-src.tar.gz:main
+DISTFILE[1]=		libadalang-tools-${PORTVERSION}-${DATE}-src.tar.gz:main
 
 SPKGS[standard]=	single
 
@@ -26,12 +26,13 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/pp.ads
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		libadalang:single:py27
+BUILD_DEPENDS=		libadalang:single:standard
 RUN_DEPENDS=		libiconv:shared:standard
+			gmp:shared:standard
 
 USES=			gprbuild
 INSTALL_REQ_TOOLCHAIN=	yes
-DISTNAME=		libadalang-tools-src
+DISTNAME=		libadalang-tools-${PORTVERSION}-${DATE}-src
 
 do-build:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
