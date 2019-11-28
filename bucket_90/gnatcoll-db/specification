@@ -1,0 +1,79 @@
+DEF[PORTVERSION]=	2018
+DEF[DATE]=		20180524
+DEF[PROJECT_COMP]=	xref sql sqlite postgres
+DEF[COMPONENTS]=	gnatinspect gnatcoll_db2ada ${PROJECT_COMP}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gnatcoll-db
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	GNAT Components Collection - Database packages
+HOMEPAGE=		https://github.com/AdaCore/gnatcoll-db
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://downloads.dragonlace.net/src/
+DISTFILE[1]=		gnatcoll-db-gpl-${PORTVERSION}-${DATE}-src.tar.gz:main
+
+SPKGS[standard]=	complete primary sqlite postgres sql xref
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gnatcoll_db2ada/gnatcoll-db2ada-main.ads
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		gnatcoll-bindings:iconv:standard
+BUILDRUN_DEPENDS=	gnatcoll-core:primary:standard
+EXRUN[xref]=		gnatcoll-bindings:iconv:standard
+
+USES=			gprbuild gmake python:build shebangfix
+DISTNAME=		gnatcoll-db-gpl-${PORTVERSION}-src
+SHEBANG_FILES=		gnatcoll_db2ada/dborm.py
+MUST_CONFIGURE=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-patch:
+.for component in ${COMPONENTS}
+	${REINPLACE_CMD} \
+		-e '/^prefix :=/ s|:=.*|= ${STAGEDIR}$$(PREFIX)|' \
+		-e '/^TARGET :=/ s|:=.*|= ${CONFIGURE_TARGET}|' \
+		${WRKSRC}/${component}/Makefile
+.endfor
+.for component in ${PROJECT_COMP}
+	${SED} -i.bak2 \
+		-e 's|--prefix=|--project-subdir=$$(prefix)/lib/gnat --prefix=|'\
+		${WRKSRC}/${component}/Makefile
+.endfor
+
+do-configure:
+.for component in ${COMPONENTS}
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		${MAKE_CMD} -C ${component} \
+		BUILD=PROD ENABLE_SHARED=no \
+		PROCESSORS=${MAKE_JOBS_NUMBER} \
+		setup)
+.endfor
+
+do-build:
+.for component in ${COMPONENTS}
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		${MAKE_CMD} -C ${component} \
+		ADA_PROJECT_PATH="${PREFIX}/lib/gnat:${WRKSRC}/sql:${WRKSRC}/sqlite:${WRKSRC}/xref")
+	# gprbuild -p -P ${component}/gnatcoll_${component}.gpr)
+.endfor
+
+do-install:
+.for component in ${COMPONENTS}
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		${MAKE_CMD} -C ${component} install \
+		ADA_PROJECT_PATH="${PREFIX}/lib/gnat:${WRKSRC}/sql:${WRKSRC}/sqlite:${WRKSRC}/xref")
+.endfor
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/gnat/manifests
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
