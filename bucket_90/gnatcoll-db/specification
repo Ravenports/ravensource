@@ -1,11 +1,13 @@
 DEF[PORTVERSION]=	2018
 DEF[DATE]=		20180524
+DEF[GITHUB_HASH]=	a75c22b
 DEF[PROJECT_COMP]=	xref sql sqlite postgres
 DEF[COMPONENTS]=	gnatinspect gnatcoll_db2ada ${PROJECT_COMP}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnatcoll-db
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	GNAT Components Collection - Database packages
@@ -13,8 +15,10 @@ HOMEPAGE=		https://github.com/AdaCore/gnatcoll-db
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://downloads.dragonlace.net/src/
-DISTFILE[1]=		gnatcoll-db-gpl-${PORTVERSION}-${DATE}-src.tar.gz:main
+# SITES[main]=		http://downloads.dragonlace.net/src/
+# DISTFILE[1]=		gnatcoll-db-gpl-${PORTVERSION}-${DATE}-src.tar.gz:main
+SITES[main]=		GITHUB/AdaCore:gnatcoll-db:${GITHUB_HASH}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete primary sqlite postgres sql xref
 
@@ -33,7 +37,7 @@ BUILDRUN_DEPENDS=	gnatcoll-core:primary:standard
 EXRUN[xref]=		gnatcoll-bindings:iconv:standard
 
 USES=			gprbuild gmake python:build shebangfix
-DISTNAME=		gnatcoll-db-gpl-${PORTVERSION}-src
+# DISTNAME=		gnatcoll-db-gpl-${PORTVERSION}-src
 SHEBANG_FILES=		gnatcoll_db2ada/dborm.py
 MUST_CONFIGURE=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
