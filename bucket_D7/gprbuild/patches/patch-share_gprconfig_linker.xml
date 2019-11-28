@@ -1,6 +1,6 @@
---- share/gprconfig/linker.xml.orig	2019-04-06 04:49:01 UTC
+--- share/gprconfig/linker.xml.orig	2019-11-24 03:02:47 UTC
 +++ share/gprconfig/linker.xml
-@@ -941,11 +941,14 @@
+@@ -965,11 +965,14 @@
      </config>
    </configuration>
  
@@ -16,42 +16,28 @@
         <target name="^.*irix.*$" />
         <target name="^.*qnx[0-9]*$" />
      </targets>
-@@ -964,7 +967,6 @@
-   <!-- linux, QNX -->
-   <configuration>
-     <targets>
--       <target name="^.*linux.*$" />
-        <target name="^.*qnx[0-9]*$" />
-     </targets>
-     <config>
-@@ -984,7 +986,6 @@
-        <compiler language="Ada" />
-     </compilers>
-      <targets>
--       <target name="^.*-linux.*$" />
-        <target name="^.*-qnx[0-9]*"/>
-      </targets>
-     <config>
-@@ -1051,13 +1052,37 @@
+@@ -985,12 +988,15 @@
      </config>
    </configuration>
  
--  <!-- freebsd -->
-+  <!-- bsd -->
+-  <!-- linux, freebsd, QNX -->
++  <!-- linux, bsd, QNX -->
    <configuration>
      <targets>
+        <target name="^.*linux.*$" />
+        <target name="^.*qnx[0-9]*$" />
         <target name="^.*freebsd.*$" />
 +       <target name="^.*dragonfly.*$" />
 +       <target name="^.*openbsd.*$" />
 +       <target name="^.*netbsd.*$" />
-+       <target name="^.*linux.*$" />
      </targets>
      <config>
--   for Run_Path_Option  use ("-Wl,-rpath,");
-+   for Run_Path_Option  use ("-Wl,-z,origin,-rpath,");
-+   for Run_Path_Origin use "$$ORIGIN";
-+    </config>
-+  </configuration>
+    for Run_Path_Option  use ("-Wl,-z,origin,-rpath,");
+@@ -1003,13 +1009,33 @@
+     </config>
+   </configuration>
+ 
++  <!-- linux and bsd -->
 +  <configuration>
 +    <compilers>
 +       <compiler language="Ada" />
@@ -69,10 +55,20 @@
 +        Linker'Required_Switches
 +        &amp; ("-Wl,-rpath,${RUNTIME_DIR(ada)}adalib");
 +   end Linker;
-     </config>
-   </configuration>
- 
-@@ -1489,6 +1514,9 @@
++    </config>
++  </configuration>
++
+   <!-- Cross linux, QNX: add rpath-link to the runtime -->
+   <configuration>
+     <compilers>
+        <compiler language="Ada" />
+     </compilers>
+      <targets>
+-       <target name="^.*-linux.*$" />
+        <target name="^.*-qnx[0-9]*"/>
+      </targets>
+     <config>
+@@ -1473,6 +1499,9 @@
         <target name="^.*mingw.*$" />
         <target name="^.*linux.*$" />
         <target name="^.*freebsd.*$" />
