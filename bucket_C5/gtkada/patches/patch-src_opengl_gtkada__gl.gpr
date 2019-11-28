@@ -1,12 +1,11 @@
---- src/opengl/gtkada_gl.gpr.orig	2019-04-25 05:40:59 UTC
+--- src/opengl/gtkada_gl.gpr.orig	2019-11-21 11:20:47 UTC
 +++ src/opengl/gtkada_gl.gpr
-@@ -42,7 +42,8 @@ library project GtkAda_GL is
- 
+@@ -43,7 +43,7 @@ library project GtkAda_GL is
     case Shared.Library_Kind is
        when "relocatable" =>
+          for Leading_Library_Options use Shared.Ldflags;
 -         for Library_Options use Shared.GL_Libs & Shared.Gtk_Libs;
-+         for Library_Options use Shared.GL_Libs & Shared.Gtk_Libs &
-+             ("-Wl,-R,@PREFIX@/lib");
++         for Library_Options use Shared.GL_Libs & Shared.Gtk_Libs & ("-Wl,-R,@PREFIX@/lib");
        when others =>
           null;
     end case;
