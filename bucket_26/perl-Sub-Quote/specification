@@ -8,7 +8,7 @@ VARIANTS=		530 528
 SDESC[530]=		Efficient generation of subroutines via str (v530)
 SDESC[528]=		Efficient generation of subroutines via str (v528)
 
-HOMEPAGE=		https://github.com/moose/Sub-Quote
+HOMEPAGE=		https://github.com/moose/Sub-Quote.git
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
@@ -28,17 +28,19 @@ SINGLE_JOB=		yes
 DISTNAME=		Sub-Quote-2.006006
 
 # -----------------------------------------------
-# |   Prerequisites extracted from META.json
+# |   Prerequisites extracted from META.yml
 # -----------------------------------------------
-# |      runtime : Scalar::Util (perl 5.3 core) (perl 5.28 core)
-# |      runtime : Sub::Name
-# |    configure : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |         test : Test::Fatal
-# |         test : Test::More (perl 5.3 core) (perl 5.28 core)
+# |           requires : Scalar::Util (perl 5.3 core) (perl 5.28 core)
+# | configure_requires : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
+# |     build_requires : Test::Fatal
+# |     build_requires : Test::More (perl 5.3 core) (perl 5.28 core)
+# |         recommends : Sub::Name
 
 [PERL_530].USES_ON=			perl:530,configure
 [PERL_528].USES_ON=			perl:528,configure
+[PERL_530].BUILD_DEPENDS_ON=		perl-Test-Fatal:single:530
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Sub-Name:single:530
+[PERL_528].BUILD_DEPENDS_ON=		perl-Test-Fatal:single:528
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-Sub-Name:single:528
 
 
