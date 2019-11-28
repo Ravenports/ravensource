@@ -1,4 +1,4 @@
---- Makefile.in.orig	2018-05-10 06:26:58 UTC
+--- Makefile.in.orig	2019-11-27 16:28:14 UTC
 +++ Makefile.in
 @@ -3,17 +3,16 @@ MV              = mv
  MKDIR           = mkdir -p
@@ -19,34 +19,10 @@
  prefix          = @prefix@
 -bindir          = $(prefix)/bin
 -sharedir        = $(prefix)/share
--examplesdir     = $(prefix)/share/examples/gps
+-examplesdir     = $(prefix)/share/examples/gnatstudio
 +bindir          = $(DESTDIR)$(prefix)/bin
 +sharedir        = $(DESTDIR)$(prefix)/share
-+examplesdir     = $(DESTDIR)$(prefix)/share/examples/gps
++examplesdir     = $(DESTDIR)$(prefix)/share/examples/gnatstudio
  
  SYS := $(shell gcc -dumpmachine)
  
-@@ -53,14 +52,6 @@ ifeq ($(OS),Windows_NT)
- 		share/support/core/vcs/_subversion_ \
- 		> share/support/core/vcs/subversion_native_windows.py
- endif
--	$(RM) -f $(sharedir)/gps/GPS_old
--	$(RM) -rf $(sharedir)/gps/color_themes/
--	$(RM) -rf $(sharedir)/gps/library/
--	$(RM) -rf $(sharedir)/gps/plug-ins/
--	$(RM) -rf $(sharedir)/gps/support/core/
--	$(RM) -rf $(sharedir)/gps/support/ui/
--	${RM} ${sharedir}/gps/perspectives.xml
--	$(RMDIR) $(sharedir)/gps/templates
- 
- 	(cd share; tar cf - plug-ins/*) | (cd $(sharedir)/gps; tar xf -)
- ifeq ($(OS),Windows_NT)
-@@ -108,7 +99,7 @@ endif
- endif
- 	$(MAKE) -C common/expect install
- else
--	$(INSTALL_PROGRAM) gps/obj/gps $(bindir)
-+	$(INSTALL_PROGRAM) gps/obj/gps $(bindir)/gps_exe
- 	$(INSTALL_PROGRAM) cli/obj/gnatdoc $(bindir)
- 	$(INSTALL_PROGRAM) cli/obj/gps_cli $(bindir)
- ifneq ($(GNATCOLL_INSTALL),)

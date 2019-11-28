@@ -1,11 +1,11 @@
---- docs/Makefile.in.orig	2018-03-05 13:39:57 UTC
+--- docs/Makefile.in.orig	2019-11-27 16:28:14 UTC
 +++ docs/Makefile.in
 @@ -1,10 +1,9 @@
  prefix = @prefix@
--docdir = $(prefix)/share/doc/gps
--sharedir = $(prefix)/share/gps
-+docdir = $(DESTDIR)$(prefix)/share/doc/gps
-+sharedir = $(DESTDIR)$(prefix)/share/gps
+-docdir = $(prefix)/share/doc/gnatstudio
+-sharedir = $(prefix)/share/gnatstudio
++docdir = $(DESTDIR)$(prefix)/share/doc/gnatstudio
++sharedir = $(DESTDIR)$(prefix)/share/gnatstudio
  
  MKDIR = mkdir -p
 -INSTALL = @INSTALL@
@@ -14,10 +14,10 @@
  CONVERT = convert
  CP = cp -p
  
-@@ -12,26 +11,26 @@ all: ug tutorial gps_pg relnotes relnote
+@@ -12,26 +11,26 @@ all: ug tutorial pg relnotes gnatdoc
  static:
  
- gps_pg:
+ pg:
 -	make -C programmers_guide html
 +	$(MAKE) -C programmers_guide html
  

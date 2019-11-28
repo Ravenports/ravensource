@@ -1,7 +1,8 @@
 DEF[PORTVERSION]=	2018
 DEF[PYCOMPILE]=		{{PREFIX}}/lib/python{{PYTHON_VER}}/compileall.py
 DEF[GCCVER]=		EXTRACT_INFO(CURRENT_GCC)
-DEF[DATE]=		20180524
+DEF[HASH]=		39569c5
+DEF[TOOLS_DATE]=	2019-20190517-195C4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gps
@@ -13,10 +14,11 @@ SDESC[standard]=	GNAT Programming Studio - IDE for Ada plus
 HOMEPAGE=		https://www.adacore.com/gnatpro/toolsuite/gps/
 CONTACT=		John_Marino[draco@marino.st]
 
-DOWNLOAD_GROUPS=	main
-SITES[main]=		http://downloads.dragonlace.net/src/
-DISTFILE[1]=		gps-gpl-${PORTVERSION}-${DATE}-src.tar.gz:main
-DISTFILE[2]=		libadalang-tools-gpl-${PORTVERSION}-${DATE}-src.tar.gz:main
+DOWNLOAD_GROUPS=	main dragon
+SITES[main]=		GITHUB/AdaCore:gps:${HASH}
+SITES[dragon]=		http://downloads.dragonlace.net/src/
+DISTFILE[1]=		generated:main
+DISTFILE[2]=		libadalang-tools-${TOOLS_DATE}-src.tar.gz:dragon
 DF_INDEX=		1 2
 
 SPKGS[standard]=	complete primary docs examples
@@ -28,21 +30,17 @@ LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
-LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gps/src/gps-main.adb
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gnatstudio/src/gps-main.adb
 LICENSE_SCHEME=		solo
-
-BROKEN[all]=		no longer builds after port compiler major upgrade
 
 BUILD_DEPENDS=		gnat-util:single:standard
 			gnatcoll-bindings:python:standard
-# Sphinx is now python3 only, we can't build docs anymore
-# #			python-Sphinx:single:python_default
 BUILDRUN_DEPENDS=	fontconfig:primary:standard
 			freetype:primary:standard
 			clang:compiler:standard
 			gtkada:primary:standard
 			python-pygobject:primary:python_used
-			libadalang:single:python_used
+			libadalang:single:standard
 RUN_DEPENDS=		librsvg:primary:standard
 			gdb:single:standard
 			python-pep8:single:python_used
@@ -61,10 +59,9 @@ CONFIGURE_ARGS=		--with-gtk=3.0
 BUILD_TARGET=		default
 MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
 			PYTHON_CMD={{PYTHON_CMD}}
-DISTNAME=		gps-gpl-${PORTVERSION}-src
 SUB_FILES=		gps
 SUB_LIST=		ADA_PATH={{PREFIX}}/toolchain/${GCCVER}/bin
-SHEBANG_FILES=		share/support/core/gps_utils/internal/dialogs.py
+SHEBANG_FILES=		share/support/core/gs_utils/internal/dialogs.py
 			share/plug-ins/spark2014.py
 
 # note: librsvg2 is needed to display the svg icons in the menu.  Actually
@@ -78,16 +75,16 @@ SHEBANG_FILES=		share/support/core/gps_utils/internal/dialogs.py
 [DEBUG].MAKEFILE_ON=			WITH_DEBUG=yes
 
 post-extract:
-	${MV} ${WRKDIR}/libadalang-tools-src ${WRKSRC}/laltools
+	${MV} ${WRKDIR}/libadalang-tools-* ${WRKSRC}/laltools
 	${MV} ${WRKSRC}/Makefile.gnat ${WRKSRC}/Makefile.gnat.ignore
-	${FIND} ${WRKSRC}/share -name "*.pyc" -delete
-	${RM} ${WRKSRC}/share/support/core/cross_references.py
+# #	${FIND} ${WRKSRC}/share -name "*.pyc" -delete
+# #	${RM} ${WRKSRC}/share/support/core/cross_references.py
 
 post-patch:
 	${RM} ${WRKSRC}/share/plug-ins/*.orig
 	${ECHO} "GNAT_SOURCES=" > ${WRKSRC}/Makefile.gnat
 	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|g' \
-		${WRKSRC}/gps/gps.gpr \
+		${WRKSRC}/gnatstudio/gps.gpr \
 		${WRKSRC}/gnatdoc/gnatdoc.gpr \
 		${WRKSRC}/widgets/widgets.gpr
 	${REINPLACE_CMD} -e '/Gdb_Command/ s|"gdb"|"${PREFIX}/bin/gdb"|' \
@@ -106,7 +103,7 @@ post-patch:
 	${REINPLACE_CMD} -e 's/relocatable/static/g' \
 		-e '/GPRBUILD_BUILD_TYPE_FLAGS=/ s|FLAGS=|FLAGS=-j${MAKE_JOBS_NUMBER} |' \
 		-e 's| -ws||' \
-		${WRKSRC}/gps/Makefile
+		${WRKSRC}/gnatstudio/Makefile
 	${REINPLACE_CMD} -e 's/relocatable/static/g' \
 		${WRKSRC}/testsuite/Makefile
 
