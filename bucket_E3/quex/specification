@@ -1,43 +1,32 @@
 DEF[PORTVERSION]=	0.70.0
-DEF[ADALANG_REQ]=	0.65.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		quex
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel lang python
-VARIANTS=		standard adalang
+VARIANTS=		standard
 SDESC[standard]=	Lexical Analyzer Generator
-SDESC[adalang]=		Lexical Analyzer Generator for libadalang
 HOMEPAGE=		http://quex.sourceforge.net/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main adalang
+DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/quex
 			SF/quex/HISTORY/${PORTVERSION:R}
-SITES[adalang]=		SF/quex/HISTORY/${ADALANG_REQ:R}
 DISTFILE[1]=		quex-${PORTVERSION}.zip:main
-DISTFILE[2]=		quex-${ADALANG_REQ}.tar.gz:adalang
 
 SPKGS[standard]=	single
-SPKGS[adalang]=		single
 
-OPTIONS_AVAILABLE=	ADALANG
+OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
-VOPTS[adalang]=		ADALANG=ON
 
-# LICENSE differs, ravenports can't support this
-# current: MIT
-# adalang: LGPL
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/MIT-License.txt
+LICENSE_SCHEME=		solo
 
 SKIP_BUILD=		yes
-DISTNAME=		quex-source
-
-[ADALANG].DESCRIPTION=			Specific older version used by adalang
-[ADALANG].DF_INDEX_ON=			2
-[ADALANG].DF_INDEX_OFF=			1
 
 post-extract:
-	${MV} ${WRKDIR}/quex-* ${WRKSRC}
 	${FIND} ${WRKSRC} -name "*.orig" -delete
 
 do-install:
