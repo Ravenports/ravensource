@@ -2,6 +2,7 @@ DEF[PORTVERSION]=	2018
 DEF[PYCOMPILE]=		{{PREFIX}}/lib/python{{PYTHON_VER}}/compileall.py
 DEF[GCCVER]=		EXTRACT_INFO(CURRENT_GCC)
 DEF[HASH]=		39569c5
+DEF[ALS_VERSION]=	f25f576
 DEF[TOOLS_DATE]=	2019-20190517-195C4
 # ----------------------------------------------------------------------------
 
@@ -14,12 +15,14 @@ SDESC[standard]=	GNAT Programming Studio - IDE for Ada plus
 HOMEPAGE=		https://www.adacore.com/gnatpro/toolsuite/gps/
 CONTACT=		John_Marino[draco@marino.st]
 
-DOWNLOAD_GROUPS=	main dragon
+DOWNLOAD_GROUPS=	main dragon als
 SITES[main]=		GITHUB/AdaCore:gps:${HASH}
+SITES[als]=		GITHUB/AdaCore:ada_language_server:${ALS_VERSION}
 SITES[dragon]=		http://downloads.dragonlace.net/src/
 DISTFILE[1]=		generated:main
-DISTFILE[2]=		libadalang-tools-${TOOLS_DATE}-src.tar.gz:dragon
-DF_INDEX=		1 2
+DISTFILE[2]=		generated:als
+DISTFILE[3]=		libadalang-tools-${TOOLS_DATE}-src.tar.gz:dragon
+DF_INDEX=		1 2 3
 
 SPKGS[standard]=	complete primary docs examples
 
@@ -77,6 +80,7 @@ SHEBANG_FILES=		share/support/core/gs_utils/internal/dialogs.py
 
 post-extract:
 	${MV} ${WRKDIR}/libadalang-tools-* ${WRKSRC}/laltools
+	${MV} ${WRKDIR}/ada_language_server-* ${WRKSRC}/ada_language_server
 	${MV} ${WRKSRC}/Makefile.gnat ${WRKSRC}/Makefile.gnat.ignore
 # #	${FIND} ${WRKSRC}/share -name "*.pyc" -delete
 # #	${RM} ${WRKSRC}/share/support/core/cross_references.py
@@ -124,5 +128,5 @@ post-install:
 	${FIND} ${STAGEDIR}${PREFIX} -type f -name ".gitignore" -delete
 	${INSTALL_SCRIPT} ${WRKDIR}/gps ${STAGEDIR}${PREFIX}/bin
 	echo "This is the GPS GPL Edition for Ravenports." \
-		> ${STAGEDIR}${PREFIX}/share/gps/about.txt
+		> ${STAGEDIR}${PREFIX}/share/gnatstudio/about.txt
 	${FIND} ${STAGEDIR}${PREFIX} -type d -empty -delete
