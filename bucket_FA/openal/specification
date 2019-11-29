@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.19.1
+DEF[PORTVERSION]=	1.20.0
 DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -23,12 +23,12 @@ LICENSE=		LGPL20+:single
 LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING
 LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^\#include"
-LICENSE_SOURCE=		TERMS:{{WRKSRC}}/Alc/ALc.c
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/alc/alc.cpp
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		audio/openal-soft
 
-USES=			cclibs:single cmake
+USES=			c++:single cmake
 CMAKE_ARGS=		-DALSOFT_DLOPEN=Off
 			-DALSOFT_UTILS=On
 			-DALSOFT_EXAMPLES=Off
@@ -55,4 +55,8 @@ VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
 
 post-patch:
 	${REINPLACE_CMD} 's|/etc/openal|${PREFIX}/etc/openal|' \
-		${WRKSRC}/Alc/alconfig.c
+		${WRKSRC}/alc/alconfig.cpp
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libopenal.so
