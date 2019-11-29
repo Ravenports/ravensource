@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	4.19
+DEF[PORTVERSION]=	5.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		evdev-proto
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Input event device header files
@@ -18,8 +17,9 @@ DISTFILE[3]=		uinput.h:main
 DISTFILE[4]=		v4l2-common.h:main
 DISTFILE[5]=		v4l2-controls.h:main
 DISTFILE[6]=		videodev2.h:main
+DISTFILE[7]=		joystick.h:main
 DIST_SUBDIR=		evdev-proto-${PORTVERSION}
-DF_INDEX=		1 2 3 4 5 6
+DF_INDEX=		1 2 3 4 5 6 7
 
 SPKGS[standard]=	single
 
@@ -58,6 +58,7 @@ post-patch:
 		s/[[:space:]]+__user[[:space:]]+/ / ; \
 		/__USE_TIME_BITS64/ s|^#if (.*)$$|#if 1 /* \1 */|' \
 		${WRKSRC}/input.h > ${WRKDIR}/.headers/input.h.freebsd
+.for FF in uinput.h joystick.h
 	${SED} -E -e \
 		's/__u([[:digit:]]+)/uint\1_t/g ; \
 		s/__s([[:digit:]]+)/int\1_t/g ; \
@@ -65,7 +66,8 @@ post-patch:
 		/#define/ s/_IOW(.*), *int/_IOWINT\1/ ; \
 		/#define/ s/_IOW(.*), *char\*/_IO\1/ ; \
 		/#define/ s/_IOC_READ/IOC_OUT/' \
-		${WRKSRC}/uinput.h > ${WRKDIR}/.headers/uinput.h.freebsd
+		${WRKSRC}/${FF} > ${WRKDIR}/.headers/${FF}.freebsd
+.endfor
 	${SED} -E -e \
 		'/# *include/s|<linux/types.h>|<sys/types.h>|' \
 		${WRKSRC}/v4l2-controls.h > ${WRKDIR}/.headers/v4l2-controls.h.freebsd
@@ -87,7 +89,7 @@ do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/include/linux/
 
 do-install-freebsd:
-.for HH in input.h uinput.h v4l2-controls.h v4l2-common.h videodev2.h
+.for HH in input.h uinput.h v4l2-controls.h v4l2-common.h videodev2.h joystick.h
 	${INSTALL_DATA} ${WRKDIR}/.headers/${HH}.freebsd \
 		${STAGEDIR}${PREFIX}/include/linux/${HH}
 .endfor
@@ -95,7 +97,7 @@ do-install-freebsd:
 		${STAGEDIR}${PREFIX}/include/linux/
 
 do-install-dragonfly:
-.for HH in uinput.h v4l2-controls.h v4l2-common.h videodev2.h
+.for HH in uinput.h v4l2-controls.h v4l2-common.h videodev2.h joystick.h
 	${INSTALL_DATA} ${WRKDIR}/.headers/${HH}.freebsd \
 		${STAGEDIR}${PREFIX}/include/linux/${HH}
 .endfor
@@ -108,7 +110,7 @@ do-install-linux:
 	${INSTALL_DATA} ${WRKSRC}/*.h ${STAGEDIR}${PREFIX}/include/linux/
 
 do-install-sunos:
-.for HH in input.h uinput.h v4l2-controls.h v4l2-common.h videodev2.h
+.for HH in input.h uinput.h v4l2-controls.h v4l2-common.h videodev2.h joystick.h
 	${INSTALL_DATA} ${WRKDIR}/.headers/${HH}.freebsd \
 		${STAGEDIR}${PREFIX}/include/linux/${HH}
 .endfor
