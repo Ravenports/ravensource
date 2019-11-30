@@ -49,9 +49,20 @@ post-patch:
 	${REINPLACE_CMD} -e 's:ei_ksc5601:ei_euc_kr:g' ${WRKSRC}/lib/aliases.h
 	${REINPLACE_CMD} -e 's:gawk:awk:g' ${WRKSRC}/configure \
 		${WRKSRC}/libcharset/configure
+
+post-build:
+	# assemble PIC library
+	(cd ${WRKSRC}/lib/.libs &&\
+	 ${AR} -cq libiconv_pic.a *.o &&\
+	 ranlib libiconv_pic.a)
+
 post-install:
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
 
 	# install-strip doesn't seem to work
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libcharset.${LIBEXT}
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libiconv.${LIBEXT}
+
+	# install our PIC library
+	${INSTALL_DATA} ${WRKSRC}/lib/.libs/libiconv_pic.a \
+		${STAGEDIR}${PREFIX}/lib/
