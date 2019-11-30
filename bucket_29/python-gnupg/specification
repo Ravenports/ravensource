@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	2.3.1
+# manually supported
+DEF[PORTVERSION]=	3.1.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-gnupg
@@ -12,8 +13,8 @@ HOMEPAGE=		https://github.com/isislovecruft/python-gnupg
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/g/gnupg
-DISTFILE[1]=		gnupg-2.3.1.tar.gz:main
+SITES[main]=		GITHUB/isislovecruft:python-gnupg:${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[py27]=		single
 SPKGS[py38]=		single
@@ -32,8 +33,6 @@ GENERATED=		yes
 
 # install_requires extracted from setup.py (using python 2.7)
 # psutil>=1.2.1
-
-DISTNAME=		gnupg-${PORTVERSION}
 
 [PY27].USES_ON=				python:py27
 [PY27].BUILDRUN_DEPENDS_ON=		python-psutil:single:py27
