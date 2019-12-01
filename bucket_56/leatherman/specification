@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	1.9.0
+DEF[PORTVERSION]=	1.9.1
+DEF[SOVERSION]=		1.10.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		leatherman
@@ -35,7 +36,7 @@ CMAKE_ARGS=		-DLEATHERMAN_SHARED:BOOL=ON
 			-DBoost_NO_BOOST_CMAKE:BOOL=ON
 CXXFLAGS=		-Wno-class-memaccess
 			-Wno-ignored-qualifiers
-SOVERSION=		${PORTVERSION}
+SOVERSION=		${SOVERSION}
 
 post-patch:
 	${REINPLACE_CMD} -e 's/ -Werror//' ${WRKSRC}/cmake/cflags.cmake
