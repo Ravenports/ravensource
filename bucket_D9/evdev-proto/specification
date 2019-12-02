@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	5.3
 
 NAMEBASE=		evdev-proto
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Input event device header files
@@ -44,6 +45,11 @@ do-extract:
 	${INSTALL_DATA} ${DISTDIR}/${DIST_SUBDIR}/* ${WRKSRC}/
 
 post-patch:
+	# fix header for linux too
+	${REINPLACE_CMD} -e 's|__user|__attribute__((noderef, address_space(1)))|g' \
+		${WRKSRC}/input.h ${WRKSRC}/videodev2.h
+
+	# create derived headers
 	${SED} -E -e \
 		's/__u([[:digit:]]+)/uint\1_t/g ; \
 		s/__s([[:digit:]]+)/int\1_t/g ; \
@@ -79,7 +85,6 @@ post-patch:
 		's/__u([[:digit:]]+)/uint\1_t/g ; \
 		s/__s([[:digit:]]+)/int\1_t/g ; \
 		s/__le([[:digit:]]+)/uint\1_t/g ; \
-		s|__user|__attribute__((noderef, address_space(1)))|g ; \
 		/#include <linux.compiler.h>/d ; \
 		/# *include/ s|<linux/ioctl.h>|<sys/ioccom.h>| ; \
 		/# *include/s|<linux/types.h>|<sys/types.h>|' \
