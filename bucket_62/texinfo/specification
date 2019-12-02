@@ -6,6 +6,7 @@ DEF[DATE_TEXINFO_TEX]=	20190924
 
 NAMEBASE=		texinfo
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		print
 VARIANTS=		standard nls
 SDESC[standard]=	Typeset documentation system, multiple formats
@@ -35,7 +36,7 @@ FPC_EQUIVALENT=		print/texinfo
 BUILD_DEPENDS=		help2man:single:standard
 EXTRACT_ONLY=		1
 
-USES=			charsetfix cpe gmake ncurses perl libtool iconv
+USES=			charsetfix cpe gmake ncurses perl libtool iconv:build
 DISTNAME=		texinfo-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install install-tex
@@ -65,6 +66,9 @@ post-patch:
 	${REINPLACE_CMD} -e '/rm -f $$(DESTDIR)/ s|$$| $$(DESTDIR)$$(xsdir)/XSParagraph.*|' \
 		${WRKSRC}/tp/Texinfo/XS/Makefile.in
 	${REINPLACE_CMD} -e 's|free (.*)|Safe&|' ${WRKSRC}/tp/Texinfo/XS/misc.c
+	${REINPLACE_CMD} -e "s|'iconv|'iconv_pic|" \
+		${WRKSRC}/configure \
+		${WRKSRC}/tp/Texinfo/XS/configure
 
 post-patch-darwin:
 	${REINPLACE_CMD} -e "s|'cr'|'Scr'|" ${WRKSRC}/configure
