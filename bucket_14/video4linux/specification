@@ -20,18 +20,28 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		multimedia/libv4l
 
+LICENSE=		LGPL21+:single
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING.libv4l
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"__LIBV4L2_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/lib/include/libv4l2.h
+LICENSE_SCHEME=		solo
+
 BR_DEPS[dragonfly]=	argp-standalone:single:standard
 BR_DEPS[freebsd]=	argp-standalone:single:standard
 BR_DEPS[sunos]=		argp-standalone:single:standard
 
 BUILD_DEPENDS=		evdev-proto:single:standard
 
-USES=			gmake jpeg libtool pkgconfig
+C_USES[linux]=		iconv autoreconf gettext-tools c++:single
+
+USES=			gmake jpeg libtool pkgconfig perl:build shebangfix
 DISTNAME=		v4l-utils-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-doxygen-doc
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
+SHEBANG_GLOB=		*.pl
 
 post-extract:
 	${REINPLACE_CMD} -e '/CPPFLAGS=.*freebsd/d' ${WRKSRC}/configure
@@ -48,3 +58,8 @@ post-patch-dragonfly:
 		${WRKSRC}/lib/libv4lconvert/Makefile.in \
 		${WRKSRC}/lib/libv4lconvert/libv4lconvert.pc.in
 	${TOUCH} ${WRKSRC}/lib/include/sys/sysmacros.h
+
+post-install-linux:
+	${MV} ${STAGEDIR}/lib/* ${STAGEDIR}${PREFIX}/lib
+	${RMDIR} ${STAGEDIR}/lib
+
