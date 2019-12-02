@@ -69,21 +69,22 @@ post-patch:
 	${RM} ${WRKSRC}/share/gprconfig/*.orig
 	${REINPLACE_CMD} -e 's|"-gnatwe", ||' ${WRKSRC}/gprbuild.gpr
 	${FIND} ${WRKSRC}/examples -name '.cvsignore' -delete
+	# fix bashism on /bin/sh
+	${REINPLACE_CMD} -e 's|==|=|g' ${WRKSRC}/bootstrap.sh
 
 post-patch-dragonfly:
 	# dragonfly has different install program than freebsd, linux (!)
 	${REINPLACE_CMD} -e 's| -t||' ${WRKSRC}/bootstrap.sh
 
 do-configure:
-	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} setup)
-
-post-configure:
 	# create bootstrap version of gprbuild
 	${MKDIR} ${WRKDIR}/bootstrap_construction
 	(cd ${WRKDIR}/bootstrap_construction && ${WRKSRC}/bootstrap.sh \
 	  --with-xmlada=${WRKDIR}/xmlada-${PORTVERSION}-${XMLADA_DATE}-src \
 	  --srcdir=${WRKSRC} \
 	  --prefix=${WRKDIR}/bootstrap)
+	# establish setup variables
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} setup)
 
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/doinstall
