@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.2.7
+DEF[PORTVERSION]=	3.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-Django
@@ -12,7 +12,7 @@ CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/D/Django
-DISTFILE[1]=		Django-2.2.7.tar.gz:main
+DISTFILE[1]=		Django-3.0.tar.gz:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -34,10 +34,12 @@ DISTNAME=		Django-${PORTVERSION}
 [PY38].USES_ON=				python:py38
 [PY38].BUILDRUN_DEPENDS_ON=		python-pytz:single:py38
 					python-sqlparse:single:py38
+					python-asgiref:single:py38
 
 [PY37].USES_ON=				python:py37
 [PY37].BUILDRUN_DEPENDS_ON=		python-pytz:single:py37
 					python-sqlparse:single:py37
+					python-asgiref:single:py37
 USES=			shebangfix
 SHEBANG_FILES=		django/bin/django-admin.py
 			django/conf/project_template/manage.py-tpl
