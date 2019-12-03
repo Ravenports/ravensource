@@ -58,6 +58,22 @@ sub make_distname {
    $distname =~ s/^perl-//;
 }
 
+sub iscore {
+   my $pmod = shift;
+   my $pver = shift;
+   if ($pmod eq "Pod::Parser" ||
+       $pmod eq "Pod::Find" ||
+       $pmod eq "Pod::Select" ||
+       $pmod eq "Pod::PlainText" ||
+       $pmod eq "Pod::InputObjects" ||
+       $pmod eq "Pod::ParseUtils") {
+      # Pod::Parser in core until 5.31.1
+      return (1);
+   } else {
+      return (Module::CoreList::is_core ($pmod, undef, $pver));
+   }
+}
+
 sub set_portversion_from_tarball {
    my @parts     = split(/\//, $tarball);
    my @subparts  = split(/-/, $parts[(scalar @parts) - 1]);
@@ -74,7 +90,7 @@ set_portversion_from_tarball;
 make_distname;
 
 foreach my $key (@perlverkeys) {
-   if (!Module::CoreList::is_core ($port_namebase, undef, $perlver{$key})) { push @variants, $key; }
+   if (!iscore ($port_namebase, $perlver{$key})) { push @variants, $key; }
 }
 
 my $VARIANT_LIST= join (" ", @variants);
