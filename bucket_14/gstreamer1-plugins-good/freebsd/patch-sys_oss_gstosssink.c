@@ -1,4 +1,4 @@
---- sys/oss/gstosssink.c.orig	2017-05-15 15:46:26 UTC
+--- sys/oss/gstosssink.c.orig	2019-04-19 09:16:25 UTC
 +++ sys/oss/gstosssink.c
 @@ -106,7 +106,10 @@ enum
    PROP_DEVICE,
