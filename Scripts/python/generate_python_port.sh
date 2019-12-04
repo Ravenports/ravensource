@@ -155,7 +155,7 @@ determine_variants() {
    # opt-in to python 2.7 support
    case ${PYPINAME} in
      Mako |\
-     Markup-Safe |\
+     MarkupSafe |\
      funcy |\
      docutils |\
      autopep8 |\
