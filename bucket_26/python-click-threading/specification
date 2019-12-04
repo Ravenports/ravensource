@@ -4,8 +4,7 @@ DEF[PORTVERSION]=	0.4.4
 NAMEBASE=		python-click-threading
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py27 py38 py37
-SDESC[py27]=		Multithreaded Click apps made easy (PY 27)
+VARIANTS=		py38 py37
 SDESC[py38]=		Multithreaded Click apps made easy (PY 38)
 SDESC[py37]=		Multithreaded Click apps made easy (PY 37)
 HOMEPAGE=		https://github.com/click-contrib/click-threading
@@ -15,15 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/c/click-threading
 DISTFILE[1]=		click-threading-0.4.4.tar.gz:main
 
-SPKGS[py27]=		single
 SPKGS[py38]=		single
 SPKGS[py37]=		single
 
-OPTIONS_AVAILABLE=	PY27 PY38 PY37
+OPTIONS_AVAILABLE=	PY38 PY37
 OPTIONS_STANDARD=	none
-VOPTS[py27]=		PY27=ON PY38=OFF PY37=OFF
-VOPTS[py38]=		PY27=OFF PY38=ON PY37=OFF
-VOPTS[py37]=		PY27=OFF PY38=OFF PY37=ON
+VOPTS[py38]=		PY38=ON PY37=OFF
+VOPTS[py37]=		PY38=OFF PY37=ON
 
 # Output of setup.py --license
 # MIT
@@ -34,9 +31,6 @@ GENERATED=		yes
 # click>=5.0
 
 DISTNAME=		click-threading-${PORTVERSION}
-
-[PY27].USES_ON=				python:py27
-[PY27].BUILDRUN_DEPENDS_ON=		python-click:single:py27
 
 [PY38].USES_ON=				python:py38
 [PY38].BUILDRUN_DEPENDS_ON=		python-click:single:py38

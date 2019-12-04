@@ -152,38 +152,53 @@ exec_setup() {
 
 determine_variants() {
    local vrt
+   # opt-in to python 2.7 support
    case ${PYPINAME} in
-     django-*)	# skip, django is 3.5+
-        ;;
-     sphinx_rtd_theme)  # skip, sphinx is 3+ now
-        ;;
-     sphinxcontrib-adadomain) # same
-        ;;
-     raet) # required ioflo is 3.7+ now
-        ;;
-     *)
+     Mako |\
+     Markup-Safe |\
+     funcy |\
+     docutils |\
+     autopep8 |\
+     pep8 |\
+     pycodestyle |\
+     yapf |\
+     parso |\
+     six |\
+     funcsigs |\
+     mock)
         exec_setup python2.7 --name > /dev/null
         if [ $? -eq 0 ]; then
            vrt="py27"
            [ -z "${FIRST_SNAKE}" ] && FIRST_SNAKE=python2.7
         fi
         ;;
+     *)
+        ;;
    esac
    case ${PYPINAME} in
 #     raet) # required ioflo is 3.7+ now
 #        ;;
+     mock) # py27 only
+        ;;
      *)
-     exec_setup python3.8 --name > /dev/null
-     if [ $? -eq 0 ]; then
-        vrt="${vrt} py38"
-        [ -z "${FIRST_SNAKE}" ] && FIRST_SNAKE=python3.8
-     fi
+        exec_setup python3.8 --name > /dev/null
+        if [ $? -eq 0 ]; then
+           vrt="${vrt} py38"
+           [ -z "${FIRST_SNAKE}" ] && FIRST_SNAKE=python3.8
+        fi
+        ;;
    esac
-   exec_setup python3.7 --name > /dev/null
-   if [ $? -eq 0 ]; then
-      vrt="${vrt} py37"
-      [ -z "${FIRST_SNAKE}" ] && FIRST_SNAKE=python3.7
-   fi
+   case ${PYPINAME} in
+     mock) # py27 only
+        ;;
+     *)
+      exec_setup python3.7 --name > /dev/null
+      if [ $? -eq 0 ]; then
+         vrt="${vrt} py37"
+         [ -z "${FIRST_SNAKE}" ] && FIRST_SNAKE=python3.7
+      fi
+      ;;
+   esac
    for v in ${vrt}; do
       if [ -z "${VARIANTS}" ]; then
          VARIANTS=${v};
