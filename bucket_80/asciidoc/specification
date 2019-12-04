@@ -1,23 +1,22 @@
-DEF[PORTVERSION]=	8.6.10
+DEF[PORTVERSION]=	9.0.0rc1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		asciidoc
 VERSION=		${PORTVERSION}
 KEYWORDS=		textproc python
-VARIANTS=		py27
-SDESC[py27]=		Text document format for short documents (PY 27)
+VARIANTS=		standard
+SDESC[standard]=	Text document format for short documents
 HOMEPAGE=		http://asciidoc.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/asciidoc:asciidoc:${PORTVERSION}
+SITES[main]=		GITHUB/asciidoc:asciidoc-py3:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[py27]=		single
+SPKGS[standard]=	single
 
-OPTIONS_AVAILABLE=	PY27
+OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
-VOPTS[py27]=		PY27=ON
 
 BUILDRUN_DEPENDS=	docbook-xsl:primary:standard
 
@@ -28,21 +27,17 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		textproc/asciidoc
 
-USES=			autoreconf gmake shebangfix
+USES=			autoreconf gmake shebangfix python
 GNOME_COMPONENTS=	libxslt
 SHEBANG_GLOB=		*.py
-SHEBANG_OLD_PYTHON=	"/usr/bin/env python2"
+SHEBANG_OLD_PYTHON=	"/usr/bin/env python3"
 MUST_CONFIGURE=		gnu
-
-# ASCIIDOC will build but emits runtime errors with python 3.x
-
-[PY27].USES_ON=				python:py27
 
 post-patch:
 	${REINPLACE_CMD} \
 		-e '/^INSTALL_PROG/ s|INSTALL_PROGRAM|INSTALL_SCRIPT|' \
 		-e 's|\.conf|&.sample|' \
-		-e 's|python |${PYTHON_CMD} |' \
+		-e 's|python3 |${PYTHON_CMD} |' \
 		${WRKSRC}/Makefile.in
 	CONF_FILES=$$(${FIND} ${WRKSRC} -name "*.conf"); \
 	for conf_file in $${CONF_FILES}; do \
