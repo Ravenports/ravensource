@@ -164,6 +164,7 @@ determine_variants() {
      yapf |\
      parso |\
      six |\
+     jedi |\
      funcsigs |\
      mock)
         exec_setup python2.7 --name > /dev/null
