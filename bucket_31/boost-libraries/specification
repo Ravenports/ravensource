@@ -9,8 +9,7 @@ NAMEBASE=		boost-libraries
 VERSION=		${PORTVERSION}
 REVISION=		${REVISION}
 KEYWORDS=		devel c++
-VARIANTS=		py27 py38 py37
-SDESC[py27]=		Free portable C++ libraries (PY 27)
+VARIANTS=		py37 py38
 SDESC[py38]=		Free portable C++ libraries (PY 38)
 SDESC[py37]=		Free portable C++ libraries (PY 37)
 HOMEPAGE=		https://www.boost.org/
@@ -20,15 +19,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://dl.bintray.com/boostorg/release/${PORTVERSION}/source/
 DISTFILE[1]=		boost_${BOOSTVER}.tar.bz2:main
 
-SPKGS[py27]=		complete rest python
 SPKGS[py38]=		complete rest python
 SPKGS[py37]=		complete rest python
 
-OPTIONS_AVAILABLE=	PY27 PY38 PY37
+OPTIONS_AVAILABLE=	PY38 PY37
 OPTIONS_STANDARD=	none
-VOPTS[py27]=		PY27=ON PY38=OFF PY37=OFF
-VOPTS[py38]=		PY27=OFF PY38=ON PY37=OFF
-VOPTS[py37]=		PY27=OFF PY38=OFF PY37=ON
+VOPTS[py38]=		PY38=ON PY37=OFF
+VOPTS[py37]=		PY38=OFF PY37=ON
 
 FPC_EQUIVALENT=		devel/boost-all
 
@@ -38,7 +35,6 @@ BUILD_DEPENDS=		boost-jam:single:standard
 BUILDRUN_DEPENDS=	icu:single:standard
 			xz:single:standard
 			bzip2:shared:standard
-EXRUN[python]=		python37:single:standard
 
 USES=			iconv c++:rest,python zlib
 DISTNAME=		boost_${BOOSTVER}
@@ -73,7 +69,6 @@ PLIST_SUB=		BOOSTVER=${PORTVERSION}
 
 VAR_OPSYS[freebsd]=	MAKE_ARGS=pch=off
 
-[PY27].USES_ON=				python:py27,build
 [PY38].USES_ON=				python:py38,build
 [PY37].USES_ON=				python:py37,build
 
