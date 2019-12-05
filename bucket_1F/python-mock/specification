@@ -4,10 +4,8 @@ DEF[PORTVERSION]=	3.0.5
 NAMEBASE=		python-mock
 VERSION=		${PORTVERSION}
 KEYWORDS=		python devel
-VARIANTS=		py27 py38 py37
+VARIANTS=		py27
 SDESC[py27]=		Rolling backport of standard mock library (PY 27)
-SDESC[py38]=		Rolling backport of standard mock library (PY 38)
-SDESC[py37]=		Rolling backport of standard mock library (PY 37)
 HOMEPAGE=		http://mock.readthedocs.org/en/latest/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -16,14 +14,10 @@ SITES[main]=		PYPI/m/mock
 DISTFILE[1]=		mock-3.0.5.tar.gz:main
 
 SPKGS[py27]=		single
-SPKGS[py38]=		single
-SPKGS[py37]=		single
 
-OPTIONS_AVAILABLE=	PY27 PY38 PY37
+OPTIONS_AVAILABLE=	PY27
 OPTIONS_STANDARD=	none
-VOPTS[py27]=		PY27=ON PY38=OFF PY37=OFF
-VOPTS[py38]=		PY27=OFF PY38=ON PY37=OFF
-VOPTS[py37]=		PY27=OFF PY38=OFF PY37=ON
+VOPTS[py27]=		PY27=ON
 
 # Output of setup.py --license
 # OSI Approved :: BSD License
@@ -35,8 +29,4 @@ GENERATED=		yes
 DISTNAME=		mock-${PORTVERSION}
 
 [PY27].USES_ON=				python:py27
-
-[PY38].USES_ON=				python:py38
-
-[PY37].USES_ON=				python:py37
 
