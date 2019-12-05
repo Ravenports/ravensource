@@ -1,6 +1,7 @@
-DEF[PORTVERSION]=	10.88.00
+DEF[PORTVERSION]=	10.88.01
 DEF[SOVERSION]=		11.88
-DEF[BACKUP_TAG]=	125945b95a7de7dfaf6a3906315e8908
+DEF[MAIN_TAG]=		9e4a4ee
+DEF[USERGUIDE_TAG]=	780e282
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		netpbm
@@ -11,10 +12,12 @@ SDESC[standard]=	Toolkit for manipulation of graphic images
 HOMEPAGE=		http://netpbm.sourceforge.net/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main
-SITES[main]=		https://github.com/t6/netpbm/releases/download/v${PORTVERSION}/
-			https://gitlab.com/tobiask/netpbm/uploads/${BACKUP_TAG}
-DISTFILE[1]=		netpbm-${PORTVERSION}.tar.gz:main
+DOWNLOAD_GROUPS=	main guide
+SITES[main]=		GITHUB/leahneukirchen:netpbm-mirror:${MAIN_TAG}
+SITES[guide]=		GITHUB/leahneukirchen:netpbm-mirror:${USERGUIDE_TAG}
+DISTFILE[1]=		generated:main
+DISTFILE[2]=		generated:guide
+DF_INDEX=		1 2
 
 SPKGS[standard]=	single
 
@@ -28,12 +31,13 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/netpbm
 
+BUILD_DEPENDS=		autoselect-python:single:standard
 BUILDRUN_DEPENDS=	tiff:primary:standard
 			jasper:primary:standard
 			jbigkit:single:standard
 			xz:single:standard
 
-USES=			gmake jpeg png perl shebangfix
+USES=			gmake jpeg png perl shebangfix python:build
 XORG_COMPONENTS=	x11 xcb xau xdmcp
 GNOME_COMPONENTS=	libxml2
 SHEBANG_FILES=		buildtools/makeman
@@ -61,15 +65,26 @@ MAKE_ARGS=		pkgdir={{STAGEDIR}}{{PREFIX}}
 			MANMODE={{MANMODE}}
 			DATADIR={{DATADIR}}
 SOVERSION=		${SOVERSION}
+VAR_OPSYS[dragonfly]=	MAKE_ARGS=LD="cc -fuse-ld=gold"
 
 post-patch:
 	${REINPLACE_CMD} -e 's|misc|share/netpbm|g' ${WRKSRC}/common.mk
-	${REINPLACE_CMD} -e 's|$$(PKGDIR)/link|$$(PKGDIR)/lib|g' \
+	${REINPLACE_CMD} \
+		-e 's|/sharedlink|/lib|g' \
+		-e 's|/staticlink|/lib|g' \
+		${WRKSRC}/lib/Makefile
+	${REINPLACE_CMD} \
 		-e 's|pkg-config|false|g' \
-		${WRKSRC}/GNUmakefile ${WRKSRC}/lib/Makefile
+		${WRKSRC}/GNUmakefile
 
 do-configure:
 	${CAT} ${WRKSRC}/config.mk.in ${FILESDIR}/config.mk > ${WRKSRC}/config.mk
+
+post-build:
+	${MAKE_CMD} \
+		MAKEMAN="${WRKSRC}/buildtools/makeman" \
+		USERGUIDE="${WRKDIR}/netpbm-mirror-${USERGUIDE_TAG}" \
+		-C ${WRKSRC} -f "${WRKSRC}/buildtools/manpage.mk" manpages
 
 post-install:
 .if "${.MAKE.OS.NAME}" == "Darwin"
@@ -81,7 +96,6 @@ post-install:
 	${RM} ${STAGEDIR}${PREFIX}/bin/manweb
 	${INSTALL_DATA} ${WRKSRC}/lib/util/pm_c_util.h ${WRKSRC}/pm_config.h \
 		${STAGEDIR}${PREFIX}/include/netpbm
-	${INSTALL_MAN} ${WRKSRC}/man/*.1 ${STAGEDIR}${MANPREFIX}/man/man1
-	${INSTALL_MAN} ${WRKSRC}/man/*.3 ${STAGEDIR}${MANPREFIX}/man/man3
-	${INSTALL_MAN} ${WRKSRC}/man/*.5 ${STAGEDIR}${MANPREFIX}/man/man5
-	${RMDIR} ${STAGEDIR}${PREFIX}/sharedlink
+	${INSTALL_MAN} ${WRKSRC}/*.1 ${STAGEDIR}${MANPREFIX}/man/man1
+	${INSTALL_MAN} ${WRKSRC}/*.3 ${STAGEDIR}${MANPREFIX}/man/man3
+	${INSTALL_MAN} ${WRKSRC}/*.5 ${STAGEDIR}${MANPREFIX}/man/man5
