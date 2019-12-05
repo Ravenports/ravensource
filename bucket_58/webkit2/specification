@@ -57,7 +57,7 @@ BUILDRUN_DEPENDS=	enchant:single:standard
 			openjpeg:single:standard
 
 USES=			png mesa cmake pkgconfig sqlite bison
-			perl:build python:py27,build ruby:build
+			perl:build python:build ruby:build
 			gettext-tools
 GNOME_COMPONENTS=	gtk3 gdkpixbuf introspection libxslt
 XORG_COMPONENTS=	x11 xcomposite xdamage xext xrender xt ice
@@ -71,8 +71,6 @@ CMAKE_ARGS=		-DPORT=GTK
 			-DENABLE_BUBBLEWRAP_SANDBOX:BOOL=OFF
 			-DSUPPRESS_ASSERT:BOOL=ON
 CONFIGURE_ENV=		XDG_CACHE_HOME={{WRKDIR}}
-			AUTOPYTHON=2.7
-MAKE_ENV=		AUTOPYTHON=2.7
 CXXFLAGS=		-DFIXED_EXECUTABLE_MEMORY_POOL_SIZE_IN_MB=32
 PLIST_SUB=		JSSOVERSION=${JSSOVERSION}
 			JSSOMAJOR=${JSSOVERSION:R:R}
