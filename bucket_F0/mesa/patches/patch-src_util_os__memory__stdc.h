@@ -1,4 +1,4 @@
---- src/util/os_memory_stdc.h.orig	2019-11-22 00:06:59 UTC
+--- src/util/os_memory_stdc.h.orig	2019-12-04 22:10:14 UTC
 +++ src/util/os_memory_stdc.h
 @@ -51,11 +51,16 @@
  static inline void *

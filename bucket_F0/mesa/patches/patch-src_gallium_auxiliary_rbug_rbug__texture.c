@@ -1,4 +1,4 @@
---- src/gallium/auxiliary/rbug/rbug_texture.c.orig	2019-11-22 00:06:57 UTC
+--- src/gallium/auxiliary/rbug/rbug_texture.c.orig	2019-12-04 22:10:12 UTC
 +++ src/gallium/auxiliary/rbug/rbug_texture.c
 @@ -36,6 +36,10 @@
  
