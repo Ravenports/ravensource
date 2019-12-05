@@ -1,8 +1,12 @@
-DEF[PORTVERSION]=	2.4.20151223
+# Repology only recognizes X.Y as a valid version number so
+# if there's another snapshot, bump the REVISION
+DEF[SNAPDATE]=		20151223
+DEF[PORTVERSION]=	2.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rtmpdump
 VERSION=		${PORTVERSION}
+EPOCH=			1
 KEYWORDS=		multimedia
 VARIANTS=		standard
 SDESC[standard]=	Toolkit for RTMP streams
@@ -16,7 +20,7 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		http://www.ravenports.com/cache-distfiles/
-DISTFILE[1]=		rtmpdump-${PORTVERSION}.tar.gz:main
+DISTFILE[1]=		rtmpdump-${PORTVERSION}.${SNAPDATE}.tar.gz:main
 DISTFILE[2]=		rtmpdump-KSV-20151215.patch.gz:main
 
 SPKGS[standard]=	library program
@@ -41,6 +45,7 @@ LDFLAGS=		-L{{OPENSSLLIB}}
 			-Wl,-rpath,{{OPENSSLLIB}}
 CFLAGS=			-I{{OPENSSLINC}}
 PATCHFILES=		2
+DISTNAME=		rtmpdump-${PORTVERSION}.${SNAPDATE}
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 			LDFLAGS=-lnsl
