@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.4.2
+DEF[PORTVERSION]=	1.4.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rsnapshot
@@ -10,8 +10,10 @@ HOMEPAGE=		https://rsnapshot.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://www.rsnapshot.org/downloads/
-DISTFILE[1]=		rsnapshot-${PORTVERSION}.tar.gz:main
+# SITES[main]=		http://www.rsnapshot.org/downloads/
+# DISTFILE[1]=		rsnapshot-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/rsnapshot:rsnapshot:${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
@@ -30,5 +32,8 @@ FPC_EQUIVALENT=		sysutils/rsnapshot
 BUILDRUN_DEPENDS=	rsync:single:standard
 RUN_DEPENDS=		perl-Lchown:single:perl_default
 
-USES=			perl
+USES=			perl autoreconf
 MUST_CONFIGURE=		gnu
+
+post-extract:
+	(cd ${WRKSRC} && ${SH} ${WRKSRC}/autogen.sh)
