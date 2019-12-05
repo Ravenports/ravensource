@@ -1,4 +1,4 @@
---- coreconf/command.mk.orig	2019-11-19 19:55:30 UTC
+--- coreconf/command.mk.orig	2019-12-04 00:03:31 UTC
 +++ coreconf/command.mk
 @@ -12,7 +12,7 @@ AS            = $(CC)
  ASFLAGS      += $(CFLAGS)
@@ -7,5 +7,5 @@
 -CFLAGS        = $(OPTIMIZER) $(OS_CFLAGS) $(WARNING_CFLAGS) $(XP_DEFINE) \
 +CFLAGS       += $(OPTIMIZER) $(OS_CFLAGS) $(WARNING_CFLAGS) $(XP_DEFINE) \
                  $(DEFINES) $(INCLUDES) $(XCFLAGS)
- PERL          = perl
- RANLIB        = echo
+ CSTD          = -std=c99
+ CXXSTD        = -std=c++11
