@@ -12,7 +12,10 @@ if [ "${myid}" != "root" ]; then
    exit 1
 fi
 
-list=$(awk -F "python-" '{print $2}' python.list)
+# this doesn't work; some ports have names list python-python-dateutils !
+# list=$(awk -F "python-" '{print $2}' python.list)
+
+list=$(awk '{print substr($1, 8)}')
 
 rm -rf ${LOG}
 
