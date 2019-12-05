@@ -53,7 +53,7 @@ extract_version()
 {
    local gem=${1}
    # work around nokogiri version regression manually
-   awk -vgem=$gem '{ if (gem == "nokogiri") { print "1.10.6"; exit}; \
+   awk -vgem=$gem '{ if (gem == "nokogiri") { print "1.10.7"; exit}; \
    	if ($1 == gem) { print $2; exit }}' ${ENTRY_LIST}
 }
 
