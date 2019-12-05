@@ -23,9 +23,9 @@ SPKGS[standard]=	complete primary docs
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		BSD2CLAUSE:primary
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKDIR}}/LICENSE
 LICENSE_SCHEME=		solo
-LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
 
 FPC_EQUIVALENT=		www/w3m
 
@@ -39,6 +39,9 @@ CONFIGURE_ARGS=		--with-gc={{LOCALBASE}}
 			--enable-image=no
 CONFIGURE_ENV=		DEFS="-I{{LOCALBASE}}/include"
 SINGLE_JOB=		yes
+
+post-extract:
+	${AWK} '/3. Copyright/,/EOF/' ${WRKSRC}/doc/README > ${WRKDIR}/LICENSE
 
 post-patch:
 	${REINPLACE_CMD} \
