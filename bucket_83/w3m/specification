@@ -1,9 +1,13 @@
-DEF[PORTVERSION]=	0.5.3.20170505
-DEF[RELEASE]=		07499d6
+# When hash changes, bump REVISION
+# This is for repology which only recognizes X.Y.Z as a valid version number
+# SNAPDATE=		2019-07-02
+DEF[PORTVERSION]=	0.5.3
+DEF[SNAPHASH]=		b305436
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		w3m
 VERSION=		${PORTVERSION}
+EPOCH=			1
 KEYWORDS=		www
 VARIANTS=		standard
 SDESC[standard]=	Pager/text-based WWW browser
@@ -11,7 +15,7 @@ HOMEPAGE=		http://w3m.sourceforge.net/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/tats:w3m:${RELEASE}
+SITES[main]=		GITHUB/tats:w3m:${SNAPHASH}
 DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete primary docs
@@ -23,7 +27,7 @@ LICENSE=		BSD2CLAUSE:primary
 LICENSE_SCHEME=		solo
 LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
 
-FPC_EQUIVALENT=		print/indexinfo
+FPC_EQUIVALENT=		www/w3m
 
 BUILDRUN_DEPENDS=	boehm_garbage_collector:single:standard
 
@@ -38,7 +42,7 @@ SINGLE_JOB=		yes
 
 post-patch:
 	${REINPLACE_CMD} \
-		-e 's|\`\(expr\) \(.*\) : \(.*\)`|`\1 \\( \2 : \3 \\)`|' \
+		-e 's|`\(expr\) \(.*\) : \(.*\)`|`\1 \\( \2 : \3 \\)`|' \
 		-e 's|/usr/local|${LOCALBASE}|g' \
 		-e 's|mytinfo|tinfo|g' \
 		${WRKSRC}/configure
