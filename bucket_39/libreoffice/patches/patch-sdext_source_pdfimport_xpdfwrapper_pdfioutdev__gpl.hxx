@@ -1,5 +1,14 @@
 --- sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.hxx.orig	2019-09-18 14:12:06 UTC
 +++ sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.hxx
+@@ -149,7 +149,7 @@ namespace pdfi
+ 
+         int  parseFont( long long nNewId, GfxFont* pFont, GfxState* state ) const;
+         void writeFontFile( GfxFont* gfxFont ) const;
+-        static void printPath( GfxPath* pPath );
++        static void printPath( const GfxPath* pPath );
+ 
+     public:
+         explicit PDFOutDev( PDFDoc* pDoc );
 @@ -235,7 +235,7 @@ namespace pdfi
          virtual void drawChar(GfxState *state, double x, double y,
                                double dx, double dy,
