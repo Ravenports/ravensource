@@ -46,6 +46,10 @@ post-patch:
 	${REINPLACE_CMD} -e 's|$$(docdir)\(/examples\)|$$(datarootdir)\1/bison|' \
 		${WRKSRC}/Makefile.in
 
+post-patch-sunos:
+	${REINPLACE_CMD} -e '/^#!/ s|/bin/sh|/bin/bash|' ${WRKSRC}/configure
+	${TOUCH} ${WRKSRC}/doc/bison.1
+
 post-install:
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
 
