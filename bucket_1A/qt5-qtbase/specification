@@ -103,7 +103,9 @@ post-patch-sunos:
 	${REINPLACE_CMD} -e '/QMAKE_LFLAGS_RELEASE/d' \
 		${WRKSRC}/mkspecs/common/g++-unix.conf
 	# sun linker doesn't support GNU version scripts
-	${REINPLACE_CMD} -e '/QMAKE_LFLAGS_VERSION_SCRIPT/d' \
+	${REINPLACE_CMD} \
+		-e '/QMAKE_LFLAGS_VERSION_SCRIPT/d' \
+		-e '/QMAKE_LFLAGS_RPATHLINK/d' \
 		${WRKSRC}/mkspecs/common/gcc-base-unix.conf
 
 post-install:
