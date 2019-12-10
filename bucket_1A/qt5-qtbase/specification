@@ -79,6 +79,8 @@ SHEBANG_FILES=		mkspecs/features/uikit/devices.py
 VAR_OPSYS[dragonfly]=	VAR1=dragonfly
 VAR_OPSYS[freebsd]=	VAR1=freebsd
 VAR_OPSYS[sunos]=	VAR1=solaris
+			CONFIGURE_ARGS=-L
+			CONFIGURE_ARGS=/lib/64
 VAR_OPSYS[linux]=	VAR1=linux
 			CONFIGURE_ARGS=-L
 			CONFIGURE_ARGS=/usr/lib/x86_64-linux-gnu/
@@ -92,6 +94,17 @@ post-patch:
 .endfor
 	# Clean up files created by patching
 	find ${WRKSRC}/mkspecs/ -name "*.orig" -delete
+
+post-patch-sunos:
+	# getauxval test triggers false positive on Solaris
+	${REINPLACE_CMD} -e 's|sys/auxv.h|sys/auxvnope.h|' \
+		${WRKSRC}/src/corelib/global/qconfig-bootstrapped.h
+	# sun linker doesn't support -O1
+	${REINPLACE_CMD} -e '/QMAKE_LFLAGS_RELEASE/d' \
+		${WRKSRC}/mkspecs/common/g++-unix.conf
+	# sun linker doesn't support GNU version scripts
+	${REINPLACE_CMD} -e '/QMAKE_LFLAGS_VERSION_SCRIPT/d' \
+		${WRKSRC}/mkspecs/common/gcc-base-unix.conf
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt5/bin/qmake
