@@ -53,6 +53,9 @@ CONFIGURE_ARGS=		--localstatedir=/var
 			--enable-early-chroot
 			--enable-dhcpv6
 
+VAR_OPSYS[sunos]=	CPPFLAGS=-D_XOPEN_SOURCE=600
+			CPPFLAGS=-D__EXTENSIONS__
+
 [BINLEASES].DESCRIPTION=		Enable support for binary insertion of leases
 [BINLEASES].CONFIGURE_ENABLE_BOTH=	binary-leases
 
@@ -68,6 +71,12 @@ CONFIGURE_ARGS=		--localstatedir=/var
 post-patch:
 	${REINPLACE_CMD} -e 's|/usr/local||g' \
 		${WRKSRC}/doc/examples/dhcpd-dhcpv6.conf
+
+	# a second dhcp configure script is run during build
+	# make sure it gets the proper build machine target
+	${REINPLACE_CMD} \
+		-e '/^bindconfig =/ s|=|= --build=${CONFIGURE_TARGET}|'\
+		${WRKSRC}/bind/Makefile.in
 
 post-patch-BIND_SYMBOLS-ON:
 	${REINPLACE_CMD} -e '/^bindconfig =/ s|--disable-symtable ||' \
