@@ -40,3 +40,16 @@ post-install:
 	# examples
 	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
 	${INSTALL_DATA} ${WRKSRC}/topo0.asc ${STAGEDIR}${STD_EXAMPLESDIR}
+
+post-patch-sunos:
+	${REINPLACE_CMD} -e 's/isnan/bzisnan/ ; s/isfinite/bzisfinite/' \
+		${WRKSRC}/xyz.h ${WRKSRC}/geoid.cpp ${WRKSRC}/geoid.h
+	${REINPLACE_CMD} \
+		-e '/xy/ s/isnan/bzisnan/' \
+		-e '/xy/ s/isfinite/bzisfinite/' \
+		${WRKSRC}/point.cpp
+.for FF in bezier bezitest closure contour factordialog polyline ps \
+	refinegeoid scalefactor
+	${REINPLACE_CMD} -e 's|\.isnan|.bzisnan|g; s|\.isfinite|.bzisfinite|g'\
+		${WRKSRC}/${FF}.cpp
+.endfor
