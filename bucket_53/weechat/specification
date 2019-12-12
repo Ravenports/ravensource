@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.6
+DEF[PORTVERSION]=	2.7
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		weechat
@@ -29,8 +29,11 @@ FPC_EQUIVALENT=		irc/weechat
 
 USES=			cmake gettext-tools gettext-runtime iconv libtool
 			lua ncurses perl pkgconfig python ruby tcl
-CMAKE_ARGS=		-DENABLE_PYTHON3=ON
+CMAKE_ARGS=		-DENABLE_PYTHON3:BOOL=ON
 			-DPYTHON_LIBRARY:FILEPATH={{LOCALBASE}}/lib/libpython{{PYTHON_VER}}{{PYTHON_ABIVER}}.so
+			-DENABLE_PHP:BOOL=OFF
+			-DENABLE_GUILE:BOOL=OFF
+			-DENABLE_JAVASCRIPT:BOOL=OFF
 BUILD_DEPENDS=		zlib:static:standard
 BUILDRUN_DEPENDS=	aspell:single:standard
 			curl:primary:standard
