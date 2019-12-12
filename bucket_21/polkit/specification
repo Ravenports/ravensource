@@ -42,6 +42,7 @@ BUILDRUN_DEPENDS=	dbus:single:standard
 
 GNOME_COMPONENTS=	glib introspection libxslt
 USES=			gettext-tools gmake libtool pkgconfig python shebangfix
+			solaris-funcs
 SHEBANG_FILES=		{{WRKSRC}}/src/polkitbackend/toarray.pl
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-authfw=pam
@@ -55,6 +56,8 @@ CONFIGURE_ARGS=		--with-authfw=pam
 			--disable-test
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
+CFLAGS=			-Wno-deprecated-declarations
+SOL_FUNCTIONS=		getline:src/polkitagent/polkitagenthelperprivate.c
 
 post-patch:
 	${REINPLACE_CMD} -e 's|__DBPATH__|${PREFIX}/share/xsl/docbook/manpages|' ${WRKSRC}/docs/man/Makefile.in
@@ -63,6 +66,9 @@ post-patch:
 		${WRKSRC}/src/examples/org.freedesktop.policykit.examples.pkexec.policy.in
 	${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|g' \
 		${WRKSRC}/docs/man/polkit.xml
+
+post-patch-sunos:
+	${REINPLACE_CMD} -e '/as-needed/ s/^.*$$/NOOP=1/' ${WRKSRC}/configure
 
 post-install:
 	${MKDIR} ${STAGEDIR}/var/lib/polkit-1
