@@ -38,6 +38,7 @@ MUST_CONFIGURE=		yes
 CONFIGURE_OUTSOURCE=	yes
 CONFIGURE_ARGS=		--prefix={{PREFIX}}
 			--target={{CONFIGURE_TARGET}}
+			--host={{CONFIGURE_TARGET}}
 			--disable-debug
 			--disable-debug-symbols
 			--disable-jemalloc
@@ -54,6 +55,10 @@ CONFIGURE_ARGS=		--prefix={{PREFIX}}
 
 PLIST_SUB=		MOZJS_MAJOR=${MAJOR}
 			MOZJS_MINOR=${PORTVERSION:R:E}
+
+CPPFLAGS=		-Wno-class-memaccess
+			-Wno-attributes
+			-Wno-maybe-uninitialized
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/js${MAJOR}
