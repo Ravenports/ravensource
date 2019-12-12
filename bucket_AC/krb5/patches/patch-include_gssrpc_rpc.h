@@ -1,4 +1,4 @@
---- include/gssrpc/rpc.h.orig	2019-01-08 16:02:37 UTC
+--- include/gssrpc/rpc.h.orig	2019-12-11 17:13:10 UTC
 +++ include/gssrpc/rpc.h
 @@ -39,6 +39,7 @@
  #ifndef GSSRPC_RPC_H
