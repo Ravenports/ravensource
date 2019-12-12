@@ -85,6 +85,19 @@ post-patch:
 		${WRKSRC}/notifier/Makefile \
 		${WRKSRC}/scheduler/Makefile
 
+post-patch-sunos:
+	${REINPLACE_CMD} -e '/-o .. ippeveprinter.o/ s/$$/ -lsocket/' \
+		${WRKSRC}/tools/Makefile
+	${REINPLACE_CMD} \
+		-e '/-o lpd/ s/$$/ -lsocket/' \
+		-e '/-o ipp/ s/$$/ -lsocket/' \
+		-e '/-o .* socket\.o/ s/socket\.o/socket.o -lsocket/' \
+		-e '/snmp \\$$/d' \
+		${WRKSRC}/backend/Makefile
+	${REINPLACE_CMD} \
+		-e '/-o cups-lpd/ s/$$/ -lsocket/' \
+		${WRKSRC}/scheduler/Makefile
+
 post-install:
 	${LN} -sf lpr ${STAGEDIR}${PREFIX}/bin/lpr-cups
 	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/pam.d \
