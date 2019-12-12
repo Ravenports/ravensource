@@ -6,11 +6,11 @@ VERSION=		${PORTVERSION}
 KEYWORDS=		x11_wm
 VARIANTS=		standard
 SDESC[standard]=	Minimalistic window manager for X11
-HOMEPAGE=		https://github.com/chneukirchen/cwm
+HOMEPAGE=		https://github.com/leahneukirchen/cwm
 CONTACT=		Michael_Neumann[mneumann@ntecs.de]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/chneukirchen:cwm:v${PORTVERSION}
+SITES[main]=		GITHUB/leahneukirchen:cwm:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
@@ -25,10 +25,16 @@ LICENSE=		BSD2CLAUSE:single
 LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/BSD2CLAUSE
 LICENSE_SCHEME=		solo
 
-USES=			pkgconfig:build
-			fonts
-
+USES=			pkgconfig:build fonts solaris-funcs
 XORG_COMPONENTS=	x11 xft xinerama xrandr
+SOL_FUNCTIONS=		err.h:err.h
+			asprintf:xmalloc.c
+			asprintf:menu.c
+			asprintf:util.c
+			strsep:util.c
+			strsep:kbfunc.c
+			getline:kbfunc.c
+CFLAGS=			-I.
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/cwm ${STAGEDIR}${PREFIX}/bin
