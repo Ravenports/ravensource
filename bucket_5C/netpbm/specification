@@ -66,6 +66,8 @@ MAKE_ARGS=		pkgdir={{STAGEDIR}}{{PREFIX}}
 			DATADIR={{DATADIR}}
 SOVERSION=		${SOVERSION}
 VAR_OPSYS[dragonfly]=	MAKE_ARGS=LD="cc -fuse-ld=gold"
+VAR_OPSYS[sunos]=	MAKE_ARGS=NETWORKLD="-lsocket -lnsl"
+			MAKE_ARGS=LDSHLIB=-shared
 
 post-patch:
 	${REINPLACE_CMD} -e 's|misc|share/netpbm|g' ${WRKSRC}/common.mk
@@ -76,6 +78,17 @@ post-patch:
 	${REINPLACE_CMD} \
 		-e 's|pkg-config|false|g' \
 		${WRKSRC}/GNUmakefile
+
+post-patch-sunos:
+	# Ridiculous but they hardcode it in every file so we have no choice.
+	${GREP} -rl "^#.*define.*_XOPEN_SOURCE" ${WRKSRC} |\
+	${XARGS} ${SED} -i'' -e '/_XOPEN_SOURCE/ s/500/600/' \
+		-e '/_XOPEN_SOURCE/ s/1$$/600/' \
+		-e '/_XOPEN_SOURCE$$/ s/E$$/E 600/' \
+		-e '/_XOPEN_SOURCE[^0-9]*\/\*/ s/SOURCE/SOURCE 600/'
+	${GREP} -rl "^#.*define.*_POSIX_SOURCE" ${WRKSRC} |\
+	${XARGS} ${SED} -i'' \
+		-e '/_POSIX_SOURCE/ s/_POSIX_SOURCE/_XOPEN_SOURCE 600/'
 
 do-configure:
 	${CAT} ${WRKSRC}/config.mk.in ${FILESDIR}/config.mk > ${WRKSRC}/config.mk
