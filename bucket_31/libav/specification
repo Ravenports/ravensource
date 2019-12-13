@@ -101,6 +101,14 @@ CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
 			--disable-libx264
 			--disable-indev=v4l2
 
+CPPFLAGS=		-Wno-deprecated-declarations
+			-Wno-attributes
+			-Wno-incompatible-pointer-types
+			-Wno-discarded-qualifiers
+			-Wno-format-truncation
+			-Wno-char-subscripts
+VAR_OPSYS[sunos]=	CPPFLAGS=-D__EXTENSIONS__
+			CONFIGURE_ARGS=--target-os=sunos
 
 post-patch:
 	${REINPLACE_CMD} -e 's|$$(LIBDIR)/pkgconfig|${STAGEDIR}${PREFIX}/lib/pkgconfig|' \
