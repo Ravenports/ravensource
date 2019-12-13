@@ -1,6 +1,6 @@
---- src/lib-master/test-event-stats.c.orig	2019-07-23 10:19:21 UTC
+--- src/lib-master/test-event-stats.c.orig	2019-12-12 10:43:11 UTC
 +++ src/lib-master/test-event-stats.c
-@@ -12,6 +12,7 @@
+@@ -13,6 +13,7 @@
  #include "stats-client.h"
  #include "test-common.h"
  #include <fcntl.h>
