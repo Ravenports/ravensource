@@ -61,6 +61,9 @@ post-patch:
 # libtoolize && \
 # NOCONFIGURE=1 ./autogen.sh )
 
+post-patch-sunos:
+	${REINPLACE_CMD} -e '/as-needed/ s/^.*$$/NOOP=1/' ${WRKSRC}/configure
+
 post-stage:
 	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/UPower \
 		${STAGEDIR}${PREFIX}/share/doc
