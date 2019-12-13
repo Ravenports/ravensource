@@ -1,6 +1,6 @@
---- net/net.c.orig	2019-11-14 18:06:20 UTC
+--- net/net.c.orig	2019-12-12 18:20:48 UTC
 +++ net/net.c
-@@ -53,6 +53,11 @@
+@@ -55,6 +55,11 @@
  #include "net/filter.h"
  #include "qapi/string-output-visitor.h"
  
@@ -12,7 +12,7 @@
  /* Net bridge is currently not supported for W32. */
  #if !defined(_WIN32)
  # define CONFIG_NET_BRIDGE
-@@ -933,7 +938,225 @@ static int net_init_nic(const Netdev *ne
+@@ -935,7 +940,225 @@ static int net_init_nic(const Netdev *ne
      return idx;
  }
  
@@ -238,7 +238,7 @@
  static int (* const net_client_init_fun[NET_CLIENT_DRIVER__MAX])(
      const Netdev *netdev,
      const char *name,
-@@ -960,6 +1183,9 @@ static int (* const net_client_init_fun[
+@@ -962,6 +1185,9 @@ static int (* const net_client_init_fun[
  #ifdef CONFIG_L2TPV3
          [NET_CLIENT_DRIVER_L2TPV3]    = net_init_l2tpv3,
  #endif

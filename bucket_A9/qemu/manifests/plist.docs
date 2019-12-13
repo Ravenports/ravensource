@@ -6,6 +6,8 @@ share/doc/qemu/qemu-qmp-ref.html
 share/doc/qemu/qemu-qmp-ref.txt
 share/doc/qemu/docs/COLO-FT.txt
 share/doc/qemu/docs/amd-memory-encryption.txt
+share/doc/qemu/docs/arm-cpu-features.rst
+share/doc/qemu/docs/barrier.txt
 share/doc/qemu/docs/block-replication.txt
 share/doc/qemu/docs/bootindex.txt
 share/doc/qemu/docs/can.txt
@@ -19,6 +21,7 @@ share/doc/qemu/docs/igd-assign.txt
 share/doc/qemu/docs/image-fuzzer.txt
 share/doc/qemu/docs/index.rst
 share/doc/qemu/docs/memory-hotplug.txt
+share/doc/qemu/docs/microvm.rst
 share/doc/qemu/docs/multi-thread-compression.txt
 share/doc/qemu/docs/multiseat.txt
 share/doc/qemu/docs/nvdimm.txt
@@ -47,6 +50,8 @@ share/doc/qemu/docs/usb2.txt
 share/doc/qemu/docs/version.texi
 share/doc/qemu/docs/vfio-ap.txt
 share/doc/qemu/docs/virtio-balloon-stats.txt
+share/doc/qemu/docs/virtio-net-failover.rst
+share/doc/qemu/docs/virtio-pmem.rst
 share/doc/qemu/docs/xbzrle.txt
 share/doc/qemu/docs/xen-save-devices-state.txt
 share/doc/qemu/docs/built/devel/.buildinfo
@@ -62,6 +67,7 @@ share/doc/qemu/docs/built/devel/search.html
 share/doc/qemu/docs/built/devel/searchindex.js
 share/doc/qemu/docs/built/devel/secure-coding-practices.html
 share/doc/qemu/docs/built/devel/stable-process.html
+share/doc/qemu/docs/built/devel/tcg-plugins.html
 share/doc/qemu/docs/built/devel/tcg.html
 share/doc/qemu/docs/built/devel/testing.html
 share/doc/qemu/docs/built/devel/_static/alabaster.css
@@ -86,6 +92,8 @@ share/doc/qemu/docs/built/interop/index.html
 share/doc/qemu/docs/built/interop/live-block-operations.html
 share/doc/qemu/docs/built/interop/objects.inv
 share/doc/qemu/docs/built/interop/pr-helper.html
+share/doc/qemu/docs/built/interop/qemu-ga.8
+share/doc/qemu/docs/built/interop/qemu-ga.html
 share/doc/qemu/docs/built/interop/search.html
 share/doc/qemu/docs/built/interop/searchindex.js
 share/doc/qemu/docs/built/interop/vhost-user-gpu.html
@@ -106,6 +114,7 @@ share/doc/qemu/docs/built/interop/_static/searchtools.js
 share/doc/qemu/docs/built/interop/_static/underscore-1.3.1.js
 share/doc/qemu/docs/built/interop/_static/underscore.js
 share/doc/qemu/docs/built/specs/.buildinfo
+share/doc/qemu/docs/built/specs/acpi_hw_reduced_hotplug.html
 share/doc/qemu/docs/built/specs/genindex.html
 share/doc/qemu/docs/built/specs/index.html
 share/doc/qemu/docs/built/specs/objects.inv
@@ -150,9 +159,11 @@ share/doc/qemu/docs/devel/multi-thread-tcg.txt
 share/doc/qemu/docs/devel/multiple-iothreads.txt
 share/doc/qemu/docs/devel/qapi-code-gen.txt
 share/doc/qemu/docs/devel/rcu.txt
+share/doc/qemu/docs/devel/replay.txt
 share/doc/qemu/docs/devel/s390-dasd-ipl.txt
 share/doc/qemu/docs/devel/secure-coding-practices.rst
 share/doc/qemu/docs/devel/stable-process.rst
+share/doc/qemu/docs/devel/tcg-plugins.rst
 share/doc/qemu/docs/devel/tcg.rst
 share/doc/qemu/docs/devel/testing.rst
 share/doc/qemu/docs/devel/tracing.txt
@@ -175,6 +186,7 @@ share/doc/qemu/docs/interop/qemu-ga-ref.7.pod
 share/doc/qemu/docs/interop/qemu-ga-ref.html
 share/doc/qemu/docs/interop/qemu-ga-ref.texi
 share/doc/qemu/docs/interop/qemu-ga-ref.txt
+share/doc/qemu/docs/interop/qemu-ga.rst
 share/doc/qemu/docs/interop/qemu-qmp-qapi.texi
 share/doc/qemu/docs/interop/qemu-qmp-ref.7
 share/doc/qemu/docs/interop/qemu-qmp-ref.7.pod
@@ -188,6 +200,7 @@ share/doc/qemu/docs/interop/vhost-user.json
 share/doc/qemu/docs/interop/vhost-user.rst
 share/doc/qemu/docs/interop/vnc-ledstate-Pseudo-encoding.txt
 share/doc/qemu/docs/specs/acpi_cpu_hotplug.txt
+share/doc/qemu/docs/specs/acpi_hw_reduced_hotplug.rst
 share/doc/qemu/docs/specs/acpi_mem_hotplug.txt
 share/doc/qemu/docs/specs/acpi_nvdimm.txt
 share/doc/qemu/docs/specs/acpi_pci_hotplug.txt
@@ -201,6 +214,7 @@ share/doc/qemu/docs/specs/pci-serial.txt
 share/doc/qemu/docs/specs/pci-testdev.txt
 share/doc/qemu/docs/specs/ppc-spapr-hcalls.txt
 share/doc/qemu/docs/specs/ppc-spapr-hotplug.txt
+share/doc/qemu/docs/specs/ppc-spapr-uv-hcalls.txt
 share/doc/qemu/docs/specs/ppc-spapr-xive.rst
 share/doc/qemu/docs/specs/ppc-xive.rst
 share/doc/qemu/docs/specs/pvpanic.txt
@@ -224,6 +238,7 @@ share/doc/qemu/interop/index.html
 share/doc/qemu/interop/live-block-operations.html
 share/doc/qemu/interop/objects.inv
 share/doc/qemu/interop/pr-helper.html
+share/doc/qemu/interop/qemu-ga.html
 share/doc/qemu/interop/search.html
 share/doc/qemu/interop/searchindex.js
 share/doc/qemu/interop/vhost-user-gpu.html
@@ -244,6 +259,7 @@ share/doc/qemu/interop/_static/searchtools.js
 share/doc/qemu/interop/_static/underscore-1.3.1.js
 share/doc/qemu/interop/_static/underscore.js
 share/doc/qemu/specs/.buildinfo
+share/doc/qemu/specs/acpi_hw_reduced_hotplug.html
 share/doc/qemu/specs/genindex.html
 share/doc/qemu/specs/index.html
 share/doc/qemu/specs/objects.inv
