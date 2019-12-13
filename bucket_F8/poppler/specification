@@ -52,7 +52,7 @@ EXRUN[utils]=		poppler:primary:standard
 			lcms2:primary:standard
 
 USES=			cmake:insource cpe png jpeg libtool pkgconfig
-			zlib python:build
+			zlib python:build solaris-funcs
 CPE_VENDOR=		freedesktop
 CMAKE_ARGS=		-DENABLE_GLIB=ON
 			-DENABLE_UTILS=ON
@@ -70,6 +70,7 @@ PLIST_SUB=		CPP_SOVERSION=${CPP_SOVERSION}
 			GLIB_SOVERSION=${GLIB_SOVERSION}
 			GLIB_SOMAJOR=${GLIB_SOVERSION:R:R}
 SOVERSION=		${SOVERSION}
+SOL_FUNCTIONS=		strndup:poppler/GlobalParams.cc
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libpop*.so
