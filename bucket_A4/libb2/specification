@@ -4,6 +4,7 @@ DEF[SOVERSION]=		1.0.4
 
 NAMEBASE=		libb2
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	BLAKE2: fast secure hashing
@@ -28,8 +29,15 @@ FPC_EQUIVALENT=		devel/libb2
 USES=			autoreconf libtool pkgconfig
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-openmp
+			--enable-native=no
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
+SET_DEBUGGING_ON=	yes
+OPTIMIZER_LEVEL=	0
+
+post-patch:
+	# remove -O3 flags
+	${REINPLACE_CMD} -e '/-O3/d' ${WRKSRC}/configure.ac
 
 post-build:
 	(cd ${WRKSRC}/src/.libs &&\
