@@ -1,0 +1,57 @@
+DEF[PORTVERSION]=	2.112
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-IO-Stringy
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		530 528
+SDESC[530]=		I/O on in-core objects like strings and arr (v530)
+SDESC[528]=		I/O on in-core objects like strings and arr (v528)
+
+HOMEPAGE=		https://github.com/genio/IO-Stringy.git
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:C/CA/CAPOEIRAB
+DISTFILE[1]=		IO-Stringy-2.112.tar.gz:main
+
+SPKGS[530]=		single
+SPKGS[528]=		single
+
+OPTIONS_AVAILABLE=	PERL_530 PERL_528
+OPTIONS_STANDARD=	none
+VOPTS[530]=		PERL_530=ON PERL_528=OFF
+VOPTS[528]=		PERL_530=OFF PERL_528=ON
+
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		IO-Stringy-2.112
+
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : Carp (perl 5.3 core) (perl 5.28 core)
+# |      runtime : Exporter (perl 5.3 core) (perl 5.28 core)
+# |      runtime : FileHandle (perl 5.3 core) (perl 5.28 core)
+# |      runtime : IO::File (perl 5.3 core) (perl 5.28 core)
+# |      runtime : IO::Handle (perl 5.3 core) (perl 5.28 core)
+# |      runtime : Symbol (perl 5.3 core) (perl 5.28 core)
+# |      runtime : overload (perl 5.3 core) (perl 5.28 core)
+# |      runtime : strict (perl 5.3 core) (perl 5.28 core)
+# |      runtime : warnings (perl 5.3 core) (perl 5.28 core)
+# |        build : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
+# |         test : File::Basename (perl 5.3 core) (perl 5.28 core)
+# |         test : File::Spec (perl 5.3 core) (perl 5.28 core)
+# |         test : File::Temp (perl 5.3 core) (perl 5.28 core)
+# |         test : FileHandle (perl 5.3 core) (perl 5.28 core)
+# |         test : IO::File (perl 5.3 core) (perl 5.28 core)
+# |         test : IO::Handle (perl 5.3 core) (perl 5.28 core)
+# |         test : Test::More (perl 5.3 core) (perl 5.28 core)
+# |         test : strict (perl 5.3 core) (perl 5.28 core)
+# |         test : warnings (perl 5.3 core) (perl 5.28 core)
+
+[PERL_530].USES_ON=			perl:530,configure
+[PERL_528].USES_ON=			perl:528,configure
+
+
