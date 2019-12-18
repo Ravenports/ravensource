@@ -1,4 +1,4 @@
---- vendor/openssl/build.rs.orig	2019-09-23 23:15:03 UTC
+--- vendor/openssl/build.rs.orig	2019-11-04 17:34:46 UTC
 +++ vendor/openssl/build.rs
 @@ -46,6 +46,10 @@ fn main() {
              println!("cargo:rustc-cfg=libressl270");

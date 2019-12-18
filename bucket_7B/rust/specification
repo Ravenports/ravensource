@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.38.0
+DEF[PORTVERSION]=	1.39.0
 DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
 # ----------------------------------------------------------------------------
 
@@ -14,15 +14,15 @@ DOWNLOAD_GROUPS=	main dflyboot
 SITES[main]=		https://static.rust-lang.org/dist/
 SITES[dflyboot]=	https://leaf.dragonflybsd.org/~marino/dports-src/rust/
 DISTFILE[1]=		rustc-${PORTVERSION}-src.tar.xz:main
-DISTFILE[2]=		rustc-1.37.0-x86_64-unknown-dragonfly.tar.zst:dflyboot
-DISTFILE[3]=		rust-std-1.37.0-x86_64-unknown-dragonfly.tar.zst:dflyboot
-DISTFILE[4]=		cargo-0.38.0-x86_64-unknown-dragonfly.tar.zst:dflyboot
-DISTFILE[5]=		rustc-1.37.0-x86_64-unknown-freebsd.tar.gz:main
-DISTFILE[6]=		rust-std-1.37.0-x86_64-unknown-freebsd.tar.gz:main
-DISTFILE[7]=		cargo-0.38.0-x86_64-unknown-freebsd.tar.gz:main
-DISTFILE[8]=		rustc-1.37.0-x86_64-unknown-linux-gnu.tar.gz:main
-DISTFILE[9]=		rust-std-1.37.0-x86_64-unknown-linux-gnu.tar.gz:main
-DISTFILE[10]=		cargo-0.38.0-x86_64-unknown-linux-gnu.tar.gz:main
+DISTFILE[2]=		rustc-1.38.0-x86_64-unknown-dragonfly.tar.zst:dflyboot
+DISTFILE[3]=		rust-std-1.38.0-x86_64-unknown-dragonfly.tar.zst:dflyboot
+DISTFILE[4]=		cargo-0.39.0-x86_64-unknown-dragonfly.tar.zst:dflyboot
+DISTFILE[5]=		rustc-1.38.0-x86_64-unknown-freebsd.tar.gz:main
+DISTFILE[6]=		rust-std-1.38.0-x86_64-unknown-freebsd.tar.gz:main
+DISTFILE[7]=		cargo-0.39.0-x86_64-unknown-freebsd.tar.gz:main
+DISTFILE[8]=		rustc-1.38.0-x86_64-unknown-linux-gnu.tar.gz:main
+DISTFILE[9]=		rust-std-1.38.0-x86_64-unknown-linux-gnu.tar.gz:main
+DISTFILE[10]=		cargo-0.39.0-x86_64-unknown-linux-gnu.tar.gz:main
 DF_INDEX=		1
 
 SPKGS[standard]=	single
@@ -88,7 +88,7 @@ post-patch:
 	# Use rpath suitable for libz et al.
 	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|g' \
 		-e 's|@OPENSSLLIB@|${OPENSSLLIB}|g' \
-		${WRKSRC}/src/bootstrap/bin/rustc.rs
+		${WRKSRC}/src/bootstrap/builder.rs
 	# Disable vendor checksums
 	${REINPLACE_CMD} -e 's/"files":{[^}]*}/"files":{}/' \
 		 ${WRKSRC}/vendor/*/.cargo-checksum.json

@@ -1,6 +1,6 @@
---- src/libunwind/build.rs.orig	2019-09-23 21:15:52 UTC
+--- src/libunwind/build.rs.orig	2019-11-04 15:45:21 UTC
 +++ src/libunwind/build.rs
-@@ -29,7 +29,7 @@ fn main() {
+@@ -31,7 +31,7 @@ fn main() {
      } else if target.contains("solaris") {
          println!("cargo:rustc-link-lib=gcc_s");
      } else if target.contains("dragonfly") {
