@@ -1,4 +1,4 @@
---- src/intel/compiler/brw_eu_validate.c.orig	2019-12-04 22:10:14 UTC
+--- src/intel/compiler/brw_eu_validate.c.orig	2019-12-18 19:04:21 UTC
 +++ src/intel/compiler/brw_eu_validate.c
 @@ -40,6 +40,39 @@
  

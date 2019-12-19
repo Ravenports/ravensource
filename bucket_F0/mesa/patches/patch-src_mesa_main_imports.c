@@ -1,4 +1,4 @@
---- src/mesa/main/imports.c.orig	2019-12-04 22:10:14 UTC
+--- src/mesa/main/imports.c.orig	2019-12-18 19:04:22 UTC
 +++ src/mesa/main/imports.c
 @@ -83,11 +83,15 @@ void *
  _mesa_align_malloc(size_t bytes, unsigned long alignment)
