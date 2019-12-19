@@ -1,6 +1,6 @@
---- librhash/byte_order.h.orig	2018-01-24 16:00:42 UTC
+--- librhash/byte_order.h.orig	2019-12-14 16:52:11 UTC
 +++ librhash/byte_order.h
-@@ -16,6 +16,13 @@
+@@ -18,6 +18,13 @@
  extern "C" {
  #endif
  
