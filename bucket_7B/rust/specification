@@ -40,12 +40,16 @@ FPC_EQUIVALENT=		lang/rust
 ONLY_FOR_OPSYS=		dragonfly freebsd linux
 
 EXTRACT_ONLY=		1
+
+# Use bundled libgit2 to avoid API mismatch which results in failure
+# to fetch from crates IO
+
 BUILD_DEPENDS=		bash:primary:standard
 			cmake:single:standard
 			autoselect-python:single:standard
 BUILDRUN_DEPENDS=	curl:primary:standard
 			libssh2:single:standard
-			libgit2:single:standard
+# #			libgit2:single:standard
 
 # required for rust linking (also pulls in c++ and gcc-libs so
 # USES=c++:single is redundant
@@ -65,7 +69,7 @@ CONFIGURE_ARGS=		--release-channel=stable
 			--default-linker={{LOCALBASE}}/toolchain/${GCCX}/bin/cc
 DISTNAME=		rustc-${PORTVERSION}-src
 MAKE_ENV=		LD_LIBRARY_PATH={{WRKDIR}}/bootstrap/lib
-			LIBGIT2_SYS_USE_PKG_CONFIG=1
+# #			LIBGIT2_SYS_USE_PKG_CONFIG=1
 			LIBSSH2_SYS_USE_PKG_CONFIG=1
 			OPENSSL_NO_PKG_CONFIG=1
 			RUST_BACKTRACE=1

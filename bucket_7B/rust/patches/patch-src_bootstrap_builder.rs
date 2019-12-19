@@ -5,14 +5,14 @@
                        !target.contains("wasm32") &&
                        !target.contains("fuchsia") {
 -                Some("-Wl,-rpath,$ORIGIN/../lib")
-+                Some("-Wl,-rpath,$ORIGIN/../lib:@PREFIX@/lib:@OPENSSLLIB@")
++                Some("-Wl,-rpath,$ORIGIN/../lib:@OPENSSLLIB@")
              } else {
                  None
              };
              if let Some(rpath) = rpath {
 -                rustflags.arg(&format!("-Clink-args={}", rpath));
++                rustflags.arg(&format!("-Clink-arg={}", "-Wl,-z,origin"));
 +                rustflags.arg(&format!("-Clink-arg={}", rpath));
-+                rustflags.arg(&format!("-Clink-arg={}", "-L@PREFIX@/lib"));
              }
          }
  
