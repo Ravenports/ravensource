@@ -1,4 +1,4 @@
---- setup.py.orig	2019-08-08 14:50:35 UTC
+--- setup.py.orig	2019-12-17 02:07:30 UTC
 +++ setup.py
 @@ -27,7 +27,7 @@ import distutils.command.build_scripts
  import distutils.command.install_scripts
