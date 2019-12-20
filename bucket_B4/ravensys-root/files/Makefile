@@ -624,7 +624,6 @@ install:
 		${DESTDIR}${BASE}/libexec \
 		${DESTDIR}${BASE}/usr/include/compat \
 		${DESTDIR}${BASE}/usr/share/locale/en_US.UTF-8 \
-		${DESTDIR}${BASE}/usr/lib/gcc50 \
 		${DESTDIR}${BASE}/usr/lib/gcc80 \
 		# end
 .endif
@@ -724,10 +723,10 @@ install:
 		ln -s netproto/smb netsmb && \
 		ln -s bus/pccard pccard && \
 		ln -s bus/cam cam)
-.  for item in gcc50/libstdc++.so.9 gcc80/libstdc++.so.9
+.  for item in gcc80/libstdc++.so.9
 	${BSD_INSTALL_LIB} ../${OPSYS:tl}/usr/lib/${item} ${DESTDIR}${BASE}/usr/lib/${item}
 .  endfor
-.  for item in gcc50/libgcc_pic.a gcc80/libgcc_pic.a
+.  for item in gcc80/libgcc_pic.a
 	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/lib/${item} ${DESTDIR}${BASE}/usr/lib/${item}
 .  endfor
 .endif
