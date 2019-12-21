@@ -1,8 +1,10 @@
 DEF[PORTVERSION]=	10.3
+DEF[GIT_TAG]=		v10_3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		iverilog
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		cad
 VARIANTS=		standard
 SDESC[standard]=	Verilog simulation and synthesis tool
@@ -10,15 +12,14 @@ HOMEPAGE=		http://iverilog.icarus.com/
 CONTACT=		Michael_Neumann[mneumann@ntecs.de]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		ftp://icarus.com/pub/eda/verilog/v10/
-DISTFILE[1]=		verilog-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/steveicarus:iverilog:${GIT_TAG}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-DISTNAME=		verilog-${PORTVERSION}
 FPC_EQUIVALENT=		cad/iverilog
 
 LICENSE=		GPLv2+:single
@@ -28,6 +29,12 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/named.h
 LICENSE_AWK=		TERMS:"StringHeap.h"
 LICENSE_SCHEME=		solo
 
-USES=			bison gmake readline c++:single
+BUILD_DEPENDS=		gperf:single:standard
+
+USES=			autoreconf:build bison gmake readline c++:single
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-suffix
+
+pre-configure:
+	(cd ${WRKSRC} && aclocal && autoconf)
+
