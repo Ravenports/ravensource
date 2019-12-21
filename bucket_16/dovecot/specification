@@ -68,6 +68,9 @@ INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 PLIST_SUB=		REQUIRE="LOGIN"
 
+VAR_OPSYS[dragonfly]=	CFLAGS=-fuse-ld=gold
+			CONFIGURE_ENV=i_cv_fd_passing=yes
+
 post-patch:
 	${REINPLACE_CMD} \
 		-e 's|/usr/bin|${LOCALBASE}/bin|g' \
