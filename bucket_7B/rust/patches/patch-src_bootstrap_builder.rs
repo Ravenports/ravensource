@@ -1,8 +1,8 @@
---- src/bootstrap/builder.rs.orig	2019-11-04 15:45:21 UTC
+--- src/bootstrap/builder.rs.orig	2019-12-16 15:38:05 UTC
 +++ src/bootstrap/builder.rs
-@@ -971,12 +971,13 @@ impl<'a> Builder<'a> {
-             } else if !target.contains("windows") &&
+@@ -994,12 +994,13 @@ impl<'a> Builder<'a> {
                        !target.contains("wasm32") &&
+                       !target.contains("emscripten") &&
                        !target.contains("fuchsia") {
 -                Some("-Wl,-rpath,$ORIGIN/../lib")
 +                Some("-Wl,-rpath,$ORIGIN/../lib:@OPENSSLLIB@")

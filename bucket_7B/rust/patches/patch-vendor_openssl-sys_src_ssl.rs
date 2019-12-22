@@ -1,4 +1,4 @@
---- vendor/openssl-sys/src/ssl.rs.orig	2019-11-04 17:34:46 UTC
+--- vendor/openssl-sys/src/ssl.rs.orig	2019-12-16 17:26:11 UTC
 +++ vendor/openssl-sys/src/ssl.rs
 @@ -1057,7 +1057,7 @@ extern "C" {
  }

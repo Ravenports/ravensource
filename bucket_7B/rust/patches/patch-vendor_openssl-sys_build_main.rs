@@ -1,4 +1,4 @@
---- vendor/openssl-sys/build/main.rs.orig	2019-11-04 17:34:46 UTC
+--- vendor/openssl-sys/build/main.rs.orig	2019-12-16 17:26:11 UTC
 +++ vendor/openssl-sys/build/main.rs
 @@ -199,6 +199,7 @@ See rust-openssl README for more informa
              (8, 1) => ('8', '1'),

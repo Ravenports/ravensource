@@ -1,21 +1,21 @@
---- vendor/libc/src/unix/bsd/freebsdlike/dragonfly/mod.rs.orig	2019-11-04 17:34:41 UTC
+--- vendor/libc/src/unix/bsd/freebsdlike/dragonfly/mod.rs.orig	2019-12-16 17:26:11 UTC
 +++ vendor/libc/src/unix/bsd/freebsdlike/dragonfly/mod.rs
-@@ -1038,7 +1038,18 @@ f! {
+@@ -1051,9 +1051,18 @@ f! {
+         (_CMSG_ALIGN(::mem::size_of::<::cmsghdr>()) +
+             _CMSG_ALIGN(length as usize)) as ::c_uint
      }
- }
- 
-+// DragonFlyBSD's __error function is declared with "static inline", so it must
-+// be implemented in the libc crate, as a pointer to a static thread_local.
-+f! {
++
++    // DragonFlyBSD's __error function is declared with "static inline", so it must
++    // be implemented in the libc crate, as a pointer to a static thread_local.
 +    pub fn __error() -> *mut ::c_int {
 +        &mut errno
 +    }
-+}
-+
- extern {
+ }
+ 
+ extern "C" {
 +    #[thread_local]
 +    pub static mut errno: ::c_int;
 +
      pub fn setgrent();
-     pub fn mprotect(addr: *mut ::c_void, len: ::size_t, prot: ::c_int)
-                     -> ::c_int;
+     pub fn mprotect(
+         addr: *mut ::c_void,
