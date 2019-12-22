@@ -1,4 +1,4 @@
---- src/common/server.c.orig	2018-08-29 16:41:08 UTC
+--- src/common/server.c.orig	2019-12-21 06:43:47 UTC
 +++ src/common/server.c
 @@ -748,7 +748,7 @@ server_connect_success (server *serv)
  
