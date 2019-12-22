@@ -1,4 +1,4 @@
---- tools/llvm-readobj/ObjDumper.cpp.orig	2019-06-18 14:01:03 UTC
+--- tools/llvm-readobj/ObjDumper.cpp.orig	2019-12-11 19:15:30 UTC
 +++ tools/llvm-readobj/ObjDumper.cpp
 @@ -21,6 +21,18 @@
  #include "llvm/Support/raw_ostream.h"

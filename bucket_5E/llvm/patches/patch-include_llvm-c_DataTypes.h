@@ -2,7 +2,7 @@ $NetBSD: patch-include_llvm-c_DataTypes.h,v 1.1 2019/01/26 21:17:20 tnn Exp $
 
 Don't implement sys/regset.h workaround, fix source instead.
 
---- include/llvm-c/DataTypes.h.orig	2019-01-19 08:50:56 UTC
+--- include/llvm-c/DataTypes.h.orig	2019-12-11 19:15:30 UTC
 +++ include/llvm-c/DataTypes.h
 @@ -87,4 +87,27 @@ typedef signed int ssize_t;
  #define HUGE_VALF (float)HUGE_VAL
