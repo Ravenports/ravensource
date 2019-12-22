@@ -1,4 +1,4 @@
---- lib/Driver/ToolChains/CommonArgs.cpp.orig	2019-07-14 07:16:13 UTC
+--- lib/Driver/ToolChains/CommonArgs.cpp.orig	2019-12-11 19:15:30 UTC
 +++ lib/Driver/ToolChains/CommonArgs.cpp
 @@ -509,16 +509,16 @@ bool tools::addOpenMPRuntime(ArgStringLi
  

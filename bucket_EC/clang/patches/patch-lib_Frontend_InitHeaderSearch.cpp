@@ -1,4 +1,4 @@
---- lib/Frontend/InitHeaderSearch.cpp.orig	2019-06-13 09:42:43 UTC
+--- lib/Frontend/InitHeaderSearch.cpp.orig	2019-12-11 19:15:30 UTC
 +++ lib/Frontend/InitHeaderSearch.cpp
 @@ -217,7 +217,6 @@ void InitHeaderSearch::AddDefaultCInclud
    if (HSOpts.UseStandardSystemIncludes) {
