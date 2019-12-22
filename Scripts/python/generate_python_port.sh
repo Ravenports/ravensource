@@ -30,6 +30,8 @@ if [ $# -lt 1 ]; then
    usage;
 fi
 
+export PATH="/sbin:/bin:/usr/sbin:/usr/bin:/raven/sbin:/raven/bin"
+
 EXEPERL=perl
 VERSION=unset
 MD5SUM=unset
@@ -630,6 +632,7 @@ replace_inline() {
       	 /tmp/expand/eyeD3-${VERSION}/requirements/main.txt \
       	 /tmp/expand/eyeD3-${VERSION}/requirements/requirements.yml ;;
       aniso8601) sedcmd='/install_requires=/d' ;;
+      borgbackup) sedcmd="/Detected/d" ;;
       *) ;;
    esac
    if [ -n "${sedcmd}" ]; then
