@@ -34,6 +34,9 @@ BUILD_DEPENDS=		gperf:single:standard
 USES=			autoreconf:build bison gmake readline c++:single
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-suffix
+INSTALL_REQ_TOOLCHAIN=	yes
+
+VAR_OPSYS[dragonfly]=	LDFLAGS=-fuse-ld=gold
 
 pre-configure:
 	(cd ${WRKSRC} && aclocal && autoconf)
