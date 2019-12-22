@@ -1,4 +1,4 @@
---- glib/gutils.c.orig	2019-11-19 17:51:31 UTC
+--- glib/gutils.c.orig	2019-12-19 16:33:15 UTC
 +++ glib/gutils.c
 @@ -28,6 +28,10 @@
  
