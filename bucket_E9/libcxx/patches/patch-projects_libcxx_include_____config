@@ -1,6 +1,6 @@
---- projects/libcxx/include/__config.orig	2019-01-16 01:51:12 UTC
+--- projects/libcxx/include/__config.orig	2019-12-11 19:15:30 UTC
 +++ projects/libcxx/include/__config
-@@ -11,6 +11,10 @@
+@@ -10,6 +10,10 @@
  #ifndef _LIBCPP_CONFIG
  #define _LIBCPP_CONFIG
  
@@ -11,7 +11,7 @@
  #if defined(_MSC_VER) && !defined(__clang__)
  #  if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
  #    define _LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER
-@@ -108,7 +112,7 @@
+@@ -113,7 +117,7 @@
  #  endif
  // Feature macros for disabling pre ABI v1 features. All of these options
  // are deprecated.
@@ -20,7 +20,7 @@
  #    define _LIBCPP_DEPRECATED_ABI_DISABLE_PAIR_TRIVIAL_COPY_CTOR
  #  endif
  #endif
-@@ -231,7 +235,7 @@
+@@ -244,7 +248,7 @@
  #  endif // __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
  #endif // __BYTE_ORDER__
  
@@ -29,7 +29,7 @@
  #  include <sys/endian.h>
  #  if _BYTE_ORDER == _LITTLE_ENDIAN
  #    define _LIBCPP_LITTLE_ENDIAN
-@@ -241,7 +245,7 @@
+@@ -254,7 +258,7 @@
  #  ifndef __LONG_LONG_SUPPORTED
  #    define _LIBCPP_HAS_NO_LONG_LONG
  #  endif  // __LONG_LONG_SUPPORTED
@@ -38,7 +38,7 @@
  
  #ifdef __NetBSD__
  #  include <sys/endian.h>
-@@ -329,7 +333,7 @@
+@@ -342,7 +346,7 @@
  #endif
  
  #if __ISO_C_VISIBLE >= 2011 || __cplusplus >= 201103L
@@ -46,9 +46,9 @@
 +#  if defined(__FreeDragon__)
  #    define _LIBCPP_HAS_QUICK_EXIT
  #    define _LIBCPP_HAS_C11_FEATURES
- #  elif defined(__Fuchsia__)
-@@ -970,7 +974,7 @@ template <unsigned> struct __static_asse
- #define _LIBCPP_NONUNIQUE_RTTI_BIT (1ULL << 63)
+ #  elif defined(__Fuchsia__) || defined(__wasi__)
+@@ -873,7 +877,7 @@ typedef unsigned int   char32_t;
+ #define _LIBCPP_EXTERN_TEMPLATE2(...) extern template __VA_ARGS__;
  #endif
  
 -#if defined(__APPLE__) || defined(__FreeBSD__) || defined(_LIBCPP_MSVCRT_LIKE) || \
@@ -56,7 +56,7 @@
      defined(__sun__) || defined(__NetBSD__) || defined(__CloudABI__)
  #define _LIBCPP_LOCALE__L_EXTENSIONS 1
  #endif
-@@ -982,7 +986,7 @@ template <unsigned> struct __static_asse
+@@ -885,7 +889,7 @@ typedef unsigned int   char32_t;
  #  endif
  #endif
  
@@ -65,7 +65,7 @@
  #define _DECLARE_C99_LDBL_MATH 1
  #endif
  
-@@ -1012,11 +1016,11 @@ template <unsigned> struct __static_asse
+@@ -912,11 +916,11 @@ typedef unsigned int   char32_t;
  #  define _LIBCPP_HAS_NO_ALIGNED_ALLOCATION
  #endif
  
@@ -79,12 +79,12 @@
  #define _LIBCPP_WCTYPE_IS_MASK
  #endif
  
-@@ -1156,7 +1160,7 @@ _LIBCPP_FUNC_VIS extern "C" void __sanit
+@@ -1064,7 +1068,7 @@ _LIBCPP_FUNC_VIS extern "C" void __sanit
      !defined(_LIBCPP_HAS_THREAD_API_PTHREAD) && \
      !defined(_LIBCPP_HAS_THREAD_API_WIN32) && \
      !defined(_LIBCPP_HAS_THREAD_API_EXTERNAL)
 -#  if defined(__FreeBSD__) || \
 +#  if defined(__FreeDragon__) || \
        defined(__Fuchsia__) || \
+       defined(__wasi__) || \
        defined(__NetBSD__) || \
-       defined(__linux__) || \
