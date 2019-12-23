@@ -47,6 +47,8 @@
 
 [ -n "${DEBUG_MK_SCRIPTS}" -o -n "${DEBUG_MK_SCRIPTS_MAKESUM}" ] && set -x
 
+export PATH="/sbin:/bin:/usr/sbin:/usr/bin:/raven/sbin:/raven/bin"
+
 pathtoexec=$(realpath $0)
 thisdir=$(dirname ${pathtoexec})
 tmpdir=/tmp/cpan-work

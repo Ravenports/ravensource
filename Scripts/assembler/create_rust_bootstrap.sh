@@ -15,6 +15,9 @@
 #         <DISTDIR>/rustc-1.32.0-x86_64-unknown-dragonfly.tar.xz
 #         <DISTDIR>/cargo-<calc>-x86_64-unknown-dragonfly.tar.xz
 #
+# requires installation:
+#   libexecinfo-single-standard
+#   gcc9-complete-standard
 
 if [ $# -lt 1 ]; then
    echo "Usage: $0 rust_version <revision,epoch>"
