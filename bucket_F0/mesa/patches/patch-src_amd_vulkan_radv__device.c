@@ -1,10 +1,10 @@
 - Define CLOCK_MONOTONIC_RAW if missing
 
---- src/amd/vulkan/radv_device.c.orig	2019-12-18 19:04:21 UTC
+--- src/amd/vulkan/radv_device.c.orig	2019-12-18 18:36:00 UTC
 +++ src/amd/vulkan/radv_device.c
-@@ -49,6 +49,14 @@
- #include "compiler/glsl_types.h"
- #include "util/xmlpool.h"
+@@ -83,6 +83,14 @@ static
+ void radv_destroy_semaphore_part(struct radv_device *device,
+                                  struct radv_semaphore_part *part);
  
 +#ifndef CLOCK_MONOTONIC_RAW
 +# ifdef CLOCK_MONOTONIC_FAST

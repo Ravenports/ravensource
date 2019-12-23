@@ -1,6 +1,6 @@
---- src/mesa/main/imports.c.orig	2019-12-18 19:04:22 UTC
+--- src/mesa/main/imports.c.orig	2019-12-18 18:36:01 UTC
 +++ src/mesa/main/imports.c
-@@ -83,11 +83,15 @@ void *
+@@ -82,11 +82,15 @@ void *
  _mesa_align_malloc(size_t bytes, unsigned long alignment)
  {
  #if defined(HAVE_POSIX_MEMALIGN)

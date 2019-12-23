@@ -6,18 +6,18 @@
 ic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5c_strEv' can not be used when making a shared object; recompile with -fPIC
 # /usr/bin/ld: final link failed: Bad value
 #
---- src/gallium/state_trackers/clover/llvm/invocation.cpp.orig	2019-12-18 19:04:21 UTC
+--- src/gallium/state_trackers/clover/llvm/invocation.cpp.orig	2019-12-18 18:36:00 UTC
 +++ src/gallium/state_trackers/clover/llvm/invocation.cpp
-@@ -181,6 +181,8 @@ namespace {
+@@ -187,6 +187,8 @@ namespace {
        return get_lang_standard_from_version_str(device_version);
     }
  
 +   const char* cstr(const std::string& str) { return str.c_str(); }
 +
     std::unique_ptr<clang::CompilerInstance>
-    create_compiler_instance(const device &dev,
+    create_compiler_instance(const device &dev, const std::string& ir_target,
                              const std::vector<std::string> &opts,
-@@ -193,8 +195,8 @@ namespace {
+@@ -199,8 +201,8 @@ namespace {
        // Parse the compiler options.  A file name should be present at the end
        // and must have the .cl extension in order for the CompilerInvocation
        // class to recognize it as an OpenCL source file.
@@ -26,5 +26,5 @@ ic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5c_strEv' can not be used when 
 +      std::vector<const char *> copts(opts.size());
 +      std::transform(opts.begin(), opts.end(), copts.begin(), cstr);
  
-       const target &target = dev.ir_target();
+       const target &target = ir_target;
        const std::string &device_clc_version = dev.device_clc_version();

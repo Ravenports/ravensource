@@ -1,8 +1,8 @@
---- src/gallium/drivers/radeonsi/si_shader.c.orig	2019-12-18 19:04:21 UTC
+--- src/gallium/drivers/radeonsi/si_shader.c.orig	2019-12-18 18:36:00 UTC
 +++ src/gallium/drivers/radeonsi/si_shader.c
-@@ -22,6 +22,10 @@
-  * USE OR OTHER DEALINGS IN THE SOFTWARE.
-  */
+@@ -24,6 +24,10 @@
+ 
+ #include <llvm/Config/llvm-config.h>
  
 +#ifdef __sun__
 +#include <alloca.h> /* for alloca */
