@@ -1,4 +1,4 @@
---- src/corelib/configure.json.orig	2019-10-25 07:16:48 UTC
+--- src/corelib/configure.json.orig	2019-12-07 06:27:07 UTC
 +++ src/corelib/configure.json
 @@ -62,8 +62,7 @@
              },
@@ -10,7 +10,7 @@
              ]
          },
          "gnu_iconv": {
-@@ -134,43 +133,28 @@
+@@ -134,28 +133,14 @@
          "libatomic": {
              "label": "64 bit atomics",
              "test": {
@@ -38,24 +38,6 @@
 -                "",
 -                "-latomic"
 +                ""
-             ]
-         },
-         "libdl": {
-             "label": "dlopen()",
-             "test": {
-+                "include": "dlfcn.h",
-                 "main": [
--                    "dlclose(dlopen(0, 0));",
--                    "dlsym(RTLD_DEFAULT, 0);",
-+                    "dlclose(dlopen(0, RTLD_LAZY));",
-                     "dlerror();"
-                 ]
-             },
--            "headers": "dlfcn.h",
-             "sources": [
-                 "",
--                "-ldl"
-+                { "libs": "-ldl" }
              ]
          },
          "librt": {
