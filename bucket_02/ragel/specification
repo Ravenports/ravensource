@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	6.10
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ragel
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Finite state machine compiler
+HOMEPAGE=		https://www.colm.net/open-source/ragel/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.colm.net/files/ragel/
+DISTFILE[1]=		ragel-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/ragel
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"_RAGEL_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/ragel/ragel.h
+LICENSE_SCHEME=		solo
+
+USES=			gmake c++:primary
+MUST_CONFIGURE=		gnu
+
+post-install:
+	# install examplesdir
+	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+	(cd ${WRKSRC}/test && \
+		${COPYTREE_SHARE} . ${STAGEDIR}${STD_EXAMPLESDIR})
+
+	# remove docs (requires latex and transfig to build pdf files)
+	${RM} -r ${STAGEDIR}${PREFIX}/share/doc
