@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	5.1.0
+DEF[PORTVERSION]=	5.2.0
+DEF[SOVERSION]=		1.2.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		wavpack
@@ -10,8 +11,8 @@ HOMEPAGE=		http://www.wavpack.com/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://www.wavpack.com/
-DISTFILE[1]=		wavpack-${PORTVERSION}.tar.bz2:main
+SITES[main]=		GITHUB/dbry:WavPack:${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
@@ -24,9 +25,15 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		audio/wavpack
 
-USES=			iconv libtool pkgconfig
+BUILD_DEPENDS=		libtool:single:standard
+
+USES=			autoreconf:build iconv libtool pkgconfig
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
 
 VAR_ARCH[i386]=		CONFIGURE_ARGS=--disable-asm
 VAR_ARCH[aarch64]=	CONFIGURE_ARGS=--disable-asm
+
+pre-configure:
+	(cd ${WRKSRC} && ${SETENV} ${SH} ./autogen.sh)
