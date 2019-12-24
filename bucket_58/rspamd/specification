@@ -1,0 +1,66 @@
+DEF[PORTVERSION]=	2.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		rspamd
+VERSION=		${PORTVERSION}
+KEYWORDS=		mail
+VARIANTS=		standard
+SDESC[standard]=	Fast, free and open-source spam filtering system
+HOMEPAGE=		https://rspamd.com/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/vstakhov:rspamd:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		mail/rspamd
+
+RUN_DEPENDS=		nss:caroot:standard
+BUILD_DEPENDS=		ragel:primary:standard
+			pcre:static:standard
+BUILDRUN_DEPENDS=	pcre:shared:standard
+			icu:single:standard
+			libsodium:single:standard
+			luajit:single:standard
+
+USERS=			rspamd
+GROUPS=			rspamd
+USERGROUP_SPKG=		single
+
+RC_SUBR=		rspamd:single
+
+USES=			cmake perl:build pkgconfig sqlite ssl
+GNOME_COMPONENTS=	glib
+CMAKE_ARGS=		-DCONFDIR={{PREFIX}}/etc/rspamd
+			-DLOGDIR=/var/log/rspamd
+			-DDBDIR=/var/db/rspamd
+			-DRUNDIR=/var/run/rspamd
+			-DMANDIR={{MANPREFIX}}/man
+			-DCMAKE_INSTALL_PREFIX={{PREFIX}}
+			-DBUILD_PORT=yes
+			-DLIBDIR={{PREFIX}}/lib/rspamd
+PLIST_SUB=		RSPAMDVERSION=${PORTVERSION}
+SUB_FILES=		pkg-message-single
+			rspamd.newsyslog.conf.sample
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/rspamadm
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/rspamc
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/rspamd
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/rspamd/*.so
+	${MKDIR}\
+		${STAGEDIR}/var/log/rspamd \
+		${STAGEDIR}/var/db/rspamd \
+		${STAGEDIR}/var/run/rspamd \
+		${STAGEDIR}${PREFIX}/etc/newsyslog.conf.d
+	# remove examples
+	${RMDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+	${INSTALL_DATA} ${WRKDIR}/rspamd.newsyslog.conf.sample \
+		${STAGEDIR}${PREFIX}/etc/rspamd/
+	${LN} -s etc/rspamd/rspamd.newsyslog.conf \
+		${STAGEDIR}${PREFIX}/etc/newsyslog.conf.d
