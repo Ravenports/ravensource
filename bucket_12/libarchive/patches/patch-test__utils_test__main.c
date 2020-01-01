@@ -1,4 +1,4 @@
---- test_utils/test_main.c.orig	2019-06-12 21:05:16 UTC
+--- test_utils/test_main.c.orig	2019-12-30 01:39:54 UTC
 +++ test_utils/test_main.c
 @@ -3499,9 +3499,9 @@ static int
  test_run(int i, const char *tmpdir)
