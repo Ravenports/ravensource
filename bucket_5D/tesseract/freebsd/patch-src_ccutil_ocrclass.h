@@ -1,4 +1,4 @@
---- src/ccutil/ocrclass.h.orig	2019-07-08 13:00:14 UTC
+--- src/ccutil/ocrclass.h.orig	2019-07-07 12:34:08 UTC
 +++ src/ccutil/ocrclass.h
 @@ -31,6 +31,7 @@
  #ifdef _WIN32
