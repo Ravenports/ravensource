@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	20170430
+DEF[PORTVERSION]=	20190224
+DEF[CODENAME]=		Tabebuia
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		openpam
@@ -11,7 +12,7 @@ HOMEPAGE=		https://www.openpam.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/openpam/openpam/Resedacea
+SITES[main]=		SF/openpam/openpam/${CODENAME}
 DISTFILE[1]=		openpam-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	single
@@ -21,7 +22,7 @@ OPTIONS_STANDARD=	none
 
 # FPC_EQUIVALENT=	not in ports
 
-USES=			libtool
+USES=			libtool pkgconfig
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-pam-unix
 			--with-modules-dir={{PREFIX}}/lib/openpam

@@ -1,4 +1,4 @@
---- lib/libpam/openpam_constants.c.orig	2017-04-30 21:34:49 UTC
+--- lib/libpam/openpam_constants.c.orig	2019-02-24 20:15:19 UTC
 +++ lib/libpam/openpam_constants.c
 @@ -169,17 +169,13 @@ const char *pam_sm_func_name[PAM_NUM_PRI
  const char *openpam_policy_path[] = {
