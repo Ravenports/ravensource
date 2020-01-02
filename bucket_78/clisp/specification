@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	2.49.93
+DEF[PORTVERSION]=	2.50
+DEF[INTERNAL_VERSION]=	2.49.92
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		clisp
@@ -11,8 +12,8 @@ HOMEPAGE=		http://www.gnu.org/software/clisp
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://ravenports.elderlinux.org/distcache/
-DISTFILE[1]=		clisp-${PORTVERSION}.txz:main
+SITES[main]=		https://gitlab.com/gnu-clisp/clisp/-/archive/clisp-${PORTVERSION}/
+DISTFILE[1]=		clisp-clisp-${PORTVERSION}.tar.bz2:main
 
 SPKGS[standard]=	complete primary docs
 
@@ -38,8 +39,9 @@ BUILDRUN_DEPENDS=	libsigsegv:shared:standard
 			libffcall:single:standard
 			readline:single:standard
 
+DISTNAME=		clisp-clisp-${PORTVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
-PLIST_SUB=		VERSION="${PORTVERSION}+"
+PLIST_SUB=		VERSION="${INTERNAL_VERSION}"
 
 do-build:
 	( cd ${WRKSRC}/src && make )
