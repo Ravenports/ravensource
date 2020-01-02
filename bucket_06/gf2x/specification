@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	1.3.0
+DEF[FILE_TOKEN]=	38243
+DEF[SOVERSION]=		3.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gf2x
+VERSION=		${PORTVERSION}
+KEYWORDS=		math
+VARIANTS=		standard
+SDESC[standard]=	Lib for multiplying polynomials over binary fields
+HOMEPAGE=		https://gforge.inria.fr/projects/gf2x
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://gforge.inria.fr/frs/download.php/file/${FILE_TOKEN}/
+DISTFILE[1]=		gf2x-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# If toom-gpl-placeholder.c is used instad of toom-gpl.c, LGPL2+ applies to
+# the project.
+LICENSE=		GPLv3+:single
+			LGPL21:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+			LGPL21:{{WRKSRC}}/COPYING.LIB
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gf2x.h
+LICENSE_AWK=		TERMS:"Multiplication"
+LICENSE_SCHEME=		multi
+
+USES=			libtool
+MUST_CONFIGURE=		gnu
+
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgf2x.so.${SOVERSION}
