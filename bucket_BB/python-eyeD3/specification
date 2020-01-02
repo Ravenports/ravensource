@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.8.11
+DEF[PORTVERSION]=	0.9
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-eyeD3
@@ -12,7 +12,7 @@ CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/e/eyeD3
-DISTFILE[1]=		eyeD3-0.8.11.tar.gz:main
+DISTFILE[1]=		eyeD3-0.9.tar.gz:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -28,19 +28,19 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 GENERATED=		yes
 
 # install_requires extracted from setup.py (using python 2.7)
-# six
-# pathlib
-# python-magic
+# dataclasses
+# filetype
+# deprecation
 
 DISTNAME=		eyeD3-${PORTVERSION}
 
 [PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-six:single:py38
-					python-pathlib:single:py38
-					python-python-magic:single:py38
+[PY38].BUILDRUN_DEPENDS_ON=		python-dataclasses:single:py38
+					python-filetype:single:py38
+					python-deprecation:single:py38
 
 [PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-six:single:py37
-					python-pathlib:single:py37
-					python-python-magic:single:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-dataclasses:single:py37
+					python-filetype:single:py37
+					python-deprecation:single:py37
 
