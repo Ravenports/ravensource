@@ -568,6 +568,7 @@ function filter(dep) {\
    else if (dep == "python-msgpack-python") return "python-msgpack";\
    else if (dep == "python-pynacl") return "python-PyNaCl";\
    else if (dep == "python-importlib-metadata") return "python-importlib_metadata";\
+   else if (dep == "python-fonttools[ufo]") return "python-fonttools";\
    else return dep;\
 }\
 BEGIN {\
@@ -633,6 +634,8 @@ replace_inline() {
       	 /tmp/expand/eyeD3-${VERSION}/requirements/requirements.yml ;;
       aniso8601) sedcmd='/install_requires=/d' ;;
       borgbackup) sedcmd="/Detected/d" ;;
+      compreffor) sedcmd='/print/d' ;;
+      cattrs) sedcmd='/python_version/d' ;;
       *) ;;
    esac
    if [ -n "${sedcmd}" ]; then

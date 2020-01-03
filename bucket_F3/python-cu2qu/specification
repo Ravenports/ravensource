@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	1.6.6
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-cu2qu
+VERSION=		${PORTVERSION}
+KEYWORDS=		python devel graphics
+VARIANTS=		py38 py37
+SDESC[py38]=		Cubic-to-quadratic bezier curve conversion (PY 38)
+SDESC[py37]=		Cubic-to-quadratic bezier curve conversion (PY 37)
+HOMEPAGE=		https://github.com/googlei18n
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/c/cu2qu
+DISTFILE[1]=		cu2qu-1.6.6.zip:main
+
+SPKGS[py38]=		single
+SPKGS[py37]=		single
+
+OPTIONS_AVAILABLE=	PY38 PY37
+OPTIONS_STANDARD=	none
+VOPTS[py38]=		PY38=ON PY37=OFF
+VOPTS[py37]=		PY38=OFF PY37=ON
+
+# Output of setup.py --license
+# Apache License, Version 2.0
+
+GENERATED=		yes
+
+# install_requires extracted from setup.py (using python 2.7)
+# fonttools[ufo]
+# setuptools_scm
+
+DISTNAME=		cu2qu-${PORTVERSION}
+
+[PY38].USES_ON=				python:py38
+[PY38].BUILDRUN_DEPENDS_ON=		python-fonttools:single:py38
+					python-setuptools_scm:single:py38
+
+[PY37].USES_ON=				python:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-fonttools:single:py37
+					python-setuptools_scm:single:py37
+
