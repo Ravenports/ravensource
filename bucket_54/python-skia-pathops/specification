@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	0.2.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-skia-pathops
+VERSION=		${PORTVERSION}
+KEYWORDS=		python graphics
+VARIANTS=		py38 py37
+SDESC[py38]=		Boolean operations on paths using the Skia (PY 38)
+SDESC[py37]=		Boolean operations on paths using the Skia (PY 37)
+HOMEPAGE=		https://github.com/fonttools/skia-pathops
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/s/skia-pathops
+DISTFILE[1]=		skia-pathops-0.2.1.zip:main
+
+SPKGS[py38]=		single
+SPKGS[py37]=		single
+
+OPTIONS_AVAILABLE=	PY38 PY37
+OPTIONS_STANDARD=	none
+VOPTS[py38]=		PY38=ON PY37=OFF
+VOPTS[py37]=		PY38=OFF PY37=ON
+
+# Output of setup.py --license
+# BSD-3-Clause
+
+GENERATED=		yes
+
+# install_requires extracted from setup.py (using python 2.7)
+
+DISTNAME=		skia-pathops-${PORTVERSION}
+
+[PY38].USES_ON=				python:py38
+
+[PY37].USES_ON=				python:py37
+BUILDRUN_DEPENDS=	python-setuptools_scm:single:python_default
+			python-Cython:single:python_default
