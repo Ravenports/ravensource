@@ -1,0 +1,53 @@
+DEF[PORTVERSION]=	2.0.10
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-asciidoctor
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v24 v25 v26
+SDESC[v24]=		Implementation of the AsciiDoc text processo (v24)
+SDESC[v25]=		Implementation of the AsciiDoc text processo (v25)
+SDESC[v26]=		Implementation of the AsciiDoc text processo (v26)
+HOMEPAGE=		https://asciidoctor.org
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		asciidoctor-2.0.10.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v24]=		single
+SPKGS[v25]=		single
+SPKGS[v26]=		single
+
+OPTIONS_AVAILABLE=	RUBY24 RUBY25 RUBY26
+OPTIONS_STANDARD=	none
+VOPTS[v24]=		RUBY24=ON RUBY25=OFF RUBY26=OFF
+VOPTS[v25]=		RUBY24=OFF RUBY25=ON RUBY26=OFF
+VOPTS[v26]=		RUBY24=OFF RUBY25=OFF RUBY26=ON
+
+GENERATED=		yes
+
+# Requirements specified by gem dependency --remote --version command
+#   asciimath (~> 1.0.0, development)
+#   coderay (~> 1.1.0, development)
+#   concurrent-ruby (~> 1.1.0, development)
+#   cucumber (~> 3.1.0, development)
+#   erubis (~> 2.7.0, development)
+#   haml (~> 5.0.0, development)
+#   minitest (~> 5.11.0, development)
+#   nokogiri (~> 1.10.0, development)
+#   rake (~> 12.3.0, development)
+#   rouge (~> 3.3.0, development)
+#   rspec-expectations (~> 3.8.0, development)
+#   slim (~> 4.0.0, development)
+#   tilt (~> 2.0.0, development)
+
+DISTNAME=		asciidoctor-${PORTVERSION}
+
+[RUBY24].USES_ON=			gem:v24
+
+[RUBY25].USES_ON=			gem:v25
+
+[RUBY26].USES_ON=			gem:v26
+
