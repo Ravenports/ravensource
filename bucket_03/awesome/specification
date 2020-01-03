@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	4.3
 
 NAMEBASE=		awesome
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		x11_wm
 VARIANTS=		standard
 SDESC[standard]=	Dynamic WM for X, highly configurable in Lua
@@ -28,8 +28,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11-wm/awesome
 
-# changed need from asciidoc to asciidoctor, so no man pages
 BUILD_DEPENDS=		ImageMagick:primary:standard
+			ldoc:single:lua53
+			ruby-asciidoctor:single:ruby_default
 BUILDRUN_DEPENDS=	dbus:single:standard
 			libexecinfo:single:standard
 			libxdg-basedir:single:standard
