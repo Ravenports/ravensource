@@ -1,4 +1,4 @@
---- src/anet-sockets-inet.adb.orig	2018-02-20 13:29:18 UTC
+--- src/anet-sockets-inet.adb.orig	2019-10-30 14:36:44 UTC
 +++ src/anet-sockets-inet.adb
 @@ -69,7 +69,7 @@ package body Anet.Sockets.Inet is
        Res  : C.int;
@@ -18,7 +18,7 @@
     begin
        New_Socket.Sock_FD := -1;
        Src := (Addr => Any_Addr_V6,
-@@ -170,7 +170,7 @@ package body Anet.Sockets.Inet is
+@@ -173,7 +173,7 @@ package body Anet.Sockets.Inet is
          (Result  => Thin.C_Bind
             (S       => Socket.Sock_FD,
              Name    => Sockaddr'Address,
@@ -27,7 +27,7 @@
           Message => "Unable to bind IPv4 socket to " & To_String
             (Address => Address) & "," & Port'Img);
     end Bind;
-@@ -194,7 +194,7 @@ package body Anet.Sockets.Inet is
+@@ -200,7 +200,7 @@ package body Anet.Sockets.Inet is
          (Result  => Thin.C_Bind
             (S       => Socket.Sock_FD,
              Name    => Sockaddr'Address,
@@ -36,7 +36,7 @@
           Message => "Unable to bind IPv6 socket to " & To_String
             (Address => Address) & "," & Port'Img);
     end Bind;
-@@ -214,7 +214,7 @@ package body Anet.Sockets.Inet is
+@@ -220,7 +220,7 @@ package body Anet.Sockets.Inet is
          (Result  => Thin.C_Connect
             (S       => Socket.Sock_FD,
              Name    => Dst'Address,
@@ -45,7 +45,7 @@
           Message => "Unable to connect socket to address " & To_String
             (Address => Address) & " (" & Port'Img & " )");
     end Connect;
-@@ -234,7 +234,7 @@ package body Anet.Sockets.Inet is
+@@ -240,7 +240,7 @@ package body Anet.Sockets.Inet is
          (Result  => Thin.C_Connect
             (S       => Socket.Sock_FD,
              Name    => Dst'Address,
@@ -54,7 +54,7 @@
           Message => "Unable to connect socket to address " & To_String
             (Address => Address) & " (" & Port'Img & " )");
     end Connect;
-@@ -472,7 +472,7 @@ package body Anet.Sockets.Inet is
+@@ -478,7 +478,7 @@ package body Anet.Sockets.Inet is
           Len   => Item'Length,
           Flags => Constants.Sys.MSG_NOSIGNAL,
           To    => Dst'Address,
@@ -63,7 +63,7 @@
  
        Errno.Check_Or_Raise
          (Result  => C.int (Res),
-@@ -504,7 +504,7 @@ package body Anet.Sockets.Inet is
+@@ -510,7 +510,7 @@ package body Anet.Sockets.Inet is
           Len   => Item'Length,
           Flags => Constants.Sys.MSG_NOSIGNAL,
           To    => Dst'Address,
