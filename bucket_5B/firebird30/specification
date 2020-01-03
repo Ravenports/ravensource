@@ -14,8 +14,8 @@ HOMEPAGE=		https://www.firebirdsql.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://github.com/FirebirdSQL/firebird/releases/download/R${PORTVERSION:S/./_/g}/
-DISTFILE[1]=		Firebird-${PORTVERSION}.${SCMVERSION}.tar.bz2:main
+SITES[main]=		https://github.com/FirebirdSQL/firebird/archive/
+DISTFILE[1]=		R${PORTVERSION:S/./_/g}.tar.gz:main
 
 SPKGS[standard]=	complete server client docs
 
@@ -35,7 +35,7 @@ BROKEN[linux]=		free fails, invalid size: 0x00007f739ca112a0 ***
 
 BUILDRUN_DEPENDS=	libedit:single:standard
 			icu:single:standard
-EXRUN[server]=		firebird25:client:standard
+EXRUN[server]=		firebird30:client:standard
 
 USES=			cpe gmake libtool:build pkgconfig zlib c++:server,client
 SINGLE_JOB=		yes
@@ -78,7 +78,7 @@ PLIST_SUB=		SOVERSION=${PORTVERSION}
 RC_SUBR=		firebird:server
 SUB_FILES=		pkg-message-server
 SUB_LIST=		DOCDIR={{STD_DOCDIR}}
-DISTNAME=		Firebird-${PORTVERSION}.${SCMVERSION}
+DISTNAME=		firebird-R${PORTVERSION:S/./_/g}
 
 post-patch:
 	${REINPLACE_CMD} -e 's|<malloc.h>|<stdlib.h>|' \

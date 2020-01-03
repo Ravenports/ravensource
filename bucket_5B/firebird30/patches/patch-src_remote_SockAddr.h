@@ -1,19 +1,24 @@
---- src/remote/SockAddr.h.orig	2018-02-02 11:00:36 UTC
+--- src/remote/SockAddr.h.orig	2019-12-23 00:05:43 UTC
 +++ src/remote/SockAddr.h
-@@ -90,6 +90,7 @@ public:
+@@ -112,11 +112,13 @@ public:
  
  #define AF_INET6_POSIX		10
  #define AF_INET6_WINDOWS	23
 +#define AF_INET6_BSD		28
  #define AF_INET6_DARWIN		30
  
- inline void SockAddr::checkAndFixFamily()
-@@ -98,6 +99,8 @@ inline void SockAddr::checkAndFixFamily(
- 	if (data.sock.sa_family == AF_INET6_WINDOWS)
+ #if AF_INET6 == AF_INET6_POSIX
  #elif AF_INET6 == AF_INET6_WINDOWS
- 	if (data.sock.sa_family == AF_INET6_POSIX)
-+#elif AF_INET6 == AF_INET6_BSD
-+	if (data.sock.sa_family == AF_INET6_BSD)
  #elif AF_INET6 == AF_INET6_DARWIN
- 	if (data.sock.sa_family == AF_INET6_DARWIN)
++#elif AF_INET6 == AF_INET6_BSD
  #else
+ #error Unknown value of AF_INET6 !
+ #endif
+@@ -132,6 +134,7 @@ inline void SockAddr::checkAndFixFamily(
+ 	case AF_INET6_POSIX:
+ 	case AF_INET6_WINDOWS:
+ 	case AF_INET6_DARWIN:
++	case AF_INET6_BSD:
+ 		data.sock.sa_family = AF_INET6;
+ 		fb_assert(len == sizeof(sockaddr_in6));
+ 		break;
