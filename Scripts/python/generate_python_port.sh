@@ -239,6 +239,7 @@ get_filtered_url() {
          http://*.readthedocs.io/* | \
          http://*.nicfit.net/* | \
          http://*pygments.org/* | \
+         http://*cython.org* | \
          http://certifi.io/* | http://docs.openstack.org/* | http://msgpack.org/* )
             echo ${url} | sed -e "s/^http:/https:/"
             ;;
