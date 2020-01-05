@@ -1,4 +1,4 @@
---- parse.y.orig	2018-05-14 13:31:34 UTC
+--- parse.y.orig	2020-01-04 20:45:17 UTC
 +++ parse.y
 @@ -22,10 +22,8 @@
  %{
@@ -61,7 +61,7 @@
  #include "calmwm.h"
  
  #define YYSTYPE_IS_DECLARED
-@@ -599,7 +640,7 @@ parse_config(const char *filename, struc
+@@ -600,7 +641,7 @@ parse_config(const char *filename, struc
  	if (stream == NULL) {
  		if (errno == ENOENT)
  			return (0);
