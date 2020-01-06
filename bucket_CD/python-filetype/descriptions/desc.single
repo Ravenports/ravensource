@@ -1,0 +1,100 @@
+filetype.py |Build Status| |PyPI| |API|
+=======================================
+
+Small and dependency free `Python`_ package to infer file type and MIME
+type checking the `magic numbers`_ signature of a file or buffer.
+
+This is a Python port from `filetype`_ Go package.
+
+Features
+--------
+
+-  Simple and friendly API
+-  Supports a `wide range`_ of file types
+-  Provides file extension and MIME type inference
+-  File discovery by extension or MIME type
+-  File discovery by kind (image, video, audio…)
+-  `Pluggable`_: add new custom type matchers
+-  `Fast`_, even processing large files
+-  Only first 261 bytes representing the max file header is required, so
+   you can just `pass a list of bytes`_
+-  Dependency free (just Python code, no C extensions, no libmagic
+   bindings)
+-  Cross-platform file recognition
+
+Installation
+------------
+
+::
+
+    pip install filetype
+
+API
+---
+
+See `annotated API reference`_.
+
+Examples
+--------
+
+Simple file type checking
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: python
+
+    import filetype
+
+    def main():
+        kind = filetype.guess('tests/fixtures/sample.jpg')
+        if kind is None:
+            print('Cannot guess file type!')
+            return
+
+        print('File extension: %s' % kind.extension)
+        print('File MIME type: %s' % kind.mime)
+
+    if __name__ == '__main__':
+        main()
+
+Supported types
+---------------
+
+Image
+^^^^^
+
+-  **jpg** - ``image/jpeg``
+-  **jpx** - ``image/jpx``
+-  **png** - ``image/png``
+-  **gif** - ``image/gif``
+-  **webp** - ``image/webp``
+-  **cr2** - ``image/x-canon-cr2``
+-  **tif** - ``image/tiff``
+-  **bmp** - ``image/bmp``
+-  **jxr** - ``image/vnd.ms-photo``
+-  **psd** - ``image/vnd.adobe.photoshop``
+-  **ico** - ``image/x-icon``
+-  **heic** - ``image/heic``
+
+Video
+^^^^^
+
+-  **mp4** - ``video/mp4``
+-  **m4v** - ``video/x-m4v``
+-  **mkv** - ``video/x-matroska``
+-  **webm** - ``video/webm``
+-  **mov** - ``video/quicktime``
+-  **avi** - ``video/x-msvideo``
+-  **wmv** - ``video/x-ms-wmv``
+-  **mpg** - ``video/mpeg``
+-  **flv** - ``video/x-flv``
+
+Audio
+^^^^^
+
+-  **mid** - ``audio/midi``
+-  **mp3** - ``audio/mpeg``
+-  **m4a** - ``audio/m4a``
+-  **ogg** - ``audio/ogg``
+-  **flac** - ``audio/x-flac``
+-  **wav** - ``audio/x-wav``
+-  **amr** - ``audio/amr``
