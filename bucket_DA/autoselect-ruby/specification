@@ -1,8 +1,8 @@
 # manually update when ruby versions are cycled
-DEF[PORTVERSION]=	2
-DEF[ALPHA]=		26
-DEF[BRAVO]=		25
-DEF[CHARLIE]=		24
+DEF[PORTVERSION]=	3
+DEF[ALPHA]=		27
+DEF[BRAVO]=		26
+DEF[CHARLIE]=		25
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		autoselect-ruby
@@ -37,6 +37,6 @@ do-build:
 	(cd ${WRKSRC} && ${CC} ${CFLAGS} ${LDFLAGS} -o generic autoselect.c)
 
 do-install:
-.for prog in ruby gem erb irb rdoc ri
+.for prog in ruby gem erb irb rdoc ri racc racc2y y2racc
 	${INSTALL_PROGRAM} ${WRKSRC}/generic ${STAGEDIR}${PREFIX}/bin/${prog}
 .endfor
