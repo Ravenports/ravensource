@@ -52,6 +52,8 @@ VAR_OPSYS[linux]=	LDFLAGS=-ldl
 post-patch:
 	${REINPLACE_CMD} -e "/COMMAND lua/ s,lua,${LUA_CMD}," \
 		${WRKSRC}/awesomeConfig.cmake
+	${REINPLACE_CMD} -e "s| lua| ${LUA_CMD}|" \
+		${WRKSRC}/tests/examples/CMakeLists.txt
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/awesome
