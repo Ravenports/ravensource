@@ -1,6 +1,6 @@
 #!/bin/sh
 
-RUBYEXE=ruby26
+RUBYEXE=/raven/bin/ruby27
 pathtoexec=$(realpath $0)
 thisdir=$(dirname ${pathtoexec})
 wrkdir=/tmp/rubygems
@@ -8,7 +8,7 @@ archurl=http://rubygems.org/latest_specs.4.8.gz
 
 rm -rf ${wrkdir}
 mkdir -p ${wrkdir}
-fetch ${archurl} -o ${wrkdir}
+fetch --no-verify-peer ${archurl} -o ${wrkdir}
 
 if [ $? -ne 0 ]; then
   echo "download failed"

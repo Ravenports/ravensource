@@ -4,9 +4,10 @@ DEF[PORTVERSION]=	2.0.2
 NAMEBASE=		ruby-carrierwave
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
-VARIANTS=		v25 v26
+VARIANTS=		v25 v26 v27
 SDESC[v25]=		Ruby file upload library (v25)
 SDESC[v26]=		Ruby file upload library (v26)
+SDESC[v27]=		Ruby file upload library (v27)
 HOMEPAGE=		https://github.com/carrierwaveuploader/carrierwave
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -17,11 +18,13 @@ DIST_SUBDIR=		ruby
 
 SPKGS[v25]=		single
 SPKGS[v26]=		single
+SPKGS[v27]=		single
 
-OPTIONS_AVAILABLE=	RUBY25 RUBY26
+OPTIONS_AVAILABLE=	RUBY25 RUBY26 RUBY27
 OPTIONS_STANDARD=	none
-VOPTS[v25]=		RUBY25=ON RUBY26=OFF
-VOPTS[v26]=		RUBY25=OFF RUBY26=ON
+VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
+VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
+VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
 GENERATED=		yes
 
@@ -64,4 +67,12 @@ DISTNAME=		carrierwave-${PORTVERSION}
 					ruby-image_processing:single:v26
 					ruby-mimemagic:single:v26
 					ruby-mini_mime:single:v26
+
+[RUBY27].USES_ON=			gem:v27
+[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-activemodel:single:v27
+					ruby-activesupport:single:v27
+					ruby-addressable:single:v27
+					ruby-image_processing:single:v27
+					ruby-mimemagic:single:v27
+					ruby-mini_mime:single:v27
 

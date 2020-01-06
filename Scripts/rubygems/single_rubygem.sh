@@ -7,13 +7,14 @@
 # argument 1: ruby gem name
 # argument 2: optional, "force" to ignore "done" in cache and force rebuild
 #
-# install ruby26-complete-standard (or latest ruby)
-# install ruby-rubygems:single:v26
+# install ruby27-complete-standard (or latest ruby)
+# install ruby-rubygems:single:v27
 
 
 [ -n "${DEBUG_MK_SCRIPTS}" -o -n "${DEBUG_MK_SCRIPTS_MAKESUM}" ] && set -x
 
-RUBYEXE=ruby26
+RUBYEXE=/raven/bin/ruby27
+GEMEXE=/raven/bin/gem
 pathtoexec=$(realpath $0)
 thisdir=$(dirname ${pathtoexec})
 tmpdir=/tmp/rubygems
@@ -29,9 +30,9 @@ mirror_base=/mech/var/cache/rubygems
 specsdir=${mirror_base}/specs
 reqsdir=${mirror_base}/reqs
 gemline="gs = Marshal.load Gem::Util.inflate File.read '${specsdir}"
-min_ruby24="2.4.7"
-min_ruby25="2.5.6"
-min_ruby26="2.6.4"
+min_ruby25="2.5.7"
+min_ruby26="2.6.5"
+min_ruby27="2.7.0"
 secondarg="$2"
 #VARIANTS=
 
@@ -80,7 +81,7 @@ download_gemspec()
 	local gemspec=${1}-${2}.gemspec.rz
 	if [ ! -f ${specsdir}/${gemspec} ]; then
 		echo "downloading ${gemspec}"
-		fetch http://rubygems.org/quick/Marshal.4.8/${gemspec} -o ${specsdir}
+		fetch --no-verify-peer http://rubygems.org/quick/Marshal.4.8/${gemspec} -o ${specsdir}
 	fi
 }
 
@@ -92,7 +93,7 @@ download_gemspec_requirements()
 	if [ ! -f ${reqsdir}/${reqfile} -o "${secondarg}" = "force" ]; then
 		echo "Downloading requirements for ${1} version ${2}"
 		#echo "executing gem dependency ${pattern} --remote --version=${2}"
-		gem dependency ${pattern} --remote --version=${2} > ${reqsdir}/${reqfile}
+		${GEMEXE} dependency ${pattern} --remote --version=${2} > ${reqsdir}/${reqfile}
 	fi
 }
 
@@ -162,17 +163,17 @@ get_filtered_url() {
 determine_variants() {
    local vrt
    local rubyreq=$(obtain_ruby_requirement ${1} ${2})  # >= 0, >= 1.9.2
-   local good24=$(echo "${rubyreq}" | awk -vmin=${min_ruby24} '{ print ($2 < min ? "good" : "bad")}')
-   case ${1} in
-      sprockets-rails | devise | delayed_job | jquery-rails) ;;
-      carrierwave | globalid | kaminari-actionview | searchkick) ;;
-      simple_form | polyamorous | ransack | kaminari | responders) ;;
-      kaminari-activerecord | rails-dom-testing) ;;
-      *)
-        if [ "${good24}" == "good" ]; then
-           vrt="${vrt} v24"
-        fi ;;
-   esac
+#   local good24=$(echo "${rubyreq}" | awk -vmin=${min_ruby24} '{ print ($2 < min ? "good" : "bad")}')
+#   case ${1} in
+#      sprockets-rails | devise | delayed_job | jquery-rails) ;;
+#      carrierwave | globalid | kaminari-actionview | searchkick) ;;
+#      simple_form | polyamorous | ransack | kaminari | responders) ;;
+#      kaminari-activerecord | rails-dom-testing) ;;
+#      *)
+#        if [ "${good24}" == "good" ]; then
+#           vrt="${vrt} v24"
+#        fi ;;
+#   esac
    local good25=$(echo "${rubyreq}" | awk -vmin=${min_ruby25} '{ print ($2 < min ? "good" : "bad")}')
    if [ "${good25}" == "good" ]; then
       vrt="${vrt} v25"
@@ -180,6 +181,10 @@ determine_variants() {
    local good26=$(echo "${rubyreq}" | awk -vmin=${min_ruby26} '{ print ($2 < min ? "good" : "bad")}')
    if [ "${good26}" == "good" ]; then
       vrt="${vrt} v26"
+   fi
+   local good27=$(echo "${rubyreq}" | awk -vmin=${min_ruby27} '{ print ($2 < min ? "good" : "bad")}')
+   if [ "${good27}" == "good" ]; then
+      vrt="${vrt} v27"
    fi
    for v in ${vrt}; do
       if [ -z "${VARIANTS}" ]; then

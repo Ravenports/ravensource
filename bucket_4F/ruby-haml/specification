@@ -4,10 +4,10 @@ DEF[PORTVERSION]=	5.1.2
 NAMEBASE=		ruby-haml
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
-VARIANTS=		v24 v25 v26
-SDESC[v24]=		Elegant, structured (X)HTML/XML templating e (v24)
+VARIANTS=		v25 v26 v27
 SDESC[v25]=		Elegant, structured (X)HTML/XML templating e (v25)
 SDESC[v26]=		Elegant, structured (X)HTML/XML templating e (v26)
+SDESC[v27]=		Elegant, structured (X)HTML/XML templating e (v27)
 HOMEPAGE=		http://haml.info/
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -16,15 +16,15 @@ SITES[main]=		RUBYGEMS/
 DISTFILE[1]=		haml-5.1.2.gem:main
 DIST_SUBDIR=		ruby
 
-SPKGS[v24]=		single
 SPKGS[v25]=		single
 SPKGS[v26]=		single
+SPKGS[v27]=		single
 
-OPTIONS_AVAILABLE=	RUBY24 RUBY25 RUBY26
+OPTIONS_AVAILABLE=	RUBY25 RUBY26 RUBY27
 OPTIONS_STANDARD=	none
-VOPTS[v24]=		RUBY24=ON RUBY25=OFF RUBY26=OFF
-VOPTS[v25]=		RUBY24=OFF RUBY25=ON RUBY26=OFF
-VOPTS[v26]=		RUBY24=OFF RUBY25=OFF RUBY26=ON
+VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
+VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
+VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
 GENERATED=		yes
 
@@ -38,10 +38,6 @@ GENERATED=		yes
 
 DISTNAME=		haml-${PORTVERSION}
 
-[RUBY24].USES_ON=			gem:v24
-[RUBY24].BUILDRUN_DEPENDS_ON=		ruby-temple:single:v24
-					ruby-tilt:single:v24
-
 [RUBY25].USES_ON=			gem:v25
 [RUBY25].BUILDRUN_DEPENDS_ON=		ruby-temple:single:v25
 					ruby-tilt:single:v25
@@ -49,4 +45,8 @@ DISTNAME=		haml-${PORTVERSION}
 [RUBY26].USES_ON=			gem:v26
 [RUBY26].BUILDRUN_DEPENDS_ON=		ruby-temple:single:v26
 					ruby-tilt:single:v26
+
+[RUBY27].USES_ON=			gem:v27
+[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-temple:single:v27
+					ruby-tilt:single:v27
 
