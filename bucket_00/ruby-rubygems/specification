@@ -1,7 +1,7 @@
 # manually maintained
-DEF[PORTVERSION]=	3.0.6
+DEF[PORTVERSION]=	3.1.2
 DEF[GEMS_BASE_DIR]=	lib/ruby/gems
-DEF[BUNDLERVER]=	1.17.3
+DEF[BUNDLERVER]=	2.1.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ruby-rubygems
@@ -60,3 +60,7 @@ post-install:
 	${MV} ${STAGEDIR}${STAGEDIR}${PREFIX}/${GEMS_BASE_DIR}/${RUBY_VER}/specifications/gems \
 		${STAGEDIR}${PREFIX}/${GEMS_BASE_DIR}/${RUBY_VER}/specifications/
 	${RM} -r ${STAGEDIR}/construction
+	# starting with v3.1.2, bundler isn't installed
+	${SED} -e 's|"../lib"|"../libx"|' ${WRKSRC}/bundler/exe/bundle \
+		> ${STAGEDIR}${PREFIX}/bin/bundle${RUBY_SUFFIX}
+	${CHOWN} ${BINMODE} ${STAGEDIR}${PREFIX}/bin/bundle${RUBY_SUFFIX}
