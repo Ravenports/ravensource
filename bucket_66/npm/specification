@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.12.1
+DEF[PORTVERSION]=	6.13.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		npm
@@ -10,8 +10,8 @@ HOMEPAGE=		https://www.npmjs.com/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://www.ravenports.com/cache-distfiles/
-DISTFILE[1]=		npm-${PORTVERSION}.tar.xz:main
+SITES[main]=		GITHUB/npm:cli:v${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
@@ -24,36 +24,44 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		www/npm
 
-RUN_DEPENDS=		gmake:single:standard
+BUILDRUN_DEPENDS=	bash:complete:standard
 			nodejs:complete:standard
 
-USES=			cpe python shebangfix gmake
-SKIP_BUILD=		yes
+USES=			cpe python shebangfix gmake perl:build
 CPE_VENDOR=		npmjs
 CPE_PRODUCT=		node_packaged_modules
+SINGLE_JOB=		yes
 
 SHEBANG_GLOB=		*.py
-SHEBANG_FILES=		lib/node_modules/npm/lib/utils/completion.sh
-			lib/node_modules/npm/node_modules/lockfile/gen-changelog.sh
-			lib/node_modules/npm/node_modules/node-gyp/gyp/samples/samples
-			lib/node_modules/npm/node_modules/node-gyp/test/docker.sh
-			lib/node_modules/npm/scripts/clean-old.sh
-			lib/node_modules/npm/scripts/release.sh
-			lib/node_modules/npm/scripts/relocate.sh
+SHEBANG_FILES=		lib/utils/completion.sh
+			node_modules/node-gyp/gyp/samples/samples
+			node_modules/dashdash/etc/dashdash.bash_completion.in
+			node_modules/lockfile/gen-changelog.sh
+			node_modules/node-gyp/test/docker.sh
+
+MANDIRS=		{{PREFIX}}/lib/node_modules/npm/man
 
 post-patch:
 	${GREP} -rl "/usr/local" ${WRKSRC} | ${XARGS} \
 		${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g'
 	${GREP} -rl "/usr/bin/env node" ${WRKSRC} | ${XARGS} \
 		${REINPLACE_CMD} -e 's|/usr/bin/env node|${LOCALBASE}/bin/node|'
+	${GREP} -rl "/usr/bin/env bash" ${WRKSRC} | ${XARGS} \
+		${REINPLACE_CMD} -e 's|/usr/bin/env bash|${LOCALBASE}/bin/bash|'
+	# fix python location
+	${REINPLACE_CMD} -e 's|PYTHONBIN|${PYTHON_CMD}|' \
+		${WRKSRC}/node_modules/node-gyp/lib/configure.js
+	# don't build twice
+	${REINPLACE_CMD} -e 's/install: all/install:/' ${WRKSRC}/Makefile
 	${FIND} ${WRKSRC} -name "*.bak" -type f -delete
 
 do-install:
-	cd ${WRKSRC}/ && ${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/
-	${CHMOD} 755 ${STAGEDIR}${PREFIX}/bin/npm
-	${CHMOD} 755 ${STAGEDIR}${PREFIX}/bin/npx
-.for S in bin/node-gyp-bin/node-gyp bin/npm-cli.js
-	${CHMOD} 755 ${STAGEDIR}${PREFIX}/lib/node_modules/npm/${S}
-.endfor
-	${FIND} ${STAGEDIR}${PREFIX}/lib/node_modules/npm -name "*.sh" | \
-		${XARGS} ${CHMOD} 755
+	${FIND} ${WRKSRC} -type f -name '*.orig' -delete
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_ARGS} \
+		${LOCALBASE}/bin/node bin/npm-cli.js pack
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_ARGS} \
+		${LOCALBASE}/bin/node bin/npm-cli.js \
+		install -g -f npm-${PORTVERSION}.tgz
+	# fix package.json to remove DESTDIR
+	${REINPLACE_CMD} -i'' -e "s|/construction/npm/stage||" \
+		${STAGEDIR}${PREFIX}/lib/node_modules/npm/package.json
