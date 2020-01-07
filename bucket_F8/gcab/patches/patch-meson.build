@@ -1,14 +1,13 @@
---- meson.build.orig	2018-12-09 16:53:57 UTC
+--- meson.build.orig	2020-01-06 11:25:54 UTC
 +++ meson.build
-@@ -19,7 +19,6 @@ lt_version = '@0@.@1@.@2@'.format(lt_cur
+@@ -73,17 +73,11 @@ foreach arg: test_args
+   endif
+ endforeach
  
- # get suported warning flags
- test_args = [
--  '-fstack-protector-strong',
-   '-Waggregate-return',
-   '-Wunused',
-   '-Warray-bounds',
-@@ -76,10 +75,7 @@ endforeach
+-if not meson.is_cross_build()
+-  add_project_arguments('-fstack-protector-strong', language : 'c')
+-endif
+ 
  # enable full RELRO where possible
  # FIXME: until https://github.com/mesonbuild/meson/issues/1140 is fixed
  global_link_args = []
@@ -18,5 +17,5 @@
 -]
 +test_link_args = []
  foreach arg: test_link_args
-   if cc.has_argument(arg)
+   if cc.has_link_argument(arg)
      global_link_args += arg
