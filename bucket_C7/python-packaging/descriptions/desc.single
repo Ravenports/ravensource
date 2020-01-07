@@ -72,6 +72,35 @@ https://packaging.pypa.io/en/latest/changelog/
 Changelog
 ---------
 
+20.0 - 2020-01-06
+~~~~~~~~~~~~~~~~~
+
+* Add type hints (`#191 <https://github.com/pypa/packaging/issues/191>`__)
+
+* Add proper trove classifiers for PyPy support (`#198
+<https://github.com/pypa/packaging/issues/198>`__)
+
+* Scale back depending on ``ctypes`` for manylinux support detection
+(`#171 <https://github.com/pypa/packaging/issues/171>`__)
+
+* Use ``sys.implementation.name`` where appropriate for ``packaging.tags``
+(`#193 <https://github.com/pypa/packaging/issues/193>`__)
+
+* Expand upon the API provded by ``packaging.tags``:
+``interpreter_name()``, ``mac_platforms()``, ``compatible_tags()``,
+``cpython_tags()``, ``generic_tags()`` (`#187
+<https://github.com/pypa/packaging/issues/187>`__)
+
+* Officially support Python 3.8 (`#232
+<https://github.com/pypa/packaging/issues/232>`__)
+
+* Add ``major``, ``minor``, and ``micro`` aliases to
+``packaging.version.Version`` (`#226
+<https://github.com/pypa/packaging/issues/226>`__)
+
+* Properly mark ``packaging`` has being fully typed by adding a `py.typed`
+file (`#226 <https://github.com/pypa/packaging/issues/226>`__)
+
 19.2 - 2019-09-18
 ~~~~~~~~~~~~~~~~~
 
@@ -92,26 +121,3 @@ Changelog
 * Properly handle debug wheels for Python 3.8 (`#172
 <https://github.com/pypa/packaging/issues/172>`__)
 
-* Improve detection of debug builds on Windows (`#194
-<https://github.com/pypa/packaging/issues/194>`__)
-
-19.1 - 2019-07-30
-~~~~~~~~~~~~~~~~~
-
-* Add the ``packaging.tags`` module. (`#156
-<https://github.com/pypa/packaging/issues/156>`__)
-
-* Correctly handle two-digit versions in ``python_version`` (`#119
-<https://github.com/pypa/packaging/issues/119>`__)
-
-
-19.0 - 2019-01-20
-~~~~~~~~~~~~~~~~~
-
-* Fix string representation of PEP 508 direct URL requirements with
-markers.
-
-* Better handling of file URLs
-
-  This allows for using ``file:///absolute/path``, which was previously
-  prevented due to the missing ``netloc``.
