@@ -60,3 +60,15 @@ post-install:
 	${MV} ${STAGEDIR}${STAGEDIR}${PREFIX}/${GEMS_BASE_DIR}/${RUBY_VER}/specifications/gems \
 		${STAGEDIR}${PREFIX}/${GEMS_BASE_DIR}/${RUBY_VER}/specifications/
 	${RM} -r ${STAGEDIR}/construction
+
+post-install-RUBY26-ON:
+	# bundler26 won't install with ruby26
+	${SED} -e 's|"../lib"|"../libx"|' ${WRKSRC}/bundler/exe/bundle \
+		> ${STAGEDIR}${PREFIX}/bin/bundle${RUBY_SUFFIX}
+	${CHOWN} ${BINMODE} ${STAGEDIR}${PREFIX}/bin/bundle${RUBY_SUFFIX}
+
+post-install-RUBY25-ON:
+	# bundler25 won't install with ruby25
+	${SED} -e 's|"../lib"|"../libx"|' ${WRKSRC}/bundler/exe/bundle \
+		> ${STAGEDIR}${PREFIX}/bin/bundle${RUBY_SUFFIX}
+	${CHOWN} ${BINMODE} ${STAGEDIR}${PREFIX}/bin/bundle${RUBY_SUFFIX}
