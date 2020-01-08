@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	13.5.0
+DEF[PORTVERSION]=	13.6.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		nodejs
@@ -69,6 +69,11 @@ post-patch:
 		${WRKSRC}/tools/v8_gypfiles/v8.gyp
 
 	${FIND} ${WRKSRC} -name "*.bak" -delete
+
+post-patch-dragonfly:
+	# using freebsd's config, but large pages not supported
+	${REINPLACE_CMD} -e '/"linux freebsd mac"/ s/ freebsd//' \
+		${WRKSRC}/node.gyp
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/node

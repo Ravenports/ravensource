@@ -1,4 +1,4 @@
---- deps/uv/src/unix/udp.c.orig	2019-12-18 17:26:44 UTC
+--- deps/uv/src/unix/udp.c.orig	2020-01-07 22:07:49 UTC
 +++ deps/uv/src/unix/udp.c
 @@ -653,7 +653,7 @@ static int uv__udp_set_membership6(uv_ud
  }

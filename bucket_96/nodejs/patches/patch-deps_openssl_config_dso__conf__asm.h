@@ -1,4 +1,4 @@
---- deps/openssl/config/dso_conf_asm.h.orig	2019-12-18 17:26:44 UTC
+--- deps/openssl/config/dso_conf_asm.h.orig	2020-01-07 22:07:49 UTC
 +++ deps/openssl/config/dso_conf_asm.h
 @@ -23,7 +23,7 @@
  # include "./archs/VC-WIN64A/asm/crypto/include/internal/dso_conf.h"
