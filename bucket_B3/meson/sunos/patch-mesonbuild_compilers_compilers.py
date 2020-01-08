@@ -1,6 +1,6 @@
---- mesonbuild/compilers/compilers.py.orig	2019-11-28 17:37:44 UTC
+--- mesonbuild/compilers/compilers.py.orig	2019-12-29 22:47:27 UTC
 +++ mesonbuild/compilers/compilers.py
-@@ -348,9 +348,6 @@ def get_base_link_args(options, linker,
+@@ -351,9 +351,6 @@ def get_base_link_args(options, linker,
      # -bitcode_bundle is incompatible with -undefined and -bundle
      if bitcode and not is_shared_module:
          args.extend(linker.bitcode_args())
@@ -10,7 +10,7 @@
  
      # Apple's ld (the only one that supports bitcode) does not like any
      # -undefined arguments at all, so don't pass these when using bitcode
-@@ -544,10 +541,6 @@ class CompilerArgs(list):
+@@ -556,10 +553,6 @@ class CompilerArgs(typing.MutableSequenc
                  if group_start < 0:
                      # First occurrence of a library
                      group_start = i
