@@ -1,8 +1,7 @@
-DEF[PORTVERSION]=	1.39
-DEF[PORTREVISION]=	1
+DEF[PORTVERSION]=	1.40
+DEF[PORTREVISION]=	0
 DEF[GPR]=		{{LOCALBASE}}/lib/gnat
-# DEF[RELEASE_TAG]=	v${PORTVERSION}
-DEF[RELEASE_TAG]=	7692463
+DEF[RELEASE_TAG]=	v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravenadm
@@ -52,7 +51,6 @@ post-extract:
 		${WRKSRC}/src/portscan.ads \
 		${WRKSRC}/src/port_specification.ads
 
-	${REINPLACE_CMD} -e 's|"-gnat|"-g", "-gnat|' ${WRKSRC}/ravenadm.gpr
 	# don't use post-extract-macos, cause circular dep on ravenadm
 	# versions < 1.11
 .if "${.MAKE.OS.NAME}" == "Darwin"
