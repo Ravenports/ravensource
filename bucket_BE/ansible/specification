@@ -1,0 +1,61 @@
+DEF[PORTVERSION]=	2.9.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ansible
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils python
+VARIANTS=		standard
+SDESC[standard]=	Radically simple IT automation
+HOMEPAGE=		https://www.ansible.com/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://releases.ansible.com/ansible/
+DISTFILE[1]=		ansible-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"PYTHON_ARGCOMPLETE_OK"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/bin/ansible
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		sysutils/ansible
+
+BUILDRUN_DEPENDS=	python-Jinja2:single:python_default
+			python-cryptography:single:python_default
+			python-jmespath:single:python_default
+			python-netaddr:single:python_default
+			python-paramiko:single:python_default
+			python-PyYAML:single:python_default
+USES=			cpe python
+CPE_VENDOR=		ansibleworks
+
+post-patch:
+	${GREP} -rl "\/usr\/share\/ansible" ${WRKSRC} | ${XARGS} \
+		${REINPLACE_CMD} -i'' \
+		-e "s|/usr/share/ansible|${PREFIX}/share/ansible|g"
+	# fix 129 shebangs
+	${GREP} -rl "#!/usr/bin/env python" ${WRKSRC} | ${XARGS} \
+		${REINPLACE_CMD} -i'' \
+		-e "s|#!/usr/bin/env python|#!${PYTHON_CMD}|"
+	# fix thousands more
+	${GREP} -rl "/usr/bin/python" ${WRKSRC} | ${XARGS} \
+		${REINPLACE_CMD} -i'' \
+		-e "s|#!/usr/bin/python|#!${PYTHON_CMD}|" \
+		-e "s|'/usr/bin/python'|'${PYTHON_CMD}'|"
+
+post-install:
+	${MKDIR} ${STAGEDIR}${MAN1PREFIX}/man/man1
+	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+	${INSTALL_MAN} ${WRKSRC}/docs/man/man1/*.1 \
+		${STAGEDIR}${MAN1PREFIX}/man/man1
+	${INSTALL_DATA} \
+		${WRKSRC}/examples/ansible.cfg \
+		${WRKSRC}/examples/hosts \
+		${STAGEDIR}${STD_EXAMPLESDIR}
