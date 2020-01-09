@@ -150,6 +150,7 @@ static_lib_generic=	/usr/lib/libc.a \
 			/usr/lib/libpthread.a
 static_lib_FreeBSD=	${static_lib_generic} \
 			/usr/lib/libbsdxml.a \
+			/usr/lib/libcam.a \
 			/usr/lib/libcompat.a \
 			/usr/lib/libdevstat.a \
 			/usr/lib/libgeom.a \
@@ -159,6 +160,7 @@ static_lib_FreeBSD=	${static_lib_generic} \
 			/usr/lib/libusb.a \
 			/usr/lib/libusbhid.a \
 			/usr/lib/libjail.a \
+			/usr/lib/libsbuf.a \
 			/usr/lib/Scrt1.o \
 			/usr/lib/gcrt1.o \
 			/usr/lib/crt1.o \
@@ -334,6 +336,7 @@ headers_Darwin_dirs=	#end
 headers_Darwin=		#end
 
 headers_FreeBSD_dirs=	arpa \
+			cam \
 			crypto \
 			dev \
 			geom \
