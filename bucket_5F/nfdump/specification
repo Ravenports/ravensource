@@ -1,0 +1,48 @@
+DEF[PORTVERSION]=	1.6.18
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		nfdump
+VERSION=		${PORTVERSION}
+KEYWORDS=		net_mgmt
+VARIANTS=		standard
+SDESC[standard]=	Tools to collect and process netflow data
+HOMEPAGE=		https://github.com/phaag/nfdump
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/phaag:nfdump:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/BSD-license.txt
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net-mgmt/nfdump
+
+BUILDRUN_DEPENDS=	rrdtool:primary:standard
+			libpcap:single:standard
+
+USES=			autoreconf libtool pkgconfig
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-rrdpath={{LOCALBASE}}
+			--enable-nftrack
+			--enable-readpcap
+			--enable-nfpcapd
+			--enable-sflow
+			--enable-nfprofile
+			--enable-fixtimebug
+			--enable-nsel
+			--disable-influxdb
+			--disable-compat15
+
+SINGLE_JOB=		yes
+PLIST_SUB=		VERSION=${PORTVERSION}
+INSTALL_TARGET=		install-strip
+
+post-patch:
+	${REINPLACE_CMD} 's|-ggdb||' ${WRKSRC}/bin/Makefile.am
