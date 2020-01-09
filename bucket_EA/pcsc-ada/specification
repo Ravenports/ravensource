@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.7.4
+DEF[PORTVERSION]=	0.7.5
 DEF[GPRLINK]=		"-L{{LOCALBASE}}/lib", "-Wl,-rpath,{{LOCALBASE}}/lib",
 # ----------------------------------------------------------------------------
 
@@ -14,7 +14,8 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://www.codelabs.ch/download/
 DISTFILE[1]=		libpcscada-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary docs examples
+SPKGS[standard]=	complete primary docs
+# examples
 
 OPTIONS_AVAILABLE=	TESTED INTF_TEST
 OPTIONS_STANDARD=	TESTED INTF_TEST
@@ -29,13 +30,13 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/pcsc-ada
 
-BUILD_DEPENDS=		asciidoc:single:standard
-			source-highlight:primary:standard
+BUILD_DEPENDS=		ruby-asciidoctor:single:ruby_default
 BUILDRUN_DEPENDS=	pcsc-lite:primary:standard
 
 USES=			gprbuild gmake
 DISTNAME=		libpcscada-${PORTVERSION}
-BUILD_TARGET=		all doc examples
+# BUILD_TARGET+= examples no longer builders
+BUILD_TARGET=		all doc
 MAKE_ARGS=		NUM_CPUS={{MAKE_JOBS_NUMBER}}
 			LIBRARY_KIND=static
 
@@ -61,8 +62,8 @@ do-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/gnat \
 		${STAGEDIR}${PREFIX}/lib/pcscada \
 		${STAGEDIR}${PREFIX}/include/pcscada \
-		${STAGEDIR}${STD_EXAMPLESDIR}/src \
-		${STAGEDIR}${STD_EXAMPLESDIR}/bin \
+# #		${STAGEDIR}${STD_EXAMPLESDIR}/src \
+# #		${STAGEDIR}${STD_EXAMPLESDIR}/bin \
 		${STAGEDIR}${STD_DOCDIR}
 	${INSTALL_DATA} ${WRKSRC}/src/*.ad[bs] \
 		${STAGEDIR}${PREFIX}/include/pcscada
@@ -70,8 +71,8 @@ do-install:
 		${STAGEDIR}${PREFIX}/lib/pcscada
 	${INSTALL_DATA} ${FILESDIR}/pcscada.gpr ${STAGEDIR}${PREFIX}/lib/gnat
 	(cd ${WRKSRC}/doc && ${COPYTREE_SHARE} html ${STAGEDIR}${STD_DOCDIR})
-	(cd ${WRKSRC}/examples && ${COPYTREE_SHARE} . \
-		${STAGEDIR}${STD_EXAMPLESDIR}/src)
-	${RM} ${STAGEDIR}${STD_EXAMPLESDIR}/src/*/*.bak
-	(cd ${WRKSRC}/obj/examples && ${INSTALL_PROGRAM} cardd pinpad \
-		thin_example ${STAGEDIR}${STD_EXAMPLESDIR}/bin)
+# #	(cd ${WRKSRC}/examples && ${COPYTREE_SHARE} . \
+# #		${STAGEDIR}${STD_EXAMPLESDIR}/src)
+# #	${RM} ${STAGEDIR}${STD_EXAMPLESDIR}/src/*/*.bak
+# #	(cd ${WRKSRC}/obj/examples && ${INSTALL_PROGRAM} cardd pinpad \
+# #		thin_example ${STAGEDIR}${STD_EXAMPLESDIR}/bin)
