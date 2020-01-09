@@ -1,0 +1,42 @@
+--- configure.orig	2019-05-27 18:46:40 UTC
++++ configure
+@@ -13698,7 +13698,7 @@ fi
+ 
+ 
+ if test "x$GCC" = "xyes"; then
+-  for flag in -fno-strict-aliasing -Wall -std=gnu99 -pedantic -Wundef -Wshadow -Wpointer-arith -Wcast-align -Wmissing-prototypes -Wmissing-declarations -Wnested-externs -Winline -Wold-style-definition -W; do
++  for flag in -fno-strict-aliasing -Wall -std=gnu99 -pedantic -Wundef -Wshadow -Wpointer-arith -Wcast-align -Wmissing-prototypes -Wmissing-declarations -Wnested-externs -Winline -Wold-style-definition; do
+     oCFLAGS="$CFLAGS"
+     CFLAGS="$CFLAGS $flag"
+     cachename=rd_cv_gcc_flag_`echo $flag|sed 's/[^A-Za-z]/_/g'`
+@@ -23309,9 +23309,9 @@ $as_echo "$am_cv_python_pyexecdir" >&6;
+ $as_echo_n "checking for headers required to compile python extensions... " >&6; }
+ py_prefix=`$PYTHON -c "import sys; print(sys.prefix)"`
+ py_exec_prefix=`$PYTHON -c "import sys; print(sys.exec_prefix)"`
+-PYTHON_INCLUDES="-I${py_prefix}/include/python${PYTHON_VERSION}"
++PYTHON_INCLUDES="-I${py_prefix}/include/python${PYTHON_VERSION} -I${py_prefix}/include/python${PYTHON_VERSION}m"
+ if test "$py_prefix" != "$py_exec_prefix"; then
+-  PYTHON_INCLUDES="$PYTHON_INCLUDES -I${py_exec_prefix}/include/python${PYTHON_VERSION}"
++  PYTHON_INCLUDES="$PYTHON_INCLUDES -I${py_exec_prefix}/include/python${PYTHON_VERSION} -I${py_exec_prefix}/include/python${PYTHON_VERSION}m"
+ fi
+ 
+ save_CPPFLAGS="$CPPFLAGS"
+@@ -28701,18 +28701,6 @@ $as_echo_n "checking in... " >&6; }
+ { $as_echo "$as_me:${as_lineno-$LINENO}: result: and out again" >&5
+ $as_echo "and out again" >&6; }
+ 
+-echo $ECHO_N "ordering CD from https://tobi.oetiker.ch/wish $ECHO_C" 1>&6
+-sleep 1
+-echo $ECHO_N ".$ECHO_C" 1>&6
+-sleep 1
+-echo $ECHO_N ".$ECHO_C" 1>&6
+-sleep 1
+-echo $ECHO_N ".$ECHO_C" 1>&6
+-sleep 1
+-echo $ECHO_N ".$ECHO_C" 1>&6
+-sleep 1
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: result:  just kidding ;-)" >&5
+-$as_echo " just kidding ;-)" >&6; }
+ echo
+ echo "----------------------------------------------------------------"
+ echo "Config is DONE!"

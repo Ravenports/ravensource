@@ -1,0 +1,66 @@
+DEF[PORTVERSION]=	1.7.2
+DEF[SOVERSION]=		8.2.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		rrdtool
+VERSION=		${PORTVERSION}
+KEYWORDS=		databases graphics
+VARIANTS=		standard
+SDESC[standard]=	Round Robin Database tools
+HOMEPAGE=		https://oss.oetiker.ch/rrdtool/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://oss.oetiker.ch/rrdtool/pub/
+DISTFILE[1]=		rrdtool-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary examples docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		primary:{{WRKSRC}}/COPYRIGHT
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		databases/rrdtool
+
+SOVERSION=		${SOVERSION}
+
+BUILD_DEPENDS=		groff:primary:standard
+BUILDRUN_DEPENDS=	freetype:primary:standard
+RUN_DEPENDS=		fonts-dejavu:single:standard
+
+RC_SUBR=		rrdcached:primary
+
+USES=			gmake libtool pkgconfig shebangfix png
+			perl python
+GNOME_COMPONENTS=	libxml2 glib cairo pango
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-tcl
+			--enable-perl
+			--enable-perl-site-install
+			--enable-python
+			--enable-mmap
+			--disable-nls
+			--disable-ruby
+CPPFLAGS=		-I{{LOCALBASE}}/include/freetype2
+MAKE_ARGS=		PERL_MAKE_OPTIONS='PREFIX="{{PREFIX}}"
+			INSTALLPRIVLIB="{{PREFIX}}/lib"
+			INSTALLARCHLIB="{{PREFIX}}/lib"'
+SHEBANG_FILES=		examples/stripes.py
+			examples/rrdcached/rrdcached-size.pl
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-extract:
+	${REINPLACE_CMD} -E 's|(^rrdcached_LDADD = librrd_th.la)|\1 $$\(ALL_LIBS\)|' \
+		${WRKSRC}/src/Makefile.in
+
+	${REINPLACE_CMD} -E 's|(^rrdtool_LDADD = librrd.la)|\1 $$\(ALL_LIBS\)|' \
+		${WRKSRC}/src/Makefile.in
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/RRDs/RRDs.so
+	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/rrdtool.so
