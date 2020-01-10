@@ -37,10 +37,12 @@ CONFIGURE_ARGS=		--with-socks
 			--with-proxy
 			--with-true-color
 			--with-perl-lib=site
-PLIST_SUB=		MODULE={{BUNDLE}}
+PLIST_SUB=		MODULE={{BUNDLE:Uso}}
 
 # FIX: MacOS unnecessary rebuild of irssi
 INSTALL_REQ_TOOLCHAIN=	yes
+
+VAR_OPSYS[darwin]=	MAKEFILE_LINE=BUNDLE=bundle
 
 post-patch:
 	${REINPLACE_CMD} -e 's|/usr|${PREFIX}|' -e 's|/etc|${PREFIX}&|' \
@@ -53,7 +55,7 @@ post-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/irssi/modules
 	${RM} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Irssi/.packlist
 	${RM} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Irssi/*/.packlist
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Irssi/Irssi.${BUNDLE}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Irssi/Irc/Irc.${BUNDLE}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Irssi/TextUI/TextUI.${BUNDLE}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Irssi/UI/UI.${BUNDLE}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Irssi/Irssi.${BUNDLE:Uso}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Irssi/Irc/Irc.${BUNDLE:Uso}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Irssi/TextUI/TextUI.${BUNDLE:Uso}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Irssi/UI/UI.${BUNDLE:Uso}
