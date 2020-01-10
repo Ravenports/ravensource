@@ -1,6 +1,6 @@
---- ipc/chromium/src/base/shared_memory_posix.cc.orig	2019-05-17 00:33:26 UTC
+--- ipc/chromium/src/base/shared_memory_posix.cc.orig	2020-01-03 18:57:57 UTC
 +++ ipc/chromium/src/base/shared_memory_posix.cc
-@@ -83,6 +83,11 @@ bool SharedMemory::AppendPosixShmPrefix(
+@@ -182,6 +182,11 @@ bool SharedMemory::AppendPosixShmPrefix(
      StringAppendF(str, "snap.%s.", kSnap);
    }
  #  endif  // OS_LINUX
