@@ -57,12 +57,14 @@ CONFIGURE_ENV=		debugflags=
 CFLAGS=			-Wno-attributes
 PLIST_SUB=		XY={{RUBY_SUFFIX}}
 			XDOTY={{RUBY_VER}}
+			MODULE={{BUNDLE:Uso}}
 CPE_VENDOR=		ruby-lang
 CPE_VERSION=		${PORTVERSION}
 CPE_UPDATE=		p${PATCHLEVEL}
 INSTALL_REQ_TOOLCHAIN=	yes
 
 VAR_OPSYS[darwin]=	CONFIGURE_ENV=ac_cv_func_backtrace=no
+			MAKEFILE_LINE=BUNDLE=bundle
 VAR_OPSYS[dragonfly]=	CFLAGS=-fuse-ld=gold
 
 post-patch:
