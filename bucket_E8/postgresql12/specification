@@ -74,8 +74,6 @@ CONFIGURE_ARGS=		--with-libraries="{{PREFIX}}/lib"
 			--with-python
 			--with-tcl
 			--without-gssapi
-			{{TEMPLATE_ARG}}
-			{{UUID_ARG}}
 CONFIGURE_ENV=		PTHREAD_LIBS="-lpthread"
 			TCLSH="{{TCLSH}}"
 			pgac_cv_path_stylesheets={{PREFIX}}/share/sgml/docbook/dsssl/modular
@@ -91,6 +89,20 @@ SUB_LIST=		PG_GROUP=${PG_GROUP}
 			PG_UID=${PG_UID}
 
 VAR_OPSYS[sunos]=	CONFIGURE_ENV=ac_cv_search_bind_textdomain_codeset=-lintl
+			CONFIGURE_ARGS=--with-template=solaris
+			CONFIGURE_ARGS=--with-uuid=ossp
+VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--with-template=freebsd
+			CONFIGURE_ARGS=--with-uuid=bsd
+VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-template=freebsd
+			CONFIGURE_ARGS=--with-uuid=bsd
+VAR_OPSYS[netbsd]=	CONFIGURE_ARGS=--with-template=netbsd
+			CONFIGURE_ARGS=--with-uuid=bsd
+VAR_OPSYS[openbsd]=	CONFIGURE_ARGS=--with-template=openbsd
+			CONFIGURE_ARGS=--with-uuid=bsd
+VAR_OPSYS[darwin]=	CONFIGURE_ARGS=--with-template=darwin
+			CONFIGURE_ARGS=--with-uuid=e2fs
+VAR_OPSYS[linux]=	CONFIGURE_ARGS=--with-template=linux
+			CONFIGURE_ARGS=--with-uuid=ossp
 
 [NLS].CONFIGURE_ENABLE_BOTH=		nls
 [NLS].USES_ON=				gettext-runtime gettext-tools
