@@ -59,6 +59,7 @@ CONFIGURE_ENV=		debugflags=
 CFLAGS=			-Wno-attributes
 PLIST_SUB=		XY={{RUBY_SUFFIX}}
 			XDOTY={{RUBY_VER}}
+			MODULE={{MODULE:Uso}}
 CPE_VENDOR=		ruby-lang
 CPE_VERSION=		${PORTVERSION}
 CPE_UPDATE=		p${PATCHLEVEL}
@@ -68,6 +69,7 @@ INSTALL_REQ_TOOLCHAIN=	yes
 SINGLE_JOB=		yes
 
 VAR_OPSYS[darwin]=	CONFIGURE_ENV=ac_cv_func_backtrace=no
+			MAKEFILE_LINE=MODULE=bundle
 VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--disable-jit-support
 VAR_OPSYS[dragonfly]=	CFLAGS=-fuse-ld=gold
 
