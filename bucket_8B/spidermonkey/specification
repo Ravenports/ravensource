@@ -60,6 +60,8 @@ CONFIGURE_ARGS=		--prefix={{PREFIX}}
 PLIST_SUB=		MOZJS_MAJOR=${MAJOR}
 			MOZJS_MINOR=${PORTVERSION:R:E}
 
+VAR_OPSYS[linux]=	MAKEFILE_LINE=CONFIGURE_TARGET=x86_64-ravenadm-linux-gnu
+
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/js${MAJOR}
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmozjs-${MAJOR}.so
