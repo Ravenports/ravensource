@@ -53,16 +53,36 @@ CONFIGURE_ARGS=		--disable-werror
 			--with-lib-path=/usr/lib
 			--enable-targets=all
 			--enable-x86-relax-relocations=no
+PLIST_SUB=		PLUGINAPI={{PLUGINAPI}}
+			LINKER={{LINKER}}
+			ASSEMBLER={{ASSEMBLER}}
+			GPROF={{GPROF}}
+
+# Consider making gold the default linker on DF and Linux
+
 VAR_OPSYS[dragonfly]=	VAR1=/libexec/ld-elf.so.2
 			VAR2=/libexec/ld-elf.so.2
+			MAKEFILE_LINE=BUILD_GOLD=yes
+			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold
 VAR_OPSYS[freebsd]=	VAR1=/libexec/ld-elf.so.1
 			VAR2=/libexec/ld-elf.so.1
+			MAKEFILE_LINE=BUILD_GOLD=yes
+			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold=default
 VAR_OPSYS[darwin]=	VAR1=/libexec/ld-elf.so.1
 			VAR2=/libexec/ld-elf.so.1
+			MAKEFILE_LINE=LINKER="@comment "
+			MAKEFILE_LINE=ASSEMBLER="@comment "
+			MAKEFILE_LINE=GPROF="@comment "
 VAR_OPSYS[sunos]=	VAR1=/lib/amd64/ld.so.1
 			VAR2=/lib/ld.so.1
+			MAKEFILE_LINE=BUILD_GOLD=yes
+			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold
 VAR_OPSYS[linux]=	VAR1=/lib/ld64.so.1
 			VAR2=/lib/ldx32.so.1
+			MAKEFILE_LINE=BUILD_GOLD=yes
+			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold
+VAR_OPSYS[netbsd]=	MAKEFILE_LINE=PLUGINAPI="@comment "
+VAR_OPSYS[openbsd]=	MAKEFILE_LINE=PLUGINAPI="@comment "
 
 [RELRO].DESCRIPTION=			enable -z relro in ELF linker by default
 [RELRO].CONFIGURE_ARGS_ON=		--enable-relro
