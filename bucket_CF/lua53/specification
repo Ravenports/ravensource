@@ -56,6 +56,14 @@ SUB_LIST=		version=${PORTVERSION}
 			libdir={{PREFIX}}/lib
 			soname=lua-${LUA_VER}
 
+VAR_OPSYS[freebsd]=	MAKEFILE_LINE=BUILD_TARGET=freebsd
+VAR_OPSYS[dragonfly]=	MAKEFILE_LINE=BUILD_TARGET=bsd
+VAR_OPSYS[netbsd]=	MAKEFILE_LINE=BUILD_TARGET=bsd
+VAR_OPSYS[openbsd]=	MAKEFILE_LINE=BUILD_TARGET=bsd
+VAR_OPSYS[sunos]=	MAKEFILE_LINE=BUILD_TARGET=solaris
+VAR_OPSYS[darwin]=	MAKEFILE_LINE=BUILD_TARGET=macosx
+VAR_OPSYS[linux]=	MAKEFILE_LINE=BUILD_TARGET=linux
+
 post-extract:
 	${AWK} '/\/\*\*/ {start=1} /^$$/{start=0} {if (start) print}' \
 		${WRKSRC}/src/lua.h > ${WRKDIR}/LICENSE
