@@ -1,7 +1,7 @@
---- storage/myisam/mi_dynrec.cc.orig	2019-09-20 08:30:51 UTC
+--- storage/myisam/mi_dynrec.cc.orig	2019-12-09 19:53:17 UTC
 +++ storage/myisam/mi_dynrec.cc
-@@ -83,17 +83,12 @@ bool mi_dynmap_file(MI_INFO *info, my_of
-     return 1;
+@@ -85,17 +85,12 @@ bool mi_dynmap_file(MI_INFO *info, my_of
+     return true;
    }
    /*
 -    I wonder if it is good to use MAP_NORESERVE. From the Linux man page:
@@ -19,4 +19,4 @@
 +      MAP_SHARED, info->dfile, 0L);
    if (info->s->file_map == (uchar *)MAP_FAILED) {
      info->s->file_map = NULL;
-     return 1;
+     return true;

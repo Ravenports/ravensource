@@ -1,4 +1,4 @@
---- scripts/CMakeLists.txt.orig	2019-09-20 08:30:51 UTC
+--- scripts/CMakeLists.txt.orig	2019-12-09 19:53:17 UTC
 +++ scripts/CMakeLists.txt
 @@ -233,11 +233,7 @@ IF(MY_COMPILER_IS_GNU_OR_CLANG)
    STRING(REGEX REPLACE "-std=c..[0-9]+" "" CXXFLAGS "${CXXFLAGS}")
@@ -37,7 +37,7 @@
    SET(RPATH_OPTION " -R$pkglibdir")
  ENDIF()
  
-@@ -337,6 +328,8 @@ MACRO(EXTRACT_LINK_LIBRARIES target var)
+@@ -340,6 +331,8 @@ MACRO(EXTRACT_LINK_LIBRARIES target var)
            GET_FILENAME_COMPONENT(lib "${lib}" NAME_WE)
            STRING(REGEX REPLACE "^lib" "" lib "${lib}")
            SET(${var} "${${var}}-l${lib} " )
@@ -46,12 +46,12 @@
          ELSE()
            SET(${var} "${${var}}-l${lib} " )
          ENDIF()
-@@ -462,7 +455,7 @@ ELSE()
+@@ -443,7 +436,7 @@ ELSE()
    FOREACH(file ${BIN_SCRIPTS})
      IF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${file}.sh)
        CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/${file}.sh
--        ${CMAKE_CURRENT_BINARY_DIR}/${file} ESCAPE_QUOTES @ONLY)
-+        ${CMAKE_CURRENT_BINARY_DIR}/${file} @ONLY)
-     ELSEIF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${file})
-       CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/${file}
-          ${CMAKE_CURRENT_BINARY_DIR}/${file} COPYONLY)
+-        ${CMAKE_CURRENT_BINARY_DIR}/${file} ESCAPE_QUOTES @ONLY
++        ${CMAKE_CURRENT_BINARY_DIR}/${file} @ONLY
+         )
+     ELSEIF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${file}.pl.in)
+       CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/${file}.pl.in
