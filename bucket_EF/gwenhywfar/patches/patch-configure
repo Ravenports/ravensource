@@ -1,9 +1,13 @@
---- configure.orig	2018-02-23 15:35:36 UTC
+--- configure.orig	2020-01-12 22:33:14 UTC
 +++ configure
-@@ -22522,43 +22522,14 @@ $as_echo_n "checking for Qt... " >&6; }
+@@ -23145,47 +23145,14 @@ $as_echo_n "checking for Qt... " >&6; }
      am_have_qt_makefile=`mktemp`
      # http://qt-project.org/doc/qt-5/qmake-variable-reference.html#qt
      cat > $am_have_qt_pro << EOF
+-win32 {
+-    CONFIG -= debug_and_release
+-    CONFIG += release
+-}
 -qtHaveModule(axcontainer):       QT += axcontainer
 -qtHaveModule(axserver):          QT += axserver
 -qtHaveModule(concurrent):        QT += concurrent
@@ -46,7 +50,7 @@
      rm $am_have_qt_pro $am_have_qt_makefile
  
      # Look for specific tools in $PATH
-@@ -22582,8 +22553,8 @@ else
+@@ -23209,8 +23176,8 @@ else
  fi
  
  
