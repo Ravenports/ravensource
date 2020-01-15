@@ -9,6 +9,7 @@
 %%RUBY_SITELIBDIR%%/puppet/application_support.rb
 %%RUBY_SITELIBDIR%%/puppet/coercion.rb
 %%RUBY_SITELIBDIR%%/puppet/compilable_resource_type.rb
+%%RUBY_SITELIBDIR%%/puppet/concurrent.rb
 %%RUBY_SITELIBDIR%%/puppet/configurer.rb
 %%RUBY_SITELIBDIR%%/puppet/confine.rb
 %%RUBY_SITELIBDIR%%/puppet/confine_collection.rb
@@ -48,7 +49,6 @@
 %%RUBY_SITELIBDIR%%/puppet/reports.rb
 %%RUBY_SITELIBDIR%%/puppet/resource.rb
 %%RUBY_SITELIBDIR%%/puppet/runtime.rb
-%%RUBY_SITELIBDIR%%/puppet/runtime.rb.orig
 %%RUBY_SITELIBDIR%%/puppet/scheduler.rb
 %%RUBY_SITELIBDIR%%/puppet/settings.rb
 %%RUBY_SITELIBDIR%%/puppet/ssl.rb
@@ -91,6 +91,9 @@
 %%RUBY_SITELIBDIR%%/puppet/application/script.rb
 %%RUBY_SITELIBDIR%%/puppet/application/ssl.rb
 %%RUBY_SITELIBDIR%%/puppet/application/status.rb
+%%RUBY_SITELIBDIR%%/puppet/concurrent/lock.rb
+%%RUBY_SITELIBDIR%%/puppet/concurrent/synchronized.rb
+%%RUBY_SITELIBDIR%%/puppet/concurrent/thread_local_singleton.rb
 %%RUBY_SITELIBDIR%%/puppet/configurer/downloader.rb
 %%RUBY_SITELIBDIR%%/puppet/configurer/fact_handler.rb
 %%RUBY_SITELIBDIR%%/puppet/configurer/plugin_handler.rb
@@ -211,6 +214,7 @@
 %%RUBY_SITELIBDIR%%/puppet/functions/eyaml_lookup_key.rb
 %%RUBY_SITELIBDIR%%/puppet/functions/filter.rb
 %%RUBY_SITELIBDIR%%/puppet/functions/find_file.rb
+%%RUBY_SITELIBDIR%%/puppet/functions/find_template.rb
 %%RUBY_SITELIBDIR%%/puppet/functions/flatten.rb
 %%RUBY_SITELIBDIR%%/puppet/functions/floor.rb
 %%RUBY_SITELIBDIR%%/puppet/functions/get.rb
@@ -290,9 +294,11 @@
 %%RUBY_SITELIBDIR%%/puppet/http/retry_after_handler.rb
 %%RUBY_SITELIBDIR%%/puppet/http/service.rb
 %%RUBY_SITELIBDIR%%/puppet/http/session.rb
+%%RUBY_SITELIBDIR%%/puppet/http/resolver/server_list.rb
 %%RUBY_SITELIBDIR%%/puppet/http/resolver/settings.rb
 %%RUBY_SITELIBDIR%%/puppet/http/resolver/srv.rb
 %%RUBY_SITELIBDIR%%/puppet/http/service/ca.rb
+%%RUBY_SITELIBDIR%%/puppet/http/service/report.rb
 %%RUBY_SITELIBDIR%%/puppet/indirector/code.rb
 %%RUBY_SITELIBDIR%%/puppet/indirector/direct_file_server.rb
 %%RUBY_SITELIBDIR%%/puppet/indirector/envelope.rb
@@ -788,7 +794,6 @@
 %%RUBY_SITELIBDIR%%/puppet/provider/service/base.rb
 %%RUBY_SITELIBDIR%%/puppet/provider/service/bsd.rb
 %%RUBY_SITELIBDIR%%/puppet/provider/service/daemontools.rb
-%%RUBY_SITELIBDIR%%/puppet/provider/service/daemontools.rb.orig
 %%RUBY_SITELIBDIR%%/puppet/provider/service/debian.rb
 %%RUBY_SITELIBDIR%%/puppet/provider/service/freebsd.rb
 %%RUBY_SITELIBDIR%%/puppet/provider/service/gentoo.rb

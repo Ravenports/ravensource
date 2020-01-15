@@ -1,6 +1,6 @@
 Daemontools program locations
 
---- lib/puppet/provider/service/daemontools.rb.orig	2019-10-08 00:37:22 UTC
+--- lib/puppet/provider/service/daemontools.rb.orig	2020-01-10 01:34:00 UTC
 +++ lib/puppet/provider/service/daemontools.rb
 @@ -39,7 +39,7 @@ Puppet::Type.type(:service).provide :dae
  
@@ -11,7 +11,7 @@ Daemontools program locations
  
    class << self
      attr_writer :defpath
-@@ -88,7 +88,7 @@ Puppet::Type.type(:service).provide :dae
+@@ -86,7 +86,7 @@ Puppet::Type.type(:service).provide :dae
    # find the service dir on this node
    def servicedir
      unless @servicedir
