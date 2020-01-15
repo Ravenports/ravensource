@@ -1,101 +1,109 @@
-.. figure::
-https://travis-ci.org/mgrouchy/django-stronghold.png?branch=master
-   :alt: travis
+[![Build
+Status](https://travis-ci.org/mgrouchy/django-stronghold.svg?branch=master)
+](https://travis-ci.org/mgrouchy/django-stronghold)
 
-Stronghold
-==========
+# Stronghold
 
 Get inside your stronghold and make all your Django views default
-login\_required
+login_required
 
-Stronghold is a very small and easy to use django app that makes all
-your Django project default to require login for all of your views.
+Stronghold is a very small and easy to use django app that makes all your
+Django project default to require login for all of your views.
 
 WARNING: still in development, so some of the DEFAULTS and such will be
 changing without notice.
 
-Installation
-------------
+## Installation
 
 Install via pip.
 
-.. code:: sh
+```sh
+pip install django-stronghold
+```
 
-    pip install django-stronghold
+Add stronghold to your INSTALLED_APPS in your Django settings file
 
-Add stronghold to your INSTALLED\_APPS in your Django settings file
+```python
 
-.. code:: python
+INSTALLED_APPS = (
+    #...
+    'stronghold',
+)
+```
 
-
-    INSTALLED_APPS = (
-        #...
-        'stronghold',
-    )
-
-Then add the stronghold middleware to your MIDDLEWARE\_CLASSES in your
+Then add the stronghold middleware to your MIDDLEWARE_CLASSES in your
 Django settings file
 
-.. code:: python
+```python
+MIDDLEWARE_CLASSES = (
+    #...
+    'stronghold.middleware.LoginRequiredMiddleware',
+)
 
-    MIDDLEWARE_CLASSES = (
-        #...
-        'stronghold.middleware.LoginRequiredMiddleware',
-    )
+```
 
-Usage
------
+## Usage
 
 If you followed the installation instructions now all your views are
-defaulting to require a login. To make a view public again you can use
-the public decorator provided in ``stronghold.decorators`` like so:
+defaulting to require a login.
+To make a view public again you can use the public decorator provided in
+`stronghold.decorators` like so:
 
-For function based views
-~~~~~~~~~~~~~~~~~~~~~~~~
+### For function based views
 
-.. code:: python
-
-    from stronghold.decorators import public
-
-
-    @public
-    def someview(request):
-        # do some work
-        #...
-
-for class based views (decorator)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code:: python
-
-    from django.utils.decorators import method_decorator
-    from stronghold.decorators import public
+```python
+from stronghold.decorators import public
 
 
-    class SomeView(View):
-        def get(self, request, *args, **kwargs):
-            # some view logic
-            #...
+@public
+def someview(request):
+	# do some work
+	#...
 
-        @method_decorator(public)
-        def dispatch(self, *args, **kwargs):
-            return super(SomeView, self).dispatch(*args, **kwargs)
+```
 
-for class based views (mixin)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+### For class based views (decorator)
 
-.. code:: python
+```python
+from django.utils.decorators import method_decorator
+from stronghold.decorators import public
 
-    from stronghold import StrongholdPublicMixin
 
-    class SomeView(StrongholdPublicMixin, View):
-        pass
+class SomeView(View):
+	def get(self, request, *args, **kwargs):
+		# some view logic
+		#...
 
-Configuration (optional)
-------------------------
+	@method_decorator(public)
+	def dispatch(self, *args, **kwargs):
+    	return super(SomeView, self).dispatch(*args, **kwargs)
+```
 
-STRONGHOLD\_DEFAULTS
-~~~~~~~~~~~~~~~~~~~~
+### For class based views (mixin)
+
+```python
+from stronghold.views import StrongholdPublicMixin
+
+
+class SomeView(StrongholdPublicMixin, View):
+	pass
+```
+
+## Configuration (optional)
+
+### STRONGHOLD_DEFAULTS
 
 Use Strongholds defaults in addition to your own settings.
 
+**Default**:
+
+```python
+STRONGHOLD_DEFAULTS = True
+```
+
+You can add a tuple of url regexes in your settings file with the
+`STRONGHOLD_PUBLIC_URLS` setting. Any url that matches against these
+patterns
+will be made public without using the `@public` decorator.
+
+### STRONGHOLD_PUBLIC_URLS
