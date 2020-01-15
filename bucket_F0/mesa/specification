@@ -159,7 +159,3 @@ post-patch:
 	${REINPLACE_CMD} -e 's|/etc/|${PREFIX}/etc/|g' \
 		${WRKSRC}/src/util/xmlconfig.c
 
-post-install-freebsd:
-	${MV} ${STAGEDIR}${PREFIX}/libdata/pkgconfig/* \
-		${STAGEDIR}${PREFIX}/lib/pkgconfig
-	${RM} -r ${STAGEDIR}${PREFIX}/libdata
