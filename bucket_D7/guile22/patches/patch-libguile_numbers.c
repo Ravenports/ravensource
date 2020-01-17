@@ -1,6 +1,16 @@
---- libguile/numbers.c.orig	2019-08-02 12:41:06 UTC
+--- libguile/numbers.c.orig	2019-06-04 19:24:01 UTC
 +++ libguile/numbers.c
-@@ -193,7 +193,7 @@ static double atanh (double x) { return
+@@ -45,7 +45,9 @@
+ #  include <config.h>
+ #endif
+ 
++#if (__GNUC__ * 10 + __GNUC_MINOR__ >= 46)
+ #include <verify.h>
++#endif
+ #include <assert.h>
+ 
+ #include <math.h>
+@@ -191,7 +193,7 @@ static double atanh (double x) { return
  
  
  #if defined (GUILE_I)

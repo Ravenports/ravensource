@@ -1,6 +1,6 @@
---- libguile/pthread-threads.h.orig	2019-08-02 12:41:06 UTC
+--- libguile/pthread-threads.h.orig	2011-11-22 10:55:14 UTC
 +++ libguile/pthread-threads.h
-@@ -26,6 +26,9 @@
+@@ -27,6 +27,9 @@
  */
  
  #include <pthread.h>
