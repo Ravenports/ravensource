@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	0.4.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mousepad
+VERSION=		${PORTVERSION}
+KEYWORDS=		editors
+VARIANTS=		standard
+SDESC[standard]=	Simple text editor for the Xfce DE
+HOMEPAGE=		https://git.xfce.org/apps/mousepad/about
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://archive.xfce.org/src/apps/mousepad/${PORTVERSION:R}/
+DISTFILE[1]=		mousepad-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/mousepad/mousepad-application.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		editors/mousepad
+
+BUILDRUN_DEPENDS=	gtksourceview3:primary:standard
+			xfconf:primary:standard
+
+USES=			desktop-utils:primary gettext-tools:build gettext-runtime gmake pkgconfig
+GNOME_COMPONENTS=	glib intltool
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-gtk3
+			--enable-nls
+			--enable-schemas-compile
+			--disable-debug
+			--libexecdir={{PREFIX}}/lib/xfce4
+GLIB_SCHEMAS=		org.xfce.mousepad.gschema.xml
