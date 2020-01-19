@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	1.1.12
+DEF[CFFILES]=		GiveConsole TakeConsole Xaccess Xreset Xresources Xservers Xsession Xsetup_0 Xstartup Xwilling xdm-config
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xdm
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	X.Org display manager (a.k.a. login manager)
+HOMEPAGE=		https://www.x.org/wiki/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.x.org/releases/individual/app/
+DISTFILE[1]=		xdm-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11/xdm
+
+RUN_DEPENDS=		xorg-sessreg:single:standard
+			xorg-xconsole:single:standard
+			xorg-xrdb:single:standard
+
+USES=			cpe libtool pkgconfig
+XORG_COMPONENTS=	x11 xau xaw xmu xorgproto xdmcp xext xinerama xpm xt
+CPE_PRODUCT=		x_display_manager
+CPE_VENDOR=		x
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-xdmconfigdir={{PREFIX}}/etc/X11/xdm
+			--with-xdmscriptdir={{PREFIX}}/etc/X11/xdm
+			--with-pixmapdir={{PREFIX}}/share/pixmaps
+			--with-authdir=/var/db/xdm
+			--disable-xdm-auth
+INSTALL_TARGET=		install-strip
+
+post-install:
+	${MKDIR} ${STAGEDIR}/var/db/xdm
+.for f in ${CFFILES}
+	${MV} ${STAGEDIR}${PREFIX}/etc/X11/xdm/${f} \
+		${STAGEDIR}${PREFIX}/etc/X11/xdm/${f}.sample
+.endfor
