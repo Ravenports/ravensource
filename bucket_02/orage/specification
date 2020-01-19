@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	4.12.1
+# ----------------------------------------------------------------------------
+
+# Xfce panel plugin is NOT currently (v. 4.12.1) being built. Orage is still
+# a GTK2 application that requires the old panel headers. However we're on
+# version 4.15 which obviously dropped GTK2 support.
+# I decided to depend on the panel package anyway, so that we'll notice when
+# a new version can build the plugin again.
+
+NAMEBASE=		orage
+VERSION=		${PORTVERSION}
+KEYWORDS=		deskutils
+VARIANTS=		standard
+SDESC[standard]=	Calendar application for the Xfce DE
+HOMEPAGE=		https://www.xfce.org/projects
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://archive.xfce.org/src/apps/orage/4.12/
+DISTFILE[1]=		orage-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary docs nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/mainbox.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		deskutils/orage
+
+BUILDRUN_DEPENDS=	libical:single:standard
+			libnotify:primary:standard
+			popt:single:standard
+			xfce4-panel:primary:standard
+
+USES=			gettext-tools:build gettext-runtime gmake pkgconfig
+GNOME_COMPONENTS=	gtk2 intltool
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-debug
