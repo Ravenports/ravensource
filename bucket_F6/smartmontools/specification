@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	7.0
+DEF[PORTVERSION]=	7.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		smartmontools
@@ -13,21 +13,21 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/smartmontools/smartmontools/${PORTVERSION}
 DISTFILE[1]=		smartmontools-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/utility.h
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		sysutils/smartmontools
 
-USES=			c++:single gmake shebangfix
+USES=			c++:primary gmake shebangfix
 SHEBANG_FILES=		examplescripts/Example5
 
 MUST_CONFIGURE=		gnu

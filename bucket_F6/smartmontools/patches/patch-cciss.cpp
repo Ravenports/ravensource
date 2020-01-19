@@ -1,4 +1,4 @@
---- cciss.cpp.orig	2018-12-16 17:59:59 UTC
+--- cciss.cpp.orig	2019-11-22 19:57:04 UTC
 +++ cciss.cpp
 @@ -28,7 +28,7 @@
  #  ifndef be32toh
