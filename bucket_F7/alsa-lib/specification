@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	1.2.1.2
+DEF[SOVERSION]=		2.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		alsa-lib
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		standard
+SDESC[standard]=	Advanced Linux Sound Architecture (ALSA)
+HOMEPAGE=		https://www.alsa-project.org/main/index.php/Main_Page
+CONTACT=		Leonid_Bobrov[goleo@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		ftp://ftp.alsa-project.org/pub/lib/
+DISTFILE[1]=		alsa-lib-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:single
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKSRC}}/TERMS
+LICENSE_AWK=		TERMS:"^\#include"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/input.c
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		audio/alsa-lib
+
+ONLY_FOR_OPSYS=		linux
+
+USES=			cpe libtool:keepla python
+BUILDRUN_DEPENDS=	autoselect-python:single:standard
+MUST_CONFIGURE=		gnu
+INSTALL_REQ_TOOLCHAIN=	yes
+CONFIGURE_ARGS=		--with-pkgconfdir="{{PREFIX}}/lib/pkgconfig"
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
+
+post-patch:
+	${REINPLACE_CMD} 's|/etc|${PREFIX}&|g' ${WRKSRC}/src/conf/alsa.conf
