@@ -43,8 +43,16 @@ SOVERSION=		${SOVERSION}
 post-patch:
 	${REINPLACE_CMD} 's|/etc|${PREFIX}&|g' ${WRKSRC}/src/conf/alsa.conf
 
-post-patch-freebsd:
 post-patch-dragonfly:
+	${REINPLACE_CMD} -e '/_GNU_SOURCE/d' ${WRKSRC}/configure
+	${MKDIR} ${WRKSRC}/include/linux
+	${CP} ${FILESDIR}/byteswap.h ${WRKSRC}/include/
+	${CP} ${FILESDIR}/endian.h ${WRKSRC}/include/
+	${CP} ${FILESDIR}/malloc.h ${WRKSRC}/include/
+	${CP} ${FILESDIR}/ioctl.h ${WRKSRC}/include/linux/
+	${CP} ${FILESDIR}/types.h ${WRKSRC}/include/linux/
+
+post-patch-freebsd:
 	${REINPLACE_CMD} -e '/_GNU_SOURCE/d' ${WRKSRC}/configure
 	${MKDIR} ${WRKSRC}/include/linux
 	${CP} ${FILESDIR}/byteswap.h ${WRKSRC}/include/
