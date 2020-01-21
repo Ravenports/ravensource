@@ -59,7 +59,6 @@ CONFIGURE_ARGS=		--localstatedir=/var
 			--without-mysql
 			--without-pgsql
 			--without-icu
-			--without-squat
 			--without-solr
 			--without-textcat
 CPPFLAGS=		-I{{OPENSSLINC}}
@@ -68,8 +67,7 @@ INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 PLIST_SUB=		REQUIRE="LOGIN"
 
-VAR_OPSYS[dragonfly]=	CFLAGS=-fuse-ld=gold
-			CONFIGURE_ENV=i_cv_fd_passing=yes
+VAR_OPSYS[dragonfly]=	CONFIGURE_ENV=i_cv_fd_passing=yes
 
 post-patch:
 	${REINPLACE_CMD} \
