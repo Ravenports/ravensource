@@ -58,12 +58,12 @@ PLIST_SUB=		PLUGINAPI={{PLUGINAPI}}
 			ASSEMBLER={{ASSEMBLER}}
 			GPROF={{GPROF}}
 
-# Consider making gold the default linker on DF and Linux
+# Consider making gold the default linker on Linux
 
 VAR_OPSYS[dragonfly]=	VAR1=/libexec/ld-elf.so.2
 			VAR2=/libexec/ld-elf.so.2
 			MAKEFILE_LINE=BUILD_GOLD=yes
-			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold
+			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold=default
 VAR_OPSYS[freebsd]=	VAR1=/libexec/ld-elf.so.1
 			VAR2=/libexec/ld-elf.so.1
 			MAKEFILE_LINE=BUILD_GOLD=yes
