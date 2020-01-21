@@ -28,15 +28,27 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		audio/alsa-lib
 
-ONLY_FOR_OPSYS=		linux
-
 USES=			cpe libtool:keepla python
 BUILDRUN_DEPENDS=	autoselect-python:single:standard
+BR_DEPS[freebsd]=	libdl:single:standard
+BR_DEPS[dragonfly]=	libdl:single:standard
 MUST_CONFIGURE=		gnu
 INSTALL_REQ_TOOLCHAIN=	yes
 CONFIGURE_ARGS=		--with-pkgconfdir="{{PREFIX}}/lib/pkgconfig"
+VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=	ac_cv_header_endian_h=no
+VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=	ac_cv_header_endian_h=no
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 
 post-patch:
 	${REINPLACE_CMD} 's|/etc|${PREFIX}&|g' ${WRKSRC}/src/conf/alsa.conf
+
+post-patch-freebsd:
+post-patch-dragonfly:
+	${REINPLACE_CMD} -e '/_GNU_SOURCE/d' ${WRKSRC}/configure
+	${MKDIR} ${WRKSRC}/include/linux
+	${CP} ${FILESDIR}/byteswap.h ${WRKSRC}/include/
+	${CP} ${FILESDIR}/endian.h ${WRKSRC}/include/
+	${CP} ${FILESDIR}/malloc.h ${WRKSRC}/include/
+	${CP} ${FILESDIR}/ioctl.h ${WRKSRC}/include/linux/
+	${CP} ${FILESDIR}/types.h ${WRKSRC}/include/linux/
