@@ -26,8 +26,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		audio/sndio
 
-BROKEN[linux]=		Requires ALSA headers and libraries first
 BROKEN[sunos]=		Needs err.h which is not available on Sol10
+BR_DEPS[linux]=		libbsd:single:standard
+			alsa-lib:single:standard
 
 USERS=			_sndio
 GROUPS=			_sndio
@@ -39,6 +40,7 @@ RC_SUBR=		sndiod:single
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--prefix={{PREFIX}}
 			--mandir={{MANPREFIX}}/man
+VAR_OPSYS[linux]=	CONFIGURE_ARGS=	--with-libbsd
 
 post-patch:
 	# Make sure sndiod can be started inside jails as root
