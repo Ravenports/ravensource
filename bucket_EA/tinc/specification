@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	1.0.36
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		tinc
+VERSION=		${PORTVERSION}
+KEYWORDS=		net security
+VARIANTS=		standard
+SDESC[standard]=	Virtual Private Network (VPN) daemon
+HOMEPAGE=		https://tinc-vpn.org/
+CONTACT=		Leonid_Bobrov[goleo@disroot.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://tinc-vpn.org/packages/
+DISTFILE[1]=		tinc-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:stock
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^\#include"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/bsd/tunemu.c
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		security/tinc
+
+USERS=			tinc
+GROUPS=			tinc
+USERGROUP_SPKG=		single
+RC_SUBR=		tincd:single
+
+USES=			cpe makeinfo ssl zlib
+CPE_VENDOR=		tinc-vpn
+MUST_CONFIGURE=		gnu
+BUILD_DEPENDS=		lzo:static:standard
+BUILDRUN_DEPENDS=	lzo:shared:standard
+CPPFLAGS=		-I{{LOCALBASE}}/include
+LDFLAGS=		-L{{LOCALBASE}}/lib
