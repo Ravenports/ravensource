@@ -1,4 +1,4 @@
---- src/res_search_async.c.orig	2019-09-28 14:09:47 UTC
+--- src/res_search_async.c.orig	2020-01-17 13:59:24 UTC
 +++ src/res_search_async.c
 @@ -22,6 +22,9 @@
  #include <sys/uio.h>
