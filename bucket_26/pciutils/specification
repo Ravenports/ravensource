@@ -1,9 +1,9 @@
-DEF[PORTVERSION]=	3.6.2
+DEF[PORTVERSION]=	3.6.3
+DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		pciutils
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		sysutils devel
 VARIANTS=		standard
 SDESC[standard]=	Library / tools to access PCI bus config registers
@@ -31,13 +31,13 @@ FPC_EQUIVALENT=		sysutils/pciutils
 USES=			gmake
 
 RUN_DEPENDS=		pciids:single:standard
+EXRUN[primary]=		pciutils:library:standard
 
 MAKE_ARGS=		PREFIX={{PREFIX}} SHARED=yes
 CFLAGS=			-fPIC
 INSTALL_TARGET=		install
 			install-lib
-
-EXRUN[primary]=		pciutils:library:standard
+SOVERSION=		${SOVERSION}
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libpci.so
