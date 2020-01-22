@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	20160321
+DEF[PORTVERSION]=	20190412
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		booch95
@@ -28,27 +28,21 @@ FPC_EQUIVALENT=		devel/adabooch
 USES=			gmake gprbuild ada:primary
 DISTNAME=		bc-${PORTVERSION}
 BUILD_TARGET=		libs
+INSTALL_REQ_TOOLCHAIN=	yes
+MAKE_ARGS=		prefix={{STAGEDIR}}{{PREFIX}}
 
 post-extract:
 	 ${AWK} '/^package / {exit}; {print $$0}' ${WRKSRC}/src/bc.ads \
 		> ${WRKDIR}/TERMS
 
 post-patch:
-	${SED} -e 's|@PREFIX@|${PREFIX}|' ${WRKSRC}/Makefile.in \
-		> ${WRKSRC}/Makefile
 	${REINPLACE_CMD} -e '/LDFLAGS/d' ${WRKSRC}/bc.gpr
-	# solve preelaborated unit cannot depend on non-preelaborated unit
-	${REINPLACE_CMD} -e '/Preelaborate/d' \
-		${WRKSRC}/src/bc-containers-trees-avl-print.ads \
-		${WRKSRC}/src/bc-containers-trees-avl-validate.ads \
-		${WRKSRC}/src/bc-trees-avl_trees-print.ads \
-		${WRKSRC}/src/bc-trees-avl_trees-validate.ads
 
 # Demos are available but require that the libraries are already installed
 # In other words, adabooch demos requires a separate port to do correctly
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/bc/lib-relocatable/libbc.so
-	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/bc/bc.relocatable/libbc.so
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 	${INSTALL_DATA} ${WRKSRC}/html/* ${STAGEDIR}${STD_DOCDIR}/
 	${RM} ${STAGEDIR}${STD_DOCDIR}/Makefile
