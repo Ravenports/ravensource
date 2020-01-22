@@ -1,4 +1,4 @@
---- common/compat.c.orig	2019-06-18 15:25:53 UTC
+--- common/compat.c.orig	2020-01-07 15:15:00 UTC
 +++ common/compat.c
 @@ -38,7 +38,11 @@
   * This is needed to expose pthread_mutexattr_settype and PTHREAD_MUTEX_DEFAULT

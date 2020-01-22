@@ -1,6 +1,6 @@
---- p11-kit/server.c.orig	2019-06-14 13:29:39 UTC
+--- p11-kit/server.c.orig	2020-01-16 12:05:13 UTC
 +++ p11-kit/server.c
-@@ -79,6 +79,12 @@ typedef void (*sighandler_t)(int);
+@@ -84,6 +84,12 @@ typedef void (*sighandler_t)(int);
  
  #endif /* OS_UNIX */
  
