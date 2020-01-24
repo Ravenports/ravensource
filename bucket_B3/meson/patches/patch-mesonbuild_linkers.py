@@ -1,7 +1,7 @@
---- mesonbuild/linkers.py.orig	2019-12-29 22:47:27 UTC
+--- mesonbuild/linkers.py.orig	2020-01-23 12:51:19 UTC
 +++ mesonbuild/linkers.py
-@@ -870,7 +870,12 @@ class SolarisDynamicLinker(PosixDynamicL
-     def get_link_whole_for(self, args: typing.List[str]) -> typing.List[str]:
+@@ -878,7 +878,12 @@ class SolarisDynamicLinker(PosixDynamicL
+     def get_link_whole_for(self, args: T.List[str]) -> T.List[str]:
          if not args:
              return args
 -        return self._apply_prefix('--whole-archive') + args + self._apply_prefix('--no-whole-archive')
@@ -12,5 +12,5 @@
 +        result.append(self.prefix_arg + 'defaultextract')
 +        return result
  
-     def no_undefined_args(self) -> typing.List[str]:
+     def no_undefined_args(self) -> T.List[str]:
          return ['-z', 'defs']
