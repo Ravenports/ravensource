@@ -18,6 +18,7 @@ DISTFILE[1]=		generated:main
 DISTFILE[2]=		pgw.tar.bz2:data
 DISTFILE[3]=		roget.tar.bz2:data
 DISTFILE[4]=		scat.tgz:data
+DF_INDEX=		1 2 3 4
 
 SPKGS[standard]=	single
 
@@ -63,10 +64,10 @@ post-extract:
 	${TAR} -C ${WRKSRC}/sky -xf ${DISTDIR}/scat.tgz
 
 do-build:
-	@cd ${WRKSRC} && ./INSTALL -b
+	cd ${WRKSRC} && ./INSTALL -b
 
 do-install:
-	@cd ${WRKSRC} && ./INSTALL -c
+	cd ${WRKSRC} && ./INSTALL -c
 	${FIND} ${WRKSRC} -name "*.bak" -delete
 	${FIND} ${WRKSRC} -name "*.orig" -delete
 	${CP} -R ${WRKSRC} ${STAGEDIR}${PREFIX}/plan9
