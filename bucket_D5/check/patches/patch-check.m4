@@ -1,4 +1,4 @@
---- check.m4.orig	2019-10-21 14:46:54 UTC
+--- check.m4.orig	2020-01-26 17:55:01 UTC
 +++ check.m4
 @@ -21,8 +21,20 @@ AC_DEFUN([AM_PATH_CHECK],
        CHECK_CFLAGS="-I$with_check/include"
