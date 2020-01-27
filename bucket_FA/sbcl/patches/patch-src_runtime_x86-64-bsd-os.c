@@ -1,4 +1,4 @@
---- src/runtime/x86-64-bsd-os.c.orig	2019-11-26 20:35:11 UTC
+--- src/runtime/x86-64-bsd-os.c.orig	2020-01-26 21:26:30 UTC
 +++ src/runtime/x86-64-bsd-os.c
 @@ -148,6 +148,13 @@ os_flush_icache(os_vm_address_t address,
  {
