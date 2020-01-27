@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.20.0
+DEF[PORTVERSION]=	1.20.1
 DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -28,7 +28,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		audio/openal-soft
 
-USES=			c++:single cmake
+USES=			c++:single cmake zlib gmake
 CMAKE_ARGS=		-DALSOFT_DLOPEN=Off
 			-DALSOFT_UTILS=On
 			-DALSOFT_EXAMPLES=Off
@@ -49,6 +49,7 @@ CMAKE_ARGS=		-DALSOFT_DLOPEN=Off
 CMAKE_BUILD_TYPE=	Release
 BUILDRUN_DEPENDS=	sndio:single:standard
 SOVERSION=		${SOVERSION}
+INSTALL_REQ_TOOLCHAIN=	yes
 
 VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
 			LDFLAGS=-lrt
