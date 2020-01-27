@@ -1,0 +1,1 @@
+SHEBANG_NEW_RC=	${LOCALBASE}/plan9/bin/rc
