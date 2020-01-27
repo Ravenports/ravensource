@@ -1,0 +1,73 @@
+DEF[PORTVERSION]=	20200120
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		plan9port
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers converters databases deskutils devel dns
+			editors graphics lang mail net print security shells
+			sysutils textproc x11_wm
+VARIANTS=		standard
+SDESC[standard]=	Plan 9 from User Space
+HOMEPAGE=		https://9fans.github.io/plan9port/
+CONTACT=		Leonid_Bobrov[goleo@disroot.org]
+
+DOWNLOAD_GROUPS=	main data
+SITES[main]=		GITHUB/9fans:plan9port:f6c9f7b
+SITES[data]=		https://9fans.github.io/plan9port/dist/
+DISTFILE[1]=		generated:main
+DISTFILE[2]=		pgw.tar.bz2:data
+DISTFILE[3]=		roget.tar.bz2:data
+DISTFILE[4]=		scat.tgz:data
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:single
+LICENSE_NAME=		CUSTOM1:"Lucent Public License"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/plan9port
+
+USES=			perl:build shebangfix
+XORG_COMPONENTS=	x11 xext xt
+BUILDRUN_DEPENDS=	fontconfig:primary:standard
+			freetype:primary:standard
+RUN_DEPENDS=		ghostscript:primary:standard
+SHEBANG_FILES=		src/cmd/map/mapdemo.rc
+			src/cmd/map/map.rc
+			src/cmd/spell/spell.rc
+			src/cmd/dict/egfix
+			src/cmd/dict/egfix2
+			src/cmd/dict/gefix
+			src/cmd/dict/getneeds
+			src/cmd/upas/filterkit/pipefrom.sample
+			src/cmd/lp/lpsend.rc
+			src/cmd/9660/mk9660.rc
+			bin/wintext
+			bin/macedit
+			unix/man/fixurls
+			mac/9term.app/Contents/MacOS/9term
+			mac/Plumb.app/Contents/MacOS/plumb
+			acid/window
+			acid/transcript
+SHEBANG_LANG=		rc
+
+post-extract:
+	${GREP} -rl "/usr/local" ${WRKSRC} | \
+		${XARGS} ${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g'
+	${TAR} -C ${WRKSRC}/dict -xf ${DISTDIR}/pgw.tar.bz2
+	${TAR} -C ${WRKSRC}/dict -xf ${DISTDIR}/roget.tar.bz2
+	${TAR} -C ${WRKSRC}/sky -xf ${DISTDIR}/scat.tgz
+
+do-build:
+	@cd ${WRKSRC} && ./INSTALL -b
+
+do-install:
+	@cd ${WRKSRC} && ./INSTALL -c
+	${FIND} ${WRKSRC} -name "*.bak" -delete
+	${FIND} ${WRKSRC} -name "*.orig" -delete
+	${CP} -R ${WRKSRC} ${STAGEDIR}${PREFIX}/plan9
+	${CP} ${STAGEDIR}${PREFIX}/plan9/bin/9 ${STAGEDIR}${PREFIX}/bin/9
