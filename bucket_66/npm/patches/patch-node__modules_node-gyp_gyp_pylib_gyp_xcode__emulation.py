@@ -2,7 +2,7 @@ $NetBSD: patch-node__modules_node-gyp_gyp_pylib_gyp_xcode__emulation.py,v 1.1 20
 
 Do not generate debugging symbols (uses lots of disk space).
 
---- node_modules/node-gyp/gyp/pylib/gyp/xcode_emulation.py.orig	2019-12-11 18:59:51 UTC
+--- node_modules/node-gyp/gyp/pylib/gyp/xcode_emulation.py.orig	2020-01-28 19:05:21 UTC
 +++ node_modules/node-gyp/gyp/pylib/gyp/xcode_emulation.py
 @@ -507,7 +507,7 @@ class XcodeSettings(object):
  
