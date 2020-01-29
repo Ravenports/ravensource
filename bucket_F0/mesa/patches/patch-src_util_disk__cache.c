@@ -1,6 +1,6 @@
---- src/util/disk_cache.c.orig	2020-01-17 21:41:44 UTC
+--- src/util/disk_cache.c.orig	2020-01-28 19:07:36 UTC
 +++ src/util/disk_cache.c
-@@ -59,6 +59,10 @@ dirfd(DIR *dirp) {
+@@ -52,6 +52,10 @@
  
  #include "disk_cache.h"
  

@@ -1,4 +1,4 @@
---- src/gallium/drivers/radeonsi/si_state_shaders.c.orig	2020-01-09 18:12:10 UTC
+--- src/gallium/drivers/radeonsi/si_state_shaders.c.orig	2020-01-28 19:07:35 UTC
 +++ src/gallium/drivers/radeonsi/si_state_shaders.c
 @@ -2115,6 +2115,7 @@ static void si_build_shader_variant(stru
  		return;

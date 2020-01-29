@@ -1,4 +1,4 @@
---- src/mesa/drivers/dri/i965/brw_bufmgr.c.orig	2020-01-09 18:12:10 UTC
+--- src/mesa/drivers/dri/i965/brw_bufmgr.c.orig	2020-01-28 19:07:35 UTC
 +++ src/mesa/drivers/dri/i965/brw_bufmgr.c
 @@ -74,6 +74,10 @@
  #define VG(x)
