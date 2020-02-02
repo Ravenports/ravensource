@@ -43,8 +43,8 @@ SET_DEBUGGING_ON=	yes
 # to be installed as well.  Otherwises a term error will probably occur.
 
 post-extract:
-	${REINPLACE_CMD} -e "s|/raven|${LOCALBASE}|" \
-		-e "s|:= dragonfly|:= ${OPSYS:tl}|" \
+	${REINPLACE_CMD} -e 's|/raven"|${LOCALBASE}"|' \
+		-e 's|:= dragonfly|:= ${OPSYS:tl}|' \
 		${WRKSRC}/src/definitions.ads
 	# ensure Tampering_Check is active
 	${REINPLACE_CMD} -e '/pragma Suppress/ s|--  ||' \
