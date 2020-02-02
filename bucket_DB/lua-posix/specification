@@ -1,0 +1,58 @@
+DEF[PORTVERSION]=	34.1.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		lua-posix
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		lua52 lua53
+SDESC[lua52]=		POSIX API bindings for Lua 5.2
+SDESC[lua53]=		POSIX API bindings for Lua 5.3
+HOMEPAGE=		https://github.com/luaposix/luaposix
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/luaposix:luaposix:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[lua52]=		single
+SPKGS[lua53]=		single
+
+OPTIONS_AVAILABLE=	LUA52 LUA53
+OPTIONS_STANDARD=	none
+VOPTS[lua52]=		LUA52=ON LUA53=OFF
+VOPTS[lua53]=		LUA52=OFF LUA53=ON
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/lua-posix
+
+# Using %%LUA_MODSHAREDIR%% in manifest does not work for some reason...
+
+USES=			shebangfix
+SHEBANG_FILES=		build-aux/luke
+
+[LUA52].DESCRIPTION=			Build with Lua 5.2
+[LUA52].USES_ON=			lua:5.2
+[LUA52].RUN_DEPENDS_ON=			lua-stdlib-normalize:single:lua52
+
+[LUA53].DESCRIPTION=			Build with Lua 5.3
+[LUA53].USES_ON=			lua:5.3
+[LUA53].RUN_DEPENDS_ON=			lua-stdlib-normalize:single:lua53
+
+do-build:
+	cd ${WRKSRC} && build-aux/luke all \
+		CFLAGS="${CFLAGS}" \
+		LUA="${LOCALBASE}/bin/${LUA_CMD}" \
+		LUA_INCDIR="${LUA_INCDIR}" \
+		PREFIX="${PREFIX}" \
+		version="${PORTVERSION}"
+
+do-install:
+	cd ${WRKSRC} && build-aux/luke install \
+		INST_LIBDIR="${STAGEDIR}${LUA_MODLIBDIR}" \
+		INST_LUADIR="${STAGEDIR}${LUA_MODSHAREDIR}"
+
+post-install:
+	${FIND} ${STAGEDIR}${LUA_MODLIBDIR} -name '*.so' -exec ${STRIP_CMD} {} +
