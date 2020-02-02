@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.28
+DEF[PORTVERSION]=	2.29
 DEF[XNAME]=		xkeyboard-config
 DEF[ALTNAME]=		xkeyboard-config
 # ----------------------------------------------------------------------------
@@ -27,9 +27,11 @@ LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		libxslt:single:standard
 
-USES=			gmake perl:build gettext-tools pkgconfig
+USES=			gmake perl:build python:build gettext-tools pkgconfig shebangfix
 XORG_COMPONENTS=	x11
 DISTNAME=		${ALTNAME}-${PORTVERSION}
+SHEBANG_FILES=		rules/merge.py
+			rules/compat/map-variants.py
 MAKE_ARGS=		pkgconfigdir={{PREFIX}}/lib/pkgconfig
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-xkb-base={{PREFIX}}/share/X11/xkb
@@ -38,10 +40,6 @@ INSTALL_TARGET=		install-strip
 FPC_EQUIVALENT=		x11/${ALTNAME}
 PLIST_SUB=		FMS={{VAR1:U7}}
 VAR_OPSYS[sunos]=	VAR1=5
-
-post-patch:
-	${REINPLACE_CMD} -e 's|/bin/bash|/bin/sh|g' -e 's|==|=|g' \
-		${WRKSRC}/rules/merge.sh
 
 post-install:
 	@${MKDIR} ${STAGEDIR}/var/lib/xkb
