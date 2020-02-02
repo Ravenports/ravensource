@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.8.11
+DEF[PORTVERSION]=	1.8.12
 DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
@@ -33,14 +33,11 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/thunar/thunar-private.h
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
-# Enabling introspection breaks the port. Needs to be looked into if anybody
-# really needs it.
-# gobject-introspection:single:standard
-
 BUILDRUN_DEPENDS=	dbus-glib:primary:standard
 			desktop-file-utils:single:standard
 			freetype:primary:standard
 			fontconfig:primary:standard
+			gobject-introspection:single:standard
 			gvfs:single:standard
 			hicolor-icon-theme:single:standard
 			libexif:single:standard
@@ -58,7 +55,7 @@ CONFIGURE_ARGS=		--enable-apr-plugin
 			--enable-dbus
 			--enable-exif
 			--enable-gio-unix
-			--disable-introspection
+			--enable-introspection
 			--enable-notifications
 			--enable-pcre
 			--enable-sbr-plugin
