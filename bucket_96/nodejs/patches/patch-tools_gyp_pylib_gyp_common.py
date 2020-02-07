@@ -1,4 +1,4 @@
---- tools/gyp/pylib/gyp/common.py.orig	2020-01-21 16:26:44 UTC
+--- tools/gyp/pylib/gyp/common.py.orig	2020-01-07 22:07:52 UTC
 +++ tools/gyp/pylib/gyp/common.py
 @@ -430,6 +430,8 @@ def GetFlavor(params):
      return 'freebsd'
