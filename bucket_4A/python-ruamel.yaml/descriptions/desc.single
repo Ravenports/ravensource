@@ -4,8 +4,8 @@ ruamel.yaml
 
 ``ruamel.yaml`` is a YAML 1.2 loader/dumper package for Python.
 
-:version:       0.16.6
-:updated:       2020-01-20
+:version:       0.16.7
+:updated:       2020-01-30
 :documentation: http://yaml.readthedocs.io
 :repository:    https://bitbucket.org/ruamel/yaml
 :pypi:          https://pypi.org/project/ruamel.yaml/
@@ -59,6 +59,12 @@ ChangeLog
 .. should insert NEXT: at the beginning of line for next key (with empty
 line)
 
+0.16.7 (2020-01-30):
+  - fix typchecking issue on TaggedScalar (reported by Jens Nielsen)
+  - fix error in dumping literal scalar in sequence with comments before
+element
+    (reported by `EJ Etherington <https://sourceforge.net/u/ejether/>`__)
+
 0.16.6 (2020-01-20):
   - fix empty string mapping key roundtripping with preservation of quotes
 as `? ''`
@@ -102,8 +108,3 @@ Raillard
   - duplicate keys are now an error when working with the old API as well
 
 0.15.100 (2019-07-17):
-  - fixing issue with dumping deep-copied data from commented YAML, by
-    providing both the memo parameter to __deepcopy__, and by allowing
-    startmarks to be compared on their content (reported by `Theofilos
-    Petsios
-    <https://bitbucket.org/%7Be550bc5d-403d-4fda-820b-bebbe71796d3%7D/>`__)
