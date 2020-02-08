@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	0.10.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ristretto
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Light-weight image viewer for Xfce
+HOMEPAGE=		https://docs.xfce.org/apps/ristretto/start
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://archive.xfce.org/src/apps/ristretto/${PORTVERSION:R}/
+DISTFILE[1]=		ristretto-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/util.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/ristretto
+
+BUILDRUN_DEPENDS=	file:single:standard
+			libexif:single:standard
+			libxfce4ui:primary:standard
+			libxfce4util:primary:standard
+RUN_DEPENDS=		tumbler:primary:standard
+
+USES=			gettext-tools:build gettext-runtime gmake pkgconfig
+GNOME_COMPONENTS=	gtk3 intltool
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-debug
