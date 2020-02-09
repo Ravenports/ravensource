@@ -1,0 +1,47 @@
+DEF[PORTVERSION]=	2.20.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		links
+VERSION=		${PORTVERSION}
+KEYWORDS=		www
+VARIANTS=		standard
+SDESC[standard]=	Lynx-like web browser for terminal and X11
+HOMEPAGE=		http://links.twibright.com
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://links.twibright.com/download/
+DISTFILE[1]=		links-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:single
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/links.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		www/links
+
+# Currently we build only the text-mode browser. If anybody wants
+# the graphical Links as well, that could be added, too.
+
+BUILDRUN_DEPENDS=	brotli:single:standard
+			bzip2:shared:standard
+			libevent:single:standard
+			lzlib:single:standard
+			xz:single:standard
+			zlib:shared:standard
+			Zstandard:shared:standard
+BUILD_DEPENDS=		bzip2:static:standard
+			zlib:static:standard
+			Zstandard:static:standard
+
+USES=			pkgconfig ssl
+
+MUST_CONFIGURE=		gnu
+
