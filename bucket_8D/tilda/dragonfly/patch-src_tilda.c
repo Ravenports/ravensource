@@ -1,4 +1,4 @@
---- src/tilda.c.orig	2016-04-18 12:09:55 UTC
+--- src/tilda.c.orig	2018-02-08 19:55:42 UTC
 +++ src/tilda.c
 @@ -12,6 +12,7 @@
   * You should have received a copy of the GNU Library General Public
