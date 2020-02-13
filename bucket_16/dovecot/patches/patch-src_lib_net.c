@@ -1,6 +1,6 @@
---- src/lib/net.c.orig	2019-12-04 17:29:36 UTC
+--- src/lib/net.c.orig	2019-12-13 13:12:00 UTC
 +++ src/lib/net.c
-@@ -1068,13 +1068,17 @@ enum net_hosterror_type net_get_hosterror_type(int err
+@@ -1068,13 +1068,17 @@ enum net_hosterror_type net_get_hosterro
  		int error;
  		enum net_hosterror_type type;
  	} error_map[] = {
