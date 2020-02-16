@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	1.17.1
-DEF[DL_FOLDER]=		${PORTVERSION:R}
+DEF[PORTVERSION]=	1.18
+DEF[DL_FOLDER]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		krb5
@@ -27,7 +27,7 @@ FPC_EQUIVALENT=		security/krb5
 
 RC_SUBR=		kpropd:primary
 
-USES=			cpe gmake perl:build libtool:build pkgconfig ssl
+USES=			cpe gmake perl:build libtool:build pkgconfig ssl:openssl-devel
 			gettext-runtime gettext-tools readline
 CPE_VENDOR=		mit
 CPE_VERSION=		5-${PORTVERSION}
@@ -47,6 +47,10 @@ MAKE_ARGS=		INSTALL="{{INSTALL}}"
 			INSTALL_LIB="{{INSTALL_LIB}}"
 CPPFLAGS=		-I{{OPENSSLINC}}
 LDFLAGS=		-L{{OPENSSLLIB}}
+
+post-patch:
+	${REINPLACE_CMD} -e "s|/usr/local|${PREFIX}|" \
+		${WRKSRC}/clients/ksu/Makefile.in
 
 post-install:
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
