@@ -1,4 +1,4 @@
---- memcached.c.orig	2020-01-21 22:04:57 UTC
+--- memcached.c.orig	2020-02-01 22:36:47 UTC
 +++ memcached.c
 @@ -365,7 +365,7 @@ static int add_msghdr(conn *c)
      c->msgbytes = 0;
