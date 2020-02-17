@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.0.2
+DEF[PORTVERSION]=	3.1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fish
@@ -18,12 +18,10 @@ SPKGS[standard]=	complete primary docs
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2:primary CUSTOM1:primary
+LICENSE=		GPLv2:primary
 LICENSE_TERMS=		primary:{{WRKSRC}}/COPYING
 LICENSE_FILE=		GPLv2:stock
-			CUSTOM1:{{WRKDIR}}/LIC_REMAINING
-LICENSE_NAME=		CUSTOM1:"Various additional licenses to cover some components"
-LICENSE_SCHEME=		multi
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		shells/fish
 
@@ -39,10 +37,6 @@ CMAKE_ARGS=		-DWITH_GETTEXT:BOOL=ON
 MANDIRS=		{{PREFIX}}/share/fish/man/man1
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
-
-post-extract:
-	${AWK} '/## License for/,0' ${WRKSRC}/doc_src/license.hdr \
-		> ${WRKDIR}/LIC_REMAINING
 
 post-install:
 .for i in fish fish_indent fish_key_reader
