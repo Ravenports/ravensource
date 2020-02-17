@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	20180927
+DEF[PORTVERSION]=	20200215
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mg
@@ -30,9 +30,6 @@ BR_DEPS[linux]=		libbsd:single:standard
 
 USES=			cmake ncurses pkgconfig
 CFLAGS=			-I{{NCURSESINC}}
-
-post-extract:
-	${CP} ${FILESDIR}/CMakeLists.txt ${WRKSRC}
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKDIR}/.build/mg ${STAGEDIR}${PREFIX}/bin
