@@ -43,5 +43,7 @@ DISTNAME=		clisp-clisp-${PORTVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
 PLIST_SUB=		VERSION="${INTERNAL_VERSION}"
 
+VAR_OPSYS[dragonfly]=	LDFLAGS=-pthread
+
 do-build:
 	( cd ${WRKSRC}/src && make )
