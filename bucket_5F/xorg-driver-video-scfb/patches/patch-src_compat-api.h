@@ -1,4 +1,4 @@
---- src/compat-api.h.orig	2014-11-23 09:47:32 UTC
+--- /dev/null	2020-02-21 18:03:34 UTC
 +++ src/compat-api.h
 @@ -0,0 +1,99 @@
 +/*
