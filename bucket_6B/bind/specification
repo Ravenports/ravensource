@@ -1,7 +1,7 @@
 # 9.odd.x is considered the "devel" branch currently
 # Stick to even, e.g. 9.14.x, 9.16.x
 # DEF[REALVERSION]=	9.12.1-P2
-DEF[REALVERSION]=	9.14.10
+DEF[REALVERSION]=	9.16.0
 DEF[PORTVERSION]=	${REALVERSION:S/-/./}
 # ----------------------------------------------------------------------------
 
@@ -15,7 +15,7 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		ISC/bind9/${REALVERSION}
-DISTFILE[1]=		bind-${REALVERSION}.tar.gz:main
+DISTFILE[1]=		bind-${REALVERSION}.tar.xz:main
 
 SPKGS[standard]=	complete server tools docs
 
@@ -26,16 +26,17 @@ LICENSE=		MPL:server
 LICENSE_FILE=		MPL:{{WRKSRC}}/COPYRIGHT
 LICENSE_SCHEME=		solo
 
-FPC_EQUIVALENT=		dns/bind914
+FPC_EQUIVALENT=		dns/bind916
 
 BUILD_DEPENDS=		idnkit:single:standard
 BUILDRUN_DEPENDS=	libxml2:single:standard
 			json-c:single:standard
-			lmdb:single:standard
 			libedit:single:standard
+			libuv:single:standard
+			lmdb:single:standard
 EXRUN[tools]=		idnkit:single:standard
 
-USES=			cpe iconv ssl cclibs:server,tools
+USES=			cclibs:server,tools cpe iconv pkgconfig ssl
 CPE_VENDOR=		isc
 SINGLE_JOB=		yes
 DISTNAME=		bind-${REALVERSION}
@@ -52,7 +53,6 @@ CONFIGURE_ARGS=		--localstatedir=/var
 			--with-randomdev=/dev/random
 			--with-readline="-L{{LOCALBASE}}/lib -ledit"
 			--with-openssl={{OPENSSLBASE}}
-			--with-libxml2={{LOCALBASE}}
 			--with-dlopen=yes
 			--with-idn={{LOCALBASE}}
 			--with-libjson
@@ -64,6 +64,7 @@ CONFIGURE_ARGS=		--localstatedir=/var
 			--enable-rpz-nsip
 			{{ICONV_CONFIGURE_ARG}}
 			STD_CDEFINES="-DDIG_SIGCHASE=1"
+# --with-libxml2={{LOCALBASE}}
 RC_SUBR=		named:server
 SUB_FILES=		pkg-message-server
 			named.conf
