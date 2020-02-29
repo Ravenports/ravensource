@@ -1,18 +1,18 @@
-DEF[PORTVERSION]=	3.0.0
+DEF[PORTVERSION]=	4.0.2
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-gitdb2
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		py38 py37
-SDESC[py38]=		Git Object Database (PY 38)
-SDESC[py37]=		Git Object Database (PY 37)
+SDESC[py38]=		Mirror package for gitdb (PY 38)
+SDESC[py37]=		Mirror package for gitdb (PY 37)
 HOMEPAGE=		https://github.com/gitpython-developers/gitdb
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/g/gitdb2
-DISTFILE[1]=		gitdb2-3.0.0.tar.gz:main
+DISTFILE[1]=		gitdb2-4.0.2.tar.gz:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -23,18 +23,18 @@ VOPTS[py38]=		PY38=ON PY37=OFF
 VOPTS[py37]=		PY38=OFF PY37=ON
 
 # Output of setup.py --license
-# BSD License
+# UNKNOWN
 
 GENERATED=		yes
 
 # install_requires extracted from setup.py (using python 2.7)
-# smmap2
+# gitdb>=4.0.1
 
 DISTNAME=		gitdb2-${PORTVERSION}
 
 [PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-smmap2:single:py38
+[PY38].BUILDRUN_DEPENDS_ON=		python-gitdb:single:py38
 
 [PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-smmap2:single:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-gitdb:single:py37
 
