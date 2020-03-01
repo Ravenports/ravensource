@@ -1,4 +1,4 @@
---- setup.py.orig	2020-01-23 21:00:13 UTC
+--- setup.py.orig	2020-02-16 15:40:19 UTC
 +++ setup.py
 @@ -531,8 +531,6 @@ class build(du_build):
  
