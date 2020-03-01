@@ -1,5 +1,7 @@
-DEF[PORTVERSION]=	0.7.8
+DEF[PORTVERSION]=	0.7.9
 DEF[SOVERSION]=		4.0.0
+DEF[URL0]=		http://docbook.sourceforge.net/release/xsl-ns/
+DEF[URL1]=		http://cdn.docbook.org/release/xsl/
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libnotify
@@ -29,6 +31,7 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		devel/libnotify
 
 BUILD_DEPENDS=		gtk-doc:single:standard
+			docbook-xsl:primary:standard
 
 USES=			gettext-runtime gmake meson pkgconfig python
 GNOME_COMPONENTS=	glib gdkpixbuf intltool introspection
@@ -39,6 +42,9 @@ MESON_ARGS=		-Dtests=false
 			-Dgtk_doc=true
 			-Ddocbook_docs=disabled
 SOVERSION=		${SOVERSION}
+
+post-patch:
+	${REINPLACE_CMD} -e "s|${URL0}|${URL1}|" ${WRKSRC}/meson.build
 
 post-patch-sunos:
 	${REINPLACE_CMD} -e 's|link_args: libnotify_ldflags|link_args: []|'\
