@@ -1,4 +1,4 @@
---- os.h.orig	2019-10-01 22:08:00 UTC
+--- os.h.orig	2020-02-05 20:09:38 UTC
 +++ os.h
 @@ -250,9 +250,11 @@ extern int errno;
  #endif
@@ -14,15 +14,6 @@
  #  define utmp		utmpx
  #  define getutent	getutxent
  #  define getutid	getutxid
-@@ -507,7 +509,7 @@ typedef struct fd_set { int fds_bits[1];
-  */
- 
- #ifndef TERMCAP_BUFSIZE
--# define TERMCAP_BUFSIZE 2048
-+# define TERMCAP_BUFSIZE 1023
- #endif
- 
- #ifndef MAXPATHLEN
 @@ -524,6 +526,6 @@ typedef struct fd_set { int fds_bits[1];
  /* Changing those you won't be able to attach to your old sessions
   * when changing those values in official tree don't forget to bump

@@ -1,6 +1,6 @@
---- screen.c.orig	2019-10-01 22:08:00 UTC
+--- screen.c.orig	2020-02-05 20:09:38 UTC
 +++ screen.c
-@@ -2214,7 +2214,7 @@ static char *pad_expand(char *buf, char
+@@ -2216,7 +2216,7 @@ static char *pad_expand(char *buf, char
    pn2 = pn = p + padlen;
    r = winmsg_numrend;
    while (p >= buf) {

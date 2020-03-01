@@ -1,4 +1,4 @@
---- attacher.c.orig	2019-10-01 22:07:59 UTC
+--- attacher.c.orig	2020-02-05 20:09:38 UTC
 +++ attacher.c
 @@ -732,7 +732,7 @@ LockTerminal()
    printf("\n");
