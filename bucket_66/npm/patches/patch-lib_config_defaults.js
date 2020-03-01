@@ -2,7 +2,7 @@ $NetBSD: patch-lib_config_defaults.js,v 1.1 2018/06/28 11:28:01 fhajny Exp $
 
 If both PREFIX and DESTDIR are defined, combine for UNIX best practice.
 
---- lib/config/defaults.js.orig	2020-01-28 19:05:21 UTC
+--- lib/config/defaults.js.orig	2020-02-27 00:35:47 UTC
 +++ lib/config/defaults.js
 @@ -91,6 +91,9 @@ Object.defineProperty(exports, 'defaults
  
