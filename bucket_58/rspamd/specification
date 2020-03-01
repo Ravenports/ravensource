@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.2
+DEF[PORTVERSION]=	2.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rspamd
@@ -58,8 +58,6 @@ post-install:
 		${STAGEDIR}/var/db/rspamd \
 		${STAGEDIR}/var/run/rspamd \
 		${STAGEDIR}${PREFIX}/etc/newsyslog.conf.d
-	# remove examples
-	${RMDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
 	${INSTALL_DATA} ${WRKDIR}/rspamd.newsyslog.conf.sample \
 		${STAGEDIR}${PREFIX}/etc/rspamd/
 	${LN} -s etc/rspamd/rspamd.newsyslog.conf \
