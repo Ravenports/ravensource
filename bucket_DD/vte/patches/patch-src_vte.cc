@@ -1,9 +1,5 @@
-Use correct includes on SunOS.
-Use correct includes for DragonFly (termios.h instead of sys/termios.h)
-Don't use packet mode on SunOS.
-
---- src/vte.cc.orig	2019-11-22 21:36:35 UTC
-+++ src/vte.cc
+--- src/vte.cc.orig	2020-03-03 07:51:17.000000000 +0100
++++ src/vte.cc	2020-03-09 14:08:14.892600000 +0100
 @@ -29,6 +29,13 @@
  #ifdef HAVE_SYS_TERMIOS_H
  #include <sys/termios.h>
@@ -17,8 +13,8 @@ Don't use packet mode on SunOS.
 +#endif
  
  #include <glib.h>
- #include <glib/gi18n-lib.h>
-@@ -4094,6 +4101,9 @@ Terminal::pty_io_read(GIOChannel *channe
+ #include <glib-unix.h>
+@@ -3963,6 +3970,9 @@
  			bp = chunk->data + chunk->len;
  			len = 0;
  			do {
@@ -28,7 +24,7 @@ Don't use packet mode on SunOS.
                                  /* We'd like to read (fd, bp, rem); but due to TIOCPKT mode
                                   * there's an extra input byte returned at the beginning.
                                   * We need to see what that byte is, but otherwise drop it
-@@ -4104,6 +4114,7 @@ Terminal::pty_io_read(GIOChannel *channe
+@@ -3974,6 +3984,7 @@
                                  int ret = read (fd, bp - 1, rem + 1);
                                  pkt_header = bp[-1];
                                  bp[-1] = save;
@@ -36,19 +32,19 @@ Don't use packet mode on SunOS.
  				switch (ret){
  					case -1:
  						err = errno;
-@@ -4112,6 +4123,7 @@ Terminal::pty_io_read(GIOChannel *channe
- 						eof = TRUE;
+@@ -3982,6 +3993,7 @@
+ 						eos = true;
  						goto out;
  					default:
 +#ifndef __sun__
                                                  ret--;
  
-                                                 if (pkt_header & TIOCPKT_IOCTL) {
-@@ -4132,6 +4144,7 @@ Terminal::pty_io_read(GIOChannel *channe
-                                                 } else if (pkt_header & TIOCPKT_START) {
-                                                         pty_scroll_lock_changed(false);
-                                                 }
+                                                 if (pkt_header == TIOCPKT_DATA) {
+@@ -4008,6 +4020,7 @@
+                                                         if (pkt_header & TIOCPKT_START) {
+                                                                 pty_scroll_lock_changed(false);
+                                                         }
 +#endif
- 
- 						bp += ret;
- 						rem -= ret;
+                                                 }
+ 						break;
+ 				}

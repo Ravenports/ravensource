@@ -1,30 +1,6 @@
-Use correct includes on SunOS.
-Don't use packet mode on SunOS.
-
---- src/pty.cc.orig	2019-11-22 21:36:35 UTC
-+++ src/pty.cc
-@@ -64,12 +64,20 @@
- #if defined(__sun) && defined(HAVE_STROPTS_H)
- #include <stropts.h>
- #endif
-+#if defined(__sun__)
-+#include <sys/ioccom.h>
-+#include <sys/ptyvar.h>
-+#endif
- #include <glib.h>
- #include <gio/gio.h>
- #include "debug.h"
- 
- #include <glib/gi18n-lib.h>
- 
-+#ifndef O_CLOEXEC
-+#define O_CLOEXEC 0
-+#endif
-+
- /* NSIG isn't in POSIX, so if it doesn't exist use this here. See bug #759196 */
- #ifndef NSIG
- #define NSIG (8 * sizeof(sigset_t))
-@@ -622,6 +630,7 @@ fd_set_cpkt(int fd)
+--- src/pty.cc.orig	2020-03-03 07:51:17.000000000 +0100
++++ src/pty.cc	2020-03-09 14:10:18.905175000 +0100
+@@ -619,6 +619,7 @@
  static int
  fd_setup(int fd)
  {
@@ -32,7 +8,7 @@ Don't use packet mode on SunOS.
          if (fd_set_cloexec(fd) < 0) {
                  vte::util::restore_errno errsv;
                  _vte_debug_print(VTE_DEBUG_PTY,
-@@ -642,6 +651,7 @@ fd_setup(int fd)
+@@ -639,6 +640,7 @@
                                   "%s failed: %s", "ioctl(TIOCPKT)", g_strerror(errsv));
                  return -1;
          }
@@ -40,7 +16,7 @@ Don't use packet mode on SunOS.
  
          return 0;
  }
-@@ -699,12 +709,14 @@ _vte_pty_open_posix(void)
+@@ -696,12 +698,14 @@
          }
  #endif /* !linux */
  
