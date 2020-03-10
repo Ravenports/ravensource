@@ -1,4 +1,4 @@
---- lib/src/util/config/posix/config.cc.orig	2019-12-14 20:55:09 UTC
+--- lib/src/util/config/posix/config.cc.orig	2020-02-12 09:22:44 UTC
 +++ lib/src/util/config/posix/config.cc
 @@ -7,6 +7,6 @@ namespace facter { namespace util { name
      }
