@@ -1,0 +1,10 @@
+set (prog pgxwin_server)
+
+add_executable (${prog}
+	pgxwin_server.c
+)
+
+target_compile_definitions (${prog} PUBLIC PGDISP)
+target_link_libraries (${prog} X11)
+
+install (TARGETS ${prog} DESTINATION bin)

@@ -1,0 +1,32 @@
+set (prog pgdisp)
+
+add_executable (${prog}
+	cleanup.c
+	exposelgwin.c
+	figcurs.c
+	getcolors.c
+	getdata.c
+	getvisuals.c
+	handlexevent.c
+	initlgluts.c
+	initlgwin.c
+	initlock.c
+	initwmattr.c
+	mainloop.c
+	pgdisp.c
+	proccom.c
+	resdb.c
+	resizelgwin.c
+	returnbuf.c
+	updatelgtitle.c
+	waitevent.c
+)
+
+target_compile_definitions (${prog} PUBLIC PGDISP)
+target_link_libraries (${prog} X11)
+
+install(TARGETS ${prog} DESTINATION bin)
+install(FILES aaaread.me
+	RENAME readme.pgdisp
+	DESTINATION share/doc/pgplot
+)

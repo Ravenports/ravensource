@@ -1,0 +1,52 @@
+DEF[PORTVERSION]=	5.2.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		pgplot
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	FORTRAN/C scientific graphic library
+HOMEPAGE=		http://www.astro.caltech.edu/~tjp/pgplot/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		ftp://ftp.astro.caltech.edu/pub/pgplot/
+DISTFILE[1]=		pgplot${PORTVERSION:S/.//g}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		graphics/pgplot
+
+LICENSE=		CUSTOM1:primary
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/copyright.notice
+LICENSE_NAME=		CUSTOM1:"PGPLOT License"
+LICENSE_SCHEME=		solo
+
+USES=			png shebangfix perl:build cmake fortran:examples
+XORG_COMPONENTS=	x11 xt
+SHEBANG_FILES=		makehtml
+			maketex
+SHEBANG_OLD_PERL=	/usr/local/bin/perl
+DISTNAME=		pgplot
+CFLAGS=			-Wno-implicit-function-declaration
+
+post-extract:
+	${CP} ${FILESDIR}/grexec.f ${WRKSRC}/sys/
+	${CP} ${FILESDIR}/CMakeLists.txt ${WRKSRC}/
+.for d in drivers pgdispd fonts src sys examples
+	${CP} ${FILESDIR}/${d}_CMakeLists.txt ${WRKSRC}/${d}/CMakeLists.txt
+.endfor
+
+post-patch:
+	${REINPLACE_CMD} -e 's|png_ptr->jmpbuf|png_jmpbuf(png_ptr)|' \
+		${WRKSRC}/drivers/pndriv.c
+	${REINPLACE_CMD} -e 's|/usr/local/pgplot|${PREFIX}/share/pgplot|g' \
+		${WRKSRC}/src/grgfil.f
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/pg*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
+	${STRIP_CMD} ${STAGEDIR}${STD_EXAMPLESDIR}/*pgdemo*

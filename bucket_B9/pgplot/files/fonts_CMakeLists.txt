@@ -1,0 +1,19 @@
+set(outprefix grfont)
+set(infile ${CMAKE_SOURCE_DIR}/fonts/${outprefix}.txt)
+set(outfile ${CMAKE_CURRENT_BINARY_DIR}/${outprefix}.dat)
+
+add_executable (pgpack pgpack.f)
+
+add_custom_command(
+	OUTPUT ${outfile}
+	COMMAND pgpack < ${infile}
+	DEPENDS pgpack ${infile}
+	COMMENT "Generated ${outfile}"
+	VERBATIM
+)
+
+add_custom_target (generate_file ALL
+	DEPENDS ${outfile}
+)
+
+install (FILES ${outfile} DESTINATION share/pgplot)

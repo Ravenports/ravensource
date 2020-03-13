@@ -1,0 +1,6 @@
+USES=			png
+BUILD_DEPENDS=		perl-File-Which:single:perl_default
+BUILDRUN_DEPENDS=	pgplot:primary:standard
+
+post-patch:
+	${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|g' ${WRKSRC}/Makefile.PL

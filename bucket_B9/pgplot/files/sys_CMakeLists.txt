@@ -1,0 +1,331 @@
+set (S "${CMAKE_SOURCE_DIR}/src")
+set (D "../drivers")
+set (BSD "../sys_freebsd")
+
+set(PG_ROUTINES
+	${S}/pgarro.f
+	${S}/pgask.f
+	${S}/pgaxis.f
+	${S}/pgaxlg.f
+	${S}/pgband.f
+	${S}/pgbbuf.f
+	${S}/pgbeg.f
+	${S}/pgbin.f
+	${S}/pgbox.f
+	${S}/pgbox1.f
+	${S}/pgcirc.f
+	${S}/pgcl.f
+	${S}/pgclos.f
+	${S}/pgcn01.f
+	${S}/pgcnsc.f
+	${S}/pgconb.f 
+	${S}/pgconf.f 
+	${S}/pgconl.f 
+	${S}/pgcons.f 
+	${S}/pgcont.f 
+	${S}/pgconx.f 
+	${S}/pgcp.f 
+	${S}/pgctab.f
+	${S}/pgcurs.f 
+	${S}/pgdraw.f 
+	${S}/pgebuf.f 
+	${S}/pgend.f 
+	${S}/pgenv.f 
+	${S}/pgeras.f 
+	${S}/pgerr1.f 
+	${S}/pgerrb.f
+	${S}/pgerrx.f 
+	${S}/pgerry.f 
+	${S}/pgetxt.f 
+	${S}/pgfunt.f 
+	${S}/pgfunx.f 
+	${S}/pgfuny.f 
+	${S}/pggray.f
+	${S}/pghi2d.f 
+	${S}/pghis1.f 
+	${S}/pghist.f 
+	${S}/pghtch.f 
+	${S}/pgiden.f 
+	${S}/pgimag.f 
+	${S}/pginit.f 
+	${S}/pglab.f
+	${S}/pglcur.f 
+	${S}/pgldev.f 
+	${S}/pglen.f 
+	${S}/pgline.f 
+	${S}/pgmove.f 
+	${S}/pgmtxt.f 
+	${S}/pgncur.f 
+	${S}/pgnoto.f
+	${S}/pgnpl.f 
+	${S}/pgnumb.f 
+	${S}/pgolin.f 
+	${S}/pgopen.f 
+	${S}/pgpage.f 
+	${S}/pgpanl.f 
+	${S}/pgpap.f 
+	${S}/pgpixl.f
+	${S}/pgpnts.f 
+	${S}/pgpoly.f 
+	${S}/pgpt.f 
+	${S}/pgpt1.f 
+	${S}/pgptxt.f 
+	${S}/pgqah.f 
+	${S}/pgqcf.f 
+	${S}/pgqch.f
+	${S}/pgqci.f 
+	${S}/pgqcir.f 
+	${S}/pgqclp.f 
+	${S}/pgqcol.f 
+	${S}/pgqcr.f 
+	${S}/pgqcs.f 
+	${S}/pgqdt.f 
+	${S}/pgqfs.f
+	${S}/pgqhs.f 
+	${S}/pgqid.f 
+	${S}/pgqinf.f 
+	${S}/pgqitf.f 
+	${S}/pgqls.f 
+	${S}/pgqlw.f 
+	${S}/pgqndt.f 
+	${S}/pgqpos.f
+	${S}/pgqtbg.f 
+	${S}/pgqtxt.f 
+	${S}/pgqvp.f 
+	${S}/pgqvsz.f 
+	${S}/pgqwin.f 
+	${S}/pgrect.f 
+	${S}/pgrnd.f 
+	${S}/pgrnge.f
+	${S}/pgsah.f 
+	${S}/pgsave.f 
+	${S}/pgscf.f 
+	${S}/pgsch.f 
+	${S}/pgsci.f 
+	${S}/pgscir.f 
+	${S}/pgsclp.f 
+	${S}/pgscr.f
+	${S}/pgscrl.f 
+	${S}/pgscrn.f 
+	${S}/pgsfs.f 
+	${S}/pgshls.f 
+	${S}/pgshs.f 
+	${S}/pgsitf.f 
+	${S}/pgslct.f 
+	${S}/pgsls.f
+	${S}/pgslw.f 
+	${S}/pgstbg.f 
+	${S}/pgsubp.f 
+	${S}/pgsvp.f 
+	${S}/pgswin.f 
+	${S}/pgtbox.f 
+	${S}/pgtext.f 
+	${S}/pgtick.f
+	${S}/pgtikl.f 
+	${S}/pgupdt.f 
+	${S}/pgvect.f 
+	${S}/pgvsiz.f 
+	${S}/pgvstd.f 
+	${S}/pgvw.f 
+	${S}/pgwedg.f 
+	${S}/pgwnad.f
+)
+
+set(PG_NON_STANDARD
+	${S}/pgadvance.f 
+	${S}/pgbegin.f 
+	${S}/pgcurse.f 
+	${S}/pglabel.f
+	${S}/pgmtext.f 
+	${S}/pgncurse.f 
+	${S}/pgpaper.f 
+	${S}/pgpoint.f 
+	${S}/pgptext.f 
+	${S}/pgvport.f 
+	${S}/pgvsize.f
+	${S}/pgvstand.f 
+	${S}/pgwindow.f
+)
+
+set(GR_ROUTINES
+	${S}/grarea.f 
+	${S}/grbpic.f 
+	${S}/grchsz.f 
+	${S}/grclip.f 
+	${S}/grclos.f 
+	${S}/grclpl.f
+	${S}/grctoi.f 
+	${S}/grcurs.f 
+	${S}/grdot0.f 
+	${S}/grdot1.f 
+	${S}/grdtyp.f 
+	${S}/gresc.f 
+	${S}/grepic.f 
+	${S}/gretxt.f
+	${S}/grfa.f 
+	${S}/grfao.f 
+	${S}/grgfil.f 
+	${S}/grgray.f 
+	${S}/grimg0.f 
+	${S}/grimg1.f 
+	${S}/grimg2.f 
+	${S}/grimg3.f
+	${S}/grinit.f 
+	${S}/gritoc.f 
+	${S}/grldev.f 
+	${S}/grlen.f 
+	${S}/grlin0.f 
+	${S}/grlin1.f 
+	${S}/grlin2.f 
+	${S}/grlin3.f
+	${S}/grlina.f 
+	${S}/grmcur.f 
+	${S}/grmker.f 
+	${S}/grmova.f 
+	${S}/grmsg.f 
+	${S}/gropen.f 
+	${S}/grpage.f 
+	${S}/grpars.f
+	${S}/grpixl.f 
+	${S}/grpocl.f 
+	${S}/grprom.f 
+	${S}/grpxpo.f 
+	${S}/grpxps.f 
+	${S}/grpxpx.f 
+	${S}/grpxre.f
+	${S}/grqcap.f 
+	${S}/grqci.f 
+	${S}/grqcol.f 
+	${S}/grqcr.f 
+	${S}/grqdev.f 
+	${S}/grqdt.f 
+	${S}/grqfnt.f 
+	${S}/grqls.f
+	${S}/grqlw.f 
+	${S}/grqpos.f 
+	${S}/grqtxt.f 
+	${S}/grqtyp.f 
+	${S}/grquit.f 
+	${S}/grrec0.f 
+	${S}/grrect.f 
+	${S}/grsci.f
+	${S}/grscr.f 
+	${S}/grsetc.f 
+	${S}/grscrl.f 
+	${S}/grsetc.f 
+	${S}/grsets.f 
+	${S}/grsfnt.f 
+	${S}/grsize.f 
+	${S}/grskpb.f
+	${S}/grslct.f 
+	${S}/grsls.f 
+	${S}/grslw.f 
+	${S}/grsyds.f 
+	${S}/grsymk.f 
+	${S}/grsyxd.f 
+	${S}/grterm.f 
+	${S}/grtext.f
+	${S}/grtoup.f 
+	${S}/grtrim.f 
+	${S}/grtrn0.f 
+	${S}/grtxy0.f 
+	${S}/grvct0.f 
+	${S}/grwarn.f 
+	${S}/grxhls.f
+	${S}/grxrgb.f
+)
+
+set(DRIVERS
+	${D}/gidriv.f
+	${D}/gldriv.f
+	${D}/hgdriv.f
+	${D}/lxdriv.f
+	${D}/nudriv.f
+	${D}/ppdriv.f
+	${D}/psdriv.f
+	${D}/ttdriv.f
+	${D}/wddriv.f
+	${D}/x2driv.c
+	${D}/figdisp_comm.c
+	${D}/xwdriv.c
+	${D}/cgdriv.c
+	${D}/pndriv.c
+	${D}/xadriv.c
+)
+
+set(SYSTEM_ROUTINES
+	grdate.c grfileio.c grflun.f grgcom.f grgenv.f
+	grgetc.c grglun.f grgmem.c grgmsg.f grlgtr.f groptx.f grsy00.f
+	grtermio.c grtrml.f grtter.f gruser.c
+)
+
+IF(CMAKE_SYSTEM_NAME MATCHES "(FreeBSD|DragonFly)")
+	set(OS_SPECIFIC ${BSD}/iand.c)
+ENDIF()
+
+set(SRCS 
+	${PG_ROUTINES}
+	${PG_NON_STANDARD}
+	${GR_ROUTINES}
+	${SYSTEM_ROUTINES}
+	${DRIVERS}
+	${OS_SPECIFIC}
+	grexec.f	# provided
+)
+
+add_library(fplotobj OBJECT ${SRCS})
+set_property(TARGET fplotobj PROPERTY POSITION_INDEPENDENT_CODE 1)
+
+add_library(pgplot SHARED $<TARGET_OBJECTS:fplotobj>)
+add_library(pgplot_static ${SRCS})
+
+set_target_properties(pgplot PROPERTIES VERSION 5)
+set_target_properties(pgplot PROPERTIES SOVERSION 5)
+
+target_compile_definitions (fplotobj PUBLIC PG_PPU)
+target_compile_definitions (pgplot_static PUBLIC PG_PPU)
+
+target_link_libraries (pgplot png)
+
+install(TARGETS pgplot
+	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+	PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libpgplot_static.a
+	RENAME libpgplot.a
+	DESTINATION lib)
+
+set (out_doc ${CMAKE_CURRENT_BINARY_DIR}/pgplot.doc)
+set (out_htm ${CMAKE_CURRENT_BINARY_DIR}/pgplot.html)
+set (out_tex ${CMAKE_CURRENT_BINARY_DIR}/pgplot-routines.tex)
+
+add_custom_command(
+	OUTPUT ${out_doc}
+	COMMAND ${CMAKE_SOURCE_DIR}/makedoc ${PG_ROUTINES} ${PG_NON_STANDARD} > ${out_doc}
+	DEPENDS ${PG_ROUTINES} ${PG_NON_STANDARD}
+	COMMENT "Generated ${out_doc}"
+	VERBATIM
+)
+
+add_custom_command(
+	OUTPUT ${out_htm}
+	COMMAND ${CMAKE_SOURCE_DIR}/makehtml ${PG_ROUTINES} ${PG_NON_STANDARD} > ${out_htm}
+	DEPENDS ${PG_ROUTINES} ${PG_NON_STANDARD}
+	COMMENT "Generated ${out_htm}"
+	VERBATIM
+)
+
+add_custom_command(
+	OUTPUT ${out_tex}
+	COMMAND ${CMAKE_SOURCE_DIR}/maketex ${PG_ROUTINES} ${PG_NON_STANDARD} > ${out_tex}
+	DEPENDS ${PG_ROUTINES} ${PG_NON_STANDARD}
+	COMMENT "Generated ${out_tex}"
+	VERBATIM
+)
+
+add_custom_target(gen_docs ALL
+	DEPENDS ${out_doc} ${out_htm} ${out_tex}
+)
+
+install(FILES ${out_doc} ${out_htm} ${out_tex}
+	DESTINATION share/doc/pgplot)
