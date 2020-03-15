@@ -1,19 +1,21 @@
 #!/bin/sh
 #
-# This script builds dragonfly's rust bootstrap packages.
+# This script builds dragonfly's rust bootstrap packages from
+# a dports package.  Normally they are built from Ravenports
+# package using the "create_rust_bootstrap.sh" script
 # It accepts two arguments
 #   1) version in the format "x.yy.z".
 #   2) optional: revison + epoch value
 #
-# This is the current version of rust in the ravenports repository, and
-# the corresponding package is considered to already be built.
+# The dports package should be put in the ravenports distfiles
+# directory.
 #
-# e.g. <DISTDIR>/rust-single-standard-1.32.0_1.tzst
-# would require invocation of: create_rust_bootstrap.sh 1.32.0 1
+# e.g. <DISTDIR>/rust-1.41.0.txz   
+# would require invocation of: dports_create_rust_bootstrap.sh 1.41.0
 #
-# Output: <DISTDIR>/rust-std-1.32.0-x86_64-unknown-dragonfly.tar.zst
-#         <DISTDIR>/rustc-1.32.0-x86_64-unknown-dragonfly.tar.zst
-#         <DISTDIR>/cargo-<calc>-x86_64-unknown-dragonfly.tar.zst
+# Output: <DISTDIR>/rust-std-1.41.0-x86_64-unknown-dragonfly.tar.xz
+#         <DISTDIR>/rustc-1.41.0-x86_64-unknown-dragonfly.tar.xz
+#         <DISTDIR>/cargo-<calc>-x86_64-unknown-dragonfly.tar.xz
 #
 # requires installation:
 #   libexecinfo-single-standard
@@ -35,7 +37,7 @@ BBASE=$(/raven/bin/ravenadm dev info J)
 PKGDIR=$(/raven/bin/ravenadm dev info H)/All
 RASSY=${BBASE}/rust-assy
 RINST=${BBASE}/rust-installer
-RPKG=${PKGDIR}/rust-single-standard-${1}${REVEPOCH}.tzst
+RPKG=${DISTDIR}/rust-${1}${REVEPOCH}.txz
 MYTAR=/raven/share/raven/sysroot/DragonFly/usr/bin/tar
 DFLY=x86_64-unknown-dragonfly
 NAME_STD=rust-std-${1}-${DFLY}
@@ -58,7 +60,9 @@ echo "Extracting ${RPKG} ..."
 # build rust-installer
 
 (cd ${BBASE} && git clone https://github.com/rust-lang/rust-installer.git)
-env PATH=${PATH}:${RASSY}/raven/bin cargo build \
+env PATH=${PATH}:${RASSY}/usr/local/bin \
+    LD_LIBRARY_PATH=${RASSY}/usr/local/lib \
+	cargo build \
 	--manifest-path="${RINST}/Cargo.toml"
 
 if [ $? -ne 0 ]; then
@@ -66,14 +70,15 @@ if [ $? -ne 0 ]; then
    exit 1
 fi
 
-CARGOVER=$(awk -f ${SCRIPTSDIR}/_cargo.awk ${RASSY}/raven/lib/rustlib/src/rust/Cargo.lock)
+#CARGOVER=$(awk -f ${SCRIPTSDIR}/_cargo.awk ${RASSY}/usr/local/lib/rustlib/src/rust/Cargo.lock)
+CARGOVER=0.42.0
 NAME_CARGO=cargo-${CARGOVER}-${DFLY}
 NAME_CARGO_PKG=${NAME_CARGO}.tar.zst
 
 # rust-std package
 echo rust-std-${DFLY} > ${RASSY}/${NAME_STD}/components
-cp -a ${RASSY}/raven/lib/rustlib/rust-installer-version ${RASSY}/${NAME_STD}/
-cp -a ${RASSY}/raven/lib/rustlib/${DFLY}/lib ${RASSY}/${NAME_STD}/${RUSTLIB}/${DFLY}/
+cp -a ${RASSY}/usr/local/lib/rustlib/rust-installer-version ${RASSY}/${NAME_STD}/
+cp -a ${RASSY}/usr/local/lib/rustlib/${DFLY}/lib ${RASSY}/${NAME_STD}/${RUSTLIB}/${DFLY}/
 MANIFEST=$(cd ${RASSY}/${NAME_STD}/rust-std-${DFLY} && find -s * -type f)
 for M in ${MANIFEST}; do
 	echo "file:${M}" >> ${RASSY}/${NAME_STD}/rust-std-${DFLY}/manifest.in
@@ -91,14 +96,15 @@ echo "Creating and relocating ${NAME_STD_PKG}."
 # rustc package
 mkdir -p ${RASSY}/${NAME_C}/rustc/bin
 mkdir -p ${RASSY}/${NAME_C}/rustc/lib/rustlib/etc
+mkdir -p ${RASSY}/${NAME_C}/rustc/lib/rustlib/${DFLY}/codegen-backends
 echo ${1} > ${RASSY}/${NAME_C}/version
 echo rustc > ${RASSY}/${NAME_C}/components
-cp -a ${RASSY}/raven/lib/rustlib/rust-installer-version ${RASSY}/${NAME_C}/
+cp -a ${RASSY}/usr/local/lib/rustlib/rust-installer-version ${RASSY}/${NAME_C}/
 for B in rust-gdb rust-lldb rustc rustdoc; do
-  cp -a ${RASSY}/raven/bin/${B} ${RASSY}/${NAME_C}/rustc/bin/
+  cp -a ${RASSY}/usr/local/bin/${B} ${RASSY}/${NAME_C}/rustc/bin/
 done
-cp -a ${RASSY}/raven/lib/lib* ${RASSY}/${NAME_C}/rustc/lib/
-cp -a ${RASSY}/raven/lib/rustlib/etc/* ${RASSY}/${NAME_C}/rustc/lib/rustlib/etc/
+cp -a ${RASSY}/usr/local/lib/lib* ${RASSY}/${NAME_C}/rustc/lib/
+cp -a ${RASSY}/usr/local/lib/rustlib/etc/* ${RASSY}/${NAME_C}/rustc/lib/rustlib/etc/
 MANIFEST=$(cd ${RASSY}/${NAME_C}/rustc && find -s * -type f)
 for M in ${MANIFEST}; do
 	echo "file:${M}" >> ${RASSY}/${NAME_C}/rustc/manifest.in
@@ -118,9 +124,9 @@ mkdir -p ${RASSY}/${NAME_CARGO}/cargo/bin
 mkdir -p ${RASSY}/${NAME_CARGO}/cargo/share/zsh/site-functions
 echo ${CARGOVER} > ${RASSY}/${NAME_CARGO}/version
 echo cargo > ${RASSY}/${NAME_CARGO}/components
-cp -a ${RASSY}/raven/lib/rustlib/rust-installer-version ${RASSY}/${NAME_CARGO}/
-cp -a ${RASSY}/raven/bin/cargo ${RASSY}/${NAME_CARGO}/cargo/bin/
-cp -a ${RASSY}/raven/share/zsh/site-functions/_cargo ${RASSY}/${NAME_CARGO}/cargo/share/zsh/site-functions
+cp -a ${RASSY}/usr/local/lib/rustlib/rust-installer-version ${RASSY}/${NAME_CARGO}/
+cp -a ${RASSY}/usr/local/bin/cargo ${RASSY}/${NAME_CARGO}/cargo/bin/
+cp -a ${RASSY}/usr/local/share/zsh/site-functions/_cargo ${RASSY}/${NAME_CARGO}/cargo/share/zsh/site-functions
 MANIFEST=$(cd ${RASSY}/${NAME_CARGO}/cargo && find -s * -type f)
 for M in ${MANIFEST}; do
 	echo "file:${M}" >> ${RASSY}/${NAME_CARGO}/cargo/manifest.in
@@ -136,4 +142,4 @@ echo "Creating and relocating ${NAME_CARGO_PKG}."
 (cd ${RASSY} && ${MYTAR} -c --zstd -f ${NAME_CARGO_PKG} ${NAME_CARGO}) && mv ${RASSY}/${NAME_CARGO_PKG} ${DISTDIR}/
 
 echo "cleaning everything up."
-rm -rf ${RASSY} ${RINST}
+# rm -rf ${RASSY} ${RINST}
