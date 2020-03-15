@@ -1,0 +1,27 @@
+DEF[PORTVERSION]=	1.5.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		spdlog
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Super fast C++ logging library
+HOMEPAGE=		https://github.com/gabime/spdlog
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/gabime:spdlog:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/spdlog
+
+USES=			meson pkgconfig
