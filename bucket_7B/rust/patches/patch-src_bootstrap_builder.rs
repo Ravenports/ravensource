@@ -1,9 +1,9 @@
---- src/bootstrap/builder.rs.orig	2019-12-16 15:38:05 UTC
+--- src/bootstrap/builder.rs.orig	2020-02-24 22:45:57 UTC
 +++ src/bootstrap/builder.rs
-@@ -994,12 +994,13 @@ impl<'a> Builder<'a> {
-                       !target.contains("wasm32") &&
-                       !target.contains("emscripten") &&
-                       !target.contains("fuchsia") {
+@@ -970,12 +970,13 @@ impl<'a> Builder<'a> {
+                 rustflags.arg("-Zosx-rpath-install-name");
+                 Some("-Wl,-rpath,@loader_path/../lib")
+             } else if !target.contains("windows") {
 -                Some("-Wl,-rpath,$ORIGIN/../lib")
 +                Some("-Wl,-rpath,$ORIGIN/../lib:@OPENSSLLIB@")
              } else {

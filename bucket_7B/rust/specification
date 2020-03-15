@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.40.0
+DEF[PORTVERSION]=	1.41.1
 DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
 # ----------------------------------------------------------------------------
 
@@ -14,15 +14,17 @@ DOWNLOAD_GROUPS=	main dflyboot
 SITES[main]=		https://static.rust-lang.org/dist/
 SITES[dflyboot]=	https://leaf.dragonflybsd.org/~marino/dports-src/rust/
 DISTFILE[1]=		rustc-${PORTVERSION}-src.tar.xz:main
-DISTFILE[2]=		rustc-1.39.0-x86_64-unknown-dragonfly.tar.zst:dflyboot
-DISTFILE[3]=		rust-std-1.39.0-x86_64-unknown-dragonfly.tar.zst:dflyboot
-DISTFILE[4]=		cargo-0.40.0-x86_64-unknown-dragonfly.tar.zst:dflyboot
-DISTFILE[5]=		rustc-1.39.0-x86_64-unknown-freebsd.tar.gz:main
-DISTFILE[6]=		rust-std-1.39.0-x86_64-unknown-freebsd.tar.gz:main
-DISTFILE[7]=		cargo-0.40.0-x86_64-unknown-freebsd.tar.gz:main
-DISTFILE[8]=		rustc-1.39.0-x86_64-unknown-linux-gnu.tar.gz:main
-DISTFILE[9]=		rust-std-1.39.0-x86_64-unknown-linux-gnu.tar.gz:main
-DISTFILE[10]=		cargo-0.40.0-x86_64-unknown-linux-gnu.tar.gz:main
+
+DISTFILE[2]=		rustc-1.41.1-x86_64-unknown-dragonfly.tar.zst:dflyboot
+DISTFILE[3]=		rust-std-1.41.1-x86_64-unknown-dragonfly.tar.zst:dflyboot
+DISTFILE[4]=		cargo-0.42.0-x86_64-unknown-dragonfly.tar.zst:dflyboot
+
+DISTFILE[5]=		rustc-1.41.1-x86_64-unknown-freebsd.tar.gz:main
+DISTFILE[6]=		rust-std-1.41.1-x86_64-unknown-freebsd.tar.gz:main
+DISTFILE[7]=		cargo-0.42.0-x86_64-unknown-freebsd.tar.gz:main
+DISTFILE[8]=		rustc-1.41.1-x86_64-unknown-linux-gnu.tar.gz:main
+DISTFILE[9]=		rust-std-1.41.1-x86_64-unknown-linux-gnu.tar.gz:main
+DISTFILE[10]=		cargo-0.42.0-x86_64-unknown-linux-gnu.tar.gz:main
 DF_INDEX=		1
 
 SPKGS[standard]=	single
@@ -85,6 +87,7 @@ SHEBANG_FILES=		src/llvm-project/compiler-rt/lib/sanitizer_common/symbolizer/scr
 			src/llvm-project/compiler-rt/lib/sanitizer_common/scripts/*.py
 			src/llvm-project/compiler-rt/lib/asan/scripts/asan_symbolize.py
 			src/libcore/unicode/unicode.py
+			src/libcore/unicode/printable.py
 
 BLOCK_WATCHDOG=		yes
 
@@ -191,5 +194,4 @@ post-install:
 		${STAGEDIR}${PREFIX}/bin/rustdoc \
 		${STAGEDIR}${PREFIX}/bin/rustfmt \
 		${STAGEDIR}${PREFIX}/lib/*.so \
-		${STAGEDIR}${PREFIX}/lib/rustlib/*/lib/*.so \
-		${STAGEDIR}${PREFIX}/lib/rustlib/*/codegen-backends/*.so
+		${STAGEDIR}${PREFIX}/lib/rustlib/*/lib/*.so
