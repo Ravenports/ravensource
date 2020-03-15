@@ -1,6 +1,6 @@
---- common/unicode/platform.h.orig	2019-03-27 18:47:14 UTC
+--- common/unicode/platform.h.orig	2019-10-03 11:16:41 UTC
 +++ common/unicode/platform.h
-@@ -170,6 +170,9 @@
+@@ -178,6 +178,9 @@
  #       include <sys/endian.h>
  #   endif
  #   define U_PLATFORM U_PF_BSD
@@ -10,7 +10,7 @@
  #elif defined(sun) || defined(__sun)
      /* Check defined(__SVR4) || defined(__svr4__) to distinguish Solaris from SunOS? */
  #   define U_PLATFORM U_PF_SOLARIS
-@@ -364,8 +367,8 @@
+@@ -374,8 +377,8 @@
   */
  #ifdef U_IS_BIG_ENDIAN
      /* Use the predefined value. */
