@@ -434,7 +434,6 @@ headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
 			usb.h \
 			usbhid.h \
 			util.h \
-			utmp.h \
 			uuid.h \
 			vis.h \
 			xlocale.h \
