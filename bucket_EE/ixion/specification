@@ -38,11 +38,12 @@ LDFLAGS=		-lboost_thread
 			-lboost_program_options
 			-lboost_filesystem
 
-post-patch:
-	# fix cmake definition bug
-	${REINPLACE_CMD} -e 's|libixion-|ixion-|g' \
-		${WRKSRC}/src/libixion/CMakeLists.txt \
-		${WRKSRC}/src/CMakeLists.txt
+# Don't fix liblibixion because liborcus looks for it
+# post-patch:
+# #	# fix cmake definition bug
+# #	${REINPLACE_CMD} -e 's|libixion-|ixion-|g' \
+# #		${WRKSRC}/src/libixion/CMakeLists.txt \
+# #		${WRKSRC}/src/CMakeLists.txt
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ixion*
