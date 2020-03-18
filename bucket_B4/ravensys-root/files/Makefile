@@ -339,6 +339,7 @@ headers_FreeBSD_dirs=	arpa \
 			cam \
 			crypto \
 			dev \
+			fs \
 			geom \
 			machine \
 			net \
@@ -346,6 +347,7 @@ headers_FreeBSD_dirs=	arpa \
 			netipsec \
 			netinet \
 			netinet6 \
+			nfsclient \
 			rpc \
 			rpcsvc \
 			sys \
