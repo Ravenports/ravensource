@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	1.3
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		re2c
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Generator of C-based recognizers from regex
+HOMEPAGE=		https://re2c.org
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/skvadrik/re2c/releases/download/${PORTVERSION}/
+DISTFILE[1]=		re2c-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary examples docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		PUBDOM:primary
+LICENSE_FILE=		PUBDOM:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/re2c
+
+USES=			c++:primary
+MUST_CONFIGURE=		gnu
+
+post-install:
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+	(cd ${WRKSRC}/doc && ${COPYTREE_SHARE} . ${STAGEDIR}${STD_DOCDIR})
+	(cd ${WRKSRC}/examples && ${COPYTREE_SHARE} . ${STAGEDIR}${STD_EXAMPLESDIR})
+	${RM} ${STAGEDIR}${STD_DOCDIR}/re2c.1
