@@ -1,0 +1,48 @@
+DEF[PORTVERSION]=	1714
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gn
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Meta-build system to generate Ninja build files
+HOMEPAGE=		https://gn.googlesource.com/gn
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/cglogic:gn:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/gn
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+USES=			ninja python:py27,build shebangfix c++:single
+SHEBANG_FILES=		build/gen.py
+MUST_CONFIGURE=		yes
+CONFIGURE_SCRIPT=	build/gen.py
+CONFIGURE_OUTSOURCE=	yes
+CONFIGURE_WRKSRC=	{{WRKSRC}}/out
+CONFIGURE_ENV=		GN_VERSION=${PORTVERSION}
+			CC={{CC}}
+			CXX={{CXX}}
+			LD={{CXX}}
+			AR={{AR}}
+BUILD_TARGET=		#nothing
+CFLAGS=			-Wno-deprecated-copy
+
+NOT_FOR_OPSYS=		sunos netbsd
+
+post-patch:
+	${REINPLACE_CMD} 's/"python"/"${PYTHON_CMD:T}"/' \
+		${WRKSRC}/src/gn/exec_process_unittest.cc
+
+do-install:
+	${INSTALL_PROGRAM} ${INSTALL_WRKSRC}/gn ${STAGEDIR}${PREFIX}/bin
