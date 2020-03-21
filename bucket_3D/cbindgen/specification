@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.13.1
+DEF[PORTVERSION]=	0.13.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		cbindgen
@@ -111,3 +111,6 @@ FPC_EQUIVALENT=		devel/rust-cbindgen
 USES=			cargo cclibs:single
 
 B_DEPS[linux]=		libiconv:shared:standard
+
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/.crates2.json
