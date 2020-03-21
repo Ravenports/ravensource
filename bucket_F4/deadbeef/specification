@@ -3,6 +3,8 @@ DEF[PORTVERSION]=	1.8.3
 
 NAMEBASE=		deadbeef
 VERSION=		${PORTVERSION}
+# rerolled
+REVISION=		1
 KEYWORDS=		audio
 VARIANTS=		standard
 SDESC[standard]=	Ultimate music player for Unix-like systems
@@ -50,9 +52,9 @@ BUILDRUN_DEPENDS=	libmad:single:standard
 			libzip:primary:standard
 			ffmpeg:primary:standard
 
-USES=			gmake iconv libtool pkgconfig jpeg gettext-tools
+USES=			autoreconf gmake iconv libtool pkgconfig jpeg
 			shebangfix gnome-icons:single desktop-utils:single
-			autoreconf
+			gettext-runtime gettext-tools
 GNOME_COMPONENTS=	intltool gtk3
 INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
@@ -71,6 +73,8 @@ SHEBANG_FILES=		yasmwrapper.sh
 post-extract:
 	(cd ${WRKSRC} && ${HEAD} -n 100 plugins/*/COPYING \
 		> ${WRKDIR}/LICENSE_PLUGINS)
+	# Fix libintl linking
+	${REINPLACE_CMD} -e 's/INTL_LIBS/INTLLIBS/' ${WRKSRC}/Makefile.am
 	(cd ${WRKSRC} && ${SH} ${WRKSRC}/autogen.sh)
 
 post-patch:
