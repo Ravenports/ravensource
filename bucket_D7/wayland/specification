@@ -14,7 +14,9 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://wayland.freedesktop.org/releases/
 DISTFILE[1]=		wayland-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary
+# manpages docs
+# disables docs subpackage until graphviz's dot fixed
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -31,16 +33,19 @@ ONLY_FOR_OPSYS=		dragonfly
 USES=			autoreconf gmake libtool pkgconfig
 
 BUILD_DEPENDS=		libxslt:single:standard
-			doxygen:single:standard
-			xmlto:single:standard
-			graphviz:primary:standard
-			docbook-xsl:primary:standard
+			expat:static:standard
+# #			doxygen:single:standard
+# #			xmlto:single:standard
+# #			graphviz:primary:standard
+# #			docbook-xsl:primary:standard
 
 BUILDRUN_DEPENDS=	libffi:single:standard
 			expat:shared:standard
 
 GNOME_COMPONENTS=	libxml2
 MUST_CONFIGURE=		gnu
+# Graphviz's dot segfaults immediately since DF 5.8
+CONFIGURE_ARGS=		--disable-documentation
 
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
