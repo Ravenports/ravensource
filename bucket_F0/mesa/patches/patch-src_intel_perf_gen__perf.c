@@ -2,7 +2,7 @@ $NetBSD: patch-src_intel_perf_gen__perf.c,v 1.1 2019/08/24 20:11:19 nia Exp $
 
 SunOS does not have d_type in DIR structure.
 
---- src/intel/perf/gen_perf.c.orig	2020-02-13 19:08:32 UTC
+--- src/intel/perf/gen_perf.c.orig	2020-03-09 20:36:38 UTC
 +++ src/intel/perf/gen_perf.c
 @@ -403,6 +403,9 @@ get_sysfs_dev_dir(struct gen_perf_config
     DIR *drmdir;

@@ -1,4 +1,4 @@
---- src/mesa/drivers/dri/i965/intel_batchbuffer.c.orig	2020-02-13 19:08:32 UTC
+--- src/mesa/drivers/dri/i965/intel_batchbuffer.c.orig	2020-03-09 20:36:38 UTC
 +++ src/mesa/drivers/dri/i965/intel_batchbuffer.c
 @@ -67,7 +67,11 @@ dump_validation_list(struct intel_batchb
        uint64_t flags = batch->validation_list[i].flags;
