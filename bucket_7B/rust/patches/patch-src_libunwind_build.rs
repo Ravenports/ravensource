@@ -1,4 +1,4 @@
---- src/libunwind/build.rs.orig	2020-02-24 22:45:57 UTC
+--- src/libunwind/build.rs.orig	2020-03-09 22:11:17 UTC
 +++ src/libunwind/build.rs
 @@ -31,7 +31,7 @@ fn main() {
      } else if target.contains("solaris") {

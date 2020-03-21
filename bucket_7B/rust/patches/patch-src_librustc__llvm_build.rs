@@ -1,9 +1,9 @@
---- src/librustc_llvm/build.rs.orig	2020-02-24 22:45:57 UTC
+--- src/librustc_llvm/build.rs.orig	2020-03-09 22:11:17 UTC
 +++ src/librustc_llvm/build.rs
-@@ -259,10 +259,6 @@ fn main() {
-         } else {
-             "c++"
-         }
+@@ -250,10 +250,6 @@ fn main() {
+ 
+     let stdcppname = if target.contains("openbsd") {
+         if target.contains("sparc64") { "estdc++" } else { "c++" }
 -    } else if target.contains("freebsd") {
 -        "c++"
 -    } else if target.contains("darwin") {
