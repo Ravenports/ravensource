@@ -1,24 +1,24 @@
---- configure.orig	2018-01-20 00:27:18 UTC
+--- configure.orig	2020-02-08 21:06:19 UTC
 +++ configure
-@@ -5977,7 +5977,7 @@ case $cf_cv_system_name in
- 	LD_RPATH_OPT="-Wl,-rpath,"
- 	;;
- (dragonfly*)
--	LD_RPATH_OPT="-rpath "
-+	LD_RPATH_OPT="-Wl,-rpath,"
- 	;;
- (netbsd*)
- 	LD_RPATH_OPT="-Wl,-rpath,"
-@@ -5986,7 +5986,7 @@ case $cf_cv_system_name in
- 	LD_RPATH_OPT="-rpath "
- 	;;
- (solaris2*)
--	LD_RPATH_OPT="-R"
-+	LD_RPATH_OPT="-Wl,-R"
- 	;;
- (*)
- 	;;
-@@ -6472,11 +6472,11 @@ CF_EOF
+@@ -5602,7 +5602,7 @@ echo $ECHO_N "checking for an rpath opti
+ 		LD_RPATH_OPT="-Wl,-rpath,"
+ 		;;
+ 	(dragonfly*)
+-		LD_RPATH_OPT="-rpath "
++		LD_RPATH_OPT="-Wl,-rpath,"
+ 		;;
+ 	(netbsd*)
+ 		LD_RPATH_OPT="-Wl,-rpath,"
+@@ -5611,7 +5611,7 @@ echo $ECHO_N "checking for an rpath opti
+ 		LD_RPATH_OPT="-rpath "
+ 		;;
+ 	(solaris2*)
+-		LD_RPATH_OPT="-R"
++		LD_RPATH_OPT="-Wl,-R"
+ 		;;
+ 	(*)
+ 		;;
+@@ -6098,11 +6098,11 @@ CF_EOF
  		# tested with SunOS 5.5.1 (solaris 2.5.1) and gcc 2.7.2
  		# tested with SunOS 5.10 (solaris 10) and gcc 3.4.3
  		if test "$DFT_LWR_MODEL" = "shared" ; then
