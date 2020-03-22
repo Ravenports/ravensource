@@ -153,6 +153,9 @@ post-install-STATIC-OFF:
 .endfor
 
 post-stage:
-	${SED} -i'' -e 's|-ldb-5||' -e 's|-Wl,.*/db5||' \
+	${SED} -i'' -E \
+		-e 's| -ldb-5||' \
+		-e 's| -Wl,[[:graph:]]*/db5||' \
+		-e 's| -L[[:graph:]]*/db5||' \
 		${STAGEDIR}${PREFIX}/lib/pkgconfig/*.pc \
 		${STAGEDIR}${PREFIX}/bin/ncurse*-config
