@@ -1,4 +1,4 @@
---- src/intel/compiler/brw_fs_bank_conflicts.cpp.orig	2020-03-09 20:36:38 UTC
+--- src/intel/compiler/brw_fs_bank_conflicts.cpp.orig	2020-03-18 21:24:19 UTC
 +++ src/intel/compiler/brw_fs_bank_conflicts.cpp
 @@ -309,8 +309,13 @@ namespace {
           const unsigned align = MAX2(sizeof(void *), __alignof__(vector_type));
@@ -14,7 +14,7 @@
           memset(p, 0, size);
           return reinterpret_cast<vector_type *>(p);
        }
-@@ -728,7 +733,7 @@ namespace {
+@@ -736,7 +741,7 @@ namespace {
                     const weight_vector_type &conflicts)
     {
        const unsigned m = DIV_ROUND_UP(conflicts.size, vector_width);

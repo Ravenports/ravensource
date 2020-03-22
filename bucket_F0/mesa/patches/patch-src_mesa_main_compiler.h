@@ -1,4 +1,4 @@
---- src/mesa/main/compiler.h.orig	2020-03-09 20:36:39 UTC
+--- src/mesa/main/compiler.h.orig	2020-03-18 21:24:19 UTC
 +++ src/mesa/main/compiler.h
 @@ -51,6 +51,9 @@
  #if defined(__linux__)
