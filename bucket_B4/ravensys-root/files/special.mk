@@ -25,6 +25,6 @@ Librt_FreeBSD=		librt.so.1
 Librpcsvc_DragonFly=	librpcsvc.so.3
 Librpcsvc_FreeBSD=	librpcsvc.so.5
 
-SYSPATH=		share/raven/sysroot/${OPSYS}
+SYSPATH=		share${RAVENBASE}/sysroot/${OPSYS}
 RSYS=			${PREFIX}/${SYSPATH}
 FOS=			${WRKDIR}/${OPSYS:tl}
