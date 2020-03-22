@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	3.11.3
+# manually updated (struck on 3.14.3 for weeks)
+DEF[PORTVERSION]=	3.11.4
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-protobuf
@@ -11,8 +12,10 @@ HOMEPAGE=		https://developers.google.com/protocol-buffers/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/p/protobuf
-DISTFILE[1]=		protobuf-3.11.3.tar.gz:main
+# SITES[main]=		PYPI/p/protobuf
+# DISTFILE[1]=		protobuf-3.11.3.tar.gz:main
+SITES[main]=		GITHUB/protocolbuffers:protobuf:v${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -29,7 +32,8 @@ GENERATED=		yes
 
 # install_requires extracted from setup.py (using python 2.7)
 
-DISTNAME=		protobuf-${PORTVERSION}
+# DISTNAME=		protobuf-${PORTVERSION}
+DISTNAME=		protobuf-${PORTVERSION}/python
 
 [PY38].USES_ON=				python:py38
 
@@ -37,4 +41,4 @@ DISTNAME=		protobuf-${PORTVERSION}
 BUILD_DEPENDS=		protobuf:single:standard
 
 post-patch:
-	@${MKDIR} ${WRKSRC}/google/protobuf/compiler/
+	${MKDIR} ${WRKSRC}/google/protobuf/compiler/
