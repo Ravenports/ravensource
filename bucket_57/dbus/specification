@@ -4,6 +4,7 @@ DEF[SOVERSION]=		3.19.11
 
 NAMEBASE=		dbus
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Message bus system for IPC communication
@@ -33,6 +34,7 @@ FPC_EQUIVALENT=		devel/dbus
 BUILD_DEPENDS=		expat:static:standard
 			minixmlto:single:standard
 BUILDRUN_DEPENDS=	expat:shared:standard
+RUN_DEPENDS=		xmlcatmgr:single:standard
 
 USES=			cpe gmake libtool python:build shebangfix
 XORG_COMPONENTS=	ice sm x11
@@ -57,6 +59,9 @@ USERGROUP_SPKG=		single
 
 PLIST_SUB=		VERSION="1.0"
 			GROUPS={{GROUPS}}
+			DTDDIR=share/xml/dbus-1
+SUB_FILES=		catalog catalog.xml
+SUB_LIST=		DTDDIR={{PREFIX}}/share/xml/dbus-1
 SOVERSION=		${SOVERSION}
 
 post-extract:
@@ -71,3 +76,6 @@ post-patch:
 post-install:
 	# delete examples
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
+	# install xmlcat catalogs
+	(cd ${WRKDIR} && ${INSTALL_DATA} catalog* \
+		${STAGEDIR}${PREFIX}/share/xml/dbus-1/)
