@@ -1,4 +1,4 @@
---- lib/cdefs.h.orig	2019-12-23 10:32:13 UTC
+--- lib/cdefs.h.orig	2020-02-07 10:18:48 UTC
 +++ lib/cdefs.h
 @@ -292,7 +292,7 @@
     for portability when this file is used in Gnulib.  */
