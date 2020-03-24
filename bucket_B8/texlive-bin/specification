@@ -1,0 +1,176 @@
+DEF[PORTVERSION]=	20190410
+DEF[LIBKPATHSEA]=	6.3.1
+DEF[LIBPTEXENC]=	1.3.7
+DEF[LIBSYNCTEX]=	2.0.0
+DEF[LIBTEXLUA53]=	5.3.4
+DEF[LIBTEXLUAJIT]=	2.1.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		texlive-bin
+VERSION=		${PORTVERSION}
+KEYWORDS=		print
+VARIANTS=		standard
+SDESC[standard]=	Binary and input files for TeXlive
+HOMEPAGE=		https://www.tug.org/texlive
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main copying lppl
+SITES[main]=		ftp://ftp.tug.org/texlive/historic/2019/
+SITES[copying]=		https://www.tug.org/texlive/
+SITES[lppl]=		https://www.latex-project.org/
+DISTFILE[1]=		texlive-${PORTVERSION}-source.tar.xz:main
+DISTFILE[2]=		LICENSE.TL:copying
+DISTFILE[3]=		lppl.txt:lppl
+DIST_SUBDIR=		texlive
+DF_INDEX=		1 2 3
+
+SPKGS[standard]=	complete primary docs bibtex context
+			engine_luatex engine_pdftex engine_xetex
+			synctex utils xindy
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:primary
+LICENSE_NAME=		CUSTOM1:"TeX Live - Multi-license (LPPL, GNU, BSD, etc)"
+LICENSE_TERMS=		primary:{{DISTDIR}}/{{DIST_SUBDIR}}/LICENSE.TL
+LICENSE_FILE=		CUSTOM1:{{DISTDIR}}/{{DIST_SUBDIR}}/lppl.txt
+LICENSE_SCHEME=		solo
+
+EXTRACT_ONLY=		1
+USES=			gmake libtool perl png shebangfix
+XORG_COMPONENTS=	pixman x11 xaw
+GNOME_COMPONENTS=	cairo
+
+EXRUN[bibtex]=		texlive-bin:primary:standard
+EXRUN[engine_luatex]=	texlive-bin:primary:standard
+EXRUN[engine_pdftex]=	texlive-bin:primary:standard
+EXRUN[engine_xetex]=	texlive-bin:primary:standard
+
+BUILD_DEPENDS=		gmp:static:standard
+			mpfr:static:standard
+			clisp:primary:standard
+BUILDRUN_DEPENDS=	freetype:primary:standard
+			gmp:shared:standard
+			graphite:single:standard
+			harfbuzz:icu:standard
+			icu:single:standard
+			libGD:single:standard
+			libpaper:single:standard
+			mpfr:shared:standard
+			poppler:primary:standard
+			zziplib:primary:standard
+RUN_DEPENDS=		libffcall:single:standard
+			libsigsegv:shared:standard
+
+INSTALL_REQ_TOOLCHAIN=	yes
+DISTNAME=		texlive-${PORTVERSION}-source
+MUST_CONFIGURE=		gnu
+CONFIGURE_OUTSOURCE=	yes
+CONFIGURE_ARGS=		--with-banner-add="/Ravenports"
+			-C
+			--disable-dump-share
+			--disable-multiplatform
+			--disable-native-texlive-build
+			--disable-static
+			--disable-xindy-rules
+			--enable-luatex
+			--enable-shared
+			--enable-xindy
+			--enable-xindy-docs
+			--with-clisp-runtime=default
+			--with-system-cairo
+			--with-system-freetype2
+			--with-system-gd
+			--with-system-gmp
+			--with-system-graphite
+			--with-system-harfbuzz
+			--with-system-icu
+			--with-system-libpaper
+			--with-system-mpfr
+			--with-system-ncurses
+			--with-system-pixman
+			--with-system-pnglib
+			--with-system-poppler
+			--with-system-potrace
+			--with-system-t1lib
+			--with-system-zlib
+			--with-system-zziplib
+			--with-xdvi-x-toolkit=xaw
+# --with-system-xpdf
+# System-Xpdf does not currently build. Try again when the port is updated.
+
+SHEBANG_FILES=		texk/texlive/linked_scripts/accfonts/mkt1font
+			texk/texlive/linked_scripts/accfonts/vpl2ovp
+			texk/texlive/linked_scripts/accfonts/vpl2vpl
+			texk/texlive/linked_scripts/arara/arara.sh
+			texk/texlive/linked_scripts/bibexport/bibexport.sh
+			texk/texlive/linked_scripts/ctan-o-mat/ctan-o-mat.pl
+			texk/texlive/linked_scripts/ctanupload/ctanupload.pl
+			texk/texlive/linked_scripts/de-macro/de-macro
+			texk/texlive/linked_scripts/dtxgen/dtxgen
+			texk/texlive/linked_scripts/ebong/ebong.py
+			texk/texlive/linked_scripts/exceltex/exceltex
+			texk/texlive/linked_scripts/findhyph/findhyph
+			texk/texlive/linked_scripts/fragmaster/fragmaster.pl
+			texk/texlive/linked_scripts/installfont/installfont-tl
+			texk/texlive/linked_scripts/latex-papersize/latex-papersize.py
+			texk/texlive/linked_scripts/latexpand/latexpand
+			texk/texlive/linked_scripts/lilyglyphs/lily-glyph-commands.py
+			texk/texlive/linked_scripts/lilyglyphs/lily-image-commands.py
+			texk/texlive/linked_scripts/lilyglyphs/lily-rebuild-pdfs.py
+			texk/texlive/linked_scripts/ltxfileinfo/ltxfileinfo
+			texk/texlive/linked_scripts/lua2dox/lua2dox_filter
+			texk/texlive/linked_scripts/makedtx/makedtx.pl
+			texk/texlive/linked_scripts/mathspic/mathspic.pl
+			texk/texlive/linked_scripts/mf2pt1/mf2pt1.pl
+			texk/texlive/linked_scripts/multibibliography/multibibliography.pl
+			texk/texlive/linked_scripts/pdfbook2/pdfbook2
+			texk/texlive/linked_scripts/pdflatexpicscale/pdflatexpicscale.pl
+			texk/texlive/linked_scripts/pdftex-quiet/pdftex-quiet
+			texk/texlive/linked_scripts/pdfxup/pdfxup
+			texk/texlive/linked_scripts/petri-nets/pn2pdf
+			texk/texlive/linked_scripts/pythontex/depythontex.py
+			texk/texlive/linked_scripts/pythontex/pythontex.py
+			texk/texlive/linked_scripts/splitindex/splitindex.pl
+			texk/texlive/linked_scripts/svn-multi/svn-multi.pl
+			texk/texlive/linked_scripts/texliveonfly/texliveonfly.py
+			texk/texlive/linked_scripts/ulqda/ulqda.pl
+			texk/texlive/linked_scripts/urlbst/urlbst
+			texk/texlive/linked_scripts/yplan/yplan
+
+PLIST_SUB=		LIBKPATHSEA=${LIBKPATHSEA}
+			LIBKPATHSEA_MAJOR=${LIBKPATHSEA:R:R}
+			LIBPTEXENC=${LIBPTEXENC}
+			LIBPTEXENC_MAJOR=${LIBPTEXENC:R:R}
+			LIBSYNCTEX=${LIBSYNCTEX}
+			LIBSYNCTEX_MAJOR=${LIBSYNCTEX:R:R}
+			LIBTEXLUA53=${LIBTEXLUA53}
+			LIBTEXLUA53_MAJOR=${LIBTEXLUA53:R:R}
+			LIBTEXLUAJIT=${LIBTEXLUAJIT}
+			LIBTEXLUAJIT_MAJOR=${LIBTEXLUAJIT:R:R}
+
+post-patch:
+	${CP} ${FILESDIR}/pdftoepdf-poppler0.76.0.cc \
+		${WRKSRC}/texk/web2c/pdftexdir/
+	${CP} ${FILESDIR}/pdftosrc-poppler0.76.0.cc \
+		${WRKSRC}/texk/web2c/pdftexdir/
+
+post-install:
+	${RM} -r ${STAGEDIR}${PREFIX}/share/info
+	${LN} -s eptex ${STAGEDIR}${PREFIX}/bin/platex
+	${LN} -s euptex ${STAGEDIR}${PREFIX}/bin/uplatex
+	${LN} -s luatex ${STAGEDIR}${PREFIX}/bin/dvilualatex
+	${LN} -s luatex ${STAGEDIR}${PREFIX}/bin/dviluatex
+	${LN} -s luatex ${STAGEDIR}${PREFIX}/bin/lualatex
+	${LN} -s tex ${STAGEDIR}${PREFIX}/bin/lollipop
+	${LN} -s xetex ${STAGEDIR}${PREFIX}/bin/xelatex
+	for lx in ${PDFTEX_LINKS}; do \
+	   ${LN} -s pdftex ${STAGEDIR}${PREFIX}/bin/$$lx ;\
+	done
+	for x in kpathsea ptexenc synctex texlua53 texluajit; do \
+	   ${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib$$x.so ;\
+	done
+	for p in ${PROGRAMS0} ${PROGRAMS1} ${PROGRAMS2}; do \
+	   ${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/$$p ;\
+	done
