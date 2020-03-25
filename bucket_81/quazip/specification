@@ -1,0 +1,55 @@
+DEF[PORTVERSION]=	0.8.1
+DEF[SOVERSION]=		1.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		quazip
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers
+VARIANTS=		standard
+SDESC[standard]=	Qt/C++ wrapper for Minizip
+HOMEPAGE=		https://github.com/stachenov/quazip
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/stachenov:quazip:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Main program is under LGPLv21 with static linking exception
+# Minizip bits are ZLIB licensed
+LICENSE=		CUSTOM1:single
+			ZLIB:single
+LICENSE_NAME=		CUSTOM1:"LGPLv21 with static linking exception"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/COPYING
+			ZLIB:{{WRKDIR}}/ZLIB-LICENSE
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/quazip/quazip.h
+			ZLIB:{{WRKSRC}}/quazip/zip.h
+LICENSE_AWK=		TERMS:"include <QString>"
+			ZLIB:"ifndef _zip12_H"
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		archivers/quazip
+
+BUILDRUN_DEPENDS=	qt5-qtbase:primary:standard
+
+USES=			cmake qt5
+
+CMAKE_ARGS=		-DBUILD_WITH_QT4:BOOL=OFF
+			-DCMAKE_INSTALL_PREFIX={{STAGEDIR}}{{PREFIX}}
+			-DQt5Core_DIR={{PREFIX}}/lib/qt5/cmake/Qt5Core
+
+SOVERSION=		${SOVERSION}
+
+do-install:
+	(cd ${BUILD_WRKSRC} && make DESTDIR=${STAGEDIR} install)
+	(cd ${WRKSRC}/quazip && ${PREFIX}/lib/qt5/bin/qmake quazip.pro)
+	${REINPLACE_CMD} -e 's/-lquazip/-lquazip5/' ${WRKSRC}/quazip/pkgconfig/quazip.pc
+	${INSTALL_DATA} ${WRKSRC}/quazip/pkgconfig/quazip.pc ${STAGEDIR}${PREFIX}/lib/pkgconfig
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libquazip5.so.${SOVERSION}
