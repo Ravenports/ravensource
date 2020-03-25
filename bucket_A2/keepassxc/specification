@@ -46,12 +46,20 @@ FPC_EQUIVALENT=		security/keepassxc
 USES=			cmake pkgconfig qt5 desktop-utils:single
 			mime-info:single
 BUILDRUN_DEPENDS=	argon2:single:standard
+			libsodium:single:standard
+			qrencode:single:standard
 			qt5-qtbase:primary:standard
 			qt5-qttools:single:standard
 			qt5-qtsvg:single:standard
 			qt5-qtx11extras:single:standard
-			qrencode:single:standard
-			libsodium:single:standard
+			quazip:single:standard
+
+CMAKE_ARGS=		-DKEEPASSXC_BUILD_TYPE:STRING=Release
+			-DWITH_XC_BROWSER:BOOL=ON
+			-DWITH_XC_KEESHARE:BOOL=ON
+			-DWITH_XC_NETWORKING:BOOL=ON
+			-DWITH_XC_SSHAGENT:BOOL=ON
+			-DWITH_XC_UPDATECHECK:BOOL=OFF
 
 post-patch:
 	${REINPLACE_CMD} -e "s|__PREFIX__|${PREFIX}|" \
