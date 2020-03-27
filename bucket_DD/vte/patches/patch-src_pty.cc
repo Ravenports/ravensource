@@ -1,6 +1,6 @@
---- src/pty.cc.orig	2020-03-03 07:51:17.000000000 +0100
-+++ src/pty.cc	2020-03-09 14:10:18.905175000 +0100
-@@ -619,6 +619,7 @@
+--- src/pty.cc.orig	2020-03-26 17:22:26 UTC
++++ src/pty.cc
+@@ -619,6 +619,7 @@ fd_set_cpkt(int fd)
  static int
  fd_setup(int fd)
  {
@@ -8,7 +8,7 @@
          if (fd_set_cloexec(fd) < 0) {
                  vte::util::restore_errno errsv;
                  _vte_debug_print(VTE_DEBUG_PTY,
-@@ -639,6 +640,7 @@
+@@ -639,6 +640,7 @@ fd_setup(int fd)
                                   "%s failed: %s", "ioctl(TIOCPKT)", g_strerror(errsv));
                  return -1;
          }
@@ -16,7 +16,7 @@
  
          return 0;
  }
-@@ -696,12 +698,14 @@
+@@ -696,12 +698,14 @@ _vte_pty_open_posix(void)
          }
  #endif /* !linux */
  

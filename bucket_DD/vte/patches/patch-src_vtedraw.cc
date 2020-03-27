@@ -1,6 +1,6 @@
---- src/vtedraw.cc.orig	2019-11-22 21:36:35 UTC
+--- src/vtedraw.cc.orig	2020-03-26 17:22:26 UTC
 +++ src/vtedraw.cc
-@@ -1687,13 +1687,13 @@ _vte_draw_draw_line(struct _vte_draw *dr
+@@ -2319,13 +2319,13 @@ _vte_draw_draw_line(struct _vte_draw *dr
  static inline double
  _vte_draw_get_undercurl_rad(gint width)
  {
