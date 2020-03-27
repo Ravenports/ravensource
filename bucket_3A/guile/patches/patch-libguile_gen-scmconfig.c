@@ -1,4 +1,4 @@
---- libguile/gen-scmconfig.c.orig	2019-08-02 12:41:06 UTC
+--- libguile/gen-scmconfig.c.orig	2018-09-22 20:51:40 UTC
 +++ libguile/gen-scmconfig.c
 @@ -143,6 +143,9 @@
  
