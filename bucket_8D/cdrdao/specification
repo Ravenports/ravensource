@@ -1,0 +1,76 @@
+DEF[PORTVERSION]=	1.2.4
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		cdrdao
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	Tool to write CD-Rs in Disk-At-Once Mode
+# HTTPS URL is known to be broken
+HOMEPAGE=		http://cdrdao.sourceforge.net
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/cdrdao
+DISTFILE[1]=		cdrdao-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		sysutils/cdrdao
+
+BUILDRUN_DEPENDS=	libao:primary:standard
+			libmad:single:standard
+			libvorbis:primary:standard
+			lame:primary:standard
+
+USES=			gmake pkgconfig c++:single
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-gcdmaster=no
+			--without-pcctsbin
+			--without-pcctsinc
+			--with-posix-threads=no
+			--with-scglib
+CONFIGURE_ENV=		AO_LIBS=-lao
+			MAD_LIBS=-lmad
+			VORBISFILE_LIBS=-lvorbisfile
+MAKE_ENV=		CCOM=cc
+
+post-extract-dragonfly:
+	(cd ${WRKSRC}/scsilib/RULES \
+		&& ${CP} -p os-freebsd.id os-dragonfly.id \
+		&& ${CP} -p i386-freebsd-cc.rul x86_64-freebsd-cc.rul)
+
+post-extract-freebsd:
+	(cd ${WRKSRC}/scsilib/RULES \
+		&& ${CP} -p i386-freebsd-cc.rul amd64-freebsd-cc.rul)
+
+post-patch:
+.for i in 45libdeflt 45libedc 45libfile 45libhfs_iso 45libparanoia 45libunls \
+	45librscg 55cdda2wav 55cdrecord 55cmd 55mkisofs 55mkisofs!@!diag \
+	55readcd 55scgcheck 55scgskeleton 55rscsi 85man
+	${RM} ${WRKSRC}/scsilib/TARGETS/${i}
+.endfor
+.for i in cdrdao.man main.cc
+	${REINPLACE_CMD} -e 's|%%PREFIX%%|${PREFIX}|g' ${WRKSRC}/dao/${i}
+.endfor
+	${REINPLACE_CMD} -E -e 's|(^CDRDAO_DATA_DIR.+=).+|\1 ${PREFIX}/share/cdrdao|' \
+		${WRKSRC}/dao/Makefile.in
+.for i in toc2cddb.1 toc2cue.1
+	${REINPLACE_CMD} -e 's|1\.2\.2|${PORTVERSION}|g' ${WRKSRC}/utils/${i}
+.endfor
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/dao/cdrdao ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/dao/cdrdao.man \
+		${STAGEDIR}${MANPREFIX}/man/man1/cdrdao.1
+.for f in cue2toc toc2cddb toc2cue
+	${INSTALL_PROGRAM} ${WRKSRC}/utils/${f} ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/utils/${f}.1 ${STAGEDIR}${MANPREFIX}/man/man1/
+.endfor
+	${INSTALL_PROGRAM} ${WRKSRC}/utils/toc2mp3 ${STAGEDIR}${PREFIX}/bin
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/cdrdao
+	${INSTALL_DATA} ${WRKSRC}/dao/cdrdao.drivers \
+		${STAGEDIR}${PREFIX}/share/cdrdao/drivers
