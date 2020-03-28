@@ -1,4 +1,4 @@
---- projects/libcxx/include/__config.orig	2019-12-11 19:15:30 UTC
+--- projects/libcxx/include/__config.orig	2020-03-23 15:01:02 UTC
 +++ projects/libcxx/include/__config
 @@ -10,6 +10,10 @@
  #ifndef _LIBCPP_CONFIG
@@ -20,16 +20,16 @@
  #    define _LIBCPP_DEPRECATED_ABI_DISABLE_PAIR_TRIVIAL_COPY_CTOR
  #  endif
  #endif
-@@ -244,7 +248,7 @@
+@@ -240,7 +244,7 @@
  #  endif // __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
  #endif // __BYTE_ORDER__
  
 -#ifdef __FreeBSD__
 +#ifdef __FreeDragon__
  #  include <sys/endian.h>
+ #  include <osreldate.h>
  #  if _BYTE_ORDER == _LITTLE_ENDIAN
- #    define _LIBCPP_LITTLE_ENDIAN
-@@ -254,7 +258,7 @@
+@@ -251,7 +255,7 @@
  #  ifndef __LONG_LONG_SUPPORTED
  #    define _LIBCPP_HAS_NO_LONG_LONG
  #  endif  // __LONG_LONG_SUPPORTED
@@ -38,16 +38,26 @@
  
  #ifdef __NetBSD__
  #  include <sys/endian.h>
-@@ -342,7 +346,7 @@
+@@ -338,7 +342,7 @@
  #endif
  
  #if __ISO_C_VISIBLE >= 2011 || __cplusplus >= 201103L
 -#  if defined(__FreeBSD__)
 +#  if defined(__FreeDragon__)
+ #    define _LIBCPP_HAS_ALIGNED_ALLOC
  #    define _LIBCPP_HAS_QUICK_EXIT
  #    define _LIBCPP_HAS_C11_FEATURES
- #  elif defined(__Fuchsia__) || defined(__wasi__)
-@@ -873,7 +877,7 @@ typedef unsigned int   char32_t;
+@@ -346,6 +350,9 @@
+        (__FreeBSD_version >= 1201504 && __FreeBSD_version < 1300000)
+ #      define _LIBCPP_HAS_TIMESPEC_GET
+ #    endif
++#    if defined(__DragonFly__)
++#      define _LIBCPP_HAS_TIMESPEC_GET
++#    endif
+ #  elif defined(__BIONIC__)
+ #    define _LIBCPP_HAS_C11_FEATURES
+ #    if __ANDROID_API__ >= 21
+@@ -901,7 +908,7 @@ typedef unsigned int   char32_t;
  #define _LIBCPP_EXTERN_TEMPLATE2(...) extern template __VA_ARGS__;
  #endif
  
@@ -56,7 +66,7 @@
      defined(__sun__) || defined(__NetBSD__) || defined(__CloudABI__)
  #define _LIBCPP_LOCALE__L_EXTENSIONS 1
  #endif
-@@ -885,7 +889,7 @@ typedef unsigned int   char32_t;
+@@ -913,7 +920,7 @@ typedef unsigned int   char32_t;
  #  endif
  #endif
  
@@ -65,7 +75,7 @@
  #define _DECLARE_C99_LDBL_MATH 1
  #endif
  
-@@ -912,11 +916,11 @@ typedef unsigned int   char32_t;
+@@ -940,11 +947,11 @@ typedef unsigned int   char32_t;
  #  define _LIBCPP_HAS_NO_ALIGNED_ALLOCATION
  #endif
  
@@ -79,12 +89,12 @@
  #define _LIBCPP_WCTYPE_IS_MASK
  #endif
  
-@@ -1064,7 +1068,7 @@ _LIBCPP_FUNC_VIS extern "C" void __sanit
+@@ -1114,7 +1121,7 @@ _LIBCPP_FUNC_VIS extern "C" void __sanit
      !defined(_LIBCPP_HAS_THREAD_API_PTHREAD) && \
      !defined(_LIBCPP_HAS_THREAD_API_WIN32) && \
      !defined(_LIBCPP_HAS_THREAD_API_EXTERNAL)
 -#  if defined(__FreeBSD__) || \
 +#  if defined(__FreeDragon__) || \
-       defined(__Fuchsia__) || \
        defined(__wasi__) || \
        defined(__NetBSD__) || \
+       defined(__linux__) || \

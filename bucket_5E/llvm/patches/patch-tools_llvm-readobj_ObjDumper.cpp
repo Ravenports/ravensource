@@ -1,4 +1,4 @@
---- tools/llvm-readobj/ObjDumper.cpp.orig	2019-12-11 19:15:30 UTC
+--- tools/llvm-readobj/ObjDumper.cpp.orig	2020-03-23 15:01:02 UTC
 +++ tools/llvm-readobj/ObjDumper.cpp
 @@ -21,6 +21,18 @@
  #include "llvm/Support/raw_ostream.h"
@@ -18,4 +18,4 @@
 +
  namespace llvm {
  
- ObjDumper::ObjDumper(ScopedPrinter &Writer) : W(Writer) {}
+ static inline Error createError(const Twine &Msg) {

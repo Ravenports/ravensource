@@ -1,4 +1,4 @@
---- lib/Lex/HeaderMap.cpp.orig	2019-12-11 19:15:30 UTC
+--- lib/Lex/HeaderMap.cpp.orig	2020-03-23 15:01:02 UTC
 +++ lib/Lex/HeaderMap.cpp
 @@ -23,6 +23,19 @@
  #include "llvm/Support/Debug.h"

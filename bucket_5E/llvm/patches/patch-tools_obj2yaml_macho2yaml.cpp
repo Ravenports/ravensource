@@ -1,4 +1,4 @@
---- tools/obj2yaml/macho2yaml.cpp.orig	2019-12-11 19:15:30 UTC
+--- tools/obj2yaml/macho2yaml.cpp.orig	2020-03-23 15:01:02 UTC
 +++ tools/obj2yaml/macho2yaml.cpp
 @@ -16,6 +16,18 @@
  

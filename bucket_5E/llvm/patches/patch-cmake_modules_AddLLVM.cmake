@@ -1,6 +1,6 @@
---- cmake/modules/AddLLVM.cmake.orig	2019-12-11 19:15:30 UTC
+--- cmake/modules/AddLLVM.cmake.orig	2020-03-23 15:01:02 UTC
 +++ cmake/modules/AddLLVM.cmake
-@@ -187,13 +187,9 @@ elseif(NOT WIN32)
+@@ -198,13 +198,9 @@ elseif(NOT WIN32)
    elseif("${stdout}" MATCHES "GNU ld")
      set(LLVM_LINKER_IS_GNULD YES)
      message(STATUS "Linker detection: GNU ld")
@@ -15,7 +15,7 @@
    endif()
  endif()
  
-@@ -222,9 +218,6 @@ function(add_link_opts target_name)
+@@ -233,9 +229,6 @@ function(add_link_opts target_name)
          # ld64's implementation of -dead_strip breaks tools that use plugins.
          set_property(TARGET ${target_name} APPEND_STRING PROPERTY
                       LINK_FLAGS " -Wl,-dead_strip")

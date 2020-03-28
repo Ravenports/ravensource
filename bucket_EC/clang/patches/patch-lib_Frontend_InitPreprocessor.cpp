@@ -1,12 +1,12 @@
---- lib/Frontend/InitPreprocessor.cpp.orig	2019-12-11 19:15:30 UTC
+--- lib/Frontend/InitPreprocessor.cpp.orig	2020-03-23 15:01:02 UTC
 +++ lib/Frontend/InitPreprocessor.cpp
-@@ -576,7 +576,8 @@ static void InitializePredefinedMacros(c
-     Builder.defineMacro("__GNUC_MINOR__", "2");
-     Builder.defineMacro("__GNUC_PATCHLEVEL__", "1");
-     Builder.defineMacro("__GNUC__", "4");
+@@ -606,7 +606,8 @@ static void InitializePredefinedMacros(c
+     Builder.defineMacro("__GNUC__", Twine(GNUCMajor));
+     Builder.defineMacro("__GNUC_MINOR__", Twine(GNUCMinor));
+     Builder.defineMacro("__GNUC_PATCHLEVEL__", Twine(GNUCPatch));
 -    Builder.defineMacro("__GXX_ABI_VERSION", "1002");
 +    // match ABI of Ravenports GCC compiler
 +    Builder.defineMacro("__GXX_ABI_VERSION", "1013");
-   }
  
-   // Define macros for the C11 / C++11 memory orderings
+     if (LangOpts.CPlusPlus) {
+       Builder.defineMacro("__GNUG__", Twine(GNUCMajor));
