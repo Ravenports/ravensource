@@ -1,4 +1,4 @@
---- libgnucash/app-utils/guile-util.c.orig	2019-01-11 23:57:38 UTC
+--- libgnucash/app-utils/guile-util.c.orig	2019-09-14 18:56:03 UTC
 +++ libgnucash/app-utils/guile-util.c
 @@ -996,6 +996,8 @@ gnc_parse_time_to_time64 (const gchar *s
  
