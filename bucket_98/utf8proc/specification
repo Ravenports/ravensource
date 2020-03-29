@@ -1,6 +1,6 @@
-DEF[VERSION]=		2.4.0-1
+DEF[VERSION]=		2.5.0
 DEF[PORTVERSION]=	${VERSION:S/-/./g}
-DEF[SOVERSION]=		2.3.1
+DEF[SOVERSION]=		2.3.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		utf8proc
@@ -12,10 +12,10 @@ HOMEPAGE=		https://github.com/JuliaStrings/utf8proc
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-# SITES[main]=		GITHUB/JuliaStrings:utf8proc:v${PORTVERSION}
-# DISTFILE[1]=		generated:main
-SITES[main]=		https://download.netsurf-browser.org/libs/releases/
-DISTFILE[1]=		libutf8proc-${VERSION}-src.tar.gz:main
+SITES[main]=		GITHUB/JuliaStrings:utf8proc:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+# SITES[main]=		https://download.netsurf-browser.org/libs/releases/
+# DISTFILE[1]=		libutf8proc-${VERSION}-src.tar.gz:main
 
 SPKGS[standard]=	single
 
@@ -31,11 +31,11 @@ FPC_EQUIVALENT=		textproc/utf8proc
 USES=			cmake
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
 SOVERSION=		${SOVERSION}
-DISTNAME=		libutf8proc-${VERSION}
+# DISTNAME=		libutf8proc-${VERSION}
 
-post-extract:
-	${MV} ${WRKSRC}/src/utf* ${WRKSRC}/
-	${MV} ${WRKSRC}/include/libutf8proc/utf* ${WRKSRC}/
+# post-extract:
+# #	${MV} ${WRKSRC}/src/utf* ${WRKSRC}/
+# #	${MV} ${WRKSRC}/include/libutf8proc/utf* ${WRKSRC}/
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libutf8proc.${LIBEXT}
