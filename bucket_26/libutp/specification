@@ -1,0 +1,29 @@
+DEF[PORTVERSION]=	20170724
+# Hash refers to post-3.4-tranmission branch
+DEF[HASH]=		f22f814
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libutp
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		standard
+SDESC[standard]=	Transport Protocol library from uTorrent
+HOMEPAGE=		https://github.com/bittorrent/libutp
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/transmission:libutp:${HASH}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net/libutp
+
+USES=			cmake
