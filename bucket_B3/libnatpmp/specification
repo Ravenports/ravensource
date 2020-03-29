@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	20150609
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libnatpmp
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		standard
+SDESC[standard]=	Library for NAT Port Mapping Protocol
+HOMEPAGE=		http://miniupnp.free.fr/libnatpmp.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://miniupnp.free.fr/files/
+DISTFILE[1]=		libnatpmp-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net/libnatpmp
+
+USES=			gmake
+MAKE_ARGS=		CC="{{CC}}"
+MAKE_ENV=		INSTALLPREFIX={{STAGEDIR}}{{PREFIX}}
+
+post-patch:
+	${REINPLACE_CMD} -e 's/^LIBSPEC //' \
+		-e '/declspec\.h/d' \
+		${WRKSRC}/natpmp.h
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/natpmpc \
+		${STAGEDIR}${PREFIX}/lib/libnatpmp.so
