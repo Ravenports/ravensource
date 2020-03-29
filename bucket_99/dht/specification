@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	0.26
+# equivalent to version 0.26 + Cmake files
+DEF[HASH]=		b02da59
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		dht
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Kademlia Distributed Hash Table
+HOMEPAGE=		https://www.irif.fr/~jch/software/bittorrent/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/transmission:dht:${HASH}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENCE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/jech-dht
+
+USES=			cmake
+
+post-install:
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}
