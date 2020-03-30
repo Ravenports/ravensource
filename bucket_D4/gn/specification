@@ -39,6 +39,8 @@ BUILD_TARGET=		#nothing
 CFLAGS=			-Wno-deprecated-copy
 
 NOT_FOR_OPSYS=		sunos netbsd
+VAR_OPSYS[linux]=	LDFLAGS=-liconv
+C_USES[linux]=		iconv
 
 post-patch:
 	${REINPLACE_CMD} 's/"python"/"${PYTHON_CMD:T}"/' \
