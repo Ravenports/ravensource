@@ -32,6 +32,9 @@ SDL_COMPONENTS=		mixer2 ttf2
 CMAKE_ARGS=		-DBINARY_RELEASE:BOOL=ON
 SUB_FILES=		pkg-message-single
 
+C_USES[linux]=		iconv
+VAR_OPSYS[linux]=	LDFLAGS=-liconv
+
 do-install:
 	${INSTALL_PROGRAM} ${WRKDIR}/.build/devilutionx \
 		${STAGEDIR}${PREFIX}/bin
