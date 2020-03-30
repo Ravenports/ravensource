@@ -28,6 +28,14 @@ FPC_EQUIVALENT=		audio/aucatctl
 
 BUILDRUN_DEPENDS=	sndio:single:standard
 
+B_DEPS[linux]=		libbsd:single:standard
+
+post-patch-linux:
+	${REINPLACE_CMD} -e '/LDADD = -lsndio/ s/=/= -lbsd/' \
+		${WRKSRC}/Makefile
+	${REINPLACE_CMD} -e 's|<string.h>|<bsd/string.h>|' \
+		${WRKSRC}/aucatctl.c
+
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/aucatctl ${STAGEDIR}${PREFIX}/bin
 	${INSTALL_MAN} ${WRKSRC}/aucatctl.1 ${STAGEDIR}${MAN1PREFIX}/man/man1
