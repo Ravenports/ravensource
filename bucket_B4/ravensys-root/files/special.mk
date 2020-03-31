@@ -25,6 +25,9 @@ Librt_FreeBSD=		librt.so.1
 Librpcsvc_DragonFly=	librpcsvc.so.3
 Librpcsvc_FreeBSD=	librpcsvc.so.5
 
+Libcam_DragonFly=	libcam.so.3
+Libcam_FreeBSD=		libcam.so.7
+
 SYSPATH=		share${RAVENBASE}/sysroot/${OPSYS}
 RSYS=			${PREFIX}/${SYSPATH}
 FOS=			${WRKDIR}/${OPSYS:tl}

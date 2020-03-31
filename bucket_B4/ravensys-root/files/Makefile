@@ -206,6 +206,7 @@ dynamic_generic=	/lib/${libc} \
 			/lib/${libutil} \
 			/lib/${libcrypt} \
 			/lib/${libkvm} \
+			/lib/${libcam} \
 			/usr/lib/${librpcsvc} \
 			/usr/lib/${librt}
 dynamic_lib_FreeBSD=	${dynamic_generic} \
@@ -221,7 +222,6 @@ dynamic_lib_FreeBSD=	${dynamic_generic} \
 			/usr/lib/${libusb} \
 			/usr/lib/${libusbhid}
 dynamic_lib_DragonFly=	${dynamic_generic} \
-			/lib/libcam.so.3 \
 			/lib/libsbuf.so.3 \
 			/lib/libprop.so.3 \
 			/lib/libdevattr.so.3 \
@@ -690,6 +690,7 @@ install:
 		ln -s ${libm} libm.so && \
 		ln -s ${librt} librt.so && \
 		ln -s ${libkvm} libkvm.so && \
+		ln -s ${libcam} libcam.so && \
 		ln -s ${libcrypt} libcrypt.so && \
 		ln -s ${libutil} libutil.so && \
 		ln -s ${librpcsvc} librpcsvc.so && \
@@ -718,8 +719,7 @@ install:
 		ln -s libdevattr.so.3 libdevattr.so && \
 		ln -s libdevstat.so.3 libdevstat.so && \
 		ln -s libdevinfo.so.3 libdevinfo.so && \
-		ln -s libdevmapper.so.0 libdevmapper.so && \
-		ln -s libcam.so.3 libcam.so)
+		ln -s libdevmapper.so.0 libdevmapper.so)
 	(cd ${DESTDIR}${BASE}/usr/include && \
 		ln -s /usr/include/dev/misc/evdev compat/linux && \
 		ln -s vfs fs && \
