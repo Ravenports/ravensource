@@ -38,8 +38,6 @@ BUILDRUN_DEPENDS=	flac:primary:standard
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		SOMINOR=${SOMINOR}
 
-BROKEN[linux]=		libudev support must be present
-
 post-patch:
 	${REINPLACE_CMD} 's|libdata/pkgconfig|lib/pkgconfig|' \
 		${WRKSRC}/cmake/Config.cmake

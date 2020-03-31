@@ -257,6 +257,7 @@ Linux_shared_libs=	${Linux_C_lib} \
 			libnss_hesiod-2.23.so/libnss_hesiod.so.2 \
 			libnss_nis-2.23.so/libnss_nis.so.2 \
 			libnss_nisplus-2.23.so/libnss_nisplus.so.2 \
+			libudev.so.1.6.4/libudev.so.1 \
 			# end
 Linux_extra_libs1=	libattr.so.1.1.0/libattr.so.1 \
 			libacl.so.1.1.0/libacl.so.1 \
@@ -522,6 +523,7 @@ headers_Linux=		_G_config.h \
 			libgen.h \
 			libintl.h \
 			libio.h \
+			libudev.h \
 			limits.h \
 			link.h \
 			locale.h \
@@ -589,7 +591,8 @@ headers_Linux=		_G_config.h \
 			xlocale.h \
 			# end
 
-pcfiles_Linux=		# end
+pcfiles_Linux=		libudev.pc \
+			# end
 pcfiles_SunOS=		# end
 pcfiles_Darwin=		# end
 pcfiles_FreeBSD=	libusb-0.1.pc \
@@ -644,6 +647,7 @@ install:
 		${DESTDIR}${BASE}/lib64 \
 		${DESTDIR}${BASE}/lib/x86_64-linux-gnu \
 		${DESTDIR}${BASE}/usr/lib/x86_64-linux-gnu \
+		${DESTDIR}${BASE}/usr/lib/pkgconfig \
 		# end
 .endif
 
@@ -819,8 +823,13 @@ install:
 	cp ${CPA} ../${OPSYS:tl}/usr/include/${hdr} ${DESTDIR}${BASE}/usr/include/
 .  endfor
 .for item in ${pcfiles_${OPSYS}}
+.  if ${OPSYS} == Linux
+	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/lib/x86_64-linux-gnu/pkgconfig/${item} \
+		${DESTDIR}${BASE}/usr/lib/pkgconfig/
+.  else
 	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/libdata/pkgconfig/${item} \
 		${DESTDIR}${BASE}/usr/lib/pkgconfig/
+.  endif
 .endfor
 .for item in md5 sha256 
 	cp ${CPA} ${LOCALBASE}/bin/${item} ${DESTDIR}${BASE}/bin/
