@@ -9,6 +9,7 @@ DEF[TEX]=		third_party/externals
 
 NAMEBASE=		skia
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Open-source 2D graphics library
@@ -45,6 +46,7 @@ BUILD_DEPENDS=		gn:single:standard
 			harfbuzz:primary:standard
 			harfbuzz:icu:standard
 			zlib:static:standard
+			freetype:primary:standard
 
 USES=			ninja python:py27,build jpeg:build png:build
 CONFIGURE_OUTSOURCE=	yes
@@ -54,6 +56,8 @@ MAKE_ENV=		AUTOPYTHON=2.7
 post-patch:
 	${REINPLACE_CMD} -e 's|/usr/include/harfbuzz|${LOCALBASE}/include/harfbuzz|'\
 		${WRKSRC}/third_party/harfbuzz/BUILD.gn
+	${REINPLACE_CMD} -e 's|/usr/include/freetype2|${LOCALBASE}/include/freetype2|'\
+		${WRKSRC}/third_party/freetype2/BUILD.gn
 
 do-configure:
 	${MKDIR} ${CONFIGURE_WRKSRC}
@@ -67,6 +71,7 @@ do-configure:
 		skia_use_system_expat=true \
 		skia_use_system_zlib=true \
 		skia_use_system_harfbuzz=true \
+		skia_use_system_freetype2=true \
 		")
 
 do-install:
