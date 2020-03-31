@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	233
+DEF[SOVERSION]=		0.2.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libgudev
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	GObject bindings for libudev
+HOMEPAGE=		https://wiki.gnome.org/Projects/libgudev
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/libgudev/${PORTVERSION}
+DISTFILE[1]=		libgudev-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+ONLY_FOR_OPSYS=		linux
+
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gudev/gudev.h
+LICENSE_SCHEME=		solo
+
+USES=			pkgconfig gmake libtool
+GNOME_COMPONENTS=	glib introspection
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-gtk-doc=no
+			--disable-umockdev
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
