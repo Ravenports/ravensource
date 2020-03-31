@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	2.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		lua-sysctl
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Small FBSD sysctl(3) interface for Lua 5.2
+HOMEPAGE=		https://github.com/kAworu/lua-sysctl
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/kAworu:lua-sysctl:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary docs examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:primary
+LICENSE_FILE=		BSD2CLAUSE:{{WRKDIR}}/LICENSE
+LICENSE_SOURCE=		BSD2CLAUSE:{{WRKSRC}}/src/lua_sysctl.c
+LICENSE_AWK=		BSD2CLAUSE:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/lua-sysctl
+
+ONLY_FOR_OPSYS=		freebsd
+
+USES=			lua:5.2 pkgconfig
+
+post-patch:
+	${REINPLACE_CMD} "s/5.1/${LUA_VER}/g" ${WRKSRC}/Makefile
+
+do-install:
+	${MKDIR} ${STAGEDIR}${LUA_MODLIBDIR}
+.for D in doc examples
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/${D}/lua${LUA_VER_STR}/lua-sysctl
+.endfor
+	${INSTALL_LIB} ${WRKSRC}/build/sysctl.so ${STAGEDIR}${LUA_MODLIBDIR}
+	${INSTALL_DATA} ${WRKSRC}/README.md \
+		${STAGEDIR}${PREFIX}/share/doc/lua${LUA_VER_STR}/lua-sysctl
+	${INSTALL_DATA} ${WRKSRC}/misc/*.lua \
+		${STAGEDIR}${PREFIX}/share/examples/lua${LUA_VER_STR}/lua-sysctl
