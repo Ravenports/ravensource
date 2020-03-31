@@ -4,7 +4,7 @@ DEF[SOVERSION]=		3.0.1
 
 NAMEBASE=		upower
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		sysutils
 VARIANTS=		standard
 SDESC[standard]=	D-Bus daemon for power management tasks
@@ -37,23 +37,21 @@ BUILD_DEPENDS=		automake:single:standard
 			libtool:single:standard
 BUILDRUN_DEPENDS=	dbus-glib:primary:standard
 			polkit:single:standard
+BR_DEPS[linux]=		libgudev:single:standard
+			libusb:single:standard
 
 USES=			gettext-tools:build gettext-runtime gmake libtool pkgconfig python:build
 GNOME_COMPONENTS=	glib intltool
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-gtk-doc
 			--without-idevice
+			--with-udevrulesdir=/etc/udev/rules.d
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 CFLAGS=			-Wno-deprecated-declarations
 
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--with-backend=freebsd
-
-# The linux backend requires gudev which is built upon systemd's
-# libudev which isn't currently installed in the linux build environment
-# Until gudev is a ravenport, cripple upower as a dummy backend
-
-VAR_OPSYS[linux]=	CONFIGURE_ARGS=--with-backend=dummy
+# VAR_OPSYS[linux]=	CONFIGURE_ARGS=--with-backend=gudev
 
 post-patch:
 	${REINPLACE_CMD} -e 's|docbook.sourceforge.net|cdn.docbook.org|g' \
