@@ -18,7 +18,9 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-BROKEN[linux]=		Tries to include net/bpf.h header
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net/libpcap
 
@@ -34,8 +36,12 @@ INSTALL_REQ_TOOLCHAIN=	yes
 
 VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-pcap=bpf
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--with-pcap=bpf
-VAR_OPSYS[linux]=	CONFIGURE_ARGS=--with-pcap=bpf
 VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--with-pcap=dlpi
 			CONFIGURE_ENV=ac_cv_func_getifaddrs=no
 
 SOVERSION=		${PORTVERSION}
+
+post-install-linux:
+	# backwards compatibility, programs often look for net/bpf.h
+	${MKDIR} ${STAGEDIR}${PREFIX}/include/net
+	(cd ${STAGEDIR}${PREFIX}/include/net && ${LN} -s ../pcap-bpf.h bpf.h)
