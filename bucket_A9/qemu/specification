@@ -67,13 +67,19 @@ VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--disable-netmap
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-netmap
 			CONFIGURE_ARGS=--disable-linux-user
 			CONFIGURE_ARGS=--disable-linux-aio
-VAR_OPSYS[linux]=	CONFIGURE_ARGS=--enable-netmap
+VAR_OPSYS[linux]=	CONFIGURE_ARGS=--disable-netmap
+
+post-patch-freebsd:
+	${REINPLACE_CMD} -e '/libs_qga=..glib_libs/ s|glib_libs|glib_libs -lintl|' \
+		${WRKSRC}/configure
+
+post-patch-dragonfly:
+	${REINPLACE_CMD} -e '/libs_qga=..glib_libs/ s|glib_libs|glib_libs -lintl|' \
+		${WRKSRC}/configure
 
 post-patch:
 	${REINPLACE_CMD} -e '/LIBS/s|-lprocstat|-lprocstat -lelf|' \
 		 -e '/libusb/s/ --atleast-version=1\.0\.[0-9]*//' \
-		${WRKSRC}/configure
-	${REINPLACE_CMD} -e '/libs_qga=/s|glib_libs|glib_libs -lintl|' \
 		${WRKSRC}/configure
 	${REINPLACE_CMD} -E \
 		-e "/^by Tibor .TS. S/s|Sch.*z.$$|Schuetz.|" \

@@ -36,15 +36,6 @@
  # VTE probe
  
  if test "$vte" != "no"; then
-@@ -3710,7 +3725,7 @@ for i in $glib_modules; do
-         glib_libs=$($pkg_config --libs $i)
-         QEMU_CFLAGS="$glib_cflags $QEMU_CFLAGS"
-         LIBS="$glib_libs $LIBS"
--        libs_qga="$glib_libs $libs_qga"
-+        libs_qga="$glib_libs -lintl $libs_qga"
-     else
-         error_exit "glib-$glib_req_ver $i is required to compile QEMU"
-     fi
 @@ -4802,11 +4817,6 @@ has_sphinx_build() {
  if test "$docs" != "no" ; then
    if has makeinfo && has pod2man && has_sphinx_build; then
