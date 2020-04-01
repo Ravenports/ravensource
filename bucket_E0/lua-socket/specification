@@ -1,0 +1,52 @@
+DEF[TAG]=		3.0-rc1
+DEF[PORTVERSION]=	${TAG:S/-//}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		lua-socket
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		lua52 lua53
+SDESC[lua52]=		Comprehensive networking module for Lua 5.2
+SDESC[lua53]=		Comprehensive networking module for Lua 5.3
+HOMEPAGE=		https://github.com/diegonehab/luasocket
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/diegonehab:luasocket:v${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[lua52]=		single
+SPKGS[lua53]=		single
+
+OPTIONS_AVAILABLE=	LUA52 LUA53
+OPTIONS_STANDARD=	none
+VOPTS[lua52]=		LUA52=ON LUA53=OFF
+VOPTS[lua53]=		LUA52=OFF LUA53=ON
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net/luasocket
+
+USES=			gmake pkgconfig
+
+MAKE_ARGS=		LUAV={{LUA_VER}}
+INSTALL_REQ_TOOLCHAIN=	yes
+
+[LUA52].DESCRIPTION=			Build with Lua 5.2
+[LUA52].USES_ON=			lua:5.2
+
+[LUA53].DESCRIPTION=			Build with Lua 5.3
+[LUA53].USES_ON=			lua:5.3
+
+post-patch:
+	${CP} ${FILESDIR}/Makefile ${WRKSRC}
+	${MV} ${WRKSRC}/src/makefile ${WRKSRC}/src/Makefile
+	${REINPLACE_CMD} -e 's!__PREFIX__!${PREFIX}!g' \
+		-e 's!__LUA_VER_STR__!${LUA_VER_STR}!g' \
+		${WRKSRC}/src/Makefile
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${LUA_MODLIBDIR}/mime/core.so \
+		${STAGEDIR}${LUA_MODLIBDIR}/socket/core.so
