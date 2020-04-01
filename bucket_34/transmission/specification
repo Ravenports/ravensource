@@ -1,0 +1,113 @@
+DEF[PORTVERSION]=	2.94
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		transmission
+VERSION=		${PORTVERSION}
+KEYWORDS=		net_p2p
+VARIANTS=		standard daemon gtk qt web
+SDESC[standard]=	Lightweight BitTorrent client (CLI client)
+SDESC[daemon]=		Lightweight BitTorrent client (daemon)
+SDESC[gtk]=		Lightweight BitTorrent client (GTK+ GUI)
+SDESC[qt]=		Lightweight BitTorrent client (Qt GUI)
+SDESC[web]=		Lightweight BitTorrent client (web client)
+HOMEPAGE=		https://transmissionbt.com/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/transmission/transmission-releases/raw/master/
+DISTFILE[1]=		transmission-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+SPKGS[daemon]=		single
+SPKGS[gtk]=		single
+SPKGS[qt]=		single
+SPKGS[web]=		single
+
+OPTIONS_AVAILABLE=	NOTSTD DAEMON GTK QT WEB
+OPTIONS_STANDARD=	none
+VOPTS[daemon]=		NOTSTD=ON DAEMON=ON GTK=OFF QT=OFF WEB=OFF
+VOPTS[gtk]=		NOTSTD=ON DAEMON=OFF GTK=ON QT=OFF WEB=OFF
+VOPTS[qt]=		NOTSTD=ON DAEMON=OFF GTK=OFF QT=ON WEB=OFF
+VOPTS[web]=		NOTSTD=ON DAEMON=OFF GTK=OFF QT=OFF WEB=ON
+
+LICENSE=		GPLv2:single GPLv3:single
+LICENSE_TERMS=		single:{{WRKSRC}}/COPYING
+LICENSE_FILE=		GPLv2:stock GPLv3:stock
+LICENSE_SCHEME=		dual
+
+FPC_EQUIVALENT=		net-p2p/transmission
+
+CPE_VENDOR=		transmissionbt
+CMAKE_ARGS=		-DENABLE_NLS:BOOL=ON
+			-DUSE_SYSTEM_EVENT2:BOOL=ON
+			-DUSE_SYSTEM_DHT:BOOL=ON
+			-DUSE_SYSTEM_MINIUPNPC:BOOL=ON
+			-DUSE_SYSTEM_NATPMP:BOOL=ON
+			-DUSE_SYSTEM_UTP:BOOL=ON
+			-DUSE_SYSTEM_B64:BOOL=ON
+
+[NOTSTD].DESCRIPTION=			Don't build CLI version
+[NOTSTD].CMAKE_ARGS_ON=			-DENABLE_CLI:BOOL=OFF
+					-DENABLE_UTILS:BOOL=OFF
+[NOTSTD].CMAKE_ARGS_OFF=		-DENABLE_CLI:BOOL=ON
+					-DENABLE_UTILS:BOOL=ON
+
+[DAEMON].DESCRIPTION=			Build daemon version of transmission
+[DAEMON].CMAKE_ARGS_ON=			-DENABLE_DAEMON:BOOL=ON
+[DAEMON].CMAKE_ARGS_OFF=		-DENABLE_DAEMON:BOOL=OFF
+
+[GTK].DESCRIPTION=			Build GTK+ version of transmission
+[GTK].CMAKE_ARGS_ON=			-DENABLE_GTK:BOOL=ON
+[GTK].CMAKE_ARGS_OFF=			-DENABLE_GTK:BOOL=OFF
+[GTK].USES_ON=				gettext-tools:build
+					desktop-utils:single
+[GTK].GNOME_COMPONENTS_ON=		cairo gdkpixbuf gtk3 pango intltool
+[GTK].BUILDRUN_DEPENDS_ON=		dbus-glib:primary:standard
+					libnotify:primary:standard
+[GTK].RUN_DEPENDS_ON=			xdg-utils:single:standard
+
+[QT].DESCRIPTION=			Build Qt version of transmission
+[QT].CMAKE_ARGS_ON=			-DENABLE_QT:BOOL=ON
+					-DUSE_QT5:BOOL=ON
+					-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
+[QT].CMAKE_ARGS_OFF=			-DENABLE_QT:BOOL=OFF
+[QT].USES_ON=				qt5
+[QT].BUILDRUN_DEPENDS_ON=		qt5-qtbase:primary:standard
+[QT].BUILD_DEPENDS_ON=			qt5-qttools:single:standard
+[QT].MAKE_ARGS_ON=			DESTDIR="{{STAGEDIR}}"
+
+[WEB].DESCRIPTION=			Build transmission web interface
+[WEB].BUILDRUN_DEPENDS_OFF=		curl:primary:standard
+					libevent:single:standard
+					dht:single:standard
+					libb64:single:standard
+					libnatpmp:single:standard
+					libutp:single:standard
+					miniupnpc:single:standard
+[WEB].USES_OFF=				cpe cmake iconv pkgconfig ssl zlib
+					gettext-runtime
+
+post-patch:
+	# allow use of dht 0.26 (tranmission expects older 0.24)
+	${REINPLACE_CMD} -e 's|dht/dht.h|dht.h|' \
+		${WRKSRC}/cmake/FindDHT.cmake \
+		${WRKSRC}/libtransmission/tr-dht.c
+
+post-patch-WEB-ON:
+	${FIND} ${WRKSRC}/web \( \
+		-name '*.am' \
+		-o -name '*.in' \
+		-o -name '*.scss' \
+	\) -delete
+
+post-install-WEB-OFF:
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
+
+do-install-WEB-ON:
+	(cd ${WRKSRC} && \
+	${COPYTREE_SHARE} web ${STAGEDIR}${PREFIX}/share/transmission)
+	${RM} ${STAGEDIR}${PREFIX}/share/transmission/web/LICENSE
+
+post-install-DAEMON-ON:
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/transmission/home
