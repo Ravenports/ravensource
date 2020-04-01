@@ -1,0 +1,47 @@
+DEF[PORTVERSION]=	0.9
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		lua-sec
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		lua52 lua53
+SDESC[lua52]=		SSL/TLS support module for Lua 5.2
+SDESC[lua53]=		SSL/TLS support module for Lua 5.3
+HOMEPAGE=		https://github.com/brunoos/luasec
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/brunoos:luasec:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[lua52]=		single
+SPKGS[lua53]=		single
+
+OPTIONS_AVAILABLE=	LUA52 LUA53
+OPTIONS_STANDARD=	none
+VOPTS[lua52]=		LUA52=ON LUA53=OFF
+VOPTS[lua53]=		LUA52=OFF LUA53=ON
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		security/luasec
+
+USES=			ssl
+
+[LUA52].DESCRIPTION=			Build with Lua 5.2
+[LUA52].USES_ON=			lua:5.2
+[LUA52].RUN_DEPENDS_ON=			lua-socket:single:lua52
+
+[LUA53].DESCRIPTION=			Build with Lua 5.3
+[LUA53].USES_ON=			lua:5.3
+[LUA53].RUN_DEPENDS_ON=			lua-socket:single:lua53
+
+BUILD_TARGET=		bsd
+MAKE_ENV=		LUAPATH={{LUA_MODSHAREDIR}} LUACPATH={{LUA_MODLIBDIR}}
+			INC_PATH=-I{{LUA_INCDIR}} LIB_PATH=-L{{LUA_LIBDIR}}
+			DESTDIR={{STAGEDIR}}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${LUA_MODLIBDIR}/ssl.so
