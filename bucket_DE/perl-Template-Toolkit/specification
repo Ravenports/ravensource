@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.007
+DEF[PORTVERSION]=	3.008
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Template-Toolkit
@@ -13,7 +13,7 @@ CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:A/AT/ATOOMIC
-DISTFILE[1]=		Template-Toolkit-3.007.tar.gz:main
+DISTFILE[1]=		Template-Toolkit-3.008.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -25,11 +25,23 @@ VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		Template-Toolkit-3.007
+DISTNAME=		Template-Toolkit-3.008
 
-# This perl port has no dependencies at all.
+# -----------------------------------------------
+# |   Prerequisites extracted from META.json
+# -----------------------------------------------
+# |      runtime : AppConfig
+# |      runtime : File::Spec (perl 5.3 core) (perl 5.28 core)
+# |      runtime : File::Temp (perl 5.3 core) (perl 5.28 core)
+# |      runtime : Scalar::Util (perl 5.3 core) (perl 5.28 core)
+# |        build : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
+# |         test : CGI
+# |         test : Test::LeakTrace
 
 [PERL_530].USES_ON=			perl:530,configure
 [PERL_528].USES_ON=			perl:528,configure
+[PERL_530].BUILDRUN_DEPENDS_ON=		perl-AppConfig:single:530
+[PERL_528].BUILDRUN_DEPENDS_ON=		perl-AppConfig:single:528
 
 
