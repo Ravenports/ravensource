@@ -1,4 +1,4 @@
---- dir.c.orig	2019-10-01 11:02:30 UTC
+--- dir.c.orig	2020-03-31 12:15:56 UTC
 +++ dir.c
 @@ -119,16 +119,16 @@ char *strchr(char*,char);
  # define USE_NAME_ON_FS 0

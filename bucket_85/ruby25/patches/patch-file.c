@@ -1,4 +1,4 @@
---- file.c.orig	2019-10-01 11:02:30 UTC
+--- file.c.orig	2020-03-31 12:15:56 UTC
 +++ file.c
 @@ -19,9 +19,6 @@
  #include <sys/cygwin.h>

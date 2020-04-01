@@ -1,6 +1,6 @@
---- tool/rbinstall.rb.orig	2019-10-01 11:01:01 UTC
+--- tool/rbinstall.rb.orig	2020-03-31 11:23:13 UTC
 +++ tool/rbinstall.rb
-@@ -785,13 +785,6 @@ end
+@@ -789,13 +789,6 @@ end
  
  # :startdoc:
  
