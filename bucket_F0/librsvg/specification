@@ -1,5 +1,7 @@
-DEF[PORTVERSION]=	2.40.20
+DEF[PORTVERSION]=	2.48.2
 DEF[GTK_VERSION]=	EXTRACT_INFO(GTK2_VERSION)
+DEF[NORUST_VERSION]=	2.40.21
+DEF[RUST_SOVERSION]=	2.47.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		librsvg
@@ -13,13 +15,23 @@ CONTACT=		nobody
 DOWNLOAD_GROUPS=	main
 SITES[main]=		GNOME/librsvg/${PORTVERSION:R}
 DISTFILE[1]=		librsvg-${PORTVERSION}.tar.xz:main
+DISTFILE[2]=		librsvg-${NORUST_VERSION}.tar.xz:main
+DF_INDEX=		1 2
 
 SPKGS[standard]=	complete primary docs
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	RUSTLESS
+OPTIONS_STANDARD=	RUSTLESS
+OPT_ON[sunos]=		RUSTLESS
 
-FPC_EQUIVALENT=		graphics/librsvg2
+# we can't use LICENSE_AWK/_SOURCE here (used before post-extract)
+# Note, for rustless version, it's actually LGPL20+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING.LIB
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/librsvg2-rust
 
 BUILDRUN_DEPENDS=	freetype:primary:standard
 
@@ -27,18 +39,50 @@ USES=			gettext-tools gmake png libtool pkgconfig perl:build
 			python:build
 GNOME_COMPONENTS=	cairo pango gdkpixbuf libxml2 introspection libcroco
 MUST_CONFIGURE=		gnu
+# vala caused circular dep (vala requires graphviz which requires librsvg)
 CONFIGURE_ARGS=		--disable-vala
 			--disable-Bsymbolic
+			--disable-dependency-tracking
+			--docdir={{STD_DOCDIR}}
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
+DISTNAME=		generic-librsvg
 PLIST_SUB=		PORTVERSION=${PORTVERSION}
 			GTK_VERSION=${GTK_VERSION}
 
-post-patch:
+[RUSTLESS].DESCRIPTION=			Build version ${NORUST_VERSION} instead (no rust)
+[RUSTLESS].MAKEFILE_ON=			VAR1=${NORUST_VERSION}
+					SOVERSION=${NORUST_VERSION}
+[RUSTLESS].MAKEFILE_OFF=		VAR1=${PORTVERSION}
+					SOVERSION=${RUST_SOVERSION}
+[RUSTLESS].BUILD_DEPENDS_OFF=		rust:single:standard
+[RUSTLESS].CONFIGURE_ENV_OFF=		CARGO={{LOCALBASE}}/bin/cargo
+					RUSTC={{LOCALBASE}}/bin/rustc
+[RUSTLESS].MAKE_ENV_OFF=		RUSTC={{LOCALBASE}}/bin/rustc
+
+post-extract:
+	${MV} ${WRKDIR}/librsvg-${VAR1} ${WRKSRC}
+
+post-patch-RUSTLESS-ON:
+	# extract license terms
+	${AWK} '/RSVG_H/ {exit}; {print}' ${WRKSRC}/rsvg.h > ${WRKDIR}/TERMS
+	# disable gtk3 check
 	${REINPLACE_CMD} -e 's|GTK3_REQUIRED=3.[0-9][0-9].[0-9]|GTK3_REQUIRED=9.90.0|g' \
 		${WRKSRC}/configure
 
+post-patch-RUSTLESS-OFF:
+	# extract license terms
+	${AWK} '/RSVG_H/ {exit}; {print}' ${WRKSRC}/librsvg/rsvg.h > ${WRKDIR}/TERMS
+	# disable vendor checksums
+	${REINPLACE_CMD} -e 's/"files":{[^}]*}/"files":{}/' \
+		${WRKSRC}/vendor/*/.cargo-checksum.json
+
+pre-configure-RUSTLESS-OFF:
+	cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} \
+		${LOCALBASE}/bin/cargo update
+
 post-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/share/doc
-	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/rsvg-2.0 ${STAGEDIR}${STD_DOCDIR}
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/rsvg-2.0 \
+		${STAGEDIR}${STD_DOCDIR}/html
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
