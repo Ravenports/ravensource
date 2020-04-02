@@ -1,6 +1,6 @@
 # Elf_ doesn't exist, use Elf32_ or Elf64_
 #
---- src/util/build_id.c.orig	2020-03-18 21:24:19 UTC
+--- src/util/build_id.c.orig	2020-04-01 21:27:15 UTC
 +++ src/util/build_id.c
 @@ -35,7 +35,11 @@
  #endif

@@ -1,4 +1,4 @@
---- src/mesa/main/macros.h.orig	2020-03-18 21:24:19 UTC
+--- src/mesa/main/macros.h.orig	2020-04-01 21:27:14 UTC
 +++ src/mesa/main/macros.h
 @@ -36,6 +36,7 @@
  #include "util/rounding.h"
