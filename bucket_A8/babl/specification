@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.1.74
+DEF[SOVERSION]=		0.173.1
+DEF[FOLDER]=		${PORTVERSION:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		babl
+VERSION=		${PORTVERSION}
+KEYWORDS=		converters graphics
+VARIANTS=		standard
+SDESC[standard]=	Dynamic pixel format translation library
+HOMEPAGE=		http://gegl.org/babl/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GIMP/babl/${FOLDER}
+DISTFILE[1]=		babl-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/babl/babl.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11/babl
+
+BUILDRUN_DEPENDS=	lcms2:primary:standard
+
+USES=			libtool meson pkgconfig
+GNOME_COMPONENTS=	introspection
+SOVERSION=		${SOVERSION}
