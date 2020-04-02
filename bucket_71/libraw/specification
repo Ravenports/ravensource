@@ -1,0 +1,52 @@
+DEF[PORTVERSION]=	0.19.5
+DEF[SOVERSION]=		19.0.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libraw
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Library for handling RAW digicam images
+HOMEPAGE=		https://www.libraw.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.libraw.org/data/
+DISTFILE[1]=		LibRaw-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21:primary CDDL:primary
+LICENSE_FILE=		LGPL21:{{WRKSRC}}/LICENSE.LGPL
+			CDDL:{{WRKSRC}}/LICENSE.CDDL
+LICENSE_TERMS=		primary:{{WRKSRC}}/COPYRIGHT
+LICENSE_SCHEME=		dual
+
+FPC_EQUIVALENT=		graphics/libraw
+
+BUILDRUN_DEPENDS=	jasper:primary:standard
+			lcms2:primary:standard
+
+USES=			cpe libtool pkgconfig jpeg
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-examples
+			--enable-jasper
+			--enable-jpeg
+			--enable-lcms2
+INSTALL_TARGET=		install-strip
+DISTNAME=		LibRaw-${PORTVERSION}
+SOVERSION=		${SOVERSION}
+
+
+post-install:
+	# Use "\*" instead of "." in COPYTREE_SHARE as "." has the
+	# undesired effect of copying ".deps" directory
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	cd ${WRKSRC}/doc && \
+		${COPYTREE_SHARE} \* ${STAGEDIR}${STD_DOCDIR}
+	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+	cd ${WRKSRC}/samples && \
+		${COPYTREE_SHARE} \* ${STAGEDIR}${STD_EXAMPLESDIR}
