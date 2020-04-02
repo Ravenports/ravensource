@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	20190731
+DEF[SOVERSION]=		1.0.0
+# release + vital patch
+DEF[HASH]=		1631ac6
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libspiro
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Library to simplify the drawing of curves
+HOMEPAGE=		https://github.com/fontforge/libspiro
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/fontforge:libspiro:${HASH}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"third-order polynomial spirals"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/spiro.c
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/libspiro
+
+USES=			autoreconf gmake libtool
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
