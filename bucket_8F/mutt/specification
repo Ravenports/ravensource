@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.13.5
 
 NAMEBASE=		mutt
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		mail
 VARIANTS=		standard
 SDESC[standard]=	Powerful mail client
@@ -25,12 +26,15 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		mail/mutt
 
-USES=			cpe ncurses perl shebangfix ssl
+USES=			cpe ncurses perl shebangfix ssl zlib
+			iconv:translit
 BUILD_DEPENDS=		docbook-xsl:primary:standard
 			lynx:primary:standard
 BUILDRUN_DEPENDS=	cyrus-sasl:primary:standard
 			gettext:runtime:standard
-			gpgme:primary:standard
+# #see below		gpgme:primary:standard
+# #			libassuan:single:standard
+# #			libgpg-error:single:standard
 			libidn2:primary:standard
 RUN_DEPENDS=		mime-support:single:standard
 
@@ -45,7 +49,9 @@ CONFIGURE_ARGS=		--disable-debug
 			--enable-compressed
 			--enable-external_dotlock
 			--enable-fcntl
-			--enable-gpgme
+# mutt segfaults with gpgme (+nls?)
+# #			--enable-gpgme
+			--disable-gpgme
 			--enable-hcache
 			--enable-imap
 			--enable-nls
@@ -61,6 +67,7 @@ CONFIGURE_ARGS=		--disable-debug
 			--with-idn2
 			--with-sasl={{LOCALBASE}}
 			--with-ssl
+			--with-libiconv-prefix={{LOCALBASE}}
 			--without-kyotocabinet
 			--without-tokyocabinet
 			--without-qdbm
