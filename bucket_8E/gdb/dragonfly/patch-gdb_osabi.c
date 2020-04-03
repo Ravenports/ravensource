@@ -1,4 +1,4 @@
---- gdb/osabi.c.orig	2018-09-05 07:27:13 UTC
+--- gdb/osabi.c.orig	2020-02-08 12:50:14 UTC
 +++ gdb/osabi.c
 @@ -68,6 +68,7 @@ static const struct osabi_names gdb_osab
    { "FreeBSD", NULL },
@@ -8,7 +8,7 @@
    { "WindowsCE", NULL },
    { "DJGPP", NULL },
    { "QNX-Neutrino", NULL },
-@@ -495,6 +496,15 @@ generic_elf_osabi_sniff_abi_tag_sections
+@@ -496,6 +497,15 @@ generic_elf_osabi_sniff_abi_tag_sections
  	  return;
  	}
  

@@ -1,6 +1,6 @@
---- gdb/i386-tdep.h.orig	2018-09-05 07:27:13 UTC
+--- gdb/i386-tdep.h.orig	2020-02-08 12:49:29 UTC
 +++ gdb/i386-tdep.h
-@@ -449,12 +449,11 @@ extern int i386_mpx_enabled (void);
+@@ -458,12 +458,11 @@ extern int i386_mpx_enabled (void);
  /* Functions and variables exported from i386-bsd-tdep.c.  */
  
  extern void i386bsd_init_abi (struct gdbarch_info, struct gdbarch *);

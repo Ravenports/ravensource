@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	8.3.1
+DEF[PORTVERSION]=	9.1
 DEF[SUFFIX]=		${PORTVERSION:S/.//g}
 # ----------------------------------------------------------------------------
 
@@ -19,6 +19,13 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^\#include"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gdb/gdb.c
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		devel/gdb
 
 NOT_FOR_ARCH=		aarch64
@@ -27,9 +34,11 @@ BUILD_DEPENDS=		expat:static:standard
 BUILDRUN_DEPENDS=	expat:shared:standard
 			source-highlight:primary:standard
 
-USES=			cpe iconv gmake libtool readline pkgconfig python:py36
+USES=			cpe iconv gmake libtool readline pkgconfig
+			makeinfo python
 CPE_VENDOR=		gnu
 MUST_CONFIGURE=		gnu
+CONFIGURE_OUTSOURCE=	yes
 CONFIGURE_ENV=		CONFIGURED_M4=m4
 			CONFIGURED_BISON=byacc
 CONFIGURE_ARGS=		--program-suffix=${SUFFIX}
@@ -57,6 +66,9 @@ EXTRACT_TAIL[1]=	--exclude dejagnu --exclude expect --exclude sim --exclude texi
 post-patch:
 	${REINPLACE_CMD} -e 's|$$| [GDB v${PORTVERSION} for ${OPSYS}]|' \
 		${WRKSRC}/gdb/version.in
+	# remove leftover readline removed garbage
+	${REINPLACE_CMD} -e 's|..READLINE.*user.texi||' \
+		${WRKSRC}/gdb/doc/Makefile.in
 
 post-patch-dragonfly:
 	${CP} ${OPSYSDIR}/dfly-tdep.* ${WRKSRC}/gdb/
@@ -65,17 +77,17 @@ post-patch-dragonfly:
 	${CP} ${OPSYSDIR}/amd64*      ${WRKSRC}/gdb/
 
 do-install:
-	${INSTALL_PROGRAM} ${WRKSRC}/gdb/gdb \
+	${INSTALL_PROGRAM} ${INSTALL_WRKSRC}/gdb/gdb \
 		${STAGEDIR}${PREFIX}/bin/gdb${SUFFIX}
 	${INSTALL_MAN} ${WRKSRC}/gdb/doc/gdb.1 \
 		${STAGEDIR}${MAN1PREFIX}/man/man1/gdb${SUFFIX}.1
-	(cd ${WRKSRC}/gdb/data-directory ; \
+	(cd ${INSTALL_WRKSRC}/gdb/data-directory ; \
 		${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} install-syscalls )
 	${LN} -sf gdb${SUFFIX} ${STAGEDIR}${PREFIX}/bin/gdbtui${SUFFIX}
 	${LN} -sf gdb${SUFFIX} ${STAGEDIR}${PREFIX}/bin/gdb
-	(cd ${WRKSRC}/gdb && ${SETENV} ${MAKE_ENV} \
+	(cd ${INSTALL_WRKSRC}/gdb && ${SETENV} ${MAKE_ENV} \
 		${MAKE_CMD} ${MAKE_ARGS} install-python )
-	(cd ${WRKSRC}/gdb/data-directory && ${SETENV} ${MAKE_ENV} \
+	(cd ${INSTALL_WRKSRC}/gdb/data-directory && ${SETENV} ${MAKE_ENV} \
 		${MAKE_CMD} ${MAKE_ARGS} install-python )
 . for f in gdb gdb/command gdb/function gdb/printer
 	(cd ${STAGEDIR}${PREFIX}/share/gdb${SUFFIX}/python/${f} ; ${CHMOD} 644 *.py* )

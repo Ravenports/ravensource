@@ -1,6 +1,6 @@
---- gdb/fbsd-nat.c.orig	2019-05-11 18:19:03 UTC
+--- gdb/fbsd-nat.c.orig	2020-02-08 12:50:14 UTC
 +++ gdb/fbsd-nat.c
-@@ -1178,6 +1178,14 @@ fbsd_nat_target::resume (ptid_t ptid, in
+@@ -1176,6 +1176,14 @@ fbsd_nat_target::resume (ptid_t ptid, in
        /* If ptid is a specific LWP, suspend all other LWPs in the process.  */
        inferior *inf = find_inferior_ptid (ptid);
  

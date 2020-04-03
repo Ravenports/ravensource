@@ -1,6 +1,6 @@
---- gdb/compile/compile-loc2c.c.orig	2019-02-27 04:51:50 UTC
+--- gdb/compile/compile-loc2c.c.orig	2020-02-08 12:49:29 UTC
 +++ gdb/compile/compile-loc2c.c
-@@ -657,6 +657,7 @@ do_compile_dwarf_expr_to_c (int indent,
+@@ -658,6 +658,7 @@ do_compile_dwarf_expr_to_c (int indent,
        uint64_t uoffset, reg;
        int64_t offset;
  
