@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	1.6.2
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libheif
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	HEIF file format decoder and encoder
+HOMEPAGE=		https://github.com/strukturag/libheif
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/strukturag:libheif:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL3+:single
+LICENSE_FILE=		LGPL3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"LIBHEIF_HEIF_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libheif/heif.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/libheif
+
+BUILDRUN_DEPENDS=	x265:single:standard
+			libde265:single:standard
+
+USES=			autoreconf libtool pkgconfig shebangfix
+			jpeg png mime-info:single
+SHEBANG_GLOB=		*.sh
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
+
