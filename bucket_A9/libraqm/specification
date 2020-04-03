@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	0.7.0
+DEF[SOVERSION]=		0.700.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libraqm
+VERSION=		${PORTVERSION}
+KEYWORDS=		print
+VARIANTS=		standard
+SDESC[standard]=	Complex Textlayout Library
+HOMEPAGE=		https://github.com/HOST-Oman/libraqm/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/HOST-Oman/libraqm/releases/download/v${PORTVERSION}/
+DISTFILE[1]=		raqm-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		print/libraqm
+
+BUILDRUN_DEPENDS=	freetype:primary:standard
+			harfbuzz:primary:standard
+			fribidi:single:standard
+
+USES=			autoreconf gmake libtool pkgconfig
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
+DISTNAME=		raqm-${PORTVERSION}
+
+post-install:
+	# relocate docs
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/raqm/* \
+		${STAGEDIR}${STD_DOCDIR}
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
