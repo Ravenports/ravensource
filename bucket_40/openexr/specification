@@ -3,11 +3,11 @@ DEF[MAJOR]=		${PORTVERSION:R:S|.|_|}
 DEF[SOVERSION]=		${MAJOR:S|_||}.0.0
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		ilmbase
+NAMEBASE=		openexr
 VERSION=		${PORTVERSION}
 KEYWORDS=		graphics devel
 VARIANTS=		standard
-SDESC[standard]=	Base libraries from ILM for OpenEXR
+SDESC[standard]=	High dynamic-range (HDR) image file format
 HOMEPAGE=		https://www.openexr.com/
 CONTACT=		nobody
 
@@ -15,29 +15,30 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/AcademySoftwareFoundation:openexr:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary docs examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		BSD3CLAUSE:single
+LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKDIR}}/LICENSE
 LICENSE_AWK=		BSD3CLAUSE:"^$$"
-LICENSE_SOURCE=		BSD3CLAUSE:{{WRKSRC}}/Half/half.h
+LICENSE_SOURCE=		BSD3CLAUSE:{{WRKSRC}}/IlmImf/ImfLut.h
 LICENSE_SCHEME=		solo
 
-FPC_EQUIVALENT=		graphics/ilmbase
+FPC_EQUIVALENT=		graphics/openexr
 
-BUILD_DEPENDS=		bash:primary:standard
+BUILDRUN_DEPENDS=	ilmbase:single:standard
 
-USES=			cmake pkgconfig c++:single
+USES=			cmake pkgconfig c++:primary zlib
 CMAKE_ARGS=		-DCMAKE_INSTALL_PREFIX={{PREFIX}}
 			--target install
-DISTNAME=		openexr-${PORTVERSION}/IlmBase
+DISTNAME=		openexr-${PORTVERSION}/OpenEXR
+LDFLAGS=		-lpthread
+CPPFLAGS=		-I. -I../IlmImf
 PLIST_SUB=		MAJOR=${MAJOR}
 SOVERSION=		${SOVERSION}
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*-${MAJOR}.so
-	${INSTALL_PROGRAM} ${BUILD_WRKSRC}/Half/eLut ${STAGEDIR}${PREFIX}/bin
-	${INSTALL_PROGRAM} ${BUILD_WRKSRC}/Half/toFloat ${STAGEDIR}${PREFIX}/bin
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/exr*
