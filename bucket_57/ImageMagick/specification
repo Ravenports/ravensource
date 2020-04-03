@@ -4,6 +4,7 @@ DEF[PORTVERSION]=	${VERSION}-3
 
 NAMEBASE=		ImageMagick
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard x11
 SDESC[standard]=	Suite to create, edit, compose, or convert images
@@ -33,7 +34,9 @@ LICENSE_SCHEME=		solo
 # FPC_EQUIVALENT=		graphics/ImageMagick7
 
 BUILD_DEPENDS=		bzip2:static:standard
+			Zstandard:static:standard
 BUILDRUN_DEPENDS=	bzip2:shared:standard
+			Zstandard:shared:standard
 			libltdl:single:standard
 			fontconfig:primary:standard
 			freetype:primary:standard
@@ -47,6 +50,11 @@ BUILDRUN_DEPENDS=	bzip2:shared:standard
 			xz:single:standard
 			liblqr:primary:standard
 			tiff:primary:standard
+			libwmf:single:standard
+			libheif:single:standard
+			libraw:primary:standard
+			libraqm:primary:standard
+			openexr:primary:standard
 
 USES=			cpe shebangfix gmake libtool:keepla perl:build
 			pkgconfig gettext-runtime jpeg png
@@ -62,12 +70,18 @@ CONFIGURE_ARGS=		--with-fftw
 			--with-gslib
 			--with-modules
 			--with-threads
+			--with-wmf
+			--with-heic
+			--with-raw
+			--with-lcms
+			--with-zstd
+			--with-openexr
+			--with-raqm
 			--without-dps
 			--without-fpx
 			--without-djvu
-			--without-openexr
 			--without-perl
-			--without-wmf
+			--without-flif
 			--enable-hdri
 			--disable-openmp
 CONFIGURE_ENV=		MAKE={{MAKE_CMD}}
