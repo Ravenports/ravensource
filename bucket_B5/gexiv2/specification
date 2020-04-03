@@ -1,0 +1,54 @@
+DEF[PORTVERSION]=	0.12.0
+DEF[SOVERSION]=		2.0.0
+DEF[FOLDER]=		${PORTVERSION:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gexiv2
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	GObject-based wrapper around the Exiv2 library
+HOMEPAGE=		https://wiki.gnome.org/Projects/gexiv2
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/gexiv2/${FOLDER}
+DISTFILE[1]=		gexiv2-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# license terms for GPL aren't done properly.
+# Don't assume "or later version".
+LICENSE=		GPLv2:primary
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"GEXIV2_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gexiv2/gexiv2.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/gexiv2
+
+BUILD_DEPENDS=		vala:single:standard
+			gtk-doc:single:standard
+BUILDRUN_DEPENDS=	exiv2:primary:standard
+
+USES=			pkgconfig libtool:build meson
+GNOME_COMPONENTS=	glib introspection
+SOVERSION=		${SOVERSION}
+MESON_ARGS=		-Dgtk_doc=true
+INSTALL_REQ_TOOLCHAIN=	yes
+
+pre-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/vala/vapi
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgexiv2.so
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/python*
+	# relocate doc
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/gexiv2/* \
+		${STAGEDIR}${STD_DOCDIR}/
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
