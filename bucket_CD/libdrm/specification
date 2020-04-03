@@ -1,5 +1,4 @@
-DEF[PORTVERSION]=	2.4.100
-DEF[xslsheet]=		http://cdn.docbook.org/release/xsl/current/manpages/docbook.xsl
+DEF[PORTVERSION]=	2.4.101
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libdrm
@@ -12,7 +11,7 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		http://dri.freedesktop.org/libdrm/
-DISTFILE[1]=		libdrm-${PORTVERSION}.tar.bz2:main
+DISTFILE[1]=		libdrm-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	single
 
@@ -35,23 +34,16 @@ BUILD_DEPENDS=		libpthread-stubs:single:standard
 			libxslt:single:standard
 			libxml2:single:standard
 
-USES=			gmake libtool pkgconfig solaris-funcs
+USES=			gmake pkgconfig solaris-funcs meson
 SOL_FUNCTIONS=		getline:amdgpu/amdgpu_asic_id.c
 			asprintf:tests/modetest/modetest.c
 			strndup:tests/modetest/modetest.c
 XORG_COMPONENTS=	pciaccess
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-cairo-tests
-			--enable-install-test-programs
-			--enable-manpages
-			MISC_MAN_SUFFIX=7
+MESON_ARGS=		-Dman-pages=true
+			-Dinstall-test-programs=true
+			-Dcairo-test=false
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 
 [ARM].DESCRIPTION=			DRM Drivers for AARCH64 architecture
 [X86].DESCRIPTION=			DRM Drivers for amd64 and i386 architectures
-
-post-patch:
-	${REINPLACE_CMD} \
-		-e '/^MANPAGES_STYLESHEET=/ s|".*"|"${xslsheet}"|' \
-		${WRKSRC}/configure

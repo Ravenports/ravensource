@@ -1,9 +1,9 @@
---- xf86drmMode.c.orig	2019-10-16 21:36:48 UTC
+--- xf86drmMode.c.orig	2020-04-03 12:28:15 UTC
 +++ xf86drmMode.c
 @@ -43,6 +43,7 @@
  #include <stdlib.h>
  #include <sys/ioctl.h>
- #ifdef HAVE_SYS_SYSCTL_H
+ #if HAVE_SYS_SYSCTL_H
 +#include <sys/types.h>
  #include <sys/sysctl.h>
  #endif
