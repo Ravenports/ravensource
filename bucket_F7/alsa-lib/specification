@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.2.1.2
+DEF[PORTVERSION]=	1.2.2
 DEF[SOVERSION]=		2.0.0
 # ----------------------------------------------------------------------------
 
@@ -16,8 +16,9 @@ DISTFILE[1]=		alsa-lib-${PORTVERSION}.tar.bz2:main
 
 SPKGS[standard]=	single
 
-OPTIONS_AVAILABLE=	none
+OPTIONS_AVAILABLE=	LINUX
 OPTIONS_STANDARD=	none
+OPT_ON[linux]=		LINUX
 
 LICENSE=		LGPL21+:single
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
@@ -40,10 +41,12 @@ VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=	ac_cv_header_endian_h=no
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 
+[LINUX].DESCRIPTION=			Indicates built for Linux
+
 post-patch:
 	${REINPLACE_CMD} 's|/etc|${PREFIX}&|g' ${WRKSRC}/src/conf/alsa.conf
 
-post-patch-dragonfly:
+post-patch-LINUX-OFF:
 	${REINPLACE_CMD} -e '/_GNU_SOURCE/d' ${WRKSRC}/configure
 	${MKDIR} ${WRKSRC}/include/linux
 	${CP} ${FILESDIR}/byteswap.h ${WRKSRC}/include/
@@ -51,12 +54,6 @@ post-patch-dragonfly:
 	${CP} ${FILESDIR}/malloc.h ${WRKSRC}/include/
 	${CP} ${FILESDIR}/ioctl.h ${WRKSRC}/include/linux/
 	${CP} ${FILESDIR}/types.h ${WRKSRC}/include/linux/
-
-post-patch-freebsd:
-	${REINPLACE_CMD} -e '/_GNU_SOURCE/d' ${WRKSRC}/configure
-	${MKDIR} ${WRKSRC}/include/linux
-	${CP} ${FILESDIR}/byteswap.h ${WRKSRC}/include/
-	${CP} ${FILESDIR}/endian.h ${WRKSRC}/include/
-	${CP} ${FILESDIR}/malloc.h ${WRKSRC}/include/
-	${CP} ${FILESDIR}/ioctl.h ${WRKSRC}/include/linux/
-	${CP} ${FILESDIR}/types.h ${WRKSRC}/include/linux/
+	${REINPLACE_CMD} -E -e 's/__s([[:digit:]]+)/int\1_t/g' \
+		-e 's/__kernel_long_t/long/g' \
+		${WRKSRC}/include/sound/uapi/asound.h
