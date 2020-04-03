@@ -1,6 +1,6 @@
 - Define CLOCK_MONOTONIC_RAW if missing
 
---- src/amd/vulkan/radv_device.c.orig	2020-04-01 21:27:14 UTC
+--- src/amd/vulkan/radv_device.c.orig	2020-04-03 10:15:26 UTC
 +++ src/amd/vulkan/radv_device.c
 @@ -83,6 +83,14 @@ static
  void radv_destroy_semaphore_part(struct radv_device *device,
