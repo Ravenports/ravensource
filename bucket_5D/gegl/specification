@@ -1,0 +1,92 @@
+DEF[PORTVERSION]=	0.4.22
+DEF[GEGL_VER]=		${PORTVERSION:R}
+DEF[SOVERSION]=		0.421.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gegl
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Graph based image processing framework
+HOMEPAGE=		https://www.gegl.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GIMP/gegl/${GEGL_VER}
+DISTFILE[1]=		gegl-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL3+:single
+LICENSE_FILE=		LGPL3+:{{WRKSRC}}/COPYING.LESSER
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"__GEGL_H__"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gegl/gegl.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/gegl
+
+BUILD_DEPENDS=		bash:primary:standard
+BUILDRUN_DEPENDS=	babl:single:standard
+			json-glib:single:standard
+			fribidi:single:standard
+			libnsgif:single:standard
+			poppler:glib:standard
+			ffmpeg:primary:standard
+			graphviz:primary:standard
+			jasper:primary:standard
+			lcms2:primary:standard
+			openexr:primary:standard
+			libraw:primary:standard
+			libspiro:single:standard
+			WebP:single:standard
+			tiff:primary:standard
+			gexiv2:primary:standard
+			evdev-proto:single:standard
+			video4linux:single:standard
+
+USES=			cpe png jpeg meson pkgconfig shebangfix
+			gettext-runtime gettext-tools
+SDL_COMPONENTS=		sdl2
+GNOME_COMPONENTS=	glib intltool gdkpixbuf cairo
+			pango librsvg
+MESON_ARGS=		-Dcairo=enabled
+			-Dexiv2=enabled
+			-Dgdk-pixbuf=enabled
+			-Dgexiv2=enabled
+			-Dgraphviz=enabled
+			-Djasper=enabled
+			-Dlcms=enabled
+			-Dlibav=enabled
+			-Dlibjpeg=enabled
+			-Dlibpng=enabled
+			-Dlibraw=enabled
+			-Dlibrsvg=enabled
+			-Dlibspiro=enabled
+			-Dlibtiff=enabled
+			-Dlibv4l=enabled
+			-Dlibv4l2=enabled
+			-Dopenexr=enabled
+			-Dpango=enabled
+			-Dpangocairo=enabled
+			-Dpoppler=enabled
+			-Dsdl2=enabled
+			-Dwebp=enabled
+
+			-Ddocs=false
+			-Dworkshop=false
+			-Dintrospection=false
+			-Dmrg=disabled
+			-Dpygobject=disabled
+			-Dlua=disabled
+			-Dvapigen=disabled
+			-Dlensfun=disabled
+			-Dumfpack=disabled
+			-Dsdl1=disabled
+
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		GV=${GEGL_VER}
+SHEBANG_FILES=		tools/xml_insert.sh
