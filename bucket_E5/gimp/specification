@@ -1,0 +1,80 @@
+DEF[PORTVERSION]=	2.10.18
+DEF[SOVERSION]=		0.1000.${PORTVERSION:E}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gimp
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	GNU Image Manipulation Program
+HOMEPAGE=		https://www.gimp.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GIMP/gimp/v${PORTVERSION:R}
+DISTFILE[1]=		gimp-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	LINUX
+OPTIONS_STANDARD=	none
+OPT_ON[linux]=		LINUX
+
+FPC_EQUIVALENT=		graphics/gimp-app
+
+BUILD_DEPENDS=		iso-codes:single:standard
+BUILDRUN_DEPENDS=	libmypaint:single:standard
+			mypaint-brushes1:single:standard
+			glib-networking:single:standard
+			gegl:single:standard
+			alsa-lib:single:standard
+			freetype:primary:standard
+			harfbuzz:primary:standard
+			aalib:single:standard
+			libmng:single:standard
+			libwmf:single:standard
+			libheif:single:standard
+			ghostscript:primary:standard
+			xdg-utils:single:standard
+
+USES=			cpe gmake jpeg libtool pkgconfig shebangfix
+			execinfo zlib gettext-runtime gettext-tools
+			gnome-icons:primary desktop-utils:primary
+GNOME_COMPONENTS=	cairo gtk2 intltool librsvg
+XORG_COMPONENTS=	ice sm x11 xcursor xext xfixes xmu xpm xt
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+CONFIGURE_ARGS=		--with-html-dir={{STD_DOCDIR}}
+			--with-docdir={{STD_DOCDIR}}
+			--with-bug-report-url="https://ravenports.com/"
+			--disable-gtk-doc
+			--with-print
+			--enable-default-binary
+			--disable-gimp-console
+			--disable-python
+			--without-appdata-test
+			--with-desktop-dir={{PREFIX}}/share
+			--with-icc-directory={{LOCALBASE}}/share/color/icc
+			--without-webkit
+			--with-aa
+			--with-libmng
+			--with-openexr
+			--with-jpeg2000
+			--with-libheif
+			--with-webp
+			--with-wmf
+			--with-gs
+CONFIGURE_ENV=		GIMP_THREAD_LIBS=-lpthread
+			LIBS="-lexecinfo -lm"
+CPE_VENDOR=		gnu
+CPE_PRODUCT=		gimp
+SHEBANG_FILES=		plug-ins/pygimp/plug-ins/*.py
+SOVERSION=		${SOVERSION}
+INSTALL_REQ_TOOLCHAIN=	yes
+
+[LINUX].DESCRIPTION=			Build variations for Linux
+[LINUX].CONFIGURE_ARGS_OFF=		--without-linux-input
+					--without-gudev
+[LINUX].CONFIGURE_ARGS_ON=		--with-linux-input
+					--with-gudev
+[LINUX].BUILDRUN_DEPENDS_ON=		libgudev:single:standard
