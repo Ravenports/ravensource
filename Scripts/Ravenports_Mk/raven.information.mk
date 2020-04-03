@@ -217,6 +217,7 @@ FIREFOX_VERSION=		74.0
 LLVM_VERSION=			10.0.0
 ZLIB_VERSION=			1.2.11
 OPENEXR_VERSION=		2.4.1
+GHOSTSCRIPT_VERSION=		9.52
 
 # ------------------------------------------------------------------------
 # Gnatcross options
