@@ -1,0 +1,55 @@
+DEF[PORTVERSION]=	0.2.9
+DEF[SOVERSION]=		5.1.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		farstream
+VERSION=		${PORTVERSION}
+KEYWORDS=		net_im
+VARIANTS=		standard
+SDESC[standard]=	Audio/video communications framework
+HOMEPAGE=		https://www.freedesktop.org/wiki/Software/Farstream/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://freedesktop.org/software/farstream/releases/farstream/
+DISTFILE[1]=		farstream-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"__FS_STREAM_H__"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/farstream/fs-stream.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net-im/farstream
+
+BUILDRUN_DEPENDS=	libnice:gstreamer:standard
+			gstreamer1-plugins-good:single:standard
+			gstreamer1-plugins-bad:single:standard
+
+USES=			gmake libtool pkgconfig
+GNOME_COMPONENTS=	glib introspection
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
+
+post-patch:
+	# fix glib-mkenums code
+	${FIND} ${WRKSRC} -name "Makefile.in" |\
+		${XARGS} ${GREP} -l "enum_headers = " |\
+		${XARGS} ${REINPLACE_CMD} -e '/enum_headers =/ s|\\#include|#include|'
+
+post-install:
+	# relocate docs
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/farstream-libs-0.2 \
+		${STAGEDIR}${STD_DOCDIR}/libs
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/farstream-plugins-0.2 \
+		${STAGEDIR}${STD_DOCDIR}/plugins
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
