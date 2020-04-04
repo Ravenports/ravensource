@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.1.0
 
 NAMEBASE=		mcabber
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net net_im
 VARIANTS=		standard
 SDESC[standard]=	Small Jabber console client
@@ -27,17 +28,18 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net-im/mcabber
 
+BUILDRUN_DEPENDS=	gpgme:primary:standard
+			loudmouth:single:standard
+			libidn:single:standard
+			libotr:single:standard
+
 USES=			desktop-utils:single gettext-runtime iconv libtool ncurses pkgconfig
 GNOME_COMPONENTS=	glib
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-hgcset
 			--enable-gpgme
 			--enable-otr
-			--without-libidn
-# libidn2 can't be used, it depends on stringprep
-BUILDRUN_DEPENDS=	gpgme:primary:standard
-			loudmouth:single:standard
-			libotr:single:standard
+			--with-libidn
 INSTALL_TARGET=		install-strip
 
 post-patch:
