@@ -1,0 +1,42 @@
+# JRM: I resisted putting this port in for a long time.
+# Use if only if port can't be easily modified to use libidn2
+DEF[PORTVERSION]=	1.35
+DEF[SOVERSION]=		12.6.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libidn
+VERSION=		${PORTVERSION}
+KEYWORDS=		dns
+VARIANTS=		standard
+SDESC[standard]=	Internationalized Domain Name support library
+HOMEPAGE=		https://www.gnu.org/software/libidn/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/libidn
+DISTFILE[1]=		libidn-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:single LGPL3+:single
+LICENSE_TERMS=		single:{{WRKSRC}}/COPYING
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYINGv2
+			LGPL3+:{{WRKSRC}}/COPYING.LESSERv3
+LICENSE_SCHEME=		dual
+
+FPC_EQUIVALENT=		dns/libidn
+
+USES=			gmake iconv libtool makeinfo perl:build pkgconfig
+			gettext-runtime gettext-tools
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-nls
+INSTALL_TARGET=		install-strip
+INFO=			single:libidn
+SOVERSION=		${SOVERSION}
+
+post-patch:
+	${REINPLACE_CMD} -e '/^Libs.private:/s/$$/ @LTLIBINTL@/' \
+		${WRKSRC}/libidn.pc.in
