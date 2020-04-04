@@ -1,0 +1,11 @@
+--- configure.ac.orig	2017-02-08 22:24:36 UTC
++++ configure.ac
+@@ -404,7 +404,7 @@ if test "x$check_aspell" != "xno"; then
+          ,)
+        AC_CHECK_LIB(aspell,get_aspell_dict_info_list,ASPELL_CFLAGS="-DASPELL_0_50_0=1",)
+ 
+-       ASPELL_CFLAGS+=" -DHAVE_PSPELL_H"
++       ASPELL_CFLAGS="${ASPELL_CFLAGS} -DHAVE_PSPELL_H"
+    elif test -f "$aspell_prefix/include/aspell.h"; then
+        AC_MSG_RESULT([yes (aspell)])
+ 

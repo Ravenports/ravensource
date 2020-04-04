@@ -1,0 +1,53 @@
+DEF[PORTVERSION]=	1.6.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		enchant1
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	Dictionary/spellchecking framework (legacy)
+HOMEPAGE=		https://abiword.github.io/enchant/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/AbiWord:enchant:enchant-${PORTVERSION:S/./-/g}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:single
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING.LIB
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/enchant.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		textproc/enchant
+
+BUILDRUN_DEPENDS=	hunspell:single:standard
+			aspell:single:standard
+
+USES=			autoreconf gmake libtool pkgconfig
+GNOME_COMPONENTS=	glib
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-voikko
+			--disable-applespell
+			--disable-hspell
+			--disable-ispell
+			--disable-uspell
+			--disable-zemberek
+			--enable-aspell
+			--with-aspell-prefix={{LOCALBASE}}
+			--enable-myspell
+			--with-myspell-dir={{LOCALBASE}}
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${PORTVERSION}
+
+post-install:
+	# avoid name clash with enchant package
+	cd ${STAGEDIR}${PREFIX}/share/enchant && \
+		${MV} enchant.ordering enchant1.ordering

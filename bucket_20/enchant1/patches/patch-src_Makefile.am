@@ -1,0 +1,9 @@
+--- src/Makefile.am.orig	2017-02-08 22:24:36 UTC
++++ src/Makefile.am
+@@ -1,5 +1,6 @@
+ SUBDIRS=. aspell ispell uspell myspell hspell applespell voikko zemberek
+ 
++AM_LIBTOOLFLAGS = --tag cc
+ AM_CPPFLAGS=-I$(top_srcdir) $(ENCHANT_CFLAGS) $(CC_WARN_CFLAGS) -DENCHANT_GLOBAL_MODULE_DIR=\"$(libdir)/enchant\" -DENCHANT_GLOBAL_ORDERING=\"$(datadir)/enchant\" -D_ENCHANT_BUILD=1 -DENCHANT_VERSION_STRING=\"@ENCHANT_MAJOR_VERSION@.@ENCHANT_MINOR_VERSION@.@ENCHANT_MICRO_VERSION@\"
+ 
+ lib_LTLIBRARIES = libenchant.la
