@@ -1,0 +1,52 @@
+DEF[PORTVERSION]=	20200314
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		fontforge
+VERSION=		${PORTVERSION}
+KEYWORDS=		print
+VARIANTS=		standard
+SDESC[standard]=	Outline and bitmap font editor
+HOMEPAGE=		https://fontforge.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/fontforge:fontforge:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING.gplv3
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^\#\#"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		print/fontforge
+
+BUILD_DEPENDS=		appstream-glib:primary:standard
+BUILDRUN_DEPENDS=	libspiro:single:standard
+			tiff:primary:standard
+			libuninameslist:single:standard
+			brotli:single:standard
+			woff2:single:standard
+			gif:single:standard
+			fontconfig:primary:standard
+			freetype:primary:standard
+RUN_DEPENDS=		fonts-unifont:single:standard
+
+USES=			cmake iconv:wchar_t pkgconfig png jpeg readline
+			python mime-info:single
+			gettext-runtime gettext-tools
+			gnome-icons:single desktop-utils:single
+GNOME_COMPONENTS=	glib libxml2 cairo pango gtk3
+CMAKE_ARGS=		-DENABLE_DOCS:BOOL=OFF
+			-DBUILD_SHARED_LIBS:BOOL=ON
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/fontforge
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libfontforge.so
+	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/*.so
