@@ -4,6 +4,7 @@ DEF[SOVERSION]=		0.1.0
 
 NAMEBASE=		loudmouth
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net net_im
 VARIANTS=		standard
 SDESC[standard]=	Lightweight Jabber client library
@@ -29,14 +30,14 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net-im/loudmouth
 
+BUILDRUN_DEPENDS=	libidn:single:standard
+
 USES=			gettext-runtime gmake libtool pkgconfig ssl
 GNOME_COMPONENTS=	glib
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-ssl=openssl
 			--disable-gtk-doc
 			--disable-rebuilds
-# libidn2 can't be used, it depends on stringprep
-# BUILDRUN_DEPENDS=	libidn2:primary:standard
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 
