@@ -1,0 +1,66 @@
+DEF[PORTVERSION]=	2.13.0
+DEF[SOVERSION]=		0.13.0
+DEF[MODULES]=		gg,irc,jabber,novell,oscar,simple,zephyr
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		pidgin
+VERSION=		${PORTVERSION}
+KEYWORDS=		net_im
+VARIANTS=		standard
+SDESC[standard]=	Multi-protocol instant messaging client
+HOMEPAGE=		https://pidgin.im/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/pidgin/Pidgin/${PORTVERSION}
+DISTFILE[1]=		pidgin-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete purple application
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		net-im/pidgin
+
+BUILDRUN_DEPENDS=	startup-notification:single:standard
+			gstreamer1-plugins-core:single:standard
+			gstreamer1-plugins-v4l2:single:standard
+			farstream:primary:standard
+			libidn:single:standard
+			nss:primary:standard
+			gtkspell:single:standard
+			dbus-glib:primary:standard
+
+USES=			python:build gnome-icons:application gmake
+			cpe iconv shebangfix sqlite schemas:purple
+			libtool gettext-tools
+GNOME_COMPONENTS=	gtk2 intltool gconf
+XORG_COMPONENTS=	xscrnsaver sm
+GCONF_SCHEMAS=		purple.schemas
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-dynamic-prpls=${MODULES}
+			--enable-screensaver
+			--enable-static
+			--enable-cap
+			--enable-nss
+			--enable-dbus
+			--enable-gnutls=no
+			--disable-consoleui
+			--disable-nm
+			--disable-tcl
+			--disable-doxygen
+			--disable-perl
+			--disable-gevolution
+			--disable-avahi
+			--disable-meanwhile
+			--with-nspr-includes="{{LOCALBASE}}/include/nspr"
+			--with-nspr-libs="{{LOCALBASE}}/lib"
+			--with-nss-includes="{{LOCALBASE}}/include/nss/nss"
+			--with-nss-libs="{{LOCALBASE}}/lib/nss"
+SHEBANG_FILES=		libpurple/purple-remote
+			libpurple/purple-url-handler
+CFLAGS=			-Wno-deprecated-declarations
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+CPE_VENDOR=		pidgin
+SOVERSION=		${SOVERSION}
