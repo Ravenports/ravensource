@@ -1,0 +1,93 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(GSTREAMER1_VERSION)
+DEF[GST_VERSION]=	EXTRACT_INFO(GSTREAMER1_GST)
+DEF[PLUGIN]=		x
+DEF[PLUGIN_DESC]=	X and Xvideo output plugins
+DEF[FPC]=		x11/gstreamer1-plugins-x
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gstreamer1-plugins-${PLUGIN}
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia x11
+VARIANTS=		standard
+SDESC[standard]=	GStreamer1 ${PLUGIN_DESC} plugin
+HOMEPAGE=		https://gstreamer.freedesktop.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://gstreamer.freedesktop.org/src/gst-plugins-base/
+DISTFILE[1]=		gst-plugins-base-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		${FPC}
+
+BUILD_DEPENDS=		gstreamer1-plugins-base:single:standard
+BUILDRUN_DEPENDS=	gstreamer1:single:standard
+
+USES=			gmake pkgconfig libtool
+GNOME_COMPONENTS=	glib introspection
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-default-audiosink="osssink"
+			--with-default-audiosrc="osssrc"
+			--disable-adder
+			--disable-alsa
+			--disable-app
+			--disable-audioconvert
+			--disable-audiomixer
+			--disable-audiorate
+			--disable-audioresample
+			--disable-audiotestsrc
+			--disable-compositor
+			--disable-cdparanoia
+			--disable-encoding
+			--disable-gio
+			--disable-gl
+			--disable-ivorbis
+			--disable-libvisual
+			--disable-ogg
+			--disable-opus
+			--disable-overlaycomposition
+			--disable-pango
+			--disable-playback
+			--disable-rawparse
+			--disable-subparse
+			--disable-tcp
+			--disable-theora
+			--disable-typefind
+			--disable-videoconvert
+			--disable-videorate
+			--disable-videoscale
+			--disable-videotestsrc
+			--disable-volume
+			--enable-x
+			--enable-xvideo
+			--enable-xshm
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+DISTNAME=		gst-plugins-base-${PORTVERSION}
+CFLAGS=			-Wno-format
+PLIST_SUB=		GSTVER=${GST_VERSION}
+			PLUGIN=${PLUGIN}
+
+post-patch:
+	${REINPLACE_CMD} -e 's|FLAGS -Werror|FLAGS|' ${WRKSRC}/configure
+	${FIND} ${WRKSRC}/ext ${WRKSRC}/sys -name Makefile.in |\
+	${XARGS} ${REINPLACE_CMD} -E \
+	-e '/la_DEPENDENCIES/,/am__DEPENDENCIES/s|[$$][(]top_builddir[)]/gst-libs/.*.la||' \
+	-e 's|[@$$][(]?GST_API_VERSION[@)]\.la|$$\{VERSION\}|g'
+	${FIND} ${WRKSRC} -name "Makefile.in" |\
+		${XARGS} ${GREP} -l "enum_headers = " |\
+		${XARGS} ${REINPLACE_CMD} -e '/enum_headers =/ s|\\#include|#include|'
+
+post-install:
+	${RM} -r ${STAGEDIR}${PREFIX}/bin
+	${RM} -r ${STAGEDIR}${PREFIX}/include
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/girepository-${GST_VERSION}
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/gstreamer-1.0/include
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/pkgconfig
+	${RM} -r ${STAGEDIR}${PREFIX}/share
+	${RM} ${STAGEDIR}${PREFIX}/lib/lib*
+	${RM} ${STAGEDIR}${PREFIX}/lib/gstreamer-1.0/libgstpbtypes.so
