@@ -5,6 +5,7 @@ DEF[DATADIR]=		{{PREFIX}}/share/ghostscript/${PORTVERSION}
 
 NAMEBASE=		ghostscript
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		print
 VARIANTS=		standard
 SDESC[standard]=	Postscript and PDF Rendering Engine
@@ -27,8 +28,6 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		print/ghostscript9-agpl-base
 
-# libidn2 can't be used, it depends on stringprep
-
 BUILD_DEPENDS=		xorg-sm:single:standard
 			xorg-xt:single:standard
 			xorg-ice:single:standard
@@ -41,6 +40,7 @@ BUILDRUN_DEPENDS=	freetype:primary:standard
 			tiff:primary:standard
 			libpaper:single:standard
 			cups:primary:standard
+			libidn:single:standard
 RUN_DEPENDS=		poppler-data:single:standard
 
 EXRUN[x11]=		xorg-sm:single:standard
@@ -64,7 +64,7 @@ CONFIGURE_ARGS=		--disable-compile-inits
 			--with-fontpath={{LOCALBASE}}/share/fonts
 			--with-jbig2dec
 			--with-libiconv=yes
-			--with-libidn=no
+			--with-libidn
 			--with-ijs=no
 			--with-libpaper
 			--with-system-libtiff
