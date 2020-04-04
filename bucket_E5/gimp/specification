@@ -17,7 +17,7 @@ DISTFILE[1]=		gimp-${PORTVERSION}.tar.bz2:main
 SPKGS[standard]=	complete primary docs
 
 OPTIONS_AVAILABLE=	LINUX
-OPTIONS_STANDARD=	none
+OPTIONS_STANDARD=	LINUX
 OPT_ON[linux]=		LINUX
 
 FPC_EQUIVALENT=		graphics/gimp-app
@@ -65,7 +65,7 @@ CONFIGURE_ARGS=		--with-html-dir={{STD_DOCDIR}}
 			--with-wmf
 			--with-gs
 CONFIGURE_ENV=		GIMP_THREAD_LIBS=-lpthread
-			LIBS="-lexecinfo -lm"
+			LIBS={{VAR1}}
 CPE_VENDOR=		gnu
 CPE_PRODUCT=		gimp
 SHEBANG_FILES=		plug-ins/pygimp/plug-ins/*.py
@@ -78,3 +78,5 @@ INSTALL_REQ_TOOLCHAIN=	yes
 [LINUX].CONFIGURE_ARGS_ON=		--with-linux-input
 					--with-gudev
 [LINUX].BUILDRUN_DEPENDS_ON=		libgudev:single:standard
+[LINUX].MAKEFILE_ON=			VAR1="-lexecinfo -lm -ldl"
+[LINUX].MAKEFILE_OFF=			VAR1="-lexecinfo -lm"
