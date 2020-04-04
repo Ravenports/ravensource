@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	13.0.01
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		fonts-unifont
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_fonts
+VARIANTS=		standard
+SDESC[standard]=	GNU Unifont glyphs (PCF)
+HOMEPAGE=		http://unifoundry.com/unifont.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main unifoundry
+SITES[main]=		GNU/unifont/unifont-${PORTVERSION}
+SITES[unifoundry]=	http://unifoundry.com/
+DISTFILE[1]=		unifont-${PORTVERSION}.pcf.gz:main
+DISTFILE[2]=		LICENSE.txt:unifoundry
+DIST_SUBDIR=		unifont
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:stock
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^GPL VERSION 2"
+LICENSE_SOURCE=		TERMS:{{DISTDIR}}/{{DIST_SUBDIR}}/LICENSE.txt
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11-fonts/gnu-unifont
+
+USES=			fonts
+FONTNAME=		unifont
+SKIP_BUILD=		yes
+EXTRACT_ONLY=		1
+EXTRACT_HEAD[1]=	echo "skip extraction of"
+EXTRACT_TAIL[1]=	#done
+
+do-install:
+	${MKDIR} ${STAGEDIR}${FONTSDIR}
+	${INSTALL_DATA} \
+		${DISTDIR}/${DIST_SUBDIR}/unifont-${PORTVERSION}.pcf.gz \
+		${STAGEDIR}${FONTSDIR}/
