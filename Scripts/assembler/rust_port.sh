@@ -4,7 +4,7 @@
 #   crates.list
 #   specification.template
 #
-# This script takes one argument: the port's name
+# This script takes two argument: the port's name and its version
 
 if [ $# -lt 2 ]; then
    echo "Usage: rust_port.sh <portname> <version>"
