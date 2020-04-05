@@ -1,0 +1,59 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(GSTREAMER1_VERSION)
+DEF[GST_VERSION]=	EXTRACT_INFO(GSTREAMER1_GST)
+DEF[PLUGIN]=		xshm
+DEF[PLUGIN_DESC]=	XvImageSink
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gstreamer1-plugins-${PLUGIN}
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia x11
+VARIANTS=		standard
+SDESC[standard]=	GStreamer1 ${PLUGIN_DESC} plugin
+HOMEPAGE=		https://gstreamer.freedesktop.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://gstreamer.freedesktop.org/src/gst-plugins-base/
+DISTFILE[1]=		gst-plugins-base-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+BUILD_DEPENDS=		gstreamer1-plugins-base:single:standard
+BUILDRUN_DEPENDS=	gstreamer1:single:standard
+
+USES=			gmake pkgconfig libtool
+XORG_COMPONENTS=	x11 xext xv
+GNOME_COMPONENTS=	glib introspection
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-default-audiosink="osssink"
+			--with-default-audiosrc="osssrc"
+			--disable-alsa
+			--disable-cdparanoia
+			--disable-ivorbis
+			--disable-libvisual
+			--disable-ogg
+			--disable-opus
+			--disable-pango
+			--disable-theora
+			--disable-vorbis
+			--disable-x
+			--disable-xvideo
+			--enable-xshm
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+DISTNAME=		gst-plugins-base-${PORTVERSION}
+BUILD_WRKSRC=		{{WRKSRC}}/sys/xvimage
+INSTALL_WRKSRC=		{{WRKSRC}}/sys/xvimage
+CFLAGS=			-Wno-format
+PLIST_SUB=		GSTVER=${GST_VERSION}
+			PLUGIN=${PLUGIN}
+
+post-patch:
+	${REINPLACE_CMD} -e 's|FLAGS -Werror|FLAGS|' ${WRKSRC}/configure
+	${FIND} ${WRKSRC}/ext ${WRKSRC}/sys -name Makefile.in |\
+	${XARGS} ${REINPLACE_CMD} -E \
+	-e '/la_DEPENDENCIES/,/am__DEPENDENCIES/s|[$$][(]top_builddir[)]/gst-libs/.*.la||' \
+	-e 's|[@$$][(]?GST_API_VERSION[@)]\.la|$$\{VERSION\}|g'

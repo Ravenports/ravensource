@@ -1,7 +1,7 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(GSTREAMER1_VERSION)
 DEF[GST_VERSION]=	EXTRACT_INFO(GSTREAMER1_GST)
-DEF[PLUGIN]=		x
-DEF[PLUGIN_DESC]=	XImageSrc
+DEF[PLUGIN]=		xvideo
+DEF[PLUGIN_DESC]=	XImageSink
 DEF[FPC]=		x11/gstreamer1-plugins-x
 # ----------------------------------------------------------------------------
 
@@ -14,8 +14,8 @@ HOMEPAGE=		https://gstreamer.freedesktop.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://gstreamer.freedesktop.org/src/gst-plugins-good/
-DISTFILE[1]=		gst-plugins-good-${PORTVERSION}.tar.xz:main
+SITES[main]=		https://gstreamer.freedesktop.org/src/gst-plugins-base/
+DISTFILE[1]=		gst-plugins-base-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	single
 
@@ -24,41 +24,30 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		${FPC}
 
-BUILD_DEPENDS=		gstreamer1-plugins-good:single:standard
-BUILDRUN_DEPENDS=	gstreamer1-plugins-base:single:standard
-			gstreamer1:single:standard
+BUILD_DEPENDS=		gstreamer1-plugins-base:single:standard
+BUILDRUN_DEPENDS=	gstreamer1:single:standard
 
-USES=			gmake pkgconfig libtool jpeg
-XORG_COMPONENTS=	x11 xfixes xdamage xext
+USES=			gmake pkgconfig libtool
+XORG_COMPONENTS=	x11 xext
 GNOME_COMPONENTS=	glib introspection
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-aalib
-			--disable-cairo
-			--disable-flac
-			--disable-gdk_pixbuf
-			--disable-gst_v4l2
-			--disable-jack
-			--disable-jpeg
-			--disable-libcaca
-			--disable-libdv
-			--disable-libpng
-			--disable-pulse
-			--disable-shout2
-			--disable-soup
-			--disable-speex
-			--disable-taglib
-			--disable-vpx
-			--disable-wavpack
-			--enable-x
-			--disable-dv1394
-			--disable-directsound
-			--disable-osx_audio
-			--disable-osx_video
-			--disable-sunaudio
-			--disable-waveform
+CONFIGURE_ARGS=		--with-default-audiosink="osssink"
+			--with-default-audiosrc="osssrc"
+			--disable-alsa
+			--disable-cdparanoia
+			--disable-ivorbis
+			--disable-libvisual
+			--disable-ogg
+			--disable-opus
+			--disable-pango
+			--disable-theora
+			--disable-vorbis
+			--disable-x
+			--enable-xvideo
+			--disable-xshm
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
-DISTNAME=		gst-plugins-good-${PORTVERSION}
+DISTNAME=		gst-plugins-base-${PORTVERSION}
 BUILD_WRKSRC=		{{WRKSRC}}/sys/ximage
 INSTALL_WRKSRC=		{{WRKSRC}}/sys/ximage
 CFLAGS=			-Wno-format
@@ -66,6 +55,7 @@ PLIST_SUB=		GSTVER=${GST_VERSION}
 			PLUGIN=${PLUGIN}
 
 post-patch:
+	${REINPLACE_CMD} -e 's|FLAGS -Werror|FLAGS|' ${WRKSRC}/configure
 	${FIND} ${WRKSRC}/ext ${WRKSRC}/sys -name Makefile.in |\
 	${XARGS} ${REINPLACE_CMD} -E \
 	-e '/la_DEPENDENCIES/,/am__DEPENDENCIES/s|[$$][(]top_builddir[)]/gst-libs/.*.la||' \
