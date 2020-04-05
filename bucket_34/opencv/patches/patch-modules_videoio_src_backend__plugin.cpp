@@ -1,11 +1,11 @@
---- modules/videoio/src/backend_plugin.cpp.orig	2019-12-20 13:44:16 UTC
+--- modules/videoio/src/backend_plugin.cpp.orig	2020-04-03 11:45:28 UTC
 +++ modules/videoio/src/backend_plugin.cpp
 @@ -21,7 +21,7 @@ using namespace std;
  
  #if defined(_WIN32)
  #include <windows.h>
--#elif defined(__linux__) || defined(__APPLE__) || defined(__OpenBSD__) || defined(__FreeBSD__)
-+#elif defined(__linux__) || defined(__APPLE__) || defined(__OpenBSD__) || defined(__FreeBSD__) || defined(__DragonFly__)
+-#elif defined(__linux__) || defined(__APPLE__) || defined(__OpenBSD__) || defined(__FreeBSD__) || defined(__GLIBC__)
++#elif defined(__linux__) || defined(__APPLE__) || defined(__OpenBSD__) || defined(__FreeBSD__) || defined(__GLIBC__) || defined(__DragonFly__)
  #include <dlfcn.h>
  #endif
  
@@ -13,8 +13,8 @@
  {
  #if defined(_WIN32)
      return (void*)GetProcAddress(h, symbolName);
--#elif defined(__linux__) || defined(__APPLE__) || defined(__OpenBSD__) || defined(__FreeBSD__)
-+#elif defined(__linux__) || defined(__APPLE__) || defined(__OpenBSD__) || defined(__FreeBSD__) || defined(__DragonFly__)
+-#elif defined(__linux__) || defined(__APPLE__) || defined(__OpenBSD__) || defined(__FreeBSD__) || defined(__GLIBC__)
++#elif defined(__linux__) || defined(__APPLE__) || defined(__OpenBSD__) || defined(__FreeBSD__) || defined(__GLIBC__) || defined(__DragonFly__)
      return dlsym(h, symbolName);
  #endif
  }
@@ -22,8 +22,8 @@
  # else
      return LoadLibraryW(filename.c_str());
  #endif
--#elif defined(__linux__) || defined(__APPLE__) || defined(__OpenBSD__) || defined(__FreeBSD__)
-+#elif defined(__linux__) || defined(__APPLE__) || defined(__OpenBSD__) || defined(__FreeBSD__) || defined(__DragonFly__)
+-#elif defined(__linux__) || defined(__APPLE__) || defined(__OpenBSD__) || defined(__FreeBSD__) || defined(__GLIBC__)
++#elif defined(__linux__) || defined(__APPLE__) || defined(__OpenBSD__) || defined(__FreeBSD__) || defined(__GLIBC__) || defined(__DragonFly__)
      return dlopen(filename.c_str(), RTLD_LAZY);
  #endif
  }
@@ -31,8 +31,8 @@
  {
  #if defined(_WIN32)
      FreeLibrary(h);
--#elif defined(__linux__) || defined(__APPLE__) || defined(__OpenBSD__) || defined(__FreeBSD__)
-+#elif defined(__linux__) || defined(__APPLE__) || defined(__OpenBSD__) || defined(__FreeBSD__) || defined(__DragonFly__)
+-#elif defined(__linux__) || defined(__APPLE__) || defined(__OpenBSD__) || defined(__FreeBSD__) || defined(__GLIBC__)
++#elif defined(__linux__) || defined(__APPLE__) || defined(__OpenBSD__) || defined(__FreeBSD__) || defined(__GLIBC__) || defined(__DragonFly__)
      dlclose(h);
  #endif
  }

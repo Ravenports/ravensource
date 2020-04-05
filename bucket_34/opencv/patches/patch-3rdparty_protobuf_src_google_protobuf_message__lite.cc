@@ -1,6 +1,6 @@
 Needed for INT_MAX on sunos
 
---- 3rdparty/protobuf/src/google/protobuf/message_lite.cc.orig	2019-12-20 13:44:16 UTC
+--- 3rdparty/protobuf/src/google/protobuf/message_lite.cc.orig	2020-04-03 11:45:28 UTC
 +++ 3rdparty/protobuf/src/google/protobuf/message_lite.cc
 @@ -40,6 +40,7 @@
  #include <google/protobuf/message_lite.h>
