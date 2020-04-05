@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.0.6
+DEF[PORTVERSION]=	0.0.7
 DEF[STAR_VER]=		0.0
 # ----------------------------------------------------------------------------
 
@@ -11,8 +11,10 @@ HOMEPAGE=		https://github.com/fosnola/libstaroffice/wiki
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://dev-www.libreoffice.org/src/
-DISTFILE[1]=		libstaroffice-${PORTVERSION}.tar.xz:main
+# SITES[main]=		http://dev-www.libreoffice.org/src/
+# DISTFILE[1]=		libstaroffice-${PORTVERSION}.tar.xz:main
+SITES[main]=		GITHUB/fosnola:libstaroffice:${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
@@ -32,7 +34,7 @@ FPC_EQUIVALENT=		textproc/libstaroffice
 BUILD_DEPENDS=		boost-libraries:rest:python_default
 BUILDRUN_DEPENDS=	librevenge:single:standard
 
-USES=			libtool pkgconfig zlib
+USES=			autoreconf libtool pkgconfig zlib
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-werror
 			--without-docs
