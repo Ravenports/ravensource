@@ -1,4 +1,4 @@
---- config/Makefile.linux.orig	2017-07-31 11:25:39 UTC
+--- config/Makefile.linux.orig	2020-03-15 11:53:59 UTC
 +++ config/Makefile.linux
 @@ -1,5 +1,5 @@
  NAME = $(GLEW_NAME)
@@ -7,8 +7,8 @@
  LD = cc
  M_ARCH ?= $(shell uname -m)
  ARCH64 = false
-@@ -9,26 +9,21 @@ endif
- ifeq (ppc64,${M_ARCH})
+@@ -12,13 +12,8 @@ endif
+ ifeq (e2k,${M_ARCH})
    ARCH64 = true
  endif
 -ifeq (${ARCH64},true)
@@ -23,8 +23,9 @@
  LDFLAGS.GL = -lGL -lX11
  LDFLAGS.STATIC = -Wl,-Bstatic
  LDFLAGS.DYNAMIC = -Wl,-Bdynamic
- NAME = GLEW
- WARN = -Wall -W
+@@ -27,13 +22,13 @@ WARN += -Wall -W
+ WARN += -Wshadow
+ WARN += -pedantic
  POPT = -O2
 -CFLAGS.EXTRA += -fPIC
 +CFLAGS.EXTRA += -I${LOCALBASE}/include -fPIC

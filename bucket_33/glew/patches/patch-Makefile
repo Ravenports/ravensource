@@ -1,4 +1,4 @@
---- Makefile.orig	2017-07-31 11:25:39 UTC
+--- Makefile.orig	2020-03-15 11:53:59 UTC
 +++ Makefile
 @@ -43,7 +43,7 @@ endif
  GLEW_PREFIX ?= /usr
@@ -23,9 +23,9 @@
 -LIB.LDFLAGS        := $(LDFLAGS.EXTRA) $(LDFLAGS.GL)
 +LIB.LDFLAGS        := $(LDFLAGS) $(LDFLAGS.EXTRA) $(LDFLAGS.GL)
  LIB.LIBS           := $(GL_LDFLAGS)
+ LIB.SHARED.DIR     ?= lib
  
- LIB.SRCS           := src/glew.c
-@@ -115,7 +115,7 @@ else ifneq ($(LIBTOOL),)
+@@ -116,7 +116,7 @@ else ifneq ($(LIBTOOL),)
  	$(LIBTOOL) $@ $^
  endif
  ifneq ($(STRIP),)
@@ -33,9 +33,9 @@
 +	$(STRIP) $@
  endif
  
- lib/$(LIB.SHARED): $(LIB.SOBJS)
-@@ -125,8 +125,9 @@ ifneq ($(LN),)
- 	$(LN) $(LIB.SHARED) lib/$(LIB.DEVLNK)
+ $(LIB.SHARED.DIR)/$(LIB.SHARED): $(LIB.SOBJS)
+@@ -126,8 +126,9 @@ ifneq ($(LN),)
+ 	$(LN) $(LIB.SHARED) $(LIB.SHARED.DIR)/$(LIB.DEVLNK)
  endif
  ifneq ($(STRIP),)
 -	$(STRIP) -x $@
@@ -45,33 +45,10 @@
  
  tmp/$(SYSTEM)/default/static/glew.o: src/glew.c include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
  	@mkdir -p $(dir $@)
-@@ -142,14 +143,14 @@ tmp/$(SYSTEM)/default/shared/glew.o: src
- 
- glew.pc: glew.pc.in
- 	sed \
--		-e "s|@prefix@|$(GLEW_PREFIX)|g" \
--		-e "s|@libdir@|$(LIBDIR)|g" \
--		-e "s|@exec_prefix@|$(BINDIR)|g" \
--		-e "s|@includedir@|$(INCDIR)|g" \
--		-e "s|@version@|$(GLEW_VERSION)|g" \
--		-e "s|@cflags@||g" \
--		-e "s|@libname@|$(NAME)|g" \
--		-e "s|@requireslib@|$(LIBGLU)|g" \
-+		-e 's|@prefix@|$(GLEW_PREFIX)|g' \
-+		-e 's|@libdir@|$${prefix}/lib|g' \
-+		-e 's|@exec_prefix@|$${prefix}/bin|g' \
-+		-e 's|@includedir@|$${prefix}/include|g' \
-+		-e 's|@version@|$(GLEW_VERSION)|g' \
-+		-e 's|@cflags@||g' \
-+		-e 's|@libname@|$(NAME)|g' \
-+		-e 's|@requireslib@|$(LIBGLU)|g' \
- 		< $< > $@
- 
- # GLEW utility programs
-@@ -178,24 +179,24 @@ bin:
+@@ -180,24 +181,24 @@ bin:
  	mkdir bin
  
- bin/$(GLEWINFO.BIN): $(GLEWINFO.BIN.OBJ) lib/$(LIB.SHARED)
+ bin/$(GLEWINFO.BIN): $(GLEWINFO.BIN.OBJ) $(LIB.SHARED.DIR)/$(LIB.SHARED)
 -	$(CC) $(CFLAGS) -o $@ $(GLEWINFO.BIN.OBJ) $(BIN.LIBS)
 +	$(CC) $(CFLAGS) -o $@ $(GLEWINFO.BIN.OBJ) $(BIN.LIBS) $(LDFLAGS)
  ifneq ($(STRIP),)
@@ -79,7 +56,7 @@
 +	$(STRIP) $@
  endif
  
- bin/$(VISUALINFO.BIN): $(VISUALINFO.BIN.OBJ) lib/$(LIB.SHARED)
+ bin/$(VISUALINFO.BIN): $(VISUALINFO.BIN.OBJ) $(LIB.SHARED.DIR)/$(LIB.SHARED)
 -	$(CC) $(CFLAGS) -o $@ $(VISUALINFO.BIN.OBJ) $(BIN.LIBS)
 +	$(CC) $(CFLAGS) -o $@ $(VISUALINFO.BIN.OBJ) $(BIN.LIBS) $(LDFLAGS)
  ifneq ($(STRIP),)
@@ -99,7 +76,7 @@
  
  # Install targets
  
-@@ -204,26 +205,26 @@ install.all: install install.bin
+@@ -206,26 +207,26 @@ install.all: install install.bin
  install:     install.include install.lib install.pkgconfig
  
  install.lib: glew.lib
@@ -108,10 +85,10 @@
  # runtime
  ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
  	$(INSTALL) -d -m 0755 "$(DESTDIR)$(BINDIR)"
- 	$(INSTALL) -m 0755 lib/$(LIB.SHARED) "$(DESTDIR)$(BINDIR)/"
+ 	$(INSTALL) -m 0755 $(LIB.SHARED.DIR)/$(LIB.SHARED) "$(DESTDIR)$(BINDIR)/"
  else
--	$(INSTALL) -m 0644 lib/$(LIB.SHARED) "$(DESTDIR)$(LIBDIR)/"
-+	$(INSTALL) -m 0644 lib/$(LIB.SHARED) "$(DESTDIR)$(GLIBDIR)/"
+-	$(INSTALL) -m 0644 $(LIB.SHARED.DIR)/$(LIB.SHARED) "$(DESTDIR)$(LIBDIR)/"
++	$(INSTALL) -m 0644 $(LIB.SHARED.DIR)/$(LIB.SHARED) "$(DESTDIR)$(GLIBDIR)/"
  endif
  ifneq ($(LN),)
 -	$(LN) $(LIB.SHARED) "$(DESTDIR)$(LIBDIR)/$(LIB.SONAME)"
@@ -132,7 +109,7 @@
  
  install.bin: glew.bin
  	$(INSTALL) -d -m 0755 "$(DESTDIR)$(BINDIR)"
-@@ -244,14 +245,14 @@ uninstall:
+@@ -246,14 +247,14 @@ uninstall:
  	$(RM) "$(DESTDIR)$(INCDIR)/wglew.h"
  	$(RM) "$(DESTDIR)$(INCDIR)/glew.h"
  	$(RM) "$(DESTDIR)$(INCDIR)/glxew.h"
