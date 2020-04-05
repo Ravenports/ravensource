@@ -1,6 +1,6 @@
---- mesonbuild/scripts/depfixer.py.orig	2019-12-04 18:45:50 UTC
+--- mesonbuild/scripts/depfixer.py.orig	2020-03-23 17:22:02 UTC
 +++ mesonbuild/scripts/depfixer.py
-@@ -438,12 +438,10 @@ def fix_rpath(fname, new_rpath, final_pa
+@@ -441,15 +441,13 @@ def fix_rpath(fname, new_rpath, final_pa
          if fname.endswith('.jar'):
              fix_jar(fname)
              return
@@ -12,5 +12,8 @@
              pass
          else:
              raise
--    if shutil.which('install_name_tool'):
--        fix_darwin(fname, new_rpath, final_path, install_name_mappings)
+-    # We don't look for this on import because it will do a useless PATH lookup
+-    # on non-mac platforms. That can be expensive on some Windows machines
+     # (upto 30ms), which is significant with --only-changed. For details, see:
+     # https://github.com/mesonbuild/meson/pull/6612#discussion_r378581401
+     if INSTALL_NAME_TOOL is False:
