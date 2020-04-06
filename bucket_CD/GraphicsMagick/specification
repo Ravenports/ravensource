@@ -1,0 +1,86 @@
+DEF[PORTVERSION]=	1.3.35
+DEF[SOVERSION]=		3.21.0
+DEF[SO_WAND]=		2.9.4
+DEF[SO_XX]=		12.4.3
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		GraphicsMagick
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Image processing system
+HOMEPAGE=		http://www.graphicsmagick.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/graphicsmagick/graphicsmagick/${PORTVERSION}
+DISTFILE[1]=		GraphicsMagick-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/Copyright.txt
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/GraphicsMagick
+
+BUILD_DEPENDS=		Zstandard:static:standard
+BUILDRUN_DEPENDS=	freetype:primary:standard
+			jasper:primary:standard
+			jbigkit:single:standard
+			lcms2:primary:standard
+			tiff:primary:standard
+			WebP:single:standard
+			libwmf:single:standard
+			xz:single:standard
+			Zstandard:shared:standard
+			ghostscript:primary:standard
+
+USES=			libtool jpeg png zlib fortran:primary
+XORG_COMPONENTS=	ice sm x11 xext
+GNOME_COMPONENTS=	libxml2
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-shared
+			--enable-static
+			--with-bzlib
+			--with-ttf
+			--with-jp2
+			--with-jbig
+			--with-jpeg
+			--with-png
+			--with-tiff
+			--with-webp
+			--with-lcms2
+			--with-lzma
+			--with-wmf
+			--with-xml
+			--with-x
+			--with-zlib
+			--with-zstd
+			--with-threads
+			--with-quantum-depth=16
+			--with-windows-font-dir="{{LOCALBASE}}/share/fonts/webfonts"
+			--with-gs-font-dir="{{LOCALBASE}}/share/ghostscript/fonts"
+			--enable-openmp
+			--without-fpx
+			--without-perl
+			--without-trio
+			--without-dps
+			--without-modules
+			--disable-openmp-slow
+CONFIGURE_ENV=		PTHREAD_LIBS=-lpthread
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		WAND_MAJOR=${SO_WAND:R:R}
+			WAND_VERSION=${SO_WAND}
+			XX_MAJOR=${SO_XX:R:R}
+			XX_VERSION=${SO_XX}
+
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/GraphicsMagick/modules-Q16/coders \
+		${STAGEDIR}${PREFIX}/lib/GraphicsMagick/modules-Q16/filters
+	${RM} ${STAGEDIR}${STD_DOCDIR}/Copyright.txt
