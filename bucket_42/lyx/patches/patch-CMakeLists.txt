@@ -1,0 +1,15 @@
+--- CMakeLists.txt.orig	2020-02-25 00:17:19 UTC
++++ CMakeLists.txt
+@@ -374,11 +374,7 @@ foreach(_c_l ${_config_lines} )
+ 			if (NOT LYX_RELEASE_PATCH)
+ 				set(LYX_RELEASE_PATCH 0)
+ 			endif()
+-			if ("${LYX_SUFFIX_VALUE}" MATCHES "")
+-			  set(LYX_INSTALL_SUFFIX "${LYX_MAJOR_VERSION}.${LYX_MINOR_VERSION}")
+-			else()
+-			  set(LYX_INSTALL_SUFFIX "${LYX_SUFFIX_VALUE}")
+-			endif()
++                       set(LYX_INSTALL_SUFFIX "")
+ 		endif()
+ 	endif()
+ 	if(_c_l MATCHES "^AC_SUBST\\( *LYX_DATE *, *\\[\\\"(.*)\\\"\\].*")

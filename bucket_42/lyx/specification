@@ -1,0 +1,105 @@
+DEF[PORTVERSION]=	2.3.4.4
+DEF[MAJORVER]=		${PORTVERSION:R:R}
+DEF[LYX_DATE]=		2020-02-24
+DEF[XY]=		${MAJORVER:S/.//}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		lyx
+VERSION=		${PORTVERSION}
+KEYWORDS=		print editors
+VARIANTS=		standard
+SDESC[standard]=	Document Processor WYSIWYM Editor & Latex frontend
+HOMEPAGE=		https://www.lyx.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www-ftp.lip6.fr/ftp/pub/lyx/stable/${MAJORVER}.x/
+			http://sunsite.icm.edu.pl/pub/unix/editors/lyx/stable/${MAJORVER}.x/
+			ftp://ftp.lyx.org/pub/lyx/stable/${MAJORVER}.x/
+DISTFILE[1]=		lyx-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:stock
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"is included below for your reference"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		print/lyx
+
+# deps for xvkbd are tests, but nothing is built
+BUILD_DEPENDS=		qt5-qttools:single:standard
+# #NLS			python-polib:single:python_used
+# #xvkbd		wmctrl:single:standard
+BUILDRUN_DEPENDS=	mythes:single:standard
+			enchant1:single:standard
+			hunspell:single:standard
+			boost-libraries:rest:python_used
+			qt5-qtbase:primary:standard
+			qt5-qtsvg:single:standard
+			qt5-qtx11extras:single:standard
+# #xvkbd		xvkbd:single:standard
+
+EXTRACT_HEAD[1]=	{{TAR}} -xf
+EXTRACT_TAIL[1]=	--no-same-owner --no-same-permissions --exclude 3rdparty --exclude cygwin --exclude MacOSX --exclude Win32
+
+USES=			cmake iconv zlib perl python pkgconfig
+			shebangfix desktop-utils:single
+			gettext-runtime gettext-tools
+XORG_COMPONENTS=	xcb xmu xtst xaw
+# #			There's something wrong with po/cmake support
+# #			so turn off NLS
+CMAKE_ARGS=		-DLYX_NLS:BOOL=OFF
+			-DLYX_ASPELL:BOOL=ON
+			-DLYX_ENCHANT:BOOL=ON
+			-DLYX_HUNSPELL:BOOL=ON
+			-DLYX_REQUIRE_SPELLCHECK:BOOL=ON
+			-DLYX_RELEASE:BOOL=ON
+			-DLYX_EXTERNAL_Z:BOOL=ON
+			-DLYX_EXTERNAL_ICONV:BOOL=ON
+			-DLYX_EXTERNAL_HUNSPELL:BOOL=ON
+			-DLYX_EXTERNAL_MYTHES:BOOL=ON
+			-DLYX_EXTERNAL_BOOST:BOOL=ON
+			-DLYX_USE_QT=QT5
+			-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
+			-Wno-dev
+SHEBANG_FILES=		lib/configure.py
+			lib/lyx2lyx/lyx2lyx
+			lib/scripts/listerrors
+			lib/scripts/gnuplot2pdf.py
+			lib/scripts/svg2pdftex.py
+			lib/scripts/svg2pstex.py
+LDFLAGS=		{{ICONV_LIB}}
+PLIST_SUB=		MV=${MAJORVER}
+
+post-patch:
+	${GREP} -rl "python -tt" ${WRKSRC} | ${XARGS} \
+		${REINPLACE_CMD} -i'' 's|python -tt|${PYTHON_CMD} -tt|'
+	${REINPLACE_CMD} -e 's|/usr/local/|${LOCALBASE}/|g' \
+		-e 's|hunspell-1.2|hunspell-1.7|' \
+		${WRKSRC}/development/cmake/modules/*.cmake
+
+post-install:
+	# cmake doesn't handle man pages (really??)
+	${INSTALL_MAN} ${WRKSRC}/lyx.1in \
+		${STAGEDIR}${MANPREFIX}/man/man1/lyx.1
+	${INSTALL_MAN} ${WRKSRC}/src/client/lyxclient.1in \
+		${STAGEDIR}${MANPREFIX}/man/man1/lyxclient.1
+	${INSTALL_MAN} ${WRKSRC}/src/tex2lyx/tex2lyx.1in \
+		${STAGEDIR}${MANPREFIX}/man/man1/tex2lyx.1
+	${REINPLACE_CMD} -i'' \
+		-e 's|@version_suffix@||g' \
+		-e 's|@VERSION@|${PORTVERSION}|g' \
+		-e 's|@LYX_DATE@|${LYX_DATE}|g' \
+		-e 's|@LYX_DIR_VER@|LYX_DIR_${XY}x|g' \
+		-e 's|@LYX_USERDIR_VER@|LYX_USERDIR_${XY}x|g' \
+		-e 's|@real_pkgdatadir@|${PREFIX}/lib/pkgconfig|g' \
+		${STAGEDIR}${MANPREFIX}/man/man1/*.1
+	# strip binaries
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
+
