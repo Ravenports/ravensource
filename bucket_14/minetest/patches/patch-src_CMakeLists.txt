@@ -1,6 +1,6 @@
---- src/CMakeLists.txt.orig	2020-01-11 18:29:02 UTC
+--- src/CMakeLists.txt.orig	2020-04-05 16:31:50 UTC
 +++ src/CMakeLists.txt
-@@ -713,14 +713,9 @@ else()
+@@ -709,19 +709,7 @@ else()
  		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DWIN32_LEAN_AND_MEAN")
  	endif()
  
@@ -8,12 +8,16 @@
 -	if(CMAKE_SYSTEM_NAME MATCHES "(Darwin|BSD|DragonFly)")
 -		set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Os")
 -	else()
--		set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -ffast-math -fomit-frame-pointer")
+-		set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -fomit-frame-pointer")
+-		if(CMAKE_SYSTEM_NAME STREQUAL "Linux"
+-				AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang"
+-				AND CMAKE_CXX_COMPILER_VERSION MATCHES "^9\\.")
+-			# Clang 9 has broken -ffast-math on glibc
+-		else()
+-			set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -ffast-math")
+-		endif()
 -	endif(CMAKE_SYSTEM_NAME MATCHES "(Darwin|BSD|DragonFly)")
 +	set(CMAKE_CXX_FLAGS_RELEASE "-DNDEBUG ${RELEASE_WARNING_FLAGS} ${WARNING_FLAGS} ${OTHER_FLAGS} -Wall")
  	set(CMAKE_CXX_FLAGS_SEMIDEBUG "-g -O1 -Wall -Wabi ${WARNING_FLAGS} ${OTHER_FLAGS}")
--	set(CMAKE_CXX_FLAGS_DEBUG "-g -O0 -Wall -Wabi ${WARNING_FLAGS} ${OTHER_FLAGS}")
-+	set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall -Wabi ${WARNING_FLAGS} ${OTHER_FLAGS}")
+ 	set(CMAKE_CXX_FLAGS_DEBUG "-g -O0 -Wall -Wabi ${WARNING_FLAGS} ${OTHER_FLAGS}")
  
- 	if(USE_GPROF)
- 		set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pg")

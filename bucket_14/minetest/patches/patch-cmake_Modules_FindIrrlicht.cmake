@@ -1,4 +1,4 @@
---- cmake/Modules/FindIrrlicht.cmake.orig	2020-01-11 18:29:02 UTC
+--- cmake/Modules/FindIrrlicht.cmake.orig	2020-04-05 16:31:50 UTC
 +++ cmake/Modules/FindIrrlicht.cmake
 @@ -7,7 +7,7 @@ set(IRRLICHT_SOURCE_DIR "" CACHE PATH "P
  
