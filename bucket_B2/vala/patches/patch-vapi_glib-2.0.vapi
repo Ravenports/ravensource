@@ -1,6 +1,6 @@
---- vapi/glib-2.0.vapi.orig	2020-03-10 21:59:01 UTC
+--- vapi/glib-2.0.vapi.orig	2020-04-06 07:58:37 UTC
 +++ vapi/glib-2.0.vapi
-@@ -3765,6 +3765,8 @@ namespace GLib {
+@@ -3771,6 +3771,8 @@ namespace GLib {
  		public static FileStream? open (string path, string mode);
  		[CCode (cname = "fdopen")]
  		public static FileStream? fdopen (int fildes, string mode);
