@@ -1,0 +1,128 @@
+DEF[PORTVERSION]=	10.2.31
+DEF[PORTNAME]=		mariadb102
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		${PORTNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		databases
+VARIANTS=		standard
+SDESC[standard]=	Fast SQL database server, derived from MySQL
+HOMEPAGE=		https://mariadb.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://downloads.mariadb.com/MariaDB/mariadb-${PORTVERSION}/source/
+DISTFILE[1]=		mariadb-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete server client docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:server
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		server:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^\#include"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libmysqld/libmysqld.c
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		databases/mariadb102-server
+
+BUILD_DEPENDS=		Zstandard:static:standard
+			bzip2:static:standard
+			lz4:static:standard
+			lzo:static:standard
+			bison:primary:standard
+BUILDRUN_DEPENDS=	Zstandard:shared:standard
+			bzip2:shared:standard
+			lz4:shared:standard
+			lzo:shared:standard
+			boost-libraries:rest:python_used
+			snappy:single:standard
+			msgpack:single:standard
+			judy:primary:standard
+			krb5:primary:standard
+# zeromq detected but not used (?)
+# #			zeromq:single:standard
+
+USERS=			mysql
+GROUPS=			mysql
+USERGROUP_SPKG=		server
+
+USES=			cmake zlib ssl readline ncurses shebangfix
+			python:build perl:build pkgconfig iconv execinfo
+GNOME_COMPONENTS=	libxml2
+CMAKE_ARGS=		-DCOMPILATION_COMMENT="Ravenports"
+			-DINSTALL_INCLUDEDIR=include/mysql
+			-DINSTALL_PLUGINDIR=lib/mysql/plugin
+			-DINSTALL_SHAREDIR=share
+			-DINSTALL_SUPPORTFILESDIR=share/mysql
+			-DINSTALL_MYSQLSHAREDIR=share/mysql
+			-DINSTALL_DOCREADMEDIR=share/doc/${PORTNAME}
+			-DINSTALL_DOCDIR=share/doc/${PORTNAME}
+			-DINSTALL_LIBDIR=lib/mysql
+			-DINSTALL_MANDIR=share/man
+			-DINSTALL_SCRIPTDIR=bin
+			-DINSTALL_MYSQLTESTDIR=
+			-DINSTALL_SQLBENCHDIR=
+			-DDEFAULT_CHARSET=utf8mb4
+			-DDEFAULT_COLLATION=utf8mb4_unicode_ci
+			-DDEFAULT_SYSCONFDIR="{{PREFIX}}/etc"
+			-DENABLED_LOCAL_INFILE=ON
+			-DPLUGIN_EXAMPLE=NO
+			-DPLUGIN_FEEDBACK=NO
+			-DPLUGIN_TOKUDB=NO
+			-DWITH_EMBEDDED_SERVER=ON
+			-DWITH_EXTRA_CHARSETS=complex
+			-DWITH_JEMALLOC=NO
+			-DWITH_SYSTEMD=no
+			-DWITH_LIBWRAP=OFF
+			-DWITH_UNIT_TESTS=OFF
+			-DWITH_READLINE=system
+			-DWITH_SSL="{{OPENSSLBASE}}"
+			-DWITH_ZLIB=system
+			-DWITH_PCRE=bundled
+			-Wno-dev
+DISTNAME=		mariadb-${PORTVERSION}
+SHEBANG_FILES=		scripts/*.sh
+
+post-patch:
+	${REINPLACE_CMD} 's|/usr/bin/env python|${PYTHON_CMD}|' \
+		${WRKSRC}/CMakeLists.txt
+	${REINPLACE_CMD} 's|%%PREFIX%%|${PREFIX}|g' \
+		${WRKSRC}/mysys/my_default.c
+	${REINPLACE_CMD} 's|%%LOCALBASE%%|${LOCALBASE}|g' \
+		${WRKSRC}/scripts/mysql_config.sh \
+		${WRKSRC}/scripts/CMakeLists.txt
+	${CP} ${WRKSRC}/cmake/os/FreeBSD.cmake \
+		${WRKSRC}/cmake/os/DragonFly.cmake
+
+post-configure:
+	${REINPLACE_CMD} -Ee 's|(#define INCLUDE.*)"$$|\1 -I${PREFIX}/include"|' \
+		-e 's|(#define LIBS .*)"$$|\1 -L${PREFIX}/lib"|' \
+		${BUILD_WRKSRC}/libmariadb/mariadb_config/mariadb_config.c
+
+# Fix build failure in mbstream, see https://jira.mariadb.org/browse/MDEV-14072
+	${REINPLACE_CMD} -e 's| ${PREFIX}/lib/liblz4.so\(.* ${PREFIX}/lib/liblz4.so.*\)|\1|' \
+		-e 's| ${PREFIX}/lib/liblzo2.so\(.* ${PREFIX}/lib/liblzo2.so.*\)|\1|' \
+		-e 's| ${PREFIX}/lib/libsnappy.so\(.* ${PREFIX}/lib/libsnappy.so\)|\1|' \
+		-e 's| -llzma\(.* -llzma\)|\1|;s| -lbz2\(.* -lbz2\)|\1|;' \
+		${BUILD_WRKSRC}/extra/mariabackup/CMakeFiles/mbstream.dir/link.txt
+
+post-install:
+	${RM} ${STAGEDIR}${STD_DOCDIR}/COPYING
+	${MV} ${STAGEDIR}${PREFIX}/share/pkgconfig/mariadb.pc \
+		${STAGEDIR}${PREFIX}/lib/pkgconfig/
+	${RMDIR} ${STAGEDIR}${PREFIX}/share/pkgconfig
+
+	# strip plugins and libraries
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/libmariadb.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/libmysqld.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/plugin/*.so
+	# strip binaries
+	@flist=$$(${FIND} ${STAGEDIR}${PREFIX}/bin -type f -perm /111 -print) ;\
+	for f in $$flist; do \
+		(${FILE} $$f | ${GREP} -Fq ", not stripped")\
+		&& ${ECHO_CMD} "Auto-stripping $$f"\
+		&& ${STRIP_CMD} $$f || ${TRUE} ;\
+	done
