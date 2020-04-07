@@ -1,0 +1,11 @@
+--- sql/CMakeLists.txt.orig	2020-01-26 18:37:29 UTC
++++ sql/CMakeLists.txt
+@@ -396,7 +396,7 @@ IF(INSTALL_LAYOUT STREQUAL "STANDALONE")
+ 
+ # Copy db.opt into data/test/
+ SET(DBOPT_FILE ${CMAKE_SOURCE_DIR}/support-files/db.opt ) 
+-INSTALL(FILES ${DBOPT_FILE} DESTINATION data/test COMPONENT DataFiles)
++INSTALL(FILES ${DBOPT_FILE} DESTINATION ${INSTALL_SUPPORTFILESDIR}/data/test COMPONENT DataFiles)
+ 
+ # Install initial database on windows
+ IF(WIN32 AND TARGET mysqld AND NOT CMAKE_CROSSCOMPILING)
