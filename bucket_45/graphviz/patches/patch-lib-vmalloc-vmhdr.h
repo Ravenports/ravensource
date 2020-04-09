@@ -1,4 +1,4 @@
---- lib/vmalloc/vmhdr.h.orig	2018-07-24 18:21:09 UTC
+--- lib/vmalloc/vmhdr.h.orig	2020-04-08 07:51:58 UTC
 +++ lib/vmalloc/vmhdr.h
 @@ -20,6 +20,10 @@ extern "C" {
  #ifndef _BLD_vmalloc
