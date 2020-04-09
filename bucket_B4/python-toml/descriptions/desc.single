@@ -1,0 +1,103 @@
+****
+TOML
+****
+
+.. image:: https://badge.fury.io/py/toml.svg
+    :target: https://badge.fury.io/py/toml
+
+.. image:: https://travis-ci.org/uiri/toml.svg?branch=master
+    :target: https://travis-ci.org/uiri/toml
+
+.. image:: https://img.shields.io/pypi/pyversions/toml.svg
+    :target: https://pypi.org/project/toml/
+
+
+A Python library for parsing and creating `TOML
+<https://en.wikipedia.org/wiki/TOML>`_.
+
+The module passes `the TOML test suite
+<https://github.com/BurntSushi/toml-test>`_.
+
+See also:
+
+* `The TOML Standard <https://github.com/toml-lang/toml>`_
+* `The currently supported TOML specification
+<https://github.com/toml-lang/toml/blob/v0.5.0/README.md>`_
+
+Installation
+============
+
+To install the latest release on `PyPI <https://pypi.org/project/toml/>`_,
+simply run:
+
+::
+
+  pip install toml
+
+Or to install the latest development version, run:
+
+::
+
+  git clone https://github.com/uiri/toml.git
+  cd toml
+  python setup.py install
+
+Quick Tutorial
+==============
+
+*toml.loads* takes in a string containing standard TOML-formatted data and
+returns a dictionary containing the parsed data.
+
+.. code:: pycon
+
+  >>> import toml
+  >>> toml_string = """
+  ... # This is a TOML document.
+  ...
+  ... title = "TOML Example"
+  ...
+  ... [owner]
+  ... name = "Tom Preston-Werner"
+  ... dob = 1979-05-27T07:32:00-08:00 # First class dates
+  ...
+  ... [database]
+  ... server = "192.168.1.1"
+  ... ports = [ 8001, 8001, 8002 ]
+  ... connection_max = 5000
+  ... enabled = true
+  ...
+  ... [servers]
+  ...
+  ...   # Indentation (tabs and/or spaces) is allowed but not required
+  ...   [servers.alpha]
+  ...   ip = "10.0.0.1"
+  ...   dc = "eqdc10"
+  ...
+  ...   [servers.beta]
+  ...   ip = "10.0.0.2"
+  ...   dc = "eqdc10"
+  ...
+  ... [clients]
+  ... data = [ ["gamma", "delta"], [1, 2] ]
+  ...
+  ... # Line breaks are OK when inside arrays
+  ... hosts = [
+  ...   "alpha",
+  ...   "omega"
+  ... ]
+  ... """
+  >>> parsed_toml = toml.loads(toml_string)
+
+
+*toml.dumps* takes a dictionary and returns a string containing the
+corresponding TOML-formatted data.
+
+.. code:: pycon
+
+  >>> new_toml_string = toml.dumps(parsed_toml)
+  >>> print(new_toml_string)
+  title = "TOML Example"
+  [owner]
+  name = "Tom Preston-Werner"
+  dob = 1979-05-27T07:32:00Z
+  [database]

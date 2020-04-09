@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	0.8.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-pathspec
+VERSION=		${PORTVERSION}
+KEYWORDS=		python devel
+VARIANTS=		py38 py37
+SDESC[py38]=		Utility library for gitignore style patter (PY 38)
+SDESC[py37]=		Utility library for gitignore style patter (PY 37)
+HOMEPAGE=		https://github.com/cpburnz/python-path-specification
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/p/pathspec
+DISTFILE[1]=		pathspec-0.8.0.tar.gz:main
+
+SPKGS[py38]=		single
+SPKGS[py37]=		single
+
+OPTIONS_AVAILABLE=	PY38 PY37
+OPTIONS_STANDARD=	none
+VOPTS[py38]=		PY38=ON PY37=OFF
+VOPTS[py37]=		PY38=OFF PY37=ON
+
+# Output of setup.py --license
+# MPL 2.0
+
+GENERATED=		yes
+
+# install_requires extracted from setup.py (using python 2.7)
+
+DISTNAME=		pathspec-${PORTVERSION}
+
+[PY38].USES_ON=				python:py38
+
+[PY37].USES_ON=				python:py37
+
