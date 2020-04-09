@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	0.770
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-mypy
+VERSION=		${PORTVERSION}
+KEYWORDS=		python devel
+VARIANTS=		py38 py37
+SDESC[py38]=		Optional static typing for Python (PY 38)
+SDESC[py37]=		Optional static typing for Python (PY 37)
+HOMEPAGE=		http://www.mypy-lang.org/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/m/mypy
+DISTFILE[1]=		mypy-0.770.tar.gz:main
+
+SPKGS[py38]=		single
+SPKGS[py37]=		single
+
+OPTIONS_AVAILABLE=	PY38 PY37
+OPTIONS_STANDARD=	none
+VOPTS[py38]=		PY38=ON PY37=OFF
+VOPTS[py37]=		PY38=OFF PY37=ON
+
+# Output of setup.py --license
+# MIT License
+
+GENERATED=		yes
+
+# install_requires extracted from setup.py (using python 2.7)
+
+DISTNAME=		mypy-${PORTVERSION}
+
+[PY38].USES_ON=				python:py38
+[PY38].BUILDRUN_DEPENDS_ON=		python-typed_ast:single:py38
+					python-typing_extensions:single:py38
+					python-mypy_extensions:single:py38
+
+[PY37].USES_ON=				python:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-typed_ast:single:py37
+					python-typing_extensions:single:py37
+					python-mypy_extensions:single:py37
+
