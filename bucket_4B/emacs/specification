@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	26.3
 
 NAMEBASE=		emacs
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		editors
 VARIANTS=		standard desktop
 SDESC[standard]=	GNU Emacs text editor
@@ -157,7 +158,6 @@ INSTALL_REQ_TOOLCHAIN=	yes
 
 post-patch:
 	${RM} ${WRKSRC}/doc/man/ctags.1
-	${REINPLACE_CMD} -e 's|apple-darwin|raven-darwin|g' ${WRKSRC}/configure
 
 post-patch-X11GTK-OFF:
 	${REINPLACE_CMD} -i'' -e 's/^Terminal=.*$$/Terminal=true/' \
