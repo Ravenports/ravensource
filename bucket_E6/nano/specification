@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	4.9.2
 
 NAMEBASE=		nano
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		editors
 VARIANTS=		standard
 SDESC[standard]=	Nano's ANOther editor, an enhanced Pico clone
@@ -31,11 +32,10 @@ FPC_EQUIVALENT=		editors/nano
 USES=			ncurses gettext-tools gettext-runtime charsetfix pkgconfig
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-utf8
+CONFIGURE_ENV=		LIBS=-ltinfo
 MAKE_ARGS=		install_htmlmanDATA=install-htmlmanDATA
 CPPFLAGS=		-I{{NCURSESINC}}
 INFO=			primary:nano
-
-VAR_OPSYS[sunos]=	CONFIGURE_ENV=LIBS=-ltinfo
 
 post-extract:
 	# LICENSE_AWK writes to all defined terms, so create them manually
