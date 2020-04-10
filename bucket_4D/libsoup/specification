@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://ftp.gnome.org/pub/GNOME/sources/libsoup/${PORTVERSION:R}/
 DISTFILE[1]=		libsoup-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary gnome docs
+SPKGS[standard]=	complete primary gnome nls docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,14 +30,13 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libsoup
 
-BUILD_DEPENDS=		gtk-doc:single:standard
 BUILDRUN_DEPENDS=	brotli:single:standard
 			glib-networking:single:standard
 			libpsl:single:standard
 RUN_DEPENDS=		libgcrypt:single:standard
 
 USES=			gettext-tools gmake libtool pkgconfig python:build
-			sqlite meson
+			sqlite meson gtk-doc
 GNOME_COMPONENTS=	glib intltool introspection libxml2
 MESON_ARGS=		-Dgtk_doc=true
 			-Dintrospection=enabled
@@ -47,6 +46,7 @@ INSTALL_REQ_TOOLCHAIN=	yes
 
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		LIBVERSION=${LIBVERSION}
+GTKDOC_OUTPUT_BASEDIR=	libsoup-${LIBVERSION}
 
 EXRUN[gnome]=		libsoup:primary:standard
 VAR_OPSYS[linux]=	CFLAGS=-D_GNU_SOURCE
@@ -54,6 +54,3 @@ VAR_OPSYS[linux]=	CFLAGS=-D_GNU_SOURCE
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/libsoup/soup-connection.h \
 		${STAGEDIR}${PREFIX}/include/libsoup-${LIBVERSION}/libsoup/soup-connection.h
-	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/libsoup-${LIBVERSION} \
-		${STAGEDIR}${PREFIX}/share/doc/soup
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
