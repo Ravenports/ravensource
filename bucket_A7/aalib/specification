@@ -4,7 +4,7 @@ DEF[WORKVERSION]=	1.4.0
 
 NAMEBASE=		aalib
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	ASCII art library
@@ -44,7 +44,8 @@ post-extract:
 post-patch:
 	${RM} ${WRKSRC}/config.cache
 	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g; \
-		s|MAKEINFO=makeinfo|MAKEINFO="makeinfo --no-split"|g' \
+		s|MAKEINFO=makeinfo|MAKEINFO="makeinfo --no-split"|g; \
+		/LIBS=.*withval.*lncurses/ s|lncurses|lncurses -ltinfo|' \
 		${WRKSRC}/configure
 	${REINPLACE_CMD} \
 		-e 's|AC_DEFUN(AM_PATH_AALIB|AC_DEFUN([AM_PATH_AALIB]|g' \
