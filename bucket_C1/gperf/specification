@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	3.1
 
 NAMEBASE=		gperf
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Perfect hash function generator
@@ -13,22 +14,22 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/gperf
 DISTFILE[1]=		gperf-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv3+:single
+LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^\#include"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/main.cc
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/gperf
 
-USES=			c++:single
+USES=			c++:primary
 SINGLE_JOB=		yes
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--docdir={{STD_DOCDIR}}
-INFO=			single:gperf
+INFO=			primary:gperf
