@@ -1,7 +1,7 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(BINUTILS_VERSION)
 DEF[BUREMOVE]=		coffdump dlltool dllwrap nlmconv srconv sysdump windmc windres
 
-# Version is frozen to 2.33.1 (no revision) because ravenadm has to pre-copy
+# Version is frozen to 2.34 (no revision) because ravenadm has to pre-copy
 # the ravensys variant with the other compiler packages.  Don't upgrade the
 # version without a corresponding update to ravenadm.
 # ----------------------------------------------------------------------------
@@ -9,9 +9,8 @@ DEF[BUREMOVE]=		coffdump dlltool dllwrap nlmconv srconv sysdump windmc windres
 NAMEBASE=		binutils
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		standard nls ravensys
+VARIANTS=		standard ravensys
 SDESC[standard]=	GNU binary tools
-SDESC[nls]=		GNU binary tools with native language support
 SDESC[ravensys]=	GNU binary tools for Ravenports toolchain
 HOMEPAGE=		http://sources.redhat.com/binutils/
 CONTACT=		nobody
@@ -21,17 +20,16 @@ SITES[main]=		SOURCEWARE/binutils/releases
 DISTFILE[1]=		binutils-${PORTVERSION}.tar.xz:main
 
 SPKGS[ravensys]=	single
-SPKGS[standard]=	single
-SPKGS[nls]=		single
+SPKGS[standard]=	complete primary nls
 
 OPTIONS_AVAILABLE=	NLS RELRO RAVENSYS
 OPTIONS_STANDARD=	NLS RELRO
 VOPTS[ravensys]=	NLS=OFF RELRO=OFF RAVENSYS=ON
-VOPTS[nls]=		NLS=ON RELRO=OFF RAVENSYS=OFF
+OPT_ON[all]=		NLS
 
-LICENSE=		GPLv3+:single
+LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"ifndef GAS"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gas/as.h
 LICENSE_SCHEME=		solo
@@ -42,7 +40,7 @@ BUILD_DEPENDS=		zlib:static:standard
 			mpfr:static:standard
 			gmp:static:standard
 
-USES=			bison gmake libtool c++:single
+USES=			bison gmake libtool
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
 CONFIGURE_ARGS=		--disable-werror
@@ -57,8 +55,13 @@ PLIST_SUB=		PLUGINAPI={{PLUGINAPI}}
 			LINKER={{LINKER}}
 			ASSEMBLER={{ASSEMBLER}}
 			GPROF={{GPROF}}
+			TARGET={{CONFIGURE_TARGET}}
 
-# Consider making gold the default linker on Linux
+# Intentionally don't set c++ for ravensys.
+# Set INVALID_RPATH to allow this as warning during build tests
+INVALID_RPATH=		yes
+
+# Consider making gold the default linker on new platforms
 
 VAR_OPSYS[dragonfly]=	VAR1=/libexec/ld-elf.so.2
 			VAR2=/libexec/ld-elf.so.2
@@ -80,7 +83,7 @@ VAR_OPSYS[sunos]=	VAR1=/lib/amd64/ld.so.1
 VAR_OPSYS[linux]=	VAR1=/lib/ld64.so.1
 			VAR2=/lib/ldx32.so.1
 			MAKEFILE_LINE=BUILD_GOLD=yes
-			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold
+			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold=default
 VAR_OPSYS[netbsd]=	MAKEFILE_LINE=PLUGINAPI="@comment "
 VAR_OPSYS[openbsd]=	MAKEFILE_LINE=PLUGINAPI="@comment "
 
@@ -88,16 +91,17 @@ VAR_OPSYS[openbsd]=	MAKEFILE_LINE=PLUGINAPI="@comment "
 [RELRO].CONFIGURE_ARGS_ON=		--enable-relro
 [RELRO].CONFIGURE_ARGS_OFF=		--enable-relro=no
 
-[NLS].USES_ON=				gettext-runtime
+[NLS].USES_ON=				gettext-runtime makeinfo
 [NLS].CONFIGURE_ENABLE_BOTH=		nls
-[NLS].INFO_ON=				single:as
-					single:binutils
-					single:gprof
-					single:bfd
-					single:ld
+[NLS].INFO_ON=				primary:as
+					primary:binutils
+					primary:gprof
+					primary:bfd
+					primary:ld
 
 [RAVENSYS].DESCRIPTION=			Version used by Ravenports system-root
 [RAVENSYS].MAKEFILE_ON=			PREFIX={{LOCALBASE}}/toolchain
+[RAVENSYS].USES_OFF=			c++:primary
 
 post-patch:
 	${REINPLACE_CMD} \
@@ -117,9 +121,6 @@ post-patch-NLS-OFF:
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/include/plugin-api.h \
 		${STAGEDIR}${PREFIX}/include/
-	${FIND} ${STAGEDIR}${PREFIX}/${CONFIGURE_TARGET} ! -type d | \
-		${SED} -e 's,^${STAGEDIR}${PREFIX}/,,' \
-		>> ${WRKDIR}/.manifest.single.mktmp
 	${RM} ${STAGEDIR}${PREFIX}/include/ansidecl.h
 	${SED} -i'' '/#include "ansidecl.h"/d' \
 		${STAGEDIR}${PREFIX}/include/bfd.h
@@ -128,3 +129,15 @@ post-install:
 		${STAGEDIR}${MANPREFIX}/man/man1/${BUTARGET}-${tool}.1 \
 		${STAGEDIR}${PREFIX}/${BUTARGET}/bin/${tool}
 .endfor
+
+post-install-RAVENSYS-ON:
+	# autoplist target files and ldscripts
+	${FIND} ${STAGEDIR}${PREFIX}/${CONFIGURE_TARGET} ! -type d | \
+		${SED} -e 's,^${STAGEDIR}${PREFIX}/,,' \
+		>> ${WRKDIR}/.manifest.single.mktmp
+
+post-install-RAVENSYS-OFF:
+	# autoplist target files and ldscripts
+	${FIND} ${STAGEDIR}${PREFIX}/${CONFIGURE_TARGET} ! -type d | \
+		${SED} -e 's,^${STAGEDIR}${PREFIX}/,,' \
+		>> ${WRKDIR}/.manifest.primary.mktmp

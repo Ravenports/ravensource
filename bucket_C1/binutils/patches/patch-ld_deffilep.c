@@ -1,6 +1,6 @@
---- ld/deffilep.c.orig	2019-10-12 14:11:07 UTC
+--- ld/deffilep.c.orig	2020-02-01 12:02:51 UTC
 +++ ld/deffilep.c
-@@ -204,6 +204,8 @@ static const char *lex_parse_string_end
+@@ -205,6 +205,8 @@ static const char *lex_parse_string_end
  extern int yydebug;
  #endif
  
