@@ -5,10 +5,10 @@ DEF[STANDARD_PATH]=	/sbin:/bin:/usr/sbin:/usr/bin
 
 NAMEBASE=		bash
 VERSION=		${PORTVERSION}.${PATCHLEVEL}
+REVISION=		1
 KEYWORDS=		shells
-VARIANTS=		standard static nls
+VARIANTS=		standard static
 SDESC[standard]=	GNU Bourne Again SHell
-SDESC[nls]=		GNU Bourne Again SHell with native lang support
 SDESC[static]=		Static GNU Bourne Again SHell
 HOMEPAGE=		http://www.gnu.org/software/bash/bash.html
 CONTACT=		nobody
@@ -35,14 +35,13 @@ DISTFILE[16]=		bash50-015:patches
 DISTFILE[17]=		bash50-016:patches
 DIST_SUBDIR=		bash
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary nls docs
 SPKGS[static]=		primary
-SPKGS[nls]=		primary
 
 OPTIONS_AVAILABLE=	STATIC NLS NOTSTD
 OPTIONS_STANDARD=	STATIC NLS
 VOPTS[static]=		STATIC=ON NLS=OFF NOTSTD=ON
-VOPTS[nls]=		STATIC=OFF NLS=ON NOTSTD=ON
+OPT_ON[all]=		NLS
 
 LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
