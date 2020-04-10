@@ -4,7 +4,7 @@ DEF[SOVERSION]=		3.0.1
 
 NAMEBASE=		upower
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		sysutils
 VARIANTS=		standard
 SDESC[standard]=	D-Bus daemon for power management tasks
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://upower.freedesktop.org/releases/
 DISTFILE[1]=		upower-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary nls docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -40,7 +40,8 @@ BUILDRUN_DEPENDS=	dbus-glib:primary:standard
 BR_DEPS[linux]=		libgudev:single:standard
 			libusb:single:standard
 
-USES=			gettext-tools:build gettext-runtime gmake libtool pkgconfig python:build
+USES=			gettext-tools:build python:build
+			gmake libtool pkgconfig gtk-doc
 GNOME_COMPONENTS=	glib intltool
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-gtk-doc
@@ -61,7 +62,4 @@ post-patch-sunos:
 	${REINPLACE_CMD} -e '/as-needed/ s/^.*$$/NOOP=1/' ${WRKSRC}/configure
 
 post-stage:
-	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/UPower \
-		${STAGEDIR}${PREFIX}/share/doc
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
 	${RM} -r ${STAGEDIR}/var

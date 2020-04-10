@@ -1,0 +1,2 @@
+# for USES=gtk-doc
+GTKDOC_OUTPUT_BASEDIR=	UPower
