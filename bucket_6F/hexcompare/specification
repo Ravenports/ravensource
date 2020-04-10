@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.0.4
 
 NAMEBASE=		hexcompare
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		misc
 VARIANTS=		standard
 SDESC[standard]=	Tool for visual comparison of binary files
@@ -34,15 +35,7 @@ post-patch:
 	${REINPLACE_CMD} \
 		-e 's|gcc|${CC}|g' \
 		-e 's|CFLAGS =|CFLAGS +=|' \
-		-e 's|-lncurses|$$(LDFLAGS) -lncurses|' \
-		${WRKSRC}/Makefile
-
-post-patch-sunos:
-	${REINPLACE_CMD} -e 's|-lncurses|-lncurses -ltinfo|' \
-		${WRKSRC}/Makefile
-
-post-patch-darwin:
-	${REINPLACE_CMD} -e 's|-lncurses|-lncurses -ltinfo|' \
+		-e 's|-lncurses|$$(LDFLAGS) -lncurses -ltinfo|' \
 		${WRKSRC}/Makefile
 
 do-install:
