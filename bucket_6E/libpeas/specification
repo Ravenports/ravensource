@@ -5,6 +5,7 @@ DEF[SOVERSION]=		0.2600.0
 
 NAMEBASE=		libpeas
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		py38 py37
 SDESC[py38]=		GObject-based plugins engine (PY 38)
@@ -16,8 +17,8 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNOME/libpeas/${PORTVERSION:R}/
 DISTFILE[1]=		libpeas-${PORTVERSION}.tar.xz:main
 
-SPKGS[py38]=		complete primary python examples docs
-SPKGS[py37]=		complete primary python examples docs
+SPKGS[py38]=		complete primary python examples nls docs
+SPKGS[py37]=		complete primary python examples nls docs
 
 OPTIONS_AVAILABLE=	PY38 PY37
 OPTIONS_STANDARD=	none
@@ -33,13 +34,12 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libpeas
 
-BUILD_DEPENDS=		gtk-doc:single:standard
 RUN_DEPENDS=		gobject-introspection:single:standard
 
 # We don't have Lua5.1, so Lua cannot be supported here.
 # Libpeas still supports 5.1 only as of 1.24.0. Maybe re-check later.
 
-USES=			meson pkgconfig
+USES=			meson pkgconfig gtk-doc
 			gettext-runtime gettext-tools:build
 GNOME_COMPONENTS=	gtk3 intltool introspection
 MESON_ARGS=		-Dlua51=false
@@ -69,7 +69,4 @@ post-patch:
 		${WRKSRC}/meson.build
 
 post-install:
-	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/libpeas \
-		${STAGEDIR}${PREFIX}/share/doc/libpeas
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/peas-demo/plugins/pythonhello/__pycache__
