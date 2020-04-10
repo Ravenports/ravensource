@@ -7,7 +7,7 @@ DEF[SOVERSION_gcrui]=	1.0.0
 
 NAMEBASE=		gcr
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Library for bits of crypto UI and parsing
@@ -18,7 +18,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/GNOME:gcr:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary nls docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -41,7 +41,8 @@ BUILDRUN_DEPENDS=	dbus:single:standard
 			libtasn1:primary:standard
 			p11-kit:primary:standard
 
-USES=			gettext-tools gmake libtool pkgconfig autoreconf:build
+USES=			gettext-tools gmake libtool pkgconfig gtk-doc
+			autoreconf:build
 			schemas:primary
 			desktop-utils:primary
 			mime-info:primary
@@ -75,10 +76,3 @@ post-patch:
 	# timegm compat function untested by upstream in all cases
 	${REINPLACE_CMD} -e 's|"egg/egg-timegm.h"|<time.h>|' \
 		${WRKSRC}/gck/gck-slot.c
-
-post-install:
-	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/gck \
-		${STAGEDIR}${PREFIX}/share/doc/gck
-	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/gcr-3 \
-		${STAGEDIR}${PREFIX}/share/doc/gcr-3
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
