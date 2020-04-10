@@ -15,24 +15,25 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNOME/gcab/${DL_FOLDER}
 DISTFILE[1]=		gcab-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary nls docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^\#include"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/gcab.c
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		archivers/gcab
 
 BUILD_DEPENDS=		vala:single:standard
-			gtk-doc:single:standard
 
-USES=			cpe gettext-tools gmake libtool pkgconfig meson
+USES=			cpe gettext-tools gmake libtool
+			pkgconfig meson gtk-doc
 GNOME_COMPONENTS=	glib intltool introspection
 CPE_VENDOR=		gnome
 MESON_ARGS=		-Dtests=false
 SOVERSION=		${SOVERSION}
-
-post-install:
-	${MKDIR} ${STAGEDIR}${STD_DOCDIR:H}
-	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/gcab \
-		${STAGEDIR}${STD_DOCDIR:H}
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
