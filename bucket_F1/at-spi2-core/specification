@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.36.0
 
 NAMEBASE=		at-spi2-core
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		accessibility x11_toolkits
 VARIANTS=		standard
 SDESC[standard]=	Assistive Technology Service Provider Interface
@@ -14,33 +15,36 @@ SITES[main]=		GNOME/at-spi2-core/${PORTVERSION:R}
 DISTFILE[1]=		at-spi2-core-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome3
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary nls docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"_ATSPI_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/atspi/atspi.h
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		accessibility/at-spi2-core
 
 
-BUILD_DEPENDS=		gtk-doc:single:standard
-			zlib:static:standard
+BUILD_DEPENDS=		zlib:static:standard
 BUILDRUN_DEPENDS=	dbus:single:standard
 
 USES=			gmake libtool pkgconfig gettext-tools python:build
-			meson
+			meson gtk-doc
 GNOME_COMPONENTS=	glib intltool introspection
 XORG_COMPONENTS=	x11 xi xtst xext sm ice
 MESON_ARGS=		-Ddocs=true
 			-Dintrospection=yes
 			-Dx11=yes
 INSTALL_REQ_TOOLCHAIN=	yes
+GTKDOC_OUTPUT_BASEDIR=	libatspi
 
 post-patch-sunos:
 	${REINPLACE_CMD} -e '/POSIX_C_SOURCE/d' ${WRKSRC}/meson.build
 
 post-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/share/doc
-	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/libatspi \
-		${STAGEDIR}${PREFIX}/share/doc/at-spi2-core
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/systemd
