@@ -27,9 +27,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/graphene
 
-BUILD_DEPENDS=		gtk-doc:single:standard
-
-USES=			meson pkgconfig python shebangfix
+USES=			meson pkgconfig python shebangfix gtk-doc
 GNOME_COMPONENTS=	glib introspection pygobject
 SHEBANG_FILES=		src/identfilter.py
 INSTALL_REQ_TOOLCHAIN=	yes
@@ -42,9 +40,3 @@ VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
 post-patch:
 	${REINPLACE_CMD} -e 's|=python |=${PYTHON_VERSION} |g' \
 		${WRKSRC}/src/meson.build
-
-post-install:
-	${MKDIR} ${STAGEDIR}${STD_DOCDIR:H}
-	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/graphene \
-		${STAGEDIR}${STD_DOCDIR:H}
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
