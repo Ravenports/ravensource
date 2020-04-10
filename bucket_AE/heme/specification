@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	0.4.2
 
 NAMEBASE=		heme
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		editors
 VARIANTS=		standard
 SDESC[standard]=	Fast and portable console hex editor
@@ -25,13 +26,10 @@ USES=			ncurses
 BUILD_TARGET=		heme
 CFLAGS=			-DHAVE_MMAP
 			-I{{NCURSESINC}}
-LDFLAGS=		-lncurses
+LDFLAGS=		-lncurses -ltinfo
 MAKE_ARGS=		CFLAGS="{{CFLAGS}}"
 			LDFLAGS="{{LDFLAGS}}"
 			INSTALL_PREFIX="{{STAGEDIR}}{{PREFIX}}"
-
-VAR_OPSYS[sunos]=	LDFLAGS=-ltinfo
-VAR_OPSYS[darwin]=	LDFLAGS=-ltinfo
 
 post-patch:
 	${REINPLACE_CMD} -e 's|/man/|/share/man/|g' ${WRKSRC}/Makefile
