@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.20.0
 
 NAMEBASE=		dpkg
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		archivers sysutils
 VARIANTS=		standard
 SDESC[standard]=	Debian package maintenance system
@@ -49,8 +50,7 @@ CONFIGURE_ARGS=		--with-admindir=/var/db/dpkg
 			--with-logdir=/var/log
 			--enable-nls
 CONFIGURE_ENV=		PERL_LIBDIR="{{PREFIX}}/{{SITE_PERL_REL}}"
-
-VAR_OPSYS[sunos]=	LDFLAGS=-ltinfow
+LDFLAGS=		-ltinfow
 
 [DAEMON].DESCRIPTION=			Include start-stop daemon
 [DAEMON].CONFIGURE_ARGS_OFF=		--disable-start-stop-daemon
