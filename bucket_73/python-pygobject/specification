@@ -1,6 +1,11 @@
 # manually maintained
+# SPKGS require changing every time default python version changes
 # 3.34.0 series considered stable
 DEF[PORTVERSION]=	3.36.0
+DEF[PYDEFAULT]=		EXTRACT_VERSION(PYTHON3_DEFAULT)
+DEF[PYXX]=		py${PYDEFAULT:S/.//g}
+DEF[COMMON_CAIRO]=	python-pycairo:common:${PYXX}
+DEF[COMMON_PYOBJ]=	python-pygobject:common:${PYXX}
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pygobject
@@ -19,8 +24,8 @@ DISTFILE[1]=		pygobject-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome3
 
 SPKGS[py27]=		primary
-SPKGS[py38]=		primary
-SPKGS[py37]=		primary common
+SPKGS[py37]=		primary
+SPKGS[py38]=		primary common
 
 OPTIONS_AVAILABLE=	PY27 PY38 PY37
 OPTIONS_STANDARD=	none
@@ -40,7 +45,7 @@ FPC_EQUIVALENT=		devel/py-gobject3
 BUILDRUN_DEPENDS=	libffi:single:standard
 RUN_DEPENDS=		gobject-introspection:single:standard
 
-EXRUN[primary]=		python-pygobject:common:py37
+EXRUN[primary]=		${COMMON_PYOBJ}
 
 USES=			gmake libtool pkgconfig meson
 GNOME_COMPONENTS=	introspection
@@ -54,13 +59,15 @@ INSTALL_TARGET=		install-strip
 
 [PY27].BUILDRUN_DEPENDS_ON=		python-pycairo:single:py27
 [PY38].BUILDRUN_DEPENDS_ON=		python-pycairo:primary:py38
-					python-pycairo:common:py37
+					${COMMON_CAIRO}
 [PY37].BUILDRUN_DEPENDS_ON=		python-pycairo:primary:py37
-					python-pycairo:common:py37
+					${COMMON_CAIRO}
 
 post-extract:
 	${MV} ${WRKSRC}/setup.py ${WRKSRC}/setup.py.disable
 
-post-install-PY37-OFF:
-	${RM} -r ${STAGEDIR}${PREFIX}/include/pygobject-3.0
-	${RM} ${STAGEDIR}${PREFIX}/lib/pkgconfig/pygobject-3.0.pc
+post-install:
+	if [ "${VARIANT}" != "${PYXX}" ]; then \
+		${RM} -r ${STAGEDIR}${PREFIX}/include/pygobject-3.0 ;\
+		${RM} ${STAGEDIR}${PREFIX}/lib/pkgconfig/pygobject-3.0.pc ;\
+	fi
