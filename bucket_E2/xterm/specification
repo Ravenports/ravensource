@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	353
 
 NAMEBASE=		xterm
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11
 VARIANTS=		standard
 SDESC[standard]=	Terminal emulator for the X Window System
@@ -48,9 +49,8 @@ CONFIGURE_ARGS=		--enable-narrowproto
 			--without-Xaw3d
 			--without-Xaw3dxft
 			--without-neXtaw
+CONFIGURE_ENV=		cf_cv_lib_tgetent="-lncurses -ltinfo"
 CFLAGS=			-I{{NCURSESINC}}
-
-VAR_OPSYS[sunos]=	CONFIGURE_ENV=cf_cv_lib_tgetent="-lncurses -ltinfo"
 
 # This has no effect until utempter added to freebsd's sysroot
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--with-utempter
