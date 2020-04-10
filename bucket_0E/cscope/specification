@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	15.9
 
 NAMEBASE=		cscope
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	C source code tree search and browse tool
@@ -28,11 +29,9 @@ USES=			ncurses
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-ncurses={{NCURSESBASE}}
 
-post-patch-sunos:
+post-patch:
 	${REINPLACE_CMD} -e '/CURSES_LIBS=/ s/-lncurses/-lncurses -ltinfo/'\
 		${WRKSRC}/configure
-
-post-patch:
 	${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|g' \
 		${WRKSRC}/contrib/xcscope/cscope-indexer \
 		${WRKSRC}/contrib/ocs
