@@ -19,14 +19,20 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		LGPL21+:single
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/menu-cache-gen/main.c
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		x11/menu-cache
 
 BUILD_DEPENDS=		autoconf:single:standard
 			automake:single:standard
-			gtk-doc:single:standard
 BUILDRUN_DEPENDS=	libfm-extra:single:standard
 
-USES=			gmake gettext-runtime libtool:build pkgconfig
+USES=			gmake gettext-runtime libtool:build pkgconfig gtk-doc
 GNOME_COMPONENTS=	glib
 INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
