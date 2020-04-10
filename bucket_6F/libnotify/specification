@@ -30,10 +30,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libnotify
 
-BUILD_DEPENDS=		gtk-doc:single:standard
-			docbook-xsl:primary:standard
+BUILD_DEPENDS=		docbook-xsl:primary:standard
 
-USES=			gettext-runtime gmake meson pkgconfig python
+USES=			gettext-runtime gmake meson pkgconfig python gtk-doc
 GNOME_COMPONENTS=	glib gdkpixbuf intltool introspection
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
@@ -49,8 +48,3 @@ post-patch:
 post-patch-sunos:
 	${REINPLACE_CMD} -e 's|link_args: libnotify_ldflags|link_args: []|'\
 		${WRKSRC}/libnotify/meson.build
-
-post-install:
-	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/libnotify \
-		${STAGEDIR}${PREFIX}/share/doc
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
