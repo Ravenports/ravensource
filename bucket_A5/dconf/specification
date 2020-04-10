@@ -29,12 +29,11 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		devel/dconf
 
 BUILD_DEPENDS=		docbook-xsl:primary:standard
-			gtk-doc:single:standard
 			vala:single:standard
 BUILDRUN_DEPENDS=	dbus:single:standard
 
 USES=			gettext-runtime gmake meson pkgconfig python:build
-			shebangfix solaris-funcs
+			shebangfix solaris-funcs gtk-doc
 SOL_FUNCTIONS=		strndup:bin/dconf.c
 GNOME_COMPONENTS=	glib libxslt
 MESON_ARGS=		-Dgtk_doc=true
@@ -49,8 +48,5 @@ post-patch:
 		${WRKSRC}/docs/meson.build
 
 post-install:
-	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/dconf \
-		${STAGEDIR}${PREFIX}/share/doc/dconf
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/dconf/db
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/dconf/profile
