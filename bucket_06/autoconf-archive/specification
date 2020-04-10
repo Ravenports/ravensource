@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2019.01.06
 
 NAMEBASE=		autoconf-archive
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Collection of freely re-usable Autoconf macros
@@ -35,3 +36,6 @@ post-extract:
 	# extract license terms from m4 script
 	${AWK} '/^# LICENSE/,/^$$/' ${WRKSRC}/m4/ax_blas.m4 \
 		> ${WRKDIR}/TERMS
+
+post-install:
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}
