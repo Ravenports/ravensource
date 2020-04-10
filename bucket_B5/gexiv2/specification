@@ -32,10 +32,9 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		graphics/gexiv2
 
 BUILD_DEPENDS=		vala:single:standard
-			gtk-doc:single:standard
 BUILDRUN_DEPENDS=	exiv2:primary:standard
 
-USES=			pkgconfig libtool:build meson
+USES=			pkgconfig libtool:build meson gtk-doc
 GNOME_COMPONENTS=	glib introspection
 SOVERSION=		${SOVERSION}
 MESON_ARGS=		-Dgtk_doc=true
@@ -47,8 +46,3 @@ pre-install:
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgexiv2.so
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/python*
-	# relocate doc
-	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
-	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/gexiv2/* \
-		${STAGEDIR}${STD_DOCDIR}/
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
