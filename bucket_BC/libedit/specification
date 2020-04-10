@@ -4,6 +4,7 @@ DEF[SOVERSION]=		0.0.63
 
 NAMEBASE=		libedit
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Command line editor library
@@ -41,12 +42,6 @@ VAR_OPSYS[sunos]=	LDFLAGS=-lbsd
 
 post-patch:
 	${REINPLACE_CMD} -e '/EXAMPLES_DIR =/d' ${WRKSRC}/Makefile.in
-
-post-patch-sunos:
-	${REINPLACE_CMD} -e 's|LIBS="-lncurses |LIBS="-lncurses -ltinfo |'\
-		${WRKSRC}/configure
-
-post-patch-darwin:
 	${REINPLACE_CMD} -e 's|LIBS="-lncurses |LIBS="-lncurses -ltinfo |'\
 		${WRKSRC}/configure
 
