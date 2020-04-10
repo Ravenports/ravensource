@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	4.6.0
 
 NAMEBASE=		gtksourceview4
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11_toolkits
 VARIANTS=		standard
 SDESC[standard]=	GTK3 syntax highlighting text widget
@@ -14,7 +15,7 @@ SITES[main]=		GNOME/gtksourceview/${PORTVERSION:R}
 DISTFILE[1]=		gtksourceview-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome3
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary nls docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,9 +30,8 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		x11-toolkits/gtksourceview4
 
 BUILD_DEPENDS=		vala:single:standard
-			gtk-doc:single:standard
 
-USES=			meson pkgconfig gettext-tools
+USES=			meson pkgconfig gettext-tools gtk-doc
 GNOME_COMPONENTS=	cairo gdkpixbuf gtk3 introspection libxml2
 DISTNAME=		gtksourceview-${PORTVERSION}
 MESON_ARGS=		-Dglade_catalog=false
@@ -40,9 +40,4 @@ MESON_ARGS=		-Dglade_catalog=false
 			-Dvapi=true
 			-Dgtk_doc=true
 INSTALL_REQ_TOOLCHAIN=	yes
-
-post-install:
-	${MKDIR} ${STAGEDIR}${STD_DOCDIR:H}
-	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/gtksourceview-4.0 \
-		${STAGEDIR}${STD_DOCDIR}
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
+GTKDOC_OUTPUT_BASEDIR=	gtksourceview-4.0
