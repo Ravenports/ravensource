@@ -4,6 +4,7 @@ DEF[SOVERSION]=		1.0.0
 
 NAMEBASE=		libproxy
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net devel
 VARIANTS=		standard minimal
 SDESC[standard]=	Library for automatic proxy configuration mgmt
@@ -18,10 +19,10 @@ DISTFILE[1]=		generated:main
 SPKGS[standard]=	single
 SPKGS[minimal]=		single
 
-OPTIONS_AVAILABLE=	PERL PYTHON VALA
+OPTIONS_AVAILABLE=	PERL PYTHON VALA NETWORKMGR
 OPTIONS_STANDARD=	PERL PYTHON VALA
 OPT_ON[all]=		PERL PYTHON VALA
-VOPTS[minimal]=		PERL=OFF PYTHON=OFF VALA=OFF
+VOPTS[minimal]=		PERL=OFF PYTHON=OFF VALA=OFF NETWORKMGR=OFF
 # Other variants may be feasible in the future as deps become available
 
 # Other bindings not currently available in Raven:
@@ -72,10 +73,13 @@ VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 [VALA].CMAKE_ARGS_ON=			-DWITH_VALA:BOOL=ON
 [VALA].CMAKE_ARGS_OFF=			-DWITH_VALA:BOOL=OFF
 
+[NETWORKMGR].DESCRIPTION=		Build with Network Manager support
+[NETWORKMGR].BUILDRUN_DEPENDS_ON=	dbus:single:standard
+[NETWORKMGR].CMAKE_ARGS_ON=		-WITH_DBUS:BOOL=ON
 
 post-patch:
-	# support python 3.7
-	${REINPLACE_CMD} -e 's/ 3\.6/ 3.7 3.6/' \
+	# support python 3.7 and 3.8
+	${REINPLACE_CMD} -e 's/ 3\.6/ 3.8 3.7 3.6/' \
 		${WRKSRC}/cmake/FindPython3Interp.cmake
 
 post-install:
