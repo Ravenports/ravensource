@@ -15,7 +15,7 @@ SITES[main]=		https://people.freedesktop.org/~hughsient/appstream-glib/releases/
 DISTFILE[1]=		appstream-glib-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome3
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary nls docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,8 +29,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/appstream-glib
 
-BUILD_DEPENDS=		gtk-doc:single:standard
-			gperf:single:standard
+BUILD_DEPENDS=		gperf:single:standard
 BUILDRUN_DEPENDS=	libsoup:primary:standard
 			libyaml:single:standard
 			libuuid:single:standard
@@ -40,7 +39,7 @@ BUILDRUN_DEPENDS=	libsoup:primary:standard
 			json-glib:single:standard
 			gcab:primary:standard
 
-USES=			gettext-tools gmake libtool pkgconfig sqlite meson
+USES=			gettext-tools gmake libtool pkgconfig sqlite meson gtk-doc
 GNOME_COMPONENTS=	gtk3 introspection gdkpixbuf intltool pango
 MESON_ARGS=		-Drpm=false
 			-Dstemmer=false
@@ -51,9 +50,3 @@ SOVERSION=		${SOVERSION}
 post-patch:
 	${REINPLACE_CMD} -e "s|http://docbook.sourceforge.net|http://cdn.docbook.org|" \
 		${WRKSRC}/data/meson.build
-
-post-install:
-	${MKDIR} ${STAGEDIR}${STD_DOCDIR:H}
-	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/appstream-glib \
-		${STAGEDIR}${STD_DOCDIR:H}
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
