@@ -38,7 +38,8 @@ BUILDRUN_DEPENDS=	freetype:primary:standard
 			fribidi:single:standard
 RUN_DEPENDS=		xorg-truetype-fonts:single:standard
 
-USES=			gmake perl:build pkgconfig python:build meson
+USES=			gmake perl:build pkgconfig python:build
+			meson gtk-doc
 GNOME_COMPONENTS=	cairo glib introspection
 XORG_COMPONENTS=	x11 xft xrender
 CONFIGURE_ARGS=		-Dgtk_doc=true
@@ -49,9 +50,3 @@ PLIST_SUB=		VERSION=${PANGO_VERSION} LIBVERSION=${LIBVERSION}
 post-patch-sunos:
 	${REINPLACE_CMD} -e "s|'-D_POSIX_C_SOURCE=200809L', ||" \
 		${WRKSRC}/meson.build
-
-post-install:
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/doc
-	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/pango \
-		${STAGEDIR}${PREFIX}/share/doc
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
