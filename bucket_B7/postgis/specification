@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	3.0.1
 
 NAMEBASE=		postgis
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		databases geography
 VARIANTS=		standard
 SDESC[standard]=	Spatial and Geographic objects for PostgreSQL
@@ -43,7 +44,6 @@ CONFIGURE_ARGS=		{{ICONV_CONFIGURE_BASE}}
 			--with-raster
 			--with-address-standardizer
 			--with-gui
-			--with-gdalconfig={{LOCALBASE}}/bin/gdal-config
 PLIST_SUB=		VERSION=${PORTVERSION}
 			XDOTY=${PORTVERSION:R}
 			X=${PORTVERSION:R:R}
@@ -63,3 +63,5 @@ post-install:
 		${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/share/postgis/tiger_geocoder )
 	(cd ${WRKSRC}/utils/ && \
 		${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/share/postgis/utils )
+	# remove single readme that's not even in STD_DOCDIR
+	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/postgresql
