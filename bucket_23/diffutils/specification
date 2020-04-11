@@ -3,10 +3,10 @@ DEF[PORTVERSION]=	3.7
 
 NAMEBASE=		diffutils
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc
-VARIANTS=		standard nls noprefix
+VARIANTS=		standard noprefix
 SDESC[standard]=	GNU diff utilities
-SDESC[nls]=		GNU diff utilities with native language support
 SDESC[noprefix]=	GNU diff utilities with unprefixed program names
 HOMEPAGE=		http://www.gnu.org/software/diffutils/diffutils.html
 CONTACT=		nobody
@@ -15,26 +15,29 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/diffutils
 DISTFILE[1]=		diffutils-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
-SPKGS[nls]=		single
-SPKGS[noprefix]=	single
+SPKGS[standard]=	complete primary nls
+SPKGS[noprefix]=	complete primary nls
 
-OPTIONS_AVAILABLE=	NLS NOPREFIX
+OPTIONS_AVAILABLE=	NOPREFIX
 OPTIONS_STANDARD=	none
-VOPTS[nls]=		NLS=ON NOPREFIX=OFF
-VOPTS[noprefix]=	NLS=ON NOPREFIX=ON
+VOPTS[noprefix]=	NOPREFIX=ON
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKSRC}}/TERMS
+LICENSE_AWK=		TERMS:"GDIFF_MAIN"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/diff.c
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		textproc/diffutils
 
 BUILD_DEPENDS=		libsigsegv:static:standard
 			libiconv:shared:standard
 
-FPC_EQUIVALENT=		textproc/diffutils
-
-USES=			charsetfix
+USES=			charsetfix gettext-runtime
 MUST_CONFIGURE=		gnu
-INFO=			single:diffutils
-
-[NLS].USES_ON=				gettext-runtime
-[NLS].CONFIGURE_ENABLE_BOTH=		nls
+CONFIGURE_ARGS=		--enable-nls
+INFO=			primary:diffutils
 
 [NOPREFIX].CONFIGURE_ARGS_OFF=		--program-prefix=g
 [NOPREFIX].DESCRIPTION=			Build without prefixing all programs with "g"
