@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	1.8.6
 
 NAMEBASE=		whowatch
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		sysutils
 VARIANTS=		standard
 SDESC[standard]=	Display information logged on users
@@ -35,6 +35,7 @@ NOT_FOR_OPSYS=		sunos
 USES=			ncurses
 MUST_CONFIGURE=		gnu
 CPPFLAGS=		-I{{NCURSESINC}}
+LDFLAGS=		-ltinfo
 
 post-patch:
 	${REINPLACE_CMD} -e "s|utmp|utmpx|g" ${WRKSRC}/configure
