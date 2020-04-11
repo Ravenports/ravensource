@@ -3,11 +3,10 @@ DEF[PORTVERSION]=	3.5.4
 
 NAMEBASE=		bison
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		devel
-VARIANTS=		standard nls
+VARIANTS=		standard
 SDESC[standard]=	Yacc-compatible parser generator from FSF
-SDESC[nls]=		Parser generator with native language support
 HOMEPAGE=		https://www.gnu.org/software/bison/
 CONTACT=		nobody
 
@@ -15,12 +14,10 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/bison
 DISTFILE[1]=		bison-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary examples
-SPKGS[nls]=		primary
+SPKGS[standard]=	complete primary nls examples
 
-OPTIONS_AVAILABLE=	NLS
+OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
-VOPTS[nls]=		NLS=ON
 
 LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
@@ -33,15 +30,13 @@ FPC_EQUIVALENT=		devel/bison
 
 BUILDRUN_DEPENDS=	m4:primary:standard
 
-USES=			charsetfix perl:build
+USES=			charsetfix perl:build gettext-runtime
 INFO=			primary:bison
 CONFIGURE_ARGS=		--disable-yacc
+			--enable-nsl
 CONFIGURE_ENV=		ac_cv_path_M4={{LOCALBASE}}/bin/gm4
 MUST_CONFIGURE=		gnu
 TEST_TARGET=		check
-
-[NLS].CONFIGURE_ENABLE_BOTH=		nls
-[NLS].USES_ON=				gettext-runtime
 
 post-patch:
 	${REINPLACE_CMD} -e 's|$$(docdir)\(/examples\)|$$(datarootdir)\1/bison|' \
@@ -52,7 +47,5 @@ post-patch-sunos:
 	${TOUCH} ${WRKSRC}/doc/bison.1
 
 post-install:
+	# no value added
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
-
-post-install-NLS-ON:
-	${RM} -r ${STAGEDIR}${STD_EXAMPLESDIR}
