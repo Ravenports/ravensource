@@ -6,11 +6,10 @@ DEF[DATE_TEXINFO_TEX]=	20190924
 
 NAMEBASE=		texinfo
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		print
-VARIANTS=		standard nls
+VARIANTS=		standard
 SDESC[standard]=	Typeset documentation system, multiple formats
-SDESC[nls]=		GNU Typeset doc system with native lang support
 HOMEPAGE=		http://www.gnu.org/software/texinfo/
 CONTACT=		nobody
 
@@ -24,21 +23,34 @@ DISTFILE[4]=		texi2dvi-${DATE_TEXI2DVI}:dports
 DIST_SUBDIR=		texinfo/${PORTVERSION}
 DF_INDEX=		1 2 3 4
 
-SPKGS[standard]=	single
-SPKGS[nls]=		single
+# LEGACY/BOOTSTRAP ISSUE !!
+# This port originated with a "single" subpackage.
+# texinfo:single:standard is heavily used by USES=makeinfo
+# Due to potential bootstrapping issues, we can't change this to
+# typical "complete primary nls" subpackage.  We just have to
+# accept a misnamed port.
+SPKGS[standard]=	complete single nls
 
-OPTIONS_AVAILABLE=	NLS
+OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
-VOPTS[nls]=		NLS=ON
+
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"INFO_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/info/info.h
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		print/texinfo
 
 BUILD_DEPENDS=		help2man:single:standard
 EXTRACT_ONLY=		1
 
-USES=			charsetfix cpe gmake ncurses perl libtool iconv:build
+USES=			charsetfix cpe gmake ncurses perl
+			libtool iconv:build gettext-runtime
 DISTNAME=		texinfo-${PORTVERSION}
 MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-nls
 INSTALL_TARGET=		install install-tex
 CPE_VENDOR=		gnu
 CPE_VERSION=		${PORTVERSION:R}
@@ -52,10 +64,7 @@ MAKE_ARGS=		TEXMF={{LOCALBASE}}/share/texmf
 # On Darwin, the programs relink the static libraries and
 # programs again during stage phase.  Once fixed, the
 # following line can be removed.
-INSTALL_REQ_TOOLCHAIN=	yes
-
-[NLS].USES_ON=				gettext-runtime
-[NLS].CONFIGURE_ENABLE_BOTH=		nls
+# INSTALL_REQ_TOOLCHAIN=	yes
 
 post-patch:
 	${CHMOD} 755 ${WRKSRC}/build-aux/install-sh
