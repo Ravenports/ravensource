@@ -4,10 +4,10 @@ DEF[LOCALSTATEDIR]=	/var/db
 
 NAMEBASE=		findutils
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		misc
-VARIANTS=		standard nls noprefix
+VARIANTS=		standard noprefix
 SDESC[standard]=	GNU find utilities (static)
-SDESC[nls]=		GNU find utilities with native language support
 SDESC[noprefix]=	GNU find utilities with unprefixed program names
 HOMEPAGE=		http://www.gnu.org/software/findutils/
 CONTACT=		nobody
@@ -16,39 +16,36 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/findutils
 DISTFILE[1]=		findutils-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
-SPKGS[nls]=		single
-SPKGS[noprefix]=	single
+SPKGS[standard]=	complete primary nls
+SPKGS[noprefix]=	complete primary nls
 
-OPTIONS_AVAILABLE=	NLS NOPREFIX
+OPTIONS_AVAILABLE=	NOPREFIX
 OPTIONS_STANDARD=	none
-VOPTS[nls]=		NLS=ON NOPREFIX=OFF
-VOPTS[noprefix]=	NLS=ON NOPREFIX=ON
+VOPTS[noprefix]=	NOPREFIX=ON
 
-LICENSE=		GPLv3+:single
+LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^\*"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/find/defs.h
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		misc/findutils
 
-USES=			charsetfix cpe gmake
+USES=			charsetfix cpe gmake gettext-runtime
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--localstatedir="${LOCALSTATEDIR}"
+			--enable-nls
 MAKE_ARGS=		INSTALL_SCRIPT="{{INSTALL_SCRIPT}}"
-INFO=			single:find single:find-maint
+INFO=			primary:find
+			primary:find-maint
 CPE_VENDOR=		gnu
 
 # All platforms except for Darwin build properly
 # On Darwin, the programs relink the static libraries and
 # programs again during stage phase.  Once fixed, the
 # following line can be removed.
-INSTALL_REQ_TOOLCHAIN=	yes
-
-[NLS].USES_ON=				gettext-runtime
-[NLS].CONFIGURE_ENABLE_BOTH=		nls
+# INSTALL_REQ_TOOLCHAIN=	yes
 
 [NOPREFIX].CONFIGURE_ARGS_OFF=		--program-prefix=g
 [NOPREFIX].DESCRIPTION=			Build without prefixing all programs with "g"
