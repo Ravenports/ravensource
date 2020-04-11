@@ -56,6 +56,7 @@ PLIST_SUB=		PLUGINAPI={{PLUGINAPI}}
 			ASSEMBLER={{ASSEMBLER}}
 			GPROF={{GPROF}}
 			TARGET={{CONFIGURE_TARGET}}
+			CTF={{SKIP_CTF:U}}
 
 # Intentionally don't set c++ for ravensys.
 # Set INVALID_RPATH to allow this as warning during build tests
@@ -84,6 +85,7 @@ VAR_OPSYS[linux]=	VAR1=/lib/ld64.so.1
 			VAR2=/lib/ldx32.so.1
 			MAKEFILE_LINE=BUILD_GOLD=yes
 			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold=default
+			MAKEFILE_LINE=SKIP_CTF="@comment "
 VAR_OPSYS[netbsd]=	MAKEFILE_LINE=PLUGINAPI="@comment "
 VAR_OPSYS[openbsd]=	MAKEFILE_LINE=PLUGINAPI="@comment "
 
