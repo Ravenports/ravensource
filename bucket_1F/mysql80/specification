@@ -8,6 +8,7 @@ DEF[MY_TMPDIR]=		/var/db/mysql_tmpdir
 
 NAMEBASE=		mysql${SUFFIX}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		databases
 VARIANTS=		standard
 SDESC[standard]=	Multithreaded SQL database (server)
@@ -44,6 +45,8 @@ BUILDRUN_DEPENDS=	libevent:single:standard
 			lz4:complete:standard
 EXRUN[client]=		libedit:single:standard
 			zlib:complete:standard
+# #			can't use "ssl" here, currently it assumes libressl
+			openssl-devel:single:standard
 
 USES=			bison cmake perl:run shebangfix zlib
 			execinfo ssl:openssl-devel pkgconfig
@@ -129,10 +132,9 @@ post-extract:
 	# ${MV} ${WRKSRC}/plugin/group_replication ${WRKDIR}/
 
 post-patch:
-	${REINPLACE_CMD} -e 's|/usr/bin/perl|${PREFIX}/bin/perl|' \
+	${REINPLACE_CMD} -e 's|@LOCALBASE@|${LOCALBASE}|' \
+		-e 's|@OPENSSLLIB@|${OPENSSLLIB}|' \
 		${WRKSRC}/scripts/CMakeLists.txt
-
-post-patch-freebsd:
 	${RM} ${WRKSRC}/cmake/os/FreeBSD.cmake
 
 post-install:
