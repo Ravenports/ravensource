@@ -1,4 +1,4 @@
---- src/apq-2.1/c_mysql.c.orig	2019-07-23 10:48:03 UTC
+--- src/apq-2.1/c_mysql.c.orig	2020-03-28 23:21:57 UTC
 +++ src/apq-2.1/c_mysql.c
 @@ -21,10 +21,10 @@
   */

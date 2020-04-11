@@ -5,6 +5,7 @@ SETAPQ=@SETAPQ@
 SETMYSQL=@SETMYSQL@
 SETPGSQL=@SETPGSQL@
 SETSOUND=@SETSOUND@
+SETPCRE=@SETPCRE@
 SETGL=@SETGL@
 
 CCTYPE=ada
@@ -26,28 +27,33 @@ SDLINCLTYPE=$(@PREFIX@/bin/pkgconf --cflags SDL_image)
 # Blank defaults
 GSTREAMERLIBSSUB=
 GSTREAMERFLAGSUB=
-GSTREAMEROUTSUB=
+GSTREAMEROBJSUB=
 MESAINCLSUB=
 MESALIBSSUB=
 MYSQLLIBSSUB=
 PGLIBSSUB=
+APQLIBSSUB=
+APQINCLSSUB=
+PCRELIBSSUB=
+PCREOBJSUB=
+PCREFLAG=
 
-if [ ${SETAPQ} -eq 1 ]; then
+if [ "${SETAPQ}" = "ON" ]; then
   APQ="apq-2.1"
   APQMAKESUB="\$(MAKE) -C ${APQ}"
   APQLIBSSUB="-L./${APQ} "
   APQINCLSSUB="-I./${APQ} "
-  if [ ${SETMYSQL} -eq 1 ]; then
+  if [ "${SETMYSQL}" = "ON" ]; then
      MYSQLLIBSSUB="-L@PREFIX@/lib/mysql -lmysqlclient -pthread -lm"
      APQLIBSSUB="${APQLIBSSUB} ./${APQ}/c_mysql.o"
-     if [ ${SETPGSQL} -eq 0 ]; then
+     if [ "${SETPGSQL}" -eq 0 ]; then
         echo "Executing APQ's configure (skipping PostgreSQL)"
         (cd src/${APQ} && /usr/bin/env HAVE_MY=1 HAVE_PG=0 ./configure)
      fi
   fi
-  if [ ${SETPGSQL} -eq 1 ]; then
+  if [ "${SETPGSQL}" = "ON" ]; then
      PGLIBSSUB="-L@PREFIX@/lib -lintl -L@OPENSSLLIB@ -lssl -lcrypto -Wl,-rpath,@OPENSSLLIB@"
-     if [ ${SETMYSQL} -eq 1 ]; then
+     if [ "${SETMYSQL}" = "ON" ]; then
         echo "Executing APQ's configure"
         (cd src/${APQ} && /usr/bin/env HAVE_MY=1 HAVE_PG=1 ./configure)
      else
@@ -57,19 +63,22 @@ if [ ${SETAPQ} -eq 1 ]; then
   fi
 else
   APQMAKESUB="@echo disabled"
-  APQLIBSSUB=
-  APQINCLSSUB=  
 fi
 
-if [ ${SETSOUND} -eq 1 ]; then
+if [ "${SETSOUND}" = "ON" ]; then
    GSTREAMERLIBSSUB=$(@PREFIX@/bin/pkgconf --cflags --libs gstreamer-0.10)
-   GSTREAMEROUTSUB="c_gstreamer.o"
+   GSTREAMEROBJSUB="c_gstreamer.o"
    GSTREAMERFLAGSUB="-DGSTREAMER"
 fi
 
-if [ ${SETGL} -eq 1 ]; then
+if [ "${SETGL}" = "ON" ]; then
    MESAINCLSUB=$(@PREFIX@/bin/pkgconf --cflags gl glu)
    MESALIBSSUB=$(@PREFIX@/bin/pkgconf --libs gl glu)
+fi
+
+if [ "${SETPCRE}" = "ON" ]; then
+    PCRELIBSSUB=-lpcre
+    PCREOBJSUB=c_pcre.o
 fi
 
 echo "Creating GNUmakefile"
@@ -101,13 +110,16 @@ echo "Creating src/GNUmakefile"
  -e "s|FASTCGISUB|${FASTCGISUB}|g" \
  -e "s|GSTREAMERLIBSSUB|${GSTREAMERLIBSSUB}|g" \
  -e "s|GSTREAMERFLAGSUB|${GSTREAMERFLAGSUB}|g" \
- -e "s|GSTREAMEROUTSUB|${GSTREAMEROUTSUB}|g" \
+ -e "s|GSTREAMEROBJSUB|${GSTREAMEROBJSUB}|g" \
  -e "s|MESAINCLSUB|${MESAINCLSUB}|g" \
  -e "s|MESALIBSSUB|${MESALIBSSUB}|g" \
  -e "s|BDBSUB|${BDBSUB}|g" \
  -e "s|BDBINCLSUB|${BDBINCLSUB}|g" \
  -e "s|RLINCLSUB|${RLINCLSUB}|g" \
  -e "s|RLLIBSSUB|${RLLIBSSUB}|g" \
+ -e "s|PCRELIBSSUB|${PCRELIBSSUB}|g" \
+ -e "s|PCREOBJSUB|${PCREOBJSUB}|g" \
+ -e "s|PCREFLAG|${PCREFLAG}|g" \
  src/GNUmakefile.orig > src/GNUmakefile
 
 echo "Creating src/areadline/GNUmakefile"

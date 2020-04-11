@@ -1,9 +1,26 @@
-.if ${SETMYSQL} == 1 || ${SETPGSQL} == 1
+PREPFILES= \
+	builtins.adb \
+	parser_bdb.adb \
+	parser_btree_io.adb \
+	parser_db.adb \
+	parser_dbm.adb \
+	parser_gnat_cgi.adb \
+	parser_hash_io.adb \
+	parser_mysql.adb \
+	parser_mysqlm.adb \
+	parser_pen.adb \
+	parser_sound.adb \
+	parser_strings_pcre.adb \
+	scanner_res.adb \
+	scanner_res.ads \
+	user_io-getline.adb \
+	world.ads
+
+.if ${SETMYSQL} == "ON" || ${SETPGSQL} == "ON"
 SFARG+=		-DAPQ=true
-SETAPQ=		1
+SETAPQ=		ON
 .else
 SFARG+=		-DAPQ=false
-SETAPG=		0
 .endif
 
 BUILDDATE!=	date "+%y%m%d"
