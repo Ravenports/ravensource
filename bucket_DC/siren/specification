@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	0.9
 
 NAMEBASE=		siren
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		audio
 VARIANTS=		standard
 SDESC[standard]=	Text-based audio player
@@ -19,7 +20,7 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 LICENSE=		ISCL:single
-LICENSE_FILE=		ISCL:{{WRKSRC}}/LICENSE
+LICENSE_FILE=		ISCL:{{WRKSRC}}/LICENCE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		audio/siren
@@ -52,4 +53,4 @@ CONFIGURE_ARGS=		aac=no
 			sun=no
 
 post-extract:
-	${REINPLACE_CMD} -e 's|-lcurses|-lncurses|' ${WRKSRC}/configure
+	${REINPLACE_CMD} -e 's|-lcurses|-lncurses -ltinfo|' ${WRKSRC}/configure
