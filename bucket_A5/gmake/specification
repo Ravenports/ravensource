@@ -3,10 +3,10 @@ DEF[PORTVERSION]=	4.3
 
 NAMEBASE=		gmake
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
-VARIANTS=		standard nls noprefix
+VARIANTS=		standard noprefix
 SDESC[standard]=	GNU variant of 'make' utility
-SDESC[nls]=		GNU make with native language support
 SDESC[noprefix]=	GNU make with unprefixed program name
 HOMEPAGE=		https://www.gnu.org/software/make/
 CONTACT=		nobody
@@ -15,24 +15,18 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/make
 DISTFILE[1]=		make-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
-SPKGS[nls]=		single
-SPKGS[noprefix]=	single
+# LEGACY/BOOTSTRAP ISSUE !!
+# This port originated with a "single" subpackage.
+# texinfo:single:standard is heavily used by USES=makeinfo
+# Due to potential bootstrapping issues, we can't change this to
+# typical "complete primary nls" subpackage.  We just have to
+# accept a misnamed port.
+SPKGS[standard]=	complete single nls
+SPKGS[noprefix]=	complete single nls
 
-OPTIONS_AVAILABLE=	NLS NOPREFIX
+OPTIONS_AVAILABLE=	NOPREFIX
 OPTIONS_STANDARD=	none
-VOPTS[nls]=		NLS=ON NOPREFIX=OFF
-VOPTS[noprefix]=	NLS=ON NOPREFIX=ON
-
-FPC_EQUIVALENT=		devel/gmake
-
-USES=			cpe
-CPE_VENDOR=		gnu
-
-DISTNAME=		make-${PORTVERSION}
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--without-guile
-INFO=			single:make
+VOPTS[noprefix]=	NOPREFIX=ON
 
 LICENSE=		GPLv3:single
 LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING
@@ -41,10 +35,18 @@ LICENSE_AWK=		TERMS:"^\#include"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/main.c
 LICENSE_SCHEME=		solo
 
-[NLS].USES_ON=				gettext-runtime
-[NLS].CONFIGURE_ARGS_ON=		{{ICONV_CONFIGURE_ARG}}
-					--with-libintl-prefix={{LOCALBASE}}
-[NLS].CONFIGURE_ENABLE_BOTH=		nls
+FPC_EQUIVALENT=		devel/gmake
+
+USES=			cpe gettext-runtime
+CPE_VENDOR=		gnu
+
+DISTNAME=		make-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--without-guile
+			--enable-nls
+			--with-libintl-prefix={{LOCALBASE}}
+			{{ICONV_CONFIGURE_ARG}}
+INFO=			single:make
 
 [NOPREFIX].CONFIGURE_ARGS_OFF=		--program-prefix=g
 [NOPREFIX].DESCRIPTION=			Build without prefixing program with "g"
