@@ -6,6 +6,7 @@ DEF[PLUGIN_DESC]=	XvImageSink
 
 NAMEBASE=		gstreamer1-plugins-${PLUGIN}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		multimedia x11
 VARIANTS=		standard
 SDESC[standard]=	GStreamer1 ${PLUGIN_DESC} plugin
@@ -21,8 +22,8 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-BUILD_DEPENDS=		gstreamer1-plugins-base:single:standard
 BUILDRUN_DEPENDS=	gstreamer1:single:standard
+			gstreamer1-plugins-base:single:standard
 
 USES=			gmake pkgconfig libtool
 XORG_COMPONENTS=	x11 xext xv
@@ -53,7 +54,7 @@ PLIST_SUB=		GSTVER=${GST_VERSION}
 
 post-patch:
 	${REINPLACE_CMD} -e 's|FLAGS -Werror|FLAGS|' ${WRKSRC}/configure
-	${FIND} ${WRKSRC}/ext ${WRKSRC}/sys -name Makefile.in |\
+	${FIND} ${WRKSRC}/sys -name Makefile.in |\
 	${XARGS} ${REINPLACE_CMD} -E \
 	-e '/la_DEPENDENCIES/,/am__DEPENDENCIES/s|[$$][(]top_builddir[)]/gst-libs/.*.la||' \
-	-e 's|[@$$][(]?GST_API_VERSION[@)]\.la|$$\{VERSION\}|g'
+	-e 's|[$$][(]top_builddir[)]/gst-libs/gst/video/libgstvideo-[$$][(]GST_API_VERSION[)].la|-lgstvideo-1.0|;'
