@@ -115,14 +115,14 @@ acquire_tarball_and_version() {
       echo "'${PYPINAME}' doesn't seem to be a valid package name"
       exit 1;
    fi
-   info=$(${EXEPERL} extract_info.pl ${JSONFILE} ${VERSION})
+   info=$(${EXEPERL} ${thisdir}/extract_info.pl ${JSONFILE} ${VERSION})
    VERSION=$(arg_1 $info)
    MD5SUM=$(arg_2 $info)
    tarball=$(arg_3 $info)
    homepage=$(arg_4 $info)
    summary=$(summary_override "${PYPINAME}")
    if [ -z "$summary" ]; then
-      summary=$(${EXEPERL} extract_summary.pl ${JSONFILE})
+      summary=$(${EXEPERL} ${thisdir}/extract_summary.pl ${JSONFILE})
    fi
 
    if [ -z "${MD5SUM}" -o -z "${tarball}" ]; then
