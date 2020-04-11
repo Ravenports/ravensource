@@ -4,10 +4,10 @@ DEF[SOVERSION]=		6.0.0
 
 NAMEBASE=		gdbm
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		databases
-VARIANTS=		standard nls
+VARIANTS=		standard
 SDESC[standard]=	GNU database manager
-SDESC[nls]=		GNU database manager with native language support
 HOMEPAGE=		http://www.gnu.org/software/gdbm/
 CONTACT=		nobody
 
@@ -15,32 +15,28 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/gdbm
 DISTFILE[1]=		gdbm-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
-SPKGS[nls]=		single
+SPKGS[standard]=	complete primary nls
 
-OPTIONS_AVAILABLE=	NLS
+OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
-VOPTS[nls]=		NLS=ON
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"Protection for multiple"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/gdbm.h.in
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		databases/gdbm
 
-USES=			gmake libtool:keepla readline solfix
+USES=			gmake libtool:keepla readline solfix gettext-runtime
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-libgdbm-compat
+			--enable-nls
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
-INFO=			single:gdbm
+INFO=			primary:gdbm
 SOVERSION=		${SOVERSION}
-
-[NLS].CONFIGURE_ENABLE_BOTH=		nls
-[NLS].USES_ON=				gettext-runtime
 
 post-patch:
 	${REINPLACE_CMD} -e "s|LIBS = @LIBS@ -lc|LIBS = @LIBS@|" \
