@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.0.17
 
 NAMEBASE=		redland
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		standard bdb mysql pgsql virtuoso
 SDESC[standard]=	RDF Application Framework (SQLite backend)
@@ -54,7 +55,7 @@ INSTALL_REQ_TOOLCHAIN=	yes
 
 [MYSQL].CONFIGURE_ARGS_ON=		--with-mysql=yes
 [MYSQL].CONFIGURE_ARGS_OFF=		--with-mysql=no
-[MYSQL].USES_ON=			mysql execinfo
+[MYSQL].USES_ON=			mysql execinfo ssl
 [MYSQL].LDFLAGS_ON=			-L{{LOCALBASE}}/lib/mysql
 [MYSQL].CPPFLAGS_ON=			-I{{LOCALBASE}}/include/mysql
 					-DHAVE_MYSQL_H
