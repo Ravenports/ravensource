@@ -4,10 +4,10 @@ DEF[PATCH_SUBDIRS]=	. doc lib sed
 
 NAMEBASE=		sed
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc
-VARIANTS=		standard nls
+VARIANTS=		standard
 SDESC[standard]=	GNU stream editor
-SDESC[nls]=		GNU stream editor with native language support
 HOMEPAGE=		http://www.gnu.org/software/sed/sed.html
 CONTACT=		nobody
 
@@ -15,34 +15,30 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/sed
 DISTFILE[1]=		sed-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
-SPKGS[nls]=		single
+SPKGS[standard]=	complete primary nls
 
-OPTIONS_AVAILABLE=	NLS
+OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
-VOPTS[nls]=		NLS=ON
 
-LICENSE=		GPLv3+:single
+LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"<config.h>"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/sed/sed.h
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		textproc/gsed
 
-USES=			charsetfix gmake
-INFO=			single:sed
+USES=			charsetfix gmake gettext-runtime
+INFO=			primary:sed
 MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-nls
 
 # All platforms except for Darwin build properly
 # On Darwin, the programs relink the static libraries and
 # programs again during stage phase.  Once fixed, the
 # following line can be removed.
-INSTALL_REQ_TOOLCHAIN=	yes
-
-[NLS].USES_ON=				gettext-runtime
-[NLS].CONFIGURE_ENABLE_BOTH=		nls
+# INSTALL_REQ_TOOLCHAIN=	yes
 
 post-patch-darwin:
 	${REINPLACE_CMD} -e "s|'cr'|'Scr'|" ${WRKSRC}/configure
