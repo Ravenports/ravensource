@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	0.9.0
 
 NAMEBASE=		libdbi-drivers
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		databases devel
 VARIANTS=		mysql pgsql sqlite
 SDESC[mysql]=		MySQL driver for libdbi
@@ -46,7 +47,7 @@ INSTALL_TARGET=		install-strip
 [PGSQL].DESCRIPTION=			Build PostgreSQL driver
 [SQLITE].DESCRIPTION=			Build SQLite driver
 
-[MYSQL].USES_ON=			mysql:client execinfo
+[MYSQL].USES_ON=			mysql:client execinfo ssl
 [MYSQL].CONFIGURE_ARGS_ON=		--with-mysql
 [PGSQL].USES_ON=			pgsql:client
 [PGSQL].CONFIGURE_ARGS_ON=		--with-pgsql
