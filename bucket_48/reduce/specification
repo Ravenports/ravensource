@@ -6,6 +6,7 @@ DEF[RBINS]=		{{WRKSRC}}/cslbuild/{{CONFIGURE_TARGET}}
 
 NAMEBASE=		reduce
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		math lang
 VARIANTS=		standard
 SDESC[standard]=	Codemist Std Lisp general-purpose computer system
@@ -44,7 +45,7 @@ CONFIGURE_ARGS=		--with-csl
 DISTNAME=		Reduce-svn${SVNREV}-src
 CPPFLAGS=		`freetype-config --cflags`
 			-I{{NCURSESINC}}
-LDFLAGS=		`freetype-config --libs`
+LDFLAGS=		`freetype-config --libs` -ltinfo
 BUILD_TARGET=		#
 SINGLE_JOB=		yes
 SUB_FILES=		redcsl
