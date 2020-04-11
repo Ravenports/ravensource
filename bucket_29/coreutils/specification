@@ -3,11 +3,10 @@ DEF[PORTVERSION]=	8.32
 
 NAMEBASE=		coreutils
 VERSION=		${PORTVERSION}
-REVISION=		3
+REVISION=		4
 KEYWORDS=		sysutils textproc
-VARIANTS=		standard nls noprefix
+VARIANTS=		standard noprefix
 SDESC[standard]=	Free Software Foundation core utilities
-SDESC[nls]=		FSF core utilities with native language support
 SDESC[noprefix]=	FSF core utilities with unprefixed program names
 HOMEPAGE=		http://www.gnu.org/software/coreutils/
 CONTACT=		nobody
@@ -16,18 +15,16 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/coreutils
 DISTFILE[1]=		coreutils-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
-SPKGS[nls]=		single
-SPKGS[noprefix]=	single
+SPKGS[standard]=	complete primary nls
+SPKGS[noprefix]=	complete primary nls
 
-OPTIONS_AVAILABLE=	NLS NOPREFIX
+OPTIONS_AVAILABLE=	NOPREFIX
 OPTIONS_STANDARD=	none
-VOPTS[nls]=		NLS=ON NOPREFIX=OFF
-VOPTS[noprefix]=	NLS=ON NOPREFIX=ON
+VOPTS[noprefix]=	NOPREFIX=ON
 
-LICENSE=		GPLv3:single
+LICENSE=		GPLv3:primary
 LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"GETPASS_H"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/lib/getpass.h
 LICENSE_SCHEME=		solo
@@ -36,17 +33,16 @@ FPC_EQUIVALENT=		sysutils/coreutils
 
 BUILD_DEPENDS=		gmp:static:standard
 
-USES=			cpe gmake iconv:build perl:build charsetfix makeinfo
+USES=			cpe gmake iconv:build perl:build charsetfix
+			makeinfo gettext-runtime
 SINGLE_JOB=		yes
-INFO=			single:coreutils
+INFO=			primary:coreutils
 CPE_VENDOR=		gnu
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-gmp
+			--enable-nls
 CONFIGURE_ENV=		FORCE_UNSAFE_CONFIGURE=1
 INSTALL_REQ_TOOLCHAIN=	yes
-
-[NLS].USES_ON=				gettext-runtime
-[NLS].CONFIGURE_ENABLE_BOTH=		nls
 
 [NOPREFIX].CONFIGURE_ARGS_OFF=		--program-prefix=g
 [NOPREFIX].DESCRIPTION=			Build without prefixing all programs with "g"
