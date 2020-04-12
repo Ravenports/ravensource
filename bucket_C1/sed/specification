@@ -6,8 +6,9 @@ NAMEBASE=		sed
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		textproc
-VARIANTS=		standard
+VARIANTS=		standard ravensys
 SDESC[standard]=	GNU stream editor
+SDESC[ravensys]=	GNU stream editor for sysroot (no nls)
 HOMEPAGE=		http://www.gnu.org/software/sed/sed.html
 CONTACT=		nobody
 
@@ -16,9 +17,11 @@ SITES[main]=		GNU/sed
 DISTFILE[1]=		sed-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	complete primary nls
+SPKGS[ravensys]=	primary
 
-OPTIONS_AVAILABLE=	none
+OPTIONS_AVAILABLE=	RAVENSYS
 OPTIONS_STANDARD=	none
+VOPTS[ravensys]=	RAVENSYS=ON
 
 LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
@@ -29,10 +32,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		textproc/gsed
 
-USES=			charsetfix gmake gettext-runtime
+USES=			charsetfix gmake
 INFO=			primary:sed
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-nls
 
 # All platforms except for Darwin build properly
 # On Darwin, the programs relink the static libraries and
@@ -40,13 +42,14 @@ CONFIGURE_ARGS=		--enable-nls
 # following line can be removed.
 # INSTALL_REQ_TOOLCHAIN=	yes
 
+[RAVENSYS].DESCRIPTION=			For ravensys-root - built without NLS
+[RAVENSYS].USES_OFF=			gettext-runtime
+[RAVENSYS].CONFIGURE_ARGS_OFF=		--program-prefix=g
+					--enable-nls
+[RAVENSYS].CONFIGURE_ARGS_ON=		--disable-nls
+
 post-patch-darwin:
 	${REINPLACE_CMD} -e "s|'cr'|'Scr'|" ${WRKSRC}/configure
-
-post-install:
-	${MV} ${STAGEDIR}${PREFIX}/bin/sed ${STAGEDIR}${PREFIX}/bin/gsed
-	${MV} ${STAGEDIR}${MANPREFIX}/man/man1/sed.1 \
-		${STAGEDIR}${MANPREFIX}/man/man1/gsed.1
 
 do-test:
 	(cd ${WRKSRC}/testsuite && ${MAKE} check)
