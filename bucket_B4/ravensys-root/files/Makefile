@@ -352,6 +352,7 @@ headers_FreeBSD_dirs=	arpa \
 			rpc \
 			rpcsvc \
 			sys \
+			ufs \
 			vm \
 			x86 \
 			xlocale \
