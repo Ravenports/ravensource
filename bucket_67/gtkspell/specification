@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.0.16
 
 NAMEBASE=		gtkspell
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		standard
 SDESC[standard]=	Spell-checking addon for GTK's TextView widget
@@ -13,14 +14,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/gtkspell/${PORTVERSION}
 DISTFILE[1]=		gtkspell-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2:single
+LICENSE=		GPLv2:primary
 LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"GTKSPELL_H"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gtkspell/gtkspell.h
 LICENSE_SCHEME=		solo
@@ -29,7 +30,7 @@ FPC_EQUIVALENT=		textproc/gtkspell
 
 BUILDRUN_DEPENDS=	enchant1:single:standard
 
-USES=			gmake libtool pkgconfig
+USES=			gmake libtool pkgconfig fbsd10fix
 			gettext-runtime gettext-tools
 GNOME_COMPONENTS=	gtk2 intltool
 MUST_CONFIGURE=		gnu
