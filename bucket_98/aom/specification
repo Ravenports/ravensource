@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	1.0.0.1
+DEF[TAG]=		v1.0.0-errata1-avif
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		aom
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		standard
+SDESC[standard]=	Alliance for Open Media video codec
+HOMEPAGE=		https://aomedia.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/jbeich:aom:${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		multimedia/aom
+
+BUILD_DEPENDS=		nasm:primary:standard
+
+USES=			cmake perl:build
+CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
+			-DENABLE_DOCS:BOOL=OFF
+			-DENABLE_TESTS:BOOL=OFF
+SOVERSION=		${SOVERSION}
+SINGLE_JOB=		yes
