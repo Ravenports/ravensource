@@ -5,8 +5,9 @@ NAMEBASE=		gnugrep
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		textproc
-VARIANTS=		standard
+VARIANTS=		standard ravensys
 SDESC[standard]=	GNU implementation of grep
+SDESC[ravensys]=	GNU grep for raven sysroot (no libintl)
 HOMEPAGE=		http://www.gnu.org/software/grep/
 CONTACT=		nobody
 
@@ -15,9 +16,11 @@ SITES[main]=		GNU/grep
 DISTFILE[1]=		grep-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	complete primary nls
+SPKGS[ravensys]=	primary
 
-OPTIONS_AVAILABLE=	none
+OPTIONS_AVAILABLE=	RAVENSYS
 OPTIONS_STANDARD=	none
+VOPTS[ravensys]=	RAVENSYS=ON
 
 LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
@@ -30,14 +33,18 @@ FPC_EQUIVALENT=		textproc/gnugrep
 
 BUILD_DEPENDS=		pcre:static:standard
 
-USES=			charsetfix cpe gettext-runtime
+USES=			charsetfix cpe
 DISTNAME=		grep-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 INFO=			primary:grep
 CPE_VENDOR=		gnu
 CONFIGURE_ARGS=		--enable-perl-regexp
-			--enable-nls
-			--with-libintl-prefix={{LOCALBASE}}
+
+[RAVENSYS].DESCRIPTION=			For ravensys-root - built without NLS
+[RAVENSYS].USES_OFF=			gettext-runtime
+[RAVENSYS].CONFIGURE_ARGS_OFF=		--enable-nls
+					--with-libintl-prefix={{LOCALBASE}}
+[RAVENSYS].CONFIGURE_ARGS_ON=		--disable-nls
 
 post-patch:
 	${REINPLACE_CMD} 's:@grep@:${LOCALBASE}/bin/&:' \
