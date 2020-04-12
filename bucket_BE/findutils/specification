@@ -6,9 +6,10 @@ NAMEBASE=		findutils
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		misc
-VARIANTS=		standard noprefix
-SDESC[standard]=	GNU find utilities (static)
-SDESC[noprefix]=	GNU find utilities with unprefixed program names
+VARIANTS=		standard noprefix ravensys
+SDESC[standard]=	GNU find utilities (prefixed with g)
+SDESC[noprefix]=	GNU find utilities (standard names)
+SDESC[ravensys]=	GNU find utilities for raven sysroot (no nls)
 HOMEPAGE=		http://www.gnu.org/software/findutils/
 CONTACT=		nobody
 
@@ -18,10 +19,12 @@ DISTFILE[1]=		findutils-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	complete primary nls
 SPKGS[noprefix]=	complete primary nls
+SPKGS[ravensys]=	primary
 
-OPTIONS_AVAILABLE=	NOPREFIX
+OPTIONS_AVAILABLE=	NOTSTD RAVENSYS
 OPTIONS_STANDARD=	none
-VOPTS[noprefix]=	NOPREFIX=ON
+VOPTS[noprefix]=	NOTSTD=ON RAVENSYS=OFF
+VOPTS[ravensys]=	NOTSTD=ON RAVENSYS=ON
 
 LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
@@ -32,10 +35,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		misc/findutils
 
-USES=			charsetfix cpe gmake gettext-runtime
+USES=			charsetfix cpe gmake
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--localstatedir="${LOCALSTATEDIR}"
-			--enable-nls
 MAKE_ARGS=		INSTALL_SCRIPT="{{INSTALL_SCRIPT}}"
 INFO=			primary:find
 			primary:find-maint
@@ -47,8 +49,13 @@ CPE_VENDOR=		gnu
 # following line can be removed.
 # INSTALL_REQ_TOOLCHAIN=	yes
 
-[NOPREFIX].CONFIGURE_ARGS_OFF=		--program-prefix=g
-[NOPREFIX].DESCRIPTION=			Build without prefixing all programs with "g"
+[NOTSTD].DESCRIPTION=			Not the standard variant
+[NOTSTD].CONFIGURE_ARGS_OFF=		--program-prefix=g
+
+[RAVENSYS].DESCRIPTION=			For ravensys-root - built without NLS
+[RAVENSYS].USES_OFF=			gettext-runtime
+[RAVENSYS].CONFIGURE_ARGS_OFF=		--enable-nls
+[RAVENSYS].CONFIGURE_ARGS_ON=		--disable-nls
 
 post-patch-darwin:
 	${REINPLACE_CMD} -e "s|'cr'|'Scr'|" ${WRKSRC}/configure
