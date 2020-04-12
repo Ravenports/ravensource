@@ -63,6 +63,7 @@ PLIST_SUB=		PLUGINAPI={{PLUGINAPI}}
 INVALID_RPATH=		yes
 
 # Consider making gold the default linker on new platforms
+# Don't set linux for gold -- it fails to link port compiler
 
 VAR_OPSYS[dragonfly]=	VAR1=/libexec/ld-elf.so.2
 			VAR2=/libexec/ld-elf.so.2
@@ -84,7 +85,7 @@ VAR_OPSYS[sunos]=	VAR1=/lib/amd64/ld.so.1
 VAR_OPSYS[linux]=	VAR1=/lib/ld64.so.1
 			VAR2=/lib/ldx32.so.1
 			MAKEFILE_LINE=BUILD_GOLD=yes
-			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold=default
+			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold
 			MAKEFILE_LINE=SKIP_CTF="@comment "
 VAR_OPSYS[netbsd]=	MAKEFILE_LINE=PLUGINAPI="@comment "
 VAR_OPSYS[openbsd]=	MAKEFILE_LINE=PLUGINAPI="@comment "
