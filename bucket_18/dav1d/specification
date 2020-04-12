@@ -1,0 +1,31 @@
+DEF[PORTVERSION]=	0.6.0
+DEF[SOVERSION]=		4.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		dav1d
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		standard
+SDESC[standard]=	AV1 decoder targeted to be small and fast
+HOMEPAGE=		https://code.videolan.org/videolan/dav1d
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://code.videolan.org/videolan/dav1d/-/archive/${PORTVERSION}/
+DISTFILE[1]=		dav1d-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		multimedia/dav1d
+
+BUILD_DEPENDS=		nasm:primary:standard
+
+USES=			meson
+SOVERSION=		${SOVERSION}
