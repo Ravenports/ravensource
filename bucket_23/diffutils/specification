@@ -5,9 +5,10 @@ NAMEBASE=		diffutils
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		textproc
-VARIANTS=		standard noprefix
-SDESC[standard]=	GNU diff utilities
-SDESC[noprefix]=	GNU diff utilities with unprefixed program names
+VARIANTS=		standard noprefix ravensys
+SDESC[standard]=	GNU diff utilities (prefixed with g)
+SDESC[noprefix]=	GNU diff utilities (standard names)
+SDESC[ravensys]=	GNU diff utilities for raven sysroot (no nls)
 HOMEPAGE=		http://www.gnu.org/software/diffutils/diffutils.html
 CONTACT=		nobody
 
@@ -17,10 +18,12 @@ DISTFILE[1]=		diffutils-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	complete primary nls
 SPKGS[noprefix]=	complete primary nls
+SPKGS[ravensys]=	primary
 
-OPTIONS_AVAILABLE=	NOPREFIX
+OPTIONS_AVAILABLE=	NOTSTD RAVENSYS
 OPTIONS_STANDARD=	none
-VOPTS[noprefix]=	NOPREFIX=ON
+VOPTS[noprefix]=	NOTSTD=ON RAVENSYS=OFF
+VOPTS[ravensys]=	NOTSTD=ON RAVENSYS=ON
 
 LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
@@ -34,13 +37,17 @@ FPC_EQUIVALENT=		textproc/diffutils
 BUILD_DEPENDS=		libsigsegv:static:standard
 			libiconv:shared:standard
 
-USES=			charsetfix gettext-runtime
+USES=			charsetfix
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-nls
 INFO=			primary:diffutils
 
-[NOPREFIX].CONFIGURE_ARGS_OFF=		--program-prefix=g
-[NOPREFIX].DESCRIPTION=			Build without prefixing all programs with "g"
+[NOTSTD].DESCRIPTION=			Not the standard variant
+[NOTSTD].CONFIGURE_ARGS_OFF=		--program-prefix=g
+
+[RAVENSYS].DESCRIPTION=			For ravensys-root - built without NLS
+[RAVENSYS].USES_OFF=			gettext-runtime
+[RAVENSYS].CONFIGURE_ARGS_OFF=		--enable-nls
+[RAVENSYS].CONFIGURE_ARGS_ON=		--disable-nls
 
 post-patch:
 	${REINPLACE_CMD} -e '/^mkdir/s:@mkdir_p@:${MKDIR}:' \
