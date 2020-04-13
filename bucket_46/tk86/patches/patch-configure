@@ -1,0 +1,47 @@
+--- configure.orig	2019-11-20 19:56:52 UTC
++++ configure
+@@ -5221,6 +5221,10 @@ fi
+ 	Linux*|GNU*|NetBSD-Debian)
+ 	    SHLIB_CFLAGS="-fPIC"
+ 	    SHLIB_SUFFIX=".so"
++	    TCL_TRIM_DOTS=`echo ${VERSION} | tr -d .`
++	    UNSHARED_LIB_SUFFIX='${TCL_TRIM_DOTS}.a'
++	    SHARED_LIB_SUFFIX='${TCL_TRIM_DOTS}.so.1'
++	    TCL_LIB_VERSIONS_OK=nodots
+ 
+ 	    CFLAGS_OPTIMIZE="-O2"
+ 	    # egcs-2.91.66 on Redhat Linux 6.0 generates lots of warnings
+@@ -5420,7 +5424,7 @@ fi
+ fi
+ 
+ 	    ;;
+-	DragonFly-*|FreeBSD-*)
++	DragonFly-*|FreeBSD-*|SunOS-*)
+ 	    # This configuration from FreeBSD Ports.
+ 	    SHLIB_CFLAGS="-fPIC"
+ 	    SHLIB_LD="${CC} -shared"
+@@ -5443,19 +5447,19 @@ fi
+ 		LDFLAGS="$LDFLAGS $PTHREAD_LIBS"
+ fi
+ 
+-	    case $system in
+-	    FreeBSD-3.*)
+ 		# Version numbers are dot-stripped by system policy.
+ 		TCL_TRIM_DOTS=`echo ${VERSION} | tr -d .`
+ 		UNSHARED_LIB_SUFFIX='${TCL_TRIM_DOTS}.a'
+-		SHARED_LIB_SUFFIX='${TCL_TRIM_DOTS}.so'
++		SHARED_LIB_SUFFIX='${TCL_TRIM_DOTS}.so.1'
+ 		TCL_LIB_VERSIONS_OK=nodots
+-		;;
+-	    esac
+ 	    ;;
+ 	Darwin-*)
+ 	    CFLAGS_OPTIMIZE="-Os"
+ 	    SHLIB_CFLAGS="-fno-common"
++	    TCL_TRIM_DOTS=`echo ${VERSION} | tr -d .`
++	    UNSHARED_LIB_SUFFIX='${TCL_TRIM_DOTS}.a'
++	    SHARED_LIB_SUFFIX='${TCL_TRIM_DOTS}.1.dylib'
++	    TCL_LIB_VERSIONS_OK=nodots
+ 	    # To avoid discrepancies between what headers configure sees during
+ 	    # preprocessing tests and compiling tests, move any -isysroot and
+ 	    # -mmacosx-version-min flags from CFLAGS to CPPFLAGS:
