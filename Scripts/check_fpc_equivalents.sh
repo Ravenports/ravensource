@@ -4,10 +4,11 @@
 # that are not on a whitelist.  This usually means they were forgotten
 # to be defined.
 
-location=/usr/raven
+CONSPIR=$(/raven/bin/ravenadm dev info D)
+
 tmpfile=/tmp/fpc.notlist
 PROG='{if ($3 == "N/A") print}'
-awk "${PROG}" ${location}/Mk/Misc/fpc_equivalents > ${tmpfile}
+awk "${PROG}" ${CONSPIR}/Mk/Misc/fpc_equivalents > ${tmpfile}
 
 echo "List of ports with undefined FPC_EQUIVALENT values:"
 while read ravenport version fpc_port; do
