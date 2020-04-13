@@ -17,6 +17,8 @@ while read ravenport version fpc_port; do
 	libusb) ;; 		# linux only
 	shadow) ;;		# linux only
 	musl-fts) ;;		# linux only
+	libgudev) ;;		# linux only
+	libnftnl) ;;		# linux only
 	libbsd4sol);;		# solaris only
 
 	ravenports) ;;		# unique to ravenports
@@ -74,6 +76,7 @@ while read ravenport version fpc_port; do
 	qt5-qtbase) ;;		# FreeBSD splits these packages into sep one
 	qt5-qttools) ;;		#
 	qt5-qtdeclarative) ;;	#
+	gstreamer1-*-xshm) ;;   # FreeBSD combined with plugins-x
 	
 	usb-modeswitch-data) ;;	# combined with sysutils/usb_modeswitch
 	rustless-firefox) ;;	# currently like www/firefox-esr, but RP is frozen
@@ -85,6 +88,7 @@ while read ravenport version fpc_port; do
 	llvm40) ;;		# removed
 	XML_EZ_Out) ;;		# removed
 	libsparkcrypto) ;;	# removed
+	langkit) ;;		# removed
 
 	liborcus-1.4) ;;	# legacy for libreoffice
 	mdds-1.4) ;;		# legacy for libreoffice
@@ -110,6 +114,9 @@ while read ravenport version fpc_port; do
 	pekwm-themepack) ;;
 	spidermonkey) ;;		# check occasionally
 	libxmlxx) ;;			# check libxml++ occ.
+	db18) ;;			# check occasionally
+	guile) ;;			# check occasionally
+	libsigcxx) ;;			# check occasionally
 	hardlink-osx) ;;
 	gnatcoll-*) ;;
 	openmp|clang|lld|llvm-libunwind) ;;
@@ -119,13 +126,15 @@ while read ravenport version fpc_port; do
 	oed) ;;
 	zig) ;;
 	libmnl) ;;
-	libnftnl) ;;
 	libsvgtiny) ;;
 	linenoise) ;;
 	libnsfb) ;;
 	elftoolchain) ;;
 	libnslog) ;;
 	libluv) ;;
+	lua-zlib) ;;
+	ixion) ;;
+	skia) ;;
 	*) echo "${ravenport} ${version}"
    esac
 done < ${tmpfile}
