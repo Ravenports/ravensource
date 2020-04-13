@@ -10,11 +10,11 @@
 # non-generated ports that have counterparts at FreeBSD.
 #
 
-location=/usr/raven
+CONSPIR=$(/raven/bin/ravenadm dev info D)
 tmpfile=/tmp/fpc.list
 ports=/usr/ports
 PROG='{if ($3 != "N/A" && $3 != "generated") print}'
-awk "${PROG}" ${location}/Mk/Misc/fpc_equivalents > ${tmpfile}
+awk "${PROG}" ${CONSPIR}/Mk/Misc/fpc_equivalents > ${tmpfile}
 
 while read ravenport version fpc_port; do
   if [ -f ${ports}/${fpc_port}/Makefile ]; then
