@@ -1,0 +1,90 @@
+DEF[PORTVERSION]=	3.6.3
+DEF[SOVERSION]=		${PORTVERSION:R}
+DEF[R_MAJOR]=		${PORTVERSION:R:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		R
+VERSION=		${PORTVERSION}
+KEYWORDS=		math lang
+VARIANTS=		standard
+SDESC[standard]=	Statistical computing and graphics environment
+HOMEPAGE=		https://www.r-project.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/base/R-${R_MAJOR}
+DISTFILE[1]=		R-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary nls docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"HAVE_CONFIG_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/main/main.c
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		math/R
+
+BUILD_DEPENDS=		pcre:static:standard
+BUILDRUN_DEPENDS=	pcre:shared:standard
+			curl:primary:standard
+			tiff:primary:standard
+			ghostscript:primary:standard
+			icu:single:standard
+			xz:single:standard
+
+USES=			makeinfo readline perl:build libtool zlib
+			gmake iconv png jpeg pkgconfig tcl:tk
+			gettext-runtime gettext-tools fortran:primary
+XORG_COMPONENTS=	ice sm x11 xext xmu xscrnsaver xt
+GNOME_COMPONENTS=	cairo pango
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-java
+			--with-readline
+			--with-x
+			--with-cairo
+			--with-ICU
+			--with-libpng
+			--with-libtiff
+			--with-jpeglib
+			--with-tcltk
+			--enable-R-shlib
+			--enable-R-profiling
+			--enable-BLAS-shlib
+			--enable-long-double
+			--enable-openmp
+			--enable-nls
+			--without-blas
+			--without-lapack
+			rdocdir={{STD_DOCDIR}}
+CONFIGURE_ENV=		r_cv_header_jpeglib_h=yes
+LDFLAGS=		-Wl,-rpath,{{PREFIX}}/lib/R/lib
+INSTALL_TARGET=		install-strip install-info
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
+INFO=			primary:R-admin
+			primary:R-data
+			primary:R-exts
+			primary:R-FAQ
+			primary:R-intro
+			primary:R-ints
+			primary:R-lang
+
+
+post-patch:
+	${REINPLACE_CMD} -e "s|/usr/local|${LOCALBASE}|g" \
+		${WRKSRC}/configure
+	${REINPLACE_CMD} "s|%%LIBVER%%|${SOVERSION}|" \
+		${WRKSRC}/src/main/Makefile.in \
+		${WRKSRC}/src/extra/blas/Makefile.in \
+		${WRKSRC}/src/modules/lapack/Makefile.in
+
+post-install:
+	${REINPLACE_CMD} -i'' -e "s| -lR| -lR -lRblas|" \
+		${STAGEDIR}${PREFIX}/lib/pkgconfig/libR.pc
+	${RM} ${STAGEDIR}${STD_DOCDIR}/COPY*
+	${RM} ${STAGEDIR}${PREFIX}/lib/R/COPY*
