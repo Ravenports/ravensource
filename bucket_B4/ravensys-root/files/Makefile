@@ -832,21 +832,18 @@ install:
 		${DESTDIR}${BASE}/usr/lib/pkgconfig/
 .  endif
 .endfor
-.for item in md5 sha256 
+.for item in md5 sha256 cat
 	cp ${CPA} ${LOCALBASE}/bin/${item} ${DESTDIR}${BASE}/bin/
 .endfor
-	cp ${CPA} ${LOCALBASE}/bin/gcat ${DESTDIR}${BASE}/bin/cat
 .for item in m4 bzip2 bunzip2 bzcat bzgrep bzegrep bzfgrep lockf \
 	grep file flex flex++ gzip gunzip zcat zcmp zdiff zegrep \
 	zfgrep zgrep lzcat lzcmp lzdiff lzegrep lzfgrep lzgrep lzma \
 	unlzma unxz xz xzcat xzcmp xzdiff xzegrep xzfgrep xzgrep yacc \
-	unzip less mtree bsdcat dupe genpatch portfix patch fetch
+	unzip less mtree bsdcat dupe genpatch portfix patch fetch \
+	sed find xargs cmp diff diff3 sdiff \
+	install wc sort od mknod seq
 	cp ${LOCALBASE}/bin/${item} ${DESTDIR}${BASE}/usr/bin/
 .endfor
-.  for item in sed find xargs cmp diff diff3 sdiff \
-	install wc sort od mknod seq
-	cp ${CPA} ${LOCALBASE}/bin/g${item} ${DESTDIR}${BASE}/usr/bin/${item}
-.  endfor
 .for item in ${headers_${OPSYS}}
 	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/include/${item} ${DESTDIR}${BASE}/usr/include/${item}
 .endfor
@@ -865,7 +862,8 @@ install:
 	rmdir ${DESTDIR}${BASE}/usr/include/dev/nand
 	rmdir ${DESTDIR}${BASE}/usr/include/dev/powermac_nvram
 .endif
-.for item in nawk/awk objdump/objdump-sysroot less/more bmake/make \
+	cp ${LOCALBASE}/toolchain/bin/objdump ${DESTDIR}${BASE}/usr/bin/objdump-sysroot
+.for item in nawk/awk less/more bmake/make \
 	bsdcpio/cpio bsdtar/tar ravensys-uname/uname nvi/vi
 	cp ${LOCALBASE}/bin/${item:H} ${DESTDIR}${BASE}/usr/bin/${item:T}
 .endfor
