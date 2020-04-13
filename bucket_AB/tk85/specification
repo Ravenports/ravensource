@@ -1,0 +1,70 @@
+DEF[NAMEBASE]=		tk85
+DEF[TK_VERSION]=	8.5.19
+DEF[TK_VER]=		${TK_VERSION:R}
+DEF[SHORT_TK_VER]=	${TK_VER:S/.//g}
+DEF[PORTVERSION]=	${TK_VERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		${NAMEBASE}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_toolkits
+VARIANTS=		standard
+SDESC[standard]=	GUI toolkit for the Tcl ${TK_VER} scripting language
+HOMEPAGE=		https://www.tcl.tk/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/tcl/Tcl/${TK_VERSION}
+DISTFILE[1]=		tk${TK_VERSION}-src.tar.gz:main
+
+SPKGS[standard]=	complete primary demos manpages
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:primary
+LICENSE_NAME=		CUSTOM1:"Tcl/Tk License"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/license.terms
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11-toolkits/tk85
+
+USES=			tcl:${TK_VER},tea
+XORG_COMPONENTS=	x11 xft xscrnsaver
+CONFIGURE_ARGS=		--enable-xss
+			--enable-xft
+			--enable-threads
+			--enable-man-suffix=.${NAMEBASE}
+			--includedir={{PREFIX}}/include/tk${TK_VER}
+CFLAGS=			-I{{TCL_INCLUDEDIR}}
+MAKE_ENV=		SHORT_TK_VER=${SHORT_TK_VER}
+DISTNAME=		tk${TK_VERSION}/unix
+INSTALL_TARGET=		install-strip install-doc install-demos
+PLIST_SUB=		TK_VER=${TK_VER}
+			SHORT_TK_VER=${SHORT_TK_VER}
+			NAMEBASE=${NAMEBASE}
+SUB_FILES=		pkgIndex.tcl
+SUB_LIST=		TCLPATCHLEVEL="${TK_VERSION}"
+
+post-patch:
+	${REINPLACE_CMD} -e \
+	    's|@TK_BUILD_LIB_SPEC@|@TK_LIB_SPEC@|; \
+	     s|@TK_BUILD_STUB_LIB_SPEC@|@TK_STUB_LIB_SPEC@|; \
+	     s|@TK_BUILD_STUB_LIB_PATH@|@TK_STUB_LIB_PATH@|; \
+	     s|@TK_SRC_DIR@|${PREFIX}/include/tk${TK_VER}|' \
+	     ${WRKSRC}/tkConfig.sh.in
+	${REINPLACE_CMD} -e '/^Requires/s|tcl|tcl${SHORT_TK_VER}|' \
+	    ${WRKSRC}/tk.pc.in
+	${REINPLACE_CMD} -e 's|X11/Intrinsic.h|X11/Xlib.h|g' ${WRKSRC}/configure
+	${REINPLACE_CMD} -e 's|@TK_SHARED_BUILD@|#@TK_SHARED_BUILD@|g' \
+		${WRKSRC}/Makefile.in
+
+post-configure:
+	${REINPLACE_CMD} \
+		-e 's|${WRKDIRPREFIX}${.CURDIR}|$${WRKDIRPREFIX}${TKBASE}|' \
+		${WRKSRC}/tkConfig.sh
+	${REINPLACE_CMD} -e 's|-Wl,--rpath -Wl,/usr/local/lib||g' ${WRKSRC}/Makefile
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libtk85.so
+	${INSTALL_DATA} ${WRKDIR}/pkgIndex.tcl ${STAGEDIR}${PREFIX}/lib/tk${TK_VER}/
