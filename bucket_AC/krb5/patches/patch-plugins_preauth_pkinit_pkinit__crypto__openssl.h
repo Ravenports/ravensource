@@ -1,4 +1,4 @@
---- plugins/preauth/pkinit/pkinit_crypto_openssl.h.orig	2020-02-12 17:21:58 UTC
+--- plugins/preauth/pkinit/pkinit_crypto_openssl.h.orig	2020-04-13 14:52:20 UTC
 +++ plugins/preauth/pkinit/pkinit_crypto_openssl.h
 @@ -46,7 +46,9 @@
  #include <openssl/asn1.h>
