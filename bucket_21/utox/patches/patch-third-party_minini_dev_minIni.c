@@ -1,4 +1,4 @@
---- third-party/minini/dev/minIni.c.orig	2019-10-09 20:26:22 UTC
+--- third-party/minini/dev/minIni.c.orig	2020-04-14 17:53:20 UTC
 +++ third-party/minini/dev/minIni.c
 @@ -71,7 +71,7 @@
    #pragma warning(disable: 4996)	/* for Microsoft Visual C/C++ */
