@@ -86,6 +86,9 @@ CMAKE_ARGS=		-DCOMPILATION_COMMENT="Ravenports"
 DISTNAME=		mariadb-${PORTVERSION}
 SHEBANG_FILES=		scripts/*.sh
 
+# required for Linux (only) for ABI checks
+INSTALL_REQ_TOOLCHAIN=	yes
+
 post-patch:
 	${REINPLACE_CMD} 's|/usr/bin/env python|${PYTHON_CMD}|' \
 		${WRKSRC}/CMakeLists.txt
