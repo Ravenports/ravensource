@@ -2,7 +2,7 @@ $NetBSD: patch-ac,v 1.9 2012/07/03 11:31:35 mef Exp $
 
 Add DragonFly
 
---- qtools/qglobal.h.orig	2019-03-16 19:19:44 UTC
+--- qtools/qglobal.h.orig	2020-03-08 15:29:58 UTC
 +++ qtools/qglobal.h
 @@ -102,7 +102,7 @@
  #define _OS_RELIANTUNIX_

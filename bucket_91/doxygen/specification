@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.8.17
+DEF[PORTVERSION]=	1.8.18
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		doxygen
@@ -17,6 +17,13 @@ SPKGS[standard]=	single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:single
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"DOXYGEN_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/doxygen.h
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/doxygen
 
@@ -37,3 +44,6 @@ CMAKE_ARGS=		-DDOC_INSTALL_DIR:PATH=share/doc/doxygen
 post-patch:
 	@${REINPLACE_CMD} -e '/PERL_PATH/ s|/usr/bin/perl|${perl_CMD}|' \
 		${WRKSRC}/src/config.xml
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/doxy*
