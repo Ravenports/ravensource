@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.0.1
+DEF[PORTVERSION]=	5.1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gawk
@@ -13,24 +13,33 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/gawk
 DISTFILE[1]=		gawk-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary nls
 
-OPTIONS_AVAILABLE=	NLS MPFR
-OPTIONS_STANDARD=	NLS MPFR
-OPT_ON[all]=		NLS MPFR
+OPTIONS_AVAILABLE=	MPFR
+OPTIONS_STANDARD=	MPFR
+OPT_ON[all]=		MPFR
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"UPDATE_YEAR"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/main.c
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		lang/gawk
 
 BUILD_DEPENDS=		libsigsegv:static:standard
 
-USES=			makeinfo libtool readline
+USES=			makeinfo libtool readline gettext-runtime
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		AWK={{AWK}}
+			--enable-nls
+			--with-libintl-prefix={{LOCALBASE}}
 INSTALL_TARGET=		install-strip
 PLIST_SUB=		VERSION=${PORTVERSION}
-INFO=			single:gawk
-			single:gawkworkflow
-			single:gawkinet
+INFO=			primary:gawk
+			primary:gawkworkflow
+			primary:gawkinet
 
 [MPFR].DESCRIPTION=			Support multi-precision floating-point computation
 
@@ -38,6 +47,3 @@ INFO=			single:gawk
 [MPFR].BUILDRUN_DEPENDS_ON=		mpfr:shared:standard
 [MPFR].CONFIGURE_ARGS_OFF=		--without-gmp
 					--without-mpfr
-[NLS].USES_ON=				gettext-runtime
-[NLS].CONFIGURE_ARGS_ON=		--with-libintl-prefix={{LOCALBASE}}
-[NLS].CONFIGURE_ARGS_OFF=		--disable-nls
