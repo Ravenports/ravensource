@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.26.0
+DEF[PORTVERSION]=	2.26.1
 DEF[RN]=		share/doc/git/RelNotes
 # ----------------------------------------------------------------------------
 
@@ -18,18 +18,25 @@ DISTFILE[2]=		git-manpages-${PORTVERSION}.tar.xz:main
 DISTFILE[3]=		git-htmldocs-${PORTVERSION}.tar.xz:main
 DF_INDEX=		1 2
 
-SPKGS[standard]=	complete primary docs examples
-SPKGS[lite]=		single
+SPKGS[standard]=	complete primary nls examples docs
+SPKGS[lite]=		primary
 
 OPTIONS_AVAILABLE=	LITE SVN
 OPTIONS_STANDARD=	SVN
 VOPTS[lite]=		LITE=ON SVN=OFF
 
+LICENSE=		GPLv2:primary
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^Please read the file"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/README.md
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		devel/git
 
 USERS=			git_daemon
 GROUPS=			git_daemon
-USERGROUP_SPKG=		single
+USERGROUP_SPKG=		primary
 
 BUILD_DEPENDS=		pcre:static:standard
 			expat:static:standard
@@ -71,7 +78,7 @@ SHEBANG_FILES=		*.perl
 			contrib/svn-fe/svnrdump_sim.py
 			contrib/credential/netrc/git-credential-netrc.perl
 			templates/hooks--fsmonitor-watchman.sample
-RC_SUBR=		git_daemon:single
+RC_SUBR=		git_daemon:primary
 
 [LITE].DESCRIPTION=			Drop non-essential functionality and their deps
 [LITE].MAKE_ARGS_ON=			NO_TCLTK=yes
