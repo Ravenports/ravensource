@@ -1,11 +1,12 @@
-DEF[PORTVERSION]=	0.20.1
-DEF[GETTEXTPO]=		0.5.5
-DEF[LIBINTL]=		8.1.6
+DEF[PORTVERSION]=	0.20.2
+DEF[GETTEXTPO]=		0.5.6
+DEF[LIBINTL]=		8.1.7
+DEF[GETTEXTSTYLE]=	0.0.1
+DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gettext
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	GNU internationalization and localization system
@@ -16,7 +17,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/gettext
 DISTFILE[1]=		gettext-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete runtime tools asprintf docs
+SPKGS[standard]=	complete runtime tools asprintf nls docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -49,6 +50,9 @@ INSTALL_REQ_TOOLCHAIN=	yes
 PLIST_SUB=		VERSION=${PORTVERSION:R}
 			GETTEXTPO=${GETTEXTPO}
 			LIBINTL=${LIBINTL}
+			GTS_SOMAJOR=${GETTEXTSTYLE:R:R}
+			GTS_SOVERSION=${GETTEXTSTYLE}
+SOVERSION=		${SOVERSION}
 TEST_TARGET=		check
 INFO=			runtime:autosprintf runtime:gettext
 CPE_PRODUCT=		gettext
@@ -73,7 +77,7 @@ post-patch:
 		${WRKSRC}/gettext-runtime/man/Makefile.in
 
 post-install:
-	${MV} ${STAGEDIR}${PREFIX}/share/gettext-${PORTVERSION:R} \
+	${MV} ${STAGEDIR}${PREFIX}/share/gettext-${PORTVERSION} \
 		${STAGEDIR}${PREFIX}/share/gettext/${PORTVERSION:R}
 .if "${.MAKE.OS.NAME}" == "Linux"
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/preloadable_libintl.so
