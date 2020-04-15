@@ -61,8 +61,8 @@ function scrape_cran_page ($namebase) {
     if ($webpage === False) {
         return $result;
     }
-    if (preg_match("/<h2>.*: (.*)<\/h2>$ANY?<p>($ANY*)<\/p>/U", $webpage, $matches) == 1) {
-        $result["comment"] = trim($matches[1]);
+    if (preg_match("/<h2>.*: ($ANY*)<\/h2>$ANY?<p>($ANY*)<\/p>/U", $webpage, $matches) == 1) {
+        $result["comment"] = str_replace("\n", "", trim($matches[1]));
         $result["description"] = trim($matches[2]);
     }
     

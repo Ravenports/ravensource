@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	6.0-86
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-caret
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		standard
+SDESC[standard]=	Classification and Regression Training
+HOMEPAGE=		https://github.com/topepo/caret/
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+DISTFILE[1]=		caret_6.0-86.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => GPL-2 | GPL-3 [expanded from: GPL (>= 2)]
+
+USES=			cran gmake
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-ggplot2:single:standard
+			R-foreach:single:standard
+			R-plyr:single:standard
+			R-ModelMetrics:single:standard
+			R-reshape2:single:standard
+			R-recipes:single:standard
+			R-withr:single:standard
+			R-pROC:single:standard
+
+

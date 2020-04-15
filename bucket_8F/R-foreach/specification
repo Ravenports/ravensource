@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	1.5.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-foreach
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		standard
+SDESC[standard]=	Provides Foreach Looping Construct
+HOMEPAGE=		https://github.com/RevolutionAnalytics/foreach
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+DISTFILE[1]=		foreach_1.5.0.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => Apache License (== 2.0)
+
+USES=			cran gmake
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-iterators:single:standard
+
+

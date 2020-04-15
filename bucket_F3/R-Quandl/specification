@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	2.10.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-Quandl
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		standard
+SDESC[standard]=	API Wrapper for Quandl.com
+HOMEPAGE=		https://github.com/quandl/quandl-r
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+DISTFILE[1]=		Quandl_2.10.0.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => MIT + file LICENSE
+
+USES=			cran gmake
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-xts:single:standard
+			R-httr:single:standard
+			R-zoo:single:standard
+			R-jsonlite:single:standard
+
+

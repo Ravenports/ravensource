@@ -6,6 +6,7 @@ $data_description = array();
 $data_homepage = array();
 $data_toplevel_ports = array();
 
+
 # procedure to set global variables.
 # It must be called one for each global variable
 # argument 1 must be summary|description|deadhome|toplevel
@@ -53,6 +54,7 @@ function ingest_file ($datatype, $scriptdir) {
     }
 }
 
+
 # Given a short description, it strips out common articles and ensures
 # The first letter is capitalized
 function make_comment ($shortdesc) {
@@ -63,6 +65,7 @@ function make_comment ($shortdesc) {
     return ucfirst($copystring);
 }
 
+
 # Returns the summary string to use in the specification
 # Argument 1: port's namebase
 # Argument 2: Original summary string
@@ -70,7 +73,7 @@ function make_comment ($shortdesc) {
 #                                 truncated => boolean
 function sanitize_summary ($namebase, $original_summary) {
     global $data_summary;
-    
+
     $summary = "";
     $truncated = False;
 
@@ -78,16 +81,77 @@ function sanitize_summary ($namebase, $original_summary) {
         $summary = $data_summary[$namebase];
     } else {
         $summary = make_comment($original_summary);
+    } 
+    if (strlen ($summary) < 12) {
+        # too short, add garbage to force a truncation alert
+        # so that it can be overridden
+        $summary .= "##########----------##########----------##########--";
     }
     $truncated = strlen ($summary) > 50;
     $final_summary = $truncated ? substr($summary, 0, 50) : $summary;
     return array("summary" => $final_summary, "truncated" => $truncated);
 }
 
+# Produces test for long description.
+# If there's an override, it uses that raw text,
+# otherwise it uses the given description.
+# Finally the text is wrapped to 75 columns and returned.
+function produce_long_description($namebase, $original_description) {
+    global $data_description;
+
+    $desctext = "";
+    if (array_key_exists($namebase, $data_description)) {
+        $unixtext = str_replace ('\n', "\n", $data_description[$namebase]);
+        $desctext = wordwrap ($unixtext, 75);
+    } else {
+        $desctext = wordwrap ($original_description, 75);
+    }
+    return $desctext;
+}
+
+
+# Changes http:// to https://
+function go_secure ($url) {
+    return (str_replace($url, "http://", "https://"));
+}
+
+
+# Modifies homepage if necessary.
+# 1) If the homepage is marked as dead, return "none"
+# 2) If the homepage requires redirection, handle that too.
+# 3) If there's more than 1 value, take the first one.
+function sanitize_homepage ($namebase, $original_homepage) {
+    global $data_homepage;
+
+    if ( array_key_exists($namebase, $data_homepage)
+      || $original_homepage == "UNSET"
+      || $original_homepage == ""
+    ) {
+       return "none";
+    }
+
+    $hp_parts = explode (",", $original_homepage);
+    $hp0 = trim($hp_parts[0]);
+    $hp_parts = explode (" ", $hp0);
+    $hp1 = trim($hp_parts[0]);
+
+    $H = "/^http:\/\/";
+    if ( preg_match($H . "github[.]com/", $hp1)
+      || preg_match($H . "bitbucket[.]com/", $hp1)
+    ) {
+       return go_secure ($hp1);
+    } else {
+       return $hp1;
+    }
+}
+
+
+# Checks if there are any command-line arguments.
+# If there are, they override the top level ports list
 function set_top_level_ports($datatype, $scriptdir) {
     global
         $data_toplevel_ports,
-        $argc, 
+        $argc,
         $argv;
 
     if ($argc > 1) {
@@ -98,5 +162,4 @@ function set_top_level_ports($datatype, $scriptdir) {
         ingest_file($datatype, $scriptdir);
     }
 }
-
 ?>
