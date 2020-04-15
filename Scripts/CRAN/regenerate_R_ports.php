@@ -138,19 +138,33 @@ function generate_port($namebase) {
         array_push($truncated_summaries, $namebase);
     }
 
-    # Get specification.manual (if it exists)
-    $manual_portion = "";
-    if (file_exists ($manual_specs)) {
-        $manual_portion = file_get_contents($manual_specs);
-    }
-
     # other template variables
     $pvbraces    = '${PORTVERSION}';
+    $uses        = "cran gmake";
     $portversion = $port_data[$namebase]["version"];
     $tarball     = $port_data[$namebase]["distfile"];
     $license     = $port_data[$namebase]["license"];
     $homepage    = sanitize_homepage ($namebase,
                                       $port_data[$namebase]["homepage"]);
+
+    # Get specification.manual (if it exists)
+    $manual_portion = "";
+    if (file_exists ($manual_specs)) {
+        $lines = file($manual_specs);
+        foreach ($lines as $line) {
+            if ( strlen($line) > 8
+              && substr($line, 0, 8) == "USES=\t\t\t")
+            {
+                $uses .= " " . trim(substr($line, 8));
+            } else {
+                if (substr($line, -1) == "\n") {
+                    $manual_portion .= $line;
+                } else {
+                    $manual_portion .= $line . "\n";
+                }
+            }
+        }
+    }
 
     # Other CRAN dependencies (set all as build+run types)
     $SS = ":single:standard\n";
@@ -190,7 +204,7 @@ OPTIONS_STANDARD=	none
 # License listed on https://cran.r-project.org/
 # => $license
 
-USES=			cran gmake
+USES=			$uses
 DISTNAME=		$namebase
 GENERATED=		yes
 INSTALL_REQ_TOOLCHAIN=	yes

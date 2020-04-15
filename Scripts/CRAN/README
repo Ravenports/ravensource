@@ -25,5 +25,17 @@ list.summary-override		Keyed table: R module => new summary
 Comprehensive R Archive Network:
 https://cran.r-project.org/
 
+Customization:
+The generator only produces the specification file, the distinfo file, and
+the descriptions/desc.single file.  Maintainers must add the patches,
+files, <opsys> directories as needed.  If there is no manifests directory,
+the "USES=cran" module will automatically create a manifest.
+
+If there is a specification.manual file in the port's directory, it will be
+concatenated to the end of the generated specification.  The one exception
+is if there is a "USES=\t\t\t" line in the specification.manual file, it will
+be stripped out and included in the generated specification before
+concatenation.
+
 Misc: command to remove trailing whitespace  
 perl -pi -e 's,[ \t]+$,,' <filename>

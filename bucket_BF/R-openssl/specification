@@ -23,7 +23,7 @@ OPTIONS_STANDARD=	none
 # License listed on https://cran.r-project.org/
 # => MIT + file LICENSE
 
-USES=			cran gmake
+USES=			cran gmake ssl pkgconfig shebangfix
 DISTNAME=		openssl
 GENERATED=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
@@ -31,3 +31,9 @@ INSTALL_REQ_TOOLCHAIN=	yes
 BUILDRUN_DEPENDS=	R-askpass:single:standard
 
 
+SHEBANG_FILES=		tests/google.dk/generate.bash
+
+post-patch:
+	${REINPLACE_CMD} \
+	-e 's|PKG_LIBS=[$$]{PKGCONFIG_LIBS}|PKG_LIBS="$${PKGCONFIG_LIBS} -Wl,-rpath,${OPENSSLRPATH}"|' \
+	${WRKSRC}/configure

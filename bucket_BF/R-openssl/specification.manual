@@ -1,0 +1,7 @@
+USES=			ssl pkgconfig shebangfix
+SHEBANG_FILES=		tests/google.dk/generate.bash
+
+post-patch:
+	${REINPLACE_CMD} \
+	-e 's|PKG_LIBS=[$$]{PKGCONFIG_LIBS}|PKG_LIBS="$${PKGCONFIG_LIBS} -Wl,-rpath,${OPENSSLRPATH}"|' \
+	${WRKSRC}/configure
