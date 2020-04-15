@@ -1,0 +1,7 @@
+post-patch:
+	${REINPLACE_CMD} -i'' -e "s|#!/bin/bash|#!${LOCALBASE}/bin/bash|" \
+		${WRKSRC}/inst/examples/ConvolveBenchmarks/buildAndRun.sh \
+		${WRKSRC}/inst/examples/ConvolveBenchmarks/overhead.sh
+	${REINPLACE_CMD} -i'' -e "s|#!/usr/bin/r|#!${LOCALBASE}/bin/R|" \
+		${WRKSRC}/inst/examples/*/*.r \
+		${WRKSRC}/inst/examples/*/*.R

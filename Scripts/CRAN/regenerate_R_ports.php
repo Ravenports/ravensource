@@ -189,6 +189,7 @@ OPTIONS_STANDARD=	none
 # => $license
 
 USES=			cran gmake
+DISTNAME=		$namebase
 GENERATED=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
 

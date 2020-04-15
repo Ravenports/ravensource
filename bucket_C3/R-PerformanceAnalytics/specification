@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	2.0.4
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-PerformanceAnalytics
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		standard
+SDESC[standard]=	Econometric Tools for Performance & Risk Analysis
+HOMEPAGE=		https://github.com/braverock/PerformanceAnalytics
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+DISTFILE[1]=		PerformanceAnalytics_2.0.4.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => GPL-2 | GPL-3
+
+USES=			cran gmake
+DISTNAME=		PerformanceAnalytics
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-xts:single:standard
+			R-quadprog:single:standard
+			R-zoo:single:standard
+
+

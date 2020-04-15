@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	1.0.6
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-pkgbuild
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		standard
+SDESC[standard]=	Find Tools Needed to Build R Packages
+HOMEPAGE=		https://github.com/r-lib/pkgbuild
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+DISTFILE[1]=		pkgbuild_1.0.6.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => GPL-3
+
+USES=			cran gmake
+DISTNAME=		pkgbuild
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-callr:single:standard
+			R-cli:single:standard
+			R-crayon:single:standard
+			R-desc:single:standard
+			R-prettyunits:single:standard
+			R-R6:single:standard
+			R-rprojroot:single:standard
+			R-withr:single:standard
+
+

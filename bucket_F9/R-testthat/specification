@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	2.3.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-testthat
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		standard
+SDESC[standard]=	Unit Testing for R
+HOMEPAGE=		http://testthat.r-lib.org
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+DISTFILE[1]=		testthat_2.3.2.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => MIT + file LICENSE
+
+USES=			cran gmake
+DISTNAME=		testthat
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-cli:single:standard
+			R-crayon:single:standard
+			R-digest:single:standard
+			R-ellipsis:single:standard
+			R-evaluate:single:standard
+			R-magrittr:single:standard
+			R-pkgload:single:standard
+			R-praise:single:standard
+			R-R6:single:standard
+			R-rlang:single:standard
+			R-withr:single:standard
+
+

@@ -28,7 +28,9 @@ function process_buildrun ($matched_text, &$storage) {
         $pass_3 = explode (",", $pass_2);
         foreach ($pass_3 as $part) {
            $dependency = trim($part);
-           if (!core_module($dependency)) {
+           if (!core_module($dependency) &&
+               !in_array($dependency, $storage))
+           {
               array_push($storage, $dependency);
            }
         }
@@ -45,6 +47,7 @@ function scrape_cran_page ($namebase) {
     $url = "https://cran.r-project.org/web/packages/$namebase/index.html";
     $ANY = "[\s\S]";
     $SCELL = "<td>(.*)<\/td>";
+    $ACELL = "<td>($ANY*)<\/td>";
 
     $result = array(
         "success"     => False,
@@ -82,11 +85,14 @@ function scrape_cran_page ($namebase) {
         $result["distfile"] = strip_all($matches[1]);
     }
     
-    if (preg_match("/<td>Depends:<\/td>$ANY?$SCELL/U", $webpage, $matches) == 1) {
+    if (preg_match("/<td>Depends:<\/td>$ANY?$ACELL/U", $webpage, $matches) == 1) {
         process_buildrun ($matches[1], $result["buildrun"]);
     }
 
-    if (preg_match("/<td>Imports:<\/td>$ANY?$SCELL/U", $webpage, $matches) == 1) {
+    if (preg_match("/<td>Imports:<\/td>$ANY?$ACELL/U", $webpage, $matches) == 1) {
+        process_buildrun ($matches[1], $result["buildrun"]);
+    }
+    if (preg_match("/<td>LinkingTo:<\/td>$ANY?$ACELL/U", $webpage, $matches) == 1) {
         process_buildrun ($matches[1], $result["buildrun"]);
     }
     $result["success"] = True;

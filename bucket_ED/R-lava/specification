@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	1.6.7
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-lava
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		standard
+SDESC[standard]=	Latent Variable Models
+HOMEPAGE=		https://github.com/kkholst/lava
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+DISTFILE[1]=		lava_1.6.7.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => GPL-3
+
+USES=			cran gmake
+DISTNAME=		lava
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-numDeriv:single:standard
+			R-SQUAREM:single:standard
+
+
