@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	0.16.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-rgexf
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		standard
+SDESC[standard]=	Build, Import and Export GEXF Graph Files
+HOMEPAGE=		https://gvegayon.github.io/rgexf
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+DISTFILE[1]=		rgexf_0.16.0.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => MIT + file LICENSE
+
+USES=			cran gmake
+DISTNAME=		rgexf
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-XML:single:standard
+			R-igraph:single:standard
+			R-servr:single:standard
+
+

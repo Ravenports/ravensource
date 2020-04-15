@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.16
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-servr
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		standard
+SDESC[standard]=	Simple HTTP server - static and dynamic files
+HOMEPAGE=		https://github.com/yihui/servr
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+DISTFILE[1]=		servr_0.16.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => GPL-2 | GPL-3 [expanded from: GPL]
+
+USES=			cran gmake
+DISTNAME=		servr
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-mime:single:standard
+			R-httpuv:single:standard
+			R-xfun:single:standard
+			R-jsonlite:single:standard
+
+
