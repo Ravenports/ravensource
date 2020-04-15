@@ -131,6 +131,17 @@ function use_https_instead ($url) {
     {
         $rest_of_uri = substr($url, 7);
         $components = explode("/", $rest_of_uri);
+        # check if more than 2 components -- and if it matches a wildcard
+        $subcomponents = explode(".", $components[0]);
+        $nsc = count($subcomponents);
+        if ($nsc > 2) {
+            $testserver = "*."
+                        . $subcomponents[$nsc - 2] . "."
+                        . $subcomponents[$nsc - 1];
+            if (in_array($testserver, $data_https_redirect)) {
+                return true;
+            }
+        }
         return in_array($components[0], $data_https_redirect);
     }
     return false;
