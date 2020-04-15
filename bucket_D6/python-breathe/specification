@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	4.15.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-breathe
+VERSION=		${PORTVERSION}
+KEYWORDS=		python devel textproc
+VARIANTS=		py38 py37
+SDESC[py38]=		Sphinx Doxygen renderer (PY 38)
+SDESC[py37]=		Sphinx Doxygen renderer (PY 37)
+HOMEPAGE=		https://github.com/michaeljones/breathe
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/b/breathe
+DISTFILE[1]=		breathe-4.15.0.tar.gz:main
+
+SPKGS[py38]=		single
+SPKGS[py37]=		single
+
+OPTIONS_AVAILABLE=	PY38 PY37
+OPTIONS_STANDARD=	none
+VOPTS[py38]=		PY38=ON PY37=OFF
+VOPTS[py37]=		PY38=OFF PY37=ON
+
+# Output of setup.py --license
+# BSD
+
+GENERATED=		yes
+
+# install_requires extracted from setup.py (using python 2.7)
+# ERROR:
+
+DISTNAME=		breathe-${PORTVERSION}
+
+[PY38].USES_ON=				python:py38
+[PY38].BUILDRUN_DEPENDS_ON=		python-Sphinx:single:py38
+					python-docutils:single:py38
+					python-six:single:py38
+
+[PY37].USES_ON=				python:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-Sphinx:single:py37
+					python-docutils:single:py37
+					python-six:single:py37
+
