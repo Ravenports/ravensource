@@ -1,6 +1,6 @@
-DEF[PORTVERSION]=	2.28.0
-DEF[SOVERSION]=		37.44.2
-DEF[JSSOVERSION]=	18.16.3
+DEF[PORTVERSION]=	2.28.1
+DEF[SOVERSION]=		37.44.3
+DEF[JSSOVERSION]=	18.16.4
 DEF[WKAPI]=		4.0
 DEF[WKAPIMAJOR]=	${WKAPI:R}
 # ----------------------------------------------------------------------------
@@ -18,16 +18,16 @@ SITES[main]=		https://www.webkitgtk.org/releases/
 			https://fossies.org/linux/www/
 DISTFILE[1]=		webkitgtk-${PORTVERSION}.tar.xz:main
 
-SPKGS[gtk3]=		single
+SPKGS[gtk3]=		complete primary nls
 
 OPTIONS_AVAILABLE=	GTK3
 OPTIONS_STANDARD=	none
 VOPTS[gtk3]=		GTK3=ON
 
-LICENSE=		GPLv2+:single BSD3CLAUSE:single
+LICENSE=		GPLv2+:primary BSD3CLAUSE:primary
 LICENSE_FILE=		GPLv2+:stock
 			BSD3CLAUSE:{{WRKDIR}}/LICENSE_BSD
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		BSD3CLAUSE:"^$$"
 			TERMS:"^$$"
 LICENSE_SOURCE=		BSD3CLAUSE:{{WRKSRC}}/Source/WebCore/css/parser/MediaQueryBlockWatcher.h
