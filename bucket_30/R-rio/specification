@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	0.5.16
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-rio
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		standard
+SDESC[standard]=	Swiss-Army Knife for Data I/O
+HOMEPAGE=		https://github.com/leeper/rio
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+DISTFILE[1]=		rio_0.5.16.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => GPL-2
+
+USES=			cran gmake
+DISTNAME=		rio
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-haven:single:standard
+			R-curl:single:standard
+			R-data.table:single:standard
+			R-readxl:single:standard
+			R-openxlsx:single:standard
+			R-tibble:single:standard
+
+

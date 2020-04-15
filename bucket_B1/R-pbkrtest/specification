@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	0.4-8.6
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-pbkrtest
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		standard
+SDESC[standard]=	Parametric Bootstrap and Kenward Roger methods
+HOMEPAGE=		http://people.math.aau.dk/~sorenh/software/pbkrtest/
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+DISTFILE[1]=		pbkrtest_0.4-8.6.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => GPL-2 | GPL-3 [expanded from: GPL (>= 2)]
+
+USES=			cran gmake
+DISTNAME=		pbkrtest
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-lme4:single:standard
+			R-magrittr:single:standard
+
+

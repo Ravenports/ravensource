@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	3.0-7
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-car
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		standard
+SDESC[standard]=	Companion to Applied Regression
+HOMEPAGE=		none
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+DISTFILE[1]=		car_3.0-7.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => GPL-2 | GPL-3 [expanded from: GPL (>= 2)]
+
+USES=			cran gmake
+DISTNAME=		car
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-carData:single:standard
+			R-abind:single:standard
+			R-pbkrtest:single:standard
+			R-quantreg:single:standard
+			R-maptools:single:standard
+			R-rio:single:standard
+			R-lme4:single:standard
+
+

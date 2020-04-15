@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.5.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-forcats
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		standard
+SDESC[standard]=	Tools for Working with Categorical Variables
+HOMEPAGE=		https://forcats.tidyverse.org
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+DISTFILE[1]=		forcats_0.5.0.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => GPL-3
+
+USES=			cran gmake
+DISTNAME=		forcats
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-ellipsis:single:standard
+			R-magrittr:single:standard
+			R-rlang:single:standard
+			R-tibble:single:standard
+
+
