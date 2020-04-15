@@ -121,6 +121,7 @@ function generate_port($namebase) {
         $descfile,
         produce_long_description (
             $namebase,
+            $port_data[$namebase]["comment"],
             $port_data[$namebase]["description"]
         )
     );

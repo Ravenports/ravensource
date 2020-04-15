@@ -102,7 +102,10 @@ function sanitize_summary ($namebase, $original_summary) {
 # If there's an override, it uses that raw text,
 # otherwise it uses the given description.
 # Finally the text is wrapped to 75 columns and returned.
-function produce_long_description($namebase, $original_description) {
+function produce_long_description
+  ($namebase,
+   $original_comment,
+   $original_description) {
     global $data_description;
 
     $desctext = "";
@@ -110,7 +113,13 @@ function produce_long_description($namebase, $original_description) {
         $unixtext = str_replace ('\n', "\n", $data_description[$namebase]);
         $desctext = wordwrap ($unixtext, 75);
     } else {
-        $desctext = wordwrap ($original_description, 75);
+        # use the same format as cran.r-project.org
+        # also strip out any tabs and consecutive spaces
+        $clean_short = preg_replace("/\s+/"," ", $original_comment);
+        $clean_long  = preg_replace("/\s+/"," ", $original_description);
+        $combined = $namebase . ": " . $clean_short
+                  . "\n\n" . $clean_long . "\n";
+        $desctext = wordwrap ($combined, 75);
     }
     return $desctext;
 }
