@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	0.3.5
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-spData
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		standard
+SDESC[standard]=	Datasets for Spatial Analysis
+HOMEPAGE=		https://nowosad.github.io/spData/
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+DISTFILE[1]=		spData_0.3.5.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => CC0
+
+USES=			cran gmake
+DISTNAME=		spData
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-sp:single:standard
+			R-raster:single:standard
+
+
