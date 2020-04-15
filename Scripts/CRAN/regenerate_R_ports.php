@@ -148,6 +148,13 @@ function generate_port($namebase) {
     $homepage    = sanitize_homepage ($namebase,
                                       $port_data[$namebase]["homepage"]);
 
+    # prepare buildrun dependencies
+    $SS = ":single:standard\n";
+    $buildrun_list = array();
+    foreach ($port_data[$namebase]["buildrun"] as $DEP) {
+        array_push($buildrun_list, "R-" . $DEP . $SS);
+    }
+
     # Get specification.manual (if it exists)
     $manual_portion = "";
     if (file_exists ($manual_specs)) {
@@ -157,6 +164,10 @@ function generate_port($namebase) {
               && substr($line, 0, 8) == "USES=\t\t\t")
             {
                 $uses .= " " . trim(substr($line, 8));
+            } else if ( strlen($line) > 18
+                     && substr($line, 0, 18) == "BUILDRUN_DEPENDS=\t")
+            {
+                array_push($buildrun_list, trim(substr($line, 18)) . "\n");
             } else {
                 if (substr($line, -1) == "\n") {
                     $manual_portion .= $line;
@@ -168,14 +179,13 @@ function generate_port($namebase) {
     }
 
     # Other CRAN dependencies (set all as build+run types)
-    $SS = ":single:standard\n";
     $buildrun_dependencies = "";
-    foreach ($port_data[$namebase]["buildrun"] as $DEP) {
+    foreach ($buildrun_list as $DEP) {
         if ($buildrun_dependencies == "") {
-            $buildrun_dependencies = "BUILDRUN_DEPENDS=\tR-" . $DEP . $SS;
+            $buildrun_dependencies = "BUILDRUN_DEPENDS=\t" . $DEP;
         }
         else {
-            $buildrun_dependencies .= "\t\t\tR-" . $DEP . $SS;
+            $buildrun_dependencies .= "\t\t\t" . $DEP;
         }
     }
 
