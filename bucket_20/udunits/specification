@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	2.2.27.6
+DEF[SOVERSION]=		0.1.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		udunits
+VERSION=		${PORTVERSION}
+KEYWORDS=		science
+VARIANTS=		standard
+SDESC[standard]=	Library for manipulating physical quantity units
+HOMEPAGE=		https://www.unidata.ucar.edu/software/udunits/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/Unidata:UDUNITS-2:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:primary
+LICENSE_NAME=		CUSTOM1:"University Corporation for Atmospheric Research/Unidata"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/COPYRIGHT
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		science/udunits
+
+BUILD_DEPENDS=		expat:static:standard
+BUILDRUN_DEPENDS=	expat:shared:standard
+
+USES=			autoreconf libtool makeinfo
+MUST_CONFIGURE=		gnu
+CONFIGURE_ENV=		ac_cv_header_CUnit_CUnit_h=no
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
+INFO=			primary:udunits2
+			primary:udunits2lib
+			primary:udunits2prog
+
+post-install:
+	${RM} ${STAGEDIR}${STD_DOCDIR}/COPYRIGHT
