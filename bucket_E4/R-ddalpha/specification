@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	1.3.11
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-ddalpha
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		standard
+SDESC[standard]=	Depth-based classification and calculations
+HOMEPAGE=		none
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+DISTFILE[1]=		ddalpha_1.3.11.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => GPL-2
+
+USES=			cran gmake
+DISTNAME=		ddalpha
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-robustbase:single:standard
+			R-sfsmisc:single:standard
+			R-geometry:single:standard
+			R-Rcpp:single:standard
+			R-BH:single:standard
+
+
