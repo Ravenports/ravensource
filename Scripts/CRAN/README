@@ -1,41 +1,29 @@
-This directory may hold the future R module generator
-It's feasibility is still being determined
+This directory contains the R module generator.
 
-sites: https://data-flair.training/blogs/list-of-r-packages/
-       https://cran.r-project.org/web/packages/ggplot2/index.html
+It works recursively -- meaning when provided the name of a module to
+generate, it will generate all the dependencies of that module, and
+their dependencies, etc.
 
-If manifests directory exists, defer otherwise set USES=cran:autoplist
-Now would be a good time to create plists by ravenadm
+It will accept arguments as names of R ports to build.
+If given no arguments, it will use contents of the list.top-level-R-ports
+file as its build list.
 
-core modules (currently):
-  KernSmooth
-  MASS
-  Matrix
-  base
-  boot
-  class
-  cluster
-  codetools
-  compiler
-  datasets
-  foreign
-  grDevices
-  graphics
-  grid
-  lattice
-  methods
-  mgcv
-  nlme
-  nnet
-  parallel
-  rpart
-  spatial
-  splines
-  stats
-  stats4
-  survival
-  tcltk
-  tools
-  utils
-  
+.e.g.	./regenerate_R_ports.php caret learnr
+	./regenerate_R_ports.php
+
+Files to augment over time:
+list.top-level-R-ports		Main R ports wanted in Ravenports
+list.dead-homepage		List of R modules with homepage urls
+				that don't resolve
+list.https-redirect		List of http:// urls that have permanent
+				redirects to https
+list.description-override	Keyed table: R module => new description
+				(use '\n' to indicate newlines).
+list.summary-override		Keyed table: R module => new summary
+				(limited to 50 characters)
+
+Comprehensive R Archive Network:
+https://cran.r-project.org/
+
+Misc: command to remove trailing whitespace  
 perl -pi -e 's,[ \t]+$,,' <filename>
