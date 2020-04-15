@@ -10,6 +10,7 @@ define ("SUMMARIES", "summary");
 define ("DESCRIPTIONS", "description");
 define ("DEAD_HOMEPAGES", "deadhome");
 define ("TOPLEVEL_PORTS", "toplevel");
+define ("HTTP_REDIRECT", "redirect");
 
 require_once $SCRIPTDIR . "/keyed-lists.php";
 require_once $SCRIPTDIR . "/cran_scraper.php";
@@ -18,6 +19,7 @@ require_once $SCRIPTDIR . "/cran_scraper.php";
 ingest_file (SUMMARIES, $SCRIPTDIR);
 ingest_file (DESCRIPTIONS, $SCRIPTDIR);
 ingest_file (DEAD_HOMEPAGES, $SCRIPTDIR);
+ingest_file (HTTP_REDIRECT, $SCRIPTDIR);
 set_top_level_ports (TOPLEVEL_PORTS, $SCRIPTDIR);
 
 
@@ -56,17 +58,17 @@ function cycle_through_queue () {
             if ($port_data[$namebase]["success"]) {
                 echo "Retrieved from CRAN: $namebase\n";
                 foreach ($port_data[$namebase]["buildrun"] as $brdep) {
-                   $queue_candidates[$brdep] = True;
+                   $queue_candidates[$brdep] = true;
                 }
             } else {
                 echo "====================> FAILED TO RETRIEVE: $namebase\n";
             }
-            $already_seen[$namebase] = True;
+            $already_seen[$namebase] = true;
         }
         $unique_queue = array();
         foreach (array_keys($queue_candidates) as $candidate) {
             if (!array_key_exists($candidate, $already_seen)) {
-                $unique_queue[$candidate] = True;
+                $unique_queue[$candidate] = true;
             }
         }
         $local_queue = array_keys($unique_queue);
@@ -206,7 +208,7 @@ EOD;
             echo $matches[1];
         }
     }
-    $rout = shell_exec ("/raven/bin/ravenadm dev buildsheet " . 
+    $rout = shell_exec ("/raven/bin/ravenadm dev buildsheet " .
                         $output_directory . " save");
 }
 

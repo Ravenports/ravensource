@@ -50,7 +50,7 @@ function scrape_cran_page ($namebase) {
     $ACELL = "<td>($ANY*)<\/td>";
 
     $result = array(
-        "success"     => False,
+        "success"     => false,
         "version"     => "ERROR",
         "comment"     => "ERROR",
         "description" => "ERROR",
@@ -59,16 +59,16 @@ function scrape_cran_page ($namebase) {
         "distfile"    => "ERROR",
         "buildrun"    => array(),
     );
-    
+
     $webpage = file_get_contents($url);
-    if ($webpage === False) {
+    if ($webpage === false) {
         return $result;
     }
     if (preg_match("/<h2>.*: ($ANY*)<\/h2>$ANY?<p>($ANY*)<\/p>/U", $webpage, $matches) == 1) {
         $result["comment"] = str_replace("\n", "", trim($matches[1]));
         $result["description"] = trim($matches[2]);
     }
-    
+
     if (preg_match("/<td>Version:<\/td>$ANY?$SCELL/U", $webpage, $matches) == 1) {
         $result["version"] = trim($matches[1]);
     }
@@ -76,7 +76,7 @@ function scrape_cran_page ($namebase) {
     if (preg_match("/<td>License:<\/td>$ANY?$SCELL/U", $webpage, $matches) == 1) {
         $result["license"] = strip_all($matches[1]);
     }
-    
+
     if (preg_match("/<td>URL:<\/td>$ANY?$SCELL/U", $webpage, $matches) == 1) {
         $result["homepage"] = strip_all($matches[1]);
     }
@@ -84,7 +84,7 @@ function scrape_cran_page ($namebase) {
     if (preg_match("/<td>\s*Package&nbsp;source:\s*<\/td>$ANY?$SCELL/U", $webpage, $matches) == 1) {
         $result["distfile"] = strip_all($matches[1]);
     }
-    
+
     if (preg_match("/<td>Depends:<\/td>$ANY?$ACELL/U", $webpage, $matches) == 1) {
         process_buildrun ($matches[1], $result["buildrun"]);
     }
@@ -95,9 +95,9 @@ function scrape_cran_page ($namebase) {
     if (preg_match("/<td>LinkingTo:<\/td>$ANY?$ACELL/U", $webpage, $matches) == 1) {
         process_buildrun ($matches[1], $result["buildrun"]);
     }
-    $result["success"] = True;
+    $result["success"] = true;
 
-    return $result;    
+    return $result;
 }
 
 ?>

@@ -5,6 +5,7 @@ $data_summary = array();
 $data_description = array();
 $data_homepage = array();
 $data_toplevel_ports = array();
+$data_https_redirect = array();
 
 
 # procedure to set global variables.
@@ -16,6 +17,7 @@ function ingest_file ($datatype, $scriptdir) {
         $data_summary,
         $data_description,
         $data_homepage,
+        $data_https_redirect,
         $data_toplevel_ports;
 
     $filename = "";
@@ -37,6 +39,10 @@ function ingest_file ($datatype, $scriptdir) {
         case "toplevel":
             $filename = "list.top-level-R-ports";
             $varname = "data_toplevel_ports";
+            break;
+        case "redirect":
+            $filename = "list.https-redirect";
+            $varname = "data_https_redirect";
             break;
         default:
             echo "illegal datatype: $datatype";
@@ -75,13 +81,13 @@ function sanitize_summary ($namebase, $original_summary) {
     global $data_summary;
 
     $summary = "";
-    $truncated = False;
+    $truncated = false;
 
     if (array_key_exists($namebase, $data_summary)) {
         $summary = $data_summary[$namebase];
     } else {
         $summary = make_comment($original_summary);
-    } 
+    }
     if (strlen ($summary) < 12) {
         # too short, add garbage to force a truncation alert
         # so that it can be overridden
@@ -112,9 +118,23 @@ function produce_long_description($namebase, $original_description) {
 
 # Changes http:// to https://
 function go_secure ($url) {
-    return (str_replace($url, "http://", "https://"));
+    return (str_replace("http://", "https://", $url));
 }
 
+
+# Check if given URL triggers repology's permanent redirection warning
+function use_https_instead ($url) {
+    global $data_https_redirect;
+
+    if ( strlen($url) >= 10
+      && substr($url, 0, 7) == "http://" )
+    {
+        $rest_of_uri = substr($url, 7);
+        $components = explode("/", $rest_of_uri);
+        return in_array($components[0], $data_https_redirect);
+    }
+    return false;
+}
 
 # Modifies homepage if necessary.
 # 1) If the homepage is marked as dead, return "none"
@@ -135,10 +155,7 @@ function sanitize_homepage ($namebase, $original_homepage) {
     $hp_parts = explode (" ", $hp0);
     $hp1 = trim($hp_parts[0]);
 
-    $H = "/^http:\/\/";
-    if ( preg_match($H . "github[.]com/", $hp1)
-      || preg_match($H . "bitbucket[.]com/", $hp1)
-    ) {
+    if (use_https_instead ($hp1)) {
        return go_secure ($hp1);
     } else {
        return $hp1;
