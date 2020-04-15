@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	0.4-11
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-sqldf
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		standard
+SDESC[standard]=	Manipulate R Data Frames Using SQL
+HOMEPAGE=		none
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+DISTFILE[1]=		sqldf_0.4-11.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => GPL-2
+
+USES=			cran gmake
+DISTNAME=		sqldf
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-gsubfn:single:standard
+			R-proto:single:standard
+			R-RSQLite:single:standard
+			R-DBI:single:standard
+			R-chron:single:standard
+
+
