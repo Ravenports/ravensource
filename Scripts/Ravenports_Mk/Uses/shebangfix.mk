@@ -9,7 +9,7 @@
 #   SHEBANG_REGEX	a regular expression to match files that needs to be converted
 #   SHEBANG_FILES	list of files or glob pattern relative to ${WRKSRC}
 #   SHEBANG_GLOB	list of glob pattern find(1) will match with
-#   SHEBANG_ADD_SH	list of glob pattern find(1) to prefix found files
+#   SHEBANG_ADD_SH	list of files or glob pattern to prefix found files
 #                       with "#!/bin/sh"\n\n"
 #
 # To specify that ${WRKSRC}/path1/file and all .pl files in ${WRKSRC}/path2
@@ -101,9 +101,8 @@ fix-shebang:
 .  endif
 .  if defined(SHEBANG_ADD_SH)
 .    for f in ${SHEBANG_ADD_SH}
-	@cd ${WRKSRC} && \
-		${FIND} . -type f -name '${f}' \
-		-exec ${SED} -i'' '1s|^|#!/bin/sh\n\n|' {} +
+	@${ECHO_MSG} "      Add shebang to $f"
+	@cd ${WRKSRC} && ${SED} -i'' '1s|^|#!/bin/sh\n\n|' '${f}'
 .    endfor
 .  endif
 
