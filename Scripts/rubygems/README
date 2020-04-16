@@ -1,4 +1,4 @@
-This directory contains the R module generator.
+This directory contains the rubygem generator.
 
 It works recursively -- meaning when provided the name of a module to
 generate, it will generate all the dependencies of that module, and
@@ -8,28 +8,33 @@ It will accept arguments as names of R ports to build.
 If given no arguments, it will use contents of the list.top-level-R-ports
 file as its build list.
 
-.e.g.	./regenerate_R_ports.php caret learnr
-	./regenerate_R_ports.php
+.e.g.	./regenerate_rubygems.php hashie crass
+	./regenerate_rubygems.php
+
+If the switch "--force" is provided, the script will ignore any cached
+files and refetch (and overwrite if it has too).
 
 Files to augment over time:
-list.top-level-R-ports		Main R ports wanted in Ravenports
-list.dead-homepage		List of R modules with homepage urls
+list.top-level-gems		Main rubygems wanted in Ravenports
+list.dead-homepage		List of rubygems with homepage urls
 				that don't resolve
 list.https-redirect		List of http:// urls that have permanent
 				redirects to https
-list.description-override	Keyed table: R module => new description
+list.description-override	Keyed table: gem => new description
 				(use '\n' to indicate newlines).
-list.summary-override		Keyed table: R module => new summary
+list.summary-override		Keyed table: gem => new summary
 				(limited to 50 characters)
+list.version-override		Keyed table: gem => specified version
 
-Comprehensive R Archive Network:
-https://cran.r-project.org/
+
+RubyGem central site:
+https://rubygems.org/
 
 Customization:
 The generator only produces the specification file, the distinfo file, and
 the descriptions/desc.single file.  Maintainers must add the patches,
 files, <opsys> directories as needed.  If there is no manifests directory,
-the "USES=cran" module will automatically create a manifest.
+the "USES=gem" module will automatically create a manifest.
 
 If there is a specification.manual file in the port's directory, it will be
 concatenated to the end of the generated specification.  The two exceptions

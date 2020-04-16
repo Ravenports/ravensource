@@ -38,11 +38,6 @@ function process_buildrun ($matched_text, &$storage) {
 }
 
 # Fetches the cran webpage return extracted information
-# Array (
-#    version => ?,
-#    comment => ?,
-#    description => ?,
-# )
 function scrape_cran_page ($namebase) {
     $url = "https://cran.r-project.org/web/packages/$namebase/index.html";
     $ANY = "[\s\S]";
