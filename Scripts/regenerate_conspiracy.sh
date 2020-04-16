@@ -33,7 +33,10 @@ done
 for F in information versions; do
    sed "s|${PATTERN}|${WARNING}|" ${DATADIR}/raven.${F}.mk > ${CONSPIR}/Mk/raven.${F}.mk
 done
-cp ${DATADIR}/raverreq ${CONSPIR}/Mk/Misc/
+cp -a ${DATADIR}/raverreq   ${CONSPIR}/Mk/Misc/
+cp -a ${DATADIR}/Keywords/* ${CONSPIR}/Mk/Keywords/
+cp -a ${DATADIR}/Scripts/*  ${CONSPIR}/Mk/Scripts/
+cp -a ${DATADIR}/Uses/*     ${CONSPIR}/Mk/Uses/
 
 /raven/bin/ravenadm dev generate-conspiracy ${RAVENSRC}
 if [ $? -ne 0 ]; then
