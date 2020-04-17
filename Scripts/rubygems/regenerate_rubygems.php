@@ -14,7 +14,7 @@ define ("HTTP_REDIRECT", "redirect");
 define ("VERSION_OVERRIDE", "version");
 
 require_once $SCRIPTDIR . "/keyed-lists.php";
-# require_once $SCRIPTDIR . "/cran_scraper.php";
+require_once $SCRIPTDIR . "/scrape_gem.php";
 
 # Load databases
 ingest_file (SUMMARIES, $SCRIPTDIR);
@@ -241,19 +241,28 @@ EOD;
 
 define_ravensource();
 set_initial_queue();
-cycle_through_queue();
+if (!download_latest_specs()) {
+    exit("Regeneration failed.\n");
+}
+$force = in_array("--force", $argv);
+
+# cycle_through_queue();
+
+$port_data["loofah"] = scrape_gem_info ("loofah", $force);
 
 echo "Number of scanned ports: " . count($port_data) . "\n";
 echo "Generating port directories and fetching ....\n";
 
+var_dump($port_data);
+
 foreach (array_keys($port_data) as $namebase) {
-    generate_port($namebase);
+#    generate_port($namebase);
 }
 
 if (count($truncated_summaries)) {
     echo "The following gem ports have summaries that are too long:\n";
     foreach ($truncated_summaries as $namebase) {
-        echo "  R-" . $namebase . "\n";
+        echo "  ruby-" . $namebase . "\n";
     }
 }
 

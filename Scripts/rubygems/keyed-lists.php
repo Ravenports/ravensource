@@ -39,7 +39,7 @@ function ingest_file ($datatype, $scriptdir) {
             $varname = "data_homepage";
             break;
         case "toplevel":
-            $filename = "list.top-level-R-ports";
+            $filename = "list.top-level-gems";
             $varname = "data_toplevel_ports";
             break;
         case "redirect":
@@ -49,9 +49,10 @@ function ingest_file ($datatype, $scriptdir) {
         case "version":
             $filename = "list.version-override";
             $varname = "data_version_override";
+            break;
         default:
-            echo "illegal datatype: $datatype";
-            echo "Must be summary|description|deadhome|toplevel|version";
+            echo "illegal datatype: $datatype\n";
+            echo "Must be summary|description|deadhome|toplevel|version\n";
             return;
     }
     $lines = file($scriptdir . "/" . $filename);

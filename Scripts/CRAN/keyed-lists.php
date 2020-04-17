@@ -45,8 +45,8 @@ function ingest_file ($datatype, $scriptdir) {
             $varname = "data_https_redirect";
             break;
         default:
-            echo "illegal datatype: $datatype";
-            echo "Must be summary|description|deadhome|toplevel";
+            echo "illegal datatype: $datatype\n";
+            echo "Must be summary|description|deadhome|toplevel\n";
             return;
     }
     $lines = file($scriptdir . "/" . $filename);
