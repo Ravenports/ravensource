@@ -119,17 +119,17 @@ function set_ruby_version($ravensource) {
         exit ("failed to ingest raven.versions.mk");
     } else {
         if (preg_match($RA, $contents, $matches) == 1) {
-            $RUBY_VERSION_A = (int)$matches[1] * 10000 + 
+            $RUBY_VERSION_A = (int)$matches[1] * 10000 +
                               (int)$matches[2] *   100 +
                               (int)$matches[3];
         }
         if (preg_match($RB, $contents, $matches) == 1) {
-            $RUBY_VERSION_B = (int)$matches[1] * 10000 + 
+            $RUBY_VERSION_B = (int)$matches[1] * 10000 +
                               (int)$matches[2] *   100 +
                               (int)$matches[3];
         }
         if (preg_match($RC, $contents, $matches) == 1) {
-            $RUBY_VERSION_C = (int)$matches[1] * 10000 + 
+            $RUBY_VERSION_C = (int)$matches[1] * 10000 +
                               (int)$matches[2] *   100 +
                               (int)$matches[3];
         }
@@ -154,26 +154,35 @@ function meets_minimum_version_requirement ($RUBYVER, $minimum_ver_string) {
     }
 
     # possible strings:
-    # "> X", "> X.Y", ">= X", ">= X.Y.Z"
+    # "> X", "> X.Y", ">= X", ">= X.Y.Z", "~> X.y"
+    $valid_operators = array (">", ">=", "~>");
     $parts = explode (" ", $minimum_ver_string);
-    if ($parts[0] != ">" && $parts[0] != ">=") {
+
+    if (!in_array($parts[0], $valid_operators)) {
         exit ("Dev error: unrecognized version comparison operator: " .
                $parts[0] . "\n");
     }
     $minver = 0;
+    $nexver = 0;
     $verparts = explode (".", trim($parts[1]));
     switch (count($verparts)) {
         case 1:
-            $minver = (int)$verparts[0];
+            $minver = (int)$verparts[0] * 10000;
+            $nexver = $minver + 10000;  // doesn't really make sense ..
             break;
         case 2:
-            $minver = (int)$verparts[0] * 100 +
-                      (int)$verparts[1];
+            $minver = (int)$verparts[0] * 10000 +
+                      (int)$verparts[1] * 100;
+            $nexver = (int)$verparts[0] * 10000 +
+                      10000;
             break;
         case 3:
             $minver = (int)$verparts[0] * 10000 +
                       (int)$verparts[1] * 100 +
                       (int)$verparts[2];
+            $nexver = (int)$verparts[0] * 10000 +
+                      (int)$verparts[1] * 100 +
+                      100;
             break;
         default:
             exit ("Dev error: too many version parts: $parts[1]\n");
@@ -184,6 +193,9 @@ function meets_minimum_version_requirement ($RUBYVER, $minimum_ver_string) {
             break;
         case ">=":
             return ($ruby_version >= $minver);
+            break;
+        case "~>":
+            return ($ruby_version >= $minver && $ruby_version < $nexver);
             break;
         default:
             return false;
@@ -275,7 +287,7 @@ function generate_port($namebase) {
             }
         }
     }
-    
+
     # variant-base work
     $variants = determine_variants ($namebase, $port_data[$namebase]["min_ruby"]);
     $variants_block = join(" ", $variants);
@@ -302,7 +314,7 @@ function generate_port($namebase) {
                 $indent = ($DEP == $port_data[$namebase]["buildrun"][0]) ? "" : "\t\t\t\t\t";
                 $buildrun_block .= $indent . "ruby-" . $DEP . ":single:" . $V . "\n";
             }
-        } 
+        }
 #        $buildrun_block .= "\n";
     }
 

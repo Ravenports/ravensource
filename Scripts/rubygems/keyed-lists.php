@@ -196,7 +196,7 @@ function set_top_level_ports($datatype, $scriptdir) {
         $switch = (strlen ($argv[$x]) > 2 && substr($argv[$x], 0, 2) == "--");
         if (!$switch) {
             array_push($arg_copy, $argv[$x]);
-        } 
+        }
     }
 
     if (count($arg_copy)) {

@@ -26,7 +26,7 @@ function download_latest_specs() {
     if (!file_exists($SPECS_DIR)) {
         mkdir ($SPECS_DIR, 0755, true);
     }
-    
+
     echo "RubyGem specifications : ";
     if(file_put_contents($outfile, file_get_contents($archurl))) {
         echo "Downloaded.\n";
@@ -105,7 +105,7 @@ function set_dependencies_comment ($data, &$comment) {
     }
     foreach (explode ("\n", $data) as $line) {
         $comment .= "#   " . $line . "\n";
-    }    
+    }
 }
 
 
@@ -121,7 +121,7 @@ function set_dependencies ($data, &$storage) {
             if (!in_array($parts[0], $storage)) {
                 array_push($storage, $parts[0]);
             }
-        } 
+        }
     }
 }
 
@@ -147,14 +147,14 @@ function scrape_gem_info($namebase, $force) {
         "buildrun"    => array(),
         "req_comment" => "# Requirements according to gem specification:\n",
     );
-    
+
     if (array_key_exists($namebase, $GEM_INDEX)) {
         $gem_version = $GEM_INDEX[$namebase];
     } else {
         echo ("MAJOR: '$namebase' not found in GEM_INDEX\n");
         return $result;
     }
-    
+
     # get gemspec if not cached
     if (!download_gemspec($namebase, $gem_version, $force)) {
         return $result;
@@ -225,7 +225,7 @@ EOF;
         $data, $matches) == 1) {
         $result["license"] = $matches[1];
     }
-    
+
     $result["distfile"]    = $namebase . "-" . $gem_version . ".gem";
     $result["success"]     = true;
     return $result;
