@@ -1,7 +1,7 @@
 # 9.odd.x is considered the "devel" branch currently
 # Stick to even, e.g. 9.14.x, 9.16.x
 # DEF[REALVERSION]=	9.12.1-P2
-DEF[REALVERSION]=	9.16.1
+DEF[REALVERSION]=	9.16.2
 DEF[PORTVERSION]=	${REALVERSION:S/-/./}
 # ----------------------------------------------------------------------------
 
@@ -95,10 +95,9 @@ post-patch:
 		${WRKSRC}/configure
 
 post-install:
-	${MKDIR} ${STAGEDIR}${ETCDIR} \
-		${STAGEDIR}${STD_DOCDIR}/arm
+	${MKDIR} ${STAGEDIR}${ETCDIR} ${STAGEDIR}${STD_DOCDIR}/arm
 .  for i in dynamic master slave working
-	@${MKDIR} ${STAGEDIR}${ETCDIR}/$i
+	${MKDIR} ${STAGEDIR}${ETCDIR}/$i
 .  endfor
 	${INSTALL_DATA} ${WRKDIR}/named.conf \
 		${STAGEDIR}${ETCDIR}/named.conf.sample
@@ -119,3 +118,6 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/doc/arm/Bv9ARM.pdf ${STAGEDIR}${STD_DOCDIR}
 	${INSTALL_DATA} ${WRKSRC}/CHANGES \
 		${WRKSRC}/HISTORY* ${WRKSRC}/README* ${STAGEDIR}${STD_DOCDIR}
+
+	# strip
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/named/filter-aaaa.so
