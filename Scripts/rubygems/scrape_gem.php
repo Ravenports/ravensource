@@ -124,15 +124,87 @@ function download_gemspec_requirements ($namebase, $version, $force) {
 }
 
 
-# performs strip_tags, followed by decoding html special chars,
-# followed by converting additional html, followed by trim
+# performs removing multiple whitespace followed by trim
 function strip_all ($raw_text) {
-    $result = strip_tags ($raw_text);
-    $result = htmlspecialchars_decode ($result);
-    $result = str_replace("&ge;", ">=", $result);
+    $result = preg_replace("/\s+/"," ", $raw_text);
     return trim($result);
 }
 
+
+# convert requirements into a comment (leave off first line)
+function dependencies_as_comment_old ($namebase, $version) {
+    global $REQS_DIR;
+
+    $reqfile = $REQS_DIR . "/" . $namebase . "-" . $version . ".requirements";
+    $result = "# Requirements specified by gem dependency --remote --version command\n";
+    $raw = file_get_contents($reqfile);
+    if ($raw !== false) {
+        $counter = 0;
+        $lines = explode("\n", $raw);
+        foreach ($lines as $line) {
+            $counter++;
+            if ($counter > 1 && strlen($line) > 0) {
+                $result .= "# " . $line . "\n";
+            }
+        }
+    }
+    return $result;
+}
+
+
+# Build up dependencies comment.  It's run in 2 passes
+# First pass: add runtime dependencies
+# Second pass: add development dependencies
+function set_dependencies_comment ($data, &$comment) {
+    foreach (explode ("\n", $data) as $line) {
+        $comment .= "#   " . $line . "\n";
+    }    
+}
+
+
+# convert requirements into buildruns array
+# Skip those marked as "development"
+# Skip bundler (packaged with ruby in Ravenports)
+function set_dependencies_old ($namebase, $version, &$storage) {
+    global $REQS_DIR;
+
+    $reqfile = $REQS_DIR . "/" . $namebase . "-" . $version . ".requirements";
+    $raw = file_get_contents($reqfile);
+    if ($raw !== false) {
+        $counter = 0;
+        $lines = explode("\n", $raw);
+        foreach ($lines as $line) {
+            $counter++;
+            if ($counter > 1 && strlen($line) > 0) {
+                if (!strstr($line, "development")) {
+                    $parts = explode(" ", trim($line));
+                    if ($parts[0] != "bundler") {
+                        if (!in_array($parts[0], $storage)) {
+                            array_push($storage, $parts[0]);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+# convert requirements into buildrun array
+# Skip builder (packaged with ruby in Ravenports)
+function set_dependencies ($data, &$storage) {
+    foreach (explode ("\n", $data) as $line) {
+        $parts = explode (" ", trim($line));
+        if ($parts[0] != "bundler") {
+            if (!in_array($parts[0], $storage)) {
+                array_push($storage, $parts[0]);
+            }
+        } 
+    }
+}
+
+
+# main function to read rubygem spec and extract usable information
 function scrape_gem_info($namebase, $force) {
 
     global
@@ -150,6 +222,7 @@ function scrape_gem_info($namebase, $force) {
         "homepage"    => "UNSET",
         "distfile"    => "ERROR",
         "buildrun"    => array(),
+        "req_comment" => "# Requirements according to gem specification:\n",
     );
     
     if (array_key_exists($namebase, $GEM_INDEX)) {
@@ -172,6 +245,7 @@ function scrape_gem_info($namebase, $force) {
     $gemspec = $namebase . "-" . $gem_version . ".gemspec.rz";
 
     # squash ruby program
+    # The license/licenses field doesn't seem to work as advertised (so skip it)
     $rprogram = <<<EOF
 gs = Marshal.load Gem::Util.inflate File.read "$SPECS_DIR/$gemspec"
 puts "<minver>";
@@ -184,31 +258,46 @@ puts "</version>"
 puts "<summary>".concat (gs.summary).concat("</summary>")
 puts "<desc>".concat(gs.description).concat("</desc>")
 puts "<home>".concat(gs.homepage).concat("</home>")
-# license is a disaster (and does not seem to work).  Skip it.
+puts "<runtime>"
+puts gs.runtime_dependencies
+puts "</runtime>"
+puts "<devel>"
+puts gs.development_dependencies
+puts "</devel>"
 EOF;
     $oneline = str_replace ("\n", "; ", $rprogram);
 
 
-
     $data = shell_exec($RUBYEXE . " -e '$rprogram'");
     if (preg_match("/<version>($ANY*)<\/version>/", $data, $matches) == 1) {
-        $result["version"] = trim($matches[1]);
+        $result["version"] = strip_all($matches[1]);
     }
 
     if (preg_match("/<summary>($ANY*)<\/summary>/", $data, $matches) == 1) {
-        $result["comment"] = trim($matches[1]);
+        $result["comment"] = strip_all($matches[1]);
     }
 
     if (preg_match("/<desc>($ANY*)<\/desc>/", $data, $matches) == 1) {
-        $result["description"] = trim($matches[1]);
+        $result["description"] = strip_all($matches[1]);
     }
 
     if (preg_match("/<home>($ANY*)<\/home>/", $data, $matches) == 1) {
         $result["homepage"] = trim($matches[1]);
     }
+
+    if (preg_match("/<runtime>($ANY*)<\/runtime>/", $data, $matches) == 1) {
+        set_dependencies_comment (trim($matches[1]), $result["req_comment"]);
+        set_dependencies (trim($matches[1]), $result["buildrun"]);
+    }
+    if (preg_match("/<devel>($ANY*)<\/devel>/", $data, $matches) == 1) {
+        set_dependencies_comment (trim($matches[1]), $result["req_comment"]);
+    }
     
-    $result["distfile"] = $namebase . "-" . $gem_version . ".gem";
-    $result["success"] = true;
+#    set_dependencies_old ($namebase, $gem_version, $result["buildrun"]);
+    
+#    $result["req_comment"] = dependencies_as_comment ($namebase, $gem_version);
+    $result["distfile"]    = $namebase . "-" . $gem_version . ".gem";
+    $result["success"]     = true;
     return $result;
 
 }
