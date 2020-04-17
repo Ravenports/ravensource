@@ -44,7 +44,7 @@ function set_initial_queue() {
 
 # Goes though the queue iteratively until the queue is empty after a pass
 # During each pass, dependencies are tracked and added to the queue at the end.
-function cycle_through_queue () {
+function cycle_through_queue ($force_setting) {
     global
         $port_data,
         $namebase_queue;
@@ -56,9 +56,8 @@ function cycle_through_queue () {
         $queue_candidates = array();
 
         foreach ($local_queue as $namebase) {
-            $port_data[$namebase] = scrape_gem_page($namebase);
+            $port_data[$namebase] = scrape_gem_info($namebase, $force_setting);
             if ($port_data[$namebase]["success"]) {
-                echo "Retrieved from RubyGems: $namebase\n";
                 foreach ($port_data[$namebase]["buildrun"] as $brdep) {
                    $queue_candidates[$brdep] = true;
                 }
@@ -245,15 +244,14 @@ if (!download_latest_specs()) {
     exit("Regeneration failed.\n");
 }
 $force = in_array("--force", $argv);
+cycle_through_queue($force);
 
-# cycle_through_queue();
-
-$port_data["loofah"] = scrape_gem_info ("loofah", $force);
+#$port_data["arr-pm"] = scrape_gem_info ("arr-pm", $force);
 
 echo "Number of scanned ports: " . count($port_data) . "\n";
 echo "Generating port directories and fetching ....\n";
 
-var_dump($port_data);
+#var_dump($port_data);
 
 foreach (array_keys($port_data) as $namebase) {
 #    generate_port($namebase);
