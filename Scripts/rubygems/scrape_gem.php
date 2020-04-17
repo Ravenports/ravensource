@@ -201,7 +201,7 @@ EOF;
     }
 
     if (preg_match("/<desc>($ANY*)<\/desc>/U", $data, $matches) == 1) {
-        $result["description"] = strip_all($matches[1]);
+        $result["description"] = $matches[1]; //not strip_all($matches[1]);
     }
 
     if (preg_match("/<home>($ANY*)<\/home>/U", $data, $matches) == 1) {

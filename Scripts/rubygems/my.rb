@@ -1,4 +1,4 @@
-gs = Marshal.load Gem::Util.inflate File.read '/mech/var/cache/rubygems/specs/arr-pm-0.0.10.gemspec.rz';
+gs = Marshal.load Gem::Util.inflate File.read '/mech/var/cache/rubygems/specs/loofah-2.5.0.gemspec.rz';
 
 puts "<minver>"
 puts gs.required_ruby_version

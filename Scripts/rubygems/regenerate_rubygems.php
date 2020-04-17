@@ -24,13 +24,17 @@ ingest_file (HTTP_REDIRECT, $SCRIPTDIR);
 ingest_file (VERSION_OVERRIDE, $SCRIPTDIR);
 set_top_level_ports (TOPLEVEL_PORTS, $SCRIPTDIR);
 
-
 # global variables
 $namebase_queue = array();
 $port_data = array();
 $truncated_summaries = array();
 $ravensource_directory = "";
-
+$VA = 25;	# single point of change when python
+$VB = 26;	# series are changed in ravenports
+$VC = 27;
+$RUBY_VERSION_A = -1;
+$RUBY_VERSION_B = -1;
+$RUBY_VERSION_C = -1;
 
 # Sets the initial scan list as the top-level ports
 function set_initial_queue() {
@@ -94,6 +98,117 @@ function bucket_directory($namebase) {
 }
 
 
+# Slurp raven.versions.mk to determine latest ruby version
+function set_ruby_version($ravensource) {
+    global
+        $VA, $VB, $VC,
+        $RUBY_VERSION_A,
+        $RUBY_VERSION_B,
+        $RUBY_VERSION_C;
+
+    $PA = substr($VA, 0, 1) . "[.]" . substr($VA, 1, 1);
+    $PB = substr($VB, 0, 1) . "[.]" . substr($VB, 1, 1);
+    $PC = substr($VC, 0, 1) . "[.]" . substr($VC, 1, 1);
+    $RA = "/RUBY_".$PA."_VERSION=\t([0-9]+)[.]([0-9]+)[.]([0-9]+)/U";
+    $RB = "/RUBY_".$PB."_VERSION=\t([0-9]+)[.]([0-9]+)[.]([0-9]+)/U";
+    $RC = "/RUBY_".$PC."_VERSION=\t([0-9]+)[.]([0-9]+)[.]([0-9]+)/U";
+    $rvm = $ravensource . "/Scripts/Ravenports_Mk/raven.versions.mk";
+
+    $contents = file_get_contents($rvm);
+    if ($contents === false) {
+        exit ("failed to ingest raven.versions.mk");
+    } else {
+        if (preg_match($RA, $contents, $matches) == 1) {
+            $RUBY_VERSION_A = (int)$matches[1] * 10000 + 
+                              (int)$matches[2] *   100 +
+                              (int)$matches[3];
+        }
+        if (preg_match($RB, $contents, $matches) == 1) {
+            $RUBY_VERSION_B = (int)$matches[1] * 10000 + 
+                              (int)$matches[2] *   100 +
+                              (int)$matches[3];
+        }
+        if (preg_match($RC, $contents, $matches) == 1) {
+            $RUBY_VERSION_C = (int)$matches[1] * 10000 + 
+                              (int)$matches[2] *   100 +
+                              (int)$matches[3];
+        }
+    }
+}
+
+
+# Given a ruby version ("25, "26, "27", etc) and a minimum version string,
+# return True if the port builds on the given version.
+function meets_minimum_version_requirement ($RUBYVER, $minimum_ver_string) {
+    global
+        $VA, $VB, $VC,
+        $RUBY_VERSION_A,
+        $RUBY_VERSION_B,
+        $RUBY_VERSION_C;
+
+    switch ($RUBYVER) {
+        case $VA : $ruby_version = $RUBY_VERSION_A; break;
+        case $VB : $ruby_version = $RUBY_VERSION_B; break;
+        case $VC : $ruby_version = $RUBY_VERSION_C; break;
+        default  : exit ("Dev error: unrecognized RUBYVER ($RUBYVER)\n");
+    }
+
+    # possible strings:
+    # "> X", "> X.Y", ">= X", ">= X.Y.Z"
+    $parts = explode (" ", $minimum_ver_string);
+    if ($parts[0] != ">" && $parts[0] != ">=") {
+        exit ("Dev error: unrecognized version comparison operator: " .
+               $parts[0] . "\n");
+    }
+    $minver = 0;
+    $verparts = explode (".", trim($parts[1]));
+    switch (count($verparts)) {
+        case 1:
+            $minver = (int)$verparts[0];
+            break;
+        case 2:
+            $minver = (int)$verparts[0] * 100 +
+                      (int)$verparts[1];
+            break;
+        case 3:
+            $minver = (int)$verparts[0] * 10000 +
+                      (int)$verparts[1] * 100 +
+                      (int)$verparts[2];
+            break;
+        default:
+            exit ("Dev error: too many version parts: $parts[1]\n");
+    }
+    switch ($parts[0]) {
+        case ">":
+            return ($ruby_version > $minver);
+            break;
+        case ">=":
+            return ($ruby_version >= $minver);
+            break;
+        default:
+            return false;
+    }
+}
+
+
+# return an array of variants based on meeting minimum ruby version requirements
+function determine_variants($namebase, $minversion) {
+    global $VA, $VB, $VC;
+
+    $variants = array();
+    foreach (array($VA, $VB, $VC) as $V) {
+        if (meets_minimum_version_requirement($V, $minversion)) {
+            array_push($variants, "v" . $V);
+        }
+    }
+    if (empty($variants)) {
+        exit("Major issue: ruby-$namebase minimum requirements "
+           . "exclude all ruby versions: $minversion\n");
+    }
+    return $variants;
+}
+
+
 # Generate single port
 # creates: specification
 #          description/desc.single
@@ -122,7 +237,6 @@ function generate_port($namebase) {
         $descfile,
         produce_long_description (
             $namebase,
-            $port_data[$namebase]["comment"],
             $port_data[$namebase]["description"]
         )
     );
@@ -142,52 +256,54 @@ function generate_port($namebase) {
 
     # other template variables
     $pvbraces    = '${PORTVERSION}';
-    $uses        = "cran gmake";
     $portversion = $port_data[$namebase]["version"];
     $tarball     = $port_data[$namebase]["distfile"];
     $license     = $port_data[$namebase]["license"];
+    $raw_depends = $port_data[$namebase]["req_comment"];
     $homepage    = sanitize_homepage ($namebase,
                                       $port_data[$namebase]["homepage"]);
-
-    # prepare buildrun dependencies
-    $SS = ":single:standard\n";
-    $buildrun_list = array();
-    foreach ($port_data[$namebase]["buildrun"] as $DEP) {
-        array_push($buildrun_list, "R-" . $DEP . $SS);
-    }
 
     # Get specification.manual (if it exists)
     $manual_portion = "";
     if (file_exists ($manual_specs)) {
         $lines = file($manual_specs);
         foreach ($lines as $line) {
-            if ( strlen($line) > 8
-              && substr($line, 0, 8) == "USES=\t\t\t")
-            {
-                $uses .= " " . trim(substr($line, 8));
-            } else if ( strlen($line) > 18
-                     && substr($line, 0, 18) == "BUILDRUN_DEPENDS=\t")
-            {
-                array_push($buildrun_list, trim(substr($line, 18)) . "\n");
+            if (substr($line, -1) == "\n") {
+                $manual_portion .= $line;
             } else {
-                if (substr($line, -1) == "\n") {
-                    $manual_portion .= $line;
-                } else {
-                    $manual_portion .= $line . "\n";
-                }
+                $manual_portion .= $line . "\n";
             }
         }
     }
-
-    # Other CRAN dependencies (set all as build+run types)
-    $buildrun_dependencies = "";
-    foreach ($buildrun_list as $DEP) {
-        if ($buildrun_dependencies == "") {
-            $buildrun_dependencies = "BUILDRUN_DEPENDS=\t" . $DEP;
+    
+    # variant-base work
+    $variants = determine_variants ($namebase, $port_data[$namebase]["min_ruby"]);
+    $variants_block = join(" ", $variants);
+    $primo = $variants[0];
+    foreach ($variants as $V) {
+        $prereturn = ($V == $primo) ? "" : "\n";
+        $comments_block    .= $prereturn . "SDESC[$V]=\t\t$comment ($V)";
+        $subpackages_block .= "SPKGS[$V]=\t\tsingle\n";
+        $vopts_block       .= "VOPTS[$V]=\t\t";
+        foreach ($variants as $Z) {
+            $prespace = ($Z == $primo) ? "" : " ";
+            $setting  = ($Z == $V) ? "ON" : "OFF";
+            $SZ = substr($Z, 1);
+            $vopts_block       .= $prespace . "RUBY" . $SZ . "=" . $setting;
         }
-        else {
-            $buildrun_dependencies .= "\t\t\t" . $DEP;
-        }
+        $vopts_block .= "\n";
+        $prespace = ($V == $primo) ? "" : " ";
+        $SV = substr($V, 1);
+        $available_options .= $prespace . "RUBY" . $SV;
+        $buildrun_block .= "[RUBY" . $SV . "].USES_ON=\t\t\tgem:$V\n";
+        if (count($port_data[$namebase]["buildrun"])) {
+            $buildrun_block .= "[RUBY" . $SV . "].BUILDRUN_DEPENDS_ON=\t\t";
+            foreach ($port_data[$namebase]["buildrun"] as $DEP) {
+                $indent = ($DEP == $port_data[$namebase]["buildrun"][0]) ? "" : "\t\t\t\t\t";
+                $buildrun_block .= $indent . "ruby-" . $DEP . ":single:" . $V . "\n";
+            }
+        } 
+#        $buildrun_block .= "\n";
     }
 
     $specification = <<<EOD
@@ -196,33 +312,29 @@ DEF[PORTVERSION]=	$portversion
 
 NAMEBASE=		$portname
 VERSION=		$pvbraces
-KEYWORDS=		cran
-VARIANTS=		standard
-SDESC[standard]=	$comment
+KEYWORDS=		ruby
+VARIANTS=		$variants_block
+$comments_block
 HOMEPAGE=		$homepage
-CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		CRAN/src/contrib
+SITES[main]=		RUBYGEMS/
 DISTFILE[1]=		$tarball:main
-DIST_SUBDIR=		CRAN
-DF_INDEX=		1
+DIST_SUBDIR=		ruby
 
-SPKGS[standard]=	single
-
-OPTIONS_AVAILABLE=	none
+$subpackages_block
+OPTIONS_AVAILABLE=	$available_options
 OPTIONS_STANDARD=	none
-
-# License listed on https://cran.r-project.org/
+$vopts_block
+# License listed inside gem specification
 # => $license
 
-USES=			$uses
-DISTNAME=		$namebase
+$raw_depends
+DISTNAME=		$namebase-$pvbraces
 GENERATED=		yes
-INSTALL_REQ_TOOLCHAIN=	yes
 
-$buildrun_dependencies
-
+$buildrun_block
 $manual_portion
 EOD;
 
@@ -239,6 +351,8 @@ EOD;
 }
 
 define_ravensource();
+set_ruby_version ($ravensource_directory);
+
 set_initial_queue();
 if (!download_latest_specs()) {
     exit("Regeneration failed.\n");
@@ -246,15 +360,11 @@ if (!download_latest_specs()) {
 $force = in_array("--force", $argv);
 cycle_through_queue($force);
 
-#$port_data["arr-pm"] = scrape_gem_info ("arr-pm", $force);
-
 echo "Number of scanned ports: " . count($port_data) . "\n";
 echo "Generating port directories and fetching ....\n";
 
-#var_dump($port_data);
-
 foreach (array_keys($port_data) as $namebase) {
-#    generate_port($namebase);
+    generate_port($namebase);
 }
 
 if (count($truncated_summaries)) {

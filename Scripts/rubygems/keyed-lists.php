@@ -81,7 +81,7 @@ function make_comment ($shortdesc) {
 # Returns the summary string to use in the specification
 # Argument 1: port's namebase
 # Argument 2: Original summary string
-# Returns an associative array:   summary   => <50 char max summary>
+# Returns an associative array:   summary   => <44 char max summary>
 #                                 truncated => boolean
 function sanitize_summary ($namebase, $original_summary) {
     global $data_summary;
@@ -99,8 +99,8 @@ function sanitize_summary ($namebase, $original_summary) {
         # so that it can be overridden
         $summary .= "##########----------##########----------##########--";
     }
-    $truncated = strlen ($summary) > 50;
-    $final_summary = $truncated ? substr($summary, 0, 50) : $summary;
+    $truncated = strlen ($summary) > 44;
+    $final_summary = $truncated ? substr($summary, 0, 44) : $summary;
     return array("summary" => $final_summary, "truncated" => $truncated);
 }
 
@@ -110,7 +110,6 @@ function sanitize_summary ($namebase, $original_summary) {
 # Finally the text is wrapped to 75 columns and returned.
 function produce_long_description
   ($namebase,
-   $original_comment,
    $original_description) {
     global $data_description;
 
@@ -119,13 +118,7 @@ function produce_long_description
         $unixtext = str_replace ('\n', "\n", $data_description[$namebase]);
         $desctext = wordwrap ($unixtext, 75);
     } else {
-        # use the same format as cran.r-project.org
-        # also strip out any tabs and consecutive spaces
-        $clean_short = preg_replace("/\s+/"," ", $original_comment);
-        $clean_long  = preg_replace("/\s+/"," ", $original_description);
-        $combined = $namebase . ": " . $clean_short
-                  . "\n\n" . $clean_long . "\n";
-        $desctext = wordwrap ($combined, 75);
+        $desctext = wordwrap ($original_description . "\n", 75);
     }
     return $desctext;
 }
