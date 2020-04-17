@@ -1,4 +1,4 @@
---- nsd-control.c.orig	2019-12-10 11:14:39 UTC
+--- nsd-control.c.orig	2020-04-16 08:09:33 UTC
 +++ nsd-control.c
 @@ -67,6 +67,10 @@ static void usage() ATTR_NORETURN;
  static void ssl_err(const char* s) ATTR_NORETURN;
