@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	0.5.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-webshot
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		standard
+SDESC[standard]=	Take Screenshots of Web Pages
+HOMEPAGE=		https://github.com/wch/webshot/
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+DISTFILE[1]=		webshot_0.5.2.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => GPL-2
+
+USES=			cran gmake
+DISTNAME=		webshot
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-magrittr:single:standard
+			R-jsonlite:single:standard
+			R-callr:single:standard
+
+
