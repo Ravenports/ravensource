@@ -1,0 +1,47 @@
+DEF[PORTVERSION]=	1.3.3
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-msgpack
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v25 v26 v27
+SDESC[v25]=		MessagePack, a binary-based efficient data i (v25)
+SDESC[v26]=		MessagePack, a binary-based efficient data i (v26)
+SDESC[v27]=		MessagePack, a binary-based efficient data i (v27)
+HOMEPAGE=		http://msgpack.org/
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		msgpack-1.3.3.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v25]=		single
+SPKGS[v26]=		single
+SPKGS[v27]=		single
+
+OPTIONS_AVAILABLE=	RUBY25 RUBY26 RUBY27
+OPTIONS_STANDARD=	none
+VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
+VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
+VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
+
+# License listed inside gem specification
+# => "Apache 2.0"
+
+# Requirements according to gem specification:
+#   bundler (>= 0, development)
+#   rake (>= 0, development)
+#   rake-compiler (~> 1.0, development)
+#   rake-compiler-dock (~> 1.0, development)
+#   rspec (~> 3.3, development)
+#   yard (>= 0, development)
+#   json (>= 0, development)
+
+DISTNAME=		msgpack-${PORTVERSION}
+GENERATED=		yes
+
+[RUBY25].USES_ON=			gem:v25
+[RUBY26].USES_ON=			gem:v26
+[RUBY27].USES_ON=			gem:v27
+

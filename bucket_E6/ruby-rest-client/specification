@@ -1,0 +1,62 @@
+DEF[PORTVERSION]=	2.1.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-rest-client
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v25 v26 v27
+SDESC[v25]=		Simple HTTP and REST client for Ruby (v25)
+SDESC[v26]=		Simple HTTP and REST client for Ruby (v26)
+SDESC[v27]=		Simple HTTP and REST client for Ruby (v27)
+HOMEPAGE=		https://github.com/rest-client/rest-client
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		rest-client-2.1.0.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v25]=		single
+SPKGS[v26]=		single
+SPKGS[v27]=		single
+
+OPTIONS_AVAILABLE=	RUBY25 RUBY26 RUBY27
+OPTIONS_STANDARD=	none
+VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
+VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
+VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
+
+# License listed inside gem specification
+# => "MIT"
+
+# Requirements according to gem specification:
+#   http-accept (>= 1.7.0, < 2.0)
+#   http-cookie (>= 1.0.2, < 2.0)
+#   mime-types (>= 1.16, < 4.0)
+#   netrc (~> 0.8)
+#   webmock (~> 2.0, development)
+#   rspec (~> 3.0, development)
+#   pry (~> 0, development)
+#   pry-doc (~> 0, development)
+#   rdoc (>= 2.4.2, < 6.0, development)
+#   rubocop (~> 0.49, development)
+
+DISTNAME=		rest-client-${PORTVERSION}
+GENERATED=		yes
+
+[RUBY25].USES_ON=			gem:v25
+[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-http-accept:single:v25
+					ruby-http-cookie:single:v25
+					ruby-mime-types:single:v25
+					ruby-netrc:single:v25
+[RUBY26].USES_ON=			gem:v26
+[RUBY26].BUILDRUN_DEPENDS_ON=		ruby-http-accept:single:v26
+					ruby-http-cookie:single:v26
+					ruby-mime-types:single:v26
+					ruby-netrc:single:v26
+[RUBY27].USES_ON=			gem:v27
+[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-http-accept:single:v27
+					ruby-http-cookie:single:v27
+					ruby-mime-types:single:v27
+					ruby-netrc:single:v27
+

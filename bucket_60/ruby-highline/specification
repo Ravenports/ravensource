@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	2.0.3
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-highline
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v25 v26 v27
+SDESC[v25]=		High-level IO library for CLI (v25)
+SDESC[v26]=		High-level IO library for CLI (v26)
+SDESC[v27]=		High-level IO library for CLI (v27)
+HOMEPAGE=		https://github.com/JEG2/highline
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		highline-2.0.3.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v25]=		single
+SPKGS[v26]=		single
+SPKGS[v27]=		single
+
+OPTIONS_AVAILABLE=	RUBY25 RUBY26 RUBY27
+OPTIONS_STANDARD=	none
+VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
+VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
+VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
+
+# License listed inside gem specification
+# => "Ruby"
+
+# Requirements according to gem specification:
+#   bundler (>= 0, development)
+#   rake (>= 0, development)
+#   minitest (>= 0, development)
+
+DISTNAME=		highline-${PORTVERSION}
+GENERATED=		yes
+
+[RUBY25].USES_ON=			gem:v25
+[RUBY26].USES_ON=			gem:v26
+[RUBY27].USES_ON=			gem:v27
+

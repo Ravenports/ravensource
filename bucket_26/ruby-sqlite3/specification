@@ -1,0 +1,49 @@
+DEF[PORTVERSION]=	1.4.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-sqlite3
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v25 v26 v27
+SDESC[v25]=		Interface with SQLite3 database engine (v25)
+SDESC[v26]=		Interface with SQLite3 database engine (v26)
+SDESC[v27]=		Interface with SQLite3 database engine (v27)
+HOMEPAGE=		https://github.com/sparklemotion/sqlite3-ruby
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		sqlite3-1.4.2.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v25]=		single
+SPKGS[v26]=		single
+SPKGS[v27]=		single
+
+OPTIONS_AVAILABLE=	RUBY25 RUBY26 RUBY27
+OPTIONS_STANDARD=	none
+VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
+VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
+VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
+
+# License listed inside gem specification
+# => "BSD-3-Clause"
+
+# Requirements according to gem specification:
+#   minitest (~> 5.13, development)
+#   rake-compiler (~> 1.0, development)
+#   rake-compiler-dock (~> 0.6.0, development)
+#   mini_portile (~> 0.6.2, development)
+#   hoe-bundler (~> 1.0, development)
+#   hoe-gemspec (~> 1.0, development)
+#   rdoc (>= 4.0, < 7, development)
+#   hoe (~> 3.20, development)
+
+DISTNAME=		sqlite3-${PORTVERSION}
+GENERATED=		yes
+
+[RUBY25].USES_ON=			gem:v25
+[RUBY26].USES_ON=			gem:v26
+[RUBY27].USES_ON=			gem:v27
+
+USES=			sqlite

@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	1.2.3
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-pg
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v25 v26 v27
+SDESC[v25]=		Interface to PostgreSQL servers (v25)
+SDESC[v26]=		Interface to PostgreSQL servers (v26)
+SDESC[v27]=		Interface to PostgreSQL servers (v27)
+HOMEPAGE=		https://github.com/ged/ruby-pg
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		pg-1.2.3.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v25]=		single
+SPKGS[v26]=		single
+SPKGS[v27]=		single
+
+OPTIONS_AVAILABLE=	RUBY25 RUBY26 RUBY27
+OPTIONS_STANDARD=	none
+VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
+VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
+VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
+
+# License listed inside gem specification
+# => "BSD-2-Clause"
+
+# Requirements according to gem specification:
+#   hoe-mercurial (~> 1.4, development)
+#   hoe-deveiate (~> 0.10, development)
+#   hoe-highline (~> 0.2, development)
+#   rake-compiler (~> 1.0, development)
+#   rake-compiler-dock (~> 1.0, development)
+#   hoe-bundler (~> 1.0, development)
+#   rspec (~> 3.5, development)
+#   rdoc (~> 5.1, development)
+#   hoe (~> 3.20, development)
+
+DISTNAME=		pg-${PORTVERSION}
+GENERATED=		yes
+
+[RUBY25].USES_ON=			gem:v25
+[RUBY26].USES_ON=			gem:v26
+[RUBY27].USES_ON=			gem:v27
+
+USES=			pgsql

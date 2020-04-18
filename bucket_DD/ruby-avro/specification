@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	1.9.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-avro
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v25 v26 v27
+SDESC[v25]=		Apache Avro for Ruby (v25)
+SDESC[v26]=		Apache Avro for Ruby (v26)
+SDESC[v27]=		Apache Avro for Ruby (v27)
+HOMEPAGE=		https://avro.apache.org/
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		avro-1.9.2.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v25]=		single
+SPKGS[v26]=		single
+SPKGS[v27]=		single
+
+OPTIONS_AVAILABLE=	RUBY25 RUBY26 RUBY27
+OPTIONS_STANDARD=	none
+VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
+VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
+VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
+
+# License listed inside gem specification
+# => "Apache License 2.0 (Apache-2.0)"
+
+# Requirements according to gem specification:
+#   multi_json (>= 0)
+
+DISTNAME=		avro-${PORTVERSION}
+GENERATED=		yes
+
+[RUBY25].USES_ON=			gem:v25
+[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-multi_json:single:v25
+[RUBY26].USES_ON=			gem:v26
+[RUBY26].BUILDRUN_DEPENDS_ON=		ruby-multi_json:single:v26
+[RUBY27].USES_ON=			gem:v27
+[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-multi_json:single:v27
+
