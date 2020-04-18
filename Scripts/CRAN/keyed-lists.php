@@ -93,6 +93,8 @@ function sanitize_summary ($namebase, $original_summary) {
         # so that it can be overridden
         $summary .= "##########----------##########----------##########--";
     }
+    # strip trailing periods
+    $summary =  preg_replace('/[.]*$/', "", $summary);
     $truncated = strlen ($summary) > 50;
     $final_summary = $truncated ? substr($summary, 0, 50) : $summary;
     return array("summary" => $final_summary, "truncated" => $truncated);
