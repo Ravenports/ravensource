@@ -1,0 +1,7 @@
+USES=			mysql ssl:openssl-devel
+BUILD_DEPENDS=		bash:primary:standard
+
+post-patch:
+	${REINPLACE_CMD} \
+	-e 's|PKG_LIBS=[$$]{PKGCONFIG_LIBS}|PKG_LIBS="$${PKGCONFIG_LIBS} -Wl,-rpath,${OPENSSLRPATH}"|' \
+	${WRKSRC}/configure

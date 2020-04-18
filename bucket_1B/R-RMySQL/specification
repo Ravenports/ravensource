@@ -23,7 +23,7 @@ OPTIONS_STANDARD=	none
 # License listed on https://cran.r-project.org/
 # => GPL-2
 
-USES=			cran gmake
+USES=			cran gmake mysql ssl:openssl-devel
 DISTNAME=		RMySQL
 GENERATED=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
@@ -31,3 +31,9 @@ INSTALL_REQ_TOOLCHAIN=	yes
 BUILDRUN_DEPENDS=	R-DBI:single:standard
 
 
+BUILD_DEPENDS=		bash:primary:standard
+
+post-patch:
+	${REINPLACE_CMD} \
+	-e 's|PKG_LIBS=[$$]{PKGCONFIG_LIBS}|PKG_LIBS="$${PKGCONFIG_LIBS} -Wl,-rpath,${OPENSSLRPATH}"|' \
+	${WRKSRC}/configure
