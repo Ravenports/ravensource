@@ -26,25 +26,25 @@ VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
 VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
 VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
-GENERATED=		yes
+# License listed inside gem specification
+# => "MIT"
 
-# Requirements specified by gem dependency --remote --version command
+# Requirements according to gem specification:
+#   kaminari-core (= 1.2.0)
 #   activerecord (>= 0)
 #   bundler (>= 1.12, development)
-#   kaminari-core (= 1.2.0)
 #   rake (>= 10.0, development)
 
 DISTNAME=		kaminari-activerecord-${PORTVERSION}
+GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
-[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-activerecord:single:v25
-					ruby-kaminari-core:single:v25
-
+[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-kaminari-core:single:v25
+					ruby-activerecord:single:v25
 [RUBY26].USES_ON=			gem:v26
-[RUBY26].BUILDRUN_DEPENDS_ON=		ruby-activerecord:single:v26
-					ruby-kaminari-core:single:v26
-
+[RUBY26].BUILDRUN_DEPENDS_ON=		ruby-kaminari-core:single:v26
+					ruby-activerecord:single:v26
 [RUBY27].USES_ON=			gem:v27
-[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-activerecord:single:v27
-					ruby-kaminari-core:single:v27
+[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-kaminari-core:single:v27
+					ruby-activerecord:single:v27
 

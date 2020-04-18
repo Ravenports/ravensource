@@ -5,9 +5,9 @@ NAMEBASE=		ruby-kaminari
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v25 v26 v27
-SDESC[v25]=		Pagination engine plugin for Rails 4+ and ot (v25)
-SDESC[v26]=		Pagination engine plugin for Rails 4+ and ot (v26)
-SDESC[v27]=		Pagination engine plugin for Rails 4+ and ot (v27)
+SDESC[v25]=		Sophisticated paginator for Rails 4+ (v25)
+SDESC[v26]=		Sophisticated paginator for Rails 4+ (v26)
+SDESC[v27]=		Sophisticated paginator for Rails 4+ (v27)
 HOMEPAGE=		https://github.com/kaminari/kaminari
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -26,36 +26,36 @@ VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
 VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
 VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
-GENERATED=		yes
+# License listed inside gem specification
+# => "MIT"
 
-# Requirements specified by gem dependency --remote --version command
+# Requirements according to gem specification:
 #   activesupport (>= 4.1.0)
-#   bundler (>= 1.0.0, development)
-#   capybara (>= 1.0, development)
+#   kaminari-core (= 1.2.0)
 #   kaminari-actionview (= 1.2.0)
 #   kaminari-activerecord (= 1.2.0)
-#   kaminari-core (= 1.2.0)
+#   test-unit-rails (>= 0, development)
+#   bundler (>= 1.0.0, development)
 #   rake (>= 0, development)
 #   rr (>= 0, development)
-#   test-unit-rails (>= 0, development)
+#   capybara (>= 1.0, development)
 
 DISTNAME=		kaminari-${PORTVERSION}
+GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
 [RUBY25].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v25
+					ruby-kaminari-core:single:v25
 					ruby-kaminari-actionview:single:v25
 					ruby-kaminari-activerecord:single:v25
-					ruby-kaminari-core:single:v25
-
 [RUBY26].USES_ON=			gem:v26
 [RUBY26].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v26
+					ruby-kaminari-core:single:v26
 					ruby-kaminari-actionview:single:v26
 					ruby-kaminari-activerecord:single:v26
-					ruby-kaminari-core:single:v26
-
 [RUBY27].USES_ON=			gem:v27
 [RUBY27].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v27
+					ruby-kaminari-core:single:v27
 					ruby-kaminari-actionview:single:v27
 					ruby-kaminari-activerecord:single:v27
-					ruby-kaminari-core:single:v27
 

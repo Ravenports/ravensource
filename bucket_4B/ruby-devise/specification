@@ -5,9 +5,9 @@ NAMEBASE=		ruby-devise
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v25 v26 v27
-SDESC[v25]=		Flexible authentication solution for Rails w (v25)
-SDESC[v26]=		Flexible authentication solution for Rails w (v26)
-SDESC[v27]=		Flexible authentication solution for Rails w (v27)
+SDESC[v25]=		Flexible authentication for Rails/Warden (v25)
+SDESC[v26]=		Flexible authentication for Rails/Warden (v26)
+SDESC[v27]=		Flexible authentication for Rails/Warden (v27)
 HOMEPAGE=		https://github.com/plataformatec/devise
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -26,35 +26,35 @@ VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
 VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
 VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
-GENERATED=		yes
+# License listed inside gem specification
+# => "MIT"
 
-# Requirements specified by gem dependency --remote --version command
-#   bcrypt (~> 3.0)
+# Requirements according to gem specification:
+#   warden (~> 1.2.3)
 #   orm_adapter (~> 0.1)
+#   bcrypt (~> 3.0)
 #   railties (>= 4.1.0)
 #   responders (>= 0)
-#   warden (~> 1.2.3)
 
 DISTNAME=		devise-${PORTVERSION}
+GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
-[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-bcrypt:single:v25
+[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-warden:single:v25
 					ruby-orm_adapter:single:v25
+					ruby-bcrypt:single:v25
 					ruby-railties:single:v25
 					ruby-responders:single:v25
-					ruby-warden:single:v25
-
 [RUBY26].USES_ON=			gem:v26
-[RUBY26].BUILDRUN_DEPENDS_ON=		ruby-bcrypt:single:v26
+[RUBY26].BUILDRUN_DEPENDS_ON=		ruby-warden:single:v26
 					ruby-orm_adapter:single:v26
+					ruby-bcrypt:single:v26
 					ruby-railties:single:v26
 					ruby-responders:single:v26
-					ruby-warden:single:v26
-
 [RUBY27].USES_ON=			gem:v27
-[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-bcrypt:single:v27
+[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-warden:single:v27
 					ruby-orm_adapter:single:v27
+					ruby-bcrypt:single:v27
 					ruby-railties:single:v27
 					ruby-responders:single:v27
-					ruby-warden:single:v27
 

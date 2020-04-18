@@ -275,6 +275,11 @@ function generate_port($namebase) {
     $homepage    = sanitize_homepage ($namebase,
                                       $port_data[$namebase]["homepage"]);
 
+    # sanitize license
+    if ($license == "") {
+        $license = "Not provided.";
+    }
+
     # Get specification.manual (if it exists)
     $manual_portion = "";
     if (file_exists ($manual_specs)) {
@@ -315,7 +320,6 @@ function generate_port($namebase) {
                 $buildrun_block .= $indent . "ruby-" . $DEP . ":single:" . $V . "\n";
             }
         }
-#        $buildrun_block .= "\n";
     }
 
     $specification = <<<EOD

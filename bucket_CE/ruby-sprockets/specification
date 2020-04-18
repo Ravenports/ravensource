@@ -26,43 +26,43 @@ VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
 VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
 VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
-GENERATED=		yes
+# License listed inside gem specification
+# => "MIT"
 
-# Requirements specified by gem dependency --remote --version command
+# Requirements according to gem specification:
+#   rack (> 1, < 3)
+#   concurrent-ruby (~> 1.0)
+#   m (>= 0, development)
 #   babel-transpiler (~> 0.6, development)
 #   closure-compiler (~> 1.1, development)
-#   coffee-script (~> 2.2, development)
 #   coffee-script-source (~> 1.6, development)
-#   concurrent-ruby (~> 1.0)
+#   coffee-script (~> 2.2, development)
 #   eco (~> 1.0, development)
 #   ejs (~> 1.0, development)
 #   execjs (~> 2.0, development)
 #   jsminc (~> 1.1, development)
-#   m (>= 0, development)
+#   timecop (~> 0.9.1, development)
 #   minitest (~> 5.0, development)
 #   nokogiri (~> 1.3, development)
-#   rack (> 1, < 3)
 #   rack-test (~> 0.6, development)
 #   rake (~> 12.0, development)
-#   rubocop-performance (~> 1.3, development)
 #   sass (~> 3.4, development)
 #   sassc (~> 2.0, development)
-#   timecop (~> 0.9.1, development)
 #   uglifier (>= 2.3, development)
 #   yui-compressor (~> 0.12, development)
 #   zopfli (~> 0.0.4, development)
+#   rubocop-performance (~> 1.3, development)
 
 DISTNAME=		sprockets-${PORTVERSION}
+GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
-[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-concurrent-ruby:single:v25
-					ruby-rack:single:v25
-
+[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-rack:single:v25
+					ruby-concurrent-ruby:single:v25
 [RUBY26].USES_ON=			gem:v26
-[RUBY26].BUILDRUN_DEPENDS_ON=		ruby-concurrent-ruby:single:v26
-					ruby-rack:single:v26
-
+[RUBY26].BUILDRUN_DEPENDS_ON=		ruby-rack:single:v26
+					ruby-concurrent-ruby:single:v26
 [RUBY27].USES_ON=			gem:v27
-[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-concurrent-ruby:single:v27
-					ruby-rack:single:v27
+[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-rack:single:v27
+					ruby-concurrent-ruby:single:v27
 

@@ -5,9 +5,9 @@ NAMEBASE=		ruby-globalid
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v25 v26 v27
-SDESC[v25]=		Refer to any model with a URI: gid://app/cla (v25)
-SDESC[v26]=		Refer to any model with a URI: gid://app/cla (v26)
-SDESC[v27]=		Refer to any model with a URI: gid://app/cla (v27)
+SDESC[v25]=		URIs to pass model references (v25)
+SDESC[v26]=		URIs to pass model references (v26)
+SDESC[v27]=		URIs to pass model references (v27)
 HOMEPAGE=		http://www.rubyonrails.org
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -26,20 +26,20 @@ VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
 VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
 VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
-GENERATED=		yes
+# License listed inside gem specification
+# => "MIT"
 
-# Requirements specified by gem dependency --remote --version command
+# Requirements according to gem specification:
 #   activesupport (>= 4.2.0)
 #   rake (>= 0, development)
 
 DISTNAME=		globalid-${PORTVERSION}
+GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
 [RUBY25].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v25
-
 [RUBY26].USES_ON=			gem:v26
 [RUBY26].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v26
-
 [RUBY27].USES_ON=			gem:v27
 [RUBY27].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v27
 

@@ -26,31 +26,31 @@ VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
 VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
 VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
-GENERATED=		yes
+# License listed inside gem specification
+# => "MIT"
 
-# Requirements specified by gem dependency --remote --version command
+# Requirements according to gem specification:
+#   sprockets (>= 3.0.0)
 #   actionpack (>= 4.0)
 #   activesupport (>= 4.0)
 #   railties (>= 4.0, development)
 #   rake (>= 0, development)
 #   sass (>= 0, development)
-#   sprockets (>= 3.0.0)
 #   uglifier (>= 0, development)
 
 DISTNAME=		sprockets-rails-${PORTVERSION}
+GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
-[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-actionpack:single:v25
+[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-sprockets:single:v25
+					ruby-actionpack:single:v25
 					ruby-activesupport:single:v25
-					ruby-sprockets:single:v25
-
 [RUBY26].USES_ON=			gem:v26
-[RUBY26].BUILDRUN_DEPENDS_ON=		ruby-actionpack:single:v26
+[RUBY26].BUILDRUN_DEPENDS_ON=		ruby-sprockets:single:v26
+					ruby-actionpack:single:v26
 					ruby-activesupport:single:v26
-					ruby-sprockets:single:v26
-
 [RUBY27].USES_ON=			gem:v27
-[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-actionpack:single:v27
+[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-sprockets:single:v27
+					ruby-actionpack:single:v27
 					ruby-activesupport:single:v27
-					ruby-sprockets:single:v27
 

@@ -5,9 +5,9 @@ NAMEBASE=		ruby-nokogiri
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v25 v26 v27
-SDESC[v25]=		Nokogiri (鋸) is an HTML, XML, SAX, and Rea (v25)
-SDESC[v26]=		Nokogiri (鋸) is an HTML, XML, SAX, and Rea (v26)
-SDESC[v27]=		Nokogiri (鋸) is an HTML, XML, SAX, and Rea (v27)
+SDESC[v25]=		HTML/XML/SAX/Reader parser (v25)
+SDESC[v26]=		HTML/XML/SAX/Reader parser (v26)
+SDESC[v27]=		HTML/XML/SAX/Reader parser (v27)
 HOMEPAGE=		https://nokogiri.org
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -26,36 +26,37 @@ VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
 VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
 VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
-GENERATED=		yes
+# License listed inside gem specification
+# => "MIT"
 
-# Requirements specified by gem dependency --remote --version command
+# Requirements according to gem specification:
+#   mini_portile2 (~> 2.4.0)
 #   concourse (~> 0.24, development)
-#   hoe (~> 3.22, development)
 #   hoe-bundler (~> 1.2, development)
 #   hoe-debugging (~> 2.0, development)
 #   hoe-gemspec (~> 1.0, development)
 #   hoe-git (~> 1.6, development)
-#   mini_portile2 (~> 2.4.0)
 #   minitest (~> 5.8, development)
 #   racc (~> 1.4.14, development)
 #   rake (~> 12.0, development)
 #   rake-compiler (~> 1.1.0, development)
 #   rake-compiler-dock (~> 0.7.0, development)
-#   rdoc (>= 4.0, < 7, development)
 #   rexical (~> 1.0.5, development)
 #   rubocop (~> 0.73, development)
 #   simplecov (~> 0.16, development)
+#   rdoc (>= 4.0, < 7, development)
+#   hoe (~> 3.22, development)
 
 DISTNAME=		nokogiri-${PORTVERSION}
+GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
 [RUBY25].BUILDRUN_DEPENDS_ON=		ruby-mini_portile2:single:v25
-
 [RUBY26].USES_ON=			gem:v26
 [RUBY26].BUILDRUN_DEPENDS_ON=		ruby-mini_portile2:single:v26
-
 [RUBY27].USES_ON=			gem:v27
 [RUBY27].BUILDRUN_DEPENDS_ON=		ruby-mini_portile2:single:v27
+
 BUILDRUN_DEPENDS=	libgcrypt:single:standard
 USES=			pkgconfig
 GNOME_COMPONENTS=	libxml2 libxslt

@@ -5,9 +5,9 @@ NAMEBASE=		ruby-diff-lcs
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v25 v26 v27
-SDESC[v25]=		Diff::LCS computes the difference between tw (v25)
-SDESC[v26]=		Diff::LCS computes the difference between tw (v26)
-SDESC[v27]=		Diff::LCS computes the difference between tw (v27)
+SDESC[v25]=		Longest Common Sequence algorithm (v25)
+SDESC[v26]=		Longest Common Sequence algorithm (v26)
+SDESC[v27]=		Longest Common Sequence algorithm (v27)
 HOMEPAGE=		https://github.com/halostatue/diff-lcs
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -26,26 +26,27 @@ VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
 VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
 VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
-GENERATED=		yes
+# License listed inside gem specification
+# => "MIT", "Artistic-2.0", "GPL-2.0+"
 
-# Requirements specified by gem dependency --remote --version command
-#   hoe (~> 3.16, development)
+# Requirements according to gem specification:
 #   hoe-doofus (~> 1.0, development)
 #   hoe-gemspec2 (~> 1.1, development)
 #   hoe-git (~> 1.6, development)
 #   hoe-rubygems (~> 1.0, development)
 #   hoe-travis (~> 1.2, development)
+#   rspec (>= 2.0, < 4, development)
 #   rake (>= 10.0, < 12, development)
 #   rdoc (>= 0, development)
-#   rspec (>= 2.0, < 4, development)
+#   hoe (~> 3.16, development)
 
 DISTNAME=		diff-lcs-${PORTVERSION}
+GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
-
 [RUBY26].USES_ON=			gem:v26
-
 [RUBY27].USES_ON=			gem:v27
+
 USES=			shebangfix
 SHEBANG_FILES=		bin/htmldiff
 			bin/ldiff

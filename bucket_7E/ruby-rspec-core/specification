@@ -26,27 +26,27 @@ VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
 VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
 VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
-GENERATED=		yes
+# License listed inside gem specification
+# => "MIT"
 
-# Requirements specified by gem dependency --remote --version command
+# Requirements according to gem specification:
+#   rspec-support (~> 3.9.1)
+#   cucumber (~> 1.3, development)
+#   minitest (~> 5.3, development)
 #   aruba (~> 0.14.9, development)
 #   coderay (~> 1.1.1, development)
-#   cucumber (~> 1.3, development)
-#   flexmock (~> 0.9.0, development)
-#   minitest (~> 5.3, development)
 #   mocha (~> 0.13.0, development)
 #   rr (~> 1.0.4, development)
-#   rspec-support (~> 3.9.1)
+#   flexmock (~> 0.9.0, development)
 #   thread_order (~> 1.1.0, development)
 
 DISTNAME=		rspec-core-${PORTVERSION}
+GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
 [RUBY25].BUILDRUN_DEPENDS_ON=		ruby-rspec-support:single:v25
-
 [RUBY26].USES_ON=			gem:v26
 [RUBY26].BUILDRUN_DEPENDS_ON=		ruby-rspec-support:single:v26
-
 [RUBY27].USES_ON=			gem:v27
 [RUBY27].BUILDRUN_DEPENDS_ON=		ruby-rspec-support:single:v27
 

@@ -5,10 +5,10 @@ NAMEBASE=		ruby-ffi
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v25 v26 v27
-SDESC[v25]=		Ruby FFI (v25)
-SDESC[v26]=		Ruby FFI (v26)
-SDESC[v27]=		Ruby FFI (v27)
-HOMEPAGE=		none
+SDESC[v25]=		Foreign Function Interface library (v25)
+SDESC[v26]=		Foreign Function Interface library (v26)
+SDESC[v27]=		Foreign Function Interface library (v27)
+HOMEPAGE=		https://github.com/ffi/ffi/wiki
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
@@ -26,9 +26,10 @@ VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
 VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
 VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
-GENERATED=		yes
+# License listed inside gem specification
+# => "BSD-3-Clause"
 
-# Requirements specified by gem dependency --remote --version command
+# Requirements according to gem specification:
 #   rake (~> 13.0, development)
 #   rake-compiler (~> 1.0, development)
 #   rake-compiler-dock (~> 1.0, development)
@@ -36,11 +37,11 @@ GENERATED=		yes
 #   rubygems-tasks (~> 0.2.4, development)
 
 DISTNAME=		ffi-${PORTVERSION}
+GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
-
 [RUBY26].USES_ON=			gem:v26
-
 [RUBY27].USES_ON=			gem:v27
+
 USES=			gmake
 BUILDRUN_DEPENDS=	libffi:single:standard

@@ -5,9 +5,9 @@ NAMEBASE=		ruby-locale
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v25 v26 v27
-SDESC[v25]=		Ruby-Locale is the pure ruby library which p (v25)
-SDESC[v26]=		Ruby-Locale is the pure ruby library which p (v26)
-SDESC[v27]=		Ruby-Locale is the pure ruby library which p (v27)
+SDESC[v25]=		Library for basic APIs of localization (v25)
+SDESC[v26]=		Library for basic APIs of localization (v26)
+SDESC[v27]=		Library for basic APIs of localization (v27)
 HOMEPAGE=		https://github.com/ruby-gettext/locale
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -26,22 +26,22 @@ VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
 VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
 VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
-GENERATED=		yes
+# License listed inside gem specification
+# => "Ruby", "LGPLv3+"
 
-# Requirements specified by gem dependency --remote --version command
-#   bundler (>= 0, development)
+# Requirements according to gem specification:
 #   rake (>= 0, development)
+#   bundler (>= 0, development)
+#   yard (>= 0, development)
 #   redcarpet (>= 0, development)
 #   test-unit (>= 0, development)
 #   test-unit-notify (>= 0, development)
 #   test-unit-rr (>= 0, development)
-#   yard (>= 0, development)
 
 DISTNAME=		locale-${PORTVERSION}
+GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
-
 [RUBY26].USES_ON=			gem:v26
-
 [RUBY27].USES_ON=			gem:v27
 

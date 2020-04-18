@@ -5,9 +5,9 @@ NAMEBASE=		ruby-actionmailer
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v25 v26 v27
-SDESC[v25]=		Email composition and delivery framework (pa (v25)
-SDESC[v26]=		Email composition and delivery framework (pa (v26)
-SDESC[v27]=		Email composition and delivery framework (pa (v27)
+SDESC[v25]=		Email support on Rails (v25)
+SDESC[v26]=		Email support on Rails (v26)
+SDESC[v27]=		Email support on Rails (v27)
 HOMEPAGE=		https://rubyonrails.org
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -26,9 +26,10 @@ VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
 VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
 VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
-GENERATED=		yes
+# License listed inside gem specification
+# => "MIT"
 
-# Requirements specified by gem dependency --remote --version command
+# Requirements according to gem specification:
 #   actionpack (= 6.0.2.2)
 #   actionview (= 6.0.2.2)
 #   activejob (= 6.0.2.2)
@@ -36,6 +37,7 @@ GENERATED=		yes
 #   rails-dom-testing (~> 2.0)
 
 DISTNAME=		actionmailer-${PORTVERSION}
+GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
 [RUBY25].BUILDRUN_DEPENDS_ON=		ruby-actionpack:single:v25
@@ -43,14 +45,12 @@ DISTNAME=		actionmailer-${PORTVERSION}
 					ruby-activejob:single:v25
 					ruby-mail:single:v25
 					ruby-rails-dom-testing:single:v25
-
 [RUBY26].USES_ON=			gem:v26
 [RUBY26].BUILDRUN_DEPENDS_ON=		ruby-actionpack:single:v26
 					ruby-actionview:single:v26
 					ruby-activejob:single:v26
 					ruby-mail:single:v26
 					ruby-rails-dom-testing:single:v26
-
 [RUBY27].USES_ON=			gem:v27
 [RUBY27].BUILDRUN_DEPENDS_ON=		ruby-actionpack:single:v27
 					ruby-actionview:single:v27

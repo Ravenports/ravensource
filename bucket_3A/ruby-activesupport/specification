@@ -5,9 +5,9 @@ NAMEBASE=		ruby-activesupport
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v25 v26 v27
-SDESC[v25]=		Toolkit of support libraries and Ruby core e (v25)
-SDESC[v26]=		Toolkit of support libraries and Ruby core e (v26)
-SDESC[v27]=		Toolkit of support libraries and Ruby core e (v27)
+SDESC[v25]=		Rails support for multibyte strings + (v25)
+SDESC[v26]=		Rails support for multibyte strings + (v26)
+SDESC[v27]=		Rails support for multibyte strings + (v27)
 HOMEPAGE=		https://rubyonrails.org
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -26,35 +26,35 @@ VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
 VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
 VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
-GENERATED=		yes
+# License listed inside gem specification
+# => "MIT"
 
-# Requirements specified by gem dependency --remote --version command
-#   concurrent-ruby (~> 1.0, >= 1.0.2)
+# Requirements according to gem specification:
 #   i18n (>= 0.7, < 2)
-#   minitest (~> 5.1)
 #   tzinfo (~> 1.1)
+#   minitest (~> 5.1)
+#   concurrent-ruby (~> 1.0, >= 1.0.2)
 #   zeitwerk (~> 2.2)
 
 DISTNAME=		activesupport-${PORTVERSION}
+GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
-[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-concurrent-ruby:single:v25
-					ruby-i18n:single:v25
-					ruby-minitest:single:v25
+[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-i18n:single:v25
 					ruby-tzinfo:single:v25
+					ruby-minitest:single:v25
+					ruby-concurrent-ruby:single:v25
 					ruby-zeitwerk:single:v25
-
 [RUBY26].USES_ON=			gem:v26
-[RUBY26].BUILDRUN_DEPENDS_ON=		ruby-concurrent-ruby:single:v26
-					ruby-i18n:single:v26
-					ruby-minitest:single:v26
+[RUBY26].BUILDRUN_DEPENDS_ON=		ruby-i18n:single:v26
 					ruby-tzinfo:single:v26
+					ruby-minitest:single:v26
+					ruby-concurrent-ruby:single:v26
 					ruby-zeitwerk:single:v26
-
 [RUBY27].USES_ON=			gem:v27
-[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-concurrent-ruby:single:v27
-					ruby-i18n:single:v27
-					ruby-minitest:single:v27
+[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-i18n:single:v27
 					ruby-tzinfo:single:v27
+					ruby-minitest:single:v27
+					ruby-concurrent-ruby:single:v27
 					ruby-zeitwerk:single:v27
 

@@ -5,9 +5,9 @@ NAMEBASE=		ruby-fast_gettext
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v25 v26 v27
-SDESC[v25]=		Simple, fast, memory-efficient and threadsaf (v25)
-SDESC[v26]=		Simple, fast, memory-efficient and threadsaf (v26)
-SDESC[v27]=		Simple, fast, memory-efficient and threadsaf (v27)
+SDESC[v25]=		Good, threadsafe implementation of GetText (v25)
+SDESC[v26]=		Good, threadsafe implementation of GetText (v26)
+SDESC[v27]=		Good, threadsafe implementation of GetText (v27)
 HOMEPAGE=		https://github.com/grosser/fast_gettext
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -26,25 +26,25 @@ VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
 VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
 VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
-GENERATED=		yes
+# License listed inside gem specification
+# => "MIT", "Ruby"
 
-# Requirements specified by gem dependency --remote --version command
-#   activerecord (>= 0, development)
-#   bump (>= 0, development)
-#   forking_test_runner (>= 0, development)
-#   i18n (>= 0, development)
+# Requirements according to gem specification:
 #   rake (>= 0, development)
+#   sqlite3 (>= 0, development)
 #   rspec (>= 0, development)
+#   activerecord (>= 0, development)
+#   i18n (>= 0, development)
+#   bump (>= 0, development)
+#   wwtd (>= 0, development)
 #   rubocop (>= 0, development)
 #   single_cov (>= 0, development)
-#   sqlite3 (>= 0, development)
-#   wwtd (>= 0, development)
+#   forking_test_runner (>= 0, development)
 
 DISTNAME=		fast_gettext-${PORTVERSION}
+GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
-
 [RUBY26].USES_ON=			gem:v26
-
 [RUBY27].USES_ON=			gem:v27
 

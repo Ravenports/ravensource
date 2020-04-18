@@ -5,9 +5,9 @@ NAMEBASE=		ruby-polyamorous
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v25 v26 v27
-SDESC[v25]=		Loves/is loved by polymorphic belongs_to ass (v25)
-SDESC[v26]=		Loves/is loved by polymorphic belongs_to ass (v26)
-SDESC[v27]=		Loves/is loved by polymorphic belongs_to ass (v27)
+SDESC[v25]=		Extraction from Ransack/Squeel (v25)
+SDESC[v26]=		Extraction from Ransack/Squeel (v26)
+SDESC[v27]=		Extraction from Ransack/Squeel (v27)
 HOMEPAGE=		https://github.com/activerecord-hackery/ransack/tree/master/polyamorous
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -26,19 +26,19 @@ VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
 VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
 VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
-GENERATED=		yes
+# License listed inside gem specification
+# => "MIT"
 
-# Requirements specified by gem dependency --remote --version command
+# Requirements according to gem specification:
 #   activerecord (>= 5.2.1)
 
 DISTNAME=		polyamorous-${PORTVERSION}
+GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
 [RUBY25].BUILDRUN_DEPENDS_ON=		ruby-activerecord:single:v25
-
 [RUBY26].USES_ON=			gem:v26
 [RUBY26].BUILDRUN_DEPENDS_ON=		ruby-activerecord:single:v26
-
 [RUBY27].USES_ON=			gem:v27
 [RUBY27].BUILDRUN_DEPENDS_ON=		ruby-activerecord:single:v27
 

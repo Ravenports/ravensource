@@ -5,9 +5,9 @@ NAMEBASE=		ruby-warden
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v25 v26 v27
-SDESC[v25]=		Authentication library compatible with all R (v25)
-SDESC[v26]=		Authentication library compatible with all R (v26)
-SDESC[v27]=		Authentication library compatible with all R (v27)
+SDESC[v25]=		Rack Authentication libary (v25)
+SDESC[v26]=		Rack Authentication libary (v26)
+SDESC[v27]=		Rack Authentication libary (v27)
 HOMEPAGE=		https://github.com/hassox/warden
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -26,19 +26,19 @@ VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
 VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
 VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
-GENERATED=		yes
+# License listed inside gem specification
+# => "MIT"
 
-# Requirements specified by gem dependency --remote --version command
+# Requirements according to gem specification:
 #   rack (>= 2.0.6)
 
 DISTNAME=		warden-${PORTVERSION}
+GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
 [RUBY25].BUILDRUN_DEPENDS_ON=		ruby-rack:single:v25
-
 [RUBY26].USES_ON=			gem:v26
 [RUBY26].BUILDRUN_DEPENDS_ON=		ruby-rack:single:v26
-
 [RUBY27].USES_ON=			gem:v27
 [RUBY27].BUILDRUN_DEPENDS_ON=		ruby-rack:single:v27
 

@@ -5,9 +5,9 @@ NAMEBASE=		ruby-cabin
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v25 v26 v27
-SDESC[v25]=		Experiments in structured and contextual log (v25)
-SDESC[v26]=		Experiments in structured and contextual log (v26)
-SDESC[v27]=		Experiments in structured and contextual log (v27)
+SDESC[v25]=		Structured and contextual logging (v25)
+SDESC[v26]=		Structured and contextual logging (v26)
+SDESC[v27]=		Structured and contextual logging (v27)
 HOMEPAGE=		https://github.com/jordansissel/ruby-cabin
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -26,18 +26,19 @@ VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
 VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
 VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
-GENERATED=		yes
+# License listed inside gem specification
+# => "Apache License (2.0)"
 
-# Requirements specified by gem dependency --remote --version command
+# Requirements according to gem specification:
 #   rake (~> 10.4.2, development)
 
 DISTNAME=		cabin-${PORTVERSION}
+GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
-
 [RUBY26].USES_ON=			gem:v26
-
 [RUBY27].USES_ON=			gem:v27
+
 post-install:
 	# This test requires data not installed to work
 	${RM} ${STAGEDIR}${PREFIX}/bin/rubygems-cabin-test

@@ -5,9 +5,9 @@ NAMEBASE=		ruby-websocket-extensions
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v25 v26 v27
-SDESC[v25]=		Generic extension manager for WebSocket conn (v25)
-SDESC[v26]=		Generic extension manager for WebSocket conn (v26)
-SDESC[v27]=		Generic extension manager for WebSocket conn (v27)
+SDESC[v25]=		Extension manager for WebSocket connections (v25)
+SDESC[v26]=		Extension manager for WebSocket connections (v26)
+SDESC[v27]=		Extension manager for WebSocket connections (v27)
 HOMEPAGE=		https://github.com/faye/websocket-extensions-ruby
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -26,16 +26,16 @@ VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
 VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
 VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
-GENERATED=		yes
+# License listed inside gem specification
+# => "Apache-2.0"
 
-# Requirements specified by gem dependency --remote --version command
+# Requirements according to gem specification:
 #   rspec (>= 0, development)
 
 DISTNAME=		websocket-extensions-${PORTVERSION}
+GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
-
 [RUBY26].USES_ON=			gem:v26
-
 [RUBY27].USES_ON=			gem:v27
 

@@ -5,9 +5,9 @@ NAMEBASE=		ruby-pleaserun
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v25 v26 v27
-SDESC[v25]=		Pleaserun (v25)
-SDESC[v26]=		Pleaserun (v26)
-SDESC[v27]=		Pleaserun (v27)
+SDESC[v25]=		Startup and service script generator (v25)
+SDESC[v26]=		Startup and service script generator (v26)
+SDESC[v27]=		Startup and service script generator (v27)
 HOMEPAGE=		https://github.com/jordansissel/pleaserun
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -26,41 +26,42 @@ VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
 VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
 VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
-GENERATED=		yes
+# License listed inside gem specification
+# => "Apache 2.0"
 
-# Requirements specified by gem dependency --remote --version command
+# Requirements according to gem specification:
 #   cabin (> 0)
 #   clamp (>= 0)
-#   dotenv (>= 0)
-#   insist (>= 0)
-#   mustache (= 0.99.8)
 #   stud (>= 0)
+#   mustache (= 0.99.8)
+#   insist (>= 0)
+#   dotenv (>= 0)
 
 DISTNAME=		pleaserun-${PORTVERSION}
+GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
 [RUBY25].BUILDRUN_DEPENDS_ON=		ruby-cabin:single:v25
 					ruby-clamp:single:v25
-					ruby-dotenv:single:v25
-					ruby-insist:single:v25
-					ruby-mustache:single:v25
 					ruby-stud:single:v25
-
+					ruby-mustache:single:v25
+					ruby-insist:single:v25
+					ruby-dotenv:single:v25
 [RUBY26].USES_ON=			gem:v26
 [RUBY26].BUILDRUN_DEPENDS_ON=		ruby-cabin:single:v26
 					ruby-clamp:single:v26
-					ruby-dotenv:single:v26
-					ruby-insist:single:v26
-					ruby-mustache:single:v26
 					ruby-stud:single:v26
-
+					ruby-mustache:single:v26
+					ruby-insist:single:v26
+					ruby-dotenv:single:v26
 [RUBY27].USES_ON=			gem:v27
 [RUBY27].BUILDRUN_DEPENDS_ON=		ruby-cabin:single:v27
 					ruby-clamp:single:v27
-					ruby-dotenv:single:v27
-					ruby-insist:single:v27
-					ruby-mustache:single:v27
 					ruby-stud:single:v27
+					ruby-mustache:single:v27
+					ruby-insist:single:v27
+					ruby-dotenv:single:v27
+
 post-patch:
 	# Allow to work with latest mustache
 	${REINPLACE_CMD} '/mustache/ s|= 0.99.8|>= 0|' \

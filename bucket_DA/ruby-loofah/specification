@@ -5,9 +5,9 @@ NAMEBASE=		ruby-loofah
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v25 v26 v27
-SDESC[v25]=		General library for manipulating and transfo (v25)
-SDESC[v26]=		General library for manipulating and transfo (v26)
-SDESC[v27]=		General library for manipulating and transfo (v27)
+SDESC[v25]=		HTML/XML transformation library (v25)
+SDESC[v26]=		HTML/XML transformation library (v26)
+SDESC[v27]=		HTML/XML transformation library (v27)
 HOMEPAGE=		https://github.com/flavorjones/loofah
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -26,35 +26,35 @@ VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
 VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
 VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
-GENERATED=		yes
+# License listed inside gem specification
+# => "MIT"
 
-# Requirements specified by gem dependency --remote --version command
-#   concourse (>= 0.26.0, development)
-#   crass (~> 1.0.2)
-#   hoe (~> 3.22, development)
-#   hoe-bundler (~> 1.5, development)
-#   hoe-debugging (~> 2.0, development)
-#   hoe-gemspec (~> 1.0, development)
-#   hoe-git (~> 1.6, development)
-#   json (~> 2.2.0, development)
-#   minitest (~> 2.2, development)
+# Requirements according to gem specification:
 #   nokogiri (>= 1.5.9)
+#   crass (~> 1.0.2)
 #   rake (~> 12.3, development)
-#   rdoc (>= 4.0, < 7, development)
+#   minitest (~> 2.2, development)
 #   rr (~> 1.2.0, development)
+#   json (~> 2.2.0, development)
+#   hoe-gemspec (~> 1.0, development)
+#   hoe-debugging (~> 2.0, development)
+#   hoe-bundler (~> 1.5, development)
+#   hoe-git (~> 1.6, development)
+#   concourse (>= 0.26.0, development)
 #   rubocop (>= 0.76.0, development)
+#   rdoc (>= 4.0, < 7, development)
+#   hoe (~> 3.22, development)
 
 DISTNAME=		loofah-${PORTVERSION}
+GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
-[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-crass:single:v25
-					ruby-nokogiri:single:v25
-
+[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-nokogiri:single:v25
+					ruby-crass:single:v25
 [RUBY26].USES_ON=			gem:v26
-[RUBY26].BUILDRUN_DEPENDS_ON=		ruby-crass:single:v26
-					ruby-nokogiri:single:v26
-
+[RUBY26].BUILDRUN_DEPENDS_ON=		ruby-nokogiri:single:v26
+					ruby-crass:single:v26
 [RUBY27].USES_ON=			gem:v27
-[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-crass:single:v27
-					ruby-nokogiri:single:v27
+[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-nokogiri:single:v27
+					ruby-crass:single:v27
 

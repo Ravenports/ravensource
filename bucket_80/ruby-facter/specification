@@ -1,0 +1,58 @@
+DEF[PORTVERSION]=	4.0.16
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-facter
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v25 v26 v27
+SDESC[v25]=		New version of Facter (v25)
+SDESC[v26]=		New version of Facter (v26)
+SDESC[v27]=		New version of Facter (v27)
+HOMEPAGE=		none
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		facter-4.0.16.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v25]=		single
+SPKGS[v26]=		single
+SPKGS[v27]=		single
+
+OPTIONS_AVAILABLE=	RUBY25 RUBY26 RUBY27
+OPTIONS_STANDARD=	none
+VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
+VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
+VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
+
+# License listed inside gem specification
+# => Not provided.
+
+# Requirements according to gem specification:
+#   hocon (~> 1.3)
+#   thor (>= 1.0.1, < 2.0)
+#   bundler (~> 2.0, development)
+#   coveralls (~> 0.8.23, development)
+#   rake (>= 12.3.3, development)
+#   rspec (~> 3.0, development)
+#   rubocop (~> 0.74.0, development)
+#   rubocop-performance (~> 1.5, development)
+#   rubocop-rspec (~> 1.38, development)
+#   rubycritic (~> 4.1.0, development)
+#   sys-filesystem (~> 1.3, development)
+#   yard (~> 0.9, development)
+
+DISTNAME=		facter-${PORTVERSION}
+GENERATED=		yes
+
+[RUBY25].USES_ON=			gem:v25
+[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-hocon:single:v25
+					ruby-thor:single:v25
+[RUBY26].USES_ON=			gem:v26
+[RUBY26].BUILDRUN_DEPENDS_ON=		ruby-hocon:single:v26
+					ruby-thor:single:v26
+[RUBY27].USES_ON=			gem:v27
+[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-hocon:single:v27
+					ruby-thor:single:v27
+

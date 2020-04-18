@@ -5,9 +5,9 @@ NAMEBASE=		ruby-railties
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v25 v26 v27
-SDESC[v25]=		Tools for creating, working with, and runnin (v25)
-SDESC[v26]=		Tools for creating, working with, and runnin (v26)
-SDESC[v27]=		Tools for creating, working with, and runnin (v27)
+SDESC[v25]=		Rails bootup, plugins and other internals (v25)
+SDESC[v26]=		Rails bootup, plugins and other internals (v26)
+SDESC[v27]=		Rails bootup, plugins and other internals (v27)
 HOMEPAGE=		https://rubyonrails.org
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -26,36 +26,36 @@ VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
 VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
 VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
-GENERATED=		yes
+# License listed inside gem specification
+# => "MIT"
 
-# Requirements specified by gem dependency --remote --version command
-#   actionpack (= 6.0.2.2)
-#   actionview (= 6.0.2.2, development)
+# Requirements according to gem specification:
 #   activesupport (= 6.0.2.2)
-#   method_source (>= 0)
+#   actionpack (= 6.0.2.2)
 #   rake (>= 0.8.7)
 #   thor (>= 0.20.3, < 2.0)
+#   method_source (>= 0)
+#   actionview (= 6.0.2.2, development)
 
 DISTNAME=		railties-${PORTVERSION}
+GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
-[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-actionpack:single:v25
-					ruby-activesupport:single:v25
-					ruby-method_source:single:v25
+[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v25
+					ruby-actionpack:single:v25
 					ruby-rake:single:v25
 					ruby-thor:single:v25
-
+					ruby-method_source:single:v25
 [RUBY26].USES_ON=			gem:v26
-[RUBY26].BUILDRUN_DEPENDS_ON=		ruby-actionpack:single:v26
-					ruby-activesupport:single:v26
-					ruby-method_source:single:v26
+[RUBY26].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v26
+					ruby-actionpack:single:v26
 					ruby-rake:single:v26
 					ruby-thor:single:v26
-
+					ruby-method_source:single:v26
 [RUBY27].USES_ON=			gem:v27
-[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-actionpack:single:v27
-					ruby-activesupport:single:v27
-					ruby-method_source:single:v27
+[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v27
+					ruby-actionpack:single:v27
 					ruby-rake:single:v27
 					ruby-thor:single:v27
+					ruby-method_source:single:v27
 

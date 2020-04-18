@@ -5,9 +5,9 @@ NAMEBASE=		ruby-ruby-vips
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v25 v26 v27
-SDESC[v25]=		Ruby extension for the vips image processing (v25)
-SDESC[v26]=		Ruby extension for the vips image processing (v26)
-SDESC[v27]=		Ruby extension for the vips image processing (v27)
+SDESC[v25]=		Binding for vips image processor (v25)
+SDESC[v26]=		Binding for vips image processor (v26)
+SDESC[v27]=		Binding for vips image processor (v27)
 HOMEPAGE=		https://github.com/libvips/ruby-vips
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -26,26 +26,26 @@ VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
 VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
 VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
-GENERATED=		yes
+# License listed inside gem specification
+# => "MIT"
 
-# Requirements specified by gem dependency --remote --version command
-#   bundler (>= 1.0, < 3, development)
+# Requirements according to gem specification:
 #   ffi (~> 1.9)
-#   github-markup (~> 1.4, development)
 #   rake (~> 11.0, development)
-#   redcarpet (~> 3.3, development)
 #   rspec (~> 3.3, development)
-#   rubocop (~> 0.64, development)
 #   yard (~> 0.9.11, development)
+#   redcarpet (~> 3.3, development)
+#   github-markup (~> 1.4, development)
+#   bundler (>= 1.0, < 3, development)
+#   rubocop (~> 0.64, development)
 
 DISTNAME=		ruby-vips-${PORTVERSION}
+GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
 [RUBY25].BUILDRUN_DEPENDS_ON=		ruby-ffi:single:v25
-
 [RUBY26].USES_ON=			gem:v26
 [RUBY26].BUILDRUN_DEPENDS_ON=		ruby-ffi:single:v26
-
 [RUBY27].USES_ON=			gem:v27
 [RUBY27].BUILDRUN_DEPENDS_ON=		ruby-ffi:single:v27
 

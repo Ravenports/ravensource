@@ -5,9 +5,9 @@ NAMEBASE=		ruby-semantic_puppet
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v25 v26 v27
-SDESC[v25]=		Useful tools for working with Semantic Versi (v25)
-SDESC[v26]=		Useful tools for working with Semantic Versi (v26)
-SDESC[v27]=		Useful tools for working with Semantic Versi (v27)
+SDESC[v25]=		Puppet Semantic Version comparison tool (v25)
+SDESC[v26]=		Puppet Semantic Version comparison tool (v26)
+SDESC[v27]=		Puppet Semantic Version comparison tool (v27)
 HOMEPAGE=		https://github.com/puppetlabs/semantic_puppet
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -26,21 +26,21 @@ VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
 VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
 VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
-GENERATED=		yes
+# License listed inside gem specification
+# => "Apache-2.0"
 
-# Requirements specified by gem dependency --remote --version command
-#   cane (>= 0, development)
+# Requirements according to gem specification:
 #   rake (>= 0, development)
-#   redcarpet (>= 0, development)
 #   rspec (>= 0, development)
 #   simplecov (>= 0, development)
+#   cane (>= 0, development)
 #   yard (>= 0, development)
+#   redcarpet (>= 0, development)
 
 DISTNAME=		semantic_puppet-${PORTVERSION}
+GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
-
 [RUBY26].USES_ON=			gem:v26
-
 [RUBY27].USES_ON=			gem:v27
 

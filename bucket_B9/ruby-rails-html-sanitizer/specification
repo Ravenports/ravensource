@@ -5,9 +5,9 @@ NAMEBASE=		ruby-rails-html-sanitizer
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v25 v26 v27
-SDESC[v25]=		This gem is responsible to sanitize HTML fra (v25)
-SDESC[v26]=		This gem is responsible to sanitize HTML fra (v26)
-SDESC[v27]=		This gem is responsible to sanitize HTML fra (v27)
+SDESC[v25]=		HTML sanitization for Rails applications (v25)
+SDESC[v26]=		HTML sanitization for Rails applications (v26)
+SDESC[v27]=		HTML sanitization for Rails applications (v27)
 HOMEPAGE=		https://github.com/rails/rails-html-sanitizer
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -26,23 +26,23 @@ VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
 VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
 VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
-GENERATED=		yes
+# License listed inside gem specification
+# => "MIT"
 
-# Requirements specified by gem dependency --remote --version command
-#   bundler (>= 1.3, development)
+# Requirements according to gem specification:
 #   loofah (~> 2.3)
+#   bundler (>= 1.3, development)
+#   rake (>= 0, development)
 #   minitest (>= 0, development)
 #   rails-dom-testing (>= 0, development)
-#   rake (>= 0, development)
 
 DISTNAME=		rails-html-sanitizer-${PORTVERSION}
+GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
 [RUBY25].BUILDRUN_DEPENDS_ON=		ruby-loofah:single:v25
-
 [RUBY26].USES_ON=			gem:v26
 [RUBY26].BUILDRUN_DEPENDS_ON=		ruby-loofah:single:v26
-
 [RUBY27].USES_ON=			gem:v27
 [RUBY27].BUILDRUN_DEPENDS_ON=		ruby-loofah:single:v27
 

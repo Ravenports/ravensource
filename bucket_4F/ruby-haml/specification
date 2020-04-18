@@ -5,9 +5,9 @@ NAMEBASE=		ruby-haml
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v25 v26 v27
-SDESC[v25]=		Elegant, structured (X)HTML/XML templating e (v25)
-SDESC[v26]=		Elegant, structured (X)HTML/XML templating e (v26)
-SDESC[v27]=		Elegant, structured (X)HTML/XML templating e (v27)
+SDESC[v25]=		HTML Abstraction Markup Language (v25)
+SDESC[v26]=		HTML Abstraction Markup Language (v26)
+SDESC[v27]=		HTML Abstraction Markup Language (v27)
 HOMEPAGE=		http://haml.info/
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -26,26 +26,26 @@ VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
 VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
 VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
-GENERATED=		yes
+# License listed inside gem specification
+# => "MIT"
 
-# Requirements specified by gem dependency --remote --version command
-#   minitest (>= 4.0, development)
-#   nokogiri (>= 0, development)
-#   rails (>= 4.0.0, development)
-#   rbench (>= 0, development)
+# Requirements according to gem specification:
 #   temple (>= 0.8.0)
 #   tilt (>= 0)
+#   rails (>= 4.0.0, development)
+#   rbench (>= 0, development)
+#   minitest (>= 4.0, development)
+#   nokogiri (>= 0, development)
 
 DISTNAME=		haml-${PORTVERSION}
+GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
 [RUBY25].BUILDRUN_DEPENDS_ON=		ruby-temple:single:v25
 					ruby-tilt:single:v25
-
 [RUBY26].USES_ON=			gem:v26
 [RUBY26].BUILDRUN_DEPENDS_ON=		ruby-temple:single:v26
 					ruby-tilt:single:v26
-
 [RUBY27].USES_ON=			gem:v27
 [RUBY27].BUILDRUN_DEPENDS_ON=		ruby-temple:single:v27
 					ruby-tilt:single:v27

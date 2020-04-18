@@ -5,9 +5,9 @@ NAMEBASE=		ruby-marcel
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v25 v26 v27
-SDESC[v25]=		Simple mime type detection using magic numbe (v25)
-SDESC[v26]=		Simple mime type detection using magic numbe (v26)
-SDESC[v27]=		Simple mime type detection using magic numbe (v27)
+SDESC[v25]=		Simple MIME type detection (v25)
+SDESC[v26]=		Simple MIME type detection (v26)
+SDESC[v27]=		Simple MIME type detection (v27)
 HOMEPAGE=		https://github.com/basecamp/marcel
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -26,23 +26,23 @@ VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
 VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
 VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
-GENERATED=		yes
+# License listed inside gem specification
+# => "MIT"
 
-# Requirements specified by gem dependency --remote --version command
-#   bundler (~> 1.7, development)
+# Requirements according to gem specification:
 #   mimemagic (~> 0.3.2)
 #   minitest (~> 5.11, development)
-#   rack (~> 2.0, development)
+#   bundler (~> 1.7, development)
 #   rake (~> 10.0, development)
+#   rack (~> 2.0, development)
 
 DISTNAME=		marcel-${PORTVERSION}
+GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
 [RUBY25].BUILDRUN_DEPENDS_ON=		ruby-mimemagic:single:v25
-
 [RUBY26].USES_ON=			gem:v26
 [RUBY26].BUILDRUN_DEPENDS_ON=		ruby-mimemagic:single:v26
-
 [RUBY27].USES_ON=			gem:v27
 [RUBY27].BUILDRUN_DEPENDS_ON=		ruby-mimemagic:single:v27
 

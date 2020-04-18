@@ -5,9 +5,9 @@ NAMEBASE=		ruby-mime-types-data
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v25 v26 v27
-SDESC[v25]=		Mime-types-data provides a registry for info (v25)
-SDESC[v26]=		Mime-types-data provides a registry for info (v26)
-SDESC[v27]=		Mime-types-data provides a registry for info (v27)
+SDESC[v25]=		MIME media type definitions (v25)
+SDESC[v26]=		MIME media type definitions (v26)
+SDESC[v27]=		MIME media type definitions (v27)
 HOMEPAGE=		https://github.com/mime-types/mime-types-data/
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -26,24 +26,24 @@ VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
 VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
 VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
-GENERATED=		yes
+# License listed inside gem specification
+# => "MIT"
 
-# Requirements specified by gem dependency --remote --version command
-#   hoe (~> 3.18, development)
+# Requirements according to gem specification:
+#   nokogiri (~> 1.6, development)
 #   hoe-doofus (~> 1.0, development)
 #   hoe-gemspec2 (~> 1.1, development)
 #   hoe-git (~> 1.6, development)
 #   hoe-rubygems (~> 1.0, development)
-#   mime-types (>= 3.2.1, < 4, development)
-#   nokogiri (~> 1.6, development)
 #   rake (~> 10.0, development)
+#   mime-types (>= 3.2.1, < 4, development)
 #   rdoc (>= 4.0, < 7, development)
+#   hoe (~> 3.18, development)
 
 DISTNAME=		mime-types-data-${PORTVERSION}
+GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
-
 [RUBY26].USES_ON=			gem:v26
-
 [RUBY27].USES_ON=			gem:v27
 
