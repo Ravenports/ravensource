@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	1.0.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-xopen
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		standard
+SDESC[standard]=	Open System Files, 'URLs', Anything
+HOMEPAGE=		https://github.com/r-lib/xopen#readme
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+DISTFILE[1]=		xopen_1.0.0.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => MIT + file LICENSE
+
+USES=			cran gmake
+DISTNAME=		xopen
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-processx:single:standard
+
+
