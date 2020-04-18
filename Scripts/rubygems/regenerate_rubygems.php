@@ -154,8 +154,8 @@ function meets_minimum_version_requirement ($RUBYVER, $minimum_ver_string) {
     }
 
     # possible strings:
-    # "> X", "> X.Y", ">= X", ">= X.Y.Z", "~> X.y"
-    $valid_operators = array (">", ">=", "~>");
+    # "> X", "> X.Y", ">= X", ">= X.Y.Z", "~> X.Y", "!= X.Y.Z"
+    $valid_operators = array (">", ">=", "~>", "!=");
     $parts = explode (" ", $minimum_ver_string);
 
     if (!in_array($parts[0], $valid_operators)) {
@@ -189,6 +189,7 @@ function meets_minimum_version_requirement ($RUBYVER, $minimum_ver_string) {
     }
     switch ($parts[0]) {
         case ">":
+        case "!=":
             return ($ruby_version > $minver);
             break;
         case ">=":
