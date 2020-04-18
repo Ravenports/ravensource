@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	1.2.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-odbc
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		standard
+SDESC[standard]=	DBI-compatible interface to ODBC databases
+HOMEPAGE=		https://github.com/r-dbi/odbc
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+DISTFILE[1]=		odbc_1.2.2.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => MIT + file LICENSE
+
+USES=			cran gmake
+DISTNAME=		odbc
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-bit64:single:standard
+			R-blob:single:standard
+			R-DBI:single:standard
+			R-hms:single:standard
+			R-rlang:single:standard
+			R-Rcpp:single:standard
+			R-BH:single:standard
+
+

@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	1.0.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-XLConnect
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		standard
+SDESC[standard]=	Excel Connector for R
+HOMEPAGE=		none
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+DISTFILE[1]=		XLConnect_1.0.1.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => GPL-3
+
+USES=			cran gmake
+DISTNAME=		XLConnect
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-rJava:single:standard
+
+
