@@ -1,10 +1,8 @@
-DEF[PORTVERSION]=	0.5.0
-DEF[TSE_HASH]=		a268587
+DEF[PORTVERSION]=	0.6.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		zig
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel lang
 VARIANTS=		standard
 SDESC[standard]=	Programming language
@@ -12,8 +10,7 @@ HOMEPAGE=		https://ziglang.org/
 CONTACT=		Tse_[tse@tse.gratis]
 
 DOWNLOAD_GROUPS=	main
-# SITES[main]=		GITHUB/ziglang:zig:${PORTVERSION}
-SITES[main]=		GITHUB/tse-gratis:zig:${TSE_HASH}
+SITES[main]=		GITHUB/ziglang:zig:${PORTVERSION}
 DISTFILE[1]=		generated:main
 SPKGS[standard]=	single
 
@@ -26,18 +23,19 @@ LICENSE_SCHEME=		solo
 
 ONLY_FOR_OPSYS=		freebsd dragonfly netbsd linux
 
-BROKEN[dragonfly]=	Assertion failed: (ActualSize >= (NumVecElements * ElementSize) && "Invalid vector size")
-BROKEN[all]=		lld: error: undefined symbol: getrandom
-
 BUILDRUN_DEPENDS=	llvm:single:standard
 			clang:compiler:standard
 			lld:single:standard
 RUN_DEPENDS=		libcxx:primary:standard
 
-USES=			cmake
+USES=			cmake shebangfix
+SHEBANG_FILES=		lib/libcxxabi/src/demangle/cp-to-llvm.sh
 INSTALL_REQ_TOOLCHAIN=	yes
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/zig
-	# remove empty directory
-	${RM} -r ${STAGEDIR}${PREFIX}/lib/zig/std/unicode
+	# remove empty directories
+	${FIND} ${STAGEDIR}${PREFIX}/lib -type d -empty -delete
+	# remove licenses out of place
+	${RM} ${STAGEDIR}${PREFIX}/lib/zig/*/LICENSE.TXT
+	${RM} ${STAGEDIR}${PREFIX}/lib/zig/libc/glibc/LICENSES
