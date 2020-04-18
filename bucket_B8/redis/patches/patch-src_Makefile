@@ -1,4 +1,4 @@
---- src/Makefile.orig	2019-11-19 17:05:52 UTC
+--- src/Makefile.orig	2020-04-17 10:45:57 UTC
 +++ src/Makefile
 @@ -75,7 +75,6 @@ endif
  FINAL_CFLAGS=$(STD) $(WARN) $(OPT) $(DEBUG) $(CFLAGS) $(REDIS_CFLAGS)
@@ -6,9 +6,9 @@
  FINAL_LIBS=-lm
 -DEBUG=-g -ggdb
  
- ifeq ($(uname_S),SunOS)
- 	# SunOS
-@@ -117,12 +116,16 @@ ifeq ($(uname_S),DragonFly)
+ # Linux ARM needs -latomic at linking time
+ ifneq (,$(filter aarch64 armv,$(uname_M)))
+@@ -126,12 +125,16 @@ ifeq ($(uname_S),DragonFly)
  	# FreeBSD
  	FINAL_LIBS+= -lpthread -lexecinfo
  else

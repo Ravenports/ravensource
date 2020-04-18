@@ -1,4 +1,4 @@
---- deps/hiredis/net.c.orig	2019-11-19 17:05:52 UTC
+--- deps/hiredis/net.c.orig	2020-04-17 10:45:57 UTC
 +++ deps/hiredis/net.c
 @@ -135,13 +135,12 @@ int redisKeepAlive(redisContext *c, int
  
