@@ -1,8 +1,7 @@
-DEF[X264_BUILD]=	157
-DEF[X264_REV]=		2980
-DEF[X264_SNAPSHOT]=	20190719-2245
-DEF[X264_COMMIT]=	34c06d1c17ad968fbdda153cb772f77ee31b3095
-DEF[X264_GITVER]=	34c06d1
+DEF[X264_BUILD]=	159
+DEF[X264_REV]=		2991
+DEF[X264_COMMIT]=	1771b556ee45207f8711744ccbd5d42a3949b14c
+DEF[X264_GITVER]=	1771b55
 DEF[PORTVERSION]=	0.${X264_BUILD}.${X264_REV}
 # NOTES
 # We use tarballs from the *stable* branch of the upstream git repository.
@@ -21,8 +20,8 @@ HOMEPAGE=		https://www.videolan.org/developers/x264.html
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		ftp://ftp.videolan.org/pub/videolan/x264/snapshots/
-DISTFILE[1]=		x264-snapshot-${X264_SNAPSHOT}-stable.tar.bz2:main
+SITES[main]=		https://code.videolan.org/videolan/x264/-/archive/${X264_GITVER}/
+DISTFILE[1]=		${X264_GITVER}.tar.bz2:main
 DIST_SUBDIR=		x264
 
 SPKGS[standard]=	program library
@@ -50,7 +49,7 @@ SHEBANG_FILES=		configure
 INSTALL_REQ_TOOLCHAIN=	yes
 MUST_CONFIGURE=		yes
 PLIST_SUB=		X264_BUILD=${X264_BUILD}
-DISTNAME=		x264-snapshot-${X264_SNAPSHOT}-stable
+DISTNAME=		x264-${X264_GITVER}-${X264_COMMIT}
 CFLAGS=			-I{{LOCALBASE}}/include/libav
 LDFLAGS=		-L{{LOCALBASE}}/lib/libav
 			-Wl,-rpath,{{LOCALBASE}}/lib/libav

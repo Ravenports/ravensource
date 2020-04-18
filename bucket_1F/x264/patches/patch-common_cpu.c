@@ -1,4 +1,4 @@
---- common/cpu.c.orig	2019-03-11 21:45:04 UTC
+--- common/cpu.c.orig	2019-11-26 23:50:00 UTC
 +++ common/cpu.c
 @@ -33,7 +33,7 @@
  #if SYS_BEOS
@@ -23,7 +23,7 @@
  #elif SYS_LINUX
  
  uint32_t x264_cpu_detect( void )
-@@ -462,7 +469,7 @@ int x264_cpu_num_processors( void )
+@@ -460,7 +467,7 @@ int x264_cpu_num_processors( void )
      get_system_info( &info );
      return info.cpu_count;
  
