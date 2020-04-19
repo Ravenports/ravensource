@@ -15,10 +15,12 @@ fi
 # this doesn't work; some ports have names list python-python-dateutils !
 # list=$(awk -F "python-" '{print $2}' list.python)
 
-list=$(awk '{print substr($1, 8)}' list.python)
+# I removed "^python-" from list....
+#list=$(awk '{print substr($1, 8)}' list.python)
+list=$(cat list.python)
 
 rm -rf ${LOG}
 
 for pypiname in ${list}; do
    ./generate_python_port.sh ${pypiname} 2>&1 | tee -a ${LOG}
-done
+done 

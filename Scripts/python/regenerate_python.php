@@ -1,6 +1,6 @@
 #!/raven/bin/php74
 <?php
-# Requires php74 with openssl extension
+# Requires php74 with openssl and json extensions
 # if arguments are given, they are used as the toplevel ports,
 # overriding the master top-level ports list
 

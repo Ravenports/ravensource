@@ -41,6 +41,13 @@ function etag_exists ($namebase) {
 }
 
 
+# Returns true if json exists and is not empty
+function json_exists ($namebase) {
+    $json_file = json_filename ($namebase);
+    return file_exists($json_file) && (filesize($json_file) > 0); 
+}
+
+
 # Returns value of previously retrieved etag
 function stored_etag ($namebase) {
     $etag_file = etag_filename ($namebase);
@@ -96,12 +103,29 @@ function extract_etag ($response_header) {
 }
 
 
-# Searches the HTTP response header and return True if 304 (not modified)
+# Searches the HTTP response header and returns True if 304 (not modified)
 # response has been returned.
 function use_cached_json ($response_header) {
     return (strstr($response_header[0], "304 Not Modified") !== False);
 }
 
+
+# Searches the HTTP response header and returns True if 301 (moved)
+# response has been returned.
+function moved_permanently ($response_header) {
+    return (strstr($response_header[0], "301 Moved Permanently") !== False);
+}
+
+
+# Searches the HTTP response header for the redirection address
+function new_location ($response_header) {
+    foreach ($response_header as $line) {
+        if (substr($line, 0, 9) == "Location:") {
+            return substr($line, 10);
+        }
+    }
+    return "Location not found";
+}
 
 # Get the latest json file.
 # The PyPi site supports etags, so cache previous results.
@@ -131,6 +155,11 @@ function fetch_from_pypi ($namebase) {
             echo "Cached\n";
             return stored_json($namebase);
         } else {
+            # check for valid namebase
+            if (moved_permanently ($http_response_header)) {
+                exit ("\nFATAL: $namebase permanent moved to " . 
+                      new_location ($http_response_header) . "\n");
+            }
             $new_etag = extract_etag($http_response_header);
             if ($new_etag !== false) {
                 write_etag ($namebase, $new_etag);
@@ -165,15 +194,54 @@ function scrape_python_info ($namebase, $force) {
         "license"     => "UNSET",
         "homepage"    => "UNSET",
         "distfile"    => "ERROR",
+        "md5sum"      => "ERROR",
+        "min_python"  => "UNSET",
         "buildrun"    => array(),
         "req_comment" => "# install_requires extracted from setup.py\n",
     );
     
-    if ($force) {
+    if ($force || !json_exists ($namebase)) {
         delete_stored_etag ($namebase);
     }
     if (fetch_from_pypi ($namebase) !== False) {
-        ;;
+         $module_json = stored_json ($namebase);
+         $obj = json_decode($module_json, false, 512, JSON_INVALID_UTF8_IGNORE);
+         if (is_null ($obj)) {
+             return $result;
+         }
+         $version = $obj->info->version;
+         if (!is_array ($obj->releases->$version)) {
+             return $result;
+         }
+         $result["version"]     = $version;
+         $result["comment"]     = $obj->info->summary;
+         $result["description"] = $obj->info->description;
+         $result["license"]     = $obj->info->license;
+         $result["homepage"]    = $obj->info->home_page;
+     
+         foreach ($obj->releases->$version as $entry) {
+             if ($entry->packagetype == "sdist") {
+                 $result["md5sum"]   = $entry->md5_digest;
+                 $result["distfile"] = $entry->filename;
+                 $result["min_python"] = 
+                     is_null($entry->requires_python) ?
+                     "none" : 
+                     (empty($entry->requires_python) ?
+                         "none" :
+                         $entry->requires_python);
+                 break;
+             }
+         }
+         $result["success"] = true;
+         
+#         if ($result["min_python"] != "none") {
+#             echo "   min python = " . $result["min_python"] . "\n";
+#         }
+#         echo $result["version"] . "\n";
+#         print_r($result);
+#         var_dump($obj->releases->$x);
+#         var_dump($obj["info"]);
+#         var_dump(json_decode($module_json));   
     } 
     return $result;
 }
