@@ -1,4 +1,4 @@
---- lib/signal.in.h.orig	2017-02-15 20:34:54 UTC
+--- lib/signal.in.h.orig	2017-03-07 13:51:20 UTC
 +++ lib/signal.in.h
 @@ -60,6 +60,7 @@
     But avoid namespace pollution on glibc systems.*/
