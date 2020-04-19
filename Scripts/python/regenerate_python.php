@@ -11,17 +11,19 @@ define ("DESCRIPTIONS", "description");
 define ("DEAD_HOMEPAGES", "deadhome");
 define ("TOPLEVEL_PORTS", "toplevel");
 define ("HTTP_REDIRECT", "redirect");
-define ("VERSION_OVERRIDE", "version");
+define ("CORRECTIONS", "depfixes");
+define ("LEGACY", "legacy");
 
 require_once $SCRIPTDIR . "/keyed-lists.php";
-require_once $SCRIPTDIR . "/scrape_gem.php";
+require_once $SCRIPTDIR . "/scrape_python.php";
 
 # Load databases
 ingest_file (SUMMARIES, $SCRIPTDIR);
 ingest_file (DESCRIPTIONS, $SCRIPTDIR);
 ingest_file (DEAD_HOMEPAGES, $SCRIPTDIR);
 ingest_file (HTTP_REDIRECT, $SCRIPTDIR);
-ingest_file (VERSION_OVERRIDE, $SCRIPTDIR);
+ingest_file (CORRECTIONS, $SCRIPTDIR);
+ingest_file (LEGACY, $SCRIPTDIR);
 set_top_level_ports (TOPLEVEL_PORTS, $SCRIPTDIR);
 
 # global variables
@@ -29,8 +31,8 @@ $namebase_queue = array();
 $port_data = array();
 $truncated_summaries = array();
 $ravensource_directory = "";
-$VA = 25;	# single point of change when ruby
-$VB = 26;	# series are changed in ravenports
+$VA = 38;	# single point of change when python
+$VB = 37;	# series are changed in ravenports
 $VC = 27;
 $RUBY_VERSION_A = -1;
 $RUBY_VERSION_B = -1;
@@ -385,9 +387,9 @@ foreach (array_keys($port_data) as $namebase) {
 }
 
 if (count($truncated_summaries)) {
-    echo "The following gem ports have summaries that are too long:\n";
+    echo "The following python ports have summaries that are too long:\n";
     foreach ($truncated_summaries as $namebase) {
-        echo "  ruby-" . $namebase . "\n";
+        echo "  python-" . $namebase . "\n";
     }
 }
 

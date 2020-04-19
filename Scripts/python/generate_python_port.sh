@@ -57,9 +57,9 @@ raven_req3a=unset
 raven_req3b=unset
 pathtoexec=$(realpath $0)
 thisdir=$(dirname ${pathtoexec})
-DEADLIST=${thisdir}/dead-homepage.list
-SUMOVER=${thisdir}/summary-override.list
-DESCOVERLIST=${thisdir}/description-override.list
+DEADLIST=${thisdir}/list.dead-homepage
+SUMOVER=${thisdir}/list.summary-override
+DESCOVERLIST=${thisdir}/list.description-override
 INHIBIT_VARIANTS=
 
 LANG=en_US.UTF-8
