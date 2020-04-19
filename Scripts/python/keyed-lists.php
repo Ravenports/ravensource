@@ -21,7 +21,8 @@ function ingest_file ($datatype, $scriptdir) {
         $data_homepage,
         $data_https_redirect,
         $data_toplevel_ports,
-        $data_corrections;
+        $data_corrections,
+        $data_legacy;
 
     $filename = "";
     $varname = "";
@@ -52,7 +53,7 @@ function ingest_file ($datatype, $scriptdir) {
             $varname = "data_corrections";
             break;
         case "legacy":
-            $filename = "list.legacy_py27";
+            $filename = "list.legacy_27";
             $varname = "data_legacy";
             break;
         default:

@@ -15,7 +15,7 @@ define ("CORRECTIONS", "depfixes");
 define ("LEGACY", "legacy");
 
 require_once $SCRIPTDIR . "/keyed-lists.php";
-require_once $SCRIPTDIR . "/scrape_python.php";
+require_once $SCRIPTDIR . "/scrape_pypi.php";
 
 # Load databases
 ingest_file (SUMMARIES, $SCRIPTDIR);
@@ -48,12 +48,21 @@ function set_initial_queue() {
 }
 
 
-# Goes though the queue iteratively until the queue is empty after a pass
+# Goes though the queue once 
+# iteratively until the queue is empty after a pass
 # During each pass, dependencies are tracked and added to the queue at the end.
 function cycle_through_queue ($force_setting) {
     global
         $port_data,
         $namebase_queue;
+
+    set_up_cache();
+    foreach ($namebase_queue as $namebase) {
+        $port_data[$namebase] = scrape_python_info ($namebase, $force_setting);
+    }
+    
+    return;
+
 
     $already_seen = array();
     $local_queue = $namebase_queue;
@@ -370,12 +379,9 @@ EOD;
 }
 
 define_ravensource();
-set_ruby_version ($ravensource_directory);
+# set_ruby_version ($ravensource_directory);
 
 set_initial_queue();
-if (!download_latest_specs()) {
-    exit("Regeneration failed.\n");
-}
 $force = in_array("--force", $argv);
 cycle_through_queue($force);
 
@@ -383,7 +389,7 @@ echo "Number of scanned ports: " . count($port_data) . "\n";
 echo "Generating port directories and fetching ....\n";
 
 foreach (array_keys($port_data) as $namebase) {
-    generate_port($namebase);
+#    generate_port($namebase);
 }
 
 if (count($truncated_summaries)) {
