@@ -1,0 +1,45 @@
+This directory contains the python module generator.
+
+It works recursively -- meaning when provided the name of a module to
+generate, it will generate all the dependencies of that module, and
+their dependencies, etc.
+
+It will accept arguments as names of python ports to build.
+If given no arguments, it will use contents of the list.python
+file as its build list.
+
+.e.g.	./regenerate_python.php botocore furl
+	./regenerate_python.php
+
+If the switch "--force" is provided, the script will ignore any cached
+files and refetch (and overwrite if it has too).
+
+Files to augment over time:
+list.python	 		All generated python modules in Ravenports
+list.dead-homepage		List of python ports with homepage urls
+				that don't resolve
+list.https-redirect		List of http:// urls that have permanent
+				redirects to https
+list.description-override	Keyed table: namebase => new description
+				(use '\n' to indicate newlines).
+list.summary-override		Keyed table: namebase => new summary
+				(limited to 50 characters)
+list.version-override		Keyed table: namebase => specified version
+list.corrections		Keyed table: ravenport namebase =>
+                                corrected ravenport namebase
+list.legacy_27			list of ports that have python 2.7 variants
+
+Python module central site:
+https://pypi.org/
+
+Customization:
+The generator only produces the specification file, the distinfo file, and
+the descriptions/desc.single file.  Maintainers must add the patches,
+files, <opsys> directories as needed.  Tthe "USES=python" module will
+automatically create a (partial?) manifest if a setup.py file exists.
+
+If there is a specification.manual file in the port's directory, it will be
+concatenated to the end of the generated specification.
+
+Misc: command to remove trailing whitespace  
+perl -pi -e 's,[ \t]+$,,' <filename>

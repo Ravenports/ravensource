@@ -34,9 +34,9 @@ $ravensource_directory = "";
 $VA = 38;	# single point of change when python
 $VB = 37;	# series are changed in ravenports
 $VC = 27;
-$RUBY_VERSION_A = -1;
-$RUBY_VERSION_B = -1;
-$RUBY_VERSION_C = -1;
+$PYTHON_VERSION_A = -1;
+$PYTHON_VERSION_B = -1;
+$PYTHON_VERSION_C = -1;
 
 # Sets the initial scan list as the top-level ports
 function set_initial_queue() {
@@ -48,9 +48,7 @@ function set_initial_queue() {
 }
 
 
-# Goes though the queue once 
-# iteratively until the queue is empty after a pass
-# During each pass, dependencies are tracked and added to the queue at the end.
+# Python generator isn't recursive, so we only make one pass.
 function cycle_through_queue ($force_setting) {
     global
         $port_data,
@@ -59,35 +57,9 @@ function cycle_through_queue ($force_setting) {
     set_up_cache();
     foreach ($namebase_queue as $namebase) {
         $port_data[$namebase] = scrape_python_info ($namebase, $force_setting);
-    }
-    
-    return;
-
-
-    $already_seen = array();
-    $local_queue = $namebase_queue;
-
-    while (count($local_queue)) {
-        $queue_candidates = array();
-
-        foreach ($local_queue as $namebase) {
-            $port_data[$namebase] = scrape_gem_info($namebase, $force_setting);
-            if ($port_data[$namebase]["success"]) {
-                foreach ($port_data[$namebase]["buildrun"] as $brdep) {
-                   $queue_candidates[$brdep] = true;
-                }
-            } else {
-                echo "====================> FAILED TO RETRIEVE: $namebase\n";
-            }
-            $already_seen[$namebase] = true;
+        if (!$port_data[$namebase]["success"]) {
+            echo "Error scanning $namebase port\n";
         }
-        $unique_queue = array();
-        foreach (array_keys($queue_candidates) as $candidate) {
-            if (!array_key_exists($candidate, $already_seen)) {
-                $unique_queue[$candidate] = true;
-            }
-        }
-        $local_queue = array_keys($unique_queue);
     }
 }
 
@@ -109,20 +81,20 @@ function bucket_directory($namebase) {
 }
 
 
-# Slurp raven.versions.mk to determine latest ruby version
-function set_ruby_version($ravensource) {
+# Slurp raven.versions.mk to determine latest python version
+function set_python_version($ravensource) {
     global
         $VA, $VB, $VC,
-        $RUBY_VERSION_A,
-        $RUBY_VERSION_B,
-        $RUBY_VERSION_C;
+        $PYTHON_VERSION_A,
+        $PYTHON_VERSION_B,
+        $PYTHON_VERSION_C;
 
     $PA = substr($VA, 0, 1) . "[.]" . substr($VA, 1, 1);
     $PB = substr($VB, 0, 1) . "[.]" . substr($VB, 1, 1);
     $PC = substr($VC, 0, 1) . "[.]" . substr($VC, 1, 1);
-    $RA = "/RUBY_".$PA."_VERSION=\t([0-9]+)[.]([0-9]+)[.]([0-9]+)/U";
-    $RB = "/RUBY_".$PB."_VERSION=\t([0-9]+)[.]([0-9]+)[.]([0-9]+)/U";
-    $RC = "/RUBY_".$PC."_VERSION=\t([0-9]+)[.]([0-9]+)[.]([0-9]+)/U";
+    $RA = "/PYTHON_".$PA."_VERSION=\t([0-9]+)[.]([0-9]+)[.]([0-9]+)/U";
+    $RB = "/PYTHON_".$PB."_VERSION=\t([0-9]+)[.]([0-9]+)[.]([0-9]+)/U";
+    $RC = "/PYTHON_".$PC."_VERSION=\t([0-9]+)[.]([0-9]+)[.]([0-9]+)/U";
     $rvm = $ravensource . "/Scripts/Ravenports_Mk/raven.versions.mk";
 
     $contents = file_get_contents($rvm);
@@ -130,19 +102,19 @@ function set_ruby_version($ravensource) {
         exit ("failed to ingest raven.versions.mk");
     } else {
         if (preg_match($RA, $contents, $matches) == 1) {
-            $RUBY_VERSION_A = (int)$matches[1] * 10000 +
-                              (int)$matches[2] *   100 +
-                              (int)$matches[3];
+            $PYTHON_VERSION_A = (int)$matches[1] * 10000 +
+                                (int)$matches[2] *   100 +
+                                (int)$matches[3];
         }
         if (preg_match($RB, $contents, $matches) == 1) {
-            $RUBY_VERSION_B = (int)$matches[1] * 10000 +
-                              (int)$matches[2] *   100 +
-                              (int)$matches[3];
+            $PYTHON_VERSION_B = (int)$matches[1] * 10000 +
+                                (int)$matches[2] *   100 +
+                                (int)$matches[3];
         }
         if (preg_match($RC, $contents, $matches) == 1) {
-            $RUBY_VERSION_C = (int)$matches[1] * 10000 +
-                              (int)$matches[2] *   100 +
-                              (int)$matches[3];
+            $PYTHON_VERSION_C = (int)$matches[1] * 10000 +
+                                (int)$matches[2] *   100 +
+                                (int)$matches[3];
         }
     }
 }
@@ -150,84 +122,129 @@ function set_ruby_version($ravensource) {
 
 # Given a ruby version ("25, "26, "27", etc) and a minimum version string,
 # return True if the port builds on the given version.
-function meets_minimum_version_requirement ($RUBYVER, $minimum_ver_string) {
+function meets_version_requirements ($PYVER, $requirements_string) {
     global
         $VA, $VB, $VC,
-        $RUBY_VERSION_A,
-        $RUBY_VERSION_B,
-        $RUBY_VERSION_C;
+        $PYTHON_VERSION_A,
+        $PYTHON_VERSION_B,
+        $PYTHON_VERSION_C;
 
-    switch ($RUBYVER) {
-        case $VA : $ruby_version = $RUBY_VERSION_A; break;
-        case $VB : $ruby_version = $RUBY_VERSION_B; break;
-        case $VC : $ruby_version = $RUBY_VERSION_C; break;
-        default  : exit ("Dev error: unrecognized RUBYVER ($RUBYVER)\n");
+    switch ($PYVER) {
+        case $VA : $py_version = $PYTHON_VERSION_A; break;
+        case $VB : $py_version = $PYTHON_VERSION_B; break;
+        case $VC : $py_version = $PYTHON_VERSION_C; break;
+        default  : exit ("Dev error: unrecognized PYVER ($PYVER)\n");
     }
 
     # possible strings:
-    # "> X", "> X.Y", ">= X", ">= X.Y.Z", "~> X.Y", "!= X.Y.Z"
-    $valid_operators = array (">", ">=", "~>", "!=");
-    $parts = explode (" ", $minimum_ver_string);
+    # ">=2.7", "!=3.0.*", "<4.0", ">3.7.4", "!=3.1.2" (assumed)
+    $valid_operators = array (">", ">=", "!=", "<", "<=");
+    $requirements = explode (",", $requirements_string);
 
-    if (!in_array($parts[0], $valid_operators)) {
-        exit ("Dev error: unrecognized version comparison operator: " .
-               $parts[0] . "\n");
+    $satisfied = true;
+    if ($requirements_string == "none") {
+        return $satisfied;
     }
-    $minver = 0;
-    $nexver = 0;
-    $verparts = explode (".", trim($parts[1]));
-    switch (count($verparts)) {
-        case 1:
-            $minver = (int)$verparts[0] * 10000;
-            $nexver = $minver + 10000;  // doesn't really make sense ..
+    foreach ($requirements_string as $requirement) {
+        $success = preg_match("/^([<>!][=]?)([0-9][.][0-9.*]*)/",
+                             $requirement, $matches);
+        if ($success) {
+            $operator = $matches[1];
+            $target   = $matches[2];
+            if (!in_array($operator, $valid_operators)) {
+               exit ("Dev error: unrecognized version comparison" .
+                     " operator: $operator\n");
+            }
+        } else {
+            exit ("Dev error: failed to match '$requirement' version\n");
+        }
+        $minver = 0;
+        $nexver = 0;
+        $verparts = explode (".", trim($target));
+        # asterisk only appears on 3rd component and only on != operator
+        switch (count($verparts)) {
+            case 1:
+                $minver = (int)$verparts[0] * 10000;
+                $nexver = $minver + 10000;  # not used
             break;
-        case 2:
-            $minver = (int)$verparts[0] * 10000 +
-                      (int)$verparts[1] * 100;
-            $nexver = (int)$verparts[0] * 10000 +
-                      10000;
-            break;
-        case 3:
-            $minver = (int)$verparts[0] * 10000 +
-                      (int)$verparts[1] * 100 +
-                      (int)$verparts[2];
-            $nexver = (int)$verparts[0] * 10000 +
-                      (int)$verparts[1] * 100 +
-                      100;
-            break;
+            case 2:
+                $minver = (int)$verparts[0] * 10000 +
+                          (int)$verparts[1] * 100;
+                $nexver = (int)$verparts[0] * 10000 +
+                          10000;
+                break;
+            case 3:
+                if ($verparts[2] = "*") {
+                    $lastpart = 0;
+                } else {
+                    $lastpart = (int)$verparts[2];
+                }
+                $minver = (int)$verparts[0] * 10000 +
+                          (int)$verparts[1] * 100 +
+                          $lastpart;
+                $nexver = (int)$verparts[0] * 10000 +
+                          (int)$verparts[1] * 100 +
+                          100;
+                break;
         default:
-            exit ("Dev error: too many version parts: $parts[1]\n");
+            exit ("Dev error: too many version parts: $target\n");
+        }
+
+        switch ($operator) {
+            case ">":
+                if (!($py_version > $minver)) {
+                    $satisfied = false;
+                }
+            case ">=":
+                if (!($py_version >= $minver)) {
+                    $satisfied = false;
+                }
+            case "<":
+                if (!($py_version < $minver)) {
+                    $satisfied = false;
+                }
+            case "<=":
+                if (!($py_version <= $minver)) {
+                    $satisfied = false;
+                }
+            case "!=":
+                # inverted!  We're satisfied if we *don't* match
+                if ($py_version >= $minver && $py_version < $nexvar) {
+                    $satisfied = false;
+                }
+            default:
+                # can't happen
+                $satisfied = false;
+
+        }
+        if (!$satisfied) {
+            break;
+        }
     }
-    switch ($parts[0]) {
-        case ">":
-        case "!=":
-            return ($ruby_version > $minver);
-            break;
-        case ">=":
-            return ($ruby_version >= $minver);
-            break;
-        case "~>":
-            return ($ruby_version >= $minver && $ruby_version < $nexver);
-            break;
-        default:
-            return false;
-    }
+    return $satisfied;
 }
 
 
-# return an array of variants based on meeting minimum ruby version requirements
-function determine_variants($namebase, $minversion) {
-    global $VA, $VB, $VC;
+# return an array of variants based on meeting python version requirements
+# Python 2.7 is determined manually
+function determine_variants($namebase, $requirements) {
+    global $VA, $VB, $VC, $data_legacy;
 
     $variants = array();
-    foreach (array($VA, $VB, $VC) as $V) {
-        if (meets_minimum_version_requirement($V, $minversion)) {
-            array_push($variants, "v" . $V);
+    foreach (array($VA, $VB) as $V) {
+        if (meets_version_requirements($V, $requirements)) {
+            array_push($variants, "py" . $V);
         }
     }
+    if (in_array($namebase, $data_legacy)) {
+        if (meets_version_requirements($VC, $requirements)) {
+            array_push($variants, "py" . $VC);
+        }
+    }
+
     if (empty($variants)) {
-        exit("Major issue: ruby-$namebase minimum requirements "
-           . "exclude all ruby versions: $minversion\n");
+        exit("Major issue: python-$namebase version requirements "
+           . "exclude all python versions: $requirements\n");
     }
     return $variants;
 }
@@ -244,7 +261,7 @@ function generate_port($namebase) {
         $truncated_summaries,
         $ravensource_directory;
 
-    $portname = "ruby-" . $namebase;
+    $portname = "python-" . $namebase;
 
     $output_directory =
         $ravensource_directory .
@@ -284,6 +301,7 @@ function generate_port($namebase) {
     $tarball     = $port_data[$namebase]["distfile"];
     $license     = $port_data[$namebase]["license"];
     $raw_depends = $port_data[$namebase]["req_comment"];
+    $uri         = $port_data[$namebase]["pypi_uri"];
     $homepage    = sanitize_homepage ($namebase,
                                       $port_data[$namebase]["homepage"]);
 
@@ -306,30 +324,31 @@ function generate_port($namebase) {
     }
 
     # variant-base work
-    $variants = determine_variants ($namebase, $port_data[$namebase]["min_ruby"]);
+    $variants = determine_variants ($namebase, $port_data[$namebase]["min_python"]);
     $variants_block = join(" ", $variants);
     $primo = $variants[0];
     foreach ($variants as $V) {
         $prereturn = ($V == $primo) ? "" : "\n";
-        $comments_block    .= $prereturn . "SDESC[$V]=\t\t$comment ($V)";
+        $VX = strtoupper($V);
+        $comments_block    .= $prereturn . "SDESC[$V]=\t\t$comment ($VX)";
         $subpackages_block .= "SPKGS[$V]=\t\tsingle\n";
         $vopts_block       .= "VOPTS[$V]=\t\t";
         foreach ($variants as $Z) {
             $prespace = ($Z == $primo) ? "" : " ";
             $setting  = ($Z == $V) ? "ON" : "OFF";
-            $SZ = substr($Z, 1);
-            $vopts_block       .= $prespace . "RUBY" . $SZ . "=" . $setting;
+            $SZ = substr($Z, 2);
+            $vopts_block       .= $prespace . "PY" . $SZ . "=" . $setting;
         }
         $vopts_block .= "\n";
         $prespace = ($V == $primo) ? "" : " ";
-        $SV = substr($V, 1);
-        $available_options .= $prespace . "RUBY" . $SV;
-        $buildrun_block .= "[RUBY" . $SV . "].USES_ON=\t\t\tgem:$V\n";
+        $SV = substr($V, 2);
+        $available_options .= $prespace . "PY" . $SV;
+        $buildrun_block .= "[PY" . $SV . "].USES_ON=\t\t\t\tpython:$V\n";
         if (count($port_data[$namebase]["buildrun"])) {
-            $buildrun_block .= "[RUBY" . $SV . "].BUILDRUN_DEPENDS_ON=\t\t";
+            $buildrun_block .= "[PY" . $SV . "].BUILDRUN_DEPENDS_ON=\t\t";
             foreach ($port_data[$namebase]["buildrun"] as $DEP) {
                 $indent = ($DEP == $port_data[$namebase]["buildrun"][0]) ? "" : "\t\t\t\t\t";
-                $buildrun_block .= $indent . "ruby-" . $DEP . ":single:" . $V . "\n";
+                $buildrun_block .= $indent . "python-" . $DEP . ":single:" . $V . "\n";
             }
         }
     }
@@ -340,23 +359,22 @@ DEF[PORTVERSION]=	$portversion
 
 NAMEBASE=		$portname
 VERSION=		$pvbraces
-KEYWORDS=		ruby
+KEYWORDS=		python
 VARIANTS=		$variants_block
 $comments_block
 HOMEPAGE=		$homepage
-CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		RUBYGEMS/
+SITES[main]=		PYPI/$uri
 DISTFILE[1]=		$tarball:main
-DIST_SUBDIR=		ruby
 
 $subpackages_block
 OPTIONS_AVAILABLE=	$available_options
 OPTIONS_STANDARD=	none
 $vopts_block
-# License listed inside gem specification
-# => $license
+# License listed at PyPI
+# $license
 
 $raw_depends
 DISTNAME=		$namebase-$pvbraces
@@ -379,7 +397,7 @@ EOD;
 }
 
 define_ravensource();
-# set_ruby_version ($ravensource_directory);
+set_python_version ($ravensource_directory);
 
 set_initial_queue();
 $force = in_array("--force", $argv);

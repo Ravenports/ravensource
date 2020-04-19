@@ -87,7 +87,7 @@ function make_comment ($shortdesc) {
 # Returns the summary string to use in the specification
 # Argument 1: port's namebase
 # Argument 2: Original summary string
-# Returns an associative array:   summary   => <44 char max summary>
+# Returns an associative array:   summary   => <43 char max summary>
 #                                 truncated => boolean
 function sanitize_summary ($namebase, $original_summary) {
     global $data_summary;
@@ -107,8 +107,8 @@ function sanitize_summary ($namebase, $original_summary) {
     }
     # strip trailing periods
     $summary =  preg_replace('/[.]*$/', "", $summary);
-    $truncated = strlen ($summary) > 44;
-    $final_summary = $truncated ? substr($summary, 0, 44) : $summary;
+    $truncated = strlen ($summary) > 43;
+    $final_summary = $truncated ? substr($summary, 0, 43) : $summary;
     return array("summary" => $final_summary, "truncated" => $truncated);
 }
 
@@ -126,9 +126,63 @@ function produce_long_description
         $unixtext = str_replace ('\n', "\n", $data_description[$namebase]);
         $desctext = wordwrap ($unixtext, 75);
     } else {
-        $desctext = wordwrap ($original_description . "\n", 75);
+        # strip out images completely
+        $patt_image = '/[.][.][ ]image[:][:][\s\S]*[:]target[:].*[\n]/U';
+        $desctext = preg_replace($patt_image, "", $original_description);
+
+        # Replace "`` ... ``" with double quotes
+        $patt_quotes = "/[`][`]([\s\S]*)[`][`]/U";
+        $desctext = preg_replace($patt_quotes, '\1', $desctext);
+
+        # flatten links
+        $patt_link = '/[`]([\s\S]+)[<][\s\S]+[>][`]__/U';
+        $desctext = preg_replace($patt_link, '[\1]', $desctext);
+
+        # remove extra carriage returns
+        $desctext = preg_replace("/\n\n+/", "\n\n", $desctext);
+
+        # Fix link spaces
+        $desctext = str_replace(" ]", "]", $desctext);
+
+        # remove double spaces
+        $desctext = preg_replace("/[ ]+/", " ", $desctext);
+
+        # fix missing gap after dashes/double dashes
+        $desctext = preg_replace ('/(\n[-=]+)\n([[:graph:]])/U',
+                                  '\1'."\n\n".'\2', $desctext);
+
+        # identify bullets, et al
+        $patterns = array ( '/\n\n/',
+                            '/\n[*][ ]/',
+                            '/\n=====/',
+                            '/\n-----/',
+                            );
+        $replaces = array ( "<Bortles!>",
+                            "<bullet>",
+                            "<5Ddash>=====",
+                            "<5Sdash>-----",
+                            );
+        $desctext = preg_replace($patterns, $replaces, $desctext);
+
+        # join everything
+        $desctext = str_replace ("\n", " ", $desctext);
+
+        # Respace
+        $patterns = array ("<bullet>",
+                           "<5Ddash>",
+                           "<5Sdash>",
+                           "<Bortles!>");
+        $replaces = array ("\n* ", "\n", "\n", "\n\n");
+        $desctext = str_replace ($patterns, $replaces, $desctext);
+
+        $desctext = wordwrap ($desctext . "\n", 75);
     }
-    return $desctext;
+    if (substr_count ($desctext, "\n") > 100) {
+        $descarray = explode("\n", $desctext);
+        return join("\n", array_slice($descarray, 0, 100));
+    } else {
+        return $desctext;
+    }
 }
 
 

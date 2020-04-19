@@ -3,7 +3,7 @@
 $PYTHON_CACHE = "/var/cache/python";
 $PYTHON_CACHE_JSON = $PYTHON_CACHE . "/json";
 $PYTHON_CACHE_ETAG = $PYTHON_CACHE . "/etag";
-
+$PYTHON_CACHE_DIST = $PYTHON_CACHE . "/distfiles";
 
 # Returns name of etag file
 function etag_filename ($namebase) {
@@ -24,10 +24,14 @@ function json_filename ($namebase) {
 # Creates cache directories as necessary
 function set_up_cache () {
     global
+        $PYTHON_CACHE_DIST,
         $PYTHON_CACHE_ETAG,
         $PYTHON_CACHE_JSON;
-    
-    foreach (array($PYTHON_CACHE_ETAG, $PYTHON_CACHE_JSON) as $dir) {
+
+    foreach (array($PYTHON_CACHE_ETAG,
+                   $PYTHON_CACHE_JSON,
+                   $PYTHON_CACHE_DIST) as $dir)
+    {
         if (!file_exists($dir)) {
             mkdir ($dir, 0755, true);
         }
@@ -44,7 +48,7 @@ function etag_exists ($namebase) {
 # Returns true if json exists and is not empty
 function json_exists ($namebase) {
     $json_file = json_filename ($namebase);
-    return file_exists($json_file) && (filesize($json_file) > 0); 
+    return file_exists($json_file) && (filesize($json_file) > 0);
 }
 
 
@@ -127,6 +131,69 @@ function new_location ($response_header) {
     return "Location not found";
 }
 
+
+# Check for existing distfile and check md5
+# Return true if file exists and meets checksum
+function tarball_in_place ($tarball, $md5sum) {
+    global $PYTHON_CACHE_DIST;
+
+    $fileloc = $PYTHON_CACHE_DIST . "/" . $tarball;
+    if (file_exists($fileloc)) {
+        $file_md5 = md5_file($fileloc);
+        return ($file_md5 == $md5sum);
+    }
+    return false;
+}
+
+
+function download_tarball ($tarball, $pypi_uri) {
+   global $PYTHON_CACHE_DIST;
+
+   $outfile  = $PYTHON_CACHE_DIST . "/" . $tarball;
+   $upstream = "https://files.pythonhosted.org/packages/source/" .
+               $pypi_uri . "/" . $tarball;
+
+   if(file_put_contents($outfile, file_get_contents($upstream))) {
+       printf ("%-62s : %s\n", "", "Retrieved distfile");
+       return true;
+   } else {
+       echo "Failed to download $tarball\n";
+       return false;
+   }
+}
+
+
+# converts x, x.y, x.y.z into numeric value for comparison
+function convert_into_version ($raw) {
+    $result = 0;
+    $parts = explode (".", trim($raw));
+    switch (count($parts)) {
+        case 1:
+           $result = (int)$parts[0] * 1000000;
+           break;
+        case 2:
+           $result = (int)$parts[0] * 1000000 +
+                     (int)$parts[1] *    1000;
+        default:
+           $result = (int)$parts[0] * 1000000 +
+                     (int)$parts[1] *    1000 +
+                     (int)$parts[2];
+    }
+    return $result;
+}
+
+
+# formats minimum python
+function sanitize_min_python ($requires_python) {
+    $result = is_null($requires_python) ?
+             "none" :
+             (empty($requires_python) ?
+                 "none" :
+                 $requires_python);
+    return $result;
+}
+
+
 # Get the latest json file.
 # The PyPi site supports etags, so cache previous results.
 # If the PyPi server says the content is unmodified, return our cached file,
@@ -139,7 +206,7 @@ function fetch_from_pypi ($namebase) {
     printf ("%-62s : ", "Downloading $namebase");
     if (etag_exists($namebase)) {
         $etag = stored_etag ($namebase);
-        $http_scheme = array 
+        $http_scheme = array
             ("method" => "GET",
              "header" => "User-Agent: Ravenports Python Generator\r\n" .
                          "Accept: application/json\r\n" .
@@ -157,7 +224,7 @@ function fetch_from_pypi ($namebase) {
         } else {
             # check for valid namebase
             if (moved_permanently ($http_response_header)) {
-                exit ("\nFATAL: $namebase permanent moved to " . 
+                exit ("\nFATAL: $namebase permanent moved to " .
                       new_location ($http_response_header) . "\n");
             }
             $new_etag = extract_etag($http_response_header);
@@ -165,11 +232,11 @@ function fetch_from_pypi ($namebase) {
                 write_etag ($namebase, $new_etag);
             }
             write_json ($namebase, $json);
-            echo "Successful (new content downloaded)\n";
+            echo "Successful (new content)\n";
             return $json;
         }
     }
-    
+
     # No cache available, pull it unconditionally
     $json = file_get_contents($pypi_url);
     if ($json === False) {
@@ -196,10 +263,11 @@ function scrape_python_info ($namebase, $force) {
         "distfile"    => "ERROR",
         "md5sum"      => "ERROR",
         "min_python"  => "UNSET",
+        "pypi_uri"    => "UNSET",
         "buildrun"    => array(),
         "req_comment" => "# install_requires extracted from setup.py\n",
     );
-    
+
     if ($force || !json_exists ($namebase)) {
         delete_stored_etag ($namebase);
     }
@@ -218,31 +286,71 @@ function scrape_python_info ($namebase, $force) {
          $result["description"] = $obj->info->description;
          $result["license"]     = $obj->info->license;
          $result["homepage"]    = $obj->info->home_page;
-     
+         $result["pypi_uri"]	= substr($namebase, 0, 1) . "/" . $namebase;
+
+         $release_found = false;
          foreach ($obj->releases->$version as $entry) {
              if ($entry->packagetype == "sdist") {
+                 $release_found = true;
                  $result["md5sum"]   = $entry->md5_digest;
                  $result["distfile"] = $entry->filename;
-                 $result["min_python"] = 
-                     is_null($entry->requires_python) ?
-                     "none" : 
-                     (empty($entry->requires_python) ?
-                         "none" :
-                         $entry->requires_python);
+                 $result["min_python"] = sanitize_min_python
+                                           ($entry->requires_python);
                  break;
              }
          }
+         if (!$release_found) {
+             # There's a bad "version" number.  Search releases
+             # and take the highest available, then redefine "version"
+             # if none found, return with an error
+             $highest_version = 0;
+             $highest_key = "";
+             $highest_distfile = "";
+             $highest_md5sum = "";
+             $highest_minpy = "";
+
+             foreach ($obj->releases as $rv => $version_obj) {
+                foreach ($version_obj as $entry) {
+                    if ($entry->packagetype == "sdist") {
+                       $thisver = convert_into_version ($rv);
+                       if ($thisver > $highest_version) {
+                           $highest_version = $thisver;
+                           $highest_key = $rv;
+                           $highest_distfile = $entry->filename;
+                           $highest_md5sum   = $entry->md5_digest;
+                           $highest_minpy    = sanitize_min_python
+                                                 ($entry->requires_python);
+                       }
+                    }
+                }
+             }
+             if ($highest_version > 0) {
+                 $result["version"]  = $highest_key;
+                 $result["md5sum"]   = $highest_md5sum;
+                 $result["distfile"] = $highest_distfile;
+                 $result["min_python"] = $highest_minpy;
+             } else {
+                 return $result;
+             }
+         }
+
+         if (!tarball_in_place ($result["distfile"], $result["md5sum"])) {
+             if (download_tarball ($result["distfile"], $result["pypi_uri"])) {
+                 if (!tarball_in_place ($result["distfile"], $result["md5sum"])) {
+                    # failed to verify md5sum
+                    echo "Failed to verify md5 checksum of " . $result["distfile"] . "\n";
+                    return $result;
+                 }
+             } else {
+                 # failed to download tarball
+                 return $result;
+             }
+         }
+
          $result["success"] = true;
-         
-#         if ($result["min_python"] != "none") {
-#             echo "   min python = " . $result["min_python"] . "\n";
-#         }
-#         echo $result["version"] . "\n";
-#         print_r($result);
-#         var_dump($obj->releases->$x);
-#         var_dump($obj["info"]);
-#         var_dump(json_decode($module_json));   
-    } 
+    }
+
+
     return $result;
 }
 ?>
