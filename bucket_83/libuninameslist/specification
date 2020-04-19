@@ -1,5 +1,6 @@
-DEF[PORTVERSION]=	20200313
-DEF[SOVERSION]=		1.0.6
+DEF[PORTVERSION]=	20200413
+DEF[SOVERSION]=		1.0.7
+DEF[FR_SOVERSION]=	1.0.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libuninameslist
@@ -28,5 +29,9 @@ FPC_EQUIVALENT=		textproc/libuninameslist
 USES=			autoreconf gmake libtool
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
 CONFIGURE_ARGS=		--enable-frenchlib
 SOVERSION=		${SOVERSION}
+SINGLE_JOB=		yes
+PLIST_SUB=		FR_SOMAJOR=${FR_SOVERSION:R:R}
+			FR_SOVERSION=${FR_SOVERSION}
