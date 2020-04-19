@@ -39,6 +39,8 @@ while read ravenport version fpc_port; do
 
 	zlib) ;;		# deleted from FPC
 	aflex*) ;;		# deleted from FPC
+	go14) ;;		# ditto
+	ede) ;;			# ditto
 
 	fetch) ;;		# From DragonFly
 	makewhatis) ;;		# From DragonFly
@@ -52,6 +54,8 @@ while read ravenport version fpc_port; do
 	gnat-util) ;;		# Different version scheme from FPC
 	gprbuild) ;;		# Different version scheme from FPC
 	apr1|apr-util) ;;	# Different version scheme from FPC
+	aom) ;;                 # ditto
+	rtmpdump) ;;		# ditto
 	ImageMagick) ;;		# W.X.Y.Z rather than W.X.Y-Z
 	libcdio-paranoia) ;;	# Symbols in version fake as older
 	libunwind) ;;		# ditto
@@ -60,6 +64,7 @@ while read ravenport version fpc_port; do
 	cwm) ;;			# ditto
 	fonts-gentium-basic) ;;	# ditto
 	libdbusmenu-qt) ;;	# ditto
+	fontconfig) ;;          # FPC tracking beta versions
 
 	aspell-el) ;;		# requires EPOCH, 0.08 > 0.50 actually
 	hunspell-pt*) ;;	# Freebsd combines BR/PT, but raven splits them up
@@ -89,6 +94,7 @@ while read ravenport version fpc_port; do
 	XML_EZ_Out) ;;		# removed
 	libsparkcrypto) ;;	# removed
 	langkit) ;;		# removed
+	sparforte) ;;
 
 	liborcus-1.4) ;;	# legacy for libreoffice
 	mdds-1.4) ;;		# legacy for libreoffice
