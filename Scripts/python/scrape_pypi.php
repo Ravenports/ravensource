@@ -261,7 +261,6 @@ function fetch_from_pypi ($namebase) {
 function inline_fix_setup ($namebase, $src) {
    $known_issues = array (
        "drf-yasg"     => 's/    _install_setup_requires.*/    pass/',
-       "ruamel.yaml"  => '/include setup.py/ s/^.*/    pass/; /[\']sys.argv[\']/d; /compiling/d',
        "pyocr"        => '/PyOCR version/d',
        "lxml"         => '/Building lxml/d',
        "intervaltree" => '/print("Version/d; s/print("!!!.*/    pass/',
@@ -276,6 +275,7 @@ function inline_fix_setup ($namebase, $src) {
        "jsonpointer"  => '/pypandoc module not found/d; /Markdown to RST/d',
        "libversion"   => '/[*][*]pkgconfig/d',
        "cffi"         => '/__main__/ s|^.*$|if True:|',
+       "ruamel.yaml"  => '/__name__.*__main__/ s|^.*$|if False:|; /print..sys[.]argv/d',
        "django-colorful" => false,
    );
    $setup = $src . "/setup.py";
