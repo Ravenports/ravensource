@@ -5,8 +5,8 @@ NAMEBASE=		python-fs
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		py38 py37
-SDESC[py38]=		Python's filesystem abstraction layer (PY 38)
-SDESC[py37]=		Python's filesystem abstraction layer (PY 37)
+SDESC[py38]=		Python's filesystem abstraction layer (PY38)
+SDESC[py37]=		Python's filesystem abstraction layer (PY37)
 HOMEPAGE=		https://github.com/PyFilesystem/pyfilesystem2
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -22,25 +22,23 @@ OPTIONS_STANDARD=	none
 VOPTS[py38]=		PY38=ON PY37=OFF
 VOPTS[py37]=		PY38=OFF PY37=ON
 
-# Output of setup.py --license
+# License listed at PyPI
 # MIT
 
-GENERATED=		yes
-
-# install_requires extracted from setup.py (using python 2.7)
+# install_requires extracted from setup.py
 # appdirs~=1.4.3
 # pytz
 # setuptools
 # six~=1.10
 
 DISTNAME=		fs-${PORTVERSION}
+GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
 [PY38].BUILDRUN_DEPENDS_ON=		python-appdirs:single:py38
 					python-pytz:single:py38
 					python-setuptools:single:py38
 					python-six:single:py38
-
 [PY37].USES_ON=				python:py37
 [PY37].BUILDRUN_DEPENDS_ON=		python-appdirs:single:py37
 					python-pytz:single:py37

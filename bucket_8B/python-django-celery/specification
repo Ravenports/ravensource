@@ -3,10 +3,10 @@ DEF[PORTVERSION]=	3.3.1
 
 NAMEBASE=		python-django-celery
 VERSION=		${PORTVERSION}
-KEYWORDS=		python devel
+KEYWORDS=		python
 VARIANTS=		py38 py37
-SDESC[py38]=		Old django celery integration project (PY 38)
-SDESC[py37]=		Old django celery integration project (PY 37)
+SDESC[py38]=		Old django celery integration project (PY38)
+SDESC[py37]=		Old django celery integration project (PY37)
 HOMEPAGE=		http://celeryproject.org
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -22,21 +22,19 @@ OPTIONS_STANDARD=	none
 VOPTS[py38]=		PY38=ON PY37=OFF
 VOPTS[py37]=		PY38=OFF PY37=ON
 
-# Output of setup.py --license
+# License listed at PyPI
 # BSD
 
-GENERATED=		yes
-
-# install_requires extracted from setup.py (using python 2.7)
+# install_requires extracted from setup.py
 # celery>=3.1.15,<4.0
 # django>=1.8
 
 DISTNAME=		django-celery-${PORTVERSION}
+GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
 [PY38].BUILDRUN_DEPENDS_ON=		python-celery:single:py38
 					python-Django:single:py38
-
 [PY37].USES_ON=				python:py37
 [PY37].BUILDRUN_DEPENDS_ON=		python-celery:single:py37
 					python-Django:single:py37

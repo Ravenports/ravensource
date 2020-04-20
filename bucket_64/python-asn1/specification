@@ -1,18 +1,18 @@
-DEF[PORTVERSION]=	2.2.0
+DEF[PORTVERSION]=	2.3.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-asn1
 VERSION=		${PORTVERSION}
-KEYWORDS=		python devel
+KEYWORDS=		python
 VARIANTS=		py38 py37
-SDESC[py38]=		Simple ASN.1 encoder and decoder (PY 38)
-SDESC[py37]=		Simple ASN.1 encoder and decoder (PY 37)
+SDESC[py38]=		Simple ASN.1 encoder and decoder (PY38)
+SDESC[py37]=		Simple ASN.1 encoder and decoder (PY37)
 HOMEPAGE=		https://github.com/andrivet/python-asn1
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/a/asn1
-DISTFILE[1]=		asn1-2.2.0.tar.gz:main
+DISTFILE[1]=		asn1-2.3.0.tar.gz:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -22,16 +22,17 @@ OPTIONS_STANDARD=	none
 VOPTS[py38]=		PY38=ON PY37=OFF
 VOPTS[py37]=		PY38=OFF PY37=ON
 
-# Output of setup.py --license
+# License listed at PyPI
 # BSD
 
-GENERATED=		yes
-
-# install_requires extracted from setup.py (using python 2.7)
+# install_requires extracted from setup.py
+# enum34
 
 DISTNAME=		asn1-${PORTVERSION}
+GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
-
+[PY38].BUILDRUN_DEPENDS_ON=		python-enum34:single:py38
 [PY37].USES_ON=				python:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-enum34:single:py37
 

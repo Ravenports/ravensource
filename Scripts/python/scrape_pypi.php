@@ -371,12 +371,12 @@ EOF;
     $clean_reqs = array_filter(explode("\n", $requirements));
     $comment_reqs = preg_replace('/^/', '# ', $clean_reqs);
     $portdata["req_comment"] .= join("\n", $comment_reqs);
-    $stripped_reqs = preg_replace('/(.*)([><!=~].*)$/U', 'python-\1', $clean_reqs);
+    $stripped_reqs = preg_replace('/(.*)([><!=~].*)$/U', '\1', $clean_reqs);
     foreach ($stripped_reqs as $req) {
         if (array_key_exists ($req, $data_corrections)) {
             $req = $data_corrections[$req];
         }
-        array_push($portdata["buildrun"], $req);
+        array_push($portdata["buildrun"], "python-" . $req);
     }
 }
 

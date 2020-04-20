@@ -3,10 +3,10 @@ DEF[PORTVERSION]=	4.5.0
 
 NAMEBASE=		python-lxml
 VERSION=		${PORTVERSION}
-KEYWORDS=		python devel textproc
+KEYWORDS=		python
 VARIANTS=		py38 py37
-SDESC[py38]=		Powerful and Pythonic XML processing libra (PY 38)
-SDESC[py37]=		Powerful and Pythonic XML processing libra (PY 37)
+SDESC[py38]=		Binding to libxml2 and libxslt libraries (PY38)
+SDESC[py37]=		Binding to libxml2 and libxslt libraries (PY37)
 HOMEPAGE=		https://lxml.de/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -22,16 +22,16 @@ OPTIONS_STANDARD=	none
 VOPTS[py38]=		PY38=ON PY37=OFF
 VOPTS[py37]=		PY38=OFF PY37=ON
 
-# Output of setup.py --license
+# License listed at PyPI
 # BSD
 
-GENERATED=		yes
+# install_requires extracted from setup.py
 
-# install_requires extracted from setup.py (using python 2.7)
 
 DISTNAME=		lxml-${PORTVERSION}
+GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
-
 [PY37].USES_ON=				python:py37
+
 GNOME_COMPONENTS=	libxslt

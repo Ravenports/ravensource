@@ -5,8 +5,8 @@ NAMEBASE=		python-raet
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		py38 py37
-SDESC[py38]=		Reliable Asynchronous Event Transport (PY 38)
-SDESC[py37]=		Reliable Asynchronous Event Transport (PY 37)
+SDESC[py38]=		Reliable Asynchronous Event Transport (PY38)
+SDESC[py37]=		Reliable Asynchronous Event Transport (PY37)
 HOMEPAGE=		https://github.com/RaetProtocol/raet.git
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -22,29 +22,26 @@ OPTIONS_STANDARD=	none
 VOPTS[py38]=		PY38=ON PY37=OFF
 VOPTS[py37]=		PY38=OFF PY37=ON
 
-# Output of setup.py --license
+# License listed at PyPI
 # Apache2
 
-GENERATED=		yes
-
-# install_requires extracted from setup.py (using python 2.7)
+# install_requires extracted from setup.py
 # ioflo>=1.2.4
 # libnacl>=1.4.3
 # six>=1.6.1
-# enum34>=1.0.4
-# setuptools_git
+# setuptools_git >= 1.1
 
 DISTNAME=		raet-${PORTVERSION}
+GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
 [PY38].BUILDRUN_DEPENDS_ON=		python-ioflo:single:py38
 					python-libnacl:single:py38
 					python-six:single:py38
-					python-setuptools_git:single:py38
-
+					python-setuptools_git :single:py38
 [PY37].USES_ON=				python:py37
 [PY37].BUILDRUN_DEPENDS_ON=		python-ioflo:single:py37
 					python-libnacl:single:py37
 					python-six:single:py37
-					python-setuptools_git:single:py37
+					python-setuptools_git :single:py37
 

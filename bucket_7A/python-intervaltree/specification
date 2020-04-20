@@ -3,10 +3,10 @@ DEF[PORTVERSION]=	3.0.2
 
 NAMEBASE=		python-intervaltree
 VERSION=		${PORTVERSION}
-KEYWORDS=		python devel textproc
+KEYWORDS=		python
 VARIANTS=		py38 py37
-SDESC[py38]=		Editable interval tree data structure (PY 38)
-SDESC[py37]=		Editable interval tree data structure (PY 37)
+SDESC[py38]=		Editable interval tree data structure (PY38)
+SDESC[py37]=		Editable interval tree data structure (PY37)
 HOMEPAGE=		https://github.com/chaimleib/intervaltree
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -22,19 +22,23 @@ OPTIONS_STANDARD=	none
 VOPTS[py38]=		PY38=ON PY37=OFF
 VOPTS[py37]=		PY38=OFF PY37=ON
 
-# Output of setup.py --license
+# License listed at PyPI
 # Apache License, Version 2.0
 
-GENERATED=		yes
-
-# install_requires extracted from setup.py (using python 2.7)
-# sortedcontainers
+# install_requires extracted from setup.py
+# !!!>>> This is a RELEASE version <<<!!!
+# Version: 3.0.2
+# sortedcontainers >= 2.0, < 3.0
 
 DISTNAME=		intervaltree-${PORTVERSION}
+GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-sortedcontainers:single:py38
-
+[PY38].BUILDRUN_DEPENDS_ON=		python-:single:py38
+					python-Version: 3.0.2:single:py38
+					python-sortedcontainers :single:py38
 [PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-sortedcontainers:single:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-:single:py37
+					python-Version: 3.0.2:single:py37
+					python-sortedcontainers :single:py37
 

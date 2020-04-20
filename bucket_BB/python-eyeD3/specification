@@ -3,10 +3,10 @@ DEF[PORTVERSION]=	0.9.5
 
 NAMEBASE=		python-eyeD3
 VERSION=		${PORTVERSION}
-KEYWORDS=		python devel
+KEYWORDS=		python
 VARIANTS=		py38 py37
-SDESC[py38]=		Python audio data toolkit (ID3 and MP3) (PY 38)
-SDESC[py37]=		Python audio data toolkit (ID3 and MP3) (PY 37)
+SDESC[py38]=		Python audio data toolkit (ID3 and MP3) (PY38)
+SDESC[py37]=		Python audio data toolkit (ID3 and MP3) (PY37)
 HOMEPAGE=		https://eyed3.nicfit.net/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -22,25 +22,20 @@ OPTIONS_STANDARD=	none
 VOPTS[py38]=		PY38=ON PY37=OFF
 VOPTS[py37]=		PY38=OFF PY37=ON
 
-# Output of setup.py --license
+# License listed at PyPI
 # GNU GPL v3.0
 
-GENERATED=		yes
-
-# install_requires extracted from setup.py (using python 2.7)
-# dataclasses
+# install_requires extracted from setup.py
 # filetype
 # deprecation
 
 DISTNAME=		eyeD3-${PORTVERSION}
+GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-dataclasses:single:py38
-					python-filetype:single:py38
+[PY38].BUILDRUN_DEPENDS_ON=		python-filetype:single:py38
 					python-deprecation:single:py38
-
 [PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-dataclasses:single:py37
-					python-filetype:single:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-filetype:single:py37
 					python-deprecation:single:py37
 

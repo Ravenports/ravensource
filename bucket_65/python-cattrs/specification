@@ -5,8 +5,8 @@ NAMEBASE=		python-cattrs
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		py38 py37
-SDESC[py38]=		Composable complex class support for attrs (PY 38)
-SDESC[py37]=		Composable complex class support for attrs (PY 37)
+SDESC[py38]=		Composable complex class support for attrs (PY38)
+SDESC[py37]=		Composable complex class support for attrs (PY37)
 HOMEPAGE=		https://github.com/Tinche/cattrs
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -22,19 +22,17 @@ OPTIONS_STANDARD=	none
 VOPTS[py38]=		PY38=ON PY37=OFF
 VOPTS[py37]=		PY38=OFF PY37=ON
 
-# Output of setup.py --license
+# License listed at PyPI
 # MIT license
 
-GENERATED=		yes
-
-# install_requires extracted from setup.py (using python 2.7)
-# attrs
+# install_requires extracted from setup.py
+# attrs >= 17.3
 
 DISTNAME=		cattrs-${PORTVERSION}
+GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-attrs:single:py38
-
+[PY38].BUILDRUN_DEPENDS_ON=		python-attrs :single:py38
 [PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-attrs:single:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-attrs :single:py37
 

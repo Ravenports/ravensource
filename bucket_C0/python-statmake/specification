@@ -5,8 +5,8 @@ NAMEBASE=		python-statmake
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		py38 py37
-SDESC[py38]=		Applies STAT information from a Stylespace (PY 38)
-SDESC[py37]=		Applies STAT information from a Stylespace (PY 37)
+SDESC[py38]=		Applies STAT information from a Stylespace  (PY38)
+SDESC[py37]=		Applies STAT information from a Stylespace  (PY37)
 HOMEPAGE=		https://github.com/daltonmaag/statmake
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -22,23 +22,21 @@ OPTIONS_STANDARD=	none
 VOPTS[py38]=		PY38=ON PY37=OFF
 VOPTS[py37]=		PY38=OFF PY37=ON
 
-# Output of setup.py --license
-# UNKNOWN
+# License listed at PyPI
+# MIT
 
-GENERATED=		yes
-
-# install_requires extracted from setup.py (using python 2.7)
+# install_requires extracted from setup.py
 # attrs>=18.2
 # cattrs>=1.0,<2.0
 # fonttools[ufo]>=3.38
 
 DISTNAME=		statmake-${PORTVERSION}
+GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
 [PY38].BUILDRUN_DEPENDS_ON=		python-attrs:single:py38
 					python-cattrs:single:py38
 					python-fonttools:single:py38
-
 [PY37].USES_ON=				python:py37
 [PY37].BUILDRUN_DEPENDS_ON=		python-attrs:single:py37
 					python-cattrs:single:py37

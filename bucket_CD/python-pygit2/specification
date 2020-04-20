@@ -3,10 +3,10 @@ DEF[PORTVERSION]=	1.2.0
 
 NAMEBASE=		python-pygit2
 VERSION=		${PORTVERSION}
-KEYWORDS=		python devel
+KEYWORDS=		python
 VARIANTS=		py38 py37
-SDESC[py38]=		Python bindings for libgit2 (PY 38)
-SDESC[py37]=		Python bindings for libgit2 (PY 37)
+SDESC[py38]=		Python bindings for libgit2 (PY38)
+SDESC[py37]=		Python bindings for libgit2 (PY37)
 HOMEPAGE=		https://github.com/libgit2/pygit2
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -22,22 +22,26 @@ OPTIONS_STANDARD=	none
 VOPTS[py38]=		PY38=ON PY37=OFF
 VOPTS[py37]=		PY38=OFF PY37=ON
 
-# Output of setup.py --license
+# License listed at PyPI
 # GPLv2 with linking exception
 
-GENERATED=		yes
-
-# install_requires extracted from setup.py (using python 2.7)
+# install_requires extracted from setup.py
+# cffi
+# cached-property
+# cffi
 
 DISTNAME=		pygit2-${PORTVERSION}
+GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
 [PY38].BUILDRUN_DEPENDS_ON=		python-cffi:single:py38
 					python-cached-property:single:py38
-
+python-cffi:single:py38
 [PY37].USES_ON=				python:py37
 [PY37].BUILDRUN_DEPENDS_ON=		python-cffi:single:py37
 					python-cached-property:single:py37
+python-cffi:single:py37
+
 BUILDRUN_DEPENDS=	libgit2:single:standard
 MAKE_ENV=		LIBGIT2={{LOCALBASE}}
 

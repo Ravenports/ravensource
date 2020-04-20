@@ -5,8 +5,8 @@ NAMEBASE=		python-cryptography
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		py38 py37
-SDESC[py38]=		Cryptographic recipes and primitives (PY 38)
-SDESC[py37]=		Cryptographic recipes and primitives (PY 37)
+SDESC[py38]=		Cryptographic recipes and primitives (PY38)
+SDESC[py37]=		Cryptographic recipes and primitives (PY37)
 HOMEPAGE=		https://github.com/pyca/cryptography
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -22,22 +22,21 @@ OPTIONS_STANDARD=	none
 VOPTS[py38]=		PY38=ON PY37=OFF
 VOPTS[py37]=		PY38=OFF PY37=ON
 
-# Output of setup.py --license
+# License listed at PyPI
 # BSD or Apache License, Version 2.0
 
-GENERATED=		yes
-
-# install_requires extracted from setup.py (using python 2.7)
-# six
+# install_requires extracted from setup.py
+# six >= 1.4.1
 # cffi>=1.8,!=1.11.3
 
 DISTNAME=		cryptography-${PORTVERSION}
+GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-six:single:py38
+[PY38].BUILDRUN_DEPENDS_ON=		python-six :single:py38
 					python-cffi:single:py38
-
 [PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-six:single:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-six :single:py37
 					python-cffi:single:py37
+
 USES=			ssl

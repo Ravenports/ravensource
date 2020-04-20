@@ -3,10 +3,10 @@ DEF[PORTVERSION]=	0.4.6
 
 NAMEBASE=		python-python-gnupg
 VERSION=		${PORTVERSION}
-KEYWORDS=		python devel
+KEYWORDS=		python
 VARIANTS=		py38 py37
-SDESC[py38]=		Wrapper for the Gnu Privacy Guard library (PY 38)
-SDESC[py37]=		Wrapper for the Gnu Privacy Guard library (PY 37)
+SDESC[py38]=		Wrapper for the Gnu Privacy Guard library (PY38)
+SDESC[py37]=		Wrapper for the Gnu Privacy Guard library (PY37)
 HOMEPAGE=		https://docs.red-dove.com/python-gnupg/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -22,17 +22,16 @@ OPTIONS_STANDARD=	none
 VOPTS[py38]=		PY38=ON PY37=OFF
 VOPTS[py37]=		PY38=OFF PY37=ON
 
-# Output of setup.py --license
-# Copyright (C) 2008-2019 by Vinay Sajip. All Rights Reserved. See LICENSE.txt
-# for license.
+# License listed at PyPI
+# Copyright (C) 2008-2019 by Vinay Sajip. All Rights Reserved. See LICENSE.txt for license.
 
-GENERATED=		yes
+# install_requires extracted from setup.py
 
-# install_requires extracted from setup.py (using python 2.7)
 
 DISTNAME=		python-gnupg-${PORTVERSION}
+GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
-
 [PY37].USES_ON=				python:py37
+
 RUN_DEPENDS=		gnupg:primary:standard

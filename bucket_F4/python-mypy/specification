@@ -3,10 +3,10 @@ DEF[PORTVERSION]=	0.770
 
 NAMEBASE=		python-mypy
 VERSION=		${PORTVERSION}
-KEYWORDS=		python devel
+KEYWORDS=		python
 VARIANTS=		py38 py37
-SDESC[py38]=		Optional static typing for Python (PY 38)
-SDESC[py37]=		Optional static typing for Python (PY 37)
+SDESC[py38]=		Optional static typing for Python (PY38)
+SDESC[py37]=		Optional static typing for Python (PY37)
 HOMEPAGE=		http://www.mypy-lang.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -22,22 +22,23 @@ OPTIONS_STANDARD=	none
 VOPTS[py38]=		PY38=ON PY37=OFF
 VOPTS[py37]=		PY38=OFF PY37=ON
 
-# Output of setup.py --license
+# License listed at PyPI
 # MIT License
 
-GENERATED=		yes
-
-# install_requires extracted from setup.py (using python 2.7)
+# install_requires extracted from setup.py
+# typed_ast >= 1.4.0, < 1.5.0
+# typing_extensions>=3.7.4
+# mypy_extensions >= 0.4.3, < 0.5.0
 
 DISTNAME=		mypy-${PORTVERSION}
+GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-typed_ast:single:py38
+[PY38].BUILDRUN_DEPENDS_ON=		python-typed_ast :single:py38
 					python-typing_extensions:single:py38
-					python-mypy_extensions:single:py38
-
+					python-mypy_extensions :single:py38
 [PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-typed_ast:single:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-typed_ast :single:py37
 					python-typing_extensions:single:py37
-					python-mypy_extensions:single:py37
+					python-mypy_extensions :single:py37
 

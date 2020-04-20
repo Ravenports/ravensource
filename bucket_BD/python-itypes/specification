@@ -1,18 +1,18 @@
-DEF[PORTVERSION]=	1.1.0
+DEF[PORTVERSION]=	1.2.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-itypes
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		py38 py37
-SDESC[py38]=		Simple immutable types for python (PY 38)
-SDESC[py37]=		Simple immutable types for python (PY 37)
-HOMEPAGE=		https://github.com/tomchristie/itypes
+SDESC[py38]=		Simple immutable types for python (PY38)
+SDESC[py37]=		Simple immutable types for python (PY37)
+HOMEPAGE=		https://github.com/PavanTatikonda/itypes
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/i/itypes
-DISTFILE[1]=		itypes-1.1.0.tar.gz:main
+DISTFILE[1]=		itypes-1.2.0.tar.gz:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -22,16 +22,15 @@ OPTIONS_STANDARD=	none
 VOPTS[py38]=		PY38=ON PY37=OFF
 VOPTS[py37]=		PY38=OFF PY37=ON
 
-# Output of setup.py --license
+# License listed at PyPI
 # BSD
 
-GENERATED=		yes
+# install_requires extracted from setup.py
 
-# install_requires extracted from setup.py (using python 2.7)
 
 DISTNAME=		itypes-${PORTVERSION}
+GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
-
 [PY37].USES_ON=				python:py37
 

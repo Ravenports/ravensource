@@ -3,10 +3,10 @@ DEF[PORTVERSION]=	2.4.4
 
 NAMEBASE=		python-pylint
 VERSION=		${PORTVERSION}
-KEYWORDS=		python devel
+KEYWORDS=		python
 VARIANTS=		py38 py37
-SDESC[py38]=		Python code static checker (PY 38)
-SDESC[py37]=		Python code static checker (PY 37)
+SDESC[py38]=		Python code static checker (PY38)
+SDESC[py37]=		Python code static checker (PY37)
 HOMEPAGE=		https://github.com/PyCQA/pylint
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -22,16 +22,16 @@ OPTIONS_STANDARD=	none
 VOPTS[py38]=		PY38=ON PY37=OFF
 VOPTS[py37]=		PY38=OFF PY37=ON
 
-# Output of setup.py --license
+# License listed at PyPI
 # GPL
 
-GENERATED=		yes
+# install_requires extracted from setup.py
 
-# install_requires extracted from setup.py (using python 2.7)
 
 DISTNAME=		pylint-${PORTVERSION}
+GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
-
 [PY37].USES_ON=				python:py37
+
 BUILDRUN_DEPENDS=	python-pytest-runner:single:python_used

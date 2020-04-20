@@ -3,10 +3,10 @@ DEF[PORTVERSION]=	0.16.7
 
 NAMEBASE=		python-vdirsyncer
 VERSION=		${PORTVERSION}
-KEYWORDS=		python devel
+KEYWORDS=		python
 VARIANTS=		py38 py37
-SDESC[py38]=		Synchronize calendars and contacts (PY 38)
-SDESC[py37]=		Synchronize calendars and contacts (PY 37)
+SDESC[py38]=		Synchronize calendars and contacts (PY38)
+SDESC[py37]=		Synchronize calendars and contacts (PY37)
 HOMEPAGE=		https://github.com/pimutils/vdirsyncer
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -22,38 +22,37 @@ OPTIONS_STANDARD=	none
 VOPTS[py38]=		PY38=ON PY37=OFF
 VOPTS[py37]=		PY38=OFF PY37=ON
 
-# Output of setup.py --license
+# License listed at PyPI
 # BSD
 
-GENERATED=		yes
-
-# install_requires extracted from setup.py (using python 2.7)
+# install_requires extracted from setup.py
 # click>=5.0
-# click-log>=0.3.0,
+# click-log>=0.3.0, <0.4.0
 # click-threading>=0.2
-# requests
-# requests_toolbelt
+# requests >=2.4.1, !=2.9.0
+# requests_toolbelt >=0.4.0
 # atomicwrites>=0.1.7
-# setuptools_scm
+# setuptools_scm != 1.12.0
 
 DISTNAME=		vdirsyncer-${PORTVERSION}
+GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
 [PY38].BUILDRUN_DEPENDS_ON=		python-click:single:py38
 					python-click-log:single:py38
 					python-click-threading:single:py38
-					python-requests:single:py38
-					python-requests-toolbelt:single:py38
+					python-requests :single:py38
+					python-requests_toolbelt :single:py38
 					python-atomicwrites:single:py38
-					python-setuptools_scm:single:py38
-
+					python-setuptools_scm :single:py38
 [PY37].USES_ON=				python:py37
 [PY37].BUILDRUN_DEPENDS_ON=		python-click:single:py37
 					python-click-log:single:py37
 					python-click-threading:single:py37
-					python-requests:single:py37
-					python-requests-toolbelt:single:py37
+					python-requests :single:py37
+					python-requests_toolbelt :single:py37
 					python-atomicwrites:single:py37
-					python-setuptools_scm:single:py37
+					python-setuptools_scm :single:py37
+
 # For google calender support
 BUILDRUN_DEPENDS=	python-requests-oauthlib:single:python_used

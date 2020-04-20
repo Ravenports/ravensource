@@ -5,8 +5,8 @@ NAMEBASE=		python-borgbackup
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		py38 py37
-SDESC[py38]=		Deduplicated, encrypted, authenticated and (PY 38)
-SDESC[py37]=		Deduplicated, encrypted, authenticated and (PY 37)
+SDESC[py38]=		Deduplicated, encrypted, authenticated and  (PY38)
+SDESC[py37]=		Deduplicated, encrypted, authenticated and  (PY37)
 HOMEPAGE=		https://borgbackup.readthedocs.io/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -22,20 +22,20 @@ OPTIONS_STANDARD=	none
 VOPTS[py38]=		PY38=ON PY37=OFF
 VOPTS[py37]=		PY38=OFF PY37=ON
 
-# Output of setup.py --license
+# License listed at PyPI
 # BSD
 
-GENERATED=		yes
-
-# install_requires extracted from setup.py (using python 2.7)
+# install_requires extracted from setup.py
+# setuptools_scm>=1.7
 
 DISTNAME=		borgbackup-${PORTVERSION}
+GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
 [PY38].BUILDRUN_DEPENDS_ON=		python-setuptools_scm:single:py38
-
 [PY37].USES_ON=				python:py37
 [PY37].BUILDRUN_DEPENDS_ON=		python-setuptools_scm:single:py37
+
 USES=			ssl
 BUILD_DEPENDS=		Zstandard:static:standard
 			lz4:static:standard

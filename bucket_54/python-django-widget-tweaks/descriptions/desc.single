@@ -1,23 +1,14 @@
+==================== django-widget-tweaks
 ====================
-django-widget-tweaks
-====================
 
-.. image:: https://jazzband.co/static/img/badge.svg
-   :target: https://jazzband.co/
-   :alt: Jazzband
+ :alt: Jazzband
 
-.. image:: https://img.shields.io/pypi/v/django-widget-tweaks.svg
-   :target: https://pypi.python.org/pypi/django-widget-tweaks
-   :alt: PyPI Version
+ :alt: PyPI Version
 
-.. image::
-https://img.shields.io/travis/jazzband/django-widget-tweaks/master.svg
-   :target: http://travis-ci.org/jazzband/django-widget-tweaks
-   :alt: Build Status
+ :alt: Build Status
 
-
-Tweak the form field rendering in templates, not in python-level
-form definitions. Altering CSS classes and HTML attributes is supported.
+Tweak the form field rendering in templates, not in python-level form
+definitions. Altering CSS classes and HTML attributes is supported.
 
 That should be enough for designers to customize field presentation (using
 CSS and unobtrusive javascript) without touching python code.
@@ -29,17 +20,12 @@ Installation
 
 You can get Django Widget Tweaks by using pip::
 
-    $ pip install django-widget-tweaks
+ $ pip install django-widget-tweaks
 
 To enable `widget_tweaks` in your project you need to add it to
-`INSTALLED_APPS` in your projects
-`settings.py` file::
+`INSTALLED_APPS` in your projects `settings.py` file::
 
-    INSTALLED_APPS = [
-        ...
-        'widget_tweaks',
-        ...
-    ]
+ INSTALLED_APPS = [  ...  'widget_tweaks',  ...  ]
 
 Usage
 =====
@@ -47,60 +33,68 @@ Usage
 This app provides two sets of tools that may be used together or
 standalone:
 
-1. a ``render_field`` template tag for customizing form fields by using an
-   HTML-like syntax.
-2. several template filters for customizing form field HTML attributes and
-CSS
-   classes
+1. a render_field template tag for customizing form fields by using an
+HTML-like syntax. 2. several template filters for customizing form field
+HTML attributes and CSS  classes
 
-The ``render_field`` tag should be easier to use and should make form field
+The render_field tag should be easier to use and should make form field
 customizations much easier for designers and front-end developers.
 
-The template filters are more powerful than the ``render_field`` tag, but
-they
+The template filters are more powerful than the render_field tag, but they
 use a more complex and less HTML-like syntax.
 
 render_field
 ------------
 
 This is a template tag that can be used as an alternative to aforementioned
-filters.  This template tag renders a field using a syntax similar to plain
+filters. This template tag renders a field using a syntax similar to plain
 HTML attributes.
 
 Example::
 
-    {% load widget_tweaks %}
+ {% load widget_tweaks %}
 
-    <!-- change input type (e.g. to HTML5) -->
-    {% render_field form.search_query type="search" %}
+ <!-- change input type (e.g. to HTML5) -->  {% render_field
+form.search_query type="search" %}
 
-    <!-- add/change several attributes -->
-    {% render_field form.text rows="20" cols="20" title="Hello, world!" %}
+ <!-- add/change several attributes -->  {% render_field form.text
+rows="20" cols="20" title="Hello, world!" %}
 
-    <!-- append to an attribute -->
-    {% render_field form.title class+="css_class_1 css_class_2" %}
+ <!-- append to an attribute -->  {% render_field form.title
+class+="css_class_1 css_class_2" %}
 
-    <!-- template variables can be used as attribute values -->
-    {% render_field form.text placeholder=form.text.label %}
+ <!-- template variables can be used as attribute values -->  {%
+render_field form.text placeholder=form.text.label %}
 
-    <!-- double colon -->
-    {% render_field form.search_query v-bind::class="{active:isActive}" %}
+ <!-- double colon -->  {% render_field form.search_query
+v-bind::class="{active:isActive}" %}
 
+For fields rendered with {% render_field %} tag it is possible to set error
+class and required fields class by using WIDGET_ERROR_CLASS and
+WIDGET_REQUIRED_CLASS template variables::
 
-For fields rendered with ``{% render_field %}`` tag it is possible
-to set error class and required fields class by using
-``WIDGET_ERROR_CLASS`` and  ``WIDGET_REQUIRED_CLASS`` template variables::
-
-    {% with WIDGET_ERROR_CLASS='my_error'
-WIDGET_REQUIRED_CLASS='my_required' %}
-        {% render_field form.field1 %}
-        {% render_field form.field2 %}
-        {% render_field form.field3 %}
-    {% endwith %}
+ {% with WIDGET_ERROR_CLASS='my_error' WIDGET_REQUIRED_CLASS='my_required'
+%}  {% render_field form.field1 %}  {% render_field form.field2 %}  {%
+render_field form.field3 %}  {% endwith %}
 
 You can be creative with these variables: e.g. a context processor could
-set a default CSS error class on all fields rendered by
-``{% render_field %}``.
+set a default CSS error class on all fields rendered by {% render_field %}.
 
+attr ----
 
-attr
+Adds or replaces any single html attribute for the form field.
+
+Examples::
+
+ {% load widget_tweaks %}
+
+ <!-- change input type (e.g. to HTML5) -->  {{
+form.search_query|attr:"type:search" }}
+
+ <!-- add/change several attributes -->  {{
+form.text|attr:"rows:20"|attr:"cols:20"|attr:"title:Hello, world!" }}
+
+ <!-- attributes without parameters -->  {{
+form.search_query|attr:"autofocus" }}
+
+ <!-- attributes with double colon Vuejs output:

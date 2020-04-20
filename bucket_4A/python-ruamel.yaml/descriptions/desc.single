@@ -1,113 +1,100 @@
-
 ruamel.yaml
 ===========
 
-``ruamel.yaml`` is a YAML 1.2 loader/dumper package for Python.
+ruamel.yaml is a YAML 1.2 loader/dumper package for Python.
 
-:version:       0.16.10
-:updated:       2020-02-12
-:documentation: http://yaml.readthedocs.io
-:repository:    https://bitbucket.org/ruamel/yaml
-:pypi:          https://pypi.org/project/ruamel.yaml/
+:version: 0.16.10 :updated: 2020-02-12 :documentation:
+http://yaml.readthedocs.io :repository: https://bitbucket.org/ruamel/yaml
+:pypi: https://pypi.org/project/ruamel.yaml/
 
+Starting with version 0.15.0 the way YAML files are loaded and dumped is
+changing. See the API doc for details. Currently existing functionality
+will throw a warning before being changed/removed. **For production systems
+you should pin the version being used with ruamel.yaml<=0.15**. There might
+be bug fixes in the 0.14 series, but new functionality is likely only to be
+available via the new API.
 
-Starting with version 0.15.0 the way YAML files are loaded and dumped
-is changing. See the API doc for details.  Currently existing
-functionality will throw a warning before being changed/removed.
-**For production systems you should pin the version being used with
-``ruamel.yaml<=0.15``**. There might be bug fixes in the 0.14 series,
-but new functionality is likely only to be available via the new API.
+If your package uses ruamel.yaml and is not listed on PyPI, drop me an
+email, preferably with some information on how you use the package (or a
+link to bitbucket/github) and I'll keep you informed when the status of the
+API is stable enough to make the transition.
 
-If your package uses ``ruamel.yaml`` and is not listed on PyPI, drop
-me an email, preferably with some information on how you use the
-package (or a link to bitbucket/github) and I'll keep you informed
-when the status of the API is stable enough to make the transition.
+* [Overview])
 
-* `Overview <http://yaml.readthedocs.org/en/latest/overview.html>`_
-* `Installing <http://yaml.readthedocs.org/en/latest/install.html>`_
-* `Basic Usage <http://yaml.readthedocs.org/en/latest/basicuse.html>`_
-* `Details <http://yaml.readthedocs.org/en/latest/detail.html>`_
-* `Examples <http://yaml.readthedocs.org/en/latest/example.html>`_
-* `API <http://yaml.readthedocs.org/en/latest/api.html>`_
-* `Differences with PyYAML
-<http://yaml.readthedocs.org/en/latest/pyyaml.html>`_
+0.16.6 (2020-01-20):  - fix empty string mapping key roundtripping with
+preservation of quotes as [? ''`  (reported via email by Tomer Aharoni).  -
+fix incorrect state setting in class constructor (reported by `Douglas
+Raillard  ])  - adjust deprecation warning test for Hashable, as that no
+longer warns (reported  by [Jason Montleon])
 
-.. image:: https://readthedocs.org/projects/yaml/badge/?version=stable
-   :target: https://yaml.readthedocs.org/en/stable
+0.16.5 (2019-08-18):  - allow for YAML(typ=['unsafe', 'pytypes'])
 
-.. image:: https://bestpractices.coreinfrastructure.org/projects/1128/badge
-   :target: https://bestpractices.coreinfrastructure.org/projects/1128
+0.16.4 (2019-08-16):  - fix output of TAG directives with # (reported by
+[Thomas Smith  ])
 
-.. image::
-https://sourceforge.net/p/ruamel-yaml/code/ci/default/tree/_doc/_static/lic
-ense.svg?format=raw
-   :target: https://opensource.org/licenses/MIT
+0.16.3 (2019-08-15):  - split construct_object  - change stuff back to keep
+mypy happy  - move setting of version based on YAML directive to scanner,
+allowing to  check for file version during TAG directive scanning
 
-.. image::
-https://sourceforge.net/p/ruamel-yaml/code/ci/default/tree/_doc/_static/pyp
-i.svg?format=raw
-   :target: https://pypi.org/project/ruamel.yaml/
+0.16.2 (2019-08-15):  - preserve YAML and TAG directives on roundtrip,
+correctly output #  in URL for YAML 1.2 (both reported by [Thomas Smith  ])
 
-.. image::
-https://sourceforge.net/p/oitnb/code/ci/default/tree/_doc/_static/oitnb.svg
-?format=raw
-   :target: https://pypi.org/project/oitnb/
+0.16.1 (2019-08-08):  - Force the use of new version of ruamel.yaml.clib
+(reported by [Alex Joz  ])  - Allow '#' in tag URI as these are allowed in
+YAML 1.2 (reported by  [Thomas Smith  ])
 
-.. image:: http://www.mypy-lang.org/static/mypy_badge.svg
-   :target: http://mypy-lang.org/
+0.16.0 (2019-07-25):  - split of C source that generates .so file to
+ruamel.yaml.clib  - duplicate keys are now an error when working with the
+old API as well
 
-ChangeLog
-=========
+0.15.100 (2019-07-17):  - fixing issue with dumping deep-copied data from
+commented YAML, by  providing both the memo parameter to __deepcopy__, and
+by allowing  startmarks to be compared on their content (reported by
+[Theofilos  Petsios  ])
 
-.. should insert NEXT: at the beginning of line for next key (with empty
-line)
+0.15.99 (2019-07-12):  - add [py.typed` to distribution, based on a PR
+submitted by  `Michael Crusoe  ]  - merge PR 40 (also by Michael Crusoe) to
+more accurately specify  repository in the README (also reported in a
+misunderstood issue  some time ago)
 
-0.16.10 (2020-02-12):
-  - (auto) updated image references in README to sourceforge
+0.15.98 (2019-07-09):  - regenerate ext/_ruamel_yaml.c with Cython version
+0.29.12, needed  for Python 3.8.0b2 (reported by [John Vandenberg  ])
 
-0.16.9 (2020-02-11):
-  - update CHANGES
+0.15.97 (2019-06-06):  - regenerate ext/_ruamel_yaml.c with Cython version
+0.29.10, needed for  Python 3.8.0b1  - regenerate ext/_ruamel_yaml.c with
+Cython version 0.29.9, needed for  Python 3.8.0a4 (reported by [Anthony
+Sottile  ])
 
-0.16.8 (2020-02-11):
-  - update requirements so that ruamel.yaml.clib is installed for 3.8,
-    as it has become available (via manylinux builds)
+0.15.96 (2019-05-16):  - fix failure to indent comments on round-trip
+anchored block style  scalars in block sequence (reported by [William
+Kimball  ])
 
-0.16.7 (2020-01-30):
-  - fix typchecking issue on TaggedScalar (reported by Jens Nielsen)
-  - fix error in dumping literal scalar in sequence with comments before
-element
-    (reported by `EJ Etherington <https://sourceforge.net/u/ejether/>`__)
+0.15.95 (2019-05-16):  - fix failure to round-trip anchored scalars in
+block sequence  (reported by [William Kimball  ])  - wheel files for Python
+3.4 no longer provided ([Python 3.4 EOL 2019-03-18  ])
 
-0.16.6 (2020-01-20):
-  - fix empty string mapping key roundtripping with preservation of quotes
-as `? ''`
-    (reported via email by Tomer Aharoni).
-  - fix incorrect state setting in class constructor (reported by `Douglas
-Raillard
-    <https://bitbucket.org/%7Bcf052d92-a278-4339-9aa8-de41923bb556%7D/>`__)
-  - adjust deprecation warning test for Hashable, as that no longer warns
-(reported
-    by `Jason Montleon
-<https://bitbucket.org/%7B8f377d12-8d5b-4069-a662-00a2674fee4e%7D/>`__)
+0.15.94 (2019-04-23):  - fix missing line-break after end-of-file comments
+not ending in  line-break (reported by [Philip Thompson  ])
 
-0.16.5 (2019-08-18):
-  - allow for ``YAML(typ=['unsafe', 'pytypes'])``
+0.15.93 (2019-04-21):  - fix failure to parse empty implicit flow mapping
+key  - in YAML 1.1 plains scalars [y`, 'n', `Y`, and 'N' are now  correctly
+recognised as booleans and such strings dumped quoted  (reported by `Marcel
+Bollmann  ])
 
-0.16.4 (2019-08-16):
-  - fix output of TAG directives with # (reported by `Thomas Smith
-    <https://bitbucket.org/%7Bd4c57a72-f041-4843-8217-b4d48b6ece2f%7D/>`__)
+0.15.92 (2019-04-16):  - fix failure to parse empty implicit block mapping
+key (reported by   [Nolan W])
 
+0.15.91 (2019-04-05):  - allowing duplicate keys would not work for merge
+keys (reported by mamacdon on  [StackOverflow]
 
-0.16.3 (2019-08-15):
-  - split construct_object
-  - change stuff back to keep mypy happy
-  - move setting of version based on YAML directive to scanner, allowing to
-    check for file version during TAG directive scanning
+0.15.90 (2019-04-04):  - fix issue with updating [CommentedMap` from list
+of tuples (reported by   `Peter Henry])
 
-0.16.2 (2019-08-15):
-  - preserve YAML and TAG directives on roundtrip, correctly output #
-    in URL for YAML 1.2 (both reported by `Thomas Smith
-    <https://bitbucket.org/%7Bd4c57a72-f041-4843-8217-b4d48b6ece2f%7D/>`__)
+0.15.89 (2019-02-27):  - fix for items with flow-mapping in block sequence
+output on single line  (reported by [Zahari Dim])  - fix for safe dumping
+erroring in creation of representereror when dumping namedtuple  (reported
+and solution by [Jaakko Kantojärvi])
 
-0.16.1 (2019-08-08):
-  - Force the use of new version of ruamel.yaml.clib (reported by `Alex Joz
+0.15.88 (2019-02-12):  - fix inclusing of python code from the subpackage
+data (containing extra tests,  reported by [Florian Apolloner])
+

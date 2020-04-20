@@ -3,10 +3,10 @@ DEF[PORTVERSION]=	2.13.0
 
 NAMEBASE=		python-ufo2ft
 VERSION=		${PORTVERSION}
-KEYWORDS=		python devel graphics
+KEYWORDS=		python
 VARIANTS=		py38 py37
-SDESC[py38]=		Bridge between UFOs and FontTools (PY 38)
-SDESC[py37]=		Bridge between UFOs and FontTools (PY 37)
+SDESC[py38]=		Bridge between UFOs and FontTools (PY38)
+SDESC[py37]=		Bridge between UFOs and FontTools (PY37)
 HOMEPAGE=		https://github.com/googlefonts/ufo2ft
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -22,12 +22,10 @@ OPTIONS_STANDARD=	none
 VOPTS[py38]=		PY38=ON PY37=OFF
 VOPTS[py37]=		PY38=OFF PY37=ON
 
-# Output of setup.py --license
+# License listed at PyPI
 # MIT
 
-GENERATED=		yes
-
-# install_requires extracted from setup.py (using python 2.7)
+# install_requires extracted from setup.py
 # fonttools[ufo]>=4.4.0
 # cu2qu>=1.6.6
 # compreffor>=0.4.6
@@ -35,6 +33,7 @@ GENERATED=		yes
 # setuptools_scm
 
 DISTNAME=		ufo2ft-${PORTVERSION}
+GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
 [PY38].BUILDRUN_DEPENDS_ON=		python-fonttools:single:py38
@@ -42,7 +41,6 @@ DISTNAME=		ufo2ft-${PORTVERSION}
 					python-compreffor:single:py38
 					python-booleanOperations:single:py38
 					python-setuptools_scm:single:py38
-
 [PY37].USES_ON=				python:py37
 [PY37].BUILDRUN_DEPENDS_ON=		python-fonttools:single:py37
 					python-cu2qu:single:py37

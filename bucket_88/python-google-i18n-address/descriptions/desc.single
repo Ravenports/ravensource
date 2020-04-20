@@ -1,14 +1,12 @@
 Google i18n address
-===========================================================================
-================
+===========================================================================================
 
 |codecov.io| |Circle CI| |PyPi downloads| |requires.io| |PyPi version|
 |PyPi pythons| |GitHub|
 
-This package contains a copy of `Google's i18n
-address <https://chromium-i18n.appspot.com/ssl-address>`_ metadata
-repository
-that contains great data but comes with no uptime guarantees.
+This package contains a copy of `Google's i18n address
+<https://chromium-i18n.appspot.com/ssl-address>`_ metadata repository that
+contains great data but comes with no uptime guarantees.
 
 Contents of this package will allow you to programatically build address
 forms that adhere to rules of a particular region or country, validate
@@ -20,86 +18,83 @@ The package also contains a Python interface for address validation.
 Addresses validation
 --------------------
 
-The ``normalize_address`` function checks the address and either returns
-its
+The normalize_address function checks the address and either returns its
 canonical form (suitable for storage and use in addressing envelopes) or
-raises an ``InvalidAddress`` exception that contains a list of errors.
+raises an InvalidAddress exception that contains a list of errors.
 
-
-Address fields
-~~~~~~~~~~~~~~
+Address fields ~~~~~~~~~~~~~~
 
 Here is the list of recognized fields:
 
-* ``country_code`` is a two-letter ISO 3166-1 country code
-* ``country_area`` is a designation of a region, province or state,
-  recognized values include official names, designated abbreviations,
-  official translations and latin transliterations
-* ``city`` is a city or town name, recognized values include official
-names,
-  official translations and latin transliterations
-* ``city_area`` is a sublocality like a district, recognized values include
-  official names, official translations and latin transliterations
-* ``street_address`` is the (possibly multiline) street address
-* ``postal_code`` is a postal code or zip code
-* ``sorting_code`` is a sorting code
-* ``name`` is a person's name
-* ``company_name`` is a name of a company or organization
+* country_code is a two-letter ISO 3166-1 country code
+* country_area is a designation of a region, province or state,  recognized
+values include official names, designated abbreviations,  official
+translations and latin transliterations
+* city is a city or town name, recognized values include official names,
+official translations and latin transliterations
+* city_area is a sublocality like a district, recognized values include
+official names, official translations and latin transliterations
+* street_address is the (possibly multiline) street address
+* postal_code is a postal code or zip code
+* sorting_code is a sorting code
+* name is a person's name
+* company_name is a name of a company or organization
 
-
-Errors
-~~~~~~
+Errors ~~~~~~
 
 Address validation with only country code:
 
 .. code:: python
 
-    >>> from i18naddress import InvalidAddress, normalize_address
-    >>> try:
-    ...     address = normalize_address({'country_code': 'US'})
-    ... except InvalidAddress as e:
-    ...     print(e.errors)
-    ...
-    {'city': 'required',
-     'country_area': 'required',
-     'postal_code': 'required',
-     'street_address': 'required'}
+ >>> from i18naddress import InvalidAddress, normalize_address  >>> try:
+... address = normalize_address({'country_code': 'US'})  ... except
+InvalidAddress as e:  ... print(e.errors)  ...  {'city': 'required',
+'country_area': 'required',  'postal_code': 'required',  'street_address':
+'required'}
 
 With correct address:
 
 .. code:: python
 
-    >>> from i18naddress import normalize_address
-    >>> address = normalize_address({
-        'country_code': 'US',
-        'country_area': 'California',
-        'city': 'Mountain View',
-        'postal_code': '94043',
-        'street_address': '1600 Amphitheatre Pkwy'})
-    >>> print(address)
-    {'city': 'MOUNTAIN VIEW',
-     'city_area': '',
-     'country_area': 'CA',
-     'country_code': 'US',
-     'postal_code': '94043',
-     'sorting_code': '',
-     'street_address': '1600 Amphitheatre Pkwy'}
+ >>> from i18naddress import normalize_address  >>> address =
+normalize_address({  'country_code': 'US',  'country_area': 'California',
+'city': 'Mountain View',  'postal_code': '94043',  'street_address': '1600
+Amphitheatre Pkwy'})  >>> print(address)  {'city': 'MOUNTAIN VIEW',
+'city_area': '',  'country_area': 'CA',  'country_code': 'US',
+'postal_code': '94043',  'sorting_code': '',  'street_address': '1600
+Amphitheatre Pkwy'}
 
 Postal code/zip code validation example:
 
 .. code:: python
 
-    >>> from i18naddress import InvalidAddress, normalize_address
-    >>> try:
-    ...     address = normalize_address({
-    ...         'country_code': 'US',
-    ...         'country_area': 'California',
-    ...         'city': 'Mountain View',
-    ...         'postal_code': '74043',
-    ...         'street_address': '1600 Amphitheatre Pkwy'})
-    ... except InvalidAddress as e:
-    ...     print(e.errors)
-    ...
-    {'postal_code': 'invalid'}
+ >>> from i18naddress import InvalidAddress, normalize_address  >>> try:
+... address = normalize_address({  ... 'country_code': 'US',  ...
+'country_area': 'California',  ... 'city': 'Mountain View',  ...
+'postal_code': '74043',  ... 'street_address': '1600 Amphitheatre Pkwy'})
+... except InvalidAddress as e:  ... print(e.errors)  ...  {'postal_code':
+'invalid'}
 
+Address latinization ~~~~~~~~~~~~~~~~~~~~
+
+In some cases it may be useful to display foreign addresses in a more
+accessible format. You can use the latinize_address function to obtain a
+more verbose, latinized version of an address.
+
+This version is suitable for display and useful for full text search
+indexing but the normalized form is what should be stored in the database
+and used when printing address labels.
+
+.. code:: python
+
+ >>> from i18naddress import latinize_address  >>> address = {  ...
+'country_code': 'CN',  ... 'country_area': '云南省',  ... 'postal_code':
+'677400',  ... 'city': '临沧市',  ... 'city_area': '凤庆县',  ...
+'street_address': '中关村东路1号'}  >>> latinize_address(address)
+{'country_code': 'CN',  'country_area': 'Yunnan Sheng',  'city': 'Lincang
+Shi',  'city_area': 'Lincang Shi',  'sorting_code': '',  'postal_code':
+'677400',  'street_address': '中关村东路1号'}
+
+It will also return expanded names for area types that normally use codes
+and abbreviations such as state names in US:
 

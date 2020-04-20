@@ -1,18 +1,18 @@
 
 
 ========
+
 Overview
 ========
 
-Python-ASN1 is a simple ASN.1 encoder and decoder for Python 2.6+ and 3.3+.
+Python-ASN1 is a simple ASN.1 encoder and decoder for Python 2.7 and 3.5+.
 
 Features
 ========
 
-- Support BER (parser) and DER (parser and generator) encoding
-- 100% python, compatible with version 2.6, 2.7, 3.3 and higher
-- Can be integrated by just including a file into your project
-
+- Support BER (parser) and DER (parser and generator) encoding - 100%
+python, compatible with version 2.6, 2.7, 3.3 and higher - Can be
+integrated by just including a file into your project
 
 Dependencies
 ==============
@@ -22,8 +22,7 @@ Python 2 and 3 compatibility. To install Python-Future:
 
 .. code-block:: sh
 
-  pip install future
-
+ pip install future
 
 How to install Python-asn1
 ==========================
@@ -32,17 +31,16 @@ Install from PyPi with the following:
 
 .. code-block:: sh
 
-  pip install asn1
+ pip install asn1
 
 or download the repository from `GitHub
 <https://github.com/andrivet/python-asn1>`_ and install with the following:
 
 .. code-block:: sh
 
-  python setup.py install
+ python setup.py install
 
-You can also simply include ``asn1.py`` into your project.
-
+You can also simply include asn1.py into your project.
 
 How to use Python-asn1
 ======================
@@ -54,18 +52,15 @@ How to use Python-asn1
 Encoding
 --------
 
-If you want to encode data and retrieve its DER-encoded representation,
-use code such as:
+If you want to encode data and retrieve its DER-encoded representation, use
+code such as:
 
 .. code-block:: python
 
-  import asn1
+ import asn1
 
-  encoder = asn1.Encoder()
-  encoder.start()
-  encoder.write('1.2.3', asn1.ObjectIdentifier)
-  encoded_bytes = encoder.output()
-
+ encoder = asn1.Encoder()  encoder.start()  encoder.write('1.2.3',
+asn1.Numbers.ObjectIdentifier)  encoded_bytes = encoder.output()
 
 Decoding
 --------
@@ -75,12 +70,10 @@ as:
 
 .. code-block:: python
 
-  import asn1
+ import asn1
 
-  decoder = asn1.Decoder()
-  decoder.start(encoded_bytes)
-  tag, value = decoder.read()
-
+ decoder = asn1.Decoder()  decoder.start(encoded_bytes)  tag, value =
+decoder.read()
 
 Documentation
 =============
@@ -89,7 +82,6 @@ The complete documentation is available on Read The Docs:
 
 `python-asn1.readthedocs.io
 <https://python-asn1.readthedocs.io/en/latest/>`_
-
 
 License
 =======
@@ -101,6 +93,8 @@ the exact licensing terms.
 Copyright
 =========
 
-The following people have contributed to Python-ASN1. Collectively they
-own the copyright of this software.
+The following people have contributed to Python-ASN1. Collectively they own
+the copyright of this software.
 
+* Geert Jansen (geert@boskant.nl): `original implementation
+<https://github.com/geertj/python-asn1>`_.

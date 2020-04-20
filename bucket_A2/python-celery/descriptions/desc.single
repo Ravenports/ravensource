@@ -1,113 +1,71 @@
-.. image::
-http://docs.celeryproject.org/en/latest/_images/celery-banner-small.png
+ Backers
+-------
 
-|build-status| |coverage| |license| |wheel| |pyversion| |pyimp|
-|ocbackerbadge| |ocsponsorbadge|
+Thank you to all our backers! 🙏 [`Become a backer`_]
 
-:Version: 4.4.2 (cliffs)
-:Web: http://celeryproject.org/
-:Download: https://pypi.org/project/celery/
-:Source: https://github.com/celery/celery/
-:Keywords: task, queue, job, async, rabbitmq, amqp, redis,
-  python, distributed, actors
+.. _`Become a backer`: https://opencollective.com/celery#backer
 
-Donations
-=========
+|oc-backers|
 
-This project relies on your generous donations.
+.. |oc-backers| image::
+https://opencollective.com/celery/backers.svg?width=890  :target:
+https://opencollective.com/celery#backers
 
-If you are using Celery to create a commercial product, please consider
-becoming our `backer`_ or our `sponsor`_ to ensure Celery's future.
+Sponsors
+--------
 
-.. _`backer`: https://opencollective.com/celery#backer
-.. _`sponsor`: https://opencollective.com/celery#sponsor
+Support this project by becoming a sponsor. Your logo will show up here
+with a link to your website. [`Become a sponsor`_]
 
-For enterprise
-==============
+.. _`Become a sponsor`: https://opencollective.com/celery#sponsor
 
-Available as part of the Tidelift Subscription.
+|oc-sponsors|
 
-The maintainers of ``celery`` and thousands of other packages are working
-with Tidelift to deliver commercial support and maintenance for the open
-source dependencies you use to build your applications. Save time, reduce
-risk, and improve code health, while paying the maintainers of the exact
-dependencies you use. `Learn more.
-<https://tidelift.com/subscription/pkg/pypi-celery?utm_source=pypi-celery&u
-tm_medium=referral&utm_campaign=enterprise&utm_term=repo>`_
+.. |oc-sponsors| image::
+https://opencollective.com/celery/sponsor/0/avatar.svg  :target:
+https://opencollective.com/celery/sponsor/0/website
 
-What's a Task Queue?
-====================
+.. _license:
 
-Task queues are used as a mechanism to distribute work across threads or
-machines.
+License
+=======
 
-A task queue's input is a unit of work, called a task, dedicated worker
-processes then constantly monitor the queue for new work to perform.
+This software is licensed under the `New BSD License`. See the LICENSE file
+in the top distribution directory for the full license text.
 
-Celery communicates via messages, usually using a broker
-to mediate between clients and workers. To initiate a task a client puts a
-message on the queue, the broker then delivers the message to a worker.
+.. # vim: syntax=rst expandtab tabstop=4 shiftwidth=4 shiftround
 
-A Celery system can consist of multiple workers and brokers, giving way
-to high availability and horizontal scaling.
+.. |build-status| image::
+https://secure.travis-ci.org/celery/celery.png?branch=master  :alt: Build
+status  :target: https://travis-ci.org/celery/celery
 
-Celery is written in Python, but the protocol can be implemented in any
-language. In addition to Python there's node-celery_ for Node.js,
-a `PHP client`_, `gocelery`_ for golang, and rusty-celery_ for Rust.
+.. |coverage| image::
+https://codecov.io/github/celery/celery/coverage.svg?branch=master
+:target: https://codecov.io/github/celery/celery?branch=master
 
-Language interoperability can also be achieved by using webhooks
-in such a way that the client enqueues an URL to be requested by a worker.
+.. |license| image:: https://img.shields.io/pypi/l/celery.svg  :alt: BSD
+License  :target: https://opensource.org/licenses/BSD-3-Clause
 
-.. _node-celery: https://github.com/mher/node-celery
-.. _`PHP client`: https://github.com/gjedeer/celery-php
-.. _`gocelery`: https://github.com/gocelery/gocelery
-.. _rusty-celery: https://github.com/rusty-celery/rusty-celery
+.. |wheel| image:: https://img.shields.io/pypi/wheel/celery.svg  :alt:
+Celery can be installed via wheel  :target:
+https://pypi.org/project/celery/
 
-What do I need?
-===============
+.. |pyversion| image:: https://img.shields.io/pypi/pyversions/celery.svg
+:alt: Supported Python versions.  :target: https://pypi.org/project/celery/
 
-Celery version 4.4.0 runs on,
+.. |pyimp| image:: https://img.shields.io/pypi/implementation/celery.svg
+:alt: Support Python implementations.  :target:
+https://pypi.org/project/celery/
 
-- Python (2.7, 3.8, 3.5, 3.6, 3.7)
-- PyPy2.7 (7.2)
-- PyPy3.5 (7.1)
-- PyPy3.6 (7.6)
+.. |ocbackerbadge| image::
+https://opencollective.com/celery/backers/badge.svg  :alt: Backers on Open
+Collective  :target: #backers
 
+.. |ocsponsorbadge| image::
+https://opencollective.com/celery/sponsors/badge.svg  :alt: Sponsors on
+Open Collective  :target: #sponsors
 
-4.x.x is the last version to support Python 2.7,
-and from the next major version (Celery 5.x) Python 3.6 or newer is
-required.
+.. |downloads| image:: https://pepy.tech/badge/celery  :alt: Downloads
+:target: https://pepy.tech/project/celery
 
-If you're running an older version of Python, you need to be running
-an older version of Celery:
-
-- Python 2.6: Celery series 3.1 or earlier.
-- Python 2.5: Celery series 3.0 or earlier.
-- Python 2.4 was Celery series 2.2 or earlier.
-
-Celery is a project with minimal funding,
-so we don't support Microsoft Windows.
-Please don't open any issues related to that platform.
-
-*Celery* is usually used with a message broker to send and receive
-messages.
-The RabbitMQ, Redis transports are feature complete,
-but there's also experimental support for a myriad of other solutions,
-including
-using SQLite for local development.
-
-*Celery* can run on a single machine, on multiple machines, or even
-across datacenters.
-
-Get Started
-===========
-
-If this is the first time you're trying to use Celery, or you're
-new to Celery 4.4 coming from previous versions then you should read our
-getting started tutorials:
-
-- `First steps with Celery`_
-
-    Tutorial teaching you the bare minimum needed to get started with
-Celery.
 

@@ -1,9 +1,7 @@
-.. role:: python(code)
-   :language: python
+.. role:: python(code)  :language: python
 
-########################################
-drf-yasg - Yet another Swagger generator
-########################################
+######################################## drf-yasg - Yet another Swagger
+generator ########################################
 
 |travis| |nbsp| |codecov| |nbsp| |rtd-badge| |nbsp| |pypi-version|
 
@@ -14,20 +12,18 @@ Framework API.
 
 Compatible with
 
-- **Django Rest Framework**: 3.8, 3.9, 3.10, 3.11
-- **Django**: 1.11, 2.2, 3.0
-- **Python**: 2.7, 3.6, 3.7, 3.8
+- **Django Rest Framework**: 3.8, 3.9, 3.10, 3.11 - **Django**: 1.11, 2.2,
+3.0 - **Python**: 2.7, 3.6, 3.7, 3.8
 
-Only the latest patch version of each ``major.minor`` series of Python,
-Django and Django REST Framework is supported.
+Only the latest patch version of each major.minor series of Python, Django
+and Django REST Framework is supported.
 
 **Only the latest version of drf-yasg is supported.** Support of old
-versions is dropped immediately with the release
-of a new version. Please do not create issues before upgrading to the
-latest release available at the time. Regression
-reports are accepted and will be resolved with a new release as quickly as
-possible. Removed features will usually go
-through a deprecation cycle of a few minor releases.
+versions is dropped immediately with the release of a new version. Please
+do not create issues before upgrading to the latest release available at
+the time. Regression reports are accepted and will be resolved with a new
+release as quickly as possible. Removed features will usually go through a
+deprecation cycle of a few minor releases.
 
 Resources:
 
@@ -38,78 +34,67 @@ Resources:
 
 |heroku-button|
 
-********
-Features
-********
+******** Features ********
 
-- full support for nested Serializers and Schemas
-- response schemas and descriptions
-- model definitions compatible with codegen tools
-- customization hooks at all points in the spec generation process
-- JSON and YAML format for spec
-- bundles latest version of
-  `swagger-ui <https://github.com/swagger-api/swagger-ui>`_ and
-  `redoc <https://github.com/Rebilly/ReDoc>`_ for viewing the generated
-documentation
-- schema view is cacheable out of the box
-- generated Swagger schema can be automatically validated by
-  `swagger-spec-validator
-<https://github.com/Yelp/swagger_spec_validator>`_
-- supports Django REST Framework API versioning with ``URLPathVersioning``
-and ``NamespaceVersioning``; other DRF
-  or custom versioning schemes are not currently supported
+- full support for nested Serializers and Schemas - response schemas and
+descriptions - model definitions compatible with codegen tools -
+customization hooks at all points in the spec generation process - JSON and
+YAML format for spec - bundles latest version of  [swagger-ui]  decorator,
+using the default Django cache backend, can be changed using the
+cache_kwargs argument
+* HTTP caching of the response is blocked to avoid confusing situations
+caused by being shown stale schemas
+* the cached schema varies on the Cookie and Authorization HTTP headers to
+enable filtering of visible endpoints  according to the authentication
+credentials of each user; note that this means that every user accessing
+the schema  will have a separate schema cached in memory.
 
-.. figure::
-https://raw.githubusercontent.com/axnsan12/drf-yasg/1.0.2/screenshots/redoc
--nested-response.png
-   :width: 100%
-   :figwidth: image
-   :alt: redoc screenshot
+4. Validation
+=============
 
-   **Fully nested request and response schemas.**
+Given the numerous methods to manually customize the generated schema, it
+makes sense to validate the result to ensure it still conforms to OpenAPI
+2.0. To this end, validation is provided at the generation point using
+python swagger libraries, and can be activated by passing
+:python:[validators=['ssv']` to get_schema_view; if the generated schema is
+not valid, a :python:`SwaggerValidationError` is raised by the handling
+codec.
 
-.. figure::
-https://raw.githubusercontent.com/axnsan12/drf-yasg/1.0.2/screenshots/swagg
-er-ui-list.png
-   :width: 100%
-   :figwidth: image
-   :alt: swagger-ui screenshot
+**Warning:** This internal validation can slow down your server. Caching
+can mitigate the speed impact of validation.
 
-   **Choose between redoc and swagger-ui.**
+The provided validation will catch syntactic errors, but more subtle
+violations of the spec might slip by them. To ensure compatibility with
+code generation tools, it is recommended to also employ one or more of the
+following methods:
 
-.. figure::
-https://raw.githubusercontent.com/axnsan12/drf-yasg/1.0.2/screenshots/swagg
-er-ui-models.png
-   :width: 100%
-   :figwidth: image
-   :alt: model definitions screenshot
+-------------------------------
 
-   **Real Model definitions.**
+swagger-ui validation badge
+-------------------------------
 
+Online ^^^^^^
 
-*****************
-Table of contents
-*****************
+If your schema is publicly accessible, `swagger-ui` will automatically
+validate it against the official swagger online validator and display the
+result in the bottom-right validation badge.
 
-.. contents::
-   :depth: 4
+Offline ^^^^^^^
 
-*****
-Usage
-*****
+If your schema is not accessible from the internet, you can run a local
+copy of `swagger-validator]
+--------------------------------------------------------------
 
-0. Installation
-===============
+Importing the generated spec into https://editor.swagger.io/ will
+automatically trigger validation on it. This method is currently the only
+way to get both syntactic and semantic validation on your specification.
+The other validators only provide JSON schema-level validation, but miss
+things like duplicate operation names, improper content types, etc
 
-The preferred instalation method is directly from pypi:
+5. Code generation
+==================
 
-.. code:: console
-
-   pip install -U drf-yasg
-
-Additionally, if you want to use the built-in validation mechanisms (see
-`4. Validation`_), you need to install
-some extra requirements:
-
-.. code:: console
+You can use the specification outputted by this library together with
+`swagger-codegen <https://github.com/swagger-api/swagger-codegen>`_ to
+generate client code in your language of choice:
 
