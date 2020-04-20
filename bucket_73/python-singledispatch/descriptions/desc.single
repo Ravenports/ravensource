@@ -1,100 +1,100 @@
-============== singledispatch
+==============
+singledispatch
 ==============
 
-`PEP 443 <http://www.python.org/dev/peps/pep-0443/>`_ proposed to expose a
-mechanism in the functools standard library module in Python 3.4 that
-provides a simple form of generic programming known as single-dispatch
-generic functions.
+[PEP 443]_ proposed to expose
+a mechanism in the functools standard library module in Python 3.4
+that provides a simple form of generic programming known as
+single-dispatch generic functions.
 
 This library is a backport of this functionality to Python 2.6 - 3.3.
 
-To define a generic function, decorate it with the @singledispatch
+To define a generic function, decorate it with the ``@singledispatch``
 decorator. Note that the dispatch happens on the type of the first
 argument, create your function accordingly::
 
- >>> from singledispatch import singledispatch  >>> @singledispatch  ...
-def fun(arg, verbose=False):  ... if verbose:  ... print("Let me just
-say,", end=" ")  ... print(arg)
+  >>> from singledispatch import singledispatch
+  >>> @singledispatch
+  ... def fun(arg, verbose=False):
+  ...     if verbose:
+  ...         print("Let me just say,", end=" ")
+  ...     print(arg)
 
-To add overloaded implementations to the function, use the register()
-attribute of the generic function. It is a decorator, taking a type
-parameter and decorating a function implementing the operation for that
-type::
+To add overloaded implementations to the function, use the
+``register()`` attribute of the generic function. It is a decorator,
+taking a type parameter and decorating a function implementing the
+operation for that type::
 
- >>> @fun.register(int)  ... def _(arg, verbose=False):  ... if verbose:
-... print("Strength in numbers, eh?", end=" ")  ... print(arg)  ...  >>>
-@fun.register(list)  ... def _(arg, verbose=False):  ... if verbose:  ...
-print("Enumerate this:")  ... for i, elem in enumerate(arg):  ... print(i,
-elem)
+  >>> @fun.register(int)
+  ... def _(arg, verbose=False):
+  ...     if verbose:
+  ...         print("Strength in numbers, eh?", end=" ")
+  ...     print(arg)
+  ...
+  >>> @fun.register(list)
+  ... def _(arg, verbose=False):
+  ...     if verbose:
+  ...         print("Enumerate this:")
+  ...     for i, elem in enumerate(arg):
+  ...         print(i, elem)
 
-To enable registering lambdas and pre-existing functions, the register()
-attribute can be used in a functional form::
+To enable registering lambdas and pre-existing functions, the
+``register()`` attribute can be used in a functional form::
 
- >>> def nothing(arg, verbose=False):  ... print("Nothing.")  ...  >>>
-fun.register(type(None), nothing)
+  >>> def nothing(arg, verbose=False):
+  ...     print("Nothing.")
+  ...
+  >>> fun.register(type(None), nothing)
 
-The register() attribute returns the undecorated function which enables
-decorator stacking, pickling, as well as creating unit tests for each
-variant independently::
+The ``register()`` attribute returns the undecorated function which
+enables decorator stacking, pickling, as well as creating unit tests for
+each variant independently::
 
- >>> @fun.register(float)  ... @fun.register(Decimal)  ... def fun_num(arg,
-verbose=False):  ... if verbose:  ... print("Half of your number:", end="
-")  ... print(arg / 2)  ...  >>> fun_num is fun  False
+  >>> @fun.register(float)
+  ... @fun.register(Decimal)
+  ... def fun_num(arg, verbose=False):
+  ...     if verbose:
+  ...         print("Half of your number:", end=" ")
+  ...     print(arg / 2)
+  ...
+  >>> fun_num is fun
+  False
 
 When called, the generic function dispatches on the type of the first
 argument::
 
- >>> fun("Hello, world.")  Hello, world.  >>> fun("test.", verbose=True)
-Let me just say, test.  >>> fun(42, verbose=True)  Strength in numbers, eh?
-42  >>> fun(['spam', 'spam', 'eggs', 'spam'], verbose=True)  Enumerate
-this:  0 spam  1 spam  2 eggs  3 spam  >>> fun(None)  Nothing.  >>>
-fun(1.23)  0.615
+  >>> fun("Hello, world.")
+  Hello, world.
+  >>> fun("test.", verbose=True)
+  Let me just say, test.
+  >>> fun(42, verbose=True)
+  Strength in numbers, eh? 42
+  >>> fun(['spam', 'spam', 'eggs', 'spam'], verbose=True)
+  Enumerate this:
+  0 spam
+  1 spam
+  2 eggs
+  3 spam
+  >>> fun(None)
+  Nothing.
+  >>> fun(1.23)
+  0.615
 
-Where there is no registered implementation for a specific type, its method
-resolution order is used to find a more generic implementation. The
-original function decorated with @singledispatch is registered for the base
-object type, which means it is used if no better implementation is found.
+Where there is no registered implementation for a specific type, its
+method resolution order is used to find a more generic implementation.
+The original function decorated with ``@singledispatch is registered
+for the base object`` type, which means it is used if no better
+implementation is found.
 
-To check which implementation will the generic function choose for a given
-type, use the dispatch() attribute::
+To check which implementation will the generic function choose for
+a given type, use the ``dispatch()`` attribute::
 
- >>> fun.dispatch(float)  <function fun_num at 0x1035a2840>  >>>
-fun.dispatch(dict) # note: default implementation  <function fun at
-0x103fe0000>
+  >>> fun.dispatch(float)
+  <function fun_num at 0x1035a2840>
+  >>> fun.dispatch(dict)    # note: default implementation
+  <function fun at 0x103fe0000>
 
 To access all registered implementations, use the read-only registry
 attribute::
 
- >>> fun.registry.keys()  dict_keys([<class 'NoneType'>, <class 'int'>,
-<class 'object'>,  <class 'decimal.Decimal'>, <class 'list'>,  <class
-'float'>])  >>> fun.registry[float]  <function fun_num at 0x1035a2840>  >>>
-fun.registry[object]  <function fun at 0x103fe0000>
-
-The vanilla documentation is available at
-http://docs.python.org/3/library/functools.html#functools.singledispatch.
-
-Versioning
-----------
-
-This backport is intended to keep 100% compatibility with the vanilla
-release in Python 3.4+. To help maintaining a version you want and expect,
-a versioning scheme is used where:
-
-* the first three numbers indicate the version of Python 3.x from which the
- backport is done
-
-* a backport release number is provided after the last dot
-
-For example, 3.4.0.0 is the **first** release of singledispatch compatible
-with the library found in Python **3.4.0**.
-
-A single exception from the 100% compatibility principle is that bugs fixed
-before releasing another minor Python 3.x.y version **will be included** in
-the backport releases done in the mean time. This rule applies to bugs
-only.
-
-Maintenance
------------
-
-This backport is maintained on BitBucket by Łukasz Langa, one of the
-members of the core CPython team:
+  >>> fun.registry.keys()

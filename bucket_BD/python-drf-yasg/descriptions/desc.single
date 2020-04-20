@@ -1,100 +1,14 @@
-.. role:: python(code)  :language: python
+   :alt: Travis CI
 
-######################################## drf-yasg - Yet another Swagger
-generator ########################################
+   :alt: Codecov
 
-|travis| |nbsp| |codecov| |nbsp| |rtd-badge| |nbsp| |pypi-version|
+   :alt: PyPI
 
-|bmac-button|
+   :alt: ReadTheDocs
 
-Generate **real** Swagger/OpenAPI 2.0 specifications from a Django Rest
-Framework API.
+   :alt: Buy Me A Coffee
 
-Compatible with
+   :alt: Heroku deploy button
 
-- **Django Rest Framework**: 3.8, 3.9, 3.10, 3.11 - **Django**: 1.11, 2.2,
-3.0 - **Python**: 2.7, 3.6, 3.7, 3.8
-
-Only the latest patch version of each major.minor series of Python, Django
-and Django REST Framework is supported.
-
-**Only the latest version of drf-yasg is supported.** Support of old
-versions is dropped immediately with the release of a new version. Please
-do not create issues before upgrading to the latest release available at
-the time. Regression reports are accepted and will be resolved with a new
-release as quickly as possible. Removed features will usually go through a
-deprecation cycle of a few minor releases.
-
-Resources:
-
-* **Source**: https://github.com/axnsan12/drf-yasg/
-* **Documentation**: https://drf-yasg.readthedocs.io/
-* **Changelog**: https://drf-yasg.readthedocs.io/en/stable/changelog.html
-* **Live demo**: https://drf-yasg-demo.herokuapp.com/
-
-|heroku-button|
-
-******** Features ********
-
-- full support for nested Serializers and Schemas - response schemas and
-descriptions - model definitions compatible with codegen tools -
-customization hooks at all points in the spec generation process - JSON and
-YAML format for spec - bundles latest version of  [swagger-ui]  decorator,
-using the default Django cache backend, can be changed using the
-cache_kwargs argument
-* HTTP caching of the response is blocked to avoid confusing situations
-caused by being shown stale schemas
-* the cached schema varies on the Cookie and Authorization HTTP headers to
-enable filtering of visible endpoints  according to the authentication
-credentials of each user; note that this means that every user accessing
-the schema  will have a separate schema cached in memory.
-
-4. Validation
-=============
-
-Given the numerous methods to manually customize the generated schema, it
-makes sense to validate the result to ensure it still conforms to OpenAPI
-2.0. To this end, validation is provided at the generation point using
-python swagger libraries, and can be activated by passing
-:python:[validators=['ssv']` to get_schema_view; if the generated schema is
-not valid, a :python:`SwaggerValidationError` is raised by the handling
-codec.
-
-**Warning:** This internal validation can slow down your server. Caching
-can mitigate the speed impact of validation.
-
-The provided validation will catch syntactic errors, but more subtle
-violations of the spec might slip by them. To ensure compatibility with
-code generation tools, it is recommended to also employ one or more of the
-following methods:
-
--------------------------------
-
-swagger-ui validation badge
--------------------------------
-
-Online ^^^^^^
-
-If your schema is publicly accessible, `swagger-ui` will automatically
-validate it against the official swagger online validator and display the
-result in the bottom-right validation badge.
-
-Offline ^^^^^^^
-
-If your schema is not accessible from the internet, you can run a local
-copy of `swagger-validator]
---------------------------------------------------------------
-
-Importing the generated spec into https://editor.swagger.io/ will
-automatically trigger validation on it. This method is currently the only
-way to get both syntactic and semantic validation on your specification.
-The other validators only provide JSON schema-level validation, but miss
-things like duplicate operation names, improper content types, etc
-
-5. Code generation
-==================
-
-You can use the specification outputted by this library together with
-`swagger-codegen <https://github.com/swagger-api/swagger-codegen>`_ to
-generate client code in your language of choice:
-
+.. |nbsp| unicode:: 0xA0
+   :trim:

@@ -1,20 +1,23 @@
-################################################################### parso -
-A Python Parser
+###################################################################
+parso - A Python Parser
 ###################################################################
 
- :alt: Travis CI build status
+    :alt: Travis CI build status
 
- :alt: Coverage Status
+    :alt: Coverage Status
 
 .. image::
 https://raw.githubusercontent.com/davidhalter/parso/master/docs/_static/logo_characters.png
 
 Parso is a Python parser that supports error recovery and round-trip
-parsing for different Python versions (in multiple Python versions). Parso
-is also able to list multiple syntax errors in your python file.
+parsing
+for different Python versions (in multiple Python versions). Parso is also
+able
+to list multiple syntax errors in your python file.
 
 Parso has been battle-tested by jedi_. It was pulled out of jedi to be
-useful for other projects as well.
+useful
+for other projects as well.
 
 Parso consists of a small API to parse Python and analyse the syntax tree.
 
@@ -22,54 +25,65 @@ A simple example:
 
 .. code-block:: python
 
- >>> import parso  >>> module = parso.parse('hello + 1', version="3.6")
->>> expr = module.children[0]  >>> expr  PythonNode(arith_expr, [<Name:
-hello@1,0>, <Operator: +>, <Number: 1>])  >>> print(expr.get_code())  hello
-+ 1  >>> name = expr.children[0]  >>> name  <Name: hello@1,0>  >>>
-name.end_pos  (1, 5)  >>> expr.end_pos  (1, 9)
+    >>> import parso
+    >>> module = parso.parse('hello + 1', version="3.6")
+    >>> expr = module.children[0]
+    >>> expr
+    PythonNode(arith_expr, [<Name: hello@1,0>, <Operator: +>, <Number: 1>])
+    >>> print(expr.get_code())
+    hello + 1
+    >>> name = expr.children[0]
+    >>> name
+    <Name: hello@1,0>
+    >>> name.end_pos
+    (1, 5)
+    >>> expr.end_pos
+    (1, 9)
 
 To list multiple issues:
 
 .. code-block:: python
 
- >>> grammar = parso.load_grammar()  >>> module = grammar.parse('foo
-+\nbar\ncontinue')  >>> error1, error2 = grammar.iter_errors(module)  >>>
-error1.message  'SyntaxError: invalid syntax'  >>> error2.message
-"SyntaxError: 'continue' not properly in loop"
+    >>> grammar = parso.load_grammar()
+    >>> module = grammar.parse('foo +\nbar\ncontinue')
+    >>> error1, error2 = grammar.iter_errors(module)
+    >>> error1.message
+    'SyntaxError: invalid syntax'
+    >>> error2.message
+    "SyntaxError: 'continue' not properly in loop"
 
 Resources
 =========
 
-- `Testing
-<https://parso.readthedocs.io/en/latest/docs/development.html#testing>`_ -
-`PyPI <https://pypi.python.org/pypi/parso>`_ - `Docs
-<https://parso.readthedocs.org/en/latest/>`_ - Uses `semantic versioning
-<https://semver.org/>`_
+- [Testing]_
+- [PyPI]_
+- [Docs]_
+- Uses [semantic versioning]_
 
 Installation
 ============
 
- pip install parso
+    pip install parso
 
 Future
 ======
 
-- There will be better support for refactoring and comments. Stay tuned. -
-There's a WIP PEP8 validator. It's however not in a good shape, yet.
+- There will be better support for refactoring and comments. Stay tuned.
+- There's a WIP PEP8 validator. It's however not in a good shape, yet.
 
 Known Issues
 ============
 
-- `async`/`await` are already used as keywords in Python3.6. - `from
-__future__ import print_function` is not ignored.
+- `async`/`await` are already used as keywords in Python3.6.
+- `from __future__ import print_function` is not ignored.
 
 Acknowledgements
 ================
 
 - Guido van Rossum (@gvanrossum) for creating the parser generator pgen2
-(originally used in lib2to3). - `Salome Schneider
-<https://www.crepes-schnaegg.ch/cr%C3%AApes-schn%C3%A4gg/kunst-f%C3%BCrs-cr%C3%AApes-mobil/>`_
- for the extremely awesome parso logo.
+  (originally used in lib2to3).
+- [Salome Schneider]_
+  for the extremely awesome parso logo.
 
 .. _jedi: https://github.com/davidhalter/jedi
 
@@ -78,23 +92,9 @@ Acknowledgements
 Changelog
 ---------
 
-0.7.0 (2020-04-13) ++++++++++++++++++
+0.7.0 (2020-04-13)
+++++++++++++++++++
 
 - Fix a lot of annoying bugs in the diff parser. The fuzzer did not find
-issues anymore even after running it for more than 24 hours (500k tests). -
-Small grammar change: suites can now contain newlines even after a newline.
- This should really not matter if you don't use error recovery. It allows
-for  nicer error recovery.
-
-0.6.2 (2020-02-27) ++++++++++++++++++
-
-- Bugfixes - Add Grammar.refactor (might still be subject to change until
-0.7.0)
-
-0.6.1 (2020-02-03) ++++++++++++++++++
-
-- Add parso.normalizer.Issue.end_pos to make it possible to know where an
-issue ends
-
-0.6.0 (2020-01-26) ++++++++++++++++++
-
+  issues anymore even after running it for more than 24 hours (500k tests).
+- Small grammar change: suites can now contain newlines even after a

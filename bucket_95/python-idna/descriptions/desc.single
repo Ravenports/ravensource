@@ -1,100 +1,22 @@
 Internationalized Domain Names in Applications (IDNA)
 =====================================================
 
-Support for the Internationalised Domain Names in Applications (IDNA)
-protocol as specified in `RFC 5891 <http://tools.ietf.org/html/rfc5891>`_.
+Support for the Internationalised Domain Names in Applications
+(IDNA) protocol as specified in [RFC 5891]_.
 This is the latest version of the protocol and is sometimes referred to as
 “IDNA 2008”.
 
 This library also provides support for Unicode Technical Standard 46,
-`Unicode IDNA Compatibility Processing
-<http://unicode.org/reports/tr46/>`_.
+[Unicode IDNA Compatibility Processing]_.
 
 This acts as a suitable replacement for the “encodings.idna” module
-that comes with the Python standard library, but only supports the old,
-deprecated IDNA specification (`RFC 3490
-<http://tools.ietf.org/html/rfc3490>`_).
+that
+comes with the Python standard library, but only supports the
+old, deprecated IDNA specification ([RFC 3490]_).
 
 Basic functions are simply executed:
-
-.. code-block:: pycon
-
- # Python 3  >>> import idna  >>> idna.encode('ドメイン.テスト')
-b'xn--eckwd4c7c.xn--zckzah'  >>>
-print(idna.decode('xn--eckwd4c7c.xn--zckzah'))  ドメイン.テスト
-
- # Python 2  >>> import idna  >>> idna.encode(u'ドメイン.テスト')
-'xn--eckwd4c7c.xn--zckzah'  >>> print
-idna.decode('xn--eckwd4c7c.xn--zckzah')  ドメイン.テスト
-
-Packages
---------
-
-The latest tagged release version is published in the PyPI repository:
 
 Installation
 ------------
 
 To install this library, you can use pip:
-
-.. code-block:: bash
-
- $ pip install idna
-
-Alternatively, you can install the package using the bundled setup script:
-
-.. code-block:: bash
-
- $ python setup.py install
-
-This library works with Python 2.7 and Python 3.4 or later.
-
-Usage
------
-
-For typical usage, the encode and decode functions will take a domain name
-argument and perform a conversion to A-labels or U-labels respectively.
-
-.. code-block:: pycon
-
- # Python 3  >>> import idna  >>> idna.encode('ドメイン.テスト')
-b'xn--eckwd4c7c.xn--zckzah'  >>>
-print(idna.decode('xn--eckwd4c7c.xn--zckzah'))  ドメイン.テスト
-
-You may use the codec encoding and decoding methods using the idna.codec
-module:
-
-.. code-block:: pycon
-
- # Python 2  >>> import idna.codec  >>> print
-u'домена.испытание'.encode('idna')
-xn--80ahd1agd.xn--80akhbyknj4f  >>> print
-'xn--80ahd1agd.xn--80akhbyknj4f'.decode('idna')
-домена.испытание
-
-Conversions can be applied at a per-label basis using the ulabel or alabel
-functions if necessary:
-
-.. code-block:: pycon
-
- # Python 2  >>> idna.alabel(u'测试')  'xn--0zwm56d'
-
-Compatibility Mapping (UTS #46) +++++++++++++++++++++++++++++++
-
-As described in `RFC 5895 <http://tools.ietf.org/html/rfc5895>`_, the IDNA
-specification no longer normalizes input from different potential ways a
-user may input a domain name. This functionality, known as a “mapping”,
-is now considered by the specification to be a local user-interface issue
-distinct from IDNA conversion functionality.
-
-This library provides one such mapping, that was developed by the Unicode
-Consortium. Known as `Unicode IDNA Compatibility Processing
-<http://unicode.org/reports/tr46/>`_, it provides for both a regular
-mapping for typical applications, as well as a transitional mapping to help
-migrate from older IDNA 2003 applications.
-
-For example, “Königsgäßchen” is not a permissible label as *LATIN
-CAPITAL LETTER K* is not allowed (nor are capital letters in general). UTS
-46 will convert this into lower case prior to applying the IDNA conversion.
-
-.. code-block:: pycon

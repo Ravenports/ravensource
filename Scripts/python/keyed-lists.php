@@ -127,16 +127,23 @@ function produce_long_description
         $desctext = wordwrap ($unixtext, 75) . "\n";
     } else {
         # strip out images completely
-        $patt_image = '/[.][.][ ]image[:][:][\s\S]*[:]target[:].*[\n]/U';
+        $patt_image = '/[.][.][\s\S]*image[:][:][\s\S]*[:]target[:].*[\n]/U';
         $desctext = preg_replace($patt_image, "", $original_description);
 
+        # flatten links
+        $patt_link = array (
+           '/[`]([[:alnum:] \s\']+)[<][\s\S]+[>][`][_]?[_]?/U',
+           '/[[]([\s\S]+)[]][(][\s\S]+[)]/U',
+        );
+        $repl_link = array ('[\1]', '[\1]');
+        $desctext = preg_replace($patt_link, '[\1]', $desctext);
+
         # Replace "`` ... ``" with double quotes
-        $patt_quotes = "/[`][`]([\s\S]*)[`][`]/U";
+        $patt_quotes = "/[`][`]([[:alnum:] \s\']*)[`][`]/U";
         $desctext = preg_replace($patt_quotes, '\1', $desctext);
 
-        # flatten links
-        $patt_link = '/[`]([\s\S]+)[<][\s\S]+[>][`]__/U';
-        $desctext = preg_replace($patt_link, '[\1]', $desctext);
+        # replace dos endings with unix endings\n
+        $desctext = preg_replace('/\r\n/', "\n", $desctext);
 
         # remove extra carriage returns
         $desctext = preg_replace("/\n\n+/", "\n\n", $desctext);
@@ -144,46 +151,14 @@ function produce_long_description
         # Fix link spaces
         $desctext = str_replace(" ]", "]", $desctext);
 
-        # remove double spaces
-        $desctext = preg_replace("/[ ]+/", " ", $desctext);
-
-        # fix missing gap after dashes/double dashes
-        $desctext = preg_replace ('/(\n[-=]+)\n([[:graph:]])/U',
-                                  '\1'."\n\n".'\2', $desctext);
-
-        # identify bullets, et al
-        $patterns = array ( '/\n\n/',
-                            '/\n[*][ ]/',
-                            '/\n=====/',
-                            '/\n-----/',
-                            );
-        $replaces = array ( "<Bortles!>",
-                            "<bullet>",
-                            "<5Ddash>=====",
-                            "<5Sdash>-----",
-                            );
-        $desctext = preg_replace($patterns, $replaces, $desctext);
-
-        # join everything
-        $desctext = str_replace ("\n", " ", $desctext);
-
-        # Respace
-        $patterns = array ("<bullet>",
-                           "<5Ddash>",
-                           "<5Sdash>",
-                           "<Bortles!>");
-        $replaces = array ("\n* ", "\n", "\n", "\n\n");
-        $desctext = str_replace ($patterns, $replaces, $desctext);
-
-        $desctext = wordwrap ($desctext . "\n", 75);
-        $lines = explode ("\n", $desctext);
-        $trimlines = preg_replace('/[ ]*$/', '', $lines);
-        $desctext = join("\n", $trimlines);
+        $desctext = wordwrap ($desctext . "\n", 75) . "\n";
     }
     if (substr_count ($desctext, "\n") > 100) {
         $descarray = explode("\n", $desctext);
         return join("\n", array_slice($descarray, 0, 100)) . "\n";
     } else {
+        # remove extra carriage returns at the end
+        $desctext = preg_replace('/\n\n+$/', "\n", $desctext);
         return $desctext;
     }
 }

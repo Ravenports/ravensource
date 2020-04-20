@@ -6,22 +6,20 @@ Another ISO 8601 parser for Python
 
 Features
 ========
-
 * Pure Python implementation
 * Python 3 support
 * Logical behavior
 
- - Parse a time, get a `datetime.time
-<http://docs.python.org/2/library/datetime.html#datetime.time>`_  - Parse a
-date, get a `datetime.date
-<http://docs.python.org/2/library/datetime.html#datetime.date>`_  - Parse a
-datetime, get a `datetime.datetime
-<http://docs.python.org/2/library/datetime.html#datetime.datetime>`_  -
-Parse a duration, get a `datetime.timedelta
-<http://docs.python.org/2/library/datetime.html#datetime.timedelta>`_  -
-Parse an interval, get a tuple of dates or datetimes  - Parse a repeating
-interval, get a date or datetime `generator
-<http://www.python.org/dev/peps/pep-0255/>`_
+  - Parse a time, get a `datetime.time
+<http://docs.python.org/2/library/datetime.html#datetime.time>`_
+  - Parse a date, get a `datetime.date
+<http://docs.python.org/2/library/datetime.html#datetime.date>`_
+  - Parse a datetime, get a `datetime.datetime
+<http://docs.python.org/2/library/datetime.html#datetime.datetime>`_
+  - Parse a duration, get a `datetime.timedelta
+<http://docs.python.org/2/library/datetime.html#datetime.timedelta>`_
+  - Parse an interval, get a tuple of dates or datetimes
+  - Parse a repeating interval, get a date or datetime [generator]_
 
 * UTC offset represented as fixed-offset tzinfo
 * Parser separate from representation, allowing parsing to different
@@ -33,68 +31,70 @@ Installation
 
 The recommended installation method is to use pip::
 
- $ pip install aniso8601
+  $ pip install aniso8601
 
 Alternatively, you can download the source (git repository hosted at
-`Bitbucket <https://bitbucket.org/nielsenb/aniso8601>`_) and install
-directly::
+[Bitbucket]_) and install directly::
 
- $ python setup.py install
+  $ python setup.py install
 
-Use ===
+Use
+===
 
 Parsing datetimes
 -----------------
 
 To parse a typical ISO 8601 datetime string::
 
- >>> import aniso8601  >>> aniso8601.parse_datetime('1977-06-10T12:00:00Z')
- datetime.datetime(1977, 6, 10, 12, 0, tzinfo=+0:00:00 UTC)
+  >>> import aniso8601
+  >>> aniso8601.parse_datetime('1977-06-10T12:00:00Z')
+  datetime.datetime(1977, 6, 10, 12, 0, tzinfo=+0:00:00 UTC)
 
 Alternative delimiters can be specified, for example, a space::
 
- >>> aniso8601.parse_datetime('1977-06-10 12:00:00Z', delimiter=' ')
-datetime.datetime(1977, 6, 10, 12, 0, tzinfo=+0:00:00 UTC)
+  >>> aniso8601.parse_datetime('1977-06-10 12:00:00Z', delimiter=' ')
+  datetime.datetime(1977, 6, 10, 12, 0, tzinfo=+0:00:00 UTC)
 
 UTC offsets are supported::
 
- >>> aniso8601.parse_datetime('1979-06-05T08:00:00-08:00')
-datetime.datetime(1979, 6, 5, 8, 0, tzinfo=-8:00:00 UTC)
+  >>> aniso8601.parse_datetime('1979-06-05T08:00:00-08:00')
+  datetime.datetime(1979, 6, 5, 8, 0, tzinfo=-8:00:00 UTC)
 
 If a UTC offset is not specified, the returned datetime will be naive::
 
- >>> aniso8601.parse_datetime('1983-01-22T08:00:00')
-datetime.datetime(1983, 1, 22, 8, 0)
+  >>> aniso8601.parse_datetime('1983-01-22T08:00:00')
+  datetime.datetime(1983, 1, 22, 8, 0)
 
 Leap seconds are currently not supported and attempting to parse one raises
 a :code:`LeapSecondError`::
 
- >>> aniso8601.parse_datetime('2018-03-06T23:59:60')  Traceback (most
-recent call last):  File "<stdin>", line 1, in <module>  File
-"aniso8601/time.py", line 131, in parse_datetime  return
-builder.build_datetime(datepart, timepart)  File "aniso8601/builder.py",
-line 300, in build_datetime  cls._build_object(time))  File
-"aniso8601/builder.py", line 71, in _build_object  ss=parsetuple[2],
-tz=parsetuple[3])  File "aniso8601/builder.py", line 253, in build_time
-raise LeapSecondError('Leap seconds are not supported.')
-aniso8601.exceptions.LeapSecondError: Leap seconds are not supported.
+  >>> aniso8601.parse_datetime('2018-03-06T23:59:60')
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+    File "aniso8601/time.py", line 131, in parse_datetime
+      return builder.build_datetime(datepart, timepart)
+    File "aniso8601/builder.py", line 300, in build_datetime
+      cls._build_object(time))
+    File "aniso8601/builder.py", line 71, in _build_object
+      ss=parsetuple[2], tz=parsetuple[3])
+    File "aniso8601/builder.py", line 253, in build_time
+      raise LeapSecondError('Leap seconds are not supported.')
+  aniso8601.exceptions.LeapSecondError: Leap seconds are not supported.
 
 Parsing dates
 -------------
 
 To parse a date represented in an ISO 8601 string::
 
- >>> import aniso8601  >>> aniso8601.parse_date('1984-04-23')
-datetime.date(1984, 4, 23)
+  >>> import aniso8601
+  >>> aniso8601.parse_date('1984-04-23')
+  datetime.date(1984, 4, 23)
 
 Basic format is supported as well::
 
- >>> aniso8601.parse_date('19840423')  datetime.date(1984, 4, 23)
+  >>> aniso8601.parse_date('19840423')
+  datetime.date(1984, 4, 23)
 
 To parse a date using the ISO 8601 week date format::
 
- >>> aniso8601.parse_date('1986-W38-1')  datetime.date(1986, 9, 15)
-
-To parse an ISO 8601 ordinal date::
-
- >>> aniso8601.parse_date('1988-132')  datetime.date(1988, 5, 11)
+  >>> aniso8601.parse_date('1986-W38-1')

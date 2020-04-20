@@ -9,92 +9,92 @@ About CORS
 ----------
 
 Adding CORS headers allows your resources to be accessed on other domains.
-It's important you understand the implications before adding the headers,
-since you could be unintentionally opening up your site's private data to
-others.
+It's
+important you understand the implications before adding the headers, since
+you
+could be unintentionally opening up your site's private data to others.
 
 Some good resources to read on the subject are:
 
-* The [Wikipedia Page]) from Otto Yiu. Basically all of the changes in the
-forked **django-cors-middleware** were merged back, or re-implemented in a
-different way, so it should be possible to switch back. If there's a
-feature that hasn't been merged, please open an issue about it.
+* The [Wikipedia Page]_
+* The [MDN Article]_
+* The [HTML5 Rocks Tutorial]_
 
-**django-cors-headers** has had [40+ contributors ] in its time; thanks to
-every one of them.
+Requirements
+------------
+
+Python 3.5 to 3.8 supported.
+
+Django 1.11 to 3.0 suppported.
+
+Setup
+-----
+
+Install from **pip**:
+
+.. code-block:: sh
+
+    pip install django-cors-headers
+
+and then add it to your installed apps:
+
+.. code-block:: python
+
+    INSTALLED_APPS = [
+        ...
+        'corsheaders',
+        ...
+   ]
+
+You will also need to add a middleware class to listen in on responses:
+
+.. code-block:: python
+
+    MIDDLEWARE = [  # Or MIDDLEWARE_CLASSES on Django < 1.10
+        ...
+        'corsheaders.middleware.CorsMiddleware',
+        'django.middleware.common.CommonMiddleware',
+        ...
+   ]
+
+CorsMiddleware should be placed as high as possible, especially before any
+middleware that can generate responses such as Django's CommonMiddleware or
+Whitenoise's WhiteNoiseMiddleware. If it is not before, it will not be able
+to add the CORS headers to these responses.
+
+Also if you are using ``CORS_REPLACE_HTTPS_REFERER it should be placed
+before
+Django's CsrfViewMiddleware`` (see more below).
+
+About
+-----
+
+**django-cors-headers** was created in January 2013 by Otto Yiu. It went
+unmaintained from August 2015 and was forked in January 2016 to the package
+`django-cors-middleware
+<https://github.com/zestedesavoir/django-cors-middleware>`_
+by Laville Augustin at Zeste de Savoir.
+In September 2016, Adam Johnson, Ed Morley, and others gained maintenance
+responsibility for **django-cors-headers**
+([Issue 110]__)
+from Otto Yiu.
+Basically all of the changes in the forked **django-cors-middleware** were
+merged back, or re-implemented in a different way, so it should be possible
+to
+switch back. If there's a feature that hasn't been merged, please open an
+issue
+about it.
+
+**django-cors-headers** has had `40+ contributors
+<https://github.com/adamchainz/django-cors-headers/graphs/contributors>`__
+in its time; thanks to every one of them.
 
 Configuration
 -------------
 
 Configure the middleware's behaviour in your Django settings. You must add
-the hosts that are allowed to do cross-site requests to
-CORS_ORIGIN_WHITELIST, or set CORS_ORIGIN_ALLOW_ALL to True to allow all
-hosts.
-
-CORS_ORIGIN_ALLOW_ALL ~~~~~~~~~~~~~~~~~~~~~~~~~ If True, the whitelist will
-not be used and all origins will be accepted. Defaults to False.
-
-CORS_ORIGIN_WHITELIST ~~~~~~~~~~~~~~~~~~~~~~~~~
-
-A list of origins that are authorized to make cross-site HTTP requests.
-Defaults to [].
-
-An Origin is defined by [the CORS RFC Section 3.2], such as when the client
-is running from a file:// domain. The special value [file://` is sent
-accidentally by some versions of Chrome on Android as per `this bug].
-
-Example:
-
-.. code-block:: python
-
- CORS_ORIGIN_WHITELIST = [  "https://example.com",
-"https://sub.example.com",  "http://localhost:8080",
-"http://127.0.0.1:9000"  ]
-
-CORS_ORIGIN_REGEX_WHITELIST ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-A list of strings representing regexes that match Origins that are
-authorized to make cross-site HTTP requests. Defaults to []. Useful when
-CORS_ORIGIN_WHITELIST is impractical, such as when you have a large number
-of subdomains.
-
-Example:
-
-.. code-block:: python
-
- CORS_ORIGIN_REGEX_WHITELIST = [  r"^https://\w+\.example\.com$",  ]
-
---------------
-
-The following are optional settings, for which the defaults probably
-suffice.
-
-CORS_URLS_REGEX ~~~~~~~~~~~~~~~~~~~
-
-A regex which restricts the URL's for which the CORS headers will be sent.
-Defaults to r'^.*$', i.e. match all URL's. Useful when you only need CORS
-on a part of your site, e.g. an API at /api/.
-
-Example:
-
-.. code-block:: python
-
- CORS_URLS_REGEX = r'^/api/.*$'
-
-CORS_ALLOW_METHODS ~~~~~~~~~~~~~~~~~~~~~~
-
-A list of HTTP verbs that are allowed for the actual request. Defaults to:
-
-.. code-block:: python
-
- CORS_ALLOW_METHODS = [  'DELETE',  'GET',  'OPTIONS',  'PATCH',  'POST',
-'PUT',  ]
-
-The default can be imported as corsheaders.defaults.default_methods so you
-can just extend it with your custom methods. This allows you to keep up to
-date with any future changes. For example:
-
-.. code-block:: python
-
- from corsheaders.defaults import default_methods
+the
+hosts that are allowed to do cross-site requests to
+``CORS_ORIGIN_WHITELIST``, or set ``CORS_ORIGIN_ALLOW_ALL to True``
+to allow all hosts.
 

@@ -2,99 +2,99 @@ JMESPath
 ========
 
 JMESPath (pronounced "james path") allows you to declaratively specify how
-to extract elements from a JSON document.
+to
+extract elements from a JSON document.
 
 For example, given this document::
 
- {"foo": {"bar": "baz"}}
+    {"foo": {"bar": "baz"}}
 
-The jmespath expression foo.bar will return "baz".
+The jmespath expression ``foo.bar`` will return "baz".
 
 JMESPath also supports:
 
-Referencing elements in a list. Given the data::
+Referencing elements in a list.  Given the data::
 
- {"foo": {"bar": ["one", "two"]}}
+    {"foo": {"bar": ["one", "two"]}}
 
-The expression: foo.bar[0] will return "one". You can also reference all
-the items in a list using the * syntax::
+The expression: ``foo.bar[0]`` will return "one".
+You can also reference all the items in a list using the ``*``
+syntax::
 
- {"foo": {"bar": [{"name": "one"}, {"name": "two"}]}}
+   {"foo": {"bar": [{"name": "one"}, {"name": "two"}]}}
 
-The expression: foo.bar[*].name will return ["one", "two"]. Negative
-indexing is also supported (-1 refers to the last element in the list).
-Given the data above, the expression foo.bar[-1].name will return "two".
+The expression: ``foo.bar[*].name`` will return ["one", "two"].
+Negative indexing is also supported (-1 refers to the last element
+in the list).  Given the data above, the expression
+``foo.bar[-1].name`` will return "two".
 
-The * can also be used for hash types::
+The ``*`` can also be used for hash types::
 
- {"foo": {"bar": {"name": "one"}, "baz": {"name": "two"}}}
+   {"foo": {"bar": {"name": "one"}, "baz": {"name": "two"}}}
 
-The expression: foo.*.name will return ["one", "two"].
+The expression: ``foo.*.name`` will return ["one", "two"].
 
-API ===
+API
+===
 
-The jmespath.py library has two functions that operate on python data
-structures. You can use search and give it the jmespath expression and the
-data:
-
-.. code:: python
-
- >>> import jmespath  >>> path = jmespath.search('foo.bar', {'foo': {'bar':
-'baz'}})  'baz'
-
-Similar to the re module, you can use the compile function to compile the
-JMESPath expression and use this parsed expression to perform repeated
-searches:
+The ``jmespath.py`` library has two functions
+that operate on python data structures.  You can use search
+and give it the jmespath expression and the data:
 
 .. code:: python
 
- >>> import jmespath  >>> expression = jmespath.compile('foo.bar')  >>>
-expression.search({'foo': {'bar': 'baz'}})  'baz'  >>>
-expression.search({'foo': {'bar': 'other'}})  'other'
+    >>> import jmespath
+    >>> path = jmespath.search('foo.bar', {'foo': {'bar': 'baz'}})
+    'baz'
+
+Similar to the re module, you can use the compile function
+to compile the JMESPath expression and use this parsed expression
+to perform repeated searches:
+
+.. code:: python
+
+    >>> import jmespath
+    >>> expression = jmespath.compile('foo.bar')
+    >>> expression.search({'foo': {'bar': 'baz'}})
+    'baz'
+    >>> expression.search({'foo': {'bar': 'other'}})
+    'other'
 
 This is useful if you're going to use the same jmespath expression to
-search multiple documents. This avoids having to reparse the JMESPath
-expression each time you search a new document.
+search multiple documents.  This avoids having to reparse the
+JMESPath expression each time you search a new document.
 
 Options
 -------
 
-You can provide an instance of jmespath.Options to control how a JMESPath
-expression is evaluated. The most common scenario for using an Options
-instance is if you want to have ordered output of your dict keys. To do
-this you can use either of these options:
+You can provide an instance of ``jmespath.Options`` to control how
+a JMESPath expression is evaluated.  The most common scenario for
+using an Options instance is if you want to have ordered output
+of your dict keys.  To do this you can use either of these options:
 
 .. code:: python
 
- >>> import jmespath  >>> jmespath.search('{a: a, b: b}',  ... mydata,  ...
-jmespath.Options(dict_cls=collections.OrderedDict))
+    >>> import jmespath
+    >>> jmespath.search('{a: a, b: b}',
+    ...                 mydata,
+    ...                 jmespath.Options(dict_cls=collections.OrderedDict))
 
- >>> import jmespath  >>> parsed = jmespath.compile('{a: a, b: b}')  >>>
-parsed.search(mydata,  ...
-jmespath.Options(dict_cls=collections.OrderedDict))
+    >>> import jmespath
+    >>> parsed = jmespath.compile('{a: a, b: b}')
+    >>> parsed.search(mydata,
+    ...               jmespath.Options(dict_cls=collections.OrderedDict))
 
-Custom Functions ~~~~~~~~~~~~~~~~
+Custom Functions
+~~~~~~~~~~~~~~~~
 
-The JMESPath language has numerous [built-in functions ], but it is also
-possible to add your own custom functions. Keep in mind that custom
-function support in jmespath.py is experimental and the API may change
-based on feedback.
+The JMESPath language has numerous
+`built-in functions
+<http://jmespath.org/specification.html#built-in-functions>`__, but it is
+also possible to add your own custom functions.  Keep in mind that
+custom function support in jmespath.py is experimental and the API may
+change based on feedback.
 
 **If you have a custom function that you've found useful, consider
-submitting it to jmespath.site and propose that it be added to the JMESPath
-language.** You can submit proposals [here].
-
-To create custom functions:
-
-* Create a subclass of jmespath.functions.Functions.
-* Create a method with the name _func_<your function name>.
-* Apply the jmespath.functions.signature decorator that indicates  the
-expected types of the function arguments.
-* Provide an instance of your subclass in a jmespath.Options object.
-
-Below are a few examples:
-
-.. code:: python
-
- import jmespath  from jmespath import functions
-
+submitting
+it to jmespath.site and propose that it be added to the JMESPath
+language.**

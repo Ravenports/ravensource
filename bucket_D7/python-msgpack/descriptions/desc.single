@@ -1,39 +1,42 @@
 # MessagePack for Python
 
-[![Build
-Status](https://travis-ci.org/msgpack/msgpack-python.svg?branch=master)](https://travis-ci.org/msgpack/msgpack-python)
+[![Build Status]](https://travis-ci.org/msgpack/msgpack-python)
 [![Documentation
-Status](https://readthedocs.org/projects/msgpack-python/badge/?version=latest)](https://msgpack-python.readthedocs.io/en/latest/?badge=latest)
+Status]](https://msgpack-python.readthedocs.io/en/latest/?badge=latest)
 
 ## What's this
 
-[MessagePack](https://msgpack.org/) is an efficient binary serialization
-format. It lets you exchange data among multiple languages like JSON. But
-it's faster and smaller. This package provides CPython bindings for reading
-and writing MessagePack data.
+[MessagePack] is an efficient binary serialization format.
+It lets you exchange data among multiple languages like JSON.
+But it's faster and smaller.
+This package provides CPython bindings for reading and writing MessagePack
+data.
 
 ## Very important notes for existing users
 
 ### PyPI package name
 
 TL;DR: When upgrading from msgpack-0.4 or earlier, don't do `pip install -U
-msgpack-python`. Do `pip uninstall msgpack-python; pip install msgpack`
-instead.
+msgpack-python`.
+Do `pip uninstall msgpack-python; pip install msgpack` instead.
 
-Package name on PyPI was changed to msgpack from 0.5. I upload transitional
-package (msgpack-python 0.5 which depending on msgpack) for smooth
-transition from msgpack-python to msgpack.
+Package name on PyPI was changed to msgpack from 0.5.
+I upload transitional package (msgpack-python 0.5 which depending on
+msgpack)
+for smooth transition from msgpack-python to msgpack.
 
-Sadly, this doesn't work for upgrade install. After `pip install -U
-msgpack-python`, msgpack is removed, and `import msgpack` fail.
+Sadly, this doesn't work for upgrade install.  After `pip install -U
+msgpack-python`,
+msgpack is removed, and `import msgpack` fail.
 
 ### Compatibility with the old format
 
-You can use `use_bin_type=False` option to pack `bytes` object into raw
-type in the old msgpack spec, instead of bin type in new msgpack spec.
+You can use `use_bin_type=False` option to pack `bytes`
+object into raw type in the old msgpack spec, instead of bin type in new
+msgpack spec.
 
-You can unpack old msgpack format using `raw=True` option. It unpacks str
-(raw) type in msgpack into Python bytes.
+You can unpack old msgpack format using `raw=True` option.
+It unpacks str (raw) type in msgpack into Python bytes.
 
 See note below for detail.
 
@@ -41,60 +44,57 @@ See note below for detail.
 
 * Python 2
 
- * The extension module does not support Python 2 anymore.  The pure Python
-implementation (`msgpack.fallback`) is used for Python 2.
+  * The extension module does not support Python 2 anymore.
+    The pure Python implementation (`msgpack.fallback`) is used for Python
+2.
 
 * Packer
 
- * `use_bin_type=True` by default. bytes are encoded in bin type in
-msgpack.  **If you are still sing Python 2, you must use unicode for all
-string types.**  You can use `use_bin_type=False` to encode into old
-msgpack format.  * `encoding` option is removed. UTF-8 is used always.
+  * `use_bin_type=True` by default.  bytes are encoded in bin type in
+msgpack.
+    **If you are still sing Python 2, you must use unicode for all string
+types.**
+    You can use `use_bin_type=False` to encode into old msgpack format.
+  * `encoding` option is removed.  UTF-8 is used always.
 
 * Unpacker
 
- * `raw=False` by default. It assumes str types are valid UTF-8 string  and
-decode them to Python str (unicode) object.  * `encoding` option is
-removed. You can use `raw=True` to support old format.  * Default value of
-`max_buffer_size` is changed from 0 to 100 MiB.  * Default value of
-`strict_map_key` is changed to True to avoid hashdos.  You need to pass
-`strict_map_key=False` if you have data which contain map keys  which type
-is not bytes or str.
+  * `raw=False` by default.  It assumes str types are valid UTF-8 string
+    and decode them to Python str (unicode) object.
+  * `encoding` option is removed.  You can use `raw=True` to support old
+format.
+  * Default value of `max_buffer_size` is changed from 0 to 100 MiB.
+  * Default value of `strict_map_key` is changed to True to avoid hashdos.
+    You need to pass `strict_map_key=False` if you have data which contain
+map keys
+    which type is not bytes or str.
 
 ## Install
 
- $ pip install msgpack
+   $ pip install msgpack
 
 ### Pure Python implementation
 
 The extension module in msgpack (`msgpack._cmsgpack`) does not support
 Python 2 and PyPy.
 
-But msgpack provides a pure Python implementation (`msgpack.fallback`) for
-PyPy and Python 2.
+But msgpack provides a pure Python implementation (`msgpack.fallback`)
+for PyPy and Python 2.
 
-Since the [pip](https://pip.pypa.io/) uses the pure Python implementation,
+Since the [pip] uses the pure Python implementation,
 Python 2 support will not be dropped in the foreseeable future.
 
 ### Windows
 
 When you can't use a binary distribution, you need to install Visual Studio
-or Windows SDK on Windows. Without extension, using pure Python
-implementation on CPython runs slowly.
+or Windows SDK on Windows.
+Without extension, using pure Python implementation on CPython runs slowly.
 
 ## How to use
 
 NOTE: In examples below, I use `raw=False` and `use_bin_type=True` for
-users using msgpack < 1.0. These options are default from msgpack 1.0 so
-you can omit them.
+users
+using msgpack < 1.0. These options are default from msgpack 1.0 so you can
+omit them.
 
 ### One-shot pack & unpack
-
-Use `packb` for packing and `unpackb` for unpacking. msgpack provides
-`dumps` and `loads` as an alias for compatibility with `json` and `pickle`.
-
-`pack` and `dump` packs to a file-like object. `unpack` and `load` unpacks
-from a file-like object.
-
-`pycon  >>> import msgpack  >>> msgpack.packb([1, 2, 3], use_bin_type=True)
- '\x93\x01\x02\x03'  >>> msgpack.unpackb(_, raw=False)  [1, 2, 3] `

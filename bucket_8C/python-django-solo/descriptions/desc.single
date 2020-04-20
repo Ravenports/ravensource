@@ -1,11 +1,22 @@
- Django Solo
+
+Django Solo
 ===========
 
- +---------------------------+  | |  | |  | \ | Django Solo helps working
-with singletons:  | /\ | database tables that only have one row.  | >=)'> |
-Singletons are useful for things like global  | \/ | settings that you want
-to edit from the admin  | / | instead of having them in Django settings.py.
- | |   | |   +---------------------------+
+    +---------------------------+
+    |                           |
+    |                           |
+    |             \             | Django Solo helps working with
+singletons:
+    |             /\            | database tables that only have one row.
+    |           >=)'>           | Singletons are useful for things like
+global
+    |             \/            | settings that you want to edit from the
+admin
+    |             /             | instead of having them in Django
+settings.py.
+    |                           | 
+    |                           | 
+    +---------------------------+
 
 Features
 --------
@@ -37,64 +48,53 @@ relationship to be limited to a single instance.
 
 Usage Example
 
-`python # models.py
+```python
+# models.py
 
-from django.db import models from solo.models import SingletonModel
+from django.db import models
+from solo.models import SingletonModel
 
-class SiteConfiguration(SingletonModel):  site_name =
-models.CharField(max_length=255, default='Site Name')  maintenance_mode =
-models.BooleanField(default=False)
+class SiteConfiguration(SingletonModel):
+    site_name = models.CharField(max_length=255, default='Site Name')
+    maintenance_mode = models.BooleanField(default=False)
 
- def __unicode__(self):  return u"Site Configuration"
+    def __unicode__(self):
+        return u"Site Configuration"
 
- class Meta:  verbose_name = "Site Configuration" `
+    class Meta:
+        verbose_name = "Site Configuration"
+`
 
-`python # admin.py
+`python
+# admin.py
 
-from django.contrib import admin from solo.admin import SingletonModelAdmin
+from django.contrib import admin
+from solo.admin import SingletonModelAdmin
 from config.models import SiteConfiguration
 
 admin.site.register(SiteConfiguration, SingletonModelAdmin)
 
-# There is only one item in the table, you can get it this way: from
-.models import SiteConfiguration config = SiteConfiguration.objects.get()
+# There is only one item in the table, you can get it this way:
+from .models import SiteConfiguration
+config = SiteConfiguration.objects.get()
 
-# get_solo will create the item if it does not already exist config =
-SiteConfiguration.get_solo() `
+# get_solo will create the item if it does not already exist
+config = SiteConfiguration.get_solo()
+```
 
 In your model, note how you did not have to provide a `verbose_name_plural`
-field - That's because Django Solo uses the `verbose_name` instead.
+field -
+That's because Django Solo uses the `verbose_name` instead.
 
 If you're changing an existing model (which already has some objects stored
 in the database) to a singleton model, you can explicitly provide the id of
 the row in the database for django-solo to use. This can be done by setting
 `singleton_instance_id` property on the model:
 
-`python class SiteConfiguration(SingletonModel):  singleton_instance_id =
-24  # (...) `
+```python
+class SiteConfiguration(SingletonModel):
+    singleton_instance_id = 24
+    # (...)
+```
 
 Installation
-------------
-
-This application requires Django >= 1.6.
-
-* Install the package using `pip install django-solo`
-* Add solo or solo.apps.SoloAppConfig to your INSTALLED_APPS setting.
-
-This is how you run tests:
-
- ./manage.py test solo --settings=solo.tests.settings
-
-Admin
------
-
-The standard Django admin does not fit well when working with singleton,
-for instance, if you need some global site settings to be edited in the
-admin. Django Solo provides a modified admin for that.
-
-![django-solo
-admin](https://raw.github.com/lazybird/django-solo/master/docs/images/django-solo-admin.jpg
-"django-solo admin")
-
-* In the admin home page where all applications are listed, we have a
-`config`  application that holds a singleton model for site configuration.

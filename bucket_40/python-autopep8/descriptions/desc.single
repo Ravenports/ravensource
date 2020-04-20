@@ -1,16 +1,18 @@
-======== autopep8
+========
+autopep8
 ========
 
- :alt: PyPI Version
+    :alt: PyPI Version
 
- :alt: Build status
+    :alt: Build status
 
 autopep8 automatically formats Python code to conform to the `PEP 8`_ style
 guide. It uses the pycodestyle_ utility to determine what parts of the code
 needs to be formatted. autopep8 is capable of fixing most of the formatting
 issues_ that can be reported by pycodestyle.
 
-.. _PEP 8: https://www.python.org/dev/peps/pep-0008/ .. _issues:
+.. _PEP 8: https://www.python.org/dev/peps/pep-0008/
+.. _issues:
 https://pycodestyle.readthedocs.org/en/latest/intro.html#error-codes
 
 .. contents::
@@ -20,9 +22,9 @@ Installation
 
 From pip::
 
- $ pip install --upgrade autopep8
+    $ pip install --upgrade autopep8
 
-Consider using the --user option_.
+Consider using the ``--user`` option_.
 
 .. _option: https://pip.pypa.io/en/latest/user_guide/#user-installs
 
@@ -38,63 +40,61 @@ Usage
 
 To modify a file in place (with aggressive level 2)::
 
- $ autopep8 --in-place --aggressive --aggressive <filename>
+    $ autopep8 --in-place --aggressive --aggressive <filename>
 
 Before running autopep8.
 
 .. code-block:: python
 
- import math, sys;
+    import math, sys;
 
- def example1():  ####This is a long comment. This should be wrapped to fit
-within 72 characters.  some_tuple=( 1,2, 3,'a' );
-some_variable={'long':'Long code lines should be wrapped within 79
-characters.',  'other':[math.pi, 100,200,300,9876543210,'This is a long
-string that goes on'],  'more':{'inner':'This whole logical line should be
-wrapped.',some_tuple:[1,  20,300,40000,500000000,60000000000000000]}}
-return (some_tuple, some_variable)  def example2(): return {'has_key() is
-deprecated':True}.has_key({'f':2}.has_key(''));  class Example3( object ):
-def __init__ ( self, bar ):  #Comments should have a space after the hash.
-if bar : bar+=1; bar=bar* bar ; return bar  else:  some_string = """  		
-Indentation in multiline strings should not be touched.  Only actual code
-should be reindented.  """  return (sys.path, some_string)
+    def example1():
+        ####This is a long comment. This should be wrapped to fit within 72
+characters.
+        some_tuple=(   1,2, 3,'a'  );
+        some_variable={'long':'Long code lines should be wrapped within 79
+characters.',
+        'other':[math.pi, 100,200,300,9876543210,'This is a long string
+that goes on'],
+        'more':{'inner':'This whole logical line should be
+wrapped.',some_tuple:[1,
+        20,300,40000,500000000,60000000000000000]}}
+        return (some_tuple, some_variable)
+    def example2(): return {'has_key() is
+deprecated':True}.has_key({'f':2}.has_key(''));
+    class Example3(   object ):
+        def __init__    ( self, bar ):
+         #Comments should have a space after the hash.
+         if bar : bar+=1;  bar=bar* bar   ; return bar
+         else:
+                        some_string = """
+    		           Indentation in multiline strings should not be touched.
+    Only actual code should be reindented.
+    """
+                        return (sys.path, some_string)
 
 After running autopep8.
 
 .. code-block:: python
 
- import math  import sys
+    import math
+    import sys
 
- def example1():  # This is a long comment. This should be wrapped to fit
-within 72  # characters.  some_tuple = (1, 2, 3, 'a')  some_variable = {
-'long': 'Long code lines should be wrapped within 79 characters.',
-'other': [  math.pi,  100,  200,  300,  9876543210,  'This is a long string
-that goes on'],  'more': {  'inner': 'This whole logical line should be
-wrapped.',  some_tuple: [  1,  20,  300,  40000,  500000000,
-60000000000000000]}}  return (some_tuple, some_variable)
-
- def example2(): return ('' in {'f': 2}) in {'has_key() is deprecated':
-True}
-
- class Example3(object):  def __init__(self, bar):  # Comments should have
-a space after the hash.  if bar:  bar += 1  bar = bar * bar  return bar
-else:  some_string = """  		 Indentation in multiline strings should not be
-touched.  Only actual code should be reindented.  """  return (sys.path,
-some_string)
-
-Options::
-
- usage: autopep8 [-h] [--version] [-v] [-d] [-i] [--global-config filename]
- [--ignore-local-config] [-r] [-j n] [-p n] [-a]  [--experimental]
-[--exclude globs] [--list-fixes]  [--ignore errors] [--select errors]
-[--max-line-length n]  [--line-range line line] [--hang-closing]
-[--exit-code]  [files [files ...]]
-
- Automatically formats Python code to conform to the PEP 8 style guide.
-
- positional arguments:  files files to format or '-' for standard in
-
- optional arguments:  -h, --help show this help message and exit  --version
-show program's version number and exit  -v, --verbose print verbose
-messages; multiple -v result in more  verbose messages  -d, --diff print
-the diff for the fixed source  -i, --in-place make changes to files in
+    def example1():
+        # This is a long comment. This should be wrapped to fit within 72
+        # characters.
+        some_tuple = (1, 2, 3, 'a')
+        some_variable = {
+            'long': 'Long code lines should be wrapped within 79
+characters.',
+            'other': [
+                math.pi,
+                100,
+                200,
+                300,
+                9876543210,
+                'This is a long string that goes on'],
+            'more': {
+                'inner': 'This whole logical line should be wrapped.',
+                some_tuple: [
+                    1,

@@ -1,7 +1,8 @@
-=============================== cached-property
+===============================
+cached-property
 ===============================
 
- :alt: Code style: black
+    :alt: Code style: black        
 
 A decorator for caching properties in classes.
 
@@ -18,83 +19,82 @@ How to use it
 --------------
 
 Let's define a class with an expensive property. Every time you stay there
-the price goes up by $50!
+the
+price goes up by $50!
 
-.. code-block:: python
+History
+-------
 
- class Monopoly(object):
+1.5.1 (2018-08-05)
+++++++++++++++++++
 
- def __init__(self):  self.boardwalk_price = 500
+* Added formal support for Python 3.7
+* Removed formal support for Python 3.3
 
- @property  def boardwalk(self):  # In reality, this might represent a
-database call or time  # intensive task like calling a third-party API.
-self.boardwalk_price += 50  return self.boardwalk_price
+1.4.3  (2018-06-14)
++++++++++++++++++++
 
-Now run it:
+* Catch SyntaxError from asyncio import on older versions of Python, thanks
+to @asottile
 
-.. code-block:: python
+1.4.2 (2018-04-08)
+++++++++++++++++++
 
- >>> monopoly = Monopoly()  >>> monopoly.boardwalk  550  >>>
-monopoly.boardwalk  600
+* Really fixed tests, thanks to @pydanny
 
-Let's convert the boardwalk property into a cached_property.
+1.4.1 (2018-04-08)
+++++++++++++++++++
 
-.. code-block:: python
+* Added conftest.py to manifest so tests work properly off the tarball,
+thanks to @dotlambda
+* Ensured new asyncio tests didn't break Python 2.7 builds on Debian,
+thanks to @pydanny
+* Code formatting via black, thanks to @pydanny and @ambv
 
- from cached_property import cached_property
+1.4.0 (2018-02-25)
+++++++++++++++++++
 
- class Monopoly(object):
+* Added asyncio support, thanks to @vbraun
+* Remove Python 2.6 support, whose end of life was 5 years ago, thanks to
+@pydanny
 
- def __init__(self):  self.boardwalk_price = 500
+1.3.1 (2017-09-21)
+++++++++++++++++++
 
- @cached_property  def boardwalk(self):  # Again, this is a silly example.
-Don't worry about it, this is  # just an example for clarity.
-self.boardwalk_price += 50  return self.boardwalk_price
+* Validate for Python 3.6
 
-Now when we run it the price stays at $550.
+1.3.0 (2015-11-24)
+++++++++++++++++++
 
-.. code-block:: python
+* Drop some non-ASCII characters from HISTORY.rst, thanks to @AdamWill
+* Added official support for Python 3.5, thanks to @pydanny and @audreyr
+* Removed confusingly placed lock from example, thanks to @ionelmc
+* Corrected invalidation cache documentation, thanks to @proofit404
+* Updated to latest Travis-CI environment, thanks to @audreyr
 
- >>> monopoly = Monopoly()  >>> monopoly.boardwalk  550  >>>
-monopoly.boardwalk  550  >>> monopoly.boardwalk  550
+1.2.0 (2015-04-28)
+++++++++++++++++++
 
-Why doesn't the value of monopoly.boardwalk change? Because it's a **cached
-property**!
+* Overall code and test refactoring, thanks to @gsakkis
+* Allow the del statement for resetting cached properties with ttl instead
+of del obj._cache[attr], thanks to @gsakkis.
+* Uncovered a bug in PyPy,
+https://bitbucket.org/pypy/pypy/issue/2033/attributeerror-object-attribute-is-read,
+thanks to @gsakkis
+* Fixed threaded_cached_property_with_ttl to actually be thread-safe,
+thanks to @gsakkis
 
-Invalidating the Cache
-----------------------
+1.1.0 (2015-04-04)
+++++++++++++++++++
 
-Results of cached functions can be invalidated by outside forces. Let's
-demonstrate how to force the cache to invalidate:
+* Regression: As the cache was not always clearing, we've broken out the
+time to expire feature to its own set of specific tools, thanks to @pydanny
+* Fixed typo in README, thanks to @zoidbergwill
 
-.. code-block:: python
+1.0.0 (2015-02-13)
+++++++++++++++++++
 
- >>> monopoly = Monopoly()  >>> monopoly.boardwalk  550  >>>
-monopoly.boardwalk  550  >>> # invalidate the cache  >>> del
-monopoly.__dict__['boardwalk']  >>> # request the boardwalk property again
->>> monopoly.boardwalk  600  >>> monopoly.boardwalk  600
+* Added timed to expire feature to ``cached_property`` decorator.
+* **Backwards incompatiblity**: Changed ``del monopoly.boardwalk to del
+monopoly['boardwalk']`` in order to support the new TTL feature.
 
-Working with Threads
----------------------
-
-What if a whole bunch of people want to stay at Boardwalk all at once? This
-means using threads, which unfortunately causes problems with the standard
-cached_property. In this case, switch to using the
-threaded_cached_property:
-
-.. code-block:: python
-
- from cached_property import threaded_cached_property
-
- class Monopoly(object):
-
- def __init__(self):  self.boardwalk_price = 500
-
- @threaded_cached_property  def boardwalk(self):
-"""threaded_cached_property is really nice for when no one waits  for other
-people to finish their turn and rudely start rolling  dice and moving their
-pieces."""
-
- sleep(1)  self.boardwalk_price += 50  return self.boardwalk_price
-
-Now use it:
