@@ -255,22 +255,22 @@ function fetch_from_pypi ($namebase) {
 # Many setup.py files are busted.  This script fixes the known issues.
 function inline_fix_setup ($namebase, $src) {
    $known_issues = array (
-       "drf-yasg"     => "s/    _install_setup_requires.*/    pass/",
-       "ruamel.yaml"  => "/include setup.py/ s/^.*/    pass/; /'sys.argv'/d; /compiling/d",
-       "pyocr"        => "/PyOCR version/d",
-       "lxml"         => "/Building lxml/d",
-       "intervaltree" => "/print(\"Version/d; s/print(\"!!!.*/    pass/",
+       "drf-yasg"     => 's/    _install_setup_requires.*/    pass/',
+       "ruamel.yaml"  => '/include setup.py/ s/^.*/    pass/; /[\']sys.argv[\']/d; /compiling/d',
+       "pyocr"        => '/PyOCR version/d',
+       "lxml"         => '/Building lxml/d',
+       "intervaltree" => '/print("Version/d; s/print("!!!.*/    pass/',
        "eyeD3"        => false,
-       "aniso8601"    => "/install_requires=/d",
-       "borgbackup"   => "/Detected/d",
-       "compreffor"   => "/print/d",
-       "cattrs"       => "/python_version/d",
+       "aniso8601"    => '/install_requires=/d',
+       "borgbackup"   => '/Detected/d',
+       "compreffor"   => '/print/d',
+       "cattrs"       => '/python_version/d',
    );
    $setup = $src . "/setup.py";
    if (array_key_exists($namebase, $known_issues)) {
        $sedcmd = $known_issues[$namebase];
        if ($sedcmd !== false) {
-           shell_exec("sed -i.bak -e \"$sedcmd\" $setup");
+           shell_exec("sed -i.bak -e '$sedcmd' $setup");
        }
        # additional changes
        switch ($namebase) {
@@ -373,10 +373,13 @@ EOF;
     $portdata["req_comment"] .= join("\n", $comment_reqs);
     $stripped_reqs = preg_replace('/(.*)([><!=~].*)$/U', '\1', $clean_reqs);
     foreach ($stripped_reqs as $req) {
+        $req = trim($req);
         if (array_key_exists ($req, $data_corrections)) {
             $req = $data_corrections[$req];
         }
-        array_push($portdata["buildrun"], "python-" . $req);
+        if (!in_array("python-" . $req, $portdata["buildrun"])) {
+            array_push($portdata["buildrun"], "python-" . $req);
+        }
     }
 }
 
@@ -418,6 +421,13 @@ function scrape_python_info ($namebase, $force) {
          $result["license"]     = $obj->info->license;
          $result["homepage"]    = $obj->info->home_page;
          $result["pypi_uri"]	= substr($namebase, 0, 1) . "/" . $namebase;
+
+         # handle really long licenses
+         if (strlen($obj->info->license) > 77) {
+            $temp = wordwrap ($obj->info->license, 70);
+            $lines = explode("\n", $temp);
+            $result["license"] = join("\n# ", $lines);
+         }
 
          $release_found = false;
          foreach ($obj->releases->$version as $entry) {
