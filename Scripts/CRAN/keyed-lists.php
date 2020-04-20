@@ -68,7 +68,7 @@ function make_comment ($shortdesc) {
     $copystring = preg_replace ("/^A /i", "", $copystring);
     $copystring = preg_replace ("/^An /i", "", $copystring);
     $copystring = preg_replace ("/^The /i", "", $copystring);
-    return ucfirst($copystring);
+    return ucfirst(trim ($copystring));
 }
 
 
@@ -84,7 +84,7 @@ function sanitize_summary ($namebase, $original_summary) {
     $truncated = false;
 
     if (array_key_exists($namebase, $data_summary)) {
-        $summary = $data_summary[$namebase];
+        $summary = trim ($data_summary[$namebase]);
     } else {
         $summary = make_comment($original_summary);
     }
@@ -96,7 +96,7 @@ function sanitize_summary ($namebase, $original_summary) {
     # strip trailing periods
     $summary =  preg_replace('/[.]*$/', "", $summary);
     $truncated = strlen ($summary) > 50;
-    $final_summary = $truncated ? substr($summary, 0, 50) : $summary;
+    $final_summary = $truncated ? trim(substr($summary, 0, 50)) : $summary;
     return array("summary" => $final_summary, "truncated" => $truncated);
 }
 
