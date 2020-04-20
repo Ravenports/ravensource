@@ -29,9 +29,14 @@ LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		nasm:primary:standard
 
-USES=			cmake perl:build
+USES=			cmake c++:single perl:build
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
 			-DENABLE_DOCS:BOOL=OFF
 			-DENABLE_TESTS:BOOL=OFF
 SOVERSION=		${SOVERSION}
 SINGLE_JOB=		yes
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/aomdec
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/aomenc
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libaom.so
