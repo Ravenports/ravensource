@@ -88,13 +88,13 @@ moved (to flush filename).
 
 fsync does not take care of disks' internal buffers, but there don't seem
 to be any standard POSIX APIs for that. On OS X, fcntl is used with
-``F_FULLFSYNC instead of fsync`` for that reason.
+F_FULLFSYNC instead of fsync for that reason.
 
-On Windows, `_commit
-<https://msdn.microsoft.com/en-us/library/17618685.aspx>`_
+On Windows, [_commit]_
 is used, but there are no guarantees about disk internal buffers.
 
 Alternatives and Credit
 =======================
 
 Atomicwrites is directly inspired by the following libraries (and shares a
+minimal amount of code):

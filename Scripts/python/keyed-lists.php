@@ -132,14 +132,14 @@ function produce_long_description
 
         # flatten links
         $patt_link = array (
-           '/[`]([[:alnum:] \s\']+)[<][\s\S]+[>][`][_]?[_]?/U',
+           '/[`]([[:alnum:] \s\'_]+)[<][\s\S]+[>][`][_]?[_]?/U',
            '/[[]([\s\S]+)[]][(][\s\S]+[)]/U',
         );
         $repl_link = array ('[\1]', '[\1]');
         $desctext = preg_replace($patt_link, '[\1]', $desctext);
 
         # Replace "`` ... ``" with double quotes
-        $patt_quotes = "/[`][`]([[:alnum:] \s\']*)[`][`]/U";
+        $patt_quotes = "/[`][`]([[:alnum:] \s\'_]*)[`][`]/U";
         $desctext = preg_replace($patt_quotes, '\1', $desctext);
 
         # replace dos endings with unix endings\n
