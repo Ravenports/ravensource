@@ -3,7 +3,7 @@
 # PR: ports/149167 ports/184517
 # Patch by: cognet@ (to be upstreamed @ LLVM)
 
---- ./Modules/_ctypes/libffi/src/arm/ffi.c.orig	2019-03-02 18:17:42 UTC
+--- ./Modules/_ctypes/libffi/src/arm/ffi.c.orig	2020-04-19 21:13:39 UTC
 +++ ./Modules/_ctypes/libffi/src/arm/ffi.c
 @@ -33,6 +33,11 @@
  

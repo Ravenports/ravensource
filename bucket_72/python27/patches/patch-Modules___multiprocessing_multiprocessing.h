@@ -2,7 +2,7 @@ $NetBSD: patch-Modules___multiprocessing_multiprocessing.h,v 1.1 2017/05/22 16:4
 
 Only define _XOPEN_SOURCE if we aren't already using newer.
 
---- Modules/_multiprocessing/multiprocessing.h.orig	2019-03-02 18:17:42 UTC
+--- Modules/_multiprocessing/multiprocessing.h.orig	2020-04-19 21:13:39 UTC
 +++ Modules/_multiprocessing/multiprocessing.h
 @@ -3,7 +3,7 @@
  

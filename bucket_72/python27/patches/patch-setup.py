@@ -1,4 +1,4 @@
---- setup.py.orig	2019-03-02 18:17:42 UTC
+--- setup.py.orig	2020-04-19 21:13:39 UTC
 +++ setup.py
 @@ -15,6 +15,7 @@ from distutils.core import Extension, se
  from distutils.command.build_ext import build_ext
@@ -17,7 +17,7 @@
  
  def add_dir_to_list(dirlist, dir):
      """Add the directory 'dir' to the list 'dirlist' (at the front) if
-@@ -1234,7 +1235,7 @@ class PyBuildExt(build_ext):
+@@ -1280,7 +1281,7 @@ class PyBuildExt(build_ext):
                  sysroot = macosx_sdk_root()
                  f = os.path.join(sysroot, f[1:])
  
@@ -26,7 +26,7 @@
              data = open(f).read()
              m = re.search(r"#s*define\s+HASHVERSION\s+2\s*", data)
              if m is not None:
-@@ -1568,7 +1569,11 @@ class PyBuildExt(build_ext):
+@@ -1614,7 +1615,11 @@ class PyBuildExt(build_ext):
              macros = dict()
              libraries = []
  
@@ -39,7 +39,7 @@
              # FreeBSD's P1003.1b semaphore support is very experimental
              # and has many known problems. (as of June 2008)
              macros = dict()
-@@ -1619,9 +1624,10 @@ class PyBuildExt(build_ext):
+@@ -1665,9 +1670,10 @@ class PyBuildExt(build_ext):
          else:
              missing.append('linuxaudiodev')
  
@@ -53,7 +53,7 @@
              exts.append( Extension('ossaudiodev', ['ossaudiodev.c']) )
          else:
              missing.append('ossaudiodev')
-@@ -2244,6 +2250,22 @@ class PyBuildInstallLib(install_lib):
+@@ -2290,6 +2296,22 @@ class PyBuildInstallLib(install_lib):
      def is_chmod_supported(self):
          return hasattr(os, 'chmod')
  
@@ -76,7 +76,7 @@
  SUMMARY = """
  Python is an interpreted, interactive, object-oriented programming
  language. It is often compared to Tcl, Perl, Scheme or Java.
-@@ -2289,7 +2311,9 @@ def main():
+@@ -2335,7 +2357,9 @@ def main():
            platforms = ["Many"],
  
            # Build info
@@ -87,7 +87,7 @@
                        'install_lib':PyBuildInstallLib},
            # The struct module is defined here, because build_ext won't be
            # called unless there's at least one extension module defined.
-@@ -2297,8 +2321,7 @@ def main():
+@@ -2343,8 +2367,7 @@ def main():
  
            # Scripts to install
            scripts = ['Tools/scripts/pydoc', 'Tools/scripts/idle',

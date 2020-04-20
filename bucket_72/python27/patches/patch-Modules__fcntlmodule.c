@@ -1,4 +1,4 @@
---- ./Modules/fcntlmodule.c.orig	2019-03-02 18:17:42 UTC
+--- ./Modules/fcntlmodule.c.orig	2020-04-19 21:13:39 UTC
 +++ ./Modules/fcntlmodule.c
 @@ -98,20 +98,15 @@ fcntl_ioctl(PyObject *self, PyObject *ar
  {
