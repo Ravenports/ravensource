@@ -15,7 +15,6 @@ define ("DEAD_HOMEPAGES", "deadhome");
 define ("TOPLEVEL_PORTS", "toplevel");
 define ("HTTP_REDIRECT", "redirect");
 define ("CORRECTIONS", "depfixes");
-define ("DISTNAMES", "distname");
 define ("LEGACY", "legacy");
 
 require_once $SCRIPTDIR . "/keyed-lists.php";
@@ -27,7 +26,6 @@ ingest_file (DESCRIPTIONS, $SCRIPTDIR);
 ingest_file (DEAD_HOMEPAGES, $SCRIPTDIR);
 ingest_file (HTTP_REDIRECT, $SCRIPTDIR);
 ingest_file (CORRECTIONS, $SCRIPTDIR);
-ingest_file (DISTNAMES, $SCRIPTDIR);
 ingest_file (LEGACY, $SCRIPTDIR);
 set_top_level_ports (TOPLEVEL_PORTS, $SCRIPTDIR);
 
@@ -271,6 +269,8 @@ function determine_variants($namebase, $requirements) {
 # - If specification.manual exists, it's concatenated to end of specification
 function generate_port($namebase) {
     global
+        $EXTS,
+        $EXTPATS,
         $port_data,
         $truncated_summaries,
         $ravensource_directory;
@@ -319,15 +319,11 @@ function generate_port($namebase) {
                                       $port_data[$namebase]["homepage"]);
 
     # minimize future changes by using pvbraces
-    $exts = array("tgz" => ".tar.gz", "zip" => ".zip", "tbz" =>".tar.bz2");
-    $pats = array("tgz" => '/[.]tar[.]gz$/',
-                  "zip" => '/[.]zip$/',
-                  "tbz" => '/[.]tar[.]bz2$');
-    foreach ($exts as $key => $ext) {
+    foreach ($EXTS as $key => $ext) {
         $tarball  = str_replace ("-" . $portversion . $ext,
                                  "-" . $pvbraces . $ext,
                                  $port_data[$namebase]["distfile"]);
-        $distname = preg_replace ($pats[$key], "", $tarball);
+        $distname = preg_replace ($EXTPATS[$key], "", $tarball);
         if ($tarball != $port_data[$namebase]["distfile"]) {
             break;
         }

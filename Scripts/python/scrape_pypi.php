@@ -1,10 +1,15 @@
 <?php
 
+# global constants
 $PYTHON_CACHE = "/var/cache/python";
 $PYTHON_CACHE_JSON = $PYTHON_CACHE . "/json";
 $PYTHON_CACHE_ETAG = $PYTHON_CACHE . "/etag";
 $PYTHON_CACHE_DIST = $PYTHON_CACHE . "/distfiles";
 $PYTHONEXE = "/raven/bin/python3.8";
+$EXTS    = array("tgz" => ".tar.gz", "zip" => ".zip", "tbz" =>".tar.bz2");
+$EXTPATS = array("tgz" => '/[.]tar[.]gz$/',
+                 "zip" => '/[.]zip$/',
+                 "tbz" => '/[.]tar[.]bz2$');
 
 # Returns name of etag file
 function etag_filename ($namebase) {
@@ -328,7 +333,8 @@ function inline_fix_setup ($namebase, $src) {
 function set_buildrun (&$portdata) {
     global
         $data_corrections,
-        $data_distnames,
+        $EXTS,
+        $EXTPATS,
         $PYTHONEXE,
         $PYTHON_CACHE_DIST;
 
@@ -345,9 +351,14 @@ function set_buildrun (&$portdata) {
        return;
     }
     shell_exec("cd $WORKZONE && tar -xf $tarball");
-    $distname = array_key_exists($portdata["name"], $data_distnames) ?
-                $data_distnames[$portdata["name"]] : $portdata["name"];
-    $src = $WORKZONE . "/" . $distname . "-" . $portdata["version"];
+    $exts = array("tgz" => ".tar.gz", "zip" => ".zip", "tbz" =>".tar.bz2");
+    foreach ($EXTS as $key => $ext) {
+        $distname = preg_replace ($EXTPATS[$key], "", $portdata["distfile"]);
+        if ($distname != $portdata["distfile"]) {
+           break;
+        }
+    }
+    $src = $WORKZONE . "/" . $distname;
     $setup = $src . "/setup.py";
     if (!file_exists($setup)) {
         echo "ERROR: $setup does not exist (set_buildrun)\n";

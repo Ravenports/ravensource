@@ -7,7 +7,6 @@ $data_homepage = array();
 $data_toplevel_ports = array();
 $data_https_redirect = array();
 $data_corrections = array();
-$data_distnames = array();
 $data_legacy = array();
 
 
@@ -23,7 +22,6 @@ function ingest_file ($datatype, $scriptdir) {
         $data_https_redirect,
         $data_toplevel_ports,
         $data_corrections,
-        $data_distnames,
         $data_legacy;
 
     $filename = "";
@@ -58,13 +56,9 @@ function ingest_file ($datatype, $scriptdir) {
             $filename = "list.legacy_27";
             $varname = "data_legacy";
             break;
-        case "distname":
-            $filename = "list.fix_distname";
-            $varname = "data_distnames";
-            break;
         default:
             echo "illegal datatype: $datatype\n";
-            echo "Must be summary|description|deadhome|toplevel|depfixes|legacy|distname\n";
+            echo "Must be summary|description|deadhome|toplevel|depfixes|legacy\n";
             return;
     }
     $lines = file($scriptdir . "/" . $filename);
