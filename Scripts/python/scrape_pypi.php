@@ -275,6 +275,7 @@ function inline_fix_setup ($namebase, $src) {
        "Cython"       => '/Unable to find pgen/ s/sys[.].*$/pass/',
        "jsonpointer"  => '/pypandoc module not found/d; /Markdown to RST/d',
        "libversion"   => '/[*][*]pkgconfig/d',
+       "cffi"         => '/__main__/ s|^.*$|if True:|',
        "django-colorful" => false,
    );
    $setup = $src . "/setup.py";

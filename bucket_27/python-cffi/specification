@@ -26,13 +26,15 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # MIT
 
 # install_requires extracted from setup.py
-
+# pycparser
 
 DISTNAME=		cffi-${PORTVERSION}
 GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
+[PY38].BUILDRUN_DEPENDS_ON=		python-pycparser:single:py38
 [PY37].USES_ON=				python:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-pycparser:single:py37
 
 INSTALL_REQ_TOOLCHAIN=	yes
 BUILDRUN_DEPENDS=	libffi:single:standard
