@@ -265,6 +265,7 @@ function inline_fix_setup ($namebase, $src) {
        "borgbackup"   => '/Detected/d',
        "compreffor"   => '/print/d',
        "cattrs"       => '/python_version/d',
+       "asn1"         => 's/.enum34.//',
    );
    $setup = $src . "/setup.py";
    if (array_key_exists($namebase, $known_issues)) {
