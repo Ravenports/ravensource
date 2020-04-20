@@ -3,6 +3,9 @@
 # Requires php74 with openssl and json extensions
 # if arguments are given, they are used as the toplevel ports,
 # overriding the master top-level ports list
+# Also requires: python 3.8
+#                python-setuptools-scm
+#                python-setuptools-git
 
 $SCRIPTDIR = __DIR__;
 
@@ -12,6 +15,7 @@ define ("DEAD_HOMEPAGES", "deadhome");
 define ("TOPLEVEL_PORTS", "toplevel");
 define ("HTTP_REDIRECT", "redirect");
 define ("CORRECTIONS", "depfixes");
+define ("DISTNAMES", "distname");
 define ("LEGACY", "legacy");
 
 require_once $SCRIPTDIR . "/keyed-lists.php";
@@ -23,6 +27,7 @@ ingest_file (DESCRIPTIONS, $SCRIPTDIR);
 ingest_file (DEAD_HOMEPAGES, $SCRIPTDIR);
 ingest_file (HTTP_REDIRECT, $SCRIPTDIR);
 ingest_file (CORRECTIONS, $SCRIPTDIR);
+ingest_file (DISTNAMES, $SCRIPTDIR);
 ingest_file (LEGACY, $SCRIPTDIR);
 set_top_level_ports (TOPLEVEL_PORTS, $SCRIPTDIR);
 
@@ -145,9 +150,12 @@ function meets_version_requirements ($PYVER, $requirements_string) {
     if ($requirements_string == "none") {
         return $satisfied;
     }
-    foreach ($requirements_string as $requirement) {
-        $success = preg_match("/^([<>!][=]?)([0-9][.][0-9.*]*)/",
-                             $requirement, $matches);
+    foreach ($requirements as $requirement) {
+        if (empty($requirement)) {
+            continue;
+        }
+        $success = preg_match("/^([<>!][=]?)[ ]?([0-9][0-9.*]*)/",
+                             trim($requirement), $matches);
         if ($success) {
             $operator = $matches[1];
             $target   = $matches[2];
@@ -156,7 +164,8 @@ function meets_version_requirements ($PYVER, $requirements_string) {
                      " operator: $operator\n");
             }
         } else {
-            exit ("Dev error: failed to match '$requirement' version\n");
+            exit ("Dev error: failed to match '$requirement' " .
+                  "version ($requirements_string)\n");
         }
         $minver = 0;
         $nexver = 0;
@@ -166,7 +175,7 @@ function meets_version_requirements ($PYVER, $requirements_string) {
             case 1:
                 $minver = (int)$verparts[0] * 10000;
                 $nexver = $minver + 10000;  # not used
-            break;
+                break;
             case 2:
                 $minver = (int)$verparts[0] * 10000 +
                           (int)$verparts[1] * 100;
@@ -195,23 +204,28 @@ function meets_version_requirements ($PYVER, $requirements_string) {
                 if (!($py_version > $minver)) {
                     $satisfied = false;
                 }
+                break;
             case ">=":
                 if (!($py_version >= $minver)) {
                     $satisfied = false;
                 }
+                break;
             case "<":
                 if (!($py_version < $minver)) {
                     $satisfied = false;
                 }
+                break;
             case "<=":
                 if (!($py_version <= $minver)) {
                     $satisfied = false;
                 }
+                break;
             case "!=":
                 # inverted!  We're satisfied if we *don't* match
                 if ($py_version >= $minver && $py_version < $nexvar) {
                     $satisfied = false;
                 }
+                break;
             default:
                 # can't happen
                 $satisfied = false;
@@ -348,7 +362,7 @@ function generate_port($namebase) {
             $buildrun_block .= "[PY" . $SV . "].BUILDRUN_DEPENDS_ON=\t\t";
             foreach ($port_data[$namebase]["buildrun"] as $DEP) {
                 $indent = ($DEP == $port_data[$namebase]["buildrun"][0]) ? "" : "\t\t\t\t\t";
-                $buildrun_block .= $indent . "python-" . $DEP . ":single:" . $V . "\n";
+                $buildrun_block .= $indent . $DEP . ":single:" . $V . "\n";
             }
         }
     }
@@ -377,6 +391,7 @@ $vopts_block
 # $license
 
 $raw_depends
+
 DISTNAME=		$namebase-$pvbraces
 GENERATED=		yes
 
@@ -407,7 +422,7 @@ echo "Number of scanned ports: " . count($port_data) . "\n";
 echo "Generating port directories and fetching ....\n";
 
 foreach (array_keys($port_data) as $namebase) {
-#    generate_port($namebase);
+    generate_port($namebase);
 }
 
 if (count($truncated_summaries)) {

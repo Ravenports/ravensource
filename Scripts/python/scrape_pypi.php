@@ -4,6 +4,7 @@ $PYTHON_CACHE = "/var/cache/python";
 $PYTHON_CACHE_JSON = $PYTHON_CACHE . "/json";
 $PYTHON_CACHE_ETAG = $PYTHON_CACHE . "/etag";
 $PYTHON_CACHE_DIST = $PYTHON_CACHE . "/distfiles";
+$PYTHONEXE = "/raven/bin/python3.8";
 
 # Returns name of etag file
 function etag_filename ($namebase) {
@@ -251,10 +252,140 @@ function fetch_from_pypi ($namebase) {
 }
 
 
+# Many setup.py files are busted.  This script fixes the known issues.
+function inline_fix_setup ($namebase, $src) {
+   $known_issues = array (
+       "drf-yasg"     => "s/    _install_setup_requires.*/    pass/",
+       "ruamel.yaml"  => "/include setup.py/ s/^.*/    pass/; /'sys.argv'/d; /compiling/d",
+       "pyocr"        => "/PyOCR version/d",
+       "lxml"         => "/Building lxml/d",
+       "intervaltree" => "/print(\"Version/d; s/print(\"!!!.*/    pass/",
+       "eyeD3"        => false,
+       "aniso8601"    => "/install_requires=/d",
+       "borgbackup"   => "/Detected/d",
+       "compreffor"   => "/print/d",
+       "cattrs"       => "/python_version/d",
+   );
+   $setup = $src . "/setup.py";
+   if (array_key_exists($namebase, $known_issues)) {
+       $sedcmd = $known_issues[$namebase];
+       if ($sedcmd !== false) {
+           shell_exec("sed -i.bak -e \"$sedcmd\" $setup");
+       }
+       # additional changes
+       switch ($namebase) {
+           case "lxml":
+               $xf = $src . "/setupinfo.py";
+               shell_exec("sed -i.bak -E -e '/Building without/d; /Using build/ s/^.*$$/        pass/; /lib_versions[[]?[1]?[]]?)/d; s/if _library_dirs:/if 0:/' $xf");
+               break;
+           case "eyeD3":
+               $xf = "$src/requirements.txt $src/requirements/main.txt $src/requirements/requirements.yml";
+               shell_exec ("sed -i.bak -e '/dataclasses;/d' $xf");
+               break;
+       }
+   }
+   
+   # fix __main__ issues
+   # convert "from distutils.core" to "from setuptools"
+   $setcontents = file_get_contents($setup);
+   if (strstr($setcontents, "from distutils.core import setup")) {
+       file_put_contents($setup . ".bak2", $setcontents);
+       $setcontents = str_replace("from distutils.core import setup",
+                                  "from setuptools import setup", $setcontents);
+       file_put_contents($setup, $setcontents);
+   }
+
+   $magic = "if __name__ == '__main__'";
+   if (strstr($setcontents, "\n$magic")) {
+       file_put_contents($setup . ".bak3", $setcontents);
+       $lines = file($setup);
+       $newcontents = "";
+       $len = strlen($magic);
+       $active = false;
+       foreach ($lines as $line) {
+           if (substr($line, 0, $len) == $magic) {
+               $active = true;
+           } elseif ($active) {
+              if (substr($line, 0, 4) == "    ") {
+                  $newcontents .= substr($line, 4);
+              } elseif (substr($line, 0, 1) == "\t") {
+                  $newcontents .= substr($line, 1);
+              } else {
+                  $active = false;
+                  $newcontents .= $line;
+              }
+           } else {
+               $newcontents .= $line;
+           }
+       }
+       file_put_contents($setup, $newcontents);
+   }
+}
+
+
+# Establish buildruns (only using latest python)
+function set_buildrun (&$portdata) {
+    global
+        $data_corrections,
+        $data_distnames,
+        $PYTHONEXE,
+        $PYTHON_CACHE_DIST;
+    
+    $WORKZONE = "/tmp/expand";
+
+    # make sure work area is clear
+    shell_exec("rm -rf $WORKZONE");
+    mkdir ($WORKZONE, 0755, true);
+ 
+    # explode distfile in work area
+    $tarball = $PYTHON_CACHE_DIST . "/" . $portdata["distfile"];
+    if (!file_exists($tarball)) {
+       echo "ERROR: $tarball does not exist (set_buildrun)\n";
+       return;
+    }
+    shell_exec("cd $WORKZONE && tar -xf $tarball");
+    $distname = array_key_exists($portdata["name"], $data_distnames) ?
+                $data_distnames[$portdata["name"]] : $portdata["name"]; 
+    $src = $WORKZONE . "/" . $distname . "-" . $portdata["version"];
+    $setup = $src . "/setup.py";
+    if (!file_exists($setup)) {
+        echo "ERROR: $setup does not exist (set_buildrun)\n";
+        return;
+    }
+    inline_fix_setup ($portdata["name"], $src);
+    $mockfile = $src . "/obtain-req.py";
+    $program = <<<'EOF'
+import unittest.mock
+import setuptools
+
+with unittest.mock.patch.object(setuptools, 'setup') as mock_setup:
+    import setup
+
+if mock_setup.call_args is not None:
+    args, kwargs = mock_setup.call_args
+    print ('\n'.join(kwargs.get('install_requires', [])))
+    print ('\n'.join(kwargs.get('setup_requires', [])))
+EOF;
+    file_put_contents($mockfile, $program);
+    $requirements = shell_exec ("cd $src && $PYTHONEXE obtain-req.py");
+    $clean_reqs = array_filter(explode("\n", $requirements));
+    $comment_reqs = preg_replace('/^/', '# ', $clean_reqs);
+    $portdata["req_comment"] .= join("\n", $comment_reqs);
+    $stripped_reqs = preg_replace('/(.*)([><!=~].*)$/U', 'python-\1', $clean_reqs);
+    foreach ($stripped_reqs as $req) {
+        if (array_key_exists ($req, $data_corrections)) {
+            $req = $data_corrections[$req];
+        }
+        array_push($portdata["buildrun"], $req);
+    }
+}
+
+
 # main function to ready python module and extract usable information
 function scrape_python_info ($namebase, $force) {
     $result = array(
         "success"     => false,
+        "name"        => $namebase,
         "version"     => "ERROR",
         "comment"     => "ERROR",
         "description" => "ERROR",
@@ -346,7 +477,7 @@ function scrape_python_info ($namebase, $force) {
                  return $result;
              }
          }
-
+         set_buildrun($result);
          $result["success"] = true;
     }
 
