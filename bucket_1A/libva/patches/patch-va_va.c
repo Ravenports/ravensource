@@ -1,4 +1,4 @@
---- va/va.c.orig	2020-03-27 15:45:40 UTC
+--- va/va.c.orig	2020-04-18 15:31:01 UTC
 +++ va/va.c
 @@ -451,7 +451,7 @@ static VAStatus va_openDriver(VADisplay
          }
