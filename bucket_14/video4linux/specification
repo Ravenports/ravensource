@@ -13,16 +13,16 @@ DOWNLOAD_GROUPS=	main dvb
 SITES[main]=		http://linuxtv.org/downloads/v4l-utils/
 DISTFILE[1]=		v4l-utils-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		multimedia/libv4l
 
-LICENSE=		LGPL21+:single
+LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING.libv4l
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"__LIBV4L2_H"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/lib/include/libv4l2.h
 LICENSE_SCHEME=		solo
@@ -33,7 +33,7 @@ BR_DEPS[sunos]=		argp-standalone:single:standard
 
 BUILD_DEPENDS=		evdev-proto:single:standard
 
-C_USES[linux]=		iconv autoreconf gettext-tools c++:single
+C_USES[linux]=		iconv autoreconf gettext-tools c++:primary
 
 USES=			gmake jpeg libtool pkgconfig perl:build shebangfix
 DISTNAME=		v4l-utils-${PORTVERSION}
