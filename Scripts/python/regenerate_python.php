@@ -312,12 +312,26 @@ function generate_port($namebase) {
     # other template variables
     $pvbraces    = '${PORTVERSION}';
     $portversion = $port_data[$namebase]["version"];
-    $tarball     = $port_data[$namebase]["distfile"];
     $license     = $port_data[$namebase]["license"];
     $raw_depends = $port_data[$namebase]["req_comment"];
     $uri         = $port_data[$namebase]["pypi_uri"];
     $homepage    = sanitize_homepage ($namebase,
                                       $port_data[$namebase]["homepage"]);
+
+    # minimize future changes by using pvbraces
+    $exts = array("tgz" => ".tar.gz", "zip" => ".zip", "tbz" =>".tar.bz2");
+    $pats = array("tgz" => '/[.]tar[.]gz$/',
+                  "zip" => '/[.]zip$/',
+                  "tbz" => '/[.]tar[.]bz2$');
+    foreach ($exts as $key => $ext) {
+        $tarball  = str_replace ("-" . $portversion . $ext,
+                                 "-" . $pvbraces . $ext,
+                                 $port_data[$namebase]["distfile"]);
+        $distname = preg_replace ($pats[$key], "", $tarball);
+        if ($tarball != $port_data[$namebase]["distfile"]) {
+            break;
+        }
+    }
 
     # sanitize license
     if ($license == "") {
@@ -392,7 +406,7 @@ $vopts_block
 
 $raw_depends
 
-DISTNAME=		$namebase-$pvbraces
+DISTNAME=		$distname
 GENERATED=		yes
 
 $buildrun_block

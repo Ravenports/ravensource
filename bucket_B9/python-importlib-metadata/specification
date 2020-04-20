@@ -12,7 +12,7 @@ CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/i/importlib-metadata
-DISTFILE[1]=		importlib_metadata-1.6.0.tar.gz:main
+DISTFILE[1]=		importlib_metadata-${PORTVERSION}.tar.gz:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -28,9 +28,10 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # install_requires extracted from setup.py
 
 
-DISTNAME=		importlib-metadata-${PORTVERSION}
+DISTNAME=		importlib_metadata-${PORTVERSION}
 GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
 [PY37].USES_ON=				python:py37
 
+BUILDRUN_DEPENDS=	python-setuptools-scm:single:python_used

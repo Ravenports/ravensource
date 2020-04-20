@@ -285,7 +285,7 @@ function inline_fix_setup ($namebase, $src) {
                break;
        }
    }
-   
+
    # fix __main__ issues
    # convert "from distutils.core" to "from setuptools"
    $setcontents = file_get_contents($setup);
@@ -331,13 +331,13 @@ function set_buildrun (&$portdata) {
         $data_distnames,
         $PYTHONEXE,
         $PYTHON_CACHE_DIST;
-    
+
     $WORKZONE = "/tmp/expand";
 
     # make sure work area is clear
     shell_exec("rm -rf $WORKZONE");
     mkdir ($WORKZONE, 0755, true);
- 
+
     # explode distfile in work area
     $tarball = $PYTHON_CACHE_DIST . "/" . $portdata["distfile"];
     if (!file_exists($tarball)) {
@@ -346,7 +346,7 @@ function set_buildrun (&$portdata) {
     }
     shell_exec("cd $WORKZONE && tar -xf $tarball");
     $distname = array_key_exists($portdata["name"], $data_distnames) ?
-                $data_distnames[$portdata["name"]] : $portdata["name"]; 
+                $data_distnames[$portdata["name"]] : $portdata["name"];
     $src = $WORKZONE . "/" . $distname . "-" . $portdata["version"];
     $setup = $src . "/setup.py";
     if (!file_exists($setup)) {
