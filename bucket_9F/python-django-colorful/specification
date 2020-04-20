@@ -1,13 +1,12 @@
-# manually maintained
 DEF[PORTVERSION]=	1.3
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-django-colorful
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py37 py38
-SDESC[py37]=		Django color field database (PY 37)
-SDESC[py38]=		Django color field database (PY 38)
+VARIANTS=		py38 py37
+SDESC[py38]=		Django color field database (PY38)
+SDESC[py37]=		Django color field database (PY37)
 HOMEPAGE=		https://github.com/charettes/django-colorful
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,19 +14,25 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/d/django-colorful
 DISTFILE[1]=		django-colorful-${PORTVERSION}.tar.gz:main
 
-SPKGS[py37]=		single
 SPKGS[py38]=		single
+SPKGS[py37]=		single
 
-OPTIONS_AVAILABLE=	PY37 PY38
+OPTIONS_AVAILABLE=	PY38 PY37
 OPTIONS_STANDARD=	none
-VOPTS[py37]=		PY37=ON PY38=OFF
-VOPTS[py38]=		PY37=OFF PY38=ON
+VOPTS[py38]=		PY38=ON PY37=OFF
+VOPTS[py37]=		PY38=OFF PY37=ON
 
-GENERATED=		yes
+# License listed at PyPI
+# MIT License
+
+# install_requires extracted from setup.py
+# Django>=1.11
+
 DISTNAME=		django-colorful-${PORTVERSION}
-
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-Django:single:py37
+GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
 [PY38].BUILDRUN_DEPENDS_ON=		python-Django:single:py38
+[PY37].USES_ON=				python:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-Django:single:py37
+

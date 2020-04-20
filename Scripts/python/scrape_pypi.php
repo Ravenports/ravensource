@@ -271,6 +271,11 @@ function inline_fix_setup ($namebase, $src) {
        "compreffor"   => '/print/d',
        "cattrs"       => '/python_version/d',
        "asn1"         => 's/.enum34.//',
+       "netaddr"      => false,
+       "Cython"       => '/Unable to find pgen/ s/sys[.].*$/pass/',
+       "jsonpointer"  => '/pypandoc module not found/d; /Markdown to RST/d',
+       "libversion"   => '/[*][*]pkgconfig/d',
+       "django-colorful" => false,
    );
    $setup = $src . "/setup.py";
    if (array_key_exists($namebase, $known_issues)) {
@@ -287,6 +292,21 @@ function inline_fix_setup ($namebase, $src) {
            case "eyeD3":
                $xf = "$src/requirements.txt $src/requirements/main.txt $src/requirements/requirements.yml";
                shell_exec ("sed -i.bak -e '/dataclasses;/d' $xf");
+               break;
+           case "netaddr":
+               $xf = $src . "/netaddr/strategy/__init__.py";
+               shell_exec ("sed -i.bak -e 's/sep is not/sep !=/' $xf");
+               break;
+           case "django-colorful":
+               $xf = $src . "/colorful/__init__.py";
+               $initpy = file_get_contents ($xf);
+               $pat = '/VERSION = [(]([[:digit:]]*)[, ]*([[:digit:]]*)[, ]*([[:digit:]]*)[,]/';
+               if (preg_match ($pat, $initpy, $matches) == 1) {
+                  $newfile = '__version__ = "' . $matches[1] .
+                                           "." . $matches[2] .
+                                           "." . $matches[3] . '"' . "\n";
+                  file_put_contents ($xf, $newfile);
+               }
                break;
        }
    }

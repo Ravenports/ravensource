@@ -1,0 +1,9 @@
+USES=			pkgconfig
+GNOME_COMPONENTS=	cairo
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/cairo/*.so
+	if [ "${VARIANT}" != "${PYXX}" -a "${VARIANT}" != "py27" ]; then \
+		${RM} -r ${STAGEDIR}${PREFIX}/include/pycairo ;\
+		${RM} ${STAGEDIR}${PREFIX}/lib/pkgconfig/py3cairo.pc ;\
+	fi

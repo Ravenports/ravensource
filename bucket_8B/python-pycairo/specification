@@ -10,15 +10,15 @@ VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		python devel
 VARIANTS=		py27 py38 py37
-SDESC[py27]=		Bindings for cairo graphics library (PY 27)
-SDESC[py38]=		Bindings for cairo graphics library (PY 38)
-SDESC[py37]=		Bindings for cairo graphics library (PY 37)
-HOMEPAGE=		https://www.cairographics.org/pycairo/
+SDESC[py27]=		Bindings for cairo graphics library (PY27)
+SDESC[py37]=		Bindings for cairo graphics library (PY37)
+SDESC[py38]=		Bindings for cairo graphics library (PY38)
+HOMEPAGE=		https://pycairo.readthedocs.io
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/pygobject:pycairo:v${PORTVERSION}
-DISTFILE[1]=		generated:main
+SITES[main]=		PYPI/p/pycairo
+DISTFILE[1]=		pycairo-${PORTVERSION}.tar.gz:main
 
 SPKGS[py27]=		single
 SPKGS[py37]=		primary
@@ -31,13 +31,19 @@ VOPTS[py38]=		PY27=OFF PY38=ON PY37=OFF
 VOPTS[py37]=		PY27=OFF PY38=OFF PY37=ON
 
 FPC_EQUIVALENT=		graphics/py-cairo
+# License listed at PyPI
+# LGPL-2.1-only OR MPL-1.1
 
-USES=			pkgconfig
-GNOME_COMPONENTS=	cairo
+# install_requires extracted from setup.py
+
+DISTNAME=		pycairo-${PORTVERSION}
 
 [PY27].USES_ON=				python:py27
 [PY38].USES_ON=				python:py38
 [PY37].USES_ON=				python:py37
+
+USES=			pkgconfig
+GNOME_COMPONENTS=	cairo
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/cairo/*.so

@@ -1,38 +1,36 @@
-# manually maintained due to pandoc breaking setup
 DEF[PORTVERSION]=	2.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-jsonpointer
 VERSION=		${PORTVERSION}
-KEYWORDS=		python devel
-VARIANTS=		py37 py38
-SDESC[py37]=		Identify specific nodes in a JSON document (PY 37)
-SDESC[py38]=		Identify specific nodes in a JSON document (PY 38)
+KEYWORDS=		python
+VARIANTS=		py38 py37
+SDESC[py38]=		Identify specific nodes in a JSON document (PY38)
+SDESC[py37]=		Identify specific nodes in a JSON document (PY37)
 HOMEPAGE=		https://github.com/stefankoegl/python-json-pointer
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/j/jsonpointer
-DISTFILE[1]=		jsonpointer-2.0.tar.gz:main
+DISTFILE[1]=		jsonpointer-${PORTVERSION}.tar.gz:main
 
-SPKGS[py37]=		single
 SPKGS[py38]=		single
+SPKGS[py37]=		single
 
-OPTIONS_AVAILABLE=	PY37 PY38
+OPTIONS_AVAILABLE=	PY38 PY37
 OPTIONS_STANDARD=	none
-VOPTS[py37]=		PY37=ON PY38=OFF
-VOPTS[py38]=		PY37=OFF PY38=ON
+VOPTS[py38]=		PY38=ON PY37=OFF
+VOPTS[py37]=		PY38=OFF PY37=ON
 
-# Output of setup.py --license
-# warning: pypandoc module not found, could not convert Markdown to RST
+# License listed at PyPI
 # Modified BSD License
 
-GENERATED=		yes
+# install_requires extracted from setup.py
 
-# install_requires extracted from setup.py (using python 2.7)
-# warning:
 
 DISTNAME=		jsonpointer-${PORTVERSION}
+GENERATED=		yes
 
-[PY37].USES_ON=				python:py37
 [PY38].USES_ON=				python:py38
+[PY37].USES_ON=				python:py37
+

@@ -136,9 +136,19 @@ function produce_long_description
            '/`([[:alnum:] \s\'_]+)[<][\S\n]+[>]`_/U',
            '/`([[:alnum:] \s\'_]+)[<][\S\n]+[>]`/U',
            '/[[]([\s\S]+)[]][(][\s\S]+[)]/U',
+           '/[[]![[]([[:alnum:] \n\s\'_)(]+)[]][]][(][\S\n]+[)]/U',
         );
-        $repl_link = array ('[\1]', '[\1]', '[\1]', '[\1]');
+        # $X = '[\1]';
+        # $repl_link = array ($X, $X, $X, $X, $X);
         $desctext = preg_replace($patt_link, '[\1]', $desctext);
+
+        # flatten html images, then anchors
+        $patt_html = array (
+            '/<img[\s\S]+>/U',
+            '/<a[\s\S]+>([\s\S]+)<\/a>/U',
+        );
+        $repl_html = array ('[image]', '\1');
+        $desctext = preg_replace($patt_html, $repl_html, $desctext);
 
         # Replace "`` ... ``" with double quotes
         $patt_quotes = "/[`][`]([[:alnum:] \s\'_]*)[`][`]/U";

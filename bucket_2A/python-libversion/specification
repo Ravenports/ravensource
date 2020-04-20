@@ -1,35 +1,37 @@
-# manually maintained
 DEF[PORTVERSION]=	1.2.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-libversion
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py37 py38
-SDESC[py37]=		Python bindings for libversion (PY 37)
-SDESC[py38]=		Python bindings for libversion (PY 38)
+VARIANTS=		py38 py37
+SDESC[py38]=		Python bindings for libversion (PY38)
+SDESC[py37]=		Python bindings for libversion (PY37)
 HOMEPAGE=		https://github.com/repology/py-libversion
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/repology:py-libversion:${PORTVERSION}
-DISTFILE[1]=		generated:main
+SITES[main]=		PYPI/l/libversion
+DISTFILE[1]=		libversion-${PORTVERSION}.tar.gz:main
 
-SPKGS[py37]=		single
 SPKGS[py38]=		single
+SPKGS[py37]=		single
 
-OPTIONS_AVAILABLE=	PY37 PY38
+OPTIONS_AVAILABLE=	PY38 PY37
 OPTIONS_STANDARD=	none
-VOPTS[py37]=		PY37=ON PY38=OFF
-VOPTS[py38]=		PY37=OFF PY38=ON
+VOPTS[py38]=		PY38=ON PY37=OFF
+VOPTS[py37]=		PY38=OFF PY37=ON
 
-LICENSE=		MIT:single
-LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
-LICENSE_SCHEME=		solo
+# License listed at PyPI
+# MIT
 
-BUILDRUN_DEPENDS=	libversion:single:standard
+# install_requires extracted from setup.py
+
+
+DISTNAME=		libversion-${PORTVERSION}
+GENERATED=		yes
+
+[PY38].USES_ON=				python:py38
+[PY37].USES_ON=				python:py37
 
 USES=			pkgconfig
-
-[PY37].USES_ON=				python:py37
-[PY38].USES_ON=				python:py38
