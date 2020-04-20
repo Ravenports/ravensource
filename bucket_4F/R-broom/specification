@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	0.5.6
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-broom
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		standard
+SDESC[standard]=	Convert Statistical Analysis Objects into Tidy Tib
+HOMEPAGE=		https://github.com/tidyverse/broom
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+DISTFILE[1]=		broom_0.5.6.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => MIT + file LICENSE
+
+USES=			cran gmake
+DISTNAME=		broom
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-backports:single:standard
+			R-dplyr:single:standard
+			R-generics:single:standard
+			R-purrr:single:standard
+			R-reshape2:single:standard
+			R-stringr:single:standard
+			R-tibble:single:standard
+			R-tidyr:single:standard
+
+

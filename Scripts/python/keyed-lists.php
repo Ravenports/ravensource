@@ -132,10 +132,12 @@ function produce_long_description
 
         # flatten links
         $patt_link = array (
-           '/[`]([[:alnum:] \s\'_]+)[<][\s\S]+[>][`][_]?[_]?/U',
+           '/`([[:alnum:] \s\'_]+)[<][\S\n]+[>]`__/U',
+           '/`([[:alnum:] \s\'_]+)[<][\S\n]+[>]`_/U',
+           '/`([[:alnum:] \s\'_]+)[<][\S\n]+[>]`/U',
            '/[[]([\s\S]+)[]][(][\s\S]+[)]/U',
         );
-        $repl_link = array ('[\1]', '[\1]');
+        $repl_link = array ('[\1]', '[\1]', '[\1]', '[\1]');
         $desctext = preg_replace($patt_link, '[\1]', $desctext);
 
         # Replace "`` ... ``" with double quotes
@@ -202,7 +204,7 @@ function use_https_instead ($url) {
 function sanitize_homepage ($namebase, $original_homepage) {
     global $data_homepage;
 
-    if ( array_key_exists($namebase, $data_homepage)
+    if ( in_array($namebase, $data_homepage)
       || $original_homepage == "UNSET"
       || $original_homepage == ""
     ) {

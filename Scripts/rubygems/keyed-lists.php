@@ -164,7 +164,7 @@ function use_https_instead ($url) {
 function sanitize_homepage ($namebase, $original_homepage) {
     global $data_homepage;
 
-    if ( array_key_exists($namebase, $data_homepage)
+    if ( in_array($namebase, $data_homepage)
       || $original_homepage == "UNSET"
       || $original_homepage == ""
     ) {

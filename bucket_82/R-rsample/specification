@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	0.0.6
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-rsample
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		standard
+SDESC[standard]=	General Resampling Infrastructure
+HOMEPAGE=		none
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+DISTFILE[1]=		rsample_0.0.6.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => GPL-2
+
+USES=			cran gmake
+DISTNAME=		rsample
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-dplyr:single:standard
+			R-purrr:single:standard
+			R-tibble:single:standard
+			R-rlang:single:standard
+			R-generics:single:standard
+			R-tidyselect:single:standard
+			R-furrr:single:standard
+			R-tidyr:single:standard
+
+
