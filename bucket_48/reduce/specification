@@ -1,12 +1,11 @@
-DEF[SNAPSHOT]=		2019-04-13
-DEF[SVNREV]=		4961
+DEF[SNAPSHOT]=		2020-03-01
+DEF[SVNREV]=		5286
 DEF[PORTVERSION]=	${SNAPSHOT:S/-//g}
 DEF[RBINS]=		{{WRKSRC}}/cslbuild/{{CONFIGURE_TARGET}}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		reduce
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		math lang
 VARIANTS=		standard
 SDESC[standard]=	Codemist Std Lisp general-purpose computer system
@@ -66,7 +65,7 @@ pre-configure:
 	(cd ${WRKSRC} && ./autogen.sh --sequential --with-csl)
 
 do-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/share/reduce ${STAGEDIR}${STD_DOCDIR}
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/reduce ${STAGEDIR}${STD_DOCDIR}
 	${INSTALL_DATA} ${RBINS}/csl/reduce.img \
 		${STAGEDIR}${PREFIX}/share/reduce
 	${INSTALL_PROGRAM} ${RBINS}/csl/reduce \
