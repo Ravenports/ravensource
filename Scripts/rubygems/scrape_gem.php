@@ -74,17 +74,17 @@ function download_gemspec ($namebase, $version, $force) {
     $gemspec = $namebase . "-" . $version . ".gemspec.rz";
     $outfile = $SPECS_DIR . "/" . $gemspec;
     $gemurl  = "https://rubygems.org/quick/Marshal.4.8/" . $gemspec;
-    echo "Downloading $gemspec : ";
+    printf ("Downloading %-50s : ", $gemspec);
     if ($force || !file_exists($outfile)) {
         if(file_put_contents($outfile, file_get_contents($gemurl))) {
             echo "successful\n";
             return true;
         } else {
-            echo "Failed!\n";
+            echo "FAILED!\n";
             return false;
         }
     }
-    echo "(cached)\n";
+    echo "cached\n";
     return true;
 }
 
