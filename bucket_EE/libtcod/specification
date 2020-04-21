@@ -1,0 +1,51 @@
+DEF[PORTVERSION]=	1.15.1
+DEF[SOVERSION]=		1.0.15
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libtcod
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Roguelike game development library
+HOMEPAGE=		https://github.com/libtcod/libtcod
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/libtcod:libtcod:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary docs samples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/../../LICENSE.txt
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		python-Sphinx:single:py37
+			python-sphinx_rtd_theme:single:py37
+			python-breathe:single:py37
+
+USES=			autoreconf gmake libtool pkgconfig python:build shebangfix zlib
+SDL_COMPONENTS=		sdl2
+SHEBANG_FILES=		get_version.py
+
+DISTNAME=		libtcod-${PORTVERSION}/buildsys/autotools
+MUST_CONFIGURE=		gnu
+
+SOVERSION=		${SOVERSION}
+
+# Doc generation is kind of broken in version 1.15.
+# But among the garbage due to missing data there's some useful info, too.
+post-build:
+	(cd ${WRKSRC}/../../docs && gmake html)
+
+post-install:
+	${MKDIR} -p ${STAGEDIR}${PREFIX}/share/libtcod
+	${MV} ${WRKSRC}/../../docs/_build/html ${STAGEDIR}${PREFIX}/share/libtcod/html-doc
+	${RM} -r ${STAGEDIR}${PREFIX}/share/libtcod/html-doc/_sources
+	${CP} ${WRKSRC}/../../terminal.png ${STAGEDIR}${PREFIX}/share/libtcod
+	${CP} -r ${WRKSRC}/../../samples ${STAGEDIR}${PREFIX}/share/libtcod
+	${CP} -r ${WRKSRC}/../../data ${STAGEDIR}${PREFIX}/share/libtcod
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libtcod.so.${SOVERSION}
