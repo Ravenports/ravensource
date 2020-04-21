@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	2.5.5
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-css-html-js-minify
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py38 py37
+SDESC[py38]=		CSS HTML JS Minifier (PY38)
+SDESC[py37]=		CSS HTML JS Minifier (PY37)
+HOMEPAGE=		https://github.com/juancarlospaco/css-html-js-minify#css-html-js-minify
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/c/css-html-js-minify
+DISTFILE[1]=		css-html-js-minify-${PORTVERSION}.zip:main
+
+SPKGS[py38]=		single
+SPKGS[py37]=		single
+
+OPTIONS_AVAILABLE=	PY38 PY37
+OPTIONS_STANDARD=	none
+VOPTS[py38]=		PY38=ON PY37=OFF
+VOPTS[py37]=		PY38=OFF PY37=ON
+
+# License listed at PyPI
+# GPL-3 LGPL-3 MIT
+
+# install_requires extracted from setup.py
+
+
+DISTNAME=		css-html-js-minify-${PORTVERSION}
+GENERATED=		yes
+
+[PY38].USES_ON=				python:py38
+[PY37].USES_ON=				python:py37
+

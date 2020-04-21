@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	1.0.3
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-pandas
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py38 py37
+SDESC[py38]=		Data structures for time series, statistics (PY38)
+SDESC[py37]=		Data structures for time series, statistics (PY37)
+HOMEPAGE=		https://pandas.pydata.org
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/p/pandas
+DISTFILE[1]=		pandas-${PORTVERSION}.tar.gz:main
+
+SPKGS[py38]=		single
+SPKGS[py37]=		single
+
+OPTIONS_AVAILABLE=	PY38 PY37
+OPTIONS_STANDARD=	none
+VOPTS[py38]=		PY38=ON PY37=OFF
+VOPTS[py37]=		PY38=OFF PY37=ON
+
+# License listed at PyPI
+# BSD
+
+# install_requires extracted from setup.py
+# python-dateutil >= 2.6.1
+# pytz >= 2017.2
+# numpy >= 1.13.3
+# numpy >= 1.13.3
+
+DISTNAME=		pandas-${PORTVERSION}
+GENERATED=		yes
+
+[PY38].USES_ON=				python:py38
+[PY38].BUILDRUN_DEPENDS_ON=		python-python-dateutil:single:py38
+					python-pytz:single:py38
+					python-numpy:single:py38
+[PY37].USES_ON=				python:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-python-dateutil:single:py37
+					python-pytz:single:py37
+					python-numpy:single:py37
+
+BUILD_DEPENDS=		python-Cython:single:python_used

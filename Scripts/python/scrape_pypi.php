@@ -276,6 +276,8 @@ function inline_fix_setup ($namebase, $src) {
        "libversion"   => '/[*][*]pkgconfig/d',
        "cffi"         => '/__main__/ s|^.*$|if True:|',
        "ruamel.yaml"  => '/__name__.*__main__/ s|^.*$|if False:|; /print..sys[.]argv/d',
+       "pandas"       => '/ext_modules=/d',
+       "numpy"        => 's|            generate_cython[(][)]|            pass|',
        "soupsieve"    => false,
        "django-colorful" => false,
    );

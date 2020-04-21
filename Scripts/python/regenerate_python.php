@@ -141,7 +141,7 @@ function meets_version_requirements ($PYVER, $requirements_string) {
 
     # possible strings:
     # ">=2.7", "!=3.0.*", "<4.0", ">3.7.4", "!=3.1.2" (assumed)
-    $valid_operators = array (">", ">=", "!=", "<", "<=");
+    $valid_operators = array (">", ">=", "!=", "<", "<=", "~=");
     $requirements = explode (",", $requirements_string);
 
     $satisfied = true;
@@ -152,7 +152,7 @@ function meets_version_requirements ($PYVER, $requirements_string) {
         if (empty($requirement)) {
             continue;
         }
-        $success = preg_match("/^([<>!][=]?)[ ]?([0-9][0-9.*]*)/",
+        $success = preg_match("/^([<>!~][=]?)[ ]?([0-9][0-9.*]*)/",
                              trim($requirement), $matches);
         if ($success) {
             $operator = $matches[1];
@@ -215,6 +215,14 @@ function meets_version_requirements ($PYVER, $requirements_string) {
                 break;
             case "<=":
                 if (!($py_version <= $minver)) {
+                    $satisfied = false;
+                }
+                break;
+            case "~=":
+                # This means it probably works for higher but author isn't 100% sure
+                # for our purposes, we'll consider it as ">=" rather than limit it
+                # to the shown value with is too restricting
+                if (!($py_version >= $minver)) {
                     $satisfied = false;
                 }
                 break;

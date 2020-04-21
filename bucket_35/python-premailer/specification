@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	3.6.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-premailer
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py38 py37
+SDESC[py38]=		Turns CSS blocks into style attributes (PY38)
+SDESC[py37]=		Turns CSS blocks into style attributes (PY37)
+HOMEPAGE=		https://github.com/peterbe/premailer
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/p/premailer
+DISTFILE[1]=		premailer-${PORTVERSION}.tar.gz:main
+
+SPKGS[py38]=		single
+SPKGS[py37]=		single
+
+OPTIONS_AVAILABLE=	PY38 PY37
+OPTIONS_STANDARD=	none
+VOPTS[py38]=		PY38=ON PY37=OFF
+VOPTS[py37]=		PY38=OFF PY37=ON
+
+# License listed at PyPI
+# Python
+
+# install_requires extracted from setup.py
+# lxml
+# cssselect
+# cssutils
+# requests
+# cachetools
+
+DISTNAME=		premailer-${PORTVERSION}
+GENERATED=		yes
+
+[PY38].USES_ON=				python:py38
+[PY38].BUILDRUN_DEPENDS_ON=		python-lxml:single:py38
+					python-cssselect:single:py38
+					python-cssutils:single:py38
+					python-requests:single:py38
+					python-cachetools:single:py38
+[PY37].USES_ON=				python:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-lxml:single:py37
+					python-cssselect:single:py37
+					python-cssutils:single:py37
+					python-requests:single:py37
+					python-cachetools:single:py37
+

@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	1.0.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-cssutils
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py38 py37
+SDESC[py38]=		Cascading Style Sheets library (PY38)
+SDESC[py37]=		Cascading Style Sheets library (PY37)
+HOMEPAGE=		http://cthedot.de/cssutils/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/c/cssutils
+DISTFILE[1]=		cssutils-${PORTVERSION}.tar.gz:main
+
+SPKGS[py38]=		single
+SPKGS[py37]=		single
+
+OPTIONS_AVAILABLE=	PY38 PY37
+OPTIONS_STANDARD=	none
+VOPTS[py38]=		PY38=ON PY37=OFF
+VOPTS[py37]=		PY38=OFF PY37=ON
+
+# License listed at PyPI
+# LGPL 2.1 or later, see also http://cthedot.de/cssutils/
+
+# install_requires extracted from setup.py
+
+
+DISTNAME=		cssutils-${PORTVERSION}
+GENERATED=		yes
+
+[PY38].USES_ON=				python:py38
+[PY37].USES_ON=				python:py37
+
