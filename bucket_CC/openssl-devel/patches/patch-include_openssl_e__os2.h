@@ -1,4 +1,4 @@
---- include/openssl/e_os2.h.orig	2020-03-31 12:17:45 UTC
+--- include/openssl/e_os2.h.orig	2020-04-21 12:22:39 UTC
 +++ include/openssl/e_os2.h
 @@ -279,7 +279,9 @@ typedef unsigned __int64 uint64_t;
  #  define ossl_inline inline
