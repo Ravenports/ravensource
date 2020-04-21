@@ -276,6 +276,7 @@ function inline_fix_setup ($namebase, $src) {
        "libversion"   => '/[*][*]pkgconfig/d',
        "cffi"         => '/__main__/ s|^.*$|if True:|',
        "ruamel.yaml"  => '/__name__.*__main__/ s|^.*$|if False:|; /print..sys[.]argv/d',
+       "soupsieve"    => false,
        "django-colorful" => false,
    );
    $setup = $src . "/setup.py";
@@ -308,6 +309,10 @@ function inline_fix_setup ($namebase, $src) {
                                            "." . $matches[3] . '"' . "\n";
                   file_put_contents ($xf, $newfile);
                }
+               break;
+           case "soupsieve":
+               $xf = $src . "/requirements/project.txt";
+               shell_exec ("sed -i.bak -e '/^backports/d' $xf");
                break;
        }
    }
