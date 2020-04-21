@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	0.13.1
-DEF[SOVERSION]=		4.0.0
+DEF[PORTVERSION]=	0.14
+DEF[SOVERSION]=		5.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		json-c
@@ -14,15 +14,27 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://s3.amazonaws.com/json-c_releases/releases/
 DISTFILE[1]=		json-c-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		devel/json-c
 
-USES=			autoreconf cpe gmake libtool pkgconfig
+BUILD_DEPENDS=		doxygen:single:standard
+
+USES=			cpe cmake pkgconfig
 CPE_VENDOR=		json-c_project
-INSTALL_TARGET=		install-strip
-MUST_CONFIGURE=		gnu
 SOVERSION=		${SOVERSION}
+BUILD_TARGET=		all doc
+CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
+			-DDISABLE_WERROR:BOOL=ON
+
+post-install:
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	(cd ${INSTALL_WRKSRC}/doc/html && \
+		${COPYTREE_SHARE} "*" ${STAGEDIR}${STD_DOCDIR})
