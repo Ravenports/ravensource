@@ -9,7 +9,7 @@ $PYTHONEXE = "/raven/bin/python3.8";
 $EXTS    = array("tgz" => ".tar.gz", "zip" => ".zip", "tbz" =>".tar.bz2");
 $EXTPATS = array("tgz" => '/[.]tar[.]gz$/',
                  "zip" => '/[.]zip$/',
-                 "tbz" => '/[.]tar[.]bz2$');
+                 "tbz" => '/[.]tar[.]bz2$/');
 
 # Returns name of etag file
 function etag_filename ($namebase) {

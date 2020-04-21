@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	17.5.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-incremental
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py38 py37
+SDESC[py38]=		Library for versioning python projects (PY38)
+SDESC[py37]=		Library for versioning python projects (PY37)
+HOMEPAGE=		https://github.com/twisted/incremental
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/i/incremental
+DISTFILE[1]=		incremental-${PORTVERSION}.tar.gz:main
+
+SPKGS[py38]=		single
+SPKGS[py37]=		single
+
+OPTIONS_AVAILABLE=	PY38 PY37
+OPTIONS_STANDARD=	none
+VOPTS[py38]=		PY38=ON PY37=OFF
+VOPTS[py37]=		PY38=OFF PY37=ON
+
+# License listed at PyPI
+# MIT
+
+# install_requires extracted from setup.py
+
+
+DISTNAME=		incremental-${PORTVERSION}
+GENERATED=		yes
+
+[PY38].USES_ON=				python:py38
+[PY37].USES_ON=				python:py37
+
