@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	1.0.248
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xblas
+VERSION=		${PORTVERSION}
+KEYWORDS=		math
+VARIANTS=		standard
+SDESC[standard]=	Extra Precise Basic Linear Algebra Subroutines
+HOMEPAGE=		http://www.netlib.org/xblas/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.netlib.org/xblas/
+DISTFILE[1]=		xblas-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		math/xblas
+
+USES=			autoreconf libtool gmake
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-shared
+			--disable-static
+			--disable-dependency-tracking
+INSTALL_TARGET=		install-strip
+BUILD_WRKSRC=		{{WRKSRC}}/src
+INSTALL_WRKSRC=		{{WRKSRC}}/src
+SOVERSION=		${SOVERSION}
