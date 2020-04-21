@@ -1,6 +1,6 @@
---- test.cpp.orig	2018-12-19 05:21:41 UTC
+--- test.cpp.orig	2019-12-24 11:20:21 UTC
 +++ test.cpp
-@@ -147,7 +147,8 @@ void aster(document &doc,int n)
+@@ -148,7 +148,8 @@ void aster(document &doc,int n)
  /* Fill points with asteraceous pattern. Pattern invented by H. Vogel in 1979
     and later by me, not knowing of Vogel. */
  {int i;
@@ -10,7 +10,7 @@
   xy pnt;
   for (i=0;i<n;i++)
       {pnt=xy(cos(angle*i)*sqrt(i+0.5),sin(angle*i)*sqrt(i+0.5));
-@@ -159,7 +160,8 @@ void _ellipse(document &doc,int n,double
+@@ -160,7 +161,8 @@ void _ellipse(document &doc,int n,double
  /* Skewness is not eccentricity. When skewness=0.01, eccentricity=0.14072. */
  {
    int i;
@@ -20,7 +20,7 @@
    xy pnt;
    for (i=0;i<n;i++)
    {
-@@ -204,11 +206,12 @@ void straightrow(document &doc,int n)
+@@ -205,11 +207,12 @@ void straightrow(document &doc,int n)
  {
    int i;
    double angle;
@@ -34,7 +34,7 @@
      doc.pl[1].addpoint(i+1,point(pnt,testsurface(pnt),"test"));
    }
  }
-@@ -217,10 +220,11 @@ void lozenge(document &doc,int n)
+@@ -218,10 +221,11 @@ void lozenge(document &doc,int n)
  // Add points on the short diagonal of a rhombus, then add the two other points.
  {
    xy pnt;
