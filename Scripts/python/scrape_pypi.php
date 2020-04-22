@@ -278,6 +278,7 @@ function inline_fix_setup ($namebase, $src) {
        "ruamel.yaml"  => '/__name__.*__main__/ s|^.*$|if False:|; /print..sys[.]argv/d',
        "pandas"       => '/ext_modules=/d',
        "numpy"        => 's|            generate_cython[(][)]|            pass|',
+       "scipy"        => '/run_build = parse/ s|par.*ds[(][)]|False|',
        "soupsieve"    => false,
        "django-colorful" => false,
    );
