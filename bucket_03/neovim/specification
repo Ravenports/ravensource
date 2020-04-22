@@ -5,6 +5,7 @@ DEF[LUA_VARIANT]=	lua${SPEC_LUA:S/.//}
 
 NAMEBASE=		neovim
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		editors
 VARIANTS=		standard
 SDESC[standard]=	Next generation Vim
@@ -15,14 +16,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/neovim:neovim:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		APACHE20:single CUSTOM1:single
+LICENSE=		APACHE20:primary CUSTOM1:primary
 LICENSE_NAME=		CUSTOM1:"VIM license"
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_FILE=		APACHE20:{{WRKDIR}}/LICENSE_APACHE
 			CUSTOM1:{{WRKDIR}}/LICENSE_VIM
 LICENSE_SCHEME=		multi
@@ -40,7 +41,7 @@ BUILD_DEPENDS=		gperf:primary:standard
 			lua-mpack:single:${LUA_VARIANT}
 
 USES=			cmake gmake libtool pkgconfig lua:${SPEC_LUA}
-			gettext-tools gettext-runtime desktop-utils:single
+			gettext-tools gettext-runtime desktop-utils:primary
 CMAKE_ARGS=		-DCMAKE_SKIP_BUILD_RPATH:BOOL=YES
 			-DDEPS_PREFIX:PATH="{{LOCALBASE}}"
 			-DLUA_PRG:FILEPATH="{{LOCALBASE}}/bin/{{LUA_CMD}}"
