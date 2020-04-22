@@ -1,6 +1,6 @@
 #!/raven/bin/php74
 <?php
-# Requires php74 with openssl extension
+# Requires php74 with openssl and posix extensions
 # if arguments are given, they are used as the toplevel ports,
 # overriding the master top-level ports list
 
@@ -365,6 +365,11 @@ EOD;
     }
     $rout = shell_exec ("/raven/bin/ravenadm dev buildsheet " .
                         $output_directory . " save");
+}
+
+# only root can run this
+if (posix_geteuid() != 0) {
+    exit ("This script can only be run by the root user.\n");
 }
 
 define_ravensource();
