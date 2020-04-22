@@ -5,7 +5,7 @@ DEF[R_MAJOR]=		${PORTVERSION:R:R}
 
 NAMEBASE=		R
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		math lang
 VARIANTS=		standard
 SDESC[standard]=	Statistical computing and graphics environment
@@ -44,8 +44,23 @@ USES=			makeinfo readline perl:build libtool zlib
 			shebangfix
 XORG_COMPONENTS=	ice sm x11 xext xmu xscrnsaver xt
 GNOME_COMPONENTS=	cairo pango
-SHEBANG_ADD_SH=		src/scripts/INSTALL
+SHEBANG_ADD_SH=		src/scripts/BATCH
+			src/scripts/COMPILE
+			src/scripts/INSTALL
+			src/scripts/LINK
+			src/scripts/REMOVE
+			src/scripts/Rd2pdf
+			src/scripts/Rdconv
+			src/scripts/Rdiff
+			src/scripts/Rprof
+			src/scripts/SHLIB
+			src/scripts/Stangle
+			src/scripts/Sweave
+			src/scripts/build
+			src/scripts/check
 			src/scripts/config
+			src/scripts/javareconf.in
+			src/scripts/rtags.in
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-java
 			--with-readline
