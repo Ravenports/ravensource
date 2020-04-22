@@ -317,6 +317,10 @@ function inline_fix_setup ($namebase, $src) {
                $xf = $src . "/requirements/project.txt";
                shell_exec ("sed -i.bak -e '/^backports/d' $xf");
                break;
+           case "numpy":
+               $xf = $src . "/numpy/__init__.py";
+               shell_exec ("sed -i.bak -e '/Running from numpy/ s/sys.*[)]/pass/' $xf");
+               break;
        }
    }
 
