@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	3.9.0
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		lapack
+VERSION=		${PORTVERSION}
+KEYWORDS=		math
+VARIANTS=		standard
+SDESC[standard]=	Linear Algebra PACKage
+HOMEPAGE=		https://www.netlib.org/lapack/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/Reference-LAPACK:lapack:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete blas lapack lapacke
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:blas
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		math/lapack
+
+BUILDRUN_DEPENDS=	xblas:single:standard
+
+EXRUN[lapack]=		lapack:blas:standard
+EXRUN[lapacke]=		lapack:lapack:standard
+
+USES=			cmake fortran:blas
+CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
+			-DLAPACKE:BOOL=ON
+			-DLAPACKE_WITH_TMG:BOOL=OFF
+			-DBLAS++:BOOL=OFF
+			-DLAPACK++:BOOL=OFF
+			-DUSE_XBLAS:BOOL=ON
+PLIST_SUB=		VER=${PORTVERSION}
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
