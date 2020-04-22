@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.36
 
 NAMEBASE=		geany
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		editors devel
 VARIANTS=		standard
 SDESC[standard]=	Fast and lightweight IDE
@@ -13,11 +14,10 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://download.geany.org/
 DISTFILE[1]=		geany-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary docs nls
 
-OPTIONS_AVAILABLE=	NLS
-OPTIONS_STANDARD=	NLS
-OPT_ON[all]=		NLS
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
 
 LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
@@ -30,17 +30,12 @@ FPC_EQUIVALENT=		devel/geany
 
 BUILDRUN_DEPENDS=	fontconfig:primary:standard
 
-USES=			gettext-tools gmake libtool pkgconfig
+USES=			gettext-runtime gettext-tools gmake libtool pkgconfig
 			desktop-utils:primary
 GNOME_COMPONENTS=	cairo intltool vte
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-vte
 			--enable-gtk3
+			--enable-nls
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
-
-[NLS].USES_ON=				gettext-runtime
-[NLS].CONFIGURE_ENABLE_BOTH=		nls
-
-post-patch-NLS-OFF:
-	${REINPLACE_CMD} -e '/^SUBDIRS/ s|po||' ${WRKSRC}/Makefile.in
