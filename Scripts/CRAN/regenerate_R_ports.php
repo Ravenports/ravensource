@@ -237,6 +237,11 @@ EOD;
                         $output_directory . " save");
 }
 
+# only root can run this
+if (posix_geteuid() != 0) {
+    exit ("This script can only be run by the root user.\n");
+}
+
 define_ravensource();
 set_initial_queue();
 cycle_through_queue();
