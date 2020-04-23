@@ -7,12 +7,12 @@
 #   This creates /tmp/cpan-work/latest_candidates.txt, which is a filtered
 #   list of CPAN modules that pass rudimentary validity checks
 #
-# file: ./top_ports.list
+# file: ./list.top_ports
 #
 #   This is a list of perl ports that we want.  They are considered top-level
 #   and all requirements of these perl ports need to be built (recursively)
 #
-# file: ./dead-homepage.list
+# file: ./list.dead-homepage
 #
 #   This is a list of perl modules that have 404 URLS for their homepages.
 #   The homepage value will be overridden to "none"
@@ -25,7 +25,7 @@
 # directory: /tmp/cpan-work/build-queue
 #
 #   This directory holds zero length files with the same names as perl
-#   modules.  These are recursive dependencies of the top_ports.list that
+#   modules.  These are recursive dependencies of the list.top_ports that
 #   have yet to be built
 #
 # directory: /tmp/cpan-work/completed
@@ -58,10 +58,10 @@ queue=${tmpdir}/build-queue
 RAVENADM=/raven/bin/ravenadm
 # ENTRY_LIST=${tmpdir}/latest_candidates.txt
 ENTRY_LIST=${tmpdir}/02packages.details.txt
-DEADLIST=${thisdir}/dead-homepage.list
-SUMOVERLIST=${thisdir}/summary-override.list
-DESCOVERLIST=${thisdir}/description-override.list
-RMVLIST=${thisdir}/bad-v.list
+DEADLIST=${thisdir}/list.dead-homepage
+SUMOVERLIST=${thisdir}/list.summary-override
+DESCOVERLIST=${thisdir}/list.description-override
+RMVLIST=${thisdir}/list.bad-v
 urlstub="https://st.aticpan.org/source/"
 mirror_base="/mech/var/cache/cpan/"
 
@@ -327,13 +327,13 @@ if [ $check_core -eq 1 ]; then
          exit 1;
       fi
    fi
- done < ${thisdir}/top_ports.list
+ done < ${thisdir}/list.top_ports
 fi
 
 # iterate through top-level list (second time)
 while read line; do
    generate_ravensource ${line}
-done < ${thisdir}/top_ports.list
+done < ${thisdir}/list.top_ports
 
 # Now search queue over and over until there are no new ports added
 while true; do
