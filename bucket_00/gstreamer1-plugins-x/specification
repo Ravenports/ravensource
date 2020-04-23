@@ -65,9 +65,3 @@ INSTALL_WRKSRC=		{{WRKSRC}}/sys/ximage
 CFLAGS=			-Wno-format
 PLIST_SUB=		GSTVER=${GST_VERSION}
 			PLUGIN=${PLUGIN}
-
-post-patch:
-	${FIND} ${WRKSRC}/ext ${WRKSRC}/sys -name Makefile.in |\
-	${XARGS} ${REINPLACE_CMD} -E \
-	-e '/la_DEPENDENCIES/,/am__DEPENDENCIES/s|[$$][(]top_builddir[)]/gst-libs/.*.la||' \
-	-e 's|[@$$][(]?GST_API_VERSION[@)]\.la|$$\{VERSION\}|g'
