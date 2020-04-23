@@ -1,4 +1,4 @@
---- src/mesa/drivers/dri/i965/brw_bufmgr.c.orig	2020-04-03 10:15:27 UTC
+--- src/mesa/drivers/dri/i965/brw_bufmgr.c.orig	2020-04-22 21:36:59 UTC
 +++ src/mesa/drivers/dri/i965/brw_bufmgr.c
 @@ -74,6 +74,10 @@
  #define VG(x)
@@ -11,7 +11,7 @@
  /* VALGRIND_FREELIKE_BLOCK unfortunately does not actually undo the earlier
   * VALGRIND_MALLOCLIKE_BLOCK but instead leaves vg convinced the memory is
   * leaked. All because it does not call VG(cli_free) from its
-@@ -1699,8 +1703,12 @@ brw_bufmgr_init(struct gen_device_info *
+@@ -1737,8 +1741,12 @@ brw_bufmgr_create(struct gen_device_info
        bufmgr->initial_kflags |= EXEC_OBJECT_SUPPORTS_48B_ADDRESS;
  
        /* Allocate VMA in userspace if we have softpin and full PPGTT. */

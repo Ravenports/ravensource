@@ -25,7 +25,7 @@ Signed-off-by: Emil Velikov <emil.l.velikov@gmail.com>
 Reviewed-by: Francisco Jerez <currojerez@riseup.net>
 
 
---- src/gallium/auxiliary/pipe-loader/pipe_loader_drm.c.orig	2020-04-03 10:15:27 UTC
+--- src/gallium/auxiliary/pipe-loader/pipe_loader_drm.c.orig	2020-04-22 21:36:58 UTC
 +++ src/gallium/auxiliary/pipe-loader/pipe_loader_drm.c
 @@ -250,6 +250,14 @@ pipe_loader_drm_probe_fd(struct pipe_loa
  }

@@ -1,4 +1,4 @@
---- src/util/u_atomic.h.orig	2020-04-03 10:15:28 UTC
+--- src/util/u_atomic.h.orig	2020-04-22 21:36:59 UTC
 +++ src/util/u_atomic.h
 @@ -20,11 +20,7 @@
   * locally coded assembly, compiler intrinsic or ultimately a
