@@ -1,0 +1,64 @@
+DEF[PORTVERSION]=	1.0.5
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		parole
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		standard
+SDESC[standard]=	Gstreamer-based media player for Xfce
+HOMEPAGE=		https://docs.xfce.org/apps/parole/start
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://archive.xfce.org/src/apps/parole/${PORTVERSION:R}/
+DISTFILE[1]=		parole-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/main.c
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		multimedia/xfce4-parole
+
+BUILDRUN_DEPENDS=	dbus-glib:primary:standard
+			libnotify:primary:standard
+			xfce4-panel:primary:standard
+			xfconf:primary:standard
+			garcon:primary:standard
+			taglib:single:standard
+			gstreamer1-plugins-core:single:standard
+			gstreamer1-plugins-faad:single:standard
+			gstreamer1-plugins-flac:single:standard
+			gstreamer1-plugins-soup:single:standard
+			gstreamer1-plugins-wavpack:single:standard
+			gstreamer1-plugins-x:single:standard
+			gstreamer1-plugins-xshm:single:standard
+			gstreamer1-plugins-xvideo:single:standard
+# to-be-created		gstreamer1-plugins-rtmp:single:standard
+RUN_DEPENDS=		xdg-utils:single:standard
+
+USES=			gettext-tools:build gettext-runtime gmake libtool pkgconfig
+			gnome-icons:primary desktop-utils:primary
+GNOME_COMPONENTS=	gtk3 intltool
+XORG_COMPONENTS=	ice sm x11
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-debug
+			--enable-notify-plugin
+			--enable-tray-plugin
+			--enable-taglib
+			--enable-mpris2-plugin
+			--without-html-dir
+INSTALL_TARGET=		install-strip
+
+post-patch:
+	${REINPLACE_CMD} -e 's|xfce4/src/misc|parole|g' \
+		${WRKSRC}/src/common/parole-rc-utils.h
+
