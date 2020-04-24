@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	0.116
 
 NAMEBASE=		polkit
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		standard
 SDESC[standard]=	Framework for access control to system components
@@ -13,16 +14,16 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.freedesktop.org/software/polkit/releases/
 DISTFILE[1]=		polkit-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 # The file COPYING is LGPL20 ("Library") however terms mention
 # LGPL21 ("Lesser").
-LICENSE=		LGPL21+:single
+LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:stock
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/polkit/polkit.h
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
@@ -31,7 +32,7 @@ FPC_EQUIVALENT=		sysutils/polkit
 
 USERS=			polkitd
 GROUPS=			polkitd
-USERGROUP_SPKG=		single
+USERGROUP_SPKG=		primary
 
 BUILD_DEPENDS=		docbook-xsl:primary:standard
 			intltool:single:standard
