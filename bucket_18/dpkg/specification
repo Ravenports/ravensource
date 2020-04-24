@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	1.20.0
 
 NAMEBASE=		dpkg
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		archivers sysutils
 VARIANTS=		standard
 SDESC[standard]=	Debian package maintenance system
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		DEBIAN/pool/main/d/dpkg
 DISTFILE[1]=		dpkg_${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary nls
 
 OPTIONS_AVAILABLE=	DAEMON
 OPTIONS_STANDARD=	DAEMON
@@ -24,9 +24,9 @@ OPT_ON[linux]=		DAEMON
 OPT_ON[darwin]=		DAEMON
 # Setting daemon on sunos will result in broken build
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/main.h
 LICENSE_SCHEME=		solo
