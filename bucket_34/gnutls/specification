@@ -9,6 +9,7 @@ DEF[SOXXMAJOR]=		${SOXXVERSION:R:R}
 
 NAMEBASE=		gnutls
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security net
 VARIANTS=		standard
 SDESC[standard]=	GNU Transport Layer Security library
@@ -19,14 +20,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNUPG/gnutls/v${DL_FOLDER}
 DISTFILE[1]=		gnutls-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL21+:single
+LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/doc/COPYING.LESSER
-LICENSE_TERMS=		single:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		primary:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/gnutls
@@ -59,8 +60,8 @@ PLIST_SUB=		SOXXVERSION=${SOXXVERSION}
 			SOXXMAJOR=${SOXXMAJOR}
 SOVERSION=		${SOVERSION}
 
-INFO=			single:gnutls
-			single:gnutls-guile
+INFO=			primary:gnutls
+			primary:gnutls-guile
 
 VAR_OPSYS[sunos]=	CPPFLAGS=-I{{LOCALBASE}}/include/bsd
 			LDFLAGS=-lbsd
