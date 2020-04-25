@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.44.1
 
 NAMEBASE=		gvfs
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	GNOME virtual file system
@@ -13,16 +14,16 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNOME/gvfs/${PORTVERSION:R}/
 DISTFILE[1]=		gvfs-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		devel/gvfs
 
-LICENSE=		LGPL20+:single
+LICENSE=		LGPL20+:primary
 LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/common/gvfsutils.h
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
