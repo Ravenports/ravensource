@@ -88,8 +88,9 @@ function make_comment ($shortdesc) {
 # Returns the summary string to use in the specification
 # Argument 1: port's namebase
 # Argument 2: Original summary string
-# Returns an associative array:   summary   => <44 char max summary>
+# Returns an associative array:   summary   => <43 char max summary>
 #                                 truncated => boolean
+#                                 tags      => boolean
 function sanitize_summary ($namebase, $original_summary) {
     global $data_summary;
 
@@ -120,8 +121,11 @@ function sanitize_summary ($namebase, $original_summary) {
     # strip trailing periods
     $summary =  preg_replace('/[.]*$/', "", $summary);
     $truncated = strlen ($summary) > $maxlen;
+    $has_tag = preg_match('/[<][\s\S]+[>]/', $summary);
     $final_summary = $truncated ? trim(substr($summary, 0, $maxlen)) : $summary;
-    return array("summary" => $final_summary, "truncated" => $truncated);
+    return array("summary"   => $final_summary,
+                 "truncated" => $truncated,
+                 "tags"      => $has_tag);
 }
 
 # Produces test for long description.

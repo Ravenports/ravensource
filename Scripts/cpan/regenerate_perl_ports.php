@@ -30,6 +30,7 @@ set_top_level_ports (TOPLEVEL_PORTS, $SCRIPTDIR);
 # global variables
 $module_queue = array();
 $port_data = array();
+$tagged_summaries = array();
 $truncated_summaries = array();
 
 # Sets the initial scan list as the top-level ports
@@ -92,6 +93,7 @@ function generate_port($namebase) {
     global
         $EXTS, $VA, $VB,
         $port_data,
+        $tagged_summaries,
         $truncated_summaries,
         $ravensource_directory;
 
@@ -126,6 +128,12 @@ function generate_port($namebase) {
     if ($summary["truncated"]) {
         array_push($truncated_summaries, $namebase);
     }
+
+    # Annotate summary with html tag in it
+    if ($summary["tags"]) {
+        array_push($tagged_summaries, $namebase);
+    }
+
 
     # other template variables
     $pvbraces    = '${PORTVERSION}';
@@ -277,6 +285,12 @@ foreach (array_keys($port_data) as $namebase) {
 if (count($truncated_summaries)) {
     echo "The following cpan ports have summaries that are too long:\n";
     foreach ($truncated_summaries as $namebase) {
+        echo "  $namebase\n";
+    }
+}
+if (count($tagged_summaries)) {
+    echo "The following cpan ports have summaries containing <text>:\n";
+    foreach ($tagged_summaries as $namebase) {
         echo "  $namebase\n";
     }
 }
