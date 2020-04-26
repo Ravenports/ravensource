@@ -1,0 +1,47 @@
+This directory contains the perl ports generator.
+
+It works recursively -- meaning when provided the cpan metaname of a
+port to generate, it will generate all the dependencies of that port,
+and their dependencies, etc.
+
+It will accept arguments as cpan metanames of perl ports to build.
+If given no arguments, it will use contents of the list.top-ports
+file as its build list.
+
+.e.g.	./regenerate_perl_ports.php IO:Tee Starlink::AST
+	./regenerate_perl_ports.php
+
+If the switch "--force" is provided, the script will ignore any cached
+files and refetch (and overwrite if it has too).
+
+Files to augment over time:
+list.top-ports			Main perl ports wanted in Ravenports
+list.dead-homepage		List of ports with homepage urls
+				that don't resolve
+list.https-redirect		List of http:// urls that have permanent
+				redirects to https
+list.description-override	Keyed table: RP namebase => new description
+				(use '\n' to indicate newlines).
+list.summary-override		Keyed table: RP namebase => new summary
+				(limited to 50 characters)
+list.bad-v			List of ports with tarballs with "v" in version
+				part of tarball name, but not extracted directory
+				Keyed table: RP namebase => specified version
+list.index_override		Corrects entries in 02packages.details.txt
+				Keyed table: cpan entry => tarball path
+
+
+CPAN central site:
+https://metacpan.org/
+
+Customization:
+The generator only produces the specification file, the distinfo file, and
+the descriptions/desc.single file.  Maintainers must add the patches,
+files, <opsys> directories as needed.  The "USES=perl" module will automatically
+create a manifest.
+
+If there is a specification.manual file in the port's directory, it will be
+concatenated to the end of the generated specification.
+
+Misc: command to remove trailing whitespace  
+perl -pi -e 's,[ \t]+$,,' <filename>
