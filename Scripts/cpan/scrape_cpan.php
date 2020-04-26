@@ -564,6 +564,7 @@ function finish_port_yaml (&$port) {
                     }
                     switch ($cat) {
                         case "requires":
+                        case "recommends":
                             $port["cascade"][$key] = $depname;
                             if (!in_array($depname, $port["buildrun"][$perlkey])) {
                                 array_push($port["buildrun"][$perlkey], $depname);
@@ -574,8 +575,8 @@ function finish_port_yaml (&$port) {
                                 unset($port["justbuild"][$perlkey][$ndx]);
                             }
                             break;
-                        case "configure":
-                        case "build":
+                        case "configure_requires":
+                        case "build_requires":
                             $port["cascade"][$key] = $depname;
                             if (!in_array($depname, $port["buildrun"][$perlkey])
                              && !in_array($depname, $port["justbuild"][$perlkey])) {

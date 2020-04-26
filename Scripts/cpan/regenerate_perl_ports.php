@@ -227,8 +227,8 @@ $license
 GENERATED=		yes
 SINGLE_JOB=		yes
 DISTNAME=		$distname
-$raw_depends
 
+$raw_depends
 $buildrun_block
 $manual_portion
 EOD;

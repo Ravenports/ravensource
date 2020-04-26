@@ -5,15 +5,14 @@ NAMEBASE=		perl-UNIVERSAL-can
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Work around buggy code calling UNIVERSAL::c (v530)
-SDESC[528]=		Work around buggy code calling UNIVERSAL::c (v528)
-
+SDESC[530]=		Work around bad code calling UNIVERSAL::can (5.30)
+SDESC[528]=		Work around bad code calling UNIVERSAL::can (5.28)
 HOMEPAGE=		https://github.com/chromatic/UNIVERSAL-can.git
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:C/CH/CHROMATIC
-DISTFILE[1]=		UNIVERSAL-can-1.20140328.tar.gz:main
+DISTFILE[1]=		UNIVERSAL-can-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,24 +22,26 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
+# License listed in CPAN directory:
+# perl
+
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		UNIVERSAL-can-1.20140328
+DISTNAME=		UNIVERSAL-can-${PORTVERSION}
 
-# -----------------------------------------------
+# ---------------------------------------------
 # |   Prerequisites extracted from META.yml
-# -----------------------------------------------
-# |           requires : Scalar::Util (perl 5.3 core) (perl 5.28 core)
-# |           requires : strict (perl 5.3 core) (perl 5.28 core)
-# |           requires : vars (perl 5.3 core) (perl 5.28 core)
-# |           requires : warnings (perl 5.3 core) (perl 5.28 core)
-# |           requires : warnings::register (perl 5.3 core) (perl 5.28 core)
-# | configure_requires : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : Test::More (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : lib (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : overload (perl 5.3 core) (perl 5.28 core)
+# ---------------------------------------------
+# | configure_requires : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : lib (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : overload (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : Scalar::Util (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : strict (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : vars (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : warnings (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : warnings::register (perl 5.30.2 core) (perl 5.28.2 core)
 
 [PERL_530].USES_ON=			perl:530,configure
 [PERL_528].USES_ON=			perl:528,configure
-
 
