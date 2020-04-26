@@ -270,16 +270,16 @@ function download_metaspec($force, $author, $pkgname, &$metaformat) {
         }
         if ($meta === false) {
             $metaformat = "nometa";
-            printf("Downloading %-50s : %s\n", $pkgname, "No meta retrieved");
+            printf("Downloading %-58s : %s\n", $pkgname, "No meta");
         } else {
             file_put_contents ($cache_dir . "/META.yml", $meta);
             $metaformat = "yaml";
-            printf("Downloading %-50s : %s\n", $pkgname, "META.yml  retrieved");
+            printf("Downloading %-58s : %s\n", $pkgname, "META.yml");
         }
     } else {
         file_put_contents ($cache_dir . "/META.json", $meta);
         $metaformat = "json";
-        printf("Downloading %-50s : %s\n", $pkgname, "META.json retrieved");
+        printf("Downloading %-58s : %s\n", $pkgname, "META.json");
     }
     file_put_contents ($format_file, $metaformat);
     return true;

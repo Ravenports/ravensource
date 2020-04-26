@@ -184,7 +184,7 @@ function generate_port($namebase) {
         $vopts_block .= "\n";
         $prespace = ($V == $primo) ? "" : " ";
         $available_options .= $prespace . "PERL_" . $V;
-        $buildrun_block .= "[PERL_" . $V . "].USES_ON=\t\t\t\tperl:$V,$usearg\n";
+        $buildrun_block .= "[PERL_" . $V . "].USES_ON=\t\t\tperl:$V,$usearg\n";
         if (count($port_data[$namebase]["buildrun"][$V])) {
             $buildrun_block .= "[PERL_" . $V . "].BUILDRUN_DEPENDS_ON=\t\t";
             foreach ($port_data[$namebase]["buildrun"][$V] as $DEP) {
