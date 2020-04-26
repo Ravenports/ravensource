@@ -179,6 +179,7 @@ function set_core_module_definitions() {
 # Extracts author and tarball from given input
 # example of input: E/ET/ETHER/Moose-2.2012.tar.gz
 #                   S/SA/SAXJAZMAN/malware/XML-Malware-0.01.tar.gz
+#                   R/RS/RSAVAGE/Tree-DAG_Node-1.31.tgz
 function set_namebase_author_tarball ($input, &$namebase, &$author, &$distfile, &$cpandir, &$pkgname) {
     $parts    = explode("/", $input);
     $numparts = count($parts);
@@ -192,7 +193,11 @@ function set_namebase_author_tarball ($input, &$namebase, &$author, &$distfile, 
 
     $tarparts = explode(".", $distfile);
     $numparts = count($tarparts);
-    $pkgname  = implode(".", array_slice($tarparts, 0, $numparts - 2));
+    if ($tarparts[$numparts - 1] == "tgz") {
+        $pkgname  = implode(".", array_slice($tarparts, 0, $numparts - 1));
+    } else {
+        $pkgname  = implode(".", array_slice($tarparts, 0, $numparts - 2));
+    }
 }
 
 
@@ -235,7 +240,7 @@ function download_metaspec($force, $author, $pkgname, &$metaformat) {
         if ($metaformat === false) {
             exit ("download_metaspec: failed to read $format_file\n");
         }
-        printf("Downloading %-50s : %s\n", $pkgname, "cached");
+        printf("Downloading %-58s : %s\n", $pkgname, "cached");
         return true;
     }
     # There's no format file, so the information's not yet been retrieved

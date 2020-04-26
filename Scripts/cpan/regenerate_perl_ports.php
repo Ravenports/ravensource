@@ -187,15 +187,19 @@ function generate_port($namebase) {
         $buildrun_block .= "[PERL_" . $V . "].USES_ON=\t\t\tperl:$V,$usearg\n";
         if (count($port_data[$namebase]["buildrun"][$V])) {
             $buildrun_block .= "[PERL_" . $V . "].BUILDRUN_DEPENDS_ON=\t\t";
+            $count = 0;
             foreach ($port_data[$namebase]["buildrun"][$V] as $DEP) {
-                $indent = ($DEP == $port_data[$namebase]["buildrun"][$V][0]) ? "" : "\t\t\t\t\t";
+                $count++;
+                $indent = ($count == 1) ? "" : "\t\t\t\t\t";
                 $buildrun_block .= $indent . $DEP . ":single:" . $V . "\n";
             }
         }
         if (count($port_data[$namebase]["justbuild"][$V])) {
             $buildrun_block .= "[PERL_" . $V . "].BUILD_DEPENDS_ON=\t\t";
+            $count = 0;
             foreach ($port_data[$namebase]["justbuild"][$V] as $DEP) {
-                $indent = ($DEP == $port_data[$namebase]["justbuild"][$V][0]) ? "" : "\t\t\t\t\t";
+                $count++;
+                $indent = ($count == 1) ? "" : "\t\t\t\t\t";
                 $buildrun_block .= $indent . $DEP . ":single:" . $V . "\n";
             }
         }
