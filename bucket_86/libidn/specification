@@ -6,6 +6,7 @@ DEF[SOVERSION]=		12.6.0
 
 NAMEBASE=		libidn
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		dns
 VARIANTS=		standard
 SDESC[standard]=	Internationalized Domain Name support library
@@ -16,13 +17,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/libidn
 DISTFILE[1]=		libidn-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single LGPL3+:single
-LICENSE_TERMS=		single:{{WRKSRC}}/COPYING
+LICENSE=		GPLv2+:primary LGPL3+:primary
+LICENSE_TERMS=		primary:{{WRKSRC}}/COPYING
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYINGv2
 			LGPL3+:{{WRKSRC}}/COPYING.LESSERv3
 LICENSE_SCHEME=		dual
@@ -34,7 +35,7 @@ USES=			gmake iconv libtool makeinfo perl:build pkgconfig
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-nls
 INSTALL_TARGET=		install-strip
-INFO=			single:libidn
+INFO=			primary:libidn
 SOVERSION=		${SOVERSION}
 
 post-patch:
