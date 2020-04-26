@@ -1,0 +1,35 @@
+DEF[PHPVERSION]=	EXTRACT_VERSION(PHP_7.4_VERSION)
+DEF[PORTVERSION]=	2.1.0
+DEF[SUFFIX]=		${PHPVERSION:R:S/.//}
+DEF[MODULE]=		yaml
+DEF[KEYWORD]=		textproc
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		php${SUFFIX}-${MODULE}
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang www php ${KEYWORD}
+VARIANTS=		standard
+SDESC[standard]=	PHP ${PORTVERSION:R} extension: YAML parser and emitter
+HOMEPAGE=		https://php.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://pecl.php.net/get/
+DISTFILE[1]=		yaml-${PORTVERSION}.tgz:main
+DIST_SUBDIR=		pecl
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		${KEYWORD}/php${SUFFIX}-${MODULE}
+
+BUILDRUN_DEPENDS=	libyaml:single:standard
+
+USES=			php:${SUFFIX},ext
+DISTNAME=		yaml-${PORTVERSION}
