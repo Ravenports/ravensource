@@ -146,13 +146,14 @@ function generate_port($namebase) {
                                       $port_data[$namebase]["homepage"]);
 
     # minimize future changes by using pvbraces
-    $distname = str_replace ("-" . $portversion,
-                             "-" . $pvbraces,
-                             $port_data[$namebase]["distname"]);
+    $distname = preg_replace ("/-$portversion" . '$/',
+                              "-" . $pvbraces,
+                              $port_data[$namebase]["pkgname"]);
     foreach ($EXTS as $key => $ext) {
         $tarball  = str_replace ("-" . $portversion . $ext,
                                  "-" . $pvbraces . $ext,
                                  $port_data[$namebase]["distfile"]);
+
         if ($tarball != $port_data[$namebase]["distfile"]) {
             break;
         }

@@ -193,7 +193,7 @@ function set_namebase_author_tarball ($input, &$namebase, &$author, &$distfile, 
 
     $tarparts = explode(".", $distfile);
     $numparts = count($tarparts);
-    if ($tarparts[$numparts - 1] == "tgz") {
+    if (substr($tarparts[$numparts - 1], 0, 1) == "t") {
         $pkgname  = implode(".", array_slice($tarparts, 0, $numparts - 1));
     } else {
         $pkgname  = implode(".", array_slice($tarparts, 0, $numparts - 2));
@@ -339,18 +339,12 @@ function finish_port_json (&$port) {
         exit ("Failed to decode $metafile");
     }
 
-    # set version and distname
+    # set version
     if (property_exists ($obj, "version")) {
         if (substr($obj->version, 0, 1) == "v") {
             $port["version"] = substr($obj->version, 1);
         }else {
             $port["version"] = $obj->version;
-        }
-        $port["distname"] = substr($port["namebase"], 5) . "-";
-        if (array_key_exists($port["namebase"], $data_remove_version)) {
-            $port["distname"] .= substr($obj->version, 1);
-        } else {
-            $port["distname"] .= $obj->version;
         }
     }
 
@@ -487,18 +481,12 @@ function finish_port_yaml (&$port) {
         exit ("Failed to decode $metafile");
     }
 
-    # set version and distname
+    # set version
     if (array_key_exists("version", $obj)) {
         if (substr($obj["version"], 0, 1) == "v") {
             $port["version"] = substr($obj["version"], 1);
         }else {
             $port["version"] = $obj["version"];
-        }
-        $port["distname"] = substr($port["namebase"], 5) . "-";
-        if (array_key_exists($port["namebase"], $data_remove_version)) {
-            $port["distname"] .= substr($obj["version"], 1);
-        } else {
-            $port["distname"] .= $obj["version"];
         }
     }
 
@@ -613,11 +601,10 @@ function finish_port_nometa (&$port) {
              . "/" . $port["namebase"];
     $cache_dir = $SPECS_DIR . "/" . $port["author"] . "/" . $port["pkgname"];
 
-    # set version and distname (from tarball)
+    # set version
     $tarparts = explode("-", $port["pkgname"]);
     $numparts = count($tarparts);
     $port["version"] = $tarparts[$numparts - 1];
-    $port["distname"] = $port["pkgname"];
 
     # Don't bother with license
     $port["license"] = "# Not provided (perl module has no META files)";
@@ -654,7 +641,6 @@ function assemble_port_info($cpan_metaname, $force) {
         "cpandir"     => "ERROR",
         "pkgname"     => "ERROR",
         "distfile"    => "ERROR",
-        "distname"    => "UNSET",
         "metaformat"  => "UNSET",
         "pl_builder"  => "UNSET",
         "justbuild"   => array($VA => array(), $VB => array()),
