@@ -4,6 +4,7 @@ DEF[FOLDER]=		${PORTVERSION:R}
 
 NAMEBASE=		gnome-keyring
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Program that keeps passwords and other secrets
@@ -14,14 +15,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.gnome.org/sources/gnome-keyring/${FOLDER}/
 DISTFILE[1]=		gnome-keyring-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL21+:single
+LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING.LIB
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/daemon/gkd-main.h
 LICENSE_SCHEME=		solo
