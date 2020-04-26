@@ -1,2 +1,8 @@
-Use L<Cpanel::JSON::XS> with a fallback to L<JSON::XS> and L<JSON::PP>
+This module first checks to see if either Cpanel::JSON::XS or JSON::XS is
+already loaded, in which case it uses that module. Otherwise it tries to
+load Cpanel::JSON::XS, then JSON::XS, then JSON::PP in order, and either
+uses the first module it finds or throws an error.
 
+It then exports the encode_json and decode_json functions from the loaded
+module, along with a JSON constant that returns the class name for calling
+new on.
