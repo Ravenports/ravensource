@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	0.69
 
 NAMEBASE=		perl-Alien-wxWidgets
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		perl
 VARIANTS=		530 528
 SDESC[530]=		Building, finding and using wxWidgets binar (5.30)
@@ -39,16 +40,16 @@ GENERATED=		yes
 SINGLE_JOB=		yes
 DISTNAME=		Alien-wxWidgets-${PORTVERSION}
 
-[PERL_530].USES_ON=				perl:530,configure
+[PERL_530].USES_ON=			perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Module-Pluggable:single:530
 [PERL_530].BUILD_DEPENDS_ON=		perl-LWP-Protocol-https:single:530
 					perl-Module-Build:single:530
-[PERL_528].USES_ON=				perl:528,configure
+[PERL_528].USES_ON=			perl:528,configure
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-Module-Pluggable:single:528
 [PERL_528].BUILD_DEPENDS_ON=		perl-LWP-Protocol-https:single:528
 					perl-Module-Build:single:528
 
-BUILDRUN_DEPENDS=	wxWidgets:single:gtk2
+BUILDRUN_DEPENDS=	wxWidgets:primary:gtk2
 CONFIGURE_ARGS=		--wxWidgets-build=0
 			--wxWidgets-unicode=1
 CONFIGURE_ENV=		WX_CONFIG="{{LOCALBASE}}/bin/wxgtk2u-3.0-config"

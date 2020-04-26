@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	5.2.8
 
 NAMEBASE=		gnuplot
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		math
 VARIANTS=		standard lite
 SDESC[standard]=	Command-line driven graphing utility
@@ -70,7 +71,7 @@ CONFIGURE_ARGS=		--with-readline=gnu
 [LITE].XORG_COMPONENTS_OFF=		x11
 [LITE].BUILDRUN_DEPENDS_OFF=		tiff:primary:standard
 					libGD:single:standard
-					wxWidgets:single:standard
+					wxWidgets:primary:standard
 
 post-patch:
 	${REINPLACE_CMD} -e \
