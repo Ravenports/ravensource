@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	0.0.6
+DEF[PORTVERSION]=	0.0.7
+DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		uchardet
@@ -18,9 +19,19 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		MPL:single GPLv2+:single LGPL21+:single
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"UCHARDET_H__"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/uchardet.h
+LICENSE_FILE=		MPL:{{WRKSRC}}/COPYING
+			GPLv2+:stock
+			LGPL21+:stock
+LICENSE_SCHEME=		multi
+
 FPC_EQUIVALENT=		textproc/uchardet
 
 USES=			cmake c++:single
+SOVERSION=		${SOVERSION}
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/uchardet
