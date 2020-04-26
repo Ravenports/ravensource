@@ -4,6 +4,7 @@ DEF[CA_BUNDLE]=		{{LOCALBASE}}/share/certs/ca-root-nss.crt
 
 NAMEBASE=		hexchat
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		irc
 VARIANTS=		standard
 SDESC[standard]=	Graphical IRC client based on XChat
@@ -14,14 +15,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://dl.hexchat.net/hexchat/
 DISTFILE[1]=		hexchat-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/common/modes.h
 LICENSE_SCHEME=		solo
