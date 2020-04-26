@@ -62,7 +62,7 @@ function populate_cpan_index() {
 
     $plainfile = $CPAN_CACHE . "/" . $LATEST_SPECS;
     $specfile = $plainfile . ".gz";
-    
+
     if (file_exists($plainfile)) {
         unlink($plainfile);
     }
@@ -126,7 +126,7 @@ function download_latest_specs() {
     $contents = file_get_contents($archurl);
     if ($contents === false) {
         echo "Failed to download CPAN package list\n";
-        return false;        
+        return false;
     } else {
         echo "Downloaded.\n";
     }
@@ -185,11 +185,11 @@ function set_namebase_author_tarball ($input, &$namebase, &$author, &$distfile, 
     $author   = $parts[2];
     $distfile = $parts[$numparts - 1];
     $cpandir  = implode("/", array_slice ($parts, 0, $numparts - 1));
- 
+
     $tarparts = explode("-", $distfile);
     $numparts = count($tarparts);
     $namebase = "perl-" . implode("-", array_slice($tarparts, 0, $numparts - 1));
-    
+
     $tarparts = explode(".", $distfile);
     $numparts = count($tarparts);
     $pkgname  = implode(".", array_slice($tarparts, 0, $numparts - 2));
@@ -267,13 +267,13 @@ function download_metaspec($force, $author, $pkgname, &$metaformat) {
             $meta = @file_get_contents($meta_yaml);
         } catch (Exception $e) {
             # do nothing
-        }        
+        }
         if ($meta === false) {
             $metaformat = "nometa";
             printf("Downloading %-50s : %s\n", $pkgname, "No meta retrieved");
         } else {
             file_put_contents ($cache_dir . "/META.yml", $meta);
-            $metaformat = "yaml";            
+            $metaformat = "yaml";
             printf("Downloading %-50s : %s\n", $pkgname, "META.yml  retrieved");
         }
     } else {
@@ -282,7 +282,7 @@ function download_metaspec($force, $author, $pkgname, &$metaformat) {
         printf("Downloading %-50s : %s\n", $pkgname, "META.json retrieved");
     }
     file_put_contents ($format_file, $metaformat);
-    return true; 
+    return true;
 }
 
 
@@ -333,7 +333,7 @@ function finish_port_json (&$port) {
     if (is_null($obj)) {
         exit ("Failed to decode $metafile");
     }
-    
+
     # set version and distname
     if (property_exists ($obj, "version")) {
         if (substr($obj->version, 0, 1) == "v") {
@@ -347,7 +347,7 @@ function finish_port_json (&$port) {
         } else {
             $port["distname"] .= $obj->version;
         }
-    }        
+    }
 
     # set homepage
     $port["homepage"] = "none";
@@ -364,25 +364,25 @@ function finish_port_json (&$port) {
                 } elseif (property_exists ($obj->resources->repository, "url")) {
                     if (substr($obj->resources->repository->url, 0, 4) == "http") {
                         $port["homepage"] = $obj->resources->repository->url;
-                    }                    
+                    }
                 }
             }
         }
     }
-    
+
     # set license
     if (property_exists($obj, "license")) {
         $port["license"] = "# " . implode (", ", $obj->license);
     } else {
         $port["license"] = "# Not provided in META.json";
     }
-    
+
     # set descriptions
     if (property_exists($obj, "abstract")) {
         $port["comment"]     = $obj->abstract;
         $port["description"] = $obj->abstract;
     }
-    
+
     # set dependencies
     if (!property_exists($obj, "prereqs")) {
         $port["req_comment"] = "# This perl port has no dependencies at all.\n";
@@ -429,9 +429,9 @@ function finish_port_json (&$port) {
                                     # bad requirement signal manually, ignore
                                     continue;
                                 }
-                                $port["cascade"][$key] = $depname;
                                 switch ($cat) {
                                     case "runtime":
+                                        $port["cascade"][$key] = $depname;
                                         if (!in_array($depname, $port["buildrun"][$perlkey])) {
                                             array_push($port["buildrun"][$perlkey], $depname);
                                         }
@@ -443,6 +443,7 @@ function finish_port_json (&$port) {
                                         break;
                                     case "configure":
                                     case "build":
+                                        $port["cascade"][$key] = $depname;
                                         if (!in_array($depname, $port["buildrun"][$perlkey])
                                          && !in_array($depname, $port["justbuild"][$perlkey])) {
                                             array_push($port["justbuild"][$perlkey], $depname);
@@ -462,13 +463,166 @@ function finish_port_json (&$port) {
 
 # Use META.yml to finish populating port data
 function finish_port_yaml (&$port) {
-    # to be written
+    global $VA, $VB,
+        $PERL_VERSION_A,
+        $PERL_VERSION_B,
+        $SPECS_DIR,
+        $CORE_MODULES,
+        $data_remove_version,
+        $ravensource_directory;
+
+    $portdir = $ravensource_directory . "/"
+             . bucket_directory($port["namebase"])
+             . "/" . $port["namebase"];
+    $cache_dir = $SPECS_DIR . "/" . $port["author"] . "/" . $port["pkgname"];
+    $metafile = $cache_dir . "/META.yml";
+    $yaml_string = file_get_contents ($metafile, $meta);
+    $obj = yaml_parse($yaml_string);
+    if (is_null($obj)) {
+        exit ("Failed to decode $metafile");
+    }
+
+    # set version and distname
+    if (array_key_exists("version", $obj)) {
+        if (substr($obj["version"], 0, 1) == "v") {
+            $port["version"] = substr($obj["version"], 1);
+        }else {
+            $port["version"] = $obj["version"];
+        }
+        $port["distname"] = substr($port["namebase"], 5) . "-";
+        if (array_key_exists($port["namebase"], $data_remove_version)) {
+            $port["distname"] .= substr($obj["version"], 1);
+        } else {
+            $port["distname"] .= $obj["version"];
+        }
+    }
+
+    # set homepage
+    $port["homepage"] = "none";
+    if (array_key_exists("homepage", $obj)) {
+        $port["homepage"] = $obj["homepage"];
+    } else {
+        if (array_key_exists("resources", $obj)) {
+            if (array_key_exists("repository", $obj["resources"])) {
+                $web = $obj["resources"]["repository"];
+                if (substr($web, 0, 4) == "http") {
+                    $port["homepage"] = $web;
+                }
+            }
+        }
+    }
+
+    # set license
+    if (array_key_exists("license", $obj)) {
+        $port["license"] = "# " . $obj["license"];
+    } else {
+        $port["license"] = "# Not provided in META.json";
+    }
+
+    # set descriptions
+    if (array_key_exists("abstract", $obj)) {
+        $port["comment"]     = $obj["abstract"];
+        $port["description"] = $obj["abstract"];
+    }
+
+    $port["req_comment"] = "# ---------------------------------------------\n" .
+                           "# |   Prerequisites extracted from META.yml\n" .
+                           "# ---------------------------------------------\n";
+    $perlverkeys = array();
+    $reqs_level = array("configure_requires", "build_requires", "requires");
+    if (!file_exists($portdir . "/block_meta_recommends")) {
+        array_push($reqs_level, "recommends");
+    }
+    if (!file_exists($portdir . "/broken_$VA")) {
+        array_push($perlverkeys, $VA);
+    }
+    if (!file_exists($portdir . "/broken_$VB")) {
+        array_push($perlverkeys, $VB);
+    }
+    $map = array ($VA => $PERL_VERSION_A,
+                  $VB => $PERL_VERSION_B);
+
+    foreach ($reqs_level as $cat) {
+        if (array_key_exists($cat, $obj) && is_array($obj[$cat])) {
+            $props = $obj[$cat];
+            ksort($props);
+            foreach ($props as $key => $version) {
+                if ($key == "perl") { continue; }
+                $suff = "";
+                foreach ($perlverkeys as $perlkey) {
+                    if (array_key_exists($key, $CORE_MODULES[$perlkey])) {
+                        $suff .= " (perl " . $map[$perlkey] . " core)";
+                    } else {
+                    $depname = get_namebase($key);
+                    if ($depname == $port["namebase"]) {
+                        # You can't depend on yourself
+                        continue;
+                    }
+                    if (file_exists($portdir . "/IGNORE_" . $key)) {
+                        # bad requirement signal manually, ignore
+                        continue;
+                    }
+                    switch ($cat) {
+                        case "requires":
+                            $port["cascade"][$key] = $depname;
+                            if (!in_array($depname, $port["buildrun"][$perlkey])) {
+                                array_push($port["buildrun"][$perlkey], $depname);
+                            }
+                            # if listed as build already, remove it there
+                            if (in_array($depname, $port["justbuild"][$perlkey])) {
+                                $ndx = array_search($depname, $port["justbuild"][$perlkey]);
+                                unset($port["justbuild"][$perlkey][$ndx]);
+                            }
+                            break;
+                        case "configure":
+                        case "build":
+                            $port["cascade"][$key] = $depname;
+                            if (!in_array($depname, $port["buildrun"][$perlkey])
+                             && !in_array($depname, $port["justbuild"][$perlkey])) {
+                                array_push($port["justbuild"][$perlkey], $depname);
+                            }
+                            break;
+                        }
+                    }
+                }
+                $port["req_comment"] .= sprintf ("# | %18s : %s%s\n", $cat, $key, $suff);
+            }
+        }
+    }
 }
 
 
 # finish populating port data without any metadata
 function finish_port_nometa (&$port) {
-    # to be written
+    global $VA, $VB,
+        $PERL_VERSION_A,
+        $PERL_VERSION_B,
+        $SPECS_DIR,
+        $CORE_MODULES,
+        $data_remove_version,
+        $ravensource_directory;
+
+    $portdir = $ravensource_directory . "/"
+             . bucket_directory($port["namebase"])
+             . "/" . $port["namebase"];
+    $cache_dir = $SPECS_DIR . "/" . $port["author"] . "/" . $port["pkgname"];
+
+    # set version and distname (from tarball)
+    $tarparts = explode("-", $port["pkgname"]);
+    $numparts = count($tarparts);
+    $port["version"] = $tarparts[$numparts - 1];
+    $port["distname"] = $port["pkgname"];
+
+    # Don't bother with license
+    $port["license"] = "# Not provided (perl module has no META files)";
+
+    # set descriptions
+    $port["comment"]     = "No description provided";
+    $port["description"] = $port["comment"] . ".";
+
+    $port["req_comment"] = "# ------------------------------------------------------------------\n" .
+                           "# |   No meta files available, therefore no dependencies defined\n" .
+                           "# ------------------------------------------------------------------\n";
 }
 
 
@@ -509,14 +663,14 @@ function assemble_port_info($cpan_metaname, $force) {
         echo ("MAJOR: '$cpan_metaname' not found in CPAN_INDEX\n");
         return $result;
     }
-    
+
     # verify this is not a core module in both known perl versions
     if (array_key_exists($cpan_metaname, $CORE_MODULES[$VA]) &&
         array_key_exists($cpan_metaname, $CORE_MODULES[$VB])) {
-        exit ("Remove $cpan_metaname from top ports; " . 
+        exit ("Remove $cpan_metaname from top ports; " .
               "it is a core module in both perl branches\n");
-    }    
-    
+    }
+
     # scrape author and tarball out of payload
     set_namebase_author_tarball($payload,
                                 $result["namebase"],
@@ -533,7 +687,7 @@ function assemble_port_info($cpan_metaname, $force) {
     {
         return $result;
     }
-    
+
     # set builder
     set_builder_action ($result["author"],
                         $result["pkgname"],

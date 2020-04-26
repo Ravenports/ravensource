@@ -268,7 +268,7 @@ foreach (array_keys($port_data) as $namebase) {
 if (count($truncated_summaries)) {
     echo "The following cpan ports have summaries that are too long:\n";
     foreach ($truncated_summaries as $namebase) {
-        echo "  ruby-" . $namebase . "\n";
+        echo "  $namebase\n";
     }
 }
 ?>

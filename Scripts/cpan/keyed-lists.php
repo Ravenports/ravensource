@@ -125,9 +125,9 @@ function produce_long_description
     $desctext = "";
     if (array_key_exists($namebase, $data_description)) {
         $unixtext = str_replace ('\n', "\n", $data_description[$namebase]);
-        $desctext = wordwrap ($unixtext, 75);
+        $desctext = wordwrap ($unixtext, 75) . "\n";
     } else {
-        $desctext = wordwrap ($original_description . "\n", 75);
+        $desctext = wordwrap ($original_description . "\n", 75) . "\n";
     }
     return $desctext;
 }
