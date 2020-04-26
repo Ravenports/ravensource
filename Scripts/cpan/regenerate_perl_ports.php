@@ -12,6 +12,7 @@ define ("DESCRIPTIONS", "description");
 define ("DEAD_HOMEPAGES", "deadhome");
 define ("TOPLEVEL_PORTS", "toplevel");
 define ("HTTP_REDIRECT", "redirect");
+define ("VERSION_OVERRIDE", "version");
 define ("REMOVE_V", "badv");
 define ("OVERWRITE_INDEX", "index");
 
@@ -25,6 +26,7 @@ ingest_file (DEAD_HOMEPAGES, $SCRIPTDIR);
 ingest_file (HTTP_REDIRECT, $SCRIPTDIR);
 ingest_file (REMOVE_V, $SCRIPTDIR);
 ingest_file (OVERWRITE_INDEX, $SCRIPTDIR);
+ingest_file (VERSION_OVERRIDE, $SCRIPTDIR);
 set_top_level_ports (TOPLEVEL_PORTS, $SCRIPTDIR);
 
 # global variables

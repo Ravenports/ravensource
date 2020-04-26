@@ -8,6 +8,7 @@ $data_toplevel_ports = array();
 $data_https_redirect = array();
 $data_remove_version = array();
 $data_index_overwrite = array();
+$data_version_override = array();
 
 
 # procedure to set global variables.
@@ -22,7 +23,8 @@ function ingest_file ($datatype, $scriptdir) {
         $data_https_redirect,
         $data_toplevel_ports,
         $data_remove_version,
-        $data_index_overwrite;
+        $data_index_overwrite,
+        $data_version_override;
 
     $filename = "";
     $varname = "";
@@ -56,9 +58,13 @@ function ingest_file ($datatype, $scriptdir) {
             $filename = "list.index_override";
             $varname = "data_index_overwrite";
             break;
+        case "version":
+            $filename = "list.version-override";
+            $varname = "data_version_override";
+            break;
         default:
             echo "illegal datatype: $datatype\n";
-            echo "Must be summary|description|deadhome|toplevel|badv|index\n";
+            echo "Must be summary|description|deadhome|toplevel|badv|index|version\n";
             return;
     }
     $lines = file($scriptdir . "/" . $filename);

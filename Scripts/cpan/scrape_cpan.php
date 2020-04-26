@@ -326,6 +326,7 @@ function finish_port_json (&$port) {
         $SPECS_DIR,
         $CORE_MODULES,
         $data_remove_version,
+        $data_version_override,
         $ravensource_directory;
 
     $portdir = $ravensource_directory . "/"
@@ -340,11 +341,15 @@ function finish_port_json (&$port) {
     }
 
     # set version
-    if (property_exists ($obj, "version")) {
-        if (substr($obj->version, 0, 1) == "v") {
-            $port["version"] = substr($obj->version, 1);
-        }else {
-            $port["version"] = $obj->version;
+    if (array_key_exists($port["namebase"], $data_version_override)) {
+        $port["version"] = $data_version_override[$port["namebase"]];
+    } else {
+        if (property_exists ($obj, "version")) {
+            if (substr($obj->version, 0, 1) == "v") {
+                $port["version"] = substr($obj->version, 1);
+            } else {
+                $port["version"] = $obj->version;
+            }
         }
     }
 
@@ -468,6 +473,7 @@ function finish_port_yaml (&$port) {
         $SPECS_DIR,
         $CORE_MODULES,
         $data_remove_version,
+        $data_version_override,
         $ravensource_directory;
 
     $portdir = $ravensource_directory . "/"
@@ -482,14 +488,17 @@ function finish_port_yaml (&$port) {
     }
 
     # set version from tarball.  $obj["version"] is untrustworthy
-    # set version
-    $tarparts = explode("-", $port["pkgname"]);
-    $numparts = count($tarparts);
-    $tmpversion = $tarparts[$numparts - 1];
-    if (substr($tmpversion, 0, 1) == "v") {
-        $port["version"] = substr($tmpversion, 1);
+    if (array_key_exists($port["namebase"], $data_version_override)) {
+        $port["version"] = $data_version_override[$port["namebase"]];
     } else {
-        $port["version"] = $tmpversion;
+        $tarparts = explode("-", $port["pkgname"]);
+        $numparts = count($tarparts);
+        $tmpversion = $tarparts[$numparts - 1];
+        if (substr($tmpversion, 0, 1) == "v") {
+            $port["version"] = substr($tmpversion, 1);
+        } else {
+            $port["version"] = $tmpversion;
+        }
     }
 
     # set homepage
@@ -596,6 +605,7 @@ function finish_port_nometa (&$port) {
         $SPECS_DIR,
         $CORE_MODULES,
         $data_remove_version,
+        $data_version_override,
         $ravensource_directory;
 
     $portdir = $ravensource_directory . "/"
@@ -604,9 +614,13 @@ function finish_port_nometa (&$port) {
     $cache_dir = $SPECS_DIR . "/" . $port["author"] . "/" . $port["pkgname"];
 
     # set version
-    $tarparts = explode("-", $port["pkgname"]);
-    $numparts = count($tarparts);
-    $port["version"] = $tarparts[$numparts - 1];
+    if (array_key_exists($port["namebase"], $data_version_override)) {
+        $port["version"] = $data_version_override[$port["namebase"]];
+    } else {
+        $tarparts = explode("-", $port["pkgname"]);
+        $numparts = count($tarparts);
+        $port["version"] = $tarparts[$numparts - 1];
+    }
 
     # Don't bother with license
     $port["license"] = "# Not provided (perl module has no META files)";
