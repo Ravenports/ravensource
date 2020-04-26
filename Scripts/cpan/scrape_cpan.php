@@ -481,13 +481,15 @@ function finish_port_yaml (&$port) {
         exit ("Failed to decode $metafile");
     }
 
+    # set version from tarball.  $obj["version"] is untrustworthy
     # set version
-    if (array_key_exists("version", $obj)) {
-        if (substr($obj["version"], 0, 1) == "v") {
-            $port["version"] = substr($obj["version"], 1);
-        }else {
-            $port["version"] = $obj["version"];
-        }
+    $tarparts = explode("-", $port["pkgname"]);
+    $numparts = count($tarparts);
+    $tmpversion = $tarparts[$numparts - 1];
+    if (substr($tmpversion, 0, 1) == "v") {
+        $port["version"] = substr($tmpversion, 1);
+    } else {
+        $port["version"] = $tmpversion;
     }
 
     # set homepage
