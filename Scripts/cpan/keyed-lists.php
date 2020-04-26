@@ -95,9 +95,20 @@ function sanitize_summary ($namebase, $original_summary) {
 
     $summary = "";
     $truncated = false;
+    $maxlen = 43;
 
     if (array_key_exists($namebase, $data_summary)) {
         $summary = $data_summary[$namebase];
+        if ($summary > $maxlen) {
+            exit ("Summary override of $namebase is too long.\n");
+        }
+        $test = ucfirst(trim($summary));
+        if ($test != $summary) {
+            exit ("Summary override of $namebase isn't capitalized\n");
+        }
+        if (substr($summary, strlen($summary) - 1) == ".") {
+            exit ("Summary override of $namebase ends with a period.\n");
+        }
     } else {
         $summary = make_comment($original_summary);
     }
@@ -108,8 +119,8 @@ function sanitize_summary ($namebase, $original_summary) {
     }
     # strip trailing periods
     $summary =  preg_replace('/[.]*$/', "", $summary);
-    $truncated = strlen ($summary) > 43;
-    $final_summary = $truncated ? trim(substr($summary, 0, 43)) : $summary;
+    $truncated = strlen ($summary) > $maxlen;
+    $final_summary = $truncated ? trim(substr($summary, 0, $maxlen)) : $summary;
     return array("summary" => $final_summary, "truncated" => $truncated);
 }
 

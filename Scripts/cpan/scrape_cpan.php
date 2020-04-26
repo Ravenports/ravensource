@@ -513,7 +513,7 @@ function finish_port_yaml (&$port) {
     }
 
     # set license
-    if (array_key_exists("license", $obj)) {
+    if (array_key_exists("license", $obj) && !empty($obj["license"])) {
         $port["license"] = "# " . $obj["license"];
     } else {
         $port["license"] = "# Not provided in META.yml";

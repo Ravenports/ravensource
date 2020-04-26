@@ -224,10 +224,10 @@ $vopts_block
 # License listed in CPAN directory:
 $license
 
-$raw_depends
 GENERATED=		yes
 SINGLE_JOB=		yes
 DISTNAME=		$distname
+$raw_depends
 
 $buildrun_block
 $manual_portion
@@ -245,6 +245,11 @@ EOD;
                         $output_directory . " save");
 }
 
+
+# only root can run this
+if (posix_geteuid() != 0) {
+    exit ("This script can only be run by the root user.\n");
+}
 
 define_ravensource($SCRIPTDIR);
 set_perl_versions();
