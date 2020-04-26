@@ -5,15 +5,14 @@ NAMEBASE=		perl-Cache-Memcached
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Client library for memcached (memory cache  (v530)
-SDESC[528]=		Client library for memcached (memory cache  (v528)
-
+SDESC[530]=		Client library for memcached (memory cache (5.30)
+SDESC[528]=		Client library for memcached (memory cache (5.28)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:D/DO/DORMANDO
-DISTFILE[1]=		Cache-Memcached-1.30.tar.gz:main
+DISTFILE[1]=		Cache-Memcached-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,23 +22,25 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
+# License listed in CPAN directory:
+# unknown
+
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : Encode (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : Storable (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : String::CRC32
+# |      runtime : Time::HiRes (perl 5.30.2 core) (perl 5.28.2 core)
+# |        build : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		Cache-Memcached-1.30
+DISTNAME=		Cache-Memcached-${PORTVERSION}
 
-# -----------------------------------------------
-# |   Prerequisites extracted from META.json
-# -----------------------------------------------
-# |      runtime : Encode (perl 5.3 core) (perl 5.28 core)
-# |      runtime : Storable (perl 5.3 core) (perl 5.28 core)
-# |      runtime : String::CRC32
-# |      runtime : Time::HiRes (perl 5.3 core) (perl 5.28 core)
-# |        build : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
+[PERL_530].USES_ON=				perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-String-CRC32:single:530
+[PERL_528].USES_ON=				perl:528,configure
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-String-CRC32:single:528
-
 

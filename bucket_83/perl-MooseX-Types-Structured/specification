@@ -5,15 +5,14 @@ NAMEBASE=		perl-MooseX-Types-Structured
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Structured Type Constraints for Moose (v530)
-SDESC[528]=		Structured Type Constraints for Moose (v528)
-
+SDESC[530]=		Structured Type Constraints for Moose (5.30)
+SDESC[528]=		Structured Type Constraints for Moose (5.28)
 HOMEPAGE=		https://github.com/moose/MooseX-Types-Structured
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:E/ET/ETHER
-DISTFILE[1]=		MooseX-Types-Structured-0.36.tar.gz:main
+DISTFILE[1]=		MooseX-Types-Structured-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,13 +22,12 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
-GENERATED=		yes
-SINGLE_JOB=		yes
-DISTNAME=		MooseX-Types-Structured-0.36
+# License listed in CPAN directory:
+# perl_5
 
-# -----------------------------------------------
+# ----------------------------------------------
 # |   Prerequisites extracted from META.json
-# -----------------------------------------------
+# ----------------------------------------------
 # |      runtime : Devel::PartialDump
 # |      runtime : Moose
 # |      runtime : Moose::Meta::TypeCoercion
@@ -37,37 +35,40 @@ DISTNAME=		MooseX-Types-Structured-0.36
 # |      runtime : Moose::Meta::TypeConstraint::Parameterizable
 # |      runtime : Moose::Util::TypeConstraints
 # |      runtime : MooseX::Types
-# |      runtime : Scalar::Util (perl 5.3 core) (perl 5.28 core)
+# |      runtime : Scalar::Util (perl 5.30.2 core) (perl 5.28.2 core)
 # |      runtime : Sub::Exporter
-# |      runtime : if (perl 5.3 core) (perl 5.28 core)
+# |      runtime : if (perl 5.30.2 core) (perl 5.28.2 core)
 # |      runtime : namespace::clean
-# |      runtime : overload (perl 5.3 core) (perl 5.28 core)
+# |      runtime : overload (perl 5.30.2 core) (perl 5.28.2 core)
 # |    configure : Module::Build::Tiny
-# |         test : Data::Dumper (perl 5.3 core) (perl 5.28 core)
+# |         test : Data::Dumper (perl 5.30.2 core) (perl 5.28.2 core)
 # |         test : DateTime
-# |         test : File::Spec (perl 5.3 core) (perl 5.28 core)
-# |         test : Module::Metadata (perl 5.3 core) (perl 5.28 core)
+# |         test : File::Spec (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : Module::Metadata (perl 5.30.2 core) (perl 5.28.2 core)
 # |         test : MooseX::Types::Moose
 # |         test : Test::Fatal
-# |         test : Test::More (perl 5.3 core) (perl 5.28 core)
+# |         test : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
 # |         test : Test::Needs
-# |         test : strict (perl 5.3 core) (perl 5.28 core)
-# |         test : warnings (perl 5.3 core) (perl 5.28 core)
-# |         test : CPAN::Meta (perl 5.3 core) (perl 5.28 core)
+# |         test : strict (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : warnings (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : CPAN::Meta (perl 5.30.2 core) (perl 5.28.2 core)
 
-[PERL_530].USES_ON=			perl:530,buildmodtiny,run
-[PERL_528].USES_ON=			perl:528,buildmodtiny,run
-[PERL_530].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:530
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		MooseX-Types-Structured-${PORTVERSION}
+
+[PERL_530].USES_ON=				perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Devel-PartialDump:single:530
 					perl-Moose:single:530
 					perl-MooseX-Types:single:530
 					perl-Sub-Exporter:single:530
 					perl-namespace-clean:single:530
-[PERL_528].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:528
+[PERL_530].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:530
+[PERL_528].USES_ON=				perl:528,configure
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-Devel-PartialDump:single:528
 					perl-Moose:single:528
 					perl-MooseX-Types:single:528
 					perl-Sub-Exporter:single:528
 					perl-namespace-clean:single:528
-
+[PERL_528].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:528
 

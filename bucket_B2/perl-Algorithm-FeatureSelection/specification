@@ -5,15 +5,14 @@ NAMEBASE=		perl-Algorithm-FeatureSelection
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Feature selection methods for text mining (v530)
-SDESC[528]=		Feature selection methods for text mining (v528)
-
+SDESC[530]=		Feature selection methods for text mining (5.30)
+SDESC[528]=		Feature selection methods for text mining (5.28)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:M/MI/MIKI
-DISTFILE[1]=		Algorithm-FeatureSelection-0.02.tar.gz:main
+DISTFILE[1]=		Algorithm-FeatureSelection-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,18 +22,20 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
+# License listed in CPAN directory:
+# perl
+
+# ---------------------------------------------
+# |   Prerequisites extracted from META.yml
+# ---------------------------------------------
+# | configure_requires : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : List::Util (perl 5.30.2 core) (perl 5.28.2 core)
+
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		Algorithm-FeatureSelection-0.02
+DISTNAME=		Algorithm-FeatureSelection-${PORTVERSION}
 
-# -----------------------------------------------
-# |   Prerequisites extracted from META.yml
-# -----------------------------------------------
-# |           requires : List::Util (perl 5.3 core) (perl 5.28 core)
-# | configure_requires : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
-
+[PERL_530].USES_ON=				perl:530,configure
+[PERL_528].USES_ON=				perl:528,configure
 

@@ -5,15 +5,14 @@ NAMEBASE=		perl-Test-Pod-Coverage
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Check for pod coverage in your distribution (v530)
-SDESC[528]=		Check for pod coverage in your distribution (v528)
-
+SDESC[530]=		Check for pod coverage in your distribution (5.30)
+SDESC[528]=		Check for pod coverage in your distribution (5.28)
 HOMEPAGE=		https://github.com/neilbowers/Test-Pod-Coverage
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:N/NE/NEILB
-DISTFILE[1]=		Test-Pod-Coverage-1.10.tar.gz:main
+DISTFILE[1]=		Test-Pod-Coverage-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,26 +22,28 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
+# License listed in CPAN directory:
+# artistic_2
+
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : Pod::Coverage
+# |      runtime : Test::Builder (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : strict (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : warnings (perl 5.30.2 core) (perl 5.28.2 core)
+# |        build : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : Test::Builder::Tester (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : lib (perl 5.30.2 core) (perl 5.28.2 core)
+
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		Test-Pod-Coverage-1.10
+DISTNAME=		Test-Pod-Coverage-${PORTVERSION}
 
-# -----------------------------------------------
-# |   Prerequisites extracted from META.json
-# -----------------------------------------------
-# |      runtime : Pod::Coverage
-# |      runtime : Test::Builder (perl 5.3 core) (perl 5.28 core)
-# |      runtime : strict (perl 5.3 core) (perl 5.28 core)
-# |      runtime : warnings (perl 5.3 core) (perl 5.28 core)
-# |        build : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |         test : Test::Builder::Tester (perl 5.3 core) (perl 5.28 core)
-# |         test : Test::More (perl 5.3 core) (perl 5.28 core)
-# |         test : lib (perl 5.3 core) (perl 5.28 core)
-
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
+[PERL_530].USES_ON=				perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Pod-Coverage:single:530
+[PERL_528].USES_ON=				perl:528,configure
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-Pod-Coverage:single:528
-
 

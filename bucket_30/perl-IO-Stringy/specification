@@ -5,15 +5,14 @@ NAMEBASE=		perl-IO-Stringy
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		I/O on in-core objects like strings and arr (v530)
-SDESC[528]=		I/O on in-core objects like strings and arr (v528)
-
+SDESC[530]=		I/O on in-core objects like strings and arr (5.30)
+SDESC[528]=		I/O on in-core objects like strings and arr (5.28)
 HOMEPAGE=		https://github.com/genio/IO-Stringy
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:C/CA/CAPOEIRAB
-DISTFILE[1]=		IO-Stringy-2.113.tar.gz:main
+DISTFILE[1]=		IO-Stringy-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,41 +22,43 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
+# License listed in CPAN directory:
+# perl_5
+
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : Carp (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : Exporter (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : File::Spec (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : FileHandle (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : IO::File (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : IO::Handle (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : Symbol (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : overload (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : parent (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : strict (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : warnings (perl 5.30.2 core) (perl 5.28.2 core)
+# |        build : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : File::Basename (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : File::Spec (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : File::Temp (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : FileHandle (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : IO::File (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : IO::Handle (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : Symbol (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : Test::Tester (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : strict (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : warnings (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : CPAN::Meta (perl 5.30.2 core) (perl 5.28.2 core)
+
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		IO-Stringy-2.113
+DISTNAME=		IO-Stringy-${PORTVERSION}
 
-# -----------------------------------------------
-# |   Prerequisites extracted from META.json
-# -----------------------------------------------
-# |      runtime : Carp (perl 5.3 core) (perl 5.28 core)
-# |      runtime : Exporter (perl 5.3 core) (perl 5.28 core)
-# |      runtime : File::Spec (perl 5.3 core) (perl 5.28 core)
-# |      runtime : FileHandle (perl 5.3 core) (perl 5.28 core)
-# |      runtime : IO::File (perl 5.3 core) (perl 5.28 core)
-# |      runtime : IO::Handle (perl 5.3 core) (perl 5.28 core)
-# |      runtime : Symbol (perl 5.3 core) (perl 5.28 core)
-# |      runtime : overload (perl 5.3 core) (perl 5.28 core)
-# |      runtime : parent (perl 5.3 core) (perl 5.28 core)
-# |      runtime : strict (perl 5.3 core) (perl 5.28 core)
-# |      runtime : warnings (perl 5.3 core) (perl 5.28 core)
-# |        build : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |         test : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |         test : File::Basename (perl 5.3 core) (perl 5.28 core)
-# |         test : File::Spec (perl 5.3 core) (perl 5.28 core)
-# |         test : File::Temp (perl 5.3 core) (perl 5.28 core)
-# |         test : FileHandle (perl 5.3 core) (perl 5.28 core)
-# |         test : IO::File (perl 5.3 core) (perl 5.28 core)
-# |         test : IO::Handle (perl 5.3 core) (perl 5.28 core)
-# |         test : Symbol (perl 5.3 core) (perl 5.28 core)
-# |         test : Test::More (perl 5.3 core) (perl 5.28 core)
-# |         test : Test::Tester (perl 5.3 core) (perl 5.28 core)
-# |         test : strict (perl 5.3 core) (perl 5.28 core)
-# |         test : warnings (perl 5.3 core) (perl 5.28 core)
-# |         test : CPAN::Meta (perl 5.3 core) (perl 5.28 core)
-
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
-
+[PERL_530].USES_ON=				perl:530,configure
+[PERL_528].USES_ON=				perl:528,configure
 

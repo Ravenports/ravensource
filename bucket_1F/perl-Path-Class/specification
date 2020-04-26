@@ -5,15 +5,14 @@ NAMEBASE=		perl-Path-Class
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Cross-platform path specification manipulat (v530)
-SDESC[528]=		Cross-platform path specification manipulat (v528)
-
+SDESC[530]=		Cross-platform path specification manipulat (5.30)
+SDESC[528]=		Cross-platform path specification manipulat (5.28)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:K/KW/KWILLIAMS
-DISTFILE[1]=		Path-Class-0.37.tar.gz:main
+DISTFILE[1]=		Path-Class-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,38 +22,38 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
-GENERATED=		yes
-SINGLE_JOB=		yes
-DISTNAME=		Path-Class-0.37
+# License listed in CPAN directory:
+# perl
 
-# -----------------------------------------------
+# ---------------------------------------------
 # |   Prerequisites extracted from META.yml
-# -----------------------------------------------
-# |           requires : Carp (perl 5.3 core) (perl 5.28 core)
-# |           requires : Cwd (perl 5.3 core) (perl 5.28 core)
-# |           requires : Exporter (perl 5.3 core) (perl 5.28 core)
-# |           requires : File::Copy (perl 5.3 core) (perl 5.28 core)
-# |           requires : File::Path (perl 5.3 core) (perl 5.28 core)
-# |           requires : File::Spec (perl 5.3 core) (perl 5.28 core)
-# |           requires : File::Temp (perl 5.3 core) (perl 5.28 core)
-# |           requires : File::stat (perl 5.3 core) (perl 5.28 core)
-# |           requires : IO::Dir (perl 5.3 core) (perl 5.28 core)
-# |           requires : IO::File (perl 5.3 core) (perl 5.28 core)
-# |           requires : Perl::OSType (perl 5.3 core) (perl 5.28 core)
-# |           requires : Scalar::Util (perl 5.3 core) (perl 5.28 core)
-# |           requires : overload (perl 5.3 core) (perl 5.28 core)
-# |           requires : parent (perl 5.3 core) (perl 5.28 core)
-# |           requires : strict (perl 5.3 core) (perl 5.28 core)
-# | configure_requires : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
+# ---------------------------------------------
+# | configure_requires : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
 # | configure_requires : Module::Build
 # |     build_requires : Module::Build
-# |     build_requires : Test (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : Test::More (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : warnings (perl 5.3 core) (perl 5.28 core)
+# |     build_requires : Test (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : warnings (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : Carp (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : Cwd (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : Exporter (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : File::Copy (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : File::Path (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : File::Spec (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : File::Temp (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : File::stat (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : IO::Dir (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : IO::File (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : Perl::OSType (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : Scalar::Util (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : overload (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : parent (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : strict (perl 5.30.2 core) (perl 5.28.2 core)
 
-[PERL_530].USES_ON=			perl:530,buildmod,run
-[PERL_528].USES_ON=			perl:528,buildmod,run
-[PERL_530].BUILD_DEPENDS_ON=		perl-Module-Build:single:530
-[PERL_528].BUILD_DEPENDS_ON=		perl-Module-Build:single:528
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Path-Class-${PORTVERSION}
 
+[PERL_530].USES_ON=				perl:530,configure
+[PERL_528].USES_ON=				perl:528,configure
 

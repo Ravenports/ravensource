@@ -5,15 +5,14 @@ NAMEBASE=		perl-Type-Tiny
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Tiny, yet Moo(se)-compatible type constrain (v530)
-SDESC[528]=		Tiny, yet Moo(se)-compatible type constrain (v528)
-
+SDESC[530]=		Tiny, yet Moo(se)-compatible type constrain (5.30)
+SDESC[528]=		Tiny, yet Moo(se)-compatible type constrain (5.28)
 HOMEPAGE=		https://github.com/tobyink/p5-type-tiny
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:T/TO/TOBYINK
-DISTFILE[1]=		Type-Tiny-1.010001.tar.gz:main
+DISTFILE[1]=		Type-Tiny-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,29 +22,31 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
-GENERATED=		yes
-SINGLE_JOB=		yes
-DISTNAME=		Type-Tiny-1.010001
+# License listed in CPAN directory:
+# perl_5
 
-# -----------------------------------------------
+# ----------------------------------------------
 # |   Prerequisites extracted from META.json
-# -----------------------------------------------
+# ----------------------------------------------
 # |      runtime : Exporter::Tiny
 # |      runtime : Devel::LexAlias
 # |      runtime : Devel::StackTrace
 # |      runtime : Ref::Util::XS
 # |      runtime : Regexp::Util
-# |      runtime : Sub::Util (perl 5.3 core) (perl 5.28 core)
+# |      runtime : Sub::Util (perl 5.30.2 core) (perl 5.28.2 core)
 # |      runtime : Type::Tie
 # |      runtime : Type::Tiny::XS
-# |    configure : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |    configure : CPAN::Meta::Requirements (perl 5.3 core) (perl 5.28 core)
-# |         test : Test::More (perl 5.3 core) (perl 5.28 core)
-# |         test : Test::Tester (perl 5.3 core) (perl 5.28 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |    configure : CPAN::Meta::Requirements (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : Test::Tester (perl 5.30.2 core) (perl 5.28.2 core)
 # |         test : Test::Warnings
 
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Type-Tiny-${PORTVERSION}
+
+[PERL_530].USES_ON=				perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Exporter-Tiny:single:530
 					perl-Devel-LexAlias:single:530
 					perl-Devel-StackTrace:single:530
@@ -53,6 +54,7 @@ DISTNAME=		Type-Tiny-1.010001
 					perl-Regexp-Util:single:530
 					perl-Type-Tie:single:530
 					perl-Type-Tiny-XS:single:530
+[PERL_528].USES_ON=				perl:528,configure
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-Exporter-Tiny:single:528
 					perl-Devel-LexAlias:single:528
 					perl-Devel-StackTrace:single:528
@@ -60,5 +62,4 @@ DISTNAME=		Type-Tiny-1.010001
 					perl-Regexp-Util:single:528
 					perl-Type-Tie:single:528
 					perl-Type-Tiny-XS:single:528
-
 

@@ -5,15 +5,14 @@ NAMEBASE=		perl-Algorithm-SocialNetwork
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Social Network Analysis (v530)
-SDESC[528]=		Social Network Analysis (v528)
-
+SDESC[530]=		Social Network Analysis (5.30)
+SDESC[528]=		Social Network Analysis (5.28)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:G/GU/GUGOD
-DISTFILE[1]=		Algorithm-SocialNetwork-0.07.tar.gz:main
+DISTFILE[1]=		Algorithm-SocialNetwork-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,25 +22,27 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
-GENERATED=		yes
-SINGLE_JOB=		yes
-DISTNAME=		Algorithm-SocialNetwork-0.07
+# License listed in CPAN directory:
+# perl
 
-# -----------------------------------------------
+# ---------------------------------------------
 # |   Prerequisites extracted from META.yml
-# -----------------------------------------------
+# ---------------------------------------------
+# |     build_requires : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
 # |           requires : Graph
 # |           requires : Quantum::Superpositions
 # |           requires : Spiffy
-# |     build_requires : Test::More (perl 5.3 core) (perl 5.28 core)
 
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Algorithm-SocialNetwork-${PORTVERSION}
+
+[PERL_530].USES_ON=				perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Graph:single:530
 					perl-Quantum-Superpositions:single:530
 					perl-Spiffy:single:530
+[PERL_528].USES_ON=				perl:528,configure
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-Graph:single:528
 					perl-Quantum-Superpositions:single:528
 					perl-Spiffy:single:528
-
 

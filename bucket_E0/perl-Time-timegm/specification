@@ -5,15 +5,14 @@ NAMEBASE=		perl-Time-timegm
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		UTC version of C<mktime()> (v530)
-SDESC[528]=		UTC version of C<mktime()> (v528)
-
+SDESC[530]=		UTC version of C<mktime()> (5.30)
+SDESC[528]=		UTC version of C<mktime()> (5.28)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:P/PE/PEVANS
-DISTFILE[1]=		Time-timegm-0.01.tar.gz:main
+DISTFILE[1]=		Time-timegm-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,21 +22,23 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
-GENERATED=		yes
-SINGLE_JOB=		yes
-DISTNAME=		Time-timegm-0.01
+# License listed in CPAN directory:
+# perl_5
 
-# -----------------------------------------------
+# ----------------------------------------------
 # |   Prerequisites extracted from META.json
-# -----------------------------------------------
-# |      runtime : POSIX (perl 5.3 core) (perl 5.28 core)
-# |        build : ExtUtils::CBuilder (perl 5.3 core) (perl 5.28 core)
-# |        build : Test::More (perl 5.3 core) (perl 5.28 core)
+# ----------------------------------------------
+# |      runtime : POSIX (perl 5.30.2 core) (perl 5.28.2 core)
+# |        build : ExtUtils::CBuilder (perl 5.30.2 core) (perl 5.28.2 core)
+# |        build : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
 # |    configure : ExtUtils::CChecker
 
-[PERL_530].USES_ON=			perl:530,buildmod,run
-[PERL_528].USES_ON=			perl:528,buildmod,run
-[PERL_530].BUILD_DEPENDS_ON=		perl-ExtUtils-CChecker:single:530
-[PERL_528].BUILD_DEPENDS_ON=		perl-ExtUtils-CChecker:single:528
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Time-timegm-${PORTVERSION}
 
+[PERL_530].USES_ON=				perl:530,configure
+[PERL_530].BUILD_DEPENDS_ON=		perl-ExtUtils-CChecker:single:530
+[PERL_528].USES_ON=				perl:528,configure
+[PERL_528].BUILD_DEPENDS_ON=		perl-ExtUtils-CChecker:single:528
 

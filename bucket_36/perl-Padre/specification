@@ -1,13 +1,12 @@
-DEF[PORTVERSION]=	1.00
+DEF[PORTVERSION]=	1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Padre
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Perl Application Development and Refactorin (v530)
-SDESC[528]=		Perl Application Development and Refactorin (v528)
-
+SDESC[530]=		Perl Application Development and Refactorin (5.30)
+SDESC[528]=		Perl Application Development and Refactorin (5.28)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -23,67 +22,77 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
-GENERATED=		yes
-SINGLE_JOB=		yes
-DISTNAME=		Padre-1.00
+# License listed in CPAN directory:
+# perl
 
-# -----------------------------------------------
+# ---------------------------------------------
 # |   Prerequisites extracted from META.yml
-# -----------------------------------------------
+# ---------------------------------------------
+# | configure_requires : Alien::wxWidgets
+# | configure_requires : ExtUtils::Embed (perl 5.30.2 core) (perl 5.28.2 core)
+# | configure_requires : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : Locale::Msgfmt
+# |     build_requires : Test::Exception
+# |     build_requires : Test::MockObject
+# |     build_requires : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : Test::NoWarnings
+# |     build_requires : Test::Script
+# |     build_requires : Test::Warn
 # |           requires : Algorithm::Diff
 # |           requires : App::cpanminus
-# |           requires : B::Deparse (perl 5.3 core) (perl 5.28 core)
+# |           requires : B::Deparse (perl 5.30.2 core) (perl 5.28.2 core)
 # |           requires : CGI
 # |           requires : Capture::Tiny
 # |           requires : Class::Adapter
 # |           requires : Class::Inspector
 # |           requires : Class::XSAccessor
-# |           requires : Cwd (perl 5.3 core) (perl 5.28 core)
+# |           requires : Cwd (perl 5.30.2 core) (perl 5.28.2 core)
 # |           requires : DBD::SQLite
 # |           requires : DBI
-# |           requires : Data::Dumper (perl 5.3 core) (perl 5.28 core)
+# |           requires : Data::Dumper (perl 5.30.2 core) (perl 5.28.2 core)
 # |           requires : Debug::Client
 # |           requires : Devel::Dumpvar
 # |           requires : Devel::Refactor
-# |           requires : Encode (perl 5.3 core) (perl 5.28 core)
-# |           requires : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |           requires : ExtUtils::Manifest (perl 5.3 core) (perl 5.28 core)
-# |           requires : File::Basename (perl 5.3 core) (perl 5.28 core)
+# |           requires : Encode (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : ExtUtils::Manifest (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : File::Basename (perl 5.30.2 core) (perl 5.28.2 core)
 # |           requires : File::Copy::Recursive
 # |           requires : File::Find::Rule
-# |           requires : File::Glob (perl 5.3 core) (perl 5.28 core)
+# |           requires : File::Glob (perl 5.30.2 core) (perl 5.28.2 core)
 # |           requires : File::HomeDir
-# |           requires : File::Path (perl 5.3 core) (perl 5.28 core)
+# |           requires : File::Path (perl 5.30.2 core) (perl 5.28.2 core)
 # |           requires : File::Remove
 # |           requires : File::ShareDir
-# |           requires : File::Spec (perl 5.3 core) (perl 5.28 core)
-# |           requires : File::Spec::Functions (perl 5.3 core) (perl 5.28 core)
-# |           requires : File::Temp (perl 5.3 core) (perl 5.28 core)
+# |           requires : File::Spec (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : File::Spec::Functions (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : File::Temp (perl 5.30.2 core) (perl 5.28.2 core)
 # |           requires : File::Which
 # |           requires : File::pushd
-# |           requires : FindBin (perl 5.3 core) (perl 5.28 core)
-# |           requires : Getopt::Long (perl 5.3 core) (perl 5.28 core)
+# |           requires : FindBin (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : Getopt::Long (perl 5.30.2 core) (perl 5.28.2 core)
 # |           requires : HTML::Entities
 # |           requires : HTML::Parser
 # |           requires : IO::Scalar
-# |           requires : IO::Socket (perl 5.3 core) (perl 5.28 core)
+# |           requires : IO::Socket (perl 5.30.2 core) (perl 5.28.2 core)
 # |           requires : IO::String
-# |           requires : IPC::Open2 (perl 5.3 core) (perl 5.28 core)
-# |           requires : IPC::Open3 (perl 5.3 core) (perl 5.28 core)
+# |           requires : IPC::Open2 (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : IPC::Open3 (perl 5.30.2 core) (perl 5.28.2 core)
 # |           requires : IPC::Run
 # |           requires : JSON::XS
 # |           requires : LWP
 # |           requires : LWP::UserAgent
 # |           requires : List::MoreUtils
-# |           requires : List::Util (perl 5.3 core) (perl 5.28 core)
+# |           requires : List::Util (perl 5.30.2 core) (perl 5.28.2 core)
 # |           requires : Module::Build
-# |           requires : Module::CoreList (perl 5.3 core) (perl 5.28 core)
+# |           requires : Module::CoreList (perl 5.30.2 core) (perl 5.28.2 core)
 # |           requires : Module::Manifest
 # |           requires : Module::Starter
 # |           requires : ORLite
 # |           requires : ORLite::Migrate
 # |           requires : POD2::Base
-# |           requires : POSIX (perl 5.3 core) (perl 5.28 core)
+# |           requires : POSIX (perl 5.30.2 core) (perl 5.28.2 core)
 # |           requires : PPI
 # |           requires : PPIx::EditorTools
 # |           requires : PPIx::Regexp
@@ -91,50 +100,35 @@ DISTNAME=		Padre-1.00
 # |           requires : Parse::ErrorString::Perl
 # |           requires : Parse::ExuberantCTags
 # |           requires : Pod::Abstract
-# |           requires : Pod::Functions (perl 5.3 core) (perl 5.28 core)
+# |           requires : Pod::Functions (perl 5.30.2 core) (perl 5.28.2 core)
 # |           requires : Pod::POM
-# |           requires : Pod::Perldoc (perl 5.3 core) (perl 5.28 core)
-# |           requires : Pod::Simple (perl 5.3 core) (perl 5.28 core)
-# |           requires : Pod::Simple::XHTML (perl 5.3 core) (perl 5.28 core)
+# |           requires : Pod::Perldoc (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : Pod::Simple (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : Pod::Simple::XHTML (perl 5.30.2 core) (perl 5.28.2 core)
 # |           requires : Probe::Perl
 # |           requires : Sort::Versions
-# |           requires : Storable (perl 5.3 core) (perl 5.28 core)
+# |           requires : Storable (perl 5.30.2 core) (perl 5.28.2 core)
 # |           requires : Template::Tiny
-# |           requires : Term::ReadLine (perl 5.3 core) (perl 5.28 core)
-# |           requires : Text::Balanced (perl 5.3 core) (perl 5.28 core)
+# |           requires : Term::ReadLine (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : Text::Balanced (perl 5.30.2 core) (perl 5.28.2 core)
 # |           requires : Text::Diff
 # |           requires : Text::FindIndent
 # |           requires : Text::Patch
-# |           requires : Time::HiRes (perl 5.3 core) (perl 5.28 core)
+# |           requires : Time::HiRes (perl 5.30.2 core) (perl 5.28.2 core)
 # |           requires : URI
 # |           requires : Wx
 # |           requires : Wx::Perl::ProcessStream
 # |           requires : Wx::Scintilla
 # |           requires : YAML::Tiny
-# |           requires : threads (perl 5.3 core) (perl 5.28 core)
-# |           requires : threads::shared (perl 5.3 core) (perl 5.28 core)
-# |           requires : version (perl 5.3 core) (perl 5.28 core)
-# | configure_requires : Alien::wxWidgets
-# | configure_requires : ExtUtils::Embed (perl 5.3 core) (perl 5.28 core)
-# | configure_requires : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : Locale::Msgfmt
-# |     build_requires : Test::Exception
-# |     build_requires : Test::MockObject
-# |     build_requires : Test::More (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : Test::NoWarnings
-# |     build_requires : Test::Script
-# |     build_requires : Test::Warn
+# |           requires : threads (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : threads::shared (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : version (perl 5.30.2 core) (perl 5.28.2 core)
 
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
-[PERL_530].BUILD_DEPENDS_ON=		perl-Alien-wxWidgets:single:530
-					perl-Locale-Msgfmt:single:530
-					perl-Test-Exception:single:530
-					perl-Test-MockObject:single:530
-					perl-Test-NoWarnings:single:530
-					perl-Test-Script:single:530
-					perl-Test-Warn:single:530
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Padre-${PORTVERSION}
+
+[PERL_530].USES_ON=				perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Algorithm-Diff:single:530
 					perl-App-cpanminus:single:530
 					perl-CGI:single:530
@@ -186,13 +180,7 @@ DISTNAME=		Padre-1.00
 					perl-Wx-Perl-ProcessStream:single:530
 					perl-Wx-Scintilla:single:530
 					perl-YAML-Tiny:single:530
-[PERL_528].BUILD_DEPENDS_ON=		perl-Alien-wxWidgets:single:528
-					perl-Locale-Msgfmt:single:528
-					perl-Test-Exception:single:528
-					perl-Test-MockObject:single:528
-					perl-Test-NoWarnings:single:528
-					perl-Test-Script:single:528
-					perl-Test-Warn:single:528
+[PERL_528].USES_ON=				perl:528,configure
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-Algorithm-Diff:single:528
 					perl-App-cpanminus:single:528
 					perl-CGI:single:528
@@ -244,5 +232,4 @@ DISTNAME=		Padre-1.00
 					perl-Wx-Perl-ProcessStream:single:528
 					perl-Wx-Scintilla:single:528
 					perl-YAML-Tiny:single:528
-
 

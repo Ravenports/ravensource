@@ -5,15 +5,14 @@ NAMEBASE=		perl-Probe-Perl
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Information about the currently running per (v530)
-SDESC[528]=		Information about the currently running per (v528)
-
+SDESC[530]=		Information about the currently running per (5.30)
+SDESC[528]=		Information about the currently running per (5.28)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:K/KW/KWILLIAMS
-DISTFILE[1]=		Probe-Perl-0.03.tar.gz:main
+DISTFILE[1]=		Probe-Perl-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,20 +22,22 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
+# License listed in CPAN directory:
+# perl
+
+# ---------------------------------------------
+# |   Prerequisites extracted from META.yml
+# ---------------------------------------------
+# | configure_requires : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : Test (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : Config (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : File::Spec (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : strict (perl 5.30.2 core) (perl 5.28.2 core)
+
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		Probe-Perl-0.03
+DISTNAME=		Probe-Perl-${PORTVERSION}
 
-# -----------------------------------------------
-# |   Prerequisites extracted from META.yml
-# -----------------------------------------------
-# |           requires : Config (perl 5.3 core) (perl 5.28 core)
-# |           requires : File::Spec (perl 5.3 core) (perl 5.28 core)
-# |           requires : strict (perl 5.3 core) (perl 5.28 core)
-# | configure_requires : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : Test (perl 5.3 core) (perl 5.28 core)
-
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
-
+[PERL_530].USES_ON=				perl:530,configure
+[PERL_528].USES_ON=				perl:528,configure
 

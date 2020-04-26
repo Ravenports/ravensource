@@ -5,15 +5,14 @@ NAMEBASE=		perl-Text-Aligner
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Module to align text. (v530)
-SDESC[528]=		Module to align text. (v528)
-
+SDESC[530]=		Module to align text (5.30)
+SDESC[528]=		Module to align text (5.28)
 HOMEPAGE=		https://github.com/shlomif/Text-Aligner.git
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:S/SH/SHLOMIF
-DISTFILE[1]=		Text-Aligner-0.13.tar.gz:main
+DISTFILE[1]=		Text-Aligner-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,32 +22,32 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
+# License listed in CPAN directory:
+# mit
+
+# ---------------------------------------------
+# |   Prerequisites extracted from META.yml
+# ---------------------------------------------
+# | configure_requires : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# | configure_requires : Module::Build
+# |     build_requires : File::Spec (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : File::Temp (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : IO::Handle (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : IPC::Open3 (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : Module::Build
+# |     build_requires : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : blib (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : constant (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : Exporter (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : Term::ANSIColor (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : strict (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : vars (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : warnings (perl 5.30.2 core) (perl 5.28.2 core)
+
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		Text-Aligner-0.13
+DISTNAME=		Text-Aligner-${PORTVERSION}
 
-# -----------------------------------------------
-# |   Prerequisites extracted from META.yml
-# -----------------------------------------------
-# |           requires : Exporter (perl 5.3 core) (perl 5.28 core)
-# |           requires : Term::ANSIColor (perl 5.3 core) (perl 5.28 core)
-# |           requires : strict (perl 5.3 core) (perl 5.28 core)
-# |           requires : vars (perl 5.3 core) (perl 5.28 core)
-# |           requires : warnings (perl 5.3 core) (perl 5.28 core)
-# | configure_requires : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# | configure_requires : Module::Build
-# |     build_requires : File::Spec (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : File::Temp (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : IO::Handle (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : IPC::Open3 (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : Module::Build
-# |     build_requires : Test::More (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : blib (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : constant (perl 5.3 core) (perl 5.28 core)
-
-[PERL_530].USES_ON=			perl:530,buildmod,run
-[PERL_528].USES_ON=			perl:528,buildmod,run
-[PERL_530].BUILD_DEPENDS_ON=		perl-Module-Build:single:530
-[PERL_528].BUILD_DEPENDS_ON=		perl-Module-Build:single:528
-
+[PERL_530].USES_ON=				perl:530,configure
+[PERL_528].USES_ON=				perl:528,configure
 

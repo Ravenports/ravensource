@@ -1,13 +1,12 @@
-DEF[PORTVERSION]=	0.17
+DEF[PORTVERSION]=	0.16
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-AnyEvent-I3
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Communicate with the i3 window manager (v530)
-SDESC[528]=		Communicate with the i3 window manager (v528)
-
+SDESC[530]=		Communicate with the i3 window manager (5.30)
+SDESC[528]=		Communicate with the i3 window manager (5.28)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -23,25 +22,27 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
-GENERATED=		yes
-SINGLE_JOB=		yes
-DISTNAME=		AnyEvent-I3-0.17
+# License listed in CPAN directory:
+# gpl
 
-# -----------------------------------------------
+# ---------------------------------------------
 # |   Prerequisites extracted from META.yml
-# -----------------------------------------------
+# ---------------------------------------------
+# | configure_requires : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
 # |           requires : AnyEvent
 # |           requires : AnyEvent::Handle
 # |           requires : AnyEvent::Socket
 # |           requires : JSON::XS
-# | configure_requires : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
 
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		AnyEvent-I3-${PORTVERSION}
+
+[PERL_530].USES_ON=				perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-AnyEvent:single:530
 					perl-JSON-XS:single:530
+[PERL_528].USES_ON=				perl:528,configure
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-AnyEvent:single:528
 					perl-JSON-XS:single:528
-
 

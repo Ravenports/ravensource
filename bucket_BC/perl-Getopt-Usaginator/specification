@@ -5,15 +5,14 @@ NAMEBASE=		perl-Getopt-Usaginator
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Conjure up a usage function for your applic (v530)
-SDESC[528]=		Conjure up a usage function for your applic (v528)
-
+SDESC[530]=		Conjure up a usage function for your applic (5.30)
+SDESC[528]=		Conjure up a usage function for your applic (5.28)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:R/RO/ROKR
-DISTFILE[1]=		Getopt-Usaginator-0.0012.tar.gz:main
+DISTFILE[1]=		Getopt-Usaginator-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,24 +22,24 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
+# License listed in CPAN directory:
+# perl
+
+# ---------------------------------------------
+# |   Prerequisites extracted from META.yml
+# ---------------------------------------------
+# | configure_requires : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : File::Spec (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : IPC::Open3 (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : Test::Most
+# |           requires : Package::Pkg
+
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		Getopt-Usaginator-0.0012
+DISTNAME=		Getopt-Usaginator-${PORTVERSION}
 
-# -----------------------------------------------
-# |   Prerequisites extracted from META.yml
-# -----------------------------------------------
-# |           requires : Package::Pkg
-# | configure_requires : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : File::Spec (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : IPC::Open3 (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : Test::Most
-
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
-[PERL_530].BUILD_DEPENDS_ON=		perl-Test-Most:single:530
+[PERL_530].USES_ON=				perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Package-Pkg:single:530
-[PERL_528].BUILD_DEPENDS_ON=		perl-Test-Most:single:528
+[PERL_528].USES_ON=				perl:528,configure
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-Package-Pkg:single:528
-
 

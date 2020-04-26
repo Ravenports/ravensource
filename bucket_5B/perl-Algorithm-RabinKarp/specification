@@ -5,15 +5,14 @@ NAMEBASE=		perl-Algorithm-RabinKarp
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Implementation of the Rabin-Karp rolling ha (v530)
-SDESC[528]=		Implementation of the Rabin-Karp rolling ha (v528)
-
+SDESC[530]=		Implementation of the Rabin-Karp rolling ha (5.30)
+SDESC[528]=		Implementation of the Rabin-Karp rolling ha (5.28)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:N/NN/NNUNLEY
-DISTFILE[1]=		Algorithm-RabinKarp-0.41.tar.gz:main
+DISTFILE[1]=		Algorithm-RabinKarp-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,24 +22,22 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
-GENERATED=		yes
-SINGLE_JOB=		yes
-DISTNAME=		Algorithm-RabinKarp-0.41
+# License listed in CPAN directory:
+# perl
 
-# -----------------------------------------------
+# ---------------------------------------------
 # |   Prerequisites extracted from META.yml
-# -----------------------------------------------
-# |     build_requires : File::Temp (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : Test::More (perl 5.3 core) (perl 5.28 core)
+# ---------------------------------------------
+# |     build_requires : File::Temp (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
 # |         recommends : Smart::Comments
 # |         recommends : Test::Exception
-# |         recommends : bignum (perl 5.3 core) (perl 5.28 core)
+# |         recommends : bignum (perl 5.30.2 core) (perl 5.28.2 core)
 
-[PERL_530].USES_ON=			perl:530,buildmod,run
-[PERL_528].USES_ON=			perl:528,buildmod,run
-[PERL_530].BUILDRUN_DEPENDS_ON=		perl-Smart-Comments:single:530
-					perl-Test-Exception:single:530
-[PERL_528].BUILDRUN_DEPENDS_ON=		perl-Smart-Comments:single:528
-					perl-Test-Exception:single:528
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Algorithm-RabinKarp-${PORTVERSION}
 
+[PERL_530].USES_ON=				perl:530,configure
+[PERL_528].USES_ON=				perl:528,configure
 

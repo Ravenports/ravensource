@@ -5,15 +5,14 @@ NAMEBASE=		perl-Test-Class
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Easily create test classes in an xUnit/JUni (v530)
-SDESC[528]=		Easily create test classes in an xUnit/JUni (v528)
-
+SDESC[530]=		Easily create test classes in an xUnit/JUni (5.30)
+SDESC[528]=		Easily create test classes in an xUnit/JUni (5.28)
 HOMEPAGE=		https://github.com/adrianh/test-class
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:E/ET/ETHER
-DISTFILE[1]=		Test-Class-0.50.tar.gz:main
+DISTFILE[1]=		Test-Class-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,43 +22,45 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
-GENERATED=		yes
-SINGLE_JOB=		yes
-DISTNAME=		Test-Class-0.50
+# License listed in CPAN directory:
+# perl_5
 
-# -----------------------------------------------
+# ----------------------------------------------
 # |   Prerequisites extracted from META.json
-# -----------------------------------------------
-# |      runtime : Attribute::Handlers (perl 5.3 core) (perl 5.28 core)
-# |      runtime : Carp (perl 5.3 core) (perl 5.28 core)
-# |      runtime : File::Find (perl 5.3 core) (perl 5.28 core)
-# |      runtime : File::Spec (perl 5.3 core) (perl 5.28 core)
+# ----------------------------------------------
+# |      runtime : Attribute::Handlers (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : Carp (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : File::Find (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : File::Spec (perl 5.30.2 core) (perl 5.28.2 core)
 # |      runtime : MRO::Compat
 # |      runtime : Module::Runtime
-# |      runtime : Storable (perl 5.3 core) (perl 5.28 core)
-# |      runtime : Test::Builder (perl 5.3 core) (perl 5.28 core)
-# |      runtime : Test::Builder::Tester (perl 5.3 core) (perl 5.28 core)
-# |      runtime : Test::Simple (perl 5.3 core) (perl 5.28 core)
+# |      runtime : Storable (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : Test::Builder (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : Test::Builder::Tester (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : Test::Simple (perl 5.30.2 core) (perl 5.28.2 core)
 # |      runtime : Try::Tiny
-# |      runtime : constant (perl 5.3 core) (perl 5.28 core)
-# |      runtime : strict (perl 5.3 core) (perl 5.28 core)
-# |      runtime : warnings (perl 5.3 core) (perl 5.28 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |         test : Fcntl (perl 5.3 core) (perl 5.28 core)
-# |         test : IO::File (perl 5.3 core) (perl 5.28 core)
-# |         test : Test (perl 5.3 core) (perl 5.28 core)
+# |      runtime : constant (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : strict (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : warnings (perl 5.30.2 core) (perl 5.28.2 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : Fcntl (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : IO::File (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : Test (perl 5.30.2 core) (perl 5.28.2 core)
 # |         test : Test::Exception
-# |         test : Test::More (perl 5.3 core) (perl 5.28 core)
-# |         test : base (perl 5.3 core) (perl 5.28 core)
-# |         test : overload (perl 5.3 core) (perl 5.28 core)
+# |         test : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : base (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : overload (perl 5.30.2 core) (perl 5.28.2 core)
 
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Test-Class-${PORTVERSION}
+
+[PERL_530].USES_ON=				perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-MRO-Compat:single:530
 					perl-Module-Runtime:single:530
 					perl-Try-Tiny:single:530
+[PERL_528].USES_ON=				perl:528,configure
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-MRO-Compat:single:528
 					perl-Module-Runtime:single:528
 					perl-Try-Tiny:single:528
-
 

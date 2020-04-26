@@ -5,15 +5,14 @@ NAMEBASE=		perl-Math-MatrixReal
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Manipulate NxN matrices of real numbers (v530)
-SDESC[528]=		Manipulate NxN matrices of real numbers (v528)
-
+SDESC[530]=		Manipulate NxN matrices of real numbers (5.30)
+SDESC[528]=		Manipulate NxN matrices of real numbers (5.28)
 HOMEPAGE=		https://github.com/leto/math--matrixreal/tree/master
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:L/LE/LETO
-DISTFILE[1]=		Math-MatrixReal-2.13.tar.gz:main
+DISTFILE[1]=		Math-MatrixReal-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,22 +22,24 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
-GENERATED=		yes
-SINGLE_JOB=		yes
-DISTNAME=		Math-MatrixReal-2.13
+# License listed in CPAN directory:
+# perl_5
 
-# -----------------------------------------------
+# ----------------------------------------------
 # |   Prerequisites extracted from META.json
-# -----------------------------------------------
-# |        build : File::Spec (perl 5.3 core) (perl 5.28 core)
+# ----------------------------------------------
+# |        build : File::Spec (perl 5.30.2 core) (perl 5.28.2 core)
 # |        build : Test::Most
 # |    configure : Module::Build
 
-[PERL_530].USES_ON=			perl:530,buildmod,run
-[PERL_528].USES_ON=			perl:528,buildmod,run
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Math-MatrixReal-${PORTVERSION}
+
+[PERL_530].USES_ON=				perl:530,configure
 [PERL_530].BUILD_DEPENDS_ON=		perl-Test-Most:single:530
 					perl-Module-Build:single:530
+[PERL_528].USES_ON=				perl:528,configure
 [PERL_528].BUILD_DEPENDS_ON=		perl-Test-Most:single:528
 					perl-Module-Build:single:528
-
 

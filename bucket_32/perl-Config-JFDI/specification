@@ -5,15 +5,14 @@ NAMEBASE=		perl-Config-JFDI
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Just * Do it: A Catalyst::Plugin::ConfigLoa (v530)
-SDESC[528]=		Just * Do it: A Catalyst::Plugin::ConfigLoa (v528)
-
+SDESC[530]=		Just * Do it: A Catalyst::Plugin::ConfigLoa (5.30)
+SDESC[528]=		Just * Do it: A Catalyst::Plugin::ConfigLoa (5.28)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:R/RO/ROKR
-DISTFILE[1]=		Config-JFDI-0.065.tar.gz:main
+DISTFILE[1]=		Config-JFDI-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,13 +22,14 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
-GENERATED=		yes
-SINGLE_JOB=		yes
-DISTNAME=		Config-JFDI-0.065
+# License listed in CPAN directory:
+# perl
 
-# -----------------------------------------------
+# ---------------------------------------------
 # |   Prerequisites extracted from META.yml
-# -----------------------------------------------
+# ---------------------------------------------
+# | configure_requires : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : Test::Most
 # |           requires : Any::Moose
 # |           requires : Carp::Clan::Share
 # |           requires : Clone
@@ -41,12 +41,12 @@ DISTNAME=		Config-JFDI-0.065
 # |           requires : List::MoreUtils
 # |           requires : Path::Class
 # |           requires : Sub::Install
-# | configure_requires : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : Test::Most
 
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
-[PERL_530].BUILD_DEPENDS_ON=		perl-Test-Most:single:530
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Config-JFDI-${PORTVERSION}
+
+[PERL_530].USES_ON=				perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Any-Moose:single:530
 					perl-Carp-Clan-Share:single:530
 					perl-Clone:single:530
@@ -58,7 +58,7 @@ DISTNAME=		Config-JFDI-0.065
 					perl-List-MoreUtils:single:530
 					perl-Path-Class:single:530
 					perl-Sub-Install:single:530
-[PERL_528].BUILD_DEPENDS_ON=		perl-Test-Most:single:528
+[PERL_528].USES_ON=				perl:528,configure
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-Any-Moose:single:528
 					perl-Carp-Clan-Share:single:528
 					perl-Clone:single:528
@@ -70,5 +70,4 @@ DISTNAME=		Config-JFDI-0.065
 					perl-List-MoreUtils:single:528
 					perl-Path-Class:single:528
 					perl-Sub-Install:single:528
-
 

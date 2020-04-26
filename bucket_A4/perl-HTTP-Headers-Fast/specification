@@ -5,15 +5,14 @@ NAMEBASE=		perl-HTTP-Headers-Fast
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Faster implementation of HTTP::Headers (v530)
-SDESC[528]=		Faster implementation of HTTP::Headers (v528)
-
+SDESC[530]=		Faster implementation of HTTP::Headers (5.30)
+SDESC[528]=		Faster implementation of HTTP::Headers (5.28)
 HOMEPAGE=		https://github.com/tokuhirom/HTTP-Headers-Fast
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:T/TO/TOKUHIROM
-DISTFILE[1]=		HTTP-Headers-Fast-0.22.tar.gz:main
+DISTFILE[1]=		HTTP-Headers-Fast-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,23 +22,25 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
-GENERATED=		yes
-SINGLE_JOB=		yes
-DISTNAME=		HTTP-Headers-Fast-0.22
+# License listed in CPAN directory:
+# perl_5
 
-# -----------------------------------------------
+# ----------------------------------------------
 # |   Prerequisites extracted from META.json
-# -----------------------------------------------
+# ----------------------------------------------
 # |      runtime : HTTP::Date
 # |    configure : Module::Build::Tiny
-# |         test : Test::More (perl 5.3 core) (perl 5.28 core)
+# |         test : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
 # |         test : Test::Requires
 
-[PERL_530].USES_ON=			perl:530,buildmodtiny,run
-[PERL_528].USES_ON=			perl:528,buildmodtiny,run
-[PERL_530].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:530
-[PERL_530].BUILDRUN_DEPENDS_ON=		perl-HTTP-Date:single:530
-[PERL_528].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:528
-[PERL_528].BUILDRUN_DEPENDS_ON=		perl-HTTP-Date:single:528
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		HTTP-Headers-Fast-${PORTVERSION}
 
+[PERL_530].USES_ON=				perl:530,configure
+[PERL_530].BUILDRUN_DEPENDS_ON=		perl-HTTP-Date:single:530
+[PERL_530].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:530
+[PERL_528].USES_ON=				perl:528,configure
+[PERL_528].BUILDRUN_DEPENDS_ON=		perl-HTTP-Date:single:528
+[PERL_528].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:528
 

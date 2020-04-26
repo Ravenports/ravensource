@@ -5,15 +5,14 @@ NAMEBASE=		perl-B-Hooks-EndOfScope
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Execute code after a scope finished compila (v530)
-SDESC[528]=		Execute code after a scope finished compila (v528)
-
+SDESC[530]=		Execute code after a scope finished compila (5.30)
+SDESC[528]=		Execute code after a scope finished compila (5.28)
 HOMEPAGE=		https://github.com/karenetheridge/B-Hooks-EndOfScope
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:E/ET/ETHER
-DISTFILE[1]=		B-Hooks-EndOfScope-0.24.tar.gz:main
+DISTFILE[1]=		B-Hooks-EndOfScope-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,33 +22,35 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
+# License listed in CPAN directory:
+# perl_5
+
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : Module::Implementation
+# |      runtime : Scalar::Util (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : Sub::Exporter::Progressive
+# |      runtime : strict (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : warnings (perl 5.30.2 core) (perl 5.28.2 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |    configure : Text::ParseWords (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : File::Glob (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : File::Spec (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : IPC::Open2 (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : lib (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : CPAN::Meta (perl 5.30.2 core) (perl 5.28.2 core)
+
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		B-Hooks-EndOfScope-0.24
+DISTNAME=		B-Hooks-EndOfScope-${PORTVERSION}
 
-# -----------------------------------------------
-# |   Prerequisites extracted from META.json
-# -----------------------------------------------
-# |      runtime : Module::Implementation
-# |      runtime : Scalar::Util (perl 5.3 core) (perl 5.28 core)
-# |      runtime : Sub::Exporter::Progressive
-# |      runtime : strict (perl 5.3 core) (perl 5.28 core)
-# |      runtime : warnings (perl 5.3 core) (perl 5.28 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |    configure : Text::ParseWords (perl 5.3 core) (perl 5.28 core)
-# |         test : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |         test : File::Glob (perl 5.3 core) (perl 5.28 core)
-# |         test : File::Spec (perl 5.3 core) (perl 5.28 core)
-# |         test : IPC::Open2 (perl 5.3 core) (perl 5.28 core)
-# |         test : Test::More (perl 5.3 core) (perl 5.28 core)
-# |         test : lib (perl 5.3 core) (perl 5.28 core)
-# |         test : CPAN::Meta (perl 5.3 core) (perl 5.28 core)
-
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
+[PERL_530].USES_ON=				perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Module-Implementation:single:530
 					perl-Sub-Exporter-Progressive:single:530
+[PERL_528].USES_ON=				perl:528,configure
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-Module-Implementation:single:528
 					perl-Sub-Exporter-Progressive:single:528
-
 

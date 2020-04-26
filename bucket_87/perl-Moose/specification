@@ -5,15 +5,14 @@ NAMEBASE=		perl-Moose
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Postmodern object system for Perl 5 (v530)
-SDESC[528]=		Postmodern object system for Perl 5 (v528)
-
+SDESC[530]=		Postmodern object system for Perl 5 (5.30)
+SDESC[528]=		Postmodern object system for Perl 5 (5.28)
 HOMEPAGE=		https://github.com/moose/Moose
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:E/ET/ETHER
-DISTFILE[1]=		Moose-2.2012.tar.gz:main
+DISTFILE[1]=		Moose-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,14 +22,13 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
-GENERATED=		yes
-SINGLE_JOB=		yes
-DISTNAME=		Moose-2.2012
+# License listed in CPAN directory:
+# perl_5
 
-# -----------------------------------------------
+# ----------------------------------------------
 # |   Prerequisites extracted from META.json
-# -----------------------------------------------
-# |      runtime : Carp (perl 5.3 core) (perl 5.28 core)
+# ----------------------------------------------
+# |      runtime : Carp (perl 5.30.2 core) (perl 5.28.2 core)
 # |      runtime : Class::Load
 # |      runtime : Class::Load::XS
 # |      runtime : Data::OptList
@@ -39,7 +37,7 @@ DISTNAME=		Moose-2.2012
 # |      runtime : Devel::StackTrace
 # |      runtime : Dist::CheckConflicts
 # |      runtime : Eval::Closure
-# |      runtime : List::Util (perl 5.3 core) (perl 5.28 core)
+# |      runtime : List::Util (perl 5.30.2 core) (perl 5.28.2 core)
 # |      runtime : MRO::Compat
 # |      runtime : Module::Runtime
 # |      runtime : Module::Runtime::Conflicts
@@ -47,29 +45,32 @@ DISTNAME=		Moose-2.2012
 # |      runtime : Package::Stash
 # |      runtime : Package::Stash::XS
 # |      runtime : Params::Util
-# |      runtime : Scalar::Util (perl 5.3 core) (perl 5.28 core)
+# |      runtime : Scalar::Util (perl 5.30.2 core) (perl 5.28.2 core)
 # |      runtime : Sub::Exporter
 # |      runtime : Sub::Identify
 # |      runtime : Sub::Name
 # |      runtime : Try::Tiny
-# |      runtime : parent (perl 5.3 core) (perl 5.28 core)
-# |      runtime : strict (perl 5.3 core) (perl 5.28 core)
-# |      runtime : warnings (perl 5.3 core) (perl 5.28 core)
+# |      runtime : parent (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : strict (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : warnings (perl 5.30.2 core) (perl 5.28.2 core)
 # |      runtime : Data::OptList
 # |    configure : Dist::CheckConflicts
-# |    configure : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
 # |         test : CPAN::Meta::Check
-# |         test : CPAN::Meta::Requirements (perl 5.3 core) (perl 5.28 core)
-# |         test : File::Spec (perl 5.3 core) (perl 5.28 core)
-# |         test : Module::Metadata (perl 5.3 core) (perl 5.28 core)
+# |         test : CPAN::Meta::Requirements (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : File::Spec (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : Module::Metadata (perl 5.30.2 core) (perl 5.28.2 core)
 # |         test : Test::CleanNamespaces
 # |         test : Test::Fatal
-# |         test : Test::More (perl 5.3 core) (perl 5.28 core)
+# |         test : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
 # |         test : Test::Requires
-# |         test : CPAN::Meta (perl 5.3 core) (perl 5.28 core)
+# |         test : CPAN::Meta (perl 5.30.2 core) (perl 5.28.2 core)
 
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Moose-${PORTVERSION}
+
+[PERL_530].USES_ON=				perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Class-Load:single:530
 					perl-Class-Load-XS:single:530
 					perl-Data-OptList:single:530
@@ -89,6 +90,7 @@ DISTNAME=		Moose-2.2012
 					perl-Sub-Identify:single:530
 					perl-Sub-Name:single:530
 					perl-Try-Tiny:single:530
+[PERL_528].USES_ON=				perl:528,configure
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-Class-Load:single:528
 					perl-Class-Load-XS:single:528
 					perl-Data-OptList:single:528
@@ -113,4 +115,3 @@ CFLAGS=			-I.
 
 post-patch:
 	${REINPLACE_CMD} -e '/^check_conflicts()/d' ${WRKSRC}/Makefile.PL
-

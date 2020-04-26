@@ -5,15 +5,14 @@ NAMEBASE=		perl-Config-Any
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Load configuration from different file form (v530)
-SDESC[528]=		Load configuration from different file form (v528)
-
+SDESC[530]=		Load configuration from different file form (5.30)
+SDESC[528]=		Load configuration from different file form (5.28)
 HOMEPAGE=		http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=p5sagit/Config-Any.git;a=summary
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:H/HA/HAARG
-DISTFILE[1]=		Config-Any-0.32.tar.gz:main
+DISTFILE[1]=		Config-Any-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,19 +22,21 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
+# License listed in CPAN directory:
+# perl_5
+
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : Module::Pluggable::Object
+# |         test : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
+
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		Config-Any-0.32
+DISTNAME=		Config-Any-${PORTVERSION}
 
-# -----------------------------------------------
-# |   Prerequisites extracted from META.json
-# -----------------------------------------------
-# |      runtime : Module::Pluggable::Object
-# |         test : Test::More (perl 5.3 core) (perl 5.28 core)
-
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
+[PERL_530].USES_ON=				perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Module-Pluggable:single:530
+[PERL_528].USES_ON=				perl:528,configure
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-Module-Pluggable:single:528
-
 

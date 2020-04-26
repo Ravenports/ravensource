@@ -5,15 +5,14 @@ NAMEBASE=		perl-File-pushd
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Change directory temporarily for a limited  (v530)
-SDESC[528]=		Change directory temporarily for a limited  (v528)
-
+SDESC[530]=		Change directory temporarily for a limited (5.30)
+SDESC[528]=		Change directory temporarily for a limited (5.28)
 HOMEPAGE=		https://github.com/dagolden/File-pushd
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:D/DA/DAGOLDEN
-DISTFILE[1]=		File-pushd-1.016.tar.gz:main
+DISTFILE[1]=		File-pushd-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,31 +22,33 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
+# License listed in CPAN directory:
+# apache_2_0
+
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : Carp (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : Cwd (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : Exporter (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : File::Path (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : File::Spec (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : File::Temp (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : overload (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : strict (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : warnings (perl 5.30.2 core) (perl 5.28.2 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : File::Basename (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : File::Spec (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : File::Spec::Functions (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : CPAN::Meta (perl 5.30.2 core) (perl 5.28.2 core)
+
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		File-pushd-1.016
+DISTNAME=		File-pushd-${PORTVERSION}
 
-# -----------------------------------------------
-# |   Prerequisites extracted from META.json
-# -----------------------------------------------
-# |      runtime : Carp (perl 5.3 core) (perl 5.28 core)
-# |      runtime : Cwd (perl 5.3 core) (perl 5.28 core)
-# |      runtime : Exporter (perl 5.3 core) (perl 5.28 core)
-# |      runtime : File::Path (perl 5.3 core) (perl 5.28 core)
-# |      runtime : File::Spec (perl 5.3 core) (perl 5.28 core)
-# |      runtime : File::Temp (perl 5.3 core) (perl 5.28 core)
-# |      runtime : overload (perl 5.3 core) (perl 5.28 core)
-# |      runtime : strict (perl 5.3 core) (perl 5.28 core)
-# |      runtime : warnings (perl 5.3 core) (perl 5.28 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |         test : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |         test : File::Basename (perl 5.3 core) (perl 5.28 core)
-# |         test : File::Spec (perl 5.3 core) (perl 5.28 core)
-# |         test : File::Spec::Functions (perl 5.3 core) (perl 5.28 core)
-# |         test : Test::More (perl 5.3 core) (perl 5.28 core)
-# |         test : CPAN::Meta (perl 5.3 core) (perl 5.28 core)
-
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
-
+[PERL_530].USES_ON=				perl:530,configure
+[PERL_528].USES_ON=				perl:528,configure
 

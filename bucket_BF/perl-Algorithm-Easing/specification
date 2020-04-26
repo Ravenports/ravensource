@@ -5,15 +5,14 @@ NAMEBASE=		perl-Algorithm-Easing
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Calculate eased translations over time (v530)
-SDESC[528]=		Calculate eased translations over time (v528)
-
+SDESC[530]=		Calculate eased translations over time (5.30)
+SDESC[528]=		Calculate eased translations over time (5.28)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:Z/ZE/ZENBAE
-DISTFILE[1]=		Algorithm-Easing-0.998.tar.gz:main
+DISTFILE[1]=		Algorithm-Easing-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,33 +22,35 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
-GENERATED=		yes
-SINGLE_JOB=		yes
-DISTNAME=		Algorithm-Easing-0.998
+# License listed in CPAN directory:
+# perl
 
-# -----------------------------------------------
+# ---------------------------------------------
 # |   Prerequisites extracted from META.yml
-# -----------------------------------------------
-# |           requires : Math::Complex (perl 5.3 core) (perl 5.28 core)
-# |           requires : Math::Trig (perl 5.3 core) (perl 5.28 core)
+# ---------------------------------------------
+# | configure_requires : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : Time::HiRes (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : feature (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : Math::Complex (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : Math::Trig (perl 5.30.2 core) (perl 5.28.2 core)
 # |           requires : Moose
-# |           requires : constant (perl 5.3 core) (perl 5.28 core)
+# |           requires : constant (perl 5.30.2 core) (perl 5.28.2 core)
 # |           requires : namespace::autoclean
 # |           requires : namespace::clean
-# |           requires : strict (perl 5.3 core) (perl 5.28 core)
-# |           requires : warnings (perl 5.3 core) (perl 5.28 core)
-# | configure_requires : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : Test::More (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : Time::HiRes (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : feature (perl 5.3 core) (perl 5.28 core)
+# |           requires : strict (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : warnings (perl 5.30.2 core) (perl 5.28.2 core)
 
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Algorithm-Easing-${PORTVERSION}
+
+[PERL_530].USES_ON=				perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Moose:single:530
 					perl-namespace-autoclean:single:530
 					perl-namespace-clean:single:530
+[PERL_528].USES_ON=				perl:528,configure
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-Moose:single:528
 					perl-namespace-autoclean:single:528
 					perl-namespace-clean:single:528
-
 

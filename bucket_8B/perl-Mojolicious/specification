@@ -1,19 +1,18 @@
-DEF[PORTVERSION]=	8.38
+DEF[PORTVERSION]=	8.40
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Mojolicious
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Real-time web framework (v530)
-SDESC[528]=		Real-time web framework (v528)
-
+SDESC[530]=		Real-time web framework (5.30)
+SDESC[528]=		Real-time web framework (5.28)
 HOMEPAGE=		https://github.com/mojolicious/mojo
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:S/SR/SRI
-DISTFILE[1]=		Mojolicious-8.38.tar.gz:main
+DISTFILE[1]=		Mojolicious-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,21 +22,23 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
+# License listed in CPAN directory:
+# artistic_2
+
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : IO::Socket::IP (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : JSON::PP (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : List::Util (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : Time::Local (perl 5.30.2 core) (perl 5.28.2 core)
+# |        build : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		Mojolicious-8.38
+DISTNAME=		Mojolicious-${PORTVERSION}
 
-# -----------------------------------------------
-# |   Prerequisites extracted from META.json
-# -----------------------------------------------
-# |      runtime : IO::Socket::IP (perl 5.3 core) (perl 5.28 core)
-# |      runtime : JSON::PP (perl 5.3 core) (perl 5.28 core)
-# |      runtime : List::Util (perl 5.3 core) (perl 5.28 core)
-# |      runtime : Time::Local (perl 5.3 core) (perl 5.28 core)
-# |        build : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
-
+[PERL_530].USES_ON=				perl:530,configure
+[PERL_528].USES_ON=				perl:528,configure
 

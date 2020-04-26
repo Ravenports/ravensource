@@ -5,15 +5,14 @@ NAMEBASE=		perl-Text-SimpleTable
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Simple eyecandy ASCII tables (v530)
-SDESC[528]=		Simple eyecandy ASCII tables (v528)
-
+SDESC[530]=		Simple eyecandy ASCII tables (5.30)
+SDESC[528]=		Simple eyecandy ASCII tables (5.28)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:M/MR/MRAMBERG
-DISTFILE[1]=		Text-SimpleTable-2.07.tar.gz:main
+DISTFILE[1]=		Text-SimpleTable-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,26 +22,28 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
-GENERATED=		yes
-SINGLE_JOB=		yes
-DISTNAME=		Text-SimpleTable-2.07
+# License listed in CPAN directory:
+# artistic_2
 
-# -----------------------------------------------
+# ----------------------------------------------
 # |   Prerequisites extracted from META.json
-# -----------------------------------------------
-# |      runtime : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |      runtime : Test::More (perl 5.3 core) (perl 5.28 core)
+# ----------------------------------------------
+# |      runtime : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
 # |      runtime : Text::VisualWidth::PP
 # |      runtime : Text::VisualWidth::UTF8
 # |      runtime : Unicode::LineBreak
 
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Text-SimpleTable-${PORTVERSION}
+
+[PERL_530].USES_ON=				perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Text-VisualWidth-PP:single:530
 					perl-Text-VisualWidth:single:530
 					perl-Unicode-LineBreak:single:530
+[PERL_528].USES_ON=				perl:528,configure
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-Text-VisualWidth-PP:single:528
 					perl-Text-VisualWidth:single:528
 					perl-Unicode-LineBreak:single:528
-
 

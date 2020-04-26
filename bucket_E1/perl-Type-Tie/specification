@@ -5,15 +5,14 @@ NAMEBASE=		perl-Type-Tie
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Tie a variable to a type constraint (v530)
-SDESC[528]=		Tie a variable to a type constraint (v528)
-
+SDESC[530]=		Tie a variable to a type constraint (5.30)
+SDESC[528]=		Tie a variable to a type constraint (5.28)
 HOMEPAGE=		https://github.com/tobyink/p5-type-tie
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:T/TO/TOBYINK
-DISTFILE[1]=		Type-Tie-0.014.tar.gz:main
+DISTFILE[1]=		Type-Tie-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,23 +22,25 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
-GENERATED=		yes
-SINGLE_JOB=		yes
-DISTNAME=		Type-Tie-0.014
+# License listed in CPAN directory:
+# perl_5
 
-# -----------------------------------------------
+# ----------------------------------------------
 # |   Prerequisites extracted from META.json
-# -----------------------------------------------
+# ----------------------------------------------
 # |      runtime : Exporter::Tiny
 # |      runtime : Hash::FieldHash
-# |    configure : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |         test : Test::More (perl 5.3 core) (perl 5.28 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
 
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Type-Tie-${PORTVERSION}
+
+[PERL_530].USES_ON=				perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Exporter-Tiny:single:530
 					perl-Hash-FieldHash:single:530
+[PERL_528].USES_ON=				perl:528,configure
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-Exporter-Tiny:single:528
 					perl-Hash-FieldHash:single:528
-
 

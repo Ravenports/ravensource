@@ -5,15 +5,14 @@ NAMEBASE=		perl-WWW-RobotRules
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Database of robots.txt-derived permissions (v530)
-SDESC[528]=		Database of robots.txt-derived permissions (v528)
-
+SDESC[530]=		Database of robots.txt-derived permissions (5.30)
+SDESC[528]=		Database of robots.txt-derived permissions (5.28)
 HOMEPAGE=		https://github.com/gisle/www-robotrules
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:G/GA/GAAS
-DISTFILE[1]=		WWW-RobotRules-6.02.tar.gz:main
+DISTFILE[1]=		WWW-RobotRules-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,22 +22,24 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
+# License listed in CPAN directory:
+# perl
+
+# ---------------------------------------------
+# |   Prerequisites extracted from META.yml
+# ---------------------------------------------
+# | configure_requires : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : AnyDBM_File (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : Fcntl (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : URI
+
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		WWW-RobotRules-6.02
+DISTNAME=		WWW-RobotRules-${PORTVERSION}
 
-# -----------------------------------------------
-# |   Prerequisites extracted from META.yml
-# -----------------------------------------------
-# |           requires : AnyDBM_File (perl 5.3 core) (perl 5.28 core)
-# |           requires : Fcntl (perl 5.3 core) (perl 5.28 core)
-# |           requires : URI
-# | configure_requires : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
+[PERL_530].USES_ON=				perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-URI:single:530
+[PERL_528].USES_ON=				perl:528,configure
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-URI:single:528
-
 

@@ -5,15 +5,14 @@ NAMEBASE=		perl-Template-Tiny
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Template Toolkit reimplemented in as little (v530)
-SDESC[528]=		Template Toolkit reimplemented in as little (v528)
-
-HOMEPAGE=		none
+SDESC[530]=		Template Toolkit reimplemented in as little (5.30)
+SDESC[528]=		Template Toolkit reimplemented in as little (5.28)
+HOMEPAGE=		http://svn.ali.as/cpan/trunk/Template-Tiny
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:A/AD/ADAMK
-DISTFILE[1]=		Template-Tiny-1.12.tar.gz:main
+DISTFILE[1]=		Template-Tiny-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,17 +22,19 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
+# License listed in CPAN directory:
+# perl
+
+# ---------------------------------------------
+# |   Prerequisites extracted from META.yml
+# ---------------------------------------------
+# | configure_requires : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
+
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		Template-Tiny-1.12
+DISTNAME=		Template-Tiny-${PORTVERSION}
 
-# -----------------------------------------------
-# |   Prerequisites extracted from META.yml
-# -----------------------------------------------
-# | configure_requires : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : Test::More (perl 5.3 core) (perl 5.28 core)
-
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
-
+[PERL_530].USES_ON=				perl:530,configure
+[PERL_528].USES_ON=				perl:528,configure
 

@@ -5,15 +5,14 @@ NAMEBASE=		perl-Algorithm-ConsistentHash-Ketama
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Ketama Consistent Hashing for Perl (XS) (v530)
-SDESC[528]=		Ketama Consistent Hashing for Perl (XS) (v528)
-
+SDESC[530]=		Ketama Consistent Hashing for Perl (XS) (5.30)
+SDESC[528]=		Ketama Consistent Hashing for Perl (XS) (5.28)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:D/DM/DMAKI
-DISTFILE[1]=		Algorithm-ConsistentHash-Ketama-0.00012.tar.gz:main
+DISTFILE[1]=		Algorithm-ConsistentHash-Ketama-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,25 +22,25 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
+# License listed in CPAN directory:
+# artistic
+
+# ---------------------------------------------
+# |   Prerequisites extracted from META.yml
+# ---------------------------------------------
+# | configure_requires : Devel::PPPort (perl 5.30.2 core) (perl 5.28.2 core)
+# | configure_requires : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# | configure_requires : ExtUtils::ParseXS (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : Devel::PPPort (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : Test::Requires
+# |           requires : XSLoader (perl 5.30.2 core) (perl 5.28.2 core)
+
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		Algorithm-ConsistentHash-Ketama-0.00012
+DISTNAME=		Algorithm-ConsistentHash-Ketama-${PORTVERSION}
 
-# -----------------------------------------------
-# |   Prerequisites extracted from META.yml
-# -----------------------------------------------
-# |           requires : XSLoader (perl 5.3 core) (perl 5.28 core)
-# | configure_requires : Devel::PPPort (perl 5.3 core) (perl 5.28 core)
-# | configure_requires : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# | configure_requires : ExtUtils::ParseXS (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : Devel::PPPort (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : Test::More (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : Test::Requires
-
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
-[PERL_530].BUILD_DEPENDS_ON=		perl-Test-Requires:single:530
-[PERL_528].BUILD_DEPENDS_ON=		perl-Test-Requires:single:528
-
+[PERL_530].USES_ON=				perl:530,configure
+[PERL_528].USES_ON=				perl:528,configure
 

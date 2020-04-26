@@ -5,15 +5,14 @@ NAMEBASE=		perl-Algorithm-DBSCAN
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Density-Based Spatial Clustering (v530)
-SDESC[528]=		Density-Based Spatial Clustering (v528)
-
+SDESC[530]=		Density-Based Spatial Clustering (5.30)
+SDESC[528]=		Density-Based Spatial Clustering (5.28)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:M/MT/MTOMA
-DISTFILE[1]=		Algorithm-DBSCAN-0.07.tar.gz:main
+DISTFILE[1]=		Algorithm-DBSCAN-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,20 +22,22 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
+# License listed in CPAN directory:
+# artistic_2
+
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |        build : File::Slurp
+# |        build : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		Algorithm-DBSCAN-0.07
+DISTNAME=		Algorithm-DBSCAN-${PORTVERSION}
 
-# -----------------------------------------------
-# |   Prerequisites extracted from META.json
-# -----------------------------------------------
-# |        build : File::Slurp
-# |        build : Test::More (perl 5.3 core) (perl 5.28 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
+[PERL_530].USES_ON=				perl:530,configure
 [PERL_530].BUILD_DEPENDS_ON=		perl-File-Slurp:single:530
+[PERL_528].USES_ON=				perl:528,configure
 [PERL_528].BUILD_DEPENDS_ON=		perl-File-Slurp:single:528
-
 

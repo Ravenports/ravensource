@@ -5,15 +5,14 @@ NAMEBASE=		perl-File-ConfigDir
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Get directories of configuration files (v530)
-SDESC[528]=		Get directories of configuration files (v528)
-
+SDESC[530]=		Get directories of configuration files (5.30)
+SDESC[528]=		Get directories of configuration files (5.28)
 HOMEPAGE=		https://github.com/perl5-utils/File-ConfigDir
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:R/RE/REHSACK
-DISTFILE[1]=		File-ConfigDir-0.021.tar.gz:main
+DISTFILE[1]=		File-ConfigDir-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,33 +22,35 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
-GENERATED=		yes
-SINGLE_JOB=		yes
-DISTNAME=		File-ConfigDir-0.021
+# License listed in CPAN directory:
+# perl_5
 
-# -----------------------------------------------
+# ----------------------------------------------
 # |   Prerequisites extracted from META.json
-# -----------------------------------------------
-# |      runtime : Carp (perl 5.3 core) (perl 5.28 core)
-# |      runtime : File::Basename (perl 5.3 core) (perl 5.28 core)
-# |      runtime : File::Path (perl 5.3 core) (perl 5.28 core)
-# |      runtime : File::Spec (perl 5.3 core) (perl 5.28 core)
-# |      runtime : FindBin (perl 5.3 core) (perl 5.28 core)
+# ----------------------------------------------
+# |      runtime : Carp (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : File::Basename (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : File::Path (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : File::Spec (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : FindBin (perl 5.30.2 core) (perl 5.28.2 core)
 # |      runtime : File::HomeDir
 # |      runtime : List::MoreUtils
 # |      runtime : List::MoreUtils::XS
-# |    configure : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |         test : File::Temp (perl 5.3 core) (perl 5.28 core)
-# |         test : Test::More (perl 5.3 core) (perl 5.28 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : File::Temp (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
 # |         test : Test::Without::Module
 
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		File-ConfigDir-${PORTVERSION}
+
+[PERL_530].USES_ON=				perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-File-HomeDir:single:530
 					perl-List-MoreUtils:single:530
 					perl-List-MoreUtils-XS:single:530
+[PERL_528].USES_ON=				perl:528,configure
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-File-HomeDir:single:528
 					perl-List-MoreUtils:single:528
 					perl-List-MoreUtils-XS:single:528
-
 

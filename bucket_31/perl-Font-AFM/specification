@@ -1,13 +1,12 @@
-DEF[PORTVERSION]=	1.20
+DEF[PORTVERSION]=	1.2
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Font-AFM
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Interface to Adobe Font Metrics files (v530)
-SDESC[528]=		Interface to Adobe Font Metrics files (v528)
-
+SDESC[530]=		Interface to Adobe Font Metrics files (5.30)
+SDESC[528]=		Interface to Adobe Font Metrics files (5.28)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -23,13 +22,17 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
+# License listed in CPAN directory:
+# 
+
+# ---------------------------------------------
+# |   Prerequisites extracted from META.yml
+# ---------------------------------------------
+
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		Font-AFM-1.20
+DISTNAME=		Font-AFM-${PORTVERSION}
 
-# This perl port has no dependencies at all.
-
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
-
+[PERL_530].USES_ON=				perl:530,configure
+[PERL_528].USES_ON=				perl:528,configure
 

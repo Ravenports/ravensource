@@ -5,15 +5,14 @@ NAMEBASE=		perl-Wx
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Interface to the wxWidgets cross-platform G (v530)
-SDESC[528]=		Interface to the wxWidgets cross-platform G (v528)
-
+SDESC[530]=		Interface to the wxWidgets cross-platform G (5.30)
+SDESC[528]=		Interface to the wxWidgets cross-platform G (5.28)
 HOMEPAGE=		http://svn.code.sf.net/p/wxperl/code/wxPerl
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:M/MD/MDOOTSON
-DISTFILE[1]=		Wx-0.9932.tar.gz:main
+DISTFILE[1]=		Wx-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,30 +22,33 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
-GENERATED=		yes
-SINGLE_JOB=		yes
-DISTNAME=		Wx-0.9932
+# License listed in CPAN directory:
+# perl_5
 
-# -----------------------------------------------
+# ----------------------------------------------
 # |   Prerequisites extracted from META.json
-# -----------------------------------------------
+# ----------------------------------------------
 # |      runtime : Alien::wxWidgets
 # |        build : Alien::wxWidgets
-# |        build : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |        build : ExtUtils::ParseXS (perl 5.3 core) (perl 5.28 core)
+# |        build : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |        build : ExtUtils::ParseXS (perl 5.30.2 core) (perl 5.28.2 core)
 # |        build : ExtUtils::XSpp
-# |        build : File::Spec::Functions (perl 5.3 core) (perl 5.28 core)
-# |        build : Test::Harness (perl 5.3 core) (perl 5.28 core)
-# |        build : Test::More (perl 5.3 core) (perl 5.28 core)
-# |        build : if (perl 5.3 core) (perl 5.28 core)
+# |        build : File::Spec::Functions (perl 5.30.2 core) (perl 5.28.2 core)
+# |        build : Test::Harness (perl 5.30.2 core) (perl 5.28.2 core)
+# |        build : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
+# |        build : if (perl 5.30.2 core) (perl 5.28.2 core)
 # |    configure : Alien::wxWidgets
 
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
-[PERL_530].BUILD_DEPENDS_ON=		perl-ExtUtils-XSpp:single:530
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Wx-${PORTVERSION}
+
+[PERL_530].USES_ON=				perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Alien-wxWidgets:single:530
-[PERL_528].BUILD_DEPENDS_ON=		perl-ExtUtils-XSpp:single:528
+[PERL_530].BUILD_DEPENDS_ON=		perl-ExtUtils-XSpp:single:530
+[PERL_528].USES_ON=				perl:528,configure
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-Alien-wxWidgets:single:528
+[PERL_528].BUILD_DEPENDS_ON=		perl-ExtUtils-XSpp:single:528
 
 CONFIGURE_ENV=		CXX="{{CXX}}"
 CFLAGS=			-std=c++11 -pthread -Wno-write-strings
@@ -59,4 +61,3 @@ post-configure:
 		${REINPLACE_CMD} -e \
 		's|$$(CC)|$$(CXX)|g ; \
 		 s|$$(CCFLAGS)|$$(CXXFLAGS)|g'
-

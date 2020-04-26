@@ -5,15 +5,14 @@ NAMEBASE=		perl-Finance-Quote
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Get quotes from various stock exchanges (v530)
-SDESC[528]=		Get quotes from various stock exchanges (v528)
-
+SDESC[530]=		Get quotes from various stock exchanges (5.30)
+SDESC[528]=		Get quotes from various stock exchanges (5.28)
 HOMEPAGE=		https://github.com/finance-quote/finance-quote
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:E/EC/ECOCODE
-DISTFILE[1]=		Finance-Quote-1.49.tar.gz:main
+DISTFILE[1]=		Finance-Quote-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,20 +22,19 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
-GENERATED=		yes
-SINGLE_JOB=		yes
-DISTNAME=		Finance-Quote-1.49
+# License listed in CPAN directory:
+# gpl_2
 
-# -----------------------------------------------
+# ----------------------------------------------
 # |   Prerequisites extracted from META.json
-# -----------------------------------------------
+# ----------------------------------------------
 # |      runtime : CGI
-# |      runtime : Carp (perl 5.3 core) (perl 5.28 core)
+# |      runtime : Carp (perl 5.30.2 core) (perl 5.28.2 core)
 # |      runtime : DateTime
 # |      runtime : DateTime::Format::Strptime
-# |      runtime : Encode (perl 5.3 core) (perl 5.28 core)
-# |      runtime : Exporter (perl 5.3 core) (perl 5.28 core)
-# |      runtime : File::Temp (perl 5.3 core) (perl 5.28 core)
+# |      runtime : Encode (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : Exporter (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : File::Temp (perl 5.30.2 core) (perl 5.28.2 core)
 # |      runtime : HTML::Parser
 # |      runtime : HTML::TableExtract
 # |      runtime : HTML::TokeParser
@@ -51,28 +49,31 @@ DISTNAME=		Finance-Quote-1.49
 # |      runtime : LWP::Simple
 # |      runtime : LWP::UserAgent
 # |      runtime : Mozilla::CA
-# |      runtime : POSIX (perl 5.3 core) (perl 5.28 core)
-# |      runtime : Scalar::Util (perl 5.3 core) (perl 5.28 core)
+# |      runtime : POSIX (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : Scalar::Util (perl 5.30.2 core) (perl 5.28.2 core)
 # |      runtime : String::Util
 # |      runtime : Text::Template
-# |      runtime : Time::Piece (perl 5.3 core) (perl 5.28 core)
+# |      runtime : Time::Piece (perl 5.30.2 core) (perl 5.28.2 core)
 # |      runtime : URI
 # |      runtime : URI::QueryParam
-# |      runtime : base (perl 5.3 core) (perl 5.28 core)
-# |      runtime : constant (perl 5.3 core) (perl 5.28 core)
-# |      runtime : strict (perl 5.3 core) (perl 5.28 core)
-# |      runtime : utf8 (perl 5.3 core) (perl 5.28 core)
-# |      runtime : vars (perl 5.3 core) (perl 5.28 core)
-# |      runtime : warnings (perl 5.3 core) (perl 5.28 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |         test : Data::Dumper (perl 5.3 core) (perl 5.28 core)
-# |         test : File::Spec (perl 5.3 core) (perl 5.28 core)
-# |         test : Test::More (perl 5.3 core) (perl 5.28 core)
+# |      runtime : base (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : constant (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : strict (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : utf8 (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : vars (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : warnings (perl 5.30.2 core) (perl 5.28.2 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : Data::Dumper (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : File::Spec (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
 # |         test : Test::Pod
-# |         test : feature (perl 5.3 core) (perl 5.28 core)
+# |         test : feature (perl 5.30.2 core) (perl 5.28.2 core)
 
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Finance-Quote-${PORTVERSION}
+
+[PERL_530].USES_ON=				perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-CGI:single:530
 					perl-DateTime:single:530
 					perl-DateTime-Format-Strptime:single:530
@@ -89,6 +90,7 @@ DISTNAME=		Finance-Quote-1.49
 					perl-String-Util:single:530
 					perl-Text-Template:single:530
 					perl-URI:single:530
+[PERL_528].USES_ON=				perl:528,configure
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-CGI:single:528
 					perl-DateTime:single:528
 					perl-DateTime-Format-Strptime:single:528
@@ -105,5 +107,4 @@ DISTNAME=		Finance-Quote-1.49
 					perl-String-Util:single:528
 					perl-Text-Template:single:528
 					perl-URI:single:528
-
 

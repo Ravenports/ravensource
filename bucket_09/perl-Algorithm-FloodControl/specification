@@ -1,13 +1,12 @@
-DEF[PORTVERSION]=	2.001000
+DEF[PORTVERSION]=	1.99
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Algorithm-FloodControl
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Limit event processing to count/time ratio. (v530)
-SDESC[528]=		Limit event processing to count/time ratio. (v528)
-
+SDESC[530]=		Limit event processing to count/time ratio (5.30)
+SDESC[528]=		Limit event processing to count/time ratio (5.28)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -23,31 +22,31 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
-GENERATED=		yes
-SINGLE_JOB=		yes
-DISTNAME=		Algorithm-FloodControl-2.001000
+# License listed in CPAN directory:
+# perl
 
-# -----------------------------------------------
+# ---------------------------------------------
 # |   Prerequisites extracted from META.yml
-# -----------------------------------------------
+# ---------------------------------------------
+# |     build_requires : Cache::FastMmap
+# |     build_requires : File::Temp (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
 # |           requires : Class::Accessor::Fast
 # |           requires : Module::Install
-# |           requires : Module::Load (perl 5.3 core) (perl 5.28 core)
+# |           requires : Module::Load (perl 5.30.2 core) (perl 5.28.2 core)
 # |           requires : Params::Validate
-# |           requires : version (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : Cache::FastMmap
-# |     build_requires : File::Temp (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : Test::More (perl 5.3 core) (perl 5.28 core)
+# |           requires : version (perl 5.30.2 core) (perl 5.28.2 core)
 
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
-[PERL_530].BUILD_DEPENDS_ON=		perl-Cache-FastMmap:single:530
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Algorithm-FloodControl-${PORTVERSION}
+
+[PERL_530].USES_ON=				perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Class-Accessor:single:530
 					perl-Module-Install:single:530
 					perl-Params-Validate:single:530
-[PERL_528].BUILD_DEPENDS_ON=		perl-Cache-FastMmap:single:528
+[PERL_528].USES_ON=				perl:528,configure
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-Class-Accessor:single:528
 					perl-Module-Install:single:528
 					perl-Params-Validate:single:528
-
 

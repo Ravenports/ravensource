@@ -5,15 +5,14 @@ NAMEBASE=		perl-IPC-System-Simple
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Run commands simply, with detailed diagnost (v530)
-SDESC[528]=		Run commands simply, with detailed diagnost (v528)
-
+SDESC[530]=		Run commands simply, with detailed diagnost (5.30)
+SDESC[528]=		Run commands simply, with detailed diagnost (5.28)
 HOMEPAGE=		https://github.com/pjf/ipc-system-simple
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:J/JK/JKEENAN
-DISTFILE[1]=		IPC-System-Simple-1.30.tar.gz:main
+DISTFILE[1]=		IPC-System-Simple-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,29 +22,31 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
+# License listed in CPAN directory:
+# perl_5
+
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : Carp (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : Exporter (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : List::Util (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : POSIX (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : Scalar::Util (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : constant (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : re (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : strict (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : warnings (perl 5.30.2 core) (perl 5.28.2 core)
+# |        build : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : File::Basename (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : Test (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
+
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		IPC-System-Simple-1.30
+DISTNAME=		IPC-System-Simple-${PORTVERSION}
 
-# -----------------------------------------------
-# |   Prerequisites extracted from META.json
-# -----------------------------------------------
-# |      runtime : Carp (perl 5.3 core) (perl 5.28 core)
-# |      runtime : Exporter (perl 5.3 core) (perl 5.28 core)
-# |      runtime : List::Util (perl 5.3 core) (perl 5.28 core)
-# |      runtime : POSIX (perl 5.3 core) (perl 5.28 core)
-# |      runtime : Scalar::Util (perl 5.3 core) (perl 5.28 core)
-# |      runtime : constant (perl 5.3 core) (perl 5.28 core)
-# |      runtime : re (perl 5.3 core) (perl 5.28 core)
-# |      runtime : strict (perl 5.3 core) (perl 5.28 core)
-# |      runtime : warnings (perl 5.3 core) (perl 5.28 core)
-# |        build : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |         test : File::Basename (perl 5.3 core) (perl 5.28 core)
-# |         test : Test (perl 5.3 core) (perl 5.28 core)
-# |         test : Test::More (perl 5.3 core) (perl 5.28 core)
-
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
-
+[PERL_530].USES_ON=				perl:530,configure
+[PERL_528].USES_ON=				perl:528,configure
 

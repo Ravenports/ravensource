@@ -5,15 +5,14 @@ NAMEBASE=		perl-MooseX-Method-Signatures
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		(DEPRECATED) Method declarations with type  (v530)
-SDESC[528]=		(DEPRECATED) Method declarations with type  (v528)
-
+SDESC[530]=		(DEPRECATED) Method declarations with type (5.30)
+SDESC[528]=		(DEPRECATED) Method declarations with type (5.28)
 HOMEPAGE=		https://github.com/moose/MooseX-Method-Signatures
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:E/ET/ETHER
-DISTFILE[1]=		MooseX-Method-Signatures-0.49.tar.gz:main
+DISTFILE[1]=		MooseX-Method-Signatures-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,15 +22,14 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
-GENERATED=		yes
-SINGLE_JOB=		yes
-DISTNAME=		MooseX-Method-Signatures-0.49
+# License listed in CPAN directory:
+# perl_5
 
-# -----------------------------------------------
+# ----------------------------------------------
 # |   Prerequisites extracted from META.json
-# -----------------------------------------------
+# ----------------------------------------------
 # |      runtime : B::Hooks::EndOfScope
-# |      runtime : Carp (perl 5.3 core) (perl 5.28 core)
+# |      runtime : Carp (perl 5.30.2 core) (perl 5.28.2 core)
 # |      runtime : Context::Preserve
 # |      runtime : Devel::Declare
 # |      runtime : Devel::Declare::Context::Simple
@@ -53,32 +51,34 @@ DISTNAME=		MooseX-Method-Signatures-0.49
 # |      runtime : Parse::Method::Signatures::Param::Placeholder
 # |      runtime : Parse::Method::Signatures::TypeConstraint
 # |      runtime : Parse::Method::Signatures::Types
-# |      runtime : Scalar::Util (perl 5.3 core) (perl 5.28 core)
+# |      runtime : Scalar::Util (perl 5.30.2 core) (perl 5.28.2 core)
 # |      runtime : Sub::Name
 # |      runtime : Task::Weaken
-# |      runtime : Text::Balanced (perl 5.3 core) (perl 5.28 core)
+# |      runtime : Text::Balanced (perl 5.30.2 core) (perl 5.28.2 core)
 # |      runtime : aliased
-# |      runtime : if (perl 5.3 core) (perl 5.28 core)
+# |      runtime : if (perl 5.30.2 core) (perl 5.28.2 core)
 # |      runtime : namespace::autoclean
-# |      runtime : strict (perl 5.3 core) (perl 5.28 core)
-# |      runtime : warnings (perl 5.3 core) (perl 5.28 core)
+# |      runtime : strict (perl 5.30.2 core) (perl 5.28.2 core)
+# |      runtime : warnings (perl 5.30.2 core) (perl 5.28.2 core)
 # |    configure : Module::Build::Tiny
-# |         test : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |         test : File::Spec (perl 5.3 core) (perl 5.28 core)
+# |         test : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : File::Spec (perl 5.30.2 core) (perl 5.28.2 core)
 # |         test : Moose::Role
 # |         test : Test::Deep
 # |         test : Test::Fatal
 # |         test : Test::Moose
-# |         test : Test::More (perl 5.3 core) (perl 5.28 core)
-# |         test : attributes (perl 5.3 core) (perl 5.28 core)
-# |         test : lib (perl 5.3 core) (perl 5.28 core)
+# |         test : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : attributes (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : lib (perl 5.30.2 core) (perl 5.28.2 core)
 # |         test : metaclass
 # |         test : namespace::clean
-# |         test : CPAN::Meta (perl 5.3 core) (perl 5.28 core)
+# |         test : CPAN::Meta (perl 5.30.2 core) (perl 5.28.2 core)
 
-[PERL_530].USES_ON=			perl:530,buildmodtiny,run
-[PERL_528].USES_ON=			perl:528,buildmodtiny,run
-[PERL_530].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:530
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		MooseX-Method-Signatures-${PORTVERSION}
+
+[PERL_530].USES_ON=				perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-B-Hooks-EndOfScope:single:530
 					perl-Context-Preserve:single:530
 					perl-Devel-Declare:single:530
@@ -94,7 +94,8 @@ DISTNAME=		MooseX-Method-Signatures-0.49
 					perl-Task-Weaken:single:530
 					perl-aliased:single:530
 					perl-namespace-autoclean:single:530
-[PERL_528].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:528
+[PERL_530].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:530
+[PERL_528].USES_ON=				perl:528,configure
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-B-Hooks-EndOfScope:single:528
 					perl-Context-Preserve:single:528
 					perl-Devel-Declare:single:528
@@ -110,5 +111,5 @@ DISTNAME=		MooseX-Method-Signatures-0.49
 					perl-Task-Weaken:single:528
 					perl-aliased:single:528
 					perl-namespace-autoclean:single:528
-
+[PERL_528].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:528
 

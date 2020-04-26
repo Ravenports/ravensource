@@ -5,15 +5,14 @@ NAMEBASE=		perl-Algorithm-SpatialIndex-Strategy-MedianQuadTree
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		QuadTree splitting on bucket medians (v530)
-SDESC[528]=		QuadTree splitting on bucket medians (v528)
-
+SDESC[530]=		QuadTree splitting on bucket medians (5.30)
+SDESC[528]=		QuadTree splitting on bucket medians (5.28)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:S/SM/SMUELLER
-DISTFILE[1]=		Algorithm-SpatialIndex-Strategy-MedianQuadTree-0.02.tar.gz:main
+DISTFILE[1]=		Algorithm-SpatialIndex-Strategy-MedianQuadTree-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,23 +22,25 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
-GENERATED=		yes
-SINGLE_JOB=		yes
-DISTNAME=		Algorithm-SpatialIndex-Strategy-MedianQuadTree-0.02
+# License listed in CPAN directory:
+# unknown
 
-# -----------------------------------------------
+# ---------------------------------------------
 # |   Prerequisites extracted from META.yml
-# -----------------------------------------------
+# ---------------------------------------------
+# | configure_requires : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
 # |           requires : Algorithm::SpatialIndex
 # |           requires : Statistics::CaseResampling
-# | configure_requires : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |     build_requires : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
 
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Algorithm-SpatialIndex-Strategy-MedianQuadTree-${PORTVERSION}
+
+[PERL_530].USES_ON=				perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Algorithm-SpatialIndex:single:530
 					perl-Statistics-CaseResampling:single:530
+[PERL_528].USES_ON=				perl:528,configure
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-Algorithm-SpatialIndex:single:528
 					perl-Statistics-CaseResampling:single:528
-
 

@@ -1,19 +1,18 @@
-DEF[PORTVERSION]=	0.001004
+DEF[PORTVERSION]=	0.002002
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-MooX-TypeTiny
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Optimized type checks for Moo + Type::Tiny (v530)
-SDESC[528]=		Optimized type checks for Moo + Type::Tiny (v528)
-
+SDESC[530]=		Optimized type checks for Moo + Type::Tiny (5.30)
+SDESC[528]=		Optimized type checks for Moo + Type::Tiny (5.28)
 HOMEPAGE=		https://github.com/haarg/MooX-TypeTiny
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:H/HA/HAARG
-DISTFILE[1]=		MooX-TypeTiny-0.001004.tar.gz:main
+DISTFILE[1]=		MooX-TypeTiny-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,24 +22,26 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
-GENERATED=		yes
-SINGLE_JOB=		yes
-DISTNAME=		MooX-TypeTiny-0.001004
+# License listed in CPAN directory:
+# perl_5
 
-# -----------------------------------------------
+# ----------------------------------------------
 # |   Prerequisites extracted from META.json
-# -----------------------------------------------
+# ----------------------------------------------
 # |      runtime : Moo
 # |      runtime : Type::Tiny
-# |    configure : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
 # |         test : Test::Fatal
-# |         test : Test::More (perl 5.3 core) (perl 5.28 core)
+# |         test : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
 
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		MooX-TypeTiny-${PORTVERSION}
+
+[PERL_530].USES_ON=				perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Moo:single:530
 					perl-Type-Tiny:single:530
+[PERL_528].USES_ON=				perl:528,configure
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-Moo:single:528
 					perl-Type-Tiny:single:528
-
 

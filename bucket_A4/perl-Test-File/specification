@@ -5,15 +5,14 @@ NAMEBASE=		perl-Test-File
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		Test file attributes (v530)
-SDESC[528]=		Test file attributes (v528)
-
+SDESC[530]=		Test file attributes (5.30)
+SDESC[528]=		Test file attributes (5.28)
 HOMEPAGE=		https://github.com/briandfoy/test-file
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:B/BD/BDFOY
-DISTFILE[1]=		Test-File-1.443.tar.gz:main
+DISTFILE[1]=		Test-File-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,21 +22,23 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
-GENERATED=		yes
-SINGLE_JOB=		yes
-DISTNAME=		Test-File-1.443
+# License listed in CPAN directory:
+# perl_5
 
-# -----------------------------------------------
+# ----------------------------------------------
 # |   Prerequisites extracted from META.json
-# -----------------------------------------------
-# |    configure : ExtUtils::MakeMaker (perl 5.3 core) (perl 5.28 core)
-# |    configure : File::Spec::Functions (perl 5.3 core) (perl 5.28 core)
-# |         test : Test::Builder (perl 5.3 core) (perl 5.28 core)
-# |         test : Test::Builder::Tester (perl 5.3 core) (perl 5.28 core)
-# |         test : Test::More (perl 5.3 core) (perl 5.28 core)
+# ----------------------------------------------
+# |    configure : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |    configure : File::Spec::Functions (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : Test::Builder (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : Test::Builder::Tester (perl 5.30.2 core) (perl 5.28.2 core)
+# |         test : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
 # |         test : Test::utf8
 
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_528].USES_ON=			perl:528,configure
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Test-File-${PORTVERSION}
 
+[PERL_530].USES_ON=				perl:530,configure
+[PERL_528].USES_ON=				perl:528,configure
 

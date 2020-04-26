@@ -5,15 +5,14 @@ NAMEBASE=		perl-String-Util
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		String::Util -- String processing utilities (v530)
-SDESC[528]=		String::Util -- String processing utilities (v528)
-
+SDESC[530]=		String::Util -- String processing utilities (5.30)
+SDESC[528]=		String::Util -- String processing utilities (5.28)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:M/MI/MIKO
-DISTFILE[1]=		String-Util-1.26.tar.gz:main
+DISTFILE[1]=		String-Util-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[528]=		single
@@ -23,21 +22,23 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
-GENERATED=		yes
-SINGLE_JOB=		yes
-DISTNAME=		String-Util-1.26
+# License listed in CPAN directory:
+# perl
 
-# -----------------------------------------------
+# ---------------------------------------------
 # |   Prerequisites extracted from META.yml
-# -----------------------------------------------
+# ---------------------------------------------
 # |           requires : Number::Misc
 # |           requires : Test::Toolbox
 
-[PERL_530].USES_ON=			perl:530,buildmod,run
-[PERL_528].USES_ON=			perl:528,buildmod,run
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		String-Util-${PORTVERSION}
+
+[PERL_530].USES_ON=				perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Number-Misc:single:530
 					perl-Test-Toolbox:single:530
+[PERL_528].USES_ON=				perl:528,configure
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-Number-Misc:single:528
 					perl-Test-Toolbox:single:528
-
 
