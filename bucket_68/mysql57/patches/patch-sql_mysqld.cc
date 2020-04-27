@@ -1,4 +1,4 @@
---- sql/mysqld.cc.orig	2019-12-18 12:59:40 UTC
+--- sql/mysqld.cc.orig	2020-03-23 17:35:17 UTC
 +++ sql/mysqld.cc
 @@ -3419,7 +3419,7 @@ int warn_self_signed_ca()
  static int init_ssl()
