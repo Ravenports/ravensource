@@ -1,4 +1,4 @@
---- src/main/complex.c.orig	2018-09-25 08:46:25 UTC
+--- src/main/complex.c.orig	2020-03-26 23:02:22 UTC
 +++ src/main/complex.c
 @@ -139,7 +139,7 @@ static double complex mycpow (double com
      } else if (yi == 0.0 && yr == (k = (int) yr) && abs(k) <= 65536)
@@ -9,7 +9,7 @@
  	Z = cpow(X, Y);
  #else
      {
-@@ -393,7 +393,7 @@ void attribute_hidden z_prec_r(Rcomplex
+@@ -394,7 +394,7 @@ void attribute_hidden z_prec_r(Rcomplex
     Currently (Feb 2011) they are used on FreeBSD.
  */
  
