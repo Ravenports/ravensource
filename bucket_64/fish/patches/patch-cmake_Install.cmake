@@ -1,4 +1,4 @@
---- cmake/Install.cmake.orig	2020-02-12 14:04:07 UTC
+--- cmake/Install.cmake.orig	2020-04-27 13:57:43 UTC
 +++ cmake/Install.cmake
 @@ -108,7 +108,7 @@ INSTALL(FILES share/config.fish
                ${CMAKE_CURRENT_BINARY_DIR}/share/__fish_build_paths.fish
