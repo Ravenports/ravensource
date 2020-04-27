@@ -1,6 +1,6 @@
---- scripts/CMakeLists.txt.orig	2019-12-09 19:53:17 UTC
+--- scripts/CMakeLists.txt.orig	2020-03-26 13:31:45 UTC
 +++ scripts/CMakeLists.txt
-@@ -233,11 +233,7 @@ IF(MY_COMPILER_IS_GNU_OR_CLANG)
+@@ -208,11 +208,7 @@ IF(MY_COMPILER_IS_GNU_OR_CLANG)
    STRING(REGEX REPLACE "-std=c..[0-9]+" "" CXXFLAGS "${CXXFLAGS}")
  ENDIF()
  
@@ -13,7 +13,7 @@
  
  IF(UNIX)
    # SHELL_PATH, FIND_PROC, CHECK_PID are used by mysqld_safe
-@@ -256,14 +252,9 @@ IF(UNIX)
+@@ -231,14 +227,9 @@ IF(UNIX)
        "ps -p $PID | grep -v mysqld_safe | grep -- $MYSQLD > /dev/null")
    ENDIF()
  
@@ -29,7 +29,7 @@
    ENDIF()
  
    IF(NOT FIND_PROC)
-@@ -298,7 +289,7 @@ SET(pkglibdir ${prefix}/${INSTALL_LIBDIR
+@@ -273,7 +264,7 @@ SET(pkglibdir ${prefix}/${INSTALL_LIBDIR
  SET(pkgplugindir ${prefix}/${INSTALL_PLUGINDIR})
  SET(localstatedir ${MYSQL_DATADIR})
  
@@ -38,7 +38,7 @@
    SET(RPATH_OPTION " -R$pkglibdir")
  ENDIF()
  
-@@ -340,6 +331,8 @@ MACRO(EXTRACT_LINK_LIBRARIES target var)
+@@ -317,6 +308,8 @@ MACRO(EXTRACT_LINK_LIBRARIES target var)
            GET_FILENAME_COMPONENT(lib "${lib}" NAME_WE)
            STRING(REGEX REPLACE "^lib" "" lib "${lib}")
            SET(${var} "${${var}}-l${lib} " )
@@ -47,7 +47,7 @@
          ELSE()
            SET(${var} "${${var}}-l${lib} " )
          ENDIF()
-@@ -363,21 +356,10 @@ ELSE()
+@@ -340,21 +333,10 @@ ELSE()
    GET_TARGET_PROPERTY(LIBMYSQL_OS_OUTPUT_NAME libmysql OUTPUT_NAME)
  ENDIF()
  
@@ -70,7 +70,7 @@
  
  MESSAGE(STATUS "CONFIG_CLIENT_LIBS ${CONFIG_CLIENT_LIBS}")
  MESSAGE(STATUS "CONFIG_LIBS_PRIVATE ${CONFIG_LIBS_PRIVATE}")
-@@ -443,7 +425,7 @@ ELSE()
+@@ -420,7 +402,7 @@ ELSE()
    FOREACH(file ${BIN_SCRIPTS})
      IF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${file}.sh)
        CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/${file}.sh

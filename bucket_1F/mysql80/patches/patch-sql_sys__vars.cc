@@ -1,6 +1,6 @@
---- sql/sys_vars.cc.orig	2019-12-09 19:53:17 UTC
+--- sql/sys_vars.cc.orig	2020-03-26 13:31:45 UTC
 +++ sql/sys_vars.cc
-@@ -2105,7 +2105,7 @@ static Sys_var_ulong Sys_interactive_tim
+@@ -2139,7 +2139,7 @@ static Sys_var_ulong Sys_interactive_tim
      "The number of seconds the server waits for activity on an interactive "
      "connection before closing it",
      SESSION_VAR(net_interactive_timeout), CMD_LINE(REQUIRED_ARG),
@@ -9,25 +9,25 @@
  
  static Sys_var_ulong Sys_join_buffer_size(
      "join_buffer_size", "The size of the buffer that is used for full joins",
-@@ -2890,7 +2890,7 @@ static Sys_var_ulong Sys_net_read_timeou
+@@ -2929,7 +2929,7 @@ static Sys_var_ulong Sys_net_read_timeou
      "Number of seconds to wait for more data from a connection before "
      "aborting the read",
      SESSION_VAR(net_read_timeout), CMD_LINE(REQUIRED_ARG),
 -    VALID_RANGE(1, LONG_TIMEOUT), DEFAULT(NET_READ_TIMEOUT), BLOCK_SIZE(1),
 +    VALID_RANGE(1, INT_MAX32 / 1000), DEFAULT(NET_READ_TIMEOUT), BLOCK_SIZE(1),
-     NO_MUTEX_GUARD, NOT_IN_BINLOG, ON_CHECK(0),
+     NO_MUTEX_GUARD, NOT_IN_BINLOG, ON_CHECK(nullptr),
      ON_UPDATE(fix_net_read_timeout));
  
-@@ -2911,7 +2911,7 @@ static Sys_var_ulong Sys_net_write_timeo
+@@ -2950,7 +2950,7 @@ static Sys_var_ulong Sys_net_write_timeo
      "Number of seconds to wait for a block to be written to a connection "
      "before aborting the write",
      SESSION_VAR(net_write_timeout), CMD_LINE(REQUIRED_ARG),
 -    VALID_RANGE(1, LONG_TIMEOUT), DEFAULT(NET_WRITE_TIMEOUT), BLOCK_SIZE(1),
 +    VALID_RANGE(1, INT_MAX32 / 1000), DEFAULT(NET_WRITE_TIMEOUT), BLOCK_SIZE(1),
-     NO_MUTEX_GUARD, NOT_IN_BINLOG, ON_CHECK(0),
+     NO_MUTEX_GUARD, NOT_IN_BINLOG, ON_CHECK(nullptr),
      ON_UPDATE(fix_net_write_timeout));
  
-@@ -4727,7 +4727,7 @@ static Sys_var_ulong Sys_net_wait_timeou
+@@ -4766,7 +4766,7 @@ static Sys_var_ulong Sys_net_wait_timeou
      "The number of seconds the server waits for activity on a "
      "connection before closing it",
      SESSION_VAR(net_wait_timeout), CMD_LINE(REQUIRED_ARG),

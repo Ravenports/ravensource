@@ -1,6 +1,6 @@
---- CMakeLists.txt.orig	2019-12-09 19:53:17 UTC
+--- CMakeLists.txt.orig	2020-03-26 13:31:45 UTC
 +++ CMakeLists.txt
-@@ -1330,7 +1330,6 @@ ADD_SUBDIRECTORY(share)
+@@ -1475,7 +1475,6 @@ ADD_SUBDIRECTORY(share)
  ADD_SUBDIRECTORY(libservices)
  
  IF(NOT WITHOUT_SERVER)
@@ -8,16 +8,16 @@
    ADD_SUBDIRECTORY(sql)
  ENDIF()
  
-@@ -1353,8 +1352,6 @@ ENDIF()
+@@ -1499,8 +1498,6 @@ ENDIF()
  ADD_SUBDIRECTORY(scripts)
  
  IF(NOT WITHOUT_SERVER)
 -  ADD_SUBDIRECTORY(mysql-test)
 -  ADD_SUBDIRECTORY(mysql-test/lib/My/SafeProcess)
    ADD_SUBDIRECTORY(support-files)
-   IF(EXISTS ${CMAKE_SOURCE_DIR}/internal/CMakeLists.txt)
+   IF(WITH_INTERNAL)
      ADD_SUBDIRECTORY(internal)
-@@ -1456,7 +1453,6 @@ ELSE()
+@@ -1602,7 +1599,6 @@ ELSE()
    SET(CPACK_GENERATOR "TGZ")
  ENDIF() 
  ADD_SUBDIRECTORY(packaging/WiX)
@@ -25,7 +25,7 @@
  
  # Produce separate tarballs for each INSTALL COMPONENT
  IF(PACK_SEPARATE_COMPONENTS)
-@@ -1472,6 +1468,7 @@ ENDIF()
+@@ -1618,6 +1614,7 @@ ENDIF()
  #
  # RPM installs documentation directly from the source tree
  #
@@ -33,7 +33,7 @@
  IF(NOT INSTALL_LAYOUT MATCHES "RPM")
    INSTALL(FILES
      README
-@@ -1499,6 +1496,7 @@ IF(NOT INSTALL_LAYOUT MATCHES "RPM")
+@@ -1645,6 +1642,7 @@ IF(NOT INSTALL_LAYOUT MATCHES "RPM")
      PATTERN "README.build" EXCLUDE
    )
  ENDIF()

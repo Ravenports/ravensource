@@ -1,4 +1,4 @@
---- router/src/harness/src/socket_operations.cc.orig	2019-12-09 19:53:17 UTC
+--- router/src/harness/src/socket_operations.cc.orig	2020-03-26 13:31:45 UTC
 +++ router/src/harness/src/socket_operations.cc
 @@ -42,6 +42,9 @@
  #include <ifaddrs.h>
