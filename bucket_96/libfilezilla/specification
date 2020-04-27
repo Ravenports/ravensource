@@ -5,7 +5,7 @@ DEF[SOVERSION]=		4.1.0
 
 NAMEBASE=		libfilezilla
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		ftp
 VARIANTS=		standard
 SDESC[standard]=	C++ lib for building platform-independent programs
@@ -16,14 +16,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.filezilla-project.org/libfilezilla/
 DISTFILE[1]=		libfilezilla-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:complete
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		complete:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^Documentation"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/README
 LICENSE_SCHEME=		solo
@@ -33,7 +33,7 @@ FPC_EQUIVALENT=		ftp/libfilezilla
 BUILD_DEPENDS=		gmp:static:standard
 BUILDRUN_DEPENDS=	gnutls:primary:standard
 			nettle:primary:standard
-USES=			c++:single gettext-tools gmake iconv:wchar_t libtool pkgconfig
+USES=			c++:primary gettext-tools gmake iconv:wchar_t libtool pkgconfig
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
 
