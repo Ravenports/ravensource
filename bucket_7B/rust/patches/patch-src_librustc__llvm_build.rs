@@ -1,4 +1,4 @@
---- src/librustc_llvm/build.rs.orig	2020-03-09 22:11:17 UTC
+--- src/librustc_llvm/build.rs.orig	2020-04-20 22:17:56 UTC
 +++ src/librustc_llvm/build.rs
 @@ -250,10 +250,6 @@ fn main() {
  
