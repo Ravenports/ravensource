@@ -293,6 +293,8 @@ function download_metaspec($force, $author, $pkgname, &$metaformat) {
 
 # sets the perl builder actions based on contents of build.PL (if it exists)
 function set_builder_action($author, $pkgname, &$builder) {
+    global $SPECS_DIR;
+
     $builder = "configure";
     $cache_dir = $SPECS_DIR . "/" . $author . "/" . $pkgname;
     $builder_file = $cache_dir . "/Build.PL";
