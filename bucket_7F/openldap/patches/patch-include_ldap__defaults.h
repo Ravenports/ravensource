@@ -1,4 +1,4 @@
---- include/ldap_defaults.h.orig	2019-07-23 14:46:22 UTC
+--- include/ldap_defaults.h.orig	2020-04-28 14:05:54 UTC
 +++ include/ldap_defaults.h
 @@ -39,7 +39,7 @@
  #define LDAP_ENV_PREFIX "LDAP"
