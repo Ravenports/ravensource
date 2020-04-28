@@ -1,4 +1,4 @@
---- sql/mysqld.cc.orig	2019-11-26 16:53:45 UTC
+--- sql/mysqld.cc.orig	2020-03-09 10:37:59 UTC
 +++ sql/mysqld.cc
 @@ -4375,7 +4375,7 @@ static void openssl_lock(int mode, opens
  static int init_ssl()
