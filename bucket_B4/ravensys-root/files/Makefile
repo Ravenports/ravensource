@@ -17,8 +17,8 @@ Libbsdxml_FreeBSD=	libbsdxml.so.4
 CPA=			-RpP
 
 # /bin/cat    (archivers/libarchive)
-# /bin/md5    (security/sha256)
-# /bin/sha256 (security/sha256)
+# /bin/md5    (ravensys-utils)
+# /bin/sha256 (ravensys-utils)
 
 Bin_DragonFly=	/bin/[ \
 		/usr/bin/chflags \
@@ -86,7 +86,7 @@ Bin_Linux=	/bin/hostname \
 # /usr/bin/find   (misc/findutils)
 # /usr/bin/flex*  (textproc/flex)
 # /usr/bin/gzip*  (archivers/gzip)
-# /usr/bin/uname  (sysutils/uname)
+# /usr/bin/uname  (ravensys-utils)
 # /usr/bin/unzip  (archivers/unzip)
 # /usr/bin/xz*    (archivers/xz)
 # /usr/bin/m4     (devel/m4)
@@ -96,7 +96,7 @@ Bin_Linux=	/bin/hostname \
 # /usr/bin/xargs  (misc/findutils)
 # /usr/bin/yacc   (devel/byacc)
 # /usr/bin/less*  (sysutils/less)
-# /usr/bin/mtree  (sysutils/mtree)
+# /usr/bin/mtree  (ravensys-utils)
 # /usr/bin/sort   (sysutils/coreutils)
 # /usr/bin/objdump-sysroot (devel/binutils)
 
@@ -654,7 +654,7 @@ install:
 
 .if "${OPSYS}" == "SunOS"
 	cp ${CPA} ../${OPSYS:tl}/* ${DESTDIR}${BASE}/
-	# use BSD's which
+	# use BSD's which (from ravensys-utils)
 	${BSD_INSTALL_PROGRAM} ${LOCALBASE}/bin/which ${DESTDIR}${BASE}/usr/bin/
 	# /bin/sh is really /usr/xpg4/bin/sh, move it there
 	# Move /usr/bin/bash (from distro) to /bin/bash
