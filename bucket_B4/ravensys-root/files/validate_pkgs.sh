@@ -11,15 +11,23 @@
 # Returns 0 if all the arguments match the installed bmake
 
 bmake=$1/bin/bmake
+uname=$1/bin/ravensys-uname
 answer1=$($bmake -V .MAKE.OS.NAME)
 answer2=$($bmake -V .MAKE.OS.ARCHITECTURE)
 answer3=$($bmake -V .MAKE.OS.ARCH.STANDARD)
 answer4=$($bmake -V .MAKE.OS.VERSION)
 answer5=$($bmake -V .MAKE.OS.RELEASE)
 answer6=$($bmake -V .MAKE.OS.MAJOR)
+uname1=$($uname -s)
+uname2=$($uname -m)
+uname3=$($uname -U)
+uname4=$($uname -r)
 all="$answer1/$answer2/$answer3/$answer4/$answer5/$answer6"
+all2="$uname1/$uname2/$uname3/$uname4"
 errmsg="bmake verification test failed, contains $all"
 recmsg="Rebuild bmake package and retry.";
+errmsg2="uname verification test failed, contains $all2"
+recmsg2="Rebuild ravensys-uname package and retry.";
 
 if [ "$2" != "$answer1" ]; then
 	echo "$errmsg (.MAKE.OS.NAME)"
@@ -51,5 +59,27 @@ if [ "$7" != "$answer6" ]; then
 	echo $recmsg
 	exit 1
 fi
-
 echo "bmake verification test passed"
+
+# now check ravensys-uname
+if [ "$2" != "$uname1" ]; then
+	echo "$errmsg2 (OS.NAME)"
+	echo $recmsg2
+	exit 1
+fi
+if [ "$3" != "$uname2" ]; then
+	echo "$errmsg2 (OS.MACHINE)"
+	echo $recmsg2
+	exit 1
+fi
+if [ "$5" != "$uname3" ]; then
+	echo "$errmsg2 (OS.KERNEL)"
+	echo $recmsg2
+	exit 1
+fi
+if [ "$6-RAVEN" != "$uname4" ]; then
+	echo "$errmsg2 (OS.RELEASE)"
+	echo $recmsg2
+	exit 1
+fi
+echo "ravensys-uname verification test passed"
