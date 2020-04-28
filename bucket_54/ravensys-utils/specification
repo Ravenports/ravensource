@@ -1,0 +1,54 @@
+DEF[PORTVERSION]=	1.0
+DEF[TAG]=		v${PORTVERSION}
+DEF[X_FREEBSD_1]=	EXTRACT_VERSION(PLATFORM_FreeBSD_x86-64)
+DEF[X_DRAGONFLY]=	EXTRACT_VERSION(PLATFORM_DragonFly_x86-64)
+DEF[X_LINUX_1]=		EXTRACT_VERSION(PLATFORM_Linux_x86-64)
+DEF[X_SOLARIS]=		EXTRACT_VERSION(PLATFORM_SunOS_x86-64)
+DEF[X_APPLE]=		EXTRACT_VERSION(PLATFORM_MacOS_x86-64)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ravensys-utils
+VERSION=		${PORTVERSION}
+KEYWORDS=		raven sysutils
+VARIANTS=		standard
+SDESC[standard]=	Consistent tools for Ravenports system root
+HOMEPAGE=		https://github.com/jrmarino/ravensys-utils
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/jrmarino:ravensys-utils:${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:single
+LICENSE_NAME=		CUSTOM1:"ravensys-utils: all tools feature BSD-like license"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSES.aggregated
+LICENSE_SCHEME=		solo
+
+B_DEPS[linux]=		libbsd:single:standard
+B_DEPS[sunos]=		libbsd4sol:single:standard
+			musl-fts:single:standard
+
+USES=			cmake ssl:build
+CMAKE_ARGS=		-DRAVENOPSYS:STRING="{{SYSTEM:H:H:H:H:H}}"
+			-DRAVENPLAT:STRING="{{SYSTEM:H:H:H:H:T}}"
+			-DRAVENKERNEL:STRING="{{SYSTEM:H:H:T}}"
+			-DRAVENRELEASE:STRING="{{SYSTEM:H:T}}"
+			-DRAVENMAJOR:STRING="{{SYSTEM:T}}"
+			-DRAVDEST:STRING="{{STAGEDIR}}"
+
+VAR_OPSYS[freebsd]=	MAKEFILE_LINE=SYSTEM=${X_FREEBSD_1}
+VAR_OPSYS[dragonfly]=	MAKEFILE_LINE=SYSTEM=${X_DRAGONFLY}
+VAR_OPSYS[linux]=	MAKEFILE_LINE=SYSTEM=${X_LINUX_1}
+VAR_OPSYS[sunos]=	MAKEFILE_LINE=SYSTEM=${X_SOLARIS}
+VAR_OPSYS[darwin]=	MAKEFILE_LINE=SYSTEM=${X_APPLE}
+
+post-install:
+.for prog in md5 mtree patch ravensys-uname which
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${prog}
+.endfor
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/ld
