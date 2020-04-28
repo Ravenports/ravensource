@@ -43,6 +43,18 @@ administrative user::
 
     python setup.py install
 
+pytz for Enterprise
+~~~~~~~~~~~~~~~~~~~
+
+Available as part of the Tidelift Subscription.
+
+The maintainers of pytz and thousands of other packages are working with
+Tidelift to deliver commercial support and maintenance for the open source
+dependencies you use to build your applications. Save time, reduce risk,
+and improve code health, while paying the maintainers of the exact
+dependencies you use. `Learn more.
+<https://tidelift.com/subscription/pkg/pypi-pytz?utm_source=pypi-pytz&utm_medium=referral&utm_campaign=enterprise&utm_term=repo>`_.
+
 Example & Usage
 ~~~~~~~~~~~~~~~
 
@@ -86,15 +98,3 @@ Does not work this way!
 
 It is safe for timezones without daylight saving transitions though, such
 as UTC:
-
->>> datetime(2002, 10, 27, 12, 0, 0, tzinfo=pytz.utc).strftime(fmt)  # /!\
-Not recommended except for UTC
-'2002-10-27 12:00:00 UTC+0000'
-
-The preferred way of dealing with times is to always work in UTC,
-converting to localtime only when generating output to be read
-by humans.
-
->>> utc_dt = datetime(2002, 10, 27, 6, 0, 0, tzinfo=utc)
->>> loc_dt = utc_dt.astimezone(eastern)
->>> loc_dt.strftime(fmt)
