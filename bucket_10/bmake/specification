@@ -1,5 +1,10 @@
+# bump REVISION whenever any PLATFORM_* values change
 DEF[PORTVERSION]=	20200402
-DEF[OSDEFINE]=		-DOSNAME=\\\"{{OPSYS}}\\\" -DOSARCH=\\\"{{ARCH}}\\\"
+DEF[X_FREEBSD_1]=	EXTRACT_VERSION(PLATFORM_FreeBSD_x86-64)
+DEF[X_DRAGONFLY]=	EXTRACT_VERSION(PLATFORM_DragonFly_x86-64)
+DEF[X_LINUX_1]=		EXTRACT_VERSION(PLATFORM_Linux_x86-64)
+DEF[X_SOLARIS]=		EXTRACT_VERSION(PLATFORM_SunOS_x86-64)
+DEF[X_APPLE]=		EXTRACT_VERSION(PLATFORM_MacOS_x86-64)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		bmake
@@ -34,14 +39,21 @@ CONFIGURE_ARGS=		--with-default-sys-path="/xports/Mk:{{PREFIX}}/share/mk"
 			--with-mksrc=no
 MUST_CONFIGURE=		gnu
 
+VAR_OPSYS[freebsd]=	MAKEFILE_LINE=SYSTEM=${X_FREEBSD_1}
+VAR_OPSYS[dragonfly]=	MAKEFILE_LINE=SYSTEM=${X_DRAGONFLY}
+VAR_OPSYS[linux]=	MAKEFILE_LINE=SYSTEM=${X_LINUX_1}
+VAR_OPSYS[sunos]=	MAKEFILE_LINE=SYSTEM=${X_SOLARIS}
+VAR_OPSYS[darwin]=	MAKEFILE_LINE=SYSTEM=${X_APPLE}
+
 post-patch:
-.for F in OSVERSION OSRELEASE OSMAJOR STDARCH
-	newval=$$(${CAT} /usr/share/${F}); \
-	${SED} -i.${F}.bak -e "s|@CFLAGS@|-D${F}=\\\\\"$${newval}\\\\\" @CFLAGS@|" \
-	${WRKDIR}/bmake/make-bootstrap.sh.in
-.endfor
-	${REINPLACE_CMD} -e 's|@CFLAGS@|${OSDEFINE} @CFLAGS@|' \
-		${WRKDIR}/bmake/make-bootstrap.sh.in
+	${REINPLACE_CMD} -e 's|@CFLAGS@|\
+	-DOSNAME=\\\"${ZOPSYS}\\\"\
+	-DOSARCH=\\\"${ZARCH}\\\"\
+	-DSTDARCH=\\\"${ZARCHSTD}\\\"\
+	-DOSVERSION=\\\"${ZOSVERSION}\\\"\
+	-DOSRELEASE=\\\"${ZOSREL}\\\"\
+	-DOSMAJOR=\\\"${ZMAJOR}\\\"\
+	@CFLAGS@|' ${WRKDIR}/bmake/make-bootstrap.sh.in
 
 do-build:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${SH} make-bootstrap.sh)
