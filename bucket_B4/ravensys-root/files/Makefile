@@ -887,6 +887,14 @@ install:
 		${DESTDIR}${BASE}/usr/share/locale/en_US.UTF-8/
 .  endfor
 .endif
+	# move os-specific files from specification to makefile
+	cd ${DESTDIR}${BASE}/usr/share \
+		&& ${ECHO} ${OPSYS}     > OPSYS \
+		&& ${ECHO} ${ARCH}      > ARCH \
+		&& ${ECHO} ${ARCHSTD}   > STDARCH \
+		&& ${ECHO} ${OSVERSION} > OSVERSION \
+		&& ${ECHO} ${OSREL}     > OSRELEASE \
+		&& ${ECHO} ${OSMAJOR}   > OSMAJOR
 
 extra-includes:
 .for item in ${headers_${OPSYS}}

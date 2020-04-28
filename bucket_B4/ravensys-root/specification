@@ -1,18 +1,17 @@
 DEF[DF_RELEASE]=	5.8.0
-DEF[LINUX_KERNEL]=	4.4.0-53
-DEF[LINUX_OSREL]=	${LINUX_KERNEL:DL="-":H}
-DEF[LINUX_MAJOR]=	${LINUX_OSREL:R}
-DEF[LINUX_VERSION]=	${LINUX_KERNEL:S/-//:S/.//:S/./0/}
 DEF[EXTRA_UBUNTU]=	4 5 6 7 8 9 10 11 12 13 17 18 19 21 22 23 24
 DEF[FREEBSD_RELEASE]=	11.1
-DEF[FREE_KERNEL_VER]=	1101001
-DEF[DFLY_KERNEL_VER]=	500800
 DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
+DEF[X_FREEBSD_1]=	EXTRACT_VERSION(PLATFORM_FreeBSD_x86-64)
+DEF[X_DRAGONFLY]=	EXTRACT_VERSION(PLATFORM_DragonFly_x86-64)
+DEF[X_LINUX_1]=		EXTRACT_VERSION(PLATFORM_Linux_x86-64)
+DEF[X_SOLARIS]=		EXTRACT_VERSION(PLATFORM_SunOS_x86-64)
+DEF[X_APPLE]=		EXTRACT_VERSION(PLATFORM_MacOS_x86-64)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravensys-root
 VERSION=		3.0
-REVISION=		6
+REVISION=		7
 KEYWORDS=		raven
 VARIANTS=		dragonfly freebsd_amd64 linux sunos macos
 SDESC[dragonfly]=	DragonFly64 system root for Ravenports build env
@@ -136,6 +135,11 @@ PLIST_SUB=		SONAME_LIBM={{Libm_{{OPSYS}}}}
 			BASE={{SYSPATH}}
 
 MAKE_ENV=		OPSYS="{{OPSYS}}"
+			ARCH="{{ARCH}}"
+			ARCHSTD="{{ARCH_STANDARD}}"
+			OSVERSION="{{OSVERSION}}"
+			OSREL="{{OSREL}}"
+			OSMAJOR="{{MAJOR}}"
 			MKDIR="{{MKDIR}}"
 			GCCX=${GCCX}
 			libm={{Libm_{{OPSYS}}}}
@@ -149,6 +153,11 @@ MAKE_ENV=		OPSYS="{{OPSYS}}"
 			librt={{Librt_{{OPSYS}}}}
 			librpcsvc={{Librpcsvc_{{OPSYS}}}}
 MAKE_ARGS=		BASE={{RSYS}}
+VAR_OPSYS[freebsd]=	MAKEFILE_LINE=SYSTEM=${X_FREEBSD_1}
+VAR_OPSYS[dragonfly]=	MAKEFILE_LINE=SYSTEM=${X_DRAGONFLY}
+VAR_OPSYS[linux]=	MAKEFILE_LINE=SYSTEM=${X_LINUX_1}
+VAR_OPSYS[sunos]=	MAKEFILE_LINE=SYSTEM=${X_SOLARIS}
+VAR_OPSYS[darwin]=	MAKEFILE_LINE=SYSTEM=${X_APPLE}
 
 [DRAGONFLY].DESCRIPTION=		Ravenports system root for DragonFly
 [DRAGONFLY].ONLY_FOR_OPSYS_ON=		dragonfly
@@ -169,6 +178,10 @@ MAKE_ARGS=		BASE={{RSYS}}
 [MACOS].DESCRIPTION=			Ravenports system root for MacOS/Darwin
 [MACOS].ONLY_FOR_OPSYS_ON=		darwin
 [MACOS].DF_INDEX_ON=			20
+
+pre-fetch:
+	${SH} ${FILESDIR}/validate_bmake.sh ${PREFIX} ${OPSYS} ${ARCH} \
+		${ARCH_STANDARD} ${OSVERSION} ${OSREL} ${MAJOR}
 
 post-extract-DRAGONFLY-ON:
 	${MV} ${WRKDIR}/${NAMEBASE}_2 ${WRKDIR}/dragonfly
@@ -194,11 +207,6 @@ post-install-DRAGONFLY-ON:
 		${STAGEDIR}${RSYS}/usr/share/
 	${RM} -r ${STAGEDIR}${RSYS}/var
 
-	${ECHO} "${DF_RELEASE:R}"    > ${STAGEDIR}${RSYS}/usr/share/OSRELEASE
-	${ECHO} "${DF_RELEASE:R}"    > ${STAGEDIR}${RSYS}/usr/share/OSMAJOR
-	${ECHO} "${DFLY_KERNEL_VER}" > ${STAGEDIR}${RSYS}/usr/share/OSVERSION
-	${ECHO} "x86_64"             > ${STAGEDIR}${RSYS}/usr/share/STDARCH
-
 post-extract-LINUX-ON:
 	${MV} ${WRKDIR}/${NAMEBASE}_3 ${WRKDIR}/linux
 .for NDX in ${EXTRA_UBUNTU}
@@ -215,10 +223,6 @@ post-install-LINUX-ON:
 		${STAGEDIR}${RSYS}/usr/share/passwd
 	${INSTALL_DATA} ${FOS}/etc/ld.so.conf.d/x86_64-linux-gnu.conf \
 		${STAGEDIR}${RSYS}/usr/share/x86_64-linux-gnu.conf
-	${ECHO} "${LINUX_OSREL}"   > ${STAGEDIR}${RSYS}/usr/share/OSRELEASE
-	${ECHO} "${LINUX_MAJOR}"   > ${STAGEDIR}${RSYS}/usr/share/OSMAJOR
-	${ECHO} "${LINUX_VERSION}" > ${STAGEDIR}${RSYS}/usr/share/OSVERSION
-	${ECHO} "x86_64"           > ${STAGEDIR}${RSYS}/usr/share/STDARCH
 	${ECHO} "include /etc/ld.so.conf.d/*.conf" > ${STAGEDIR}${RSYS}/usr/share/ld.so.conf
 	${LN} -s asm-generic ${STAGEDIR}${RSYS}/usr/include/asm
 
@@ -248,11 +252,6 @@ post-install-FREEBSDAMD64-ON:
 		${STAGEDIR}${RSYS}/usr/share/
 	${RM} -r ${STAGEDIR}${RSYS}/var
 
-	${ECHO} ${FREEBSD_RELEASE}   > ${STAGEDIR}${RSYS}/usr/share/OSRELEASE
-	${ECHO} ${FREEBSD_RELEASE:R} > ${STAGEDIR}${RSYS}/usr/share/OSMAJOR
-	${ECHO} ${FREE_KERNEL_VER}   > ${STAGEDIR}${RSYS}/usr/share/OSVERSION
-	${ECHO} "x86_64"             > ${STAGEDIR}${RSYS}/usr/share/STDARCH
-
 post-extract-SUNOS-ON:
 	${MV} ${WRKDIR}/solaris_root_10_u8 ${WRKDIR}/sunos
 	@${MKDIR} ${WRKSRC}
@@ -265,17 +264,7 @@ post-extract-MACOS-ON:
 	@${MKDIR} ${WRKSRC}
 	${INSTALL_DATA} ${FILESDIR}/Makefile ${WRKSRC}/
 
-post-install-SUNOS-ON:
-	${ECHO} 5.10      > ${STAGEDIR}${RSYS}/usr/share/OSRELEASE
-	${ECHO} 5.10      > ${STAGEDIR}${RSYS}/usr/share/OSMAJOR
-	${ECHO} 510200910 > ${STAGEDIR}${RSYS}/usr/share/OSVERSION
-	${ECHO} x86_64    > ${STAGEDIR}${RSYS}/usr/share/STDARCH
-
 post-install-MACOS-ON:
-	${ECHO} 17.7.0    > ${STAGEDIR}${RSYS}/usr/share/OSRELEASE
-	${ECHO} 17        > ${STAGEDIR}${RSYS}/usr/share/OSMAJOR
-	${ECHO} 170700    > ${STAGEDIR}${RSYS}/usr/share/OSVERSION
-	${ECHO} x86_64    > ${STAGEDIR}${RSYS}/usr/share/STDARCH
 	${CHMOD} 600 ${STAGEDIR}${RSYS}/usr/share/master.passwd
 	${STAGEDIR}${RSYS}/usr/sbin/pwd_mkdb -p -d ${STAGEDIR}${RSYS}/usr/share \
 		${STAGEDIR}${RSYS}/usr/share/master.passwd
