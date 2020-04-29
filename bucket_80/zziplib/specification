@@ -1,9 +1,7 @@
-DEF[LIBVERSION]=	13.0.70
-DEF[PORTVERSION]=	0.13.70
+DEF[LIBVERSION]=	13.0.71
+DEF[PORTVERSION]=	0.13.71
 DEF[LIBS]=		zzip zzipfseeko zzipmmapped zzipwrap
-# 0.13.70 is DOA, use later tag
-# DEF[TAG]=		v${PORTVERSION}
-DEF[TAG]=		3d55706
+DEF[TAG]=		v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		zziplib
@@ -18,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/gdraheim:zziplib:${TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary sdl
+SPKGS[standard]=	complete primary sdl docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -34,25 +32,23 @@ LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		devel/zziplib
 
-USES=			shebangfix pkgconfig zlib cmake
-			python:build
-SDL_COMPONENTS=		sdl2
-SHEBANG_FILES=		docs/*.py
 BUILD_DEPENDS=		sdl1:primary:standard
 			xmlto:single:standard
 			zip:single:standard
 			bash:primary:standard
+
+USES=			shebangfix pkgconfig zlib cmake gmake
+			python:build
+SDL_COMPONENTS=		sdl2
+SHEBANG_FILES=		docs/*.py
 # #			BUILD_STATIC_LIBS isn't accepted (why?)
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
 			-DZZIPSDL:BOOL=ON
 INSTALL_REQ_TOOLCHAIN=	yes
+INSTALL_TARGET=		install install-man install-docs
 
 EXRUN[sdl]=		sdl1:primary:standard
 SOVERSION=		${LIBVERSION}
-
-post-patch:
-	# disable docs
-	${REINPLACE_CMD} -e '/SUBDIRS =/ s|test docs||' ${WRKSRC}/Makefile
 
 post-install:
 .for l in ${LIBS}
