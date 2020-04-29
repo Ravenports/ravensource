@@ -804,17 +804,17 @@ install:
 	# use coreutils that FreeBSD and DragonFly passed on (/bin)
 .  for item in [ chmod cp date echo expr kill link ln ls mkdir mv pwd \
 	realpath rm rmdir sleep test unlink
-	cp ${CPA} ${LOCALBASE}/bin/g${item} ${DESTDIR}${BASE}/bin/${item}
+	cp ${CPA} ${LOCALBASE}/bin/${item} ${DESTDIR}${BASE}/bin/${item}
 .  endfor
 	# use coreutils that FreeBSD and DragonFly passed on (/usr/bin)
 .  for item in basename chgrp chown comm cut dirname env false head id \
 	join mkfifo mktemp printenv printf readlink tail tee touch \
 	tee tr true tsort uniq whoami
-	cp ${CPA} ${LOCALBASE}/bin/g${item} ${DESTDIR}${BASE}/usr/bin/${item}
+	cp ${CPA} ${LOCALBASE}/bin/${item} ${DESTDIR}${BASE}/usr/bin/${item}
 .  endfor
 .  if ${OPSYS} == Linux || ${OPSYS} == SunOS
 .    for item in stat
-	cp ${CPA} ${LOCALBASE}/bin/g${item} ${DESTDIR}${BASE}/usr/bin/${item}
+	cp ${CPA} ${LOCALBASE}/bin/${item} ${DESTDIR}${BASE}/usr/bin/${item}
 .    endfor
 .  endif
 .endif
