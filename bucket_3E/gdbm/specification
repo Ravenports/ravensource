@@ -50,6 +50,7 @@ SOVERSION=		${SOVERSION}
 					--enable-shared
 [STATIC].USES_OFF=			readline gettext-runtime
 [STATIC].BUILD_DEPENDS_ON=		readline:single:standard
+[STATIC].CFLAGS_ON=			-fPIC -DPIC
 
 post-patch:
 	${REINPLACE_CMD} -e "s|LIBS = @LIBS@ -lc|LIBS = @LIBS@|" \
