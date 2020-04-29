@@ -1,6 +1,6 @@
---- Makefile.orig	2015-01-15 18:58:20 UTC
+--- Makefile.orig	2020-04-23 01:16:42 UTC
 +++ Makefile
-@@ -11,15 +11,18 @@ OBJS= src/$T.o
+@@ -11,8 +11,11 @@ OBJS= src/$T.o
  
  lib: src/lfs.so
  
@@ -8,17 +8,8 @@
 +	$(CC) $(CFLAGS) -c $(SRCS) -o $(OBJS)
 +
  src/lfs.so: $(OBJS)
--	MACOSX_DEPLOYMENT_TARGET="10.3"; export MACOSX_DEPLOYMENT_TARGET; $(CC) $(LIB_OPTION) -o src/lfs.so $(OBJS)
+-	MACOSX_DEPLOYMENT_TARGET=$(MACOSX_DEPLOYMENT_TARGET); export MACOSX_DEPLOYMENT_TARGET; $(CC) $(LIB_OPTION) -o src/lfs.so $(OBJS)
 +	$(CC) $(CFLAGS) $(LIB_OPTION) -o src/lfs.so $(OBJS)
  
  test: lib
  	LUA_CPATH=./src/?.so lua tests/test.lua
- 
- install:
--	mkdir -p $(LUA_LIBDIR)
--	cp src/lfs.so $(LUA_LIBDIR)
-+	mkdir -p $(DESTDIR)$(LUA_LIBDIR)
-+	cp src/lfs.so $(DESTDIR)$(LUA_LIBDIR)
- 
- clean:
- 	rm -f src/lfs.so $(OBJS)
