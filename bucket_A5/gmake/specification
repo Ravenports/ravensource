@@ -5,9 +5,10 @@ NAMEBASE=		gmake
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		devel
-VARIANTS=		standard noprefix
+VARIANTS=		standard noprefix ravensys
 SDESC[standard]=	GNU variant of 'make' utility
 SDESC[noprefix]=	GNU make with unprefixed program name
+SDESC[ravensys]=	GNU make without native language support
 HOMEPAGE=		https://www.gnu.org/software/make/
 CONTACT=		nobody
 
@@ -16,17 +17,18 @@ SITES[main]=		GNU/make
 DISTFILE[1]=		make-${PORTVERSION}.tar.gz:main
 
 # LEGACY/BOOTSTRAP ISSUE !!
-# This port originated with a "single" subpackage.
-# texinfo:single:standard is heavily used by USES=makeinfo
-# Due to potential bootstrapping issues, we can't change this to
-# typical "complete primary nls" subpackage.  We just have to
-# accept a misnamed port.
+# This port originated with a "single" subpackage. Many ports feature
+# USES=gmake.  Due to potential bootstrapping issues, we can't change this
+# to a typical "complete primary nls" subpackage.  We just have to accept
+# a misnamed port.
 SPKGS[standard]=	complete single nls
 SPKGS[noprefix]=	complete single nls
+SPKGS[ravensys]=	single
 
-OPTIONS_AVAILABLE=	NOPREFIX
+OPTIONS_AVAILABLE=	NOPREFIX RAVENSYS
 OPTIONS_STANDARD=	none
-VOPTS[noprefix]=	NOPREFIX=ON
+VOPTS[noprefix]=	NOPREFIX=ON RAVENSYS=OFF
+VOPTS[ravensys]=	NOPREFIX=OFF RAVENSYS=ON
 
 LICENSE=		GPLv3:single
 LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING
@@ -37,16 +39,20 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/gmake
 
-USES=			cpe gettext-runtime
+USES=			cpe
 CPE_VENDOR=		gnu
 
 DISTNAME=		make-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--without-guile
-			--enable-nls
-			--with-libintl-prefix={{LOCALBASE}}
-			{{ICONV_CONFIGURE_ARG}}
 INFO=			single:make
 
-[NOPREFIX].CONFIGURE_ARGS_OFF=		--program-prefix=g
 [NOPREFIX].DESCRIPTION=			Build without prefixing program with "g"
+[NOPREFIX].CONFIGURE_ARGS_OFF=		--program-prefix=g
+
+[RAVENSYS].DESCRIPTION=			Build without Native Language Support
+[RAVENSYS].CONFIGURE_ARGS_ON=		--disable-nls
+[RAVENSYS].CONFIGURE_ARGS_OFF=		--enable-nls
+					--with-libintl-prefix={{LOCALBASE}}
+					{{ICONV_CONFIGURE_ARG}}
+[RAVENSYS].USES_OFF=			gettext-runtime
