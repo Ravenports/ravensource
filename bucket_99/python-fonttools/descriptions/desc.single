@@ -31,6 +31,40 @@ install it with [pip]:
 Changelog
 ~~~~~~~~~
 
+4.9.0 (released 2020-04-29)
+---------------------------
+
+- [subset] Fixed subsetting of FeatureVariations table. The subsetter no
+longer drops
+  FeatureVariationRecords that have empty substitutions as that will keep
+the search
+  going and thus change the logic. It will only drop empty records that
+occur at the
+  end of the FeatureVariationRecords array (#1881).
+- [subset] Remove FeatureVariations table and downgrade GSUB/GPOS to
+version 0x10000
+  when FeatureVariations contain no FeatureVariationRecords after
+subsetting (#1903).
+- [agl] Add support for legacy Adobe Glyph List of glyph names in
+``fontTools.agl``
+  (#1895).
+- [feaLib] Ignore superfluous script statements (#1883).
+- [feaLib] Hide traceback by default on fonttools feaLib command line.
+  Use ``--traceback`` option to show (#1898).
+- [feaLib] Check lookup index in chaining sub/pos lookups and print better
+error
+  message (#1896, #1897).
+- [feaLib] Fix building chained alt substitutions (#1902).
+- [Doc] Included all fontTools modules in the sphinx-generated
+documentation, and
+  published it to ReadTheDocs for continuous documentation of the fontTools
+project
+  (#1333). Check it out at https://fonttools.readthedocs.io/. Thanks to
+Chris Simpkins!
+- [transform] The Transform class is now subclass of ``typing.NamedTuple``.
+No
+  change in functionality (#1904).
+
 4.8.1 (released 2020-04-17)
 ---------------------------
 
@@ -63,38 +97,4 @@ AST->string->AST
   draft proposal. **NOTE**: both the API and the XML dump of COLR v1 are
   susceptible to change while the proposal is being discussed and
 formalized (#1822).
-
-4.7.0 (released 2020-04-03)
----------------------------
-
-- [cu2qu] Added ``fontTools.cu2qu`` package, imported from the original
-  [cu2qu] project. The ``cu2qu.pens module
-  was moved to fontTools.pens.cu2quPen``. The optional cu2qu extension
-module
-  can be compiled by installing [Cython] before installing
-  fonttools from source (i.e. git repo or sdist tarball). The wheel package
-that
-  is published on PyPI (i.e. the one pip downloads, unless ``--no-binary``
-  option is used), will continue to be pure-Python for now (#1868).
-
-4.6.0 (released 2020-03-24)
----------------------------
-
-- [varLib] Added support for building variable BASE table version 1.1
-(#1858).
-- [CPAL] Added fromRGBA method to Color class (#1861).
-
-4.5.0 (released 2020-03-20)
----------------------------
-
-- [designspaceLib] Added ``add{Axis,Source,Instance,Rule}Descriptor methods
-to
-  DesignSpaceDocument`` class, to initialize new descriptor objects using
-keyword
-  arguments, and at the same time append them to the current document
-(#1860).
-- [unicodedata] Update to Unicode 13.0 (#1859).
-
-4.4.3 (released 2020-03-13)
----------------------------
 
