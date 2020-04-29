@@ -1,4 +1,4 @@
---- src/common/translation.cpp.orig	2017-04-29 12:00:38 UTC
+--- src/common/translation.cpp.orig	2020-04-22 13:09:28 UTC
 +++ src/common/translation.cpp
 @@ -1471,7 +1471,7 @@ wxArrayString wxTranslations::GetAvailab
  
