@@ -46,6 +46,8 @@ INSTALL_TARGET=		install-strip
 CONFIGURE_ARGS=		--without-xml2
 			--without-iconv
 			--disable-acl
+# Make sure it doesn't find libmd; we want SSL
+CONFIGURE_ENV=		ac_cv_lib_md_MD5Init=no
 LDFLAGS=		-lpthread
 SOVERSION=		${SOVERSION}
 
