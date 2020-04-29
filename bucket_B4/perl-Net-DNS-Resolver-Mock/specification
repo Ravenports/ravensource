@@ -1,0 +1,52 @@
+DEF[PORTVERSION]=	1.20200215
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Net-DNS-Resolver-Mock
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		530 528
+SDESC[530]=		Mock a DNS Resolver object for testing (5.30)
+SDESC[528]=		Mock a DNS Resolver object for testing (5.28)
+HOMEPAGE=		none
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:M/MB/MBRADSHAW
+DISTFILE[1]=		Net-DNS-Resolver-Mock-${PORTVERSION}.tar.gz:main
+
+SPKGS[530]=		single
+SPKGS[528]=		single
+
+OPTIONS_AVAILABLE=	PERL_530 PERL_528
+OPTIONS_STANDARD=	none
+VOPTS[530]=		PERL_530=ON PERL_528=OFF
+VOPTS[528]=		PERL_530=OFF PERL_528=ON
+
+# License listed in CPAN directory:
+# perl
+
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Net-DNS-Resolver-Mock-${PORTVERSION}
+
+# ---------------------------------------------
+# |   Prerequisites extracted from META.yml
+# ---------------------------------------------
+# | configure_requires : ExtUtils::MakeMaker (perl 5.30.2 core) (perl 5.28.2 core)
+# |     build_requires : Test::Exception
+# |     build_requires : Test::More (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : Net::DNS::Packet
+# |           requires : Net::DNS::Question
+# |           requires : Net::DNS::Resolver
+# |           requires : Net::DNS::ZoneFile
+# |           requires : base (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : strict (perl 5.30.2 core) (perl 5.28.2 core)
+# |           requires : warnings (perl 5.30.2 core) (perl 5.28.2 core)
+
+[PERL_530].USES_ON=			perl:530,configure
+[PERL_530].BUILDRUN_DEPENDS_ON=		perl-Net-DNS:single:530
+[PERL_530].BUILD_DEPENDS_ON=		perl-Test-Exception:single:530
+[PERL_528].USES_ON=			perl:528,configure
+[PERL_528].BUILDRUN_DEPENDS_ON=		perl-Net-DNS:single:528
+[PERL_528].BUILD_DEPENDS_ON=		perl-Test-Exception:single:528
+
