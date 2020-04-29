@@ -6,8 +6,9 @@ NAMEBASE=		gdbm
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		databases
-VARIANTS=		standard
+VARIANTS=		standard static
 SDESC[standard]=	GNU database manager
+SDESC[static]=		GNU database manager (static-only without NLS)
 HOMEPAGE=		http://www.gnu.org/software/gdbm/
 CONTACT=		nobody
 
@@ -16,9 +17,11 @@ SITES[main]=		GNU/gdbm
 DISTFILE[1]=		gdbm-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	complete primary nls
+SPKGS[static]=		complete primary tools
 
-OPTIONS_AVAILABLE=	none
+OPTIONS_AVAILABLE=	STATIC
 OPTIONS_STANDARD=	none
+VOPTS[static]=		STATIC=ON
 
 LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
@@ -29,14 +32,24 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		databases/gdbm
 
-USES=			gmake libtool:keepla readline solfix gettext-runtime
+EXRUN[tools]=		readline:single:standard
+
+USES=			gmake libtool:keepla solfix
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-libgdbm-compat
-			--enable-nls
+			--enable-static
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 INFO=			primary:gdbm
 SOVERSION=		${SOVERSION}
+
+[STATIC].DESCRIPTION=			Build static library only variant
+[STATIC].CONFIGURE_ARGS_ON=		--disable-nls
+					--disable-shared
+[STATIC].CONFIGURE_ARGS_OFF=		--enable-nls
+					--enable-shared
+[STATIC].USES_OFF=			readline gettext-runtime
+[STATIC].BUILD_DEPENDS_ON=		readline:single:standard
 
 post-patch:
 	${REINPLACE_CMD} -e "s|LIBS = @LIBS@ -lc|LIBS = @LIBS@|" \
