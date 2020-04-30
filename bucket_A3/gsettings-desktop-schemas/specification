@@ -4,6 +4,7 @@ DEF[PORTVERSION]=	3.36.1
 
 NAMEBASE=		gsettings-desktop-schemas
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils devel
 VARIANTS=		standard
 SDESC[standard]=	Shared GSettings schemas for the desktop
@@ -14,16 +15,16 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNOME/gsettings-desktop-schemas/${PORTVERSION:R}
 DISTFILE[1]=		gsettings-desktop-schemas-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		devel/gsettings-desktop-schemas
 
-LICENSE=		LGPL21+:single
+LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/headers/gdesktop-enums.h
 LICENSE_SCHEME=		solo
@@ -32,7 +33,7 @@ LICENSE_SCHEME=		solo
 # dependency for font dep appstream-glib (needed to build fonts-cantarell)
 # RUN_DEPENDS=		fonts-cantarell:single:standard
 
-USES=			gettext-tools gmake perl:build pkgconfig schemas:single
+USES=			gettext-tools gmake perl:build pkgconfig schemas:primary
 			python:build meson shebangfix
 GNOME_COMPONENTS=	intltool glib introspection
 SHEBANG_FILES=		build-aux/meson/post-install.py
