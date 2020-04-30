@@ -4,6 +4,7 @@ DEF[SOVERSION]=		0.28.0
 
 NAMEBASE=		libgpg-error
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security devel
 VARIANTS=		standard
 SDESC[standard]=	Common error values for all GnuPG components
@@ -14,14 +15,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNUPG/libgpg-error
 DISTFILE[1]=		libgpg-error-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL21+:single
+LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING.LIB
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"@configure_input@"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/gpg-error.h.in
 LICENSE_SCHEME=		solo
@@ -31,7 +32,7 @@ FPC_EQUIVALENT=		security/libgpg-error
 USES=			gmake libtool gettext-runtime iconv
 MUST_CONFIGURE=		gnu
 SINGLE_JOB=		yes
-INFO=			single:gpgrt
+INFO=			primary:gpgrt
 CPPFLAGS=		-P
 CONFIGURE_ARGS=		--enable-static=yes
 			--with-libintl-prefix={{LOCALBASE}}
