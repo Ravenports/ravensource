@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	20200314
 
 NAMEBASE=		fontforge
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		print
 VARIANTS=		standard
 SDESC[standard]=	Outline and bitmap font editor
@@ -13,14 +14,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/fontforge:fontforge:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv3+:single
+LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING.gplv3
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^\#\#"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
@@ -39,9 +40,9 @@ BUILDRUN_DEPENDS=	libspiro:single:standard
 RUN_DEPENDS=		fonts-unifont:single:standard
 
 USES=			cmake iconv:wchar_t pkgconfig png jpeg readline
-			python mime-info:single
+			python mime-info:primary
 			gettext-runtime gettext-tools
-			gnome-icons:single desktop-utils:single
+			gnome-icons:primary desktop-utils:primary
 GNOME_COMPONENTS=	glib libxml2 cairo pango gtk3
 CMAKE_ARGS=		-DENABLE_DOCS:BOOL=OFF
 			-DBUILD_SHARED_LIBS:BOOL=ON
