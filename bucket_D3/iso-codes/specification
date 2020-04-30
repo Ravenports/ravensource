@@ -5,6 +5,7 @@ DEF[ISO_DIRS]=		639-2 639-3 639-5 3166-1 3166-2 3166-3 4217 15924
 
 NAMEBASE=		iso-codes
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		misc
 VARIANTS=		standard
 SDESC[standard]=	Lists of country, language and currency iso names
@@ -15,14 +16,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://salsa.debian.org/iso-codes-team/iso-codes/-/archive/iso-codes-${PORTVERSION}/
 DISTFILE[1]=		iso-codes-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL21+:single
+LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/bin/pot_from_json.py
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
