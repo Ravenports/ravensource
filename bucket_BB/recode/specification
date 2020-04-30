@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	3.6
 
 NAMEBASE=		recode
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		converters
 VARIANTS=		standard
 SDESC[standard]=	Converts files between character sets and usages
@@ -14,14 +14,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/pinard:Recode:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL20+:single
+LICENSE=		LGPL20+:primary
 LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING-LIB
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"PARAMS"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/recode.h
 LICENSE_SCHEME=		solo
@@ -33,7 +33,7 @@ USES=			gettext-tools gettext-runtime iconv libtool perl
 			fbsd10fix
 CONFIGURE_ARGS=		--without-included-gettext
 LDFLAGS=		{{ICONV_LIB}}
-INFO=			single:recode
+INFO=			primary:recode
 
 post-extract:
 	${CP} ${FILESDIR}/ru.po ${WRKSRC}/i18n
