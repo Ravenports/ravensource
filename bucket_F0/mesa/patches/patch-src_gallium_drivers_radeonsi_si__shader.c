@@ -1,4 +1,4 @@
---- src/gallium/drivers/radeonsi/si_shader.c.orig	2020-04-22 21:36:58 UTC
+--- src/gallium/drivers/radeonsi/si_shader.c.orig	2020-04-29 22:48:24 UTC
 +++ src/gallium/drivers/radeonsi/si_shader.c
 @@ -22,6 +22,10 @@
   * USE OR OTHER DEALINGS IN THE SOFTWARE.
