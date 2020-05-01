@@ -4,7 +4,7 @@ DEF[GST_VERSION]=	EXTRACT_INFO(GSTREAMER1_GST)
 
 NAMEBASE=		gstreamer1-plugins-libav
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		multimedia
 VARIANTS=		standard
 SDESC[standard]=	GStreamer1 AV library plugin
@@ -22,17 +22,16 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		multimedia/gstreamer1-libav
 
-# remove depends when external ffmpeg used again
 BUILD_DEPENDS=		nasm:primary:standard
 BUILDRUN_DEPENDS=	gstreamer1-plugins-base:primary:standard
 			gstreamer1:primary:standard
-# not compat with 4.0	ffmpeg:primary:standard
+			ffmpeg:primary:standard
 
 USES=			gmake pkgconfig libtool python:build
 GNOME_COMPONENTS=	glib introspection
 MUST_CONFIGURE=		gnu
-# CONFIGURE_ARGS=		--with-system-libav
 CONFIGURE_ARGS=		--enable-gtk-doc-html=no
+			--with-system-libav
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 DISTNAME=		gst-libav-${PORTVERSION}
