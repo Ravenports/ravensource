@@ -1,6 +1,6 @@
---- deps/Makefile.orig	2020-04-17 10:45:57 UTC
+--- deps/Makefile.orig	2020-04-30 13:04:41 UTC
 +++ deps/Makefile
-@@ -58,7 +58,7 @@ ifeq ($(uname_S),SunOS)
+@@ -62,7 +62,7 @@ ifeq ($(uname_S),SunOS)
  	LUA_CFLAGS= -D__C99FEATURES__=1
  endif
  
@@ -9,7 +9,7 @@
  LUA_LDFLAGS+= $(LDFLAGS)
  # lua's Makefile defines AR="ar rcu", which is unusual, and makes it more
  # challenging to cross-compile lua (and redis).  These defines make it easier
-@@ -68,7 +68,7 @@ ARFLAGS=rcu
+@@ -72,7 +72,7 @@ ARFLAGS=rcu
  
  lua: .make-prerequisites
  	@printf '%b %b\n' $(MAKECOLOR)MAKE$(ENDCOLOR) $(BINCOLOR)$@$(ENDCOLOR)
