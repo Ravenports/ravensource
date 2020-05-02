@@ -68,7 +68,6 @@ SOL_FUNCTIONS=		dirfd:src/util/disk_cache.c
 			asprintf:src/util/u_string.h
 			strnlen:src/util/ralloc.c
 			strnlen:src/mesa/main/errors.c
-			strndup:src/util/xmlconfig.c
 			strndup:src/loader/loader.c
 			strndup:src/egl/drivers/dri2/platform_x11.c
 MESON_ARGS=		-Dplatforms=x11,drm{{WAYPLAT}}
@@ -104,12 +103,14 @@ SHEBANG_FILES=		src/gallium/*/*/*.py
 			src/amd/*/*.py
 			src/intel/genxml/gen_pack_header.py
 CONFIGURE_ENV=		ax_cv_check_cflags___Wno_initializer_overrides=no
+CFLAGS=			-Wno-pointer-sign
 
 VAR_OPSYS[sunos]=	CPPFLAGS=-D__EXTENSIONS__=1
 			CPPFLAGS=-Wno-unused-function
 			CXXFLAGS=-Drestrict=__restrict__
 			CFLAGS=-D_POSIX_PTHREAD_SEMANTICS
 			CFLAGS=-DF_DUPFD_CLOEXEC=F_DUPFD
+			CFLAGS=-Wno-incompatible-pointer-types
 			LDFLAGS=-lsocket
 			LDFLAGS=-lnsl
 			MAKEFILE_LINE=MESON_ARGS+=-Dshader-cache=false
