@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.18.0
+DEF[PORTVERSION]=	1.18.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		video4linux
@@ -33,9 +33,10 @@ BR_DEPS[sunos]=		argp-standalone:single:standard
 
 BUILD_DEPENDS=		evdev-proto:single:standard
 
-C_USES[linux]=		iconv autoreconf gettext-tools c++:primary
+C_USES[linux]=		autoreconf iconv c++:primary
 
 USES=			gmake jpeg libtool pkgconfig perl:build shebangfix
+			gettext-tools gettext-runtime:build
 DISTNAME=		v4l-utils-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-doxygen-doc
