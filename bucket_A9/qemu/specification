@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	4.2.0
+DEF[PORTVERSION]=	5.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		qemu
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		emulators
 VARIANTS=		standard
 SDESC[standard]=	Fast CPU emulator and virtualizer for x86 platform
@@ -82,9 +81,6 @@ post-patch:
 	${REINPLACE_CMD} -e '/LIBS/s|-lprocstat|-lprocstat -lelf|' \
 		 -e '/libusb/s/ --atleast-version=1\.0\.[0-9]*//' \
 		${WRKSRC}/configure
-	${REINPLACE_CMD} -E \
-		-e "/^by Tibor .TS. S/s|Sch.*z.$$|Schuetz.|" \
-		${WRKSRC}/qemu-doc.texi
 	${REINPLACE_CMD} -E \
 		-e "s|^(CFLAGS=).*|\1${CFLAGS} -fno-strict-aliasing|" \
 		-e "s|^(LDFLAGS=).*|\1${LDFLAGS}|" \

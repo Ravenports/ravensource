@@ -1,6 +1,6 @@
---- configure.orig	2019-12-12 18:20:47 UTC
+--- configure.orig	2020-04-28 16:49:25 UTC
 +++ configure
-@@ -489,6 +489,9 @@ numa=""
+@@ -493,6 +493,9 @@ numa=""
  tcmalloc="no"
  jemalloc="no"
  replication="yes"
@@ -10,7 +10,7 @@
  vxhs=""
  bochs="yes"
  cloop="yes"
-@@ -1125,6 +1128,10 @@ for opt do
+@@ -1168,6 +1171,10 @@ for opt do
    ;;
    --enable-vnc-png) vnc_png="yes"
    ;;
@@ -21,7 +21,7 @@
    --disable-slirp) slirp="no"
    ;;
    --enable-slirp=git) slirp="git"
-@@ -3023,6 +3030,14 @@ if ! check_include "ifaddrs.h" ; then
+@@ -3137,6 +3144,14 @@ if ! check_include "ifaddrs.h" ; then
  fi
  
  ##########################################
@@ -36,19 +36,7 @@
  # VTE probe
  
  if test "$vte" != "no"; then
-@@ -4802,11 +4817,6 @@ has_sphinx_build() {
- if test "$docs" != "no" ; then
-   if has makeinfo && has pod2man && has_sphinx_build; then
-     docs=yes
--  else
--    if test "$docs" = "yes" ; then
--      feature_not_found "docs" "Install texinfo, Perl/perl-podlators and python-sphinx"
--    fi
--    docs=no
-   fi
- fi
- 
-@@ -4940,7 +4950,7 @@ fi
+@@ -5098,7 +5113,7 @@ fi
  
  # check for libusb
  if test "$libusb" != "no" ; then
@@ -57,7 +45,7 @@
          libusb="yes"
          libusb_cflags=$($pkg_config --cflags libusb-1.0)
          libusb_libs=$($pkg_config --libs libusb-1.0)
-@@ -5330,6 +5340,50 @@ if test "$debug_stack_usage" = "yes"; th
+@@ -5501,6 +5516,50 @@ if test "$debug_stack_usage" = "yes"; th
    fi
  fi
  
@@ -108,7 +96,7 @@
  
  ##########################################
  # check if we have open_by_handle_at
-@@ -6497,6 +6551,7 @@ echo "Audio drivers     $audio_drv_list"
+@@ -6627,6 +6686,7 @@ echo "Audio drivers     $audio_drv_list"
  echo "Block whitelist (rw) $block_drv_rw_whitelist"
  echo "Block whitelist (ro) $block_drv_ro_whitelist"
  echo "VirtFS support    $virtfs"
@@ -116,7 +104,7 @@
  echo "Multipath support $mpath"
  echo "VNC support       $vnc"
  if test "$vnc" = "yes" ; then
-@@ -6739,6 +6794,15 @@ fi
+@@ -6864,6 +6924,15 @@ fi
  if test "$want_tools" = "yes" ; then
    echo "CONFIG_TOOLS=y" >> $config_host_mak
  fi
@@ -132,7 +120,7 @@
  if test "$slirp" != "no"; then
    echo "CONFIG_SLIRP=y" >> $config_host_mak
    echo "CONFIG_SMBD_COMMAND=\"$smbd\"" >> $config_host_mak
-@@ -6987,6 +7051,9 @@ fi
+@@ -7121,6 +7190,9 @@ fi
  if test "$have_fsxattr" = "yes" ; then
      echo "HAVE_FSXATTR=y" >> $config_host_mak
  fi
