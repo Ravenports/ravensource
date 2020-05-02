@@ -27,12 +27,14 @@ BUILDRUN_DEPENDS=	WebP:single:standard
 			freetype:primary:standard
 
 USES=			pkgconfig libtool:keepla shebangfix zlib
+			solaris-funcs
 DISTNAME=		libgd-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-xpm=no
 SHEBANG_FILES=		{{WRKSRC}}/src/bdftogd
 PLIST_SUB=		SOVERSION=${SOVERSION}
 			SOMAJOR=${SOMAJOR}
+SOL_FUNCTIONS=		getline:src/annotate.c
 
 post-patch:
 	# bump shlib version
