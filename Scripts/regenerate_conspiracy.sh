@@ -4,7 +4,12 @@
 # It is used by Ravenports developers to publish ravenports releases.
 
 maintainer=marino
+osname=$(uname -s)
+if [ "$osname" = "SunOS" ]; then
+myid=$(/usr/xpg4/bin/id -un)
+else
 myid=$(id -un)
+fi
 today=$(date "+%d %h %Y %H:%M")
 message="Ravenports generated: ${today}"
 
@@ -33,10 +38,10 @@ done
 for F in information versions; do
    sed "s|${PATTERN}|${WARNING}|" ${DATADIR}/raven.${F}.mk > ${CONSPIR}/Mk/raven.${F}.mk
 done
-cp -a ${DATADIR}/raverreq   ${CONSPIR}/Mk/Misc/
-cp -a ${DATADIR}/Keywords/* ${CONSPIR}/Mk/Keywords/
-cp -a ${DATADIR}/Scripts/*  ${CONSPIR}/Mk/Scripts/
-cp -a ${DATADIR}/Uses/*     ${CONSPIR}/Mk/Uses/
+cp -RpP ${DATADIR}/raverreq   ${CONSPIR}/Mk/Misc/
+cp -RpP ${DATADIR}/Keywords/* ${CONSPIR}/Mk/Keywords/
+cp -RpP ${DATADIR}/Scripts/*  ${CONSPIR}/Mk/Scripts/
+cp -RpP ${DATADIR}/Uses/*     ${CONSPIR}/Mk/Uses/
 
 /raven/bin/ravenadm dev generate-conspiracy ${RAVENSRC}
 if [ $? -ne 0 ]; then
