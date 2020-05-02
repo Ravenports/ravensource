@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.51.1
+DEF[PORTVERSION]=	3.52
 DEF[DIST]=		{{WRKDIR}}/nss-${PORTVERSION}/dist
 DEF[BINS_A]=		certutil cmsutil crlutil derdump makepqg mangle
 DEF[BINS_B]=		modutil ocspclnt oidcalc p7content p7env p7sign p7verify
@@ -60,7 +60,6 @@ PLIST_SUB=		CERTDIR=${CERTDIR}
 VAR_ARCH[x86_64]=	MAKE_ENV=USE_64=1
 VAR_OPSYS[sunos]=	MAKE_ENV=NS_USE_GCC=1
 			MAKE_ENV=NO_MDUPDATE=1
-			CFLAGS=-D__EXTENSIONS__
 VAR_OPSYS[linux]=	MAKE_ENV=RPATH=-Wl,-rpath,{{PREFIX}}/lib/nss
 
 post-patch:

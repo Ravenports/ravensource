@@ -1,6 +1,6 @@
---- lib/freebl/mpi/mpcpucache.c.orig	2020-04-03 21:21:37 UTC
+--- lib/freebl/mpi/mpcpucache.c.orig	2020-05-01 21:08:55 UTC
 +++ lib/freebl/mpi/mpcpucache.c
-@@ -705,6 +705,32 @@ s_mpi_getProcessorLineSize()
+@@ -706,6 +706,32 @@ s_mpi_getProcessorLineSize()
  #endif
  
  #if defined(__ppc64__)
@@ -33,7 +33,7 @@
  /*
   *  Sigh, The PPC has some really nice features to help us determine cache
   *  size, since it had lots of direct control functions to do so. The POWER
-@@ -758,6 +784,7 @@ s_mpi_getProcessorLineSize()
+@@ -759,6 +785,7 @@ s_mpi_getProcessorLineSize()
      }
      return 0;
  }

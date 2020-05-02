@@ -1,4 +1,4 @@
---- coreconf/SunOS5.mk.orig	2020-04-03 21:21:37 UTC
+--- coreconf/SunOS5.mk.orig	2020-05-01 21:08:55 UTC
 +++ coreconf/SunOS5.mk
 @@ -14,14 +14,14 @@ ifeq ($(USE_64), 1)
    ifdef NS_USE_GCC
@@ -17,19 +17,20 @@
      ifdef NS_USE_GCC
        ARCHFLAG=-mcpu=v9
      else
-@@ -33,9 +33,9 @@ endif
+@@ -33,10 +33,10 @@ endif
  DEFAULT_COMPILER = cc
  
  ifdef NS_USE_GCC
 -	CC         = gcc
-+	CC         ?= gcc
++	CC        ?= gcc
  	OS_CFLAGS += -Wall -Wno-format -Werror-implicit-function-declaration -Wno-switch
+ 	OS_CFLAGS += -D__EXTENSIONS__
 -	CCC        = g++
-+	CCC        ?= g++
++	CCC       ?= g++
  	CCC       += -Wall -Wno-format
  	ASFLAGS	  += -x assembler-with-cpp
  	OS_CFLAGS += $(NOMD_OS_CFLAGS) $(ARCHFLAG)
-@@ -67,7 +67,7 @@ RANLIB      = echo
+@@ -68,7 +68,7 @@ RANLIB      = echo
  CPU_ARCH    = sparc
  OS_DEFINES += -DSVR4 -DSYSV -D__svr4 -D__svr4__ -DSOLARIS -D_REENTRANT
  
@@ -38,7 +39,7 @@
  ifeq ($(USE_64),1)
      CPU_ARCH		= x86_64
  else
-@@ -109,15 +109,11 @@ endif
+@@ -110,15 +110,11 @@ endif
  	DSO_LDOPTS += -shared -h $(notdir $@)
  else
  ifeq ($(USE_64), 1)
@@ -56,7 +57,7 @@
  
  # -KPIC generates position independent code for use in shared libraries.
  # (Similarly for -fPIC in case of gcc.)
-@@ -129,16 +125,5 @@ endif
+@@ -130,16 +126,5 @@ endif
  
  NOSUCHFILE   = /solaris-rm-f-sucks
  

@@ -1,4 +1,4 @@
---- coreconf/ruleset.mk.orig	2020-04-03 21:21:37 UTC
+--- coreconf/ruleset.mk.orig	2020-05-01 21:08:55 UTC
 +++ coreconf/ruleset.mk
 @@ -53,7 +53,7 @@
  #
