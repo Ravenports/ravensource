@@ -43,6 +43,8 @@ MESON_ARGS=		-Ddocs=true
 INSTALL_REQ_TOOLCHAIN=	yes
 GTKDOC_OUTPUT_BASEDIR=	libatspi
 
+VAR_OPSYS[sunos]=	LDFLAGS=-lintl
+
 post-patch-sunos:
 	${REINPLACE_CMD} -e '/POSIX_C_SOURCE/d' ${WRKSRC}/meson.build
 
