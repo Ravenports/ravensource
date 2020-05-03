@@ -44,6 +44,8 @@ MESON_ARGS=		-D3g-source=false
 SHEBANG_FILES=		demo/install-file.py
 SOVERSION=		${SOVERSION}
 
+VAR_OPSYS[sunos]=	LDFLAGS=-lintl
+
 post-patch:
 	${REINPLACE_CMD} -e 's|python3|${PYTHON_CMD}|' \
 		${WRKSRC}/src/meson.build
