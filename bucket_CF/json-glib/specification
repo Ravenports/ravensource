@@ -34,6 +34,8 @@ GNOME_COMPONENTS=	glib introspection
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 
+VAR_OPSYS[sunos]=	LDFLAGS=-lintl
+
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/installed-tests
 	${RM} -r ${STAGEDIR}${PREFIX}/libexec/installed-tests
