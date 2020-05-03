@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.01
+DEF[PORTVERSION]=	1.02
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Alien-GSL
@@ -33,20 +33,23 @@ DISTNAME=		Alien-GSL-${PORTVERSION}
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
 # |      runtime : Alien::Base
-# |      runtime : File::ShareDir
 # |      runtime : parent (perl 5.30.2 core) (perl 5.28.2 core)
+# |        build : IO::Socket::SSL
+# |        build : Net::SSLeay
 # |    configure : Alien::Base::ModuleBuild
 # |    configure : Module::Build
 
 [PERL_530].USES_ON=			perl:530,buildmod,run
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Alien-Build:single:530
-					perl-File-ShareDir:single:530
-[PERL_530].BUILD_DEPENDS_ON=		perl-Alien-Base-ModuleBuild:single:530
+[PERL_530].BUILD_DEPENDS_ON=		perl-IO-Socket-SSL:single:530
+					perl-Net-SSLeay:single:530
+					perl-Alien-Base-ModuleBuild:single:530
 					perl-Module-Build:single:530
 [PERL_528].USES_ON=			perl:528,buildmod,run
 [PERL_528].BUILDRUN_DEPENDS_ON=		perl-Alien-Build:single:528
-					perl-File-ShareDir:single:528
-[PERL_528].BUILD_DEPENDS_ON=		perl-Alien-Base-ModuleBuild:single:528
+[PERL_528].BUILD_DEPENDS_ON=		perl-IO-Socket-SSL:single:528
+					perl-Net-SSLeay:single:528
+					perl-Alien-Base-ModuleBuild:single:528
 					perl-Module-Build:single:528
 
 USES=			libtool
