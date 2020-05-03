@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2020.03.24
+DEF[PORTVERSION]=	2020.05.03
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		youtube-dl
@@ -38,3 +38,8 @@ post-extract:
 post-patch:
 	${REINPLACE_CMD} -e 's|python devscripts/|${PYTHON_CMD} devscripts/|' \
 		${WRKSRC}/Makefile
+
+post-install:
+	# there's no docs subpackage, so remove README.txt
+	# Worse, it's not even in $STD_DOCDIR
+	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/youtube_dl
