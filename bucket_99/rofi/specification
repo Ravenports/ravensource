@@ -27,12 +27,13 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		x11/rofi
 
 BUILD_DEPENDS=		check:single:standard
-
 BUILDRUN_DEPENDS=	libxkbcommon:single:standard
 			startup-notification:single:standard
 			xorg-xcb-util:single:standard
 			xorg-xcb-util-wm:single:standard
 			xorg-xcb-util-xrm:single:standard
+
+B_DEPS[sunos]=		libbsd4sol:single:standard
 
 USES=			bison gmake libtool pkgconfig shebangfix
 GNOME_COMPONENTS=	cairo gdkpixbuf librsvg pango
@@ -44,3 +45,9 @@ SHEBANG_FILES=		script/get_git_rev.sh
 SHEBANG_LANG=		bash
 SHEBANG_OLD_BASH=	"/usr/bin/env bash"
 SHEBANG_NEW_BASH=	/bin/sh
+
+VAR_OPSYS[sunos]=	CFLAGS=-I{{LOCALBASE}}/include/bsd
+			CONFIGURE_ENV=LIBS="-lbsd -lrt"
+
+post-patch:
+	${REINPLACE_CMD} -e 's/ -pedantic//' ${WRKSRC}/configure
