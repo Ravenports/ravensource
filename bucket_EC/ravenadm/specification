@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.53
+DEF[PORTVERSION]=	1.54
 DEF[PORTREVISION]=	0
 DEF[GPR]=		{{LOCALBASE}}/lib/gnat
 DEF[RELEASE_TAG]=	v${PORTVERSION}
@@ -31,13 +31,14 @@ LICENSE_SCHEME=		solo
 
 R_DEPS[sunos]=		mandoc:single:standard
 
-USES=			gprbuild
 SET_DEBUGGING_ON=	yes
+BUILD_WRKSRC=		{{WRKSRC}}/build
 
 [WATCHDOG].DESCRIPTION=			Use "watchdog" monitor to abort stalled builds
 [NCURSES].DESCRIPTION=			Activate options dialog and pretty build monitor
 [NCURSES].USES_ON=			ncurses
 [NCURSES].BUILD_DEPENDS_ON=		adacurses:primary:standard
+[NCURSES].MAKE_ENV_ON=			WITH_DISPLAY=1
 
 # We have to link ncurses dynamically to force the terminfo database
 # to be installed as well.  Otherwises a term error will probably occur.
@@ -73,12 +74,6 @@ post-patch-NCURSES-ON:
 		-e 's|Display\.Console|Display.Curses|' \
 		${WRKSRC}/src/portscan-operations.adb \
 		${WRKSRC}/src/pilot.adb
-
-do-build:
-	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
-		gprbuild -p -P ravenadm)
-	(cd ${WRKSRC}/ravenexec && ${SETENV} ${MAKE_ENV} \
-		${CC} ravenexec.c -o ../build/ravenexec)
 
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/ravenadm \
