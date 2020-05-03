@@ -40,5 +40,8 @@ CFLAGS=			-Wno-error=narrowing
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		PKGVER=${PORTVERSION:R}
 
+VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
+			LDFLAGS=-lnsl
+
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libsmpeg-${PORTVERSION:R}.so.${SOVERSION}
