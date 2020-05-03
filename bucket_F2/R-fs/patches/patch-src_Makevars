@@ -1,0 +1,19 @@
+--- src/Makevars.orig	2020-03-27 11:57:10 UTC
++++ src/Makevars
+@@ -8,6 +8,7 @@ OBJECTS = $(SOURCES:.cc=.o)
+ ifeq ($(UNAME), SunOS)
+ PKG_LIBS += -lkstat -lsendfile -lsocket -lxnet
+ OBJECTS +=  bsd/setmode.o bsd/strmode.o bsd/reallocarray.o
++CONFTGT = --build=i86-pc-solaris2.10
+ endif
+ ifeq ($(UNAME), FreeBSD)
+ PKG_LIBS += -lkvm
+@@ -27,7 +28,7 @@ $(SHLIB): libuv/.libs/libuv.a
+ 
+ libuv/Makefile:
+ 	(cd libuv \
+-	&& CC="$(CC)" CFLAGS="$(CFLAGS) $(CPPFLAGS) $(CPICFLAGS) $(C_VISIBILITY)" AR="$(AR)" RANLIB="$(RANLIB)" LDFLAGS="$(LDFLAGS)" ./configure --quiet)
++	&& CC="$(CC)" CFLAGS="$(CFLAGS) $(CPPFLAGS) $(CPICFLAGS) $(C_VISIBILITY)" AR="$(AR)" RANLIB="$(RANLIB)" LDFLAGS="$(LDFLAGS)" ./configure --quiet $(CONFTGT))
+ 
+ libuv/.libs/libuv.a: libuv/Makefile
+ 	$(MAKE) --directory=libuv \
