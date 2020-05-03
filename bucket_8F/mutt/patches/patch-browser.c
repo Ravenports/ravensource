@@ -1,4 +1,4 @@
---- browser.c.orig	2020-03-28 18:17:53 UTC
+--- browser.c.orig	2020-05-02 21:08:56 UTC
 +++ browser.c
 @@ -32,6 +32,7 @@
  #ifdef USE_IMAP
@@ -74,10 +74,10 @@
      while (tmp && mutt_strcmp (mutt_b2s (full_path), mutt_b2s (tmp->pathbuf)))
        tmp = tmp->next;
 +    check_maildir_times (tmp, &s);
-     if (tmp && Context &&
+     if (tmp && Context && !tmp->nopoll &&
          !mutt_strcmp (tmp->realpath, Context->realpath))
      {
-@@ -574,6 +609,7 @@ static int examine_mailboxes (MUTTMENU *
+@@ -579,6 +614,7 @@ static int examine_mailboxes (MUTTMENU *
  	s.st_mtime = st2.st_mtime;
      }
  

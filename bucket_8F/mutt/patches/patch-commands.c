@@ -1,6 +1,6 @@
---- commands.c.orig	2020-02-21 20:17:47 UTC
+--- commands.c.orig	2020-05-02 21:08:56 UTC
 +++ commands.c
-@@ -285,7 +285,7 @@ int mutt_display_message (HEADER *cur)
+@@ -302,7 +302,7 @@ int mutt_display_message (HEADER *cur)
      {
        if (cur->security & GOODSIGN)
        {

@@ -1,6 +1,6 @@
---- muttlib.c.orig	2020-03-28 18:17:53 UTC
+--- muttlib.c.orig	2020-05-02 21:08:56 UTC
 +++ muttlib.c
-@@ -877,16 +877,15 @@ void _mutt_buffer_mktemp (BUFFER *buf, c
+@@ -930,16 +930,15 @@ void _mutt_buffer_mktemp (BUFFER *buf, c
  void _mutt_mktemp (char *s, size_t slen, const char *prefix, const char *suffix,
                     const char *src, int line)
  {
@@ -23,7 +23,7 @@
  }
  
  /* these characters must be escaped in regular expressions */
-@@ -1563,7 +1562,16 @@ void mutt_FormatString (char *dest,		/*
+@@ -1667,7 +1666,16 @@ void mutt_FormatString (char *dest,		/*
        if (*src == '?')
        {
  	flags |= MUTT_FORMAT_OPTIONAL;
@@ -41,7 +41,7 @@
        }
        else
        {
-@@ -1579,12 +1587,12 @@ void mutt_FormatString (char *dest,		/*
+@@ -1683,12 +1691,12 @@ void mutt_FormatString (char *dest,		/*
  	  count++;
  	}
  	*cp = 0;
@@ -58,7 +58,7 @@
  
        if (flags & MUTT_FORMAT_OPTIONAL)
        {
-@@ -1597,6 +1605,12 @@ void mutt_FormatString (char *dest,		/*
+@@ -1701,6 +1709,12 @@ void mutt_FormatString (char *dest,		/*
  	count = 0;
          while (count < sizeof (ifstring) && *src && *src != '?' && *src != '&')
  	{
@@ -71,7 +71,7 @@
            *cp++ = *src++;
  	  count++;
  	}
-@@ -1609,7 +1623,13 @@ void mutt_FormatString (char *dest,		/*
+@@ -1713,7 +1727,13 @@ void mutt_FormatString (char *dest,		/*
  	count = 0;
  	while (count < sizeof (elsestring) && *src && *src != '?')
  	{

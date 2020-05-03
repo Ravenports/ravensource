@@ -1,4 +1,4 @@
---- mutt.h.orig	2020-03-28 18:17:53 UTC
+--- mutt.h.orig	2020-05-02 21:08:56 UTC
 +++ mutt.h
 @@ -165,6 +165,16 @@ typedef enum
    MUTT_WRITE_HEADER_MIME
@@ -25,7 +25,7 @@
  
    /* actions for mutt_pattern_comp/mutt_pattern_exec */
    MUTT_AND,
-@@ -411,6 +422,7 @@ enum
+@@ -415,6 +426,7 @@ enum
    OPTFCCCLEAR,
    OPTFLAGSAFE,
    OPTFOLLOWUPTO,
@@ -33,15 +33,7 @@
    OPTFORCENAME,
    OPTFORWDECODE,
    OPTFORWQUOTE,
-@@ -504,6 +516,7 @@ enum
-   OPTREVALIAS,
-   OPTREVNAME,
-   OPTREVREAL,
-+  OPTREVREPLY,
-   OPTRFC2047PARAMS,
-   OPTSAVEADDRESS,
-   OPTSAVEEMPTY,
-@@ -575,6 +588,7 @@ enum
+@@ -583,6 +595,7 @@ enum
    OPTSMIMEISDEFAULT,
    OPTSMIMESELFENCRYPT,
    OPTASKCERTLABEL,
