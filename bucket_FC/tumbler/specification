@@ -51,6 +51,8 @@ INSTALL_REQ_TOOLCHAIN=	yes
 SUB_FILES=		pkg-message
 SOVERSION=		${SOVERSION}
 
+VAR_OPSYS[sunos]=	LDFLAGS=-lintl
+
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/tumbler \
 		${STAGEDIR}${PREFIX}/share/doc/tumbler
