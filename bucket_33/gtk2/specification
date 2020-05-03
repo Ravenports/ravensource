@@ -40,6 +40,8 @@ INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 DISTNAME=		gtk+-${PORTVERSION}
 
+VAR_OPSYS[sunos]=	LDFLAGS=-lintl
+
 [CUPS].BROKEN_ON=			CUPS option not supported yet
 [CUPS].CONFIGURE_ENABLE_BOTH=		cups
 [CUPS].BUILDRUN_DEPENDS_ON=		cups:single:standard
