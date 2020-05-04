@@ -1,6 +1,6 @@
---- xvkbd.c.orig	2019-08-31 22:14:31 UTC
+--- xvkbd.c.orig	2020-05-04 04:34:19 UTC
 +++ xvkbd.c
-@@ -489,8 +489,8 @@ static int altgr_mask = 0;
+@@ -492,8 +492,8 @@ static int altgr_mask = 0;
  static int level3_shift_mask = 0;
  static KeySym altgr_keysym = NoSymbol;
  
@@ -11,7 +11,7 @@
  
  static Display *target_dpy = NULL;
  
-@@ -510,6 +510,8 @@ static void PopupFunctionKeyEditor(void)
+@@ -513,6 +513,8 @@ static void PopupFunctionKeyEditor(void)
  static void DeleteWindowProc(Widget w, XEvent *event, String *pars, Cardinal *n_pars);
  static void SaveProperty(void);
  
@@ -20,7 +20,7 @@
  /*
   * Search for window which has specified instance name (WM_NAME)
   * or class name (WM_CLASS).
-@@ -518,8 +520,7 @@ static Window FindWindow(Window top, cha
+@@ -521,8 +523,7 @@ static Window FindWindow(Window top, cha
  {
    Window w;
    Window *children, dummy;
@@ -30,7 +30,7 @@
    XClassHint hint;
    char *win_name;
  
-@@ -843,7 +844,9 @@ static int MyErrorHandler(Display *my_dp
+@@ -846,7 +847,9 @@ static int MyErrorHandler(Display *my_dp
   */
  static void SendEvent(XKeyEvent *event)
  {
@@ -40,7 +40,7 @@
  
    if (!appres.no_sync) {
      XSync(event->display, FALSE);
-@@ -1154,11 +1157,11 @@ static void SendKeyPressedEvent(KeySym k
+@@ -1157,11 +1160,11 @@ static void SendKeyPressedEvent(KeySym k
  
  #ifdef USE_XTEST
    if (appres.xtest && press_release == 0) {
@@ -54,7 +54,7 @@
  
      event.type = KeyRelease;
      event.state = 0;
-@@ -1374,7 +1377,7 @@ static	XtIntervalId save_private_dict_ti
+@@ -1377,7 +1380,7 @@ static	XtIntervalId save_private_dict_ti
  
  static void SetDefaultDictionary(void)
  {
@@ -63,7 +63,7 @@
    XtVaSetValues(props_dict_entry, XtNstring, dict_filename, NULL);
  }
  
-@@ -1391,7 +1394,7 @@ static void ReadCompletionDictionary(voi
+@@ -1394,7 +1397,7 @@ static void ReadCompletionDictionary(voi
    struct WORDLIST *p;
  
    if (strcmp(cur_dict_filename, dict_filename) == 0) return;
@@ -72,7 +72,7 @@
  
    if (!first) {
      int cnt = 0;
-@@ -1497,7 +1500,7 @@ static void SavePrivateDictionary(void)
+@@ -1522,7 +1525,7 @@ static void SavePrivateDictionary(void)
  
  static void AddToCompletionText(KeySym keysym)
  {
@@ -81,7 +81,7 @@
    struct WORDLIST *node_ptr;
    char ch;
  
-@@ -1704,7 +1707,7 @@ static void SendString(const char *str)
+@@ -1729,7 +1732,7 @@ static void SendString(const char *str)
  {
    const char *cp, *cp2;
    char key[50];
@@ -90,7 +90,7 @@
    int val;
    Window target_root, child, junk_w;
    int junk_i;
-@@ -1736,8 +1739,7 @@ static void SendString(const char *str)
+@@ -1761,8 +1764,7 @@ static void SendString(const char *str)
          } else {
            len = cp2 - cp - 1;
            if (sizeof(key) <= len) len = sizeof(key) - 1;
@@ -100,7 +100,7 @@
            KeyPressed(None, key, NULL);
            cp = cp2;
          }
-@@ -1785,11 +1787,12 @@ static void SendString(const char *str)
+@@ -1810,11 +1812,12 @@ static void SendString(const char *str)
  	if ('1' <= *cp && *cp <= '9') {
  	  usleep((*cp - '0') * 100000);
  	} else {
@@ -114,7 +114,7 @@
  	cp++;
  	if ('1' <= *cp && *cp <= '9') {
  	  if (appres.debug) fprintf(stderr, "xvkbd: XTestFakeButtonEvent(%d)\n", *cp - '0');
-@@ -1800,10 +1803,18 @@ static void SendString(const char *str)
+@@ -1825,10 +1828,18 @@ static void SendString(const char *str)
            fprintf(stderr, "%s: no digit after \"\\m\"\n",
                    PROGRAM_NAME);
  	}
@@ -134,7 +134,7 @@
  	target_root = RootWindow(target_dpy, DefaultScreen(target_dpy));
  	XQueryPointer(target_dpy, target_root, &junk_w, &child,
  		      &cur_x, &cur_y, &junk_i, &junk_i, &junk_u);
-@@ -1931,13 +1942,13 @@ static Boolean CheckShiftState(int row,
+@@ -1956,13 +1967,13 @@ static Boolean CheckShiftState(int row,
  static void RefreshShiftState(Boolean force)
  {
    static Boolean first = TRUE;
@@ -153,7 +153,7 @@
    int first_row, row, col;
    Boolean shifted;
    char *label;
-@@ -2029,7 +2040,7 @@ static void RefreshShiftState(Boolean fo
+@@ -2054,7 +2065,7 @@ static void RefreshShiftState(Boolean fo
  
      Window root, child;
      int root_x, root_y, x, y;
@@ -162,7 +162,7 @@
  
      XKeyEvent event;
  
-@@ -2045,28 +2056,28 @@ static void RefreshShiftState(Boolean fo
+@@ -2070,28 +2081,28 @@ static void RefreshShiftState(Boolean fo
      event.same_screen = TRUE;
      event.state = 0;
  
@@ -196,7 +196,7 @@
        event.keycode = XKeysymToKeycode(target_dpy, XK_Meta_L);
        event.type = (shift_state & meta_mask) ? KeyPress : KeyRelease;
        SendEvent(&event);
-@@ -2329,6 +2340,7 @@ static void PropsItemToggled(Widget w, c
+@@ -2354,6 +2365,7 @@ static void PropsItemToggled(Widget w, c
    XtVaGetValues(XtNameToWidget(props_panel, "*integrate_completion_panel"),
  		XtNstate, &appres.integrate_completion_panel, NULL);
  
@@ -204,7 +204,7 @@
    appres.key_click_duration = (int)XawToggleGetCurrent(click_buttons);
    appres.autoclick_delay = (int)XawToggleGetCurrent(autoclick_buttons);
  
-@@ -2401,7 +2413,7 @@ static void PopupPropsPanel(void)
+@@ -2426,7 +2438,7 @@ static void PopupPropsPanel(void)
    if (props_panel == None) {
      Widget label, button;
      Widget form, w;
@@ -213,7 +213,7 @@
      int val;
  
      props_panel = XtVaCreatePopupShell("props_panel", transientShellWidgetClass,
-@@ -2535,7 +2547,7 @@ static void OpenRemoteDisplay(Widget w,
+@@ -2560,7 +2572,7 @@ static void OpenRemoteDisplay(Widget w,
    focused_subwindow = None;
    if (target_dpy != NULL && target_dpy != dpy) XCloseDisplay(target_dpy);
  
@@ -222,7 +222,7 @@
    for (cp = name; isascii(*cp) && isprint(*cp); cp++) ;
    *cp = '\0';
  
-@@ -3062,7 +3074,7 @@ static Widget MakeKey(Widget parent, con
+@@ -3087,7 +3099,7 @@ static Widget MakeKey(Widget parent, con
    XtAddCallback(w, XtNcallback, (XtCallbackProc)KeyPressed, (XtPointer)name);
  
    if (label != NULL) {
@@ -231,7 +231,7 @@
      if (strcmp(str, "space") == 0) strcpy(str, "");
      len = strlen(str);
      if (3 <= len) {
-@@ -3133,7 +3145,7 @@ static void MakeKeypad(Widget form, Widg
+@@ -3158,7 +3170,7 @@ static void MakeKeypad(Widget form, Widg
  	       || (strncmp(keypad_shift[row][col], "KP_", 3) == 0
  		   && isdigit(keypad_shift[row][col][3])))
  	color = appres.general_background;
@@ -240,7 +240,7 @@
        if (strcmp(name, "Focus") != 0 && strcmp(name, "Num_Lock") != 0)
  	snprintf(name, sizeof(name), "pad%d,%d", row, col);
        key = MakeKey(keypad_box, XtNewString(name),
-@@ -3236,12 +3248,12 @@ static void MakeKeyboard(Boolean remake)
+@@ -3261,12 +3273,12 @@ static void MakeKeyboard(Boolean remake)
    Widget form, key, left;
    Pixel color;
    XFontStruct *font;
@@ -255,7 +255,7 @@
  
  #include "xvkbd.xbm"
  #include "iconify.xbm"
-@@ -3275,7 +3287,7 @@ static void MakeKeyboard(Boolean remake)
+@@ -3300,7 +3312,7 @@ static void MakeKeyboard(Boolean remake)
          
        left = None;
        for (col = 0; keys_normal[row][col] != NULL; col++) {
@@ -264,7 +264,7 @@
  	if (strcmp(name, "MainMenu") == 0) {
  	  Widget iconify_button = None;
  
-@@ -3320,8 +3332,8 @@ static void MakeKeyboard(Boolean remake)
+@@ -3345,8 +3357,8 @@ static void MakeKeyboard(Boolean remake)
  	    if (strcmp(name, "space") != 0) snprintf(name, sizeof(name), "%d,%d", row, col);
  	  }
  	  key = MakeKey(key_box[row], XtNewString(name), label, color);
@@ -275,7 +275,7 @@
  	    /* keys can be removed by setting its width to 1 */
  	    XtDestroyWidget(key);
  	    key = None;
-@@ -3357,7 +3369,7 @@ static void MakeKeyboard(Boolean remake)
+@@ -3382,7 +3394,7 @@ static void MakeKeyboard(Boolean remake)
      Window root;
      int x1, y1;
      unsigned int wd, ht, bd, dp;
@@ -284,7 +284,7 @@
  
      XGetGeometry(dpy, XtWindow(toplevel), &root, &x1, &y1, &wd, &ht, &bd, &dp);
      max_wd = XtScreen(toplevel)->width * appres.max_width_ratio;
-@@ -3376,16 +3388,16 @@ static void MakeKeyboard(Boolean remake)
+@@ -3401,16 +3413,16 @@ static void MakeKeyboard(Boolean remake)
  
    if (!appres.debug && key_box[first_row] != None) {
      if (appres.keypad) {
@@ -306,7 +306,7 @@
      }
    }
  
-@@ -3498,9 +3510,9 @@ static void ReadProperty(void)
+@@ -3523,9 +3535,9 @@ static void ReadProperty(void)
        && strlen(home) + strlen(appres.key_file) + 1 < sizeof(fkey_filename))
      snprintf(fkey_filename, sizeof(fkey_filename), "%s/%s", home, appres.key_file);
    else
@@ -318,7 +318,7 @@
  
    fp = fopen(fkey_filename, "r");
    if (fp == NULL) return;
-@@ -3513,9 +3525,9 @@ static void ReadProperty(void)
+@@ -3538,9 +3550,9 @@ static void ReadProperty(void)
  				  keyboard_layout, getenv("XENVIRONMENT"));
  	if (getenv("XENVIRONMENT") == NULL) layout_selected = TRUE;
        } else if (sscanf(&str[1], "dict_file %s", key) == 1) {
@@ -330,7 +330,7 @@
        } else if (sscanf(&str[1], "%s %d", key, &val) == 2) {
  	if (strcmp(key, "quick_modifiers") == 0)
  	  appres.quick_modifiers = val;
-@@ -3599,7 +3611,7 @@ static void FKeyMenuSelected(Widget w, c
+@@ -3624,7 +3636,7 @@ static void FKeyMenuSelected(Widget w, c
    else if (strncmp(key, "Shift-", strlen("Shift-")) == 0)
      snprintf(key2, sizeof(key2), "s:%s", &key[strlen("Shift-")]);
    else
@@ -339,7 +339,7 @@
  
    if (strcmp(cur_fkey, key2) != 0) {
      if (strlen(cur_fkey) != 0) {
-@@ -3622,7 +3634,7 @@ static void FKeyMenuSelected(Widget w, c
+@@ -3647,7 +3659,7 @@ static void FKeyMenuSelected(Widget w, c
  	prefix = "";
  	if (cur_fkey_value_mode[0] == 'c') prefix = "!";
  	else if (fkey_value[0] == '!' || fkey_value[0] == '\\') prefix = "\\";
@@ -348,7 +348,7 @@
        } else {  /* empty string - remove the entry for the function key */
  	if (sp != NULL) {
  	  if (sp2 != NULL) sp2->next = sp->next;
-@@ -3642,10 +3654,10 @@ static void FKeyMenuSelected(Widget w, c
+@@ -3667,10 +3679,10 @@ static void FKeyMenuSelected(Widget w, c
        FKeyValueMenuSelected(None, (value[0] == '!') ? "command" : "string");
  
        if (value[0] == '!' || value[0] == '\\') value = value + 1;
@@ -361,7 +361,7 @@
      }
    }
  }
-@@ -3845,8 +3857,10 @@ static void Autoclick(void)
+@@ -3870,8 +3882,10 @@ static void Autoclick(void)
  {
    StopAutoclick();
  
@@ -372,7 +372,7 @@
  }
  
  static void ShowBalloon(Widget w, XEvent *event, String *pars, Cardinal *n_pars)
-@@ -3975,7 +3989,9 @@ int main(int argc, char *argv[])
+@@ -4000,7 +4014,9 @@ int main(int argc, char *argv[])
    Boolean open_keypad_panel = FALSE;
    char ch;
    Window child;
@@ -382,7 +382,7 @@
  
    argc1 = argc;
    argv1 = malloc(sizeof(char *) * (argc1 + 5));
-@@ -4180,14 +4196,14 @@ char *setlocale(int category, const char
+@@ -4207,14 +4223,14 @@ char *setlocale(int category, const char
    if (locale == NULL) {
      return cur_locale;
    } else if (category == LC_ALL) {
