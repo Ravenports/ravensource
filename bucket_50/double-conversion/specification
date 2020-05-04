@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	3.1.5
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		double-conversion
+VERSION=		${PORTVERSION}
+KEYWORDS=		math devel
+VARIANTS=		standard
+SDESC[standard]=	Conversion routines for IEEE doubles
+HOMEPAGE=		https://github.com/google/double-conversion
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/google:double-conversion:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/double-conversion
+
+USES=			cmake
+CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libdouble-conversion.so
