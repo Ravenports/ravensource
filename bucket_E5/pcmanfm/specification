@@ -4,7 +4,7 @@ DEF[PORTVERSION]=	${LIBFM_VER}
 
 NAMEBASE=		pcmanfm
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		x11_fm
 VARIANTS=		standard
 SDESC[standard]=	Extremely fast and lightweight file manager
@@ -15,14 +15,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/pcmanfm/PCManFM%20%2B%20Libfm%20%28tarball%20release%29/PCManFM/
 DISTFILE[1]=		pcmanfm-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/pcmanfm.h
 LICENSE_SCHEME=		solo
@@ -34,7 +34,7 @@ BUILDRUN_DEPENDS=	libfm:primary:standard
 			freetype:primary:standard
 
 USES=			pkgconfig gettext-runtime gettext-tools gmake
-			desktop-utils:single
+			desktop-utils:primary
 GNOME_COMPONENTS=	gtk3 gdkpixbuf intltool cairo
 XORG_COMPONENTS=	x11
 MUST_CONFIGURE=		gnu
