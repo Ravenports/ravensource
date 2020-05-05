@@ -1,9 +1,9 @@
-DEF[PORTVERSION]=	0.92.5
+DEF[PORTVERSION]=	1.0
+DEF[EXTRACT_DIR]=	inkscape-1.0_2020-05-01_4035a4fb49
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		inkscape
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		graphics editors
 VARIANTS=		standard
 SDESC[standard]=	Scalable Vector Graphics (SVG) editor
@@ -12,9 +12,9 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://media.inkscape.org/dl/resources/file/
-DISTFILE[1]=		inkscape-${PORTVERSION}.tar.bz2:main
+DISTFILE[1]=		inkscape-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[standard]=	complete primary nls examples docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -42,18 +42,21 @@ BUILDRUN_DEPENDS=	popt:single:standard
 			boost-libraries:rest:python_default
 			aspell:primary:standard
 			potrace:library:standard
+			double-conversion:single:standard
+			libsoup:primary:standard
+# should be GNOME_COMPONENT in ravenadm?
+			gdl:primary:standard
 
 USES=			cmake cpe png jpeg pkgconfig python:build perl:build
 			shebangfix gettext-runtime gettext-tools
 			desktop-utils:primary gnome-icons:primary
-GNOME_COMPONENTS=	libxslt gtkmm24
+GNOME_COMPONENTS=	libxslt gtkmm30
 XORG_COMPONENTS=	x11
-SHEBANG_FILES=		cxxtest/cxxtestgen.pl
-			share/extensions/*.p[lm]
-			share/extensions/*.py
+SHEBANG_FILES=		share/extensions/*.py
 			share/extensions/genpofiles.sh
+			share/templates/create_default_templates.py
 			share/*/i18n.py
-			fix-roff-punct
+			man/fix-roff-punct
 # ImageMagick version 6 is required
 CMAKE_ARGS=		-DWITH_GNOME_VFS:BOOL=OFF
 			-DWITH_DBUS:BOOL=OFF
@@ -71,21 +74,22 @@ CMAKE_ARGS=		-DWITH_GNOME_VFS:BOOL=OFF
 			-DWITH_NLS:BOOL=ON
 			-DBUILD_SHARED_LIBS:BOOL=OFF
 INSTALL_REQ_TOOLCHAIN=	yes
+DISTNAME=		${EXTRACT_DIR}
 
 post-patch:
-	${REINPLACE_CMD} -e 's|COMMAND python|COMMAND ${PYTHON_VERSION}|g' \
+	${REINPLACE_CMD} -e 's|COMMAND python3|COMMAND ${PYTHON_VERSION}|g' \
 		${WRKSRC}/share/*/CMakeLists.txt
-	# Obtained from Arch Linux
-	${REINPLACE_CMD} \
-		-e 's|gTrue|true|g' \
-		-e 's|gFalse|false|g' \
-		-e 's|GBool|bool|g' \
-		${WRKSRC}/src/extension/internal/pdfinput/pdf-parser.cpp \
-		${WRKSRC}/src/extension/internal/pdfinput/pdf-parser.h
-	# Fix with poppler 0.73
-	${REINPLACE_CMD} -E '/#include "goo\/gtypes.h"/d' \
-		${WRKSRC}/src/extension/internal/pdfinput/pdf-parser.h
 
 post-install:
+	${MV} ${STAGEDIR}${PREFIX}/share/inkscape/examples \
+		${STAGEDIR}${STD_EXAMPLESDIR}
+	${MV} ${STAGEDIR}${PREFIX}/share/inkscape/doc \
+		${STAGEDIR}${STD_DOCDIR}
+	${MV} ${STAGEDIR}${PREFIX}/share/inkscape/tutorials \
+		${STAGEDIR}${STD_DOCDIR}/
+	${RM} ${STAGEDIR}${STD_DOCDIR}/COPYING
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/inkscape/libinkscape_base.so
+	# there's some kind of bug in ravenadm perhaps?
+	# if in manifest, says file is not there, but if removed from
+	# manifest, says file is orphaned.  For now remove it.
+	${RM} ${STAGEDIR}${PREFIX}/share/inkscape/templates/default.es_MX.svg
