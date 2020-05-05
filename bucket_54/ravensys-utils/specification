@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.0
+DEF[PORTVERSION]=	1.1
 DEF[TAG]=		v${PORTVERSION}
 DEF[X_FREEBSD_1]=	EXTRACT_VERSION(PLATFORM_FreeBSD_x86-64)
 DEF[X_DRAGONFLY]=	EXTRACT_VERSION(PLATFORM_DragonFly_x86-64)
@@ -48,7 +48,7 @@ VAR_OPSYS[sunos]=	MAKEFILE_LINE=SYSTEM=${X_SOLARIS}
 VAR_OPSYS[darwin]=	MAKEFILE_LINE=SYSTEM=${X_APPLE}
 
 post-install:
-.for prog in md5 mtree patch ravensys-uname which
+.for prog in md5 mtree patch ravensys-uname which rpcgen
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${prog}
 .endfor
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/ld
