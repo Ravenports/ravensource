@@ -4,7 +4,7 @@ gfx/skia/skia/src/core/SkCpu.cpp:81:27: error: use of undeclared identifier 'get
         uint32_t hwcaps = getauxval(AT_HWCAP);
                           ^
 
---- gfx/skia/skia/src/core/SkCpu.cpp.orig	2020-01-03 18:57:55 UTC
+--- gfx/skia/skia/src/core/SkCpu.cpp.orig	2020-04-29 20:59:56 UTC
 +++ gfx/skia/skia/src/core/SkCpu.cpp
 @@ -72,6 +72,20 @@
          return features;

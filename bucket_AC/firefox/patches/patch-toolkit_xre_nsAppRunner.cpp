@@ -1,6 +1,6 @@
---- toolkit/xre/nsAppRunner.cpp.orig	2020-04-03 19:35:39 UTC
+--- toolkit/xre/nsAppRunner.cpp.orig	2020-04-29 21:55:18 UTC
 +++ toolkit/xre/nsAppRunner.cpp
-@@ -4991,7 +4991,13 @@ bool BrowserTabsRemoteAutostart() {
+@@ -5003,7 +5003,13 @@ bool BrowserTabsRemoteAutostart() {
    }
  
    // Uber override pref for emergency blocking

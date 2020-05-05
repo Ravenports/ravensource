@@ -1,4 +1,4 @@
---- third_party/rust/libc/src/unix/bsd/freebsdlike/dragonfly/mod.rs.orig	2020-01-08 01:23:40 UTC
+--- third_party/rust/libc/src/unix/bsd/freebsdlike/dragonfly/mod.rs.orig	2020-04-29 21:01:09 UTC
 +++ third_party/rust/libc/src/unix/bsd/freebsdlike/dragonfly/mod.rs
 @@ -7,6 +7,8 @@ pub type nlink_t = u32;
  pub type blksize_t = i64;
