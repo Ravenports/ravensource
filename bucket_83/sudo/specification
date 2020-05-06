@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	1.8.31p1
 
 NAMEBASE=		sudo
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Allows restricted root access for specified users
@@ -56,6 +56,8 @@ post-patch:
 		${WRKSRC}/plugins/sudoers/Makefile.in
 	${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|g' \
 		${WRKSRC}/plugins/sudoers/sudoers.in
+	${REINPLACE_CMD} -e "/mansectsu='1m'/d" -e "/mansectform='4'/d" \
+		${WRKSRC}/configure
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/pam.d
