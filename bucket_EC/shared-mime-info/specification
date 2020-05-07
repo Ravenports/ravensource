@@ -1,5 +1,4 @@
-DEF[PORTVERSION]=	1.15
-DEF[HASH]=		b27eb88e4155d8fccb8bb3cd12025d5b
+DEF[PORTVERSION]=	2.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		shared-mime-info
@@ -11,11 +10,11 @@ HOMEPAGE=		http://www.freedesktop.org/wiki/Software/shared-mime-info
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-# SITES[main]=		http://people.freedesktop.org/~hadess/
-SITES[main]=		https://gitlab.freedesktop.org/xdg/shared-mime-info/uploads/${HASH}/
-DISTFILE[1]=		shared-mime-info-${PORTVERSION}.tar.xz:main
+SITES[main]=		https://gitlab.freedesktop.org/xdg/shared-mime-info/-/archive/${PORTVERSION}/
+DISTFILE[1]=		shared-mime-info-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+# we can't rename single to primary, it's a USES module
+SPKGS[standard]=	complete single nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,20 +27,18 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		misc/shared-mime-info
 
 BUILD_DEPENDS=		itstool:single:standard
-USES=			pkgconfig gmake gettext-tools
+			xmlto:single:standard
+
+USES=			pkgconfig meson gettext-tools
 GNOME_COMPONENTS=	glib libxml2 intltool
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-update-mimedb
-MAKE_ARGS=		pkgconfigdir={{PREFIX}}/lib/pkgconfig
-SINGLE_JOB=		yes
 
 SUB_FILES=		pkg-install-single
 SUB_LIST=		MIMEDIRS="{{CLEAN_MIMEDIRS}}"
 
 post-extract:
 	${AWK} '/Copyright/,/file named COPYING/' \
-		${WRKSRC}/update-mime-database.c > ${WRKDIR}/TERMS
+		${WRKSRC}/src/update-mime-database.c > ${WRKDIR}/TERMS
 
 post-patch:
 	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g' \
-		${WRKSRC}/update-mime-database.c
+		${WRKSRC}/src/update-mime-database.c

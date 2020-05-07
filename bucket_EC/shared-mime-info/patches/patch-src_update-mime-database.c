@@ -1,5 +1,5 @@
---- update-mime-database.c.orig	2018-07-24 11:57:08 UTC
-+++ update-mime-database.c
+--- src/update-mime-database.c.orig	2020-05-06 14:01:04 UTC
++++ src/update-mime-database.c
 @@ -636,7 +636,8 @@ static void remove_old(Type *type, xmlNo
  		}
  	}
