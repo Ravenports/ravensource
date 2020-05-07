@@ -279,6 +279,7 @@ function inline_fix_setup ($namebase, $src) {
        "pandas"       => '/ext_modules=/d',
        "numpy"        => 's|            generate_cython[(][)]|            pass|',
        "scipy"        => '/run_build = parse/ s|par.*ds[(][)]|False|',
+       "ddt"          => false,
        "soupsieve"    => false,
        "django-colorful" => false,
    );
@@ -320,6 +321,10 @@ function inline_fix_setup ($namebase, $src) {
            case "numpy":
                $xf = $src . "/numpy/__init__.py";
                shell_exec ("sed -i.bak -e '/Running from numpy/ s/sys.*[)]/pass/' $xf");
+               break;
+           case "ddt":
+               $xf = $src . "/ddt.py";
+               shell_exec ("sed -i.bak -e '/nottest/d' $xf");
                break;
        }
    }
