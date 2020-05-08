@@ -1,4 +1,4 @@
---- vendor/libc/src/lib.rs.orig	2020-04-21 00:01:49 UTC
+--- vendor/libc/src/lib.rs.orig	2020-05-05 01:35:38 UTC
 +++ vendor/libc/src/lib.rs
 @@ -27,7 +27,7 @@
      feature = "rustc-dep-of-std",
