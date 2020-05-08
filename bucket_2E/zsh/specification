@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	5.8
 
 NAMEBASE=		zsh
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		shells
 VARIANTS=		standard
 SDESC[standard]=	Interactive Z Shell
@@ -31,6 +31,7 @@ FPC_EQUIVALENT=		shells/zsh
 BUILD_DEPENDS=		pcre:static:standard
 			gdbm:primary:static
 BUILDRUN_DEPENDS=	pcre:shared:standard
+BR_DEPS[sunos]=		termcap:single:standard
 
 USES=			autoreconf iconv ncurses shebangfix
 SINGLE_JOB=		yes
@@ -52,6 +53,10 @@ CONFIGURE_ARGS=		--with-tcsetpgrp
 CONFIGURE_ENV=		LIBS=-lncurses
 CPPFLAGS=		-DBOOL_DEFINED
 			-I{{NCURSESINC}}
+VAR_OPSYS[sunos]=	CPPFLAGS=-D_XPG6
+			CPPFLAGS=-DHAVE_BOOLCODES
+			LDFLAGS=-ltinfo
+
 PLIST_SUB=		ZSH_VER="${PORTVERSION}"
 INSTALL_REQ_TOOLCHAIN=	yes
 
