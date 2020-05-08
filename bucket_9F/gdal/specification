@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.0.4
+DEF[PORTVERSION]=	3.1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gdal
@@ -39,7 +39,7 @@ SINGLE_JOB=		yes
 USES=			gmake png jpeg iconv sqlite pkgconfig
 MAKEFILE=		GNUmakefile
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--datadir={{LOCALBASE}}/share/gdal
+CONFIGURE_ARGS=		--datadir={{LOCALBASE}}/share
 			--enable-static=yes
 			--with-geotiff={{LOCALBASE}}
 			--with-gif={{LOCALBASE}}
@@ -93,7 +93,6 @@ post-patch:
 	${RM} -r ${WRKSRC}/frmts/jpeg/libjpeg12/
 	${RM} -r ${WRKSRC}/frmts/png/libpng/
 	${RM} -r ${WRKSRC}/frmts/zlib/
-	# ${RM} -r ${WRKSRC}/ogr/ogrsf_frmts/geojson/libjson/
 
 post-install:
 	(cd ${WRKSRC}/gnm/ && \
