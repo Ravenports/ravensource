@@ -1,0 +1,10 @@
+Termcap describes the capabilities of various character-cell terminals. 
+Various programs like shells or editors need to know them. This package
+is only needed on operating systems that don't provide a capabilites db.
+
+This version of the termcap file contains some entries that are more than 
+1023 bytes long, which is the largest value that is safe to use with the 
+many historical applications that only allocate a 1024 byte termcap buffer 
+(telnet, for example).  If you make sure that all of your programs 
+allocate buffers of at least 2500 bytes, or let the termcap library do it 
+by passing a NULL pointer, it is safe to use this termcap file.
