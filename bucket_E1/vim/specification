@@ -4,6 +4,7 @@ DEF[VIM_VER]=		vim${PORTVERSION:R:S|.||g}
 
 NAMEBASE=		vim
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		editors
 VARIANTS=		standard loaded
 SDESC[standard]=	VIsual editor iMproved (basic options)
@@ -15,15 +16,15 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/vim:vim:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary nls
 SPKGS[loaded]=		complete primary nls
 
 OPTIONS_AVAILABLE=	LOADED
 OPTIONS_STANDARD=	none
 VOPTS[loaded]=		LOADED=ON
 
-LICENSE=		CUSTOM1:single CUSTOM2:single
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE=		CUSTOM1:primary CUSTOM2:primary
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_FILE=		CUSTOM1:{{WRKDIR}}/VIM_LICENSE
 			CUSTOM2:{{WRKDIR}}/DOC_LICENSE
 LICENSE_NAME=		CUSTOM1:"VIM License"
@@ -37,8 +38,8 @@ FPC_EQUIVALENT=		editors/vim
 RUN_DEPENDS=		cscope:single:standard
 			ctags:single:standard
 
-USES=			cpe iconv ncurses pkgconfig shebangfix gmake
-			desktop-utils:single
+USES=			cpe gettext-runtime gettext-tools iconv ncurses pkgconfig
+			shebangfix gmake desktop-utils:primary
 SINGLE_JOB=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
 BUILD_TARGET=		#empty
@@ -49,6 +50,7 @@ MAKE_ARGS=		CC="{{CC}}"
 			VIMRCLOC={{PREFIX}}/etc/vim
 			CONF_OPT_MULTIBYTE=--enable-multibyte
 			CONF_OPT_CSCOPE=--enable-cscope
+			CONF_OPT_NLS=--enable-nls
 PLIST_SUB=		VIM_VER=${VIM_VER}
 SHEBANG_FILES=		runtime/tools/demoserver.py
 			runtime/tools/efm_perl.pl
@@ -61,11 +63,9 @@ CPE_VERSION=		${PORTVERSION:R}
 					CONF_OPT_PYTHON="--disable-pythoninterp --disable-python3interp"
 					CONF_OPT_RUBY=--disable-rubyinterp
 					CONF_OPT_TCL=--disable-tclinterp
-					CONF_OPT_NLS=--disable-nls
-[LOADED].USES_ON=			gettext-runtime gettext-tools desktop-utils gnome-icons
+[LOADED].USES_ON=			gnome-icons
 					lua perl python ruby tcl
-[LOADED].MAKE_ARGS_ON=			CONF_OPT_NLS=--enable-nls
-					CONF_OPT_FEAT=--with-features=huge
+[LOADED].MAKE_ARGS_ON=			CONF_OPT_FEAT=--with-features=huge
 					CONF_OPT_INPUT=--enable-xim
 					CONF_OPT_OUTPUT=--enable-fontset
 					CONF_OPT_GUI=--enable-gui=gtk3
