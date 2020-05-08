@@ -35,6 +35,11 @@ USES=			autoreconf libtool pkgconfig shebangfix
 			jpeg png mime-info:single
 SHEBANG_GLOB=		*.sh
 MUST_CONFIGURE=		gnu
+
+# examples/heif_convert.cc fails to compile on sunos, disable
+# examples for now to make the port at least build at all.
+VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--disable-examples
+
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 
