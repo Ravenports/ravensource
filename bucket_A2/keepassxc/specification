@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.5.4
 
 NAMEBASE=		keepassxc
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Community fork of the KeePassX password manager
@@ -13,21 +14,21 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/keepassxreboot/keepassxc/releases/download/${PORTVERSION}/
 DISTFILE[1]=		keepassxc-${PORTVERSION}-src.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2:single
-			GPLv3:single
-			BSD3CLAUSE:single
-			MIT:single
-			LGPL20:single
-			LGPL21:single
-			LGPL3+:single
-			CUSTOM1:single
-			CUSTOM2:single
-LICENSE_TERMS=		single:{{WRKSRC}}/COPYING
+LICENSE=		GPLv2:primary
+			GPLv3:primary
+			BSD3CLAUSE:primary
+			MIT:primary
+			LGPL20:primary
+			LGPL21:primary
+			LGPL3+:primary
+			CUSTOM1:primary
+			CUSTOM2:primary
+LICENSE_TERMS=		primary:{{WRKSRC}}/COPYING
 LICENSE_FILE=		GPLv2:{{WRKSRC}}/LICENSE.GPL-2
 			GPLv3:{{WRKSRC}}/LICENSE.GPL-3
 			BSD3CLAUSE:{{WRKSRC}}/LICENSE.BSD
@@ -43,8 +44,8 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		security/keepassxc
 
-USES=			cmake pkgconfig qt5 desktop-utils:single
-			mime-info:single
+USES=			cmake pkgconfig qt5 desktop-utils:primary
+			mime-info:primary
 BUILDRUN_DEPENDS=	argon2:single:standard
 			libsodium:single:standard
 			qrencode:single:standard
