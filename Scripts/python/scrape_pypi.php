@@ -266,6 +266,7 @@ function inline_fix_setup ($namebase, $src) {
        "intervaltree" => '/print("Version/d; s/print("!!!.*/    pass/',
        "eyeD3"        => false,
        "aniso8601"    => '/install_requires=/d',
+       'Markdown'     => '/install_requires=/ s|;.*[[:punct:]]"|"|',
        "borgbackup"   => '/Detected/d',
        "compreffor"   => '/print/d',
        "cattrs"       => '/python_version/d',
