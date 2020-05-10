@@ -1,4 +1,4 @@
---- src/tilda.c.orig	2020-05-03 19:20:55 UTC
+--- src/tilda.c.orig	2020-05-09 10:39:43 UTC
 +++ src/tilda.c
 @@ -13,6 +13,10 @@
   * You should have received a copy of the GNU Library General Public
