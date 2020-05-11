@@ -36,7 +36,7 @@ BUILDRUN_DEPENDS=	icu:single:standard
 			xz:single:standard
 			bzip2:shared:standard
 
-USES=			iconv c++:rest,python zlib
+USES=			cpe iconv c++:rest,python zlib
 DISTNAME=		boost_${BOOSTVER}
 BUILD_TARGET=		stage
 MAKE_ARGS=		--layout=system
@@ -66,6 +66,8 @@ SOVERSION=		${SOVERSION}
 PLIST_SUB=		BOOSTVER=${PORTVERSION}
 			SOMAJMIN=${PORTVERSION:R}
 			PYLIB_SUFFIX={{PYTHON_SUFFIX}}
+CPE_VENDOR=		boost
+CPE_PRODUCT=		boost
 
 VAR_OPSYS[freebsd]=	MAKE_ARGS=pch=off
 

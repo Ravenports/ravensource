@@ -39,7 +39,7 @@ BUILDRUN_DEPENDS=	pcre:static:standard
 RUN_DEPENDS=		zlib:static:standard
 
 USES=			gettext-tools gettext-runtime gmake libtool perl:build
-			pkgconfig python:build shebangfix zlib meson iconv
+			pkgconfig python:build shebangfix zlib meson iconv cpe
 MESON_ARGS=		-Diconv=external
 			-Dselinux=disabled
 			-Dxattr=false
@@ -52,6 +52,7 @@ MESON_ARGS=		-Diconv=external
 			-Db_lundef=false
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
+CPE_VENDOR=		gnome
 SHEBANG_FILES=		*/*.pl
 			{{pyscripts}}
 PLIST_SUB=		LIBVERSION=${LIBVERSION}

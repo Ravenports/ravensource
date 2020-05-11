@@ -30,11 +30,13 @@ FPC_EQUIVALENT=		sysutils/fusefs-libs
 # FUSE not available on solaris until release 11 (tbc)
 NOT_FOR_OPSYS=		dragonfly sunos
 
-USES=			iconv libtool autoreconf gettext-tools
+USES=			cpe iconv libtool autoreconf gettext-tools
 INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-pkgconfigdir={{PREFIX}}/lib/pkgconfig
 CONFIGURE_ENV=		MOUNT_FUSE_PATH={{PREFIX}}/sbin
+CPE_VENDOR=		fuse_project
+CPE_PRODUCT=		fuse
 SOVERSION=		${PORTVERSION}
 
 pre-configure:
