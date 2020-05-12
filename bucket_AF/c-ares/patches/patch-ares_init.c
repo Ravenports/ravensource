@@ -6,9 +6,9 @@ Author: Peter Pentchev <roam@FreeBSD.org>
 Forwarded: no
 Last-Update: 2010-12-19
 
---- ares.h.orig	2018-10-10 21:20:12 UTC
+--- ares.h.orig	2019-08-06 14:29:37 UTC
 +++ ares.h
-@@ -274,6 +274,14 @@ struct ares_options {
+@@ -279,6 +279,14 @@ struct ares_options {
    char *resolvconf_path;
  };
  
@@ -23,7 +23,7 @@ Last-Update: 2010-12-19
  struct hostent;
  struct timeval;
  struct sockaddr;
-@@ -663,6 +671,8 @@ CARES_EXTERN const char *ares_inet_ntop(
+@@ -722,6 +730,8 @@ CARES_EXTERN const char *ares_inet_ntop(
  CARES_EXTERN int ares_inet_pton(int af, const char *src, void *dst);
  
  
@@ -32,9 +32,9 @@ Last-Update: 2010-12-19
  #ifdef  __cplusplus
  }
  #endif
---- ares_init.c.orig	2018-10-10 21:20:12 UTC
+--- ares_init.c.orig	2020-03-12 08:02:50 UTC
 +++ ares_init.c
-@@ -2457,6 +2457,36 @@ static int sortlist_alloc(struct apatter
+@@ -2462,6 +2462,36 @@ static int sortlist_alloc(struct apatter
    return 1;
  }
  
