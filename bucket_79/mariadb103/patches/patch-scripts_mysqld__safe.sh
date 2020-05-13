@@ -1,6 +1,6 @@
---- scripts/mysqld_safe.sh.orig	2020-01-26 18:37:28 UTC
+--- scripts/mysqld_safe.sh.orig	2020-05-09 22:11:44 UTC
 +++ scripts/mysqld_safe.sh
-@@ -555,11 +555,11 @@ fi
+@@ -562,11 +562,11 @@ fi
  
  if test -z "$MYSQL_HOME"
  then 

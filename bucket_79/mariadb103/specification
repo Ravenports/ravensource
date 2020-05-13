@@ -114,9 +114,9 @@ post-configure:
 
 post-install:
 	${RM} ${STAGEDIR}${STD_DOCDIR}/COPYING
-	${MV} ${STAGEDIR}${PREFIX}/share/pkgconfig/mariadb.pc \
+	${MV} ${STAGEDIR}${PREFIX}/lib/mysql/pkgconfig/mariadb.pc \
 		${STAGEDIR}${PREFIX}/lib/pkgconfig/
-	${RMDIR} ${STAGEDIR}${PREFIX}/share/pkgconfig
+	${RMDIR} ${STAGEDIR}${PREFIX}/lib/mysql/pkgconfig
 
 	# strip plugins and libraries
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/libmariadb.so
