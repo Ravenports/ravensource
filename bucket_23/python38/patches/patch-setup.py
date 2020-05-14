@@ -1,4 +1,4 @@
---- setup.py.orig	2019-12-18 17:21:23 UTC
+--- setup.py.orig	2020-05-13 17:31:54 UTC
 +++ setup.py
 @@ -25,7 +25,10 @@ TEST_EXTENSIONS = True
  
