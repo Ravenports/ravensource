@@ -1,4 +1,4 @@
---- src/util/u_thread.h.orig	2020-04-29 22:48:25 UTC
+--- src/util/u_thread.h.orig	2020-05-14 16:50:14 UTC
 +++ src/util/u_thread.h
 @@ -73,9 +73,9 @@ static inline thrd_t u_thread_create(int
  static inline void u_thread_setname( const char *name )
