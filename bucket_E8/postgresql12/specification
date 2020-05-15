@@ -18,11 +18,10 @@ SITES[main]=		PGSQL/source/v${PORTVERSION}
 DISTFILE[1]=		postgresql-${PORTVERSION}.tar.bz2:main
 DIST_SUBDIR=		postgresql
 
-SPKGS[standard]=	complete server client contrib plperl plpython pltcl docs
+SPKGS[standard]=	complete server client contrib plperl plpython pltcl docs nls
 
-OPTIONS_AVAILABLE=	NLS
-OPTIONS_STANDARD=	NLS
-OPT_ON[all]=		NLS
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
 
 LICENSE=		PostgreSQL:server
 LICENSE_FILE=		PostgreSQL:{{WRKSRC}}/COPYRIGHT
@@ -62,6 +61,7 @@ GROUPS=			${PG_GROUP}
 USERGROUP_SPKG=		server
 
 USES=			bison gmake perl:build tcl:build ssl python:build zlib
+			gettext-runtime gettext-tools
 DISTNAME=		postgresql-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-libraries="{{PREFIX}}/lib"
@@ -74,6 +74,7 @@ CONFIGURE_ARGS=		--with-libraries="{{PREFIX}}/lib"
 			--with-python
 			--with-tcl
 			--without-gssapi
+			--enable-nls
 CONFIGURE_ENV=		PTHREAD_LIBS="-lpthread"
 			TCLSH="{{TCLSH}}"
 			pgac_cv_path_stylesheets={{PREFIX}}/share/sgml/docbook/dsssl/modular
@@ -103,9 +104,6 @@ VAR_OPSYS[darwin]=	CONFIGURE_ARGS=--with-template=darwin
 			CONFIGURE_ARGS=--with-uuid=e2fs
 VAR_OPSYS[linux]=	CONFIGURE_ARGS=--with-template=linux
 			CONFIGURE_ARGS=--with-uuid=ossp
-
-[NLS].CONFIGURE_ENABLE_BOTH=		nls
-[NLS].USES_ON=				gettext-runtime gettext-tools
 
 post-patch-sunos:
 	${REINPLACE_CMD} -e '/sqlmansect/d' \
