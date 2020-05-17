@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.17.0
+DEF[PORTVERSION]=	1.18.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		wayland
@@ -30,7 +30,7 @@ FPC_EQUIVALENT=		graphics/wayland
 # start with dragonfly
 ONLY_FOR_OPSYS=		dragonfly
 
-USES=			autoreconf gmake libtool pkgconfig
+USES=			meson pkgconfig
 
 BUILD_DEPENDS=		libxslt:single:standard
 			expat:static:standard
@@ -43,9 +43,8 @@ BUILDRUN_DEPENDS=	libffi:single:standard
 			expat:shared:standard
 
 GNOME_COMPONENTS=	libxml2
-MUST_CONFIGURE=		gnu
 # Graphviz's dot segfaults immediately since DF 5.8
-CONFIGURE_ARGS=		--disable-documentation
+MESON_ARGS=		-Ddocumentation=false
 
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
