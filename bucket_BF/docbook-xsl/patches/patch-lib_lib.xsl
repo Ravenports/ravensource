@@ -6,11 +6,12 @@ Bug-Debian: https://bugs.debian.org/750593
 
 --- lib/lib.xsl.orig	2016-12-09 22:41:39 UTC
 +++ lib/lib.xsl
-@@ -6,7 +6,10 @@
+@@ -6,7 +6,11 @@
  
       This module implements DTD-independent functions
  
 -     ******************************************************************** --><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
++     -->
 +<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 +                xmlns:str="http://exslt.org/strings"
 +                exclude-result-prefixes="str"
