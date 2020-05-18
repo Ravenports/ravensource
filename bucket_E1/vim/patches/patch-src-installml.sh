@@ -1,4 +1,4 @@
---- src/installml.sh.orig	2020-05-14 21:20:55 UTC
+--- src/installml.sh.orig	2020-05-17 21:34:42 UTC
 +++ src/installml.sh
 @@ -53,16 +53,16 @@ if test $what = "install" -a \( -f $dest
     fi
