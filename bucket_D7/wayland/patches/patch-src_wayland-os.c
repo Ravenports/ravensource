@@ -1,5 +1,5 @@
---- src/wayland-os.c.orig	2018-07-20 14:23:23.966930000 +0300
-+++ src/wayland-os.c	2018-07-20 14:27:15.698222000 +0300
+--- src/wayland-os.c.orig	2020-02-11 23:46:03 UTC
++++ src/wayland-os.c
 @@ -30,7 +30,7 @@
  #include <unistd.h>
  #include <fcntl.h>
@@ -9,7 +9,7 @@
  
  #include "../config.h"
  #include "wayland-os.h"
-@@ -62,11 +62,13 @@
+@@ -62,11 +62,13 @@ wl_os_socket_cloexec(int domain, int typ
  {
  	int fd;
  
@@ -23,7 +23,7 @@
  
  	fd = socket(domain, type, protocol);
  	return set_cloexec_or_close(fd);
-@@ -121,6 +123,7 @@
+@@ -121,6 +123,7 @@ recvmsg_cloexec_fallback(int sockfd, str
  ssize_t
  wl_os_recvmsg_cloexec(int sockfd, struct msghdr *msg, int flags)
  {
@@ -31,7 +31,7 @@
  	ssize_t len;
  
  	len = recvmsg(sockfd, msg, flags | MSG_CMSG_CLOEXEC);
-@@ -128,24 +131,17 @@
+@@ -128,24 +131,17 @@ wl_os_recvmsg_cloexec(int sockfd, struct
  		return len;
  	if (errno != EINVAL)
  		return -1;

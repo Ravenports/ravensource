@@ -1,5 +1,5 @@
---- src/event-loop.c.orig	2020-04-08 17:13:54.915257000 +0300
-+++ src/event-loop.c	2020-05-16 17:46:32.581743000 +0300
+--- src/event-loop.c.orig	2020-02-11 23:46:03 UTC
++++ src/event-loop.c
 @@ -35,9 +35,8 @@
  #include <fcntl.h>
  #include <sys/socket.h>
@@ -199,14 +199,14 @@
 +
 +	if (clock_gettime(CLOCK_MONOTONIC, &now) == -1)
 +		return -1;
++
++	if (!time_lt(now, deadline))
++		return -1;
  
 -	its.it_interval.tv_sec = 0;
 -	its.it_interval.tv_nsec = 0;
 -	its.it_value = deadline;
 -	return timerfd_settime(timerfd, TFD_TIMER_ABSTIME, &its, NULL);
-+	if (!time_lt(now, deadline))
-+		return -1;
-+
 +	diff_sec = deadline.tv_sec - now.tv_sec;
 +	diff_nsec = deadline.tv_nsec - now.tv_nsec;
 +	if (diff_nsec < 0) {
@@ -274,6 +274,10 @@
 -				  TFD_CLOEXEC | TFD_NONBLOCK);
 -	if (timer_fd < 0)
 -		return -1;
+-
+-	if (epoll_ctl(timers->base.loop->epoll_fd,
+-		      EPOLL_CTL_ADD, timer_fd, &ep) < 0) {
+-		close(timer_fd);
 +	struct kevent ev;
 +	/*
 +	 * Deprecated.
@@ -281,10 +285,7 @@
 +	 * It must be => 0.
 +	 */
 +	static int timer_id = 1;
- 
--	if (epoll_ctl(timers->base.loop->epoll_fd,
--		      EPOLL_CTL_ADD, timer_fd, &ep) < 0) {
--		close(timer_fd);
++
 +	/*
 +	 * We need to add timer filter already here. This avoids error messages
 +	 * when the timer filter is removed before ever updating it.

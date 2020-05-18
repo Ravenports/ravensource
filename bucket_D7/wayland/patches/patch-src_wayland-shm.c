@@ -1,5 +1,5 @@
---- src/wayland-shm.c.orig	2020-04-08 15:51:20.552406000 +0300
-+++ src/wayland-shm.c	2020-04-08 16:05:05.566225000 +0300
+--- src/wayland-shm.c.orig	2020-02-11 23:46:03 UTC
++++ src/wayland-shm.c
 @@ -30,6 +30,10 @@
  
  #define _GNU_SOURCE

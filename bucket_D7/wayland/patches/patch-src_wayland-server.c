@@ -1,5 +1,5 @@
---- src/wayland-server.c.orig	2020-04-08 17:02:04.353375000 +0300
-+++ src/wayland-server.c	2020-04-08 17:12:50.414179000 +0300
+--- src/wayland-server.c.orig	2020-02-11 23:46:03 UTC
++++ src/wayland-server.c
 @@ -44,6 +44,11 @@
  #include <sys/file.h>
  #include <sys/stat.h>

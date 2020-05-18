@@ -1,4 +1,4 @@
---- tests/test-runner.c
+--- tests/test-runner.c.orig	2020-02-11 23:46:03 UTC
 +++ tests/test-runner.c
 @@ -28,6 +28,7 @@
  #include <unistd.h>
@@ -18,7 +18,7 @@
  #ifndef PR_SET_PTRACER
  # define PR_SET_PTRACER 0x59616d61
  #endif
-@@ -307,17 +310,22 @@ is_debugger_attached(void)
+@@ -255,17 +258,22 @@ is_debugger_attached(void)
  		close(pipefd[0]);
  		if (buf == '-')
  			_exit(1);
@@ -41,7 +41,7 @@
  		rc = prctl(PR_SET_PTRACER, pid);
  		if (rc != 0 && errno != EINVAL) {
  			/* An error prevents us from telling if a debugger is attached.
-@@ -331,6 +339,7 @@ is_debugger_attached(void)
+@@ -279,6 +287,7 @@ is_debugger_attached(void)
  			/* Signal to client that parent is ready by passing '+' */
  			write(pipefd[1], "+", 1);
  		}
@@ -49,7 +49,7 @@
  		close(pipefd[1]);
  
  		waitpid(pid, &status, 0);
-@@ -345,7 +354,11 @@ int main(int argc, char *argv[])
+@@ -293,7 +302,11 @@ int main(int argc, char *argv[])
  	const struct test *t;
  	pid_t pid;
  	int total, pass;
@@ -59,9 +59,9 @@
  	siginfo_t info;
 +#endif
  
- 	/* Load system malloc, free, and realloc */
- 	sys_calloc = dlsym(RTLD_NEXT, "calloc");
-@@ -394,6 +407,12 @@ int main(int argc, char *argv[])
+ 	if (isatty(fileno(stderr)))
+ 		is_atty = 1;
+@@ -336,6 +349,12 @@ int main(int argc, char *argv[])
  		if (pid == 0)
  			run_test(t); /* never returns */
  
@@ -73,8 +73,8 @@
 +#else
  		if (waitid(P_PID, pid, &info, WEXITED)) {
  			stderr_set_color(RED);
- 			fprintf(stderr, "waitid failed: %m\n");
-@@ -401,7 +420,20 @@ int main(int argc, char *argv[])
+ 			fprintf(stderr, "waitid failed: %s\n",
+@@ -344,7 +363,20 @@ int main(int argc, char *argv[])
  
  			abort();
  		}
@@ -95,7 +95,7 @@
  		switch (info.si_code) {
  		case CLD_EXITED:
  			if (info.si_status == EXIT_SUCCESS)
-@@ -425,6 +457,7 @@ int main(int argc, char *argv[])
+@@ -368,6 +400,7 @@ int main(int argc, char *argv[])
  
  			break;
  		}

@@ -1,6 +1,6 @@
---- cursor/wayland-cursor.c.orig	2015-06-13 00:51:38 +0200
+--- cursor/wayland-cursor.c.orig	2020-02-11 23:46:03 UTC
 +++ cursor/wayland-cursor.c
-@@ -97,7 +97,11 @@
+@@ -98,7 +98,11 @@ shm_pool_resize(struct shm_pool *pool, i
  
  	pool->data = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED,
  			  pool->fd, 0);

@@ -1,5 +1,5 @@
---- tests/os-wrappers-test.c.orig	2020-04-08 15:30:32.051523000 +0300
-+++ tests/os-wrappers-test.c	2020-04-08 17:43:14.174683000 +0300
+--- tests/os-wrappers-test.c.orig	2020-02-11 23:46:03 UTC
++++ tests/os-wrappers-test.c
 @@ -38,7 +38,9 @@
  #include <stdarg.h>
  #include <fcntl.h>
