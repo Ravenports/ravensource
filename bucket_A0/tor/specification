@@ -1,5 +1,5 @@
-# Stable series: 0.4.2.x (starting with 0.4.2.5)
-DEF[PORTVERSION]=	0.4.2.7
+# Stable series: 0.4.3.x (starting with 0.4.3.5)
+DEF[PORTVERSION]=	0.4.3.5
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		tor
@@ -26,8 +26,11 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		security/tor
 
 BUILD_DEPENDS=		asciidoc:single:standard
+			Zstandard:static:standard
 BUILDRUN_DEPENDS=	libevent:single:standard
 			xz:single:standard
+			Zstandard:shared:standard
+			nss:primary:standard
 
 USERS=			_tor
 GROUPS=			_tor
@@ -39,9 +42,14 @@ CPE_VENDOR=		torproject
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-openssl-dir="{{OPENSSLBASE}}"
 			--enable-linker-hardening
+			--enable-zstd
+			--enable-lzma
+			--enable-nss
+			--disable-systemd
 CONFIGURE_ENV=		TOR_CPPFLAGS_libevent="-I{{LOCALBASE}}/include"
 			TOR_LDFLAGS_libevent="-L{{LOCALBASE}}/lib/"
 			TOR_LIBEVENT_LIBS="-levent"
+			tor_cv_cflags__Wextra_semi=no
 SUB_LIST=		USER="{{USERS}}" GROUP="{{GROUPS}}"
 PLIST_SUB=		USER="{{USERS}}" GROUP="{{GROUPS}}"
 
