@@ -1,4 +1,4 @@
---- src/lib-master/test-event-stats.c.orig	2020-02-10 07:48:57 UTC
+--- src/lib-master/test-event-stats.c.orig	2020-05-12 15:44:05 UTC
 +++ src/lib-master/test-event-stats.c
 @@ -13,6 +13,7 @@
  #include "stats-client.h"
