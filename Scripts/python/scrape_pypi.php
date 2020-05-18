@@ -280,7 +280,7 @@ function inline_fix_setup ($namebase, $src) {
        "pandas"       => '/ext_modules=/d',
        "numpy"        => 's|            generate_cython[(][)]|            pass|',
        "scipy"        => '/run_build = parse/ s|par.*ds[(][)]|False|',
-       "ddt"          => false,
+       "ddt"          => '/enum34/d',
        "soupsieve"    => false,
        "django-colorful" => false,
    );
