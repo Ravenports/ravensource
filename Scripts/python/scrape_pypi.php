@@ -294,7 +294,7 @@ function inline_fix_setup ($namebase, $src) {
        switch ($namebase) {
            case "lxml":
                $xf = $src . "/setupinfo.py";
-               shell_exec("sed -i.bak -E -e '/Building without/d; /Using build/ s/^.*$$/        pass/; /lib_versions[[]?[1]?[]]?)/d; s/if _library_dirs:/if 0:/' $xf");
+               shell_exec("sed -i.bak -E -e '/Building without/d; /Using build/ s/^.*$$/        pass/; /lib_versions[[]?[1]?[]]?)/d; s/if _library_dirs:/if 0:/; s/not check_build_dependencies..:/0:/' $xf");
                break;
            case "eyeD3":
                $xf = "$src/requirements.txt $src/requirements/main.txt $src/requirements/requirements.yml";
