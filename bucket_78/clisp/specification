@@ -1,10 +1,13 @@
-DEF[PORTVERSION]=	2.50
-DEF[INTERNAL_VERSION]=	2.49.92
+# Do not use fake versions.
+# Until an official release comes out, increment REVISION for new versions.
+DEF[PORTVERSION]=	2.49
+DEF[POSTED_VERSION]=	2.49.92
+DEF[INTERNAL_VERSION]=	${POSTED_VERSION}-2018-02-18
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		clisp
 VERSION=		${PORTVERSION}
-REVISION=		2
+EPOCH=			1
 KEYWORDS=		lang
 VARIANTS=		standard
 SDESC[standard]=	ANSI Common Lisp Implementation
@@ -12,8 +15,8 @@ HOMEPAGE=		http://www.gnu.org/software/clisp
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://gitlab.com/gnu-clisp/clisp/-/archive/clisp-${PORTVERSION}/
-DISTFILE[1]=		clisp-clisp-${PORTVERSION}.tar.bz2:main
+SITES[main]=		https://gitlab.com/gnu-clisp/clisp/-/archive/clisp-${INTERNAL_VERSION}/
+DISTFILE[1]=		clisp-clisp-${INTERNAL_VERSION}.tar.bz2:main
 
 SPKGS[standard]=	complete primary docs
 
@@ -39,9 +42,9 @@ BUILDRUN_DEPENDS=	libsigsegv:shared:standard
 			libffcall:single:standard
 			readline:single:standard
 
-DISTNAME=		clisp-clisp-${PORTVERSION}
+DISTNAME=		clisp-clisp-${INTERNAL_VERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
-PLIST_SUB=		VERSION="${INTERNAL_VERSION}"
+PLIST_SUB=		VERSION="${POSTED_VERSION}"
 
 VAR_OPSYS[dragonfly]=	LDFLAGS=-pthread
 
