@@ -1,11 +1,11 @@
---- libarchive/archive_write_add_filter_zstd.c.orig	2019-12-14 21:13:52 UTC
+--- libarchive/archive_write_add_filter_zstd.c.orig	2020-04-16 00:20:43 UTC
 +++ libarchive/archive_write_add_filter_zstd.c
-@@ -96,7 +96,7 @@ archive_write_add_filter_zstd(struct arc
- 	f->free = &archive_compressor_zstd_free;
- 	f->code = ARCHIVE_FILTER_ZSTD;
- 	f->name = "zstd";
--	data->compression_level = 3; /* Default level used by the zstd CLI */
-+	data->compression_level = 7;
- #if HAVE_ZSTD_H && HAVE_LIBZSTD
- 	data->cstream = ZSTD_createCStream();
- 	if (data->cstream == NULL) {
+@@ -62,7 +62,7 @@ struct private_data {
+ /* If we don't have the library use default range values (zstdcli.c v1.4.0) */
+ #define CLEVEL_MIN -99
+ #define CLEVEL_STD_MIN 0 /* prior to 1.3.4 and more recent without using --fast */
+-#define CLEVEL_DEFAULT 3
++#define CLEVEL_DEFAULT 7
+ #define CLEVEL_STD_MAX 19 /* without using --ultra */
+ #define CLEVEL_MAX 22
+ 
