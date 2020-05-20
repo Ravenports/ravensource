@@ -34,6 +34,13 @@ install it with [pip]:
 Changelog
 ~~~~~~~~~
 
+4.10.2 (released 2020-05-20)
+----------------------------
+
+- [sfnt] Fixed ``NameError: SimpleNamespace`` while reading TTC header. The
+regression
+  was introduced with 4.10.1 after removing py23 star import.
+
 4.10.1 (released 2020-05-19)
 ----------------------------
 
@@ -91,10 +98,3 @@ docs more
   Ensure all fonttools CLI tools have help documentation (#1948).
 - [ufoLib] Only write fontinfo.plist when there actually is content
 (#1911).
-
-4.9.0 (released 2020-04-29)
----------------------------
-
-- [subset] Fixed subsetting of FeatureVariations table. The subsetter no
-longer drops
-  FeatureVariationRecords that have empty substitutions as that will keep
