@@ -1,4 +1,4 @@
---- glib/tests/utils.c.orig	2020-04-09 13:43:10 UTC
+--- glib/tests/utils.c.orig	2020-05-20 10:46:43 UTC
 +++ glib/tests/utils.c
 @@ -483,7 +483,7 @@ test_xdg_dirs (void)
  
