@@ -25,12 +25,14 @@ LICENSE=		MIT:single
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-USES=			libtool
+USES=			cpe libtool
 XORG_COMPONENTS=	x11
 DISTNAME=		${ALTNAME}-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
 FPC_EQUIVALENT=		x11/libXrender
+CPE_VENDOR=		x
+CPE_PRODUCT=		libxrender
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/${ALTNAME}
