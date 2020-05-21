@@ -6,7 +6,9 @@ $PYTHON_CACHE_JSON = $PYTHON_CACHE . "/json";
 $PYTHON_CACHE_ETAG = $PYTHON_CACHE . "/etag";
 $PYTHON_CACHE_DIST = $PYTHON_CACHE . "/distfiles";
 $PYTHONEXE = "/raven/bin/python3.8";
-$EXTS    = array("tgz" => ".tar.gz", "zip" => ".zip", "tbz" =>".tar.bz2");
+$EXTS    = array("tgz" => ".tar.gz",
+                 "zip" => ".zip",
+                 "tbz" => ".tar.bz2");
 $EXTPATS = array("tgz" => '/[.]tar[.]gz$/',
                  "zip" => '/[.]zip$/',
                  "tbz" => '/[.]tar[.]bz2$/');
@@ -390,7 +392,6 @@ function set_buildrun (&$portdata) {
        return;
     }
     shell_exec("cd $WORKZONE && tar -xf $tarball");
-    $exts = array("tgz" => ".tar.gz", "zip" => ".zip", "tbz" =>".tar.bz2");
     foreach ($EXTS as $key => $ext) {
         $distname = preg_replace ($EXTPATS[$key], "", $portdata["distfile"]);
         if ($distname != $portdata["distfile"]) {
