@@ -1,4 +1,4 @@
---- src/runtime/bsd-os.h.orig	2020-03-28 20:58:29 UTC
+--- src/runtime/bsd-os.h.orig	2020-04-27 07:01:37 UTC
 +++ src/runtime/bsd-os.h
 @@ -22,7 +22,7 @@
  #endif
