@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	2.12.22
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		texstudio
+VERSION=		${PORTVERSION}
+KEYWORDS=		editors
+VARIANTS=		standard
+SDESC[standard]=	Featureful LaTeX editor/IDE
+HOMEPAGE=		https://www.texstudio.org
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/texstudio-org/texstudio/archive/
+DISTFILE[1]=		${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Licensed GPLv2+ but comes with v3 COPYING file only
+# Therefore use stock v2 license file
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:stock
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/texstudio.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		editors/texstudio
+
+BUILD_DEPENDS=		qt5-qttools:single:standard
+BUILDRUN_DEPENDS=	hunspell:single:standard
+			poppler:qt5:standard
+			qt5-qtscript:single:standard
+			qt5-qtsvg:single:standard
+			quazip:single:standard
+RUN_DEPENDS=		texlive-bin:primary:standard
+
+USES=			pkgconfig qt5
+
+QMAKE_ARGS=		PREFIX="{{PREFIX}}"
+			LIBPREFIX="{{PREFIX}}/lib"
+			USE_SYSTEM_HUNSPELL=true
+			USE_SYSTEM_QUAZIP=true
