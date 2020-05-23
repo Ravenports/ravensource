@@ -1,4 +1,4 @@
---- openbsd-compat/includes.h.orig	2020-05-14 20:51:32 UTC
+--- openbsd-compat/includes.h.orig	2020-05-21 19:06:04 UTC
 +++ openbsd-compat/includes.h
 @@ -65,6 +65,7 @@
  #endif
