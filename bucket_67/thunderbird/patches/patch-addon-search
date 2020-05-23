@@ -3,7 +3,7 @@ https://github.com/mozilla/addons-frontend/issues/4610
 
 diff --git mail/app/profile/all-thunderbird.js mail/app/profile/all-thunderbird.js
 index 75c2c5e435e35..4d8c09c02759b 100644
---- comm/mail/app/profile/all-thunderbird.js.orig	2020-05-04 17:22:31 UTC
+--- comm/mail/app/profile/all-thunderbird.js.orig	2020-05-21 20:31:05 UTC
 +++ comm/mail/app/profile/all-thunderbird.js
 @@ -153,10 +153,10 @@ pref("extensions.getAddons.maxResults",
  pref("extensions.getAddons.get.url", "https://services.addons.thunderbird.net/api/v3/addons/search/?guid=%IDS%&lang=%LOCALE%");
@@ -31,7 +31,7 @@ index 75c2c5e435e35..4d8c09c02759b 100644
  
  pref("extensions.update.interval", 86400);  // Check for updates to Extensions and
                                              // Themes every day
---- toolkit/mozapps/extensions/internal/AddonRepository.jsm.orig	2020-05-04 17:22:17 UTC
+--- toolkit/mozapps/extensions/internal/AddonRepository.jsm.orig	2020-05-21 20:30:47 UTC
 +++ toolkit/mozapps/extensions/internal/AddonRepository.jsm
 @@ -636,7 +636,7 @@ var AddonRepository = {
        addon.version = String(aEntry.current_version.version);
@@ -42,7 +42,7 @@ index 75c2c5e435e35..4d8c09c02759b 100644
              if (file.url) {
                addon.sourceURI = NetUtil.newURI(file.url);
              }
---- toolkit/mozapps/extensions/internal/XPIDatabase.jsm.orig	2020-05-04 17:22:17 UTC
+--- toolkit/mozapps/extensions/internal/XPIDatabase.jsm.orig	2020-05-21 20:30:47 UTC
 +++ toolkit/mozapps/extensions/internal/XPIDatabase.jsm
 @@ -482,7 +482,7 @@ class AddonInternal {
      // Something is causing errors in here

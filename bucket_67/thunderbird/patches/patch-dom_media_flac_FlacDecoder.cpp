@@ -2,7 +2,7 @@ Enable FLAC on platforms without ffvpx like powerpc*
 
 diff --git dom/media/flac/FlacDecoder.cpp dom/media/flac/FlacDecoder.cpp
 index 53fc3c9937f7..b23771ab80fa 100644
---- dom/media/flac/FlacDecoder.cpp.orig	2020-05-04 17:22:08 UTC
+--- dom/media/flac/FlacDecoder.cpp.orig	2020-05-21 20:29:36 UTC
 +++ dom/media/flac/FlacDecoder.cpp
 @@ -7,6 +7,7 @@
  #include "FlacDecoder.h"

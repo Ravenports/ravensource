@@ -1,4 +1,4 @@
---- comm/ldap/c-sdk/include/portable.h.orig	2020-05-04 17:22:31 UTC
+--- comm/ldap/c-sdk/include/portable.h.orig	2020-05-21 20:31:05 UTC
 +++ comm/ldap/c-sdk/include/portable.h
 @@ -119,11 +119,15 @@
  #  define OPENLOG_OPTIONS (LOG_PID | LOG_NOWAIT)
