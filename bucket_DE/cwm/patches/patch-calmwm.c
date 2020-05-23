@@ -1,6 +1,6 @@
---- calmwm.c.orig	2020-01-04 20:45:17 UTC
+--- calmwm.c.orig	2020-05-22 19:40:11 UTC
 +++ calmwm.c
-@@ -225,9 +225,13 @@ sighdlr(int sig)
+@@ -231,9 +231,13 @@ sighdlr(int sig)
  void
  usage(void)
  {
