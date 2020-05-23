@@ -1,4 +1,4 @@
---- plugins/preauth/pkinit/pkinit_crypto_openssl.c.orig	2020-04-13 14:52:20 UTC
+--- plugins/preauth/pkinit/pkinit_crypto_openssl.c.orig	2020-05-22 00:21:40 UTC
 +++ plugins/preauth/pkinit/pkinit_crypto_openssl.c
 @@ -185,7 +185,8 @@ pkinit_pkcs11_code_to_text(int err);
      (*_x509_pp) = PKCS7_cert_from_signer_info(_p7,_si)
