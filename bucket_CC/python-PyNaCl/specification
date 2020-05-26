@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.3.0
+DEF[PORTVERSION]=	1.4.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-PyNaCl
@@ -28,6 +28,8 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # install_requires extracted from setup.py
 # six
 # cffi>=1.4.1
+# setuptools
+# wheel
 # cffi>=1.4.1
 
 DISTNAME=		PyNaCl-${PORTVERSION}
@@ -36,9 +38,13 @@ GENERATED=		yes
 [PY38].USES_ON=				python:py38
 [PY38].BUILDRUN_DEPENDS_ON=		python-six:single:py38
 					python-cffi:single:py38
+					python-setuptools:single:py38
+					python-wheel:single:py38
 [PY37].USES_ON=				python:py37
 [PY37].BUILDRUN_DEPENDS_ON=		python-six:single:py37
 					python-cffi:single:py37
+					python-setuptools:single:py37
+					python-wheel:single:py37
 
 BUILDRUN_DEPENDS=	libsodium:single:standard
 INSTALL_REQ_TOOLCHAIN=	yes
