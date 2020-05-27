@@ -2,7 +2,9 @@ BUILDRUN_DEPENDS=	libsodium:single:standard
 INSTALL_REQ_TOOLCHAIN=	yes
 
 post-patch:
-	${REINPLACE_CMD} -e 's|with-pic"|with-pic", "--build=${CONFIGURE_TARGET}"|'\
+# #	disable pic to fix ld: internal error in relocate_tls, at x86_64.cc:5195
+# #	${REINPLACE_CMD} -e 's|with-pic"|with-pic", "--build=${CONFIGURE_TARGET}"|'\
+	${REINPLACE_CMD} -e 's|with-pic"|build=${CONFIGURE_TARGET}"|'\
 		${WRKSRC}/setup.py
 
 post-patch-sunos:
