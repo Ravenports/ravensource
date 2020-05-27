@@ -1,8 +1,10 @@
 DEF[PORTVERSION]=	5.0.0
+DEF[JQUERY]=		3.5.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		qemu
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		emulators
 VARIANTS=		standard
 SDESC[standard]=	Fast CPU emulator and virtualizer for x86 platform
@@ -59,6 +61,7 @@ CONFIGURE_ARGS=		--disable-usb-redir
 			--localstatedir=/var
 			--extra-cflags="-I{{WRKSRC}} -I{{LOCALBASE}}/include -DPREFIX=\\\"\"{{PREFIX}}\\\"\""
 			--extra-ldflags="-L/usr/lib -L{{LOCALBASE}}/lib"
+PLIST_SUB=		JQUERY=${JQUERY}
 INSTALL_REQ_TOOLCHAIN=	yes
 
 VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--disable-netmap
