@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	0.70.0
+DEF[PORTVERSION]=	0.71.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		quex
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel lang python
 VARIANTS=		standard
 SDESC[standard]=	Lexical Analyzer Generator
@@ -28,6 +27,7 @@ SKIP_BUILD=		yes
 
 post-extract:
 	${FIND} ${WRKSRC} -name "*.orig" -delete
+	${FIND} ${WRKSRC} -name ".gitignore" -delete
 
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/quex
