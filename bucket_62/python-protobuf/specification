@@ -1,19 +1,19 @@
 # manually updated (struck on 3.11.3 for months)
-DEF[PORTVERSION]=	3.12.1
+DEF[PORTVERSION]=	3.12.2
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-protobuf
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		py38 py37
-SDESC[py38]=		Protocol Buffers (PY 38)
-SDESC[py37]=		Protocol Buffers (PY 37)
+SDESC[py38]=		Protocol Buffers (PY38)
+SDESC[py37]=		Protocol Buffers (PY37)
 HOMEPAGE=		https://developers.google.com/protocol-buffers/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 # SITES[main]=		PYPI/p/protobuf
-# DISTFILE[1]=		protobuf-3.11.3.tar.gz:main
+# DISTFILE[1]=		protobuf-${PORTVERSION}.tar.gz:main
 SITES[main]=		GITHUB/protocolbuffers:protobuf:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
@@ -25,19 +25,19 @@ OPTIONS_STANDARD=	none
 VOPTS[py38]=		PY38=ON PY37=OFF
 VOPTS[py37]=		PY38=OFF PY37=ON
 
-# Output of setup.py --license
-#
+# License listed at PyPI
+# 3-Clause BSD License
 
-GENERATED=		yes
+# install_requires extracted from setup.py
 
-# install_requires extracted from setup.py (using python 2.7)
 
 # DISTNAME=		protobuf-${PORTVERSION}
 DISTNAME=		protobuf-${PORTVERSION}/python
+GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
-
 [PY37].USES_ON=				python:py37
+
 BUILD_DEPENDS=		protobuf:single:standard
 
 post-patch:
