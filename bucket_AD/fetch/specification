@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	12.0.6
-DEF[LIB_MAJOR]=		1
+DEF[PORTVERSION]=	12.0.7
+DEF[SOVERSION]=		1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fetch
@@ -26,10 +26,16 @@ LICENSE=		BSD3CLAUSE:single
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
-MAKE_ARGS=		LIB_MAJOR=${LIB_MAJOR}
+USES=			cmake ssl
+SOVERSION=		${SOVERSION}
+SINGLE_JOB=		yes
 
 [LIBRARY].DESCRIPTION=			Build library instead of executable
-[LIBRARY].USES_ON=			ssl
-[LIBRARY].BUILD_DEPENDS_OFF=		libressl:single:static
-[LIBRARY].BUILD_TARGET_ON=		library
-[LIBRARY].INSTALL_TARGET_ON=		install-library
+[LIBRARY].CMAKE_ARGS_ON=		-DFETCH_LIBRARY:BOOL=ON
+					-DFETCH_PROGRAM:BOOL=OFF
+
+post-install-LIBRARY-ON:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libfetch.so
+
+post-install-LIBRARY-OFF:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/fetch
