@@ -77,11 +77,6 @@ post-extract:
 		${WRKSRC}/README > ${WRKDIR}/TERMS
 
 post-patch:
-	# GDBM is missing the runpath
-	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|' \
-		${WRKSRC}/ext/GDBM_File/Makefile.PL \
-		${WRKSRC}/ext/NDBM_File/Makefile.PL \
-		${WRKSRC}/ext/ODBM_File/Makefile.PL
 	${REINPLACE_CMD} -e 's|@WRKSRC@|${WRKSRC}|' \
 		${WRKSRC}/cpan/DB_File/Makefile.PL
 	${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|g' \
