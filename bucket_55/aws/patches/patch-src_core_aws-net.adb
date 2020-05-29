@@ -1,4 +1,4 @@
---- src/core/aws-net.adb.orig	2019-05-13 04:05:48 UTC
+--- src/core/aws-net.adb.orig	2020-02-28 06:22:44 UTC
 +++ src/core/aws-net.adb
 @@ -641,7 +641,7 @@ package body AWS.Net is
  
