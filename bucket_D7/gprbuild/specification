@@ -1,13 +1,12 @@
-DEF[PORTVERSION]=	2019
-DEF[DATE]=		20190517-194D8
-DEF[XMLADA_DATE]=	20190429-19B9D
-DEF[UPSTREAM_HASH]=	2841033
+DEF[PORTVERSION]=	2020
+DEF[DATE]=		20200429-19BD2
+DEF[XMLADA_DATE]=	20200429-19A99
+# DEF[UPSTREAM_HASH]=	2841033
 DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gprbuild
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel ada
 VARIANTS=		standard
 SDESC[standard]=	Adacore multi-language software build tool
@@ -16,15 +15,15 @@ CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main adacore
 SITES[main]=		http://downloads.dragonlace.net/src/
-SITES[adacore]=		GITHUB/AdaCore:gprbuild:${UPSTREAM_HASH}
-# DISTFILE[1]=		gprbuild-${PORTVERSION}-${DATE}-src.tar.gz:main
-DISTFILE[1]=		generated:adacore
+# SITES[adacore]=		GITHUB/AdaCore:gprbuild:${UPSTREAM_HASH}
+DISTFILE[1]=		gprbuild-${PORTVERSION}-${DATE}-src.tar.gz:main
+# DISTFILE[1]=		generated:adacore
 DISTFILE[2]=		xmlada-${PORTVERSION}-${XMLADA_DATE}-src.tar.gz:main
 DF_INDEX=		1 2
 
 # docs subpackage suppressed when build from git
-# SPKGS[standard]=	complete primary gprlib docs examples
-SPKGS[standard]=	complete primary gprlib examples
+SPKGS[standard]=	complete primary gprlib docs examples
+# SPKGS[standard]=	complete primary gprlib examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -43,8 +42,8 @@ BUILD_DEPENDS=		xmlada:primary:standard
 EXRUN[gprlib]=		xmlada:primary:standard
 
 USES=			gmake
-# DISTNAME=		gprbuild-${PORTVERSION}-${DATE}-src
-DISTNAME=		gprbuild-${UPSTREAM_HASH}
+DISTNAME=		gprbuild-${PORTVERSION}-${DATE}-src
+# DISTNAME=		gprbuild-${UPSTREAM_HASH}
 MAKE_ARGS=		prefix={{STAGEDIR}}{{PREFIX}}
 			ENABLE_SHARED=yes
 			BUILD=production
@@ -54,7 +53,7 @@ MAKE_ARGS=		prefix={{STAGEDIR}}{{PREFIX}}
 INSTALL_REQ_TOOLCHAIN=	yes
 BUILD_TARGET=		all libgpr.build
 INSTALL_TARGET=		install libgpr.install
-# INFO=			primary:gprbuild_ug
+INFO=			primary:gprbuild_ug
 # SET_DEBUGGING_ON=	yes
 
 post-patch:
@@ -90,9 +89,9 @@ post-install:
 	${RM} ${STAGEDIR}${PREFIX}/doinstall
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}/html/_sources
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/gnat/manifests
-# #	${MV} ${STAGEDIR}${STD_DOCDIR}/info/gprbuild_ug.info \
-# #		${STAGEDIR}${PREFIX}/share/info
-# #	${RM} -r ${STAGEDIR}${STD_DOCDIR}/info
+	${MV} ${STAGEDIR}${STD_DOCDIR}/info/gprbuild_ug.info \
+		${STAGEDIR}${PREFIX}/share/info
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}/info
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/gprbuild/*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gpr/relocatable/gpr/libgpr.so
