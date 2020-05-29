@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.17.0
+DEF[PORTVERSION]=	1.18.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		nginx-unit
@@ -54,6 +54,10 @@ SUB_LIST=		UNIT_PIDFILE=/var/log/nginx-unit/unit.log
 DISTNAME=		unit-${PORTVERSION}
 PLIST_SUB=		PY3VER={{PYTHON_VER}}
 SINGLE_JOB=		yes
+
+post-patch:
+	# disable Werror
+	${REINPLACE_CMD} -e '/Werror/d' ${WRKSRC}/auto/cc/test
 
 post-configure:
 	(cd ${CONFIGURE_WRKSRC} \
