@@ -1,4 +1,4 @@
---- gdb/i386-bsd-nat.c.orig	2020-02-08 12:50:14 UTC
+--- gdb/i386-bsd-nat.c.orig	2020-05-23 21:10:29 UTC
 +++ gdb/i386-bsd-nat.c
 @@ -338,6 +338,8 @@ _initialize_i386bsd_nat (void)
  #define SC_REG_OFFSET i386nbsd_sc_reg_offset

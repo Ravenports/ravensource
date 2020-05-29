@@ -1,4 +1,4 @@
---- gdb/amd64-bsd-nat.c.orig	2020-02-08 12:49:29 UTC
+--- gdb/amd64-bsd-nat.c.orig	2020-05-23 21:10:29 UTC
 +++ gdb/amd64-bsd-nat.c
 @@ -28,6 +28,7 @@
  #include <sys/types.h>

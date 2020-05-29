@@ -1,4 +1,4 @@
---- gdb/fbsd-nat.c.orig	2020-02-08 12:50:14 UTC
+--- gdb/fbsd-nat.c.orig	2020-05-23 21:10:29 UTC
 +++ gdb/fbsd-nat.c
 @@ -1176,6 +1176,14 @@ fbsd_nat_target::resume (ptid_t ptid, in
        /* If ptid is a specific LWP, suspend all other LWPs in the process.  */

@@ -1,4 +1,4 @@
---- gdb/s390-tdep.c.orig	2020-02-08 12:50:14 UTC
+--- gdb/s390-tdep.c.orig	2020-05-23 21:10:29 UTC
 +++ gdb/s390-tdep.c
 @@ -40,6 +40,10 @@
  #include "trad-frame.h"

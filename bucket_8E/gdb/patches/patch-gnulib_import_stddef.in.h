@@ -1,4 +1,4 @@
---- gnulib/import/stddef.in.h.orig	2020-02-08 12:50:14 UTC
+--- gnulib/import/stddef.in.h.orig	2020-05-23 21:10:29 UTC
 +++ gnulib/import/stddef.in.h
 @@ -84,7 +84,7 @@
  /* Some platforms lack max_align_t.  The check for _GCC_MAX_ALIGN_T is

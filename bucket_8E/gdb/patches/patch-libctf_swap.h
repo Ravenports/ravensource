@@ -1,4 +1,4 @@
---- libctf/swap.h.orig	2020-02-08 12:50:14 UTC
+--- libctf/swap.h.orig	2020-05-23 21:10:29 UTC
 +++ libctf/swap.h
 @@ -43,7 +43,7 @@ bswap_32 (uint32_t v)
  	  | ((v & 0x000000ff) << 24));

@@ -1,6 +1,6 @@
---- gdb/fbsd-tdep.c.intermediate	2019-12-14 06:50:12 UTC
+--- gdb/fbsd-tdep.c.orig	2020-05-23 21:10:29 UTC
 +++ gdb/fbsd-tdep.c
-@@ -1035,12 +1035,12 @@ fbsd_info_proc_files_entry (int kf_type,
+@@ -1018,12 +1018,12 @@ fbsd_info_proc_files_entry (int kf_type,
  
  	    /* For local sockets, print out the first non-nul path
  	       rather than both paths.  */
