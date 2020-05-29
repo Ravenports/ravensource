@@ -1,6 +1,6 @@
---- src/gprbuild-link.adb.orig	2019-11-24 03:02:47 UTC
+--- src/gprbuild-link.adb.orig	2020-04-11 05:07:24 UTC
 +++ src/gprbuild-link.adb
-@@ -3010,8 +3010,6 @@ package body Gprbuild.Link is
+@@ -3092,8 +3092,6 @@ package body Gprbuild.Link is
           if Opt.Run_Path_Option
             and then Main_Proj.Config.Run_Path_Option /= No_Name_List
           then
