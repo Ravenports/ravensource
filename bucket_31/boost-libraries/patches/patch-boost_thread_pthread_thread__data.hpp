@@ -1,4 +1,4 @@
---- boost/thread/pthread/thread_data.hpp.orig	2019-12-10 00:20:01 UTC
+--- boost/thread/pthread/thread_data.hpp.orig	2020-04-22 13:36:07 UTC
 +++ boost/thread/pthread/thread_data.hpp
 @@ -32,6 +32,7 @@
  # endif
@@ -12,7 +12,7 @@
  #else
            std::size_t page_size = ::sysconf( _SC_PAGESIZE);
  #endif
--#if PTHREAD_STACK_MIN > 0
+-#ifdef PTHREAD_STACK_MIN
            if (size<PTHREAD_STACK_MIN) size=PTHREAD_STACK_MIN;
 -#endif
            size = ((size+page_size-1)/page_size)*page_size;

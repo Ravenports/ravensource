@@ -1,8 +1,8 @@
 https://github.com/boostorg/coroutine/pull/45
 
---- boost/coroutine/asymmetric_coroutine.hpp.orig	2019-12-10 00:18:47 UTC
+--- boost/coroutine/asymmetric_coroutine.hpp.orig	2020-04-22 13:34:58 UTC
 +++ boost/coroutine/asymmetric_coroutine.hpp
-@@ -2361,32 +2361,32 @@ struct coroutine
+@@ -2362,32 +2362,32 @@ struct coroutine
  template< typename R >
  typename pull_coroutine< R >::iterator
  begin( pull_coroutine< R > & c)
