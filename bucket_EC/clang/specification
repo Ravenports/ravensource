@@ -35,8 +35,6 @@ LICENSE_NAME=		CUSTOM1:"University of Illinois/NCSA Open Source License"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.TXT
 LICENSE_SCHEME=		solo
 
-BROKEN[sunos]=		stock sun linker runs out of memory (2G limit?)
-
 BUILDRUN_DEPENDS=	llvm:single:standard
 
 USES=			cmake ninja ncurses zlib execinfo
@@ -55,8 +53,7 @@ SHEBANG_FILES=		utils/hmaptool/hmaptool
 			tools/extra/clang-include-fixer/find-all-symbols/tool/run-find-all-symbols.py
 CFLAGS=			-O2 -pipe -DNDEBUG
 CXXFLAGS=		-O2 -pipe -DNDEBUG
-CMAKE_ARGS=		-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
-			-DLLVM_BUILD_LLVM_DYLIB=ON
+CMAKE_ARGS=		-DLLVM_BUILD_LLVM_DYLIB=ON
 			-DLLVM_LINK_LLVM_DYLIB=ON
 			-DLLVM_PARALLEL_LINK_JOBS=1
 			-DLLVM_PARALLEL_COMPILE_JOBS={{MAKE_JOBS_NUMBER}}
@@ -67,9 +64,15 @@ CMAKE_ARGS=		-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
 PLIST_SUB=		LLVM_RELEASE="${LLVM_VERSION}"
 			LLVM_MAJOR="${MAJOR}"
 
+# We should probably use SKIP_RPATH for all platforms, not just sunos
 VAR_OPSYS[dragonfly]=	CMAKE_ARGS=-DLLVM_USE_LINKER=gold
+			CMAKE_ARGS=-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
 VAR_OPSYS[freebsd]=	CMAKE_ARGS=-DLLVM_USE_LINKER=gold
+			CMAKE_ARGS=-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
 VAR_OPSYS[linux]=	CMAKE_ARGS=-DLLVM_USE_LINKER=gold
+			CMAKE_ARGS=-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
+VAR_OPSYS[sunos]=	CMAKE_ARGS=-DCMAKE_SKIP_RPATH:BOOL=TRUE
+			LDFLAGS=-Wl,-R{{LOCALBASE}}/llvm/lib
 
 post-extract:
 	${MV} ${WRKDIR}/clang-tools-extra-${LLVM_VERSION}.src \
@@ -91,7 +94,7 @@ post-patch:
 post-install:
 	${INSTALL_PROGRAM} ${WRKDIR}/.build/bin/clang-tblgen \
 		${STAGEDIR}${PREFIX}/bin/
-.for F in c-index-test clang-${MAJOR} clang-check clang-format \
+.for F in c-index-test clang-${MAJOR} clang-check clang-doc clang-format \
 	clang-extdef-mapping clang-import-test clang-offload-bundler \
 	clang-move clang-offload-wrapper clang-refactor clang-rename clang-apply-replacements \
 	clang-scan-deps clang-change-namespace clang-include-fixer clang-query \
@@ -100,3 +103,4 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${F}
 .endfor
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libclang.${LIBEXT}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libclang-cpp.${LIBEXT}
