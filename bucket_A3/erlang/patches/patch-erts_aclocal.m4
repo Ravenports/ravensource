@@ -1,6 +1,6 @@
---- erts/aclocal.m4.orig	2020-04-24 13:10:37 UTC
+--- erts/aclocal.m4.orig	2020-05-28 14:38:39 UTC
 +++ erts/aclocal.m4
-@@ -3033,7 +3033,7 @@ case $host_os in
+@@ -3052,7 +3052,7 @@ case $host_os in
  			DED_LDFLAGS="-m32 $DED_LDFLAGS"
  		fi
  	;;	
