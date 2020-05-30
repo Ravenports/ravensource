@@ -1,4 +1,4 @@
---- src/vtedraw.cc.orig	2020-03-26 17:22:26 UTC
+--- src/vtedraw.cc.orig	2020-05-13 09:51:07 UTC
 +++ src/vtedraw.cc
 @@ -2319,13 +2319,13 @@ _vte_draw_draw_line(struct _vte_draw *dr
  static inline double
