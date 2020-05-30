@@ -1,6 +1,6 @@
---- Makefile.orig	2019-06-20 06:05:31.656073000 +0200
-+++ Makefile	2019-06-20 06:09:15.963637000 +0200
-@@ -19,7 +19,7 @@
+--- Makefile.orig	2020-05-24 16:15:42 UTC
++++ Makefile
+@@ -19,7 +19,7 @@ usage:
  	@echo ""
  	@echo "Which is where the libraries etc look for it."
  
@@ -9,7 +9,7 @@
  
  BASE=$(DESTDIR)$(PREFIX)/share/netsurf-buildsystem
  
-@@ -33,15 +33,12 @@
+@@ -33,16 +33,13 @@ TESTTOOLS := testrunner.pl
  CITOOLS := jenkins-build.sh
  
  install:
@@ -20,9 +20,10 @@
  	done
  	for T in $(TESTTOOLS); do \
  		cp testtools/$$T $(BASE)/testtools/; \
--	done
+ 	done
 -	for C in $(CITOOLS); do \
 -		cp citools/$$C $(BASE)/citools/; \
- 	done
+-	done
  
  # Distribution
+ # This constructs a distribution tar from the last git tag. It ensures
