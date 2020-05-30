@@ -1,0 +1,6 @@
+#!/bin/sh
+# This script is expected to be at tools/rlimit
+
+platform=$(%%PYCMD%% -c "import platform; print (platform.system().lower())")
+
+cc $CFLAGS -o ../../src/e3/os/data/rlimit-$platform rlimit.c
