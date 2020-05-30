@@ -1,5 +1,8 @@
-DEF[PORTVERSION]=	2019
-DEF[DATE]=		20190510-19B8C
+# adacore version listed for info.  It's not used because it's still
+# based on python2.
+DEF[PORTVERSION]=	2020
+DEF[DATE]=		20200429-19994
+DEF[TAG]=		cfd80a7
 # limited to static by gnatcoll (fixed to static)
 DEF[LIBTYPES]=		static
 # ------------------------------------------------------------------------
@@ -12,9 +15,11 @@ SDESC[standard]=	Syntactic and semantic language analysis compiler
 HOMEPAGE=		https://github.com/AdaCore/langkit
 CONTACT=		John_Marino[draco@marino.st]
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main upstream
 SITES[main]=		http://downloads.dragonlace.net/src/
-DISTFILE[1]=		langkit-${PORTVERSION}-${DATE}-src.tar.gz:main
+SITES[upstream]=	GITHUB/Adacore:langkit:${TAG}
+# DISTFILE[1]=		langkit-${PORTVERSION}-${DATE}-src.tar.gz:main
+DISTFILE[1]=		generated:upstream
 
 SPKGS[standard]=	single
 
@@ -31,18 +36,21 @@ LICENSE_SCHEME=		multi
 
 BUILD_DEPENDS=		gnatcoll-core:primary:standard
 			gnatcoll-bindings:iconv:standard
-			python-psutil:single:py27
-BUILDRUN_DEPENDS=	python-enum34:single:py27
-			python-Mako:single:py27
-			python-funcy:single:py27
-			python-docutils:single:py27
-			python-autopep8:single:py27
-			python-yapf:single:py27
+			python-psutil:single:python_used
+			python-docutils:single:python_used
+			python-sphinx-rtd-theme:single:python_used
+BUILDRUN_DEPENDS=	python-Mako:single:python_used
+			python-funcy:single:python_used
+			python-autopep8:single:python_used
+			python-yapf:single:python_used
+			python-coverage:single:python_used
+			python-e3-core:single:python_used
 
-USES=			gprbuild python:py27
+USES=			gprbuild python
 MUST_CONFIGURE=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
-DISTNAME=		langkit-${PORTVERSION}-${DATE}-src
+# DISTNAME=		langkit-${PORTVERSION}-${DATE}-src
+DISTNAME=		langkit-${TAG}
 MAKE_ENV=		PYTHONPATH={{WRKSRC}}
 
 post-patch:
