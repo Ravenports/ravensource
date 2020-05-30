@@ -50,10 +50,12 @@ BUILDRUN_DEPENDS=	libsodium:single:standard
 INSTALL_REQ_TOOLCHAIN=	yes
 
 post-patch:
-# #	disable pic to fix ld: internal error in relocate_tls, at x86_64.cc:5195
-# #	${REINPLACE_CMD} -e 's|with-pic"|with-pic", "--build=${CONFIGURE_TARGET}"|'\
-	${REINPLACE_CMD} -e 's|with-pic"|build=${CONFIGURE_TARGET}"|'\
-		${WRKSRC}/setup.py
+# #	disable pic on BSD* to fix ld: internal error in relocate_tls, at x86_64.cc:5195
+	if [ "${OPSYS}" = "Linux" ]; then \
+	  ${REINPLACE_CMD} -e 's|with-pic"|with-pic", "--build=${CONFIGURE_TARGET}"|' ${WRKSRC}/setup.py;\
+	else \
+	  ${REINPLACE_CMD} -e 's|with-pic"|build=${CONFIGURE_TARGET}"|' ${WRKSRC}/setup.py;\
+	fi
 
 post-patch-sunos:
 	# fails one library test
