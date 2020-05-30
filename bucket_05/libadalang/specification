@@ -1,5 +1,8 @@
-DEF[PORTVERSION]=	2019
-DEF[DATE]=		20190510-19916
+# Leave release information FYI only
+# We have to use upstream for python 3 support
+DEF[PORTVERSION]=	2020
+# DEF[DATE]=		20200429-19982
+DEF[UPSTREAM_TAG]=	b34aaa5
 DEF[LIBTYPES]=		static
 DEF[GNARL]=		"-lgnarl", "-Wl,-rpath,{{PREFIX}}/lib"
 # ------------------------------------------------------------------------
@@ -12,9 +15,12 @@ SDESC[standard]=	High-performance semantic engine for Ada
 HOMEPAGE=		https://github.com/AdaCore/libadalang
 CONTACT=		John_Marino[draco@marino.st]
 
-DOWNLOAD_GROUPS=	main langkit
+DOWNLOAD_GROUPS=	main upstream
 SITES[main]=		http://downloads.dragonlace.net/src/
-DISTFILE[1]=		libadalang-${PORTVERSION}-${DATE}-src.tar.gz:main
+SITES[upstream]=	GITHUB/AdaCore:libadalang:${UPSTREAM_TAG}
+# DISTFILE[1]=		libadalang-${PORTVERSION}-${DATE}-src.tar.gz:main
+DISTFILE[1]=		generated:upstream
+
 
 SPKGS[standard]=	single
 
@@ -32,10 +38,11 @@ BUILDRUN_DEPENDS=	gnatcoll-bindings:gmp:standard
 			gnatcoll-bindings:iconv:standard
 			langkit:single:standard
 
-USES=			gprbuild python:build,py27 ada:single
+USES=			gprbuild python:build ada:single
 MUST_CONFIGURE=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
-DISTNAME=		libadalang-${PORTVERSION}-${DATE}-src
+# DISTNAME=		libadalang-${PORTVERSION}-${DATE}-src
+DISTNAME=		libadalang-${UPSTREAM_TAG}
 
 # [DEBUG].MAKE_ARGS_ON=		--build-mode=dev (not supported in ver 2019)
 # [DEBUG].MAKE_ARGS_OFF=	--build-mode=prod
