@@ -1,12 +1,11 @@
-DEF[PORTVERSION]=	2019
-DEF[DATE]=		20190515-24AD8
-DEF[UPSTREAM_HASH]=	31d6af5
-DEF[SOVERSION]=		0.0
+DEF[PORTVERSION]=	2020
+DEF[DATE]=		20200429-19B7C
+# DEF[UPSTREAM_HASH]=	31d6af5
+DEF[SOVERSION]=		2020
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnatcoll-core
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Core packages of GNAT Components Collection
@@ -14,14 +13,14 @@ HOMEPAGE=		https://github.com/AdaCore/gnatcoll-core
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-# SITES[main]=		http://downloads.dragonlace.net/src/
-# DISTFILE[1]=		gnatcoll-core-${PORTVERSION}-${DATE}-src.tar.gz:main
-SITES[main]=		GITHUB/AdaCore:gnatcoll-core:${UPSTREAM_HASH}
-DISTFILE[1]=		generated:main
+SITES[main]=		http://downloads.dragonlace.net/src/
+DISTFILE[1]=		gnatcoll-core-${PORTVERSION}-${DATE}-src.tar.gz:main
+# SITES[main]=		GITHUB/AdaCore:gnatcoll-core:${UPSTREAM_HASH}
+# DISTFILE[1]=		generated:main
 
 # docs subpackage not available when building from git
-# SPKGS[standard]=	complete primary docs examples
-SPKGS[standard]=	complete primary examples
+SPKGS[standard]=	complete primary docs examples
+# SPKGS[standard]=	complete primary examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -37,7 +36,7 @@ BUILDRUN_DEPENDS=	xmlada:primary:standard
 			gprbuild:gprlib:standard
 
 USES=			gprbuild gmake
-# DISTNAME=		gnatcoll-core-${PORTVERSION}-${DATE}-src
+DISTNAME=		gnatcoll-core-${PORTVERSION}-${DATE}-src
 MAKE_ARGS=		prefix={{STAGEDIR}}{{PREFIX}}
 			ENABLE_SHARED=yes
 			BUILD=PROD
