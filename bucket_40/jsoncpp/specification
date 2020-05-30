@@ -1,5 +1,6 @@
-DEF[PORTVERSION]=	1.9.2
-DEF[SOVER]=		22
+DEF[PORTVERSION]=	1.9.3
+DEF[SOVERSION]=		24
+DEF[RELEASE_TAG]=	v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		jsoncpp
@@ -11,7 +12,7 @@ HOMEPAGE=		https://github.com/open-source-parsers/jsoncpp
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/open-source-parsers:jsoncpp:${PORTVERSION}
+SITES[main]=		GITHUB/open-source-parsers:jsoncpp:${RELEASE_TAG}
 DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
@@ -25,8 +26,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/jsoncpp
 
-USES=			dos2unix c++:single meson
-PLIST_SUB=		SOVER=${SOVER}
+BUILD_DEPENDS=		autoselect-python:single:standard
+
+USES=			dos2unix c++:single meson python:build
+SOVERSION=		${SOVERSION}
 
 # meson is incapable of building static + dynamic libs
 # simultaneously.  Devs don't even see why it should (garbage)
