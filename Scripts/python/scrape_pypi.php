@@ -283,6 +283,7 @@ function inline_fix_setup ($namebase, $src) {
        "numpy"        => 's|            generate_cython[(][)]|            pass|',
        "scipy"        => '/run_build = parse/ s|par.*ds[(][)]|False|',
        "ddt"          => '/enum34/d',
+       "tqdm"         => '/== .make/ s|^if .*|if False:|',
        "soupsieve"    => false,
        "django-colorful" => false,
    );
