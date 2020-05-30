@@ -1,4 +1,4 @@
---- coreconf/arch.mk.orig	2020-05-19 17:29:29 UTC
+--- coreconf/arch.mk.orig	2020-05-29 20:34:42 UTC
 +++ coreconf/arch.mk
 @@ -26,7 +26,7 @@ OS_ARCH := $(subst /,_,$(shell uname -s)
  # Attempt to differentiate between sparc and x86 Solaris

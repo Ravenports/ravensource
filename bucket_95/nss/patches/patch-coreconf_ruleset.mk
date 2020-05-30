@@ -1,6 +1,6 @@
---- coreconf/ruleset.mk.orig	2020-05-19 17:29:29 UTC
+--- coreconf/ruleset.mk.orig	2020-05-29 20:34:42 UTC
 +++ coreconf/ruleset.mk
-@@ -53,7 +53,7 @@
+@@ -30,7 +30,7 @@
  #
  
  ifndef COMPILER_TAG
