@@ -1,4 +1,4 @@
---- lib/src/path.cc.orig	2018-10-11 16:55:40 UTC
+--- lib/src/path.cc.orig	2019-12-12 09:56:44 UTC
 +++ lib/src/path.cc
 @@ -1,3 +1,4 @@
 +#include <algorithm>
