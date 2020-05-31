@@ -1,7 +1,7 @@
---- src/plot.h.orig	2018-08-28 09:33:35 UTC
+--- src/plot.h.orig	2019-06-26 20:56:00 UTC
 +++ src/plot.h
-@@ -36,7 +36,11 @@
-         #define NSFB_BE_BYTE_ORDER
+@@ -46,7 +46,11 @@
+         #error "Endian determination failed"
      #endif
  #else
 +# if defined(__DragonFly__) || defined(__FreeBSD__)
