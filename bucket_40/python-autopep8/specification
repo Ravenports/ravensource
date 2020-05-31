@@ -4,10 +4,9 @@ DEF[PORTVERSION]=	1.5.2
 NAMEBASE=		python-autopep8
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py38 py37 py27
+VARIANTS=		py38 py37
 SDESC[py38]=		Automatic Python code formatter (PY38)
 SDESC[py37]=		Automatic Python code formatter (PY37)
-SDESC[py27]=		Automatic Python code formatter (PY27)
 HOMEPAGE=		https://github.com/hhatto/autopep8
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -17,13 +16,11 @@ DISTFILE[1]=		autopep8-${PORTVERSION}.tar.gz:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
-SPKGS[py27]=		single
 
-OPTIONS_AVAILABLE=	PY38 PY37 PY27
+OPTIONS_AVAILABLE=	PY38 PY37
 OPTIONS_STANDARD=	none
-VOPTS[py38]=		PY38=ON PY37=OFF PY27=OFF
-VOPTS[py37]=		PY38=OFF PY37=ON PY27=OFF
-VOPTS[py27]=		PY38=OFF PY37=OFF PY27=ON
+VOPTS[py38]=		PY38=ON PY37=OFF
+VOPTS[py37]=		PY38=OFF PY37=ON
 
 # License listed at PyPI
 # Expat License
@@ -38,6 +35,4 @@ GENERATED=		yes
 [PY38].BUILDRUN_DEPENDS_ON=		python-pycodestyle:single:py38
 [PY37].USES_ON=				python:py37
 [PY37].BUILDRUN_DEPENDS_ON=		python-pycodestyle:single:py37
-[PY27].USES_ON=				python:py27
-[PY27].BUILDRUN_DEPENDS_ON=		python-pycodestyle:single:py27
 

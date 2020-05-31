@@ -4,10 +4,9 @@ DEF[PORTVERSION]=	0.16
 NAMEBASE=		python-docutils
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py38 py37 py27
+VARIANTS=		py38 py37
 SDESC[py38]=		Python Documentation Utilities (PY38)
 SDESC[py37]=		Python Documentation Utilities (PY37)
-SDESC[py27]=		Python Documentation Utilities (PY27)
 HOMEPAGE=		http://docutils.sourceforge.net/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -17,13 +16,11 @@ DISTFILE[1]=		docutils-${PORTVERSION}.tar.gz:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
-SPKGS[py27]=		single
 
-OPTIONS_AVAILABLE=	PY38 PY37 PY27
+OPTIONS_AVAILABLE=	PY38 PY37
 OPTIONS_STANDARD=	none
-VOPTS[py38]=		PY38=ON PY37=OFF PY27=OFF
-VOPTS[py37]=		PY38=OFF PY37=ON PY27=OFF
-VOPTS[py27]=		PY38=OFF PY37=OFF PY27=ON
+VOPTS[py38]=		PY38=ON PY37=OFF
+VOPTS[py37]=		PY38=OFF PY37=ON
 
 # License listed at PyPI
 # public domain, Python, 2-Clause BSD, GPL 3 (see COPYING.txt)
@@ -36,5 +33,4 @@ GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
 [PY37].USES_ON=				python:py37
-[PY27].USES_ON=				python:py27
 
