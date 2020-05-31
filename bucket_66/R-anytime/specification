@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	0.3.7
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-anytime
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		standard
+SDESC[standard]=	Anything to 'POSIXct' or 'Date' Converter
+HOMEPAGE=		http://dirk.eddelbuettel.com/code/anytime.html
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+DISTFILE[1]=		anytime_0.3.7.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => GPL-2 | GPL-3 [expanded from: GPL (>= 2)]
+
+USES=			cran gmake
+DISTNAME=		anytime
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-Rcpp:single:standard
+			R-BH:single:standard
+
+
