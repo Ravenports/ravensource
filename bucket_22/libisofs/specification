@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	1.5.2
+DEF[SOVERSION]=		6.88.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libisofs
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Lib for creating ISO9660 FS, supporting extensions
+HOMEPAGE=		https://dev.lovelyhq.com/libburnia/web/-/wikis/Libisofs
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://files.libburnia-project.org/releases/
+DISTFILE[1]=		libisofs-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libisofs/libisofs.h
+LICENSE_AWK=		TERMS:"Important:"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/libisofs
+
+USES=			libtool iconv zlib
+
+MUST_CONFIGURE=		gnu
+
+SOVERSION=		${SOVERSION}
+
+post-patch:
+	${REINPLACE_CMD} -e '/libdata/d' ${WRKSRC}/configure
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libisofs.so
