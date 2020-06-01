@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.5.2
+DEF[PORTVERSION]=	1.5.3
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-autopep8
@@ -26,13 +26,16 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # Expat License
 
 # install_requires extracted from setup.py
-# pycodestyle >= 2.5.0
+# pycodestyle >= 2.6.0
+# toml
 
 DISTNAME=		autopep8-${PORTVERSION}
 GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
 [PY38].BUILDRUN_DEPENDS_ON=		python-pycodestyle:single:py38
+					python-toml:single:py38
 [PY37].USES_ON=				python:py37
 [PY37].BUILDRUN_DEPENDS_ON=		python-pycodestyle:single:py37
+					python-toml:single:py37
 
