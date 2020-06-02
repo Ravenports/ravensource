@@ -6,6 +6,7 @@ DEF[STANDARD_PATH]=	/sbin:/bin:/usr/sbin:/usr/bin
 
 NAMEBASE=		bash
 VERSION=		${PORTVERSION}.${PATCHLEVEL}
+REVISION=		1
 KEYWORDS=		shells
 VARIANTS=		standard static
 SDESC[standard]=	GNU Bourne Again SHell
@@ -61,7 +62,6 @@ USES=			bison cpe
 DISTNAME=		bash-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 CPE_VENDOR=		gnu
-INFO=			primary:bash
 INSTALL_REQ_TOOLCHAIN=	yes
 CONFIGURE_ARGS=		--enable-readline
 			--enable-progcomp
@@ -95,6 +95,7 @@ VAR_OPSYS[linux]=	VAR1=-Wl,--export-dynamic
 
 [NOTSTD].DESCRIPTION=			Non-standard designation
 [NOTSTD].USES_OFF=			makeinfo
+[NOTSTD].INFO_OFF=			primary:bash
 
 post-patch:
 	# Ensure y.tab.c is regenerated
