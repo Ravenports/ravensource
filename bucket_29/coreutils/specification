@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	8.32
 
 NAMEBASE=		coreutils
 VERSION=		${PORTVERSION}
-REVISION=		4
+REVISION=		5
 KEYWORDS=		sysutils textproc
 VARIANTS=		standard noprefix ravensys
 SDESC[standard]=	FSF core utilities (prefixed with g)
@@ -37,10 +37,9 @@ FPC_EQUIVALENT=		sysutils/coreutils
 BUILD_DEPENDS=		gmp:static:standard
 
 USES=			cpe gmake iconv:build perl:build charsetfix
-			makeinfo
+CPE_VENDOR=		gnu
 SINGLE_JOB=		yes
 INFO=			primary:coreutils
-CPE_VENDOR=		gnu
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-gmp
 CONFIGURE_ENV=		FORCE_UNSAFE_CONFIGURE=1
