@@ -4,6 +4,7 @@ DEF[REVID]=		836
 
 NAMEBASE=		ocl-icd
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Utility to regenerate the GNU info page index
@@ -38,3 +39,9 @@ post-patch:
 		${WRKSRC}/doc/libOpenCL.7.txt.in
 	${REINPLACE_CMD} -e 's|--destination-dir=$$(CURDIR)|--no-xmllint|' \
 		${WRKSRC}/doc/Makefile.in
+
+post-stage:
+	${MKDIR} -p ${STAGEDIR}${PREFIX}/share/examples/ocl-icd
+	${MV} ${STAGEDIR}${PREFIX}/share/doc/ocl-icd/examples/ocl_icd_bindings.c \
+		${STAGEDIR}${PREFIX}/share/examples/ocl-icd/
+	${RMDIR} ${STAGEDIR}${PREFIX}/share/doc/ocl-icd/examples
