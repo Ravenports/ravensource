@@ -1,7 +1,7 @@
-DEF[PORTVERSION]=	18.1.32
+DEF[PORTVERSION]=	18.1.40
 DEF[BDBVER]=		${PORTVERSION:R}
 DEF[BDBMAJ]=		${BDBVER:R}
-DEF[DBLIBS]=		libdb libdb_cxx libdb_stl libdb_sql
+DEF[DBLIBS]=		libdb libdb_cxx libdb_stl
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		db18
@@ -63,7 +63,7 @@ MAKE_ARGS=		docdir={{STD_DOCDIR}}
 [TCL].CONFIGURE_ARGS_OFF=		--disable-tcl
 
 post-patch:
-	${REINPLACE_CMD} -e '/^DOCLIST/{s/csharp//;}' \
+	${REINPLACE_CMD} -e 's/bdb-sql//; s/gsg_db_server//' \
 		${WRKSRC}/dist/Makefile.in
 
 post-install:

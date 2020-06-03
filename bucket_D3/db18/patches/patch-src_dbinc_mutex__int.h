@@ -1,4 +1,4 @@
---- src/dbinc/mutex_int.h.orig	2019-02-19 21:51:20 UTC
+--- src/dbinc/mutex_int.h.orig	2020-05-29 17:58:22 UTC
 +++ src/dbinc/mutex_int.h
 @@ -9,6 +9,10 @@
  #ifndef _DB_MUTEX_INT_H_
