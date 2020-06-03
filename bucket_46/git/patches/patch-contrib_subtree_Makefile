@@ -1,11 +1,11 @@
---- contrib/subtree/Makefile.orig	2020-04-20 15:52:30 UTC
+--- contrib/subtree/Makefile.orig	2020-06-01 15:49:27 UTC
 +++ contrib/subtree/Makefile
-@@ -78,7 +78,7 @@ install-html: $(GIT_SUBTREE_HTML)
+@@ -80,7 +80,7 @@ install-html: $(GIT_SUBTREE_HTML)
  	$(INSTALL) -m 644 $^ $(DESTDIR)$(htmldir)
  
  $(GIT_SUBTREE_DOC): $(GIT_SUBTREE_XML)
--	$(XMLTO) -m $(MANPAGE_XSL) man $^
-+	$(XMLTO) --skip-validation -m $(MANPAGE_XSL) man $^
+-	$(XMLTO) -m $(MANPAGE_XSL) $(XMLTO_EXTRA) man $^
++	$(XMLTO) --skip-validation -m $(MANPAGE_XSL) $(XMLTO_EXTRA) man $^
  
  $(GIT_SUBTREE_XML): $(GIT_SUBTREE_TXT)
  	$(ASCIIDOC) -b $(ASCIIDOC_DOCBOOK) -d manpage $(ASCIIDOC_CONF) \
