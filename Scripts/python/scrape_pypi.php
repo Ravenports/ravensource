@@ -284,6 +284,7 @@ function inline_fix_setup ($namebase, $src) {
        "scipy"        => '/run_build = parse/ s|par.*ds[(][)]|False|',
        "ddt"          => '/enum34/d',
        "tqdm"         => '/== .make/ s|^if .*|if False:|',
+       "wcwidth"      => 's|.backports[.].*;.||; s|.python_version.*)|)|',
        "soupsieve"    => false,
        "django-colorful" => false,
    );
