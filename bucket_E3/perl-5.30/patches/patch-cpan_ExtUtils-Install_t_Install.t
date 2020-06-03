@@ -1,4 +1,4 @@
---- cpan/ExtUtils-Install/t/Install.t.orig	2019-10-24 20:17:58 UTC
+--- cpan/ExtUtils-Install/t/Install.t.orig	2019-10-21 11:20:12 UTC
 +++ cpan/ExtUtils-Install/t/Install.t
 @@ -240,7 +240,7 @@ SKIP: {
                           },
