@@ -14,7 +14,10 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/bison
 DISTFILE[1]=		bison-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls examples
+# disable nls package for now
+# It pulls in dynamic iconv.so.2 which gets picked up
+# in some cases, unwantedly
+SPKGS[standard]=	complete primary examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,10 +33,11 @@ FPC_EQUIVALENT=		devel/bison
 
 BUILDRUN_DEPENDS=	m4:primary:standard
 
-USES=			charsetfix perl:build iconv:build
+USES=			charsetfix perl:build
 INFO=			primary:bison
 CONFIGURE_ARGS=		--disable-yacc
-			--enable-nsl
+# #			--enable-nsl
+			--disable-nsl
 CONFIGURE_ENV=		ac_cv_path_M4={{LOCALBASE}}/bin/gm4
 MUST_CONFIGURE=		gnu
 TEST_TARGET=		check
