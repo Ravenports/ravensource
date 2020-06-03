@@ -1,9 +1,9 @@
-DEF[PORTVERSION]=	20181009
+DEF[PORTVERSION]=	6.7
+DEF[RELEASE_TAG]=	oksh-6.7
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		ksh
+NAMEBASE=		oksh
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		shells
 VARIANTS=		standard
 SDESC[standard]=	Portable OpenBSD Korn Shell
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/ibara/oksh
 CONTACT=		Leonid_Bobrov[goleo@disroot.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/ibara:oksh:${PORTVERSION}
+SITES[main]=		GITHUB/ibara:oksh:${RELEASE_TAG}
 DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
@@ -27,11 +27,13 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		shells/oksh
 
-USES=			cpe ncurses
-CPE_VENDOR=		ksh_project
+USES=			ncurses
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--disable-static
 			--enable-curses
 			--enable-ksh
+			--bindir={{PREFIX}}/bin
 			--mandir={{MANPREFIX}}/man
 			--prefix={{PREFIX}}
+CFLAGS=			-I{{NCURSESINC}}
+LDFLAGS=		-L{{NCURSESLIB}} -ltinfo
