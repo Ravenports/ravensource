@@ -1,4 +1,4 @@
---- deps/ntlmclient/compat.h.orig	2020-04-01 13:49:12 UTC
+--- deps/ntlmclient/compat.h.orig	2020-06-04 08:46:58 UTC
 +++ deps/ntlmclient/compat.h
 @@ -29,7 +29,7 @@
  /* See man page htobe64(3) */
