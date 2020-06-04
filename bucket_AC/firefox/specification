@@ -1,4 +1,6 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(FIREFOX_VERSION)
+DEF[PYTHON3]=		EXTRACT_VERSION(PYTHON3_DEFAULT)
+DEF[PY3SUFF]=		${PYTHON3:S/.//}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		firefox
@@ -26,7 +28,6 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		www/firefox
 
 BUILD_DEPENDS=		autoconf213:single:standard
-			bzip2:static:standard
 			cbindgen:single:standard
 			nodejs:primary:standard
 			rust:single:standard
@@ -34,9 +35,9 @@ BUILD_DEPENDS=		autoconf213:single:standard
 			nasm:primary:standard
 			zip:single:standard
 			clang:compiler:standard
-			python-sqlite3:single:python_default
-BUILDRUN_DEPENDS=	bzip2:shared:standard
-			dbus-glib:primary:standard
+			python-sqlite3:single:py${PY3SUFF}
+			python${PY3SUFF}:single:standard
+BUILDRUN_DEPENDS=	dbus-glib:primary:standard
 			ffmpeg:primary:standard
 			harfbuzz:primary:standard
 			icu:single:standard
@@ -45,25 +46,23 @@ BUILDRUN_DEPENDS=	bzip2:shared:standard
 			libffi:single:standard
 			libnotify:primary:standard
 			libproxy:single:standard
+			libdrm:single:standard
 			nss:primary:standard
-			startup-notification:single:standard
 
 USES=			cpe desktop-utils:single gmake jpeg perl:build
-			pkgconfig png python:py27 zlib
+			pkgconfig png python:py27,build zlib
 XORG_COMPONENTS=	pixman xcb
-GNOME_COMPONENTS=	gconf gdkpixbuf gtk2 gtk3
+GNOME_COMPONENTS=	gdkpixbuf gtk2 gtk3
 CPE_VENDOR=		mozilla
 MUST_CONFIGURE=		yes
 CONFIGURE_OUTSOURCE=	yes
 QMAKE_ARGS=		--enable-application=browser
 			--enable-chrome-format=omni
 			--enable-default-toolkit=cairo-gtk3
-			--enable-gconf
 			--enable-install-strip
 			--enable-official-branding
 			--enable-optimize
 			--enable-release
-			--enable-startup-notification
 			--enable-strip
 			--enable-libproxy
 			--enable-system-ffi
@@ -81,7 +80,6 @@ QMAKE_ARGS=		--enable-application=browser
 			--disable-hardening
 			--prefix="{{PREFIX}}"
 			--with-intl-api
-			--with-system-bz2
 			--with-system-graphite2
 			--with-system-harfbuzz
 			--with-system-icu
@@ -91,6 +89,8 @@ QMAKE_ARGS=		--enable-application=browser
 			--with-system-nss
 			--with-system-png="{{LOCALBASE}}"
 			--with-system-zlib
+CONFIGURE_ENV=		PYTHON3={{LOCALBASE}}/bin/python${PYTHON3}
+MAKE_ENV=		PYTHON3={{LOCALBASE}}/bin/python${PYTHON3}
 
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-jemalloc
 VAR_OPSYS[linux]=	QMAKE_ARGS=--disable-elf-hack
@@ -107,6 +107,8 @@ post-patch:
 	# disable SCTP
 	${REINPLACE_CMD} -e 's|MOZ_SCTP|MOZ_DISABLE_SCTP|' \
 		${WRKSRC}/netwerk/moz.build
+	# choose correct python
+	${REINPLACE_CMD} -e 's|python3|python${PYTHON3}|g' ${WRKSRC}/configure.in
 	# Set mozilla options
 	@${ECHO_CMD} "--=> Setting configuration <=--"
 	@for arg in ${QMAKE_ARGS}; do \
