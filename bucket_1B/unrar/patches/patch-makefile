@@ -1,4 +1,4 @@
---- makefile.orig	2017-11-22 06:53:39 UTC
+--- makefile.orig	2020-05-21 09:13:21 UTC
 +++ makefile
 @@ -2,14 +2,13 @@
  # Makefile for UNIX - unrar
@@ -39,19 +39,18 @@
  all:	unrar
  
  install:	install-unrar
-@@ -151,13 +157,11 @@ sfx:	clean $(OBJECTS)
+@@ -153,12 +159,10 @@ sfx:	clean $(OBJECTS)
  	$(LINK) -o default.sfx $(LDFLAGS) $(OBJECTS)
  	$(STRIP) default.sfx
  
 -lib:	WHAT=RARDLL
 -lib:	CXXFLAGS+=$(LIBFLAGS)
 -lib:	clean $(OBJECTS) $(LIB_OBJ)
-+lib:	$(SOBJECTS)
- 	@rm -f libunrar.so
- 	@rm -f libunrar.a
++lib: $(SOBJECTS)
+ 	@rm -f libunrar.*
 -	$(LINK) -shared -o libunrar.so $(LDFLAGS) $(OBJECTS) $(LIB_OBJ)
 -	$(AR) rcs libunrar.a $(OBJECTS) $(LIB_OBJ)
-+	$(LINK) -shared -o libunrar.so $(LDFLAGS) -Wl,-soname,libunrar.so.5 $(SOBJECTS) 
++	$(LINK) -shared -o libunrar.so $(LDFLAGS) -Wl,-soname,libunrar.so.5 $(SOBJECTS)
 +	$(AR) rcs libunrar.a $(SOBJECTS)
  
  install-unrar:
