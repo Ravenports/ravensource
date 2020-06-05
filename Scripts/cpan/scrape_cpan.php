@@ -13,6 +13,8 @@ $VB           = 528;    # series are changed in ravenports
 $ravensource_directory = "";
 $PERL_VERSION_A = "";
 $PERL_VERSION_B = "";
+$PERL_MAJVER_A = "";
+$PERL_MAJVER_B = "";
 
 
 # Set ravensource (2 levels higher than Scripts/cpan)
@@ -28,6 +30,8 @@ function set_perl_versions() {
     global
         $ravensource_directory,
         $VA, $VB,
+        $PERL_MAJVER_A,
+        $PERL_MAJVER_B,
         $PERL_VERSION_A,
         $PERL_VERSION_B;
 
@@ -43,9 +47,11 @@ function set_perl_versions() {
     } else {
         if (preg_match($RA, $contents, $matches) == 1) {
             $PERL_VERSION_A = $matches[1] . "." . $matches[2] . "." . $matches[3];
+            $PERL_MAJVER_A = $matches[1] . "." . $matches[2];
         }
         if (preg_match($RB, $contents, $matches) == 1) {
             $PERL_VERSION_B = $matches[1] . "." . $matches[2] . "." . $matches[3];
+            $PERL_MAJVER_B = $matches[1] . "." . $matches[2];
         }
     }
 }
@@ -323,8 +329,8 @@ function bucket_directory($namebase) {
 # Use META.json to finish populating port data
 function finish_port_json (&$port) {
     global $VA, $VB,
-        $PERL_VERSION_A,
-        $PERL_VERSION_B,
+        $PERL_MAJVER_A,
+        $PERL_MAJVER_B,
         $SPECS_DIR,
         $CORE_MODULES,
         $data_remove_version,
@@ -409,8 +415,8 @@ function finish_port_json (&$port) {
     if (!file_exists($portdir . "/broken_$VB")) {
         array_push($perlverkeys, $VB);
     }
-    $map = array ($VA => $PERL_VERSION_A,
-                  $VB => $PERL_VERSION_B);
+    $map = array ($VA => $PERL_MAJVER_A,
+                  $VB => $PERL_MAJVER_B);
 
     foreach (array("runtime", "build", "configure", "test") as $cat) {
         foreach ($reqs_level as $level) {
