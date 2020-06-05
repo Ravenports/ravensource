@@ -1,5 +1,7 @@
-DEF[PORTVERSION]=	1.43.1
+DEF[PORTVERSION]=	1.44.0
 DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
+DEF[RUSTX_BOOT]=	1.43.0
+DEF[CARGO_BOOT]=	0.44.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rust
@@ -15,16 +17,16 @@ SITES[main]=		https://static.rust-lang.org/dist/
 SITES[dflyboot]=	https://leaf.dragonflybsd.org/~marino/dports-src/rust/
 DISTFILE[1]=		rustc-${PORTVERSION}-src.tar.xz:main
 
-DISTFILE[2]=		rustc-1.42.0-x86_64-unknown-dragonfly.tar.zst:dflyboot
-DISTFILE[3]=		rust-std-1.42.0-x86_64-unknown-dragonfly.tar.zst:dflyboot
-DISTFILE[4]=		cargo-0.43.0-x86_64-unknown-dragonfly.tar.zst:dflyboot
+DISTFILE[2]=		rustc-${RUSTX_BOOT}-x86_64-unknown-dragonfly.tar.zst:dflyboot
+DISTFILE[3]=		rust-std-${RUSTX_BOOT}-x86_64-unknown-dragonfly.tar.zst:dflyboot
+DISTFILE[4]=		cargo-${CARGO_BOOT}-x86_64-unknown-dragonfly.tar.zst:dflyboot
 
-DISTFILE[5]=		rustc-1.42.0-x86_64-unknown-freebsd.tar.gz:main
-DISTFILE[6]=		rust-std-1.42.0-x86_64-unknown-freebsd.tar.gz:main
-DISTFILE[7]=		cargo-0.43.0-x86_64-unknown-freebsd.tar.gz:main
-DISTFILE[8]=		rustc-1.42.0-x86_64-unknown-linux-gnu.tar.gz:main
-DISTFILE[9]=		rust-std-1.42.0-x86_64-unknown-linux-gnu.tar.gz:main
-DISTFILE[10]=		cargo-0.43.0-x86_64-unknown-linux-gnu.tar.gz:main
+DISTFILE[5]=		rustc-${RUSTX_BOOT}-x86_64-unknown-freebsd.tar.gz:main
+DISTFILE[6]=		rust-std-${RUSTX_BOOT}-x86_64-unknown-freebsd.tar.gz:main
+DISTFILE[7]=		cargo-${CARGO_BOOT}-x86_64-unknown-freebsd.tar.gz:main
+DISTFILE[8]=		rustc-${RUSTX_BOOT}-x86_64-unknown-linux-gnu.tar.gz:main
+DISTFILE[9]=		rust-std-${RUSTX_BOOT}-x86_64-unknown-linux-gnu.tar.gz:main
+DISTFILE[10]=		cargo-${CARGO_BOOT}-x86_64-unknown-linux-gnu.tar.gz:main
 DF_INDEX=		1
 
 SPKGS[standard]=	single
@@ -90,6 +92,13 @@ SHEBANG_FILES=		src/llvm-project/compiler-rt/lib/sanitizer_common/symbolizer/scr
 			src/libcore/unicode/printable.py
 
 BLOCK_WATCHDOG=		yes
+
+VAR_OPSYS[dragonfly]=	MAKEFILE_LINE=BOOTSTRAP_RUST=${RUSTX_BOOT}
+			MAKEFILE_LINE=BOOTSTRAP_CARGO=${CARGO_BOOT}
+VAR_OPSYS[freebsd]=	MAKEFILE_LINE=BOOTSTRAP_RUST=${RUSTX_BOOT}
+			MAKEFILE_LINE=BOOTSTRAP_CARGO=${CARGO_BOOT}
+VAR_OPSYS[linux]=	MAKEFILE_LINE=BOOTSTRAP_RUST=${RUSTX_BOOT}
+			MAKEFILE_LINE=BOOTSTRAP_CARGO=${CARGO_BOOT}
 
 post-patch:
 	# Use rpath suitable for libz et al.
@@ -185,10 +194,8 @@ post-install:
 	${STRIP_CMD} \
 		${STAGEDIR}${PREFIX}/bin/cargo \
 		${STAGEDIR}${PREFIX}/bin/cargo-clippy \
-		${STAGEDIR}${PREFIX}/bin/cargo-miri \
 		${STAGEDIR}${PREFIX}/bin/cargo-fmt \
 		${STAGEDIR}${PREFIX}/bin/clippy-driver \
-		${STAGEDIR}${PREFIX}/bin/miri \
 		${STAGEDIR}${PREFIX}/bin/rls \
 		${STAGEDIR}${PREFIX}/bin/rustc \
 		${STAGEDIR}${PREFIX}/bin/rustdoc \
