@@ -43,6 +43,7 @@ BUILDRUN_DEPENDS=	Zstandard:shared:standard
 			lz4:shared:standard
 
 MAKE_ENV=		BORG_OPENSSL_PREFIX={{OPENSSLBASE}}
+[PY38].BROKEN_ON=			https://github.com/borgbackup/borg/issues/5214
 
 post-patch:
 	${SED} -i'' -e 's|msgpack-python|msgpack|' \
