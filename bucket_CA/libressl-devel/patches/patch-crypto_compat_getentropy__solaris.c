@@ -1,4 +1,4 @@
---- crypto/compat/getentropy_solaris.c.orig	2020-05-21 02:59:59 UTC
+--- crypto/compat/getentropy_solaris.c.orig	2020-05-31 23:14:06 UTC
 +++ crypto/compat/getentropy_solaris.c
 @@ -43,9 +43,6 @@
  #include <unistd.h>
@@ -243,8 +243,8 @@
 -			HD(cnt);
 -		}
 -		SHA512_Final(results, &ctx);
--		memcpy((char *)buf + i, results, min(sizeof(results), len - i));
--		i += min(sizeof(results), len - i);
+-		memcpy((char *)buf + i, results, MINIMUM(sizeof(results), len - i));
+-		i += MINIMUM(sizeof(results), len - i);
 -	}
 -	explicit_bzero(&ctx, sizeof ctx);
 -	explicit_bzero(results, sizeof results);
