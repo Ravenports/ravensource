@@ -1,4 +1,4 @@
---- youtube_dl/options.py.orig	2020-05-06 16:02:36 UTC
+--- youtube_dl/options.py.orig	2020-06-01 21:04:26 UTC
 +++ youtube_dl/options.py
 @@ -138,10 +138,6 @@ def parseOpts(overrideArguments=None):
          action='version',
