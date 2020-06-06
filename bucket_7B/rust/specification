@@ -109,10 +109,10 @@ post-patch:
 	${REINPLACE_CMD} -e 's/"files":{[^}]*}/"files":{}/' \
 		 ${WRKSRC}/vendor/*/.cargo-checksum.json
 
-# #	# for rust 1.37 bootstrap built with libressl 2.8
-# #	(cd ${LOCALBASE}/libressl/lib && \
-# #		${LN} -s libssl.so libssl.so.46 && \
-# #		${LN} -s libcrypto.so libcrypto.so.44)
+	# for rust 1.43 bootstrap built with libressl 3.0
+	(cd ${LOCALBASE}/libressl/lib && \
+		${LN} -s libssl.so libssl.so.47 && \
+		${LN} -s libcrypto.so libcrypto.so.45)
 
 post-configure:
 	${MKDIR} ${WRKDIR}/bootstrap
