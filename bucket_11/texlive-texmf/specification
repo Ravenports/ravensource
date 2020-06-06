@@ -1,0 +1,73 @@
+DEF[YEAR]=		2020
+DEF[PORTVERSION]=	${YEAR}0406
+# ----------------------------------------------------------------------------
+
+
+NAMEBASE=		texlive-texmf
+VERSION=		${PORTVERSION}
+KEYWORDS=		print
+VARIANTS=		standard
+SDESC[standard]=	TeXlive texmf tree (macros + fonts)
+HOMEPAGE=		https://www.tug.org/texlive
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main copying lppl
+SITES[main]=		ftp://ftp.tug.org/texlive/historic/${YEAR}/
+SITES[copying]=		https://www.tug.org/texlive/
+SITES[lppl]=		https://www.latex-project.org/
+DISTFILE[1]=		texlive-${PORTVERSION}-texmf.tar.xz:main
+DISTFILE[2]=		LICENSE.TL:copying
+DISTFILE[3]=		lppl.txt:lppl
+DIST_SUBDIR=		texlive
+DF_INDEX=		1 2 3
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:primary
+LICENSE_NAME=		CUSTOM1:"TeX Live - Multi-license (LPPL, GNU, BSD, etc)"
+LICENSE_TERMS=		primary:{{DISTDIR}}/{{DIST_SUBDIR}}/LICENSE.TL
+LICENSE_FILE=		CUSTOM1:{{DISTDIR}}/{{DIST_SUBDIR}}/lppl.txt
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		print/texlive-texmf
+
+BLOCK_WATCHDOG=		yes
+SKIP_BUILD=		yes
+DISTNAME=		texlive-${PORTVERSION}-texmf
+
+EXTRACT_ONLY=		1
+EXTRACT_HEAD[1]=	{{TAR}} -xf
+EXTRACT_TAIL[1]=	{{EXCLUDE_FILES:S,^,--exclude texlive-${PORTVERSION}-texmf/,}} --no-same-owner --no-same-permissions
+
+USES=			shebangfix
+SHEBANG_GLOB=		*.sh
+			*.py
+			*.pl
+SHEBANG_FILES=		texmf-dist/doc/latex/ucs/unsupported/u2ps
+			texmf-dist/doc/latex/tlc-article/bin/deploy
+			texmf-dist/doc/latex/ctable/inst
+			texmf-dist/doc/latex/presentations-en/runAll
+			texmf-dist/doc/latex/hepnames/mkmacrotables
+			texmf-dist/doc/cstex/cspsfonts-gen/mkfc
+			texmf-dist/doc/cstex/cspsfonts-gen/mkf
+			texmf-dist/doc/fonts/berenisadf/ff-ybd.pe
+			texmf-dist/doc/fonts/phaistos/getglyphs
+			texmf-dist/doc/generic/m-tx/buildmtxdoc.lua
+			texmf-dist/doc/generic/e-french/bin/linux/makefrindex
+			texmf-dist/doc/support/latexdiff/contrib/latexdiff-wrap
+			texmf-dist/scripts/logicpuzzle/createlpsudoku
+			texmf-dist/scripts/logicpuzzle/lpsmag
+
+post-extract:
+	${FIND} ${WRKSRC} -name '*.orig' -delete
+	${FIND} ${WRKSRC} -name '*.bak' -delete
+	${FIND} ${WRKSRC} -type d -empty -delete
+
+do-install:
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${MV} ${WRKSRC}/texmf-dist/doc/* ${STAGEDIR}${STD_DOCDIR}/
+	${RMDIR} ${WRKSRC}/texmf-dist/doc
+	${MV} ${WRKSRC}/texmf-dist ${STAGEDIR}${PREFIX}/share
