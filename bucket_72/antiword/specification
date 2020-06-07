@@ -29,9 +29,9 @@ FPC_EQUIVALENT=		textproc/antiword
 
 BUILDRUN_DEPENDS=	gsfonts:single:standard
 
-INSTALL_TARGET=		"global_install"
-
+USES=			cpe
 CPE_VENDOR=		antiword_project
+INSTALL_TARGET=		"global_install"
 
 post-patch:
 	${REINPLACE_CMD} -e 's|__PREFIX__|${PREFIX}|g' \
