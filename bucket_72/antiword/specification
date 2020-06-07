@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	0.37
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		antiword
+VERSION=		${PORTVERSION}
+KEYWORDS=		converters
+VARIANTS=		standard
+SDESC[standard]=	MS Word reader/converter (to text or postscript)
+HOMEPAGE=		http://www.winfield.demon.nl
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.winfield.demon.nl/linux/
+DISTFILE[1]=		antiword-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:primary
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/Docs/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/antiword.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		textproc/antiword
+
+BUILDRUN_DEPENDS=	gsfonts:single:standard
+
+INSTALL_TARGET=		"global_install"
+
+CPE_VENDOR=		antiword_project
+
+post-patch:
+	${REINPLACE_CMD} -e 's|__PREFIX__|${PREFIX}|g' \
+		${WRKSRC}/Makefile ${WRKSRC}/antiword.h
+
+post-install:
+	# Useless KDE 1 script
+	${RM} ${STAGEDIR}${PREFIX}/bin/kantiword
+	${INSTALL_MAN} ${WRKSRC}/Docs/antiword.1 \
+		${STAGEDIR}${PREFIX}/share/man/man1/antiword.1
+	${MKDIR} -p ${STAGEDIR}${PREFIX}/share/doc/antiword
+	${INSTALL_DATA} ${WRKSRC}/Docs/ReadMe \
+		${STAGEDIR}${PREFIX}/share/doc/antiword/ReadMe
+	${INSTALL_DATA} ${WRKSRC}/Docs/FAQ \
+		${STAGEDIR}${PREFIX}/share/doc/antiword/FAQ
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/antiword
