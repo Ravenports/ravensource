@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	0.95
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		catdoc
+VERSION=		${PORTVERSION}
+KEYWORDS=		converters
+VARIANTS=		standard
+SDESC[standard]=	Convert MS Word/Excel/PowerPoint/RTF to ASCII/TeX
+HOMEPAGE=		https://www.wagner.pp.ru/~vitus/software/catdoc
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://ftp.wagner.pp.ru/pub/catdoc/
+DISTFILE[1]=		catdoc-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary viewer
+
+OPTIONS_AVAILABLE=	CYRILLIC
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:primary
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		complete:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/catdoc.h
+LICENSE_AWK=		TERMS:"ifndef CATDOC_H"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		textproc/catdoc
+
+BUILD_DEPENDS=		tk86:primary:standard
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-install-root="{{STAGEDIR}}"
+			--with-wish={{PREFIX}}/bin/wish8.6
+
+EXRUN[viewer]=		tk86:primary:standard
+
+[CYRILLIC].DESCRIPTION=			"Target Cyrillic codepages instead of Latin ones"
+[CYRILLIC].CFLAGS_OFF=			-DLATIN=1
+
+post-install:
+.for p in catdoc catppt xls2csv
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${p}
+.endfor
