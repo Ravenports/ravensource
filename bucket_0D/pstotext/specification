@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	1.9
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		pstotext
+VERSION=		${PORTVERSION}
+KEYWORDS=		print
+VARIANTS=		standard
+SDESC[standard]=	Extract text from PostScript or PDF files
+HOMEPAGE=		none
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://elderlinux.org/ravenports/distcache/
+DISTFILE[1]=		pstotext-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		print/pstotext
+
+LICENSE=		CUSTOM1:single
+LICENSE_NAME=		CUSTOM1:"DEC EULA"
+LICENSE_FILE=		CUSTOM1:{{WRKDIR}}/EULA
+LICENSE_SCHEME=		solo
+
+RUN_DEPENDS=		ghostscript:primary:standard
+USES=			gmake
+
+post-extract:
+	${AWK} '/GRANT/,EOF { print $0 }' ${WRKSRC}/pstotext.txt > \
+		${WRKDIR}/EULA
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/pstotext \
+		${STAGEDIR}${PREFIX}/bin/pstotext
+	${INSTALL_MAN} ${WRKSRC}/pstotext.1 \
+		${STAGEDIR}${PREFIX}/share/man/man1/pstotext.1
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/pstotext
+	${INSTALL_DATA} ${WRKSRC}/pstotext.txt \
+		${STAGEDIR}${PREFIX}/share/pstotext/pstotext.txt
