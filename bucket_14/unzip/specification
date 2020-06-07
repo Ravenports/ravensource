@@ -5,6 +5,7 @@ DEF[ICONV_LINK]=	-L{{ICONV_LIBRARY_PATH}} {{ICONV_LIB}} -Wl,-rpath,{{ICONV_LIBRA
 
 NAMEBASE=		unzip
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		archivers
 VARIANTS=		standard chinese korean russian
 SDESC[standard]=	Extraction utility for .zip format archives
@@ -18,10 +19,10 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/infozip/UnZip%206.x%20%28latest%29/UnZip%20${PORTVERSION}/
 DISTFILE[1]=		unzip${PORTVERSION:S/.//}.tar.gz:main
 
-SPKGS[standard]=	complete core docs
-SPKGS[chinese]=		core
-SPKGS[russian]=		core
-SPKGS[korean]=		core
+SPKGS[standard]=	complete primary docs
+SPKGS[chinese]=		primary
+SPKGS[russian]=		primary
+SPKGS[korean]=		primary
 
 OPTIONS_AVAILABLE=	LANG_CN LANG_KO LANG_RU ICONV
 OPTIONS_STANDARD=	ICONV
@@ -29,7 +30,7 @@ VOPTS[chinese]=		LANG_CN=ON LANG_KO=OFF LANG_RU=OFF ICONV=ON
 VOPTS[korean]=		LANG_CN=OFF LANG_KO=ON LANG_RU=OFF ICONV=ON
 VOPTS[russian]=		LANG_CN=OFF LANG_KO=OFF LANG_RU=ON ICONV=ON
 
-LICENSE=		CUSTOM1:core
+LICENSE=		CUSTOM1:primary
 LICENSE_NAME=		CUSTOM1:"Info-ZIP license"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
