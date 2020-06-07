@@ -9,6 +9,7 @@ DEF[LIBTEXLUAJIT]=	2.1.0
 
 NAMEBASE=		texlive-bin
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		print
 VARIANTS=		standard
 SDESC[standard]=	Binary and input files for TeXlive
@@ -20,14 +21,15 @@ SITES[main]=		ftp://ftp.tug.org/texlive/historic/${YEAR}/
 SITES[copying]=		https://www.tug.org/texlive/
 SITES[lppl]=		https://www.latex-project.org/
 DISTFILE[1]=		texlive-${PORTVERSION}-source.tar.xz:main
-DISTFILE[2]=		LICENSE.TL:copying
-DISTFILE[3]=		lppl.txt:lppl
+DISTFILE[2]=		texlive-${PORTVERSION}-extra.tar.xz:main
+DISTFILE[3]=		LICENSE.TL:copying
+DISTFILE[4]=		lppl.txt:lppl
 DIST_SUBDIR=		texlive
-DF_INDEX=		1 2 3
+DF_INDEX=		1 2 3 4
 
 SPKGS[standard]=	complete primary docs bibtex context
 			engine_luatex engine_pdftex engine_xetex
-			synctex utils xindy
+			synctex tlmgr utils xindy
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -40,15 +42,18 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		print/texlive-base
 
-EXTRACT_ONLY=		1
+EXTRACT_ONLY=		1 2
 USES=			gmake libtool perl png shebangfix
 XORG_COMPONENTS=	pixman x11 xaw
 GNOME_COMPONENTS=	cairo
 
+EXRUN[primary]=		texlive-bin:tlmgr:standard
 EXRUN[bibtex]=		texlive-bin:primary:standard
 EXRUN[engine_luatex]=	texlive-bin:primary:standard
 EXRUN[engine_pdftex]=	texlive-bin:primary:standard
 EXRUN[engine_xetex]=	texlive-bin:primary:standard
+EXRUN[synctex]=		readline:single:standard
+			texlive-bin:primary:standard
 
 BUILD_DEPENDS=		gmp:static:standard
 			mpfr:static:standard
@@ -65,6 +70,7 @@ BUILDRUN_DEPENDS=	freetype:primary:standard
 			zziplib:primary:standard
 RUN_DEPENDS=		libffcall:single:standard
 			libsigsegv:shared:standard
+			texlive-texmf:primary:standard
 
 INSTALL_REQ_TOOLCHAIN=	yes
 DISTNAME=		texlive-${PORTVERSION}-source
@@ -144,6 +150,7 @@ SHEBANG_FILES=		texk/texlive/linked_scripts/accfonts/mkt1font
 			texk/texlive/linked_scripts/clojure-pamphlet/pamphletangler
 			texk/texlive/linked_scripts/tlcockpit/tlcockpit.sh
 
+SUB_FILES=		pkg-message-primary
 PLIST_SUB=		LIBKPATHSEA=${LIBKPATHSEA}
 			LIBKPATHSEA_MAJOR=${LIBKPATHSEA:R:R}
 			LIBPTEXENC=${LIBPTEXENC}
@@ -155,6 +162,7 @@ PLIST_SUB=		LIBKPATHSEA=${LIBKPATHSEA}
 			LIBTEXLUAJIT=${LIBTEXLUAJIT}
 			LIBTEXLUAJIT_MAJOR=${LIBTEXLUAJIT:R:R}
 
+
 post-patch:
 	${CP} ${FILESDIR}/pdftoepdf-poppler0.76.0.cc \
 		${WRKSRC}/texk/web2c/pdftexdir/
@@ -162,6 +170,9 @@ post-patch:
 		${WRKSRC}/texk/web2c/pdftexdir/
 
 post-install:
+	${MKDIR} -p ${STAGEDIR}${PREFIX}/lib/perl5/site_perl
+	${CP} -r ${WRKDIR}/texlive-${PORTVERSION}-extra/tlpkg/TeXLive ${STAGEDIR}${SITE_PERL}
+# ${PREFIX}/lib/perl5/site_perl
 	${RM} -r ${STAGEDIR}${PREFIX}/share/info
 	${LN} -s eptex ${STAGEDIR}${PREFIX}/bin/platex
 	${LN} -s euptex ${STAGEDIR}${PREFIX}/bin/uplatex
