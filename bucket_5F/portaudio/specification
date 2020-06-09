@@ -1,0 +1,64 @@
+DEF[PORTVERSION]=	190600_20161030
+DEF[SOVERSION]=		2.0.0
+DEF[SOVERSION_CPP]=	0.0.12
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		portaudio
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		standard
+SDESC[standard]=	Cross platform audio I/O library
+HOMEPAGE=		http://www.portaudio.com/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.portaudio.com/archives/
+DISTFILE[1]=		pa_stable_v${PORTVERSION}.tgz:main
+
+SPKGS[standard]=	complete primary docs examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE.txt
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		audio/portaudio
+
+BUILD_DEPENDS=		doxygen:single:standard
+
+USES=			autoreconf dos2unix gmake libtool pkgconfig
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-dependency-tracking
+			--enable-cxx
+			--without-alsa
+			--without-jack
+			--without-sndio
+SINGLE_JOB=		yes
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		SOVERSION_CPP=${SOVERSION_CPP}
+			SOMAJOR_CPP=${SOVERSION_CPP:R:R}
+DISTNAME=		portaudio
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-install:
+	# install documentation
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	(cd ${WRKSRC} && doxygen)
+	(cd ${WRKSRC}/doc && ${COPYTREE_SHARE} html ${STAGEDIR}${STD_DOCDIR})
+	(cd ${WRKSRC} && ${INSTALL_DATA} README.txt index.html \
+		${STAGEDIR}${STD_DOCDIR})
+
+	# install examples
+	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+	${INSTALL_DATA} ${WRKSRC}/bindings/cpp/example/*.cxx \
+		${WRKSRC}/examples/*.c ${WRKSRC}/examples/*.cpp \
+		${STAGEDIR}${STD_EXAMPLESDIR}
+
+	# install provided header file
+	${INSTALL_DATA} ${FILESDIR}/pa_unix_oss.h ${STAGEDIR}${PREFIX}/include
+
+	# strip libraries
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
+
