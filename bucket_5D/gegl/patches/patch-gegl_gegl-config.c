@@ -1,6 +1,6 @@
---- gegl/gegl-config.c.orig	2019-05-30 09:46:01 UTC
+--- gegl/gegl-config.c.orig	2020-06-07 19:11:34 UTC
 +++ gegl/gegl-config.c
-@@ -271,6 +271,21 @@ gegl_config_class_init (GeglConfigClass
+@@ -285,6 +285,21 @@ gegl_config_class_init (GeglConfigClass
                               ) * page_size;
        mach_port_deallocate (mach_task_self (), host);
      }
@@ -20,5 +20,5 @@
 +    };
 +
  #elif defined(__FreeBSD__)
+     bool ok = true;
  
-     size_t len = sizeof(unsigned int);
