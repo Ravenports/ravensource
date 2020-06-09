@@ -54,6 +54,10 @@ function set_perl_versions() {
             $PERL_MAJVER_B = $matches[1] . "." . $matches[2];
         }
     }
+    # 5.28.3 came out after latest 5.30
+    if ($PERL_VERSION_A == "5.30.3") {
+        $PERL_VERSION_B = "5.28.2";  # currently it's 5.28.3
+    }
 }
 
 
