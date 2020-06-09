@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.40
+DEF[PORTVERSION]=	0.41
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Math-GSL
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/leto/math--gsl/tree/master
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		CPAN/ID:L/LE/LETO
+SITES[main]=		CPAN/ID:H/HA/HAKONH
 DISTFILE[1]=		Math-GSL-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
@@ -65,7 +65,6 @@ DISTNAME=		Math-GSL-${PORTVERSION}
 USES=			cclibs:single
 BUILDRUN_DEPENDS=	gsl:single:standard
 INSTALL_REQ_TOOLCHAIN=	yes
-BROKEN[all]=		Requires <= GSL v2.5, but RP is already on v2.6
 
 post-patch:
 	${REINPLACE_CMD} -e 's|@EXT1@|-Wl,-rpath,${PREFIX}/lib|' \

@@ -1,7 +1,6 @@
 USES=			cclibs:single
 BUILDRUN_DEPENDS=	gsl:single:standard
 INSTALL_REQ_TOOLCHAIN=	yes
-BROKEN[all]=		Requires <= GSL v2.5, but RP is already on v2.6
 
 post-patch:
 	${REINPLACE_CMD} -e 's|@EXT1@|-Wl,-rpath,${PREFIX}/lib|' \
