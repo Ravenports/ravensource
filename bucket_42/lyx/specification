@@ -1,12 +1,13 @@
-DEF[PORTVERSION]=	2.3.4.4
+DEF[PORTVERSION]=	2.3.5.1
 DEF[MAJORVER]=		${PORTVERSION:R:R}
-DEF[LYX_DATE]=		2020-02-24
+# configure.ac date
+DEF[LYX_DATE]=		2020-06-02
 DEF[XY]=		${MAJORVER:S/.//}
+DEF[DISTVER]=		${PORTVERSION:R}-${PORTVERSION:S|.|/|g:T}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		lyx
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		print editors
 VARIANTS=		standard
 SDESC[standard]=	Document Processor WYSIWYM Editor & Latex frontend
@@ -17,16 +18,16 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://www-ftp.lip6.fr/ftp/pub/lyx/stable/${MAJORVER}.x/
 			http://sunsite.icm.edu.pl/pub/unix/editors/lyx/stable/${MAJORVER}.x/
 			ftp://ftp.lyx.org/pub/lyx/stable/${MAJORVER}.x/
-DISTFILE[1]=		lyx-${PORTVERSION}.tar.bz2:main
+DISTFILE[1]=		lyx-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary docs examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:stock
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"is included below for your reference"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
@@ -51,7 +52,7 @@ EXTRACT_HEAD[1]=	{{TAR}} -xf
 EXTRACT_TAIL[1]=	--no-same-owner --no-same-permissions --exclude 3rdparty --exclude cygwin --exclude MacOSX --exclude Win32
 
 USES=			cmake iconv zlib perl python pkgconfig
-			shebangfix desktop-utils:single
+			shebangfix desktop-utils:primary
 			gettext-runtime gettext-tools
 XORG_COMPONENTS=	xcb xmu xtst xaw
 # #			There's something wrong with po/cmake support
@@ -78,6 +79,7 @@ SHEBANG_FILES=		lib/configure.py
 			lib/scripts/svg2pstex.py
 LDFLAGS=		{{ICONV_LIB}}
 PLIST_SUB=		MV=${MAJORVER}
+DISTNAME=		lyx-${DISTVER}
 
 post-patch:
 	${GREP} -rl "python -tt" ${WRKSRC} | ${XARGS} \
@@ -105,3 +107,9 @@ post-install:
 	# strip binaries
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
 
+	# relocate examples and docs
+	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR:H}
+	${MV} ${STAGEDIR}${PREFIX}/share/lyx/examples \
+		${STAGEDIR}${STD_EXAMPLESDIR}
+	${MV} ${STAGEDIR}${PREFIX}/share/lyx/doc \
+		${STAGEDIR}${STD_DOCDIR}
