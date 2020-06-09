@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	17
+DEF[PORTVERSION]=	2.03
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		psutils
@@ -10,27 +10,32 @@ HOMEPAGE=		http://knackered.org/angus/psutils/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		ftp://ftp.dcs.ed.ac.uk/pub/ajcd/
-			ftp://ftp.knackered.org/pub/psutils/
-DISTFILE[1]=		psutils-p${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/rrthomas:psutils:v${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		CUSTOM1:single
-LICENSE_NAME=		CUSTOM1:"PS Utilities License (BSD-like)"
-LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		print/psutils
 
+BUILD_DEPENDS=		help2man:single:standard
 BUILDRUN_DEPENDS=	libpaper:single:standard
+			ghostscript:primary:standard
 
-USES=			perl
-DISTNAME=		psutils
-MAKEFILE=		Makefile.unix
-MAKE_ENV=		DATADIR="{{PREFIX}}/share/psutils"
-			PERL="{{PERL}}"
-			CHMOD="{{CHMOD}}"
+USES=			autoreconf gmake perl
+MUST_CONFIGURE=		gnu
+
+post-extract:
+	# extract license terms
+	${AWK} '/^PSUtils is distributed/','/^COPYRIGHT/' ${WRKSRC}/README \
+		> ${WRKDIR}/TERMS
+
+post-patch:
+	${REINPLACE_CMD} -e 's|@RELOCATABLE@|yes|' ${WRKSRC}/*.in.in
