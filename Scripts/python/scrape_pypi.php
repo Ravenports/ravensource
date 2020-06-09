@@ -285,6 +285,7 @@ function inline_fix_setup ($namebase, $src) {
        "ddt"          => '/enum34/d',
        "tqdm"         => '/== .make/ s|^if .*|if False:|',
        "wcwidth"      => 's|.backports[.].*;.||; s|.python_version.*)|)|',
+       "breathe"      => '/import breathe/d',
        "soupsieve"    => false,
        "django-colorful" => false,
    );
@@ -330,6 +331,12 @@ function inline_fix_setup ($namebase, $src) {
            case "ddt":
                $xf = $src . "/ddt.py";
                shell_exec ("sed -i.bak -e '/nottest/d' $xf");
+               break;
+           case "breathe":
+               $xf = $src . "/breathe/__init__.py";
+               $bv = trim (shell_exec ("awk '/__version__/ { print $3 }' $xf"));
+               $xf = $src . "/setup.py";
+               shell_exec ("sed -i.bak -e \"s|breathe.__version__|$bv|\" $xf");
                break;
        }
    }
