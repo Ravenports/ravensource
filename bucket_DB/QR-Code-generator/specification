@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	1.6.0
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		QR-Code-generator
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	High-quality QR Code generator library
+HOMEPAGE=		https://www.nayuki.io/page/qr-code-generator-library
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/nayuki:QR-Code-generator:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKDIR}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/qr-code-generator
+
+USES=			gmake
+SOVERSION=		${SOVERSION}
+
+post-patch:
+	${CP} ${FILESDIR}/Makefile ${WRKSRC}
+	# extract license
+	${AWK} '/^License/,EOF' ${WRKSRC}/Readme.markdown > ${WRKDIR}/LICENSE
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
