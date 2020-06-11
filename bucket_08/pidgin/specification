@@ -1,11 +1,10 @@
-DEF[PORTVERSION]=	2.13.0
-DEF[SOVERSION]=		0.13.0
+DEF[PORTVERSION]=	2.14.1
+DEF[SOVERSION]=		0.14.1
 DEF[MODULES]=		gg,irc,jabber,novell,oscar,simple,zephyr
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		pidgin
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		net_im
 VARIANTS=		standard
 SDESC[standard]=	Multi-protocol instant messaging client
@@ -16,10 +15,17 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/pidgin/Pidgin/${PORTVERSION}
 DISTFILE[1]=		pidgin-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete purple application
+SPKGS[standard]=	complete purple application nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:purple
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		purple:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"_PURPLE_PURPLE_H_"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libpurple/purple.h
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net-im/pidgin
 
