@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	1.2.0
+# switch to fork (devnev => davmac314).  Original hasn't moved in 9 years
+DEF[PORTVERSION]=	1.2.2
 DEF[SOVERSION]=		1.2.0
 # ----------------------------------------------------------------------------
 
@@ -11,7 +12,7 @@ HOMEPAGE=		https://github.com/devnev/libxdg-basedir
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/devnev:libxdg-basedir:libxdg-basedir-${PORTVERSION}
+SITES[main]=		GITHUB/davmac314:libxdg-basedir:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 # DISTFILE[1]=		x-${PORTVERSION}.tar.gz:main
 
@@ -38,4 +39,4 @@ post-extract:
 		${WRKSRC}/src/basedir.c
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libxdg-basedir.so.${SOVERSION}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libxdg-basedir.so
