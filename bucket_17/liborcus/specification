@@ -54,6 +54,8 @@ post-install:
 	# manually create pkgconfig file
 	${SED} -e 's|@prefix@|${PREFIX}|; s|@exec_prefix@|${PREFIX}|' \
 	-e 's|@libdir@|${PREFIX}/lib|; s|@includedir@|${PREFIX}/include|' \
+	-e 's|liborcus-@ORCUS_API_VERSION@|orcus-${ORCUS_VERSION}|' \
+	-e 's|lorcus-|lliborcus-|g' \
 	-e 's|@ORCUS_API_VERSION@|${ORCUS_VERSION}|g' \
 	-e ' s|@VERSION@|${PORTVERSION}|g' ${WRKSRC}/liborcus.pc.in \
 	> ${STAGEDIR}${PREFIX}/lib/pkgconfig/liborcus-${ORCUS_VERSION}.pc
