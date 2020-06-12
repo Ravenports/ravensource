@@ -1,7 +1,7 @@
---- src/intel/compiler/brw_eu_validate.c.orig	2020-05-14 16:50:14 UTC
+--- src/intel/compiler/brw_eu_validate.c.orig	2020-06-10 18:03:00 UTC
 +++ src/intel/compiler/brw_eu_validate.c
-@@ -40,6 +40,39 @@
- 
+@@ -41,6 +41,39 @@
+ #include <stdlib.h>
  #include "brw_eu.h"
  
 +#ifdef __sun__

@@ -1,4 +1,4 @@
---- src/mesa/drivers/dri/i965/intel_batchbuffer.c.orig	2020-05-14 16:50:14 UTC
+--- src/mesa/drivers/dri/i965/intel_batchbuffer.c.orig	2020-06-10 18:03:01 UTC
 +++ src/mesa/drivers/dri/i965/intel_batchbuffer.c
 @@ -67,7 +67,11 @@ dump_validation_list(struct intel_batchb
        uint64_t flags = batch->validation_list[i].flags;
@@ -12,7 +12,7 @@
                i,
                batch->validation_list[i].handle,
                batch->exec_bos[i]->name,
-@@ -721,7 +725,11 @@ execbuffer(int fd,
+@@ -729,7 +733,11 @@ execbuffer(int fd,
  
        /* Update brw_bo::gtt_offset */
        if (batch->validation_list[i].offset != bo->gtt_offset) {

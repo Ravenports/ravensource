@@ -1,10 +1,10 @@
---- src/mesa/main/compiler.h.orig	2020-05-14 16:50:14 UTC
-+++ src/mesa/main/compiler.h
+--- src/util/compiler.h.orig	2020-06-10 18:03:01 UTC
++++ src/util/compiler.h
 @@ -51,6 +51,9 @@
  #if defined(__linux__)
  #include <byteswap.h>
  #define CPU_TO_LE32( x )	bswap_32( x )
-+#elif defined(__FreeBSD__)
++#elif defined(__FreeBSD__) || defined(__DragonFly__)
 +#include <sys/endian.h>
 +#define CPU_TO_LE32( x )	bswap32( x )
  #elif defined(__APPLE__)

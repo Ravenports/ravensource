@@ -1,6 +1,6 @@
---- src/util/disk_cache.c.orig	2020-05-14 16:50:14 UTC
+--- src/util/disk_cache.c.orig	2020-06-10 18:03:01 UTC
 +++ src/util/disk_cache.c
-@@ -56,6 +56,10 @@
+@@ -55,6 +55,10 @@
  
  #include "disk_cache.h"
  
