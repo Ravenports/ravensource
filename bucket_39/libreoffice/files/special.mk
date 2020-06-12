@@ -23,7 +23,7 @@ REPLACE_LIST= \
 	sal/osl/unx/sockimpl.hxx \
 	sal/osl/unx/pipe.cxx \
 	vcl/unx/gtk3/gtk3gtkdata.cxx \
-	vcl/unx/gtk/gtkdata.cxx
+	# end-list
 
 PERCENT_BSD_LIST= \
 	Repository.mk \

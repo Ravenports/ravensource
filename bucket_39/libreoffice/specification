@@ -1,6 +1,6 @@
-DEF[PORTVERSION]=	6.3.2.2
+DEF[PORTVERSION]=	6.4.4.2
 DEF[CXXWARN]=		-Wno-deprecated-declarations -Wno-undef Wno-unused-parameter -Wno-unused-function -Wno-unused-local-typedefs -Wno-unused-variable -Wno-ignored-qualifiers -Woverloaded-virtual
-DEF[PROGRAM_BINARIES]=	oosplash regmerge regview ui-previewer uri-encode xpdfimport
+DEF[PROGRAM_BINARIES]=	oosplash regmerge regview ui-previewer uri-encode xpdfimport opencltest
 DEF[OPENSTTF]=		884ed41809687c3e168fc7c19b16585149ff058eca79acbf3ee784f6630704cc-opens___.ttf
 # TODO - DF_INDEX for libreoffice-help missing.
 # Help hasn't be implemented?  investigate
@@ -8,7 +8,6 @@ DEF[OPENSTTF]=		884ed41809687c3e168fc7c19b16585149ff058eca79acbf3ee784f6630704cc
 
 NAMEBASE=		libreoffice
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		editors
 VARIANTS=		standard
 SDESC[standard]=	Free Software Productivity Suite
@@ -33,7 +32,7 @@ FPC_EQUIVALENT=		editors/libreoffice
 
 BUILD_DEPENDS=		perl-Archive-Zip:single:perl_default
 			gperf:primary:standard
-			mdds-1.4:single:standard
+			mdds-1.5:single:standard
 			patch:single:standard
 			ucpp:single:standard
 			glm:single:standard
@@ -69,7 +68,7 @@ BUILDRUN_DEPENDS=	serf:single:standard
 			libcmis:single:standard
 			libmspub:single:standard
 			libvisio:single:standard
-			liborcus-1.4:single:standard
+			liborcus:single:standard
 			libodfgen:single:standard
 			libetonyek:single:standard
 			libepubgen:single:standard
@@ -91,6 +90,7 @@ BUILDRUN_DEPENDS=	serf:single:standard
 			gstreamer1-plugins-base:primary:standard
 			openldap:client:standard
 			libnumbertext:single:standard
+			QR-Code-generator:single:standard
 
 BR_DEPS[linux]=		gpgme:cpp:standard
 
