@@ -1,0 +1,51 @@
+DEF[PORTVERSION]=	0.6.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xfburn
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	Optical Disc burning application for Xfce
+HOMEPAGE=		https://docs.xfce.org/apps/xfburn
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://archive.xfce.org/src/apps/xfburn/${PORTVERSION:R}/
+DISTFILE[1]=		xfburn-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/xfburn/xfburn-utils.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		sysutils/xfburn
+
+BUILDRUN_DEPENDS=	gstreamer1:primary:standard
+			gstreamer1-plugins-faac:single:standard
+			gstreamer1-plugins-flac:single:standard
+			gstreamer1-plugins-vorbis:single:standard
+			gstreamer1-plugins-wavpack:single:standard
+			libburn:single:standard
+			libexo:primary:standard
+			libisofs:single:standard
+			libxfce4ui:primary:standard
+# We don't have that one, yet
+# gstreamer1-plugins-lame:single:standard
+RUN_DEPENDS=		cdrdao:single:standard
+
+USES=			desktop-utils:primary gettext-tools:build gettext-runtime
+			gmake pkgconfig
+GNOME_COMPONENTS=	glib gtk3 intltool
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-debug
+			--disable-gudev
+			--enable-gstreamer
+			--enable-nls
