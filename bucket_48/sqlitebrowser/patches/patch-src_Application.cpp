@@ -1,6 +1,6 @@
---- src/Application.cpp.orig	2019-02-18 05:21:21 UTC
+--- src/Application.cpp.orig	2020-06-14 04:08:29 UTC
 +++ src/Application.cpp
-@@ -27,8 +27,8 @@ Application::Application(int& argc, char
+@@ -28,8 +28,8 @@ Application::Application(int& argc, char
  
      // First of all try to load the application translation file.
      m_translatorApp = new QTranslator(this);

@@ -1,6 +1,6 @@
---- src/PreferencesDialog.cpp.orig	2019-02-18 05:21:21 UTC
+--- src/PreferencesDialog.cpp.orig	2020-06-14 04:08:29 UTC
 +++ src/PreferencesDialog.cpp
-@@ -384,8 +384,7 @@ void PreferencesDialog::removeExtension(
+@@ -410,8 +410,7 @@ void PreferencesDialog::removeExtension(
  
  void PreferencesDialog::fillLanguageBox()
  {
