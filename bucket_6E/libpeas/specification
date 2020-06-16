@@ -39,9 +39,10 @@ RUN_DEPENDS=		gobject-introspection:single:standard
 # We don't have Lua5.1, so Lua cannot be supported here.
 # Libpeas still supports 5.1 only as of 1.24.0. Maybe re-check later.
 
-USES=			meson pkgconfig gtk-doc
+USES=			cpe meson pkgconfig gtk-doc
 			gettext-runtime gettext-tools:build
 GNOME_COMPONENTS=	gtk3 intltool introspection
+CPE_VENDOR=		gnome
 MESON_ARGS=		-Dlua51=false
 			-Dvapi=false
 			-Dglade_catalog=false
