@@ -1,4 +1,4 @@
---- IlmImfTest/bswap_32.h.orig	2020-05-11 15:53:42 UTC
+--- IlmImfTest/bswap_32.h.orig	2020-06-14 01:26:22 UTC
 +++ IlmImfTest/bswap_32.h
 @@ -12,7 +12,7 @@
  #elif defined(__sun) || defined(sun)

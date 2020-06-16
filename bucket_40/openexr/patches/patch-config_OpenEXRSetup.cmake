@@ -1,4 +1,4 @@
---- config/OpenEXRSetup.cmake.orig	2020-05-11 15:53:42 UTC
+--- config/OpenEXRSetup.cmake.orig	2020-06-14 01:26:22 UTC
 +++ config/OpenEXRSetup.cmake
 @@ -42,10 +42,6 @@ set(OPENEXR_OUTPUT_SUBDIR OpenEXR CACHE
  # but is pretty harmless to set globally
