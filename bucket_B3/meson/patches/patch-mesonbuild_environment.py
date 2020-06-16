@@ -1,6 +1,6 @@
---- mesonbuild/environment.py.orig	2020-05-15 07:23:18 UTC
+--- mesonbuild/environment.py.orig	2020-06-14 19:40:08 UTC
 +++ mesonbuild/environment.py
-@@ -890,7 +890,7 @@ class Environment:
+@@ -893,7 +893,7 @@ class Environment:
              else:
                  cls = GnuBFDDynamicLinker
              linker = cls(compiler, for_machine, comp_class.LINKER_PREFIX, override, version=v)
