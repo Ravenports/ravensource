@@ -1,4 +1,4 @@
---- sendlib.c.orig	2020-05-02 22:37:43 UTC
+--- sendlib.c.orig	2020-06-14 21:21:04 UTC
 +++ sendlib.c
 @@ -1219,7 +1219,9 @@ static void mutt_set_encoding (BODY *b,
    if (b->type == TYPETEXT)

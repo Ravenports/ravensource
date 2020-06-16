@@ -1,4 +1,4 @@
---- pattern.c.orig	2020-05-16 18:17:48 UTC
+--- pattern.c.orig	2020-06-14 21:21:04 UTC
 +++ pattern.c
 @@ -57,6 +57,7 @@ static const struct pattern_flags
  }
@@ -8,7 +8,7 @@
    { 'A', MUTT_ALL,			0,		NULL },
    { 'b', MUTT_BODY,  MUTT_FULL_MSG|MUTT_SEND_MODE_SEARCH, eat_regexp },
    { 'B', MUTT_WHOLE_MSG,  MUTT_FULL_MSG|MUTT_SEND_MODE_SEARCH, eat_regexp },
-@@ -1493,6 +1494,16 @@ mutt_pattern_exec (struct pattern_t *pat
+@@ -1499,6 +1500,16 @@ mutt_pattern_exec (struct pattern_t *pat
        else
          result = mutt_is_list_cc (pat->alladdr, h->env->to, h->env->cc);
        return (pat->not ^ result);
