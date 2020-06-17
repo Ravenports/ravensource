@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.0.18
+DEF[PORTVERSION]=	2.0.19.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		uwsgi
@@ -45,6 +45,7 @@ MAKE_ENV=		CPUCOUNT={{MAKE_JOBS_NUMBER}}
 			UWSGI_EMBED_PLUGINS=cgi
 CPPFLAGS=		-I{{OPENSSLINC}}
 LDFLAGS=		-L{{OPENSSLLIB}} -Wl,-rpath,{{OPENSSLLIB}}
+EXTRACT_DIRTY=		1
 
 post-extract:
 	${GREP} License ${WRKSRC}/setup.py > ${WRKDIR}/TERMS
