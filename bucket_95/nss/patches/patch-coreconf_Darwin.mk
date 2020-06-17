@@ -1,4 +1,4 @@
---- coreconf/Darwin.mk.orig	2020-05-29 20:34:42 UTC
+--- coreconf/Darwin.mk.orig	2020-06-16 22:50:59 UTC
 +++ coreconf/Darwin.mk
 @@ -7,8 +7,8 @@ CC     ?= gcc
  CCC    ?= g++

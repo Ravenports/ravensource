@@ -1,4 +1,4 @@
---- coreconf/SunOS5.mk.orig	2020-05-29 20:34:42 UTC
+--- coreconf/SunOS5.mk.orig	2020-06-16 22:50:59 UTC
 +++ coreconf/SunOS5.mk
 @@ -14,14 +14,14 @@ ifeq ($(USE_64), 1)
    ifdef NS_USE_GCC
