@@ -1,4 +1,4 @@
---- src/libunwind/build.rs.orig	2020-06-01 15:44:16 UTC
+--- src/libunwind/build.rs.orig	2020-06-17 20:17:05 UTC
 +++ src/libunwind/build.rs
 @@ -33,7 +33,7 @@ fn main() {
      } else if target.contains("illumos") {
