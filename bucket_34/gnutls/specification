@@ -63,9 +63,6 @@ SOVERSION=		${SOVERSION}
 INFO=			primary:gnutls
 			primary:gnutls-guile
 
-VAR_OPSYS[sunos]=	CPPFLAGS=-I{{LOCALBASE}}/include/bsd
-			LDFLAGS=-lbsd
-
 post-patch:
 	${RM} ${WRKSRC}/doc/*.info*
 	# strdupa not available on BSD, just avoid it everywhere
