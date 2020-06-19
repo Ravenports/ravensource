@@ -1,7 +1,7 @@
 # 9.odd.x is considered the "devel" branch currently
 # Stick to even, e.g. 9.14.x, 9.16.x
 # DEF[REALVERSION]=	9.12.1-P2
-DEF[REALVERSION]=	9.16.3
+DEF[REALVERSION]=	9.16.4
 DEF[PORTVERSION]=	${REALVERSION:S/-/./}
 # ----------------------------------------------------------------------------
 
@@ -84,13 +84,6 @@ PLIST_SUB=		ETCDIR={{BIND_ETCDIR}}
 [QUERYTRACE].CONFIGURE_ENABLE_BOTH=	querytrace
 
 post-patch:
-.  for FILE in check/named-checkconf.8 named/named.8 nsupdate/nsupdate.1 \
-	rndc/rndc.8
-	${REINPLACE_CMD} -e 's#/etc/named.conf#${PREFIX}${ETCDIR}/named.conf#g' \
-		-e 's#/etc/rndc.conf#${PREFIX}${ETCDIR}/rndc.conf#g' \
-		-e "s#/var\/run\/named\/named.pid#/var/run/named/pid#" \
-		${WRKSRC}/bin/${FILE}
-.  endfor
 	${REINPLACE_CMD} -e "s|/opt/local|${PREFIX}|g" \
 		${WRKSRC}/configure
 
@@ -114,8 +107,7 @@ post-install:
 	${RM} -r ${STAGEDIR}/var
 
 	# documentation
-	${INSTALL_DATA} ${WRKSRC}/doc/arm/*.html ${STAGEDIR}${STD_DOCDIR}/arm
-	${INSTALL_DATA} ${WRKSRC}/doc/arm/Bv9ARM.pdf ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${WRKSRC}/doc/arm/*.rst ${STAGEDIR}${STD_DOCDIR}/arm
 	${INSTALL_DATA} ${WRKSRC}/CHANGES \
 		${WRKSRC}/HISTORY* ${WRKSRC}/README* ${STAGEDIR}${STD_DOCDIR}
 
