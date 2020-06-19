@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	2.5.1
+DEF[SOVERSION]=		8.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		exempi
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	Parse Extensible Metadata Platform information
+HOMEPAGE=		https://wiki.freedesktop.org/libopenraw/Exempi/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://libopenraw.freedesktop.org/download/
+DISTFILE[1]=		exempi-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		textproc/exempi
+
+BUILD_DEPENDS=		expat:static:standard
+BUILDRUN_DEPENDS=	boost-libraries:rest:python_default
+			expat:shared:standard
+
+USES=			gmake libtool zlib
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-dependency-tracking
+			--enable-unittest=no
+
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
