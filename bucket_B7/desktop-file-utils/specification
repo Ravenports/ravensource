@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.24
+DEF[PORTVERSION]=	0.25
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		desktop-file-utils
@@ -20,10 +20,8 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		devel/desktop-file-utils
 
-USES=			gettext-runtime gmake pkgconfig
+USES=			gettext-runtime gmake pkgconfig meson
 GNOME_COMPONENTS=	glib
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--without-lispdir
 CONFIGURE_ENV=		EMACS="no"
 
 SUB_FILES=		pkg-deinstall-single
@@ -32,7 +30,10 @@ SUB_LIST=		MIMEDIRS="{{LOCALBASE}}/share/applications"
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 
 post-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/share/emacs/site-lisp \
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/emacs/site-lisp \
 		${STAGEDIR}${PREFIX}/share/applications
 	${INSTALL_DATA} ${WRKSRC}/misc/desktop-entry-mode.el \
 		${STAGEDIR}${PREFIX}/share/emacs/site-lisp/desktop-entry-mode.el
+	# maintain old name for a while
+	(cd ${STAGEDIR}${PREFIX}/bin && \
+	${LN} -s desktop-file-update update-desktop-database)
