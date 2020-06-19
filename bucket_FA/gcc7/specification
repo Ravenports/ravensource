@@ -79,10 +79,12 @@ CONFIGURE_ARGS=		--enable-languages="c,c++,fortran"
 			--disable-libcilkrts
 			--with-gnu-as
 			--with-as=${TOOLCHAIN}/bin/as
-			--with-ld=${TOOLCHAIN}/bin/ld
 			--with-pkgversion="Ravenports"
 
+VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-ld=${TOOLCHAIN}/bin/ld
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--disable-libstdcxx-pch
+			CONFIGURE_ARGS=--with-ld=${TOOLCHAIN}/bin/ld
+VAR_OPSYS[linux]=	CONFIGURE_ARGS=--with-ld=${TOOLCHAIN}/bin/ld
 VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--without-gnu-ld
 			CONFIGURE_ARGS=--enable-symvers=no
 
