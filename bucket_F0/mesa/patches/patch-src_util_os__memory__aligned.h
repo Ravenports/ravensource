@@ -1,10 +1,10 @@
---- src/util/os_memory_stdc.h.orig	2020-05-14 16:50:14 UTC
-+++ src/util/os_memory_stdc.h
-@@ -51,11 +51,16 @@
+--- src/util/os_memory_aligned.h.orig	2020-06-10 18:03:01 UTC
++++ src/util/os_memory_aligned.h
+@@ -53,11 +53,16 @@ add_overflow_size_t(size_t a, size_t b,
  static inline void *
  os_malloc_aligned(size_t size, size_t alignment)
  {
-+#ifdef __sun
++#ifdef __sun__
 +   alignment = (alignment + sizeof(void*) - 1) & ~(sizeof(void*) - 1);
 +   return memalign(alignment, size);
 +#else
