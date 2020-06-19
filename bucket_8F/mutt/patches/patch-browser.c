@@ -1,4 +1,4 @@
---- browser.c.orig	2020-06-14 21:21:04 UTC
+--- browser.c.orig	2020-06-18 21:27:02 UTC
 +++ browser.c
 @@ -32,6 +32,7 @@
  #ifdef USE_IMAP

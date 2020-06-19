@@ -1,4 +1,4 @@
---- pattern.c.orig	2020-06-14 21:21:04 UTC
+--- pattern.c.orig	2020-06-18 21:27:02 UTC
 +++ pattern.c
 @@ -57,6 +57,7 @@ static const struct pattern_flags
  }
