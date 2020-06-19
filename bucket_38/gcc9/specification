@@ -5,6 +5,7 @@ DEF[MS_SUBDIR]=		EXTRACT_INFO(GCC9_MS_SUBDIR)
 DEF[IDENTIFICATION]=	EXTRACT_INFO(GCC9_IDENTIFICATION)
 DEF[GCC_VERSION]=	EXTRACT_INFO(GCC9_VERSION)
 DEF[STDCXX_VERSION]=	6.0.28
+DEF[TOOLCHAIN]=		{{LOCALBASE}}/toolchain
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gcc9
@@ -81,9 +82,20 @@ CONFIGURE_ARGS=		--enable-languages="c,c++,ada,fortran"
 # for Solaris 10
 			--enable-obsolete
 
+VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-gnu-as
+			CONFIGURE_ARGS=--with-as=${TOOLCHAIN}/bin/as
+			CONFIGURE_ARGS=--with-ld=${TOOLCHAIN}/bin/ld
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--disable-libstdcxx-pch
+			CONFIGURE_ARGS=--with-gnu-as
+			CONFIGURE_ARGS=--with-as=${TOOLCHAIN}/bin/as
+			CONFIGURE_ARGS=--with-ld=${TOOLCHAIN}/bin/ld
 VAR_OPSYS[darwin]=	CONFIGURE_ARGS=--disable-libstdcxx-pch
+			CONFIGURE_ARGS=--with-ld=/usr/bin/ld
+			CONFIGURE_ARGS=--with-as=/usr/bin/as
 VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--enable-symvers=no
+			CONFIGURE_ARGS=--with-gnu-as
+			CONFIGURE_ARGS=--with-as=${TOOLCHAIN}/bin/as
+			CONFIGURE_ARGS=--without-gnu-ld
 
 # Special case for ports compiler:
 # Don't support info pages.  This causes dependency on indexinfo,
