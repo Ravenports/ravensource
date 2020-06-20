@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.7.3
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xxhash
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Extremely fast non-cryptographic hash algorithm
+HOMEPAGE=		https://cyan4973.github.io/xxHash/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/Cyan4973:xxHash:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/xxhash
+
+USES=			gmake
+SOVERSION=		${SOVERSION}
+MAKE_ENV=		PKGCONFIGDIR={{PREFIX}}/lib/pkgconfig
+			MANDIR={{MANPREFIX}}/man/man1
+			INSTALL=install
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/xxhsum
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libxxhash.so
