@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.25
+DEF[PORTVERSION]=	0.26
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		desktop-file-utils
@@ -34,6 +34,3 @@ post-install:
 		${STAGEDIR}${PREFIX}/share/applications
 	${INSTALL_DATA} ${WRKSRC}/misc/desktop-entry-mode.el \
 		${STAGEDIR}${PREFIX}/share/emacs/site-lisp/desktop-entry-mode.el
-	# maintain old name for a while
-	(cd ${STAGEDIR}${PREFIX}/bin && \
-	${LN} -s desktop-file-update update-desktop-database)
