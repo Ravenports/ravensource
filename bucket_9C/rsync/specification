@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	3.1.3
+DEF[PORTVERSION]=	3.2.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rsync
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		net
 VARIANTS=		standard
 SDESC[standard]=	Network file distribution/synchronization utility
@@ -23,7 +22,13 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		net/rsync
 
-USES=			cpe iconv zlib shebangfix
+BUILD_DEPENDS=		Zstandard:static:standard
+			lz4:static:standard
+BUILDRUN_DEPENDS=	xxhash:single:standard
+			Zstandard:shared:standard
+			lz4:shared:standard
+
+USES=			cpe iconv zlib shebangfix ssl
 SHEBANG_FILES=		support/rrsync
 CPE_VENDOR=		samba
 CPE_PRODUCT=		rsync
@@ -37,6 +42,7 @@ CONFIGURE_ARGS=		--disable-debug
 			--with-included-popt=yes
 			--with-included-zlib=no
 			--with-rsh=ssh
+			--disable-simd
 INSTALL_TARGET=		install-strip
 TEST_TARGET=		check
 
