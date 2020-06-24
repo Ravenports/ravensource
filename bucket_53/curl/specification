@@ -1,6 +1,6 @@
-DEF[PORTVERSION]=	7.70.0
+DEF[PORTVERSION]=	7.71.0
 DEF[SOVERSION]=		4.6.0
-DEF[DOCS]=		BUGS FAQ FEATURES KNOWN_BUGS MAIL-ETIQUETTE RESOURCES TheArtOfHttpScripting VERSIONS
+DEF[DOCS]=		BUGS FAQ FEATURES KNOWN_BUGS MAIL-ETIQUETTE RESOURCES TheArtOfHttpScripting
 # MANUAL
 # ----------------------------------------------------------------------------
 
@@ -77,7 +77,7 @@ post-install:
 	(cd ${WRKSRC}/docs/ && \
 		${INSTALL_DATA} ${DOCS} *.md ${STAGEDIR}${STD_DOCDIR}/)
 	(cd ${WRKSRC}/docs/libcurl/ && ${INSTALL_DATA} \
-		ABI *.m4 ${STAGEDIR}${STD_DOCDIR}/libcurl/)
+		*.m4 ${STAGEDIR}${STD_DOCDIR}/libcurl/)
 	(cd ${WRKSRC}/docs/examples/ && ${INSTALL_DATA} \
 		README Makefile.example makefile* *.c *.cpp \
 		${STAGEDIR}${STD_EXAMPLESDIR}/)
