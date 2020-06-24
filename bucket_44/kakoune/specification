@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	2020.01.16
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kakoune
+VERSION=		${PORTVERSION}
+KEYWORDS=		editors
+VARIANTS=		standard
+SDESC[standard]=	Modal code editor with a focus on interactivity
+HOMEPAGE=		https://kakoune.org/
+CONTACT=		M_B[mb@64k.by]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/mawww:kakoune:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		editors/kakoune
+
+LICENSE=		PUBDOM:primary
+LICENSE_FILE=		PUBDOM:{{WRKSRC}}/UNLICENSE
+LICENSE_SCHEME=		solo
+
+USES=			c++:primary gmake ncurses
+
+# kakoune's makefile can not detect g++ using "c++ --version"
+CXXFLAGS=		-I{{NCURSESINC}} -Wno-init-list-lifetime
+
+MAKE_ARGS=		debug=no static=no
+MAKE_ENV=		CXX="{{CXX}}"
+
+MANDIRS=		{{PREFIX}}/share/kak/man/man1
+
+BUILDRUN_DEPENDS=	ncurses:primary:standard
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/kak
