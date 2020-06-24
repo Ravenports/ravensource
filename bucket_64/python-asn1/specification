@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.3.0
+DEF[PORTVERSION]=	2.4.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-asn1
@@ -26,11 +26,13 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # BSD
 
 # install_requires extracted from setup.py
-
+# enum34
 
 DISTNAME=		asn1-${PORTVERSION}
 GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
+[PY38].BUILDRUN_DEPENDS_ON=		python-enum34:single:py38
 [PY37].USES_ON=				python:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-enum34:single:py37
 

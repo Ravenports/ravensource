@@ -272,7 +272,6 @@ function inline_fix_setup ($namebase, $src) {
        "borgbackup"   => '/Detected/d',
        "compreffor"   => '/print/d',
        "cattrs"       => '/python_version/d',
-       "asn1"         => 's/.enum34.//',
        "netaddr"      => false,
        "Cython"       => '/Unable to find pgen/ s/sys[.].*$/pass/',
        "jsonpointer"  => '/pypandoc module not found/d; /Markdown to RST/d',
