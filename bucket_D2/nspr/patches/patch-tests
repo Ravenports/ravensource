@@ -1,4 +1,4 @@
---- lib/tests/Makefile.in.orig	2020-01-31 20:37:50 UTC
+--- lib/tests/Makefile.in.orig	2020-06-24 13:26:09 UTC
 +++ lib/tests/Makefile.in
 @@ -159,7 +159,7 @@ else
  ifeq ($(OS_ARCH),OS2)
@@ -9,7 +9,7 @@
  endif
  endif
  endif
---- pr/tests/cleanup.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/cleanup.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/cleanup.c
 @@ -15,7 +15,7 @@
  
@@ -39,7 +39,7 @@
      PR_fprintf(err, "\tMain sleep: %d\n", main_sleep);
      PR_fprintf(err, "\tCleanup will %sbe called\n\n", (cleanup) ? "" : "NOT ");
  
---- pr/tests/cltsrv.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/cltsrv.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/cltsrv.c
 @@ -949,7 +949,7 @@ int main(int argc, char** argv)
  {
@@ -50,7 +50,7 @@
      PRStatus rv, joinStatus;
      CSServer_t *server = NULL;
  
---- pr/tests/cvar.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/cvar.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/cvar.c
 @@ -138,15 +138,15 @@ static int alive;
  static void PR_CALLBACK CXReader(void *arg)
@@ -80,7 +80,7 @@
  
      n = count / 2;
      for (i = 0; i < n; i++) {
---- pr/tests/cvar2.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/cvar2.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/cvar2.c
 @@ -96,7 +96,7 @@ PrivateCondVarThread(void *_info)
      for (index=0; index<info->loops; index++) {
@@ -239,7 +239,7 @@
          Measure(CondVarTestSUU, threads, "Condvar simple test shared UU");
          Measure(CondVarTestSUK, threads, "Condvar simple test shared UK");
          Measure(CondVarTestPUU, threads, "Condvar simple test priv UU");
---- pr/tests/foreign.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/foreign.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/foreign.c
 @@ -175,7 +175,7 @@ static void OneShot(void *arg)
      PRFileDesc *fd;
@@ -259,7 +259,7 @@
      PLOptStatus os;
      PLOptState *opt = PL_CreateOptState(argc, argv, "dt:");
  
---- pr/tests/forktest.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/forktest.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/forktest.c
 @@ -47,7 +47,7 @@ ClientThreadFunc(void *arg)
  {
@@ -289,7 +289,7 @@
      printf("Accepting connection at port %hu\n", PR_ntohs(addr.inet.port));
      fflush(stdout);
      sock = PR_Accept(listenSock, &addr, PR_SecondsToInterval(5));
---- pr/tests/getai.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/getai.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/getai.c
 @@ -13,8 +13,15 @@ int main(int argc, char **argv)
      PRAddrInfo *ai;
@@ -308,7 +308,7 @@
      if (ai == NULL) {
          fprintf(stderr, "PR_GetAddrInfoByName failed: (%d, %d)\n",
                  PR_GetError(), PR_GetOSError());
---- pr/tests/instrumt.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/instrumt.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/instrumt.c
 @@ -36,6 +36,7 @@
  */
@@ -392,7 +392,7 @@
      PRInt32 size;
      PR_DEFINE_TRACE( th );
      PRThread *t1, *t2;
---- pr/tests/io_timeout.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/io_timeout.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/io_timeout.c
 @@ -22,11 +22,13 @@
  /* Used to get the command line option */
@@ -462,7 +462,7 @@
                         PR_IO_TIMEOUT_ERROR);
              }
          } else {
---- pr/tests/layer.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/layer.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/layer.c
 @@ -57,7 +57,10 @@ static PRUint16 default_port = 12273 POR
  static PRFileDesc *PushLayer(PRFileDesc *stack)
@@ -476,7 +476,7 @@
      if (verbosity > quiet) {
          PR_fprintf(logFile, "Pushed layer(0x%x) onto stack(0x%x)\n", layer, stack);
      }
---- pr/tests/lazyinit.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/lazyinit.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/lazyinit.c
 @@ -43,7 +43,6 @@ int main(int argc, char **argv)
      char *path = NULL;
@@ -486,7 +486,7 @@
      PRThread *thread = NULL;
      PRIntervalTime interval = 0;
      PRFileDesc *file, *udp, *tcp, *pair[2];
---- pr/tests/lltest.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/lltest.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/lltest.c
 @@ -651,6 +651,7 @@ TestConversion( void )
      return;
@@ -512,7 +512,7 @@
      PRInt64 largeMultCandx64K = LL_INIT( 0x00007fff, 0xffff0000 );
      PRInt64 largeNumSHL5      = LL_INIT( 0x0000001f, 0xffffffe0 );
      PRInt64 result, result2;
---- pr/tests/mbcs.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/mbcs.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/mbcs.c
 @@ -54,13 +54,12 @@ char *dirName =  NULL;  /* directory nam
  /*
@@ -549,7 +549,7 @@
              }
          } else if ( PR_FILE_DIRECTORY == info.type ) {
              sprintf( nextDir, "%s/%s", dir, dirEntry->name );
---- pr/tests/nbconn.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/nbconn.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/nbconn.c
 @@ -54,8 +54,7 @@ int main(int argc, char **argv)
      PRStatus rv;
@@ -605,7 +605,7 @@
          fprintf(stderr,"PR_GetConnectStatus succeeded, expected to fail\n");
          failed_already = 1;
          goto def_exit;
---- pr/tests/nblayer.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/nblayer.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/nblayer.c
 @@ -360,7 +360,7 @@ static PRStatus PR_CALLBACK MyClose(PRFi
  static PRInt16 PR_CALLBACK MyPoll(
@@ -643,7 +643,7 @@
                  break;
          }
      } while (-1 != rv);
---- pr/tests/nonblock.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/nonblock.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/nonblock.c
 @@ -37,7 +37,7 @@
  static void PR_CALLBACK
@@ -681,7 +681,7 @@
              exit(1);
          }
          printf("read: %d bytes, good\n", retVal);
---- pr/tests/obsints.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/obsints.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/obsints.c
 @@ -25,6 +25,9 @@ int main(int argc, char **argv)
  #else /* NO_NSPR_10_SUPPORT */
@@ -722,7 +722,7 @@
  
      printf("PASS\n");
      return 0;
---- pr/tests/parsetm.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/parsetm.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/parsetm.c
 @@ -32,8 +32,8 @@ static void PrintExplodedTime(const PREx
  
@@ -744,7 +744,7 @@
          }
      }
  
---- pr/tests/peek.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/peek.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/peek.c
 @@ -137,7 +137,7 @@ static void ClientNB(void *arg)
  {
@@ -764,7 +764,7 @@
                   PR_PRIORITY_NORMAL, scope, PR_JOINABLE_THREAD, 0);
      if (NULL == client) {
          fprintf(stderr, "PR_CreateThread failed\n");
---- pr/tests/perf.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/perf.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/perf.c
 @@ -142,7 +142,7 @@ static void PR_CALLBACK CXReader(void *a
      n = count / 2;
@@ -860,7 +860,7 @@
                   (scope2 == PR_GLOBAL_THREAD ?
                    "PR_GLOBAL_THREAD" : "PR_LOCAL_THREAD"),
                   t2));
---- pr/tests/pipepong.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/pipepong.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/pipepong.c
 @@ -36,7 +36,7 @@ int main(int argc, char **argv)
          nBytes = fread(buf, 1, 5, stdin);
@@ -871,7 +871,7 @@
                      nBytes);
              exit(1);
          }
---- pr/tests/poll_nm.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/poll_nm.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/poll_nm.c
 @@ -47,7 +47,7 @@ PRIntn debug_mode;
  static void PR_CALLBACK
@@ -900,7 +900,7 @@
                                     PR_PRIORITY_NORMAL, PR_LOCAL_THREAD,
                                     PR_UNJOINABLE_THREAD, 0);
      if (clientThread == NULL) {
---- pr/tests/prfz.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/prfz.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/prfz.c
 @@ -7,7 +7,7 @@
   */
@@ -911,7 +911,7 @@
  #include <limits.h>
  #include <string.h>
  #include <stdint.h>
---- pr/tests/provider.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/provider.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/provider.c
 @@ -1078,7 +1078,7 @@ int main(int argc, char **argv)
  {
@@ -922,7 +922,7 @@
      PRStatus rv, joinStatus;
      CSServer_t *server = NULL;
      char *thread_type;
---- pr/tests/prpoll.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/prpoll.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/prpoll.c
 @@ -39,7 +39,7 @@ int main(int argc, char **argv)
  static void
@@ -969,7 +969,7 @@
                                     PR_PRIORITY_NORMAL, PR_GLOBAL_BOUND_THREAD,
                                     PR_UNJOINABLE_THREAD, 0);
      if (clientThread == NULL) {
---- pr/tests/randseed.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/randseed.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/randseed.c
 @@ -48,7 +48,6 @@ static void Help( void )
  static void PrintRand( void *buf, PRIntn size )
@@ -979,7 +979,7 @@
  
      printf("%4.4d--\n", size );
      while (size > 0 ) {
---- pr/tests/ranfile.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/ranfile.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/ranfile.c
 @@ -130,7 +130,7 @@ static void PR_CALLBACK Thread(void *arg
      PRStatus rv = PR_SUCCESS;
@@ -1010,7 +1010,7 @@
              programName, writesMin, writesTot * 1000 / durationTot, writesMax);
  
      PR_DestroyCondVar(cv);
---- pr/tests/runtests.sh.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/runtests.sh.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/runtests.sh
 @@ -226,7 +226,7 @@ OBJDIR=`basename $PWD`
  printf "\nNSPR Test Results - $OBJDIR\n\n"
@@ -1045,7 +1045,7 @@
  	done
  fi;
  
---- pr/tests/sel_spd.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/sel_spd.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/sel_spd.c
 @@ -15,6 +15,9 @@
  #include <stdio.h>
@@ -1115,7 +1115,7 @@
  
      fprintf(stdout, "Server results:\n\n");
      for (index=0; index<_threads_max*2; index+=2) {
---- pr/tests/selct_nm.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/selct_nm.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/selct_nm.c
 @@ -45,7 +45,7 @@ PRIntn debug_mode;
  static void
@@ -1144,7 +1144,7 @@
                                     PR_PRIORITY_NORMAL, PR_LOCAL_THREAD,
                                     PR_UNJOINABLE_THREAD, 0);
      if (clientThread == NULL) {
---- pr/tests/select2.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/select2.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/select2.c
 @@ -53,6 +53,7 @@ PRInt32 count;
  **
@@ -1174,7 +1174,7 @@
  
 +    return exitcode;
  }
---- pr/tests/semaerr.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/semaerr.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/semaerr.c
 @@ -72,7 +72,7 @@ int main(int argc, char **argv)
          exit(1);
@@ -1185,7 +1185,7 @@
                  PR_FILE_NOT_FOUND_ERROR, PR_GetError(), PR_GetOSError());
          exit(1);
      }
---- pr/tests/semaerr1.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/semaerr1.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/semaerr1.c
 @@ -83,7 +83,7 @@ int main(int argc, char **argv)
          exit(1);
@@ -1196,7 +1196,7 @@
                  PR_GetError());
          exit(1);
      }
---- pr/tests/sendzlf.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/sendzlf.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/sendzlf.c
 @@ -26,7 +26,7 @@ static void ClientThread(void *arg)
  {
@@ -1216,7 +1216,7 @@
                                     PR_PRIORITY_NORMAL, scope, PR_JOINABLE_THREAD, 0);
      if (NULL == clientThread) {
          fprintf(stderr, "PR_CreateThread failed\n");
---- pr/tests/server_test.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/server_test.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/server_test.c
 @@ -61,7 +61,7 @@ PRCondVar *ServerStateCV;
  #ifdef DEBUGPRINTS
@@ -1243,7 +1243,7 @@
  
  
  static void Measure(void (*func)(void), const char *msg)
---- pr/tests/servr_kk.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/servr_kk.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/servr_kk.c
 @@ -57,7 +57,7 @@ PRCondVar *ServerStateCV;
  #ifdef DEBUGPRINTS
@@ -1270,7 +1270,7 @@
  
  static void do_workKK(void)
  {
---- pr/tests/servr_ku.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/servr_ku.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/servr_ku.c
 @@ -57,7 +57,7 @@ PRCondVar *ServerStateCV;
  #ifdef DEBUGPRINTS
@@ -1281,7 +1281,7 @@
  #endif
  
  PRIntn failed_already=0;
---- pr/tests/servr_uk.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/servr_uk.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/servr_uk.c
 @@ -57,7 +57,7 @@ PRCondVar *ServerStateCV;
  #ifdef DEBUGPRINTS
@@ -1292,7 +1292,7 @@
  #endif
  
  PRIntn failed_already=0;
---- pr/tests/servr_uu.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/servr_uu.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/servr_uu.c
 @@ -57,7 +57,7 @@ PRCondVar *ServerStateCV;
  #ifdef DEBUGPRINTS
@@ -1303,7 +1303,7 @@
  #endif
  
  PRIntn failed_already=0;
---- pr/tests/short_thread.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/short_thread.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/short_thread.c
 @@ -45,7 +45,7 @@ int main (int argc, char **argv)
                                 PR_PRIORITY_NORMAL, PR_GLOBAL_THREAD, PR_UNJOINABLE_THREAD, 0))
@@ -1314,7 +1314,7 @@
                  PR_GetError(), PR_GetOSError());
          exit( 1 );
      }
---- pr/tests/socket.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/socket.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/socket.c
 @@ -173,7 +173,9 @@ readn(PRFileDesc *sockfd, char *buf, int
      int rem;
@@ -1714,7 +1714,7 @@
          failed_already=1;
      }
  
---- pr/tests/sprintf.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/sprintf.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/sprintf.c
 @@ -133,7 +133,7 @@ static void test_l(char *pattern, char *
          (strncmp(s, sbuf, sizeof(sbuf)) != 0)) {
@@ -1725,7 +1725,7 @@
          PR_smprintf_free(s);
          exit(-1);
      }
---- pr/tests/stack.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/stack.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/stack.c
 @@ -53,7 +53,7 @@ PRFileDesc  *errhandle;
  
@@ -1745,7 +1745,7 @@
      PRStack     *list1, *list2;
      PRStackElem *node;
      stack_data *arg = (stack_data *) thread_arg;
---- pr/tests/suspend.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/suspend.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/suspend.c
 @@ -21,14 +21,14 @@ void PR_CALLBACK
  Level_2_Thread(void *arg)
@@ -1825,7 +1825,7 @@
      PR_ResumeAll();
  
      /* Wait for all threads to exit */
---- pr/tests/switch.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/switch.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/switch.c
 @@ -83,7 +83,7 @@ PRIntn PR_CALLBACK Switch(PRIntn argc, c
      PRStatus status;
@@ -1836,7 +1836,7 @@
      PRIntervalTime timein, timeout;
      PRThreadScope thread_scope = PR_LOCAL_THREAD;
      PRUintn thread_count, inner_count, loop_count, average;
---- pr/tests/testfile.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/testfile.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/testfile.c
 @@ -33,6 +33,9 @@ static int _debug_on = 0;
  #ifdef XP_WIN
@@ -1924,7 +1924,7 @@
  #endif
  #if defined(XP_UNIX) || defined(XP_OS2)
      while ((opt = getopt(argc, argv, "d")) != EOF) {
---- pr/tests/threads.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/threads.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/threads.c
 @@ -27,7 +27,7 @@ void
  PR_CALLBACK
@@ -1950,7 +1950,7 @@
      }
  
      for (index=0; index<iterations; index++) {
---- pr/tests/thrpool_client.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/thrpool_client.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/thrpool_client.c
 @@ -82,11 +82,11 @@ readn(PRFileDesc *sockfd, char *buf, int
      PRIntervalTime timeout = PR_INTERVAL_NO_TIMEOUT;
@@ -2019,7 +2019,7 @@
             num_tcp_mesgs_per_connection, tcp_mesg_size);
  
      PR_DELETE(cparamp);
---- pr/tests/thrpool_server.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/thrpool_server.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/thrpool_server.c
 @@ -330,7 +330,7 @@ TCP_Server(void *arg)
      }
@@ -2069,7 +2069,7 @@
             num_tcp_mesgs_per_connection, tcp_mesg_size);
  
      DPRINTF(("%s: calling PR_ShutdownThreadPool\n", program_name));
---- pr/tests/thruput.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/thruput.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/thruput.c
 @@ -82,7 +82,7 @@ static void PR_CALLBACK Clientel(void *a
  {
@@ -2097,7 +2097,7 @@
  }  /* main */
  
  /* thruput.c */
---- pr/tests/timemac.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/timemac.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/timemac.c
 @@ -25,7 +25,7 @@ static void printExplodedTime(const PREx
      const char *sign;
@@ -2126,7 +2126,7 @@
                 et.tm_params.tp_gmt_offset, et.tm_params.tp_dst_offset);
          t2 = PR_ImplodeTime(&et);
          if (LL_NE(t1, t2)) {
---- pr/tests/timetest.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/timetest.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/timetest.c
 @@ -37,7 +37,7 @@ static void PrintExplodedTime(const PREx
      const char *sign;
@@ -2155,7 +2155,7 @@
                                     et.tm_params.tp_gmt_offset, et.tm_params.tp_dst_offset);
          t2 = PR_ImplodeTime(&et);
          if (LL_NE(t1, t2)) {
---- pr/tests/y2k.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/y2k.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/y2k.c
 @@ -44,7 +44,7 @@ static void PrintExplodedTime(const PREx
      const char *sign;
@@ -2175,7 +2175,7 @@
      }
  #ifdef PRINT_DETAILS
      printf("{%d, %d, %d, %d, %d, %d, %d, %d, %d, { %d, %d}}\n",et->tm_usec,
---- pr/tests/y2ktmo.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/y2ktmo.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/y2ktmo.c
 @@ -70,7 +70,7 @@ static struct _timeb start_time_tb;
  
@@ -2240,7 +2240,7 @@
                                             threadScopes[i], PR_JOINABLE_THREAD, 0);
              if (threads[idx] == NULL) {
                  fprintf(stderr, "PR_CreateThread failed\n");
---- pr/tests/zerolen.c.orig	2020-01-31 20:37:50 UTC
+--- pr/tests/zerolen.c.orig	2020-06-24 13:26:09 UTC
 +++ pr/tests/zerolen.c
 @@ -45,7 +45,7 @@ static void ClientThread(void *arg)
  {
