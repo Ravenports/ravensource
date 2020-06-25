@@ -1,4 +1,4 @@
---- src/corelib/io/io.pri.orig	2020-03-27 09:49:31 UTC
+--- src/corelib/io/io.pri.orig	2020-05-11 08:15:08 UTC
 +++ src/corelib/io/io.pri
 @@ -100,7 +100,7 @@ qtConfig(filesystemwatcher) {
          SOURCES += io/qfilesystemwatcher_inotify.cpp

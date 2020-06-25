@@ -283,6 +283,7 @@ include/qt5/QtCore/QSignalMapper
 include/qt5/QtCore/QSignalTransition
 include/qt5/QtCore/QSize
 include/qt5/QtCore/QSizeF
+include/qt5/QtCore/QSocketDescriptor
 include/qt5/QtCore/QSocketNotifier
 include/qt5/QtCore/QSortFilterProxyModel
 include/qt5/QtCore/QSpecialInteger
@@ -415,6 +416,8 @@ include/qt5/QtCore/qcborarray.h
 include/qt5/QtCore/qcborcommon.h
 include/qt5/QtCore/qcbormap.h
 include/qt5/QtCore/qcborstream.h
+include/qt5/QtCore/qcborstreamreader.h
+include/qt5/QtCore/qcborstreamwriter.h
 include/qt5/QtCore/qcborvalue.h
 include/qt5/QtCore/qchar.h
 include/qt5/QtCore/qcollator.h
@@ -595,10 +598,15 @@ include/qt5/QtCore/%%QTVER%%/QtCore/private/qabstractstate_p.h
 include/qt5/QtCore/%%QTVER%%/QtCore/private/qabstracttransition_p.h
 include/qt5/QtCore/%%QTVER%%/QtCore/private/qanimationgroup_p.h
 include/qt5/QtCore/%%QTVER%%/QtCore/private/qbig5codec_p.h
+include/qt5/QtCore/%%QTVER%%/QtCore/private/qbinaryjson_p.h
+include/qt5/QtCore/%%QTVER%%/QtCore/private/qbinaryjsonarray_p.h
+include/qt5/QtCore/%%QTVER%%/QtCore/private/qbinaryjsonobject_p.h
+include/qt5/QtCore/%%QTVER%%/QtCore/private/qbinaryjsonvalue_p.h
 include/qt5/QtCore/%%QTVER%%/QtCore/private/qbytearray_p.h
 include/qt5/QtCore/%%QTVER%%/QtCore/private/qbytedata_p.h
 include/qt5/QtCore/%%QTVER%%/QtCore/private/qcalendarbackend_p.h
 include/qt5/QtCore/%%QTVER%%/QtCore/private/qcalendarmath_p.h
+include/qt5/QtCore/%%QTVER%%/QtCore/private/qcborcommon_p.h
 include/qt5/QtCore/%%QTVER%%/QtCore/private/qcborvalue_p.h
 include/qt5/QtCore/%%QTVER%%/QtCore/private/qcfsocketnotifier_p.h
 include/qt5/QtCore/%%QTVER%%/QtCore/private/qcollator_p.h
@@ -616,6 +624,7 @@ include/qt5/QtCore/%%QTVER%%/QtCore/private/qdeadlinetimer_p.h
 include/qt5/QtCore/%%QTVER%%/QtCore/private/qdebug_p.h
 include/qt5/QtCore/%%QTVER%%/QtCore/private/qdir_p.h
 include/qt5/QtCore/%%QTVER%%/QtCore/private/qdoublescanprint_p.h
+include/qt5/QtCore/%%QTVER%%/QtCore/private/qduplicatetracker_p.h
 include/qt5/QtCore/%%QTVER%%/QtCore/private/qelfparser_p.h
 include/qt5/QtCore/%%QTVER%%/QtCore/private/qendian_p.h
 include/qt5/QtCore/%%QTVER%%/QtCore/private/qeucjpcodec_p.h
@@ -768,6 +777,7 @@ include/qt5/QtCore/%%QTVER%%/QtCore/private/qurltlds_p.h
 include/qt5/QtCore/%%QTVER%%/QtCore/private/qutfcodec_p.h
 include/qt5/QtCore/%%QTVER%%/QtCore/private/qvariant_p.h
 include/qt5/QtCore/%%QTVER%%/QtCore/private/qvariantanimation_p.h
+include/qt5/QtCore/%%QTVER%%/QtCore/private/qwaitcondition_p.h
 include/qt5/QtCore/%%QTVER%%/QtCore/private/qwindowscodec_p.h
 include/qt5/QtCore/%%QTVER%%/QtCore/private/qwindowspipereader_p.h
 include/qt5/QtCore/%%QTVER%%/QtCore/private/qwindowspipewriter_p.h
@@ -867,6 +877,8 @@ include/qt5/QtEglFSDeviceIntegration/%%QTVER%%/QtEglFSDeviceIntegration/private/
 include/qt5/QtEglFSDeviceIntegration/%%QTVER%%/QtEglFSDeviceIntegration/private/qeglfsintegration_p.h
 include/qt5/QtEglFSDeviceIntegration/%%QTVER%%/QtEglFSDeviceIntegration/private/qeglfsoffscreenwindow_p.h
 include/qt5/QtEglFSDeviceIntegration/%%QTVER%%/QtEglFSDeviceIntegration/private/qeglfsscreen_p.h
+include/qt5/QtEglFSDeviceIntegration/%%QTVER%%/QtEglFSDeviceIntegration/private/qeglfsvulkaninstance_p.h
+include/qt5/QtEglFSDeviceIntegration/%%QTVER%%/QtEglFSDeviceIntegration/private/qeglfsvulkanwindow_p.h
 include/qt5/QtEglFSDeviceIntegration/%%QTVER%%/QtEglFSDeviceIntegration/private/qeglfswindow_p.h
 include/qt5/QtEglSupport/QtEglSupport
 include/qt5/QtEglSupport/QtEglSupportDepends
@@ -1610,6 +1622,7 @@ include/qt5/QtNetwork/QNetworkReply
 include/qt5/QtNetwork/QNetworkRequest
 include/qt5/QtNetwork/QNetworkSession
 include/qt5/QtNetwork/QOcspResponse
+include/qt5/QtNetwork/QPasswordDigestor
 include/qt5/QtNetwork/QSctpServer
 include/qt5/QtNetwork/QSctpSocket
 include/qt5/QtNetwork/QSsl
@@ -1757,10 +1770,8 @@ include/qt5/QtNetwork/%%QTVER%%/QtNetwork/private/qssldiffiehellmanparameters_p.
 include/qt5/QtNetwork/%%QTVER%%/QtNetwork/private/qsslkey_p.h
 include/qt5/QtNetwork/%%QTVER%%/QtNetwork/private/qsslpresharedkeyauthenticator_p.h
 include/qt5/QtNetwork/%%QTVER%%/QtNetwork/private/qsslsocket_mac_p.h
-include/qt5/QtNetwork/%%QTVER%%/QtNetwork/private/qsslsocket_openssl11_symbols_p.h
 include/qt5/QtNetwork/%%QTVER%%/QtNetwork/private/qsslsocket_openssl_p.h
 include/qt5/QtNetwork/%%QTVER%%/QtNetwork/private/qsslsocket_openssl_symbols_p.h
-include/qt5/QtNetwork/%%QTVER%%/QtNetwork/private/qsslsocket_opensslpre11_symbols_p.h
 include/qt5/QtNetwork/%%QTVER%%/QtNetwork/private/qsslsocket_p.h
 include/qt5/QtNetwork/%%QTVER%%/QtNetwork/private/qsslsocket_schannel_p.h
 include/qt5/QtNetwork/%%QTVER%%/QtNetwork/private/qsslsocket_winrt_p.h
@@ -1995,6 +2006,7 @@ include/qt5/QtTest/%%QTVER%%/QtTest/private/qbenchmarkperfevents_p.h
 include/qt5/QtTest/%%QTVER%%/QtTest/private/qbenchmarktimemeasurers_p.h
 include/qt5/QtTest/%%QTVER%%/QtTest/private/qbenchmarkvalgrind_p.h
 include/qt5/QtTest/%%QTVER%%/QtTest/private/qcsvbenchmarklogger_p.h
+include/qt5/QtTest/%%QTVER%%/QtTest/private/qjunittestlogger_p.h
 include/qt5/QtTest/%%QTVER%%/QtTest/private/qplaintestlogger_p.h
 include/qt5/QtTest/%%QTVER%%/QtTest/private/qsignaldumper_p.h
 include/qt5/QtTest/%%QTVER%%/QtTest/private/qtaptestlogger_p.h
@@ -2005,15 +2017,14 @@ include/qt5/QtTest/%%QTVER%%/QtTest/private/qtestcorelist_p.h
 include/qt5/QtTest/%%QTVER%%/QtTest/private/qtestelement_p.h
 include/qt5/QtTest/%%QTVER%%/QtTest/private/qtestelementattribute_p.h
 include/qt5/QtTest/%%QTVER%%/QtTest/private/qtesthelpers_p.h
+include/qt5/QtTest/%%QTVER%%/QtTest/private/qtestjunitstreamer_p.h
 include/qt5/QtTest/%%QTVER%%/QtTest/private/qtestlog_p.h
 include/qt5/QtTest/%%QTVER%%/QtTest/private/qtestresult_p.h
 include/qt5/QtTest/%%QTVER%%/QtTest/private/qtesttable_p.h
 include/qt5/QtTest/%%QTVER%%/QtTest/private/qtestutil_macos_p.h
-include/qt5/QtTest/%%QTVER%%/QtTest/private/qtestxunitstreamer_p.h
 include/qt5/QtTest/%%QTVER%%/QtTest/private/qttestlib-config_p.h
 include/qt5/QtTest/%%QTVER%%/QtTest/private/qxctestlogger_p.h
 include/qt5/QtTest/%%QTVER%%/QtTest/private/qxmltestlogger_p.h
-include/qt5/QtTest/%%QTVER%%/QtTest/private/qxunittestlogger_p.h
 include/qt5/QtTest/%%QTVER%%/QtTest/private/valgrind_p.h
 include/qt5/QtThemeSupport/QtThemeSupport
 include/qt5/QtThemeSupport/QtThemeSupportDepends
@@ -2200,6 +2211,7 @@ include/qt5/QtWidgets/QStyleOptionTabBarBase
 include/qt5/QtWidgets/QStyleOptionTabBarBaseV2
 include/qt5/QtWidgets/QStyleOptionTabV2
 include/qt5/QtWidgets/QStyleOptionTabV3
+include/qt5/QtWidgets/QStyleOptionTabV4
 include/qt5/QtWidgets/QStyleOptionTabWidgetFrame
 include/qt5/QtWidgets/QStyleOptionTabWidgetFrameV2
 include/qt5/QtWidgets/QStyleOptionTitleBar
@@ -2552,6 +2564,8 @@ include/qt5/QtXml/qtxml-config.h
 include/qt5/QtXml/qtxmlglobal.h
 include/qt5/QtXml/qtxmlversion.h
 include/qt5/QtXml/qxml.h
+include/qt5/QtXml/%%QTVER%%/QtXml/private/qdom_p.h
+include/qt5/QtXml/%%QTVER%%/QtXml/private/qdomhelpers_p.h
 include/qt5/QtXml/%%QTVER%%/QtXml/private/qtxml-config_p.h
 include/qt5/QtXml/%%QTVER%%/QtXml/private/qxml_p.h
 lib/qt5/libQt5AccessibilitySupport.a
@@ -2765,6 +2779,9 @@ lib/qt5/cmake/Qt5XkbCommonSupport/Qt5XkbCommonSupportConfig.cmake
 lib/qt5/cmake/Qt5XkbCommonSupport/Qt5XkbCommonSupportConfigVersion.cmake
 lib/qt5/cmake/Qt5Xml/Qt5XmlConfig.cmake
 lib/qt5/cmake/Qt5Xml/Qt5XmlConfigVersion.cmake
+lib/qt5/metatypes/qt5core_metatypes.json
+lib/qt5/metatypes/qt5gui_metatypes.json
+lib/qt5/metatypes/qt5widgets_metatypes.json
 lib/qt5/mkspecs/qconfig.pri
 lib/qt5/mkspecs/qdevice.pri
 lib/qt5/mkspecs/qmodule.pri
@@ -2858,6 +2875,8 @@ lib/qt5/mkspecs/devices/freebsd-generic-clang/qmake.conf
 lib/qt5/mkspecs/devices/freebsd-generic-clang/qplatformdefs.h
 lib/qt5/mkspecs/devices/freebsd-rasp-pi-clang/qmake.conf
 lib/qt5/mkspecs/devices/freebsd-rasp-pi-clang/qplatformdefs.h
+lib/qt5/mkspecs/devices/integrity-armv8-SA8155P/qmake.conf
+lib/qt5/mkspecs/devices/integrity-armv8-SA8155P/qplatformdefs.h
 lib/qt5/mkspecs/devices/integrity-armv8-drive-cx/qmake.conf
 lib/qt5/mkspecs/devices/integrity-armv8-drive-cx/qplatformdefs.h
 lib/qt5/mkspecs/devices/integrity-armv8-msm8996au/qmake.conf
@@ -2968,6 +2987,7 @@ lib/qt5/mkspecs/features/link_ltcg.prf
 lib/qt5/mkspecs/features/link_pkgconfig.prf
 lib/qt5/mkspecs/features/lrelease.prf
 lib/qt5/mkspecs/features/ltcg.prf
+lib/qt5/mkspecs/features/metatypes.prf
 lib/qt5/mkspecs/features/moc.prf
 lib/qt5/mkspecs/features/no_debug_info.prf
 lib/qt5/mkspecs/features/plugin_bundle.prf
@@ -3178,7 +3198,7 @@ lib/qt5/mkspecs/macx-ios-clang/Default-568h@2x.png
 lib/qt5/mkspecs/macx-ios-clang/Info.plist.app
 lib/qt5/mkspecs/macx-ios-clang/Info.plist.dSYM.in
 lib/qt5/mkspecs/macx-ios-clang/Info.plist.lib
-lib/qt5/mkspecs/macx-ios-clang/LaunchScreen.xib
+lib/qt5/mkspecs/macx-ios-clang/LaunchScreen.storyboard
 lib/qt5/mkspecs/macx-ios-clang/qmake.conf
 lib/qt5/mkspecs/macx-ios-clang/qplatformdefs.h
 lib/qt5/mkspecs/macx-ios-clang/features/default_post.prf

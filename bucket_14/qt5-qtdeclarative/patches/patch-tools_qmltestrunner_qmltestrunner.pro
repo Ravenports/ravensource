@@ -1,4 +1,4 @@
---- tools/qmltestrunner/qmltestrunner.pro.orig	2020-03-03 13:10:32 UTC
+--- tools/qmltestrunner/qmltestrunner.pro.orig	2020-05-11 08:06:12 UTC
 +++ tools/qmltestrunner/qmltestrunner.pro
 @@ -1,6 +1,6 @@
  SOURCES += main.cpp
