@@ -1,4 +1,4 @@
---- src/mesa/main/macros.h.orig	2020-06-10 18:03:01 UTC
+--- src/mesa/main/macros.h.orig	2020-06-24 21:50:53 UTC
 +++ src/mesa/main/macros.h
 @@ -38,6 +38,7 @@
  #include "main/glheader.h"

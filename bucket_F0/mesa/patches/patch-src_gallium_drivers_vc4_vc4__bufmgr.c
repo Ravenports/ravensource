@@ -1,6 +1,6 @@
 # define ETIME as ETIMEOUT same as in intel driver
 #
---- src/gallium/drivers/vc4/vc4_bufmgr.c.orig	2020-06-10 18:03:00 UTC
+--- src/gallium/drivers/vc4/vc4_bufmgr.c.orig	2020-06-24 21:50:36 UTC
 +++ src/gallium/drivers/vc4/vc4_bufmgr.c
 @@ -27,6 +27,9 @@
  #include <fcntl.h>
