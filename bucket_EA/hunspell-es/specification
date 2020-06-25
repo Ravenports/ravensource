@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.5
+DEF[PORTVERSION]=	2.6
 DEF[SUFFIX]=		es
 DEF[LANGUAGE]=		Spanish
 DEF[INSTLOC]=		{{STAGEDIR}}{{PREFIX}}/share/hunspell
@@ -14,13 +14,20 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/sbosio/rla-es/releases/download/v${PORTVERSION}/
-DISTFILE[1]=		es_ANY.oxt:main
+DISTFILE[1]=		es.oxt:main
 DIST_SUBDIR=		hunspell-es-${PORTVERSION}
 
 SPKGS[standard]=	single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:single LGPL3+:single MPL:single
+LICENSE_TERMS=		single:{{WRKSRC}}/LICENSE.md
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/GPLv3.txt
+			LGPL3+:{{WRKSRC}}/LGPLv3.txt
+			MPL:{{WRKSRC}}/MPL-1.1.txt
+LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		textproc/${SUFFIX}-hunspell
 
@@ -30,8 +37,8 @@ EXTRACT_WITH_UNZIP=	1
 
 do-install:
 	${MKDIR} ${INSTLOC}
-	${INSTALL_DATA} ${WRKSRC}/es_ANY.aff ${INSTLOC}/es_ES.aff
-	${INSTALL_DATA} ${WRKSRC}/es_ANY.dic ${INSTLOC}/es_ES.dic
+	${INSTALL_DATA} ${WRKSRC}/es.aff ${INSTLOC}/es_ES.aff
+	${INSTALL_DATA} ${WRKSRC}/es.dic ${INSTLOC}/es_ES.dic
 .for ALIAS in es_AR es_BO es_CL es_CO es_CR es_CU es_DO es_EC es_GT es_HN \
 	es_MX es_NI es_PA es_PE es_PR es_PY es_SV es_US es_UY es_VE
 	${LN} -sf es_ES.aff ${INSTLOC}/${ALIAS}.aff
