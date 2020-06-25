@@ -1,6 +1,6 @@
---- src/d_iwad.c.orig	2018-06-19 21:08:47.831584000 +0200
-+++ src/d_iwad.c	2018-06-19 21:45:29.501667000 +0200
-@@ -652,13 +652,14 @@
+--- src/d_iwad.c.orig	2020-06-25 03:10:06 UTC
++++ src/d_iwad.c
+@@ -652,13 +652,14 @@ static void AddXdgDirs(void)
      if (env == NULL)
      {
          // (Trailing / omitted from paths, as it is added below)
