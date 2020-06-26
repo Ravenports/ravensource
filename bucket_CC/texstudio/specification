@@ -37,9 +37,11 @@ BUILDRUN_DEPENDS=	hunspell:single:standard
 			quazip:single:standard
 RUN_DEPENDS=		texlive-bin:primary:standard
 
-USES=			pkgconfig qt5
+USES=			pkgconfig qt5 dos2unix
 
 QMAKE_ARGS=		PREFIX="{{PREFIX}}"
 			LIBPREFIX="{{PREFIX}}/lib"
 			USE_SYSTEM_HUNSPELL=true
 			USE_SYSTEM_QUAZIP=true
+CXXFLAGS=		-Wno-deprecated-declarations
+			-Wno-deprecated-copy
