@@ -5,7 +5,7 @@ DEF[JQUERY]=		3.5.1
 
 NAMEBASE=		libtcod
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Roguelike game development library
@@ -44,10 +44,10 @@ post-build:
 	(cd ${WRKSRC}/../../docs && gmake html)
 
 post-install:
-	${MKDIR} -p ${STAGEDIR}${PREFIX}/share/libtcod
-	${MV} ${WRKSRC}/../../docs/_build/html ${STAGEDIR}${PREFIX}/share/libtcod/html-doc
-	${RM} -r ${STAGEDIR}${PREFIX}/share/libtcod/html-doc/_sources
-	${CP} ${WRKSRC}/../../terminal.png ${STAGEDIR}${PREFIX}/share/libtcod
-	${CP} -r ${WRKSRC}/../../samples ${STAGEDIR}${PREFIX}/share/libtcod
-	${CP} -r ${WRKSRC}/../../data ${STAGEDIR}${PREFIX}/share/libtcod
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libtcod.so.${SOVERSION}
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/libtcod
+	${MV} ${WRKSRC}/../../docs/_build/html ${STAGEDIR}${STD_DOCDIR}
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}/_sources
+	(cd ${WRKSRC}/../../samples && ${COPYTREE_SHARE} . ${STAGEDIR}${STD_EXAMPLESDIR})
+	(cd ${WRKSRC}/../../ && ${COPYTREE_SHARE} data ${STAGEDIR}${PREFIX}/share/libtcod/)
+	${INSTALL_DATA} ${WRKSRC}/../../terminal.png ${STAGEDIR}${PREFIX}/share/libtcod/
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libtcod.so
