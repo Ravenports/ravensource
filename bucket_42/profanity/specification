@@ -30,7 +30,6 @@ MUST_CONFIGURE=		gnu
 CFLAGS=			-I{{NCURSESINC}}
 CONFIGURE_ENV=		LIBS="{{CFLAGS}} -lcrypto"
 CONFIGURE_ARGS=		--enable-c-plugins
-			--enable-icons=no
 			--enable-notifications
 			--enable-otr
 			--enable-pgp
@@ -46,5 +45,6 @@ BUILDRUN_DEPENDS=	curl:primary:standard
 INSTALL_TARGET=		install-strip
 
 post-patch:
-	${REINPLACE_CMD} "s,python,python${PYTHON_VER},g" \
+	${REINPLACE_CMD} -e "s,python,python${PYTHON_VER},g" \
+		-e "/PACKAGE_STATUS=/ s|development|release|" \
 		${WRKSRC}/configure.ac
