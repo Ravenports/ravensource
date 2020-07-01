@@ -1,6 +1,6 @@
---- CMakeLists.txt.orig	2019-06-03 10:11:36 UTC
+--- CMakeLists.txt.orig	2019-11-06 07:44:35 UTC
 +++ CMakeLists.txt
-@@ -104,14 +104,6 @@ if ( SFCGAL_BUILD_TESTS OR SFCGAL_BUILD_
+@@ -99,14 +99,6 @@ if ( SFCGAL_BUILD_TESTS OR SFCGAL_BUILD_
  	set( SFCGAL_Boost_COMPONENTS program_options chrono filesystem timer ${SFCGAL_Boost_COMPONENTS} )
  endif()
  find_package( Boost COMPONENTS ${SFCGAL_Boost_COMPONENTS} REQUIRED )
@@ -13,5 +13,5 @@
 -  include_directories( patches/boost-1.60.0 )
 -endif()
  
- #-- OpenScenegraph -----------------------------------------
- if ( SFCGAL_WITH_OSG )
+ if( SFCGAL_USE_STATIC_LIBS )
+   add_definitions( "-DSFCGAL_USE_STATIC_LIBS" )
