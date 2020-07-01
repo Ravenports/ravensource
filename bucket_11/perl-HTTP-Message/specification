@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.24
+DEF[PORTVERSION]=	6.25
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-HTTP-Message
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/libwww-perl/HTTP-Message
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		CPAN/ID:O/OA/OALDERS
+SITES[main]=		CPAN/ID:E/ET/ETHER
 DISTFILE[1]=		HTTP-Message-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
@@ -33,7 +33,6 @@ DISTNAME=		HTTP-Message-${PORTVERSION}
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
 # |      runtime : Carp (perl 5.30 core) (perl 5.28 core)
-# |      runtime : Clone
 # |      runtime : Compress::Raw::Zlib (perl 5.30 core) (perl 5.28 core)
 # |      runtime : Encode (perl 5.30 core) (perl 5.28 core)
 # |      runtime : Encode::Locale
@@ -54,7 +53,6 @@ DISTNAME=		HTTP-Message-${PORTVERSION}
 # |      runtime : base (perl 5.30 core) (perl 5.28 core)
 # |      runtime : strict (perl 5.30 core) (perl 5.28 core)
 # |      runtime : warnings (perl 5.30 core) (perl 5.28 core)
-# |      runtime : Clone
 # |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.28 core)
 # |         test : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.28 core)
 # |         test : File::Spec (perl 5.30 core) (perl 5.28 core)
@@ -67,15 +65,13 @@ DISTNAME=		HTTP-Message-${PORTVERSION}
 # |         test : CPAN::Meta (perl 5.30 core) (perl 5.28 core)
 
 [PERL_530].USES_ON=			perl:530,configure
-[PERL_530].BUILDRUN_DEPENDS_ON=		perl-Clone:single:530
-					perl-Encode-Locale:single:530
+[PERL_530].BUILDRUN_DEPENDS_ON=		perl-Encode-Locale:single:530
 					perl-HTTP-Date:single:530
 					perl-IO-HTML:single:530
 					perl-LWP-MediaTypes:single:530
 					perl-URI:single:530
 [PERL_528].USES_ON=			perl:528,configure
-[PERL_528].BUILDRUN_DEPENDS_ON=		perl-Clone:single:528
-					perl-Encode-Locale:single:528
+[PERL_528].BUILDRUN_DEPENDS_ON=		perl-Encode-Locale:single:528
 					perl-HTTP-Date:single:528
 					perl-IO-HTML:single:528
 					perl-LWP-MediaTypes:single:528
