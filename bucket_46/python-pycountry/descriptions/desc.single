@@ -1,25 +1,18 @@
 pycountry
 =========
 
+.. image:g:
+https://travis-ci.org/flyingcircusio/pycountry.svg?branch=master
+
 pycountry provides the ISO databases for the standards:
 
-639-3
-  Languages
-
-3166
-  Countries
-
-3166-3
-  Deleted countries
-
-3166-2
-  Subdivisions of countries
-
-4217
-  Currencies
-
-15924
-  Scripts
+* `639-3 <https://en.wikipedia.org/wiki/ISO_639-3>`_ Languages
+* [3166] Countries
+* `3166-3 <https://en.wikipedia.org/wiki/ISO_3166-3>`_ Deleted countries
+* `3166-2 <https://en.wikipedia.org/wiki/ISO_3166-2>`_ Subdivisions of
+countries
+* [4217] Currencies
+* [15924] Scripts
 
 The package includes a copy from Debian's `pkg-isocodes
 <https://salsa.debian.org/iso-codes-team/iso-codes>`_ and makes the data
@@ -34,8 +27,7 @@ No changes to the data will be accepted into pycountry. This is a pure
 wrapper
 around the ISO standard using the `pkg-isocodes` database from Debian *as
 is*.
-If you need changes to the politicial situation in the world, please talk
-to
+If you need changes to the political situation in the world, please talk to
 the ISO or Debian people, not me.
 
 Donations / Monetary Support
@@ -51,10 +43,8 @@ did so, so that others can follow your path.
 Contributions
 -------------
 
-The code lives in a [bitbucket Mercurial repository
-], and issues must be reported in
-[project bugtracker
-].
+The code lives in a [git repository on GitHub
+], and issues must be reported in there as well.
 
 Countries (ISO 3166)
 --------------------
@@ -98,3 +88,13 @@ existing ones:
 
 .. code:: pycon
 
+ >>> ussr = pycountry.historic_countries.get(alpha_3='SUN')
+ >>> ussr
+ Country(alpha_3='SUN', alpha_4='SUHH', withdrawal_date='1992-08-30',
+name='USSR, Union of Soviet Socialist Republics', numeric='810')
+ >>> ussr.alpha_4
+ 'SUHH'
+ >>> ussr.alpha_3
+ 'SUN'
+ >>> ussr.name
+ 'USSR, Union of Soviet Socialist Republics'
