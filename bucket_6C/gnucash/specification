@@ -1,4 +1,4 @@
-DEF[BASEVER]=		3.10
+DEF[BASEVER]=		4.0
 # DEF[DASH]=		-1
 # DEF[PORTVERSION]=	${BASEVER}${DASH:S/-/./}
 # DEF[DISTVERSION]=	${BASEVER}${DASH}
@@ -10,7 +10,6 @@ DEF[DISTVERSION]=	${BASEVER}
 
 NAMEBASE=		gnucash
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		finance
 VARIANTS=		standard
 SDESC[standard]=	Financial accounting software
@@ -39,6 +38,7 @@ FPC_EQUIVALENT=		finance/gnucash
 
 BUILD_DEPENDS=		gmp:static:standard
 			appstream-glib:primary:standard
+			swig:primary:standard
 BUILDRUN_DEPENDS=	gnome-keyring:primary:standard
 			icu:single:standard
 			libsecret:primary:standard
@@ -52,6 +52,7 @@ BUILDRUN_DEPENDS=	gnome-keyring:primary:standard
 			libofx:primary:standard
 			guile22:single:standard
 			webkit2:complete:gtk3
+			gwenhywfar:gtk3:standard
 RUN_DEPENDS=		perl-Date-Manip:single:perl_default
 			perl-Finance-Quote:single:perl_default
 			perl-libwww-perl:single:perl_default
@@ -67,6 +68,7 @@ CMAKE_ARGS=		-DWITH_AQBANKING:BOOL=true
 			-DCOMPILE_GSCHEMAS=OFF
 			-DENABLE_BINRELOC=OFF
 			-DGNC_SHELL=/bin/sh
+			-DCMAKE_SKIP_BUILD_RPATH:BOOL=YES
 SHEBANG_FILES=		common/gnc-test-env.pl
 DISTNAME=		gnucash-${BASEVER}
 GLIB_SCHEMAS=		org.gnucash.dialogs.business.gschema.xml
@@ -98,10 +100,12 @@ post-patch:
 		-exec ${REINPLACE_CMD} \
 		-e 's|/usr/local/share|${PREFIX}/share|' \
 		-e 's|-Werror||' \
-		-e '/add_subdirectory *(test.*)/d' \
-		-e '/enable_testing()/d' -e '/include (GncAddTest)/d' \
-		-e '/INCLUDE (GncAddTest)/d' \
-		-e '/gnc_gtest_configure()/d' {} +)
+		-e '/add_subdirectory.*test/d' \
+		-e '/enable_testing()/d' \
+		-e '/include (GncAddTest)/d' \
+		-e '/gnc_gtest_configure()/d' \
+		-e '/scm-test-core/d' \
+		{} +)
 	${SED} -i.flag -e '/-Wno-deprecated-register/d' \
 		${WRKSRC}/libgnucash/engine/CMakeLists.txt
 	${MKDIR} ${WRKSRC}/bin
@@ -120,3 +124,4 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gnucash/*.${LIBEXT}
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.${LIBEXT}
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gnucash
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gnucash-cli
