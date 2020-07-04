@@ -1,0 +1,49 @@
+DEF[PORTVERSION]=	3.41
+# I have no freakin' idea why Debian and others distribute the ancient
+# version 2.04 as 4.17! There is no such thing.
+# Nixpackages has a version 3.41.5 that does exist but is fetched from
+# GitHub as it was never formally released.
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		agrep
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	Approximate GREP for fast fuzzy string searching
+HOMEPAGE=		https://github.com/Wikinaut/agrep
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main copying
+SITES[main]=		https://www.tgries.de/agrep/
+SITES[copying]=		https://raw.githubusercontent.com/Wikinaut/agrep/master/
+DISTFILE[1]=		agrep-${PORTVERSION}.tgz:main
+DISTFILE[2]=		COPYRIGHT:copying
+DIST_SUBDIR=		agrep
+DF_INDEX=		1 2
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# This version is based on AGREP from GLIMPSE 3.0 and was further improved and
+# had bugs fixed. The original code was free for personal use but property of
+# the University of Arizona. The author of this version successfully asked for
+# re-licensing and the University of Arizona Office of Technology Transfer and
+# all the original developers chose to re-license the code under the ISC
+# license. However no new version was released afterwards.
+# So this is the latest release with the license updated.
+LICENSE=		ISCL:single
+LICENSE_FILE=		ISCL:{{DISTDIR}}/{{DIST_SUBDIR}}/COPYRIGHT
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		textproc/agrep
+
+EXTRACT_ONLY=		1
+
+MAKEFILE=		makefile
+BUILD_TARGET=		#empty
+
+do-install:
+	${MKDIR} -p ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_PROGRAM} ${WRKSRC}/agrep ${STAGEDIR}${PREFIX}/bin/agrep
