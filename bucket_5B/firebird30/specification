@@ -1,5 +1,5 @@
 DEF[PORTVERSION]=	EXTRACT_VERSION(FIREBIRD_3.0_VERSION)
-DEF[SCMVERSION]=	33054-0
+DEF[SCMVERSION]=	33328-0
 DEF[LOCALSTATEDIR]=	/var/db/firebird
 DEF[CONFDIR]=		etc/firebird
 DEF[LIBEXECDIR]=	{{PREFIX}}/libexec/firebird
@@ -30,14 +30,15 @@ LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/builds/install/misc/IDPLicense.txt
 LICENSE_SCHEME=		multi
 
 BROKEN[freebsd]=	isc_file.cpp:1698: undefined reference to `iconv_open'
-BROKEN[dragonfly]=	Hits several z->z_Magic == ZALLOC_SLAB_MAGIC assertions
+BROKEN[dragonfly]=	[Makefile:362: metadata.fdb] Segmentation fault (core dumped)
 BROKEN[linux]=		free fails, invalid size: 0x00007f739ca112a0 ***
 
 BUILDRUN_DEPENDS=	libedit:single:standard
 			icu:single:standard
 EXRUN[server]=		firebird30:client:standard
 
-USES=			cpe gmake libtool:build pkgconfig zlib c++:server,client
+USES=			autoreconf:build cpe gmake libtool:build pkgconfig zlib
+			c++:server,client
 CPE_VENDOR=		firebirdsql
 CPE_PRODUCT=		firebird
 SINGLE_JOB=		yes
@@ -61,6 +62,7 @@ CONFIGURE_ARGS=		--prefix=${LOCALSTATEDIR}
 VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--enable-raw-devices=no
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-raw-devices=no
 
+CONFIGURE_SCRIPT=	autogen.sh
 CONFIGURE_ENV=		PTHREAD_LIBS="-lpthread"
 			ac_cv_header_atomic_ops_h="no"
 			ac_cv_lib_atomic_ops_main="no"
@@ -86,6 +88,9 @@ post-patch:
 	${REINPLACE_CMD} -e 's|<malloc.h>|<stdlib.h>|' \
 		${WRKSRC}/src/common/classes/alloc.h \
 		${WRKSRC}/extern/cloop/src/tests/test1/CTest.c
+
+# pre-configure:
+# #	(cd ${WRKSRC} && ${SH} ./autogen.sh)
 
 post-patch-dragonfly:
 	# exit failure on dragonfly
