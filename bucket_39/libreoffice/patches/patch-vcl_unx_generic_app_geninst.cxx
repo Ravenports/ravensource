@@ -1,4 +1,4 @@
---- vcl/unx/generic/app/geninst.cxx.orig	2020-05-13 11:19:20 UTC
+--- vcl/unx/generic/app/geninst.cxx.orig	2020-06-24 20:35:34 UTC
 +++ vcl/unx/generic/app/geninst.cxx
 @@ -17,6 +17,10 @@
   *   the License at http://www.apache.org/licenses/LICENSE-2.0 .
