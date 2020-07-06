@@ -1,5 +1,5 @@
---- engine/SCons/Tool/m4.py.orig	2019-12-17 02:07:12 UTC
-+++ engine/SCons/Tool/m4.py
+--- SCons/Tool/m4.py.orig	2020-07-05 19:56:34 UTC
++++ SCons/Tool/m4.py
 @@ -49,7 +49,7 @@ def generate(env):
      # file and run from there.
      # The src_suffix setup is like so: file.c.m4 -> file.c,

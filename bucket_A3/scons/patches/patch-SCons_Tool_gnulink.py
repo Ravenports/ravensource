@@ -1,6 +1,6 @@
---- engine/SCons/Tool/gnulink.py.orig	2019-12-17 02:07:12 UTC
-+++ engine/SCons/Tool/gnulink.py
-@@ -51,7 +51,7 @@ def generate(env):
+--- SCons/Tool/gnulink.py.orig	2020-07-05 19:56:34 UTC
++++ SCons/Tool/gnulink.py
+@@ -49,7 +49,7 @@ def generate(env):
  
      # __RPATH is set to $_RPATH in the platform specification if that
      # platform supports it.

@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.1.2
+DEF[PORTVERSION]=	4.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		scons
@@ -19,17 +19,15 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 LICENSE=		MIT:single
-LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE.txt
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/scons
 
 RUN_DEPENDS=		m4:primary:standard
 
-# Shockingly, Scons doesn't work with python3 </sarcasm>
-
-USES=			python shebangfix
-SHEBANG_FILES=		script/scons*
+USES=			python
+DISTNAME=		SCons-${PORTVERSION}
 
 post-patch:
 	${FIND} ${WRKSRC} -name \*.orig -delete
