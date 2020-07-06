@@ -4,7 +4,7 @@ DEF[PORTVERSION]=	3001
 
 NAMEBASE=		python-salt
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		python sysutils
 VARIANTS=		py37
 SDESC[py37]=		Remote execution and config mgmt system (PY 37)
@@ -60,8 +60,9 @@ DISTNAME=		salt-${PORTVERSION}
 					python-PyYAML:single:py37
 					python-MarkupSafe:single:py37
 					python-requests:single:py37
-					python-pycryptodomex:single:py37
 					python-pyzmq:single:py37
+[PY37].RUN_DEPENDS_ON=			python-pycryptodomex:single:py37
+					python-distro:single:py37
 
 post-patch:
 .for file in conf/minion conf/master doc/man/salt-key.1 \
