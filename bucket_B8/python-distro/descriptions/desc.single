@@ -1,0 +1,100 @@
+Distro - an OS platform information API
+=======================================
+
+[Build Status]
+[Build status]
+[PyPI version]
+[Supported Python Versions]
+[Requirements Status]
+[Code Coverage]
+[Code Quality]
+[Is Wheel]
+[Latest Github Release]
+[![Join the chat at
+https://gitter.im/nir0s/distro]](https://gitter.im/nir0s/distro?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+`distro` provides information about the
+OS distribution it runs on, such as a reliable machine-readable ID, or
+version information.
+
+It is the recommended replacement for Python's original
+[`platform.linux_distribution`]
+function (which will be removed in Python 3.8).
+It also provides much more functionality which isn't necessarily Python
+bound,
+like a command-line interface.
+
+Distro currently supports Linux and BSD based systems but [Windows and OS X
+support] is also planned.
+
+For Python 2.6 support, see
+https://github.com/nir0s/distro/tree/python2.6-support
+
+## Installation
+
+Installation of the latest released version from PyPI:
+
+`shell
+pip install distro
+`
+
+Installation of the latest development version:
+
+```shell
+pip install https://github.com/nir0s/distro/archive/master.tar.gz
+```
+
+## Usage
+
+```bash
+$ distro
+Name: Antergos Linux
+Version: 2015.10 (ISO-Rolling)
+Codename: ISO-Rolling
+
+$ distro -j
+{
+    "codename": "ISO-Rolling",
+    "id": "antergos",
+    "like": "arch",
+    "version": "16.9",
+    "version_parts": {
+        "build_number": "",
+        "major": "16",
+        "minor": "9"
+    }
+}
+
+$ python
+>>> import distro
+>>> distro.linux_distribution(full_distribution_name=False)
+('centos', '7.1.1503', 'Core')
+```
+
+## Documentation
+
+On top of the aforementioned API, several more functions are available. For
+a complete description of the
+API, see the [latest API documentation].
+
+## Background
+
+An alternative implementation became necessary because Python 3.5
+deprecated
+this function, and Python 3.8 will remove it altogether.
+Its predecessor function `platform.dist` was already deprecated since
+Python 2.6 and will also be removed in Python 3.8.
+Still, there are many cases in which access to that information is needed.
+See [Python issue 1322] for more
+information.
+
+The `distro` package implements a robust and inclusive way of retrieving
+the
+information about a distribution based on new standards and old methods,
+namely from these data sources (from high to low precedence):
+
+* The os-release file `/etc/os-release`, if present.
+* The output of the `lsb_release` command, if available.
+* The distro release file (`/etc/*(-|_)(release|version)`), if present.
+* The `uname` command for BSD based distrubtions.
+
