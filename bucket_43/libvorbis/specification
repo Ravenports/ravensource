@@ -1,4 +1,7 @@
-DEF[PORTVERSION]=	1.3.6
+DEF[PORTVERSION]=	1.3.7
+DEF[SOVERSION]=		0.4.9
+DEF[ENC_SOVERSION]=	2.0.12
+DEF[FILE_SOVERSION]=	3.3.8
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libvorbis
@@ -18,6 +21,10 @@ SPKGS[standard]=	complete primary docs
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		audio/libvorbis
 
 BUILDRUN_DEPENDS=	libogg:primary:standard
@@ -28,7 +35,11 @@ INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-ogg={{LOCALBASE}}
-
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		ENC_SOVERSION=${ENC_SOVERSION}
+			ENC_SOMAJOR=${ENC_SOVERSION:R:R}
+			FILE_SOVERSION=${FILE_SOVERSION}
+			FILE_SOMAJOR=${FILE_SOVERSION:R:R}
 
 post-install:
 	(cd ${STAGEDIR}${PREFIX}/share/doc && \
