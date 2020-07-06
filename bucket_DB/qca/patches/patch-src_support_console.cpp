@@ -1,4 +1,4 @@
---- src/support/console.cpp.orig	2019-04-24 12:58:14 UTC
+--- src/support/console.cpp.orig	2020-07-06 09:43:51 UTC
 +++ src/support/console.cpp
 @@ -30,7 +30,7 @@
  #ifdef Q_OS_WIN
