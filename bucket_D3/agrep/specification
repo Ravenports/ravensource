@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	3.41
+#  This repository has numbered versions, but not Git tags.
+DEF[PORTVERSION]=	3.41.5
+DEF[HASH]=		7b7f350
 # I have no freakin' idea why Debian and others distribute the ancient
 # version 2.04 as 4.17! There is no such thing.
 # Nixpackages has a version 3.41.5 that does exist but is fetched from
@@ -14,12 +16,8 @@ HOMEPAGE=		https://github.com/Wikinaut/agrep
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main copying
-SITES[main]=		https://www.tgries.de/agrep/
-SITES[copying]=		https://raw.githubusercontent.com/Wikinaut/agrep/master/
-DISTFILE[1]=		agrep-${PORTVERSION}.tgz:main
-DISTFILE[2]=		COPYRIGHT:copying
-DIST_SUBDIR=		agrep
-DF_INDEX=		1 2
+SITES[main]=		GITHUB/Wikinaut:agrep:${HASH}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
@@ -34,15 +32,13 @@ OPTIONS_STANDARD=	none
 # license. However no new version was released afterwards.
 # So this is the latest release with the license updated.
 LICENSE=		ISCL:single
-LICENSE_FILE=		ISCL:{{DISTDIR}}/{{DIST_SUBDIR}}/COPYRIGHT
+LICENSE_FILE=		ISCL:{{WRKSRC}}/COPYRIGHT
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		textproc/agrep
 
-EXTRACT_ONLY=		1
-
-MAKEFILE=		makefile
-BUILD_TARGET=		#empty
+USES=			gmake
+BUILD_TARGET=		agrep
 
 do-install:
 	${MKDIR} -p ${STAGEDIR}${PREFIX}/bin
