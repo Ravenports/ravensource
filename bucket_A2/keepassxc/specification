@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	2.5.4
+DEF[PORTVERSION]=	2.6.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		keepassxc
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Community fork of the KeePassX password manager
@@ -14,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/keepassxreboot/keepassxc/releases/download/${PORTVERSION}/
 DISTFILE[1]=		keepassxc-${PORTVERSION}-src.tar.xz:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[standard]=	complete primary nls docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -44,8 +43,7 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		security/keepassxc
 
-USES=			cmake pkgconfig qt5 desktop-utils:primary
-			mime-info:primary
+BUILD_DEPENDS=		ruby-asciidoctor:single:ruby_default
 BUILDRUN_DEPENDS=	argon2:single:standard
 			libsodium:single:standard
 			qrencode:single:standard
@@ -55,12 +53,15 @@ BUILDRUN_DEPENDS=	argon2:single:standard
 			qt5-qtx11extras:single:standard
 			quazip:single:standard
 
+USES=			cmake pkgconfig qt5 desktop-utils:primary
+			mime-info:primary
 CMAKE_ARGS=		-DKEEPASSXC_BUILD_TYPE:STRING=Release
 			-DWITH_XC_BROWSER:BOOL=ON
 			-DWITH_XC_KEESHARE:BOOL=ON
 			-DWITH_XC_NETWORKING:BOOL=ON
 			-DWITH_XC_SSHAGENT:BOOL=ON
 			-DWITH_XC_UPDATECHECK:BOOL=OFF
+			-Wno-dev
 
 post-patch:
 	${REINPLACE_CMD} -e "s|__PREFIX__|${PREFIX}|" \
@@ -73,4 +74,8 @@ do-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/keepassxc
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/keepassxc-cli
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/keepassxc/libkeepassx-autotype-xcb.so
-	${RMDIR} ${STAGEDIR}${PREFIX}/share/keepassxc/docs/man
+	# relocate docs
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${MV} ${STAGEDIR}${PREFIX}/share/keepassxc/docs/* \
+		${STAGEDIR}${STD_DOCDIR}/
+	${RMDIR} ${STAGEDIR}${PREFIX}/share/keepassxc/docs
