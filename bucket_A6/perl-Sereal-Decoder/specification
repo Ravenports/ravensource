@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.014
+DEF[PORTVERSION]=	4.015
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Sereal-Decoder
@@ -36,6 +36,8 @@ DISTNAME=		Sereal-Decoder-${PORTVERSION}
 # |        build : ExtUtils::ParseXS (perl 5.30 core) (perl 5.28 core)
 # |        build : File::Find (perl 5.30 core) (perl 5.28 core)
 # |        build : File::Path (perl 5.30 core) (perl 5.28 core)
+# |        build : Test::LongString
+# |        build : Test::MemoryGrowth
 # |        build : XSLoader (perl 5.30 core) (perl 5.28 core)
 # |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.28 core)
 # |         test : Data::Dumper (perl 5.30 core) (perl 5.28 core)
@@ -49,5 +51,9 @@ DISTNAME=		Sereal-Decoder-${PORTVERSION}
 # |         test : Test::Warn
 
 [PERL_530].USES_ON=			perl:530,configure
+[PERL_530].BUILD_DEPENDS_ON=		perl-Test-LongString:single:530
+					perl-Test-MemoryGrowth:single:530
 [PERL_528].USES_ON=			perl:528,configure
+[PERL_528].BUILD_DEPENDS_ON=		perl-Test-LongString:single:528
+					perl-Test-MemoryGrowth:single:528
 

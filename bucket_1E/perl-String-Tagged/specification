@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	0.16
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-String-Tagged
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		530 528
+SDESC[530]=		String buffers with value tags on extents (5.30)
+SDESC[528]=		String buffers with value tags on extents (5.28)
+HOMEPAGE=		none
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:P/PE/PEVANS
+DISTFILE[1]=		String-Tagged-${PORTVERSION}.tar.gz:main
+
+SPKGS[530]=		single
+SPKGS[528]=		single
+
+OPTIONS_AVAILABLE=	PERL_530 PERL_528
+OPTIONS_STANDARD=	none
+VOPTS[530]=		PERL_530=ON PERL_528=OFF
+VOPTS[528]=		PERL_530=OFF PERL_528=ON
+
+# License listed in CPAN directory:
+# perl_5
+
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		String-Tagged-${PORTVERSION}
+
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |    configure : Module::Build
+# |         test : Test::Identity
+# |         test : Test::More (perl 5.30 core) (perl 5.28 core)
+
+[PERL_530].USES_ON=			perl:530,buildmod,run
+[PERL_530].BUILD_DEPENDS_ON=		perl-Module-Build:single:530
+[PERL_528].USES_ON=			perl:528,buildmod,run
+[PERL_528].BUILD_DEPENDS_ON=		perl-Module-Build:single:528
+
