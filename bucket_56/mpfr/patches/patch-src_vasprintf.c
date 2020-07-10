@@ -1,6 +1,6 @@
---- src/vasprintf.c.orig	2014-09-09 13:16:32.729289288 +0000
-+++ src/vasprintf.c	2014-09-09 13:16:52.201287983 +0000
-@@ -42,6 +42,7 @@
+--- src/vasprintf.c.orig	2020-06-01 10:39:52 UTC
++++ src/vasprintf.c
+@@ -72,6 +72,7 @@ https://www.gnu.org/licenses/ or write t
  #endif /* HAVE_VA_COPY */
  
  #ifdef HAVE_WCHAR_H
