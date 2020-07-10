@@ -35,16 +35,9 @@ RC_SUBR=		monit:single
 USES=			ssl bison gmake zlib
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-ssl-dir={{OPENSSLBASE}}
-CONFIGURE_ENV=		ac_cv_type_boolean_t=no
+CONFIGURE_ENV=		ax_cv_check_cflags___fstack_protector_all=no
 # needed on linux
 INSTALL_REQ_TOOLCHAIN=	yes
-
-post-patch:
-	# don't use system boolean_t to avoid potential conflicts
-	${GREP} -rl "boolean_t" ${WRKSRC}/src \
-		${WRKSRC}/libmonit/src \
-		${WRKSRC}/libmonit/test \
-	| ${XARGS} ${SED} -i.bool -e 's|boolean_t|monit_boolean|g'
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/monitrc \
