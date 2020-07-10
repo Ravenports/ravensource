@@ -29,20 +29,28 @@ https://github.com/lxml/lxml/tarball/lxml-4.5#egg=lxml-4.5bugfix
 as soon as a maintenance branch has been established.  Note that this
 requires Cython to be installed at an appropriate version for the build.
 
-4.5.1 (2020-05-19)
+4.5.2 (2020-07-09)
 ==================
 
 Bugs fixed
 ----------
 
-* LP#1570388: Fix failures when serialising documents larger than 2GB in
-some cases.
+* ``Cleaner()`` now validates that only known configuration options can be
+set.
 
-* LP#1865141, GH#298: QName values were not accepted by the ``el.iter()``
-method.
-  Patch by xmo-odoo.
+* LP#1882606: ``Cleaner.clean_html()`` discarded comments and PIs
+regardless of the
+  corresponding configuration option, if remove_unknown_tags was set.
 
-* LP#1863413, GH#297: The build failed to detect libraries on Linux that
-are only
-  configured via pkg-config.
-  Patch by Hugh McMaster.
+* LP#1880251: Instead of globally overwriting the document loader in
+libxml2, lxml now
+  sets it per parser run, which improves the interoperability with other
+users of libxml2
+  such as libxmlsec.
+
+* LP#1881960: Fix build in CPython 3.10 by using Cython 0.29.21.
+
+* The setup options "--with-xml2-config" and "--with-xslt-config" were
+accidentally renamed
+  to "--xml2-config" and "--xslt-config" in 4.5.1 and are now available
+again.
