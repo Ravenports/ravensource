@@ -1,4 +1,4 @@
---- src/util/disk_cache.c.orig	2020-06-24 21:50:59 UTC
+--- src/util/disk_cache.c.orig	2020-07-08 20:15:32 UTC
 +++ src/util/disk_cache.c
 @@ -55,6 +55,10 @@
  
