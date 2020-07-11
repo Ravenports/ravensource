@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	7.0.1
-DEF[SOVERSION]=		19.1.0
+DEF[PORTVERSION]=	7.1.0
+DEF[SOVERSION]=		20.0.1
 DEF[DATUMGRID_VER]=	1.8
 # ----------------------------------------------------------------------------
 
@@ -37,6 +37,10 @@ SOVERSION=		${SOVERSION}
 
 post-extract:
 	${MV} ${WRKDIR}/proj_2/README.* ${WRKDIR}/
+
+post-patch:
+	${REINPLACE_CMD} -e '/DTARGET_CLONES_FMA_ALLOWED/d' \
+		${WRKSRC}/src/lib_proj.cmake
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/proj
