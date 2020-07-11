@@ -1,10 +1,8 @@
-DEF[PORTVERSION]=	1.8.3
+DEF[PORTVERSION]=	1.8.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		deadbeef
 VERSION=		${PORTVERSION}
-# rerolled
-REVISION=		2
 KEYWORDS=		audio
 VARIANTS=		standard
 SDESC[standard]=	Ultimate music player for Unix-like systems
@@ -75,6 +73,8 @@ post-extract:
 		> ${WRKDIR}/LICENSE_PLUGINS)
 	# Fix libintl linking
 	${REINPLACE_CMD} -e 's/INTL_LIBS/INTLLIBS/' ${WRKSRC}/Makefile.am
+
+pre-configure:
 	(cd ${WRKSRC} && ${SH} ${WRKSRC}/autogen.sh)
 
 post-patch:

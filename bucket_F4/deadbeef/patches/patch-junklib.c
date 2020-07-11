@@ -1,4 +1,4 @@
---- junklib.c.orig	2019-08-01 18:36:50 UTC
+--- junklib.c.orig	2020-06-28 13:41:28 UTC
 +++ junklib.c
 @@ -33,7 +33,6 @@
  #include <string.h>
