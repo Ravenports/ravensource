@@ -1,4 +1,4 @@
---- libavutil/common.h.orig	2020-05-21 15:55:31 UTC
+--- libavutil/common.h.orig	2020-07-11 10:39:32 UTC
 +++ libavutil/common.h
 @@ -50,6 +50,10 @@
  #   define AV_NE(be, le) (le)
