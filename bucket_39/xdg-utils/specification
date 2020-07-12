@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.1.3
 
 NAMEBASE=		xdg-utils
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Basic desktop integration functions
@@ -24,13 +25,12 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/xdg-utils
 
-BUILD_DEPENDS=		minixmlto:single:standard
+BUILD_DEPENDS=		xmlto:single:standard
 BUILDRUN_DEPENDS=	hicolor-icon-theme:single:standard
 
 USES=			gmake
 XORG_COMPONENTS=	xprop xset
 MUST_CONFIGURE=		gnu
-CONFIGURE_ENV=		XMLTO={{LOCALBASE}}/bin/minixmlto
 
 post-patch:
 	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|' \
