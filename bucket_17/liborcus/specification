@@ -5,7 +5,7 @@ DEF[SOVERSION]=		0.0.0
 
 NAMEBASE=		liborcus
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		devel misc
 VARIANTS=		standard
 SDESC[standard]=	File import library for spreadsheet documents
@@ -43,6 +43,7 @@ CMAKE_ARGS=		-DMDDS_INCLUDEDIR:STRING="{{LOCALBASE}}/include/mdds-1.2"
 LDFLAGS=		-lboost_program_options
 			-lboost_thread
 			-lboost_filesystem
+			-lboost_iostreams
 
 post-patch:
 	# fix module name
