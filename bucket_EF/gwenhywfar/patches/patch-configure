@@ -1,6 +1,6 @@
---- configure.orig	2020-04-06 19:21:00 UTC
+--- configure.orig	2020-07-11 21:52:40 UTC
 +++ configure
-@@ -23155,47 +23155,14 @@ $as_echo_n "checking for Qt... " >&6; }
+@@ -23296,10 +23296,6 @@ $as_echo_n "checking for Qt... " >&6; }
      am_have_qt_makefile=`mktemp`
      # http://qt-project.org/doc/qt-5/qmake-variable-reference.html#qt
      cat > $am_have_qt_pro << EOF
@@ -8,38 +8,10 @@
 -    CONFIG -= debug_and_release
 -    CONFIG += release
 -}
--qtHaveModule(axcontainer):       QT += axcontainer
--qtHaveModule(axserver):          QT += axserver
--qtHaveModule(concurrent):        QT += concurrent
--qtHaveModule(core):              QT += core
--qtHaveModule(dbus):              QT += dbus
--qtHaveModule(declarative):       QT += declarative
--qtHaveModule(designer):          QT += designer
--qtHaveModule(gui):               QT += gui
--qtHaveModule(help):              QT += help
--qtHaveModule(multimedia):        QT += multimedia
--qtHaveModule(multimediawidgets): QT += multimediawidgets
--qtHaveModule(network):           QT += network
--qtHaveModule(opengl):            QT += opengl
--qtHaveModule(printsupport):      QT += printsupport
--qtHaveModule(qml):               QT += qml
--qtHaveModule(qmltest):           QT += qmltest
--qtHaveModule(x11extras):         QT += x11extras
--qtHaveModule(script):            QT += script
--qtHaveModule(scripttools):       QT += scripttools
--qtHaveModule(sensors):           QT += sensors
--qtHaveModule(serialport):        QT += serialport
--qtHaveModule(sql):               QT += sql
--qtHaveModule(svg):               QT += svg
--qtHaveModule(testlib):           QT += testlib
--qtHaveModule(uitools):           QT += uitools
--qtHaveModule(webkit):            QT += webkit
--qtHaveModule(webkitwidgets):     QT += webkitwidgets
--qtHaveModule(xml):               QT += xml
--qtHaveModule(xmlpatterns):       QT += xmlpatterns
+ qtHaveModule(core):              QT += core
+ qtHaveModule(gui):               QT += gui
  qtHaveModule(widgets):           QT += widgets
- percent.target = %
- percent.commands = @echo -n "\$(\$(@))\ "
+@@ -23308,8 +23304,8 @@ percent.commands = @echo -n "\$(\$(@))\
  QMAKE_EXTRA_TARGETS += percent
  EOF
      $QT_QMAKE $am_have_qt_pro -o $am_have_qt_makefile
@@ -50,7 +22,7 @@
      rm $am_have_qt_pro $am_have_qt_makefile
  
      # Look for specific tools in $PATH
-@@ -23219,8 +23186,8 @@ else
+@@ -23333,8 +23329,8 @@ else
  fi
  
  
