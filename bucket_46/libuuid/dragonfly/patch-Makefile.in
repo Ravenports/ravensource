@@ -3,51 +3,51 @@ Do not compile setproctitle; it conflicts with BSD and is not needed.
 Do not build common libraries.
 Do not install terminal-colors.d.5.
 
---- Makefile.in.orig	2018-03-21 14:25:32 UTC
+--- Makefile.in.orig	2020-05-20 13:45:22 UTC
 +++ Makefile.in
-@@ -186,7 +186,7 @@ check_PROGRAMS = test_blkdev$(EXEEXT) te
+@@ -194,7 +194,7 @@ check_PROGRAMS = test_blkdev$(EXEEXT) te
  
- @BUILD_LIBUUID_TRUE@am__append_15 = test_uuid_parser
- @BUILD_LIBUUID_TRUE@am__append_16 = libuuid.la
--@BUILD_LIBUUID_TRUE@@HAVE_VSCRIPT_TRUE@am__append_17 = libuuid_la_LDFLAGS += $(VSCRIPT_LDFLAGS),$(top_srcdir)/libuuid/src/libuuid.sym
-+@BUILD_LIBUUID_TRUE@@HAVE_VSCRIPT_COMPLEX_TRUE@am__append_17 = libuuid_la_LDFLAGS += $(VSCRIPT_LDFLAGS),$(top_srcdir)/libuuid/src/libuuid.sym
- @BUILD_LIBUUID_TRUE@am__append_18 = libuuid/src/libuuid.sym \
+ @BUILD_LIBUUID_TRUE@am__append_18 = test_uuid_parser
+ @BUILD_LIBUUID_TRUE@am__append_19 = libuuid.la
+-@BUILD_LIBUUID_TRUE@@HAVE_VSCRIPT_TRUE@am__append_20 = libuuid_la_LDFLAGS += $(VSCRIPT_LDFLAGS),$(top_srcdir)/libuuid/src/libuuid.sym
++@BUILD_LIBUUID_TRUE@@HAVE_VSCRIPT_COMPLEX_TRUE@am__append_20 = libuuid_la_LDFLAGS += $(VSCRIPT_LDFLAGS),$(top_srcdir)/libuuid/src/libuuid.sym
+ @BUILD_LIBUUID_TRUE@am__append_21 = libuuid/src/libuuid.sym \
  @BUILD_LIBUUID_TRUE@	libuuid/COPYING
- @BUILD_LIBUUID_TRUE@am__append_19 = install-exec-hook-libuuid
-@@ -204,7 +204,7 @@ check_PROGRAMS = test_blkdev$(EXEEXT) te
+ @BUILD_LIBUUID_TRUE@am__append_22 = install-exec-hook-libuuid
+@@ -210,7 +210,7 @@ check_PROGRAMS = test_blkdev$(EXEEXT) te
+ @BUILD_LIBBLKID_TRUE@@LINUX_TRUE@	libblkid/src/topology/md.c \
+ @BUILD_LIBBLKID_TRUE@@LINUX_TRUE@	libblkid/src/topology/sysfs.c
  
- @BUILD_LIBBLKID_TRUE@@BUILD_LIBUUID_TRUE@am__append_25 = libuuid.la
- @BUILD_LIBBLKID_TRUE@@BUILD_LIBUUID_TRUE@am__append_26 = -I$(ul_libuuid_incdir)
--@BUILD_LIBBLKID_TRUE@@HAVE_VSCRIPT_TRUE@am__append_27 = $(VSCRIPT_LDFLAGS),$(top_srcdir)/libblkid/src/libblkid.sym
-+@BUILD_LIBBLKID_TRUE@@HAVE_VSCRIPT_COMPLEX_TRUE@am__append_27 = $(VSCRIPT_LDFLAGS),$(top_srcdir)/libblkid/src/libblkid.sym
- @BUILD_LIBBLKID_TRUE@am__append_28 = libblkid/src/libblkid.sym \
+-@BUILD_LIBBLKID_TRUE@@HAVE_VSCRIPT_TRUE@am__append_28 = $(VSCRIPT_LDFLAGS),$(top_srcdir)/libblkid/src/libblkid.sym
++@BUILD_LIBBLKID_TRUE@@HAVE_VSCRIPT_COMPLEX_TRUE@am__append_28 = $(VSCRIPT_LDFLAGS),$(top_srcdir)/libblkid/src/libblkid.sym
+ @BUILD_LIBBLKID_TRUE@am__append_29 = libblkid/src/libblkid.sym \
  @BUILD_LIBBLKID_TRUE@	libblkid/COPYING
- @BUILD_LIBBLKID_TESTS_TRUE@@BUILD_LIBBLKID_TRUE@am__append_29 = \
-@@ -1032,7 +1032,7 @@ am__libcommon_la_SOURCES_DIST = lib/blkd
+ @BUILD_LIBBLKID_TESTS_TRUE@@BUILD_LIBBLKID_TRUE@am__append_30 = \
+@@ -1253,7 +1253,7 @@ am__libcommon_la_SOURCES_DIST = lib/blkd
+ 	lib/crc32.c lib/crc32c.c lib/env.c lib/idcache.c \
  	lib/fileutils.c lib/ismounted.c lib/color-names.c lib/mangle.c \
  	lib/match.c lib/mbsalign.c lib/mbsedit.c lib/md5.c lib/pager.c \
- 	lib/parse-date.y lib/path.c lib/pwdutils.c lib/randutils.c \
--	lib/setproctitle.c lib/strutils.c lib/timeutils.c \
-+	lib/strutils.c lib/timeutils.c \
- 	lib/ttyutils.c lib/exec_shell.c lib/strv.c lib/sha1.c \
- 	lib/signames.c lib/linux_version.c lib/loopdev.c \
- 	lib/plymouth-ctrl.c lib/langinfo.c lib/cpuset.c \
-@@ -3826,8 +3826,7 @@ dist_noinst_HEADERS = include/all-io.h i
- 	include/swapheader.h include/swapprober.h include/sysfs.h \
- 	include/timer.h include/timeutils.h include/ttyutils.h \
- 	include/widechar.h include/xalloc.h
+-	lib/pwdutils.c lib/randutils.c lib/setproctitle.c \
++	lib/pwdutils.c lib/randutils.c \
+ 	lib/strutils.c lib/timeutils.c lib/ttyutils.c lib/exec_shell.c \
+ 	lib/strv.c lib/sha1.c lib/signames.c lib/caputils.c \
+ 	lib/linux_version.c lib/loopdev.c lib/plymouth-ctrl.c \
+@@ -4494,8 +4494,7 @@ dist_noinst_HEADERS = include/all-io.h i
+ 	include/swapprober.h include/sysfs.h include/timer.h \
+ 	include/timeutils.h include/ttyutils.h include/widechar.h \
+ 	include/xalloc.h
 -noinst_LTLIBRARIES = libcommon.la libtcolors.la
--dist_man_MANS = lib/terminal-colors.d.5 $(am__append_14) \
-+dist_man_MANS = $(am__append_14) \
- 	$(am__append_38) $(am__append_78) $(am__append_80) \
- 	$(am__append_82) $(am__append_84) $(am__append_86) \
- 	$(am__append_88) $(am__append_90) $(am__append_92) \
-@@ -3939,7 +3938,7 @@ libcommon_la_SOURCES = lib/blkdev.c lib/
+-dist_man_MANS = lib/terminal-colors.d.5 $(am__append_17) \
++dist_man_MANS = $(am__append_17) \
+ 	$(am__append_37) $(am__append_77) $(am__append_79) \
+ 	$(am__append_81) $(am__append_83) $(am__append_85) \
+ 	$(am__append_87) $(am__append_89) $(am__append_91) \
+@@ -4608,7 +4607,7 @@ libcommon_la_SOURCES = lib/blkdev.c lib/
+ 	lib/crc32c.c lib/env.c lib/idcache.c lib/fileutils.c \
  	lib/ismounted.c lib/color-names.c lib/mangle.c lib/match.c \
  	lib/mbsalign.c lib/mbsedit.c lib/md5.c lib/pager.c \
- 	lib/parse-date.y lib/path.c lib/pwdutils.c lib/randutils.c \
--	lib/setproctitle.c lib/strutils.c lib/timeutils.c \
-+	lib/strutils.c lib/timeutils.c \
- 	lib/ttyutils.c lib/exec_shell.c lib/strv.c lib/sha1.c \
- 	lib/signames.c $(am__append_1) $(am__append_2) $(am__append_3) \
- 	$(am__append_4) $(am__append_5)
+-	lib/pwdutils.c lib/randutils.c lib/setproctitle.c \
++	lib/pwdutils.c lib/randutils.c \
+ 	lib/strutils.c lib/timeutils.c lib/ttyutils.c lib/exec_shell.c \
+ 	lib/strv.c lib/sha1.c lib/signames.c $(am__append_1) \
+ 	$(am__append_2) $(am__append_3) $(am__append_4) \

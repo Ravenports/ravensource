@@ -1,9 +1,9 @@
 Add NAME_MAX compat.
 
---- include/c.h.orig	2018-02-09 12:22:55 UTC
+--- include/c.h.orig	2020-05-20 12:27:43 UTC
 +++ include/c.h
-@@ -29,6 +29,10 @@
- # define LOGIN_NAME_MAX 256
+@@ -35,6 +35,10 @@
+ # define NAME_MAX PATH_MAX
  #endif
  
 +#ifndef NAME_MAX
@@ -11,5 +11,5 @@ Add NAME_MAX compat.
 +#endif
 +
  /*
-  * Compiler-specific stuff
-  */
+  * __GNUC_PREREQ is deprecated in favour of __has_attribute() and
+  * __has_feature(). The __has macros are supported by clang and gcc>=5.
