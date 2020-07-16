@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.7.1
+DEF[PORTVERSION]=	1.7.3
 DEF[SOVERSION]=		5.3
 # ----------------------------------------------------------------------------
 
@@ -39,3 +39,6 @@ post-patch:
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/zip*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libzip.${LIBEXT}
+	${MV} ${STAGEDIR}${PREFIX}/share/doc/libzip/libzip/* \
+		${STAGEDIR}${PREFIX}/share/doc/libzip/
+	${RMDIR} ${STAGEDIR}${PREFIX}/share/doc/libzip/libzip
