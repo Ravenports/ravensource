@@ -285,7 +285,7 @@ function inline_fix_setup ($namebase, $src) {
        "tqdm"         => '/== .make/ s|^if .*|if False:|',
        "wcwidth"      => 's|.backports[.].*;.||; s|.python_version.*)|)|',
        "breathe"      => '/import breathe/d',
-       "asn1"         => '/version_info.*3\.4/d; /enum34/d',
+       "asn1"         => '/version_info.*3\.4/d; s/.enum-compat.//',
        "pycryptodomex" => '/set_compiler_options/d',
        "soupsieve"    => false,
        "django-colorful" => false,
