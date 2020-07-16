@@ -1,6 +1,6 @@
---- Utilities/cmlibuv/src/unix/fs.c.orig	2020-05-28 10:57:26 UTC
+--- Utilities/cmlibuv/src/unix/fs.c.orig	2020-07-15 11:19:20 UTC
 +++ Utilities/cmlibuv/src/unix/fs.c
-@@ -810,7 +810,6 @@ static ssize_t uv__fs_sendfile(uv_fs_t*
+@@ -986,7 +986,6 @@ static ssize_t uv__fs_sendfile(uv_fs_t*
  static ssize_t uv__fs_utime(uv_fs_t* req) {
  #if defined(__linux__)                                                         \
      || defined(_AIX71)                                                         \
@@ -8,11 +8,11 @@
      || defined(__HAIKU__)
    /* utimesat() has nanosecond resolution but we stick to microseconds
     * for the sake of consistency with other platforms.
-@@ -826,6 +825,7 @@ static ssize_t uv__fs_utime(uv_fs_t* req
+@@ -1000,6 +999,7 @@ static ssize_t uv__fs_utime(uv_fs_t* req
      || defined(__FreeBSD__)                                                   \
      || defined(__FreeBSD_kernel__)                                            \
      || defined(__NetBSD__)                                                    \
 +    || defined(__sun)                                                         \
      || defined(__OpenBSD__)
    struct timeval tv[2];
-   tv[0].tv_sec  = req->atime;
+   tv[0] = uv__fs_to_timeval(req->atime);

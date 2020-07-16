@@ -1,6 +1,6 @@
---- Utilities/cmlibuv/src/unix/core.c.orig	2020-05-28 10:57:26 UTC
+--- Utilities/cmlibuv/src/unix/core.c.orig	2020-07-15 11:19:20 UTC
 +++ Utilities/cmlibuv/src/unix/core.c
-@@ -66,7 +66,11 @@
+@@ -73,7 +73,11 @@ extern char** environ;
  # include <sys/filio.h>
  # include <sys/wait.h>
  # include <sys/param.h>
@@ -9,6 +9,6 @@
 +# else
  # include <sys/cpuset.h>
 +# endif
- # define UV__O_CLOEXEC O_CLOEXEC
- # if defined(__FreeBSD__) && __FreeBSD__ >= 10
+ # if defined(__FreeBSD__)
  #  define uv__accept4 accept4
+ # endif
