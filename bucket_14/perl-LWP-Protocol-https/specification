@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.07
+DEF[PORTVERSION]=	6.09
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-LWP-Protocol-https
@@ -7,7 +7,7 @@ KEYWORDS=		perl
 VARIANTS=		530 528
 SDESC[530]=		Provide https support for LWP::UserAgent (5.30)
 SDESC[528]=		Provide https support for LWP::UserAgent (5.28)
-HOMEPAGE=		https://github.com/libwww-perl/lwp-protocol-https
+HOMEPAGE=		https://github.com/libwww-perl/LWP-Protocol-https
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
@@ -33,12 +33,26 @@ DISTNAME=		LWP-Protocol-https-${PORTVERSION}
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
 # |      runtime : IO::Socket::SSL
+# |      runtime : LWP::Protocol::http
 # |      runtime : LWP::UserAgent
 # |      runtime : Mozilla::CA
 # |      runtime : Net::HTTPS
+# |      runtime : base (perl 5.30 core) (perl 5.28 core)
+# |      runtime : strict (perl 5.30 core) (perl 5.28 core)
 # |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.28 core)
+# |         test : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.28 core)
+# |         test : File::Spec (perl 5.30 core) (perl 5.28 core)
+# |         test : File::Temp (perl 5.30 core) (perl 5.28 core)
+# |         test : IO::Select (perl 5.30 core) (perl 5.28 core)
+# |         test : IO::Socket::INET (perl 5.30 core) (perl 5.28 core)
+# |         test : IO::Socket::SSL
+# |         test : IO::Socket::SSL::Utils
+# |         test : LWP::UserAgent
+# |         test : Socket (perl 5.30 core) (perl 5.28 core)
 # |         test : Test::More (perl 5.30 core) (perl 5.28 core)
 # |         test : Test::RequiresInternet
+# |         test : warnings (perl 5.30 core) (perl 5.28 core)
+# |         test : CPAN::Meta (perl 5.30 core) (perl 5.28 core)
 
 [PERL_530].USES_ON=			perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-IO-Socket-SSL:single:530
