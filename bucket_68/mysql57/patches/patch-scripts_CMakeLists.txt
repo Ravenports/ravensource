@@ -1,6 +1,6 @@
---- scripts/CMakeLists.txt.orig	2020-03-23 17:35:17 UTC
+--- scripts/CMakeLists.txt.orig	2020-06-02 11:05:42 UTC
 +++ scripts/CMakeLists.txt
-@@ -246,13 +246,9 @@ IF(NOT FIND_PROC AND CMAKE_SYSTEM_NAME M
+@@ -240,13 +240,9 @@ IF(NOT FIND_PROC AND CMAKE_SYSTEM_NAME M
      "ps -p $PID | grep -v mysqld_safe | grep -- $MYSQLD > /dev/null")
  ENDIF()
  
@@ -15,7 +15,7 @@
  ENDIF()
  
  IF(NOT FIND_PROC)
-@@ -299,7 +295,7 @@ SET(pkglibdir ${prefix}/${INSTALL_LIBDIR
+@@ -293,7 +289,7 @@ SET(pkglibdir ${prefix}/${INSTALL_LIBDIR
  SET(pkgplugindir ${prefix}/${INSTALL_PLUGINDIR})
  SET(localstatedir ${MYSQL_DATADIR})
  
@@ -24,7 +24,7 @@
    SET(RPATH_OPTION " -R$pkglibdir")
  ENDIF()
  
-@@ -336,6 +332,8 @@ MACRO(EXTRACT_LINK_LIBRARIES target var)
+@@ -330,6 +326,8 @@ MACRO(EXTRACT_LINK_LIBRARIES target var)
            GET_FILENAME_COMPONENT(lib "${lib}" NAME_WE)
            STRING(REGEX REPLACE "^lib" "" lib "${lib}")
            SET(${var} "${${var}}-l${lib} " )
@@ -33,7 +33,7 @@
          ELSE()
            SET(${var} "${${var}}-l${lib} " )
          ENDIF()
-@@ -462,7 +460,7 @@ ELSE()
+@@ -456,7 +454,7 @@ ELSE()
    FOREACH(file ${BIN_SCRIPTS})
      IF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${file}.sh)
        CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/${file}.sh

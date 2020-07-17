@@ -1,4 +1,4 @@
---- sql/sys_vars.cc.orig	2020-03-23 17:35:17 UTC
+--- sql/sys_vars.cc.orig	2020-06-02 11:05:42 UTC
 +++ sql/sys_vars.cc
 @@ -1748,7 +1748,7 @@ static Sys_var_ulong Sys_interactive_tim
         "connection before closing it",
@@ -27,7 +27,7 @@
         NO_MUTEX_GUARD, NOT_IN_BINLOG, ON_CHECK(0),
         ON_UPDATE(fix_net_write_timeout));
  
-@@ -4372,7 +4372,7 @@ static Sys_var_ulong Sys_net_wait_timeou
+@@ -4378,7 +4378,7 @@ static Sys_var_ulong Sys_net_wait_timeou
         "The number of seconds the server waits for activity on a "
         "connection before closing it",
         SESSION_VAR(net_wait_timeout), CMD_LINE(REQUIRED_ARG),
