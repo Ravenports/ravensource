@@ -1,6 +1,6 @@
---- mesonbuild/linkers.py.orig	2020-06-14 19:40:08 UTC
+--- mesonbuild/linkers.py.orig	2020-06-29 17:00:15 UTC
 +++ mesonbuild/linkers.py
-@@ -1080,7 +1080,12 @@ class SolarisDynamicLinker(PosixDynamicL
+@@ -1096,7 +1096,12 @@ class SolarisDynamicLinker(PosixDynamicL
      def get_link_whole_for(self, args: T.List[str]) -> T.List[str]:
          if not args:
              return args
@@ -12,5 +12,5 @@
 +        result.append(self.prefix_arg + 'defaultextract')
 +        return result
  
-     def no_undefined_args(self) -> T.List[str]:
-         return ['-z', 'defs']
+     def get_pie_args(self) -> T.List[str]:
+         # Available in Solaris 11.2 and later
