@@ -1,12 +1,12 @@
---- src/command.c.orig	2019-11-19 21:57:18 UTC
+--- src/command.c.orig	2020-06-10 21:33:34 UTC
 +++ src/command.c
-@@ -115,6 +115,9 @@ int thread_rl_RetCode = -1; /* return co
+@@ -114,6 +114,9 @@ int thread_rl_RetCode = -1; /* return co
  
- #ifndef _Windows
+ #ifndef _WIN32
  # include "help.h"
 +# if defined __FreeBSD__ || defined __DragonFly__
 +# include <sys/wait.h>
 +# endif
- #endif /* _Windows */
+ #endif
  
- #ifdef _Windows
+ #ifdef _WIN32
