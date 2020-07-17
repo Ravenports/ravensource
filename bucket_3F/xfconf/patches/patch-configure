@@ -1,0 +1,11 @@
+--- configure.orig	2020-07-16 09:34:40 UTC
++++ configure
+@@ -17820,7 +17820,7 @@ if test "x$with_bash_completion_dir" = x
+ $as_echo_n "checking for bash-completion directory... " >&6; }
+            if test "x$PKG_CONFIG" != x \
+               && bash_completion_prefix=`$PKG_CONFIG --print-errors --variable=prefix bash-completion 2>&5` \
+-              && bash_completion_dir=`"$PKG_CONFIG --print-errors --variable=completionsdir bash-completion 2>&5`; then :
++              && bash_completion_dir=`$PKG_CONFIG --print-errors --variable=completionsdir bash-completion 2>&5`; then :
+   bash_completion_dir="${bash_completion_dir#"$bash_completion_prefix"}"
+               bash_completion_dir="${bash_completion_dir#/}"
+               BASH_COMPLETION_DIR='${prefix}'/"$bash_completion_dir"
