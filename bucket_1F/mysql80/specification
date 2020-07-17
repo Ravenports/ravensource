@@ -138,6 +138,9 @@ post-patch:
 		-e 's|@OPENSSLLIB@|${OPENSSLLIB}|' \
 		${WRKSRC}/scripts/CMakeLists.txt
 	${RM} ${WRKSRC}/cmake/os/FreeBSD.cmake
+	# current_path not supported by DragonFly
+	${REINPLACE_CMD} -e '/mock_server/d' \
+		${WRKSRC}/router/src/CMakeLists.txt
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/mysql/keyring \

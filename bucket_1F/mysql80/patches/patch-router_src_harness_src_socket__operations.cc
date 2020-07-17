@@ -1,6 +1,6 @@
---- router/src/harness/src/socket_operations.cc.orig	2020-03-26 13:31:45 UTC
+--- router/src/harness/src/socket_operations.cc.orig	2020-06-16 16:31:03 UTC
 +++ router/src/harness/src/socket_operations.cc
-@@ -42,6 +42,9 @@
+@@ -32,6 +32,9 @@
  #include <ifaddrs.h>
  #include <net/if.h>
  #endif
@@ -9,4 +9,4 @@
 +#endif
  #else
  #include <windows.h>
- #include <winsock2.h>
+ #include <winsock2.h>  // gethostname
