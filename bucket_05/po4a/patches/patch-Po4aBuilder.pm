@@ -1,4 +1,4 @@
---- Po4aBuilder.pm.orig	2020-05-20 09:39:12 UTC
+--- Po4aBuilder.pm.orig	2020-07-15 21:56:35 UTC
 +++ Po4aBuilder.pm
 @@ -116,8 +116,8 @@ sub ACTION_install {
      $mandir =~ s,/man3$,,;
@@ -11,12 +11,12 @@
      $self->install_path(po => $localedir);
  
      ExtUtils::Install::install($self->install_map, !$self->quiet, 0, $self->{args}{uninst}||0);
-@@ -244,7 +244,7 @@ sub ACTION_man {
-     foreach $file (@{$self->rscan_dir($manpath, qr{\.xml$})}) {
-         if ($file =~ m,(.*/man(.))/([^/]*)\.xml$,) {
-             my ($outdir, $section, $outfile) = ($1, $2, $3);
--            system("xsltproc -o $outdir/$outfile.$section --nonet http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl $file") and die;
-+            system("xsltproc -o $outdir/$outfile.$section --nonet http://cdn.docbook.org/release/xsl/current/manpages/docbook.xsl $file") and die;
+@@ -248,7 +248,7 @@ sub ACTION_man {
+ 		system("xsltproc -o $outdir/$outfile.$section --nonet /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl $file") and die;
+ 	    } else { # Not found locally, use the XSL file online
+ 		print "Convert $outdir/$outfile.$section (online docbook.xsl file). ";
+-		system("xsltproc -o $outdir/$outfile.$section --nonet http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl $file") and die;
++		system("xsltproc -o $outdir/$outfile.$section --nonet http://cdn.docbook.org/release/xsl/current/manpages/docbook.xsl $file") and die;
+ 	    }
              system ("gzip -9 -f $outdir/$outfile.$section") and die;
          }
-         unlink "$file" || die;
