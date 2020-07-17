@@ -1,4 +1,4 @@
---- libsndio/aucat.c.orig	2018-07-27 13:42:51 UTC
+--- libsndio/aucat.c.orig	2020-06-28 05:52:52 UTC
 +++ libsndio/aucat.c
 @@ -43,6 +43,26 @@
  #define DEV_RANDOM "/dev/urandom"
@@ -27,7 +27,7 @@
  static int
  random_bytes(unsigned char *buf, int len)
  {
-@@ -493,7 +513,11 @@ parsestr(const char *str, char *rstr, un
+@@ -472,7 +492,11 @@ parsestr(const char *str, char *rstr, un
  int
  _aucat_open(struct aucat *hdl, const char *str, unsigned int mode)
  {

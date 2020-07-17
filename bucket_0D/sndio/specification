@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	1.6.0
+DEF[PORTVERSION]=	1.7.0
+DEF[SOVERSION]=		7.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		sndio
@@ -40,6 +41,8 @@ RC_SUBR=		sndiod:single
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--prefix={{PREFIX}}
 			--mandir={{MANPREFIX}}/man
+SOVERSION=		${SOVERSION}
+
 VAR_OPSYS[linux]=	CONFIGURE_ARGS=	--with-libbsd
 
 post-patch:

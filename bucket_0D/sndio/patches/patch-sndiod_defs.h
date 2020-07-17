@@ -1,4 +1,4 @@
---- sndiod/defs.h.orig	2018-07-27 13:42:51 UTC
+--- sndiod/defs.h.orig	2020-06-28 05:52:52 UTC
 +++ sndiod/defs.h
 @@ -17,6 +17,12 @@
  #ifndef DEFS_H
