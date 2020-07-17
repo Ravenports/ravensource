@@ -1,4 +1,4 @@
---- psutil/_psbsd.py.orig	2020-02-14 22:59:08 UTC
+--- psutil/_psbsd.py.orig	2020-06-20 15:55:24 UTC
 +++ psutil/_psbsd.py
 @@ -25,6 +25,7 @@ from ._common import memoize_when_activa
  from ._common import NETBSD
