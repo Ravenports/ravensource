@@ -1,7 +1,7 @@
-DEF[PORTVERSION]=	1.44.1
+DEF[PORTVERSION]=	1.45.0
 DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
-DEF[RUSTX_BOOT]=	1.43.0
-DEF[CARGO_BOOT]=	0.44.0
+DEF[RUSTX_BOOT]=	1.44.0
+DEF[CARGO_BOOT]=	0.45.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rust
@@ -90,6 +90,7 @@ SHEBANG_FILES=		src/llvm-project/compiler-rt/lib/sanitizer_common/symbolizer/scr
 			src/llvm-project/compiler-rt/lib/sanitizer_common/scripts/*.py
 			src/llvm-project/compiler-rt/lib/asan/scripts/asan_symbolize.py
 			src/libcore/unicode/printable.py
+			src/stdarch/ci/docker/wasm32-unknown-unknown/wasm-entrypoint.sh
 
 BLOCK_WATCHDOG=		yes
 
@@ -193,9 +194,7 @@ post-install:
 	# Strip binaries and libraries
 	${STRIP_CMD} \
 		${STAGEDIR}${PREFIX}/bin/cargo \
-		${STAGEDIR}${PREFIX}/bin/cargo-clippy \
 		${STAGEDIR}${PREFIX}/bin/cargo-fmt \
-		${STAGEDIR}${PREFIX}/bin/clippy-driver \
 		${STAGEDIR}${PREFIX}/bin/rls \
 		${STAGEDIR}${PREFIX}/bin/rustc \
 		${STAGEDIR}${PREFIX}/bin/rustdoc \
