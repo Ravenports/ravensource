@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	2.8
+DEF[PORTVERSION]=	2.9
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		weechat
 VERSION=		${PORTVERSION}
-REVISION=		4
 KEYWORDS=		net net_im irc
 VARIANTS=		standard
 SDESC[standard]=	Fast, light and extensible chat client
@@ -29,9 +28,7 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		irc/weechat
 
 USES=			cmake gettext-tools gettext-runtime iconv libtool
-			lua ncurses perl pkgconfig python tcl cpe
-# #			ruby 2.7 not yet supported
-			ruby:v26
+			lua ncurses perl pkgconfig python tcl cpe ruby
 CMAKE_ARGS=		-DENABLE_PYTHON3:BOOL=ON
 			-DPYTHON_LIBRARY:FILEPATH={{LOCALBASE}}/lib/libpython{{PYTHON_VER}}{{PYTHON_ABIVER}}.so
 			-DENABLE_PHP:BOOL=OFF
