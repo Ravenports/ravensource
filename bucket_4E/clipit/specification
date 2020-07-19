@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	1.4.4
+DEF[PORTVERSION]=	1.4.5
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		clipit
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		deskutils
 VARIANTS=		standard
 SDESC[standard]=	Lightweight GTK+ clipboard manager
@@ -32,11 +31,15 @@ B_DEPS[sunos]=		libbsd4sol:single:standard
 
 USES=			autoreconf pkgconfig gmake gnome-icons:primary
 			gettext-tools gettext-runtime
-GNOME_COMPONENTS=	gtk2 intltool
+GNOME_COMPONENTS=	gtk3 intltool
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-appindicator
+			--with-gtk3
 			localedir={{LOCALBASE}}/share/locale
-
+CFLAGS=			-Wno-deprecated-declarations
+			-Wno-int-conversion
+			-Wno-incompatible-pointer-types
+			-Wno-unused-but-set-variable
 VAR_OPSYS[sunos]=	CFLAGS=-I{{LOCALBASE}}/include/bsd
 			CONFIGURE_ENV=LIBS="-lbsd -lintl"
 
