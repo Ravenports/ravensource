@@ -1,4 +1,4 @@
---- modules/videoio/src/backend_plugin.cpp.orig	2020-04-03 11:45:28 UTC
+--- modules/videoio/src/backend_plugin.cpp.orig	2020-07-17 22:43:40 UTC
 +++ modules/videoio/src/backend_plugin.cpp
 @@ -21,7 +21,7 @@ using namespace std;
  

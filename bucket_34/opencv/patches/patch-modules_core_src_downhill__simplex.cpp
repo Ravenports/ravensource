@@ -1,6 +1,6 @@
 Avoid DS conflict on SunOS
 
---- modules/core/src/downhill_simplex.cpp.orig	2020-04-03 11:45:28 UTC
+--- modules/core/src/downhill_simplex.cpp.orig	2020-07-17 22:43:40 UTC
 +++ modules/core/src/downhill_simplex.cpp
 @@ -449,7 +449,9 @@ protected:
      }

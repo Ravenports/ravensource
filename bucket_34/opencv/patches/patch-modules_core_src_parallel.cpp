@@ -1,4 +1,4 @@
---- modules/core/src/parallel.cpp.orig	2020-04-03 11:45:28 UTC
+--- modules/core/src/parallel.cpp.orig	2020-07-17 22:43:40 UTC
 +++ modules/core/src/parallel.cpp
 @@ -54,6 +54,7 @@
  #endif
