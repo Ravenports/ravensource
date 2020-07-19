@@ -1,7 +1,9 @@
-DEF[PORTVERSION]=	6.4.5.2
+DEF[PORTVERSION]=	7.0.0.2
 DEF[CXXWARN]=		-Wno-deprecated-declarations -Wno-undef Wno-unused-parameter -Wno-unused-function -Wno-unused-local-typedefs -Wno-unused-variable -Wno-ignored-qualifiers -Woverloaded-virtual
 DEF[PROGRAM_BINARIES]=	oosplash regmerge regview ui-previewer uri-encode xpdfimport opencltest
 DEF[OPENSTTF]=		884ed41809687c3e168fc7c19b16585149ff058eca79acbf3ee784f6630704cc-opens___.ttf
+DEF[DTOAVER]=		20180411
+DEF[SKIAM84]=		c1baf6e1c2a5454148adb516f0f833483b5a0353
 # TODO - DF_INDEX for libreoffice-help missing.
 # Help hasn't be implemented?  investigate
 # ----------------------------------------------------------------------------
@@ -14,14 +16,18 @@ SDESC[standard]=	Free Software Productivity Suite
 HOMEPAGE=		https://www.libreoffice.org/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main opens
+DOWNLOAD_GROUPS=	main opens devwww
 SITES[main]=		https://fossies.org/linux/misc/libreoffice/src/
+			http://ftp.utexas.edu/libreoffice/libreoffice/src/${PORTVERSION:R}/
 			https://downloadarchive.documentfoundation.org/libreoffice/old/${PORTVERSION}/src/
 SITES[opens]=		https://dev-www.libreoffice.org/extern/
+SITES[devwww]=		https://dev-www.libreoffice.org/src/
 DISTFILE[1]=		libreoffice-${PORTVERSION}.tar.xz:main
 DISTFILE[2]=		libreoffice-help-${PORTVERSION}.tar.xz:main
 DISTFILE[3]=		${OPENSTTF}:opens
-DF_INDEX=		1 3
+DISTFILE[4]=		dtoa-${DTOAVER}.tgz:devwww
+DISTFILE[5]=		skia-m84-${SKIAM84}.tar.xz:devwww
+DF_INDEX=		1 2 3 4 5
 
 SPKGS[standard]=	complete primary docs
 
@@ -101,7 +107,7 @@ USES=			autoreconf:build perl:build gmake jpeg pkgconfig
 XORG_COMPONENTS=	xaw xrandr
 GNOME_COMPONENTS=	gtk3
 SHEBANG_GLOB=		*.py
-EXTRACT_ONLY=		1
+EXTRACT_ONLY=		1 2
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-gtk3
 			--enable-gstreamer-1-0
@@ -110,7 +116,6 @@ CONFIGURE_ARGS=		--enable-gtk3
 			--enable-release-build
 			--disable-dependency-tracking
 			--disable-epm
-			--disable-gtk
 			--disable-fetch-external
 			--disable-firebird-sdbc
 			--disable-postgresql-sdbc
@@ -118,7 +123,6 @@ CONFIGURE_ARGS=		--enable-gtk3
 			--disable-online-update
 			--disable-pdfium
 			--disable-neon
-			--disable-kde4
 			--disable-cups
 			--disable-dbus
 			--disable-dconf
@@ -132,6 +136,7 @@ CONFIGURE_ARGS=		--enable-gtk3
 			--with-external-tar="{{DISTDIR}}/{{DIST_SUBDIR}}"
 			--with-gnu-patch="{{LOCALBASE}}/bin/gpatch"
 			--with-parallelism={{MAKE_JOBS_NUMBER}}
+			--with-help
 			--with-system-curl
 			--with-system-cppunit
 			--with-system-dicts
@@ -166,7 +171,10 @@ PLIST_SUB=		LOCALBASE="{{LOCALBASE}}"
 
 post-extract:
 	${MKDIR} ${WRKSRC}/src
+	${MKDIR} ${WRKSRC}/tarballs
 	${LN} -s ${DISTDIR}/${OPENSTTF} ${WRKSRC}/src/
+	${CP} ${DISTDIR}/dtoa-${DTOAVER}.tgz ${WRKSRC}/tarballs
+	${CP} ${DISTDIR}/skia-m84-${SKIAM84}.tar.xz ${WRKSRC}/tarballs
 
 pre-configure:
 	${TOUCH} ${WRKSRC}/autogen.lastrun

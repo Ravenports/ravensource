@@ -1,6 +1,6 @@
---- sal/osl/unx/thread.cxx.orig	2020-06-24 20:35:34 UTC
+--- sal/osl/unx/thread.cxx.orig	2020-07-15 18:21:20 UTC
 +++ sal/osl/unx/thread.cxx
-@@ -46,6 +46,14 @@
+@@ -48,6 +48,14 @@
  #include <sys/syscall.h>
  #endif
  
@@ -15,7 +15,7 @@
  /****************************************************************************
   * @@@ TODO @@@
   *
-@@ -545,7 +553,7 @@ void SAL_CALL osl_setThreadName(char con
+@@ -568,7 +576,7 @@ void SAL_CALL osl_setThreadName(char con
      if ( 0 != err )
          SAL_WARN("sal.osl", "pthread_setname_np failed with errno " << err);
  #elif defined __FreeBSD_kernel__
