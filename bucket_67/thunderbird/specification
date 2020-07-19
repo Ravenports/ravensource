@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	68.10.0
+DEF[PORTVERSION]=	78.0
+DEF[PYTHON3]=		EXTRACT_VERSION(PYTHON3_DEFAULT)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		thunderbird
@@ -34,9 +35,9 @@ BUILD_DEPENDS=		rust:single:standard
 			bzip2:static:standard
 			nodejs:primary:standard
 			libvpx:single:standard
-			sqlite:single:standard
 			clang:compiler:standard
 			evdev-proto:single:standard
+			python-sqlite3:single:python_used
 BUILDRUN_DEPENDS=	nss:primary:standard
 			icu:single:standard
 			libffi:single:standard
@@ -44,7 +45,6 @@ BUILDRUN_DEPENDS=	nss:primary:standard
 			libevent:single:standard
 			libcanberra:primary:standard
 			libnotify:primary:standard
-			harfbuzz:primary:standard
 			aom:single:standard
 			WebP:single:standard
 			dav1d:single:standard
@@ -54,8 +54,7 @@ BUILDRUN_DEPENDS=	nss:primary:standard
 			startup-notification:single:standard
 
 USES=			cpe desktop-utils:single gmake jpeg png zlib
-			perl:build pkgconfig iconv python:py27
-			gettext-runtime
+			perl:build pkgconfig iconv python gettext-runtime
 XORG_COMPONENTS=	x11 xcb xcomposite xdamage xext xfixes xrender xt
 			pixman
 GNOME_COMPONENTS=	gconf gtk2 gtk3 gdkpixbuf pango
@@ -71,16 +70,11 @@ QMAKE_ARGS=		--prefix="{{PREFIX}}"
 			--with-system-png="{{LOCALBASE}}"
 			--with-system-jpeg="{{LOCALBASE}}"
 			--with-system-libevent
-			--with-system-harfbuzz
-			--with-system-graphite2
 			--with-system-av1
 			--with-system-webp
-			--with-system-bz2
 			--enable-system-ffi
 			--enable-system-pixman
-			--enable-system-sqlite
 			--enable-install-strip
-			--enable-gconf
 			--enable-strip
 			--enable-calendar
 			--enable-libproxy
@@ -89,7 +83,6 @@ QMAKE_ARGS=		--prefix="{{PREFIX}}"
 			--enable-official-branding
 			--enable-application=comm/mail
 			--enable-update-channel=release
-			--enable-startup-notification
 			--enable-rust-simd
 			--with-intl-api
 			--disable-alsa
@@ -103,6 +96,8 @@ QMAKE_ARGS=		--prefix="{{PREFIX}}"
 			--disable-tests
 			--disable-updater
 			--disable-hardening
+CONFIGURE_ENV=		PYTHON3={{LOCALBASE}}/bin/python${PYTHON3}
+MAKE_ENV=		PYTHON3={{LOCALBASE}}/bin/python${PYTHON3}
 
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-jemalloc
 VAR_OPSYS[linux]=	QMAKE_ARGS=--disable-elf-hack
@@ -124,6 +119,9 @@ post-patch:
 		${WRKSRC}/media/libcubeb/src/cubeb_alsa.c
 	${REINPLACE_CMD} -e 's@_POSIX_SOURCE@&___@g' \
 		${WRKSRC}/media/libcubeb/src/cubeb_jack.cpp
+
+	# choose correct python
+	${REINPLACE_CMD} -e 's|python3|python${PYTHON3}|g' ${WRKSRC}/configure.in
 
 	# Set mozilla options
 	@${ECHO_CMD} "--=> Setting configuration <=--"

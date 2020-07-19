@@ -1,6 +1,6 @@
---- comm/mail/app/nsMailApp.cpp.orig	2020-05-21 20:31:05 UTC
+--- comm/mail/app/nsMailApp.cpp.orig	2020-07-13 18:10:03 UTC
 +++ comm/mail/app/nsMailApp.cpp
-@@ -273,6 +273,9 @@ int main(int argc, char* argv[], char* e
+@@ -306,6 +306,9 @@ int main(int argc, char* argv[], char* e
    }
  #endif
  
