@@ -288,6 +288,7 @@ function inline_fix_setup ($namebase, $src) {
        "asn1"         => '/version_info.*3\.4/d; s/.enum-compat.//',
        "pycryptodomex" => '/set_compiler_options/d',
        "soupsieve"    => false,
+       "xml2rfc"      => false,
        "django-colorful" => false,
    );
    $setup = $src . "/setup.py";
@@ -338,6 +339,10 @@ function inline_fix_setup ($namebase, $src) {
                $bv = trim (shell_exec ("awk '/__version__/ { print $3 }' $xf"));
                $xf = $src . "/setup.py";
                shell_exec ("sed -i.bak -e \"s|breathe.__version__|$bv|\" $xf");
+               break;
+           case "xml2rfc":
+               $xf = $src . "/requirements.txt";
+               shell_exec ("sed -i.bak -e \"/#configargparse/d\" $xf");
                break;
        }
    }
