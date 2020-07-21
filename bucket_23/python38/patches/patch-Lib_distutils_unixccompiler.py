@@ -1,4 +1,4 @@
---- Lib/distutils/unixccompiler.py.orig	2020-07-13 12:11:53 UTC
+--- Lib/distutils/unixccompiler.py.orig	2020-07-20 13:01:32 UTC
 +++ Lib/distutils/unixccompiler.py
 @@ -232,32 +232,7 @@ class UnixCCompiler(CCompiler):
          # the configuration data stored in the Python installation, so
