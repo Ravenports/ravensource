@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	2.0.17
+DEF[PORTVERSION]=	2.0.18
+# jasper-maint-old branch
+DEF[HASH]=		cd2f3fc
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		jasper
@@ -10,7 +12,7 @@ HOMEPAGE=		http://www.ece.uvic.ca/~frodo/jasper/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/mdadams:jasper:version-${PORTVERSION}
+SITES[main]=		GITHUB/mdadams:jasper:${HASH}
 DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete primary docs
@@ -24,7 +26,6 @@ BUILDRUN_DEPENDS=	freeglut:primary:standard
 
 USES=			cpe jpeg cmake
 CPE_VENDOR=		jasper_project
-DISTNAME=		jasper-version-${PORTVERSION}
 CMAKE_ARGS=		-DJAS_ENABLE_DOC:BOOL=ON
 			-DJAS_ENABLE_LIBJPEG:BOOL=ON
 			-DJAS_ENABLE_OPENGL:BOOL=ON
