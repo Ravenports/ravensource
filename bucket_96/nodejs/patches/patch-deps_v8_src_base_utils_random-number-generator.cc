@@ -1,4 +1,4 @@
---- deps/v8/src/base/utils/random-number-generator.cc.orig	2020-06-02 15:09:42 UTC
+--- deps/v8/src/base/utils/random-number-generator.cc.orig	2020-07-20 22:18:45 UTC
 +++ deps/v8/src/base/utils/random-number-generator.cc
 @@ -51,7 +51,7 @@ RandomNumberGenerator::RandomNumberGener
    result = rand_s(&second_half);

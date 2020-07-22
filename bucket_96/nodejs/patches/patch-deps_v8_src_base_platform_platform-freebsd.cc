@@ -1,6 +1,6 @@
---- deps/v8/src/base/platform/platform-freebsd.cc.orig	2020-06-02 15:09:42 UTC
+--- deps/v8/src/base/platform/platform-freebsd.cc.orig	2020-07-20 22:18:45 UTC
 +++ deps/v8/src/base/platform/platform-freebsd.cc
-@@ -47,6 +47,9 @@ static unsigned StringToLong(char* buffe
+@@ -48,6 +48,9 @@ static unsigned StringToLong(char* buffe
  }
  
  std::vector<OS::SharedLibraryAddress> OS::GetSharedLibraryAddresses() {
@@ -10,7 +10,7 @@
    std::vector<SharedLibraryAddress> result;
    int mib[4] = {CTL_KERN, KERN_PROC, KERN_PROC_VMMAP, getpid()};
    size_t miblen = sizeof(mib) / sizeof(mib[0]);
-@@ -90,6 +93,7 @@ std::vector<OS::SharedLibraryAddress> OS
+@@ -91,6 +94,7 @@ std::vector<OS::SharedLibraryAddress> OS
      }
    }
    return result;

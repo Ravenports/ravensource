@@ -1,6 +1,6 @@
---- deps/v8/src/libsampler/sampler.cc.orig	2020-06-02 15:09:42 UTC
+--- deps/v8/src/libsampler/sampler.cc.orig	2020-07-20 22:18:45 UTC
 +++ deps/v8/src/libsampler/sampler.cc
-@@ -467,7 +467,7 @@ void SignalHandler::FillRegisterState(vo
+@@ -469,7 +469,7 @@ void SignalHandler::FillRegisterState(vo
    state->sp = reinterpret_cast<void*>(mcontext->__ss.__esp);
    state->fp = reinterpret_cast<void*>(mcontext->__ss.__ebp);
  #endif  // V8_HOST_ARCH_IA32
