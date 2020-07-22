@@ -1,4 +1,4 @@
---- tools/llvm-objcopy/MachO/Object.cpp.orig	2020-03-23 15:01:02 UTC
+--- tools/llvm-objcopy/MachO/Object.cpp.orig	2020-07-07 16:21:37 UTC
 +++ tools/llvm-objcopy/MachO/Object.cpp
 @@ -1,6 +1,18 @@
  #include "Object.h"

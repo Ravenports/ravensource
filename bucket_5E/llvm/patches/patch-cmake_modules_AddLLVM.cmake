@@ -1,4 +1,4 @@
---- cmake/modules/AddLLVM.cmake.orig	2020-03-23 15:01:02 UTC
+--- cmake/modules/AddLLVM.cmake.orig	2020-07-07 16:21:37 UTC
 +++ cmake/modules/AddLLVM.cmake
 @@ -198,13 +198,9 @@ elseif(NOT WIN32)
    elseif("${stdout}" MATCHES "GNU ld")
