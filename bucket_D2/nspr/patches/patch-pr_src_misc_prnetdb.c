@@ -1,4 +1,4 @@
---- pr/src/misc/prnetdb.c.orig	2020-06-24 13:26:09 UTC
+--- pr/src/misc/prnetdb.c.orig	2020-07-23 13:54:12 UTC
 +++ pr/src/misc/prnetdb.c
 @@ -73,11 +73,6 @@ PRLock *_pr_dnsLock = NULL;
  #define _PR_HAVE_GETPROTO_R_INT
