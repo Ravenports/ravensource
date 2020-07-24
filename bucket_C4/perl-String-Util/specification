@@ -1,17 +1,17 @@
-DEF[PORTVERSION]=	1.26
+DEF[PORTVERSION]=	1.30
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-String-Util
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 528
-SDESC[530]=		String::Util -- String processing utilities (5.30)
-SDESC[528]=		String::Util -- String processing utilities (5.28)
-HOMEPAGE=		none
+SDESC[530]=		String processing utility functions (5.30)
+SDESC[528]=		String processing utility functions (5.28)
+HOMEPAGE=		https://github.com/scottchiefbaker/String-Util
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		CPAN/ID:M/MI/MIKO
+SITES[main]=		CPAN/ID:B/BA/BAKERSCOT
 DISTFILE[1]=		String-Util-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
@@ -23,22 +23,20 @@ VOPTS[530]=		PERL_530=ON PERL_528=OFF
 VOPTS[528]=		PERL_530=OFF PERL_528=ON
 
 # License listed in CPAN directory:
-# perl
+# perl_5
 
 GENERATED=		yes
 SINGLE_JOB=		yes
 DISTNAME=		String-Util-${PORTVERSION}
 
-# ---------------------------------------------
-# |   Prerequisites extracted from META.yml
-# ---------------------------------------------
-# |           requires : Number::Misc
-# |           requires : Test::Toolbox
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |    configure : Module::Build::Tiny
+# |         test : Test::More (perl 5.30 core) (perl 5.28 core)
 
-[PERL_530].USES_ON=			perl:530,buildmod,run
-[PERL_530].BUILDRUN_DEPENDS_ON=		perl-Number-Misc:single:530
-					perl-Test-Toolbox:single:530
-[PERL_528].USES_ON=			perl:528,buildmod,run
-[PERL_528].BUILDRUN_DEPENDS_ON=		perl-Number-Misc:single:528
-					perl-Test-Toolbox:single:528
+[PERL_530].USES_ON=			perl:530,buildmodtiny,run
+[PERL_530].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:530
+[PERL_528].USES_ON=			perl:528,buildmodtiny,run
+[PERL_528].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:528
 
