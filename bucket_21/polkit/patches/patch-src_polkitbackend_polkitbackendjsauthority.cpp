@@ -1,6 +1,6 @@
---- src/polkitbackend/polkitbackendjsauthority.cpp.orig	2019-04-02 12:54:12 UTC
+--- src/polkitbackend/polkitbackendjsauthority.cpp.orig	2020-07-24 13:51:17 UTC
 +++ src/polkitbackend/polkitbackendjsauthority.cpp
-@@ -55,6 +55,46 @@
+@@ -60,6 +60,46 @@
  #error "This code is not safe in SpiderMonkey exact stack rooting configurations"
  #endif
  
@@ -47,7 +47,7 @@
  /**
   * SECTION:polkitbackendjsauthority
   * @title: PolkitBackendJsAuthority
-@@ -812,7 +852,11 @@ subject_to_jsval (PolkitBackendJsAuthori
+@@ -840,7 +880,11 @@ subject_to_jsval (PolkitBackendJsAuthori
  
        if (getgrouplist (passwd->pw_name,
                          passwd->pw_gid,
