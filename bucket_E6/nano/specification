@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.9.3
+DEF[PORTVERSION]=	5.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		nano
@@ -24,6 +24,8 @@ LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
 			CUSTOM1:{{WRKSRC}}/COPYING.DOC
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 			docs:{{WRKDIR}}/TERMS.DOC
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/nano.c
 LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		editors/nano
@@ -40,7 +42,6 @@ INFO=			primary:nano
 
 post-extract:
 	# LICENSE_AWK writes to all defined terms, so create them manually
-	${AWK} '/^$$/ {exit}; {print}' ${WRKSRC}/src/nano.h > ${WRKDIR}/TERMS
 	${AWK} '/NANO 1/ {exit}; {print}' \
 		${WRKSRC}/doc/nano.1 > ${WRKDIR}/TERMS.DOC
 
