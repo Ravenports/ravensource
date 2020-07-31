@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2.6.8
-DEF[SOVERSION]=		0.20600.8
+DEF[PORTVERSION]=	2.7.0
+DEF[SOVERSION]=		0.20700.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		harfbuzz
@@ -11,9 +11,8 @@ HOMEPAGE=		http://www.freedesktop.org/wiki/Software/HarfBuzz
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://www.freedesktop.org/software/harfbuzz/release/
-			https://github.com/harfbuzz/harfbuzz/releases/download/${PORTVERSION}/
-DISTFILE[1]=		harfbuzz-${PORTVERSION}.tar.xz:main
+SITES[main]=		GITHUB/harfbuzz:harfbuzz:${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete primary icu docs
 
@@ -27,25 +26,18 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		print/harfbuzz
 
 BUILD_DEPENDS=		icu:single:standard
+			autoselect-python:single:standard
 BUILDRUN_DEPENDS=	graphite:single:standard
 EXRUN[icu]=		harfbuzz:primary:standard
 			icu:single:standard
 
-USES=			cpe gmake libtool pkgconfig c++:primary python:build
+USES=			cpe meson pkgconfig gtk-doc
+			c++:primary python:build
 GNOME_COMPONENTS=	cairo glib introspection
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-graphite2
-			--with-gobject=yes
-			--with-icu
-
+MESON_ARGS=		-Dgraphite=enabled
+			-Dbenchmark=disabled
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 TEST_TARGET=		check
 CPE_VENDOR=		harfbuzz_project
 SOVERSION=		${SOVERSION}
-
-post-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/share/doc
-	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/harfbuzz \
-		${STAGEDIR}${PREFIX}/share/doc
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
