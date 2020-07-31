@@ -1,4 +1,4 @@
---- lib/softoken/pkcs11.c.orig	2020-06-16 22:50:59 UTC
+--- lib/softoken/pkcs11.c.orig	2020-07-24 15:10:32 UTC
 +++ lib/softoken/pkcs11.c
 @@ -3345,8 +3345,8 @@ nsc_CommonInitialize(CK_VOID_PTR pReserv
          char buf[200];

@@ -1,4 +1,4 @@
---- coreconf/arch.mk.orig	2020-06-16 22:50:59 UTC
+--- coreconf/arch.mk.orig	2020-07-24 15:10:32 UTC
 +++ coreconf/arch.mk
 @@ -26,7 +26,7 @@ OS_ARCH := $(subst /,_,$(shell uname -s)
  # Attempt to differentiate between sparc and x86 Solaris
@@ -9,8 +9,8 @@
  ifeq ($(OS_TEST),i86pc)
      OS_RELEASE := $(shell uname -r)_$(OS_TEST)
  else
-@@ -118,6 +118,10 @@ ifeq ($(OS_ARCH),Linux)
-     KERNEL = Linux
+@@ -119,6 +119,10 @@ ifeq ($(OS_ARCH),Linux)
+     include $(CORE_DEPTH)/coreconf/Linux.mk
  endif
  
 +ifeq ($(OS_ARCH),DragonFly)
