@@ -7,6 +7,7 @@ DEF[CHARLIE]=		2.7
 
 NAMEBASE=		autoselect-python
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		lang
 VARIANTS=		standard
 SDESC[standard]=	Dynamic links to the latest installed python
@@ -25,18 +26,23 @@ LICENSE_FILE=		ISCL:{{FILESDIR}}/LICENSE_ISC
 LICENSE_SCHEME=		solo
 
 SUB_FILES=		autoselect.c
+			only3.c
 SUB_LIST=		ALPHA=${ALPHA}
 			BRAVO=${BRAVO}
 			CHARLIE=${CHARLIE}
 
 post-patch:
-	@${MKDIR} ${WRKSRC}
-	${CP} ${WRKDIR}/autoselect.c ${WRKSRC}
+	${MKDIR} ${WRKSRC}
+	${CP} ${WRKDIR}/*.c ${WRKSRC}
 
 do-build:
 	(cd ${WRKSRC} && ${CC} ${CFLAGS} ${LDFLAGS} -o generic autoselect.c)
+	(cd ${WRKSRC} && ${CC} ${CFLAGS} ${LDFLAGS} -o only3   only3.c)
 
 do-install:
 .for prog in 2to3 idle pydoc python python-config
 	${INSTALL_PROGRAM} ${WRKSRC}/generic  ${STAGEDIR}${PREFIX}/bin/${prog}
+.endfor
+.for prog in python3 python-config3
+	${INSTALL_PROGRAM} ${WRKSRC}/only3 ${STAGEDIR}${PREFIX}/bin/${prog}
 .endfor

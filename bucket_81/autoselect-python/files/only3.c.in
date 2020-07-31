@@ -1,0 +1,83 @@
+/*
+ * This program will determine the latest version of python
+ * installed by checking %%PREFIX%%/bin/python-<x> where <x> checks
+ * all possible versions of python 3.
+ * 
+ * If no version is present, an error message will be displayed,
+ * otherwise the versioned counterpart of the python command
+ * requested will be will be executed with the same arguments
+ * provided to this one.  If the versioned command isn't present, an
+ * error message will be provided as a fallback.
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
+
+int
+main(int argc, char **argv)
+{
+	int x;
+	char *cmd;
+	char *override;
+	char recommand[1024];
+	char *pyver    = NULL;
+	char *PYTHON_A = "%%PREFIX%%/bin/python%%ALPHA%%";
+	char *PYTHON_B = "%%PREFIX%%/bin/python%%BRAVO%%";
+	char *ALPHA    = "%%ALPHA%%";
+	char *BRAVO    = "%%BRAVO%%";
+
+	override = getenv("AUTOPYTHON");
+	if (override != NULL) {
+		if (strcmp (override, ALPHA) == 0) {
+			pyver = ALPHA;
+		} else if (strcmp (override, BRAVO) == 0) {
+			pyver = BRAVO;
+		}
+	}
+	if (pyver == NULL) {
+		if (access(PYTHON_A, F_OK) != -1) {
+			pyver = ALPHA;
+		} else if (access(PYTHON_B, F_OK) != -1) {
+			pyver = BRAVO;
+		} else {
+			/* no versions of python 3 are installed */
+			printf ("There are no versions of python 3 installed at %%PREFIX%%/bin\n");
+			exit (1);
+		}
+	}
+
+	/*
+	 * Get the last path element of the program name being executed
+	 */
+	cmd = strrchr(argv[0], '/');
+	if (cmd != NULL)
+		cmd++;
+	else
+		cmd = argv[0];
+
+	if (strcmp (cmd, "python-config3") == 0) {
+		snprintf(recommand, 1024,
+			"%%PREFIX%%/bin/python%s-config", pyver);
+	} else if (strcmp (cmd, "python3") == 0) {
+		snprintf(recommand, 1024,
+			"%%PREFIX%%/bin/python%s", pyver);
+	} else {
+		printf ("only3 doesn't handle this file: %s\n", cmd);
+		exit (1);
+	}
+	argv[0] = recommand;
+	execv(recommand, argv);
+
+	/*
+	 * Execution failed, so write out an error message
+	 */
+	printf ("Command execution failed: %s\n", recommand);
+	printf ("               arguments:");
+	for (x = 1; x < argc; x++)
+		printf (" %s", argv[x]);
+	printf ("\n");
+	exit (1);
+}
