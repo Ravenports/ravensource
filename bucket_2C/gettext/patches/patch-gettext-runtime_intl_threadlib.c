@@ -1,4 +1,4 @@
---- gettext-runtime/intl/threadlib.c.orig	2020-04-13 08:08:21 UTC
+--- gettext-runtime/intl/threadlib.c.orig	2020-04-11 09:57:01 UTC
 +++ gettext-runtime/intl/threadlib.c
 @@ -29,11 +29,10 @@
  

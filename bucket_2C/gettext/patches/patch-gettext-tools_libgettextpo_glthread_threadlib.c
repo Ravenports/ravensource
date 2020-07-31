@@ -1,4 +1,4 @@
---- gettext-tools/libgettextpo/glthread/threadlib.c.orig	2020-04-13 13:46:51 UTC
+--- gettext-tools/libgettextpo/glthread/threadlib.c.orig	2020-04-11 10:00:55 UTC
 +++ gettext-tools/libgettextpo/glthread/threadlib.c
 @@ -29,11 +29,10 @@
  
