@@ -1,6 +1,5 @@
-DEF[PORTVERSION]=	2.0.18
-# jasper-maint-old branch
-DEF[HASH]=		cd2f3fc
+DEF[PORTVERSION]=	2.0.19
+DEF[HASH]=		version-${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		jasper
@@ -30,6 +29,8 @@ CMAKE_ARGS=		-DJAS_ENABLE_DOC:BOOL=ON
 			-DJAS_ENABLE_LIBJPEG:BOOL=ON
 			-DJAS_ENABLE_OPENGL:BOOL=ON
 			-DJAS_ENABLE_SHARED:BOOL=ON
+# to work around 'v' getting removed by error in this case
+DISTNAME=		jasper-version-${PORTVERSION}
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
