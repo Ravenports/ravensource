@@ -1,6 +1,4 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(FIREFOX_ESR_VERSION)
-DEF[PY3DEF]=		EXTRACT_VERSION(PYTHON3_DEFAULT)
-DEF[PY3DEFNODOT]=	${PY3DEF:S/.//}
 DEF[MAJOR]=		${PORTVERSION:R:R}
 # ----------------------------------------------------------------------------
 
@@ -30,15 +28,18 @@ LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		autoconf213:single:standard
 			zip:single:standard
-			python${PY3DEFNODOT}:single:standard
 			rust:single:standard
 			clang:compiler:standard
+			autoselect-python:single:standard
 BUILDRUN_DEPENDS=	icu:single:standard
 			nspr:single:standard
 
 DISTNAME=		firefox-${PORTVERSION}/js/src
 
-USES=			gmake perl pkgconfig python:py27,build zlib readline
+BROKEN[dragonfly]=	function std::sys::unix::process::process_inner::<impl std::sys::unix::process::process_common::Command>::do_exec: error: undefined reference to 'environ'
+BROKEN[freebsd]=	function std::sys::unix::process::process_inner::<impl std::sys::unix::process::process_common::Command>::do_exec: error: undefined reference to 'environ'
+
+USES=			gmake perl pkgconfig python:build zlib readline
 MUST_CONFIGURE=		yes
 CONFIGURE_OUTSOURCE=	yes
 CONFIGURE_ARGS=		--prefix={{PREFIX}}

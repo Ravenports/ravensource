@@ -1,6 +1,6 @@
---- ../../python/mach/mach/mixin/process.py.orig	2020-06-22 22:55:08 UTC
+--- ../../python/mach/mach/mixin/process.py.orig	2020-07-08 19:37:09 UTC
 +++ ../../python/mach/mach/mixin/process.py
-@@ -27,7 +27,7 @@ elif 'MOZILLABUILD' in os.environ:
+@@ -28,7 +28,7 @@ elif 'MOZILLABUILD' in os.environ:
  elif 'COMSPEC' in os.environ:
      _current_shell = os.environ['COMSPEC']
  else:
