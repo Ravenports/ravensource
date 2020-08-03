@@ -1,6 +1,6 @@
---- src/Makevars.orig	2020-03-27 11:57:10 UTC
+--- src/Makevars.orig	2020-07-29 15:12:05 UTC
 +++ src/Makevars
-@@ -8,6 +8,7 @@ OBJECTS = $(SOURCES:.cc=.o)
+@@ -10,6 +10,7 @@ OBJECTS = $(SOURCES:.cc=.o)
  ifeq ($(UNAME), SunOS)
  PKG_LIBS += -lkstat -lsendfile -lsocket -lxnet
  OBJECTS +=  bsd/setmode.o bsd/strmode.o bsd/reallocarray.o
@@ -8,12 +8,12 @@
  endif
  ifeq ($(UNAME), FreeBSD)
  PKG_LIBS += -lkvm
-@@ -27,7 +28,7 @@ $(SHLIB): libuv/.libs/libuv.a
+@@ -29,7 +30,7 @@ $(SHLIB): $(LIBUV)/.libs/libuv.a
  
- libuv/Makefile:
- 	(cd libuv \
+ $(LIBUV)/Makefile:
+ 	(cd $(LIBUV) \
 -	&& CC="$(CC)" CFLAGS="$(CFLAGS) $(CPPFLAGS) $(CPICFLAGS) $(C_VISIBILITY)" AR="$(AR)" RANLIB="$(RANLIB)" LDFLAGS="$(LDFLAGS)" ./configure --quiet)
 +	&& CC="$(CC)" CFLAGS="$(CFLAGS) $(CPPFLAGS) $(CPICFLAGS) $(C_VISIBILITY)" AR="$(AR)" RANLIB="$(RANLIB)" LDFLAGS="$(LDFLAGS)" ./configure --quiet $(CONFTGT))
  
- libuv/.libs/libuv.a: libuv/Makefile
- 	$(MAKE) --directory=libuv \
+ $(LIBUV)/.libs/libuv.a: $(LIBUV)/Makefile
+ 	$(MAKE) --directory=$(LIBUV) \

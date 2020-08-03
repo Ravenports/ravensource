@@ -1,4 +1,4 @@
---- src/unix/getmode.cc.orig	2020-04-15 14:10:48 UTC
+--- src/unix/getmode.cc.orig	2020-03-30 12:54:20 UTC
 +++ src/unix/getmode.cc
 @@ -2,6 +2,7 @@
  #include "utils.h"
