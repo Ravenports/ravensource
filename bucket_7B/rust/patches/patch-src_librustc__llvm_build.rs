@@ -1,4 +1,4 @@
---- src/librustc_llvm/build.rs.orig	2020-07-26 16:11:05 UTC
+--- src/librustc_llvm/build.rs.orig	2020-07-31 20:16:28 UTC
 +++ src/librustc_llvm/build.rs
 @@ -259,20 +259,7 @@ fn main() {
      let llvm_static_stdcpp = env::var_os("LLVM_STATIC_STDCPP");
