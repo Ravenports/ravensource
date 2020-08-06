@@ -1,4 +1,4 @@
---- sapi/apache2handler/config.m4.orig	2020-07-07 09:27:46 UTC
+--- sapi/apache2handler/config.m4.orig	2020-08-04 08:28:13 UTC
 +++ sapi/apache2handler/config.m4
 @@ -64,7 +64,7 @@ if test "$PHP_APXS2" != "no"; then
    fi
