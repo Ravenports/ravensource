@@ -1,6 +1,6 @@
---- modules/ssl/ssl_engine_init.c.orig	2020-02-19 13:32:50 UTC
+--- modules/ssl/ssl_engine_init.c.orig	2020-07-07 16:57:22 UTC
 +++ modules/ssl/ssl_engine_init.c
-@@ -578,7 +578,7 @@ static apr_status_t ssl_init_ctx_protoco
+@@ -581,7 +581,7 @@ static apr_status_t ssl_init_ctx_protoco
      char *cp;
      int protocol = mctx->protocol;
      SSLSrvConfigRec *sc = mySrvConfig(s);

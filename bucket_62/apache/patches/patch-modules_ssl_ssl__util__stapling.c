@@ -1,4 +1,4 @@
---- modules/ssl/ssl_util_stapling.c.orig	2020-03-23 17:54:33 UTC
+--- modules/ssl/ssl_util_stapling.c.orig	2020-06-20 14:19:56 UTC
 +++ modules/ssl/ssl_util_stapling.c
 @@ -107,7 +107,7 @@ static X509 *stapling_get_issuer(modssl_
      for (i = 0; i < sk_X509_num(extra_certs); i++) {
