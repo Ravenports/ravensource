@@ -1,4 +1,4 @@
---- src/nvim/os/process.c.orig	2019-11-06 09:54:45 UTC
+--- src/nvim/os/process.c.orig	2020-08-05 00:07:48 UTC
 +++ src/nvim/os/process.c
 @@ -12,13 +12,13 @@
  # include <tlhelp32.h>  // for CreateToolhelp32Snapshot

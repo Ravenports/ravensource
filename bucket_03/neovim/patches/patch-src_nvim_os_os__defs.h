@@ -1,4 +1,4 @@
---- src/nvim/os/os_defs.h.orig	2019-11-06 09:54:45 UTC
+--- src/nvim/os/os_defs.h.orig	2020-08-05 00:07:48 UTC
 +++ src/nvim/os/os_defs.h
 @@ -13,6 +13,10 @@
  # include "nvim/os/unix_defs.h"

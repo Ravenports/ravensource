@@ -1,4 +1,4 @@
---- CMakeLists.txt.orig	2019-11-06 09:54:45 UTC
+--- CMakeLists.txt.orig	2020-08-05 00:07:48 UTC
 +++ CMakeLists.txt
 @@ -302,18 +302,6 @@ if(HAS_WVLA_FLAG)
    add_compile_options(-Wvla)
@@ -16,10 +16,10 @@
 -  endif()
 -endif()
 -
- check_c_compiler_flag(-fdiagnostics-color=auto HAS_DIAG_COLOR_FLAG)
- if(HAS_DIAG_COLOR_FLAG)
-   if(CMAKE_GENERATOR MATCHES "Ninja")
-@@ -340,7 +328,7 @@ add_definitions(-DINCLUDE_GENERATED_DECL
+ check_c_compiler_flag(-fno-common HAVE_FNO_COMMON)
+ if (HAVE_FNO_COMMON)
+   add_compile_options(-fno-common)
+@@ -345,7 +333,7 @@ add_definitions(-DINCLUDE_GENERATED_DECL
  
  if(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "Clang")
    if(CMAKE_SYSTEM_NAME STREQUAL "SunOS")
