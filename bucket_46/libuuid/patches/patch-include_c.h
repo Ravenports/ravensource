@@ -1,6 +1,6 @@
 Add NAME_MAX compat.
 
---- include/c.h.orig	2020-05-20 12:27:43 UTC
+--- include/c.h.orig	2020-07-01 10:38:43 UTC
 +++ include/c.h
 @@ -35,6 +35,10 @@
  # define NAME_MAX PATH_MAX

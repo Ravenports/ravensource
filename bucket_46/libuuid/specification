@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2.35.2
-DEF[DLFOLDER]=		2.35
+DEF[PORTVERSION]=	2.36
+DEF[DLFOLDER]=		2.36
 DEF[SOVERSION]=		1.3.0
 # ----------------------------------------------------------------------------
 
@@ -17,8 +17,11 @@ DISTFILE[1]=		util-linux-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	single
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	NOSETPROC
+OPTIONS_STANDARD=	NOSETPROC
+OPT_ON[dragonfly]=	NOSETPROC
+OPT_ON[freebsd]=	NOSETPROC
+OPT_ON[sunos]=		NOSETPROC
 
 LICENSE=		BSD3CLAUSE:single
 LICENSE_FILE=		BSD3CLAUSE:{{WRKDIR}}/BSD3
@@ -26,7 +29,7 @@ LICENSE_AWK=		BSD3CLAUSE:"^$$"
 LICENSE_SOURCE=		BSD3CLAUSE:{{WRKSRC}}/libuuid/src/uuid.h
 LICENSE_SCHEME=		solo
 
-USES=			cpe libtool pkgconfig
+USES=			autoreconf cpe libtool pkgconfig gettext-tools:build
 CPE_VENDOR=		kernel
 CPE_PRODUCT=		util-linux
 MUST_CONFIGURE=		gnu
@@ -37,6 +40,7 @@ CONFIGURE_ARGS=		--disable-all-programs
 			--without-ncurses
 			--without-ncursesw
 			--disable-nls
+CONFIGURE_ENV=		ax_cv_check_vscript_flag=unsupported
 INSTALL_TARGET=		install-strip
 DISTNAME=		util-linux-${PORTVERSION}
 SOVERSION=		${SOVERSION}
@@ -48,6 +52,8 @@ VAR_OPSYS[sunos]=	CFLAGS=-I{{LOCALBASE}}/include/bsd
 			CFLAGS=-DHAVE_STRNLEN
 			CFLAGS=-DHAVE_STRNDUP
 
+[NOSETPROC].DESCRIPTION=		Omit built-in setproctitle support
+
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/bash-completion
 
@@ -55,3 +61,6 @@ post-patch-sunos:
 	# there's a problem with nls, just mass-remove the macro
 	${GREP} -rl '_(".*")' ${WRKSRC} | ${XARGS} \
 		${PERL} -p -i.pbak -e 's|[_][(]["](.*?)["][)]|"\1"|g'
+
+post-patch-NOSETPROC-ON:
+	${REINPLACE_CMD} -e '/setproctitle.c/d' ${WRKSRC}/lib/Makemodule.am

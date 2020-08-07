@@ -1,0 +1,36 @@
+--- configure.ac.orig	2020-07-23 09:23:58 UTC
++++ configure.ac
+@@ -1088,6 +1088,11 @@ AC_SUBST([LIBUUID_VERSION])
+ AC_SUBST([LIBUUID_VERSION_INFO])
+ AM_CONDITIONAL(BUILD_LIBUUID, test "x$build_libuuid" = xyes)
+ 
++AC_ARG_ENABLE([uuidgen],
++  AS_HELP_STRING([--disable-uuidgen], [do not build uuidgen]),
++  [], [UL_DEFAULT_ENABLE([uuidgen], [yes])]
++)
++
+ AC_ARG_ENABLE([libuuid-force-uuidd],
+   AS_HELP_STRING([--enable-libuuid-force-uuidd], [support uuidd even though the daemon is not built]),
+   [], [enable_libuuid_force_uuidd=no]
+@@ -1289,8 +1294,7 @@ AS_IF([test "x$build_uuidd" = xyes || te
+ AM_CONDITIONAL([BUILD_UUIDD], [test "x$build_uuidd" = xyes])
+ 
+ 
+-UL_BUILD_INIT([uuidgen], [check])
+-UL_REQUIRES_BUILD([uuidgen], [libuuid])
++UL_BUILD_INIT([uuidgen])
+ AM_CONDITIONAL([BUILD_UUIDGEN], [test "x$build_uuidgen" = xyes])
+ 
+ UL_BUILD_INIT([uuidparse], [check])
+@@ -1682,6 +1686,11 @@ AC_ARG_ENABLE([logger],
+ UL_BUILD_INIT([logger])
+ AM_CONDITIONAL([BUILD_LOGGER], [test "x$build_logger" = xyes])
+ 
++AC_ARG_ENABLE([mcookie],
++  AS_HELP_STRING([--disable-mcookie], [do not build mcookie]),
++  [], [UL_DEFAULT_ENABLE([mcookie], [check])]
++)
++
+ UL_BUILD_INIT([look], [yes])
+ AM_CONDITIONAL([BUILD_LOOK], [test "x$build_look" = xyes])
+ 

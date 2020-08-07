@@ -1,0 +1,27 @@
+Do not build common libraries.
+Do not install terminal-colors.d.5.
+
+--- lib/Makemodule.am.orig	2020-07-22 08:06:46 UTC
++++ lib/Makemodule.am
+@@ -1,5 +1,4 @@
+ 
+-noinst_LTLIBRARIES += libcommon.la
+ libcommon_la_CFLAGS = $(AM_CFLAGS)
+ libcommon_la_SOURCES = \
+ 	lib/blkdev.c \
+@@ -56,7 +55,6 @@ libcommon_la_SOURCES += lib/sysfs.c
+ endif
+ endif
+ 
+-noinst_LTLIBRARIES += libtcolors.la
+ libtcolors_la_CFLAGS = $(AM_CFLAGS)
+ libtcolors_la_SOURCES = lib/colors.c lib/color-names.c include/colors.h include/color-names.h
+ libtcolors_la_LIBADD =
+@@ -71,7 +69,6 @@ libtcolors_la_CFLAGS += $(NCURSES_CFLAGS
+ endif
+ endif # !HAVE_TINFO
+ 
+-dist_man_MANS += lib/terminal-colors.d.5
+ 
+ 
+ check_PROGRAMS += \
