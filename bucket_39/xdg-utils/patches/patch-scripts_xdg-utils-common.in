@@ -1,4 +1,4 @@
---- scripts/xdg-utils-common.in.orig	2017-05-08 12:12:18 UTC
+--- scripts/xdg-utils-common.in.orig	2020-02-20 21:01:04 UTC
 +++ scripts/xdg-utils-common.in
 @@ -22,7 +22,7 @@ first_word()
  # map a binary to a .desktop file
@@ -18,7 +18,7 @@
      desktop="`basename "$1"`"
      IFS=:
      for dir in $search; do
-@@ -300,6 +300,44 @@ detectDE()
+@@ -303,6 +303,44 @@ detectDE()
           XFCE)
             DE=xfce
             ;;
@@ -63,7 +63,7 @@
           X-Generic)
             DE=generic
             ;;
-@@ -316,6 +354,8 @@ detectDE()
+@@ -319,6 +357,8 @@ detectDE()
        elif xprop -root 2> /dev/null | grep -i '^xfce_desktop_window' >/dev/null 2>&1; then DE=xfce
        elif echo $DESKTOP | grep -q '^Enlightenment'; then DE=enlightenment;
        elif [ x"$LXQT_SESSION_CONFIG" != x"" ]; then DE=lxqt;
