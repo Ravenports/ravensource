@@ -6,6 +6,7 @@ DEF[LIBVERSION]=	0.6400.4
 
 NAMEBASE=		glib
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Some useful routines of C programming
@@ -17,7 +18,8 @@ SITES[main]=		GNOME/glib/${PORTVERSION:R}
 DISTFILE[1]=		glib-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome2
 
-SPKGS[standard]=	single
+# see ravenadm #24 to coordinate change of single=>primary
+SPKGS[standard]=	complete single nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
