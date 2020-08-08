@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	20.1.5
 
 NAMEBASE=		mesa
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Mesa 3D Graphics Library
@@ -127,6 +128,7 @@ VAR_OPSYS[sunos]=	CPPFLAGS=-D__EXTENSIONS__=1
 [LLVMPIPE].BUILDRUN_DEPENDS_ON=		llvm:single:standard
 					opencl:single:standard
 					ocl-icd:primary:standard
+[LLVMPIPE].RUN_DEPENDS_ON=		clang:dynlibs:standard
 [LLVMPIPE].MAKEFILE_ON=			GALLIUM_LLVM_DRIVERS+=R600
 					GALLIUM_LLVM_DRIVERS+=RADEONSI
 					MESON_ARGS+=-Dllvm=true
