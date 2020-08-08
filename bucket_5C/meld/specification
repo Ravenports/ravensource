@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	3.20.2
 
 NAMEBASE=		meld
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel textproc editors
 VARIANTS=		standard
 SDESC[standard]=	Visual diff and merge tool
@@ -13,14 +14,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNOME/meld/${PORTVERSION:R}
 DISTFILE[1]=		meld-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^import "
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/bin/meld
 LICENSE_SCHEME=		solo
@@ -30,10 +31,10 @@ FPC_EQUIVALENT=		textproc/meld
 BUILD_DEPENDS=		itstool:single:standard
 
 USES=			gettext-tools shebangfix python:python_default
-			desktop-utils:single
-			gnome-icons:single
-			mime-info:single
-			schemas:single
+			desktop-utils:primary
+			gnome-icons:primary
+			mime-info:primary
+			schemas:primary
 GNOME_COMPONENTS=	gtksourceview3 pygobject intltool
 SHEBANG_FILES=		bin/meld
 GLIB_SCHEMAS=		org.gnome.meld.gschema.xml
@@ -49,3 +50,7 @@ PYD_INSTALLARGS=	--record
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/meld*
+	# autoplist python files
+	${FIND} ${STAGEDIR}${PREFIX}/lib ! -type d | \
+		${SED} -e 's,^${STAGEDIR}${PREFIX}/,,' \
+		>> ${WRKDIR}/.manifest.primary.mktmp
