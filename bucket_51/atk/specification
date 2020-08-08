@@ -4,6 +4,7 @@ DEF[SOVERSION]=		0.23609.1
 
 NAMEBASE=		atk
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		accessibility devel
 VARIANTS=		standard
 SDESC[standard]=	GNOME accessibility toolkit (ATK)
@@ -15,7 +16,8 @@ SITES[main]=		GNOME/atk/${PORTVERSION:R}
 DISTFILE[1]=		atk-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome2
 
-SPKGS[standard]=	single
+# see ravenadm #24 to coordinate change of single=>primary
+SPKGS[standard]=	complete single nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
