@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	0.73.2
 
 NAMEBASE=		zim
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		deskutils editors
 VARIANTS=		standard
 SDESC[standard]=	Desktop wiki & notekeeper
@@ -13,14 +14,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://www.zim-wiki.org/downloads/
 DISTFILE[1]=		zim-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/LICENSE.txt
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^This"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/zim/__init__.py
 LICENSE_SCHEME=		solo
@@ -33,9 +34,9 @@ BUILDRUN_DEPENDS=	python-sqlite3:single:python_used
 RUN_DEPENDS=		xdg-utils:single:standard
 
 USES=			gettext-runtime python
-			desktop-utils:single
-			gnome-icons:single
-			mime-info:single
+			desktop-utils:primary
+			gnome-icons:primary
+			mime-info:primary
 GNOME_COMPONENTS=	gtk3
 
 post-patch:
@@ -45,3 +46,9 @@ post-patch:
 	${REINPLACE_CMD} -e "s|/usr/local|${LOCALBASE}|" \
 		${WRKSRC}/zim/config/basedirs.py \
 		${WRKSRC}/tests/config.py
+
+post-install:
+	# autoplist python files
+	${FIND} ${STAGEDIR}${PREFIX}/lib ! -type d | \
+		${SED} -e 's,^${STAGEDIR}${PREFIX}/,,' \
+		>> ${WRKDIR}/.manifest.primary.mktmp
