@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.18.0
 
 NAMEBASE=		nginx-unit
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		www
 VARIANTS=		standard
 SDESC[standard]=	Dynamic web application server
@@ -28,17 +29,15 @@ FPC_EQUIVALENT=		www/unit
 
 RC_SUBR=		unitd:unitd
 
-BUILD_DEPENDS=		python27:single:standard
-			php74:single:standard
-			php72:single:standard
+BUILD_DEPENDS=		php74:single:standard
 			php73:single:standard
-EXRUN[python]=		python
+			php72:single:standard
 EXRUN[perl]=		perl
 EXRUN[php74]=		php74:single:standard
-EXRUN[php72]=		php72:single:standard
 EXRUN[php73]=		php73:single:standard
+EXRUN[php72]=		php72:single:standard
 
-USES=			cpe python:build perl:build
+USES=			cpe perl:build python:build
 CPE_VENDOR=		nginx
 CPE_PRODUCT=		unit
 MUST_CONFIGURE=		yes
