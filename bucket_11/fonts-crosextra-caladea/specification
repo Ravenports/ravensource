@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	20130214
+DEF[PORTVERSION]=	20200211
+DEF[HASH]=		336a529
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fonts-crosextra-caladea
@@ -6,12 +7,12 @@ VERSION=		${PORTVERSION}
 KEYWORDS=		x11_fonts
 VARIANTS=		standard
 SDESC[standard]=	Font created by Google to replace MS Cambria
-HOMEPAGE=		https://bugs.chromium.org/p/chromium/issues/detail?id=168879
+HOMEPAGE=		https://github.com/huertatipografica/Caladea
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://gsdview.appspot.com/chromeos-localmirror/distfiles/
-DISTFILE[1]=		crosextrafonts-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/huertatipografica:Caladea:${HASH}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
@@ -23,8 +24,7 @@ FPC_EQUIVALENT=		x11-fonts/crosextrafonts-caladea-ttf
 USES=			fonts
 SKIP_BUILD=		yes
 FONTNAME=		Caladea
-DISTNAME=		crosextrafonts-${PORTVERSION}
 
 do-install:
 	${MKDIR} ${STAGEDIR}${FONTSDIR}
-	(cd ${WRKSRC} && ${INSTALL_DATA} *.ttf ${STAGEDIR}${FONTSDIR})
+	(cd ${WRKSRC} && ${INSTALL_DATA} fonts/ttf/*.ttf ${STAGEDIR}${FONTSDIR})
