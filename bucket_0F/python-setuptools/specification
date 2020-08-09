@@ -1,13 +1,13 @@
 # manually maintained
-# Don't upgrade past 46.4.0 until further notice
-DEF[PORTVERSION]=	46.4.0
+DEF[PORTVERSION]=	49.2.1
+DEF[PY27_VERSION]=	46.4.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-setuptools
 VERSION=		${PORTVERSION}
 KEYWORDS=		python devel sysutils
 VARIANTS=		py27 py37 py38
-SDESC[py27]=		Python package development process library (PY 27)
+SDESC[py27]=		Python package library (PY 27 version ${PY27_VERSION})
 SDESC[py37]=		Python package development process library (PY 37)
 SDESC[py38]=		Python package development process library (PY 38)
 HOMEPAGE=		https://github.com/pypa/setuptools
@@ -16,6 +16,8 @@ CONTACT=		nobody
 DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/s/setuptools
 DISTFILE[1]=		setuptools-${PORTVERSION}.zip:main
+DISTFILE[2]=		setuptools-${PY27_VERSION}.zip:main
+DF_INDEX=		1 2
 
 SPKGS[py27]=		single
 SPKGS[py37]=		single
@@ -36,7 +38,7 @@ FPC_EQUIVALENT=		devel/py-setuptools
 USES=			cpe
 CPE_VENDOR=		python
 CPE_PRODUCT=		setuptools
-DISTNAME=		setuptools-${PORTVERSION}
+DISTNAME=		setuptools
 PLIST_SUB=		STVER=${PORTVERSION}
 
 [PY27].BUILDRUN_DEPENDS_ON=		python27:single:standard
@@ -54,6 +56,12 @@ PLIST_SUB=		STVER=${PORTVERSION}
 MAKE_ENV=		LDSHARED="{{CC}} -shared"
 			PYTHONDONTWRITEBYTECODE=
 			PYTHONOPTIMIZE=
+
+post-extract-PY27-ON:
+	${MV} ${WRKDIR}/setuptools-${PY27_VERSION} ${WRKDIR}/setuptools
+
+post-extract-PY27-OFF:
+	${MV} ${WRKDIR}/setuptools-${PORTVERSION} ${WRKDIR}/setuptools
 
 do-configure:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
