@@ -457,7 +457,9 @@ EOF;
             $program = <<<'EOF'
 import distutils.core
 import distutils.log
+import warnings
 distutils.log.set_threshold(distutils.log.ERROR)
+warnings.filterwarnings('ignore')
 setup = distutils.core.run_setup("setup.py")
 if hasattr (setup, 'install_requires'):
     print ('\n'.join(setup.install_requires))
