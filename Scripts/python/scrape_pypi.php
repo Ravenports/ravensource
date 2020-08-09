@@ -286,7 +286,8 @@ function inline_fix_setup ($namebase, $src) {
        "wcwidth"      => 's|.backports[.].*;.||; s|.python_version.*)|)|',
        "breathe"      => '/import breathe/d',
        "asn1"         => '/version_info.*3\.4/d; s/.enum-compat.//',
-       "pycryptodomex" => '/set_compiler_options/d',
+       "pycryptodomex"=> '/set_compiler_options/d',
+       "pyclipper"    => '/print(/d', 
        "soupsieve"    => false,
        "xml2rfc"      => false,
        "django-colorful" => false,
@@ -421,7 +422,25 @@ function set_buildrun (&$portdata) {
     }
     inline_fix_setup ($portdata["name"], $src);
     $mockfile = $src . "/obtain-req.py";
-    $program = <<<'EOF'
+    switch ($portdata["name"]) {
+        case "PyYAML":
+        case "Twisted":
+        case "attrs":
+        case "fonttools":
+        case "netaddr":
+        case "numpy":
+        case "pylint":
+        case "pytest-runner":
+        case "reportlab":
+        case "setuptools-scm":
+        case "skia-pathops":
+        case "zipp":		// above -- not distutils script
+        case "pygit2":
+        case "PyNaCl":		// above -- tries downloading
+        case "ruamel.yaml":     // list index out of range
+        case "scipy":           // cython errors
+        case "kombu":		// setup.cfg misconfig
+            $program = <<<'EOF'
 import unittest.mock
 import setuptools
 
@@ -433,6 +452,20 @@ if mock_setup.call_args is not None:
     print ('\n'.join(kwargs.get('install_requires', [])))
     print ('\n'.join(kwargs.get('setup_requires', [])))
 EOF;
+            break;
+        default:
+            $program = <<<'EOF'
+import distutils.core
+import distutils.log
+distutils.log.set_threshold(distutils.log.ERROR)
+setup = distutils.core.run_setup("setup.py")
+if hasattr (setup, 'install_requires'):
+    print ('\n'.join(setup.install_requires))
+if hasattr (setup, 'setup_requires'):
+    print ('\n'.join(setup.setup_requires))
+EOF;
+            break;
+    }
     file_put_contents($mockfile, $program);
     $requirements = shell_exec ("cd $src && $PYTHONEXE obtain-req.py");
     $clean_reqs = array_filter(explode("\n", $requirements));

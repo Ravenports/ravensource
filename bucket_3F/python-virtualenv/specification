@@ -26,15 +26,27 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # MIT
 
 # install_requires extracted from setup.py
+# appdirs<2,>=1.4.3
+# distlib<1,>=0.3.1
+# filelock<4,>=3.0.0
+# six<2,>=1.9.0
 # setuptools_scm >= 2
 
 DISTNAME=		virtualenv-${PORTVERSION}
 GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-setuptools-scm:single:py38
+[PY38].BUILDRUN_DEPENDS_ON=		python-appdirs:single:py38
+					python-distlib:single:py38
+					python-filelock:single:py38
+					python-six:single:py38
+					python-setuptools-scm:single:py38
 [PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-setuptools-scm:single:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-appdirs:single:py37
+					python-distlib:single:py37
+					python-filelock:single:py37
+					python-six:single:py37
+					python-setuptools-scm:single:py37
 
 USES=			cpe
 CPE_VENDOR=		python

@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.0.9
+DEF[PORTVERSION]=	3.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-Django
@@ -23,24 +23,24 @@ VOPTS[py38]=		PY38=ON PY37=OFF
 VOPTS[py37]=		PY38=OFF PY37=ON
 
 # License listed at PyPI
-# BSD
+# BSD-3-Clause
 
 # install_requires extracted from setup.py
+# asgiref~=3.2.10
 # pytz
-# sqlparse >= 0.2.2
-# asgiref ~= 3.2
+# sqlparse>=0.2.2
 
 DISTNAME=		Django-${PORTVERSION}
 GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-pytz:single:py38
+[PY38].BUILDRUN_DEPENDS_ON=		python-asgiref:single:py38
+					python-pytz:single:py38
 					python-sqlparse:single:py38
-					python-asgiref:single:py38
 [PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-pytz:single:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-asgiref:single:py37
+					python-pytz:single:py37
 					python-sqlparse:single:py37
-					python-asgiref:single:py37
 
 USES=			cpe shebangfix
 CPE_VENDOR=		djangoproject

@@ -1,18 +1,18 @@
-DEF[PORTVERSION]=	4.0.5
+DEF[PORTVERSION]=	0.16.0
 # ------------------------------------------------------------------------
 
-NAMEBASE=		python-gitdb
+NAMEBASE=		python-pyrsistent
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		py38 py37
-SDESC[py38]=		Git Object Database (PY38)
-SDESC[py37]=		Git Object Database (PY37)
-HOMEPAGE=		https://github.com/gitpython-developers/gitdb
+SDESC[py38]=		Persistent, Immutable data structures (PY38)
+SDESC[py37]=		Persistent, Immutable data structures (PY37)
+HOMEPAGE=		https://github.com/tobgu/pyrsistent/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/g/gitdb
-DISTFILE[1]=		gitdb-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPI/p/pyrsistent
+DISTFILE[1]=		pyrsistent-${PORTVERSION}.tar.gz:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -23,16 +23,16 @@ VOPTS[py38]=		PY38=ON PY37=OFF
 VOPTS[py37]=		PY38=OFF PY37=ON
 
 # License listed at PyPI
-# BSD License
+# MIT
 
 # install_requires extracted from setup.py
-# smmap<4,>=3.0.1
+# six
 
-DISTNAME=		gitdb-${PORTVERSION}
+DISTNAME=		pyrsistent-${PORTVERSION}
 GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-smmap:single:py38
+[PY38].BUILDRUN_DEPENDS_ON=		python-six:single:py38
 [PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-smmap:single:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-six:single:py37
 
