@@ -1,27 +1,26 @@
-DEF[PORTVERSION]=	2018
+DEF[PORTVERSION]=	20.2
 DEF[PYCOMPILE]=		{{PREFIX}}/lib/python{{PYTHON_VER}}/compileall.py
 DEF[GCCVER]=		EXTRACT_INFO(CURRENT_GCC)
-DEF[HASH]=		39569c5
-DEF[ALS_VERSION]=	f25f576
-DEF[TOOLS_DATE]=	2019-20190517-195C4
+DEF[HASH]=		ba40aed
+DEF[ALS_VERSION]=	fe1864d
+DEF[TOOLS_VERSION]=	b377f3a
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		gps
+NAMEBASE=		gnatstudio
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	GNAT Programming Studio - IDE for Ada plus
 HOMEPAGE=		https://www.adacore.com/gnatpro/toolsuite/gnatstudio
 CONTACT=		John_Marino[draco@marino.st]
 
-DOWNLOAD_GROUPS=	main dragon als
+DOWNLOAD_GROUPS=	main als tools
 SITES[main]=		GITHUB/AdaCore:gps:${HASH}
 SITES[als]=		GITHUB/AdaCore:ada_language_server:${ALS_VERSION}
-SITES[dragon]=		http://downloads.dragonlace.net/src/
+SITES[tools]=		GITHUB/AdaCore:libadalang-tools:${TOOLS_VERSION}
 DISTFILE[1]=		generated:main
 DISTFILE[2]=		generated:als
-DISTFILE[3]=		libadalang-tools-${TOOLS_DATE}-src.tar.gz:dragon
+DISTFILE[3]=		generated:tools
 DF_INDEX=		1 2 3
 
 SPKGS[standard]=	complete primary docs examples
@@ -35,8 +34,6 @@ LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gnatstudio/src/gps-main.adb
 LICENSE_SCHEME=		solo
-
-BROKEN[all]=		Broken since xmlada update.  Requires upgrade.
 
 BUILD_DEPENDS=		gnat-util:single:standard
 			gnatcoll-db:complete:standard
@@ -67,7 +64,7 @@ MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
 			PYTHON_CMD={{PYTHON_CMD}}
 SUB_FILES=		gps
 SUB_LIST=		ADA_PATH={{PREFIX}}/toolchain/${GCCVER}/bin
-SHEBANG_FILES=		share/support/core/gs_utils/internal/dialogs.py
+SHEBANG_FILES=		share/support/core/gps_utils/internal/dialogs.py
 			share/plug-ins/spark2014.py
 
 # note: librsvg2 is needed to display the svg icons in the menu.  Actually
@@ -84,8 +81,6 @@ post-extract:
 	${MV} ${WRKDIR}/libadalang-tools-* ${WRKSRC}/laltools
 	${MV} ${WRKDIR}/ada_language_server-* ${WRKSRC}/ada_language_server
 	${MV} ${WRKSRC}/Makefile.gnat ${WRKSRC}/Makefile.gnat.ignore
-# #	${FIND} ${WRKSRC}/share -name "*.pyc" -delete
-# #	${RM} ${WRKSRC}/share/support/core/cross_references.py
 
 post-patch:
 	${RM} ${WRKSRC}/share/plug-ins/*.orig
