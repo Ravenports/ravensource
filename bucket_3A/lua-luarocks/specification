@@ -1,0 +1,62 @@
+DEF[PORTVERSION]=	3.3.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		lua-luarocks
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		lua52 lua53
+SDESC[lua52]=		Package manager for Lua modules (Lua 5.2)
+SDESC[lua53]=		Package manager for Lua modules (Lua 5.2)
+HOMEPAGE=		https://luarocks.org
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://luarocks.org/releases/
+DISTFILE[1]=		luarocks-${PORTVERSION}.tar.gz:main
+
+SPKGS[lua52]=		single
+SPKGS[lua53]=		single
+
+OPTIONS_AVAILABLE=	LUA52 LUA53
+OPTIONS_STANDARD=	none
+VOPTS[lua52]=		LUA52=ON LUA53=OFF
+VOPTS[lua53]=		LUA52=OFF LUA53=ON
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/lua-luarocks
+
+USES=			gmake
+
+DISTNAME=		luarocks-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+
+[LUA52].DESCRIPTION=			Build with Lua 5.2
+[LUA52].USES_ON=			lua:5.2
+[LUA52].BUILDRUN_DEPENDS_ON=		lua-zlib:single:lua52
+
+[LUA53].DESCRIPTION=			Build with Lua 5.3
+[LUA53].USES_ON=			lua:5.3
+[LUA53].BUILDRUN_DEPENDS_ON=		lua-zlib:single:lua53
+
+# Must override, because configure does not like the default argument
+# "x86_64-raven-freebsd11"
+do-configure:
+	(cd ${WRKSRC} && ./configure --prefix=${PREFIX})
+
+post-build:
+	(cd ${WRKSRC} && make LUA_VERSION={{LUA_VER}} \
+		LUA_INTERPRETER=lua{{LUA_VER_STR}} \
+		LUA_INCDIR=${PREFIX}/include/lua{{LUA_VER_STR}} \
+		./build/config-${LUA_VER}.lua)
+
+post-install:
+	(cd ${WRKSRC} && make DESTDIR=${STAGEDIR} LUA_VERSION={{LUA_VER}} install-config)
+	${MV} ${STAGEDIR}${PREFIX}/etc/luarocks/config-\{\{LUA_VER\}\}.lua \
+		${STAGEDIR}${PREFIX}/etc/luarocks/config-${LUA_VER}.lua
+	${MV} ${STAGEDIR}${PREFIX}/bin/luarocks \
+		${STAGEDIR}${PREFIX}/bin/luarocks-${LUA_VER}
+	${MV} ${STAGEDIR}${PREFIX}/bin/luarocks-admin \
+		${STAGEDIR}${PREFIX}/bin/luarocks-admin-${LUA_VER}
