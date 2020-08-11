@@ -44,7 +44,7 @@ You can map custom Ruby types to Python ones:
 
     class DomainError(RubyObject):
         ruby_class_name = "Math::DomainError"
-
+    
     registry.register(DomainError)
 
     loads(b'\x04\x08c\x16Math::DomainError')
@@ -58,7 +58,7 @@ You can use custom registries instead of the global one:
 
     class DomainError(RubyObject):
         ruby_class_name = "Math::DomainError"
-
+    
     registry = ClassRegistry()
     registry.register(DomainError)
 
@@ -71,7 +71,7 @@ You can use Ruby's symbols:
     from rubymarshal.reader import loads
     from rubymarshal.writer import writes
     from rubymarshal.classes import Symbol
-
+    
     x = Symbol("test")
     dump = writes(Symbol("test"))
     y = loads(dump)
@@ -83,17 +83,17 @@ The default Writer class is customizable to write custom Python classes:
 ```python3
     from rubymarshal.writer import writes, Writer
     from rubymarshal.classes import Symbol
-
+    
     class Constant:
         def __init__(self, name):
             self.name = name
-
+    
     class ConstantWriter(Writer):
         def write_python_object(self, obj):
             if isinstance(obj, Constant):
                 return self.write(Symbol(obj.name))
             super().write_python_object(obj)
-
+    
     dump = writes([Constant("test")], cls=ConstantWriter)
     print(dump)
 
