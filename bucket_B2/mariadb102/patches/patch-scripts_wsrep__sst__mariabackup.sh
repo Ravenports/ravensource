@@ -1,6 +1,6 @@
---- scripts/wsrep_sst_mariabackup.sh.orig	2020-05-08 11:45:23 UTC
+--- scripts/wsrep_sst_mariabackup.sh.orig	2020-08-06 15:00:14 UTC
 +++ scripts/wsrep_sst_mariabackup.sh
-@@ -606,7 +606,7 @@ recv_joiner()
+@@ -610,7 +610,7 @@ recv_joiner()
      set +e
  
      if [[ $tmt -gt 0 ]] && command -v timeout >/dev/null;then

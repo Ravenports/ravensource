@@ -1,6 +1,6 @@
---- storage/rocksdb/build_rocksdb.cmake.orig	2020-05-08 11:45:25 UTC
+--- storage/rocksdb/build_rocksdb.cmake.orig	2020-08-06 15:00:14 UTC
 +++ storage/rocksdb/build_rocksdb.cmake
-@@ -71,10 +71,6 @@ if(ZSTD_FOUND AND (NOT WITH_ROCKSDB_zstd
+@@ -70,10 +70,6 @@ if(ZSTD_FOUND AND (NOT WITH_ROCKSDB_ZSTD
    SET(CMAKE_REQUIRED_LIBRARIES zstd)
    CHECK_FUNCTION_EXISTS(ZDICT_trainFromBuffer ZSTD_VALID)
    UNSET(CMAKE_REQUIRED_LIBRARIES)
