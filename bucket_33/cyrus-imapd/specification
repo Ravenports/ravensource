@@ -1,0 +1,134 @@
+DEF[PORTVERSION]=	3.2.2
+DEF[SOVERSION]=		0.0.0
+DEF[CYRUS_USER]=	cyrus
+DEF[CYRUS_GROUP]=	cyrus
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		cyrus-imapd
+VERSION=		${PORTVERSION}
+KEYWORDS=		mail
+VARIANTS=		standard
+SDESC[standard]=	High-performance mail store with IMAP support
+HOMEPAGE=		https://www.cyrusimap.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/cyrusimap/cyrus-imapd/releases/download/cyrus-imapd-${PORTVERSION}/
+DISTFILE[1]=		cyrus-imapd-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		mail/cyrus-imapd32
+
+LICENSE=		BSD4CLAUSE:primary
+LICENSE_FILE=		BSD4CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+SOVERSION=		${SOVERSION}
+
+BUILD_DEPENDS=		pcre:static:standard
+			Zstandard:static:standard
+BUILDRUN_DEPENDS=	cyrus-sasl:primary:standard
+			icu:single:standard
+			jansson:single:standard
+			pcre:shared:standard
+			Zstandard:shared:standard
+			xapian-core:primary:standard
+			rsync:single:standard
+			krb5:primary:standard
+			libnghttp2:single:standard
+			libical:single:standard
+			brotli:single:standard
+
+# we can't use libuuid due to conflict in DragonFly
+#    with <sys/statvfs> pulling in sys/uuid.h
+# #			libuuid:single:standard
+
+USERS=			${CYRUS_USER}
+GROUPS=			${CYRUS_GROUP}
+USERGROUP_SPKG=		primary
+
+USES=			cpe gmake libtool perl pkgconfig ssl shebangfix
+			bison sqlite zlib
+SHEBANG_FILES=		imap/promdatagen
+			snmp/snmpgen
+			tools/config2header
+			tools/masssievec
+			tools/mkimap
+			perl/sieve/scripts/*.pl
+CPE_VENDOR=		cme
+CPE_PRODUCT=		cyrus_imap_server
+RC_SUBR=		imapd:primary
+SUB_FILES=		pkg-message-primary
+			pkg-install-primary
+			pkg-deinstall-primary
+			cyrus-imapd-man.conf
+SUB_LIST=		CYRUS_USER=${CYRUS_USER}
+			CYRUS_GROUP=${CYRUS_GROUP}
+MUST_CONFIGURE=		gnu
+SINGLE_JOB=		yes
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+MANDIRS=		{{PREFIX}}/cyrus/man
+
+CONFIGURE_ARGS=		--libexecdir={{PREFIX}}/cyrus/libexec
+			--sbindir={{PREFIX}}/cyrus/sbin
+			--sysconfdir={{PREFIX}}/etc
+			--with-cyrus-user=${CYRUS_USER}
+			--with-sasl={{LOCALBASE}}
+			--with-sqlite={{LOCALBASE}}
+			--with-com_err
+			--with-openssl={{OPENSSLBASE}}
+			--with-perl={{PERL}}
+			--with-gss_impl=mit
+			--enable-autocreate
+			--enable-idled
+			--enable-murder
+			--enable-squat
+			--enable-xapian
+			--enable-gssapi={{LOCALBASE}}
+			--enable-http
+			--disable-backup
+			--disable-replication
+			--with-mysql=no
+			--with-pgsql=no
+			--with-snmp=no
+			--with-clamav=no
+			--with-jmap=no
+
+post-patch:
+	${REINPLACE_CMD} -e "s|/etc/|${PREFIX}/etc/|" \
+			  -e "s|%%CYRUS_USER%%|${CYRUS_USER}|g" \
+			  -e "s|%%CYRUS_GROUP%%|${CYRUS_GROUP}|g" \
+		${WRKSRC}/tools/mkimap
+	${REINPLACE_CMD} -e "s|/etc/|${PREFIX}/etc/|g" \
+			  -e "s|/usr/sieve|/var/imap/sieve|g" \
+		${WRKSRC}/tools/masssievec
+	${REINPLACE_CMD} \
+		-e 's|$$(mandir)/\(man[1358]\)|${PREFIX}/cyrus/man/\1|g' \
+		${WRKSRC}/Makefile.in
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Cyrus/IMAP/IMAP.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Cyrus/SIEVE/managesieve/managesieve.so
+	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/man.d
+	${INSTALL_DATA} ${FILESDIR}/imapd.conf \
+		${STAGEDIR}${STD_EXAMPLESDIR}
+	${SED} -e 's,/run/cyrus/socket,/var/imap/socket,' \
+		${WRKSRC}/doc/examples/cyrus_conf/normal.conf \
+		> ${STAGEDIR}${STD_EXAMPLESDIR}/cyrus.conf
+	${INSTALL_SCRIPT} ${WRKSRC}/tools/mkimap \
+		${STAGEDIR}${PREFIX}/cyrus/sbin/mkimap
+	${INSTALL_SCRIPT} ${WRKSRC}/tools/masssievec \
+		${STAGEDIR}${PREFIX}/cyrus/sbin/masssievec
+	${INSTALL_DATA} ${WRKDIR}/cyrus-imapd-man.conf \
+		${STAGEDIR}${PREFIX}/etc/man.d/cyrus-imapd.conf
+	# documentation
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	cd ${WRKSRC}/doc && ${COPYTREE_SHARE} . ${STAGEDIR}${STD_DOCDIR} \
+		"! \( -path */html/_sources* -o -name .buildinfo \)"
+	${RM} -r ${STAGEDIR}${DOCSDIR}/rst ${STAGEDIR}${STD_DOCDIR}/source
