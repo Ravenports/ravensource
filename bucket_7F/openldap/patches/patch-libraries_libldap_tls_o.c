@@ -1,6 +1,6 @@
 Fix build with LibreSSL.
 
---- libraries/libldap/tls_o.c.orig	2020-04-28 14:05:54 UTC
+--- libraries/libldap/tls_o.c.orig	2020-08-11 18:33:20 UTC
 +++ libraries/libldap/tls_o.c
 @@ -50,7 +50,7 @@
  #include <ssl.h>
