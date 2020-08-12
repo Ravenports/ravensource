@@ -434,6 +434,7 @@ function set_buildrun (&$portdata) {
         case "reportlab":
         case "setuptools-scm":
         case "skia-pathops":
+        case "mutagen":
         case "zipp":		// above -- not distutils script
         case "pygit2":
         case "PyNaCl":		// above -- tries downloading

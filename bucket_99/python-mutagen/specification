@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	1.45.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-mutagen
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py38 py37
+SDESC[py38]=		Read and write audio tags for many formats (PY38)
+SDESC[py37]=		Read and write audio tags for many formats (PY37)
+HOMEPAGE=		https://github.com/quodlibet/mutagen
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/m/mutagen
+DISTFILE[1]=		mutagen-${PORTVERSION}.tar.gz:main
+
+SPKGS[py38]=		single
+SPKGS[py37]=		single
+
+OPTIONS_AVAILABLE=	PY38 PY37
+OPTIONS_STANDARD=	none
+VOPTS[py38]=		PY38=ON PY37=OFF
+VOPTS[py37]=		PY38=OFF PY37=ON
+
+# License listed at PyPI
+# GPL-2.0-or-later
+
+# install_requires extracted from setup.py
+
+
+DISTNAME=		mutagen-${PORTVERSION}
+GENERATED=		yes
+
+[PY38].USES_ON=				python:py38
+[PY37].USES_ON=				python:py37
+
