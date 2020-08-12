@@ -1,6 +1,6 @@
---- util/coroutine-ucontext.c.orig	2020-04-28 16:49:25 UTC
+--- util/coroutine-ucontext.c.orig	2020-08-11 19:17:15 UTC
 +++ util/coroutine-ucontext.c
-@@ -158,7 +158,15 @@ Coroutine *qemu_coroutine_new(void)
+@@ -221,7 +221,15 @@ Coroutine *qemu_coroutine_new(void)
                  2, arg.i[0], arg.i[1]);
  
      /* swapcontext() in, siglongjmp() back out */
@@ -14,6 +14,6 @@
 +     *     on DragonFly.
 +     */
 +    if (!sigsetjmp(old_env, 1)) {
-         start_switch_fiber(&fake_stack_save, co->stack, co->stack_size);
-         swapcontext(&old_uc, &uc);
-     }
+         start_switch_fiber_asan(COROUTINE_YIELD, &fake_stack_save, co->stack,
+                                 co->stack_size);
+         start_switch_fiber_tsan(&fake_stack_save,

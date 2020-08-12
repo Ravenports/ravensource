@@ -1,16 +1,16 @@
---- configure.orig	2020-04-28 16:49:25 UTC
+--- configure.orig	2020-08-11 19:17:15 UTC
 +++ configure
-@@ -493,6 +493,9 @@ numa=""
+@@ -501,6 +501,9 @@ numa=""
  tcmalloc="no"
  jemalloc="no"
  replication="yes"
 +pcap="no"
 +pcap_create="no"
 +bpf="no"
- vxhs=""
  bochs="yes"
  cloop="yes"
-@@ -1168,6 +1171,10 @@ for opt do
+ dmg="yes"
+@@ -1191,6 +1194,10 @@ for opt do
    ;;
    --enable-vnc-png) vnc_png="yes"
    ;;
@@ -21,7 +21,7 @@
    --disable-slirp) slirp="no"
    ;;
    --enable-slirp=git) slirp="git"
-@@ -3137,6 +3144,14 @@ if ! check_include "ifaddrs.h" ; then
+@@ -3246,6 +3253,14 @@ if check_include "sys/signal.h" ; then
  fi
  
  ##########################################
@@ -36,7 +36,7 @@
  # VTE probe
  
  if test "$vte" != "no"; then
-@@ -5098,7 +5113,7 @@ fi
+@@ -5252,7 +5267,7 @@ fi
  
  # check for libusb
  if test "$libusb" != "no" ; then
@@ -45,8 +45,8 @@
          libusb="yes"
          libusb_cflags=$($pkg_config --cflags libusb-1.0)
          libusb_libs=$($pkg_config --libs libusb-1.0)
-@@ -5501,6 +5516,50 @@ if test "$debug_stack_usage" = "yes"; th
-   fi
+@@ -6514,6 +6529,50 @@ EOF
+     fi
  fi
  
 +##########################################
@@ -95,8 +95,8 @@
 +fi # test "$pcap"
  
  ##########################################
- # check if we have open_by_handle_at
-@@ -6627,6 +6686,7 @@ echo "Audio drivers     $audio_drv_list"
+ # End of CC checks
+@@ -6910,6 +6969,7 @@ echo "Audio drivers     $audio_drv_list"
  echo "Block whitelist (rw) $block_drv_rw_whitelist"
  echo "Block whitelist (ro) $block_drv_ro_whitelist"
  echo "VirtFS support    $virtfs"
@@ -104,7 +104,7 @@
  echo "Multipath support $mpath"
  echo "VNC support       $vnc"
  if test "$vnc" = "yes" ; then
-@@ -6864,6 +6924,15 @@ fi
+@@ -7153,6 +7213,15 @@ fi
  if test "$want_tools" = "yes" ; then
    echo "CONFIG_TOOLS=y" >> $config_host_mak
  fi
@@ -120,7 +120,7 @@
  if test "$slirp" != "no"; then
    echo "CONFIG_SLIRP=y" >> $config_host_mak
    echo "CONFIG_SMBD_COMMAND=\"$smbd\"" >> $config_host_mak
-@@ -7121,6 +7190,9 @@ fi
+@@ -7420,6 +7489,9 @@ fi
  if test "$have_fsxattr" = "yes" ; then
      echo "HAVE_FSXATTR=y" >> $config_host_mak
  fi

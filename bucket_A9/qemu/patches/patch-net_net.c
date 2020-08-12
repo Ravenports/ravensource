@@ -1,4 +1,4 @@
---- net/net.c.orig	2020-04-28 16:49:25 UTC
+--- net/net.c.orig	2020-08-11 19:17:15 UTC
 +++ net/net.c
 @@ -55,6 +55,11 @@
  #include "net/filter.h"
@@ -12,7 +12,7 @@
  /* Net bridge is currently not supported for W32. */
  #if !defined(_WIN32)
  # define CONFIG_NET_BRIDGE
-@@ -935,7 +940,225 @@ static int net_init_nic(const Netdev *ne
+@@ -942,7 +947,225 @@ static int net_init_nic(const Netdev *ne
      return idx;
  }
  
@@ -238,7 +238,7 @@
  static int (* const net_client_init_fun[NET_CLIENT_DRIVER__MAX])(
      const Netdev *netdev,
      const char *name,
-@@ -962,6 +1185,9 @@ static int (* const net_client_init_fun[
+@@ -972,6 +1195,9 @@ static int (* const net_client_init_fun[
  #ifdef CONFIG_L2TPV3
          [NET_CLIENT_DRIVER_L2TPV3]    = net_init_l2tpv3,
  #endif
