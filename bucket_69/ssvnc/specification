@@ -1,0 +1,57 @@
+# 1.0.30 is the development version, don't upgrade to this
+DEF[PORTVERSION]=	1.0.29
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ssvnc
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		standard
+SDESC[standard]=	Enhanced TightVNC Viewer
+HOMEPAGE=		http://www.karlrunge.com/x11vnc/ssvnc.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/ssvnc/ssvnc/${PORTVERSION}
+DISTFILE[1]=		ssvnc-${PORTVERSION}.src.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		net/ssvnc
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^\# You must have stunnel"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/scripts/util/ss_vncviewer
+LICENSE_SCHEME=		solo
+
+RUN_DEPENDS=		stunnel:complete:standard
+			xterm:single:standard
+
+BUILD_DEPENDS=		imake:single:standard
+
+USES=			gmake jpeg perl:run ssl zlib tcl:tk,run
+XORG_COMPONENTS=	ice sm x11 xaw xext xi xmu xpm xt
+MAKE_ENV=		ROOT="{{STAGEDIR}}"
+			MANDIR="share/man"
+MAKE_ARGS=		JSRC=""
+
+post-patch:
+	${REINPLACE_CMD} -e 's|netstat -ant|netstat -an|' \
+		${WRKSRC}/scripts/util/ss_vncviewer
+	${REINPLACE_CMD} \
+		-e 's|B ssvnc|B ssvnc-gui|' \
+		-e 's| ssvnc | ssvnc-gui |' \
+		${WRKSRC}/man/man1/ssvnc.1
+
+do-configure:
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		${MAKE_CMD} ${MAKE_ARGS} config)
+
+post-install:
+	# relocate sample file
+	${MV} ${STAGEDIR}${STD_DOCDIR}/stunnel-server.conf \
+		${STAGEDIR}${PREFIX}/etc/stunnel-server.conf.sample
