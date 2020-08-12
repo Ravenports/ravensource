@@ -1,0 +1,52 @@
+DEF[PORTVERSION]=	12.00
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Image-ExifTool
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		530 528
+SDESC[530]=		Read and write meta information (5.30)
+SDESC[528]=		Read and write meta information (5.28)
+HOMEPAGE=		none
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:E/EX/EXIFTOOL
+DISTFILE[1]=		Image-ExifTool-${PORTVERSION}.tar.gz:main
+
+SPKGS[530]=		single
+SPKGS[528]=		single
+
+OPTIONS_AVAILABLE=	PERL_530 PERL_528
+OPTIONS_STANDARD=	none
+VOPTS[530]=		PERL_530=ON PERL_528=OFF
+VOPTS[528]=		PERL_530=OFF PERL_528=ON
+
+# License listed in CPAN directory:
+# perl_5
+
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Image-ExifTool-${PORTVERSION}
+
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : Archive::Zip
+# |      runtime : Compress::Zlib (perl 5.30 core) (perl 5.28 core)
+# |      runtime : Digest::MD5 (perl 5.30 core) (perl 5.28 core)
+# |      runtime : Digest::SHA (perl 5.30 core) (perl 5.28 core)
+# |      runtime : IO::Compress::RawDeflate (perl 5.30 core) (perl 5.28 core)
+# |      runtime : IO::Uncompress::RawInflate (perl 5.30 core) (perl 5.28 core)
+# |      runtime : POSIX::strptime
+# |      runtime : Time::HiRes (perl 5.30 core) (perl 5.28 core)
+# |        build : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.28 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.28 core)
+
+[PERL_530].USES_ON=			perl:530,configure
+[PERL_530].BUILDRUN_DEPENDS_ON=		perl-Archive-Zip:single:530
+					perl-POSIX-strptime:single:530
+[PERL_528].USES_ON=			perl:528,configure
+[PERL_528].BUILDRUN_DEPENDS_ON=		perl-Archive-Zip:single:528
+					perl-POSIX-strptime:single:528
+
