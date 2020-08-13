@@ -26,3 +26,8 @@ USES=			gmake perl
 BUILDRUN_DEPENDS=	perl-XML-Simple:single:perl_used
 
 MUST_CONFIGURE=		gnu
+
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib
+	${MV} ${STAGEDIR}${PREFIX}/share/pkgconfig \
+		${STAGEDIR}${PREFIX}/lib
