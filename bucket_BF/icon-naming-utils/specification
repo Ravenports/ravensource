@@ -1,0 +1,28 @@
+DEF[PORTVERSION]=	0.8.90
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		icon-naming-utils
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_themes
+VARIANTS=		standard
+SDESC[standard]=	Mapping for icons to freedesktop.org naming scheme
+HOMEPAGE=		https://specifications.freedesktop.org/icon-naming-spec/icon-naming-spec-latest.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://tango.freedesktop.org/releases/
+DISTFILE[1]=		icon-naming-utils-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# GPLv2 COPYING file comes with the project but there are no terms present
+
+FPC_EQUIVALENT=		x11-themes/icon-naming-utils
+
+USES=			gmake perl
+BUILDRUN_DEPENDS=	perl-XML-Simple:single:perl_used
+
+MUST_CONFIGURE=		gnu
