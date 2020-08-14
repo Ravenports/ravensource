@@ -1,0 +1,109 @@
+DEF[PORTVERSION]=	1.27.3
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		recoll
+VERSION=		${PORTVERSION}
+KEYWORDS=		deskutils
+VARIANTS=		standard
+SDESC[standard]=	Full text search tool based on Xapian backend
+HOMEPAGE=		https://www.lesbonscomptes.com/recoll/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.lesbonscomptes.com/recoll/
+DISTFILE[1]=		recoll-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		deskutils/recoll
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"_PYRECOLL_H_INCLUDED_"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/python/recoll/pyrecoll.h
+LICENSE_SCHEME=		solo
+
+BUILDRUN_DEPENDS=	xapian-core:primary:standard
+			aspell:primary:standard
+			chmlib:single:standard
+			qt5-qtbase:primary:standard
+RUN_DEPENDS=		unrar:single:standard
+			antiword:primary:standard
+			catdoc:primary:standard
+			libwpd:single:standard
+			unrtf:single:standard
+			perl-Image-ExifTool:single:perl_default
+			poppler:utils:standard
+			pstotext:single:standard
+			python-mutagen:single:python_default
+
+USES=			bison gmake iconv libtool pkgconfig shebangfix
+			python qt5 mesa
+GNOME_COMPONENTS=	libxslt
+SHEBANG_FILES=		filters/*.py
+			filters/rcl7z
+			filters/rclaudio
+			filters/rclchm
+			filters/rcldia
+			filters/rclepu*
+			filters/rclics
+			filters/rclimg
+			filters/rclinfo
+			filters/rcl[krtw]ar
+			filters/rclpython
+			filters/rclzip
+			desktop/hotrecoll.py
+MUST_CONFIGURE=		gnu
+MAKE_ENV=		PYTHON_CMD={{PYTHON_CMD}}
+PLIST_SUB=		VERSION=${PORTVERSION}
+CONFIGURE_ARGS=		--with-aspell
+			--enable-qtgui
+			--disable-webkit
+CONFIGURE_ENV=		QMAKE="{{QMAKE_CMD}}"
+			QMAKESPEC="{{QMAKESPEC}}"
+			QTDIR="{{PREFIX}}"
+# overwritten by qt5.mk DESTDIRNAME
+MAKE_ARGS=		DESTDIR={{STAGEDIR}}
+QMAKE_ARGS=		PREFIX={{PREFIX}}
+LDFLAGS=		-Wl,-rpath,{{PREFIX}}/lib/qt5
+
+pre-build:
+	cd ${WRKSRC}/qtgui && ${SETENV} ${QMAKE_ENV} ${QMAKE_CMD} \
+		${QMAKE_ARGS} recoll.pro
+
+post-patch:
+	${REINPLACE_CMD} -e \
+		's|@QMAKE@|${TRUE}|' \
+		${WRKSRC}/Makefile.in
+	${REINPLACE_CMD} -e \
+		's|/usr/local/lib|${LOCALBASE}/lib|' \
+		${WRKSRC}/configure
+	${REINPLACE_CMD} -e \
+		's|python setup.py|${PYTHON_CMD} setup.py|; s|sudo||' \
+		${WRKSRC}/python/recoll/Makefile
+	${REINPLACE_CMD} -e \
+		's|%%PYTHON_CMD%%|${PYTHON_CMD}|' \
+		${WRKSRC}/Makefile.in
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/recoll*/*.so \
+		${STAGEDIR}${PREFIX}/lib/recoll/*.so \
+		${STAGEDIR}${PREFIX}/bin/recoll
+	# relocate examples
+	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+	${MV} ${STAGEDIR}${PREFIX}/share/recoll/examples/* \
+		${STAGEDIR}${STD_EXAMPLESDIR}/
+	${RM} -r ${STAGEDIR}${PREFIX}/share/recoll/examples
+	# relocate docs
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${MV} ${STAGEDIR}${PREFIX}/share/recoll/doc/* \
+		${STAGEDIR}${STD_DOCDIR}/
+	${RM} -r ${STAGEDIR}${PREFIX}/share/recoll/doc
+	# autoplist for python files
+	@(cd ${STAGEDIR}${PREFIX} && \
+	${FIND} lib/python* \( -type f -o -type l \) 2>/dev/null | ${SORT}) \
+	>> ${WRKDIR}/.manifest.primary.mktmp
