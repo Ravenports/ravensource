@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	1.24.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mate-icon-theme
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_themes
+VARIANTS=		standard
+SDESC[standard]=	MATE desktop default icon theme
+HOMEPAGE=		https://mate-desktop.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://pub.mate-desktop.org/releases/${PORTVERSION:R}/
+DISTFILE[1]=		mate-icon-theme-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Actually dual-licensed, but we don't have CC-BY-SA 3, do we?
+LICENSE=		LGPL3:primary
+LICENSE_FILE=		LGPL3:stock
+LICENSE_TERMS=		primary:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11-themes/mate-icon-theme
+
+USES=			gettext-runtime:build gettext-tools:build gmake
+			pkgconfig
+BUILD_DEPENDS=		icon-naming-utils:single:standard
+
+MUST_CONFIGURE=		gnu
