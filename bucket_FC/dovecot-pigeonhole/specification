@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	0.5.11
+DEF[DOVECOT]=		2.3
+DEF[DISTNAME]=		dovecot-${DOVECOT}-pigeonhole-${PORTVERSION}
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		dovecot-pigeonhole
+VERSION=		${PORTVERSION}
+KEYWORDS=		mail
+VARIANTS=		standard
+SDESC[standard]=	Sieve implementation for Dovecot
+HOMEPAGE=		https://pigeonhole.dovecot.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://pigeonhole.dovecot.org/releases/${DOVECOT}/
+DISTFILE[1]=		${DISTNAME}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		mail/dovecot-pigeonhole
+
+LICENSE=		LGPL21:primary
+LICENSE_FILE=		LGPL21:{{WRKSRC}}/COPYING.LGPL
+LICENSE_TERMS=		primary:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+BUILDRUN_DEPENDS=	dovecot:primary:standard
+			krb5:primary:standard
+
+USES=			libtool ssl
+DISTNAME=		${DISTNAME}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--docdir={{STD_DOCDIR}}
+			--with-dovecot="{{LOCALBASE}}/lib/dovecot"
+			--with-managesieve
+			--without-ldap
+LDFLAGS=		-Wl,-rpath,{{LOCALBASE}}/lib/dovecot
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
