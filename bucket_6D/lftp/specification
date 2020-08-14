@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	4.9.1
+DEF[PORTVERSION]=	4.9.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		lftp
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		ftp
 VARIANTS=		standard
 SDESC[standard]=	Command-line ftp client
@@ -35,7 +34,8 @@ BUILDRUN_DEPENDS=	expat:shared:standard
 			libidn2:primary:standard
 
 USES=			charsetfix iconv libtool readline shebangfix cpe
-			gettext-tools gettext-runtime ssl zlib c++:primary
+			gettext-tools gettext-runtime zlib c++:primary
+			ssl:openssl-devel
 CPE_VENDOR=		lftp_project
 SHEBANG_FILES=		src/verify-file
 			src/convert-mozilla-cookies
