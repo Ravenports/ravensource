@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	2.2.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		the_silver_searcher
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	Code-searching tool similar to ack, but faster
+HOMEPAGE=		https://geoff.greer.fm/ag/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/ggreer:the_silver_searcher:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		textproc/the_silver_searcher
+
+LICENSE=		APACHE20:single
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		pcre:static:standard
+BUILDRUN_DEPENDS=	pcre:shared:standard
+			xz:single:standard
+
+USES=			autoreconf pkgconfig
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		LZMA_LIBS=-llzma
+LDFLAGS=		-llzma
+
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/bash_completion.d
+	${MV} ${STAGEDIR}${PREFIX}/share/the_silver_searcher/completions/ag.bashcomp.sh \
+		${STAGEDIR}${PREFIX}/etc/bash_completion.d
+	${RM} -r ${STAGEDIR}${PREFIX}/share/the_silver_searcher
+	# extract license terms
+	${AWK}  '/BuildRoot:/ {exit}; {print}' ${WRKSRC}/the_silver_searcher.spec \
+		> ${WRKDIR}/TERMS
