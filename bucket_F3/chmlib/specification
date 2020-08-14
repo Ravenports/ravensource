@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	0.40
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		chmlib
+VERSION=		${PORTVERSION}
+KEYWORDS=		misc
+VARIANTS=		standard
+SDESC[standard]=	Library for reading Microsoft ITSS/CHM formats
+HOMEPAGE=		http://www.jedrea.com/chmlib/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.jedrea.com/chmlib/
+DISTFILE[1]=		chmlib-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		misc/chmlib
+
+LICENSE=		LGPL21+:single
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"INCLUDED_CHMLIB_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/chm_lib.h
+LICENSE_SCHEME=		solo
+
+USES=			gmake libtool
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-io64
+			--disable-pread
+			--disable-static
+			--enable-examples
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
