@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	1.7.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-passlib
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py38 py37
+SDESC[py38]=		Comprehensive password hashing framework (PY38)
+SDESC[py37]=		Comprehensive password hashing framework (PY37)
+HOMEPAGE=		https://bitbucket.org/ecollins/passlib
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/p/passlib
+DISTFILE[1]=		passlib-${PORTVERSION}.tar.gz:main
+
+SPKGS[py38]=		single
+SPKGS[py37]=		single
+
+OPTIONS_AVAILABLE=	PY38 PY37
+OPTIONS_STANDARD=	none
+VOPTS[py38]=		PY38=ON PY37=OFF
+VOPTS[py37]=		PY38=OFF PY37=ON
+
+# License listed at PyPI
+# BSD
+
+# install_requires extracted from setup.py
+
+
+DISTNAME=		passlib-${PORTVERSION}
+GENERATED=		yes
+
+[PY38].USES_ON=				python:py38
+[PY37].USES_ON=				python:py37
+
