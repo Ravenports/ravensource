@@ -1,0 +1,51 @@
+DEF[PORTVERSION]=	2.23.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mbedtls
+VERSION=		${PORTVERSION}
+KEYWORDS=		security devel
+VARIANTS=		standard
+SDESC[standard]=	Light-weight cryptographic and SSL/TLS library
+HOMEPAGE=		https://tls.mbed.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/ARMmbed:mbedtls:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		security/mbedtls
+
+LICENSE=		APACHE20:single
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"MBEDTLS_SSL_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/mbedtls/ssl.h
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		autoselect-python:single:standard
+
+USES=			gmake python
+MAKE_ENV=		SHARED=1
+BUILD_TARGET=		no_test
+
+pre-build:
+	${FIND} ${WRKSRC} -name "*.orig" -delete
+	${REINPLACE_CMD} \
+		-e 's/PREFIX/NAMEPREFIX/' \
+		-e 's/$$(DESTDIR)/&$$(PREFIX)/' \
+		${WRKSRC}/Makefile
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
+	${FIND} ${STAGEDIR}${PREFIX}/bin -type f | while read f; \
+	do \
+	  check=$$(file "$$f" | grep "dynamically linked"); \
+	  if [ -n "$$check" ]; then \
+	    ${STRIP_CMD} "$$f"; \
+	  fi; \
+	done
