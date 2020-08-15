@@ -1,0 +1,90 @@
+# manually maintained due to server support
+# The users won't be able to install version from both pythons due to
+# common files and directories
+DEF[PORTVERSION]=	3.0.3
+# ------------------------------------------------------------------------
+
+NAMEBASE=		radicale
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py38 py37
+SDESC[py38]=		CalDAV and CardDAV Server (PY38)
+SDESC[py37]=		CalDAV and CardDAV Server (PY37)
+HOMEPAGE=		https://radicale.org/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/R/Radicale
+DISTFILE[1]=		Radicale-${PORTVERSION}.tar.gz:main
+
+SPKGS[py38]=		single
+SPKGS[py37]=		single
+
+OPTIONS_AVAILABLE=	PY38 PY37
+OPTIONS_STANDARD=	none
+VOPTS[py38]=		PY38=ON PY37=OFF
+VOPTS[py37]=		PY38=OFF PY37=ON
+
+# License listed at PyPI
+# GNU GPL v3
+
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"Radicale WSGI application"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/radicale/app/__init__.py
+LICENSE_SCHEME=		solo
+
+# install_requires extracted from setup.py
+# defusedxml
+# passlib
+# vobject>=0.9.6
+# python-dateutil>=2.7.3
+
+DISTNAME=		Radicale-${PORTVERSION}
+GENERATED=		yes
+
+USERS=			radicale
+GROUPS=			radicale
+USERGROUP_SPKG=		single
+
+RC_SUBR=		radicale:single
+SUB_LIST=		USERS="radicale"
+			GROUPS="radicale"
+			PYTHON_CMD="{{PYTHON_CMD}}"
+
+USES=			shebangfix
+SHEBANG_FILES=		radicale.fcgi
+			radicale.wsgi
+
+[PY38].USES_ON=				python:py38
+[PY38].BUILDRUN_DEPENDS_ON=		python-defusedxml:single:py38
+					python-passlib:single:py38
+					python-vobject:single:py38
+					python-python-dateutil:single:py38
+[PY37].USES_ON=				python:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-defusedxml:single:py37
+					python-passlib:single:py37
+					python-vobject:single:py37
+					python-python-dateutil:single:py37
+
+post-patch:
+	${REINPLACE_CMD} \
+		-e 's,/etc/radicale,${PREFIX}/etc/radicale,g' \
+		-e 's,/etc/ssl,${PREFIX}/etc/radicale,g' \
+		-e 's,/var/lib/radicale,${PREFIX}/share/radicale,g' \
+		${WRKSRC}/config \
+		${WRKSRC}/radicale/config.py
+
+post-install:
+	${MKDIR} ${STAGEDIR}/${PREFIX}/etc/radicale
+	${MKDIR} ${STAGEDIR}/${PREFIX}/share/radicale
+	${MKDIR} ${STAGEDIR}/${PREFIX}/www/radicale
+	${INSTALL_DATA} ${WRKSRC}/config \
+		${STAGEDIR}/${PREFIX}/etc/radicale/config.sample
+	${INSTALL_DATA} ${WRKSRC}/rights \
+		${STAGEDIR}/${PREFIX}/etc/radicale/rights.sample
+	${INSTALL_SCRIPT} ${WRKSRC}/radicale.fcgi \
+		${STAGEDIR}${PREFIX}/www/radicale/radicale.fcgi
+	${INSTALL_SCRIPT} ${WRKSRC}/radicale.wsgi \
+		${STAGEDIR}${PREFIX}/www/radicale/radicale.wsgi
