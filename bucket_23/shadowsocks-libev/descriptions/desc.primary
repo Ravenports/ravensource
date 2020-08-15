@@ -1,0 +1,19 @@
+Shadowsocks: A secure SOCKS5 proxy
+
+Shadowsocks is a secure split proxy loosely based on SOCKS5.
+
+ client <---> ss-local <--[encrypted]--> ss-remote <---> target
+
+The Shadowsocks local component (ss-local) acts like a traditional SOCKS5
+server and provides proxy service to clients. It encrypts and forwards data
+streams and packets from the client to the Shadowsocks remote component
+(ss-remote), which decrypts and forwards to the target. Replies from target
+are similarly encrypted and relayed by ss-remote back to ss-local, which
+decrypts and eventually returns to the original client.
+
+Shadowsocks-libev is a lightweight secured SOCKS5 proxy for embedded
+devices and low-end boxes.
+
+Shadowsocks-libev is written in pure C and depends on libev. It's designed
+to be a very simple implementation of shadowsocks protocol, in order to
+keep the resource usage as low as possible.

@@ -1,0 +1,71 @@
+DEF[PORTVERSION]=	3.3.4
+DEF[SOVERSION]=		2.0.0
+DEF[TAG_BLOOM]=		7a9deb8
+DEF[TAG_CORK]=		0220aa5
+DEF[TAG_IPSET]=		3ea7fe3
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		shadowsocks-libev
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		standard
+SDESC[standard]=	Secure socks5 proxy
+HOMEPAGE=		https://github.com/shadowsocks/shadowsocks-libev/blob/master/README.md
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main bloom cork ipset
+SITES[main]=		GITHUB/shadowsocks:shadowsocks-libev:v${PORTVERSION}
+SITES[bloom]=		GITHUB/shadowsocks:libbloom:${TAG_BLOOM}:libbloom
+SITES[cork]=		GITHUB/shadowsocks:libcork:${TAG_CORK}:libcork
+SITES[ipset]=		GITHUB/shadowsocks:ipset:${TAG_IPSET}:libipset
+DISTFILE[1]=		generated:main
+DISTFILE[2]=		generated:bloom
+DISTFILE[3]=		generated:cork
+DISTFILE[4]=		generated:ipset
+DF_INDEX=		1 2 3 4
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		net/shadowsocks-libev
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:stock
+LICENSE_TERMS=		primary:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		pcre:static:standard
+			asciidoc:single:standard
+			xmlto:single:standard
+BUILDRUN_DEPENDS=	libev:single:standard
+			mbedtls:single:standard
+			pcre:shared:standard
+			libsodium:single:standard
+			c-ares:single:standard
+
+RC_SUBR=		shadowsocks_libev:primary
+
+USES=			autoreconf gmake libtool
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-shared
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/shadowsocks-libev
+	${INSTALL_DATA} ${WRKSRC}/debian/config.json \
+		${STAGEDIR}${PREFIX}/etc/shadowsocks-libev/config.json.sample
+	# bash support
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/bash-completion/completions
+.for c in ss-local ss-manager ss-redir ss-server ss-tunnel
+	${INSTALL_DATA} ${WRKSRC}/completions/bash/${c} \
+		${STAGEDIR}${PREFIX}/share/bash-completion/completions/${c}
+.endfor
+	# zsh support
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/zsh/site-functions
+.for c in _ss-local _ss-manager _ss-redir _ss-server _ss-tunnel
+	${INSTALL_DATA} ${WRKSRC}/completions/zsh/${c} \
+		${STAGEDIR}${PREFIX}/share/zsh/site-functions/${c}
+.endfor
