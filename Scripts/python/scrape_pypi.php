@@ -435,12 +435,14 @@ function set_buildrun (&$portdata) {
         case "setuptools-scm":
         case "skia-pathops":
         case "mutagen":
+        case "protobuf":
         case "zipp":		// above -- not distutils script
         case "pygit2":
         case "PyNaCl":		// above -- tries downloading
         case "ruamel.yaml":     // list index out of range
         case "scipy":           // cython errors
         case "kombu":		// setup.cfg misconfig
+        case "bcrypt":		// c errors
             $program = <<<'EOF'
 import unittest.mock
 import setuptools

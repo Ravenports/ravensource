@@ -32,6 +32,13 @@ required dependencies are installed:
 
     $ sudo yum install gcc libffi-devel python-devel
 
+For Alpine, the following command will ensure that the required
+dependencies are installed:
+
+.. code:: bash
+
+    $ apk add --update musl-dev gcc libffi-dev
+
 Alternatives
 ============
 
@@ -41,6 +48,13 @@ specific use case you may also want to consider using scrypt (either via
 
 Changelog
 =========
+
+3.2.0
+-----
+
+* Added typehints for library functions.
+* Dropped support for Python versions less than 3.6 (2.7, 3.4, 3.5).
+* Shipped abi3 Windows wheels (requires pip >= 20).
 
 3.1.7
 -----
@@ -84,17 +98,3 @@ Changelog
 
 3.1.0
 -----
-* Added support for checkpw, a convenience method for verifying a password.
-* Ensure that you get a ``$2y$ hash when you input a $2y$`` salt.
-* Fixed a regression where ``$2a`` hashes were vulnerable to a wraparound
-bug.
-* Fixed compilation under Alpine Linux.
-
-3.0.0
------
-* Switched the C backend to code obtained from the OpenBSD project rather
-than
-  openwall.
-* Added support for bcrypt_pbkdf via the kdf function.
-
-2.0.0
