@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	6.46
 NAMEBASE=		perl-libwww-perl
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		530 528
+VARIANTS=		530 532
 SDESC[530]=		World-Wide Web library for Perl (5.30)
-SDESC[528]=		World-Wide Web library for Perl (5.28)
+SDESC[532]=		World-Wide Web library for Perl (5.32)
 HOMEPAGE=		https://github.com/libwww-perl/libwww-perl
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		CPAN/ID:O/OA/OALDERS
 DISTFILE[1]=		libwww-perl-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
-SPKGS[528]=		single
+SPKGS[532]=		single
 
-OPTIONS_AVAILABLE=	PERL_530 PERL_528
+OPTIONS_AVAILABLE=	PERL_530 PERL_532
 OPTIONS_STANDARD=	none
-VOPTS[530]=		PERL_530=ON PERL_528=OFF
-VOPTS[528]=		PERL_530=OFF PERL_528=ON
+VOPTS[530]=		PERL_530=ON PERL_532=OFF
+VOPTS[532]=		PERL_530=OFF PERL_532=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,8 +32,8 @@ DISTNAME=		libwww-perl-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Digest::MD5 (perl 5.30 core) (perl 5.28 core)
-# |      runtime : Encode (perl 5.30 core) (perl 5.28 core)
+# |      runtime : Digest::MD5 (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Encode (perl 5.30 core) (perl 5.32 core)
 # |      runtime : Encode::Locale
 # |      runtime : File::Listing
 # |      runtime : HTML::Entities
@@ -46,33 +46,33 @@ DISTNAME=		libwww-perl-${PORTVERSION}
 # |      runtime : HTTP::Request::Common
 # |      runtime : HTTP::Response
 # |      runtime : HTTP::Status
-# |      runtime : IO::Select (perl 5.30 core) (perl 5.28 core)
-# |      runtime : IO::Socket (perl 5.30 core) (perl 5.28 core)
+# |      runtime : IO::Select (perl 5.30 core) (perl 5.32 core)
+# |      runtime : IO::Socket (perl 5.30 core) (perl 5.32 core)
 # |      runtime : LWP::MediaTypes
-# |      runtime : MIME::Base64 (perl 5.30 core) (perl 5.28 core)
-# |      runtime : Net::FTP (perl 5.30 core) (perl 5.28 core)
+# |      runtime : MIME::Base64 (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Net::FTP (perl 5.30 core) (perl 5.32 core)
 # |      runtime : Net::HTTP
-# |      runtime : Scalar::Util (perl 5.30 core) (perl 5.28 core)
+# |      runtime : Scalar::Util (perl 5.30 core) (perl 5.32 core)
 # |      runtime : Try::Tiny
 # |      runtime : URI
 # |      runtime : URI::Escape
 # |      runtime : WWW::RobotRules
-# |      runtime : base (perl 5.30 core) (perl 5.28 core)
-# |      runtime : strict (perl 5.30 core) (perl 5.28 core)
-# |      runtime : warnings (perl 5.30 core) (perl 5.28 core)
-# |    configure : CPAN::Meta::Requirements (perl 5.30 core) (perl 5.28 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.28 core)
-# |    configure : File::Copy (perl 5.30 core) (perl 5.28 core)
-# |    configure : Getopt::Long (perl 5.30 core) (perl 5.28 core)
-# |    configure : Module::Metadata (perl 5.30 core) (perl 5.28 core)
-# |         test : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.28 core)
-# |         test : File::Spec (perl 5.30 core) (perl 5.28 core)
-# |         test : FindBin (perl 5.30 core) (perl 5.28 core)
+# |      runtime : base (perl 5.30 core) (perl 5.32 core)
+# |      runtime : strict (perl 5.30 core) (perl 5.32 core)
+# |      runtime : warnings (perl 5.30 core) (perl 5.32 core)
+# |    configure : CPAN::Meta::Requirements (perl 5.30 core) (perl 5.32 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# |    configure : File::Copy (perl 5.30 core) (perl 5.32 core)
+# |    configure : Getopt::Long (perl 5.30 core) (perl 5.32 core)
+# |    configure : Module::Metadata (perl 5.30 core) (perl 5.32 core)
+# |         test : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# |         test : File::Spec (perl 5.30 core) (perl 5.32 core)
+# |         test : FindBin (perl 5.30 core) (perl 5.32 core)
 # |         test : Test::Fatal
-# |         test : Test::More (perl 5.30 core) (perl 5.28 core)
+# |         test : Test::More (perl 5.30 core) (perl 5.32 core)
 # |         test : Test::Needs
 # |         test : Test::RequiresInternet
-# |         test : CPAN::Meta (perl 5.30 core) (perl 5.28 core)
+# |         test : CPAN::Meta (perl 5.30 core) (perl 5.32 core)
 # |         test : Test::LeakTrace
 
 [PERL_530].USES_ON=			perl:530,configure
@@ -89,20 +89,20 @@ DISTNAME=		libwww-perl-${PORTVERSION}
 					perl-Try-Tiny:single:530
 					perl-URI:single:530
 					perl-WWW-RobotRules:single:530
-[PERL_528].USES_ON=			perl:528,configure
-[PERL_528].BUILDRUN_DEPENDS_ON=		perl-Encode-Locale:single:528
-					perl-File-Listing:single:528
-					perl-HTML-Parser:single:528
-					perl-HTTP-Cookies:single:528
-					perl-HTTP-Daemon:single:528
-					perl-HTTP-Date:single:528
-					perl-HTTP-Negotiate:single:528
-					perl-HTTP-Message:single:528
-					perl-LWP-MediaTypes:single:528
-					perl-Net-HTTP:single:528
-					perl-Try-Tiny:single:528
-					perl-URI:single:528
-					perl-WWW-RobotRules:single:528
+[PERL_532].USES_ON=			perl:532,configure
+[PERL_532].BUILDRUN_DEPENDS_ON=		perl-Encode-Locale:single:532
+					perl-File-Listing:single:532
+					perl-HTML-Parser:single:532
+					perl-HTTP-Cookies:single:532
+					perl-HTTP-Daemon:single:532
+					perl-HTTP-Date:single:532
+					perl-HTTP-Negotiate:single:532
+					perl-HTTP-Message:single:532
+					perl-LWP-MediaTypes:single:532
+					perl-Net-HTTP:single:532
+					perl-Try-Tiny:single:532
+					perl-URI:single:532
+					perl-WWW-RobotRules:single:532
 
 USES=			cpe
 CPE_VENDOR=		gisle_aas

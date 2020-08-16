@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.22
 NAMEBASE=		perl-Test-TCP
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		530 528
+VARIANTS=		530 532
 SDESC[530]=		Testing TCP program (5.30)
-SDESC[528]=		Testing TCP program (5.28)
+SDESC[532]=		Testing TCP program (5.32)
 HOMEPAGE=		https://github.com/tokuhirom/Test-TCP
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		CPAN/ID:M/MI/MIYAGAWA
 DISTFILE[1]=		Test-TCP-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
-SPKGS[528]=		single
+SPKGS[532]=		single
 
-OPTIONS_AVAILABLE=	PERL_530 PERL_528
+OPTIONS_AVAILABLE=	PERL_530 PERL_532
 OPTIONS_STANDARD=	none
-VOPTS[530]=		PERL_530=ON PERL_528=OFF
-VOPTS[528]=		PERL_530=OFF PERL_528=ON
+VOPTS[530]=		PERL_530=ON PERL_532=OFF
+VOPTS[532]=		PERL_530=OFF PERL_532=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,18 +32,18 @@ DISTNAME=		Test-TCP-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : IO::Socket::INET (perl 5.30 core) (perl 5.28 core)
-# |      runtime : IO::Socket::IP (perl 5.30 core) (perl 5.28 core)
-# |      runtime : Test::More (perl 5.30 core) (perl 5.28 core)
+# |      runtime : IO::Socket::INET (perl 5.30 core) (perl 5.32 core)
+# |      runtime : IO::Socket::IP (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Test::More (perl 5.30 core) (perl 5.32 core)
 # |      runtime : Test::SharedFork
-# |      runtime : Time::HiRes (perl 5.30 core) (perl 5.28 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.28 core)
-# |         test : File::Temp (perl 5.30 core) (perl 5.28 core)
-# |         test : Socket (perl 5.30 core) (perl 5.28 core)
-# |         test : Test::More (perl 5.30 core) (perl 5.28 core)
+# |      runtime : Time::HiRes (perl 5.30 core) (perl 5.32 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# |         test : File::Temp (perl 5.30 core) (perl 5.32 core)
+# |         test : Socket (perl 5.30 core) (perl 5.32 core)
+# |         test : Test::More (perl 5.30 core) (perl 5.32 core)
 
 [PERL_530].USES_ON=			perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Test-SharedFork:single:530
-[PERL_528].USES_ON=			perl:528,configure
-[PERL_528].BUILDRUN_DEPENDS_ON=		perl-Test-SharedFork:single:528
+[PERL_532].USES_ON=			perl:532,configure
+[PERL_532].BUILDRUN_DEPENDS_ON=		perl-Test-SharedFork:single:532
 

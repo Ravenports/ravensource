@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.11
 NAMEBASE=		perl-Archive-Any-Lite
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		530 528
+VARIANTS=		530 532
 SDESC[530]=		Simple CPAN package extractor (5.30)
-SDESC[528]=		Simple CPAN package extractor (5.28)
+SDESC[532]=		Simple CPAN package extractor (5.32)
 HOMEPAGE=		https://github.com/charsbar/archive-any-lite
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		CPAN/ID:I/IS/ISHIGAKI
 DISTFILE[1]=		Archive-Any-Lite-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
-SPKGS[528]=		single
+SPKGS[532]=		single
 
-OPTIONS_AVAILABLE=	PERL_530 PERL_528
+OPTIONS_AVAILABLE=	PERL_530 PERL_532
 OPTIONS_STANDARD=	none
-VOPTS[530]=		PERL_530=ON PERL_528=OFF
-VOPTS[528]=		PERL_530=OFF PERL_528=ON
+VOPTS[530]=		PERL_530=ON PERL_532=OFF
+VOPTS[532]=		PERL_530=OFF PERL_532=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,14 +32,14 @@ DISTNAME=		Archive-Any-Lite-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Archive::Tar (perl 5.30 core) (perl 5.28 core)
+# |      runtime : Archive::Tar (perl 5.30 core) (perl 5.32 core)
 # |      runtime : Archive::Zip
-# |      runtime : File::Spec (perl 5.30 core) (perl 5.28 core)
-# |      runtime : File::Temp (perl 5.30 core) (perl 5.28 core)
-# |      runtime : IO::Uncompress::Bunzip2 (perl 5.30 core) (perl 5.28 core)
-# |      runtime : IO::Zlib (perl 5.30 core) (perl 5.28 core)
-# |        build : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.28 core)
-# |        build : Test::More (perl 5.30 core) (perl 5.28 core)
+# |      runtime : File::Spec (perl 5.30 core) (perl 5.32 core)
+# |      runtime : File::Temp (perl 5.30 core) (perl 5.32 core)
+# |      runtime : IO::Uncompress::Bunzip2 (perl 5.30 core) (perl 5.32 core)
+# |      runtime : IO::Zlib (perl 5.30 core) (perl 5.32 core)
+# |        build : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# |        build : Test::More (perl 5.30 core) (perl 5.32 core)
 # |        build : Test::UseAllModules
 # |    configure : ExtUtils::MakeMaker::CPANfile
 
@@ -47,8 +47,8 @@ DISTNAME=		Archive-Any-Lite-${PORTVERSION}
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Archive-Zip:single:530
 [PERL_530].BUILD_DEPENDS_ON=		perl-Test-UseAllModules:single:530
 					perl-ExtUtils-MakeMaker-CPANfile:single:530
-[PERL_528].USES_ON=			perl:528,configure
-[PERL_528].BUILDRUN_DEPENDS_ON=		perl-Archive-Zip:single:528
-[PERL_528].BUILD_DEPENDS_ON=		perl-Test-UseAllModules:single:528
-					perl-ExtUtils-MakeMaker-CPANfile:single:528
+[PERL_532].USES_ON=			perl:532,configure
+[PERL_532].BUILDRUN_DEPENDS_ON=		perl-Archive-Zip:single:532
+[PERL_532].BUILD_DEPENDS_ON=		perl-Test-UseAllModules:single:532
+					perl-ExtUtils-MakeMaker-CPANfile:single:532
 

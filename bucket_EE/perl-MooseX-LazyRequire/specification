@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.11
 NAMEBASE=		perl-MooseX-LazyRequire
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		530 528
+VARIANTS=		530 532
 SDESC[530]=		Required attributes that fail only upon use (5.30)
-SDESC[528]=		Required attributes that fail only upon use (5.28)
+SDESC[532]=		Required attributes that fail only upon use (5.32)
 HOMEPAGE=		https://github.com/moose/MooseX-LazyRequire
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		CPAN/ID:E/ET/ETHER
 DISTFILE[1]=		MooseX-LazyRequire-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
-SPKGS[528]=		single
+SPKGS[532]=		single
 
-OPTIONS_AVAILABLE=	PERL_530 PERL_528
+OPTIONS_AVAILABLE=	PERL_530 PERL_532
 OPTIONS_STANDARD=	none
-VOPTS[530]=		PERL_530=ON PERL_528=OFF
-VOPTS[528]=		PERL_530=OFF PERL_528=ON
+VOPTS[530]=		PERL_530=ON PERL_532=OFF
+VOPTS[532]=		PERL_530=OFF PERL_532=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,30 +32,30 @@ DISTNAME=		MooseX-LazyRequire-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.30 core) (perl 5.28 core)
+# |      runtime : Carp (perl 5.30 core) (perl 5.32 core)
 # |      runtime : Moose
 # |      runtime : Moose::Exporter
 # |      runtime : Moose::Role
 # |      runtime : aliased
 # |      runtime : namespace::autoclean
-# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.28 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
 # |    configure : Module::Build::Tiny
-# |         test : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.28 core)
-# |         test : File::Spec (perl 5.30 core) (perl 5.28 core)
+# |         test : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# |         test : File::Spec (perl 5.30 core) (perl 5.32 core)
 # |         test : Test::Fatal
-# |         test : Test::More (perl 5.30 core) (perl 5.28 core)
-# |         test : strict (perl 5.30 core) (perl 5.28 core)
-# |         test : warnings (perl 5.30 core) (perl 5.28 core)
-# |         test : CPAN::Meta (perl 5.30 core) (perl 5.28 core)
+# |         test : Test::More (perl 5.30 core) (perl 5.32 core)
+# |         test : strict (perl 5.30 core) (perl 5.32 core)
+# |         test : warnings (perl 5.30 core) (perl 5.32 core)
+# |         test : CPAN::Meta (perl 5.30 core) (perl 5.32 core)
 
 [PERL_530].USES_ON=			perl:530,buildmodtiny,run
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Moose:single:530
 					perl-aliased:single:530
 					perl-namespace-autoclean:single:530
 [PERL_530].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:530
-[PERL_528].USES_ON=			perl:528,buildmodtiny,run
-[PERL_528].BUILDRUN_DEPENDS_ON=		perl-Moose:single:528
-					perl-aliased:single:528
-					perl-namespace-autoclean:single:528
-[PERL_528].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:528
+[PERL_532].USES_ON=			perl:532,buildmodtiny,run
+[PERL_532].BUILDRUN_DEPENDS_ON=		perl-Moose:single:532
+					perl-aliased:single:532
+					perl-namespace-autoclean:single:532
+[PERL_532].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:532
 

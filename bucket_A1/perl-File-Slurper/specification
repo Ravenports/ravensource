@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.012
 NAMEBASE=		perl-File-Slurper
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		530 528
+VARIANTS=		530 532
 SDESC[530]=		Read entire contents of file at once (5.30)
-SDESC[528]=		Read entire contents of file at once (5.28)
+SDESC[532]=		Read entire contents of file at once (5.32)
 HOMEPAGE=		https://github.com/Leont/file-slurp-sane
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		CPAN/ID:L/LE/LEONT
 DISTFILE[1]=		File-Slurper-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
-SPKGS[528]=		single
+SPKGS[532]=		single
 
-OPTIONS_AVAILABLE=	PERL_530 PERL_528
+OPTIONS_AVAILABLE=	PERL_530 PERL_532
 OPTIONS_STANDARD=	none
-VOPTS[530]=		PERL_530=ON PERL_528=OFF
-VOPTS[528]=		PERL_530=OFF PERL_528=ON
+VOPTS[530]=		PERL_530=ON PERL_532=OFF
+VOPTS[532]=		PERL_530=OFF PERL_532=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,23 +32,23 @@ DISTNAME=		File-Slurper-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.30 core) (perl 5.28 core)
-# |      runtime : Encode (perl 5.30 core) (perl 5.28 core)
-# |      runtime : Exporter (perl 5.30 core) (perl 5.28 core)
-# |      runtime : PerlIO::encoding (perl 5.30 core) (perl 5.28 core)
-# |      runtime : constant (perl 5.30 core) (perl 5.28 core)
-# |      runtime : strict (perl 5.30 core) (perl 5.28 core)
-# |      runtime : warnings (perl 5.30 core) (perl 5.28 core)
+# |      runtime : Carp (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Encode (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Exporter (perl 5.30 core) (perl 5.32 core)
+# |      runtime : PerlIO::encoding (perl 5.30 core) (perl 5.32 core)
+# |      runtime : constant (perl 5.30 core) (perl 5.32 core)
+# |      runtime : strict (perl 5.30 core) (perl 5.32 core)
+# |      runtime : warnings (perl 5.30 core) (perl 5.32 core)
 # |      runtime : PerlIO::utf8_strict
-# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.28 core)
-# |         test : File::Spec::Functions (perl 5.30 core) (perl 5.28 core)
-# |         test : File::Temp (perl 5.30 core) (perl 5.28 core)
-# |         test : FindBin (perl 5.30 core) (perl 5.28 core)
-# |         test : Test::More (perl 5.30 core) (perl 5.28 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# |         test : File::Spec::Functions (perl 5.30 core) (perl 5.32 core)
+# |         test : File::Temp (perl 5.30 core) (perl 5.32 core)
+# |         test : FindBin (perl 5.30 core) (perl 5.32 core)
+# |         test : Test::More (perl 5.30 core) (perl 5.32 core)
 # |         test : Test::Warnings
 
 [PERL_530].USES_ON=			perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-PerlIO-utf8_strict:single:530
-[PERL_528].USES_ON=			perl:528,configure
-[PERL_528].BUILDRUN_DEPENDS_ON=		perl-PerlIO-utf8_strict:single:528
+[PERL_532].USES_ON=			perl:532,configure
+[PERL_532].BUILDRUN_DEPENDS_ON=		perl-PerlIO-utf8_strict:single:532
 

@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	5.07
 NAMEBASE=		perl-HTML-Tree
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		530 528
+VARIANTS=		530 532
 SDESC[530]=		Work with HTML in a DOM-like tree structure (5.30)
-SDESC[528]=		Work with HTML in a DOM-like tree structure (5.28)
+SDESC[532]=		Work with HTML in a DOM-like tree structure (5.32)
 HOMEPAGE=		https://github.com/kentfredric/HTML-Tree
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		CPAN/ID:K/KE/KENTNL
 DISTFILE[1]=		HTML-Tree-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
-SPKGS[528]=		single
+SPKGS[532]=		single
 
-OPTIONS_AVAILABLE=	PERL_530 PERL_528
+OPTIONS_AVAILABLE=	PERL_530 PERL_532
 OPTIONS_STANDARD=	none
-VOPTS[530]=		PERL_530=ON PERL_528=OFF
-VOPTS[528]=		PERL_530=OFF PERL_528=ON
+VOPTS[530]=		PERL_530=ON PERL_532=OFF
+VOPTS[532]=		PERL_530=OFF PERL_532=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,26 +32,26 @@ DISTNAME=		HTML-Tree-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.30 core) (perl 5.28 core)
-# |      runtime : Exporter (perl 5.30 core) (perl 5.28 core)
+# |      runtime : Carp (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Exporter (perl 5.30 core) (perl 5.32 core)
 # |      runtime : HTML::Entities
 # |      runtime : HTML::Parser
 # |      runtime : HTML::Tagset
-# |      runtime : Scalar::Util (perl 5.30 core) (perl 5.28 core)
-# |      runtime : integer (perl 5.30 core) (perl 5.28 core)
+# |      runtime : Scalar::Util (perl 5.30 core) (perl 5.32 core)
+# |      runtime : integer (perl 5.30 core) (perl 5.32 core)
 # |        build : Module::Build
 # |    configure : Module::Build
-# |         test : Encode (perl 5.30 core) (perl 5.28 core)
+# |         test : Encode (perl 5.30 core) (perl 5.32 core)
 # |         test : Test::Fatal
-# |         test : Test::More (perl 5.30 core) (perl 5.28 core)
-# |         test : base (perl 5.30 core) (perl 5.28 core)
+# |         test : Test::More (perl 5.30 core) (perl 5.32 core)
+# |         test : base (perl 5.30 core) (perl 5.32 core)
 
 [PERL_530].USES_ON=			perl:530,buildmod,run
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-HTML-Parser:single:530
 					perl-HTML-Tagset:single:530
 [PERL_530].BUILD_DEPENDS_ON=		perl-Module-Build:single:530
-[PERL_528].USES_ON=			perl:528,buildmod,run
-[PERL_528].BUILDRUN_DEPENDS_ON=		perl-HTML-Parser:single:528
-					perl-HTML-Tagset:single:528
-[PERL_528].BUILD_DEPENDS_ON=		perl-Module-Build:single:528
+[PERL_532].USES_ON=			perl:532,buildmod,run
+[PERL_532].BUILDRUN_DEPENDS_ON=		perl-HTML-Parser:single:532
+					perl-HTML-Tagset:single:532
+[PERL_532].BUILD_DEPENDS_ON=		perl-Module-Build:single:532
 

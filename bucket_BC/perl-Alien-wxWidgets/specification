@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.69
 NAMEBASE=		perl-Alien-wxWidgets
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		530 528
+VARIANTS=		530 532
 SDESC[530]=		Building and using wxWidgets binaries (5.30)
-SDESC[528]=		Building and using wxWidgets binaries (5.28)
+SDESC[532]=		Building and using wxWidgets binaries (5.32)
 HOMEPAGE=		http://svn.code.sf.net/p/wxperl/code/Alien-wxWidgets
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		CPAN/ID:M/MD/MDOOTSON
 DISTFILE[1]=		Alien-wxWidgets-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
-SPKGS[528]=		single
+SPKGS[532]=		single
 
-OPTIONS_AVAILABLE=	PERL_530 PERL_528
+OPTIONS_AVAILABLE=	PERL_530 PERL_532
 OPTIONS_STANDARD=	none
-VOPTS[530]=		PERL_530=ON PERL_528=OFF
-VOPTS[528]=		PERL_530=OFF PERL_528=ON
+VOPTS[530]=		PERL_530=ON PERL_532=OFF
+VOPTS[532]=		PERL_530=OFF PERL_532=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -33,8 +33,8 @@ DISTNAME=		Alien-wxWidgets-${PORTVERSION}
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
 # |      runtime : Module::Pluggable
-# |        build : ExtUtils::CBuilder (perl 5.30 core) (perl 5.28 core)
-# |        build : File::Spec (perl 5.30 core) (perl 5.28 core)
+# |        build : ExtUtils::CBuilder (perl 5.30 core) (perl 5.32 core)
+# |        build : File::Spec (perl 5.30 core) (perl 5.32 core)
 # |        build : LWP::Protocol::https
 # |        build : Module::Build
 # |    configure : Module::Build
@@ -43,10 +43,10 @@ DISTNAME=		Alien-wxWidgets-${PORTVERSION}
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Module-Pluggable:single:530
 [PERL_530].BUILD_DEPENDS_ON=		perl-LWP-Protocol-https:single:530
 					perl-Module-Build:single:530
-[PERL_528].USES_ON=			perl:528,buildmod,run
-[PERL_528].BUILDRUN_DEPENDS_ON=		perl-Module-Pluggable:single:528
-[PERL_528].BUILD_DEPENDS_ON=		perl-LWP-Protocol-https:single:528
-					perl-Module-Build:single:528
+[PERL_532].USES_ON=			perl:532,buildmod,run
+[PERL_532].BUILDRUN_DEPENDS_ON=		perl-Module-Pluggable:single:532
+[PERL_532].BUILD_DEPENDS_ON=		perl-LWP-Protocol-https:single:532
+					perl-Module-Build:single:532
 
 BUILDRUN_DEPENDS=	wxWidgets:primary:gtk2
 CONFIGURE_ARGS=		--wxWidgets-build=0

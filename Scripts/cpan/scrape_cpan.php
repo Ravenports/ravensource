@@ -9,7 +9,8 @@ $SPECS_DIR    = $CPAN_CACHE . "/specs";
 $EXTS         = array("tgz" => ".tar.gz", "zip" => ".zip", "tbz" =>".tar.bz2");
 
 $VA           = 530;    # single point of change when perl
-$VB           = 528;    # series are changed in ravenports
+$VB           = 532;    # series are changed in ravenports
+$AUTOPERL     = "5.32";
 $ravensource_directory = "";
 $PERL_VERSION_A = "";
 $PERL_VERSION_B = "";
@@ -53,10 +54,6 @@ function set_perl_versions() {
             $PERL_VERSION_B = $matches[1] . "." . $matches[2] . "." . $matches[3];
             $PERL_MAJVER_B = $matches[1] . "." . $matches[2];
         }
-    }
-    # 5.28.3 came out after latest 5.30
-    if ($PERL_VERSION_A == "5.30.3") {
-        $PERL_VERSION_B = "5.28.2";  # currently it's 5.28.3
     }
 }
 
@@ -156,6 +153,7 @@ function set_core_module_definitions() {
     global
         $CORE_MODULES,
         $VA, $VB,
+        $AUTOPERL,
         $PERL_VERSION_A,
         $PERL_VERSION_B;
 
@@ -168,7 +166,7 @@ function set_core_module_definitions() {
                            $VB => $PERL_VERSION_B);
 
     foreach ($instructions as $V => $PV) {
-        $output = shell_exec("/raven/bin/corelist -v $PV");
+        $output = shell_exec("env AUTOPERL=$AUTOPERL /raven/bin/corelist -v $PV");
         if (substr($output, 1, 28) == "Module::CoreList has no info") {
             exit($output);
         }

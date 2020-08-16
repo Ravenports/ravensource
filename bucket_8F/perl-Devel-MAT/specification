@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.43
 NAMEBASE=		perl-Devel-MAT
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		530 528
+VARIANTS=		530 532
 SDESC[530]=		Perl Memory Analysis Tool (5.30)
-SDESC[528]=		Perl Memory Analysis Tool (5.28)
+SDESC[532]=		Perl Memory Analysis Tool (5.32)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		CPAN/ID:P/PE/PEVANS
 DISTFILE[1]=		Devel-MAT-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
-SPKGS[528]=		single
+SPKGS[532]=		single
 
-OPTIONS_AVAILABLE=	PERL_530 PERL_528
+OPTIONS_AVAILABLE=	PERL_530 PERL_532
 OPTIONS_STANDARD=	none
-VOPTS[530]=		PERL_530=ON PERL_528=OFF
-VOPTS[528]=		PERL_530=OFF PERL_528=ON
+VOPTS[530]=		PERL_530=ON PERL_532=OFF
+VOPTS[532]=		PERL_530=OFF PERL_532=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -35,19 +35,19 @@ DISTNAME=		Devel-MAT-${PORTVERSION}
 # |      runtime : Commandable::Invocation
 # |      runtime : Devel::MAT::Dumper
 # |      runtime : File::ShareDir
-# |      runtime : File::Spec (perl 5.30 core) (perl 5.28 core)
+# |      runtime : File::Spec (perl 5.30 core) (perl 5.32 core)
 # |      runtime : Heap
-# |      runtime : List::Util (perl 5.30 core) (perl 5.28 core)
+# |      runtime : List::Util (perl 5.30 core) (perl 5.32 core)
 # |      runtime : List::UtilsBy
 # |      runtime : Module::Pluggable
 # |      runtime : String::Tagged
 # |      runtime : String::Tagged::Terminal
 # |      runtime : Struct::Dumb
 # |      runtime : Syntax::Keyword::Try
-# |        build : ExtUtils::CBuilder (perl 5.30 core) (perl 5.28 core)
+# |        build : ExtUtils::CBuilder (perl 5.30 core) (perl 5.32 core)
 # |    configure : Module::Build
 # |         test : Test::Identity
-# |         test : Test::More (perl 5.30 core) (perl 5.28 core)
+# |         test : Test::More (perl 5.30 core) (perl 5.32 core)
 
 [PERL_530].USES_ON=			perl:530,buildmod,run
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Commandable:single:530
@@ -61,16 +61,16 @@ DISTNAME=		Devel-MAT-${PORTVERSION}
 					perl-Struct-Dumb:single:530
 					perl-Syntax-Keyword-Try:single:530
 [PERL_530].BUILD_DEPENDS_ON=		perl-Module-Build:single:530
-[PERL_528].USES_ON=			perl:528,buildmod,run
-[PERL_528].BUILDRUN_DEPENDS_ON=		perl-Commandable:single:528
-					perl-Devel-MAT-Dumper:single:528
-					perl-File-ShareDir:single:528
-					perl-Heap:single:528
-					perl-List-UtilsBy:single:528
-					perl-Module-Pluggable:single:528
-					perl-String-Tagged:single:528
-					perl-String-Tagged-Terminal:single:528
-					perl-Struct-Dumb:single:528
-					perl-Syntax-Keyword-Try:single:528
-[PERL_528].BUILD_DEPENDS_ON=		perl-Module-Build:single:528
+[PERL_532].USES_ON=			perl:532,buildmod,run
+[PERL_532].BUILDRUN_DEPENDS_ON=		perl-Commandable:single:532
+					perl-Devel-MAT-Dumper:single:532
+					perl-File-ShareDir:single:532
+					perl-Heap:single:532
+					perl-List-UtilsBy:single:532
+					perl-Module-Pluggable:single:532
+					perl-String-Tagged:single:532
+					perl-String-Tagged-Terminal:single:532
+					perl-Struct-Dumb:single:532
+					perl-Syntax-Keyword-Try:single:532
+[PERL_532].BUILD_DEPENDS_ON=		perl-Module-Build:single:532
 

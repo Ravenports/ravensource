@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	3.00
 NAMEBASE=		perl-Starlink-AST
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		530 528
+VARIANTS=		530 532
 SDESC[530]=		Interface to the Starlink AST library (5.30)
-SDESC[528]=		Interface to the Starlink AST library (5.28)
+SDESC[532]=		Interface to the Starlink AST library (5.32)
 HOMEPAGE=		https://github.com/Starlink/perl-Starlink-AST.git
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		CPAN/ID:G/GS/GSB
 DISTFILE[1]=		Starlink-AST-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
-SPKGS[528]=		single
+SPKGS[532]=		single
 
-OPTIONS_AVAILABLE=	PERL_530 PERL_528
+OPTIONS_AVAILABLE=	PERL_530 PERL_532
 OPTIONS_STANDARD=	none
-VOPTS[530]=		PERL_530=ON PERL_528=OFF
-VOPTS[528]=		PERL_530=OFF PERL_528=ON
+VOPTS[530]=		PERL_530=ON PERL_532=OFF
+VOPTS[532]=		PERL_530=OFF PERL_532=ON
 
 # License listed in CPAN directory:
 # gpl_2
@@ -36,9 +36,9 @@ DISTNAME=		Starlink-AST-${PORTVERSION}
 # |      runtime : Astro::FITS::Header
 # |      runtime : Tk
 # |      runtime : Tk::Zinc
-# |        build : ExtUtils::CBuilder (perl 5.30 core) (perl 5.28 core)
+# |        build : ExtUtils::CBuilder (perl 5.30 core) (perl 5.32 core)
 # |        build : Test::Deep
-# |        build : Test::More (perl 5.30 core) (perl 5.28 core)
+# |        build : Test::More (perl 5.30 core) (perl 5.32 core)
 # |        build : Test::Number::Delta
 # |    configure : Module::Build
 
@@ -50,12 +50,12 @@ DISTNAME=		Starlink-AST-${PORTVERSION}
 [PERL_530].BUILD_DEPENDS_ON=		perl-Test-Deep:single:530
 					perl-Test-Number-Delta:single:530
 					perl-Module-Build:single:530
-[PERL_528].USES_ON=			perl:528,buildmod,run
-[PERL_528].BUILDRUN_DEPENDS_ON=		perl-Astro-FITS-CFITSIO:single:528
-					perl-Astro-FITS-Header:single:528
-					perl-Tk:single:528
-					perl-tk-zinc:single:528
-[PERL_528].BUILD_DEPENDS_ON=		perl-Test-Deep:single:528
-					perl-Test-Number-Delta:single:528
-					perl-Module-Build:single:528
+[PERL_532].USES_ON=			perl:532,buildmod,run
+[PERL_532].BUILDRUN_DEPENDS_ON=		perl-Astro-FITS-CFITSIO:single:532
+					perl-Astro-FITS-Header:single:532
+					perl-Tk:single:532
+					perl-tk-zinc:single:532
+[PERL_532].BUILD_DEPENDS_ON=		perl-Test-Deep:single:532
+					perl-Test-Number-Delta:single:532
+					perl-Module-Build:single:532
 

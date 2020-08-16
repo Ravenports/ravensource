@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.20200724
 NAMEBASE=		perl-Mail-DKIM
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		530 528
+VARIANTS=		530 532
 SDESC[530]=		Handles internet mail DKIM signatures (5.30)
-SDESC[528]=		Handles internet mail DKIM signatures (5.28)
+SDESC[532]=		Handles internet mail DKIM signatures (5.32)
 HOMEPAGE=		https://github.com/fastmail/mail-dkim/
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		CPAN/ID:M/MB/MBRADSHAW
 DISTFILE[1]=		Mail-DKIM-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
-SPKGS[528]=		single
+SPKGS[532]=		single
 
-OPTIONS_AVAILABLE=	PERL_530 PERL_528
+OPTIONS_AVAILABLE=	PERL_530 PERL_532
 OPTIONS_STANDARD=	none
-VOPTS[530]=		PERL_530=ON PERL_528=OFF
-VOPTS[528]=		PERL_530=OFF PERL_528=ON
+VOPTS[530]=		PERL_530=ON PERL_532=OFF
+VOPTS[532]=		PERL_530=OFF PERL_532=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,35 +32,35 @@ DISTNAME=		Mail-DKIM-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.30 core) (perl 5.28 core)
+# |      runtime : Carp (perl 5.30 core) (perl 5.32 core)
 # |      runtime : Crypt::OpenSSL::RSA
-# |      runtime : Digest::SHA (perl 5.30 core) (perl 5.28 core)
-# |      runtime : MIME::Base64 (perl 5.30 core) (perl 5.28 core)
+# |      runtime : Digest::SHA (perl 5.30 core) (perl 5.32 core)
+# |      runtime : MIME::Base64 (perl 5.30 core) (perl 5.32 core)
 # |      runtime : Mail::Address
 # |      runtime : Mail::AuthenticationResults::Header::AuthServID
 # |      runtime : Mail::AuthenticationResults::Parser
 # |      runtime : Net::DNS
-# |      runtime : base (perl 5.30 core) (perl 5.28 core)
-# |      runtime : strict (perl 5.30 core) (perl 5.28 core)
-# |      runtime : warnings (perl 5.30 core) (perl 5.28 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.28 core)
-# |         test : Data::Dumper (perl 5.30 core) (perl 5.28 core)
+# |      runtime : base (perl 5.30 core) (perl 5.32 core)
+# |      runtime : strict (perl 5.30 core) (perl 5.32 core)
+# |      runtime : warnings (perl 5.30 core) (perl 5.32 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# |         test : Data::Dumper (perl 5.30 core) (perl 5.32 core)
 # |         test : Net::DNS::Resolver
 # |         test : Net::DNS::Resolver::Mock
-# |         test : Test::More (perl 5.30 core) (perl 5.28 core)
+# |         test : Test::More (perl 5.30 core) (perl 5.32 core)
 # |         test : Test::RequiresInternet
-# |         test : Test::Simple (perl 5.30 core) (perl 5.28 core)
+# |         test : Test::Simple (perl 5.30 core) (perl 5.32 core)
 # |         test : YAML::XS
-# |         test : lib (perl 5.30 core) (perl 5.28 core)
+# |         test : lib (perl 5.30 core) (perl 5.32 core)
 
 [PERL_530].USES_ON=			perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Crypt-OpenSSL-RSA:single:530
 					perl-MailTools:single:530
 					perl-Mail-AuthenticationResults:single:530
 					perl-Net-DNS:single:530
-[PERL_528].USES_ON=			perl:528,configure
-[PERL_528].BUILDRUN_DEPENDS_ON=		perl-Crypt-OpenSSL-RSA:single:528
-					perl-MailTools:single:528
-					perl-Mail-AuthenticationResults:single:528
-					perl-Net-DNS:single:528
+[PERL_532].USES_ON=			perl:532,configure
+[PERL_532].BUILDRUN_DEPENDS_ON=		perl-Crypt-OpenSSL-RSA:single:532
+					perl-MailTools:single:532
+					perl-Mail-AuthenticationResults:single:532
+					perl-Net-DNS:single:532
 

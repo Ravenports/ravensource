@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.07
 NAMEBASE=		perl-Algorithm-CriticalPath
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		530 528
+VARIANTS=		530 532
 SDESC[530]=		Critical path analysis over a Graph Object (5.30)
-SDESC[528]=		Critical path analysis over a Graph Object (5.28)
+SDESC[532]=		Critical path analysis over a Graph Object (5.32)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		CPAN/ID:D/DE/DEDMEDVED
 DISTFILE[1]=		Algorithm-CriticalPath-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
-SPKGS[528]=		single
+SPKGS[532]=		single
 
-OPTIONS_AVAILABLE=	PERL_530 PERL_528
+OPTIONS_AVAILABLE=	PERL_530 PERL_532
 OPTIONS_STANDARD=	none
-VOPTS[530]=		PERL_530=ON PERL_528=OFF
-VOPTS[528]=		PERL_530=OFF PERL_528=ON
+VOPTS[530]=		PERL_530=ON PERL_532=OFF
+VOPTS[532]=		PERL_530=OFF PERL_532=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,17 +32,17 @@ DISTNAME=		Algorithm-CriticalPath-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.30 core) (perl 5.28 core)
+# |      runtime : Carp (perl 5.30 core) (perl 5.32 core)
 # |      runtime : Data::Printer
 # |      runtime : Graph
 # |      runtime : IPC::System::Simple
 # |      runtime : Mouse
 # |      runtime : Test::Deep
 # |      runtime : Test::Exception
-# |      runtime : Test::More (perl 5.30 core) (perl 5.28 core)
-# |      runtime : version (perl 5.30 core) (perl 5.28 core)
-# |        build : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.28 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.28 core)
+# |      runtime : Test::More (perl 5.30 core) (perl 5.32 core)
+# |      runtime : version (perl 5.30 core) (perl 5.32 core)
+# |        build : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
 
 [PERL_530].USES_ON=			perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Data-Printer:single:530
@@ -51,11 +51,11 @@ DISTNAME=		Algorithm-CriticalPath-${PORTVERSION}
 					perl-Mouse:single:530
 					perl-Test-Deep:single:530
 					perl-Test-Exception:single:530
-[PERL_528].USES_ON=			perl:528,configure
-[PERL_528].BUILDRUN_DEPENDS_ON=		perl-Data-Printer:single:528
-					perl-Graph:single:528
-					perl-IPC-System-Simple:single:528
-					perl-Mouse:single:528
-					perl-Test-Deep:single:528
-					perl-Test-Exception:single:528
+[PERL_532].USES_ON=			perl:532,configure
+[PERL_532].BUILDRUN_DEPENDS_ON=		perl-Data-Printer:single:532
+					perl-Graph:single:532
+					perl-IPC-System-Simple:single:532
+					perl-Mouse:single:532
+					perl-Test-Deep:single:532
+					perl-Test-Exception:single:532
 

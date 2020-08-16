@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.89
 NAMEBASE=		perl-Test-Base
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		530 528
+VARIANTS=		530 532
 SDESC[530]=		Data Driven Testing Framework (5.30)
-SDESC[528]=		Data Driven Testing Framework (5.28)
+SDESC[532]=		Data Driven Testing Framework (5.32)
 HOMEPAGE=		https://github.com/ingydotnet/test-base-pm
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		CPAN/ID:I/IN/INGY
 DISTFILE[1]=		Test-Base-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
-SPKGS[528]=		single
+SPKGS[532]=		single
 
-OPTIONS_AVAILABLE=	PERL_530 PERL_528
+OPTIONS_AVAILABLE=	PERL_530 PERL_532
 OPTIONS_STANDARD=	none
-VOPTS[530]=		PERL_530=ON PERL_528=OFF
-VOPTS[528]=		PERL_530=OFF PERL_528=ON
+VOPTS[530]=		PERL_530=ON PERL_532=OFF
+VOPTS[532]=		PERL_530=OFF PERL_532=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,20 +32,20 @@ DISTNAME=		Test-Base-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Filter::Util::Call (perl 5.30 core) (perl 5.28 core)
-# |      runtime : Scalar::Util (perl 5.30 core) (perl 5.28 core)
+# |      runtime : Filter::Util::Call (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Scalar::Util (perl 5.30 core) (perl 5.32 core)
 # |      runtime : Spiffy
-# |      runtime : Test::More (perl 5.30 core) (perl 5.28 core)
+# |      runtime : Test::More (perl 5.30 core) (perl 5.32 core)
 # |      runtime : Test::Deep
-# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.28 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
 # |         test : Algorithm::Diff
-# |         test : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.28 core)
+# |         test : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
 # |         test : Text::Diff
 
 [PERL_530].USES_ON=			perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Spiffy:single:530
 					perl-Test-Deep:single:530
-[PERL_528].USES_ON=			perl:528,configure
-[PERL_528].BUILDRUN_DEPENDS_ON=		perl-Spiffy:single:528
-					perl-Test-Deep:single:528
+[PERL_532].USES_ON=			perl:532,configure
+[PERL_532].BUILDRUN_DEPENDS_ON=		perl-Spiffy:single:532
+					perl-Test-Deep:single:532
 

@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.81
 NAMEBASE=		perl-Inline-C
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		530 528
+VARIANTS=		530 532
 SDESC[530]=		C Language Support for Inline (5.30)
-SDESC[528]=		C Language Support for Inline (5.28)
+SDESC[532]=		C Language Support for Inline (5.32)
 HOMEPAGE=		https://github.com/ingydotnet/inline-c-pm
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		CPAN/ID:T/TI/TINITA
 DISTFILE[1]=		Inline-C-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
-SPKGS[528]=		single
+SPKGS[532]=		single
 
-OPTIONS_AVAILABLE=	PERL_530 PERL_528
+OPTIONS_AVAILABLE=	PERL_530 PERL_532
 OPTIONS_STANDARD=	none
-VOPTS[530]=		PERL_530=ON PERL_528=OFF
-VOPTS[528]=		PERL_530=OFF PERL_528=ON
+VOPTS[530]=		PERL_530=ON PERL_532=OFF
+VOPTS[532]=		PERL_530=OFF PERL_532=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,29 +32,29 @@ DISTNAME=		Inline-C-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.28 core)
-# |      runtime : File::Spec (perl 5.30 core) (perl 5.28 core)
+# |      runtime : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# |      runtime : File::Spec (perl 5.30 core) (perl 5.32 core)
 # |      runtime : Inline
 # |      runtime : Parse::RecDescent
 # |      runtime : Pegex
-# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.28 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
 # |    configure : File::ShareDir::Install
 # |         test : File::Copy::Recursive
-# |         test : File::Path (perl 5.30 core) (perl 5.28 core)
-# |         test : Test::More (perl 5.30 core) (perl 5.28 core)
+# |         test : File::Path (perl 5.30 core) (perl 5.32 core)
+# |         test : Test::More (perl 5.30 core) (perl 5.32 core)
 # |         test : Test::Warn
 # |         test : YAML::XS
-# |         test : autodie (perl 5.30 core) (perl 5.28 core)
-# |         test : version (perl 5.30 core) (perl 5.28 core)
+# |         test : autodie (perl 5.30 core) (perl 5.32 core)
+# |         test : version (perl 5.30 core) (perl 5.32 core)
 
 [PERL_530].USES_ON=			perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Inline:single:530
 					perl-Parse-RecDescent:single:530
 					perl-Pegex:single:530
 [PERL_530].BUILD_DEPENDS_ON=		perl-File-ShareDir-Install:single:530
-[PERL_528].USES_ON=			perl:528,configure
-[PERL_528].BUILDRUN_DEPENDS_ON=		perl-Inline:single:528
-					perl-Parse-RecDescent:single:528
-					perl-Pegex:single:528
-[PERL_528].BUILD_DEPENDS_ON=		perl-File-ShareDir-Install:single:528
+[PERL_532].USES_ON=			perl:532,configure
+[PERL_532].BUILDRUN_DEPENDS_ON=		perl-Inline:single:532
+					perl-Parse-RecDescent:single:532
+					perl-Pegex:single:532
+[PERL_532].BUILD_DEPENDS_ON=		perl-File-ShareDir-Install:single:532
 
