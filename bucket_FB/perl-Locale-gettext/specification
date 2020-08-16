@@ -1,18 +1,20 @@
+# manually maintained because tarball name doesn't follow pattern
 DEF[PORTVERSION]=	1.07
 # ------------------------------------------------------------------------
 
-NAMEBASE=		perl-gettext
+NAMEBASE=		perl-Locale-gettext
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		530 532
-SDESC[530]=		Message handling functions (5.30)
-SDESC[532]=		Message handling functions (5.32)
+SDESC[530]=		Message handling functions (v530)
+SDESC[532]=		Message handling functions (v532)
+
 HOMEPAGE=		https://github.com/vandry/Perl-Locale-gettext
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:P/PV/PVANDRY
-DISTFILE[1]=		gettext-${PORTVERSION}.tar.gz:main
+DISTFILE[1]=		gettext-1.07.tar.gz:main
 
 SPKGS[530]=		single
 SPKGS[532]=		single
@@ -22,12 +24,9 @@ OPTIONS_STANDARD=	none
 VOPTS[530]=		PERL_530=ON PERL_532=OFF
 VOPTS[532]=		PERL_530=OFF PERL_532=ON
 
-# License listed in CPAN directory:
-# perl_5
-
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		gettext-${PORTVERSION}
+DISTNAME=		Locale-gettext-1.07
 
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
@@ -38,3 +37,5 @@ DISTNAME=		gettext-${PORTVERSION}
 [PERL_530].USES_ON=			perl:530,configure
 [PERL_532].USES_ON=			perl:532,configure
 
+USES=			gettext-runtime gettext-tools
+CONFIGURE_ENV=		LOCALBASE={{LOCALBASE}}
