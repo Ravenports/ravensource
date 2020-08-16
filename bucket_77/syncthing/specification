@@ -1,0 +1,60 @@
+DEF[PORTVERSION]=	1.8.0
+DEF[TAG_QUIC]=		3fa290f
+DEF[TAG_QTLS]=		f94d2ad
+DEF[SWITCHES]=		-version v${PORTVERSION} -no-upgrade
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		syncthing
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		standard
+SDESC[standard]=	Open Source Continuous File Synchronization
+HOMEPAGE=		https://syncthing.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main quic qtls
+SITES[main]=		https://github.com/syncthing/syncthing/releases/download/v${PORTVERSION}/
+SITES[quic]=		GITHUB/lucas-clemente:quic-go:${TAG_QUIC}:syncthing/vendor/github.com/lucas-clemente/quic-go
+SITES[qtls]=		GITHUB/marten-seemann:qtls-go115:${TAG_QTLS}:syncthing/vendor/github.com/marten-seemann/qtls-go115
+DISTFILE[1]=		syncthing-source-v${PORTVERSION}.tar.gz:main
+DISTFILE[2]=		generated:quic
+DISTFILE[3]=		generated:qtls
+DF_INDEX=		1 2 3
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		net/syncthing
+
+LICENSE=		MPL:single
+LICENSE_FILE=		MPL:{{WRKSRC}}/syncthing/LICENSE
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		golang:single:standard
+
+RC_SUBR=		syncthing:single
+			syncthing-discosrv:single
+			syncthing-relaysrv:single
+			syncthing-relaypoolsrv:single
+
+USERS=			syncthing
+GROUPS=			syncthing
+USERGROUP_SPKG=		single
+
+MAKE_ENV=		CGO_ENABLED=0
+			GOFLAGS="-mod=vendor"
+EXTRACT_DIRTY=		1
+
+do-build:
+	cd ${WRKSRC}/syncthing &&\
+	${SETENV} ${MAKE_ENV} go run build.go ${SWITCHES} build &&\
+	${SETENV} ${MAKE_ENV} go run build.go ${SWITCHES} build stdiscosrv &&\
+	${SETENV} ${MAKE_ENV} go run build.go ${SWITCHES} build strelaysrv &&\
+	${SETENV} ${MAKE_ENV} go run build.go ${SWITCHES} build strelaypoolsrv
+
+do-install:
+	cd ${WRKSRC}/syncthing && ${INSTALL_PROGRAM} \
+		syncthing stdiscosrv strelaysrv strelaypoolsrv \
+		${STAGEDIR}${PREFIX}/bin
