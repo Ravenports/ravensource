@@ -4,8 +4,7 @@ DEF[PORTVERSION]=	1.63
 NAMEBASE=		perl-Pod-Parser
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		530 532
-SDESC[530]=		Modules for parsing POD format documents (5.30)
+VARIANTS=		532
 SDESC[532]=		Modules for parsing POD format documents (5.32)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
@@ -14,13 +13,11 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:M/MA/MAREKR
 DISTFILE[1]=		Pod-Parser-${PORTVERSION}.tar.gz:main
 
-SPKGS[530]=		single
 SPKGS[532]=		single
 
-OPTIONS_AVAILABLE=	PERL_530 PERL_532
+OPTIONS_AVAILABLE=	PERL_532
 OPTIONS_STANDARD=	none
-VOPTS[530]=		PERL_530=ON PERL_532=OFF
-VOPTS[532]=		PERL_530=OFF PERL_532=ON
+VOPTS[532]=		PERL_532=ON
 
 # License listed in CPAN directory:
 # unknown
@@ -38,6 +35,8 @@ DISTNAME=		Pod-Parser-${PORTVERSION}
 # |           requires : File::Basename (perl 5.30.3 core) (perl 5.32.0 core)
 # |           requires : Test::More (perl 5.30.3 core) (perl 5.32.0 core)
 
-[PERL_530].USES_ON=			perl:530,configure
 [PERL_532].USES_ON=			perl:532,configure
 
+post-install:
+	${MV} ${STAGEDIR}${PREFIX}/bin/podselect \
+		${STAGEDIR}${PREFIX}/bin/podselect${PERL_VERSION}

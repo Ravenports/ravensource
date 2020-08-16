@@ -184,6 +184,20 @@ function set_core_module_definitions() {
 }
 
 
+# Returns true if given module for given perl version is core
+function is_core ($check_VA, $cpan_metaname) {
+    global
+        $CORE_MODULES,
+        $VA, $VB;
+
+    if ($check_VA) {
+        return (array_key_exists($cpan_metaname, $CORE_MODULES[$VA]));
+    } else {
+        return (array_key_exists($cpan_metaname, $CORE_MODULES[$VB]));
+    }
+}
+
+
 # Extracts author and tarball from given input
 # example of input: E/ET/ETHER/Moose-2.2012.tar.gz
 #                   S/SA/SAXJAZMAN/malware/XML-Malware-0.01.tar.gz
@@ -613,7 +627,6 @@ function finish_port_nometa (&$port) {
         $PERL_VERSION_A,
         $PERL_VERSION_B,
         $SPECS_DIR,
-        $CORE_MODULES,
         $data_remove_version,
         $data_version_override,
         $ravensource_directory;
@@ -651,8 +664,7 @@ function assemble_port_info($cpan_metaname, $force) {
     global
         $VA, $VB,
         $CPAN_INDEX,
-        $SPECS_DIR,
-        $CORE_MODULES;
+        $SPECS_DIR;
 
     $ANY = "[\s\S]";
     $result = array(
@@ -669,6 +681,7 @@ function assemble_port_info($cpan_metaname, $force) {
         "distfile"    => "ERROR",
         "metaformat"  => "UNSET",
         "pl_builder"  => "UNSET",
+        "metaname"    => $cpan_metaname,
         "justbuild"   => array($VA => array(), $VB => array()),
         "buildrun"    => array($VA => array(), $VB => array()),
         "cascade"     => array(),
@@ -683,8 +696,7 @@ function assemble_port_info($cpan_metaname, $force) {
     }
 
     # verify this is not a core module in both known perl versions
-    if (array_key_exists($cpan_metaname, $CORE_MODULES[$VA]) &&
-        array_key_exists($cpan_metaname, $CORE_MODULES[$VB])) {
+    if (is_core (true, $cpan_metaname) && is_core (false, $cpan_metaname)) {
         exit ("Remove $cpan_metaname from top ports; " .
               "it is a core module in both perl branches\n");
     }

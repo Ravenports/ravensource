@@ -175,9 +175,16 @@ function generate_port($namebase) {
     }
 
     # variant-base work
-    $variants = array ($VA, $VB);
-    $varver = array ($VA => substr($VA, 0, 1) . "." . substr($VA, 1, 2),
-                     $VB => substr($VB, 0, 1) . "." . substr($VB, 1, 2));
+    $variants = array();
+    $varver = array();
+    if (!is_core (true, $port_data[$namebase]["metaname"])) {
+        array_push ($variants, $VA);
+        $varver[$VA] = substr($VA, 0, 1) . "." . substr($VA, 1, 2);
+    }
+    if (!is_core (false, $port_data[$namebase]["metaname"])) {
+        array_push ($variants, $VB);
+        $varver[$VB] = substr($VB, 0, 1) . "." . substr($VB, 1, 2);
+    }
     $variants_block = join(" ", $variants);
     $primo = $variants[0];
     $usearg = $port_data[$namebase]["pl_builder"];
