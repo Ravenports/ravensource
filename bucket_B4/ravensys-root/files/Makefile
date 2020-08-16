@@ -229,6 +229,7 @@ dynamic_lib_DragonFly=	${dynamic_generic} \
 			/lib/libdevstat.so.3 \
 			/usr/lib/libdevinfo.so.3 \
 			/usr/lib/libdevmapper.so.0 \
+			/usr/lib/libkinfo.so.2 \
 			/usr/lib/libpthread.so \
 			/usr/lib/libpthread.so.0 \
 			/usr/lib/libexecinfo.so.1 \
@@ -401,6 +402,8 @@ headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
 			getopt.h \
 			ieeefp.h \
 			ifaddrs.h \
+			kinfo.h \
+			kinfo_pcpu.h \
 			kvm.h \
 			libcryptsetup.h \
 			libusb.h \
@@ -721,6 +724,7 @@ install:
 		ln -s libdevattr.so.3 libdevattr.so && \
 		ln -s libdevstat.so.3 libdevstat.so && \
 		ln -s libdevinfo.so.3 libdevinfo.so && \
+		ln -s libkinfo.so.2 libkinfo.so && \
 		ln -s libdevmapper.so.0 libdevmapper.so)
 	(cd ${DESTDIR}${BASE}/usr/include && \
 		ln -s /usr/include/dev/misc/evdev compat/linux && \
