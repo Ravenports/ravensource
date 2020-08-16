@@ -1,0 +1,48 @@
+DEF[PORTVERSION]=	1.10.3
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		megatools
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		standard
+SDESC[standard]=	Command line tools for MEGA.NZ cloud drive
+HOMEPAGE=		https://megatools.megous.com/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://megatools.megous.com/builds/
+DISTFILE[1]=		megatools-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		net/megatools
+
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"__TOOLS_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/lib/tools.h
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		asciidoc:single:standard
+BUILDRUN_DEPENDS=	curl:primary:standard
+
+USES=			gmake libtool pkgconfig ssl
+			gettext-runtime
+GNOME_COMPONENTS=	glib
+MUST_CONFIGURE=		gnu
+CONFIGURE_ENV=		OPENSSL_CFLAGS="-I{{OPENSSLINC}}"
+			OPENSSL_LIBS="-L{{OPENSSLLIB}} -lcrypto -lssl"
+INSTALL_TARGET=		install-strip
+
+post-patch:
+	# Unsilence build
+	${REINPLACE_CMD} -e '/^export\ MAKEFLAGS/s|^|#|' \
+	${WRKSRC}/Makefile.in
+
+post-install:
+	# remove useless doc
+	${RM} -r ${STAGEDIR}${STD_DOCDIR:H}
