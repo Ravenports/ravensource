@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	2.2.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		htop
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	Interactive process viewer for Unix
+HOMEPAGE=		https://hisham.hm/htop/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/hishamhm:htop:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		sysutils/htop
+
+LICENSE=		GPLv2:single
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
+
+USES=			autoreconf libtool ncurses pkgconfig shebangfix
+			execinfo bdb:5 python:build
+SHEBANG_FILES=		scripts/MakeHeader.py
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-unicode
+
+post-extract:
+	${AWK} '/## License/ { x=1 } {if (x) print $$0;}' \
+		${WRKSRC}/README > ${WRKDIR}/TERMS
