@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	0.15.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		pcmanfm-qt
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_fm
+VARIANTS=		standard
+SDESC[standard]=	File manager for the LXQt desktop
+HOMEPAGE=		https://lxqt.github.io/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/lxqt/pcmanfm-qt/releases/download/${PORTVERSION}/
+DISTFILE[1]=		pcmanfm-qt-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11-fm/pcmanfm-qt
+
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^\#include"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/pcmanfm/application.cpp
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		qt5-qttools:single:standard
+			lxqt-build-tools:single:standard
+BUILDRUN_DEPENDS=	libfm-qt:single:standard
+			menu-cache:single:standard
+			libexif:primary:standard
+			qt5-qtbase:primary:standard
+			qt5-qtx11extras:single:standard
+
+USES=			cmake desktop-utils:single pkgconfig
+			gettext-runtime c++:single
+XORG_COMPONENTS=	xcb
+GNOME_COMPONENTS=	glib
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/pcmanfm-qt
