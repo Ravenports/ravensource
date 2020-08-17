@@ -1,0 +1,30 @@
+DEF[PORTVERSION]=	0.7.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		lxqt-build-tools
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	LXQt build tools
+HOMEPAGE=		https://lxqt.github.io/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/lxqt/lxqt-build-tools/releases/download/${PORTVERSION}/
+DISTFILE[1]=		lxqt-build-tools-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/lxqt-build-tools
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/BSD-3-Clause
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		qt5-qttools:single:standard
+
+USES=			cmake pkgconfig
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
