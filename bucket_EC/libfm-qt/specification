@@ -1,0 +1,47 @@
+DEF[PORTVERSION]=	0.15.1
+DEF[SOVERSION]=		7.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libfm-qt
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Core library of PCManFM-Qt file manager
+HOMEPAGE=		https://lxqt.github.io/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/lxqt/libfm-qt/releases/download/${PORTVERSION}/
+DISTFILE[1]=		libfm-qt-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11/libfm-qt
+
+LICENSE=		LGPL21+:single
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/libfmqt.h
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		qt5-qttools:single:standard
+			lxqt-build-tools:single:standard
+BUILDRUN_DEPENDS=	menu-cache:single:standard
+			libexif:primary:standard
+			qt5-qtbase:primary:standard
+			qt5-qtx11extras:single:standard
+
+USES=			cmake pkgconfig mime-info:single
+XORG_COMPONENTS=	xcb
+GNOME_COMPONENTS=	glib
+SOVERSION=		${SOVERSION}
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
+
+post-install:
+	${RM} -r ${STAGEDIR}${PREFIX}/include/libfm-qt/tests
+	${RMDIR} ${STAGEDIR}${PREFIX}/include/libfm-qt/translations
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
