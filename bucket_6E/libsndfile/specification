@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.0.28
+DEF[PORTVERSION]=	1.0.29
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libsndfile
@@ -10,8 +10,8 @@ HOMEPAGE=		http://www.mega-nerd.com/libsndfile/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://www.mega-nerd.com/libsndfile/files/
-DISTFILE[1]=		libsndfile-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/erikd:libsndfile:v${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete primary docs
 
@@ -22,19 +22,14 @@ FPC_EQUIVALENT=		audio/libsndfile
 
 BUILDRUN_DEPENDS=	flac:primary:standard
 			libvorbis:primary:standard
+			opus:single:standard
+			speex:primary:standard
 
-USES=			cpe gmake libtool pkgconfig
+USES=			cmake cpe gmake libtool pkgconfig python:build
+CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=true
 CPE_VENDOR=		libsndfile_project
-INSTALL_TARGET=		install-strip
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-gcc-pipe
-			--disable-sqlite
-			--disable-alsa
-			--disable-octave
-			--with-pkgconfigdir={{PREFIX}}/lib/pkgconfig
 
-post-patch:
-	${REINPLACE_CMD} -e '/^SUBDIRS =/s/ doc / /g' ${WRKSRC}/Makefile.in
+SOVERSION=		${PORTVERSION}
 
 post-install:
 	(cd ${WRKSRC}/doc && ${COPYTREE_SHARE} . ${STAGEDIR}${STD_DOCDIR})
