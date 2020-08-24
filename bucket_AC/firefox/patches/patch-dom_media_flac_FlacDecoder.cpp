@@ -2,7 +2,7 @@ Enable FLAC on platforms without ffvpx like powerpc*
 
 diff --git dom/media/flac/FlacDecoder.cpp dom/media/flac/FlacDecoder.cpp
 index 53fc3c9937f7..b23771ab80fa 100644
---- dom/media/flac/FlacDecoder.cpp.orig	2020-04-29 20:59:56 UTC
+--- dom/media/flac/FlacDecoder.cpp
 +++ dom/media/flac/FlacDecoder.cpp
 @@ -7,6 +7,7 @@
  #include "FlacDecoder.h"
@@ -19,7 +19,7 @@ index 53fc3c9937f7..b23771ab80fa 100644
 +#elif defined(MOZ_FFMPEG)
 +  RefPtr<PDMFactory> platform = new PDMFactory();
 +  return StaticPrefs::media_flac_enabled() &&
-+         platform->SupportsMimeType(NS_LITERAL_CSTRING("audio/flac"),
++         platform->SupportsMimeType("audio/flac"_ns,
 +                                    /* DecoderDoctorDiagnostics* */ nullptr);
  #else
    // Until bug 1295886 is fixed.
