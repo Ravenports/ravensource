@@ -1,0 +1,61 @@
+DEF[PORTVERSION]=	16.04.0
+DEF[DLFOLDER]=		${PORTVERSION:R}
+DEF[SOVERSION]=		4.0.12
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libdbusmenu
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Library for passing menus over DBus
+HOMEPAGE=		https://launchpad.net/libdbusmenu
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://launchpad.net/libdbusmenu/${DLFOLDER}/${PORTVERSION}/+download/
+DISTFILE[1]=		libdbusmenu-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21:primary LGPL3:primary
+LICENSE_FILE=		LGPL21:{{WRKSRC}}/COPYING.2.1
+			LGPL3:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		dual
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"__DBUSMENU_GTKCLIENT_H__"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libdbusmenu-gtk/client.h
+
+FPC_EQUIVALENT=		devel/libdbusmenu
+
+BUILD_DEPENDS=		vala:single:standard
+BUILDRUN_DEPENDS=	json-glib:primary:standard
+
+USES=			gmake libtool gtk-doc gettext-tools pkgconfig
+			python:run shebangfix
+GNOME_COMPONENTS=	glib intltool libxslt introspection gtk3
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+SHEBANG_FILES=		tools/dbusmenu-bench
+PLIST_SUB=		VERSION="0.4"
+CONFIGURE_ARGS=		--disable-static
+			--disable-dumper
+			--disable-tests
+			--disable-massivedebugging
+			--disable-dependency-tracking
+			--enable-introspection=yes
+			--disable-nls
+			--enable-vala
+			--with-gtk=3
+CFLAGS=			-Wno-unused-value
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
+GTKDOC_OUTPUT_BASEDIR=	libdbusmenu-gtk
+
+post-install:
+	# gtk-doc can only handle one directory, so pre-move the other one
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/libdbusmenu-glib \
+		${STAGEDIR}${STD_DOCDIR}
