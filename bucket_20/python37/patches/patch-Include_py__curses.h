@@ -1,4 +1,4 @@
---- Include/py_curses.h.orig	2020-06-27 08:35:53 UTC
+--- Include/py_curses.h.orig	2020-08-15 05:20:16 UTC
 +++ Include/py_curses.h
 @@ -12,6 +12,10 @@
  #endif
