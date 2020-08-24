@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.20
+DEF[PORTVERSION]=	0.21
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Algorithm-LibLinear
@@ -33,7 +33,8 @@ DISTNAME=		Algorithm-LibLinear-${PORTVERSION}
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
 # |      runtime : List::MoreUtils
-# |      runtime : Smart::Args
+# |      runtime : Smart::Args::TypeTiny
+# |      runtime : Type::Tiny
 # |        build : ExtUtils::CBuilder (perl 5.30 core) (perl 5.32 core)
 # |    configure : Module::Build
 # |    configure : Module::Build::XSUtil
@@ -44,12 +45,14 @@ DISTNAME=		Algorithm-LibLinear-${PORTVERSION}
 
 [PERL_530].USES_ON=			perl:530,buildmod,run
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-List-MoreUtils:single:530
-					perl-Smart-Args:single:530
+					perl-Smart-Args-TypeTiny:single:530
+					perl-Type-Tiny:single:530
 [PERL_530].BUILD_DEPENDS_ON=		perl-Module-Build:single:530
 					perl-Module-Build-XSUtil:single:530
 [PERL_532].USES_ON=			perl:532,buildmod,run
 [PERL_532].BUILDRUN_DEPENDS_ON=		perl-List-MoreUtils:single:532
-					perl-Smart-Args:single:532
+					perl-Smart-Args-TypeTiny:single:532
+					perl-Type-Tiny:single:532
 [PERL_532].BUILD_DEPENDS_ON=		perl-Module-Build:single:532
 					perl-Module-Build-XSUtil:single:532
 
