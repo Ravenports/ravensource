@@ -288,6 +288,7 @@ function inline_fix_setup ($namebase, $src) {
        "asn1"         => '/version_info.*3\.4/d; s/.enum-compat.//',
        "pycryptodomex"=> '/set_compiler_options/d',
        "pyclipper"    => '/print(/d', 
+       "black"        => '/extensions/d',
        "soupsieve"    => false,
        "xml2rfc"      => false,
        "django-colorful" => false,
@@ -436,6 +437,7 @@ function set_buildrun (&$portdata) {
         case "skia-pathops":
         case "mutagen":
         case "protobuf":
+        case "cryptography":
         case "zipp":		// above -- not distutils script
         case "pygit2":
         case "PyNaCl":		// above -- tries downloading

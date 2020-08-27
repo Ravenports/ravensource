@@ -10,6 +10,8 @@
 [image]
 [image]
 [image]
+[image]
+[image]
 </p>
 
 > “Any color you like.”
@@ -34,12 +36,14 @@ Try it out now using the [Black Playground]. Watch the
 ---
 
 _Contents:_ **[Installation and usage]** |
-**[Code style]** | **[pyproject.toml]** |
-**[Editor integration]** | **[blackd]** |
+**[Code style]** | **[Pragmatism]** |
+**[pyproject.toml]** | **[Editor integration]** |
+**[blackd]** | **[black-primer]** |
 **[Version control integration]** |
+**[GitHub Actions]** |
 **[Ignoring unmodified files]** | **[Used by]** |
 **[Testimonials]** | **[Show your style]** |
-**[Contributing]** | **[Change Log]** |
+**[Contributing]** | **[Change log]** |
 **[Authors]**
 
 ---
@@ -52,12 +56,25 @@ _Black_ can be installed by running `pip install black`. It requires Python
 3.6.0+ to
 run but you can reformat Python 2 code with it, too.
 
+#### Install from GitHub
+
+If you can't wait for the latest _hotness_ and want to install from GitHub,
+use:
+
+`pip install git+git://github.com/psf/black`
+
 ### Usage
 
 To get started right away with sensible defaults:
 
-```
+```sh
 black {source_file_or_directory}
+```
+
+You can run _Black_ as a package if running it as a script doesn't work:
+
+```sh
+python -m black {source_file_or_directory}
 ```
 
 ### Command line options
@@ -66,7 +83,7 @@ _Black_ doesn't provide many options. You can list them by running `black
 --help`:
 
 ```text
-black [OPTIONS] [SRC]```
+Usage: black [OPTIONS] [SRC]```
 
 Looks like this:
 [![Code style: black]](https://github.com/psf/black)
@@ -81,20 +98,3 @@ In terms of inspiration, _Black_ is about as configurable as _gofmt_. This
 is
 deliberate.
 
-Bug reports and fixes are always welcome! However, before you suggest a new
-feature or
-configuration knob, ask yourself why you want it. If it enables better
-integration with
-some workflow, fixes an inconsistency, speeds things up, and so on - go for
-it! On the
-other hand, if your answer is "because I don't like a particular
-formatting" then you're
-not ready to embrace _Black_ yet. Such changes are unlikely to get
-accepted. You can
-still try but prepare to be disappointed.
-
-More details can be found in [CONTRIBUTING].
-
-## Change Log
-
-### 19.10b0

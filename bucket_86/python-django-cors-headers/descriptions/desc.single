@@ -26,7 +26,15 @@ Requirements
 
 Python 3.5 to 3.8 supported.
 
-Django 2.0 to 3.0 supported.
+Django 2.2 to 3.0 supported.
+
+----
+
+**Are your tests slow?**
+Check out my book [Speed Up Your Django Tests] which covers loads of best
+practices so you can write faster, more accurate tests.
+
+----
 
 Setup
 -----
@@ -47,11 +55,15 @@ and then add it to your installed apps:
         ...
    ]
 
+Make sure you add the trailing comma or you might get a ModuleNotFoundError
+(see [this blog
+post]).
+
 You will also need to add a middleware class to listen in on responses:
 
 .. code-block:: python
 
-    MIDDLEWARE = [  # Or MIDDLEWARE_CLASSES on Django < 1.10
+    MIDDLEWARE = [
         ...
         'corsheaders.middleware.CorsMiddleware',
         'django.middleware.common.CommonMiddleware',
@@ -86,15 +98,3 @@ issue
 about it.
 
 **django-cors-headers** has had `40+ contributors
-<https://github.com/adamchainz/django-cors-headers/graphs/contributors>`__
-in its time; thanks to every one of them.
-
-Configuration
--------------
-
-Configure the middleware's behaviour in your Django settings. You must add
-the
-hosts that are allowed to do cross-site requests to
-CORS_ORIGIN_WHITELIST, or set CORS_ORIGIN_ALLOW_ALL to True
-to allow all hosts.
-
