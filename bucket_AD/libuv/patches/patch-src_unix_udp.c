@@ -1,6 +1,6 @@
---- src/unix/udp.c.orig	2020-07-03 16:51:27 UTC
+--- src/unix/udp.c.orig	2020-08-25 00:25:03 UTC
 +++ src/unix/udp.c
-@@ -854,7 +854,7 @@ static int uv__udp_set_membership6(uv_ud
+@@ -851,7 +851,7 @@ static int uv__udp_set_membership6(uv_ud
  }
  
  
@@ -9,7 +9,7 @@
  static int uv__udp_set_source_membership4(uv_udp_t* handle,
                                            const struct sockaddr_in* multicast_addr,
                                            const char* interface_addr,
-@@ -1031,7 +1031,7 @@ int uv_udp_set_source_membership(uv_udp_
+@@ -1039,7 +1039,7 @@ int uv_udp_set_source_membership(uv_udp_
                                   const char* interface_addr,
                                   const char* source_addr,
                                   uv_membership membership) {
