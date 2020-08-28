@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.2.0
+DEF[PORTVERSION]=	3.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		htop
@@ -10,7 +10,7 @@ HOMEPAGE=		https://hisham.hm/htop/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/hishamhm:htop:${PORTVERSION}
+SITES[main]=		GITHUB/htop-dev:htop:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
@@ -25,9 +25,8 @@ LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
 LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		solo
 
-USES=			autoreconf libtool ncurses pkgconfig shebangfix
+USES=			autoreconf libtool ncurses pkgconfig
 			execinfo bdb:5 python:build
-SHEBANG_FILES=		scripts/MakeHeader.py
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-unicode
 

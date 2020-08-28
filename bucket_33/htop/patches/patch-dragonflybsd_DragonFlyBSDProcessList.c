@@ -1,4 +1,4 @@
---- dragonflybsd/DragonFlyBSDProcessList.c.orig	2018-04-10 13:42:59 UTC
+--- dragonflybsd/DragonFlyBSDProcessList.c.orig	2020-08-26 23:36:56 UTC
 +++ dragonflybsd/DragonFlyBSDProcessList.c
 @@ -451,7 +451,7 @@ void ProcessList_goThroughEntries(Proces
           proc->session = kproc->kp_sid;
