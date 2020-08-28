@@ -1,4 +1,4 @@
---- lib/assert.h.orig	2020-05-29 03:28:18 UTC
+--- lib/assert.h.orig	2020-08-24 00:27:00 UTC
 +++ lib/assert.h
 @@ -43,6 +43,10 @@
  #ifndef INCLUDED_ASSERT_H

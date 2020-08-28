@@ -1,4 +1,4 @@
---- lib/util.c.orig	2020-06-22 00:44:19 UTC
+--- lib/util.c.orig	2020-08-28 00:32:57 UTC
 +++ lib/util.c
 @@ -985,6 +985,7 @@ EXPORTED int parsehex(const char *p, con
  
