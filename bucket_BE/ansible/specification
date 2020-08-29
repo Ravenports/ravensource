@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.9.12
+DEF[PORTVERSION]=	2.10.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ansible
@@ -10,8 +10,8 @@ HOMEPAGE=		https://www.ansible.com/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://releases.ansible.com/ansible/
-DISTFILE[1]=		ansible-${PORTVERSION}.tar.gz:main
+SITES[main]=		https://pypi.python.org/packages/source/a/ansible-base/
+DISTFILE[1]=		ansible-base-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	complete primary examples
 
@@ -33,8 +33,10 @@ BUILDRUN_DEPENDS=	python-Jinja2:single:python_default
 			python-netaddr:single:python_default
 			python-paramiko:single:python_default
 			python-PyYAML:single:python_default
+
 USES=			cpe python
 CPE_VENDOR=		redhat
+DISTNAME=		ansible-base-${PORTVERSION}
 
 post-patch:
 	${GREP} -rl "\/usr\/share\/ansible" ${WRKSRC} | ${XARGS} \
