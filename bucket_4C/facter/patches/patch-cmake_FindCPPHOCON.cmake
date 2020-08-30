@@ -1,4 +1,4 @@
---- cmake/FindCPPHOCON.cmake.orig	2020-02-12 09:22:44 UTC
+--- cmake/FindCPPHOCON.cmake.orig	2020-08-03 13:10:15 UTC
 +++ cmake/FindCPPHOCON.cmake
 @@ -1,5 +1,5 @@
  include(FindDependency)
