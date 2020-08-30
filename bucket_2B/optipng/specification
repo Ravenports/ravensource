@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	0.7.7
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		optipng
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Advanced PNG optimizer
+HOMEPAGE=		none
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/optipng/OptiPNG/optipng-${PORTVERSION}
+DISTFILE[1]=		optipng-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:primary
+LICENSE_NAME=		CUSTOM1:"ZLIB License"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.txt
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/optipng
+
+USES=			gmake zlib png
+MUST_CONFIGURE=		yes
+CONFIGURE_ARGS=		--with-system-zlib
+			--with-system-libpng
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/src/optipng/optipng \
+		${STAGEDIR}${PREFIX}/bin/
+	${INSTALL_MAN} ${WRKSRC}/src/optipng/man/optipng.1 \
+		${STAGEDIR}${MAN1PREFIX}/man/man1/
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+.for D in history.txt optipng.man.* png_optimization.html
+	${INSTALL_DATA} ${WRKSRC}/doc/${D} ${STAGEDIR}${STD_DOCDIR}/
+.endfor
