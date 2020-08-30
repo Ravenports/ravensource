@@ -1,4 +1,4 @@
---- doc/Makefile.in.orig	2020-06-23 18:14:25 UTC
+--- doc/Makefile.in.orig	2020-08-29 19:38:19 UTC
 +++ doc/Makefile.in
 @@ -580,14 +580,7 @@ install-data-local: makedoc-all instdoc
  	    $(INSTALL) -m 644 $(srcdir)/$$f $(DESTDIR)$(docdir) ; \
@@ -20,10 +20,10 @@
  
  check:
  manual.txt: manual.html
--	-LC_ALL=C lynx -dump -nolist -with_backspaces -display_charset=us-ascii manual.html > $@ || \
+-	-LC_ALL=C lynx -localhost -dump -nolist -with_backspaces -display_charset=us-ascii manual.html > $@ || \
 -	LC_ALL=C w3m -dump manual.html > $@ || \
 -	LC_ALL=C elinks -dump -no-numbering -no-references manual.html | sed -e 's,\\001, ,g' > $@
-+	-LC_ALL=C lynx -dump -nolist -with_backspaces -display_charset=us-ascii manual.html > $@
++	-LC_ALL=C lynx -localhost -dump -nolist -with_backspaces -display_charset=us-ascii manual.html > $@
  
  Muttrc: stamp-doc-rc
  
