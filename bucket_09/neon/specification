@@ -1,0 +1,52 @@
+DEF[PORTVERSION]=	0.31.2
+DEF[SOVERSION]=		27.4.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		neon
+VERSION=		${PORTVERSION}
+KEYWORDS=		www
+VARIANTS=		standard
+SDESC[standard]=	HTTP and WebDAV client library
+HOMEPAGE=		https://notroj.github.io/neon/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://notroj.github.io/neon/
+DISTFILE[1]=		neon-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary nls docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL20+:primary
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/src/COPYING.LIB
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"NE_XML_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/ne_xml.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		www/neon
+
+BUILD_DEPENDS=		expat:static:standard
+BUILDRUN_DEPENDS=	expat:shared:standard
+			nss:caroot:standard
+			libproxy:single:standard
+			krb5:primary:standard
+
+USES=			libtool gettext-runtime ssl pkgconfig zlib
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-ca-bundle={{LOCALBASE}}/share/certs/ca-root-nss.crt
+			--with-expat
+			--with-gssapi
+			--with-nls
+			--with-ssl
+			--with-libproxy
+			--enable-shared
+SOVERSION=		${SOVERSION}
+
+post-patch:
+	${REINPLACE_CMD} -e 's|-@NEON_VERSION@$$||' ${WRKSRC}/Makefile.in
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libneon.so
