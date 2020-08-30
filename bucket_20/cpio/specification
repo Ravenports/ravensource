@@ -1,0 +1,28 @@
+DEF[PORTVERSION]=	2.13
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		cpio
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers
+VARIANTS=		standard
+SDESC[standard]=	Utility that copies files to or from archives
+HOMEPAGE=		https://www.gnu.org/software/cpio/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/cpio
+DISTFILE[1]=		cpio-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		archivers/gcpio
+
+USES=			cpe gettext-runtime
+CPE_VENDOR=		gnu
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-rmt=/etc/rmt
+			--enable-nls
+INFO=			primary:cpio
