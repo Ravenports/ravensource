@@ -1,7 +1,7 @@
 # manually maintained due to server support
 # The users won't be able to install version from both pythons due to
 # common files and directories
-DEF[PORTVERSION]=	3.0.4
+DEF[PORTVERSION]=	3.0.5
 # ------------------------------------------------------------------------
 
 NAMEBASE=		radicale
@@ -54,8 +54,7 @@ SUB_LIST=		USERS="radicale"
 			PYTHON_CMD="{{PYTHON_CMD}}"
 
 USES=			cpe shebangfix
-SHEBANG_FILES=		radicale.fcgi
-			radicale.wsgi
+SHEBANG_FILES=		radicale.wsgi
 
 [PY38].USES_ON=				python:py38
 [PY38].BUILDRUN_DEPENDS_ON=		python-defusedxml:single:py38
@@ -84,7 +83,5 @@ post-install:
 		${STAGEDIR}/${PREFIX}/etc/radicale/config.sample
 	${INSTALL_DATA} ${WRKSRC}/rights \
 		${STAGEDIR}/${PREFIX}/etc/radicale/rights.sample
-	${INSTALL_SCRIPT} ${WRKSRC}/radicale.fcgi \
-		${STAGEDIR}${PREFIX}/www/radicale/radicale.fcgi
 	${INSTALL_SCRIPT} ${WRKSRC}/radicale.wsgi \
 		${STAGEDIR}${PREFIX}/www/radicale/radicale.wsgi
