@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.73
+DEF[PORTVERSION]=	3.75
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-HTML-Parser
@@ -7,7 +7,7 @@ KEYWORDS=		perl
 VARIANTS=		530 532
 SDESC[530]=		HTML parser class (5.30)
 SDESC[532]=		HTML parser class (5.32)
-HOMEPAGE=		https://github.com/libwww-perl/HTML-Parser
+HOMEPAGE=		https://github.com/libwww-perl/html-parser
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
@@ -32,17 +32,36 @@ DISTNAME=		HTML-Parser-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
+# |      runtime : Carp (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Exporter (perl 5.30 core) (perl 5.32 core)
 # |      runtime : HTML::Tagset
-# |      runtime : XSLoader (perl 5.30 core) (perl 5.32 core)
 # |      runtime : HTTP::Headers
-# |        build : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
-# |        build : Test::More (perl 5.30 core) (perl 5.32 core)
+# |      runtime : IO::File (perl 5.30 core) (perl 5.32 core)
+# |      runtime : URI
+# |      runtime : URI::URL
+# |      runtime : XSLoader (perl 5.30 core) (perl 5.32 core)
+# |      runtime : strict (perl 5.30 core) (perl 5.32 core)
+# |      runtime : vars (perl 5.30 core) (perl 5.32 core)
 # |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# |         test : Config (perl 5.30 core) (perl 5.32 core)
+# |         test : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# |         test : File::Spec (perl 5.30 core) (perl 5.32 core)
+# |         test : FileHandle (perl 5.30 core) (perl 5.32 core)
+# |         test : IO::File (perl 5.30 core) (perl 5.32 core)
+# |         test : SelectSaver (perl 5.30 core) (perl 5.32 core)
+# |         test : Test (perl 5.30 core) (perl 5.32 core)
+# |         test : Test::More (perl 5.30 core) (perl 5.32 core)
+# |         test : URI
+# |         test : strict (perl 5.30 core) (perl 5.32 core)
+# |         test : vars (perl 5.30 core) (perl 5.32 core)
+# |         test : CPAN::Meta (perl 5.30 core) (perl 5.32 core)
 
 [PERL_530].USES_ON=			perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-HTML-Tagset:single:530
 					perl-HTTP-Message:single:530
+					perl-URI:single:530
 [PERL_532].USES_ON=			perl:532,configure
 [PERL_532].BUILDRUN_DEPENDS_ON=		perl-HTML-Tagset:single:532
 					perl-HTTP-Message:single:532
+					perl-URI:single:532
 
