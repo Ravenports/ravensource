@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.47.0
+DEF[PORTVERSION]=	3.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-xml2rfc
@@ -26,24 +26,28 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # BSD-3-Clause
 
 # install_requires extracted from setup.py
+# appdirs>=1.4.4
+# configargparse>=1.2.3
 # google-i18n-address>=2.3.2
 # html5lib>=1.0.1
 # intervaltree!=3.0.0,>=2.1.0
-# jinja2<3.0,>=2.10.3
+# jinja2<3.0,>=2.11
 # kitchen>=1.2.6
 # lxml!=4.3.1,>=2.2.8
 # pycountry!=19.7.15,>=1.8
 # pyflakes>=0.8.1
 # pyyaml>=5.3.1
 # requests>=2.5.0
-# setuptools>=18.0
+# setuptools>=24.2.0
 # six>=1.4.1
 
 DISTNAME=		xml2rfc-${PORTVERSION}
 GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-google-i18n-address:single:py38
+[PY38].BUILDRUN_DEPENDS_ON=		python-appdirs:single:py38
+					python-configargparse:single:py38
+					python-google-i18n-address:single:py38
 					python-html5lib:single:py38
 					python-intervaltree:single:py38
 					python-Jinja2:single:py38
@@ -56,7 +60,9 @@ GENERATED=		yes
 					python-setuptools:single:py38
 					python-six:single:py38
 [PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-google-i18n-address:single:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-appdirs:single:py37
+					python-configargparse:single:py37
+					python-google-i18n-address:single:py37
 					python-html5lib:single:py37
 					python-intervaltree:single:py37
 					python-Jinja2:single:py37
