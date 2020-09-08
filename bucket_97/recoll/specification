@@ -1,5 +1,5 @@
 # version 1.27.5 has c++ error on reslist.cpp.  wait for next version.
-DEF[PORTVERSION]=	1.27.3
+DEF[PORTVERSION]=	1.27.6
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		recoll
@@ -83,9 +83,9 @@ post-patch:
 	${REINPLACE_CMD} -e \
 		's|/usr/local/lib|${LOCALBASE}/lib|' \
 		${WRKSRC}/configure
-	${REINPLACE_CMD} -e \
-		's|python setup.py|${PYTHON_CMD} setup.py|; s|sudo||' \
-		${WRKSRC}/python/recoll/Makefile
+	#${REINPLACE_CMD} -e \
+	#	's|python setup.py|${PYTHON_CMD} setup.py|; s|sudo||' \
+	#	${WRKSRC}/python/recoll/Makefile
 	${REINPLACE_CMD} -e \
 		's|%%PYTHON_CMD%%|${PYTHON_CMD}|' \
 		${WRKSRC}/Makefile.in
