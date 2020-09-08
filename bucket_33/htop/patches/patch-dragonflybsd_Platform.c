@@ -1,4 +1,4 @@
---- dragonflybsd/Platform.c.orig	2020-08-26 23:36:56 UTC
+--- dragonflybsd/Platform.c.orig	2020-09-03 03:23:43 UTC
 +++ dragonflybsd/Platform.c
 @@ -207,7 +207,21 @@ void Platform_setTasksValues(Meter* this
  }
