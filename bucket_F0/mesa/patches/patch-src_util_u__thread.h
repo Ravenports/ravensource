@@ -1,8 +1,8 @@
---- src/util/u_thread.h.orig	2020-08-05 20:35:08 UTC
+--- src/util/u_thread.h.orig	2020-09-02 19:53:57 UTC
 +++ src/util/u_thread.h
 @@ -37,6 +37,7 @@
  #include <signal.h>
- #ifdef PTHREAD_SETAFFINITY_IN_NP_HEADER
+ #ifdef HAVE_PTHREAD_NP_H
  #include <pthread_np.h>
 +#undef ALIGN
  #endif

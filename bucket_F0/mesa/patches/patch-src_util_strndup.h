@@ -1,4 +1,4 @@
---- src/util/strndup.h.orig	2020-08-05 20:35:08 UTC
+--- src/util/strndup.h.orig	2020-09-02 19:53:57 UTC
 +++ src/util/strndup.h
 @@ -24,7 +24,7 @@
  #ifndef STRNDUP_H
