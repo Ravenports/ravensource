@@ -225,12 +225,18 @@ function set_namebase_author_tarball ($input, &$namebase, &$author, &$distfile, 
 
 # Given a perl module name, return the equivalent ravenport namebase
 function get_namebase ($perlmod) {
-    global $CPAN_INDEX;
+    global
+        $data_index_overwrite,
+        $CPAN_INDEX;
 
     if (array_key_exists($perlmod, $CPAN_INDEX)) {
         $payload = $CPAN_INDEX[$perlmod];
     } else {
-        exit("$perlmod not found in CPAN_INDEX\n");
+        if (array_key_exists($perlmod, $data_index_overwrite)) {
+            $payload = $data_index_overwrite[$perlmod];
+        } else {
+            exit("$perlmod not found in CPAN_INDEX\n");
+        }
     }
     $parts    = explode("/", $payload);
     $numparts = count($parts);

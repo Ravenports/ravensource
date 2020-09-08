@@ -1,0 +1,54 @@
+DEF[PORTVERSION]=	1.007
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-URI-cpan
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		530 532
+SDESC[530]=		URLs that refer to things on the CPAN (5.30)
+SDESC[532]=		URLs that refer to things on the CPAN (5.32)
+HOMEPAGE=		https://github.com/rjbs/URI-cpan
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:R/RJ/RJBS
+DISTFILE[1]=		URI-cpan-${PORTVERSION}.tar.gz:main
+
+SPKGS[530]=		single
+SPKGS[532]=		single
+
+OPTIONS_AVAILABLE=	PERL_530 PERL_532
+OPTIONS_STANDARD=	none
+VOPTS[530]=		PERL_530=ON PERL_532=OFF
+VOPTS[532]=		PERL_530=OFF PERL_532=ON
+
+# License listed in CPAN directory:
+# perl_5
+
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		URI-cpan-${PORTVERSION}
+
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : CPAN::DistnameInfo
+# |      runtime : Carp (perl 5.30 core) (perl 5.32 core)
+# |      runtime : URI::_generic
+# |      runtime : parent (perl 5.30 core) (perl 5.32 core)
+# |      runtime : strict (perl 5.30 core) (perl 5.32 core)
+# |      runtime : warnings (perl 5.30 core) (perl 5.32 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# |         test : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# |         test : File::Spec (perl 5.30 core) (perl 5.32 core)
+# |         test : Test::More (perl 5.30 core) (perl 5.32 core)
+# |         test : URI
+# |         test : CPAN::Meta (perl 5.30 core) (perl 5.32 core)
+
+[PERL_530].USES_ON=			perl:530,configure
+[PERL_530].BUILDRUN_DEPENDS_ON=		perl-CPAN-DistnameInfo:single:530
+					perl-URI:single:530
+[PERL_532].USES_ON=			perl:532,configure
+[PERL_532].BUILDRUN_DEPENDS_ON=		perl-CPAN-DistnameInfo:single:532
+					perl-URI:single:532
+

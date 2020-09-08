@@ -1,0 +1,93 @@
+DEF[PORTVERSION]=	2.70
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Log-Dispatch
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		530 532
+SDESC[530]=		Dispatches messages to one or more outputs (5.30)
+SDESC[532]=		Dispatches messages to one or more outputs (5.32)
+HOMEPAGE=		https://github.com/houseabsolute/Log-Dispatch
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:D/DR/DROLSKY
+DISTFILE[1]=		Log-Dispatch-${PORTVERSION}.tar.gz:main
+
+SPKGS[530]=		single
+SPKGS[532]=		single
+
+OPTIONS_AVAILABLE=	PERL_530 PERL_532
+OPTIONS_STANDARD=	none
+VOPTS[530]=		PERL_530=ON PERL_532=OFF
+VOPTS[532]=		PERL_530=OFF PERL_532=ON
+
+# License listed in CPAN directory:
+# artistic_2
+
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Log-Dispatch-${PORTVERSION}
+
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : Carp (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Devel::GlobalDestruction
+# |      runtime : Dist::CheckConflicts
+# |      runtime : Encode (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Exporter (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Fcntl (perl 5.30 core) (perl 5.32 core)
+# |      runtime : IO::Handle (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Module::Runtime
+# |      runtime : Params::ValidationCompiler
+# |      runtime : Scalar::Util (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Specio
+# |      runtime : Specio::Declare
+# |      runtime : Specio::Exporter
+# |      runtime : Specio::Library::Builtins
+# |      runtime : Specio::Library::Numeric
+# |      runtime : Specio::Library::String
+# |      runtime : Sys::Syslog (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Try::Tiny
+# |      runtime : base (perl 5.30 core) (perl 5.32 core)
+# |      runtime : namespace::autoclean
+# |      runtime : parent (perl 5.30 core) (perl 5.32 core)
+# |      runtime : strict (perl 5.30 core) (perl 5.32 core)
+# |      runtime : warnings (perl 5.30 core) (perl 5.32 core)
+# |    configure : Dist::CheckConflicts
+# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# |         test : Data::Dumper (perl 5.30 core) (perl 5.32 core)
+# |         test : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# |         test : File::Spec (perl 5.30 core) (perl 5.32 core)
+# |         test : File::Temp (perl 5.30 core) (perl 5.32 core)
+# |         test : FindBin (perl 5.30 core) (perl 5.32 core)
+# |         test : Getopt::Long (perl 5.30 core) (perl 5.32 core)
+# |         test : IO::File (perl 5.30 core) (perl 5.32 core)
+# |         test : IPC::Run3
+# |         test : POSIX (perl 5.30 core) (perl 5.32 core)
+# |         test : PerlIO (perl 5.30 core) (perl 5.32 core)
+# |         test : Test::Fatal
+# |         test : Test::More (perl 5.30 core) (perl 5.32 core)
+# |         test : Test::Needs
+# |         test : lib (perl 5.30 core) (perl 5.32 core)
+# |         test : utf8 (perl 5.30 core) (perl 5.32 core)
+# |         test : CPAN::Meta (perl 5.30 core) (perl 5.32 core)
+
+[PERL_530].USES_ON=			perl:530,configure
+[PERL_530].BUILDRUN_DEPENDS_ON=		perl-Devel-GlobalDestruction:single:530
+					perl-Dist-CheckConflicts:single:530
+					perl-Module-Runtime:single:530
+					perl-Params-ValidationCompiler:single:530
+					perl-Specio:single:530
+					perl-Try-Tiny:single:530
+					perl-namespace-autoclean:single:530
+[PERL_532].USES_ON=			perl:532,configure
+[PERL_532].BUILDRUN_DEPENDS_ON=		perl-Devel-GlobalDestruction:single:532
+					perl-Dist-CheckConflicts:single:532
+					perl-Module-Runtime:single:532
+					perl-Params-ValidationCompiler:single:532
+					perl-Specio:single:532
+					perl-Try-Tiny:single:532
+					perl-namespace-autoclean:single:532
+
