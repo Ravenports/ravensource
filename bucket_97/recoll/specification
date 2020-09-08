@@ -83,9 +83,6 @@ post-patch:
 	${REINPLACE_CMD} -e \
 		's|/usr/local/lib|${LOCALBASE}/lib|' \
 		${WRKSRC}/configure
-	#${REINPLACE_CMD} -e \
-	#	's|python setup.py|${PYTHON_CMD} setup.py|; s|sudo||' \
-	#	${WRKSRC}/python/recoll/Makefile
 	${REINPLACE_CMD} -e \
 		's|%%PYTHON_CMD%%|${PYTHON_CMD}|' \
 		${WRKSRC}/Makefile.in
