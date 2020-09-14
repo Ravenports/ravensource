@@ -5,7 +5,6 @@ DEF[SOVERSION]=		EXTRACT_INFO(GSTREAMER1_SOVERSION)
 
 NAMEBASE=		gstreamer1-plugins-base
 VERSION=		${PORTVERSION}
-REVISION=		3
 KEYWORDS=		multimedia
 VARIANTS=		standard
 SDESC[standard]=	GStreamer Multimedia Framework Base Plugins
@@ -21,34 +20,41 @@ SPKGS[standard]=	complete primary nls
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		LGPL20+:primary
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gst-libs/gst/video/gstvideosink.h
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		multimedia/gstreamer1-plugins
 
+BUILD_DEPENDS=		autoselect-python:single:standard
+			git:primary:lite
 BUILDRUN_DEPENDS=	gstreamer1:primary:standard
 			iso-codes:primary:standard
 			orc:primary:standard
 			freetype:primary:standard
 
-USES=			gmake pkgconfig libtool gettext-runtime mesa
-GNOME_COMPONENTS=	glib introspection
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-default-audiosink="osssink"
-			--with-default-audiosrc="osssrc"
-			--disable-alsa
-			--disable-cdparanoia
-			--disable-ivorbis
-			--disable-libvisual
-			--disable-ogg
-			--disable-opus
-			--disable-pango
-			--disable-theora
-			--disable-vorbis
-			--disable-x
-			--disable-xvideo
-INSTALL_TARGET=		install-strip
-INSTALL_REQ_TOOLCHAIN=	yes
+USES=			gmake pkgconfig mesa meson
+			gettext-tools gettext-runtime
+GNOME_COMPONENTS=	glib
+# GNOME_COMPONENTS=introspection disabled on gstreamer1
+MESON_ARGS=		-Dalsa=disabled
+			-Dcdparanoia=disabled
+			-Dlibvisual=disabled
+			-Dogg=disabled
+			-Dopus=disabled
+			-Dpango=disabled
+			-Dtheora=disabled
+			-Dtremor=disabled
+			-Dvorbis=disabled
+			-Dx11=disabled
+			-Dxshm=disabled
+			-Dxvideo=disabled
+			-Ddoc=disabled
+			-Dnls=enabled
 DISTNAME=		gst-plugins-base-${PORTVERSION}
-CFLAGS=			-Wno-format
-LDFLAGS=		-lpthread
 PLIST_SUB=		GSTVER=${GST_VERSION}
 SOVERSION=		${SOVERSION}
 
@@ -56,12 +62,3 @@ SOVERSION=		${SOVERSION}
 VAR_OPSYS[sunos]=	CFLAGS=-DHAVE_FIONREAD_IN_SYS_FILIO=1
 			LDFLAGS=-lintl
 
-post-patch:
-	${REINPLACE_CMD} \
-		-e 's|FLAGS -Werror|FLAGS|' \
-		-e 's|dragonflybsd|dragonfly|' \
-		${WRKSRC}/configure
-	# fix glib-mkenums code
-	${FIND} ${WRKSRC} -name "Makefile.in" |\
-		${XARGS} ${GREP} -l "enum_headers = " |\
-		${XARGS} ${REINPLACE_CMD} -e '/enum_headers =/ s|\\#include|#include|'

@@ -1,0 +1,11 @@
+--- ext/theora/meson.build.orig	2020-09-07 23:03:35 UTC
++++ ext/theora/meson.build
+@@ -6,6 +6,8 @@ theora_sources = [
+ theoradec_dep = dependency('theoradec', version : '>=1.1', required : get_option('theora'))
+ theoraenc_dep = dependency('theoraenc', version : '>=1.1', required : get_option('theora'))
+ theora_deps = []
++video_dep = cc.find_library ('gstvideo-1.0', required : true)
++tag_dep = cc.find_library ('gsttag-1.0', required : true)
+ 
+ if theoradec_dep.found() or theoraenc_dep.found()
+   if theoradec_dep.found()

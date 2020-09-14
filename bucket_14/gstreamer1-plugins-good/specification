@@ -5,7 +5,6 @@ DEF[SOVERSION]=		EXTRACT_INFO(GSTREAMER1_SOVERSION)
 
 NAMEBASE=		gstreamer1-plugins-good
 VERSION=		${PORTVERSION}
-REVISION=		3
 KEYWORDS=		multimedia
 VARIANTS=		standard
 SDESC[standard]=	GStreamer Multimedia Framework "Good" Plugins
@@ -21,54 +20,114 @@ SPKGS[standard]=	complete primary nls
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		LGPL20+:primary
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gst/alpha/gstalpha.h
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		multimedia/gstreamer1-plugins-good
 
-BUILD_DEPENDS=		bzip2:static:standard
+BUILD_DEPENDS=		autoselect-python:single:standard
+			bzip2:static:standard
+			nasm:primary:standard
 BUILDRUN_DEPENDS=	gstreamer1:primary:standard
 			gstreamer1-plugins-base:primary:standard
 			bzip2:shared:standard
 
-USES=			gmake pkgconfig libtool gettext-runtime zlib
-GNOME_COMPONENTS=	glib introspection
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-aalib
-			--disable-cairo
-			--disable-flac
-			--disable-gdk_pixbuf
-			--disable-gst_v4l2
-			--disable-jack
-			--disable-jpeg
-			--disable-libcaca
-			--disable-libdv
-			--disable-libpng
-			--disable-pulse
-			--disable-shout2
-			--disable-soup
-			--disable-speex
-			--disable-taglib
-			--disable-vpx
-			--disable-wavpack
-			--disable-x
-			--disable-dv1394
-			--disable-directsound
-			--disable-osx_audio
-			--disable-osx_video
-			--disable-sunaudio
-			--disable-waveform
-			--enable-bz2
-			--enable-oss
-			--enable-oss4
-			--enable-zlib
-INSTALL_TARGET=		install-strip
-INSTALL_REQ_TOOLCHAIN=	yes
+USES=			gmake pkgconfig zlib meson
+			gettext-runtime gettext-tools
+GNOME_COMPONENTS=	glib
+# GNOME_COMPONENTS=introspection disabled on gstreamer1
+MESON_ARGS=		-Dalpha=enabled
+			-Dapetag=enabled
+			-Daudiofx=enabled
+			-Daudioparsers=enabled
+			-Dauparse=enabled
+			-Dautodetect=enabled
+			-Davi=enabled
+			-Dcutter=enabled
+			-Ddebugutils=enabled
+			-Ddeinterlace=enabled
+			-Ddtmf=enabled
+			-Deffectv=enabled
+			-Dequalizer=enabled
+			-Dflv=enabled
+			-Dflx=enabled
+			-Dgoom=enabled
+			-Dgoom2k1=enabled
+			-Dicydemux=enabled
+			-Did3demux=enabled
+			-Dimagefreeze=enabled
+			-Dinterleave=enabled
+			-Disomp4=enabled
+			-Dlaw=enabled
+			-Dlevel=enabled
+			-Dmatroska=enabled
+			-Dmonoscope=enabled
+			-Dmultifile=enabled
+			-Dmultipart=enabled
+			-Dreplaygain=enabled
+			-Drtp=enabled
+			-Drtpmanager=enabled
+			-Drtsp=enabled
+			-Dshapewipe=enabled
+			-Dsmpte=enabled
+			-Dspectrum=enabled
+			-Dudp=enabled
+			-Dvideobox=enabled
+			-Dvideocrop=enabled
+			-Dvideofilter=enabled
+			-Dvideomixer=enabled
+			-Dwavenc=enabled
+			-Dwavparse=enabled
+			-Dy4m=enabled
+			-Daalib=disabled
+			-Dbz2=enabled
+			-Dcairo=disabled
+			-Ddirectsound=disabled
+			-Ddv=disabled
+			-Ddv1394=disabled
+			-Dflac=disabled
+			-Dgdk-pixbuf=disabled
+			-Dgtk3=disabled
+			-Djack=disabled
+			-Djpeg=disabled
+			-Dlame=disabled
+			-Dlibcaca=disabled
+			-Dmpg123=disabled
+			-Doss=enabled
+			-Doss4=enabled
+			-Dosxaudio=disabled
+			-Dosxvideo=disabled
+			-Dpng=disabled
+			-Dpulse=disabled
+			-Dqt5=disabled
+			-Dshout2=disabled
+			-Dsoup=disabled
+			-Dspeex=disabled
+			-Dtaglib=disabled
+			-Dtwolame=disabled
+			-Dvpx=disabled
+			-Dwaveform=disabled
+			-Dwavpack=disabled
+			-Drpicamsrc=disabled
+			-Drpi-header-dir=disabled
+			-Drpi-lib-dir=disabled
+			-Dximagesrc=disabled
+			-Dximagesrc-xshm=disabled
+			-Dximagesrc-xfixes=disabled
+			-Dximagesrc-xdamage=disabled
+			-Dv4l2=disabled
+			-Dv4l2-probe=false
+			-Dv4l2-libv4l2=disabled
+			-Dv4l2-gudev=disabled
+			-Ddoc=disabled
+			-Dnls=enabled
+			-Dexamples=disabled
+			-Dtests=disabled
+			-Dorc=disabled
 DISTNAME=		gst-plugins-good-${PORTVERSION}
-CFLAGS=			-Wno-format
-LDFLAGS=		-lpthread
 PLIST_SUB=		GSTVER=${GST_VERSION}
 SOVERSION=		${SOVERSION}
-
-
-# configure docs build broken, hardcode it off
-
-post-patch:
-	${REINPLACE_CMD} -e 's/= plugins/=/' ${WRKSRC}/docs/Makefile.in

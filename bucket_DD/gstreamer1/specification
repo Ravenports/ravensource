@@ -5,7 +5,6 @@ DEF[SOVERSION]=		EXTRACT_INFO(GSTREAMER1_SOVERSION)
 
 NAMEBASE=		gstreamer1
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		standard
 SDESC[standard]=	Media applications framework
@@ -30,29 +29,27 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		multimedia/gstreamer1
 
+BUILD_DEPENDS=		autoselect-python:single:standard
+
 DISTNAME=		gstreamer-${PORTVERSION}
-USES=			bison cpe gettext-tools gmake libtool:keepla perl:build
-			pkgconfig python:build
-GNOME_COMPONENTS=	glib introspection
+USES=			bison cpe gettext-tools gmake perl:build
+			pkgconfig python:build meson
+GNOME_COMPONENTS=	glib
+# GNOME_COMPONENTS+=introspection
+# This breaks at /usr/include/errno.h:57 on DF
 CPE_VENDOR=		gstreamer_project
 CPE_PRODUCT=		gstreamer
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-tests
-			--disable-examples
-			--disable-failing-tests
-			--disable-fatal-warnings
-			--disable-gtk-doc
-CONFIGURE_ENV=		ac_cv_func_register_printf_function="no"
-INSTALL_TARGET=		install-strip
-INSTALL_REQ_TOOLCHAIN=	yes
-
+MESON_ARGS=		-Dgtk_doc=disabled
+			-Dtests=disabled
+			-Dexamples=disabled
+			-Dbenchmarks=disabled
+			-Dlibunwind=disabled
+			-Dintrospection=disabled
+			-Dbash-completion=disabled
+			-Dnls=enabled
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		VERSION=${GST_VERSION}
 
-post-patch:
-	${REINPLACE_CMD} -e 's|-Wmissing-include-dirs||g' \
-		${WRKSRC}/configure
-	# fix glib-mkenums code
-	${FIND} ${WRKSRC} -name "Makefile.in" |\
-		${XARGS} ${GREP} -l "enum_headers = " |\
-		${XARGS} ${REINPLACE_CMD} -e '/enum_headers =/ s|\\#include|#include|'
+post-patch-dragonfly:
+	${REINPLACE_CMD} -e 's|not rt_lib.found()|true|' \
+		${WRKSRC}/libs/gst/check/libcheck/meson.build

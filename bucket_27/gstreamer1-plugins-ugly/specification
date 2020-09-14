@@ -6,7 +6,6 @@ DEF[BUILD_DIRS]=	gst po gst-libs
 
 NAMEBASE=		gstreamer1-plugins-ugly
 VERSION=		${PORTVERSION}
-REVISION=		3
 KEYWORDS=		multimedia
 VARIANTS=		standard
 SDESC[standard]=	GStreamer1 plugins with potential dist. problems
@@ -22,43 +21,42 @@ SPKGS[standard]=	complete primary nls
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		LGPL20+:primary
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gst/asfdemux/gstasf.c
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		multimedia/gstreamer1-plugins-ugly
 
+BUILD_DEPENDS=		autoselect-python:single:standard
 BUILDRUN_DEPENDS=	gstreamer1:primary:standard
 			gstreamer1-plugins-base:primary:standard
 
-USES=			gmake pkgconfig libtool gettext-runtime
-GNOME_COMPONENTS=	glib introspection
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-default-audiosink="osssink"
-			--with-default-audiosrc="osssrc"
-			--disable-a52dec
-			--disable-amrnb
-			--disable-amrwb
-			--disable-cdio
-			--disable-dvdread
-			--disable-mpeg2dec
-			--disable-sidplay
-			--disable-x264
-INSTALL_TARGET=		install-strip
-INSTALL_REQ_TOOLCHAIN=	yes
+USES=			gmake pkgconfig meson
+			gettext-runtime gettext-tools
+GNOME_COMPONENTS=	glib
+# GNOME_COMPONENTS=introspection disabled on gstreamer1
+MESON_ARGS=		-Dasfdemux=enabled
+			-Ddvdlpcmdec=enabled
+			-Ddvdsub=enabled
+			-Drealmedia=enabled
+			-Dxingmux=enabled
+# external dependencies required
+			-Da52dec=disabled
+			-Damrnb=disabled
+			-Damrwbdec=disabled
+			-Dcdio=disabled
+			-Ddvdread=disabled
+			-Dmpeg2dec=disabled
+			-Dsidplay=disabled
+			-Dx264=disabled
+			-Ddoc=disabled
+			-Dnls=enabled
+			-Dexamples=disabled
+			-Dtests=disabled
+			-Dorc=disabled
 DISTNAME=		gst-plugins-ugly-${PORTVERSION}
-CFLAGS=			-Wno-format
-LDFLAGS=		-lpthread
 PLIST_SUB=		GSTVER=${GST_VERSION}
 SOVERSION=		${SOVERSION}
-
-post-patch:
-	${REINPLACE_CMD} -e 's|FLAGS -Werror|FLAGS|' ${WRKSRC}/configure
-
-do-build:
-.for dir in ${BUILD_DIRS}
-	(cd ${BUILD_WRKSRC}/${dir} && ${DO_MAKE_BUILD} ${BUILD_TARGET})
-.endfor
-
-do-install:
-.for dir in ${BUILD_DIRS}
-	(cd ${INSTALL_WRKSRC}/${dir} && ${SETENV} ${MAKE_ENV} \
-	${MAKE_CMD} ${MAKE_FLAGS} ${MAKEFILE} ${MAKE_ARGS} \
-	${INSTALL_TARGET})
-.endfor

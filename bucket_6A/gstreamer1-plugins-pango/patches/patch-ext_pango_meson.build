@@ -1,0 +1,10 @@
+--- ext/pango/meson.build.orig	2020-09-07 23:03:35 UTC
++++ ext/pango/meson.build
+@@ -7,6 +7,7 @@ pango_sources = [
+ ]
+ 
+ pango_dep = dependency('pangocairo', version : '>=1.22.0', required : get_option('pango'))
++video_dep = cc.find_library ('gstvideo-1.0', required : true)
+ 
+ if pango_dep.found()
+   gstpango = library('gstpango',

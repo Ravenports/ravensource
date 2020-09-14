@@ -1,0 +1,10 @@
+--- sys/ximage/meson.build.orig	2020-09-07 23:03:35 UTC
++++ sys/ximage/meson.build
+@@ -3,6 +3,7 @@ no_warn_args = []
+ if cc.has_argument ('-Wno-deprecated-declarations')
+   no_warn_args += '-Wno-deprecated-declarations'
+ endif
++video_dep = cc.find_library ('gstvideo-1.0', required : true)
+ 
+ gstximage = library('gstximagesink',
+   'ximagesink.c', 'ximage.c', 'ximagepool.c',

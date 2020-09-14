@@ -7,7 +7,6 @@ DEF[FPC]=		audio/gstreamer1-plugins-a52dec
 
 NAMEBASE=		gstreamer1-plugins-${PLUGIN}
 VERSION=		${PORTVERSION}
-REVISION=		3
 KEYWORDS=		multimedia audio
 VARIANTS=		standard
 SDESC[standard]=	GStreamer1 ${PLUGIN_DESC} plugin
@@ -23,34 +22,43 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		LGPL20+:single
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/ext/a52dec/gsta52dec.h
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		${FPC}
 
 BUILD_DEPENDS=		gstreamer1-plugins-ugly:primary:standard
+			autoselect-python:single:standard
 BUILDRUN_DEPENDS=	gstreamer1-plugins-base:primary:standard
 			gstreamer1:primary:standard
 			a52dec:single:standard
 
-USES=			gmake pkgconfig libtool
-GNOME_COMPONENTS=	glib introspection
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-default-audiosink="osssink"
-			--with-default-audiosrc="osssrc"
-			--enable-a52dec
-			--disable-amrnb
-			--disable-amrwb
-			--disable-cdio
-			--disable-dvdread
-			--disable-mpeg2dec
-			--disable-sidplay
-			--disable-x264
-INSTALL_TARGET=		install-strip
-INSTALL_REQ_TOOLCHAIN=	yes
+USES=			gmake pkgconfig meson
+GNOME_COMPONENTS=	glib
+# GNOME_COMPONENTS=introspection disabled on gstreamer1
+MESON_ARGS=		-Dasfdemux=disabled
+			-Ddvdlpcmdec=disabled
+			-Ddvdsub=disabled
+			-Drealmedia=disabled
+			-Dxingmux=disabled
+# external dependencies required
+			-Da52dec=enabled
+			-Damrnb=disabled
+			-Damrwbdec=disabled
+			-Dcdio=disabled
+			-Ddvdread=disabled
+			-Dmpeg2dec=disabled
+			-Dsidplay=disabled
+			-Dx264=disabled
+			-Ddoc=disabled
+			-Dnls=disabled
+			-Dexamples=disabled
+			-Dtests=disabled
+			-Dorc=disabled
 DISTNAME=		gst-plugins-ugly-${PORTVERSION}
-BUILD_WRKSRC=		{{WRKSRC}}/ext/${PLUGIN}
-INSTALL_WRKSRC=		{{WRKSRC}}/ext/${PLUGIN}
-CFLAGS=			-Wno-format
 PLIST_SUB=		GSTVER=${GST_VERSION}
 			PLUGIN=${PLUGIN}
-
-post-patch:
-	${REINPLACE_CMD} -e 's|FLAGS -Werror|FLAGS|' ${WRKSRC}/configure

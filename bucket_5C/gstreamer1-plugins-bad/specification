@@ -1,12 +1,10 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(GSTREAMER1_VERSION)
 DEF[GST_VERSION]=	EXTRACT_INFO(GSTREAMER1_GST)
 DEF[SOVERSION]=		EXTRACT_INFO(GSTREAMER1_SOVERSION)
-DEF[BUILD_DIRS]=	gst-libs sys gst po pkgconfig ext/bz2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gstreamer1-plugins-bad
 VERSION=		${PORTVERSION}
-REVISION=		3
 KEYWORDS=		multimedia
 VARIANTS=		standard
 SDESC[standard]=	GStreamer Multimedia Framework "Bad" Plugins
@@ -22,115 +20,197 @@ SPKGS[standard]=	complete primary nls
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		LGPL20+:primary
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gst-libs/gst/insertbin/gstinsertbin.c
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		multimedia/gstreamer1-plugins-bad
 
+BUILD_DEPENDS=		autoselect-python:single:standard
+			bzip2:static:standard
 BUILDRUN_DEPENDS=	gstreamer1:primary:standard
 			gstreamer1-plugins-base:primary:standard
+			bzip2:shared:standard
+			libgcrypt:single:standard
 
-USES=			gmake pkgconfig libtool gettext-runtime zlib
-GNOME_COMPONENTS=	glib introspection
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-assrender
-			--disable-bs2b
-			--disable-chromaprint
-			--disable-curl
-			--disable-dash
-			--disable-dtls
-			--disable-dts
-			--disable-faac
-			--disable-faad
-			--disable-flite
-			--disable-gme
-			--disable-gsm
-			--disable-gtk3
-			--disable-hls
-			--disable-kate
-			--disable-kms
-			--disable-ladspa
-			--disable-libde265
-			--disable-libmms
-			--disable-modplug
-			--disable-mpeg2enc
-			--disable-mplex
-			--disable-musepack
-			--disable-neon
-			--disable-ofa
-			--disable-openal
-			--disable-opencv
-			--disable-openexr
-			--disable-opengl
-			--disable-openh264
-			--disable-openjpeg
-			--disable-resindvd
-			--disable-rtmp
-			--disable-rsvg
-			--disable-schro
-			--disable-smoothstreaming
-			--disable-sndfile
-			--disable-soundtouch
-			--disable-spandsp
-			--disable-spc
-			--disable-srtp
-			--disable-sctp
-			--disable-ttml
-			--disable-vdpau
-			--disable-wayland
-			--disable-webp
-			--disable-webrtcdsp
-			--disable-x265
-			--disable-zbar
-# rest are not plugins
-			--disable-gles2
-			--disable-egl
-			--disable-glx
-			--enable-bz2
-			--disable-dvb
-			--enable-shm
-			--disable-acm
-			--disable-android_media
-			--disable-apple_media
-			--disable-avc
-			--disable-bluez
-			--disable-directfb
-			--disable-direct3d
-			--disable-directsound
-			--disable-msdk
-			--disable-nvenc
-			--disable-sbc
-			--disable-tinyalsa
-			--disable-uvch264
-			--disable-vcd
-			--disable-vulkan
-			--disable-wasapi
-			--disable-wgl
-			--disable-winks
-			--disable-winscreencap
-INSTALL_TARGET=		install-strip
-INSTALL_REQ_TOOLCHAIN=	yes
+USES=			gmake pkgconfig zlib meson
+			gettext-runtime gettext-tools
+GNOME_COMPONENTS=	glib libxml2
+XORG_COMPONENTS=	x11
+# GNOME_COMPONENTS=introspection disabled on gstreamer1
+MESON_ARGS=		-Dgst_player_tests=false
+			-Daccurip=enabled
+			-Dadpcmdec=enabled
+			-Dadpcmenc=enabled
+			-Daiff=enabled
+			-Dasfmux=enabled
+			-Daudiobuffersplit=enabled
+			-Daudiofxbad=enabled
+			-Daudiolatency=enabled
+			-Daudiomixmatrix=enabled
+			-Daudiovisualizers=enabled
+			-Dautoconvert=enabled
+			-Dbayer=enabled
+			-Dcamerabin2=enabled
+			-Dcoloreffects=enabled
+			-Ddebugutils=enabled
+			-Ddvbsubenc=enabled
+			-Ddvbsuboverlay=enabled
+			-Ddvdspu=enabled
+			-Dfaceoverlay=enabled
+			-Dfestival=enabled
+			-Dfieldanalysis=enabled
+			-Dfreeverb=enabled
+			-Dfrei0r=enabled
+			-Dgaudieffects=enabled
+			-Dgdp=enabled
+			-Dgeometrictransform=enabled
+			-Did3tag=enabled
+			-Dinter=enabled
+			-Dinterlace=enabled
+			-Divfparse=enabled
+			-Divtc=enabled
+			-Djp2kdecimator=enabled
+			-Djpegformat=enabled
+			-Dlibrfb=enabled
+			-Dmidi=enabled
+			-Dmpegdemux=enabled
+			-Dmpegpsmux=enabled
+			-Dmpegtsdemux=enabled
+			-Dmpegtsmux=enabled
+			-Dmxf=enabled
+			-Dnetsim=enabled
+			-Donvif=enabled
+			-Dpcapparse=enabled
+			-Dpnm=enabled
+			-Dproxy=enabled
+			-Drawparse=enabled
+			-Dremovesilence=enabled
+			-Drist=enabled
+			-Drtmp2=enabled
+			-Drtp=enabled
+			-Dsdp=enabled
+			-Dsegmentclip=enabled
+			-Dsiren=enabled
+			-Dsmooth=enabled
+			-Dspeed=enabled
+			-Dsubenc=enabled
+			-Dswitchbin=enabled
+			-Dtimecode=enabled
+			-Dvideofilters=enabled
+			-Dvideoframe_audiolevel=enabled
+			-Dvideoparsers=enabled
+			-Dvideosignal=enabled
+			-Dvmnc=enabled
+			-Dy4m=enabled
+# Below requires dependencies
+			-Dbz2=enabled
+			-Dipcpipeline=enabled
+			-Ddash=enabled
+			-Dhls=enabled
+# Below dependencies not provided
+			-Dbluez=disabled
+			-Dbs2b=disabled
+			-Dchromaprint=disabled
+			-Dclosedcaption=disabled
+			-Dcolormanagement=disabled
+			-Dcurl=disabled
+			-Dcurl-ssh2=disabled
+			-Dd3dvideosink=disabled
+			-Dd3d11=disabled
+			-Ddc1394=disabled
+			-Ddecklink=disabled
+			-Ddirectfb=disabled
+			-Ddirectsound=disabled
+			-Ddtls=disabled
+			-Ddts=disabled
+			-Ddvb=disabled
+			-Dfaac=disabled
+			-Dfaad=disabled
+			-Dfbdev=disabled
+			-Dfdkaac=disabled
+			-Dflite=disabled
+			-Dfluidsynth=disabled
+			-Dgl=disabled
+			-Dgme=disabled
+			-Dgsm=disabled
+			-Diqa=disabled
+			-Dkate=disabled
+			-Dkms=disabled
+			-Dladspa=disabled
+			-Dlibde265=disabled
+			-Dlibmms=disabled
+			-Dlv2=disabled
+			-Dmediafoundation=disabled
+			-Dmicrodns=disabled
+			-Dmodplug=disabled
+			-Dmpeg2enc=disabled
+			-Dmplex=disabled
+			-Dmsdk=disabled
+			-Dmusepack=disabled
+			-Dneon=disabled
+			-Dnvcodec=disabled
+			-Dofa=disabled
+			-Dopenal=disabled
+			-Dopenexr=disabled
+			-Dopenh264=disabled
+			-Dopenjpeg=disabled
+			-Dopenmpt=disabled
+			-Dopenni2=disabled
+			-Dopensles=disabled
+			-Dopus=disabled
+			-Dresindvd=disabled
+			-Drsvg=disabled
+			-Drtmp=disabled
+			-Dsbc=disabled
+			-Dsctp=disabled
+			-Dsctp-internal-usrsctp=disabled
+			-Dshm=disabled
+			-Dsmoothstreaming=disabled
+			-Dsndfile=disabled
+			-Dsoundtouch=disabled
+			-Dspandsp=disabled
+			-Dsrt=disabled
+			-Dsrtp=disabled
+			-Dsvthevcenc=disabled
+			-Dteletext=disabled
+			-Dtinyalsa=disabled
+			-Dtranscode=disabled
+			-Dttml=disabled
+			-Duvch264=disabled
+			-Dva=disabled
+			-Dvoaacenc=disabled
+			-Dvoamrwbenc=disabled
+			-Dvulkan=disabled
+			-Dwasapi=disabled
+			-Dwasapi2=disabled
+			-Dwebp=disabled
+			-Dwebrtc=disabled
+			-Dwebrtcdsp=disabled
+			-Dwildmidi=disabled
+			-Dwinks=disabled
+			-Dwinscreencap=disabled
+			-Dx265=disabled
+			-Dzbar=disabled
+			-Dzxing=disabled
+			-Dwpe=disabled
+			-Dmagicleap=disabled
+			-Dv4l2codecs=disabled
+			-Ddoc=disabled
+			-Dnls=enabled
+			-Dexamples=disabled
+			-Dtests=disabled
+			-Dorc=disabled
 DISTNAME=		gst-plugins-bad-${PORTVERSION}
-CFLAGS=			-Wno-format
-LDFLAGS=		-lpthread
 PLIST_SUB=		GSTVER=${GST_VERSION}
 SOVERSION=		${SOVERSION}
 
 post-patch:
-	${REINPLACE_CMD} -e 's|FLAGS -Werror|FLAGS|' ${WRKSRC}/configure
-	# even though sctp is disabled, libsctp is being build
-	${REINPLACE_CMD} -e 's| sctp||' ${WRKSRC}/gst-libs/gst/Makefile.in
-	# fix glib-mkenums code
-	${FIND} ${WRKSRC} -name "Makefile.in" |\
-		${XARGS} ${GREP} -l "enum_headers = " |\
-		${XARGS} ${REINPLACE_CMD} -e '/enum_headers =/ s|\\#include|#include|'
+	# even though sctp is disabled, libsctp is being built
+	${REINPLACE_CMD} -e '/subdir..sctp../d' \
+		${WRKSRC}/gst-libs/gst/meson.build
 
-do-build:
-.for dir in ${BUILD_DIRS}
-	(cd ${BUILD_WRKSRC}/${dir} && ${DO_MAKE_BUILD} ${BUILD_TARGET})
-.endfor
 
-do-install:
-.for dir in ${BUILD_DIRS}
-	(cd ${INSTALL_WRKSRC}/${dir} && ${SETENV} ${MAKE_ENV} \
-	${MAKE_CMD} ${MAKE_FLAGS} ${MAKEFILE} ${MAKE_ARGS} \
-	${INSTALL_TARGET})
-.endfor
-	${RM} ${STAGEDIR}${PREFIX}/lib/pkgconfig/gstreamer-sctp-1.0.pc

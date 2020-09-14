@@ -20,24 +20,24 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		LGPL20+:single
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/ext/libav/gstav.h
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		multimedia/gstreamer1-libav
 
 BUILD_DEPENDS=		nasm:primary:standard
+			autoselect-python:single:standard
 BUILDRUN_DEPENDS=	gstreamer1-plugins-base:primary:standard
 			gstreamer1:primary:standard
 			ffmpeg:primary:standard
 
-USES=			gmake pkgconfig libtool python:build
-GNOME_COMPONENTS=	glib introspection
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-gtk-doc-html=no
-			--with-system-libav
-INSTALL_TARGET=		install-strip
-INSTALL_REQ_TOOLCHAIN=	yes
+USES=			gmake pkgconfig python:build meson
+GNOME_COMPONENTS=	glib
+# GNOME_COMPONENTS=introspection disabled on gstreamer1
+MESON_ARGS=		-Ddoc=disabled
 DISTNAME=		gst-libav-${PORTVERSION}
 PLIST_SUB=		GSTVER=${GST_VERSION}
-
-post-patch:
-	${REINPLACE_CMD} -e 's|-Werror||g' ${WRKSRC}/configure
-	# configure is broken, we don't want docs
-	${REINPLACE_CMD} -e 's|= plugins|=|' ${WRKSRC}/docs/Makefile.in

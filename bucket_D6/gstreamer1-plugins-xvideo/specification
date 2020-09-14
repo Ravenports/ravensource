@@ -7,7 +7,6 @@ DEF[FPC]=		x11/gstreamer1-plugins-x
 
 NAMEBASE=		gstreamer1-plugins-${PLUGIN}
 VERSION=		${PORTVERSION}
-REVISION=		4
 KEYWORDS=		multimedia x11
 VARIANTS=		standard
 SDESC[standard]=	GStreamer1 ${PLUGIN_DESC} plugin
@@ -23,40 +22,71 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		LGPL20+:single
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/sys/ximage/ximagesink.h
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		${FPC}
 
+BUILD_DEPENDS=		autoselect-python:single:standard
 BUILDRUN_DEPENDS=	gstreamer1:primary:standard
 			gstreamer1-plugins-base:primary:standard
 
-USES=			gmake pkgconfig libtool
+USES=			gmake pkgconfig meson
 XORG_COMPONENTS=	x11 xext
-GNOME_COMPONENTS=	glib introspection
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-default-audiosink="osssink"
-			--with-default-audiosrc="osssrc"
-			--disable-alsa
-			--disable-cdparanoia
-			--disable-ivorbis
-			--disable-libvisual
-			--disable-ogg
-			--disable-opus
-			--disable-pango
-			--disable-theora
-			--disable-vorbis
-			--enable-x
-			--enable-xvideo
-			--disable-xshm
-INSTALL_TARGET=		install-strip
-INSTALL_REQ_TOOLCHAIN=	yes
+GNOME_COMPONENTS=	glib
+# GNOME_COMPONENTS=introspection disabled on gstreamer1
+MESON_ARGS=		-Dalsa=disabled
+			-Dcdparanoia=disabled
+			-Dlibvisual=disabled
+			-Dogg=disabled
+			-Dopus=disabled
+			-Dpango=disabled
+			-Dtheora=disabled
+			-Dtremor=disabled
+			-Dvorbis=disabled
+			-Dx11=enabled
+			-Dxshm=disabled
+			-Dxvideo=enabled
+			-Ddoc=disabled
+			-Dnls=disabled
+			-Dtools=disabled
+			-Dexamples=disabled
+			-Dtests=disabled
+			-Dorc=disabled
+			-Daudioconvert=disabled
+			-Daudiomixer=disabled
+			-Daudiorate=disabled
+			-Daudioresample=disabled
+			-Daudiotestsrc=disabled
+			-Dcompositor=disabled
+			-Dencoding=disabled
+			-Dgio=disabled
+			-Dadder=disabled
+			-Dapp=disabled
+			-Doverlaycomposition=disabled
+			-Dpbtypes=disabled
+			-Dplayback=disabled
+			-Drawparse=disabled
+			-Dsubparse=disabled
+			-Dtcp=disabled
+			-Dtypefind=disabled
+			-Dvideoconvert=disabled
+			-Dvideorate=disabled
+			-Dvideoscale=disabled
+			-Dvideotestsrc=disabled
+			-Dvolume=disabled
+			-Dgl=disabled
 DISTNAME=		gst-plugins-base-${PORTVERSION}
-BUILD_WRKSRC=		{{WRKSRC}}/sys/ximage
-INSTALL_WRKSRC=		{{WRKSRC}}/sys/ximage
-CFLAGS=			-Wno-format
 PLIST_SUB=		GSTVER=${GST_VERSION}
 			PLUGIN=${PLUGIN}
 
 post-patch:
-	${REINPLACE_CMD} -e 's|FLAGS -Werror|FLAGS|' ${WRKSRC}/configure
-	${REINPLACE_CMD} -E -e \
-	's|[$$][(]top_builddir[)]/gst-libs/gst/video/libgstvideo-[$$][(]GST_API_VERSION[)].la|-lgstvideo-1.0|'\
-	${WRKSRC}/sys/ximage/Makefile.in
+	${REINPLACE_CMD} \
+		-e "/subdir..gst-libs../d" \
+		-e "/subdir..pkgconfig../d" \
+		${WRKSRC}/meson.build
+	${REINPLACE_CMD} -e "/subdir..xvimage../d" ${WRKSRC}/sys/meson.build

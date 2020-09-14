@@ -1,4 +1,4 @@
---- sys/oss/gstosshelper.c.orig	2019-04-19 09:16:25 UTC
+--- sys/oss/gstosshelper.c.orig	2020-09-07 23:05:16 UTC
 +++ sys/oss/gstosshelper.c
 @@ -82,9 +82,9 @@ GstCaps *
  gst_oss_helper_probe_caps (gint fd)
