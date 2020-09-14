@@ -1,4 +1,4 @@
---- gio/gunixmounts.c.orig	2020-07-02 13:02:13 UTC
+--- gio/gunixmounts.c.orig	2020-09-10 10:42:41 UTC
 +++ gio/gunixmounts.c
 @@ -63,6 +63,10 @@
  #define O_BINARY 0
@@ -9,5 +9,5 @@
 +#endif
 +
  #include "gunixmounts.h"
- #include "glocalfileprivate.h"
  #include "gfile.h"
+ #include "gfilemonitor.h"

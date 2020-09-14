@@ -1,6 +1,6 @@
---- glib/tests/gdatetime.c.orig	2020-07-02 13:02:13 UTC
+--- glib/tests/gdatetime.c.orig	2020-09-10 10:42:41 UTC
 +++ glib/tests/gdatetime.c
-@@ -2268,7 +2268,7 @@ test_find_interval (void)
+@@ -2277,7 +2277,7 @@ test_find_interval (void)
    gint i1, i2;
  
  #ifdef G_OS_UNIX
@@ -9,7 +9,7 @@
  #elif defined G_OS_WIN32
    tz = g_time_zone_new ("Eastern Standard Time");
  #endif
-@@ -2301,7 +2301,7 @@ test_adjust_time (void)
+@@ -2310,7 +2310,7 @@ test_adjust_time (void)
    gint i1, i2;
  
  #ifdef G_OS_UNIX

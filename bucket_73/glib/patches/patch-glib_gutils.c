@@ -1,4 +1,4 @@
---- glib/gutils.c.orig	2020-07-02 13:02:13 UTC
+--- glib/gutils.c.orig	2020-09-10 10:42:41 UTC
 +++ glib/gutils.c
 @@ -28,6 +28,10 @@
  

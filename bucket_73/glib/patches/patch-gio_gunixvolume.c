@@ -1,6 +1,6 @@
---- gio/gunixvolume.c.orig	2020-07-02 13:02:13 UTC
+--- gio/gunixvolume.c.orig	2020-09-10 10:42:41 UTC
 +++ gio/gunixvolume.c
-@@ -365,9 +365,14 @@ g_unix_volume_eject (GVolume
+@@ -367,9 +367,14 @@ g_unix_volume_eject (GVolume
                       gpointer             user_data)
  {
    GUnixVolume *unix_volume = G_UNIX_VOLUME (volume);
@@ -13,5 +13,5 @@
    argv[1] = unix_volume->device_path;
 +#endif
  
-   eject_mount_do (volume, cancellable, callback, user_data, argv);
+   eject_mount_do (volume, cancellable, callback, user_data, argv, "[gio] eject volume");
  }
