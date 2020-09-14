@@ -1,6 +1,6 @@
---- mesonbuild/scripts/depfixer.py.orig	2020-06-29 17:00:15 UTC
+--- mesonbuild/scripts/depfixer.py.orig	2020-09-10 16:39:24 UTC
 +++ mesonbuild/scripts/depfixer.py
-@@ -457,7 +457,7 @@ def fix_rpath(fname, rpath_dirs_to_remov
+@@ -461,7 +461,7 @@ def fix_rpath(fname, rpath_dirs_to_remov
          if fname.endswith('.jar'):
              fix_jar(fname)
              return

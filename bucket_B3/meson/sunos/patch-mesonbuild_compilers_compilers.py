@@ -1,4 +1,4 @@
---- mesonbuild/compilers/compilers.py.orig	2020-06-29 17:00:15 UTC
+--- mesonbuild/compilers/compilers.py.orig	2020-09-10 16:39:18 UTC
 +++ mesonbuild/compilers/compilers.py
 @@ -365,9 +365,6 @@ def get_base_link_args(options, linker,
      # -bitcode_bundle is incompatible with -undefined and -bundle
