@@ -1,11 +1,12 @@
+# Check jbig2dec; it may need upgradinging simultaneously
 DEF[PORTVERSION]=	EXTRACT_INFO(GHOSTSCRIPT_VERSION)
-DEF[DLFOLDER]=		${PORTVERSION:S/.//}
+DEF[DLFOLDER]=		gs${PORTVERSION:S/.//g}
 DEF[DATADIR]=		{{PREFIX}}/share/ghostscript/${PORTVERSION}
+DEF[SOVERSION]=		${PORTVERSION:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ghostscript
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		print
 VARIANTS=		standard
 SDESC[standard]=	Postscript and PDF Rendering Engine
@@ -13,7 +14,7 @@ HOMEPAGE=		https://www.ghostscript.com/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs${DLFOLDER}/
+SITES[main]=		https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/${DLFOLDER}/
 DISTFILE[1]=		ghostscript-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	complete primary x11 docs
@@ -73,7 +74,8 @@ CONFIGURE_ENV=		LIBS=-Wl,-rpath,{{PREFIX}}/lib
 BUILD_TARGET=		so ./obj/X11.so
 INSTALL_TARGET=		soinstall install-shared
 INSTALL_REQ_TOOLCHAIN=	yes
-SOVERSION=		${PORTVERSION}
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		GV=${PORTVERSION}
 DISTNAME=		ghostscript-${PORTVERSION}
 CPE_VENDOR=		artifex
 CPE_PRODUCT=		ghostscript

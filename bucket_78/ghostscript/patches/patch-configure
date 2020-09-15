@@ -1,15 +1,15 @@
---- configure.orig	2020-03-19 08:22:25 UTC
+--- configure.orig	2020-09-14 13:40:41 UTC
 +++ configure
-@@ -4520,7 +4520,7 @@ case $host in
-             CC_DBG_FLAGS_TO_TRY="-gdwarf-2 -g3 -O0"
+@@ -4632,7 +4632,7 @@ case $host in
+             CC_VISIBILITY_FLAGS_TO_TRY="-fvisibility=hidden"
          fi
          ;;
 -        *bsd*)
 +        *bsd*|*dragonfly*)
-         if test $ac_cv_c_compiler_gnu = yes; then
+         if test $GCC = yes; then
              CC_OPT_FLAGS_TO_TRY="-O2 -DNDEBUG"
              CC_DBG_FLAGS_TO_TRY="-gdwarf-2 -g3 -O0"
-@@ -5357,7 +5357,7 @@ if test "${enable_threadsafe+set}" = set
+@@ -5505,7 +5505,7 @@ if test "${enable_threadsafe+set}" = set
  fi
  
  if test x$enable_threadsafe = xyes ; then
@@ -18,7 +18,7 @@
  fi
  
  
-@@ -6033,7 +6033,6 @@ if ${ac_cv_lib_dl_dlopen+:} false; then
+@@ -6181,7 +6181,6 @@ if ${ac_cv_lib_dl_dlopen+:} false; then
    $as_echo_n "(cached) " >&6
  else
    ac_check_lib_save_LIBS=$LIBS
@@ -26,7 +26,7 @@
  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
  
-@@ -6066,7 +6065,7 @@ $as_echo "$ac_cv_lib_dl_dlopen" >&6; }
+@@ -6214,7 +6213,7 @@ $as_echo "$ac_cv_lib_dl_dlopen" >&6; }
  if test "x$ac_cv_lib_dl_dlopen" = xyes; then :
    ac_fn_c_check_header_mongrel "$LINENO" "dlfcn.h" "ac_cv_header_dlfcn_h" "$ac_includes_default"
  if test "x$ac_cv_header_dlfcn_h" = xyes; then :
@@ -35,7 +35,7 @@
  fi
  
  
-@@ -10683,42 +10682,42 @@ if test x$enable_threadsafe = xyes; then
+@@ -11387,42 +11386,42 @@ if test x$enable_threadsafe = xyes; then
  
    for ntsdev in $NTS_DEVS ; do
      NTS_EXCLUDES="$(echo \"$P_DEVS0{@:0}\" | grep -o $ntsdev) $NTS_EXCLUDES"
@@ -86,16 +86,16 @@
    done
  
    NTS_EXCLUDES=`echo "$NTS_EXCLUDES" | tr " " "\n" | sort | uniq | tr "\n" " "`
-@@ -10871,7 +10870,7 @@ case $host in
+@@ -11601,7 +11600,7 @@ case $host in
        GPDL_SONAME_MAJOR="lib\$(GPDL${libname3}"
-       GPDL_SONAME_MAJOR_MINOR="lib\$(GPDL${libname2}"
+       GPDL_SONAME_MAJOR_MINOR="cyg\$(GPDL${libname2}"
      ;;
 -    *bsd*)
 +    *bsd*|*dragonfly*)
        DYNAMIC_CFLAGS="-fPIC $DYNAMIC_CFLAGS"
        GS_DYNAMIC_LDFLAGS="-shared -Wl,\$(LD_SET_DT_SONAME)\$(LDFLAGS_SO_PREFIX)\$(GS_SONAME_MAJOR)"
        PCL_DYNAMIC_LDFLAGS="-shared -Wl,\$(LD_SET_DT_SONAME)\$(LDFLAGS_SO_PREFIX)\$(PCL_SONAME_MAJOR)"
-@@ -10969,7 +10968,7 @@ if test "${enable_dynamic+set}" = set; t
+@@ -11699,7 +11698,7 @@ if test "${enable_dynamic+set}" = set; t
          OPT_CFLAGS="$DYNAMIC_CFLAGS $OPT_CFLAGS"
          DBG_CFLAGS="$DYNAMIC_CFLAGS $DBG_CFLAGS"
        ;;
