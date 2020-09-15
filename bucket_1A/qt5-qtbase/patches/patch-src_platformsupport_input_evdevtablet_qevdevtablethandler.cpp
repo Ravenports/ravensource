@@ -1,4 +1,4 @@
---- src/platformsupport/input/evdevtablet/qevdevtablethandler.cpp.orig	2020-05-11 08:15:08 UTC
+--- src/platformsupport/input/evdevtablet/qevdevtablethandler.cpp.orig	2020-09-02 10:15:07 UTC
 +++ src/platformsupport/input/evdevtablet/qevdevtablethandler.cpp
 @@ -45,11 +45,7 @@
  #include <QLoggingCategory>

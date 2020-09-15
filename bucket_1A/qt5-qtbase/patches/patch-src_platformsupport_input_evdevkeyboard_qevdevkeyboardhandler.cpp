@@ -1,4 +1,4 @@
---- src/platformsupport/input/evdevkeyboard/qevdevkeyboardhandler.cpp.orig	2020-05-11 08:15:08 UTC
+--- src/platformsupport/input/evdevkeyboard/qevdevkeyboardhandler.cpp.orig	2020-09-02 10:15:07 UTC
 +++ src/platformsupport/input/evdevkeyboard/qevdevkeyboardhandler.cpp
 @@ -52,11 +52,7 @@
  #include <QtGui/private/qguiapplication_p.h>
@@ -10,5 +10,5 @@
  #include <linux/input.h>
 -#endif
  
- QT_BEGIN_NAMESPACE
- 
+ #ifndef input_event_sec
+ #define input_event_sec time.tv_sec
