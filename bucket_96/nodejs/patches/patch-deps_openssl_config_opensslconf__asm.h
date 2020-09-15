@@ -1,6 +1,6 @@
---- deps/openssl/config/opensslconf_asm.h.orig	2020-08-27 12:30:40 UTC
+--- deps/openssl/config/opensslconf_asm.h.orig	2020-09-10 12:07:03 UTC
 +++ deps/openssl/config/opensslconf_asm.h
-@@ -110,7 +110,7 @@
+@@ -113,7 +113,7 @@
  # include "./archs/VC-WIN64A/asm/include/openssl/opensslconf.h"
  #elif (defined(__FreeBSD__) || defined(__OpenBSD__)) && defined(__i386__)
  # include "./archs/BSD-x86/asm/include/openssl/opensslconf.h"
