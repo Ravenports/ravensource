@@ -1,4 +1,4 @@
---- src/vte.cc.orig	2020-05-13 09:51:07 UTC
+--- src/vte.cc.orig	2020-09-15 14:46:41 UTC
 +++ src/vte.cc
 @@ -29,6 +29,13 @@
  #ifdef HAVE_SYS_TERMIOS_H
@@ -14,7 +14,7 @@
  
  #include <glib.h>
  #include <glib-unix.h>
-@@ -3966,6 +3973,9 @@ Terminal::pty_io_read(int const fd,
+@@ -3959,6 +3966,9 @@ Terminal::pty_io_read(int const fd,
  			bp = chunk->data + chunk->len;
  			len = 0;
  			do {
@@ -24,7 +24,7 @@
                                  /* We'd like to read (fd, bp, rem); but due to TIOCPKT mode
                                   * there's an extra input byte returned at the beginning.
                                   * We need to see what that byte is, but otherwise drop it
-@@ -3977,6 +3987,7 @@ Terminal::pty_io_read(int const fd,
+@@ -3970,6 +3980,7 @@ Terminal::pty_io_read(int const fd,
                                  int ret = read (fd, bp - 1, rem + 1);
                                  pkt_header = bp[-1];
                                  bp[-1] = save;
@@ -32,7 +32,7 @@
  				switch (ret){
  					case -1:
  						err = errno;
-@@ -3985,6 +3996,7 @@ Terminal::pty_io_read(int const fd,
+@@ -3978,6 +3989,7 @@ Terminal::pty_io_read(int const fd,
  						eos = true;
  						goto out;
  					default:
@@ -40,7 +40,7 @@
                                                  ret--;
  
                                                  if (pkt_header == TIOCPKT_DATA) {
-@@ -4011,6 +4023,7 @@ Terminal::pty_io_read(int const fd,
+@@ -4004,6 +4016,7 @@ Terminal::pty_io_read(int const fd,
                                                          if (pkt_header & TIOCPKT_START) {
                                                                  pty_scroll_lock_changed(false);
                                                          }

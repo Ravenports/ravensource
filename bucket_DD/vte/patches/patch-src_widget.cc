@@ -1,4 +1,4 @@
---- src/widget.cc.orig	2020-05-13 09:51:07 UTC
+--- src/widget.cc.orig	2020-09-15 14:46:41 UTC
 +++ src/widget.cc
 @@ -22,6 +22,10 @@
  
@@ -8,6 +8,6 @@
 +#define W_EXITCODE(ret, sig)	((ret) << 8 | (sig))
 +#endif
 +
+ #include <exception>
  #include <new>
  #include <string>
- 
