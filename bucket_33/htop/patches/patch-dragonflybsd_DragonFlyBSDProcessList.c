@@ -1,6 +1,6 @@
---- dragonflybsd/DragonFlyBSDProcessList.c.orig	2020-09-03 03:23:43 UTC
+--- dragonflybsd/DragonFlyBSDProcessList.c.orig	2020-09-14 23:43:36 UTC
 +++ dragonflybsd/DragonFlyBSDProcessList.c
-@@ -451,7 +451,7 @@ void ProcessList_goThroughEntries(Proces
+@@ -403,7 +403,7 @@ void ProcessList_goThroughEntries(Proces
           proc->session = kproc->kp_sid;
           proc->tty_nr = kproc->kp_tdev;		// control terminal device number
           proc->st_uid = kproc->kp_uid;		// user ID
@@ -9,7 +9,7 @@
           proc->starttime_ctime = kproc->kp_start.tv_sec;
           proc->user = UsersTable_getRef(this->usersTable, proc->st_uid);
  
-@@ -576,3 +576,21 @@ void ProcessList_goThroughEntries(Proces
+@@ -528,3 +528,21 @@ void ProcessList_goThroughEntries(Proces
        proc->updated = true;
     }
  }

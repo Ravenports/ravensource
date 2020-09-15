@@ -1,6 +1,6 @@
---- dragonflybsd/Platform.c.orig	2020-09-03 03:23:43 UTC
+--- dragonflybsd/Platform.c.orig	2020-09-14 23:43:36 UTC
 +++ dragonflybsd/Platform.c
-@@ -207,7 +207,21 @@ void Platform_setTasksValues(Meter* this
+@@ -195,7 +195,21 @@ void Platform_setTasksValues(Meter* this
  }
  
  char* Platform_getProcessEnv(pid_t pid) {
