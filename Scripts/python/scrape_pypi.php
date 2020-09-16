@@ -284,7 +284,7 @@ function inline_fix_setup ($namebase, $src) {
        "ddt"          => '/enum34/d',
        "tqdm"         => '/== .make/ s|^if .*|if False:|',
        "wcwidth"      => 's|.backports[.].*;.||; s|.python_version.*)|)|',
-       "breathe"      => '/import breathe/d',
+       "breathe"      => '/from breathe/d',
        "asn1"         => '/version_info.*3\.4/d; s/.enum-compat.//',
        "pycryptodomex"=> '/set_compiler_options/d',
        "pyclipper"    => '/print(/d', 
@@ -340,7 +340,7 @@ function inline_fix_setup ($namebase, $src) {
                $xf = $src . "/breathe/__init__.py";
                $bv = trim (shell_exec ("awk '/__version__/ { print $3 }' $xf"));
                $xf = $src . "/setup.py";
-               shell_exec ("sed -i.bak -e \"s|breathe.__version__|$bv|\" $xf");
+               shell_exec ("sed -i.bak -e \"s|__version__|$bv|\" $xf");
                break;
            case "xml2rfc":
                $xf = $src . "/requirements.txt";
