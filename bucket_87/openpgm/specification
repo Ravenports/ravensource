@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	5.2.122
-DEF[SOVERSION]=		0.0.122
+DEF[PORTVERSION]=	5.3.128
+DEF[SOVERSION]=		0.0.128
 DEF[SOMAJOR]=		${SOVERSION:R:R}
 DEF[RELEASE_TAG]=	release-${PORTVERSION:S/./-/g}
 # ----------------------------------------------------------------------------
@@ -28,7 +28,7 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/pgm/pgm.h
 LICENSE_SCHEME=		solo
 
-BROKEN[dragonfly]=	missing struct group_source_req in <netinet/in.h>
+BROKEN[dragonfly]=	Does not have pgm headers
 
 FPC_EQUIVALENT=		net/openpgm
 
@@ -39,6 +39,9 @@ USES=			autoreconf perl:build libtool python:build
 DISTNAME=		openpgm-${RELEASE_TAG}/openpgm/pgm
 INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
+
+post-extract:
+	${MV} ${WRKSRC}/openpgm-5.2.pc.in ${WRKSRC}/openpgm-5.3.pc.in
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${STD_DOCDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
