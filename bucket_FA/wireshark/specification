@@ -7,6 +7,7 @@ DEF[PLUGIN_VER]=	${PORTVERSION:R}
 
 NAMEBASE=		wireshark
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net
 VARIANTS=		standard
 SDESC[standard]=	Network traffic analyzer
@@ -109,6 +110,8 @@ post-patch:
 		${WRKSRC}/cmake/modules/FindPOD.cmake
 	${REINPLACE_CMD} -e '/NAMES lua/ s|lua52|lua-${LUA_VER}|' \
 		${WRKSRC}/cmake/modules/FindLUA.cmake
+	${REINPLACE_CMD} -e 's|libssh/libssh.h|libssh/libssh_version.h|' \
+		${WRKSRC}/cmake/modules/FindLIBSSH.cmake
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
