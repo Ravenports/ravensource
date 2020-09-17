@@ -4,7 +4,7 @@
  #include <unistd.h>
  #include <stdlib.h>
  #endif
-+#ifdef __DragonFly__
++#if defined __DragonFly__ || defined __FreeBSD__
 +#include <netinet/in.h>
 +#include <sys/socket.h>
 +#endif
