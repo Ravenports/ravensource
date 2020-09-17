@@ -381,31 +381,24 @@ headers_DragonFly_dirs=	arpa \
 			xlocale \
 			# end
 
-headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
+headers_BSD=		${posix_headers:Nstropts.h:Ntrace.h} \
 			ar.h \
 			bitstring.h \
 			bluetooth.h \
 			camlib.h \
-			devattr.h \
 			devinfo.h \
 			devstat.h \
-			dfregress.h \
-			disktab.h \
 			efivar.h \
 			elf-hints.h \
 			elf.h \
 			err.h \
-			evtr.h \
 			floatingpoint.h \
 			fstab.h \
 			fts.h \
 			getopt.h \
 			ieeefp.h \
 			ifaddrs.h \
-			kinfo.h \
-			kinfo_pcpu.h \
 			kvm.h \
-			libcryptsetup.h \
 			libusb.h \
 			libusb20.h \
 			libusb20_desc.h \
@@ -413,9 +406,7 @@ headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
 			link.h \
 			linker_set.h \
 			login_cap.h \
-			luks.h \
 			memory.h \
-			mntopts.h \
 			mpool.h \
 			netconfig.h \
 			nlist.h \
@@ -423,7 +414,6 @@ headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
 			paths.h \
 			printf.h \
 			pthread_np.h \
-			re_comp.h \
 			readpassphrase.h \
 			res_update.h \
 			resolv.h \
@@ -441,13 +431,25 @@ headers_DragonFly=	${posix_headers:Nstropts.h:Ntrace.h} \
 			ucontext.h \
 			usb.h \
 			usbhid.h \
-			util.h \
 			uuid.h \
 			vis.h \
 			xlocale.h \
 			# end
 
-headers_FreeBSD=	${headers_DragonFly:Nutil.h:Ndevattr.h:Ndfregress.h:Ndisktab.h:Nevtr.h:Nlibcryptsetup.h:Nluks.h:Nmntopts.h:Nre_comp.h:Nutmp.h} \
+headers_DragonFly=	${headers_BSD} \
+			devattr.h \
+			dfregress.h \
+			disktab.h \
+			evtr.h \
+			kinfo.h \
+			kinfo_pcpu.h \
+			libcryptsetup.h \
+			luks.h \
+			mntopts.h \
+			re_comp.h \
+			util.h
+
+headers_FreeBSD=	${headers_BSD} \
 			_ctype.h \
 			bsm/audit.h \
 			libusb20.h \
