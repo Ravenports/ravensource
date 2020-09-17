@@ -4,7 +4,7 @@
  #include <ws2tcpip.h>
  #else
  #include <netinet/in.h>
-+# ifdef __DragonFly__
++# if defined __DragonFly__ || defined __FreeBSD__
 +#  include <sys/socket.h>
 +# endif
  #endif
