@@ -5,6 +5,7 @@ DEF[SOVERSION]=		EXTRACT_INFO(GSTREAMER1_SOVERSION)
 
 NAMEBASE=		gstreamer1-plugins-good
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		standard
 SDESC[standard]=	GStreamer Multimedia Framework "Good" Plugins
@@ -31,7 +32,8 @@ FPC_EQUIVALENT=		multimedia/gstreamer1-plugins-good
 
 BUILD_DEPENDS=		autoselect-python:single:standard
 			bzip2:static:standard
-			nasm:primary:standard
+# Nasm brokes build on FreeBSD
+# #			nasm:primary:standard
 BUILDRUN_DEPENDS=	gstreamer1:primary:standard
 			gstreamer1-plugins-base:primary:standard
 			bzip2:shared:standard
