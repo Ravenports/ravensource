@@ -1,15 +1,15 @@
---- lib/freebl/Makefile.orig	2020-07-24 15:10:32 UTC
+--- lib/freebl/Makefile.orig	2020-09-18 17:00:23 UTC
 +++ lib/freebl/Makefile
-@@ -238,7 +238,7 @@ ifeq ($(CPU_ARCH),x86)
+@@ -263,7 +263,7 @@ else ifeq ($(CPU_ARCH),x86)
  endif
  endif # Darwin
  
 -ifeq ($(OS_TARGET),Linux)
 +ifeq (,$(filter-out Linux DragonFly FreeBSD, $(OS_TARGET)))
  ifeq ($(CPU_ARCH),x86_64)
-     ASFILES  = arcfour-amd64-gas.s mpi_amd64_gas.s
-     ASFLAGS += -fPIC -Wa,--noexecstack
-@@ -323,7 +323,7 @@ endif
+     # Lower case s on mpi_amd64_common due to make implicit rules.
+     ASFILES  = arcfour-amd64-gas.s mpi_amd64_common.s
+@@ -349,7 +349,7 @@ endif
  # to bind the blapi function references in FREEBLVector vector
  # (ldvector.c) to the blapi functions defined in the freebl
  # shared libraries.
