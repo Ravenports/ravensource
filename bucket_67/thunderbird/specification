@@ -1,9 +1,9 @@
 DEF[PORTVERSION]=	78.2.2
-DEF[PYTHON3]=		EXTRACT_VERSION(PYTHON3_DEFAULT)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		thunderbird
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		mail net_im news
 VARIANTS=		standard
 SDESC[standard]=	Mozilla Thunderbird mail/newsgroup client
@@ -37,6 +37,7 @@ BUILD_DEPENDS=		rust:single:standard
 			libvpx:single:standard
 			clang:compiler:standard
 			evdev-proto:single:standard
+			autoselect-python:single:standard
 			python-sqlite3:single:python_used
 BUILDRUN_DEPENDS=	nss:primary:standard
 			icu:single:standard
@@ -45,6 +46,7 @@ BUILDRUN_DEPENDS=	nss:primary:standard
 			libevent:single:standard
 			libcanberra:primary:standard
 			libnotify:primary:standard
+			harfbuzz:primary:standard
 			aom:single:standard
 			WebP:single:standard
 			dav1d:single:standard
@@ -54,7 +56,8 @@ BUILDRUN_DEPENDS=	nss:primary:standard
 			startup-notification:single:standard
 
 USES=			cpe desktop-utils:single gmake jpeg png zlib
-			perl:build pkgconfig iconv python gettext-runtime
+			perl:build pkgconfig iconv python:build
+			gettext-runtime
 XORG_COMPONENTS=	x11 xcb xcomposite xdamage xext xfixes xrender xt
 			pixman
 GNOME_COMPONENTS=	gconf gtk2 gtk3 gdkpixbuf pango
@@ -70,6 +73,8 @@ QMAKE_ARGS=		--prefix="{{PREFIX}}"
 			--with-system-png="{{LOCALBASE}}"
 			--with-system-jpeg="{{LOCALBASE}}"
 			--with-system-libevent
+			--with-system-harfbuzz
+			--with-system-graphite2
 			--with-system-av1
 			--with-system-webp
 			--enable-system-ffi
@@ -96,9 +101,9 @@ QMAKE_ARGS=		--prefix="{{PREFIX}}"
 			--disable-tests
 			--disable-updater
 			--disable-hardening
-CONFIGURE_ENV=		PYTHON3={{LOCALBASE}}/bin/python${PYTHON3}
+CONFIGURE_ENV=		PYTHON3={{PYTHON_CMD}}
 			SETUPTOOLS_USE_DISTUTILS=stdlib
-MAKE_ENV=		PYTHON3={{LOCALBASE}}/bin/python${PYTHON3}
+MAKE_ENV=		PYTHON3={{PYTHON_CMD}}
 			CXXSTDLIB="stdc++"
 
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-jemalloc
@@ -106,7 +111,8 @@ VAR_OPSYS[linux]=	QMAKE_ARGS=--disable-elf-hack
 
 post-patch:
 	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
-		${WRKSRC}/comm/mail/app/nsMailApp.cpp
+		${WRKSRC}/comm/mail/app/nsMailApp.cpp \
+		${WRKSRC}/browser/app/nsBrowserApp.cpp
 	(cd ${WRKSRC}/gfx/angle/checkout/src/compiler/translator && \
 		${REINPLACE_CMD} -e 's|<math.h>|<cmath>|' \
 		InfoSink.h IntermNode.cpp)
@@ -121,9 +127,6 @@ post-patch:
 		${WRKSRC}/media/libcubeb/src/cubeb_alsa.c
 	${REINPLACE_CMD} -e 's@_POSIX_SOURCE@&___@g' \
 		${WRKSRC}/media/libcubeb/src/cubeb_jack.cpp
-
-	# choose correct python
-	${REINPLACE_CMD} -e 's|python3|python${PYTHON3}|g' ${WRKSRC}/configure.in
 
 	# Set mozilla options
 	@${ECHO_CMD} "--=> Setting configuration <=--"
