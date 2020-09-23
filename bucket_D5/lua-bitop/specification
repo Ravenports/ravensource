@@ -3,10 +3,12 @@ DEF[PORTVERSION]=	1.0.2
 
 NAMEBASE=		lua-bitop
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
-VARIANTS=		lua52 lua53
+VARIANTS=		lua52 lua53 lua54
 SDESC[lua52]=		Bitwise operations on numbers for Lua 5.2
 SDESC[lua53]=		Bitwise operations on numbers for Lua 5.3
+SDESC[lua54]=		Bitwise operations on numbers for Lua 5.4
 HOMEPAGE=		http://bitop.luajit.org/
 CONTACT=		nobody
 
@@ -16,11 +18,13 @@ DISTFILE[1]=		LuaBitOp-${PORTVERSION}.tar.gz:main
 
 SPKGS[lua52]=		single
 SPKGS[lua53]=		single
+SPKGS[lua54]=		single
 
-OPTIONS_AVAILABLE=	LUA52 LUA53
+OPTIONS_AVAILABLE=	LUA52 LUA53 LUA54
 OPTIONS_STANDARD=	none
-VOPTS[lua52]=		LUA52=ON LUA53=OFF
-VOPTS[lua53]=		LUA52=OFF LUA53=ON
+VOPTS[lua52]=		LUA52=ON LUA53=OFF LUA54=OFF
+VOPTS[lua53]=		LUA52=OFF LUA53=ON LUA54=OFF
+VOPTS[lua54]=		LUA52=OFF LUA53=OFF LUA54=ON
 
 FPC_EQUIVALENT=		devel/lua-bitop
 
@@ -34,6 +38,9 @@ MAKE_ARGS=		CC={{CC}} LUA={{LUA_CMD}}
 
 [LUA53].DESCRIPTION=			Build with Lua 5.3
 [LUA53].USES_ON=			lua:5.3
+
+[LUA54].DESCRIPTION=			Build with Lua 5.4
+[LUA54].USES_ON=			lua:5.4
 
 do-install:
 	@${MKDIR} ${STAGEDIR}${LUA_MODLIBDIR}
