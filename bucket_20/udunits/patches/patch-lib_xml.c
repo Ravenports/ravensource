@@ -1,4 +1,4 @@
---- lib/xml.c.orig	2018-08-09 17:32:13 UTC
+--- lib/xml.c.orig	2020-05-29 20:22:11 UTC
 +++ lib/xml.c
 @@ -14,9 +14,11 @@
  
@@ -21,10 +21,10 @@
  #include <dlfcn.h>
  #elif defined(__APPLE__)
  #define _DARWIN_C_SOURCE
-@@ -2135,7 +2137,7 @@ static const char*
- default_udunits2_xml_path()
- {
-     char const * soname = 0;
+@@ -2137,7 +2139,7 @@ default_udunits2_xml_path()
+     const char* path;
+     char const* soname = 0;
+ 
 -#if defined(__APPLE__) || defined(__linux__)
 +#if defined(__APPLE__) || defined(__linux__) || defined(__FreeBSD__) || defined(__DragonFly__)
      #define END_BIT "/share/udunits/udunits2.xml"
