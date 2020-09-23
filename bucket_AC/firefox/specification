@@ -1,6 +1,4 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(FIREFOX_VERSION)
-DEF[PYTHON3]=		EXTRACT_VERSION(PYTHON3_DEFAULT)
-DEF[PY3SUFF]=		${PYTHON3:S/.//}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		firefox
@@ -35,8 +33,8 @@ BUILD_DEPENDS=		autoconf213:single:standard
 			nasm:primary:standard
 			zip:single:standard
 			clang:compiler:standard
-			python-sqlite3:single:py${PY3SUFF}
-			python${PY3SUFF}:single:standard
+			python-sqlite3:single:python_used
+			autoselect-python:single:standard
 BUILDRUN_DEPENDS=	dbus-glib:primary:standard
 			ffmpeg:primary:standard
 			harfbuzz:primary:standard
@@ -50,7 +48,7 @@ BUILDRUN_DEPENDS=	dbus-glib:primary:standard
 			nss:primary:standard
 
 USES=			cpe desktop-utils:single gmake jpeg perl:build
-			pkgconfig png python:py27,build zlib
+			pkgconfig png python:build zlib
 XORG_COMPONENTS=	pixman xcb
 GNOME_COMPONENTS=	gdkpixbuf gtk2 gtk3
 CPE_VENDOR=		mozilla
@@ -89,9 +87,9 @@ QMAKE_ARGS=		--enable-application=browser
 			--with-system-nss
 			--with-system-png="{{LOCALBASE}}"
 			--with-system-zlib
-CONFIGURE_ENV=		PYTHON3={{LOCALBASE}}/bin/python${PYTHON3}
+CONFIGURE_ENV=		PYTHON3={{PYTHON_CMD}}
 			SETUPTOOLS_USE_DISTUTILS=stdlib
-MAKE_ENV=		PYTHON3={{LOCALBASE}}/bin/python${PYTHON3}
+MAKE_ENV=		PYTHON3={{PYTHON_CMD}}
 			CXXSTDLIB="stdc++"
 
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-jemalloc
@@ -109,8 +107,9 @@ post-patch:
 	# disable SCTP
 	${REINPLACE_CMD} -e 's|MOZ_SCTP|MOZ_DISABLE_SCTP|' \
 		${WRKSRC}/netwerk/moz.build
-	# choose correct python
-	${REINPLACE_CMD} -e 's|python3|python${PYTHON3}|g' ${WRKSRC}/configure.in
+	# disable rust checksums
+	${REINPLACE_CMD} -e 's/"files":{[^}]*}/"files":{}/' \
+		 ${WRKSRC}/third_party/rust/libc/.cargo-checksum.json
 	# Set mozilla options
 	@${ECHO_CMD} "--=> Setting configuration <=--"
 	@for arg in ${QMAKE_ARGS}; do \
