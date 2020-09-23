@@ -35,6 +35,27 @@ install it with [pip]:
 Changelog
 ~~~~~~~~~
 
+4.15.0 (released 2020-09-21)
+----------------------------
+
+- [plistlib] Added typing annotations to plistlib module. Set up mypy
+static
+  typechecker to run automatically on CI (#2061).
+- [ttLib] Implement private Debg table, a reverse-DNS namespaced JSON dict.
+- [feaLib] Optionally add an entry into the Debg table with the original
+  lookup name (if any), feature name / script / language combination (if
+any),
+  and original source filename and line location. Annotate the ttx output
+for
+  a lookup with the information from the Debg table (#2052).
+- [sfnt] Disabled checksum checking by default in SFNTReader (#2058).
+- [Docs] Document mtiLib module (#2027).
+- [varLib.interpolatable] Added checks for contour node count and operation
+type
+  of each node (#2054).
+- [ttLib] Added API to register custom table packer/unpacker classes
+(#2055).
+
 4.14.0 (released 2020-08-19)
 ----------------------------
 
@@ -77,24 +98,3 @@ spec:
 
 4.12.0 (released 2020-06-09)
 ----------------------------
-
-- [otlLib/varLib] Ensure that the AxisNameID in the STAT and fvar
-  tables is grater than 255 as per OpenType spec (#1985, #1986).
-- [docs] Document more modules in ``fontTools.misc`` package: filenames,
-  fixedTools, intTools, loggingTools, macCreatorType, macRes,
-  plistlib (#1981).
-- [OS/2] Don't calculate whole sets of unicode codepoints, use faster and
-more memory
-  efficient ranges and bisect lookups (#1984).
-- [voltLib] Support writing back abstract syntax tree as VOLT data (#1983).
-- [voltLib] Accept DO_NOT_TOUCH_CMAP keyword (#1987).
-- [subset/merge] Fixed a namespace clash involving a private helper class
-(#1955).
-
-4.11.0 (released 2020-05-28)
-----------------------------
-
-- [feaLib] Introduced includeDir parameter on Parser and IncludingLexer to
-  explicitly specify the directory to search when ``include()`` statements
-are
-  encountered (#1973).
