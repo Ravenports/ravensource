@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.0.29
+DEF[PORTVERSION]=	1.0.30
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libsndfile
@@ -25,10 +25,11 @@ BUILDRUN_DEPENDS=	flac:primary:standard
 			opus:single:standard
 			speex:primary:standard
 
-USES=			cmake cpe gmake libtool pkgconfig python:build
+USES=			cmake cpe gmake pkgconfig python:build
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=true
+			-DINSTALL_MANPAGES:BOOL=true
+			-DBUILD_PROGRAMS:BOOL=true
 CPE_VENDOR=		libsndfile_project
-
 SOVERSION=		${PORTVERSION}
 
 post-install:
