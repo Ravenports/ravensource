@@ -1,18 +1,18 @@
-DEF[PORTVERSION]=	3.5.51
+DEF[PORTVERSION]=	0.0.3
 # ------------------------------------------------------------------------
 
-NAMEBASE=		python-reportlab
+NAMEBASE=		python-click-didyoumean
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		py38 py37
-SDESC[py38]=		Library for generating PDFs and graphics (PY38)
-SDESC[py37]=		Library for generating PDFs and graphics (PY37)
-HOMEPAGE=		http://www.reportlab.com/
+SDESC[py38]=		Enables git-like did-you-mean feature (PY38)
+SDESC[py37]=		Enables git-like did-you-mean feature (PY37)
+HOMEPAGE=		https://github.com/timofurrer/click-didyoumean
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/r/reportlab
-DISTFILE[1]=		reportlab-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPI/c/click-didyoumean
+DISTFILE[1]=		click-didyoumean-${PORTVERSION}.tar.gz:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -23,15 +23,16 @@ VOPTS[py38]=		PY38=ON PY37=OFF
 VOPTS[py37]=		PY38=OFF PY37=ON
 
 # License listed at PyPI
-# BSD license (see license.txt for details), Copyright (c) 2000-2018,
-# ReportLab Inc.
+# UNKNOWN
 
 # install_requires extracted from setup.py
+# click
 
-
-DISTNAME=		reportlab-${PORTVERSION}
+DISTNAME=		click-didyoumean-${PORTVERSION}
 GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
+[PY38].BUILDRUN_DEPENDS_ON=		python-click:single:py38
 [PY37].USES_ON=				python:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-click:single:py37
 
