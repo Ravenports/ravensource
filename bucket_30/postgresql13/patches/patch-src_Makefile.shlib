@@ -1,0 +1,22 @@
+--- src/Makefile.shlib.orig	2020-09-21 20:47:36 UTC
++++ src/Makefile.shlib
+@@ -212,6 +212,9 @@ endif
+ 
+ ifeq ($(PORTNAME), linux)
+   LINK.shared		= $(COMPILER) -shared
++  ifdef SO_MAJOR_VERSION
++    shlib		= lib$(NAME)$(DLSUFFIX).$(SO_MAJOR_VERSION)
++  endif
+   ifdef soname
+     LINK.shared		+= -Wl,-soname,$(soname)
+   endif
+@@ -223,6 +226,9 @@ ifeq ($(PORTNAME), linux)
+ endif
+ 
+ ifeq ($(PORTNAME), solaris)
++  ifdef SO_MAJOR_VERSION
++    shlib		= lib$(NAME)$(DLSUFFIX).$(SO_MAJOR_VERSION)
++  endif
+   ifeq ($(GCC), yes)
+     LINK.shared		= $(COMPILER) -shared -Wl,-Bsymbolic
+   else

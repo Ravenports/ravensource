@@ -1,13 +1,13 @@
-DEF[PORTVERSION]=	EXTRACT_VERSION(PGSQL_12_VERSION)
+DEF[PORTVERSION]=	EXTRACT_VERSION(PGSQL_13_VERSION)
+DEF[NAMEBASE]=		postgresql13
 DEF[SUFFIX]=		${PORTVERSION:R:S/.//}
 DEF[PG_USER]=		pgsql
 DEF[PG_GROUP]=		pgsql
 DEF[PG_UID]=		60000
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		postgresql12
+NAMEBASE=		${NAMEBASE}
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		databases
 VARIANTS=		standard
 SDESC[standard]=	Powerful, open source object-relational database
@@ -28,7 +28,7 @@ LICENSE=		PostgreSQL:server
 LICENSE_FILE=		PostgreSQL:{{WRKSRC}}/COPYRIGHT
 LICENSE_SCHEME=		solo
 
-FPC_EQUIVALENT=		databases/postgresql12-server
+FPC_EQUIVALENT=		databases/${NAMEBASE}-server
 
 BROKEN_SSL=		openssl-devel
 
@@ -42,13 +42,13 @@ BR_DEPS[linux]=		ossp-uuid:single:standard
 BR_DEPS[sunos]=		ossp-uuid:single:standard
 BR_DEPS[darwin]=	libuuid:single:standard
 
-EXRUN[server]=		postgresql12:client:standard
+EXRUN[server]=		${NAMEBASE}:client:standard
 EXRUN[client]=		gettext:runtime:standard
 			libxslt:single:standard
 			readline:single:standard
 			zlib:complete:standard
 			ssl
-EXRUN[contrib]=		postgresql12:client:standard
+EXRUN[contrib]=		${NAMEBASE}:client:standard
 			libxslt:single:standard
 			zlib:complete:standard
 			gettext:runtime:standard
