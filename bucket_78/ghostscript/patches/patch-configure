@@ -1,6 +1,6 @@
---- configure.orig	2020-09-14 13:40:41 UTC
+--- configure.orig	2020-09-25 12:33:30 UTC
 +++ configure
-@@ -4632,7 +4632,7 @@ case $host in
+@@ -4633,7 +4633,7 @@ case $host in
              CC_VISIBILITY_FLAGS_TO_TRY="-fvisibility=hidden"
          fi
          ;;
@@ -9,7 +9,7 @@
          if test $GCC = yes; then
              CC_OPT_FLAGS_TO_TRY="-O2 -DNDEBUG"
              CC_DBG_FLAGS_TO_TRY="-gdwarf-2 -g3 -O0"
-@@ -5505,7 +5505,7 @@ if test "${enable_threadsafe+set}" = set
+@@ -5506,7 +5506,7 @@ if test "${enable_threadsafe+set}" = set
  fi
  
  if test x$enable_threadsafe = xyes ; then
@@ -18,7 +18,7 @@
  fi
  
  
-@@ -6181,7 +6181,6 @@ if ${ac_cv_lib_dl_dlopen+:} false; then
+@@ -6182,7 +6182,6 @@ if ${ac_cv_lib_dl_dlopen+:} false; then
    $as_echo_n "(cached) " >&6
  else
    ac_check_lib_save_LIBS=$LIBS
@@ -26,7 +26,7 @@
  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
  
-@@ -6214,7 +6213,7 @@ $as_echo "$ac_cv_lib_dl_dlopen" >&6; }
+@@ -6215,7 +6214,7 @@ $as_echo "$ac_cv_lib_dl_dlopen" >&6; }
  if test "x$ac_cv_lib_dl_dlopen" = xyes; then :
    ac_fn_c_check_header_mongrel "$LINENO" "dlfcn.h" "ac_cv_header_dlfcn_h" "$ac_includes_default"
  if test "x$ac_cv_header_dlfcn_h" = xyes; then :
@@ -35,7 +35,7 @@
  fi
  
  
-@@ -11387,42 +11386,42 @@ if test x$enable_threadsafe = xyes; then
+@@ -11396,42 +11395,42 @@ if test x$enable_threadsafe = xyes; then
  
    for ntsdev in $NTS_DEVS ; do
      NTS_EXCLUDES="$(echo \"$P_DEVS0{@:0}\" | grep -o $ntsdev) $NTS_EXCLUDES"
@@ -86,7 +86,7 @@
    done
  
    NTS_EXCLUDES=`echo "$NTS_EXCLUDES" | tr " " "\n" | sort | uniq | tr "\n" " "`
-@@ -11601,7 +11600,7 @@ case $host in
+@@ -11610,7 +11609,7 @@ case $host in
        GPDL_SONAME_MAJOR="lib\$(GPDL${libname3}"
        GPDL_SONAME_MAJOR_MINOR="cyg\$(GPDL${libname2}"
      ;;
@@ -95,7 +95,7 @@
        DYNAMIC_CFLAGS="-fPIC $DYNAMIC_CFLAGS"
        GS_DYNAMIC_LDFLAGS="-shared -Wl,\$(LD_SET_DT_SONAME)\$(LDFLAGS_SO_PREFIX)\$(GS_SONAME_MAJOR)"
        PCL_DYNAMIC_LDFLAGS="-shared -Wl,\$(LD_SET_DT_SONAME)\$(LDFLAGS_SO_PREFIX)\$(PCL_SONAME_MAJOR)"
-@@ -11699,7 +11698,7 @@ if test "${enable_dynamic+set}" = set; t
+@@ -11708,7 +11707,7 @@ if test "${enable_dynamic+set}" = set; t
          OPT_CFLAGS="$DYNAMIC_CFLAGS $OPT_CFLAGS"
          DBG_CFLAGS="$DYNAMIC_CFLAGS $DBG_CFLAGS"
        ;;
