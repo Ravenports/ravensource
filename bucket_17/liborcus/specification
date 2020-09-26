@@ -1,11 +1,10 @@
-DEF[PORTVERSION]=	0.15.4
-DEF[ORCUS_VERSION]=	0.15
+DEF[PORTVERSION]=	0.16.0
+DEF[ORCUS_VERSION]=	0.16
 DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		liborcus
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		devel misc
 VARIANTS=		standard
 SDESC[standard]=	File import library for spreadsheet documents
@@ -39,7 +38,7 @@ USES=			pkgconfig zlib cmake python:build
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
 CMAKE_ARGS=		-DMDDS_INCLUDEDIR:STRING="{{LOCALBASE}}/include/mdds-1.2"
-			-DIXION_INCLUDEDIR:STRING="{{LOCALBASE}}/include/ixion-0.15"
+			-DIXION_INCLUDEDIR:STRING="{{LOCALBASE}}/include/ixion-0.16"
 LDFLAGS=		-lboost_program_options
 			-lboost_thread
 			-lboost_filesystem
@@ -47,7 +46,9 @@ LDFLAGS=		-lboost_program_options
 
 post-patch:
 	# fix module name
-	${REINPLACE_CMD} -e 's|Zlib|ZLIB|' ${WRKSRC}/CMakeLists.txt
+	${REINPLACE_CMD} -e 's|Zlib|ZLIB|' \
+		-e '/CMAKE_CXX_STANDARD/ s|11|14|' \
+		${WRKSRC}/CMakeLists.txt
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/orcus*
@@ -56,7 +57,6 @@ post-install:
 	${SED} -e 's|@prefix@|${PREFIX}|; s|@exec_prefix@|${PREFIX}|' \
 	-e 's|@libdir@|${PREFIX}/lib|; s|@includedir@|${PREFIX}/include|' \
 	-e 's|liborcus-@ORCUS_API_VERSION@|orcus-${ORCUS_VERSION}|' \
-	-e 's|lorcus-|lliborcus-|g' \
 	-e 's|@ORCUS_API_VERSION@|${ORCUS_VERSION}|g' \
 	-e ' s|@VERSION@|${PORTVERSION}|g' ${WRKSRC}/liborcus.pc.in \
 	> ${STAGEDIR}${PREFIX}/lib/pkgconfig/liborcus-${ORCUS_VERSION}.pc
