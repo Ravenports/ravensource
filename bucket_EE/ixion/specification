@@ -1,23 +1,28 @@
 DEF[PORTVERSION]=	0.16.0
-DEF[VER]=		${PORTVERSION:R}
+DEF[LIBRE_VERSION]=	0.15.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ixion
 VERSION=		${PORTVERSION}
 KEYWORDS=		math
-VARIANTS=		standard
+VARIANTS=		standard libre
 SDESC[standard]=	General purpose formula parser and interpreter
+SDESC[libre]=		Formual parser and interpreter for Libreoffice
 HOMEPAGE=		https://gitlab.com/ixion/ixion
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://gitlab.com/ixion/ixion/-/archive/${PORTVERSION}/
 DISTFILE[1]=		ixion-${PORTVERSION}.tar.bz2:main
+DISTFILE[2]=		ixion-${LIBRE_VERSION}.tar.bz2:main
+DF_INDEX=		1 2
 
 SPKGS[standard]=	single
+SPKGS[libre]=		single
 
-OPTIONS_AVAILABLE=	none
+OPTIONS_AVAILABLE=	LIBRE
 OPTIONS_STANDARD=	none
+VOPTS[libre]=		LIBRE=ON
 
 LICENSE=		MPL:single
 LICENSE_FILE=		MPL:{{WRKSRC}}/LICENSE
@@ -31,7 +36,8 @@ BUILD_DEPENDS=		mdds:single:standard
 BUILDRUN_DEPENDS=	boost-libraries:rest:python_default
 
 USES=			cmake python:build zlib
-PLIST_SUB=		VER=${VER}
+PLIST_SUB=		VER={{VER}}
+DISTNAME=		ixion-{{VERSION}}
 CMAKE_ARGS=		-DMDDS_INCLUDEDIR="{{LOCALBASE}}/include/mdds-1.2"
 			-DCMAKE_SKIP_BUILD_RPATH:BOOL=YES
 LDFLAGS=		-lboost_thread
@@ -39,13 +45,16 @@ LDFLAGS=		-lboost_thread
 			-lboost_filesystem
 VAR_OPSYS[linux]=	LDFLAGS=-ldl
 
-# Don't fix liblibixion because liborcus looks for it
-# post-patch:
-# #	# fix cmake definition bug
-# #	${REINPLACE_CMD} -e 's|libixion-|ixion-|g' \
-# #		${WRKSRC}/src/libixion/CMakeLists.txt \
-# #		${WRKSRC}/src/CMakeLists.txt
+[LIBRE].DESCRIPTION=			Build older 0.15 version for Libreoffice
+[LIBRE].MAKEFILE_OFF=			VER=${PORTVERSION:R}
+					VERSION=${PORTVERSION}
+[LIBRE].MAKEFILE_ON=			VER=${LIBRE_VERSION:R}
+					VERSION=${LIBRE_VERSION}
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ixion*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
+
+post-patch-LIBRE-ON:
+	${REINPLACE_CMD} -e '/input_cell/ s|nullptr_t|std::nullptr_t|' \
+		${WRKSRC}/include/ixion/model_context.hpp
