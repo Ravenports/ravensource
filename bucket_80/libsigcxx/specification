@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.0.3
+DEF[PORTVERSION]=	3.0.4
 DEF[FOLDER]=		${PORTVERSION:R}
 DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
@@ -27,16 +27,16 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/sigc++/sigc++.h
 LICENSE_SCHEME=		solo
 
-USES=			gmake libtool perl:build c++:primary
+BUILD_DEPENDS=		doxygen:single:standard
+
+USES=			gmake perl:build c++:primary meson
+GNOME_COMPONENTS=	libxslt
 DISTNAME=		libsigc++-${PORTVERSION}
-INSTALL_TARGET=		install-strip
-MUST_CONFIGURE=		gnu
 PLIST_SUB=		API_VERSION="3.0"
 SOVERSION=		${SOVERSION}
-
-post-patch:
-	${REINPLACE_CMD} -e "/^SUBDIRS =/s|tests||; \
-		/^SUBDIRS =/s|examples||" ${WRKSRC}/Makefile.in
+MESON_ARGS=		-Dbuild-examples=false
+			-Dbuild-pdf=false
+			-Dbuild-documentation=true
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/doc/libsigc* \
