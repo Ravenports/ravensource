@@ -4,6 +4,8 @@ BUILDRUN_DEPENDS=	expat:shared:standard
 CONFIGURE_ARGS=		EXPATLIBPATH={{LOCALBASE}}/lib
 			EXPATINCPATH={{LOCALBASE}}/include
 
+VAR_OPSYS[linux]=	CFLAGS=-Doff64_t=__off64_t
+
 post-patch:
 	${REINPLACE_CMD} "s|@PERL_RPATH@|${PREFIX}/lib/perl5/${PERL_VER}/${PERL_ARCH}/CORE|" \
 		${WRKSRC}/Expat/Makefile.PL
