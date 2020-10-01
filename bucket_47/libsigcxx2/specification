@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.10.3
+DEF[PORTVERSION]=	2.10.4
 DEF[FOLDER]=		${PORTVERSION:R}
 DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
@@ -29,16 +29,17 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libsigc++20
 
-USES=			gmake libtool perl:build c++:primary
+BUILD_DEPENDS=		doxygen:single:standard
+
+USES=			gmake perl:build c++:primary meson
+GNOME_COMPONENTS=	libxslt
 DISTNAME=		libsigc++-${PORTVERSION}
-INSTALL_TARGET=		install-strip
-MUST_CONFIGURE=		gnu
 PLIST_SUB=		API_VERSION="2.0"
 SOVERSION=		${SOVERSION}
 
-post-patch:
-	${REINPLACE_CMD} -e "/^SUBDIRS =/s|tests||; \
-		/^SUBDIRS =/s|examples||" ${WRKSRC}/Makefile.in
+MESON_ARGS=		-Dbuild-examples=false
+			-Dbuild-pdf=false
+			-Dbuild-documentation=true
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/doc/libsigc* \
