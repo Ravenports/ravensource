@@ -80,8 +80,9 @@ post-patch:
 	${REINPLACE_CMD} -e \
 		's|@QMAKE@|${TRUE}|' \
 		${WRKSRC}/Makefile.in
-	${REINPLACE_CMD} -e \
-		's|/usr/local/lib|${LOCALBASE}/lib|' \
+	${REINPLACE_CMD} \
+		-e 's|/usr/local/lib|${LOCALBASE}/lib|' \
+		-e '/LTLIBICONV=/ s|-R|-Wl,-rpath,|' \
 		${WRKSRC}/configure
 	${REINPLACE_CMD} -e \
 		's|%%PYTHON_CMD%%|${PYTHON_CMD}|' \
