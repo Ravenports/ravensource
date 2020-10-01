@@ -1,4 +1,4 @@
---- program/lib/Roundcube/rcube_message.php.orig	2020-08-10 19:04:58 UTC
+--- program/lib/Roundcube/rcube_message.php.orig	2020-09-27 11:38:38 UTC
 +++ program/lib/Roundcube/rcube_message.php
 @@ -832,9 +832,7 @@ class rcube_message
                  }
