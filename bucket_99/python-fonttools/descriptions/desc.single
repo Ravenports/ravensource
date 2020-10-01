@@ -35,6 +35,22 @@ install it with [pip]:
 Changelog
 ~~~~~~~~~
 
+4.16.0 (released 2020-09-30)
+----------------------------
+
+- [removeOverlaps] Added new module and removeOverlaps function that merges
+  overlapping contours and components in TrueType glyphs. It requires the
+  `skia-pathops <https://github.com/fonttools/skia-pathops>`__ module.
+  Note that removing overlaps invalidates the TrueType hinting (#2068).
+- [varLib.instancer] Added ``--remove-overlaps`` command-line option.
+  The overlap option in instantiateVariableFont now takes an OverlapMode
+  enum: 0: KEEP_AND_DONT_SET_FLAGS, 1: KEEP_AND_SET_FLAGS (default), and 2:
+REMOVE.
+  The latter is equivalent to calling removeOverlaps on the generated
+static
+  instance. The option continues to accept bool value for backward
+compatibility.
+
 4.15.0 (released 2020-09-21)
 ----------------------------
 
@@ -82,19 +98,3 @@ appropriate
 refactored
   some common code (#2004, #2007).
 - [docs] Document otlLib module (#2009).
-- [glifLib] Fixed bug with some UFO .glif filenames clashing on
-case-insensitive
-  filesystems (#2001, #2002).
-- [colorLib] Updated COLRv1 implementation following changes in the draft
-spec:
-  (#2008, googlefonts/colr-gradients-spec#24).
-
-4.12.1 (released 2020-06-16)
-----------------------------
-
-- [_n_a_m_e] Fixed error in addMultilingualName with one-character names.
-  Only attempt to recovered malformed UTF-16 data from a bytes string,
-  not from unicode str (#1997, #1998).
-
-4.12.0 (released 2020-06-09)
-----------------------------
