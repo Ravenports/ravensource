@@ -1,4 +1,4 @@
---- tools/gyp/pylib/gyp/common.py.orig	2020-09-10 12:07:06 UTC
+--- tools/gyp/pylib/gyp/common.py.orig	2020-09-29 16:58:15 UTC
 +++ tools/gyp/pylib/gyp/common.py
 @@ -436,6 +436,8 @@ def GetFlavor(params):
      return 'solaris'
