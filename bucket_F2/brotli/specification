@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.0.9
 
 NAMEBASE=		brotli
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		archivers devel
 VARIANTS=		standard
 SDESC[standard]=	Generic-purpose lossless compression algorithm
@@ -35,6 +36,9 @@ SOVERSION=		${PORTVERSION}
 
 pre-configure:
 	(cd ${WRKSRC} && /bin/sh ./bootstrap)
+
+post-patch:
+	${REINPLACE_CMD} -e 's| -R| -Wl,-rpath,|' ${WRKSRC}/scripts/*.pc.in
 
 post-install:
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
