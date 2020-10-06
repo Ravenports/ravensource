@@ -1,4 +1,4 @@
---- src/util/compiler.h.orig	2020-09-02 19:53:57 UTC
+--- src/util/compiler.h.orig	2020-09-16 17:29:02 UTC
 +++ src/util/compiler.h
 @@ -51,6 +51,9 @@
  #if defined(__linux__)
