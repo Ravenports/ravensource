@@ -1,4 +1,4 @@
---- imap/http_client.h.orig	2020-08-28 00:32:57 UTC
+--- imap/http_client.h.orig	2020-10-05 04:16:02 UTC
 +++ imap/http_client.h
 @@ -58,7 +58,7 @@ struct body_t {
      unsigned char framing;              /* Message framing   */

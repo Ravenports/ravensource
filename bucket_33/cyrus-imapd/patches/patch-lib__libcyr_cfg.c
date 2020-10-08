@@ -1,6 +1,6 @@
 Index: lib/libcyr_cfg.c
 diff -u -p lib/libcyr_cfg.c.orig lib/libcyr_cfg.c
---- lib/libcyr_cfg.c.orig	2020-08-24 03:32:43 UTC
+--- lib/libcyr_cfg.c.orig	2020-10-04 23:31:24 UTC
 +++ lib/libcyr_cfg.c
 @@ -50,7 +50,7 @@
  #include "libcyr_cfg.h"
