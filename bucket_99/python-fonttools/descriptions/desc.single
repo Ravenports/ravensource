@@ -35,6 +35,17 @@ install it with [pip]:
 Changelog
 ~~~~~~~~~
 
+4.16.1 (released 2020-10-05)
+----------------------------
+
+- [varLib.instancer] Fixed TypeError exception when instantiating a VF with
+  a GSUB table 1.1 in which FeatureVariations attribute is present but set
+to
+  None -- indicating that optional FeatureVariations is missing (#2077).
+- [glifLib] Make x and y attributes of the point element required
+  even when validation is turned off, and raise a meaningful GlifLibError
+  message when that happens (#2075).
+
 4.16.0 (released 2020-09-30)
 ----------------------------
 
@@ -87,14 +98,3 @@ the
   optional FeatureVariations table is present (e63ecc5b).
 - [Snippets] Added snippet to show how to decompose glyphs in a TTF
 (#2030).
-- [otlLib] Generate GSUB type 5 and GPOS type 7 contextual lookups where
-appropriate
-  (#2016).
-
-4.13.0 (released 2020-07-10)
-----------------------------
-
-- [feaLib/otlLib] Moved lookup subtable builders from feaLib to otlLib;
-refactored
-  some common code (#2004, #2007).
-- [docs] Document otlLib module (#2009).
