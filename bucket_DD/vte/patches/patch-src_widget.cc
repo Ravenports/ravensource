@@ -1,4 +1,4 @@
---- src/widget.cc.orig	2020-09-15 14:46:41 UTC
+--- src/widget.cc.orig	2020-10-08 12:30:11 UTC
 +++ src/widget.cc
 @@ -22,6 +22,10 @@
  

@@ -1,4 +1,4 @@
---- src/vte.cc.orig	2020-09-15 14:46:41 UTC
+--- src/vte.cc.orig	2020-10-08 12:30:11 UTC
 +++ src/vte.cc
 @@ -29,6 +29,13 @@
  #ifdef HAVE_SYS_TERMIOS_H
