@@ -1,6 +1,6 @@
---- CMakeLists.txt.orig	2020-03-11 07:03:10.666143000 +0100
-+++ CMakeLists.txt	2020-03-11 07:04:26.329654000 +0100
-@@ -90,7 +90,7 @@
+--- CMakeLists.txt.orig	2020-10-10 23:38:08 UTC
++++ CMakeLists.txt
+@@ -90,7 +90,7 @@ if(CPIGAMESH)
    include(cpigamesh_defs)
  endif()
  
@@ -9,7 +9,7 @@
    set(ASAN OFF)
    set(UBSAN OFF)
    add_definitions(-D_BSD_SOURCE)
-@@ -120,7 +120,6 @@
+@@ -120,7 +120,6 @@ if(PIE)
    set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
  endif()
  
@@ -17,7 +17,7 @@
  set(CMAKE_CXX_EXTENSIONS OFF)
  set(CMAKE_CXX_STANDARD_REQUIRED ON)
  set(CMAKE_THREAD_PREFER_PTHREAD ON)
-@@ -491,11 +490,6 @@
+@@ -496,11 +495,6 @@ if(WIN32)
    endif()
  endif()
  
