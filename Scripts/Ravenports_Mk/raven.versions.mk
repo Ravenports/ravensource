@@ -39,7 +39,7 @@ RUBY_DEFAULT?=		2.7
 
 RUBY_2.5_VERSION=	2.5.8
 RUBY_2.6_VERSION=	2.6.6
-RUBY_2.7_VERSION=	2.7.1
+RUBY_2.7_VERSION=	2.7.2
 
 #-------------------------------------------------------------------------
 # PYTHON

@@ -1,4 +1,4 @@
---- file.c.orig	2020-03-31 10:44:55 UTC
+--- file.c.orig	2020-10-01 12:15:38 UTC
 +++ file.c
 @@ -28,7 +28,6 @@
  #   define API_AVAILABLE(...)

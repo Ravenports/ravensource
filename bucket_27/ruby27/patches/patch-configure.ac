@@ -1,4 +1,4 @@
---- configure.ac.orig	2020-03-31 10:44:55 UTC
+--- configure.ac.orig	2020-10-01 12:15:38 UTC
 +++ configure.ac
 @@ -245,7 +245,7 @@ AS_CASE(["$target_os"],
  AC_SUBST(LD)
@@ -17,7 +17,7 @@
  		RUBY_APPEND_OPTIONS(CPPFLAGS, -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT)
  		AC_CACHE_CHECK([whether syscall(2) is deprecated], rb_cv_syscall_deprecated,
  		    [RUBY_WERROR_FLAG([
-@@ -3169,7 +3168,7 @@ AS_CASE("$enable_shared", [yes], [
+@@ -3172,7 +3171,7 @@ AS_CASE("$enable_shared", [yes], [
      [sunos4*], [
  	LIBRUBY_ALIASES='$(LIBRUBY_SONAME) lib$(RUBY_SO_NAME).$(SOEXT)'
  	],
@@ -26,7 +26,7 @@
  	RUBY_APPEND_OPTIONS(LIBRUBY_DLDFLAGS, ['-Wl,-soname,$(LIBRUBY_SONAME)' "$LDFLAGS_OPTDIR"])
  	LIBRUBY_ALIASES='$(LIBRUBY_SONAME) lib$(RUBY_SO_NAME).$(SOEXT)'
  	AS_IF([test "$load_relative" = yes], [
-@@ -3178,13 +3177,9 @@ AS_CASE("$enable_shared", [yes], [
+@@ -3181,13 +3180,9 @@ AS_CASE("$enable_shared", [yes], [
  	    LIBRUBY_RELATIVE=yes
  	])
  	],
@@ -41,7 +41,7 @@
  	],
      [netbsd*], [
  	LIBRUBY_SONAME='lib$(RUBY_SO_NAME).$(SOEXT).$(MAJOR)$(MINOR)'
-@@ -3217,8 +3212,8 @@ AS_CASE("$enable_shared", [yes], [
+@@ -3220,8 +3215,8 @@ AS_CASE("$enable_shared", [yes], [
  	],
      [darwin*], [
  	LIBRUBY_SO='lib$(RUBY_SO_NAME).$(SOEXT)'
