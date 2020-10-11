@@ -1,0 +1,30 @@
+DEF[PORTVERSION]=	2.0.12
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		opencl-clhpp
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	OpenCL Host API C++ bindings
+HOMEPAGE=		https://github.com/KhronosGroup/OpenCL-CLHPP
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/KhronosGroup:OpenCL-CLHPP:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		APACHE20:single
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE.txt
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/CL/cl2.hpp
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_TERMS=		single:{{WRKSRC}}/TERMS
+LICENSE_SCHEME=		solo
+
+USES=			cmake
+CMAKE_ARGS=		-DBUILD_TESTS=OFF
+			-DBUILD_EXAMPLES=OFF
