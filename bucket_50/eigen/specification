@@ -1,5 +1,4 @@
-DEF[PORTVERSION]=	3.3.7
-DEF[TAG_WRKSRC]=	323c052e1731
+DEF[PORTVERSION]=	3.3.8
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		eigen
@@ -11,9 +10,8 @@ HOMEPAGE=		http://eigen.tuxfamily.org/index.php?title=Main_Page
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://bitbucket.org/eigen/eigen/get/
-DISTFILE[1]=		${PORTVERSION}.tar.gz:main
-DIST_SUBDIR=		eigen
+SITES[main]=		https://gitlab.com/libeigen/eigen/-/archive/${PORTVERSION}/
+DISTFILE[1]=		eigen-${PORTVERSION}.tar.bz2:main
 
 SPKGS[standard]=	single
 
@@ -24,5 +22,4 @@ FPC_EQUIVALENT=		math/eigen3
 
 USES=			cmake
 SKIP_BUILD=		yes
-DISTNAME=		eigen-eigen-${TAG_WRKSRC}
-CMAKE_ARGS=		-DPKGCONFIG_INSTALL_DIR:PATH="{{PREFIX}}/lib/pkgconfig"
+CMAKE_ARGS=		-DPKGCONFIG_INSTALL_DIR:PATH="lib/pkgconfig"
