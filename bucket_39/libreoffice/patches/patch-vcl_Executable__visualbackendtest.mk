@@ -1,4 +1,4 @@
---- vcl/Executable_visualbackendtest.mk.orig	2020-08-27 19:21:14 UTC
+--- vcl/Executable_visualbackendtest.mk.orig	2020-09-30 15:54:35 UTC
 +++ vcl/Executable_visualbackendtest.mk
 @@ -41,7 +41,7 @@ $(eval $(call gb_Executable_use_static_l
      vclmain \
