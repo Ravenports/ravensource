@@ -1,9 +1,9 @@
---- Makefile.orig	2020-05-05 11:29:09 UTC
+--- Makefile.orig	2020-10-07 10:35:03 UTC
 +++ Makefile
-@@ -189,13 +189,17 @@ generate: source/pdf/js/util.js.h
+@@ -214,13 +214,17 @@ MUPDF_LIB = $(OUT)/libmupdf.$(SO)
  
- # --- Library ---
- 
+ $(MUPDF_LIB) : $(MUPDF_OBJ) $(THIRD_OBJ) $(THREAD_OBJ) $(PKCS7_OBJ)
+ else
 -MUPDF_LIB = $(OUT)/libmupdf.a
 -THIRD_LIB = $(OUT)/libmupdf-third.a
 +MUPDF_LIB = libmupdf.so.$(SOVERSION)
@@ -19,4 +19,4 @@
 +
  $(THREAD_LIB) : $(THREAD_OBJ)
  $(PKCS7_LIB) : $(PKCS7_OBJ)
- 
+ endif
