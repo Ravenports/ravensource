@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.11.1
+DEF[PORTVERSION]=	1.12
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		adasockets
@@ -33,13 +33,4 @@ INSTALL_REQ_TOOLCHAIN=	yes
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-doc
 			--disable-shared
-
-post-install:
-	${MKDIR} ${STAGEDIR}${PREFIX}/include/adasockets \
-		${STAGEDIR}${PREFIX}/lib/gnat
-	${MV} ${STAGEDIR}${PREFIX}/lib/libadasockets.* \
-		${STAGEDIR}${PREFIX}/lib/adasockets/
-	${MV} ${STAGEDIR}${PREFIX}/lib/adasockets/*.ad[bs] \
-		${STAGEDIR}${PREFIX}/include/adasockets/
-	${INSTALL_DATA} ${FILESDIR}/adasockets.gpr \
-		${STAGEDIR}${PREFIX}/lib/gnat/
+			--with-gprinstalldir={{PREFIX}}/lib/gnat
