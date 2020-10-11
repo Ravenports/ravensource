@@ -1,5 +1,6 @@
-DEF[PORTVERSION]=	1.12.2
+DEF[PORTVERSION]=	1.16.0
 DEF[SOVERSION]=		1.4.0
+DEF[API]=		${PORTVERSION:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		cairomm
@@ -12,7 +13,7 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		http://cairographics.org/releases/
-DISTFILE[1]=		cairomm-${PORTVERSION}.tar.gz:main
+DISTFILE[1]=		cairomm-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	single
 
@@ -29,14 +30,13 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		graphics/cairomm
 
 BUILDRUN_DEPENDS=	freetype:primary:standard
+			libsigcxx:primary:standard
 
-USES=			gmake pkgconfig png libtool
+USES=			gmake pkgconfig png meson
 GNOME_COMPONENTS=	libxml++26 cairo
 XORG_COMPONENTS=	x11 xext xrender
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-documentation
-CONFIGURE_ENV=		AUTOMAKE="{{TRUE}}"
-			AUTOCONF="{{TRUE}}"
-			DOXYGEN="{{TRUE}}"
-INSTALL_TARGET=		install-strip
+MESON_ARGS=		-Dbuild-documentation=false
+			-Dbuild-examples=false
+			-Dbuild-tests=false
 SOVERSION=		${SOVERSION}
+PLIST_SUB=		API=${API}
