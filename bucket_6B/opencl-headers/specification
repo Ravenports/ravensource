@@ -1,0 +1,26 @@
+DEF[PORTVERSION]=	2020.06.16
+DEF[LATEST_API]=	3.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		opencl-headers
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Open Computing Language (OpenCL) V${LATEST_API} specs
+HOMEPAGE=		https://www.khronos.org/registry/cl/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main cxxbind
+SITES[main]=		GITHUB/KhronosGroup:OpenCL-Headers:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+SKIP_BUILD=		yes
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/include/CL
+	${INSTALL_DATA} ${WRKSRC}/CL/*.h ${STAGEDIR}${PREFIX}/include/CL

@@ -1,10 +1,8 @@
-DEF[PORTVERSION]=	2.2.12
-DEF[REVID]=		836
+DEF[PORTVERSION]=	2.2.13
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ocl-icd
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Utility to regenerate the GNU info page index
@@ -12,9 +10,8 @@ HOMEPAGE=		https://github.com/OCL-dev/ocl-icd
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://forge.imag.fr/frs/download.php/${REVID}/
-			http://ravenports.elderlinux.org/distcache/
-DISTFILE[1]=		ocl-icd-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/OCL-dev:ocl-icd:v${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete primary docs examples
 
@@ -23,22 +20,23 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		devel/ocl-icd
 
-BUILD_DEPENDS=		opencl:single:standard
+BUILD_DEPENDS=		opencl-headers:single:standard
 			asciidoc:single:standard
 			xmlto:single:standard
 
-USES=			gmake libtool ruby:build,v24
+USES=			autoreconf gmake libtool ruby:build solaris-funcs
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-official-khronos-headers
 			--enable-custom-vendordir
 INSTALL_TARGET=		install-strip
 MAKE_ARGS=		RUBY=ruby{{RUBY_SUFFIX}}
+SOL_FUNCTIONS=		strnlen:ocl_icd_loader.c
 
 post-patch:
 	${REINPLACE_CMD} -e 's|/etc/|${LOCALBASE}/etc/|g' \
 		${WRKSRC}/doc/libOpenCL.7.txt.in
 	${REINPLACE_CMD} -e 's|--destination-dir=$$(CURDIR)|--no-xmllint|' \
-		${WRKSRC}/doc/Makefile.in
+		${WRKSRC}/doc/Makefile.am
 
 post-stage:
 	${MKDIR} -p ${STAGEDIR}${PREFIX}/share/examples/ocl-icd

@@ -1,6 +1,6 @@
---- ocl_icd_debug.h.orig	2016-04-24 12:11:57 UTC
+--- ocl_icd_debug.h.orig	2020-09-29 16:52:11 UTC
 +++ ocl_icd_debug.h
-@@ -61,9 +61,9 @@ extern int debug_ocl_icd_mask;
+@@ -69,9 +69,9 @@ extern int debug_ocl_icd_mask;
  	return ret; \
     } while(0)
  #  define RETURN_STR(val) do { \
