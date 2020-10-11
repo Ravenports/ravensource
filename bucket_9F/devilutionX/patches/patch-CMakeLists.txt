@@ -1,6 +1,6 @@
---- CMakeLists.txt.orig	2020-10-10 23:38:08 UTC
-+++ CMakeLists.txt
-@@ -90,7 +90,7 @@ if(CPIGAMESH)
+--- CMakeLists.txt.orig	2020-10-11 13:44:46.574340000 +0200
++++ CMakeLists.txt	2020-10-11 13:45:41.994998000 +0200
+@@ -92,7 +92,7 @@
    include(cpigamesh_defs)
  endif()
  
@@ -9,7 +9,7 @@
    set(ASAN OFF)
    set(UBSAN OFF)
    add_definitions(-D_BSD_SOURCE)
-@@ -120,7 +120,6 @@ if(PIE)
+@@ -122,7 +122,6 @@
    set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
  endif()
  
@@ -17,15 +17,15 @@
  set(CMAKE_CXX_EXTENSIONS OFF)
  set(CMAKE_CXX_STANDARD_REQUIRED ON)
  set(CMAKE_THREAD_PREFER_PTHREAD ON)
-@@ -496,11 +495,6 @@ if(WIN32)
+@@ -511,11 +510,6 @@
+   if(NOT CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+     target_compile_options(devilution PUBLIC $<$<CONFIG:Debug>:-gstabs>)
    endif()
- endif()
- 
+-endif()
+-
 -if(NOT WIN32 AND NOT APPLE)
 -  # Enable POSIX extensions such as `readlink` and `ftruncate`.
 -  add_definitions(-D_POSIX_C_SOURCE=200809L)
--endif()
--
- if(HAIKU)
-   target_link_libraries(${BIN_TARGET} PRIVATE network)
  endif()
+ 
+ if(HAIKU)
