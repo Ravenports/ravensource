@@ -1,4 +1,4 @@
---- sql/mysqld.cc.orig	2020-08-06 15:15:50 UTC
+--- sql/mysqld.cc.orig	2020-10-05 16:19:47 UTC
 +++ sql/mysqld.cc
 @@ -4989,8 +4989,9 @@ static void init_ssl()
        while ((err= ERR_get_error()))
