@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.2.0
+DEF[PORTVERSION]=	3.2.2
 DEF[FOLDER]=		${PORTVERSION:R}
 DEF[SOVERSION]=		1.0.0
 # ----------------------------------------------------------------------------
@@ -29,21 +29,14 @@ LICENSE_SCHEME=		solo
 
 # FPC_EQUIVALENT=	none
 
+BUILD_DEPENDS=		autoselect-python:single:standard
 BUILDRUN_DEPENDS=	glibmm:single:standard
 
-USES=			gmake libtool pkgconfig perl:build
+USES=			gmake pkgconfig perl:build python:build meson
 GNOME_COMPONENTS=	libxml2
-MUST_CONFIGURE=		gnu
 DISTNAME=		libxml++-${PORTVERSION}
-CONFIGURE_ARGS=		--enable-static
-			--disable-documentation
-INSTALL_TARGET=		install-strip
+MESON_ARGS=		-Dbuild-tests=false
+			-Dbuild-examples=false
+			-Dbuild-documentation=false
 PLIST_SUB=		API="3.0"
 SOVERSION=		${SOVERSION}
-
-post-patch:
-	${REINPLACE_CMD} -e '/^SUBDIRS =/s/examples//' \
-		-e '/^library_configdir =/s/libdir/includedir/' \
-		${WRKSRC}/Makefile.in
-	${REINPLACE_CMD} -e '/^Cflags:/s/libdir/includedir/' \
-		${WRKSRC}/libxml++.pc.in
