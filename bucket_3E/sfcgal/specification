@@ -1,8 +1,5 @@
-DEF[PORTVERSION]=	1.3.8
-DEF[SOVERSION]=		1.3.7
-# DEF[SOVERSION]=	${PORTVERSION}
-# required for cgal 5.0 support
-DEF[TAG]=		e28f690
+DEF[PORTVERSION]=	1.3.9
+DEF[SOVERSION]=		1.3.8
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		sfcgal
@@ -14,8 +11,7 @@ HOMEPAGE=		http://www.sfcgal.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-# SITES[main]=		GITHUB/Oslandia:SFCGAL:v${PORTVERSION}
-SITES[main]=		GITHUB/Oslandia:SFCGAL:${TAG}
+SITES[main]=		GITLAB/Oslandia:SFCGAL:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
@@ -31,8 +27,6 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/Solid.h
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		databases/sfcgal
-
-BROKEN[all]=		Does not support CGAL 5.x
 
 BUILD_DEPENDS=		gmp:static:standard
 			mpfr:static:standard

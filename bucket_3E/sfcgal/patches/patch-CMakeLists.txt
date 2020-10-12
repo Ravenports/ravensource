@@ -1,6 +1,6 @@
---- CMakeLists.txt.orig	2019-11-06 07:44:35 UTC
+--- CMakeLists.txt.orig	2020-09-10 06:47:44 UTC
 +++ CMakeLists.txt
-@@ -99,14 +99,6 @@ if ( SFCGAL_BUILD_TESTS OR SFCGAL_BUILD_
+@@ -105,14 +105,6 @@ if ( SFCGAL_BUILD_TESTS OR SFCGAL_BUILD_
  	set( SFCGAL_Boost_COMPONENTS program_options chrono filesystem timer ${SFCGAL_Boost_COMPONENTS} )
  endif()
  find_package( Boost COMPONENTS ${SFCGAL_Boost_COMPONENTS} REQUIRED )
@@ -8,7 +8,7 @@
 -	message( STATUS "Defining BOOST_VARIANT_USE_RELAXED_GET_BY_DEFAULT" )
 -	add_definitions( "-DBOOST_VARIANT_USE_RELAXED_GET_BY_DEFAULT" )
 -endif()
--# patch boost 1.60.0      
+-# patch boost 1.60.0
 -if((${Boost_MAJOR_VERSION} EQUAL 1) AND (${Boost_MINOR_VERSION} EQUAL 60) AND (${Boost_SUBMINOR_VERSION} EQUAL 0))
 -  include_directories( patches/boost-1.60.0 )
 -endif()
