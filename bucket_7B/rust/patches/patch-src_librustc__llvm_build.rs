@@ -1,10 +1,10 @@
---- src/librustc_llvm/build.rs.orig	2020-08-24 15:00:49 UTC
+--- src/librustc_llvm/build.rs.orig	2020-10-07 07:53:22 UTC
 +++ src/librustc_llvm/build.rs
-@@ -258,22 +258,7 @@ fn main() {
+@@ -272,22 +272,7 @@ fn main() {
      }
  
-     let llvm_static_stdcpp = env::var_os("LLVM_STATIC_STDCPP");
--    let llvm_use_libcxx = env::var_os("LLVM_USE_LIBCXX");
+     let llvm_static_stdcpp = tracked_env_var_os("LLVM_STATIC_STDCPP");
+-    let llvm_use_libcxx = tracked_env_var_os("LLVM_USE_LIBCXX");
 -
 -    let stdcppname = if target.contains("openbsd") {
 -        if target.contains("sparc64") { "estdc++" } else { "c++" }
@@ -22,5 +22,5 @@
 -    };
 +    let stdcppname = "stdc++";
  
-     // C++ runtime library
-     if !target.contains("msvc") {
+     // RISC-V requires libatomic for sub-word atomic operations
+     if target.starts_with("riscv") {
