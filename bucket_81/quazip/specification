@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.9.1
+DEF[PORTVERSION]=	1.1
 DEF[SOVERSION]=		1.0.0
 # ----------------------------------------------------------------------------
 
@@ -42,14 +42,9 @@ USES=			cmake qt5
 CMAKE_ARGS=		-DBUILD_WITH_QT4:BOOL=OFF
 			-DCMAKE_INSTALL_PREFIX={{STAGEDIR}}{{PREFIX}}
 			-DQt5Core_DIR={{PREFIX}}/lib/qt5/cmake/Qt5Core
-
+			-DCMAKE_PREFIX_PATH={{PREFIX}}/lib/qt5/cmake
 SOVERSION=		${SOVERSION}
 
 do-install:
 	(cd ${BUILD_WRKSRC} && make DESTDIR=${STAGEDIR} install)
-	(cd ${WRKSRC}/quazip && ${PREFIX}/lib/qt5/bin/qmake quazip.pro)
-	${REINPLACE_CMD} -e 's/-lquazip/-lquazip5/' ${WRKSRC}/quazip/pkgconfig/quazip.pc
-	${INSTALL_DATA} ${WRKSRC}/quazip/pkgconfig/quazip.pc ${STAGEDIR}${PREFIX}/lib/pkgconfig
-
-post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libquazip5.so.${SOVERSION}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libquazip1-qt5.so
