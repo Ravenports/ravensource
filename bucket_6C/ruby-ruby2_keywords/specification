@@ -1,19 +1,19 @@
-DEF[PORTVERSION]=	1.1.0
+DEF[PORTVERSION]=	0.0.2
 # ------------------------------------------------------------------------
 
-NAMEBASE=		ruby-faraday
+NAMEBASE=		ruby-ruby2_keywords
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v25 v26 v27
-SDESC[v25]=		HTTP/REST API client library (v25)
-SDESC[v26]=		HTTP/REST API client library (v26)
-SDESC[v27]=		HTTP/REST API client library (v27)
-HOMEPAGE=		https://lostisland.github.io/faraday
+SDESC[v25]=		Shim library for Module#ruby2_keywords (v25)
+SDESC[v26]=		Shim library for Module#ruby2_keywords (v26)
+SDESC[v27]=		Shim library for Module#ruby2_keywords (v27)
+HOMEPAGE=		https://github.com/ruby/ruby2_keywords
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		faraday-1.1.0.gem:main
+DISTFILE[1]=		ruby2_keywords-0.0.2.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v25]=		single
@@ -27,22 +27,14 @@ VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
 VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 
 # License listed inside gem specification
-# => "MIT"
+# => "Ruby"
 
 # Requirements according to gem specification:
-#   multipart-post (>= 1.2, < 3)
-#   ruby2_keywords (>= 0)
 
-DISTNAME=		faraday-${PORTVERSION}
+DISTNAME=		ruby2_keywords-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
-[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-multipart-post:single:v25
-					ruby-ruby2_keywords:single:v25
 [RUBY26].USES_ON=			gem:v26
-[RUBY26].BUILDRUN_DEPENDS_ON=		ruby-multipart-post:single:v26
-					ruby-ruby2_keywords:single:v26
 [RUBY27].USES_ON=			gem:v27
-[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-multipart-post:single:v27
-					ruby-ruby2_keywords:single:v27
 
