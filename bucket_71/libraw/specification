@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	0.20.0
+DEF[PORTVERSION]=	0.20.2
 DEF[SOVERSION]=		20.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libraw
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Library for handling RAW digicam images
@@ -31,7 +30,8 @@ FPC_EQUIVALENT=		graphics/libraw
 BUILDRUN_DEPENDS=	jasper:primary:standard
 			lcms2:primary:standard
 
-USES=			cpe fortran:primary libtool pkgconfig jpeg
+USES=			cpe autoreconf fortran:primary libtool
+			pkgconfig jpeg zlib
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-examples
 			--enable-jasper
