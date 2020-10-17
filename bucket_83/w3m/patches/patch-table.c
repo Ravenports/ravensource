@@ -1,4 +1,4 @@
---- table.c.orig	2020-03-16 11:03:49 UTC
+--- table.c.orig	2020-05-02 04:28:05 UTC
 +++ table.c
 @@ -6,6 +6,7 @@
  #include <stdio.h>
