@@ -1,8 +1,8 @@
---- tools/llvm-objcopy/MachO/Object.cpp.orig	2020-07-07 16:21:37 UTC
+--- tools/llvm-objcopy/MachO/Object.cpp.orig	2020-10-07 10:10:48 UTC
 +++ tools/llvm-objcopy/MachO/Object.cpp
-@@ -1,6 +1,18 @@
- #include "Object.h"
- #include "../llvm-objcopy.h"
+@@ -11,6 +11,18 @@
+ #include "llvm/ADT/SmallPtrSet.h"
+ #include <unordered_set>
  
 +#ifdef __sun__
 +static size_t

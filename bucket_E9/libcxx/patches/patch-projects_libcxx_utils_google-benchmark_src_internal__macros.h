@@ -1,4 +1,4 @@
---- projects/libcxx/utils/google-benchmark/src/internal_macros.h.orig	2020-07-07 16:21:37 UTC
+--- projects/libcxx/utils/google-benchmark/src/internal_macros.h.orig	2020-10-07 10:10:48 UTC
 +++ projects/libcxx/utils/google-benchmark/src/internal_macros.h
 @@ -52,7 +52,7 @@
        #define BENCHMARK_OS_IOS 1

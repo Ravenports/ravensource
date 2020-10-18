@@ -94,10 +94,11 @@ post-patch:
 		${WRKSRC}/lib/Frontend/InitHeaderSearch.cpp
 
 post-install:
+	${RMDIR} ${STAGEDIR}${PREFIX}/include/clang-tidy/plugin
 	${INSTALL_PROGRAM} ${WRKDIR}/.build/bin/clang-tblgen \
 		${STAGEDIR}${PREFIX}/bin/
 .for F in c-index-test clang-${MAJOR} clang-check clang-doc clang-format \
-	clang-extdef-mapping clang-import-test clang-offload-bundler \
+	clang-extdef-mapping clang-offload-bundler \
 	clang-move clang-offload-wrapper clang-refactor clang-rename clang-apply-replacements \
 	clang-scan-deps clang-change-namespace clang-include-fixer clang-query \
 	clang-reorder-fields clang-tidy clangd find-all-symbols \

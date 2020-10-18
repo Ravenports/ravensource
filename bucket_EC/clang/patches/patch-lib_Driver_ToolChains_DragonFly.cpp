@@ -1,6 +1,6 @@
---- lib/Driver/ToolChains/DragonFly.cpp.orig	2020-07-07 16:21:37 UTC
+--- lib/Driver/ToolChains/DragonFly.cpp.orig	2020-10-07 10:10:48 UTC
 +++ lib/Driver/ToolChains/DragonFly.cpp
-@@ -69,7 +69,7 @@ void dragonfly::Linker::ConstructJob(Com
+@@ -70,7 +70,7 @@ void dragonfly::Linker::ConstructJob(Com
        CmdArgs.push_back("-Bshareable");
      else {
        CmdArgs.push_back("-dynamic-linker");
@@ -9,13 +9,13 @@
      }
      CmdArgs.push_back("--hash-style=gnu");
      CmdArgs.push_back("--enable-new-dtags");
-@@ -112,18 +112,28 @@ void dragonfly::Linker::ConstructJob(Com
+@@ -113,18 +113,28 @@ void dragonfly::Linker::ConstructJob(Com
            Args.MakeArgString(getToolChain().GetFilePath("crtbegin.o")));
    }
  
 +  if (D.isUsingLTO()) {
 +    assert(!Inputs.empty() && "Must have at least one input.");
-+    AddGoldPlugin(getToolChain(), Args, CmdArgs, Output, Inputs[0],
++    addLTOOptions(getToolChain(), Args, CmdArgs, Output, Inputs[0],
 +                  D.getLTOMode() == LTOK_Thin);
 +  }
 +
@@ -44,7 +44,7 @@
  
      if (D.CCCIsCXX()) {
        if (getToolChain().ShouldLinkCXXStdlib(Args))
-@@ -143,16 +153,7 @@ void dragonfly::Linker::ConstructJob(Com
+@@ -144,16 +154,7 @@ void dragonfly::Linker::ConstructJob(Com
          CmdArgs.push_back("-lgcc");
          CmdArgs.push_back("-lgcc_eh");
      } else {
@@ -62,7 +62,7 @@
      }
    }
  
-@@ -185,7 +186,8 @@ DragonFly::DragonFly(const Driver &D, co
+@@ -187,7 +188,8 @@ DragonFly::DragonFly(const Driver &D, co
  
    getFilePaths().push_back(getDriver().Dir + "/../lib");
    getFilePaths().push_back("/usr/lib");
@@ -72,7 +72,7 @@
  }
  
  Tool *DragonFly::buildAssembler() const {
-@@ -195,3 +197,5 @@ Tool *DragonFly::buildAssembler() const
+@@ -197,3 +199,5 @@ Tool *DragonFly::buildAssembler() const
  Tool *DragonFly::buildLinker() const {
    return new tools::dragonfly::Linker(*this);
  }

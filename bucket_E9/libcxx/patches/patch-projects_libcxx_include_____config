@@ -1,4 +1,4 @@
---- projects/libcxx/include/__config.orig	2020-07-07 16:21:37 UTC
+--- projects/libcxx/include/__config.orig	2020-10-07 10:10:48 UTC
 +++ projects/libcxx/include/__config
 @@ -10,6 +10,10 @@
  #ifndef _LIBCPP_CONFIG
@@ -11,7 +11,7 @@
  #if defined(_MSC_VER) && !defined(__clang__)
  #  if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
  #    define _LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER
-@@ -113,7 +117,7 @@
+@@ -116,7 +120,7 @@
  #  endif
  // Feature macros for disabling pre ABI v1 features. All of these options
  // are deprecated.
@@ -20,7 +20,7 @@
  #    define _LIBCPP_DEPRECATED_ABI_DISABLE_PAIR_TRIVIAL_COPY_CTOR
  #  endif
  #endif
-@@ -240,7 +244,7 @@
+@@ -243,7 +247,7 @@
  #  endif // __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
  #endif // __BYTE_ORDER__
  
@@ -29,7 +29,7 @@
  #  include <sys/endian.h>
  #  include <osreldate.h>
  #  if _BYTE_ORDER == _LITTLE_ENDIAN
-@@ -251,7 +255,7 @@
+@@ -254,7 +258,7 @@
  #  ifndef __LONG_LONG_SUPPORTED
  #    define _LIBCPP_HAS_NO_LONG_LONG
  #  endif  // __LONG_LONG_SUPPORTED
@@ -38,7 +38,7 @@
  
  #ifdef __NetBSD__
  #  include <sys/endian.h>
-@@ -338,7 +342,7 @@
+@@ -341,7 +345,7 @@
  #endif
  
  #if __ISO_C_VISIBLE >= 2011 || __cplusplus >= 201103L
@@ -47,7 +47,7 @@
  #    define _LIBCPP_HAS_ALIGNED_ALLOC
  #    define _LIBCPP_HAS_QUICK_EXIT
  #    define _LIBCPP_HAS_C11_FEATURES
-@@ -346,6 +350,9 @@
+@@ -349,6 +353,9 @@
         (__FreeBSD_version >= 1201504 && __FreeBSD_version < 1300000)
  #      define _LIBCPP_HAS_TIMESPEC_GET
  #    endif
@@ -57,8 +57,8 @@
  #  elif defined(__BIONIC__)
  #    define _LIBCPP_HAS_C11_FEATURES
  #    if __ANDROID_API__ >= 21
-@@ -901,7 +908,7 @@ typedef unsigned int   char32_t;
- #define _LIBCPP_EXTERN_TEMPLATE2(...) extern template __VA_ARGS__;
+@@ -914,7 +921,7 @@ typedef unsigned int   char32_t;
+ #define _LIBCPP_EXTERN_TEMPLATE_DEFINE(...) template __VA_ARGS__;
  #endif
  
 -#if defined(__APPLE__) || defined(__FreeBSD__) || defined(_LIBCPP_MSVCRT_LIKE) || \
@@ -66,7 +66,7 @@
      defined(__sun__) || defined(__NetBSD__) || defined(__CloudABI__)
  #define _LIBCPP_LOCALE__L_EXTENSIONS 1
  #endif
-@@ -913,7 +920,7 @@ typedef unsigned int   char32_t;
+@@ -926,7 +933,7 @@ typedef unsigned int   char32_t;
  #  endif
  #endif
  
@@ -75,7 +75,7 @@
  #define _DECLARE_C99_LDBL_MATH 1
  #endif
  
-@@ -940,11 +947,11 @@ typedef unsigned int   char32_t;
+@@ -953,11 +960,11 @@ typedef unsigned int   char32_t;
  #  define _LIBCPP_HAS_NO_ALIGNED_ALLOCATION
  #endif
  
@@ -89,7 +89,7 @@
  #define _LIBCPP_WCTYPE_IS_MASK
  #endif
  
-@@ -1114,7 +1121,7 @@ _LIBCPP_FUNC_VIS extern "C" void __sanit
+@@ -1122,7 +1129,7 @@ _LIBCPP_FUNC_VIS extern "C" void __sanit
      !defined(_LIBCPP_HAS_THREAD_API_PTHREAD) && \
      !defined(_LIBCPP_HAS_THREAD_API_WIN32) && \
      !defined(_LIBCPP_HAS_THREAD_API_EXTERNAL)

@@ -1,6 +1,6 @@
---- lib/Frontend/InitHeaderSearch.cpp.orig	2020-07-07 16:21:37 UTC
+--- lib/Frontend/InitHeaderSearch.cpp.orig	2020-10-07 10:10:48 UTC
 +++ lib/Frontend/InitHeaderSearch.cpp
-@@ -224,7 +224,6 @@ void InitHeaderSearch::AddDefaultCInclud
+@@ -222,7 +222,6 @@ void InitHeaderSearch::AddDefaultCInclud
    if (HSOpts.UseStandardSystemIncludes) {
      switch (os) {
      case llvm::Triple::CloudABI:

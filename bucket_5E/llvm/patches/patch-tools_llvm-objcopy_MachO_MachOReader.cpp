@@ -1,4 +1,4 @@
---- tools/llvm-objcopy/MachO/MachOReader.cpp.orig	2020-07-07 16:21:37 UTC
+--- tools/llvm-objcopy/MachO/MachOReader.cpp.orig	2020-10-07 10:10:48 UTC
 +++ tools/llvm-objcopy/MachO/MachOReader.cpp
 @@ -13,6 +13,18 @@
  #include "llvm/Object/MachO.h"
