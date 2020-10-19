@@ -1,4 +1,4 @@
---- crypto/compat/getentropy_solaris.c.orig	2020-08-24 18:06:57 UTC
+--- crypto/compat/getentropy_solaris.c.orig	2020-10-17 08:15:36 UTC
 +++ crypto/compat/getentropy_solaris.c
 @@ -43,9 +43,6 @@
  #include <unistd.h>

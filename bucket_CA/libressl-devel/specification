@@ -1,7 +1,7 @@
-DEF[PORTVERSION]=	3.2.1
-DEF[SOVERSION]=		48.0.1
-DEF[TLS_SOVERSION]=	20.0.1
-DEF[CRY_SOVERSION]=	46.0.1
+DEF[PORTVERSION]=	3.2.2
+DEF[SOVERSION]=		48.1.0
+DEF[TLS_SOVERSION]=	20.1.0
+DEF[CRY_SOVERSION]=	46.1.0
 DEF[NAMEBASE]=		libressl-devel
 DEF[BASE]=		{{PREFIX}}/${NAMEBASE}
 # ----------------------------------------------------------------------------
@@ -35,55 +35,66 @@ FPC_EQUIVALENT=		security/${NAMEBASE}
 
 RUN_DEPENDS=		autoselect-ssl:single:standard
 
-USES=			cpe libtool pkgconfig
+USES=			cpe pkgconfig cmake
 DISTNAME=		libressl-${PORTVERSION}
 CPE_VENDOR=		openbsd
 CPE_PRODUCT=		libressl
-MUST_CONFIGURE=		yes
-CONFIGURE_ARGS=		--enable-nc
-			--disable-hardening
-			--with-openssldir={{PREFIX}}/etc/${NAMEBASE}
-			--prefix=${BASE}
-			--build={{CONFIGURE_TARGET}}
-INSTALL_TARGET=		install-strip
-TEST_TARGET=		check
-INSTALL_REQ_TOOLCHAIN=	yes
+CMAKE_INSTALL_PREFIX=	${BASE}
+CMAKE_ARGS=		-DENABLE_NC:BOOL=ON
+			-DOPENSSLDIR:PATH="{{PREFIX}}/etc/${NAMEBASE}"
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		CRY_SOMAJOR=${CRY_SOVERSION:R:R}
 			CRY_SOVERSION=${CRY_SOVERSION}
 			TLS_SOMAJOR=${TLS_SOVERSION:R:R}
 			TLS_SOVERSION=${TLS_SOVERSION}
 
-[STATIC].CFLAGS_OFF=			-fpic -DPIC
-[STATIC].CONFIGURE_ARGS_ON=		--enable-shared=no
-[SKIP_MANPAGES].DESCRIPTION=		Avoid installing LibreSSL manpages
-[SKIP_MANPAGES].EXTRA_PATCHES_ON=	extra-patch-MAN3
+[STATIC].CMAKE_ARGS_ON=			-DBUILD_SHARED_LIBS:BOOL=OFF
+[STATIC].CMAKE_ARGS_OFF=		-DBUILD_SHARED_LIBS:BOOL=ON
+					-DCMAKE_INSTALL_RPATH:STRING="${BASE}/lib"
+
+[SKIP_MANPAGES].DESCRIPTION=		Skip LibreSSL manpage installation
+
+post-patch:
+	# There is a conflict within the static libcrypto.a with the
+	# arc4random, arc4random_buf, and arc4random_uniform.  These
+	# functions also exist in in FreeBSD's system libc. To resolve,
+	# don't use libressl builtin versions.
+	${REINPLACE_CMD} -e '/DHAVE_ARC4RANDOM/d' ${WRKSRC}/CMakeLists.txt
 
 post-build-STATIC-OFF:
 	# assemble PIC libraries
-	(cd ${WRKSRC}/crypto &&\
-	 ${AR} -crsv .libs/libcrypto_pic.a .libs/*.o */.libs/*.o &&\
-	 ranlib .libs/libcrypto_pic.a)
-	(cd ${WRKSRC}/ssl/.libs &&\
-	 ${AR} -crsv libssl_pic.a *.o &&\
-	 ranlib libssl_pic.a)
-	(cd ${WRKSRC}/tls/.libs &&\
-	 ${AR} -crsv libtls_pic.a *.o &&\
-	 ranlib libtls_pic.a)
+	cd ${BUILD_WRKSRC} &&\
+		${AR} -crsv libcrypto_pic.a \
+		crypto/CMakeFiles/crypto.dir/*.o \
+		crypto/CMakeFiles/crypto.dir/*/*.o \
+		&& ranlib libcrypto_pic.a
+	cd ${BUILD_WRKSRC} &&\
+		${AR} -crsv libssl_pic.a \
+		ssl/CMakeFiles/ssl.dir/*.o \
+		&& ranlib libssl_pic.a
+	cd ${BUILD_WRKSRC} &&\
+		${AR} -crsv libtls_pic.a \
+		tls/CMakeFiles/tls.dir/*.o \
+		&& ranlib libtls_pic.a
 
 post-install:
+	${STRIP_CMD} ${STAGEDIR}${BASE}/bin/nc
+	${STRIP_CMD} ${STAGEDIR}${BASE}/bin/ocspcheck
+	${STRIP_CMD} ${STAGEDIR}${BASE}/bin/openssl
 	${RM} -r ${STAGEDIR}/${PREFIX}/etc/${NAMEBASE}/cert.pem
 
 post-install-STATIC-OFF:
 	# install our PIC libraries
 	${INSTALL_DATA} \
-		${WRKSRC}/crypto/.libs/libcrypto_pic.a \
-		${WRKSRC}/ssl/.libs/libssl_pic.a \
-		${WRKSRC}/tls/.libs/libtls_pic.a \
+		${BUILD_WRKSRC}/libcrypto_pic.a \
+		${BUILD_WRKSRC}/libssl_pic.a \
+		${BUILD_WRKSRC}/libtls_pic.a \
 		${STAGEDIR}${PREFIX}/${NAMEBASE}/lib/
+	${STRIP_CMD} ${STAGEDIR}${BASE}/lib/*.so
 
-post-install-dragonfly:
-	${INSTALL_SCRIPT} ${WRKSRC}/apps/nc/nc ${STAGEDIR}${BASE}/bin/nc
+post-patch-SKIP_MANPAGES-ON:
+	${REINPLACE_CMD} -e '/add_subdirectory.man./d' \
+		${WRKSRC}/CMakeLists.txt
 
 post-install-SKIP_MANPAGES-ON:
 	${RM} -r ${STAGEDIR}${BASE}/share
