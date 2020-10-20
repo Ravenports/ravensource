@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.2.3.2
+DEF[PORTVERSION]=	1.2.4
 DEF[SOVERSION]=		2.0.0
 # ----------------------------------------------------------------------------
 
@@ -11,8 +11,8 @@ HOMEPAGE=		https://www.alsa-project.org/main/index.php/Main_Page
 CONTACT=		Leonid_Bobrov[goleo@disroot.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		ftp://ftp.alsa-project.org/pub/lib/
-DISTFILE[1]=		alsa-lib-${PORTVERSION}.tar.bz2:main
+SITES[main]=		GITHUB/alsa-project:alsa-lib:v${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
@@ -29,7 +29,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		audio/alsa-lib
 
-USES=			cpe libtool:keepla python
+USES=			autoreconf cpe libtool:keepla python
 BUILDRUN_DEPENDS=	autoselect-python:single:standard
 MUST_CONFIGURE=		gnu
 INSTALL_REQ_TOOLCHAIN=	yes
@@ -47,7 +47,6 @@ post-patch:
 	${REINPLACE_CMD} 's|/etc|${PREFIX}&|g' ${WRKSRC}/src/conf/alsa.conf
 
 post-patch-LINUX-OFF:
-	${REINPLACE_CMD} -e '/_GNU_SOURCE/d' ${WRKSRC}/configure
 	${MKDIR} ${WRKSRC}/include/linux
 	${CP} ${FILESDIR}/byteswap.h ${WRKSRC}/include/
 	${CP} ${FILESDIR}/endian.h ${WRKSRC}/include/
