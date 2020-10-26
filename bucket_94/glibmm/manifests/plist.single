@@ -53,6 +53,7 @@ include/giomm-%%VERSION%%/giomm/error.h
 include/giomm-%%VERSION%%/giomm/file.h
 include/giomm-%%VERSION%%/giomm/fileattributeinfo.h
 include/giomm-%%VERSION%%/giomm/fileattributeinfolist.h
+include/giomm-%%VERSION%%/giomm/filedescriptorbased.h
 include/giomm-%%VERSION%%/giomm/fileenumerator.h
 include/giomm-%%VERSION%%/giomm/fileicon.h
 include/giomm-%%VERSION%%/giomm/fileinfo.h
@@ -90,6 +91,7 @@ include/giomm-%%VERSION%%/giomm/outputstream.h
 include/giomm-%%VERSION%%/giomm/permission.h
 include/giomm-%%VERSION%%/giomm/pollableinputstream.h
 include/giomm-%%VERSION%%/giomm/pollableoutputstream.h
+include/giomm-%%VERSION%%/giomm/propertyaction.h
 include/giomm-%%VERSION%%/giomm/proxy.h
 include/giomm-%%VERSION%%/giomm/proxyaddress.h
 include/giomm-%%VERSION%%/giomm/proxyresolver.h
@@ -105,6 +107,7 @@ include/giomm-%%VERSION%%/giomm/simpleaction.h
 include/giomm-%%VERSION%%/giomm/simpleactiongroup.h
 include/giomm-%%VERSION%%/giomm/simpleiostream.h
 include/giomm-%%VERSION%%/giomm/simplepermission.h
+include/giomm-%%VERSION%%/giomm/slot_async.h
 include/giomm-%%VERSION%%/giomm/socket.h
 include/giomm-%%VERSION%%/giomm/socketaddress.h
 include/giomm-%%VERSION%%/giomm/socketaddressenumerator.h
@@ -192,6 +195,7 @@ include/giomm-%%VERSION%%/giomm/private/error_p.h
 include/giomm-%%VERSION%%/giomm/private/file_p.h
 include/giomm-%%VERSION%%/giomm/private/fileattributeinfo_p.h
 include/giomm-%%VERSION%%/giomm/private/fileattributeinfolist_p.h
+include/giomm-%%VERSION%%/giomm/private/filedescriptorbased_p.h
 include/giomm-%%VERSION%%/giomm/private/fileenumerator_p.h
 include/giomm-%%VERSION%%/giomm/private/fileicon_p.h
 include/giomm-%%VERSION%%/giomm/private/fileinfo_p.h
@@ -228,6 +232,7 @@ include/giomm-%%VERSION%%/giomm/private/outputstream_p.h
 include/giomm-%%VERSION%%/giomm/private/permission_p.h
 include/giomm-%%VERSION%%/giomm/private/pollableinputstream_p.h
 include/giomm-%%VERSION%%/giomm/private/pollableoutputstream_p.h
+include/giomm-%%VERSION%%/giomm/private/propertyaction_p.h
 include/giomm-%%VERSION%%/giomm/private/proxy_p.h
 include/giomm-%%VERSION%%/giomm/private/proxyaddress_p.h
 include/giomm-%%VERSION%%/giomm/private/proxyresolver_p.h
@@ -276,7 +281,6 @@ include/giomm-%%VERSION%%/giomm/private/volumemonitor_p.h
 include/giomm-%%VERSION%%/giomm/private/zlibcompressor_p.h
 include/giomm-%%VERSION%%/giomm/private/zlibdecompressor_p.h
 include/glibmm-%%VERSION%%/glibmm.h
-include/glibmm-%%VERSION%%/glibmm/arrayhandle.h
 include/glibmm-%%VERSION%%/glibmm/balancedtree.h
 include/glibmm-%%VERSION%%/glibmm/base64.h
 include/glibmm-%%VERSION%%/glibmm/binding.h
@@ -285,7 +289,6 @@ include/glibmm-%%VERSION%%/glibmm/bytes.h
 include/glibmm-%%VERSION%%/glibmm/checksum.h
 include/glibmm-%%VERSION%%/glibmm/class.h
 include/glibmm-%%VERSION%%/glibmm/containerhandle_shared.h
-include/glibmm-%%VERSION%%/glibmm/containers.h
 include/glibmm-%%VERSION%%/glibmm/convert.h
 include/glibmm-%%VERSION%%/glibmm/date.h
 include/glibmm-%%VERSION%%/glibmm/datetime.h
@@ -293,18 +296,15 @@ include/glibmm-%%VERSION%%/glibmm/debug.h
 include/glibmm-%%VERSION%%/glibmm/dispatcher.h
 include/glibmm-%%VERSION%%/glibmm/enums.h
 include/glibmm-%%VERSION%%/glibmm/error.h
-include/glibmm-%%VERSION%%/glibmm/exception.h
 include/glibmm-%%VERSION%%/glibmm/exceptionhandler.h
 include/glibmm-%%VERSION%%/glibmm/extraclassinit.h
 include/glibmm-%%VERSION%%/glibmm/fileutils.h
-include/glibmm-%%VERSION%%/glibmm/helperlist.h
 include/glibmm-%%VERSION%%/glibmm/i18n-lib.h
 include/glibmm-%%VERSION%%/glibmm/i18n.h
 include/glibmm-%%VERSION%%/glibmm/init.h
 include/glibmm-%%VERSION%%/glibmm/interface.h
 include/glibmm-%%VERSION%%/glibmm/iochannel.h
 include/glibmm-%%VERSION%%/glibmm/keyfile.h
-include/glibmm-%%VERSION%%/glibmm/listhandle.h
 include/glibmm-%%VERSION%%/glibmm/main.h
 include/glibmm-%%VERSION%%/glibmm/markup.h
 include/glibmm-%%VERSION%%/glibmm/miscutils.h
@@ -324,19 +324,12 @@ include/glibmm-%%VERSION%%/glibmm/quark.h
 include/glibmm-%%VERSION%%/glibmm/random.h
 include/glibmm-%%VERSION%%/glibmm/refptr.h
 include/glibmm-%%VERSION%%/glibmm/regex.h
-include/glibmm-%%VERSION%%/glibmm/sarray.h
 include/glibmm-%%VERSION%%/glibmm/shell.h
 include/glibmm-%%VERSION%%/glibmm/signalproxy.h
 include/glibmm-%%VERSION%%/glibmm/signalproxy_connectionnode.h
-include/glibmm-%%VERSION%%/glibmm/slisthandle.h
 include/glibmm-%%VERSION%%/glibmm/spawn.h
-include/glibmm-%%VERSION%%/glibmm/streamiochannel.h
 include/glibmm-%%VERSION%%/glibmm/stringutils.h
-include/glibmm-%%VERSION%%/glibmm/thread.h
-include/glibmm-%%VERSION%%/glibmm/threadpool.h
-include/glibmm-%%VERSION%%/glibmm/threads.h
 include/glibmm-%%VERSION%%/glibmm/timer.h
-include/glibmm-%%VERSION%%/glibmm/timeval.h
 include/glibmm-%%VERSION%%/glibmm/timezone.h
 include/glibmm-%%VERSION%%/glibmm/unicode.h
 include/glibmm-%%VERSION%%/glibmm/uriutils.h
@@ -345,7 +338,6 @@ include/glibmm-%%VERSION%%/glibmm/utility.h
 include/glibmm-%%VERSION%%/glibmm/value.h
 include/glibmm-%%VERSION%%/glibmm/value_basictypes.h
 include/glibmm-%%VERSION%%/glibmm/value_custom.h
-include/glibmm-%%VERSION%%/glibmm/valuearray.h
 include/glibmm-%%VERSION%%/glibmm/variant.h
 include/glibmm-%%VERSION%%/glibmm/variant_basictypes.h
 include/glibmm-%%VERSION%%/glibmm/variantdbusstring.h
@@ -353,7 +345,6 @@ include/glibmm-%%VERSION%%/glibmm/variantdict.h
 include/glibmm-%%VERSION%%/glibmm/variantiter.h
 include/glibmm-%%VERSION%%/glibmm/varianttype.h
 include/glibmm-%%VERSION%%/glibmm/vectorutils.h
-include/glibmm-%%VERSION%%/glibmm/weakref.h
 include/glibmm-%%VERSION%%/glibmm/wrap.h
 include/glibmm-%%VERSION%%/glibmm/wrap_init.h
 include/glibmm-%%VERSION%%/glibmm/private/balancedtree_p.h
@@ -380,12 +371,9 @@ include/glibmm-%%VERSION%%/glibmm/private/optiongroup_p.h
 include/glibmm-%%VERSION%%/glibmm/private/regex_p.h
 include/glibmm-%%VERSION%%/glibmm/private/shell_p.h
 include/glibmm-%%VERSION%%/glibmm/private/spawn_p.h
-include/glibmm-%%VERSION%%/glibmm/private/thread_p.h
-include/glibmm-%%VERSION%%/glibmm/private/threads_p.h
 include/glibmm-%%VERSION%%/glibmm/private/timezone_p.h
 include/glibmm-%%VERSION%%/glibmm/private/unicode_p.h
 include/glibmm-%%VERSION%%/glibmm/private/uriutils_p.h
-include/glibmm-%%VERSION%%/glibmm/private/valuearray_p.h
 include/glibmm-%%VERSION%%/glibmm/private/variant_p.h
 include/glibmm-%%VERSION%%/glibmm/private/variantdict_p.h
 include/glibmm-%%VERSION%%/glibmm/private/variantiter_p.h
