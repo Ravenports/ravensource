@@ -1,4 +1,4 @@
---- libi3/get_exe_path.c.orig	2020-07-26 08:11:37 UTC
+--- libi3/get_exe_path.c.orig	2020-10-19 21:16:56 UTC
 +++ libi3/get_exe_path.c
 @@ -27,11 +27,12 @@ char *get_exe_path(const char *argv0) {
      char *destpath = smalloc(destpath_size);
