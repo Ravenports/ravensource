@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.9704
+DEF[PORTVERSION]=	0.9706
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Graph
@@ -7,11 +7,11 @@ KEYWORDS=		perl
 VARIANTS=		530 532
 SDESC[530]=		Graph data structures and algorithms (5.30)
 SDESC[532]=		Graph data structures and algorithms (5.32)
-HOMEPAGE=		https://github.com/neilbowers/Graph
+HOMEPAGE=		https://github.com/neilb/Graph
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		CPAN/ID:J/JH/JHI
+SITES[main]=		CPAN/ID:E/ET/ETJ
 DISTFILE[1]=		Graph-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
@@ -29,8 +29,21 @@ GENERATED=		yes
 SINGLE_JOB=		yes
 DISTNAME=		Graph-${PORTVERSION}
 
-# This perl port has no dependencies at all.
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : Heap
+# |      runtime : List::Util (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Safe (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Scalar::Util (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Storable (perl 5.30 core) (perl 5.32 core)
+# |        build : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# |         test : Math::Complex (perl 5.30 core) (perl 5.32 core)
+# |         test : Test::More (perl 5.30 core) (perl 5.32 core)
 
 [PERL_530].USES_ON=			perl:530,configure
+[PERL_530].BUILDRUN_DEPENDS_ON=		perl-Heap:single:530
 [PERL_532].USES_ON=			perl:532,configure
+[PERL_532].BUILDRUN_DEPENDS_ON=		perl-Heap:single:532
 
