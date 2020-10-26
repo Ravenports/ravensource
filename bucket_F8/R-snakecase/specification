@@ -1,17 +1,17 @@
-DEF[PORTVERSION]=	1.1-25
+DEF[PORTVERSION]=	0.11.0
 # ------------------------------------------------------------------------
 
-NAMEBASE=		R-lme4
+NAMEBASE=		R-snakecase
 VERSION=		${PORTVERSION}
 KEYWORDS=		cran
 VARIANTS=		standard
-SDESC[standard]=	Linear Mixed-Effects Models using 'Eigen' and S4
-HOMEPAGE=		https://github.com/lme4/lme4/
+SDESC[standard]=	Convert Strings into any Case
+HOMEPAGE=		https://github.com/Tazinho/snakecase
 CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CRAN/src/contrib
-DISTFILE[1]=		lme4_1.1-25.tar.gz:main
+DISTFILE[1]=		snakecase_0.11.0.tar.gz:main
 DIST_SUBDIR=		CRAN
 DF_INDEX=		1
 
@@ -21,17 +21,14 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 # License listed on https://cran.r-project.org/
-# => GPL-2 | GPL-3 [expanded from: GPL (>= 2)]
+# => GPL-3
 
 USES=			cran gmake
-DISTNAME=		lme4
+DISTNAME=		snakecase
 GENERATED=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
 
-BUILDRUN_DEPENDS=	R-minqa:single:standard
-			R-nloptr:single:standard
-			R-statmod:single:standard
-			R-Rcpp:single:standard
-			R-RcppEigen:single:standard
+BUILDRUN_DEPENDS=	R-stringr:single:standard
+			R-stringi:single:standard
 
 
