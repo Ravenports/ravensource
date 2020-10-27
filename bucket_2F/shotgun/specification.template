@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	%%VERSION%%
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		shotgun
+VERSION=		${PORTVERSION}
+KEYWORDS=		rust graphics
+VARIANTS=		standard
+SDESC[standard]=	Minimal X screenshot utility
+HOMEPAGE=		https://github.com/neXromancers/shotgun
+CONTACT=		nobody
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		https://crates.io/api/v1/crates/shotgun/${PORTVERSION}/download?dummy=/
+%%CR_SITES%%
+
+DISTFILE[1]=		shotgun-${PORTVERSION}.tar.gz:main
+%%CR_DISTFILES%%
+%%DF_INDEX%%
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MPL:single
+LICENSE_FILE=		MPL:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/main.rs
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		git:primary:lite
+
+USES=			cargo cclibs:single
+XORG_COMPONENTS=	x11 xrandr
+
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/.crates2.json
