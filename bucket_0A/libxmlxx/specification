@@ -1,13 +1,15 @@
-DEF[PORTVERSION]=	3.2.2
+# Unstable version, required because of glibmm updates
+DEF[PORTVERSION]=	4.9.1
 DEF[FOLDER]=		${PORTVERSION:R}
 DEF[SOVERSION]=		1.0.0
+DEF[API]=		5.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libxmlxx
 VERSION=		${PORTVERSION}
 KEYWORDS=		textproc
 VARIANTS=		standard
-SDESC[standard]=	API 3.0 C++ wrapper for libxml2 parser library
+SDESC[standard]=	API ${API} C++ wrapper for libxml2 parser library
 HOMEPAGE=		http://libxmlplusplus.sourceforge.net/
 CONTACT=		nobody
 
@@ -29,14 +31,26 @@ LICENSE_SCHEME=		solo
 
 # FPC_EQUIVALENT=	none
 
-BUILD_DEPENDS=		autoselect-python:single:standard
-BUILDRUN_DEPENDS=	glibmm:single:standard
+# BUILD_DEPENDS=		autoselect-python:single:standard
 
-USES=			gmake pkgconfig perl:build python:build meson
+USES=			gmake pkgconfig perl:build
+			libtool c++:single
+# python:build meson
 GNOME_COMPONENTS=	libxml2
 DISTNAME=		libxml++-${PORTVERSION}
-MESON_ARGS=		-Dbuild-tests=false
-			-Dbuild-examples=false
-			-Dbuild-documentation=false
-PLIST_SUB=		API="3.0"
+# MESON_ARGS=		-Dbuild-tests=false
+# #			-Dbuild-examples=false
+# #			-Dbuild-documentation=false
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-documentation
+INSTALL_TARGET=		install-strip
+PLIST_SUB=		API="${API}"
 SOVERSION=		${SOVERSION}
+
+# remove when meson comes back
+post-patch:
+	${REINPLACE_CMD} -e '/^SUBDIRS =/s/examples//' \
+		-e '/^library_configdir =/s/libdir/includedir/' \
+		${WRKSRC}/Makefile.in
+	${REINPLACE_CMD} -e '/^Cflags:/s/libdir/includedir/' \
+		${WRKSRC}/libxml++.pc.in
