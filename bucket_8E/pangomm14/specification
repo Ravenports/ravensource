@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	2.42.1
+DEF[SOVERSION]=		1.0.30
+DEF[API_VERSION]=	1.4
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		pangomm14
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_toolkits
+VARIANTS=		standard
+SDESC[standard]=	C++ bindings for Pango
+HOMEPAGE=		https://www.gtkmm.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/pangomm/${PORTVERSION:R}
+DISTFILE[1]=		pangomm-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:single
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"_PANGOMM_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/pango/pangomm.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11-toolkits/pangomm
+
+BUILDRUN_DEPENDS=	cairomm10:single:standard
+			glibmm24:single:standard
+
+USES=			gmake libtool pkgconfig
+GNOME_COMPONENTS=	pango
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-documentation
+			--enable-static=yes
+INSTALL_TARGET=		install-strip
+PLIST_SUB=		API_VERSION=${API_VERSION}
+SOVERSION=		${SOVERSION}
+DISTNAME=		pangomm-${PORTVERSION}
