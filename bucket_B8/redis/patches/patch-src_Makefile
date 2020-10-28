@@ -1,4 +1,4 @@
---- src/Makefile.orig	2020-09-10 11:09:00 UTC
+--- src/Makefile.orig	2020-10-27 07:12:01 UTC
 +++ src/Makefile
 @@ -76,7 +76,6 @@ endif
  FINAL_CFLAGS=$(STD) $(WARN) $(OPT) $(DEBUG) $(CFLAGS) $(REDIS_CFLAGS)
@@ -8,9 +8,9 @@
  
  # Linux ARM needs -latomic at linking time
  ifneq (,$(filter aarch64 armv,$(uname_M)))
-@@ -137,12 +136,16 @@ ifeq ($(uname_S),NetBSD)
- 	# NetBSD
- 	FINAL_LIBS+= -lpthread -lexecinfo
+@@ -152,12 +151,16 @@ ifeq ($(uname_S),Haiku)
+ 	FINAL_LDFLAGS+= -lbsd -lnetwork
+ 	FINAL_LIBS+= -lpthread
  else
 +ifeq ($(uname_S),DragonFly)
 +	FINAL_LIBS+= -lpthread
