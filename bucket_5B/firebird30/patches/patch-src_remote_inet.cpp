@@ -1,6 +1,6 @@
---- src/remote/inet.cpp.orig	2020-06-26 08:30:29 UTC
+--- src/remote/inet.cpp.orig	2020-10-12 00:02:22 UTC
 +++ src/remote/inet.cpp
-@@ -918,7 +918,7 @@ rem_port* INET_connect(const TEXT* name,
+@@ -962,7 +962,7 @@ rem_port* INET_connect(const TEXT* name,
  		gai_hints.ai_family = ((host.hasData() || !ipv6) ? AF_UNSPEC : AF_INET6);
  	gai_hints.ai_socktype = SOCK_STREAM;
  
@@ -9,7 +9,7 @@
  	gai_hints.ai_protocol = SOL_TCP;
  #else
  	gai_hints.ai_protocol = IPPROTO_TCP;
-@@ -1133,6 +1133,12 @@ static rem_port* listener_socket(rem_por
+@@ -1177,6 +1177,12 @@ static rem_port* listener_socket(rem_por
  
  	inet_ports->registerPort(port);
  
