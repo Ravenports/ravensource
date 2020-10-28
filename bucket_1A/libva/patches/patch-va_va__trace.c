@@ -1,4 +1,4 @@
---- va/va_trace.c.orig	2020-09-11 21:46:48 UTC
+--- va/va_trace.c.orig	2020-10-26 01:25:27 UTC
 +++ va/va_trace.c
 @@ -50,6 +50,9 @@
  #include <sys/stat.h>
