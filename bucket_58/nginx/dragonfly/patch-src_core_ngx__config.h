@@ -1,4 +1,4 @@
---- src/core/ngx_config.h.orig	2020-09-29 14:32:10 UTC
+--- src/core/ngx_config.h.orig	2020-10-27 15:09:20 UTC
 +++ src/core/ngx_config.h
 @@ -12,8 +12,8 @@
  #include <ngx_auto_headers.h>
