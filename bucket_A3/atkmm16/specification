@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	2.28.0
+DEF[SOVERSION]=		1.1.0
+DEF[API]=		1.6
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		atkmm16
+VERSION=		${PORTVERSION}
+KEYWORDS=		accessibility
+VARIANTS=		standard
+SDESC[standard]=	C++ bindings for ATK
+HOMEPAGE=		https://www.gtkmm.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/atkmm/${PORTVERSION:R}/
+DISTFILE[1]=		atkmm-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:single
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"_ATKMM_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/atk/atkmm.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		accessibility/atkmm
+
+BUILDRUN_DEPENDS=	glibmm24:single:standard
+
+USES=			gmake libtool pkgconfig
+GNOME_COMPONENTS=	atk
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-documentation
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		API=${API}
+DISTNAME=		atkmm-${PORTVERSION}
