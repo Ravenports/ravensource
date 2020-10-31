@@ -1,4 +1,4 @@
---- src/util/os_memory_aligned.h.orig	2020-09-16 17:29:02 UTC
+--- src/util/os_memory_aligned.h.orig	2020-10-14 18:34:53 UTC
 +++ src/util/os_memory_aligned.h
 @@ -53,11 +53,16 @@ add_overflow_size_t(size_t a, size_t b,
  static inline void *
