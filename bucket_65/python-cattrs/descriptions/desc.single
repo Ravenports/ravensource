@@ -39,6 +39,8 @@ strings.
 Here's a simple taste. The list containing a float, an int and a string
 gets converted into a tuple of three ints.
 
+.. code-block:: pycon
+
     >>> import cattr
     >>> from typing import Tuple
     >>>
@@ -46,6 +48,8 @@ gets converted into a tuple of three ints.
     (1, 2, 3)
 
 cattrs works well with attrs classes out of the box.
+
+.. code-block:: pycon
 
     >>> import attr, cattr
     >>>
@@ -63,6 +67,8 @@ too.
 
 Here's a much more complex example, involving attrs classes with type
 metadata.
+
+.. code-block:: pycon
 
     >>> from enum import unique, Enum
     >>> from typing import List, Optional, Sequence, Union
@@ -92,9 +98,3 @@ metadata.
     ...
     >>> p = unstructure([Dog(cuteness=1, chip=DogMicrochip(chip_id=1,
 time_chipped=10.0)),
-    ...                  Cat(breed=CatBreed.MAINE_COON, names=('Fluffly',
-'Fluffer'))])
-    ...
-    >>> print(p)
-    [{'cuteness': 1, 'chip': {'chip_id': 1, 'time_chipped': 10.0}},
-{'breed': 'maine_coon', 'names': ('Fluffly', 'Fluffer')}]
