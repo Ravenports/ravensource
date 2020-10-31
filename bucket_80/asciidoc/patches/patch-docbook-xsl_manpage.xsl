@@ -1,4 +1,4 @@
---- docbook-xsl/manpage.xsl.orig	2020-10-16 19:58:49 UTC
+--- docbook-xsl/manpage.xsl.orig	2020-10-30 14:46:38 UTC
 +++ docbook-xsl/manpage.xsl
 @@ -9,7 +9,7 @@
    a machine by machine basis.
