@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.4.9
+DEF[PORTVERSION]=	2.5.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		openvpn
@@ -42,8 +42,13 @@ RUN_DEPENDS=		lz4:shared:standard
 USES=			autoreconf cpe libtool pkgconfig ssl:openssl-devel
 
 MUST_CONFIGURE=		gnu
-CONFIGURE_ENV=		ac_cv_prog_CMAKE= CMAKE=
+CONFIGURE_ENV=		ac_cv_prog_CMAKE=
+			CMAKE=
+CONFIGURE_ARGS=		ROUTE="/sbin/route"
+			IFCONFIG="/sbin/ifconfig"
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/openvpn/plugins/openvpn-plugin-auth-pam.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/openvpn/plugins/openvpn-plugin-down-root.so
+	# remove after version 2.5.0
+	${INSTALL_MAN} ${WRKSRC}/doc/openvpn.8 ${STAGEDIR}${MANPREFIX}/man/man8
