@@ -1,4 +1,4 @@
---- common/unicode/platform.h.orig	2020-04-22 20:04:20 UTC
+--- common/unicode/platform.h.orig	2020-10-28 21:21:12 UTC
 +++ common/unicode/platform.h
 @@ -178,6 +178,9 @@
  #       include <sys/endian.h>
