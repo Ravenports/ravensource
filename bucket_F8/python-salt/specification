@@ -1,12 +1,13 @@
 # manually maintained
-DEF[PORTVERSION]=	3001.1
+DEF[PORTVERSION]=	3002
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-salt
 VERSION=		${PORTVERSION}
 KEYWORDS=		python sysutils
-VARIANTS=		py37
+VARIANTS=		py37 py38
 SDESC[py37]=		Remote execution and config mgmt system (PY 37)
+SDESC[py38]=		Remote execution and config mgmt system (PY 38)
 HOMEPAGE=		http://saltstack.org/
 CONTACT=		nobody
 
@@ -15,15 +16,22 @@ SITES[main]=		PYPI/s/salt
 DISTFILE[1]=		salt-${PORTVERSION}.tar.gz:main
 
 SPKGS[py37]=		single
+SPKGS[py38]=		single
 
-OPTIONS_AVAILABLE=	PY37
+OPTIONS_AVAILABLE=	PY37 PY38
 OPTIONS_STANDARD=	none
-VOPTS[py37]=		PY37=ON
+VOPTS[py37]=		PY37=ON PY38=OFF
+VOPTS[py38]=		PY37=OFF PY38=ON
 
 LICENSE=		APACHE20:single
 LICENSE_FILE=		APACHE20:stock
 LICENSE_TERMS=		single:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		tar:primary:standard
+
+EXTRACT_HEAD[1]=	{{LOCALBASE}}/bin/gtar -xf
+EXTRACT_TAIL[1]=	--no-same-owner --no-same-permissions
 
 USES=			cpe
 CPE_VENDOR=		saltstack
@@ -62,6 +70,16 @@ DISTNAME=		salt-${PORTVERSION}
 					python-pyzmq:single:py37
 [PY37].RUN_DEPENDS_ON=			python-pycryptodomex:single:py37
 					python-distro:single:py37
+
+[PY38].USES_ON=				python:py38
+[PY38].BUILDRUN_DEPENDS_ON=		python-Jinja2:single:py38
+					python-msgpack:single:py38
+					python-PyYAML:single:py38
+					python-MarkupSafe:single:py38
+					python-requests:single:py38
+					python-pyzmq:single:py38
+[PY38].RUN_DEPENDS_ON=			python-pycryptodomex:single:py38
+					python-distro:single:py38
 
 post-patch:
 .for file in conf/minion conf/master doc/man/salt-key.1 \
