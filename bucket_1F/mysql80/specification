@@ -130,8 +130,6 @@ INSTALL_REQ_TOOLCHAIN=	yes
 
 post-extract:
 	${RM} -rv ${WRKSRC}/sql/sql_hints.yy.cc ${WRKSRC}/sql/sql_hints.yy.h
-	# group replication requires rpcgen (uncomment to disable)
-	# ${MV} ${WRKSRC}/plugin/group_replication ${WRKDIR}/
 
 post-patch:
 	${REINPLACE_CMD} -e 's|@LOCALBASE@|${LOCALBASE}|' \

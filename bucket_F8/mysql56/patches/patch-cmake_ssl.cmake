@@ -1,4 +1,4 @@
---- cmake/ssl.cmake.orig	2020-06-02 05:32:03 UTC
+--- cmake/ssl.cmake.orig	2020-09-23 12:30:17 UTC
 +++ cmake/ssl.cmake
 @@ -189,13 +189,10 @@ MACRO (MYSQL_CHECK_SSL)
          OPENSSL_FIX_VERSION "${OPENSSL_VERSION_NUMBER}"

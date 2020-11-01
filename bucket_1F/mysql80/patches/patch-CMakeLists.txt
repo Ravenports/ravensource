@@ -1,6 +1,6 @@
---- CMakeLists.txt.orig	2020-06-16 16:31:03 UTC
+--- CMakeLists.txt.orig	2020-09-23 12:37:48 UTC
 +++ CMakeLists.txt
-@@ -1501,7 +1501,6 @@ ADD_SUBDIRECTORY(share)
+@@ -1568,7 +1568,6 @@ ADD_SUBDIRECTORY(share)
  ADD_SUBDIRECTORY(libservices)
  
  IF(NOT WITHOUT_SERVER)
@@ -8,7 +8,7 @@
    ADD_SUBDIRECTORY(sql)
  ENDIF()
  
-@@ -1525,8 +1524,6 @@ ENDIF()
+@@ -1592,8 +1591,6 @@ ENDIF()
  ADD_SUBDIRECTORY(scripts)
  
  IF(NOT WITHOUT_SERVER)
@@ -17,7 +17,7 @@
    ADD_SUBDIRECTORY(support-files)
    IF(WITH_INTERNAL)
      ADD_SUBDIRECTORY(internal)
-@@ -1628,7 +1625,6 @@ ELSE()
+@@ -1695,7 +1692,6 @@ ELSE()
    SET(CPACK_GENERATOR "TGZ")
  ENDIF() 
  ADD_SUBDIRECTORY(packaging/WiX)
@@ -25,7 +25,7 @@
  
  # Produce separate tarballs for each INSTALL COMPONENT
  IF(PACK_SEPARATE_COMPONENTS)
-@@ -1644,6 +1640,7 @@ ENDIF()
+@@ -1711,6 +1707,7 @@ ENDIF()
  #
  # RPM installs documentation directly from the source tree
  #
@@ -33,7 +33,7 @@
  IF(NOT INSTALL_LAYOUT MATCHES "RPM")
    INSTALL(FILES
      README
-@@ -1671,6 +1668,7 @@ IF(NOT INSTALL_LAYOUT MATCHES "RPM")
+@@ -1738,6 +1735,7 @@ IF(NOT INSTALL_LAYOUT MATCHES "RPM")
      PATTERN "README.build" EXCLUDE
    )
  ENDIF()

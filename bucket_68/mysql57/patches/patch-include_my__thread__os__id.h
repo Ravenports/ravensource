@@ -1,4 +1,4 @@
---- include/my_thread_os_id.h.orig	2020-06-02 11:05:42 UTC
+--- include/my_thread_os_id.h.orig	2020-09-23 12:00:04 UTC
 +++ include/my_thread_os_id.h
 @@ -88,8 +88,12 @@ static inline my_thread_os_id_t my_threa
    return pthread_getthreadid_np();

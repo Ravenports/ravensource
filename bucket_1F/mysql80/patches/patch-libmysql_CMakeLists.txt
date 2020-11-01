@@ -1,6 +1,17 @@
---- libmysql/CMakeLists.txt.orig	2020-06-16 16:31:03 UTC
+--- libmysql/CMakeLists.txt.orig	2020-09-23 12:37:48 UTC
 +++ libmysql/CMakeLists.txt
-@@ -243,7 +243,6 @@ IF(WIN32)
+@@ -245,6 +245,10 @@ ELSEIF(FREEBSD)
+   SET(HAVE_DNS_SRV 1)
+   SET(HAVE_UNIX_DNS_SRV 1 PARENT_SCOPE)
+   MESSAGE(STATUS "BSD built in DNS SRV APIs")
++ELSEIF(CMAKE_SYSTEM_NAME MATCHES "DragonFly")
++  SET(HAVE_DNS_SRV 1)
++  SET(HAVE_UNIX_DNS_SRV 1 PARENT_SCOPE)
++  MESSAGE(STATUS "BSD built in DNS SRV APIs")
+ ELSE()
+   FIND_LIBRARY(RESOLV_LIBRARY NAMES resolv)
+   IF (RESOLV_LIBRARY)
+@@ -269,7 +273,6 @@ IF(WIN32)
  ENDIF()
  
  # LDAP authentication SASL client plugin
@@ -8,7 +19,7 @@
  
  # Merge several convenience libraries into one big mysqlclient
  MERGE_CONVENIENCE_LIBRARIES(mysqlclient ${LIBS_TO_MERGE} COMPONENT Development)
-@@ -306,7 +305,7 @@ ENDIF()
+@@ -332,7 +335,7 @@ ENDIF()
  
  IF(UNIX)
    # libtool compatability
