@@ -1,0 +1,27 @@
+--- configure.orig	2020-10-05 15:07:58 UTC
++++ configure
+@@ -656,6 +656,7 @@ DTRACE
+ TCLTK_LIBS
+ TCLTK_INCLUDES
+ LIBFFI_INCLUDEDIR
++DISABLED_EXTENSIONS
+ PKG_CONFIG_LIBDIR
+ PKG_CONFIG_PATH
+ PKG_CONFIG
+@@ -3424,7 +3425,7 @@ $as_echo "#define _BSD_SOURCE 1" >>confd
+   # has no effect, don't bother defining them
+   Darwin/[6789].*)
+     define_xopen_source=no;;
+-  Darwin/[12][0-9].*)
++  Darwin/[12][0-9].*|Darwin/12[0-9]-*)
+     define_xopen_source=no;;
+   # On AIX 4 and 5.1, mbstate_t is defined only when _XOPEN_SOURCE == 500 but
+   # used in wcsnrtombs() and mbsnrtowcs() even if _XOPEN_SOURCE is not defined
+@@ -5971,6 +5972,7 @@ $as_echo "#define Py_ENABLE_SHARED 1" >>
+     Darwin*)
+     	LDLIBRARY='libpython$(LDVERSION).dylib'
+ 	BLDLIBRARY='-L. -lpython$(LDVERSION)'
++    	INSTSONAME='libpython$(LDVERSION)'.$SOVERSION.dylib
+ 	RUNSHARED=DYLD_LIBRARY_PATH=`pwd`${DYLD_LIBRARY_PATH:+:${DYLD_LIBRARY_PATH}}
+ 	;;
+     AIX*)

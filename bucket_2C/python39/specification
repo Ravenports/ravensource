@@ -1,0 +1,128 @@
+DEF[PORTVERSION]=	EXTRACT_VERSION(PYTHON_3.9_VERSION)
+DEF[PYTHON_VER]=	${PORTVERSION:R}
+DEF[PYTHON_VERSION]=	python${PYTHON_VER}
+DEF[PYTHON_SUFFIX]=	${PYTHON_VER:S/.//g}
+DEF[PIP_VER]=		20.2.1
+DEF[SETUP_VER]=		49.2.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		python${PYTHON_SUFFIX}
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang python
+VARIANTS=		standard
+SDESC[standard]=	Interpreted object-oriented programming language
+HOMEPAGE=		https://www.python.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.python.org/ftp/python/${PORTVERSION}/
+DISTFILE[1]=		Python-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	DEBUG PYMALLOC
+OPTIONS_STANDARD=	DEBUG PYMALLOC
+OPT_ON[all]=		PYMALLOC
+
+BUILD_DEPENDS=		expat:static:standard
+			bzip2:static:standard
+BUILDRUN_DEPENDS=	libffi:single:standard
+			expat:shared:standard
+			bzip2:shared:standard
+			xz:single:standard
+BR_DEPS[linux]=		libuuid:single:standard
+BR_DEPS[sunos]=		libuuid:single:standard
+
+FPC_EQUIVALENT=		lang/python38
+
+USES=			bdb cpe ncurses pkgconfig readline ssl shebangfix
+			zlib gettext-runtime gmake
+DISTNAME=		Python-${PORTVERSION}
+INSTALL_REQ_TOOLCHAIN=	yes
+SINGLE_JOB=		yes
+CPE_VENDOR=		python
+CPE_PRODUCT=		python
+CPE_VERSION=		${PORTVERSION}
+SHEBANG_NEW_PYTHON=	{{PREFIX}}/bin/python${PYTHON_VER}
+SHEBANG_FILES=		Lib/lib2to3/tests/data/*.py
+			Lib/encodings/*.py
+			Lib/test/ziptestdata/header.sh
+			Lib/test/ziptestdata/exe_with_z64
+			Lib/test/ziptestdata/exe_with_zip
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-system-ffi
+			--with-system-expat
+			--enable-shared
+			--without-ensurepip
+			--enable-ipv6
+			--with-openssl={{OPENSSLBASE}}
+CONFIGURE_ENV=		OPT=""
+			DISABLED_EXTENSIONS="_sqlite3 _tkinter _gdbm"
+CPPFLAGS=		-I{{NCURSESINC}}
+INSTALL_TARGET=		altinstall
+TEST_TARGET=		buildbottest
+TEST_ARGS=		TESTOPTS=-j{{MAKE_JOBS_NUMBER}}
+MAKE_ARGS=		INSTALL_SHARED="{{INSTALL_LIB}}"
+SUB_FILES=		pkg-message-single
+SUB_LIST=		PYTHON_SUFFIX=${PYTHON_SUFFIX}
+PLIST_SUB=		XYDOT=${PYTHON_VER}
+			XY=${PYTHON_SUFFIX}
+			XYZDOT=${PORTVERSION}
+			LOW_OPSYS={{OPSYS:tl}}
+			ABI={{ABIFLAGS}}
+			PIP=${PIP_VER}
+			SETUP=${SETUP_VER}
+VAR_OPSYS[linux]=	PLIST_SUB=SOABI=.cpython-${PYTHON_SUFFIX}-x86_64-linux-gnu
+			PLIST_SUB=SCD=x86_64-linux-gnu
+			PLIST_SUB=FULLABI={{ABIFLAGS}}-x86_64-linux-gnu
+			PLIST_SUB=PLAT={{OPSYS:tl}}
+			CPPFLAGS=-I{{LOCALBASE}}/include/uuid
+VAR_OPSYS[dragonfly]=	PLIST_SUB=SOABI=
+			PLIST_SUB=SCD=
+			PLIST_SUB=FULLABI={{ABIFLAGS}}
+			PLIST_SUB=PLAT={{OPSYS:tl}}{{MAJOR:R}}
+VAR_OPSYS[freebsd]=	PLIST_SUB=SOABI=
+			PLIST_SUB=SCD=
+			PLIST_SUB=FULLABI={{ABIFLAGS}}
+			PLIST_SUB=PLAT={{OPSYS:tl}}{{MAJOR:R}}
+VAR_OPSYS[sunos]=	PLIST_SUB=SOABI=
+			PLIST_SUB=SCD=
+			PLIST_SUB=PLAT=sunos5
+			PLIST_SUB=FULLABI={{ABIFLAGS}}
+			CONFIGURE_ARGS=ac_cv_func_sethostname=no
+VAR_OPSYS[darwin]=	PLIST_SUB=SOABI=.cpython-${PYTHON_SUFFIX}m-darwin
+			PLIST_SUB=SCD=darwin
+			PLIST_SUB=FULLABI={{ABIFLAGS}}-darwin
+			PLIST_SUB=PLAT=darwin
+			CONFIGURE_ARGS=--enable-framework=no
+
+[DEBUG].CONFIGURE_WITH_BOTH=		pydebug
+[DEBUG].MAKEFILE_ON=			ABIFLAGS:=d{{ABIFLAGS}}
+
+[PYMALLOC].DESCRIPTION=			Enable specialized mallocs
+[PYMALLOC].CONFIGURE_WITH_BOTH=		pymalloc
+
+post-patch:
+	${REINPLACE_CMD} -e 's|/usr/local/bin/python|${python_CMD}|' \
+		${WRKSRC}/Lib/cgi.py
+	${REINPLACE_CMD} -e 's|/usr/local/include/db4|${PREFIX}/include/db${BDB_VER}|' \
+		${WRKSRC}/setup.py
+	${REINPLACE_CMD} -e 's| make| gmake|g' ${WRKSRC}/Mac/Makefile.in
+
+post-patch-sunos:
+	# non-understood missing ref to uuid_generate_time_safe even
+	# though it is correctly present in libuuid (hack to fix uuid
+	# module)
+	${REINPLACE_CMD} -e 's|ifdef HAVE_UUID_GENERATE_TIME_SAFE|if 0|' \
+		${WRKSRC}/Modules/_uuidmodule.c
+
+post-install-DEBUG-OFF:
+	# Upstream Issue: http://bugs.python.org/issue17975
+	${RM} ${STAGEDIR}${PREFIX}/lib/libpython3.so
+
+post-install:
+	for i in ${STAGEDIR}${PREFIX}/lib/python${PYTHON_VER}/lib-dynload/*.so; do \
+		${STRIP_CMD} $$i; \
+	done
+	${INSTALL_DATA} ${WRKSRC}/Tools/gdb/libpython.py \
+		${STAGEDIR}${PREFIX}/lib/libpython${PYTHON_VER}${ABIFLAGS}.so.1.0-gdb.py
