@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	0.1.17
-DEF[SOVERSION]=		10.10.0
+DEF[PORTVERSION]=	0.1.18
+DEF[SOVERSION]=		10.11.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libnice
@@ -31,22 +31,12 @@ BUILD_DEPENDS=		gstreamer1-plugins-base:primary:standard
 EXRUN[gstreamer]=	gstreamer1-plugins-base:primary:standard
 			libnice:primary:standard
 
-USES=			gmake libtool pkgconfig ssl
+USES=			gmake pkgconfig ssl meson gtk-doc
 			gettext-runtime gettext-tools
 GNOME_COMPONENTS=	glib introspection
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-gtk-doc=no
-			--enable-gtk-doc-html=no
-			--enable-introspection=yes
-			--without-gstreamer-0.10
-			--with-gstreamer
-INSTALL_TARGET=		install-strip
+MESON_ARGS=		-Dgtk_doc=enabled
+			-Dexamples=disabled
+			-Dtests=disabled
+			-Dintrospection=enabled
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
-
-post-install:
-	# relocate docs
-	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
-	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/libnice/* \
-		${STAGEDIR}${STD_DOCDIR}/
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
