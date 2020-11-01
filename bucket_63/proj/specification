@@ -1,5 +1,6 @@
-DEF[PORTVERSION]=	7.1.1
-DEF[SOVERSION]=		20.1.1
+DEF[PORTVERSION]=	7.2.0
+DEF[PROJ_API]=		19
+DEF[SOVERSION]=		21.0.2
 DEF[DATUMGRID_VER]=	1.8
 # ----------------------------------------------------------------------------
 
@@ -34,6 +35,7 @@ BUILDRUN_DEPENDS=	tiff:primary:standard
 USES=			cmake pkgconfig sqlite c++:single
 EXTRACT_DIRTY=		2
 SOVERSION=		${SOVERSION}
+PLIST_SUB=		PROJ_API=${PROJ_API}
 
 post-extract:
 	${MV} ${WRKDIR}/proj_2/README.* ${WRKDIR}/
