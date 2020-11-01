@@ -1,13 +1,13 @@
 # manually maintained
 # SPKGS require changing with a change in default python version
-DEF[PORTVERSION]=	1.19.1
+DEF[PORTVERSION]=	1.20.0
+DEF[PY27_VERSION]=	1.18.2
 DEF[PYDEFAULT]=		EXTRACT_VERSION(PYTHON3_DEFAULT)
 DEF[PYXX]=		py${PYDEFAULT:S/.//g}
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pycairo
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		python devel
 VARIANTS=		py27 py38 py37
 SDESC[py27]=		Bindings for cairo graphics library (PY27)
@@ -19,6 +19,8 @@ CONTACT=		nobody
 DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/p/pycairo
 DISTFILE[1]=		pycairo-${PORTVERSION}.tar.gz:main
+DISTFILE[2]=		pycairo-${PY27_VERSION}.tar.gz:main
+DF_INDEX=		1 2
 
 SPKGS[py27]=		single
 SPKGS[py37]=		primary
@@ -36,11 +38,12 @@ FPC_EQUIVALENT=		graphics/py-cairo
 
 # install_requires extracted from setup.py
 
-DISTNAME=		pycairo-${PORTVERSION}
-
 [PY27].USES_ON=				python:py27
+[PY27].MAKEFILE_ON=			DISTNAME=pycairo-${PY27_VERSION}
 [PY38].USES_ON=				python:py38
+[PY38].MAKEFILE_ON=			DISTNAME=pycairo-${PORTVERSION}
 [PY37].USES_ON=				python:py37
+[PY37].MAKEFILE_ON=			DISTNAME=pycairo-${PORTVERSION}
 
 USES=			pkgconfig
 GNOME_COMPONENTS=	cairo
