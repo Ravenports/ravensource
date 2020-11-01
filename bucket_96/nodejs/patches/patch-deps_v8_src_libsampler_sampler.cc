@@ -1,9 +1,9 @@
---- deps/v8/src/libsampler/sampler.cc.orig	2020-10-15 23:50:43 UTC
+--- deps/v8/src/libsampler/sampler.cc.orig	2020-10-21 19:22:30 UTC
 +++ deps/v8/src/libsampler/sampler.cc
-@@ -469,7 +469,7 @@ void SignalHandler::FillRegisterState(vo
-   state->sp = reinterpret_cast<void*>(mcontext->__ss.__esp);
-   state->fp = reinterpret_cast<void*>(mcontext->__ss.__ebp);
- #endif  // V8_HOST_ARCH_IA32
+@@ -476,7 +476,7 @@ void SignalHandler::FillRegisterState(vo
+   state->fp =
+       reinterpret_cast<void*>(arm_thread_state64_get_fp(mcontext->__ss));
+ #endif  // V8_HOST_ARCH_*
 -#elif V8_OS_FREEBSD
 +#elif V8_OS_FREEBSD || V8_OS_DRAGONFLYBSD
  #if V8_HOST_ARCH_IA32

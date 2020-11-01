@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	14.14.0
+DEF[PORTVERSION]=	15.0.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		nodejs
@@ -28,7 +28,6 @@ BROKEN[sunos]=		The ld.sun linker does not support required options
 
 BUILDRUN_DEPENDS=	icu:single:standard
 			libuv:single:standard
-			c-ares:single:standard
 			libnghttp2:single:standard
 
 USES=			execinfo gmake python:build pkgconfig shebangfix
@@ -41,7 +40,6 @@ CONFIGURE_ARGS=		--prefix={{PREFIX}}
 			--without-snapshot
 			--without-npm
 			--without-dtrace
-			--shared-cares
 			--shared-libuv
 			--shared-zlib
 			--shared-nghttp2
