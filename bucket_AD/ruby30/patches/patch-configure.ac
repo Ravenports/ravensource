@@ -1,0 +1,54 @@
+--- configure.ac.orig	2020-09-25 13:16:55 UTC
++++ configure.ac
+@@ -307,7 +307,7 @@ AC_SUBST(GCC)
+ AC_SUBST(LD)
+ AS_IF([test "$GCC" = yes], [
+     linker_flag=-Wl,
+-    : ${optflags=-O3}
++    : ${optflags=}
+     gcc_major=`echo =__GNUC__ | $CC -E -xc - | sed '/^=/!d;s///'`
+     gcc_minor=`echo =__GNUC_MINOR__ | $CC -E -xc - | sed '/^=/!d;s///'`
+     test -n "$gcc_major" || gcc_major=0
+@@ -907,7 +907,6 @@ AS_CASE(["$target_os"],
+ [rhapsody*], [	],
+ [darwin*], [
+ 		ORIG_LIBS="$LIBS"
+-		RUBY_PREPEND_OPTION(LIBS, -lobjc)
+ 		RUBY_APPEND_OPTIONS(CPPFLAGS, -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT)
+ 		AC_CACHE_CHECK([whether syscall(2) is deprecated], rb_cv_syscall_deprecated,
+ 		    [RUBY_WERROR_FLAG([
+@@ -3353,7 +3352,7 @@ AS_CASE("$enable_shared", [yes], [
+     [sunos4*], [
+ 	LIBRUBY_ALIASES='$(LIBRUBY_SONAME) lib$(RUBY_SO_NAME).$(SOEXT)'
+ 	],
+-    [linux* | gnu* | k*bsd*-gnu | atheos* | kopensolaris*-gnu | haiku*], [
++    [gnu* | k*bsd*-gnu | atheos* | kopensolaris*-gnu | haiku*], [
+ 	RUBY_APPEND_OPTIONS(LIBRUBY_DLDFLAGS, ['-Wl,-soname,$(LIBRUBY_SONAME)' "$LDFLAGS_OPTDIR"])
+ 	LIBRUBY_ALIASES='$(LIBRUBY_SONAME) lib$(RUBY_SO_NAME).$(SOEXT)'
+ 	AS_IF([test "$load_relative" = yes], [
+@@ -3362,13 +3361,9 @@ AS_CASE("$enable_shared", [yes], [
+ 	    LIBRUBY_RELATIVE=yes
+ 	])
+ 	],
+-    [freebsd*|dragonfly*], [
++    [freebsd*|dragonfly*|linux*|solaris*], [
+ 	LIBRUBY_SO='lib$(RUBY_SO_NAME).$(SOEXT).$(MAJOR)$(MINOR)'
+ 	LIBRUBY_SONAME='$(LIBRUBY_SO)'
+-	AS_IF([test "$rb_cv_binary_elf" != "yes" ], [
+-	    LIBRUBY_SO="$LIBRUBY_SO.\$(TEENY)"
+-	    LIBRUBY_ALIASES=''
+-	])
+ 	],
+     [netbsd*], [
+ 	LIBRUBY_SONAME='lib$(RUBY_SO_NAME).$(SOEXT).$(MAJOR)$(MINOR)'
+@@ -3401,8 +3396,8 @@ AS_CASE("$enable_shared", [yes], [
+ 	],
+     [darwin*], [
+ 	LIBRUBY_SO='lib$(RUBY_SO_NAME).$(SOEXT)'
+-	LIBRUBY_SONAME='$(LIBRUBY_SO)'
+-	LIBRUBY_ALIASES='lib$(RUBY_INSTALL_NAME).$(SOEXT)'
++	LIBRUBY_SONAME='lib$(RUBY_SO_NAME).$(SOEXT)'
++	LIBRUBY_ALIASES='lib$(RUBY_SO_NAME).$(MAJOR)$(MINOR).$(SOEXT)'
+ 	AS_IF([test "$load_relative" = yes], [
+ 	    libprefix="@executable_path/../${libdir_basename}"
+ 	    LIBRUBY_RELATIVE=yes

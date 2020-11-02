@@ -27,9 +27,11 @@ main(int argc, char **argv)
 	char *RUBY_A  = "%%PREFIX%%/bin/ruby%%ALPHA%%";
 	char *RUBY_B  = "%%PREFIX%%/bin/ruby%%BRAVO%%";
 	char *RUBY_C  = "%%PREFIX%%/bin/ruby%%CHARLIE%%";
+	char *RUBY_D  = "%%PREFIX%%/bin/ruby%%DELTA%%";
 	char *ALPHA   = "%%ALPHA%%";
 	char *BRAVO   = "%%BRAVO%%";
 	char *CHARLIE = "%%CHARLIE%%";
+	char *DELTA   = "%%DELTA%%";
 
 	override = getenv("AUTORUBY");
 	if (override != NULL) {
@@ -39,6 +41,8 @@ main(int argc, char **argv)
 			rbver = BRAVO;
 		} else if (strcmp (override, CHARLIE) == 0) {
 			rbver = CHARLIE;
+		} else if (strcmp (override, DELTA) == 0) {
+			rbver = DELTA;
 		}
 	}
 	if (rbver == NULL) {
@@ -48,6 +52,8 @@ main(int argc, char **argv)
 			rbver = BRAVO;
 		} else if (access(RUBY_C, F_OK) != -1) {
 			rbver = CHARLIE;
+		} else if (access(RUBY_D, F_OK) != -1) {
+			rbver = DELTA;
 		} else {
 			/* no versions of ruby are installed */
 			printf ("There are no versions of ruby installed at %%PREFIX%%/bin\n");
