@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.03
+DEF[PORTVERSION]=	1.01
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Algorithm-SixDegrees
@@ -23,23 +23,27 @@ VOPTS[530]=		PERL_530=ON PERL_532=OFF
 VOPTS[532]=		PERL_530=OFF PERL_532=ON
 
 # License listed in CPAN directory:
-# perl
+# perl_5
 
 GENERATED=		yes
 SINGLE_JOB=		yes
 DISTNAME=		Algorithm-SixDegrees-${PORTVERSION}
 
-# ---------------------------------------------
-# |   Prerequisites extracted from META.yml
-# ---------------------------------------------
-# |           requires : Test::More (perl 5.30.3 core) (perl 5.32.0 core)
-# |         recommends : Test::Pod
-# |         recommends : Test::Pod::Coverage
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : Scalar::Util (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Test::More (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Test::Pod
+# |      runtime : Test::Pod::Coverage
+# |    configure : Module::Build
 
 [PERL_530].USES_ON=			perl:530,buildmod,run
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Test-Pod:single:530
 					perl-Test-Pod-Coverage:single:530
+[PERL_530].BUILD_DEPENDS_ON=		perl-Module-Build:single:530
 [PERL_532].USES_ON=			perl:532,buildmod,run
 [PERL_532].BUILDRUN_DEPENDS_ON=		perl-Test-Pod:single:532
 					perl-Test-Pod-Coverage:single:532
+[PERL_532].BUILD_DEPENDS_ON=		perl-Module-Build:single:532
 
