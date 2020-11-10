@@ -1,6 +1,6 @@
---- Makefile.orig	2018-04-06 10:53:30 UTC
+--- Makefile.orig	2020-10-15 22:29:03 UTC
 +++ Makefile
-@@ -41,7 +41,7 @@ CFLAGS += -D_DEFAULT_SOURCE
+@@ -44,7 +44,7 @@ CFLAGS += -D_DEFAULT_SOURCE
  ifneq (, $(findstring netbsd, $(OS)))
  CFLAGS += -D_NETBSD_SOURCE
  endif
@@ -9,7 +9,7 @@
  #CFLAGS += -D_POSIX_C_SOURCE=200112L
  CFLAGS += -D_XOPEN_SOURCE=600
  endif
-@@ -139,7 +139,6 @@ TESTMINIWGETOBJS := $(TESTMINIWGETOBJS)
+@@ -145,7 +145,6 @@ TESTMINIWGETOBJS := $(TESTMINIWGETOBJS)
  TESTIGDDESCPARSE := $(TESTIGDDESCPARSE) minissdpc.o
  endif
  
@@ -17,7 +17,7 @@
  # install directories
  ifeq ($(strip $(PREFIX)),)
  INSTALLPREFIX ?= /usr
-@@ -147,7 +146,7 @@ else
+@@ -153,7 +152,7 @@ else
  INSTALLPREFIX ?= $(PREFIX)
  endif
  INSTALLDIRINC = $(INSTALLPREFIX)/include/miniupnpc
@@ -26,7 +26,7 @@
  INSTALLDIRBIN = $(INSTALLPREFIX)/bin
  INSTALLDIRMAN = $(INSTALLPREFIX)/share/man
  PKGCONFIGDIR = $(INSTALLDIRLIB)/pkgconfig
-@@ -229,7 +228,7 @@ distclean: clean
+@@ -240,7 +239,7 @@ distclean: clean
  
  updateversion:	miniupnpc.h
  	cp miniupnpc.h miniupnpc.h.bak
