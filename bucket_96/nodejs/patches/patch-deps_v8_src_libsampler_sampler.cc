@@ -1,6 +1,6 @@
---- deps/v8/src/libsampler/sampler.cc.orig	2020-11-04 19:05:38 UTC
-+++ deps/v8/src/libsampler/sampler.cc
-@@ -476,7 +476,7 @@ void SignalHandler::FillRegisterState(vo
+--- deps/v8/src/libsampler/sampler.cc.orig	2020-11-19 19:52:11.696150000 +0100
++++ deps/v8/src/libsampler/sampler.cc	2020-11-19 19:52:29.965374000 +0100
+@@ -476,7 +476,7 @@
    state->fp =
        reinterpret_cast<void*>(arm_thread_state64_get_fp(mcontext->__ss));
  #endif  // V8_HOST_ARCH_*
