@@ -27,6 +27,7 @@ include/gpgme++/notation.h
 include/gpgme++/result.h
 include/gpgme++/scdgetinfoassuantransaction.h
 include/gpgme++/signingresult.h
+include/gpgme++/statusconsumerassuantransaction.h
 include/gpgme++/swdbresult.h
 include/gpgme++/tofuinfo.h
 include/gpgme++/trustitem.h
@@ -36,6 +37,7 @@ include/gpgme++/interfaces/assuantransaction.h
 include/gpgme++/interfaces/dataprovider.h
 include/gpgme++/interfaces/passphraseprovider.h
 include/gpgme++/interfaces/progressprovider.h
+include/gpgme++/interfaces/statusconsumer.h
 lib/libgpgmepp.so
 lib/libgpgmepp.so.%%CPP_SOMAJOR%%
 lib/libgpgmepp.so.%%CPP_SOVERSION%%
