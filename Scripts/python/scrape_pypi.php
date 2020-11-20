@@ -292,6 +292,7 @@ function inline_fix_setup ($namebase, $src) {
        "soupsieve"    => false,
        "xml2rfc"      => false,
        "django-colorful" => false,
+       "pyzmq"        => '/implementation_name/d',
    );
    $setup = $src . "/setup.py";
    if (array_key_exists($namebase, $known_issues)) {
