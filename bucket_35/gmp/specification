@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	6.2.0
+DEF[PORTVERSION]=	6.2.1
+DEF[LIBGMP_VER]=	10.4.1
+DEF[LIBGMPXX_VER]=	4.6.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gmp
@@ -41,6 +43,11 @@ INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
 TEST_TARGET=		check
 CPE_VENDOR=		gmplib
+
+PLIST_SUB=		LIBGMP_VER=${LIBGMP_VER}
+			LIBGMP_MAJ=${LIBGMP_VER:R:R}
+			LIBGMPXX_VER=${LIBGMPXX_VER}
+			LIBGMPXX_MAJ=${LIBGMPXX_VER:R:R}
 
 [ASM].CONFIGURE_ENABLE_BOTH=		assembly
 
