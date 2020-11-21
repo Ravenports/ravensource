@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	1.16.1
-DEF[SOVERSION]=		2.4.0
+DEF[PORTVERSION]=	1.17.1
+DEF[SOVERSION]=		2.4.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		c-ares
@@ -36,16 +36,11 @@ CONFIGURE_ARGS=		--disable-werror
 CPE_VENDOR=		c-ares_project
 SOVERSION=		${SOVERSION}
 
-post-install:
-.for P in acountry adig ahost
-	${INSTALL_PROGRAM} ${WRKSRC}/.libs/${P} ${STAGEDIR}${PREFIX}/bin/
-.endfor
-
 # Reimplement do-configure to strip out -I${LOCALBASE}/include because the
 # configure script squawks with -I in CFLAGS
 
 do-configure:
-	@${MKDIR} ${CONFIGURE_WRKSRC}
+	${MKDIR} ${CONFIGURE_WRKSRC}
 	(cd ${CONFIGURE_WRKSRC} && ${SET_LATE_CONFIGURE_ARGS} \
 		${SETENV} CC="${CC}" CPP="${CPP}" CXX="${CXX}" \
 		CFLAGS="${CFLAGS:N-I*}" CPPFLAGS="${CPPFLAGS}" \
