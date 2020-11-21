@@ -88,6 +88,8 @@ SOVERSION=		${SOVERSION}
 post-patch:
 	${REINPLACE_CMD} -e 's|/usr/lib/browser/plugins|${BROWSER_PLUGINS_DIR}|' \
 		${WRKSRC}/Source/WebKit/Shared/Plugins/unix/PluginSearchPath.cpp
+	echo 'add_compile_definitions("U_DEFINE_FALSE_AND_TRUE=1")' \
+		>> ${WRKSRC}/Source/WTF/wtf/CMakeLists.txt
 
 post-install:
 	(cd ${STAGEDIR}${PREFIX}/bin && \
