@@ -1,6 +1,6 @@
---- Utilities/cmlibuv/src/unix/fs.c.orig	2020-10-06 12:28:17 UTC
+--- Utilities/cmlibuv/src/unix/fs.c.orig	2020-11-18 12:46:23 UTC
 +++ Utilities/cmlibuv/src/unix/fs.c
-@@ -986,7 +986,6 @@ static ssize_t uv__fs_sendfile(uv_fs_t*
+@@ -1018,7 +1018,6 @@ ok:
  static ssize_t uv__fs_utime(uv_fs_t* req) {
  #if defined(__linux__)                                                         \
      || defined(_AIX71)                                                         \
@@ -8,7 +8,7 @@
      || defined(__HAIKU__)
    /* utimesat() has nanosecond resolution but we stick to microseconds
     * for the sake of consistency with other platforms.
-@@ -1000,6 +999,7 @@ static ssize_t uv__fs_utime(uv_fs_t* req
+@@ -1032,6 +1031,7 @@ static ssize_t uv__fs_utime(uv_fs_t* req
      || defined(__FreeBSD__)                                                   \
      || defined(__FreeBSD_kernel__)                                            \
      || defined(__NetBSD__)                                                    \
