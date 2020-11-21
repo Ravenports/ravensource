@@ -39,7 +39,6 @@ SINGLE_JOB=		yes
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
 			-j{{MAKE_JOBS_NUMBER}}
-REPOLOGY_SUCKS=		yes
 
 post-extract:
 	${REINPLACE_CMD} -e '/SYSTEM_SOFLAGS/ s/$$/ -Wl,-soname,libnorm.so.1/' \
