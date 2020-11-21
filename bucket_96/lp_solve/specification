@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.5.2.5
+DEF[PORTVERSION]=	5.5.2.9
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		lp_solve
@@ -12,6 +12,8 @@ CONTACT=		nobody
 DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/lpsolve/lpsolve/${PORTVERSION}
 DISTFILE[1]=		lp_solve_${PORTVERSION}_source.tar.gz:main
+DISTFILE[2]=		lp_solve_${PORTVERSION}_bfp_LUSOL_source.tar.gz:main
+DF_INDEX=		1 2
 
 SPKGS[standard]=	single
 
@@ -19,6 +21,13 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		math/lp_solve
+
+LICENSE=		LGPL21:single
+LICENSE_FILE=		LGPL21:stock
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"Release notes"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/lp_lib.h
+LICENSE_SCHEME=		solo
 
 DISTNAME=		lp_solve_${PORTVERSION:R:R}
 
@@ -45,7 +54,7 @@ do-install:
 	${INSTALL_LIB} ${WRKSRC}/lpsolve55/bin/ux64/liblpsolve55.so \
 		${STAGEDIR}${PREFIX}/lib
 	${LN} -sf liblpsolve55.so ${STAGEDIR}${PREFIX}/lib/liblpsolve55.so.1
-	@${MKDIR} ${STAGEDIR}${PREFIX}/include/lpsolve
+	${MKDIR} ${STAGEDIR}${PREFIX}/include/lpsolve
 .for i in declare.h fortify.h ini.h lp_*.h lpkit.h lpsolve.h ufortify.h yacc_read.h
 	${INSTALL_DATA} ${WRKSRC}/${i} ${STAGEDIR}${PREFIX}/include/lpsolve
 .endfor
