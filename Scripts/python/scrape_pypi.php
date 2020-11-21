@@ -347,6 +347,10 @@ function inline_fix_setup ($namebase, $src) {
                $xf = $src . "/requirements.txt";
                shell_exec ("sed -i.bak -e \"/#configargparse/d\" $xf");
                break;
+           case "tqdm":
+               $xf = $src . "/setup.cfg";
+               shell_exec ("sed -i.bak -e \"s|[toml]||\" $xf");
+               break;
        }
    }
 
