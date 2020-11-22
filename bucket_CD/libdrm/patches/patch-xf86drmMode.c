@@ -14,7 +14,7 @@ Signed-off-by: Emmanuel Vadot <manu@FreeBSD.org>
 
 diff --git a/xf86drmMode.c b/xf86drmMode.c
 index 5af27c4a..6121fe89 100644
---- xf86drmMode.c
+--- xf86drmMode.c.orig	2020-11-04 03:24:14 UTC
 +++ xf86drmMode.c
 @@ -41,6 +41,7 @@
  #include <limits.h>
@@ -24,6 +24,3 @@ index 5af27c4a..6121fe89 100644
  #include <sys/ioctl.h>
  #if HAVE_SYS_SYSCTL_H
  #include <sys/sysctl.h>
--- 
-2.26.2
-
