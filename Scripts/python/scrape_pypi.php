@@ -349,7 +349,7 @@ function inline_fix_setup ($namebase, $src) {
                break;
            case "tqdm":
                $xf = $src . "/setup.cfg";
-               shell_exec ("sed -i.bak -e \"s|[toml]||\" $xf");
+               shell_exec ("sed -i.bak -e \"s|setuptools_scm\[toml\]|toml>=0.10; setuptools_scm|\" $xf");
                break;
        }
    }
