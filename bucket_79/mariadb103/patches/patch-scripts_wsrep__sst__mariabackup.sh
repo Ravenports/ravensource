@@ -1,4 +1,4 @@
---- scripts/wsrep_sst_mariabackup.sh.orig	2020-11-01 01:03:44 UTC
+--- scripts/wsrep_sst_mariabackup.sh.orig	2020-11-10 09:32:22 UTC
 +++ scripts/wsrep_sst_mariabackup.sh
 @@ -616,7 +616,7 @@ recv_joiner()
      set +e

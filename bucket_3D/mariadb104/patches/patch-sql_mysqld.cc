@@ -1,4 +1,4 @@
---- sql/mysqld.cc.orig	2020-11-01 23:38:09 UTC
+--- sql/mysqld.cc.orig	2020-11-10 10:29:18 UTC
 +++ sql/mysqld.cc
 @@ -3288,7 +3288,11 @@ pthread_handler_t signal_hand(void *arg
        }
