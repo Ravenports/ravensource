@@ -1,4 +1,4 @@
---- source/dialogs/combi.c.orig	2019-07-01 12:29:09 UTC
+--- source/dialogs/combi.c.orig	2020-09-06 18:37:58 UTC
 +++ source/dialogs/combi.c
 @@ -40,6 +40,15 @@
  #include "mode-private.h"

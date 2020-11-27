@@ -1,6 +1,6 @@
---- source/dialogs/drun.c.orig	2019-07-01 12:29:09 UTC
+--- source/dialogs/drun.c.orig	2020-09-06 18:37:58 UTC
 +++ source/dialogs/drun.c
-@@ -492,12 +492,21 @@ static void walk_dir ( DRunModePrivateDa
+@@ -625,12 +625,21 @@ static void walk_dir ( DRunModePrivateDa
          if ( file->d_name[0] == '.' ) {
              continue;
          }
@@ -22,7 +22,7 @@
              filename = g_build_filename ( dirname, file->d_name, NULL );
              break;
          default:
-@@ -506,6 +515,21 @@ static void walk_dir ( DRunModePrivateDa
+@@ -639,6 +648,21 @@ static void walk_dir ( DRunModePrivateDa
  
          // On a link, or if FS does not support providing this information
          // Fallback to stat method.
@@ -44,7 +44,7 @@
          if ( file->d_type == DT_LNK || file->d_type == DT_UNKNOWN ) {
              file->d_type = DT_UNKNOWN;
              if ( stat ( filename, &st ) == 0 ) {
-@@ -532,6 +556,7 @@ static void walk_dir ( DRunModePrivateDa
+@@ -665,6 +689,7 @@ static void walk_dir ( DRunModePrivateDa
          default:
              break;
          }
