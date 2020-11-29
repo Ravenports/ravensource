@@ -8,10 +8,14 @@ $PYTHON_CACHE_DIST = $PYTHON_CACHE . "/distfiles";
 $PYTHONEXE = "/raven/bin/python3.8";
 $EXTS    = array("tgz" => ".tar.gz",
                  "zip" => ".zip",
-                 "tbz" => ".tar.bz2");
+                 "tbz" => ".tar.bz2",
+                 "wh1" => "-py3-none-any.whl",
+                 "wh2" => "-py2.py3-none-any.whl");
 $EXTPATS = array("tgz" => '/[.]tar[.]gz$/',
                  "zip" => '/[.]zip$/',
-                 "tbz" => '/[.]tar[.]bz2$/');
+                 "tbz" => '/[.]tar[.]bz2$/',
+                 "wh1" => '/[-]py3[-]none[-]any[.]whl$/',
+                 "wh2" => '/[-]py2[.]py3[-]none[-]any[.]whl$/');
 
 # Returns name of etag file
 function etag_filename ($namebase) {
@@ -154,12 +158,11 @@ function tarball_in_place ($tarball, $md5sum) {
 }
 
 
-function download_tarball ($tarball, $pypi_uri) {
+function download_tarball ($tarball, $fetch_url) {
    global $PYTHON_CACHE_DIST;
 
    $outfile  = $PYTHON_CACHE_DIST . "/" . $tarball;
-   $upstream = "https://files.pythonhosted.org/packages/source/" .
-               $pypi_uri . "/" . $tarball;
+   $upstream = $fetch_url;
 
    if(file_put_contents($outfile, file_get_contents($upstream))) {
        printf ("%-62s : %s\n", "", "Retrieved distfile");
@@ -392,6 +395,19 @@ function inline_fix_setup ($namebase, $src) {
 }
 
 
+# Line contains requires-dists
+function only_dists($var) {
+   return (substr($var, 0, 14) == "Requires-Dist:");
+}
+
+
+# Obtain runtime dependencies from wheel file
+function scan_wheel_for_rundeps ($metafile) {
+    $contents = file_get_contents ($metafile);
+    return (array_filter(explode("\n", $contents), "only_dists"));
+}
+
+
 # Establish buildruns (only using latest python)
 function set_buildrun (&$portdata) {
     global
@@ -420,6 +436,30 @@ function set_buildrun (&$portdata) {
            break;
         }
     }
+    if ($portdata["wheel_dist"]) {
+       $src = $WORKZONE . "/" . $distname . ".dist-info";
+       $metadata = $src . "/METADATA";
+       if (!file_exists($metadata)) {
+          echo "ERROR: $metadata does not exist (set_buildrun)\n";
+          return;
+       }
+       $req_lines = scan_wheel_for_rundeps($metadata);
+       $comment_reqs = preg_replace('/^Requires-Dist: /', '# ', $req_lines);
+       $portdata["req_comment"] .= join("\n", $comment_reqs);
+       $stripped_reqs = preg_replace('/^# ([^ ]+)(.*)$/', '\1', $comment_reqs);
+       foreach ($stripped_reqs as $req) {
+           $req = trim($req);
+           if (array_key_exists ($req, $data_corrections)) {
+               $req = $data_corrections[$req];
+           }
+           if (!in_array("python-" . $req, $portdata["justrun"])) {
+               array_push($portdata["justrun"], "python-" . $req);
+           }
+       }
+       return;
+    }
+
+    # This is a setuptools "sdist" port
     $src = $WORKZONE . "/" . $distname;
     $setup = $src . "/setup.py";
     if (!file_exists($setup)) {
@@ -496,6 +536,18 @@ EOF;
 }
 
 
+# Returns true if the $fragment is the last part of $main_string
+function trails($main_string, $fragment) {
+   $flen = strlen($fragment);
+   $mlen = strlen($main_string);
+   if ($flen > $mlen) {
+      return false;
+   }
+   $start_index = $mlen - $flen;
+   return (substr($main_string, $start_index) == $fragment);
+}
+
+
 # main function to ready python module and extract usable information
 function scrape_python_info ($namebase, $force) {
     $result = array(
@@ -508,9 +560,12 @@ function scrape_python_info ($namebase, $force) {
         "homepage"    => "UNSET",
         "distfile"    => "ERROR",
         "md5sum"      => "ERROR",
+        "fetch_url"   => "ERROR",
         "min_python"  => "UNSET",
         "pypi_uri"    => "UNSET",
+        "wheel_dist"  => false,
         "buildrun"    => array(),
+        "justrun"     => array(),
         "req_comment" => "# install_requires extracted from setup.py\n",
     );
 
@@ -542,15 +597,38 @@ function scrape_python_info ($namebase, $force) {
          }
 
          $release_found = false;
+         # This script will be updated in two stages.
+         # Stage 1: If "sdist" release type not available, look
+         #          for wheel release type for "any" platform
+         # Stage 2: Reverse priority and preferentially install
+         #          generic wheel ports over setuptools sdist
          foreach ($obj->releases->$version as $entry) {
              if ($entry->packagetype == "sdist") {
                  $release_found = true;
                  $result["md5sum"]   = $entry->md5_digest;
                  $result["distfile"] = $entry->filename;
+                 $result["fetch_url"] = $entry->url;
                  $result["min_python"] = sanitize_min_python
                                            ($entry->requires_python);
                  break;
              }
+         }
+         if (!$release_found) {
+           foreach ($obj->releases->$version as $entry) {
+             # we can use wheel files if they are generic
+             if ($entry->packagetype == "bdist_wheel" &&
+                 trails($entry->filename, "-none-any.whl")
+             ) {
+                 $release_found = true;
+                 $result["wheel_dist"] = true;
+                 $result["md5sum"]   = $entry->md5_digest;
+                 $result["distfile"] = $entry->filename;
+                 $result["fetch_url"] = $entry->url;
+                 $result["min_python"] = sanitize_min_python
+                                           ($entry->requires_python);
+                 break;
+             }
+           }
          }
          if (!$release_found) {
              # There's a bad "version" number.  Search releases
@@ -561,6 +639,7 @@ function scrape_python_info ($namebase, $force) {
              $highest_distfile = "";
              $highest_md5sum = "";
              $highest_minpy = "";
+             $highest_url = "";
 
              foreach ($obj->releases as $rv => $version_obj) {
                 foreach ($version_obj as $entry) {
@@ -570,6 +649,7 @@ function scrape_python_info ($namebase, $force) {
                            $highest_version = $thisver;
                            $highest_key = $rv;
                            $highest_distfile = $entry->filename;
+                           $highest_url      = $entry->url;
                            $highest_md5sum   = $entry->md5_digest;
                            $highest_minpy    = sanitize_min_python
                                                  ($entry->requires_python);
@@ -582,13 +662,14 @@ function scrape_python_info ($namebase, $force) {
                  $result["md5sum"]   = $highest_md5sum;
                  $result["distfile"] = $highest_distfile;
                  $result["min_python"] = $highest_minpy;
+                 $result["fetch_url"]  = $highest_url;
              } else {
                  return $result;
              }
          }
 
          if (!tarball_in_place ($result["distfile"], $result["md5sum"])) {
-             if (download_tarball ($result["distfile"], $result["pypi_uri"])) {
+             if (download_tarball ($result["distfile"], $result["fetch_url"])) {
                  if (!tarball_in_place ($result["distfile"], $result["md5sum"])) {
                     # failed to verify md5sum
                     echo "Failed to verify md5 checksum of " . $result["distfile"] . "\n";

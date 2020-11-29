@@ -323,6 +323,9 @@ function generate_port($namebase) {
     $license     = $port_data[$namebase]["license"];
     $raw_depends = $port_data[$namebase]["req_comment"];
     $uri         = $port_data[$namebase]["pypi_uri"];
+    $fetch_url   = $port_data[$namebase]["fetch_url"];
+    $whl_file    = $port_data[$namebase]["wheel_dist"];
+    $main_site   = $whl_file ? wheel_site($fetch_url) : "PYPI/" . $uri;
     $homepage    = sanitize_homepage ($namebase,
                                       $port_data[$namebase]["homepage"]);
 
@@ -332,6 +335,9 @@ function generate_port($namebase) {
                                  "-" . $pvbraces . $ext,
                                  $port_data[$namebase]["distfile"]);
         $distname = preg_replace ($EXTPATS[$key], "", $tarball);
+        if ($whl_file) {
+            $distname .= '.dist-info';
+        }
         if ($tarball != $port_data[$namebase]["distfile"]) {
             break;
         }
@@ -359,6 +365,7 @@ function generate_port($namebase) {
     $variants = determine_variants ($namebase, $port_data[$namebase]["min_python"]);
     $variants_block = join(" ", $variants);
     $primo = $variants[0];
+    $arg = $whl_file ? ',wheel' : '';
     foreach ($variants as $V) {
         $prereturn = ($V == $primo) ? "" : "\n";
         $VX = strtoupper($V);
@@ -375,11 +382,25 @@ function generate_port($namebase) {
         $prespace = ($V == $primo) ? "" : " ";
         $SV = substr($V, 2);
         $available_options .= $prespace . "PY" . $SV;
-        $buildrun_block .= "[PY" . $SV . "].USES_ON=\t\t\t\tpython:$V\n";
+        $buildrun_block .= "[PY" . $SV . "].USES_ON=\t\t\t\tpython:" . $V . $arg . "\n";
+        # Once ravenadm recognizes wheel argument and automatically
+        # pulls in python-pip as a build dependency, remove the next section
+        # ===============================================
+        if ($whl_file) {
+            $buildrun_block .= "[PY" . $SV . "].BUILD_DEPENDS_ON=\t\tpython-pip:single:" . $V . "\n";
+        }
+        # ===============================================
         if (count($port_data[$namebase]["buildrun"])) {
             $buildrun_block .= "[PY" . $SV . "].BUILDRUN_DEPENDS_ON=\t\t";
             foreach ($port_data[$namebase]["buildrun"] as $DEP) {
                 $indent = ($DEP == $port_data[$namebase]["buildrun"][0]) ? "" : "\t\t\t\t\t";
+                $buildrun_block .= $indent . $DEP . ":single:" . $V . "\n";
+            }
+        }
+        if (count($port_data[$namebase]["justrun"])) {
+            $buildrun_block .= "[PY" . $SV . "].RUN_DEPENDS_ON=\t\t\t";
+            foreach ($port_data[$namebase]["justrun"] as $DEP) {
+                $indent = ($DEP == $port_data[$namebase]["justrun"][0]) ? "" : "\t\t\t\t\t";
                 $buildrun_block .= $indent . $DEP . ":single:" . $V . "\n";
             }
         }
@@ -398,7 +419,7 @@ HOMEPAGE=		$homepage
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/$uri
+SITES[main]=		$main_site
 DISTFILE[1]=		$tarball:main
 
 $subpackages_block

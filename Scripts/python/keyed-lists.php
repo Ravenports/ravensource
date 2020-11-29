@@ -233,6 +233,20 @@ function sanitize_homepage ($namebase, $original_homepage) {
     }
 }
 
+# Replace URL prefix on whl file urls
+function wheel_site($url) {
+    $prefix = "https://files.pythonhosted.org/packages/";
+    $len_prefix = strlen($prefix);
+    if (substr($url, 0, $len_prefix) == $prefix) {
+        # The trailing "/xxx" has to be removed.
+        $head = substr($url, $len_prefix);
+        $elements = explode("/", $head);
+        array_pop($elements);
+        return "PYPIWHL/" . implode("/", $elements);
+    } else {
+        return $url;
+    }
+}
 
 # Checks if there are any command-line arguments.
 # If there are, they override the top level ports list

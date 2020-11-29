@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.3.2
+DEF[PORTVERSION]=	0.4.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-django-stronghold
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/mgrouchy/django-stronghold
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/d/django-stronghold
-DISTFILE[1]=		django-stronghold-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/ba/83/f38e0616ff658bbe62fb6e89b100ba9b19f3b351aa833dde37dcd296c8ca
+DISTFILE[1]=		django_stronghold-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -28,9 +28,11 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # install_requires extracted from setup.py
 
 
-DISTNAME=		django-stronghold-${PORTVERSION}
+DISTNAME=		django_stronghold-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 
