@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	0.2.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-ruamel.yaml.clib
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py38 py37
+SDESC[py38]=		C based yaml reader/scanner and emitter (PY38)
+SDESC[py37]=		C based yaml reader/scanner and emitter (PY37)
+HOMEPAGE=		https://sourceforge.net/p/ruamel-yaml-clib/code/ci/default/tree
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/r/ruamel.yaml.clib
+DISTFILE[1]=		ruamel.yaml.clib-${PORTVERSION}.tar.gz:main
+
+SPKGS[py38]=		single
+SPKGS[py37]=		single
+
+OPTIONS_AVAILABLE=	PY38 PY37
+OPTIONS_STANDARD=	none
+VOPTS[py38]=		PY38=ON PY37=OFF
+VOPTS[py37]=		PY38=OFF PY37=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		ruamel.yaml.clib-${PORTVERSION}
+
+# install_requires extracted from setup.py
+
+
+[PY38].USES_ON=				python:py38
+[PY37].USES_ON=				python:py37
+
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-install:
+	${RMDIR} ${STAGEDIR}${PYTHON_SITELIBDIR}/ruamel/yaml/clib
+	${RMDIR} ${STAGEDIR}${PYTHON_SITELIBDIR}/ruamel/yaml
+	${RMDIR} ${STAGEDIR}${PYTHON_SITELIBDIR}/ruamel

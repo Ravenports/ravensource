@@ -281,6 +281,7 @@ function inline_fix_setup ($namebase, $src) {
        "libversion"   => '/[*][*]pkgconfig/d',
        "cffi"         => '/__main__/ s|^.*$|if True:|',
        "ruamel.yaml"  => '/__name__.*__main__/ s|^.*$|if False:|; /print..sys[.]argv/d',
+       "ruamel.yaml.clib"  => '/__name__.*__main__/ s|^.*$|if False:|; /print..sys[.]argv/d; /test compiling/d',
        "pandas"       => '/ext_modules=/d',
        "numpy"        => 's|            generate_cython[(][)]|            pass|',
        "scipy"        => '/run_build = parse/ s|par.*ds[(][)]|False|',
@@ -421,7 +422,7 @@ function get_run_depends ($base_dependencies, $pversion) {
 
     $result = array();
     foreach ($base_dependencies as $line) {
-        $pos = strpos($line, "; python_version");
+        $pos = strpos($line, " python_version");
         if ($pos === false) {
              # No limiting version infomation; all versions need it
              $required = true;
@@ -429,7 +430,7 @@ function get_run_depends ($base_dependencies, $pversion) {
              $teststr = "\$required = " .
                         str_replace(array('"', "'"),
                                     array("",""),
-                                    "\$p" . substr($line, $pos + 9) . " * 10;");
+                                    "\$p" . substr($line, $pos + 8) . " * 10;");
              eval($teststr);
         }
         if ($required) {
@@ -519,6 +520,7 @@ function set_buildrun (&$portdata, $PVA, $PVB, $PVC) {
         case "pygit2":
         case "PyNaCl":		// above -- tries downloading
         case "ruamel.yaml":     // list index out of range
+        case "ruamel.yaml.clib":// list index out of range
         case "scipy":           // cython errors
         case "kombu":		// setup.cfg misconfig
         case "bcrypt":		// c errors
@@ -644,6 +646,7 @@ function scrape_python_info ($namebase, $force, $PVA, $PVB, $PVC) {
                  $result["fetch_url"] = $entry->url;
                  $result["min_python"] = sanitize_min_python
                                            ($entry->requires_python);
+                 $result["req_comment"] = "# Requires-Dist extracted from wheel metadata\n";
                  break;
              }
          }
