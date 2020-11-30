@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	5.6.4
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-isort
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py38 py37
+SDESC[py38]=		Utility library to sort Python imports (PY38)
+SDESC[py37]=		Utility library to sort Python imports (PY37)
+HOMEPAGE=		https://pycqa.github.io/isort/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/ee/e3/75cacbe65a236934860880547fc612e8e3856b5cc3844a8beddae05e7b60
+DISTFILE[1]=		isort-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py38]=		single
+SPKGS[py37]=		single
+
+OPTIONS_AVAILABLE=	PY38 PY37
+OPTIONS_STANDARD=	none
+VOPTS[py38]=		PY38=ON PY37=OFF
+VOPTS[py37]=		PY38=OFF PY37=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		isort-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# colorama (>=0.4.3,<0.5.0); extra == "colors"
+# pip-api; extra == "requirements_deprecated_finder"
+# pipreqs; extra == "pipfile_deprecated_finder" or extra == "requirements_deprecated_finder"
+# requirementslib; extra == "pipfile_deprecated_finder"
+
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+

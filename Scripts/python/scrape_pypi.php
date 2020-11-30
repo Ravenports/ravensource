@@ -404,6 +404,9 @@ function only_dists($var) {
 
 # Line doesn't contain "extras"
 function skip_extras($var) {
+   if (strpos($var, "enum-compat") !== false) {
+      return false;
+   }
    $pos = strpos($var, "extra ==");
    return ($pos === false);
 }
@@ -636,7 +639,7 @@ function scrape_python_info ($namebase, $force, $PVA, $PVB, $PVC) {
          foreach ($obj->releases->$version as $entry) {
              # we can use wheel files if they are generic
              if ($entry->packagetype == "bdist_wheel" &&
-                 $namebase != "pip" &&
+                 !in_array($namebase, array("pip", "jedi", "pep8","sphinxcontrib-adadomain")) &&
                  trails($entry->filename, "py3-none-any.whl")
              ) {
                  $release_found = true;

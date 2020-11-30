@@ -12,8 +12,8 @@ HOMEPAGE=		http://pep8.readthedocs.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/42/3f/669429ce58de2c22d8d2c542752e137ec4b9885fff398d3eceb1a7f5acb4
-DISTFILE[1]=		pep8-${PORTVERSION}-py2.py3-none-any.whl:main
+SITES[main]=		PYPI/p/pep8
+DISTFILE[1]=		pep8-${PORTVERSION}.tar.gz:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -29,15 +29,12 @@ VOPTS[py27]=		PY38=OFF PY37=OFF PY27=ON
 # Expat license
 
 GENERATED=		yes
-DISTNAME=		pep8-${PORTVERSION}.dist-info
+DISTNAME=		pep8-${PORTVERSION}
 
-# Requires-Dist extracted from wheel metadata
+# install_requires extracted from setup.py
 
 
-[PY38].USES_ON=				python:py38,wheel
-[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
-[PY37].USES_ON=				python:py37,wheel
-[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
-[PY27].USES_ON=				python:py27,wheel
-[PY27].BUILD_DEPENDS_ON=		python-pip:single:py27
+[PY38].USES_ON=				python:py38
+[PY37].USES_ON=				python:py37
+[PY27].USES_ON=				python:py27
 

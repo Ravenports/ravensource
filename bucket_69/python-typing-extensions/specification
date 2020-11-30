@@ -1,18 +1,18 @@
-DEF[PORTVERSION]=	2.4.1
+DEF[PORTVERSION]=	3.7.4.3
 # ------------------------------------------------------------------------
 
-NAMEBASE=		python-asn1
+NAMEBASE=		python-typing-extensions
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		py38 py37
-SDESC[py38]=		Simple ASN.1 encoder and decoder (PY38)
-SDESC[py37]=		Simple ASN.1 encoder and decoder (PY37)
-HOMEPAGE=		https://github.com/andrivet/python-asn1
+SDESC[py38]=		Backported type hints for Python 3.5+ (PY38)
+SDESC[py37]=		Backported type hints for Python 3.5+ (PY37)
+HOMEPAGE=		https://github.com/python/typing/blob/master/typing_extensions/README.rst
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/7d/b3/3937fd3460ab7b5ff80af1f2d74b37b9cdd21f9668ff3602094c436a2e5a
-DISTFILE[1]=		asn1-${PORTVERSION}-py2.py3-none-any.whl:main
+SITES[main]=		PYPIWHL/60/7a/e881b5abb54db0e6e671ab088d079c57ce54e8a01a3ca443f561ccadb37e
+DISTFILE[1]=		typing_extensions-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -23,13 +23,13 @@ VOPTS[py38]=		PY38=ON PY37=OFF
 VOPTS[py37]=		PY38=OFF PY37=ON
 
 # License listed at PyPI
-# BSD
+# PSF
 
 GENERATED=		yes
-DISTNAME=		asn1-${PORTVERSION}.dist-info
+DISTNAME=		typing_extensions-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# enum-compat
+# typing (>=3.7.4) ; python_version < "3.5"
 
 [PY38].USES_ON=				python:py38,wheel
 [PY38].BUILD_DEPENDS_ON=		python-pip:single:py38

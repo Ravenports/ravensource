@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	1.5.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-lazy-object-proxy
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py38 py37
+SDESC[py38]=		Fast and thorough lazy object proxy (PY38)
+SDESC[py37]=		Fast and thorough lazy object proxy (PY37)
+HOMEPAGE=		https://github.com/ionelmc/python-lazy-object-proxy
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/l/lazy-object-proxy
+DISTFILE[1]=		lazy-object-proxy-${PORTVERSION}.tar.gz:main
+
+SPKGS[py38]=		single
+SPKGS[py37]=		single
+
+OPTIONS_AVAILABLE=	PY38 PY37
+OPTIONS_STANDARD=	none
+VOPTS[py38]=		PY38=ON PY37=OFF
+VOPTS[py37]=		PY38=OFF PY37=ON
+
+# License listed at PyPI
+# BSD-2-Clause
+
+GENERATED=		yes
+DISTNAME=		lazy-object-proxy-${PORTVERSION}
+
+# install_requires extracted from setup.py
+# setuptools_scm>=3.3.1
+
+[PY38].USES_ON=				python:py38
+[PY38].BUILDRUN_DEPENDS_ON=		python-setuptools-scm:single:py38
+[PY37].USES_ON=				python:py37
+[PY37].BUILDRUN_DEPENDS_ON=		python-setuptools-scm:single:py37
+

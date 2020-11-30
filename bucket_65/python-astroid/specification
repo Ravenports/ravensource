@@ -1,0 +1,48 @@
+DEF[PORTVERSION]=	2.4.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-astroid
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py38 py37
+SDESC[py38]=		Abstract syntax tree with inference support (PY38)
+SDESC[py37]=		Abstract syntax tree with inference support (PY37)
+HOMEPAGE=		https://github.com/PyCQA/astroid
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/24/a8/5133f51967fb21e46ee50831c3f5dda49e976b7f915408d670b1603d41d6
+DISTFILE[1]=		astroid-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py38]=		single
+SPKGS[py37]=		single
+
+OPTIONS_AVAILABLE=	PY38 PY37
+OPTIONS_STANDARD=	none
+VOPTS[py38]=		PY38=ON PY37=OFF
+VOPTS[py37]=		PY38=OFF PY37=ON
+
+# License listed at PyPI
+# LGPL
+
+GENERATED=		yes
+DISTNAME=		astroid-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# lazy-object-proxy (==1.4.*)
+# six (~=1.12)
+# wrapt (~=1.11)
+# typed-ast (<1.5,>=1.4.0) ; implementation_name == "cpython" and python_version < "3.8"
+
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-lazy-object-proxy:single:py38
+					python-six:single:py38
+					python-wrapt:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-lazy-object-proxy:single:py37
+					python-six:single:py37
+					python-wrapt:single:py37
+					python-typed-ast:single:py37
+
