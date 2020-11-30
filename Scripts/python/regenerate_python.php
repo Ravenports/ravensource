@@ -54,12 +54,13 @@ function set_initial_queue() {
 # Python generator isn't recursive, so we only make one pass.
 function cycle_through_queue ($force_setting) {
     global
+        $VA, $VB, $VC,
         $port_data,
         $namebase_queue;
 
     set_up_cache();
     foreach ($namebase_queue as $namebase) {
-        $port_data[$namebase] = scrape_python_info ($namebase, $force_setting);
+        $port_data[$namebase] = scrape_python_info ($namebase, $force_setting, $VA, $VB, $VC);
         if (!$port_data[$namebase]["success"]) {
             echo "Error scanning $namebase port\n";
         }
@@ -123,7 +124,7 @@ function set_python_version($ravensource) {
 }
 
 
-# Given a ruby version ("25, "26, "27", etc) and a minimum version string,
+# Given a python version ("25, "26, "27", etc) and a minimum version string,
 # return True if the port builds on the given version.
 function meets_version_requirements ($PYVER, $requirements_string) {
     global
@@ -397,10 +398,10 @@ function generate_port($namebase) {
                 $buildrun_block .= $indent . $DEP . ":single:" . $V . "\n";
             }
         }
-        if (count($port_data[$namebase]["justrun"])) {
+        if (count($port_data[$namebase]["justrun_py" . $SV])) {
             $buildrun_block .= "[PY" . $SV . "].RUN_DEPENDS_ON=\t\t\t";
-            foreach ($port_data[$namebase]["justrun"] as $DEP) {
-                $indent = ($DEP == $port_data[$namebase]["justrun"][0]) ? "" : "\t\t\t\t\t";
+            foreach ($port_data[$namebase]["justrun_py" . $SV] as $DEP) {
+                $indent = ($DEP == $port_data[$namebase]["justrun_py" . $SV][0]) ? "" : "\t\t\t\t\t";
                 $buildrun_block .= $indent . $DEP . ":single:" . $V . "\n";
             }
         }

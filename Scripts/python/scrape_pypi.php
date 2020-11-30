@@ -401,6 +401,13 @@ function only_dists($var) {
 }
 
 
+# Line doesn't contain "extras"
+function skip_extras($var) {
+   $pos = strpos($var, "extra ==");
+   return ($pos === false);
+}
+
+
 # Obtain runtime dependencies from wheel file
 function scan_wheel_for_rundeps ($metafile) {
     $contents = file_get_contents ($metafile);
@@ -408,8 +415,39 @@ function scan_wheel_for_rundeps ($metafile) {
 }
 
 
+# Determine run depends per python version
+function get_run_depends ($base_dependencies, $pversion) {
+    global $data_corrections;
+
+    $result = array();
+    foreach ($base_dependencies as $line) {
+        $pos = strpos($line, "; python_version");
+        if ($pos === false) {
+             # No limiting version infomation; all versions need it
+             $required = true;
+        } else {
+             $teststr = "\$required = " .
+                        str_replace(array('"', "'"),
+                                    array("",""),
+                                    "\$p" . substr($line, $pos + 9) . " * 10;");
+             eval($teststr);
+        }
+        if ($required) {
+            $req = trim(preg_replace('/^Requires-Dist: ([^ <>=~!]+)(.*)$/', '\1', $line));
+            if (array_key_exists ($req, $data_corrections)) {
+                $req = $data_corrections[$req];
+            }
+            if (!in_array("python-" . $req, $result)) {
+                array_push($result, "python-" . $req);
+            }
+        }
+    }
+    return $result;
+}
+
+
 # Establish buildruns (only using latest python)
-function set_buildrun (&$portdata) {
+function set_buildrun (&$portdata, $PVA, $PVB, $PVC) {
     global
         $data_corrections,
         $EXTS,
@@ -444,18 +482,12 @@ function set_buildrun (&$portdata) {
           return;
        }
        $req_lines = scan_wheel_for_rundeps($metadata);
+       $base_reqs = array_filter($req_lines, "skip_extras");
        $comment_reqs = preg_replace('/^Requires-Dist: /', '# ', $req_lines);
        $portdata["req_comment"] .= join("\n", $comment_reqs);
-       $stripped_reqs = preg_replace('/^# ([^ ]+)(.*)$/', '\1', $comment_reqs);
-       foreach ($stripped_reqs as $req) {
-           $req = trim($req);
-           if (array_key_exists ($req, $data_corrections)) {
-               $req = $data_corrections[$req];
-           }
-           if (!in_array("python-" . $req, $portdata["justrun"])) {
-               array_push($portdata["justrun"], "python-" . $req);
-           }
-       }
+       $portdata["justrun_py" . $PVA] = get_run_depends ($base_reqs, $PVA);
+       $portdata["justrun_py" . $PVB] = get_run_depends ($base_reqs, $PVB);
+       $portdata["justrun_py" . $PVC] = get_run_depends ($base_reqs, $PVC);
        return;
     }
 
@@ -549,7 +581,7 @@ function trails($main_string, $fragment) {
 
 
 # main function to ready python module and extract usable information
-function scrape_python_info ($namebase, $force) {
+function scrape_python_info ($namebase, $force, $PVA, $PVB, $PVC) {
     $result = array(
         "success"     => false,
         "name"        => $namebase,
@@ -565,7 +597,9 @@ function scrape_python_info ($namebase, $force) {
         "pypi_uri"    => "UNSET",
         "wheel_dist"  => false,
         "buildrun"    => array(),
-        "justrun"     => array(),
+        "justrun_py" . $PVA => array(),
+        "justrun_py" . $PVB => array(),
+        "justrun_py" . $PVC => array(),
         "req_comment" => "# install_requires extracted from setup.py\n",
     );
 
@@ -597,14 +631,13 @@ function scrape_python_info ($namebase, $force) {
          }
 
          $release_found = false;
-         # This script will be updated in two stages.
-         # Stage 1: If "sdist" release type not available, look
-         #          for wheel release type for "any" platform
-         # Stage 2: Reverse priority and preferentially install
-         #          generic wheel ports over setuptools sdist
          foreach ($obj->releases->$version as $entry) {
-             if ($entry->packagetype == "sdist") {
+             # we can use wheel files if they are generic
+             if ($entry->packagetype == "bdist_wheel" &&
+                 trails($entry->filename, "py3-none-any.whl")
+             ) {
                  $release_found = true;
+                 $result["wheel_dist"] = true;
                  $result["md5sum"]   = $entry->md5_digest;
                  $result["distfile"] = $entry->filename;
                  $result["fetch_url"] = $entry->url;
@@ -615,12 +648,8 @@ function scrape_python_info ($namebase, $force) {
          }
          if (!$release_found) {
            foreach ($obj->releases->$version as $entry) {
-             # we can use wheel files if they are generic
-             if ($entry->packagetype == "bdist_wheel" &&
-                 trails($entry->filename, "-none-any.whl")
-             ) {
+             if ($entry->packagetype == "sdist") {
                  $release_found = true;
-                 $result["wheel_dist"] = true;
                  $result["md5sum"]   = $entry->md5_digest;
                  $result["distfile"] = $entry->filename;
                  $result["fetch_url"] = $entry->url;
@@ -680,10 +709,9 @@ function scrape_python_info ($namebase, $force) {
                  return $result;
              }
          }
-         set_buildrun($result);
+         set_buildrun($result, $PVA, $PVB, $PVC);
          $result["success"] = true;
     }
-
 
     return $result;
 }
