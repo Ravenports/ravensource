@@ -11,8 +11,8 @@ HOMEPAGE=		http://sphinx-doc.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/s/sphinxcontrib-qthelp
-DISTFILE[1]=		sphinxcontrib-qthelp-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/2b/14/05f9206cf4e9cfca1afb5fd224c7cd434dcc3a433d6d9e4e0264d29c6cdb
+DISTFILE[1]=		sphinxcontrib_qthelp-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,11 +26,16 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # BSD
 
 # install_requires extracted from setup.py
+# flake8 ; extra == 'lint'
+# mypy ; extra == 'lint'
+# docutils-stubs ; extra == 'lint'
+# pytest ; extra == 'test'
 
-
-DISTNAME=		sphinxcontrib-qthelp-${PORTVERSION}
+DISTNAME=		sphinxcontrib_qthelp-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 

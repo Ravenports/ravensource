@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/datadriventests/ddt
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/d/ddt
-DISTFILE[1]=		ddt-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/31/3b/a38bb1606c0b912cd53976369ac10334f6b5e96fa260eebc46fabe6a43bf
+DISTFILE[1]=		ddt-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,12 +26,14 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # Not provided.
 
 # install_requires extracted from setup.py
+# enum34 ; python_version < "3"
 
-
-DISTNAME=		ddt-${PORTVERSION}
+DISTNAME=		ddt-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 
 BUILDRUN_DEPENDS=	python-nose:single:python_used

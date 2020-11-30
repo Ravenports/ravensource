@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/peterbe/premailer
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/p/premailer
-DISTFILE[1]=		premailer-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/cd/ce/74bbdf0eee4265fd3f161d4276b36c9238b802191c2053c8e68578bda4e6
+DISTFILE[1]=		premailer-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -31,18 +31,28 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # cssutils
 # requests
 # cachetools
+# tox ; extra == 'dev'
+# twine ; extra == 'dev'
+# therapist ; extra == 'dev'
+# black ; extra == 'dev'
+# flake8 ; extra == 'dev'
+# wheel ; extra == 'dev'
+# nose ; extra == 'test'
+# mock ; extra == 'test'
 
-DISTNAME=		premailer-${PORTVERSION}
+DISTNAME=		premailer-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-lxml:single:py38
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-lxml:single:py38
 					python-cssselect:single:py38
 					python-cssutils:single:py38
 					python-requests:single:py38
 					python-cachetools:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-lxml:single:py37
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-lxml:single:py37
 					python-cssselect:single:py37
 					python-cssutils:single:py37
 					python-requests:single:py37

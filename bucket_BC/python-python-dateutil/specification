@@ -11,8 +11,8 @@ HOMEPAGE=		https://dateutil.readthedocs.io
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/p/python-dateutil
-DISTFILE[1]=		python-dateutil-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/d4/70/d60450c3dd48ef87586924207ae8907090de0b306af2bce5d134d78615cb
+DISTFILE[1]=		python_dateutil-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,16 +26,15 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # Dual License
 
 # install_requires extracted from setup.py
-# six>=1.5
-# setuptools_scm
+# six (>=1.5)
 
-DISTNAME=		python-dateutil-${PORTVERSION}
+DISTNAME=		python_dateutil-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-six:single:py38
-					python-setuptools-scm:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-six:single:py37
-					python-setuptools-scm:single:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-six:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-six:single:py37
 

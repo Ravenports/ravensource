@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/uiri/toml
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/t/toml
-DISTFILE[1]=		toml-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/44/6f/7120676b6d73228c96e17f1f794d8ab046fc910d781c8d151120c3f1569e
+DISTFILE[1]=		toml-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -28,9 +28,11 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # install_requires extracted from setup.py
 
 
-DISTNAME=		toml-${PORTVERSION}
+DISTNAME=		toml-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 

@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/jbardin/scp.py
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/s/scp
-DISTFILE[1]=		scp-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/b7/37/122d300034f2c8576158a7830e02c687730635e65a95f9eb2b4eb002554d
+DISTFILE[1]=		scp-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -28,11 +28,13 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # install_requires extracted from setup.py
 # paramiko
 
-DISTNAME=		scp-${PORTVERSION}
+DISTNAME=		scp-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-paramiko:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-paramiko:single:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-paramiko:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-paramiko:single:py37
 

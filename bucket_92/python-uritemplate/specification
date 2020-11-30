@@ -11,8 +11,8 @@ HOMEPAGE=		https://uritemplate.readthedocs.org
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/u/uritemplate
-DISTFILE[1]=		uritemplate-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/bf/0c/60d82c077998feb631608dca3cc1fe19ac074e772bf0c24cf409b977b815
+DISTFILE[1]=		uritemplate-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -28,9 +28,11 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # install_requires extracted from setup.py
 
 
-DISTNAME=		uritemplate-${PORTVERSION}
+DISTNAME=		uritemplate-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 

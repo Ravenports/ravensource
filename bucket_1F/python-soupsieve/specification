@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/facelessuser/soupsieve
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/s/soupsieve
-DISTFILE[1]=		soupsieve-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/6f/8f/457f4a5390eeae1cc3aeab89deb7724c965be841ffca6cfca9197482e470
+DISTFILE[1]=		soupsieve-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,11 +26,13 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # MIT License
 
 # install_requires extracted from setup.py
+# backports.functools-lru-cache ; python_version < "3"
 
-
-DISTNAME=		soupsieve-${PORTVERSION}
+DISTNAME=		soupsieve-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 

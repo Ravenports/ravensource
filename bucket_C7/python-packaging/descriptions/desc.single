@@ -1,7 +1,17 @@
 packaging
 =========
 
-Core utilities for Python packages.
+.. start-intro
+
+Reusable core utilities for various Python Packaging
+[interoperability specifications].
+
+This library provides utilities that implement the interoperability
+specifications which have clearly one correct behaviour (eg: :pep:`440`)
+or benefit greatly from having a single shared implementation (eg:
+:pep:`425`).
+
+.. end-intro
 
 The packaging project includes the following: version handling, specifiers,
 markers, requirements, tags, utilities.
@@ -40,9 +50,10 @@ Code of Conduct
 
 Everyone interacting in the packaging project's codebases, issue trackers,
 chat
-rooms, and mailing lists is expected to follow the `PyPA Code of Conduct`_.
+rooms, and mailing lists is expected to follow the `PSF Code of Conduct`_.
 
-.. _PyPA Code of Conduct: https://www.pypa.io/en/latest/code-of-conduct/
+.. _PSF Code of Conduct:
+https://github.com/pypa/.github/blob/main/CODE_OF_CONDUCT.md
 
 Contributing
 ------------
@@ -65,36 +76,3 @@ recent changes and project history.
 
 .. _`Changelog documentation`:
 https://packaging.pypa.io/en/latest/changelog/
-
-Changelog
----------
-
-20.4 - 2020-05-19
-~~~~~~~~~~~~~~~~~
-
-* Canonicalize version before comparing specifiers. (`#282
-<https://github.com/pypa/packaging/issues/282>`__)
-* Change type hint for canonicalize_name to return
-  ``packaging.utils.NormalizedName``.
-  This enables the use of static typing tools (like mypy) to detect mixing
-of
-  normalized and un-normalized names.
-
-20.3 - 2020-03-05
-~~~~~~~~~~~~~~~~~
-
-* Fix changelog for 20.2.
-
-20.2 - 2020-03-05
-~~~~~~~~~~~~~~~~~
-
-* Fix a bug that caused a 32-bit OS that runs on a 64-bit ARM CPU (e.g.
-ARM-v8,
-  aarch64), to report the wrong bitness.
-
-20.1 - 2020-01-24
-~~~~~~~~~~~~~~~~~~~
-
-* Fix a bug caused by reuse of an exhausted iterator. (`#257
-<https://github.com/pypa/packaging/issues/257>`__)
-

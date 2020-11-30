@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/corydolphin/flask-cors
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/F/Flask-Cors
-DISTFILE[1]=		Flask-Cors-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/69/7f/d0aeaaafb5c3c76c8d2141dbe2d4f6dca5d6c31872d4e5349768c1958abc
+DISTFILE[1]=		Flask_Cors-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,17 +26,19 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # MIT
 
 # install_requires extracted from setup.py
-# Flask>=0.9
+# Flask (>=0.9)
 # Six
 
-DISTNAME=		Flask-Cors-${PORTVERSION}
+DISTNAME=		Flask_Cors-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-Flask:single:py38
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-Flask:single:py38
 					python-six:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-Flask:single:py37
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-Flask:single:py37
 					python-six:single:py37
 
 USES=			cpe

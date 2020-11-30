@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/matthiask/django-js-asset/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/d/django-js-asset
-DISTFILE[1]=		django-js-asset-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/aa/2d/98089cf51c8e83bc70723021390b94a3638a4a0ce30a47e2e70476b2095d
+DISTFILE[1]=		django_js_asset-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -28,9 +28,11 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # install_requires extracted from setup.py
 
 
-DISTNAME=		django-js-asset-${PORTVERSION}
+DISTNAME=		django_js_asset-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 

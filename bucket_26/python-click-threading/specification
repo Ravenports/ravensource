@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/click-contrib/click-threading
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/c/click-threading
-DISTFILE[1]=		click-threading-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/2a/06/bfee5d9a5f8c0e8b66350256d85016413e73e64d99605e4500431702157a
+DISTFILE[1]=		click_threading-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,13 +26,16 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # MIT
 
 # install_requires extracted from setup.py
-# click>=5.0
+# click (>=5.0)
+# futures; python_version < "3.2"
 
-DISTNAME=		click-threading-${PORTVERSION}
+DISTNAME=		click_threading-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-click:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-click:single:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-click:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-click:single:py37
 

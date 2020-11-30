@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/requests/requests-oauthlib
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/r/requests-oauthlib
-DISTFILE[1]=		requests-oauthlib-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/a3/12/b92740d845ab62ea4edf04d2f4164d82532b5a0b03836d4d4e71c6f3d379
+DISTFILE[1]=		requests_oauthlib-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,16 +26,19 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # ISC
 
 # install_requires extracted from setup.py
-# oauthlib>=3.0.0
-# requests>=2.0.0
+# oauthlib (>=3.0.0)
+# requests (>=2.0.0)
+# oauthlib[signedtoken] (>=3.0.0) ; extra == 'rsa'
 
-DISTNAME=		requests-oauthlib-${PORTVERSION}
+DISTNAME=		requests_oauthlib-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-oauthlib:single:py38
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-oauthlib:single:py38
 					python-requests:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-oauthlib:single:py37
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-oauthlib:single:py37
 					python-requests:single:py37
 

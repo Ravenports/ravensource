@@ -12,8 +12,8 @@ HOMEPAGE=		https://github.com/davidhalter/jedi
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/j/jedi
-DISTFILE[1]=		jedi-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/c3/d4/36136b18daae06ad798966735f6c3fb96869c1be9f8245d2a8f556e40c36
+DISTFILE[1]=		jedi-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -29,15 +29,23 @@ VOPTS[py27]=		PY38=OFF PY37=OFF PY27=ON
 # MIT
 
 # install_requires extracted from setup.py
-# parso<0.8.0,>=0.7.0
+# parso (<0.8.0,>=0.7.0)
+# flake8 (==3.7.9) ; extra == 'qa'
+# Django (<3.1) ; extra == 'testing'
+# colorama ; extra == 'testing'
+# docopt ; extra == 'testing'
+# pytest (<5.0.0,>=3.9.0) ; extra == 'testing'
 
-DISTNAME=		jedi-${PORTVERSION}
+DISTNAME=		jedi-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-parso:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-parso:single:py37
-[PY27].USES_ON=				python:py27
-[PY27].BUILDRUN_DEPENDS_ON=		python-parso:single:py27
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-parso:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-parso:single:py37
+[PY27].USES_ON=				python:py27,wheel
+[PY27].BUILD_DEPENDS_ON=		python-pip:single:py27
+[PY27].RUN_DEPENDS_ON=			python-parso:single:py27
 

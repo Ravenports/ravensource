@@ -11,8 +11,8 @@ HOMEPAGE=		https://docs.openstack.org/stevedore/latest/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/s/stevedore
-DISTFILE[1]=		stevedore-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/b8/a1/004f04ba411a8002b02aadb089fd6868116c12ddc9f6d576175e89d07587
+DISTFILE[1]=		stevedore-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,14 +26,18 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # Not provided.
 
 # install_requires extracted from setup.py
-# pbr!=2.1.0,>=2.0.0
-# pbr>=2.0.0
+# pbr (!=2.1.0,>=2.0.0)
+# importlib-metadata (>=1.7.0); (python_version<'3.8')
 
-DISTNAME=		stevedore-${PORTVERSION}
+DISTNAME=		stevedore-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-pbr:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-pbr:single:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-pbr:single:py38
+					python-importlib-metadata:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-pbr:single:py37
+					python-importlib-metadata:single:py37
 

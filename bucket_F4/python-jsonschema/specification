@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/Julian/jsonschema
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/j/jsonschema
-DISTFILE[1]=		jsonschema-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/c5/8f/51e89ce52a085483359217bc72cdbf6e75ee595d5b1d4b5ade40c7e018b8
+DISTFILE[1]=		jsonschema-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,26 +26,38 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # Not provided.
 
 # install_requires extracted from setup.py
-# attrs>=17.4.0
-# pyrsistent>=0.14.0
+# attrs (>=17.4.0)
+# pyrsistent (>=0.14.0)
 # setuptools
-# six>=1.11.0
-# setuptools_scm
+# six (>=1.11.0)
+# functools32 ; python_version < "3"
+# importlib-metadata ; python_version < "3.8"
+# idna ; extra == 'format'
+# jsonpointer (>1.13) ; extra == 'format'
+# rfc3987 ; extra == 'format'
+# strict-rfc3339 ; extra == 'format'
+# webcolors ; extra == 'format'
+# idna ; extra == 'format_nongpl'
+# jsonpointer (>1.13) ; extra == 'format_nongpl'
+# webcolors ; extra == 'format_nongpl'
+# rfc3986-validator (>0.1.0) ; extra == 'format_nongpl'
+# rfc3339-validator ; extra == 'format_nongpl'
 
-DISTNAME=		jsonschema-${PORTVERSION}
+DISTNAME=		jsonschema-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-attrs:single:py38
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-attrs:single:py38
 					python-pyrsistent:single:py38
 					python-setuptools:single:py38
 					python-six:single:py38
-					python-setuptools-scm:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-attrs:single:py37
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-attrs:single:py37
 					python-pyrsistent:single:py37
 					python-setuptools:single:py37
 					python-six:single:py37
-					python-setuptools-scm:single:py37
+					python-importlib-metadata:single:py37
 
 BUILDRUN_DEPENDS=	python-setuptools-scm:single:python_used

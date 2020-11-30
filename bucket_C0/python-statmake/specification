@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/daltonmaag/statmake
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/s/statmake
-DISTFILE[1]=		statmake-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/0d/45/15cc4b63600b206e7df55876333970be1444efb0b56a429d29a86bf01c30
+DISTFILE[1]=		statmake-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,19 +26,23 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # MIT
 
 # install_requires extracted from setup.py
-# attrs>=18.2
-# cattrs<2.0,>=1.0
-# fonttools[ufo]<5.0,>=4.11
+# attrs (>=18.2)
+# cattrs (>=1.0,<2.0)
+# fonttools[ufo] (>=4.11,<5.0)
+# importlib_metadata (>=1.6.0,<2.0.0); python_version < "3.8"
 
-DISTNAME=		statmake-${PORTVERSION}
+DISTNAME=		statmake-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-attrs:single:py38
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-attrs:single:py38
 					python-cattrs:single:py38
 					python-fonttools:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-attrs:single:py37
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-attrs:single:py37
 					python-cattrs:single:py37
 					python-fonttools:single:py37
+					python-importlib-metadata:single:py37
 

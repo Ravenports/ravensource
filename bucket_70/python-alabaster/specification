@@ -11,8 +11,8 @@ HOMEPAGE=		https://alabaster.readthedocs.io
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/a/alabaster
-DISTFILE[1]=		alabaster-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/10/ad/00b090d23a222943eb0eda509720a404f531a439e803f6538f35136cae9e
+DISTFILE[1]=		alabaster-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -28,9 +28,11 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # install_requires extracted from setup.py
 
 
-DISTNAME=		alabaster-${PORTVERSION}
+DISTNAME=		alabaster-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 

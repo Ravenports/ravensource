@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/Tinche/cattrs
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/c/cattrs
-DISTFILE[1]=		cattrs-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/de/6c/7e372e2826df2dc798bf49c6ddfc60e3218456bef82df1a29b387bf607ba
+DISTFILE[1]=		cattrs-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,13 +26,27 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # MIT license
 
 # install_requires extracted from setup.py
-# attrs>=20.1.0
+# attrs (>=20.1.0)
+# bumpversion ; extra == 'dev'
+# wheel ; extra == 'dev'
+# watchdog ; extra == 'dev'
+# flake8 ; extra == 'dev'
+# tox ; extra == 'dev'
+# coverage ; extra == 'dev'
+# Sphinx ; extra == 'dev'
+# pytest ; extra == 'dev'
+# hypothesis ; extra == 'dev'
+# pendulum ; extra == 'dev'
+# isort ; extra == 'dev'
+# black ; extra == 'dev'
 
-DISTNAME=		cattrs-${PORTVERSION}
+DISTNAME=		cattrs-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-attrs:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-attrs:single:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-attrs:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-attrs:single:py37
 

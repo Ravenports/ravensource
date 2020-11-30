@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/michaeljones/breathe
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/b/breathe
-DISTFILE[1]=		breathe-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/3f/e6/b3c14ad2737dd0373bdb9adad95c4c675a32ba30c9d73354185c976ab9f5
+DISTFILE[1]=		breathe-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,19 +26,21 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # BSD
 
 # install_requires extracted from setup.py
-# Sphinx<3.4,>=3.0
-# docutils>=0.12
-# six>=1.9
+# Sphinx (<3.4,>=3.0)
+# docutils (>=0.12)
+# six (>=1.9)
 
-DISTNAME=		breathe-${PORTVERSION}
+DISTNAME=		breathe-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-Sphinx:single:py38
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-Sphinx:single:py38
 					python-docutils:single:py38
 					python-six:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-Sphinx:single:py37
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-Sphinx:single:py37
 					python-docutils:single:py37
 					python-six:single:py37
 

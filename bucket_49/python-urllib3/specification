@@ -11,8 +11,8 @@ HOMEPAGE=		https://urllib3.readthedocs.io/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/u/urllib3
-DISTFILE[1]=		urllib3-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/f5/71/45d36a8df68f3ebb098d6861b2c017f3d094538c0fb98fa61d4dc43e69b9
+DISTFILE[1]=		urllib3-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,13 +26,21 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # MIT
 
 # install_requires extracted from setup.py
+# brotlipy (>=0.6.0) ; extra == 'brotli'
+# pyOpenSSL (>=0.14) ; extra == 'secure'
+# cryptography (>=1.3.4) ; extra == 'secure'
+# idna (>=2.0.0) ; extra == 'secure'
+# certifi ; extra == 'secure'
+# ipaddress ; (python_version == "2.7") and extra == 'secure'
+# PySocks (!=1.5.7,<2.0,>=1.5.6) ; extra == 'socks'
 
-
-DISTNAME=		urllib3-${PORTVERSION}
+DISTNAME=		urllib3-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 
 USES=			cpe
 CPE_VENDOR=		python

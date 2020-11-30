@@ -11,8 +11,8 @@ HOMEPAGE=		https://www.djangoproject.com/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/D/Django
-DISTFILE[1]=		Django-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/7f/17/16267e782a30ea2ce08a9a452c1db285afb0ff226cfe3753f484d3d65662
+DISTFILE[1]=		Django-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,19 +26,23 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # BSD-3-Clause
 
 # install_requires extracted from setup.py
-# asgiref<4,>=3.2.10
+# asgiref (<4,>=3.2.10)
 # pytz
-# sqlparse>=0.2.2
+# sqlparse (>=0.2.2)
+# argon2-cffi (>=16.1.0) ; extra == 'argon2'
+# bcrypt ; extra == 'bcrypt'
 
-DISTNAME=		Django-${PORTVERSION}
+DISTNAME=		Django-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-asgiref:single:py38
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-asgiref:single:py38
 					python-pytz:single:py38
 					python-sqlparse:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-asgiref:single:py37
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-asgiref:single:py37
 					python-pytz:single:py37
 					python-sqlparse:single:py37
 

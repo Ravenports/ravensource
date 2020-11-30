@@ -11,8 +11,8 @@ HOMEPAGE=		https://virtualenv.pypa.io/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/v/virtualenv
-DISTFILE[1]=		virtualenv-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/79/88/66ac964ab8cf87c8db839c11812292a966825af205411cb67477cb4e73d3
+DISTFILE[1]=		virtualenv-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,27 +26,47 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # MIT
 
 # install_requires extracted from setup.py
-# appdirs<2,>=1.4.3
-# distlib<1,>=0.3.1
-# filelock<4,>=3.0.0
-# six<2,>=1.9.0
-# setuptools_scm >= 2
+# appdirs (<2,>=1.4.3)
+# distlib (<1,>=0.3.1)
+# filelock (<4,>=3.0.0)
+# six (<2,>=1.9.0)
+# pathlib2 (<3,>=2.3.3) ; python_version < "3.4" and sys_platform != "win32"
+# importlib-resources (>=1.0) ; python_version < "3.7"
+# importlib-metadata (>=0.12) ; python_version < "3.8"
+# proselint (>=0.10.2) ; extra == 'docs'
+# sphinx (>=3) ; extra == 'docs'
+# sphinx-argparse (>=0.2.5) ; extra == 'docs'
+# sphinx-rtd-theme (>=0.4.3) ; extra == 'docs'
+# towncrier (>=19.9.0rc1) ; extra == 'docs'
+# coverage (>=4) ; extra == 'testing'
+# coverage-enable-subprocess (>=1) ; extra == 'testing'
+# flaky (>=3) ; extra == 'testing'
+# pytest (>=4) ; extra == 'testing'
+# pytest-env (>=0.6.2) ; extra == 'testing'
+# pytest-freezegun (>=0.4.1) ; extra == 'testing'
+# pytest-mock (>=2) ; extra == 'testing'
+# pytest-randomly (>=1) ; extra == 'testing'
+# pytest-timeout (>=1) ; extra == 'testing'
+# pytest-xdist (>=1.31.0) ; extra == 'testing'
+# packaging (>=20.0) ; (python_version > "3.4") and extra == 'testing'
+# xonsh (>=0.9.16) ; (python_version > "3.4" and python_version != "3.9") and extra == 'testing'
 
-DISTNAME=		virtualenv-${PORTVERSION}
+DISTNAME=		virtualenv-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-appdirs:single:py38
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-appdirs:single:py38
 					python-distlib:single:py38
 					python-filelock:single:py38
 					python-six:single:py38
-					python-setuptools-scm:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-appdirs:single:py37
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-appdirs:single:py37
 					python-distlib:single:py37
 					python-filelock:single:py37
 					python-six:single:py37
-					python-setuptools-scm:single:py37
+					python-importlib-metadata:single:py37
 
 USES=			cpe
 CPE_VENDOR=		python

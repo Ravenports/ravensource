@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/django-mptt/django-mptt
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/d/django-mptt
-DISTFILE[1]=		django-mptt-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/83/86/78a64e1aa72dc6156a1a4f1f830564c932b0900460607def7ccd56a1df80
+DISTFILE[1]=		django_mptt-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,16 +26,18 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # MIT License
 
 # install_requires extracted from setup.py
-# Django>=1.11
+# Django (>=1.11)
 # django-js-asset
 
-DISTNAME=		django-mptt-${PORTVERSION}
+DISTNAME=		django_mptt-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-Django:single:py38
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-Django:single:py38
 					python-django-js-asset:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-Django:single:py37
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-Django:single:py37
 					python-django-js-asset:single:py37
 

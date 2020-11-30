@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/jquast/wcwidth
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/w/wcwidth
-DISTFILE[1]=		wcwidth-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/59/7c/e39aca596badaf1b78e8f547c807b04dae603a433d3e7a7e04d67f2ef3e5
+DISTFILE[1]=		wcwidth-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,11 +26,13 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # MIT
 
 # install_requires extracted from setup.py
+# backports.functools-lru-cache (>=1.2.1) ; python_version < "3.2"
 
-
-DISTNAME=		wcwidth-${PORTVERSION}
+DISTNAME=		wcwidth-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 

@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/pimutils/vdirsyncer
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/v/vdirsyncer
-DISTFILE[1]=		vdirsyncer-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/f0/71/5cbb9ea21e2c6d35d8f403b3847f6dbe6033e6acf8f238e1b3eda2c4a68f
+DISTFILE[1]=		vdirsyncer-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,33 +26,35 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # BSD
 
 # install_requires extracted from setup.py
-# click<6.0,>=5.0
-# click-log<0.4.0,>=0.3.0
-# click-threading>=0.2
-# requests>=2.20.0
-# requests_toolbelt>=0.4.0
-# atomicwrites>=0.1.7
-# setuptools_scm != 1.12.0
+# click (<6.0,>=5.0)
+# click-log (<0.4.0,>=0.3.0)
+# click-threading (>=0.2)
+# requests (>=2.20.0)
+# requests-toolbelt (>=0.4.0)
+# atomicwrites (>=0.1.7)
+# etesync (==0.5.2) ; extra == 'etesync'
+# django (<2.0) ; extra == 'etesync'
+# requests-oauthlib ; extra == 'google'
 
-DISTNAME=		vdirsyncer-${PORTVERSION}
+DISTNAME=		vdirsyncer-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-click:single:py38
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-click:single:py38
 					python-click-log:single:py38
 					python-click-threading:single:py38
 					python-requests:single:py38
 					python-requests-toolbelt:single:py38
 					python-atomicwrites:single:py38
-					python-setuptools-scm:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-click:single:py37
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-click:single:py37
 					python-click-log:single:py37
 					python-click-threading:single:py37
 					python-requests:single:py37
 					python-requests-toolbelt:single:py37
 					python-atomicwrites:single:py37
-					python-setuptools-scm:single:py37
 
 # For google calender support
 BUILDRUN_DEPENDS=	python-requests-oauthlib:single:python_used

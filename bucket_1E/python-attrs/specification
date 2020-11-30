@@ -11,8 +11,8 @@ HOMEPAGE=		https://www.attrs.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/a/attrs
-DISTFILE[1]=		attrs-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/c3/aa/cb45262569fcc047bf070b5de61813724d6726db83259222cd7b4c79821a
+DISTFILE[1]=		attrs-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,11 +26,35 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # MIT
 
 # install_requires extracted from setup.py
+# coverage[toml] (>=5.0.2) ; extra == 'dev'
+# hypothesis ; extra == 'dev'
+# pympler ; extra == 'dev'
+# pytest (>=4.3.0) ; extra == 'dev'
+# six ; extra == 'dev'
+# zope.interface ; extra == 'dev'
+# furo ; extra == 'dev'
+# sphinx ; extra == 'dev'
+# pre-commit ; extra == 'dev'
+# furo ; extra == 'docs'
+# sphinx ; extra == 'docs'
+# zope.interface ; extra == 'docs'
+# coverage[toml] (>=5.0.2) ; extra == 'tests'
+# hypothesis ; extra == 'tests'
+# pympler ; extra == 'tests'
+# pytest (>=4.3.0) ; extra == 'tests'
+# six ; extra == 'tests'
+# zope.interface ; extra == 'tests'
+# coverage[toml] (>=5.0.2) ; extra == 'tests_no_zope'
+# hypothesis ; extra == 'tests_no_zope'
+# pympler ; extra == 'tests_no_zope'
+# pytest (>=4.3.0) ; extra == 'tests_no_zope'
+# six ; extra == 'tests_no_zope'
 
-
-DISTNAME=		attrs-${PORTVERSION}
+DISTNAME=		attrs-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 

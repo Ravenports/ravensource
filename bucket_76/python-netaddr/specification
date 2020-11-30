@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/drkjam/netaddr/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/n/netaddr
-DISTFILE[1]=		netaddr-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/ff/cd/9cdfea8fc45c56680b798db6a55fa60a22e2d3d3ccf54fc729d083b50ce4
+DISTFILE[1]=		netaddr-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,11 +26,13 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # BSD License
 
 # install_requires extracted from setup.py
+# importlib-resources ; python_version < "3.7"
 
-
-DISTNAME=		netaddr-${PORTVERSION}
+DISTNAME=		netaddr-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 

@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/untitaker/click-repl
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/c/click-repl
-DISTFILE[1]=		click-repl-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/6c/4e/577214ee76a5a36af485ae9ec01b4a47ee607b5d413b2063dafccf41f3ad
+DISTFILE[1]=		click_repl-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -27,18 +27,20 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 
 # install_requires extracted from setup.py
 # click
-# prompt_toolkit
+# prompt-toolkit
 # six
 
-DISTNAME=		click-repl-${PORTVERSION}
+DISTNAME=		click_repl-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-click:single:py38
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-click:single:py38
 					python-prompt-toolkit:single:py38
 					python-six:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-click:single:py37
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-click:single:py37
 					python-prompt-toolkit:single:py37
 					python-six:single:py37
 

@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/html5lib/html5lib-python
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/h/html5lib
-DISTFILE[1]=		html5lib-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/6c/dd/a834df6482147d48e225a49515aabc28974ad5a4ca3215c18a882565b028
+DISTFILE[1]=		html5lib-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,16 +26,24 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # MIT License
 
 # install_requires extracted from setup.py
-# six>=1.9
+# six (>=1.9)
 # webencodings
+# genshi ; extra == 'all'
+# chardet (>=2.2) ; extra == 'all'
+# lxml ; (platform_python_implementation == 'CPython') and extra == 'all'
+# chardet (>=2.2) ; extra == 'chardet'
+# genshi ; extra == 'genshi'
+# lxml ; (platform_python_implementation == 'CPython') and extra == 'lxml'
 
-DISTNAME=		html5lib-${PORTVERSION}
+DISTNAME=		html5lib-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-six:single:py38
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-six:single:py38
 					python-webencodings:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-six:single:py37
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-six:single:py37
 					python-webencodings:single:py37
 

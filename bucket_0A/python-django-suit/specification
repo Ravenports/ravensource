@@ -11,8 +11,8 @@ HOMEPAGE=		https://djangosuit.com
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/d/django-suit
-DISTFILE[1]=		django-suit-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/65/00/f19d9b73b03939e503aa795a403c2f4319f6713e6737f61d62126dc33921
+DISTFILE[1]=		django_suit-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -28,9 +28,11 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # install_requires extracted from setup.py
 
 
-DISTNAME=		django-suit-${PORTVERSION}
+DISTNAME=		django_suit-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 

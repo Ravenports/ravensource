@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/gitpython-developers/GitPython
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/G/GitPython
-DISTFILE[1]=		GitPython-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/24/d1/a7f8fe3df258549b303415157328bfcc63e9b11d06a7ad7a3327f3d32606
+DISTFILE[1]=		GitPython-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,13 +26,15 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # Not provided.
 
 # install_requires extracted from setup.py
-# gitdb<5,>=4.0.1
+# gitdb (<5,>=4.0.1)
 
-DISTNAME=		GitPython-${PORTVERSION}
+DISTNAME=		GitPython-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-gitdb:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-gitdb:single:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-gitdb:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-gitdb:single:py37
 

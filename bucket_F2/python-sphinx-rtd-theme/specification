@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/rtfd/sphinx_rtd_theme/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/s/sphinx-rtd-theme
-DISTFILE[1]=		sphinx_rtd_theme-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/c3/86/1addf25a238bbd8466bb099f23d9a9f13494b22b37b44f6c41a778b8730f
+DISTFILE[1]=		sphinx_rtd_theme-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -27,14 +27,19 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 
 # install_requires extracted from setup.py
 # sphinx
+# transifex-client ; extra == 'dev'
+# sphinxcontrib-httpdomain ; extra == 'dev'
+# bump2version ; extra == 'dev'
 
-DISTNAME=		sphinx_rtd_theme-${PORTVERSION}
+DISTNAME=		sphinx_rtd_theme-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-Sphinx:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-Sphinx:single:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-Sphinx:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-Sphinx:single:py37
 
 # avoid use of node and node-sass
 MAKE_ENV=		CI=yes

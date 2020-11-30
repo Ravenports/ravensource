@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/andrivet/python-asn1
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/a/asn1
-DISTFILE[1]=		asn1-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/7d/b3/3937fd3460ab7b5ff80af1f2d74b37b9cdd21f9668ff3602094c436a2e5a
+DISTFILE[1]=		asn1-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,11 +26,15 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # BSD
 
 # install_requires extracted from setup.py
+# enum-compat
 
-
-DISTNAME=		asn1-${PORTVERSION}
+DISTNAME=		asn1-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-enum-compat:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-enum-compat:single:py37
 

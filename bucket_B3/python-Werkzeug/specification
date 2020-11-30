@@ -11,8 +11,8 @@ HOMEPAGE=		https://palletsprojects.com/p/werkzeug/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/W/Werkzeug
-DISTFILE[1]=		Werkzeug-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/cc/94/5f7079a0e00bd6863ef8f1da638721e9da21e5bacee597595b318f71d62e
+DISTFILE[1]=		Werkzeug-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,11 +26,20 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # BSD-3-Clause
 
 # install_requires extracted from setup.py
+# pytest ; extra == 'dev'
+# pytest-timeout ; extra == 'dev'
+# coverage ; extra == 'dev'
+# tox ; extra == 'dev'
+# sphinx ; extra == 'dev'
+# pallets-sphinx-themes ; extra == 'dev'
+# sphinx-issues ; extra == 'dev'
+# watchdog ; extra == 'watchdog'
 
-
-DISTNAME=		Werkzeug-${PORTVERSION}
+DISTNAME=		Werkzeug-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 

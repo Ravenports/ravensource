@@ -11,8 +11,8 @@ HOMEPAGE=		http://cthedot.de/cssutils/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/c/cssutils
-DISTFILE[1]=		cssutils-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/6b/15/a9fb9010f58d1c55dd0b7779db2334feb9a572d407024f39a60f44293861
+DISTFILE[1]=		cssutils-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -28,9 +28,11 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # install_requires extracted from setup.py
 
 
-DISTNAME=		cssutils-${PORTVERSION}
+DISTNAME=		cssutils-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 

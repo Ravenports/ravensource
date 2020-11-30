@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/googlefonts/ufo2ft
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/u/ufo2ft
-DISTFILE[1]=		ufo2ft-${PORTVERSION}.zip:main
+SITES[main]=		PYPIWHL/0e/e4/1f1816b920907128af9a2ca1cfb9508d377c39901b040541a97ada566f03
+DISTFILE[1]=		ufo2ft-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,25 +26,26 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # MIT
 
 # install_requires extracted from setup.py
-# fonttools[ufo]>=4.17.1
-# cu2qu>=1.6.7
-# compreffor>=0.4.6
-# booleanOperations>=0.9.0
-# setuptools_scm
+# fonttools[ufo] (>=4.17.1)
+# cu2qu (>=1.6.7)
+# compreffor (>=0.4.6)
+# booleanOperations (>=0.9.0)
+# cffsubr (>=0.2.7) ; extra == 'cffsubr'
+# skia-pathops (>=0.5.1) ; extra == 'pathops'
 
-DISTNAME=		ufo2ft-${PORTVERSION}
+DISTNAME=		ufo2ft-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-fonttools:single:py38
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-fonttools:single:py38
 					python-cu2qu:single:py38
 					python-compreffor:single:py38
 					python-booleanOperations:single:py38
-					python-setuptools-scm:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-fonttools:single:py37
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-fonttools:single:py37
 					python-cu2qu:single:py37
 					python-compreffor:single:py37
 					python-booleanOperations:single:py37
-					python-setuptools-scm:single:py37
 

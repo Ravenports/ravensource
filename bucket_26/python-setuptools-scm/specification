@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/pypa/setuptools_scm/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/s/setuptools-scm
-DISTFILE[1]=		setuptools_scm-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/ad/d3/e54f8b4cde0f6fb4f231629f570c1a33ded18515411dee6df6fe363d976f
+DISTFILE[1]=		setuptools_scm-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,11 +26,16 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # MIT
 
 # install_requires extracted from setup.py
+# setuptools
+# toml ; extra == 'toml'
 
-
-DISTNAME=		setuptools_scm-${PORTVERSION}
+DISTNAME=		setuptools_scm-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-setuptools:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-setuptools:single:py37
 

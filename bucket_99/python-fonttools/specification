@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/fonttools/fonttools
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/f/fonttools
-DISTFILE[1]=		fonttools-${PORTVERSION}.zip:main
+SITES[main]=		PYPIWHL/30/0d/7ed4860c5c151a691cf997f0ee7c71d8eb2a991aaea9972e3cdaa0ee0e1c
+DISTFILE[1]=		fonttools-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,11 +26,38 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # MIT
 
 # install_requires extracted from setup.py
+# fs (<3,>=2.2.0) ; extra == 'all'
+# lxml (<5,>=4.0) ; extra == 'all'
+# zopfli (>=0.1.4) ; extra == 'all'
+# lz4 (>=1.7.4.2) ; extra == 'all'
+# matplotlib ; extra == 'all'
+# sympy ; extra == 'all'
+# skia-pathops (>=0.5.0) ; extra == 'all'
+# brotli (>=1.0.1) ; (platform_python_implementation != "PyPy") and extra == 'all'
+# scipy ; (platform_python_implementation != "PyPy") and extra == 'all'
+# brotlipy (>=0.7.0) ; (platform_python_implementation == "PyPy") and extra == 'all'
+# munkres ; (platform_python_implementation == "PyPy") and extra == 'all'
+# unicodedata2 (>=13.0.0) ; (python_version < "3.9" and platform_python_implementation != "PyPy") and extra == 'all'
+# xattr ; (sys_platform == "darwin") and extra == 'all'
+# lz4 (>=1.7.4.2) ; extra == 'graphite'
+# scipy ; (platform_python_implementation != "PyPy") and extra == 'interpolatable'
+# munkres ; (platform_python_implementation == "PyPy") and extra == 'interpolatable'
+# lxml (<5,>=4.0) ; extra == 'lxml'
+# skia-pathops (>=0.5.0) ; extra == 'pathops'
+# matplotlib ; extra == 'plot'
+# sympy ; extra == 'symfont'
+# xattr ; (sys_platform == "darwin") and extra == 'type1'
+# fs (<3,>=2.2.0) ; extra == 'ufo'
+# unicodedata2 (>=13.0.0) ; (python_version < "3.9" and platform_python_implementation != "PyPy") and extra == 'unicode'
+# zopfli (>=0.1.4) ; extra == 'woff'
+# brotli (>=1.0.1) ; (platform_python_implementation != "PyPy") and extra == 'woff'
+# brotlipy (>=0.7.0) ; (platform_python_implementation == "PyPy") and extra == 'woff'
 
-
-DISTNAME=		fonttools-${PORTVERSION}
+DISTNAME=		fonttools-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 

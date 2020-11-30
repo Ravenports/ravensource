@@ -11,8 +11,8 @@ HOMEPAGE=		https://sourceforge.net/p/ruamel-yaml/code/ci/default/tree
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/r/ruamel.yaml
-DISTFILE[1]=		ruamel.yaml-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/7e/39/186f14f3836ac5d2a6a042c8de69988770e8b9abb537610edc429e4914aa
+DISTFILE[1]=		ruamel.yaml-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,11 +26,20 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # MIT license
 
 # install_requires extracted from setup.py
+# ruamel.yaml.clib (>=0.1.2) ; platform_python_implementation=="CPython" and python_version<"3.9"
+# ruamel.ordereddict ; platform_python_implementation=="CPython" and python_version<="2.7"
+# ryd ; extra == 'docs'
+# ruamel.yaml.jinja2 (>=0.2) ; extra == 'jinja2'
 
-
-DISTNAME=		ruamel.yaml-${PORTVERSION}
+DISTNAME=		ruamel.yaml-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-ruamel.yaml.clib:single:py38
+					python-ruamel.ordereddict:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-ruamel.yaml.clib:single:py37
+					python-ruamel.ordereddict:single:py37
 

@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/gruns/orderedmultidict
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/o/orderedmultidict
-DISTFILE[1]=		orderedmultidict-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/04/16/5e95c70bda8fe6ea715005c0db8e602400bdba50ae3c72cb380eba551289
+DISTFILE[1]=		orderedmultidict-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,13 +26,15 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # Unlicense
 
 # install_requires extracted from setup.py
-# six>=1.8.0
+# six (>=1.8.0)
 
-DISTNAME=		orderedmultidict-${PORTVERSION}
+DISTNAME=		orderedmultidict-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-six:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-six:single:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-six:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-six:single:py37
 

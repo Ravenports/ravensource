@@ -11,8 +11,8 @@ HOMEPAGE=		http://sphinx-doc.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/S/Sphinx
-DISTFILE[1]=		Sphinx-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/12/22/f89a67987342e7f8024785536160e5feb3bf458def49e8cf5113c999dd8a
+DISTFILE[1]=		Sphinx-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -32,22 +32,34 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # sphinxcontrib-htmlhelp
 # sphinxcontrib-serializinghtml
 # sphinxcontrib-qthelp
-# Jinja2>=2.3
-# Pygments>=2.0
-# docutils>=0.12
-# snowballstemmer>=1.1
-# babel>=1.3
-# alabaster<0.8,>=0.7
+# Jinja2 (>=2.3)
+# Pygments (>=2.0)
+# docutils (>=0.12)
+# snowballstemmer (>=1.1)
+# babel (>=1.3)
+# alabaster (<0.8,>=0.7)
 # imagesize
-# requests>=2.5.0
+# requests (>=2.5.0)
 # setuptools
 # packaging
+# colorama (>=0.3.5) ; sys_platform=="win32"
+# sphinxcontrib-websupport ; extra == 'docs'
+# flake8 (>=3.5.0) ; extra == 'lint'
+# flake8-import-order ; extra == 'lint'
+# mypy (>=0.790) ; extra == 'lint'
+# docutils-stubs ; extra == 'lint'
+# pytest ; extra == 'test'
+# pytest-cov ; extra == 'test'
+# html5lib ; extra == 'test'
+# typed-ast ; extra == 'test'
+# cython ; extra == 'test'
 
-DISTNAME=		Sphinx-${PORTVERSION}
+DISTNAME=		Sphinx-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-sphinxcontrib-applehelp:single:py38
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-sphinxcontrib-applehelp:single:py38
 					python-sphinxcontrib-devhelp:single:py38
 					python-sphinxcontrib-jsmath:single:py38
 					python-sphinxcontrib-htmlhelp:single:py38
@@ -63,8 +75,10 @@ GENERATED=		yes
 					python-requests:single:py38
 					python-setuptools:single:py38
 					python-packaging:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-sphinxcontrib-applehelp:single:py37
+					python-colorama:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-sphinxcontrib-applehelp:single:py37
 					python-sphinxcontrib-devhelp:single:py37
 					python-sphinxcontrib-jsmath:single:py37
 					python-sphinxcontrib-htmlhelp:single:py37
@@ -80,6 +94,7 @@ GENERATED=		yes
 					python-requests:single:py37
 					python-setuptools:single:py37
 					python-packaging:single:py37
+					python-colorama:single:py37
 
 BUILD_DEPENDS=		tar:primary:standard
 EXTRACT_HEAD[1]=	{{LOCALBASE}}/bin/gtar -xf

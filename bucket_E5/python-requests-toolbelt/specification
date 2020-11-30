@@ -11,8 +11,8 @@ HOMEPAGE=		https://toolbelt.readthedocs.org
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/r/requests-toolbelt
-DISTFILE[1]=		requests-toolbelt-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/60/ef/7681134338fc097acef8d9b2f8abe0458e4d87559c689a8c306d0957ece5
+DISTFILE[1]=		requests_toolbelt-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,13 +26,15 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # Apache 2.0
 
 # install_requires extracted from setup.py
-# requests<3.0.0,>=2.0.1
+# requests (<3.0.0,>=2.0.1)
 
-DISTNAME=		requests-toolbelt-${PORTVERSION}
+DISTNAME=		requests_toolbelt-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-requests:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-requests:single:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-requests:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-requests:single:py37
 

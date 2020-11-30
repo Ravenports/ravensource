@@ -11,8 +11,8 @@ HOMEPAGE=		http://freedesktop.org/wiki/Software/pyxdg
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/p/pyxdg
-DISTFILE[1]=		pyxdg-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/ea/13/de39ddf4f9f9cea0c7684cd54a50d79c97ea99c9f6aed798fd13d0bd4609
+DISTFILE[1]=		pyxdg-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -28,11 +28,13 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # install_requires extracted from setup.py
 
 
-DISTNAME=		pyxdg-${PORTVERSION}
+DISTNAME=		pyxdg-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 
 USES=			cpe
 CPE_VENDOR=		python

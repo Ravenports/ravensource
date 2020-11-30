@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/axnsan12/drf-yasg
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/d/drf-yasg
-DISTFILE[1]=		drf-yasg-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/fc/5c/4584321c7a7fd85429f73fd4c3406b09309e3a071e250177739384a4ab48
+DISTFILE[1]=		drf_yasg-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,20 +26,22 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # BSD License
 
 # install_requires extracted from setup.py
-# coreapi>=2.3.3
-# coreschema>=0.0.4
-# ruamel.yaml>=0.15.34
-# inflection>=0.3.1
-# uritemplate>=3.0.0
+# coreapi (>=2.3.3)
+# coreschema (>=0.0.4)
+# ruamel.yaml (>=0.15.34)
+# inflection (>=0.3.1)
+# uritemplate (>=3.0.0)
 # packaging
-# djangorestframework>=3.10.3
-# Django>=2.2.16
+# djangorestframework (>=3.10.3)
+# Django (>=2.2.16)
+# swagger-spec-validator (>=2.1.0) ; extra == 'validation'
 
-DISTNAME=		drf-yasg-${PORTVERSION}
+DISTNAME=		drf_yasg-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-coreapi:single:py38
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-coreapi:single:py38
 					python-coreschema:single:py38
 					python-ruamel.yaml:single:py38
 					python-inflection:single:py38
@@ -47,8 +49,9 @@ GENERATED=		yes
 					python-packaging:single:py38
 					python-djangorestframework:single:py38
 					python-Django:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-coreapi:single:py37
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-coreapi:single:py37
 					python-coreschema:single:py37
 					python-ruamel.yaml:single:py37
 					python-inflection:single:py37

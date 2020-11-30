@@ -11,8 +11,8 @@ HOMEPAGE=		https://django-compressor.readthedocs.io/en/latest/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/d/django-compressor
-DISTFILE[1]=		django_compressor-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/d7/07/2c7524eb05f9eb770b3e39deb0dacf6fb8c5d21107c9d1cbab3ebd300bfe
+DISTFILE[1]=		django_compressor-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,21 +26,23 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # MIT
 
 # install_requires extracted from setup.py
-# django-appconf>=1.0.3
-# rcssmin==1.0.6
-# rjsmin==1.1.0
-# six>=1.12.0
+# django-appconf (>=1.0.3)
+# rcssmin (==1.0.6)
+# rjsmin (==1.1.0)
+# six (>=1.12.0)
 
-DISTNAME=		django_compressor-${PORTVERSION}
+DISTNAME=		django_compressor-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-django-appconf:single:py38
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-django-appconf:single:py38
 					python-rcssmin:single:py38
 					python-rjsmin:single:py38
 					python-six:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-django-appconf:single:py37
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-django-appconf:single:py37
 					python-rcssmin:single:py37
 					python-rjsmin:single:py37
 					python-six:single:py37

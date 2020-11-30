@@ -11,8 +11,8 @@ HOMEPAGE=		https://bitbucket.org/tkoskine/sphinxcontrib-adadomain
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/s/sphinxcontrib-adadomain
-DISTFILE[1]=		sphinxcontrib-adadomain-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/c3/7e/e06025300a3b02fb6f86425af27c1e5c08165f0e646535e4640c58b915f2
+DISTFILE[1]=		sphinxcontrib_adadomain-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,13 +26,15 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # BSD
 
 # install_requires extracted from setup.py
-# Sphinx>=1.0
+# Sphinx (>=1.0)
 
-DISTNAME=		sphinxcontrib-adadomain-${PORTVERSION}
+DISTNAME=		sphinxcontrib_adadomain-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-Sphinx:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-Sphinx:single:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-Sphinx:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-Sphinx:single:py37
 

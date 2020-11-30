@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/jazzband/django-model-utils
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/d/django-model-utils
-DISTFILE[1]=		django-model-utils-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/51/3b/7f76145caca2088f605f87f232db14f4a5effac058a33507932ce13d9674
+DISTFILE[1]=		django_model_utils-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,16 +26,15 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # BSD
 
 # install_requires extracted from setup.py
-# Django>=2.0.1
-# setuptools_scm
+# Django (>=2.0.1)
 
-DISTNAME=		django-model-utils-${PORTVERSION}
+DISTNAME=		django_model_utils-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-Django:single:py38
-					python-setuptools-scm:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-Django:single:py37
-					python-setuptools-scm:single:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-Django:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-Django:single:py37
 

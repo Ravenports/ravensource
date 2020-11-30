@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/gitpython-developers/gitdb
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/g/gitdb2
-DISTFILE[1]=		gitdb2-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/52/7e/59f96b47f671b3fe0aa0c1b609531a540434b719a10c417581e25b383909
+DISTFILE[1]=		gitdb2-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,13 +26,15 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # Not provided.
 
 # install_requires extracted from setup.py
-# gitdb>=4.0.1
+# gitdb (>=4.0.1)
 
-DISTNAME=		gitdb2-${PORTVERSION}
+DISTNAME=		gitdb2-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-gitdb:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-gitdb:single:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-gitdb:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-gitdb:single:py37
 

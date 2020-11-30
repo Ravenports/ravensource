@@ -11,8 +11,8 @@ HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/d/django-celery
-DISTFILE[1]=		django-celery-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/66/08/87989d1a6f325c60d7c11154817109b840a07cfd38ba5bce34af1b8d35de
+DISTFILE[1]=		django_celery-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,16 +26,18 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # BSD
 
 # install_requires extracted from setup.py
-# celery<4.0,>=3.1.15
-# django>=1.8
+# celery (<4.0,>=3.1.15)
+# django (>=1.8)
 
-DISTNAME=		django-celery-${PORTVERSION}
+DISTNAME=		django_celery-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-celery:single:py38
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-celery:single:py38
 					python-Django:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-celery:single:py37
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-celery:single:py37
 					python-Django:single:py37
 

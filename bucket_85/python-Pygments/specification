@@ -11,8 +11,8 @@ HOMEPAGE=		https://pygments.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/P/Pygments
-DISTFILE[1]=		Pygments-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/d8/cf/d7e48846e10ac4f8b89d489cec3dc9c2804a825f812c851559cfbcc251cc
+DISTFILE[1]=		Pygments-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -28,11 +28,13 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # install_requires extracted from setup.py
 
 
-DISTNAME=		Pygments-${PORTVERSION}
+DISTNAME=		Pygments-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 
 USES=			cpe
 CPE_VENDOR=		pygments

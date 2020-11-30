@@ -11,8 +11,8 @@ HOMEPAGE=		http://sphinx-doc.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/s/sphinxcontrib-jsmath
-DISTFILE[1]=		sphinxcontrib-jsmath-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/c2/42/4c8646762ee83602e3fb3fbe774c2fac12f317deb0b5dbeeedd2d3ba4b77
+DISTFILE[1]=		sphinxcontrib_jsmath-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,11 +26,15 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # BSD
 
 # install_requires extracted from setup.py
+# pytest ; extra == 'test'
+# flake8 ; extra == 'test'
+# mypy ; extra == 'test'
 
-
-DISTNAME=		sphinxcontrib-jsmath-${PORTVERSION}
+DISTNAME=		sphinxcontrib_jsmath-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 

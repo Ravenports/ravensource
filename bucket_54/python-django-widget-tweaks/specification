@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/jazzband/django-widget-tweaks
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/d/django-widget-tweaks
-DISTFILE[1]=		django-widget-tweaks-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/1d/36/d7eb0ccfe4d55d495943085be7bcb1b262ec3c5052afb18e07dcfb88ecb8
+DISTFILE[1]=		django_widget_tweaks-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -28,9 +28,11 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # install_requires extracted from setup.py
 
 
-DISTNAME=		django-widget-tweaks-${PORTVERSION}
+DISTNAME=		django_widget_tweaks-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 

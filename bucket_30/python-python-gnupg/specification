@@ -11,8 +11,8 @@ HOMEPAGE=		https://docs.red-dove.com/python-gnupg/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/p/python-gnupg
-DISTFILE[1]=		python-gnupg-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/cb/85/8a1588a04172e0853352ecfe214264c65a62ab35374d9ad9c569cf94c2a3
+DISTFILE[1]=		python_gnupg-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -29,11 +29,13 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # install_requires extracted from setup.py
 
 
-DISTNAME=		python-gnupg-${PORTVERSION}
+DISTNAME=		python_gnupg-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 
 RUN_DEPENDS=		gnupg:primary:standard
 USES=			cpe

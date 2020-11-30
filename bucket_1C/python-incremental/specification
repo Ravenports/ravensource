@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/twisted/incremental
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/i/incremental
-DISTFILE[1]=		incremental-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/f5/1d/c98a587dc06e107115cf4a58b49de20b19222c83d75335a192052af4c4b7
+DISTFILE[1]=		incremental-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,11 +26,14 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # MIT
 
 # install_requires extracted from setup.py
+# click (>=6.0); extra == 'scripts'
+# twisted (>=16.4.0); extra == 'scripts'
 
-
-DISTNAME=		incremental-${PORTVERSION}
+DISTNAME=		incremental-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 

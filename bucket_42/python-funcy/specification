@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/Suor/funcy
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/f/funcy
-DISTFILE[1]=		funcy-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/66/89/479de0afbbfb98d1c4b887936808764627300208bb771fcd823403645a36
+DISTFILE[1]=		funcy-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -28,9 +28,11 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # install_requires extracted from setup.py
 
 
-DISTNAME=		funcy-${PORTVERSION}
+DISTNAME=		funcy-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 

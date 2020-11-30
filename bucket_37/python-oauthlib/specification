@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/oauthlib/oauthlib
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/o/oauthlib
-DISTFILE[1]=		oauthlib-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/05/57/ce2e7a8fa7c0afb54a0581b14a65b56e62b5759dbc98e80627142b8a3704
+DISTFILE[1]=		oauthlib-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,11 +26,16 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # BSD
 
 # install_requires extracted from setup.py
+# cryptography ; extra == 'rsa'
+# blinker ; extra == 'signals'
+# cryptography ; extra == 'signedtoken'
+# pyjwt (>=1.0.0) ; extra == 'signedtoken'
 
-
-DISTNAME=		oauthlib-${PORTVERSION}
+DISTNAME=		oauthlib-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 

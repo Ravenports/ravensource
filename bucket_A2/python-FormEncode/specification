@@ -11,8 +11,8 @@ HOMEPAGE=		http://formencode.org
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/F/FormEncode
-DISTFILE[1]=		FormEncode-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/ca/e4/be0e08a6b7a1ca5647002df1f4b86c0f13459a2a065c00a23e0e2c1a0fa3
+DISTFILE[1]=		FormEncode-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -27,18 +27,17 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 
 # install_requires extracted from setup.py
 # six
-# setuptools_scm
-# setuptools_scm_git_archive
+# nose ; extra == 'testing'
+# dnspython (>=2.0.0) ; extra == 'testing'
+# pycountry ; extra == 'testing'
 
-DISTNAME=		FormEncode-${PORTVERSION}
+DISTNAME=		FormEncode-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-six:single:py38
-					python-setuptools-scm:single:py38
-					python-setuptools-scm-git-archive:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-six:single:py37
-					python-setuptools-scm:single:py37
-					python-setuptools-scm-git-archive:single:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-six:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-six:single:py37
 

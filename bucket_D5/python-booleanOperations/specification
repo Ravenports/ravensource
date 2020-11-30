@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/typemytype/booleanOperations
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/b/booleanOperations
-DISTFILE[1]=		booleanOperations-${PORTVERSION}.zip:main
+SITES[main]=		PYPIWHL/fc/c6/c4cae54f482465a33c5f011d95ec64293dce9e012dac7873147c2dc85396
+DISTFILE[1]=		booleanOperations-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,22 +26,18 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # MIT
 
 # install_requires extracted from setup.py
-# pyclipper>=1.1.0.post1
-# fonttools>=4.0.2
-# setuptools_scm
-# wheel
+# pyclipper (>=1.1.0.post1)
+# fonttools (>=4.0.2)
 
-DISTNAME=		booleanOperations-${PORTVERSION}
+DISTNAME=		booleanOperations-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-pyclipper:single:py38
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-pyclipper:single:py38
 					python-fonttools:single:py38
-					python-setuptools-scm:single:py38
-					python-wheel:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-pyclipper:single:py37
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-pyclipper:single:py37
 					python-fonttools:single:py37
-					python-setuptools-scm:single:py37
-					python-wheel:single:py37
 

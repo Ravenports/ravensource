@@ -11,8 +11,8 @@ HOMEPAGE=		https://pycodestyle.readthedocs.io/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/p/pycodestyle
-DISTFILE[1]=		pycodestyle-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/10/5b/88879fb861ab79aef45c7e199cae3ef7af487b5603dcb363517a50602dd7
+DISTFILE[1]=		pycodestyle-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -28,9 +28,11 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # install_requires extracted from setup.py
 
 
-DISTNAME=		pycodestyle-${PORTVERSION}
+DISTNAME=		pycodestyle-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 

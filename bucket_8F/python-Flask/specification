@@ -11,8 +11,8 @@ HOMEPAGE=		https://palletsprojects.com/p/flask/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/F/Flask
-DISTFILE[1]=		Flask-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/f2/28/2a03252dfb9ebf377f40fba6a7841b47083260bf8bd8e737b0c6952df83f
+DISTFILE[1]=		Flask-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,21 +26,35 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # BSD-3-Clause
 
 # install_requires extracted from setup.py
-# Werkzeug>=0.15
-# Jinja2>=2.10.1
-# itsdangerous>=0.24
-# click>=5.1
+# Werkzeug (>=0.15)
+# Jinja2 (>=2.10.1)
+# itsdangerous (>=0.24)
+# click (>=5.1)
+# pytest ; extra == 'dev'
+# coverage ; extra == 'dev'
+# tox ; extra == 'dev'
+# sphinx ; extra == 'dev'
+# pallets-sphinx-themes ; extra == 'dev'
+# sphinxcontrib-log-cabinet ; extra == 'dev'
+# sphinx-issues ; extra == 'dev'
+# sphinx ; extra == 'docs'
+# pallets-sphinx-themes ; extra == 'docs'
+# sphinxcontrib-log-cabinet ; extra == 'docs'
+# sphinx-issues ; extra == 'docs'
+# python-dotenv ; extra == 'dotenv'
 
-DISTNAME=		Flask-${PORTVERSION}
+DISTNAME=		Flask-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-Werkzeug:single:py38
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-Werkzeug:single:py38
 					python-Jinja2:single:py38
 					python-itsdangerous:single:py38
 					python-click:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-Werkzeug:single:py37
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-Werkzeug:single:py37
 					python-Jinja2:single:py37
 					python-itsdangerous:single:py37
 					python-click:single:py37

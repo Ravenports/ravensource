@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/boto/botocore
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/b/botocore
-DISTFILE[1]=		botocore-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/ef/d5/c0c33ca15e31062220ac5964f3492409eaf90a5cf5399503cd8264f2f8e9
+DISTFILE[1]=		botocore-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,19 +26,22 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # Apache License 2.0
 
 # install_requires extracted from setup.py
-# jmespath<1.0.0,>=0.7.1
-# python-dateutil<3.0.0,>=2.1
-# urllib3<1.27,>=1.25.4
+# python-dateutil>=2.1,<3.0.0
+# jmespath>=0.7.1,<1.0.0
+# urllib3>=1.25.4,<1.25.8; python_version=='3.4'
+# urllib3>=1.25.4,<1.27; python_version!='3.4'
 
-DISTNAME=		botocore-${PORTVERSION}
+DISTNAME=		botocore-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-jmespath:single:py38
-					python-python-dateutil:single:py38
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-python-dateutil:single:py38
+					python-jmespath:single:py38
 					python-urllib3:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-jmespath:single:py37
-					python-python-dateutil:single:py37
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-python-dateutil:single:py37
+					python-jmespath:single:py37
 					python-urllib3:single:py37
 

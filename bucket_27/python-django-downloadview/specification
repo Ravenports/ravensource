@@ -11,8 +11,8 @@ HOMEPAGE=		https://django-downloadview.readthedocs.io/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/d/django-downloadview
-DISTFILE[1]=		django-downloadview-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/6a/a3/2deb8864be888a10dd4a6405ad8826c60a537b0aadcee7f47232251781c4
+DISTFILE[1]=		django_downloadview-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,20 +26,22 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # BSD
 
 # install_requires extracted from setup.py
-# Django>=1.11
+# Django (>=1.11)
 # requests
 # setuptools
-# setuptools
+# tox ; extra == 'test'
 
-DISTNAME=		django-downloadview-${PORTVERSION}
+DISTNAME=		django_downloadview-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-Django:single:py38
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-Django:single:py38
 					python-requests:single:py38
 					python-setuptools:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-Django:single:py37
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-Django:single:py37
 					python-requests:single:py37
 					python-setuptools:single:py37
 

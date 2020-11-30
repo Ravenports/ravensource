@@ -11,8 +11,8 @@ HOMEPAGE=		https://www.github.com/flask-restful/flask-restful/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/F/Flask-RESTful
-DISTFILE[1]=		Flask-RESTful-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/e9/83/d0d33c971de2d38e54b0037136c8b8d20b9c83d308bc6c220a25162755fd
+DISTFILE[1]=		Flask_RESTful-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,21 +26,24 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # BSD
 
 # install_requires extracted from setup.py
-# aniso8601>=0.82
-# Flask>=0.8
-# six>=1.3.0
+# aniso8601 (>=0.82)
+# Flask (>=0.8)
+# six (>=1.3.0)
 # pytz
+# sphinx ; extra == 'docs'
 
-DISTNAME=		Flask-RESTful-${PORTVERSION}
+DISTNAME=		Flask_RESTful-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-aniso8601:single:py38
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-aniso8601:single:py38
 					python-Flask:single:py38
 					python-six:single:py38
 					python-pytz:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-aniso8601:single:py37
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-aniso8601:single:py37
 					python-Flask:single:py37
 					python-six:single:py37
 					python-pytz:single:py37

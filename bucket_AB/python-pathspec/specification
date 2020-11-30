@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/cpburnz/python-path-specification
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/p/pathspec
-DISTFILE[1]=		pathspec-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/29/29/a465741a3d97ea3c17d21eaad4c64205428bde56742360876c4391f930d4
+DISTFILE[1]=		pathspec-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -28,9 +28,11 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # install_requires extracted from setup.py
 
 
-DISTNAME=		pathspec-${PORTVERSION}
+DISTNAME=		pathspec-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 

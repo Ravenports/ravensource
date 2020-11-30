@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/django/asgiref/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/a/asgiref
-DISTFILE[1]=		asgiref-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/89/49/5531992efc62f9c6d08a7199dc31176c8c60f7b2548c6ef245f96f29d0d9
+DISTFILE[1]=		asgiref-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,11 +26,14 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # BSD
 
 # install_requires extracted from setup.py
+# pytest ; extra == 'tests'
+# pytest-asyncio ; extra == 'tests'
 
-
-DISTNAME=		asgiref-${PORTVERSION}
+DISTNAME=		asgiref-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 

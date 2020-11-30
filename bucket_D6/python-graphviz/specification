@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/xflr6/graphviz
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/g/graphviz
-DISTFILE[1]=		graphviz-${PORTVERSION}.zip:main
+SITES[main]=		PYPIWHL/64/72/f4f4205db2a58e7a49e8190c0b49e9669d7ecadf6385b5bcdcf910354a6d
+DISTFILE[1]=		graphviz-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,12 +26,24 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # MIT
 
 # install_requires extracted from setup.py
+# tox (>=3) ; extra == 'dev'
+# flake8 ; extra == 'dev'
+# pep8-naming ; extra == 'dev'
+# wheel ; extra == 'dev'
+# twine ; extra == 'dev'
+# sphinx (>=1.8) ; extra == 'docs'
+# sphinx-rtd-theme ; extra == 'docs'
+# mock (>=3) ; extra == 'test'
+# pytest (>=4) ; extra == 'test'
+# pytest-mock (>=2) ; extra == 'test'
+# pytest-cov ; extra == 'test'
 
-
-DISTNAME=		graphviz-${PORTVERSION}
+DISTNAME=		graphviz-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 
 RUN_DEPENDS=		graphviz:primary:standard

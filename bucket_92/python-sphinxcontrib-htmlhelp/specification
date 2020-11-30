@@ -11,8 +11,8 @@ HOMEPAGE=		http://sphinx-doc.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/s/sphinxcontrib-htmlhelp
-DISTFILE[1]=		sphinxcontrib-htmlhelp-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/36/62/8222554b29b3acde8420128d6d3999c5904d40922ef4b6ccb370e2be7421
+DISTFILE[1]=		sphinxcontrib_htmlhelp-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,11 +26,17 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # BSD
 
 # install_requires extracted from setup.py
+# flake8 ; extra == 'lint'
+# mypy ; extra == 'lint'
+# docutils-stubs ; extra == 'lint'
+# pytest ; extra == 'test'
+# html5lib ; extra == 'test'
 
-
-DISTNAME=		sphinxcontrib-htmlhelp-${PORTVERSION}
+DISTNAME=		sphinxcontrib_htmlhelp-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 

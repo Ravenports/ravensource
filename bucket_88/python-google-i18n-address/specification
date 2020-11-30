@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/mirumee/google-i18n-address
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/g/google-i18n-address
-DISTFILE[1]=		google-i18n-address-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/74/9c/2fef9707772d17c2e6b551716b5747e1dbdf925aa33cfcfdc1a60f4f2dae
+DISTFILE[1]=		google_i18n_address-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -26,13 +26,15 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # BSD
 
 # install_requires extracted from setup.py
-# requests>=2.7.0
+# requests (>=2.7.0)
 
-DISTNAME=		google-i18n-address-${PORTVERSION}
+DISTNAME=		google_i18n_address-${PORTVERSION}.dist-info
 GENERATED=		yes
 
-[PY38].USES_ON=				python:py38
-[PY38].BUILDRUN_DEPENDS_ON=		python-requests:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-requests:single:py37
+[PY38].USES_ON=				python:py38,wheel
+[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
+[PY38].RUN_DEPENDS_ON=			python-requests:single:py38
+[PY37].USES_ON=				python:py37,wheel
+[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY37].RUN_DEPENDS_ON=			python-requests:single:py37
 
