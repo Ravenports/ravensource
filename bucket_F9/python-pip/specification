@@ -11,8 +11,8 @@ HOMEPAGE=		https://pip.pypa.io/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/cb/28/91f26bd088ce8e22169032100d4260614fc3da435025ff389ef1d396a433
-DISTFILE[1]=		pip-${PORTVERSION}-py2.py3-none-any.whl:main
+SITES[main]=		PYPI/p/pip
+DISTFILE[1]=		pip-${PORTVERSION}.tar.gz:main
 
 SPKGS[py38]=		single
 SPKGS[py37]=		single
@@ -25,16 +25,14 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # License listed at PyPI
 # MIT
 
+GENERATED=		yes
+DISTNAME=		pip-${PORTVERSION}
+
 # install_requires extracted from setup.py
 
 
-DISTNAME=		pip-${PORTVERSION}.dist-info
-GENERATED=		yes
-
-[PY38].USES_ON=				python:py38,wheel
-[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
-[PY37].USES_ON=				python:py37,wheel
-[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY38].USES_ON=				python:py38
+[PY37].USES_ON=				python:py37
 
 USES=			cpe
 CPE_VENDOR=		python

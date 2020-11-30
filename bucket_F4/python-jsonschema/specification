@@ -25,6 +25,9 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # License listed at PyPI
 # Not provided.
 
+GENERATED=		yes
+DISTNAME=		jsonschema-${PORTVERSION}.dist-info
+
 # install_requires extracted from setup.py
 # attrs (>=17.4.0)
 # pyrsistent (>=0.14.0)
@@ -43,9 +46,6 @@ VOPTS[py37]=		PY38=OFF PY37=ON
 # rfc3986-validator (>0.1.0) ; extra == 'format_nongpl'
 # rfc3339-validator ; extra == 'format_nongpl'
 
-DISTNAME=		jsonschema-${PORTVERSION}.dist-info
-GENERATED=		yes
-
 [PY38].USES_ON=				python:py38,wheel
 [PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
 [PY38].RUN_DEPENDS_ON=			python-attrs:single:py38
@@ -59,5 +59,3 @@ GENERATED=		yes
 					python-setuptools:single:py37
 					python-six:single:py37
 					python-importlib-metadata:single:py37
-
-BUILDRUN_DEPENDS=	python-setuptools-scm:single:python_used

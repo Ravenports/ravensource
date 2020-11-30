@@ -634,6 +634,7 @@ function scrape_python_info ($namebase, $force, $PVA, $PVB, $PVC) {
          foreach ($obj->releases->$version as $entry) {
              # we can use wheel files if they are generic
              if ($entry->packagetype == "bdist_wheel" &&
+                 $namebase != "pip" &&
                  trails($entry->filename, "py3-none-any.whl")
              ) {
                  $release_found = true;

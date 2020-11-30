@@ -430,10 +430,10 @@ $vopts_block
 # License listed at PyPI
 # $license
 
-$raw_depends
-
-DISTNAME=		$distname
 GENERATED=		yes
+DISTNAME=		$distname
+
+$raw_depends
 
 $buildrun_block
 $manual_portion
