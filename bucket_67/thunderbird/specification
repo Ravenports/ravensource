@@ -136,6 +136,10 @@ post-patch:
 	@${ECHO_CMD} LDFLAGS=\"-Wl,-rpath,${PREFIX}/lib/thunderbird\" \
 		>> ${WRKSRC}/.mozconfig
 
+	# temporary
+	${MV} ${WRKSRC}/third_party/rust/packed_simd/readme.md \
+	      ${WRKSRC}/third_party/rust/packed_simd/README.md
+
 post-patch-dragonfly:
 	${REINPLACE_CMD} -e '/<malloc.h>/d' \
 		${WRKSRC}/comm/ldap/c-sdk/libraries/liblber/lber-int.h
