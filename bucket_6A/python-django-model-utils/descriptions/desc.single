@@ -45,6 +45,12 @@ https://github.com/jazzband/django-model-utils/blob/master/CONTRIBUTING.rst
 CHANGES
 =======
 
+4.1.1 (2020-12-01)
+------------------
+- Applied `isort` to codebase (Refs GH-#402)
+- Fix `TypeError` in save when model inherits from both TimeStampModel
+  and StatusModel. (Fixes GH-465)
+
 4.1.0 (2020-11-29)
 ------------------
 - Update InheritanceQuerySetMixin to avoid querying too much tables
@@ -92,9 +98,3 @@ fixes GH-118
   correct responses for deferred fields.
 - Add Simplified Chinese translations.
 - Update AutoLastModifiedField so that at instance creation it will
-  always be set equal to created to make querying easier. Fixes GH-254
-- Support `reversed` for all kinds of `Choices` objects, fixes GH-309
-- Fix Model instance non picklable GH-330
-- Fix patched `save` in FieldTracker
-- Upgrades test requirements (pytest, pytest-django, pytest-cov) and
-  skips tox test with Python 3.5 and Django (trunk)

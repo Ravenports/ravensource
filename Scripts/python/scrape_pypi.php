@@ -425,15 +425,16 @@ function get_run_depends ($base_dependencies, $pversion) {
 
     $result = array();
     foreach ($base_dependencies as $line) {
-        $pos = strpos($line, " python_version");
+        $pos = strpos($line, "python_version");
         if ($pos === false) {
-             # No limiting version infomation; all versions need it
+             # No limiting version information; all versions need it
              $required = true;
         } else {
+             $pver = str_replace(")", "", substr($line, $pos + 7));
              $teststr = "\$required = " .
                         str_replace(array('"', "'"),
                                     array("",""),
-                                    "\$p" . substr($line, $pos + 8) . " * 10;");
+                                    "\$p" . $pver . " * 10;");
              eval($teststr);
         }
         if ($required) {
