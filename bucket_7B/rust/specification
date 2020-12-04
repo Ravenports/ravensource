@@ -134,6 +134,9 @@ post-configure-freebsd:
 	${LN} -s ${LOCALBASE}/toolchain/${GCCX}/lib/libstdc++.so \
 	${LOCALBASE}/lib/libc++.so
 
+post-configure-linux:
+	${LN} -s ${LOCALBASE}/lib/libz.so.1 ${WRKDIR}/bootstrap/lib
+
 post-build-freebsd:
 	${RM} ${LOCALBASE}/lib/libc++.so
 
