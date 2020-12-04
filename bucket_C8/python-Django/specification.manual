@@ -1,5 +1,8 @@
 USES=			cpe shebangfix
 CPE_VENDOR=		djangoproject
 CPE_PRODUCT=		django
-SHEBANG_FILES=		django/bin/django-admin.py
-			django/conf/project_template/manage.py-tpl
+
+post-install:
+	${SED} -i'' -e 's|/usr/bin/env python|${PYTHON_CMD}|' \
+		${STAGEDIR}${PYTHON_SITELIBDIR}/django/bin/django-admin.py \
+		${STAGEDIR}${PYTHON_SITELIBDIR}/django/conf/project_template/manage.py-tpl
