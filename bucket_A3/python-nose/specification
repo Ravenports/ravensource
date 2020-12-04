@@ -36,3 +36,6 @@ DISTNAME=		nose-${PORTVERSION}.dist-info
 [PY37].USES_ON=				python:py37,wheel
 [PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 
+post-install:
+	# remove nosetests.1
+	${RM} -r ${STAGEDIR}${PREFIX}/man
