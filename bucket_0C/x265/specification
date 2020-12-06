@@ -11,8 +11,8 @@ HOMEPAGE=		https://www.videolan.org/developers/x265.html
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://bitbucket.org/multicoreware/x265/downloads/
-DISTFILE[1]=		x265_${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/videolan:x265:${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
@@ -20,8 +20,8 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 LICENSE=		GPLv2+:single
-LICENSE_FILE=		GPLv2+:{{WRKDIR}}/x265_${PORTVERSION}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/x265_${PORTVERSION}/source/x265.h
+LICENSE_FILE=		GPLv2+:{{WRKDIR}}/x265-${PORTVERSION}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/x265-${PORTVERSION}/source/x265.h
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		multimedia/x265
@@ -31,7 +31,7 @@ BUILD_DEPENDS=		yasm:single:standard
 USES=			cpe cmake c++:single
 CPE_VENDOR=		multicorewareinc
 CPE_PRODUCT=		x265_high_efficiency_video_coding
-DISTNAME=		x265_${PORTVERSION}/source
+DISTNAME=		x265-${PORTVERSION}/source
 SOVERSION=		${SOVERSION}
 
 post-install:
