@@ -1,0 +1,53 @@
+DEF[PORTVERSION]=	2.12.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		git-lfs
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Git extension for versioning large files
+HOMEPAGE=		https://git-lfs.github.com/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/git-lfs:git-lfs:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/git-lfs
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE.md
+LICENSE_SCHEME=		solo
+
+USES=			gmake
+BUILD_DEPENDS=		golang:single:standard
+			nss:caroot:standard
+			ruby-ronn:single:v27
+BUILDRUN_DEPENDS=	git:primary:standard
+
+MAKE_ENV=		GOFLAGS="-trimpath -mod=vendor -modcacherw -ldflags=-linkmode=external"
+
+SUB_FILES=		pkg-message-single
+
+post-patch:
+	${MKDIR} /etc/ssl
+	${LN} -s /raven/etc/openssl/cert.pem /etc/ssl/cert.pem
+
+do-build:
+	cd ${WRKSRC} && \
+	${SETENV} ${MAKE_ENV} go generate ./commands ${SWITCHES} && \
+	${SETENV} ${MAKE_ENV} go build . && \
+	${SETENV} ${MAKE_ENV} gmake man
+
+do-install:
+	${CP} ${WRKSRC}/git-lfs ${STAGEDIR}${PREFIX}/bin
+	${CP} ${WRKSRC}/man/*.1 ${STAGEDIR}${PREFIX}/share/man/man1
+	${CP} ${WRKSRC}/man/*.5 ${STAGEDIR}${PREFIX}/share/man/man5
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/git-lfs
