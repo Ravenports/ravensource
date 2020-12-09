@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.0.2
+DEF[PORTVERSION]=	5.0.4
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-celery
@@ -11,7 +11,7 @@ HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/d7/f9/fc24f49eecec3c65eca1637a826979a82c862192c52d4acaaf40c3b150fb
+SITES[main]=		PYPIWHL/c6/ff/a3ee60907625086fa5cac951811bd97d98b146f1ad557370f85ef3aaa007
 DISTFILE[1]=		celery-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
@@ -33,9 +33,10 @@ DISTNAME=		celery-${PORTVERSION}.dist-info
 # billiard (<4.0,>=3.6.3.0)
 # kombu (<6.0,>=5.0.0)
 # vine (<6.0,>=5.0.0)
-# click (>=7.0)
+# click (<8.0,>=7.0)
 # click-didyoumean (>=0.0.3)
 # click-repl (>=0.1.6)
+# click-plugins (>=1.1.1)
 # pyArango (>=1.3.2) ; extra == 'arangodb'
 # cryptography ; extra == 'auth'
 # azure-storage (==0.36.0) ; extra == 'azureblockblob'
@@ -60,6 +61,7 @@ DISTNAME=		celery-${PORTVERSION}.dist-info
 # msgpack ; extra == 'msgpack'
 # python-memcached ; extra == 'pymemcache'
 # pyro4 ; extra == 'pyro'
+# pytest-celery ; extra == 'pytest'
 # redis (>=3.2.0) ; extra == 'redis'
 # boto3 (>=1.9.125) ; extra == 's3'
 # softlayer-messaging (>=1.0.3) ; extra == 'slmq'
@@ -82,6 +84,7 @@ DISTNAME=		celery-${PORTVERSION}.dist-info
 					python-click:single:py38
 					python-click-didyoumean:single:py38
 					python-click-repl:single:py38
+					python-click-plugins:single:py38
 [PY37].USES_ON=				python:py37,wheel
 [PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
 [PY37].RUN_DEPENDS_ON=			python-pytz:single:py37
@@ -91,4 +94,5 @@ DISTNAME=		celery-${PORTVERSION}.dist-info
 					python-click:single:py37
 					python-click-didyoumean:single:py37
 					python-click-repl:single:py37
+					python-click-plugins:single:py37
 
