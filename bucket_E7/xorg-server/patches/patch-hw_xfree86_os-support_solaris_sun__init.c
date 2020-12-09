@@ -1,4 +1,4 @@
---- hw/xfree86/os-support/solaris/sun_init.c.orig	2020-08-25 15:39:55 UTC
+--- hw/xfree86/os-support/solaris/sun_init.c.orig	2020-12-01 16:32:25 UTC
 +++ hw/xfree86/os-support/solaris/sun_init.c
 @@ -54,6 +54,22 @@ static int xf86StartVT = -1;
  static int vtEnabled = 0;
