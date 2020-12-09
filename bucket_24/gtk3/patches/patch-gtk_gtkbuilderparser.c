@@ -1,4 +1,4 @@
---- gtk/gtkbuilderparser.c.orig	2020-06-15 17:53:58 UTC
+--- gtk/gtkbuilderparser.c.orig	2020-12-02 22:21:55 UTC
 +++ gtk/gtkbuilderparser.c
 @@ -1149,7 +1149,7 @@ end_element (GMarkupParseContext  *conte
  /* Called for character data */
