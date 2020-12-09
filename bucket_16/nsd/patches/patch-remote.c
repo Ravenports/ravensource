@@ -1,4 +1,4 @@
---- remote.c.orig	2020-10-08 07:14:25 UTC
+--- remote.c.orig	2020-12-01 12:25:39 UTC
 +++ remote.c
 @@ -92,6 +92,10 @@
  #  include <sys/un.h>
