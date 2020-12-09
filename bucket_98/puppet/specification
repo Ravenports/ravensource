@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.19.1
+DEF[PORTVERSION]=	7.0.0
 DEF[ETCDIR]=		{{PREFIX}}/etc/puppet
 DEF[RUBYDEF]=		EXTRACT_VERSION(RUBY_DEFAULT)
 DEF[RV]=		v${RUBYDEF:S/.//}
@@ -74,7 +74,12 @@ post-patch:
 	${REINPLACE_CMD} -e "s|/var/log/puppetlabs/puppet|/var/log/puppet|" \
 		${WRKSRC}/install.rb \
 		${WRKSRC}/lib/puppet/util/run_mode.rb
+	${REINPLACE_CMD} -e "s|/opt/puppetlabs/puppet/public|/var/puppet/state|" \
+		${WRKSRC}/install.rb \
+		${WRKSRC}/lib/puppet/util/run_mode.rb
 	${REINPLACE_CMD} -e "s|/opt/puppetlabs/puppet/modules|${ETCDIR}/modules|" \
+		-e "s|/etc/puppetlabs/puppetserver/ca|/var/puppetserver/ca|" \
+		-e "s|/opt/puppetlabs/puppet/vendor_modules|${ETCDIR}/vendor_modules|" \
 		${WRKSRC}/lib/puppet/defaults.rb
 	${REINPLACE_CMD} -e "s|/opt/puppetlabs/puppet/bin/gem|${LOCALBASE}/bin/gem|" \
 		${WRKSRC}/lib/puppet/provider/package/puppet_gem.rb
@@ -95,8 +100,6 @@ do-install:
 		${STAGEDIR}${ETCDIR}/manifests \
 		${STAGEDIR}${ETCDIR}/modules \
 		${STAGEDIR}/var/puppet
-	${INSTALL_DATA} ${WRKSRC}/conf/auth.conf \
-		${STAGEDIR}${ETCDIR}/auth.conf-dist
 	${SETENV} LC_ALL=C.UTF-8 ${RUBY} \
 		-I ${STAGEDIR}/${RUBY_SITELIBDIR} \
 		${STAGEDIR}${PREFIX}/bin/puppet agent --genconfig \
@@ -104,6 +107,7 @@ do-install:
 		--rundir=/var/run/puppet \
 		--vardir=/var/puppet \
 		--logdir=/var/log/puppet \
+		--publicdir=/var/puppet/state \
 		--codedir=${ETCDIR} \
 		> ${STAGEDIR}${ETCDIR}/puppet.conf-dist
 
