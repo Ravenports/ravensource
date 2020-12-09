@@ -24,14 +24,15 @@ LICENSE=		MIT:single
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE.md
 LICENSE_SCHEME=		solo
 
-USES=			gmake
 BUILD_DEPENDS=		golang:single:standard
 			nss:caroot:standard
 			ruby-ronn:single:v27
 BUILDRUN_DEPENDS=	git:primary:standard
 
+USES=			cpe gmake
+CPE_VENDOR=		git_large_file_storage_project
+CPE_PRODUCT=		git_large_file_storage
 MAKE_ENV=		GOFLAGS="-trimpath -mod=vendor -modcacherw -ldflags=-linkmode=external"
-
 SUB_FILES=		pkg-message-single
 
 post-patch:
