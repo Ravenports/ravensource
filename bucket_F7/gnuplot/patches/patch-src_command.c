@@ -1,4 +1,4 @@
---- src/command.c.orig	2020-06-10 21:33:34 UTC
+--- src/command.c.orig	2020-10-22 23:42:41 UTC
 +++ src/command.c
 @@ -114,6 +114,9 @@ int thread_rl_RetCode = -1; /* return co
  
