@@ -1,6 +1,6 @@
---- setup.py.orig	2020-10-05 15:07:58 UTC
+--- setup.py.orig	2020-12-07 14:02:38 UTC
 +++ setup.py
-@@ -44,7 +44,10 @@ TEST_EXTENSIONS = True
+@@ -45,7 +45,10 @@ TEST_EXTENSIONS = True
  
  # This global variable is used to hold the list of modules to be disabled.
  DISABLED_MODULE_LIST = []
@@ -12,7 +12,7 @@
  
  def get_platform():
      # Cross compiling
-@@ -1013,8 +1016,6 @@ class PyBuildExt(build_ext):
+@@ -998,8 +1001,6 @@ class PyBuildExt(build_ext):
          # use the same library for the readline and curses modules.
          if 'curses' in readline_termcap_library:
              curses_library = readline_termcap_library
@@ -21,7 +21,7 @@
          # Issue 36210: OSS provided ncurses does not link on AIX
          # Use IBM supplied 'curses' for successful build of _curses
          elif AIX and self.compiler.find_library_file(self.lib_dirs, 'curses'):
-@@ -1084,10 +1085,6 @@ class PyBuildExt(build_ext):
+@@ -1069,10 +1070,6 @@ class PyBuildExt(build_ext):
                  # for OS X but we need _XOPEN_SOURCE_EXTENDED here for
                  # ncurses wide char support
                  curses_defines.append(('_XOPEN_SOURCE_EXTENDED', '1'))
@@ -32,7 +32,7 @@
  
          curses_enabled = True
          if curses_library.startswith('ncurses'):
-@@ -1577,7 +1574,7 @@ class PyBuildExt(build_ext):
+@@ -1562,7 +1559,7 @@ class PyBuildExt(build_ext):
              self.missing.extend(['resource', 'termios'])
  
          # Platform-specific libraries
