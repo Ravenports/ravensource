@@ -5,7 +5,7 @@ DEF[JQUERY]=		3.5.1
 
 NAMEBASE=		libtcod
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Roguelike game development library
@@ -16,7 +16,8 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/libtcod:libtcod:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary docs samples
+# Drop samples, they don't build on linux
+SPKGS[standard]=	complete primary docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -47,7 +48,10 @@ post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/libtcod
 	${MV} ${WRKSRC}/../../docs/_build/html ${STAGEDIR}${STD_DOCDIR}
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}/_sources
-	(cd ${WRKSRC}/../../samples && ${COPYTREE_SHARE} . ${STAGEDIR}${STD_EXAMPLESDIR})
-	(cd ${WRKSRC}/../../ && ${COPYTREE_SHARE} data ${STAGEDIR}${PREFIX}/share/libtcod/)
-	${INSTALL_DATA} ${WRKSRC}/../../terminal.png ${STAGEDIR}${PREFIX}/share/libtcod/
+# #	(cd ${WRKSRC}/../../samples && \
+# #		${COPYTREE_SHARE} . ${STAGEDIR}${STD_EXAMPLESDIR})
+	(cd ${WRKSRC}/../../ && \
+		${COPYTREE_SHARE} data ${STAGEDIR}${PREFIX}/share/libtcod/)
+	${INSTALL_DATA} ${WRKSRC}/../../terminal.png \
+		${STAGEDIR}${PREFIX}/share/libtcod/
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libtcod.so
