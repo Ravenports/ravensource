@@ -21,6 +21,17 @@ function strip_all ($raw_text) {
     return trim($result);
 }
 
+# If $raw_text contains any spaces, only the text up the the first
+# space is returned, otherwise the entire string is returned.
+# (assumes $raw_text is already trimmed)
+# (carriage returns converted to spaces first)
+function first_word ($raw_text) {
+   $remove_character = array("\n", "\r\n", "\r");
+   $nocr = str_replace($remove_character , " ", $raw_text);
+   $arr = explode(" ", $nocr);
+   return $arr[0];
+}
+
 function process_buildrun ($matched_text, &$storage) {
     $pass_1 = preg_replace (array("/[(][\s\S]*[)]/U"), array(""), $matched_text);
     $pass_2 = strip_all ($pass_1);
@@ -72,8 +83,8 @@ function scrape_cran_page ($namebase) {
         $result["license"] = strip_all($matches[1]);
     }
 
-    if (preg_match("/<td>URL:<\/td>$ANY?$SCELL/U", $webpage, $matches) == 1) {
-        $result["homepage"] = strip_all($matches[1]);
+    if (preg_match("/<td>URL:<\/td>$ANY?$ACELL/U", $webpage, $matches) == 1) {
+        $result["homepage"] = first_word (strip_all($matches[1]));
     }
 
     if (preg_match("/<td>\s*Package&nbsp;source:\s*<\/td>$ANY?$SCELL/U", $webpage, $matches) == 1) {
