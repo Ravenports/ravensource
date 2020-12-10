@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.0.3.4
+DEF[PORTVERSION]=	6.1.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-activestorage
@@ -13,7 +13,7 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		activestorage-6.0.3.4.gem:main
+DISTFILE[1]=		activestorage-6.1.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v25]=		single
@@ -30,27 +30,35 @@ VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 # => "MIT"
 
 # Requirements according to gem specification:
-#   actionpack (= 6.0.3.4)
-#   activejob (= 6.0.3.4)
-#   activerecord (= 6.0.3.4)
+#   activesupport (= 6.1.0)
+#   actionpack (= 6.1.0)
+#   activejob (= 6.1.0)
+#   activerecord (= 6.1.0)
 #   marcel (~> 0.3.1)
+#   mimemagic (~> 0.3.2)
 
 DISTNAME=		activestorage-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY25].USES_ON=			gem:v25
-[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-actionpack:single:v25
+[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v25
+					ruby-actionpack:single:v25
 					ruby-activejob:single:v25
 					ruby-activerecord:single:v25
 					ruby-marcel:single:v25
+					ruby-mimemagic:single:v25
 [RUBY26].USES_ON=			gem:v26
-[RUBY26].BUILDRUN_DEPENDS_ON=		ruby-actionpack:single:v26
+[RUBY26].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v26
+					ruby-actionpack:single:v26
 					ruby-activejob:single:v26
 					ruby-activerecord:single:v26
 					ruby-marcel:single:v26
+					ruby-mimemagic:single:v26
 [RUBY27].USES_ON=			gem:v27
-[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-actionpack:single:v27
+[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v27
+					ruby-actionpack:single:v27
 					ruby-activejob:single:v27
 					ruby-activerecord:single:v27
 					ruby-marcel:single:v27
+					ruby-mimemagic:single:v27
 
