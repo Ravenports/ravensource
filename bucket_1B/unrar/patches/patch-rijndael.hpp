@@ -1,4 +1,4 @@
---- rijndael.hpp.orig	2020-06-25 10:40:38 UTC
+--- rijndael.hpp.orig	2020-12-01 18:05:46 UTC
 +++ rijndael.hpp
 @@ -16,6 +16,9 @@
  class Rijndael
