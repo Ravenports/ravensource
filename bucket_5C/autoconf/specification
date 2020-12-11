@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2.69
-DEF[GENERIC_TOOLS]=	config.guess config.sub	elisp-comp install-sh mdate-sh missing
+DEF[PORTVERSION]=	2.70
+DEF[GENERIC_TOOLS]=	config.guess config.sub	install-sh mdate-sh missing
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		autoconf
@@ -19,6 +19,13 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYINGv3
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"divert_pop"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/bin/autoconf.as
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		devel/autoconf
 
 BUILD_DEPENDS=		help2man:single:standard
@@ -28,6 +35,7 @@ RUN_DEPENDS=		autotools-wrappers:autoconf:standard
 USES=			gmake makeinfo perl
 PLIST_SUB=		ACVER=${PORTVERSION}
 INFO=			single:autoconf
+			single:standards
 MUST_CONFIGURE=		gnu
 CONFIGURE_ENV=		M4={{LOCALBASE}}/bin/gm4
 			AWK={{AWK}}
