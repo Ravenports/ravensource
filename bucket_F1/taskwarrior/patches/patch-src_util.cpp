@@ -1,7 +1,7 @@
---- src/util.cpp.orig	2016-02-24 22:18:11 UTC
+--- src/util.cpp.orig	2020-11-30 06:30:26 UTC
 +++ src/util.cpp
-@@ -198,53 +198,16 @@ int autoComplete (
-   return matches.size ();
+@@ -125,53 +125,16 @@ int confirm4 (const std::string& questio
+   return 0;
  }
  
 -// Handle the generation of UUIDs on FreeBSD in a separate implementation
@@ -62,5 +62,5 @@
 +   return res; 
 + }
  
- ////////////////////////////////////////////////////////////////////////////////
- // Run a binary with args, capturing output.
+ // Collides with std::numeric_limits methods
+ #undef max

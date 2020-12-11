@@ -1,35 +1,26 @@
---- CMakeLists.txt.orig	2016-02-24 22:18:11 UTC
+--- CMakeLists.txt.orig	2020-12-05 21:59:14 UTC
 +++ CMakeLists.txt
-@@ -53,7 +53,7 @@ elseif (${CMAKE_SYSTEM_NAME} MATCHES "Da
-   set (DARWIN true)
- elseif (${CMAKE_SYSTEM_NAME} MATCHES "kFreeBSD")
-   set (KFREEBSD true)
--elseif (${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD")
-+elseif (${CMAKE_SYSTEM_NAME} MATCHES "nothing")
-   set (FREEBSD true)
- elseif (${CMAKE_SYSTEM_NAME} MATCHES "OpenBSD")
-   set (OPENBSD true)
-@@ -83,15 +83,15 @@ if (NETBSD)
-    set (CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
- endif (NETBSD)
+@@ -54,15 +54,15 @@ set (PACKAGE_TARNAME "${PACKAGE}")
+ set (PACKAGE_VERSION "${VERSION}")
+ set (PACKAGE_STRING "${PACKAGE} ${VERSION}")
  
--if (FREEBSD)
+-if (FREEBSD OR DRAGONFLY)
 +if (0)
  SET (TASK_MAN1DIR man/man1 CACHE STRING "Installation directory for man pages, section 1")
  SET (TASK_MAN5DIR man/man5 CACHE STRING "Installation directory for man pages, section 5")
--else (FREEBSD)
-+else (0)
+-else (FREEBSD OR DRAGONFLY)
++else ()
  SET (TASK_MAN1DIR share/man/man1 CACHE STRING "Installation directory for man pages, section 1")
  SET (TASK_MAN5DIR share/man/man5 CACHE STRING "Installation directory for man pages, section 5")
--endif (FREEBSD)
-+endif (0)
+-endif (FREEBSD OR DRAGONFLY)
++endif ()
  SET (TASK_DOCDIR  share/doc/task CACHE STRING "Installation directory for doc files")
 -SET (TASK_RCDIR "${TASK_DOCDIR}/rc" CACHE STRING "Installation directory for configuration files")
-+SET (TASK_RCDIR   share/taskwarrior/rc CACHE STRING "Installation directory for configuration files")
++SET (TASK_RCDIR "share/taskwarrior/rc" CACHE STRING "Installation directory for configuration files")
  SET (TASK_BINDIR  bin            CACHE STRING "Installation directory for the binary")
  
- message ("-- Looking for SHA1 references")
-@@ -135,12 +135,12 @@ check_struct_has_member ("struct tm" tm_
+ if (USE_GNUTLS)
+@@ -87,12 +87,12 @@ check_struct_has_member ("struct tm" tm_
  check_struct_has_member ("struct stat" st_birthtime "sys/types.h;sys/stat.h" HAVE_ST_BIRTHTIME)
  
  message ("-- Looking for libuuid")
@@ -46,7 +37,7 @@
    if (UUID_INCLUDE_DIR AND UUID_LIBRARY)
      set (TASK_INCLUDE_DIRS ${TASK_INCLUDE_DIRS} ${UUID_INCLUDE_DIR})
      set (TASK_LIBRARIES    ${TASK_LIBRARIES}    ${UUID_LIBRARY})
-@@ -151,7 +151,7 @@ else (DARWIN OR FREEBSD OR OPENBSD)
+@@ -103,7 +103,7 @@ else (DARWIN OR FREEBSD OR OPENBSD)
    else (UUID_INCLUDE_DIR AND UUID_LIBRARY)
      message (FATAL_ERROR "-- libuuid not found.")
    endif (UUID_INCLUDE_DIR AND UUID_LIBRARY)
