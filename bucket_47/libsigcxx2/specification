@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.10.4
+DEF[PORTVERSION]=	2.10.6
 DEF[FOLDER]=		${PORTVERSION:R}
 DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
@@ -40,6 +40,10 @@ SOVERSION=		${SOVERSION}
 MESON_ARGS=		-Dbuild-examples=false
 			-Dbuild-pdf=false
 			-Dbuild-documentation=true
+
+post-patch:
+	${REINPLACE_CMD} -e 's|/docbook.sourceforge.net/|/cdn.docbook.org/|'\
+		${WRKSRC}/docs/doc-manual.am
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/doc/libsigc* \
