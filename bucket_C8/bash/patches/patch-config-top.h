@@ -1,4 +1,4 @@
---- config-top.h.orig	2018-10-12 19:35:23 UTC
+--- config-top.h.orig	2020-11-16 15:34:26 UTC
 +++ config-top.h
 @@ -78,7 +78,7 @@
  #endif

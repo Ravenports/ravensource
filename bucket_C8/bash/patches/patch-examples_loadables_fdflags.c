@@ -1,7 +1,7 @@
---- examples/loadables/fdflags.c.orig	2017-02-02 16:40:42 UTC
+--- examples/loadables/fdflags.c.orig	2019-03-01 19:25:23 UTC
 +++ examples/loadables/fdflags.c
-@@ -73,6 +73,8 @@ static const struct
- #endif
+@@ -109,6 +109,8 @@ static const struct
+ 
  #ifdef O_CLOEXEC
    { "cloexec",	O_CLOEXEC	},
 +#else
