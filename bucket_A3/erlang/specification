@@ -1,6 +1,6 @@
 DEF[MAJOR_RELEASE]=	23
 DEF[ERL_RELEASE]=	${MAJOR_RELEASE}.1
-DEF[PORTVERSION]=	${ERL_RELEASE}.4
+DEF[PORTVERSION]=	${ERL_RELEASE}.5
 DEF[ASN1_DOC_VSN]=	5.0.14
 DEF[ASN1_VSN]=		${ASN1_DOC_VSN}
 DEF[COMMTEST_DOC_VSN]=	1.19
@@ -60,7 +60,7 @@ DEF[SASL_VSN]=		${SASL_DOC_VSN}
 DEF[SNMP_DOC_VSN]=	5.6.1
 DEF[SNMP_VSN]=		${SNMP_DOC_VSN}
 DEF[SSH_DOC_VSN]=	4.10.1
-DEF[SSH_VSN]=		4.10.4
+DEF[SSH_VSN]=		4.10.5
 DEF[SSL_DOC_VSN]=	10.1
 DEF[SSL_VSN]=		${SSL_DOC_VSN}
 DEF[STDLIB_DOC_VSN]=	3.13.2
@@ -238,7 +238,16 @@ post-extract:
 		${WRKSRC}/README.md > ${WRKDIR}/TERMS
 
 pre-configure:
-	(cd ${WRKSRC} && ./otp_build autoconf)
+	# fix ./make/ configure
+	${REINPLACE_CMD} '/AC_CONFIG_AUX_DIR/ s|/erts/|/../erts/|' \
+		${WRKSRC}/make/configure.in
+	# file ./lib/* configure
+	${REINPLACE_CMD} '/AC_CONFIG_AUX_DIR/ s|(autoconf)|(../../erts/autoconf)|' \
+		${WRKSRC}/lib/crypto/configure.in \
+		${WRKSRC}/lib/megaco/configure.in \
+		${WRKSRC}/lib/odbc/configure.in \
+		${WRKSRC}/lib/snmp/configure.in
+	cd ${WRKSRC} && ./otp_build autoconf
 
 post-patch:
 	${ECHO_CMD} "MANPATH ${PREFIX}/lib/erlang/man" > ${WRKDIR}/erlang.conf
