@@ -1,0 +1,49 @@
+# manually maintained (no python- prefix, no multiple versions)
+DEF[PORTVERSION]=	2.10.4
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ansible
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		standard
+SDESC[standard]=	Radically simple IT automation
+HOMEPAGE=		https://ansible.com/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/a/ansible
+DISTFILE[1]=		ansible-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed at PyPI
+# GPLv3+
+
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
+
+GENERATED=		yes
+DISTNAME=		ansible-${PORTVERSION}
+
+# install_requires extracted from setup.py
+# ansible-base<2.11,>=2.10.3
+
+BUILDRUN_DEPENDS=	ansible-base:primary:standard
+RUN_DEPENDS=		bash:complete:standard
+
+USES=			cpe python shebangfix
+CPE_VENDOR=		redhat
+SHEBANG_GLOB=		*.py
+			*.sh
+			ovirt-dr
+			build_release
+			publish_to_galaxy
+			install_semodule.bsx
+
+post-extract:
+	${AWK} '/^License/,/^See/' ${WRKSRC}/README.rst > ${WRKDIR}/TERMS
