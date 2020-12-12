@@ -33,8 +33,8 @@ BUILD_DEPENDS=		gperf:primary:standard
 USES=			autoreconf:build bison gmake readline c++:single
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-suffix
+CONFIGURE_ENV=		CXXCPP=cpp
 INSTALL_REQ_TOOLCHAIN=	yes
 
 pre-configure:
-	(cd ${WRKSRC} && aclocal && autoconf)
-
+	cd ${WRKSRC} && ${SH} ./autoconf.sh
