@@ -73,6 +73,10 @@ post-extract:
 		> ${WRKDIR}/LICENSE_PLUGINS)
 	# Fix libintl linking
 	${REINPLACE_CMD} -e 's/INTL_LIBS/INTLLIBS/' ${WRKSRC}/Makefile.am
+	# Another intl fix for autoconf 2.70
+	${REINPLACE_CMD} -e 's|@USE_INCLUDED_LIBINTL@|no|g' \
+		-e 's|@BUILD_INCLUDED_LIBINTL@|no|g' \
+		${WRKSRC}/intl/Makefile.in
 
 pre-configure:
 	(cd ${WRKSRC} && ${SH} ${WRKSRC}/autogen.sh)
