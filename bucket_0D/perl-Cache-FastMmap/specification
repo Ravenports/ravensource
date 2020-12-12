@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.53
+DEF[PORTVERSION]=	1.54
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Cache-FastMmap
@@ -33,9 +33,12 @@ DISTNAME=		Cache-FastMmap-${PORTVERSION}
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
 # |      runtime : Storable (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Test::Deep
 # |        build : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
 # |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
 
 [PERL_530].USES_ON=			perl:530,configure
+[PERL_530].BUILDRUN_DEPENDS_ON=		perl-Test-Deep:single:530
 [PERL_532].USES_ON=			perl:532,configure
+[PERL_532].BUILDRUN_DEPENDS_ON=		perl-Test-Deep:single:532
 
