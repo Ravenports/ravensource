@@ -60,6 +60,14 @@ post-patch:
 	${REINPLACE_CMD} -e 's|/usr/pkg/|${LOCALBASE}/|' \
 		-e 's|`./config.guess`|${CONFIGURE_TARGET}|' \
 		${WRKSRC}/scripts/make.sh
+	${REINPLACE_CMD} -e '/AC_CONFIG_MACRO_DIR(/d' \
+		${WRKSRC}/configure.ac \
+		${WRKSRC}/generic/newfront/configure.ac \
+		${WRKSRC}/csl/cslbase/configure.ac \
+		${WRKSRC}/psl/configure.ac
+	${REINPLACE_CMD} -e "s|am__api_version='1.15'|am__api_version='1.16'|" \
+		${WRKSRC}/csl/cslbase/aclocal.m4 \
+		${WRKSRC}/psl/aclocal.m4
 
 pre-configure:
 	(cd ${WRKSRC} && ./autogen.sh --sequential --with-csl)
