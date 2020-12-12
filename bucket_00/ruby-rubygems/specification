@@ -1,16 +1,17 @@
 # manually maintained
-DEF[PORTVERSION]=	3.1.4
+DEF[PORTVERSION]=	3.2.0
 DEF[GEMS_BASE_DIR]=	lib/ruby/gems
-DEF[BUNDLERVER]=	2.1.4
+DEF[BUNDLERVER]=	2.2.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ruby-rubygems
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby devel
-VARIANTS=		v25 v26 v27
+VARIANTS=		v25 v26 v27 v30
 SDESC[v25]=		Package management framework for Ruby (v2.5)
 SDESC[v26]=		Package management framework for Ruby (v2.6)
 SDESC[v27]=		Package management framework for Ruby (v2.7)
+SDESC[v30]=		Package management framework for Ruby (v3.0)
 HOMEPAGE=		https://rubygems.org/
 CONTACT=		nobody
 
@@ -22,12 +23,14 @@ DIST_SUBDIR=		ruby
 SPKGS[v25]=		single
 SPKGS[v26]=		single
 SPKGS[v27]=		single
+SPKGS[v30]=		single
 
-OPTIONS_AVAILABLE=	RUBY25 RUBY26 RUBY27
+OPTIONS_AVAILABLE=	RUBY25 RUBY26 RUBY27 RUBY30
 OPTIONS_STANDARD=	none
-VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
-VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
-VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
+VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF RUBY30=OFF
+VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF RUBY30=OFF
+VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON RUBY30=OFF
+VOPTS[v30]=		RUBY25=OFF RUBY26=OFF RUBY27=OFF RUBY30=ON
 
 FPC_EQUIVALENT=		devel/ruby-gems
 
@@ -46,32 +49,33 @@ PLIST_SUB=		DISTNAME="{{DISTNAME}}"
 			SUFFIX="{{RUBY_SUFFIX}}"
 			GEMS_BASE_DIR="${GEMS_BASE_DIR}/{{RUBY_VER}}"
 			BUNDLERVER=${BUNDLERVER}
+MAKE_ARGS=		--destdir="{{STAGEDIR}}"
+			--no-ri
+			--no-rdoc
+			--verbose
+			--format-executable
+MANDIRS=		{{PREFIX}}/share/rubygems/{{RUBY_VER}}/man/man1
+			{{PREFIX}}/share/rubygems/{{RUBY_VER}}/man/man5
 
 [RUBY25].USES_ON=			ruby:v25
 [RUBY26].USES_ON=			ruby:v26
 [RUBY27].USES_ON=			ruby:v27
+[RUBY30].USES_ON=			ruby:v30
+
+# remove once supported by ravenadm
+[RUBY30].DESCRIPTION=			Build using Ruby version 3.0
+[RUBY30].BROKEN_ON=			Requires later ravenadm
 
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/${GEMS_BASE_DIR}/${RUBY_VER}
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/rubygems/${RUBY_VER}
 	cd ${WRKSRC} && ${SETENV} \
 		GEM_HOME=${PREFIX}/${GEMS_BASE_DIR}/${RUBY_VER} \
-		${RUBY} ${RUBY_SETUP} --destdir=${STAGEDIR} \
-		--verbose --no-ri --no-rdoc || ${TRUE}
-
-post-install:
-	# why don't these guys actually test destdir??
+		${RUBY} ${RUBY_SETUP} ${MAKE_ARGS:NDESTDIR*} || ${TRUE}
+	# relocate manpages
+	${MV} ${STAGEDIR}${PREFIX}/share/man \
+		${STAGEDIR}${PREFIX}/share/rubygems/${RUBY_VER}
+	# re-do destdir failure (I can't figure ruby out to fix installer)
 	${MV} ${STAGEDIR}${STAGEDIR}${PREFIX}/${GEMS_BASE_DIR}/${RUBY_VER}/specifications/gems \
 		${STAGEDIR}${PREFIX}/${GEMS_BASE_DIR}/${RUBY_VER}/specifications/
-	${RM} -r ${STAGEDIR}/construction
-
-post-install-RUBY26-ON:
-	# bundler26 won't install with ruby26
-	${SED} -e 's|"../lib"|"../libx"|' ${WRKSRC}/bundler/exe/bundle \
-		> ${STAGEDIR}${PREFIX}/bin/bundle${RUBY_SUFFIX}
-	${CHOWN} ${BINMODE} ${STAGEDIR}${PREFIX}/bin/bundle${RUBY_SUFFIX}
-
-post-install-RUBY25-ON:
-	# bundler25 won't install with ruby25
-	${SED} -e 's|"../lib"|"../libx"|' ${WRKSRC}/bundler/exe/bundle \
-		> ${STAGEDIR}${PREFIX}/bin/bundle${RUBY_SUFFIX}
-	${CHOWN} ${BINMODE} ${STAGEDIR}${PREFIX}/bin/bundle${RUBY_SUFFIX}
+	${FIND} ${STAGEDIR} -type d -empty -delete
