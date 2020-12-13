@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	0.1.10
 
 NAMEBASE=		arandr
 VERSION=		${PORTVERSION}
-REVISION=		3
+REVISION=		4
 KEYWORDS=		x11 deskutils
 VARIANTS=		standard
 SDESC[standard]=	Another XRandR graphical user interface
@@ -34,3 +34,8 @@ RUN_DEPENDS=		xrandr:single:standard
 USES=			gettext-tools python
 GNOME_COMPONENTS=	pygobject
 PLIST_SUB=		ARVER=${PORTVERSION}
+
+post-install:
+	# remove duplicate license
+	${RM} ${STAGEDIR}${PYTHON_SITELIBDIR}/screenlayout/data/gpl-3.txt
+	${FIND} ${STAGEDIR}${PYTHON_SITELIBDIR} -type d -empty -delete
