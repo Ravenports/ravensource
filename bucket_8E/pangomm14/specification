@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.42.1
+DEF[PORTVERSION]=	2.42.2
 DEF[SOVERSION]=		1.0.30
 DEF[API_VERSION]=	1.4
 # ----------------------------------------------------------------------------
@@ -29,14 +29,12 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11-toolkits/pangomm
 
+BUILD_DEPENDS=		autoselect-python:single:standard
 BUILDRUN_DEPENDS=	cairomm10:single:standard
 			glibmm24:single:standard
 
-USES=			gmake libtool pkgconfig
+USES=			gmake pkgconfig meson
 GNOME_COMPONENTS=	pango
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-documentation
-			--enable-static=yes
 INSTALL_TARGET=		install-strip
 PLIST_SUB=		API_VERSION=${API_VERSION}
 SOVERSION=		${SOVERSION}
