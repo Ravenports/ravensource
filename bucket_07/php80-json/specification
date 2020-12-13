@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	EXTRACT_VERSION(PHP_8.0_VERSION)
+DEF[SUFFIX]=		${PORTVERSION:R:S/.//}
+DEF[MODULE]=		json
+DEF[KEYWORD]=		devel
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		php${SUFFIX}-${MODULE}
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang www php ${KEYWORD}
+VARIANTS=		standard
+SDESC[standard]=	PHP ${PORTVERSION:R} extension: ${MODULE} (JavaScript Obj Notation)
+HOMEPAGE=		https://php.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PHP/distributions
+DISTFILE[1]=		php-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		${KEYWORD}/php${SUFFIX}-${MODULE}
+
+# remove the port when php74 is retired -or- repology fixes
+# it's broken php extension expiration
+BROKEN[all]=		The json extension is now part of the core
+
+BUILD_DEPENDS=		re2c:primary:standard
+
+USES=			php:ext,${SUFFIX} cpe
+CPE_VENDOR=		php
+CPE_PRODUCT=		php
+DISTNAME=		php-${PORTVERSION}/ext/{{PHP_MODNAME}}
+CONFIGURE_ARGS=		--enable-${MODULE}
+EXTRACT_HEAD[1]=	{{TAR}} -xf
+EXTRACT_TAIL[1]=	php-${PORTVERSION}/ext/{{PHP_MODNAME}}
+MAKE_ENV=		RE2C={{LOCALBASE}}/bin/re2c
