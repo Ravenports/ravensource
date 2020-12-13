@@ -35,7 +35,7 @@ $port_data = array();
 $truncated_summaries = array();
 $ravensource_directory = "";
 $VA = 38;	# single point of change when python
-$VB = 37;	# series are changed in ravenports
+$VB = 39;	# series are changed in ravenports
 $VC = 27;
 $PYTHON_VERSION_A = -1;
 $PYTHON_VERSION_B = -1;
@@ -384,13 +384,6 @@ function generate_port($namebase) {
         $SV = substr($V, 2);
         $available_options .= $prespace . "PY" . $SV;
         $buildrun_block .= "[PY" . $SV . "].USES_ON=\t\t\t\tpython:" . $V . $arg . "\n";
-        # Once ravenadm recognizes wheel argument and automatically
-        # pulls in python-pip as a build dependency, remove the next section
-        # ===============================================
-        if ($whl_file) {
-            $buildrun_block .= "[PY" . $SV . "].BUILD_DEPENDS_ON=\t\tpython-pip:single:" . $V . "\n";
-        }
-        # ===============================================
         if (count($port_data[$namebase]["buildrun"])) {
             $buildrun_block .= "[PY" . $SV . "].BUILDRUN_DEPENDS_ON=\t\t";
             foreach ($port_data[$namebase]["buildrun"] as $DEP) {

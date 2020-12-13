@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.6.0
 NAMEBASE=		python-pycodestyle
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py38 py37
+VARIANTS=		py38 py39
 SDESC[py38]=		Python style guide checker (PY38)
-SDESC[py37]=		Python style guide checker (PY37)
+SDESC[py39]=		Python style guide checker (PY39)
 HOMEPAGE=		https://pycodestyle.readthedocs.io/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/10/5b/88879fb861ab79aef45c7e199cae3ef7af487b5603dcb363517a
 DISTFILE[1]=		pycodestyle-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
-SPKGS[py37]=		single
+SPKGS[py39]=		single
 
-OPTIONS_AVAILABLE=	PY38 PY37
+OPTIONS_AVAILABLE=	PY38 PY39
 OPTIONS_STANDARD=	none
-VOPTS[py38]=		PY38=ON PY37=OFF
-VOPTS[py37]=		PY38=OFF PY37=ON
+VOPTS[py38]=		PY38=ON PY39=OFF
+VOPTS[py39]=		PY38=OFF PY39=ON
 
 # License listed at PyPI
 # Expat license
@@ -32,7 +32,5 @@ DISTNAME=		pycodestyle-${PORTVERSION}.dist-info
 
 
 [PY38].USES_ON=				python:py38,wheel
-[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
-[PY37].USES_ON=				python:py37,wheel
-[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY39].USES_ON=				python:py39,wheel
 

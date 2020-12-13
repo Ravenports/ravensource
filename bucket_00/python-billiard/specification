@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	3.6.3.0
 NAMEBASE=		python-billiard
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py38 py37
+VARIANTS=		py38 py39
 SDESC[py38]=		Multiprocessing Pool Extensions (PY38)
-SDESC[py37]=		Multiprocessing Pool Extensions (PY37)
+SDESC[py39]=		Multiprocessing Pool Extensions (PY39)
 HOMEPAGE=		https://github.com/celery/billiard
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/e8/5e/7591866ff45b370354bd20291cb6f87ddb2eef1f1c88c890a384
 DISTFILE[1]=		billiard-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
-SPKGS[py37]=		single
+SPKGS[py39]=		single
 
-OPTIONS_AVAILABLE=	PY38 PY37
+OPTIONS_AVAILABLE=	PY38 PY39
 OPTIONS_STANDARD=	none
-VOPTS[py38]=		PY38=ON PY37=OFF
-VOPTS[py37]=		PY38=OFF PY37=ON
+VOPTS[py38]=		PY38=ON PY39=OFF
+VOPTS[py39]=		PY38=OFF PY39=ON
 
 # License listed at PyPI
 # BSD
@@ -32,7 +32,5 @@ DISTNAME=		billiard-${PORTVERSION}.dist-info
 
 
 [PY38].USES_ON=				python:py38,wheel
-[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
-[PY37].USES_ON=				python:py37,wheel
-[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY39].USES_ON=				python:py39,wheel
 

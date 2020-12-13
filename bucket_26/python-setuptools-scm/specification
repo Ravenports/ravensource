@@ -1,26 +1,26 @@
-DEF[PORTVERSION]=	4.1.2
+DEF[PORTVERSION]=	5.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-setuptools-scm
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py38 py37
+VARIANTS=		py38 py39
 SDESC[py38]=		Package to manage versions by scm tags (PY38)
-SDESC[py37]=		Package to manage versions by scm tags (PY37)
+SDESC[py39]=		Package to manage versions by scm tags (PY39)
 HOMEPAGE=		https://github.com/pypa/setuptools_scm/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/ad/d3/e54f8b4cde0f6fb4f231629f570c1a33ded18515411dee6df6fe363d976f
+SITES[main]=		PYPIWHL/c0/28/76e9ceb3fba33cd00728663d6df842a31482d4a764d51ead2faecc7b36ec
 DISTFILE[1]=		setuptools_scm-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
-SPKGS[py37]=		single
+SPKGS[py39]=		single
 
-OPTIONS_AVAILABLE=	PY38 PY37
+OPTIONS_AVAILABLE=	PY38 PY39
 OPTIONS_STANDARD=	none
-VOPTS[py38]=		PY38=ON PY37=OFF
-VOPTS[py37]=		PY38=OFF PY37=ON
+VOPTS[py38]=		PY38=ON PY39=OFF
+VOPTS[py39]=		PY38=OFF PY39=ON
 
 # License listed at PyPI
 # MIT
@@ -33,9 +33,7 @@ DISTNAME=		setuptools_scm-${PORTVERSION}.dist-info
 # toml ; extra == 'toml'
 
 [PY38].USES_ON=				python:py38,wheel
-[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
 [PY38].RUN_DEPENDS_ON=			python-setuptools:single:py38
-[PY37].USES_ON=				python:py37,wheel
-[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
-[PY37].RUN_DEPENDS_ON=			python-setuptools:single:py37
+[PY39].USES_ON=				python:py39,wheel
+[PY39].RUN_DEPENDS_ON=			python-setuptools:single:py39
 

@@ -6,9 +6,9 @@ DEF[RELEASE_MARK]=	v${PORTVERSION}
 NAMEBASE=		python-e3-core
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py38 py37
+VARIANTS=		py38 py39
 SDESC[py38]=		E3 core. Tools and library for building and (PY38)
-SDESC[py37]=		E3 core. Tools and library for building and (PY37)
+SDESC[py39]=		E3 core. Tools and library for building and (PY39)
 HOMEPAGE=		https://github.com/AdaCore/e3-core
 CONTACT=		John_Marino[draco@marino.st]
 
@@ -19,12 +19,12 @@ SITES[main]=		GITHUB/AdaCore:e3-core:${RELEASE_MARK}
 DISTFILE[1]=		generated:main
 
 SPKGS[py38]=		single
-SPKGS[py37]=		single
+SPKGS[py39]=		single
 
-OPTIONS_AVAILABLE=	PY38 PY37
+OPTIONS_AVAILABLE=	PY38 PY39
 OPTIONS_STANDARD=	none
-VOPTS[py38]=		PY38=ON PY37=OFF
-VOPTS[py37]=		PY38=OFF PY37=ON
+VOPTS[py38]=		PY38=ON PY39=OFF
+VOPTS[py39]=		PY38=OFF PY39=ON
 
 # License listed at PyPI
 # GPLv3
@@ -49,14 +49,14 @@ GENERATED=		yes
 					python-requests-toolbelt:single:py38
 					python-tqdm:single:py38
 					python-stevedore:single:py38
-[PY37].USES_ON=				python:py37
-[PY37].BUILDRUN_DEPENDS_ON=		python-colorama:single:py37
-					python-PyYAML:single:py37
-					python-python-dateutil:single:py37
-					python-requests:single:py37
-					python-requests-toolbelt:single:py37
-					python-tqdm:single:py37
-					python-stevedore:single:py37
+[PY39].USES_ON=				python:py39
+[PY39].BUILDRUN_DEPENDS_ON=		python-colorama:single:py39
+					python-PyYAML:single:py39
+					python-python-dateutil:single:py39
+					python-requests:single:py39
+					python-requests-toolbelt:single:py39
+					python-tqdm:single:py39
+					python-stevedore:single:py39
 
 SUB_FILES=		build_rlimit.sh
 SUB_LIST=		PYCMD="{{PYTHON_CMD}}"

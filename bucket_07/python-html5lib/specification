@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.1
 NAMEBASE=		python-html5lib
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py38 py37
+VARIANTS=		py38 py39
 SDESC[py38]=		HTML parser based on WHATWG specification (PY38)
-SDESC[py37]=		HTML parser based on WHATWG specification (PY37)
+SDESC[py39]=		HTML parser based on WHATWG specification (PY39)
 HOMEPAGE=		https://github.com/html5lib/html5lib-python
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/6c/dd/a834df6482147d48e225a49515aabc28974ad5a4ca3215c18a88
 DISTFILE[1]=		html5lib-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
-SPKGS[py37]=		single
+SPKGS[py39]=		single
 
-OPTIONS_AVAILABLE=	PY38 PY37
+OPTIONS_AVAILABLE=	PY38 PY39
 OPTIONS_STANDARD=	none
-VOPTS[py38]=		PY38=ON PY37=OFF
-VOPTS[py37]=		PY38=OFF PY37=ON
+VOPTS[py38]=		PY38=ON PY39=OFF
+VOPTS[py39]=		PY38=OFF PY39=ON
 
 # License listed at PyPI
 # MIT License
@@ -39,11 +39,9 @@ DISTNAME=		html5lib-${PORTVERSION}.dist-info
 # lxml ; (platform_python_implementation == 'CPython') and extra == 'lxml'
 
 [PY38].USES_ON=				python:py38,wheel
-[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
 [PY38].RUN_DEPENDS_ON=			python-six:single:py38
 					python-webencodings:single:py38
-[PY37].USES_ON=				python:py37,wheel
-[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
-[PY37].RUN_DEPENDS_ON=			python-six:single:py37
-					python-webencodings:single:py37
+[PY39].USES_ON=				python:py39,wheel
+[PY39].RUN_DEPENDS_ON=			python-six:single:py39
+					python-webencodings:single:py39
 

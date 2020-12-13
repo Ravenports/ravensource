@@ -6,9 +6,9 @@ DEF[PY27_VERSION]=	0.7.1
 NAMEBASE=		python-parso
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py38 py37 py27
+VARIANTS=		py38 py39 py27
 SDESC[py38]=		Python Parser (PY38)
-SDESC[py37]=		Python Parser (PY37)
+SDESC[py39]=		Python Parser (PY39)
 SDESC[py27]=		Python Parser (PY27 version ${PY27_VERSION})
 HOMEPAGE=		https://github.com/davidhalter/parso
 CONTACT=		Python_Automaton[python@ironwolf.systems]
@@ -20,14 +20,14 @@ DISTFILE[2]=		parso-${PY27_VERSION}.tar.gz:main
 DF_INDEX=		1 2
 
 SPKGS[py38]=		single
-SPKGS[py37]=		single
+SPKGS[py39]=		single
 SPKGS[py27]=		single
 
-OPTIONS_AVAILABLE=	PY38 PY37 PY27
+OPTIONS_AVAILABLE=	PY38 PY39 PY27
 OPTIONS_STANDARD=	none
-VOPTS[py38]=		PY38=ON PY37=OFF PY27=OFF
-VOPTS[py37]=		PY38=OFF PY37=ON PY27=OFF
-VOPTS[py27]=		PY38=OFF PY37=OFF PY27=ON
+VOPTS[py38]=		PY38=ON PY39=OFF PY27=OFF
+VOPTS[py39]=		PY38=OFF PY39=ON PY27=OFF
+VOPTS[py27]=		PY38=OFF PY39=OFF PY27=ON
 
 # License listed at PyPI
 # MIT
@@ -39,7 +39,7 @@ DISTNAME=		parso
 GENERATED=		yes
 
 [PY38].USES_ON=				python:py38
-[PY37].USES_ON=				python:py37
+[PY39].USES_ON=				python:py39
 [PY27].USES_ON=				python:py27
 
 post-extract-PY27-OFF:

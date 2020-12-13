@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.10.2
 NAMEBASE=		python-toml
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py38 py37
+VARIANTS=		py38 py39
 SDESC[py38]=		Tom's Obvious, Minimal Language (PY38)
-SDESC[py37]=		Tom's Obvious, Minimal Language (PY37)
+SDESC[py39]=		Tom's Obvious, Minimal Language (PY39)
 HOMEPAGE=		https://github.com/uiri/toml
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/44/6f/7120676b6d73228c96e17f1f794d8ab046fc910d781c8d151120
 DISTFILE[1]=		toml-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
-SPKGS[py37]=		single
+SPKGS[py39]=		single
 
-OPTIONS_AVAILABLE=	PY38 PY37
+OPTIONS_AVAILABLE=	PY38 PY39
 OPTIONS_STANDARD=	none
-VOPTS[py38]=		PY38=ON PY37=OFF
-VOPTS[py37]=		PY38=OFF PY37=ON
+VOPTS[py38]=		PY38=ON PY39=OFF
+VOPTS[py39]=		PY38=OFF PY39=ON
 
 # License listed at PyPI
 # MIT
@@ -32,7 +32,5 @@ DISTNAME=		toml-${PORTVERSION}.dist-info
 
 
 [PY38].USES_ON=				python:py38,wheel
-[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
-[PY37].USES_ON=				python:py37,wheel
-[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY39].USES_ON=				python:py39,wheel
 

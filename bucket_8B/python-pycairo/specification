@@ -9,9 +9,9 @@ DEF[PYXX]=		py${PYDEFAULT:S/.//g}
 NAMEBASE=		python-pycairo
 VERSION=		${PORTVERSION}
 KEYWORDS=		python devel
-VARIANTS=		py27 py38 py37
+VARIANTS=		py27 py38 py39
 SDESC[py27]=		Bindings for cairo graphics library (PY27)
-SDESC[py37]=		Bindings for cairo graphics library (PY37)
+SDESC[py39]=		Bindings for cairo graphics library (PY39)
 SDESC[py38]=		Bindings for cairo graphics library (PY38)
 HOMEPAGE=		https://pycairo.readthedocs.io
 CONTACT=		nobody
@@ -23,14 +23,14 @@ DISTFILE[2]=		pycairo-${PY27_VERSION}.tar.gz:main
 DF_INDEX=		1 2
 
 SPKGS[py27]=		single
-SPKGS[py37]=		primary
+SPKGS[py39]=		primary
 SPKGS[py38]=		primary common
 
-OPTIONS_AVAILABLE=	PY27 PY38 PY37
+OPTIONS_AVAILABLE=	PY27 PY38 PY39
 OPTIONS_STANDARD=	none
-VOPTS[py27]=		PY27=ON PY38=OFF PY37=OFF
-VOPTS[py38]=		PY27=OFF PY38=ON PY37=OFF
-VOPTS[py37]=		PY27=OFF PY38=OFF PY37=ON
+VOPTS[py27]=		PY27=ON PY38=OFF PY39=OFF
+VOPTS[py38]=		PY27=OFF PY38=ON PY39=OFF
+VOPTS[py39]=		PY27=OFF PY38=OFF PY39=ON
 
 FPC_EQUIVALENT=		graphics/py-cairo
 # License listed at PyPI
@@ -42,8 +42,8 @@ FPC_EQUIVALENT=		graphics/py-cairo
 [PY27].MAKEFILE_ON=			DISTNAME=pycairo-${PY27_VERSION}
 [PY38].USES_ON=				python:py38
 [PY38].MAKEFILE_ON=			DISTNAME=pycairo-${PORTVERSION}
-[PY37].USES_ON=				python:py37
-[PY37].MAKEFILE_ON=			DISTNAME=pycairo-${PORTVERSION}
+[PY39].USES_ON=				python:py39
+[PY39].MAKEFILE_ON=			DISTNAME=pycairo-${PORTVERSION}
 
 USES=			pkgconfig
 GNOME_COMPONENTS=	cairo

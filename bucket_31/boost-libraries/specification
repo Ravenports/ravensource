@@ -9,9 +9,9 @@ NAMEBASE=		boost-libraries
 VERSION=		${PORTVERSION}
 REVISION=		${REVISION}
 KEYWORDS=		devel c++
-VARIANTS=		py37 py38
+VARIANTS=		py39 py38
 SDESC[py38]=		Free portable C++ libraries (PY 38)
-SDESC[py37]=		Free portable C++ libraries (PY 37)
+SDESC[py39]=		Free portable C++ libraries (PY 39)
 HOMEPAGE=		https://www.boost.org/
 CONTACT=		nobody
 
@@ -20,12 +20,12 @@ SITES[main]=		https://dl.bintray.com/boostorg/release/${PORTVERSION}/source/
 DISTFILE[1]=		boost_${BOOSTVER}.tar.bz2:main
 
 SPKGS[py38]=		complete rest python
-SPKGS[py37]=		complete rest python
+SPKGS[py39]=		complete rest python
 
-OPTIONS_AVAILABLE=	PY38 PY37
+OPTIONS_AVAILABLE=	PY38 PY39
 OPTIONS_STANDARD=	none
-VOPTS[py38]=		PY38=ON PY37=OFF
-VOPTS[py37]=		PY38=OFF PY37=ON
+VOPTS[py38]=		PY38=ON PY39=OFF
+VOPTS[py39]=		PY38=OFF PY39=ON
 
 FPC_EQUIVALENT=		devel/boost-all
 
@@ -78,7 +78,7 @@ CPE_PRODUCT=		boost
 VAR_OPSYS[freebsd]=	MAKE_ARGS=pch=off
 
 [PY38].USES_ON=				python:py38,build
-[PY37].USES_ON=				python:py37,build
+[PY39].USES_ON=				python:py39,build
 
 post-patch:
 	${REINPLACE_CMD} -e 's|$$(RPATH)|${HARDCODE_RPATH}|' \

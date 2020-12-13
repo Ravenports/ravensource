@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	5.5.1
 NAMEBASE=		python-pbr
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py38 py37
+VARIANTS=		py38 py39
 SDESC[py38]=		Python Build Reasonableness (PY38)
-SDESC[py37]=		Python Build Reasonableness (PY37)
+SDESC[py39]=		Python Build Reasonableness (PY39)
 HOMEPAGE=		https://docs.openstack.org/pbr/latest/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/fb/48/69046506f6ac61c1eaa9a0d42d22d54673b69e176d30ca98e3f6
 DISTFILE[1]=		pbr-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
-SPKGS[py37]=		single
+SPKGS[py39]=		single
 
-OPTIONS_AVAILABLE=	PY38 PY37
+OPTIONS_AVAILABLE=	PY38 PY39
 OPTIONS_STANDARD=	none
-VOPTS[py38]=		PY38=ON PY37=OFF
-VOPTS[py37]=		PY38=OFF PY37=ON
+VOPTS[py38]=		PY38=ON PY39=OFF
+VOPTS[py39]=		PY38=OFF PY39=ON
 
 # License listed at PyPI
 # Not provided.
@@ -32,7 +32,5 @@ DISTNAME=		pbr-${PORTVERSION}.dist-info
 
 
 [PY38].USES_ON=				python:py38,wheel
-[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
-[PY37].USES_ON=				python:py37,wheel
-[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY39].USES_ON=				python:py39,wheel
 

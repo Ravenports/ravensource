@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	4.0.2
 NAMEBASE=		python-gitdb2
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py38 py37
+VARIANTS=		py38 py39
 SDESC[py38]=		Mirror package for gitdb (PY38)
-SDESC[py37]=		Mirror package for gitdb (PY37)
+SDESC[py39]=		Mirror package for gitdb (PY39)
 HOMEPAGE=		https://github.com/gitpython-developers/gitdb
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/52/7e/59f96b47f671b3fe0aa0c1b609531a540434b719a10c417581e2
 DISTFILE[1]=		gitdb2-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
-SPKGS[py37]=		single
+SPKGS[py39]=		single
 
-OPTIONS_AVAILABLE=	PY38 PY37
+OPTIONS_AVAILABLE=	PY38 PY39
 OPTIONS_STANDARD=	none
-VOPTS[py38]=		PY38=ON PY37=OFF
-VOPTS[py37]=		PY38=OFF PY37=ON
+VOPTS[py38]=		PY38=ON PY39=OFF
+VOPTS[py39]=		PY38=OFF PY39=ON
 
 # License listed at PyPI
 # Not provided.
@@ -32,9 +32,7 @@ DISTNAME=		gitdb2-${PORTVERSION}.dist-info
 # gitdb (>=4.0.1)
 
 [PY38].USES_ON=				python:py38,wheel
-[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
 [PY38].RUN_DEPENDS_ON=			python-gitdb:single:py38
-[PY37].USES_ON=				python:py37,wheel
-[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
-[PY37].RUN_DEPENDS_ON=			python-gitdb:single:py37
+[PY39].USES_ON=				python:py39,wheel
+[PY39].RUN_DEPENDS_ON=			python-gitdb:single:py39
 

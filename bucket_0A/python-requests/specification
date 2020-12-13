@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.25.0
 NAMEBASE=		python-requests
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py38 py37
+VARIANTS=		py38 py39
 SDESC[py38]=		Python HTTP for Humans (PY38)
-SDESC[py37]=		Python HTTP for Humans (PY37)
+SDESC[py39]=		Python HTTP for Humans (PY39)
 HOMEPAGE=		https://requests.readthedocs.io
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/39/fc/f91eac5a39a65f75a7adb58eac7fa78871ea9872283fb9c44e65
 DISTFILE[1]=		requests-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
-SPKGS[py37]=		single
+SPKGS[py39]=		single
 
-OPTIONS_AVAILABLE=	PY38 PY37
+OPTIONS_AVAILABLE=	PY38 PY39
 OPTIONS_STANDARD=	none
-VOPTS[py38]=		PY38=ON PY37=OFF
-VOPTS[py37]=		PY38=OFF PY37=ON
+VOPTS[py38]=		PY38=ON PY39=OFF
+VOPTS[py39]=		PY38=OFF PY39=ON
 
 # License listed at PyPI
 # Apache 2.0
@@ -39,17 +39,15 @@ DISTNAME=		requests-${PORTVERSION}.dist-info
 # win-inet-pton ; (sys_platform == "win32" and python_version == "2.7") and extra == 'socks'
 
 [PY38].USES_ON=				python:py38,wheel
-[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
 [PY38].RUN_DEPENDS_ON=			python-chardet:single:py38
 					python-idna:single:py38
 					python-urllib3:single:py38
 					python-certifi:single:py38
-[PY37].USES_ON=				python:py37,wheel
-[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
-[PY37].RUN_DEPENDS_ON=			python-chardet:single:py37
-					python-idna:single:py37
-					python-urllib3:single:py37
-					python-certifi:single:py37
+[PY39].USES_ON=				python:py39,wheel
+[PY39].RUN_DEPENDS_ON=			python-chardet:single:py39
+					python-idna:single:py39
+					python-urllib3:single:py39
+					python-certifi:single:py39
 
 USES=			cpe
 CPE_VENDOR=		python-requests

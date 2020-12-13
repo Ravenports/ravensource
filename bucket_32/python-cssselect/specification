@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.1.0
 NAMEBASE=		python-cssselect
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py38 py37
+VARIANTS=		py38 py39
 SDESC[py38]=		CSS3 Selector parser  and XPath translater (PY38)
-SDESC[py37]=		CSS3 Selector parser  and XPath translater (PY37)
+SDESC[py39]=		CSS3 Selector parser  and XPath translater (PY39)
 HOMEPAGE=		https://github.com/scrapy/cssselect
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/3b/d4/3b5c17f00cce85b9a1e6f91096e1cc8e8ede2e1be8e96b87ce1e
 DISTFILE[1]=		cssselect-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
-SPKGS[py37]=		single
+SPKGS[py39]=		single
 
-OPTIONS_AVAILABLE=	PY38 PY37
+OPTIONS_AVAILABLE=	PY38 PY39
 OPTIONS_STANDARD=	none
-VOPTS[py38]=		PY38=ON PY37=OFF
-VOPTS[py37]=		PY38=OFF PY37=ON
+VOPTS[py38]=		PY38=ON PY39=OFF
+VOPTS[py39]=		PY38=OFF PY39=ON
 
 # License listed at PyPI
 # BSD
@@ -32,7 +32,5 @@ DISTNAME=		cssselect-${PORTVERSION}.dist-info
 
 
 [PY38].USES_ON=				python:py38,wheel
-[PY38].BUILD_DEPENDS_ON=		python-pip:single:py38
-[PY37].USES_ON=				python:py37,wheel
-[PY37].BUILD_DEPENDS_ON=		python-pip:single:py37
+[PY39].USES_ON=				python:py39,wheel
 
