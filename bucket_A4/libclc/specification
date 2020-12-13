@@ -4,6 +4,7 @@ DEF[TAG]=		9f6204e
 
 NAMEBASE=		libclc
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Required library functions for OpenCL C language
@@ -28,6 +29,7 @@ FPC_EQUIVALENT=		devel/libclc
 
 BUILD_DEPENDS=		clang:compiler:standard
 			libedit:single:standard
+# #			rocm-device-libs:single:standard
 
 USES=			python:build gmake cmake:insource
 MAKE_ENV=		MAKE={{GMAKE}}
@@ -35,11 +37,12 @@ MAKE_ENV=		MAKE={{GMAKE}}
 # Force ccache to work with clang
 			CCACHE_CPP2=yes
 
-BLOCK_WATCHDOG=		yes
-
 post-patch:
 	${REINPLACE_CMD} -e 's|/usr/bin/python|${PYTHON_CMD}|g' \
 		-e 's|"python |"${PYTHON_VERSION} |g' \
+# #		-e 's|__CLC_INTERNAL|__CLC_INTERNAL
+# --rocm-device-lib-path=${LOCALBASE}/amdgcn/bitcode|'\
+		-e 's|__CLC_INTERNAL|__CLC_INTERNAL -nogpulib|'\
 		${WRKSRC}/build/ninja_syntax.py \
 		${WRKSRC}/configure.py
 	# add ccache support
