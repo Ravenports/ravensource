@@ -210,9 +210,11 @@ function determine_variants($namebase, $minversion) {
 
     $variants = array();
     foreach (array($VA, $VB, $VC) as $V) {
-        if (meets_minimum_version_requirement($V, $minversion)) {
+# function no longer filters; always returns full set of variants
+# Now variants are marked broken instead of being missing
+#        if (meets_minimum_version_requirement($V, $minversion)) {
             array_push($variants, "v" . $V);
-        }
+#        }
     }
     if (empty($variants)) {
         exit("Major issue: ruby-$namebase minimum requirements "
@@ -299,6 +301,8 @@ function generate_port($namebase) {
     $variants_block = join(" ", $variants);
     $primo = $variants[0];
     foreach ($variants as $V) {
+        $broken = !meets_minimum_version_requirement(
+            substr($V, 1), $port_data[$namebase]["min_ruby"]);
         $prereturn = ($V == $primo) ? "" : "\n";
         $comments_block    .= $prereturn . "SDESC[$V]=\t\t$comment ($V)";
         $subpackages_block .= "SPKGS[$V]=\t\tsingle\n";
@@ -320,6 +324,10 @@ function generate_port($namebase) {
                 $indent = ($DEP == $port_data[$namebase]["buildrun"][0]) ? "" : "\t\t\t\t\t";
                 $buildrun_block .= $indent . "ruby-" . $DEP . ":single:" . $V . "\n";
             }
+        }
+        if ($broken) {
+            $buildrun_block .= "[RUBY" . $SV .
+                "].BROKEN_ON=\t\t\tFailed to meet minimum version requirements";
         }
     }
 

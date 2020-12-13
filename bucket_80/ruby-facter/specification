@@ -4,9 +4,10 @@ DEF[PORTVERSION]=	4.0.46
 NAMEBASE=		ruby-facter
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
-VARIANTS=		v26 v27
+VARIANTS=		v26 v27 v30
 SDESC[v26]=		New version of Facter (v26)
 SDESC[v27]=		New version of Facter (v27)
+SDESC[v30]=		New version of Facter (v30)
 HOMEPAGE=		none
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -17,11 +18,13 @@ DIST_SUBDIR=		ruby
 
 SPKGS[v26]=		single
 SPKGS[v27]=		single
+SPKGS[v30]=		single
 
-OPTIONS_AVAILABLE=	RUBY26 RUBY27
+OPTIONS_AVAILABLE=	RUBY26 RUBY27 RUBY30
 OPTIONS_STANDARD=	none
-VOPTS[v26]=		RUBY26=ON RUBY27=OFF
-VOPTS[v27]=		RUBY26=OFF RUBY27=ON
+VOPTS[v26]=		RUBY26=ON RUBY27=OFF RUBY30=OFF
+VOPTS[v27]=		RUBY26=OFF RUBY27=ON RUBY30=OFF
+VOPTS[v30]=		RUBY26=OFF RUBY27=OFF RUBY30=ON
 
 # License listed inside gem specification
 # => "MIT"
@@ -48,4 +51,7 @@ GENERATED=		yes
 [RUBY27].USES_ON=			gem:v27
 [RUBY27].BUILDRUN_DEPENDS_ON=		ruby-hocon:single:v27
 					ruby-thor:single:v27
-
+[RUBY30].USES_ON=			gem:v30
+[RUBY30].BUILDRUN_DEPENDS_ON=		ruby-hocon:single:v30
+					ruby-thor:single:v30
+[RUBY30].BROKEN_ON=			Failed to meet minimum version requirements
