@@ -29,15 +29,9 @@ BUILDRUN_DEPENDS=	freetype:primary:standard
 			harfbuzz:primary:standard
 			fribidi:single:standard
 
-USES=			autoreconf gmake libtool pkgconfig
+USES=			autoreconf gmake libtool pkgconfig gtk-doc
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 DISTNAME=		raqm-${PORTVERSION}
-
-post-install:
-	# relocate docs
-	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
-	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/raqm/* \
-		${STAGEDIR}${STD_DOCDIR}
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
+GTKDOC_OUTPUT_BASEDIR=	raqm
