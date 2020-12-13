@@ -1,4 +1,4 @@
---- gold/x86_64.cc.orig	2020-01-18 13:55:48 UTC
+--- gold/x86_64.cc.orig	2020-07-24 09:12:20 UTC
 +++ gold/x86_64.cc
 @@ -1407,7 +1407,7 @@ const Target::Target_info Target_x86_64<
    true,			// is_default_stack_executable
