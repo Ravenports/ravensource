@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.24.2
+DEF[PORTVERSION]=	3.24.3
 DEF[SOVERSION]=		1.1.0
 DEF[API_VERSION]=	3.0
 # ----------------------------------------------------------------------------
@@ -29,18 +29,18 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11-toolkits/gtkmm30
 
+BUILD_DEPENDS=		autoselect-python:single:standard
 BUILDRUN_DEPENDS=	cairomm10:single:standard
 			glibmm24:single:standard
 			pangomm14:single:standard
 			atkmm16:single:standard
 
-USES=			gmake libtool pkgconfig
+USES=			gmake pkgconfig meson
 GNOME_COMPONENTS=	gtk3 gdkpixbuf
 DISTNAME=		gtkmm-${PORTVERSION}
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-documentation
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
+MESON_ARGS=		-Dbuild-documentation=false
 
 PLIST_SUB=		API_VERSION=${API_VERSION}
 SOVERSION=		${SOVERSION}
