@@ -442,8 +442,10 @@ function get_run_depends ($base_dependencies, $pversion) {
             if (array_key_exists ($req, $data_corrections)) {
                 $req = $data_corrections[$req];
             }
-            if (!in_array("python-" . $req, $result)) {
-                array_push($result, "python-" . $req);
+            if ($req != "setuptools") {
+                if (!in_array("python-" . $req, $result)) {
+                    array_push($result, "python-" . $req);
+                }
             }
         }
     }
@@ -567,8 +569,10 @@ EOF;
         if (array_key_exists ($req, $data_corrections)) {
             $req = $data_corrections[$req];
         }
-        if (!in_array("python-" . $req, $portdata["buildrun"])) {
-            array_push($portdata["buildrun"], "python-" . $req);
+        if ($req != "setuptools") {
+            if (!in_array("python-" . $req, $portdata["buildrun"])) {
+                array_push($portdata["buildrun"], "python-" . $req);
+            }
         }
     }
 }
