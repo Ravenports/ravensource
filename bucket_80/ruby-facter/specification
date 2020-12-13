@@ -4,8 +4,7 @@ DEF[PORTVERSION]=	4.0.46
 NAMEBASE=		ruby-facter
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
-VARIANTS=		v25 v26 v27
-SDESC[v25]=		New version of Facter (v25)
+VARIANTS=		v26 v27
 SDESC[v26]=		New version of Facter (v26)
 SDESC[v27]=		New version of Facter (v27)
 HOMEPAGE=		none
@@ -16,15 +15,13 @@ SITES[main]=		RUBYGEMS/
 DISTFILE[1]=		facter-4.0.46.gem:main
 DIST_SUBDIR=		ruby
 
-SPKGS[v25]=		single
 SPKGS[v26]=		single
 SPKGS[v27]=		single
 
-OPTIONS_AVAILABLE=	RUBY25 RUBY26 RUBY27
+OPTIONS_AVAILABLE=	RUBY26 RUBY27
 OPTIONS_STANDARD=	none
-VOPTS[v25]=		RUBY25=ON RUBY26=OFF RUBY27=OFF
-VOPTS[v26]=		RUBY25=OFF RUBY26=ON RUBY27=OFF
-VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
+VOPTS[v26]=		RUBY26=ON RUBY27=OFF
+VOPTS[v27]=		RUBY26=OFF RUBY27=ON
 
 # License listed inside gem specification
 # => "MIT"
@@ -45,9 +42,6 @@ VOPTS[v27]=		RUBY25=OFF RUBY26=OFF RUBY27=ON
 DISTNAME=		facter-${PORTVERSION}
 GENERATED=		yes
 
-[RUBY25].USES_ON=			gem:v25
-[RUBY25].BUILDRUN_DEPENDS_ON=		ruby-hocon:single:v25
-					ruby-thor:single:v25
 [RUBY26].USES_ON=			gem:v26
 [RUBY26].BUILDRUN_DEPENDS_ON=		ruby-hocon:single:v26
 					ruby-thor:single:v26
