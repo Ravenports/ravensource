@@ -1,7 +1,7 @@
 DEF[PORTVERSION]=	EXTRACT_VERSION(RUBY_3.0_VERSION)
 DEF[PORTREVISION]=	EXTRACT_INFO(RUBY_3.0_REVISION)
 DEF[PATCHLEVEL]=	EXTRACT_INFO(RUBY_3.0_PATCHLEVEL)
-DEF[FLAVOR]=		-preview1
+DEF[FLAVOR]=		-preview2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ruby30
@@ -65,9 +65,6 @@ CPE_VERSION=		${PORTVERSION}
 CPE_UPDATE=		p${PATCHLEVEL}
 INSTALL_REQ_TOOLCHAIN=	yes
 
-# Previous major releases were parallel-build safe (!)
-SINGLE_JOB=		yes
-
 VAR_OPSYS[darwin]=	CONFIGURE_ENV=ac_cv_func_backtrace=no
 			MAKEFILE_LINE=MODULE=bundle
 VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--disable-jit-support
@@ -76,7 +73,11 @@ post-patch:
 	${FIND} ${WRKSRC}/ -name "*.orig" -delete
 	# Disable all bundled gems
 	# We install these from other ports
-.for d in gems bin/bundle bin/bundler bin/gem lib/bundler ext/dbm ext/gdbm
+	cd ${BUILD_WRKSRC} && \
+		${MV} gems gems.orig && \
+		${MKDIR} gems && \
+		${TOUCH} gems/bundled_gems
+.for d in bin/bundle bin/bundler bin/gem lib/bundler ext/dbm ext/gdbm
 	${RM} -r ${BUILD_WRKSRC}/${d}
 .endfor
 	${RM} ${BUILD_WRKSRC}/man/bundle*
