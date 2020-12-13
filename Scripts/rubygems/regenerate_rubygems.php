@@ -327,7 +327,7 @@ function generate_port($namebase) {
         }
         if ($broken) {
             $buildrun_block .= "[RUBY" . $SV .
-                "].BROKEN_ON=\t\t\tFailed to meet minimum version requirements";
+                "].BROKEN_ON=\t\t\tDoes not meet minimum Ruby version requirements";
         }
     }
 
