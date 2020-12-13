@@ -1,4 +1,5 @@
 # manually maintained
+# NOTE: Broken with python 3.9 below
 DEF[PORTVERSION]=	EXTRACT_INFO(LIBXML2_VERSION)
 DEF[PORTREVISION]=	EXTRACT_INFO(LIBXML2_PYTHON_REVISION)
 # ------------------------------------------------------------------------
@@ -46,6 +47,8 @@ CPE_VENDOR=		libxml2
 
 [PY39].USES_ON=				python:py39
 [PY38].USES_ON=				python:py38
+
+[PY39].BROKEN_ON=			Does not build with python 3.9
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/libxml2mod.so
