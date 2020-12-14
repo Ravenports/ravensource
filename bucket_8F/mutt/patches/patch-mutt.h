@@ -1,6 +1,6 @@
---- mutt.h.orig	2020-08-29 19:37:53 UTC
+--- mutt.h.orig	2020-12-04 18:38:44 UTC
 +++ mutt.h
-@@ -165,6 +165,16 @@ typedef enum
+@@ -169,6 +169,16 @@ typedef enum
    MUTT_WRITE_HEADER_MIME
  } mutt_write_header_mode;
  
@@ -17,7 +17,7 @@
  /* types for mutt_add_hook() */
  #define MUTT_FOLDERHOOK  1
  #define MUTT_MBOXHOOK    (1<<1)
-@@ -232,6 +242,7 @@ enum
+@@ -236,6 +246,7 @@ enum
    MUTT_EXPIRED,
    MUTT_SUPERSEDED,
    MUTT_TRASH,
@@ -25,7 +25,7 @@
  
    /* actions for mutt_pattern_comp/mutt_pattern_exec */
    MUTT_AND,
-@@ -415,6 +426,7 @@ enum
+@@ -421,6 +432,7 @@ enum
    OPTFCCCLEAR,
    OPTFLAGSAFE,
    OPTFOLLOWUPTO,
@@ -33,7 +33,7 @@
    OPTFORCENAME,
    OPTFORWDECODE,
    OPTFORWQUOTE,
-@@ -583,6 +595,7 @@ enum
+@@ -593,6 +605,7 @@ enum
    OPTSMIMEISDEFAULT,
    OPTSMIMESELFENCRYPT,
    OPTASKCERTLABEL,
