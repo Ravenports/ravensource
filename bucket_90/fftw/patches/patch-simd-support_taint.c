@@ -1,4 +1,4 @@
---- simd-support/taint.c.orig	2017-10-29 12:14:40 UTC
+--- simd-support/taint.c.orig	2020-12-10 12:02:44 UTC
 +++ simd-support/taint.c
 @@ -40,4 +40,8 @@ R *X(join_taint)(R *p1, R *p2)
       A(UNTAINT(p1) == UNTAINT(p2));
