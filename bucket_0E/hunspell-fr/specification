@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.4.1
+DEF[PORTVERSION]=	7.0
 DEF[SUFFIX]=		fr
 DEF[LANGUAGE]=		French
 DEF[INSTLOC]=		{{STAGEDIR}}{{PREFIX}}/share/hunspell
@@ -7,30 +7,45 @@ DEF[INSTLOC]=		{{STAGEDIR}}{{PREFIX}}/share/hunspell
 NAMEBASE=		hunspell-${SUFFIX}
 VERSION=		${PORTVERSION}
 KEYWORDS=		textproc french
-VARIANTS=		standard
-SDESC[standard]=	Hunspell ${LANGUAGE} dictionary
+VARIANTS=		standard reforme1990 variantes
+SDESC[standard]=	Hunspell ${LANGUAGE} (classique) dictionary
+SDESC[reforme1990]=	Hunspell ${LANGUAGE} (reforme1990) dictionary
+SDESC[variantes]=	Hunspell ${LANGUAGE} (toutesvariantes) dictionary
 HOMEPAGE=		https://grammalecte.net/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://www.dicollecte.org/download/fr/
+SITES[main]=		http://grammalecte.net/download/fr/
 DISTFILE[1]=		hunspell-french-dictionaries-v${PORTVERSION}.zip:main
 
 SPKGS[standard]=	single
+SPKGS[reforme1990]=	single
+SPKGS[variantes]=	single
 
-OPTIONS_AVAILABLE=	none
+OPTIONS_AVAILABLE=	REFORME VARIANTES
 OPTIONS_STANDARD=	none
+VOPTS[reforme1990]=	REFORME=ON VARIANTES=OFF
+VOPTS[variantes]=	REFORME=OFF VARIANTES=ON
 
 FPC_EQUIVALENT=		french/hunspell
 
 SKIP_BUILD=		yes
 EXTRACT_DIRTY=		1
 
+[REFORME].DESCRIPTION=			Build 1990 reforme French variant
+[VARIANTES].DESCRIPTION=		Build all other French variants
+
 do-install:
 	${MKDIR} ${INSTLOC}
-	${INSTALL_DATA} ${WRKSRC}/fr-moderne.aff ${INSTLOC}/fr_FR.aff
-	${INSTALL_DATA} ${WRKSRC}/fr-moderne.dic ${INSTLOC}/fr_FR.dic
-.for ALIAS in fr_BE fr_CA fr_CH fr_LU
-	${LN} -sf fr_FR.aff ${INSTLOC}/${ALIAS}.aff
-	${LN} -sf fr_FR.dic ${INSTLOC}/${ALIAS}.dic
-.endfor
+	${INSTALL_DATA} ${WRKSRC}/fr-classique.aff ${INSTLOC}/fr_FR.aff
+	${INSTALL_DATA} ${WRKSRC}/fr-classique.dic ${INSTLOC}/fr_FR.dic
+
+do-install-REFORME-ON:
+	# overwrite classique
+	${INSTALL_DATA} ${WRKSRC}/fr-reforme1990.aff ${INSTLOC}/fr_FR.aff
+	${INSTALL_DATA} ${WRKSRC}/fr-reforme1990.dic ${INSTLOC}/fr_FR.dic
+
+do-install-VARIANTES-ON:
+	# overwrite classique
+	${INSTALL_DATA} ${WRKSRC}/fr-toutesvariantes.aff ${INSTLOC}/fr_FR.aff
+	${INSTALL_DATA} ${WRKSRC}/fr-toutesvariantes.dic ${INSTLOC}/fr_FR.dic
