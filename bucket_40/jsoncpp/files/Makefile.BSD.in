@@ -12,7 +12,12 @@ PICFLAG=	-fpic
 SHLIB_MAJOR=	%%SHLIB_MAJOR%%
 SHLIB_NAME=	lib${LIB}.so.${SHLIB_MAJOR}
 SHLIB_LINK=	${SHLIB_NAME:R}
-CXXFLAGS+=	-Iinclude
+CXXFLAGS+=	-Iinclude \
+		-D_FILE_OFFSET_BITS=64 \
+		-Wall \
+		-Winvalid-pch \
+		-Wnon-virtual-dtor \
+		-std=c++11
 
 all: ${SHLIB_NAME} jsoncpp.pc
 
@@ -23,7 +28,7 @@ ${SHLIB_NAME}: ${SOBJS}
 	@echo building shared library ${SHLIB_NAME}
 	rm -f ${.TARGET} ${SHLIB_LINK}
 	ln -fs ${.TARGET} ${SHLIB_LINK}
-	${CXX} ${LDFLAGS} -shared -o ${.TARGET} -Wl,-soname,${SHLIB_NAME}
+	${CXX} ${LDFLAGS} -shared -o ${.TARGET} -Wl,-soname,${SHLIB_NAME} ${.ALLSRC}
 
 jsoncpp.pc: pkg-config/jsoncpp.pc.in
 	sed \
