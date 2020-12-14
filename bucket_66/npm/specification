@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.14.8
+DEF[PORTVERSION]=	7.1.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		npm
@@ -34,11 +34,9 @@ CPE_TARGET_SW=		node.js
 SINGLE_JOB=		yes
 
 SHEBANG_GLOB=		*.py
+			resetdeps.sh
 SHEBANG_FILES=		lib/utils/completion.sh
-			node_modules/node-gyp/gyp/samples/samples
 			node_modules/dashdash/etc/dashdash.bash_completion.in
-			node_modules/lockfile/gen-changelog.sh
-
 MANDIRS=		{{PREFIX}}/lib/node_modules/npm/man
 
 post-patch:
@@ -62,6 +60,6 @@ do-install:
 	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_ARGS} \
 		${LOCALBASE}/bin/node bin/npm-cli.js \
 		install -g -f npm-${PORTVERSION}.tgz
-	# fix package.json to remove DESTDIR
-	${REINPLACE_CMD} -i'' -e "s|/construction/npm/stage||" \
-		${STAGEDIR}${PREFIX}/lib/node_modules/npm/package.json
+	# repeat shebang fix
+	${FIND} ${STAGEDIR}${PREFIX}/lib/node_modules/npm/node_modules/node-gyp -type f -name "*.py" |\
+		${XARGS} ${SED} -i'' -e "s|/usr/bin/env python|${PYTHON_CMD}|"
