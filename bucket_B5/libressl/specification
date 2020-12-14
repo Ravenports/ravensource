@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.1.5
+DEF[PORTVERSION]=	3.2.3
 DEF[SOVERSION]=		48.0.1
 DEF[TLS_SOVERSION]=	20.0.1
 DEF[CRY_SOVERSION]=	46.0.1
@@ -35,9 +35,10 @@ FPC_EQUIVALENT=		security/${NAMEBASE}
 
 RUN_DEPENDS=		autoselect-ssl:single:standard
 
-USES=			cpe libtool pkgconfig
+USES=			autoreconf cpe libtool pkgconfig
 DISTNAME=		libressl-${PORTVERSION}
 CPE_VENDOR=		openbsd
+CPE_PRODUCT=		libressl
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--enable-nc
 			--disable-hardening
@@ -45,7 +46,6 @@ CONFIGURE_ARGS=		--enable-nc
 			--prefix=${BASE}
 			--build={{CONFIGURE_TARGET}}
 INSTALL_TARGET=		install-strip
-TEST_TARGET=		check
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		CRY_SOMAJOR=${CRY_SOVERSION:R:R}
@@ -55,20 +55,23 @@ PLIST_SUB=		CRY_SOMAJOR=${CRY_SOVERSION:R:R}
 
 [STATIC].CFLAGS_OFF=			-fpic -DPIC
 [STATIC].CONFIGURE_ARGS_ON=		--enable-shared=no
-[SKIP_MANPAGES].DESCRIPTION=		Avoid installing LibreSSL manpages
-[SKIP_MANPAGES].EXTRA_PATCHES_ON=	extra-patch-MAN3
+[SKIP_MANPAGES].DESCRIPTION=		Skip LibreSSL manpage installation
 
 post-build-STATIC-OFF:
 	# assemble PIC libraries
-	(cd ${WRKSRC}/crypto &&\
-	 ${AR} -crsv .libs/libcrypto_pic.a .libs/*.o */.libs/*.o &&\
-	 ranlib .libs/libcrypto_pic.a)
-	(cd ${WRKSRC}/ssl/.libs &&\
-	 ${AR} -crsv libssl_pic.a *.o &&\
-	 ranlib libssl_pic.a)
-	(cd ${WRKSRC}/tls/.libs &&\
-	 ${AR} -crsv libtls_pic.a *.o &&\
-	 ranlib libtls_pic.a)
+	cd ${BUILD_WRKSRC} &&\
+		${AR} -crsv libcrypto_pic.a \
+		crypto/.libs/*.o \
+		crypto/*/.libs/*.o \
+		&& ranlib libcrypto_pic.a
+	cd ${BUILD_WRKSRC} &&\
+		${AR} -crsv libssl_pic.a \
+		ssl/.libs/*.o \
+		&& ranlib libssl_pic.a
+	cd ${BUILD_WRKSRC} &&\
+		${AR} -crsv libtls_pic.a \
+		tls/.libs/*.o \
+		&& ranlib libtls_pic.a
 
 post-install:
 	${RM} -r ${STAGEDIR}/${PREFIX}/etc/${NAMEBASE}/cert.pem
@@ -76,15 +79,19 @@ post-install:
 post-install-STATIC-OFF:
 	# install our PIC libraries
 	${INSTALL_DATA} \
-		${WRKSRC}/crypto/.libs/libcrypto_pic.a \
-		${WRKSRC}/ssl/.libs/libssl_pic.a \
-		${WRKSRC}/tls/.libs/libtls_pic.a \
+		${BUILD_WRKSRC}/libcrypto_pic.a \
+		${BUILD_WRKSRC}/libssl_pic.a \
+		${BUILD_WRKSRC}/libtls_pic.a \
 		${STAGEDIR}${PREFIX}/${NAMEBASE}/lib/
 
 post-install-dragonfly:
 	${INSTALL_SCRIPT} ${WRKSRC}/apps/nc/nc ${STAGEDIR}${BASE}/bin/nc
 
+post-patch-SKIP_MANPAGES-ON:
+	${REINPLACE_CMD} -e 's| man||' ${WRKSRC}/Makefile.am
+
 post-install-SKIP_MANPAGES-ON:
+	# nc.1, openssl.1, opcpcheck.8 still get installed
 	${RM} -r ${STAGEDIR}${BASE}/share
 
 post-install-SKIP_MANPAGES-OFF:
