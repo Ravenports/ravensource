@@ -1,6 +1,9 @@
 DEF[PORTVERSION]=	1.9.4
-DEF[SOVERSION]=		24
+DEF[SOVERSION]=		24.0.0
 DEF[RELEASE_TAG]=	${PORTVERSION}
+# Don't use cmake: jsoncpp is a cmake BR dependency
+# Don't use meson: Avoid circular dependency --
+# It requires python which requires SSH which requires cmake which SSH requires
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		jsoncpp
@@ -26,15 +29,11 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/jsoncpp
 
-BUILD_DEPENDS=		autoselect-python:single:standard
-
-USES=			dos2unix c++:single meson python:build
+USES=			c++:single
 SOVERSION=		${SOVERSION}
+SUB_FILES=		Makefile.BSD
+SUB_LIST=		SHLIB_MAJOR=${SOVERSION:R:R}
+			PORTVERSION=${PORTVERSION}
 
-# meson is incapable of building static + dynamic libs
-# simultaneously.  Devs don't even see why it should (garbage)
-
-post-install:
-	${MKDIR} ${STAGEDIR}${PREFIX}/include/jsoncpp
-	${MV} ${STAGEDIR}${PREFIX}/include/json \
-		${STAGEDIR}${PREFIX}/include/jsoncpp
+post-patch:
+	${MV} ${WRKDIR}/Makefile.BSD ${WRKSRC}/Makefile

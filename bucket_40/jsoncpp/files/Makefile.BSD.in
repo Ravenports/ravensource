@@ -1,0 +1,42 @@
+.SUFFIXES:
+.SUFFIXES: .o .So .cpp
+
+SRCS=	src/lib_json/json_reader.cpp \
+	src/lib_json/json_value.cpp \
+	src/lib_json/json_writer.cpp
+
+SOBJS=		${SRCS:R:S/$/.So/}
+
+LIB=		jsoncpp
+PICFLAG=	-fpic
+SHLIB_MAJOR=	%%SHLIB_MAJOR%%
+SHLIB_NAME=	lib${LIB}.so.${SHLIB_MAJOR}
+SHLIB_LINK=	${SHLIB_NAME:R}
+CXXFLAGS+=	-Iinclude
+
+all: ${SHLIB_NAME} jsoncpp.pc
+
+.cpp.So:
+	${CXX} ${_${.IMPSRC:T}_FLAGS} ${PICFLAG} -DPIC ${SHARED_CXXFLAGS} ${CXXFLAGS} -c ${.IMPSRC} -o ${.TARGET}
+
+${SHLIB_NAME}: ${SOBJS}
+	@echo building shared library ${SHLIB_NAME}
+	rm -f ${.TARGET} ${SHLIB_LINK}
+	ln -fs ${.TARGET} ${SHLIB_LINK}
+	${CXX} ${LDFLAGS} -shared -o ${.TARGET} -Wl,-soname,${SHLIB_NAME}
+
+jsoncpp.pc: pkg-config/jsoncpp.pc.in
+	sed \
+		-e 's|@CMAKE_INSTALL_PREFIX@|%%PREFIX%%|' \
+		-e 's|@libdir_for_pc_file@|%%PREFIX%%/lib|' \
+		-e 's|@includedir_for_pc_file@|%%PREFIX%%/include|' \
+		-e 's|@JSONCPP_VERSION@|%%PORTVERSION%%|' \
+		${.ALLSRC} > ${.TARGET}	
+
+install:
+	mkdir -p ${DESTDIR}%%PREFIX%%/lib/pkgconfig
+	mkdir -p ${DESTDIR}%%PREFIX%%/include/jsoncpp/json
+	${BSD_INSTALL_DATA} include/json/*.h ${DESTDIR}%%PREFIX%%/include/jsoncpp/json/
+	${BSD_INSTALL_DATA} jsoncpp.pc ${DESTDIR}%%PREFIX%%/lib/pkgconfig/
+	${BSD_INSTALL_LIB} ${SHLIB_NAME} ${DESTDIR}%%PREFIX%%/lib
+	cp -RpP ${SHLIB_LINK} ${DESTDIR}%%PREFIX%%/lib
