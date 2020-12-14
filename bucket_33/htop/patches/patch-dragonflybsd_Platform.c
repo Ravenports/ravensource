@@ -1,11 +1,11 @@
---- dragonflybsd/Platform.c.orig	2020-09-14 23:43:36 UTC
+--- dragonflybsd/Platform.c.orig	2020-12-07 00:49:14 UTC
 +++ dragonflybsd/Platform.c
-@@ -195,7 +195,21 @@ void Platform_setTasksValues(Meter* this
+@@ -210,9 +210,23 @@ void Platform_setSwapValues(Meter* this)
  }
  
  char* Platform_getProcessEnv(pid_t pid) {
 -   // TODO
--   (void)pid;	// prevent unused warning
+-   (void)pid;  // prevent unused warning
 -   return NULL;
 +   char *env = NULL, **fenv = NULL, *ptr = NULL;
 +   size_t size = 0;
@@ -25,3 +25,5 @@
 +   }
 +   return env;
  }
+ 
+ char* Platform_getInodeFilename(pid_t pid, ino_t inode) {
