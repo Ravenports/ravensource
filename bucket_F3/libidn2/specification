@@ -4,7 +4,7 @@ DEF[SOVERSION]=		0.3.7
 
 NAMEBASE=		libidn2
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		dns
 VARIANTS=		standard
 SDESC[standard]=	IDNA2008 internationalized domain names library
@@ -36,11 +36,13 @@ FPC_EQUIVALENT=		dns/libidn2
 
 BUILDRUN_DEPENDS=	libunistring:primary:standard
 
-USES=			cpe charsetfix gmake iconv libtool
+USES=			autoreconf cpe charsetfix gmake iconv libtool
+			pkgconfig gtk-doc gettext-tools
 CPE_VENDOR=		gnu
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-nls
 			--with-libunistring-prefix={{LOCALBASE}}
+			--enable-gtk-doc
 			ac_cv_prog_RONN={{TRUE}}
 INSTALL_TARGET=		install-strip
 INFO=			primary:libidn2
@@ -52,8 +54,3 @@ post-patch:
 		${WRKSRC}/configure
 	${REINPLACE_CMD} -e '/^TMPDIR = /d' ${WRKSRC}/Makefile.in
 	${TOUCH} ${WRKSRC}/*/Makefile*
-
-post-install:
-	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/libidn2 \
-		${STAGEDIR}${PREFIX}/share/doc
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
