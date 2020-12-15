@@ -38,6 +38,10 @@ CMAKE_BUILD_TYPE=	Release
 CMAKE_ARGS=		-DLLVM_HOST_TRIPLE:STRING="{{CONFIGURE_TARGET}}"
 			-DLLVM_ENABLE_SPHINX=ON
 			-DLIBCXX_CXX_ABI_LIBRARY_PATH={{WRKDIR}}/.build/lib
+CXXFLAGS=		-Wno-attributes
+			-Wno-deprecated-declarations
+			-Wno-empty-body
+			-Wno-shadow
 DISTNAME=		llvm
 
 post-extract:
