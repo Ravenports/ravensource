@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.5.2
 
 NAMEBASE=		taskwarrior
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		deskutils
 VARIANTS=		standard
 SDESC[standard]=	Feature-rich command-line todo list manager
@@ -25,7 +26,7 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		deskutils/taskwarrior
 
 BUILDRUN_DEPENDS=	gnutls:primary:standard
-			ossp-uuid:single:standard
+			libuuid:single:standard
 
 USES=			cmake shebangfix
 DISTNAME=		task-${PORTVERSION}
@@ -34,13 +35,6 @@ SHEBANG_FILES=		scripts/*/*.pl
 			doc/rc/refresh
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
-
-post-patch:
-	# Fix ambiguity with OSSP-UUID object name
-	${REINPLACE_CMD} -e 's|uuid ())|make_uuid ())|' \
-		${WRKSRC}/src/Task.cpp \
-		${WRKSRC}/src/commands/CmdDuplicate.cpp \
-		${WRKSRC}/src/recur.cpp
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/task

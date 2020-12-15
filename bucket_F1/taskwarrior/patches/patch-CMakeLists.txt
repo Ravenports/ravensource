@@ -20,7 +20,7 @@
  SET (TASK_BINDIR  bin            CACHE STRING "Installation directory for the binary")
  
  if (USE_GNUTLS)
-@@ -87,12 +87,12 @@ check_struct_has_member ("struct tm" tm_
+@@ -87,10 +87,10 @@ check_struct_has_member ("struct tm" tm_
  check_struct_has_member ("struct stat" st_birthtime "sys/types.h;sys/stat.h" HAVE_ST_BIRTHTIME)
  
  message ("-- Looking for libuuid")
@@ -29,14 +29,10 @@
    # Apple and FreeBSD include the uuid functions in their libc, rather than libuuid
    check_function_exists (uuid_unparse_lower HAVE_UUID_UNPARSE_LOWER)
 -else (DARWIN OR FREEBSD OR OPENBSD)
--  find_path    (UUID_INCLUDE_DIR   uuid/uuid.h)
--  find_library (UUID_LIBRARY NAMES uuid)
 +else (0)
-+  find_path    (UUID_INCLUDE_DIR   ossp/uuid++.hh)
-+  find_library (UUID_LIBRARY NAMES ossp-uuid++)
+   find_path    (UUID_INCLUDE_DIR   uuid/uuid.h)
+   find_library (UUID_LIBRARY NAMES uuid)
    if (UUID_INCLUDE_DIR AND UUID_LIBRARY)
-     set (TASK_INCLUDE_DIRS ${TASK_INCLUDE_DIRS} ${UUID_INCLUDE_DIR})
-     set (TASK_LIBRARIES    ${TASK_LIBRARIES}    ${UUID_LIBRARY})
 @@ -103,7 +103,7 @@ else (DARWIN OR FREEBSD OR OPENBSD)
    else (UUID_INCLUDE_DIR AND UUID_LIBRARY)
      message (FATAL_ERROR "-- libuuid not found.")
