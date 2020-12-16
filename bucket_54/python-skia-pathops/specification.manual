@@ -3,3 +3,8 @@ BUILDRUN_DEPENDS=	python-setuptools-scm:single:python_used
 			python-Cython:single:python_used
 MAKE_ENV=		BUILD_SKIA_FROM_SOURCE=0
 			SKIA_LIBRARY_DIR={{LOCALBASE}}/lib
+
+# authors broke extra skia
+post-patch:
+	${REINPLACE_CMD} -E -e 's|^(skia_builder_dir) = .*|\1 = "${PREFIX}/include"|'\
+		${WRKSRC}/setup.py
