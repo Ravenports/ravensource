@@ -1,4 +1,4 @@
---- locale/src/locale.cc.orig	2020-06-24 09:40:46 UTC
+--- locale/src/locale.cc.orig	2020-12-09 10:17:13 UTC
 +++ locale/src/locale.cc
 @@ -44,6 +44,9 @@ namespace leatherman { namespace locale
              gen.add_messages_domain(domain);
