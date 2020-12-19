@@ -1,7 +1,7 @@
-DEF[PORTVERSION]=	2.65.3
+DEF[PORTVERSION]=	2.68.0
 DEF[FOLDER]=		${PORTVERSION:R}
 DEF[SOVERSION]=		1.3.0
-DEF[API]=		2.66
+DEF[API]=		2.68
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		glibmm
@@ -32,16 +32,9 @@ FPC_EQUIVALENT=		devel/glibmm
 
 BUILDRUN_DEPENDS=	libsigcxx:primary:standard
 
-USES=			gmake gettext-tools libtool perl:build pkgconfig
+USES=			gmake gettext-tools perl:build pkgconfig meson
 GNOME_COMPONENTS=	glib
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-documentation
-INSTALL_TARGET=		install-strip
-INSTALL_REQ_TOOLCHAIN=	yes
+MESON_ARGS=		-Dbuild-documentation=false
+			-Dbuild-examples=false
 PLIST_SUB=		VERSION="${API}"
 SOVERSION=		${SOVERSION}
-
-post-patch:
-.for d in docs examples tests
-	${REINPLACE_CMD} -e '/^SUBDIRS = /s/${d}//' ${WRKSRC}/Makefile.in
-.endfor
