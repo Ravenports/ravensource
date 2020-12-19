@@ -1,4 +1,4 @@
---- lib/chunkio/deps/crc32/crc32.c.orig	2020-11-24 18:24:33 UTC
+--- lib/chunkio/deps/crc32/crc32.c.orig	2020-12-18 00:40:07 UTC
 +++ lib/chunkio/deps/crc32/crc32.c
 @@ -31,7 +31,7 @@
  #  define htole16(x) (x)
