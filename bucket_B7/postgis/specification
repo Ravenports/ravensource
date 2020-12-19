@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.0.3
+DEF[PORTVERSION]=	3.1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		postgis
@@ -31,6 +31,7 @@ BUILDRUN_DEPENDS=	pcre:shared:standard
 			geos:single:standard
 			gdal:single:standard
 			json-c:primary:standard
+			protobuf-c:single:standard
 
 USES=			gmake iconv libtool perl:build pkgconfig
 			shebangfix gettext-tools gettext-runtime
@@ -43,6 +44,7 @@ CONFIGURE_ARGS=		{{ICONV_CONFIGURE_BASE}}
 			--with-raster
 			--with-address-standardizer
 			--with-gui
+INSTALL_REQ_TOOLCHAIN=	yes
 PLIST_SUB=		VERSION=${PORTVERSION}
 			XDOTY=${PORTVERSION:R}
 			X=${PORTVERSION:R:R}
