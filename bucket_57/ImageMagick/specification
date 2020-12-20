@@ -1,5 +1,7 @@
 DEF[VERSION]=		7.0.10
-DEF[PORTVERSION]=	${VERSION}-51
+DEF[PORTVERSION]=	${VERSION}-52
+# DEF[RELEASE_TAG]=	${PORVERSION}
+DEF[RELEASE_TAG]=	1713470
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ImageMagick
@@ -12,10 +14,14 @@ HOMEPAGE=		https://www.imagemagick.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://www.imagemagick.org/download/
-			https://www.imagemagick.org/download/legacy/
-			https://ftp.surfnet.nl/pub/ImageMagick/
-DISTFILE[1]=		ImageMagick-${PORTVERSION}.tar.xz:main
+# #			switch to github because upstream only saves the latest dist file
+# #			and the port fails to fetch after every release
+# SITES[main]=		https://www.imagemagick.org/download/
+# #			https://www.imagemagick.org/download/legacy/
+# #			https://ftp.surfnet.nl/pub/ImageMagick/
+# DISTFILE[1]=		ImageMagick-${PORTVERSION}.tar.xz:main
+SITES[main]=		GITHUB/ImageMagick:ImageMagick:${RELEASE_TAG}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete primary docs
 SPKGS[x11]=		complete primary docs
