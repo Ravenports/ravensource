@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.3.1
+DEF[PORTVERSION]=	3.4.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-Sphinx
@@ -11,7 +11,7 @@ HOMEPAGE=		http://sphinx-doc.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/12/22/f89a67987342e7f8024785536160e5feb3bf458def49e8cf5113c999dd8a
+SITES[main]=		PYPIWHL/b0/3a/91d8be8d7fe00e7e8b8e274c2e83011b5201b776cc04bac7222c97647f68
 DISTFILE[1]=		Sphinx-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
@@ -48,14 +48,14 @@ DISTNAME=		Sphinx-${PORTVERSION}.dist-info
 # colorama (>=0.3.5) ; sys_platform=="win32"
 # sphinxcontrib-websupport ; extra == 'docs'
 # flake8 (>=3.5.0) ; extra == 'lint'
-# flake8-import-order ; extra == 'lint'
+# isort ; extra == 'lint'
 # mypy (>=0.790) ; extra == 'lint'
 # docutils-stubs ; extra == 'lint'
 # pytest ; extra == 'test'
 # pytest-cov ; extra == 'test'
 # html5lib ; extra == 'test'
-# typed-ast ; extra == 'test'
 # cython ; extra == 'test'
+# typed-ast ; (python_version < "3.8") and extra == 'test'
 
 [PY38].USES_ON=				python:py38,wheel
 [PY38].RUN_DEPENDS_ON=			python-sphinxcontrib-applehelp:single:py38
