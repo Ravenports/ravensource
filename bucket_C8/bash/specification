@@ -1,9 +1,7 @@
 DEF[PORTVERSION]=	5.1
-# DEF[PATCHLEVEL]=	18
-# DEF[PATCHFILES]=	2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
-DEF[PATCHLEVEL]=	0
-# DEF[VERSION]=		${PORTVERSION}.${PATCHLEVEL}
-DEF[VERSION]=		${PORTVERSION}
+DEF[PATCHLEVEL]=	4
+DEF[PATCHFILES]=	2 3 4 5
+DEF[VERSION]=		${PORTVERSION}.p${PATCHLEVEL}
 DEF[STANDARD_PATH]=	/sbin:/bin:/usr/sbin:/usr/bin
 # ----------------------------------------------------------------------------
 
@@ -20,8 +18,10 @@ DOWNLOAD_GROUPS=	main patches
 SITES[main]=		GNU/bash
 SITES[patches]=		GNU/bash/bash-${PORTVERSION}-patches
 DISTFILE[1]=		bash-${PORTVERSION}.tar.gz:main
-# DISTFILE[2]=		bash50-001:patches
-# DISTFILE[3]=		bash50-002:patches
+DISTFILE[2]=		bash51-001:patches
+DISTFILE[3]=		bash51-002:patches
+DISTFILE[4]=		bash51-003:patches
+DISTFILE[5]=		bash51-004:patches
 DIST_SUBDIR=		bash
 
 SPKGS[standard]=	complete primary nls docs
@@ -41,7 +41,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		shells/bash
 
-# PATCHFILES=		${PATCHFILES}
+PATCHFILES=		${PATCHFILES}
 
 # readline is bundled and linked statically
 
