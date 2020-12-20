@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(ZLIB_VERSION)
+DEF[SOVERSION]=		1.2.11
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		zlib
@@ -29,6 +30,7 @@ CPE_VENDOR=		gnu
 MUST_CONFIGURE=		yes
 CONFIGURE_ENV=		prefix="{{PREFIX}}"
 			cflags="{{CFLAGS}}"
+SOVERSION=		${SOVERSION}
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libz.${LIBEXT}
