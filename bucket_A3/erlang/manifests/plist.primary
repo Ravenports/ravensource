@@ -661,6 +661,7 @@ lib/erlang/lib/common_test-%%COMMTEST_DOC_VSN%%/doc/html/why_test_chapter.html
 lib/erlang/lib/common_test-%%COMMTEST_DOC_VSN%%/doc/html/write_test_chapter.html
 lib/erlang/lib/common_test-%%COMMTEST_DOC_VSN%%/doc/pdf/common_test-%%COMMTEST_DOC_VSN%%.pdf
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/doc/html/ct_property_test_chapter.html
+lib/erlang/lib/common_test-%%COMMTEST_VSN%%/doc/html/ct_suite.html
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/ebin/common_test.app
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/ebin/common_test.appup
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/ebin/ct.beam
@@ -692,6 +693,7 @@ lib/erlang/lib/common_test-%%COMMTEST_VSN%%/ebin/ct_run.beam
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/ebin/ct_slave.beam
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/ebin/ct_snmp.beam
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/ebin/ct_ssh.beam
+lib/erlang/lib/common_test-%%COMMTEST_VSN%%/ebin/ct_suite.beam
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/ebin/ct_telnet.beam
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/ebin/ct_telnet_client.beam
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/ebin/ct_testspec.beam
@@ -745,6 +747,7 @@ lib/erlang/lib/common_test-%%COMMTEST_VSN%%/src/ct_run.erl
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/src/ct_slave.erl
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/src/ct_snmp.erl
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/src/ct_ssh.erl
+lib/erlang/lib/common_test-%%COMMTEST_VSN%%/src/ct_suite.erl
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/src/ct_telnet.erl
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/src/ct_telnet_client.erl
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/src/ct_testspec.erl
@@ -3772,6 +3775,7 @@ lib/erlang/lib/ssl-%%SSL_DOC_VSN%%/doc/html/using_ssl.html
 lib/erlang/lib/ssl-%%SSL_DOC_VSN%%/doc/pdf/ssl-%%SSL_DOC_VSN%%.pdf
 lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/dtls_connection.beam
 lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/dtls_connection_sup.beam
+lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/dtls_gen_connection.beam
 lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/dtls_handshake.beam
 lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/dtls_listener_sup.beam
 lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/dtls_packet_demux.beam
@@ -3793,7 +3797,6 @@ lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/ssl_certificate.beam
 lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/ssl_cipher.beam
 lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/ssl_cipher_format.beam
 lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/ssl_config.beam
-lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/ssl_connection.beam
 lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/ssl_connection_sup.beam
 lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/ssl_crl.beam
 lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/ssl_crl_cache.beam
@@ -3803,6 +3806,7 @@ lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/ssl_dh_groups.beam
 lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/ssl_dist_admin_sup.beam
 lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/ssl_dist_connection_sup.beam
 lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/ssl_dist_sup.beam
+lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/ssl_gen_statem.beam
 lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/ssl_handshake.beam
 lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/ssl_listen_tracker_sup.beam
 lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/ssl_logger.beam
@@ -3823,6 +3827,8 @@ lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/tls_client_ticket_store.beam
 lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/tls_connection.beam
 lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/tls_connection_1_3.beam
 lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/tls_connection_sup.beam
+lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/tls_dtls_connection.beam
+lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/tls_gen_connection.beam
 lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/tls_handshake.beam
 lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/tls_handshake_1_3.beam
 lib/erlang/lib/ssl-%%SSL_VSN%%/ebin/tls_record.beam
@@ -3848,6 +3854,7 @@ lib/erlang/lib/ssl-%%SSL_VSN%%/examples/src/client_server.erl
 lib/erlang/lib/ssl-%%SSL_VSN%%/src/dtls_connection.erl
 lib/erlang/lib/ssl-%%SSL_VSN%%/src/dtls_connection.hrl
 lib/erlang/lib/ssl-%%SSL_VSN%%/src/dtls_connection_sup.erl
+lib/erlang/lib/ssl-%%SSL_VSN%%/src/dtls_gen_connection.erl
 lib/erlang/lib/ssl-%%SSL_VSN%%/src/dtls_handshake.erl
 lib/erlang/lib/ssl-%%SSL_VSN%%/src/dtls_handshake.hrl
 lib/erlang/lib/ssl-%%SSL_VSN%%/src/dtls_listener_sup.erl
@@ -3872,7 +3879,6 @@ lib/erlang/lib/ssl-%%SSL_VSN%%/src/ssl_cipher.erl
 lib/erlang/lib/ssl-%%SSL_VSN%%/src/ssl_cipher.hrl
 lib/erlang/lib/ssl-%%SSL_VSN%%/src/ssl_cipher_format.erl
 lib/erlang/lib/ssl-%%SSL_VSN%%/src/ssl_config.erl
-lib/erlang/lib/ssl-%%SSL_VSN%%/src/ssl_connection.erl
 lib/erlang/lib/ssl-%%SSL_VSN%%/src/ssl_connection.hrl
 lib/erlang/lib/ssl-%%SSL_VSN%%/src/ssl_connection_sup.erl
 lib/erlang/lib/ssl-%%SSL_VSN%%/src/ssl_crl.erl
@@ -3883,6 +3889,7 @@ lib/erlang/lib/ssl-%%SSL_VSN%%/src/ssl_dh_groups.erl
 lib/erlang/lib/ssl-%%SSL_VSN%%/src/ssl_dist_admin_sup.erl
 lib/erlang/lib/ssl-%%SSL_VSN%%/src/ssl_dist_connection_sup.erl
 lib/erlang/lib/ssl-%%SSL_VSN%%/src/ssl_dist_sup.erl
+lib/erlang/lib/ssl-%%SSL_VSN%%/src/ssl_gen_statem.erl
 lib/erlang/lib/ssl-%%SSL_VSN%%/src/ssl_handshake.erl
 lib/erlang/lib/ssl-%%SSL_VSN%%/src/ssl_handshake.hrl
 lib/erlang/lib/ssl-%%SSL_VSN%%/src/ssl_internal.hrl
@@ -3908,6 +3915,8 @@ lib/erlang/lib/ssl-%%SSL_VSN%%/src/tls_connection.erl
 lib/erlang/lib/ssl-%%SSL_VSN%%/src/tls_connection.hrl
 lib/erlang/lib/ssl-%%SSL_VSN%%/src/tls_connection_1_3.erl
 lib/erlang/lib/ssl-%%SSL_VSN%%/src/tls_connection_sup.erl
+lib/erlang/lib/ssl-%%SSL_VSN%%/src/tls_dtls_connection.erl
+lib/erlang/lib/ssl-%%SSL_VSN%%/src/tls_gen_connection.erl
 lib/erlang/lib/ssl-%%SSL_VSN%%/src/tls_handshake.erl
 lib/erlang/lib/ssl-%%SSL_VSN%%/src/tls_handshake.hrl
 lib/erlang/lib/ssl-%%SSL_VSN%%/src/tls_handshake_1_3.erl
@@ -4056,6 +4065,7 @@ lib/erlang/lib/stdlib-%%STDLIB_DOC_VSN%%/doc/html/timer.html
 lib/erlang/lib/stdlib-%%STDLIB_DOC_VSN%%/doc/html/unicode.html
 lib/erlang/lib/stdlib-%%STDLIB_DOC_VSN%%/doc/html/unicode_usage.html
 lib/erlang/lib/stdlib-%%STDLIB_DOC_VSN%%/doc/html/uri_string.html
+lib/erlang/lib/stdlib-%%STDLIB_DOC_VSN%%/doc/html/uri_string_usage.html
 lib/erlang/lib/stdlib-%%STDLIB_DOC_VSN%%/doc/html/users_guide.html
 lib/erlang/lib/stdlib-%%STDLIB_DOC_VSN%%/doc/html/win32reg.html
 lib/erlang/lib/stdlib-%%STDLIB_DOC_VSN%%/doc/html/zip.html
@@ -5636,6 +5646,7 @@ lib/erlang/man/man3/ct_rpc.3
 lib/erlang/man/man3/ct_slave.3
 lib/erlang/man/man3/ct_snmp.3
 lib/erlang/man/man3/ct_ssh.3
+lib/erlang/man/man3/ct_suite.3
 lib/erlang/man/man3/ct_telnet.3
 lib/erlang/man/man3/ct_testspec.3
 lib/erlang/man/man3/dbg.3
