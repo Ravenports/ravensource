@@ -1,4 +1,4 @@
---- psutil/_psutil_bsd.c.orig	2020-10-23 17:57:58 UTC
+--- psutil/_psutil_bsd.c.orig	2020-12-18 23:38:52 UTC
 +++ psutil/_psutil_bsd.c
 @@ -19,6 +19,7 @@
      #define _KMEMUSER
@@ -94,7 +94,7 @@
      p = kvm_getprocs(kd, KERN_PROC_PID, pid, &cnt);
  #elif defined(PSUTIL_OPENBSD)
      p = kvm_getprocs(kd, KERN_PROC_PID, pid, sizeof(*p), &cnt);
-@@ -460,6 +478,8 @@ psutil_proc_environ(PyObject *self, PyOb
+@@ -455,6 +473,8 @@ psutil_proc_environ(PyObject *self, PyOb
  #else
      if ((p)->ki_flag & P_SYSTEM) {
  #endif
