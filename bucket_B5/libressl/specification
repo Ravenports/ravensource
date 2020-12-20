@@ -84,6 +84,11 @@ post-install-STATIC-OFF:
 		${BUILD_WRKSRC}/libtls_pic.a \
 		${STAGEDIR}${PREFIX}/${NAMEBASE}/lib/
 
+post-configure:
+	# fix libtool for libtls.la
+	${SED} -i.tls -e '/lnkscript/ s|.output_objdir/||' \
+		${WRKSRC}/libtool
+
 post-install-dragonfly:
 	${INSTALL_SCRIPT} ${WRKSRC}/apps/nc/nc ${STAGEDIR}${BASE}/bin/nc
 
