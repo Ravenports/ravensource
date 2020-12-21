@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	3.6.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		sassc
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	Libsass command line driver
+HOMEPAGE=		https://github.com/sass/sassc/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/sass:sassc:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		textproc/sassc
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+BUILDRUN_DEPENDS=	libsass:single:standard
+
+USES=			autoreconf gmake libtool
+MUST_CONFIGURE=		gnu
+MAKEFILE=		GNUmakefile
+
+post-patch:
+	${ECHO_CMD} "${ECHO_CMD} \"${PORTVERSION}\"" > ${WRKSRC}/version.sh
