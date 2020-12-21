@@ -1,0 +1,87 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(GTK4_PORT_VERSION)
+DEF[GTK_VERSION]=	EXTRACT_INFO(GTK4_VERSION)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gtk4
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_toolkits
+VARIANTS=		standard
+SDESC[standard]=	Gimp Toolkit for X11 GUI
+HOMEPAGE=		https://www.gtk.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/gtk/${PORTVERSION:R}
+DISTFILE[1]=		gtk-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome4
+
+SPKGS[standard]=	complete primary nls
+
+# TODO: fix CLOUDPRINT option
+OPTIONS_AVAILABLE=	CUPS CLOUDPRINT COLORD BROADWAY FFMPEG
+OPTIONS_STANDARD=	CUPS COLORD BROADWAY FFMPEG
+OPT_ON[all]=		BROADWAY FFMPEG
+
+FPC_EQUIVALENT=		x11-toolkits/gtk40
+
+BUILD_DEPENDS=		autoselect-python:single:standard
+			sassc:single:standard
+			git:primary:lite
+BUILDRUN_DEPENDS=	libepoxy:single:standard
+			libxkbcommon:single:standard
+			graphene:primary:standard
+
+USES=			gettext-tools gmake pkgconfig gnome-icons:primary
+			schemas:primary perl:build python:build
+			cpe meson
+GNOME_COMPONENTS=	atk cairo gdkpixbuf pango introspection
+XORG_COMPONENTS=	xext x11 xinerama xi xrandr xcursor xfixes
+			xdamage xcomposite
+CPE_VENDOR=		gtk
+CPE_PRODUCT=		gtk\+
+MESON_ARGS=		-Dx11-backend=true
+			-Dwayland-backend=false
+			-Dbuild-examples=false
+			-Dbuild-tests=false
+			-Ddemos=false
+			-Dmedia-gstreamer=disabled
+			-Dvulkan=disabled
+			-Dgtk_doc=false
+PLIST_SUB=		GTK_VERSION=${GTK_VERSION}
+INSTALL_TARGET=		install-strip
+DISTNAME=		gtk-${PORTVERSION}
+
+GLIB_SCHEMAS=		org.gtk.gtk4.Settings.EmojiChooser.gschema.xml
+			org.gtk.gtk4.Settings.ColorChooser.gschema.xml
+			org.gtk.gtk4.Settings.Debug.gschema.xml
+			org.gtk.gtk4.Settings.FileChooser.gschema.xml
+
+VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
+			LDFLAGS=-lintl
+			CPPFLAGS=-DO_CLOEXEC=0
+
+[BROADWAY].DESCRIPTION=			Backend for HTML5 and websocket support
+[CLOUDPRINT].DESCRIPTION=		Support for printing to cloud
+[FFMPEG].DESCRIPTION=			Build the ffmpeg media backend
+
+[FFMPEG].CONFIGURE_ARGS_ON=		-Dmedia-ffmpeg=enabled
+[FFMPEG].CONFIGURE_ARGS_OFF=		-Dmedia-ffmpeg=disabled
+[FFMPEG].BUILDRUN_DEPENDS_ON=		ffmpeg:primary:standard
+
+[CLOUDPRINT].CONFIGURE_ARGS_ON=		-Dprint-cloudprint=enabled
+[CLOUDPRINT].CONFIGURE_ARGS_OFF=	-Dprint-cloudprint=disabled
+[CLOUDPRINT].BUILDRUN_DEPENDS_ON=	librest:single:standard
+					json-glib:primary:standard
+
+[CUPS].CONFIGURE_ARGS_ON=		-Dprint-cups=enabled
+[CUPS].CONFIGURE_ARGS_OFF=		-Dprint-cups=disabled
+[CUPS].BUILDRUN_DEPENDS_ON=		cups:primary:standard
+
+[BROADWAY].CONFIGURE_ARGS_ON=		-Dbroadway-backend=true
+[BROADWAY].CONFIGURE_ARGS_OFF=		-Dbroadway-backend=false
+
+
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gtk-4.0/modules
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gtk-4.0/${GTK_VERSION}/engines
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gtk-4.0/${GTK_VERSION}/loaders
