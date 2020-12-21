@@ -1,6 +1,6 @@
---- src/egl/main/eglglobals.c.orig	2020-10-14 18:34:44 UTC
+--- src/egl/main/eglglobals.c.orig	2020-12-16 18:43:56 UTC
 +++ src/egl/main/eglglobals.c
-@@ -139,7 +139,7 @@ _eglPointerIsDereferencable(void *p)
+@@ -135,7 +135,7 @@ _eglPointerIsDereferencable(void *p)
  {
     uintptr_t addr = (uintptr_t) p;
     const long page_size = getpagesize();

@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	20.1.10
+DEF[PORTVERSION]=	20.3.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mesa
@@ -51,9 +51,11 @@ BUILD_DEPENDS=		autoselect-python:single:standard
 			libvdpau:single:standard
 			libva:single:standard
 			expat:static:standard
+			Zstandard:static:standard
 BUILDRUN_DEPENDS=	expat:shared:standard
 			zlib:shared:standard
 			libdrm:single:standard
+			Zstandard:shared:standard
 EXRUN[drivers]=		mesa:libs:standard
 			libelf:single:standard
 
@@ -71,14 +73,15 @@ SOL_FUNCTIONS=		dirfd:src/util/disk_cache.c
 			strnlen:src/mesa/main/errors.c
 			strndup:src/loader/loader.c
 			strndup:src/egl/drivers/dri2/platform_x11.c
-MESON_ARGS=		-Dplatforms=x11,drm{{WAYPLAT}}
+MESON_ARGS=		-Dplatforms=x11{{WAYPLAT}}
+			-Dzstd=enabled
 			-Ddri3=true
 			-Ddri-drivers={{DRI_DRIVERS:tW:tl:C/[[:space:]]/,/g}}
 			-Dgallium-drivers={{GALLIUM_DRIVERS:tW:tl:C/[[:space:]]/,/g}}
-			-Dgallium-vdpau=true
+			-Dgallium-vdpau=enabled
 			-Dosmesa=gallium
 			-Dlibunwind=false
-			-Dgles1=false
+			-Dgles1=disabled
 			-Dvulkan-drivers={{VULKAN_DRIVERS:tW:tl:C/[[:space:]]/,/g}}
 
 # There are issues that need to be fixed to use TLS model "initial-exec"
@@ -98,7 +101,6 @@ SHEBANG_FILES=		src/gallium/*/*/*.py
 			src/gallium/drivers/svga/svgadump/svga_dump.py
 			src/mapi/glapi/gen/*.py
 			src/mapi/mapi_abi.py
-			src/util/xmlpool/gen_xmlpool.py
 			src/mesa/main/get_*.py
 			src/util/format_srgb.py
 			src/amd/*/*.py
@@ -131,8 +133,8 @@ VAR_OPSYS[sunos]=	CPPFLAGS=-D__EXTENSIONS__=1
 [LLVMPIPE].MAKEFILE_ON=			GALLIUM_LLVM_DRIVERS+=R600
 					GALLIUM_LLVM_DRIVERS+=RADEONSI
 					MESON_ARGS+=-Dllvm=true
-					MESON_ARGS+=-Dgallium-xvmc=true
-					MESON_ARGS+=-Dgallium-va=true
+					MESON_ARGS+=-Dgallium-xvmc=enabled
+					MESON_ARGS+=-Dgallium-va=enabled
 					MESON_ARGS+=-Dgallium-opencl=icd
 [LLVMPIPE].MAKEFILE_OFF=		MESON_ARGS+=-Dgallium-opencl=disabled
 
@@ -150,7 +152,7 @@ VAR_OPSYS[sunos]=	CPPFLAGS=-D__EXTENSIONS__=1
 [WAYLAND].BUILD_DEPENDS_ON=		wayland-protocols:single:standard
 					python-Mako:single:python_default
 [WAYLAND].BUILDRUN_DEPENDS_ON=		wayland:primary:standard
-[WAYLAND].MAKEFILE_ON=			WAYPLAT=,surfaceless,wayland
+[WAYLAND].MAKEFILE_ON=			WAYPLAT=,wayland
 					VULKAN_DRIVERS+=INTEL
 					VULKAN_DRIVERS_X86+=RADEON
 

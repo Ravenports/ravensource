@@ -1,10 +1,10 @@
 - Define CLOCK_MONOTONIC_RAW if missing
 
---- src/amd/vulkan/radv_device.c.orig	2020-10-14 18:34:43 UTC
+--- src/amd/vulkan/radv_device.c.orig	2020-12-16 18:43:56 UTC
 +++ src/amd/vulkan/radv_device.c
-@@ -83,6 +83,14 @@ static
- void radv_destroy_semaphore_part(struct radv_device *device,
-                                  struct radv_semaphore_part *part);
+@@ -105,6 +105,14 @@ static uint64_t radv_get_absolute_timeou
+ 	return current_time + timeout;
+ }
  
 +#ifndef CLOCK_MONOTONIC_RAW
 +# ifdef CLOCK_MONOTONIC_FAST

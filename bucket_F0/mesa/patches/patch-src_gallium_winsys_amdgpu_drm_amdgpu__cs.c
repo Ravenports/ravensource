@@ -1,4 +1,4 @@
---- src/gallium/winsys/amdgpu/drm/amdgpu_cs.c.orig	2020-10-14 18:34:48 UTC
+--- src/gallium/winsys/amdgpu/drm/amdgpu_cs.c.orig	2020-12-16 18:43:56 UTC
 +++ src/gallium/winsys/amdgpu/drm/amdgpu_cs.c
 @@ -33,6 +33,10 @@
  
@@ -10,4 +10,4 @@
 +
  DEBUG_GET_ONCE_BOOL_OPTION(noop, "RADEON_NOOP", false)
  
- #ifndef AMDGPU_IB_FLAG_RESET_GDS_MAX_WAVE_ID
+ /* FENCES */
