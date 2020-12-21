@@ -1,6 +1,6 @@
 Daemontools program locations
 
---- lib/puppet/provider/service/daemontools.rb.orig	2020-11-04 12:12:18 UTC
+--- lib/puppet/provider/service/daemontools.rb.orig	2020-12-10 16:48:47 UTC
 +++ lib/puppet/provider/service/daemontools.rb
 @@ -39,7 +39,7 @@ Puppet::Type.type(:service).provide :dae
  

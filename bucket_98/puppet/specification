@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	7.0.0
+DEF[PORTVERSION]=	7.1.0
 DEF[ETCDIR]=		{{PREFIX}}/etc/puppet
 DEF[RUBYDEF]=		EXTRACT_VERSION(RUBY_DEFAULT)
 DEF[RV]=		v${RUBYDEF:S/.//}
@@ -26,17 +26,18 @@ LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		solo
 
-FPC_EQUIVALENT=		sysutils/puppet6
+FPC_EQUIVALENT=		sysutils/puppet7
 
 BUILDRUN_DEPENDS=	ruby-facter:single:${RV}
 			ruby-hiera:single:${RV}
-			ruby-json:single:${RV}
 			ruby-semantic_puppet:single:${RV}
+			ruby-fast_gettext:single:${RV}
+			ruby-locale:single:${RV}
+			ruby-multi_json:single:${RV}
+			ruby-puppet-resource_api:single:${RV}
 			ruby-concurrent-ruby:single:${RV}
 			ruby-deep_merge:single:${RV}
-RUN_DEPENDS=		ruby-gettext-setup:single:${RV}
-			ruby-hocon:single:${RV}
-			ruby-ruby-augeas:single:${RV}
+			ruby-scanf:single:${RV}
 
 USES=			cpe ruby:${RV}
 CPE_VENDOR=		puppetlabs
