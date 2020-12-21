@@ -1,4 +1,4 @@
---- solenv/gbuild/platform/unxgcc.mk.orig	2020-09-30 15:54:35 UTC
+--- solenv/gbuild/platform/unxgcc.mk.orig	2020-12-09 18:56:14 UTC
 +++ solenv/gbuild/platform/unxgcc.mk
 @@ -52,8 +52,7 @@ endif
  gb_CXXFLAGS := \

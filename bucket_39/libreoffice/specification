@@ -1,9 +1,11 @@
-DEF[PORTVERSION]=	7.0.2.2
+DEF[PORTVERSION]=	7.0.4.2
 DEF[CXXWARN]=		-Wno-deprecated-declarations -Wno-undef Wno-unused-parameter -Wno-unused-function -Wno-unused-local-typedefs -Wno-unused-variable -Wno-ignored-qualifiers -Woverloaded-virtual
 DEF[PROGRAM_BINARIES]=	oosplash regmerge regview ui-previewer uri-encode xpdfimport opencltest
 DEF[OPENSTTF]=		884ed41809687c3e168fc7c19b16585149ff058eca79acbf3ee784f6630704cc-opens___.ttf
 DEF[DTOAVER]=		20180411
-DEF[SKIAM84]=		c1baf6e1c2a5454148adb516f0f833483b5a0353
+DEF[SKIA_HASH]=		e684c6daef6bfb774a325a069eda1f76ca6ac26c
+DEF[SKIA_PREFIX]=	m85
+DEF[SKIA]=		${SKIA_PREFIX}-${SKIA_HASH}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libreoffice
@@ -24,7 +26,7 @@ DISTFILE[1]=		libreoffice-${PORTVERSION}.tar.xz:main
 DISTFILE[2]=		libreoffice-help-${PORTVERSION}.tar.xz:main
 DISTFILE[3]=		${OPENSTTF}:opens
 DISTFILE[4]=		dtoa-${DTOAVER}.tgz:devwww
-DISTFILE[5]=		skia-m84-${SKIAM84}.tar.xz:devwww
+DISTFILE[5]=		skia-${SKIA}.tar.xz:devwww
 DF_INDEX=		1 2 3 4 5
 
 SPKGS[standard]=	complete primary docs
@@ -95,6 +97,7 @@ BUILDRUN_DEPENDS=	serf:single:standard
 			openldap:client:standard
 			libnumbertext:single:standard
 			QR-Code-generator:single:standard
+			neon:primary:standard
 
 BR_DEPS[linux]=		gpgme:cpp:standard
 
@@ -133,6 +136,7 @@ CONFIGURE_ARGS=		--enable-gtk3
 			--with-external-tar="{{DISTDIR}}/{{DIST_SUBDIR}}"
 			--with-gnu-patch="{{LOCALBASE}}/bin/gpatch"
 			--with-parallelism={{MAKE_JOBS_NUMBER}}
+			--with-webdav=neon
 			--with-help
 			--with-system-curl
 			--with-system-cppunit
@@ -171,7 +175,7 @@ post-extract:
 	${MKDIR} ${WRKSRC}/tarballs
 	${LN} -s ${DISTDIR}/${OPENSTTF} ${WRKSRC}/src/
 	${CP} ${DISTDIR}/dtoa-${DTOAVER}.tgz ${WRKSRC}/tarballs
-	${CP} ${DISTDIR}/skia-m84-${SKIAM84}.tar.xz ${WRKSRC}/tarballs
+	${CP} ${DISTDIR}/skia-${SKIA}.tar.xz ${WRKSRC}/tarballs
 
 pre-configure:
 	${TOUCH} ${WRKSRC}/autogen.lastrun

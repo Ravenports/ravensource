@@ -1,6 +1,6 @@
---- shell/source/unix/exec/shellexec.cxx.orig	2020-09-30 15:54:35 UTC
+--- shell/source/unix/exec/shellexec.cxx.orig	2020-12-09 18:56:14 UTC
 +++ shell/source/unix/exec/shellexec.cxx
-@@ -182,7 +182,7 @@ void SAL_CALL ShellExec::execute( const
+@@ -186,7 +186,7 @@ void SAL_CALL ShellExec::execute( const
          aBuffer.append(" --");
  #else
          // Just use xdg-open on non-Mac
