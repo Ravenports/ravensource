@@ -1,0 +1,47 @@
+DEF[PORTVERSION]=	4.0.0
+DEF[SOVERSION]=		0.0.0
+DEF[API_VERSION]=	4.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gtkmm40
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_toolkits
+VARIANTS=		standard
+SDESC[standard]=	C++ interface for popular GUI library gtk+ v4
+HOMEPAGE=		https://www.gtkmm.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/gtkmm/${PORTVERSION:R}
+DISTFILE[1]=		gtkmm-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:single
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"_GTKMM_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gtk/gtkmm.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11-toolkits/gtkmm40
+
+BUILD_DEPENDS=		autoselect-python:single:standard
+BUILDRUN_DEPENDS=	cairomm:single:standard
+			glibmm:single:standard
+			pangomm:single:standard
+			atkmm:single:standard
+			gtk4:primary:standard
+
+USES=			gmake pkgconfig meson
+GNOME_COMPONENTS=	gdkpixbuf
+DISTNAME=		gtkmm-${PORTVERSION}
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+MESON_ARGS=		-Dbuild-documentation=false
+
+PLIST_SUB=		API=${API_VERSION}
+SOVERSION=		${SOVERSION}
