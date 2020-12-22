@@ -1,0 +1,48 @@
+DEF[PORTVERSION]=	0.8.1
+DEF[FOLDER]=		${PORTVERSION:R}
+DEF[SOVERSION]=		0.0.0
+DEF[REST_API]=		0.7
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		rest
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel www
+VARIANTS=		standard
+SDESC[standard]=	Easy access to RESTful web services
+HOMEPAGE=		https://wiki.gnome.org/Projects/Librest
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/rest/${FOLDER}
+DISTFILE[1]=		rest-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary docs examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21:primary
+LICENSE_FILE=		LGPL21:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/rest/rest-main.c
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/librest
+
+BUILDRUN_DEPENDS=	nss:caroot:standard
+			libsoup:gnome:standard
+
+USES=			gmake pkgconfig libtool gtk-doc
+GNOME_COMPONENTS=	glib libxml2 introspection
+SOVERSION=		${SOVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-ca-certificates={{LOCALBASE}}/share/certs/ca-root-nss.crt
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+GTKDOC_OUTPUT_BASEDIR=	rest-${REST_API}
+PLIST_SUB=		API=${REST_API}
+
+post-install:
+	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+	${INSTALL_DATA} ${WRKSRC}/examples/*.c ${STAGEDIR}${STD_EXAMPLESDIR}
