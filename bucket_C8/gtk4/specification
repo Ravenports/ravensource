@@ -33,7 +33,7 @@ BUILDRUN_DEPENDS=	libepoxy:single:standard
 
 USES=			gettext-tools gmake pkgconfig gnome-icons:primary
 			schemas:primary perl:build python:build
-			cpe meson
+			cpe meson gtk-doc
 GNOME_COMPONENTS=	atk cairo gdkpixbuf pango introspection
 XORG_COMPONENTS=	xext x11 xinerama xi xrandr xcursor xfixes
 			xdamage xcomposite
@@ -46,6 +46,8 @@ MESON_ARGS=		-Dx11-backend=true
 			-Ddemos=false
 			-Dmedia-gstreamer=disabled
 			-Dvulkan=disabled
+			-Dman-pages=true
+# #			if gtk_doc is true, we need mandoc
 			-Dgtk_doc=false
 PLIST_SUB=		GTK_VERSION=${GTK_VERSION}
 INSTALL_TARGET=		install-strip
@@ -80,6 +82,9 @@ VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 [BROADWAY].CONFIGURE_ARGS_ON=		-Dbroadway-backend=true
 [BROADWAY].CONFIGURE_ARGS_OFF=		-Dbroadway-backend=false
 
+post-patch:
+	${REINPLACE_CMD} -e 's|/docbook.sourceforge.net/|/cdn.docbook.org/|'\
+		${WRKSRC}/docs/reference/gtk/meson.build
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gtk-4.0/modules
