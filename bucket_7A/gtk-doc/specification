@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	1.32
+DEF[PORTVERSION]=	1.33.1
+DEF[DL_FOLDER]=		${PORTVERSION:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gtk-doc
@@ -10,7 +11,7 @@ HOMEPAGE=		https://www.gtk.org
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GNOME/gtk-doc/${PORTVERSION}
+SITES[main]=		GNOME/gtk-doc/${DL_FOLDER}
 DISTFILE[1]=		gtk-doc-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	single
@@ -28,14 +29,10 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		textproc/gtk-doc
 
 BUILD_DEPENDS=		itstool:single:standard
-BUILDRUN_DEPENDS=	jade:primary:standard
-			docbook-xml:single:standard
+BUILDRUN_DEPENDS=	docbook-xml:single:standard
 			docbook-xsl:primary:standard
-			rarian:single:standard
-RUN_DEPENDS=		python-six:single:python_default
-			python-Pygments:single:python_default
 
-USES=			gmake gettext-tools perl pkgconfig python
+USES=			gmake gettext-tools perl pkgconfig python:build
 GNOME_COMPONENTS=	libxslt
 MUST_CONFIGURE=		gnu
 CONFIGURE_ENV=		GTKDOC="false"
@@ -48,7 +45,7 @@ post-patch:
 		${SED} '/configure\.ac/d' | ${XARGS} \
 		${SED} -i'' -e 's|/docbook.sourceforge.net/|/cdn.docbook.org/|'
 	# itstool segfaults on french and chinese documentation
-	${REINPLACE_CMD} \
+	# apparently not anymore. Comment out ${REINPLACE_CMD} \
 		-e '/HELP_LINGUAS =/ s/ fr / /' \
 		-e '/HELP_LINGUAS =/ s/ zh_CN//' \
 		${WRKSRC}/help/manual/Makefile.in
