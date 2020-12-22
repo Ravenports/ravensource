@@ -1,6 +1,6 @@
---- src/filesystem/unix/SDL_sysfilesystem.c.orig	2013-10-24 04:05:29.000000000 +0000
+--- src/filesystem/unix/SDL_sysfilesystem.c.orig	2020-12-21 17:44:36 UTC
 +++ src/filesystem/unix/SDL_sysfilesystem.c
-@@ -79,7 +79,7 @@ SDL_GetBasePath(void)
+@@ -83,7 +83,7 @@ SDL_GetBasePath(void)
  {
      char *retval = NULL;
  
