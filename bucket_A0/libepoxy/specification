@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.5.4
+DEF[PORTVERSION]=	1.5.5
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libepoxy
@@ -24,9 +24,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/libepoxy
 
+BUILD_DEPENDS=		autoselect-python:single:standard
 B_DEPS[sunos]=		libbsd4sol:single:standard
 
-USES=			mesa meson pkgconfig
+USES=			mesa meson pkgconfig python:build
 XORG_COMPONENTS=	x11
 MESON_ARGS=		-Denable-egl=yes
 

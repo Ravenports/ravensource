@@ -1,4 +1,4 @@
---- test/dlwrap.c.orig	2019-11-25 22:44:12 UTC
+--- test/dlwrap.c.orig	2020-12-22 14:41:49 UTC
 +++ test/dlwrap.c
 @@ -34,6 +34,8 @@
  
