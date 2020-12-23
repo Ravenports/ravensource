@@ -1,6 +1,6 @@
---- gtk/gtkbuilderparser.c.dist	2010-06-08 14:11:06.000000000 -0500
-+++ gtk/gtkbuilderparser.c	2010-06-08 14:11:33.000000000 -0500
-@@ -1051,7 +1051,7 @@
+--- gtk/gtkbuilderparser.c.orig	2020-12-18 05:29:40 UTC
++++ gtk/gtkbuilderparser.c
+@@ -1051,7 +1051,7 @@ end_element (GMarkupParseContext *contex
  /* Called for character data */
  /* text is not nul-terminated */
  static void
@@ -9,7 +9,7 @@
        const gchar         *text,
        gsize                text_len,
        gpointer             user_data,
-@@ -1106,7 +1106,7 @@
+@@ -1106,7 +1106,7 @@ free_info (CommonInfo *info)
  static const GMarkupParser parser = {
    start_element,
    end_element,
