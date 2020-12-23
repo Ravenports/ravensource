@@ -1,4 +1,4 @@
---- modules/core/src/system.cpp.orig	2020-10-11 21:26:07 UTC
+--- modules/core/src/system.cpp.orig	2020-12-21 20:01:38 UTC
 +++ modules/core/src/system.cpp
 @@ -114,7 +114,7 @@ void* allocSingletonNewBuffer(size_t siz
  #include <cstdlib>        // std::abort
