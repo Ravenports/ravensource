@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	2.4.1
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		box2d
+VERSION=		${PORTVERSION}
+KEYWORDS=		misc games
+VARIANTS=		standard
+SDESC[standard]=	2D physics engine for games
+HOMEPAGE=		https://box2d.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/erincatto:box2d:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		misc/box2d
+
+USES=			cmake pkgconfig c++:single
+XORG_COMPONENTS=	x11 xrandr xinerama xcursor
+CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
+			-DBOX2D_BUILD_DOCS:BOOL=OFF
+			-DBOX2D_BUILD_TESTBED:BOOL=OFF
+			-DBOX2D_BUILD_UNIT_TESTS:BOOL=OFF
+			-DBOX2D_USER_SETTINGS:BOOL=OFF
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
