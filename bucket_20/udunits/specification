@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.2.27.27
+DEF[PORTVERSION]=	2.2.28
 DEF[SOVERSION]=		0.1.0
 DEF[RELEASE_TAG]=	v${PORTVERSION}
 # ----------------------------------------------------------------------------
@@ -12,8 +12,10 @@ HOMEPAGE=		https://www.unidata.ucar.edu/software/udunits/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/Unidata:UDUNITS-2:${RELEASE_TAG}
-DISTFILE[1]=		generated:main
+# SITES[main]=		GITHUB/Unidata:UDUNITS-2:${RELEASE_TAG}
+# DISTFILE[1]=		generated:main
+SITES[main]=		https://artifacts.unidata.ucar.edu/repository/downloads-udunits/
+DISTFILE[1]=		udunits-${PORTVERSION}-Source.tar.gz:main
 
 SPKGS[standard]=	complete primary docs
 
@@ -30,7 +32,8 @@ FPC_EQUIVALENT=		science/udunits
 BUILD_DEPENDS=		expat:static:standard
 BUILDRUN_DEPENDS=	expat:shared:standard
 
-USES=			autoreconf libtool makeinfo
+# USES=			autoreconf libtool makeinfo
+USES=			libtool makeinfo
 MUST_CONFIGURE=		gnu
 CONFIGURE_ENV=		ac_cv_header_CUnit_CUnit_h=no
 INSTALL_TARGET=		install-strip
@@ -38,6 +41,7 @@ SOVERSION=		${SOVERSION}
 INFO=			primary:udunits2
 			primary:udunits2lib
 			primary:udunits2prog
+DISTNAME=		udunits-${PORTVERSION}-Source
 CFLAGS=			-std=c17
 
 post-install:

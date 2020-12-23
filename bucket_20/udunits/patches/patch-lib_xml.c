@@ -1,4 +1,4 @@
---- lib/xml.c.orig	2020-11-20 20:55:28 UTC
+--- lib/xml.c.orig	2020-12-07 18:37:03 UTC
 +++ lib/xml.c
 @@ -38,7 +38,8 @@
  #endif
@@ -10,12 +10,12 @@
  #include <dlfcn.h>
  #elif defined(__APPLE__)
  #define _DARWIN_C_SOURCE
-@@ -2135,7 +2136,7 @@ default_udunits2_xml_path()
-     static char absXmlPathname[PATH_MAX];
- 
+@@ -2137,7 +2138,7 @@ default_udunits2_xml_path()
      if (absXmlPathname[0] == 0) {
+         const char* prefix = NULL; // Installation directory
+ 
 -#       if defined(__APPLE__) || defined(__linux__)
 +#       if defined(__APPLE__) || defined(__linux__) || defined(__FreeBSD__) || defined(__DragonFly__)
              Dl_info     info;
-             const char  sep = '/'; ///< Pathname component separator
+             const char  sep = '/'; // Pathname component separator
              char        buf[PATH_MAX];
