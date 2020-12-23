@@ -1,4 +1,4 @@
---- sal/osl/unx/thread.cxx.orig	2020-12-09 18:56:14 UTC
+--- sal/osl/unx/thread.cxx.orig	2020-08-12 13:23:59 UTC
 +++ sal/osl/unx/thread.cxx
 @@ -48,6 +48,14 @@
  #include <sys/syscall.h>
