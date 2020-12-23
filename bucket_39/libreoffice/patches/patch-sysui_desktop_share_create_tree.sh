@@ -1,6 +1,6 @@
---- sysui/desktop/share/create_tree.sh.orig	2020-08-12 13:23:59 UTC
+--- sysui/desktop/share/create_tree.sh.orig	2020-12-17 21:59:38 UTC
 +++ sysui/desktop/share/create_tree.sh
-@@ -58,7 +58,7 @@ test -n "${OFFICE_PREFIX}" && office_pre
+@@ -37,7 +37,7 @@ test -n "${OFFICE_PREFIX}" && office_pre
  office_root=${office_prefix}/${PREFIX}
  
  #this symlink is needed to have the API bootstrap functions running right
@@ -9,7 +9,7 @@
  
  if test "${PREFIX}" != libreoffice${PRODUCTVERSION} -a "${PREFIX}" != libreofficedev${PRODUCTVERSION}  ; then
      # compat symlinks
-@@ -74,7 +74,7 @@ chmod 0644 "${DESTDIR}/${PREFIXDIR}/shar
+@@ -53,7 +53,7 @@ chmod 0644 "${DESTDIR}/${PREFIXDIR}/shar
  
  mkdir -p "${DESTDIR}/${PREFIXDIR}/share/applications"
  for i in `cat launcherlist`; do

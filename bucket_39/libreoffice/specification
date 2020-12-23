@@ -1,11 +1,9 @@
-DEF[PORTVERSION]=	7.0.1.1
+DEF[PORTVERSION]=	7.1.0.1
 DEF[CXXWARN]=		-Wno-deprecated-declarations -Wno-undef Wno-unused-parameter -Wno-unused-function -Wno-unused-local-typedefs -Wno-unused-variable -Wno-ignored-qualifiers -Woverloaded-virtual
 DEF[PROGRAM_BINARIES]=	oosplash regmerge regview ui-previewer uri-encode xpdfimport opencltest
-DEF[OPENSTTF]=		884ed41809687c3e168fc7c19b16585149ff058eca79acbf3ee784f6630704cc-opens___.ttf
+DEF[OPENSTTF]=		f543e6e2d7275557a839a164941c0a86e5f2c3f2a0042bfc434c88c6dde9e140-opens___.ttf
 DEF[DTOAVER]=		20180411
-DEF[SKIA_HASH]=		e684c6daef6bfb774a325a069eda1f76ca6ac26c
-DEF[SKIA_PREFIX]=	m85
-DEF[SKIA]=		${SKIA_PREFIX}-${SKIA_HASH}
+DEF[SKIA]=		m88-59bafeeaa7de9eb753e3778c414e01dcf013dcd8
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libreoffice
@@ -18,7 +16,6 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main opens devwww
 SITES[main]=		https://fossies.org/linux/misc/libreoffice/src/
-			http://ftp.utexas.edu/libreoffice/libreoffice/src/${PORTVERSION:R}/
 			https://downloadarchive.documentfoundation.org/libreoffice/old/${PORTVERSION}/src/
 SITES[opens]=		https://dev-www.libreoffice.org/extern/
 SITES[devwww]=		https://dev-www.libreoffice.org/src/
@@ -74,7 +71,7 @@ BUILDRUN_DEPENDS=	serf:single:standard
 			libcmis:single:standard
 			libmspub:single:standard
 			libvisio:single:standard
-			liborcus15:single:standard
+			liborcus:single:standard
 			libodfgen:single:standard
 			libetonyek:single:standard
 			libepubgen:single:standard
@@ -98,6 +95,7 @@ BUILDRUN_DEPENDS=	serf:single:standard
 			libnumbertext:single:standard
 			QR-Code-generator:single:standard
 			neon:primary:standard
+			box2d:single:standard
 
 BR_DEPS[linux]=		gpgme:cpp:standard
 

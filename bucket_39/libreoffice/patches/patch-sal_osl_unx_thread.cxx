@@ -1,26 +1,13 @@
---- sal/osl/unx/thread.cxx.orig	2020-08-12 13:23:59 UTC
+--- sal/osl/unx/thread.cxx.orig	2020-12-17 21:59:38 UTC
 +++ sal/osl/unx/thread.cxx
-@@ -48,6 +48,14 @@
- #include <sys/syscall.h>
+@@ -36,6 +36,10 @@
+ #define pthread_setname_np pthread_set_name_np
  #endif
- 
+ #endif
 +#ifdef __DragonFly__
-+#define __FreeBSD_kernel__
-+#endif
-+
-+#ifdef __FreeBSD_kernel__
 +#include <pthread_np.h>
++#define pthread_setname_np pthread_set_name_np
 +#endif
-+
- /****************************************************************************
-  * @@@ TODO @@@
-  *
-@@ -568,7 +576,7 @@ void SAL_CALL osl_setThreadName(char con
-     if ( 0 != err )
-         SAL_WARN("sal.osl", "pthread_setname_np failed with errno " << err);
- #elif defined __FreeBSD_kernel__
--    pthread_setname_np( pthread_self(), name );
-+    pthread_set_name_np( pthread_self(), name );
- #elif defined MACOSX || defined IOS
-     pthread_setname_np( name );
- #else
+ #include <config_options.h>
+ #include <o3tl/safeint.hxx>
+ #include <osl/thread.h>
