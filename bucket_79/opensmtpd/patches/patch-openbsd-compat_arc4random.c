@@ -1,4 +1,4 @@
---- openbsd-compat/arc4random.c.orig	2020-05-21 19:06:04 UTC
+--- openbsd-compat/arc4random.c.orig	2020-12-23 13:53:28 UTC
 +++ openbsd-compat/arc4random.c
 @@ -161,6 +161,7 @@ _rs_random_u32(uint32_t *val)
  	return;

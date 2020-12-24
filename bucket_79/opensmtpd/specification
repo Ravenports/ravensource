@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.7.1p1
+DEF[PORTVERSION]=	6.8.0p1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		opensmtpd
@@ -41,6 +41,7 @@ USES=			cpe libtool ssl:libressl-devel zlib
 CPE_VENDOR=		openbsd
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--without-table-db
+			--with-mantype=man
 			--with-libasr={{LOCALBASE}}
 			--with-libevent={{LOCALBASE}}
 			--with-libssl={{OPENSSLBASE}}
@@ -50,8 +51,8 @@ post-patch-dragonfly:
 	${RM} -rf ${WRKSRC}/openbsd-compat/vis.h \
 		${WRKSRC}/openbsd-compat/sys
 	${REINPLACE_CMD} -e 's|TAILQ_FOREACH_SAFE|TAILQ_FOREACH_MUTABLE|' \
-		${WRKSRC}/smtpd/parse.y
+		${WRKSRC}/usr.sbin/smtpd/parse.y
 
 post-install:
 	${LN} -sf ../../sbin/smtpctl \
-	${STAGEDIR}${PREFIX}/libexec/opensmtpd/makemap
+		${STAGEDIR}${PREFIX}/libexec/opensmtpd/makemap
