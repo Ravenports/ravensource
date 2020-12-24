@@ -1,0 +1,28 @@
+DEF[PORTVERSION]=	1.0.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		media-types
+VERSION=		${PORTVERSION}
+KEYWORDS=		misc
+VARIANTS=		standard
+SDESC[standard]=	MIME type associations for file types
+HOMEPAGE=		https://salsa.debian.org/debian/media-types
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://salsa.debian.org/debian/media-types/-/archive/${PORTVERSION}/
+DISTFILE[1]=		media-types-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		PUBDOM:single
+LICENSE_FILE=		PUBDOM:{{WRKSRC}}/debian/copyright
+LICENSE_SCHEME=		solo
+
+SKIP_BUILD=		yes
+
+do-install:
+	${INSTALL_SCRIPT} ${WRKSRC}/mime.types ${STAGEDIR}${PREFIX}/etc/
