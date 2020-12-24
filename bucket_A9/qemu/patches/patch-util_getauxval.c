@@ -1,4 +1,4 @@
---- util/getauxval.c.orig	2020-08-11 19:17:15 UTC
+--- util/getauxval.c.orig	2020-12-08 16:59:44 UTC
 +++ util/getauxval.c
 @@ -98,7 +98,7 @@ unsigned long qemu_getauxval(unsigned lo
      return 0;

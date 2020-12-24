@@ -1,0 +1,22 @@
+--- meson.build.orig	2020-12-08 16:59:44 UTC
++++ meson.build
+@@ -517,15 +517,16 @@ if have_system and not get_option('curse
+       has_curses_h = cc.has_header('curses.h', args: curses_compile_args)
+     endif
+     if has_curses_h
+-      curses_libname_list = (targetos == 'windows' ? ['pdcurses'] : ['ncursesw', 'cursesw'])
++      libtinfo = cc.find_library('tinfow', required: false, static: enable_static)
++      curses_libname_list = (targetos == 'windows' ? ['pdcurses'] : ['ncursesw'])
+       foreach curses_libname : curses_libname_list
+         libcurses = cc.find_library(curses_libname,
+                                     required: false,
+                                     static: enable_static)
+         if libcurses.found()
+-          if cc.links(curses_test, args: curses_compile_args, dependencies: libcurses)
++          if cc.links(curses_test, args: curses_compile_args, dependencies: [libcurses,libtinfo])
+             curses = declare_dependency(compile_args: curses_compile_args,
+-                                        dependencies: [libcurses])
++                                        dependencies: [libcurses, libtinfo])
+             break
+           else
+             msg = 'curses library not usable'

@@ -1,8 +1,8 @@
---- hw/ppc/mac_oldworld.c.orig	2020-08-11 19:17:15 UTC
+--- hw/ppc/mac_oldworld.c.orig	2020-12-08 16:59:44 UTC
 +++ hw/ppc/mac_oldworld.c
-@@ -60,6 +60,11 @@
- 
- #define GRACKLE_BASE 0xfec00000
+@@ -62,6 +62,11 @@
+ #define PROM_BASE 0xffc00000
+ #define PROM_SIZE (4 * MiB)
  
 +/* FreeBSD headers define this */
 +#ifdef round_page

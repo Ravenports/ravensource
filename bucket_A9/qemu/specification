@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.1.0
+DEF[PORTVERSION]=	5.2.0
 DEF[JQUERY]=		3.5.1
 # ----------------------------------------------------------------------------
 
@@ -28,6 +28,8 @@ FPC_EQUIVALENT=		emulators/qemu
 
 BUILD_DEPENDS=		texi2html:primary:standard
 			python-Sphinx:single:python_default
+			Zstandard:static:standard
+			lzo:static:standard
 BUILDRUN_DEPENDS=	nettle:primary:standard
 			fontconfig:primary:standard
 			freetype:primary:standard
@@ -36,32 +38,39 @@ BUILDRUN_DEPENDS=	nettle:primary:standard
 			curl:primary:standard
 			vde2:single:standard
 			libepoxy:single:standard
+			snappy:single:standard
+			Zstandard:shared:standard
+			lzo:shared:standard
 
 USES=			cpe gmake pkgconfig bison perl:build python:build
 			jpeg png mesa gettext-runtime gettext-tools
-			ncurses makeinfo
+			ncurses makeinfo ninja
 XORG_COMPONENTS=	x11 xext
 GNOME_COMPONENTS=	gdkpixbuf gtk2 vte
-SDL_COMPONENTS=		sdl2
+SDL_COMPONENTS=		sdl2 image2
 MUST_CONFIGURE=		yes
 MAKE_ENV=		BSD_MAKE="{{MAKE}}" V=1
+# mutually exclusive: nettle or gcrypt
 CONFIGURE_ARGS=		--disable-usb-redir
 			--disable-stack-protector
 			--disable-kvm
 			--disable-xen
 			--disable-vde
-			--enable-pcap
 			--enable-docs
-			--enable-debug
-			--enable-debug-info
+# #			--enable-debug
+# #			--enable-debug-info
+			--enable-nettle
+			--enable-profiler
+			--enable-curses
 			--prefix={{PREFIX}}
 			--cc={{CC}}
 			--python={{PYTHON_CMD}}
 			--localstatedir=/var
-			--extra-cflags="-I{{WRKSRC}} -I{{LOCALBASE}}/include -DPREFIX=\\\"\"{{PREFIX}}\\\"\""
-			--extra-ldflags="-L/usr/lib -L{{LOCALBASE}}/lib"
+CFLAGS=			-I{{NCURSESBASE}}/include/ncursesw
 PLIST_SUB=		JQUERY=${JQUERY}
-INSTALL_REQ_TOOLCHAIN=	yes
+BUILD_WRKSRC=		{{WRKSRC}}/build
+INSTALL_WRKSRC=		{{WRKSRC}}/build
+
 
 VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--disable-netmap
 			CONFIGURE_ARGS=--disable-linux-user
@@ -71,37 +80,7 @@ VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-netmap
 			CONFIGURE_ARGS=--disable-linux-aio
 VAR_OPSYS[linux]=	CONFIGURE_ARGS=--disable-netmap
 
-post-patch-freebsd:
-	${REINPLACE_CMD} -e '/libs_qga=..glib_libs/ s|glib_libs|glib_libs -lintl|' \
-		${WRKSRC}/configure
-
-post-patch-dragonfly:
-	${REINPLACE_CMD} -e '/libs_qga=..glib_libs/ s|glib_libs|glib_libs -lintl|' \
-		${WRKSRC}/configure
-
 post-patch:
-	${REINPLACE_CMD} -e '/LIBS/s|-lprocstat|-lprocstat -lelf|' \
-		 -e '/libusb/s/ --atleast-version=1\.0\.[0-9]*//' \
-		${WRKSRC}/configure
-	${REINPLACE_CMD} -E \
-		-e "s|^(CFLAGS=).*|\1${CFLAGS} -fno-strict-aliasing|" \
-		-e "s|^(LDFLAGS=).*|\1${LDFLAGS}|" \
-		${WRKSRC}/Makefile.target
-	${REINPLACE_CMD} -E \
-		-e "s|^(CFLAGS=).*|\1${CFLAGS} -fno-strict-aliasing -I.|" \
-		-e "s|^(LDFLAGS=).*|\1${LDFLAGS}|" \
-		${WRKSRC}/Makefile
-	${REINPLACE_CMD} -E \
-		-e "1s|^(#! )/usr/bin/perl|\1${PERL}|" \
-		${WRKSRC}/scripts/texi2pod.pl
-
-	# GNS3 (promiscuous multicast)
-	${REINPLACE_CMD} -e 's|(buf\[0\] & 1) && (rctl & E1000_RCTL_MPE)|buf[0] \& 1|' \
-		${WRKSRC}/hw/net/e1000.c
-
-	# broken build for optionrom
-	${REINPLACE_CMD} -e '/roms="optionrom"/d' ${WRKSRC}/configure
-
 	# silence some include warnings
 	${MKDIR} ${WRKSRC}/bsd-user/dragonfly
 
