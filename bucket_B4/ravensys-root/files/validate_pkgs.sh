@@ -12,12 +12,13 @@
 
 bmake=$1/bin/bmake
 uname=$1/bin/ravensys-uname
-answer1=$($bmake -V .MAKE.OS.NAME)
-answer2=$($bmake -V .MAKE.OS.ARCHITECTURE)
-answer3=$($bmake -V .MAKE.OS.ARCH.STANDARD)
-answer4=$($bmake -V .MAKE.OS.VERSION)
-answer5=$($bmake -V .MAKE.OS.RELEASE)
-answer6=$($bmake -V .MAKE.OS.MAJOR)
+/usr/bin/touch /tmp/blankmake
+answer1=$($bmake -f /tmp/blankmake -V .MAKE.OS.NAME)
+answer2=$($bmake -f /tmp/blankmake -V .MAKE.OS.ARCHITECTURE)
+answer3=$($bmake -f /tmp/blankmake -V .MAKE.OS.ARCH.STANDARD)
+answer4=$($bmake -f /tmp/blankmake -V .MAKE.OS.VERSION)
+answer5=$($bmake -f /tmp/blankmake -V .MAKE.OS.RELEASE)
+answer6=$($bmake -f /tmp/blankmake -V .MAKE.OS.MAJOR)
 uname1=$($uname -s)
 uname2=$($uname -m)
 uname3=$($uname -U)

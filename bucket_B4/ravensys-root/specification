@@ -1,6 +1,6 @@
 DEF[DF_RELEASE]=	5.8.0
 DEF[EXTRA_UBUNTU]=	4 5 6 7 8 9 10 11 12 13 17 18 19 21 22 23 24
-DEF[FREEBSD_RELEASE]=	11.1
+DEF[FREEBSD_RELEASE]=	12.2
 DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
 DEF[X_FREEBSD_1]=	EXTRACT_VERSION(PLATFORM_FreeBSD_x86-64)
 DEF[X_DRAGONFLY]=	EXTRACT_VERSION(PLATFORM_DragonFly_x86-64)
@@ -11,7 +11,7 @@ DEF[X_APPLE]=		EXTRACT_VERSION(PLATFORM_MacOS_x86-64)
 
 NAMEBASE=		ravensys-root
 VERSION=		3.1
-REVISION=		2
+REVISION=		3
 KEYWORDS=		raven
 VARIANTS=		dragonfly freebsd_amd64 linux sunos macos
 SDESC[dragonfly]=	DragonFly64 system root for Ravenports build env
@@ -189,7 +189,7 @@ post-install-DRAGONFLY-ON:
 		> ${STAGEDIR}${RSYS}/usr/share/master.passwd
 	${INSTALL_DATA} ${FOS}/etc/defaults/rc.conf \
 		${STAGEDIR}${RSYS}/usr/share/rc.conf
-	${FOS}/usr/sbin/pwd_mkdb -p -d ${STAGEDIR}${RSYS}/usr/share \
+	/usr/sbin/pwd_mkdb -p -d ${STAGEDIR}${RSYS}/usr/share \
 		${STAGEDIR}${RSYS}/usr/share/master.passwd
 	${MKDIR} ${STAGEDIR}${RSYS}/var/run
 	# handle ldconfig hints
@@ -234,7 +234,7 @@ post-install-FREEBSDAMD64-ON:
 		${STAGEDIR}${RSYS}/usr/share/master.passwd
 	${INSTALL_DATA} ${FOS}/etc/defaults/rc.conf \
 		${STAGEDIR}${RSYS}/usr/share/rc.conf
-	${FOS}/usr/sbin/pwd_mkdb -p -d ${STAGEDIR}${RSYS}/usr/share \
+	/usr/sbin/pwd_mkdb -p -d ${STAGEDIR}${RSYS}/usr/share \
 		${STAGEDIR}${RSYS}/usr/share/master.passwd
 	${MKDIR} ${STAGEDIR}${RSYS}/var/run
 	# handle ldconfig hints
