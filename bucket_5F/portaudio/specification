@@ -62,3 +62,6 @@ post-install:
 	# strip libraries
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
 
+pre-configure:
+	# autoreconf another directory
+	cd ${WRKSRC}/bindings/cpp && ${AUTORECONF} -f -i
