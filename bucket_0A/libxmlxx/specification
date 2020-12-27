@@ -1,5 +1,5 @@
 # Unstable version, required because of glibmm updates
-DEF[PORTVERSION]=	4.9.1
+DEF[PORTVERSION]=	5.0.0
 DEF[FOLDER]=		${PORTVERSION:R}
 DEF[SOVERSION]=		1.0.0
 DEF[API]=		5.0
@@ -31,26 +31,14 @@ LICENSE_SCHEME=		solo
 
 # FPC_EQUIVALENT=	none
 
-# BUILD_DEPENDS=		autoselect-python:single:standard
+BUILD_DEPENDS=		autoselect-python:single:standard
 
-USES=			gmake pkgconfig perl:build
-			libtool c++:single
-# python:build meson
+USES=			gmake pkgconfig perl:build meson c++:single
 GNOME_COMPONENTS=	libxml2
 DISTNAME=		libxml++-${PORTVERSION}
-# MESON_ARGS=		-Dbuild-tests=false
-# #			-Dbuild-examples=false
-# #			-Dbuild-documentation=false
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-documentation
+MESON_ARGS=		-Dbuild-tests=false
+			-Dbuild-examples=false
+			-Dbuild-documentation=false
 INSTALL_TARGET=		install-strip
 PLIST_SUB=		API="${API}"
 SOVERSION=		${SOVERSION}
-
-# remove when meson comes back
-post-patch:
-	${REINPLACE_CMD} -e '/^SUBDIRS =/s/examples//' \
-		-e '/^library_configdir =/s/libdir/includedir/' \
-		${WRKSRC}/Makefile.in
-	${REINPLACE_CMD} -e '/^Cflags:/s/libdir/includedir/' \
-		${WRKSRC}/libxml++.pc.in
