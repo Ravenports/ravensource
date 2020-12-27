@@ -1,0 +1,113 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(QT6_VERSION)
+DEF[MINOR_VER]=		${PORTVERSION:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		qt6-qtbase
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_toolkits devel
+VARIANTS=		standard
+SDESC[standard]=	Qt6 - QtBase component
+HOMEPAGE=		https://www.qt.io/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://download.qt.io/official_releases/qt/${MINOR_VER}/${PORTVERSION}/submodules/
+DISTFILE[1]=		qtbase-everywhere-src-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+BUILD_DEPENDS=		evdev-proto:single:standard
+BUILDRUN_DEPENDS=	pcre2:primary:standard
+			harfbuzz:icu:standard
+			icu:single:standard
+# |			libproxy:single:standard
+			libxkbcommon:single:standard
+			at-spi2-atk:single:standard
+
+USES=			qt5 gmake zlib png sqlite jpeg pkgconfig execinfo
+			iconv perl:build shebangfix ssl:openssl-devel cpe
+XORG_COMPONENTS=	xcb xcb-util xcb-util-image xcb-util-keysyms
+			xcb-util-wm xcb-render-util
+CPE_VENDOR=		qt
+CPE_PRODUCT=		qt
+CONFIGURE_ARGS=		-system-harfbuzz
+			-system-libjpeg
+			-system-libpng
+			-system-pcre
+			-system-sqlite
+			-system-zlib
+			-system-freetype
+			-xkbcommon
+			-shared
+			-release
+			-icu
+			-sql-sqlite
+			-dbus-runtime
+			-accessibility
+			-openssl-linked
+			OPENSSL_PATH={{OPENSSLBASE}}
+			-L {{LOCALBASE}}/lib
+			-I {{LOCALBASE}}/include
+			-nomake examples
+			-nomake tests
+			-verbose
+# |			-libproxy
+
+LDFLAGS=		-Wl,-rpath,{{OPENSSLLIB}}
+DISTNAME=		qtbase-everywhere-src-${PORTVERSION}
+SUB_FILES=		qmake.conf
+SUB_LIST=		CC={{CC:Q}}
+			CXX={{CXX:Q}}
+			LDFLAGS={{LDFLAGS:Q}}
+			CFLAGS={{CFLAGS:Q}}
+			CXXFLAGS={{CXXFLAGS:Q}}
+			AR={{AR:Q}}
+			PTHREAD_LIBS={{QMAKE_LIBS_THREAD:Q}}
+			PTHREAD_LDFLAGS={{QMAKE_LFLAGS_THREAD:Q}}
+			SYS_LIBS={{QMAKE_X11_SYS_LIBS:Q}}
+			PLATFORM={{VAR1}}
+PLIST_SUB=		QTVER=${PORTVERSION}
+			SOMAJORMIN=${PORTVERSION:R}
+SOVERSION=		${PORTVERSION}
+INSTALL_REQ_TOOLCHAIN=	yes
+SHEBANG_FILES=		mkspecs/features/uikit/devices.py
+			mkspecs/features/uikit/device_destinations.sh
+			mkspecs/features/data/mac/objc_namespace.sh
+
+VAR_OPSYS[dragonfly]=	VAR1=dragonfly
+VAR_OPSYS[freebsd]=	VAR1=freebsd
+VAR_OPSYS[sunos]=	VAR1=solaris
+			CONFIGURE_ARGS=-L
+			CONFIGURE_ARGS=/lib/64
+VAR_OPSYS[linux]=	VAR1=linux
+			CONFIGURE_ARGS=-L
+			CONFIGURE_ARGS=/usr/lib/x86_64-linux-gnu/
+
+post-patch:
+	${MKDIR} ${WRKSRC}/mkspecs/dragonfly-g++
+	${INSTALL_DATA} ${WRKSRC}/mkspecs/freebsd-g++/qplatformdefs.h \
+		${WRKSRC}/mkspecs/dragonfly-g++/
+.for MKS in dragonfly-g++ freebsd-g++ linux-g++ solaris-g++-64
+	${INSTALL_DATA} ${WRKDIR}/qmake.conf ${WRKSRC}/mkspecs/${MKS}/
+.endfor
+	# Clean up files created by patching
+	find ${WRKSRC}/mkspecs/ -name "*.orig" -delete
+
+post-patch-sunos:
+	# getauxval test triggers false positive on Solaris
+	${REINPLACE_CMD} -e 's|sys/auxv.h|sys/auxvnope.h|' \
+		${WRKSRC}/src/corelib/global/qconfig-bootstrapped.h
+	# sun linker doesn't support -O1
+	${REINPLACE_CMD} -e '/QMAKE_LFLAGS_RELEASE/d' \
+		${WRKSRC}/mkspecs/common/g++-unix.conf
+	# sun linker doesn't support GNU version scripts
+	${REINPLACE_CMD} \
+		-e '/QMAKE_LFLAGS_VERSION_SCRIPT/d' \
+		-e '/QMAKE_LFLAGS_RPATHLINK/d' \
+		${WRKSRC}/mkspecs/common/gcc-base-unix.conf
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt5/bin/qmake
