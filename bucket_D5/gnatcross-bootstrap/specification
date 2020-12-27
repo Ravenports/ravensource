@@ -152,12 +152,16 @@ post-patch:
 	@${ECHO} "Configuring LINK_SPEC runpath"
 	${REINPLACE_CMD} -e 's;\@PREFIX\@;${PREFIX:H};' \
 		-e 's;\@GCCAUX\@;${NAMEBASE};' \
+		-e 's;\@LOCALBASE\@;${LOCALBASE};g' \
+		${WRKSRC}/gcc/gcc.c \
+		${WRKSRC}/gcc/config/darwin.h \
 		${WRKSRC}/gcc/config/dragonfly.h \
 		${WRKSRC}/gcc/config/sol2.h \
 		${WRKSRC}/gcc/config/i386/freebsd64.h \
 		${WRKSRC}/gcc/config/i386/freebsd.h \
 		${WRKSRC}/gcc/config/i386/gnu-user64.h \
-		${WRKSRC}/gcc/config/aarch64/aarch64-freebsd.h
+		${WRKSRC}/gcc/config/aarch64/aarch64-freebsd.h \
+		${WRKSRC}/gcc/ada/gnatls.adb
 	# fix FreeBSD spec error
 	${REINPLACE_CMD} -e 's|static:crtbeginT.o%s;||' \
 		${WRKSRC}/gcc/config/freebsd-spec.h
@@ -171,6 +175,7 @@ post-patch-FAMD64_R12-ON:
 	# work around malloc detection issue
 	${REINPLACE_CMD} -e 's/#undef HAVE_ALIGNED_ALLOC/#define HAVE_ALIGNED_ALLOC 1/' \
 		${WRKSRC}/libstdc++-v3/config.h.in
+	${REINPLACE_CMD} -e '/<malloc.h>/d' ${WRKSRC}/libiberty/hashtab.c
 
 post-patch-FI386_R12-ON:
 	# work around malloc detection issue
@@ -194,7 +199,7 @@ post-install-FI386_R12-ON:
 
 post-stage:
 	# package bootstrap compiler with zstd, then relocate files to avoid packaging them
-	@${MKDIR} ${WRKDIR}/bootstrap_compiler
+	${MKDIR} ${WRKDIR}/bootstrap_compiler
 	(cd ${STAGEDIR}${PREFIX}/${GCC_PREFIX} \
 		&& ${CP} -a bin ${WRKDIR}/bootstrap_compiler \
 		&& ${CP} -a lib ${WRKDIR}/bootstrap_compiler \
@@ -209,4 +214,4 @@ post-stage:
 		${STAGEDIR}${LOCALBASE}/share/${NAMEBASE}/${TGTSYS}-gcc.tar \
 		bootstrap_compiler)
 	(cd ${STAGEDIR}${LOCALBASE}/share/${NAMEBASE} && \
-		zstd -7 --rm ${TGTSYS}-gcc.tar)
+		zstd -7 --no-progress --rm ${TGTSYS}-gcc.tar)
