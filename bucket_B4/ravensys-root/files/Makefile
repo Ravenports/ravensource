@@ -162,6 +162,8 @@ static_lib_FreeBSD=	${static_lib_generic} \
 			/usr/lib/libusbhid.a \
 			/usr/lib/libjail.a \
 			/usr/lib/libsbuf.a \
+			/usr/lib/libc_nonshared.a \
+			/usr/lib/libssp_nonshared.a \
 			/usr/lib/Scrt1.o \
 			/usr/lib/gcrt1.o \
 			/usr/lib/crt1.o \
@@ -693,7 +695,6 @@ install:
 .endif
 .if ${OPSYS} == DragonFly || ${OPSYS} == FreeBSD
 	(cd ${DESTDIR}${BASE}/usr/lib && \
-		ln -s ${libc} libc.so && \
 		ln -s ${libm} libm.so && \
 		ln -s ${librt} librt.so && \
 		ln -s ${libkvm} libkvm.so && \
@@ -718,9 +719,12 @@ install:
 	${BSD_INSTALL_LIB} ../${OPSYS:tl}/lib/libgcc_s.so.1 ${DESTDIR}${BASE}/usr/lib/
 	${BSD_INSTALL_LIB} ../${OPSYS:tl}/lib/libcxxrt.so.1 ${DESTDIR}${BASE}/usr/lib/
 	${BSD_INSTALL_LIB} ../${OPSYS:tl}/usr/lib/libc++.so.1 ${DESTDIR}${BASE}/usr/lib/
+	sed -e 's|/lib/libc\.so|/usr/lib/libc.so|'  ../${OPSYS:tl}/usr/lib/libc.so \
+		> ${DESTDIR}${BASE}/usr/lib/libc.so
 .endif
 .if ${OPSYS} == DragonFly
 	(cd ${DESTDIR}${BASE}/usr/lib && \
+		ln -s ${libc} libc.so && \
 		ln -s libsbuf.so.3 libsbuf.so && \
 		ln -s libprop.so.3 libprop.so && \
 		ln -s libdevattr.so.3 libdevattr.so && \
