@@ -19,42 +19,48 @@ SPKGS[standard]=	complete primary docs
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+BROKEN[all]=		not finished
+
 BUILD_DEPENDS=		evdev-proto:single:standard
+			Zstandard:static:standard
 BUILDRUN_DEPENDS=	pcre2:primary:standard
 			harfbuzz:icu:standard
 			icu:single:standard
-# |			libproxy:single:standard
+			libproxy:single:standard
 			libxkbcommon:single:standard
 			at-spi2-atk:single:standard
+			Zstandard:shared:standard
+			libb2:single:standard
+			cups:primary:standard
 
-USES=			qt5 gmake zlib png sqlite jpeg pkgconfig execinfo
-			iconv perl:build shebangfix ssl:openssl-devel cpe
+USES=			qt6 zlib png sqlite jpeg pkgconfig execinfo
+			iconv perl:build shebangfix ssl:openssl-devel
+			cpe cmake ninja
 XORG_COMPONENTS=	xcb xcb-util xcb-util-image xcb-util-keysyms
-			xcb-util-wm xcb-render-util
+			xcb-util-wm xcb-render-util x11
 CPE_VENDOR=		qt
 CPE_PRODUCT=		qt
-CONFIGURE_ARGS=		-system-harfbuzz
-			-system-libjpeg
-			-system-libpng
-			-system-pcre
-			-system-sqlite
-			-system-zlib
-			-system-freetype
-			-xkbcommon
-			-shared
-			-release
-			-icu
-			-sql-sqlite
-			-dbus-runtime
-			-accessibility
-			-openssl-linked
-			OPENSSL_PATH={{OPENSSLBASE}}
-			-L {{LOCALBASE}}/lib
-			-I {{LOCALBASE}}/include
-			-nomake examples
-			-nomake tests
-			-verbose
-# |			-libproxy
+CMAKE_ARGS=		-DFEATURE_system_zlib=ON
+			-DFEATURE_system_pcre2=ON
+			-DFEATURE_system_harfbuzz=ON
+			-DFEATURE_system_sqlite=ON
+			-DFEATURE_system_freetype=ON
+			-DFEATURE_libpng=ON
+			-DFEATURE_libjpeg=ON
+# #			-DFEATURE_xkbcommon=ON
+			-DFEATURE_icu=ON
+			-DFEATURE_libproxy=ON
+			-DFEATURE_sql_sqlite=ON
+			-DFEATURE_accessibility=ON
+			-DINPUT_dbus=runtime
+			-DINPUT_openssl=linked
+			-DBUILD_SHARED_LIBS=ON
+			-DQT_BUILD_TESTS=OFF
+			-DQT_BUILD_EXAMPLES=OFF
+			-DQT_EXTRA_LIBDIRS={{LOCALBASE}}/lib
+			-DQT_EXTRA_INCLUDEPATHS={{LOCALBASE}}/include
+# #			-DOPENSSL_PATH:STRING="{{OPENSSLBASE}}"
+			-DCMAKE_SKIP_BUILD_RPATH:BOOL=YES
 
 LDFLAGS=		-Wl,-rpath,{{OPENSSLLIB}}
 DISTNAME=		qtbase-everywhere-src-${PORTVERSION}
@@ -110,4 +116,4 @@ post-patch-sunos:
 		${WRKSRC}/mkspecs/common/gcc-base-unix.conf
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt5/bin/qmake
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/bin/qmake
