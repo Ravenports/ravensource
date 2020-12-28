@@ -366,7 +366,7 @@ function generate_port($namebase) {
     $variants = determine_variants ($namebase, $port_data[$namebase]["min_python"]);
     $variants_block = join(" ", $variants);
     $primo = $variants[0];
-    $arg = $whl_file ? ',wheel' : '';
+    $arg = $whl_file ? ',wheel' : ',sutools';
     foreach ($variants as $V) {
         $prereturn = ($V == $primo) ? "" : "\n";
         $VX = strtoupper($V);
