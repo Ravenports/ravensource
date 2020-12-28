@@ -19,8 +19,6 @@ SPKGS[standard]=	complete primary docs
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-BROKEN[all]=		not finished
-
 BUILD_DEPENDS=		evdev-proto:single:standard
 			Zstandard:static:standard
 BUILDRUN_DEPENDS=	pcre2:primary:standard
@@ -59,8 +57,7 @@ CMAKE_ARGS=		-DFEATURE_system_zlib=ON
 			-DQT_BUILD_EXAMPLES=OFF
 			-DQT_EXTRA_LIBDIRS={{LOCALBASE}}/lib
 			-DQT_EXTRA_INCLUDEPATHS={{LOCALBASE}}/include
-# #			-DOPENSSL_PATH:STRING="{{OPENSSLBASE}}"
-			-DCMAKE_SKIP_BUILD_RPATH:BOOL=YES
+			-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/lib/qt6"
 
 LDFLAGS=		-Wl,-rpath,{{OPENSSLLIB}}
 DISTNAME=		qtbase-everywhere-src-${PORTVERSION}
@@ -116,4 +113,10 @@ post-patch-sunos:
 		${WRKSRC}/mkspecs/common/gcc-base-unix.conf
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/bin/qmake
+	${FIND} ${STAGEDIR}${PREFIX} -type d -empty -delete
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/plugins/*/*.so
+.for F in androiddeployqt androidtestrunner cmake_automoc_parser moc \
+	qdbuscpp2xml qdbusxml2cpp qlalr qmake qvkgen rcc tracegen uic
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/bin/${F}
+.endfor
