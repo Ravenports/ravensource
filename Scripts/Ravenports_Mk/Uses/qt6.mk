@@ -9,7 +9,7 @@
 _INCLUDE_USES_QT6_MK=	yes
 
 # stage support
-DESTDIRNAME=	INSTALL_ROOT
+# DESTDIRNAME=	INSTALL_ROOT
 
 # When configure used, set common switches
 BASE_CMAKE_ARGS=\
@@ -17,7 +17,15 @@ BASE_CMAKE_ARGS=\
 	-DCMAKE_INSTALL_PREFIX="${PREFIX}"\
 	-DINSTALL_LIBDIR="${PREFIX}/lib/qt6"\
 	-DINSTALL_BINDIR="${PREFIX}/lib/qt6/bin"\
-	-DINSTALL_HEADERDIR="${PREFIX}/include/qt6"
+	-DINSTALL_PLUGINSDIR="${PREFIX}/lib/qt6/plugins"\
+	-DINSTALL_INCLUDEDIR="${PREFIX}/include/qt6"\
+	-DINSTALL_DOCDIR="${PREFIX}/share/doc/qt6"\
+	-DINSTALL_LIBEXECDIR="${PREFIX}/libexec/qt6"\
+	-DINSTALL_DATADIR="${PREFIX}/share/qt6"\
+	-DINSTALL_ARCHDATADIR="${PREFIX}/lib/qt6"\
+	-DINSTALL_QMLDIR="${PREFIX}/lib/qt6/qml"\
+	-DINSTALL_SYSCONFDIR="${PREFIX}/etc/xdg"\
+	-DINSTALL_MKSPECSDIR="${PREFIX}/lib/qt6/mkspecs"
 
 BASE_CONF_ARGS=\
 	-opensource\
