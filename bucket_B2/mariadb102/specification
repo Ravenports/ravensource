@@ -91,6 +91,8 @@ SHEBANG_FILES=		scripts/*.sh
 # required for Linux (only) for ABI checks
 INSTALL_REQ_TOOLCHAIN=	yes
 
+VAR_OPSYS[freebsd]=	CXXFLAGS=-DHAVE_POSIX_MEMALIGN=1
+
 post-patch:
 	${REINPLACE_CMD} 's|/usr/bin/env python|${PYTHON_CMD}|' \
 		${WRKSRC}/CMakeLists.txt
