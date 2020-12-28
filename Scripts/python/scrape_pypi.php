@@ -520,6 +520,7 @@ function set_buildrun (&$portdata, $PVA, $PVB, $PVC) {
         case "mutagen":
         case "protobuf":
         case "cryptography":
+        case "compreffor":
         case "zipp":		// above -- not distutils script
         case "pygit2":
         case "PyNaCl":		// above -- tries downloading
