@@ -1,6 +1,6 @@
---- Makefile.in.orig	2019-09-30 14:39:22 UTC
+--- Makefile.in.orig	2020-12-29 21:16:30 UTC
 +++ Makefile.in
-@@ -573,7 +573,7 @@ install: install-shared install-archive
+@@ -621,7 +621,7 @@ install: install-shared install-archive
  		    $(DESTDIR)$(includedir)/$$i; done
  	[ -d $(DESTDIR)$(bindir) ] || \
  	    (mkdir -p $(DESTDIR)$(bindir); chmod 755 $(DESTDIR)$(bindir))
@@ -9,7 +9,7 @@
  	[ -d $(DESTDIR)$(libdir)/pkgconfig ] || \
  	    (mkdir -p $(DESTDIR)$(libdir)/pkgconfig; chmod 755 $(DESTDIR)$(libdir)/pkgconfig)
  	$(INSTALL_DATA) libpcap.pc $(DESTDIR)$(libdir)/pkgconfig/libpcap.pc
-@@ -581,49 +581,13 @@ install: install-shared install-archive
+@@ -629,49 +629,13 @@ install: install-shared install-archive
  		$(INSTALL_DATA) $(srcdir)/$$i \
  		    $(DESTDIR)$(mandir)/man1/$$i; done
  	for i in $(MAN3PCAP_NOEXPAND); do \
