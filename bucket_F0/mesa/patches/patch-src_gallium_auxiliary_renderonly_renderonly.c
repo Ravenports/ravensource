@@ -1,4 +1,4 @@
---- src/gallium/auxiliary/renderonly/renderonly.c.orig	2020-12-16 18:43:56 UTC
+--- src/gallium/auxiliary/renderonly/renderonly.c.orig	2020-12-31 03:59:57 UTC
 +++ src/gallium/auxiliary/renderonly/renderonly.c
 @@ -37,6 +37,10 @@
  #include "util/u_inlines.h"
