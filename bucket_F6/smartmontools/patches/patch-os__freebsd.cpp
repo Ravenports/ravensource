@@ -1,4 +1,4 @@
---- os_freebsd.cpp.orig	2019-01-02 22:09:00 UTC
+--- os_freebsd.cpp.orig	2020-12-12 21:36:48 UTC
 +++ os_freebsd.cpp
 @@ -17,11 +17,13 @@
  #include <err.h>
@@ -36,7 +36,7 @@
  #else
  #include <dev/usb/usb.h>
  #include <dev/usb/usbhid.h>
-@@ -1391,6 +1396,14 @@ smart_device * freebsd_scsi_device::auto
+@@ -1390,6 +1395,14 @@ smart_device * freebsd_scsi_device::auto
    if (len < 36)
      return this;
  
@@ -51,7 +51,7 @@
    // Use INQUIRY to detect type
  
    // 3ware ?
-@@ -1797,7 +1810,7 @@ bool freebsd_smart_interface::get_nvme_d
+@@ -1800,7 +1813,7 @@ bool freebsd_smart_interface::get_nvme_d
    return true;
  }
  
@@ -60,7 +60,7 @@
  static char done[USB_MAX_DEVICES];
  
  static int usbdevinfo(int f, int a, int rec, int busno, unsigned short & vendor_id,
-@@ -1853,7 +1866,7 @@ static int usbdevinfo(int f, int a, int
+@@ -1856,7 +1869,7 @@ static int usbdevinfo(int f, int a, int
  static int usbdevlist(int busno,unsigned short & vendor_id,
    unsigned short & product_id, unsigned short & version)
  {
