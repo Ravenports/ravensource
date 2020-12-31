@@ -1,4 +1,4 @@
---- Makefile.orig	2020-10-22 22:31:53 UTC
+--- Makefile.orig	2020-12-28 03:26:32 UTC
 +++ Makefile
 @@ -529,11 +529,11 @@ infodir = $(prefix)/share/info
  gitexecdir = libexec/git-core
@@ -14,7 +14,7 @@
  ETC_GITCONFIG = $(sysconfdir)/gitconfig
  ETC_GITATTRIBUTES = $(sysconfdir)/gitattributes
  lib = lib
-@@ -1457,9 +1457,9 @@ EXTLIBS += -lz
+@@ -1463,9 +1463,9 @@ EXTLIBS += -lz
  
  ifndef NO_OPENSSL
  	OPENSSL_LIBSSL = -lssl
@@ -27,7 +27,7 @@
  	else
  		OPENSSL_LINK =
  	endif
-@@ -2316,7 +2316,7 @@ git-instaweb: git-instaweb.sh GIT-SCRIPT
+@@ -2322,7 +2322,7 @@ git-instaweb: git-instaweb.sh GIT-SCRIPT
  	chmod +x $@+ && \
  	mv $@+ $@
  else # NO_PERL
@@ -36,7 +36,7 @@
  	$(QUIET_GEN)$(RM) $@ $@+ && \
  	sed -e '1s|#!.*/sh|#!$(SHELL_PATH_SQ)|' \
  	    -e 's|@@REASON@@|NO_PERL=$(NO_PERL)|g' \
-@@ -2950,12 +2950,12 @@ endif
+@@ -2958,12 +2958,12 @@ endif
  ifndef NO_GETTEXT
  	$(INSTALL) -d -m 755 '$(DESTDIR_SQ)$(localedir_SQ)'
  	(cd po/build/locale && $(TAR) cf - .) | \
