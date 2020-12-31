@@ -269,7 +269,7 @@ function inline_fix_setup ($namebase, $src) {
        "pyocr"        => '/PyOCR version/d',
        "lxml"         => '/Building lxml/d',
        "intervaltree" => '/print("Version/d; s/print("!!!.*/    pass/',
-       "eyeD3"        => false,
+       "eyed3"        => false,
        "aniso8601"    => '/install_requires=/d',
        'Markdown'     => '/install_requires=/ s|;.*[[:punct:]]"|"|',
        "borgbackup"   => '/Detected/d',
@@ -310,7 +310,7 @@ function inline_fix_setup ($namebase, $src) {
                $xf = $src . "/setupinfo.py";
                shell_exec("sed -i.bak -E -e '/Building without/d; /Using build/ s/^.*$$/        pass/; /lib_versions[[]?[1]?[]]?)/d; s/if _library_dirs:/if 0:/; s/not check_build_dependencies..:/0:/' $xf");
                break;
-           case "eyeD3":
+           case "eyed3":
                $xf = "$src/requirements.txt $src/requirements/main.txt $src/requirements/requirements.yml";
                shell_exec ("sed -i.bak -e '/dataclasses;/d' $xf");
                break;
