@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(QT6_VERSION)
+DEF[MINOR_VER]=		${PORTVERSION:R}
+DEF[COMPONENT]=		qtdeclarative
+DEF[COMPONENT_CASED]=	QtDeclarative
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		qt6-${COMPONENT}
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Qt6 - ${COMPONENT_CASED} component
+HOMEPAGE=		https://www.qt.io/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://download.qt.io/official_releases/qt/${MINOR_VER}/${PORTVERSION}/submodules/
+DISTFILE[1]=		${COMPONENT}-everywhere-src-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+BUILD_DEPENDS=		autoselect-python:single:standard
+BUILDRUN_DEPENDS=	qt6-qtbase:primary:standard
+
+USES=			qt6 cmake pkgconfig perl:build python:build cpe
+CPE_VENDOR=		qt
+CPE_PRODUCT=		qt
+DISTNAME=		${COMPONENT}-everywhere-src-${PORTVERSION}
+PLIST_SUB=		QTVER=${PORTVERSION}
+			SOMAJORMIN=${PORTVERSION:R}
+SOVERSION=		${PORTVERSION}
