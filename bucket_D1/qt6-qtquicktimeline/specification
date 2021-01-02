@@ -22,6 +22,7 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 BUILDRUN_DEPENDS=	qt6-qtbase:primary:standard
+			qt6-qtdeclarative:single:standard
 
 USES=			qt6 cmake pkgconfig perl:build cpe
 CPE_VENDOR=		qt
@@ -30,3 +31,6 @@ DISTNAME=		${COMPONENT}-everywhere-src-${PORTVERSION}
 PLIST_SUB=		QTVER=${PORTVERSION}
 			SOMAJORMIN=${PORTVERSION:R}
 SOVERSION=		${PORTVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/qml/QtQuick/Timeline/*.so
