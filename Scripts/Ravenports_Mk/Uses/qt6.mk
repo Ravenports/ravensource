@@ -78,7 +78,7 @@ _USES_install+=		730:strip-qt6
 . endif
 
 strip-qt6:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/*.so
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/plugins/*/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/*.so ||:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/plugins/*/*.so ||:
 
 .endif		# _INCLUDE_USES_QT6_MK
