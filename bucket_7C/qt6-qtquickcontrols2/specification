@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(QT6_VERSION)
+DEF[MINOR_VER]=		${PORTVERSION:R}
+DEF[COMPONENT]=		qtquickcontrols2
+DEF[COMPONENT_CASED]=	QtQuickControls2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		qt6-${COMPONENT}
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics devel
+VARIANTS=		standard
+SDESC[standard]=	Qt6 - ${COMPONENT_CASED} component
+HOMEPAGE=		https://www.qt.io/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://download.qt.io/official_releases/qt/${MINOR_VER}/${PORTVERSION}/submodules/
+DISTFILE[1]=		${COMPONENT}-everywhere-src-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+BUILDRUN_DEPENDS=	qt6-qtbase:primary:standard
+			qt6-qtdeclarative:single:standard
+
+USES=			qt6 cmake pkgconfig perl:build cpe
+CPE_VENDOR=		qt
+CPE_PRODUCT=		qt
+DISTNAME=		${COMPONENT}-everywhere-src-${PORTVERSION}
+PLIST_SUB=		QTVER=${PORTVERSION}
+			SOMAJORMIN=${PORTVERSION:R}
+SOVERSION=		${PORTVERSION}
