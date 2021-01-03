@@ -10,7 +10,7 @@ _INCLUDE_USES_MIMEINFO_MK=	yes
 # -----------------------------------------------
 # Incorporated in ravenadm
 # -----------------------------------------------
-# BUILDRUN_DEPENDS+=	shared-mime-info:single:standard
+# BUILDRUN_DEPENDS+=	shared-mime-info:primary:standard
 # -----------------------------------------------
 
 _USES_stage+=	936:add-plist-mimeinfo
