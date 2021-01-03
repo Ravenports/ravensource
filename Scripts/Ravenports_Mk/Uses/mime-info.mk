@@ -17,8 +17,8 @@ _USES_stage+=	936:add-plist-mimeinfo
 
 .  if !target(add-plist-mimeinfo)
 add-plist-mimeinfo:
-	@if [ -f "${WRKDIR}/.manifest.${terminfo_ARGS}.mktmp" ]; then \
-	  echo "@shared-mime-info share/mime" >> ${WRKDIR}/.manifest.${terminfo_ARGS}.mktmp; \
+	@if [ -f "${WRKDIR}/.manifest.${mime-info_ARGS}.mktmp" ]; then \
+	  echo "@shared-mime-info share/mime" >> ${WRKDIR}/.manifest.${mime-info_ARGS}.mktmp; \
 	fi
 .  endif
 

@@ -5,6 +5,7 @@ DEF[GTK_VERSION]=	EXTRACT_INFO(GTK2_VERSION)
 
 NAMEBASE=		gdk-pixbuf
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Graphic library for GIMP toolkit
@@ -30,16 +31,13 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/gdk-pixbuf2
 
-# Explicit specification of shared-mime-info over USES=mime-info:primary
-# is intentional.  The modication to plist by the module is unwanted.
-# Note: mime-info really is a run dependency.
 BUILDRUN_DEPENDS=	tiff:primary:standard
 			jasper:primary:standard
-			shared-mime-info:primary:standard
 BUILD_DEPENDS=		xmlto:single:standard
 
 USES=			cpe gmake jpeg png pkgconfig libtool gettext-runtime
 			perl:build python:build meson gettext-tools shebangfix
+			mime-info:primary
 XORG_COMPONENTS=	x11 xi xt
 GNOME_COMPONENTS=	glib introspection
 MESON_ARGS=		-Dpng=true
@@ -47,6 +45,7 @@ MESON_ARGS=		-Dpng=true
 			-Djpeg=true
 			-Djasper=true
 			-Dx11=true
+			-Dgio_sniffing=true
 			-Dbuiltin_loaders=none
 			-Ddocs=false
 			-Dgir=true

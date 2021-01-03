@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	2.1
 
 NAMEBASE=		shared-mime-info
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		misc
 VARIANTS=		standard
 SDESC[standard]=	MIME types database from freedesktop.org project
@@ -14,7 +14,6 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://gitlab.freedesktop.org/xdg/shared-mime-info/-/archive/${PORTVERSION}/
 DISTFILE[1]=		shared-mime-info-${PORTVERSION}.tar.gz:main
 
-# we can't rename single to primary, it's a USES module
 SPKGS[standard]=	complete primary nls
 
 OPTIONS_AVAILABLE=	none
@@ -32,7 +31,8 @@ BUILD_DEPENDS=		itstool:single:standard
 
 USES=			pkgconfig meson gettext-tools
 GNOME_COMPONENTS=	glib libxml2 intltool
-# MESON_ARGS=		-Ddatadir="{{LOCALBASE}}/lib/pkgconfig"
+MESON_ARGS=		-Dupdate-mimedb=false
+			-Dxdgmime-path="{{WRKSRC}}/src/xdgmime"
 
 SUB_FILES=		pkg-install-single
 SUB_LIST=		MIMEDIRS="{{CLEAN_MIMEDIRS}}"
