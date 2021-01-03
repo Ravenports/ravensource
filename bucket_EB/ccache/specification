@@ -1,4 +1,4 @@
-DEF[ORIGVERSION]=	3.7.12
+DEF[ORIGVERSION]=	4.1
 DEF[PORTVERSION]=	${ORIGVERSION}
 DEF[CCLINKDIR]=		libexec/ccache
 # Don't link "CC" because it is same as "cc" on case-insensitive file systems
@@ -30,27 +30,20 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/ccache
 
-SKIP_CCACHE=		yes
-MUST_CONFIGURE=		gnu
-CPPFLAGS=		-DCC_IS_GCC -Wno-implicit-fallthrough
+BUILD_DEPENDS=		Zstandard:static:standard
+			asciidoc:single:standard
+
+USES=			cmake perl:build c++:primary
 PLIST_SUB=		CCLINKDIR="${CCLINKDIR}"
 DISTNAME=		ccache-${ORIGVERSION}
+BUILD_TARGET=		all doc
 
-VAR_OPSYS[sunos]=	CPPFLAGS=-D_XPG6
-			CPPFLAGS=-D_STDC_C99=
-
-# ccache will build its own zlib since it can't find a suitable one.
-# We want this (as opposed to adding zlib as buildrun depends).
-# ccache needs to be dependency-free for Ravenports' purposes.
-
-do-install:
-	${INSTALL_PROGRAM} ${WRKSRC}/ccache ${STAGEDIR}${PREFIX}/bin
-	${INSTALL_MAN} ${WRKSRC}/doc/ccache.1 \
-		${STAGEDIR}${PREFIX}/share/man/man1
-	@${MKDIR} ${STAGEDIR}${PREFIX}/${CCLINKDIR}
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/${CCLINKDIR}
 .for compiler in ${CC_COMPILERS}
 	${LN} -sf ${PREFIX}/bin/ccache ${STAGEDIR}${PREFIX}/${CCLINKDIR}/${compiler}
 .endfor
 
-	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
-	${INSTALL_DATA} ${WRKSRC}/doc/MANUAL.html ${STAGEDIR}${STD_DOCDIR}
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${INSTALL_WRKSRC}/doc/MANUAL.html ${STAGEDIR}${STD_DOCDIR}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ccache

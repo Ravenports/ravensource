@@ -1,0 +1,22 @@
+.SUFFIXES:
+.SUFFIXES: .o .c
+
+SRCS=	src/main.c \
+	src/args.c \
+	src/ccache.c \ 
+	src/cleanup.c \
+	src/compopt.c \
+	src/conf.c \
+	src/confitems.c \
+	src/counters.c \
+	src/execute.c \
+	src/exitfn.c \
+	src/main.c
+
+OBJS=		${SRCS:R:S/$/.o/}
+
+CFLAGS+=	-I./src \
+		-I./src/zlib \
+		-I./unittest \
+		-DCC_IS_GCC \
+		-Wno-implicit-fallthrough

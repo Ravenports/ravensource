@@ -626,6 +626,7 @@ install:
 		${DESTDIR}${BASE}/usr/bin \
 		${DESTDIR}${BASE}/usr/include \
 		${DESTDIR}${BASE}/usr/lib/pkgconfig \
+		${DESTDIR}${BASE}/usr/libexec \
 		${DESTDIR}${BASE}/usr/share/file \
 		${DESTDIR}${BASE}/usr/local \
 		${DESTDIR}${BASE}/usr/include/arpa \
@@ -667,7 +668,7 @@ install:
 	# /bin/sh is really /usr/xpg4/bin/sh, move it there
 	# Move /usr/bin/bash (from distro) to /bin/bash
 	# hardlink /bin/bash to /bin/sh
-	mkdir -p ${DESTDIR}${BASE}/usr/xpg4/bin
+	${MKDIR} ${DESTDIR}${BASE}/usr/xpg4/bin
 	mv ${DESTDIR}${BASE}/bin/sh ${DESTDIR}${BASE}/usr/xpg4/bin/
 	mv ${DESTDIR}${BASE}/usr/bin/bash ${DESTDIR}${BASE}/bin/bash
 	ln ${DESTDIR}${BASE}/bin/bash ${DESTDIR}${BASE}/bin/sh
@@ -799,9 +800,9 @@ install:
 	# i386 version conflicts with amd64 version, so copy just the i386 files separately
 	cp ${CPA} ../ravensys-root_14/usr/include/i386-linux-gnu ${DESTDIR}${BASE}/usr/include/
 	# locales
-	mkdir -p ${DESTDIR}${BASE}/usr/lib/locale
-	mkdir -p ${DESTDIR}${BASE}/usr/share/i18n/charmaps
-	mkdir -p ${DESTDIR}${BASE}/usr/share/i18n/locales
+	${MKDIR} ${DESTDIR}${BASE}/usr/lib/locale
+	${MKDIR} ${DESTDIR}${BASE}/usr/share/i18n/charmaps
+	${MKDIR} ${DESTDIR}${BASE}/usr/share/i18n/locales
 	cp ${CPA} ../linux/usr/share/i18n/charmaps/UTF-8.gz ${DESTDIR}${BASE}/usr/share/i18n/charmaps/
 	cp ${CPA} ../linux/usr/lib/locale/C.UTF-8 ${DESTDIR}${BASE}/usr/lib/locale/
 .  for locale in C POSIX en_US en_GB iso14651_t1 iso14651_t1_common i18n translit_*
@@ -898,6 +899,14 @@ install:
 		${DESTDIR}${BASE}/usr/share/locale/en_US.UTF-8/
 .  endfor
 .endif
+	# install ccache
+	cp ${LOCALBASE}/bin/ccache ${DESTDIR}${BASE}/usr/libexec/
+	ln -s ccache ${DESTDIR}${BASE}/usr/libexec/cc
+	ln -s ccache ${DESTDIR}${BASE}/usr/libexec/gcc
+	ln -s ccache ${DESTDIR}${BASE}/usr/libexec/c++
+	ln -s ccache ${DESTDIR}${BASE}/usr/libexec/g++
+	ln -s ccache ${DESTDIR}${BASE}/usr/libexec/clang
+	ln -s ccache ${DESTDIR}${BASE}/usr/libexec/clang++
 	# move os-specific files from specification to makefile
 	cd ${DESTDIR}${BASE}/usr/share \
 		&& ${ECHO} ${OPSYS}     > OPSYS \
