@@ -20,8 +20,7 @@ SITES[main]=		GNOME/gtk+/${PORTVERSION:R}
 DISTFILE[1]=		gtk+-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome3
 
-# see ravenadm #24 to coordinate change of single=>primary
-SPKGS[standard]=	complete single nls
+SPKGS[standard]=	complete primary nls
 
 OPTIONS_AVAILABLE=	DBUS CUPS CLOUDPRINT COLORD BROADWAY
 OPTIONS_STANDARD=	DBUS BROADWAY
@@ -32,8 +31,8 @@ FPC_EQUIVALENT=		x11-toolkits/gtk30
 BUILDRUN_DEPENDS=	libepoxy:single:standard
 RUN_DEPENDS=		adwaita-icon-theme:single:standard
 
-USES=			gettext-tools gmake libtool pkgconfig gnome-icons:single
-			schemas:single perl:build python:build cpe
+USES=			gettext-tools gmake libtool pkgconfig gnome-icons:primary
+			schemas:primary perl:build python:build cpe
 GNOME_COMPONENTS=	atk cairo gdkpixbuf pango introspection
 XORG_COMPONENTS=	xext x11 xinerama xi xrandr xcursor xfixes
 			xdamage xcomposite
