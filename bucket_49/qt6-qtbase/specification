@@ -31,6 +31,9 @@ BUILDRUN_DEPENDS=	pcre2:primary:standard
 			libb2:single:standard
 			cups:primary:standard
 
+# GCC ICEs on this port; use clang to build it on FreeBSD
+B_DEPS[freebsd]=	clang:compiler:standard
+
 USES=			qt6 zlib png sqlite jpeg pkgconfig execinfo
 			iconv perl:build shebangfix ssl:openssl-devel
 			cpe cmake ninja
