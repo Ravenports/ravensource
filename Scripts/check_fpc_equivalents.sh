@@ -27,6 +27,7 @@ while read ravenport version fpc_port; do
 	ravensys-toolchain) ;;	# unique to ravenports
 	ravensys-uname) ;;	# unique to ravenports
 	ravensys-selector) ;;	# unique to ravenports
+	ravensys-utils) ;;	# unique to ravenports
 	bmake-mk-files) ;;	# unique to ravenports
 	ravenadm) ;;		# unique to ravenports
 	autoselect-*) ;;	# unique to ravenports
@@ -82,11 +83,12 @@ while read ravenport version fpc_port; do
 	qt5-qttools) ;;		#
 	qt5-qtdeclarative) ;;	#
 	gstreamer1-*-xshm) ;;   # FreeBSD combined with plugins-x
+	qt6-*) ;;		# QT6 isn't on freebsd yet
 	
 	usb-modeswitch-data) ;;	# combined with sysutils/usb_modeswitch
 	rustless-firefox) ;;	# currently like www/firefox-esr, but RP is frozen
 
-	gps) ;;			# removed from FPC (stupidly)
+	gps|gnatstudio) ;;	# removed from FPC (stupidly)
 	GeoIP) ;;		# removed from FPC
 	libcxx) ;;		# removed from FPC
 	warsow*) ;;		# removed
@@ -96,8 +98,7 @@ while read ravenport version fpc_port; do
 	langkit) ;;		# removed
 	sparforte) ;;
 
-	liborcus-1.4) ;;	# legacy for libreoffice
-	mdds-1.4) ;;		# legacy for libreoffice
+	mdds) ;;		# latest for libreoffice
 
 	libadalang*) ;;		# Rest are ports that FPC doesn't have yet
 	libtickit) ;;
@@ -107,7 +108,6 @@ while read ravenport version fpc_port; do
 	quex) ;;
 	slider) ;;
 	firebird30) ;;
-	php56-intl) ;;
 	fuse3) ;;
 	aspell-mg | aspell-hus) ;;
 	gnatcross*) ;;
@@ -118,9 +118,7 @@ while read ravenport version fpc_port; do
 	stterm)  ;;
 	bezitopo) ;;
 	pekwm-themepack) ;;
-	spidermonkey) ;;		# check occasionally
 	libxmlxx) ;;			# check libxml++ occ.
-	db18) ;;			# check occasionally
 	guile) ;;			# check occasionally
 	libsigcxx) ;;			# check occasionally
 	hardlink-osx) ;;
@@ -130,7 +128,6 @@ while read ravenport version fpc_port; do
 	corefonts) ;;
 	precomp) ;;
 	oed) ;;
-	zig) ;;
 	libmnl) ;;
 	libsvgtiny) ;;
 	linenoise) ;;
@@ -141,6 +138,12 @@ while read ravenport version fpc_port; do
 	lua-zlib) ;;
 	ixion) ;;
 	skia) ;;
+	shotgun) ;;
+	libtcod) ;;
+	termcap) ;;
+	media-types) ;;
+	opencl-clhpp) ;;
+	rocm-device-libs) ;;
 	*) echo "${ravenport} ${version}"
    esac
 done < ${tmpfile}
