@@ -25,6 +25,8 @@ FPC_EQUIVALENT=		graphics/qt6-svg
 
 BUILD_DEPENDS=		qt6-qttools:single:standard
 
+BROKEN[freebsd]=	.build/translations/qm/qtdeclarative_en.qm': No such file or directory
+
 USES=			qt6 cmake pkgconfig perl:build cpe
 CPE_VENDOR=		qt
 CPE_PRODUCT=		qt
@@ -32,3 +34,4 @@ DISTNAME=		${COMPONENT}-everywhere-src-${PORTVERSION}
 PLIST_SUB=		QTVER=${PORTVERSION}
 			SOMAJORMIN=${PORTVERSION:R}
 SOVERSION=		${PORTVERSION}
+SINGLE_JOB=		yes
