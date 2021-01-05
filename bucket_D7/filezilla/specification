@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	3.52.0
+DEF[PORTVERSION]=	3.52.0.1
+DEF[SOVERSION]=		${PORTVERSION:R}
 DEF[WXRC_CMD]=		wxrc-gtk3u-3.0
 DEF[WX_CONFIG]=		wx-config
 # ----------------------------------------------------------------------------
@@ -54,7 +55,7 @@ CONFIGURE_ARGS=		--with-wx-config={{LOCALBASE}}/bin/${WX_CONFIG}
 			WXRC={{LOCALBASE}}/bin/${WXRC_CMD}
 MAKE_ARGS=		LIBTOOLFLAGS=--tag=CXX
 CFLAGS=			-Iputty
-PLIST_SUB=		VERSION=${PORTVERSION}
+PLIST_SUB=		VERSION=${SOVERSION}
 
 # filezilla has been failing with gcc ICE failure on both gcc7 and gcc8
 # on FreeBSD. Until this is fixed, use clang to build filezilla on that OS.
