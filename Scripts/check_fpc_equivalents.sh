@@ -84,6 +84,8 @@ while read ravenport version fpc_port; do
 	qt5-qtdeclarative) ;;	#
 	gstreamer1-*-xshm) ;;   # FreeBSD combined with plugins-x
 	qt6-*) ;;		# QT6 isn't on freebsd yet
+	gtkmm40) ;;		# check periodically
+	gtk4) ;;		# check periodically
 	
 	usb-modeswitch-data) ;;	# combined with sysutils/usb_modeswitch
 	rustless-firefox) ;;	# currently like www/firefox-esr, but RP is frozen
@@ -92,11 +94,12 @@ while read ravenport version fpc_port; do
 	GeoIP) ;;		# removed from FPC
 	libcxx) ;;		# removed from FPC
 	warsow*) ;;		# removed
-	llvm40) ;;		# removed
 	XML_EZ_Out) ;;		# removed
 	libsparkcrypto) ;;	# removed
 	langkit) ;;		# removed
-	sparforte) ;;
+	sparforte) ;;		# removed
+	aucatctl) ;;		# removed
+	simple_components) ;;	# removed
 
 	mdds) ;;		# latest for libreoffice
 
