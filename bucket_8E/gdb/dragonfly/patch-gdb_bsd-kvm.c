@@ -1,6 +1,6 @@
---- gdb/bsd-kvm.c.orig	2020-05-23 21:10:29 UTC
+--- gdb/bsd-kvm.c.orig	2020-09-13 02:33:41 UTC
 +++ gdb/bsd-kvm.c
-@@ -38,10 +38,10 @@
+@@ -39,10 +39,10 @@
  #include <paths.h>
  #include "readline/readline.h"
  #include <sys/param.h>

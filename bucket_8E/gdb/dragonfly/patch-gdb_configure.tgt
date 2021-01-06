@@ -1,4 +1,4 @@
---- gdb/configure.tgt.orig	2020-05-23 21:10:29 UTC
+--- gdb/configure.tgt.orig	2020-10-24 04:23:02 UTC
 +++ gdb/configure.tgt
 @@ -100,6 +100,8 @@ esac
  # 2. Get the objects per os in $TARG.
@@ -9,9 +9,9 @@
  *-*-freebsd* | *-*-kfreebsd*-gnu)
  	os_obs="fbsd-tdep.o solib-svr4.o";;
  *-*-netbsd* | *-*-knetbsd*-gnu)
-@@ -743,6 +745,11 @@ x86_64-*-linux*)
+@@ -733,6 +735,11 @@ x86_64-*-linux*)
+ 			i386-linux-tdep.o glibc-tdep.o \
  			solib-svr4.o symfile-mem.o linux-tdep.o linux-record.o"
- 	build_gdbserver=yes
  	;;
 +x86_64-*-dragonfly*)
 +	# Target: DragonFly/amd64
@@ -21,7 +21,7 @@
  x86_64-*-freebsd* | x86_64-*-kfreebsd*-gnu)
  	# Target: FreeBSD/amd64
  	gdb_target_obs="amd64-fbsd-tdep.o ${i386_tobjs} \
-@@ -783,6 +790,8 @@ gdb_target_obs="${cpu_obs} ${os_obs} ${g
+@@ -771,6 +778,8 @@ gdb_target_obs="${cpu_obs} ${os_obs} ${g
  # map target onto default OS ABI
  
  case "${targ}" in

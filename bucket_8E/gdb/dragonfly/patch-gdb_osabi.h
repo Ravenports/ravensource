@@ -1,6 +1,6 @@
---- gdb/defs.h.orig	2020-05-23 21:10:29 UTC
-+++ gdb/defs.h
-@@ -483,6 +483,7 @@ enum gdb_osabi
+--- gdb/osabi.h.orig	2020-10-24 04:23:02 UTC
++++ gdb/osabi.h
+@@ -33,6 +33,7 @@ enum gdb_osabi
    GDB_OSABI_FREEBSD,
    GDB_OSABI_NETBSD,
    GDB_OSABI_OPENBSD,

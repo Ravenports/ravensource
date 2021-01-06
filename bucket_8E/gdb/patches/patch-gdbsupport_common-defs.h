@@ -1,6 +1,6 @@
---- gdb/gdbsupport/common-defs.h.orig	2020-05-23 21:10:29 UTC
-+++ gdb/gdbsupport/common-defs.h
-@@ -55,9 +55,15 @@
+--- gdbsupport/common-defs.h.orig	2020-09-13 02:33:41 UTC
++++ gdbsupport/common-defs.h
+@@ -47,9 +47,15 @@
  
     Must do this before including any system header, since other system
     headers may include stdint.h/inttypes.h.  */

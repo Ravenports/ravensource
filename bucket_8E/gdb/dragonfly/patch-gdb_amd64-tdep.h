@@ -1,6 +1,6 @@
---- gdb/amd64-tdep.h.orig	2020-05-23 21:10:29 UTC
+--- gdb/amd64-tdep.h.orig	2020-10-24 04:23:02 UTC
 +++ gdb/amd64-tdep.h
-@@ -145,8 +145,8 @@ extern int amd64nbsd_r_reg_offset[];
+@@ -146,8 +146,8 @@ extern int amd64nbsd_r_reg_offset[];
  extern int amd64obsd_r_reg_offset[];
  
  /* Variables exported from amd64-fbsd-tdep.c.  */
