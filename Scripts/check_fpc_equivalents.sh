@@ -77,6 +77,7 @@ while read ravenport version fpc_port; do
 	gsfonts) ;;		# noschema (8.11 vs 8.11pre)
 	norm) ;;		# fails to recognize 1.5.8 > 1.5r6
 	double-conversion) ;;	# garbage version, recheck periodically
+	w3m) ;;			# Different version scheme (we use OpenBSD now)
 
 	libexecinfo) ;;		# Different source from FPC
 	doas) ;;		# ditto
