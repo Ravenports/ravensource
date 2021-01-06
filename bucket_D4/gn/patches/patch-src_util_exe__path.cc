@@ -1,4 +1,4 @@
---- src/util/exe_path.cc.orig	2020-02-20 17:50:20 UTC
+--- src/util/exe_path.cc.orig	2020-08-12 19:30:44 UTC
 +++ src/util/exe_path.cc
 @@ -15,7 +15,7 @@
  #include <windows.h>
@@ -9,7 +9,7 @@
  #include <limits.h>
  #include <sys/sysctl.h>
  #include <sys/types.h>
-@@ -55,7 +55,7 @@ base::FilePath GetExePath() {
+@@ -57,7 +57,7 @@ base::FilePath GetExePath() {
    return base::FilePath(system_buffer);
  }
  
