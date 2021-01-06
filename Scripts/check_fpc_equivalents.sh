@@ -69,6 +69,7 @@ while read ravenport version fpc_port; do
 	fontconfig) ;;          # FPC tracking beta versions
 
 	aspell-el) ;;		# requires EPOCH, 0.08 > 0.50 actually
+	aspell-pl) ;;		# incorrectly identifies as newer (scheme difference)
 	hunspell-pt*) ;;	# Freebsd combines BR/PT, but raven splits them up
 	openjade) ;;            # FreeBSD uses dev version, ravenports has release
 	python-*) ;;            # manual python port
