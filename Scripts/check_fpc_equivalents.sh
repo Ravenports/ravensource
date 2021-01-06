@@ -58,6 +58,7 @@ while read ravenport version fpc_port; do
 	aom) ;;                 # ditto
 	rtmpdump) ;;		# ditto
 	ImageMagick) ;;		# W.X.Y.Z rather than W.X.Y-Z
+	irssi) ;;		# fake version
 	libcdio-paranoia) ;;	# Symbols in version fake as older
 	libunwind) ;;		# ditto
 	unrar) ;;		# ditto
