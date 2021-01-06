@@ -76,6 +76,7 @@ while read ravenport version fpc_port; do
 	ncurses60) ;;		# required for 1 or 2 apps
 	gsfonts) ;;		# noschema (8.11 vs 8.11pre)
 	norm) ;;		# fails to recognize 1.5.8 > 1.5r6
+	double-conversion) ;;	# garbage version, recheck periodically
 
 	libexecinfo) ;;		# Different source from FPC
 	doas) ;;		# ditto
