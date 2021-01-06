@@ -1,8 +1,8 @@
---- m4/R.m4.orig	2020-03-26 23:02:35 UTC
+--- m4/R.m4.orig	2020-09-01 22:15:02 UTC
 +++ m4/R.m4
-@@ -3969,7 +3969,7 @@ case "${host_os}" in
+@@ -3971,7 +3971,7 @@ case "${host_os}" in
    darwin*)
-     R_SYSTEM_ABI="osx"
+     R_SYSTEM_ABI="macos"
      ;;
 -  freebsd*)
 +  dragonfly*|freebsd*)
