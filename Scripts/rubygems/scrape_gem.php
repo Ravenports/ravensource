@@ -110,17 +110,18 @@ function set_dependencies_comment ($data, &$comment) {
 
 
 # convert requirements into buildrun array
-# Skip builder (packaged with ruby in Ravenports)
+# Skip bundler and racc (packaged with ruby in Ravenports)
 function set_dependencies ($data, &$storage) {
     if ($data == "") {
         return;
     }
     foreach (explode ("\n", $data) as $line) {
         $parts = explode (" ", trim($line));
-        if ($parts[0] != "bundler") {
-            if (!in_array($parts[0], $storage)) {
-                array_push($storage, $parts[0]);
-            }
+        if ($parts[0] == "bundler") { continue; }
+        if ($parts[0] == "racc") { continue; }
+
+        if (!in_array($parts[0], $storage)) {
+            array_push($storage, $parts[0]);
         }
     }
 }

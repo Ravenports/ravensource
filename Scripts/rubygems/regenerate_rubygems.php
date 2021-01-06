@@ -213,8 +213,16 @@ function determine_variants($namebase, $minversion) {
 # function no longer filters; always returns full set of variants
 # Now variants are marked broken instead of being missing
 #        if (meets_minimum_version_requirement($V, $minversion)) {
-            array_push($variants, "v" . $V);
+#            array_push($variants, "v" . $V);
 #        }
+# The lone exception is racc, which is needed for ruby26 only
+         if ($namebase == "racc") {
+             if ($V == $VA) {
+                 array_push($variants, "v" . $V);
+             }
+         } else {
+             array_push($variants, "v" . $V);
+         }
     }
     if (empty($variants)) {
         exit("Major issue: ruby-$namebase minimum requirements "
