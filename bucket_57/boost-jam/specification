@@ -35,9 +35,16 @@ DISTNAME=		boost_${BOOSTVER}
 BUILD_TARGET=		gcc
 BUILD_WRKSRC=		{{WRKSRC}}/${ENGINE_DIR}
 INSTALL_WRKSRC=		{{BUILD_WRKSRC}}
+CXXFLAGS=		{{LDFLAGS}}
 
 EXTRACT_HEAD[1]=	{{TAR}} -xf
 EXTRACT_TAIL[1]=	{{DISTNAME}}/${ENGINE_DIR} {{DISTNAME}}/LICENSE_1_0.txt
+
+post-patch:
+	# removing -O3 flag
+	${REINPLACE_CMD} -e 's|-O3 ||g' ${BUILD_WRKSRC}/build.sh
+	# hardcode executable path on fallback
+	${REINPLACE_CMD} -e 's|@LOCALBASE@|${PREFIX}|' ${BUILD_WRKSRC}/jam.cpp
 
 do-build:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
