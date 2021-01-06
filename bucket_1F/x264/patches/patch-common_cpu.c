@@ -1,4 +1,4 @@
---- common/cpu.c.orig	2019-11-26 23:50:00 UTC
+--- common/cpu.c.orig	2020-09-12 17:23:57 UTC
 +++ common/cpu.c
 @@ -33,7 +33,7 @@
  #if SYS_BEOS
