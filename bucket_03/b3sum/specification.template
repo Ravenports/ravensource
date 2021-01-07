@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	%%VERSION%%
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		b3sum
+VERSION=		${PORTVERSION}
+KEYWORDS=		rust security
+VARIANTS=		standard
+SDESC[standard]=	Command line utility for calculating BLAKE3 hashes
+HOMEPAGE=		https://crates.io/crates/b3sum
+CONTACT=		nobody
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		https://crates.io/api/v1/crates/b3sum/${PORTVERSION}/download?dummy=/
+%%CR_SITES%%
+
+DISTFILE[1]=		b3sum-${PORTVERSION}.tar.gz:main
+%%CR_DISTFILES%%
+%%DF_INDEX%%
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CC0_10:single APACHE20:single
+LICENSE_TERMS=		single:{{FILESDIR}}/LICENSE
+LICENSE_FILE=		CC0_10:stock
+			APACHE20:stock
+LICENSE_SCHEME=		dual
+
+USES=			cargo cclibs:single
+
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/.crates2.json
