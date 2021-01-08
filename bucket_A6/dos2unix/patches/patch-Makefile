@@ -1,0 +1,39 @@
+--- Makefile.orig	2020-10-12 20:16:07 UTC
++++ Makefile
+@@ -76,7 +76,7 @@ bindir          = $(exec_prefix)/bin
+ datarootdir     = $(prefix)/share
+ datadir         = $(datarootdir)
+ 
+-docsubdir       = $(PACKAGE)-$(DOS2UNIX_VERSION)
++docsubdir       = $(PACKAGE)
+ docdir          = $(datarootdir)/doc/$(docsubdir)
+ localedir       = $(datarootdir)/locale
+ mandir          = $(datarootdir)/man
+@@ -290,25 +290,9 @@ endif
+         EXTRA_DEFS += -Dfreemint -D__OS=\"freemint\"
+ endif
+ 
+-ifeq (freebsd,$(D2U_OS))
++# all systems including Linux
+ ifdef ENABLE_NLS
+-        CFLAGS_OS     = -I/usr/local/include
+-        LDFLAGS_EXTRA = -L/usr/local/lib
+-        LIBS_EXTRA    = -lintl
+-endif
+-endif
+-
+-ifeq (darwin,$(D2U_OS))
+-ifdef ENABLE_NLS
+-        CFLAGS_OS     = -I/usr/local/include
+-        LDFLAGS_EXTRA = -L/usr/local/lib
+-        LIBS_EXTRA    = -lintl
+-endif
+-endif
+-
+-ifeq (sun,$(D2U_OS))
+-        # Running under SunOS/Solaris
+-        LIBS_EXTRA = -lintl
++        LIBS_EXTRA    = -lintl -liconv
+ endif
+ 
+ ifeq (hp-ux,$(D2U_OS))

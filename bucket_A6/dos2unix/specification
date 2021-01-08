@@ -1,0 +1,30 @@
+DEF[PORTVERSION]=	7.4.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		dos2unix
+VERSION=		${PORTVERSION}
+KEYWORDS=		converters
+VARIANTS=		standard
+SDESC[standard]=	DOS/MAC to UNIX Text File Format Converter
+HOMEPAGE=		https://waterlan.home.xs4all.nl/dos2unix.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://waterlan.home.xs4all.nl/dos2unix/
+DISTFILE[1]=		dos2unix-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:primary
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING.txt
+LICENSE_SCHEME=		solo
+
+USES=			gmake gettext-tools gettext-runtime
+MAKE_ARGS=		prefix="{{PREFIX}}"
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/dos2unix
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/unix2dos
