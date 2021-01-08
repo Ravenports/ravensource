@@ -1,0 +1,62 @@
+DEF[PORTVERSION]=	2.3
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		cppcheck
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Static analysis tool for C/C++
+HOMEPAGE=		https://github.com/danmar/cppcheck
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/danmar:cppcheck:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete tool gui
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:tool
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		tool:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/cli/main.cpp
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/cppcheck
+
+BUILD_DEPENDS=		pcre:static:standard
+			docbook-xsl:primary:standard
+BUILDRUN_DEPENDS=	pcre:shared:standard
+			qt5-qtbase:primary:standard
+			qt5-qttools:single:standard
+
+EXRUN[gui]=		cppcheck:tool:standard
+
+USES=			cmake shebangfix python c++:tool,gui
+GNOME_COMPONENTS=	libxslt
+SHEBANG_FILES=		htmlreport/cppcheck-htmlreport
+CMAKE_ARGS=		-DHAVE_RULES:BOOL=ON
+			-DUSE_MATCHCOMPILER:BOOL=ON
+			-DBUILD_GUI:BOOL=ON
+			-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
+CPPFLAGS=		-Wno-unused-function
+
+
+post-build:
+	cd ${WRKSRC}/man && \
+		${LOCALBASE}/bin/xsltproc --nonet \
+		--param man.charmap.use.subset "0" \
+		${LOCALBASE}/share/xsl/docbook/manpages/docbook.xsl \
+		cppcheck.1.xml
+
+post-install:
+	${INSTALL_SCRIPT} ${WRKSRC}/htmlreport/cppcheck-htmlreport \
+		${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/man/cppcheck.1 \
+		${STAGEDIR}${MANPREFIX}/man/man1
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/cppcheck
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/cppcheck-gui
+
