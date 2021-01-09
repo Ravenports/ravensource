@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	8.0.0
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		tinyxml2
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	Simple, small and efficient C++ XML parser
+HOMEPAGE=		http://www.grinninglizard.com/tinyxml2/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/leethomason:tinyxml2:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:single
+LICENSE_NAME=		CUSTOM1:"zlib License"
+LICENSE_FILE=		single:{{WRKSRC}}/LICENSE.txt
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		textproc/tinyxml2
+
+USES=			cmake:insource dos2unix c++:single
+CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
+			-DBUILD_TESTS:BOOL=OFF
+SOVERSION=		${SOVERSION}
+
+post-patch:
+	${REINPLACE_CMD} -e '/CMAKE_DEBUG_POSTFIX/d' ${WRKSRC}/CMakeLists.txt
+
+post-install:
+	${AR} cq ${STAGEDIR}${PREFIX}/lib/libtinyxml2.a \
+		${WRKSRC}/CMakeFiles/tinyxml2.dir/tinyxml2.cpp.o
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libtinyxml2.so
+
