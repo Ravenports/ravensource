@@ -1,0 +1,53 @@
+DEF[PORTVERSION]=	1.12.0
+DEF[FOLDER]=		${PORTVERSION:R}
+DEF[SOVERSION]=		200.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		hdf5
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers science
+VARIANTS=		standard
+SDESC[standard]=	General purpose file format for scientific data
+HOMEPAGE=		https://www.hdfgroup.org/solutions/hdf5/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-${FOLDER}/hdf5-${PORTVERSION}/src/
+DISTFILE[1]=		hdf5-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		science/hdf5
+
+BUILDRUN_DEPENDS=	szip:single:standard
+
+USES=			libtool c++:single fortran:single
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-h1
+			--enable-instrument
+			--enable-strict-format
+			--enable-cxx
+			--enable-fortran
+			--enable-build-mode=production
+			--with-szip="{{LOCALBASE}}"
+SOVERSION=		${SOVERSION}
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+SINGLE_JOB=		yes
+
+post-patch:
+	${REINPLACE_CMD} -e 's|-O3||g' ${WRKSRC}/config/gnu-flags
+	${FIND} ${WRKSRC} -regex '.*/examples/Makefile.in' | ${XARGS} \
+		${REINPLACE_CMD} \
+		-e '/LD_LIBRARY_PATH/ s|^|#|' \
+		-e 's|/share/hdf5_examples|/share/examples/hdf5|' \
+		-e 's|(INSTALL)|(BSD_INSTALL_DATA)|'
+	${FIND} ${WRKSRC} -name \*.sh\* | ${XARGS} \
+		${REINPLACE_CMD} -e 's|\[ -a|\[ -f|g'
