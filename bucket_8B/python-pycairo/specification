@@ -1,48 +1,46 @@
-# manually maintained
-# SPKGS require changing with a change in default python version
 DEF[PORTVERSION]=	1.20.0
-DEF[PYDEFAULT]=		EXTRACT_VERSION(PYTHON3_DEFAULT)
-DEF[PYXX]=		py${PYDEFAULT:S/.//g}
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pycairo
 VERSION=		${PORTVERSION}
-KEYWORDS=		python devel
+KEYWORDS=		python
 VARIANTS=		py38 py39
-SDESC[py39]=		Bindings for cairo graphics library (PY39)
 SDESC[py38]=		Bindings for cairo graphics library (PY38)
+SDESC[py39]=		Bindings for cairo graphics library (PY39)
 HOMEPAGE=		https://pycairo.readthedocs.io
-CONTACT=		nobody
+CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/p/pycairo
 DISTFILE[1]=		pycairo-${PORTVERSION}.tar.gz:main
 
-SPKGS[py39]=		primary
-SPKGS[py38]=		primary common
+SPKGS[py38]=		single
+SPKGS[py39]=		single
 
 OPTIONS_AVAILABLE=	PY38 PY39
 OPTIONS_STANDARD=	none
 VOPTS[py38]=		PY38=ON PY39=OFF
 VOPTS[py39]=		PY38=OFF PY39=ON
 
-FPC_EQUIVALENT=		graphics/py-cairo
 # License listed at PyPI
 # LGPL-2.1-only OR MPL-1.1
 
+GENERATED=		yes
+DISTNAME=		pycairo-${PORTVERSION}
+
 # install_requires extracted from setup.py
 
+
 [PY38].USES_ON=				python:py38,sutools
-[PY38].MAKEFILE_ON=			DISTNAME=pycairo-${PORTVERSION}
 [PY39].USES_ON=				python:py39,sutools
-[PY39].MAKEFILE_ON=			DISTNAME=pycairo-${PORTVERSION}
 
 USES=			pkgconfig
 GNOME_COMPONENTS=	cairo
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/cairo/*.so
-	if [ "${VARIANT}" != "${PYXX}" ]; then \
-		${RM} -r ${STAGEDIR}${PREFIX}/include/pycairo ;\
-		${RM} ${STAGEDIR}${PREFIX}/lib/pkgconfig/py3cairo.pc ;\
-	fi
+	${SED} -i'' -e "s|include/pycairo|include/pycairo${PYTHON_SUFFIX}|"\
+		${STAGEDIR}${PREFIX}/lib/pkgconfig/py3cairo.pc
+	${MV} ${STAGEDIR}${PREFIX}/include/pycairo \
+		${STAGEDIR}${PREFIX}/include/pycairo${PYTHON_SUFFIX}
+	${MV} ${STAGEDIR}${PREFIX}/lib/pkgconfig/py3cairo.pc \
+		${STAGEDIR}${PREFIX}/lib/pkgconfig/py${PYTHON_SUFFIX}cairo.pc

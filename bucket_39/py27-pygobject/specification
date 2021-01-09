@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	3.36.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		py27-pygobject
+VERSION=		${PORTVERSION}
+KEYWORDS=		python devel
+VARIANTS=		standard
+SDESC[standard]=	Python bindings for GObject (PY 27)
+HOMEPAGE=		https://wiki.gnome.org/Projects/PyGObject
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/pygobject/${PORTVERSION:R}
+DISTFILE[1]=		pygobject-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome3
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:single
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
+
+BUILDRUN_DEPENDS=	libffi:single:standard
+			py27-pycairo:single:standard
+RUN_DEPENDS=		gobject-introspection:single:standard
+
+USES=			gmake libtool pkgconfig meson python:py27
+GNOME_COMPONENTS=	introspection
+MESON_ARGS=		-Dpython=python{{PYTHON_VER}}
+INSTALL_TARGET=		install-strip
+DISTNAME=		pygobject-${PORTVERSION}
+
+post-extract:
+	${MV} ${WRKSRC}/setup.py ${WRKSRC}/setup.py.disable
+
+pre-patch:
+	${AWK} '/^$$/ {exit}; {print}' ${WRKSRC}/gi/importer.py \
+	> ${WRKDIR}/TERMS
+
+post-install:
+	${SED} -i'' -e '/pygobjectincludedir/ s|/pygobject|/py27-pygobject|' \
+		${STAGEDIR}${PREFIX}/lib/pkgconfig/pygobject-3.0.pc
+	${MV} ${STAGEDIR}${PREFIX}/include/pygobject-3.0 \
+		${STAGEDIR}${PREFIX}/include/py27-pygobject-3.0
+	${MV} ${STAGEDIR}${PREFIX}/lib/pkgconfig/pygobject-3.0.pc \
+		${STAGEDIR}${PREFIX}/lib/pkgconfig/py27-pygobject-3.0.pc

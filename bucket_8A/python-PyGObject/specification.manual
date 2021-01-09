@@ -1,0 +1,17 @@
+LICENSE=		LGPL21+:single
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/py-gobject3
+
+BUILDRUN_DEPENDS=	libffi:single:standard
+			python-pycairo:single:python_used
+RUN_DEPENDS=		gobject-introspection:single:standard
+
+USES=			gmake pkgconfig
+GNOME_COMPONENTS=	introspection cairo
+
+pre-patch:
+	${AWK} '/^$$/ {exit}; {print}' ${WRKSRC}/gi/importer.py \
+	> ${WRKDIR}/TERMS

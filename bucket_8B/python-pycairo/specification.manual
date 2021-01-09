@@ -1,0 +1,10 @@
+USES=			pkgconfig
+GNOME_COMPONENTS=	cairo
+
+post-install:
+	${SED} -i'' -e "s|include/pycairo|include/pycairo${PYTHON_SUFFIX}|"\
+		${STAGEDIR}${PREFIX}/lib/pkgconfig/py3cairo.pc
+	${MV} ${STAGEDIR}${PREFIX}/include/pycairo \
+		${STAGEDIR}${PREFIX}/include/pycairo${PYTHON_SUFFIX}
+	${MV} ${STAGEDIR}${PREFIX}/lib/pkgconfig/py3cairo.pc \
+		${STAGEDIR}${PREFIX}/lib/pkgconfig/py${PYTHON_SUFFIX}cairo.pc

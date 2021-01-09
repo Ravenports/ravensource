@@ -524,6 +524,8 @@ function set_buildrun (&$portdata, $PVA, $PVB) {
         case "protobuf":
         case "cryptography":
         case "compreffor":
+        case "pycairo":
+        case "PyGObject":
         case "zipp":		// above -- not distutils script
         case "pygit2":
         case "PyNaCl":		// above -- tries downloading
