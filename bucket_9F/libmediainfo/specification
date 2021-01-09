@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	20.09
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libmediainfo
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		standard
+SDESC[standard]=	Multimedia file information library
+HOMEPAGE=		https://mediaarea.net/en/MediaInfo
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/MediaArea:MediaInfoLib:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/License.txt
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		multimedia/libmediainfo
+
+BUILD_DEPENDS=		libtool:single:standard
+BUILDRUN_DEPENDS=	tinyxml2:single:standard
+			libzen:single:standard
+			curl:primary:standard
+
+USES=			autoreconf:build dos2unix libtool pkgconfig zlib
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-shared
+			--enable-static
+			--with-libtinyxml2=yes
+			--with-libcurl={{LOCALBASE}}
+CONFIGURE_WRKSRC=	{{WRKSRC}}/Project/GNU/Library
+BUILD_WRKSRC=		{{WRKSRC}}/Project/GNU/Library
+INSTALL_WRKSRC=		{{WRKSRC}}/Project/GNU/Library
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
+
+pre-configure:
+	cd ${CONFIGURE_WRKSRC} && ${SH} ./autogen.sh
