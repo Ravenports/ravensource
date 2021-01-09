@@ -1,0 +1,30 @@
+DEF[PORTVERSION]=	1.18.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		py27-pycairo
+VERSION=		${PORTVERSION}
+KEYWORDS=		python devel
+VARIANTS=		standard
+SDESC[standard]=	Bindings for cairo graphics library (PY27)
+HOMEPAGE=		https://pycairo.readthedocs.io
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/p/pycairo
+DISTFILE[1]=		pycairo-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed at PyPI
+# LGPL-2.1-only OR MPL-1.1
+
+# install_requires extracted from setup.py
+
+BUILD_DEPENDS=		py27-setuptools:single:standard
+USES=			python:py27 pkgconfig
+GNOME_COMPONENTS=	cairo
+DISTNAME=		pycairo-${PORTVERSION}
+GENERATED=		yes
