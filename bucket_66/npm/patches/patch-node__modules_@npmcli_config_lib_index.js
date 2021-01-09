@@ -1,4 +1,4 @@
---- node_modules/@npmcli/config/lib/index.js.orig	2020-12-18 20:30:52 UTC
+--- node_modules/@npmcli/config/lib/index.js.orig	2021-01-07 20:53:30 UTC
 +++ node_modules/@npmcli/config/lib/index.js
 @@ -296,6 +296,9 @@ class Config {
  
