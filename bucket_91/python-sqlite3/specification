@@ -1,5 +1,4 @@
 # manually maintained
-DEF[PV27]=		EXTRACT_VERSION(PYTHON_2.7_VERSION)
 DEF[PV39]=		EXTRACT_VERSION(PYTHON_3.9_VERSION)
 DEF[PV38]=		EXTRACT_VERSION(PYTHON_3.8_VERSION)
 DEF[PORTVERSION]=	${PV39}
@@ -8,30 +7,25 @@ DEF[PORTVERSION]=	${PV39}
 NAMEBASE=		python-sqlite3
 VERSION=		${PORTVERSION}
 KEYWORDS=		databases python
-VARIANTS=		py27 py39 py38
-SDESC[py27]=		Python 2.7 bindings to the SQLite3 library
+VARIANTS=		py39 py38
 SDESC[py39]=		Python 3.9 bindings to the SQLite3 library
 SDESC[py38]=		Python 3.8 bindings to the SQLite3 library
 HOMEPAGE=		https://www.python.org/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	none pv27 pv39 pv38
-SITES[pv27]=		http://www.python.org/ftp/python/${PV27}/
+DOWNLOAD_GROUPS=	none pv39 pv38
 SITES[pv39]=		http://www.python.org/ftp/python/${PV39}/
 SITES[pv38]=		http://www.python.org/ftp/python/${PV38}/
-DISTFILE[1]=		Python-${PV27}.tar.xz:pv27
-DISTFILE[2]=		Python-${PV38}.tar.xz:pv38
-DISTFILE[3]=		Python-${PV39}.tar.xz:pv39
+DISTFILE[1]=		Python-${PV38}.tar.xz:pv38
+DISTFILE[2]=		Python-${PV39}.tar.xz:pv39
 
-SPKGS[py27]=		single
 SPKGS[py39]=		single
 SPKGS[py38]=		single
 
-OPTIONS_AVAILABLE=	PY27 PY39 PY38
+OPTIONS_AVAILABLE=	PY38 PY39
 OPTIONS_STANDARD=	none
-VOPTS[py27]=		PY27=ON PY39=OFF PY38=OFF
-VOPTS[py39]=		PY27=OFF PY39=ON PY38=OFF
-VOPTS[py38]=		PY27=OFF PY39=OFF PY38=ON
+VOPTS[py38]=		PY39=OFF PY38=ON
+VOPTS[py39]=		PY39=ON PY38=OFF
 
 FPC_EQUIVALENT=		databases/py-sqlite3
 
@@ -42,16 +36,10 @@ CPE_VENDOR=		python
 CPE_PRODUCT=		python
 DISTNAME=		Python/Modules
 
-[PY27].USES_ON=				python:py27,sutools
-[PY27].DF_INDEX_ON=			1
-[PY39].USES_ON=				python:py39,sutools
-[PY39].DF_INDEX_ON=			3
 [PY38].USES_ON=				python:py38,sutools
-[PY38].DF_INDEX_ON=			2
-
-post-extract-PY27-ON:
-	${MV} ${WRKDIR}/Python-${PV27} ${WRKDIR}/Python
-	${CP} ${FILESDIR}/setup.py ${WRKSRC}
+[PY38].DF_INDEX_ON=			1
+[PY39].USES_ON=				python:py39,sutools
+[PY39].DF_INDEX_ON=			2
 
 post-extract-PY39-ON:
 	${MV} ${WRKDIR}/Python-${PV39}  ${WRKDIR}/Python
