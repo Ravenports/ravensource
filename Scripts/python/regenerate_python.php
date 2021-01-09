@@ -15,7 +15,6 @@ define ("DEAD_HOMEPAGES", "deadhome");
 define ("TOPLEVEL_PORTS", "toplevel");
 define ("HTTP_REDIRECT", "redirect");
 define ("CORRECTIONS", "depfixes");
-define ("LEGACY", "legacy");
 
 require_once $SCRIPTDIR . "/keyed-lists.php";
 require_once $SCRIPTDIR . "/scrape_pypi.php";
@@ -26,7 +25,6 @@ ingest_file (DESCRIPTIONS, $SCRIPTDIR);
 ingest_file (DEAD_HOMEPAGES, $SCRIPTDIR);
 ingest_file (HTTP_REDIRECT, $SCRIPTDIR);
 ingest_file (CORRECTIONS, $SCRIPTDIR);
-ingest_file (LEGACY, $SCRIPTDIR);
 set_top_level_ports (TOPLEVEL_PORTS, $SCRIPTDIR);
 
 # global variables
@@ -36,10 +34,8 @@ $truncated_summaries = array();
 $ravensource_directory = "";
 $VA = 38;	# single point of change when python
 $VB = 39;	# series are changed in ravenports
-$VC = 27;
 $PYTHON_VERSION_A = -1;
 $PYTHON_VERSION_B = -1;
-$PYTHON_VERSION_C = -1;
 
 # Sets the initial scan list as the top-level ports
 function set_initial_queue() {
@@ -54,13 +50,13 @@ function set_initial_queue() {
 # Python generator isn't recursive, so we only make one pass.
 function cycle_through_queue ($force_setting) {
     global
-        $VA, $VB, $VC,
+        $VA, $VB,
         $port_data,
         $namebase_queue;
 
     set_up_cache();
     foreach ($namebase_queue as $namebase) {
-        $port_data[$namebase] = scrape_python_info ($namebase, $force_setting, $VA, $VB, $VC);
+        $port_data[$namebase] = scrape_python_info ($namebase, $force_setting, $VA, $VB);
         if (!$port_data[$namebase]["success"]) {
             echo "Error scanning $namebase port\n";
         }
@@ -88,17 +84,14 @@ function bucket_directory($namebase) {
 # Slurp raven.versions.mk to determine latest python version
 function set_python_version($ravensource) {
     global
-        $VA, $VB, $VC,
+        $VA, $VB,
         $PYTHON_VERSION_A,
-        $PYTHON_VERSION_B,
-        $PYTHON_VERSION_C;
+        $PYTHON_VERSION_B;
 
     $PA = substr($VA, 0, 1) . "[.]" . substr($VA, 1, 1);
     $PB = substr($VB, 0, 1) . "[.]" . substr($VB, 1, 1);
-    $PC = substr($VC, 0, 1) . "[.]" . substr($VC, 1, 1);
     $RA = "/PYTHON_".$PA."_VERSION=\t([0-9]+)[.]([0-9]+)[.]([0-9]+)/U";
     $RB = "/PYTHON_".$PB."_VERSION=\t([0-9]+)[.]([0-9]+)[.]([0-9]+)/U";
-    $RC = "/PYTHON_".$PC."_VERSION=\t([0-9]+)[.]([0-9]+)[.]([0-9]+)/U";
     $rvm = $ravensource . "/Scripts/Ravenports_Mk/raven.versions.mk";
 
     $contents = file_get_contents($rvm);
@@ -115,11 +108,6 @@ function set_python_version($ravensource) {
                                 (int)$matches[2] *   100 +
                                 (int)$matches[3];
         }
-        if (preg_match($RC, $contents, $matches) == 1) {
-            $PYTHON_VERSION_C = (int)$matches[1] * 10000 +
-                                (int)$matches[2] *   100 +
-                                (int)$matches[3];
-        }
     }
 }
 
@@ -128,15 +116,13 @@ function set_python_version($ravensource) {
 # return True if the port builds on the given version.
 function meets_version_requirements ($PYVER, $requirements_string) {
     global
-        $VA, $VB, $VC,
+        $VA, $VB,
         $PYTHON_VERSION_A,
-        $PYTHON_VERSION_B,
-        $PYTHON_VERSION_C;
+        $PYTHON_VERSION_B;
 
     switch ($PYVER) {
         case $VA : $py_version = $PYTHON_VERSION_A; break;
         case $VB : $py_version = $PYTHON_VERSION_B; break;
-        case $VC : $py_version = $PYTHON_VERSION_C; break;
         default  : exit ("Dev error: unrecognized PYVER ($PYVER)\n");
     }
 
@@ -249,17 +235,12 @@ function meets_version_requirements ($PYVER, $requirements_string) {
 # return an array of variants based on meeting python version requirements
 # Python 2.7 is determined manually
 function determine_variants($namebase, $requirements) {
-    global $VA, $VB, $VC, $data_legacy;
+    global $VA, $VB;
 
     $variants = array();
     foreach (array($VA, $VB) as $V) {
         if (meets_version_requirements($V, $requirements)) {
             array_push($variants, "py" . $V);
-        }
-    }
-    if (in_array($namebase, $data_legacy)) {
-        if (meets_version_requirements($VC, $requirements)) {
-            array_push($variants, "py" . $VC);
         }
     }
 
@@ -336,6 +317,10 @@ function generate_port($namebase) {
                                  "-" . $pvbraces . $ext,
                                  $port_data[$namebase]["distfile"]);
         $distname = preg_replace ($EXTPATS[$key], "", $tarball);
+        # Damn
+        if (substr($distname, 0, 6) == "eyeD3-") {
+            $distname = "eyed3-" . substr($distname, 6);
+        }
         if ($whl_file) {
             $distname .= '.dist-info';
         }

@@ -269,7 +269,6 @@ function inline_fix_setup ($namebase, $src) {
        "pyocr"        => '/PyOCR version/d',
        "lxml"         => '/Building lxml/d',
        "intervaltree" => '/print("Version/d; s/print("!!!.*/    pass/',
-       "eyed3"        => false,
        "aniso8601"    => '/install_requires=/d',
        'Markdown'     => '/install_requires=/ s|;.*[[:punct:]]"|"|',
        "borgbackup"   => '/Detected/d',
@@ -309,10 +308,6 @@ function inline_fix_setup ($namebase, $src) {
            case "lxml":
                $xf = $src . "/setupinfo.py";
                shell_exec("sed -i.bak -E -e '/Building without/d; /Using build/ s/^.*$$/        pass/; /lib_versions[[]?[1]?[]]?)/d; s/if _library_dirs:/if 0:/; s/not check_build_dependencies..:/0:/' $xf");
-               break;
-           case "eyed3":
-               $xf = "$src/requirements.txt $src/requirements/main.txt $src/requirements/requirements.yml";
-               shell_exec ("sed -i.bak -e '/dataclasses;/d' $xf");
                break;
            case "netaddr":
                $xf = $src . "/netaddr/strategy/__init__.py";
@@ -430,15 +425,20 @@ function get_run_depends ($base_dependencies, $pversion) {
              # No limiting version information; all versions need it
              $required = true;
         } else {
-             $pver = str_replace(")", "", substr($line, $pos + 7));
-             $teststr = "\$required = " .
-                        str_replace(array('"', "'"),
-                                    array("",""),
-                                    "\$p" . $pver . " * 10;");
+             # example, worst case 2 python_version checks
+             # dataclasses (>=0.8,<0.9); python_version >= "3.6" and python_version < "3.7"
+             $sc = strpos($line, ";");
+             $clause = substr($line, $sc + 1);
+             $xformed = str_replace(array ("python_version", 'implementation_name == "cpython"',
+                                           'platform_python_implementation=="CPython"',
+                                           '"', "'", ".", "and"),
+                                    array ("\$pversion", "1", "1", "", "", "", "&&"),
+                                    $clause);
+             $teststr = "\$required = " . $xformed . ";";
              eval($teststr);
         }
         if ($required) {
-            $req = trim(preg_replace('/^Requires-Dist: ([^ <>=~!]+)(.*)$/', '\1', $line));
+            $req = trim(preg_replace('/^Requires-Dist: ([^ <>=~!\[]+)(.*)$/', '\1', $line));
             if (array_key_exists ($req, $data_corrections)) {
                 $req = $data_corrections[$req];
             }
@@ -452,7 +452,7 @@ function get_run_depends ($base_dependencies, $pversion) {
 
 
 # Establish buildruns (only using latest python)
-function set_buildrun (&$portdata, $PVA, $PVB, $PVC) {
+function set_buildrun (&$portdata, $PVA, $PVB) {
     global
         $data_corrections,
         $EXTS,
@@ -480,6 +480,10 @@ function set_buildrun (&$portdata, $PVA, $PVB, $PVC) {
         }
     }
     if ($portdata["wheel_dist"]) {
+        # Damn
+        if (substr($distname, 0, 6) == "eyeD3-") {
+            $distname = "eyed3-" . substr($distname, 6);
+        }
        $src = $WORKZONE . "/" . $distname . ".dist-info";
        $metadata = $src . "/METADATA";
        if (!file_exists($metadata)) {
@@ -492,7 +496,6 @@ function set_buildrun (&$portdata, $PVA, $PVB, $PVC) {
        $portdata["req_comment"] .= join("\n", $comment_reqs);
        $portdata["justrun_py" . $PVA] = get_run_depends ($base_reqs, $PVA);
        $portdata["justrun_py" . $PVB] = get_run_depends ($base_reqs, $PVB);
-       $portdata["justrun_py" . $PVC] = get_run_depends ($base_reqs, $PVC);
        return;
     }
 
@@ -588,7 +591,7 @@ function trails($main_string, $fragment) {
 
 
 # main function to ready python module and extract usable information
-function scrape_python_info ($namebase, $force, $PVA, $PVB, $PVC) {
+function scrape_python_info ($namebase, $force, $PVA, $PVB) {
     $result = array(
         "success"     => false,
         "name"        => $namebase,
@@ -606,7 +609,6 @@ function scrape_python_info ($namebase, $force, $PVA, $PVB, $PVC) {
         "buildrun"    => array(),
         "justrun_py" . $PVA => array(),
         "justrun_py" . $PVB => array(),
-        "justrun_py" . $PVC => array(),
         "req_comment" => "# install_requires extracted from setup.py\n",
     );
 
@@ -718,7 +720,7 @@ function scrape_python_info ($namebase, $force, $PVA, $PVB, $PVC) {
                  return $result;
              }
          }
-         set_buildrun($result, $PVA, $PVB, $PVC);
+         set_buildrun($result, $PVA, $PVB);
          $result["success"] = true;
     }
 

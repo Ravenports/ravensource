@@ -7,7 +7,6 @@ $data_homepage = array();
 $data_toplevel_ports = array();
 $data_https_redirect = array();
 $data_corrections = array();
-$data_legacy = array();
 
 
 # procedure to set global variables.
@@ -21,8 +20,7 @@ function ingest_file ($datatype, $scriptdir) {
         $data_homepage,
         $data_https_redirect,
         $data_toplevel_ports,
-        $data_corrections,
-        $data_legacy;
+        $data_corrections;
 
     $filename = "";
     $varname = "";
@@ -52,13 +50,9 @@ function ingest_file ($datatype, $scriptdir) {
             $filename = "list.corrections";
             $varname = "data_corrections";
             break;
-        case "legacy":
-            $filename = "list.legacy_27";
-            $varname = "data_legacy";
-            break;
         default:
             echo "illegal datatype: $datatype\n";
-            echo "Must be summary|description|deadhome|toplevel|depfixes|legacy\n";
+            echo "Must be summary|description|deadhome|toplevel|depfixes\n";
             return;
     }
     $lines = file($scriptdir . "/" . $filename);
