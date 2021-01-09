@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	3.8.3
+DEF[SOVERSION]=		3.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		id3lib
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		standard
+SDESC[standard]=	Library for manipulating ID3v1 and ID3v2 tags
+HOMEPAGE=		https://sourceforge.net/projects/id3lib/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/id3lib/id3lib/${PORTVERSION}
+DISTFILE[1]=		id3lib-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		audio/id3lib
+
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"_ID3LIB_HEADER_H_"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/header.h
+LICENSE_SCHEME=		solo
+
+USES=			iconv libtool zlib c++:single
+MUST_CONFIGURE=		gnu
+CPPFLAGS=		-Wno-dangling-else
+SOVERSION=		${SOVERSION}
+INSTALL_TARGET=		install-strip
+
+post-extract:
+	${RM} -r ${WRKSRC}/zlib
+
+post-patch:
+	${REINPLACE_CMD} -e 's|@PORTVERSION@|${PORTVERSION}|' \
+		${WRKSRC}/examples/demo_convert.cpp \
+		${WRKSRC}/examples/demo_copy.cpp \
+		${WRKSRC}/examples/demo_info.cpp \
+		${WRKSRC}/examples/demo_tag.cpp

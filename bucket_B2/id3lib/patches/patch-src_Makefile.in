@@ -1,0 +1,11 @@
+--- src/Makefile.in.orig	2003-03-02 00:23:00 UTC
++++ src/Makefile.in
+@@ -287,7 +287,7 @@ clean-libLTLIBRARIES:
+ 	  rm -f "$${dir}/so_locations"; \
+ 	done
+ libid3.la: $(libid3_la_OBJECTS) $(libid3_la_DEPENDENCIES) 
+-	$(CXXLINK) -rpath $(libdir) $(libid3_la_LDFLAGS) $(libid3_la_OBJECTS) $(libid3_la_LIBADD) $(LIBS)
++	$(CXXLINK) -rpath $(libdir) $(libid3_la_LDFLAGS) $(libid3_la_OBJECTS) $(libid3_la_LIBADD) $(LIBS) -lstdc++
+ 
+ mostlyclean-compile:
+ 	-rm -f *.$(OBJEXT) core *.core
