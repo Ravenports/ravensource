@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	20.09
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mediainfo
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		standard
+SDESC[standard]=	Displays technical and tag data for audio/video
+HOMEPAGE=		https://mediaarea.net/en/MediaInfo
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/MediaArea:MediaInfo:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		multimedia/mediainfo
+
+BUILD_DEPENDS=		libtool:single:standard
+BUILDRUN_DEPENDS=	libmediainfo:single:standard
+
+USES=			autoreconf:build libtool pkgconfig zlib
+MUST_CONFIGURE=		gnu
+CONFIGURE_WRKSRC=	{{WRKSRC}}/Project/GNU/CLI
+BUILD_WRKSRC=		{{WRKSRC}}/Project/GNU/CLI
+INSTALL_WRKSRC=		{{WRKSRC}}/Project/GNU/CLI
+INSTALL_TARGET=		install-strip
+
+pre-configure:
+	cd ${CONFIGURE_WRKSRC} && ${SH} ./autogen.sh
