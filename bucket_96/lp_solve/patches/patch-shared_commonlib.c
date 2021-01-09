@@ -1,4 +1,4 @@
---- shared/commonlib.c.orig	2020-11-07 10:18:30 UTC
+--- shared/commonlib.c.orig	2020-12-30 23:04:50 UTC
 +++ shared/commonlib.c
 @@ -6,7 +6,7 @@
  #elif defined EnhTime
