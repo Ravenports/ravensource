@@ -1,4 +1,4 @@
---- locate/updatedb.sh.orig	2019-06-23 09:00:40 UTC
+--- locate/updatedb.sh.orig	2021-01-02 00:46:51 UTC
 +++ locate/updatedb.sh
 @@ -292,7 +292,7 @@ cd "$changeto"
  if test -n "$SEARCHPATHS"; then

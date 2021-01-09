@@ -1,4 +1,4 @@
---- gl/lib/fdopendir.c.orig	2019-08-29 19:14:53 UTC
+--- gl/lib/fdopendir.c.orig	2021-01-01 18:54:11 UTC
 +++ gl/lib/fdopendir.c
 @@ -227,9 +227,11 @@ fd_clone_opendir (int fd, struct saved_c
  
