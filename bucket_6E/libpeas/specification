@@ -40,7 +40,7 @@ RUN_DEPENDS=		gobject-introspection:single:standard
 
 USES=			cpe meson pkgconfig gtk-doc
 			gettext-runtime gettext-tools:build
-GNOME_COMPONENTS=	gtk3 intltool introspection
+GNOME_COMPONENTS=	gtk3 intltool introspection pygobject
 CPE_VENDOR=		gnome
 MESON_ARGS=		-Dlua51=false
 			-Dvapi=false
@@ -60,10 +60,6 @@ VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 
 [PY38].USES_ON=				python:py38
 [PY39].USES_ON=				python:py39
-
-[PY38].BUILDRUN_DEPENDS_ON=		python-pygobject:primary:py38
-[PY39].BUILDRUN_DEPENDS_ON=		python-pygobject:primary:py39
-
 
 post-patch:
 	${REINPLACE_CMD} \
