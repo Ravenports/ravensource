@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	0.4.38
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libzen
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		standard
+SDESC[standard]=	Small C++ derivate classes
+HOMEPAGE=		https://github.com/MediaArea/ZenLib
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/MediaArea:ZenLib:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:single
+LICENSE_NAME=		CUSTOM1:"zlib License"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/License.txt
+LICENSE_SCHEME=		solo
+
+# FreeBSD uses the wrong version
+# FPC_EQUIVALENT=	multimedia/libzen
+
+BUILD_DEPENDS=		libtool:single:standard
+
+USES=			autoreconf:build libtool c++:single
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-shared
+			--enable-static
+CONFIGURE_WRKSRC=	{{WRKSRC}}/Project/GNU/Library
+BUILD_WRKSRC=		{{WRKSRC}}/Project/GNU/Library
+INSTALL_WRKSRC=		{{WRKSRC}}/Project/GNU/Library
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
+
+pre-configure:
+	cd ${CONFIGURE_WRKSRC} && ${SH} ./autogen.sh
