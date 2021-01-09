@@ -1,52 +1,44 @@
-# manually maintained because py27 still supported
 DEF[PORTVERSION]=	0.18.0
-DEF[PY27_VERSION]=	0.17.2
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-jedi
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py38 py39 py27
+VARIANTS=		py38 py39
 SDESC[py38]=		Static analysis and autocompletion library (PY38)
 SDESC[py39]=		Static analysis and autocompletion library (PY39)
-SDESC[py27]=		Static analysis and autocompletion library (PY27)
 HOMEPAGE=		https://github.com/davidhalter/jedi
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/j/jedi
-DISTFILE[1]=		jedi-${PORTVERSION}.tar.gz:main
-DISTFILE[2]=		jedi-${PY27_VERSION}.tar.gz:main
-DF_INDEX=		1 2
+SITES[main]=		PYPIWHL/f9/36/7aa67ae2663025b49e8426ead0bad983fee1b73f472536e9790655da0277
+DISTFILE[1]=		jedi-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py39]=		single
-SPKGS[py27]=		single
 
-OPTIONS_AVAILABLE=	PY38 PY39 PY27
+OPTIONS_AVAILABLE=	PY38 PY39
 OPTIONS_STANDARD=	none
-VOPTS[py38]=		PY38=ON PY39=OFF PY27=OFF
-VOPTS[py39]=		PY38=OFF PY39=ON PY27=OFF
-VOPTS[py27]=		PY38=OFF PY39=OFF PY27=ON
+VOPTS[py38]=		PY38=ON PY39=OFF
+VOPTS[py39]=		PY38=OFF PY39=ON
 
 # License listed at PyPI
 # MIT
 
 GENERATED=		yes
-DISTNAME=		jedi
+DISTNAME=		jedi-${PORTVERSION}.dist-info
 
-# install_requires extracted from setup.py
-# parso<0.9.0,>=0.8.0
+# Requires-Dist extracted from wheel metadata
+# parso (<0.9.0,>=0.8.0)
+# flake8 (==3.8.3) ; extra == 'qa'
+# mypy (==0.782) ; extra == 'qa'
+# Django (<3.1) ; extra == 'testing'
+# colorama ; extra == 'testing'
+# docopt ; extra == 'testing'
+# pytest (<6.0.0) ; extra == 'testing'
 
-[PY38].USES_ON=				python:py38,sutools
-[PY38].BUILDRUN_DEPENDS_ON=		python-parso:single:py38
-[PY39].USES_ON=				python:py39,sutools
-[PY39].BUILDRUN_DEPENDS_ON=		python-parso:single:py39
-[PY27].USES_ON=				python:py27,sutools
-[PY27].BUILDRUN_DEPENDS_ON=		python-parso:single:py27
+[PY38].USES_ON=				python:py38,wheel
+[PY38].RUN_DEPENDS_ON=			python-parso:single:py38
+[PY39].USES_ON=				python:py39,wheel
+[PY39].RUN_DEPENDS_ON=			python-parso:single:py39
 
-post-extract-PY27-OFF:
-	${MV} ${WRKDIR}/jedi-${PORTVERSION} ${WRKDIR}/jedi
-
-post-extract-PY27-ON:
-	${MV} ${WRKDIR}/jedi-${PY27_VERSION} ${WRKDIR}/jedi

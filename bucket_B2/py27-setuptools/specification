@@ -1,0 +1,53 @@
+DEF[PORTVERSION]=	46.4.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		py27-setuptools
+VERSION=		${PORTVERSION}
+KEYWORDS=		python devel sysutils
+VARIANTS=		standard
+SDESC[standard]=	Python package development process library (PY 27)
+HOMEPAGE=		https://github.com/pypa/setuptools
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/s/setuptools
+DISTFILE[1]=		setuptools-${PORTVERSION}.zip:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+BUILDRUN_DEPENDS=	python27:single:standard
+
+USES=			cpe
+CPE_VENDOR=		python
+CPE_PRODUCT=		setuptools
+DISTNAME=		setuptools-${PORTVERSION}
+PLIST_SUB=		STVER=${PORTVERSION}
+			PYVER=2.7
+			SITEPKG=lib/python2.7/site-packages
+
+MAKE_ENV=		LDSHARED="{{CC}} -shared"
+			PYTHONDONTWRITEBYTECODE=
+			PYTHONOPTIMIZE=
+
+do-configure:
+	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		${PYDISTUTILS_SETUP} config)
+
+do-build:
+	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		${PYDISTUTILS_SETUP} build)
+
+do-install:
+	(cd ${INSTALL_WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		${PYDISTUTILS_SETUP} install \
+		--record ${WRKDIR}/.PLIST.pymodtmp -c -O1 \
+		--prefix=${PREFIX} --single-version-externally-managed \
+		--root=${STAGEDIR})
+	${RM} ${STAGEDIR}${PREFIX}/bin/easy_install

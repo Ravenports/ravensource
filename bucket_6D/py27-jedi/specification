@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	0.17.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		py27-jedi
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		standard
+SDESC[standard]=	Static analysis and autocompletion library (PY27)
+HOMEPAGE=		https://github.com/davidhalter/jedi
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/j/jedi
+DISTFILE[1]=		jedi-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		jedi-${PORTVERSION}
+
+# Requires-Dist extracted from wheel metadata
+# parso (<0.9.0,>=0.8.0)
+# flake8 (==3.8.3) ; extra == 'qa'
+# mypy (==0.782) ; extra == 'qa'
+# Django (<3.1) ; extra == 'testing'
+# colorama ; extra == 'testing'
+# docopt ; extra == 'testing'
+# pytest (<6.0.0) ; extra == 'testing'
+
+BUILD_DEPENDS=		py27-setuptools:single:standard
+BUILDRUN_DEPENDS=	py27-parso:single:standard
+
+USES=			python:py27
