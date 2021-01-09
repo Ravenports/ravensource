@@ -1,0 +1,30 @@
+DEF[PORTVERSION]=	2.1.1
+DEF[SOVERSION]=		2.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		szip
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers science
+VARIANTS=		standard
+SDESC[standard]=	Extended-Rice lossless compression
+HOMEPAGE=		https://support.hdfgroup.org/doc_resource/SZIP/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://support.hdfgroup.org/ftp/lib-external/szip/${PORTVERSION}/src/
+DISTFILE[1]=		szip-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		science/szip
+
+USES=			libtool
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
+CFLAGS=			-Wno-sign-conversion
+			-Wno-discarded-qualifiers
+			-Wno-parentheses
