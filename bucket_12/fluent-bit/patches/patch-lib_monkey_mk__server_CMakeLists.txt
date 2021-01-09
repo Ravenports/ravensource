@@ -1,0 +1,11 @@
+--- lib/monkey/mk_server/CMakeLists.txt.orig	2021-01-08 14:30:31 UTC
++++ lib/monkey/mk_server/CMakeLists.txt
+@@ -38,6 +38,8 @@ target_link_libraries(monkey-core-static
+ 
+ message(STATUS "LINKING ${STATIC_PLUGINS_LIBS}")
+ 
++target_link_libraries(monkey-core-static execinfo)
++
+ # Linux Kqueue emulation
+ if(MK_HAVE_LINUX_KQUEUE)
+   target_link_libraries(monkey-core-static kqueue)

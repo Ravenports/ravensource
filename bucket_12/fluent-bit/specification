@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.6.9
+DEF[PORTVERSION]=	1.6.10
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fluent-bit
@@ -20,7 +20,8 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		sysutils/fluent-bit
 
-USES=			cmake bison zlib gmake shebangfix cclibs:primary,library
+USES=			cmake bison zlib gmake execinfo shebangfix
+			cclibs:primary,library
 SHEBANG_ADD_SH=		lib/luajit-2.1.0-dd5032e/configure
 CMAKE_ARGS=		-DFLB_DEBUG=Off
 			-DFLB_TRACE=Off
@@ -28,6 +29,7 @@ CMAKE_ARGS=		-DFLB_DEBUG=Off
 			-DFLB_TLS=On
 			-DFLB_EXAMPLES=On
 			-DFLB_OUT_PGSQL=Off
+			-DFLB_HTTP_SERVER=On
 RC_SUBR=		fluent-bit:primary
 
 post-install:
