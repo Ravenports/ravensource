@@ -4,37 +4,33 @@ DEF[PORTVERSION]=	1.7.1
 NAMEBASE=		python-pep8
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py38 py39 py27
+VARIANTS=		py38 py39
 SDESC[py38]=		Python style guide checker (PY38)
 SDESC[py39]=		Python style guide checker (PY39)
-SDESC[py27]=		Python style guide checker (PY27)
 HOMEPAGE=		http://pep8.readthedocs.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/p/pep8
-DISTFILE[1]=		pep8-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/42/3f/669429ce58de2c22d8d2c542752e137ec4b9885fff398d3eceb1a7f5acb4
+DISTFILE[1]=		pep8-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py39]=		single
-SPKGS[py27]=		single
 
-OPTIONS_AVAILABLE=	PY38 PY39 PY27
+OPTIONS_AVAILABLE=	PY38 PY39
 OPTIONS_STANDARD=	none
-VOPTS[py38]=		PY38=ON PY39=OFF PY27=OFF
-VOPTS[py39]=		PY38=OFF PY39=ON PY27=OFF
-VOPTS[py27]=		PY38=OFF PY39=OFF PY27=ON
+VOPTS[py38]=		PY38=ON PY39=OFF
+VOPTS[py39]=		PY38=OFF PY39=ON
 
 # License listed at PyPI
 # Expat license
 
 GENERATED=		yes
-DISTNAME=		pep8-${PORTVERSION}
+DISTNAME=		pep8-${PORTVERSION}.dist-info
 
-# install_requires extracted from setup.py
+# Requires-Dist extracted from wheel metadata
 
 
-[PY38].USES_ON=				python:py38,sutools
-[PY39].USES_ON=				python:py39,sutools
-[PY27].USES_ON=				python:py27,sutools
+[PY38].USES_ON=				python:py38,wheel
+[PY39].USES_ON=				python:py39,wheel
 
