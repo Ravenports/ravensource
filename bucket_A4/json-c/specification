@@ -4,7 +4,7 @@ DEF[SOVERSION]=		5.1.0
 
 NAMEBASE=		json-c
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	JSON implementation in C
@@ -35,7 +35,17 @@ BUILD_TARGET=		all doc
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
 			-DDISABLE_WERROR:BOOL=ON
 
+post-build:
+	# assemble PIC library
+	(cd ${WRKDIR}/.build/CMakeFiles/json-c.dir &&\
+	 ${AR} -crv libjson-c_pic.a *.o &&\
+	 ranlib libjson-c_pic.a)
+
 post-install:
+	# install our PIC library
+	${INSTALL_DATA} ${WRKDIR}/.build/CMakeFiles/json-c.dir/libjson-c_pic.a\
+		${STAGEDIR}${PREFIX}/lib/
+	# install the documentation
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 	(cd ${INSTALL_WRKSRC}/doc/html && \
 		${COPYTREE_SHARE} "*" ${STAGEDIR}${STD_DOCDIR})
