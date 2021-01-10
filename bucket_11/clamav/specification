@@ -38,10 +38,10 @@ FPC_EQUIVALENT=		security/clamav
 # so it can't be implemented until there is a sendmail port I think.
 
 BUILD_DEPENDS=		bzip2:static:standard
+			json-c:primary:standard
 BUILDRUN_DEPENDS=	curl:primary:standard
 			libltdl:single:standard
 			libmspack:single:standard
-			json-c:primary:standard
 			pcre2:primary:standard
 			bzip2:shared:standard
 
@@ -82,9 +82,10 @@ CONFIGURE_ARGS=		--libdir={{PREFIX}}/lib
 			--with-iconv
 			--with-dbdir="${DBDIR}"
 			--with-xml="{{LOCALBASE}}"
-			--with-libjson="{{LOCALBASE}}"
 			--with-libcurl="{{LOCALBASE}}"
 			--with-openssl="{{OPENSSLBASE}}"
+			--with-libjson="{{LOCALBASE}}"
+			--with-libjson-static="{{LOCALBASE}}/lib/libjson-c_pic.a"
 			--with-system-libmspack="{{LOCALBASE}}/lib/libmspack.so"
 			--disable-check
 			--disable-milter
