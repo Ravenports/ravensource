@@ -1,0 +1,62 @@
+DEF[PORTVERSION]=	8.4.0
+DEF[FILENAME]=		cryptopp${PORTVERSION:S/.//g}.zip
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		cryptopp
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		standard
+SDESC[standard]=	C++ class library of cryptographic schemes
+HOMEPAGE=		https://www.cryptopp.com/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.cryptopp.com/
+DISTFILE[1]=		${FILENAME}:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		PUBDOM:single
+LICENSE_FILE=		PUBDOM:{{WRKSRC}}/License.txt
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		security/cryptopp
+
+EXTRACT_DIRTY=		1
+
+USES=			cpe gmake dos2unix c++:single
+CPE_VENDOR=		cryptopp
+CPE_PRODUCT=		crypto\+\+
+MAKEFILE=		GNUmakefile
+BUILD_TARGET=		static
+			shared
+			libcryptopp.pc
+			cryptest.exe
+MAKE_ENV=		CRYPTOPP_DATA_DIR=share/cryptopp/
+SOVERSION=		${SOVERSION}
+
+do-install:
+	${INSTALL_DATA} ${WRKSRC}/libcryptopp.a ${STAGEDIR}${PREFIX}/lib/
+	${INSTALL_LIB} ${WRKSRC}/libcryptopp.so.${SOVERSION} \
+		${STAGEDIR}${PREFIX}/lib/
+	${LN} -fs libcryptopp.so.${SOVERSION} \
+		${STAGEDIR}${PREFIX}/lib/libcryptopp.so.${SOVERSION:R:R}
+	${LN} -fs libcryptopp.so.${SOVERSION} \
+		${STAGEDIR}${PREFIX}/lib/libcryptopp.so
+	${INSTALL_DATA} ${WRKSRC}/libcryptopp.pc \
+		${STAGEDIR}${PREFIX}/lib/pkgconfig/
+	${MKDIR} ${STAGEDIR}${PREFIX}/include/cryptopp
+	for i in `${FIND} ${WRKSRC}/ -name '*.h' \
+		-and -not -name 'dll.h' \
+		-and -not -name 'resource.h'`; do \
+		${INSTALL_DATA} $$i ${STAGEDIR}${PREFIX}/include/cryptopp; \
+	done
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/cryptopp/TestData
+	${INSTALL_PROGRAM} ${WRKSRC}/cryptest.exe \
+		${STAGEDIR}${PREFIX}/bin/cryptest
+	${INSTALL_DATA} ${WRKSRC}/TestData/usage.dat \
+		${STAGEDIR}${PREFIX}/share/cryptopp/TestData/
