@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	4.4
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		unzoo
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers
+VARIANTS=		standard
+SDESC[standard]=	ZOO archive extractor
+HOMEPAGE=		http://freshmeat.sourceforge.net/projects/unzoo/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		FREELOCAL/ehaupt
+DISTFILE[1]=		unzoo_${PORTVERSION}.orig.tar.gz:main
+DISTFILE[2]=		unzoo_${PORTVERSION}-4.diff.gz:main
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		PUBDOM:single
+LICENSE_FILE=		PUBDOM:{{WRKSRC}}/debian/copyright
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		archive/unzoo
+
+PATCHFILES=		2
+PATCHFILES_STRIP=	-p1
+EXTRACT_DIRTY=		1
+
+USES=			cpe
+CFLAGS=			-DSYS_IS_UNIX
+			-DSYS_HAS_MKDIR
+			-trigraphs
+
+do-build:
+	cd ${WRKSRC} && ${CC} ${CFLAGS} -o unzoo unzoo.c
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/unzoo ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/debian/unzoo.1 \
+		${STAGEDIR}${MANPREFIX}/man/man1
