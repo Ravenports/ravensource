@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	0.94
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mtr
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		standard x11
+SDESC[standard]=	Ping/Traceroute network diagnostic tool
+SDESC[x11]=		Ping/Traceroute network diagnostic tool [x11]
+HOMEPAGE=		https://www.bitwizard.nl/mtr/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/traviscross:mtr:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+SPKGS[x11]=		single
+
+OPTIONS_AVAILABLE=	X11
+OPTIONS_STANDARD=	none
+VOPTS[x11]=		X11=ON
+
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/packet/probe.h
+LICENSE_AWK=		TERMS:"PROBE_H"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net/mtr
+
+USES=			autoreconf pkgconfig ncurses
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-ipv6
+LDFLAGS=		-lncurses -ltinfo
+
+[X11].GNOME_COMPONENTS_ON=		gtk2
+[X11].CONFIGURE_WITH_BOTH=		gtk
