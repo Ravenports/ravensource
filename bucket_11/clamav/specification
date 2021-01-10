@@ -1,0 +1,133 @@
+DEF[PORTVERSION]=	0.103.0
+DEF[SOVERSION]=		9.0.5
+DEF[FRESH_SOVERSION]=	2.0.1
+DEF[DBDIR]=		/var/db/clamav
+DEF[LOGDIR]=		/var/log/clamav
+DEF[RUNDIR]=		/var/run/clamav
+DEF[CLAMAV_USER]=	clamav
+DEF[CLAMAV_GROUP]=	clamav
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		clamav
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		standard
+SDESC[standard]=	Clam Anti-Virus Scanner
+HOMEPAGE=		https://www.clamav.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.clamav.net/downloads/production/
+DISTFILE[1]=		clamav-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:primary
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"HAVE_CONFIG_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/clamscan/clamscan.c
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		security/clamav
+
+# libmilter support requires path to sbin/sendmail,
+# so it can't be implemented until there is a sendmail port I think.
+
+BUILD_DEPENDS=		bzip2:static:standard
+BUILDRUN_DEPENDS=	curl:primary:standard
+			libltdl:single:standard
+			libmspack:single:standard
+			json-c:primary:standard
+			pcre2:primary:standard
+			bzip2:shared:standard
+
+RUN_DEPENDS=		arc:single:standard
+			arj:single:standard
+			unzoo:single:standard
+
+USERS=			${CLAMAV_USER}
+GROUPS=			${CLAMAV_GROUP}
+			mail
+USERGROUP_SPKG=		primary
+
+RC_SUBR=		clamav-clamd:primary
+			clamav-freshclam:primary
+
+SUB_FILES=		pkg-deinstall-primary
+SUB_LIST=		CHMOD={{CHMOD}}
+			CHOWN={{CHOWN}}
+			CLAMAV_CLAMD_PIDFILE=${RUNDIR}/clamd.pid
+			CLAMAV_CLAMD_SOCKET=${RUNDIR}/clamd.sock
+			CLAMAV_MILTER_SOCKET=${RUNDIR}/clmilter.sock
+			CLAMAVGROUP=${CLAMAV_GROUP}
+			CLAMAVUSER=${CLAMAV_USER}
+			DBDIR=${DBDIR}
+			LOGDIR=${LOGDIR}
+			RUNDIR=${RUNDIR}
+
+USES=			cpe gmake libtool ncurses pkgconfig ssl iconv zlib
+			c++:primary
+GNOME_COMPONENTS=	libxml2
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--libdir={{PREFIX}}/lib
+			--enable-ipv6
+			--enable-unrar
+			--enable-bigstack
+			--enable-clamdtop
+			--with-pcre
+			--with-iconv
+			--with-dbdir="${DBDIR}"
+			--with-xml="{{LOCALBASE}}"
+			--with-libjson="{{LOCALBASE}}"
+			--with-libcurl="{{LOCALBASE}}"
+			--with-openssl="{{OPENSSLBASE}}"
+			--with-system-libmspack="{{LOCALBASE}}/lib/libmspack.so"
+			--disable-check
+			--disable-milter
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		CLAMAVGROUP=${CLAMAV_GROUP}
+			CLAMAVUSER=${CLAMAV_USER}
+			DBDIR=${DBDIR}
+			LOGDIR=${LOGDIR}
+			RUNDIR=${RUNDIR}
+			FRESH_SOMAJOR=${FRESH_SOVERSION:R:R}
+			FRESH_SOVERSION=${FRESH_SOVERSION}
+
+# From FreeBSD Ports:
+# This port has a problem with -pthread,
+# force to use -lthr until it is fixed.
+VAR_OPSYS[freebsd]=	LDFLAGS=-lthr
+
+post-patch:
+	${REINPLACE_CMD} -E -e \
+		's|^\#?(Example)$$|\#\1|' -e \
+		's|^\#?((Update)?LogFile) .*/([a-z]+\.log)$$|\1 ${LOGDIR}/\3|' \
+		-e 's|^\#?(PidFile) .*/([a-z\-]+\.pid)$$|\1 ${RUNDIR}/\2|' -e \
+		's|^\#?(LocalSocket) .*$$|\1 ${CLAMAV_CLAMD_SOCKET}|' -e \
+		's|^\#?(User) .*$$|\1 ${CLAMAVUSER}|' -e \
+		's|^\#?(AllowSupplementaryGroups).*$$|\1 yes|' -e \
+		's|^\#?(ScanMail).*$$|\1 yes|' -e \
+		's|^\#?(DatabaseDirectory) .*$$|\1 ${DBDIR}|' -e \
+		's|^\#?(DatabaseOwner) .*$$|\1 ${CLAMAVUSER}|' -e \
+		's|^\#?(FixStaleSocket).*$$|\1 yes|' -e \
+		's|^\#?(NotifyClamd) .*$$|\1 ${PREFIX}/etc/clamd.conf|' -e \
+		's|^\#?(MilterSocket) */tmp.*$$|\1 ${CLAMAV_MILTER_SOCKET}|' -e \
+		's|^\#?(ClamdSocket).*$$|\1 unix:${CLAMAV_CLAMD_SOCKET}|' \
+	${WRKSRC}/etc/clamd.conf.sample \
+	${WRKSRC}/etc/freshclam.conf.sample \
+	${WRKSRC}/etc/clamav-milter.conf.sample
+
+post-install:
+	${INSTALL_DATA} ${WRKSRC}/clamav-config.h ${STAGEDIR}${PREFIX}/include
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}/html \
+		  ${STAGEDIR}${DBDIR} \
+		  ${STAGEDIR}${LOGDIR} \
+		  ${STAGEDIR}${RUNDIR}
+	(cd ${WRKSRC}/docs/html && \
+		${COPYTREE_SHARE} . ${STAGEDIR}${STD_DOCDIR}/html)
