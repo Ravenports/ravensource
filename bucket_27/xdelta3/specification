@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	3.1.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xdelta3
+VERSION=		${PORTVERSION}
+KEYWORDS=		misc devel
+VARIANTS=		standard
+SDESC[standard]=	Binary delta generator and RCS replacement library
+HOMEPAGE=		http://xdelta.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/jmacd:xdelta:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		APACHE20:single
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/xdelta3.h
+LICENSE_AWK=		TERMS:"_XDELTA3_H_"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		misc/xdelta3
+
+USES=			autoreconf gmake
+MUST_CONFIGURE=		gnu
+DISTNAME=		xdelta-${PORTVERSION}/xdelta3
