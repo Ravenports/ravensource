@@ -1,0 +1,31 @@
+From: Antonio Larrosa <larrosa@kde.org>
+Date: Fri, 10 Mar 2017 15:40:02 +0100
+Subject: Fix signature of multiplyCheckOverflow. It returns a bool, not an int
+
+---
+ libaudiofile/modules/MSADPCM.cpp | 2 +-
+ sfcommands/sfconvert.c           | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+--- libaudiofile/modules/MSADPCM.cpp
++++ libaudiofile/modules/MSADPCM.cpp
+@@ -116,7 +116,7 @@ int firstBitSet(int x)
+ #define __has_builtin(x) 0
+ #endif
+ 
+-int multiplyCheckOverflow(int a, int b, int *result)
++bool multiplyCheckOverflow(int a, int b, int *result)
+ {
+ #if (defined __GNUC__ && __GNUC__ >= 5) || ( __clang__ && __has_builtin(__builtin_mul_overflow))
+ 	return __builtin_mul_overflow(a, b, result);
+--- sfcommands/sfconvert.c
++++ sfcommands/sfconvert.c
+@@ -60,7 +60,7 @@ int firstBitSet(int x)
+ #define __has_builtin(x) 0
+ #endif
+ 
+-int multiplyCheckOverflow(int a, int b, int *result)
++bool multiplyCheckOverflow(int a, int b, int *result)
+ {
+ #if (defined __GNUC__ && __GNUC__ >= 5) || ( __clang__ && __has_builtin(__builtin_mul_overflow))
+ 	return __builtin_mul_overflow(a, b, result);

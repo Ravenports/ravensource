@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	0.3.6
+DEF[FOLDER]=		${PORTVERSION:R}
+DEF[SOVERSION]=		1.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		audiofile
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		standard
+SDESC[standard]=	Library to handle various audio file formats
+HOMEPAGE=		https://audiofile.68k.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/audiofile/${FOLDER}
+DISTFILE[1]=		audiofile-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+
+LICENSE=		LGPL21+:single
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		audio/libaudiofile
+
+BUILDRUN_DEPENDS=	flac:primary:standard
+
+USES=			pkgconfig libtool c++:single
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
+
+post-extract:
+	# extract license terms
+	${AWK} '/Audio File Library itself/,EOF' ${WRKSRC}/README\
+		> ${WRKDIR}/TERMS
