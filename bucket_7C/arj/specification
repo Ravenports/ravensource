@@ -1,0 +1,63 @@
+DEF[PORTVERSION]=	3.10.22
+DEF[DEBVERSION]=	24
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		arj
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers
+VARIANTS=		standard
+SDESC[standard]=	Free and portable clone of the ARJ archiver
+HOMEPAGE=		https://sourceforge.net/projects/arj/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main debian
+SITES[main]=		SF/arj/arj/2.78_3.10%20build%2022
+SITES[debian]=		DEBIAN/pool/main/a/arj
+DISTFILE[1]=		arj-${PORTVERSION}.tar.gz:main
+DISTFILE[2]=		arj_${PORTVERSION}-${DEBVERSION}.debian.tar.xz:debian
+DF_INDEX=		1 2
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/doc/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		archivers/arj
+
+PATCHFILES_STRIP=	-p1
+
+USES=			autoreconf gmake
+MUST_CONFIGURE=		gnu
+MAKE_ARGS=		LOCALE=en
+CONFIGURE_WRKSRC=	{{WRKSRC}}/gnu
+MAKEFILE=		GNUmakefile
+BUILD_TARGET=		prepare all
+
+post-extract:
+	${RM} ${WRKDIR}/debian/patches/002_no_remove_static_const.patch
+	${RM} ${WRKDIR}/debian/patches/doc_refer_robert_k_jung.patch
+	${RM} ${WRKDIR}/debian/patches/gnu_build_*
+	${RM} ${WRKDIR}/debian/patches/hurd_no_fcntl_getlk.patch
+	${RM} ${WRKDIR}/debian/patches/reproducible_help_archive.patch
+	# extract license
+	${AWK} '/LICENSE POLICY/,EOF { print $0 }' \
+	${WRKSRC}/resource/en/arjl.txt > ${WRKDIR}/TERMS
+
+pre-patch:
+	# apply remaining debian patchs
+	${FIND} ${WRKDIR}/debian/patches -type f -name "*.patch" |\
+	${SORT} | ${XARGS} -i{} \
+	${PATCH} -i {} -d "${PATCH_WRKSRC}" ${PATCH_DIST_ARGS}
+
+post-patch:
+	${REINPLACE_CMD} -e 's!/etc!${LOCALBASE}/etc!' \
+		 ${WRKSRC}/arj.c ${WRKSRC}/file_reg.c ${WRKSRC}/rearj.c
+	${REINPLACE_CMD} -e 's!-O2!!' -e 's!ALIGN_POINTERS!&,1,desc!' \
+		-e 's!USE_COLORS!&,1,desc!' ${WRKSRC}/gnu/configure.in
+	${REINPLACE_CMD} -e 's!^static !!' ${WRKSRC}/integr.c
+

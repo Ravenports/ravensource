@@ -1,0 +1,2 @@
+AUTORECONF_WRKSRC=	${WRKSRC}/gnu
+
