@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	1.4.1
+DEF[SOVERSION]=		5.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libebml
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	Library for Extensible Binary Meta-Language files
+HOMEPAGE=		https://matroska-org.github.io/libebml/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://dl.matroska.org/downloads/libebml/
+DISTFILE[1]=		libebml-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:single
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/LICENSE.LGPL
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/EbmlVersion.cpp
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		textproc/libebml
+
+SOVERSION=		${SOVERSION}
+
+USES=			cmake c++:single
+CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libebml.so
