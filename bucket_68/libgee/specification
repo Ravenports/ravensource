@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	0.20.3
+DEF[FOLDER]=		${PORTVERSION:R}
+DEF[SOVERSION]=		2.6.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libgee
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	GObject collection library
+HOMEPAGE=		https://live.gnome.org/Libgee
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/libgee/${FOLDER}
+DISTFILE[1]=		libgee-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:single
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"generic collection"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gee/collection.vala
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/libgee
+
+BUILD_DEPENDS=		vala:single:standard
+
+USES=			gmake libtool pkgconfig
+			gettext-tools gettext-runtime
+GNOME_COMPONENTS=	glib introspection
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-introspection=yes
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
