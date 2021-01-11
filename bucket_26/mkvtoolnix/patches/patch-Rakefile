@@ -1,0 +1,11 @@
+--- Rakefile.orig	2021-01-04 21:31:45 UTC
++++ Rakefile
+@@ -230,8 +230,6 @@ def determine_optimization_cflags
+ end
+ 
+ def determine_stack_protector_flags
+-  return " -fstack-protector"        if is_gcc? && !check_compiler_version("gcc", "4.9.0")
+-  return " -fstack-protector-strong" if check_compiler_version("gcc", "4.9.0") || check_compiler_version("clang", "3.5.0")
+   return ""
+ end
+ 

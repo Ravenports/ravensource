@@ -1,0 +1,63 @@
+DEF[PORTVERSION]=	52.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mkvtoolnix
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia graphics
+VARIANTS=		standard gui
+SDESC[standard]=	Matroska media files manipulation tools
+SDESC[gui]=		Matroska multimedia tools with GUI
+HOMEPAGE=		https://mkvtoolnix.download/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://mkvtoolnix.download/sources/
+DISTFILE[1]=		mkvtoolnix-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary nls
+SPKGS[gui]=		complete primary nls
+
+OPTIONS_AVAILABLE=	GUI
+OPTIONS_STANDARD=	none
+VOPTS[gui]=		GUI=ON
+
+FPC_EQUIVALENT=		multimedia/mkvtoolnix
+
+BUILD_DEPENDS=		docbook-xsl:primary:standard
+			ruby-rake:single:ruby_default
+			libxslt:single:standard
+			po4a:single:standard
+BUILDRUN_DEPENDS=	fmt:single:standard
+			libmatroska:single:standard
+			pcre2:primary:standard
+			libvorbis:primary:standard
+			libogg:primary:standard
+			flac:primary:standard
+			boost-libraries:rest:python_default
+			file:single:standard
+			libdvdread:single:standard
+			pugixml:single:standard
+
+USES=			zlib pkgconfig gettext-tools gettext-runtime
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-boost="{{LOCALBASE}}"
+			--with-boost-filesystem=boost_filesystem
+			--with-boost-system=boost_system
+			--with-docbook-xsl-root="{{PREFIX}}/share/xsl/docbook"
+			--with-dvdread
+MAKE_ENV=		V=1
+MAKEFILE=		Rakefile
+BUILD_TARGET=		#skip
+
+[GUI].DESCRIPTION=			Include Graphic User Interface with tools
+[GUI].USES_ON=				mime-info:primary
+					desktop-utils:primary
+[GUI].CONFIGURE_ARGS_ON=		--enable-qt
+					--with-moc="{{LOCALBASE}}/lib/qt5/bin/moc"
+					--with-uic="{{LOCALBASE}}/lib/qt5/bin/uic"
+					--with-rcc="{{LOCALBASE}}/lib/qt5/bin/rcc"
+					--with-qmake="{{LOCALBASE}}/lib/qt5/bin/qmake"
+[GUI].CONFIGURE_ENV_ON=			PKG_CONFIG_PATH="{{LOCALBASE}}/lib/qt5/pkgconfig"
+[GUI].BUILD_DEPENDS_ON=			qt5-qtbase:primary:standard
+[GUI].BUILDRUN_DEPENDS_ON=		qt5-qtmultimedia:single:standard
+					cmark:single:standard
