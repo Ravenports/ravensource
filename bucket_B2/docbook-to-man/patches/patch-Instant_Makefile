@@ -1,0 +1,11 @@
+--- Instant/Makefile.orig	1996-06-17 03:50:29 UTC
++++ Instant/Makefile
+@@ -94,7 +94,7 @@ instant: $(OBJ)
+ 	$(CC) -o $@ $(LDFLAGS) $(OBJ) $(REGEX)
+ 
+ install: all
+-	cp $(PROGS) $(BINDIR)
++	$(BSD_INSTALL_PROGRAM) $(PROGS) $(DESTDIR)$(BINDIR)
+ 
+ 
+ Version:	allVersion.o

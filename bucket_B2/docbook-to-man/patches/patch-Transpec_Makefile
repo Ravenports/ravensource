@@ -1,0 +1,14 @@
+--- Transpec/Makefile.orig	1996-06-17 03:50:28 UTC
++++ Transpec/Makefile
+@@ -47,9 +47,8 @@ FILES =		docbook-to-man.ts roff.cmap rof
+ all:
+ 
+ install:	all
+-	if [ ! -d $(TPTLIB) ]; then mkdir $(TPTLIB); fi
+-	cd $(TPTLIB); rm -f $(FILES)
+-	cp $(FILES) $(TPTLIB)
++	mkdir -p $(DESTDIR)$(TPTLIB)
++	$(BSD_INSTALL_DATA) $(FILES) $(DESTDIR)$(TPTLIB)
+ 
+ 
+ clean:
