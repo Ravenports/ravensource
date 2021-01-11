@@ -5,7 +5,7 @@ DEF[PROTOLIB_HASH]=	16c5ab
 
 NAMEBASE=		norm
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		net
 VARIANTS=		standard
 SDESC[standard]=	NACK-Oriented Reliable Multicast (NORM)
@@ -61,10 +61,8 @@ post-build:
 		${_MAKE_JOBS} all libnorm.so)
 
 post-install:
-	${INSTALL_DATA} ${WRKSRC}/include/normApi.h \
-		${STAGEDIR}${PREFIX}/include/
-	${INSTALL_PROGRAM} ${WRKSRC}/bin/raft ${WRKSRC}/bin/norm \
+	${INSTALL_PROGRAM} \
+		${WRKSRC}/bin/raft \
+		${WRKSRC}/bin/norm \
 		${STAGEDIR}${PREFIX}/bin/
-	${INSTALL_DATA} ${WRKSRC}/lib/libnorm.a ${STAGEDIR}${PREFIX}/lib
-	${INSTALL_LIB} ${WRKSRC}/lib/libnorm.so ${STAGEDIR}${PREFIX}/lib/libnorm.so.1
-	${LN} -s libnorm.so.1 ${STAGEDIR}${PREFIX}/lib/libnorm.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libnorm.so
