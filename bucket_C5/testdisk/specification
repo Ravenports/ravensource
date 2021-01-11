@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	7.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		testdisk
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	Powerful free data recovery software
+HOMEPAGE=		https://www.cgsecurity.org/wiki/TestDisk
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.cgsecurity.org/
+DISTFILE[1]=		testdisk-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"HAVE_CONFIG_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/testdisk.c
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		sysutils/testdisk
+
+USES=			jpeg ncurses iconv
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-qt
+			--without-ewf
+			--without-ntfs3g
+			--without-reiserfs
+			--disable-stack-protector
