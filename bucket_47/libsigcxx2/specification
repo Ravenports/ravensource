@@ -5,6 +5,7 @@ DEF[SOVERSION]=		0.0.0
 
 NAMEBASE=		libsigcxx2
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Typesafe signal framework for C++
@@ -30,6 +31,7 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		devel/libsigc++20
 
 BUILD_DEPENDS=		doxygen:single:standard
+			docbook-xsl:primary:standard
 
 USES=			gmake perl:build c++:primary meson
 GNOME_COMPONENTS=	libxslt
@@ -43,7 +45,8 @@ MESON_ARGS=		-Dbuild-examples=false
 
 post-patch:
 	${REINPLACE_CMD} -e 's|/docbook.sourceforge.net/|/cdn.docbook.org/|'\
-		${WRKSRC}/docs/doc-manual.am
+		${WRKSRC}/docs/doc-manual.am \
+		${WRKSRC}/tools/tutorial-custom-cmd.py
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/doc/libsigc* \
