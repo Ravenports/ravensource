@@ -39,3 +39,6 @@ DISTNAME=		FormEncode-${PORTVERSION}.dist-info
 [PY39].USES_ON=				python:py39,wheel
 [PY39].RUN_DEPENDS_ON=			python-six:single:py39
 
+# Port drops a license in root, remove
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/LICENSE.txt
