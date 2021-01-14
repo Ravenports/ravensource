@@ -8,6 +8,7 @@ DEF[MY_TMPDIR]=		/var/db/mysql_tmpdir
 
 NAMEBASE=		mysql${SUFFIX}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		databases
 VARIANTS=		standard
 SDESC[standard]=	Multithreaded SQL database (server)
@@ -133,7 +134,7 @@ post-extract:
 
 post-patch:
 	${REINPLACE_CMD} -e 's|@LOCALBASE@|${LOCALBASE}|' \
-		-e 's|@OPENSSLLIB@|${OPENSSLLIB}|' \
+		-e 's|@OPENSSLLIB@|${OPENSSLLIB}|g' \
 		${WRKSRC}/scripts/CMakeLists.txt
 	${RM} ${WRKSRC}/cmake/os/FreeBSD.cmake
 	# current_path not supported by DragonFly
