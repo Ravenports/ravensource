@@ -54,3 +54,6 @@ DISTNAME=		eyed3-${PORTVERSION}.dist-info
 					python-deprecation:single:py39
 					python-filetype:single:py39
 
+# Drop examples due to shebang issues
+post-install:
+	${RM} -r ${STAGEDIR}${PYTHON_SITELIBDIR}/examples
