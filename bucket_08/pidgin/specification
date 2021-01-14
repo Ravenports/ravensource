@@ -5,6 +5,7 @@ DEF[MODULES]=		gg,irc,jabber,novell,oscar,simple,zephyr
 
 NAMEBASE=		pidgin
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net_im
 VARIANTS=		standard
 SDESC[standard]=	Multi-protocol instant messaging client
@@ -67,6 +68,7 @@ CONFIGURE_ARGS=		--with-dynamic-prpls=${MODULES}
 SHEBANG_FILES=		libpurple/purple-remote
 			libpurple/purple-url-handler
 CFLAGS=			-Wno-deprecated-declarations
+LDFLAGS=		-Wl,-rpath,{{LOCALBASE}}/lib/nss
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 CPE_VENDOR=		pidgin
