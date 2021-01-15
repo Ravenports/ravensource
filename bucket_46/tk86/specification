@@ -1,6 +1,7 @@
 DEF[NAMEBASE]=		tk86
-DEF[TK_VERSION]=	8.6.11
-DEF[TK_VER]=		${TK_VERSION:R}
+DEF[TK_VERSION]=	8.6.11.1
+DEF[FOLDER]=		${TK_VERSION:R}
+DEF[TK_VER]=		${TK_VERSION:R:R}
 DEF[SHORT_TK_VER]=	${TK_VER:S/.//g}
 DEF[PORTVERSION]=	${TK_VERSION}
 # ----------------------------------------------------------------------------
@@ -14,7 +15,7 @@ HOMEPAGE=		https://www.tcl.tk/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/tcl/Tcl/${TK_VERSION}
+SITES[main]=		SF/tcl/Tcl/${FOLDER}
 DISTFILE[1]=		tk${TK_VERSION}-src.tar.gz:main
 
 SPKGS[standard]=	complete primary demos manpages
@@ -41,7 +42,7 @@ CONFIGURE_ARGS=		--enable-xss
 			--includedir={{PREFIX}}/include/tk${TK_VER}
 CFLAGS=			-I{{TCL_INCLUDEDIR}}
 MAKE_ENV=		SHORT_TK_VER=${SHORT_TK_VER}
-DISTNAME=		tk${TK_VERSION}/unix
+DISTNAME=		tk${FOLDER}/unix
 INSTALL_TARGET=		install-strip install-doc install-demos
 PLIST_SUB=		TK_VER=${TK_VER}
 			SHORT_TK_VER=${SHORT_TK_VER}
