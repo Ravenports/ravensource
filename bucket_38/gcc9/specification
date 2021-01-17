@@ -67,7 +67,7 @@ CONFIGURE_ARGS=		--enable-languages="c,c++,ada,fortran"
 			--with-gmp={{LOCALBASE}}
 			--with-mpc={{LOCALBASE}}
 			--with-mpfr={{LOCALBASE}}
-			{{ICONV_CONFIGURE_ARG}}
+			--with-libiconv-prefix={{WRKDIR}}/fake
 			--enable-shared
 			--enable-threads=posix
 			--enable-checking=release
@@ -123,6 +123,12 @@ post-extract:
 	${HEAD} -n 19 ${WRKSRC}/gcc/gcc.h > ${WRKDIR}/TERMS
 	${HEAD} -n 31 ${WRKSRC}/gcc/ada/adaint.h >> ${WRKDIR}/TERMS
 	${HEAD} -n 18 ${WRKSRC}/libiberty/hex.c >> ${WRKDIR}/TERMS
+	# Use iconv_pic.a instead of iconv.a
+	${MKDIR} ${WRKDIR}/fake/include ${WRKDIR}/fake/lib
+	${INSTALL_DATA} ${LOCALBASE}/include/iconv.h \
+		${WRKDIR}/fake/include/
+	${INSTALL_DATA} ${LOCALBASE}/lib/libiconv_pic.a \
+		${WRKDIR}/fake/lib/libiconv.a
 
 post-patch:
 	# Update LINK_SPEC to add gcc-aux lib runpath in every binary
