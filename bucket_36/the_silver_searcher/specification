@@ -26,11 +26,9 @@ LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
 LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		pcre:static:standard
-BUILDRUN_DEPENDS=	pcre:shared:standard
-			xz:single:standard
+BUILDRUN_DEPENDS=	xz:single:standard
 
-USES=			autoreconf pkgconfig zlib
+USES=			autoreconf pkgconfig zlib pcre
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		LZMA_LIBS=-llzma
 LDFLAGS=		-llzma

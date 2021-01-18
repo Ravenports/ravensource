@@ -28,8 +28,6 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		sysutils/file
 
-BUILD_DEPENDS=		zlib:static:standard
-
 USES=			cpe libtool
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
@@ -39,7 +37,8 @@ MAKE_ENV=		INSTALL_STRIP_FLAG="{{STRIP}}"
 CPE_VENDOR=		file_project
 
 [RAVENSYS].DESCRIPTION=			Static version of file used by raven-sysroot
-[RAVENSYS].BUILDRUN_DEPENDS_OFF=	zlib:shared:standard
+[RAVENSYS].USES_ON=			zlib:build
+[RAVENSYS].USES_OFF=			zlib
 [RAVENSYS].CONFIGURE_ARGS_OFF=		--enable-shared=yes
 [RAVENSYS].CONFIGURE_ARGS_ON=		--enable-shared=no
 					--datarootdir=/usr/share

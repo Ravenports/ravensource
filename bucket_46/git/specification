@@ -38,15 +38,12 @@ USERS=			git_daemon
 GROUPS=			git_daemon
 USERGROUP_SPKG=		primary
 
-BUILD_DEPENDS=		pcre:static:standard
-			expat:static:standard
-BUILDRUN_DEPENDS=	pcre:shared:standard
-			expat:shared:standard
-			curl:primary:standard
+BUILDRUN_DEPENDS=	curl:primary:standard
 
 EXTRACT_DIRTY=		3
 
 USES=			cpe autoreconf gmake iconv ssl zlib shebangfix
+			pcre expat
 INSTALL_REQ_TOOLCHAIN=	yes
 BUILD_TARGET=		all strip
 MUST_CONFIGURE=		gnu

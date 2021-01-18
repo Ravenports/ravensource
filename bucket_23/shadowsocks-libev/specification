@@ -36,18 +36,16 @@ LICENSE_FILE=		GPLv3+:stock
 LICENSE_TERMS=		primary:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		pcre:static:standard
-			asciidoc:single:standard
+BUILD_DEPENDS=		asciidoc:single:standard
 			xmlto:single:standard
 BUILDRUN_DEPENDS=	libev:single:standard
 			mbedtls:single:standard
-			pcre:shared:standard
 			libsodium:single:standard
 			c-ares:single:standard
 
 RC_SUBR=		shadowsocks_libev:primary
 
-USES=			autoreconf cpe gmake libtool
+USES=			autoreconf cpe gmake libtool pcre
 CPE_VENDOR=		shadowsocks
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-shared

@@ -37,13 +37,11 @@ FPC_EQUIVALENT=		security/clamav
 # libmilter support requires path to sbin/sendmail,
 # so it can't be implemented until there is a sendmail port I think.
 
-BUILD_DEPENDS=		bzip2:static:standard
-			json-c:primary:standard
+BUILD_DEPENDS=		json-c:primary:standard
 BUILDRUN_DEPENDS=	curl:primary:standard
 			libltdl:single:standard
 			libmspack:single:standard
 			pcre2:primary:standard
-			bzip2:shared:standard
 
 RUN_DEPENDS=		arc:single:standard
 			arj:single:standard
@@ -70,7 +68,7 @@ SUB_LIST=		CHMOD={{CHMOD}}
 			RUNDIR=${RUNDIR}
 
 USES=			cpe gmake libtool ncurses pkgconfig ssl iconv zlib
-			c++:primary
+			bz2 c++:primary
 GNOME_COMPONENTS=	libxml2
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--libdir={{PREFIX}}/lib

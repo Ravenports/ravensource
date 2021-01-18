@@ -191,10 +191,7 @@ GROUPS=			{{WWWGRP}}
 USERGROUP_SPKG=		single
 RC_SUBR=		nginx:single
 
-BUILD_DEPENDS=		pcre:static:standard
-BUILDRUN_DEPENDS=	pcre:shared:standard
-
-USES=			cpe ssl zlib
+USES=			cpe ssl zlib pcre
 CPE_VENDOR=		nginx
 CPE_PRODUCT=		nginx
 
@@ -315,15 +312,13 @@ VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-file-aio
 					37 38 39 40 41 42 43 44 45 46 47
 [LOADED].BUILDRUN_DEPENDS_ON=		libmaxminddb:single:standard
 					libGD:single:standard
-					expat:shared:standard
-[LOADED].BUILD_DEPENDS_ON=		expat:static:standard
 [LOADED].EXTRA_PATCHES_ON=		extra-patch-ngx_http_notice_module.c
 					extra-patch-upstream-check-module
 					extra-patch-iconv
 					extra-patch-postgresql
 # |extra-patch-nginx-ct
 [LOADED].KEYWORDS_ON=			perl
-[LOADED].USES_ON=			perl pgsql
+[LOADED].USES_ON=			perl pgsql expat
 [LOADED].GNOME_COMPONENTS_ON=		libxml2
 					libxslt
 

@@ -28,19 +28,17 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		irc/weechat
 
 USES=			cmake gettext-tools gettext-runtime iconv libtool
-			lua ncurses perl pkgconfig python tcl cpe ruby
+			lua ncurses perl pkgconfig python tcl cpe ruby zlib
 CMAKE_ARGS=		-DENABLE_PYTHON3:BOOL=ON
 			-DPYTHON_LIBRARY:FILEPATH={{LOCALBASE}}/lib/libpython{{PYTHON_VER}}{{PYTHON_ABIVER}}.so
 			-DENABLE_PHP:BOOL=OFF
 			-DENABLE_GUILE:BOOL=OFF
 			-DENABLE_JAVASCRIPT:BOOL=OFF
-BUILD_DEPENDS=		zlib:static:standard
 BUILDRUN_DEPENDS=	aspell:primary:standard
 			curl:primary:standard
 			gnutls:primary:standard
 			libgcrypt:single:standard
 			libgpg-error:primary:standard
-			zlib:shared:standard
 
 post-patch:
 	${GREP} -l '/usr/local' \

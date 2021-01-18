@@ -31,14 +31,12 @@ SINGLE_JOB=		yes
 [PERL_530].USES_ON=			perl:530
 [PERL_532].USES_ON=			perl:532
 
-BUILD_DEPENDS=		expat:static:standard
-			utf8proc:single:standard
-BUILDRUN_DEPENDS=	expat:shared:standard
-			sqlite:single:standard
-			serf:single:standard
+BUILD_DEPENDS=		utf8proc:single:standard
+BUILDRUN_DEPENDS=	serf:single:standard
 			subversion:primary:standard
 
-USES=			cpe libtool pkgconfig zlib shebangfix lz4:build
+USES=			cpe libtool pkgconfig zlib shebangfix
+			lz4:build sqlite expat
 CPE_VENDOR=		apache
 CPE_PRODUCT=		subversion
 SHEBANG_OLD_PYTHON=	{{LOCALBASE}}/bin/python2

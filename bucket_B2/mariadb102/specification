@@ -28,12 +28,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		databases/mariadb102-server
 
-BUILD_DEPENDS=		bzip2:static:standard
-			lzo:static:standard
-			bison:primary:standard
-BUILDRUN_DEPENDS=	bzip2:shared:standard
-			lzo:shared:standard
-			boost-libraries:rest:python_used
+BUILD_DEPENDS=		bison:primary:standard
+BUILDRUN_DEPENDS=	boost-libraries:rest:python_used
 			snappy:single:standard
 			msgpack:single:standard
 			judy:primary:standard
@@ -47,7 +43,7 @@ USERGROUP_SPKG=		server
 
 USES=			cmake zlib ssl readline ncurses shebangfix cpe
 			python:build perl:build pkgconfig iconv:translit
-			zstd lz4 execinfo
+			zstd lz4 lzo bz2 execinfo
 CPE_VENDOR=		mariadb
 CPE_PRODUCT=		mariadb
 GNOME_COMPONENTS=	libxml2

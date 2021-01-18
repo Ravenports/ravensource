@@ -37,13 +37,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		archivers/unzip
 
-DISTNAME=		unzip${PORTVERSION:S/.//}
-BUILD_DEPENDS=		bzip2:static:standard
-			zlib:static:standard
-USES=			cpe
-
+USES=			cpe zlib:build bz2:build
 CPE_VENDOR=		info-zip
 BUILD_TARGET=		generic_zlib unzipsfx
+DISTNAME=		unzip${PORTVERSION:S/.//}
 # bsd
 MAKEFILE=		unix/Makefile
 MAKE_ARGS=		LF2="{{STRIP}} {{LDFLAGS}}"

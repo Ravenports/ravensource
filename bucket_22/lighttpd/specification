@@ -33,13 +33,10 @@ USERS=			wwwraven
 GROUPS=			wwwraven
 USERGROUP_SPKG=		single
 
-BUILD_DEPENDS=		pcre:static:standard
-			bzip2:static:standard
-BUILDRUN_DEPENDS=	pcre:shared:standard
-			bzip2:shared:standard
-			libev:single:standard
+BUILDRUN_DEPENDS=	libev:single:standard
 
 USES=			autoreconf cpe gmake libtool pkgconfig ssl lua zlib
+			bz2 pcre
 MUST_CONFIGURE=		gnu
 CFLAGS=			-std=gnu99
 CONFIGURE_ARGS=		--libdir={{PREFIX}}/lib/lighttpd

@@ -32,13 +32,13 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		devel/glib20
 
 BUILD_DEPENDS=		xmlto:single:standard
-BUILDRUN_DEPENDS=	pcre:static:standard
-			pcre:shared:standard
-			libffi:single:standard
+BUILDRUN_DEPENDS=	libffi:single:standard
 RUN_DEPENDS=		zlib:static:standard
+			pcre:static:standard
 
 USES=			gettext-tools gettext-runtime gmake libtool perl:build
 			pkgconfig python:build shebangfix zlib meson iconv cpe
+			pcre
 MESON_ARGS=		-Diconv=external
 			-Dselinux=disabled
 			-Dxattr=false

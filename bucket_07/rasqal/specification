@@ -21,13 +21,11 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		textproc/rasqal
 
-BUILD_DEPENDS=		pcre:static:standard
-			gmp:static:standard
+BUILD_DEPENDS=		gmp:static:standard
 BUILDRUN_DEPENDS=	raptor:primary:standard
-			pcre:shared:standard
 			gmp:shared:standard
 
-USES=			gmake libtool perl:build pkgconfig ssl
+USES=			gmake libtool perl:build pkgconfig ssl pcre
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-decimal=gmp
 			--with-gmp="{{LOCALBASE}}"

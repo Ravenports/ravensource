@@ -32,13 +32,9 @@ GROUPS=			tinc
 USERGROUP_SPKG=		single
 RC_SUBR=		tincd:single
 
-USES=			cpe makeinfo ssl zlib
+USES=			cpe makeinfo ssl zlib lzo
 CPE_VENDOR=		tinc-vpn
 MUST_CONFIGURE=		gnu
-BUILD_DEPENDS=		lzo:static:standard
-BUILDRUN_DEPENDS=	lzo:shared:standard
-CPPFLAGS=		-I{{LOCALBASE}}/include
-LDFLAGS=		-L{{LOCALBASE}}/lib
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/tinc

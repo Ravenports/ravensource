@@ -29,18 +29,15 @@ FPC_EQUIVALENT=		graphics/wayland
 # start with dragonfly
 ONLY_FOR_OPSYS=		dragonfly
 
-USES=			meson pkgconfig
-
 BUILD_DEPENDS=		libxslt:single:standard
-			expat:static:standard
 # #			doxygen:single:standard
 # #			xmlto:single:standard
 # #			graphviz:primary:standard
 # #			docbook-xsl:primary:standard
 
 BUILDRUN_DEPENDS=	libffi:single:standard
-			expat:shared:standard
 
+USES=			meson pkgconfig expat
 GNOME_COMPONENTS=	libxml2
 # Graphviz's dot segfaults immediately since DF 5.8
 MESON_ARGS=		-Ddocumentation=false

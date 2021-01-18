@@ -27,9 +27,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		www/uwsgi
 
-BUILD_DEPENDS=		pcre:static:standard
-BUILDRUN_DEPENDS=	pcre:shared:standard
-			jansson:single:standard
+BUILDRUN_DEPENDS=	jansson:single:standard
 			libxml2:single:standard
 
 PYSETUP=		uwsgiconfig.py
@@ -41,7 +39,7 @@ GROUPS=			uwsgi
 USERGROUP_SPKG=		single
 RC_SUBR=		uwsgi:single
 
-USES=			cpe pkgconfig ssl python:sutools zlib
+USES=			cpe pkgconfig ssl python:sutools zlib pcre
 CPE_VENDOR=		unbit
 MAKE_ENV=		CPUCOUNT={{MAKE_JOBS_NUMBER}}
 			UWSGI_EMBED_PLUGINS=cgi

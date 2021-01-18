@@ -31,12 +31,11 @@ FPC_EQUIVALENT=		devel/liborcus
 PLIST_SUB=		VER=${ORCUS_VERSION}
 
 BUILD_DEPENDS=		mdds:single:standard
-			bzip2:static:standard
 			bzip2:shared:standard
 BUILDRUN_DEPENDS=	boost-libraries:rest:python_default
 			ixion:single:standard
 
-USES=			pkgconfig zlib cmake python:build
+USES=			pkgconfig zlib cmake python:build bz2:build
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
 CMAKE_ARGS=		-DMDDS_INCLUDEDIR:STRING="{{LOCALBASE}}/include/mdds-1.2"

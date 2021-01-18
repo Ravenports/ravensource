@@ -28,13 +28,11 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		www/neon
 
-BUILD_DEPENDS=		expat:static:standard
-BUILDRUN_DEPENDS=	expat:shared:standard
-			nss:caroot:standard
+BUILDRUN_DEPENDS=	nss:caroot:standard
 			libproxy:single:standard
 			krb5:primary:standard
 
-USES=			cpe libtool gettext-runtime ssl pkgconfig zlib
+USES=			cpe libtool gettext-runtime ssl pkgconfig zlib expat
 CPE_VENDOR=		webdav
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-ca-bundle={{LOCALBASE}}/share/certs/ca-root-nss.crt

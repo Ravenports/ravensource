@@ -35,12 +35,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		www/apache24
 
-BUILD_DEPENDS=		expat:static:standard
-			pcre:static:standard
-			gdbm:primary:static
-BUILDRUN_DEPENDS=	expat:shared:standard
-			pcre:shared:standard
-			apr1:single:standard
+BUILD_DEPENDS=		gdbm:primary:static
+BUILDRUN_DEPENDS=	apr1:single:standard
 			apr-util:single:standard
 			libnghttp2:single:standard
 
@@ -51,6 +47,7 @@ USERGROUP_SPKG=		primary
 RC_SUBR=		apache:primary
 
 USES=			autoreconf cpe iconv libtool ssl perl:run zlib
+			expat pcre
 GNOME_COMPONENTS=	libxml2
 CPE_VENDOR=		apache
 CPE_PRODUCT=		http_server

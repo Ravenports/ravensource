@@ -37,8 +37,6 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		archivers/libarchive
 
-BUILD_DEPENDS=		expat:static:standard
-
 USES=			cpe libtool
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
@@ -55,41 +53,29 @@ SOVERSION=		${SOVERSION}
 [EXTENDED].DESCRIPTION=			Build loaded version (common + lzo + lz4)
 [RAVENSW].DESCRIPTION=			Build zstd-only version for ravensw
 
-[NOT_STD].USES_OFF=			zstd
-[NOT_STD].BUILD_DEPENDS_OFF=		bzip2:static:standard
-					zlib:static:standard
+[NOT_STD].USES_OFF=			zstd expat bz2 zlib
 [NOT_STD].BUILDRUN_DEPENDS_OFF=		libressl:single:standard
-					expat:shared:standard
 					xz:single:standard
-					bzip2:shared:standard
-					zlib:shared:standard
 [NOT_STD].CONFIGURE_ARGS_OFF=		--enable-shared=yes
 
 [STATIC].USES_ON=			zstd:build
+					expat:build
+					bz2:build
+					zlib:build
 [STATIC].BUILD_DEPENDS_ON=		libressl:single:static
 					xz:single:static
-					bzip2:static:standard
-					zlib:static:standard
 [STATIC].CONFIGURE_ARGS_ON=		--enable-shared=no
 					--enable-static=yes
 
-[EXTENDED].USES_ON=			lz4 zstd
-[EXTENDED].BUILD_DEPENDS_ON=		bzip2:static:standard
-					zlib:static:standard
-					lzo:static:standard
-[EXTENDED].BUILDRUN_DEPENDS_ON=		expat:shared:standard
-					libressl:single:standard
+[EXTENDED].USES_ON=			lz4 lzo zstd expat bz2 zlib
+[EXTENDED].BUILDRUN_DEPENDS_ON=		libressl:single:standard
 					xz:single:standard
-					bzip2:shared:standard
-					zlib:shared:standard
-					lzo:shared:standard
 [EXTENDED].CONFIGURE_ARGS_ON=		--enable-shared=yes
 					--with-lzo2
 					--with-lz4
 
-[RAVENSW].USES_ON=			zstd
+[RAVENSW].USES_ON=			zstd expat
 [RAVENSW].BUILD_DEPENDS_ON=		libressl:single:static
-					expat:shared:standard
 [RAVENSW].CONFIGURE_ARGS_ON=		--enable-shared=yes
 					--enable-static=yes
 					--without-zlib

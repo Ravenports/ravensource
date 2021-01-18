@@ -22,11 +22,7 @@ OPTIONS_AVAILABLE=	THREADS DEBUG PYMALLOC
 OPTIONS_STANDARD=	THREADS DEBUG PYMALLOC
 OPT_ON[all]=		THREADS PYMALLOC
 
-BUILD_DEPENDS=		bzip2:static:standard
-			expat:static:standard
 BUILDRUN_DEPENDS=	libffi:single:standard
-			expat:shared:standard
-			bzip2:shared:standard
 			xz:single:standard
 BROKEN_SSL=		openssl-devel
 
@@ -37,7 +33,7 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		lang/python27
 
 USES=			bdb cpe ncurses pkgconfig readline ssl shebangfix
-			gettext-runtime zlib gmake
+			gettext-runtime zlib bz2 expat gmake
 DISTNAME=		Python-${PORTVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
 SINGLE_JOB=		yes
