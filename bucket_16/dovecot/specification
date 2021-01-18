@@ -27,9 +27,7 @@ LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		mail/dovecot
 
-BUILD_DEPENDS=		lz4:static:standard
-BUILDRUN_DEPENDS=	lz4:shared:standard
-			krb5:primary:standard
+BUILDRUN_DEPENDS=	krb5:primary:standard
 			clucene:single:standard
 
 RC_SUBR=		dovecot:primary
@@ -39,7 +37,7 @@ USERS=			dovecot dovenull
 GROUPS=			dovecot dovenull
 USERGROUP_SPKG=		primary
 
-USES=			cpe iconv libtool pkgconfig ssl sqlite
+USES=			cpe iconv libtool pkgconfig ssl sqlite lz4
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--localstatedir=/var
 			--with-statedir=/var/db/dovecot

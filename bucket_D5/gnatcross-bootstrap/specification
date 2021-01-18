@@ -40,8 +40,6 @@ OPTDESCR[TARGET]=	Target platform for generated compiler
 OPTGROUP[TARGET]=	DISABLE FARM64_R11 FAMD64_R12 FI386_R12 SOL10
 OPT_ON[all]=		DISABLE
 
-BUILD_DEPENDS=		Zstandard:static:standard
-
 # Single basing on gcc8, getting ld error on libquadmath
 # ../libquadmath/.libs/libquadmath.so: _end: invalid version 21 (max 3)
 # ../libquadmath/.libs/libquadmath.so: error adding symbols: bad value
@@ -50,7 +48,7 @@ BUILD_DEPENDS=		Zstandard:static:standard
 # No such file or directory: include "quadmath_weak.h"
 # so fortran removed from languages
 
-USES=			gmake libtool perl:build
+USES=			gmake libtool perl:build zstd:build
 DISTNAME=		${IDENTIFICATION}
 PLIST_SUB=		TGTSYS={{TGTSYS}}
 INSTALL_TARGET=		install-strip

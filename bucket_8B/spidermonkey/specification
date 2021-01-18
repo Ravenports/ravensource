@@ -31,7 +31,6 @@ FPC_EQUIVALENT=		lang/spidermonkey78
 BUILD_DEPENDS=		autoconf213:single:standard
 			zip:single:standard
 			rust:single:standard
-			clang:compiler:standard
 			autoselect-python:single:standard
 BUILDRUN_DEPENDS=	icu:single:standard
 			nspr:single:standard
@@ -39,6 +38,7 @@ BUILDRUN_DEPENDS=	icu:single:standard
 DISTNAME=		firefox-${PORTVERSION}/js/src
 
 USES=			gmake perl pkgconfig python:build zlib readline
+			clang:keepcc
 MUST_CONFIGURE=		yes
 CONFIGURE_OUTSOURCE=	yes
 CONFIGURE_ARGS=		--prefix={{PREFIX}}

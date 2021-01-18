@@ -36,12 +36,12 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 BUILD_DEPENDS=		binutils:single:ravensys
-			Zstandard:static:standard
 B_DEPS[sunos]=		ravensys-utils:single:standard
 
 PREFIX=			{{LOCALBASE}}/share/raven/toolchain
 SKIP_BUILD=		yes
 
+USES=			zstd:build
 INVALID_RPATH=		yes
 PLIST_SUB=		COMPVER=${COMPILER_VER}
 			GCCVER=${GCC_VERSION}

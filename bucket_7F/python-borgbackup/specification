@@ -36,11 +36,7 @@ DISTNAME=		borgbackup-${PORTVERSION}
 [PY39].USES_ON=				python:py39,sutools
 [PY39].BUILDRUN_DEPENDS_ON=		python-setuptools-scm:single:py39
 
-USES=			ssl
-BUILD_DEPENDS=		Zstandard:static:standard
-			lz4:static:standard
-BUILDRUN_DEPENDS=	Zstandard:shared:standard
-			lz4:shared:standard
+USES=			ssl lz4 zstd
 
 MAKE_ENV=		BORG_OPENSSL_PREFIX={{OPENSSLBASE}}
 

@@ -28,11 +28,10 @@ ONLY_FOR_OPSYS=		freebsd dragonfly netbsd linux
 BROKEN[linux]=		during linking: undefined reference to `getrandom'
 
 BUILDRUN_DEPENDS=	llvm:single:standard
-			clang:compiler:standard
 			lld:single:standard
 RUN_DEPENDS=		libcxx:primary:standard
 
-USES=			cmake
+USES=			cmake clang
 INSTALL_REQ_TOOLCHAIN=	yes
 
 post-install:

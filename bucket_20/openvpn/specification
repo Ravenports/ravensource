@@ -33,13 +33,12 @@ FPC_EQUIVALENT=		security/openvpn
 NOT_FOR_OPSYS=		linux
 
 BUILDRUN_DEPENDS=	openpam:single:standard
-BUILD_DEPENDS=		lz4:complete:standard
-			lzo:complete:standard
-RUN_DEPENDS=		lz4:shared:standard
-			lzo:shared:standard
+BUILD_DEPENDS=		lzo:complete:standard
+RUN_DEPENDS=		lzo:shared:standard
 
 # openvpn doesn't support libressl without patches
-USES=			autoreconf cpe libtool pkgconfig ssl:openssl-devel
+USES=			autoreconf cpe libtool pkgconfig lz4
+			ssl:openssl-devel
 
 MUST_CONFIGURE=		gnu
 CONFIGURE_ENV=		ac_cv_prog_CMAKE=

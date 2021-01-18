@@ -30,10 +30,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/ccache
 
-BUILD_DEPENDS=		Zstandard:static:standard
-			asciidoc:single:standard
+BUILD_DEPENDS=		asciidoc:single:standard
 
-USES=			cmake perl:build c++:primary
+USES=			cmake perl:build c++:primary zstd:build
 CMAKE_ARGS=		-DENABLE_TESTING:BOOL=OFF
 PLIST_SUB=		CCLINKDIR="${CCLINKDIR}"
 DISTNAME=		ccache-${ORIGVERSION}

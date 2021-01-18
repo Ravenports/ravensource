@@ -42,6 +42,11 @@ BUILDRUN_DEPENDS=	xdg-utils:single:standard
 			dbus:single:standard
 			wxWidgets:primary:standard
 
+# FreeBSD's GCC ICES
+# clang ICEs on the test.  Just assume c++17 works
+C_USES[freebsd]=	clang
+VAR_OPSYS[freebsd]=	CONFIGURE_ENV=ax_cv_cxx_compile_cxx17__std_cpp17=yes
+
 USES=			cpe gettext-tools gmake iconv pkgconfig sqlite libtool
 GNOME_COMPONENTS=	cairo gtk3
 CPE_VENDOR=		filezilla-project
@@ -56,13 +61,6 @@ CONFIGURE_ARGS=		--with-wx-config={{LOCALBASE}}/bin/${WX_CONFIG}
 MAKE_ARGS=		LIBTOOLFLAGS=--tag=CXX
 CFLAGS=			-Iputty
 PLIST_SUB=		VERSION=${SOVERSION}
-
-# filezilla has been failing with gcc ICE failure on both gcc7 and gcc8
-# on FreeBSD. Until this is fixed, use clang to build filezilla on that OS.
-# See freebsd/special.mk (until USES=clang supported?)
-
-B_DEPS[freebsd]=	clang:compiler:standard
-MAKE_ENV=		CCACHE_CPP2=true
 
 post-patch:
 	# Use libidn2 instead of libidn

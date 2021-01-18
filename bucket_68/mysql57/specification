@@ -42,14 +42,13 @@ FPC_EQUIVALENT=		databases/mysql57-server
 
 BUILD_DEPENDS=		libedit:single:standard
 BUILDRUN_DEPENDS=	libevent:single:standard
-			lz4:complete:standard
 EXRUN[client]=		libedit:single:standard
 			zlib:complete:standard
 # should add execinfo to client list, but USES=execinfo is a no-op
 # on some platforms, so it can't be hardcoded here.
 
 USES=			bison cmake perl:run shebangfix execinfo pkgconfig
-			c++:server,client cclibs:server,client zlib cpe
+			c++:server,client cclibs:server,client zlib lz4 cpe
 CPE_VENDOR=		oracle
 CPE_PRODUCT=		mysql
 DISTNAME=		mysql-${PORTVERSION}

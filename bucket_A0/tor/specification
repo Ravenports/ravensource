@@ -26,10 +26,8 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		security/tor
 
 BUILD_DEPENDS=		asciidoc:single:standard
-			Zstandard:static:standard
 BUILDRUN_DEPENDS=	libevent:single:standard
 			xz:single:standard
-			Zstandard:shared:standard
 			nss:primary:standard
 
 USERS=			_tor
@@ -37,7 +35,7 @@ GROUPS=			_tor
 USERGROUP_SPKG=		primary
 RC_SUBR=		tor:primary
 
-USES=			cpe gmake pkgconfig ssl zlib cclibs:primary
+USES=			cpe gmake pkgconfig ssl zlib zstd cclibs:primary
 CPE_VENDOR=		torproject
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-openssl-dir="{{OPENSSLBASE}}"

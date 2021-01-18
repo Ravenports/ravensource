@@ -27,11 +27,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libclc
 
-BUILD_DEPENDS=		clang:compiler:standard
-			libedit:single:standard
+BUILD_DEPENDS=		libedit:single:standard
 # #			rocm-device-libs:single:standard
 
-USES=			python:build gmake cmake:insource
+USES=			python:build gmake cmake:insource clang:keepcc
 MAKE_ENV=		MAKE={{GMAKE}}
 			DESTDIR={{STAGEDIR}}
 # Force ccache to work with clang

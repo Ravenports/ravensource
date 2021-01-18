@@ -46,21 +46,18 @@ FPC_EQUIVALENT=		graphics/mesa-libs
 BUILD_DEPENDS=		autoselect-python:single:standard
 			python-Mako:single:python_used
 			libpthread-stubs:single:standard
-			zlib:static:standard
 			libelf:single:standard
 			libvdpau:single:standard
 			libva:single:standard
 			expat:static:standard
-			Zstandard:static:standard
 BUILDRUN_DEPENDS=	expat:shared:standard
-			zlib:shared:standard
 			libdrm:single:standard
-			Zstandard:shared:standard
 EXRUN[drivers]=		mesa:libs:standard
 			libelf:single:standard
 
 USES=			cpe bison gettext-tools gmake meson pkgconfig
-			python:build shebangfix solaris-funcs c++:libs,drivers
+			zstd zlib shebangfix solaris-funcs
+			python:build c++:libs,drivers
 XORG_COMPONENTS=	x11 xdamage xext xfixes xshmfence xxf86vm xv xrandr xcb
 CPE_VENDOR=		mesa3d
 SOL_FUNCTIONS=		dirfd:src/util/disk_cache.c
@@ -123,9 +120,9 @@ VAR_OPSYS[sunos]=	CPPFLAGS=-D__EXTENSIONS__=1
 [LLVMPIPE].DESCRIPTION=			Build LLVM-based drivers and libraries
 [WAYLAND].DESCRIPTION=			Build Vulkan drivers for Wayland platform
 
+[LLVMPIPE].USES_ON=			clang:keepcc
 [LLVMPIPE].XORG_COMPONENTS_ON=		xvmc
 [LLVMPIPE].BUILD_DEPENDS_ON=		libclc:single:standard
-					clang:compiler:standard
 					opencl-headers:single:standard
 [LLVMPIPE].BUILDRUN_DEPENDS_ON=		llvm:single:standard
 					ocl-icd:primary:standard

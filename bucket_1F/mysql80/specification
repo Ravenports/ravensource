@@ -41,7 +41,6 @@ FPC_EQUIVALENT=		databases/mysql80-server
 
 BUILD_DEPENDS=		libedit:single:standard
 BUILDRUN_DEPENDS=	libevent:single:standard
-			lz4:complete:standard
 EXRUN[client]=		libedit:single:standard
 			zlib:complete:standard
 # #			can't use "ssl" here, currently it assumes libressl
@@ -50,7 +49,7 @@ EXRUN[client]=		libedit:single:standard
 B_DEPS[linux]=		patchelf:primary:standard
 
 USES=			bison cmake perl:run shebangfix zlib cpe
-			execinfo ssl:openssl-devel pkgconfig
+			lz4 execinfo ssl:openssl-devel pkgconfig
 			c++:server,client cclibs:server,client
 CPE_VENDOR=		oracle
 CPE_PRODUCT=		mysql
