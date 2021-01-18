@@ -240,15 +240,6 @@ post-extract:
 		${WRKSRC}/README.md > ${WRKDIR}/TERMS
 
 pre-configure:
-	# fix ./make/ configure
-	${REINPLACE_CMD} '/AC_CONFIG_AUX_DIR/ s|/erts/|/../erts/|' \
-		${WRKSRC}/make/configure.in
-	# file ./lib/* configure
-	${REINPLACE_CMD} '/AC_CONFIG_AUX_DIR/ s|(autoconf)|(../../erts/autoconf)|' \
-		${WRKSRC}/lib/crypto/configure.in \
-		${WRKSRC}/lib/megaco/configure.in \
-		${WRKSRC}/lib/odbc/configure.in \
-		${WRKSRC}/lib/snmp/configure.in
 	cd ${WRKSRC} && ./otp_build autoconf
 
 post-patch:

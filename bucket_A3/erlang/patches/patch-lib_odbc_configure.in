@@ -1,0 +1,15 @@
+--- lib/odbc/configure.in.orig	2020-12-21 07:24:16 UTC
++++ lib/odbc/configure.in
+@@ -26,10 +26,11 @@ dnl Process this file with autoconf to p
+ AC_INIT(c_src/odbcserver.c)
+ 
+ if test -z "$ERL_TOP" || test ! -d $ERL_TOP ; then
++  :
+   AC_CONFIG_AUX_DIRS(autoconf)
+ else
+   erl_top=${ERL_TOP}
+-  AC_CONFIG_AUX_DIRS($erl_top/erts/autoconf)
++  AC_CONFIG_AUX_DIRS(../../erts/autoconf)
+ fi
+ 
+ if test "X$host" != "Xfree_source" -a "X$host" != "Xwin32"; then
