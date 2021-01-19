@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.40
+DEF[PORTVERSION]=	1.41
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Set-Object
@@ -23,26 +23,20 @@ VOPTS[530]=		PERL_530=ON PERL_532=OFF
 VOPTS[532]=		PERL_530=OFF PERL_532=ON
 
 # License listed in CPAN directory:
-# artistic_2
+# Artistic_2
 
 GENERATED=		yes
 SINGLE_JOB=		yes
 DISTNAME=		Set-Object-${PORTVERSION}
 
-# ----------------------------------------------
-# |   Prerequisites extracted from META.json
-# ----------------------------------------------
-# |      runtime : Scalar::Util (perl 5.30 core) (perl 5.32 core)
-# |      runtime : Test::More (perl 5.30 core) (perl 5.32 core)
-# |      runtime : Moose
-# |      runtime : Test::LeakTrace
-# |        build : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# ---------------------------------------------
+# |   Prerequisites extracted from META.yml
+# ---------------------------------------------
+# | configure_requires : ExtUtils::MakeMaker (perl 5.30.3 core) (perl 5.32.0 core)
+# |     build_requires : ExtUtils::MakeMaker (perl 5.30.3 core) (perl 5.32.0 core)
+# |           requires : Scalar::Util (perl 5.30.3 core) (perl 5.32.0 core)
+# |           requires : Test::More (perl 5.30.3 core) (perl 5.32.0 core)
 
 [PERL_530].USES_ON=			perl:530,configure
-[PERL_530].BUILDRUN_DEPENDS_ON=		perl-Moose:single:530
-					perl-Test-LeakTrace:single:530
 [PERL_532].USES_ON=			perl:532,configure
-[PERL_532].BUILDRUN_DEPENDS_ON=		perl-Moose:single:532
-					perl-Test-LeakTrace:single:532
 
