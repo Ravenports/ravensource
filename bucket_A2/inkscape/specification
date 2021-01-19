@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	1.0.1
-DEF[EXTRACT_DIR]=	inkscape-1.0.1_2020-09-07_3bc2e813f5
+DEF[PORTVERSION]=	1.0.2
+DEF[EXTRACT_DIR]=	inkscape-1.0.2_2021-01-15_e86c870879
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		inkscape
@@ -93,3 +93,4 @@ post-install:
 	# if in manifest, says file is not there, but if removed from
 	# manifest, says file is orphaned.  For now remove it.
 	${RM} ${STAGEDIR}${PREFIX}/share/inkscape/templates/default.es_MX.svg
+	${FIND} ${STAGEDIR}${PREFIX}/share/inkscape/extensions -type d -empty -delete
