@@ -1,0 +1,20 @@
+--- meson.build.orig	2021-01-19 17:08:26 UTC
++++ meson.build
+@@ -7,7 +7,7 @@ project('gtk-doc', 'c',
+ gnome = import('gnome')
+ python = import('python') # Meson new Python module https://mesonbuild.com/Python-module.html
+ 
+-python3 = python.find_installation('python3')
++python3 = python.find_installation()
+ 
+ version = meson.project_version()
+ package_name = meson.project_name()
+@@ -28,7 +28,7 @@ autoconfdatadir = join_paths(datadir, 'a
+ pkgdir = join_paths(datadir, package_name)
+ pkgdatadir = join_paths(pkgdir, 'data')
+ pkgpythondir = join_paths(pkgdir, 'python')
+-pkgconfigdir = join_paths(datadir, 'pkgconfig')
++pkgconfigdir = join_paths(libdir, 'pkgconfig')
+ 
+ # Dependencies
+ glib_req = '>= 2.38.0'
