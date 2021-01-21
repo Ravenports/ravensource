@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	1.8.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-git
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v26 v27 v30
+SDESC[v26]=		Wraps system calls to the git library (v26)
+SDESC[v27]=		Wraps system calls to the git library (v27)
+SDESC[v30]=		Wraps system calls to the git library (v30)
+HOMEPAGE=		https://github.com/ruby-git/ruby-git
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		git-1.8.1.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v26]=		single
+SPKGS[v27]=		single
+SPKGS[v30]=		single
+
+OPTIONS_AVAILABLE=	RUBY26 RUBY27 RUBY30
+OPTIONS_STANDARD=	none
+VOPTS[v26]=		RUBY26=ON RUBY27=OFF RUBY30=OFF
+VOPTS[v27]=		RUBY26=OFF RUBY27=ON RUBY30=OFF
+VOPTS[v30]=		RUBY26=OFF RUBY27=OFF RUBY30=ON
+
+# License listed inside gem specification
+# => "MIT"
+
+# Requirements according to gem specification:
+#   rchardet (~> 1.8)
+#   minitar (~> 0.9, development)
+#   rake (~> 13.0, development)
+#   test-unit (~> 3.3, development)
+#   redcarpet (~> 3.5, development)
+#   yard (~> 0.9, development)
+#   yardstick (~> 0.9, development)
+
+DISTNAME=		git-${PORTVERSION}
+GENERATED=		yes
+
+[RUBY26].USES_ON=			gem:v26
+[RUBY26].BUILDRUN_DEPENDS_ON=		ruby-rchardet:single:v26
+[RUBY27].USES_ON=			gem:v27
+[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-rchardet:single:v27
+[RUBY30].USES_ON=			gem:v30
+[RUBY30].BUILDRUN_DEPENDS_ON=		ruby-rchardet:single:v30
+
