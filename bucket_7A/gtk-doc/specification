@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.33.1
+DEF[PORTVERSION]=	1.33.2
 DEF[DL_FOLDER]=		${PORTVERSION:R}
 # ----------------------------------------------------------------------------
 
@@ -29,24 +29,18 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		textproc/gtk-doc
 
 BUILD_DEPENDS=		itstool:single:standard
+			autoselect-python:single:standard
 BUILDRUN_DEPENDS=	docbook-xml:single:standard
 			docbook-xsl:primary:standard
-RUN_DEPENDS=		python-Pygments:single:python_default
+			python-Pygments:single:python_default
 
-USES=			gmake gettext-tools perl pkgconfig python:build
-GNOME_COMPONENTS=	libxslt
-MUST_CONFIGURE=		gnu
-CONFIGURE_ENV=		GTKDOC="false"
-CONFIGURE_ARGS=		--with-xml-catalog={{LOCALBASE}}/share/xml/catalog.ports
-			--localstatedir={{PREFIX}}/share
-MAKE_ARGS=		pkgconfigdir={{PREFIX}}/lib/pkgconfig
+USES=			meson gettext-tools perl pkgconfig python:build
+GNOME_COMPONENTS=	libxslt glib
+# CONFIGURE_ARGS=	--with-xml-catalog={{LOCALBASE}}/share/xml/catalog.ports
 
 post-patch:
+	${REINPLACE_CMD} -e '/^pkgconfigdir/ s|datadir|libdir|' \
+		${WRKSRC}/meson.build
 	${GREP} -rl "http://docbook.sourceforge.net" ${WRKSRC} | \
 		${SED} '/configure\.ac/d' | ${XARGS} \
 		${SED} -i'' -e 's|/docbook.sourceforge.net/|/cdn.docbook.org/|'
-	# itstool segfaults on french and chinese documentation
-	# apparently not anymore. Comment out ${REINPLACE_CMD} \
-		-e '/HELP_LINGUAS =/ s/ fr / /' \
-		-e '/HELP_LINGUAS =/ s/ zh_CN//' \
-		${WRKSRC}/help/manual/Makefile.in
