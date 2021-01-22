@@ -1,4 +1,4 @@
---- oggenc/lyrics.c.orig	2010-01-22 06:28:06 UTC
+--- oggenc/lyrics.c.orig	2020-12-18 14:49:34 UTC
 +++ oggenc/lyrics.c
 @@ -16,7 +16,7 @@
  #endif
