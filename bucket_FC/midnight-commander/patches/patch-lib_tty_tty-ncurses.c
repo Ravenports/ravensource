@@ -1,6 +1,6 @@
---- lib/tty/tty-ncurses.c.orig	2020-07-05 17:38:53 UTC
+--- lib/tty/tty-ncurses.c.orig	2021-01-10 11:50:16 UTC
 +++ lib/tty/tty-ncurses.c
-@@ -243,7 +243,7 @@ tty_shutdown (void)
+@@ -282,7 +282,7 @@ tty_shutdown (void)
  void
  tty_enter_ca_mode (void)
  {
@@ -9,7 +9,7 @@
      {
          fprintf (stdout, /* ESC_STR ")0" */ ESC_STR "7" ESC_STR "[?47h");
          fflush (stdout);
-@@ -255,7 +255,7 @@ tty_enter_ca_mode (void)
+@@ -294,7 +294,7 @@ tty_enter_ca_mode (void)
  void
  tty_exit_ca_mode (void)
  {
