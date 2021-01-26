@@ -1,5 +1,5 @@
 DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM_VERSION)
-DEF[PORTREVISION]=	0
+DEF[PORTREVISION]=	1
 DEF[MAJORMIN]=		${LLVM_VERSION:R}
 DEF[MAJOR]=		${LLVM_VERSION:R:R}
 DEF[TOOLCHAIN_GCC]=	EXTRACT_INFO(CURRENT_GCC)
@@ -92,6 +92,32 @@ post-patch:
 		${WRKSRC}/lib/Driver/ToolChains/FreeBSD.cpp \
 		${WRKSRC}/lib/Driver/ToolChains/Gnu.cpp \
 		${WRKSRC}/lib/Frontend/InitHeaderSearch.cpp
+
+post-patch-freebsd:
+	# Remove headers that conflict with /usr/include
+	${REINPLACE_CMD} \
+		-e '/ limits.h/d' \
+		-e '/ stdalign.h/d' \
+		-e '/ stdarg.h/d' \
+		-e '/ stdatomic.h/d' \
+		-e '/ stdbool.h/d' \
+		-e '/ stddef.h/d' \
+		-e '/ stdint.h/d' \
+		-e '/ stdnoreturn.h/d' \
+		-e '/ varargs.h/d' \
+		${WRKSRC}/lib/Headers/CMakeLists.txt
+
+post-patch-dragonfly:
+	# Remove headers that conflict with /usr/include
+	${REINPLACE_CMD} \
+		-e '/ limits.h/d' \
+		-e '/ stdalign.h/d' \
+		-e '/ stdarg.h/d' \
+		-e '/ stdbool.h/d' \
+		-e '/ stddef.h/d' \
+		-e '/ stdint.h/d' \
+		-e '/ stdnoreturn.h/d' \
+		${WRKSRC}/lib/Headers/CMakeLists.txt
 
 post-install:
 	${RMDIR} ${STAGEDIR}${PREFIX}/include/clang-tidy/plugin
