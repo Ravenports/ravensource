@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	1.0.30
+DEF[PORTVERSION]=	1.0.31
+DEF[TAG]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libsndfile
@@ -10,7 +11,7 @@ HOMEPAGE=		http://www.mega-nerd.com/libsndfile/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/erikd:libsndfile:v${PORTVERSION}
+SITES[main]=		GITHUB/erikd:libsndfile:${TAG}
 DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete primary docs
@@ -31,8 +32,3 @@ CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=true
 			-DBUILD_PROGRAMS:BOOL=true
 CPE_VENDOR=		libsndfile_project
 SOVERSION=		${PORTVERSION}
-
-post-install:
-	(cd ${WRKSRC}/doc && ${COPYTREE_SHARE} . ${STAGEDIR}${STD_DOCDIR})
-	${RM} ${STAGEDIR}${STD_DOCDIR}/Makefile*
-	${RM} ${STAGEDIR}${STD_DOCDIR}/libsndfile.css.in
