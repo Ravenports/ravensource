@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	1.8.7
-DEF[SOVERSION]=		20.2.8
+DEF[PORTVERSION]=	1.9.0
+DEF[SOVERSION]=		20.3.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libgcrypt
@@ -35,6 +35,7 @@ USES=			cpe libtool makeinfo
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-drng-support
 			--enable-static=yes
+			--disable-asm
 CONFIGURE_ENV=		MAKEINFO="makeinfo --no-split"
 INFO=			single:gcrypt
 CPE_VENDOR=		gnupg
@@ -42,8 +43,5 @@ INSTALL_TARGET=		install-strip
 TEST_TARGET=		check
 SOVERSION=		${SOVERSION}
 
-VAR_OPSYS[darwin]=	CONFIGURE_ARGS=--disable-asm
-
 post-patch:
 	${RM} ${WRKSRC}/doc/gcrypt.info*
-	${REINPLACE_CMD} -e 's|ALIGN (3)|ALIGN (2)|g' ${WRKSRC}/mpi/i386/*.S
