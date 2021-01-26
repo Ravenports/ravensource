@@ -1,8 +1,8 @@
---- nsd-control.c.orig	2020-12-01 12:25:39 UTC
+--- nsd-control.c.orig	2021-01-26 08:03:11 UTC
 +++ nsd-control.c
-@@ -67,6 +67,10 @@ static void usage(void) ATTR_NORETURN;
- static void ssl_err(const char* s) ATTR_NORETURN;
- static void ssl_path_err(const char* s, const char *path) ATTR_NORETURN;
+@@ -71,6 +71,10 @@ static void ssl_path_err(const char* s,
+ /** timeout to wait for connection over stream, in msec */
+ #define NSD_CONTROL_CONNECT_TIMEOUT 5000
  
 +#ifndef AF_LOCAL
 +#define AF_LOCAL AF_UNIX
