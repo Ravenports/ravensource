@@ -1,4 +1,4 @@
---- lib/ofx_utilities.cpp.orig	2021-01-02 23:33:04 UTC
+--- lib/ofx_utilities.cpp.orig	2021-01-25 21:10:19 UTC
 +++ lib/ofx_utilities.cpp
 @@ -138,6 +138,11 @@ time_t ofxdate_to_time_t(const string of
    char time_zone_specified = false;
