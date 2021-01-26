@@ -34,6 +34,25 @@ install it with [pip]:
 Changelog
 ~~~~~~~~~
 
+4.19.0 (released 2021-01-25)
+----------------------------
+
+- [codecs] Handle errors parameter different from 'strict' for the custom
+  extended mac encodings (#2137, #2132).
+- [featureVars] Raise better error message when a script is missing the
+required
+  default language system (#2154).
+- [COLRv1] Avoid abrupt change caused by rounding
+``PaintRadialGradient.c0`` when
+  the start circle almost touches the end circle's perimeter (#2148).
+- [COLRv1] Support building unlimited lists of paints as 255-ary trees of
+  PaintColrLayers tables (#2153).
+- [subset] Prune redundant format-12 cmap subtables when all non-BMP
+characters
+  are dropped (#2146).
+- [basePen] Raise MissingComponentError instead of bare KeyError when a
+  referenced component is missing (#2145).
+
 4.18.2 (released 2020-12-16)
 ----------------------------
 
@@ -79,22 +98,3 @@ whenever
 ----------------------------
 
 - [colorLib] Fixed regression in 4.17.0 when building COLR v0 table; when
-color
-  layers are stored in UFO lib plist, we can't distinguish tuples from
-lists so
-  we need to accept either types (e5439eb9, googlefonts/ufo2ft/issues#426).
-
-4.17.0 (released 2020-11-12)
-----------------------------
-
-- [colorLib/otData] Updated to latest draft COLR v1 spec (#2092).
-- [svgLib] Fixed parsing error when arc commands' boolean flags are not
-separated
-  by space or comma (#2094).
-- [varLib] Interpret empty non-default glyphs as 'missing', if the default
-glyph is
-  not empty (#2082).
-- [feaLib.builder] Only stash lookup location for Debg if
-``Builder.buildLookups_``
-  has cooperated (#2065, #2067).
-- [varLib] Fixed bug in VarStore optimizer (#2073, #2083).

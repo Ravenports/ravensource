@@ -266,7 +266,6 @@ function fetch_from_pypi ($namebase) {
 function inline_fix_setup ($namebase, $src) {
    $known_issues = array (
        "drf-yasg"     => 's/    _install_setup_requires.*/    pass/',
-       "pyocr"        => '/PyOCR version/d',
        "lxml"         => '/Building lxml/d',
        "intervaltree" => '/print("Version/d; s/print("!!!.*/    pass/',
        "aniso8601"    => '/install_requires=/d',
