@@ -1,4 +1,4 @@
---- src/getopt.c.orig	2021-01-09 11:29:27 UTC
+--- src/getopt.c.orig	2021-01-25 16:51:41 UTC
 +++ src/getopt.c
 @@ -36,6 +36,7 @@
  #endif
