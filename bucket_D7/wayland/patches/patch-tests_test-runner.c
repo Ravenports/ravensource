@@ -1,4 +1,4 @@
---- tests/test-runner.c.orig	2020-02-11 23:46:03 UTC
+--- tests/test-runner.c.orig	2021-01-27 16:49:04 UTC
 +++ tests/test-runner.c
 @@ -28,6 +28,7 @@
  #include <unistd.h>

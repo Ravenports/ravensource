@@ -1,4 +1,4 @@
---- src/connection.c.orig	2020-02-11 23:46:03 UTC
+--- src/connection.c.orig	2021-01-27 16:49:04 UTC
 +++ src/connection.c
 @@ -38,6 +38,7 @@
  #include <sys/types.h>

@@ -1,4 +1,4 @@
---- src/event-loop.c.orig	2020-02-11 23:46:03 UTC
+--- src/event-loop.c.orig	2021-01-27 16:49:04 UTC
 +++ src/event-loop.c
 @@ -35,9 +35,8 @@
  #include <fcntl.h>

@@ -1,4 +1,4 @@
---- src/wayland-util.c.orig	2020-02-11 23:46:03 UTC
+--- src/wayland-util.c.orig	2021-01-27 16:49:04 UTC
 +++ src/wayland-util.c
 @@ -29,6 +29,7 @@
  #include <stdio.h>

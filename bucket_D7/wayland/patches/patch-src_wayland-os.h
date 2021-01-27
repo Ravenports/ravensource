@@ -1,4 +1,4 @@
---- src/wayland-os.h.orig	2020-02-11 23:46:03 UTC
+--- src/wayland-os.h.orig	2021-01-27 16:49:04 UTC
 +++ src/wayland-os.h
 @@ -36,7 +36,7 @@ ssize_t
  wl_os_recvmsg_cloexec(int sockfd, struct msghdr *msg, int flags);

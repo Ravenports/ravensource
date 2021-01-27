@@ -1,4 +1,4 @@
---- src/wayland-server.c.orig	2020-02-11 23:46:03 UTC
+--- src/wayland-server.c.orig	2021-01-27 16:49:04 UTC
 +++ src/wayland-server.c
 @@ -44,6 +44,11 @@
  #include <sys/file.h>
