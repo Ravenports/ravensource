@@ -1,10 +1,11 @@
---- Makefile.orig	2020-06-21 14:08:22 UTC
+--- Makefile.orig	2021-01-26 02:41:10 UTC
 +++ Makefile
-@@ -10,11 +10,11 @@ OPT?=-O2
+@@ -11,12 +11,11 @@ OBJECTS=doas.o env.o compat/execvpe.o co
+ OPT?=-O2
  # Can set GLOBAL_PATH here to set PATH for target user.
  # TARGETPATH=-DGLOBAL_PATH=\"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:\"
- CFLAGS+=-Wall $(OPT) -DUSE_PAM -DDOAS_CONF=\"${SYSCONFDIR}/doas.conf\" $(TARGETPATH)
-+CFLAGS+=-DOPENPAM
+-CFLAGS+=-Wall $(OPT) -DUSE_PAM -DDOAS_CONF=\"$(DOAS_CONF)\" $(TARGETPATH)
++CFLAGS+=-DUSE_PAM -DOPENPAM -DDOAS_CONF=\"$(DOAS_CONF)\" $(TARGETPATH)
  CPPFLAGS+=-include compat/compat.h
  LDFLAGS+=-lpam
  UNAME_S := $(shell uname -s)
@@ -13,8 +14,8 @@
      CPPFLAGS+=-Icompat
      CFLAGS+=-D_GNU_SOURCE
      COMPAT+=closefrom.o errc.o getprogname.o setprogname.o strlcat.o strlcpy.o strtonum.o verrc.o
-@@ -24,11 +24,15 @@ ifeq ($(UNAME_S),FreeBSD)
-     CFLAGS+=-DHAVE_LOGIN_CAP_H
+@@ -31,11 +30,15 @@ ifeq ($(UNAME_S),NetBSD)
+     OBJECTS=doas.o env.o y.tab.o
      LDFLAGS+=-lutil
  endif
 +ifeq ($(UNAME_S),DragonFly)

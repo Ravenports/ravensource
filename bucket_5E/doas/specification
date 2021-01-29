@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.3p2
+DEF[PORTVERSION]=	6.3p4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		doas
@@ -29,6 +29,12 @@ BUILD_DEPENDS=		byacc:single:standard
 BUILDRUN_DEPENDS=	openpam:single:standard
 
 USES=			gmake
+
+post-patch:
+	# I'm having trouble escaping GLOBAL_PATH properly, just modify makefile
+	# as a workaround
+	${REINPLACE_CMD} -e '/^# TARGETPATH=/ s/^# //; s|/usr/local|${LOCALBASE}|g' \
+		${WRKSRC}/Makefile
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/doas ${STAGEDIR}${PREFIX}/bin

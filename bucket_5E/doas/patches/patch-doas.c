@@ -1,4 +1,4 @@
---- doas.c.orig	2020-06-21 14:08:22 UTC
+--- doas.c.orig	2021-01-26 02:41:10 UTC
 +++ doas.c
 @@ -199,7 +199,7 @@ checkconfig(const char *confpath, int ar
  	struct rule *rule;
