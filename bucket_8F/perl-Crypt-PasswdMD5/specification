@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.40
+DEF[PORTVERSION]=	1.41
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Crypt-PasswdMD5
@@ -7,12 +7,12 @@ KEYWORDS=		perl
 VARIANTS=		530 532
 SDESC[530]=		Interoperable MD5-based crypt functions (5.30)
 SDESC[532]=		Interoperable MD5-based crypt functions (5.32)
-HOMEPAGE=		none
+HOMEPAGE=		https://github.com/ronsavage/Crypt-PasswdMD5
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:R/RS/RSAVAGE
-DISTFILE[1]=		Crypt-PasswdMD5-1.40.tgz:main
+DISTFILE[1]=		Crypt-PasswdMD5-1.41.tgz:main
 
 SPKGS[530]=		single
 SPKGS[532]=		single
@@ -35,11 +35,10 @@ DISTNAME=		Crypt-PasswdMD5-${PORTVERSION}
 # |      runtime : Digest::MD5 (perl 5.30 core) (perl 5.32 core)
 # |      runtime : strict (perl 5.30 core) (perl 5.32 core)
 # |      runtime : warnings (perl 5.30 core) (perl 5.32 core)
-# |        build : Test::More (perl 5.30 core) (perl 5.32 core)
-# |    configure : Module::Build
+# |        build : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# |         test : Test::More (perl 5.30 core) (perl 5.32 core)
 
-[PERL_530].USES_ON=			perl:530,buildmod,run
-[PERL_530].BUILD_DEPENDS_ON=		perl-Module-Build:single:530
-[PERL_532].USES_ON=			perl:532,buildmod,run
-[PERL_532].BUILD_DEPENDS_ON=		perl-Module-Build:single:532
+[PERL_530].USES_ON=			perl:530,configure
+[PERL_532].USES_ON=			perl:532,configure
 
