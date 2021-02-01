@@ -1,6 +1,6 @@
---- src/log.c.orig	2020-07-26 08:11:37 UTC
+--- src/log.c.orig	2021-02-01 08:03:46 UTC
 +++ src/log.c
-@@ -128,7 +128,7 @@ void open_logbuffer(void) {
+@@ -125,7 +125,7 @@ void open_logbuffer(void) {
       * At the moment (2011-12-10), no testcase leads to an i3 log
       * of more than ~ 600 KiB. */
      logbuffer_size = min(physical_mem_bytes * 0.01, shmlog_size);
@@ -9,7 +9,7 @@
      sasprintf(&shmlogname, "/tmp/i3-log-%d", getpid());
  #else
      sasprintf(&shmlogname, "/i3-log-%d", getpid());
-@@ -139,7 +139,7 @@ void open_logbuffer(void) {
+@@ -136,7 +136,7 @@ void open_logbuffer(void) {
          return;
      }
  
