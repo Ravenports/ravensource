@@ -1,11 +1,9 @@
-# Requires python 2.7 still
-DEF[PORTVERSION]=	1.5.8
-DEF[PROTOLIB_HASH]=	16c5ab
+DEF[PORTVERSION]=	1.5.9
+DEF[PROTOLIB_HASH]=	702e909
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		norm
 VERSION=		${PORTVERSION}
-REVISION=		3
 KEYWORDS=		net
 VARIANTS=		standard
 SDESC[standard]=	NACK-Oriented Reliable Multicast (NORM)
@@ -32,37 +30,10 @@ LICENSE_SCHEME=		solo
 # fails to recognize 1.5.8 > 1.5r6
 # FPC_EQUIVALENT=		net/norm
 
-BUILD_DEPENDS=		py27-setuptools:single:standard
-
-USES=			libtool c++:single dos2unix
+USES=			cmake c++:single dos2unix
 GNOME_COMPONENTS=	libxml2
-DESTDIRNAME=		--destdir
-BUILD_TARGET=		build
-SINGLE_JOB=		yes
-MUST_CONFIGURE=		yes
-CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
-			-j{{MAKE_JOBS_NUMBER}}
-
-post-extract:
-	${REINPLACE_CMD} -e '/SYSTEM_SOFLAGS/ s/$$/ -Wl,-soname,libnorm.so.1/' \
-		${WRKSRC}/makefiles/Makefile.freebsd
+CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
 
 post-extract-sunos:
 	${CP} ${FILESDIR}/getifaddrs.cpp ${WRKSRC}/protolib/src/unix/
 	${CP} ${FILESDIR}/ifaddrs.h ${WRKSRC}/protolib/include/
-
-post-patch-dragonfly:
-	${REINPLACE_CMD} -e 's| ../src/bsd/bsdNet.cpp||' \
-		${WRKSRC}/protolib/makefiles/Makefile.freebsd
-
-post-build:
-	(cd ${BUILD_WRKSRC}/makefiles && ${SETENV} ${MAKE_ENV} \
-		${BSDMAKE} ${MAKE_FLAGS} -f Makefile.${OPSYS:tl:S/sunos/solaris/:S/dragonfly/freebsd/} \
-		${_MAKE_JOBS} all libnorm.so)
-
-post-install:
-	${INSTALL_PROGRAM} \
-		${WRKSRC}/bin/raft \
-		${WRKSRC}/bin/norm \
-		${STAGEDIR}${PREFIX}/bin/
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libnorm.so

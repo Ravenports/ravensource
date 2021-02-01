@@ -1,4 +1,4 @@
---- protolib/include/protoSocket.h.orig	2019-11-11 14:54:17 UTC
+--- protolib/include/protoSocket.h.orig	2021-01-17 15:48:09 UTC
 +++ protolib/include/protoSocket.h
 @@ -106,7 +106,7 @@ class ProtoSocket : public ProtoNotify
  // On Mac OSX, only version 10.7 and later support IGMPv3 

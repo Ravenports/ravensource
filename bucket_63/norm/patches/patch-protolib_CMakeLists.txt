@@ -1,0 +1,11 @@
+--- protolib/CMakeLists.txt.orig	2021-02-01 04:02:34 UTC
++++ protolib/CMakeLists.txt
+@@ -20,6 +20,8 @@ include(CheckTypeSize)
+ include(CheckIncludeFiles)
+ include(CheckLibraryExists)
+ 
++list(APPEND PLATFORM_FLAGS -fPIC)
++
+ check_include_files( pcap.h HAVE_PCAP_H)
+ if(HAVE_PCAP_H)
+ 	#list(APPEND PLATFORM_SOURCE_FILES ${COMMON}/pcapCap.cpp)
