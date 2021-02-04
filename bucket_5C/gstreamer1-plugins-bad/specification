@@ -34,11 +34,13 @@ BUILDRUN_DEPENDS=	gstreamer1:primary:standard
 			gstreamer1-plugins-base:primary:standard
 			libgcrypt:single:standard
 
-USES=			gmake pkgconfig zlib bz2 meson
+USES=			cpe gmake pkgconfig zlib bz2 meson
 			gettext-runtime gettext-tools
 GNOME_COMPONENTS=	glib libxml2
 XORG_COMPONENTS=	x11
 # GNOME_COMPONENTS=introspection disabled on gstreamer1
+CPE_VENDOR=		freedesktop
+CPE_PRODUCT=		gst-plugins-bad
 MESON_ARGS=		-Dgst_player_tests=false
 			-Daccurip=enabled
 			-Dadpcmdec=enabled
