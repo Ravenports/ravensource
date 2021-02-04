@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	15.2
+DEF[VERSION]=		17_r2
+DEF[PORTVERSION]=	${VERSION:S/_//g}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		excel-writer
@@ -11,7 +12,7 @@ CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/excel-writer/excel-writer
-DISTFILE[1]=		excel_writer_15_r2.zip:main
+DISTFILE[1]=		excel_writer_${VERSION}.zip:main
 
 SPKGS[standard]=	complete primary docs examples
 
@@ -32,14 +33,11 @@ DISTNAME=		Excel_Writer
 post-extract:
 	${CP} ${FILESDIR}/construct.gpr ${FILESDIR}/biff_dump.gpr ${WRKSRC}
 	${MKDIR} ${WRKSRC}/src ${WRKDIR}/data
-	${MV} "${WRKSRC}/Big [BIFF4].xls" ${WRKDIR}/data/Big.xls
 	(cd ${WRKSRC}; ${MV} excel_out.ad[bs] ieee* extras/csv.* src)
 	${SED} -e "s,@PREFIX@,${LOCALBASE},g" ${FILESDIR}/runme.sh.in \
 		> ${WRKSRC}/runme.sh
 
 post-patch:
-	${REINPLACE_CMD} -e "s|Big.xls|${DATADIR}/Big.xls|" \
-		-e 's|\$$Dump\$$|_dump_|g' ${WRKSRC}/extras/biff_dump.adb
 	${REINPLACE_CMD} -e 's/"\(.*\.xls\)"/"\/tmp\/\1"/g' \
 		${WRKSRC}/excel_out_demo.adb
 
@@ -51,7 +49,6 @@ do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gnat \
 		${STAGEDIR}${PREFIX}/lib/excel_writer \
 		${STAGEDIR}${PREFIX}/include/excel_writer \
-		${STAGEDIR}${PREFIX}/share/excel-writer \
 		${STAGEDIR}${STD_DOCDIR} \
 		${STAGEDIR}${STD_EXAMPLESDIR}
 	${INSTALL_DATA} ${FILESDIR}/excel_writer.gpr \
@@ -62,8 +59,6 @@ do-install:
 		${STAGEDIR}${PREFIX}/lib/excel_writer
 	${INSTALL_PROGRAM} ${WRKSRC}/bin/biff_dump \
 		${STAGEDIR}${PREFIX}/bin
-	${INSTALL_DATA} ${WRKDIR}/data/Big.xls \
-		${STAGEDIR}${PREFIX}/share/excel-writer
 	${INSTALL_DATA} ${WRKSRC}/excel_writer.txt \
 		${STAGEDIR}${STD_DOCDIR}
 	${INSTALL_SCRIPT} ${WRKSRC}/runme.sh \
