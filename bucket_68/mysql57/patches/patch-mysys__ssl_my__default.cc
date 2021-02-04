@@ -1,4 +1,4 @@
---- mysys_ssl/my_default.cc.orig	2020-09-23 12:00:04 UTC
+--- mysys_ssl/my_default.cc.orig	2020-12-10 03:01:55 UTC
 +++ mysys_ssl/my_default.cc
 @@ -126,7 +126,7 @@ static my_bool defaults_already_read= FA
  
@@ -24,7 +24,7 @@
    while (mysql_file_getline(buff, sizeof(buff) - 1, fp, is_login_file))
    {
      line++;
-@@ -1268,7 +1276,8 @@ void my_print_default_files(const char *
+@@ -1272,7 +1280,8 @@ void my_print_default_files(const char *
              end[(strlen(end)-1)] = ' ';
            else
              strxmov(end, conf_file, *ext , " ",  NullS);
@@ -34,7 +34,7 @@
          }
        }
      }
-@@ -1427,13 +1436,8 @@ static const char **init_default_directo
+@@ -1431,13 +1440,8 @@ static const char **init_default_directo
  
  #else
  
@@ -50,7 +50,7 @@
  
  #endif
  
-@@ -1504,7 +1508,7 @@ int check_file_permissions(const char *f
+@@ -1508,7 +1512,7 @@ int check_file_permissions(const char *f
    MY_STAT stat_info;
  
    if (!my_stat(file_name,&stat_info,MYF(0)))

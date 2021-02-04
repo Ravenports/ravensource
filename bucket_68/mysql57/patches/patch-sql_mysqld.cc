@@ -1,6 +1,6 @@
---- sql/mysqld.cc.orig	2020-09-23 12:00:04 UTC
+--- sql/mysqld.cc.orig	2020-12-10 03:01:55 UTC
 +++ sql/mysqld.cc
-@@ -3423,7 +3423,7 @@ int warn_self_signed_ca()
+@@ -3428,7 +3428,7 @@ int warn_self_signed_ca()
  static int init_ssl()
  {
  #ifdef HAVE_OPENSSL
