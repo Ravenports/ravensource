@@ -1,4 +1,4 @@
---- mysys/my_default.cc.orig	2020-09-23 12:37:48 UTC
+--- mysys/my_default.cc.orig	2020-12-11 07:42:20 UTC
 +++ mysys/my_default.cc
 @@ -204,7 +204,7 @@ bool no_defaults = false;
  
@@ -24,7 +24,7 @@
    while (mysql_file_getline(buff, sizeof(buff) - 1, fp, is_login_file)) {
      line++;
      /* Ignore comment and empty lines */
-@@ -1231,7 +1239,8 @@ void my_print_default_files(const char *
+@@ -1236,7 +1244,8 @@ void my_print_default_files(const char *
              end[(strlen(end) - 1)] = ' ';
            else
              strxmov(end, conf_file, *ext, " ", NullS);
@@ -34,7 +34,7 @@
          }
        }
      }
-@@ -1571,13 +1580,8 @@ static const char **init_default_directo
+@@ -1576,13 +1585,8 @@ static const char **init_default_directo
  
  #else
  
@@ -50,7 +50,7 @@
  
  #endif
  
-@@ -1641,7 +1645,7 @@ int check_file_permissions(const char *f
+@@ -1646,7 +1650,7 @@ int check_file_permissions(const char *f
  #if !defined(_WIN32)
    MY_STAT stat_info;
  

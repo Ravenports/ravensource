@@ -1,6 +1,6 @@
---- include/myisam.h.orig	2020-09-23 12:37:48 UTC
+--- include/myisam.h.orig	2020-12-11 07:42:20 UTC
 +++ include/myisam.h
-@@ -59,7 +59,7 @@
+@@ -60,7 +60,7 @@
    The following defines can be increased if necessary.
    But beware the dependency of MI_MAX_POSSIBLE_KEY_BUFF and MI_MAX_KEY_LENGTH.
  */
