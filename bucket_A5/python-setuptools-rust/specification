@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	0.11.6
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-setuptools-rust
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py38 py39
+SDESC[py38]=		Setuptools rust extension plugin (PY38)
+SDESC[py39]=		Setuptools rust extension plugin (PY39)
+HOMEPAGE=		https://github.com/PyO3/setuptools-rust
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/e5/e3/ede8b8545e7ce7f5fde88d1a89cdfffa281ab3b93815c3c1a464ca3b6855
+DISTFILE[1]=		setuptools_rust-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py38]=		single
+SPKGS[py39]=		single
+
+OPTIONS_AVAILABLE=	PY38 PY39
+OPTIONS_STANDARD=	none
+VOPTS[py38]=		PY38=ON PY39=OFF
+VOPTS[py39]=		PY38=OFF PY39=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		setuptools_rust-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# semantic-version (>=2.6.0)
+# toml (>=0.9.0)
+
+[PY38].USES_ON=				python:py38,wheel
+[PY38].RUN_DEPENDS_ON=			python-semantic-version:single:py38
+					python-toml:single:py38
+[PY39].USES_ON=				python:py39,wheel
+[PY39].RUN_DEPENDS_ON=			python-semantic-version:single:py39
+					python-toml:single:py39
+

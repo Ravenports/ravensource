@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.18.1
+DEF[PORTVERSION]=	0.19.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-httplib2
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/httplib2/httplib2
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/b3/ad/d9d9331850ea5bd4f5cb8c650c0bfa119a4abd6b0ad7c45b6506bc979fc0
+SITES[main]=		PYPIWHL/15/7e/51e5bd333c0afa1c7bdbf98eb3b0ccf5167e2b1ecc8b4d13e9cc29291f81
 DISTFILE[1]=		httplib2-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
@@ -29,10 +29,12 @@ GENERATED=		yes
 DISTNAME=		httplib2-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-
+# pyparsing (<3,>=2.4.2)
 
 [PY38].USES_ON=				python:py38,wheel
+[PY38].RUN_DEPENDS_ON=			python-pyparsing:single:py38
 [PY39].USES_ON=				python:py39,wheel
+[PY39].RUN_DEPENDS_ON=			python-pyparsing:single:py39
 
 USES=			cpe
 CPE_VENDOR=		httplib2_project

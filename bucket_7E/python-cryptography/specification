@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.3.1
+DEF[PORTVERSION]=	3.4.4
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-cryptography
@@ -29,16 +29,16 @@ GENERATED=		yes
 DISTNAME=		cryptography-${PORTVERSION}
 
 # install_requires extracted from setup.py
-# six >= 1.4.1
 # cffi>=1.12
 # cffi>=1.12
+# setuptools-rust>=0.11.4
 
 [PY38].USES_ON=				python:py38,sutools
-[PY38].BUILDRUN_DEPENDS_ON=		python-six:single:py38
-					python-cffi:single:py38
+[PY38].BUILDRUN_DEPENDS_ON=		python-cffi:single:py38
+					python-setuptools-rust:single:py38
 [PY39].USES_ON=				python:py39,sutools
-[PY39].BUILDRUN_DEPENDS_ON=		python-six:single:py39
-					python-cffi:single:py39
+[PY39].BUILDRUN_DEPENDS_ON=		python-cffi:single:py39
+					python-setuptools-rust:single:py39
 
 USES=			cpe ssl
 CPE_VENDOR=		python-cryptography_project

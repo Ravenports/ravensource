@@ -6,6 +6,7 @@
 # Also requires: python 3.8
 #                python-setuptools-scm
 #                python-setuptools-git
+#                python-setuptools-rust
 #                python-pip
 
 $SCRIPTDIR = __DIR__;
