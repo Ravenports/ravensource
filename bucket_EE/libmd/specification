@@ -1,0 +1,30 @@
+DEF[PORTVERSION]=	1.0.3
+DEF[SOVERSION]=		0.0.4
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libmd
+VERSION=		${PORTVERSION}
+KEYWORDS=		security devel
+VARIANTS=		standard
+SDESC[standard]=	Message Digest functions from BSD systems
+HOMEPAGE=		https://www.hadrons.org/software/libmd/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://archive.hadrons.org/software/libmd/
+DISTFILE[1]=		libmd-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:single
+LICENSE_NAME=		CUSTOM1:"LibMD License collection: BSD2, BSD3, ISC, PUBDOM"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+USES=			libtool
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
