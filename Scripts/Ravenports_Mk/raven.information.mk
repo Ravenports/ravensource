@@ -183,7 +183,7 @@ SUBVERSION_VERSION=		1.14.1
 # Miscellaneous master versions
 # ------------------------------------------------------------------------
 
-LIBFM_VERSION=			1.3.1
+LIBFM_VERSION=			1.3.2
 LIBTOOL_VERSION=		2.4.6
 FREI0R_VERSION=			1.7.0
 M17N_VERSION=			1.8.0
