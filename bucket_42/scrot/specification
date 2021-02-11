@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.4
+DEF[PORTVERSION]=	1.5
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		scrot
@@ -39,3 +39,6 @@ CONFIGURE_ARGS=		--mandir={{MANPREFIX}}/man
 
 pre-configure:
 	(cd ${WRKSRC} && ./autogen.sh)
+
+post-install:
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}
