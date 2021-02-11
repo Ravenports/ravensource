@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	1.9-22
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-partitions
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		standard
+SDESC[standard]=	Additive Partitions of Integers
+HOMEPAGE=		https://github.com/RobinHankin/partitions.git
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+DISTFILE[1]=		partitions_1.9-22.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => GPL-2 | GPL-3 [expanded from: GPL]
+
+USES=			cran gmake
+DISTNAME=		partitions
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-gmp:single:standard
+			R-polynom:single:standard
+			R-sets:single:standard
+
+
