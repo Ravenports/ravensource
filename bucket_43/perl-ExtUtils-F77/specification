@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.24
+DEF[PORTVERSION]=	1.26
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-ExtUtils-F77
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/PDLPorters/extutils-f77
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		CPAN/ID:K/KG/KGB
+SITES[main]=		CPAN/ID:E/ET/ETJ
 DISTFILE[1]=		ExtUtils-F77-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
@@ -29,8 +29,17 @@ GENERATED=		yes
 SINGLE_JOB=		yes
 DISTNAME=		ExtUtils-F77-${PORTVERSION}
 
-# This perl port has no dependencies at all.
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : File::Which
+# |      runtime : List::Util (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Text::ParseWords (perl 5.30 core) (perl 5.32 core)
+# |        build : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
 
 [PERL_530].USES_ON=			perl:530,configure
+[PERL_530].BUILDRUN_DEPENDS_ON=		perl-File-Which:single:530
 [PERL_532].USES_ON=			perl:532,configure
+[PERL_532].BUILDRUN_DEPENDS_ON=		perl-File-Which:single:532
 

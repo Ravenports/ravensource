@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.24
+DEF[PORTVERSION]=	2.27
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-PGPLOT
@@ -32,14 +32,17 @@ DISTNAME=		PGPLOT-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : ExtUtils::F77
 # |        build : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# |    configure : Devel::CheckLib
 # |    configure : ExtUtils::F77
+# |         test : Test::More (perl 5.30 core) (perl 5.32 core)
 
 [PERL_530].USES_ON=			perl:530,configure
-[PERL_530].BUILDRUN_DEPENDS_ON=		perl-ExtUtils-F77:single:530
+[PERL_530].BUILD_DEPENDS_ON=		perl-Devel-CheckLib:single:530
+					perl-ExtUtils-F77:single:530
 [PERL_532].USES_ON=			perl:532,configure
-[PERL_532].BUILDRUN_DEPENDS_ON=		perl-ExtUtils-F77:single:532
+[PERL_532].BUILD_DEPENDS_ON=		perl-Devel-CheckLib:single:532
+					perl-ExtUtils-F77:single:532
 
 BUILD_DEPENDS=		perl-File-Which:single:perl_default
 BUILDRUN_DEPENDS=	pgplot:primary:standard
