@@ -1,5 +1,7 @@
 
 
+   :alt: tests
+
    :alt: Code style: Black
 
 Setup scripts can use pytest-runner to add setup.py test support for pytest
@@ -12,14 +14,15 @@ pytest-runner depends on deprecated features of setuptools and relies on
 features that break security
 mechanisms in pip. For example 'setup_requires' and 'tests_require' bypass
 ``pip --require-hashes``.
-See also https://github.com/pypa/setuptools/issues/1684.
+See also `pypa/setuptools#1684
+<https://github.com/pypa/setuptools/issues/1684>`_.
 
 It is recommended that you:
 
-- Remove 'pytest-runner' from your 'setup_requires', preferably removing
-the `setup_requires` option.
-- Remove 'pytest' and any other testing requirements from 'tests_require',
-preferably removing the `setup_requires` option.
+- Remove ``'pytest-runner' from your setup_requires``, preferably removing
+the setup_requires option.
+- Remove 'pytest' and any other testing requirements from tests_require,
+preferably removing the tests_requires option.
 - Select a tool to bootstrap and then run tests such as tox
 
 Usage
@@ -70,8 +73,8 @@ Standalone Example
 ==================
 
 This technique is deprecated - if you have standalone scripts
-you wish to invoke with dependencies, [use rwt
-].
+you wish to invoke with dependencies, `use pip-run
+<https://pypi.org/project/pip-run>`_.
 
 Although ``pytest-runner`` is typically used to add pytest test
 runner support to maintained packages, ``pytest-runner`` may
@@ -95,6 +98,3 @@ Then, anyone trying to replicate the failure can do so easily
 and with all the power of pytest (rewritten assertions,
 rich comparisons, interactive debugging, extensibility through
 plugins, etc).
-
-As a result, the communication barrier for describing and
-replicating failures is made almost trivially low.

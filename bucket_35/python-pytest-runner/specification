@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.2
+DEF[PORTVERSION]=	5.3.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pytest-runner
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/pytest-dev/pytest-runner/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/16/45/81b5262c0efc08882bdf183b788e6d28e3d684863990996d8b60967d48da
-DISTFILE[1]=		pytest_runner-${PORTVERSION}-py2.py3-none-any.whl:main
+SITES[main]=		PYPIWHL/40/96/9024a1c07bbe5e16bdcbcbd021b608e37b32df4301ae2090aad27c24ffe6
+DISTFILE[1]=		pytest_runner-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py39]=		single
@@ -30,14 +30,16 @@ DISTNAME=		pytest_runner-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # sphinx ; extra == 'docs'
-# jaraco.packaging (>=3.2) ; extra == 'docs'
+# jaraco.packaging (>=8.2) ; extra == 'docs'
 # rst.linker (>=1.9) ; extra == 'docs'
 # pytest (!=3.7.3,>=3.5) ; extra == 'testing'
-# pytest-checkdocs ; extra == 'testing'
+# pytest-checkdocs (>=1.2.3) ; extra == 'testing'
 # pytest-flake8 ; extra == 'testing'
-# pytest-black-multipy ; extra == 'testing'
 # pytest-cov ; extra == 'testing'
+# pytest-enabler ; extra == 'testing'
 # pytest-virtualenv ; extra == 'testing'
+# pytest-black (>=0.3.7) ; (platform_python_implementation != "PyPy") and extra == 'testing'
+# pytest-mypy ; (platform_python_implementation != "PyPy") and extra == 'testing'
 
 [PY38].USES_ON=				python:py38,wheel
 [PY39].USES_ON=				python:py39,wheel
