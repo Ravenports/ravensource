@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	1.7.4.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		socat
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		standard
+SDESC[standard]=	Multipurpose relay
+HOMEPAGE=		none
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.dest-unreach.org/socat/download/
+DISTFILE[1]=		socat-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:primary
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^\#include"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/socat.c
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net/socat
+
+RC_SUBR=		socat:primary
+
+USES=			cpe ssl
+CPE_VENDOR=		dest-unreach
+MUST_CONFIGURE=		gnu
+CFLAGS=			-Wno-unused-variable
+
+do-install:
+.for f in filan procan socat
+	${INSTALL_PROGRAM} ${WRKSRC}/${f} ${STAGEDIR}${PREFIX}/bin
+.endfor
+	${INSTALL_MAN} ${WRKSRC}/doc/socat.1 ${STAGEDIR}${MAN1PREFIX}/man/man1
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	cd ${WRKSRC} && ${INSTALL_DATA} EXAMPLES README SECURITY FAQ \
+		${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${FILESDIR}/socat-instances.conf.sample \
+		${STAGEDIR}${PREFIX}/etc
