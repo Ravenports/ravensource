@@ -1,15 +1,15 @@
---- main.c.orig	2020-12-26 03:56:05 UTC
+--- main.c.orig	2021-02-05 20:02:57 UTC
 +++ main.c
-@@ -1461,6 +1461,12 @@ main_Init(int argc, char **argv)
- 		Var_Set(".MAKE.UID", tmp, VAR_GLOBAL);
+@@ -1472,6 +1472,12 @@ main_Init(int argc, char **argv)
+ 		Global_Set(".MAKE.UID", tmp);
  		snprintf(tmp, sizeof tmp, "%u", getgid());
- 		Var_Set(".MAKE.GID", tmp, VAR_GLOBAL);
-+		Var_Set(".MAKE.OS.NAME",          OSNAME,    VAR_GLOBAL);
-+		Var_Set(".MAKE.OS.VERSION",       OSVERSION, VAR_GLOBAL);
-+		Var_Set(".MAKE.OS.RELEASE",       OSRELEASE, VAR_GLOBAL);
-+		Var_Set(".MAKE.OS.MAJOR",         OSMAJOR,   VAR_GLOBAL);
-+		Var_Set(".MAKE.OS.ARCHITECTURE",  OSARCH,    VAR_GLOBAL);
-+		Var_Set(".MAKE.OS.ARCH.STANDARD", STDARCH,   VAR_GLOBAL);
+ 		Global_Set(".MAKE.GID", tmp);
++		Global_Set(".MAKE.OS.NAME",          OSNAME);
++		Global_Set(".MAKE.OS.VERSION",       OSVERSION);
++		Global_Set(".MAKE.OS.RELEASE",       OSRELEASE);
++		Global_Set(".MAKE.OS.MAJOR",         OSMAJOR);
++		Global_Set(".MAKE.OS.ARCHITECTURE",  OSARCH);
++		Global_Set(".MAKE.OS.ARCH.STANDARD", STDARCH);
  	}
  	if (makelevel > 0) {
  		char pn[1024];
