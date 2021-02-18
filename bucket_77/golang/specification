@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.15.8
+DEF[PORTVERSION]=	1.16
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		golang
@@ -63,6 +63,7 @@ do-build:
 do-install:
 	${CP} -a ${WRKSRC} ${STAGEDIR}${PREFIX}
 	${RM} -r ${STAGEDIR}${PREFIX}/go/pkg/obj
+	${RM} -r ${STAGEDIR}${PREFIX}/go/misc/cgo/testplugin/altpath
 .for f in go gofmt
 	${LN} -sf ../go/bin/${f} ${STAGEDIR}${PREFIX}/bin/${f}
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${f}
