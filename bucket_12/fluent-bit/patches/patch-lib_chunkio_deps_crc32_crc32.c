@@ -1,9 +1,9 @@
---- lib/chunkio/deps/crc32/crc32.c.orig	2021-01-08 14:30:31 UTC
+--- lib/chunkio/deps/crc32/crc32.c.orig	2021-02-15 02:05:46 UTC
 +++ lib/chunkio/deps/crc32/crc32.c
-@@ -31,7 +31,7 @@
- #  define htole16(x) (x)
- #  define be16toh(x) ntohs(x)
- #  define le16toh(x) (x)
+@@ -34,7 +34,7 @@
+ #  define __BIG_ENDIAN 1
+ #  define __LITTLE_ENDIAN 2
+ #  define __BYTE_ORDER __LITTLE_ENDIAN
 -#elif defined(__FreeBSD__)
 +#elif defined(__FreeBSD__) || defined(__DragonFly__)
  #  include <sys/endian.h>
