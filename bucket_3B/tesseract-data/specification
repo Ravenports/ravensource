@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	4.00
+DEF[PORTVERSION]=	4.1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		tesseract-data
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Trained language data for the Tesseract OCR engine
@@ -20,13 +19,17 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 LICENSE=		APACHE20:complete
-LICENSE_TERMS=		complete:{{WRKSRC}}/COPYING
-LICENSE_FILE=		APACHE20:stock
+LICENSE_TERMS=		complete:{{WRKDIR}}/TERMS
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/tesseract-data
 
 SKIP_BUILD=		yes
+
+post-extract:
+	# extract license terms to separate file
+	${AWK} '/licensed under/,EOF' ${WRKSRC}/README.md > ${WRKDIR}/TERMS
 
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/tessdata
