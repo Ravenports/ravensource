@@ -1,11 +1,10 @@
-DEF[PORTVERSION]=	1.15.1
-DEF[SOVERSION]=		1.0.15
+DEF[PORTVERSION]=	1.16.0
+DEF[SOVERSION]=		1.0.16
 DEF[JQUERY]=		3.5.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libtcod
 VERSION=		${PORTVERSION}
-REVISION=		4
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Roguelike game development library
@@ -26,9 +25,10 @@ LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/../../LICENSE.txt
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		python-Sphinx:single:python_default
-			python-sphinx-rtd-theme:single:python_default
-			python-breathe:single:python_default
+BUILD_DEPENDS=		python-Sphinx:single:python_used
+			python-sphinx-rtd-theme:single:python_used
+			python-breathe:single:python_used
+			python-recommonmark:single:python_used
 
 USES=			autoreconf gmake libtool pkgconfig python:build shebangfix zlib
 SDL_COMPONENTS=		sdl2
