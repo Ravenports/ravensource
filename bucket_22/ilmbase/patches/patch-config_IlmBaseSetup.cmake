@@ -1,4 +1,4 @@
---- config/IlmBaseSetup.cmake.orig	2020-06-14 01:26:22 UTC
+--- config/IlmBaseSetup.cmake.orig	2021-02-12 16:56:19 UTC
 +++ config/IlmBaseSetup.cmake
 @@ -48,10 +48,6 @@ set(ILMBASE_OUTPUT_SUBDIR OpenEXR CACHE
  # but is pretty harmless to set globally
