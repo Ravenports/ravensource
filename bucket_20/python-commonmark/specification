@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	0.9.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-commonmark
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py38 py39
+SDESC[py38]=		Parser for the CommonMark Markdown spec (PY38)
+SDESC[py39]=		Parser for the CommonMark Markdown spec (PY39)
+HOMEPAGE=		https://github.com/rtfd/commonmark.py
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/b1/92/dfd892312d822f36c55366118b95d914e5f16de11044a27cf10a7d71bbbf
+DISTFILE[1]=		commonmark-${PORTVERSION}-py2.py3-none-any.whl:main
+
+SPKGS[py38]=		single
+SPKGS[py39]=		single
+
+OPTIONS_AVAILABLE=	PY38 PY39
+OPTIONS_STANDARD=	none
+VOPTS[py38]=		PY38=ON PY39=OFF
+VOPTS[py39]=		PY38=OFF PY39=ON
+
+# License listed at PyPI
+# BSD-3-Clause
+
+GENERATED=		yes
+DISTNAME=		commonmark-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# future (>=0.14.0) ; python_version < "3"
+# flake8 (==3.7.8) ; extra == 'test'
+# hypothesis (==3.55.3) ; extra == 'test'
+
+[PY38].USES_ON=				python:py38,wheel
+[PY39].USES_ON=				python:py39,wheel
+
