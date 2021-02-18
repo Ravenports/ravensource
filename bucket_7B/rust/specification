@@ -1,7 +1,7 @@
-DEF[PORTVERSION]=	1.49.0
+DEF[PORTVERSION]=	1.50.0
 DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
-DEF[RUSTX_BOOT]=	1.48.0
-# should be 0.49.0, but was missing for FreeBSD
+DEF[RUSTX_BOOT]=	1.49.0
+# should be 0.50.0, but was missing for FreeBSD
 DEF[CARGO_BOOT]=	0.48.0
 # ----------------------------------------------------------------------------
 
@@ -91,8 +91,6 @@ SHEBANG_FILES=		src/llvm-project/compiler-rt/lib/sanitizer_common/symbolizer/scr
 			src/llvm-project/compiler-rt/lib/sanitizer_common/scripts/*.py
 			src/llvm-project/compiler-rt/lib/asan/scripts/asan_symbolize.py
 			library/core/src/unicode/printable.py
-
-BLOCK_WATCHDOG=		yes
 
 VAR_OPSYS[dragonfly]=	MAKEFILE_LINE=BOOTSTRAP_RUST=${RUSTX_BOOT}
 			MAKEFILE_LINE=BOOTSTRAP_CARGO=${CARGO_BOOT}
