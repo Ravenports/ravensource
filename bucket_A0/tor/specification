@@ -1,5 +1,5 @@
-# Stable series: 0.4.4.x (starting with 0.4.4.5)
-DEF[PORTVERSION]=	0.4.4.7
+# Stable series: 0.4.5.x (starting with 0.4.5.6)
+DEF[PORTVERSION]=	0.4.5.6
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		tor
@@ -56,12 +56,12 @@ post-patch:
 		${WRKSRC}/configure
 	${REINPLACE_CMD} -e 's|lib/tor|db/tor|' \
 		${WRKSRC}/src/config/torrc.*.in \
-		${WRKSRC}/doc/tor.1.* \
-		${WRKSRC}/doc/tor.html.in
+		${WRKSRC}/doc/man/tor.1.* \
+		${WRKSRC}/doc/man/tor.html.in
 	${REINPLACE_CMD} -e "s@-ltcmalloc@${LOCALBASE}/lib/libtcmalloc.so@" \
 		${WRKSRC}/configure
 
 post-install:
-	@${MKDIR} ${STAGEDIR}/var/log/tor \
+	${MKDIR} ${STAGEDIR}/var/log/tor \
 		${STAGEDIR}/var/run/tor \
 		${STAGEDIR}/var/db/tor
