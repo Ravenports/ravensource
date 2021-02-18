@@ -1,4 +1,4 @@
---- lib/Driver/ToolChains/DragonFly.h.orig	2020-10-07 10:10:48 UTC
+--- lib/Driver/ToolChains/DragonFly.h.orig	2021-02-03 21:51:10 UTC
 +++ lib/Driver/ToolChains/DragonFly.h
 @@ -52,6 +52,7 @@ class LLVM_LIBRARY_VISIBILITY DragonFly
  public:
