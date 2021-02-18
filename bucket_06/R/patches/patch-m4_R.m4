@@ -1,6 +1,6 @@
---- m4/R.m4.orig	2020-09-01 22:15:02 UTC
+--- m4/R.m4.orig	2021-01-17 23:15:01 UTC
 +++ m4/R.m4
-@@ -3971,7 +3971,7 @@ case "${host_os}" in
+@@ -4083,7 +4083,7 @@ case "${host_os}" in
    darwin*)
      R_SYSTEM_ABI="macos"
      ;;
