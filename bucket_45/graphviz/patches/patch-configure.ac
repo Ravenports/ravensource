@@ -1,15 +1,15 @@
---- configure.ac.orig	2021-01-18 17:47:31 UTC
+--- configure.ac.orig	2021-02-13 17:02:13 UTC
 +++ configure.ac
-@@ -705,7 +705,7 @@ else
-       if test "x$GUILE" = "x"; then
+@@ -709,7 +709,7 @@ else
+       if test "x$GUILE_CONFIG" = "x"; then
          use_guile="No (guile not available)"
        else
--        [GUILE_VERSION=`$GUILE --version | sed -n '1 s/^.* \+\([0-9\.]\+\)$/\1/ p'`]
-+        [GUILE_VERSION=`$GUILE --version | sed -n '1 s/^.* \([0-9\.]*\)$/\1/ p'`]
+-        [GUILE_VERSION=`$GUILE_CONFIG --version 2>&1 | sed -n '1 s/^.* \+\([0-9\.]\+\)$/\1/ p'`]
++        [GUILE_VERSION=`$GUILE_CONFIG --version 2>&1 | sed -n '1 s/^.* \([0-9\.]\+\)$/\1/ p'`]
          GUILE_VERSION_MAJOR=`echo $GUILE_VERSION | cut -d '.' -f 1`
          GUILE_VERSION_MINOR=`echo $GUILE_VERSION | cut -d '.' -f 2`
-         if test 0$GUILE_VERSION_MAJOR -lt 2; then
-@@ -935,17 +935,17 @@ else
+         AC_CHECK_PROGS(GUILE,guile$GUILE_VERSION_MAJOR.$GUILE_VERSION_MINOR guile$GUILE_VERSION_MAJOR guile)
+@@ -940,17 +940,17 @@ else
              if test "x$PKG_CONFIG" != "x"; then
  	        AC_MSG_CHECKING(for Lua headers and libraries with pkg-config)
  	        echo
@@ -30,7 +30,7 @@
  		           LUA_LIBS="$LUA_LFLAGS "`$PKG_CONFIG --libs lualib$l`
  		        fi
                          break
-@@ -1465,6 +1465,7 @@ else
+@@ -1470,6 +1470,7 @@ else
  	    use_ruby="No (ruby not available)"
            else
              RUBY_CFLAGS="-I`$RUBY $srcdir/config/config_ruby.rb archdir`"
