@@ -1,9 +1,11 @@
 DEF[PORTVERSION]=	5.2.0
 DEF[JQUERY]=		3.5.1
+DEF[UNDERSCORE]=	1.12.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		qemu
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		emulators
 VARIANTS=		standard
 SDESC[standard]=	Fast CPU emulator and virtualizer for x86 platform
@@ -64,9 +66,9 @@ CONFIGURE_ARGS=		--disable-usb-redir
 			--localstatedir=/var
 CFLAGS=			-I{{NCURSESBASE}}/include/ncursesw
 PLIST_SUB=		JQUERY=${JQUERY}
+			UNDERSCORE=${UNDERSCORE}
 BUILD_WRKSRC=		{{WRKSRC}}/build
 INSTALL_WRKSRC=		{{WRKSRC}}/build
-
 
 VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--disable-netmap
 			CONFIGURE_ARGS=--disable-linux-user
