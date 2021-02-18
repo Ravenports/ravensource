@@ -1,14 +1,13 @@
---- src/unix/fs.c.orig	2020-09-25 00:34:43 UTC
+--- src/unix/fs.c.orig	2021-02-13 17:57:24 UTC
 +++ src/unix/fs.c
-@@ -1008,7 +1008,6 @@ ok:
+@@ -1028,13 +1028,13 @@ ok:
  static ssize_t uv__fs_utime(uv_fs_t* req) {
  #if defined(__linux__)                                                         \
      || defined(_AIX71)                                                         \
 -    || defined(__sun)                                                          \
      || defined(__HAIKU__)
-   /* utimesat() has nanosecond resolution but we stick to microseconds
-    * for the sake of consistency with other platforms.
-@@ -1018,6 +1017,7 @@ static ssize_t uv__fs_utime(uv_fs_t* req
+   struct timespec ts[2];
+   ts[0] = uv__fs_to_timespec(req->atime);
    ts[1] = uv__fs_to_timespec(req->mtime);
    return utimensat(AT_FDCWD, req->path, ts, 0);
  #elif defined(__APPLE__)                                                      \
@@ -16,7 +15,7 @@
      || defined(__DragonFly__)                                                 \
      || defined(__FreeBSD__)                                                   \
      || defined(__FreeBSD_kernel__)                                            \
-@@ -1051,7 +1051,6 @@ static ssize_t uv__fs_utime(uv_fs_t* req
+@@ -1068,7 +1068,6 @@ static ssize_t uv__fs_utime(uv_fs_t* req
  static ssize_t uv__fs_lutime(uv_fs_t* req) {
  #if defined(__linux__)            ||                                           \
      defined(_AIX71)               ||                                           \
