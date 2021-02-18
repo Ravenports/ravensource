@@ -1,4 +1,4 @@
---- deps/v8/src/trap-handler/trap-handler.h.orig	2021-02-02 17:47:02 UTC
+--- deps/v8/src/trap-handler/trap-handler.h.orig	2021-02-18 01:02:03 UTC
 +++ deps/v8/src/trap-handler/trap-handler.h
 @@ -25,6 +25,8 @@ namespace trap_handler {
  #define V8_TRAP_HANDLER_SUPPORTED true

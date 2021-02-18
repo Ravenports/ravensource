@@ -1,6 +1,6 @@
---- deps/v8/src/base/platform/platform-posix.cc.orig	2021-02-02 17:47:02 UTC
+--- deps/v8/src/base/platform/platform-posix.cc.orig	2021-02-18 01:02:02 UTC
 +++ deps/v8/src/base/platform/platform-posix.cc
-@@ -1002,6 +1002,7 @@ void Thread::SetThreadLocal(LocalStorage
+@@ -1012,6 +1012,7 @@ void Thread::SetThreadLocal(LocalStorage
  // support it. MacOS and FreeBSD are different here.
  #if !defined(V8_OS_FREEBSD) && !defined(V8_OS_MACOSX) && !defined(_AIX) && \
      !defined(V8_OS_SOLARIS)
@@ -8,7 +8,7 @@
  
  // static
  void* Stack::GetStackStart() {
-@@ -1027,6 +1028,7 @@ void* Stack::GetStackStart() {
+@@ -1037,6 +1038,7 @@ void* Stack::GetStackStart() {
    return nullptr;
  }
  
