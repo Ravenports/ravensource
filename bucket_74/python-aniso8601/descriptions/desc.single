@@ -7,23 +7,22 @@ Another ISO 8601 parser for Python
 Features
 ========
 * Pure Python implementation
-* Python 3 support
 * Logical behavior
 
   - Parse a time, get a `datetime.time
-<http://docs.python.org/2/library/datetime.html#datetime.time>`_
+<http://docs.python.org/3/library/datetime.html#datetime.time>`_
   - Parse a date, get a `datetime.date
-<http://docs.python.org/2/library/datetime.html#datetime.date>`_
+<http://docs.python.org/3/library/datetime.html#datetime.date>`_
   - Parse a datetime, get a `datetime.datetime
-<http://docs.python.org/2/library/datetime.html#datetime.datetime>`_
+<http://docs.python.org/3/library/datetime.html#datetime.datetime>`_
   - Parse a duration, get a `datetime.timedelta
-<http://docs.python.org/2/library/datetime.html#datetime.timedelta>`_
+<http://docs.python.org/3/library/datetime.html#datetime.timedelta>`_
   - Parse an interval, get a tuple of dates or datetimes
   - Parse a repeating interval, get a date or datetime [generator]
 
 * UTC offset represented as fixed-offset tzinfo
 * Parser separate from representation, allowing parsing to different
-datetime formats
+datetime representations (see `Builders`_)
 * No regular expressions
 
 Installation
@@ -43,6 +42,10 @@ Use
 
 Parsing datetimes
 -----------------
+
+*Consider* `datetime.datetime.fromisoformat
+<https://docs.python.org/3/library/datetime.html#datetime.datetime.fromisoformat>`_
+*for basic ISO 8601 datetime parsing*
 
 To parse a typical ISO 8601 datetime string::
 
@@ -71,30 +74,27 @@ a :code:`LeapSecondError`::
   >>> aniso8601.parse_datetime('2018-03-06T23:59:60')
   Traceback (most recent call last):
     File "<stdin>", line 1, in <module>
-    File "aniso8601/time.py", line 135, in parse_datetime
+    File "/home/nielsenb/Jetfuse/aniso8601/aniso8601/aniso8601/time.py",
+line 196, in parse_datetime
       return builder.build_datetime(datepart, timepart)
-    File "aniso8601/builders/python.py", line 176, in build_datetime
+    File
+"/home/nielsenb/Jetfuse/aniso8601/aniso8601/aniso8601/builders/python.py",
+line 237, in build_datetime
       cls._build_object(time))
-    File "aniso8601/builders/__init__.py", line 63, in _build_object
-      return cls.build_time(hh=parsetuple[0], mm=parsetuple[1],
-    File "aniso8601/builders/python.py", line 134, in build_time
+    File
+"/home/nielsenb/Jetfuse/aniso8601/aniso8601/aniso8601/builders/__init__.py",
+line 336, in _build_object
+      return cls.build_time(hh=parsetuple.hh, mm=parsetuple.mm,
+    File
+"/home/nielsenb/Jetfuse/aniso8601/aniso8601/aniso8601/builders/python.py",
+line 191, in build_time
+      hh, mm, ss, tz = cls.range_check_time(hh, mm, ss, tz)
+    File
+"/home/nielsenb/Jetfuse/aniso8601/aniso8601/aniso8601/builders/__init__.py",
+line 266, in range_check_time
       raise LeapSecondError('Leap seconds are not supported.')
   aniso8601.exceptions.LeapSecondError: Leap seconds are not supported.
 
-Parsing dates
--------------
+To get the resolution of an ISO 8601 datetime string::
 
-To parse a date represented in an ISO 8601 string::
-
-  >>> import aniso8601
-  >>> aniso8601.parse_date('1984-04-23')
-  datetime.date(1984, 4, 23)
-
-Basic format is supported as well::
-
-  >>> aniso8601.parse_date('19840423')
-  datetime.date(1984, 4, 23)
-
-To parse a date using the ISO 8601 week date format::
-
-  >>> aniso8601.parse_date('1986-W38-1')
+  >>> aniso8601.get_datetime_resolution('1977-06-10T12:00:00Z') ==
