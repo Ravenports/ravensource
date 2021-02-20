@@ -1,4 +1,4 @@
---- ../src/google/protobuf/io/coded_stream.h.orig	2021-02-18 19:50:15 UTC
+--- ../src/google/protobuf/io/coded_stream.h.orig	2021-02-19 23:12:24 UTC
 +++ ../src/google/protobuf/io/coded_stream.h
 @@ -134,7 +134,11 @@
  #ifdef __APPLE__

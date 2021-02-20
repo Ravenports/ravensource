@@ -1,4 +1,4 @@
---- ../src/google/protobuf/stubs/port.h.orig	2021-02-18 19:50:15 UTC
+--- ../src/google/protobuf/stubs/port.h.orig	2021-02-19 23:12:24 UTC
 +++ ../src/google/protobuf/stubs/port.h
 @@ -60,7 +60,11 @@
  #ifdef __APPLE__
