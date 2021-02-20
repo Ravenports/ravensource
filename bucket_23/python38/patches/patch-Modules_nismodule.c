@@ -1,4 +1,4 @@
---- Modules/nismodule.c.orig	2020-12-21 16:25:24 UTC
+--- Modules/nismodule.c.orig	2021-02-19 10:28:41 UTC
 +++ Modules/nismodule.c
 @@ -85,7 +85,7 @@ nis_mapname (char *map, int *pfix)
      return map;
