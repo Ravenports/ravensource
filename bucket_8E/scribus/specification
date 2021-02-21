@@ -1,0 +1,74 @@
+# Latest stable is version 1.4.8 -- 1.5.x is development release
+DEF[PORTVERSION]=	1.5.6.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		scribus
+VERSION=		${PORTVERSION}
+KEYWORDS=		print editors
+VARIANTS=		standard
+SDESC[standard]=	Page Layout and Desktop Publishing
+HOMEPAGE=		https://www.scribus.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/scribus/scribus-devel/${PORTVERSION}
+DISTFILE[1]=		scribus-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:stock
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/COPYING
+LICENSE_AWK=		TERMS:"GNU GENERAL PUBLIC LICENSE"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		print/scribus-devel
+
+BUILD_DEPENDS=		qt5-qttools:single:standard
+			poppler:cpp:standard
+BUILDRUN_DEPENDS=	qt5-qtbase:primary:standard
+			lcms2:primary:standard
+			boost-libraries:rest:python_default
+			hunspell:single:standard
+			librevenge:single:standard
+			cups:primary:standard
+			libwpg:single:standard
+			libcdr:single:standard
+			libfreehand:single:standard
+			libpagemaker:single:standard
+			libmspub:single:standard
+			libvisio:single:standard
+			freetype:primary:standard
+			poppler:primary:standard
+			fontconfig:primary:standard
+			podofo:single:standard
+			icu:single:standard
+			libqxp:single:standard
+			libzmf:single:standard
+			GraphicsMagick:primary:standard
+
+USES=			cmake tiff png jpeg pkgconfig dos2unix ssl zlib
+			python desktop-utils:primary mime-info:primary
+			execinfo c++:primary
+GNOME_COMPONENTS=	libxml2 cairo
+DOS2UNIX_REGEX=		.*\.(cpp|h|txt)
+CMAKE_ARGS=		-DWANT_HUNSPELL=YES
+			-DCMAKE_COLOR_MAKEFILE:BOOL=ON
+			-DWANT_GRAPHICSMAGICK=1
+			-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
+			-DQt5Core_DIR="{{PREFIX}}/lib/qt5/cmake/Qt5Core"
+			-DQt5Widgets_DIR="{{PREFIX}}/lib/qt5/cmake/Qt5Widgets"
+			-DQt5Xml_DIR="{{PREFIX}}/lib/qt5/cmake/Qt5Xml"
+			-DQt5Network_DIR="{{PREFIX}}/lib/qt5/cmake/Qt5Network"
+			-DQt5OpenGL_DIR="{{PREFIX}}/lib/qt5/cmake/Qt5OpenGL"
+			-DQt5LinguistTools_DIR="{{PREFIX}}/lib/qt5/cmake/Qt5LinguistTools"
+			-DQt5PrintSupport_DIR="{{PREFIX}}/lib/qt5/cmake/Qt5PrintSupport"
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/scribus
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/scribus/plugins/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/scribus/plugins/gettext/*.so
