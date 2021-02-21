@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	1.5.0
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		chromaprint
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		standard
+SDESC[standard]=	AcoustID audio fingerprinting library
+HOMEPAGE=		https://acoustid.org/chromaprint
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/acoustid/chromaprint/releases/download/v${PORTVERSION}/
+DISTFILE[1]=		chromaprint-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21:single
+LICENSE_FILE=		LGPL21:stock
+LICENSE_TERMS=		single:{{WRKSRC}}/LICENSE.md
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		audio/chromaprint
+
+BUILDRUN_DEPENDS=	ffmpeg:primary:standard
+
+USES=			cmake c++:single
+CMAKE_ARGS=		-DBUILD_TOOLS:BOOL=ON
+			-DAUDIO_PROCESSOR_LIB=swresample
+			-DFFT_LIB:STRING="avfft"
+DISTNAME=		chromaprint-v${PORTVERSION}
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/fpcalc
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libchromaprint.so
