@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.6.2
+DEF[PORTVERSION]=	2.7.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pylint
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/PyCQA/pylint
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/63/64/f1ef360a24eccdd538454b86d6c55096929f008dd146404760e90c09fc49
+SITES[main]=		PYPIWHL/00/78/1f61a22f8157891e456d90589361a476f75438127556288bc8b5765eb2cb
 DISTFILE[1]=		pylint-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
@@ -29,11 +29,13 @@ GENERATED=		yes
 DISTNAME=		pylint-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# astroid (<2.5,>=2.4.0)
+# astroid (==2.5.0)
 # isort (<6,>=4.2.5)
 # mccabe (<0.7,>=0.6)
 # toml (>=0.7.1)
 # colorama ; sys_platform=="win32"
+# sphinx (~=3.2) ; extra == 'docs'
+# python-docs-theme ; extra == 'docs'
 
 [PY38].USES_ON=				python:py38,wheel
 [PY38].RUN_DEPENDS_ON=			python-astroid:single:py38
