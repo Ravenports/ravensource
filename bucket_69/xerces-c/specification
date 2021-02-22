@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	3.2.3
+DEF[SOVERSION]=		${PORTVERSION:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xerces-c
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	Validating XML parser written in portable C++
+HOMEPAGE=		https://xerces.apache.org/xerces-c/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		APACHE/xerces/c/3/sources
+DISTFILE[1]=		xerces-c-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		APACHE20:single
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/xercesc/framework/XMLValidator.hpp
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		textproc/xerces-c3
+
+USES=			cpe iconv libtool c++:single
+CPE_VENDOR=		apache
+CPE_PRODUCT=		xerces-c++
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-netaccessor-socket
+			--enable-transcoder-iconv
+INSTALL_TARGET=		install-strip
+MAKE_ENV=		XERCESCROOT={{WRKSRC}}
+SOVERSION=		${SOVERSION}
+
+post-patch:
+	${REINPLACE_CMD} -e "s,@DEFS@,& -D__STDC_LIMIT_MACROS," \
+		${WRKSRC}/src/Makefile.in
