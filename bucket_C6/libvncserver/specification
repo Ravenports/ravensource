@@ -1,0 +1,64 @@
+DEF[PORTVERSION]=	0.9.13
+DEF[SOVERSION]=		${PORTVERSION}
+DEF[SOMAJOR]=		1
+DEF[TAG]=		LibVNCServer-${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libvncserver
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		standard
+SDESC[standard]=	VNC server and client C libraries
+HOMEPAGE=		https://libvnc.github.io/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main commits
+SITES[main]=		GITHUB/LibVNC:libvncserver:${TAG}
+SITES[commits]=		https://github.com/LibVNC/libvncserver/commit/
+DISTFILE[1]=		generated:main
+DISTFILE[2]=		132c1389390c.patch:commits
+DISTFILE[3]=		0becaf749e83.patch:commits
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"defined __cplusplus"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/rfb/rfb.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net/libvncserver
+
+PATCHFILES=		2 3
+PATCHFILES_STRIP=	-p1
+
+BUILDRUN_DEPENDS=	libgcrypt:single:standard
+			libgpg-error:primary:standard
+
+USES=			cmake png jpeg lzo libtool pkgconfig zlib ssl
+CMAKE_ARGS=		-DWITH_24BPP:BOOL=ON
+			-DWITH_JPEG:BOOL=ON
+			-DWITH_LZO:BOOL=ON
+			-DWITH_PNG:BOOL=ON
+			-DWITH_THREADS:BOOL=ON
+			-DWITH_TIGHTVNC_FILETRANSFER:BOOL=ON
+			-DWITH_WEBSOCKETS:BOOL=ON
+			-DWITH_ZLIB:BOOL=ON
+			-DWITH_GCRYPT:BOOL=ON
+			-DWITH_IPv6:BOOL=ON
+			-DWITH_OPENSSL:BOOL=ON
+			-DWITH_FFMPEG:BOOL=OFF
+			-DWITH_SDL:BOOL=OFF
+			-DWITH_SYSTEMD:BOOL=OFF
+			-DWITH_SASL:BOOL=OFF
+			-DWITH_GNUTLS:BOOL=OFF
+PLIST_SUB=		MAJORVER=${SOMAJOR}
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
