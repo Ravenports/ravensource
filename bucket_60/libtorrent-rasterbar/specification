@@ -1,0 +1,31 @@
+DEF[PORTVERSION]=	2.0.2
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libtorrent-rasterbar
+VERSION=		${PORTVERSION}
+KEYWORDS=		net_p2p
+VARIANTS=		standard
+SDESC[standard]=	Feature complete C++ bittorrent implementation
+HOMEPAGE=		https://www.rasterbar.com/products/libtorrent/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/arvidn/libtorrent/releases/download/v${PORTVERSION}/
+DISTFILE[1]=		libtorrent-rasterbar-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		net-p2p/libtorrent-raster
+
+BUILDRUN_DEPENDS=	boost-libraries:rest:python_default
+
+USES=			cmake libtool pkgconfig ssl c++:single
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		SOMAJMIN=${SOVERSION:R}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
