@@ -1,0 +1,29 @@
+DEF[PORTVERSION]=	4.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		dosfstools
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	DOS filesystem utilities
+HOMEPAGE=		https://github.com/dosfstools/dosfstools
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/dosfstools/dosfstools/releases/download/v${PORTVERSION}/
+DISTFILE[1]=		dosfstools-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"_FAT_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/fat.h
+LICENSE_SCHEME=		solo
+
+USES=			iconv
+MUST_CONFIGURE=		gnu
