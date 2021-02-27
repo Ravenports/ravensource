@@ -1,4 +1,4 @@
---- src/log.c.orig	2021-02-01 08:03:46 UTC
+--- src/log.c.orig	2021-02-27 09:37:58 UTC
 +++ src/log.c
 @@ -125,7 +125,7 @@ void open_logbuffer(void) {
       * At the moment (2011-12-10), no testcase leads to an i3 log
