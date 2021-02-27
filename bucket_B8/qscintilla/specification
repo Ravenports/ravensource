@@ -1,5 +1,5 @@
 DEF[PORTVERSION]=	2.12.0
-DEF[SOVERSION]=		15.0.0
+DEF[SOVERSION]=		15.0.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		qscintilla
@@ -19,13 +19,20 @@ SPKGS[standard]=	complete primary docs nls
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/LICENCE
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"SCINTILLAQT_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/ScintillaQt.h
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		devel/qscintilla2-qt5
 
 BUILDRUN_DEPENDS=	qt5-qtbase:primary:standard
 
-USES=			gmake libtool qt5 mesa
+USES=			gmake qt5 mesa
 
-DISTNAME=		QScintilla_src-${PORTVERSION}/Qt4Qt5
+DISTNAME=		QScintilla_src-${PORTVERSION}/src
 PLIST_SUB=		SOMAJORMIN=${SOVERSION:R}
 SOVERSION=		${SOVERSION}
 
@@ -34,5 +41,5 @@ post-install:
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}/Scintilla
 	(cd ${WRKSRC:H} &&\
 	${INSTALL_DATA} NEWS ${STAGEDIR}${STD_DOCDIR} &&\
-	${INSTALL_DATA} doc/html-Qt4Qt5/* ${STAGEDIR}${STD_DOCDIR}/html &&\
+	${INSTALL_DATA} doc/html/* ${STAGEDIR}${STD_DOCDIR}/html &&\
 	${INSTALL_DATA} doc/Scintilla/* ${STAGEDIR}${STD_DOCDIR}/Scintilla)
