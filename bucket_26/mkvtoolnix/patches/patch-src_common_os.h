@@ -1,6 +1,6 @@
---- src/common/os.h.orig	2021-01-30 15:09:14 UTC
+--- src/common/os.h.orig	2021-02-26 18:18:11 UTC
 +++ src/common/os.h
-@@ -24,7 +24,7 @@
+@@ -21,7 +21,7 @@
  #else
  # define COMP_GCC
  # define SYS_UNIX
