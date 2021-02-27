@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.22
+DEF[PORTVERSION]=	1.23
 DEF[SOVERSION]=		${PORTVERSION}.0
 # ----------------------------------------------------------------------------
 
@@ -25,11 +25,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		databases/leveldb
 
-USES=			c++:single cclibs:single cmake
+USES=			c++:single cmake
 BUILDRUN_DEPENDS=	snappy:single:standard
 			sqlite:single:standard
-CMAKE_ARGS=		-DCMAKE_BUILD_TYPE=Release
-			-DBUILD_SHARED_LIBS=ON
-			-DLEVELDB_BUILD_BENCHMARKS=ON
-			-DLEVELDB_BUILD_TESTS=ON
+CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
+			-DLEVELDB_BUILD_BENCHMARKS:BOOL=OFF
+			-DLEVELDB_BUILD_TESTS:BOOL=OFF
 SOVERSION=		${SOVERSION}
