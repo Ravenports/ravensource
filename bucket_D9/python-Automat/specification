@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	20.2.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-Automat
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py38 py39
+SDESC[py38]=		Self-service finite-state machines (PY38)
+SDESC[py39]=		Self-service finite-state machines (PY39)
+HOMEPAGE=		https://github.com/glyph/Automat
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/dd/83/5f6f3c1a562674d65efc320257bdc0873ec53147835aeef7762fe7585273
+DISTFILE[1]=		Automat-${PORTVERSION}-py2.py3-none-any.whl:main
+
+SPKGS[py38]=		single
+SPKGS[py39]=		single
+
+OPTIONS_AVAILABLE=	PY38 PY39
+OPTIONS_STANDARD=	none
+VOPTS[py38]=		PY38=ON PY39=OFF
+VOPTS[py39]=		PY38=OFF PY39=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		Automat-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# attrs (>=19.2.0)
+# six
+# graphviz (>0.5.1); extra == 'visualize'
+# Twisted (>=16.1.1); extra == 'visualize'
+
+[PY38].USES_ON=				python:py38,wheel
+[PY38].RUN_DEPENDS_ON=			python-attrs:single:py38
+					python-six:single:py38
+[PY39].USES_ON=				python:py39,wheel
+[PY39].RUN_DEPENDS_ON=			python-attrs:single:py39
+					python-six:single:py39
+

@@ -8,6 +8,7 @@
 #                python-setuptools-git
 #                python-setuptools-rust
 #                python-pip
+#                python-Cython
 
 $SCRIPTDIR = __DIR__;
 

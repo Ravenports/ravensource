@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	21.0.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-hyperlink
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py38 py39
+SDESC[py38]=		Featureful, immutable, and correct URL (PY38)
+SDESC[py39]=		Featureful, immutable, and correct URL (PY39)
+HOMEPAGE=		https://github.com/python-hyper/hyperlink
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/6e/aa/8caf6a0a3e62863cbb9dab27135660acba46903b703e224f14f447e57934
+DISTFILE[1]=		hyperlink-${PORTVERSION}-py2.py3-none-any.whl:main
+
+SPKGS[py38]=		single
+SPKGS[py39]=		single
+
+OPTIONS_AVAILABLE=	PY38 PY39
+OPTIONS_STANDARD=	none
+VOPTS[py38]=		PY38=ON PY39=OFF
+VOPTS[py39]=		PY38=OFF PY39=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		hyperlink-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# idna (>=2.5)
+# typing ; python_version < "3.5"
+
+[PY38].USES_ON=				python:py38,wheel
+[PY38].RUN_DEPENDS_ON=			python-idna:single:py38
+[PY39].USES_ON=				python:py39,wheel
+[PY39].RUN_DEPENDS_ON=			python-idna:single:py39
+

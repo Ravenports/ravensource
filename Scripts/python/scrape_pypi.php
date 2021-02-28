@@ -294,7 +294,7 @@ function inline_fix_setup ($namebase, $src) {
        "soupsieve"    => false,
        "xml2rfc"      => false,
        "django-colorful" => false,
-       "pyzmq"        => '/implementation_name/d',
+       "pyzmq"        => '/cythonize(/ s|, |, quiet=True, |',
    );
    $setup = $src . "/setup.py";
    if (array_key_exists($namebase, $known_issues)) {
@@ -396,15 +396,25 @@ function only_dists($var) {
 }
 
 
-# Line doesn't contain "extras"
+# Line doesn't contain "extras" or platform_system == "Windows"
 function skip_extras($var) {
    if (strpos($var, "enum-compat") !== false) {
+      return false;
+   }
+   if (strpos($var, '"Windows"') !== false) {
       return false;
    }
    $pos = strpos($var, "extra ==");
    return ($pos === false);
 }
 
+# Line doesn't contain implementation_name == pypy
+function skip_bad_SU_requirements($var) {
+   if (preg_match('/implementation_name == ["\']pypy["\']/', $var) > 0) {
+      return false;
+   }
+   return true;
+}
 
 # Obtain runtime dependencies from wheel file
 function scan_wheel_for_rundeps ($metafile) {
@@ -428,7 +438,8 @@ function get_run_depends ($base_dependencies, $pversion) {
              # dataclasses (>=0.8,<0.9); python_version >= "3.6" and python_version < "3.7"
              $sc = strpos($line, ";");
              $clause = substr($line, $sc + 1);
-             $xformed = str_replace(array ("python_version", 'implementation_name == "cpython"',
+             $xformed = str_replace(array ("python_version",
+                                           'implementation_name == "cpython"',
                                            'platform_python_implementation=="CPython"',
                                            '"', "'", ".", "and"),
                                     array ("\$pversion", "1", "1", "", "", "", "&&"),
@@ -564,6 +575,7 @@ EOF;
     file_put_contents($mockfile, $program);
     $requirements = shell_exec ("cd $src && $PYTHONEXE obtain-req.py");
     $clean_reqs = array_filter(explode("\n", $requirements));
+    $clean_reqs = array_filter($clean_reqs, "skip_bad_SU_requirements");
     $comment_reqs = preg_replace('/^/', '# ', $clean_reqs);
     $portdata["req_comment"] .= join("\n", $comment_reqs);
     $stripped_reqs = preg_replace('/(.*)([><!=~].*)$/U', '\1', $clean_reqs);
