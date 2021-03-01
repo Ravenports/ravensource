@@ -1,22 +1,5 @@
 --- coreconf/SunOS5.mk.orig	2021-01-22 17:08:28 UTC
 +++ coreconf/SunOS5.mk
-@@ -14,14 +14,14 @@ ifeq ($(USE_64), 1)
-   ifdef NS_USE_GCC
-       ARCHFLAG=-m64
-   else
--      ifeq ($(OS_TEST),i86pc)
-+      ifeq ($(OS_TEST),x86_64)
-         ARCHFLAG=-xarch=amd64
-       else
-         ARCHFLAG=-xarch=v9
-       endif
-   endif
- else
--  ifneq ($(OS_TEST),i86pc)
-+  ifneq ($(OS_TEST),x86_64)
-     ifdef NS_USE_GCC
-       ARCHFLAG=-mcpu=v9
-     else
 @@ -33,10 +33,10 @@ endif
  DEFAULT_COMPILER = cc
  
@@ -30,15 +13,6 @@
  	CCC       += -Wall -Wno-format
  	ASFLAGS	  += -x assembler-with-cpp
  	OS_CFLAGS += $(NOMD_OS_CFLAGS) $(ARCHFLAG)
-@@ -65,7 +65,7 @@ RANLIB      = echo
- CPU_ARCH    = sparc
- OS_DEFINES += -DSVR4 -DSYSV -D__svr4 -D__svr4__ -DSOLARIS -D_REENTRANT
- 
--ifeq ($(OS_TEST),i86pc)
-+ifeq ($(OS_TEST),x86_64)
- ifeq ($(USE_64),1)
-     CPU_ARCH		= x86_64
- else
 @@ -107,15 +107,11 @@ endif
  	DSO_LDOPTS += -shared -h $(notdir $@)
  else

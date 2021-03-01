@@ -52,3 +52,7 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${prog}
 .endfor
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/ld
+
+post-patch-sunos:
+	# uname -r needs to return "5.10", not "5.10-RAVEN"
+	${REINPLACE_CMD} -e 's/-RAVEN//' ${WRKSRC}/uname/CMakeLists.txt
