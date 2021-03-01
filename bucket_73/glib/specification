@@ -31,6 +31,7 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		devel/glib20
 
 BUILD_DEPENDS=		xmlto:single:standard
+			autoselect-python:single:standard
 BUILDRUN_DEPENDS=	libffi:single:standard
 RUN_DEPENDS=		zlib:static:standard
 			pcre:static:standard
@@ -59,6 +60,11 @@ PLIST_SUB=		LIBVERSION=${LIBVERSION}
 VAR_OPSYS[darwin]=	MAKE_ENV=DYLD_FALLBACK_LIBRARY_PATH="$$DYLD_FALLBACK_LIBRARY_PATH:{{WRKSRC}}/_build/glib:{{WRKSRC}}/_build/gio:{{WRKSRC}}/_build/gobject:{{WRKSRC}}/_build/gmodule"
 VAR_OPSYS[sunos]=	CFLAGS=-fPIC
 			LDFLAGS=-lintl
+			LDFLAGS=-liconv
+			LDFLAGS=-lnsl
+			LDFLAGS=-lsocket
+			CPPFLAGS=-D_XOPEN_SOURCE=600
+			CPPFLAGS=-D__EXTENSIONS__
 
 # Leaving debugging symbols in place clears up the XDG_DATA_DIRS related
 # SIGTRAP error from gnucash which manifested on 3 platforms.  It's
@@ -74,9 +80,8 @@ post-patch:
 		${WRKSRC}/gio/gunixmounts.c \
 		${WRKSRC}/gio/xdgmime/xdgmime.c \
 		${WRKSRC}/glib/tests/utils.c
-	${REINPLACE_CMD} -e "s|python3|python${PYTHON_VER}|g" \
+	${REINPLACE_CMD} \
 		-e 's|/docbook.sourceforge.net/|/cdn.docbook.org/|' \
-		-e "/'_XOPEN_SOURCE'/d" \
 		-e "/-Werror=/d" \
 		${WRKSRC}/meson.build
 	${REINPLACE_CMD} -e '/_XOPEN_SOURCE/d' \

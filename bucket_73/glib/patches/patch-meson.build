@@ -1,0 +1,12 @@
+--- meson.build.orig	2021-02-11 12:24:55 UTC
++++ meson.build
+@@ -2204,8 +2204,7 @@ env_program = find_program('env', requir
+ 
+ # FIXME: How to detect Solaris? https://github.com/mesonbuild/meson/issues/1578
+ if host_system == 'sunos'
+-  glib_conf.set('_XOPEN_SOURCE_EXTENDED', 1)
+-  glib_conf.set('_XOPEN_SOURCE', 2)
++  glib_conf.set('_POSIX_C_SOURCE',200809)
+   glib_conf.set('__EXTENSIONS__',1)
+ endif
+ 
