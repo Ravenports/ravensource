@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.2
+DEF[PORTVERSION]=	1.3
 DEF[TAG]=		v${PORTVERSION}
 DEF[X_FREEBSD_1]=	EXTRACT_VERSION(PLATFORM_FreeBSD_x86-64)
 DEF[X_DRAGONFLY]=	EXTRACT_VERSION(PLATFORM_DragonFly_x86-64)
@@ -52,7 +52,3 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${prog}
 .endfor
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/ld
-
-post-patch-sunos:
-	# uname -r needs to return "5.10", not "5.10-RAVEN"
-	${REINPLACE_CMD} -e 's/-RAVEN//' ${WRKSRC}/uname/CMakeLists.txt
