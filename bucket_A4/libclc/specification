@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	0.4.0.20190527
 DEF[TAG]=		9f6204e
+DEF[BASEGCC]=		EXTRACT_INFO(CURRENT_GCC)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libclc
@@ -28,6 +29,7 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		devel/libclc
 
 BUILD_DEPENDS=		libedit:single:standard
+			autoselect-python:single:standard
 # #			rocm-device-libs:single:standard
 
 USES=			python:build gmake cmake:insource clang:keepcc
@@ -36,16 +38,20 @@ MAKE_ENV=		MAKE={{GMAKE}}
 # Force ccache to work with clang
 			CCACHE_CPP2=yes
 
+post-patch-sunos:
+	${SED} -i.sunos -e 's/-fno-rtti/-fno-rtti -fno-use-cxa-atexit/' \
+		-e '/lpthread/ s|-Wl,|-Wl,-rpath ${PREFIX}/toolchain/${BASEGCC}/lib/amd64 -Wl,|'\
+		${WRKSRC}/configure.py
+
 post-patch:
-	${REINPLACE_CMD} -e 's|/usr/bin/python|${PYTHON_CMD}|g' \
-		-e 's|"python |"${PYTHON_VERSION} |g' \
+	${REINPLACE_CMD} \
 # #		-e 's|__CLC_INTERNAL|__CLC_INTERNAL
 # --rocm-device-lib-path=${LOCALBASE}/amdgcn/bitcode|'\
 		-e 's|__CLC_INTERNAL|__CLC_INTERNAL -nogpulib|'\
 		${WRKSRC}/build/ninja_syntax.py \
 		${WRKSRC}/configure.py
 	# add ccache support
-	if [ -n "${BUILD_WITH_CCACHE}" ]; then \
+	if [ "${BUILD_WITH_CCACHE}" = "yes" ]; then \
 	  ${SED} -i.ccache \
 	  -e "s|llvm_clang =.*|llvm_clang = '/usr/libexec/clang'|"\
 	  -e "s|cxx_compiler = os.*|cxx_compiler = '/usr/libexec/clang++'|"\
