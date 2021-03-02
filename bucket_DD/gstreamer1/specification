@@ -33,7 +33,7 @@ BUILD_DEPENDS=		autoselect-python:single:standard
 
 DISTNAME=		gstreamer-${PORTVERSION}
 USES=			bison cpe gettext-tools gmake perl:build
-			pkgconfig python:build meson
+			pkgconfig python:build meson solaris-funcs
 GNOME_COMPONENTS=	glib
 # GNOME_COMPONENTS+=introspection
 # This breaks at /usr/include/errno.h:57 on DF
@@ -49,6 +49,10 @@ MESON_ARGS=		-Dgtk_doc=disabled
 			-Dnls=enabled
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		VERSION=${GST_VERSION}
+SOL_FUNCTIONS=		strnlen:gst/gstregistrychunks.c
+
+VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
+			LDFLAGS=-lintl
 
 post-patch-dragonfly:
 	${REINPLACE_CMD} -e 's|not rt_lib.found()|true|' \
