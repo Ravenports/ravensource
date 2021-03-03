@@ -1,0 +1,17 @@
+--- src/gallium/targets/xvmc/meson.build.orig	2021-01-29 18:33:19 UTC
++++ src/gallium/targets/xvmc/meson.build
+@@ -39,12 +39,12 @@ libxvmc_gallium = shared_library(
+   include_directories : [
+     inc_include, inc_src, inc_mapi, inc_mesa, inc_gallium, inc_gallium_aux, inc_util, inc_gallium_winsys, inc_gallium_drivers,
+   ],
+-  link_whole : [libxvmc_st],
++  link_whole : [libxvmc_st,libradeonwinsys,libr600,_libxmlconfig,libmesa_format,libpipe_loader_static],
+   link_with : [
+     libgalliumvlwinsys, libgalliumvl, libgallium,
+     libpipe_loader_static, libws_null, libwsw, libswdri, libswkmsdri,
+   ],
+-  dependencies : [idep_mesautil, driver_r600, driver_nouveau],
++  dependencies : [idep_mesautil, driver_nouveau],
+   link_depends : xvmc_link_depends,
+   # Will be deleted during installation, see install_megadrivers.py
+   install : true,

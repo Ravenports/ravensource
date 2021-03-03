@@ -1,0 +1,11 @@
+--- src/gallium/targets/opencl/meson.build.orig	2021-01-29 18:33:19 UTC
++++ src/gallium/targets/opencl/meson.build
+@@ -90,7 +90,7 @@ libopencl = shared_library(
+   [],
+   link_args : [ld_args_gc_sections, opencl_link_args],
+   link_depends : opencl_link_deps,
+-  link_whole : libclover,
++  link_whole : [libclover,libmesa_format],
+   link_with : [libpipe_loader_dynamic, libgallium],
+   dependencies : [
+     idep_mesautil,

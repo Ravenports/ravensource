@@ -1,0 +1,37 @@
+--- src/gallium/targets/pipe-loader/meson.build.orig	2021-01-29 18:33:19 UTC
++++ src/gallium/targets/pipe-loader/meson.build
+@@ -57,16 +57,16 @@ if with_gallium_v3d
+ endif
+ 
+ pipe_loaders = [
+-  [with_gallium_i915, 'i915', driver_i915, []],
+-  [with_gallium_iris, 'iris', [driver_iris, idep_xmlconfig], []],
+-  [with_gallium_nouveau, 'nouveau', driver_nouveau, []],
+-  [with_gallium_r300, 'r300', driver_r300, []],
+-  [with_gallium_r600, 'r600', driver_r600, []],
+-  [with_gallium_radeonsi, 'radeonsi', [driver_radeonsi, idep_xmlconfig], []],
+-  [with_gallium_freedreno, 'msm', driver_freedreno, []],
+-  [with_gallium_kmsro, 'kmsro', _kmsro_targets, []],
+-  [with_gallium_svga, 'vmwgfx', driver_svga, []],
+-  [with_gallium_softpipe, 'swrast', [driver_swrast, driver_swr], [libwsw, libws_null]],
++  [with_gallium_i915, 'i915', driver_i915, [], []],
++  [with_gallium_iris, 'iris', [driver_iris, idep_xmlconfig], [], []],
++  [with_gallium_nouveau, 'nouveau', driver_nouveau, [], []],
++  [with_gallium_r300, 'r300', driver_r300, [], [libr300,libradeonwinsys,libmesa_format]],
++  [with_gallium_r600, 'r600', driver_r600, [], [libr600,libradeonwinsys,libmesa_format,libgalliumvl]],
++  [with_gallium_radeonsi, 'radeonsi', [driver_radeonsi], [], [libradeonsi,libradeonwinsys,libamd_common,libamd_common_llvm,libmesa_format,_libxmlconfig,libgalliumvl]],
++  [with_gallium_freedreno, 'msm', driver_freedreno, [], []],
++  [with_gallium_kmsro, 'kmsro', _kmsro_targets, [], []],
++  [with_gallium_svga, 'vmwgfx', driver_svga, [], [libsvga,libsvgadrm,libmesa_format]],
++  [with_gallium_softpipe, 'swrast', [driver_swrast, driver_swr], [libwsw, libws_null], [libllvmpipe,libmesa_format,libsoftpipe]],
+ ]
+ 
+ foreach x : pipe_loaders
+@@ -80,6 +80,7 @@ foreach x : pipe_loaders
+       link_args : pipe_loader_link_args,
+       link_depends : pipe_loader_link_deps,
+       include_directories : pipe_loader_incs,
++      link_whole : [x[4]],
+       link_with : [pipe_loader_link_with, x[3]],
+       dependencies : [idep_mesautil, idep_nir, dep_thread, x[2]],
+       name_prefix : '',

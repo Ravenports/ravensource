@@ -1,0 +1,20 @@
+--- src/gallium/targets/va/meson.build.orig	2021-01-29 18:33:19 UTC
++++ src/gallium/targets/va/meson.build
+@@ -39,13 +39,14 @@ libva_gallium = shared_library(
+   include_directories : [
+     inc_include, inc_src, inc_mapi, inc_mesa, inc_gallium, inc_gallium_aux, inc_util, inc_gallium_winsys, inc_gallium_drivers,
+   ],
+-  link_whole : [libva_st],
++  link_whole : [libva_st, _libxmlconfig, libmesa_format, libloader, libpipe_loader_static],
+   link_with : [
+     libgalliumvlwinsys, libgalliumvl, libgallium,
+-    libpipe_loader_static, libws_null, libwsw, libswdri, libswkmsdri,
++    libws_null, libwsw, libswdri, libswkmsdri,
++    libr600, libradeonsi,
+   ],
+   dependencies : [
+-    dep_libdrm, driver_r600, driver_radeonsi, driver_nouveau,
++    dep_libdrm, driver_nouveau,
+     idep_mesautil,
+   ],
+   link_depends : va_link_depends,
