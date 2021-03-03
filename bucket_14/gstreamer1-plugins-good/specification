@@ -30,7 +30,6 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		multimedia/gstreamer1-plugins-good
 
-BUILD_DEPENDS=		autoselect-python:single:standard
 # Nasm brokes build on FreeBSD
 # #			nasm:primary:standard
 BUILDRUN_DEPENDS=	gstreamer1:primary:standard
@@ -97,7 +96,6 @@ MESON_ARGS=		-Dalpha=enabled
 			-Dlame=disabled
 			-Dlibcaca=disabled
 			-Dmpg123=disabled
-			-Doss=enabled
 			-Doss4=enabled
 			-Dosxaudio=disabled
 			-Dosxvideo=disabled
@@ -131,3 +129,8 @@ MESON_ARGS=		-Dalpha=enabled
 DISTNAME=		gst-plugins-good-${PORTVERSION}
 PLIST_SUB=		GSTVER=${GST_VERSION}
 SOVERSION=		${SOVERSION}
+
+VAR_OPSYS[sunos]=	MAKEFILE_LINE=MESON_ARGS+=-Doss=disabled
+VAR_OPSYS[freebsd]=	MAKEFILE_LINE=MESON_ARGS+=-Doss=enabled
+VAR_OPSYS[dragonfly]=	MAKEFILE_LINE=MESON_ARGS+=-Doss=enabled
+VAR_OPSYS[linux]=	MAKEFILE_LINE=MESON_ARGS+=-Doss=enabled

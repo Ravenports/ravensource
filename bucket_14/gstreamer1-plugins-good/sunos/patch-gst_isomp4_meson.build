@@ -1,0 +1,18 @@
+--- gst/isomp4/meson.build.orig	2021-01-13 21:08:53 UTC
++++ gst/isomp4/meson.build
+@@ -16,6 +16,7 @@ mp4_sources = [
+   'properties.c',
+   'gstqtmuxmap.c'
+ ]
++libintl_dep = cc.find_library('intl', required : true)
+ 
+ gstisomp4 = library('gstisomp4',
+   mp4_sources,
+@@ -23,6 +24,7 @@ gstisomp4 = library('gstisomp4',
+   link_args : noseh_link_args,
+   include_directories : [configinc, libsinc],
+   dependencies : [gst_dep, gstriff_dep, gstaudio_dep, gstvideo_dep,
++                  libintl_dep,
+                   gstrtp_dep, gsttag_dep, gstpbutils_dep, zlib_dep],
+   install : true,
+   install_dir : plugins_install_dir,
