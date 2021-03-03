@@ -29,8 +29,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		multimedia/gstreamer1-plugins
 
-BUILD_DEPENDS=		autoselect-python:single:standard
-			git:primary:lite
+BUILD_DEPENDS=		git:primary:lite
 BUILDRUN_DEPENDS=	gstreamer1:primary:standard
 			iso-codes:primary:standard
 			orc:primary:standard
@@ -61,4 +60,5 @@ SOVERSION=		${SOVERSION}
 # This define is checked but never set, enable it on Solaris
 VAR_OPSYS[sunos]=	CFLAGS=-DHAVE_FIONREAD_IN_SYS_FILIO=1
 			LDFLAGS=-lintl
+			LDFLAGS=-lsocket
 
