@@ -1,0 +1,31 @@
+--- programs/Makefile.orig	2020-12-19 00:39:42 UTC
++++ programs/Makefile
+@@ -98,14 +98,7 @@ ZSTD_ALL_SRC := $(ZSTDLIB_LOCAL_SRC) $(Z
+ ZSTD_ALL_OBJ := $(ZSTD_ALL_SRC:.c=.o)
+ 
+ UNAME := $(shell uname)
+-ifeq ($(UNAME), Darwin)
+-  HASH ?= md5
+-else ifeq ($(UNAME), FreeBSD)
+-  HASH ?= gmd5sum
+-else ifeq ($(UNAME), OpenBSD)
+-  HASH ?= md5
+-endif
+-HASH ?= md5sum
++HASH ?= md5
+ HAVE_HASH :=$(shell echo 1 | $(HASH) > /dev/null && echo 1 || echo 0)
+ 
+ ifndef BUILD_DIR
+@@ -451,11 +444,7 @@ else
+   MAN1DIR ?= $(man1dir)
+ endif
+ 
+-ifneq (,$(filter $(UNAME),SunOS))
+-  INSTALL ?= ginstall
+-else
+-  INSTALL ?= install
+-endif
++INSTALL ?= install
+ 
+ INSTALL_PROGRAM ?= $(INSTALL)
+ INSTALL_SCRIPT  ?= $(INSTALL_PROGRAM)

@@ -8,7 +8,35 @@
  
  ZSTD_SUBDIR := common compress decompress dictBuilder legacy deprecated
  vpath %.c $(ZSTD_SUBDIR)
-@@ -247,10 +248,17 @@ libzstd.a: $(ZSTD_STATLIB)
+@@ -175,14 +176,7 @@ vpath %.c $(ZSTD_SUBDIR)
+ UNAME := $(shell uname)
+ 
+ ifndef BUILD_DIR
+-ifeq ($(UNAME), Darwin)
+-  HASH ?= md5
+-else ifeq ($(UNAME), FreeBSD)
+-  HASH ?= gmd5sum
+-else ifeq ($(UNAME), OpenBSD)
+-  HASH ?= md5
+-endif
+-HASH ?= md5sum
++HASH ?= md5
+ 
+ HASH_DIR = conf_$(shell echo $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) $(ZSTD_FILES) | $(HASH) | cut -f 1 -d " " )
+ HAVE_HASH :=$(shell echo 1 | $(HASH) > /dev/null && echo 1 || echo 0)
+@@ -201,7 +195,11 @@ ifeq ($(UNAME), Darwin)
+   SHARED_EXT_VER = $(LIBVER).$(SHARED_EXT)
+   SONAME_FLAGS = -install_name $(LIBDIR)/libzstd.$(SHARED_EXT_MAJOR) -compatibility_version $(LIBVER_MAJOR) -current_version $(LIBVER)
+ else
++ ifeq ($(UNAME), SunOS)
++  SONAME_FLAGS = -Wl,-h,libzstd.$(SHARED_EXT).$(LIBVER_MAJOR)
++ else
+   SONAME_FLAGS = -Wl,-soname=libzstd.$(SHARED_EXT).$(LIBVER_MAJOR)
++ endif
+   SHARED_EXT = so
+   SHARED_EXT_MAJOR = $(SHARED_EXT).$(LIBVER_MAJOR)
+   SHARED_EXT_VER = $(SHARED_EXT).$(LIBVER)
+@@ -247,10 +245,17 @@ libzstd.a: $(ZSTD_STATLIB)
  
  endif
  
@@ -27,7 +55,7 @@
  	@echo compiling dynamic library $(LIBVER)
  	$(CC) $(FLAGS) -DZSTD_DLL_EXPORT=1 -Wl,--out-implib,dll/libzstd.dll.a -shared $^ -o $@
  
-@@ -292,7 +300,7 @@ endif  # if windows
+@@ -292,7 +297,7 @@ endif  # if windows
  libzstd : $(LIBZSTD)
  
  .PHONY: lib
@@ -36,7 +64,7 @@
  
  
  # note : do not define lib-mt or lib-release as .PHONY
-@@ -386,11 +394,7 @@ else
+@@ -386,11 +391,7 @@ else
    PKGCONFIGDIR ?= $(LIBDIR)/pkgconfig
  endif
  
@@ -48,7 +76,7 @@
  
  INSTALL_PROGRAM ?= $(INSTALL)
  INSTALL_DATA    ?= $(INSTALL) -m 644
-@@ -420,6 +424,7 @@ install-static:
+@@ -420,6 +421,7 @@ install-static:
  	[ -e $(DESTDIR)$(LIBDIR) ] || $(INSTALL) -d -m 755 $(DESTDIR)$(LIBDIR)/
  	@echo Installing static library
  	$(INSTALL_DATA) libzstd.a $(DESTDIR)$(LIBDIR)
