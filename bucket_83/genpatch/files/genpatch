@@ -6,7 +6,7 @@
 # Will output a patch ready for dports (unified diff).
 # If only newfile is given, oldfile is assumed as newfile.intermediate (1st)
 # or newfile.orig (2nd) if such a file exists
-# If the realpath doesn't start with /usr/obj/raven or /construction,
+# If the physical path doesn't start with /usr/obj/raven or /construction,
 # genpatch sends output to stdout, otherwise, the patch file will be
 # created in the current directory with a filename on the file's
 # location relative to worksource.  The patch will be generated from
@@ -62,15 +62,16 @@ if [ -n "${WORKHERE}" ]; then
 objpath=$(pwd)
 else
    if [ -d /usr/obj/raven ]; then
-      objpath=$(realpath /usr/obj/raven)
+      objpath=$(cd /usr/obj/raven && pwd -P)
    else
       objpath=/usr/obj/raven # let it fail
    fi
 fi
 rvnpath="/construction"
-fullpath=$(dirname `realpath ${old}`)
-testpath1=$(echo ${fullpath} | awk -vstd="${objpath}" "${AWKTRUNC}")
-testpath2=$(echo ${fullpath} | awk -vstd="${rvnpath}" "${AWKTRUNC}")
+old_directory=$(dirname "${old}")
+real_directory=$(cd "${old_directory}" && pwd -P)
+testpath1=$(echo ${real_directory} | awk -vstd="${objpath}" "${AWKTRUNC}")
+testpath2=$(echo ${real_directory} | awk -vstd="${rvnpath}" "${AWKTRUNC}")
 
 if [ -n "${PRINT}" ]; then
     # send patch to stdout unconditionally
