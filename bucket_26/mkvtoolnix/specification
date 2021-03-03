@@ -42,6 +42,7 @@ BUILDRUN_DEPENDS=	fmt:single:standard
 C_USES[freebsd]=	clang
 
 USES=			zlib pkgconfig gettext-tools gettext-runtime
+			solaris-funcs
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-boost="{{LOCALBASE}}"
 			--with-boost-filesystem=boost_filesystem
@@ -51,6 +52,9 @@ CONFIGURE_ARGS=		--with-boost="{{LOCALBASE}}"
 MAKE_ENV=		V=1
 MAKEFILE=		Rakefile
 BUILD_TARGET=		#skip
+SOL_FUNCTIONS=		timegm:src/common/date_time.cpp
+
+VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 
 [GUI].DESCRIPTION=			Include Graphic User Interface with tools
 [GUI].USES_ON=				mime-info:primary
