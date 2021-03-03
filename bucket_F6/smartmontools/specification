@@ -34,3 +34,12 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-sample
 			--with-initscriptdir={{PREFIX}}/etc/rc.d
 			--with-nvme-devicescan=yes
+
+post-install-sunos:
+	# relocate man pages to match other systems (ravenports standard)
+	(cd ${STAGEDIR}${MANPREFIX}/man \
+	&& ${MV} man4/smartd.conf.4 man5/smartd.conf.5 \
+	&& ${MV} man1m/smartctl.1m man8/smartctl.8 \
+	&& ${MV} man1m/smartd.1m man8/smartd.8 \
+	&& ${MV} man1m/update-smart-drivedb.1m man8/update-smart-drivedb.8 \
+	&& ${RMDIR} man1m)
