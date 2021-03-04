@@ -48,3 +48,8 @@ post-extract:
 		${WRKSRC}/COPYING > ${WRKDIR}/COPYING.AFL
 	${AWK} '/^START OF GNU/,/^Public License instead/' \
 		${WRKSRC}/COPYING > ${WRKDIR}/COPYING.GPL
+
+post-patch:
+	# skip building examples
+	${REINPLACE_CMD} -e '/^SUBDIRS =/ s|examples||' \
+		${WRKSRC}/dbus/Makefile.in
