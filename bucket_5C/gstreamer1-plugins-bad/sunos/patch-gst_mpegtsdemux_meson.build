@@ -1,0 +1,10 @@
+--- gst/mpegtsdemux/meson.build.orig	2021-01-13 21:11:25 UTC
++++ gst/mpegtsdemux/meson.build
+@@ -12,6 +12,7 @@ gstmpegtsdemux = library('gstmpegtsdemux
+   c_args : gst_plugins_bad_args + ['-DGST_USE_UNSTABLE_API'],
+   include_directories : [configinc, libsinc],
+   dependencies : [gstcodecparsers_dep, gstmpegts_dep, gsttag_dep,
++                  libintl_dep,
+                   gstpbutils_dep, gstaudio_dep, gstbase_dep, libm],
+   install : true,
+   install_dir : plugins_install_dir,

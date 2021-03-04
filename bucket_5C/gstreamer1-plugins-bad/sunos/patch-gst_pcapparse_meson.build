@@ -1,0 +1,11 @@
+--- gst/pcapparse/meson.build.orig	2021-01-13 21:11:25 UTC
++++ gst/pcapparse/meson.build
+@@ -8,7 +8,7 @@ gstpcapparse = library('gstpcapparse',
+   capp_sources,
+   c_args : gst_plugins_bad_args,
+   include_directories : [configinc],
+-  dependencies : [gstbase_dep] + winsock2,
++  dependencies : [gstbase_dep, nsl_dep] + winsock2,
+   install : true,
+   install_dir : plugins_install_dir,
+ )
