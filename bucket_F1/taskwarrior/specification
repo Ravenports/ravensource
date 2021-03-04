@@ -27,11 +27,12 @@ FPC_EQUIVALENT=		deskutils/taskwarrior
 BUILDRUN_DEPENDS=	gnutls:primary:standard
 			libuuid:single:standard
 
-USES=			cmake shebangfix
+USES=			cmake shebangfix solaris-funcs
 DISTNAME=		task-${PORTVERSION}
 CMAKE_ARGS=		-DTASK_DOCDIR:STRING=share/doc/taskwarrior
 SHEBANG_FILES=		scripts/*/*.pl
 			doc/rc/refresh
+SOL_FUNCTIONS=		timegm:src/libshared/src/Datetime.cpp
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 
