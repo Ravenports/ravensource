@@ -1,4 +1,4 @@
---- protolib/CMakeLists.txt.orig	2021-02-01 04:02:34 UTC
+--- protolib/CMakeLists.txt.orig	2021-03-05 20:56:44 UTC
 +++ protolib/CMakeLists.txt
 @@ -20,6 +20,8 @@ include(CheckTypeSize)
  include(CheckIncludeFiles)
@@ -9,3 +9,13 @@
  check_include_files( pcap.h HAVE_PCAP_H)
  if(HAVE_PCAP_H)
  	#list(APPEND PLATFORM_SOURCE_FILES ${COMMON}/pcapCap.cpp)
+@@ -233,6 +235,9 @@ elseif(UNIX)
+             SET(CMAKE_CXX_ARCHIVE_CREATE "<CMAKE_AR> Scr <TARGET> <LINK_FLAGS> <OBJECTS>")
+             SET(CMAKE_C_ARCHIVE_FINISH   "<CMAKE_RANLIB> -no_warning_for_no_symbols -c <TARGET>")
+             SET(CMAKE_CXX_ARCHIVE_FINISH "<CMAKE_RANLIB> -no_warning_for_no_symbols -c <TARGET>")
++        elseif(${CMAKE_SYSTEM_NAME} STREQUAL SunOS)
++		list(APPEND PLATFORM_DEFINITIONS SOLARIS)
++		list(APPEND PLATFORM_SOURCE_FILES src/unix/getifaddrs.cpp)
+ 	endif()
+ endif()
+ 
