@@ -538,7 +538,14 @@ function finish_port_yaml (&$port) {
     } else {
         if (array_key_exists("resources", $obj)) {
             if (array_key_exists("repository", $obj["resources"])) {
-                $web = $obj["resources"]["repository"];
+                # normally a string, but it could be an array
+                $rrt = gettype ($obj["resources"]["repository"]);
+                $web = "nada";
+                if ($rrt == "string") {
+                    $web = $obj["resources"]["repository"];
+                } elseif ($rrt == "array" && array_key_exists("web", $obj["resources"]["repository"])) {
+                    $web = $obj["resources"]["repository"]["web"];
+                }
                 if (substr($web, 0, 4) == "http") {
                     $port["homepage"] = $web;
                 }
