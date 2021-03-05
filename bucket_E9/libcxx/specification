@@ -29,11 +29,10 @@ LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/projects/libcxx/LICENSE.TXT
 LICENSE_SCHEME=		multi
 
 BUILD_DEPENDS=		python-Sphinx:single:python_default
-			autoselect-python:single:standard
 			llvm:single:standard
 BUILDRUN_DEPENDS=	llvm-libunwind:single:standard
 
-USES=			cmake cclibs:primary
+USES=			cmake cclibs:primary python:build
 CMAKE_BUILD_TYPE=	Release
 CMAKE_ARGS=		-DLLVM_HOST_TRIPLE:STRING="{{CONFIGURE_TARGET}}"
 			-DLLVM_ENABLE_SPHINX=ON
