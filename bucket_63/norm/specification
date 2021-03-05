@@ -34,6 +34,8 @@ USES=			cmake c++:single dos2unix
 GNOME_COMPONENTS=	libxml2
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
 
+VAR_OPSYS[sunos]=	CXXFLAGS=-DSOLARIS=1
+
 post-extract-sunos:
-	${CP} ${FILESDIR}/getifaddrs.cpp ${WRKSRC}/protolib/src/unix/
+	# ${CP} ${FILESDIR}/getifaddrs.cpp ${WRKSRC}/protolib/src/unix/
 	${CP} ${FILESDIR}/ifaddrs.h ${WRKSRC}/protolib/include/
