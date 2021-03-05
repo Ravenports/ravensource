@@ -1,0 +1,10 @@
+--- meson.build.orig	2021-01-13 21:09:15 UTC
++++ meson.build
+@@ -148,6 +148,7 @@ gstcheck_dep = dependency('gstreamer-che
+ gstcontroller_dep = dependency('gstreamer-controller-1.0', version : gst_req,
+   fallback : ['gstreamer', 'gst_controller_dep'])
+ 
++libintl_dep = cc.find_library('intl', required : true)
+ orc_dep = dependency('orc-0.4', version : '>= 0.4.16', required : get_option('orc'),
+     fallback : ['orc', 'orc_dep'])
+ if orc_dep.found()
