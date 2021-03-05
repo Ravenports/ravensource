@@ -44,6 +44,8 @@ MAKE_ARGS=		WHOLE_ARCHIVE_FLAG=--whole-archive
 MAKE_ENV=		LIBRPATH="{{BASE}}/lib"
 			GREP_OPTIONS=
 
+VAR_OPSYS[sunos]=	VAR1=MACHINE=x86_64
+
 [SKIP_MANPAGES].DESCRIPTION=		Avoid installing OpenSSL manpages
 
 [ASM].CONFIGURE_ARGS_OFF=		no-asm
@@ -97,11 +99,11 @@ post-patch-freebsd:
 
 do-configure:
 	${REINPLACE_CMD} -e "s|options 386|options|" ${WRKSRC}/config
-	(cd ${WRKSRC} && ${SETENV} CC="${CC}" FREEBSDCC="${CC}" \
-		CFLAGS="${CFLAGS}" PERL="${PERL}" \
-		./config --prefix=${BASE} \
-		--openssldir=${PREFIX}/etc/openssl \
-		--install_prefix=${STAGEDIR} \
+	(cd ${WRKSRC} && ${SETENV} CC="${CC}" FREEBSDCC="${CC}" ${VAR1}\
+		CFLAGS="${CFLAGS}" PERL="${PERL}"\
+		./config --prefix=${BASE}\
+		--openssldir=${PREFIX}/etc/openssl\
+		--install_prefix=${STAGEDIR}\
 		-L${BASE}/lib ${CONFIGURE_ARGS})
 
 post-configure:
