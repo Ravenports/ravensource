@@ -3,11 +3,21 @@ ruamel.yaml
 
 ``ruamel.yaml`` is a YAML 1.2 loader/dumper package for Python.
 
-:version:       0.16.12
-:updated:       2020-09-04
+:version:       0.16.13
+:updated:       2021-03-05
 :documentation: http://yaml.readthedocs.io
 :repository:    https://sourceforge.net/projects/ruamel-yaml/
 :pypi:          https://pypi.org/project/ruamel.yaml/
+
+*The 0.16.13 release is the last that will tested to be working on Python
+2.7.
+The 0.17 series will still be tested on Python 3.5, but the 0.18 will not.
+The
+0.17 series will also stop support for the old PyYAML functions, so a
+`YAML()` instance
+will need to be created.*
+
+*Please adjust your dependencies accordingly if necessary.*
 
 Starting with version 0.15.0 the way YAML files are loaded and dumped
 is changing. See the API doc for details.  Currently existing
@@ -34,6 +44,21 @@ ChangeLog
 
 .. should insert NEXT: at the beginning of line for next key (with empty
 line)
+
+0.16.13 (2021-03-05):
+  - fix for issue 359: could not update() CommentedMap with keyword
+arguments
+    (reported by [Steve Franchak])
+  - fix for issue 365: unable to dump mutated TimeStamp objects
+    (reported by Anton Akmerov <https://sourceforge.net/u/akhmerov/>`__)
+  - fix for issue 371: unable to addd comment without starting space
+    (reported by 'Mark Grandi <https://sourceforge.net/u/mgrandi>`__)
+  - fix for issue 373: recursive call to walk_tree not preserving all
+params
+    (reported by [eulores])
+  - a None value in a flow-style sequence is now dumped as `null` instead
+    of `!!null ''` (reported by mcarans on
+    [StackOverlow])
 
 0.16.12 (2020-09-04):
   - update links in doc
@@ -73,28 +98,3 @@ Raillard
   - allow for ``YAML(typ=['unsafe', 'pytypes'])``
 
 0.16.4 (2019-08-16):
-  - fix output of TAG directives with # (reported by [Thomas Smith
-   ])
-
-0.16.3 (2019-08-15):
-  - split construct_object
-  - change stuff back to keep mypy happy
-  - move setting of version based on YAML directive to scanner, allowing to
-    check for file version during TAG directive scanning
-
-0.16.2 (2019-08-15):
-  - preserve YAML and TAG directives on roundtrip, correctly output #
-    in URL for YAML 1.2 (both reported by [Thomas Smith
-   ])
-
-0.16.1 (2019-08-08):
-  - Force the use of new version of ruamel.yaml.clib (reported by [Alex Joz
-   ])
-  - Allow '#' in tag URI as these are allowed in YAML 1.2 (reported by
-    [Thomas Smith
-   ])
-
-0.16.0 (2019-07-25):
-  - split of C source that generates .so file to ruamel.yaml.clib
-  - duplicate keys are now an error when working with the old API as well
-

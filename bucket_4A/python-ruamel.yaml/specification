@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.16.12
+DEF[PORTVERSION]=	0.16.13
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-ruamel.yaml
@@ -11,7 +11,7 @@ HOMEPAGE=		https://sourceforge.net/p/ruamel-yaml/code/ci/default/tree
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/7e/39/186f14f3836ac5d2a6a042c8de69988770e8b9abb537610edc429e4914aa
+SITES[main]=		PYPIWHL/ed/c3/4c823dac2949a6baf36a4987d04c50d30184147393ba6f4bfb4c67d15a13
 DISTFILE[1]=		ruamel.yaml-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
@@ -29,7 +29,7 @@ GENERATED=		yes
 DISTNAME=		ruamel.yaml-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# ruamel.yaml.clib (>=0.1.2) ; platform_python_implementation=="CPython" and python_version<"3.9"
+# ruamel.yaml.clib (>=0.1.2) ; platform_python_implementation=="CPython" and python_version<"3.10"
 # ruamel.ordereddict ; platform_python_implementation=="CPython" and python_version<="2.7"
 # ryd ; extra == 'docs'
 # ruamel.yaml.jinja2 (>=0.2) ; extra == 'jinja2'
@@ -37,4 +37,5 @@ DISTNAME=		ruamel.yaml-${PORTVERSION}.dist-info
 [PY38].USES_ON=				python:py38,wheel
 [PY38].RUN_DEPENDS_ON=			python-ruamel.yaml.clib:single:py38
 [PY39].USES_ON=				python:py39,wheel
+[PY39].RUN_DEPENDS_ON=			python-ruamel.yaml.clib:single:py39
 
