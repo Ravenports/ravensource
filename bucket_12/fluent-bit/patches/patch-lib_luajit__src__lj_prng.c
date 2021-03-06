@@ -1,4 +1,4 @@
---- lib/luajit-2.1.0-1e66d0f/src/lj_prng.c.orig	2021-02-19 15:05:52 UTC
+--- lib/luajit-2.1.0-1e66d0f/src/lj_prng.c.orig	2021-03-04 03:16:37 UTC
 +++ lib/luajit-2.1.0-1e66d0f/src/lj_prng.c
 @@ -116,7 +116,7 @@ static PRGR libfunc_rgr;
  #define LJ_TARGET_HAS_GETENTROPY	1
