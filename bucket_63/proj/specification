@@ -1,6 +1,6 @@
-DEF[PORTVERSION]=	7.2.1
-DEF[PROJ_API]=		19
-DEF[SOVERSION]=		21.1.2
+DEF[PORTVERSION]=	8.0.0
+DEF[PROJ_API]=		22
+DEF[SOVERSION]=		22.0.0
 DEF[DATUMGRID_VER]=	1.8
 # ----------------------------------------------------------------------------
 
@@ -49,3 +49,6 @@ post-install:
 	${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/share/proj)
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libproj.so
+	# doc isn't worth subpackage
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}
+
