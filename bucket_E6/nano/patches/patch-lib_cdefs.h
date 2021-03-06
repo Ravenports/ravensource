@@ -1,4 +1,4 @@
---- lib/cdefs.h.orig	2021-02-24 10:02:11 UTC
+--- lib/cdefs.h.orig	2021-03-03 09:03:59 UTC
 +++ lib/cdefs.h
 @@ -329,7 +329,7 @@
  # endif
