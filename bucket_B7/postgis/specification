@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	3.1.1
 
 NAMEBASE=		postgis
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		databases geography
 VARIANTS=		standard
 SDESC[standard]=	Spatial and Geographic objects for PostgreSQL
@@ -25,14 +26,15 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		databases/postgis24
 
+BUILD_DEPENDS=		libtool:single:standard
 BUILDRUN_DEPENDS=	proj:single:standard
 			geos:single:standard
 			gdal:single:standard
 			json-c:primary:standard
 			protobuf-c:single:standard
 
-USES=			gmake iconv libtool perl:build pkgconfig pcre
-			shebangfix gettext-tools gettext-runtime
+USES=			autoreconf:build gmake iconv libtool pkgconfig pcre
+			perl:build shebangfix gettext-tools gettext-runtime
 			pgsql:server,contrib
 GNOME_COMPONENTS=	libxml2 gtk2
 SHEBANG_GLOB=		*.pl
@@ -54,6 +56,9 @@ PLIST_SUB=		VERSION=${PORTVERSION}
 post-patch:
 	${FIND} ${WRKSRC}/extras/tiger_geocoder ${WRKSRC}/utils \
 		\( -name "*.orig" -o -name "*.bak" \) -delete
+
+pre-configure:
+	(cd ${WRKSRC} && ${SH} ./autogen.sh)
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
