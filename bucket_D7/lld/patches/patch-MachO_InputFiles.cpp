@@ -1,9 +1,10 @@
 --- MachO/InputFiles.cpp.orig	2021-02-03 21:51:10 UTC
 +++ MachO/InputFiles.cpp
-@@ -41,6 +41,20 @@
+@@ -41,6 +41,22 @@
  //
  //===----------------------------------------------------------------------===//
  
++#ifdef __sun__
 +#include <string.h>
 +
 +extern "C" {
@@ -17,6 +18,7 @@
 +       return (len);
 +  }
 +}
++#endif
 +
  #include "InputFiles.h"
  #include "Config.h"

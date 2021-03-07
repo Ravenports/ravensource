@@ -1,9 +1,10 @@
 --- MachO/ExportTrie.cpp.orig	2021-02-03 21:51:10 UTC
 +++ MachO/ExportTrie.cpp
-@@ -34,6 +34,20 @@
+@@ -34,6 +34,22 @@
  //
  //===----------------------------------------------------------------------===//
  
++#ifdef __sun__
 +#include <string.h>
 +
 +extern "C" {
@@ -17,6 +18,7 @@
 +       return (len);
 +  }
 +}
++#endif
 +
  #include "ExportTrie.h"
  #include "Symbols.h"
