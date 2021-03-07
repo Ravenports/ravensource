@@ -12,6 +12,9 @@ RUN_DEPENDS=		gobject-introspection:single:standard
 USES=			gmake pkgconfig
 GNOME_COMPONENTS=	introspection cairo
 
+# On solaris, "import python" results in ld not finding libGL, reason unknown
+VAR_OPSYS[sunos]=	MAKE_ENV=PYGOBJECT_WITHOUT_PYCAIRO=1
+
 pre-patch:
 	${AWK} '/^$$/ {exit}; {print}' ${WRKSRC}/gi/importer.py \
 	> ${WRKDIR}/TERMS
