@@ -1,14 +1,13 @@
---- ../src/google/protobuf/io/coded_stream.h.orig	2021-02-25 17:20:20 UTC
+--- ../src/google/protobuf/io/coded_stream.h.orig	2021-03-04 21:35:04 UTC
 +++ ../src/google/protobuf/io/coded_stream.h
-@@ -134,7 +134,11 @@
+@@ -133,6 +133,10 @@
+ #else
  #ifdef __APPLE__
  #include <machine/endian.h>  // __BYTE_ORDER
- #else
-+# if defined(__DragonFly__) || defined(__FreeBSD__)
++#elif defined(__DragonFly__) || defined(__FreeBSD__)
 +#include <sys/endian.h>
-+# else
++#elif defined(__sun__)
++#define __LITTLE_ENDIAN__
+ #else
  #include <endian.h>  // __BYTE_ORDER
-+# endif
  #endif
- #if ((defined(__LITTLE_ENDIAN__) && !defined(__BIG_ENDIAN__)) ||    \
-      (defined(__BYTE_ORDER) && __BYTE_ORDER == __LITTLE_ENDIAN)) && \
