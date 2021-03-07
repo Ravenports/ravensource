@@ -78,9 +78,10 @@ if [ "$5" != "$uname3" ]; then
 	echo $recmsg2
 	exit 1
 fi
-if [ "$6-RAVEN" != "$uname4" ]; then
-	echo "$errmsg2 (OS.RELEASE)"
-	echo $recmsg2
-	exit 1
-fi
+# don't check release -- not all end in -RAVEN
+# if [ "$6-RAVEN" != "$uname4" ]; then
+#	echo "$errmsg2 (OS.RELEASE)"
+#	echo $recmsg2
+#	exit 1
+# fi
 echo "ravensys-uname verification test passed"
