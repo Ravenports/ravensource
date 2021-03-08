@@ -46,6 +46,8 @@ INSTALL_REQ_TOOLCHAIN=	yes
 PLIST_SUB=		VERSION=${VTE_VERSION}
 SOVERSION=		${SOVERSION}
 
+VAR_OPSYS[sunos]=	LDFLAGS=-lintl
+
 post-patch:
 	${REINPLACE_CMD} -e '/fstack-prot/d' ${WRKSRC}/meson.build
 	${REINPLACE_CMD} -e 's|linux|skipx|' ${WRKSRC}/src/pty.cc
@@ -55,4 +57,3 @@ post-patch-sunos:
 		-e 's|sys/ioctl\.h|sys/termios.h|' \
 		-e '/Bsymbolic-functions/d' \
 		${WRKSRC}/meson.build
-

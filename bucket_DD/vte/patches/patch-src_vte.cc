@@ -32,19 +32,26 @@
  				switch (ret){
  					case -1:
  						err = errno;
-@@ -3988,6 +3999,7 @@ Terminal::pty_io_read(int const fd,
- 						eos = true;
+@@ -3989,11 +4000,13 @@ Terminal::pty_io_read(int const fd,
  						goto out;
  					default:
-+#ifndef __sun__
                                                  ret--;
- 
+-
++#ifndef __sun__
                                                  if (pkt_header == TIOCPKT_DATA) {
-@@ -4014,6 +4026,7 @@ Terminal::pty_io_read(int const fd,
-                                                         if (pkt_header & TIOCPKT_START) {
++#endif
+                                                         bp += ret;
+                                                         rem -= ret;
+                                                         len += ret;
++#ifndef __sun__
+                                                 } else {
+                                                         if (pkt_header & TIOCPKT_IOCTL) {
+                                                                 /* We'd like to always be informed when the termios change,
+@@ -4015,6 +4028,7 @@ Terminal::pty_io_read(int const fd,
                                                                  pty_scroll_lock_changed(false);
                                                          }
-+#endif
                                                  }
++#endif
  						break;
  				}
+ 			} while (rem);
