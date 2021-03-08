@@ -36,9 +36,12 @@ BUILDRUN_DEPENDS=	dbus:single:standard
 			libxfce4ui:primary:standard
 
 USES=			gettext-runtime gettext-tools:build gmake pkgconfig
+			solaris-funcs
 MUST_CONFIGURE=		gnu
 XORG_COMPONENTS=	ice sm x11 xcomposite xdamage xext xfixes xrandr xrender
 GNOME_COMPONENTS=	cairo gtk2 intltool
 INSTALL_TARGET=		install-strip
+SOL_FUNCTIONS=		strnlen:src/mypixmap.c
+			strcasestr:src/compositor.c
 
 EXRUN[primary]=		xfwm4:themes:standard
