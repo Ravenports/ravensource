@@ -47,6 +47,18 @@ post-patch:
 	${REINPLACE_CMD} -e 's|/usr/local/pgplot|${PREFIX}/share/pgplot|g' \
 		${WRKSRC}/src/grgfil.f
 
+post-patch-sunos:
+	(cd ${WRKSRC} && \
+		${REINPLACE_CMD} -e '/define.*_POSIX_SOURCE/d' \
+		drivers/pgxwin_server.c\
+		drivers/xwdriv.c\
+		drivers/cgdriv.c\
+		sys/grgetc.c\
+		sys/grtermio.c\
+		sys_cray/grtermio.c\
+		sys_cray/grgetc.c\
+	)
+
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/pg*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
