@@ -184,6 +184,11 @@ PLIST_SUB=		AVCODEC_SO=${SO_AVCODEC}
 			SCALE_SO=${SO_SCALE}
 			SCALE_MAJOR=${SO_SCALE:R:R}
 
+post-patch-sunos:
+	${REINPLACE_CMD} -e '/^enabled libxvid/ s/$$/ -lrt/' \
+		-e '/append SHFLAGS.*version_script/d' \
+		${WRKSRC}/configure
+
 post-install:
 	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 .for DF in CREDITS LICENSE.md MAINTAINERS README.md RELEASE_NOTES
