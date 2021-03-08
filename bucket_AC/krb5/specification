@@ -48,6 +48,8 @@ MAKE_ARGS=		INSTALL="{{INSTALL}}"
 CPPFLAGS=		-I{{OPENSSLINC}}
 LDFLAGS=		-L{{OPENSSLLIB}}
 
+VAR_OPSYS[sunos]=	LDFLAGS=-lintl
+
 post-patch:
 	${REINPLACE_CMD} -e "s|/usr/local|${PREFIX}|" \
 		${WRKSRC}/clients/ksu/Makefile.in
