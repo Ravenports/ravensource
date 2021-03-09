@@ -1,0 +1,11 @@
+--- Source/cmake/WebKitCompilerFlags.cmake.orig	2020-08-12 09:17:57 UTC
++++ Source/cmake/WebKitCompilerFlags.cmake
+@@ -232,7 +232,7 @@ if (NOT MSVC)
+     string(REGEX MATCHALL "-fsanitize=[^ ]*" ENABLED_COMPILER_SANITIZERS ${CMAKE_CXX_FLAGS})
+ endif ()
+ 
+-if (UNIX AND NOT APPLE AND NOT ENABLED_COMPILER_SANITIZERS)
++if (UNIX AND NOT APPLE AND NOT ENABLED_COMPILER_SANITIZERS AND NOT ${CMAKE_SYSTEM_NAME} MATCHES "SunOS")
+     set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--no-undefined ${CMAKE_SHARED_LINKER_FLAGS}")
+ endif ()
+ 

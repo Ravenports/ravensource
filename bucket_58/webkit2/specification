@@ -84,11 +84,18 @@ SOVERSION=		${SOVERSION}
 [GTK3].DESCRIPTION=			Build GTK+3 variant
 [GTK3].MAKEFILE_ON=			BROWSER_PLUGIN_DIR={{LOCALBASE}}/lib/browser_plugins/symlinks/webkit-gtk3
 
+VAR_OPSYS[sunos]=	CMAKE_ARGS=-DUSE_LD_GOLD:BOOL=OFF
+
 post-patch:
 	${REINPLACE_CMD} -e 's|/usr/lib/browser/plugins|${BROWSER_PLUGINS_DIR}|' \
 		${WRKSRC}/Source/WebKit/Shared/Plugins/unix/PluginSearchPath.cpp
 	echo 'add_compile_definitions("U_DEFINE_FALSE_AND_TRUE=1")' \
 		>> ${WRKSRC}/Source/WTF/wtf/CMakeLists.txt
+
+post-patch-sunos:
+	${REINPLACE_CMD} -e '/USE_FILE_LOCK/ s|1|0|' \
+		${WRKSRC}/Source/WTF/wtf/PlatformUse.h \
+		${WRKSRC}/Source/WebCore/config.h
 
 post-install:
 	(cd ${STAGEDIR}${PREFIX}/bin && \

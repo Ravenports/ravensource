@@ -1,0 +1,13 @@
+--- Tools/MiniBrowser/gtk/CMakeLists.txt.orig	2020-08-12 09:17:57 UTC
++++ Tools/MiniBrowser/gtk/CMakeLists.txt
+@@ -42,6 +42,10 @@ set(MiniBrowser_PRIVATE_LIBRARIES
+     WebKit::WebKit
+ )
+ 
++if (CMAKE_SYSTEM_NAME MATCHES "SunOS")
++   list(APPEND MiniBrowser_PRIVATE_LIBRARIES intl)
++endif()
++
+ set(MiniBrowser_DEPENDENCIES
+     NetworkProcess
+     WebProcess
