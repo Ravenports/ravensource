@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	1.2.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		lagrange
+VERSION=		${PORTVERSION}
+KEYWORDS=		www
+VARIANTS=		standard
+SDESC[standard]=	Web Browser-like beautiful Gemini Client
+HOMEPAGE=		https://github.com/skyjake/lagrange
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://git.skyjake.fi/skyjake/lagrange/releases/download/v${PORTVERSION}/
+DISTFILE[1]=		lagrange-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE.md
+LICENSE_SCHEME=		solo
+
+USES=			cmake pcre pkgconfig ssl zlib
+SDL_COMPONENTS=		sdl2
+
+BUILDRUN_DEPENDS=	libunistring:primary:standard
+			mpg123:single:standard
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/lagrange
