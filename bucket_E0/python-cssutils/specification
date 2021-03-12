@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.0.2
+DEF[PORTVERSION]=	2.2.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-cssutils
@@ -7,11 +7,11 @@ KEYWORDS=		python
 VARIANTS=		py38 py39
 SDESC[py38]=		Cascading Style Sheets library (PY38)
 SDESC[py39]=		Cascading Style Sheets library (PY39)
-HOMEPAGE=		http://cthedot.de/cssutils/
+HOMEPAGE=		https://github.com/jaraco/cssutils
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/6b/15/a9fb9010f58d1c55dd0b7779db2334feb9a572d407024f39a60f44293861
+SITES[main]=		PYPIWHL/2a/2c/0317d2bcdaca4af17800ca59b0a85e1620d7b128c6f4f1cd3eb0b6571f46
 DISTFILE[1]=		cssutils-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
@@ -23,13 +23,24 @@ VOPTS[py38]=		PY38=ON PY39=OFF
 VOPTS[py39]=		PY38=OFF PY39=ON
 
 # License listed at PyPI
-# LGPL 2.1 or later, see also http://cthedot.de/cssutils/
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		cssutils-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-
+# importlib-metadata ; python_version < "3.8"
+# sphinx ; extra == 'docs'
+# jaraco.packaging (>=8.2) ; extra == 'docs'
+# rst.linker (>=1.9) ; extra == 'docs'
+# pytest (>=4.6) ; extra == 'testing'
+# pytest-checkdocs (>=2.4) ; extra == 'testing'
+# pytest-flake8 ; extra == 'testing'
+# pytest-cov ; extra == 'testing'
+# pytest-enabler (>=1.0.1) ; extra == 'testing'
+# mock ; extra == 'testing'
+# pytest-black (>=0.3.7) ; (platform_python_implementation != "PyPy" and python_version < "3.10") and extra == 'testing'
+# pytest-mypy ; (platform_python_implementation != "PyPy" and python_version < "3.10") and extra == 'testing'
 
 [PY38].USES_ON=				python:py38,wheel
 [PY39].USES_ON=				python:py39,wheel

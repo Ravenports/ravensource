@@ -11,8 +11,8 @@ HOMEPAGE=		https://www.makotemplates.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/M/Mako
-DISTFILE[1]=		Mako-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/f3/54/dbc07fbb20865d3b78fdb7cf7fa713e2cba4f87f71100074ef2dc9f9d1f7
+DISTFILE[1]=		Mako-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py39]=		single
@@ -26,13 +26,15 @@ VOPTS[py39]=		PY38=OFF PY39=ON
 # MIT
 
 GENERATED=		yes
-DISTNAME=		Mako-${PORTVERSION}
+DISTNAME=		Mako-${PORTVERSION}.dist-info
 
-# install_requires extracted from setup.py
-# MarkupSafe>=0.9.2
+# Requires-Dist extracted from wheel metadata
+# MarkupSafe (>=0.9.2)
+# Babel ; extra == 'babel'
+# lingua ; extra == 'lingua'
 
-[PY38].USES_ON=				python:py38,sutools
-[PY38].BUILDRUN_DEPENDS_ON=		python-MarkupSafe:single:py38
-[PY39].USES_ON=				python:py39,sutools
-[PY39].BUILDRUN_DEPENDS_ON=		python-MarkupSafe:single:py39
+[PY38].USES_ON=				python:py38,wheel
+[PY38].RUN_DEPENDS_ON=			python-MarkupSafe:single:py38
+[PY39].USES_ON=				python:py39,wheel
+[PY39].RUN_DEPENDS_ON=			python-MarkupSafe:single:py39
 
