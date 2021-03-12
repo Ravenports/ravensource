@@ -1,4 +1,4 @@
---- src/gdtest.c.orig	2021-01-30 09:30:01 UTC
+--- src/gdtest.c.orig	2021-02-21 17:23:01 UTC
 +++ src/gdtest.c
 @@ -34,6 +34,8 @@ main (int argc, char **argv)
  	gdSink imgsnk;

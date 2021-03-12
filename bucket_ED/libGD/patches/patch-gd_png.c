@@ -1,4 +1,4 @@
---- src/gd_png.c.orig	2021-01-30 09:30:01 UTC
+--- src/gd_png.c.orig	2021-03-03 07:15:02 UTC
 +++ src/gd_png.c
 @@ -276,6 +276,14 @@ BGD_DECLARE(gdImagePtr) gdImageCreateFro
  	png_read_info (png_ptr, info_ptr);	/* read all PNG info up to image data */
