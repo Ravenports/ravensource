@@ -1,6 +1,5 @@
-DEF[PORTVERSION]=	4.5.0
-DEF[DISTHASH]=		a36019e5014bff251f83d522ddcfebaecf52afd3
-DEF[ISO_DIRS]=		639-2 639-3 639-5 3166-1 3166-2 3166-3 4217 15924
+DEF[PORTVERSION]=	4.6.0
+DEF[DISTHASH]=		3c012d266acaeda93d3e61ec11b8c18c1964fce1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		iso-codes
@@ -29,17 +28,11 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		misc/iso-codes
 
+BUILD_DEPENDS=		autoselect-python:single:standard
+
 USES=			gettext-tools gmake python shebangfix
 SHEBANG_GLOB=		*.py
 SHEBANG_OLD_PYTHON=	/usr/bin/env[[:space:]]python3
 MUST_CONFIGURE=		gnu
 MAKE_ARGS=		pkgconfigdir={{PREFIX}}/lib/pkgconfig
 DISTNAME=		iso-codes-iso-codes-${PORTVERSION}-${DISTHASH}
-
-post-patch:
-	${REINPLACE_CMD} -e 's|python3|python${PYTHON_VER}|g' \
-		${WRKSRC}/common.mk
-.for i in ${ISO_DIRS}
-	${REINPLACE_CMD} -e 's|python3|python${PYTHON_VER}|g' \
-		${WRKSRC}/iso_${i}/Makefile.in
-.endfor
