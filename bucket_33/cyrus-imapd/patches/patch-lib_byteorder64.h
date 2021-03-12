@@ -1,4 +1,4 @@
---- lib/byteorder64.h.orig	2020-11-29 23:52:48 UTC
+--- lib/byteorder64.h.orig	2021-03-09 04:32:13 UTC
 +++ lib/byteorder64.h
 @@ -49,7 +49,7 @@
  
