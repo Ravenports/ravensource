@@ -1,4 +1,4 @@
---- config.h.in.orig	2021-02-23 14:32:24 UTC
+--- config.h.in.orig	2021-03-12 15:42:50 UTC
 +++ config.h.in
 @@ -10,6 +10,9 @@
  /* Disable deprecation warnings from glib */
