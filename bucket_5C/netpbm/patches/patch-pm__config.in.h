@@ -1,6 +1,6 @@
 Remove bogus SYSV section (fixes build on SunOS)
 
---- pm_config.in.h.orig	2020-12-28 01:09:14 UTC
+--- pm_config.in.h.orig	2021-03-07 03:56:38 UTC
 +++ pm_config.in.h
 @@ -74,7 +74,7 @@
  ** for the format of the color database file.
