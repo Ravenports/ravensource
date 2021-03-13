@@ -1,6 +1,6 @@
---- include/mbedtls/config.h.orig	2020-06-30 11:08:49 UTC
+--- include/mbedtls/config.h.orig	2021-03-12 16:55:26 UTC
 +++ include/mbedtls/config.h
-@@ -1946,7 +1946,7 @@
+@@ -2090,7 +2090,7 @@
   *
   * Uncomment this to enable pthread mutexes.
   */
@@ -9,7 +9,7 @@
  
  /**
   * \def MBEDTLS_USE_PSA_CRYPTO
-@@ -3248,7 +3248,7 @@
+@@ -3414,7 +3414,7 @@
   *
   * Enable this layer to allow use of mutexes within mbed TLS
   */
