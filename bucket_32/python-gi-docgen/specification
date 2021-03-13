@@ -1,0 +1,55 @@
+DEF[PORTVERSION]=	2021.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-gi-docgen
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py38 py39
+SDESC[py38]=		Documentation tool for GObject-based libs (PY38)
+SDESC[py39]=		Documentation tool for GObject-based libs (PY39)
+HOMEPAGE=		https://gitlab.gnome.org/ebassi/gi-docgen
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/a4/7c/6ee6460b6503a0c4d470d2b33f49b4ab596927a0fbfe4371542be62c8284
+DISTFILE[1]=		gi_docgen-${PORTVERSION}-py2.py3-none-any.whl:main
+
+SPKGS[py38]=		single
+SPKGS[py39]=		single
+
+OPTIONS_AVAILABLE=	PY38 PY39
+OPTIONS_STANDARD=	none
+VOPTS[py38]=		PY38=ON PY39=OFF
+VOPTS[py39]=		PY38=OFF PY39=ON
+
+# License listed at PyPI
+# GPL-3.0-or-later AND Apache-2.0 AND CC0-1.0
+
+GENERATED=		yes
+DISTNAME=		gi_docgen-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# Markdown
+# MarkupSafe
+# Pygments
+# jinja2
+# toml
+# typogrify
+# coverage ; extra == 'test'
+# green ; extra == 'test'
+
+[PY38].USES_ON=				python:py38,wheel
+[PY38].RUN_DEPENDS_ON=			python-Markdown:single:py38
+					python-MarkupSafe:single:py38
+					python-Pygments:single:py38
+					python-Jinja2:single:py38
+					python-toml:single:py38
+					python-typogrify:single:py38
+[PY39].USES_ON=				python:py39,wheel
+[PY39].RUN_DEPENDS_ON=			python-Markdown:single:py39
+					python-MarkupSafe:single:py39
+					python-Pygments:single:py39
+					python-Jinja2:single:py39
+					python-toml:single:py39
+					python-typogrify:single:py39
+
