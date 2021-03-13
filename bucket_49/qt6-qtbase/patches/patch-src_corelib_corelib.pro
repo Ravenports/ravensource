@@ -1,4 +1,4 @@
---- src/corelib/corelib.pro.orig	2021-01-26 18:29:22 UTC
+--- src/corelib/corelib.pro.orig	2021-02-09 18:01:03 UTC
 +++ src/corelib/corelib.pro
 @@ -32,7 +32,7 @@ ANDROID_PERMISSIONS = \
  # QtCore can't be compiled with -Wl,-no-undefined because it uses the "environ"
