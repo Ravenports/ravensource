@@ -1,6 +1,6 @@
-DEF[PORTVERSION]=	1.48.2
+DEF[PORTVERSION]=	1.48.3
 DEF[PANGO_VERSION]=	1.8.0
-DEF[LIBVERSION]=	0.4800.2
+DEF[LIBVERSION]=	0.4800.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		pango
@@ -36,11 +36,12 @@ BUILDRUN_DEPENDS=	freetype:primary:standard
 			fribidi:single:standard
 RUN_DEPENDS=		xorg-truetype-fonts:single:standard
 
-USES=			gmake perl:build pkgconfig python:build
-			meson gtk-doc cpe zlib:build
+USES=			cpe gmake meson perl:build pkgconfig
+			python:build zlib:build
+# gi-docgen library not found:  USES=gtk-doc
 GNOME_COMPONENTS=	cairo glib introspection
 XORG_COMPONENTS=	x11 xft xrender
-CONFIGURE_ARGS=		-Dgtk_doc=true
+CONFIGURE_ARGS=		-Dgtk_doc=false
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
 PLIST_SUB=		VERSION=${PANGO_VERSION} LIBVERSION=${LIBVERSION}
