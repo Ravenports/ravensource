@@ -1,4 +1,4 @@
---- pr/src/misc/prnetdb.c.orig	2020-08-20 23:04:43 UTC
+--- pr/src/misc/prnetdb.c.orig	2020-09-17 15:01:34 UTC
 +++ pr/src/misc/prnetdb.c
 @@ -73,11 +73,6 @@ PRLock *_pr_dnsLock = NULL;
  #define _PR_HAVE_GETPROTO_R_INT
@@ -12,7 +12,7 @@
  /* BeOS has glibc but not the glibc-style getprotobyxxx_r functions. */
  #if (defined(__GLIBC__) && __GLIBC__ >= 2)
  #define _PR_HAVE_GETPROTO_R
-@@ -304,7 +299,7 @@ _pr_QueryNetIfs(void)
+@@ -302,7 +297,7 @@ _pr_QueryNetIfs(void)
  }
  
  #elif (defined(DARWIN) && defined(HAVE_GETIFADDRS)) || defined(FREEBSD) \
