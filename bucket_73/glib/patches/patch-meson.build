@@ -1,12 +1,20 @@
---- meson.build.orig	2021-02-11 12:24:55 UTC
+--- meson.build.orig	2021-03-18 19:38:02 UTC
 +++ meson.build
-@@ -2204,8 +2204,7 @@ env_program = find_program('env', requir
+@@ -2003,9 +2003,6 @@ endif
+ # FIXME: glib-gettext.m4 has much more checks to detect broken/uncompatible
+ # implementations. This could be extended if issues are found in some platforms.
+ libintl_deps = []
+-if cc.has_function('ngettext')
+-  have_bind_textdomain_codeset = cc.has_function('bind_textdomain_codeset')
+-else
+   # First just find the bare library.
+   libintl = cc.find_library('intl', required : false)
+   # The bare library probably won't link without help if it's static.
+@@ -2037,7 +2034,6 @@ else
+     have_bind_textdomain_codeset = cc.has_function('bind_textdomain_codeset',
+                                                    dependencies : libintl_deps)
+   endif
+-endif
  
- # FIXME: How to detect Solaris? https://github.com/mesonbuild/meson/issues/1578
- if host_system == 'sunos'
--  glib_conf.set('_XOPEN_SOURCE_EXTENDED', 1)
--  glib_conf.set('_XOPEN_SOURCE', 2)
-+  glib_conf.set('_POSIX_C_SOURCE',200809)
-   glib_conf.set('__EXTENSIONS__',1)
- endif
+ glib_conf.set('HAVE_BIND_TEXTDOMAIN_CODESET', have_bind_textdomain_codeset)
  
