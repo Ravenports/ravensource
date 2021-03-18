@@ -1,4 +1,4 @@
---- cmake_admin/DefaultDirs.cmake.orig	2021-01-29 13:37:27 UTC
+--- cmake_admin/DefaultDirs.cmake.orig	2021-03-15 19:12:51 UTC
 +++ cmake_admin/DefaultDirs.cmake
 @@ -53,7 +53,7 @@ set (INFO_INSTALL_DIR "share/info" CACHE
  mark_as_advanced (INFO_INSTALL_DIR) 
