@@ -1,6 +1,6 @@
---- configure.ac.orig	2021-02-13 17:02:13 UTC
+--- configure.ac.orig	2021-03-16 00:04:01 UTC
 +++ configure.ac
-@@ -709,7 +709,7 @@ else
+@@ -710,7 +710,7 @@ else
        if test "x$GUILE_CONFIG" = "x"; then
          use_guile="No (guile not available)"
        else
@@ -9,7 +9,7 @@
          GUILE_VERSION_MAJOR=`echo $GUILE_VERSION | cut -d '.' -f 1`
          GUILE_VERSION_MINOR=`echo $GUILE_VERSION | cut -d '.' -f 2`
          AC_CHECK_PROGS(GUILE,guile$GUILE_VERSION_MAJOR.$GUILE_VERSION_MINOR guile$GUILE_VERSION_MAJOR guile)
-@@ -940,17 +940,17 @@ else
+@@ -941,17 +941,17 @@ else
              if test "x$PKG_CONFIG" != "x"; then
  	        AC_MSG_CHECKING(for Lua headers and libraries with pkg-config)
  	        echo
@@ -30,7 +30,7 @@
  		           LUA_LIBS="$LUA_LFLAGS "`$PKG_CONFIG --libs lualib$l`
  		        fi
                          break
-@@ -1470,6 +1470,7 @@ else
+@@ -1471,6 +1471,7 @@ else
  	    use_ruby="No (ruby not available)"
            else
              RUBY_CFLAGS="-I`$RUBY $srcdir/config/config_ruby.rb archdir`"

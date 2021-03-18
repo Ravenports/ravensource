@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.46.1
+DEF[PORTVERSION]=	2.47.0
 DEF[TAG]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -125,13 +125,13 @@ post-install:
 	${RM} ${STAGEDIR}${MANPREFIX}/man/man1/mingle.1
 
 	# documentation
-	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}/html ${STAGEDIR}${STD_DOCDIR}/pdf
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}/html ${STAGEDIR}${STD_DOCDIR}/pdf
 	cd ${WRKSRC} && \
 		${INSTALL_DATA} doc/Dot.ref doc/latex_suggestions.txt \
 			${STAGEDIR}${STD_DOCDIR}/ && \
 		${INSTALL_DATA} doc/*.pdf */*/*.pdf \
 			${STAGEDIR}${STD_DOCDIR}/pdf/ && \
-		${INSTALL_DATA} doc/*.html doc/info/*.gif \
+		${INSTALL_DATA} doc/*.html \
 			${STAGEDIR}${STD_DOCDIR}/html/
 	${RM} ${STAGEDIR}${STD_DOCDIR}/COPYING
 

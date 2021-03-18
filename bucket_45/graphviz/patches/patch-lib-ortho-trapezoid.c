@@ -1,6 +1,6 @@
---- lib/ortho/trapezoid.c.orig	2021-02-13 17:02:13 UTC
+--- lib/ortho/trapezoid.c.orig	2021-03-16 00:04:01 UTC
 +++ lib/ortho/trapezoid.c
-@@ -26,6 +26,11 @@
+@@ -24,6 +24,11 @@
  #include <common/types.h>
  #include <ortho/trap.h>
  
