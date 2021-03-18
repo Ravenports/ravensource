@@ -115,8 +115,6 @@ post-patch-LITE-ON:
 		/^SCRIPT_PYTHON += git-p4.py$$/d; \
 		s/git-cvsserver//' \
 		${WRKSRC}/Makefile
-	${REINPLACE_CMD} -e "s,/usr/bin/perl,${PERL}," \
-		${WRKSRC}/t/gitweb-lib.sh
 	${REINPLACE_CMD} -e 's|/bin/bash|/bin/sh|' \
 		${WRKSRC}/contrib/subtree/git-subtree.sh
 
