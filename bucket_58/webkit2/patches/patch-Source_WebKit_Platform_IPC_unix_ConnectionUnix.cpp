@@ -7,7 +7,7 @@ WebKit already uses shared memory to communicate the message body when
 the message is too large, so force it to always use this method to avoid
 encountering EMSGSIZE.
 
---- Source/WebKit/Platform/IPC/unix/ConnectionUnix.cpp.orig	2020-08-12 09:17:56.000000000 +0000
+--- Source/WebKit/Platform/IPC/unix/ConnectionUnix.cpp.orig	2020-08-12 09:17:56 UTC
 +++ Source/WebKit/Platform/IPC/unix/ConnectionUnix.cpp
 @@ -56,6 +56,10 @@
  #endif

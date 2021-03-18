@@ -2,9 +2,9 @@ $NetBSD: patch-Source_cmake_OptionsCommon.cmake,v 1.4 2018/04/09 08:33:48 wiz Ex
 
 Using the T option of GNU ar lead to malformed .a archive on NetBSD. Disable it.
 
---- Source/cmake/OptionsCommon.cmake.orig	2017-02-27 07:11:15.000000000 +0000
+--- Source/cmake/OptionsCommon.cmake.orig	2020-08-12 09:17:57 UTC
 +++ Source/cmake/OptionsCommon.cmake
-@@ -27,10 +27,10 @@ option(USE_THIN_ARCHIVES "Produce all st
+@@ -9,10 +9,10 @@ option(USE_THIN_ARCHIVES "Produce all st
  if (USE_THIN_ARCHIVES)
      execute_process(COMMAND ${CMAKE_AR} -V OUTPUT_VARIABLE AR_VERSION)
      if ("${AR_VERSION}" MATCHES "^GNU ar")
