@@ -1,4 +1,4 @@
---- glib/glib-unix.c.orig	2021-03-18 13:47:48 UTC
+--- glib/glib-unix.c.orig	2021-03-18 13:28:31 UTC
 +++ glib/glib-unix.c
 @@ -31,6 +31,9 @@
  
@@ -9,4 +9,4 @@
 +#endif
  #include <pwd.h>
  
- /**
+ G_STATIC_ASSERT (sizeof (ssize_t) == GLIB_SIZEOF_SSIZE_T);
