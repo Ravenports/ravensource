@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	234
+DEF[PORTVERSION]=	236
 DEF[SOVERSION]=		0.3.0
 # ----------------------------------------------------------------------------
 
@@ -28,10 +28,8 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gudev/gudev.h
 LICENSE_SCHEME=		solo
 
-USES=			pkgconfig gmake libtool
+USES=			pkgconfig gmake meson
 GNOME_COMPONENTS=	glib introspection
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-gtk-doc=no
-			--disable-umockdev
+MESON_ARGS=		-Dgtk_doc=false
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
