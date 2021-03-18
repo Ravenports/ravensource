@@ -1,4 +1,4 @@
---- sys/oss/gstosssrc.c.orig	2020-09-07 23:05:16 UTC
+--- sys/oss/gstosssrc.c.orig	2021-03-15 17:48:30 UTC
 +++ sys/oss/gstosssrc.c
 @@ -100,7 +100,10 @@ static guint gst_oss_src_read (GstAudioS
  static guint gst_oss_src_delay (GstAudioSrc * asrc);
