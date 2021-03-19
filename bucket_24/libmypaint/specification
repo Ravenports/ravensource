@@ -26,9 +26,11 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/libmypaint
 
+BUILD_DEPENDS=		autoselect-python:single:standard
 BUILDRUN_DEPENDS=	json-c:primary:standard
 
-USES=			gmake libtool pkgconfig gettext-runtime gettext-tools
+USES=			gmake libtool pkgconfig python:build
+			gettext-runtime gettext-tools
 GNOME_COMPONENTS=	glib introspection intltool
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-nls
