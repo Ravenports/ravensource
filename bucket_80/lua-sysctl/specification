@@ -1,11 +1,13 @@
-DEF[PORTVERSION]=	2.0
+DEF[PORTVERSION]=	2.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		lua-sysctl
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		standard
-SDESC[standard]=	Small FBSD sysctl(3) interface for Lua 5.2
+VARIANTS=		lua52 lua53 lua54
+SDESC[lua52]=		Small FBSD sysctl(3) interface for Lua 5.2
+SDESC[lua53]=		Small FBSD sysctl(3) interface for Lua 5.3
+SDESC[lua54]=		Small FBSD sysctl(3) interface for Lua 5.4
 HOMEPAGE=		https://github.com/kAworu/lua-sysctl
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -13,10 +15,16 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/kAworu:lua-sysctl:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary docs examples
+SPKGS[lua52]=		complete primary docs examples
+SPKGS[lua53]=		complete primary docs examples
+SPKGS[lua54]=		complete primary docs examples
 
-OPTIONS_AVAILABLE=	none
+OPTIONS_AVAILABLE=	LUA52 LUA53 LUA54
 OPTIONS_STANDARD=	none
+
+VOPTS[lua52]=		LUA52=ON LUA53=OFF LUA54=OFF
+VOPTS[lua53]=		LUA52=OFF LUA53=ON LUA54=OFF
+VOPTS[lua54]=		LUA52=OFF LUA53=OFF LUA54=ON
 
 LICENSE=		BSD2CLAUSE:primary
 LICENSE_FILE=		BSD2CLAUSE:{{WRKDIR}}/LICENSE
@@ -28,7 +36,16 @@ FPC_EQUIVALENT=		devel/lua-sysctl
 
 ONLY_FOR_OPSYS=		freebsd dragonfly
 
-USES=			lua:5.2 pkgconfig
+USES=			pkgconfig
+
+[LUA52].DESCRIPTION=			Build with Lua 5.2
+[LUA52].USES_ON=			lua:5.2
+
+[LUA53].DESCRIPTION=			Build with Lua 5.3
+[LUA53].USES_ON=			lua:5.3
+
+[LUA54].DESCRIPTION=			Build with Lua 5.4
+[LUA54].USES_ON=			lua:5.4
 
 post-patch:
 	${REINPLACE_CMD} "s/5.1/${LUA_VER}/g" ${WRKSRC}/Makefile
