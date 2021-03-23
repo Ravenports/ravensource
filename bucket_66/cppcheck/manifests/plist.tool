@@ -6,11 +6,13 @@ share/Cppcheck/addons/cppcheckdata.py
 share/Cppcheck/addons/findcasts.py
 share/Cppcheck/addons/misc.py
 share/Cppcheck/addons/misra.py
+share/Cppcheck/addons/misra_9.py
 share/Cppcheck/addons/naming.py
 share/Cppcheck/addons/namingng.py
 share/Cppcheck/addons/threadsafety.py
 share/Cppcheck/addons/y2038.py
 share/Cppcheck/cfg/avr.cfg
+share/Cppcheck/cfg/bento4.cfg
 share/Cppcheck/cfg/boost.cfg
 share/Cppcheck/cfg/bsd.cfg
 share/Cppcheck/cfg/cairo.cfg
@@ -19,6 +21,7 @@ share/Cppcheck/cfg/cppunit.cfg
 share/Cppcheck/cfg/daca.cfg
 share/Cppcheck/cfg/embedded_sql.cfg
 share/Cppcheck/cfg/emscripten.cfg
+share/Cppcheck/cfg/ginac.cfg
 share/Cppcheck/cfg/gnu.cfg
 share/Cppcheck/cfg/googletest.cfg
 share/Cppcheck/cfg/gtk.cfg
@@ -34,10 +37,12 @@ share/Cppcheck/cfg/microsoft_sal.cfg
 share/Cppcheck/cfg/microsoft_unittest.cfg
 share/Cppcheck/cfg/motif.cfg
 share/Cppcheck/cfg/nspr.cfg
+share/Cppcheck/cfg/ntl.cfg
 share/Cppcheck/cfg/opencv2.cfg
 share/Cppcheck/cfg/opengl.cfg
 share/Cppcheck/cfg/openmp.cfg
 share/Cppcheck/cfg/openssl.cfg
+share/Cppcheck/cfg/pcre.cfg
 share/Cppcheck/cfg/posix.cfg
 share/Cppcheck/cfg/python.cfg
 share/Cppcheck/cfg/qt.cfg
@@ -48,6 +53,8 @@ share/Cppcheck/cfg/sqlite3.cfg
 share/Cppcheck/cfg/std.cfg
 share/Cppcheck/cfg/tinyxml2.cfg
 share/Cppcheck/cfg/windows.cfg
+share/Cppcheck/cfg/wxsqlite3.cfg
+share/Cppcheck/cfg/wxsvg.cfg
 share/Cppcheck/cfg/wxwidgets.cfg
 share/Cppcheck/cfg/zlib.cfg
 share/Cppcheck/platforms/aix_ppc64.xml
