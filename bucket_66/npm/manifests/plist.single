@@ -35,6 +35,7 @@ lib/node_modules/npm/docs/content/commands/npm-edit.md
 lib/node_modules/npm/docs/content/commands/npm-exec.md
 lib/node_modules/npm/docs/content/commands/npm-explain.md
 lib/node_modules/npm/docs/content/commands/npm-explore.md
+lib/node_modules/npm/docs/content/commands/npm-find-dupes.md
 lib/node_modules/npm/docs/content/commands/npm-fund.md
 lib/node_modules/npm/docs/content/commands/npm-help-search.md
 lib/node_modules/npm/docs/content/commands/npm-help.md
@@ -174,7 +175,6 @@ lib/node_modules/npm/lib/utils/cache-file.js
 lib/node_modules/npm/lib/utils/cleanup-log-files.js
 lib/node_modules/npm/lib/utils/cmd-list.js
 lib/node_modules/npm/lib/utils/completion.sh
-lib/node_modules/npm/lib/utils/config.js
 lib/node_modules/npm/lib/utils/deref-command.js
 lib/node_modules/npm/lib/utils/did-you-mean.js
 lib/node_modules/npm/lib/utils/error-handler.js
@@ -182,7 +182,6 @@ lib/node_modules/npm/lib/utils/error-message.js
 lib/node_modules/npm/lib/utils/explain-dep.js
 lib/node_modules/npm/lib/utils/explain-eresolve.js
 lib/node_modules/npm/lib/utils/file-exists.js
-lib/node_modules/npm/lib/utils/flat-options.js
 lib/node_modules/npm/lib/utils/get-identity.js
 lib/node_modules/npm/lib/utils/get-project-scope.js
 lib/node_modules/npm/lib/utils/hosted-git-info-from-manifest.js
@@ -211,6 +210,12 @@ lib/node_modules/npm/lib/utils/update-notifier.js
 lib/node_modules/npm/lib/utils/usage.js
 lib/node_modules/npm/lib/utils/completion/installed-deep.js
 lib/node_modules/npm/lib/utils/completion/installed-shallow.js
+lib/node_modules/npm/lib/utils/config/definition.js
+lib/node_modules/npm/lib/utils/config/definitions.js
+lib/node_modules/npm/lib/utils/config/describe-all.js
+lib/node_modules/npm/lib/utils/config/flatten.js
+lib/node_modules/npm/lib/utils/config/index.js
+lib/node_modules/npm/lib/workspaces/get-workspaces.js
 lib/node_modules/npm/man/man1/npm-access.1.gz
 lib/node_modules/npm/man/man1/npm-adduser.1.gz
 lib/node_modules/npm/man/man1/npm-audit.1.gz
@@ -230,6 +235,7 @@ lib/node_modules/npm/man/man1/npm-edit.1.gz
 lib/node_modules/npm/man/man1/npm-exec.1.gz
 lib/node_modules/npm/man/man1/npm-explain.1.gz
 lib/node_modules/npm/man/man1/npm-explore.1.gz
+lib/node_modules/npm/man/man1/npm-find-dupes.1.gz
 lib/node_modules/npm/man/man1/npm-fund.1.gz
 lib/node_modules/npm/man/man1/npm-help-search.1.gz
 lib/node_modules/npm/man/man1/npm-help.1.gz
@@ -369,7 +375,6 @@ lib/node_modules/npm/node_modules/@npmcli/config/LICENSE
 lib/node_modules/npm/node_modules/@npmcli/config/README.md
 lib/node_modules/npm/node_modules/@npmcli/config/package.json
 lib/node_modules/npm/node_modules/@npmcli/config/lib/env-replace.js
-lib/node_modules/npm/node_modules/@npmcli/config/lib/get-user-agent.js
 lib/node_modules/npm/node_modules/@npmcli/config/lib/index.js
 lib/node_modules/npm/node_modules/@npmcli/config/lib/nerf-dart.js
 lib/node_modules/npm/node_modules/@npmcli/config/lib/parse-field.js
@@ -1524,6 +1529,7 @@ lib/node_modules/npm/node_modules/libnpmversion/lib/commit.js
 lib/node_modules/npm/node_modules/libnpmversion/lib/enforce-clean.js
 lib/node_modules/npm/node_modules/libnpmversion/lib/index.js
 lib/node_modules/npm/node_modules/libnpmversion/lib/proc-log.js
+lib/node_modules/npm/node_modules/libnpmversion/lib/read-json.js
 lib/node_modules/npm/node_modules/libnpmversion/lib/retrieve-tag.js
 lib/node_modules/npm/node_modules/libnpmversion/lib/tag.js
 lib/node_modules/npm/node_modules/libnpmversion/lib/version.js
@@ -1772,6 +1778,13 @@ lib/node_modules/npm/node_modules/normalize-package-data/lib/normalize.js
 lib/node_modules/npm/node_modules/normalize-package-data/lib/safe_format.js
 lib/node_modules/npm/node_modules/normalize-package-data/lib/typos.json
 lib/node_modules/npm/node_modules/normalize-package-data/lib/warning_messages.json
+lib/node_modules/npm/node_modules/normalize-package-data/node_modules/hosted-git-info/CHANGELOG.md
+lib/node_modules/npm/node_modules/normalize-package-data/node_modules/hosted-git-info/LICENSE
+lib/node_modules/npm/node_modules/normalize-package-data/node_modules/hosted-git-info/README.md
+lib/node_modules/npm/node_modules/normalize-package-data/node_modules/hosted-git-info/git-host-info.js
+lib/node_modules/npm/node_modules/normalize-package-data/node_modules/hosted-git-info/git-host.js
+lib/node_modules/npm/node_modules/normalize-package-data/node_modules/hosted-git-info/index.js
+lib/node_modules/npm/node_modules/normalize-package-data/node_modules/hosted-git-info/package.json
 lib/node_modules/npm/node_modules/npm-audit-report/CHANGELOG.md
 lib/node_modules/npm/node_modules/npm-audit-report/LICENSE
 lib/node_modules/npm/node_modules/npm-audit-report/README.md
@@ -1808,6 +1821,13 @@ lib/node_modules/npm/node_modules/npm-package-arg/LICENSE
 lib/node_modules/npm/node_modules/npm-package-arg/README.md
 lib/node_modules/npm/node_modules/npm-package-arg/npa.js
 lib/node_modules/npm/node_modules/npm-package-arg/package.json
+lib/node_modules/npm/node_modules/npm-package-arg/node_modules/hosted-git-info/CHANGELOG.md
+lib/node_modules/npm/node_modules/npm-package-arg/node_modules/hosted-git-info/LICENSE
+lib/node_modules/npm/node_modules/npm-package-arg/node_modules/hosted-git-info/README.md
+lib/node_modules/npm/node_modules/npm-package-arg/node_modules/hosted-git-info/git-host-info.js
+lib/node_modules/npm/node_modules/npm-package-arg/node_modules/hosted-git-info/git-host.js
+lib/node_modules/npm/node_modules/npm-package-arg/node_modules/hosted-git-info/index.js
+lib/node_modules/npm/node_modules/npm-package-arg/node_modules/hosted-git-info/package.json
 lib/node_modules/npm/node_modules/npm-packlist/LICENSE
 lib/node_modules/npm/node_modules/npm-packlist/README.md
 lib/node_modules/npm/node_modules/npm-packlist/index.js
@@ -1973,11 +1993,6 @@ lib/node_modules/npm/node_modules/psl/package.json
 lib/node_modules/npm/node_modules/psl/data/rules.json
 lib/node_modules/npm/node_modules/psl/dist/psl.js
 lib/node_modules/npm/node_modules/psl/dist/psl.min.js
-lib/node_modules/npm/node_modules/puka/CHANGELOG.md
-lib/node_modules/npm/node_modules/puka/LICENSE.txt
-lib/node_modules/npm/node_modules/puka/README.md
-lib/node_modules/npm/node_modules/puka/index.js
-lib/node_modules/npm/node_modules/puka/package.json
 lib/node_modules/npm/node_modules/punycode/LICENSE-MIT.txt
 lib/node_modules/npm/node_modules/punycode/README.md
 lib/node_modules/npm/node_modules/punycode/package.json
