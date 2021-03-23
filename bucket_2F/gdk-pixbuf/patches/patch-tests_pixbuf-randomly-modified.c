@@ -1,4 +1,4 @@
---- tests/pixbuf-randomly-modified.c.orig	2020-12-07 23:40:12 UTC
+--- tests/pixbuf-randomly-modified.c.orig	2021-03-21 15:02:36 UTC
 +++ tests/pixbuf-randomly-modified.c
 @@ -18,6 +18,9 @@
   */
