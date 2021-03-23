@@ -33,6 +33,7 @@ share/cmake/Help/command/cmake_host_system_information.rst
 share/cmake/Help/command/cmake_language.rst
 share/cmake/Help/command/cmake_minimum_required.rst
 share/cmake/Help/command/cmake_parse_arguments.rst
+share/cmake/Help/command/cmake_path.rst
 share/cmake/Help/command/cmake_policy.rst
 share/cmake/Help/command/configure_file.rst
 share/cmake/Help/command/continue.rst
@@ -176,6 +177,7 @@ share/cmake/Help/envvar/CTEST_OUTPUT_ON_FAILURE.rst
 share/cmake/Help/envvar/CTEST_PARALLEL_LEVEL.rst
 share/cmake/Help/envvar/CTEST_PROGRESS_OUTPUT.rst
 share/cmake/Help/envvar/CTEST_USE_LAUNCHERS_DEFAULT.rst
+share/cmake/Help/envvar/CUDAARCHS.rst
 share/cmake/Help/envvar/CUDACXX.rst
 share/cmake/Help/envvar/CUDAFLAGS.rst
 share/cmake/Help/envvar/CUDAHOSTCXX.rst
@@ -639,6 +641,12 @@ share/cmake/Help/policy/CMP0111.rst
 share/cmake/Help/policy/CMP0112.rst
 share/cmake/Help/policy/CMP0113.rst
 share/cmake/Help/policy/CMP0114.rst
+share/cmake/Help/policy/CMP0115.rst
+share/cmake/Help/policy/CMP0116.rst
+share/cmake/Help/policy/CMP0117.rst
+share/cmake/Help/policy/CMP0118.rst
+share/cmake/Help/policy/CMP0119.rst
+share/cmake/Help/policy/CMP0120.rst
 share/cmake/Help/policy/DEPRECATED.txt
 share/cmake/Help/policy/DISALLOWED_COMMAND.txt
 share/cmake/Help/prop_cache/ADVANCED.rst
@@ -898,6 +906,7 @@ share/cmake/Help/prop_tgt/ENABLE_EXPORTS.rst
 share/cmake/Help/prop_tgt/EXCLUDE_FROM_ALL.rst
 share/cmake/Help/prop_tgt/EXCLUDE_FROM_DEFAULT_BUILD.rst
 share/cmake/Help/prop_tgt/EXCLUDE_FROM_DEFAULT_BUILD_CONFIG.rst
+share/cmake/Help/prop_tgt/EXPORT_COMPILE_COMMANDS.rst
 share/cmake/Help/prop_tgt/EXPORT_NAME.rst
 share/cmake/Help/prop_tgt/EXPORT_PROPERTIES.rst
 share/cmake/Help/prop_tgt/EchoString.rst
@@ -1063,6 +1072,7 @@ share/cmake/Help/prop_tgt/UNITY_BUILD_BATCH_SIZE.rst
 share/cmake/Help/prop_tgt/UNITY_BUILD_CODE_AFTER_INCLUDE.rst
 share/cmake/Help/prop_tgt/UNITY_BUILD_CODE_BEFORE_INCLUDE.rst
 share/cmake/Help/prop_tgt/UNITY_BUILD_MODE.rst
+share/cmake/Help/prop_tgt/UNITY_BUILD_UNIQUE_ID.rst
 share/cmake/Help/prop_tgt/VERSION.rst
 share/cmake/Help/prop_tgt/VISIBILITY_INLINES_HIDDEN.rst
 share/cmake/Help/prop_tgt/VS_CONFIGURATION_TYPE.rst
@@ -1106,6 +1116,10 @@ share/cmake/Help/prop_tgt/VS_WINRT_REFERENCES.rst
 share/cmake/Help/prop_tgt/WIN32_EXECUTABLE.rst
 share/cmake/Help/prop_tgt/WINDOWS_EXPORT_ALL_SYMBOLS.rst
 share/cmake/Help/prop_tgt/XCODE_ATTRIBUTE_an-attribute.rst
+share/cmake/Help/prop_tgt/XCODE_EMBED_FRAMEWORKS_CODE_SIGN_ON_COPY.rst
+share/cmake/Help/prop_tgt/XCODE_EMBED_FRAMEWORKS_REMOVE_HEADERS_ON_COPY.rst
+share/cmake/Help/prop_tgt/XCODE_EMBED_type.rst
+share/cmake/Help/prop_tgt/XCODE_EMBED_type_PATH.rst
 share/cmake/Help/prop_tgt/XCODE_EXPLICIT_FILE_TYPE.rst
 share/cmake/Help/prop_tgt/XCODE_GENERATE_SCHEME.rst
 share/cmake/Help/prop_tgt/XCODE_LINK_BUILD_PHASE_MODE.rst
@@ -1147,6 +1161,7 @@ share/cmake/Help/release/3.17.rst
 share/cmake/Help/release/3.18.rst
 share/cmake/Help/release/3.19.rst
 share/cmake/Help/release/3.2.rst
+share/cmake/Help/release/3.20.rst
 share/cmake/Help/release/3.3.rst
 share/cmake/Help/release/3.4.rst
 share/cmake/Help/release/3.5.rst
@@ -1171,6 +1186,7 @@ share/cmake/Help/variable/CMAKE_ANDROID_ARCH_ABI.rst
 share/cmake/Help/variable/CMAKE_ANDROID_ARM_MODE.rst
 share/cmake/Help/variable/CMAKE_ANDROID_ARM_NEON.rst
 share/cmake/Help/variable/CMAKE_ANDROID_ASSETS_DIRECTORIES.rst
+share/cmake/Help/variable/CMAKE_ANDROID_EXCEPTIONS.rst
 share/cmake/Help/variable/CMAKE_ANDROID_GUI.rst
 share/cmake/Help/variable/CMAKE_ANDROID_JAR_DEPENDENCIES.rst
 share/cmake/Help/variable/CMAKE_ANDROID_JAR_DIRECTORIES.rst
@@ -1181,9 +1197,11 @@ share/cmake/Help/variable/CMAKE_ANDROID_NDK.rst
 share/cmake/Help/variable/CMAKE_ANDROID_NDK_DEPRECATED_HEADERS.rst
 share/cmake/Help/variable/CMAKE_ANDROID_NDK_TOOLCHAIN_HOST_TAG.rst
 share/cmake/Help/variable/CMAKE_ANDROID_NDK_TOOLCHAIN_VERSION.rst
+share/cmake/Help/variable/CMAKE_ANDROID_NDK_VERSION.rst
 share/cmake/Help/variable/CMAKE_ANDROID_PROCESS_MAX.rst
 share/cmake/Help/variable/CMAKE_ANDROID_PROGUARD.rst
 share/cmake/Help/variable/CMAKE_ANDROID_PROGUARD_CONFIG_PATH.rst
+share/cmake/Help/variable/CMAKE_ANDROID_RTTI.rst
 share/cmake/Help/variable/CMAKE_ANDROID_SECURE_PROPS_PATH.rst
 share/cmake/Help/variable/CMAKE_ANDROID_SKIP_ANT_STEP.rst
 share/cmake/Help/variable/CMAKE_ANDROID_STANDALONE_TOOLCHAIN.rst
@@ -1276,6 +1294,7 @@ share/cmake/Help/variable/CMAKE_DEBUG_TARGET_PROPERTIES.rst
 share/cmake/Help/variable/CMAKE_DEFAULT_BUILD_TYPE.rst
 share/cmake/Help/variable/CMAKE_DEFAULT_CONFIGS.rst
 share/cmake/Help/variable/CMAKE_DEPENDS_IN_PROJECT_ONLY.rst
+share/cmake/Help/variable/CMAKE_DEPENDS_USE_COMPILER.rst
 share/cmake/Help/variable/CMAKE_DIRECTORY_LABELS.rst
 share/cmake/Help/variable/CMAKE_DISABLE_FIND_PACKAGE_PackageName.rst
 share/cmake/Help/variable/CMAKE_DISABLE_PRECOMPILE_HEADERS.rst
@@ -1393,6 +1412,7 @@ share/cmake/Help/variable/CMAKE_LANG_ANDROID_TOOLCHAIN_SUFFIX.rst
 share/cmake/Help/variable/CMAKE_LANG_ARCHIVE_APPEND.rst
 share/cmake/Help/variable/CMAKE_LANG_ARCHIVE_CREATE.rst
 share/cmake/Help/variable/CMAKE_LANG_ARCHIVE_FINISH.rst
+share/cmake/Help/variable/CMAKE_LANG_BYTE_ORDER.rst
 share/cmake/Help/variable/CMAKE_LANG_CLANG_TIDY.rst
 share/cmake/Help/variable/CMAKE_LANG_COMPILER.rst
 share/cmake/Help/variable/CMAKE_LANG_COMPILER_ABI.rst
@@ -1583,6 +1603,7 @@ share/cmake/Help/variable/CMAKE_TRY_COMPILE_TARGET_TYPE.rst
 share/cmake/Help/variable/CMAKE_TWEAK_VERSION.rst
 share/cmake/Help/variable/CMAKE_UNITY_BUILD.rst
 share/cmake/Help/variable/CMAKE_UNITY_BUILD_BATCH_SIZE.rst
+share/cmake/Help/variable/CMAKE_UNITY_BUILD_UNIQUE_ID.rst
 share/cmake/Help/variable/CMAKE_USER_MAKE_RULES_OVERRIDE.rst
 share/cmake/Help/variable/CMAKE_USER_MAKE_RULES_OVERRIDE_LANG.rst
 share/cmake/Help/variable/CMAKE_USE_RELATIVE_PATHS.rst
@@ -1882,6 +1903,7 @@ share/cmake/Modules/CMakePackageConfigHelpers.cmake
 share/cmake/Modules/CMakeParseArguments.cmake
 share/cmake/Modules/CMakeParseImplicitIncludeInfo.cmake
 share/cmake/Modules/CMakeParseImplicitLinkInfo.cmake
+share/cmake/Modules/CMakeParseLibraryArchitecture.cmake
 share/cmake/Modules/CMakePlatformId.h.in
 share/cmake/Modules/CMakePrintHelpers.cmake
 share/cmake/Modules/CMakePrintSystemInformation.cmake
@@ -2177,8 +2199,6 @@ share/cmake/Modules/TestForSTDNamespace.cmake
 share/cmake/Modules/TestForSTDNamespace.cxx
 share/cmake/Modules/UseEcos.cmake
 share/cmake/Modules/UseJava.cmake
-share/cmake/Modules/UseJavaClassFilelist.cmake
-share/cmake/Modules/UseJavaSymlinks.cmake
 share/cmake/Modules/UsePkgConfig.cmake
 share/cmake/Modules/UseQt4.cmake
 share/cmake/Modules/UseSWIG.cmake
@@ -2189,7 +2209,6 @@ share/cmake/Modules/WriteBasicConfigVersionFile.cmake
 share/cmake/Modules/WriteCompilerDetectionHeader.cmake
 share/cmake/Modules/ecos_clean.cmake
 share/cmake/Modules/exportheader.cmake.in
-share/cmake/Modules/javaTargets.cmake.in
 share/cmake/Modules/kde3init_dummy.cpp.in
 share/cmake/Modules/kde3uic.cmake
 share/cmake/Modules/readme.txt
@@ -2301,6 +2320,12 @@ share/cmake/Modules/Compiler/Intel-DetermineCompiler.cmake
 share/cmake/Modules/Compiler/Intel-Fortran.cmake
 share/cmake/Modules/Compiler/Intel-ISPC.cmake
 share/cmake/Modules/Compiler/Intel.cmake
+share/cmake/Modules/Compiler/IntelLLVM-ASM.cmake
+share/cmake/Modules/Compiler/IntelLLVM-C.cmake
+share/cmake/Modules/Compiler/IntelLLVM-CXX.cmake
+share/cmake/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake
+share/cmake/Modules/Compiler/IntelLLVM-Fortran.cmake
+share/cmake/Modules/Compiler/IntelLLVM.cmake
 share/cmake/Modules/Compiler/MSVC-ASM.cmake
 share/cmake/Modules/Compiler/MSVC-C-FeatureTests.cmake
 share/cmake/Modules/Compiler/MSVC-C.cmake
@@ -2308,6 +2333,11 @@ share/cmake/Modules/Compiler/MSVC-CXX-FeatureTests.cmake
 share/cmake/Modules/Compiler/MSVC-CXX.cmake
 share/cmake/Modules/Compiler/MSVC-DetermineCompiler.cmake
 share/cmake/Modules/Compiler/NAG-Fortran.cmake
+share/cmake/Modules/Compiler/NVHPC-C.cmake
+share/cmake/Modules/Compiler/NVHPC-CXX.cmake
+share/cmake/Modules/Compiler/NVHPC-DetermineCompiler.cmake
+share/cmake/Modules/Compiler/NVHPC-Fortran.cmake
+share/cmake/Modules/Compiler/NVHPC.cmake
 share/cmake/Modules/Compiler/NVIDIA-CUDA.cmake
 share/cmake/Modules/Compiler/NVIDIA-DetermineCompiler.cmake
 share/cmake/Modules/Compiler/OpenWatcom-C.cmake
@@ -2502,6 +2532,10 @@ share/cmake/Modules/Platform/Apple-Intel-C.cmake
 share/cmake/Modules/Platform/Apple-Intel-CXX.cmake
 share/cmake/Modules/Platform/Apple-Intel-Fortran.cmake
 share/cmake/Modules/Platform/Apple-Intel.cmake
+share/cmake/Modules/Platform/Apple-IntelLLVM-C.cmake
+share/cmake/Modules/Platform/Apple-IntelLLVM-CXX.cmake
+share/cmake/Modules/Platform/Apple-IntelLLVM-Fortran.cmake
+share/cmake/Modules/Platform/Apple-IntelLLVM.cmake
 share/cmake/Modules/Platform/Apple-NAG-Fortran.cmake
 share/cmake/Modules/Platform/Apple-NVIDIA-CUDA.cmake
 share/cmake/Modules/Platform/Apple-PGI-C.cmake
@@ -2604,7 +2638,15 @@ share/cmake/Modules/Platform/Linux-Intel-C.cmake
 share/cmake/Modules/Platform/Linux-Intel-CXX.cmake
 share/cmake/Modules/Platform/Linux-Intel-Fortran.cmake
 share/cmake/Modules/Platform/Linux-Intel.cmake
+share/cmake/Modules/Platform/Linux-IntelLLVM-C.cmake
+share/cmake/Modules/Platform/Linux-IntelLLVM-CXX.cmake
+share/cmake/Modules/Platform/Linux-IntelLLVM-Fortran.cmake
+share/cmake/Modules/Platform/Linux-IntelLLVM.cmake
 share/cmake/Modules/Platform/Linux-NAG-Fortran.cmake
+share/cmake/Modules/Platform/Linux-NVHPC-C.cmake
+share/cmake/Modules/Platform/Linux-NVHPC-CXX.cmake
+share/cmake/Modules/Platform/Linux-NVHPC-Fortran.cmake
+share/cmake/Modules/Platform/Linux-NVHPC.cmake
 share/cmake/Modules/Platform/Linux-OpenWatcom-C.cmake
 share/cmake/Modules/Platform/Linux-OpenWatcom-CXX.cmake
 share/cmake/Modules/Platform/Linux-OpenWatcom.cmake
@@ -2684,6 +2726,11 @@ share/cmake/Modules/Platform/Windows-Intel-CXX.cmake
 share/cmake/Modules/Platform/Windows-Intel-Fortran.cmake
 share/cmake/Modules/Platform/Windows-Intel-ISPC.cmake
 share/cmake/Modules/Platform/Windows-Intel.cmake
+share/cmake/Modules/Platform/Windows-IntelLLVM-ASM.cmake
+share/cmake/Modules/Platform/Windows-IntelLLVM-C.cmake
+share/cmake/Modules/Platform/Windows-IntelLLVM-CXX.cmake
+share/cmake/Modules/Platform/Windows-IntelLLVM-Fortran.cmake
+share/cmake/Modules/Platform/Windows-IntelLLVM.cmake
 share/cmake/Modules/Platform/Windows-MSVC-C.cmake
 share/cmake/Modules/Platform/Windows-MSVC-CXX.cmake
 share/cmake/Modules/Platform/Windows-MSVC.cmake
@@ -2773,7 +2820,10 @@ share/cmake/Modules/Platform/Android/ndk-stl-stlport.cmake
 share/cmake/Modules/Platform/Android/ndk-stl-stlport_shared.cmake
 share/cmake/Modules/Platform/Android/ndk-stl-stlport_static.cmake
 share/cmake/Modules/Platform/Android/ndk-stl-system.cmake
+share/cmake/Modules/UseJava/ClassFilelist.cmake
 share/cmake/Modules/UseJava/ClearClassFiles.cmake
+share/cmake/Modules/UseJava/Symlinks.cmake
+share/cmake/Modules/UseJava/javaTargets.cmake.in
 share/cmake/Modules/UseSWIG/ManageSupportFiles.cmake
 share/cmake/Templates/AppleInfo.plist
 share/cmake/Templates/CMakeVSMacros1.vsmacros
