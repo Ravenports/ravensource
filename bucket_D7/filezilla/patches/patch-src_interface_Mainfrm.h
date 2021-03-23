@@ -1,4 +1,4 @@
---- src/interface/Mainfrm.h.orig	2020-09-12 03:30:03 UTC
+--- src/interface/Mainfrm.h.orig	2021-03-02 04:30:02 UTC
 +++ src/interface/Mainfrm.h
 @@ -1,6 +1,7 @@
  #ifndef FILEZILLA_INTERFACE_MAINFRM_HEADER
