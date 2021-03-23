@@ -295,6 +295,7 @@ function inline_fix_setup ($namebase, $src) {
        "xml2rfc"      => false,
        "django-colorful" => false,
        "pyzmq"        => '/cythonize(/ s|, |, quiet=True, |',
+       "cffsubr"      => 's|"Linux"|platform.system()|',
    );
    $setup = $src . "/setup.py";
    if (array_key_exists($namebase, $known_issues)) {

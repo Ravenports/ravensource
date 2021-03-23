@@ -50,7 +50,7 @@ https://python-lazy-object-proxy.readthedocs.io/
 Development
 ===========
 
-To run the all tests run::
+To run all the tests run::
 
     tox
 
@@ -64,6 +64,20 @@ history.
 
 Changelog
 =========
+
+1.6.0 (2021-03-22)
+------------------
+
+* Added support for async special methods (__aiter__, __anext__,
+  __await__, __aenter__, __aexit__).
+  These are used in the async for, ``await` and async with statements.
+
+  Note that __await__ returns a wrapper that tries to emulate the crazy
+  stuff going on in the ceval loop, so there will be a small performance
+overhead.
+* Added the __resolved__ property. You can use it to check if the factory
+has
+  been called.
 
 1.5.2 (2020-11-26)
 ------------------
@@ -84,17 +98,3 @@ Changelog
 * Dropped support for Python 3.4.
 
 1.4.3 (2019-10-26)
-------------------
-
-* Added binary wheels for Python 3.8.
-* Fixed license metadata.
-
-1.4.2 (2019-08-22)
-------------------
-
-* Included a ``pyproject.toml`` to allow users install the sdist with old
-python/setuptools, as the
-  setuptools-scm dep will be fetched by pip instead of setuptools.
-  Fixes `#30
-<https://github.com/ionelmc/python-lazy-object-proxy/issues/30>`_.
-

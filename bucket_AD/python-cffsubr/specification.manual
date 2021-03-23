@@ -1,0 +1,7 @@
+USES=			gmake
+
+post-patch:
+	${REINPLACE_CMD} -e 's|"Linux"|platform.system()|' \
+		${WRKSRC}/setup.py
+	${FIND} ${WRKSRC} -type f -name "build.sh" | ${XARGS} \
+	${REINPLACE_CMD} -e 's|make|gmake|; s|cp -dR|cp -a|'
