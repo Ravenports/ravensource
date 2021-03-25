@@ -1,4 +1,4 @@
---- src/process.h.orig	2020-07-29 21:40:42 UTC
+--- src/process.h.orig	2021-01-28 17:52:38 UTC
 +++ src/process.h
 @@ -24,6 +24,9 @@ along with GNU Emacs.  If not, see <http
  #endif
