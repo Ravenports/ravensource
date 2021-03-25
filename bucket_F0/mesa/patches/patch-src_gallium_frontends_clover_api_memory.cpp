@@ -1,4 +1,4 @@
---- src/gallium/frontends/clover/api/memory.cpp.orig	2021-01-29 18:33:19 UTC
+--- src/gallium/frontends/clover/api/memory.cpp.orig	2021-03-24 19:10:48 UTC
 +++ src/gallium/frontends/clover/api/memory.cpp
 @@ -457,7 +457,11 @@ clSVMAlloc(cl_context d_ctx,
        void *ptr = nullptr;
