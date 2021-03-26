@@ -3,13 +3,13 @@ ruamel.yaml
 
 ``ruamel.yaml`` is a YAML 1.2 loader/dumper package for Python.
 
-:version:       0.16.13
-:updated:       2021-03-05
+:version:       0.17.0
+:updated:       2021-03-26
 :documentation: http://yaml.readthedocs.io
 :repository:    https://sourceforge.net/projects/ruamel-yaml/
 :pypi:          https://pypi.org/project/ruamel.yaml/
 
-*The 0.16.13 release is the last that will tested to be working on Python
+*The 0.16.13 release was the last that will tested to be working on Python
 2.7.
 The 0.17 series will still be tested on Python 3.5, but the 0.18 will not.
 The
@@ -17,7 +17,13 @@ The
 `YAML()` instance
 will need to be created.*
 
-*Please adjust your dependencies accordingly if necessary.*
+*The 0.17 series will also see changes in how comments are attached during
+roundtrip. This will result in backwards incompatibilities on the `.ca`
+data and
+it might even be necessary for documented methods that handle comments.*
+
+*Please adjust your dependencies accordingly if necessary.
+(`ruamel.yaml<0.17`)*
 
 Starting with version 0.15.0 the way YAML files are loaded and dumped
 is changing. See the API doc for details.  Currently existing
@@ -28,7 +34,7 @@ but new functionality is likely only to be available via the new API.
 
 If your package uses ``ruamel.yaml`` and is not listed on PyPI, drop
 me an email, preferably with some information on how you use the
-package (or a link to bitbucket/github) and I'll keep you informed
+package (or a link to the repository) and I'll keep you informed
 when the status of the API is stable enough to make the transition.
 
 * [Overview]
@@ -44,6 +50,32 @@ ChangeLog
 
 .. should insert NEXT: at the beginning of line for next key (with empty
 line)
+
+0.17.0 (2021-03-26):
+  - this release no longer supports Python 2.7, most if not all Python 2
+    specific code is removed. The 0.17.x series is the last to  support
+Python 3.5
+    (this also allowed for removal of the dependency  on
+``ruamel.std.pathlib``)
+  - remove Python2 specific code branches and adaptations (u-strings)
+  - prepare % code for f-strings using _F
+  - allow PyOxidisation ([issue 324]
+    resp. [issue 171])
+  - replaced Python 2 compatible enforcement of keyword arguments with '*'
+  - the old top level *functions* load, safe_load, round_trip_load,
+    dump, safe_dump, round_trip_dump, scan, parse,
+    compose, emit, serialize as well as their _all variants for
+    multi-document streams, now issue a PendingDeprecationning (e.g. when
+run
+    from pytest, but also Python is started with ``-Wd``). Use the methods
+on
+    ``YAML()``, which have been extended.
+  - fix for issue 376: indentation changes could put literal/folded scalar
+to start
+    before the ``#`` column of a following comment. Effectively making the
+comment
+    part of the scalar in the output. (reported by
+    [Bence Nagy])
 
 0.16.13 (2021-03-05):
   - fix for issue 359: could not update() CommentedMap with keyword
@@ -66,35 +98,3 @@ params
 0.16.11 (2020-09-03):
   - workaround issue with setuptools 0.50 and importing pip ( fix by jaraco
     https://github.com/pypa/setuptools/issues/2355#issuecomment-685159580 )
-
-0.16.10 (2020-02-12):
-  - (auto) updated image references in README to sourceforge
-
-0.16.9 (2020-02-11):
-  - update CHANGES
-
-0.16.8 (2020-02-11):
-  - update requirements so that ruamel.yaml.clib is installed for 3.8,
-    as it has become available (via manylinux builds)
-
-0.16.7 (2020-01-30):
-  - fix typchecking issue on TaggedScalar (reported by Jens Nielsen)
-  - fix error in dumping literal scalar in sequence with comments before
-element
-    (reported by [EJ Etherington])
-
-0.16.6 (2020-01-20):
-  - fix empty string mapping key roundtripping with preservation of quotes
-as `? ''`
-    (reported via email by Tomer Aharoni).
-  - fix incorrect state setting in class constructor (reported by [Douglas
-Raillard
-   ])
-  - adjust deprecation warning test for Hashable, as that no longer warns
-(reported
-    by [Jason Montleon])
-
-0.16.5 (2019-08-18):
-  - allow for ``YAML(typ=['unsafe', 'pytypes'])``
-
-0.16.4 (2019-08-16):
