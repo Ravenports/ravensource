@@ -1,6 +1,6 @@
---- src/bootstrap/builder.rs.orig	2021-02-10 17:36:44 UTC
+--- src/bootstrap/builder.rs.orig	2021-03-23 16:15:10 UTC
 +++ src/bootstrap/builder.rs
-@@ -1082,12 +1082,13 @@ impl<'a> Builder<'a> {
+@@ -1088,12 +1088,13 @@ impl<'a> Builder<'a> {
                  rustflags.arg("-Zosx-rpath-install-name");
                  Some("-Wl,-rpath,@loader_path/../lib")
              } else if !target.contains("windows") {
