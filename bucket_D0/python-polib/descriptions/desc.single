@@ -3,43 +3,34 @@
 polib
 =====
 
-.. image:: https://img.shields.io/pypi/dm/polib.svg
-    :alt: Downloads
+|build-status-image| |codecov-image| |documentation-status-image|
+|pypi-version| |py-versions|
 
-.. image:: https://img.shields.io/pypi/pyversions/polib.svg
-    :alt: Supported Python versions
-
-.. image:: https://img.shields.io/pypi/status/polib.svg
-    :alt: Development Status
-
-.. image:: https://img.shields.io/pypi/l/polib.svg
-    :alt: License
+Overview
+--------
 
 polib is a library to manipulate, create, modify gettext files (pot, po and
 mo
 files). You can load existing files, iterate through it's entries, add,
 modify
-entries, comments or metadata, etc... or create new po files from scratch.
+entries, comments or metadata, etc   :alt: Travis build
 
-polib supports out of the box any version of python ranging from 2.5 to
-latest
-3.X version.
+   :alt: Pypi version
 
-polib is pretty stable now and is used by many 
-[opensource projects].
+   :alt: Documentation Status
 
-The project code and bugtracker is hosted on 
-[Bitbucket]. 
-
-polib is generously documented, you can [browse the documentation online 
-], a good start is to read 
-[the quickstart guide ].
-
-Thanks for downloading polib !
+   :alt: Python versions
 
 =========
 Changelog
 =========
+
+Version 1.1.1 (2021/03/26)
+--------------------------
+ - Strip UTF-16 BOM (U+FEFF) from start of file
+ - Message context (msgctxt) support for MO files
+ - Dropped Python < 2.7 support
+ - Updated docs and README after switch from Bitbucket to Github
 
 Version 1.1.0 (2017/11/27)
 --------------------------
@@ -98,3 +89,12 @@ Version 1.0.4 (2014/02/19)
  - Fixed issue #43: improved check that determine if polib is dealing with
 a filepath or unicode content
  - Fixed issue #44: polib now checks MO files revision number and throws an
+error if the number is unexpected
+ - Fixed issue #45: parse properly mo files with no header entry
+ - Fixed issue #47: added flags attribute for MOEntry to be consistent with
+POEntry
+ - Fixed issue #49: use integers rather than strings for msgstr_plural keys
+ - Fixed issue #51: if a PO file ends with a comment, polib adds a spurious
+empty entry at the end
+ - Fixed issue #52: bad magic number written on big endian platforms
+ - Fixed issue #53: added a __hash__() method to POEntry and MOEntry
