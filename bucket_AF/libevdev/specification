@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	1.11.0
+DEF[SOVERSION]=		2.3.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libevdev
@@ -20,6 +21,21 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		devel/libevdev
 
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		evdev-proto:single:standard
+
 USES=			meson pkgconfig python:build
 MESON_ARGS=		-Ddocumentation=disabled
 			-Dtests=disabled
+CFLAGS=			-Wno-incompatible-pointer-types
+			-Wno-unused-function
+			-Wno-format-truncation
+SOVERSION=		${SOVERSION}
+
+post-extract:
+	(cd ${WRKSRC}/include && ${MV} linux stock)
+	${MKDIR} ${WRKSRC}/include/linux
+	${CP} ${LOCALBASE}/include/linux/*.h ${WRKSRC}/include/linux/

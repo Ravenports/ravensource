@@ -1,0 +1,15 @@
+--- meson.build.orig	2021-02-01 06:17:28 UTC
++++ meson.build
+@@ -38,9 +38,9 @@ config_h.set('_GNU_SOURCE', '1')
+ pkgconfig = import('pkgconfig')
+ dep_lm = cc.find_library('m')
+ 
+-input_h = join_paths(meson.source_root(), 'include', 'linux', host_machine.system(), 'input.h')
+-uinput_h = join_paths(meson.source_root(), 'include', 'linux', host_machine.system(), 'uinput.h')
+-input_event_codes_h = join_paths(meson.source_root(), 'include', 'linux', host_machine.system(), 'input-event-codes.h')
++input_h = join_paths(meson.source_root(), 'include', 'linux', 'input.h')
++uinput_h = join_paths(meson.source_root(), 'include', 'linux', 'uinput.h')
++input_event_codes_h = join_paths(meson.source_root(), 'include', 'linux', 'input-event-codes.h')
+ 
+ # event-names.h
+ make_event_names = find_program('libevdev/make-event-names.py')

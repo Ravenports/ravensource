@@ -1,21 +1,19 @@
---- tools/touchpad-edge-detector.c.orig	2019-05-02 15:11:50.000000000 +0300
-+++ tools/touchpad-edge-detector.c	2019-05-14 13:34:34.207305000 +0300
-@@ -26,7 +26,13 @@
- #endif
+--- tools/touchpad-edge-detector.c.orig	2021-02-01 06:17:28 UTC
++++ tools/touchpad-edge-detector.c
+@@ -5,6 +5,11 @@
  
- #include <libevdev/libevdev.h>
+ #include "config.h"
+ 
 +#if defined(__DragonFly__)
 +#include <sys/types.h>
 +#include <sys/event.h>
 +#include <sys/time.h>
-+#else
- #include <sys/signalfd.h>
 +#endif
  #include <errno.h>
  #include <fcntl.h>
- #include <limits.h>
-@@ -103,6 +109,88 @@ handle_event(struct dimensions *d, const
- 	return 0;
+ #include <libgen.h>
+@@ -93,6 +98,88 @@ signal_handler(__attribute__((__unused__
+ 	signalled++;
  }
  
 +#if defined(__DragonFly__)
@@ -102,8 +100,8 @@
 +#else  /* Linux */
  static int
  mainloop(struct libevdev *dev, struct dimensions *dim) {
- 	struct pollfd fds[2];
-@@ -141,6 +229,7 @@ mainloop(struct libevdev *dev, struct di
+ 	struct pollfd fds;
+@@ -129,6 +216,7 @@ mainloop(struct libevdev *dev, struct di
  
  	return 0;
  }

@@ -1,21 +1,19 @@
---- tools/mouse-dpi-tool.c.orig	2019-05-02 15:11:57.000000000 +0300
-+++ tools/mouse-dpi-tool.c	2019-05-14 13:33:52.197067000 +0300
-@@ -26,7 +26,13 @@
- #endif
+--- tools/mouse-dpi-tool.c.orig	2021-02-01 06:17:28 UTC
++++ tools/mouse-dpi-tool.c
+@@ -5,6 +5,11 @@
  
- #include <libevdev/libevdev.h>
+ #include "config.h"
+ 
 +#if defined(__DragonFly__)
 +#include <sys/types.h>
 +#include <sys/event.h>
 +#include <sys/time.h>
-+#else
- #include <sys/signalfd.h>
 +#endif
  #include <errno.h>
  #include <fcntl.h>
- #include <limits.h>
-@@ -145,6 +151,88 @@ handle_event(struct measurements *m, con
- 	return 0;
+ #include <libgen.h>
+@@ -130,6 +135,88 @@ signal_handler(__attribute__((__unused__
+ 	signalled++;
  }
  
 +#if defined(__DragonFly__)
@@ -102,8 +100,8 @@
 +#else  /* Linux */
  static int
  mainloop(struct libevdev *dev, struct measurements *m) {
- 	struct pollfd fds[2];
-@@ -183,6 +271,7 @@ mainloop(struct libevdev *dev, struct me
+ 	struct pollfd fds;
+@@ -165,6 +252,7 @@ mainloop(struct libevdev *dev, struct me
  
  	return 0;
  }
