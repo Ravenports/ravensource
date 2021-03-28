@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	0.2.6
+DEF[FOLDER]=		${PORTVERSION:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libmanette
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel games
+VARIANTS=		standard
+SDESC[standard]=	Simple GObject game controller library
+HOMEPAGE=		https://gnome.pages.gitlab.gnome.org/libmanette/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/libmanette/${FOLDER}
+DISTFILE[1]=		libmanette-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:single
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/libmanette.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		vala:single:standard
+			evdev-proto:single:standard
+BUILDRUN_DEPENDS=	libevdev:single:standard
+
+USES=			gmake meson pkgconfig
+GNOME_COMPONENTS=	introspection glib
+MESON_ARGS=		-Dvapi=true
+			-Dintrospection=true
+			-Ddemos=false
+			-Dbuild-tests=false
