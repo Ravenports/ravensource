@@ -1,6 +1,6 @@
---- Source/JavaScriptCore/assembler/ARM64Assembler.h.orig	2021-02-01 09:29:55 UTC
+--- Source/JavaScriptCore/assembler/ARM64Assembler.h.orig	2021-02-26 09:57:05 UTC
 +++ Source/JavaScriptCore/assembler/ARM64Assembler.h
-@@ -2827,6 +2827,8 @@ public:
+@@ -2861,6 +2861,8 @@ public:
          sys_cache_control(kCacheFunctionPrepareForExecution, code, size);
  #elif OS(FUCHSIA)
          zx_cache_flush(code, size, ZX_CACHE_FLUSH_INSN);

@@ -1,6 +1,6 @@
---- Source/cmake/WebKitCompilerFlags.cmake.orig	2020-08-12 09:17:57 UTC
+--- Source/cmake/WebKitCompilerFlags.cmake.orig	2021-03-25 13:27:32 UTC
 +++ Source/cmake/WebKitCompilerFlags.cmake
-@@ -232,7 +232,7 @@ if (NOT MSVC)
+@@ -235,7 +235,7 @@ if (NOT MSVC)
      string(REGEX MATCHALL "-fsanitize=[^ ]*" ENABLED_COMPILER_SANITIZERS ${CMAKE_CXX_FLAGS})
  endif ()
  

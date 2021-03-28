@@ -2,7 +2,7 @@ $NetBSD: patch-Source_WTF_wtf_FileSystem.cpp,v 1.3 2020/09/11 14:47:35 leot Exp 
 
 Support MAP_FILE if unavailable.
 
---- Source/WTF/wtf/FileSystem.cpp.orig	2020-08-12 09:17:54 UTC
+--- Source/WTF/wtf/FileSystem.cpp.orig	2021-02-26 09:57:08 UTC
 +++ Source/WTF/wtf/FileSystem.cpp
 @@ -339,6 +339,9 @@ bool MappedFileData::mapFileHandle(Platf
  #endif

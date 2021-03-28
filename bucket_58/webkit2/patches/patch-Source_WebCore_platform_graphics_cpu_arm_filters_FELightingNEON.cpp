@@ -1,4 +1,4 @@
---- Source/WebCore/platform/graphics/cpu/arm/filters/FELightingNEON.cpp.orig	2020-08-12 09:17:55 UTC
+--- Source/WebCore/platform/graphics/cpu/arm/filters/FELightingNEON.cpp.orig	2021-02-26 09:57:13 UTC
 +++ Source/WebCore/platform/graphics/cpu/arm/filters/FELightingNEON.cpp
 @@ -403,7 +403,7 @@ TOSTRING(neonDrawLighting) ":" NL
      "vmin.f32 " TMP2_D0 ", " TMP2_D0 ", " CONST_ONE_HI_D NL

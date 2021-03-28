@@ -1,6 +1,6 @@
-DEF[PORTVERSION]=	2.30.6
-DEF[SOVERSION]=		37.49.10
-DEF[JSSOVERSION]=	18.17.14
+DEF[PORTVERSION]=	2.32.0
+DEF[SOVERSION]=		37.53.1
+DEF[JSSOVERSION]=	18.18.4
 DEF[WKAPI]=		4.0
 DEF[WKAPIMAJOR]=	${WKAPI:R}
 # ----------------------------------------------------------------------------
@@ -55,6 +55,9 @@ BUILDRUN_DEPENDS=	enchant:single:standard
 			gstreamer1-plugins-base:primary:standard
 			openjpeg:single:standard
 
+# required for ENABLE_GAMEPAD=ON
+# #			libmanette:single:standard
+
 USES=			png mesa cmake pkgconfig sqlite bison
 			perl:build python:build ruby:build
 			gettext-tools cpe
@@ -70,6 +73,7 @@ CMAKE_ARGS=		-DPORT=GTK
 			-DENABLE_MINIBROWSER:BOOL=ON
 			-DENABLE_WAYLAND_TARGET:BOOL=OFF
 			-DENABLE_BUBBLEWRAP_SANDBOX:BOOL=OFF
+			-DENABLE_GAMEPAD:BOOL=OFF
 			-DSUPPRESS_ASSERT:BOOL=ON
 			-DUSE_SYSTEMD:BOOL=OFF
 			-DUSE_GSTREAMER_GL:BOOL=OFF
@@ -82,13 +86,10 @@ PLIST_SUB=		JSSOVERSION=${JSSOVERSION}
 SOVERSION=		${SOVERSION}
 
 [GTK3].DESCRIPTION=			Build GTK+3 variant
-[GTK3].MAKEFILE_ON=			BROWSER_PLUGIN_DIR={{LOCALBASE}}/lib/browser_plugins/symlinks/webkit-gtk3
 
 VAR_OPSYS[sunos]=	CMAKE_ARGS=-DUSE_LD_GOLD:BOOL=OFF
 
 post-patch:
-	${REINPLACE_CMD} -e 's|/usr/lib/browser/plugins|${BROWSER_PLUGINS_DIR}|' \
-		${WRKSRC}/Source/WebKit/Shared/Plugins/unix/PluginSearchPath.cpp
 	echo 'add_compile_definitions("U_DEFINE_FALSE_AND_TRUE=1")' \
 		>> ${WRKSRC}/Source/WTF/wtf/CMakeLists.txt
 

@@ -2,7 +2,7 @@ $NetBSD: patch-Source_WTF_wtf_StackBounds.cpp,v 1.2 2018/10/24 18:31:07 leot Exp
 
 SunOS does not have pthread_getattr_np.
 
---- Source/WTF/wtf/StackBounds.cpp.orig	2020-08-12 09:17:54 UTC
+--- Source/WTF/wtf/StackBounds.cpp.orig	2021-02-26 09:57:08 UTC
 +++ Source/WTF/wtf/StackBounds.cpp
 @@ -90,6 +90,7 @@ StackBounds StackBounds::newThreadStackB
  #if HAVE(PTHREAD_NP_H) || OS(NETBSD)
