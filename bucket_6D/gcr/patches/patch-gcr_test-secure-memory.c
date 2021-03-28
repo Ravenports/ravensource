@@ -1,4 +1,4 @@
---- gcr/test-secure-memory.c.orig	2021-01-12 22:54:00 UTC
+--- gcr/test-secure-memory.c.orig	2021-03-27 06:18:27 UTC
 +++ gcr/test-secure-memory.c
 @@ -55,6 +55,10 @@ extern int egg_secure_warnings;
  static gsize

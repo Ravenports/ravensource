@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.38.1
+DEF[PORTVERSION]=	3.40.0
 DEF[SOVERSION_gck]=	0.0.0
 DEF[SOVERSION_gcr]=	1.0.0
 DEF[SOVERSION_gcrbase]=	1.0.0
@@ -34,27 +34,27 @@ FPC_EQUIVALENT=		security/gcr
 BUILD_DEPENDS=		libtool:single:standard
 			intltool:single:standard
 			vala:single:standard
+			gnupg:primary:standard
 BUILDRUN_DEPENDS=	dbus:single:standard
 			libgcrypt:single:standard
 			libtasn1:primary:standard
 			p11-kit:primary:standard
 
-USES=			gettext-tools gmake libtool pkgconfig gtk-doc
-			autoreconf:build python:build
+USES=			gettext-tools gmake pkgconfig gtk-doc meson
+			python:build
 			schemas:primary
 			desktop-utils:primary
 			mime-info:primary
 			solaris-funcs
 GNOME_COMPONENTS=	gtk3 introspection
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-gtk-doc
-			--enable-debug=no
-			--disable-valgrind
+MESON_ARGS=		-Dgtk_doc=true
+			-Dgtk=true
+			-Dintrospection=true
 SOL_FUNCTIONS=		err.h:err.h
 			timegm:gck/gck-slot.c
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
-GTKDOC_OUTPUT_BASEDIR=	gcr-3
+GTKDOC_OUTPUT_BASEDIR=	gcr
 
 GLIB_SCHEMAS=		org.gnome.crypto.pgp.gschema.xml
 
@@ -68,9 +68,6 @@ PLIST_SUB=		GCK_SOVER=${SOVERSION_gck}
 			GCRUI_SOMAJOR=${SOVERSION_gcrui:R:R}
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
-
-pre-configure:
-	cd ${WRKSRC} && env NOCONFIGURE=1 ${SH} autogen.sh
 
 post-patch:
 	# timegm compat function untested by upstream in all cases
