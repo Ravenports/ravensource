@@ -1,6 +1,6 @@
---- src/amd/llvm/ac_llvm_build.h.orig	2021-03-24 19:10:48 UTC
+--- src/amd/llvm/ac_llvm_build.h.orig	2021-03-24 22:32:51 UTC
 +++ src/amd/llvm/ac_llvm_build.h
-@@ -34,6 +34,10 @@
+@@ -35,6 +35,10 @@
  
  #include <stdbool.h>
  

@@ -1,4 +1,4 @@
---- src/util/u_thread.h.orig	2021-03-24 19:10:49 UTC
+--- src/util/u_thread.h.orig	2021-03-24 22:32:52 UTC
 +++ src/util/u_thread.h
 @@ -39,6 +39,7 @@
  #include <signal.h>
@@ -29,7 +29,7 @@
  #endif
  #endif
     (void)name;
-@@ -208,7 +207,7 @@ util_set_current_thread_affinity(const u
+@@ -209,7 +208,7 @@ util_set_current_thread_affinity(const u
  static inline int64_t
  util_thread_get_time_nano(thrd_t thread)
  {
