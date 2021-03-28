@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.8
+DEF[PORTVERSION]=	5.11
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		evdev-proto
@@ -110,6 +110,11 @@ do-install-dragonfly:
 		/usr/include/compat/linux/input.h \
 		/usr/include/compat/linux/input-event-codes.h \
 		${STAGEDIR}${PREFIX}/include/linux/
+	# additional updates
+	(cd ${STAGEDIR}${PREFIX}/include/linux && \
+		${PATCH} --backup --forward --quiet -E -p0 --batch \
+		< ${FILESDIR}/dfly-input-event-codes.h)
+	${RM} ${STAGEDIR}${PREFIX}/include/linux/*.orig
 
 do-install-linux:
 	${INSTALL_DATA} ${WRKSRC}/*.h ${STAGEDIR}${PREFIX}/include/linux/

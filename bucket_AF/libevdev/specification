@@ -1,0 +1,25 @@
+DEF[PORTVERSION]=	1.11.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libevdev
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Wrapper library for evdev devices
+HOMEPAGE=		https://www.freedesktop.org/wiki/Software/libevdev/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.freedesktop.org/software/libevdev/
+DISTFILE[1]=		libevdev-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/libevdev
+
+USES=			meson pkgconfig python:build
+MESON_ARGS=		-Ddocumentation=disabled
+			-Dtests=disabled
