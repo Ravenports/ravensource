@@ -1,4 +1,4 @@
---- include/libtorrent/aux_/buffer.hpp.orig	2021-01-07 22:53:40 UTC
+--- include/libtorrent/aux_/buffer.hpp.orig	2021-03-28 21:43:23 UTC
 +++ include/libtorrent/aux_/buffer.hpp
 @@ -52,7 +52,7 @@ POSSIBILITY OF SUCH DAMAGE.
  #include <malloc.h>
