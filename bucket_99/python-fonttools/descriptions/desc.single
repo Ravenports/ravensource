@@ -34,6 +34,32 @@ install it with [pip]:
 Changelog
 ~~~~~~~~~
 
+4.22.0 (released 2021-04-01)
+----------------------------
+
+- [ttLib] Remove .Format from Coverage, ClassDef, SingleSubst,
+LigatureSubst,
+  AlternateSubst, MultipleSubst (#2238).
+  ATTENTION: This will change your TTX dumps!
+- [misc.arrayTools] move Vector to its own submodule, and rewrite as a
+tuple
+  subclass (#2201).
+- [docs] Added a terminology section for varLib (#2209).
+- [varLib] Move rounding to VariationModel, to avoid error accumulation
+from
+  multiple deltas (#2214)
+- [varLib] Explain merge errors in more human-friendly terms (#2223, #2226)
+- [otlLib] Correct some documentation (#2225)
+- [varLib/otlLib] Allow merging into VariationFont without first saving
+GPOS
+  PairPos2 (#2229)
+- [subset] Improve PairPosFormat2 subsetting (#2221)
+- [ttLib] TTFont.save: create file on disk as late as possible (#2253)
+- [cffLib] Add missing CFF2 dict operators LanguageGroup and
+ExpansionFactor
+  (#2249)
+  ATTENTION: This will change your TTX dumps!
+
 4.21.1 (released 2021-02-26)
 ----------------------------
 
@@ -72,29 +98,3 @@ json-able
 definition,
   now named PaintFormat. It was clashing with paint instance Format
 attribute
-  and thus was breaking lazy load of COLR table which relies on magic
-__getattr__
-  (#2175).
-- [COLRv1] Replace hand-coded builder functions with otData-driven dynamic
-  implementation (#2181).
-- [COLRv1] Define additional static (non-variable) Paint formats (#2181).
-- [subset] Added support for subsetting COLR v1 and CPAL tables (#2174,
-#2177).
-- [fontBuilder] Allow setupFvar to optionally take
-``designspaceLib.AxisDescriptor``
-  objects. Added new setupAvar method. Support localised names for axes and
-  named instances (#2185).
-
-4.19.1 (released 2021-01-28)
-----------------------------
-
-- [woff2] An initial off-curve point with an overlap flag now stays an
-off-curve
-  point after compression.
-
-4.19.0 (released 2021-01-25)
-----------------------------
-
-- [codecs] Handle errors parameter different from 'strict' for the custom
-  extended mac encodings (#2137, #2132).
-- [featureVars] Raise better error message when a script is missing the
