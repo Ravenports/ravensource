@@ -11,6 +11,7 @@ include/poppler/cpp/poppler-page.h
 include/poppler/cpp/poppler-rectangle.h
 include/poppler/cpp/poppler-toc.h
 include/poppler/cpp/poppler-version.h
+include/poppler/cpp/poppler_cpp_export.h
 lib/libpoppler-cpp.so
 lib/libpoppler-cpp.so.%%CPP_SOMAJOR%%
 lib/libpoppler-cpp.so.%%CPP_SOVERSION%%
