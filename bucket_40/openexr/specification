@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	EXTRACT_INFO(OPENEXR_VERSION)
+DEF[PORTVERSION]=	3.0.1
 DEF[MAJOR]=		${PORTVERSION:R:S|.|_|}
 DEF[MAJOR2]=		${MAJOR:S|_||}
 DEF[SOVERSION]=		${MAJOR2}.0.4
@@ -16,30 +16,30 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/AcademySoftwareFoundation:openexr:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary docs examples
+SPKGS[standard]=	complete primary examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 LICENSE=		BSD3CLAUSE:primary
-LICENSE_FILE=		BSD3CLAUSE:{{WRKDIR}}/LICENSE
-LICENSE_AWK=		BSD3CLAUSE:"^$$"
-LICENSE_SOURCE=		BSD3CLAUSE:{{WRKSRC}}/IlmImf/ImfLut.h
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE.md
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/openexr
 
-BUILDRUN_DEPENDS=	ilmbase:single:standard
+BUILDRUN_DEPENDS=	Imath:single:standard
 
-USES=			cpe cmake pkgconfig c++:primary zlib
+USES=			cpe cmake pkgconfig zlib c++:primary
 CMAKE_ARGS=		-DCMAKE_INSTALL_PREFIX={{PREFIX}}
-			--target install
-DISTNAME=		openexr-${PORTVERSION}/OpenEXR
-LDFLAGS=		-lpthread
-CPPFLAGS=		-I. -I../IlmImf
+			-DOPENEXR_IS_SUBPROJECT=1
+# LDFLAGS=		-lpthread
 PLIST_SUB=		MAJOR=${MAJOR}
 SOVERSION=		${SOVERSION}
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*-${MAJOR}.so
+	# ${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*-${MAJOR}.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/exr*
+	# relocate examples
+	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+	${MV} ${STAGEDIR}${STD_DOCDIR}/examples/* ${STAGEDIR}${STD_EXAMPLESDIR}/
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}
