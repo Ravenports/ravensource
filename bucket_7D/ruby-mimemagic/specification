@@ -47,3 +47,8 @@ GENERATED=		yes
 [RUBY30].BUILDRUN_DEPENDS_ON=		ruby-nokogiri:single:v30
 					ruby-rake:single:v30
 
+USES=			mime-info:single
+
+post-patch:
+	${REINPLACE_CMD} -e "s|/usr/local|${LOCALBASE}|" \
+		${WRKSRC}/ext/mimemagic/Rakefile

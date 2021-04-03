@@ -1,0 +1,5 @@
+USES=			mime-info:single
+
+post-patch:
+	${REINPLACE_CMD} -e "s|/usr/local|${LOCALBASE}|" \
+		${WRKSRC}/ext/mimemagic/Rakefile
