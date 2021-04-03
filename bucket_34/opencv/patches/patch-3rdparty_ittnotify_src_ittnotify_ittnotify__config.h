@@ -1,4 +1,4 @@
---- 3rdparty/ittnotify/src/ittnotify/ittnotify_config.h.orig	2020-12-21 20:01:38 UTC
+--- 3rdparty/ittnotify/src/ittnotify/ittnotify_config.h.orig	2021-04-02 11:23:54 UTC
 +++ 3rdparty/ittnotify/src/ittnotify/ittnotify_config.h
 @@ -80,7 +80,7 @@
  #    define ITT_OS ITT_OS_WIN
