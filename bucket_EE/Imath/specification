@@ -1,0 +1,30 @@
+DEF[PORTVERSION]=	3.0.1
+DEF[SOVERSION]=		27.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		Imath
+VERSION=		${PORTVERSION}
+KEYWORDS=		math
+VARIANTS=		standard
+SDESC[standard]=	C++ representation of 2D/3D vectors and matrices
+HOMEPAGE=		https://github.com/AcademySoftwareFoundation/Imath
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/AcademySoftwareFoundation:Imath:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE.md
+LICENSE_SCHEME=		solo
+
+USES=			cmake c++:single
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libImath-3_0.so
