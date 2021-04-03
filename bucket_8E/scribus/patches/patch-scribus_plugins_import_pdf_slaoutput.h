@@ -1,4 +1,4 @@
---- scribus/plugins/import/pdf/slaoutput.h.orig	2021-03-06 05:43:38 UTC
+--- scribus/plugins/import/pdf/slaoutput.h.orig	2021-04-03 05:55:39 UTC
 +++ scribus/plugins/import/pdf/slaoutput.h
 @@ -196,8 +196,8 @@ public:
  	void stroke(GfxState *state) override;
@@ -11,3 +11,15 @@
  	GBool axialShadedFill(GfxState *state, GfxAxialShading *shading, double tMin, double tMax) override;
  	GBool axialShadedSupportExtend(GfxState *state, GfxAxialShading *shading)  override { return (shading->getExtend0() == shading->getExtend1()); }
  	GBool radialShadedFill(GfxState *state, GfxRadialShading *shading, double sMin, double sMax) override;
+@@ -368,7 +368,11 @@ private:
+ 	Catalog *catalog {nullptr};
+ 	SplashFontEngine *m_fontEngine {nullptr};
+ 	SplashFont *m_font {nullptr};
++#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(21, 4, 0)
++	std::unique_ptr<FormPageWidgets> m_formWidgets {nullptr};
++#else
+ 	FormPageWidgets *m_formWidgets {nullptr};
++#endif
+ 	QHash<QString, QList<int> > m_radioMap;
+ 	QHash<int, PageItem*> m_radioButtons;
+ 	int m_actPage;
