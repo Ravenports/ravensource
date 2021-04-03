@@ -1,6 +1,6 @@
---- src/file.h.orig	2019-06-26 20:31:31 UTC
+--- src/file.h.orig	2021-02-23 00:49:06 UTC
 +++ src/file.h
-@@ -521,6 +521,7 @@ protected int buffer_fill(const struct b
+@@ -561,6 +561,7 @@ protected int buffer_fill(const struct b
  
  #include <locale.h>
  #if defined(HAVE_XLOCALE_H)
