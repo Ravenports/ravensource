@@ -1,4 +1,4 @@
---- cmake/QtFlagHandlingHelpers.cmake.orig	2021-02-09 18:01:03 UTC
+--- cmake/QtFlagHandlingHelpers.cmake.orig	2021-02-11 10:23:05 UTC
 +++ cmake/QtFlagHandlingHelpers.cmake
 @@ -73,7 +73,6 @@ function(qt_internal_add_link_flags_no_u
          if (NOT HAVE_DASH_UNDEFINED_SYMBOLS AND NOT HAVE_DASH_DASH_NO_UNDEFINED)
