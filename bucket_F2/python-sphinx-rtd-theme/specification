@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.5.1
+DEF[PORTVERSION]=	0.5.2
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-sphinx-rtd-theme
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/readthedocs/sphinx_rtd_theme
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/76/81/d5af3a50a45ee4311ac2dac5b599d69f68388401c7a4ca902e0e450a9f94
+SITES[main]=		PYPIWHL/ac/24/2475e8f83519b54b2148d4a56eb1111f9cec630d088c3ffc214492c12107
 DISTFILE[1]=		sphinx_rtd_theme-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
@@ -30,14 +30,17 @@ DISTNAME=		sphinx_rtd_theme-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # sphinx
+# docutils (<0.17)
 # transifex-client ; extra == 'dev'
 # sphinxcontrib-httpdomain ; extra == 'dev'
 # bump2version ; extra == 'dev'
 
 [PY38].USES_ON=				python:py38,wheel
 [PY38].RUN_DEPENDS_ON=			python-Sphinx:single:py38
+					python-docutils:single:py38
 [PY39].USES_ON=				python:py39,wheel
 [PY39].RUN_DEPENDS_ON=			python-Sphinx:single:py39
+					python-docutils:single:py39
 
 # avoid use of node and node-sass
 MAKE_ENV=		CI=yes
