@@ -1,4 +1,4 @@
---- lib/chunkio/deps/crc32/crc32.c.orig	2021-03-04 03:16:37 UTC
+--- lib/chunkio/deps/crc32/crc32.c.orig	2021-04-06 01:57:44 UTC
 +++ lib/chunkio/deps/crc32/crc32.c
 @@ -34,7 +34,7 @@
  #  define __BIG_ENDIAN 1
