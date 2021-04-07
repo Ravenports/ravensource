@@ -1,7 +1,7 @@
---- remote.c.orig	2021-01-26 08:03:11 UTC
+--- remote.c.orig	2021-04-06 11:23:15 UTC
 +++ remote.c
-@@ -92,6 +92,10 @@
- #  include <sys/un.h>
+@@ -95,6 +95,10 @@
+ #define AF_LOCAL AF_UNIX
  #endif
  
 +#ifndef AF_LOCAL
