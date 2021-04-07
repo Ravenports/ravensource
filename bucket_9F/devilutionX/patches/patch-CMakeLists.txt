@@ -1,31 +1,22 @@
---- CMakeLists.txt.orig	2020-10-11 13:44:46.574340000 +0200
-+++ CMakeLists.txt	2020-10-11 13:45:41.994998000 +0200
-@@ -92,7 +92,7 @@
-   include(cpigamesh_defs)
- endif()
- 
--if(${CMAKE_SYSTEM_NAME} STREQUAL FreeBSD OR ${CMAKE_SYSTEM_NAME} STREQUAL OpenBSD)
-+if(${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD|OpenBSD|DragonFly")
-   set(ASAN OFF)
-   set(UBSAN OFF)
-   add_definitions(-D_BSD_SOURCE)
-@@ -122,7 +122,6 @@
+--- CMakeLists.txt.orig	2021-04-07 18:18:26 UTC
++++ CMakeLists.txt
+@@ -144,7 +144,6 @@ if(PIE)
    set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
  endif()
  
 -set(CMAKE_CXX_STANDARD 11)
  set(CMAKE_CXX_EXTENSIONS OFF)
  set(CMAKE_CXX_STANDARD_REQUIRED ON)
- set(CMAKE_THREAD_PREFER_PTHREAD ON)
-@@ -511,11 +510,6 @@
-   if(NOT CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-     target_compile_options(devilution PUBLIC $<$<CONFIG:Debug>:-gstabs>)
+ set(CMAKE_EXPORT_COMPILE_COMMANDS ON) # for clang-tidy
+@@ -614,11 +613,6 @@ if(WIN32)
    endif()
--endif()
--
--if(NOT WIN32 AND NOT APPLE)
--  # Enable POSIX extensions such as `readlink` and `ftruncate`.
--  add_definitions(-D_POSIX_C_SOURCE=200809L)
  endif()
  
+-if(NOT WIN32 AND NOT APPLE AND NOT ${CMAKE_SYSTEM_NAME} STREQUAL FreeBSD)
+-  # Enable POSIX extensions such as `readlink` and `ftruncate`.
+-  add_definitions(-D_POSIX_C_SOURCE=200809L)
+-endif()
+-
  if(HAIKU)
+   target_link_libraries(${BIN_TARGET} PRIVATE network)
+ endif()
