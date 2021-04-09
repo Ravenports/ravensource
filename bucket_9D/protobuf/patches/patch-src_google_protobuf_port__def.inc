@@ -1,4 +1,4 @@
---- ../src/google/protobuf/port_def.inc.orig	2021-03-04 21:35:04 UTC
+--- ../src/google/protobuf/port_def.inc.orig	2021-04-07 22:38:38 UTC
 +++ ../src/google/protobuf/port_def.inc
 @@ -587,7 +587,7 @@
  #define PROTOBUF_ATTRIBUTE_NO_DESTROY
