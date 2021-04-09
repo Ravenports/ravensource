@@ -1,7 +1,6 @@
 DEF[PORTVERSION]=	EXTRACT_VERSION(RUBY_3.0_VERSION)
 DEF[PORTREVISION]=	EXTRACT_INFO(RUBY_3.0_REVISION)
 DEF[PATCHLEVEL]=	EXTRACT_INFO(RUBY_3.0_PATCHLEVEL)
-DEF[FLAVOR]=		-preview2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ruby30
@@ -15,7 +14,7 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBY/${PORTVERSION:R}
-DISTFILE[1]=		ruby-${PORTVERSION}${FLAVOR}.tar.xz:main
+DISTFILE[1]=		ruby-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		ruby
 
 SPKGS[standard]=	complete primary rdoc docs examples
@@ -37,7 +36,7 @@ BUILDRUN_DEPENDS=	libyaml:single:standard
 RUN_DEPENDS=		autoselect-ruby:single:standard
 
 USES=			autoreconf cpe execinfo readline ssl ruby:v30,interp zlib
-DISTNAME=		ruby-${PORTVERSION}${FLAVOR}
+DISTNAME=		ruby-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-pthread
 			--enable-shared
