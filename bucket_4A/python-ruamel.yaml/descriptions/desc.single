@@ -3,8 +3,8 @@ ruamel.yaml
 
 ``ruamel.yaml`` is a YAML 1.2 loader/dumper package for Python.
 
-:version:       0.17.2
-:updated:       2021-03-29
+:version:       0.17.4
+:updated:       2021-04-07
 :documentation: http://yaml.readthedocs.io
 :repository:    https://sourceforge.net/projects/ruamel-yaml/
 :pypi:          https://pypi.org/project/ruamel.yaml/
@@ -51,6 +51,18 @@ ChangeLog
 .. should insert NEXT: at the beginning of line for next key (with empty
 line)
 
+0.17.4 (2021-04-07):
+  - prevent (empty) comments from throwing assertion error (issue 351 
+    reported by  [William Kimball])
+    comments (or empty line) will be dropped 
+
+0.17.3 (2021-04-07):
+  - fix for issue 382 caused by an error in a format string (reported by
+    [William Kimball])
+  - allow expansion of aliases by setting ``yaml.composer.return_alias =
+lambda s: copy.deepcopy(s)``
+     (as per [Stackoverflow answer])
+
 0.17.2 (2021-03-29):
   - change -py2.py3-none-any.whl to -py3-none-any.whl, and remove 0.17.1
 
@@ -86,15 +98,3 @@ comment
     [Bence Nagy])
 
 0.16.13 (2021-03-05):
-  - fix for issue 359: could not update() CommentedMap with keyword
-arguments
-    (reported by [Steve Franchak])
-  - fix for issue 365: unable to dump mutated TimeStamp objects
-    (reported by Anton Akmerov <https://sourceforge.net/u/akhmerov/>`__)
-  - fix for issue 371: unable to addd comment without starting space
-    (reported by 'Mark Grandi <https://sourceforge.net/u/mgrandi>`__)
-  - fix for issue 373: recursive call to walk_tree not preserving all
-params
-    (reported by [eulores])
-  - a None value in a flow-style sequence is now dumped as `null` instead
-    of `!!null ''` (reported by mcarans on
