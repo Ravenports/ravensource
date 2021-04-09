@@ -1,0 +1,71 @@
+DEF[PORTVERSION]=	1.4
+DEF[SUFFIX]=		he
+DEF[LANGUAGE]=		Hebrew
+DEF[HUNSPELL_LOC]=	{{STAGEDIR}}{{PREFIX}}/share/hunspell
+DEF[VERINST]=		EXTRACT_INFO(ASPELL_INSTALL_VERSION)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		hspell
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		hunspell aspell
+SDESC[hunspell]=	Hunspell ${LANGUAGE} dictionary
+SDESC[aspell]=		Aspell ${LANGUAGE} dictionary
+HOMEPAGE=		http://hspell.ivrix.org.il/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://hspell.ivrix.org.il/
+DISTFILE[1]=		hspell-${PORTVERSION}.tar.gz:main
+
+SPKGS[aspell]=		single
+SPKGS[hunspell]=	single
+
+OPTIONS_AVAILABLE=	ASPELL HUNSPELL
+OPTIONS_STANDARD=	none
+VOPTS[hunspell]=	ASPELL=OFF HUNSPELL=ON
+VOPTS[aspell]=		ASPELL=ON HUNSPELL=OFF
+
+LICENSE=		AGPLv3:single
+LICENSE_FILE=		AGPLv3:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+USES=			gmake shebangfix
+MUST_CONFIGURE=		gnu
+SHEBANG_FILES=		pmerge
+			multispell
+			woo
+			*.pl
+
+[HUNSPELL].DESCRIPTION=			Build Hunspell variant of Hebrew dictionary
+[HUNSPELL].CONFIGURE_ARGS_ON=		--enable-fatverb
+[HUNSPELL].BUILD_TARGET_ON=		hunspell
+[HUNSPELL].USES_ON=			iconv:build perl:build
+[HUNSPELL].BUILD_DEPENDS_ON=		libiconv:shared:standard
+
+[ASPELL].DESCRIPTION=			Build Aspell variant of Hebrew dictionary
+[ASPELL].CONFIGURE_ARGS_ON=		--enable-aspell
+[ASPELL].BUILD_TARGET_ON=		aspell
+[ASPELL].PLIST_SUB_ON=			VER=${VERINST}
+[ASPELL].BUILDRUN_DEPENDS_ON=		aspell:primary:standard
+
+do-install:
+
+do-install-HUNSPELL-ON:
+	${MKDIR} ${HUNSPELL_LOC}
+	${INSTALL_DATA} ${WRKSRC}/he.aff ${HUNSPELL_LOC}/he.aff
+	${INSTALL_DATA} ${WRKSRC}/he.dic ${HUNSPELL_LOC}/he.dic
+
+do-install-ASPELL-ON:
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/aspell-${VERINST}
+	${INSTALL_DATA} ${WRKSRC}/he_affix.dat ${WRKSRC}/he.wl \
+		${STAGEDIR}${PREFIX}/lib/aspell-${VERINST}/
+
+post-patch-ASPELL-ON:
+	${REINPLACE_CMD} -e '/^require/ s|PrefixBits|${WRKSRC}/PrefixBits|' \
+		${WRKSRC}/binarize-desc.pl \
+		${WRKSRC}/genprefixes.pl \
+		${WRKSRC}/pmerge
+	${REINPLACE_CMD} -e 's|\./pmerge|${WRKSRC}/pmerge|' \
+		${WRKSRC}/Makefile.in
