@@ -1,6 +1,6 @@
 - Define CLOCK_MONOTONIC_RAW if missing
 
---- src/amd/vulkan/radv_device.c.orig	2021-03-24 22:32:51 UTC
+--- src/amd/vulkan/radv_device.c.orig	2021-04-07 16:36:56 UTC
 +++ src/amd/vulkan/radv_device.c
 @@ -100,6 +100,14 @@ static uint64_t radv_get_absolute_timeou
  	return current_time + timeout;
