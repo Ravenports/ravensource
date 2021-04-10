@@ -1,4 +1,4 @@
---- xf86drm.c.orig	2021-01-11 18:15:27 UTC
+--- xf86drm.c.orig	2021-04-07 14:09:24 UTC
 +++ xf86drm.c
 @@ -62,7 +62,17 @@
  #endif
@@ -28,7 +28,7 @@
      char name[SPECNAMELEN];
      int id;
  
-@@ -2791,7 +2801,7 @@ drm_public int drmIsMaster(int fd)
+@@ -2796,7 +2806,7 @@ drm_public int drmIsMaster(int fd)
  
  drm_public char *drmGetDeviceNameFromFd(int fd)
  {
@@ -37,7 +37,7 @@
      struct stat sbuf;
      int maj, min;
      int nodetype;
-@@ -2838,7 +2848,7 @@ static bool drmNodeIsDRM(int maj, int mi
+@@ -2843,7 +2853,7 @@ static bool drmNodeIsDRM(int maj, int mi
      snprintf(path, sizeof(path), "/sys/dev/char/%d:%d/device/drm",
               maj, min);
      return stat(path, &sbuf) == 0;
@@ -46,7 +46,7 @@
      char name[SPECNAMELEN];
  
      if (!devname_r(makedev(maj, min), S_IFCHR, name, sizeof(name)))
-@@ -2951,7 +2961,7 @@ static char *drmGetMinorNameForFD(int fd
+@@ -2956,7 +2966,7 @@ static char *drmGetMinorNameForFD(int fd
  
      closedir(sysdir);
      return NULL;
@@ -55,7 +55,7 @@
      struct stat sbuf;
      char dname[SPECNAMELEN];
      const char *mname;
-@@ -3162,7 +3172,7 @@ get_pci_path(int maj, int min, char *pci
+@@ -3167,7 +3177,7 @@ get_pci_path(int maj, int min, char *pci
  }
  #endif
  
