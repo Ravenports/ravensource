@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.2.27
+DEF[PORTVERSION]=	2.3.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnupg
@@ -41,6 +41,10 @@ CONFIGURE_ARGS=		--disable-ntbtls
 			--enable-scdaemon
 			--enable-nls
 INFO=			primary:gnupg
+
+VAR_OPSYS[dragonfly]=	LDFLAGS=-liconv
+VAR_OPSYS[freebsd]=	LDFLAGS=-liconv
+VAR_OPSYS[sunos]=	LDFLAGS=-liconv
 
 # sunos doesn't have openpty or login_tty that symcryptrun needs
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-symcryptrun
