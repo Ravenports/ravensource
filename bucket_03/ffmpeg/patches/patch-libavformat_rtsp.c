@@ -1,6 +1,6 @@
---- libavformat/rtsp.c.orig	2020-07-11 10:39:30 UTC
+--- libavformat/rtsp.c.orig	2021-04-08 21:28:40 UTC
 +++ libavformat/rtsp.c
-@@ -1628,7 +1628,12 @@ int ff_rtsp_make_setup_request(AVFormatC
+@@ -1664,7 +1664,12 @@ int ff_rtsp_make_setup_request(AVFormatC
              }
              if (ttl > 0)
                  snprintf(optbuf, sizeof(optbuf), "?ttl=%d", ttl);
@@ -14,7 +14,7 @@
                          namebuf, sizeof(namebuf), NULL, 0, NI_NUMERICHOST);
              ff_url_join(url, sizeof(url), "rtp", NULL, namebuf,
                          port, "%s", optbuf);
-@@ -1859,8 +1864,13 @@ redirect:
+@@ -1898,8 +1903,13 @@ redirect:
          goto fail;
      }
      if (!getpeername(tcp_fd, (struct sockaddr*) &peer, &peer_len)) {
@@ -30,7 +30,7 @@
      }
  
      /* request options supported by the server; this also detects server
-@@ -2373,7 +2383,11 @@ static int sdp_read_header(AVFormatConte
+@@ -2417,7 +2427,11 @@ static int sdp_read_header(AVFormatConte
              AVDictionary *opts = map_to_opts(rt);
  
              err = getnameinfo((struct sockaddr*) &rtsp_st->sdp_ip,
