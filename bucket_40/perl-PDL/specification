@@ -101,4 +101,11 @@ DISTNAME=		PDL-${PORTVERSION}
 					perl-ExtUtils-F77:single:532
 					perl-PGPLOT:single:532
 
+USES=			fortran:single
 VAR_OPSYS[linux]=	CFLAGS=-Doff64_t=__off64_t
+
+post-patch-freebsd:
+	${REINPLACE_CMD} -e 's|m/x86_64/|m/amd64/|g' \
+		${WRKSRC}/Makefile.PL \
+		${WRKSRC}/Libtmp/Minuit/Makefile.PL \
+		${WRKSRC}/Libtmp/Slatec/Makefile.PL
