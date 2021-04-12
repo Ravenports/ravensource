@@ -70,6 +70,7 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/scripts/accfonts/vpl2ovp \
 	texmf-dist/scripts/accfonts/vpl2vpl \
 	texmf-dist/scripts/adhocfilelist/adhocfilelist.sh \
+	texmf-dist/scripts/albatross/albatross.sh \
 	texmf-dist/scripts/arara/arara.sh \
 	texmf-dist/scripts/attachfile2/pdfatfi.pl \
 	texmf-dist/scripts/authorindex/authorindex \
@@ -124,8 +125,10 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/scripts/fontools/ot2kpx \
 	texmf-dist/scripts/fragmaster/fragmaster.pl \
 	texmf-dist/scripts/getmap/getmapdl.lua \
+	texmf-dist/scripts/git-latexdiff/git-latexdiff \
 	texmf-dist/scripts/glossaries/makeglossaries-lite.lua \
 	texmf-dist/scripts/glossaries/makeglossaries \
+	texmf-dist/scripts/hyperxmp/hyperxmp-add-bytecount.pl \
 	texmf-dist/scripts/installfont/installfont-tl \
 	texmf-dist/scripts/jfmutil/jfmutil.pl \
 	texmf-dist/scripts/ketcindy/ketcindy.pl \
@@ -144,6 +147,7 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/scripts/latexindent/latexindent.pl \
 	texmf-dist/scripts/latexmk/latexmk.pl \
 	texmf-dist/scripts/latexpand/latexpand \
+	texmf-dist/scripts/light-latex-make/llmk.lua \
 	texmf-dist/scripts/lilyglyphs/lily-glyph-commands.py \
 	texmf-dist/scripts/lilyglyphs/lily-image-commands.py \
 	texmf-dist/scripts/lilyglyphs/lily-rebuild-pdfs.py \
@@ -198,6 +202,7 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/scripts/pythontex/pythontex.py \
 	texmf-dist/scripts/rubik/rubikrotation.pl \
 	texmf-dist/scripts/simpdftex/simpdftex \
+	texmf-dist/scripts/spix/spix.py \
 	texmf-dist/scripts/splitindex/splitindex.pl \
 	texmf-dist/scripts/srcredact/srcredact.pl \
 	texmf-dist/scripts/sty2dtx/sty2dtx.pl \
@@ -255,6 +260,7 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/scripts/texosquery/texosquery.sh \
 	texmf-dist/scripts/texplate/texplate.sh \
 	texmf-dist/scripts/thumbpdf/thumbpdf.pl \
+	texmf-dist/scripts/tikztosvg/tikztosvg \
 	texmf-dist/scripts/tlcockpit/tlcockpit.sh \
 	texmf-dist/scripts/tlshell/tlshell.tcl \
 	texmf-dist/scripts/typeoutfileinfo/typeoutfileinfo.sh \
