@@ -31,3 +31,6 @@ USES=			cpe gmake jpeg libtool zlib c++:primary
 CPE_VENDOR=		qpdf_project
 MUST_CONFIGURE=		gnu
 SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/fix-qdf
