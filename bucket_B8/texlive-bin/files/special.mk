@@ -28,4 +28,4 @@ PROGRAMS2=	scor2prt sjisconv synctex t1ascii t1asm t1binary \
 		ttf2tfm ttfdump ttftotype42 updvitype upbibtex upmendex \
 		upmpost uppltotf uptex uptftopl vftovp vlna vptovf \
 		weave wofm2opl wopl2ofm wovf2ovp wovp2ovf xdvi-xaw \
-		xdvipdfmx xetex luahbtex luajithbtex
+		xdvipdfmx xetex luahbtex luajithbtex xml2pmx
