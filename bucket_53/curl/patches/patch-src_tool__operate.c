@@ -1,4 +1,4 @@
---- src/tool_operate.c.orig	2021-03-30 12:39:12 UTC
+--- src/tool_operate.c.orig	2021-04-12 07:31:13 UTC
 +++ src/tool_operate.c
 @@ -1096,20 +1096,7 @@ static CURLcode single_transfer(struct G
              DEBUGASSERT(!outs->filename);
