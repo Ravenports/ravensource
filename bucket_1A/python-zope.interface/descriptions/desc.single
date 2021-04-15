@@ -26,6 +26,31 @@ https://zopeinterface.readthedocs.io/en/latest/
  Changes
 =========
 
+5.4.0 (2021-04-15)
+==================
+
+- Make the C implementation of the __providedBy__ descriptor stop
+  ignoring all errors raised when accessing the instance's
+  __provides__. Now it behaves like the Python version and only
+  catches AttributeError. The previous behaviour could lead to
+  crashing the interpreter in cases of recursion and errors. See
+  [issue 239].
+
+- Update the ``repr() and str()`` of various objects to be shorter
+  and more informative. In many cases, the ``repr()`` is now something
+  that can be evaluated to produce an equal object. For example, what
+  was previously printed as ``<implementedBy builtins.list> is now
+  shown as classImplements(list, IMutableSequence, IIterable)``. See
+  [issue 236].
+
+- Make ``Declaration.__add__`` (as in ``implementedBy(Cls) +
+  ISomething``) try harder to preserve a consistent resolution order
+  when the two arguments share overlapping pieces of the interface
+  inheritance hierarchy. Previously, the right hand side was always
+  put at the end of the resolution order, which could easily produce
+  invalid orders. See [issue 193
+ ].
+
 5.3.0 (2020-03-21)
 ==================
 
@@ -73,28 +98,3 @@ https://zopeinterface.readthedocs.io/en/latest/
   allowing redundant interfaces (those already implemented by the
   underlying class or meta class) to produce an inconsistent
   resolution order. This is similar to the change in ``@implementer``
-  in 5.1.0, and resolves inconsistent resolution orders with
-  ``zope.proxy and zope.location``. See [issue 207
- ].
-
-5.2.0 (2020-11-05)
-==================
-
-- Add documentation section Persistency and Equality
-  (`#218 <https://github.com/zopefoundation/zope.interface/issues/218>`_).
-
-- Create arm64 wheels.
-
-- Add support for Python 3.9.
-
-5.1.2 (2020-10-01)
-==================
-
-- Make sure to call each invariant only once when validating invariants.
-  Previously, invariants could be called multiple times because when an
-  invariant is defined in an interface, it's found by in all interfaces
-  inheriting from that interface.  See [pull request 215
- ].
-
-5.1.1 (2020-09-30)
-==================
