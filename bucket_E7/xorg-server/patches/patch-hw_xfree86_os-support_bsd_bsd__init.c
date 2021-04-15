@@ -1,4 +1,4 @@
---- hw/xfree86/os-support/bsd/bsd_init.c.orig	2020-12-01 16:32:25 UTC
+--- hw/xfree86/os-support/bsd/bsd_init.c.orig	2021-04-13 14:11:40 UTC
 +++ hw/xfree86/os-support/bsd/bsd_init.c
 @@ -230,6 +230,9 @@ xf86OpenConsole()
               * Add cases for other *BSD that behave the same.
