@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.7.0
+DEF[PORTVERSION]=	3.8.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-premailer
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/peterbe/premailer
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/cd/ce/74bbdf0eee4265fd3f161d4276b36c9238b802191c2053c8e68578bda4e6
-DISTFILE[1]=		premailer-${PORTVERSION}-py2.py3-none-any.whl:main
+SITES[main]=		PYPI/p/premailer
+DISTFILE[1]=		premailer-${PORTVERSION}.tar.gz:main
 
 SPKGS[py38]=		single
 SPKGS[py39]=		single
@@ -26,31 +26,23 @@ VOPTS[py39]=		PY38=OFF PY39=ON
 # Python
 
 GENERATED=		yes
-DISTNAME=		premailer-${PORTVERSION}.dist-info
+DISTNAME=		premailer-${PORTVERSION}
 
-# Requires-Dist extracted from wheel metadata
+# install_requires extracted from setup.py
 # lxml
 # cssselect
 # cssutils
 # requests
 # cachetools
-# tox ; extra == 'dev'
-# twine ; extra == 'dev'
-# therapist ; extra == 'dev'
-# black ; extra == 'dev'
-# flake8 ; extra == 'dev'
-# wheel ; extra == 'dev'
-# nose ; extra == 'test'
-# mock ; extra == 'test'
 
-[PY38].USES_ON=				python:py38,wheel
-[PY38].RUN_DEPENDS_ON=			python-lxml:single:py38
+[PY38].USES_ON=				python:py38,sutools
+[PY38].BUILDRUN_DEPENDS_ON=		python-lxml:single:py38
 					python-cssselect:single:py38
 					python-cssutils:single:py38
 					python-requests:single:py38
 					python-cachetools:single:py38
-[PY39].USES_ON=				python:py39,wheel
-[PY39].RUN_DEPENDS_ON=			python-lxml:single:py39
+[PY39].USES_ON=				python:py39,sutools
+[PY39].BUILDRUN_DEPENDS_ON=		python-lxml:single:py39
 					python-cssselect:single:py39
 					python-cssutils:single:py39
 					python-requests:single:py39
