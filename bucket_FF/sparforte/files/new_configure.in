@@ -15,10 +15,13 @@ GMAKETYPE="@MAKECMD@"
 PREFIXSUB="@PREFIX@"
 MANPREFIXSUB="@PREFIX@/share/man"
 CFLAGSTYPE="@CFLAGSTYPE@"
+BDBBASELIBSSUB="-L@PREFIX@/lib/db5 -ldb"
+BDBBASEINCLSUB="-I@PREFIX@/include/db5 -I./bdb/"
 BDBINCLSUB="-I@PREFIX@/include/db5 -I./bdb/"
 BDBSUB="-L@PREFIX@/lib/db5 -ldb bdb/c_bdb.o"
 RLINCLSUB="-I./areadline/"
-RLLIBSSUB="-L@PREFIX@/lib -lreadline -lhistory"
+RLLIBSSUB="-L@PREFIX@/lib -lreadline -lhistory c_rl.o"
+RLFLAG="-DREADLINE"
 FASTCGISUB=
 SDLINCLSSUB=
 SDLLIBSTYPE=$(@PREFIX@/bin/pkgconf --libs SDL_image)
@@ -117,12 +120,14 @@ echo "Creating src/GNUmakefile"
  -e "s|BDBINCLSUB|${BDBINCLSUB}|g" \
  -e "s|RLINCLSUB|${RLINCLSUB}|g" \
  -e "s|RLLIBSSUB|${RLLIBSSUB}|g" \
+ -e "s|RLFLAGSUB|${RLFLAG}|g" \
  -e "s|PCRELIBSSUB|${PCRELIBSSUB}|g" \
  -e "s|PCREOBJSUB|${PCREOBJSUB}|g" \
  -e "s|PCREFLAG|${PCREFLAG}|g" \
  src/GNUmakefile.orig > src/GNUmakefile
 
-echo "Creating src/areadline/GNUmakefile"
-@SED@ -e "s|RLINCLSUB|${RLINCLSUB}|g" \
- -e "s|RLLIBSSUB|${RLLIBSSUB}|g" \
- src/areadline/GNUmakefile.orig > src/areadline/GNUmakefile
+echo "Creating src/bdb/GNUmakefile"
+@SED@ \
+ -e "s|BDBBASEINCLSUB|${BDBBASEINCLSUB}|g" \
+ -e "s|BDBBASELIBSSUB|${BDBBASELIBSSUB}|g" \
+  src/bdb/GNUmakefile.orig > src/bdb/GNUmakefile

@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.3.1
+DEF[PORTVERSION]=	2.4
 DEF[TAG]=		v${PORTVERSION}
 DEF[SF_SRC]=		{{WRKSRC}}/src
 DEF[SCAL]=		scanner-calendar
@@ -6,7 +6,6 @@ DEF[SCAL]=		scanner-calendar
 
 NAMEBASE=		sparforte
 VERSION=		${PORTVERSION}
-REVISION=		4
 KEYWORDS=		shells lang
 VARIANTS=		standard
 SDESC[standard]=	Shell and scripting for mission-critical projects
@@ -123,11 +122,10 @@ post-patch:
 		${WRKSRC}/src/bdb/c_bdb.c
 	# Use db.h from db5 and link to it
 	# Fix multi-job support
-	${REINPLACE_CMD} -e "s|BDB4|BDB4 -I${PREFIX}/include/db5|" \
-		-e "s|-ldb|-L${PREFIX}/lib/db5 -ldb|" \
+	${REINPLACE_CMD} \
 		-e "s|db: db.adb|db: bdb_constants.ads db.adb|" \
 		-e "s| -fstack-protector||" \
-		${WRKSRC}/src/bdb/GNUmakefile
+		${WRKSRC}/src/bdb/GNUmakefile.orig
 	# shebang fix
 	${REINPLACE_CMD} -e "s|#|#!/bin/sh|" \
 		${WRKSRC}/src/apq-2.1/mysql_incl
