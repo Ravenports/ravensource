@@ -1,0 +1,51 @@
+DEF[PORTVERSION]=	1.1.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-faraday-excon
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v26 v27 v30
+SDESC[v26]=		Faraday adapter for Excon (v26)
+SDESC[v27]=		Faraday adapter for Excon (v27)
+SDESC[v30]=		Faraday adapter for Excon (v30)
+HOMEPAGE=		https://github.com/lostisland/faraday-excon
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		faraday-excon-1.1.0.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v26]=		single
+SPKGS[v27]=		single
+SPKGS[v30]=		single
+
+OPTIONS_AVAILABLE=	RUBY26 RUBY27 RUBY30
+OPTIONS_STANDARD=	none
+VOPTS[v26]=		RUBY26=ON RUBY27=OFF RUBY30=OFF
+VOPTS[v27]=		RUBY26=OFF RUBY27=ON RUBY30=OFF
+VOPTS[v30]=		RUBY26=OFF RUBY27=OFF RUBY30=ON
+
+# License listed inside gem specification
+# => "MIT"
+
+# Requirements according to gem specification:
+#   excon (>= 0.27.4, development)
+#   bundler (~> 2.0, development)
+#   faraday (~> 1.0, development)
+#   rake (~> 13.0, development)
+#   rspec (~> 3.0, development)
+#   simplecov (~> 0.19.0, development)
+#   multipart-parser (~> 0.1.1, development)
+#   webmock (~> 3.4, development)
+#   rubocop (~> 0.91.1, development)
+#   rubocop-packaging (~> 0.5, development)
+#   rubocop-performance (~> 1.0, development)
+
+DISTNAME=		faraday-excon-${PORTVERSION}
+GENERATED=		yes
+
+[RUBY26].USES_ON=			gem:v26
+[RUBY27].USES_ON=			gem:v27
+[RUBY30].USES_ON=			gem:v30
+
