@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.301001
+DEF[PORTVERSION]=	0.301002
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Dancer2
@@ -33,6 +33,7 @@ DISTNAME=		Dancer2-${PORTVERSION}
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
 # |      runtime : Attribute::Handlers (perl 5.30 core) (perl 5.32 core)
+# |      runtime : CLI::Osprey
 # |      runtime : Carp (perl 5.30 core) (perl 5.32 core)
 # |      runtime : Clone
 # |      runtime : Config::Any
@@ -42,7 +43,6 @@ DISTNAME=		Dancer2-${PORTVERSION}
 # |      runtime : Exporter::Tiny
 # |      runtime : File::Basename (perl 5.30 core) (perl 5.32 core)
 # |      runtime : File::Copy (perl 5.30 core) (perl 5.32 core)
-# |      runtime : File::Find (perl 5.30 core) (perl 5.32 core)
 # |      runtime : File::Path (perl 5.30 core) (perl 5.32 core)
 # |      runtime : File::Share
 # |      runtime : File::Spec (perl 5.30 core) (perl 5.32 core)
@@ -60,6 +60,7 @@ DISTNAME=		Dancer2-${PORTVERSION}
 # |      runtime : Moo
 # |      runtime : Moo::Role
 # |      runtime : POSIX (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Path::Tiny
 # |      runtime : Plack
 # |      runtime : Plack::Middleware::FixMissingBodyInRedirect
 # |      runtime : Plack::Middleware::RemoveRedundantBody
@@ -109,7 +110,8 @@ DISTNAME=		Dancer2-${PORTVERSION}
 # |         test : CPAN::Meta (perl 5.30 core) (perl 5.32 core)
 
 [PERL_530].USES_ON=			perl:530,configure
-[PERL_530].BUILDRUN_DEPENDS_ON=		perl-Clone:single:530
+[PERL_530].BUILDRUN_DEPENDS_ON=		perl-CLI-Osprey:single:530
+					perl-Clone:single:530
 					perl-Config-Any:single:530
 					perl-Exporter-Tiny:single:530
 					perl-File-Share:single:530
@@ -121,6 +123,7 @@ DISTNAME=		Dancer2-${PORTVERSION}
 					perl-JSON-MaybeXS:single:530
 					perl-Module-Runtime:single:530
 					perl-Moo:single:530
+					perl-Path-Tiny:single:530
 					perl-Plack:single:530
 					perl-Plack-Middleware-FixMissingBodyInRedirect:single:530
 					perl-Plack-Middleware-RemoveRedundantBody:single:530
@@ -147,7 +150,8 @@ DISTNAME=		Dancer2-${PORTVERSION}
 					perl-YAML-LibYAML:single:530
 [PERL_530].BUILD_DEPENDS_ON=		perl-File-ShareDir-Install:single:530
 [PERL_532].USES_ON=			perl:532,configure
-[PERL_532].BUILDRUN_DEPENDS_ON=		perl-Clone:single:532
+[PERL_532].BUILDRUN_DEPENDS_ON=		perl-CLI-Osprey:single:532
+					perl-Clone:single:532
 					perl-Config-Any:single:532
 					perl-Exporter-Tiny:single:532
 					perl-File-Share:single:532
@@ -159,6 +163,7 @@ DISTNAME=		Dancer2-${PORTVERSION}
 					perl-JSON-MaybeXS:single:532
 					perl-Module-Runtime:single:532
 					perl-Moo:single:532
+					perl-Path-Tiny:single:532
 					perl-Plack:single:532
 					perl-Plack-Middleware-FixMissingBodyInRedirect:single:532
 					perl-Plack-Middleware-RemoveRedundantBody:single:532
