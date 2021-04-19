@@ -1,6 +1,6 @@
---- src/dumpkeys.c.orig	2021-02-16 15:35:49 UTC
+--- src/dumpkeys.c.orig	2021-04-16 17:22:42 UTC
 +++ src/dumpkeys.c
-@@ -167,7 +167,15 @@ main(int argc, char **argv)
+@@ -166,7 +166,15 @@ main(int argc, char **argv)
  	}
  	original = tcattr;
  	signal(SIGINT, sigint_handler);

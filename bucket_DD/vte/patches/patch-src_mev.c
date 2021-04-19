@@ -1,6 +1,6 @@
---- src/mev.c.orig	2021-02-16 15:35:49 UTC
+--- src/mev.c.orig	2021-04-16 17:22:42 UTC
 +++ src/mev.c
-@@ -364,7 +364,15 @@ main(int argc, char **argv)
+@@ -363,7 +363,15 @@ main(int argc, char **argv)
  
  	original = tcattr;
  	signal(SIGINT, sigint_handler);

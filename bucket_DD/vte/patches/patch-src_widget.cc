@@ -1,4 +1,4 @@
---- src/widget.cc.orig	2021-02-16 15:35:49 UTC
+--- src/widget.cc.orig	2021-04-16 17:22:42 UTC
 +++ src/widget.cc
 @@ -22,6 +22,10 @@
  
@@ -10,4 +10,4 @@
 +
  #include <exception>
  #include <new>
- #include <string>
+ #include <stdexcept>
