@@ -1,4 +1,4 @@
---- lib/monkey/mk_core/deps/libevent/kqueue.c.orig	2021-04-06 01:57:44 UTC
+--- lib/monkey/mk_core/deps/libevent/kqueue.c.orig	2021-04-19 23:40:36 UTC
 +++ lib/monkey/mk_core/deps/libevent/kqueue.c
 @@ -50,7 +50,7 @@
  /* Some platforms apparently define the udata field of struct kevent as
