@@ -1,11 +1,11 @@
---- src/zmalloc.h.orig	2021-03-02 06:14:39 UTC
+--- src/zmalloc.h.orig	2021-04-20 05:03:58 UTC
 +++ src/zmalloc.h
-@@ -72,7 +72,7 @@
- #ifndef ZMALLOC_LIB
+@@ -73,7 +73,7 @@
  #define ZMALLOC_LIB "libc"
+ 
  #if !defined(NO_MALLOC_USABLE_SIZE) && \
 -    (defined(__GLIBC__) || defined(__FreeBSD__) || \
 +    (defined(__GLIBC__) || \
       defined(USE_MALLOC_USABLE_SIZE))
- #include <malloc.h>
- #define HAVE_MALLOC_SIZE 1
+ 
+ /* Includes for malloc_usable_size() */
