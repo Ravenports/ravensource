@@ -1,7 +1,7 @@
---- tools/llvm-readobj/ELFDumper.cpp.orig	2021-02-03 21:51:10 UTC
+--- tools/llvm-readobj/ELFDumper.cpp.orig	2021-04-06 16:38:18 UTC
 +++ tools/llvm-readobj/ELFDumper.cpp
-@@ -68,6 +68,20 @@
- #include <unordered_set>
+@@ -66,6 +66,20 @@
+ #include <system_error>
  #include <vector>
  
 +#ifdef __sun

@@ -1,4 +1,4 @@
---- lib/ObjectYAML/MachOYAML.cpp.orig	2021-02-03 21:51:10 UTC
+--- lib/ObjectYAML/MachOYAML.cpp.orig	2021-04-06 16:38:18 UTC
 +++ lib/ObjectYAML/MachOYAML.cpp
 @@ -21,6 +21,18 @@
  #include <cstdint>

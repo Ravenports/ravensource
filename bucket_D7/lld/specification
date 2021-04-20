@@ -13,6 +13,8 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/
 			http://llvm.org/releases/${LLVM_VERSION}/
 DISTFILE[1]=		lld-${LLVM_VERSION}.src.tar.xz:main
+DISTFILE[2]=		libunwind-${LLVM_VERSION}.src.tar.xz:main
+DF_INDEX=		1 2
 
 SPKGS[standard]=	single
 
@@ -37,6 +39,11 @@ DISTNAME=		lld-${LLVM_VERSION}.src
 VAR_OPSYS[sunos]=	VAR1=socket;nsl;
 
 post-extract:
+	# issues with 12.0.0; might not be necessary in future
+	${MV} ${WRKDIR}/libunwind-${LLVM_VERSION}.src/include/mach-o \
+		${WRKSRC}/include/
+
+pre-configure:
 	# prevent lld linking execinfo & tinfo  as a shared library
 	# insert link requirement to libdb (version 5) for static libtinfo
 	${MV} ${LOCALBASE}/lib/libexecinfo.so /tmp
@@ -50,3 +57,5 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
 	${MV} /tmp/*.so ${LOCALBASE}/lib/
 	${MV} /tmp/*.cmake ${LOCALBASE}/lib/cmake/llvm/LLVMExports.cmake
+	# remove libunwind header hack
+	${RM} -r ${STAGEDIR}${PREFIX}/include/mach-o

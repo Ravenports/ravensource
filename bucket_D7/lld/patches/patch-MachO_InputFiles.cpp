@@ -1,4 +1,4 @@
---- MachO/InputFiles.cpp.orig	2021-02-03 21:51:10 UTC
+--- MachO/InputFiles.cpp.orig	2021-04-06 16:38:18 UTC
 +++ MachO/InputFiles.cpp
 @@ -41,6 +41,22 @@
  //
@@ -22,4 +22,4 @@
 +
  #include "InputFiles.h"
  #include "Config.h"
- #include "ExportTrie.h"
+ #include "Driver.h"

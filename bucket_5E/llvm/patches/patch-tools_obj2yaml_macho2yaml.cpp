@@ -1,6 +1,6 @@
---- tools/obj2yaml/macho2yaml.cpp.orig	2021-02-03 21:51:10 UTC
+--- tools/obj2yaml/macho2yaml.cpp.orig	2021-04-06 16:38:18 UTC
 +++ tools/obj2yaml/macho2yaml.cpp
-@@ -16,6 +16,18 @@
+@@ -17,6 +17,18 @@
  
  #include <string.h> // for memcpy
  

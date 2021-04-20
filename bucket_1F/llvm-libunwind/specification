@@ -14,6 +14,9 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/
 			http://llvm.org/releases/${LLVM_VERSION}/
 DISTFILE[1]=		libunwind-${LLVM_VERSION}.src.tar.xz:main
+DISTFILE[2]=		libcxx-${LLVM_VERSION}.src.tar.xz:main
+DISTFILE[3]=		llvm-${LLVM_VERSION}.src.tar.xz:main
+DF_INDEX=		1 2 3
 
 SPKGS[standard]=	single
 
@@ -32,6 +35,12 @@ CMAKE_BUILD_TYPE=	Release
 CMAKE_ARGS=		-DLLVM_HOST_TRIPLE:STRING="{{CONFIGURE_TARGET}}"
 DISTNAME=		libunwind-${LLVM_VERSION}.src
 SOVERSION=		${SOVERSION}
+
+post-extract:
+	# LIBUNWIND_LIBCXX_PATH is ignored (Another llvm 12.0.0 issue)
+	${MV} ${WRKDIR}/libcxx-${LLVM_VERSION}.src ${WRKDIR}/libcxx
+	# can't build c++ or libunwind separately anymore
+	${MV} ${WRKDIR}/llvm-${LLVM_VERSION}.src ${WRKDIR}/llvm
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/include/*.h ${STAGEDIR}${PREFIX}/include/
