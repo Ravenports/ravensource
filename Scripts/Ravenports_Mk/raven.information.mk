@@ -87,9 +87,9 @@ GCC9_PHASE=			release
 # ------------------------------------------------------------------------
 
 GCC10_BRANCH=			10
-GCC10_POINT=			2.0
+GCC10_POINT=			3.0
 GCC10_VERSION=			${GCC10_BRANCH}.${GCC10_POINT}
-GCC10_SNAPSHOT=			20200723
+GCC10_SNAPSHOT=			20210408
 GCC10_BUILD_RELEASE=		yes
 GCC10_REVISION=			0
 GCC10_GNAT_UTIL_REVISION=	0
