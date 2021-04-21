@@ -1,6 +1,6 @@
---- deps/v8/src/base/utils/random-number-generator.cc.orig	2021-04-06 20:39:45 UTC
+--- deps/v8/src/base/utils/random-number-generator.cc.orig	2021-04-20 11:30:13 UTC
 +++ deps/v8/src/base/utils/random-number-generator.cc
-@@ -51,7 +51,7 @@ RandomNumberGenerator::RandomNumberGener
+@@ -52,7 +52,7 @@ RandomNumberGenerator::RandomNumberGener
    result = rand_s(&second_half);
    DCHECK_EQ(0, result);
    SetSeed((static_cast<int64_t>(first_half) << 32) + second_half);
