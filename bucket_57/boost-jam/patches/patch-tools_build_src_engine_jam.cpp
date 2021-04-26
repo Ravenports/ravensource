@@ -1,4 +1,4 @@
---- tools/build/src/engine/jam.cpp.orig	2020-12-03 05:02:49 UTC
+--- tools/build/src/engine/jam.cpp.orig	2021-04-13 16:23:21 UTC
 +++ tools/build/src/engine/jam.cpp
 @@ -776,7 +776,6 @@ char * executable_path( char const * arg
  #else
