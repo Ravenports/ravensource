@@ -1,4 +1,4 @@
---- gdb/osabi.c.orig	2020-10-24 04:23:02 UTC
+--- gdb/osabi.c.orig	2021-04-25 04:06:26 UTC
 +++ gdb/osabi.c
 @@ -68,6 +68,7 @@ static const struct osabi_names gdb_osab
    { "FreeBSD", NULL },

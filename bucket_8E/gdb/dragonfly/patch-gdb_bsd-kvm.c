@@ -1,4 +1,4 @@
---- gdb/bsd-kvm.c.orig	2020-09-13 02:33:41 UTC
+--- gdb/bsd-kvm.c.orig	2021-04-25 04:06:26 UTC
 +++ gdb/bsd-kvm.c
 @@ -39,10 +39,10 @@
  #include <paths.h>

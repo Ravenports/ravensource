@@ -1,4 +1,4 @@
---- gdb/osabi.h.orig	2020-10-24 04:23:02 UTC
+--- gdb/osabi.h.orig	2021-04-25 04:06:26 UTC
 +++ gdb/osabi.h
 @@ -33,6 +33,7 @@ enum gdb_osabi
    GDB_OSABI_FREEBSD,

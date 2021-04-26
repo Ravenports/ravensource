@@ -1,4 +1,4 @@
---- gnulib/import/stddef.in.h.orig	2020-09-13 02:33:41 UTC
+--- gnulib/import/stddef.in.h.orig	2021-04-25 04:06:26 UTC
 +++ gnulib/import/stddef.in.h
 @@ -90,7 +90,7 @@
  #if defined _MSC_VER && defined __cplusplus

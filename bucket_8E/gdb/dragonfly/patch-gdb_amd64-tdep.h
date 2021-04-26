@@ -1,4 +1,4 @@
---- gdb/amd64-tdep.h.orig	2020-10-24 04:23:02 UTC
+--- gdb/amd64-tdep.h.orig	2021-04-25 04:06:26 UTC
 +++ gdb/amd64-tdep.h
 @@ -146,8 +146,8 @@ extern int amd64nbsd_r_reg_offset[];
  extern int amd64obsd_r_reg_offset[];
