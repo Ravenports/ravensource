@@ -1,18 +1,18 @@
-DEF[PORTVERSION]=	3.1.14
+DEF[PORTVERSION]=	0.4.3
 # ------------------------------------------------------------------------
 
-NAMEBASE=		python-GitPython
+NAMEBASE=		python-mypy-extensions
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		py38 py39
-SDESC[py38]=		Python Git Library (PY38)
-SDESC[py39]=		Python Git Library (PY39)
-HOMEPAGE=		https://github.com/gitpython-developers/GitPython
+SDESC[py38]=		Experimental extensions of mypy typechecker (PY38)
+SDESC[py39]=		Experimental extensions of mypy typechecker (PY39)
+HOMEPAGE=		https://github.com/python/mypy_extensions
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/a6/99/98019716955ba243657daedd1de8f3a88ca1f5b75057c38e959db22fb87b
-DISTFILE[1]=		GitPython-${PORTVERSION}-py3-none-any.whl:main
+SITES[main]=		PYPIWHL/5c/eb/975c7c080f3223a5cdaff09612f3a5221e4ba534f7039db34c35d95fa6a5
+DISTFILE[1]=		mypy_extensions-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py39]=		single
@@ -23,16 +23,14 @@ VOPTS[py38]=		PY38=ON PY39=OFF
 VOPTS[py39]=		PY38=OFF PY39=ON
 
 # License listed at PyPI
-# BSD
+# MIT License
 
 GENERATED=		yes
-DISTNAME=		GitPython-${PORTVERSION}.dist-info
+DISTNAME=		mypy_extensions-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# gitdb (<5,>=4.0.1)
+# typing (>=3.5.3) ; python_version < "3.5"
 
 [PY38].USES_ON=				python:py38,wheel
-[PY38].RUN_DEPENDS_ON=			python-gitdb:single:py38
 [PY39].USES_ON=				python:py39,wheel
-[PY39].RUN_DEPENDS_ON=			python-gitdb:single:py39
 
