@@ -1,5 +1,5 @@
---- ../ngx_postgres-1.0rc7/config.orig	2015-05-26 20:52:25.649166000 +0300
-+++ ../ngx_postgres-1.0rc7/config
+--- ../ngx_postgres-8aa7359/config.orig	2015-05-26 20:52:25.649166000 +0300
++++ ../ngx_postgres-8aa7359/config
 @@ -48,12 +48,12 @@
  
      if [ $ngx_found = no ]; then
@@ -17,20 +17,3 @@
          fi
          . auto/feature
      fi
---- ../ngx_postgres-1.0rc7/src/ngx_postgres_module.c.orig	2016-11-20 15:34:25.763542000 -0500
-+++ ../ngx_postgres-1.0rc7/src/ngx_postgres_module.c
-@@ -1320,12 +1320,14 @@
-             continue;
-         }
- 
-+#if (nginx_version < 1011006)
-         if (uscfp[i]->default_port && url->default_port
-             && (uscfp[i]->default_port != url->default_port))
-         {
-             dd("default_port doesn't match");
-             continue;
-         }
-+#endif
- 
-         dd("returning");
-         return uscfp[i];
