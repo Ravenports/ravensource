@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.005
+DEF[PORTVERSION]=	0.007
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Devel-OverloadInfo
@@ -32,15 +32,16 @@ DISTNAME=		Devel-OverloadInfo-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
+# |      runtime : B (perl 5.30 core) (perl 5.32 core)
 # |      runtime : Exporter (perl 5.30 core) (perl 5.32 core)
 # |      runtime : MRO::Compat
 # |      runtime : Package::Stash
 # |      runtime : Scalar::Util (perl 5.30 core) (perl 5.32 core)
-# |      runtime : Sub::Identify
 # |      runtime : overload (perl 5.30 core) (perl 5.32 core)
 # |      runtime : strict (perl 5.30 core) (perl 5.32 core)
 # |      runtime : warnings (perl 5.30 core) (perl 5.32 core)
 # |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# |    configure : Text::ParseWords (perl 5.30 core) (perl 5.32 core)
 # |         test : Test::Fatal
 # |         test : Test::More (perl 5.30 core) (perl 5.32 core)
 # |         test : parent (perl 5.30 core) (perl 5.32 core)
@@ -48,9 +49,7 @@ DISTNAME=		Devel-OverloadInfo-${PORTVERSION}
 [PERL_530].USES_ON=			perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-MRO-Compat:single:530
 					perl-Package-Stash:single:530
-					perl-Sub-Identify:single:530
 [PERL_532].USES_ON=			perl:532,configure
 [PERL_532].BUILDRUN_DEPENDS_ON=		perl-MRO-Compat:single:532
 					perl-Package-Stash:single:532
-					perl-Sub-Identify:single:532
 
