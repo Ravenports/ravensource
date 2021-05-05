@@ -1,4 +1,4 @@
---- browser.c.orig	2020-12-01 03:05:21 UTC
+--- browser.c.orig	2021-05-04 17:41:27 UTC
 +++ browser.c
 @@ -86,6 +86,12 @@ static int browser_compare_subject (cons
    struct folder_file *pa = (struct folder_file *) a;
