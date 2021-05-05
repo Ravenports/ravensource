@@ -108,6 +108,10 @@ VAR_OPSYS[darwin]=	CONFIGURE_ARGS=--with-template=darwin
 VAR_OPSYS[linux]=	CONFIGURE_ARGS=--with-template=linux
 			CONFIGURE_ARGS=--with-uuid=ossp
 
+post-patch:
+	${REINPLACE_CMD} -e 's|" -lncurses"|" -lncurses -ltinfo"|' \
+		${WRKSRC}/configure
+
 post-patch-sunos:
 	${REINPLACE_CMD} -e '/sqlmansect/d' \
 		${WRKSRC}/src/makefiles/Makefile.solaris
