@@ -1,6 +1,6 @@
---- mesonbuild/scripts/depfixer.py.orig	2021-04-10 09:21:50 UTC
+--- mesonbuild/scripts/depfixer.py.orig	2021-04-27 06:49:45 UTC
 +++ mesonbuild/scripts/depfixer.py
-@@ -465,7 +465,7 @@ def fix_rpath(fname: str, rpath_dirs_to_
+@@ -490,7 +490,7 @@ def fix_rpath(fname: str, rpath_dirs_to_
              return
          if isinstance(new_rpath, str):
              new_rpath = new_rpath.encode('utf8')

@@ -1,6 +1,6 @@
 Do not default to -z ignore on SunOS, it breaks for example -fstack-protector.
 
---- mesonbuild/compilers/mixins/gnu.py.orig	2021-04-10 09:21:50 UTC
+--- mesonbuild/compilers/mixins/gnu.py.orig	2021-04-27 06:49:45 UTC
 +++ mesonbuild/compilers/mixins/gnu.py
 @@ -153,7 +153,7 @@ class GnuLikeCompiler(Compiler, metaclas
                                     'b_ndebug', 'b_staticpic', 'b_pie']}
