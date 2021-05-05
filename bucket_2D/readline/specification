@@ -1,4 +1,4 @@
-DEF[PATCHLEVEL]=	0
+DEF[PATCHLEVEL]=	1
 DEF[READLINE_VERSION]=	8.1
 DEF[PORTVERSION]=	${READLINE_VERSION}.${PATCHLEVEL}
 # ----------------------------------------------------------------------------
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main patches
 SITES[main]=		GNU/readline
 SITES[patches]=		GNU/readline/readline-${PORTVERSION:R}-patches
 DISTFILE[1]=		readline-${PORTVERSION:R}.tar.gz:main
-# DISTFILE[2]=		readline${PORTVERSION:R:S/.//}-001:patches
+DISTFILE[2]=		readline${PORTVERSION:R:S/.//}-001:patches
 # DISTFILE[3]=		readline${PORTVERSION:R:S/.//}-002:patches
 
 SPKGS[standard]=	single
@@ -45,12 +45,6 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-curses
 CFLAGS=			-I{{NCURSESINC}}
 SOVERSION=		${READLINE_VERSION}
-
-post-patch:
-# ${REINPLACE_CMD} "s|@SHOBJ_LDFLAGS@|@SHOBJ_LDFLAGS@ -Wl,--no-as-needed
-# -L${NCURSESLIB} -lncurses|" \
-	${REINPLACE_CMD} "s|@SHOBJ_LDFLAGS@|@SHOBJ_LDFLAGS@ -L${NCURSESLIB} -lncurses|" \
-		${WRKSRC}/shlib/Makefile.in
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libhistory.${LIBEXT} \
