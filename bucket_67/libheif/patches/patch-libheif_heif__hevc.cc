@@ -1,4 +1,4 @@
---- libheif/heif_hevc.cc.orig	2021-02-01 14:15:05 UTC
+--- libheif/heif_hevc.cc.orig	2021-05-05 07:15:29 UTC
 +++ libheif/heif_hevc.cc
 @@ -45,10 +45,10 @@ static double read_depth_rep_info_elemen
    //printf("sign:%d exponent:%d mantissa_len:%d mantissa:%d\n",sign_flag,exponent,mantissa_len,mantissa);
