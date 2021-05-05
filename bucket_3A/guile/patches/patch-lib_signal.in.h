@@ -1,4 +1,4 @@
---- lib/signal.in.h.orig	2018-07-16 10:18:44 UTC
+--- lib/signal.in.h.orig	2021-01-20 22:03:56 UTC
 +++ lib/signal.in.h
 @@ -60,6 +60,7 @@
     But avoid namespace pollution on glibc systems.*/
@@ -6,5 +6,5 @@
      && ((defined __APPLE__ && defined __MACH__) \
 +	|| defined __DragonFly__ \
          || defined __FreeBSD__ || defined __OpenBSD__ || defined __osf__ \
-         || defined __sun || defined __ANDROID__) \
+         || defined __sun || defined __ANDROID__ || defined __KLIBC__) \
      && ! defined __GLIBC__

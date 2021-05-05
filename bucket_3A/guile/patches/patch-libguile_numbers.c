@@ -1,6 +1,6 @@
---- libguile/numbers.c.orig	2020-02-17 21:04:04 UTC
+--- libguile/numbers.c.orig	2021-04-27 19:21:21 UTC
 +++ libguile/numbers.c
-@@ -193,7 +193,7 @@ static double atanh (double x) { return
+@@ -209,7 +209,7 @@ static double atanh (double x) { return
  
  
  #if defined (GUILE_I)

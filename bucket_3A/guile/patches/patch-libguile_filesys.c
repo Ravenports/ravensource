@@ -1,6 +1,6 @@
---- libguile/filesys.c.orig	2020-05-30 20:06:44 UTC
+--- libguile/filesys.c.orig	2021-03-10 19:40:10 UTC
 +++ libguile/filesys.c
-@@ -1519,6 +1519,9 @@ SCM_DEFINE (scm_i_mkstemp, "mkstemp!", 1
+@@ -1520,6 +1520,9 @@ SCM_DEFINE (scm_i_mkstemp, "mkstemp", 1,
        mode_bits = scm_i_mode_bits (mode);
      }
  
