@@ -48,3 +48,10 @@ post-patch:
 post-patch-sunos:
 	${REINPLACE_CMD} -e 's|link_args: libnotify_ldflags|link_args: []|'\
 		${WRKSRC}/libnotify/meson.build
+
+pre-build:
+	# workaround bad meson definition so <libnotify/*.h> headers can be found
+	${LN} -s ${STAGEDIR}${PREFIX}/include/libnotify ${LOCALBASE}/include/libnotify
+
+post-install:
+	${RM} ${LOCALBASE}/include/libnotify
