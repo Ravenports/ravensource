@@ -1,4 +1,4 @@
---- libsndio/aucat.c.orig	2020-06-28 05:52:52 UTC
+--- libsndio/aucat.c.orig	2021-05-07 07:49:58 UTC
 +++ libsndio/aucat.c
 @@ -43,6 +43,26 @@
  #define DEV_RANDOM "/dev/urandom"
