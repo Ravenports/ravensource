@@ -1,17 +1,18 @@
---- ../src/google/protobuf/stubs/port.h.orig	2021-04-07 22:38:38 UTC
+--- ../src/google/protobuf/stubs/port.h.orig	2021-05-06 19:50:11 UTC
 +++ ../src/google/protobuf/stubs/port.h
-@@ -59,6 +59,10 @@
+@@ -59,8 +59,10 @@
  #else
  #ifdef __APPLE__
  #include <machine/endian.h>  // __BYTE_ORDER
-+#elif defined(__DragonFly__) || defined(__FreeBSD__)
-+#include <sys/endian.h>
+-#elif defined(__FreeBSD__)
++#elif defined(__FreeBSD__) || defined(__DragonFly__)
+ #include <sys/endian.h>  // __BYTE_ORDER
 +#elif defined(__sun__)
 +#define __LITTLE_ENDIAN__
  #else
  #include <endian.h>  // __BYTE_ORDER
  #endif
-@@ -76,6 +80,8 @@
+@@ -78,6 +80,8 @@
  #include <intrin.h>
  #elif defined(__APPLE__)
  #include <libkern/OSByteOrder.h>
@@ -20,7 +21,7 @@
  #elif defined(__GLIBC__) || defined(__BIONIC__) || defined(__CYGWIN__)
  #include <byteswap.h>  // IWYU pragma: export
  #endif
-@@ -240,6 +246,11 @@ inline void GOOGLE_UNALIGNED_STORE64(voi
+@@ -242,6 +246,11 @@ inline void GOOGLE_UNALIGNED_STORE64(voi
  #define bswap_32(x) OSSwapInt32(x)
  #define bswap_64(x) OSSwapInt64(x)
  
