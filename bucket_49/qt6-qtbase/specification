@@ -116,7 +116,10 @@ post-install:
 	${FIND} ${STAGEDIR}${PREFIX} -type d -empty -delete
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/*.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/plugins/*/*.so
-.for F in androiddeployqt androidtestrunner cmake_automoc_parser moc \
-	qdbuscpp2xml qdbusxml2cpp qlalr qmake qvkgen rcc tracegen uic
+.for F in androiddeployqt androidtestrunner qdbuscpp2xml \
+	qdbusxml2cpp qmake qmake6
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/bin/${F}
+.endfor
+.for F in cmake_automoc_parser moc qlalr rcc uic qvkgen tracegen
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/qt6/${F}
 .endfor

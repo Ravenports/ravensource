@@ -36,6 +36,7 @@ include/qt6/QtQuickTemplates2/QtQuickTemplates2Depends
 include/qt6/QtQuickTemplates2/QtQuickTemplates2Version
 include/qt6/QtQuickTemplates2/qtquicktemplates2-config.h
 include/qt6/QtQuickTemplates2/qtquicktemplates2version.h
+include/qt6/QtQuickTemplates2/%%QTVER%%/QtQuickTemplates2/private/qaccessiblequickpage_p.h
 include/qt6/QtQuickTemplates2/%%QTVER%%/QtQuickTemplates2/private/qquickabstractbutton_p.h
 include/qt6/QtQuickTemplates2/%%QTVER%%/QtQuickTemplates2/private/qquickabstractbutton_p_p.h
 include/qt6/QtQuickTemplates2/%%QTVER%%/QtQuickTemplates2/private/qquickaction_p.h
@@ -70,6 +71,7 @@ include/qt6/QtQuickTemplates2/%%QTVER%%/QtQuickTemplates2/private/qquickgroupbox
 include/qt6/QtQuickTemplates2/%%QTVER%%/QtQuickTemplates2/private/qquickheaderview_p.h
 include/qt6/QtQuickTemplates2/%%QTVER%%/QtQuickTemplates2/private/qquickheaderview_p_p.h
 include/qt6/QtQuickTemplates2/%%QTVER%%/QtQuickTemplates2/private/qquickicon_p.h
+include/qt6/QtQuickTemplates2/%%QTVER%%/QtQuickTemplates2/private/qquickindicatorbutton_p.h
 include/qt6/QtQuickTemplates2/%%QTVER%%/QtQuickTemplates2/private/qquickitemdelegate_p.h
 include/qt6/QtQuickTemplates2/%%QTVER%%/QtQuickTemplates2/private/qquickitemdelegate_p_p.h
 include/qt6/QtQuickTemplates2/%%QTVER%%/QtQuickTemplates2/private/qquicklabel_p.h
@@ -138,7 +140,6 @@ include/qt6/QtQuickTemplates2/%%QTVER%%/QtQuickTemplates2/private/qquicktumbler_
 include/qt6/QtQuickTemplates2/%%QTVER%%/QtQuickTemplates2/private/qquickvelocitycalculator_p_p.h
 include/qt6/QtQuickTemplates2/%%QTVER%%/QtQuickTemplates2/private/qtquicktemplates2-config_p.h
 include/qt6/QtQuickTemplates2/%%QTVER%%/QtQuickTemplates2/private/qtquicktemplates2global_p.h
-include/qt6/QtQuickTemplates2/%%QTVER%%/QtQuickTemplates2/private/qaccessiblequickpage_p.h
 lib/qt6/libQt6QuickControls2.prl
 lib/qt6/libQt6QuickControls2.so
 lib/qt6/libQt6QuickControls2.so.%%SOMAJOR%%
@@ -263,6 +264,7 @@ lib/qt6/cmake/Qt6QuickTemplates2/Qt6QuickTemplates2Dependencies.cmake
 lib/qt6/cmake/Qt6QuickTemplates2/Qt6QuickTemplates2Targets-release.cmake
 lib/qt6/cmake/Qt6QuickTemplates2/Qt6QuickTemplates2Targets.cmake
 lib/qt6/cmake/Qt6QuickTemplates2/Qt6QuickTemplates2VersionlessTargets.cmake
+lib/qt6/metatypes/qt6qtlabsplatformplugin_release_metatypes.json
 lib/qt6/metatypes/qt6qtquickcontrols2basicstyleimplplugin_release_metatypes.json
 lib/qt6/metatypes/qt6qtquickcontrols2basicstyleplugin_release_metatypes.json
 lib/qt6/metatypes/qt6qtquickcontrols2fusionstyleimplplugin_release_metatypes.json
@@ -284,6 +286,7 @@ lib/qt6/mkspecs/modules/qt_lib_quickcontrols2impl_private.pri
 lib/qt6/mkspecs/modules/qt_lib_quicktemplates2.pri
 lib/qt6/mkspecs/modules/qt_lib_quicktemplates2_private.pri
 lib/qt6/qml/Qt/labs/platform/libqtlabsplatformplugin.so
+lib/qt6/qml/Qt/labs/platform/plugins.qmltypes
 lib/qt6/qml/Qt/labs/platform/qmldir
 lib/qt6/qml/QtQuick/Controls/libqtquickcontrols2plugin.so
 lib/qt6/qml/QtQuick/Controls/plugins.qmltypes
@@ -346,6 +349,7 @@ lib/qt6/qml/QtQuick/Controls/Basic/ToolTip.qml
 lib/qt6/qml/QtQuick/Controls/Basic/Tumbler.qml
 lib/qt6/qml/QtQuick/Controls/Basic/VerticalHeaderView.qml
 lib/qt6/qml/QtQuick/Controls/Basic/libqtquickcontrols2basicstyleplugin.so
+lib/qt6/qml/QtQuick/Controls/Basic/plugins.qmltypes
 lib/qt6/qml/QtQuick/Controls/Basic/qmldir
 lib/qt6/qml/QtQuick/Controls/Basic/impl/libqtquickcontrols2basicstyleimplplugin.so
 lib/qt6/qml/QtQuick/Controls/Basic/impl/plugins.qmltypes
@@ -400,6 +404,7 @@ lib/qt6/qml/QtQuick/Controls/Fusion/ToolTip.qml
 lib/qt6/qml/QtQuick/Controls/Fusion/Tumbler.qml
 lib/qt6/qml/QtQuick/Controls/Fusion/VerticalHeaderView.qml
 lib/qt6/qml/QtQuick/Controls/Fusion/libqtquickcontrols2fusionstyleplugin.so
+lib/qt6/qml/QtQuick/Controls/Fusion/plugins.qmltypes
 lib/qt6/qml/QtQuick/Controls/Fusion/qmldir
 lib/qt6/qml/QtQuick/Controls/Fusion/impl/ButtonPanel.qml
 lib/qt6/qml/QtQuick/Controls/Fusion/impl/CheckIndicator.qml
@@ -460,6 +465,7 @@ lib/qt6/qml/QtQuick/Controls/Imagine/ToolTip.qml
 lib/qt6/qml/QtQuick/Controls/Imagine/Tumbler.qml
 lib/qt6/qml/QtQuick/Controls/Imagine/VerticalHeaderView.qml
 lib/qt6/qml/QtQuick/Controls/Imagine/libqtquickcontrols2imaginestyleplugin.so
+lib/qt6/qml/QtQuick/Controls/Imagine/plugins.qmltypes
 lib/qt6/qml/QtQuick/Controls/Imagine/qmldir
 lib/qt6/qml/QtQuick/Controls/Imagine/impl/OpacityMask.qml
 lib/qt6/qml/QtQuick/Controls/Imagine/impl/libqtquickcontrols2imaginestyleimplplugin.so
@@ -517,6 +523,7 @@ lib/qt6/qml/QtQuick/Controls/Material/ToolTip.qml
 lib/qt6/qml/QtQuick/Controls/Material/Tumbler.qml
 lib/qt6/qml/QtQuick/Controls/Material/VerticalHeaderView.qml
 lib/qt6/qml/QtQuick/Controls/Material/libqtquickcontrols2materialstyleplugin.so
+lib/qt6/qml/QtQuick/Controls/Material/plugins.qmltypes
 lib/qt6/qml/QtQuick/Controls/Material/qmldir
 lib/qt6/qml/QtQuick/Controls/Material/impl/BoxShadow.qml
 lib/qt6/qml/QtQuick/Controls/Material/impl/CheckIndicator.qml
@@ -580,6 +587,7 @@ lib/qt6/qml/QtQuick/Controls/Universal/ToolTip.qml
 lib/qt6/qml/QtQuick/Controls/Universal/Tumbler.qml
 lib/qt6/qml/QtQuick/Controls/Universal/VerticalHeaderView.qml
 lib/qt6/qml/QtQuick/Controls/Universal/libqtquickcontrols2universalstyleplugin.so
+lib/qt6/qml/QtQuick/Controls/Universal/plugins.qmltypes
 lib/qt6/qml/QtQuick/Controls/Universal/qmldir
 lib/qt6/qml/QtQuick/Controls/Universal/impl/CheckIndicator.qml
 lib/qt6/qml/QtQuick/Controls/Universal/impl/RadioIndicator.qml

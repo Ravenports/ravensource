@@ -32,3 +32,8 @@ DISTNAME=		${COMPONENT}-everywhere-src-${PORTVERSION}
 PLIST_SUB=		QTVER=${PORTVERSION}
 			SOMAJORMIN=${PORTVERSION:R}
 SOVERSION=		${PORTVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/bin/qtwaylandscanner
+	${FIND} ${STAGEDIR}${PREFIX}/lib/qt6/qml/QtWayland -name "*.so" |\
+		${XARGS} ${STRIP_CMD}
