@@ -1,4 +1,4 @@
---- util/coroutine-ucontext.c.orig	2020-12-08 16:59:44 UTC
+--- util/coroutine-ucontext.c.orig	2021-04-29 17:18:59 UTC
 +++ util/coroutine-ucontext.c
 @@ -221,7 +221,15 @@ Coroutine *qemu_coroutine_new(void)
                  2, arg.i[0], arg.i[1]);

@@ -1,6 +1,6 @@
---- meson.build.orig	2020-12-08 16:59:44 UTC
+--- meson.build.orig	2021-04-29 17:18:58 UTC
 +++ meson.build
-@@ -517,15 +517,16 @@ if have_system and not get_option('curse
+@@ -607,15 +607,16 @@ if have_system and not get_option('curse
        has_curses_h = cc.has_header('curses.h', args: curses_compile_args)
      endif
      if has_curses_h
@@ -10,7 +10,7 @@
        foreach curses_libname : curses_libname_list
          libcurses = cc.find_library(curses_libname,
                                      required: false,
-                                     static: enable_static)
+                                     kwargs: static_kwargs)
          if libcurses.found()
 -          if cc.links(curses_test, args: curses_compile_args, dependencies: libcurses)
 +          if cc.links(curses_test, args: curses_compile_args, dependencies: [libcurses,libtinfo])
