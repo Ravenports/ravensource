@@ -1,9 +1,9 @@
 Fix build with LibreSSL.
 
---- libraries/libldap/tls_o.c.orig	2021-01-18 20:08:39 UTC
+--- libraries/libldap/tls_o.c.orig	2021-04-29 17:42:58 UTC
 +++ libraries/libldap/tls_o.c
-@@ -50,7 +50,7 @@
- #include <ssl.h>
+@@ -48,7 +48,7 @@
+ #include <openssl/dh.h>
  #endif
  
 -#if OPENSSL_VERSION_NUMBER >= 0x10100000
@@ -11,7 +11,7 @@ Fix build with LibreSSL.
  #define ASN1_STRING_data(x)	ASN1_STRING_get0_data(x)
  #endif
  
-@@ -127,7 +127,7 @@ static void tlso_thr_init( void ) {}
+@@ -125,7 +125,7 @@ static void tlso_thr_init( void ) {}
  #endif
  #endif /* OpenSSL 1.1 */
  
@@ -20,7 +20,7 @@ Fix build with LibreSSL.
  /*
   * OpenSSL 1.1 API and later makes the BIO method concrete types internal.
   */
-@@ -208,7 +208,7 @@ tlso_init( void )
+@@ -214,7 +214,7 @@ tlso_init( void )
  	(void) tlso_seed_PRNG( lo->ldo_tls_randfile );
  #endif
  
@@ -29,7 +29,7 @@ Fix build with LibreSSL.
  	SSL_load_error_strings();
  	SSL_library_init();
  	OpenSSL_add_all_digests();
-@@ -260,7 +260,7 @@ static void
+@@ -262,7 +262,7 @@ static void
  tlso_ctx_ref( tls_ctx *ctx )
  {
  	tlso_ctx *c = (tlso_ctx *)ctx;
@@ -38,7 +38,7 @@ Fix build with LibreSSL.
  #define	SSL_CTX_up_ref(ctx)	CRYPTO_add( &(ctx->references), 1, CRYPTO_LOCK_SSL_CTX )
  #endif
  	SSL_CTX_up_ref( c );
-@@ -559,7 +559,7 @@ tlso_session_my_dn( tls_session *sess, s
+@@ -672,7 +672,7 @@ tlso_session_my_dn( tls_session *sess, s
  	if (!x) return LDAP_INVALID_CREDENTIALS;
  	
  	xn = X509_get_subject_name(x);
@@ -47,7 +47,7 @@ Fix build with LibreSSL.
  	der_dn->bv_len = i2d_X509_NAME( xn, NULL );
  	der_dn->bv_val = xn->bytes->data;
  #else
-@@ -595,7 +595,7 @@ tlso_session_peer_dn( tls_session *sess,
+@@ -708,7 +708,7 @@ tlso_session_peer_dn( tls_session *sess,
  		return LDAP_INVALID_CREDENTIALS;
  
  	xn = X509_get_subject_name(x);
@@ -56,7 +56,7 @@ Fix build with LibreSSL.
  	der_dn->bv_len = i2d_X509_NAME( xn, NULL );
  	der_dn->bv_val = xn->bytes->data;
  #else
-@@ -855,7 +855,7 @@ struct tls_data {
+@@ -1125,7 +1125,7 @@ struct tls_data {
  	Sockbuf_IO_Desc		*sbiod;
  };
  

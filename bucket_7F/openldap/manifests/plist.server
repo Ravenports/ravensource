@@ -2,31 +2,36 @@
 @sample etc/openldap/schema/corba.schema.sample
 @sample etc/openldap/schema/core.schema.sample
 @sample etc/openldap/schema/cosine.schema.sample
+@sample etc/openldap/schema/dsee.schema.sample
 @sample etc/openldap/schema/duaconf.schema.sample
 @sample etc/openldap/schema/dyngroup.schema.sample
 @sample etc/openldap/schema/inetorgperson.schema.sample
 @sample etc/openldap/schema/java.schema.sample
 @sample etc/openldap/schema/misc.schema.sample
+@sample etc/openldap/schema/msuser.schema.sample
+@sample etc/openldap/schema/namedobject.schema.sample
 @sample etc/openldap/schema/nis.schema.sample
 @sample etc/openldap/schema/openldap.schema.sample
 @sample etc/openldap/schema/pmi.schema.sample
-@sample etc/openldap/schema/ppolicy.schema.sample
 @sample etc/openldap/slapd.conf.sample
 @sample etc/openldap/slapd.ldif.sample
+etc/openldap/slapd.ldif
 etc/openldap/schema/README
 etc/openldap/schema/collective.ldif
 etc/openldap/schema/corba.ldif
 etc/openldap/schema/core.ldif
 etc/openldap/schema/cosine.ldif
+etc/openldap/schema/dsee.ldif
 etc/openldap/schema/duaconf.ldif
 etc/openldap/schema/dyngroup.ldif
 etc/openldap/schema/inetorgperson.ldif
 etc/openldap/schema/java.ldif
 etc/openldap/schema/misc.ldif
+etc/openldap/schema/msuser.ldif
+etc/openldap/schema/namedobject.ldif
 etc/openldap/schema/nis.ldif
 etc/openldap/schema/openldap.ldif
 etc/openldap/schema/pmi.ldif
-etc/openldap/schema/ppolicy.ldif
 libexec/slapd
 libexec/openldap/back_ldap-%%OPENLDAP_MAJOR%%.so.%%SOMAJOR%%
 libexec/openldap/back_ldap-%%OPENLDAP_MAJOR%%.so.%%SOVERSION%%
@@ -40,10 +45,6 @@ libexec/openldap/back_meta-%%OPENLDAP_MAJOR%%.so.%%SOMAJOR%%
 libexec/openldap/back_meta-%%OPENLDAP_MAJOR%%.so.%%SOVERSION%%
 libexec/openldap/back_meta.la
 libexec/openldap/back_meta.so
-libexec/openldap/back_monitor-%%OPENLDAP_MAJOR%%.so.%%SOMAJOR%%
-libexec/openldap/back_monitor-%%OPENLDAP_MAJOR%%.so.%%SOVERSION%%
-libexec/openldap/back_monitor.la
-libexec/openldap/back_monitor.so
 libexec/openldap/back_null-%%OPENLDAP_MAJOR%%.so.%%SOMAJOR%%
 libexec/openldap/back_null-%%OPENLDAP_MAJOR%%.so.%%SOVERSION%%
 libexec/openldap/back_null.la
@@ -58,13 +59,13 @@ sbin/slapauth
 sbin/slapcat
 sbin/slapdn
 sbin/slapindex
+sbin/slapmodify
 sbin/slappasswd
 sbin/slapschema
 sbin/slaptest
-share/man/man5/slapd-bdb.5.gz
+share/man/man5/slapd-asyncmeta.5.gz
 share/man/man5/slapd-config.5.gz
 share/man/man5/slapd-dnssrv.5.gz
-share/man/man5/slapd-hdb.5.gz
 share/man/man5/slapd-ldap.5.gz
 share/man/man5/slapd-ldif.5.gz
 share/man/man5/slapd-mdb.5.gz
@@ -75,9 +76,9 @@ share/man/man5/slapd-null.5.gz
 share/man/man5/slapd-passwd.5.gz
 share/man/man5/slapd-perl.5.gz
 share/man/man5/slapd-relay.5.gz
-share/man/man5/slapd-shell.5.gz
 share/man/man5/slapd-sock.5.gz
 share/man/man5/slapd-sql.5.gz
+share/man/man5/slapd-wt.5.gz
 share/man/man5/slapd.access.5.gz
 share/man/man5/slapd.backends.5.gz
 share/man/man5/slapd.conf.5.gz
@@ -85,17 +86,22 @@ share/man/man5/slapd.overlays.5.gz
 share/man/man5/slapd.plugin.5.gz
 share/man/man5/slapo-accesslog.5.gz
 share/man/man5/slapo-auditlog.5.gz
+share/man/man5/slapo-autoca.5.gz
 share/man/man5/slapo-chain.5.gz
 share/man/man5/slapo-collect.5.gz
 share/man/man5/slapo-constraint.5.gz
 share/man/man5/slapo-dds.5.gz
+share/man/man5/slapo-deref.5.gz
 share/man/man5/slapo-dyngroup.5.gz
 share/man/man5/slapo-dynlist.5.gz
+share/man/man5/slapo-homedir.5.gz
 share/man/man5/slapo-memberof.5.gz
+share/man/man5/slapo-otp.5.gz
 share/man/man5/slapo-pbind.5.gz
 share/man/man5/slapo-pcache.5.gz
 share/man/man5/slapo-ppolicy.5.gz
 share/man/man5/slapo-refint.5.gz
+share/man/man5/slapo-remoteauth.5.gz
 share/man/man5/slapo-retcode.5.gz
 share/man/man5/slapo-rwm.5.gz
 share/man/man5/slapo-sock.5.gz
@@ -104,6 +110,7 @@ share/man/man5/slapo-syncprov.5.gz
 share/man/man5/slapo-translucent.5.gz
 share/man/man5/slapo-unique.5.gz
 share/man/man5/slapo-valsort.5.gz
+share/man/man5/slappw-argon2.5.gz
 share/man/man8/slapacl.8.gz
 share/man/man8/slapadd.8.gz
 share/man/man8/slapauth.8.gz
@@ -111,6 +118,7 @@ share/man/man8/slapcat.8.gz
 share/man/man8/slapd.8.gz
 share/man/man8/slapdn.8.gz
 share/man/man8/slapindex.8.gz
+share/man/man8/slapmodify.8.gz
 share/man/man8/slappasswd.8.gz
 share/man/man8/slapschema.8.gz
 share/man/man8/slaptest.8.gz

@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2.4.58
-DEF[SOVERSION]=		2.11.6
+DEF[PORTVERSION]=	2.5.4
+DEF[SOVERSION]=		0.0.2
 DEF[LDAP_USER]=		ldap
 DEF[LDAP_GROUP]=	ldap
 DEF[LDAP_RUN_DIR]=	/var/run/openldap
@@ -32,14 +32,14 @@ BUILD_DEPENDS=		mandoc:single:standard
 BUILDRUN_DEPENDS=	libltdl:single:standard
 			icu:single:standard
 			unixODBC:primary:standard
-EXRUN[client]=		ssl
+EXRUN[client]=		openssl-devel:single:standard
 
 USERS=			${LDAP_USER}
 GROUPS=			${LDAP_GROUP}
 USERGROUP_SPKG=		server
 
 # :keepla because port uses lt_dlopen
-USES=			cpe fbsd10fix libtool:keepla ssl
+USES=			cpe gmake fbsd10fix libtool:keepla ssl:openssl-devel
 
 INSTALL_REQ_TOOLCHAIN=	yes
 MUST_CONFIGURE=		gnu
@@ -100,10 +100,22 @@ post-install:
 		${MKDIR} ${STAGEDIR}${STD_DOCDIR}/$${dir}; \
 		${INSTALL_DATA} ${WRKSRC}/doc/$${dir}/* ${STAGEDIR}${STD_DOCDIR}/$${dir}; \
 	done
+	# define schemas as samples
+	cd ${STAGEDIR}${PREFIX}/etc/openldap/schema &&\
+		${FIND} * -name "*.schema" -type f | \
+		${XARGS} -I {}  mv {} {}.sample
+	# rename default to sample
+	cd ${STAGEDIR}${PREFIX}/etc/openldap &&\
+		${MV} slapd.ldif.default slapd.ldif.sample &&\
+		${MV} slapd.conf.default slapd.conf.sample
+	# remove /var/db/run directory
+	${RM} -r ${STAGEDIR}/var/db/run
+	# remove provided slapd.conf
+	${RM} ${STAGEDIR}${PREFIX}/etc/openldap/slapd.conf
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ldap*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/sbin/slap*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/openldap/*.so
 
-	for library in lber ldap ldap_r; do \
+	for library in lber ldap; do \
 		${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib$${library}-${PORTVERSION:R}.so.${SOVERSION:R:R}; \
 	done
