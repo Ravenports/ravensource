@@ -62,18 +62,17 @@
      }
    }
  
-@@ -188,8 +188,8 @@ DragonFly::DragonFly(const Driver &D, co
-     getProgramPaths().push_back(getDriver().Dir);
+@@ -189,7 +189,8 @@ DragonFly::DragonFly(const Driver &D, co
  
    getFilePaths().push_back(getDriver().Dir + "/../lib");
--  getFilePaths().push_back("/usr/lib");
+   getFilePaths().push_back("/usr/lib");
 -  getFilePaths().push_back("/usr/lib/gcc80");
 +  getFilePaths().push_back("@RAVEN_GCC@");
 +  getFilePaths().push_back("@RAVEN_GCC_TARGET@");
  }
  
  Tool *DragonFly::buildAssembler() const {
-@@ -199,3 +199,5 @@ Tool *DragonFly::buildAssembler() const
+@@ -199,3 +200,5 @@ Tool *DragonFly::buildAssembler() const
  Tool *DragonFly::buildLinker() const {
    return new tools::dragonfly::Linker(*this);
  }
