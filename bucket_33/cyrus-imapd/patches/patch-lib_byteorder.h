@@ -1,4 +1,4 @@
---- lib/byteorder.h.orig	2021-04-14 03:02:50 UTC
+--- lib/byteorder.h.orig	2021-05-10 04:34:24 UTC
 +++ lib/byteorder.h
 @@ -49,7 +49,7 @@
  
@@ -9,12 +9,3 @@
  #  include <sys/endian.h>
  #endif
  
-@@ -61,7 +61,7 @@
- #  define ntohll(x) (x)
- 
- #else /* small-endian machines */
--#  if defined(__GNUC__) && __GNUC_PREREQ(4, 3)
-+#  if defined(__GNUC__)
-      /* Remove existing macros if present */
- #    undef ntohl
- #    undef htonl
