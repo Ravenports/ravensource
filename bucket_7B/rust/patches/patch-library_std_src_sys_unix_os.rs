@@ -1,6 +1,6 @@
---- library/std/src/sys/unix/os.rs.orig	2021-03-23 16:15:10 UTC
+--- library/std/src/sys/unix/os.rs.orig	2021-05-09 02:52:39 UTC
 +++ library/std/src/sys/unix/os.rs
-@@ -99,18 +99,6 @@ pub fn errno() -> i32 {
+@@ -100,18 +100,6 @@ pub fn errno() -> i32 {
      unsafe { errno as i32 }
  }
  

@@ -1,6 +1,6 @@
---- library/unwind/build.rs.orig	2021-03-23 16:15:10 UTC
+--- library/unwind/build.rs.orig	2021-05-09 02:52:39 UTC
 +++ library/unwind/build.rs
-@@ -37,7 +37,7 @@ fn main() {
+@@ -35,7 +35,7 @@ fn main() {
      } else if target.contains("illumos") {
          println!("cargo:rustc-link-lib=gcc_s");
      } else if target.contains("dragonfly") {

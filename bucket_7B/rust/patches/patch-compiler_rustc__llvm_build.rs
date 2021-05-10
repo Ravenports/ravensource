@@ -1,4 +1,4 @@
---- compiler/rustc_llvm/build.rs.orig	2021-03-23 16:15:10 UTC
+--- compiler/rustc_llvm/build.rs.orig	2021-05-09 02:52:39 UTC
 +++ compiler/rustc_llvm/build.rs
 @@ -271,22 +271,7 @@ fn main() {
      }

@@ -1,4 +1,4 @@
---- vendor/libc/src/unix/bsd/freebsdlike/dragonfly/errno.rs.orig	2021-03-23 16:54:52 UTC
+--- vendor/libc/src/unix/bsd/freebsdlike/dragonfly/errno.rs.orig	2021-05-09 03:33:00 UTC
 +++ vendor/libc/src/unix/bsd/freebsdlike/dragonfly/errno.rs
 @@ -1,7 +1,6 @@
  // DragonFlyBSD's __error function is declared with "static inline", so it must
