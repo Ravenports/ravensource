@@ -35,16 +35,7 @@ Try it out now using the [Black Playground]. Watch the
 
 ---
 
-_Contents:_ **[Installation and usage]** |
-**[Code style]** | **[Pragmatism]** |
-**[pyproject.toml]** | **[Editor integration]** |
-**[blackd]** | **[black-primer]** |
-**[Version control integration]** |
-**[GitHub Actions]** |
-**[Ignoring unmodified files]** | **[Used by]** |
-**[Testimonials]** | **[Show your style]** |
-**[Contributing]** | **[Change log]** |
-**[Authors]**
+**[Read the documentation on ReadTheDocs!]**
 
 ---
 
@@ -56,8 +47,6 @@ _Black_ can be installed by running `pip install black`. It requires Python
 3.6.2+ to
 run. If you want to format Python 2 code as well, install with
 `pip install black[python2]`.
-
-#### Install from GitHub
 
 If you can't wait for the latest _hotness_ and want to install from GitHub,
 use:
@@ -78,23 +67,34 @@ You can run _Black_ as a package if running it as a script doesn't work:
 python -m black {source_file_or_directory}
 ```
 
-### Command line options
+Further information can be found in our docs:
 
-_Black_ doesn't provide many options. You can list them by running `black
---help`:
+- [Usage and Configuration]
 
-```text
-Usage: black [OPTIONS] [SRC]```
+### NOTE: This is a beta product
 
-Looks like this:
-[![Code style: black]](https://github.com/psf/black)
+_Black_ is already [successfully used] by many
+projects, small and big. Black has a comprehensive test suite, with
+efficient parallel
+tests, and our own auto formatting and parallel Continuous Integration
+runner. However,
+_Black_ is still beta. Things will probably be wonky for a while. This is
+made explicit
+by the "Beta" trove classifier, as well as by the "b" in the version
+number. What this
+means for you is that **until the formatter becomes stable, you should
+expect some
+formatting to change in the future**. That being said, no drastic stylistic
+changes are
+planned, mostly responses to bug reports.
 
-## License
+Also, as a safety measure which slows down processing, _Black_ will check
+that the
+reformatted code still produces a valid AST that is effectively equivalent
+to the
+original (see the
+[Pragmatism]
+section for details). If you're feeling confident, use `--fast`.
 
-MIT
+## The _Black_ code style
 
-## Contributing to _Black_
-
-In terms of inspiration, _Black_ is about as configurable as _gofmt_. This
-is
-deliberate.
