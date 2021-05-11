@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.4
+DEF[PORTVERSION]=	1.4.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-ConfigArgParse
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/bw2/ConfigArgParse
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/C/ConfigArgParse
-DISTFILE[1]=		ConfigArgParse-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/e8/a2/b6947a20b67c64b080b999badd231ff4785d1c709a66cfaf8d5e70811a14
+DISTFILE[1]=		ConfigArgParse-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py39]=		single
@@ -26,11 +26,11 @@ VOPTS[py39]=		PY38=OFF PY39=ON
 # MIT
 
 GENERATED=		yes
-DISTNAME=		ConfigArgParse-${PORTVERSION}
+DISTNAME=		ConfigArgParse-${PORTVERSION}.dist-info
 
-# install_requires extracted from setup.py
+# Requires-Dist extracted from wheel metadata
+# PyYAML ; extra == 'yaml'
 
-
-[PY38].USES_ON=				python:py38,sutools
-[PY39].USES_ON=				python:py39,sutools
+[PY38].USES_ON=				python:py38,wheel
+[PY39].USES_ON=				python:py39,wheel
 
