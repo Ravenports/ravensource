@@ -1,4 +1,4 @@
---- configure.cmake.orig	2021-03-22 08:44:50 UTC
+--- configure.cmake.orig	2021-04-23 15:06:40 UTC
 +++ configure.cmake
 @@ -584,6 +584,7 @@ int main(int ac, char **av)
  HAVE_SYS_GETTID)
