@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	0.5.4
+DEF[PORTVERSION]=	0.5.5
+DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mousepad
@@ -30,7 +31,8 @@ FPC_EQUIVALENT=		editors/mousepad
 BUILDRUN_DEPENDS=	gtksourceview3:primary:standard
 			xfconf:primary:standard
 
-USES=			desktop-utils:primary gettext-tools:build gettext-runtime gmake pkgconfig
+USES=			desktop-utils:primary gettext-tools:build gettext-runtime
+			gmake pkgconfig libtool
 GNOME_COMPONENTS=	glib intltool
 
 MUST_CONFIGURE=		gnu
@@ -40,5 +42,6 @@ CONFIGURE_ARGS=		--enable-gtk3
 			--disable-debug
 			--libexecdir={{PREFIX}}/lib/xfce4
 GLIB_SCHEMAS=		org.xfce.mousepad.gschema.xml
+SOVERSION=		${SOVERSION}
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
