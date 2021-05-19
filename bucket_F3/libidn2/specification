@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	2.3.0
+DEF[PORTVERSION]=	2.3.1
 DEF[SOVERSION]=		0.3.7
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libidn2
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		dns
 VARIANTS=		standard
 SDESC[standard]=	IDNA2008 internationalized domain names library
@@ -34,10 +33,11 @@ LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		dns/libidn2
 
+BUILD_DEPENDS=		help2man:single:standard
 BUILDRUN_DEPENDS=	libunistring:primary:standard
 
 USES=			autoreconf cpe charsetfix gmake iconv libtool
-			pkgconfig gtk-doc gettext-tools
+			pkgconfig gtk-doc gettext-tools makeinfo
 CPE_VENDOR=		gnu
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-nls
