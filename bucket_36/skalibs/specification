@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	2.10.0.3
+DEF[SOMAJMIN]=		${PORTVERSION:R:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		skalibs
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Skarnet.org general-purpose low-level C libraries
+HOMEPAGE=		https://skarnet.org/software/skalibs/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.skarnet.org/software/skalibs/
+DISTFILE[1]=		skalibs-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/skalibs
+
+LICENSE=		ISCL:single
+LICENSE_FILE=		ISCL:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+USES=			gmake
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-default-path={{PREFIX}}/bin:/usr/bin:/bin
+
+PLIST_SUB=		SOVERSION=${PORTVERSION}
+			SOMAJMIN=${SOMAJMIN}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libskarnet.so.${PORTVERSION}
