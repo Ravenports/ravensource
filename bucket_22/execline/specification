@@ -1,0 +1,56 @@
+DEF[PORTVERSION]=	2.8.0.1
+DEF[MANVERSION]=	2.8.0.1.1
+# Upstream documentation is only available as HTML; converted manpages are
+# an external project (thanks a lot for maintaining, flexibeast!)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		execline
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		standard
+SDESC[standard]=	Light and secure sh(1)-like scripting language
+HOMEPAGE=		https://www.skarnet.org/software/execline/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main man
+SITES[main]=		https://www.skarnet.org/software/execline/
+SITES[man]=		GITHUB/flexibeast:execline-man-pages:v${MANVERSION}
+DISTFILE[1]=		execline-${PORTVERSION}.tar.gz:main
+DISTFILE[2]=		generated:man
+DF_INDEX=		1 2
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		lang/execline
+
+LICENSE=		ISCL:single
+LICENSE_FILE=		ISCL:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+BUILDRUN_DEPENDS=	skalibs:single:standard
+USES=			gmake
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--prefix={{PREFIX}}
+			--enable-shared
+			--with-sysdeps={{PREFIX}}/lib/skalibs/sysdeps
+			--with-lib={{PREFIX}}/lib/skalibs
+			--with-dynlib={{PREFIX}}/lib
+			--with-include={{PREFIX}}/include
+
+PLIST_SUB=		SOVERSION=${PORTVERSION}
+			SOMAJOR=${PORTVERSION:R:R}
+
+post-patch:
+	${REINPLACE_CMD} -e "s|usr|${STAGEDIR}${PREFIX}|" ${WRKDIR}/execline-man-pages-${MANVERSION}/Makefile
+
+post-build:
+	(cd ${WRKDIR}/execline-man-pages-${MANVERSION} && \
+		make)
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libexecline.so.${PORTVERSION}
