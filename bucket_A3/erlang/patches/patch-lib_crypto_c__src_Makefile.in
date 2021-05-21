@@ -1,9 +1,9 @@
---- lib/crypto/c_src/Makefile.in.orig	2021-05-10 10:32:18 UTC
+--- lib/crypto/c_src/Makefile.in.orig	2021-05-10 14:06:09 UTC
 +++ lib/crypto/c_src/Makefile.in
-@@ -126,7 +126,7 @@ TEST_ENGINE_LIB = $(LIBDIR)/otp_test_eng
- DYNAMIC_CRYPTO_LIB=@SSL_DYNAMIC_ONLY@
+@@ -136,7 +136,7 @@ endif
+ endif
  
- ifeq ($(DYNAMIC_CRYPTO_LIB),yes)
+ ifeq ($(DYNAMIC_OR_WIN_CRYPTO_LIB),yes)
 -SSL_DED_LD_RUNTIME_LIBRARY_PATH = @SSL_DED_LD_RUNTIME_LIBRARY_PATH@
 +SSL_DED_LD_RUNTIME_LIBRARY_PATH =
  CRYPTO_LINK_LIB=$(SSL_DED_LD_RUNTIME_LIBRARY_PATH) -L$(SSL_LIBDIR) -l$(SSL_CRYPTO_LIBNAME)
