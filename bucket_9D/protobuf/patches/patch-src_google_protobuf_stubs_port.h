@@ -1,4 +1,4 @@
---- ../src/google/protobuf/stubs/port.h.orig	2021-05-06 19:50:11 UTC
+--- ../src/google/protobuf/stubs/port.h.orig	2021-05-22 06:04:09 UTC
 +++ ../src/google/protobuf/stubs/port.h
 @@ -59,8 +59,10 @@
  #else
@@ -12,24 +12,24 @@
  #else
  #include <endian.h>  // __BYTE_ORDER
  #endif
-@@ -78,6 +80,8 @@
+@@ -76,6 +78,8 @@
+ #ifdef _MSC_VER
+ #include <stdlib.h>  // NOLINT(build/include)
  #include <intrin.h>
- #elif defined(__APPLE__)
- #include <libkern/OSByteOrder.h>
 +#elif defined(__sun__)
 +#include <sys/byteorder.h>
- #elif defined(__GLIBC__) || defined(__BIONIC__) || defined(__CYGWIN__)
- #include <byteswap.h>  // IWYU pragma: export
- #endif
-@@ -242,6 +246,11 @@ inline void GOOGLE_UNALIGNED_STORE64(voi
- #define bswap_32(x) OSSwapInt32(x)
- #define bswap_64(x) OSSwapInt64(x)
+ #elif defined(__APPLE__)
+ #include <libkern/OSByteOrder.h>
+ #elif defined(__linux__) || defined(__ANDROID__) || defined(__CYGWIN__)
+@@ -236,6 +240,11 @@ inline void GOOGLE_UNALIGNED_STORE64(voi
+ #define bswap_32(x) _byteswap_ulong(x)
+ #define bswap_64(x) _byteswap_uint64(x)
  
 +#elif defined(__sun__)
 +#define bswap_16(x) BSWAP_16(x)
 +#define bswap_32(x) BSWAP_32(x)
 +#define bswap_64(x) BSWAP_64(x)
 +
- #elif !defined(__GLIBC__) && !defined(__BIONIC__) && !defined(__CYGWIN__)
- 
- #ifndef bswap_16
+ #elif defined(__APPLE__)
+ // Mac OS X / Darwin features
+ #define bswap_16(x) OSSwapInt16(x)

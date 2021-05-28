@@ -1,4 +1,4 @@
---- ../src/google/protobuf/io/coded_stream.h.orig	2021-05-06 19:50:11 UTC
+--- ../src/google/protobuf/io/coded_stream.h.orig	2021-05-22 06:04:09 UTC
 +++ ../src/google/protobuf/io/coded_stream.h
 @@ -133,8 +133,10 @@
  #else
