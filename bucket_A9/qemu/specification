@@ -1,6 +1,6 @@
 DEF[PORTVERSION]=	6.0.0
 DEF[JQUERY]=		3.5.1
-DEF[UNDERSCORE]=	1.12.0
+DEF[UNDERSCORE]=	1.13.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		qemu
@@ -84,11 +84,6 @@ post-patch:
 pre-install:
 	# for some reason file is considered out-of-date
 	${TOUCH} ${WRKSRC}/config-host.mak
-	# hack around likely-Sphinx issue
-	${MV} ${WRKSRC}/build/docs/1/*.1 ${WRKSRC}/build/docs/
-	${MV} ${WRKSRC}/build/docs/7/*.7 ${WRKSRC}/build/docs/
-	${MV} ${WRKSRC}/build/docs/8/*.8 ${WRKSRC}/build/docs/
-
 
 post-install:
 	${INSTALL_SCRIPT} ${FILESDIR}/qemu-ifup.sample \
