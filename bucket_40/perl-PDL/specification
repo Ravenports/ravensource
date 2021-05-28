@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.047
+DEF[PORTVERSION]=	2.048
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-PDL
@@ -37,18 +37,18 @@ DISTNAME=		PDL-${PORTVERSION}
 # |      runtime : File::Map
 # |      runtime : Filter::Simple (perl 5.30 core) (perl 5.32 core)
 # |      runtime : Filter::Util::Call (perl 5.30 core) (perl 5.32 core)
-# |      runtime : Inline
-# |      runtime : Inline::C
 # |      runtime : List::Util (perl 5.30 core) (perl 5.32 core)
 # |      runtime : Math::Complex (perl 5.30 core) (perl 5.32 core)
-# |      runtime : OpenGL
 # |      runtime : Pod::Parser (perl 5.30 core)
 # |      runtime : Pod::Select (perl 5.30 core)
 # |      runtime : Scalar::Util (perl 5.30 core) (perl 5.32 core)
 # |      runtime : Storable (perl 5.30 core) (perl 5.32 core)
 # |      runtime : Term::ReadKey
 # |      runtime : Text::Balanced (perl 5.30 core) (perl 5.32 core)
-# |      runtime : autodie (perl 5.30 core) (perl 5.32 core)
+# |      runtime : ExtUtils::F77
+# |      runtime : Inline
+# |      runtime : Inline::C
+# |      runtime : OpenGL
 # |        build : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
 # |        build : File::Path (perl 5.30 core) (perl 5.32 core)
 # |    configure : Carp (perl 5.30 core) (perl 5.32 core)
@@ -68,25 +68,25 @@ DISTNAME=		PDL-${PORTVERSION}
 [PERL_530].USES_ON=			perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Convert-UU:single:530
 					perl-File-Map:single:530
+					perl-TermReadKey:single:530
+					perl-ExtUtils-F77:single:530
 					perl-Inline:single:530
 					perl-Inline-C:single:530
 					perl-OpenGL:single:530
-					perl-TermReadKey:single:530
 [PERL_530].BUILD_DEPENDS_ON=		perl-Devel-CheckLib:single:530
 					perl-ExtUtils-Depends:single:530
-					perl-ExtUtils-F77:single:530
 					perl-PGPLOT:single:530
 [PERL_532].USES_ON=			perl:532,configure
 [PERL_532].BUILDRUN_DEPENDS_ON=		perl-Convert-UU:single:532
 					perl-File-Map:single:532
+					perl-Pod-Parser:single:532
+					perl-TermReadKey:single:532
+					perl-ExtUtils-F77:single:532
 					perl-Inline:single:532
 					perl-Inline-C:single:532
 					perl-OpenGL:single:532
-					perl-Pod-Parser:single:532
-					perl-TermReadKey:single:532
 [PERL_532].BUILD_DEPENDS_ON=		perl-Devel-CheckLib:single:532
 					perl-ExtUtils-Depends:single:532
-					perl-ExtUtils-F77:single:532
 					perl-PGPLOT:single:532
 
 USES=			fortran:single
