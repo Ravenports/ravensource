@@ -1,4 +1,4 @@
---- src/extra/tre/tre-internal.h.orig	2018-09-25 08:46:39 UTC
+--- src/extra/tre/tre-internal.h.orig	2021-04-19 22:02:02 UTC
 +++ src/extra/tre/tre-internal.h
 @@ -18,6 +18,7 @@
  #endif /* !HAVE_WCTYPE_H */
