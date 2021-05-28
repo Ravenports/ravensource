@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.1.0.20210521
+DEF[PORTVERSION]=	1.1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		pcc
@@ -7,12 +7,12 @@ KEYWORDS=		lang
 VARIANTS=		standard
 SDESC[standard]=	Portable C Compiler
 HOMEPAGE=		http://pcc.ludd.ltu.se/
-CONTACT=		Leonid_Bobrov[mazocomp@disroot.org]
+CONTACT=		Leonid_Bobrov[goleo@disroot.org]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		http://pcc.ludd.ltu.se/ftp/pub/pcc/
 			ftp://pcc.ludd.ltu.se/pub/pcc/
-DISTFILE[1]=		pcc-${PORTVERSION:E}.tgz:main
+DISTFILE[1]=		pcc-${PORTVERSION}.tgz:main
 
 SPKGS[standard]=	single
 
@@ -44,7 +44,5 @@ MUST_CONFIGURE=		gnu
 BUILD_DEPENDS=		byacc:single:standard
 RUN_DEPENDS=		pcc-libs:single:standard
 
-DISTNAME=		pcc-${PORTVERSION:E}
-
 post-install:
-	${RM} -rf ${STAGEDIR}${PREFIX}/lib/pcc
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/pcc
