@@ -137,7 +137,6 @@ MUST_CONFIGURE=		gnu
 INSTALL_REQ_TOOLCHAIN=	yes
 CONFIGURE_ARGS=		--without-dynamic-trace
 			--without-javac
-			--without-odbc
 			--disable-sctp
 			--enable-kernel-poll
 			--enable-threads
@@ -222,6 +221,7 @@ PLIST_SUB=		COMPILER_VSN=${COMPILER_VSN}
 			RELEASE=${MAJOR_RELEASE}
 
 VAR_OPSYS[freebsd]=	CFLAGS=-DMAP_NORESERVE=0
+C_USES[freebsd]=	clang
 
 [NATIVE].DESCRIPTION=			Build native HiPE compiler
 [NATIVE].CONFIGURE_ENABLE_BOTH=		hipe native-libs
@@ -234,6 +234,10 @@ VAR_OPSYS[freebsd]=	CFLAGS=-DMAP_NORESERVE=0
 # Install documentation. (HTML docs need to be in same dir as the
 # rest, not in share/doc/erlang as it should, because of relative
 # links in the documentation.
+
+pre-extract:
+	# pcre.h (installed by glib) is causing ambiguity and a build failure
+	${MV} ${LOCALBASE}/include/pcre.h ${LOCALBASE}/include/pcre.h.tmp
 
 post-extract:
 	${AWK} '/%CopyrightBegin%/,/%CopyrightEnd%/' \
@@ -255,7 +259,7 @@ pre-build-NATIVE-ON:
 	(cd ${WRKSRC} && ${MAKE_CMD} clean)
 
 post-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/man.d
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/man.d
 	${INSTALL_DATA} ${WRKDIR}/erlang.conf \
 		${STAGEDIR}${PREFIX}/etc/man.d/erlang.conf
 	${LN} -sf ../lib/erlang/lib/erl_interface-${ERLINT_VSN}/bin/erl_call \
@@ -280,3 +284,7 @@ post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/erlang/lib/jinterface-*
 	${FIND} ${STAGEDIR}${PREFIX}/lib/${ERLANG_LIB}/* -type d -empty -delete
 	${LN} -s ../lib/erlang/lib/snmp-${SNMP_VSN}/bin/snmpc ${STAGEDIR}${PREFIX}/bin/snmpc
+
+post-stage:
+	# return pcre.h back to where it belongs
+	${MV} ${LOCALBASE}/include/pcre.h.tmp ${LOCALBASE}/include/pcre.h
