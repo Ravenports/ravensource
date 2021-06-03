@@ -1,6 +1,7 @@
 DEF[VERSION]=		7.0.11
-DEF[PORTVERSION]=	${VERSION}-13
+DEF[PORTVERSION]=	${VERSION}-14
 DEF[RELEASE_TAG]=	${PORTVERSION}
+DEF[SOVERSION]=		10.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ImageMagick
@@ -89,6 +90,8 @@ CFLAGS=			-I{{LOCALBASE}}/include/graphviz
 LDFLAGS=		-L{{LOCALBASE}}/lib/graphviz
 			-lpthread
 PLIST_SUB=		VERSION=${VERSION}
+			SOMAJOR=${SOVERSION:R:R}
+			SOVERSION=${SOVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
 
 [X11].DESCRIPTION=			Variant with X support
