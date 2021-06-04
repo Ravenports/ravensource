@@ -1,19 +1,19 @@
-DEF[PORTVERSION]=	4.1.1
+DEF[PORTVERSION]=	4.2.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-facter
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v26 v27 v30
-SDESC[v26]=		New version of Facter (v26)
-SDESC[v27]=		New version of Facter (v27)
-SDESC[v30]=		New version of Facter (v30)
+SDESC[v26]=		Facter, a system inventory tool (v26)
+SDESC[v27]=		Facter, a system inventory tool (v27)
+SDESC[v30]=		Facter, a system inventory tool (v30)
 HOMEPAGE=		https://github.com/puppetlabs/facter
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		facter-4.1.1.gem:main
+DISTFILE[1]=		facter-4.2.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v26]=		single
@@ -39,6 +39,7 @@ VOPTS[v30]=		RUBY26=OFF RUBY27=OFF RUBY30=ON
 #   rubocop-rspec (~> 1.38, development)
 #   simplecov (~> 0.17.1, development)
 #   sys-filesystem (~> 1.3, development)
+#   webmock (~> 3.12, development)
 #   yard (~> 0.9, development)
 
 DISTNAME=		facter-${PORTVERSION}
@@ -53,4 +54,4 @@ GENERATED=		yes
 [RUBY30].USES_ON=			gem:v30
 [RUBY30].BUILDRUN_DEPENDS_ON=		ruby-hocon:single:v30
 					ruby-thor:single:v30
-[RUBY30].BROKEN_ON=			Does not meet minimum Ruby version requirements
+
