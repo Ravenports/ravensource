@@ -1,7 +1,7 @@
 O_CLOEXEC is not available on every platform (e.g. MacOS X < 10.7). It
 was introduced in POSIX 2008.
 
---- lib/randutils.c.orig	2020-07-22 08:06:46 UTC
+--- lib/randutils.c.orig	2021-05-06 10:55:46 UTC
 +++ lib/randutils.c
 @@ -78,6 +78,10 @@ static void crank_random(void)
  		rand();
