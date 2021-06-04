@@ -3,8 +3,8 @@ ruamel.yaml
 
 ``ruamel.yaml`` is a YAML 1.2 loader/dumper package for Python.
 
-:version:       0.17.4
-:updated:       2021-04-07
+:version:       0.17.7
+:updated:       2021-05-31
 :documentation: http://yaml.readthedocs.io
 :repository:    https://sourceforge.net/projects/ruamel-yaml/
 :pypi:          https://pypi.org/project/ruamel.yaml/
@@ -51,6 +51,22 @@ ChangeLog
 .. should insert NEXT: at the beginning of line for next key (with empty
 line)
 
+0.17.7 (2021-05-31):
+  - issue 385 also affected other deprecated loaders (reported via email 
+    by Oren Watson)
+
+0.17.6 (2021-05-31):
+  - merged type annotations update provided by 
+    [Jochen Sprickerhof]
+  - fix for issue 385: deprecated round_trip_loader function not working
+    (reported by [Mike Gouline])
+  - wasted a few hours getting rid of mypy warnings/errors
+  
+0.17.5:
+  - fix for issue 384 !!set with aliased entry resulting in broken YAML on
+rt
+    reported by  [William Kimball])
+
 0.17.4 (2021-04-07):
   - prevent (empty) comments from throwing assertion error (issue 351 
     reported by  [William Kimball])
@@ -82,19 +98,3 @@ Python 3.5
   - allow PyOxidisation ([issue 324]
     resp. [issue 171])
   - replaced Python 2 compatible enforcement of keyword arguments with '*'
-  - the old top level *functions* load, safe_load, round_trip_load,
-    dump, safe_dump, round_trip_dump, scan, parse,
-    compose, emit, serialize as well as their _all variants for
-    multi-document streams, now issue a PendingDeprecationning (e.g. when
-run
-    from pytest, but also Python is started with ``-Wd``). Use the methods
-on
-    ``YAML()``, which have been extended.
-  - fix for issue 376: indentation changes could put literal/folded scalar
-to start
-    before the ``#`` column of a following comment. Effectively making the
-comment
-    part of the scalar in the output. (reported by
-    [Bence Nagy])
-
-0.16.13 (2021-03-05):
