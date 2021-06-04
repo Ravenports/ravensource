@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.02
+DEF[PORTVERSION]=	1.03
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Alien-GSL
@@ -7,11 +7,11 @@ KEYWORDS=		perl
 VARIANTS=		530 532
 SDESC[530]=		Easy installation of GNU Scientific Library (5.30)
 SDESC[532]=		Easy installation of GNU Scientific Library (5.32)
-HOMEPAGE=		https://github.com/Perl5-Alien/Alien-GSL
+HOMEPAGE=		https://github.com/PerlAlien/Alien-GSL
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		CPAN/ID:J/JB/JBERGER
+SITES[main]=		CPAN/ID:P/PL/PLICEASE
 DISTFILE[1]=		Alien-GSL-${PORTVERSION}.tar.gz:main
 
 SPKGS[530]=		single
@@ -33,24 +33,21 @@ DISTNAME=		Alien-GSL-${PORTVERSION}
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
 # |      runtime : Alien::Base
-# |      runtime : parent (perl 5.30 core) (perl 5.32 core)
-# |        build : IO::Socket::SSL
-# |        build : Net::SSLeay
-# |    configure : Alien::Base::ModuleBuild
-# |    configure : Module::Build
+# |      runtime : Alien::Build
+# |        build : Alien::Build
+# |        build : Alien::Build::MM
+# |        build : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# |    configure : Alien::Build
+# |    configure : Alien::Build::MM
+# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# |         test : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# |         test : Test2::V0
+# |         test : Test::Alien
 
-[PERL_530].USES_ON=			perl:530,buildmod,run
+[PERL_530].USES_ON=			perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Alien-Build:single:530
-[PERL_530].BUILD_DEPENDS_ON=		perl-IO-Socket-SSL:single:530
-					perl-Net-SSLeay:single:530
-					perl-Alien-Base-ModuleBuild:single:530
-					perl-Module-Build:single:530
-[PERL_532].USES_ON=			perl:532,buildmod,run
+[PERL_532].USES_ON=			perl:532,configure
 [PERL_532].BUILDRUN_DEPENDS_ON=		perl-Alien-Build:single:532
-[PERL_532].BUILD_DEPENDS_ON=		perl-IO-Socket-SSL:single:532
-					perl-Net-SSLeay:single:532
-					perl-Alien-Base-ModuleBuild:single:532
-					perl-Module-Build:single:532
 
 USES=			libtool
 BUILD_DEPENDS=		perl-PkgConfig:single:perl_default
