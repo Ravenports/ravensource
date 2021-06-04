@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	0.6.55
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		accountsservice
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	D-Bus service for user account query/manipulation
+HOMEPAGE=		https://www.freedesktop.org/wiki/Software/AccountsService/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.freedesktop.org/software/accountsservice/
+DISTFILE[1]=		accountsservice-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary nls docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/accounts-daemon.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		sysutils/accountsservice
+
+BUILD_DEPENDS=		xmlto:single:standard
+BUILDRUN_DEPENDS=	polkit:primary:standard
+
+USES=			gettext-runtime gettext-tools:build meson pkgconfig
+GNOME_COMPONENTS=	glib introspection
+
+MESON_ARGS=		-Dsystemd=false
+			-Dsystemdsystemunitdir=no
+			-Delogind=false
+			-Dintrospection=true
+			-Ddocbook=true
+			-Dgtk_doc=false
