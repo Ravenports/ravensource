@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.118
+DEF[PORTVERSION]=	0.119
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		polkit
@@ -75,10 +75,11 @@ post-patch-sunos:
 
 post-install:
 	${MKDIR} ${STAGEDIR}/var/lib/polkit-1
-	${INSTALL_DATA} ${WRKSRC}/data/org.freedesktop.PolicyKit1.conf \
-		${STAGEDIR}${PREFIX}/etc/dbus-1/system.d/org.freedesktop.PolicyKit1.conf.sample
+	${MV} ${STAGEDIR}${PREFIX}/share/dbus-1/system.d/org.freedesktop.PolicyKit1.conf \
+	${STAGEDIR}${PREFIX}/share/dbus-1/system.d/org.freedesktop.PolicyKit1.conf.sample
 .for i in 10-vendor.d 20-org.d 30-site.d 50-local.d 90-mandatory.d
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/polkit-1/localauthority/${i}
 	${MKDIR} ${STAGEDIR}/var/lib/polkit-1/localauthority/${i}
 .endfor
-	${RM} -r ${STAGEDIR}${PREFIX}/etc/dbus-1
+	# Disable system-d for now
+	${RM} -r  ${STAGEDIR}${PREFIX}/share/dbus-1/system.d

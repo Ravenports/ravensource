@@ -1,7 +1,7 @@
 Fix SunOS includes.
 Fix pid_t type.
 
---- src/polkit/polkitunixprocess.c.orig	2019-05-03 11:41:10 UTC
+--- src/polkit/polkitunixprocess.c.orig	2020-11-13 17:12:18 UTC
 +++ src/polkit/polkitunixprocess.c
 @@ -24,6 +24,11 @@
  #endif
