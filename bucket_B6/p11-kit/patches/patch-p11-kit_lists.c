@@ -1,7 +1,7 @@
---- p11-kit/lists.c.orig	2020-12-11 15:25:36 UTC
+--- p11-kit/lists.c.orig	2021-05-25 07:15:23 UTC
 +++ p11-kit/lists.c
-@@ -41,6 +41,7 @@
- #include <ctype.h>
+@@ -43,6 +43,7 @@
+ #include <stdint.h>
  #include <string.h>
  #include <stdio.h>
 +#include <stdint.h>
