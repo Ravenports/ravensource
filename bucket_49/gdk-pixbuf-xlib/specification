@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	2.40.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gdk-pixbuf-xlib
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Legacy Xlib integration for GdkPixbuf
+HOMEPAGE=		https://gitlab.gnome.org/Archive/gdk-pixbuf-xlib
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/gdk-pixbuf-xlib/${PORTVERSION:R}
+DISTFILE[1]=		gdk-pixbuf-xlib-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome2
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Use stock license as the terms actually state LGPL20+ but the COPYING file
+# that comes with the project is LGPL21
+LICENSE=		LGPL20+:single
+LICENSE_FILE=		LGPL20+:stock
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gdk-pixbuf-xlib/gdk-pixbuf-xlib.c
+LICENSE_SCHEME=		solo
+
+GNOME_COMPONENTS=	gdkpixbuf
+USES=			meson pkgconfig
