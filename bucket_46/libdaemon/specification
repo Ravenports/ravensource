@@ -4,6 +4,7 @@ DEF[SOVERSION]=		0.5.0
 
 NAMEBASE=		libdaemon
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Library for writing UNIX daemons
@@ -19,8 +20,11 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single
-LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE=		LGPL21:single
+LICENSE_FILE=		LGPL21:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libdaemon/daemon.h
+LICENSE_AWK=		TERMS:"\*\*\*\/"
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libdaemon
