@@ -1,6 +1,6 @@
---- src/command.c.orig	2020-10-22 23:42:41 UTC
+--- src/command.c.orig	2021-04-24 02:30:03 UTC
 +++ src/command.c
-@@ -114,6 +114,9 @@ int thread_rl_RetCode = -1; /* return co
+@@ -113,6 +113,9 @@ static int thread_rl_RetCode = -1; /* re
  
  #ifndef _WIN32
  # include "help.h"
