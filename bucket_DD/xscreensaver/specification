@@ -1,0 +1,59 @@
+DEF[PORTVERSION]=	6.00
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xscreensaver
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Screen saver and locker for X11
+HOMEPAGE=		https://www.jwz.org/xscreensaver/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.jwz.org/xscreensaver/
+DISTFILE[1]=		xscreensaver-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary nls gl gtk
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11/xscreensaver
+
+BUILD_DEPENDS=		freeglut:primary:standard
+			gle:primary:standard
+			libglade:single:standard
+			gdk-pixbuf-xlib:single:standard
+BUILDRUN_DEPENDS=	bc:single:standard
+			openpam:single:standard
+EXRUN[gl]=		freeglut:primary:standard
+			gle:primary:standard
+			xscreensaver:primary:standard
+EXRUN[gtk]=		libglade:single:standard
+			gdk-pixbuf-xlib:single:standard
+			xscreensaver:primary:standard
+
+USES=			gettext-tools gmake jpeg png
+XORG_COMPONENTS=	x11 xext xft xi xinerama xmu xrandr xt xxf86vm
+GNOME_COMPONENTS=	gdkpixbuf gtk2 intltool
+
+MUST_CONFIGURE=		gnu
+
+CONFIGURE_ARGS=		--with-configdir={{PREFIX}}/share/xscreensaver/config/
+			--with-app-defaults={{PREFIX}}/lib/X11/app-defaults/
+			--with-dpms-ext
+			--with-gl
+			--with-gle
+			--with-gtk
+			--with-login-manager
+			--with-pixbuf
+			--with-xdbe-ext
+			--with-xf86gamma-ext
+			--with-xf86vmode-ext
+			--with-xinerama-ext
+			--with-randr-ext
+			--with-xshm-ext
+			--enable-locking
+
+CFLAGS=			-I{{PREFIX}}/include/gdk-pixbuf-2.0
+MAKE_ARGS=		install_prefix={{STAGEDIR}}
