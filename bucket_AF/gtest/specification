@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.10.0
+DEF[PORTVERSION]=	1.11.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gtest
@@ -27,6 +27,8 @@ FPC_EQUIVALENT=		devel/googletest
 USES=			c++:single cclibs:single cmake:outsource
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS=ON
 			-Dgtest_build_tests=ON
+
+SOVERSION=		${PORTVERSION}
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
