@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.3.7
+DEF[PORTVERSION]=	3.3.8
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-gettext
@@ -13,7 +13,7 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		gettext-3.3.7.gem:main
+DISTFILE[1]=		gettext-3.3.8.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v26]=		single
@@ -31,6 +31,7 @@ VOPTS[v30]=		RUBY26=OFF RUBY27=OFF RUBY30=ON
 
 # Requirements according to gem specification:
 #   locale (>= 2.0.5)
+#   red-datasets (>= 0)
 #   text (>= 1.3.0)
 #   rake (>= 0, development)
 #   racc (>= 0, development)
@@ -44,12 +45,15 @@ GENERATED=		yes
 
 [RUBY26].USES_ON=			gem:v26
 [RUBY26].BUILDRUN_DEPENDS_ON=		ruby-locale:single:v26
+					ruby-red-datasets:single:v26
 					ruby-text:single:v26
 [RUBY27].USES_ON=			gem:v27
 [RUBY27].BUILDRUN_DEPENDS_ON=		ruby-locale:single:v27
+					ruby-red-datasets:single:v27
 					ruby-text:single:v27
 [RUBY30].USES_ON=			gem:v30
 [RUBY30].BUILDRUN_DEPENDS_ON=		ruby-locale:single:v30
+					ruby-red-datasets:single:v30
 					ruby-text:single:v30
 
 USES=			shebangfix

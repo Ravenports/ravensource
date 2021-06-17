@@ -1,19 +1,19 @@
-DEF[PORTVERSION]=	1.15.3
+DEF[PORTVERSION]=	3.2.5
 # ------------------------------------------------------------------------
 
-NAMEBASE=		ruby-ffi
+NAMEBASE=		ruby-rexml
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v26 v27 v30
-SDESC[v26]=		Foreign Function Interface library (v26)
-SDESC[v27]=		Foreign Function Interface library (v27)
-SDESC[v30]=		Foreign Function Interface library (v30)
-HOMEPAGE=		https://github.com/ffi/ffi/wiki
+SDESC[v26]=		XML toolkit for Ruby (v26)
+SDESC[v27]=		XML toolkit for Ruby (v27)
+SDESC[v30]=		XML toolkit for Ruby (v30)
+HOMEPAGE=		https://github.com/ruby/rexml
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		ffi-1.15.3.gem:main
+DISTFILE[1]=		rexml-3.2.5.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v26]=		single
@@ -27,21 +27,17 @@ VOPTS[v27]=		RUBY26=OFF RUBY27=ON RUBY30=OFF
 VOPTS[v30]=		RUBY26=OFF RUBY27=OFF RUBY30=ON
 
 # License listed inside gem specification
-# => "BSD-3-Clause"
+# => "BSD-2-Clause"
 
 # Requirements according to gem specification:
-#   rake (~> 13.0, development)
-#   rake-compiler (~> 1.0, development)
-#   rake-compiler-dock (~> 1.0, development)
-#   rspec (~> 2.14.1, development)
-#   rubygems-tasks (~> 0.2.4, development)
+#   bundler (>= 0, development)
+#   rake (>= 0, development)
+#   test-unit (>= 0, development)
 
-DISTNAME=		ffi-${PORTVERSION}
+DISTNAME=		rexml-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY26].USES_ON=			gem:v26
 [RUBY27].USES_ON=			gem:v27
 [RUBY30].USES_ON=			gem:v30
 
-USES=			gmake
-BUILDRUN_DEPENDS=	libffi:single:standard
