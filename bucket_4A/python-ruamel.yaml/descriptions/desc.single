@@ -3,8 +3,8 @@ ruamel.yaml
 
 ``ruamel.yaml`` is a YAML 1.2 loader/dumper package for Python.
 
-:version:       0.17.7
-:updated:       2021-05-31
+:version:       0.17.9
+:updated:       2021-06-10
 :documentation: http://yaml.readthedocs.io
 :repository:    https://sourceforge.net/projects/ruamel-yaml/
 :pypi:          https://pypi.org/project/ruamel.yaml/
@@ -51,6 +51,15 @@ ChangeLog
 .. should insert NEXT: at the beginning of line for next key (with empty
 line)
 
+0.17.9 (2021-06-10):
+  - fix issue with updating CommentedMap (reported by sri on
+    [StackOverlow])
+
+0.17.8 (2021-06-09):
+  - fix for issue 387 where templated anchors on tagged object did get set
+    resulting in potential id reuse. (reported by [Artem Ploujnikov 
+   ])
+
 0.17.7 (2021-05-31):
   - issue 385 also affected other deprecated loaders (reported via email 
     by Oren Watson)
@@ -62,7 +71,7 @@ line)
     (reported by [Mike Gouline])
   - wasted a few hours getting rid of mypy warnings/errors
   
-0.17.5:
+0.17.5 (2021-05-30):
   - fix for issue 384 !!set with aliased entry resulting in broken YAML on
 rt
     reported by  [William Kimball])
@@ -89,12 +98,3 @@ lambda s: copy.deepcopy(s)``
 0.17.0 (2021-03-26):
   - removed because of incomplete classifiers
   - this release no longer supports Python 2.7, most if not all Python 2
-    specific code is removed. The 0.17.x series is the last to  support
-Python 3.5
-    (this also allowed for removal of the dependency  on
-``ruamel.std.pathlib``)
-  - remove Python2 specific code branches and adaptations (u-strings)
-  - prepare % code for f-strings using _F
-  - allow PyOxidisation ([issue 324]
-    resp. [issue 171])
-  - replaced Python 2 compatible enforcement of keyword arguments with '*'
