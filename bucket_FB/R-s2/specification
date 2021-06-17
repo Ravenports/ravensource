@@ -1,17 +1,17 @@
-DEF[PORTVERSION]=	1.1-2
+DEF[PORTVERSION]=	1.0.6
 # ------------------------------------------------------------------------
 
-NAMEBASE=		R-mvtnorm
+NAMEBASE=		R-s2
 VERSION=		${PORTVERSION}
 KEYWORDS=		cran
 VARIANTS=		standard
-SDESC[standard]=	Multivariate Normal and t Distributions
-HOMEPAGE=		http://mvtnorm.R-forge.R-project.org
+SDESC[standard]=	Spherical Geometry Operators from S2 library
+HOMEPAGE=		https://r-spatial.github.io/s2/
 CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CRAN/src/contrib
-DISTFILE[1]=		mvtnorm_1.1-2.tar.gz:main
+DISTFILE[1]=		s2_1.0.6.tar.gz:main
 DIST_SUBDIR=		CRAN
 DF_INDEX=		1
 
@@ -21,12 +21,14 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 # License listed on https://cran.r-project.org/
-# => GPL-2
+# => Apache License (== 2.0)
 
 USES=			cran gmake
-DISTNAME=		mvtnorm
+DISTNAME=		s2
 GENERATED=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
 
+BUILDRUN_DEPENDS=	R-Rcpp:single:standard
+			R-wk:single:standard
 
 
