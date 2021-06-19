@@ -1,10 +1,10 @@
-DEF[PORTVERSION]=	0.99.11
+DEF[PORTVERSION]=	0.99.12
+DEF[SITEVERSION]=	UPOWER_${PORTVERSION:S/./_/g}
 DEF[SOVERSION]=		3.0.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		upower
 VERSION=		${PORTVERSION}
-REVISION=		4
 KEYWORDS=		sysutils
 VARIANTS=		standard
 SDESC[standard]=	D-Bus daemon for power management tasks
@@ -12,8 +12,8 @@ HOMEPAGE=		https://upower.freedesktop.org
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://upower.freedesktop.org/releases/
-DISTFILE[1]=		upower-${PORTVERSION}.tar.xz:main
+SITES[main]=		https://gitlab.freedesktop.org/upower/upower/-/archive/${SITEVERSION}/
+DISTFILE[1]=		upower-${SITEVERSION}.tar.gz:main
 
 SPKGS[standard]=	complete primary nls docs
 
@@ -40,7 +40,7 @@ BUILDRUN_DEPENDS=	dbus-glib:primary:standard
 BR_DEPS[linux]=		libgudev:single:standard
 			libusb:single:standard
 
-USES=			gettext-tools:build python:build
+USES=			autoreconf gettext-tools:build python:build
 			gmake libtool pkgconfig gtk-doc
 GNOME_COMPONENTS=	glib intltool
 MUST_CONFIGURE=		gnu
@@ -51,13 +51,10 @@ INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 CFLAGS=			-Wno-deprecated-declarations
 GTKDOC_OUTPUT_BASEDIR=	UPower
+DISTNAME=		upower-${SITEVERSION}
 
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--with-backend=freebsd
 # VAR_OPSYS[linux]=	CONFIGURE_ARGS=--with-backend=gudev
-
-post-patch:
-	${REINPLACE_CMD} -e 's|docbook.sourceforge.net|cdn.docbook.org|g' \
-		${WRKSRC}/doc/man/Makefile.in
 
 post-patch-sunos:
 	${REINPLACE_CMD} -e '/as-needed/ s/^.*$$/NOOP=1/' ${WRKSRC}/configure
