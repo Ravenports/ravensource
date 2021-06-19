@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.12.0
+DEF[PORTVERSION]=	1.13.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-fpm
@@ -13,7 +13,7 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		fpm-1.12.0.gem:main
+DISTFILE[1]=		fpm-1.13.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v26]=		single
@@ -33,14 +33,12 @@ VOPTS[v30]=		RUBY26=OFF RUBY27=OFF RUBY30=ON
 #   json (>= 1.7.7, < 3.0)
 #   cabin (>= 0.6.0)
 #   backports (>= 2.6.2)
-#   arr-pm (~> 0.0.10)
+#   arr-pm (~> 0.0.11)
 #   clamp (~> 1.0.0)
-#   childprocess (< 1.0.0)
-#   ffi (~> 1.12.0)
-#   ruby-xz (~> 0.2.3)
 #   pleaserun (~> 0.0.29)
 #   git (>= 1.3.0, < 2.0)
 #   stud (>= 0)
+#   rexml (>= 0)
 #   rake (~> 10, development)
 #   rspec (~> 3.0.0, development)
 #   insist (~> 1.0.0, development)
@@ -55,36 +53,30 @@ GENERATED=		yes
 					ruby-backports:single:v26
 					ruby-arr-pm:single:v26
 					ruby-clamp:single:v26
-					ruby-childprocess:single:v26
-					ruby-ffi:single:v26
-					ruby-ruby-xz:single:v26
 					ruby-pleaserun:single:v26
 					ruby-git:single:v26
 					ruby-stud:single:v26
+					ruby-rexml:single:v26
 [RUBY27].USES_ON=			gem:v27
 [RUBY27].BUILDRUN_DEPENDS_ON=		ruby-json:single:v27
 					ruby-cabin:single:v27
 					ruby-backports:single:v27
 					ruby-arr-pm:single:v27
 					ruby-clamp:single:v27
-					ruby-childprocess:single:v27
-					ruby-ffi:single:v27
-					ruby-ruby-xz:single:v27
 					ruby-pleaserun:single:v27
 					ruby-git:single:v27
 					ruby-stud:single:v27
+					ruby-rexml:single:v27
 [RUBY30].USES_ON=			gem:v30
 [RUBY30].BUILDRUN_DEPENDS_ON=		ruby-json:single:v30
 					ruby-cabin:single:v30
 					ruby-backports:single:v30
 					ruby-arr-pm:single:v30
 					ruby-clamp:single:v30
-					ruby-childprocess:single:v30
-					ruby-ffi:single:v30
-					ruby-ruby-xz:single:v30
 					ruby-pleaserun:single:v30
 					ruby-git:single:v30
 					ruby-stud:single:v30
+					ruby-rexml:single:v30
 
 post-patch:
 	# patch won't work, considered binary file
