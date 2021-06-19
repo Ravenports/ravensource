@@ -1,6 +1,6 @@
---- doc/Makefile.in.orig	2021-05-04 17:55:45 UTC
+--- doc/Makefile.in.orig	2021-06-12 17:49:14 UTC
 +++ doc/Makefile.in
-@@ -580,14 +580,7 @@ install-data-local: makedoc-all instdoc
+@@ -579,14 +579,7 @@ install-data-local: makedoc-all instdoc
  	    $(INSTALL) -m 644 $(srcdir)/$$f $(DESTDIR)$(docdir) ; \
  	  fi \
  	done
@@ -16,14 +16,14 @@
  	-if [ -f mutt.info ] ; then \
  	  $(MKDIR_P) $(DESTDIR)$(infodir) ; \
  	  $(INSTALL) -m 644 mutt.info $(DESTDIR)$(infodir) ; \
-@@ -629,9 +622,7 @@ uninstall-local:
+@@ -628,9 +621,7 @@ uninstall-local:
  
  check:
  manual.txt: manual.html
--	-LC_ALL=C lynx -localhost -dump -nolist -with_backspaces -display_charset=us-ascii manual.html > $@ || \
+-	-LC_ALL=C lynx -localhost -dump -nolist -nonumbers -with_backspaces -display_charset=us-ascii manual.html > $@ || \
 -	LC_ALL=C w3m -T text/html -I utf-8 -O utf-8 -dump < manual.html > $@ || \
 -	LC_ALL=C elinks -dump -no-numbering -no-references manual.html | sed -e 's,\\001, ,g' > $@
-+	-LC_ALL=C lynx -localhost -dump -nolist -with_backspaces -display_charset=us-ascii manual.html > $@
++       LC_ALL=C lynx -localhost -dump -nolist -nonumbers -with_backspaces -display_charset=us-ascii manual.html > $@
  
  Muttrc: stamp-doc-rc
  

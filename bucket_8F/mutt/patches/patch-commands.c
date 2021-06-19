@@ -1,4 +1,4 @@
---- commands.c.orig	2021-05-04 17:41:27 UTC
+--- commands.c.orig	2021-05-23 18:20:50 UTC
 +++ commands.c
 @@ -302,7 +302,7 @@ int mutt_display_message (HEADER *cur)
      {
