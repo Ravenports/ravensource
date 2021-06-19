@@ -1,8 +1,8 @@
-DEF[PORTVERSION]=	2.2
-DEF[AVCALL]=		1.0.2
-DEF[CALLBACK]=		1.0.2
-DEF[FFCALL]=		0.0.2
-DEF[TRAMPOLINE]=	1.0.2
+DEF[PORTVERSION]=	2.4
+DEF[AVCALL]=		1.1.0
+DEF[CALLBACK]=		1.0.4
+DEF[SOVERSION]=		0.1.0
+DEF[TRAMPOLINE]=	1.0.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libffcall
@@ -35,13 +35,12 @@ USES=			gmake libtool
 
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-shared
+SOVERSION=		${SOVERSION}
 
 PLIST_SUB=		AVCALL=${AVCALL}
 			AVMAJOR=${AVCALL:R:R}
 			CALLBACK=${CALLBACK}
 			CAMAJOR=${CALLBACK:R:R}
-			FFCALL=${FFCALL}
-			FFMAJOR=${FFCALL:R:R}
 			TRAMPOLINE=${TRAMPOLINE}
 			TRMAJOR=${TRAMPOLINE:R:R}
 
@@ -49,7 +48,7 @@ do-build:
 	( cd ${WRKSRC} && gmake )
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libavcall.so.${AVCALL}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libcallback.so.${CALLBACK}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libffcall.so.${FFCALL}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libtrampoline.so.${TRAMPOLINE}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libavcall.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libcallback.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libffcall.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libtrampoline.so
