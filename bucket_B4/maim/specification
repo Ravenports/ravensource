@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.6.3
+DEF[PORTVERSION]=	5.7.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		maim
@@ -25,18 +25,14 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/maim
 
-USES=			cmake jpeg
-
 BUILD_DEPENDS=		glm:single:standard
-
 BUILDRUN_DEPENDS=	icu:single:standard
 			imlib2:single:standard
-			png:single:standard
 			slop:single:standard
-			xorg-sm:single:standard
-			xorg-xcomposite:single:standard
-			xorg-xext:single:standard
-			xorg-xrender:single:standard
+			WebP:single:standard
+
+USES=			cmake jpeg png
+XORG_COMPONENTS=	sm xcomposite xext xrender
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/maim
