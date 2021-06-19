@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.00
+DEF[PORTVERSION]=	6.01
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xscreensaver
@@ -24,6 +24,7 @@ BUILD_DEPENDS=		freeglut:primary:standard
 			gle:primary:standard
 			libglade:single:standard
 			gdk-pixbuf-xlib:single:standard
+			tar:primary:standard
 BUILDRUN_DEPENDS=	bc:single:standard
 			openpam:single:standard
 EXRUN[gl]=		freeglut:primary:standard
@@ -57,3 +58,10 @@ CONFIGURE_ARGS=		--with-configdir={{PREFIX}}/share/xscreensaver/config/
 
 CFLAGS=			-I{{PREFIX}}/include/gdk-pixbuf-2.0
 MAKE_ARGS=		install_prefix={{STAGEDIR}}
+
+# tarball has problem with hardlink pointing to itself
+EXTRACT_HEAD[1]=	{{LOCALBASE}}/bin/gtar -xf
+EXTRACT_TAIL[1]=	--no-same-owner --no-same-permissions
+
+post-install:
+	${RM} -r ${STAGEDIR}/etc
