@@ -1,5 +1,8 @@
-DEF[PORTVERSION]=	2020
-DEF[DATE]=		20200429-19B6C
+DEF[PORTVERSION]=	2021
+DEF[DATE]=		20210518-19DC5
+DEF[CORE_HASH]=		c8eadafc40c016859e127cd0e82411fcd8f3e749
+DEF[FILEBASE]=		aunit-${PORTVERSION}-${DATE}-src
+DEF[JQUERY]=		3.5.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		aunit
@@ -11,8 +14,8 @@ HOMEPAGE=		https://github.com/adacore/aunit
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://downloads.dragonlace.net/src/
-DISTFILE[1]=		aunit-${PORTVERSION}-${DATE}-src.tar.gz:main
+SITES[main]=		ADACORE/${CORE_HASH}?filename=${FILEBASE}.tar.gz&x=/
+DISTFILE[1]=		${FILEBASE}.tar.gz:main
 
 SPKGS[standard]=	complete primary docs examples
 
@@ -29,12 +32,13 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		devel/aunit
 
 USES=			ada:primary gmake gprbuild
-DISTNAME=		aunit-${PORTVERSION}-${DATE}-src
+DISTNAME=		${FILEBASE}
 INSTALL_REQ_TOOLCHAIN=	yes
+PLIST_SUB=		JQUERY=${JQUERY}
 
 post-patch:
 	${REINPLACE_CMD} -e 's|LIBDIR|MYLIBDIR|' \
 		${WRKSRC}/lib/gnat/aunit_shared.gpr
 
 post-install:
-	${RM} -r ${STAGEDIR}${PREFIX}/lib/gnat/manifests
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
