@@ -341,7 +341,7 @@ distrib/xmlada_schema.gpr: generic_gpr.in
 
 install:
 	@mkdir -p ${DESTDIR}${PREFIX}/include/xmlada \
-		${DESTDIR}${PREFIX}/lib/gnat \
+		${DESTDIR}${PREFIX}/share/gpr \
 		${DESTDIR}${PREFIX}/lib/xmlada/relocatable \
 		${DESTDIR}${PREFIX}/lib/xmlada/static-pic \
 		${DESTDIR}${PREFIX}/lib/xmlada/static \
@@ -381,7 +381,7 @@ install:
 		${DESTDIR}${PREFIX}/lib/xmlada/${FLAV}
 .endfor
 
-	${BSD_INSTALL_DATA} distrib/xml*.gpr ${DESTDIR}${PREFIX}/lib/gnat
+	${BSD_INSTALL_DATA} distrib/xml*.gpr ${DESTDIR}${PREFIX}/share/gpr
 
 	cp -a docs/_build/html ${DESTDIR}${STD_DOCDIR}
 	rm -rf ${DESTDIR}${STD_DOCDIR}/html/_sources

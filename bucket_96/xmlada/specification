@@ -1,5 +1,9 @@
-DEF[PORTVERSION]=	2020
-DEF[DATE]=		20200429-19A99
+DEF[PORTVERSION]=	2021
+DEF[DATE]=		20210518-19D50
+DEF[ADACORE_MIRROR]=	https://community.download.adacore.com/v1
+DEF[CORE_HASH]=		6a2cf72f308cc787926b12ddc20993fcf2b8ea79
+DEF[FILEBASE]=		xmlada-${PORTVERSION}-${DATE}-src
+DEF[JQUERY]=		3.5.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xmlada
@@ -7,12 +11,12 @@ VERSION=		${PORTVERSION}
 KEYWORDS=		textproc ada
 VARIANTS=		standard
 SDESC[standard]=	Adacore XML suite for the Ada language
-HOMEPAGE=		http://libre.adacore.com/libre/tools/xmlada/
+HOMEPAGE=		https://github.com/AdaCore/xmlada
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://downloads.dragonlace.net/src/
-DISTFILE[1]=		xmlada-${PORTVERSION}-${DATE}-src.tar.gz:main
+SITES[main]=		${ADACORE_MIRROR}/${CORE_HASH}?filename=${FILEBASE}.tar.gz&x=/
+DISTFILE[1]=		${FILEBASE}.tar.gz:main
 DF_INDEX=		1
 SPKGS[standard]=	complete primary docs
 
@@ -34,8 +38,8 @@ BUILD_TARGET=		schema_libs
 MAKEFILE=		Makefile.bsd
 MAKE_ARGS=		LIBVER=${PORTVERSION}
 			PROCESSORS={{MAKE_JOBS_NUMBER}}
-
 PLIST_SUB=		LIBVER=${PORTVERSION}
+			JQUERY=${JQUERY}
 SINGLE_JOB=		yes
 
 post-patch:

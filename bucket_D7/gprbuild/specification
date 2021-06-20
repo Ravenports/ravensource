@@ -1,8 +1,14 @@
-DEF[PORTVERSION]=	2020
-DEF[DATE]=		20200429-19BD2
-DEF[XMLADA_DATE]=	20200429-19A99
-# DEF[UPSTREAM_HASH]=	2841033
+DEF[PORTVERSION]=	2021
+DEF[DATE]=		20210519-19A34
+DEF[XML_DATE]=		20210518-19D50
 DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
+DEF[ADACORE_MIRROR]=	https://community.download.adacore.com/v1
+DEF[CORE_HASH]=		23a77a37247ff811609e23a0a271f445c299fc8f
+DEF[XML_HASH]=		6a2cf72f308cc787926b12ddc20993fcf2b8ea79
+DEF[CORE_FILEBASE]=	gprbuild-${PORTVERSION}-${DATE}-src
+DEF[XML_FILEBASE]=	xmlada-${PORTVERSION}-${XML_DATE}-src
+DEF[KBASE_HASH]=	223c8a8
+DEF[JQUERY]=		3.5.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gprbuild
@@ -13,17 +19,16 @@ SDESC[standard]=	Adacore multi-language software build tool
 HOMEPAGE=		https://docs.adacore.com/live/wave/gprbuild/html/gprbuild_ug/gprbuild_ug.html
 CONTACT=		John_Marino[draco@marino.st]
 
-DOWNLOAD_GROUPS=	main adacore
-SITES[main]=		http://downloads.dragonlace.net/src/
-# SITES[adacore]=		GITHUB/AdaCore:gprbuild:${UPSTREAM_HASH}
-DISTFILE[1]=		gprbuild-${PORTVERSION}-${DATE}-src.tar.gz:main
-# DISTFILE[1]=		generated:adacore
-DISTFILE[2]=		xmlada-${PORTVERSION}-${XMLADA_DATE}-src.tar.gz:main
-DF_INDEX=		1 2
+DOWNLOAD_GROUPS=	main xmlada kbase
+SITES[main]=		${ADACORE_MIRROR}/${CORE_HASH}?filename=${CORE_FILEBASE}.tar.gz&x=/
+SITES[xmlada]=		${ADACORE_MIRROR}/${XML_HASH}?filename=${XML_FILEBASE}.tar.gz&x=/
+SITES[kbase]=		GITHUB/AdaCore:gprconfig_kb:${KBASE_HASH}:gprconfig_kbase
+DISTFILE[1]=		${CORE_FILEBASE}.tar.gz:main
+DISTFILE[2]=		${XML_FILEBASE}.tar.gz:xmlada
+DISTFILE[3]=		generated:kbase
+DF_INDEX=		1 2 3
 
-# docs subpackage suppressed when build from git
 SPKGS[standard]=	complete primary gprlib docs examples
-# SPKGS[standard]=	complete primary gprlib examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -42,8 +47,7 @@ BUILD_DEPENDS=		xmlada:primary:standard
 EXRUN[gprlib]=		xmlada:primary:standard
 
 USES=			gmake
-DISTNAME=		gprbuild-${PORTVERSION}-${DATE}-src
-# DISTNAME=		gprbuild-${UPSTREAM_HASH}
+DISTNAME=		${CORE_FILEBASE}
 MAKE_ARGS=		prefix={{STAGEDIR}}{{PREFIX}}
 			ENABLE_SHARED=yes
 			BUILD=production
@@ -54,6 +58,7 @@ INSTALL_REQ_TOOLCHAIN=	yes
 BUILD_TARGET=		all libgpr.build
 INSTALL_TARGET=		install libgpr.install
 INFO=			primary:gprbuild_ug
+PLIST_SUB=		JQUERY=${JQUERY}
 # SET_DEBUGGING_ON=	yes
 
 post-patch:
@@ -62,24 +67,18 @@ post-patch:
 		-e "s|@GCCX@|${GCCX}|" \
 		${WRKSRC}/share/gprconfig/compilers.xml
 	# the relocatable library fails to build, limit to static(-pic)
-	${REINPLACE_CMD} \
-		-e '/^LIB_INSTALLER=/ s|$$| --project-subdir=lib/gnat|' \
-		${WRKSRC}/Makefile
-	${RM} ${WRKSRC}/share/gprconfig/*.orig
+	${RM} ${WRKSRC}/gprconfig_kbase/db/*.orig
 	${REINPLACE_CMD} -e 's|"-gnatwe", ||' ${WRKSRC}/gprbuild.gpr
 	${FIND} ${WRKSRC}/examples -name '.cvsignore' -delete
-	# fix bashism on /bin/sh
-	${REINPLACE_CMD} -e 's|==|=|g' ${WRKSRC}/bootstrap.sh
-
-post-patch-dragonfly:
-	# dragonfly has different install program than freebsd, linux (!)
-	${REINPLACE_CMD} -e 's| -t||' ${WRKSRC}/bootstrap.sh
+	# fix bashism on /bin/sh and use common install arguments
+	${REINPLACE_CMD} -e 's|==|=|g; s| -t||; s|/bin/bash|/bin/sh|' ${WRKSRC}/bootstrap.sh
 
 do-configure:
 	# create bootstrap version of gprbuild
 	${MKDIR} ${WRKDIR}/bootstrap_construction
 	(cd ${WRKDIR}/bootstrap_construction && ${WRKSRC}/bootstrap.sh \
-	  --with-xmlada=${WRKDIR}/xmlada-${PORTVERSION}-${XMLADA_DATE}-src \
+	  --with-xmlada=${WRKDIR}/${XML_FILEBASE} \
+	  --with-kb=${WRKSRC}/gprconfig_kbase \
 	  --srcdir=${WRKSRC} \
 	  --prefix=${WRKDIR}/bootstrap)
 	# establish setup variables
@@ -88,7 +87,7 @@ do-configure:
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/doinstall
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}/html/_sources
-	${RM} -r ${STAGEDIR}${PREFIX}/lib/gnat/manifests
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
 	${MV} ${STAGEDIR}${STD_DOCDIR}/info/gprbuild_ug.info \
 		${STAGEDIR}${PREFIX}/share/info
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}/info
