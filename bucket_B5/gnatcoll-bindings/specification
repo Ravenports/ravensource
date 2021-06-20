@@ -1,6 +1,7 @@
-DEF[PORTVERSION]=	2020
-DEF[RELEASE]=		20.0
-DEF[DATE]=		20191009-1B2EA
+DEF[PORTVERSION]=	2021
+DEF[DATE]=		20210518-19B15
+DEF[CORE_HASH]=		d93655ced17f15c5f376b6861825df3f9c183980
+DEF[FILEBASE]=		gnatcoll-bindings-${PORTVERSION}-${DATE}-src
 DEF[COMPONENTS_4]=	gmp iconv readline syslog
 DEF[COMPONENTS]=	${COMPONENTS_4} python
 # ----------------------------------------------------------------------------
@@ -10,12 +11,12 @@ VERSION=		${PORTVERSION}
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Core packages of GNAT Components Collection
-HOMEPAGE=		https://github.com/AdaCore/gnatcoll-core
+HOMEPAGE=		https://github.com/AdaCore/gnatcoll-bindings
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://downloads.dragonlace.net/src/
-DISTFILE[1]=		gnatcoll-bindings-${RELEASE}-${DATE}-src.tar.gz:main
+SITES[main]=		ADACORE/${CORE_HASH}?filename=${FILEBASE}.tar.gz&x=/
+DISTFILE[1]=		${FILEBASE}.tar.gz:main
 
 SPKGS[standard]=	complete gmp iconv python readline syslog examples
 
@@ -40,7 +41,7 @@ EXRUN[readline]=	readline:single:standard
 EXRUN[python]=		python27:single:standard
 
 USES=			gprbuild gmake iconv:build python:py27,build
-DISTNAME=		gnatcoll-bindings-${RELEASE}-${DATE}-src
+DISTNAME=		${FILEBASE}
 MAKE_ENV=		BUILD=PROD
 			LIBRARY_TYPE=static
 			GNATCOLL_PYTHON_CFLAGS="-I{{PYTHON_INCLUDEDIR}}"
@@ -66,7 +67,6 @@ do-install:
 .for component in ${COMPONENTS}
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprinstall -p\
 		--prefix=${STAGEDIR}${PREFIX}\
-		--project-subdir=${STAGEDIR}${PREFIX}/lib/gnat\
 		${component}/gnatcoll_${component}.gpr)
 .endfor
-	${RM} -r ${STAGEDIR}${PREFIX}/lib/gnat/manifests
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
