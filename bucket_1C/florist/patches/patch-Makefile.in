@@ -6,7 +6,7 @@
  install:
 -	gprinstall -Pflorist $(PROJECT_FLAGS) -a -p -f --prefix=$(PREFIX) --sources-subdir=floristlib --lib-subdir=floristlib --link-lib-subdir=floristlib
 -	chmod a-w $(PREFIX)/floristlib/*
-+	mkdir -p $(DESTDIR)$(PREFIX)/lib/gnat \
++	mkdir -p $(DESTDIR)$(PREFIX)/share/gpr \
 +		 $(DESTDIR)$(PREFIX)/lib/florist \
 +		 $(DESTDIR)$(PREFIX)/include/florist
 +	$(BSD_INSTALL_DATA) gensrc/*.ad[bs] gensrc/threads/*.ad[bs] \
@@ -14,6 +14,6 @@
 +		$(DESTDIR)$(PREFIX)/include/florist
 +	$(BSD_INSTALL_DATA) lib/*.ali $(DESTDIR)$(PREFIX)/lib/florist
 +	$(BSD_INSTALL_DATA) lib/*.a $(DESTDIR)$(PREFIX)/lib/florist
-+	$(BSD_INSTALL_DATA) ../florist.gpr $(DESTDIR)$(PREFIX)/lib/gnat
++	$(BSD_INSTALL_DATA) ../florist.gpr $(DESTDIR)$(PREFIX)/share/gpr
  
  .PHONY: all install clean distclean regen floristlib force
