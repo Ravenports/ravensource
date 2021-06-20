@@ -1,8 +1,7 @@
-# adacore version listed for info.  It's not used because it's still
-# based on python2.
-DEF[PORTVERSION]=	2020
-DEF[DATE]=		20200429-19994
-DEF[TAG]=		cfd80a7
+DEF[PORTVERSION]=	2021
+DEF[DATE]=		20210518-19B8E
+DEF[CORE_HASH]=		709e5ffa66fd8181655951e0ec8ed04e1d2977e2
+DEF[FILEBASE]=		langkit-${PORTVERSION}-${DATE}-src
 # limited to static by gnatcoll (fixed to static)
 DEF[LIBTYPES]=		static
 # ------------------------------------------------------------------------
@@ -15,11 +14,9 @@ SDESC[standard]=	Syntactic and semantic language analysis compiler
 HOMEPAGE=		https://github.com/AdaCore/langkit
 CONTACT=		John_Marino[draco@marino.st]
 
-DOWNLOAD_GROUPS=	main upstream
-SITES[main]=		http://downloads.dragonlace.net/src/
-SITES[upstream]=	GITHUB/Adacore:langkit:${TAG}
-# DISTFILE[1]=		langkit-${PORTVERSION}-${DATE}-src.tar.gz:main
-DISTFILE[1]=		generated:upstream
+DOWNLOAD_GROUPS=	main
+SITES[main]=		ADACORE/${CORE_HASH}?filename=${FILEBASE}.tar.gz&x=/
+DISTFILE[1]=		${FILEBASE}.tar.gz:main
 
 SPKGS[standard]=	single
 
@@ -31,54 +28,21 @@ LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
 			GPLv3RLE:{{WRKSRC}}/COPYING.RUNTIME
 LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
-LICENSE_SOURCE=		TERMS:{{WRKSRC}}/langkit/support/langkit_support.ads
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/support/langkit_support.ads
 LICENSE_SCHEME=		multi
 
-BUILD_DEPENDS=		gnatcoll-core:primary:standard
-			gnatcoll-bindings:iconv:standard
-			python-psutil:single:python_used
-			python-sphinx-rtd-theme:single:python_used
 BUILDRUN_DEPENDS=	python-Mako:single:python_used
+			python-PyYAML:single:python_used
 			python-funcy:single:python_used
-			python-autopep8:single:python_used
-			python-yapf:single:python_used
-			python-coverage:single:python_used
 			python-docutils:single:python_used
 			python-e3-core:single:python_used
+RUN_DEPENDS=		langkit_support:single:standard
 
-USES=			gprbuild python
-MUST_CONFIGURE=		yes
-INSTALL_REQ_TOOLCHAIN=	yes
-# DISTNAME=		langkit-${PORTVERSION}-${DATE}-src
-DISTNAME=		langkit-${TAG}
+USES=			python:sutools
+DISTNAME=		${FILEBASE}
 MAKE_ENV=		PYTHONPATH={{WRKSRC}}
-
-post-patch:
-	# disable -Werror
-	${REINPLACE_CMD} -e 's|"-gnatwe", ||' \
-		${WRKSRC}/langkit/templates/project_file.mako \
-		${WRKSRC}/langkit/templates/langkit_support_gpr.mako
-
-do-configure:
-	# must build as static since rpaths are either missing,
-	# refer to /construction, ignore gpr settings, etc
-	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
-		${PYTHON_CMD} scripts/build-langkit_support.py\
-		--verbosity=info\
-		--library-types=${LIBTYPES}\
-		generate)
-
-do-build:
-	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
-		${PYTHON_CMD} scripts/build-langkit_support.py\
-		--verbosity=info\
-		--library-types=${LIBTYPES}\
-		build)
+SKIP_BUILD=		yes
 
 do-install:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${PYTHON_CMD} setup.py install --root ${STAGEDIR})
-	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
-		${PYTHON_CMD} scripts/build-langkit_support.py\
-		--library-types=${LIBTYPES}\
-		install ${STAGEDIR}${PREFIX})
