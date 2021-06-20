@@ -2,8 +2,8 @@ DEF[PORTVERSION]=	2021
 DEF[DATE]=		20210518-19B15
 DEF[CORE_HASH]=		d93655ced17f15c5f376b6861825df3f9c183980
 DEF[FILEBASE]=		gnatcoll-bindings-${PORTVERSION}-${DATE}-src
-DEF[COMPONENTS_4]=	gmp iconv readline syslog
-DEF[COMPONENTS]=	${COMPONENTS_4} python
+DEF[COMPONENTS]=	gmp iconv readline syslog python
+DEF[SOVERSION]=		0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnatcoll-bindings
@@ -35,6 +35,8 @@ BUILD_DEPENDS=		gmp:static:standard
 			gprbuild:gprlib:standard
 			readline:single:standard
 BUILDRUN_DEPENDS=	gnatcoll-core:primary:standard
+			xmlada:primary:standard
+
 EXRUN[gmp]=		gmp:shared:standard
 EXRUN[iconv]=		libiconv:shared:standard
 EXRUN[readline]=	readline:single:standard
@@ -43,30 +45,37 @@ EXRUN[python]=		python27:single:standard
 USES=			gprbuild gmake iconv:build python:py27,build
 DISTNAME=		${FILEBASE}
 MAKE_ENV=		BUILD=PROD
-			LIBRARY_TYPE=static
 			GNATCOLL_PYTHON_CFLAGS="-I{{PYTHON_INCLUDEDIR}}"
 			GNATCOLL_PYTHON_LIBS="-L{{PREFIX}}/lib/python{{PYTHON_VER}}/config -lpython{{PYTHON_VER}}"
 INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
 
 post-patch:
 	# no rpath linker commands necessary on static libraries
-.for component in ${COMPONENTS_4}
+.for component in ${COMPONENTS}
 	${REINPLACE_CMD} \
-	-e 's|Library_Options use|Library_Options use ("-L${PREFIX}/lib") \&|' \
-	-e 's|Linker_Options use|Linker_Options use ("-L${PREFIX}/lib") \&|' \
+	-e 's|Library_Options use|Library_Options use ("-L${PREFIX}/lib", "-Wl,-rpath,${PREFIX}/lib/xmlada/relocatable") \&|' \
+	-e 's|Linker_Options use|Linker_Options use ("-L${PREFIX}/lib", "-Wl,-rpath,${PREFIX}/lib/xmlada/relocatable") \&|' \
 	${WRKSRC}/${component}/gnatcoll_${component}.gpr
 .endfor
 
 do-build:
 .for component in ${COMPONENTS}
+.  for libtype in static-pic relocatable
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
-		gprbuild -p -P ${component}/gnatcoll_${component}.gpr)
+		gprbuild -p -XLIBRARY_TYPE=${libtype} \
+		-P ${component}/gnatcoll_${component}.gpr)
+.  endfor
 .endfor
 
 do-install:
 .for component in ${COMPONENTS}
-	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprinstall -p\
-		--prefix=${STAGEDIR}${PREFIX}\
-		${component}/gnatcoll_${component}.gpr)
+.  for libtype in static-pic relocatable
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV}\
+		gprinstall -p --prefix=${STAGEDIR}${PREFIX}\
+		-XLIBRARY_TYPE=${libtype} \
+		-P ${component}/gnatcoll_${component}.gpr)
+.  endfor
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gnatcoll_${component}/libgnatcoll_${component}.so
 .endfor
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
