@@ -4,6 +4,7 @@ DEF[DATE]=		20190517-18AB5
 
 NAMEBASE=		asis
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		lang ada
 VARIANTS=		standard
 SDESC[standard]=	Ada Semantic Interface Specification (GNAT)
@@ -60,7 +61,7 @@ do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/bin \
 		${STAGEDIR}${PREFIX}/include/asis \
 		${STAGEDIR}${PREFIX}/lib/asis \
-		${STAGEDIR}${PREFIX}/lib/gnat \
+		${STAGEDIR}${PREFIX}/share/gpr \
 		${STAGEDIR}${STD_DOCDIR}
 	${INSTALL_PROGRAM} ${WRKSRC}/tools/asistant/asistant \
 		${STAGEDIR}${PREFIX}/bin
@@ -68,5 +69,5 @@ do-install:
 		${STAGEDIR}${PREFIX}/include/asis
 	${INSTALL_DATA} ${WRKSRC}/lib/*.ali ${STAGEDIR}${PREFIX}/lib/asis
 	${INSTALL_DATA} ${WRKSRC}/lib/*.a ${STAGEDIR}${PREFIX}/lib/asis
-	${INSTALL_DATA} ${FILESDIR}/asis.gpr ${STAGEDIR}${PREFIX}/lib/gnat
+	${INSTALL_DATA} ${FILESDIR}/asis.gpr ${STAGEDIR}${PREFIX}/share/gpr
 	(cd ${WRKSRC}/doc/html && ${COPYTREE_SHARE} . ${STAGEDIR}${STD_DOCDIR})
