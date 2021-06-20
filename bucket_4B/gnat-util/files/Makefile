@@ -40,11 +40,11 @@ generate_sources:
 ${LIB_OBJS}: generate_sources
 
 install:
-	${MKDIR} ${DESTDIR}${PREFIX}/lib/gnat
+	${MKDIR} ${DESTDIR}${PREFIX}/share/gpr
 	${MKDIR} ${DESTDIR}${PREFIX}/lib/gnat-util
 	${MKDIR} ${DESTDIR}${PREFIX}/include/gnat-util
 
-	${BSD_INSTALL_DATA} ../gnat_util.gpr ${DESTDIR}${PREFIX}/lib/gnat
+	${BSD_INSTALL_DATA} ../gnat_util.gpr ${DESTDIR}${PREFIX}/share/gpr
 	find ../lib -type f -exec $(BSD_INSTALL_DATA) {} \
 		${DESTDIR}${PREFIX}/lib/gnat-util \;
 	find ../* -name \*\.ad\[bs\] -exec $(BSD_INSTALL_DATA) {} \
