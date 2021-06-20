@@ -1,7 +1,10 @@
-DEF[PORTVERSION]=	2020
-DEF[DATE]=		20200429-19B7C
-# DEF[UPSTREAM_HASH]=	31d6af5
-DEF[SOVERSION]=		2020
+DEF[PORTVERSION]=	2021
+DEF[DATE]=		20210518-19ADF
+DEF[CORE_HASH]=		425b044d5cb112f096c7ac5ebbafb0d8e5297913
+DEF[FILEBASE]=		gnatcoll-core-${PORTVERSION}-${DATE}-src
+DEF[SOVERSION]=		2021
+DEF[JQUERY]=		3.5.1
+DEF[UNDERSCORE]=	1.3.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnatcoll-core
@@ -13,14 +16,10 @@ HOMEPAGE=		https://github.com/AdaCore/gnatcoll-core
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://downloads.dragonlace.net/src/
-DISTFILE[1]=		gnatcoll-core-${PORTVERSION}-${DATE}-src.tar.gz:main
-# SITES[main]=		GITHUB/AdaCore:gnatcoll-core:${UPSTREAM_HASH}
-# DISTFILE[1]=		generated:main
+SITES[main]=		ADACORE/${CORE_HASH}?filename=${FILEBASE}.tar.gz&x=/
+DISTFILE[1]=		${FILEBASE}.tar.gz:main
 
-# docs subpackage not available when building from git
 SPKGS[standard]=	complete primary docs examples
-# SPKGS[standard]=	complete primary examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -36,7 +35,7 @@ BUILDRUN_DEPENDS=	xmlada:primary:standard
 			gprbuild:gprlib:standard
 
 USES=			gprbuild gmake
-DISTNAME=		gnatcoll-core-${PORTVERSION}-${DATE}-src
+DISTNAME=		${FILEBASE}
 MAKE_ARGS=		prefix={{STAGEDIR}}{{PREFIX}}
 			ENABLE_SHARED=yes
 			BUILD=PROD
@@ -47,6 +46,8 @@ MAKE_ARGS=		prefix={{STAGEDIR}}{{PREFIX}}
 BUILD_TARGET=		build
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
+PLIST_SUB=		JQUERY=${JQUERY}
+			UNDERSCORE=${UNDERSCORE}
 
 post-patch:
 	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|' ${WRKSRC}/gnatcoll.gpr
@@ -55,6 +56,6 @@ do-configure:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} setup)
 
 post-install:
-	${RM} -r ${STAGEDIR}${PREFIX}/lib/gnat/manifests
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
 	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/gnatcoll/html/_sources
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgnatcoll.so
