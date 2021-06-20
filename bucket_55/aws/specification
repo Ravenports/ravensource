@@ -1,5 +1,7 @@
-DEF[PORTVERSION]=	2020
-DEF[DATE]=		20200429-19A9F
+DEF[PORTVERSION]=	2021
+DEF[DATE]=		20210518-19F65
+DEF[CORE_HASH]=		5b0fa09df8ac0c717abdf4ede9e08efe5fd98984
+DEF[FILEBASE]=		aws-${PORTVERSION}-${DATE}-src
 DEF[ADDL_RPATH]=	{{LOCALBASE}}/lib:{{OPENSSLLIB}}:{{LOCALBASE}}/lib/xmlada/relocatable
 # ----------------------------------------------------------------------------
 
@@ -8,11 +10,11 @@ VERSION=		${PORTVERSION}
 KEYWORDS=		www ada
 VARIANTS=		standard
 SDESC[standard]=	Adacore Ada Web Server and framework
-HOMEPAGE=		http://libre.adacore.com/libre/tools/aws/
+HOMEPAGE=		https://github.com/AdaCore/aws
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://downloads.dragonlace.net/src/
+SITES[main]=		ADACORE/${CORE_HASH}?filename=${FILEBASE}.tar.gz&x=/
 DISTFILE[1]=		aws-${PORTVERSION}-${DATE}-src.tar.gz:main
 
 SPKGS[standard]=	complete primary examples docs
@@ -86,25 +88,15 @@ do-build:
 
 do-test:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
-		GPR_PROJECT_PATH="${STAGEDIR}${PREFIX}/lib/gnat:${LOCALBASE}/lib/gnat" \
+		GPR_PROJECT_PATH="${STAGEDIR}${PREFIX}/share/gpr:${LOCALBASE}/share/gpr" \
 		${MAKE_CMD} ${CONFIGURE_ARGS} run_regtests)
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
 	${RM} ${STAGEDIR}${PREFIX}/include/aws.relocatable/Makefile
 	${RM} ${STAGEDIR}${PREFIX}/include/aws.static/Makefile
-	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gnat \
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/gpr \
 		${STAGEDIR}${PREFIX}/share/gps/plug-ins
-	${CAT} ${FILESDIR}/aws.gpr.in | ${SED} \
-		-e 's|@PREFIX@|${PREFIX}|g' \
-		-e 's|@SSLLIB@|${OPENSSLLIB}|g' \
-		-e 's|@SSL@||g' \
-		-e 's|@TLS@|--|g' \
-		-e 's|@LDP@|--|g' \
-		-e 's|@STD@|--|g' \
-		-e 's|@IP4@|${NAME_IP4}|g' \
-		-e 's|@IP6@|${NAME_IP6}|g' \
-		> ${STAGEDIR}${PREFIX}/lib/gnat/aws.gpr
 	cd ${WRKSRC}/gps && ${INSTALL_DATA} *.xml aws.py \
 		${STAGEDIR}${PREFIX}/share/gps/plug-ins
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/[tw]*

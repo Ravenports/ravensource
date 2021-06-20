@@ -1,6 +1,6 @@
 Current_Process_Id is not available on GCC 6.x
 
---- src/core/aws-server-http_utils.adb.orig	2020-04-21 05:04:51 UTC
+--- src/core/aws-server-http_utils.adb.orig	2021-05-19 05:14:31 UTC
 +++ src/core/aws-server-http_utils.adb
 @@ -39,7 +39,6 @@ with Ada.Strings.Unbounded;
  with Ada.Text_IO;
