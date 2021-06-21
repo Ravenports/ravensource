@@ -1,4 +1,7 @@
-DEF[PORTVERSION]=	21.0.0
+DEF[PORTVERSION]=	2021
+DEF[DATE]=		20210518-19B8E
+DEF[CORE_HASH]=		709e5ffa66fd8181655951e0ec8ed04e1d2977e2
+DEF[FILEBASE]=		langkit-${PORTVERSION}-${DATE}-src
 DEF[BUILD_MODE]=	prod
 # ----------------------------------------------------------------------------
 
@@ -11,8 +14,8 @@ HOMEPAGE=		https://github.com/AdaCore/langkit
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://github.com/AdaCore/langkit/releases/download/v${PORTVERSION}/
-DISTFILE[1]=		langkit_support-${PORTVERSION}.tar.gz:main
+SITES[main]=		ADACORE/${CORE_HASH}?filename=${FILEBASE}.tar.gz&x=/
+DISTFILE[1]=		${FILEBASE}.tar.gz:main
 
 SPKGS[standard]=	single
 
@@ -28,20 +31,24 @@ LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
 			GPLv3RLE:{{WRKSRC}}/COPYING.RUNTIME
 LICENSE_AWK=		TERMS:"^$$"
-LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/langkit_support.ads
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/langkit_support.ads
 LICENSE_SCHEME=		multi
 
 USES=			gprbuild
 INSTALL_REQ_TOOLCHAIN=	yes
+MAKE_ENV=		LIBRARY_TYPE="static-pic"
+DISTNAME=		${FILEBASE}/support
 
 do-build:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		gprbuild -p -P langkit_support.gpr\
+		-XLANGKIT_SUPPORT_LIBRARY_TYPE="static-pic"\
 		-XBUILD_MODE="${BUILD_MODE}")
 
 do-install:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		gprinstall -p -P langkit_support.gpr\
 		--prefix=${STAGEDIR}${PREFIX}\
+		-XLANGKIT_SUPPORT_LIBRARY_TYPE="static-pic"\
 		-XBUILD_MODE="${BUILD_MODE}")
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
