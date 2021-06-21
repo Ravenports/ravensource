@@ -1,10 +1,9 @@
-# Leave release information FYI only
-# We have to use upstream for python 3 support
-DEF[PORTVERSION]=	2020
-# DEF[DATE]=		20200429-19982
-DEF[UPSTREAM_TAG]=	b34aaa5
-DEF[LIBTYPES]=		static
-DEF[GNARL]=		"-lgnarl", "-Wl,-rpath,{{PREFIX}}/lib"
+DEF[PORTVERSION]=	2021
+DEF[DATE]=		20210518-199BE
+DEF[CORE_HASH]=		7a191b8dd41b28a9b93424a5aedac3c5ec76b046
+DEF[FILEBASE]=		libadalang-${PORTVERSION}-${DATE}-src
+DEF[GNARL]=		"-lgnarl","-Wl,-rpath,{{PREFIX}}/lib"
+DEF[XMLRPATH]=		"-Wl,-rpath,{{PREFIX}}/lib/xmlada/relocatable"
 # ------------------------------------------------------------------------
 
 NAMEBASE=		libadalang
@@ -15,12 +14,9 @@ SDESC[standard]=	High-performance semantic engine for Ada
 HOMEPAGE=		https://github.com/AdaCore/libadalang
 CONTACT=		John_Marino[draco@marino.st]
 
-DOWNLOAD_GROUPS=	main upstream
-SITES[main]=		http://downloads.dragonlace.net/src/
-SITES[upstream]=	GITHUB/AdaCore:libadalang:${UPSTREAM_TAG}
-# DISTFILE[1]=		libadalang-${PORTVERSION}-${DATE}-src.tar.gz:main
-DISTFILE[1]=		generated:upstream
-
+DOWNLOAD_GROUPS=	main
+SITES[main]=		ADACORE/${CORE_HASH}?filename=${FILEBASE}.tar.gz&x=/
+DISTFILE[1]=		${FILEBASE}.tar.gz:main
 
 SPKGS[standard]=	single
 
@@ -33,19 +29,17 @@ LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
 LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		gnatcoll-core:primary:standard
-BUILDRUN_DEPENDS=	gnatcoll-bindings:gmp:standard
-			gnatcoll-bindings:iconv:standard
-			langkit:single:standard
+BUILDRUN_DEPENDS=	langkit:single:standard
+			gnatcoll-bindings:gmp:standard
 
 USES=			gprbuild python:build ada:single
 MUST_CONFIGURE=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
-# DISTNAME=		libadalang-${PORTVERSION}-${DATE}-src
-DISTNAME=		libadalang-${UPSTREAM_TAG}
+DISTNAME=		${FILEBASE}
+MAKE_ARGS=		--build-mode prod
 
-# [DEBUG].MAKE_ARGS_ON=		--build-mode=dev (not supported in ver 2019)
-# [DEBUG].MAKE_ARGS_OFF=	--build-mode=prod
+VAR_OPSYS[dragonfly]=	MAKEFILE_LINE=XTRALIB=,"-lutil"
+VAR_OPSYS[freebsd]=	MAKEFILE_LINE=XTRALIB=,"-lutil"
 
 post-extract:
 	${AWK} '/Libadalang is free software/,/www.gnu.org/' \
@@ -55,42 +49,28 @@ do-configure:
 	# must build as static since rpaths are either missing,
 	# refer to /construction, ignore gpr settings, etc
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
-		${PYTHON_CMD} ada/manage.py\
-		--verbosity=debug\
-		--library-types=${LIBTYPES}\
-		--no-langkit-support\
-		generate)
+		${PYTHON_CMD} manage.py generate)
 	# prepare for mains.gpr modification
 	${PATCH} -d ${PATCH_WRKSRC} --backup --forward -E -p0 --batch \
-		< ${FILESDIR}/pc-patch-build_src_mains.gpr
-
-post-configure-freebsd:
-	${REINPLACE_CMD} -e 's|@LIBS@|"-lutil", ${GNARL}|' \
-		${WRKSRC}/build/src/mains.gpr
-
-post-configure-dragonfly:
-	${REINPLACE_CMD} -e 's|@LIBS@|"-lutil", ${GNARL}|' \
-		${WRKSRC}/build/src/mains.gpr
-
-post-configure-linux:
-	${REINPLACE_CMD} -e 's|@LIBS@|${GNARL}|' \
-		${WRKSRC}/build/src/mains.gpr
+		< ${FILESDIR}/pc-patch-build_mains.gpr
+	${REINPLACE_CMD} -e 's|@LIBS@|${GNARL}${XTRALIB}|' \
+		${WRKSRC}/build/mains.gpr
 
 do-build:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
-		${PYTHON_CMD} ada/manage.py\
-		--verbosity=info\
-		--library-types=${LIBTYPES}\
-		--no-langkit-support\
+		${PYTHON_CMD} manage.py build\
 		${MAKE_ARGS:NDESTDIR=*}\
-		build)
+		--gargs="-R -largs ${XMLRPATH}")
 
 do-install:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
-		${PYTHON_CMD} ada/manage.py \
-		--library-types=${LIBTYPES}\
-		--no-langkit-support\
-		install ${STAGEDIR}${PREFIX})
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
-	${RM} -r ${STAGEDIR}${PREFIX}/lib/gnat/manifests
+		${PYTHON_CMD} manage.py install\
+		${MAKE_ARGS:NDESTDIR=*} ${STAGEDIR}${PREFIX})
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/[gn]*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/lal_parse
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libadalang.relocatable/libadalang.so
+	${SED} -i'' -e 's|/usr/bin/env python|${PYTHON_CMD}|' \
+		${STAGEDIR}${PREFIX}/bin/lal_playground
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
+	${RM} -r ${STAGEDIR}${PREFIX}/share/examples/libadalang
 	${RM} ${STAGEDIR}${PREFIX}/python/setup.py
