@@ -44,6 +44,7 @@ CONFIGURE_ARGS=		--with-GL=no
 			--enable-build=Production
 BUILD_TARGET=		tools static relocatable docs
 MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
+			PRJDIR=share/gpr
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
 SET_DEBUGGING_ON=	yes
@@ -58,3 +59,4 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gtkada-dialog
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgtkada.so
 	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/gtkada/gtkada_ug/_sources
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
