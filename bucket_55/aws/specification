@@ -2,7 +2,7 @@ DEF[PORTVERSION]=	2021
 DEF[DATE]=		20210518-19F65
 DEF[CORE_HASH]=		5b0fa09df8ac0c717abdf4ede9e08efe5fd98984
 DEF[FILEBASE]=		aws-${PORTVERSION}-${DATE}-src
-DEF[ADDL_RPATH]=	{{LOCALBASE}}/lib:{{OPENSSLLIB}}:{{LOCALBASE}}/lib/xmlada/relocatable
+DEF[ADDL_RPATH]=	{{LOCALBASE}}/lib:{{OPENSSLLIB}}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		aws
@@ -103,5 +103,4 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/a[dw][as][2_r]*
 
 post-install-SHARED-ON:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libaws.so \
-		${STAGEDIR}${PREFIX}/lib/aws.relocatable/libaws.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/aws.relocatable/libaws.so
