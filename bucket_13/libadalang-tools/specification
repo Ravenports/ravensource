@@ -1,5 +1,7 @@
-DEF[PORTVERSION]=	2020
-DEF[DATE]=		20200429-1998C
+DEF[PORTVERSION]=	2021
+DEF[DATE]=		20210519-19A69
+DEF[CORE_HASH]=		21b42a7e6ced5c227fa001eff9c9d39c75d3d58f
+DEF[FILEBASE]=		libadalang-tools-${PORTVERSION}-${DATE}-src
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libadalang-tools
@@ -11,8 +13,8 @@ HOMEPAGE=		https://github.com/AdaCore/libadalang-tools
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://downloads.dragonlace.net/src/
-DISTFILE[1]=		libadalang-tools-${PORTVERSION}-${DATE}-src.tar.gz:main
+SITES[main]=		ADACORE/${CORE_HASH}?filename=${FILEBASE}.tar.gz&x=/
+DISTFILE[1]=		${FILEBASE}.tar.gz:main
 
 SPKGS[standard]=	single
 
@@ -26,21 +28,21 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/pp.ads
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		libadalang:single:standard
+BUILDRUN_DEPENDS=	libadalang:single:standard
 RUN_DEPENDS=		libiconv:shared:standard
 			gmp:shared:standard
 
 USES=			gprbuild
 INSTALL_REQ_TOOLCHAIN=	yes
-DISTNAME=		libadalang-tools-${PORTVERSION}-${DATE}-src
+DISTNAME=		${FILEBASE}
 
 do-build:
-	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
-		gprbuild -p -v -k -XLIBRARY_TYPE=static \
-		-XXMLADA_BUILD=static -XBUILD_MODE=prod -p \
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} LIBRARY_TYPE=relocatable \
+		gprbuild -p -v -k -XBUILD_MODE=prod -p \
 		-j${MAKE_JOBS_NUMBER} -P src/build.gpr)
 
 do-install:
+	${INSTALL_LIB} ${WRKSRC}/lib/liblal_tools.so ${STAGEDIR}${PREFIX}/lib/
 .for prog in gnatpp gnatmetric gnatstub gnattest
 	${INSTALL_PROGRAM} ${WRKSRC}/bin/${prog} ${STAGEDIR}${PREFIX}/bin/
 .endfor

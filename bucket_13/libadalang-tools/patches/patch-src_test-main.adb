@@ -1,6 +1,6 @@
---- src/test-main.adb.orig	2020-02-28 06:08:56 UTC
+--- src/test-main.adb.orig	2021-05-19 05:08:26 UTC
 +++ src/test-main.adb
-@@ -6,6 +6,8 @@ with Test.Command_Lines;
+@@ -30,6 +30,8 @@ with Test.Common;
  
  procedure Test.Main is
  
