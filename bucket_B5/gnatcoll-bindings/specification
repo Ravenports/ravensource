@@ -50,15 +50,6 @@ MAKE_ENV=		BUILD=PROD
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
 
-post-patch:
-	# no rpath linker commands necessary on static libraries
-.for component in ${COMPONENTS}
-	${REINPLACE_CMD} \
-	-e 's|Library_Options use|Library_Options use ("-L${PREFIX}/lib", "-Wl,-rpath,${PREFIX}/lib/xmlada/relocatable") \&|' \
-	-e 's|Linker_Options use|Linker_Options use ("-L${PREFIX}/lib", "-Wl,-rpath,${PREFIX}/lib/xmlada/relocatable") \&|' \
-	${WRKSRC}/${component}/gnatcoll_${component}.gpr
-.endfor
-
 do-build:
 .for component in ${COMPONENTS}
 .  for libtype in static-pic relocatable
