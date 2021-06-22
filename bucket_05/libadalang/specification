@@ -3,7 +3,6 @@ DEF[DATE]=		20210518-199BE
 DEF[CORE_HASH]=		7a191b8dd41b28a9b93424a5aedac3c5ec76b046
 DEF[FILEBASE]=		libadalang-${PORTVERSION}-${DATE}-src
 DEF[GNARL]=		"-lgnarl","-Wl,-rpath,{{PREFIX}}/lib"
-DEF[XMLRPATH]=		"-Wl,-rpath,{{PREFIX}}/lib/xmlada/relocatable"
 # ------------------------------------------------------------------------
 
 NAMEBASE=		libadalang
@@ -59,8 +58,7 @@ do-configure:
 do-build:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${PYTHON_CMD} manage.py build\
-		${MAKE_ARGS:NDESTDIR=*}\
-		--gargs="-R -largs ${XMLRPATH}")
+		${MAKE_ARGS:NDESTDIR=*})
 
 do-install:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
