@@ -1,5 +1,7 @@
+.ifnmake (install)
 ADALIB!=	gnatls -v | grep adalib | awk '{print $$1}'
-MYRPATH=	${ADALIB}:${PREFIX}/lib/xmlada/relocatable
+.endif
+MYRPATH=	${ADALIB}
 
 STATIC_FLAGS=	-gnatQ -O2 -gnatn -gnatp -gnatA -j${PROCESSORS}
 DYNAMIC_FLAGS=	-fPIC ${STATIC_FLAGS}
@@ -46,7 +48,7 @@ unicode/lib/relocatable/libxmlada_unicode.so: unicode/dummy_unicode.adb
 	ada -shared -Wl,-rpath,${MYRPATH} -L${ADALIB} -lgnat \
 	    -o ${.TARGET}.${LIBVER} -Wl,-soname,${.TARGET:T}.${LIBVER} \
 	    unicode/obj/relocatable/*.o
-	ln -s ${.TARGET:T}.${LIBVER} ${.TARGET}
+	ln -sf ${.TARGET:T}.${LIBVER} ${.TARGET}
 
 unicode/lib/relocatable/libxmlada_unicode.${LIBVER}.dylib: unicode/dummy_unicode.adb
 	@echo building shared library ${.TARGET:R}
@@ -86,7 +88,7 @@ input_sources/lib/relocatable/libxmlada_input_sources.so: input_sources/dummy_in
 	    -Lunicode/lib/relocatable -lxmlada_unicode \
 	    -o ${.TARGET}.${LIBVER} -Wl,-soname,${.TARGET:T}.${LIBVER} \
 	    input_sources/obj/relocatable/*.o
-	ln -s ${.TARGET:T}.${LIBVER} ${.TARGET}
+	ln -sf ${.TARGET:T}.${LIBVER} ${.TARGET}
 
 input_sources/lib/relocatable/libxmlada_input_sources.${LIBVER}.dylib: input_sources/dummy_input_sources.adb
 	@echo building shared library ${.TARGET:R}
@@ -130,7 +132,7 @@ sax/lib/relocatable/libxmlada_sax.so: sax/dummy_sax.adb input_sources/lib/reloca
 	    -Linput_sources/lib/relocatable -lxmlada_input_sources \
 	    -o ${.TARGET}.${LIBVER} -Wl,-soname,${.TARGET:T}.${LIBVER} \
 	    sax/obj/relocatable/*.o
-	ln -s ${.TARGET:T}.${LIBVER} ${.TARGET}
+	ln -sf ${.TARGET:T}.${LIBVER} ${.TARGET}
 
 sax/lib/relocatable/libxmlada_sax.${LIBVER}.dylib: sax/dummy_sax.adb
 	@echo building shared library ${.TARGET:R}
@@ -176,7 +178,7 @@ dom/lib/relocatable/libxmlada_dom.so: dom/dummy_dom.adb sax/lib/relocatable/libx
 	    -Lsax/lib/relocatable -lxmlada_sax \
 	    -o ${.TARGET}.${LIBVER} -Wl,-soname,${.TARGET:T}.${LIBVER} \
 	    dom/obj/relocatable/*.o
-	ln -s ${.TARGET:T}.${LIBVER} ${.TARGET}
+	ln -sf ${.TARGET:T}.${LIBVER} ${.TARGET}
 
 dom/lib/relocatable/libxmlada_dom.${LIBVER}.dylib: dom/dummy_dom.adb
 	@echo building shared library ${.TARGET:R}
@@ -224,7 +226,7 @@ schema/lib/relocatable/libxmlada_schema.so: schema/dummy_schema.adb dom/lib/relo
 	    -Ldom/lib/relocatable -lxmlada_dom \
 	    -o ${.TARGET}.${LIBVER} -Wl,-soname,${.TARGET:T}.${LIBVER} \
 	    schema/obj/relocatable/*.o
-	ln -s ${.TARGET:T}.${LIBVER} ${.TARGET}
+	ln -sf ${.TARGET:T}.${LIBVER} ${.TARGET}
 
 schema/lib/relocatable/libxmlada_schema.${LIBVER}.dylib: schema/dummy_schema.adb
 	@echo building shared library ${.TARGET:R}
@@ -366,6 +368,22 @@ install:
 		schema/lib/relocatable/* \
 		unicode/lib/relocatable/* \
 		${DESTDIR}${PREFIX}/lib/xmlada/relocatable
+
+	rm ${DESTDIR}${PREFIX}/lib/xmlada/relocatable/*.so
+	mv ${DESTDIR}${PREFIX}/lib/xmlada/relocatable/*.so.${LIBVER} \
+		${DESTDIR}${PREFIX}/lib
+	(cd ${DESTDIR}${PREFIX}/lib && \
+		ln -sf libxmlada_dom.so.${LIBVER} libxmlada_dom.so &&\
+		ln -sf libxmlada_input_sources.so.${LIBVER} libxmlada_input_sources.so &&\
+		ln -sf libxmlada_sax.so.${LIBVER} libxmlada_sax.so &&\
+		ln -sf libxmlada_schema.so.${LIBVER} libxmlada_schema.so &&\
+		ln -sf libxmlada_unicode.so.${LIBVER} libxmlada_unicode.so)
+	(cd ${DESTDIR}${PREFIX}/lib/xmlada/relocatable && \
+		ln -sf ../../libxmlada_dom.so.${LIBVER} libxmlada_dom.so &&\
+		ln -sf ../../libxmlada_input_sources.so.${LIBVER} libxmlada_input_sources.so &&\
+		ln -sf ../../libxmlada_sax.so.${LIBVER} libxmlada_sax.so &&\
+		ln -sf ../../libxmlada_schema.so.${LIBVER} libxmlada_schema.so &&\
+		ln -sf ../../libxmlada_unicode.so.${LIBVER} libxmlada_unicode.so)
 
 .for FLAV in ${STATIC_FLAVOR}
 	${BSD_INSTALL_DATA} dom/obj/${FLAV}/*.ali \
