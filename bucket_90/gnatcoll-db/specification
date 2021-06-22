@@ -1,13 +1,13 @@
-DEF[PORTVERSION]=	2018
-DEF[DATE]=		20180524
-DEF[GITHUB_HASH]=	a75c22b
+DEF[PORTVERSION]=	2021
+DEF[DATE]=		20210501
+DEF[GITHUB_HASH]=	4472972
 DEF[PROJECT_COMP]=	xref sql sqlite postgres
 DEF[COMPONENTS]=	gnatinspect gnatcoll_db2ada ${PROJECT_COMP}
+DEF[SOVERSION]=		0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnatcoll-db
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	GNAT Components Collection - Database packages
@@ -15,8 +15,6 @@ HOMEPAGE=		https://github.com/AdaCore/gnatcoll-db
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-# SITES[main]=		http://downloads.dragonlace.net/src/
-# DISTFILE[1]=		gnatcoll-db-gpl-${PORTVERSION}-${DATE}-src.tar.gz:main
 SITES[main]=		GITHUB/AdaCore:gnatcoll-db:${GITHUB_HASH}
 DISTFILE[1]=		generated:main
 
@@ -34,24 +32,22 @@ LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		gnatcoll-bindings:iconv:standard
 BUILDRUN_DEPENDS=	gnatcoll-core:primary:standard
+			xmlada:primary:standard
 EXRUN[xref]=		gnatcoll-bindings:iconv:standard
+EXRUN[postgres]=	pgsql
 
-USES=			gprbuild gmake python:build shebangfix
-# DISTNAME=		gnatcoll-db-gpl-${PORTVERSION}-src
+USES=			gprbuild gmake python:build shebangfix pgsql:client,build
 SHEBANG_FILES=		gnatcoll_db2ada/dborm.py
 MUST_CONFIGURE=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
 
 post-patch:
 .for component in ${COMPONENTS}
 	${REINPLACE_CMD} \
 		-e '/^prefix :=/ s|:=.*|= ${STAGEDIR}$$(PREFIX)|' \
 		-e '/^TARGET :=/ s|:=.*|= ${CONFIGURE_TARGET}|' \
-		${WRKSRC}/${component}/Makefile
-.endfor
-.for component in ${PROJECT_COMP}
-	${SED} -i.bak2 \
-		-e 's|--prefix=|--project-subdir=$$(prefix)/lib/gnat --prefix=|'\
+		-e 's|LIBRARY_TYPES=static relocatable static-pic|LIBRARY_TYPES=relocatable|'\
 		${WRKSRC}/${component}/Makefile
 .endfor
 
@@ -59,7 +55,7 @@ do-configure:
 .for component in ${COMPONENTS}
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${MAKE_CMD} -C ${component} \
-		BUILD=PROD ENABLE_SHARED=no \
+		BUILD=PROD ENABLE_SHARED=yes \
 		PROCESSORS=${MAKE_JOBS_NUMBER} \
 		setup)
 .endfor
@@ -68,16 +64,17 @@ do-build:
 .for component in ${COMPONENTS}
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${MAKE_CMD} -C ${component} \
-		ADA_PROJECT_PATH="${PREFIX}/lib/gnat:${WRKSRC}/sql:${WRKSRC}/sqlite:${WRKSRC}/xref")
-	# gprbuild -p -P ${component}/gnatcoll_${component}.gpr)
+		ADA_PROJECT_PATH="${PREFIX}/share/gpr:${WRKSRC}/sql:${WRKSRC}/sqlite:${WRKSRC}/xref")
 .endfor
 
 do-install:
 .for component in ${COMPONENTS}
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${MAKE_CMD} -C ${component} install \
-		ADA_PROJECT_PATH="${PREFIX}/lib/gnat:${WRKSRC}/sql:${WRKSRC}/sqlite:${WRKSRC}/xref")
+		ADA_PROJECT_PATH="${PREFIX}/share/gpr:${WRKSRC}/sql:${WRKSRC}/sqlite:${WRKSRC}/xref")
 .endfor
-	${RM} -r ${STAGEDIR}${PREFIX}/lib/gnat/manifests
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr
+.for component in ${PROJECT_COMP}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gnatcoll_${component}.relocatable/*.so
+.endfor
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
