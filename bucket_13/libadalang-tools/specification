@@ -35,14 +35,12 @@ RUN_DEPENDS=		libiconv:shared:standard
 USES=			gprbuild
 INSTALL_REQ_TOOLCHAIN=	yes
 DISTNAME=		${FILEBASE}
+BUILD_TARGET=		lib bin
+INSTALL_TARGET=		install-bin-strip install-lib
+MAKE_ARGS=		BUILD_MODE=prod
+			LIBRARY_TYPE=relocatable
+			ALL_LIBRARY_TYPES=relocatable
+			PROCESSORS={{MAKE_JOBS_NUMBER}}
 
-do-build:
-	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} LIBRARY_TYPE=relocatable \
-		gprbuild -p -v -k -XBUILD_MODE=prod -p \
-		-j${MAKE_JOBS_NUMBER} -P src/build.gpr)
-
-do-install:
-	${INSTALL_LIB} ${WRKSRC}/lib/liblal_tools.so ${STAGEDIR}${PREFIX}/lib/
-.for prog in gnatpp gnatmetric gnatstub gnattest
-	${INSTALL_PROGRAM} ${WRKSRC}/bin/${prog} ${STAGEDIR}${PREFIX}/bin/
-.endfor
+post-install:
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests

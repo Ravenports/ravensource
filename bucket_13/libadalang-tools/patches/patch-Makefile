@@ -1,0 +1,27 @@
+--- Makefile.orig	2021-05-19 05:08:26 UTC
++++ Makefile
+@@ -92,19 +92,19 @@ install-lib:
+ 	    gprinstall \
+ 	      -XLIBRARY_TYPE=$$kind \
+ 	      -XBUILD_MODE=$(BUILD_MODE) \
+-	      --prefix="$(DESTDIR)" \
++	      --prefix="$(DESTDIR)$(PREFIX)" \
+ 	      --sources-subdir=include/$$(basename $$proj | cut -d. -f1) \
+ 	      --build-name=$$kind \
+ 	      --build-var=LIBRARY_TYPE --build-var=LAL_TOOLS_BUILD \
+-	      -P $$proj -p -f ; \
++	      -P ../$$proj -p -f ; \
+ 	  done ; \
+ 	done
+ 
+ install-bin-strip:
+-	mkdir -p "$(DESTDIR)"
+-	cp -r bin "$(DESTDIR)/"
++	mkdir -p "$(DESTDIR)$(PREFIX)/bin"
++	${BSD_INSTALL_PROGRAM} ../bin/* "$(DESTDIR)$(PREFIX)/bin"
+ 	# Don't strip debug builds
+-	test "$(BUILD_MODE)" = dev || strip "$(DESTDIR)/bin/"*
++	test "$(BUILD_MODE)" = dev || strip "$(DESTDIR)$(PREFIX)/bin/"*
+ 
+ 
+ .PHONY: clean
