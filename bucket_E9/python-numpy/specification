@@ -38,6 +38,9 @@ BUILD_DEPENDS=		python-Cython:single:python_used
 BUILDRUN_DEPENDS=	lapack:blas:standard
 INSTALL_REQ_TOOLCHAIN=	yes
 
+do-configure:
+	# do-nothing
+
 post-patch:
 	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g' \
 		${WRKSRC}/numpy/distutils/system_info.py
