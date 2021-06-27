@@ -1,6 +1,6 @@
---- configure.orig	2020-04-27 18:04:29 UTC
+--- configure.orig	2021-02-01 21:10:25 UTC
 +++ configure
-@@ -5691,7 +5691,7 @@ fi
+@@ -6444,7 +6444,7 @@ fi
  
  
  case $host_os_name in
@@ -9,7 +9,7 @@
                  ARFLAGS="-rcv"
                  ;;
          *)
-@@ -5775,7 +5775,6 @@ fi
+@@ -6532,7 +6532,6 @@ fi
  fi
  LIBS="$SAVELIBS"
  
@@ -17,7 +17,7 @@
  DBUS_NOTIFIER=""
  DBUS_NOTIFIERLIBS=""
  
-@@ -6358,7 +6357,7 @@ _ACEOF
+@@ -7098,7 +7097,7 @@ printf "%s\n" "#define CUPS_FONTPATH \"$
  # Locale data
  if test "$localedir" = "\${datarootdir}/locale"; then
  	case "$host_os_name" in
@@ -26,24 +26,22 @@
  			CUPS_LOCALEDIR="$datarootdir/locale"
  			;;
  
-@@ -6412,11 +6411,15 @@ _ACEOF
+@@ -7145,12 +7144,12 @@ printf "%s\n" "#define CUPS_REQUESTS \"$
  
  # Server executables...
  case "$host_os_name" in
+-	*-gnu)
++	linux* | *-gnu)
+ 		# GNUs
+ 		INSTALL_SYSV="install-sysv"
+ 		CUPS_SERVERBIN="$exec_prefix/lib/cups"
+ 		;;
 -	*bsd* | darwin*)
-+	*bsd* | dragonfly* | darwin* | solaris*)
++	*bsd* | dragonfly* | solaris* | darwin*)
  		# *BSD and Darwin (macOS)
  		INSTALL_SYSV=""
  		CUPS_SERVERBIN="$exec_prefix/libexec/cups"
- 		;;
-+	linux*)
-+		INSTALL_SYSV="install-sysv"
-+		CUPS_SERVERBIN="$exec_prefix/libexec/cups"
-+		;;
- 	*)
- 		# All others
- 		INSTALL_SYSV="install-sysv"
-@@ -6473,7 +6476,7 @@ fi
+@@ -7206,7 +7205,7 @@ fi
  
  if test "$mandir" = "\${prefix}/man" -a "$prefix" = "/"; then
  	case "$host_os_name" in
@@ -52,7 +50,7 @@
          		# Darwin, macOS, Linux, GNU HURD, and *BSD
          		mandir="/usr/share/man"
          		;;
-@@ -6511,7 +6514,7 @@ if test x$enable_shared != xno; then
+@@ -7245,7 +7244,7 @@ if test x$enable_shared != xno; then
  			DSOXX="\$(CXX)"
  			DSOFLAGS="$DSOFLAGS -Wl,-h\`basename \$@\` -G"
  			;;
@@ -61,7 +59,7 @@
  			LIBCUPS="lib$cupsbase.so.2"
  			if test "x$cupsimagebase" != x; then
  				LIBCUPSIMAGE="lib$cupsimagebase.so.2"
-@@ -6585,12 +6588,11 @@ if test "$DSO" != ":"; then
+@@ -7319,12 +7318,11 @@ if test "$DSO" != ":"; then
  				EXPORT_LDFLAGS="-R$libdir"
  			fi
  			;;
@@ -75,34 +73,24 @@
  			fi
  			;;
                  linux* | gnu*)
-@@ -6806,13 +6808,13 @@ if test -n "$GCC"; then
-     		OPTIM="-fPIC $OPTIM"
- 	fi
- 
--	# The -fstack-protector option is available with some versions of
-+	# The  option is available with some versions of
- 	# GCC and adds "stack canaries" which detect when the return address
- 	# has been overwritten, preventing many types of exploit attacks.
--	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether compiler supports -fstack-protector" >&5
--$as_echo_n "checking whether compiler supports -fstack-protector... " >&6; }
-+	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether compiler supports " >&5
-+$as_echo_n "checking whether compiler supports ... " >&6; }
+@@ -7556,7 +7554,6 @@ if test -n "$GCC"; then
+ 	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking whether compiler supports -fstack-protector" >&5
+ printf %s "checking whether compiler supports -fstack-protector... " >&6; }
  	OLDCFLAGS="$CFLAGS"
 -	CFLAGS="$CFLAGS -fstack-protector"
-+	CFLAGS="$CFLAGS "
  	cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
  
-@@ -6829,7 +6831,7 @@ if ac_fn_c_try_link "$LINENO"; then :
+@@ -7574,7 +7571,7 @@ then :
  			# Can't use stack-protector with LSB binaries...
  			OPTIM="$OPTIM -fno-stack-protector"
  		else
 -			OPTIM="$OPTIM -fstack-protector"
 +			OPTIM="$OPTIM "
  		fi
- 		{ $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
- $as_echo "yes" >&6; }
-@@ -8560,13 +8562,7 @@ fi
+ 		{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+ printf "%s\n" "yes" >&6; }
+@@ -9369,13 +9366,7 @@ fi
  			PAMLIBS="-lpam"
  		fi
  

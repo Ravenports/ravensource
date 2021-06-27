@@ -1,4 +1,4 @@
---- scheduler/auth.c.orig	2020-04-27 18:04:29 UTC
+--- scheduler/auth.c.orig	2021-02-01 21:10:25 UTC
 +++ scheduler/auth.c
 @@ -441,7 +441,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I
  
