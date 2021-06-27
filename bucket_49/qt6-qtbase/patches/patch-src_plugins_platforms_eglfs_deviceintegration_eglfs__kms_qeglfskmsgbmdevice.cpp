@@ -1,4 +1,4 @@
---- src/plugins/platforms/eglfs/deviceintegration/eglfs_kms/qeglfskmsgbmdevice.cpp.orig	2021-04-30 09:31:33 UTC
+--- src/plugins/platforms/eglfs/deviceintegration/eglfs_kms/qeglfskmsgbmdevice.cpp.orig	2021-06-01 12:03:51 UTC
 +++ src/plugins/platforms/eglfs/deviceintegration/eglfs_kms/qeglfskmsgbmdevice.cpp
 @@ -49,6 +49,10 @@
  

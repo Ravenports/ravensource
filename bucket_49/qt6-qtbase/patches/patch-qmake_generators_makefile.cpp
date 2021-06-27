@@ -1,4 +1,4 @@
---- qmake/generators/makefile.cpp.orig	2021-04-30 09:31:33 UTC
+--- qmake/generators/makefile.cpp.orig	2021-06-01 12:03:51 UTC
 +++ qmake/generators/makefile.cpp
 @@ -3364,7 +3364,7 @@ MakefileGenerator::writePkgConfigFile()
              pkgConfiglibName = bundle.toQString();
