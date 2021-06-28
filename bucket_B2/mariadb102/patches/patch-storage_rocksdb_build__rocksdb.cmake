@@ -1,4 +1,4 @@
---- storage/rocksdb/build_rocksdb.cmake.orig	2021-05-04 15:15:13 UTC
+--- storage/rocksdb/build_rocksdb.cmake.orig	2021-06-08 10:51:50 UTC
 +++ storage/rocksdb/build_rocksdb.cmake
 @@ -70,10 +70,6 @@ if(ZSTD_FOUND AND (NOT WITH_ROCKSDB_ZSTD
    SET(CMAKE_REQUIRED_LIBRARIES zstd)

@@ -1,4 +1,4 @@
---- scripts/mysqld_safe.sh.orig	2021-05-05 21:00:19 UTC
+--- scripts/mysqld_safe.sh.orig	2021-06-18 10:19:11 UTC
 +++ scripts/mysqld_safe.sh
 @@ -555,11 +555,11 @@ fi
  
