@@ -1,19 +1,19 @@
 DEF[MAJOR_RELEASE]=	24
 DEF[ERL_RELEASE]=	${MAJOR_RELEASE}.0
-DEF[POINT_RELEASE]=	.2
+DEF[POINT_RELEASE]=	.3
 DEF[PORTVERSION]=	${ERL_RELEASE}${POINT_RELEASE:S/.0//}
 DEF[ASN1_DOC_VSN]=	5.0.16
 DEF[ASN1_VSN]=		${ASN1_DOC_VSN}
 DEF[COMMTEST_DOC_VSN]=	1.20.3
 DEF[COMMTEST_VSN]=	1.20.4
 DEF[COMPILER_DOC_VSN]=	8.0
-DEF[COMPILER_VSN]=	8.0.1
+DEF[COMPILER_VSN]=	8.0.2
 DEF[CRYPTO_DOC_VSN]=	5.0
 DEF[CRYPTO_VSN]=	5.0.2
 DEF[DEBUGGER_DOC_VSN]=	5.1
 DEF[DEBUGGER_VSN]=	${DEBUGGER_DOC_VSN}
 DEF[DIALYZER_DOC_VSN]=	4.4
-DEF[DIALYZER_VSN]=	${DIALYZER_DOC_VSN}
+DEF[DIALYZER_VSN]=	4.4.1
 DEF[DIAMETER_DOC_VSN]=	2.2.4
 DEF[DIAMETER_VSN]=	${DIAMETER_DOC_VSN}
 DEF[DOCGEN_DOC_VSN]=	1.1
@@ -25,7 +25,7 @@ DEF[ELDAP_VSN]=		${ELDAP_DOC_VSN}
 DEF[ERLINT_DOC_VSN]=	5.0
 DEF[ERLINT_VSN]=	5.0.1
 DEF[ERTS_DOC_VSN]=	12.0
-DEF[ERTS_VSN]=		12.0.2
+DEF[ERTS_VSN]=		12.0.3
 DEF[ET_DOC_VSN]=	1.6.5
 DEF[ET_VSN]=		${ET_DOC_VSN}
 DEF[EUNIT_DOC_VSN]=	2.6.1
@@ -35,7 +35,7 @@ DEF[FTP_VSN]=		${FTP_DOC_VSN}
 DEF[HIPE_DOC_VSN]=	4.0.1
 DEF[HIPE_VSN]=		${HIPE_DOC_VSN}
 DEF[INETS_DOC_VSN]=	7.4
-DEF[INETS_VSN]=		${INETS_DOC_VSN}
+DEF[INETS_VSN]=		7.4.1
 DEF[JINTFACE_DOC_VSN]=	1.12
 DEF[JINTFACE_VSN]=	${JINTFACE_DOC_VSN}
 DEF[KERNEL_DOC_VSN]=	8.0
@@ -61,7 +61,7 @@ DEF[SASL_VSN]=		${SASL_DOC_VSN}
 DEF[SNMP_DOC_VSN]=	5.9
 DEF[SNMP_VSN]=		5.9.1
 DEF[SSH_DOC_VSN]=	4.12
-DEF[SSH_VSN]=		4.12.2
+DEF[SSH_VSN]=		4.12.3
 DEF[SSL_DOC_VSN]=	10.4
 DEF[SSL_VSN]=		10.4.1
 DEF[STDLIB_DOC_VSN]=	3.15
@@ -235,15 +235,14 @@ C_USES[freebsd]=	clang
 # rest, not in share/doc/erlang as it should, because of relative
 # links in the documentation.
 
-pre-extract:
-	# pcre.h (installed by glib) is causing ambiguity and a build failure
-	${MV} ${LOCALBASE}/include/pcre.h ${LOCALBASE}/include/pcre.h.tmp
-
 post-extract:
 	${AWK} '/%CopyrightBegin%/,/%CopyrightEnd%/' \
 		${WRKSRC}/README.md > ${WRKDIR}/TERMS
 
 pre-configure:
+	# pcre.h (installed by glib) is causing ambiguity and a build failure
+	${MV} ${LOCALBASE}/include/pcre.h ${LOCALBASE}/include/pcre.h.tmp
+	# generate makefiles
 	cd ${WRKSRC} && ./otp_build autoconf
 
 post-patch:
