@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	3.2.2
+DEF[PORTVERSION]=	3.3.0
+DEF[JQUERY]=		3.5.1
+DEF[UNDERSCORE]=	1.12.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fish
@@ -35,6 +37,8 @@ SHEBANG_FILES=		share/tools/*.py
 			share/tools/web_config/webconfig.py
 CMAKE_ARGS=		-DWITH_GETTEXT:BOOL=ON
 MANDIRS=		{{PREFIX}}/share/fish/man/man1
+PLIST_SUB=		JQUERY=${JQUERY}
+			UNDERSCORE=${UNDERSCORE}
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 
