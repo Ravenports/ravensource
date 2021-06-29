@@ -1,6 +1,6 @@
---- compiler/rustc_llvm/build.rs.orig	2021-05-09 02:52:39 UTC
+--- compiler/rustc_llvm/build.rs.orig	2021-06-17 03:53:50 UTC
 +++ compiler/rustc_llvm/build.rs
-@@ -271,22 +271,7 @@ fn main() {
+@@ -257,22 +257,7 @@ fn main() {
      }
  
      let llvm_static_stdcpp = tracked_env_var_os("LLVM_STATIC_STDCPP");
