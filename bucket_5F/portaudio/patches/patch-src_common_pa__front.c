@@ -1,4 +1,4 @@
---- src/common/pa_front.c.orig	2016-10-30 01:23:04 UTC
+--- src/common/pa_front.c.orig	2021-04-01 00:35:42 UTC
 +++ src/common/pa_front.c
 @@ -1257,8 +1257,10 @@ PaError Pa_OpenStream( PaStream** stream
                                    hostApiInputParametersPtr, hostApiOutputParametersPtr,

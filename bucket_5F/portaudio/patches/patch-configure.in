@@ -1,7 +1,7 @@
 $OpenBSD: patch-configure_in,v 1.4 2014/09/13 04:56:28 bentley Exp $
---- configure.in.orig	2016-10-30 01:23:04 UTC
+--- configure.in.orig	2021-04-01 00:35:42 UTC
 +++ configure.in
-@@ -24,6 +24,10 @@ AC_ARG_WITH(alsa,
+@@ -33,6 +33,10 @@ AC_ARG_WITH(alsa,
              AS_HELP_STRING([--with-alsa], [Enable support for ALSA @<:@autodetect@:>@]),
              [with_alsa=$withval])
  
@@ -12,7 +12,7 @@ $OpenBSD: patch-configure_in,v 1.4 2014/09/13 04:56:28 bentley Exp $
  AC_ARG_WITH(jack,
              AS_HELP_STRING([--with-jack], [Enable support for JACK @<:@autodetect@:>@]),
              [with_jack=$withval])
-@@ -120,6 +124,10 @@ have_alsa=no
+@@ -129,6 +133,10 @@ have_alsa=no
  if test "x$with_alsa" != "xno"; then
      AC_CHECK_LIB(asound, snd_pcm_open, have_alsa=yes, have_alsa=no)
  fi
@@ -23,7 +23,7 @@ $OpenBSD: patch-configure_in,v 1.4 2014/09/13 04:56:28 bentley Exp $
  have_asihpi=no
  if test "x$with_asihpi" != "xno"; then
      AC_CHECK_LIB(hpi, HPI_SubSysCreate, have_asihpi=yes, have_asihpi=no, -lm)
-@@ -406,6 +414,13 @@ case "${host_os}" in
+@@ -401,6 +409,13 @@ case "${host_os}" in
             AC_DEFINE(PA_USE_ALSA,1)
          fi
  
@@ -37,7 +37,7 @@ $OpenBSD: patch-configure_in,v 1.4 2014/09/13 04:56:28 bentley Exp $
          if [[ "$have_jack" = "yes" ] && [ "$with_jack" != "no" ]] ; then
             DLL_LIBS="$DLL_LIBS $JACK_LIBS"
             CFLAGS="$CFLAGS $JACK_CFLAGS"
-@@ -509,6 +524,7 @@ case "$target_os" in
+@@ -504,6 +519,7 @@ case "$target_os" in
          ;;
       *)
  	AC_MSG_RESULT([

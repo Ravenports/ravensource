@@ -1,5 +1,5 @@
 $OpenBSD: patch-include_portaudio_h,v 1.2 2013/03/12 00:59:50 brad Exp $
---- include/portaudio.h.orig	2016-10-30 01:23:04 UTC
+--- include/portaudio.h.orig	2021-04-01 00:35:42 UTC
 +++ include/portaudio.h
 @@ -287,7 +287,8 @@ typedef enum PaHostApiTypeId
      paWDMKS=11,
@@ -11,7 +11,7 @@ $OpenBSD: patch-include_portaudio_h,v 1.2 2013/03/12 00:59:50 brad Exp $
  } PaHostApiTypeId;
  
  
-@@ -1197,6 +1198,15 @@ signed long Pa_GetStreamReadAvailable( P
+@@ -1200,6 +1201,15 @@ signed long Pa_GetStreamReadAvailable( P
  signed long Pa_GetStreamWriteAvailable( PaStream* stream );
  
  

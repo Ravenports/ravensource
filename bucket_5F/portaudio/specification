@@ -1,11 +1,10 @@
-DEF[PORTVERSION]=	190600_20161030
+DEF[PORTVERSION]=	190700_20210406
 DEF[SOVERSION]=		2.0.0
 DEF[SOVERSION_CPP]=	0.0.12
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		portaudio
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		audio
 VARIANTS=		standard
 SDESC[standard]=	Cross platform audio I/O library
@@ -13,7 +12,7 @@ HOMEPAGE=		http://www.portaudio.com/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://www.portaudio.com/archives/
+SITES[main]=		http://files.portaudio.com/archives/
 DISTFILE[1]=		pa_stable_v${PORTVERSION}.tgz:main
 
 SPKGS[standard]=	complete primary docs examples
@@ -47,8 +46,7 @@ post-install:
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 	(cd ${WRKSRC} && doxygen)
 	(cd ${WRKSRC}/doc && ${COPYTREE_SHARE} html ${STAGEDIR}${STD_DOCDIR})
-	(cd ${WRKSRC} && ${INSTALL_DATA} README.txt index.html \
-		${STAGEDIR}${STD_DOCDIR})
+	(cd ${WRKSRC} && ${INSTALL_DATA} README.md ${STAGEDIR}${STD_DOCDIR})
 
 	# install examples
 	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}

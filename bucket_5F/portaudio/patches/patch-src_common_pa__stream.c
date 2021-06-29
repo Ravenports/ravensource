@@ -1,4 +1,4 @@
---- src/common/pa_stream.c.orig	2016-10-30 01:23:04 UTC
+--- src/common/pa_stream.c.orig	2021-04-01 00:35:42 UTC
 +++ src/common/pa_stream.c
 @@ -93,6 +93,8 @@ void PaUtil_InitializeStreamRepresentati
      streamRepresentation->streamInfo.inputLatency = 0.;

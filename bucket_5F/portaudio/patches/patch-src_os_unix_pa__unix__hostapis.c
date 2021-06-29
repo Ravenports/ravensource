@@ -3,7 +3,7 @@ $OpenBSD: patch-src_os_unix_pa_unix_hostapis_c,v 1.2 2013/03/12 00:59:50 brad Ex
 Difference to OpenBSD patch: PA_USE_SNDIO has been moved before
 PA_USE_OSS, so that portaudio prefers the sndio output.
 
---- src/os/unix/pa_unix_hostapis.c.orig	2016-10-30 01:23:04 UTC
+--- src/os/unix/pa_unix_hostapis.c.orig	2021-04-01 00:35:42 UTC
 +++ src/os/unix/pa_unix_hostapis.c
 @@ -44,6 +44,7 @@
  
