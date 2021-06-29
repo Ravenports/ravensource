@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	20201105
+DEF[HASH]=		94c0a5f
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ada_libfswatch
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel sysutils
+VARIANTS=		standard
+SDESC[standard]=	Ada binding to the libfswatch library
+HOMEPAGE=		https://github.com/AdaCore/ada_libfswatch
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/AdaCore:ada_libfswatch:${HASH}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:single GPLv3RLE:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
+			GPLv3RLE:{{WRKSRC}}/COPYING.RUNTIME
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/libfswatch.ads
+LICENSE_SCHEME=		multi
+
+BUILD_DEPENDS=		fswatch:primary:standard
+BUILDRUN_DEPENDS=	gnatcoll-core:primary:standard
+
+USES=			gprbuild gmake
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-patch:
+	# fix makefile
+	${REINPLACE_CMD} -e 's|(DESTDIR)|&$$(PREFIX)|' ${WRKSRC}/Makefile
+
+pre-build:
+	${MKDIR} ${WRKSRC}/libfswatch/include/libfswatch/c ${WRKSRC}/libfswatch/lib
+	${CP} ${LOCALBASE}/lib/libfswatch.a ${WRKSRC}/libfswatch/lib/
+	${CP} ${LOCALBASE}/include/libfswatch/* ${WRKSRC}/libfswatch/include/libfswatch/c
