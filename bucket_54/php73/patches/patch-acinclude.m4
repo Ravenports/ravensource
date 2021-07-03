@@ -1,4 +1,4 @@
---- acinclude.m4.orig	2021-04-27 13:57:17 UTC
+--- acinclude.m4.orig	2021-06-29 09:30:40 UTC
 +++ acinclude.m4
 @@ -969,15 +969,8 @@ dnl ------------------------------------
    if test "$3" != "shared" && test "$3" != "yes" && test "$4" = "cli"; then
