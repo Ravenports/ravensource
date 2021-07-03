@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	1.0.2
 
 NAMEBASE=		lua-lpeg
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		devel
 VARIANTS=		lua52 lua53 lua54
 SDESC[lua52]=		Parsing Expression Grammars for Lua 5.2
@@ -40,9 +40,9 @@ MAKE_ARGS=		CC={{CC}} LUADIR={{LUA_INCDIR}}
 [LUA53].DESCRIPTION=			Build with Lua 5.3
 [LUA53].USES_ON=			lua:5.3
 
-[LUA54].DESCRIPTION=			Build with Lua 5.3
-[LUA54].USES_ON=			lua:5.3
+[LUA54].DESCRIPTION=			Build with Lua 5.4
+[LUA54].USES_ON=			lua:5.4
 
 do-install:
-	@${MKDIR} ${STAGEDIR}${LUA_MODLIBDIR}
+	${MKDIR} ${STAGEDIR}${LUA_MODLIBDIR}
 	${INSTALL_LIB} ${WRKSRC}/lpeg.so ${STAGEDIR}${LUA_MODLIBDIR}
