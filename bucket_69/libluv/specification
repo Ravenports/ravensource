@@ -1,19 +1,24 @@
 DEF[TAG]=		1.41.0-0
+DEF[COMPAT_TAG]=	bc91f40
 DEF[PORTVERSION]=	${TAG:S/-/./}
 DEF[SOVERSION]=		1.41.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libluv
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		lang
 VARIANTS=		standard
 SDESC[standard]=	Bare libuv bindings for lua
 HOMEPAGE=		https://github.com/luvit/luv
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main compat
 SITES[main]=		GITHUB/luvit:luv:${TAG}
+SITES[compat]=		GITHUB/keplerproject:lua-compat-5.3:${COMPAT_TAG}:deps/lua-compat-5.3
 DISTFILE[1]=		generated:main
+DISTFILE[2]=		generated:compat
+DF_INDEX=		1 2
 
 SPKGS[standard]=	single
 
@@ -29,12 +34,13 @@ LICENSE_SCHEME=		solo
 
 BUILDRUN_DEPENDS=	libuv:single:standard
 
-USES=			cmake lua
+USES=			cmake lua:build
 CMAKE_ARGS=		-DWITH_SHARED_LIBUV:BOOL=ON
 			-DBUILD_MODULE:BOOL=OFF
 			-DBUILD_SHARED_LIBS:BOOL=ON
 			-DWITH_LUA_ENGINE=Lua
 			-DLUA_BUILD_TYPE=System
+			-DLUA_COMPAT53_DIR=deps/lua-compat-5.3
 SOVERSION=		${SOVERSION}
 
 post-install:
