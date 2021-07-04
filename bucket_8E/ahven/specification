@@ -1,11 +1,12 @@
 DEF[PORTVERSION]=	2.8
 DEF[JQUERY]=		3.5.1
 DEF[SOVERSION]=		28.0.0
-DEF[UNDERSCORE]=	1.12.0
+DEF[UNDERSCORE]=	1.13.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ahven
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel ada
 VARIANTS=		standard
 SDESC[standard]=	Ada unit test framework
@@ -45,7 +46,6 @@ post-patch:
 	${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|g' \
 		-e '/preserve=timestamps/d' \
 		-e 's/RPf /RpP /' \
-		-e '/^gprdir/ s|{datarootdir}/gpr|{libdir}/gnat|' \
 		${BUILD_WRKSRC}/comfignat.gpr.gp \
 		${BUILD_WRKSRC}/comfignat.mk
 
