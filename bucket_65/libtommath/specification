@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	1.2.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libtommath
+VERSION=		${PORTVERSION}
+KEYWORDS=		math
+VARIANTS=		standard
+SDESC[standard]=	Theoretic multiple-precision integer library
+HOMEPAGE=		https://www.libtom.net/LibTomMath/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/libtom/libtommath/releases/download/v${PORTVERSION}/
+DISTFILE[1]=		ltm-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		PUBDOM:single
+LICENSE_FILE=		PUBDOM:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		math/libtommath
+
+USES=			gmake libtool:build
+SOVERSION=		${PORTVERSION}
+MAKEFILE=		makefile.shared
+BUILD_TARGET=		default
+CFLAGS=			-fPIC
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libtommath.so
