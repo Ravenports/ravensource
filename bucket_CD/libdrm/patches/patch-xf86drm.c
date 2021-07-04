@@ -1,8 +1,8 @@
---- xf86drm.c.orig	2021-04-07 14:09:24 UTC
+--- xf86drm.c.orig	2021-07-02 12:49:05 UTC
 +++ xf86drm.c
-@@ -62,7 +62,17 @@
- #endif
+@@ -63,7 +63,17 @@
  #include <math.h>
+ #include <inttypes.h>
  
 -#if defined(__FreeBSD__)
 +#ifndef O_CLOEXEC
@@ -19,7 +19,7 @@
  #include <sys/param.h>
  #include <sys/pciio.h>
  #endif
-@@ -540,7 +550,7 @@ static int drmGetMinorBase(int type)
+@@ -898,7 +908,7 @@ static int drmGetMinorBase(int type)
  
  static int drmGetMinorType(int major, int minor)
  {
@@ -28,7 +28,7 @@
      char name[SPECNAMELEN];
      int id;
  
-@@ -2796,7 +2806,7 @@ drm_public int drmIsMaster(int fd)
+@@ -3154,7 +3164,7 @@ drm_public int drmIsMaster(int fd)
  
  drm_public char *drmGetDeviceNameFromFd(int fd)
  {
@@ -37,7 +37,7 @@
      struct stat sbuf;
      int maj, min;
      int nodetype;
-@@ -2843,7 +2853,7 @@ static bool drmNodeIsDRM(int maj, int mi
+@@ -3201,7 +3211,7 @@ static bool drmNodeIsDRM(int maj, int mi
      snprintf(path, sizeof(path), "/sys/dev/char/%d:%d/device/drm",
               maj, min);
      return stat(path, &sbuf) == 0;
@@ -46,7 +46,7 @@
      char name[SPECNAMELEN];
  
      if (!devname_r(makedev(maj, min), S_IFCHR, name, sizeof(name)))
-@@ -2956,7 +2966,7 @@ static char *drmGetMinorNameForFD(int fd
+@@ -3314,7 +3324,7 @@ static char *drmGetMinorNameForFD(int fd
  
      closedir(sysdir);
      return NULL;
@@ -55,7 +55,7 @@
      struct stat sbuf;
      char dname[SPECNAMELEN];
      const char *mname;
-@@ -3167,7 +3177,7 @@ get_pci_path(int maj, int min, char *pci
+@@ -3525,7 +3535,7 @@ get_pci_path(int maj, int min, char *pci
  }
  #endif
  

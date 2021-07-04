@@ -4,11 +4,11 @@
 # _WANT_KERNEL_ERRNO is too recent to be part of any release, so just
 # define ERESTART if we still don't have it after including errno.h 
 #
---- libkms/vmwgfx.c.orig	2021-04-07 14:09:24 UTC
+--- libkms/vmwgfx.c.orig	2021-07-02 12:49:05 UTC
 +++ libkms/vmwgfx.c
-@@ -26,10 +26,18 @@
-  **************************************************************************/
- 
+@@ -29,10 +29,18 @@
+ #define _WANT_KERNEL_ERRNO
+ #endif
  
 +#if defined (__FreeBSD__) || defined (__FreeBSD_kernel__)
 +#define _WANT_KERNEL_ERRNO
