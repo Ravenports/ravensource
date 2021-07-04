@@ -19,6 +19,7 @@ share/Cppcheck/cfg/cairo.cfg
 share/Cppcheck/cfg/cppcheck-lib.cfg
 share/Cppcheck/cfg/cppunit.cfg
 share/Cppcheck/cfg/daca.cfg
+share/Cppcheck/cfg/dpdk.cfg
 share/Cppcheck/cfg/embedded_sql.cfg
 share/Cppcheck/cfg/emscripten.cfg
 share/Cppcheck/cfg/ginac.cfg
@@ -52,6 +53,7 @@ share/Cppcheck/cfg/sfml.cfg
 share/Cppcheck/cfg/sqlite3.cfg
 share/Cppcheck/cfg/std.cfg
 share/Cppcheck/cfg/tinyxml2.cfg
+share/Cppcheck/cfg/vcl.cfg
 share/Cppcheck/cfg/windows.cfg
 share/Cppcheck/cfg/wxsqlite3.cfg
 share/Cppcheck/cfg/wxsvg.cfg
