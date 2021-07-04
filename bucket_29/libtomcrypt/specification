@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	1.18.2
+DEF[SOVERSION]=		1.0.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libtomcrypt
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		standard
+SDESC[standard]=	Comprehensive, portable cryptographic toolkit
+HOMEPAGE=		https://www.libtom.net/LibTomCrypt/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/libtom/libtomcrypt/releases/download/v${PORTVERSION}/
+DISTFILE[1]=		crypt-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		PUBDOM:single
+LICENSE_FILE=		PUBDOM:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		security/libtomcrypt
+
+BUILDRUN_DEPENDS=	libtommath:single:standard
+
+USES=			gmake libtool:build
+SOVERSION=		${SOVERSION}
+MAKEFILE=		makefile.shared
+BUILD_TARGET=		library
+MAKE_ARGS=		INCPATH="{{PREFIX}}/include"
+			LIBPATH="{{PREFIX}}/lib"
+			EXTRALIBS="-ltommath"
+CFLAGS=			-DLTM_DESC
+
+post-patch:
+	${REINPLACE_CMD} -e 's|gcc|${CC}|' -e 's| make | $$(MAKE) |' \
+		-e 's|-g $$(GROUP)||' -e 's|-o $$(USER)||' \
+		${WRKSRC}/makefile.shared ${WRKSRC}/makefile_include.mk
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libtomcrypt.so
