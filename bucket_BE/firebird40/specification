@@ -24,6 +24,7 @@ FPC_EQUIVALENT=		databases/firebird40-client
 
 BUILDRUN_DEPENDS=	icu:single:standard
 			libtomcrypt:single:standard
+			re2:single:standard
 
 USES=			cpe cmake pkgconfig readline zlib clang
 CPE_VENDOR=		firebirdsql
@@ -57,6 +58,6 @@ SINGLE_JOB=		yes
 BROKEN[all]=		Work in progress
 
 post-extract:
-.for extern in libtocrypt libtommath editline
+.for extern in libtocrypt libtommath editline re2
 	${RM} -r ${WRKSRC}/extern/${extern}
 .endfor

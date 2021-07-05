@@ -9,3 +9,12 @@
          endif()
      endfunction(set_exported_symbols)
  endif(UNIX)
+@@ -289,7 +289,7 @@ function(create_command command type out
+     set(cmd_name ${cmd_name}${conf}${ext})
+     set(cmd_name ${CMAKE_BINARY_DIR}/src/${cmd_name})
+     
+-    set(content)
++    set(content "#!/bin/sh\n")
+     foreach(e ${env})
+         set(content "${content}${pre_cmd}${export} ${e}\n")
+     endforeach()
