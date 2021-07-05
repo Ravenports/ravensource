@@ -1,0 +1,62 @@
+DEF[PORTVERSION]=	EXTRACT_VERSION(FIREBIRD_4.0_VERSION)
+DEF[SEQUENCE]=		2496-0
+DEF[LIBEXECDIR]=	{{PREFIX}}/libexec/firebird
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		firebird40
+VERSION=		${PORTVERSION}
+KEYWORDS=		databases
+VARIANTS=		standard
+SDESC[standard]=	Firebird-4 relational SQL database
+HOMEPAGE=		https://firebirdsql.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/FirebirdSQL/firebird/releases/download/v${PORTVERSION}/
+DISTFILE[1]=		Firebird-${PORTVERSION}.${SEQUENCE}.tar.xz:main
+
+SPKGS[standard]=	complete server client docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		databases/firebird40-client
+
+BUILDRUN_DEPENDS=	icu:single:standard
+			libtomcrypt:single:standard
+
+USES=			cpe cmake pkgconfig readline zlib clang
+CPE_VENDOR=		firebirdsql
+CPE_PRODUCT=		firebird
+USERS=			firebird
+GROUPS=			firebird
+USERGROUP_SPKG=		server
+DISTNAME=		Firebird-${PORTVERSION}.${SEQUENCE}
+CXXFLAGS=		-Wno-varargs
+			-Wno-deprecated-declarations
+			-Wno-format
+CMAKE_ARGS=		-DFB_TZDATADIR="{{PREFIX}}/libexec/firebird/tzdata"
+			-DFB_BINDIR="{{PREFIX}}/bin"
+			-DFB_SBINDIR="{{PREFIX}}/sbin"
+			-DFB_CONFDIR="{{PREFIX}}/etc/firebird"
+			-DFB_LIBDIR="{{PREFIX}}/lib"
+			-DFB_INCDIR="{{PREFIX}}/include"
+			-DFB_DOCDIR="{{PREFIX}}/share/doc/firebird"
+			-DFB_SAMPLEDIR="{{PREFIX}}/share/examples/firebird"
+			-DFB_SAMPLEDBDIR="{{PREFIX}}/share/examples/firebird/empbuild"
+			-DFB_INTLDIR="{{PREFIX}}/libexec/firebird/intl"
+			-DFB_MISCDIR="{{PREFIX}}/share/firebird/misc"
+			-DFB_SECDBDIR="/var/db/firebird"
+			-DFB_MSGDIR="{{PREFIX}}/share/firebird"
+			-DFB_LOGDIR="/var/db/firebird"
+			-DFB_GUARDDIR="/var/db/firebird"
+			-DFB_PLUGDIR="{{PREFIX}}/libexec/firebird/plugins"
+
+
+SINGLE_JOB=		yes
+BROKEN[all]=		Work in progress
+
+post-extract:
+.for extern in libtocrypt libtommath editline
+	${RM} -r ${WRKSRC}/extern/${extern}
+.endfor
