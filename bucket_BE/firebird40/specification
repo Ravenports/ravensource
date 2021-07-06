@@ -55,9 +55,12 @@ CMAKE_ARGS=		-DFB_TZDATADIR="{{PREFIX}}/libexec/firebird/tzdata"
 
 
 SINGLE_JOB=		yes
-BROKEN[all]=		Work in progress
+# BROKEN[all]=		Work in progress
 
 post-extract:
 .for extern in libtocrypt libtommath editline re2
 	${RM} -r ${WRKSRC}/extern/${extern}
 .endfor
+	# remove
+	# ${MKDIR} ${LOCALBASE}/share/firebird
+	# cp ${FILESDIR}/firebird.msg ${LOCALBASE}/share/firebird/

@@ -9,7 +9,15 @@
      # temporary
      set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR})
  endif()
-@@ -218,7 +218,7 @@ if (UNIX)
+@@ -174,7 +174,6 @@ configure_file(${AUTOCONFIG_SRC} ${AUTOC
+ #
+ ################################################################################
+ 
+-add_definitions(-DDEV_BUILD)
+ 
+ if (WIN32)
+     set(OS_DIR win32)
+@@ -218,7 +217,7 @@ if (UNIX)
      if (NOT CMAKE_CROSSCOMPILING)
          set(LIB_readline readline)
      endif()
@@ -18,7 +26,7 @@
          set(LIB_dl dl)
      endif()
  endif()
-@@ -227,7 +227,7 @@ if (NOT LINUX AND (CLANG OR IOS))
+@@ -227,7 +226,7 @@ if (NOT LINUX AND (CLANG OR IOS))
      set(LIB_iconv iconv)
  endif()
  
@@ -27,7 +35,7 @@
      include_directories(/usr/local/include)
      link_directories(/usr/local/lib)
  endif()
-@@ -329,11 +329,8 @@ endif() # if (NOT CMAKE_CROSSCOMPILING)
+@@ -329,11 +328,8 @@ endif() # if (NOT CMAKE_CROSSCOMPILING)
  
  crosscompile_prebuild_steps()
  
@@ -39,7 +47,7 @@
  
  include_directories("src/include")
  include_directories("src/include/gen")
-@@ -344,24 +341,20 @@ include_directories("${CMAKE_CURRENT_BIN
+@@ -344,24 +340,20 @@ include_directories("${CMAKE_CURRENT_BIN
  # LIBRARY libtommath
  ########################################
  
