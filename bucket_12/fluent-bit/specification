@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.7.9
+DEF[PORTVERSION]=	1.8.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fluent-bit
@@ -18,10 +18,19 @@ SPKGS[standard]=	complete primary library
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		APACHE20:library
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		library:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"_GNU_SOURCE"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/fluent-bit.c
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		sysutils/fluent-bit
 
 USES=			cpe cmake bison zlib gmake execinfo shebangfix
 			cclibs:primary,library
+# -Werror=truncation on mbedtls on gcc, clang works though
+			clang
 SHEBANG_ADD_SH=		lib/luajit-2.1.0-1e66d0f/configure
 CPE_VENDOR=		treasuredata
 CPE_PRODUCT=		fluent_bit
@@ -39,4 +48,4 @@ post-install:
 	${MV} ${STAGEDIR}${ETCDIR}/parsers.conf \
 		${STAGEDIR}${ETCDIR}/parsers.conf.sample
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/fluent-bit
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/fluent-bit/libfluent-bit.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libfluent-bit.so
