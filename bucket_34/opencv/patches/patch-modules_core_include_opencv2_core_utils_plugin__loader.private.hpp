@@ -1,4 +1,4 @@
---- modules/core/include/opencv2/core/utils/plugin_loader.private.hpp.orig	2021-04-02 11:23:54 UTC
+--- modules/core/include/opencv2/core/utils/plugin_loader.private.hpp.orig	2021-07-05 12:03:22 UTC
 +++ modules/core/include/opencv2/core/utils/plugin_loader.private.hpp
 @@ -12,7 +12,7 @@
  
@@ -24,10 +24,10 @@
  #endif
 -#elif defined(__linux__) || defined(__APPLE__) || defined(__OpenBSD__) || defined(__FreeBSD__) || defined(__HAIKU__) || defined(__GLIBC__)
 +#elif defined(__linux__) || defined(__APPLE__) || defined(__OpenBSD__) || defined(__FreeBSD__) || defined(__HAIKU__) || defined(__GLIBC__) || defined(__DragonFly__)
-     return dlopen(filename.c_str(), RTLD_NOW);
- #endif
- }
-@@ -89,7 +89,7 @@ void libraryRelease_(LibHandle_t h)
+     void* handle = dlopen(filename.c_str(), RTLD_NOW);
+     CV_LOG_IF_DEBUG(NULL, !handle, "dlopen() error: " << dlerror());
+     return handle;
+@@ -91,7 +91,7 @@ void libraryRelease_(LibHandle_t h)
  {
  #if defined(_WIN32)
      FreeLibrary(h);
