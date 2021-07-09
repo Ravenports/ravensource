@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.2.14
+DEF[PORTVERSION]=	2.3.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ocl-icd
@@ -20,13 +20,13 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		devel/ocl-icd
 
-BUILD_DEPENDS=		opencl-headers:single:standard
-			asciidoc:single:standard
+# BUILD_DEPENDS=	opencl-headers:single:standard
+BUILD_DEPENDS=		asciidoc:single:standard
 			xmlto:single:standard
 
 USES=			autoreconf gmake libtool ruby:build solaris-funcs
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-official-khronos-headers
+CONFIGURE_ARGS=		--enable-official-khronos-headers
 			--enable-custom-vendordir
 INSTALL_TARGET=		install-strip
 MAKE_ARGS=		RUBY=ruby{{RUBY_SUFFIX}}

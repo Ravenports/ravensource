@@ -1,4 +1,4 @@
---- ocl_icd_debug.h.orig	2020-12-11 19:32:45 UTC
+--- ocl_icd_debug.h.orig	2021-03-30 16:10:38 UTC
 +++ ocl_icd_debug.h
 @@ -69,9 +69,9 @@ extern int debug_ocl_icd_mask;
  	return ret; \
