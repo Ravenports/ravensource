@@ -1,4 +1,4 @@
---- gtk/updateiconcache.c.orig	2021-04-21 22:50:47 UTC
+--- gtk/updateiconcache.c.orig	2021-06-15 20:58:25 UTC
 +++ gtk/updateiconcache.c
 @@ -1556,7 +1556,7 @@ opentmp:
    if (!validate_file (tmp_cache_path))
