@@ -1,4 +1,8 @@
-DEF[PORTVERSION]=	0.7.1
+DEF[PORTVERSION]=	0.8.0
+DEF[TOOLCHAIN_GCC]=	EXTRACT_INFO(CURRENT_GCC)
+DEF[GCC_VERSION]=	EXTRACT_INFO(CURRENT_GCC_VERSION)
+DEF[GCC_LIB]=		toolchain/${TOOLCHAIN_GCC}/{{ASLIB}}
+DEF[GCC_TARGET_LIB]=	${GCC_LIB}/gcc/{{CONFIGURE_TARGET}}/${GCC_VERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		zig
@@ -41,3 +45,8 @@ post-install:
 	# remove licenses out of place
 	${RM} ${STAGEDIR}${PREFIX}/lib/zig/*/LICENSE.TXT
 	${RM} ${STAGEDIR}${PREFIX}/lib/zig/libc/glibc/LICENSES
+
+pre-build:
+	${REINPLACE_CMD} \
+		-e 's|@GCC_TARGET_LIBDIR@|${LOCALBASE}/${GCC_TARGET_LIB}|' \
+		${WRKSRC}/src/link/Elf.zig \
