@@ -1,4 +1,4 @@
---- projects/libcxx/src/locale.cpp.orig	2021-04-06 16:38:18 UTC
+--- projects/libcxx/src/locale.cpp.orig	2021-06-28 16:23:38 UTC
 +++ projects/libcxx/src/locale.cpp
 @@ -1133,7 +1133,7 @@ ctype<char>::classic_table()  _NOEXCEPT
  const ctype<char>::mask*

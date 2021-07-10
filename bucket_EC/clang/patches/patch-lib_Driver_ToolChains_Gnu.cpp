@@ -1,4 +1,4 @@
---- lib/Driver/ToolChains/Gnu.cpp.orig	2021-04-06 16:38:18 UTC
+--- lib/Driver/ToolChains/Gnu.cpp.orig	2021-06-28 16:23:38 UTC
 +++ lib/Driver/ToolChains/Gnu.cpp
 @@ -482,6 +482,9 @@ void tools::gnutools::Linker::ConstructJ
    }

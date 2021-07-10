@@ -1,4 +1,4 @@
---- lib/Driver/ToolChains/FreeBSD.cpp.orig	2021-04-06 16:38:18 UTC
+--- lib/Driver/ToolChains/FreeBSD.cpp.orig	2021-06-28 16:23:38 UTC
 +++ lib/Driver/ToolChains/FreeBSD.cpp
 @@ -292,6 +292,16 @@ void freebsd::Linker::ConstructJob(Compi
    bool NeedsXRayDeps = addXRayRuntime(ToolChain, Args, CmdArgs);

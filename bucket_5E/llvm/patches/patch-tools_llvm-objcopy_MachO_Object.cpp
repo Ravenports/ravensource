@@ -1,4 +1,4 @@
---- tools/llvm-objcopy/MachO/Object.cpp.orig	2021-04-06 16:38:18 UTC
+--- tools/llvm-objcopy/MachO/Object.cpp.orig	2021-06-28 16:23:38 UTC
 +++ tools/llvm-objcopy/MachO/Object.cpp
 @@ -10,6 +10,18 @@
  #include "llvm/ADT/SmallPtrSet.h"

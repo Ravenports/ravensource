@@ -1,4 +1,4 @@
---- tools/llvm-objcopy/MachO/MachOLayoutBuilder.cpp.orig	2021-04-06 16:38:18 UTC
+--- tools/llvm-objcopy/MachO/MachOLayoutBuilder.cpp.orig	2021-06-28 16:23:38 UTC
 +++ tools/llvm-objcopy/MachO/MachOLayoutBuilder.cpp
 @@ -11,6 +11,18 @@
  #include "llvm/Support/Errc.h"
