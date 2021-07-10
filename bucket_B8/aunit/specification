@@ -2,7 +2,8 @@ DEF[PORTVERSION]=	2021
 DEF[DATE]=		20210518-19DC5
 DEF[CORE_HASH]=		c8eadafc40c016859e127cd0e82411fcd8f3e749
 DEF[FILEBASE]=		aunit-${PORTVERSION}-${DATE}-src
-DEF[JQUERY]=		3.5.1
+DEF[JQUERY]=		EXTRACT_INFO(LATEST_JQUERY)
+DEF[UNDERSCORE]=	EXTRACT_INFO(ANCIENT_UNDERSCORE)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		aunit
@@ -35,6 +36,7 @@ USES=			ada:primary gmake gprbuild
 DISTNAME=		${FILEBASE}
 INSTALL_REQ_TOOLCHAIN=	yes
 PLIST_SUB=		JQUERY=${JQUERY}
+			UNDERSCORE=${UNDERSCORE}
 
 post-patch:
 	${REINPLACE_CMD} -e 's|LIBDIR|MYLIBDIR|' \

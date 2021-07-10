@@ -1,6 +1,8 @@
 DEF[PORTVERSION]=	2.1.27
 DEF[SOVERSION]=		3.0.0
 DEF[DOCS]=		AUTHORS ChangeLog INSTALL INSTALL.TXT README
+DEF[JQUERY]=		3.1.0
+DEF[UNDERSCORE]=	EXTRACT_INFO(ANCIENT_UNDERSCORE)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		cyrus-sasl
@@ -65,6 +67,8 @@ CONFIGURE_ARGS=		--disable-alwaystrue
 CFLAGS=			-Wno-pointer-sign
 SINGLE_JOB=		yes
 SOVERSION=		${SOVERSION}
+PLIST_SUB=		UNDERSCORE=${UNDERSCORE}
+			JQUERY=${JQUERY}
 
 # FreeBSD only
 INSTALL_REQ_TOOLCHAIN=	yes

@@ -7,7 +7,8 @@ DEF[XML_HASH]=		6a2cf72f308cc787926b12ddc20993fcf2b8ea79
 DEF[CORE_FILEBASE]=	gprbuild-${PORTVERSION}-${DATE}-src
 DEF[XML_FILEBASE]=	xmlada-${PORTVERSION}-${XML_DATE}-src
 DEF[KBASE_HASH]=	223c8a8
-DEF[JQUERY]=		3.5.1
+DEF[JQUERY]=		EXTRACT_INFO(LATEST_JQUERY)
+DEF[UNDERSCORE]=	EXTRACT_INFO(ANCIENT_UNDERSCORE)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gprbuild
@@ -58,6 +59,7 @@ BUILD_TARGET=		all libgpr.build
 INSTALL_TARGET=		install libgpr.install
 INFO=			primary:gprbuild_ug
 PLIST_SUB=		JQUERY=${JQUERY}
+			UNDERSCORE=${UNDERSCORE}
 # SET_DEBUGGING_ON=	yes
 
 post-patch:
