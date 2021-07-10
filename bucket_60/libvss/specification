@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	2021
+DEF[DATE]=		20210701-198AA
+DEF[CORE_HASH]=		b3b6db7b27ef26dc9006e062dd1bf7adbe47566b
+DEF[FILEBASE]=		vss-${PORTVERSION}-${DATE}-src
+DEF[JQUERY]=		EXTRACT_INFO(LATEST_JQUERY)
+DEF[UNDERSCORE]=	EXTRACT_INFO(ANCIENT_UNDERSCORE)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libvss
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc devel
+VARIANTS=		standard
+SDESC[standard]=	High level string and text processing library
+HOMEPAGE=		https://github.com/AdaCore/VSS
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		ADACORE/${CORE_HASH}?filename=${FILEBASE}.tar.gz&x=/
+DISTFILE[1]=		${FILEBASE}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+USES=			gmake gprbuild
+DISTNAME=		${FILEBASE}
+MAKE_ARGS=		BUILD_MODE=prod
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-install:
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests

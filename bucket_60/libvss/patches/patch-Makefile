@@ -1,0 +1,13 @@
+--- Makefile.orig	2021-06-15 05:07:58 UTC
++++ Makefile
+@@ -5,6 +5,10 @@ all:
+ 	gprbuild -p -P gnat/vss_text.gpr -XVSS_BUILD_MODE=$(BUILD_MODE) -cargs $(ADAFLAGS)
+ 	gprbuild -p -P gnat/vss_json.gpr -XVSS_BUILD_MODE=$(BUILD_MODE) -cargs $(ADAFLAGS)
+ 
++install:
++	gprinstall --prefix=$(DESTDIR)$(PREFIX) -p -P gnat/vss_text.gpr -XVSS_BUILD_MODE=$(BUILD_MODE)
++	gprinstall --prefix=$(DESTDIR)$(PREFIX) -p -P gnat/vss_json.gpr -XVSS_BUILD_MODE=$(BUILD_MODE)
++
+ build_tests:
+ 	gprbuild -p -P gnat/tests/vss_text_tests.gpr
+ 	gprbuild -p -P gnat/tests/vss_json_tests.gpr
