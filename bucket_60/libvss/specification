@@ -2,8 +2,6 @@ DEF[PORTVERSION]=	2021
 DEF[DATE]=		20210701-198AA
 DEF[CORE_HASH]=		b3b6db7b27ef26dc9006e062dd1bf7adbe47566b
 DEF[FILEBASE]=		vss-${PORTVERSION}-${DATE}-src
-DEF[JQUERY]=		EXTRACT_INFO(LATEST_JQUERY)
-DEF[UNDERSCORE]=	EXTRACT_INFO(ANCIENT_UNDERSCORE)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libvss
@@ -12,7 +10,7 @@ KEYWORDS=		textproc devel
 VARIANTS=		standard
 SDESC[standard]=	High level string and text processing library
 HOMEPAGE=		https://github.com/AdaCore/VSS
-CONTACT=		nobody
+CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		ADACORE/${CORE_HASH}?filename=${FILEBASE}.tar.gz&x=/
@@ -22,6 +20,13 @@ SPKGS[standard]=	single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/source/text/vss-strings.ads
+LICENSE_SCHEME=		solo
 
 USES=			gmake gprbuild
 DISTNAME=		${FILEBASE}
