@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	2021
+DEF[DATE]=		20210701-19A43
+DEF[CORE_HASH]=		28342768afab1e644a660b96051c04e5e9d3bcb0
+DEF[FILEBASE]=		spawn-${PORTVERSION}-${DATE}-src
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ada_spawn
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel ada
+VARIANTS=		standard
+SDESC[standard]=	Simple API to spawn communicating processes
+HOMEPAGE=		none
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		ADACORE/${CORE_HASH}?filename=${FILEBASE}.tar.gz&x=/
+DISTFILE[1]=		${FILEBASE}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/source/spawn/spawn.ads
+LICENSE_SCHEME=		solo
+
+USES=			gmake gprbuild
+DISTNAME=		${FILEBASE}
+INSTALL_REQ_TOOLCHAIN=	yes
+MAKE_ENV=		LIBRARY_TYPE=static-pic
+			BUILD_MODE=prod
+
+post-install:
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
