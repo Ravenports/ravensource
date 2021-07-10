@@ -3,9 +3,9 @@ $NetBSD: patch-src_common_locale.cpp,v 1.2 2020/05/31 11:34:15 adam Exp $
 Remove broken SunOS section that is no longer needed.
 https://gitlab.com/mbunkus/mkvtoolnix/issues/2450
 
---- src/common/locale.cpp.orig	2021-06-13 10:46:33 UTC
+--- src/common/locale.cpp.orig	2021-07-10 10:32:55 UTC
 +++ src/common/locale.cpp
-@@ -284,12 +284,6 @@ get_local_charset() {
+@@ -286,12 +286,6 @@ get_local_charset() {
    setlocale(LC_CTYPE, "");
  #if defined(COMP_MINGW) || defined(COMP_MSC)
    lc_charset = fmt::format("CP{0}", GetACP());

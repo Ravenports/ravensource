@@ -1,12 +1,11 @@
-DEF[PORTVERSION]=	58.0.0
+DEF[PORTVERSION]=	59.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mkvtoolnix
 VERSION=		${PORTVERSION}
 KEYWORDS=		multimedia graphics
-VARIANTS=		standard gui
+VARIANTS=		standard
 SDESC[standard]=	Matroska media files manipulation tools
-SDESC[gui]=		Matroska multimedia tools with GUI
 HOMEPAGE=		https://mkvtoolnix.download/
 CONTACT=		nobody
 
@@ -15,11 +14,9 @@ SITES[main]=		https://mkvtoolnix.download/sources/
 DISTFILE[1]=		mkvtoolnix-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	complete primary nls
-SPKGS[gui]=		complete primary nls
 
-OPTIONS_AVAILABLE=	GUI
+OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
-VOPTS[gui]=		GUI=ON
 
 FPC_EQUIVALENT=		multimedia/mkvtoolnix
 
@@ -27,6 +24,8 @@ BUILD_DEPENDS=		docbook-xsl:primary:standard
 			ruby-rake:single:ruby_default
 			libxslt:single:standard
 			po4a:primary:standard
+			qt5-qtbase:primary:standard
+			gmp:static:standard
 BUILDRUN_DEPENDS=	fmt:single:standard
 			libmatroska:single:standard
 			pcre2:primary:standard
@@ -37,34 +36,30 @@ BUILDRUN_DEPENDS=	fmt:single:standard
 			file:single:standard
 			libdvdread:single:standard
 			pugixml:single:standard
+			qt5-qtmultimedia:single:standard
+			gmp:shared:standard
+			cmark:single:standard
 
 # Another example of g++ ICE, use clang to build on FreeBSD
 C_USES[freebsd]=	clang
 
 USES=			zlib pkgconfig gettext-tools gettext-runtime
-			solaris-funcs
+			solaris-funcs mime-info:primary desktop-utils:primary
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-boost="{{LOCALBASE}}"
 			--with-boost-filesystem=boost_filesystem
 			--with-boost-system=boost_system
 			--with-docbook-xsl-root="{{PREFIX}}/share/xsl/docbook"
 			--with-dvdread
+			--enable-qt5=yes
+			--enable-qt6=no
+			--with-qmake="{{LOCALBASE}}/lib/qt5/bin/qmake"
+			--enable-gui
 MAKE_ENV=		V=1
 MAKEFILE=		Rakefile
 BUILD_TARGET=		#skip
 SOL_FUNCTIONS=		timegm:src/common/date_time.cpp
+CONFIGURE_ENV=		PKG_CONFIG_PATH="{{LOCALBASE}}/lib/qt5/pkgconfig"
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 
-[GUI].DESCRIPTION=			Include Graphic User Interface with tools
-[GUI].USES_ON=				mime-info:primary
-					desktop-utils:primary
-[GUI].CONFIGURE_ARGS_ON=		--enable-qt
-					--with-moc="{{LOCALBASE}}/lib/qt5/bin/moc"
-					--with-uic="{{LOCALBASE}}/lib/qt5/bin/uic"
-					--with-rcc="{{LOCALBASE}}/lib/qt5/bin/rcc"
-					--with-qmake="{{LOCALBASE}}/lib/qt5/bin/qmake"
-[GUI].CONFIGURE_ENV_ON=			PKG_CONFIG_PATH="{{LOCALBASE}}/lib/qt5/pkgconfig"
-[GUI].BUILD_DEPENDS_ON=			qt5-qtbase:primary:standard
-[GUI].BUILDRUN_DEPENDS_ON=		qt5-qtmultimedia:single:standard
-					cmark:single:standard
