@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	22.0.8
+DEF[TAG]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ada_language_server
+VERSION=		${PORTVERSION}
+KEYWORDS=		ada textproc
+VARIANTS=		standard
+SDESC[standard]=	Microsoft Language Server Protocol for Ada
+HOMEPAGE=		https://github.com/AdaCore/ada_language_server
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/AdaCore:ada_language_server:${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+BUILD_DEPENDS=		ada_spawn:single:standard
+			ada_libfswatch:single:standard
+			libvss:single:standard
+BUILDRUN_DEPENDS=	libadalang:single:standard
+			libadalang-tools:single:standard
+
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/source/server/lsp-servers.ads
+LICENSE_SCHEME=		solo
+
+USES=			gmake gprbuild
+MAKE_ARGS=		BUILD_MODE=prod
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-install:
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
