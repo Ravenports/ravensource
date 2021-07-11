@@ -47,7 +47,6 @@ post-patch:
 	${REINPLACE_CMD} \
 		-e '/^prefix :=/ s|:=.*|= ${STAGEDIR}$$(PREFIX)|' \
 		-e '/^TARGET :=/ s|:=.*|= ${CONFIGURE_TARGET}|' \
-		-e 's|LIBRARY_TYPES=static relocatable static-pic|LIBRARY_TYPES=relocatable|'\
 		${WRKSRC}/${component}/Makefile
 .endfor
 
