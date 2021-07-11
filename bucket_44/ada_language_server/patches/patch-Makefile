@@ -17,7 +17,19 @@
     endif
     PYTHON=python3
  endif
-@@ -98,16 +97,16 @@ endif
+@@ -71,11 +70,9 @@ else
+ endif
+ 
+ all: coverage-instrument
+-	$(GPRBUILD) -P gnat/tester.gpr -p $(BUILD_FLAGS)
+ 	$(GPRBUILD) -d -ws -c -u -P gnat/lsp_server.gpr -p $(BUILD_FLAGS) s-memory.adb
+ 	$(GPRBUILD) -P gnat/lsp_server.gpr -p $(COVERAGE_BUILD_FLAGS) \
+ 		-XVERSION=$(TRAVIS_TAG)
+-	$(GPRBUILD) -P gnat/codec_test.gpr -p $(COVERAGE_BUILD_FLAGS)
+ 	$(GPRBUILD) -P gnat/lsp_client.gpr -p $(COVERAGE_BUILD_FLAGS) \
+ 		-XVERSION=$(TRAVIS_TAG)
+ 	mkdir -p integration/vscode/ada/$(PLATFORM)
+@@ -98,16 +95,14 @@ endif
  
  install:
  	gprinstall -f -P gnat/lsp_server.gpr -p -r --mode=usage \
@@ -25,8 +37,6 @@
 -	gprinstall -f -P gnat/tester.gpr -p --prefix=$(DESTDIR) $(LIBRARY_FLAGS)
 -	gprinstall -f -P gnat/codec_test.gpr -p --prefix=$(DESTDIR) $(LIBRARY_FLAGS)
 +		--prefix=$(DESTDIR)$(PREFIX) $(LIBRARY_FLAGS)
-+	gprinstall -f -P gnat/tester.gpr -p --prefix=$(DESTDIR)$(PREFIX) $(LIBRARY_FLAGS)
-+	gprinstall -f -P gnat/codec_test.gpr -p --prefix=$(DESTDIR)$(PREFIX) $(LIBRARY_FLAGS)
  	gprinstall -f -P gnat/lsp_client.gpr -p -r	\
  		--mode=dev				\
 -		--prefix=$(DESTDIR)			\
