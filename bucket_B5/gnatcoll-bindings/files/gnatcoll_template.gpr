@@ -1,0 +1,69 @@
+with "gpr";
+with "xmlada_schema";
+with "xmlada_dom";
+with "xmlada_sax";
+with "xmlada_input_sources";
+with "xmlada_unicode";
+with "gnatcoll";
+
+library project GnatColl_%%COMPONENT%% is
+   type BUILD_KIND is ("static", "static-pic", "relocatable");
+   BUILD : BUILD_KIND := external("GNATCOLL_%%COMPONENT_U%%_BUILD", external("LIBRARY_TYPE", "static-pic"));
+
+   for Languages use ("Ada", "C");
+
+   case BUILD is
+      when "static" =>
+         for Source_Dirs use ("../../include/gnatcoll_%%COMPONENT_L%%");
+         for Library_Dir use "../../lib/gnatcoll_%%COMPONENT_L%%.static";
+         for Library_Kind use "static-pic";
+      when "static-pic" =>
+         for Source_Dirs use ("../../include/gnatcoll_%%COMPONENT_L%%");
+         for Library_Dir use "../../lib/gnatcoll_%%COMPONENT_L%%.static-pic";
+         for Library_Kind use "static-pic";
+      when "relocatable" =>
+         for Source_Dirs use ("../../include/gnatcoll_%%COMPONENT_L%%");
+         for Library_Dir use "../../lib/gnatcoll_%%COMPONENT_L%%.relocatable";
+         for Library_Kind use "relocatable";
+   end case;
+
+   for Library_Name use "gnatcoll_%%NAME%%";
+
+   package Naming is
+      for dot_replacement use "-";
+      for casing use "lowercase";
+      for body_suffix ("c") use ".c";
+      for body_suffix ("ada") use ".adb";
+      for spec_suffix ("c") use ".h";
+      for spec_suffix ("ada") use ".ads";
+   end Naming;
+
+   package Linker is
+      case BUILD is
+		 when "static" =>
+		    null;
+         when "static-pic" =>
+            for Linker_Options use (%%LINKER_OPTS%%); 
+         when "relocatable" =>
+            for Linker_Options use (%%LINKER_OPTS%%); 
+      end case;
+   end Linker;
+
+   package Install is
+      for Active use "False";
+   end Install;
+
+   for Externally_Built use "True";
+
+   type Build_Type is
+     ("DEBUG", "PROD");
+
+   %%PYTHON_ON%%libpython_kind    := "shared";
+   %%PYTHON_ON%%python_static_lib := "";
+   %%PYTHON_ON%%python_libs       := ();
+   %%PYTHON_ON%%python_cflags     := ("%%PYTHON_INCLUDE%%");
+   %%ICONV_ON%%iconv_opt    := "-liconv";
+   build        : build_type := "PROD";
+   name         := "gnatcoll_%%NAME%%";
+   version      := "0.0";
+end GnatColl_%%COMPONENT%%;

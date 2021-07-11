@@ -4,6 +4,7 @@ DEF[CORE_HASH]=		d93655ced17f15c5f376b6861825df3f9c183980
 DEF[FILEBASE]=		gnatcoll-bindings-${PORTVERSION}-${DATE}-src
 DEF[COMPONENTS]=	gmp iconv readline syslog python
 DEF[SOVERSION]=		0.0
+DEF[LIBTYPES]=		static static-pic relocatable
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnatcoll-bindings
@@ -42,17 +43,21 @@ EXRUN[iconv]=		libiconv:shared:standard
 EXRUN[readline]=	readline:single:standard
 EXRUN[python]=		python27:single:standard
 
-USES=			gprbuild gmake iconv:build python:py27,build
+USES=			gprbuild gmake iconv:build python:build
 DISTNAME=		${FILEBASE}
 MAKE_ENV=		BUILD=PROD
 			GNATCOLL_PYTHON_CFLAGS="-I{{PYTHON_INCLUDEDIR}}"
-			GNATCOLL_PYTHON_LIBS="-L{{PREFIX}}/lib/python{{PYTHON_VER}}/config -lpython{{PYTHON_VER}}"
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
 
+post-extract:
+	(cd ${WRKSRC} &&\
+	${MV} python python.disabled &&\
+	${MV} python3 python)
+
 do-build:
 .for component in ${COMPONENTS}
-.  for libtype in static-pic relocatable
+.  for libtype in ${LIBTYPES}
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		gprbuild -p -XLIBRARY_TYPE=${libtype} \
 		-P ${component}/gnatcoll_${component}.gpr)
@@ -60,13 +65,32 @@ do-build:
 .endfor
 
 do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/gpr
 .for component in ${COMPONENTS}
-.  for libtype in static-pic relocatable
+.  for libtype in ${LIBTYPES}
+	${MKDIR} ${WRKDIR}/${component}/${libtype}
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gnatcoll_${component}.${libtype}
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV}\
-		gprinstall -p --prefix=${STAGEDIR}${PREFIX}\
+		gprinstall -p --prefix=${WRKDIR}/${component}/${libtype}\
 		-XLIBRARY_TYPE=${libtype} \
 		-P ${component}/gnatcoll_${component}.gpr)
 .  endfor
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gnatcoll_${component}/libgnatcoll_${component}.so
+	${MKDIR} ${STAGEDIR}${PREFIX}/include/gnatcoll_${component}
+	${MV} ${WRKDIR}/${component}/static/include/gnatcoll_${component}/* \
+		${STAGEDIR}${PREFIX}/include/gnatcoll_${component}/
+.  for libtype in ${LIBTYPES}
+	${MV} ${WRKDIR}/${component}/${libtype}/lib/gnatcoll_${component}/*.ali \
+		${STAGEDIR}${PREFIX}/lib/gnatcoll_${component}.${libtype}/
+	@if [ "${libtype}" = "relocatable" ]; then\
+		${INSTALL_LIB} ${WRKDIR}/${component}/${libtype}/lib/gnatcoll_${component}/*.so.${SOVERSION} \
+		${STAGEDIR}${PREFIX}/lib/ ;\
+		echo "Relocate ${libtype}/lib/gnatcoll_${component}/*.so.${SOVERSION}" ;\
+	else\
+		${MV} ${WRKDIR}/${component}/${libtype}/lib/gnatcoll_${component}/*.a\
+		${STAGEDIR}${PREFIX}/lib/gnatcoll_${component}.${libtype}/ ;\
+		echo "Relocate ${libtype}/lib/gnatcoll_${component}/*.a" ;\
+	fi
+.  endfor
+	${SH} ${FILESDIR}/gen_gpr.sh "${component}" "${STAGEDIR}${PREFIX}" \
+		"-I${PYTHON_INCLUDEDIR}" "${SOVERSION}"
 .endfor
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
