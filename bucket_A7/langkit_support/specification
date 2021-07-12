@@ -56,5 +56,8 @@ do-install:
 		--lib-subdir=lib/langkit_support.${LT}\
 		-XLIBRARY_TYPE="${LT}"\
 		-XBUILD_MODE="${BUILD_MODE}")
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
 .endfor
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
+	# replace gpr file
+	${INSTALL_DATA} ${FILESDIR}/langkit_support.gpr \
+		${STAGEDIR}${PREFIX}/share/gpr
