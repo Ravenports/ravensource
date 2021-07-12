@@ -36,19 +36,23 @@ LICENSE_SCHEME=		multi
 
 USES=			gprbuild
 INSTALL_REQ_TOOLCHAIN=	yes
-MAKE_ENV=		LIBRARY_TYPE="static-pic"
 DISTNAME=		${FILEBASE}/support
 
 do-build:
+.for LT in static-pic relocatable #static
+	@${ECHO_CMD} Building ${LT} library ...
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		gprbuild -p -P langkit_support.gpr\
-		-XLANGKIT_SUPPORT_LIBRARY_TYPE="static-pic"\
+		-XLIBRARY_TYPE="${LT}"\
 		-XBUILD_MODE="${BUILD_MODE}")
+.endfor
 
 do-install:
+.for LT in static-pic relocatable #static
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		gprinstall -p -P langkit_support.gpr\
 		--prefix=${STAGEDIR}${PREFIX}\
-		-XLANGKIT_SUPPORT_LIBRARY_TYPE="static-pic"\
+		-XLIBRARY_TYPE="${LT}"\
 		-XBUILD_MODE="${BUILD_MODE}")
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
+.endfor
