@@ -45,8 +45,6 @@ post-extract:
 		${WRKSRC}/ada/copyright.py > ${WRKDIR}/TERMS
 
 do-configure:
-	# must build as static since rpaths are either missing,
-	# refer to /construction, ignore gpr settings, etc
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${PYTHON_CMD} manage.py generate)
 	# prepare for mains.gpr modification
