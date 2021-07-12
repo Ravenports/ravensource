@@ -39,7 +39,7 @@ INSTALL_REQ_TOOLCHAIN=	yes
 DISTNAME=		${FILEBASE}/support
 
 do-build:
-.for LT in static-pic relocatable #static
+.for LT in static-pic relocatable static
 	@${ECHO_CMD} Building ${LT} library ...
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		gprbuild -p -P langkit_support.gpr\
@@ -48,10 +48,12 @@ do-build:
 .endfor
 
 do-install:
-.for LT in static-pic relocatable #static
+.for LT in static-pic relocatable static
+	@${ECHO_CMD} Installing ${LT} library ...
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		gprinstall -p -P langkit_support.gpr\
 		--prefix=${STAGEDIR}${PREFIX}\
+		--lib-subdir=lib/langkit_support.${LT}\
 		-XLIBRARY_TYPE="${LT}"\
 		-XBUILD_MODE="${BUILD_MODE}")
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
