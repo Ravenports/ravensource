@@ -33,8 +33,25 @@ BUILDRUN_DEPENDS=	gtkada:primary:standard
 USES=			gmake gprbuild
 DISTNAME=		${FILEBASE}
 INSTALL_REQ_TOOLCHAIN=	yes
-MAKE_ENV=		LIBRARY_TYPE=static-pic
-			BUILD_MODE=prod
+MAKE_ENV=		BUILD_MODE=prod
 
-post-install:
+do-build:
+.for LT in relocatable static-pic static
+. for GPR in spawn.gpr spawn_glib.gpr
+	${SETENV} ${MAKE_ENV} gprbuild -p -j0 -XLIBRARY_TYPE=${LT} -P ${WRKSRC}/gnat/${GPR}
+. endfor
+.endfor
+
+do-install:
+.for LT in relocatable static-pic static
+. for GPR in spawn spawn_glib
+	${SETENV} ${MAKE_ENV} gprinstall\
+		--prefix=${STAGEDIR}${PREFIX}\
+		--lib-subdir=lib/${GPR}.${LT}\
+		--sources-subdir=include/${GPR}\
+		-p -P ${WRKSRC}/gnat/${GPR}.gpr
+. endfor
+.endfor
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
+	# override generated gpr with our own
+	${INSTALL_DATA} ${FILESDIR}/*.gpr ${STAGEDIR}${PREFIX}/share/gpr
