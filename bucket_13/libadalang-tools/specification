@@ -28,8 +28,10 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/pp.ads
 LICENSE_SCHEME=		solo
 
+BUILD_DEPENDS=		libiconv:static:standard
+			gmp:static:standard
 BUILDRUN_DEPENDS=	libadalang:single:standard
-RUN_DEPENDS=		libiconv:shared:standard
+			libiconv:shared:standard
 			gmp:shared:standard
 
 USES=			gprbuild
@@ -38,9 +40,10 @@ DISTNAME=		${FILEBASE}
 BUILD_TARGET=		lib bin
 INSTALL_TARGET=		install-bin-strip install-lib
 MAKE_ARGS=		BUILD_MODE=prod
-			LIBRARY_TYPE=relocatable
-			ALL_LIBRARY_TYPES=relocatable
+# #			LIBRARY_TYPE=relocatable
+# #			ALL_LIBRARY_TYPES=relocatable
 			PROCESSORS={{MAKE_JOBS_NUMBER}}
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lal_tools.relocatable/liblal_tools.so
