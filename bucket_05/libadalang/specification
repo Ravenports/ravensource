@@ -36,6 +36,7 @@ MUST_CONFIGURE=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
 DISTNAME=		${FILEBASE}
 MAKE_ARGS=		--build-mode prod
+			--library-types=static,static-pic,relocatable
 
 VAR_OPSYS[dragonfly]=	MAKEFILE_LINE=XTRALIB=,"-lutil"
 VAR_OPSYS[freebsd]=	MAKEFILE_LINE=XTRALIB=,"-lutil"
@@ -70,3 +71,5 @@ do-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
 	${RM} -r ${STAGEDIR}${PREFIX}/share/examples/libadalang
 	${RM} ${STAGEDIR}${PREFIX}/python/setup.py
+	# override generated gpr with our own
+	${INSTALL_DATA} ${FILESDIR}/libadalang.gpr ${STAGEDIR}${PREFIX}/share/gpr
