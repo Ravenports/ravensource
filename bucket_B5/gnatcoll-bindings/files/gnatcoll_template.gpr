@@ -39,14 +39,7 @@ library project GnatColl_%%COMPONENT%% is
    end Naming;
 
    package Linker is
-      case BUILD is
-		 when "static" =>
-		    null;
-         when "static-pic" =>
-            for Linker_Options use (%%LINKER_OPTS%%); 
-         when "relocatable" =>
-            for Linker_Options use (%%LINKER_OPTS%%); 
-      end case;
+      for Linker_Options use (%%LINKER_OPTS%%);
    end Linker;
 
    package Install is
