@@ -1,4 +1,4 @@
---- mutt.h.orig	2021-05-23 18:20:51 UTC
+--- mutt.h.orig	2021-06-12 18:01:35 UTC
 +++ mutt.h
 @@ -168,6 +168,16 @@ typedef enum
    MUTT_WRITE_HEADER_MIME
