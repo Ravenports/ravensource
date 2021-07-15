@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	0.6.3
+DEF[PORTVERSION]=	0.7.0
+DEF[SOVERSION]=		${PORTVERSION}
+DEF[MAJOR]=		${SOVERSION:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		yaml-cpp
@@ -29,7 +31,8 @@ CPE_VENDOR=		yaml-cpp_project
 CMAKE_ARGS=		-DYAML_BUILD_SHARED_LIBS:BOOL=ON
 			-DYAML_CPP_BUILD_TOOLS:BOOL=OFF
 			-DYAML_CPP_BUILD_TESTS:BOOL=OFF
-SOVERSION=		${PORTVERSION}
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		MAJOR=${MAJOR}
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.${LIBEXT}
