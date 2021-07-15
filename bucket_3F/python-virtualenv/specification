@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	20.4.7
+DEF[PORTVERSION]=	20.6.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-virtualenv
@@ -11,7 +11,7 @@ HOMEPAGE=		https://virtualenv.pypa.io/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/03/08/f819421002e85a71d58368f7bffbe0b1921325e0e8ca7857cb5fb0e1f7c1
+SITES[main]=		PYPIWHL/bc/c1/03d8fe7a20b4b2546037c36e5e0f6080522d36421fbbf4d91211fadac150
 DISTFILE[1]=		virtualenv-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
@@ -29,9 +29,10 @@ GENERATED=		yes
 DISTNAME=		virtualenv-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# appdirs (<2,>=1.4.3)
+# backports.entry-points-selectable (>=1.0.4)
 # distlib (<1,>=0.3.1)
 # filelock (<4,>=3.0.0)
+# platformdirs (<3,>=2)
 # six (<2,>=1.9.0)
 # pathlib2 (<3,>=2.3.3) ; python_version < "3.4" and sys_platform != "win32"
 # importlib-resources (>=1.0) ; python_version < "3.7"
@@ -54,14 +55,16 @@ DISTNAME=		virtualenv-${PORTVERSION}.dist-info
 # xonsh (>=0.9.16) ; (python_version > "3.4" and python_version != "3.9") and extra == 'testing'
 
 [PY38].USES_ON=				python:py38,wheel
-[PY38].RUN_DEPENDS_ON=			python-appdirs:single:py38
+[PY38].RUN_DEPENDS_ON=			python-backports.entry-points-selectable:single:py38
 					python-distlib:single:py38
 					python-filelock:single:py38
+					python-platformdirs:single:py38
 					python-six:single:py38
 [PY39].USES_ON=				python:py39,wheel
-[PY39].RUN_DEPENDS_ON=			python-appdirs:single:py39
+[PY39].RUN_DEPENDS_ON=			python-backports.entry-points-selectable:single:py39
 					python-distlib:single:py39
 					python-filelock:single:py39
+					python-platformdirs:single:py39
 					python-six:single:py39
 
 USES=			cpe

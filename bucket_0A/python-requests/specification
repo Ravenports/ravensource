@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.25.1
+DEF[PORTVERSION]=	2.26.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-requests
@@ -11,7 +11,7 @@ HOMEPAGE=		https://requests.readthedocs.io
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/29/c1/24814557f1d22c56d50280771a17307e6bf87b70727d975fd6b2ce6b014a
+SITES[main]=		PYPIWHL/92/96/144f70b972a9c0eabbd4391ef93ccd49d0f2747f4f6a2a2738e99e5adc65
 DISTFILE[1]=		requests-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
@@ -29,25 +29,26 @@ GENERATED=		yes
 DISTNAME=		requests-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# chardet (<5,>=3.0.2)
-# idna (<3,>=2.5)
 # urllib3 (<1.27,>=1.21.1)
 # certifi (>=2017.4.17)
-# pyOpenSSL (>=0.14) ; extra == 'security'
-# cryptography (>=1.3.4) ; extra == 'security'
+# chardet (<5,>=3.0.2) ; python_version < "3"
+# idna (<3,>=2.5) ; python_version < "3"
+# charset-normalizer (~=2.0.0) ; python_version >= "3"
+# idna (<4,>=2.5) ; python_version >= "3"
 # PySocks (!=1.5.7,>=1.5.6) ; extra == 'socks'
 # win-inet-pton ; (sys_platform == "win32" and python_version == "2.7") and extra == 'socks'
+# chardet (<5,>=3.0.2) ; extra == 'use_chardet_on_py3'
 
 [PY38].USES_ON=				python:py38,wheel
-[PY38].RUN_DEPENDS_ON=			python-chardet:single:py38
-					python-idna:single:py38
-					python-urllib3:single:py38
+[PY38].RUN_DEPENDS_ON=			python-urllib3:single:py38
 					python-certifi:single:py38
+					python-charset-normalizer:single:py38
+					python-idna:single:py38
 [PY39].USES_ON=				python:py39,wheel
-[PY39].RUN_DEPENDS_ON=			python-chardet:single:py39
-					python-idna:single:py39
-					python-urllib3:single:py39
+[PY39].RUN_DEPENDS_ON=			python-urllib3:single:py39
 					python-certifi:single:py39
+					python-charset-normalizer:single:py39
+					python-idna:single:py39
 
 USES=			cpe
 CPE_VENDOR=		python

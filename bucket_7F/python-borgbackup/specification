@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.1.16
+DEF[PORTVERSION]=	1.1.17
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-borgbackup
@@ -29,12 +29,15 @@ GENERATED=		yes
 DISTNAME=		borgbackup-${PORTVERSION}
 
 # install_requires extracted from setup.py
+# packaging
 # setuptools_scm>=1.7
 
 [PY38].USES_ON=				python:py38,sutools
-[PY38].BUILDRUN_DEPENDS_ON=		python-setuptools-scm:single:py38
+[PY38].BUILDRUN_DEPENDS_ON=		python-packaging:single:py38
+					python-setuptools-scm:single:py38
 [PY39].USES_ON=				python:py39,sutools
-[PY39].BUILDRUN_DEPENDS_ON=		python-setuptools-scm:single:py39
+[PY39].BUILDRUN_DEPENDS_ON=		python-packaging:single:py39
+					python-setuptools-scm:single:py39
 
 USES=			ssl lz4 zstd
 
