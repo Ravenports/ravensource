@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	2.0.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-charset-normalizer
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py38 py39
+SDESC[py38]=		Charset Detection, for Everyone (PY38)
+SDESC[py39]=		Charset Detection, for Everyone (PY39)
+HOMEPAGE=		https://github.com/ousret/charset_normalizer
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/18/0b/77b9cc33b5302f8dee26be60b0a354bd5a7aa7897c287d2743b8cdd36493
+DISTFILE[1]=		charset_normalizer-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py38]=		single
+SPKGS[py39]=		single
+
+OPTIONS_AVAILABLE=	PY38 PY39
+OPTIONS_STANDARD=	none
+VOPTS[py38]=		PY38=ON PY39=OFF
+VOPTS[py39]=		PY38=OFF PY39=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		charset_normalizer-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# unicodedata2 ; extra == 'unicode_backport'
+
+[PY38].USES_ON=				python:py38,wheel
+[PY39].USES_ON=				python:py39,wheel
+
