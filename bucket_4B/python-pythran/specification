@@ -1,0 +1,51 @@
+DEF[PORTVERSION]=	0.9.12.post1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-pythran
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py38 py39
+SDESC[py38]=		Ahead of Time compiler for numeric kernels (PY38)
+SDESC[py39]=		Ahead of Time compiler for numeric kernels (PY39)
+HOMEPAGE=		https://github.com/serge-sans-paille/pythran
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/e1/0a/a1e28f3c532655032a73482cb11ae63f8c38c8f58dc1a713b3791855fa68
+DISTFILE[1]=		pythran-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py38]=		single
+SPKGS[py39]=		single
+
+OPTIONS_AVAILABLE=	PY38 PY39
+OPTIONS_STANDARD=	none
+VOPTS[py38]=		PY38=ON PY39=OFF
+VOPTS[py39]=		PY38=OFF PY39=ON
+
+# License listed at PyPI
+# BSD 3-Clause
+
+GENERATED=		yes
+DISTNAME=		pythran-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# ply (>=3.4)
+# gast (~=0.5.0)
+# numpy
+# beniget (~=0.4.0)
+# numpy ; extra == 'doc'
+# nbsphinx ; extra == 'doc'
+# scipy ; extra == 'doc'
+# guzzle-sphinx-theme ; extra == 'doc'
+
+[PY38].USES_ON=				python:py38,wheel
+[PY38].RUN_DEPENDS_ON=			python-ply:single:py38
+					python-gast:single:py38
+					python-numpy:single:py38
+					python-beniget:single:py38
+[PY39].USES_ON=				python:py39,wheel
+[PY39].RUN_DEPENDS_ON=			python-ply:single:py39
+					python-gast:single:py39
+					python-numpy:single:py39
+					python-beniget:single:py39
+
