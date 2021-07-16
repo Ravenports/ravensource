@@ -1,4 +1,4 @@
---- extcap.c.orig	2021-04-21 17:14:36 UTC
+--- extcap.c.orig	2021-07-14 16:47:58 UTC
 +++ extcap.c
 @@ -21,6 +21,7 @@
  #include <process.h>
