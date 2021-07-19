@@ -1,4 +1,4 @@
---- src/util/u_thread.h.orig	2021-06-30 18:18:56 UTC
+--- src/util/u_thread.h.orig	2021-07-14 20:04:59 UTC
 +++ src/util/u_thread.h
 @@ -39,6 +39,7 @@
  #include <signal.h>
