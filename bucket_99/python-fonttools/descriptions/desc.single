@@ -34,6 +34,15 @@ install it with [pip]:
 Changelog
 ~~~~~~~~~
 
+4.25.1 (released 2021-07-16)
+----------------------------
+
+- [ttGlyphPen] Fixed bug in TTGlyphPointPen, whereby open contours (i.e.
+starting
+  with segmentType "move") would throw NotImplementedError. They are now
+treated
+  as if they are closed, like with the TTGlyphPen (#2364, #2366).
+
 4.25.0 (released 2021-07-05)
 ----------------------------
 
@@ -89,12 +98,3 @@ that
 occurs.
   The Format attribute was removed in v4.22.0 (#2319).
 
-4.24.2 (released 2021-05-20)
-----------------------------
-
-- [ttGlyphPen] Fixed typing annotation of TTGlyphPen glyphSet parameter
-(#2315).
-- Fixed two instances of DeprecationWarning: invalid escape sequence
-(#2311).
-
-4.24.1 (released 2021-05-20)
