@@ -1,0 +1,100 @@
+[Build Status]
+[![codecov.io]](https://codecov.io/gh/hukkin/tomli)
+[PyPI version]
+
+# Tomli
+
+> A lil' TOML parser
+
+**Table of Contents**  *generated with [mdformat-toc]*
+
+<!-- mdformat-toc start --slug=github --maxlevel=6 --minlevel=2 -->
+
+- [Intro]
+- [Installation]
+- [Usage]
+  - [Parse a TOML string]
+  - [Parse a TOML file]
+  - [Handle invalid TOML]
+  - [Construct `decimal.Decimal`s from TOML floats]
+- [FAQ]
+  - [Why this parser?]
+  - [Is comment preserving round-trip parsing supported?]
+  - [Is there a `dumps`, `write` or `encode` function?]
+  - [How do TOML types map into Python types?]
+- [Performance]
+
+<!-- mdformat-toc end -->
+
+## Intro</a>
+
+Tomli is a Python library for parsing [TOML].
+Tomli is fully compatible with [TOML v1.0.0].
+
+## Installation<a name="installation">
+
+`bash
+pip install tomli
+`
+
+## Usage</a>
+
+### Parse a TOML string<a name="parse-a-toml-string">
+
+```python
+import tomli
+
+toml_str = """
+           gretzky = 99
+
+           [kurri]
+           jari = 17
+           """
+
+toml_dict = tomli.loads(toml_str)
+assert toml_dict == {"gretzky": 99, "kurri": {"jari": 17}}
+```
+
+### Parse a TOML file</a>
+
+```python
+import tomli
+
+with open("path_to_file/conf.toml", encoding="utf-8") as f:
+    toml_dict = tomli.load(f)
+```
+
+### Handle invalid TOML<a name="handle-invalid-toml">
+
+```python
+import tomli
+
+try:
+    toml_dict = tomli.loads("]] this is invalid TOML [[")
+except tomli.TOMLDecodeError:
+    print("Yep, definitely not valid.")
+```
+
+Note that while the `TOMLDecodeError` type is public API, error messages of
+raised instances of it are not.
+Error messages should not be assumed to stay constant across Tomli
+versions.
+
+### Construct `decimal.Decimal`s from TOML floats</a>
+
+```python
+from decimal import Decimal
+import tomli
+
+toml_dict = tomli.loads("precision-matters = 0.982492",
+parse_float=Decimal)
+assert isinstance(toml_dict["precision-matters"], Decimal)
+```
+
+Note that you may replace `decimal.Decimal` with any callable that converts
+a TOML float from string to any Python type (except `list` or `dict`).
+The `decimal.Decimal` type is, however, the most typical replacement when
+float inaccuracies can not be tolerated.
+
+## FAQ<a name="faq">
+
