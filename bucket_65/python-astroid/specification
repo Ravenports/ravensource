@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.6.2
+DEF[PORTVERSION]=	2.6.4
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-astroid
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/PyCQA/astroid
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/9e/bc/ee4ca5a31fbc1f9cec6df52170baa151f82cbf4f4989de87c7f94a28a958
+SITES[main]=		PYPIWHL/bb/be/0d95b4aae92600258d0fbe77431ec91155aecd4127c2c3726ba6a81f0a3f
 DISTFILE[1]=		astroid-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
@@ -31,13 +31,16 @@ DISTNAME=		astroid-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 # lazy-object-proxy (>=1.4.0)
 # wrapt (<1.13,>=1.11)
+# setuptools (>=20.0)
 # typed-ast (<1.5,>=1.4.0) ; implementation_name == "cpython" and python_version < "3.8"
 # typing-extensions (>=3.7.4) ; python_version < "3.8"
 
 [PY38].USES_ON=				python:py38,wheel
 [PY38].RUN_DEPENDS_ON=			python-lazy-object-proxy:single:py38
 					python-wrapt:single:py38
+					python-setuptools:single:py38
 [PY39].USES_ON=				python:py39,wheel
 [PY39].RUN_DEPENDS_ON=			python-lazy-object-proxy:single:py39
 					python-wrapt:single:py39
+					python-setuptools:single:py39
 
