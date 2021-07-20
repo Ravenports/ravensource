@@ -1,0 +1,11 @@
+--- meson.build.orig	2019-04-23 15:16:09 UTC
++++ meson.build
+@@ -79,6 +79,8 @@ endforeach
+ 
+ if cc.has_header_symbol('utmpx.h', 'WTMPX_FILENAME', prefix: '#define _GNU_SOURCE')
+   config_h.set('PATH_WTMP', 'WTMPX_FILENAME')
++elif cc.has_header_symbol('utmpx.h', '_PATH_WTMPX')
++  config_h.set('PATH_WTMP', '_PATH_WTMPX')
+ elif cc.has_header_symbol('paths.h', '_PATH_WTMPX')
+   config_h.set('PATH_WTMP', '_PATH_WTMPX')
+ else
