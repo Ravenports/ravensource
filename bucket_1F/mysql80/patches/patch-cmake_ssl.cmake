@@ -1,6 +1,6 @@
---- cmake/ssl.cmake.orig	2021-04-23 15:06:40 UTC
+--- cmake/ssl.cmake.orig	2021-07-01 07:53:49 UTC
 +++ cmake/ssl.cmake
-@@ -222,13 +222,10 @@ MACRO (MYSQL_CHECK_SSL)
+@@ -226,13 +226,10 @@ MACRO (MYSQL_CHECK_SSL)
          OPENSSL_FIX_VERSION "${OPENSSL_VERSION_NUMBER}"
          )
      ENDIF()
@@ -15,7 +15,7 @@
        )
        SET(OPENSSL_FOUND TRUE)
        FIND_PROGRAM(OPENSSL_EXECUTABLE openssl
-@@ -332,7 +329,7 @@ ENDMACRO()
+@@ -336,7 +333,7 @@ ENDMACRO()
  # or INSTALL_LIBDIR      (Mac)
  # or INSTALL_PRIV_LIBDIR (Linux)
  MACRO(MYSQL_CHECK_SSL_DLLS)
