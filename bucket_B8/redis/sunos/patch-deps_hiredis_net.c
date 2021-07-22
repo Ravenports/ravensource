@@ -1,6 +1,6 @@
 This definitely breaks the build.  Keep until it is sorted
 
---- deps/hiredis/net.c.orig	2021-04-20 05:03:58 UTC
+--- deps/hiredis/net.c.orig	2021-07-21 18:06:49 UTC
 +++ deps/hiredis/net.c
 @@ -197,6 +197,27 @@ int redisKeepAlive(redisContext *c, int
          __redisSetError(c,REDIS_ERR_OTHER,strerror(errno));
