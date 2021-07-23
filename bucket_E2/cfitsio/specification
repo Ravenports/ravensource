@@ -1,6 +1,7 @@
-DEF[PORTVERSION]=	3.490
-DEF[FILEVERSION]=	3.49
-DEF[SOVERSION]=		9.3.49
+DEF[PORTVERSION]=	4.0.0
+DEF[FILEVERSION]=	4.0.0
+DEF[SOVERSION]=		9.4.0
+DEF[EXTSOVERSION]=	${SOVERSION}.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		cfitsio
@@ -34,29 +35,10 @@ USES=			cpe pkgconfig zlib
 CPE_VENDOR=		nasa
 BUILD_TARGET=		libcfitsio.a shared
 MUST_CONFIGURE=		gnu
-MAKE_ARGS=		ZLIB_SOURCES="zlib/zcompress.c zlib/zuncompress.c"
 DISTNAME=		cfitsio-${FILEVERSION}
 SOVERSION=		${SOVERSION}
+PLIST_SUB=		EXTENDED_SOVERSION=${EXTSOVERSION}
 
 post-patch:
-	${GREP} -l "<malloc.h>" ${WRKSRC}/*.[chl] ${WRKSRC}/zlib/*.h |\
+	${GREP} -l "<malloc.h>" ${WRKSRC}/*.[chl] |\
 		${XARGS} ${REINPLACE_CMD} -e 's|<malloc.h>|<stdlib.h>|'
-	${REINPLACE_CMD} -e "/SHLIB_LD}/ s|$$| -L${LOCALBASE}/lib -Wl,-rpath,${LOCALBASE}/lib -lz|g" \
-		${WRKSRC}/Makefile.in
-
-do-install:
-	@${MKDIR} \
-		${STAGEDIR}${PREFIX}/lib/pkgconfig \
-		${STAGEDIR}${STD_DOCDIR}
-	(cd ${WRKSRC}/ && \
-		${INSTALL_DATA} drvrsmem.h fitsio.h fitsio2.h longnam.h \
-		${STAGEDIR}${PREFIX}/include/)
-	${INSTALL_DATA} ${WRKSRC}/libcfitsio.a ${STAGEDIR}${PREFIX}/lib/
-	${INSTALL_LIB} ${WRKSRC}/libcfitsio.so.${SOVERSION} \
-		${STAGEDIR}${PREFIX}/lib/
-	${INSTALL_DATA} ${WRKSRC}/cfitsio.pc ${STAGEDIR}${PREFIX}/lib/pkgconfig
-	${LN} -fs libcfitsio.so.${SOVERSION} \
-		${STAGEDIR}${PREFIX}/lib/libcfitsio.so.${SOVERSION:R:R}
-	${LN} -fs libcfitsio.so.${SOVERSION} \
-		${STAGEDIR}${PREFIX}/lib/libcfitsio.so
-	${INSTALL_DATA} ${WRKSRC}/docs/*.doc ${STAGEDIR}${STD_DOCDIR}
