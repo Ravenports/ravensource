@@ -1,41 +1,37 @@
-# manually maintained
-DEF[PORTVERSION]=	1.7.2
+DEF[PORTVERSION]=	1.8.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-libnacl
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py39 py38
-SDESC[py39]=		Python bindings for libsodium (PY 39)
-SDESC[py38]=		Python bindings for libsodium (PY 38)
+VARIANTS=		py38 py39
+SDESC[py38]=		Python bindings for libsodium (PY38)
+SDESC[py39]=		Python bindings for libsodium (PY39)
 HOMEPAGE=		https://libnacl.readthedocs.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/saltstack:libnacl:v${PORTVERSION}
-DISTFILE[1]=		generated:main
+SITES[main]=		PYPIWHL/9b/dd/395854871aa26b2d082d9c583a5ec807e26132029b0a5a935510b6ae515b
+DISTFILE[1]=		libnacl-${PORTVERSION}-py2.py3-none-any.whl:main
 
-SPKGS[py39]=		single
 SPKGS[py38]=		single
+SPKGS[py39]=		single
 
-OPTIONS_AVAILABLE=	PY39 PY38
+OPTIONS_AVAILABLE=	PY38 PY39
 OPTIONS_STANDARD=	none
-VOPTS[py39]=		PY39=ON PY38=OFF
-VOPTS[py38]=		PY39=OFF PY38=ON
+VOPTS[py38]=		PY38=ON PY39=OFF
+VOPTS[py39]=		PY38=OFF PY39=ON
 
-LICENSE=		APACHE20:single
-LICENSE_FILE=		APACHE20:{{WRKDIR}}/LICENSE
-LICENSE_AWK=		APACHE20:"Thomas S Hatch"
-LICENSE_SOURCE=		APACHE20:{{WRKSRC}}/LICENSE
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
-LICENSE_SCHEME=		solo
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		libnacl-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+
+
+[PY38].USES_ON=				python:py38,wheel
+[PY39].USES_ON=				python:py39,wheel
 
 BUILDRUN_DEPENDS=	libsodium:single:standard
-
-DISTNAME=		libnacl-${PORTVERSION}
-
-[PY39].USES_ON=				python:py39,sutools
-[PY38].USES_ON=				python:py38,sutools
-
-post-extract:
-	${AWK} '/Thomas S Hatch/,0' ${WRKSRC}/LICENSE > ${WRKDIR}/TERMS
