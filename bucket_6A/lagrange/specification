@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.5.2
+DEF[PORTVERSION]=	1.6.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		lagrange
@@ -25,8 +25,17 @@ LICENSE_SCHEME=		solo
 USES=			cmake pcre pkgconfig ssl zlib
 SDL_COMPONENTS=		sdl2
 
-BUILDRUN_DEPENDS=	libunistring:primary:standard
+BUILDRUN_DEPENDS=	fribidi:single:standard
+			harfbuzz:primary:standard
+			libunistring:primary:standard
 			mpg123:single:standard
+
+# Use system libraries instead of bundled ones
+CMAKE_ARGS=		-DENABLE_FRIBIDI:BOOL=ON
+			-DENABLE_FRIBIDI_BUILD:BOOL=OFF
+			-DENABLE_HARFBUZZ:BOOL=ON
+			-DENABLE_HARFBUZZ_MINIMAL:BOOL=OFF
+			-DENABLE_MPG123:BOOL=ON
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/lagrange
