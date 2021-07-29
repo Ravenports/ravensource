@@ -1,4 +1,4 @@
---- hw/xfree86/common/xf86Xinput.c.orig	2021-04-13 14:11:40 UTC
+--- hw/xfree86/common/xf86Xinput.c.orig	2021-07-08 19:22:18 UTC
 +++ hw/xfree86/common/xf86Xinput.c
 @@ -874,7 +874,7 @@ xf86NewInputDevice(InputInfoPtr pInfo, D
  {
