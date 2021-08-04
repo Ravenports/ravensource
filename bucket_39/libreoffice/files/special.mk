@@ -22,7 +22,6 @@ REPLACE_LIST= \
 	sal/osl/unx/process_impl.cxx \
 	sal/osl/unx/sockimpl.hxx \
 	sal/osl/unx/pipe.cxx \
-	vcl/unx/gtk3/gtk3gtkdata.cxx \
 	# end-list
 
 PERCENT_BSD_LIST= \
