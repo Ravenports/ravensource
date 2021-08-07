@@ -1,6 +1,6 @@
---- src/master/main.c.orig	2021-03-04 08:38:06 UTC
+--- src/master/main.c.orig	2021-06-14 13:40:37 UTC
 +++ src/master/main.c
-@@ -861,6 +861,8 @@ int main(int argc, char *argv[])
+@@ -881,6 +881,8 @@ int main(int argc, char *argv[])
  		i_fatal("dup2(dev_null_fd) failed: %m");
  	if (!foreground && dup2(dev_null_fd, STDOUT_FILENO) < 0)
  		i_fatal("dup2(dev_null_fd) failed: %m");
