@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.6.7
+DEF[PORTVERSION]=	1.6.7.post1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-cu2qu
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/googlefonts
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/c/cu2qu
-DISTFILE[1]=		cu2qu-${PORTVERSION}.zip:main
+SITES[main]=		PYPIWHL/2f/8b/2d6dd75b38974ea49be4e4bc54a72ae9e9dd8f0f1361490541cdb95e3924
+DISTFILE[1]=		cu2qu-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py39]=		single
@@ -26,16 +26,14 @@ VOPTS[py39]=		PY38=OFF PY39=ON
 # Apache License, Version 2.0
 
 GENERATED=		yes
-DISTNAME=		cu2qu-${PORTVERSION}
+DISTNAME=		cu2qu-${PORTVERSION}.dist-info
 
-# install_requires extracted from setup.py
-# fonttools[ufo]>=3.32.0
-# setuptools_scm
+# Requires-Dist extracted from wheel metadata
+# fonttools[ufo] (>=3.32.0)
+# defcon (>=0.6.0) ; extra == 'cli'
 
-[PY38].USES_ON=				python:py38,sutools
-[PY38].BUILDRUN_DEPENDS_ON=		python-fonttools:single:py38
-					python-setuptools-scm:single:py38
-[PY39].USES_ON=				python:py39,sutools
-[PY39].BUILDRUN_DEPENDS_ON=		python-fonttools:single:py39
-					python-setuptools-scm:single:py39
+[PY38].USES_ON=				python:py38,wheel
+[PY38].RUN_DEPENDS_ON=			python-fonttools:single:py38
+[PY39].USES_ON=				python:py39,wheel
+[PY39].RUN_DEPENDS_ON=			python-fonttools:single:py39
 
