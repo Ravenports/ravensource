@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.08
+DEF[PORTVERSION]=	0.11
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-XS-Parse-Keyword
@@ -33,11 +33,14 @@ DISTNAME=		XS-Parse-Keyword-${PORTVERSION}
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
 # |        build : ExtUtils::CBuilder (perl 5.30 core) (perl 5.32 core)
+# |    configure : ExtUtils::CChecker
 # |    configure : Module::Build
 # |         test : Test::More (perl 5.30 core) (perl 5.32 core)
 
 [PERL_530].USES_ON=			perl:530,buildmod,run
-[PERL_530].BUILD_DEPENDS_ON=		perl-Module-Build:single:530
+[PERL_530].BUILD_DEPENDS_ON=		perl-ExtUtils-CChecker:single:530
+					perl-Module-Build:single:530
 [PERL_532].USES_ON=			perl:532,buildmod,run
-[PERL_532].BUILD_DEPENDS_ON=		perl-Module-Build:single:532
+[PERL_532].BUILD_DEPENDS_ON=		perl-ExtUtils-CChecker:single:532
+					perl-Module-Build:single:532
 
