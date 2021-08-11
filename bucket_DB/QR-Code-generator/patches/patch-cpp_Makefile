@@ -1,5 +1,4 @@
-From https://github.com/nayuki/QR-Code-generator/pull/72
---- cpp/Makefile.orig	2020-03-05 19:00:48 UTC
+--- cpp/Makefile.orig	2021-08-08 17:21:08 UTC
 +++ cpp/Makefile
 @@ -29,11 +29,13 @@
  # - CXXFLAGS: Any extra user-specified compiler flags (can be blank).
@@ -12,25 +11,23 @@ From https://github.com/nayuki/QR-Code-generator/pull/72
  # CXXFLAGS += -g -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -fsanitize=undefined,address
  
 +# Version information
-+VERSION = 1.6.0
++VERSION = 1.7.0
  
  # ---- Controlling make ----
  
-@@ -50,30 +52,60 @@ CXXFLAGS += -std=c++11 -O
- 
+@@ -51,29 +53,59 @@ CXXFLAGS += -std=c++11 -O
  # ---- Targets to build ----
  
--LIB = qrcodegen
+ LIB = qrcodegencpp
 -LIBFILE = lib$(LIB).a
-+LIB = qrcodegencpp
 +ARFILE = lib$(LIB).a
 +LIBFILE = lib$(LIB).so
 +# Bump the soname number when the ABI changes and gets incompatible
 +SO_NAME = $(LIBFILE).1
 +REAL_NAME = $(LIBFILE).$(VERSION)
-+HEADERS = QrCode.hpp
- LIBOBJ = QrCode.o
- MAINS = QrCodeGeneratorDemo QrCodeGeneratorWorker
++HEADERS = qrcodegen.hpp
+ LIBOBJ = qrcodegen.o
+ MAINS = QrCodeGeneratorDemo
  
 +# define paths to install
 +INCLUDEDIR ?= $(DESTDIR)$(PREFIX)/include/qrcodegen
@@ -66,7 +63,7 @@ From https://github.com/nayuki/QR-Code-generator/pull/72
 +
  # Executable files
  %: %.o $(LIBFILE)
- 	$(CXX) $(CXXFLAGS) -o $@ $< -L . -l $(LIB)
+ 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $< -L . -l $(LIB)
  
  # The library
 -$(LIBFILE): $(LIBOBJ)
