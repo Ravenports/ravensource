@@ -41,14 +41,13 @@ CONFIGURE_ARGS=		--prefix={{PREFIX}}
 			--processors={{MAKE_JOBS_NUMBER}}
 
 post-patch:
-	${REINPLACE_CMD} -e '/for Object_Dir/d' ${WRKSRC}/gnat/apq.gpr.in
 	${REINPLACE_CMD} -e 's|processors=2|gprbuild_params="--autoconf=apq.cgpr"|' \
 		${WRKSRC}/configure
 	${REINPLACE_CMD} -e 's|-ws|-ws --autoconf=dummy.cgpr|' \
 		${WRKSRC}/scripts/buildutil.sh
 
 do-install:
-	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gnat \
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/gpr \
 		${STAGEDIR}${PREFIX}/lib/apq/static \
 		${STAGEDIR}${PREFIX}/include/apq
 	${INSTALL_DATA} ${WRKPATH}/include/apq/* \
@@ -56,4 +55,4 @@ do-install:
 	${INSTALL_DATA} ${WRKPATH}/lib/apq/static/*.a* \
 		${STAGEDIR}${PREFIX}/lib/apq/static
 	${INSTALL_DATA} ${WRKPATH}/lib/gnat/apq.gpr \
-		${STAGEDIR}${PREFIX}/lib/gnat
+		${STAGEDIR}${PREFIX}/share/gpr

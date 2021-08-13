@@ -1,0 +1,18 @@
+--- gnat/apq.gpr.in.orig	2012-08-10 02:00:55 UTC
++++ gnat/apq.gpr.in
+@@ -42,13 +42,12 @@ project APQ is
+ 
+ 	case Debug is
+ 		when "true" =>
+-			for Library_Dir use "../" & Project'Library_Name & "-debug/" & Project'Library_Kind;
++			for Library_Dir use "../../lib/" & Project'Library_Name & "-debug/" & Project'Library_Kind;
+ 		when "false" =>
+-			for Library_Dir use "../" & Project'Library_name & "/" & Project'Library_Kind;
++			for Library_Dir use "../../lib/" & Project'Library_name & "/" & Project'Library_Kind;
+ 	end case;
+ 
+ 
+-	for Object_Dir use Project'Library_Dir & "/objects/";
+ 
+ 	for Library_Version use "lib" & Project'Library_Name & ".so." & Version;
+ 	for Externally_Built use External( "APQ_EXTERNALLY_BUILT", "true" );

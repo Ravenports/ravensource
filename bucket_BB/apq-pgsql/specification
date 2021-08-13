@@ -50,7 +50,7 @@ post-patch:
 		${WRKSRC}/scripts/buildutil.sh
 
 do-install:
-	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gnat \
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/gpr \
 		${STAGEDIR}${PREFIX}/lib/apq-postgresql/static \
 		${STAGEDIR}${PREFIX}/include/apq-postgresql
 	${INSTALL_DATA} ${WRKPATH}/include/apq-postgresql/* \
@@ -58,4 +58,4 @@ do-install:
 	${INSTALL_DATA} ${WRKPATH}/lib/apq-postgresql/static/*.a* \
 		${STAGEDIR}${PREFIX}/lib/apq-postgresql/static
 	${INSTALL_DATA} ${WRKPATH}/lib/gnat/apq-postgresql.gpr \
-		${STAGEDIR}${PREFIX}/lib/gnat
+		${STAGEDIR}${PREFIX}/share/gpr
