@@ -26,7 +26,7 @@ LICENSE_AWK=		TERMS:"CONNECTION_H"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/microhttpd/connection.h
 LICENSE_SCHEME=		solo
 
-FPC_EQUIVALENT=		www/libmicrohttp
+FPC_EQUIVALENT=		www/libmicrohttpd
 
 BUILDRUN_DEPENDS=	gnutls:primary:standard
 			libgcrypt:single:standard
@@ -40,3 +40,8 @@ INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 INFO=			single:libmicrohttpd
 			single:libmicrohttpd-tutorial
+
+post-patch-dragonfly:
+	# export PF_UNET, pipe2(), etc
+	${REINPLACE_CMD} -e 's@_XOPEN_SOURCE@&__@g' -e 's@__BSD_VISIBLE@&__@g' \
+		${WRKSRC}/configure
