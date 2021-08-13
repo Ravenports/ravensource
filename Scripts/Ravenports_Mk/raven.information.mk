@@ -163,6 +163,7 @@ GTK4_PORT_VERSION=		4.2.1
 CURRENT_GCC=			gcc9	# mirror in Uses/meson.mk
 CURRENT_GCC_VERSION=		${GCC9_VERSION}
 BINUTILS_VERSION=		2.35.1
+RPBASE_BINUTILS=		2.37
 
 # ------------------------------------------------------------------------
 # aspell
