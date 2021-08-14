@@ -1,14 +1,14 @@
-DEF[PORTVERSION]=	EXTRACT_INFO(GCC10_PORTVERSION)
-DEF[PORTREVISION]=	EXTRACT_INFO(GCC10_REVISION)
-DEF[BRANCH]=		EXTRACT_INFO(GCC10_BRANCH)
-DEF[MS_SUBDIR]=		EXTRACT_INFO(GCC10_MS_SUBDIR)
-DEF[IDENTIFICATION]=	EXTRACT_INFO(GCC10_IDENTIFICATION)
-DEF[GCC_VERSION]=	EXTRACT_INFO(GCC10_VERSION)
+DEF[PORTVERSION]=	EXTRACT_INFO(GCCBASE_PORTVERSION)
+DEF[PORTREVISION]=	EXTRACT_INFO(GCCBASE_REVISION)
+DEF[BRANCH]=		EXTRACT_INFO(GCCBASE_BRANCH)
+DEF[MS_SUBDIR]=		EXTRACT_INFO(GCCBASE_MS_SUBDIR)
+DEF[IDENTIFICATION]=	EXTRACT_INFO(GCCBASE_IDENTIFICATION)
+DEF[GCC_VERSION]=	EXTRACT_INFO(GCCBASE_VERSION)
 DEF[STDCXX_VERSION]=	6.0.28
 DEF[TOOLCHAIN]=		{{LOCALBASE}}/toolchain
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		gcc10
+NAMEBASE=		ravensys-gcc
 VERSION=		${PORTVERSION}
 REVISION=		${PORTREVISION}
 KEYWORDS=		lang raven
@@ -45,11 +45,11 @@ B_DEPS[darwin]=		libiconv:static:standard
 BUILD_DEPENDS=		gmp:static:standard
 			mpfr:static:standard
 			mpc:static:standard
-BUILDRUN_DEPENDS=	binutils:single:ravensys
-EXRUN[ada_run]=		gcc9:libs:standard
-EXRUN[cxx_run]=		gcc9:libs:standard
-EXRUN[fortran_run]=	gcc9:libs:standard
-EXRUN[compilers]=	gcc9:cxx_run:standard
+BUILDRUN_DEPENDS=	ravensys-binutils:single:standard
+EXRUN[ada_run]=		ravensys-gcc:libs:standard
+EXRUN[cxx_run]=		ravensys-gcc:libs:standard
+EXRUN[fortran_run]=	ravensys-gcc:libs:standard
+EXRUN[compilers]=	ravensys-gcc:cxx_run:standard
 
 USES=			cpe gmake libtool perl:build
 # makeinfo pulls in libiconv, which gets picked up.
@@ -82,7 +82,7 @@ CONFIGURE_ARGS=		--enable-languages="c,c++,ada,fortran"
 			--disable-libcilkrts
 			--with-pkgversion="Ravenports"
 
-# gcc9 is deprecated on Solaris 10, gcc10 is not supported
+# gcc9 is deprecated on Solaris 10, gcc10+ is not supported
 NOT_FOR_OPSYS=		sunos
 
 VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-gnu-as
@@ -110,19 +110,6 @@ VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--enable-symvers=no
 # Now we can't use it for non-port compilers either because makeinfo
 # pulls in the shared libiconv which gets picked up.
 #
-# INFO=			infopages:cpp
-# #			infopages:cppinternals
-# #			infopages:gcc
-# #			infopages:gccinstall
-# #			infopages:gccint
-# #			infopages:gfortran
-# #			infopages:gnat-style
-# #			infopages:gnat_rm
-# #			infopages:gnat_ugn
-# #			infopages:libquadmath
-# #			infopages:libitm
-# #			infopages:libgomp
-
 # Removed ALLSTAGES OPTION (left for info)
 # [ALLSTAGES].DESCRIPTION=		Three stage build (full bootstrap)
 # [ALLSTAGES].CONFIGURE_ARGS_OFF=		--disable-bootstrap --disable-libcc1

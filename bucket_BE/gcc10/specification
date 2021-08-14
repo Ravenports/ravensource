@@ -21,7 +21,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GCC/${MS_SUBDIR}
 DISTFILE[1]=		${IDENTIFICATION}.tar.xz:main
 
-SPKGS[standard]=	complete compilers ada_run cxx_run fortran_run libs infopages
+SPKGS[standard]=	complete compilers ada_run cxx_run fortran_run libs infopages nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -37,23 +37,20 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		lang/gcc10
 
-B_DEPS[freebsd]=	libiconv:static:standard
-B_DEPS[dragonfly]=	libiconv:static:standard
-B_DEPS[solaris]=	libiconv:static:standard
-B_DEPS[darwin]=		libiconv:static:standard
+C_USES[freebsd]=	iconv
+C_USES[dragonfly]=	iconv
+C_USES[darwin]=		iconv
 
 BUILD_DEPENDS=		gmp:static:standard
 			mpfr:static:standard
 			mpc:static:standard
 BUILDRUN_DEPENDS=	binutils:single:ravensys
-EXRUN[ada_run]=		gcc9:libs:standard
-EXRUN[cxx_run]=		gcc9:libs:standard
-EXRUN[fortran_run]=	gcc9:libs:standard
-EXRUN[compilers]=	gcc9:cxx_run:standard
+EXRUN[ada_run]=		gcc${BRANCH}:libs:standard
+EXRUN[cxx_run]=		gcc${BRANCH}:libs:standard
+EXRUN[fortran_run]=	gcc${BRANCH}:libs:standard
+EXRUN[compilers]=	gcc${BRANCH}:cxx_run:standard
 
-USES=			cpe gmake libtool perl:build
-# makeinfo pulls in libiconv, which gets picked up.
-# #			makeinfo
+USES=			cpe gmake libtool perl:build makeinfo
 DISTNAME=		${IDENTIFICATION}
 MUST_CONFIGURE=		gnu
 CPE_VENDOR=		gnu
@@ -74,7 +71,7 @@ CONFIGURE_ARGS=		--enable-languages="c,c++,ada,fortran"
 			--enable-threads=posix
 			--enable-checking=release
 			--enable-libquadmath
-			--disable-nls
+			--enable-nls
 			--disable-multilib
 			--disable-libsanitizer
 			--disable-libvtv
@@ -104,24 +101,18 @@ VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--enable-symvers=no
 			CONFIGURE_ARGS=--without-gnu-ld
 			CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
 
-# Special case for ports compiler:
-# Don't support info pages.  This causes dependency on indexinfo,
-# which breaks dependency checking on empty packages directory.
-# Now we can't use it for non-port compilers either because makeinfo
-# pulls in the shared libiconv which gets picked up.
-#
-# INFO=			infopages:cpp
-# #			infopages:cppinternals
-# #			infopages:gcc
-# #			infopages:gccinstall
-# #			infopages:gccint
-# #			infopages:gfortran
-# #			infopages:gnat-style
-# #			infopages:gnat_rm
-# #			infopages:gnat_ugn
-# #			infopages:libquadmath
-# #			infopages:libitm
-# #			infopages:libgomp
+INFO=			infopages:cpp
+			infopages:cppinternals
+			infopages:gcc
+			infopages:gccinstall
+			infopages:gccint
+			infopages:gfortran
+			infopages:gnat-style
+			infopages:gnat_rm
+			infopages:gnat_ugn
+			infopages:libquadmath
+			infopages:libitm
+			infopages:libgomp
 
 # Removed ALLSTAGES OPTION (left for info)
 # [ALLSTAGES].DESCRIPTION=		Three stage build (full bootstrap)
