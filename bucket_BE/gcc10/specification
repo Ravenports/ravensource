@@ -37,9 +37,9 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		lang/gcc10
 
-C_USES[freebsd]=	iconv
-C_USES[dragonfly]=	iconv
-C_USES[darwin]=		iconv
+B_DEPS[freebsd]=	libiconv:static:standard
+B_DEPS[dragonfly]=	libiconv:static:standard
+B_DEPS[darwin]=		libiconv:static:standard
 
 BUILD_DEPENDS=		gmp:static:standard
 			mpfr:static:standard
@@ -94,11 +94,6 @@ VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--disable-libstdcxx-pch
 VAR_OPSYS[darwin]=	CONFIGURE_ARGS=--disable-libstdcxx-pch
 			CONFIGURE_ARGS=--with-ld=/usr/bin/ld
 			CONFIGURE_ARGS=--with-as=/usr/bin/as
-			CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
-VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--enable-symvers=no
-			CONFIGURE_ARGS=--with-gnu-as
-			CONFIGURE_ARGS=--with-as=${TOOLCHAIN}/bin/as
-			CONFIGURE_ARGS=--without-gnu-ld
 			CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
 
 INFO=			infopages:cpp
@@ -164,15 +159,6 @@ post-patch-darwin:
 	${FIND} ${WRKSRC} -name configure | ${XARGS} \
 		${SED} -i.mac -e 's|apple-darwin|raven-darwin|' \
 		${WRKSRC}/gcc/configure
-
-post-patch-sunos:
-	${REINPLACE_CMD} -e 's|cp -p -r |cp -RP |' \
-		${WRKSRC}/gcc/Makefile.in
-	${REINPLACE_CMD} -e 's| install-gcc-specs||' \
-		${WRKSRC}/gcc/ada/gcc-interface/Makefile.in
-	# undo BSD thin socket modification
-	${MV} ${WRKSRC}/gcc/ada/libgnat/g-socthi.ads.orig \
-		${WRKSRC}/gcc/ada/libgnat/g-socthi.ads
 
 post-install:
 	cp ${STAGEDIR}${PREFIX}/bin/gcc ${STAGEDIR}${PREFIX}/bin/cc
