@@ -109,6 +109,20 @@ GCC10_PHASE=			release
 .endif
 
 # ------------------------------------------------------------------------
+# base compiler
+# ------------------------------------------------------------------------
+
+GCCBASE_BRANCH=			10
+GCCBASE_POINT=			3.0
+GCCBASE_VERSION=		${GCCBASE_BRANCH}.${GCCBASE_POINT}
+GCCBASE_REVISION=		0
+GCCBASE_GNAT_UTIL_REVISION=	0
+GCCBASE_PORTVERSION=		${GCCBASE_VERSION}
+GCCBASE_IDENTIFICATION=		gcc-${GCCBASE_VERSION}
+GCCBASE_MS_SUBDIR=		releases/gcc-${GCCBASE_VERSION}
+GCCBASE_PHASE=			release
+
+# ------------------------------------------------------------------------
 # icu
 # ------------------------------------------------------------------------
 

@@ -1,0 +1,244 @@
+--- libstdc++-v3/configure.host.orig
++++ libstdc++-v3/configure.host
+@@ -261,6 +261,9 @@
+   freebsd*)
+     os_include_dir="os/bsd/freebsd"
+     ;;
++  linux-android*)
++    os_include_dir="os/bionic"
++    ;;
+   linux-musl*)
+     os_include_dir="os/generic"
+     ;;
+--- libstdc++-v3/config/os/bionic/ctype_base.h.orig
++++ libstdc++-v3/config/os/bionic/ctype_base.h
+@@ -38,6 +38,18 @@
+     // Non-standard typedefs.
+     typedef const int* 		__to_type;
+ 
++#ifdef _CTYPE_U
++#define _U _CTYPE_U
++#define _L _CTYPE_L
++#define _D _CTYPE_D
++#define _S _CTYPE_S
++#define _P _CTYPE_P
++#define _C _CTYPE_C
++#define _X _CTYPE_X
++#define _B _CTYPE_B
++#define _N _CTYPE_D
++#endif
++
+     // NB: Offsets into ctype<char>::_M_table force a particular size
+     // on the mask type. Because of this, we don't use an enum.
+     typedef char 		mask;
+--- libstdc++-v3/src/c++11/futex.cc.orig
++++ libstdc++-v3/src/c++11/futex.cc
+@@ -27,7 +27,11 @@
+ #if defined(_GLIBCXX_HAVE_LINUX_FUTEX) && ATOMIC_INT_LOCK_FREE > 1
+ #include <chrono>
+ #include <climits>
++#ifdef __ANDROID__
++#include <sys/syscall.h>
++#else
+ #include <syscall.h>
++#endif
+ #include <unistd.h>
+ #include <sys/time.h>
+ #include <errno.h>
+--- libstdc++-v3/include/bits/c++config.orig
++++ libstdc++-v3/include/bits/c++config
+@@ -30,6 +30,12 @@
+ #ifndef _GLIBCXX_CXX_CONFIG_H
+ #define _GLIBCXX_CXX_CONFIG_H 1
+ 
++#ifdef __clang__
++#define _GTHROW
++#else
++#define _GTHROW throw()
++#endif
++
+ // The major release number for the GCC release the C++ library belongs to.
+ #define _GLIBCXX_RELEASE
+ 
+--- libstdc++-v3/include/c_global/cstdio.orig
++++ libstdc++-v3/include/c_global/cstdio
+@@ -159,16 +159,16 @@
+ #if _GLIBCXX_USE_C99_CHECK || _GLIBCXX_USE_C99_DYNAMIC
+   extern "C" int
+   (snprintf)(char * __restrict, std::size_t, const char * __restrict, ...)
+-  throw ();
++  _GTHROW;
+   extern "C" int
+   (vfscanf)(FILE * __restrict, const char * __restrict, __gnuc_va_list);
+   extern "C" int (vscanf)(const char * __restrict, __gnuc_va_list);
+   extern "C" int
+   (vsnprintf)(char * __restrict, std::size_t, const char * __restrict,
+-	      __gnuc_va_list) throw ();
++	      __gnuc_va_list) _GTHROW;
+   extern "C" int
+   (vsscanf)(const char * __restrict, const char * __restrict, __gnuc_va_list)
+-  throw ();
++  _GTHROW;
+ #endif
+ 
+ #if !_GLIBCXX_USE_C99_DYNAMIC
+--- libstdc++-v3/include/c_global/cstdlib.orig
++++ libstdc++-v3/include/c_global/cstdlib
+@@ -54,15 +54,15 @@
+ 
+ namespace std
+ {
+-  extern "C" void abort(void) throw () _GLIBCXX_NORETURN;
+-  extern "C" int atexit(void (*)(void)) throw ();
+-  extern "C" void exit(int) throw () _GLIBCXX_NORETURN;
++  extern "C" void abort(void) _GTHROW _GLIBCXX_NORETURN;
++  extern "C" int atexit(void (*)(void)) _GTHROW;
++  extern "C" void exit(int) _GTHROW _GLIBCXX_NORETURN;
+ #if __cplusplus >= 201103L
+ # ifdef _GLIBCXX_HAVE_AT_QUICK_EXIT
+-  extern "C" int at_quick_exit(void (*)(void)) throw ();
++  extern "C" int at_quick_exit(void (*)(void)) _GTHROW;
+ # endif
+ # ifdef _GLIBCXX_HAVE_QUICK_EXIT
+-  extern "C" void quick_exit(int) throw() _GLIBCXX_NORETURN;
++  extern "C" void quick_exit(int) _GTHROW _GLIBCXX_NORETURN;
+ # endif
+ #endif
+ } // namespace std
+@@ -200,7 +200,7 @@
+   using ::lldiv_t;
+ #endif
+ #if _GLIBCXX_USE_C99_CHECK || _GLIBCXX_USE_C99_DYNAMIC
+-  extern "C" void (_Exit)(int) throw () _GLIBCXX_NORETURN;
++  extern "C" void (_Exit)(int) _GTHROW _GLIBCXX_NORETURN;
+ #endif
+ #if !_GLIBCXX_USE_C99_DYNAMIC
+   using ::_Exit;
+@@ -217,11 +217,11 @@
+ #endif
+ 
+ #if _GLIBCXX_USE_C99_LONG_LONG_CHECK || _GLIBCXX_USE_C99_LONG_LONG_DYNAMIC
+-  extern "C" long long int (atoll)(const char *) throw ();
++  extern "C" long long int (atoll)(const char *) _GTHROW;
+   extern "C" long long int
+-    (strtoll)(const char * __restrict, char ** __restrict, int) throw ();
++    (strtoll)(const char * __restrict, char ** __restrict, int) _GTHROW;
+   extern "C" unsigned long long int
+-    (strtoull)(const char * __restrict, char ** __restrict, int) throw ();
++    (strtoull)(const char * __restrict, char ** __restrict, int) _GTHROW;
+ #endif
+ #if !_GLIBCXX_USE_C99_LONG_LONG_DYNAMIC
+   using ::atoll;
+--- libstdc++-v3/include/c_global/cwchar.orig
++++ libstdc++-v3/include/c_global/cwchar
+@@ -245,16 +245,16 @@
+ {
+ #if _GLIBCXX_USE_C99_CHECK || _GLIBCXX_USE_C99_DYNAMIC
+   extern "C" long double
+-    (wcstold)(const wchar_t * __restrict, wchar_t ** __restrict) throw ();
++    (wcstold)(const wchar_t * __restrict, wchar_t ** __restrict) _GTHROW;
+ #endif
+ #if !_GLIBCXX_USE_C99_DYNAMIC
+   using ::wcstold;
+ #endif
+ #if _GLIBCXX_USE_C99_LONG_LONG_CHECK || _GLIBCXX_USE_C99_LONG_LONG_DYNAMIC
+   extern "C" long long int
+-    (wcstoll)(const wchar_t * __restrict, wchar_t ** __restrict, int) throw ();
++    (wcstoll)(const wchar_t * __restrict, wchar_t ** __restrict, int) _GTHROW;
+   extern "C" unsigned long long int
+-    (wcstoull)(const wchar_t * __restrict, wchar_t ** __restrict, int) throw ();
++    (wcstoull)(const wchar_t * __restrict, wchar_t ** __restrict, int) _GTHROW;
+ #endif
+ #if !_GLIBCXX_USE_C99_LONG_LONG_DYNAMIC
+   using ::wcstoll;
+--- libstdc++-v3/include/c_std/cstdio.orig
++++ libstdc++-v3/include/c_std/cstdio
+@@ -157,16 +157,16 @@
+ #if _GLIBCXX_USE_C99_CHECK || _GLIBCXX_USE_C99_DYNAMIC
+   extern "C" int
+   (snprintf)(char * __restrict, std::size_t, const char * __restrict, ...)
+-  throw ();
++  _GTHROW;
+   extern "C" int
+   (vfscanf)(FILE * __restrict, const char * __restrict, __gnuc_va_list);
+   extern "C" int (vscanf)(const char * __restrict, __gnuc_va_list);
+   extern "C" int
+   (vsnprintf)(char * __restrict, std::size_t, const char * __restrict,
+-	      __gnuc_va_list) throw ();
++	      __gnuc_va_list) _GTHROW;
+   extern "C" int
+   (vsscanf)(const char * __restrict, const char * __restrict, __gnuc_va_list)
+-  throw ();
++  _GTHROW;
+ #endif
+ 
+ #if !_GLIBCXX_USE_C99_DYNAMIC
+--- libstdc++-v3/include/c_std/cstdlib.orig
++++ libstdc++-v3/include/c_std/cstdlib
+@@ -54,15 +54,15 @@
+ 
+ namespace std
+ {
+-  extern "C" void abort(void) throw () _GLIBCXX_NORETURN;
+-  extern "C" int atexit(void (*)(void)) throw ();
+-  extern "C" void exit(int) throw () _GLIBCXX_NORETURN;
++  extern "C" void abort(void) _GTHROW _GLIBCXX_NORETURN;
++  extern "C" int atexit(void (*)(void)) _GTHROW;
++  extern "C" void exit(int) _GTHROW _GLIBCXX_NORETURN;
+ #if __cplusplus >= 201103L
+ # ifdef _GLIBCXX_HAVE_AT_QUICK_EXIT
+-  extern "C" int at_quick_exit(void (*)(void)) throw ();
++  extern "C" int at_quick_exit(void (*)(void)) _GTHROW;
+ # endif
+ # ifdef _GLIBCXX_HAVE_QUICK_EXIT
+-  extern "C" void quick_exit(int) throw() _GLIBCXX_NORETURN;
++  extern "C" void quick_exit(int) _GTHROW _GLIBCXX_NORETURN;
+ # endif
+ #endif
+ } // namespace
+@@ -211,7 +211,7 @@
+   using ::lldiv_t;
+ #endif
+ #if _GLIBCXX_USE_C99_CHECK || _GLIBCXX_USE_C99_DYNAMIC
+-  extern "C" void (_Exit)(int) throw () _GLIBCXX_NORETURN;
++  extern "C" void (_Exit)(int) _GTHROW _GLIBCXX_NORETURN;
+ #endif
+ #if !_GLIBCXX_USE_C99_DYNAMIC
+   using ::_Exit;
+@@ -228,11 +228,11 @@
+ #endif
+ 
+ #if _GLIBCXX_USE_C99_LONG_LONG_CHECK || _GLIBCXX_USE_C99_LONG_LONG_DYNAMIC
+-  extern "C" long long int (atoll)(const char *) throw ();
++  extern "C" long long int (atoll)(const char *) _GTHROW;
+   extern "C" long long int
+-    (strtoll)(const char * __restrict, char ** __restrict, int) throw ();
++    (strtoll)(const char * __restrict, char ** __restrict, int) _GTHROW;
+   extern "C" unsigned long long int
+-    (strtoull)(const char * __restrict, char ** __restrict, int) throw ();
++    (strtoull)(const char * __restrict, char ** __restrict, int) _GTHROW;
+ #endif
+ #if !_GLIBCXX_USE_C99_LONG_LONG_DYNAMIC
+   using ::atoll;
+--- libstdc++-v3/include/c_std/cwchar.orig
++++ libstdc++-v3/include/c_std/cwchar
+@@ -238,16 +238,16 @@
+ {
+ #if _GLIBCXX_USE_C99_CHECK || _GLIBCXX_USE_C99_DYNAMIC
+   extern "C" long double
+-    (wcstold)(const wchar_t * __restrict, wchar_t ** __restrict) throw ();
++    (wcstold)(const wchar_t * __restrict, wchar_t ** __restrict) _GTHROW;
+ #endif
+ #if !_GLIBCXX_USE_C99_DYNAMIC
+   using ::wcstold;
+ #endif
+ #if _GLIBCXX_USE_C99_LONG_LONG_CHECK || _GLIBCXX_USE_C99_LONG_LONG_DYNAMIC
+   extern "C" long long int
+-    (wcstoll)(const wchar_t * __restrict, wchar_t ** __restrict, int) throw ();
++    (wcstoll)(const wchar_t * __restrict, wchar_t ** __restrict, int) _GTHROW;
+   extern "C" unsigned long long int
+-    (wcstoull)(const wchar_t * __restrict, wchar_t ** __restrict, int) throw ();
++    (wcstoull)(const wchar_t * __restrict, wchar_t ** __restrict, int) _GTHROW;
+ #endif
+ #if !_GLIBCXX_USE_C99_LONG_LONG_DYNAMIC
+   using ::wcstoll;
