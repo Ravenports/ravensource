@@ -484,6 +484,7 @@ headers_Linux_dirs=	acl \
 			protocols \
 			rpc \
 			rpcsvc \
+			sound \
 			scsi \
 			sys \
 			x86_64-linux-gnu \
