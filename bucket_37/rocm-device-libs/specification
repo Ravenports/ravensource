@@ -26,3 +26,8 @@ LICENSE_SCHEME=		solo
 
 USES=			cmake clang zlib
 LDFLAGS=		-lpthread
+
+post-patch:
+	# fix build on linux
+	echo 'target_link_options(prepare-builtins PUBLIC "-Wl,-rpath,${LOCALBASE}/lib")'\
+		>> ${WRKSRC}/utils/prepare-builtins/CMakeLists.txt
