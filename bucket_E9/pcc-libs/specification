@@ -1,6 +1,7 @@
 # if snapdate is increased, change REVISION
 DEF[PORTVERSION]=	1.1.0
 DEF[SNAPDATE]=		20210521
+DEF[SUBTARGET]=		1.2.0.DEVEL
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		pcc-libs
@@ -44,4 +45,6 @@ FPC_EQUIVALENT=		devel/pcc-libs
 
 MUST_CONFIGURE=		gnu
 PLIST_SUB=		TARGET={{CONFIGURE_TARGET}}
+			SUBTARGET=${SUBTARGET}
 DISTNAME=		pcc-libs-${SNAPDATE}
+CONFIGURE_ENV=		ac_cv_build="{{CONFIGURE_TARGET}}"
