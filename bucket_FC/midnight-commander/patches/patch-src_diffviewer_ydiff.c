@@ -1,4 +1,4 @@
---- src/diffviewer/ydiff.c.orig	2021-01-10 11:50:16 UTC
+--- src/diffviewer/ydiff.c.orig	2021-08-01 16:45:58 UTC
 +++ src/diffviewer/ydiff.c
 @@ -817,7 +817,7 @@ dff_execute (const char *args, const cha
      /* escape potential $ to avoid shell variable substitutions in popen() */
