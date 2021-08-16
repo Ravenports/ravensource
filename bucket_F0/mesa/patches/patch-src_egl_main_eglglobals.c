@@ -1,4 +1,4 @@
---- src/egl/main/eglglobals.c.orig	2021-07-28 21:13:23 UTC
+--- src/egl/main/eglglobals.c.orig	2021-08-11 20:27:37 UTC
 +++ src/egl/main/eglglobals.c
 @@ -138,7 +138,7 @@ _eglPointerIsDereferencable(void *p)
  {
