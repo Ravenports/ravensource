@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.071
+DEF[PORTVERSION]=	2.072
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-IO-Socket-SSL
@@ -23,21 +23,21 @@ VOPTS[530]=		PERL_530=ON PERL_532=OFF
 VOPTS[532]=		PERL_530=OFF PERL_532=ON
 
 # License listed in CPAN directory:
-# perl_5
+# perl
 
 GENERATED=		yes
 SINGLE_JOB=		yes
 DISTNAME=		IO-Socket-SSL-${PORTVERSION}
 
-# ----------------------------------------------
-# |   Prerequisites extracted from META.json
-# ----------------------------------------------
-# |      runtime : Mozilla::CA
-# |      runtime : Net::SSLeay
-# |      runtime : Scalar::Util (perl 5.30 core) (perl 5.32 core)
-# |        build : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
-# |    configure : Net::SSLeay
+# ---------------------------------------------
+# |   Prerequisites extracted from META.yml
+# ---------------------------------------------
+# | configure_requires : ExtUtils::MakeMaker (perl 5.30.3 core) (perl 5.32.1 core)
+# | configure_requires : Net::SSLeay
+# |     build_requires : ExtUtils::MakeMaker (perl 5.30.3 core) (perl 5.32.1 core)
+# |           requires : Mozilla::CA
+# |           requires : Net::SSLeay
+# |           requires : Scalar::Util (perl 5.30.3 core) (perl 5.32.1 core)
 
 [PERL_530].USES_ON=			perl:530,configure
 [PERL_530].BUILDRUN_DEPENDS_ON=		perl-Mozilla-CA:single:530
