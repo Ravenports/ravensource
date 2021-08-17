@@ -38,6 +38,8 @@ BUILD_DEPENDS=		mpfr:static:standard
 # Intentionally don't set USES=c++ for ravensys!
 
 USES=			cpe bison gmake libtool zlib:build
+CPE_VENDOR=		gnu
+CPE_PRODUCT=		binutils
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
 CONFIGURE_ARGS=		--disable-werror
@@ -55,7 +57,6 @@ PLIST_SUB=		PLUGINAPI={{PLUGINAPI}}
 			GPROF={{GPROF}}
 			TARGET={{CONFIGURE_TARGET}}
 			CTF={{SKIP_CTF:U}}
-CPE_VENDOR=		gnu
 DISTNAME=		binutils-${PORTVERSION}
 PREFIX=			{{LOCALBASE}}/toolchain
 
