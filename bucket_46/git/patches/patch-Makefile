@@ -1,6 +1,6 @@
---- Makefile.orig	2021-03-26 22:03:34 UTC
+--- Makefile.orig	2021-08-16 21:18:43 UTC
 +++ Makefile
-@@ -525,11 +525,11 @@ infodir = $(prefix)/share/info
+@@ -529,11 +529,11 @@ infodir = $(prefix)/share/info
  gitexecdir = libexec/git-core
  mergetoolsdir = $(gitexecdir)/mergetools
  sharedir = $(prefix)/share
@@ -14,7 +14,7 @@
  ETC_GITCONFIG = $(sysconfdir)/gitconfig
  ETC_GITATTRIBUTES = $(sysconfdir)/gitattributes
  lib = lib
-@@ -1454,9 +1454,9 @@ EXTLIBS += -lz
+@@ -1477,9 +1477,9 @@ EXTLIBS += -lz
  
  ifndef NO_OPENSSL
  	OPENSSL_LIBSSL = -lssl
@@ -27,16 +27,16 @@
  	else
  		OPENSSL_LINK =
  	endif
-@@ -2314,7 +2314,7 @@ git-instaweb: git-instaweb.sh GIT-SCRIPT
+@@ -2376,7 +2376,7 @@ git-instaweb: git-instaweb.sh GIT-SCRIPT
  	chmod +x $@+ && \
  	mv $@+ $@
  else # NO_PERL
 -$(SCRIPT_PERL_GEN) git-instaweb: % : unimplemented.sh
 +$(SCRIPT_PERL_GEN) git-instaweb git-request-pull: % : unimplemented.sh
- 	$(QUIET_GEN)$(RM) $@ $@+ && \
+ 	$(QUIET_GEN) \
  	sed -e '1s|#!.*/sh|#!$(SHELL_PATH_SQ)|' \
  	    -e 's|@@REASON@@|NO_PERL=$(NO_PERL)|g' \
-@@ -2948,12 +2948,12 @@ endif
+@@ -3031,12 +3031,12 @@ endif
  ifndef NO_GETTEXT
  	$(INSTALL) -d -m 755 '$(DESTDIR_SQ)$(localedir_SQ)'
  	(cd po/build/locale && $(TAR) cf - .) | \
