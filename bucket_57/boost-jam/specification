@@ -44,7 +44,7 @@ post-patch:
 	# removing -O3 flag
 	${REINPLACE_CMD} -e 's|-O3 ||g' ${BUILD_WRKSRC}/build.sh
 	# hardcode executable path on fallback
-	${REINPLACE_CMD} -e 's|@LOCALBASE@|${PREFIX}|' ${BUILD_WRKSRC}/jam.cpp
+	${REINPLACE_CMD} -e 's|@LOCALBASE@|${PREFIX}|' ${BUILD_WRKSRC}/pathsys.cpp
 
 do-build:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
