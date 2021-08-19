@@ -1,6 +1,6 @@
 Fix build with LibreSSL.
 
---- libraries/libldap/tls_o.c.orig	2021-06-03 20:44:35 UTC
+--- libraries/libldap/tls_o.c.orig	2021-08-18 17:11:41 UTC
 +++ libraries/libldap/tls_o.c
 @@ -48,7 +48,7 @@
  #include <openssl/dh.h>
@@ -56,7 +56,7 @@ Fix build with LibreSSL.
  	der_dn->bv_len = i2d_X509_NAME( xn, NULL );
  	der_dn->bv_val = xn->bytes->data;
  #else
-@@ -1148,7 +1148,7 @@ struct tls_data {
+@@ -1150,7 +1150,7 @@ struct tls_data {
  	Sockbuf_IO_Desc		*sbiod;
  };
  
