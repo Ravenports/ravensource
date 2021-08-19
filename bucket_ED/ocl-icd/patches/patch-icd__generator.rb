@@ -1,6 +1,6 @@
---- icd_generator.rb.orig	2021-03-30 16:10:38 UTC
+--- icd_generator.rb.orig	2021-08-17 15:39:42 UTC
 +++ icd_generator.rb
-@@ -538,7 +538,7 @@ EOF
+@@ -550,7 +550,7 @@ EOF
    end
  
    def self.generate_ocl_icd_loader_map
