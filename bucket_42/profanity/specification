@@ -25,7 +25,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net-im/profanity
 
-USES=			autoreconf libtool ncurses pkgconfig python readline ssl gmake
+USES=			autoreconf libtool ncurses pkgconfig readline ssl gmake
+GNOME_COMPONENTS=	glib
 MUST_CONFIGURE=		gnu
 CFLAGS=			-I{{NCURSESINC}}
 CONFIGURE_ENV=		LIBS="{{CFLAGS}} -lcrypto"
@@ -34,7 +35,6 @@ CONFIGURE_ARGS=		--enable-c-plugins
 			--enable-otr
 			--enable-pgp
 			--with-xscreensaver=no
-GNOME_COMPONENTS=	glib
 BUILD_DEPENDS=		autoconf-archive:single:standard
 BUILDRUN_DEPENDS=	curl:primary:standard
 			gpgme:primary:standard
