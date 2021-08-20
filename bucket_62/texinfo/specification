@@ -22,20 +22,14 @@ DISTFILE[4]=		texi2dvi-${DATE_TEXI2DVI}:dports
 DIST_SUBDIR=		texinfo/${PORTVERSION}
 DF_INDEX=		1 2 3 4
 
-# LEGACY/BOOTSTRAP ISSUE !!
-# This port originated with a "single" subpackage.
-# texinfo:single:standard is heavily used by USES=makeinfo
-# Due to potential bootstrapping issues, we can't change this to
-# typical "complete primary nls" subpackage.  We just have to
-# accept a misnamed port.
-SPKGS[standard]=	complete single nls
+SPKGS[standard]=	complete primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv3+:single
+LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"INFO_H"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/info/info.h
 LICENSE_SCHEME=		solo
