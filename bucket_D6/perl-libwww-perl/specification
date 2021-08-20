@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	6.56
 NAMEBASE=		perl-libwww-perl
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		530 532
-SDESC[530]=		World-Wide Web library for Perl (5.30)
+VARIANTS=		532 534
 SDESC[532]=		World-Wide Web library for Perl (5.32)
+SDESC[534]=		World-Wide Web library for Perl (5.34)
 HOMEPAGE=		https://github.com/libwww-perl/libwww-perl.git
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:O/OA/OALDERS
 DISTFILE[1]=		libwww-perl-${PORTVERSION}.tar.gz:main
 
-SPKGS[530]=		single
 SPKGS[532]=		single
+SPKGS[534]=		single
 
-OPTIONS_AVAILABLE=	PERL_530 PERL_532
+OPTIONS_AVAILABLE=	PERL_532 PERL_534
 OPTIONS_STANDARD=	none
-VOPTS[530]=		PERL_530=ON PERL_532=OFF
-VOPTS[532]=		PERL_530=OFF PERL_532=ON
+VOPTS[532]=		PERL_532=ON PERL_534=OFF
+VOPTS[534]=		PERL_532=OFF PERL_534=ON
 
 # License listed in CPAN directory:
 # perl
@@ -32,21 +32,21 @@ DISTNAME=		libwww-perl-${PORTVERSION}
 # ---------------------------------------------
 # |   Prerequisites extracted from META.yml
 # ---------------------------------------------
-# | configure_requires : CPAN::Meta::Requirements (perl 5.30.3 core) (perl 5.32.1 core)
-# | configure_requires : ExtUtils::MakeMaker (perl 5.30.3 core) (perl 5.32.1 core)
-# | configure_requires : File::Copy (perl 5.30.3 core) (perl 5.32.1 core)
-# | configure_requires : Getopt::Long (perl 5.30.3 core) (perl 5.32.1 core)
-# | configure_requires : Module::Metadata (perl 5.30.3 core) (perl 5.32.1 core)
-# |     build_requires : ExtUtils::MakeMaker (perl 5.30.3 core) (perl 5.32.1 core)
-# |     build_requires : File::Spec (perl 5.30.3 core) (perl 5.32.1 core)
-# |     build_requires : FindBin (perl 5.30.3 core) (perl 5.32.1 core)
+# | configure_requires : CPAN::Meta::Requirements (perl 5.32.1 core) (perl 5.34.0 core)
+# | configure_requires : ExtUtils::MakeMaker (perl 5.32.1 core) (perl 5.34.0 core)
+# | configure_requires : File::Copy (perl 5.32.1 core) (perl 5.34.0 core)
+# | configure_requires : Getopt::Long (perl 5.32.1 core) (perl 5.34.0 core)
+# | configure_requires : Module::Metadata (perl 5.32.1 core) (perl 5.34.0 core)
+# |     build_requires : ExtUtils::MakeMaker (perl 5.32.1 core) (perl 5.34.0 core)
+# |     build_requires : File::Spec (perl 5.32.1 core) (perl 5.34.0 core)
+# |     build_requires : FindBin (perl 5.32.1 core) (perl 5.34.0 core)
 # |     build_requires : HTTP::Daemon
 # |     build_requires : Test::Fatal
-# |     build_requires : Test::More (perl 5.30.3 core) (perl 5.32.1 core)
+# |     build_requires : Test::More (perl 5.32.1 core) (perl 5.34.0 core)
 # |     build_requires : Test::Needs
 # |     build_requires : Test::RequiresInternet
-# |           requires : Digest::MD5 (perl 5.30.3 core) (perl 5.32.1 core)
-# |           requires : Encode (perl 5.30.3 core) (perl 5.32.1 core)
+# |           requires : Digest::MD5 (perl 5.32.1 core) (perl 5.34.0 core)
+# |           requires : Encode (perl 5.32.1 core) (perl 5.34.0 core)
 # |           requires : Encode::Locale
 # |           requires : File::Listing
 # |           requires : HTML::Entities
@@ -58,38 +58,21 @@ DISTNAME=		libwww-perl-${PORTVERSION}
 # |           requires : HTTP::Request::Common
 # |           requires : HTTP::Response
 # |           requires : HTTP::Status
-# |           requires : IO::Select (perl 5.30.3 core) (perl 5.32.1 core)
-# |           requires : IO::Socket (perl 5.30.3 core) (perl 5.32.1 core)
+# |           requires : IO::Select (perl 5.32.1 core) (perl 5.34.0 core)
+# |           requires : IO::Socket (perl 5.32.1 core) (perl 5.34.0 core)
 # |           requires : LWP::MediaTypes
-# |           requires : MIME::Base64 (perl 5.30.3 core) (perl 5.32.1 core)
-# |           requires : Net::FTP (perl 5.30.3 core) (perl 5.32.1 core)
+# |           requires : MIME::Base64 (perl 5.32.1 core) (perl 5.34.0 core)
+# |           requires : Net::FTP (perl 5.32.1 core) (perl 5.34.0 core)
 # |           requires : Net::HTTP
-# |           requires : Scalar::Util (perl 5.30.3 core) (perl 5.32.1 core)
+# |           requires : Scalar::Util (perl 5.32.1 core) (perl 5.34.0 core)
 # |           requires : Try::Tiny
 # |           requires : URI
 # |           requires : URI::Escape
 # |           requires : WWW::RobotRules
-# |           requires : base (perl 5.30.3 core) (perl 5.32.1 core)
-# |           requires : strict (perl 5.30.3 core) (perl 5.32.1 core)
-# |           requires : warnings (perl 5.30.3 core) (perl 5.32.1 core)
+# |           requires : base (perl 5.32.1 core) (perl 5.34.0 core)
+# |           requires : strict (perl 5.32.1 core) (perl 5.34.0 core)
+# |           requires : warnings (perl 5.32.1 core) (perl 5.34.0 core)
 
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_530].BUILDRUN_DEPENDS_ON=		perl-Encode-Locale:single:530
-					perl-File-Listing:single:530
-					perl-HTML-Parser:single:530
-					perl-HTTP-Cookies:single:530
-					perl-HTTP-Date:single:530
-					perl-HTTP-Negotiate:single:530
-					perl-HTTP-Message:single:530
-					perl-LWP-MediaTypes:single:530
-					perl-Net-HTTP:single:530
-					perl-Try-Tiny:single:530
-					perl-URI:single:530
-					perl-WWW-RobotRules:single:530
-[PERL_530].BUILD_DEPENDS_ON=		perl-HTTP-Daemon:single:530
-					perl-Test-Fatal:single:530
-					perl-Test-Needs:single:530
-					perl-Test-RequiresInternet:single:530
 [PERL_532].USES_ON=			perl:532,configure
 [PERL_532].BUILDRUN_DEPENDS_ON=		perl-Encode-Locale:single:532
 					perl-File-Listing:single:532
@@ -107,6 +90,23 @@ DISTNAME=		libwww-perl-${PORTVERSION}
 					perl-Test-Fatal:single:532
 					perl-Test-Needs:single:532
 					perl-Test-RequiresInternet:single:532
+[PERL_534].USES_ON=			perl:534,configure
+[PERL_534].BUILDRUN_DEPENDS_ON=		perl-Encode-Locale:single:534
+					perl-File-Listing:single:534
+					perl-HTML-Parser:single:534
+					perl-HTTP-Cookies:single:534
+					perl-HTTP-Date:single:534
+					perl-HTTP-Negotiate:single:534
+					perl-HTTP-Message:single:534
+					perl-LWP-MediaTypes:single:534
+					perl-Net-HTTP:single:534
+					perl-Try-Tiny:single:534
+					perl-URI:single:534
+					perl-WWW-RobotRules:single:534
+[PERL_534].BUILD_DEPENDS_ON=		perl-HTTP-Daemon:single:534
+					perl-Test-Fatal:single:534
+					perl-Test-Needs:single:534
+					perl-Test-RequiresInternet:single:534
 
 USES=			cpe
 CPE_VENDOR=		gisle_aas

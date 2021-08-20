@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.334
 NAMEBASE=		perl-App-Cmd
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		530 532
-SDESC[530]=		Write command line apps with less suffering (5.30)
+VARIANTS=		532 534
 SDESC[532]=		Write command line apps with less suffering (5.32)
+SDESC[534]=		Write command line apps with less suffering (5.34)
 HOMEPAGE=		https://github.com/rjbs/App-Cmd
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:R/RJ/RJBS
 DISTFILE[1]=		App-Cmd-${PORTVERSION}.tar.gz:main
 
-SPKGS[530]=		single
 SPKGS[532]=		single
+SPKGS[534]=		single
 
-OPTIONS_AVAILABLE=	PERL_530 PERL_532
+OPTIONS_AVAILABLE=	PERL_532 PERL_534
 OPTIONS_STANDARD=	none
-VOPTS[530]=		PERL_530=ON PERL_532=OFF
-VOPTS[532]=		PERL_530=OFF PERL_532=ON
+VOPTS[532]=		PERL_532=ON PERL_534=OFF
+VOPTS[534]=		PERL_532=OFF PERL_534=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -33,45 +33,35 @@ DISTNAME=		App-Cmd-${PORTVERSION}
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
 # |      runtime : Capture::Tiny
-# |      runtime : Carp (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Carp (perl 5.32 core) (perl 5.34 core)
 # |      runtime : Class::Load
 # |      runtime : Data::OptList
-# |      runtime : File::Basename (perl 5.30 core) (perl 5.32 core)
-# |      runtime : Getopt::Long (perl 5.30 core) (perl 5.32 core)
+# |      runtime : File::Basename (perl 5.32 core) (perl 5.34 core)
+# |      runtime : Getopt::Long (perl 5.32 core) (perl 5.34 core)
 # |      runtime : Getopt::Long::Descriptive
 # |      runtime : IO::TieCombine
 # |      runtime : Module::Pluggable::Object
-# |      runtime : Pod::Usage (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Pod::Usage (perl 5.32 core) (perl 5.34 core)
 # |      runtime : String::RewritePrefix
 # |      runtime : Sub::Exporter
 # |      runtime : Sub::Exporter::Util
 # |      runtime : Sub::Install
-# |      runtime : Text::Abbrev (perl 5.30 core) (perl 5.32 core)
-# |      runtime : constant (perl 5.30 core) (perl 5.32 core)
-# |      runtime : experimental (perl 5.30 core) (perl 5.32 core)
-# |      runtime : parent (perl 5.30 core) (perl 5.32 core)
-# |      runtime : strict (perl 5.30 core) (perl 5.32 core)
-# |      runtime : warnings (perl 5.30 core) (perl 5.32 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
-# |         test : Data::Dumper (perl 5.30 core) (perl 5.32 core)
-# |         test : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
-# |         test : File::Spec (perl 5.30 core) (perl 5.32 core)
-# |         test : IPC::Cmd (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Text::Abbrev (perl 5.32 core) (perl 5.34 core)
+# |      runtime : constant (perl 5.32 core) (perl 5.34 core)
+# |      runtime : experimental (perl 5.32 core) (perl 5.34 core)
+# |      runtime : parent (perl 5.32 core) (perl 5.34 core)
+# |      runtime : strict (perl 5.32 core) (perl 5.34 core)
+# |      runtime : warnings (perl 5.32 core) (perl 5.34 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.32 core) (perl 5.34 core)
+# |         test : Data::Dumper (perl 5.32 core) (perl 5.34 core)
+# |         test : ExtUtils::MakeMaker (perl 5.32 core) (perl 5.34 core)
+# |         test : File::Spec (perl 5.32 core) (perl 5.34 core)
+# |         test : IPC::Cmd (perl 5.32 core) (perl 5.34 core)
 # |         test : Test::Fatal
-# |         test : Test::More (perl 5.30 core) (perl 5.32 core)
-# |         test : lib (perl 5.30 core) (perl 5.32 core)
-# |         test : CPAN::Meta (perl 5.30 core) (perl 5.32 core)
+# |         test : Test::More (perl 5.32 core) (perl 5.34 core)
+# |         test : lib (perl 5.32 core) (perl 5.34 core)
+# |         test : CPAN::Meta (perl 5.32 core) (perl 5.34 core)
 
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_530].BUILDRUN_DEPENDS_ON=		perl-Capture-Tiny:single:530
-					perl-Class-Load:single:530
-					perl-Data-OptList:single:530
-					perl-Getopt-Long-Descriptive:single:530
-					perl-IO-TieCombine:single:530
-					perl-Module-Pluggable:single:530
-					perl-String-RewritePrefix:single:530
-					perl-Sub-Exporter:single:530
-					perl-Sub-Install:single:530
 [PERL_532].USES_ON=			perl:532,configure
 [PERL_532].BUILDRUN_DEPENDS_ON=		perl-Capture-Tiny:single:532
 					perl-Class-Load:single:532
@@ -82,4 +72,14 @@ DISTNAME=		App-Cmd-${PORTVERSION}
 					perl-String-RewritePrefix:single:532
 					perl-Sub-Exporter:single:532
 					perl-Sub-Install:single:532
+[PERL_534].USES_ON=			perl:534,configure
+[PERL_534].BUILDRUN_DEPENDS_ON=		perl-Capture-Tiny:single:534
+					perl-Class-Load:single:534
+					perl-Data-OptList:single:534
+					perl-Getopt-Long-Descriptive:single:534
+					perl-IO-TieCombine:single:534
+					perl-Module-Pluggable:single:534
+					perl-String-RewritePrefix:single:534
+					perl-Sub-Exporter:single:534
+					perl-Sub-Install:single:534
 

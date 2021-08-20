@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.22
 NAMEBASE=		perl-HTTP-Body
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		530 532
-SDESC[530]=		HTTP Body Parser (5.30)
+VARIANTS=		532 534
 SDESC[532]=		HTTP Body Parser (5.32)
+SDESC[534]=		HTTP Body Parser (5.34)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:G/GE/GETTY
 DISTFILE[1]=		HTTP-Body-${PORTVERSION}.tar.gz:main
 
-SPKGS[530]=		single
 SPKGS[532]=		single
+SPKGS[534]=		single
 
-OPTIONS_AVAILABLE=	PERL_530 PERL_532
+OPTIONS_AVAILABLE=	PERL_532 PERL_534
 OPTIONS_STANDARD=	none
-VOPTS[530]=		PERL_530=ON PERL_532=OFF
-VOPTS[532]=		PERL_530=OFF PERL_532=ON
+VOPTS[532]=		PERL_532=ON PERL_534=OFF
+VOPTS[534]=		PERL_532=OFF PERL_534=ON
 
 # License listed in CPAN directory:
 # perl
@@ -32,23 +32,23 @@ DISTNAME=		HTTP-Body-${PORTVERSION}
 # ---------------------------------------------
 # |   Prerequisites extracted from META.yml
 # ---------------------------------------------
-# | configure_requires : ExtUtils::MakeMaker (perl 5.30.3 core) (perl 5.32.1 core)
-# |     build_requires : Encode (perl 5.30.3 core) (perl 5.32.1 core)
-# |     build_requires : File::Spec::Functions (perl 5.30.3 core) (perl 5.32.1 core)
-# |     build_requires : File::Temp (perl 5.30.3 core) (perl 5.32.1 core)
+# | configure_requires : ExtUtils::MakeMaker (perl 5.32.1 core) (perl 5.34.0 core)
+# |     build_requires : Encode (perl 5.32.1 core) (perl 5.34.0 core)
+# |     build_requires : File::Spec::Functions (perl 5.32.1 core) (perl 5.34.0 core)
+# |     build_requires : File::Temp (perl 5.32.1 core) (perl 5.34.0 core)
 # |     build_requires : HTTP::Request::Common
 # |     build_requires : Test::Deep
-# |     build_requires : Test::More (perl 5.30.3 core) (perl 5.32.1 core)
-# |           requires : Carp (perl 5.30.3 core) (perl 5.32.1 core)
-# |           requires : Digest::MD5 (perl 5.30.3 core) (perl 5.32.1 core)
-# |           requires : File::Temp (perl 5.30.3 core) (perl 5.32.1 core)
+# |     build_requires : Test::More (perl 5.32.1 core) (perl 5.34.0 core)
+# |           requires : Carp (perl 5.32.1 core) (perl 5.34.0 core)
+# |           requires : Digest::MD5 (perl 5.32.1 core) (perl 5.34.0 core)
+# |           requires : File::Temp (perl 5.32.1 core) (perl 5.34.0 core)
 # |           requires : HTTP::Headers
-# |           requires : IO::File (perl 5.30.3 core) (perl 5.32.1 core)
+# |           requires : IO::File (perl 5.32.1 core) (perl 5.34.0 core)
 
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_530].BUILDRUN_DEPENDS_ON=		perl-HTTP-Message:single:530
-[PERL_530].BUILD_DEPENDS_ON=		perl-Test-Deep:single:530
 [PERL_532].USES_ON=			perl:532,configure
 [PERL_532].BUILDRUN_DEPENDS_ON=		perl-HTTP-Message:single:532
 [PERL_532].BUILD_DEPENDS_ON=		perl-Test-Deep:single:532
+[PERL_534].USES_ON=			perl:534,configure
+[PERL_534].BUILDRUN_DEPENDS_ON=		perl-HTTP-Message:single:534
+[PERL_534].BUILD_DEPENDS_ON=		perl-Test-Deep:single:534
 

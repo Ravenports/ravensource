@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.72
 NAMEBASE=		perl-IO-Socket-INET6
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		530 532
-SDESC[530]=		Interface AF_INET/AF_INET6 domain sockets (5.30)
+VARIANTS=		532 534
 SDESC[532]=		Interface AF_INET/AF_INET6 domain sockets (5.32)
+SDESC[534]=		Interface AF_INET/AF_INET6 domain sockets (5.34)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:S/SH/SHLOMIF
 DISTFILE[1]=		IO-Socket-INET6-${PORTVERSION}.tar.gz:main
 
-SPKGS[530]=		single
 SPKGS[532]=		single
+SPKGS[534]=		single
 
-OPTIONS_AVAILABLE=	PERL_530 PERL_532
+OPTIONS_AVAILABLE=	PERL_532 PERL_534
 OPTIONS_STANDARD=	none
-VOPTS[530]=		PERL_530=ON PERL_532=OFF
-VOPTS[532]=		PERL_530=OFF PERL_532=ON
+VOPTS[532]=		PERL_532=ON PERL_534=OFF
+VOPTS[534]=		PERL_532=OFF PERL_534=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,21 +32,21 @@ DISTNAME=		IO-Socket-INET6-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.30 core) (perl 5.32 core)
-# |      runtime : Errno (perl 5.30 core) (perl 5.32 core)
-# |      runtime : Exporter (perl 5.30 core) (perl 5.32 core)
-# |      runtime : IO::Socket (perl 5.30 core) (perl 5.32 core)
-# |      runtime : Socket (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Carp (perl 5.32 core) (perl 5.34 core)
+# |      runtime : Errno (perl 5.32 core) (perl 5.34 core)
+# |      runtime : Exporter (perl 5.32 core) (perl 5.34 core)
+# |      runtime : IO::Socket (perl 5.32 core) (perl 5.34 core)
+# |      runtime : Socket (perl 5.32 core) (perl 5.34 core)
 # |      runtime : Socket6
-# |      runtime : strict (perl 5.30 core) (perl 5.32 core)
-# |      runtime : warnings (perl 5.30 core) (perl 5.32 core)
-# |        build : Test::More (perl 5.30 core) (perl 5.32 core)
+# |      runtime : strict (perl 5.32 core) (perl 5.34 core)
+# |      runtime : warnings (perl 5.32 core) (perl 5.34 core)
+# |        build : Test::More (perl 5.32 core) (perl 5.34 core)
 # |    configure : Module::Build
 
-[PERL_530].USES_ON=			perl:530,buildmod,run
-[PERL_530].BUILDRUN_DEPENDS_ON=		perl-Socket6:single:530
-[PERL_530].BUILD_DEPENDS_ON=		perl-Module-Build:single:530
 [PERL_532].USES_ON=			perl:532,buildmod,run
 [PERL_532].BUILDRUN_DEPENDS_ON=		perl-Socket6:single:532
 [PERL_532].BUILD_DEPENDS_ON=		perl-Module-Build:single:532
+[PERL_534].USES_ON=			perl:534,buildmod,run
+[PERL_534].BUILDRUN_DEPENDS_ON=		perl-Socket6:single:534
+[PERL_534].BUILD_DEPENDS_ON=		perl-Module-Build:single:534
 

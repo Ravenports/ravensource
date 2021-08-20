@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.82.1
 NAMEBASE=		perl-Algorithm-Evolutionary
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		530 532
-SDESC[530]=		Paradigm-free evolutionary algorithms (5.30)
+VARIANTS=		532 534
 SDESC[532]=		Paradigm-free evolutionary algorithms (5.32)
+SDESC[534]=		Paradigm-free evolutionary algorithms (5.34)
 HOMEPAGE=		https://github.com/JJ/Algorithm-Evolutionary
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:J/JM/JMERELO
 DISTFILE[1]=		Algorithm-Evolutionary-${PORTVERSION}.tar.gz:main
 
-SPKGS[530]=		single
 SPKGS[532]=		single
+SPKGS[534]=		single
 
-OPTIONS_AVAILABLE=	PERL_530 PERL_532
+OPTIONS_AVAILABLE=	PERL_532 PERL_534
 OPTIONS_STANDARD=	none
-VOPTS[530]=		PERL_530=ON PERL_532=OFF
-VOPTS[532]=		PERL_530=OFF PERL_532=ON
+VOPTS[532]=		PERL_532=ON PERL_534=OFF
+VOPTS[534]=		PERL_532=OFF PERL_534=ON
 
 # License listed in CPAN directory:
 # open_source
@@ -37,39 +37,24 @@ DISTNAME=		Algorithm-Evolutionary-${PORTVERSION}
 # |      runtime : Clone
 # |      runtime : GD
 # |      runtime : Math::Random
-# |      runtime : Memoize (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Memoize (perl 5.32 core) (perl 5.34 core)
 # |      runtime : Object::Array
-# |      runtime : Pod::Escapes (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Pod::Escapes (perl 5.32 core) (perl 5.34 core)
 # |      runtime : Sort::Key
 # |      runtime : Statistics::Basic
 # |      runtime : String::Random
-# |      runtime : Test::More (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Test::More (perl 5.32 core) (perl 5.34 core)
 # |      runtime : Test::Pod
-# |      runtime : Time::HiRes (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Time::HiRes (perl 5.32 core) (perl 5.34 core)
 # |      runtime : Tree::DAG_Node
 # |      runtime : XML::Parser
 # |      runtime : XML::Parser::Style::EasyTree
 # |      runtime : YAML
-# |      runtime : constant (perl 5.30 core) (perl 5.32 core)
-# |      runtime : version (perl 5.30 core) (perl 5.32 core)
-# |        build : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# |      runtime : constant (perl 5.32 core) (perl 5.34 core)
+# |      runtime : version (perl 5.32 core) (perl 5.34 core)
+# |        build : ExtUtils::MakeMaker (perl 5.32 core) (perl 5.34 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.32 core) (perl 5.34 core)
 
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_530].BUILDRUN_DEPENDS_ON=		perl-Algorithm-Permute:single:530
-					perl-Bit-Vector:single:530
-					perl-Clone:single:530
-					perl-GD:single:530
-					perl-Math-Random:single:530
-					perl-Object-Array:single:530
-					perl-Sort-Key:single:530
-					perl-Statistics-Basic:single:530
-					perl-String-Random:single:530
-					perl-Test-Pod:single:530
-					perl-Tree-DAG_Node:single:530
-					perl-XML-Parser:single:530
-					perl-XML-Parser-Style-EasyTree:single:530
-					perl-YAML:single:530
 [PERL_532].USES_ON=			perl:532,configure
 [PERL_532].BUILDRUN_DEPENDS_ON=		perl-Algorithm-Permute:single:532
 					perl-Bit-Vector:single:532
@@ -85,4 +70,19 @@ DISTNAME=		Algorithm-Evolutionary-${PORTVERSION}
 					perl-XML-Parser:single:532
 					perl-XML-Parser-Style-EasyTree:single:532
 					perl-YAML:single:532
+[PERL_534].USES_ON=			perl:534,configure
+[PERL_534].BUILDRUN_DEPENDS_ON=		perl-Algorithm-Permute:single:534
+					perl-Bit-Vector:single:534
+					perl-Clone:single:534
+					perl-GD:single:534
+					perl-Math-Random:single:534
+					perl-Object-Array:single:534
+					perl-Sort-Key:single:534
+					perl-Statistics-Basic:single:534
+					perl-String-Random:single:534
+					perl-Test-Pod:single:534
+					perl-Tree-DAG_Node:single:534
+					perl-XML-Parser:single:534
+					perl-XML-Parser-Style-EasyTree:single:534
+					perl-YAML:single:534
 

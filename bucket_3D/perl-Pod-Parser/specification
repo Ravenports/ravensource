@@ -4,8 +4,9 @@ DEF[PORTVERSION]=	1.63
 NAMEBASE=		perl-Pod-Parser
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		532
+VARIANTS=		532 534
 SDESC[532]=		Modules for parsing POD format documents (5.32)
+SDESC[534]=		Modules for parsing POD format documents (5.34)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,10 +15,12 @@ SITES[main]=		CPAN/ID:M/MA/MAREKR
 DISTFILE[1]=		Pod-Parser-${PORTVERSION}.tar.gz:main
 
 SPKGS[532]=		single
+SPKGS[534]=		single
 
-OPTIONS_AVAILABLE=	PERL_532
+OPTIONS_AVAILABLE=	PERL_532 PERL_534
 OPTIONS_STANDARD=	none
-VOPTS[532]=		PERL_532=ON
+VOPTS[532]=		PERL_532=ON PERL_534=OFF
+VOPTS[534]=		PERL_532=OFF PERL_534=ON
 
 # License listed in CPAN directory:
 # unknown
@@ -29,13 +32,14 @@ DISTNAME=		Pod-Parser-${PORTVERSION}
 # ---------------------------------------------
 # |   Prerequisites extracted from META.yml
 # ---------------------------------------------
-# | configure_requires : ExtUtils::MakeMaker (perl 5.30.3 core) (perl 5.32.1 core)
-# |     build_requires : ExtUtils::MakeMaker (perl 5.30.3 core) (perl 5.32.1 core)
-# |           requires : Cwd (perl 5.30.3 core) (perl 5.32.1 core)
-# |           requires : File::Basename (perl 5.30.3 core) (perl 5.32.1 core)
-# |           requires : Test::More (perl 5.30.3 core) (perl 5.32.1 core)
+# | configure_requires : ExtUtils::MakeMaker (perl 5.32.1 core) (perl 5.34.0 core)
+# |     build_requires : ExtUtils::MakeMaker (perl 5.32.1 core) (perl 5.34.0 core)
+# |           requires : Cwd (perl 5.32.1 core) (perl 5.34.0 core)
+# |           requires : File::Basename (perl 5.32.1 core) (perl 5.34.0 core)
+# |           requires : Test::More (perl 5.32.1 core) (perl 5.34.0 core)
 
 [PERL_532].USES_ON=			perl:532,configure
+[PERL_534].USES_ON=			perl:534,configure
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/bin/podselect \

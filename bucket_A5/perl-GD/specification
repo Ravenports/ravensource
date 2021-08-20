@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.73
 NAMEBASE=		perl-GD
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		530 532
-SDESC[530]=		Perl interface to the gd2 graphics library (5.30)
+VARIANTS=		532 534
 SDESC[532]=		Perl interface to the gd2 graphics library (5.32)
+SDESC[534]=		Perl interface to the gd2 graphics library (5.34)
 HOMEPAGE=		https://github.com/lstein/Perl-GD
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:R/RU/RURBAN
 DISTFILE[1]=		GD-${PORTVERSION}.tar.gz:main
 
-SPKGS[530]=		single
 SPKGS[532]=		single
+SPKGS[534]=		single
 
-OPTIONS_AVAILABLE=	PERL_530 PERL_532
+OPTIONS_AVAILABLE=	PERL_532 PERL_534
 OPTIONS_STANDARD=	none
-VOPTS[530]=		PERL_530=ON PERL_532=OFF
-VOPTS[532]=		PERL_530=OFF PERL_532=ON
+VOPTS[532]=		PERL_532=ON PERL_534=OFF
+VOPTS[534]=		PERL_532=OFF PERL_534=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,29 +32,21 @@ DISTNAME=		GD-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Math::Trig (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Math::Trig (perl 5.32 core) (perl 5.34 core)
 # |      runtime : Class::XSAccessor
-# |      runtime : ExtUtils::Constant (perl 5.30 core) (perl 5.32 core)
+# |      runtime : ExtUtils::Constant (perl 5.32 core) (perl 5.34 core)
 # |      runtime : List::MoreUtils
 # |      runtime : Pod::Spell::CommonMistakes
 # |      runtime : Test::Kwalitee
-# |      runtime : Test::More (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Test::More (perl 5.32 core) (perl 5.34 core)
 # |      runtime : Test::Pod
 # |      runtime : Text::CSV_XS
-# |        build : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
-# |    configure : ExtUtils::Constant (perl 5.30 core) (perl 5.32 core)
+# |        build : ExtUtils::MakeMaker (perl 5.32 core) (perl 5.34 core)
+# |    configure : ExtUtils::Constant (perl 5.32 core) (perl 5.34 core)
 # |    configure : ExtUtils::PkgConfig
 # |         test : Test::Fork
-# |         test : Test::More (perl 5.30 core) (perl 5.32 core)
+# |         test : Test::More (perl 5.32 core) (perl 5.34 core)
 
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_530].BUILDRUN_DEPENDS_ON=		perl-Class-XSAccessor:single:530
-					perl-List-MoreUtils:single:530
-					perl-Pod-Spell-CommonMistakes:single:530
-					perl-Test-Kwalitee:single:530
-					perl-Test-Pod:single:530
-					perl-Text-CSV_XS:single:530
-[PERL_530].BUILD_DEPENDS_ON=		perl-ExtUtils-PkgConfig:single:530
 [PERL_532].USES_ON=			perl:532,configure
 [PERL_532].BUILDRUN_DEPENDS_ON=		perl-Class-XSAccessor:single:532
 					perl-List-MoreUtils:single:532
@@ -63,6 +55,14 @@ DISTNAME=		GD-${PORTVERSION}
 					perl-Test-Pod:single:532
 					perl-Text-CSV_XS:single:532
 [PERL_532].BUILD_DEPENDS_ON=		perl-ExtUtils-PkgConfig:single:532
+[PERL_534].USES_ON=			perl:534,configure
+[PERL_534].BUILDRUN_DEPENDS_ON=		perl-Class-XSAccessor:single:534
+					perl-List-MoreUtils:single:534
+					perl-Pod-Spell-CommonMistakes:single:534
+					perl-Test-Kwalitee:single:534
+					perl-Test-Pod:single:534
+					perl-Text-CSV_XS:single:534
+[PERL_534].BUILD_DEPENDS_ON=		perl-ExtUtils-PkgConfig:single:534
 
 USES=			pkgconfig
 BUILDRUN_DEPENDS=	libGD:single:standard

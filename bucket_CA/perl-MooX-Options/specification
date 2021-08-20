@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	4.103
 NAMEBASE=		perl-MooX-Options
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		530 532
-SDESC[530]=		Explicit Options eXtension for Object Class (5.30)
+VARIANTS=		532 534
 SDESC[532]=		Explicit Options eXtension for Object Class (5.32)
+SDESC[534]=		Explicit Options eXtension for Object Class (5.34)
 HOMEPAGE=		https://github.com/celogeek/MooX-Options
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:R/RE/REHSACK
 DISTFILE[1]=		MooX-Options-${PORTVERSION}.tar.gz:main
 
-SPKGS[530]=		single
 SPKGS[532]=		single
+SPKGS[534]=		single
 
-OPTIONS_AVAILABLE=	PERL_530 PERL_532
+OPTIONS_AVAILABLE=	PERL_532 PERL_534
 OPTIONS_STANDARD=	none
-VOPTS[530]=		PERL_530=ON PERL_532=OFF
-VOPTS[532]=		PERL_530=OFF PERL_532=ON
+VOPTS[532]=		PERL_532=ON PERL_534=OFF
+VOPTS[534]=		PERL_532=OFF PERL_534=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,38 +32,26 @@ DISTNAME=		MooX-Options-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Getopt::Long (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Getopt::Long (perl 5.32 core) (perl 5.34 core)
 # |      runtime : Getopt::Long::Descriptive
 # |      runtime : MRO::Compat
 # |      runtime : Module::Runtime
 # |      runtime : Moo
 # |      runtime : MooX::Locale::Passthrough
 # |      runtime : Path::Class
-# |      runtime : Pod::Usage (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Pod::Usage (perl 5.32 core) (perl 5.34 core)
 # |      runtime : Text::LineFold
 # |      runtime : strictures
 # |      runtime : Data::Record
 # |      runtime : JSON::MaybeXS
 # |      runtime : Regexp::Common
-# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
-# |         test : Test::More (perl 5.30 core) (perl 5.32 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.32 core) (perl 5.34 core)
+# |         test : Test::More (perl 5.32 core) (perl 5.34 core)
 # |         test : Test::Trap
 # |         test : Data::Record
 # |         test : JSON::MaybeXS
 # |         test : Regexp::Common
 
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_530].BUILDRUN_DEPENDS_ON=		perl-Getopt-Long-Descriptive:single:530
-					perl-MRO-Compat:single:530
-					perl-Module-Runtime:single:530
-					perl-Moo:single:530
-					perl-MooX-Locale-Passthrough:single:530
-					perl-Path-Class:single:530
-					perl-Unicode-LineBreak:single:530
-					perl-strictures:single:530
-					perl-Data-Record:single:530
-					perl-JSON-MaybeXS:single:530
-					perl-Regexp-Common:single:530
 [PERL_532].USES_ON=			perl:532,configure
 [PERL_532].BUILDRUN_DEPENDS_ON=		perl-Getopt-Long-Descriptive:single:532
 					perl-MRO-Compat:single:532
@@ -76,4 +64,16 @@ DISTNAME=		MooX-Options-${PORTVERSION}
 					perl-Data-Record:single:532
 					perl-JSON-MaybeXS:single:532
 					perl-Regexp-Common:single:532
+[PERL_534].USES_ON=			perl:534,configure
+[PERL_534].BUILDRUN_DEPENDS_ON=		perl-Getopt-Long-Descriptive:single:534
+					perl-MRO-Compat:single:534
+					perl-Module-Runtime:single:534
+					perl-Moo:single:534
+					perl-MooX-Locale-Passthrough:single:534
+					perl-Path-Class:single:534
+					perl-Unicode-LineBreak:single:534
+					perl-strictures:single:534
+					perl-Data-Record:single:534
+					perl-JSON-MaybeXS:single:534
+					perl-Regexp-Common:single:534
 

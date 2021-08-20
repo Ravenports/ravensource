@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.75
 NAMEBASE=		perl-Pegex
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		530 532
-SDESC[530]=		Acmeist PEG Parser Framework (5.30)
+VARIANTS=		532 534
 SDESC[532]=		Acmeist PEG Parser Framework (5.32)
+SDESC[534]=		Acmeist PEG Parser Framework (5.34)
 HOMEPAGE=		https://github.com/ingydotnet/pegex-pm
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:I/IN/INGY
 DISTFILE[1]=		Pegex-${PORTVERSION}.tar.gz:main
 
-SPKGS[530]=		single
 SPKGS[532]=		single
+SPKGS[534]=		single
 
-OPTIONS_AVAILABLE=	PERL_530 PERL_532
+OPTIONS_AVAILABLE=	PERL_532 PERL_534
 OPTIONS_STANDARD=	none
-VOPTS[530]=		PERL_530=ON PERL_532=OFF
-VOPTS[532]=		PERL_530=OFF PERL_532=ON
+VOPTS[532]=		PERL_532=ON PERL_534=OFF
+VOPTS[534]=		PERL_532=OFF PERL_534=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,24 +32,24 @@ DISTNAME=		Pegex-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Carp (perl 5.32 core) (perl 5.34 core)
 # |      runtime : File::ShareDir::Install
-# |      runtime : JSON::PP (perl 5.30 core) (perl 5.32 core)
-# |      runtime : Scalar::Util (perl 5.30 core) (perl 5.32 core)
+# |      runtime : JSON::PP (perl 5.32 core) (perl 5.34 core)
+# |      runtime : Scalar::Util (perl 5.32 core) (perl 5.34 core)
 # |      runtime : XXX
 # |      runtime : YAML::PP
-# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.32 core) (perl 5.34 core)
 # |    configure : File::ShareDir::Install
-# |         test : JSON::PP (perl 5.30 core) (perl 5.32 core)
+# |         test : JSON::PP (perl 5.32 core) (perl 5.34 core)
 # |         test : Test::Pod
 # |         test : Tie::IxHash
 
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_530].BUILDRUN_DEPENDS_ON=		perl-File-ShareDir-Install:single:530
-					perl-XXX:single:530
-					perl-YAML-PP:single:530
 [PERL_532].USES_ON=			perl:532,configure
 [PERL_532].BUILDRUN_DEPENDS_ON=		perl-File-ShareDir-Install:single:532
 					perl-XXX:single:532
 					perl-YAML-PP:single:532
+[PERL_534].USES_ON=			perl:534,configure
+[PERL_534].BUILDRUN_DEPENDS_ON=		perl-File-ShareDir-Install:single:534
+					perl-XXX:single:534
+					perl-YAML-PP:single:534
 

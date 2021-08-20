@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.65
 NAMEBASE=		perl-Spreadsheet-ParseExcel
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		530 532
-SDESC[530]=		Read information from an Excel file (5.30)
+VARIANTS=		532 534
 SDESC[532]=		Read information from an Excel file (5.32)
+SDESC[534]=		Read information from an Excel file (5.34)
 HOMEPAGE=		https://github.com/runrig/spreadsheet-parseexcel
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:D/DO/DOUGW
 DISTFILE[1]=		Spreadsheet-ParseExcel-${PORTVERSION}.tar.gz:main
 
-SPKGS[530]=		single
 SPKGS[532]=		single
+SPKGS[534]=		single
 
-OPTIONS_AVAILABLE=	PERL_530 PERL_532
+OPTIONS_AVAILABLE=	PERL_532 PERL_534
 OPTIONS_STANDARD=	none
-VOPTS[530]=		PERL_530=ON PERL_532=OFF
-VOPTS[532]=		PERL_530=OFF PERL_532=ON
+VOPTS[532]=		PERL_532=ON PERL_534=OFF
+VOPTS[534]=		PERL_532=OFF PERL_534=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -34,21 +34,21 @@ DISTNAME=		Spreadsheet-ParseExcel-${PORTVERSION}
 # ----------------------------------------------
 # |      runtime : Crypt::RC4
 # |      runtime : Digest::Perl::MD5
-# |      runtime : IO::File (perl 5.30 core) (perl 5.32 core)
+# |      runtime : IO::File (perl 5.32 core) (perl 5.34 core)
 # |      runtime : IO::Scalar
 # |      runtime : OLE::Storage_Lite
-# |      runtime : Scalar::Util (perl 5.30 core) (perl 5.32 core)
-# |        build : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.30 core) (perl 5.32 core)
+# |      runtime : Scalar::Util (perl 5.32 core) (perl 5.34 core)
+# |        build : ExtUtils::MakeMaker (perl 5.32 core) (perl 5.34 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.32 core) (perl 5.34 core)
 
-[PERL_530].USES_ON=			perl:530,configure
-[PERL_530].BUILDRUN_DEPENDS_ON=		perl-Crypt-RC4:single:530
-					perl-Digest-Perl-MD5:single:530
-					perl-IO-Stringy:single:530
-					perl-OLE-Storage_Lite:single:530
 [PERL_532].USES_ON=			perl:532,configure
 [PERL_532].BUILDRUN_DEPENDS_ON=		perl-Crypt-RC4:single:532
 					perl-Digest-Perl-MD5:single:532
 					perl-IO-Stringy:single:532
 					perl-OLE-Storage_Lite:single:532
+[PERL_534].USES_ON=			perl:534,configure
+[PERL_534].BUILDRUN_DEPENDS_ON=		perl-Crypt-RC4:single:534
+					perl-Digest-Perl-MD5:single:534
+					perl-IO-Stringy:single:534
+					perl-OLE-Storage_Lite:single:534
 
