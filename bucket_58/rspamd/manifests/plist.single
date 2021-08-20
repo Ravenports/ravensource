@@ -33,6 +33,7 @@ etc/rspamd/maps.d/surbl-whitelist.inc
 etc/rspamd/modules.d/antivirus.conf
 etc/rspamd/modules.d/arc.conf
 etc/rspamd/modules.d/asn.conf
+etc/rspamd/modules.d/aws_s3.conf
 etc/rspamd/modules.d/chartable.conf
 etc/rspamd/modules.d/clickhouse.conf
 etc/rspamd/modules.d/dcc.conf
@@ -41,6 +42,7 @@ etc/rspamd/modules.d/dkim_signing.conf
 etc/rspamd/modules.d/dmarc.conf
 etc/rspamd/modules.d/elastic.conf
 etc/rspamd/modules.d/emails.conf
+etc/rspamd/modules.d/external_relay.conf
 etc/rspamd/modules.d/external_services.conf
 etc/rspamd/modules.d/force_actions.conf
 etc/rspamd/modules.d/forged_recipients.conf
@@ -152,6 +154,7 @@ share/rspamd/lualib/fun.lua
 share/rspamd/lualib/global_functions.lua
 share/rspamd/lualib/lpegre.lua
 share/rspamd/lualib/lua_auth_results.lua
+share/rspamd/lualib/lua_aws.lua
 share/rspamd/lualib/lua_bayes_learn.lua
 share/rspamd/lualib/lua_cfg_transform.lua
 share/rspamd/lualib/lua_clickhouse.lua
@@ -162,6 +165,7 @@ share/rspamd/lualib/lua_maps.lua
 share/rspamd/lualib/lua_maps_expressions.lua
 share/rspamd/lualib/lua_meta.lua
 share/rspamd/lualib/lua_mime.lua
+share/rspamd/lualib/lua_mime_types.lua
 share/rspamd/lualib/lua_redis.lua
 share/rspamd/lualib/lua_settings.lua
 share/rspamd/lualib/lua_smtp.lua
@@ -177,6 +181,7 @@ share/rspamd/lualib/tableshape.lua
 share/rspamd/lualib/lua_content/ical.lua
 share/rspamd/lualib/lua_content/init.lua
 share/rspamd/lualib/lua_content/pdf.lua
+share/rspamd/lualib/lua_content/vcard.lua
 share/rspamd/lualib/lua_ffi/common.lua
 share/rspamd/lualib/lua_ffi/dkim.lua
 share/rspamd/lualib/lua_ffi/init.lua
@@ -197,6 +202,7 @@ share/rspamd/lualib/lua_scanners/kaspersky_av.lua
 share/rspamd/lualib/lua_scanners/kaspersky_se.lua
 share/rspamd/lualib/lua_scanners/oletools.lua
 share/rspamd/lualib/lua_scanners/p0f.lua
+share/rspamd/lualib/lua_scanners/pyzor.lua
 share/rspamd/lualib/lua_scanners/razor.lua
 share/rspamd/lualib/lua_scanners/savapi.lua
 share/rspamd/lualib/lua_scanners/sophos.lua
@@ -208,6 +214,7 @@ share/rspamd/lualib/lua_selectors/extractors.lua
 share/rspamd/lualib/lua_selectors/init.lua
 share/rspamd/lualib/lua_selectors/maps.lua
 share/rspamd/lualib/lua_selectors/transforms.lua
+share/rspamd/lualib/plugins/dmarc.lua
 share/rspamd/lualib/plugins/neural.lua
 share/rspamd/lualib/plugins/rbl.lua
 share/rspamd/lualib/rspamadm/clickhouse.lua
@@ -216,6 +223,7 @@ share/rspamd/lualib/rspamadm/confighelp.lua
 share/rspamd/lualib/rspamadm/configwizard.lua
 share/rspamd/lualib/rspamadm/cookie.lua
 share/rspamd/lualib/rspamadm/corpus_test.lua
+share/rspamd/lualib/rspamadm/dmarc_report.lua
 share/rspamd/lualib/rspamadm/dns_tool.lua
 share/rspamd/lualib/rspamadm/fuzzy_convert.lua
 share/rspamd/lualib/rspamadm/fuzzy_stat.lua
@@ -224,11 +232,13 @@ share/rspamd/lualib/rspamadm/keypair.lua
 share/rspamd/lualib/rspamadm/mime.lua
 share/rspamd/lualib/rspamadm/rescore.lua
 share/rspamd/lualib/rspamadm/stat_convert.lua
+share/rspamd/lualib/rspamadm/statistics_dump.lua
 share/rspamd/lualib/rspamadm/template.lua
 share/rspamd/lualib/rspamadm/vault.lua
 share/rspamd/plugins/antivirus.lua
 share/rspamd/plugins/arc.lua
 share/rspamd/plugins/asn.lua
+share/rspamd/plugins/aws_s3.lua
 share/rspamd/plugins/bayes_expiry.lua
 share/rspamd/plugins/clickhouse.lua
 share/rspamd/plugins/clustering.lua
@@ -238,6 +248,7 @@ share/rspamd/plugins/dmarc.lua
 share/rspamd/plugins/dynamic_conf.lua
 share/rspamd/plugins/elastic.lua
 share/rspamd/plugins/emails.lua
+share/rspamd/plugins/external_relay.lua
 share/rspamd/plugins/external_services.lua
 share/rspamd/plugins/force_actions.lua
 share/rspamd/plugins/forged_recipients.lua
