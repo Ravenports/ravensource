@@ -4,6 +4,7 @@ DEF[SOVERSION]=		${PORTVERSION}
 
 NAMEBASE=		libtorrent-rasterbar
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net_p2p
 VARIANTS=		standard
 SDESC[standard]=	Feature complete C++ bittorrent implementation
@@ -28,6 +29,9 @@ CPE_VENDOR=		rasterbar_software
 CPE_PRODUCT=		libtorrent
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		SOMAJMIN=${SOVERSION:R}
+
+pre-install:
+	find "${WRKSRC}" -name "*.orig" -type f -delete
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
