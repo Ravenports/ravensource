@@ -47,10 +47,6 @@ pre-patch:
 	${XARGS} ${REINPLACE_CMD} -e \
 	"s|test \"\$$\$$installfiles\" = '\$$(srcdir)/html/\*'|:|"
 
-post-patch:
-	${REINPLACE_CMD} -E 's/in (python.*)+ none/in none/' \
-		${WRKSRC}/configure
-
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/libglade/2.0
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libglade-2.0.so
