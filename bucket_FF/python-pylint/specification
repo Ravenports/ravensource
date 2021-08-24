@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.9.6
+DEF[PORTVERSION]=	2.10.2
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pylint
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/PyCQA/pylint
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/b9/27/2aca16def0282964f0f3f09afb7e86b4bfbfa98ecb53025ea92b3d36251e
+SITES[main]=		PYPIWHL/6d/33/5744d1b2d1191cd036c201934a1a517644d805a82cd50fab060b3c379c84
 DISTFILE[1]=		pylint-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
@@ -29,20 +29,23 @@ GENERATED=		yes
 DISTNAME=		pylint-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# astroid (<2.7,>=2.6.5)
+# platformdirs (>=2.2.0)
+# astroid (<2.8,>=2.7.2)
 # isort (<6,>=4.2.5)
 # mccabe (<0.7,>=0.6)
 # toml (>=0.7.1)
 # colorama ; sys_platform == "win32"
 
 [PY38].USES_ON=				python:py38,wheel
-[PY38].RUN_DEPENDS_ON=			python-astroid:single:py38
+[PY38].RUN_DEPENDS_ON=			python-platformdirs:single:py38
+					python-astroid:single:py38
 					python-isort:single:py38
 					python-mccabe:single:py38
 					python-toml:single:py38
 					python-colorama:single:py38
 [PY39].USES_ON=				python:py39,wheel
-[PY39].RUN_DEPENDS_ON=			python-astroid:single:py39
+[PY39].RUN_DEPENDS_ON=			python-platformdirs:single:py39
+					python-astroid:single:py39
 					python-isort:single:py39
 					python-mccabe:single:py39
 					python-toml:single:py39
