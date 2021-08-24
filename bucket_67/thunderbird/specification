@@ -131,6 +131,10 @@ post-patch:
 	@${ECHO_CMD} LDFLAGS=\"-Wl,-rpath,${PREFIX}/lib/thunderbird\" \
 		>> ${WRKSRC}/.mozconfig
 
+	# disable rust checksums
+	${REINPLACE_CMD} -e 's/"files":{[^}]*}/"files":{}/' \
+		 ${WRKSRC}/third_party/rust/packed_simd/.cargo-checksum.json
+
 post-patch-dragonfly:
 	${REINPLACE_CMD} -e '/<malloc.h>/d' \
 		${WRKSRC}/comm/ldap/c-sdk/libraries/liblber/lber-int.h
