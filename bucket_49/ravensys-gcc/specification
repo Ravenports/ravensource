@@ -4,7 +4,7 @@ DEF[BRANCH]=		EXTRACT_INFO(GCCBASE_BRANCH)
 DEF[MS_SUBDIR]=		EXTRACT_INFO(GCCBASE_MS_SUBDIR)
 DEF[IDENTIFICATION]=	EXTRACT_INFO(GCCBASE_IDENTIFICATION)
 DEF[GCC_VERSION]=	EXTRACT_INFO(GCCBASE_VERSION)
-DEF[STDCXX_VERSION]=	6.0.28
+DEF[STDCXX_VERSION]=	6.0.29
 DEF[TOOLCHAIN]=		{{LOCALBASE}}/toolchain
 # ----------------------------------------------------------------------------
 
@@ -35,7 +35,7 @@ LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
 LICENSE_TERMS=		compilers:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		multi
 
-FPC_EQUIVALENT=		lang/gcc10
+FPC_EQUIVALENT=		lang/gcc11
 
 B_DEPS[freebsd]=	libiconv:static:standard
 B_DEPS[dragonfly]=	libiconv:static:standard
@@ -45,6 +45,7 @@ B_DEPS[darwin]=		libiconv:static:standard
 BUILD_DEPENDS=		gmp:static:standard
 			mpfr:static:standard
 			mpc:static:standard
+			tar:primary:standard
 BUILDRUN_DEPENDS=	ravensys-binutils:single:standard
 EXRUN[ada_run]=		ravensys-gcc:libs:standard
 EXRUN[cxx_run]=		ravensys-gcc:libs:standard
@@ -81,6 +82,9 @@ CONFIGURE_ARGS=		--enable-languages="c,c++,ada,fortran"
 			--disable-libmpx
 			--disable-libcilkrts
 			--with-pkgversion="Ravenports"
+
+EXTRACT_HEAD[1]=	{{LOCALBASE}}/bin/gtar -xf
+EXTRACT_TAIL[1]=	--no-same-owner --no-same-permissions
 
 # gcc9 is deprecated on Solaris 10, gcc10+ is not supported
 NOT_FOR_OPSYS=		sunos
@@ -160,15 +164,6 @@ post-patch-darwin:
 	${FIND} ${WRKSRC} -name configure | ${XARGS} \
 		${SED} -i.mac -e 's|apple-darwin|raven-darwin|' \
 		${WRKSRC}/gcc/configure
-
-post-patch-sunos:
-	${REINPLACE_CMD} -e 's|cp -p -r |cp -RP |' \
-		${WRKSRC}/gcc/Makefile.in
-	${REINPLACE_CMD} -e 's| install-gcc-specs||' \
-		${WRKSRC}/gcc/ada/gcc-interface/Makefile.in
-	# undo BSD thin socket modification
-	${MV} ${WRKSRC}/gcc/ada/libgnat/g-socthi.ads.orig \
-		${WRKSRC}/gcc/ada/libgnat/g-socthi.ads
 
 post-install:
 	cp ${STAGEDIR}${PREFIX}/bin/gcc ${STAGEDIR}${PREFIX}/bin/cc
