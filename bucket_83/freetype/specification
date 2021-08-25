@@ -73,6 +73,10 @@ post-patch-DEBUG-ON:
 		-e 's|.*\(#define FT_DEBUG_MEMORY\).*|\1|' \
 		${WRKSRC}/include/freetype/config/ftoption.h
 
+post-patch-sunos:
+	${REINPLACE_CMD} -e '/_XOPEN_SOURCE/d; /_POSIX_C_SOURCE/d' \
+		${WRKSRC}/src/dlg/dlg*.c
+
 post-patch:
 .if defined(SUBPIXEL_HINTING_MODE)
 	${REINPLACE_CMD} -i'.hinting.bak1' \
