@@ -49,3 +49,6 @@ BUILDRUN_DEPENDS=	pgplot:primary:standard
 
 post-patch:
 	${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|g' ${WRKSRC}/Makefile.PL
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${SITE_PERL}/mach/${PERL_VER}/auto/PGPLOT/PGPLOT.so
