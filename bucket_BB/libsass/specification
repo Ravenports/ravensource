@@ -33,4 +33,5 @@ MAKEFILE=		GNUmakefile
 SOVERSION=		${SOVERSION}
 
 post-patch:
-	${ECHO_CMD} "${ECHO_CMD} \"${PORTVERSION}\"" > ${WRKSRC}/version.sh
+	${ECHO_CMD} "#!/bin/sh" > ${WRKSRC}/version.sh
+	${ECHO_CMD} "${ECHO_CMD} \"${PORTVERSION}\"" >> ${WRKSRC}/version.sh
