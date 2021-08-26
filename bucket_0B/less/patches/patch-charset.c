@@ -1,4 +1,4 @@
---- charset.c.orig	2020-06-14 03:34:49 UTC
+--- charset.c.orig	2021-06-03 17:45:48 UTC
 +++ charset.c
 @@ -432,6 +432,10 @@ binary_char(c)
  control_char(c)
