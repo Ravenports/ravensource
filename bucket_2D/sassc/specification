@@ -31,4 +31,5 @@ MUST_CONFIGURE=		gnu
 MAKEFILE=		GNUmakefile
 
 post-patch:
-	${ECHO_CMD} "${ECHO_CMD} \"${PORTVERSION}\"" > ${WRKSRC}/version.sh
+	${ECHO_CMD} "#!/bin/sh" > ${WRKSRC}/version.sh
+	${ECHO_CMD} "${ECHO_CMD} \"${PORTVERSION}\"" >> ${WRKSRC}/version.sh
