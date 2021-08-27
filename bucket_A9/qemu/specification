@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.0.0
+DEF[PORTVERSION]=	6.1.0
 DEF[JQUERY]=		EXTRACT_INFO(LATEST_JQUERY)
 DEF[UNDERSCORE]=	EXTRACT_INFO(SPHINX_UNDERSCORE)
 # ----------------------------------------------------------------------------
@@ -28,7 +28,8 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		emulators/qemu
 
 BUILD_DEPENDS=		texi2html:primary:standard
-			python-Sphinx:single:python_default
+			python-Sphinx:single:python_used
+			python-sphinx-rtd-theme:single:python_used
 BUILDRUN_DEPENDS=	nettle:primary:standard
 			fontconfig:primary:standard
 			freetype:primary:standard
@@ -80,6 +81,11 @@ VAR_OPSYS[linux]=	CONFIGURE_ARGS=--disable-netmap
 post-patch:
 	# silence some include warnings
 	${MKDIR} ${WRKSRC}/bsd-user/dragonfly
+
+pre-configure-dragonfly:
+	# On dragonfly, userland programs can't include <sys/disk.h>
+	${REINPLACE_CMD} -e 's|sys/disk\.h|sys/skipdisk.h|' \
+		${WRKSRC}/meson.build
 
 pre-install:
 	# for some reason file is considered out-of-date

@@ -1,4 +1,4 @@
---- net/tap-bsd.c.orig	2021-04-29 17:18:58 UTC
+--- net/tap-bsd.c.orig	2021-08-24 17:35:41 UTC
 +++ net/tap-bsd.c
 @@ -31,9 +31,16 @@
  
@@ -15,5 +15,5 @@
 +#include <net/tap/if_tap.h>
 +#endif
  
- #if defined(__OpenBSD__)
- #include <sys/param.h>
+ #ifndef __FreeBSD__
+ int tap_open(char *ifname, int ifname_size, int *vnet_hdr,

@@ -1,4 +1,4 @@
---- disas/libvixl/vixl/utils.h.orig	2021-04-29 17:18:58 UTC
+--- disas/libvixl/vixl/utils.h.orig	2021-08-24 17:35:40 UTC
 +++ disas/libvixl/vixl/utils.h
 @@ -42,6 +42,13 @@ namespace vixl {
  #define PRINTF_CHECK(format_index, varargs_index)
