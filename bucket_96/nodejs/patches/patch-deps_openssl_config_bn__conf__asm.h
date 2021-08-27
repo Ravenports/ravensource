@@ -1,4 +1,4 @@
---- deps/openssl/config/bn_conf_asm.h.orig	2021-08-18 00:11:33 UTC
+--- deps/openssl/config/bn_conf_asm.h.orig	2021-08-25 18:55:54 UTC
 +++ deps/openssl/config/bn_conf_asm.h
 @@ -25,7 +25,7 @@
  # include "./archs/VC-WIN64A/asm/crypto/include/internal/bn_conf.h"
