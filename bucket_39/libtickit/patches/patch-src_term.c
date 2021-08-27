@@ -1,4 +1,4 @@
---- src/term.c.orig	2020-03-02 19:11:02 UTC
+--- src/term.c.orig	2021-08-18 09:49:58 UTC
 +++ src/term.c
 @@ -27,6 +27,10 @@
  #include <sys/select.h>
@@ -9,5 +9,5 @@
 +#endif
 +
  #define streq(a,b) (!strcmp(a,b))
+ #define strneq(a,b,n) (strncmp(a,b,n)==0)
  
- /* unit multipliers for working in microseconds */
