@@ -48,6 +48,7 @@ MESON_ARGS=		-Diconv=external
 			-Dfam=false
 			-Dinternal_pcre=false
 			-Db_lundef=false
+			-Dtests=false
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 CPE_VENDOR=		gnome
@@ -62,8 +63,6 @@ VAR_OPSYS[sunos]=	CFLAGS=-fPIC
 			LDFLAGS=-liconv
 			LDFLAGS=-lnsl
 			LDFLAGS=-lsocket
-			CPPFLAGS=-D_XOPEN_SOURCE=600
-			CPPFLAGS=-D__EXTENSIONS__
 
 # Leaving debugging symbols in place clears up the XDG_DATA_DIRS related
 # SIGTRAP error from gnucash which manifested on 3 platforms.  It's
@@ -79,17 +78,17 @@ post-patch:
 		${WRKSRC}/gio/gunixmounts.c \
 		${WRKSRC}/gio/xdgmime/xdgmime.c \
 		${WRKSRC}/glib/tests/utils.c
-	${REINPLACE_CMD} \
-		-e 's|/docbook.sourceforge.net/|/cdn.docbook.org/|' \
-		-e "/-Werror=/d" \
-		${WRKSRC}/meson.build
-	${REINPLACE_CMD} -e '/_XOPEN_SOURCE/d' \
-		${WRKSRC}/glib/tests/strfuncs.c
 	for F in ${pyscripts}; do \
 		${CHMOD} ${BINMODE} ${WRKSRC}/$$F; \
 	done
 
+pre-configure:
+	${REINPLACE_CMD} \
+		-e 's|/docbook.sourceforge.net/|/cdn.docbook.org/|' \
+		-e "/-Werror=/d" \
+		${WRKSRC}/meson.build
+
 post-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/share/GConf/gsettings
-	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/gio/modules
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/GConf/gsettings
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gio/modules
 	${RM} -r ${STAGEDIR}${PREFIX}/libexec
