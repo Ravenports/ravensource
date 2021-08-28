@@ -1,6 +1,12 @@
 --- cmake/config.h.in.orig	2021-08-19 18:43:30 UTC
 +++ cmake/config.h.in
-@@ -40,12 +40,12 @@
+@@ -36,16 +36,18 @@
+ #cmakedefine _DARWIN_C_SOURCE
+ 
+ // Define to activate features from IEEE Stds 1003.1-2008.
++#if !defined(__sun)
+ #define _POSIX_C_SOURCE 200809L
++#endif
  
  #if defined(__SunOS_5_8) || defined(__SunOS_5_9) || defined(__SunOS_5_10)
  #  define _XOPEN_SOURCE 500
