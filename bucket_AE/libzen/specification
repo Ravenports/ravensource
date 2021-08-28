@@ -4,6 +4,7 @@ DEF[SOVERSION]=		0.0.0
 
 NAMEBASE=		libzen
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		standard
 SDESC[standard]=	Small C++ derivate classes
@@ -29,7 +30,7 @@ LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		libtool:single:standard
 
-USES=			autoreconf:build libtool c++:single
+USES=			autoreconf:build libtool c++:single dos2unix
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-shared
 			--enable-static
@@ -38,6 +39,8 @@ BUILD_WRKSRC=		{{WRKSRC}}/Project/GNU/Library
 INSTALL_WRKSRC=		{{WRKSRC}}/Project/GNU/Library
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
+
+VAR_OPSYS[sunos]=	CXXFLAGS=-fpermissive
 
 pre-configure:
 	cd ${CONFIGURE_WRKSRC} && ${SH} ./autogen.sh
