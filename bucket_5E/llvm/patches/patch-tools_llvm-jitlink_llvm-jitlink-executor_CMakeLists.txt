@@ -1,0 +1,11 @@
+--- tools/llvm-jitlink/llvm-jitlink-executor/CMakeLists.txt.orig	2021-06-28 16:23:38 UTC
++++ tools/llvm-jitlink/llvm-jitlink-executor/CMakeLists.txt
+@@ -11,4 +11,8 @@ add_llvm_utility(llvm-jitlink-executor
+   intrinsics_gen
+ )
+ 
++if (CMAKE_SYSTEM_NAME MATCHES "(Solaris|SunOS)")
++   target_link_libraries(llvm-jitlink-executor PRIVATE socket)
++endif()
++
+ export_executable_symbols(llvm-jitlink-executor)
