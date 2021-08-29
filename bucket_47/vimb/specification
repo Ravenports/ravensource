@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	3.6.0
 
 NAMEBASE=		vimb
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		www
 VARIANTS=		standard
 SDESC[standard]=	Vim-like browser
@@ -32,6 +33,9 @@ BUILDRUN_DEPENDS=	webkit2:complete:gtk3
 CFLAGS=			-D_BSD_SOURCE
 MAKE_ENV=		V=1
 
+VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
+			LDFLAGS=-lnsl
+
 post-extract:
 	${MKDIR} ${WRKSRC}/.git
 	${TOUCH} ${WRKSRC}/.git/index
@@ -39,3 +43,6 @@ post-extract:
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/vimb
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/vimb/webext_main.so
+
+pre-configure-sunos:
+	${REINPLACE_CMD} -e '/_XOPEN_SOURCE/ s/500/600/' ${WRKSRC}/config.mk
