@@ -69,7 +69,12 @@ PLIST_SUB=		GCK_SOVER=${SOVERSION_gck}
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 
-post-patch:
+pre-configure:
 	# timegm compat function untested by upstream in all cases
 	${REINPLACE_CMD} -e 's|"egg/egg-timegm.h"|<time.h>|' \
 		${WRKSRC}/gck/gck-slot.c
+
+pre-configure-sunos:
+	${REINPLACE_CMD} -e '/_XOPEN_SOURCE/d; s|#SUNOS ||' \
+		${WRKSRC}/gcr/meson.build \
+		${WRKSRC}/gck/meson.build
