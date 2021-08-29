@@ -1,7 +1,7 @@
---- source/dialogs/combi.c.orig	2020-09-06 18:37:58 UTC
+--- source/dialogs/combi.c.orig	2021-08-29 09:11:37 UTC
 +++ source/dialogs/combi.c
-@@ -40,6 +40,15 @@
- #include "mode-private.h"
+@@ -39,6 +39,15 @@
+ #include <pango/pango.h>
  #include <theme.h>
  
 +#ifdef __sun__
