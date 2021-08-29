@@ -902,12 +902,13 @@ install:
 .endif
 .if ${OPSYS} == SunOS
 	# Fix headers for C++
-	(cd ${DESTDIR}${BASE}/usr/include && sed -i'' -e \
-		's|\(__cplusplus >= 199711L\)|(!defined __clang__ \&\& \1)|g' \
+	(cd ${DESTDIR}${BASE}/usr/include && sed -i'' \
+		-e 's|\(__cplusplus >= 199711L\)|(!defined __clang__ \&\& \1)|g' \
 		ctype.h \
 		errno.h \
 		iso/ctype_iso.h \
 		iso/locale_iso.h \
+		iso/math_iso.h \
 		iso/setjmp_iso.h \
 		iso/signal_iso.h \
 		iso/stdarg_iso.h \
@@ -920,6 +921,7 @@ install:
 		iso/wctype_iso.h \
 		limits.h \
 		locale.h \
+		math.h \
 		memory.h \
 		mon.h \
 		setjmp.h \
@@ -933,8 +935,10 @@ install:
 		wchar.h \
 		wctype.h \
 		sys/sunddi.h \
+		sys/mdb_modapi.h \
 		sys/systm.h \
 		sys/systm.h \
+		sys/time.h \
 		sys/time_impl.h \
 		sys/time_std_impl.h \
 		sys/types.h \
