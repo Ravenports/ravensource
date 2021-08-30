@@ -1,4 +1,4 @@
---- bfd/elfxx-x86.c.orig	2020-07-24 09:12:19 UTC
+--- bfd/elfxx-x86.c.orig	2021-07-08 11:37:19 UTC
 +++ bfd/elfxx-x86.c
 @@ -28,8 +28,8 @@
     section.  */
@@ -9,5 +9,5 @@
 +#define ELF64_DYNAMIC_INTERPRETER "@ELF64_INTERPRETER@"
 +#define ELFX32_DYNAMIC_INTERPRETER "@ELF32_INTERPRETER@"
  
- bfd_boolean
+ bool
  _bfd_x86_elf_mkobject (bfd *abfd)

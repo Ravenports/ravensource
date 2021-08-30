@@ -1,17 +1,12 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(BINUTILS_VERSION)
 DEF[BUREMOVE]=		coffdump dlltool dllwrap nlmconv srconv sysdump windmc windres
-
-# Version is frozen to 2.34 (no revision) because ravenadm has to pre-copy
-# the ravensys variant with the other compiler packages.  Don't upgrade the
-# version without a corresponding update to ravenadm.
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		binutils
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		standard ravensys
+VARIANTS=		standard
 SDESC[standard]=	GNU binary tools
-SDESC[ravensys]=	GNU binary tools for Ravenports toolchain
 HOMEPAGE=		http://sources.redhat.com/binutils/
 CONTACT=		nobody
 
@@ -19,12 +14,10 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SOURCEWARE/binutils/releases
 DISTFILE[1]=		binutils-${PORTVERSION}.tar.xz:main
 
-SPKGS[ravensys]=	single
 SPKGS[standard]=	complete primary nls
 
-OPTIONS_AVAILABLE=	NLS RELRO RAVENSYS
+OPTIONS_AVAILABLE=	NLS RELRO
 OPTIONS_STANDARD=	NLS RELRO
-VOPTS[ravensys]=	NLS=OFF RELRO=OFF RAVENSYS=ON
 OPT_ON[all]=		NLS
 
 LICENSE=		GPLv3+:primary
@@ -39,7 +32,8 @@ FPC_EQUIVALENT=		devel/binutils
 BUILD_DEPENDS=		mpfr:static:standard
 			gmp:static:standard
 
-USES=			cpe bison gmake libtool zlib:build
+USES=			cpe bison gmake libtool zlib:build c++:primary
+CPE_VENDOR=		gnu
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
 CONFIGURE_ARGS=		--disable-werror
@@ -56,11 +50,6 @@ PLIST_SUB=		PLUGINAPI={{PLUGINAPI}}
 			GPROF={{GPROF}}
 			TARGET={{CONFIGURE_TARGET}}
 			CTF={{SKIP_CTF:U}}
-CPE_VENDOR=		gnu
-
-# Intentionally don't set c++ for ravensys.
-# Set INVALID_RPATH to allow this as warning during build tests
-INVALID_RPATH=		yes
 
 # Consider making gold the default linker on new platforms
 # Don't set linux for gold -- it fails to link port compiler
@@ -102,10 +91,6 @@ VAR_OPSYS[openbsd]=	MAKEFILE_LINE=PLUGINAPI="@comment "
 					primary:bfd
 					primary:ld
 
-[RAVENSYS].DESCRIPTION=			Version used by Ravenports system-root
-[RAVENSYS].MAKEFILE_ON=			PREFIX={{LOCALBASE}}/toolchain
-[RAVENSYS].USES_OFF=			c++:primary
-
 post-patch:
 	${REINPLACE_CMD} \
 		-e 's|@ELF64_INTERPRETER@|${VAR1}|' \
@@ -132,14 +117,6 @@ post-install:
 		${STAGEDIR}${MANPREFIX}/man/man1/${BUTARGET}-${tool}.1 \
 		${STAGEDIR}${PREFIX}/${BUTARGET}/bin/${tool}
 .endfor
-
-post-install-RAVENSYS-ON:
-	# autoplist target files and ldscripts
-	${FIND} ${STAGEDIR}${PREFIX}/${CONFIGURE_TARGET} ! -type d | \
-		${SED} -e 's,^${STAGEDIR}${PREFIX}/,,' \
-		>> ${WRKDIR}/.manifest.single.mktmp
-
-post-install-RAVENSYS-OFF:
 	# autoplist target files and ldscripts
 	${FIND} ${STAGEDIR}${PREFIX}/${CONFIGURE_TARGET} ! -type d | \
 		${SED} -e 's,^${STAGEDIR}${PREFIX}/,,' \
