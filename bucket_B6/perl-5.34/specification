@@ -1,6 +1,5 @@
 # Don't forget to update autoselect-perl on each version change
 DEF[PORTVERSION]=	EXTRACT_VERSION(PERL_5.34_VERSION)
-DEF[GCC_CURRENT]=	EXTRACT_INFO(CURRENT_GCC)
 DEF[PERL_VER]=		${PORTVERSION:R}
 DEF[MAINTAINER]=	John Marino
 DEF[MAINT_MAIL]=	draco@marino.st
@@ -49,7 +48,7 @@ CONFIGURE_ARGS=		-Dcf_by="${MAINTAINER}"
 			-Di_gdbm
 			-Dlocincpth="{{BDB_INCLUDE_DIR}} {{PREFIX}}/include"
 			-Dloclibpth="{{BDB_LIB_DIR}} {{PREFIX}}/lib"
-			-Aldflags="-Wl,-rpath,{{PREFIX}}/lib:{{PREFIX}}/toolchain/${GCC_CURRENT}/{{MULTILIB}}"
+			-Aldflags="-Wl,-rpath,{{PREFIX}}/lib:{{PREFIX}}/toolchain/ravensys-gcc/{{MULTILIB}}"
 PLIST_SUB=		PREFIX={{PREFIX}}
 INSTALL_REQ_TOOLCHAIN=	yes
 TEST_TARGET=		test_harness

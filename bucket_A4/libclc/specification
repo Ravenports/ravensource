@@ -1,6 +1,5 @@
 DEF[PORTVERSION]=	0.4.0.20190527
 DEF[TAG]=		9f6204e
-DEF[BASEGCC]=		EXTRACT_INFO(CURRENT_GCC)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libclc
@@ -39,7 +38,7 @@ MAKE_ENV=		MAKE={{GMAKE}}
 
 post-patch-sunos:
 	${SED} -i.sunos -e 's/-fno-rtti/-fno-rtti -fno-use-cxa-atexit/' \
-		-e '/lpthread/ s|-Wl,|-Wl,-rpath ${PREFIX}/toolchain/${BASEGCC}/lib/amd64 -Wl,|'\
+		-e '/lpthread/ s|-Wl,|-Wl,-rpath ${PREFIX}/toolchain/ravensys-gcc/lib/amd64 -Wl,|'\
 		${WRKSRC}/configure.py
 
 post-patch:

@@ -107,7 +107,7 @@ GCC11_PHASE=			release
 .endif
 
 # ------------------------------------------------------------------------
-# base compiler
+# Ravenports base compiler
 # ------------------------------------------------------------------------
 
 GCCBASE_BRANCH=			11
@@ -169,11 +169,9 @@ GTK3_PORT_VERSION=		3.24.30
 GTK4_PORT_VERSION=		4.4.0
 
 # ------------------------------------------------------------------------
-# default gcc and binutils
+# Ravenports binutils
 # ------------------------------------------------------------------------
 
-CURRENT_GCC=			gcc9	# mirror in Uses/meson.mk
-CURRENT_GCC_VERSION=		${GCC9_VERSION}
 BINUTILS_VERSION=		2.35.1
 RPBASE_BINUTILS=		2.37
 

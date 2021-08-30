@@ -1,7 +1,6 @@
 DEF[PORTVERSION]=	2021
 DEF[DATE]=		20210519-19A34
 DEF[XML_DATE]=		20210518-19D50
-DEF[GCCX]=		EXTRACT_INFO(CURRENT_GCC)
 DEF[CORE_HASH]=		23a77a37247ff811609e23a0a271f445c299fc8f
 DEF[XML_HASH]=		6a2cf72f308cc787926b12ddc20993fcf2b8ea79
 DEF[CORE_FILEBASE]=	gprbuild-${PORTVERSION}-${DATE}-src
@@ -65,7 +64,7 @@ PLIST_SUB=		JQUERY=${JQUERY}
 post-patch:
 	${SED} -i"" \
 		-e "s|@LOCALBASE@|${LOCALBASE}|" \
-		-e "s|@GCCX@|${GCCX}|" \
+		-e "s|@GCCX@|ravensys-gcc|" \
 		${WRKSRC}/share/gprconfig/compilers.xml
 	# the relocatable library fails to build, limit to static(-pic)
 	${RM} ${WRKSRC}/gprconfig_kbase/db/*.orig
