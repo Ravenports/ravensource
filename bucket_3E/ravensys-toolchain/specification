@@ -1,15 +1,14 @@
-DEF[COMPILER_VER]=	EXTRACT_INFO(GCC9_PORTVERSION)
-DEF[GCC_VERSION]=	EXTRACT_INFO(GCC9_VERSION)
-DEF[GCC_BRANCH]=	EXTRACT_INFO(GCC9_BRANCH)
-DEF[BUVER]=		EXTRACT_INFO(BINUTILS_VERSION)
-DEF[GCCX]=		gcc${GCC_BRANCH}
-DEF[PREVGCC]=		gcc8
+DEF[COMPILER_VER]=	EXTRACT_INFO(GCCBASE_PORTVERSION)
+DEF[GCC_VERSION]=	EXTRACT_INFO(GCCBASE_VERSION)
+DEF[GCC_BRANCH]=	EXTRACT_INFO(GCCBASE_BRANCH)
+DEF[BUVER]=		EXTRACT_INFO(RPBASE_BINUTILS)
+DEF[PREVGCC]=		gcc9
 DEF[INDICES]=		1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravensys-toolchain
-VERSION=		3.0
-REVISION=		6
+VERSION=		4.0
+REVISION=		0
 KEYWORDS=		raven
 VARIANTS=		standard
 SDESC[standard]=	Compiler and binutils toolchain for Ravenports
@@ -25,9 +24,6 @@ CONTACT=		John_Marino[draco@marino.st]
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://leaf.dragonflybsd.org/~marino/dports-src/lld/
 DISTFILE[1]=		lld-single-standard-7.0.1.sunos.tar.zst:main
-# DISTFILE[2]=		lld-single-standard-7.0.1.dragonfly.tar.zst:main
-# DISTFILE[3]=		lld-single-standard-7.0.1.freebsd_amd64.tar.zst:main
-# DISTFILE[4]=		lld-single-standard-7.0.1.linux.tar.zst:main
 DF_INDEX=		${INDICES}
 
 SPKGS[standard]=	single
@@ -35,7 +31,8 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-BUILD_DEPENDS=		binutils:single:ravensys
+BUILD_DEPENDS=		ravensys-binutils:single:standard
+			ravensys-gcc:complete:standard
 B_DEPS[sunos]=		ravensys-utils:single:standard
 
 PREFIX=			{{LOCALBASE}}/share/raven/toolchain
@@ -46,7 +43,6 @@ INVALID_RPATH=		yes
 PLIST_SUB=		COMPVER=${COMPILER_VER}
 			GCCVER=${GCC_VERSION}
 			TARGET={{CONFIGURE_TARGET}}
-			GCCX=${GCCX}
 			BUVER=${BUVER}
 			GNARL=${GCC_BRANCH}
 			PREVGCC=${PREVGCC}
@@ -55,7 +51,6 @@ MAKE_ENV=		COMPVER=${COMPILER_VER}
 			TARGET={{CONFIGURE_TARGET}}
 			OPSYS={{OPSYS}}
 			BUVER=${BUVER}
-			GCCX=${GCCX}
 			PREVGCC=${PREVGCC}
 EXTRACT_DIRTY=		${INDICES}
 
