@@ -32,12 +32,12 @@ CPE_PRODUCT=		lua
 DISTNAME=		lua-${PORTVERSION}
 CFLAGS=			-fPIC
 LDFLAGS=		-lm -pthread
+SINGLE_JOB=		yes
 BUILD_WRKSRC=		{{WRKSRC}}/src
 MAKE_ARGS=		MYCFLAGS="{{CFLAGS}} {{CPPFLAGS}}"
 			MYLDFLAGS="{{LDFLAGS}}"
 			MYLIBS="-L{{LOCALBASE}}/lib -lreadline"
 			CC="{{CC}}"
-			ARFLAGS=rl
 			LUA_T=lua${SUFFIX}
 			LUAC_T=luac${SUFFIX}
 			LUA_A=liblua-${LUA_VER}.a
