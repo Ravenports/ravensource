@@ -39,11 +39,11 @@
                       Libgnat :=
                         new String'
 -                         ("-lgnat-" & Line (6 .. Last));
-+                         ("-lgnat-" & Line (6));
++                         ("-lgnat-" & Line (6 .. 7));
                       Libgnarl :=
                         new String'
 -                         ("-lgnarl-" & Line (6 .. Last));
-+                         ("-lgnarl-" & Line (6));
++                         ("-lgnarl-" & Line (6 .. 7));
                    end if;
  
                 else
