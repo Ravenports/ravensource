@@ -1,0 +1,10 @@
+--- tests/nouveau/meson.build.orig	2021-07-02 12:49:05 UTC
++++ tests/nouveau/meson.build
+@@ -24,6 +24,7 @@ threaded = executable(
+   dependencies : [dep_dl, dep_threads],
+   include_directories : [inc_root, inc_drm, include_directories('../../nouveau')],
+   link_with : [libdrm, libdrm_nouveau],
++  link_args : ['-lpthread'],
+   c_args : libdrm_c_args,
+ )
+ 
