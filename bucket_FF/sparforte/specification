@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.4
+DEF[PORTVERSION]=	2.4.1
 DEF[TAG]=		v${PORTVERSION}
 DEF[SF_SRC]=		{{WRKSRC}}/src
 DEF[SCAL]=		scanner-calendar
@@ -122,9 +122,11 @@ post-patch:
 		${WRKSRC}/src/bdb/c_bdb.c
 	# Use db.h from db5 and link to it
 	# Fix multi-job support
+	# On gcc11, avoids prefix of "Overlaps_Storage" attribute must be object
 	${REINPLACE_CMD} \
 		-e "s|db: db.adb|db: bdb_constants.ads db.adb|" \
 		-e "s| -fstack-protector||" \
+		-e "s| -gnateEeAeEeF||" \
 		${WRKSRC}/src/bdb/GNUmakefile.orig
 	# shebang fix
 	${REINPLACE_CMD} -e "s|#|#!/bin/sh|" \
