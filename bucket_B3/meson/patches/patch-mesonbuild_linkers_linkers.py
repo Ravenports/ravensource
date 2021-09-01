@@ -14,19 +14,3 @@
  
      def get_pie_args(self) -> T.List[str]:
          # Available in Solaris 11.2 and later
-@@ -1273,13 +1278,13 @@ class SolarisDynamicLinker(PosixDynamicL
-         return []
- 
-     def get_asneeded_args(self) -> T.List[str]:
--        return self._apply_prefix(['-z', 'ignore'])
-+        return []
- 
-     def no_undefined_args(self) -> T.List[str]:
-         return ['-z', 'defs']
- 
-     def get_allow_undefined_args(self) -> T.List[str]:
--        return ['-z', 'nodefs']
-+        return []
- 
-     def fatal_warnings(self) -> T.List[str]:
-         return ['-z', 'fatal-warnings']
