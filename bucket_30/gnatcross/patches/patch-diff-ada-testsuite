@@ -79,7 +79,40 @@
  display "		=== acats support ==="
  display_noeol "Generating support files..."
  
-@@ -214,9 +195,6 @@
+@@ -133,23 +114,6 @@
+ target_bit=`cat $dir/support/impbit.out`
+ echo target_bit="$target_bit" >> $dir/acats.log
+ 
+-case "$target_bit" in
+-  *32*)
+-    target_max_int="9223372036854775807"
+-    target_min_int="-9223372036854775808"
+-    ;;
+-  *64*)
+-    target_max_int="170141183460469231731687303715884105727"
+-    target_min_int="-170141183460469231731687303715884105728"
+-    ;;
+-  *)
+-    display "**** Unsupported bits per word"
+-    exit 1
+-esac
+-
+-echo target_max_insn="$target_max_int" >> $dir/acats.log
+-echo target_min_insn="$target_min_int" >> $dir/acats.log
+-
+ # Find out a suitable asm statement
+ # Adapted from configure.ac gcc_cv_as_dwarf2_debug_line
+ case "$target" in
+@@ -170,8 +134,6 @@
+ sed -e "s,ACATS4GNATDIR,$dir,g" \
+   -e "s,ACATS4GNATBIT,$target_bit,g" \
+   -e "s,ACATS4GNATINSN,$target_insn,g" \
+-  -e "s,ACATS4GNATMAXINT,$target_max_int,g" \
+-  -e "s,ACATS4GNATMININT,$target_min_int,g" \
+   < $testdir/support/macro.dfs > $dir/support/MACRO.DFS
+ sed -e "s,ACATS4GNATDIR,$dir,g" \
+   < $testdir/support/tsttests.dat > $dir/support/TSTTESTS.DAT
+@@ -233,9 +195,6 @@
  
  display " done."
  display ""
@@ -89,7 +122,7 @@
  display "		=== acats tests ==="
  
  if [ $# -eq 0 ]; then
-@@ -228,14 +206,20 @@
+@@ -247,14 +206,20 @@
  glob_countn=0
  glob_countok=0
  glob_countu=0
@@ -115,7 +148,7 @@
     display Running chapter $chapter ...
  
     if [ ! -d $dir/tests/$chapter ]; then
-@@ -244,45 +228,11 @@
+@@ -263,45 +228,11 @@
        continue
     fi
  
@@ -164,7 +197,7 @@
        extraflags="-gnat95"
        grep $i $testdir/overflow.lst > /dev/null 2>&1
        if [ $? -eq 0 ]; then
-@@ -300,10 +250,13 @@
+@@ -319,10 +250,13 @@
        if [ $? -eq 0 ]; then
           extraflags="$extraflags -fstack-check"
        fi
@@ -178,7 +211,7 @@
           display "FAIL:	$i"
           failed="${failed}${i} "
           clean_dir
-@@ -321,19 +274,22 @@
+@@ -340,19 +274,22 @@
        echo "BUILD $main" >> $dir/acats.log
        EXTERNAL_OBJECTS=""
        case $i in
@@ -203,7 +236,7 @@
           display "FAIL:	$i"
           failed="${failed}${i} "
           clean_dir
-@@ -348,6 +304,7 @@
+@@ -367,6 +304,7 @@
        target_run $dir/tests/$chapter/$i/$binmain > $dir/tests/$chapter/$i/${i}.log 2>&1
        cd $dir/tests/$chapter/$i
        cat ${i}.log >> $dir/acats.log
@@ -211,7 +244,7 @@
        egrep -e '(==== |\+\+\+\+ |\!\!\!\! )' ${i}.log > /dev/null 2>&1
        if [ $? -ne 0 ]; then
           grep 'tasking not implemented' ${i}.log > /dev/null 2>&1
-@@ -357,15 +314,12 @@
+@@ -376,15 +314,12 @@
              failed="${failed}${i} "
           else
              log "UNSUPPORTED:	$i"
@@ -656,7 +689,7 @@
 --- gcc/testsuite/gnat.dg/unchecked_convert5.adb.orig
 +++ gcc/testsuite/gnat.dg/unchecked_convert5.adb
 @@ -1,22 +0,0 @@
---- { dg-do run { target hppa*-*-* sparc*-*-* powerpc*-*-* } }
+--- { dg-do run { target hppa*-*-* sparc*-*-* powerpc-*-* powerpc64-*-* } }
 -
 -with Unchecked_Conversion;
 -
@@ -681,7 +714,7 @@
 --- gcc/testsuite/gnat.dg/unchecked_convert6.adb.orig
 +++ gcc/testsuite/gnat.dg/unchecked_convert6.adb
 @@ -1,22 +0,0 @@
---- { dg-do run { target hppa*-*-* sparc*-*-* powerpc*-*-* } }
+--- { dg-do run { target hppa*-*-* sparc*-*-* powerpc-*-* powerpc64-*-* } }
 -
 -with Unchecked_Conversion;
 -

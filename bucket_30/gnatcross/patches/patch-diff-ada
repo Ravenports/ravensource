@@ -1,6 +1,6 @@
 --- gcc/ada/Makefile.rtl.orig
 +++ gcc/ada/Makefile.rtl
-@@ -1377,6 +1377,7 @@
+@@ -1587,6 +1587,7 @@
    s-linux.ads<libgnarl/s-linux__android.ads \
    s-osinte.adb<libgnarl/s-osinte__android.adb \
    s-osinte.ads<libgnarl/s-osinte__android.ads \
@@ -8,7 +8,7 @@
    s-osprim.adb<libgnat/s-osprim__posix.adb \
    s-taprop.adb<libgnarl/s-taprop__posix.adb \
    s-taspri.ads<libgnarl/s-taspri__posix.ads \
-@@ -1470,6 +1471,7 @@
+@@ -1695,6 +1696,7 @@
    s-osinte.adb<libgnarl/s-osinte__solaris.adb \
    s-osinte.ads<libgnarl/s-osinte__solaris.ads \
    s-osprim.adb<libgnat/s-osprim__solaris.adb \
@@ -16,16 +16,16 @@
    s-taprop.adb<libgnarl/s-taprop__solaris.adb \
    s-tasinf.adb<libgnarl/s-tasinf__solaris.adb \
    s-tasinf.ads<libgnarl/s-tasinf__solaris.ads \
-@@ -1502,6 +1504,8 @@
+@@ -1731,6 +1733,8 @@
    EXTRA_GNATRTL_NONTASKING_OBJS += $(TRASYM_DWARF_UNIX_OBJS)
  
    EH_MECHANISM=-gcc
 +  EXTRA_LIBGNAT_SRCS+= traceback_symbolic.c
 +  EXTRA_LIBGNAT_OBJS+= traceback_symbolic.o
-   THREADSLIB = -lposix4 -lthread
-   MISCLIB = -lposix4 -lnsl -lsocket
+   MISCLIB = -lnsl -lsocket
    SO_OPTS = -Wl,-h,
-@@ -1641,6 +1645,38 @@
+   GNATLIB_SHARED = gnatlib-shared-dual
+@@ -1873,6 +1877,34 @@
    LIBRARY_VERSION := $(LIB_VERSION)
  endif
  
@@ -49,22 +49,18 @@
 +
 +  TOOLS_TARGET_PAIRS = indepsw.adb<indepsw-gnu.adb
 +
-+  EXTRA_LIBGNAT_OBJS=
 +  EXTRA_GNATRTL_TASKING_OBJS=s-linux.o
-+  EXTRA_GNATRTL_NONTASKING_OBJS=
 +  EH_MECHANISM=-gcc
-+  THREADSLIB=
-+  MISCLIB=
-+  GMEM_LIB=
++  THREADSLIB =
++  MISCLIB =
 +  GNATLIB_SHARED = gnatlib-shared-dual
 +  LIBRARY_VERSION := $(LIB_VERSION)
 +endif
 +
-+
  # aarch64 FreeBSD
  ifeq ($(strip $(filter-out %aarch64 freebsd%,$(target_cpu) $(target_os))),)
    LIBGNAT_TARGET_PAIRS = \
-@@ -1650,7 +1686,9 @@
+@@ -1883,7 +1915,9 @@
    s-mudido.adb<libgnarl/s-mudido__affinity.adb \
    s-osinte.adb<libgnarl/s-osinte__freebsd.adb \
    s-osinte.ads<libgnarl/s-osinte__freebsd.ads \
@@ -74,7 +70,7 @@
    s-taprop.adb<libgnarl/s-taprop__posix.adb \
    s-taspri.ads<libgnarl/s-taspri__posix.ads \
    s-tpopsp.adb<libgnarl/s-tpopsp__posix.adb \
-@@ -1660,6 +1698,9 @@
+@@ -1896,6 +1930,9 @@
  
    GNATLIB_SHARED = gnatlib-shared-dual
  
@@ -84,7 +80,7 @@
    EH_MECHANISM=-gcc
    THREADSLIB= -lpthread
    GMEM_LIB = gmemlib
-@@ -1676,7 +1717,9 @@
+@@ -1912,7 +1949,9 @@
    s-mudido.adb<libgnarl/s-mudido__affinity.adb \
    s-osinte.adb<libgnarl/s-osinte__freebsd.adb \
    s-osinte.ads<libgnarl/s-osinte__freebsd.ads \
@@ -94,7 +90,7 @@
    s-taprop.adb<libgnarl/s-taprop__posix.adb \
    s-taspri.ads<libgnarl/s-taspri__posix.ads \
    s-tpopsp.adb<libgnarl/s-tpopsp__posix.adb \
-@@ -1687,6 +1730,8 @@
+@@ -1923,6 +1962,8 @@
  
    GNATLIB_SHARED = gnatlib-shared-dual
  
@@ -103,7 +99,7 @@
    EXTRA_GNATRTL_NONTASKING_OBJS += g-sse.o g-ssvety.o
    EXTRA_GNATRTL_NONTASKING_OBJS += $(TRASYM_DWARF_UNIX_OBJS)
  
-@@ -1706,7 +1751,9 @@
+@@ -1942,7 +1983,9 @@
    s-mudido.adb<libgnarl/s-mudido__affinity.adb \
    s-osinte.adb<libgnarl/s-osinte__freebsd.adb \
    s-osinte.ads<libgnarl/s-osinte__freebsd.ads \
@@ -113,7 +109,7 @@
    s-taprop.adb<libgnarl/s-taprop__posix.adb \
    s-taspri.ads<libgnarl/s-taspri__posix.ads \
    s-tpopsp.adb<libgnarl/s-tpopsp__posix.adb \
-@@ -1717,6 +1764,8 @@
+@@ -1954,6 +1997,8 @@
  
    GNATLIB_SHARED = gnatlib-shared-dual
  
@@ -121,8 +117,8 @@
 +  EXTRA_LIBGNAT_OBJS+= traceback_symbolic.o
    EXTRA_GNATRTL_NONTASKING_OBJS += g-sse.o g-ssvety.o
    EXTRA_GNATRTL_NONTASKING_OBJS += $(TRASYM_DWARF_UNIX_OBJS)
- 
-@@ -1736,17 +1785,23 @@
+   EXTRA_GNATRTL_NONTASKING_OBJS += $(GNATRTL_128BIT_OBJS)
+@@ -1974,10 +2019,13 @@
    s-mudido.adb<libgnarl/s-mudido__affinity.adb \
    s-osinte.adb<libgnarl/s-osinte__dragonfly.adb \
    s-osinte.ads<libgnarl/s-osinte__dragonfly.ads \
@@ -135,21 +131,21 @@
 +  $(TRASYM_DWARF_UNIX_PAIRS) \
    $(ATOMICS_TARGET_PAIRS) \
    $(X86_64_TARGET_PAIRS) \
-   system.ads<libgnat/system-dragonfly-x86_64.ads
+   $(GNATRTL_128BIT_PAIRS) \
+@@ -1985,7 +2033,10 @@
  
    GNATLIB_SHARED = gnatlib-shared-dual
  
--  EXTRA_GNATRTL_NONTASKING_OBJS=g-sse.o g-ssvety.o
 +  EXTRA_LIBGNAT_SRCS+= traceback_symbolic.c
 +  EXTRA_LIBGNAT_OBJS+= traceback_symbolic.o
-+  EXTRA_GNATRTL_NONTASKING_OBJS += g-sse.o g-ssvety.o
+   EXTRA_GNATRTL_NONTASKING_OBJS += g-sse.o g-ssvety.o
 +  EXTRA_GNATRTL_NONTASKING_OBJS += $(TRASYM_DWARF_UNIX_OBJS)
+   EXTRA_GNATRTL_NONTASKING_OBJS += $(GNATRTL_128BIT_OBJS)
  
    EH_MECHANISM=-gcc
-   THREADSLIB= -lpthread
 --- gcc/ada/adaint.c.orig
 +++ gcc/ada/adaint.c
-@@ -1190,6 +1190,47 @@
+@@ -1245,6 +1245,47 @@
      free (pname);
    }
  
@@ -197,50 +193,6 @@
  #elif defined (__linux__) || defined (__FreeBSD__) || defined (__NetBSD__) \
    || defined (__OpenBSD__) || defined (__GLIBC__) || defined (__ANDROID__) \
    || defined (__DragonFly__) || defined (__QNX__)
---- gcc/ada/cio.c.orig
-+++ gcc/ada/cio.c
-@@ -49,7 +49,7 @@
- 
- /* Don't use macros on GNU/Linux since they cause incompatible changes between
-    glibc 2.0 and 2.1 */
--#ifdef __linux__
-+#if defined __linux__ && !defined __ANDROID__
- #undef putchar
- #undef getchar
- #undef fputc
---- gcc/ada/cstreams.c.orig
-+++ gcc/ada/cstreams.c
-@@ -67,7 +67,7 @@
- extern "C" {
- #endif
- 
--#ifdef __linux__
-+#if defined __linux__ && !defined __ANDROID__
- /* Don't use macros on GNU/Linux since they cause incompatible changes between
-    glibc 2.0 and 2.1 */
- 
---- gcc/ada/gnatchop.adb.orig
-+++ gcc/ada/gnatchop.adb
-@@ -44,7 +44,7 @@
-    Config_File_Name : constant String_Access := new String'("gnat.adc");
-    --  The name of the file holding the GNAT configuration pragmas
- 
--   Gcc : String_Access := new String'("gcc");
-+   Gcc : String_Access := new String'("ada");
-    --  May be modified by switch --GCC=
- 
-    Gcc_Set : Boolean := False;
---- gcc/ada/gnatlink.adb.orig
-+++ gcc/ada/gnatlink.adb
-@@ -136,7 +136,7 @@
-    --  This table collects the arguments to be passed to compile the binder
-    --  generated file.
- 
--   Gcc : String_Access := Program_Name ("gcc", "gnatlink");
-+   Gcc : String_Access := Program_Name ("ada", "gnatlink");
- 
-    Read_Mode : constant String := "r" & ASCII.NUL;
- 
 --- gcc/ada/gnatls.adb.orig
 +++ gcc/ada/gnatls.adb
 @@ -32,7 +32,6 @@
@@ -251,7 +203,7 @@
  with Namet;       use Namet;
  with Opt;         use Opt;
  with Osint;       use Osint;
-@@ -1285,31 +1284,10 @@
+@@ -1286,31 +1285,10 @@
           --  The path name(s) of directories where project files may reside.
           --  May be empty.
  
@@ -284,7 +236,7 @@
  
        --  Start of processing for Initialize_Default_Project_Path
  
-@@ -1493,81 +1471,15 @@
+@@ -1494,81 +1472,14 @@
           --  Set the initial value of Current_Project_Path
  
           if Add_Default_Dir then
@@ -325,7 +277,7 @@
 -                          new String'(Normalize_Pathname (Runtime_Name));
 -
 -                        --  $runtime_dir/lib/gnat
- 
+-
 -                        Add_Str_To_Name_Buffer
 -                          (Path_Separator & Runtime.all & Directory_Separator &
 -                           "lib" & Directory_Separator & "gnat");
@@ -373,17 +325,6 @@
           end if;
  
           Self := new String'(Name_Buffer (1 .. Name_Len));
---- gcc/ada/make.adb.orig
-+++ gcc/ada/make.adb
-@@ -445,7 +445,7 @@
-    -- Compiler, Binder & Linker Data and Subprograms --
-    ----------------------------------------------------
- 
--   Gcc      : String_Access := Program_Name ("gcc", "gnatmake");
-+   Gcc      : String_Access := Program_Name ("ada", "gnatmake");
-    Gnatbind : String_Access := Program_Name ("gnatbind", "gnatmake");
-    Gnatlink : String_Access := Program_Name ("gnatlink", "gnatmake");
-    --  Default compiler, binder, linker programs
 --- gcc/ada/terminals.c.orig
 +++ gcc/ada/terminals.c
 @@ -34,7 +34,7 @@
@@ -395,7 +336,7 @@
  
  void *
  __gnat_new_tty (void)
-@@ -1099,7 +1099,7 @@
+@@ -1095,7 +1095,7 @@
   || defined (__OpenBSD__) \
   || defined (__NetBSD__)  \
   || defined (__DragonFly__)
@@ -404,7 +345,7 @@
  #endif
  
  /* Include every system header we need */
-@@ -1115,21 +1115,25 @@
+@@ -1111,21 +1111,25 @@
  #include <sys/types.h>
  #include <sys/wait.h>
  #include <unistd.h>
@@ -433,7 +374,7 @@
  #   define bzero(s,n) memset (s,0,n)
  #endif
  
-@@ -1147,11 +1151,11 @@
+@@ -1143,11 +1147,11 @@
  */
  
  /* Configurable part */
@@ -448,7 +389,7 @@
  #define USE_CLONE_DEVICE "/dev/ptmx"
  #elif defined (_AIX)
  #define USE_CLONE_DEVICE "/dev/ptc"
-@@ -1437,7 +1441,7 @@
+@@ -1433,7 +1437,7 @@
      desc->slave_fd = open (desc->slave_name, O_RDWR, 0);
  #endif
  
@@ -733,7 +674,7 @@
 +   function Syscall_Recv
 +     (S     : C.int;
 +      Msg   : System.Address;
-+      Len   : C.int;
++      Len   : C.size_t;
 +      Flags : C.int) return C.int;
 +   pragma Import (C, Syscall_Recv, "recv");
 +   --  The recv() function receives a message from a socket.  The call can be
@@ -745,7 +686,7 @@
 +   function Syscall_Recvfrom
 +     (S       : C.int;
 +      Msg     : System.Address;
-+      Len     : C.int;
++      Len     : C.size_t;
 +      Flags   : C.int;
 +      From    : System.Address;
 +      Fromlen : not null access C.int) return C.int;
@@ -781,7 +722,7 @@
 +   function Syscall_Sendto
 +     (S     : C.int;
 +      Msg   : System.Address;
-+      Len   : C.int;
++      Len   : C.size_t;
 +      Flags : C.int;
 +      To    : System.Address;
 +      Tolen : C.int) return C.int;
@@ -882,7 +823,7 @@
 +   function C_Recv
 +     (S     : C.int;
 +      Msg   : System.Address;
-+      Len   : C.int;
++      Len   : C.size_t;
 +      Flags : C.int) return C.int
 +   is
 +   begin
@@ -896,7 +837,7 @@
 +   function C_Recvfrom
 +     (S       : C.int;
 +      Msg     : System.Address;
-+      Len     : C.int;
++      Len     : C.size_t;
 +      Flags   : C.int;
 +      From    : System.Address;
 +      Fromlen : not null access C.int) return C.int
@@ -938,7 +879,7 @@
 +   function C_Sendto
 +     (S     : C.int;
 +      Msg   : System.Address;
-+      Len   : C.int;
++      Len   : C.size_t;
 +      Flags : C.int;
 +      To    : System.Address;
 +      Tolen : C.int) return C.int
@@ -1022,7 +963,7 @@
 +end GNAT.Sockets.Thin;
 --- /dev/null
 +++ gcc/ada/libgnat/s-trasym__bsd.adb
-@@ -0,0 +1,175 @@
+@@ -0,0 +1,171 @@
 +------------------------------------------------------------------------------
 +--                                                                          --
 +--                         GNAT RUN-TIME COMPONENTS                         --
@@ -1058,10 +999,6 @@
 +--  This file is based on the work by Juergen Pfiefer which is still used
 +--  today to provide symbolic traceback support for gnu/kFreeBSD.
 +--  Incorporated in GNAT-AUX by John Marino <http://www.dragonlace.net>
-+
-+pragma Polling (Off);
-+--  We must turn polling off for this unit, because otherwise we can get
-+--  elaboration circularities when polling is turned on.
 +
 +with Ada.Exceptions.Traceback; use Ada.Exceptions.Traceback;
 +with System.Soft_Links;
@@ -1200,7 +1137,7 @@
 +end System.Traceback.Symbolic;
 --- gcc/ada/gcc-interface/Make-lang.in.orig
 +++ gcc/ada/gcc-interface/Make-lang.in
-@@ -627,7 +627,7 @@
+@@ -640,7 +640,7 @@
   ada/widechar.o
  
  # Language-independent object files.
@@ -1211,7 +1148,7 @@
  TARGET_ADA_SRCS =
 --- gcc/ada/init.c.orig
 +++ gcc/ada/init.c
-@@ -2643,8 +2643,15 @@
+@@ -2648,8 +2648,15 @@
  {
    mcontext_t *mcontext = &((ucontext_t *) ucontext)->uc_mcontext;
  

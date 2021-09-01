@@ -1,11 +1,11 @@
 --- gcc/config/darwin.h.orig
 +++ gcc/config/darwin.h
-@@ -237,7 +237,7 @@
+@@ -290,7 +290,7 @@
     multiple times on a command line with different arguments each time,
     so put a * after their names so all of them get passed.  */
  #define LINK_SPEC  \
 -  "%{static}%{!static:-dynamic} \
-+  "%{static}%{!static:-dynamic -rpath @PREFIX@/lib:@LOCALBASE@/lib} \
++  "%{static}%{!static:-dynamic -rpath @PREFIX@/@GCCAUX@/lib:@LOCALBASE@/lib} \
     %:remove-outfile(-ldl) \
     %:remove-outfile(-lm) \
     %:remove-outfile(-lpthread) \
@@ -16,7 +16,7 @@
     %{static:-Bstatic} \
    } \
 -  %{!static:--hash-style=gnu} \
-+  %{!static:--hash-style=gnu --enable-new-dtags -rpath @PREFIX@/lib:@LOCALBASE@/lib} \
++  %{!static:--hash-style=gnu --enable-new-dtags -rpath @PREFIX@/@GCCAUX@/lib:@LOCALBASE@/lib} \
    %{symbolic:-Bsymbolic}"
  
  #undef  LINK_SPEC
@@ -29,11 +29,11 @@
  /* Use --as-needed -lgcc_s for eh support.  */
 --- gcc/config/sol2.h.orig
 +++ gcc/config/sol2.h
-@@ -421,6 +421,7 @@
+@@ -418,6 +418,7 @@
     %{static:-dn -Bstatic} \
     %{shared:-G -dy %{!mimpure-text:-z text}} " \
     LINK_LIBGCC_MAPFILE_SPEC LINK_CLEARCAP_SPEC " \
-+   %{!static:-R/lib/amd64:@PREFIX@/lib/amd64:@LOCALBASE@/lib} \
++   %{!static:-R/lib/amd64:@PREFIX@/@GCCAUX@/lib/amd64:@LOCALBASE@/lib} \
     %{symbolic:-Bsymbolic -G -dy -z text} \
     %(link_arch) \
     %{Qy:} %{!Qn:-Qy}"
@@ -44,11 +44,11 @@
      %{symbolic:-Bsymbolic}                                      \
      %{static:-Bstatic}                                          \
 -    %{!static:                                                  \
-+    %{!static:--hash-style=gnu --enable-new-dtags -rpath @PREFIX@/lib:@LOCALBASE@/lib \
++    %{!static:--hash-style=gnu --enable-new-dtags -rpath @PREFIX@/@GCCAUX@/lib:@LOCALBASE@/lib \
        %{rdynamic:-export-dynamic}                               \
        %{!shared:-dynamic-linker " FBSD_DYNAMIC_LINKER " }}      \
      -X" SUBTARGET_EXTRA_LINK_SPEC "                             \
-@@ -99,4 +99,6 @@
+@@ -81,4 +81,6 @@
  #undef MCOUNT_NAME
  #define MCOUNT_NAME ".mcount"
  
@@ -61,21 +61,23 @@
          %{rdynamic:-export-dynamic} \
          -dynamic-linker %(fbsd_dynamic_linker) } \
      %{static:-Bstatic}} \
-+  %{!static:--hash-style=gnu --enable-new-dtags -rpath @PREFIX@/lib:@LOCALBASE@/lib} \
++  %{!static:--hash-style=gnu --enable-new-dtags -rpath @PREFIX@/@GCCAUX@/lib:@LOCALBASE@/lib} \
    %{symbolic:-Bsymbolic}"
  
  /* A C statement to output to the stdio stream FILE an assembler
 --- gcc/config/i386/freebsd64.h.orig
 +++ gcc/config/i386/freebsd64.h
-@@ -41,4 +41,5 @@
+@@ -41,6 +41,7 @@
          %{rdynamic:-export-dynamic} \
  	-dynamic-linker %(fbsd_dynamic_linker) } \
      %{static:-Bstatic}} \
-+  %{!static:--hash-style=gnu -rpath @PREFIX@/lib:@LOCALBASE@/lib} \
++  %{!static:--hash-style=gnu -rpath @PREFIX@/@GCCAUX@/lib:@LOCALBASE@/lib} \
    %{symbolic:-Bsymbolic}"
+ 
+ #undef	MULTILIB_DEFAULTS
 --- gcc/Makefile.in.orig
 +++ gcc/Makefile.in
-@@ -1225,7 +1225,6 @@
+@@ -1290,7 +1290,6 @@
  	insn-emit.o \
  	insn-extract.o \
  	insn-latencytab.o \
@@ -83,7 +85,7 @@
  	insn-opinit.o \
  	insn-output.o \
  	insn-peep.o \
-@@ -1637,6 +1636,7 @@
+@@ -1727,6 +1726,7 @@
    $(OBJS-libcommon-target) main.o c-family/cppspec.o \
    $(COLLECT2_OBJS) $(EXTRA_GCC_OBJS) $(GCOV_OBJS) $(GCOV_DUMP_OBJS) \
    $(GCOV_TOOL_OBJS) $(GENGTYPE_OBJS) gcc-ar.o gcc-nm.o gcc-ranlib.o \
@@ -91,7 +93,7 @@
    lto-wrapper.o collect-utils.o
  
  # for anything that is shared use the cc1plus profile data, as that
-@@ -1652,6 +1652,11 @@
+@@ -1742,6 +1742,11 @@
  ALL_HOST_OBJS = $(ALL_HOST_FRONTEND_OBJS) $(ALL_HOST_BACKEND_OBJS)
  
  BACKEND = libbackend.a main.o libcommon-target.a libcommon.a \
@@ -103,7 +105,7 @@
  	$(CPPLIB) $(LIBDECNUMBER)
  
  # This is defined to "yes" if Tree checking is enabled, which roughly means
-@@ -2362,6 +2367,7 @@
+@@ -2482,6 +2487,7 @@
  
  insn-modes.c: s-modes; @true
  insn-modes.h: s-modes-h; @true
@@ -111,7 +113,7 @@
  insn-modes-inline.h: s-modes-inline-h; @true
  min-insn-modes.c: s-modes-m; @true
  
-@@ -2386,6 +2392,12 @@
+@@ -2506,6 +2512,12 @@
  	$(SHELL) $(srcdir)/../move-if-change tmp-min-modes.c min-insn-modes.c
  	$(STAMP) s-modes-m
  
@@ -124,7 +126,7 @@
  insn-preds.c: s-preds; @true
  tm-preds.h: s-preds-h; @true
  tm-constrs.h: s-constrs-h; @true
-@@ -3617,6 +3629,9 @@
+@@ -3759,6 +3771,9 @@
  	    ( cd $(DESTDIR)$(bindir) && \
  	      $(LN) $(GCC_INSTALL_NAME)$(exeext) $(FULL_DRIVER_NAME) ); \
  	  fi; \
@@ -140,13 +142,13 @@
                     %{" SPEC_32 ":-m " GNU_USER_LINK_EMULATION32 "} \
                     %{" SPEC_X32 ":-m " GNU_USER_LINK_EMULATIONX32 "} \
    %{shared:-shared} \
-+  %{!static:--enable-new-dtags -rpath @PREFIX@/lib64:@LOCALBASE@/lib} \
++  %{!static:--enable-new-dtags -rpath @PREFIX@/@GCCAUX@/lib64:@LOCALBASE@/lib} \
    %{!shared: \
      %{!static: \
        %{!static-pie: \
 --- gcc/gcc.c.orig
 +++ gcc/gcc.c
-@@ -1513,6 +1513,9 @@
+@@ -1631,6 +1631,9 @@
  static const char *const standard_startfile_prefix_2
    = STANDARD_STARTFILE_PREFIX_2;
  
@@ -156,7 +158,7 @@
  /* A relative path to be used in finding the location of tools
     relative to the driver.  */
  static const char *const tooldir_base_prefix = TOOLDIR_BASE_PREFIX;
-@@ -4695,6 +4698,8 @@
+@@ -5282,6 +5285,8 @@
  #endif
        add_prefix (&startfile_prefixes, standard_exec_prefix, "BINUTILS",
  		  PREFIX_PRIORITY_LAST, 1, 0);
