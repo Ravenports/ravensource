@@ -23,7 +23,10 @@ FPC_EQUIVALENT=		devel/orc
 
 USES=			meson pkgconfig
 INSTALL_TARGET=		install-strip
+LDFLAGS=		-lm
 SOVERSION=		${SOVERSION}
+
+VAR_OPSYS[dragonfly]=	LDFLAGS=-Wl,-z,origin
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
