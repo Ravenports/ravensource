@@ -10,6 +10,9 @@ SDESC[standard]=	Free Concurrent Versions System implementation
 HOMEPAGE=		https://www.openbsd.org/opencvs/index.html
 CONTACT=		Leonid_Bobrov[goleo@disroot.org]
 
+# This repository was deleted.  This port may need to be removed.
+# This distfile is cached by Ravenports
+
 DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/OrangeGrayCyan:cvs:${RELEASE_TAG}
 DISTFILE[1]=		generated:main
@@ -35,6 +38,7 @@ BR_DEPS[linux]=		libbsd:single:standard
 USES=			pkgconfig
 MAKE_ARGS=		MK_AUTO_OBJ=no
 			MK_STAGING=no
+CFLAGS=			-fcommon
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/cvs ${STAGEDIR}${PREFIX}/bin
