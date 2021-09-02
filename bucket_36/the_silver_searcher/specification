@@ -33,6 +33,9 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		LZMA_LIBS=-llzma
 LDFLAGS=		-llzma
 
+# fix for gcc11 (try without on next update)
+CPPFLAGS=		-fcommon
+
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/bash_completion.d
 	${MV} ${STAGEDIR}${PREFIX}/share/the_silver_searcher/completions/ag.bashcomp.sh \
