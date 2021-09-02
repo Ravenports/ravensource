@@ -34,5 +34,8 @@ INSTALL_REQ_TOOLCHAIN=	yes
 
 SOVERSION=		${PORTVERSION}
 
+post-patch:
+	${REINPLACE_CMD} -e '/-Werror/d' ${WRKSRC}/Makefile
+
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libcss.so.${PORTVERSION}
