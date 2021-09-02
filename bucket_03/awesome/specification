@@ -45,6 +45,9 @@ USES=			cmake gmake lua pkgconfig
 GNOME_COMPONENTS=	cairo gdkpixbuf pango
 CMAKE_ARGS=		-DSYSCONFDIR={{PREFIX}}/etc
 
+# will not build on gcc11 without this (test removal on next version)
+CFLAGS=			-fcommon
+
 SUB_FILES=		pkg-message-primary
 
 VAR_OPSYS[linux]=	LDFLAGS=-ldl
