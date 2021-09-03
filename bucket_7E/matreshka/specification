@@ -32,6 +32,9 @@ MAKE_ENV=		SMP_MFLAGS=-j{{MAKE_JOBS_NUMBER}}
 PLIST_SUB=		LIBSUFFIX=${LIBSUFFIX}
 SOVERSION=		${PORTVERSION}
 
+
+BROKEN[all]=		Builds everything over and over
+
 [AMF].DESCRIPTION=			Build Ada Modeling Framework
 [ORACLE].DESCRIPTION=			Oracle database support
 
@@ -55,6 +58,11 @@ post-patch:
 		${WRKSRC}/tools/configure/configure-tests-mysql.adb \
 		${WRKSRC}/tools/configure/configure-tests-postgresql.adb \
 		${WRKSRC}/tools/configure/configure-tests-sqlite3.adb
+	# Added for gcc 11
+	${REINPLACE_CMD} -e "/No_Elaboration_Code/d" \
+		${WRKSRC}/source/league/ucd/matreshka-internals-unicode-ucd-core.ads \
+		${WRKSRC}/source/league/ucd/matreshka-internals-unicode-ucd-cases.ads \
+		${WRKSRC}/source/league/ucd/matreshka-internals-unicode-ucd-colls.ads
 
 pre-configure:
 	(cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} ${MAKE_CMD} config)
