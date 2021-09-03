@@ -30,15 +30,17 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		databases/apq-mysql
 
+BROKEN[all]=		Only builds with mysql 5.6 which is getting removed
+
 # BROKEN_MYSQL=		oracle-5.5 oracle-5.7
 # Since this is broken on 2 of the 3 supported MySQL-oracle releases,
 # just hardcode a build dependency on mysql 5.6 rather than USES=mysql
 
 BUILD_DEPENDS=		bash:primary:standard
-			mysql56:client:standard
+# #			mysql56:client:standard
 BUILDRUN_DEPENDS=	apq-base:single:standard
 
-USES=			gprbuild execinfo zlib
+USES=			gprbuild execinfo zlib mysql
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--prefix={{PREFIX}}
 			--disable-relocatable
