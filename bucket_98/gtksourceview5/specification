@@ -14,7 +14,8 @@ SITES[main]=		GNOME/gtksourceview/${PORTVERSION:R}
 DISTFILE[1]=		gtksourceview-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome3
 
-SPKGS[standard]=	complete primary nls docs
+# disable docs (since gcc11)
+SPKGS[standard]=	complete primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -32,12 +33,14 @@ BUILD_DEPENDS=		vala:single:standard
 BUILDRUN_DEPENDS=	pcre2:primary:standard
 
 USES=			meson pkgconfig gettext-tools gtk-doc
-GNOME_COMPONENTS=	cairo gdkpixbuf gtk4 introspection libxml2
+GNOME_COMPONENTS=	cairo gdkpixbuf gtk4 libxml2
 DISTNAME=		gtksourceview-${PORTVERSION}
 MESON_ARGS=		-Dglade_catalog=false
 			-Dinstall_tests=false
 			-Dgir=true
 			-Dvapi=true
-			-Dgtk_doc=true
+# #			-Dgtk_doc=true
+			-Dgtk_doc=false
+			-Dintrospection=disabled
 INSTALL_REQ_TOOLCHAIN=	yes
 GTKDOC_OUTPUT_BASEDIR=	gtksourceview-5.0
