@@ -30,6 +30,8 @@ LICENSE_SCHEME=		solo
 
 USES=			gmake
 CFLAGS=			-fPIC
+# required to fix build on gcc-11.  Try removing upon new version
+			-fcommon
 MAKE_ARGS=		CC="{{CC}}"
 			LD="{{CC}}"
 			CFLAGS="{{CFLAGS}}"
