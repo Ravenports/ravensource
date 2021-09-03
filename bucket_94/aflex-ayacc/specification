@@ -23,8 +23,6 @@ LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/afay/aflex/README
 LICENSE_NAME=		CUSTOM1:"Arcadia Project, U.C. Irvine"
 LICENSE_SCHEME=		solo
 
-# FPC_EQUIVALENT=		devel/afay (removed)
-
 BUILD_DEPENDS=		bash:primary:static
 
 EXTRACT_DIRTY=		1
@@ -40,7 +38,7 @@ do-build:
 		${SETENV} ${MAKE_ENV} ${SH} ./README)
 
 do-install:
-	@${MKDIR} ${STAGEDIR}${STD_DOCDIR} \
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR} \
 		${STAGEDIR}${STD_EXAMPLESDIR}/ada_parser \
 		${STAGEDIR}${STD_EXAMPLESDIR}/calc
 	${INSTALL_PROGRAM} ${WRKSRC}/afay/aflex/src/aflex \
