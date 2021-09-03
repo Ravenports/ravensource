@@ -7,6 +7,7 @@ DEF[ADDL_RPATH]=	{{LOCALBASE}}/lib:{{OPENSSLLIB}}
 
 NAMEBASE=		aws
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		www ada
 VARIANTS=		standard
 SDESC[standard]=	Adacore Ada Web Server and framework
@@ -33,7 +34,6 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		www/aws
 
 BUILD_DEPENDS=		python-Sphinx:single:python_default
-			asis:primary:standard
 BUILDRUN_DEPENDS=	xmlada:primary:standard
 
 USES=			ada:primary gmake gprbuild python:py27,build shebangfix
@@ -51,7 +51,7 @@ CONFIGURE_ARGS=		prefix={{PREFIX}}
 			SOCKET=openssl
 			LPATH={{OPENSSLLIB}}
 			ZLIB=false
-			ASIS=true
+			ASIS=false
 			CFLAGS=-I{{OPENSSLINC}}
 
 [SHARED].DESCRIPTION=			Build shared libraries in addition to static ones
