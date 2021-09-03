@@ -34,7 +34,8 @@ BUILDRUN_DEPENDS=	libepoxy:single:standard
 USES=			gettext-tools gmake pkgconfig gnome-icons:primary
 			schemas:primary perl:build python:build
 			cpe meson gtk-doc
-GNOME_COMPONENTS=	atk cairo gdkpixbuf pango introspection
+# removed introspection
+GNOME_COMPONENTS=	atk cairo gdkpixbuf pango
 XORG_COMPONENTS=	xext x11 xinerama xi xrandr xcursor xfixes
 			xdamage xcomposite
 CPE_VENDOR=		gtk
@@ -47,6 +48,8 @@ MESON_ARGS=		-Dx11-backend=true
 			-Dmedia-gstreamer=disabled
 			-Dvulkan=disabled
 			-Dman-pages=true
+# #			introspection segfaults with gcc11
+			-Dintrospection=disabled
 # #			if gtk_doc is true, we need mandoc
 			-Dgtk_doc=false
 PLIST_SUB=		GTK_VERSION=${GTK_VERSION}
