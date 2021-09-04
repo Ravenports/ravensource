@@ -1,4 +1,4 @@
---- coreconf/FreeBSD.mk.orig	2021-07-08 18:01:32 UTC
+--- coreconf/FreeBSD.mk.orig	2021-08-26 19:01:21 UTC
 +++ coreconf/FreeBSD.mk
 @@ -5,9 +5,9 @@
  
