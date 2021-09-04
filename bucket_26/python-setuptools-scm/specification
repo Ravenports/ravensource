@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.0.1
+DEF[PORTVERSION]=	6.3.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-setuptools-scm
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/pypa/setuptools_scm/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/c4/d5/e50358c82026f44cd8810c8165002746cd3f8b78865f6bcf5d7f0fe4f652
+SITES[main]=		PYPIWHL/63/c1/222d695c331e6d40c6ec8676e366f5c6db947c9321448ca336b4456ee2ff
 DISTFILE[1]=		setuptools_scm-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
@@ -29,11 +29,18 @@ GENERATED=		yes
 DISTNAME=		setuptools_scm-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# setuptools (>=45)
-# toml ; extra == 'toml'
+# packaging (>=20.0)
+# setuptools
+# tomli (>=1.0.0)
+# setuptools (>=42) ; extra == 'toml'
+# tomli (>=1.0.0) ; extra == 'toml'
 
 [PY38].USES_ON=				python:py38,wheel
-[PY38].RUN_DEPENDS_ON=			python-setuptools:single:py38
+[PY38].RUN_DEPENDS_ON=			python-packaging:single:py38
+					python-setuptools:single:py38
+					python-tomli:single:py38
 [PY39].USES_ON=				python:py39,wheel
-[PY39].RUN_DEPENDS_ON=			python-setuptools:single:py39
+[PY39].RUN_DEPENDS_ON=			python-packaging:single:py39
+					python-setuptools:single:py39
+					python-tomli:single:py39
 

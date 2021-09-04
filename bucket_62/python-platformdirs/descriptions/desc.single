@@ -41,6 +41,7 @@ platformdirs will help you choose an appropriate:
 - site data dir (site_data_dir)
 - site config dir (site_config_dir)
 - user log dir (user_log_dir)
+- user runtime dir (user_runtime_dir)
 
 And also:
 
@@ -68,6 +69,8 @@ On macOS:
     '/Users/trentm/Library/Caches/SuperApp'
     >>> user_log_dir(appname, appauthor)
     '/Users/trentm/Library/Logs/SuperApp'
+    >>> user_runtime_dir(appname, appauthor)
+    '/Users/trentm/Library/Caches/TemporaryItems/SuperApp'
 
 On Windows 7:
 
@@ -84,6 +87,8 @@ On Windows 7:
     'C:\\Users\\trentm\\AppData\\Local\\Acme\\SuperApp\\Cache'
     >>> user_log_dir(appname, appauthor)
     'C:\\Users\\trentm\\AppData\\Local\\Acme\\SuperApp\\Logs'
+    >>> user_runtime_dir(appname, appauthor)
+    'C:\\Users\\trentm\\AppData\\Local\\Temp\\Acme\\SuperApp'
 
 On Linux:
 
@@ -93,8 +98,3 @@ On Linux:
     >>> appname = "SuperApp"
     >>> appauthor = "Acme"
     >>> user_data_dir(appname, appauthor)
-    '/home/trentm/.local/share/SuperApp
-    >>> site_data_dir(appname, appauthor)
-    '/usr/local/share/SuperApp'
-    >>> site_data_dir(appname, appauthor, multipath=True)
-    '/usr/local/share/SuperApp:/usr/share/SuperApp'

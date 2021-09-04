@@ -33,9 +33,7 @@ built step by specifying it as one of the build requirements.
 
     # pyproject.toml
     [build-system]
-    requires = ["setuptools>=42", "wheel", "setuptools_scm[toml]>=3.4"]
-
-Note that the toml extra must be supplied.
+    requires = ["setuptools>=45", "wheel", "setuptools_scm>=6.2"]
 
 That will be sufficient to require setuptools_scm for projects
 that support PEP 518 ([pip] and
@@ -62,13 +60,17 @@ to be supplied to ``get_version()``. For example:
     # pyproject.toml
 
     [tool.setuptools_scm]
-    write_to = "pkg/version.py"
+    write_to = "pkg/_version.py"
 
-``setup.py`` usage
-------------------
+``setup.py`` usage (deprecated)
+-------------------------------
+
+.. warning::
+
+   setup_requires has been deprecated in favor of ``pyproject.toml
 
 The following settings are considered legacy behavior and
-superseded by the ``pyproject.toml`` usage, but for maximal
+superseded by the pyproject.toml`` usage, but for maximal
 compatibility, projects may also supply the configuration in
 this older form.
 
@@ -96,5 +98,3 @@ use_scm_version. For example:
 .. code:: python
 
     from setuptools import setup
-    setup(
-        ...,
