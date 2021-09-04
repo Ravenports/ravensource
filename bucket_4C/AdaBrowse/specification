@@ -28,20 +28,20 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		textproc/adabrowse
 
 BUILD_DEPENDS=		asis:primary:standard
+			gcc10:complete:standard
 
-USES=			gprbuild
+USES=			gprbuild dos2unix
 DISTNAME=		adabrowse_${PORTVERSION}
 
 post-extract:
 	${CP} ${FILESDIR}/ad-* ${FILESDIR}/build.gpr ${WRKSRC}
 	${RM} ${WRKSRC}/sdefault.adb
-	${REINPLACE_CMD} -e '/Linker_Options/d' ${WRKSRC}/util-pipes.adb
 
 do-build:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -p -P build)
 
 do-install:
-	@${MKDIR} ${STAGEDIR}/${STD_DOCDIR}
+	${MKDIR} ${STAGEDIR}/${STD_DOCDIR}
 	${INSTALL_PROGRAM} ${WRKSRC}/adabrowse \
 		${STAGEDIR}${PREFIX}/bin/adabrowse
 	${INSTALL_DATA} ${WRKSRC}/doc/*.html ${WRKSRC}/doc/*.css \
