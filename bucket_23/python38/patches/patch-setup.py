@@ -1,4 +1,4 @@
---- setup.py.orig	2021-06-28 10:08:34 UTC
+--- setup.py.orig	2021-08-30 14:26:41 UTC
 +++ setup.py
 @@ -26,7 +26,10 @@ TEST_EXTENSIONS = True
  
@@ -32,7 +32,7 @@
  
          curses_enabled = True
          if curses_library.startswith('ncurses'):
-@@ -1457,7 +1454,7 @@ class PyBuildExt(build_ext):
+@@ -1459,7 +1456,7 @@ class PyBuildExt(build_ext):
              self.missing.extend(['resource', 'termios'])
  
          # Platform-specific libraries
