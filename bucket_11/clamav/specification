@@ -1,6 +1,6 @@
-DEF[PORTVERSION]=	0.103.3
-DEF[SOVERSION]=		9.0.5
-DEF[FRESH_SOVERSION]=	2.0.1
+DEF[PORTVERSION]=	0.104.0
+DEF[SOVERSION]=		9.1.0
+DEF[FRESH_SOVERSION]=	2.0.2
 DEF[DBDIR]=		/var/db/clamav
 DEF[LOGDIR]=		/var/log/clamav
 DEF[RUNDIR]=		/var/run/clamav
@@ -26,7 +26,7 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 LICENSE=		GPLv2:primary
-LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING.txt
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"HAVE_CONFIG_H"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/clamscan/clamscan.c
@@ -38,6 +38,7 @@ FPC_EQUIVALENT=		security/clamav
 # so it can't be implemented until there is a sendmail port I think.
 
 BUILD_DEPENDS=		json-c:primary:standard
+			doxygen:single:standard
 BUILDRUN_DEPENDS=	curl:primary:standard
 			libltdl:single:standard
 			libmspack:single:standard
@@ -67,28 +68,26 @@ SUB_LIST=		CHMOD={{CHMOD}}
 			LOGDIR=${LOGDIR}
 			RUNDIR=${RUNDIR}
 
-USES=			cpe gmake libtool ncurses pkgconfig ssl iconv zlib
+USES=			cpe cmake ncurses pkgconfig ssl iconv zlib
 			bz2 c++:primary
 GNOME_COMPONENTS=	libxml2
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--libdir={{PREFIX}}/lib
-			--enable-ipv6
-			--enable-unrar
-			--enable-bigstack
-			--enable-clamdtop
-			--with-pcre
-			--with-iconv
-			--with-dbdir="${DBDIR}"
-			--with-xml="{{LOCALBASE}}"
-			--with-libcurl="{{LOCALBASE}}"
-			--with-openssl="{{OPENSSLBASE}}"
-			--with-libjson="{{LOCALBASE}}"
-			--with-libjson-static="{{LOCALBASE}}/lib/libjson-c_pic.a"
-			--with-system-libmspack="{{LOCALBASE}}/lib/libmspack.so"
-			--disable-check
-			--disable-milter
-INSTALL_TARGET=		install-strip
-INSTALL_REQ_TOOLCHAIN=	yes
+CMAKE_ARGS=		-DCLAMAV_USER:STRING="${CLAMAV_USER}"
+			-DCLAMAV_GROUP:STRING="${CLAMAV_GROUP}"
+			-DENABLE_EXTERNAL_MSPACK:BOOL=TRUE
+			-DENABLE_TESTS:BOOL=FALSE
+			-DENABLE_WERROR:BOOL=FALSE
+			-DENABLE_ALL_THE_WARNINGS:BOOL=FALSE
+			-DENABLE_DEBUG:BOOL=FALSE
+			-DENABLE_EXPERIMENTAL:BOOL=FALSE
+			-DENABLE_FRESHCLAM_DNS_FIX:BOOL=TRUE
+			-DENABLE_FRESHCLAM_NO_CACHE:BOOL=TRUE
+			-DENABLE_MILTER:BOOL=FALSE
+			-DENABLE_MAN_PAGES:BOOL=TRUE
+			-DENABLE_DOXYGEN:BOOL=TRUE
+			-DENABLE_EXAMPLES:BOOL=TRUE
+			-DENABLE_JSON_SHARED:BOOL=FALSE
+			-DENABLE_UNRAR:BOOL=TRUE
+			-DENABLE_SYSTEMD:BOOL=TRUE
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		CLAMAVGROUP=${CLAMAV_GROUP}
 			CLAMAVUSER=${CLAMAV_USER}
@@ -97,11 +96,6 @@ PLIST_SUB=		CLAMAVGROUP=${CLAMAV_GROUP}
 			RUNDIR=${RUNDIR}
 			FRESH_SOMAJOR=${FRESH_SOVERSION:R:R}
 			FRESH_SOVERSION=${FRESH_SOVERSION}
-
-# From FreeBSD Ports:
-# This port has a problem with -pthread,
-# force to use -lthr until it is fixed.
-VAR_OPSYS[freebsd]=	LDFLAGS=-lthr
 
 post-patch:
 	${REINPLACE_CMD} -E -e \
@@ -123,10 +117,11 @@ post-patch:
 	${WRKSRC}/etc/clamav-milter.conf.sample
 
 post-install:
-	${INSTALL_DATA} ${WRKSRC}/clamav-config.h ${STAGEDIR}${PREFIX}/include
+	${INSTALL_DATA} ${BUILD_WRKSRC}/clamav-config.h ${STAGEDIR}${PREFIX}/include
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}/html \
 		  ${STAGEDIR}${DBDIR} \
 		  ${STAGEDIR}${LOGDIR} \
 		  ${STAGEDIR}${RUNDIR}
-	(cd ${WRKSRC}/docs/html && \
-		${COPYTREE_SHARE} . ${STAGEDIR}${STD_DOCDIR}/html)
+	cd ${STAGEDIR}${PREFIX}/bin && ${STRIP_CMD} clambc clamconf clamdscan \
+		clamdtop clamscan clamsubmit freshclam sigtool
+	cd ${STAGEDIR}${PREFIX} && ${STRIP_CMD} sbin/clamd lib/lib*.so
