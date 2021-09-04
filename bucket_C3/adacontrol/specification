@@ -29,12 +29,14 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		lang/adacontrol
 
 BUILD_DEPENDS=		asis:primary:standard
-			gnatcoll-core:primary:standard
+			gcc10:complete:standard
+# #			gnatcoll-core:primary:standard
 
 USES=			gprbuild
 DISTNAME=		adactl-${PORTVERSION}
 BUILD_WRKSRC=		{{WRKSRC}}/src
 BUILD_TARGET=		build
+BROKEN[all]=		gcc10 instantiation error at scope_manager-scoped_store.adb:319
 
 do-build:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -P build)
