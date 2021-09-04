@@ -1,4 +1,4 @@
---- doc/share/conf.py.orig	2018-08-13 16:46:29 UTC
+--- doc/share/conf.py.orig	2020-02-29 15:19:01 UTC
 +++ doc/share/conf.py
 @@ -39,18 +39,18 @@ def get_gnat_version():
              line = (vinfo.readline()).strip()

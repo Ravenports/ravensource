@@ -1,7 +1,7 @@
-DEF[PORTVERSION]=	EXTRACT_INFO(GCC9_PORTVERSION)
-DEF[MS_SUBDIR]=		EXTRACT_INFO(GCC9_MS_SUBDIR)
-DEF[IDENTIFICATION]=	EXTRACT_INFO(GCC9_IDENTIFICATION)
-DEF[PORTREVISION]=	EXTRACT_INFO(GCC9_GNAT_UTIL_REVISION)
+DEF[PORTVERSION]=	EXTRACT_INFO(GCC10_PORTVERSION)
+DEF[MS_SUBDIR]=		EXTRACT_INFO(GCC10_MS_SUBDIR)
+DEF[IDENTIFICATION]=	EXTRACT_INFO(GCC10_IDENTIFICATION)
+DEF[PORTREVISION]=	0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnat-util
@@ -13,13 +13,9 @@ SDESC[standard]=	Library used to build GNAT tools such as ASIS
 HOMEPAGE=		https://www.adacore.com/community
 CONTACT=		John_Marino[draco@marino.st]
 
-DOWNLOAD_GROUPS=	main extra
+DOWNLOAD_GROUPS=	main
 SITES[main]=		GCC/${MS_SUBDIR}
-SITES[extra]=		https://raw.githubusercontent.com/gcc-mirror/gcc/5dc190e/gcc/ada/
 DISTFILE[1]=		${IDENTIFICATION}.tar.xz:main
-DISTFILE[2]=		repinfo-input.ads:extra
-DISTFILE[3]=		repinfo-input.adb:extra
-DF_INDEX=		1 2 3
 
 SPKGS[standard]=	single
 
@@ -37,6 +33,8 @@ LICENSE_SCHEME=		multi
 # FreeBSD uses a different version scheme
 # FPC_EQUIVALENT=		lang/gnat_util
 
+BUILD_DEPENDS=		gcc10:complete:standard
+
 DISTNAME=		${IDENTIFICATION}
 BUILD_WRKSRC=		{{WRKDIR}}/gnat-util
 PATCH_WRKSRC=		{{BUILD_WRKSRC}}
@@ -51,7 +49,6 @@ post-extract:
 .endfor
 	(cd ${WRKSRC}/gcc/ada && \
 		${CP} ${GNAT_SRCS} ${BUILD_WRKSRC}/)
-	${CP} ${DISTDIR}/repinfo-input.* ${BUILD_WRKSRC}/
 	# construct license terms
 	${HEAD} -n 19 ${WRKSRC}/gcc/gcc.h > ${WRKDIR}/TERMS
 	${HEAD} -n 31 ${WRKSRC}/gcc/ada/adaint.h >> ${WRKDIR}/TERMS
@@ -62,6 +59,6 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/gcc/ada/impunit.* \
 		${STAGEDIR}${PREFIX}/include/gnat-util
 	# gnat_ugn.texi is used to generate gnat_switches.py for GPS
-	@${MKDIR} ${STAGEDIR}${PREFIX}/share/gnat-util
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/gnat-util
 	${INSTALL_DATA} ${WRKSRC}/gcc/ada/gnat_ugn.texi \
 		${STAGEDIR}${PREFIX}/share/gnat-util/

@@ -1,3 +1,5 @@
+PREPEND_PATH=	${LOCALBASE}/toolchain/gcc10/bin
+
 # From gnat_util-gpl-2018-20180524, file: MANIFEST.gnat_util (sorted)
 # minus *.gpr, sdefault_adb.gnat_util, 	gnat_util_dummies.c
 GNAT_SRCS= \
@@ -25,18 +27,18 @@ GNAT_SRCS= \
 	elists.adb \
 	elists.ads \
 	err_vars.ads \
-	errout.adb \
 	errout.ads \
+	errout.adb \
 	erroutc.adb \
 	erroutc.ads \
 	errutil.adb \
 	errutil.ads \
 	fmap.adb \
 	fmap.ads \
-	fname-uf.adb \
-	fname-uf.ads \
 	fname.adb \
 	fname.ads \
+	fname-uf.ads \
+	fname-uf.adb \
 	get_scos.adb \
 	get_scos.ads \
 	gnatvsn.adb \
@@ -59,19 +61,21 @@ GNAT_SRCS= \
 	osint.ads \
 	output.adb \
 	output.ads \
-	put_scos.adb \
 	put_scos.ads \
-	repinfo.adb \
-	repinfo.ads \
-	restrict.adb \
+	put_scos.adb \
 	restrict.ads \
+	restrict.adb \
 	rident.ads \
 	scans.adb \
 	scans.ads \
 	scng.adb \
 	scng.ads \
-	scos.adb \
 	scos.ads \
+	scos.adb \
+	repinfo.adb \
+	repinfo.ads \
+	repinfo-input.adb \
+	repinfo-input.ads \
 	sdefault.ads \
 	sem_aux.adb \
 	sem_aux.ads \
@@ -118,4 +122,5 @@ GNAT_SRCS= \
 	widechar.ads \
 	xsnamest.adb \
 	xutil.adb \
-	xutil.ads
+	xutil.ads \
+	# end
