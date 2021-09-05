@@ -2,11 +2,13 @@ DEF[PORTVERSION]=	2021
 DEF[DATE]=		20210518-1A011
 DEF[CORE_HASH]=		8f1daefcb56e3ee7feaad67bac66deb0f7c37a82
 DEF[FILEBASE]=		gtkada-${PORTVERSION}-${DATE}-src
-DEF[SOVERSION]=		2021
+DEF[SOVERSION]=		18.0w
+DEF[ALT_TAG]=		013b6f4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gtkada
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11_toolkits
 VARIANTS=		standard
 SDESC[standard]=	Ada graphical toolkit based on Gtk3 components
@@ -14,8 +16,10 @@ HOMEPAGE=		https://github.com/adacore/gtkada
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		ADACORE/${CORE_HASH}?filename=${FILEBASE}.tar.gz&x=/
-DISTFILE[1]=		${FILEBASE}.tar.gz:main
+# SITES[main]=		ADACORE/${CORE_HASH}?filename=${FILEBASE}.tar.gz&x=/
+# DISTFILE[1]=		${FILEBASE}.tar.gz:main
+SITES[main]=		GITHUB/AdaCore:gtkada:${ALT_TAG}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete primary docs
 
@@ -36,7 +40,7 @@ BUILD_DEPENDS=		python-Sphinx:single:python_default
 USES=			gmake perl:build pkgconfig mesa gettext-tools
 			gprbuild ada:primary
 GNOME_COMPONENTS=	gtk3 cairo gdkpixbuf
-DISTNAME=		${FILEBASE}
+# DISTNAME=		${FILEBASE}
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-GL=no
 			--enable-shared
