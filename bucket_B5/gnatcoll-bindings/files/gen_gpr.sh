@@ -7,6 +7,7 @@ name="$1"
 destdir="$2"
 python_includes="$3"
 soversion="$4"
+python3_linking="\"$5\""
 
 case "$name" in
 	"gmp")	
@@ -38,14 +39,14 @@ case "$name" in
 		component=Python
 		component_upper=PYTHON
 		component_lower="python"
-		linker_opts=
+		linker_opts='"-lpython2.7"'
 		;;
 	"python3")
 		name=python3
 		component=Python3
 		component_upper=PYTHON3
 		component_lower="python3"
-		linker_opts=
+		linker_opts="${python3_linking}"
 		;;
 	*)
 		echo "Illegal component $component"
