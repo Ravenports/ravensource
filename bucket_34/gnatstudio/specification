@@ -28,25 +28,25 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gnatstudio/src/gps-main.adb
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		gnatcoll-db:complete:standard
+BUILD_DEPENDS=		libadalang:single:standard
+			ada_language_server:single:standard
+			libvss:single:standard
+BUILDRUN_DEPENDS=	gnatcoll-db:complete:standard
 			gnatcoll-bindings:python:standard
-BUILDRUN_DEPENDS=	fontconfig:primary:standard
+			fontconfig:primary:standard
 			freetype:primary:standard
 			clang:compiler:standard
 			gtkada:primary:standard
 			py27-pygobject:single:standard
-			libadalang:single:standard
-			ada_language_server:single:standard
-			libvss:single:standard
+			gmp:shared:standard
 RUN_DEPENDS=		librsvg:primary:standard
 			gdb:single:standard
-# #			py27-pep8:single:standard
-# #			py27-jedi:single:standard
+			py27-pep8:single:standard
+			py27-jedi:single:standard
 EXRUN[primary]=		ravensys-gcc:complete:standard
 
 USES=			gprbuild:buildrun gettext-tools gmake pkgconfig zlib
-			perl:build
-# python:py27 shebangfix iconv
+			perl:build python:py27 shebangfix iconv
 XORG_COMPONENTS=	x11
 GNOME_COMPONENTS=	gtk3 cairo gdkpixbuf
 
@@ -58,9 +58,10 @@ CONFIGURE_ARGS=		--with-gtk=3.0
 BUILD_TARGET=		default
 MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
 			PYTHON_CMD={{PYTHON_CMD}}
+			LIBRARY_TYPE=relocatable
 SUB_FILES=		gps
 SUB_LIST=		ADA_PATH={{PREFIX}}/toolchain/ravensys-gcc/bin
-# SHEBANG_FILES=		share/plug-ins/spark2014.py
+SHEBANG_FILES=		share/support/core/gs_utils/internal/dialogs.py
 
 # note: librsvg2 is needed to display the svg icons in the menu.  Actually
 # needed is lib/gdk-pixbuf-2.0/%%GTK2_VER%%/loaders/libpixbufloader-svg.so ,
@@ -68,13 +69,15 @@ SUB_LIST=		ADA_PATH={{PREFIX}}/toolchain/ravensys-gcc/bin
 # we just request the sole binary to pull in the package which effectively
 # accomplishes what is desired.
 
-[DEBUG].MAKE_ARGS_ON=			Build=Debug
-[DEBUG].MAKE_ARGS_OFF=			Build=Production
+[DEBUG].MAKE_ARGS_ON=			BUILD=Debug
+[DEBUG].MAKE_ARGS_OFF=			BUILD=Production
 [DEBUG].MAKEFILE_ON=			WITH_DEBUG=yes
 
 post-patch:
-	${RM} ${WRKSRC}/share/plug-ins/*.orig
 	${ECHO} "GNAT_SOURCES=" > ${WRKSRC}/Makefile.gnat
+
+pre-configure:
+	${RM} ${WRKSRC}/share/plug-ins/*.orig
 	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|g' \
 		${WRKSRC}/gnatstudio/gps.gpr \
 		${WRKSRC}/gnatdoc/gnatdoc.gpr \
@@ -101,20 +104,16 @@ post-patch:
 		${WRKSRC}/testsuite/Makefile
 
 do-build:
-	# ${CP} ${PREFIX}/include/gnat-util/impunit.* ${WRKSRC}/distrib
 	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${MAKE_CMD} ${MAKE_ARGS} ${BUILD_TARGET}
 	# block all docs (Sphinx is python3 only)
 	# cd ${WRKSRC}/docs && ${SETENV} ${MAKE_ENV} \
 	#	${MAKE_CMD} ${MAKE_ARGS} all
-	${PYTHON_CMD} ${PYCOMPILE} ${WRKSRC}/share/plug-ins
-	${PYTHON_CMD} ${PYCOMPILE} ${WRKSRC}/share/library
-	${PYTHON_CMD} ${PYCOMPILE} ${WRKSRC}/share/support
 
 post-install:
-	# ${RM} -r ${STAGEDIR}${PREFIX}/share/doc/gps/html/*/_sources
 	${FIND} ${STAGEDIR}${PREFIX} -type f -name ".gitignore" -delete
+	${FIND} ${STAGEDIR}${PREFIX} -type d -empty -delete
+	${FIND} ${STAGEDIR}${PREFIX} -type d -name "__pycache__" | ${XARGS} rm -rf
 	${INSTALL_SCRIPT} ${WRKDIR}/gps ${STAGEDIR}${PREFIX}/bin
 	echo "This is the GPS GPL Edition for Ravenports." \
 		> ${STAGEDIR}${PREFIX}/share/gnatstudio/about.txt
-	${FIND} ${STAGEDIR}${PREFIX} -type d -empty -delete

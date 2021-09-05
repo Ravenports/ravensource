@@ -1,6 +1,6 @@
---- kernel/src/gtkada-search_entry.adb.orig
+--- kernel/src/gtkada-search_entry.adb.orig	2021-06-18 05:08:58 UTC
 +++ kernel/src/gtkada-search_entry.adb
-@@ -21,13 +21,13 @@
+@@ -21,13 +21,13 @@ with Gtk.Style_Context;  use Gtk.Style_C
  with Gtk.Widget;         use Gtk.Widget;
  with Gtkada.Handlers;    use Gtkada.Handlers;
  with GPS.Intl;           use GPS.Intl;
@@ -17,7 +17,7 @@
     --  Called when the user presses the "clear" icon
  
     procedure On_Changed (Self : access Gtk_Widget_Record'Class);
-@@ -39,14 +39,14 @@
+@@ -39,14 +39,14 @@ package body Gtkada.Search_Entry is
  
     function Get_Icon_Position
       (Self   : access Gtkada_Search_Entry_Record'Class;
@@ -34,7 +34,7 @@
  
        Self.Get_Icon_Area (Gtk_Entry_Icon_Primary, Rect);
  
-@@ -62,13 +62,12 @@
+@@ -62,14 +62,13 @@ package body Gtkada.Search_Entry is
     --------------------
  
     procedure On_Clear_Entry
@@ -47,8 +47,9 @@
        pragma Unreferenced (Pos);  --  unreliable with gtk+ 3.8
     begin
 -      if Gtkada_Search_Entry (Self).Get_Icon_Position (Event.Button) =
-+      if Gtkada_Search_Entry (Self).Get_Icon_Position (Gtk.Main.Get_Current_Event) =
-         Gtk_Entry_Icon_Secondary
+-        Gtk_Entry_Icon_Secondary
++      if Gtkada_Search_Entry (Self).Get_Icon_Position (
++        Gtk.Main.Get_Current_Event) = Gtk_Entry_Icon_Secondary
        then
           Self.Set_Text ("");
-
+ 

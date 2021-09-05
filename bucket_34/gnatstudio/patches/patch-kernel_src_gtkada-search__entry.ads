@@ -1,6 +1,6 @@
---- kernel/src/gtkada-search_entry.ads.orig
+--- kernel/src/gtkada-search_entry.ads.orig	2021-06-15 05:19:41 UTC
 +++ kernel/src/gtkada-search_entry.ads
-@@ -35,7 +35,7 @@
+@@ -35,7 +35,7 @@ package Gtkada.Search_Entry is
  
     function Get_Icon_Position
       (Self   : access Gtkada_Search_Entry_Record'Class;
