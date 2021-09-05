@@ -1,4 +1,4 @@
---- common/core/src/os-utils.c.orig	2020-06-03 11:10:40 UTC
+--- common/core/src/os-utils.c.orig	2021-06-18 05:08:58 UTC
 +++ common/core/src/os-utils.c
 @@ -22,6 +22,7 @@
  #include <stdio.h>
@@ -8,7 +8,7 @@
  #ifdef _WIN32
  #include <windows.h>
  #include <lmcons.h>
-@@ -31,7 +32,7 @@
+@@ -32,7 +33,7 @@
  #endif
  
  int

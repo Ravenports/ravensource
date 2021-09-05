@@ -34,10 +34,17 @@ case "$name" in
 		linker_opts=
 		;;
 	"python")
-		name=python3
+		name=python
 		component=Python
 		component_upper=PYTHON
 		component_lower="python"
+		linker_opts=
+		;;
+	"python3")
+		name=python3
+		component=Python3
+		component_upper=PYTHON3
+		component_lower="python3"
 		linker_opts=
 		;;
 	*)
@@ -52,7 +59,7 @@ target="gnatcoll_${component_lower}.gpr"
 major="${soversion%.[0-9]}"
 
 case "$name" in
-	"python3")
+	python|python3)
 		pyhandle="s|%%PYTHON_ON%%||; s|%%PYTHON_INCLUDE%%|${python_includes}|"	
 		;;
 	*)

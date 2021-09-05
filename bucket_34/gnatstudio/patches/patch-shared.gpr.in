@@ -1,0 +1,20 @@
+--- shared.gpr.in.orig	2021-07-02 05:15:23 UTC
++++ shared.gpr.in
+@@ -50,7 +50,7 @@ project Shared is
+             for Switches ("Ada") use Common &
+               ("-O0", "-gnata", "-gnatVa", "-gnatQ", "-gnatygO",
+                "-gnatwaCJe", "-gnateE");
+-            for Switches ("C") use ("-g", "-O1");
++            for Switches ("C") use ("-g", "-O1", "-Wno-implicit-function-declaration");
+ 
+          when "Production" =>
+             for Switches ("Ada") use Common & Optimize &
+@@ -60,7 +60,7 @@ project Shared is
+                "-gnatwaCJ",
+                "-gnatygO"
+                );
+-            for Switches ("C") use Optimize & ("-g", "-O2");
++            for Switches ("C") use Optimize & ("-g", "-O2", "-Wno-implicit-function-declaration");
+ 	 when "AddressSanitizer" =>
+             for Switches ("Ada") use Common &
+               ("-O0", "-gnata", "-gnatVa", "-gnatQ", "-gnatygO",

@@ -2,13 +2,18 @@ DEF[PORTVERSION]=	2021
 DEF[DATE]=		20210518-19B15
 DEF[CORE_HASH]=		d93655ced17f15c5f376b6861825df3f9c183980
 DEF[FILEBASE]=		gnatcoll-bindings-${PORTVERSION}-${DATE}-src
-DEF[COMPONENTS]=	gmp iconv readline syslog python
+DEF[BASE_COMPONENTS]=	gmp iconv readline syslog
+DEF[COMPONENTS]=	${BASE_COMPONENTS} python python3
 DEF[SOVERSION]=		0.0
 DEF[LIBTYPES]=		static static-pic relocatable
+DEF[PY3DEFAULT]=	EXTRACT_VERSION(PYTHON3_DEFAULT)
+DEF[THIRD_SNAKE]=	${PY3DEFAULT:S|.||}
+DEF[PY3_INCLUDEDIR]=	{{LOCALBASE}}/include/python${PY3DEFAULT}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnatcoll-bindings
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Core packages of GNAT Components Collection
@@ -19,7 +24,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		ADACORE/${CORE_HASH}?filename=${FILEBASE}.tar.gz&x=/
 DISTFILE[1]=		${FILEBASE}.tar.gz:main
 
-SPKGS[standard]=	complete gmp iconv python readline syslog examples
+SPKGS[standard]=	complete gmp iconv python python3 readline syslog examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -35,6 +40,7 @@ BUILD_DEPENDS=		gmp:static:standard
 			gmp:shared:standard
 			gprbuild:gprlib:standard
 			readline:single:standard
+			python${THIRD_SNAKE}:single:standard
 BUILDRUN_DEPENDS=	gnatcoll-core:primary:standard
 			xmlada:primary:standard
 
@@ -42,25 +48,38 @@ EXRUN[gmp]=		gmp:shared:standard
 EXRUN[iconv]=		libiconv:shared:standard
 EXRUN[readline]=	readline:single:standard
 EXRUN[python]=		python27:single:standard
+EXRUN[python3]=		python${THIRD_SNAKE}:single:standard
 
-USES=			gprbuild gmake iconv:build python:build
+USES=			gprbuild gmake iconv:build python:py27,build
 DISTNAME=		${FILEBASE}
 MAKE_ENV=		BUILD=PROD
-			GNATCOLL_PYTHON_CFLAGS="-I{{PYTHON_INCLUDEDIR}}"
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
 
-post-extract:
-	(cd ${WRKSRC} &&\
-	${MV} python python.disabled &&\
-	${MV} python3 python)
+pre-configure:
+	${MV} ${WRKSRC}/python3/gnatcoll_python.gpr \
+	      ${WRKSRC}/python3/gnatcoll_python3.gpr
+	${REINPLACE_CMD} -e '/project/ s|GnatColl_Python|GnatColl_Python3|' \
+		-e '/^end / s|GnatColl_Python|GnatColl_Python3|' \
+		${WRKSRC}/python3/gnatcoll_python3.gpr
 
 do-build:
-.for component in ${COMPONENTS}
+.for component in ${BASE_COMPONENTS}
 .  for libtype in ${LIBTYPES}
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		gprbuild -p -XLIBRARY_TYPE=${libtype} \
 		-P ${component}/gnatcoll_${component}.gpr)
+.  endfor
+	# handle python components separately
+.  for libtype in ${LIBTYPES}
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} AUTOPYTHON=2.7 \
+		GNATCOLL_PYTHON_CFLAGS="-I${PYTHON_INCLUDEDIR}" \
+		gprbuild -p -XLIBRARY_TYPE=${libtype} \
+		-P python/gnatcoll_python.gpr)
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} AUTOPYTHON=${PY3DEFAULT} \
+		GNATCOLL_PYTHON_CFLAGS="-I${PY3_INCLUDEDIR}" \
+		gprbuild -p -XLIBRARY_TYPE=${libtype} \
+		-P python3/gnatcoll_python3.gpr)
 .  endfor
 .endfor
 
@@ -91,6 +110,9 @@ do-install:
 		echo "Relocate ${libtype}/lib/gnatcoll_${component}/*.a" ;\
 	fi
 .  endfor
-	${SH} ${FILESDIR}/gen_gpr.sh "${component}" "${STAGEDIR}${PREFIX}" \
-		"-I${PYTHON_INCLUDEDIR}" "${SOVERSION}"
+	${SH} ${FILESDIR}/gen_gpr.sh \
+		"${component}" \
+		"${STAGEDIR}${PREFIX}" \
+		"-I${ "${component:Mpython3}" != "":?${PY3_INCLUDEDIR}:${PYTHON_INCLUDEDIR}}" \
+		"${SOVERSION}"
 .endfor
