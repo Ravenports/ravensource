@@ -17,7 +17,15 @@
     endif
     PYTHON=python3
  endif
-@@ -101,16 +100,16 @@ endif
+@@ -78,6 +77,7 @@ all: coverage-instrument
+ 	$(GPRBUILD) -P gnat/codec_test.gpr -p $(COVERAGE_BUILD_FLAGS)
+ 	$(GPRBUILD) -P gnat/lsp_client.gpr -p $(COVERAGE_BUILD_FLAGS) \
+ 		-XVERSION=$(TRAVIS_TAG)
++	$(GPRBUILD) -P gnat/lsp_client_glib.gpr -p $(COVERAGE_BUILD_FLAGS)
+ 	mkdir -p integration/vscode/ada/$(PLATFORM)
+ 	cp -f .obj/server/ada_language_server integration/vscode/ada/$(PLATFORM) ||\
+ 	  cp -f .obj/server/ada_language_server.exe integration/vscode/ada/$(PLATFORM)
+@@ -101,16 +101,18 @@ endif
  
  install:
  	gprinstall -f -P gnat/lsp_server.gpr -p -r --mode=usage \
@@ -32,6 +40,8 @@
 -		--prefix=$(DESTDIR)			\
 +		--prefix=$(DESTDIR)$(PREFIX)		\
  		$(LIBRARY_FLAGS)
++	gprinstall -f -P gnat/lsp_client_glib.gpr -p -r \
++		--prefix=$(DESTDIR)$(PREFIX) $(LIBRARY_FLAGS)
  ifneq ($(COVERAGE),)
  	mkdir -p $(DESTDIR)/share/als/sids || true
 -	cp .obj/*/*.sid $(DESTDIR)/share/als/sids/
