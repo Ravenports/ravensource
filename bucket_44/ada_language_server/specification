@@ -1,5 +1,7 @@
-DEF[PORTVERSION]=	22.0.8
-DEF[TAG]=		${PORTVERSION}
+DEF[PORTVERSION]=	2021
+DEF[DATE]=		20210701-19A88
+DEF[CORE_HASH]=		176c07d5fafde00cbb0b2eaebe13039da27ca135
+DEF[FILEBASE]=		als-${PORTVERSION}-${DATE}-src
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ada_language_server
@@ -11,8 +13,8 @@ HOMEPAGE=		https://github.com/AdaCore/ada_language_server
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/AdaCore:ada_language_server:${TAG}
-DISTFILE[1]=		generated:main
+SITES[main]=		ADACORE/${CORE_HASH}?filename=${FILEBASE}.tar.gz&x=/
+DISTFILE[1]=		${FILEBASE}.tar.gz:main
 
 SPKGS[standard]=	single
 
@@ -34,8 +36,10 @@ LICENSE_SCHEME=		solo
 
 USES=			gmake gprbuild
 MAKE_ARGS=		BUILD_MODE=prod
+			OS=unix
 INSTALL_REQ_TOOLCHAIN=	yes
+DISTNAME=		${FILEBASE}
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
+	# ${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
