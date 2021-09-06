@@ -1,0 +1,52 @@
+DEF[PORTVERSION]=	1
+DEF[RELEASE]=		EXTRACT_INFO(GNATCROSS_NETBSD_9)
+DEF[PUB_NETBSD]=	https://cdn.netbsd.org/pub/NetBSD
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gnatcross-sysroot-netbsd
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		AMD64_R9
+SDESC[AMD64_R9]=	NetBSD C/Ada cross-compiler sysroot (AMD64/R9)
+HOMEPAGE=		http://www.dragonlace.net
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		${PUB_NETBSD}/NetBSD-${RELEASE}/amd64/binary/sets/
+DISTFILE[1]=		base.tar.xz:main
+DISTFILE[2]=		comp.tar.xz:main
+DIST_SUBDIR=		gnatcross/netbsd/${RELEASE}
+
+SPKGS[AMD64_R9]=	single
+
+OPTIONS_AVAILABLE=	AMD64R9
+OPTIONS_STANDARD=	none
+VOPTS[AMD64_R9]=	AMD64R9=ON
+
+SKIP_BUILD=		yes
+INVALID_RPATH=		yes
+EXTRACT_HEAD[1]=	{{TAR}} -xf
+EXTRACT_TAIL[1]=	--no-same-owner --no-same-permissions lib/ usr/include/ usr/lib/
+EXTRACT_HEAD[2]=	{{TAR}} -xf
+EXTRACT_TAIL[2]=	--no-same-owner --no-same-permissions usr/include/ usr/lib/
+EXTRACT_DIRTY=		1 2
+
+[AMD64R9].DESCRIPTION=			Package NetBSD/AMD64 ${RELEASE} system root
+[AMD64R9].MAKEFILE_ON=			CTARGET=x86_64-raven-netbsd${RELEASE}
+					PREFIX={{LOCALBASE}}/NetBSD9_AMD64
+[AMD64R9].DF_INDEX_ON=			1 2
+
+post-extract-dragonfly:
+	/bin/chflags -R noschg ${WRKDIR}
+
+post-extract-freebsd:
+	/bin/chflags -R noschg ${WRKDIR}
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/sysroot/
+.for X in 1 2
+	${CP} -pRP ${WRKDIR}/gnatcross-sysroot-netbsd_${X}/* \
+		${STAGEDIR}${PREFIX}/sysroot/
+.endfor
+	${ECHO_CMD} ${CTARGET} > ${STAGEDIR}${PREFIX}/sysroot/target_triplet
+	(cd ${STAGEDIR}${PREFIX}; ${FIND} sysroot -type d -empty -delete)

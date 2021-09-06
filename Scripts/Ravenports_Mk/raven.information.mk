@@ -215,6 +215,7 @@ LATEST_JQUERY=			3.5.1
 
 GNATCROSS_FREEBSD_11=		11.3
 GNATCROSS_FREEBSD_12=		12.2
+GNATCROSS_NETBSD_9=		9.2
 
 # ------------------------------------------------------------------------
 # Qt and Lumina versions
