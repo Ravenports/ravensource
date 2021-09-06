@@ -1,4 +1,4 @@
---- coreconf/UNIX.mk.orig	2021-08-26 19:01:21 UTC
+--- coreconf/UNIX.mk.orig	2021-09-04 17:51:10 UTC
 +++ coreconf/UNIX.mk
 @@ -10,10 +10,8 @@ AR          = ar cr $@
  LDOPTS     += -L$(SOURCE_LIB_DIR)
