@@ -1,16 +1,18 @@
 DEF[PORTVERSION]=	4.0.0
+DEF[SOVERSION]=		2.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		msgpack
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
-SDESC[standard]=	MessagePack implementation for C and C++
+SDESC[standard]=	MessagePack implementation for C
 HOMEPAGE=		https://msgpack.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/msgpack:msgpack-c:cpp-${PORTVERSION}
+SITES[main]=		GITHUB/msgpack:msgpack-c:c-${PORTVERSION}
 DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
@@ -25,6 +27,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/msgpack
 
-BUILD_DEPENDS=		boost-libraries:rest:python_default
-
 USES=			cmake
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmsgpackc.so
