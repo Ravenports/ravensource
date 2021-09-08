@@ -27,7 +27,6 @@ FPC_EQUIVALENT=		lang/go
 NOT_FOR_ARCH=		aarch64
 
 BUILD_DEPENDS=		go14:single:standard
-			tar:primary:standard
 
 USES=			cpe shebangfix
 CPE_VENDOR=		golang
@@ -43,9 +42,6 @@ SHEBANG_OLD_BASH=	"/usr/bin/env bash"
 SHEBANG_NEW_BASH=	{{SH}}
 DISTNAME=		go
 PLIST_SUB=		opsys_ARCH={{OPSYS:tl}}_{{GOARCH}}
-
-EXTRACT_HEAD[1]=	{{LOCALBASE}}/bin/gtar -xf
-EXTRACT_TAIL[1]=	--no-same-owner --no-same-permissions
 
 post-patch:
 	@cd ${WRKSRC} && ${FIND} . -name '*.orig' -delete

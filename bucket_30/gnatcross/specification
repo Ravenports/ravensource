@@ -50,7 +50,6 @@ B_DEPS[darwin]=		libiconv:static:standard
 BUILD_DEPENDS=		gmp:static:standard
 			mpfr:static:standard
 			mpc:static:standard
-			tar:primary:standard
 
 # Do not set MUST_CONFIGURE to gnu (avoid LATE_CONFIGURE_ARGS)
 
@@ -87,9 +86,6 @@ SUB_FILES=		pkg-message-single
 PLIST_SUB=		GCCVERS="${GCC_VERSION}"
 			TARGET="{{XCCTARGET}}"
 SUB_LIST=		TARGET="{{XCCTARGET}}"
-
-EXTRACT_HEAD[1]=	{{LOCALBASE}}/bin/gtar -xf
-EXTRACT_TAIL[1]=	--no-same-owner --no-same-permissions
 
 VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake

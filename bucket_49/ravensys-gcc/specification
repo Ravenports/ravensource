@@ -45,7 +45,6 @@ B_DEPS[darwin]=		libiconv:static:standard
 BUILD_DEPENDS=		gmp:static:standard
 			mpfr:static:standard
 			mpc:static:standard
-			tar:primary:standard
 BUILDRUN_DEPENDS=	ravensys-binutils:single:standard
 EXRUN[ada_run]=		ravensys-gcc:libs:standard
 EXRUN[cxx_run]=		ravensys-gcc:libs:standard
@@ -83,9 +82,6 @@ CONFIGURE_ARGS=		--enable-languages="c,c++,ada,fortran"
 			--disable-libmpx
 			--disable-libcilkrts
 			--with-pkgversion="Ravenports"
-
-EXTRACT_HEAD[1]=	{{LOCALBASE}}/bin/gtar -xf
-EXTRACT_TAIL[1]=	--no-same-owner --no-same-permissions
 
 # gcc9 is deprecated on Solaris 10, gcc10+ is not supported
 NOT_FOR_OPSYS=		sunos
