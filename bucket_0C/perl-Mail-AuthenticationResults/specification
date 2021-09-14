@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.20210112
+DEF[PORTVERSION]=	2.20210914
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Mail-AuthenticationResults
@@ -37,6 +37,7 @@ DISTNAME=		Mail-AuthenticationResults-${PORTVERSION}
 # |     build_requires : Test::More (perl 5.32.1 core) (perl 5.34.0 core)
 # |     build_requires : lib (perl 5.32.1 core) (perl 5.34.0 core)
 # |           requires : Carp (perl 5.32.1 core) (perl 5.34.0 core)
+# |           requires : Clone
 # |           requires : JSON
 # |           requires : Scalar::Util (perl 5.32.1 core) (perl 5.34.0 core)
 # |           requires : base (perl 5.32.1 core) (perl 5.34.0 core)
@@ -44,9 +45,11 @@ DISTNAME=		Mail-AuthenticationResults-${PORTVERSION}
 # |           requires : warnings (perl 5.32.1 core) (perl 5.34.0 core)
 
 [PERL_532].USES_ON=			perl:532,configure
-[PERL_532].BUILDRUN_DEPENDS_ON=		perl-JSON:single:532
+[PERL_532].BUILDRUN_DEPENDS_ON=		perl-Clone:single:532
+					perl-JSON:single:532
 [PERL_532].BUILD_DEPENDS_ON=		perl-Test-Exception:single:532
 [PERL_534].USES_ON=			perl:534,configure
-[PERL_534].BUILDRUN_DEPENDS_ON=		perl-JSON:single:534
+[PERL_534].BUILDRUN_DEPENDS_ON=		perl-Clone:single:534
+					perl-JSON:single:534
 [PERL_534].BUILD_DEPENDS_ON=		perl-Test-Exception:single:534
 
