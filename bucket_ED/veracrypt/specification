@@ -49,6 +49,9 @@ CONFIGURE_ENV=		WX_CONFIG="{{LOCALBASE}}${WXCONFIG}"
 MAKE_ENV=		WX_CONFIG="{{LOCALBASE}}${WXCONFIG}"
 SUB_FILES=		pkg-message-primary-freebsd
 
+# std::byte clashes with src/Common/Tcdefs.h typedef
+CXXFLAGS=		-std=c++14
+
 post-extract:
 	${AWK} '/ Apache License/,/additional liability./' \
 		${WRKSRC}/License.txt > ${WRKDIR}/license.apache20
@@ -56,8 +59,9 @@ post-extract:
 		${WRKSRC}/License.txt > ${WRKDIR}/license.truecrypt30
 
 post-patch:
-	${REINPLACE_CMD} -e 's|wx-config|${LOCALBASE}${WXCONFIG}|g' \
+	${REINPLACE_CMD} -e 's|/wx-config|${LOCALBASE}${WXCONFIG}|g' \
 		-e '/export LFLAGS/ s|:=|:= ${LDFLAGS}|' \
+		-e '/export CXXFLAGS/ s|:=|:= ${CXXFLAGS}|' \
 		${WRKSRC}/src/Makefile
 	${REINPLACE_CMD} \
 		-e 's|/usr/bin|${PREFIX}/bin|g' \
@@ -65,12 +69,12 @@ post-patch:
 		${WRKSRC}/src/Setup/FreeBSD/veracrypt.desktop
 
 do-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/share/applications/
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/applications/
 	${INSTALL_PROGRAM} ${WRKSRC}/src/Main/veracrypt ${STAGEDIR}${PREFIX}/bin
 	${INSTALL_DATA} ${WRKSRC}/src/Setup/FreeBSD/veracrypt.desktop \
 		${STAGEDIR}${PREFIX}/share/applications/
 	(cd ${WRKSRC}/src/Resources/Icons && ${COPYTREE_SHARE} . \
 		${STAGEDIR}${PREFIX}/share/pixmaps "-name '*.xpm'")
 	# web documentation
-	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 	(cd ${WRKSRC}/doc/html && ${COPYTREE_SHARE} . ${STAGEDIR}${STD_DOCDIR})
