@@ -1,7 +1,7 @@
---- configure.orig	2021-02-15 19:34:27 UTC
+--- configure.orig	2021-09-10 12:08:58 UTC
 +++ configure
-@@ -23813,10 +23813,6 @@ $as_echo_n "checking for Qt... " >&6; }
-     am_have_qt_makefile=`mktemp`
+@@ -23814,10 +23814,6 @@ $as_echo_n "checking for Qt... " >&6; }
+     am_have_qt_makefile="$am_have_qt_dir/Makefile"
      # http://qt-project.org/doc/qt-5/qmake-variable-reference.html#qt
      cat > $am_have_qt_pro << EOF
 -win32 {
@@ -11,23 +11,25 @@
  qtHaveModule(core):              QT += core
  qtHaveModule(gui):               QT += gui
  qtHaveModule(widgets):           QT += widgets
-@@ -23825,8 +23821,8 @@ percent.commands = @echo -n "\$(\$(@))\
+@@ -23826,8 +23822,8 @@ percent.commands = @echo -n "\$(\$(@))\
  QMAKE_EXTRA_TARGETS += percent
  EOF
      $QT_QMAKE $am_have_qt_pro -o $am_have_qt_makefile
--    QT_CXXFLAGS=`make -s -f $am_have_qt_makefile CXXFLAGS INCPATH`
--    QT_LIBS=`make -s -f $am_have_qt_makefile LIBS`
-+    QT_CXXFLAGS=`make -s -f $am_have_qt_makefile -VCXXFLAGS -VINCPATH | tr '\n' ' '`
-+    QT_LIBS=`make -s -f $am_have_qt_makefile -VLIBS | tr '\n' ' '`
+-    QT_CXXFLAGS=`cd $am_have_qt_dir; make -s -f $am_have_qt_makefile CXXFLAGS INCPATH`
+-    QT_LIBS=`cd $am_have_qt_dir; make -s -f $am_have_qt_makefile LIBS`
++    QT_CXXFLAGS=`cd $am_have_qt_dir; make -s -f $am_have_qt_makefile -VCXXFLAGS -VINCPATH | tr '\n' ' '`
++    QT_LIBS=`cd $am_have_qt_dir; make -s -f $am_have_qt_makefile -VLIBS | tr '\n' ' '`
      rm $am_have_qt_pro $am_have_qt_makefile
+     rmdir $am_have_qt_dir
  
-     # Look for specific tools in $PATH
-@@ -23850,8 +23846,8 @@ else
+@@ -23851,9 +23847,9 @@ else
  fi
  
  
+-    QT_RCC=`which rcc`
 -    QT_LRELEASE=`which lrelease`
 -    QT_LUPDATE=`which lupdate`
++    QT_RCC=#none
 +    QT_LRELEASE=#none
 +    QT_LUPDATE=#none
  
