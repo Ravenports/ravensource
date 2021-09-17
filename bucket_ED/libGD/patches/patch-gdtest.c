@@ -1,4 +1,4 @@
---- src/gdtest.c.orig	2021-02-21 17:23:01 UTC
+--- src/gdtest.c.orig	2021-09-11 04:43:11 UTC
 +++ src/gdtest.c
 @@ -34,6 +34,8 @@ main (int argc, char **argv)
  	gdSink imgsnk;
@@ -45,7 +45,7 @@
  
  	/* */
  	/* Send to PNG File then Ptr */
-@@ -333,6 +364,10 @@ main (int argc, char **argv)
+@@ -317,6 +348,10 @@ main (int argc, char **argv)
  	printf ("[Merged Image has %d colours]\n", im2->colorsTotal);
  	CompareImages ("Merged (gdtest.png, gdtest_merge.png)", im2, im3);
  
