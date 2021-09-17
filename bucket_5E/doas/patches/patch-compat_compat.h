@@ -1,4 +1,4 @@
---- compat/compat.h.orig	2021-01-26 02:41:10 UTC
+--- compat/compat.h.orig	2021-09-13 18:13:57 UTC
 +++ compat/compat.h
 @@ -1,7 +1,7 @@
  #include <sys/types.h>
