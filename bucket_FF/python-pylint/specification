@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.10.2
+DEF[PORTVERSION]=	2.11.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pylint
@@ -7,11 +7,11 @@ KEYWORDS=		python
 VARIANTS=		py38 py39
 SDESC[py38]=		Python code static checker (PY38)
 SDESC[py39]=		Python code static checker (PY39)
-HOMEPAGE=		https://github.com/PyCQA/pylint
+HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/6d/33/5744d1b2d1191cd036c201934a1a517644d805a82cd50fab060b3c379c84
+SITES[main]=		PYPIWHL/37/42/948d1486727806df2e0016f1cfc2d3beafe289f96d53dfc85d967f79afc5
 DISTFILE[1]=		pylint-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
@@ -30,10 +30,11 @@ DISTNAME=		pylint-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # platformdirs (>=2.2.0)
-# astroid (<2.8,>=2.7.2)
+# astroid (<2.9,>=2.8.0)
 # isort (<6,>=4.2.5)
 # mccabe (<0.7,>=0.6)
 # toml (>=0.7.1)
+# typing-extensions (>=3.10.0) ; python_version < "3.10"
 # colorama ; sys_platform == "win32"
 
 [PY38].USES_ON=				python:py38,wheel
@@ -42,6 +43,7 @@ DISTNAME=		pylint-${PORTVERSION}.dist-info
 					python-isort:single:py38
 					python-mccabe:single:py38
 					python-toml:single:py38
+					python-typing-extensions:single:py38
 					python-colorama:single:py38
 [PY39].USES_ON=				python:py39,wheel
 [PY39].RUN_DEPENDS_ON=			python-platformdirs:single:py39
@@ -49,6 +51,7 @@ DISTNAME=		pylint-${PORTVERSION}.dist-info
 					python-isort:single:py39
 					python-mccabe:single:py39
 					python-toml:single:py39
+					python-typing-extensions:single:py39
 					python-colorama:single:py39
 
 BUILDRUN_DEPENDS=	python-pytest-runner:single:python_used
