@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	7.78.0
+DEF[PORTVERSION]=	7.79.0
 DEF[SOVERSION]=		4.7.0
 DEF[DOCS]=		FAQ INSTALL KNOWN_BUGS MAIL-ETIQUETTE THANKS TODO options-in-versions
 # MANUAL
@@ -59,7 +59,7 @@ SOVERSION=		${SOVERSION}
 # TO BE IMPLEMENTED (and maybe used unconditionally) + LDAP LDAPS + IDN
 [SSH2].DESCRIPTION=			SCP/SFTP support via libssh2
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e '/^SUBDIRS = / s|$$| docs scripts|; /^DIST_SUBDIRS = / s| docs scripts||; /cd docs &&/d' \
 		${WRKSRC}/Makefile.in
 	${REINPLACE_CMD} -e 's|\(flags_dbg_off=\)".*"|\1""|; s|\(flags_opt_off=\)".*"|\1""|' \
