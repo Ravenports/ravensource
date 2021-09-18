@@ -1,5 +1,5 @@
---- vendor/libc-0.2.86/src/unix/bsd/freebsdlike/dragonfly/errno.rs.orig	2021-07-26 15:20:38 UTC
-+++ vendor/libc-0.2.86/src/unix/bsd/freebsdlike/dragonfly/errno.rs
+--- vendor/libc-0.2.93/src/unix/bsd/freebsdlike/dragonfly/errno.rs.orig	2021-09-06 19:20:23 UTC
++++ vendor/libc-0.2.93/src/unix/bsd/freebsdlike/dragonfly/errno.rs
 @@ -1,7 +1,6 @@
  // DragonFlyBSD's __error function is declared with "static inline", so it must
  // be implemented in the libc crate, as a pointer to a static thread_local.

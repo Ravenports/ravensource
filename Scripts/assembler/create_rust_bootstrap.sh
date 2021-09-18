@@ -66,8 +66,10 @@ if [ $? -ne 0 ]; then
    exit 1
 fi
 
-CARGOVER=$(awk -f ${SCRIPTSDIR}/_cargo.awk ${RASSY}/raven/lib/rustlib/src/rust/Cargo.lock)
-NAME_CARGO=cargo-${CARGOVER}-${DFLY}
+# CARGOVER is obsolete, cargo now has same version as the other packages
+# CARGOVER=$(awk -f ${SCRIPTSDIR}/_cargo.awk ${RASSY}/raven/lib/rustlib/src/rust/Cargo.lock)
+# NAME_CARGO=cargo-${CARGOVER}-${DFLY}
+NAME_CARGO=cargo-${1}-${DFLY}
 NAME_CARGO_PKG=${NAME_CARGO}.tar.zst
 
 # rust-std package
