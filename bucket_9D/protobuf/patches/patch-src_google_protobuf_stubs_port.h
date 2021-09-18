@@ -1,4 +1,4 @@
---- ../src/google/protobuf/stubs/port.h.orig	2021-06-04 21:47:02 UTC
+--- ../src/google/protobuf/stubs/port.h.orig	2021-09-14 16:48:28 UTC
 +++ ../src/google/protobuf/stubs/port.h
 @@ -59,8 +59,10 @@
  #else
