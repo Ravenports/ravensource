@@ -1,4 +1,4 @@
---- shell/source/unix/exec/shellexec.cxx.orig	2021-08-16 19:56:28 UTC
+--- shell/source/unix/exec/shellexec.cxx.orig	2021-09-08 17:53:20 UTC
 +++ shell/source/unix/exec/shellexec.cxx
 @@ -173,7 +173,7 @@ void SAL_CALL ShellExec::execute( const
          aBuffer.append(" --");
