@@ -1,6 +1,6 @@
---- src/link/Elf.zig.orig	2021-06-04 18:21:32 UTC
+--- src/link/Elf.zig.orig	2021-09-07 02:41:54 UTC
 +++ src/link/Elf.zig
-@@ -3339,19 +3339,22 @@ const CsuObjects = struct {
+@@ -3353,19 +3353,22 @@ const CsuObjects = struct {
              const crt_dir_path = lci.crt_dir orelse return error.LibCInstallationMissingCRTDir;
              switch (link_options.target.os.tag) {
                  .dragonfly => {
