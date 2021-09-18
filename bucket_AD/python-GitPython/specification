@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.1.18
+DEF[PORTVERSION]=	3.1.24
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-GitPython
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/gitpython-developers/GitPython
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/bc/91/b38c4fabb6e5092ab23492ded4f318ab7299b19263272b703478038c0fbc
+SITES[main]=		PYPIWHL/fd/05/4b2e29f82f40d3add50956bdb9c868b3608381810b630ea439bb588f558d
 DISTFILE[1]=		GitPython-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
@@ -30,10 +30,12 @@ DISTNAME=		GitPython-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # gitdb (<5,>=4.0.1)
-# typing-extensions (>=3.7.4.0) ; python_version < "3.8"
+# typing-extensions (>=3.7.4.3) ; python_version < "3.10"
 
 [PY38].USES_ON=				python:py38,wheel
 [PY38].RUN_DEPENDS_ON=			python-gitdb:single:py38
+					python-typing-extensions:single:py38
 [PY39].USES_ON=				python:py39,wheel
 [PY39].RUN_DEPENDS_ON=			python-gitdb:single:py39
+					python-typing-extensions:single:py39
 
