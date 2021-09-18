@@ -1,4 +1,4 @@
---- deps/v8/src/trap-handler/handler-inside-posix.cc.orig	2021-08-25 18:55:55 UTC
+--- deps/v8/src/trap-handler/handler-inside-posix.cc.orig	2021-09-10 17:25:12 UTC
 +++ deps/v8/src/trap-handler/handler-inside-posix.cc
 @@ -27,7 +27,7 @@
  
@@ -9,7 +9,7 @@
  #include <ucontext.h>
  #elif V8_OS_MACOSX
  #include <sys/ucontext.h>
-@@ -114,6 +114,8 @@ bool TryHandleSignal(int signum, siginfo
+@@ -110,6 +110,8 @@ bool TryHandleSignal(int signum, siginfo
      auto* context_ip = &uc->uc_mcontext->__ss.__rip;
  #elif V8_OS_FREEBSD && V8_TARGET_ARCH_X64
      auto* context_ip = &uc->uc_mcontext.mc_rip;
