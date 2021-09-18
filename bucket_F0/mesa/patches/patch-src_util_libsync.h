@@ -1,4 +1,4 @@
---- src/util/libsync.h.orig	2021-08-11 20:27:38 UTC
+--- src/util/libsync.h.orig	2021-09-08 21:22:06 UTC
 +++ src/util/libsync.h
 @@ -36,6 +36,10 @@
  #include <sys/poll.h>

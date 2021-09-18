@@ -1,4 +1,4 @@
---- src/intel/compiler/brw_nir_lower_shader_calls.c.orig	2021-08-11 20:27:37 UTC
+--- src/intel/compiler/brw_nir_lower_shader_calls.c.orig	2021-09-08 21:22:01 UTC
 +++ src/intel/compiler/brw_nir_lower_shader_calls.c
 @@ -151,15 +151,15 @@ instr_is_shader_call(nir_instr *instr)
            intrin->intrinsic == nir_intrinsic_execute_callable;
