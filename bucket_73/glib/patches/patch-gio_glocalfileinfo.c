@@ -1,4 +1,4 @@
---- gio/glocalfileinfo.c.orig	2021-08-19 15:27:25 UTC
+--- gio/glocalfileinfo.c.orig	2021-09-17 10:17:56 UTC
 +++ gio/glocalfileinfo.c
 @@ -22,6 +22,10 @@
  

@@ -1,6 +1,6 @@
 /usr/local value is replaced by post-patch target
 
---- glib/gutils.c.orig	2021-08-19 15:27:25 UTC
+--- glib/gutils.c.orig	2021-09-17 10:17:56 UTC
 +++ glib/gutils.c
 @@ -28,6 +28,10 @@
  
@@ -13,7 +13,7 @@
  #include "gutils.h"
  #include "gutilsprivate.h"
  
-@@ -2502,7 +2506,7 @@ g_build_system_data_dirs (void)
+@@ -2462,7 +2466,7 @@ g_build_system_data_dirs (void)
     */
  #ifndef G_OS_WIN32
    if (!data_dirs || !data_dirs[0])
@@ -22,7 +22,7 @@
  
    data_dir_vector = g_strsplit (data_dirs, G_SEARCHPATH_SEPARATOR_S, 0);
  #else
-@@ -2599,7 +2603,7 @@ g_build_system_config_dirs (void)
+@@ -2559,7 +2563,7 @@ g_build_system_config_dirs (void)
      }
  #else
    if (!conf_dirs || !conf_dirs[0])
