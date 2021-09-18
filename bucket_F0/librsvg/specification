@@ -1,7 +1,7 @@
-DEF[PORTVERSION]=	2.50.7
+DEF[PORTVERSION]=	2.52.0
 DEF[GTK_VERSION]=	EXTRACT_INFO(GTK2_VERSION)
 DEF[NORUST_VERSION]=	2.40.21
-DEF[RUST_SOVERSION]=	2.47.0
+DEF[RUST_SOVERSION]=	2.48.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		librsvg
@@ -19,7 +19,7 @@ DISTFILE[1]=		librsvg-${PORTVERSION}.tar.xz:main
 DISTFILE[2]=		librsvg-${NORUST_VERSION}.tar.xz:norust
 DF_INDEX=		1 2
 
-SPKGS[standard]=	complete primary docs nls
+SPKGS[standard]=	complete primary docs
 
 OPTIONS_AVAILABLE=	RUSTLESS
 OPTIONS_STANDARD=	RUSTLESS
@@ -74,7 +74,7 @@ post-patch-RUSTLESS-ON:
 
 post-patch-RUSTLESS-OFF:
 	# extract license terms
-	${AWK} '/RSVG_H/ {exit}; {print}' ${WRKSRC}/librsvg/rsvg.h > ${WRKDIR}/TERMS
+	${AWK} '/RSVG_H/ {exit}; {print}' ${WRKSRC}/include/librsvg/rsvg.h > ${WRKDIR}/TERMS
 	# disable vendor checksums
 	${REINPLACE_CMD} -e 's/"files":{[^}]*}/"files":{}/' \
 		${WRKSRC}/vendor/*/.cargo-checksum.json
