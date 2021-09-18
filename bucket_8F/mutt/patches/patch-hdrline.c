@@ -1,4 +1,4 @@
---- hdrline.c.orig	2021-08-24 19:54:24 UTC
+--- hdrline.c.orig	2021-09-10 20:09:44 UTC
 +++ hdrline.c
 @@ -248,6 +248,89 @@ static char *apply_subject_mods (ENVELOP
   * %Y = `x-label:' field (if present, tree unfolded, and != parent's x-label)
