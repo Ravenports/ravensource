@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	0.31.2
-DEF[SOVERSION]=		27.4.2
+DEF[PORTVERSION]=	0.32.1
+DEF[SOVERSION]=		27.5.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		neon
@@ -28,6 +28,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		www/neon
 
+BUILD_DEPENDS=		xmlto:single:standard
 BUILDRUN_DEPENDS=	nss:caroot:standard
 			libproxy:single:standard
 			krb5:primary:standard
@@ -46,6 +47,9 @@ SOVERSION=		${SOVERSION}
 
 post-patch:
 	${REINPLACE_CMD} -e 's|-@NEON_VERSION@$$||' ${WRKSRC}/Makefile.in
+	${REINPLACE_CMD} -e 's|/docbook.sourceforge.net/|/cdn.docbook.org/|' \
+		${WRKSRC}/doc/man.xsl \
+		${WRKSRC}/doc/html.xsl
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libneon.so
