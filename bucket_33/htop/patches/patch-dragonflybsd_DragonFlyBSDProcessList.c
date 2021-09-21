@@ -1,19 +1,18 @@
---- dragonflybsd/DragonFlyBSDProcessList.c.orig	2020-12-22 06:39:42 UTC
+--- dragonflybsd/DragonFlyBSDProcessList.c.orig	2021-09-21 06:30:46 UTC
 +++ dragonflybsd/DragonFlyBSDProcessList.c
-@@ -404,7 +404,7 @@ void ProcessList_goThroughEntries(Proces
+@@ -461,7 +461,7 @@ void ProcessList_goThroughEntries(Proces
+          proc->pgrp = kproc->kp_pgid;		// process group id
           proc->session = kproc->kp_sid;
-          proc->tty_nr = kproc->kp_tdev;		// control terminal device number
           proc->st_uid = kproc->kp_uid;		// user ID
 -         proc->processor = kproc->kp_lwp.kl_origcpu;
 +         proc->processor = kproc->kp_lwp.kl_cpuid;
           proc->starttime_ctime = kproc->kp_start.tv_sec;
+          Process_fillStarttimeBuffer(proc);
           proc->user = UsersTable_getRef(super->usersTable, proc->st_uid);
- 
-@@ -527,3 +527,21 @@ void ProcessList_goThroughEntries(Proces
-       proc->updated = true;
+@@ -600,6 +600,24 @@ void ProcessList_goThroughEntries(Proces
     }
  }
-+
+ 
 +char **DragonFlyBSDGet_env(pid_t pid) {
 +
 +   kvm_t *kd;
@@ -31,3 +30,7 @@
 +   kvm_close(kd);
 +   return env;
 +}
++
+ bool ProcessList_isCPUonline(const ProcessList* super, unsigned int id) {
+    assert(id < super->existingCPUs);
+ 
