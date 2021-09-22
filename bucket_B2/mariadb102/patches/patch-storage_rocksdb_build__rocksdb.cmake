@@ -1,6 +1,6 @@
---- storage/rocksdb/build_rocksdb.cmake.orig	2021-06-08 10:51:50 UTC
+--- storage/rocksdb/build_rocksdb.cmake.orig	2021-08-02 09:40:57 UTC
 +++ storage/rocksdb/build_rocksdb.cmake
-@@ -70,10 +70,6 @@ if(ZSTD_FOUND AND (NOT WITH_ROCKSDB_ZSTD
+@@ -76,10 +76,6 @@ if(ZSTD_FOUND AND (NOT WITH_ROCKSDB_ZSTD
    SET(CMAKE_REQUIRED_LIBRARIES zstd)
    CHECK_FUNCTION_EXISTS(ZDICT_trainFromBuffer ZSTD_VALID)
    UNSET(CMAKE_REQUIRED_LIBRARIES)
@@ -9,5 +9,5 @@
 -      "WITH_ROCKSDB_ZSTD is ON and ZSTD library was found, but the version needs to be >= 1.1.3")
 -  endif()
    if (ZSTD_VALID)
+     set(HAVE_ROCKSDB_ZSTD TRUE)
      add_definitions(-DZSTD)
-     include_directories(${ZSTD_INCLUDE_DIR})
