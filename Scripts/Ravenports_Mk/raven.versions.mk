@@ -130,8 +130,8 @@ FIREBIRD_4.0_VERSION=	4.0.0
 
 PHP_DEFAULT?=		7.4
 
-PHP_7.3_VERSION=	7.3.30
-PHP_7.4_VERSION=	7.4.23
+PHP_7.3_VERSION=	7.3.31
+PHP_7.4_VERSION=	7.4.24
 PHP_8.0_VERSION=	8.0.11
 
 #-------------------------------------------------------------------------
