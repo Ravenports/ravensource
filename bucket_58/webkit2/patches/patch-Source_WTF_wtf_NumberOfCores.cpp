@@ -1,4 +1,4 @@
---- Source/WTF/wtf/NumberOfCores.cpp.orig	2021-02-26 09:57:08 UTC
+--- Source/WTF/wtf/NumberOfCores.cpp.orig	2021-09-01 09:16:49 UTC
 +++ Source/WTF/wtf/NumberOfCores.cpp
 @@ -31,6 +31,7 @@
  #if OS(DARWIN)

@@ -1,6 +1,6 @@
---- Source/WebCore/Modules/fetch/FetchBodyConsumer.cpp.orig	2021-02-26 09:57:10 UTC
+--- Source/WebCore/Modules/fetch/FetchBodyConsumer.cpp.orig	2021-09-01 09:16:50 UTC
 +++ Source/WebCore/Modules/fetch/FetchBodyConsumer.cpp
-@@ -39,6 +39,32 @@
+@@ -38,6 +38,32 @@
  #include <wtf/StringExtras.h>
  #include <wtf/URLParser.h>
  
@@ -32,4 +32,4 @@
 +
  namespace WebCore {
  
- static inline Ref<Blob> blobFromData(ScriptExecutionContext* context, const unsigned char* data, unsigned length, const String& contentType)
+ static inline Ref<Blob> blobFromData(ScriptExecutionContext* context, Vector<uint8_t>&& data, const String& contentType)

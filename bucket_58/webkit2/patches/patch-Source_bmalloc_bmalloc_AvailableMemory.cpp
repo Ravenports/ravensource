@@ -1,7 +1,7 @@
 Add DragonFly support
 FreeBSD 11 doesn't have sysinfo.h like DragonFly doesn't
 
---- Source/bmalloc/bmalloc/AvailableMemory.cpp.orig	2021-02-26 09:57:17 UTC
+--- Source/bmalloc/bmalloc/AvailableMemory.cpp.orig	2021-09-01 09:16:51 UTC
 +++ Source/bmalloc/bmalloc/AvailableMemory.cpp
 @@ -47,10 +47,15 @@
  #if BOS(LINUX)

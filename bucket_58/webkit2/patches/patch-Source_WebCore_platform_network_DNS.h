@@ -1,6 +1,6 @@
---- Source/WebCore/platform/network/DNS.h.orig	2021-02-26 09:57:13 UTC
+--- Source/WebCore/platform/network/DNS.h.orig	2021-09-01 09:16:50 UTC
 +++ Source/WebCore/platform/network/DNS.h
-@@ -30,6 +30,9 @@
+@@ -34,6 +34,9 @@
  #include <ws2tcpip.h>
  #else
  #include <netinet/in.h>
@@ -9,4 +9,4 @@
 +# endif
  #endif
  
- #include <wtf/Forward.h>
+ namespace WebCore {

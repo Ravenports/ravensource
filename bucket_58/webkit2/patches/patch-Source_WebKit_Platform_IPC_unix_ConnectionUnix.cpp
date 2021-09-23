@@ -7,7 +7,7 @@ WebKit already uses shared memory to communicate the message body when
 the message is too large, so force it to always use this method to avoid
 encountering EMSGSIZE.
 
---- Source/WebKit/Platform/IPC/unix/ConnectionUnix.cpp.orig	2021-02-26 09:57:15 UTC
+--- Source/WebKit/Platform/IPC/unix/ConnectionUnix.cpp.orig	2021-09-01 09:16:51 UTC
 +++ Source/WebKit/Platform/IPC/unix/ConnectionUnix.cpp
 @@ -56,6 +56,10 @@
  #endif
@@ -20,7 +20,7 @@ encountering EMSGSIZE.
  namespace IPC {
  
  static const size_t messageMaxSize = 4096;
-@@ -434,8 +438,12 @@ bool Connection::sendOutgoingMessage(std
+@@ -437,8 +441,12 @@ bool Connection::sendOutgoingMessage(Uni
          return false;
      }
  

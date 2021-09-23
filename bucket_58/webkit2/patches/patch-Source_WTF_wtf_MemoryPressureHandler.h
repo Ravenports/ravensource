@@ -1,6 +1,6 @@
---- Source/WTF/wtf/MemoryPressureHandler.h.orig	2021-02-26 09:57:08 UTC
+--- Source/WTF/wtf/MemoryPressureHandler.h.orig	2021-09-01 09:16:49 UTC
 +++ Source/WTF/wtf/MemoryPressureHandler.h
-@@ -66,7 +66,7 @@ public:
+@@ -69,7 +69,7 @@ public:
  
      WTF_EXPORT_PRIVATE void setShouldUsePeriodicMemoryMonitor(bool);
  
@@ -9,7 +9,7 @@
      WTF_EXPORT_PRIVATE void triggerMemoryPressureEvent(bool isCritical);
  #endif
  
-@@ -200,7 +200,7 @@ private:
+@@ -263,7 +263,7 @@ private:
      Win32Handle m_lowMemoryHandle;
  #endif
  
