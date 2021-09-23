@@ -1,0 +1,58 @@
+# libsoup has even/odd releases, so stick to e.g. 2.60.x, 2.62.x, etc
+DEF[PORTVERSION]=	2.74.0
+DEF[LIBVERSION]=	2.4
+DEF[SOVERSION]=		1.11.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libsoup-2.4
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Simple Object Access Protocol implementation in C
+HOMEPAGE=		https://wiki.gnome.org/Projects/libsoup
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://ftp.gnome.org/pub/GNOME/sources/libsoup/${PORTVERSION:R}/
+DISTFILE[1]=		libsoup-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary nls docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libsoup/soup-websocket.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/libsoup
+
+BUILDRUN_DEPENDS=	brotli:single:standard
+			glib-networking:primary:standard
+			libpsl:single:standard
+RUN_DEPENDS=		libgcrypt:single:standard
+
+USES=			gettext-tools gmake libtool pkgconfig
+			sqlite meson gtk-doc cpe
+CPE_VENDOR=		gnome
+GNOME_COMPONENTS=	glib intltool introspection libxml2
+MESON_ARGS=		-Dgtk_doc=true
+			-Dintrospection=enabled
+
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		LIBVERSION=${LIBVERSION}
+GTKDOC_OUTPUT_BASEDIR=	libsoup-${LIBVERSION}
+DISTNAME=		libsoup-${PORTVERSION}
+
+VAR_OPSYS[linux]=	CFLAGS=-D_GNU_SOURCE
+VAR_OPSYS[sunos]=	LDFLAGS=-lintl
+
+post-install:
+	${INSTALL_DATA} ${WRKSRC}/libsoup/soup-connection.h \
+		${STAGEDIR}${PREFIX}/include/libsoup-${LIBVERSION}/libsoup/soup-connection.h
