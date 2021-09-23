@@ -1,7 +1,7 @@
 # libsoup has even/odd releases, so stick to e.g. 2.60.x, 2.62.x, etc
-DEF[PORTVERSION]=	2.74.0
-DEF[LIBVERSION]=	2.4
-DEF[SOVERSION]=		1.11.1
+DEF[PORTVERSION]=	3.0.0
+DEF[LIBVERSION]=	3.0
+DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libsoup
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://ftp.gnome.org/pub/GNOME/sources/libsoup/${PORTVERSION:R}/
 DISTFILE[1]=		libsoup-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary gnome nls docs
+SPKGS[standard]=	complete primary nls docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,7 +25,7 @@ LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
-LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libsoup/soup-websocket.h
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libsoup/soup-date-utils.c
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libsoup
@@ -33,6 +33,7 @@ FPC_EQUIVALENT=		devel/libsoup
 BUILDRUN_DEPENDS=	brotli:single:standard
 			glib-networking:primary:standard
 			libpsl:single:standard
+			libnghttp2:single:standard
 RUN_DEPENDS=		libgcrypt:single:standard
 
 USES=			gettext-tools gmake libtool pkgconfig
@@ -49,7 +50,6 @@ SOVERSION=		${SOVERSION}
 PLIST_SUB=		LIBVERSION=${LIBVERSION}
 GTKDOC_OUTPUT_BASEDIR=	libsoup-${LIBVERSION}
 
-EXRUN[gnome]=		libsoup:primary:standard
 VAR_OPSYS[linux]=	CFLAGS=-D_GNU_SOURCE
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 
