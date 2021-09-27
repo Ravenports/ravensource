@@ -1,4 +1,4 @@
---- src/nvim/lua/executor.c.orig	2021-07-02 15:54:29 UTC
+--- src/nvim/lua/executor.c.orig	2021-09-26 22:15:30 UTC
 +++ src/nvim/lua/executor.c
 @@ -454,7 +454,11 @@ static int nlua_state_init(lua_State *co
    lua_pushcfunction(lstate, &nlua_regex);
