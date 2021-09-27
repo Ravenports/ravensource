@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.1.5
+DEF[PORTVERSION]=	1.2.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-django-solo
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/lazybird/django-solo/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/d/django-solo
-DISTFILE[1]=		django-solo-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/7f/d1/0fc152f303a4c098676a08704fb57a6ef17b791622b5620cd4520c27b16f
+DISTFILE[1]=		django_solo-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
 SPKGS[py39]=		single
@@ -26,11 +26,11 @@ VOPTS[py39]=		PY38=OFF PY39=ON
 # Creative Commons Attribution 3.0 Unported
 
 GENERATED=		yes
-DISTNAME=		django-solo-${PORTVERSION}
+DISTNAME=		django_solo-${PORTVERSION}.dist-info
 
-# install_requires extracted from setup.py
+# Requires-Dist extracted from wheel metadata
 
 
-[PY38].USES_ON=				python:py38,sutools
-[PY39].USES_ON=				python:py39,sutools
+[PY38].USES_ON=				python:py38,wheel
+[PY39].USES_ON=				python:py39,wheel
 

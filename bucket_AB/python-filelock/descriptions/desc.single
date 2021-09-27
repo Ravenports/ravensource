@@ -1,6 +1,14 @@
 # py-filelock
 
-![travis-ci]
+[PyPI]
+[Supported Python
+versions]
+[Documentation
+status]
+[![Code style:
+black]](https://github.com/psf/black)
+[Downloads]
+[check]
 
 This package contains a single module, which implements a platform
 independent
@@ -8,11 +16,11 @@ file lock in Python, which provides a simple way of inter-process
 communication:
 
 ```Python
-from filelock import Timeout, FileLock
+from src.filelock import Timeout, FileLock
 
 lock = FileLock("high_ground.txt.lock")
 with lock:
-    open("high_ground.txt", "a").write("You were the chosen one.")        
+    open("high_ground.txt", "a").write("You were the chosen one.")
 ```
 
 **Don't use** a *FileLock* to lock the file you want to write to, instead
@@ -49,7 +57,7 @@ resource or working
 directory is currently used. To do so, create a *FileLock* first:
 
 ```Python
-from filelock import Timeout, FileLock
+from src.filelock import Timeout, FileLock
 
 file_path = "high_ground.txt"
 lock_path = "high_ground.txt.lock"
@@ -90,11 +98,3 @@ not block on successive lock requests:
 
 ```Python
 def cite1():
-    with lock:
-        open(file_path, "a").write("I hate it when he does that.")
-
-def cite2():
-    with lock:
-        open(file_path, "a").write("You don't want to sell me death
-sticks.")
-
