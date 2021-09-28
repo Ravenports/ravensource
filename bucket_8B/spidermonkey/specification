@@ -28,8 +28,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		lang/spidermonkey78
 
-BUILD_DEPENDS=		autoconf213:single:standard
-			zip:single:standard
+BUILD_DEPENDS=		zip:single:standard
 			rust:single:standard
 BUILDRUN_DEPENDS=	icu:single:standard
 			nspr:single:standard
@@ -60,6 +59,13 @@ PLIST_SUB=		MOZJS_MAJOR=${MAJOR}
 			MOZJS_MINOR=${PORTVERSION:R:E}
 
 VAR_OPSYS[linux]=	MAKEFILE_LINE=CONFIGURE_TARGET=x86_64-ravenadm-linux-gnu
+
+pre-configure:
+	(cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} \
+	M4=m4 AWK=awk AC_MACRODIR=${WRKSRC}/../../build/autoconf/ \
+	${SH} ${WRKSRC}/../../build/autoconf/autoconf.sh \
+	--localdir=${WRKSRC}/../../js/src configure.in > configure)
+	${CHMOD} 755 ${WRKSRC}/configure
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/js${MAJOR}
