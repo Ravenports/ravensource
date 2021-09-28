@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	0.7.1
-DEF[SOVERSION]=		0.700.1
+DEF[PORTVERSION]=	0.7.2
+DEF[SOVERSION]=		0.700.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libraqm
@@ -12,7 +12,7 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/HOST-Oman/libraqm/releases/download/v${PORTVERSION}/
-DISTFILE[1]=		raqm-${PORTVERSION}.tar.gz:main
+DISTFILE[1]=		raqm-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	complete primary docs
 
@@ -31,6 +31,7 @@ BUILDRUN_DEPENDS=	freetype:primary:standard
 
 USES=			autoreconf gmake libtool pkgconfig gtk-doc
 MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-gtk-doc=yes
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 DISTNAME=		raqm-${PORTVERSION}
