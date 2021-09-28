@@ -1,6 +1,6 @@
---- base/fapi_ft.c.orig	2021-03-30 07:40:28 UTC
+--- base/fapi_ft.c.orig	2021-09-27 07:44:02 UTC
 +++ base/fapi_ft.c
-@@ -59,6 +59,10 @@
+@@ -60,6 +60,10 @@
  #include FT_MULTIPLE_MASTERS_H
  #include FT_TYPE1_TABLES_H
  
