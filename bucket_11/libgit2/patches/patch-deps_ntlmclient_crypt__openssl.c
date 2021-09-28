@@ -1,4 +1,4 @@
---- deps/ntlmclient/crypt_openssl.c.orig	2021-09-02 03:06:19 UTC
+--- deps/ntlmclient/crypt_openssl.c.orig	2021-09-27 20:09:50 UTC
 +++ deps/ntlmclient/crypt_openssl.c
 @@ -44,7 +44,7 @@ static inline void HMAC_CTX_free(HMAC_CT
  
