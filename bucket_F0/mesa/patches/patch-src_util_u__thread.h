@@ -1,6 +1,6 @@
---- src/util/u_thread.h.orig	2021-09-08 21:22:06 UTC
+--- src/util/u_thread.h.orig	2021-09-21 16:54:06 UTC
 +++ src/util/u_thread.h
-@@ -39,6 +39,7 @@
+@@ -40,6 +40,7 @@
  #include <signal.h>
  #ifdef HAVE_PTHREAD_NP_H
  #include <pthread_np.h>
@@ -8,19 +8,25 @@
  #endif
  #endif
  
-@@ -103,9 +104,9 @@ static inline thrd_t u_thread_create(int
+@@ -129,7 +130,7 @@ static inline thrd_t u_thread_create(int
  static inline void u_thread_setname( const char *name )
  {
  #if defined(HAVE_PTHREAD)
 -#if DETECT_OS_LINUX || DETECT_OS_CYGWIN || DETECT_OS_SOLARIS
 +#if DETECT_OS_LINUX || DETECT_OS_CYGWIN
-    pthread_setname_np(pthread_self(), name);
+    int ret = pthread_setname_np(pthread_self(), name);
+    if (ret == ERANGE) {
+       char buf[16];
+@@ -138,7 +139,7 @@ static inline void u_thread_setname( con
+       buf[len] = '\0';
+       pthread_setname_np(pthread_self(), buf);
+    }
 -#elif DETECT_OS_FREEBSD || DETECT_OS_OPENBSD
 +#elif DETECT_OS_FREEBSD || DETECT_OS_OPENBSD || DETECT_OS_DRAGONFLY
     pthread_set_name_np(pthread_self(), name);
  #elif DETECT_OS_NETBSD
     pthread_setname_np(pthread_self(), "%s", (void *)name);
-@@ -113,8 +114,6 @@ static inline void u_thread_setname( con
+@@ -146,8 +147,6 @@ static inline void u_thread_setname( con
     pthread_setname_np(name);
  #elif DETECT_OS_HAIKU
     rename_thread(find_thread(NULL), name);
@@ -29,7 +35,7 @@
  #endif
  #endif
     (void)name;
-@@ -209,7 +208,7 @@ util_set_current_thread_affinity(const u
+@@ -242,7 +241,7 @@ util_set_current_thread_affinity(const u
  static inline int64_t
  util_thread_get_time_nano(thrd_t thread)
  {

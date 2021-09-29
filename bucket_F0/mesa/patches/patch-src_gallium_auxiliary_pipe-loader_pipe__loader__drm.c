@@ -25,9 +25,9 @@ Signed-off-by: Emil Velikov <emil.l.velikov@gmail.com>
 Reviewed-by: Francisco Jerez <currojerez@riseup.net>
 
 
---- src/gallium/auxiliary/pipe-loader/pipe_loader_drm.c.orig	2021-09-08 21:22:00 UTC
+--- src/gallium/auxiliary/pipe-loader/pipe_loader_drm.c.orig	2021-09-21 16:54:06 UTC
 +++ src/gallium/auxiliary/pipe-loader/pipe_loader_drm.c
-@@ -197,6 +197,14 @@ pipe_loader_drm_probe_fd(struct pipe_loa
+@@ -198,6 +198,14 @@ pipe_loader_drm_probe_fd(struct pipe_loa
  }
  
  static int
@@ -42,7 +42,7 @@ Reviewed-by: Francisco Jerez <currojerez@riseup.net>
  open_drm_render_node_minor(int minor)
  {
     char path[PATH_MAX];
-@@ -208,8 +216,15 @@ open_drm_render_node_minor(int minor)
+@@ -209,8 +217,15 @@ open_drm_render_node_minor(int minor)
  int
  pipe_loader_drm_probe(struct pipe_loader_device **devs, int ndev)
  {
@@ -59,7 +59,7 @@ Reviewed-by: Francisco Jerez <currojerez@riseup.net>
     for (i = DRM_RENDER_NODE_MIN_MINOR, j = 0;
          i <= DRM_RENDER_NODE_MAX_MINOR; i++) {
        struct pipe_loader_device *dev;
-@@ -223,6 +238,9 @@ pipe_loader_drm_probe(struct pipe_loader
+@@ -224,6 +239,9 @@ pipe_loader_drm_probe(struct pipe_loader
           continue;
        }
  
@@ -69,7 +69,7 @@ Reviewed-by: Francisco Jerez <currojerez@riseup.net>
        if (j < ndev) {
           devs[j] = dev;
        } else {
-@@ -232,6 +250,46 @@ pipe_loader_drm_probe(struct pipe_loader
+@@ -233,6 +251,46 @@ pipe_loader_drm_probe(struct pipe_loader
        j++;
     }
  
