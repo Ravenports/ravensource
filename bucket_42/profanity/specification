@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.11.0
+DEF[PORTVERSION]=	0.11.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		profanity
@@ -25,7 +25,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net-im/profanity
 
-USES=			autoreconf libtool ncurses pkgconfig readline ssl gmake
+USES=			libtool ncurses pkgconfig readline ssl gmake
+			autoreconf:build
 GNOME_COMPONENTS=	glib
 MUST_CONFIGURE=		gnu
 CFLAGS=			-I{{NCURSESINC}}
@@ -36,13 +37,20 @@ CONFIGURE_ARGS=		--enable-c-plugins
 			--enable-pgp
 			--with-xscreensaver=no
 BUILD_DEPENDS=		autoconf-archive:single:standard
+			libtool:single:standard
 BUILDRUN_DEPENDS=	curl:primary:standard
 			gpgme:primary:standard
 			libmesode:single:standard
 			libnotify:primary:standard
 			libotr:single:standard
 			libuuid:single:standard
+# may be some kind of ravenadm bug, USES=python is ignored
+			python38:single:standard
 INSTALL_TARGET=		install-strip
+
+pre-configure:
+	${MKDIR} ${WRKSRC}/m4
+	(cd ${WRKSRC} && autoreconf -fiv)
 
 post-patch:
 	${REINPLACE_CMD} -e "s,python,python${PYTHON_VER},g" \
