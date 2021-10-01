@@ -1,4 +1,4 @@
---- src/egl/drivers/dri2/platform_wayland.c.orig	2021-09-21 16:54:06 UTC
+--- src/egl/drivers/dri2/platform_wayland.c.orig	2021-09-29 20:10:16 UTC
 +++ src/egl/drivers/dri2/platform_wayland.c
 @@ -1330,6 +1330,7 @@ registry_handle_global_drm(void *data, s
        dri2_dpy->wl_drm =

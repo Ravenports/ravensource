@@ -1,4 +1,4 @@
---- src/util/u_math.h.orig	2021-09-21 16:54:06 UTC
+--- src/util/u_math.h.orig	2021-09-29 20:10:17 UTC
 +++ src/util/u_math.h
 @@ -51,6 +51,7 @@
  extern "C" {
