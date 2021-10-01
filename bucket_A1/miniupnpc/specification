@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.2.2
+DEF[PORTVERSION]=	2.2.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		miniupnpc
@@ -24,14 +24,5 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net/miniupnpc
 
-USES=			gmake
-MUST_CONFIGURE=		yes
-CONFIGURE_SCRIPT=	updateminiupnpcstrings.sh
-MAKE_ENV=		INSTALLPREFIX={{PREFIX}}
-
+USES=			cmake
 RC_SUBR=		miniupnpc:single
-
-post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/upnpc \
-		${STAGEDIR}${PREFIX}/lib/libminiupnpc.so
-
