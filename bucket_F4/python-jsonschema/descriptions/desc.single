@@ -2,27 +2,73 @@
 jsonschema
 ==========
 
-|PyPI| |Pythons| |Travis| |AppVeyor| |Codecov| |ReadTheDocs|
+|PyPI| |Pythons| |CI| |ReadTheDocs| |Precommit| |Zenodo|
 
-jsonschema is an implementation of [JSON Schema]
-for Python (supporting 2.7+ including Python 3).
+jsonschema is an implementation of [JSON Schema
+] for Python.
 
-    :alt: Open Live Demo
+.. code-block:: python
 
-Online demo Notebook will look similar to this:
+    >>> from jsonschema import validate
 
-.. image::
-https://user-images.githubusercontent.com/1155573/56820861-5c1c1880-6823-11e9-802a-ce01c5ec574f.gif
-    :alt: Open Live Demo
-    :width: 480 px
+    >>> # A sample schema, like what we'd get from json.load()
+    >>> schema = {
+    ...     "type" : "object",
+    ...     "properties" : {
+    ...         "price" : {"type" : "number"},
+    ...         "name" : {"type" : "string"},
+    ...     },
+    ... }
 
-Release Notes
--------------
+    >>> # If no exception is raised by validate(), the instance is valid.
+    >>> validate(instance={"name" : "Eggs", "price" : 34.99},
+schema=schema)
 
-v3.1 brings support for ECMA 262 dialect regular expressions
-throughout schemas, as recommended by the specification. Big
-thanks to @Zac-HD for authoring support in a new `js-regex
-<https://pypi.org/project/js-regex/>`_ library.
+    >>> validate(
+    ...     instance={"name" : "Eggs", "price" : "Invalid"}, schema=schema,
+    ... )                                   # doctest:
++IGNORE_EXCEPTION_DETAIL
+    Traceback (most recent call last):
+        ...
+    ValidationError: 'Invalid' is not of type 'number'
+
+It can also be used from console:
+
+.. code-block:: bash
+
+    $ jsonschema --instance sample.json sample.schema
+
+Features
+--------
+
+* Partial support for
+  `Draft 2020-12
+<https://python-jsonschema.readthedocs.io/en/latest/validate/#jsonschema.Draft202012Validator>`_
+and
+  `Draft 2019-09
+<https://python-jsonschema.readthedocs.io/en/latest/validate/#jsonschema.Draft201909Validator>`_,
+  except for dynamicRef / recursiveRef and ``$vocabulary`` (in-progress).
+  Full support for
+  [Draft 7],
+  [Draft 6],
+  [Draft 4]
+  and
+  [Draft 3]
+
+* [Lazy validation]
+  that can iteratively report *all* validation errors.
+
+* [Programmatic querying]
+  of which properties or items failed validation.
+
+Installation
+------------
+
+jsonschema is available on [PyPI]. You can install using [pip]:
+
+.. code-block:: bash
+
+    $ pip install jsonschema
 
 Running the Test Suite
 ----------------------
@@ -42,46 +88,13 @@ Benchmarks
 ----------
 
 jsonschema's benchmarks make use of [pyperf
-].
+]. Running them can be done via::
 
-Running them can be done via ``tox -e perf``, or by invoking the pyperf
-commands externally (after ensuring that both it and jsonschema itself are
-installed)::
-
-    $ python -m pyperf jsonschema/benchmarks/test_suite.py --hist --output
-results.json
-
-To compare to a previous run, use::
-
-    $ python -m pyperf compare_to --table reference.json results.json
-
-See the pyperf documentation for more details.
+      $ tox -e perf
 
 Community
 ---------
 
-There's a [mailing list]
-for this implementation on Google Groups.
-
-Please join, and feel free to send questions there.
-
-Contributing
-------------
-
-I'm Julian Berman.
-
-jsonschema is on [GitHub].
-
-Get in touch, via GitHub or otherwise, if you've got something to
-contribute,
-it'd be most welcome!
-
-You can also generally find me on Freenode (nick: tos9) in various
-channels, including ``#python``.
-
-If you feel overwhelmingly grateful, you can also woo me with beer money
-via Google Pay with the email in my GitHub profile.
-
-And for companies who appreciate jsonschema and its continued support
-and growth, jsonschema is also now supportable via [TideLift
-].
+The JSON Schema specification has [a Slack
+], with an [invite link on its home page
+]. Many folks knowledgeable on authoring
