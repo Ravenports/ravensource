@@ -1,6 +1,6 @@
---- lib/Frontend/InitHeaderSearch.cpp.orig	2021-06-28 16:23:38 UTC
+--- lib/Frontend/InitHeaderSearch.cpp.orig	2021-09-24 16:18:10 UTC
 +++ lib/Frontend/InitHeaderSearch.cpp
-@@ -222,7 +222,6 @@ void InitHeaderSearch::AddDefaultCInclud
+@@ -226,7 +226,6 @@ void InitHeaderSearch::AddDefaultCInclud
    if (HSOpts.UseStandardSystemIncludes) {
      switch (os) {
      case llvm::Triple::CloudABI:
@@ -8,7 +8,7 @@
      case llvm::Triple::NetBSD:
      case llvm::Triple::OpenBSD:
      case llvm::Triple::NaCl:
-@@ -398,8 +397,15 @@ void InitHeaderSearch::AddDefaultCPlusPl
+@@ -402,8 +401,15 @@ void InitHeaderSearch::AddDefaultCPlusPl
        break;
      }
      break;

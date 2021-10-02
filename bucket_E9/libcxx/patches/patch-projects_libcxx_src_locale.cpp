@@ -1,8 +1,8 @@
---- projects/libcxx/src/locale.cpp.orig	2021-06-28 16:23:38 UTC
+--- projects/libcxx/src/locale.cpp.orig	2021-09-24 16:18:10 UTC
 +++ projects/libcxx/src/locale.cpp
-@@ -1133,7 +1133,7 @@ ctype<char>::classic_table()  _NOEXCEPT
+@@ -1133,7 +1133,7 @@ ctype<char>::classic_table() noexcept
  const ctype<char>::mask*
- ctype<char>::classic_table()  _NOEXCEPT
+ ctype<char>::classic_table() noexcept
  {
 -#if defined(__APPLE__) || defined(__FreeBSD__)
 +#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__)

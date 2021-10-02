@@ -1,6 +1,6 @@
---- tools/llvm-jitlink/CMakeLists.txt.orig	2021-06-28 16:23:38 UTC
+--- tools/llvm-jitlink/CMakeLists.txt.orig	2021-09-24 16:18:10 UTC
 +++ tools/llvm-jitlink/CMakeLists.txt
-@@ -24,4 +24,8 @@ add_llvm_tool(llvm-jitlink
+@@ -24,6 +24,10 @@ add_llvm_tool(llvm-jitlink
    llvm-jitlink-macho.cpp
    )
  
@@ -8,4 +8,6 @@
 +   target_link_libraries(llvm-jitlink PRIVATE socket nsl)
 +endif()
 +
- export_executable_symbols(llvm-jitlink)
+ if(${CMAKE_SYSTEM_NAME} MATCHES "Haiku")
+   target_link_libraries(llvm-jitlink PRIVATE network)
+ endif()

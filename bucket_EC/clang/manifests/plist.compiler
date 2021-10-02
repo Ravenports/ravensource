@@ -210,6 +210,7 @@ include/clang/Analysis/CloneDetection.h
 include/clang/Analysis/CodeInjector.h
 include/clang/Analysis/ConstructionContext.h
 include/clang/Analysis/IssueHash.h
+include/clang/Analysis/MacroExpansionContext.h
 include/clang/Analysis/PathDiagnostic.h
 include/clang/Analysis/ProgramPoint.h
 include/clang/Analysis/RetainSummaryManager.h
@@ -257,11 +258,11 @@ include/clang/Basic/BuiltinsBPF.def
 include/clang/Basic/BuiltinsHexagon.def
 include/clang/Basic/BuiltinsHexagonDep.def
 include/clang/Basic/BuiltinsHexagonMapCustomDep.def
-include/clang/Basic/BuiltinsLe64.def
 include/clang/Basic/BuiltinsMips.def
 include/clang/Basic/BuiltinsNEON.def
 include/clang/Basic/BuiltinsNVPTX.def
 include/clang/Basic/BuiltinsPPC.def
+include/clang/Basic/BuiltinsRISCV.def
 include/clang/Basic/BuiltinsSVE.def
 include/clang/Basic/BuiltinsSystemZ.def
 include/clang/Basic/BuiltinsWebAssembly.def
@@ -274,6 +275,7 @@ include/clang/Basic/CodeGenOptions.def
 include/clang/Basic/CodeGenOptions.h
 include/clang/Basic/CommentOptions.h
 include/clang/Basic/Cuda.h
+include/clang/Basic/DarwinSDKInfo.h
 include/clang/Basic/DebugInfoOptions.h
 include/clang/Basic/Diagnostic.h
 include/clang/Basic/DiagnosticAST.h
@@ -327,6 +329,7 @@ include/clang/Basic/Linkage.h
 include/clang/Basic/MSP430Target.def
 include/clang/Basic/MacroBuilder.h
 include/clang/Basic/Module.h
+include/clang/Basic/NoSanitizeList.h
 include/clang/Basic/ObjCRuntime.h
 include/clang/Basic/OpenCLExtensionTypes.def
 include/clang/Basic/OpenCLExtensions.def
@@ -343,7 +346,7 @@ include/clang/Basic/PlistSupport.h
 include/clang/Basic/PragmaKinds.h
 include/clang/Basic/PrettyStackTrace.h
 include/clang/Basic/ProfileList.h
-include/clang/Basic/SanitizerBlacklist.h
+include/clang/Basic/RISCVVTypes.def
 include/clang/Basic/SanitizerSpecialCaseList.h
 include/clang/Basic/Sanitizers.def
 include/clang/Basic/Sanitizers.h
@@ -354,11 +357,13 @@ include/clang/Basic/Specifiers.h
 include/clang/Basic/Stack.h
 include/clang/Basic/SyncScope.h
 include/clang/Basic/TargetBuiltins.h
+include/clang/Basic/TargetCXXABI.def
 include/clang/Basic/TargetCXXABI.h
 include/clang/Basic/TargetID.h
 include/clang/Basic/TargetInfo.h
 include/clang/Basic/TargetOptions.h
 include/clang/Basic/TemplateKinds.h
+include/clang/Basic/Thunk.h
 include/clang/Basic/TokenKinds.def
 include/clang/Basic/TokenKinds.h
 include/clang/Basic/TypeTraits.h
@@ -382,6 +387,8 @@ include/clang/Basic/arm_sve_builtin_cg.inc
 include/clang/Basic/arm_sve_builtins.inc
 include/clang/Basic/arm_sve_sema_rangechecks.inc
 include/clang/Basic/arm_sve_typeflags.inc
+include/clang/Basic/riscv_vector_builtin_cg.inc
+include/clang/Basic/riscv_vector_builtins.inc
 include/clang/CodeGen/BackendUtil.h
 include/clang/CodeGen/CGFunctionInfo.h
 include/clang/CodeGen/CodeGenABITypes.h
@@ -397,10 +404,10 @@ include/clang/CrossTU/CrossTranslationUnit.h
 include/clang/DirectoryWatcher/DirectoryWatcher.h
 include/clang/Driver/Action.h
 include/clang/Driver/Compilation.h
-include/clang/Driver/DarwinSDKInfo.h
 include/clang/Driver/Distro.h
 include/clang/Driver/Driver.h
 include/clang/Driver/DriverDiagnostic.h
+include/clang/Driver/InputInfo.h
 include/clang/Driver/Job.h
 include/clang/Driver/Multilib.h
 include/clang/Driver/OptionUtils.h
@@ -457,6 +464,8 @@ include/clang/Index/IndexingAction.h
 include/clang/Index/IndexingOptions.h
 include/clang/Index/USRGeneration.h
 include/clang/IndexSerialization/SerializablePathCollection.h
+include/clang/Interpreter/Interpreter.h
+include/clang/Interpreter/PartialTranslationUnit.h
 include/clang/Lex/CodeCompletionHandler.h
 include/clang/Lex/DependencyDirectivesSourceMinimizer.h
 include/clang/Lex/DirectoryLookup.h
@@ -583,7 +592,7 @@ include/clang/StaticAnalyzer/Core/PathSensitive/CheckerHelpers.h
 include/clang/StaticAnalyzer/Core/PathSensitive/ConstraintManager.h
 include/clang/StaticAnalyzer/Core/PathSensitive/CoreEngine.h
 include/clang/StaticAnalyzer/Core/PathSensitive/DynamicCastInfo.h
-include/clang/StaticAnalyzer/Core/PathSensitive/DynamicSize.h
+include/clang/StaticAnalyzer/Core/PathSensitive/DynamicExtent.h
 include/clang/StaticAnalyzer/Core/PathSensitive/DynamicType.h
 include/clang/StaticAnalyzer/Core/PathSensitive/DynamicTypeInfo.h
 include/clang/StaticAnalyzer/Core/PathSensitive/Environment.h
@@ -629,6 +638,8 @@ include/clang/Tooling/Execution.h
 include/clang/Tooling/FileMatchTrie.h
 include/clang/Tooling/FixIt.h
 include/clang/Tooling/JSONCompilationDatabase.h
+include/clang/Tooling/NodeIntrospection.h
+include/clang/Tooling/NodeIntrospection.inc
 include/clang/Tooling/Refactoring.h
 include/clang/Tooling/RefactoringCallbacks.h
 include/clang/Tooling/ReplacementsYaml.h
@@ -704,6 +715,7 @@ lib/libclangHandleCXX.a
 lib/libclangHandleLLVM.a
 lib/libclangIndex.a
 lib/libclangIndexSerialization.a
+lib/libclangInterpreter.a
 lib/libclangLex.a
 lib/libclangParse.a
 lib/libclangRewrite.a
@@ -782,6 +794,7 @@ lib/clang/%%LLVM_RELEASE%%/include/avxintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/avxvnniintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/bmi2intrin.h
 lib/clang/%%LLVM_RELEASE%%/include/bmiintrin.h
+lib/clang/%%LLVM_RELEASE%%/include/builtins.h
 lib/clang/%%LLVM_RELEASE%%/include/cet.h
 lib/clang/%%LLVM_RELEASE%%/include/cetintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/cldemoteintrin.h
@@ -797,9 +810,13 @@ lib/clang/%%LLVM_RELEASE%%/include/fma4intrin.h
 lib/clang/%%LLVM_RELEASE%%/include/fmaintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/fxsrintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/gfniintrin.h
+lib/clang/%%LLVM_RELEASE%%/include/hexagon_circ_brev_intrinsics.h
+lib/clang/%%LLVM_RELEASE%%/include/hexagon_protos.h
+lib/clang/%%LLVM_RELEASE%%/include/hexagon_types.h
 lib/clang/%%LLVM_RELEASE%%/include/hresetintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/htmintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/htmxlintrin.h
+lib/clang/%%LLVM_RELEASE%%/include/hvx_hexagon_protos.h
 lib/clang/%%LLVM_RELEASE%%/include/ia32intrin.h
 lib/clang/%%LLVM_RELEASE%%/include/immintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/intrin.h
@@ -826,6 +843,7 @@ lib/clang/%%LLVM_RELEASE%%/include/popcntintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/prfchwintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/ptwriteintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/rdseedintrin.h
+lib/clang/%%LLVM_RELEASE%%/include/riscv_vector.h
 lib/clang/%%LLVM_RELEASE%%/include/rtmintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/s390intrin.h
 lib/clang/%%LLVM_RELEASE%%/include/serializeintrin.h
@@ -872,11 +890,16 @@ lib/clang/%%LLVM_RELEASE%%/include/ppc_wrappers/pmmintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/ppc_wrappers/smmintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/ppc_wrappers/tmmintrin.h
 lib/clang/%%LLVM_RELEASE%%/include/ppc_wrappers/xmmintrin.h
+lib/cmake/clang/AddClang.cmake
 lib/cmake/clang/ClangConfig.cmake
 lib/cmake/clang/ClangTargets-%%CMAKE_BUILD_TYPE%%.cmake
 lib/cmake/clang/ClangTargets.cmake
+libexec/analyze-c++
+libexec/analyze-cc
 libexec/c++-analyzer
 libexec/ccc-analyzer
+libexec/intercept-c++
+libexec/intercept-cc
 share/clang/bash-autocomplete.sh
 share/clang/clang-format-bbedit.applescript
 share/clang/clang-format-diff.py

@@ -1,6 +1,6 @@
---- lib/Driver/ToolChains/Gnu.cpp.orig	2021-06-28 16:23:38 UTC
+--- lib/Driver/ToolChains/Gnu.cpp.orig	2021-09-24 16:18:10 UTC
 +++ lib/Driver/ToolChains/Gnu.cpp
-@@ -482,6 +482,9 @@ void tools::gnutools::Linker::ConstructJ
+@@ -484,6 +484,9 @@ void tools::gnutools::Linker::ConstructJ
    }
  
    if (!IsStatic) {
@@ -10,7 +10,7 @@
      if (Args.hasArg(options::OPT_rdynamic))
        CmdArgs.push_back("-export-dynamic");
  
-@@ -588,6 +591,8 @@ void tools::gnutools::Linker::ConstructJ
+@@ -590,6 +593,8 @@ void tools::gnutools::Linker::ConstructJ
  
    if (!Args.hasArg(options::OPT_nostdlib)) {
      if (!Args.hasArg(options::OPT_nodefaultlibs)) {
