@@ -1,6 +1,6 @@
---- src/app/app.cc.orig	2021-05-06 15:12:17 UTC
+--- src/app/app.cc.orig	2021-09-22 16:41:17 UTC
 +++ src/app/app.cc
-@@ -2543,7 +2543,15 @@ main(int argc,
+@@ -3038,7 +3038,15 @@ main(int argc,
                 struct termios tcattr;
                 if (tcgetattr(STDIN_FILENO, &tcattr) == 0) {
                         saved_tcattr = tcattr;
