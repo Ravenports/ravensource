@@ -1,16 +1,15 @@
---- meson.build.orig	2019-12-21 06:43:47 UTC
+--- meson.build.orig	2021-10-01 20:09:11 UTC
 +++ meson.build
-@@ -16,11 +16,21 @@ cc = meson.get_compiler('c')
- libgio_dep = dependency('gio-2.0', version: '>= 2.34.0')
- libgmodule_dep = dependency('gmodule-2.0')
+@@ -21,11 +21,21 @@ libcanberra_dep = dependency('libcanberr
+ dbus_glib_dep = dependency('dbus-glib-1', required: get_option('dbus'))
+ 
  global_deps = []
 +libssl_dep_found = false
  if cc.get_id() == 'msvc'
-   libssl_dep = cc.find_library('libeay32')
+   libssl_dep = cc.find_library('libssl')
  else
    libssl_dep = dependency('openssl', version: '>= 0.9.8',
--                          required: get_option('with-ssl'))
-+                          required: false)
+                           required: get_option('tls'))
 +  if not libssl_dep.found()
 +    libssl_dep = [
 +        cc.find_library('ssl', required: get_option('with-ssl')),
@@ -23,22 +22,21 @@
  endif
  
  config_h = configuration_data()
-@@ -49,7 +59,7 @@ config_h.set('GLIB_VERSION_MIN_REQUIRED'
- config_h.set('HAVE_MEMRCHR', cc.has_function('memrchr'))
- config_h.set('HAVE_STRINGS_H', cc.has_header('strings.h'))
+@@ -57,7 +67,7 @@ config_h.set_quoted('HEXCHATLIBDIR',
+   join_paths(get_option('prefix'), get_option('libdir'), 'hexchat/plugins')
+ )
  
 -if libssl_dep.found()
 +if libssl_dep_found
    config_h.set('HAVE_X509_GET_SIGNATURE_NID',
      cc.has_function('X509_get_signature_nid', dependencies: libssl_dep)
    )
-@@ -129,9 +139,6 @@ global_ldflags = []
+@@ -137,8 +147,6 @@ global_ldflags = []
  test_ldflags = [
    '-Wl,-z,relro',
    '-Wl,-z,now',
 -  # mingw
--  '-Wl,--dynamicbase',
 -  '-Wl,--nxcompat',
  ]
- foreach ldflag : test_ldflags
-   if meson.version().version_compare('>= 0.46.0')
+ if not (host_machine.system() == 'windows' and get_option('debug'))
+  test_ldflags += '-Wl,--dynamicbase'
