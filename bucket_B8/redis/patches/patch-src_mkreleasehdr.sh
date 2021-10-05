@@ -1,4 +1,4 @@
---- src/mkreleasehdr.sh.orig	2021-07-21 18:06:49 UTC
+--- src/mkreleasehdr.sh.orig	2021-10-04 10:59:40 UTC
 +++ src/mkreleasehdr.sh
 @@ -1,6 +1,6 @@
  #!/bin/sh

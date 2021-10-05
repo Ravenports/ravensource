@@ -1,4 +1,4 @@
---- deps/hiredis/Makefile.orig	2021-07-21 18:06:49 UTC
+--- deps/hiredis/Makefile.orig	2021-10-04 10:59:40 UTC
 +++ deps/hiredis/Makefile
 @@ -21,7 +21,7 @@ HIREDIS_PATCH=$(shell grep HIREDIS_PATCH
  HIREDIS_SONAME=$(shell grep HIREDIS_SONAME hiredis.h | awk '{print $$3}')
@@ -19,7 +19,7 @@
  REAL_CFLAGS=$(OPTIMIZATION) -fPIC $(CPPFLAGS) $(CFLAGS) $(WARNINGS) $(DEBUG_FLAGS)
  REAL_LDFLAGS=$(LDFLAGS)
  
-@@ -95,6 +93,15 @@ ifeq ($(uname_S),SunOS)
+@@ -100,6 +98,15 @@ ifeq ($(uname_S),SunOS)
    DYLIB_MAKE_CMD=$(CC) $(SUN_SHARED_FLAG) -o $(DYLIBNAME) -h $(DYLIB_MINOR_NAME) $(LDFLAGS)
    SSL_DYLIB_MAKE_CMD=$(CC) $(SUN_SHARED_FLAG) -o $(SSL_DYLIBNAME) -h $(SSL_DYLIB_MINOR_NAME) $(LDFLAGS) $(SSL_LDFLAGS)
  endif
