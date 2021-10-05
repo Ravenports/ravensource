@@ -1,7 +1,7 @@
 wrapt
 =====
 
-|Travis| |AppVeyor| |Coveralls| |PyPI|
+|Actions| |PyPI|
 
 The aim of the **wrapt** module is to provide a transparent object proxy
 for Python, which can be used as the basis for the construction of function
@@ -49,52 +49,3 @@ argument.
 The decorator ``@wrapt.decorator`` then needs to be applied to the wrapper
 function to convert it into a decorator which can in turn be applied to
 other functions.
-
-::
-
-    import wrapt
-    
-    @wrapt.decorator
-    def pass_through(wrapped, instance, args, kwargs):
-        return wrapped(*args, **kwargs)
-
-    @pass_through
-    def function():
-        pass
-
-If you wish to implement a decorator which accepts arguments, then wrap the
-definition of the decorator in a function closure. Any arguments supplied
-to the outer function when the decorator is applied, will be available to
-the inner wrapper when the wrapped function is called.
-
-::
-
-    import wrapt
-
-    def with_arguments(myarg1, myarg2):
-        @wrapt.decorator
-        def wrapper(wrapped, instance, args, kwargs):
-            return wrapped(*args, **kwargs)
-        return wrapper
-
-    @with_arguments(1, 2)
-    def function():
-        pass
-
-When applied to a normal function or static method, the wrapper function
-when called will be passed None as the instance argument.
-
-When applied to an instance method, the wrapper function when called will
-be passed the instance of the class the method is being called on as the
-instance argument. This will be the case even when the instance method
-was called explicitly via the class and the instance passed as the first
-argument. That is, the instance will never be passed as part of args.
-
-When applied to a class method, the wrapper function when called will be
-passed the class type as the instance argument.
-
-When applied to a class, the wrapper function when called will be passed
-None as the instance argument. The wrapped argument in this
-case will be the class.
-
-The above rules can be summarised with the following example.
