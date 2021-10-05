@@ -1,4 +1,4 @@
---- vapi/glib-2.0.vapi.orig	2021-09-13 16:40:46 UTC
+--- vapi/glib-2.0.vapi.orig	2021-10-04 06:42:32 UTC
 +++ vapi/glib-2.0.vapi
 @@ -3913,6 +3913,8 @@ namespace GLib {
  		public static FileStream? open (string path, string mode);
