@@ -1,4 +1,4 @@
---- src/polkitbackend/polkitbackendjsauthority.cpp.orig	2021-05-19 07:47:09 UTC
+--- src/polkitbackend/polkitbackendjsauthority.cpp.orig	2021-08-12 12:33:59 UTC
 +++ src/polkitbackend/polkitbackendjsauthority.cpp
 @@ -61,6 +61,46 @@
  #error "This code is not safe in SpiderMonkey exact stack rooting configurations"
