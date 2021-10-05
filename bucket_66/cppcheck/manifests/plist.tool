@@ -2,6 +2,7 @@ bin/cppcheck
 bin/cppcheck-htmlreport
 share/Cppcheck/addons/__init__.py
 share/Cppcheck/addons/cert.py
+share/Cppcheck/addons/cppcheck.py
 share/Cppcheck/addons/cppcheckdata.py
 share/Cppcheck/addons/findcasts.py
 share/Cppcheck/addons/misc.py
@@ -9,6 +10,7 @@ share/Cppcheck/addons/misra.py
 share/Cppcheck/addons/misra_9.py
 share/Cppcheck/addons/naming.py
 share/Cppcheck/addons/namingng.py
+share/Cppcheck/addons/runaddon.py
 share/Cppcheck/addons/threadsafety.py
 share/Cppcheck/addons/y2038.py
 share/Cppcheck/cfg/avr.cfg
