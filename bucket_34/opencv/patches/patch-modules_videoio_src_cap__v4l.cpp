@@ -1,4 +1,4 @@
---- modules/videoio/src/cap_v4l.cpp.orig	2021-07-05 12:03:22 UTC
+--- modules/videoio/src/cap_v4l.cpp.orig	2021-10-09 15:48:26 UTC
 +++ modules/videoio/src/cap_v4l.cpp
 @@ -228,7 +228,9 @@ make & enjoy!
  #include <poll.h>

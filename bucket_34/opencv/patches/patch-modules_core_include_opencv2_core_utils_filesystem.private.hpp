@@ -1,4 +1,4 @@
---- modules/core/include/opencv2/core/utils/filesystem.private.hpp.orig	2021-07-05 12:03:22 UTC
+--- modules/core/include/opencv2/core/utils/filesystem.private.hpp.orig	2021-10-09 15:48:26 UTC
 +++ modules/core/include/opencv2/core/utils/filesystem.private.hpp
 @@ -12,7 +12,7 @@
  #  elif defined WINRT || defined _WIN32_WCE
