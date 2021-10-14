@@ -1,6 +1,6 @@
---- CMakeLists.txt.orig	2021-01-04 05:30:22 UTC
+--- CMakeLists.txt.orig	2021-10-03 02:03:23 UTC
 +++ CMakeLists.txt
-@@ -54,15 +54,15 @@ set (PACKAGE_TARNAME "${PACKAGE}")
+@@ -55,15 +55,15 @@ set (PACKAGE_TARNAME "${PACKAGE}")
  set (PACKAGE_VERSION "${VERSION}")
  set (PACKAGE_STRING "${PACKAGE} ${VERSION}")
  
@@ -20,7 +20,7 @@
  SET (TASK_BINDIR  bin            CACHE STRING "Installation directory for the binary")
  
  if (USE_GNUTLS)
-@@ -87,10 +87,10 @@ check_struct_has_member ("struct tm" tm_
+@@ -88,10 +88,10 @@ check_struct_has_member ("struct tm" tm_
  check_struct_has_member ("struct stat" st_birthtime "sys/types.h;sys/stat.h" HAVE_ST_BIRTHTIME)
  
  message ("-- Looking for libuuid")
@@ -33,7 +33,7 @@
    find_path    (UUID_INCLUDE_DIR   uuid/uuid.h)
    find_library (UUID_LIBRARY NAMES uuid)
    if (UUID_INCLUDE_DIR AND UUID_LIBRARY)
-@@ -103,7 +103,7 @@ else (DARWIN OR FREEBSD OR OPENBSD)
+@@ -104,7 +104,7 @@ else (DARWIN OR FREEBSD OR OPENBSD)
    else (UUID_INCLUDE_DIR AND UUID_LIBRARY)
      message (FATAL_ERROR "-- libuuid not found.")
    endif (UUID_INCLUDE_DIR AND UUID_LIBRARY)
