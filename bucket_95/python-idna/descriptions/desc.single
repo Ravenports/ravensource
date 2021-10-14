@@ -12,9 +12,17 @@ This library also provides support for Unicode Technical Standard 46,
 This acts as a suitable replacement for the “encodings.idna” module
 that
 comes with the Python standard library, but which only supports the
-old, deprecated IDNA specification ([RFC 3490]).
+older superseded IDNA specification ([RFC 3490]).
 
 Basic functions are simply executed:
+
+.. code-block:: pycon
+
+    >>> import idna
+    >>> idna.encode('ドメイン.テスト')
+    b'xn--eckwd4c7c.xn--zckzah'
+    >>> print(idna.decode('xn--eckwd4c7c.xn--zckzah'))
+    ドメイン.テスト
 
 Installation
 ------------
@@ -30,10 +38,6 @@ Alternatively, you can install the package using the bundled setup script:
 .. code-block:: bash
 
     $ python setup.py install
-
-This library works with Python 3.4 or later. Earlier versions of this
-library support Python 2 - use "idna<3" in your requirements file if
-you need this library for a Python 2 application.
 
 Usage
 -----
@@ -56,10 +60,10 @@ You may use the codec encoding and decoding methods using the
 .. code-block:: pycon
 
     >>> import idna.codec
-    >>> print('домена.испытание'.encode('idna'))
-    b'xn--80ahd1agd.xn--80akhbyknj4f'
-    >>> print(b'xn--80ahd1agd.xn--80akhbyknj4f'.decode('idna'))
-    домена.испытание
+    >>> print('домен.испытание'.encode('idna'))
+    b'xn--d1acufc.xn--80akhbyknj4f'
+    >>> print(b'xn--d1acufc.xn--80akhbyknj4f'.decode('idna'))
+    домен.испытание
 
 Conversions can be applied at a per-label basis using the ulabel or alabel
 functions if necessary:
@@ -94,7 +98,3 @@ convert this into lower case prior to applying the IDNA conversion.
     >>> idna.encode('Königsgäßchen')
     ...
     idna.core.InvalidCodepoint: Codepoint U+004B at position 1 of
-'Königsgäßchen' not allowed
-    >>> idna.encode('Königsgäßchen', uts46=True)
-    b'xn--knigsgchen-b4a3dun'
-    >>> print(idna.decode('xn--knigsgchen-b4a3dun'))
