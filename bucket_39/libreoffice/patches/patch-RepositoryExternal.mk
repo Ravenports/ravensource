@@ -1,6 +1,6 @@
 See https://git.libreoffice.org/core/+/0e7d4d99beda181f4e22725e4b8295d25489696f
 
---- RepositoryExternal.mk.orig	2021-09-21 19:11:56 UTC
+--- RepositoryExternal.mk.orig	2021-10-06 00:34:15 UTC
 +++ RepositoryExternal.mk
 @@ -3870,6 +3870,7 @@ endef
  define gb_Executable__register_gengal
