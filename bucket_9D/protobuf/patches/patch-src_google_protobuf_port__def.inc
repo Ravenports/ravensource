@@ -2,7 +2,7 @@ $NetBSD: patch-src_google_protobuf_port__def.inc,v 1.3 2021/06/09 04:57:10 adam 
 
 SunOS does not support init_priority.
 
---- ../src/google/protobuf/port_def.inc.orig	2021-09-14 16:48:28 UTC
+--- ../src/google/protobuf/port_def.inc.orig	2021-10-05 00:43:33 UTC
 +++ ../src/google/protobuf/port_def.inc
 @@ -590,7 +590,7 @@
  #ifdef PROTOBUF_ATTRIBUTE_INIT_PRIORITY
