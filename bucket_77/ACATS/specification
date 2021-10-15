@@ -1,0 +1,58 @@
+DEF[PORTVERSION]=	4.1W
+DEF[HASH]=		37b5385
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ACATS
+VERSION=		${PORTVERSION}
+KEYWORDS=		ada devel
+VARIANTS=		standard
+SDESC[standard]=	Latest Ada Conformity Assessment Test Suite
+HOMEPAGE=		https://github.com/simonjwright/ACATS
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/simonjwright:ACATS:${HASH}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:primary
+LICENSE_NAME=		CUSTOM1:"US_GOV_Unlimited_Rights"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+RUN_DEPENDS=		expect:single:standard
+
+SKIP_BUILD=		yes
+SUB_FILES=		installed_compiler.sh
+			test_ada_on_gcc10
+			test_ada_on_gcc11
+			test_ada_on_ports_compiler
+
+USES=			shebangfix
+SHEBANG_LANG=		expect
+SHEBANG_FILES=		run_test.exp
+
+do-install:
+	# install documentation
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	(cd ${WRKSRC}/docs && ${COPYTREE_SHARE} . ${STAGEDIR}${STD_DOCDIR})
+	${INSTALL_DATA} ${WRKSRC}/README.md ${STAGEDIR}${STD_DOCDIR}
+
+	# install support files and tests
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/ACATS
+	(cd ${WRKSRC} &&\
+		${COPYTREE_SHARE} support ${STAGEDIR}${PREFIX}/share/ACATS &&\
+		${COPYTREE_SHARE} tests ${STAGEDIR}${PREFIX}/share/ACATS)
+
+	# install data files
+	${INSTALL_DATA} ${WRKSRC}/*.lst ${STAGEDIR}${PREFIX}/share/ACATS
+
+	# install scripts
+	${INSTALL_SCRIPT} ${WRKSRC}/*.sh ${WRKSRC}/*.exp \
+		${WRKDIR}/installed_compiler.sh \
+		${STAGEDIR}${PREFIX}/share/ACATS
+	${INSTALL_SCRIPT} ${WRKDIR}/test_ada_on* ${STAGEDIR}${PREFIX}/bin

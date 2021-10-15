@@ -1,0 +1,18 @@
+#!/bin/sh
+# shellcheck disable=SC1091
+#
+# This script executes the Ada Conformity Assessment Test Suite (ACATS) on
+# the installed compiler indicated by ADA_COMPILER.
+# The output will be generated at $HOME/ACATS_results_<timestamp> by default
+# for non-root users.  A root user must define the ACATS_RESULTS_DIR environment
+# variable to specify the output directory.  This environment variable is
+# respected for ALL users and overrides the default for non-root users.
+#
+# To run all chapters of ACATS, run this script without arguments.
+# To run specific chapters, provide them as arguments, e.g.
+# > %%PREFIX%%/bin/test_ada_on_gcc11 cxd cxe
+
+ADA_COMPILER="gcc11"
+export ADA_COMPILER
+
+. %%PREFIX%%/share/ACATS/installed_compiler.sh

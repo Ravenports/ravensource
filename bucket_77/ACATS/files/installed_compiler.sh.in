@@ -1,0 +1,84 @@
+# Source file (no shebang)
+# shellcheck shell=sh
+#
+# This is the main logic of running ACATS with installed GNAT from Ravenports.
+# The ADA_COMPILER variable must be defined.  It is the namebase of the 
+# Ravenport that is to be tested.
+#
+# There is an optional variable, ACATS_RESULTS_DIR.
+# If the user has root permissions, it *must* be defined and it cannot be
+# blank or equal to "/" and the parent directory must already exist.
+# For a non-root user, it defaults to $HOME/ACATS_results_<YYYY.MM.DD__hh.mm.ss>
+#
+
+iam=$(id -un)
+prefix="%%PREFIX%%"
+
+
+# This routine causes the script to exit if ACATS_RESULTS_DIR is no good.
+# Otherwise it does nothing.
+quit_on_invalid_results_directory() {
+   case "$ACATS_RESULTS_DIR" in
+      /) echo "FATAL: ACATS_RESULTS_DIR can never be set to '/'"
+         exit 1
+         ;;
+      /*)
+         parent=$(dirname "$ACATS_RESULTS_DIR")
+         if [ ! -d "$parent" ]; then
+            echo "FATAL: The parent of $ACATS_RESULTS_DIR is not an existing directory"
+            exit 1
+         fi
+         if [ ! -w "$parent" ]; then
+            echo "FATAL: The parent directory of $ACATS_RESULTS_DIR is not writable."
+            exit 1
+         fi
+         ;;
+      *) echo "FATAL: ACATS_RESULTS_DIR does not contain a leading forward slash."
+         exit 1
+         ;; 
+   esac
+}
+
+
+# This routine will cause the script to exit if ADA_COMPILER is not defined
+# or if doesn't lead to an executable file called "gcc".
+quit_if_compiler_is_missing() {
+   if [ -z "$ADA_COMPILER" ]; then
+      echo "FATAL: The variable ADA_COMPILER must be defined."
+      exit 1
+   fi
+   candidate="${prefix}/toolchain/${ADA_COMPILER}/bin/gcc"
+   if [ ! -x "$candidate" ]; then
+      echo "FATAL: The compiler '$candidate' does not exist or is not executable"
+      exit 1
+   fi
+   $candidate --version
+}
+
+
+if [ "$iam" = "root" ]; then
+   if [ -z "$ACATS_RESULTS_DIR" ]; then
+      echo "You are running the ACATS with root permissions."
+      echo "However, ACATS_RESULTS_DIR environment variable is not defined."
+      echo "Either run ACATS as a non-root user, or define ACATS_RESULTS_DIR"
+      echo "where the parent directory exists.  It cannot set to be '/'."
+      exit 1
+   fi
+else
+   if [ -z "$ACATS_RESULTS_DIR" ]; then
+      tstamp=$(date "+%Y.%m.%d__%H.%M.%S")
+      ACATS_RESULTS_DIR="$HOME/ACATS_results_${tstamp}"
+   fi
+fi
+quit_on_invalid_results_directory
+quit_if_compiler_is_missing
+
+# create output directory (if necessary) and clear it out as needed
+mkdir -p "${ACATS_RESULTS_DIR:?}"
+rm -rf "${ACATS_RESULTS_DIR:?}/*"
+
+TAILORED_PATH="${prefix}/toolchain/${ADA_COMPILER}/bin:/sbin:/bin:/usr/sbin:/usr/bin:${prefix}/bin"
+START_TESTS="${prefix}/share/ACATS/run_local.sh"
+
+# Execute the ACATS testsuite
+(cd "$ACATS_RESULTS_DIR" && env PATH="$TAILORED_PATH" "$START_TESTS" "$@")

@@ -1,0 +1,2 @@
+SHEBANG_OLD_EXPECT=	/usr/bin/expect
+SHEBANG_NEW_EXPECT=	${LOCALBASE}/bin/expect
