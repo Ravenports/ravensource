@@ -6,6 +6,8 @@ DEF[IDENTIFICATION]=	EXTRACT_INFO(GCCBASE_IDENTIFICATION)
 DEF[GCC_VERSION]=	EXTRACT_INFO(GCCBASE_VERSION)
 DEF[STDCXX_VERSION]=	6.0.29
 DEF[TOOLCHAIN]=		{{LOCALBASE}}/toolchain
+DEF[DRACO_TAG]=		11.2.0-rev1
+DEF[DRACO_DIR]=		patches-11.2.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravensys-gcc
@@ -17,9 +19,16 @@ SDESC[standard]=	GNU Compiler collection (GCC), Series ${BRANCH}
 HOMEPAGE=		https://gcc.gnu.org/
 CONTACT=		John_Marino[draco@marino.st]
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main draco
 SITES[main]=		GCC/${MS_SUBDIR}
+SITES[draco]=		https://raw.githubusercontent.com/jrmarino/draco/${DRACO_TAG}/generated/${DRACO_DIR}/
 DISTFILE[1]=		${IDENTIFICATION}.tar.xz:main
+DISTFILE[2]=		patch-diff-ada:draco
+DISTFILE[3]=		patch-diff-core:draco
+DISTFILE[4]=		patch-diff-cxx:draco
+DISTFILE[5]=		patch-diff-ada-testsuite:draco
+DISTFILE[6]=		patch-diff-gcc-testsuite:draco
+DIST_SUBDIR=		gcc11_${DRACO_TAG}
 
 SPKGS[standard]=	complete compilers ada_run cxx_run fortran_run libs infopages
 
@@ -50,6 +59,8 @@ EXRUN[ada_run]=		ravensys-gcc:libs:standard
 EXRUN[cxx_run]=		ravensys-gcc:libs:standard
 EXRUN[fortran_run]=	ravensys-gcc:libs:standard
 EXRUN[compilers]=	ravensys-gcc:cxx_run:standard
+
+PATCHFILES=		2 3 4 5 6
 
 USES=			cpe gmake libtool perl:build
 # makeinfo pulls in libiconv, which gets picked up.
