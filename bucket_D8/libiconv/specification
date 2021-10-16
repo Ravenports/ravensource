@@ -49,9 +49,6 @@ pre-configure:
 	${REINPLACE_CMD} -e 's:ei_ksc5601:ei_euc_kr:g' ${WRKSRC}/lib/aliases.h
 	${REINPLACE_CMD} -e 's:gawk:awk:g' ${WRKSRC}/configure \
 		${WRKSRC}/libcharset/configure
-	# this second configure script is not covered by raven.mk on NetBSD
-	${REINPLACE_CMD} -e 's|version_type=sunos|version_type=freebsd-elf|' \
-		${WRKSRC}/libcharset/configure
 
 post-build:
 	# assemble PIC library

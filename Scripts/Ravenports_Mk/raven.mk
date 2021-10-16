@@ -622,8 +622,8 @@ do-configure:
 	# NetBSD uses the old sunv4 soname format.  Force NetBSD to generate library
 	# names that match linux and the other BSDs.
 	@if [ "${OPSYS}" = "NetBSD" ]; then \
-		${SED} -i.netbsd -e 's|version_type=sunos|version_type=freebsd-elf|' \
-			${CONFIGURE_WRKSRC}/${CONFIGURE_SCRIPT}; \
+		${FIND} ${WRKSRC} -name configure | ${XARGS} \
+		${SED} -i.netbsd -e 's|version_type=sunos|version_type=freebsd-elf|'; \
 	fi
 	@CONFIG_GUESS_DIRS=$$(${FIND} ${WRKDIR} -name config.guess -o -name config.sub \
 		| ${XARGS} -n 1 ${DIRNAME} 2>/dev/null); \
