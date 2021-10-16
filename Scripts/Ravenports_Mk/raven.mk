@@ -623,7 +623,7 @@ do-configure:
 	# names that match linux and the other BSDs.
 	@if [ "${OPSYS}" = "NetBSD" ]; then \
 		${SED} -i.netbsd -e 's|version_type=sunos|version_type=freebsd-elf|' \
-			${WRKSRC}/${CONFIGURE_SCRIPT}; \
+			${CONFIGURE_WRKSRC}/${CONFIGURE_SCRIPT}; \
 	fi
 	@CONFIG_GUESS_DIRS=$$(${FIND} ${WRKDIR} -name config.guess -o -name config.sub \
 		| ${XARGS} -n 1 ${DIRNAME} 2>/dev/null); \
