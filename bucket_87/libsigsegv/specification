@@ -34,6 +34,10 @@ CONFIGURE_ARGS=		AWK="{{AWK}}" --enable-shared
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 
+pre-configure:
+	${REINPLACE_CMD} -e 's|version_type=sunos|version_type=freebsd-elf|' \
+		${WRKSRC}/configure
+
 do-test:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_FLAGS} \
 		${MAKEFILE} ${MAKE_ARGS} check)
