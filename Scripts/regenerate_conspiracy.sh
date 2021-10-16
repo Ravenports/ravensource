@@ -35,8 +35,8 @@ DATADIR=${SCRIPTSDIR}/Ravenports_Mk
 for F in GID UID; do
    sed "s|${PATTERN}|${WARNING}|" ${DATADIR}/${F}.ravenports > ${CONSPIR}/Mk/Templates/${F}.ravenports
 done
-for F in information versions; do
-   sed "s|${PATTERN}|${WARNING}|" ${DATADIR}/raven.${F}.mk > ${CONSPIR}/Mk/raven.${F}.mk
+for F in raven.information raven.versions raven.commands raven.sequence raven; do
+   sed "s|${PATTERN}|${WARNING}|" ${DATADIR}/${F}.mk > ${CONSPIR}/Mk/${F}.mk
 done
 cp -RpP ${DATADIR}/raverreq   ${CONSPIR}/Mk/Misc/
 cp -RpP ${DATADIR}/Keywords/* ${CONSPIR}/Mk/Keywords/
