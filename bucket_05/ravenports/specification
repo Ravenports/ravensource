@@ -4,10 +4,11 @@ DEF[PORTVERSION]=	20180730
 NAMEBASE=		ravenports
 VERSION=		${PORTVERSION}
 KEYWORDS=		raven
-VARIANTS=		dragonfly freebsd_amd64 linux sunos macos
+VARIANTS=		dragonfly freebsd_amd64 netbsd_amd64 linux sunos macos
 SDESC[linux]=		Install turnkey Ravenports on Linux
 SDESC[dragonfly]=	Install turnkey Ravenports on DragonFly
 SDESC[freebsd_amd64]=	Install turnkey Ravenports on FreeBSD/amd64
+SDESC[netbsd_amd64]=	Install turnkey Ravenports on NetBSD/amd64
 SDESC[sunos]=		Install turnkey Ravenports on Solaris 10u8
 SDESC[macos]=		Install turnkey Ravenports on Darwin/MacOS
 HOMEPAGE=		https://github.com/jrmarino/Ravenports
@@ -18,16 +19,18 @@ DOWNLOAD_GROUPS=	none
 SPKGS[linux]=		single
 SPKGS[dragonfly]=	single
 SPKGS[freebsd_amd64]=	single
+SPKGS[netbsd_amd64]=	single
 SPKGS[sunos]=		single
 SPKGS[macos]=		single
 
-OPTIONS_AVAILABLE=	DRAGONFLY FREEBSDAMD64 LINUX SUNOS MACOS
+OPTIONS_AVAILABLE=	DRAGONFLY FREEBSDAMD64 LINUX SUNOS MACOS NET64
 OPTIONS_STANDARD=	none
-VOPTS[dragonfly]=	DRAGONFLY=ON FREEBSDAMD64=OFF LINUX=OFF SUNOS=OFF MACOS=OFF
-VOPTS[freebsd_amd64]=	DRAGONFLY=OFF FREEBSDAMD64=ON LINUX=OFF SUNOS=OFF MACOS=OFF
-VOPTS[linux]=		DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=ON SUNOS=OFF MACOS=OFF
-VOPTS[sunos]=		DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=OFF SUNOS=ON MACOS=OFF
-VOPTS[macos]=		DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=OFF SUNOS=OFF MACOS=ON
+VOPTS[dragonfly]=	DRAGONFLY=ON FREEBSDAMD64=OFF LINUX=OFF SUNOS=OFF MACOS=OFF NET64=OFF
+VOPTS[freebsd_amd64]=	DRAGONFLY=OFF FREEBSDAMD64=ON LINUX=OFF SUNOS=OFF MACOS=OFF NET64=OFF
+VOPTS[linux]=		DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=ON SUNOS=OFF MACOS=OFF NET64=OFF
+VOPTS[sunos]=		DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=OFF SUNOS=ON MACOS=OFF NET64=OFF
+VOPTS[macos]=		DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=OFF SUNOS=OFF MACOS=ON NET64=OFF
+VOPTS[netbsd_amd64]=	DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=OFF SUNOS=OFF MACOS=OFF NET64=ON
 
 RUN_DEPENDS=		ravensw:single:standard
 			ravenadm:single:standard
@@ -42,6 +45,9 @@ SKIP_INSTALL=		yes
 
 [FREEBSDAMD64].DESCRIPTION=		FreeBSD/amd64 support
 [FREEBSDAMD64].RUN_DEPENDS_ON=		ravensys-root:single:freebsd_amd64
+
+[NET64].DESCRIPTION=			NetBSD/amd64 support
+[NET64].RUN_DEPENDS_ON=			ravensys-root:single:netbsd_amd64
 
 [LINUX].DESCRIPTION=			Linux support
 [LINUX].RUN_DEPENDS_ON=			ravensys-root:single:linux
