@@ -56,4 +56,5 @@ do-test:
 
 pre-configure:
 	${REINPLACE_CMD} -e 's|gmp_cxxcompile=".CXX |&$$LDFLAGS |' \
+		-e 's|version_type=sunos|version_type=freebsd-elf|' \
 		${WRKSRC}/configure

@@ -36,6 +36,10 @@ CONFIGURE_ARGS=		--with-pkg-config-dir=/usr/lib/pkgconfig:{{PREFIX}}/lib/pkgconf
 			--with-system-includedir=/usr/include
 SOVERSION=		${SOVERSION}
 
+pre-configure:
+	${REINPLACE_CMD} -e 's|version_type=sunos|version_type=freebsd-elf|' \
+		${WRKSRC}/configure
+
 post-install:
 	${LN} -sf pkgconf ${STAGEDIR}${PREFIX}/bin/pkg-config
 	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/pkgconf
