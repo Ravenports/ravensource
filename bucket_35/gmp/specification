@@ -32,7 +32,7 @@ LICENSE_SCHEME=		dual
 FPC_EQUIVALENT=		math/gmp
 
 USES=			cpe libtool c++:shared
-MUST_CONFIGURE=		yes
+MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--prefix={{PREFIX}}
 			--infodir={{PREFIX}}/share/info
 			--mandir={{MANPREFIX}}/man
@@ -56,5 +56,4 @@ do-test:
 
 pre-configure:
 	${REINPLACE_CMD} -e 's|gmp_cxxcompile=".CXX |&$$LDFLAGS |' \
-		-e 's|version_type=sunos|version_type=freebsd-elf|' \
 		${WRKSRC}/configure

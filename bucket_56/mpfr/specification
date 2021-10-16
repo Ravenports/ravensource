@@ -46,9 +46,5 @@ TEST_TARGET=		check
 INFO=			static:mpfr
 SOVERSION=		${SOVERSION}
 
-pre-configure:
-	${REINPLACE_CMD} -e 's|version_type=sunos|version_type=freebsd-elf|' \
-		${WRKSRC}/configure
-
 do-test:
 	 (cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE} check)
