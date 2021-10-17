@@ -46,6 +46,7 @@ CONFIGURE_ARGS=		--without-xml2
 # Make sure it doesn't find libmd; we want SSL
 CONFIGURE_ENV=		ac_cv_lib_md_MD5Init=no
 LDFLAGS=		-lpthread
+			-L{{LOCALBASE}}/libressl/lib
 SOVERSION=		${SOVERSION}
 
 [NOT_STD].DESCRIPTION=			Don't build common user version
@@ -62,6 +63,7 @@ SOVERSION=		${SOVERSION}
 					expat:build
 					bz2:build
 					zlib:build
+[STATIC].LDFLAGS_OFF=			-Wl,-rpath,{{LOCALBASE}}/libressl/lib
 [STATIC].BUILD_DEPENDS_ON=		libressl:single:static
 					xz:single:static
 [STATIC].CONFIGURE_ARGS_ON=		--enable-shared=no
