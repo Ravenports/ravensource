@@ -4,7 +4,7 @@
  # include <sys/filio.h>
  # include <sys/wait.h>
  # include <sys/param.h>
-+# if defined __DragonFly__
++# if defined __DragonFly__ || defined __NetBSD__
 +# include <sys/sched.h>
 +# else
  # include <sys/cpuset.h>

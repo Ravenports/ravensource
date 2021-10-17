@@ -46,6 +46,8 @@ CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
 			--sphinx-man
 INSTALL_TARGET=		install/strip
 
+VAR_OPSYS[netbsd]=	CXXFLAGS=-D_NETBSD_SOURCE
+
 post-patch:
 	${REINPLACE_CMD} -e "s@CYGWIN@true@g" \
 		${WRKSRC}/Modules/FindCurses.cmake
