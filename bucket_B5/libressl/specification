@@ -39,11 +39,11 @@ USES=			autoreconf cpe libtool pkgconfig
 DISTNAME=		libressl-${PORTVERSION}
 CPE_VENDOR=		openbsd
 CPE_PRODUCT=		libressl
-MUST_CONFIGURE=		yes
+GNU_CONFIGURE_PREFIX=	${BASE}
+MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-nc
 			--disable-hardening
 			--with-openssldir={{PREFIX}}/etc/${NAMEBASE}
-			--prefix=${BASE}
 			--build={{CONFIGURE_TARGET}}
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
