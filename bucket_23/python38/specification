@@ -82,6 +82,10 @@ VAR_OPSYS[freebsd]=	PLIST_SUB=SOABI=.cpython-${PYTHON_SUFFIX}
 			PLIST_SUB=SCD=
 			PLIST_SUB=FULLABI={{ABIFLAGS}}
 			PLIST_SUB=PLAT={{OPSYS:tl}}{{MAJOR:R}}
+VAR_OPSYS[netbsd]=	PLIST_SUB=SOABI=.cpython-${PYTHON_SUFFIX}
+			PLIST_SUB=SCD=
+			PLIST_SUB=FULLABI={{ABIFLAGS}}
+			PLIST_SUB=PLAT={{OPSYS:tl}}{{MAJOR:R}}
 VAR_OPSYS[sunos]=	PLIST_SUB=SOABI=.cpython-${PYTHON_SUFFIX}
 			PLIST_SUB=SCD=
 			PLIST_SUB=PLAT=sunos5
@@ -99,14 +103,14 @@ VAR_OPSYS[darwin]=	PLIST_SUB=SOABI=.cpython-${PYTHON_SUFFIX}m-darwin
 [PYMALLOC].DESCRIPTION=			Enable specialized mallocs
 [PYMALLOC].CONFIGURE_WITH_BOTH=		pymalloc
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e 's|/usr/local/bin/python|${python_CMD}|' \
 		${WRKSRC}/Lib/cgi.py
 	${REINPLACE_CMD} -e 's|/usr/local/include/db4|${PREFIX}/include/db${BDB_VER}|' \
 		${WRKSRC}/setup.py
 	${REINPLACE_CMD} -e 's| make| gmake|g' ${WRKSRC}/Mac/Makefile.in
 
-post-patch-sunos:
+pre-configure-sunos:
 	# non-understood missing ref to uuid_generate_time_safe even
 	# though it is correctly present in libuuid (hack to fix uuid
 	# module)
