@@ -74,6 +74,7 @@ PLIST_SUB=		GCCVER=${GCC_VERSION}
 			TARGET={{CONFIGURE_TARGET}}
 			BRANCH=${BRANCH}
 			VSTDCXX=${STDCXX_VERSION}
+			SSP={{SSP}}
 PREFIX=			{{LOCALBASE}}/toolchain/{{NAMEBASE}}
 INSTALL_TARGET=		install-strip
 CONFIGURE_OUTSOURCE=	yes
@@ -112,6 +113,8 @@ VAR_OPSYS[netbsd]=	CONFIGURE_ARGS=--disable-libstdcxx-pch
 			CONFIGURE_ARGS=--with-as=${TOOLCHAIN}/bin/as
 			CONFIGURE_ARGS=--with-ld=${TOOLCHAIN}/bin/ld
 			CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
+			CONFIGURE_ARGS=--disable-libssp
+			MAKEFILE_LINE=SSP="@comment "
 VAR_OPSYS[darwin]=	CONFIGURE_ARGS=--disable-libstdcxx-pch
 			CONFIGURE_ARGS=--with-ld=/usr/bin/ld
 			CONFIGURE_ARGS=--with-as=/usr/bin/as
