@@ -293,3 +293,6 @@ install-platform: install-common
 	mv ${DESTDIR}${BASE}/usr/share/etc/* ${DESTDIR}${BASE}/usr/share
 	rmdir ${DESTDIR}${BASE}/usr/share/etc
 	rmdir ${DESTDIR}${BASE}/usr/include/dev/ieee1394
+
+	ln -s /libexec/ld.elf_so ${DESTDIR}${BASE}/usr/libexec/ld.elf_so
+	echo "Dummy - not used on NetBSD/AMD64" > ${DESTDIR}${BASE}/usr/share/ld.so.hints
