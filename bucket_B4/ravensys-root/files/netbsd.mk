@@ -68,6 +68,7 @@ static_lib_NetBSD=\
 	/usr/lib/librt.a \
 	/usr/lib/libutil.a \
 	/usr/lib/libcrypt.a \
+	/usr/lib/libcompat.a \
 	/usr/lib/libdevmapper.a \
 	/usr/lib/librpcsvc.a \
 	/usr/lib/libpthread.a \
@@ -76,7 +77,9 @@ static_lib_NetBSD=\
 	/usr/lib/crt0.o \
 	/usr/lib/crtbegin.o \
 	/usr/lib/crtbeginS.o \
+	/usr/lib/crtbeginT.o \
 	/usr/lib/crtend.o \
+	/usr/lib/crtendS.o \
 	/usr/lib/crti.o \
 	/usr/lib/crtn.o \
 	/usr/lib/gcrt0.o \
@@ -104,6 +107,7 @@ dynamic_lib_NetBSD=\
 	# end
 
 headers_NetBSD_dirs=\
+	altq \
 	amd64 \
 	arpa \
 	crypto \
@@ -195,8 +199,11 @@ posix_headers=\
 headers_BSD=\
 	${posix_headers} \
 	ar.h \
+	atomic.h \
 	bitstring.h \
 	bluetooth.h \
+	dwarf.h \
+	endian.h \
 	elf.h \
 	err.h \
 	fstab.h \
@@ -205,16 +212,22 @@ headers_BSD=\
 	ieeefp.h \
 	ifaddrs.h \
 	kvm.h \
+	libproc.h \
 	link.h \
+	link_elf.h \
 	login_cap.h \
 	memory.h \
 	mpool.h \
 	netconfig.h \
+	netgroup.h \
+	netpgp.h \
 	nlist.h \
 	paths.h \
 	res_update.h \
 	resolv.h \
 	sdp.h \
+	sgtty.h \
+	soundcard.h \
 	stdalign.h \
 	stdnoreturn.h \
 	stringlist.h \
@@ -223,15 +236,26 @@ headers_BSD=\
 	ttyent.h \
 	ucontext.h \
 	usbhid.h \
+	utmp.h \
 	vis.h \
 	# end
 
 headers_NetBSD=\
 	${headers_BSD} \
 	disktab.h \
+	lwp.h \
+	malloc.h \
 	mntopts.h \
+	pthread_queue.h \
+	pthread_types.h \
+	regexp.h \
 	re_comp.h \
+	stab.h \
+	struct.h \
+	threads.h \
+	unwind.h \
 	util.h \
+	uuid.h \
 	# end
 
 pcfiles_NetBSD=\
@@ -296,3 +320,5 @@ install-platform: install-common
 
 	ln -s /libexec/ld.elf_so ${DESTDIR}${BASE}/usr/libexec/ld.elf_so
 	echo "Dummy - not used on NetBSD/AMD64" > ${DESTDIR}${BASE}/usr/share/ld.so.hints
+
+	ln -s amd64 ${DESTDIR}${BASE}/usr/include/machine
