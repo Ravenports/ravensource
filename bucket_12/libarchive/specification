@@ -45,6 +45,8 @@ CONFIGURE_ARGS=		--without-xml2
 			--disable-acl
 # Make sure it doesn't find libmd; we want SSL
 CONFIGURE_ENV=		ac_cv_lib_md_MD5Init=no
+CFLAGS=			-I{{LOCALBASE}}/libressl/include
+CPPFLAGS=		-I{{LOCALBASE}}/libressl/include
 LDFLAGS=		-lpthread
 			-L{{LOCALBASE}}/libressl/lib
 SOVERSION=		${SOVERSION}
