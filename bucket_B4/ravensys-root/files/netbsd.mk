@@ -129,6 +129,7 @@ headers_NetBSD_dirs=\
 	rpc \
 	rpcsvc \
 	security \
+	ssp \
 	sys \
 	ufs \
 	uvm \
