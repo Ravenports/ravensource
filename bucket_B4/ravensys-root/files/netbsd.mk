@@ -269,6 +269,7 @@ platform-skeleton: common-skeleton
 	@echo "============================================="
 	${MKDIR} \
 		${DESTDIR}${BASE}/libexec \
+		${DESTDIR}${BASE}/usr/lib/i18n \
 		${DESTDIR}${BASE}/usr/share/etc \
 		${DESTDIR}${BASE}/usr/share/locale/en_US.UTF-8/LC_MESSAGES \
 		# end
@@ -304,6 +305,8 @@ install-platform: install-common
 .  endfor
 	cp ../${OPSYS:tl}/usr/share/locale/en_US.UTF-8/LC_MESSAGES/SYS_LC_MESSAGES \
 		${DESTDIR}${BASE}/usr/share/locale/en_US.UTF-8/LC_MESSAGES/
+	cp ../${OPSYS:tl}/usr/lib/i18n/libUTF8.so.5.0 \
+		${DESTDIR}${BASE}/usr/lib/i18n/
 
 	# former "post-install" target
 	${BSD_INSTALL_DATA} ../${OPSYS:tl}/etc/group \
