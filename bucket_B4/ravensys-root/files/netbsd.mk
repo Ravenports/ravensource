@@ -56,6 +56,8 @@ Usr_Bin_NetBSD= \
 	/usr/bin/uniq \
 	/usr/bin/which \
 	/usr/bin/whoami \
+	/usr/sbin/groupadd \
+	/usr/sbin/useradd \
 	# end
 
 Usr_Sbin_NetBSD=\
