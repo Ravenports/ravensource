@@ -5,16 +5,20 @@ DEF[ALTNAME]=		libxshmfence
 
 NAMEBASE=		xorg-${XNAME}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11
 VARIANTS=		standard
 SDESC[standard]=	Shared memory SyncFence synchronization primitive
 HOMEPAGE=		https://www.x.org/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main pkgsrc
 SITES[main]=		XORG/individual/lib
+SITES[pkgsrc]=		https://raw.githubusercontent.com/NetBSD/pkgsrc/trunk/x11/libxshmfence/files/
 DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
-DIST_SUBDIR=		xorg
+DISTFILE[2]=		xshmfence_semaphore.h:pkgsrc
+DISTFILE[3]=		xshmfence_semaphore.c:pkgsrc
+DIST_SUBDIR=		xorg-shmfence
 
 SPKGS[standard]=	single
 
@@ -25,7 +29,7 @@ LICENSE=		HPND:single
 LICENSE_FILE=		HPND:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-USES=			libtool
+USES=			autoreconf libtool pkgconfig
 XORG_COMPONENTS=	xorgproto
 DISTNAME=		${ALTNAME}-${PORTVERSION}
 MUST_CONFIGURE=		gnu
@@ -34,5 +38,16 @@ INSTALL_TARGET=		install-strip
 TEST_TARGET=		check
 FPC_EQUIVALENT=		x11/libxshmfence
 
+VAR_OPSYS[netbsd]=	CONFIGURE_ARGS=--disable-futex
+			CONFIGURE_ARGS=--enable-semaphore
+			CPPFLAGS=-DLIBXSHM_PAGESIZE=4096
+
 # visibility issues with mkostemp, just fall back
 VAR_OPSYS[linux]=	CONFIGURE_ENV=ac_cv_func_mkostemp=no
+
+post-extract-netbsd:
+	${INSTALL_DATA} ${DISTDIR}/${DIST_SUBDIR}/xshmfence_semaphore.[ch] \
+		${WRKSRC}/src
+
+pre-configure:
+	# cd ${WRKSRC} && autoreconf -vif

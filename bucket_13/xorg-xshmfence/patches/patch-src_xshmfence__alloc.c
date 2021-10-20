@@ -1,4 +1,4 @@
---- src/xshmfence_alloc.c.orig	2015-03-04 15:28:23 UTC
+--- src/xshmfence_alloc.c.orig	2018-02-26 17:26:59 UTC
 +++ src/xshmfence_alloc.c
 @@ -67,15 +67,19 @@ int
  xshmfence_alloc_shm(void)
@@ -22,3 +22,22 @@
  		if (fd < 0)
  #endif
  		{
+@@ -110,6 +114,9 @@ xshmfence_map_shm(int fd)
+ 		close (fd);
+ 		return 0;
+ 	}
++#ifdef HAVE_SEMAPHORE
++	xshmfence_open_semaphore(addr);
++#endif
+ 	return addr;
+ }
+ 
+@@ -121,5 +128,8 @@ xshmfence_map_shm(int fd)
+ void
+ xshmfence_unmap_shm(struct xshmfence *f)
+ {
++#ifdef HAVE_SEMAPHORE
++	xshmfence_close_semaphore(f);
++#endif
+         munmap(f, sizeof (struct xshmfence));
+ }
