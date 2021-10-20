@@ -1,6 +1,12 @@
 # Macros to change variables in rbconfig.rb
 RB_SET_CONF_VAR=${SH} -c '${REINPLACE_CMD} -E -e "s,(CONFIG\[\"$$0\"\][[:space:]]*=[[:space:]]*)(\(?)(.*)(\)?),\1\2$$1\4," ${WRKSRC}/rbconfig.rb' --
 
+.if ${OPSYS} == SunOS
+MJIT="@comment "
+.else
+MJIT=""
+.endif
+
 POST_PLIST_TARGET=	rdoc-autolist
 
 rdoc-autolist:

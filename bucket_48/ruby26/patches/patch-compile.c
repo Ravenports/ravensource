@@ -1,6 +1,6 @@
---- compile.c.orig	2021-09-02 03:09:01 UTC
+--- compile.c.orig	2020-03-31 11:23:13 UTC
 +++ compile.c
-@@ -8466,7 +8466,7 @@ struct ibf_dump {
+@@ -8465,7 +8465,7 @@ struct ibf_dump {
  rb_iseq_t * iseq_alloc(void);
  
  struct ibf_load {
