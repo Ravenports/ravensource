@@ -74,6 +74,8 @@ static_lib_NetBSD=\
 	/usr/lib/libpthread.a \
 	/usr/lib/libkvm.a \
 	/usr/lib/libusbhid.a \
+	/usr/lib/libx86_64.a \
+	/usr/lib/libpci.a \
 	/usr/lib/crt0.o \
 	/usr/lib/crtbegin.o \
 	/usr/lib/crtbeginS.o \
@@ -103,6 +105,8 @@ dynamic_lib_NetBSD=\
 	/usr/lib/libdevmapper.so.1 \
 	/usr/lib/libpthread.so.1 \
 	/usr/lib/libusbhid.so.1 \
+	/usr/lib/libx86_64.so.0 \
+	/usr/lib/libpci.so.2 \
 	${ONLY_SO} \
 	# end
 
@@ -247,6 +251,7 @@ headers_NetBSD=\
 	lwp.h \
 	malloc.h \
 	mntopts.h \
+	pci.h \
 	pthread_queue.h \
 	pthread_types.h \
 	regexp.h \
@@ -290,6 +295,8 @@ install-platform: install-common
 		ln -s librt.so.1 librt.so && \
 		ln -s libdevmapper.so.1 libdevmapper.so && \
 		ln -s libpthread.so.1 libpthread.so && \
+		ln -s libpci.so.2 libpci.so && \
+		ln -s libx86_64.so.0 libx86_64.so && \
 		ln -s libusbhid.so.1 libusbhid.so)
 
 .for SCRIPT in lorder false true
