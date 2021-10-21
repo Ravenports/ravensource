@@ -38,6 +38,9 @@ CFLAGS=			-fPIC
 INSTALL_TARGET=		install
 			install-lib
 SOVERSION=		${SOVERSION}
+PLIST_SUB=		LIBNAME={{LIBNAME:Ulibpci}}
+
+VAR_OPSYS[netbsd]=	MAKEFILE_LINE=LIBNAME=libpciutils
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libpci.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libpc*.so
