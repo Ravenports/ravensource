@@ -33,6 +33,9 @@ CONFIGURE_ARGS=		--disable-dot
 			--disable-werror
 INSTALL_TARGET=		install-strip
 
+pre-configure-netbsd:
+	${REINPLACE_CMD} -e 's/-no-undefined//' ${WRKSRC}/src/cppunit/Makefile.in
+
 post-install:
 	# remove worthless docs
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
