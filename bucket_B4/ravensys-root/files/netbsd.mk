@@ -305,7 +305,9 @@ install-platform: install-common
 	${BSD_INSTALL_SCRIPT} ../${OPSYS:tl}/usr/bin/${SCRIPT} ${DESTDIR}${BASE}/usr/bin/
 .endfor
 	${BSD_INSTALL_PROGRAM} ../${OPSYS:tl}/sbin/chown ${DESTDIR}${BASE}/usr/bin/chgrp
-	
+	${BSD_INSTALL_PROGRAM} ${LOCALBASE}/bin/bsd_realpath \
+		${DESTDIR}${BASE}/bin/realpath
+
 	cp ${LOCALBASE}/lib/libdl.a ${DESTDIR}${BASE}/usr/lib/
 
 	# locale information
