@@ -65,13 +65,18 @@ INFO=			primary:gnutls
 
 post-patch:
 	${RM} ${WRKSRC}/doc/*.info*
+
+pre-configure:
 	# strdupa not available on BSD, just avoid it everywhere
 	${REINPLACE_CMD} -e 's/strdupa/strdup/' \
 		${WRKSRC}/doc/examples/tlsproxy/tlsproxy.c
 
-post-patch-sunos:
+pre-configure-sunos:
 	${REINPLACE_CMD} -e '/_POSIX_C_SOURCE/d' \
 		${WRKSRC}/tests/pkcs11/pkcs11-mock.h
+
+pre-configure-netbsd:
+	${REINPLACE_CMD} -e 's|-no-undefined||' ${WRKSRC}/lib/Makefile.in
 
 post-install:
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
