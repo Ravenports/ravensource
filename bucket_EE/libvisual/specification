@@ -35,3 +35,6 @@ LDFLAGS=		-lpthread
 
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		VER=${PORTVERSION:R}
+
+pre-configure-netbsd:
+	${REINPLACE_CMD} -e 's/-no-undefined//' ${WRKSRC}/libvisual/Makefile.in
