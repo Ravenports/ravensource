@@ -9,6 +9,7 @@ DEF[SOXXMAJOR]=		${SOXXVERSION:R:R}
 
 NAMEBASE=		gnutls
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security net
 VARIANTS=		standard
 SDESC[standard]=	GNU Transport Layer Security library
@@ -74,9 +75,6 @@ pre-configure:
 pre-configure-sunos:
 	${REINPLACE_CMD} -e '/_POSIX_C_SOURCE/d' \
 		${WRKSRC}/tests/pkcs11/pkcs11-mock.h
-
-pre-configure-netbsd:
-	${REINPLACE_CMD} -e 's|-no-undefined||' ${WRKSRC}/lib/Makefile.in
 
 post-install:
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
