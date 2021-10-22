@@ -41,7 +41,7 @@ INFO=			single:aalib
 post-extract:
 	${RM} ${WRKSRC}/doc/aalib.info*
 
-post-patch:
+pre-configure:
 	${RM} ${WRKSRC}/config.cache
 	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g; \
 		s|MAKEINFO=makeinfo|MAKEINFO="makeinfo --no-split"|g; \
@@ -53,6 +53,8 @@ post-patch:
 	${FIND} ${WRKSRC} \( -name '*.[ch]' \! -name acconfig.h \) \
 		| ${XARGS} ${GREP} -l '<malloc.h>' \
 		| ${XARGS} ${REINPLACE_CMD} -e 's|<malloc.h>|<stdlib.h>|g'
+	${REINPLACE_CMD} -e 's|version_type=sunos|version_type=freebsd-elf|' \
+		${WRKSRC}/ltconfig
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libaa.so
