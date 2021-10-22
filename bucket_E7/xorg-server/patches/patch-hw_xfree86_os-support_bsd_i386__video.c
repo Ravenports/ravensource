@@ -1,5 +1,4 @@
-Index: programs/Xserver/hw/xfree86/os-support/bsd/i386_video.c
---- hw/xfree86/os-support/bsd/i386_video.c.orig	2021-07-08 19:22:18 UTC
+--- hw/xfree86/os-support/bsd/i386_video.c.orig	2021-07-29 18:48:14 UTC
 +++ hw/xfree86/os-support/bsd/i386_video.c
 @@ -32,6 +32,7 @@
  #include "xf86Priv.h"
@@ -9,3 +8,13 @@ Index: programs/Xserver/hw/xfree86/os-support/bsd/i386_video.c
  #include <sys/mman.h>
  
  #include "xf86_OSlib.h"
+@@ -42,6 +43,9 @@
+ #else
+ #define MAP_FLAGS (MAP_FILE | MAP_SHARED)
+ #endif
++#if defined(__NetBSD__) && defined(USE_AMD64_IOPL)
++#define amd64_iopl x86_64_iopl
++#endif
+ 
+ #ifdef __OpenBSD__
+ #define SYSCTL_MSG "\tCheck that you have set 'machdep.allowaperture=1'\n"\

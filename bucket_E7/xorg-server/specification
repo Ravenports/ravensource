@@ -57,7 +57,6 @@ CONFIGURE_ARGS=		--with-xkb-path={{LOCALBASE}}/share/X11/xkb
 			--without-xmlto
 			--without-fop
 			--localstatedir=/var
-			--with-shared-memory-dir=/tmp
 			--disable-config-hal
 			--disable-config-udev
 			--disable-config-udev-kms
@@ -65,9 +64,12 @@ CONFIGURE_ARGS=		--with-xkb-path={{LOCALBASE}}/share/X11/xkb
 			--without-dtrace
 			--enable-glamor
 			--enable-xcsecurity
+			--enable-xtrans-send-fds=yes
 INSTALL_TARGET=		install-strip
 
 VAR_OPSYS[sunos]=	CFLAGS=-DO_CLOEXEC=0
+# #			For reallocarray:
+VAR_OPSYS[netbsd]=	CPPFLAGS=-D_OPENBSD_SOURCE
 
 [XORG].DESCRIPTION=			Build as X server (don't change setting!)
 [VIRTUAL].DESCRIPTION=			Build as virtual framebuffer server

@@ -1,4 +1,6 @@
---- configure.orig	2021-07-08 19:22:30 UTC
+For NetBSD, force pass thread configure and set USE_AMD64_IOPL
+
+--- configure.orig	2021-07-29 18:48:26 UTC
 +++ configure
 @@ -12065,7 +12065,7 @@ echo 'failed to copy INSTALL from util-m
  
@@ -34,3 +36,22 @@
  	;;
    i*86)
  	I386_VIDEO=yes
+@@ -23255,7 +23260,7 @@ $as_echo "#define USE_DEV_IO 1" >>confde
+ $as_echo "#define USE_DEV_IO 1" >>confdefs.h
+  ;;
+ 		*netbsd*)
+-$as_echo "#define USE_I386_IOPL 1" >>confdefs.h
++$as_echo "#define USE_AMD64_IOPL 1" >>confdefs.h
+ 
+ 				SYS_LIBS=-lx86_64
+ 				;;
+@@ -25069,7 +25074,8 @@ case ${host_os} in
+ 	netbsd*)
+ 	# use libc stubs, don't link against libpthread, to allow
+ 	# dynamic loading
+-	ax_pthread_flags=""
++	ax_pthread_flags="none"
++	ax_pthread_ok="yes"
+ 	;;
+ esac
+ 
