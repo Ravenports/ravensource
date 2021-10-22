@@ -182,6 +182,7 @@ posix_headers=\
 	search.h \
 	semaphore.h \
 	setjmp.h \
+	sha1.h \
 	signal.h \
 	spawn.h \
 	stdarg.h \
