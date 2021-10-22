@@ -48,3 +48,6 @@ CONFIGURE_ARGS=		--disable-nls
 			--without-libthai
 			HAVE_ISPELL=no
 SOVERSION=		${SOVERSION}
+
+pre-configure-netbsd:
+	${REINPLACE_CMD} -e 's/ -ldl//' ${WRKSRC}/src/Makefile.am
