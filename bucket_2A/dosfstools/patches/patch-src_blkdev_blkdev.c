@@ -4,7 +4,7 @@
  #include <sys/types.h>
  #include <sys/stat.h>
  #include <sys/ioctl.h>
-+#if !defined(__DragonFly__) && !defined(__FreeBSD__)
++#if !defined(__DragonFly__) && !defined(__FreeBSD__) && !defined(__NetBSD__)
  #include <sys/sysmacros.h>
 +#endif
  #include <unistd.h>
@@ -14,7 +14,7 @@
  #endif /* FDGETPRM */
  
  #ifdef HAVE_SYS_DISKLABEL_H
-+# if !defined(__DragonFly__) && !defined(__FreeBSD__)
++# if !defined(__DragonFly__) && !defined(__FreeBSD__) && !defined(__NetBSD__)
  	{
  		/*
  		 * This code works for FreeBSD 4.11 i386, except for the full device
