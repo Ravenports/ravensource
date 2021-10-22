@@ -7,7 +7,7 @@
 +#include <stdlib.h>
  
 -#ifndef VMS
-+#if !defined(VMS) && !defined(__FreeBSD__) && !defined(__DragonFly__)
++#if !defined(VMS) && !defined(__FreeBSD__) && !defined(__DragonFly__) && !defined(__NetBSD__)
  #include <values.h>
  #endif
  
