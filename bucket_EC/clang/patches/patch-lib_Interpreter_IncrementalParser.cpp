@@ -4,7 +4,7 @@
            switch (CI.getFrontendOpts().ProgramAction) {
            default:
              Err = llvm::createStringError(
-+#ifdef __DragonFly__
++#if defined __DragonFly__ || defined __NetBSD__
 +                std::errc::operation_not_supported,
 +#else
                  std::errc::state_not_recoverable,

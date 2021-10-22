@@ -4,7 +4,7 @@
    // failed. Extract that job from the Compilation.
    const driver::JobList &Jobs = Compilation->getJobs();
    if (!Jobs.size() || !isa<driver::Command>(*Jobs.begin()))
-+#ifdef __DragonFly__
++#if defined __DragonFly__ || defined __NetBSD__
 +    return llvm::createStringError(std::errc::operation_not_supported,
 +#else
      return llvm::createStringError(std::errc::state_not_recoverable,
@@ -15,7 +15,7 @@
    // The one job we find should be to invoke clang again.
    const driver::Command *Cmd = cast<driver::Command>(&(*Jobs.begin()));
    if (llvm::StringRef(Cmd->getCreator().getName()) != "clang")
-+#ifdef __DragonFly__
++#if defined __DragonFly__ || defined __NetBSD__
 +    return llvm::createStringError(std::errc::operation_not_supported,
 +#else
      return llvm::createStringError(std::errc::state_not_recoverable,
@@ -27,7 +27,7 @@
    // Create the actual diagnostics engine.
    Clang->createDiagnostics();
    if (!Clang->hasDiagnostics())
-+#ifdef __DragonFly__
++#if defined __DragonFly__ || defined __NetBSD__
 +    return llvm::createStringError(std::errc::operation_not_supported,
 +#else
      return llvm::createStringError(std::errc::state_not_recoverable,
@@ -37,7 +37,7 @@
  
    DiagsBuffer->FlushDiagnostics(Clang->getDiagnostics());
    if (!Success)
-+#ifdef __DragonFly__
++#if defined __DragonFly__ || defined __NetBSD__
 +    return llvm::createStringError(std::errc::operation_not_supported,
 +#else
      return llvm::createStringError(std::errc::state_not_recoverable,
@@ -49,7 +49,7 @@
    Clang->setTarget(TargetInfo::CreateTargetInfo(
        Clang->getDiagnostics(), Clang->getInvocation().TargetOpts));
    if (!Clang->hasTarget())
-+#ifdef __DragonFly__
++#if defined __DragonFly__ || defined __NetBSD__
 +    return llvm::createStringError(std::errc::operation_not_supported,
 +#else
      return llvm::createStringError(std::errc::state_not_recoverable,
