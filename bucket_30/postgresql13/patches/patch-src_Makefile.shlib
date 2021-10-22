@@ -1,6 +1,16 @@
 --- src/Makefile.shlib.orig	2021-08-09 20:49:05 UTC
 +++ src/Makefile.shlib
-@@ -212,6 +212,9 @@ endif
+@@ -166,6 +166,9 @@ ifeq ($(PORTNAME), freebsd)
+ endif
+ 
+ ifeq ($(PORTNAME), netbsd)
++  ifdef SO_MAJOR_VERSION
++    shlib		= lib$(NAME)$(DLSUFFIX).$(SO_MAJOR_VERSION)
++  endif
+   LINK.shared		= $(COMPILER) -shared
+   ifdef soname
+     LINK.shared		+= -Wl,-x,-soname,$(soname)
+@@ -212,6 +215,9 @@ endif
  
  ifeq ($(PORTNAME), linux)
    LINK.shared		= $(COMPILER) -shared
@@ -10,7 +20,7 @@
    ifdef soname
      LINK.shared		+= -Wl,-soname,$(soname)
    endif
-@@ -223,6 +226,9 @@ ifeq ($(PORTNAME), linux)
+@@ -223,6 +229,9 @@ ifeq ($(PORTNAME), linux)
  endif
  
  ifeq ($(PORTNAME), solaris)
