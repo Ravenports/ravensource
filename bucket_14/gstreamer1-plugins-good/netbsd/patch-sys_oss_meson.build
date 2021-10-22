@@ -1,0 +1,16 @@
+--- sys/oss/meson.build.orig	2021-09-08 19:02:51 UTC
++++ sys/oss/meson.build
+@@ -25,11 +25,12 @@ if not oss_option.disabled()
+ endif
+ 
+ if have_oss
++  ossaudio_dep = cc.find_library('ossaudio', required: true)
+   plugins += [library('gstossaudio',
+     'gstossaudio.c', 'gstosshelper.c', 'gstosssink.c', 'gstosssrc.c',
+     c_args : gst_plugins_good_args,
+     include_directories : [configinc, libsinc],
+-    dependencies : [gstaudio_dep, gstbase_dep],
++    dependencies : [gstaudio_dep, gstbase_dep, ossaudio_dep],
+     install : true,
+     install_dir : plugins_install_dir)]
+ endif
