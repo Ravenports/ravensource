@@ -1,8 +1,11 @@
 DEF[PORTVERSION]=	3.7.3
+DEF[NETTLE_SOVERSION]=	8.4
+DEF[HOGWEED_SOVERSION]=	6.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		nettle
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security net
 VARIANTS=		standard
 SDESC[standard]=	Low-level cryptographic library
@@ -31,24 +34,26 @@ FPC_EQUIVALENT=		security/nettle
 BUILD_DEPENDS=		gmp:static:standard
 BUILDRUN_DEPENDS=	gmp:shared:standard
 
-# Don't build shared library.  The assembler files are not made
-# with position independent instructions.
 USES=			cpe gmake makeinfo
 CPE_VENDOR=		nettle_project
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-shared
+CONFIGURE_ARGS=		--enable-shared
 CONFIGURE_ENV=		M4="/usr/bin/m4 -g"
 INFO=			primary:nettle
+SOVERSION=		${NETTLE_SOVERSION}
+PLIST_SUB=		HW_SOVERSION=${HOGWEED_SOVERSION}
+			HW_SOMAJOR=${HOGWEED_SOVERSION:R}
 
 # on macos, libweed.a gets rebuilt unnecessarily.
 # That is broken, so adding toolchain to end is a hack that needs fixing
-INSTALL_REQ_TOOLCHAIN=	yes
+# But macos isn't really supported anymore so comment it out
+# INSTALL_REQ_TOOLCHAIN=	yes
 
 post-patch-sunos:
-	${REINPLACE_CMD} -e 's|lib/64|lib|' ${WRKSRC}/configure
+	${REINPLACE_CMD} -e '/libdir=/ s|lib/64|lib|' ${WRKSRC}/configure
 
 post-install:
-	@${MKDIR} ${STAGEDIR}${STD_DOCDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
 	(cd ${WRKSRC} && ${INSTALL_DATA} NEWS README nettle.html \
 		nettle.pdf ${STAGEDIR}${STD_DOCDIR})
 	(cd ${WRKSRC}/examples && ${INSTALL_DATA} *.c *.h \
