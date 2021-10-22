@@ -54,6 +54,7 @@ INSTALL_TARGET=		install-strip
 PLIST_SUB=		LIBVER=${LIBVER}
 
 VAR_OPSYS[sunos]=	CFLAGS=-D_XOPEN_SOURCE=600
+VAR_OPSYS[netbsd]=	CONFIGURE_ENV=ac_cv_lib_dl_dlsym=false
 
 post-patch:
 	${REINPLACE_CMD} \
