@@ -4,18 +4,19 @@ DEF[LIBRE_VERSION]=	0.15.0
 
 NAMEBASE=		ixion
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		math
 VARIANTS=		standard libre
 SDESC[standard]=	General purpose formula parser and interpreter
-SDESC[libre]=		Formual parser and interpreter for Libreoffice
+SDESC[libre]=		Formula parser and interpreter for Libreoffice
 HOMEPAGE=		https://gitlab.com/ixion/ixion
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main libre
 SITES[main]=		https://gitlab.com/ixion/ixion/-/archive/${PORTVERSION}/
+SITES[libre]=		https://gitlab.com/ixion/ixion/-/archive/${LIBRE_VERSION}/
 DISTFILE[1]=		ixion-${PORTVERSION}.tar.bz2:main
-DISTFILE[2]=		ixion-${LIBRE_VERSION}.tar.bz2:main
-DF_INDEX=		1 2
+DISTFILE[2]=		ixion-${LIBRE_VERSION}.tar.bz2:libre
 
 SPKGS[standard]=	single
 SPKGS[libre]=		single
@@ -37,7 +38,7 @@ BUILDRUN_DEPENDS=	boost-libraries:rest:python_default
 
 USES=			cmake python:build zlib
 PLIST_SUB=		VER={{VER}}
-DISTNAME=		ixion-{{VERSION}}
+DISTNAME=		ixion-{{VAR_VERSION}}
 CMAKE_ARGS=		-DMDDS_INCLUDEDIR="{{LOCALBASE}}/include/mdds-1.2"
 			-DCMAKE_SKIP_BUILD_RPATH:BOOL=YES
 LDFLAGS=		-lboost_thread
@@ -46,10 +47,12 @@ LDFLAGS=		-lboost_thread
 VAR_OPSYS[linux]=	LDFLAGS=-ldl
 
 [LIBRE].DESCRIPTION=			Build older 0.15 version for Libreoffice
+[LIBRE].DF_INDEX_OFF=			1
+[LIBRE].DF_INDEX_ON=			2
 [LIBRE].MAKEFILE_OFF=			VER=${PORTVERSION:R}
-					VERSION=${PORTVERSION}
+					VAR_VERSION=${PORTVERSION}
 [LIBRE].MAKEFILE_ON=			VER=${LIBRE_VERSION:R}
-					VERSION=${LIBRE_VERSION}
+					VAR_VERSION=${LIBRE_VERSION}
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ixion*
