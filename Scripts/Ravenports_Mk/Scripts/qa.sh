@@ -318,11 +318,14 @@ sonames() {
 		# No results presents a blank line from heredoc.
 		[ -z "${f}" ] && continue
 		# Ignore symlinks
-		[ -f "${f}" -a ! -L "${f}" ] || continue
+		case $(file -b "${f}") in
+		  ELF*shared\ object*) ;;
+		  *) continue ;;
+		esac
 		if ! readelf -d ${f} | grep -q SONAME; then
 			warn "${f} doesn't have a SONAME."
 			warn "pkg(8) will not register it as being provided by the port."
-			warn "If another port depend on it, pkg will not be able to know where it comes from."
+			warn "If another port depends on it, pkg will not be able to know where it comes from."
 			case "${f}" in
 				${STAGEDIR}${PREFIX}/lib/*/*)
 					warn "It is in a subdirectory, it may not be used in another port."
@@ -334,7 +337,7 @@ sonames() {
 		fi
 	# Use heredoc to avoid losing rc from find|while subshell
 	done <<-EOT
-	$(find ${STAGEDIR}${PREFIX}/lib -name '*.so.*')
+	$(find "${STAGEDIR}${PREFIX}/lib" -name '*.so.*')
 	EOT
 }
 
