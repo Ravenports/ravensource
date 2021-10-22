@@ -43,6 +43,8 @@ VAR_OPSYS[sunos]=	CFLAGS=-I{{LOCALBASE}}/include/bsd
 			LDFLAGS=-lbsd
 SOVERSION=		${PORTVERSION}
 
+VAR_OPSYS[netbsd]=	CONFIGURE_ENV=ac_cv_lib_dl_dlopen=false
+
 post-patch:
 	${REINPLACE_CMD} -e '/MY_LIBS =/s/-lXext -lX11//' \
 		${WRKSRC}/src/lib/Makefile.in
