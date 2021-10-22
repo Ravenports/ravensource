@@ -8,6 +8,9 @@ COMPEXT=		gz
 DF_INDEX+=		8 9 10
 COMPEXT=		gz
 SFX=			${ARCH_STANDARD}-unknown-linux-gnu
+.elif "${OPSYS}" == "NetBSD"
+DF_INDEX+=		11 12 13
+COMPEXT=		gz
 .endif
 SFX?=			${ARCH_STANDARD}-unknown-${OPSYS:tl}
 SRC_RUSTC?=		rustc-${BOOTSTRAP_RUST}-${SFX}
