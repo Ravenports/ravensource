@@ -39,6 +39,8 @@ MAKE_ENV=		exif=1
 			LDFLAGS="{{LDFLAGS}}"
 
 VAR_OPSYS[sunos]=	CFLAGS=-DNAME_MAX=14
+# #			for alphasort(3)
+VAR_OPSYS[netbsd]=	CFLAGS=-D_NETBSD_SOURCE
 
 post-patch:
 	${REINPLACE_CMD} \
@@ -50,6 +52,9 @@ post-patch-dragonfly:
 	${REINPLACE_CMD} -e '/std/d' ${WRKSRC}/config.mk
 
 post-patch-freebsd:
+	${REINPLACE_CMD} -e '/std/d' ${WRKSRC}/config.mk
+
+post-patch-netbsd:
 	${REINPLACE_CMD} -e '/std/d' ${WRKSRC}/config.mk
 
 post-patch-sunos:
