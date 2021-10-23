@@ -80,6 +80,7 @@ SHEBANG_FILES=		mkspecs/features/uikit/devices.py
 
 VAR_OPSYS[dragonfly]=	VAR1=dragonfly
 VAR_OPSYS[freebsd]=	VAR1=freebsd
+VAR_OPSYS[netbsd]=	VAR1=netbsd
 VAR_OPSYS[sunos]=	VAR1=solaris
 			CONFIGURE_ARGS=-L
 			CONFIGURE_ARGS=/lib/64
@@ -91,7 +92,7 @@ post-patch:
 	${MKDIR} ${WRKSRC}/mkspecs/dragonfly-g++
 	${INSTALL_DATA} ${WRKSRC}/mkspecs/freebsd-g++/qplatformdefs.h \
 		${WRKSRC}/mkspecs/dragonfly-g++/
-.for MKS in dragonfly-g++ freebsd-g++ linux-g++ solaris-g++-64
+.for MKS in dragonfly-g++ freebsd-g++ linux-g++ solaris-g++-64 netbsd-g++
 	${INSTALL_DATA} ${WRKDIR}/qmake.conf ${WRKSRC}/mkspecs/${MKS}/
 .endfor
 	# Clean up files created by patching
