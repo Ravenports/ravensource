@@ -8,7 +8,17 @@
  endif
  ifeq ($(UNAME), FreeBSD)
  PKG_LIBS += -lkvm
-@@ -29,7 +30,7 @@ $(SHLIB): $(LIBUV)/.libs/libuv.a
+@@ -17,6 +18,9 @@ endif
+ ifeq ($(UNAME), OpenBSD)
+ PKG_LIBS += -lkvm
+ endif
++ifeq ($(UNAME), NetBSD)
++PKG_LIBS += -lkvm
++endif
+ ifeq ($(UNAME), Linux)
+ OBJECTS +=  bsd/setmode.o bsd/strmode.o bsd/reallocarray.o
+ endif
+@@ -29,7 +33,7 @@ $(SHLIB): $(LIBUV)/.libs/libuv.a
  
  $(LIBUV)/Makefile:
  	(cd $(LIBUV) \
