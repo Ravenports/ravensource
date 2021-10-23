@@ -49,11 +49,9 @@ VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 [CUPS].CONFIGURE_ENABLE_BOTH=		cups
 [CUPS].BUILDRUN_DEPENDS_ON=		cups:single:standard
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e 's|[{]libdir[}]/locale|{datadir}/locale|g' \
 		${WRKSRC}/configure
-	${REINPLACE_CMD} -e 's|file,cups|file,cups,lpr|' \
-		${WRKSRC}/gtk/Makefile.in
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gtk-2.0/modules
