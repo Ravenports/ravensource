@@ -1,0 +1,16 @@
+--- src/Makefile.in.orig	2016-12-07 23:21:03 UTC
++++ src/Makefile.in
+@@ -366,11 +366,11 @@ include_HEADERS =
+ noinst_HEADERS = wav_io.h
+ speexenc_SOURCES = speexenc.c wav_io.c skeleton.c
+ speexenc_LDADD = $(top_builddir)/libspeex/libspeex.la \
+-	$(OGG_LIBS)  @FFT_LIBS@	@SPEEXDSP_LIBS@
++	$(OGG_LIBS)  @FFT_LIBS@	@SPEEXDSP_LIBS@ $(LIBOSSAUDIO)
+ 
+ speexdec_SOURCES = speexdec.c wav_io.c
+ speexdec_LDADD = $(top_builddir)/libspeex/libspeex.la \
+-	$(OGG_LIBS) @WINMM_LIBS@ @FFT_LIBS@
++	$(OGG_LIBS) @WINMM_LIBS@ @FFT_LIBS@ $(LIBOSSAUDIO)
+ 
+ all: all-am
+ 
