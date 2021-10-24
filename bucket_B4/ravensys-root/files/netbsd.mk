@@ -80,6 +80,7 @@ static_lib_NetBSD=\
 	/usr/lib/libpci.a \
 	/usr/lib/libossaudio.a \
 	/usr/lib/libposix.a \
+	/usr/lib/libperfuse.a \
 	/usr/lib/crt0.o \
 	/usr/lib/crtbegin.o \
 	/usr/lib/crtbeginS.o \
@@ -113,6 +114,7 @@ dynamic_lib_NetBSD=\
 	/usr/lib/libpci.so.2 \
 	/usr/lib/libossaudio.so.1 \
 	/usr/lib/libposix.so.0 \
+	/usr/lib/libperfuse.so.0 \
 	${ONLY_SO} \
 	# end
 
@@ -259,6 +261,7 @@ headers_NetBSD=\
 	malloc.h \
 	mntopts.h \
 	pci.h \
+	perfuse.h \
 	pthread_queue.h \
 	pthread_types.h \
 	regexp.h \
@@ -305,6 +308,7 @@ install-platform: install-common
 		ln -s libpci.so.2 libpci.so && \
 		ln -s libossaudio.so.1 libossaudio.so && \
 		ln -s libposix.so.0 libposix.so && \
+		ln -s libperfuse.so.0 libperfuse.so && \
 		ln -s libx86_64.so.0 libx86_64.so && \
 		ln -s libusbhid.so.1 libusbhid.so)
 
