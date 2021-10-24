@@ -46,8 +46,11 @@ GNOME_COMPONENTS=	gtk3 introspection gdkpixbuf intltool pango
 MESON_ARGS=		-Drpm=false
 			-Dstemmer=false
 			-Dgtk-doc=true
+# #			-- introspect segfaults now --
+			-Dintrospection=false
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
+PLIST_SUB=		INTRO="@comment "
 
 post-patch:
 	${REINPLACE_CMD} -e "s|http://docbook.sourceforge.net|http://cdn.docbook.org|" \
