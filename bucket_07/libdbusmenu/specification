@@ -53,6 +53,8 @@ INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
 GTKDOC_OUTPUT_BASEDIR=	libdbusmenu-gtk
 
+VAR_OPSYS[netbsd]=	MAKE_ENV=LANG=en_US.UTF-8
+
 post-install:
 	# gtk-doc can only handle one directory, so pre-move the other one
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
