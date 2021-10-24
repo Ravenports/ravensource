@@ -81,6 +81,7 @@ static_lib_NetBSD=\
 	/usr/lib/libossaudio.a \
 	/usr/lib/libposix.a \
 	/usr/lib/libperfuse.a \
+	/usr/lib/libpuffs.a \
 	/usr/lib/crt0.o \
 	/usr/lib/crtbegin.o \
 	/usr/lib/crtbeginS.o \
@@ -115,6 +116,7 @@ dynamic_lib_NetBSD=\
 	/usr/lib/libossaudio.so.1 \
 	/usr/lib/libposix.so.0 \
 	/usr/lib/libperfuse.so.0 \
+	/usr/lib/libpuffs.so.2 \
 	${ONLY_SO} \
 	# end
 
@@ -264,6 +266,8 @@ headers_NetBSD=\
 	perfuse.h \
 	pthread_queue.h \
 	pthread_types.h \
+	puffs.h \
+	puffsdump.h \
 	regexp.h \
 	re_comp.h \
 	stab.h \
@@ -309,6 +313,7 @@ install-platform: install-common
 		ln -s libossaudio.so.1 libossaudio.so && \
 		ln -s libposix.so.0 libposix.so && \
 		ln -s libperfuse.so.0 libperfuse.so && \
+		ln -s libpuffs.so.2 libpuffs.so && \
 		ln -s libx86_64.so.0 libx86_64.so && \
 		ln -s libusbhid.so.1 libusbhid.so)
 
