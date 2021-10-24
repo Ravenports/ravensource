@@ -41,14 +41,16 @@ USES=			gettext-tools gmake libtool pkgconfig
 CPE_VENDOR=		gnome
 GNOME_COMPONENTS=	glib intltool introspection libxml2
 MESON_ARGS=		-Dgtk_doc=true
-			-Dintrospection=enabled
+# #			--  introspection segfaults these days --
+			-Dintrospection=disabled
 
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 
 SOVERSION=		${SOVERSION}
-PLIST_SUB=		LIBVERSION=${LIBVERSION}
 GTKDOC_OUTPUT_BASEDIR=	libsoup-${LIBVERSION}
+PLIST_SUB=		LIBVERSION=${LIBVERSION}
+			INTRO="@comment "
 
 VAR_OPSYS[linux]=	CFLAGS=-D_GNU_SOURCE
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
