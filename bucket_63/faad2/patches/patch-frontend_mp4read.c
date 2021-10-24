@@ -2,7 +2,7 @@ $NetBSD: patch-frontend_mp4read.c,v 1.3 2019/09/14 13:34:06 nia Exp $
 
 Avoid conflicting with NetBSD libc.
 
---- frontend/mp4read.c.orig	2019-09-09 10:28:33.000000000 +0000
+--- frontend/mp4read.c.orig	2020-10-20 19:45:40 UTC
 +++ frontend/mp4read.c
 @@ -46,6 +46,7 @@ mp4config_t mp4config = { 0 };
  
