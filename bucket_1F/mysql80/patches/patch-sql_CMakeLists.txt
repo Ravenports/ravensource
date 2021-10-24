@@ -1,11 +1,22 @@
 --- sql/CMakeLists.txt.orig	2021-07-01 07:53:49 UTC
 +++ sql/CMakeLists.txt
-@@ -687,10 +687,10 @@ ENDIF()
+@@ -599,6 +599,10 @@ SET(SQL_SHARED_SOURCES
+   daemon_proxy_keyring/daemon_proxy_keyring.cc
+ )
+ 
++IF(NOT HAVE_FFSLL)
++LIST(APPEND SQL_SHARED_SOURCES ffsll.cc)
++ENDIF()
++
+ # BISON_TARGET(<Name> <YaccInput> <CodeOutput>
+ #              [COMPILE_FLAGS <flags>]
+ #              [DEFINES_FILE <file>]
+@@ -687,10 +691,10 @@ ENDIF()
  IF(LINUX)
    LIST(APPEND SQL_SHARED_SOURCES
      resourcegroups/platform/thread_attrs_api_linux.cc)
 -ELSEIF(APPLE)
-+ELSEIF(APPLE OR CMAKE_SYSTEM_NAME MATCHES "DragonFly")
++ELSEIF(APPLE OR CMAKE_SYSTEM_NAME MATCHES "(DragonFly|NetBSD)")
    LIST(APPEND SQL_SHARED_SOURCES
      resourcegroups/platform/thread_attrs_api_apple.cc)
 -ELSEIF(FREEBSD)

@@ -131,8 +131,9 @@ INSTALL_REQ_TOOLCHAIN=	yes
 
 post-extract:
 	${RM} -rv ${WRKSRC}/sql/sql_hints.yy.cc ${WRKSRC}/sql/sql_hints.yy.h
+	${CP} ${FILESDIR}/ffsll.cc ${WRKSRC}/sql/
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e 's|@LOCALBASE@|${LOCALBASE}|' \
 		-e 's|@OPENSSLLIB@|${OPENSSLLIB}|g' \
 		${WRKSRC}/scripts/CMakeLists.txt
