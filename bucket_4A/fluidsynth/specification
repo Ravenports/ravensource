@@ -53,6 +53,14 @@ CMAKE_ARGS=		-DLIB_INSTALL_DIR=lib
 
 SOVERSION=		${SOVERSION}
 
+VAR_OPSYS[netbsd]=	LDFLAGS=-lossaudio
+
+pre-configure-netbsd:
+	${REINPLACE_CMD} \
+		-e "s,/dev/dsp,/dev/audio,g" \
+		-e "s,/dev/midi,/dev/rmidi0,g" \
+		${WRKSRC}/src/drivers/fluid_oss.c
+
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/fluidsynth
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libfluidsynth.so
