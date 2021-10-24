@@ -34,7 +34,8 @@ BUILDRUN_DEPENDS=	nss:caroot:standard
 			libsoup-2.4:primary:standard
 
 USES=			gmake pkgconfig libtool gtk-doc
-GNOME_COMPONENTS=	glib libxml2 introspection
+GNOME_COMPONENTS=	glib libxml2
+# #			 introspection
 SOVERSION=		${SOVERSION}
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-ca-certificates={{LOCALBASE}}/share/certs/ca-root-nss.crt
@@ -42,6 +43,7 @@ INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 GTKDOC_OUTPUT_BASEDIR=	rest-${REST_API}
 PLIST_SUB=		API=${REST_API}
+			INTRO="@comment "
 
 post-install:
 	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
