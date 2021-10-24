@@ -79,6 +79,7 @@ static_lib_NetBSD=\
 	/usr/lib/libx86_64.a \
 	/usr/lib/libpci.a \
 	/usr/lib/libossaudio.a \
+	/usr/lib/libposix.a \
 	/usr/lib/crt0.o \
 	/usr/lib/crtbegin.o \
 	/usr/lib/crtbeginS.o \
@@ -111,6 +112,7 @@ dynamic_lib_NetBSD=\
 	/usr/lib/libx86_64.so.0 \
 	/usr/lib/libpci.so.2 \
 	/usr/lib/libossaudio.so.1 \
+	/usr/lib/libposix.so.0 \
 	${ONLY_SO} \
 	# end
 
@@ -302,6 +304,7 @@ install-platform: install-common
 		ln -s libpthread.so.1 libpthread.so && \
 		ln -s libpci.so.2 libpci.so && \
 		ln -s libossaudio.so.1 libossaudio.so && \
+		ln -s libposix.so.0 libposix.so && \
 		ln -s libx86_64.so.0 libx86_64.so && \
 		ln -s libusbhid.so.1 libusbhid.so)
 
