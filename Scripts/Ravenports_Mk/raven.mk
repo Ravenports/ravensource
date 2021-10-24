@@ -1181,7 +1181,7 @@ PLIST_SUB+=	LIBEXT="${LIBEXT}"
 PLIST_SUB+=	SHARED_OBJECT="so"
 
 # Define ONLY-<OPSYS:tu> for all supported systems
-.for supp in dragonfly linux freebsd sunos darwin
+.for supp in dragonfly freebsd netbsd linux sunos darwin
 .  if empty(PLIST_SUB:MONLY-${supp:tu}=*)
 PLIST_SUB+=		ONLY-${supp:tu}="@comment "
 .  endif
