@@ -94,6 +94,8 @@ PLIST_SUB=		VERSION=${VERSION}
 			SOVERSION=${SOVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
 
+VAR_OPSYS[netbsd]=	CONFIGURE_ENV=ac_cv_lib_dl_dlopen=no
+
 [X11].DESCRIPTION=			Variant with X support
 [X11].BUILDRUN_DEPENDS_ON=		ghostscript:x11:standard
 					librsvg:primary:standard
