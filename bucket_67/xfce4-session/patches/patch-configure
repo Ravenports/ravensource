@@ -1,0 +1,25 @@
+Add NetBSD backend detection.
+
+--- configure.orig	2020-12-22 23:09:11 UTC
++++ configure
+@@ -17798,6 +17798,8 @@ if test x$with_backend = x; then
+     with_backend=freebsd ;; #(
+   *-*dragonfly*) :
+     with_backend=freebsd ;; #(
++  *-*netbsd*) :
++    with_backend=netbsd ;; #(
+   *-openbsd*) :
+     with_backend=openbsd ;; #(
+   *) :
+@@ -17827,6 +17829,11 @@ if test x$with_backend = xopenbsd; then
+ $as_echo "#define BACKEND_TYPE_OPENBSD 1" >>confdefs.h
+ 
+ fi
++if test x$with_backend = xnetbsd; then
++
++$as_echo "#define BACKEND_TYPE_NETBSD 1" >>confdefs.h
++
++fi
+ 
+ ac_config_files="$ac_config_files Makefile doc/Makefile icons/Makefile icons/16x16/Makefile icons/24x24/Makefile icons/24x24-actions/Makefile icons/32x32/Makefile icons/48x48-actions/Makefile icons/48x48/Makefile icons/128x128/Makefile icons/scalable/Makefile libxfsm/Makefile po/Makefile.in settings/Makefile scripts/Makefile scripts/xinitrc.in xfce4-session/Makefile xfce4-session-logout/Makefile xfsm-shutdown-helper/Makefile"
+ 
