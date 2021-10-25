@@ -41,7 +41,6 @@ INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
-VAR_OPSYS[netbsd]=	MAKE_ENV=LANG=en_US.UTF-8
 
 post-patch:
 	${REINPLACE_CMD} -e 's|__DBPATH__|${PREFIX}/share/xsl/docbook/manpages|' ${WRKSRC}/Makefile.in
