@@ -353,3 +353,7 @@ install-platform: install-common
 	echo "Dummy - not used on NetBSD/AMD64" > ${DESTDIR}${BASE}/usr/share/ld.so.hints
 
 	ln -s amd64 ${DESTDIR}${BASE}/usr/include/machine
+
+	# entire timezone data
+	cp ${CPA} ../${OPSYS:tl}/usr/share/zoneinfo \
+		${DESTDIR}${BASE}/usr/share/
