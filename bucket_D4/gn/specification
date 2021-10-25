@@ -38,13 +38,15 @@ CONFIGURE_ENV=		GN_VERSION=${PORTVERSION}
 BUILD_TARGET=		#nothing
 CFLAGS=			-Wno-deprecated-copy
 
-NOT_FOR_OPSYS=		sunos netbsd
+NOT_FOR_OPSYS=		sunos
 VAR_OPSYS[linux]=	LDFLAGS=-liconv
 C_USES[linux]=		iconv
 
-post-patch:
-	${REINPLACE_CMD} 's/"python"/"${PYTHON_CMD:T}"/' \
+pre-configure:
+	${REINPLACE_CMD} -e 's/"python"/"${PYTHON_CMD:T}"/' \
 		${WRKSRC}/src/gn/exec_process_unittest.cc
+	${REINPLACE_CMD} -e 's|%%SELF_PATH%%|${PREFIX}/bin/gn|' \
+		${WRKSRC}/src/util/exe_path.cc
 
 do-install:
 	${INSTALL_PROGRAM} ${INSTALL_WRKSRC}/gn ${STAGEDIR}${PREFIX}/bin

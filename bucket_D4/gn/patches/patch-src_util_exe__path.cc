@@ -18,3 +18,21 @@
  
  base::FilePath GetExePath() {
    int mib[] = {CTL_KERN, KERN_PROC, KERN_PROC_PATHNAME, -1};
+@@ -69,6 +69,17 @@ base::FilePath GetExePath() {
+   return base::FilePath(buf);
+ }
+ 
++#elif defined(OS_NETBSD)
++
++base::FilePath GetExePath() {
++  /*
++   * Not sure how this is done in NetBSD, just hardcode
++   * it to installed location.
++   */
++  const char *self_path = "%%SELF_PATH%%";
++  return base::FilePath(self_path);
++}
++
+ #elif defined(OS_HAIKU)
+ 
+ base::FilePath GetExePath() {
