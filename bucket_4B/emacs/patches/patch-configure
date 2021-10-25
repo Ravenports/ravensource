@@ -33,12 +33,20 @@
      else
        TERMINFO=no
        LIBS_TERMCAP="-ltermcap"
-@@ -18198,7 +18198,7 @@ $as_echo "$emacs_cv_freebsd_terminfo" >&
+@@ -18191,14 +18191,14 @@ $as_echo "$emacs_cv_freebsd_terminfo" >&
+     LIBS_TERMCAP=
+     ;;
+ 
+-  netbsd)
++  xxnetbsd)
+     if test "x$LIBS_TERMCAP" != "x-lterminfo"; then
+       TERMINFO=no
+       LIBS_TERMCAP="-ltermcap"
      fi
      ;;
  
 -  openbsd | dragonfly) LIBS_TERMCAP="-lncurses" ;;
-+  openbsd | dragonfly) LIBS_TERMCAP="-lncurses -ltinfo" ;;
++  openbsd | dragonfly | netbsd) LIBS_TERMCAP="-lncurses -ltinfo" ;;
  
    ## hpux: Make sure we get select from libc rather than from libcurses
    ##  because libcurses on HPUX 10.10 has a broken version of select.
