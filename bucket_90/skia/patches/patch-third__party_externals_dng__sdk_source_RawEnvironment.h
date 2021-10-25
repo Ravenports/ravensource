@@ -5,7 +5,7 @@
  // platforms. Other constants, such as qLinux, only need to be defined if we're
  // actually compiling for that platform.
 -#if defined(__linux__)
-+#if defined(__linux__) || defined(__DragonFly__) || defined(__FreeBSD__)
++#if defined(__linux__) || defined(__DragonFly__) || defined(__FreeBSD__) || defined(__NetBSD__)
  #define qMacOS 0
  #define qWinOS 0
  #define qLinux 1
