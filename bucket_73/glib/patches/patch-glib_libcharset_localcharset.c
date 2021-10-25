@@ -5,7 +5,7 @@
    /* Most systems support nl_langinfo (CODESET) nowadays.  */
    codeset = nl_langinfo (CODESET);
 +# if defined(__NetBSD__)
-+  /* If "646" is returned on NetBSD iconv cannot convert it so override.
++  /* If "646" is returned on NetBSD iconv cannot convert it so override. */
 +  if (strcmp(codeset, "646") == 0) {
 +     codeset = "ASCII";
 +  }
