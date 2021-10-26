@@ -21,3 +21,13 @@ netbsd: Workaround bad substition errors
          as_fn_error $? "Running the configure script for BUILD side failed, see CONF-FOR-BUILD/config.log" "$LINENO" 5
      fi
  
+@@ -40736,9 +40733,6 @@ printf "%s\n" "$qt5_libdir" >&6; }
+     fi
+ 
+     if test "$_os" = "Emscripten"; then
+-        if test ! -f "$QT5_PLATFORMS_SRCDIR"/wasm_shell.html ; then
+-            QT5_PLATFORMS_SRCDIR="${QT5_PLATFORMS_SRCDIR/plugins/src\/plugins}/wasm"
+-        fi
+         if test ! -f "${qt5_platformsdir}"/libqwasm.a -o ! -f "$QT5_PLATFORMS_SRCDIR"/wasm_shell.html; then
+             as_fn_error $? "No Qt5 WASM QPA plugin found in ${qt5_platformsdir} or ${QT5_PLATFORMS_SRCDIR}" "$LINENO" 5
+         fi

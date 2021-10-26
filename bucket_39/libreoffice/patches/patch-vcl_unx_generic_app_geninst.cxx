@@ -5,7 +5,7 @@
  #  include <stdio.h>
  #endif
 -#if defined(__FreeBSD__)
-+#if defined(__FreeBSD__) || defined(__DragonFly__)
++#if defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
  #  include <sys/utsname.h>
  #endif
  
@@ -14,7 +14,7 @@
      }
      return aKernelVer;
 -#elif defined(__FreeBSD__)
-+#elif defined(__FreeBSD__) || defined(__DragonFly__)
++#elif defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
      struct utsname stName;
      if ( uname( &stName ) != 0 )
          return aKernelVer;
