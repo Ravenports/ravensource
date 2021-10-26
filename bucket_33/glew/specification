@@ -32,8 +32,10 @@ INSTALL_TARGET=		install.all
 SOVERSION=		${PORTVERSION}
 
 post-patch:
+.for plat in dragonfly netbsd
 	${CP} ${WRKSRC}/config/Makefile.freebsd \
-		${WRKSRC}/config/Makefile.dragonfly
+		${WRKSRC}/config/Makefile.${plat}
+.endfor
 
 post-install:
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
