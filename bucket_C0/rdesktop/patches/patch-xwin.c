@@ -5,7 +5,7 @@
  #endif
  
 -#ifdef __FreeBSD__
-+#if defined __FreeBSD__ || defined __DragonFly__
++#if defined __FreeBSD__ || defined __DragonFly__ || defined __NetBSD__
  #define HOST_NAME_MAX _POSIX_HOST_NAME_MAX
  #endif
  
