@@ -1,0 +1,23 @@
+netbsd: Workaround bad substition errors
+
+--- configure.orig	2021-10-06 00:42:57 UTC
++++ configure
+@@ -5818,9 +5818,6 @@ if test -z "$host" -a -z "$build" -a "`w
+             if test -n "$opt_d" -o -n "$opt_s"; then
+                 input=$($BUILDDIR/solenv/wsl/wsl-lo-helper.exe --8.3 "$input")
+             fi
+-            if test -n "$opt_m"; then
+-                input="${input//\\//}"
+-            fi
+             echo "$input"
+         else
+             # Print Unix path
+@@ -14664,7 +14661,7 @@ printf %s "checking for BUILD platform c
+         $sub_conf_opts \
+         --srcdir=$srcdir \
+         2>&1 | sed -e 's/^/    /'
+-    if test ${PIPESTATUS[0]} -ne 0; then
++    if test 0 -ne 0; then
+         as_fn_error $? "Running the configure script for BUILD side failed, see CONF-FOR-BUILD/config.log" "$LINENO" 5
+     fi
+ 
