@@ -5,7 +5,7 @@
  #ifdef _MSC_VER
  #include <stdlib.h>  // NOLINT(build/include)
 -#elif defined(__FreeBSD__)
-+#elif defined(__FreeBSD__) || defined(__DragonFly__)
++#elif defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
  #include <sys/endian.h>
  #elif defined(__GLIBC__)
  #include <byteswap.h>  // IWYU pragma: export
