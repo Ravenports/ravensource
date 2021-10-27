@@ -4,7 +4,7 @@ DEF[DEBVERSION]=	24
 
 NAMEBASE=		arj
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		archivers
 VARIANTS=		standard
 SDESC[standard]=	Free and portable clone of the ARJ archiver
@@ -55,10 +55,10 @@ pre-patch:
 	${SORT} | ${XARGS} -i{} \
 	${PATCH} -i {} -d "${PATCH_WRKSRC}" ${PATCH_DIST_ARGS}
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e 's!/etc!${LOCALBASE}/etc!' \
 		 ${WRKSRC}/arj.c ${WRKSRC}/file_reg.c ${WRKSRC}/rearj.c
 	${REINPLACE_CMD} -e 's!-O2!!' -e 's!ALIGN_POINTERS!&,1,desc!' \
 		-e 's!USE_COLORS!&,1,desc!' ${WRKSRC}/gnu/configure.in
 	${REINPLACE_CMD} -e 's!^static !!' ${WRKSRC}/integr.c
-
+	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|' ${WRKSRC}/environ.c
