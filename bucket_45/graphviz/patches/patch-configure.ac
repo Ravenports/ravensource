@@ -4,7 +4,7 @@ chunk 1 fixes:
 last chunk fixes:
 ./configure: 28825: Syntax error: Bad substitution
 
---- configure.ac.orig	2021-09-23 00:04:13 UTC
+--- configure.ac.orig	2021-10-23 00:02:14 UTC
 +++ configure.ac
 @@ -106,8 +106,15 @@ case "${host_os}" in
  	# For the build number: months since Jan 2000, day of month from the timestamp
@@ -24,7 +24,7 @@ last chunk fixes:
  	fi
  	;;
  esac
-@@ -683,7 +690,7 @@ else
+@@ -684,7 +691,7 @@ else
        if test "x$GUILE_CONFIG" = "x"; then
          use_guile="No (guile not available)"
        else
@@ -33,7 +33,7 @@ last chunk fixes:
          GUILE_VERSION_MAJOR=`echo $GUILE_VERSION | cut -d '.' -f 1`
          GUILE_VERSION_MINOR=`echo $GUILE_VERSION | cut -d '.' -f 2`
          AC_CHECK_PROGS(GUILE,guile$GUILE_VERSION_MAJOR.$GUILE_VERSION_MINOR guile$GUILE_VERSION_MAJOR guile)
-@@ -901,17 +908,17 @@ else
+@@ -902,17 +909,17 @@ else
              if test "x$PKG_CONFIG" != "x"; then
  	        AC_MSG_CHECKING(for Lua headers and libraries with pkg-config)
  	        echo
@@ -54,7 +54,7 @@ last chunk fixes:
  		           LUA_LIBS="$LUA_LFLAGS "`$PKG_CONFIG --libs lualib$l`
  		        fi
                          break
-@@ -1332,6 +1339,7 @@ else
+@@ -1329,6 +1336,7 @@ else
  	    use_ruby="No (ruby not available)"
            else
              RUBY_CFLAGS="-I`$RUBY $srcdir/config/config_ruby.rb archdir`"
@@ -62,7 +62,7 @@ last chunk fixes:
  	    # hack for powerpc-darwin8 (10.4)
  	    if test "x$DARWIN" = "xyes"; then
  	      RUBY_CFLAGS=`echo $RUBY_CFLAGS | sed 's/powerpc/universal/'`
-@@ -2194,45 +2202,6 @@ else
+@@ -2191,45 +2199,6 @@ else
  fi
  AM_CONDITIONAL(WITH_QUARTZ, [test "x$use_quartz" = "xYes"])
  
