@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	9.1.1
+DEF[PORTVERSION]=	10.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		asciidoc
@@ -29,13 +29,13 @@ FPC_EQUIVALENT=		textproc/asciidoc
 
 DISTNAME=		asciidoc-py-${PORTVERSION}
 
-USES=			autoreconf gmake shebangfix python
+USES=			autoreconf gmake shebangfix python:sutools
 GNOME_COMPONENTS=	libxslt
 SHEBANG_GLOB=		*.py
 SHEBANG_OLD_PYTHON=	"/usr/bin/env python3"
 MUST_CONFIGURE=		gnu
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} \
 		-e '/^INSTALL_PROG/ s|INSTALL_PROGRAM|INSTALL_SCRIPT|' \
 		-e 's|\.conf|&.sample|' \
@@ -45,7 +45,12 @@ post-patch:
 	for conf_file in $${CONF_FILES}; do \
 		${CP} $${conf_file} $${conf_file}.sample; \
 	done
+	# fix urls
+.for xsl in chunked epub fo htmlhelp manpage text xhtml
+	${REINPLACE_CMD} -e 's|docbook.sourceforge.net|cdn.docbook.org|g' \
+		${WRKSRC}/asciidoc/resources/docbook-xsl/${xsl}.xsl
+.endfor
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PYTHON_SITELIBDIR}/
-	${INSTALL_DATA} ${WRKSRC}/asciidocapi.py ${STAGEDIR}${PYTHON_SITELIBDIR}/
+	# ${INSTALL_DATA} ${WRKSRC}/asciidocapi.py ${STAGEDIR}${PYTHON_SITELIBDIR}/
