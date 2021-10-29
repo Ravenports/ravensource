@@ -1,4 +1,4 @@
---- gio/gunixmounts.c.orig	2021-09-17 10:17:56 UTC
+--- gio/gunixmounts.c.orig	2021-10-28 12:34:36 UTC
 +++ gio/gunixmounts.c
 @@ -63,6 +63,10 @@
  #define O_BINARY 0

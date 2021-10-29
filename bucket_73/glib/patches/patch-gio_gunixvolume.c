@@ -1,4 +1,4 @@
---- gio/gunixvolume.c.orig	2021-09-17 10:17:56 UTC
+--- gio/gunixvolume.c.orig	2021-10-28 12:34:36 UTC
 +++ gio/gunixvolume.c
 @@ -367,9 +367,14 @@ g_unix_volume_eject (GVolume
                       gpointer             user_data)

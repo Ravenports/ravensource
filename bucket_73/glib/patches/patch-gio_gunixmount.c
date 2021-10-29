@@ -1,4 +1,4 @@
---- gio/gunixmount.c.orig	2021-09-17 10:17:56 UTC
+--- gio/gunixmount.c.orig	2021-10-28 12:34:36 UTC
 +++ gio/gunixmount.c
 @@ -358,12 +358,17 @@ g_unix_mount_eject (GMount             *
                      gpointer             user_data)
