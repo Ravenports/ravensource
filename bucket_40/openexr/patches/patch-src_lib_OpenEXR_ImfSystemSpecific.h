@@ -1,4 +1,4 @@
---- src/lib/OpenEXR/ImfSystemSpecific.h.orig	2021-07-31 19:57:32 UTC
+--- src/lib/OpenEXR/ImfSystemSpecific.h.orig	2021-10-24 21:50:29 UTC
 +++ src/lib/OpenEXR/ImfSystemSpecific.h
 @@ -45,6 +45,8 @@ EXRAllocAligned (size_t size, size_t ali
      return _aligned_malloc (size, alignment);
