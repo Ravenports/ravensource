@@ -1,6 +1,6 @@
---- dragonflybsd/DragonFlyBSDProcessList.c.orig	2021-09-21 06:30:46 UTC
+--- dragonflybsd/DragonFlyBSDProcessList.c.orig	2021-10-14 21:42:05 UTC
 +++ dragonflybsd/DragonFlyBSDProcessList.c
-@@ -461,7 +461,7 @@ void ProcessList_goThroughEntries(Proces
+@@ -464,7 +464,7 @@ void ProcessList_goThroughEntries(Proces
           proc->pgrp = kproc->kp_pgid;		// process group id
           proc->session = kproc->kp_sid;
           proc->st_uid = kproc->kp_uid;		// user ID
@@ -9,7 +9,7 @@
           proc->starttime_ctime = kproc->kp_start.tv_sec;
           Process_fillStarttimeBuffer(proc);
           proc->user = UsersTable_getRef(super->usersTable, proc->st_uid);
-@@ -600,6 +600,24 @@ void ProcessList_goThroughEntries(Proces
+@@ -603,6 +603,24 @@ void ProcessList_goThroughEntries(Proces
     }
  }
  
