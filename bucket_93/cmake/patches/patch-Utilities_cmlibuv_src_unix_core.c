@@ -1,14 +1,14 @@
---- Utilities/cmlibuv/src/unix/core.c.orig	2021-09-20 16:43:52 UTC
+--- Utilities/cmlibuv/src/unix/core.c.orig	2021-10-28 13:46:08 UTC
 +++ Utilities/cmlibuv/src/unix/core.c
-@@ -73,7 +73,11 @@ extern char** environ;
- # include <sys/filio.h>
- # include <sys/wait.h>
- # include <sys/param.h>
-+# if defined __DragonFly__ || defined __NetBSD__
-+# include <sys/sched.h>
-+# else
+@@ -85,6 +85,11 @@ extern char** environ;
  # include <sys/cpuset.h>
-+# endif
- # if defined(__FreeBSD__)
- #  define uv__accept4 accept4
- # endif
+ #endif
+ 
++#if defined(__DragonFly__) || defined(__NetBSD__)
++# include <sys/param.h>
++# include <sys/sched.h>
++#endif
++
+ #if defined(__MVS__)
+ #include <sys/ioctl.h>
+ #endif

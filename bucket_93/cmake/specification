@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.21.3
+DEF[PORTVERSION]=	3.22.0-rc2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		cmake
@@ -43,7 +43,9 @@ CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
 			--system-libs
 			--parallel={{MAKE_JOBS_NUMBER}}
 			--init="{{FILESDIR}}/InitialCache.cmake"
-			--sphinx-man
+# something is wrong with Sphinx - locks up build...
+# #			--sphinx-man
+PLIST_SUB=		MANPAGES="@comment "
 INSTALL_TARGET=		install/strip
 
 VAR_OPSYS[netbsd]=	CXXFLAGS=-D_NETBSD_SOURCE
