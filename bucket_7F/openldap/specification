@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2.5.8
-DEF[SOVERSION]=		0.1.3
+DEF[PORTVERSION]=	2.6.0
+DEF[SOVERSION]=		2.0.200
 DEF[LDAP_USER]=		ldap
 DEF[LDAP_GROUP]=	ldap
 DEF[LDAP_RUN_DIR]=	/var/run/openldap
@@ -38,8 +38,7 @@ USERS=			${LDAP_USER}
 GROUPS=			${LDAP_GROUP}
 USERGROUP_SPKG=		server
 
-# :keepla because port uses lt_dlopen
-USES=			cpe gmake fbsd10fix libtool:keepla ssl:openssl-devel
+USES=			cpe gmake libtool ssl:openssl-devel
 
 INSTALL_REQ_TOOLCHAIN=	yes
 MUST_CONFIGURE=		gnu
@@ -117,5 +116,5 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/openldap/*.so
 
 	for library in lber ldap; do \
-		${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib$${library}-${PORTVERSION:R}.so.${SOVERSION:R:R}; \
+		${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib$${library}.so; \
 	done
