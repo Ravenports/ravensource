@@ -1,8 +1,8 @@
 Do not generate debugging symbols (uses lots of disk space).
 
---- node_modules/node-gyp/gyp/pylib/gyp/xcode_emulation.py.orig	2021-09-23 20:20:00 UTC
+--- node_modules/node-gyp/gyp/pylib/gyp/xcode_emulation.py.orig	2021-10-28 19:16:17 UTC
 +++ node_modules/node-gyp/gyp/pylib/gyp/xcode_emulation.py
-@@ -610,7 +610,7 @@ class XcodeSettings(object):
+@@ -607,7 +607,7 @@ class XcodeSettings:
  
          self._Appendf(cflags, "GCC_OPTIMIZATION_LEVEL", "-O%s", default="s")
  
