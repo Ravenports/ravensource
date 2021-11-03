@@ -1,4 +1,4 @@
---- m4/check-os-options.m4.orig	2021-09-08 07:56:38 UTC
+--- m4/check-os-options.m4.orig	2021-10-01 03:10:24 UTC
 +++ m4/check-os-options.m4
 @@ -63,7 +63,6 @@ char buf[1]; getentropy(buf, 1);
  		HOST_ABI=elf
