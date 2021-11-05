@@ -36,3 +36,8 @@ DISTNAME=		packaging-${PORTVERSION}.dist-info
 [PY39].USES_ON=				python:py39,wheel
 [PY39].RUN_DEPENDS_ON=			python-pyparsing:single:py39
 
+post-stage:
+	# Revert ill-conceived limit of pyparsing version 2
+	# This was already done upstream
+	${SED} -i'' -e '/Requires-Dist:/ s|<3,||' \
+	${STAGEDIR}${PREFIX}/lib/python*/site-packages/packaging-*.dist-info/METADATA

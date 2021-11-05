@@ -1,0 +1,5 @@
+post-stage:
+	# Revert ill-conceived limit of pyparsing version 2
+	# This was already done upstream
+	${SED} -i'' -e '/Requires-Dist:/ s|<3,||' \
+	${STAGEDIR}${PREFIX}/lib/python*/site-packages/packaging-*.dist-info/METADATA
