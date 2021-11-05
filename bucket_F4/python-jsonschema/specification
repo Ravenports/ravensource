@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.1.2
+DEF[PORTVERSION]=	4.2.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-jsonschema
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/Julian/jsonschema
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/4a/25/176c2fb5f063bea33b395cae529a5b9419e1a3d27a89505b96c79c9032c4
+SITES[main]=		PYPIWHL/92/6b/64ffa047f23d890bbf2abfebcec5a5ee72617726bd5828cff21b572560e1
 DISTFILE[1]=		jsonschema-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
@@ -32,6 +32,7 @@ DISTNAME=		jsonschema-${PORTVERSION}.dist-info
 # attrs (>=17.4.0)
 # pyrsistent (!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0)
 # importlib-metadata ; python_version < "3.8"
+# importlib-resources ; python_version < "3.9"
 # fqdn ; extra == 'format'
 # idna ; extra == 'format'
 # isoduration ; extra == 'format'
@@ -52,6 +53,7 @@ DISTNAME=		jsonschema-${PORTVERSION}.dist-info
 [PY38].USES_ON=				python:py38,wheel
 [PY38].RUN_DEPENDS_ON=			python-attrs:single:py38
 					python-pyrsistent:single:py38
+					python-importlib-resources:single:py38
 [PY39].USES_ON=				python:py39,wheel
 [PY39].RUN_DEPENDS_ON=			python-attrs:single:py39
 					python-pyrsistent:single:py39
