@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.16
+DEF[PORTVERSION]=	0.17
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Spreadsheet-XLSX
@@ -34,16 +34,16 @@ DISTNAME=		Spreadsheet-XLSX-${PORTVERSION}
 # ----------------------------------------------
 # |      runtime : Archive::Zip
 # |      runtime : Spreadsheet::ParseExcel
-# |      runtime : Test::NoWarnings
 # |        build : ExtUtils::MakeMaker (perl 5.32 core) (perl 5.34 core)
 # |    configure : ExtUtils::MakeMaker (perl 5.32 core) (perl 5.34 core)
+# |         test : Test::More (perl 5.32 core) (perl 5.34 core)
+# |         test : Test::NoWarnings
+# |         test : Test::Warnings
 
 [PERL_532].USES_ON=			perl:532,configure
 [PERL_532].BUILDRUN_DEPENDS_ON=		perl-Archive-Zip:single:532
 					perl-Spreadsheet-ParseExcel:single:532
-					perl-Test-NoWarnings:single:532
 [PERL_534].USES_ON=			perl:534,configure
 [PERL_534].BUILDRUN_DEPENDS_ON=		perl-Archive-Zip:single:534
 					perl-Spreadsheet-ParseExcel:single:534
-					perl-Test-NoWarnings:single:534
 
