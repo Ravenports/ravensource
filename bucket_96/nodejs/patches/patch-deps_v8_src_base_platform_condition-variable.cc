@@ -1,6 +1,6 @@
---- deps/v8/src/base/platform/condition-variable.cc.orig	2021-09-22 18:38:21 UTC
+--- deps/v8/src/base/platform/condition-variable.cc.orig	2021-10-20 16:33:21 UTC
 +++ deps/v8/src/base/platform/condition-variable.cc
-@@ -16,6 +16,7 @@ namespace base {
+@@ -20,6 +20,7 @@ namespace base {
  
  ConditionVariable::ConditionVariable() {
  #if (V8_OS_FREEBSD || V8_OS_NETBSD || V8_OS_OPENBSD || \

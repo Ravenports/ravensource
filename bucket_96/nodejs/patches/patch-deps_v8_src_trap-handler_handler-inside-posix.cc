@@ -1,4 +1,4 @@
---- deps/v8/src/trap-handler/handler-inside-posix.cc.orig	2021-09-22 18:38:22 UTC
+--- deps/v8/src/trap-handler/handler-inside-posix.cc.orig	2021-10-20 16:33:22 UTC
 +++ deps/v8/src/trap-handler/handler-inside-posix.cc
 @@ -27,7 +27,7 @@
  
@@ -9,12 +9,12 @@
  #include <ucontext.h>
  #elif V8_OS_MACOSX
  #include <sys/ucontext.h>
-@@ -110,6 +110,8 @@ bool TryHandleSignal(int signum, siginfo
-     auto* context_ip = &uc->uc_mcontext->__ss.__rip;
- #elif V8_OS_FREEBSD && V8_TARGET_ARCH_X64
-     auto* context_ip = &uc->uc_mcontext.mc_rip;
-+#elif V8_OS_DRAGONFLYBSD && V8_TARGET_ARCH_X64
-+    auto* context_ip = &uc->uc_mcontext.mc_rip;
+@@ -53,6 +53,8 @@ namespace trap_handler {
+ #define CONTEXT_REG(reg, REG) &uc->uc_mcontext->__ss.__##reg
+ #elif V8_OS_FREEBSD
+ #define CONTEXT_REG(reg, REG) &uc->uc_mcontext.mc_##reg
++#elif V8_OS_DRAGONFLYBSD
++#define CONTEXT_REG(reg, REG) &uc->uc_mcontext.mc_##reg
  #else
- #error Unsupported platform
+ #error "Unsupported platform."
  #endif

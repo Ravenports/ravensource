@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	16.10.0
+DEF[PORTVERSION]=	17.0.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		nodejs
@@ -53,7 +53,7 @@ MAKE_ENV=		CC.host={{CC}}
 			LINK.target={{CXX}}
 INSTALL_REQ_TOOLCHAIN=	yes
 
-post-patch:
+pre-configure:
 	${GREP} -rl "/usr/local" ${WRKSRC} | \
 		${XARGS} ${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g'
 	# So many different ways to run python. Fix them all.
@@ -67,10 +67,14 @@ post-patch:
 	# fix inability for torque to find libz
 	${REINPLACE_CMD} -e 's|@RAVRPATH@|-Wl,-rpath,${PREFIX}/lib|' \
 		${WRKSRC}/tools/v8_gypfiles/v8.gyp
+	# fix openssl config files for Dragonfly and NetBSD
+	${GREP} -rl "(defined(__FreeBSD__) || defined(__OpenBSD__))" \
+	${WRKSRC}/deps/openssl/config | ${XARGS} ${REINPLACE_CMD} -E -e \
+	"s/\(defined\(__FreeBSD__\) \|\| defined\(__OpenBSD__\)\)/(defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__) || defined(__OpenBSD__))/"
 
 	${FIND} ${WRKSRC} -name "*.bak" -delete
 
-post-patch-dragonfly:
+pre-configure-dragonfly:
 	# using freebsd's config, but large pages not supported
 	${REINPLACE_CMD} -e '/"linux freebsd mac"/ s/ freebsd//' \
 		${WRKSRC}/node.gyp
