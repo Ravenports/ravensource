@@ -1,0 +1,18 @@
+--- configure.orig	2020-09-04 07:01:28 UTC
++++ configure
+@@ -66439,6 +66439,7 @@ fi
+ $as_echo "$enable_dane" >&6; }
+ 
+ if test "$enable_dane" != "no"; then
++    oldlibs="$LIBS"
+     LIBS="$oldlibs -lunbound"
+     { $as_echo "$as_me:${as_lineno-$LINENO}: checking for unbound library" >&5
+ $as_echo_n "checking for unbound library... " >&6; }
+@@ -66692,6 +66693,7 @@ else
+ fi
+ 
+ if test "$with_tpm" != "no"; then
++    oldlibs="$LIBS"
+     LIBS="$oldlibs -ltspi"
+     { $as_echo "$as_me:${as_lineno-$LINENO}: checking for tss library" >&5
+ $as_echo_n "checking for tss library... " >&6; }
