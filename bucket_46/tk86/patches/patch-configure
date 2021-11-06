@@ -1,7 +1,11 @@
---- configure.orig	2021-01-13 20:14:00 UTC
+--- configure.orig	2021-11-04 15:06:24 UTC
 +++ configure
-@@ -5204,6 +5204,10 @@ fi
- 	Linux*|GNU*|NetBSD-Debian)
+@@ -5202,9 +5202,13 @@ fi
+ fi
+ 
+ 	    ;;
+-	Linux*|GNU*|NetBSD-Debian|DragonFly-*|FreeBSD-*)
++	Linux*|GNU*|NetBSD-*|DragonFly-*|FreeBSD-*|SunOS-*)
  	    SHLIB_CFLAGS="-fPIC"
  	    SHLIB_SUFFIX=".so"
 +	    TCL_TRIM_DOTS=`echo ${VERSION} | tr -d .`
@@ -11,7 +15,24 @@
  
  	    CFLAGS_OPTIMIZE="-O2"
  	    # egcs-2.91.66 on Redhat Linux 6.0 generates lots of warnings
-@@ -5379,7 +5383,7 @@ fi
+@@ -5214,11 +5218,13 @@ fi
+ 
+ 	    SHLIB_LD='${CC} ${CFLAGS} ${LDFLAGS} -shared'
+ 	    DL_OBJS="tclLoadDl.o"
+-	    DL_LIBS="-ldl"
+-	    LDFLAGS="$LDFLAGS -Wl,--export-dynamic"
++	    LDFLAGS="$LDFLAGS -Wl,--export-dynamic -Wl,-soname,libtk${TCL_TRIM_DOTS}.so.1"
+ 
+ 	    case $system in
+-	    DragonFly-*|FreeBSD-*)
++	    Linux-*|GNU*)
++		DL_LIBS="-ldl"
++		;;
++	    DragonFly-*|FreeBSD-*|NetBSD-*)
+ 		if test "${TCL_THREADS}" = "1"; then
+ 
+ 		    # The -pthread needs to go in the LDFLAGS, not LIBS
+@@ -5394,7 +5400,7 @@ fi
  	    UNSHARED_LIB_SUFFIX='${TCL_TRIM_DOTS}.a'
  	    TCL_LIB_VERSIONS_OK=nodots
  	    ;;
@@ -20,37 +41,3 @@
  	    # NetBSD has ELF and can use 'cc -shared' to build shared libs
  	    SHLIB_CFLAGS="-fPIC"
  	    SHLIB_LD='${CC} ${SHLIB_CFLAGS} -shared'
-@@ -5403,7 +5407,7 @@ fi
- fi
- 
- 	    ;;
--	DragonFly-*|FreeBSD-*)
-+	DragonFly-*|FreeBSD-*|NetBSD-*|SunOS-*)
- 	    # This configuration from FreeBSD Ports.
- 	    SHLIB_CFLAGS="-fPIC"
- 	    SHLIB_LD="${CC} -shared"
-@@ -5425,19 +5429,19 @@ fi
- 		LDFLAGS="$LDFLAGS $PTHREAD_LIBS"
- fi
- 
--	    case $system in
--	    FreeBSD-3.*)
- 		# Version numbers are dot-stripped by system policy.
- 		TCL_TRIM_DOTS=`echo ${VERSION} | tr -d .`
- 		UNSHARED_LIB_SUFFIX='${TCL_TRIM_DOTS}.a'
--		SHARED_LIB_SUFFIX='${TCL_TRIM_DOTS}.so'
-+		SHARED_LIB_SUFFIX='${TCL_TRIM_DOTS}.so.1'
- 		TCL_LIB_VERSIONS_OK=nodots
--		;;
--	    esac
- 	    ;;
- 	Darwin-*)
- 	    CFLAGS_OPTIMIZE="-Os"
- 	    SHLIB_CFLAGS="-fno-common"
-+	    TCL_TRIM_DOTS=`echo ${VERSION} | tr -d .`
-+	    UNSHARED_LIB_SUFFIX='${TCL_TRIM_DOTS}.a'
-+	    SHARED_LIB_SUFFIX='${TCL_TRIM_DOTS}.1.dylib'
-+	    TCL_LIB_VERSIONS_OK=nodots
- 	    # To avoid discrepancies between what headers configure sees during
- 	    # preprocessing tests and compiling tests, move any -isysroot and
- 	    # -mmacosx-version-min flags from CFLAGS to CPPFLAGS:
