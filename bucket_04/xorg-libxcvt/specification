@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	0.1.1
+DEF[XNAME]=		xcvt
+DEF[ALTNAME]=		libxcvt
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-${XNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Calculate VESA CVT mode lines
+HOMEPAGE=		https://gitlab.freedesktop.org/xorg/lib/libxcvt
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		XORG/individual/lib
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		xorg
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11/libxcvt
+
+USES=			meson
+DISTNAME=		${ALTNAME}-${PORTVERSION}
+SOVERSION=		${PORTVERSION}
