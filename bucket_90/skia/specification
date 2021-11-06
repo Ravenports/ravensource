@@ -5,11 +5,12 @@ DEF[DNG_HASH]=		c8d0c9b
 DEF[PIEX_HASH]=		256bd10
 DEF[ZLIB_HASH]=		47af7c5
 DEF[TEX]=		third_party/externals
+DEF[SOVERSION]=		1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		skia
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Open-source 2D graphics library
@@ -40,16 +41,16 @@ LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		gn:single:standard
-			WebP:single:standard
+BUILDRUN_DEPENDS=	WebP:single:standard
 			harfbuzz:primary:standard
 			harfbuzz:icu:standard
 			freetype:primary:standard
 
-USES=			ninja python:py27,build jpeg:build png:build
-			expat:build zlib:build
+USES=			ninja python:py27,build jpeg png expat zlib c++:single
 CONFIGURE_OUTSOURCE=	yes
 CONFIGURE_ENV=		AUTOPYTHON=2.7
 MAKE_ENV=		AUTOPYTHON=2.7
+SOVERSION=		${SOVERSION}
 
 post-patch:
 	${REINPLACE_CMD} -e 's|/usr/include/harfbuzz|${LOCALBASE}/include/harfbuzz|'\
@@ -62,6 +63,7 @@ do-configure:
 	(cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} \
 		gn gen ${CONFIGURE_WRKSRC} --args="\
 		is_official_build=true \
+		is_component_build=true \
 		skia_use_system_libjpeg_turbo=true \
 		skia_use_system_libpng=true \
 		skia_use_system_libwebp=true \
@@ -69,13 +71,15 @@ do-configure:
 		skia_use_system_expat=true \
 		skia_use_system_zlib=true \
 		skia_use_system_harfbuzz=true \
-		skia_use_system_freetype2=true \
+		skia_enable_fontmgr_empty=true \
 		")
 
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib
 	${MKDIR} ${STAGEDIR}${PREFIX}/include/skia
-	${INSTALL_DATA} ${BUILD_WRKSRC}/libskia.a \
-		${STAGEDIR}${PREFIX}/lib
+	${INSTALL_LIB} ${BUILD_WRKSRC}/libskia.so \
+		${STAGEDIR}${PREFIX}/lib/libskia.so.${SOVERSION}
+	(cd ${STAGEDIR}${PREFIX}/lib && \
+		${LN} -s libskia.so.${SOVERSION} libskia.so)
 	(cd ${WRKSRC} && ${COPYTREE_SHARE} \
 		include ${STAGEDIR}${PREFIX}/include/skia)
