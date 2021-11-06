@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.4.60
+DEF[PORTVERSION]=	1.4.61
 DEF[REVISION]=		0
 DEF[CACHEDIR]=		/var/cache/lighttpd
 DEF[LOGDIR]=		/var/log/lighttpd
@@ -83,8 +83,6 @@ VAR_OPSYS[linux]=	CONFIGURE_ARGS=--with-attr
 [GEOIP].CONFIGURE_WITH_BOTH=		geoip
 
 post-patch:
-	${REINPLACE_CMD} -e 's|-std=gnu99||' \
-		${WRKSRC}/configure ${WRKSRC}/configure.ac
 	${REINPLACE_CMD} -E \
 		-e 's|^(server.document-root.*=).*|\1 "${PREFIX}/www" + "/data"|' \
 		-e "s|/etc/lighttpd|${PREFIX}/etc/lighttpd|g" \
