@@ -1,7 +1,7 @@
 # don't commit upgrade without testing filezilla build first
 # In general, don't upgrade until new version of filezilla arrives.
-DEF[PORTVERSION]=	0.31.1
-DEF[SOVERSION]=		16.1.0
+DEF[PORTVERSION]=	0.34.2
+DEF[SOVERSION]=		22.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libfilezilla
@@ -31,14 +31,12 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		ftp/libfilezilla
 
 BUILD_DEPENDS=		gmp:static:standard
-BUILDRUN_DEPENDS=	gnutls:primary:standard
+			gnutls-devel:primary:standard
+BUILDRUN_DEPENDS=	gnutls-devel:library:standard
 			nettle:primary:standard
-USES=			c++:primary gettext-tools gmake iconv:wchar_t libtool pkgconfig
+USES=			gettext-tools gmake iconv:wchar_t libtool pkgconfig
+			c++:primary
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
 
 SOVERSION=		${SOVERSION}
-
-pre-configure-netbsd:
-	# fix linking of nettle (static libs only)
-	${REINPLACE_CMD} -e 's/-no-undefined//' ${WRKSRC}/lib/Makefile.in
