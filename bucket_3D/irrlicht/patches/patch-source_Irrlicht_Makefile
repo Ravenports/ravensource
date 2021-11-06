@@ -1,6 +1,6 @@
---- source/Irrlicht/Makefile.orig	2019-02-02 20:07:36 UTC
+--- source/Irrlicht/Makefile.orig	2021-11-06 04:23:05 UTC
 +++ source/Irrlicht/Makefile
-@@ -46,33 +46,28 @@ IRRSWRENDEROBJ = CSoftwareDriver.o CSoft
+@@ -48,33 +48,28 @@ IRRSWRENDEROBJ = CSoftwareDriver.o CSoft
  IRRIOOBJ = CFileList.o CFileSystem.o CLimitReadFile.o CMemoryFile.o CReadFile.o CWriteFile.o CXMLReader.o CXMLWriter.o CWADReader.o CZipReader.o CPakReader.o CNPKReader.o CTarReader.o CMountPointReader.o irrXML.o CAttributes.o lzma/LzmaDec.o
  IRROTHEROBJ = CIrrDeviceSDL.o CIrrDeviceLinux.o CIrrDeviceConsole.o CIrrDeviceStub.o CIrrDeviceWin32.o CIrrDeviceFB.o CLogger.o COSOperator.o Irrlicht.o os.o
  IRRGUIOBJ = CGUIButton.o CGUICheckBox.o CGUIComboBox.o CGUIContextMenu.o CGUIEditBox.o CGUIEnvironment.o CGUIFileOpenDialog.o CGUIFont.o CGUIImage.o CGUIInOutFader.o CGUIListBox.o CGUIMenu.o CGUIMeshViewer.o CGUIMessageBox.o CGUIModalScreen.o CGUIScrollBar.o CGUISpinBox.o CGUISkin.o CGUIStaticText.o CGUITabControl.o CGUITable.o CGUIToolBar.o CGUIWindow.o CGUIColorSelectDialog.o CDefaultGUIElementFactory.o CGUISpriteBank.o CGUIImageList.o CGUITreeView.o
@@ -39,10 +39,11 @@
  
  sharedlib sharedlib_osx: CXXFLAGS += -fPIC
  sharedlib sharedlib_osx: CFLAGS += -fPIC
-@@ -83,13 +78,16 @@ LIBSELECT=64
+@@ -84,14 +79,16 @@ ifeq ($(HOSTTYPE), x86_64)
+ LIBSELECT=64
  endif
  
- #Linux specific options
+-#Linux specific options
 -staticlib sharedlib install: SYSTEM = Linux
 +OPSYS ?=
 +LDFLAGS ?=
@@ -60,14 +61,16 @@
  
  #OSX specific options
  staticlib_osx sharedlib_osx install_osx: SYSTEM = MacOSX
-@@ -179,8 +177,8 @@ endif
+@@ -181,9 +178,9 @@ endif
  
  help:
  	@echo "Available targets for Irrlicht"
 -	@echo " sharedlib: Build shared library Irrlicht.so for Linux"
 -	@echo " staticlib: Build static library Irrlicht.a for Linux"
+-	@echo " install: Copy shared library to /usr/local/lib"
 +	@echo " sharedlib: Build shared library Irrlicht.so for ${OPSYS}"
 +	@echo " staticlib: Build static library Irrlicht.a for ${OPSYS}"
- 	@echo " install: Copy shared library to /usr/local/lib"
++	@echo " install: Copy shared library to ${LOCALBASE}"
  	@echo ""
  	@echo " sharedlib_win32: Build shared library Irrlicht.dll for Windows"
+ 	@echo " staticlib_win32: Build static library Irrlicht.a for Windows"
