@@ -1,4 +1,4 @@
---- src/egl/drivers/dri2/egl_dri2.c.orig	2021-10-14 19:59:05 UTC
+--- src/egl/drivers/dri2/egl_dri2.c.orig	2021-10-28 16:49:53 UTC
 +++ src/egl/drivers/dri2/egl_dri2.c
 @@ -989,11 +989,13 @@ dri2_setup_screen(_EGLDisplay *disp)
               disp->Extensions.KHR_gl_texture_3D_image = EGL_TRUE;

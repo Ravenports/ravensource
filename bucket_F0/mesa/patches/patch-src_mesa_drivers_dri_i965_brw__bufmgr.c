@@ -1,4 +1,4 @@
---- src/mesa/drivers/dri/i965/brw_bufmgr.c.orig	2021-10-14 19:59:05 UTC
+--- src/mesa/drivers/dri/i965/brw_bufmgr.c.orig	2021-10-28 16:49:53 UTC
 +++ src/mesa/drivers/dri/i965/brw_bufmgr.c
 @@ -85,6 +85,10 @@
  } while (0)

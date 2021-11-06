@@ -1,6 +1,6 @@
 Segment runs on NetBSD and OpenBSD only
 
---- src/util/u_cpu_detect.c.orig	2021-10-14 19:59:05 UTC
+--- src/util/u_cpu_detect.c.orig	2021-10-28 16:49:53 UTC
 +++ src/util/u_cpu_detect.c
 @@ -601,7 +601,7 @@ util_cpu_detect_once(void)
     if (available_cpus == 0) {
