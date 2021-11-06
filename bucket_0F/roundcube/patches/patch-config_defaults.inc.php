@@ -1,6 +1,6 @@
---- config/defaults.inc.php.orig	2021-02-08 19:29:40 UTC
+--- config/defaults.inc.php.orig	2021-10-17 20:38:03 UTC
 +++ config/defaults.inc.php
-@@ -801,8 +801,8 @@ $config['spellcheck_dictionary'] = false
+@@ -922,8 +922,8 @@ $config['spellcheck_dictionary'] = false
  // You can connect to any other googie-compliant service by setting 'spellcheck_uri' accordingly.
  $config['spellcheck_engine'] = 'googie';
  
