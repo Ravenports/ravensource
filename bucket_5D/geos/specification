@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	3.9.1
-DEF[SOVERSION]=		1.14.2
+DEF[PORTVERSION]=	3.10.1
+DEF[SOVERSION]=		1.16.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		geos
@@ -28,13 +28,11 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/geos
 
-USES=			gmake libtool c++:single
-MUST_CONFIGURE=		gnu
-INSTALL_TARGET=		install-strip
-INSTALL_REQ_TOOLCHAIN=	yes
+USES=			cmake c++:single
 PLIST_SUB=		PORTVERSION=${PORTVERSION}
 SOVERSION=		${SOVERSION}
 
-post-configure:
-	${FIND} ${WRKSRC} -name Makefile -exec \
-		${REINPLACE_CMD} -e '/CXXFLAGS = / s| -O2||' {} \;
+post-install:
+	${RMDIR} ${STAGEDIR}${PREFIX}/include/geos/vend
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/geosop
