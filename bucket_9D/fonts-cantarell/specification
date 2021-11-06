@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	0.301
-DEF[DL_FOLDER]=		0.301
+DEF[PORTVERSION]=	0.303
+DEF[DL_FOLDER]=		0.303
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fonts-cantarell
@@ -11,8 +11,9 @@ HOMEPAGE=		https://wiki.gnome.org/Projects/CantarellFonts
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GNOME/cantarell-fonts/${DL_FOLDER}/
-DISTFILE[1]=		cantarell-fonts-${PORTVERSION}.tar.xz:main
+# SITES[main]=		GNOME/cantarell-fonts/${DL_FOLDER}/
+SITES[main]=		https://gitlab.gnome.org/GNOME/cantarell-fonts/-/archive/v${DL_FOLDER}/
+DISTFILE[1]=		cantarell-fonts-${PORTVERSION}.tar.bz2:main
 
 SPKGS[standard]=	single
 
@@ -34,3 +35,10 @@ USES=			fonts:fc gmake pkgconfig meson gettext-tools
 DISTNAME=		cantarell-fonts-${PORTVERSION}
 FONTNAME=		cantarell
 MESON_ARGS=		-Dfontsdir="{{FONTSDIR}}"
+			-Duseprebuilt=false
+			-Dbuildstatics=true
+			-Dbuildvf=true
+
+post-extract:
+	# relocate to WRKSRC
+	${MV} ${WRKDIR}/cantarell-fonts-v* ${WRKSRC}
