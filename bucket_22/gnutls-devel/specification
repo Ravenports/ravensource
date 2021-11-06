@@ -19,7 +19,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNUPG/gnutls/v${DL_FOLDER}
 DISTFILE[1]=		gnutls-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[standard]=	complete library primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -39,6 +39,8 @@ BUILDRUN_DEPENDS=	libunistring:primary:standard
 			nettle:primary:standard
 			nss:caroot:standard
 B_DEPS[sunos]=		libbsd4sol:single:standard
+
+EXRUN[primary]=		gnutls-devel:library:standard
 
 USES=			cpe gmake iconv libtool makeinfo pkgconfig
 			gettext-runtime zlib
