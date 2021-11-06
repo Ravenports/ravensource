@@ -1,6 +1,6 @@
---- hw/xfree86/common/xf86Globals.c.orig	2021-07-08 19:22:18 UTC
+--- hw/xfree86/common/xf86Globals.c.orig	2021-10-27 10:47:08 UTC
 +++ hw/xfree86/common/xf86Globals.c
-@@ -119,7 +119,7 @@ xf86InfoRec xf86Info = {
+@@ -118,7 +118,7 @@ xf86InfoRec xf86Info = {
      .miscModInDevEnabled = TRUE,
      .miscModInDevAllowNonLocal = FALSE,
      .pmFlag = TRUE,
