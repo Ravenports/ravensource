@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.2.1
+DEF[PORTVERSION]=	1.3.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		devilutionX
@@ -26,11 +26,13 @@ FPC_EQUIVALENT=		games/devilutionX
 
 BUILDRUN_DEPENDS=	libsodium:single:standard
 
-USES=			cmake pkgconfig dos2unix
+USES=			cmake pkgconfig dos2unix gettext-tools
 DOS2UNIX_FILES=		CMakeLists.txt
+			Source/storm/storm_file_wrapper.h
 SDL_COMPONENTS=		mixer2 ttf2
 CMAKE_ARGS=		-DBINARY_RELEASE:BOOL=ON
 			-DVERSION_NUM="${PORTVERSION}"
+			-DDISABLE_ZERO_TIER:BOOL=ON
 SUB_FILES=		pkg-message-single
 
 C_USES[linux]=		iconv
