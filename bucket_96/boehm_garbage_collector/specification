@@ -1,7 +1,8 @@
-DEF[PORTVERSION]=	8.0.6
+DEF[PORTVERSION]=	8.2.0
 DEF[SOVERSION]=		1.4.0
-DEF[GCVERSION]=		1.4.4
-DEF[CPPVERSION]=	1.4.1
+DEF[GCVERSION]=		1.5.0
+DEF[CPPVERSION]=	1.5.0
+DEF[TBAVERSION]=	1.5.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		boehm_garbage_collector
@@ -52,6 +53,12 @@ PLIST_SUB=		GCVERSION=${GCVERSION}
 			GCMAJOR=${GCVERSION:R:R}
 			CPPVERSION=${CPPVERSION}
 			CPPMAJOR=${CPPVERSION:R:R}
+			TBAVERSION=${TBAVERSION}
+			TBAMAJOR=${TBAVERSION:R:R}
+
+VAR_OPSYS[netbsd]=	CONFIGURE_ARGS=--enable-mmap
+VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-mmap
+VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--enable-mmap
 
 [THREADED].DESCRIPTION=			Enable posix thread support
 [REDIRECT].DESCRIPTION=			Enable malloc redirection support
