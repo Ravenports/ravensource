@@ -1,4 +1,4 @@
---- common/unicode/uconfig.h.orig	2021-04-08 00:10:27 UTC
+--- common/unicode/uconfig.h.orig	2021-10-28 16:04:57 UTC
 +++ common/unicode/uconfig.h
 @@ -89,7 +89,7 @@
   * @internal
