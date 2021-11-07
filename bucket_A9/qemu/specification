@@ -1,3 +1,4 @@
+# docs temporarily disabled because Sphinx 4.2 has fatal regression
 DEF[PORTVERSION]=	6.1.0
 DEF[JQUERY]=		EXTRACT_INFO(LATEST_JQUERY)
 DEF[UNDERSCORE]=	EXTRACT_INFO(SPHINX_UNDERSCORE)
@@ -5,7 +6,7 @@ DEF[UNDERSCORE]=	EXTRACT_INFO(SPHINX_UNDERSCORE)
 
 NAMEBASE=		qemu
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		emulators
 VARIANTS=		standard
 SDESC[standard]=	Fast CPU emulator and virtualizer for x86 platform
@@ -29,8 +30,8 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		emulators/qemu
 
 BUILD_DEPENDS=		texi2html:primary:standard
-			python-Sphinx:single:python_used
-			python-sphinx-rtd-theme:single:python_used
+# #			python-Sphinx:single:python_used
+# #			python-sphinx-rtd-theme:single:python_used
 BUILDRUN_DEPENDS=	nettle:primary:standard
 			fontconfig:primary:standard
 			freetype:primary:standard
@@ -55,7 +56,7 @@ CONFIGURE_ARGS=		--disable-usb-redir
 			--disable-kvm
 			--disable-xen
 			--disable-vde
-			--enable-docs
+# #			--enable-docs
 # #			--enable-debug
 # #			--enable-debug-info
 			--enable-nettle
@@ -68,6 +69,7 @@ CONFIGURE_ARGS=		--disable-usb-redir
 CFLAGS=			-I{{NCURSESBASE}}/include/ncursesw
 PLIST_SUB=		JQUERY=${JQUERY}
 			UNDERSCORE=${UNDERSCORE}
+			MAN="@comment "
 BUILD_WRKSRC=		{{WRKSRC}}/build
 INSTALL_WRKSRC=		{{WRKSRC}}/build
 
@@ -99,5 +101,7 @@ post-install:
 		${STAGEDIR}${PREFIX}/etc
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/qemu-*
 	(cd ${WRKSRC} && ${COPYTREE_SHARE} docs ${STAGEDIR}${STD_DOCDIR}/)
+	# remove sphinx leftovers
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}/docs/sphinx
 	# remove empty directories
 	${RM} -r ${STAGEDIR}/var
