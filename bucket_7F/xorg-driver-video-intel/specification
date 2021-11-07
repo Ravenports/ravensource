@@ -44,6 +44,7 @@ MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
 CPE_VENDOR=		x
 CPE_PRODUCT=		${ALTNAME}
+CFLAGS=			-Wunused-but-set-variable
 
 [UXA].DESCRIPTION=			Unified Acceleration Architecture
 [SNA].DESCRIPTION=			SandyBridge's New Acceleration
@@ -51,8 +52,16 @@ CPE_PRODUCT=		${ALTNAME}
 [UXA].CONFIGURE_ARGS_ON=		--with-default-accel=uxa
 [SNA].CONFIGURE_ARGS_ON=		--with-default-accel=sna
 
-post-patch-dragonfly:
+pre-configure-dragonfly:
 	# Prefer to use dfly specific sigjmp_buf for less errors
 	${REINPLACE_CMD} -e 's|jmp_buf |sigjmp_buf |g' \
 		${WRKSRC}/src/sna/sna.h	\
 		${WRKSRC}/src/sna/sna_accel.c
+
+pre-configure:
+	# Broken by political correctness
+	${SED} -i.PC \
+	-e 's|slave_dst|secondary_dst|g' \
+	-e 's|master_pixmap|primary_pixmap|g' \
+		${WRKSRC}/src/sna/sna_accel.c \
+		${WRKSRC}/src/uxa/intel_driver.c
