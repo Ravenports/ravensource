@@ -5,6 +5,7 @@ DEF[SOVERSION]=		0.0.0
 
 NAMEBASE=		thunar
 VERSION=		${PORTVERSION}
+REVISION=		1
 EPOCH=			1
 KEYWORDS=		x11_fm
 VARIANTS=		standard
@@ -58,7 +59,7 @@ CONFIGURE_ARGS=		--enable-apr-plugin
 			--enable-dbus
 			--enable-exif
 			--enable-gio-unix
-			--enable-introspection
+			--enable-introspection=no
 			--enable-notifications
 			--enable-pcre
 			--enable-sbr-plugin
@@ -68,6 +69,7 @@ CONFIGURE_ARGS=		--enable-apr-plugin
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
+PLIST_SUB=		INTRO="@comment "
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/thunarx \
