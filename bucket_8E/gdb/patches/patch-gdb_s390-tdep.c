@@ -1,8 +1,8 @@
---- gdb/s390-tdep.c.orig	2021-04-25 04:06:26 UTC
+--- gdb/s390-tdep.c.orig	2021-09-13 01:31:48 UTC
 +++ gdb/s390-tdep.c
-@@ -40,6 +40,10 @@
- #include "trad-frame.h"
+@@ -41,6 +41,10 @@
  #include "value.h"
+ #include "inferior.h"
  
 +#ifdef __sun__
 +#undef CS

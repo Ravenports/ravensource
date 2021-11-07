@@ -1,6 +1,6 @@
---- gdb/fbsd-nat.c.orig	2021-04-25 04:06:26 UTC
+--- gdb/fbsd-nat.c.orig	2021-09-13 01:32:09 UTC
 +++ gdb/fbsd-nat.c
-@@ -1176,6 +1176,14 @@ fbsd_nat_target::resume (ptid_t ptid, in
+@@ -1052,6 +1052,14 @@ fbsd_nat_target::resume (ptid_t ptid, in
        /* If ptid is a specific LWP, suspend all other LWPs in the process.  */
        inferior *inf = find_inferior_ptid (this, ptid);
  
@@ -13,5 +13,5 @@
 +      fbsd_add_threads (ptid.pid ());
 +#endif
        for (thread_info *tp : inf->non_exited_threads ())
-         {
+ 	{
  	  int request;

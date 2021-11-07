@@ -1,6 +1,6 @@
---- include/elf/common.h.orig	2021-04-25 04:06:26 UTC
+--- include/elf/common.h.orig	2021-09-13 01:32:09 UTC
 +++ include/elf/common.h
-@@ -882,6 +882,7 @@
+@@ -946,6 +946,7 @@
  /* Values for FreeBSD .note.ABI-tag notes.  Note name is "FreeBSD".  */
  
  #define NT_FREEBSD_ABI_TAG	1

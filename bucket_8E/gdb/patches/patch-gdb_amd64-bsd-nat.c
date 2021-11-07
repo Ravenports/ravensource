@@ -1,4 +1,4 @@
---- gdb/amd64-bsd-nat.c.orig	2021-04-25 04:06:26 UTC
+--- gdb/amd64-bsd-nat.c.orig	2021-07-03 17:41:09 UTC
 +++ gdb/amd64-bsd-nat.c
 @@ -28,6 +28,7 @@
  #include <sys/types.h>
@@ -15,16 +15,16 @@
 +      register_t old_rflags;
  
        if (gdb_ptrace (PT_GETREGS, ptid, (PTRACE_TYPE_ARG3) &regs, 0) == -1)
-         perror_with_name (_("Couldn't get registers"));
+ 	perror_with_name (_("Couldn't get registers"));
  
 +      old_rflags = regs.r_rflags;
        amd64_collect_native_gregset (regcache, &regs, regnum);
  
 +      /* This is a workaround about the PSL_USERCHANGE posix limitation. */
 +      if ((regs.r_rflags ^ old_rflags ) & ~PSL_USERCHANGE)
-+        {
-+          regs.r_rflags ^= (regs.r_rflags ^ old_rflags ) & ~PSL_USERCHANGE;
-+        }
++	{
++	  regs.r_rflags ^= (regs.r_rflags ^ old_rflags ) & ~PSL_USERCHANGE;
++	}
        if (gdb_ptrace (PT_SETREGS, ptid, (PTRACE_TYPE_ARG3) &regs, 0) == -1)
-         perror_with_name (_("Couldn't write registers"));
+ 	perror_with_name (_("Couldn't write registers"));
  

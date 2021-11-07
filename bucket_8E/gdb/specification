@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	10.2
+DEF[PORTVERSION]=	11.1
 DEF[SUFFIX]=		${PORTVERSION:S/.//g}
 # ----------------------------------------------------------------------------
 
@@ -30,7 +30,9 @@ FPC_EQUIVALENT=		devel/gdb
 
 NOT_FOR_ARCH=		aarch64
 
-BUILDRUN_DEPENDS=	source-highlight:primary:standard
+BUILD_DEPENDS=		gmp:static:standard
+BUILDRUN_DEPENDS=	gmp:shared:standard
+			source-highlight:primary:standard
 
 USES=			cpe iconv gmake libtool readline pkgconfig
 			makeinfo python expat
