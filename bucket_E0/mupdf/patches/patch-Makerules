@@ -1,15 +1,15 @@
---- Makerules.orig	2020-10-07 10:35:03 UTC
+--- Makerules.orig	2021-10-05 10:44:43 UTC
 +++ Makerules
-@@ -115,7 +115,7 @@ else ifeq ($(OS),MACOS)
-   LD = xcrun ld
-   RANLIB = xcrun ranlib
+@@ -155,7 +155,7 @@ else ifeq ($(OS),MACOS)
+     endif
+   endif
  
 -else ifeq ($(OS),Linux)
 +else ifeq ($(OS),%%OPSYS%%)
    HAVE_OBJCOPY := yes
  
    ifeq ($(shell pkg-config --exists freetype2 && echo yes),yes)
-@@ -177,7 +177,7 @@ else ifeq ($(OS),Linux)
+@@ -217,7 +217,7 @@ else ifeq ($(OS),Linux)
  	X11_LIBS := $(shell pkg-config --libs x11 xext)
    endif
  

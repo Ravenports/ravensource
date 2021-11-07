@@ -1,15 +1,19 @@
---- Makefile.orig	2020-10-07 10:35:03 UTC
+--- Makefile.orig	2021-10-05 10:44:43 UTC
 +++ Makefile
-@@ -214,13 +214,17 @@ MUPDF_LIB = $(OUT)/libmupdf.$(SO)
- 
- $(MUPDF_LIB) : $(MUPDF_OBJ) $(THIRD_OBJ) $(THREAD_OBJ) $(PKCS7_OBJ)
+@@ -252,9 +252,9 @@ $(THIRD_GLUT_LIB) : $(THIRD_GLUT_OBJ)
+ $(THREAD_LIB) : $(THREAD_OBJ)
+ $(PKCS7_LIB) : $(PKCS7_OBJ)
  else
 -MUPDF_LIB = $(OUT)/libmupdf.a
--THIRD_LIB = $(OUT)/libmupdf-third.a
 +MUPDF_LIB = libmupdf.so.$(SOVERSION)
 +THIRD_LIB = libmupdfthird.so.$(SOVERSION)
- THREAD_LIB = $(OUT)/libmupdf-threads.a
- PKCS7_LIB = $(OUT)/libmupdf-pkcs7.a
+ LIBS_TO_INSTALL_IN_LIB = $(MUPDF_LIB) $(THIRD_LIB)
+-THIRD_LIB = $(OUT)/libmupdf-third.a
+ ifneq ($(USE_SYSTEM_GLUT),yes)
+ THIRD_GLUT_LIB = $(OUT)/libmupdf-glut.a
+ endif
+@@ -269,7 +269,11 @@ $(PKCS7_LIB) : $(PKCS7_OBJ)
+ endif
  
  $(MUPDF_LIB) : $(MUPDF_OBJ)
 +	$(CC) $(LDFLAGS) -fPIC -shared -Wl,-soname=$@ -o $@ $^ $(LIBS)
@@ -19,4 +23,4 @@
 +
  $(THREAD_LIB) : $(THREAD_OBJ)
  $(PKCS7_LIB) : $(PKCS7_OBJ)
- endif
+ 
