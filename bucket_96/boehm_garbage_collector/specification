@@ -37,17 +37,13 @@ FPC_EQUIVALENT=		devel/boehm-gc
 
 BUILD_DEPENDS=		libatomic_ops:single:standard
 
-USES=			cpe libtool pkgconfig c++:single
-DISTNAME=		gc-${PORTVERSION}
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-cplusplus
-			--disable-static
-			--disable-docs
+USES=			cpe cmake pkgconfig c++:single
 CPE_VENDOR=		boehm-demers-weiser
 CPE_PRODUCT=		garbage_collector
+CMAKE_ARGS=		-Denable_docs:BOOL=OFF
+			-Denable_cplusplus:BOOL=ON
 INSTALL_REQ_TOOLCHAIN=	yes
-INSTALL_TARGET=		install-strip
-SINGLE_JOB=		yes
+DISTNAME=		gc-${PORTVERSION}
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		GCVERSION=${GCVERSION}
 			GCMAJOR=${GCVERSION:R:R}
@@ -56,22 +52,18 @@ PLIST_SUB=		GCVERSION=${GCVERSION}
 			TBAVERSION=${TBAVERSION}
 			TBAMAJOR=${TBAVERSION:R:R}
 
-VAR_OPSYS[netbsd]=	CONFIGURE_ARGS=--enable-mmap
-VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-mmap
-VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--enable-mmap
-
 [THREADED].DESCRIPTION=			Enable posix thread support
 [REDIRECT].DESCRIPTION=			Enable malloc redirection support
 
-[THREADED].CONFIGURE_ARGS_ON=		--enable-threads=posix
-[THREADED].CONFIGURE_ARGS_OFF=		--disable-threads
-[THREADED].CONFIGURE_ENABLE_BOTH=	parallel-mark
-[REDIRECT].CONFIGURE_ENABLE_BOTH=	redirect-malloc
+[THREADED].CMAKE_ARGS_ON=		-Denable_threads:BOOL=ON
+					-Denable_parallel_mark:BOOL=ON
+[THREADED].CMAKE_ARGS_OFF=		-Denable_threads:BOOL=OFF
+[REDIRECT].CMAKE_ARGS_ON=		-Denable_redirect_malloc:BOOL=ON
+[REDIRECT].CMAKE_ARGS_OFF=		-Denable_redirect_malloc:BOOL=OFF
 
 post-patch:
 	${REINPLACE_CMD} -e "s|%%PREFIX%%|${PREFIX}|g" ${WRKSRC}/doc/gc.man
-	${REINPLACE_CMD} -e "s|: install-dist_pkgdataDATA|: |" \
-		${WRKSRC}/Makefile.in
 
 post-install:
 	${INSTALL_MAN} ${WRKSRC}/doc/gc.man ${STAGEDIR}${MANPREFIX}/man/man3/gc.3
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
