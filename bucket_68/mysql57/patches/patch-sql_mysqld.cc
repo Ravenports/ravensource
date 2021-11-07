@@ -1,6 +1,6 @@
---- sql/mysqld.cc.orig	2021-03-26 06:58:52 UTC
+--- sql/mysqld.cc.orig	2021-09-07 05:26:47 UTC
 +++ sql/mysqld.cc
-@@ -3428,7 +3428,7 @@ int warn_self_signed_ca()
+@@ -3433,7 +3433,7 @@ static void push_deprecated_tls_option_n
  static int init_ssl()
  {
  #ifdef HAVE_OPENSSL
