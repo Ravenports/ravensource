@@ -4,12 +4,11 @@ DEF[PORTVERSION]=	21.1.0
 NAMEBASE=		xorg-server
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11_servers
-VARIANTS=		standard virtual xephyr nest wayland
+VARIANTS=		standard virtual xephyr nest
 SDESC[standard]=	X.Org X server and related programs
 SDESC[virtual]=		X virtual framebuffer server from X.Org
 SDESC[nest]=		Nesting X server from X.Org
 SDESC[xephyr]=		X server from X.Org based on kdrive
-SDESC[wayland]=		X Clients under Wayland
 HOMEPAGE=		https://www.x.org/
 CONTACT=		nobody
 
@@ -21,14 +20,12 @@ SPKGS[standard]=	single
 SPKGS[virtual]=		single
 SPKGS[nest]=		single
 SPKGS[xephyr]=		single
-SPKGS[wayland]=		single
 
-OPTIONS_AVAILABLE=	XORG VIRTUAL XEPHYR NEST WAYLAND DEVD SUID
+OPTIONS_AVAILABLE=	XORG VIRTUAL XEPHYR NEST DEVD SUID
 OPTIONS_STANDARD=	XORG DEVD SUID
-VOPTS[virtual]=		XORG=OFF VIRTUAL=ON XEPHYR=OFF NEST=OFF WAYLAND=OFF DEVD=OFF SUID=OFF
-VOPTS[xephyr]=		XORG=OFF VIRTUAL=OFF XEPHYR=ON NEST=OFF WAYLAND=OFF DEVD=OFF SUID=OFF
-VOPTS[nest]=		XORG=OFF VIRTUAL=OFF XEPHYR=OFF NEST=ON WAYLAND=OFF DEVD=OFF SUID=OFF
-VOPTS[wayland]=		XORG=OFF VIRTUAL=OFF XEPHYR=OFF NEST=OFF WAYLAND=ON DEVD=OFF SUID=OFF
+VOPTS[virtual]=		XORG=OFF VIRTUAL=ON XEPHYR=OFF NEST=OFF DEVD=OFF SUID=OFF
+VOPTS[xephyr]=		XORG=OFF VIRTUAL=OFF XEPHYR=ON NEST=OFF DEVD=OFF SUID=OFF
+VOPTS[nest]=		XORG=OFF VIRTUAL=OFF XEPHYR=OFF NEST=ON DEVD=OFF SUID=OFF
 OPT_ON[all]=		XORG SUID
 
 LICENSE=		MIT:single
@@ -73,7 +70,6 @@ VAR_OPSYS[netbsd]=	CPPFLAGS=-D_OPENBSD_SOURCE
 [VIRTUAL].DESCRIPTION=			Build as virtual framebuffer server
 [XEPHYR].DESCRIPTION=			Build as kdrive-base X server
 [NEST].DESCRIPTION=			Build as nesting X server
-[WAYLAND].DESCRIPTION=			Build Wayland X clients
 [DEVD].DESCRIPTION=			Use devd for autoconfiguration of input devices
 [SUID].DESCRIPTION=			Install the Xorg server with setuid bit set
 
@@ -82,19 +78,11 @@ VAR_OPSYS[netbsd]=	CPPFLAGS=-D_OPENBSD_SOURCE
 					mesa:drivers:standard
 [XEPHYR].BUILDRUN_DEPENDS_ON=		libdrm:single:standard
 					libepoxy:single:standard
-[WAYLAND].BUILDRUN_DEPENDS_ON=		libdrm:single:standard
-					libepoxy:single:standard
-					wayland:primary:standard
-# + libinput:single:standard
-
 [VIRTUAL].BUILD_DEPENDS_ON=		libepoxy:single:standard
 					mesa:drivers:standard
 [NEST].BUILD_DEPENDS_ON=		libepoxy:single:standard
 					mesa:drivers:standard
 [XEPHYR].BUILD_DEPENDS_ON=		mesa:drivers:standard
-[WAYLAND].BUILD_DEPENDS_ON=		mesa:drivers:standard
-					wayland-protocols:single:standard
-					evdev-proto:single:standard
 
 [XORG].USES_ON=				mesa
 [NEST].USES_ON=				mesa
@@ -104,13 +92,9 @@ VAR_OPSYS[netbsd]=	CPPFLAGS=-D_OPENBSD_SOURCE
 [NEST].CONFIGURE_ENABLE_BOTH=		xnest
 [VIRTUAL].CONFIGURE_ENABLE_BOTH=	xvfb
 [XEPHYR].CONFIGURE_ENABLE_BOTH=		xephyr kdrive
-[WAYLAND].CONFIGURE_ENABLE_BOTH=	xwayland
 [XORG].CONFIGURE_ENABLE_BOTH=		docs devel-docs xorg
 
-[WAYLAND].CONFIGURE_ARGS_ON=		--disable-xquartz --disable-xwin
-
 [NEST].XORG_COMPONENTS_ON=		x11 xext
-[WAYLAND].XORG_COMPONENTS_ON=		x11 xext
 [XEPHYR].XORG_COMPONENTS_ON=		x11 xcb xcb-util xcb-util-image
 					xcb-util-wm xcb-util-keysyms xcb-render-util
 [XORG].XORG_COMPONENTS_ON=		pciaccess xfont2
@@ -153,8 +137,4 @@ do-install-XEPHYR-ON:
 
 do-install-NEST-ON:
 	(cd ${WRKSRC}/hw/xnest && \
-		DESTDIR=${STAGEDIR} ${MAKE_CMD} install)
-
-do-install-WAYLAND-ON:
-	(cd ${WRKSRC}/hw/xwayland && \
 		DESTDIR=${STAGEDIR} ${MAKE_CMD} install)
