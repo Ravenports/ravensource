@@ -25,6 +25,7 @@ VOPTS[gtk2]=		GTK2=ON
 FPC_EQUIVALENT=		x11-toolkits/wxgtk30
 
 BUILDRUN_DEPENDS=	libmspack:single:standard
+			libGLU:single:standard
 
 USES=			cpe gmake png jpeg tiff zlib mesa execinfo
 			expat iconv pkgconfig gettext-runtime
@@ -56,7 +57,6 @@ SOVERSION=		${SOVERSION}
 [GTK2].GNOME_COMPONENTS_OFF=		gtk3
 [GTK2].MAKEFILE_ON=			GTKVER=2
 [GTK2].MAKEFILE_OFF=			GTKVER=3
-[GTK2].BUILDRUN_DEPENDS_ON=		libGLU:single:standard
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/locale/zh
