@@ -25,5 +25,5 @@ if [ ! -f ${LOCK_FILE} ]; then
    exit 1
 fi
 
-awk -f ${SCRIPTSDIR}/assembler/_lock.awk -vtarget=$1 ${LOCK_FILE} > ${FILE_CRATES}
+awk -f ${SCRIPTSDIR}/assembler/_lock.awk -vtarget="$1" ${LOCK_FILE} > ${FILE_CRATES}
 echo "file written: ${FILE_CRATES}"
