@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.1.18
+DEF[PORTVERSION]=	0.2.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		pekwm
@@ -28,9 +28,10 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
 BUILDRUN_DEPENDS=	png:single:standard
-USES=			autoreconf c++:single cclibs:single gmake iconv jpeg pkgconfig
+
+USES=			cmake iconv jpeg pkgconfig
+			c++:single cclibs:single
 XORG_COMPONENTS=	xft xpm x11 sm ice xext xrandr
-MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-shape
 			--enable-xinerama
 			--enable-xrandr
