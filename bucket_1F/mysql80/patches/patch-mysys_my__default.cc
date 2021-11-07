@@ -1,4 +1,4 @@
---- mysys/my_default.cc.orig	2021-07-01 07:53:49 UTC
+--- mysys/my_default.cc.orig	2021-09-28 11:46:34 UTC
 +++ mysys/my_default.cc
 @@ -204,7 +204,7 @@ bool no_defaults = false;
  
@@ -9,7 +9,7 @@
  #define DEFAULT_DIRS_SIZE (MAX_DEFAULT_DIRS + 1) /* Terminate with NULL */
  static const char **default_directories = nullptr;
  
-@@ -915,6 +915,14 @@ static int search_default_file_with_ext(
+@@ -922,6 +922,14 @@ static int search_default_file_with_ext(
        return 1; /* Ignore wrong files */
    }
  
@@ -24,7 +24,7 @@
    while (true) {
      auto fileline = mysql_file_getline(buff, sizeof(buff), fp, is_login_file);
      char *linebuff = fileline.get();
-@@ -1300,7 +1308,8 @@ void my_print_default_files(const char *
+@@ -1315,7 +1323,8 @@ void my_print_default_files(const char *
              end[(strlen(end) - 1)] = ' ';
            else
              strxmov(end, conf_file, *ext, " ", NullS);
@@ -34,7 +34,7 @@
          }
        }
      }
-@@ -1640,13 +1649,8 @@ static const char **init_default_directo
+@@ -1655,13 +1664,8 @@ static const char **init_default_directo
  
  #else
  
@@ -50,12 +50,12 @@
  
  #endif
  
-@@ -1710,7 +1714,7 @@ int check_file_permissions(const char *f
+@@ -1727,7 +1731,7 @@ int check_file_permissions(const char *f
  #if !defined(_WIN32)
    MY_STAT stat_info;
  
--  if (!my_stat(file_name, &stat_info, MYF(0))) return 1;
-+  if (!my_stat(file_name, &stat_info, MYF(0))) return 0;
+-  if (!my_stat(file_name, &stat_info, flags)) return 1;
++  if (!my_stat(file_name, &stat_info, flags)) return 0;
    /*
      Ignore .mylogin.cnf file if not exclusively readable/writable
      by current user.

@@ -1,8 +1,6 @@
-$NetBSD: patch-vio_viosocket.cc,v 1.2 2021/06/22 10:12:37 nia Exp $
-
 * define ppoll on older NetBSD that only has pollts
 
---- vio/viosocket.cc.orig	2021-07-01 07:53:49 UTC
+--- vio/viosocket.cc.orig	2021-09-28 11:46:34 UTC
 +++ vio/viosocket.cc
 @@ -70,6 +70,13 @@
  
@@ -15,6 +13,6 @@ $NetBSD: patch-vio_viosocket.cc,v 1.2 2021/06/22 10:12:37 nia Exp $
 +#endif
 +#endif
 +
- int vio_errno(Vio *vio MY_ATTRIBUTE((unused))) {
+ int vio_errno(Vio *vio [[maybe_unused]]) {
  /* These transport types are not Winsock based. */
  #ifdef _WIN32

@@ -1,4 +1,4 @@
---- cmake/install_layout.cmake.orig	2021-07-01 07:53:49 UTC
+--- cmake/install_layout.cmake.orig	2021-09-28 11:46:34 UTC
 +++ cmake/install_layout.cmake
 @@ -375,19 +375,15 @@ SET(ROUTER_INSTALL_LOGDIR_STANDALONE
  SET(ROUTER_INSTALL_RUNTIMEDIR_STANDALONE "run")

@@ -1,4 +1,4 @@
---- extra/icu/source/common/uposixdefs.h.orig	2021-07-01 07:53:49 UTC
+--- extra/icu/source/common/uposixdefs.h.orig	2021-09-28 11:46:34 UTC
 +++ extra/icu/source/common/uposixdefs.h
 @@ -44,7 +44,9 @@
       * and define _XOPEN_SOURCE to different values depending on __STDC_VERSION__.
