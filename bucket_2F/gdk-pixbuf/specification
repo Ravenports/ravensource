@@ -30,22 +30,19 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/gdk-pixbuf2
 
-BUILDRUN_DEPENDS=	jasper:primary:standard
 BUILD_DEPENDS=		xmlto:single:standard
 
 USES=			cpe gmake jpeg png tiff pkgconfig libtool gettext-runtime
 			perl:build meson gettext-tools shebangfix mime-info:primary
 XORG_COMPONENTS=	x11 xi xt
-GNOME_COMPONENTS=	glib introspection
+GNOME_COMPONENTS=	glib
+# introspection
 MESON_ARGS=		-Dpng=true
 			-Dtiff=true
 			-Djpeg=true
-			-Djasper=true
-			-Dx11=true
 			-Dgio_sniffing=true
 			-Dbuiltin_loaders=none
 			-Ddocs=false
-			-Dgir=true
 			-Dman=true
 			-Dinstalled_tests=false
 			-Drelocatable=false
@@ -56,7 +53,9 @@ SHEBANG_FILES=		build-aux/gen-installed-test.py
 			build-aux/gen-thumbnailer.py
 PLIST_SUB=		GTK_VERSION=${GTK_VERSION}
 			SOVER=${SOVER}
+			INTRO="@comment "
 CPE_VENDOR=		gnome
+
 VAR_OPSYS[sunos]=	CFLAGS=-D_XPG6
 			LDFLAGS=-lintl
 
