@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.1.2
+DEF[PORTVERSION]=	5.2.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-celery
@@ -11,7 +11,7 @@ HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/06/9d/61976ecc8caf0a03357bd174fa23c43b9dcd85f4c9667aa692de361cae84
+SITES[main]=		PYPIWHL/76/f3/1299844327e0da1a89dfeffc0ee72dee80ed029df60c1634be708e7115fb
 DISTFILE[1]=		celery-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py38]=		single
@@ -31,31 +31,31 @@ DISTNAME=		celery-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 # pytz (>dev)
 # billiard (<4.0,>=3.6.4.0)
-# kombu (<6.0,>=5.1.0)
+# kombu (<6.0,>=5.2.1)
 # vine (<6.0,>=5.0.0)
-# click (<8.0,>=7.0)
+# click (<9.0,>=8.0)
 # click-didyoumean (>=0.0.3)
-# click-repl (>=0.1.6)
+# click-repl (>=0.2.0)
 # click-plugins (>=1.1.1)
 # setuptools
 # pyArango (>=1.3.2) ; extra == 'arangodb'
 # cryptography ; extra == 'auth'
-# azure-storage-blob (==12.6.0) ; extra == 'azureblockblob'
+# azure-storage-blob (==12.9.0) ; extra == 'azureblockblob'
 # brotli (>=1.0.0) ; (platform_python_implementation == "CPython") and extra == 'brotli'
 # brotlipy (>=0.7.0) ; (platform_python_implementation == "PyPy") and extra == 'brotli'
 # cassandra-driver (<3.21.0) ; extra == 'cassandra'
 # python-consul2 ; extra == 'consul'
 # pydocumentdb (==2.3.2) ; extra == 'cosmosdbsql'
-# couchbase (>=3.0.0) ; (platform_python_implementation != "PyPy") and extra == 'couchbase'
+# couchbase (>=3.0.0) ; (platform_python_implementation != "PyPy" and (platform_system != "Windows" or python_version < "3.10")) and extra == 'couchbase'
 # pycouchdb ; extra == 'couchdb'
 # Django (>=1.11) ; extra == 'django'
 # boto3 (>=1.9.178) ; extra == 'dynamodb'
 # elasticsearch ; extra == 'elasticsearch'
-# eventlet (>=0.26.1) ; extra == 'eventlet'
+# eventlet (>=0.26.1) ; (python_version < "3.10") and extra == 'eventlet'
 # gevent (>=1.0.0) ; extra == 'gevent'
 # librabbitmq (>=1.5.0) ; extra == 'librabbitmq'
 # pylibmc ; (platform_system != "Windows") and extra == 'memcache'
-# pymongo[srv] (>=3.3.0) ; extra == 'mongodb'
+# pymongo[srv] (<3.12.1,>=3.3.0) ; extra == 'mongodb'
 # msgpack ; extra == 'msgpack'
 # python-memcached ; extra == 'pymemcache'
 # pyro4 ; extra == 'pyro'
@@ -65,8 +65,7 @@ DISTNAME=		celery-${PORTVERSION}.dist-info
 # softlayer-messaging (>=1.0.3) ; extra == 'slmq'
 # ephem ; (platform_python_implementation != "PyPy") and extra == 'solar'
 # sqlalchemy ; extra == 'sqlalchemy'
-# boto3 (>=1.9.125) ; extra == 'sqs'
-# pycurl (==7.43.0.5) ; extra == 'sqs'
+# kombu[sqs] ; extra == 'sqs'
 # tblib (>=1.3.0) ; (python_version < "3.8.0") and extra == 'tblib'
 # tblib (>=1.5.0) ; (python_version >= "3.8.0") and extra == 'tblib'
 # PyYAML (>=3.10) ; extra == 'yaml'
