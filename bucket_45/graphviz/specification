@@ -4,6 +4,7 @@ DEF[TAG]=		${PORTVERSION}
 
 NAMEBASE=		graphviz
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Graph visualization tools
@@ -27,103 +28,42 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		graphics/graphviz
 
 BUILD_DEPENDS=		groff:primary:standard
+			expat:static:standard
+			git:primary:lite
 BUILDRUN_DEPENDS=	freeglut:primary:standard
 			libGD:single:standard
 			gts:single:standard
 			WebP:single:standard
+			libltdl:single:standard
+			expat:shared:standard
 
-USES=			bison cpe gmake jpeg mesa libtool:keepla pkgconfig
+USES=			bison cpe cmake jpeg mesa pkgconfig zlib
 			shebangfix iconv gettext-tools gettext-runtime
-			autoreconf python:build
+			python:build
 XORG_COMPONENTS=	xaw xpm xmu xt sm ice xext x11 xau xdmcp xrender
 			xinerama xi xrandr xcursor xfixes
 GNOME_COMPONENTS=	pango cairo librsvg gtk2
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-x
-			--with-nls
-			--with-gtk
-			--with-gts
-			--with-gdk
-			--with-gdk-pixbuf
-			--with-gnomeui
-			--with-rsvg
-			--with-webp
-			--with-digcola
-			--with-ipsepcola
-			--with-pangocairo
-			--with-ghostscript=no
-			--with-qt=no
-			--without-ann
-			--without-ming
-			--without-devil
-			--without-poppler
-			--without-smyrna
-			--without-glade
-			--without-gtkgl
-			--without-gtkglext
-			--disable-io
-			--disable-ocaml
-			--disable-java
-			--disable-sharp
-			--disable-lua
-			--disable-tcl
-			--disable-php
-			--disable-perl
-			--disable-ruby
-			--disable-guile
-			--disable-python
-			--program-transform-name="s/x/x/"
-			--enable-r=no
-			--with-freetype2=yes
-			--with-libgd
-			--with-fontconfigincludedir={{LOCALBASE}}/include
-			--with-fontconfiglibdir={{LOCALBASE}}/lib
-			--with-iconvlibdir={{ICONV_PREFIX}}/lib
-			--with-iconvincludedir={{ICONV_PREFIX}}/include
-CONFIGURE_ENV=		ac_cv_func_pango_fc_font_lock_face=no
-MAKE_ENV=		EXPR_COMPAT=yes
-MAKE_ARGS=		pkgconfigdir={{PREFIX}}/lib/pkgconfig
-INSTALL_TARGET=		install-strip
-INSTALL_REQ_TOOLCHAIN=	yes
+CMAKE_ARGS=		-Denable_ltdl:BOOL=ON
+			-Dwith_expat:BOOL=ON
+			-Dwith_digcola:BOOL=ON
+			-Dwith_ipsepcola:BOOL=OFF
+			-Dwith_ortho:BOOL=ON
+			-Dwith_sfdp:BOOL=ON
+			-Dwith_smyrna:BOOL=OFF
+			-Dwith_zlib:BOOL=ON
+			-Duse_sanitizers:BOOL=OFF
+			-Duse_coverage:BOOL=OFF
+			-Dwith_cxx_api:BOOL=OFF
+			-Dwith_cxx_tests:BOOL=OFF
+LDFLAGS=		-Wl,-rpath,{{PREFIX}}/lib/graphviz
+SET_DEBUGGING_ON=	yes
 
-VAR_OPSYS[sunos]=	CONFIGURE_ENV=LIBS=-lsocket
+# VAR_OPSYS[sunos]=	CONFIGURE_ENV=LIBS=-lsocket
 
-post-patch:
-	${REINPLACE_CMD} -e 's|#include "gui.h"|#include "gui/gui.h"|' \
-		${WRKSRC}/cmd/smyrna/tvnodes.h
-	${FIND} ${WRKSRC} -name Makefile.am | \
-		${XARGS} ${REINPLACE_CMD} \
-		-e 's| $$(pkgdatadir)/doc/pdf| ${STD_DOCDIR}/pdf|' \
-		-e 's| $$(pkgdatadir)/doc/html/schema| ${STD_DOCDIR}/html/schema|' \
-		-e 's| $$(pkgdatadir)/doc/html/info| ${STD_DOCDIR}/html/info|' \
-		-e 's| $$(pkgdatadir)/doc/html| ${STD_DOCDIR}/html|' \
-		-e 's| $$(pkgdatadir)/doc| ${STD_DOCDIR}|' \
-		-e 's| $$(pkgdatadir)/demo| ${STD_EXAMPLESDIR}|' \
-		-e 's| $$(datadir)/@PACKAGE@/demo| ${STD_EXAMPLESDIR}|';
-	(cd ${WRKSRC} && ${SH} ${WRKSRC}/autogen.sh)
-
-post-patch-freebsd:
+pre-configure-freebsd:
 	${REINPLACE_CMD} -e 's|SF_FLAGS|SFIO_FLAGS|g' ${WRKSRC}/lib/sfio/*.[ch]; \
 
 post-install:
-	# various
-	(cd ${WRKSRC}/lib/expr && ${MAKE_ENV} ${MAKE} ${MAKE_ARGS} all)
-	(cd ${WRKSRC} && ${INSTALL_DATA} \
-		lib/cdt/dthdr.h \
-		lib/pathplan/tri.h \
-		lib/pathplan/pathplan.h \
-		lib/pathplan/pathutil.h \
-		lib/pathplan/solvers.h \
-		lib/pathplan/vis.h \
-		lib/pathplan/vispath.h \
-		lib/common/arith.h \
-		lib/common/logic.h \
-		lib/common/globals.h \
-		lib/gvc/gvcint.h \
-		${STAGEDIR}${PREFIX}/include/graphviz/)
-	${RM} ${STAGEDIR}${MANPREFIX}/man/man1/smyrna.1
-	${RM} ${STAGEDIR}${MANPREFIX}/man/man1/mingle.1
-
 	# documentation
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}/html ${STAGEDIR}${STD_DOCDIR}/pdf
 	cd ${WRKSRC} && \
