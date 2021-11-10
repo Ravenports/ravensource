@@ -1,8 +1,10 @@
 DEF[PORTVERSION]=	0.2.0
+DEF[BINARIES]=		bg ctrl dialog panel screenshot wm
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		pekwm
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11_wm
 VARIANTS=		standard
 SDESC[standard]=	Light, unobtrusive and configurable WM
@@ -29,15 +31,12 @@ LICENSE_SCHEME=		solo
 
 BUILDRUN_DEPENDS=	png:single:standard
 
-USES=			cmake iconv jpeg pkgconfig
+USES=			cmake jpeg pkgconfig
 			c++:single cclibs:single
 XORG_COMPONENTS=	xft xpm x11 sm ice xext xrandr
-CONFIGURE_ARGS=		--enable-shape
-			--enable-xinerama
-			--enable-xrandr
-			--enable-xft
-			--enable-image-xpm
-			--enable-image-jpeg
-			--enable-image-png
-			--disable-debug
-			--disable-pedantic
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/pekwm
+.for f in ${BINARIES}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/pekwm_${f}
+.endfor
