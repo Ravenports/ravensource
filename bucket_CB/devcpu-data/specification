@@ -1,54 +1,29 @@
-DEF[PORTVERSION]=	1.39
-DEF[INTEL_VERSION]=	20210608
-DEF[AMD_VERSION]=	20191228
-DEF[TAG]=		microcode-${INTEL_VERSION}
+DEF[PORTVERSION]=	20211006
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		devcpu-data
 VERSION=		${PORTVERSION}
 KEYWORDS=		sysutils
 VARIANTS=		standard
-SDESC[standard]=	Intel and AMD CPUs microcode updates
+SDESC[standard]=	AMD and Intel CPUs microcode updates
 HOMEPAGE=		none
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main amd
-SITES[main]=		GITHUB/intel:Intel-Linux-Processor-Microcode-Data-Files:${TAG}
-SITES[amd]=		FREELOCAL/sbruno
-DISTFILE[1]=		generated:main
-DISTFILE[2]=		amd64-microcode.${AMD_VERSION}.tar.xz:amd
-DF_INDEX=		1 2
+DOWNLOAD_GROUPS=	none
 
 SPKGS[standard]=	single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		CUSTOM1:single
-LICENSE_NAME=		CUSTOM1:"Intel Software License Agreement"
-LICENSE_FILE=		CUSTOM1:{{FILESDIR}}/LICENSE
-LICENSE_SCHEME=		solo
-
 FPC_EQUIVALENT=		sysutils/devcpu-data
 
-NOT_FOR_ARCH=		aarch64
-ONLY_FOR_OPSYS=		freebsd dragonfly
+RUN_DEPENDS=		devcpu-data-intel:single:standard
+			devcpu-data-amd:single:standard
 
 RC_SUBR=		microcode_update:single
-EXTRACT_DIRTY=		2
+SUB_FILES=		pkg-message-single
+SUB_LIST=		DATADIR="{{PREFIX}}/share/cpucontrol"
 
-post-extract:
-	${INSTALL_DATA} ${FILESDIR}/ucode-split.c ${WRKSRC}
-	${SED} -e 's|%%GH_TAGNAME%%|${TAG}|' ${FILESDIR}/Makefile \
-		> ${WRKSRC}/Makefile
-	${CAT} ${WRKSRC}/intel-ucode/* ${WRKSRC}/intel-ucode-with-caveats/* \
-		> ${WRKSRC}/intel-ucode.bin
-
-do-install:
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/cpucontrol \
-		${STAGEDIR}/boot/firmware
-	${INSTALL_DATA} ${WRKSRC}/mcodes/* ${STAGEDIR}${PREFIX}/share/cpucontrol
-	(cd ${WRKDIR}/${NAMEBASE}_2 && \
-	    ${INSTALL_DATA} microcode_amd.bin microcode_amd_fam1[567]h.bin \
-	    ${STAGEDIR}${PREFIX}/share/cpucontrol)
-	${INSTALL_DATA} ${WRKSRC}/intel-ucode.bin ${STAGEDIR}/boot/firmware
+SKIP_BUILD=		yes
+SKIP_INSTALL=		yes

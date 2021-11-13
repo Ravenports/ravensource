@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	20211109
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		devcpu-data-amd
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	AMD CPUs microcode updates
+HOMEPAGE=		none
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		FREELOCAL/sbruno
+DISTFILE[1]=		amd64-microcode.${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:single
+LICENSE_NAME=		CUSTOM1:"Advanced Micro Devices License Agreement"
+LICENSE_FILE=		CUSTOM1:{{FILESDIR}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		sysutils/devcpu-data-amd
+
+NOT_FOR_ARCH=		aarch64
+ONLY_FOR_OPSYS=		freebsd dragonfly
+
+SKIP_BUILD=		yes
+EXTRACT_DIRTY=		1
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/cpucontrol
+	(cd ${WRKDIR}/${NAMEBASE}_1 && \
+	    ${INSTALL_DATA} microcode_amd.bin microcode_amd_fam1[5679]h.bin \
+	    ${STAGEDIR}${PREFIX}/share/cpucontrol)

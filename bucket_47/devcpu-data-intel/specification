@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	20210608
+DEF[TAG]=		microcode-${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		devcpu-data-intel
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	Intel CPUs microcode updates
+HOMEPAGE=		none
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/intel:Intel-Linux-Processor-Microcode-Data-Files:${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:single
+LICENSE_NAME=		CUSTOM1:"Intel Software License Agreement"
+LICENSE_FILE=		CUSTOM1:{{FILESDIR}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		sysutils/devcpu-data-intel
+
+NOT_FOR_ARCH=		aarch64
+ONLY_FOR_OPSYS=		freebsd dragonfly
+
+post-extract:
+	${INSTALL_DATA} ${FILESDIR}/ucode-split.c ${WRKSRC}
+	${SED} -e 's|%%GH_TAGNAME%%|${TAG}|' ${FILESDIR}/Makefile \
+		> ${WRKSRC}/Makefile
+	${CAT} ${WRKSRC}/intel-ucode/* ${WRKSRC}/intel-ucode-with-caveats/* \
+		> ${WRKSRC}/intel-ucode.bin
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/cpucontrol \
+		${STAGEDIR}/boot/firmware
+	${INSTALL_DATA} ${WRKSRC}/mcodes/* ${STAGEDIR}${PREFIX}/share/cpucontrol
+	${INSTALL_DATA} ${WRKSRC}/intel-ucode.bin ${STAGEDIR}/boot/firmware
