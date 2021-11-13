@@ -19,13 +19,12 @@ DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
 DISTFILE[2]=		xshmfence_semaphore.h:pkgsrc
 DISTFILE[3]=		xshmfence_semaphore.c:pkgsrc
 DIST_SUBDIR=		xorg-shmfence
-DF_INDEX=		1
+DF_INDEX=		1 2 3
 
 SPKGS[standard]=	single
 
-OPTIONS_AVAILABLE=	NETBSD
-OPTIONS_STANDARD=	NETBSD
-OPT_ON[netbsd]=		NETBSD
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
 
 LICENSE=		HPND:single
 LICENSE_FILE=		HPND:{{WRKSRC}}/COPYING
@@ -48,9 +47,6 @@ VAR_OPSYS[netbsd]=	CONFIGURE_ARGS=--disable-futex
 
 # visibility issues with mkostemp, just fall back
 VAR_OPSYS[linux]=	CONFIGURE_ENV=ac_cv_func_mkostemp=no
-
-[NETBSD].DESCRIPTION=			Build for NetBSD
-[NETBSD].DF_INDEX_ON=			2 3
 
 post-extract-netbsd:
 	${INSTALL_DATA} ${DISTDIR}/${DIST_SUBDIR}/xshmfence_semaphore.[ch] \
