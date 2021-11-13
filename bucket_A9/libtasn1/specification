@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	4.17.0
-DEF[SOVERSION]=		6.6.1
+DEF[PORTVERSION]=	4.18.0
+DEF[SOVERSION]=		6.6.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libtasn1
@@ -28,16 +28,16 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/libtasn1
 
-USES=			cpe pkgconfig gmake libtool
-INSTALL_TARGET=		install-strip
-MUST_CONFIGURE=		gnu
+USES=			cpe pkgconfig gmake libtool gtk-doc
 CPE_VENDOR=		gnu
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-gtk-doc
+INSTALL_TARGET=		install-strip
 INFO=			primary:libtasn1
 SOVERSION=		${SOVERSION}
 
 post-install:
-	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 	(cd ${WRKSRC} && ${INSTALL_DATA} AUTHORS NEWS README.md THANKS \
-		doc/TODO doc/libtasn1.html doc/libtasn1.pdf \
-		doc/libtasn1.ps ${STAGEDIR}${STD_DOCDIR})
+		doc/TODO ${STAGEDIR}${STD_DOCDIR})
 
