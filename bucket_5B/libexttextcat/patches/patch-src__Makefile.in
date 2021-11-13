@@ -1,15 +1,15 @@
---- src/Makefile.in.orig	2017-09-20 11:21:03 UTC
+--- src/Makefile.in.orig	2021-11-08 11:55:32 UTC
 +++ src/Makefile.in
-@@ -824,7 +824,7 @@ check:
- 		ss st sv sw ta tet th tg ti tk tl tn tpi tr ts \
- 		tt ty tzm-Latn ug uk uz uz-Cyrl ve vep vi wa xh \
+@@ -850,7 +850,7 @@ check:
+ 		ss st sun sv sw swb ta tet th tg ti tk tl tn tpi tr ts \
+ 		tt ty tzm-Latn ug uk uz uz-Cyrl ve vec vep vi wa xh \
  		yi yo zh-Hans zh-Hant zu; do \
 -		bash ./test-primary.sh $$primarylanguage; \
 +		$(SHELL) ./test-primary.sh $$primarylanguage; \
  		if test x$$? != x0; then \
  			echo FAIL: $$primarylanguage && exit 1; \
  		else \
-@@ -833,7 +833,7 @@ check:
+@@ -859,7 +859,7 @@ check:
  	done
  	@echo secondary languages
  	@for secondarylanguage in sco; do \
