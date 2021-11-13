@@ -4,7 +4,7 @@
 # _WANT_KERNEL_ERRNO is too recent to be part of any release, so just
 # define ERESTART if we still don't have it after including errno.h 
 #
---- libkms/vmwgfx.c.orig	2021-07-02 12:49:05 UTC
+--- libkms/vmwgfx.c.orig	2021-11-08 16:35:03 UTC
 +++ libkms/vmwgfx.c
 @@ -29,10 +29,18 @@
  #define _WANT_KERNEL_ERRNO
