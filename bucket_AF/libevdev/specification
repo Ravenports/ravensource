@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.11.0
+DEF[PORTVERSION]=	1.12.0
 DEF[SOVERSION]=		2.3.0
 # ----------------------------------------------------------------------------
 
@@ -38,4 +38,6 @@ SOVERSION=		${SOVERSION}
 post-extract:
 	(cd ${WRKSRC}/include && ${MV} linux stock)
 	${MKDIR} ${WRKSRC}/include/linux
+
+pre-configure:
 	${CP} ${LOCALBASE}/include/linux/*.h ${WRKSRC}/include/linux/

@@ -1,4 +1,4 @@
---- tools/touchpad-edge-detector.c.orig	2021-02-01 06:17:28 UTC
+--- tools/touchpad-edge-detector.c.orig	2021-11-09 00:05:22 UTC
 +++ tools/touchpad-edge-detector.c
 @@ -5,6 +5,11 @@
  
