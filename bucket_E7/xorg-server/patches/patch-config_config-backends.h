@@ -1,4 +1,4 @@
---- config/config-backends.h.orig	2021-10-27 10:47:08 UTC
+--- config/config-backends.h.orig	2021-11-06 23:45:18 UTC
 +++ config/config-backends.h
 @@ -44,3 +44,8 @@ void config_hal_fini(void);
  int config_wscons_init(void);
