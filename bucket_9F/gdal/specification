@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.3.3
+DEF[PORTVERSION]=	3.4.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gdal
@@ -35,7 +35,7 @@ BUILDRUN_DEPENDS=	libgeotiff:single:standard
 
 SINGLE_JOB=		yes
 
-USES=			cpe gmake png jpeg gif iconv sqlite pkgconfig
+USES=			cpe gmake png jpeg gif iconv sqlite pkgconfig zstd
 CPE_VENDOR=		osgeo
 MAKEFILE=		GNUmakefile
 MUST_CONFIGURE=		gnu
@@ -44,7 +44,7 @@ CONFIGURE_ARGS=		--datadir={{LOCALBASE}}/share
 			--with-geotiff={{LOCALBASE}}
 			--with-gif={{LOCALBASE}}
 			--with-gnm=yes
-			--with-jpeg=yes
+			--with-jpeg={{LOCALBASE}}
 			--with-openjpeg={{LOCALBASE}}
 			--with-libjson-c=internal
 			--with-liblzma=yes
@@ -89,8 +89,6 @@ post-patch:
 	${RM} -r ${WRKSRC}/frmts/gif/giflib/
 	${RM} -r ${WRKSRC}/frmts/gtiff/libgeotiff/
 	${RM} -r ${WRKSRC}/frmts/gtiff/libtiff/
-	${RM} -r ${WRKSRC}/frmts/jpeg/libjpeg/
-	${RM} -r ${WRKSRC}/frmts/jpeg/libjpeg12/
 	${RM} -r ${WRKSRC}/frmts/png/libpng/
 	${RM} -r ${WRKSRC}/frmts/zlib/
 
