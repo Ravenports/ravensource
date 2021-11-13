@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.1
+DEF[PORTVERSION]=	1.2
 DEF[SOVERSION]=		1.0.0
 # ----------------------------------------------------------------------------
 
@@ -44,6 +44,7 @@ CMAKE_ARGS=		-DBUILD_WITH_QT4:BOOL=OFF
 			-DQt5Core_DIR={{PREFIX}}/lib/qt5/cmake/Qt5Core
 			-DCMAKE_PREFIX_PATH={{PREFIX}}/lib/qt5/cmake
 SOVERSION=		${SOVERSION}
+PLIST_SUB=		API=${PORTVERSION}
 
 do-install:
 	(cd ${BUILD_WRKSRC} && make DESTDIR=${STAGEDIR} install)
