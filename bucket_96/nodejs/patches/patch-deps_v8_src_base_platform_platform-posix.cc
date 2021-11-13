@@ -1,4 +1,4 @@
---- deps/v8/src/base/platform/platform-posix.cc.orig	2021-10-20 16:33:21 UTC
+--- deps/v8/src/base/platform/platform-posix.cc.orig	2021-11-09 13:29:19 UTC
 +++ deps/v8/src/base/platform/platform-posix.cc
 @@ -1055,6 +1055,7 @@ void Thread::SetThreadLocal(LocalStorage
  // support it. MacOS and FreeBSD are different here.
