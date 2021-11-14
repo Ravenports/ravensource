@@ -1,4 +1,4 @@
---- Makefile.pre.in.orig	2021-08-30 19:02:15 UTC
+--- Makefile.pre.in.orig	2021-11-05 19:21:41 UTC
 +++ Makefile.pre.in
 @@ -80,7 +80,6 @@ MAKESETUP=      $(srcdir)/Modules/makese
  OPT=		@OPT@
@@ -29,8 +29,8 @@
 +PY_LDFLAGS=	$(LDFLAGS)
  PY_LDFLAGS_NODIST=$(CONFIGURE_LDFLAGS_NODIST) $(LDFLAGS_NODIST)
  NO_AS_NEEDED=	@NO_AS_NEEDED@
- SGI_ABI=	@SGI_ABI@
-@@ -216,6 +213,8 @@ FILEMODE=	644
+ CCSHARED=	@CCSHARED@
+@@ -215,6 +212,8 @@ FILEMODE=	644
  # configure script arguments
  CONFIG_ARGS=	@CONFIG_ARGS@
  
@@ -39,7 +39,7 @@
  
  # Subdirectories with code
  SRCDIRS= 	@SRCDIRS@
-@@ -635,6 +634,7 @@ sharedmods: $(BUILDPYTHON) pybuilddir.tx
+@@ -634,6 +633,7 @@ sharedmods: $(BUILDPYTHON) pybuilddir.tx
  		$(PYTHON_FOR_BUILD) $(srcdir)/setup.py $$quiet build"; \
  	$(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' \
  		_TCLTK_INCLUDES='$(TCLTK_INCLUDES)' _TCLTK_LIBS='$(TCLTK_LIBS)' \
@@ -47,7 +47,7 @@
  		$(PYTHON_FOR_BUILD) $(srcdir)/setup.py $$quiet build
  
  
-@@ -1354,14 +1354,6 @@ bininstall: altbininstall
+@@ -1353,14 +1353,6 @@ bininstall: altbininstall
  	else true; \
  	fi
  	(cd $(DESTDIR)$(BINDIR); $(LN) -s python$(VERSION)$(EXE) python3$(EXE))
@@ -62,7 +62,7 @@
  	-rm -f $(DESTDIR)$(BINDIR)/python3-config
  	(cd $(DESTDIR)$(BINDIR); $(LN) -s python$(VERSION)-config python3-config)
  	-rm -f $(DESTDIR)$(LIBPC)/python3.pc
-@@ -1675,6 +1667,12 @@ libainstall:	@DEF_MAKE_RULE@ python-conf
+@@ -1674,6 +1666,12 @@ libainstall:	@DEF_MAKE_RULE@ python-conf
  	$(INSTALL_SCRIPT) $(srcdir)/install-sh $(DESTDIR)$(LIBPL)/install-sh
  	$(INSTALL_SCRIPT) python-config.py $(DESTDIR)$(LIBPL)/python-config.py
  	$(INSTALL_SCRIPT) python-config $(DESTDIR)$(BINDIR)/python$(LDVERSION)-config
@@ -75,7 +75,7 @@
  	@if [ -s Modules/python.exp -a \
  		"`echo $(MACHDEP) | sed 's/^\(...\).*/\1/'`" = "aix" ]; then \
  		echo; echo "Installing support files for building shared extension modules on AIX:"; \
-@@ -1694,7 +1692,8 @@ libainstall:	@DEF_MAKE_RULE@ python-conf
+@@ -1693,7 +1691,8 @@ libainstall:	@DEF_MAKE_RULE@ python-conf
  # Install the dynamically loadable modules
  # This goes into $(exec_prefix)
  sharedinstall: sharedmods
