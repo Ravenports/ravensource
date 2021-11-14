@@ -1,12 +1,10 @@
-DEF[PORTVERSION]=	0.16.1
-DEF[ORCUS_VERSION]=	0.16
+DEF[PORTVERSION]=	0.17.0
+DEF[ORCUS_VERSION]=	0.17
 DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		liborcus
 VERSION=		${PORTVERSION}
-# rerolled
-REVISION=		1
 KEYWORDS=		devel misc
 VARIANTS=		standard
 SDESC[standard]=	File import library for spreadsheet documents
@@ -33,23 +31,17 @@ PLIST_SUB=		VER=${ORCUS_VERSION}
 BUILD_DEPENDS=		mdds-1.7:single:standard
 			bzip2:shared:standard
 BUILDRUN_DEPENDS=	boost-libraries:rest:python_default
-			ixion:single:libre
+			ixion:single:standard
 
 USES=			pkgconfig zlib cmake python:build bz2:build
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
 CMAKE_ARGS=		-DMDDS_INCLUDEDIR:STRING="{{LOCALBASE}}/include/mdds-1.2"
-			-DIXION_INCLUDEDIR:STRING="{{LOCALBASE}}/include/ixion-0.16"
+			-DIXION_INCLUDEDIR:STRING="{{LOCALBASE}}/include/ixion-0.17"
 LDFLAGS=		-lboost_program_options
 			-lboost_thread
 			-lboost_filesystem
 			-lboost_iostreams
-
-post-patch:
-	# fix module name
-	${REINPLACE_CMD} -e 's|Zlib|ZLIB|' \
-		-e '/CMAKE_CXX_STANDARD/ s|11|14|' \
-		${WRKSRC}/CMakeLists.txt
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/orcus*
