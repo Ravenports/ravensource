@@ -1,4 +1,4 @@
---- client/mysql.cc.orig	2021-08-02 09:40:55 UTC
+--- client/mysql.cc.orig	2021-11-05 18:07:42 UTC
 +++ client/mysql.cc
 @@ -61,8 +61,8 @@ static char *server_version= NULL;
  

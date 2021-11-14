@@ -1,6 +1,6 @@
---- cmake/install_layout.cmake.orig	2021-08-03 08:29:07 UTC
+--- cmake/install_layout.cmake.orig	2021-11-05 19:40:01 UTC
 +++ cmake/install_layout.cmake
-@@ -128,8 +128,8 @@ SET(INSTALL_SUPPORTFILESDIR_STANDALONE
+@@ -126,8 +126,8 @@ SET(INSTALL_SUPPORTFILESDIR_STANDALONE
  SET(INSTALL_MYSQLDATADIR_STANDALONE     "data")
  
  SET(INSTALL_UNIX_ADDRDIR_STANDALONE     "/tmp/mysql.sock")
