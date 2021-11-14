@@ -1,6 +1,6 @@
---- qmake/generators/makefile.cpp.orig	2021-08-23 08:11:22 UTC
+--- qmake/generators/makefile.cpp.orig	2021-10-20 11:54:23 UTC
 +++ qmake/generators/makefile.cpp
-@@ -3364,7 +3364,7 @@ MakefileGenerator::writePkgConfigFile()
+@@ -3388,7 +3388,7 @@ MakefileGenerator::writePkgConfigFile()
              pkgConfiglibName = bundle.toQString();
          } else {
              if (!project->values("QMAKE_DEFAULT_LIBDIRS").contains(libDir))
