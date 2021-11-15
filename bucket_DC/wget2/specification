@@ -1,0 +1,51 @@
+DEF[PORTVERSION]=	2.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		wget2
+VERSION=		${PORTVERSION}
+KEYWORDS=		net ftp www
+VARIANTS=		standard
+SDESC[standard]=	File retrieval tool using HTTP, HTTPS, and FTP
+HOMEPAGE=		https://gitlab.com/gnuwget/wget2
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/wget
+DISTFILE[1]=		wget2-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+BUILD_DEPENDS=		Zstandard:static:standard
+			bzip2:static:standard
+			doxygen:single:standard
+BUILDRUN_DEPENDS=	Zstandard:shared:standard
+			pcre2:primary:standard
+			libidn2:primary:standard
+			brotli:single:standard
+			xz:single:standard
+			lzip:single:standard
+			gnutls:primary:standard
+			libpsl:single:standard
+			libnghttp2:single:standard
+			bzip2:shared:standard
+			gpgme:primary:standard
+RUN_DEPENDS=		nss:caroot:standard
+
+USES=			cpe gmake pkgconfig zlib iconv libtool makeinfo
+			python:build gettext-runtime gettext-tools
+CPE_VENDOR=		gnu
+CPE_PRODUCT=		wget
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-openssl=no
+			--with-ssl=gnutls
+			--without-libhsts
+			--without-libidn
+			--without-pcre
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/bin/wget2_noinstall
