@@ -5,7 +5,7 @@ $PYTHON_CACHE = "/var/cache/python";
 $PYTHON_CACHE_JSON = $PYTHON_CACHE . "/json";
 $PYTHON_CACHE_ETAG = $PYTHON_CACHE . "/etag";
 $PYTHON_CACHE_DIST = $PYTHON_CACHE . "/distfiles";
-$PYTHONEXE = "/raven/bin/python3.8";
+$PYTHONEXE = "/raven/bin/python3.9";
 $EXTS    = array("tgz" => ".tar.gz",
                  "zip" => ".zip",
                  "tbz" => ".tar.bz2",
@@ -520,6 +520,7 @@ function set_buildrun (&$portdata, $PVA, $PVB) {
     inline_fix_setup ($portdata["name"], $src);
     $mockfile = $src . "/obtain-req.py";
     switch ($portdata["name"]) {
+        case "anyjson":
         case "PyYAML":
         case "Twisted":
         case "attrs":

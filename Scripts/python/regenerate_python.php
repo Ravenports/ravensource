@@ -3,7 +3,7 @@
 # Requires php74 with openssl, json, and posix extensions
 # if arguments are given, they are used as the toplevel ports,
 # overriding the master top-level ports list
-# Also requires: python 3.8
+# Also requires: python 3.9
 #                python-setuptools-scm
 #                python-setuptools-git
 #                python-setuptools-rust
@@ -35,8 +35,8 @@ $namebase_queue = array();
 $port_data = array();
 $truncated_summaries = array();
 $ravensource_directory = "";
-$VA = 38;	# single point of change when python
-$VB = 39;	# series are changed in ravenports
+$VA = 39;	# single point of change when python
+$VB = 310;	# series are changed in ravenports
 $PYTHON_VERSION_A = -1;
 $PYTHON_VERSION_B = -1;
 
@@ -91,10 +91,15 @@ function set_python_version($ravensource) {
         $PYTHON_VERSION_A,
         $PYTHON_VERSION_B;
 
-    $PA = substr($VA, 0, 1) . "[.]" . substr($VA, 1, 1);
-    $PB = substr($VB, 0, 1) . "[.]" . substr($VB, 1, 1);
+    # transitional issue, VA=39 VB=310
+    $VAS = strval($VA);
+    $VBS = strval($VB);
+
+    $PA = substr($VAS, 0, 1) . "[.]" . substr($VAS, 1);
+    $PB = substr($VBS, 0, 1) . "[.]" . substr($VBS, 1);
     $RA = "/PYTHON_".$PA."_VERSION=\t([0-9]+)[.]([0-9]+)[.]([0-9]+)/U";
     $RB = "/PYTHON_".$PB."_VERSION=\t([0-9]+)[.]([0-9]+)[.]([0-9]+)/U";
+
     $rvm = $ravensource . "/Scripts/Ravenports_Mk/raven.versions.mk";
 
     $contents = file_get_contents($rvm);
@@ -357,7 +362,7 @@ function generate_port($namebase) {
     $arg = $whl_file ? ',wheel' : ',sutools';
     foreach ($variants as $V) {
         $prereturn = ($V == $primo) ? "" : "\n";
-        $VX = strtoupper($V);
+        $VX = substr($V, 2, 1) . "." . substr($V, 3);
         $comments_block    .= $prereturn . "SDESC[$V]=\t\t$comment ($VX)";
         $subpackages_block .= "SPKGS[$V]=\t\tsingle\n";
         $vopts_block       .= "VOPTS[$V]=\t\t";
@@ -371,7 +376,10 @@ function generate_port($namebase) {
         $prespace = ($V == $primo) ? "" : " ";
         $SV = substr($V, 2);
         $available_options .= $prespace . "PY" . $SV;
-        $buildrun_block .= "[PY" . $SV . "].USES_ON=\t\t\t\tpython:" . $V . $arg . "\n";
+
+        # SV be 2 or 3 characters.  We need 4 tabs on 2, and 3 tabs on 3
+        $tabs = (strlen($SV) == 2) ? "\t\t\t\t" : "\t\t\t";
+        $buildrun_block .= "[PY" . $SV . "].USES_ON=" .$tabs . "python:" . $V . $arg . "\n";
         if (count($port_data[$namebase]["buildrun"])) {
             $buildrun_block .= "[PY" . $SV . "].BUILDRUN_DEPENDS_ON=\t\t";
             foreach ($port_data[$namebase]["buildrun"] as $DEP) {
