@@ -1,12 +1,13 @@
 /*
- * This program runs one of the four SSL variants supported by ravenports.
+ * This program runs one of the five SSL variants supported by ravenports.
  * The first priority is the variant specified by SSL_VARIANT environment
  * variable.  The second priority is the SSL default defined by the
  * ravenadm profile that builds this file.  The remaining priority is:
- *   openssl
+ *   openssl30
  *   libressl
- *   openssl-devel
+ *   openssl11
  *   libressl-devel
+ *   openssl10
  *
  * If no SSL variant is installed, an error message will be displayed,
  * otherwise the requested program will be executed.
@@ -22,10 +23,11 @@ main(int argc, char **argv)
 {
 	int x;
 	char *override;
-	char *ALPHA   = "openssl";
+	char *ALPHA   = "openssl30";
 	char *BRAVO   = "libressl";
-	char *CHARLIE = "openssl-devel";
+	char *CHARLIE = "openssl11";
 	char *DELTA   = "libressl-devel";
+	char *ECHO    = "openssl10";
 	char *ZULU    = "%%SSL_VARIANT%%";
 	char *sslver  = NULL;
 	char *cmd;
@@ -50,6 +52,8 @@ main(int argc, char **argv)
 			sslver = CHARLIE;
 		} else if (strcmp (override, DELTA) == 0) {
 			sslver = DELTA;
+		} else if (strcmp (override, ECHO) == 0) {
+			sslver = ECHO;
 		} else {
 			printf ("Invalid SSL_VARIANT value: %s\n",
 				override);
@@ -83,6 +87,11 @@ main(int argc, char **argv)
 		snprintf(recommand, 1024, "%%PREFIX%%/%s/bin/%s",
 			DELTA, cmd);
 		if (access(recommand, F_OK) != -1) { sslver = DELTA; };
+	}
+	if (sslver == NULL && ZULU != ECHO) {
+		snprintf(recommand, 1024, "%%PREFIX%%/%s/bin/%s",
+			ECHO, cmd);
+		if (access(recommand, F_OK) != -1) { sslver = ECHO; };
 	}
 	if (sslver == NULL) {
 		printf ("No version of %s is installed.\n", cmd);
