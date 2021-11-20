@@ -5,10 +5,9 @@ DEF[PORTVERSION]=	59.0.1
 NAMEBASE=		python-setuptools
 VERSION=		${PORTVERSION}
 KEYWORDS=		python devel sysutils
-VARIANTS=		py38 py39 py310
-SDESC[py38]=		Python package development process library (PY 38)
-SDESC[py39]=		Python package development process library (PY 39)
-SDESC[py310]=		Python package development process library (PY310)
+VARIANTS=		py39 py310
+SDESC[py39]=		Python package development process library (3.9)
+SDESC[py310]=		Python package development process library (3.10)
 HOMEPAGE=		https://github.com/pypa/setuptools
 CONTACT=		nobody
 
@@ -16,15 +15,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/s/setuptools
 DISTFILE[1]=		setuptools-${PORTVERSION}.tar.gz:main
 
-SPKGS[py38]=		single
 SPKGS[py39]=		single
 SPKGS[py310]=		single
 
-OPTIONS_AVAILABLE=	PY38 PY39 PY310
+OPTIONS_AVAILABLE=	PY39 PY310
 OPTIONS_STANDARD=	none
-VOPTS[py38]=		PY38=ON PY39=OFF PY310=OFF
-VOPTS[py39]=		PY38=OFF PY39=ON PY310=OFF
-VOPTS[py310]=		PY38=OFF PY39=OFF PY310=ON
+VOPTS[py39]=		PY39=ON PY310=OFF
+VOPTS[py310]=		PY39=OFF PY310=ON
 
 LICENSE=		MIT:single
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
@@ -38,20 +35,14 @@ CPE_PRODUCT=		setuptools
 DISTNAME=		setuptools-${PORTVERSION}
 PLIST_SUB=		STVER=${PORTVERSION}
 
-[PY38].BUILDRUN_DEPENDS_ON=		python38:single:standard
 [PY39].BUILDRUN_DEPENDS_ON=		python39:single:standard
 [PY310].BUILDRUN_DEPENDS_ON=		python310:single:standard
 
-[PY38].MAKEFILE_ON=			PYTHON_CMD={{LOCALBASE}}/bin/python3.8
 [PY39].MAKEFILE_ON=			PYTHON_CMD={{LOCALBASE}}/bin/python3.9
 [PY310].MAKEFILE_ON=			PYTHON_CMD={{LOCALBASE}}/bin/python3.10
 
-[PY38].PLIST_SUB_ON=			PYVER=3.8 SITEPKG=lib/python3.8/site-packages
 [PY39].PLIST_SUB_ON=			PYVER=3.9 SITEPKG=lib/python3.9/site-packages
 [PY310].PLIST_SUB_ON=			PYVER=3.10 SITEPKG=lib/python3.10/site-packages
-
-# remove once supported in ravenadm
-[PY310].DESCRIPTION=			Version for Python 3.10
 
 MAKE_ENV=		LDSHARED="{{CC}} -shared"
 			PYTHONDONTWRITEBYTECODE=

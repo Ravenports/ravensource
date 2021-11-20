@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.13.4
 NAMEBASE=		python-django-mptt
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py38 py39
-SDESC[py38]=		Django Modified Preorder Tree Traversal (PY38)
-SDESC[py39]=		Django Modified Preorder Tree Traversal (PY39)
+VARIANTS=		py39 py310
+SDESC[py39]=		Django Modified Preorder Tree Traversal (3.9)
+SDESC[py310]=		Django Modified Preorder Tree Traversal (3.10)
 HOMEPAGE=		https://github.com/django-mptt/django-mptt/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPIWHL/ab/b1/e9bf441448b880119f6a77c74a9555a0ef9dbba4ab5403b65abb12a5998f
 DISTFILE[1]=		django_mptt-${PORTVERSION}-py3-none-any.whl:main
 
-SPKGS[py38]=		single
 SPKGS[py39]=		single
+SPKGS[py310]=		single
 
-OPTIONS_AVAILABLE=	PY38 PY39
+OPTIONS_AVAILABLE=	PY39 PY310
 OPTIONS_STANDARD=	none
-VOPTS[py38]=		PY38=ON PY39=OFF
-VOPTS[py39]=		PY38=OFF PY39=ON
+VOPTS[py39]=		PY39=ON PY310=OFF
+VOPTS[py310]=		PY39=OFF PY310=ON
 
 # License listed at PyPI
 # MIT-License
@@ -33,8 +33,8 @@ DISTNAME=		django_mptt-${PORTVERSION}.dist-info
 # coverage ; extra == 'tests'
 # mock-django ; extra == 'tests'
 
-[PY38].USES_ON=				python:py38,wheel
-[PY38].RUN_DEPENDS_ON=			python-django-js-asset:single:py38
 [PY39].USES_ON=				python:py39,wheel
 [PY39].RUN_DEPENDS_ON=			python-django-js-asset:single:py39
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-django-js-asset:single:py310
 

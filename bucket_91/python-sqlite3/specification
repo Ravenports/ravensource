@@ -1,37 +1,31 @@
 # manually maintained
 DEF[PV310]=		EXTRACT_VERSION(PYTHON_3.10_VERSION)
 DEF[PV39]=		EXTRACT_VERSION(PYTHON_3.9_VERSION)
-DEF[PV38]=		EXTRACT_VERSION(PYTHON_3.8_VERSION)
 DEF[PORTVERSION]=	${PV310}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		python-sqlite3
 VERSION=		${PORTVERSION}
 KEYWORDS=		databases python
-VARIANTS=		py39 py38 py310
-SDESC[py38]=		Python 3.8 bindings to the SQLite3 library
+VARIANTS=		py39 py310
 SDESC[py39]=		Python 3.9 bindings to the SQLite3 library
 SDESC[py310]=		Python 3.10 bindings to the SQLite3 library
 HOMEPAGE=		https://www.python.org/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	none pv38 pv39 pv310
-SITES[pv38]=		http://www.python.org/ftp/python/${PV38}/
+DOWNLOAD_GROUPS=	none pv39 pv310
 SITES[pv39]=		http://www.python.org/ftp/python/${PV39}/
 SITES[pv310]=		http://www.python.org/ftp/python/${PV310}/
-DISTFILE[1]=		Python-${PV38}.tar.xz:pv38
-DISTFILE[2]=		Python-${PV39}.tar.xz:pv39
-DISTFILE[3]=		Python-${PV310}.tar.xz:pv310
+DISTFILE[1]=		Python-${PV39}.tar.xz:pv39
+DISTFILE[2]=		Python-${PV310}.tar.xz:pv310
 
-SPKGS[py38]=		single
 SPKGS[py39]=		single
 SPKGS[py310]=		single
 
-OPTIONS_AVAILABLE=	PY38 PY39 PY310
+OPTIONS_AVAILABLE=	PY39 PY310
 OPTIONS_STANDARD=	none
-VOPTS[py38]=		PY38=ON PY39=OFF PY310=OFF
-VOPTS[py39]=		PY38=OFF PY39=ON PY310=OFF
-VOPTS[py310]=		PY38=OFF PY39=OFF PY310=ON
+VOPTS[py39]=		PY39=ON PY310=OFF
+VOPTS[py310]=		PY39=OFF PY310=ON
 
 FPC_EQUIVALENT=		databases/py-sqlite3
 
@@ -42,21 +36,11 @@ CPE_VENDOR=		python
 CPE_PRODUCT=		python
 DISTNAME=		Python/Modules
 
-[PY38].USES_ON=				python:py38,sutools
-[PY38].DF_INDEX_ON=			1
 [PY39].USES_ON=				python:py39,sutools
-[PY39].DF_INDEX_ON=			2
+[PY39].DF_INDEX_ON=			1
 
-# python 3.10 not supported on ravenadm yet
-[PY310].USES_ON=			python:py310,sutools
-[PY310].DESCRIPTION=			Used for Python 3.10
 [PY310].BUILDRUN_DEPENDS_ON=		python310:single:standard
-[PY310].BUILD_DEPENDS_ON=		python-setuptools:single:py310
-[PY310].DF_INDEX_ON=			3
-
-post-extract-PY38-ON:
-	${MV} ${WRKDIR}/Python-${PV38}  ${WRKDIR}/Python
-	${CP} ${FILESDIR}/setup3.py ${WRKSRC}/setup.py
+[PY310].DF_INDEX_ON=			2
 
 post-extract-PY39-ON:
 	${MV} ${WRKDIR}/Python-${PV39}  ${WRKDIR}/Python

@@ -1,26 +1,26 @@
-DEF[PORTVERSION]=	2.1.0
+DEF[PORTVERSION]=	2.2.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-snowballstemmer
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py38 py39
-SDESC[py38]=		Snowball stemming library collection (PY38)
-SDESC[py39]=		Snowball stemming library collection (PY39)
+VARIANTS=		py39 py310
+SDESC[py39]=		Snowball stemming library collection (3.9)
+SDESC[py310]=		Snowball stemming library collection (3.10)
 HOMEPAGE=		https://github.com/snowballstem/snowball
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/f6/6e/7e07970c90a57c21da92013c5ba47f8e9598c17e88cc35b008ca61225ed3
+SITES[main]=		PYPIWHL/ed/dc/c02e01294f7265e63a7315fe086dd1df7dacb9f840a804da846b96d01b96
 DISTFILE[1]=		snowballstemmer-${PORTVERSION}-py2.py3-none-any.whl:main
 
-SPKGS[py38]=		single
 SPKGS[py39]=		single
+SPKGS[py310]=		single
 
-OPTIONS_AVAILABLE=	PY38 PY39
+OPTIONS_AVAILABLE=	PY39 PY310
 OPTIONS_STANDARD=	none
-VOPTS[py38]=		PY38=ON PY39=OFF
-VOPTS[py39]=		PY38=OFF PY39=ON
+VOPTS[py39]=		PY39=ON PY310=OFF
+VOPTS[py310]=		PY39=OFF PY310=ON
 
 # License listed at PyPI
 # BSD-3-Clause
@@ -31,6 +31,6 @@ DISTNAME=		snowballstemmer-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 
 
-[PY38].USES_ON=				python:py38,wheel
 [PY39].USES_ON=				python:py39,wheel
+[PY310].USES_ON=			python:py310,wheel
 

@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	21.7.0
 NAMEBASE=		python-Twisted
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py38 py39
-SDESC[py38]=		Asynchronous networking framework (PY38)
-SDESC[py39]=		Asynchronous networking framework (PY39)
+VARIANTS=		py39 py310
+SDESC[py39]=		Asynchronous networking framework (3.9)
+SDESC[py310]=		Asynchronous networking framework (3.10)
 HOMEPAGE=		https://twistedmatrix.com/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPIWHL/b5/0c/7a1a943edce164c77c98f044175d801b572bb36936e9b4d5805a850525e7
 DISTFILE[1]=		Twisted-${PORTVERSION}-py3-none-any.whl:main
 
-SPKGS[py38]=		single
 SPKGS[py39]=		single
+SPKGS[py310]=		single
 
-OPTIONS_AVAILABLE=	PY38 PY39
+OPTIONS_AVAILABLE=	PY39 PY310
 OPTIONS_STANDARD=	none
-VOPTS[py38]=		PY38=ON PY39=OFF
-VOPTS[py39]=		PY38=OFF PY39=ON
+VOPTS[py39]=		PY39=ON PY310=OFF
+VOPTS[py310]=		PY39=OFF PY310=ON
 
 # License listed at PyPI
 # MIT
@@ -155,14 +155,6 @@ DISTNAME=		Twisted-${PORTVERSION}.dist-info
 # pywin32 (!=226) ; (platform_system == "Windows") and extra == 'windows_platform'
 # contextvars (<3,>=2.4) ; (python_version < "3.7") and extra == 'windows_platform'
 
-[PY38].USES_ON=				python:py38,wheel
-[PY38].RUN_DEPENDS_ON=			python-zope.interface:single:py38
-					python-constantly:single:py38
-					python-incremental:single:py38
-					python-Automat:single:py38
-					python-hyperlink:single:py38
-					python-attrs:single:py38
-					python-typing-extensions:single:py38
 [PY39].USES_ON=				python:py39,wheel
 [PY39].RUN_DEPENDS_ON=			python-zope.interface:single:py39
 					python-constantly:single:py39
@@ -171,6 +163,14 @@ DISTNAME=		Twisted-${PORTVERSION}.dist-info
 					python-hyperlink:single:py39
 					python-attrs:single:py39
 					python-typing-extensions:single:py39
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-zope.interface:single:py310
+					python-constantly:single:py310
+					python-incremental:single:py310
+					python-Automat:single:py310
+					python-hyperlink:single:py310
+					python-attrs:single:py310
+					python-typing-extensions:single:py310
 
 USES=			cpe
 CPE_VENDOR=		twistedmatrix

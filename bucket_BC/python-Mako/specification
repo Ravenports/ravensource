@@ -1,26 +1,26 @@
-DEF[PORTVERSION]=	1.1.5
+DEF[PORTVERSION]=	1.1.6
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-Mako
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py38 py39
-SDESC[py38]=		Super-fast template library (PY38)
-SDESC[py39]=		Super-fast template library (PY39)
+VARIANTS=		py39 py310
+SDESC[py39]=		Super-fast template library (3.9)
+SDESC[py310]=		Super-fast template library (3.10)
 HOMEPAGE=		https://www.makotemplates.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/75/69/c3ab0db9234fa5681a85a1c55203763a62902d56ad76b6d9b9bfa2c83694
+SITES[main]=		PYPIWHL/b4/4d/e03d08f16ee10e688bde9016bc80af8b78c7f36a8b37c7194da48f72207e
 DISTFILE[1]=		Mako-${PORTVERSION}-py2.py3-none-any.whl:main
 
-SPKGS[py38]=		single
 SPKGS[py39]=		single
+SPKGS[py310]=		single
 
-OPTIONS_AVAILABLE=	PY38 PY39
+OPTIONS_AVAILABLE=	PY39 PY310
 OPTIONS_STANDARD=	none
-VOPTS[py38]=		PY38=ON PY39=OFF
-VOPTS[py39]=		PY38=OFF PY39=ON
+VOPTS[py39]=		PY39=ON PY310=OFF
+VOPTS[py310]=		PY39=OFF PY310=ON
 
 # License listed at PyPI
 # MIT
@@ -33,8 +33,8 @@ DISTNAME=		Mako-${PORTVERSION}.dist-info
 # Babel ; extra == 'babel'
 # lingua ; extra == 'lingua'
 
-[PY38].USES_ON=				python:py38,wheel
-[PY38].RUN_DEPENDS_ON=			python-MarkupSafe:single:py38
 [PY39].USES_ON=				python:py39,wheel
 [PY39].RUN_DEPENDS_ON=			python-MarkupSafe:single:py39
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-MarkupSafe:single:py310
 
