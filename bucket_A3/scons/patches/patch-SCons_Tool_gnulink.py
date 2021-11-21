@@ -1,4 +1,4 @@
---- SCons/Tool/gnulink.py.orig	2021-07-05 20:55:05 UTC
+--- SCons/Tool/gnulink.py.orig	2021-01-19 17:50:43 UTC
 +++ SCons/Tool/gnulink.py
 @@ -48,7 +48,7 @@ def generate(env):
  
