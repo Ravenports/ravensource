@@ -32,7 +32,7 @@ BUILDRUN_DEPENDS=	cyrus-sasl:primary:standard
 
 # No idea how to make the openssl plugin compile without errors...
 # Disabling it for now but leaving the lines in, commented out.
-# USES=			cmake pkgconfig ssl:openssl-dev qt5
+# USES=			cmake pkgconfig ssl:openssl11 qt5
 
 USES=			cmake pkgconfig qt5
 
@@ -51,9 +51,9 @@ CMAKE_ARGS=		-DBUILD_PLUGINS=none
 			-DCMAKE_PREFIX_PATH={{PREFIX}}/lib/qt5/cmake
 			-DQCA_FEATURE_INSTALL_DIR={{PREFIX}}/lib/qt5/mkspecs/features
 			-DQCA_MAN_INSTALL_DIR={{PREFIX}}/share/man
-# -DOPENSSL_INCLUDE_DIR={{PREFIX}}/openssl-devel/include
-# -DOPENSSL_SSL_LIBRARY={{PREFIX}}/openssl-devel/lib/libssl.so
-# -DOPENSSL_CRYPTO_LIBRARY={{PREFIX}}/openssl-devel/lib/libcrypto.so
+# -DOPENSSL_INCLUDE_DIR={{PREFIX}}/openssl11/include
+# -DOPENSSL_SSL_LIBRARY={{PREFIX}}/openssl11/lib/libssl.so
+# -DOPENSSL_CRYPTO_LIBRARY={{PREFIX}}/openssl11/lib/libcrypto.so
 CONFIGURE_ENV=		QC_CERTSTORE_PATH={{LOCALBASE}}/share/certs/ca-root-nss.crt
 
 SOVERSION=		${SOVERSION}
