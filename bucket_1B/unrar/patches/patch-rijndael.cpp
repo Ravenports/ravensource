@@ -1,7 +1,7 @@
---- rijndael.cpp.orig	2021-05-17 07:31:10 UTC
+--- rijndael.cpp.orig	2021-11-15 10:54:10 UTC
 +++ rijndael.cpp
-@@ -7,6 +7,8 @@
-  ***************************************************************************/
+@@ -3,6 +3,8 @@
+  **************************************************************************/
  #include "rar.hpp"
  
 +#ifndef OPENSSL_AES
@@ -9,7 +9,7 @@
  #ifdef USE_SSE
  #include <wmmintrin.h>
  #endif
-@@ -56,6 +58,7 @@ inline void Copy128(byte *dest,const byt
+@@ -75,6 +77,7 @@ inline void Copy128(byte *dest,const byt
  #endif
  }
  
@@ -17,12 +17,12 @@
  
  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  // API
-@@ -63,14 +66,35 @@ inline void Copy128(byte *dest,const byt
+@@ -82,14 +85,35 @@ inline void Copy128(byte *dest,const byt
  
  Rijndael::Rijndael()
  {
 +#ifndef OPENSSL_AES
-   if (S[0]==0)
+   if (S5[0]==0)
      GenerateTables();
 +#endif // OPENSSL_AES
    CBCMode = true; // Always true for RAR.
@@ -53,7 +53,7 @@
  #ifdef USE_SSE
    // Check SSE here instead of constructor, so if object is a part of some
    // structure memset'ed before use, this variable is not lost.
-@@ -120,6 +144,7 @@ void Rijndael::Init(bool Encrypt,const b
+@@ -139,6 +163,7 @@ void Rijndael::Init(bool Encrypt,const b
  
    if(!Encrypt)
      keyEncToDec();
@@ -61,7 +61,7 @@
  }
  
  void Rijndael::blockEncrypt(const byte *input,size_t inputLen,byte *outBuffer)
-@@ -127,6 +152,11 @@ void Rijndael::blockEncrypt(const byte *
+@@ -146,6 +171,11 @@ void Rijndael::blockEncrypt(const byte *
    if (inputLen <= 0)
      return;
  
@@ -73,7 +73,7 @@
    size_t numBlocks = inputLen/16;
  #ifdef USE_SSE
    if (AES_NI)
-@@ -185,6 +215,7 @@ void Rijndael::blockEncrypt(const byte *
+@@ -204,6 +234,7 @@ void Rijndael::blockEncrypt(const byte *
      input += 16;
    }
    Copy128(m_initVector,prevBlock);
@@ -81,7 +81,7 @@
  }
  
  
-@@ -226,6 +257,11 @@ void Rijndael::blockDecrypt(const byte *
+@@ -245,6 +276,11 @@ void Rijndael::blockDecrypt(const byte *
    if (inputLen <= 0)
      return;
  
@@ -93,7 +93,7 @@
    size_t numBlocks=inputLen/16;
  #ifdef USE_SSE
    if (AES_NI)
-@@ -288,6 +324,8 @@ void Rijndael::blockDecrypt(const byte *
+@@ -307,6 +343,8 @@ void Rijndael::blockDecrypt(const byte *
    }
  
    memcpy(m_initVector,iv,16);
@@ -102,7 +102,7 @@
  }
  
  
-@@ -323,7 +361,7 @@ void Rijndael::blockDecryptSSE(const byt
+@@ -342,7 +380,7 @@ void Rijndael::blockDecryptSSE(const byt
  }
  #endif
  
@@ -111,8 +111,8 @@
  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  // ALGORITHM
  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-@@ -463,7 +501,7 @@ void Rijndael::GenerateTables()
-     U1[b][0]=U2[b][1]=U3[b][2]=U4[b][3]=T5[i][0]=T6[i][1]=T7[i][2]=T8[i][3]=FFmul0e(b);
+@@ -471,7 +509,7 @@ void Rijndael::GenerateTables()
+     U1[b][0]=U2[b][1]=U3[b][2]=U4[b][3]=T5[I][0]=T6[I][1]=T7[I][2]=T8[I][3]=gmul(b,0xe);
    }
  }
 -

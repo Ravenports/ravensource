@@ -1,6 +1,6 @@
---- rijndael.hpp.orig	2021-05-17 07:31:10 UTC
+--- rijndael.hpp.orig	2021-11-15 10:54:10 UTC
 +++ rijndael.hpp
-@@ -16,6 +16,9 @@
+@@ -12,6 +12,9 @@
  class Rijndael
  { 
    private:
@@ -10,7 +10,7 @@
  #ifdef USE_SSE
      void blockEncryptSSE(const byte *input,size_t numBlocks,byte *outBuffer);
      void blockDecryptSSE(const byte *input, size_t numBlocks, byte *outBuffer);
-@@ -25,6 +28,7 @@ class Rijndael
+@@ -21,6 +24,7 @@ class Rijndael
      void keySched(byte key[_MAX_KEY_COLUMNS][4]);
      void keyEncToDec();
      void GenerateTables();
