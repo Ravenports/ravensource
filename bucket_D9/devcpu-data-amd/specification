@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	20211109
+DEF[PORTVERSION]=	20211115
+DEF[_REV]=		f5d5195
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		devcpu-data-amd
@@ -9,9 +10,17 @@ SDESC[standard]=	AMD CPUs microcode updates
 HOMEPAGE=		none
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main
-SITES[main]=		FREELOCAL/sbruno
-DISTFILE[1]=		amd64-microcode.${PORTVERSION}.tar.xz:main
+DOWNLOAD_GROUPS=	main dummy
+SITES[main]=		https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/amd-ucode/
+SITES[dummy]=		https://leaf.dragonflybsd.org/~marino/dports-src/
+DISTFILE[1]=		dummy-tarball.tar.gz:dummy
+DISTFILE[2]=		microcode_amd.bin?id=${_REV}:main
+DISTFILE[3]=		microcode_amd_fam15h.bin?id=${_REV}:main
+DISTFILE[4]=		microcode_amd_fam16h.bin?id=${_REV}:main
+DISTFILE[5]=		microcode_amd_fam17h.bin?id=${_REV}:main
+DISTFILE[6]=		microcode_amd_fam19h.bin?id=${_REV}:main
+DIST_SUBDIR=		AMD_microcodes
+DF_INDEX=		1 2 3 4 5 6
 
 SPKGS[standard]=	single
 
@@ -29,10 +38,13 @@ NOT_FOR_ARCH=		aarch64
 ONLY_FOR_OPSYS=		freebsd dragonfly
 
 SKIP_BUILD=		yes
-EXTRACT_DIRTY=		1
+EXTRACT_ONLY=		1
 
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/cpucontrol
-	(cd ${WRKDIR}/${NAMEBASE}_1 && \
-	    ${INSTALL_DATA} microcode_amd.bin microcode_amd_fam1[5679]h.bin \
-	    ${STAGEDIR}${PREFIX}/share/cpucontrol)
+	${INSTALL_DATA} ${DISTDIR}/${DIST_SUBDIR}/microcode_amd.bin?id=${_REV} \
+		${STAGEDIR}${PREFIX}/share/cpucontrol/microcode_amd.bin
+.for X in 15 16 17 19
+	${INSTALL_DATA} ${DISTDIR}/${DIST_SUBDIR}/microcode_amd_fam${X}h.bin?id=${_REV} \
+		${STAGEDIR}${PREFIX}/share/cpucontrol/microcode_amd_fam${X}h.bin
+.endfor
