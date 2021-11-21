@@ -55,7 +55,7 @@ PYTHON_3.10_VERSION=	3.10.0
 
 #-------------------------------------------------------------------------
 # SSL
-# Possible values: openssl, openssl-devel, libressl, libressl-devel
+# Possible values: openssl10, openssl11, openssl30, libressl, libressl-devel
 #-------------------------------------------------------------------------
 
 SSL_DEFAULT?=		libressl
