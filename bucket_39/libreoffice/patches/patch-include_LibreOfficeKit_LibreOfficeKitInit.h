@@ -1,4 +1,4 @@
---- include/LibreOfficeKit/LibreOfficeKitInit.h.orig	2021-10-06 00:34:15 UTC
+--- include/LibreOfficeKit/LibreOfficeKitInit.h.orig	2021-11-18 11:33:09 UTC
 +++ include/LibreOfficeKit/LibreOfficeKitInit.h
 @@ -25,7 +25,7 @@ extern "C"
  

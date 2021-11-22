@@ -1,4 +1,4 @@
---- external/skia/UnpackedTarball_skia.mk.orig	2021-10-06 00:34:15 UTC
+--- external/skia/UnpackedTarball_skia.mk.orig	2021-11-18 11:33:09 UTC
 +++ external/skia/UnpackedTarball_skia.mk
 @@ -41,6 +41,7 @@ skia_patches := \
      fix-warnings.patch.1 \

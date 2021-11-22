@@ -1,8 +1,8 @@
 See https://git.libreoffice.org/core/+/0e7d4d99beda181f4e22725e4b8295d25489696f
 
---- RepositoryExternal.mk.orig	2021-10-06 00:34:15 UTC
+--- RepositoryExternal.mk.orig	2021-11-18 11:33:09 UTC
 +++ RepositoryExternal.mk
-@@ -3870,6 +3870,7 @@ endef
+@@ -3896,6 +3896,7 @@ endef
  define gb_Executable__register_gengal
  $(call gb_Executable_add_runtime_dependencies,gengal,\
  	$(call gb_Library_get_target_for_build,$(CPPU_ENV_FOR_BUILD)_uno) \
