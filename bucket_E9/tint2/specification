@@ -38,5 +38,7 @@ XORG_COMPONENTS=	x11 xcomposite xdamage xfixes xinerama xrandr xrender
 INSTALL_REQ_TOOLCHAIN=	yes
 DISTNAME=		tint2-v${PORTVERSION}
 
+VAR_OPSYS[netbsd]=	CMAKE_ARGS=-DENABLE_BATTERY:BOOL=OFF
+
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/tint2*
