@@ -1,4 +1,4 @@
---- nmap.cc.orig	2020-10-09 22:18:58 UTC
+--- nmap.cc.orig	2021-07-28 20:52:01 UTC
 +++ nmap.cc
 @@ -69,6 +69,7 @@
  #include <shlobj.h>

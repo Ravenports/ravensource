@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	7.92
 
 NAMEBASE=		nmap
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Port scanning utility for large networks
@@ -20,6 +21,8 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		security/nmap
 
+BUILDRUN_DEPENDS=	libpcap:single:standard
+
 USES=			gmake cpe pcre ssl
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-openssl={{OPENSSLBASE}}
@@ -27,6 +30,7 @@ CONFIGURE_ARGS=		--with-openssl={{OPENSSLBASE}}
 			--without-zenmap
 			--without-ndiff
 			--with-libpcre={{LOCALBASE}}
+			--with-libpcap={{LOCALBASE}}
 			--with-liblua=included
 			--without-nmap-update
 CPPFLAGS=		-I{{OPENSSLINC}}
