@@ -33,6 +33,7 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		security/veracrypt
 
+ONLY_FOR_OPSYS=		freebsd linux sunos
 
 BUILD_DEPENDS=		yasm:single:standard
 BUILDRUN_DEPENDS=	fuse2:single:standard
@@ -58,7 +59,7 @@ post-extract:
 	${AWK} '/^TrueCrypt License V/,/closely as possible./' \
 		${WRKSRC}/License.txt > ${WRKDIR}/license.truecrypt30
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e 's|/wx-config|${LOCALBASE}${WXCONFIG}|g' \
 		-e '/export LFLAGS/ s|:=|:= ${LDFLAGS}|' \
 		-e '/export CXXFLAGS/ s|:=|:= ${CXXFLAGS}|' \
