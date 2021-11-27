@@ -5,7 +5,7 @@
  #endif
  
 -#if defined(_WIN32) || defined(__APPLE__)
-+#if defined(_WIN32) || defined(__APPLE__) || defined(__DragonFly__) || defined(__FreeBSD__)
++#if defined(_WIN32) || defined(__APPLE__) || defined(__DragonFly__) || defined(__FreeBSD__) || defined(__NetBSD__)
      #include <sys/stat.h>
  #endif
  
