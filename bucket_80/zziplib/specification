@@ -51,6 +51,11 @@ INSTALL_TARGET=		install install-man install-docs
 EXRUN[sdl]=		sdl1:primary:standard
 SOVERSION=		${LIBVERSION}
 
+pre-configure:
+	# NetBSD mkdir doesn't recognize -v
+	${REINPLACE_CMD} -e 's/mkdir -vp/mkdir -p/g' \
+		${WRKSRC}/docs/CMakeLists.txt
+
 post-install:
 .for l in ${LIBS}
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib${l}-0.so.${LIBVERSION}
