@@ -52,6 +52,9 @@ MAKE_ENV=		DESTPREFIX={{STAGEDIR}}{{PREFIX}}
 post-patch-dragonfly:
 	${REINPLACE_CMD} "s/FreeBSD/DragonFly/" ${BUILD_WRKSRC}/*.*
 
+post-patch-netbsd:
+	${REINPLACE_CMD} "s/FreeBSD/NetBSD/" ${BUILD_WRKSRC}/*.*
+
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libIrrlicht.so.${SOVERSION}
 	${INSTALL_DATA} ${BUILD_WRKSRC}/libIrrlicht.a \
