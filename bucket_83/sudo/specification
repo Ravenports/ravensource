@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.9.8p2
 
 NAMEBASE=		sudo
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Allows restricted root access for specified users
@@ -27,6 +28,7 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		security/sudo
 
 # With OpenPAM, some kind of EXEC error, needs study
+# Until then, disable pam on all platforms
 # BUILDRUN_DEPENDS=	openpam:single:standard
 
 USES=			cpe libtool gettext-runtime cclibs:primary zlib
@@ -38,10 +40,9 @@ CONFIGURE_ARGS=		--sysconfdir={{PREFIX}}/etc
 			--with-ignore-dot
 			--with-tty-tickets
 			--with-env-editor
-# |			--with-logincap
 			--with-long-otp-prompt
 			--with-logfac=authpriv
-# |			--with-pam
+			--without-pam
 			--enable-nls
 			--disable-noargs-shell
 
