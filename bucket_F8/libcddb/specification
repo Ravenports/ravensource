@@ -20,7 +20,13 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		audio/libcddb
 
+BUILD_DEPENDS=		bash:primary:standard
+
 USES=			iconv libtool fbsd10fix
 INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--without-cdio
+
+pre-configure:
+	${REINPLACE_CMD} -e 's|/bin/sh|${LOCALBASE}/bin/bash|' \
+		${WRKSRC}/configure
