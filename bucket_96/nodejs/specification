@@ -37,7 +37,6 @@ CPE_PRODUCT=		node.js
 DISTNAME=		node-v${PORTVERSION}
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--prefix={{PREFIX}}
-			--without-snapshot
 			--without-npm
 			--without-dtrace
 			--shared-libuv
@@ -52,6 +51,10 @@ MAKE_ENV=		CC.host={{CC}}
 			LINK.host={{CXX}}
 			LINK.target={{CXX}}
 INSTALL_REQ_TOOLCHAIN=	yes
+
+BROKEN[netbsd]=		Run OOM on mksnapshot step near end
+VAR_OPSYS[netbsd]=	CONFIGURE_ENV=GYP_DEFINES="OS=netbsd"
+			MAKE_ENV=GYP_DEFINES="OS=netbsd"
 
 pre-configure:
 	${GREP} -rl "/usr/local" ${WRKSRC} | \
@@ -78,6 +81,11 @@ pre-configure-dragonfly:
 	# using freebsd's config, but large pages not supported
 	${REINPLACE_CMD} -e '/"linux freebsd mac"/ s/ freebsd//' \
 		${WRKSRC}/node.gyp
+
+pre-configure-netbsd:
+	# hack to avoid undefined reference to 'engine_load_devcrypto_int'
+	${REINPLACE_CMD} -e 's/ifndef OPENSSL_NO_DEVCRYPTOENG/if 0/' \
+		${WRKSRC}/deps/openssl/openssl/crypto/init.c
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/node
