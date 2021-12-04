@@ -14,7 +14,7 @@ Signed-off-by: Emmanuel Vadot <manu@FreeBSD.org>
 
 diff --git a/xf86drmMode.c b/xf86drmMode.c
 index 5af27c4a..6121fe89 100644
---- xf86drmMode.c.orig	2021-11-08 16:35:03 UTC
+--- xf86drmMode.c.orig	2021-11-25 20:33:02 UTC
 +++ xf86drmMode.c
 @@ -37,6 +37,7 @@
  #include <limits.h>

@@ -1,4 +1,4 @@
---- xf86drm.c.orig	2021-11-08 16:35:03 UTC
+--- xf86drm.c.orig	2021-11-25 20:33:02 UTC
 +++ xf86drm.c
 @@ -63,7 +63,17 @@
  #include <math.h>
@@ -68,7 +68,7 @@
      char name[SPECNAMELEN];
  
      if (!devname_r(makedev(maj, min), S_IFCHR, name, sizeof(name)))
-@@ -3387,7 +3401,7 @@ static char *drmGetMinorNameForFD(int fd
+@@ -3388,7 +3402,7 @@ static char *drmGetMinorNameForFD(int fd
  
      closedir(sysdir);
      return NULL;
@@ -77,7 +77,7 @@
      struct stat sbuf;
      char dname[SPECNAMELEN];
      const char *mname;
-@@ -3598,7 +3612,7 @@ get_pci_path(int maj, int min, char *pci
+@@ -3599,7 +3613,7 @@ get_pci_path(int maj, int min, char *pci
  }
  #endif
  
