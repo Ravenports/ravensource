@@ -1,6 +1,21 @@
+$OpenBSD: patch-meson_build,v 1.1 2021/12/02 21:18:01 ajacoutot Exp $
+
+From 5a406b06792e26a83c7346b3c2443c0bd8d4cdb2 Mon Sep 17 00:00:00 2001
+From: Eli Schwartz <eschwartz@archlinux.org>
+Date: Mon, 8 Nov 2021 18:22:47 -0500
+Subject: [PATCH] migrate from custom itstool to builtin msgfmt for creating translated XML
+
 --- meson.build.orig	2020-12-31 19:12:16 UTC
 +++ meson.build
-@@ -74,7 +74,7 @@ configure_file(
+@@ -20,7 +20,6 @@ config.set_quoted('VERSION', meson.proje
+ ###############################################################################
+ # Find tools
+ 
+-itstool = find_program('itstool')
+ xmllint = find_program('xmllint')
+ xmlto   = find_program('xmlto')
+ 
+@@ -74,7 +73,7 @@ configure_file(
          'prefix': get_option('prefix'),
          'VERSION': meson.project_version()
      },
