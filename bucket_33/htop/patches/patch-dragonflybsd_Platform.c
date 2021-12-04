@@ -1,6 +1,6 @@
---- dragonflybsd/Platform.c.orig	2021-10-14 21:42:05 UTC
+--- dragonflybsd/Platform.c.orig	2021-11-30 01:03:21 UTC
 +++ dragonflybsd/Platform.c
-@@ -215,9 +215,23 @@ void Platform_setSwapValues(Meter* this)
+@@ -216,9 +216,23 @@ void Platform_setSwapValues(Meter* this)
  }
  
  char* Platform_getProcessEnv(pid_t pid) {
