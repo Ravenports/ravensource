@@ -1,7 +1,7 @@
-DEF[PORTVERSION]=	3.4.10
-DEF[SOVERSION]=		14.0.10
-DEF[SO_WIRETAP]=	11.0.10
-DEF[SO_WSUTIL]=		12.0.0
+DEF[PORTVERSION]=	3.6.0
+DEF[SOVERSION]=		15.0.0
+DEF[SO_WIRETAP]=	12.0.0
+DEF[SO_WSUTIL]=		13.0.0
 DEF[PLUGIN_VER]=	${PORTVERSION:R}
 # ----------------------------------------------------------------------------
 
@@ -34,6 +34,7 @@ FPC_EQUIVALENT=		net/wireshark
 BUILD_DEPENDS=		doxygen:single:standard
 			qt5-qttools:single:standard
 			bison:primary:standard
+			ruby-asciidoctor:single:ruby_default
 BUILDRUN_DEPENDS=	libgpg-error:primary:standard
 			libgcrypt:single:standard
 			libnghttp2:single:standard
@@ -47,11 +48,13 @@ BUILDRUN_DEPENDS=	libgpg-error:primary:standard
 			qt5-qtmultimedia:single:standard
 			qt5-qtsvg:single:standard
 			libmaxminddb:single:standard
+			brotli:single:standard
+			speexdsp:primary:standard
 
 # worked with libressl 2.7.x, but seeing floating point exception
 # (core dump) with libressl 2.8.x
 USES=			cpe gmake cmake ssl:openssl11 zlib lz4 qt5
-			lua:5.2 perl:build pkgconfig
+			zstd lua:5.2 perl:build pkgconfig
 			gettext-tools gettext-runtime
 			mime-info:primary
 			desktop-utils:primary
@@ -102,16 +105,19 @@ post-extract:
 		${WRKSRC}/COPYING > ${WRKDIR}/BSD_LICENSE
 
 post-patch:
-	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|' \
-		-e 's|.{PERL_EXECUTABLE} ||' \
-		${WRKSRC}/cmake/modules/FindPOD.cmake
 	${REINPLACE_CMD} -e '/NAMES lua/ s|lua52|lua-${LUA_VER}|' \
 		${WRKSRC}/cmake/modules/FindLUA.cmake
 	${REINPLACE_CMD} -e 's|libssh/libssh.h|libssh/libssh_version.h|' \
 		${WRKSRC}/cmake/modules/FindLIBSSH.cmake
 
 post-install:
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${MV} ${STAGEDIR}${PREFIX}/share/wireshark/*.html \
+		${STAGEDIR}${STD_DOCDIR}/
+	${MV} ${STAGEDIR}${PREFIX}/share/wireshark/AUTHORS-SHORT \
+		${STAGEDIR}${STD_DOCDIR}/
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/wireshark/extcap/*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/wireshark/plugins/${PLUGIN_VER}/*/*.so
+	${RM} ${STAGEDIR}${PREFIX}/share/wireshark/COPYING
