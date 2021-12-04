@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.9.26
+DEF[PORTVERSION]=	0.9.27
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-yard
@@ -13,7 +13,7 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		yard-0.9.26.gem:main
+DISTFILE[1]=		yard-0.9.27.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v26]=		single
@@ -30,13 +30,17 @@ VOPTS[v30]=		RUBY26=OFF RUBY27=OFF RUBY30=ON
 # => "MIT"
 
 # Requirements according to gem specification:
+#   webrick (~> 1.7.0)
 
 DISTNAME=		yard-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY26].USES_ON=			gem:v26
+[RUBY26].BUILDRUN_DEPENDS_ON=		ruby-webrick:single:v26
 [RUBY27].USES_ON=			gem:v27
+[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-webrick:single:v27
 [RUBY30].USES_ON=			gem:v30
+[RUBY30].BUILDRUN_DEPENDS_ON=		ruby-webrick:single:v30
 
 USES=			cpe
 CPE_VENDOR=		yardoc

@@ -1,19 +1,19 @@
-DEF[PORTVERSION]=	1.0.2
+DEF[PORTVERSION]=	1.7.0
 # ------------------------------------------------------------------------
 
-NAMEBASE=		ruby-ruby-xz
+NAMEBASE=		ruby-webrick
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v26 v27 v30
-SDESC[v26]=		Bindings for liblzma compression library (v26)
-SDESC[v27]=		Bindings for liblzma compression library (v27)
-SDESC[v30]=		Bindings for liblzma compression library (v30)
-HOMEPAGE=		none
+SDESC[v26]=		HTTP server toolkit (v26)
+SDESC[v27]=		HTTP server toolkit (v27)
+SDESC[v30]=		HTTP server toolkit (v30)
+HOMEPAGE=		https://github.com/ruby/webrick
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		ruby-xz-1.0.2.gem:main
+DISTFILE[1]=		webrick-1.7.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v26]=		single
@@ -27,14 +27,12 @@ VOPTS[v27]=		RUBY26=OFF RUBY27=ON RUBY30=OFF
 VOPTS[v30]=		RUBY26=OFF RUBY27=OFF RUBY30=ON
 
 # License listed inside gem specification
-# => "MIT"
+# => "Ruby", "BSD-2-Clause"
 
 # Requirements according to gem specification:
-#   minitar (~> 0.6, development)
-#   minitest (~> 5.14, development)
-#   rake (~> 13.0, development)
+#   rake (>= 0, development)
 
-DISTNAME=		ruby-xz-${PORTVERSION}
+DISTNAME=		webrick-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY26].USES_ON=			gem:v26
