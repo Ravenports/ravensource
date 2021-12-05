@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	4.1.3
-DEF[SOVERSION]=		4.0.1
+DEF[PORTVERSION]=	5.0.0
+DEF[SOVERSION]=		5.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		tesseract
@@ -31,9 +31,7 @@ EXRUN[tools]=		tesseract:library:standard
 
 # See patch freebsd/patch-configure.ac
 C_USES[freebsd]=	fortran:library
-USES=			autoreconf libtool pkgconfig shebangfix fortran:library,tools
-SHEBANG_FILES=		{{WRKSRC}}/src/training/tesstrain.sh
-			{{WRKSRC}}/src/training/language-specific.sh
+USES=			autoreconf libtool pkgconfig fortran:library,tools
 
 MUST_CONFIGURE=		gnu
 CONFIGURE_ENV=		LIBLEPT_HEADERSDIR="{{LOCALBASE}}/include/leptonica"
