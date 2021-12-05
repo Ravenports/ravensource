@@ -1,4 +1,4 @@
---- deps/v8/src/base/platform/platform-posix.cc.orig	2021-11-09 13:29:19 UTC
+--- deps/v8/src/base/platform/platform-posix.cc.orig	2021-11-30 13:56:35 UTC
 +++ deps/v8/src/base/platform/platform-posix.cc
 @@ -840,8 +840,13 @@ Thread::Thread(const Options& options)
      : data_(new PlatformData),
