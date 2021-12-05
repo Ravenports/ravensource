@@ -1,6 +1,6 @@
---- scheduler/cups-driverd.cxx.orig	2021-02-01 21:10:25 UTC
+--- scheduler/cups-driverd.cxx.orig	2021-11-29 14:27:31 UTC
 +++ scheduler/cups-driverd.cxx
-@@ -909,7 +909,7 @@ get_file(const char *name,		/* I - Name
+@@ -913,7 +913,7 @@ get_file(const char *name,		/* I - Name
    }
    else
  
@@ -9,7 +9,7 @@
    if (!strncmp(name, "lsb/usr/", 8))
    {
     /*
-@@ -1089,7 +1089,7 @@ list_ppds(int        request_id,	/* I -
+@@ -1093,7 +1093,7 @@ list_ppds(int        request_id,	/* I -
    load_ppds("/System/Library/Printers/PPDs/Contents/Resources/en.lproj",
              "System/Library/Printers/PPDs/Contents/Resources/en.lproj", 0);
  

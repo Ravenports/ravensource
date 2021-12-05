@@ -1,6 +1,6 @@
---- cups/getifaddrs-internal.h.orig	2021-02-01 21:10:25 UTC
+--- cups/getifaddrs-internal.h.orig	2021-11-29 14:27:31 UTC
 +++ cups/getifaddrs-internal.h
-@@ -29,6 +29,14 @@
+@@ -30,6 +30,14 @@
  #    define CUPS_SOCAST
  #  endif /* _WIN32 */
  
