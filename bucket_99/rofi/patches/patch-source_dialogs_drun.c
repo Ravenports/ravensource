@@ -1,4 +1,4 @@
---- source/dialogs/drun.c.orig	2021-08-29 09:11:37 UTC
+--- source/dialogs/drun.c.orig	2021-10-15 23:19:17 UTC
 +++ source/dialogs/drun.c
 @@ -728,11 +728,20 @@ static void walk_dir(DRunModePrivateData
      if (file->d_name[0] == '.') {

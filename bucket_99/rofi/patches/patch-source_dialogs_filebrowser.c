@@ -1,6 +1,6 @@
---- source/dialogs/filebrowser.c.orig	2021-08-29 09:11:37 UTC
+--- source/dialogs/filebrowser.c.orig	2021-10-15 23:19:17 UTC
 +++ source/dialogs/filebrowser.c
-@@ -200,6 +200,9 @@ static void set_time(FBFile *file) {
+@@ -216,6 +216,9 @@ inline static void fb_resize_array(FileB
  }
  
  static void get_file_browser(Mode *sw) {
@@ -10,7 +10,7 @@
    FileBrowserModePrivateData *pd =
        (FileBrowserModePrivateData *)mode_get_private_data(sw);
    /**
-@@ -228,6 +231,18 @@ static void get_file_browser(Mode *sw) {
+@@ -243,6 +246,18 @@ static void get_file_browser(Mode *sw) {
          continue;
        }
  
@@ -29,15 +29,15 @@
        switch (rd->d_type) {
        case DT_BLK:
        case DT_CHR:
-@@ -238,6 +253,7 @@ static void get_file_browser(Mode *sw) {
+@@ -253,6 +268,7 @@ static void get_file_browser(Mode *sw) {
          break;
        case DT_REG:
        case DT_DIR:
 +#endif
-         pd->array =
-             g_realloc(pd->array, (pd->array_length + 1) * sizeof(FBFile));
+         fb_resize_array(pd);
          // Rofi expects utf-8, so lets convert the filename.
-@@ -246,7 +262,11 @@ static void get_file_browser(Mode *sw) {
+         pd->array[pd->array_length].name =
+@@ -263,7 +279,11 @@ static void get_file_browser(Mode *sw) {
          pd->array[pd->array_length].path =
              g_build_filename(cdir, rd->d_name, NULL);
          pd->array[pd->array_length].type =
@@ -49,7 +49,7 @@
          pd->array[pd->array_length].icon_fetch_uid = 0;
          pd->array[pd->array_length].link = FALSE;
  
-@@ -256,7 +276,11 @@ static void get_file_browser(Mode *sw) {
+@@ -273,7 +293,11 @@ static void get_file_browser(Mode *sw) {
  
          pd->array_length++;
          break;
@@ -58,6 +58,6 @@
 +#else
        case DT_LNK:
 +#endif
-         pd->array =
-             g_realloc(pd->array, (pd->array_length + 1) * sizeof(FBFile));
+         fb_resize_array(pd);
          // Rofi expects utf-8, so lets convert the filename.
+         pd->array[pd->array_length].name =

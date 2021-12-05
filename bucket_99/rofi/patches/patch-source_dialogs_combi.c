@@ -1,4 +1,4 @@
---- source/dialogs/combi.c.orig	2021-08-29 09:11:37 UTC
+--- source/dialogs/combi.c.orig	2021-10-28 22:39:30 UTC
 +++ source/dialogs/combi.c
 @@ -39,6 +39,15 @@
  #include <pango/pango.h>

@@ -1,4 +1,4 @@
---- source/dialogs/run.c.orig	2021-08-29 09:11:37 UTC
+--- source/dialogs/run.c.orig	2021-10-15 23:19:17 UTC
 +++ source/dialogs/run.c
 @@ -45,6 +45,9 @@
  #include <strings.h>
