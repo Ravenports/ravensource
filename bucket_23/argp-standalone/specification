@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.3
+DEF[PORTVERSION]=	1.4.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		argp-standalone
@@ -10,8 +10,8 @@ HOMEPAGE=		none
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://www.lysator.liu.se/~nisse/misc/
-DISTFILE[1]=		argp-standalone-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/ericonr:argp-standalone:${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
@@ -20,10 +20,17 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		devel/argp-standalone
 
-BROKEN[linux]=		incorporated into glibc
+# incorporated into glibc
+NOT_FOR_OPSYS=		linux
+
+LICENSE=		LGPL21+:single
+LICENSE_FILE=		LGPL21+:stock
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/argp.h
+LICENSE_AWK=		TERMS:"_ARGP_H"
+LICENSE_SCHEME=		solo
 
 USES=			autoreconf libtool
-CFLAGS=			-std=gnu89
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
 
