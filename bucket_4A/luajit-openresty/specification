@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	2.1-20210510
+DEF[TAG]=		v${PORTVERSION}
+DEF[SOVERSION]=		2.1.0
+DEF[LUAJIT_VERSION]=	2.1.0-beta3
+DEF[LIBNAME_VERSION]=	5.1
+DEF[LUAJIT_API]=	2.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		luajit-openresty
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		standard
+SDESC[standard]=	Just-in-time compiler for Lua, OpenResty branch
+HOMEPAGE=		https://github.com/openresty/luajit2
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/openresty:luajit2:${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		lang/luajit-openresty
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYRIGHT
+LICENSE_SCHEME=		solo
+
+USES=			cpe gmake cclibs:single
+MAKE_ARGS=		CC={{CC}} Q=
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		VERSION=${LUAJIT_VERSION}
+			LIBVER=${LIBNAME_VERSION}
+			API=${LUAJIT_API}
+
+VAR_OPSYS[dragonfly]=	MAKE_ARGS=XCFLAGS=-DLJ_TARGET_HAS_GETENTROPY=0
+
+post-install:
+	${LN} -sf luajit-${LUAJIT_VERSION} ${STAGEDIR}${PREFIX}/bin/luajit
+	${INSTALL_MAN} ${WRKSRC}/etc/luajit.1 ${STAGEDIR}${MAN1PREFIX}/man/man1
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/luajit
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libluajit-*.so
