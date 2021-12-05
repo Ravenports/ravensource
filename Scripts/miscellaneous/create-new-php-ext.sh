@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# This script copies php74 extensions to phpXY extensions where
+# This script copies php80 extensions to phpXY extensions where
 # argument 1 is "X" and argument 2 is "Y".
 #
 # The script invokes "ravenadm dev distinfo" then "ravenadm dev buildsheet"
@@ -33,7 +33,7 @@ if [ ! -f ${LISTFILE} ]; then
 fi
 
 case "${1}" in
-	7|8) ;;	# valid php major version
+	8|9) ;;	# valid php major version
 	*)
 	echo "The '${1}' setting is not a valid PHP major version"
 	return 1
@@ -53,7 +53,7 @@ get_bucket() {
 }
 
 while read extension; do
-	oldport=php74-${extension}
+	oldport=php80-${extension}
 	newport=php${1}${2}-${extension}
 	oldbucket=$(get_bucket ${oldport})
 	newbucket=$(get_bucket ${newport})
@@ -67,8 +67,8 @@ while read extension; do
 			mkdir -p ${RAVENSRC}/${bucketdir}
 		fi
 		cp -a ${RAVENSRC}/${oldbucket} ${RAVENSRC}/${newbucket}
-		sed -i '' -e "s|PHP_7.4_|PHP_${1}.${2}_|" ${RAVENSRC}/${newbucket}/specification
-		sed -i '' -e "s|7\.4|${1}.${2}|g" ${RAVENSRC}/${newbucket}/descriptions/*
+		sed -i '' -e "s|PHP_8.0_|PHP_${1}.${2}_|" ${RAVENSRC}/${newbucket}/specification
+		sed -i '' -e "s|8\.0|${1}.${2}|g" ${RAVENSRC}/${newbucket}/descriptions/*
 	fi
 	(cd ${RAVENSRC}/${newbucket} && \
 		/raven/bin/ravenadm dev distinfo &&
