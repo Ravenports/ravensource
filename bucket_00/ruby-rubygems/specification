@@ -1,7 +1,7 @@
 # manually maintained
-DEF[PORTVERSION]=	3.2.29
+DEF[PORTVERSION]=	3.2.31
 DEF[GEMS_BASE_DIR]=	lib/ruby/gems
-DEF[BUNDLERVER]=	2.2.29
+DEF[BUNDLERVER]=	2.2.31
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ruby-rubygems
@@ -67,7 +67,4 @@ do-install:
 	# relocate manpages
 	${MV} ${STAGEDIR}${PREFIX}/share/man \
 		${STAGEDIR}${PREFIX}/share/rubygems/${RUBY_VER}
-	# re-do destdir failure (I can't figure ruby out to fix installer)
-	${MV} ${STAGEDIR}${STAGEDIR}${PREFIX}/${GEMS_BASE_DIR}/${RUBY_VER}/specifications/gems \
-		${STAGEDIR}${PREFIX}/${GEMS_BASE_DIR}/${RUBY_VER}/specifications/
-	${FIND} ${STAGEDIR} -type d -empty -delete
+	${FIND} ${STAGEDIR}${PREFIX}/share/rubygems -type d -empty -delete
