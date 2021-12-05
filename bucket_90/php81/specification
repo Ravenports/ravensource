@@ -106,7 +106,7 @@ post-build:
 	${ECHO_CMD} "PHP_VER=${SUFFIX}" > ${WRKDIR}/php.conf
 	${ECHO_CMD} "PHP_VERSION=${PORTVERSION}" >> ${WRKDIR}/php.conf
 	${ECHO_CMD} "PHP_SAPI=${PHP_SAPI}" >> ${WRKDIR}/php.conf
-	${ECHO_CMD} "PHP_EXT_INC=hash pcre spl" >> ${WRKDIR}/php.conf
+	${ECHO_CMD} "PHP_EXT_INC=hash json pcre spl" >> ${WRKDIR}/php.conf
 	${SH} ${WRKSRC}/scripts/php-config --extension-dir | \
 		${SED} -ne 's,^${PREFIX}/lib/php${SUFFIX}/,PHP_EXT_DIR=,p'\
 		>> ${WRKDIR}/php.conf
