@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.1.10
+DEF[PORTVERSION]=	2.1.11
 DEF[BOOTVSN]=		1.2.7
 # ----------------------------------------------------------------------------
 
@@ -55,9 +55,7 @@ BUILDRUN_DEPENDS=	gmp:shared:standard
 			mpfr:shared:standard
 
 USES=			gmake makeinfo zlib
-
 SUB_FILES=		sbclrc
-
 CMAKE_ARGS=		--prefix="{{PREFIX}}"
 			--xc-host="{{WRKDIR}}/bootstrap/src/runtime/sbcl --core {{WRKDIR}}/bootstrap/output/sbcl.core --noinform --disable-debugger --no-sysinit --no-userinit"
 			--without-sb-thread
@@ -100,8 +98,8 @@ post-extract:
 		${WRKSRC}/COPYING > ${WRKDIR}/LICENSE_BSD
 
 post-patch:
-	# don't install files with "core" suffix, use "_core" instead
-	${GREP} -Frl '.core' ${WRKSRC} | ${XARGS} ${REINPLACE_CMD} -e 's|\.core|_core|g'
+	# Rename installed file sbcl.core as sbcl_core
+	${GREP} -Frl 'sbcl.core' ${WRKSRC} | ${XARGS} ${REINPLACE_CMD} -e 's|sbcl\.core|sbcl_core|g'
 	# fix paths
 	${REINPLACE_CMD} -e 's|/etc|${PREFIX}/etc|' \
 		${WRKSRC}/src/code/toplevel.lisp \
