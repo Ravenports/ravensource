@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.5.1
+DEF[PORTVERSION]=	0.6.0
 DEF[SPEC_LUA]=		5.2
 DEF[LUA_VARIANT]=	lua${SPEC_LUA:S/.//}
 # ----------------------------------------------------------------------------
@@ -35,17 +35,17 @@ BUILDRUN_DEPENDS=	msgpack:single:standard
 			libuv:single:standard
 			libluv:single:standard
 			tree-sitter:single:standard
+			luajit-openresty:single:standard
 BUILD_DEPENDS=		gperf:primary:standard
 			lua-lpeg:single:${LUA_VARIANT}
 			lua-bitop:single:${LUA_VARIANT}
 			lua-mpack:single:${LUA_VARIANT}
 
-USES=			cmake gmake libtool pkgconfig lua:${SPEC_LUA}
+USES=			cmake gmake libtool pkgconfig lua:${SPEC_LUA},build
 			gettext-tools gettext-runtime desktop-utils:primary
 CMAKE_ARGS=		-DCMAKE_SKIP_BUILD_RPATH:BOOL=YES
 			-DDEPS_PREFIX:PATH="{{LOCALBASE}}"
 			-DLUA_PRG:FILEPATH="{{LOCALBASE}}/bin/{{LUA_CMD}}"
-			-DPREFER_LUA:BOOL=ON
 			-DENABLE_JEMALLOC:BOOL=NO
 INSTALL_REQ_TOOLCHAIN=	yes
 

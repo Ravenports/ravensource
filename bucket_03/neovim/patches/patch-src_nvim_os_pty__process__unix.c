@@ -1,6 +1,6 @@
---- src/nvim/os/pty_process_unix.c.orig	2021-09-26 22:15:30 UTC
+--- src/nvim/os/pty_process_unix.c.orig	2021-11-30 17:20:42 UTC
 +++ src/nvim/os/pty_process_unix.c
-@@ -16,6 +16,78 @@
+@@ -15,6 +15,78 @@
  # include <libutil.h>
  #elif defined(__OpenBSD__) || defined(__NetBSD__) || defined(__APPLE__)
  # include <util.h>

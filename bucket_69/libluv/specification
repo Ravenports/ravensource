@@ -6,6 +6,7 @@ DEF[SOVERSION]=		1.42.0
 
 NAMEBASE=		libluv
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		lang
 VARIANTS=		standard
 SDESC[standard]=	Bare libuv bindings for lua
@@ -32,12 +33,13 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/luv.h
 LICENSE_SCHEME=		solo
 
 BUILDRUN_DEPENDS=	libuv:single:standard
+			luajit-openresty:single:standard
 
-USES=			cmake lua:build,5.2
+USES=			cmake
 CMAKE_ARGS=		-DWITH_SHARED_LIBUV:BOOL=ON
 			-DBUILD_MODULE:BOOL=OFF
 			-DBUILD_SHARED_LIBS:BOOL=ON
-			-DWITH_LUA_ENGINE=Lua
+			-DWITH_LUA_ENGINE=LuaJIT
 			-DLUA_BUILD_TYPE=System
 			-DLUA_COMPAT53_DIR=deps/lua-compat-5.3
 SOVERSION=		${SOVERSION}
