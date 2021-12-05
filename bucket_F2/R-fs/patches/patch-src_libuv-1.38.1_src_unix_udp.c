@@ -1,4 +1,4 @@
---- src/libuv-1.38.1/src/unix/udp.c.orig	2020-07-31 20:15:23 UTC
+--- src/libuv-1.38.1/src/unix/udp.c.orig	2021-11-29 22:54:06 UTC
 +++ src/libuv-1.38.1/src/unix/udp.c
 @@ -854,7 +854,7 @@ static int uv__udp_set_membership6(uv_ud
  }

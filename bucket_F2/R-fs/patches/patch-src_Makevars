@@ -1,4 +1,4 @@
---- src/Makevars.orig	2020-07-29 15:12:05 UTC
+--- src/Makevars.orig	2021-11-29 22:54:06 UTC
 +++ src/Makevars
 @@ -10,6 +10,7 @@ OBJECTS = $(SOURCES:.cc=.o)
  ifeq ($(UNAME), SunOS)
@@ -15,7 +15,7 @@
 +ifeq ($(UNAME), NetBSD)
 +PKG_LIBS += -lkvm
 +endif
- ifeq ($(UNAME), Linux)
+ ifneq ($(filter $(UNAME), Linux AIX OS400),)
  OBJECTS +=  bsd/setmode.o bsd/strmode.o bsd/reallocarray.o
  endif
 @@ -29,7 +33,7 @@ $(SHLIB): $(LIBUV)/.libs/libuv.a

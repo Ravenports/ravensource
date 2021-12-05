@@ -1,4 +1,4 @@
---- src/libuv-1.38.1/src/unix/fs.c.orig	2020-07-03 16:51:27 UTC
+--- src/libuv-1.38.1/src/unix/fs.c.orig	2021-11-29 22:54:06 UTC
 +++ src/libuv-1.38.1/src/unix/fs.c
 @@ -972,7 +972,6 @@ static ssize_t uv__fs_sendfile(uv_fs_t*
  static ssize_t uv__fs_utime(uv_fs_t* req) {
