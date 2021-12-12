@@ -2,7 +2,7 @@ $NetBSD: patch-src_bin_imlib2__view.c,v 1.1 2020/02/20 15:14:57 nia Exp $
 
 Include sys/time.h for timeval.
 
---- src/bin/imlib2_view.c.orig	2021-09-16 10:32:41 UTC
+--- src/bin/imlib2_view.c.orig	2021-12-06 06:12:47 UTC
 +++ src/bin/imlib2_view.c
 @@ -2,6 +2,7 @@
  
