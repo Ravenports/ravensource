@@ -1,4 +1,4 @@
---- include/fluent-bit/flb_endian.h.orig	2021-11-18 22:25:35 UTC
+--- include/fluent-bit/flb_endian.h.orig	2021-12-10 21:37:02 UTC
 +++ include/fluent-bit/flb_endian.h
 @@ -40,7 +40,7 @@
   */
