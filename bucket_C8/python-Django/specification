@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.2.9
+DEF[PORTVERSION]=	4.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-Django
@@ -11,7 +11,7 @@ HOMEPAGE=		https://www.djangoproject.com/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/a8/ca/e88eb097959c48cd313dfc4bc394699a48fe5c158ed3a64c13e4fa46c1fd
+SITES[main]=		PYPIWHL/80/70/52fce3520b7a1421685828b04f76d5a26aabc7603fdb7af26c4ca7bb0512
 DISTFILE[1]=		Django-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py39]=		single
@@ -29,20 +29,21 @@ GENERATED=		yes
 DISTNAME=		Django-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# asgiref (<4,>=3.3.2)
-# pytz
+# asgiref (<4,>=3.4.1)
 # sqlparse (>=0.2.2)
+# backports.zoneinfo ; python_version < "3.9"
+# tzdata ; sys_platform == "win32"
 # argon2-cffi (>=19.1.0) ; extra == 'argon2'
 # bcrypt ; extra == 'bcrypt'
 
 [PY39].USES_ON=				python:py39,wheel
 [PY39].RUN_DEPENDS_ON=			python-asgiref:single:py39
-					python-pytz:single:py39
 					python-sqlparse:single:py39
+					python-tzdata:single:py39
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-asgiref:single:py310
-					python-pytz:single:py310
 					python-sqlparse:single:py310
+					python-tzdata:single:py310
 
 USES=			cpe shebangfix
 CPE_VENDOR=		djangoproject
