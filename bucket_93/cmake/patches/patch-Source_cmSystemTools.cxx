@@ -1,4 +1,4 @@
---- Source/cmSystemTools.cxx.orig	2021-11-18 15:51:22 UTC
+--- Source/cmSystemTools.cxx.orig	2021-12-07 15:44:21 UTC
 +++ Source/cmSystemTools.cxx
 @@ -6,7 +6,8 @@
  // NOLINTNEXTLINE(bugprone-reserved-identifier)
