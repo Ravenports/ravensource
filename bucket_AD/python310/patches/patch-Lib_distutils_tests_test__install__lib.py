@@ -11,7 +11,7 @@ record file nonetheless.
  Lib/distutils/tests/test_install_lib.py |  8 ++++++--
  2 files changed, 19 insertions(+), 6 deletions(-)
 
---- Lib/distutils/tests/test_install_lib.py.orig	2021-10-04 17:40:46 UTC
+--- Lib/distutils/tests/test_install_lib.py.orig	2021-12-06 18:23:39 UTC
 +++ Lib/distutils/tests/test_install_lib.py
 @@ -64,11 +64,15 @@ class InstallLibTestCase(support.Tempdir
          cmd.distribution.ext_modules = [Extension('foo', ['xxx'])]
