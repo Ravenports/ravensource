@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	0.7.2
-DEF[SOVERSION]=		0.700.2
+DEF[PORTVERSION]=	0.8.0
+DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libraqm
@@ -29,10 +29,8 @@ BUILDRUN_DEPENDS=	freetype:primary:standard
 			harfbuzz:primary:standard
 			fribidi:single:standard
 
-USES=			autoreconf gmake libtool pkgconfig gtk-doc
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-gtk-doc=yes
-INSTALL_TARGET=		install-strip
+USES=			meson pkgconfig gtk-doc
+MESON_ARGS=		-Ddocs=true
 SOVERSION=		${SOVERSION}
 DISTNAME=		raqm-${PORTVERSION}
 GTKDOC_OUTPUT_BASEDIR=	raqm
