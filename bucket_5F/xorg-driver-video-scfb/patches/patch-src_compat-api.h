@@ -1,6 +1,9 @@
---- /dev/null	2020-02-21 18:03:34 UTC
+--- src/compat-api.h.orig	2021-12-15 22:31:33 UTC
 +++ src/compat-api.h
-@@ -0,0 +1,99 @@
+@@ -97,3 +97,102 @@
+ #endif
+ 
+ #endif
 +/*
 + * Copyright 2012 Red Hat, Inc.
 + *
