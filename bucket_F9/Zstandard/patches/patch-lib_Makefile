@@ -1,26 +1,25 @@
---- lib/Makefile.orig	2021-03-02 22:20:57 UTC
+--- lib/Makefile.orig	2021-12-20 22:49:18 UTC
 +++ lib/Makefile
-@@ -168,6 +168,7 @@ CPPFLAGS  += -DZSTD_LEGACY_SUPPORT=$(ZST
- 
+@@ -48,6 +48,7 @@ endif
  ZSTD_LOCAL_SRC := $(notdir $(ZSTD_FILES))
- ZSTD_LOCAL_OBJ := $(ZSTD_LOCAL_SRC:.c=.o)
+ ZSTD_LOCAL_OBJ0 := $(ZSTD_LOCAL_SRC:.c=.o)
+ ZSTD_LOCAL_OBJ := $(ZSTD_LOCAL_OBJ0:.S=.o)
 +ZSTD_LOCAL_SOBJ := $(ZSTD_LOCAL_SRC:.c=.So)
  
- ZSTD_SUBDIR := common compress decompress dictBuilder legacy deprecated
- vpath %.c $(ZSTD_SUBDIR)
-@@ -203,7 +204,11 @@ ifeq ($(UNAME), Darwin)
+ VERSION := $(ZSTD_VERSION)
+ 
+@@ -75,8 +76,8 @@ ifeq ($(UNAME), Darwin)
    SHARED_EXT_VER = $(LIBVER).$(SHARED_EXT)
    SONAME_FLAGS = -install_name $(LIBDIR)/libzstd.$(SHARED_EXT_MAJOR) -compatibility_version $(LIBVER_MAJOR) -current_version $(LIBVER)
  else
-+ ifeq ($(UNAME), SunOS)
-+  SONAME_FLAGS = -Wl,-h,libzstd.$(SHARED_EXT).$(LIBVER_MAJOR)
-+ else
-   SONAME_FLAGS = -Wl,-soname=libzstd.$(SHARED_EXT).$(LIBVER_MAJOR)
-+ endif
-   SHARED_EXT = so
-   SHARED_EXT_MAJOR = $(SHARED_EXT).$(LIBVER_MAJOR)
-   SHARED_EXT_VER = $(SHARED_EXT).$(LIBVER)
-@@ -246,10 +251,17 @@ libzstd.a: $(ZSTD_STATLIB)
+-  ifeq ($(UNAME), AIX)
+-    SONAME_FLAGS =
++  ifeq ($(UNAME), SunOS)
++    SONAME_FLAGS = -Wl,-h,libzstd.$(SHARED_EXT).$(LIBVER_MAJOR)
+   else
+     SONAME_FLAGS = -Wl,-soname=libzstd.$(SHARED_EXT).$(LIBVER_MAJOR)
+   endif
+@@ -126,10 +127,17 @@ libzstd.a: $(ZSTD_STATLIB)
  
  endif
  
@@ -39,7 +38,7 @@
  	@echo compiling dynamic library $(LIBVER)
  	$(CC) $(FLAGS) -DZSTD_DLL_EXPORT=1 -Wl,--out-implib,dll/libzstd.dll.a -shared $^ -o $@
  
-@@ -291,7 +303,7 @@ endif  # if windows
+@@ -175,7 +183,7 @@ endif  # if windows
  libzstd : $(LIBZSTD)
  
  .PHONY: lib
@@ -48,11 +47,11 @@
  
  
  # note : do not define lib-mt or lib-release as .PHONY
-@@ -421,6 +433,7 @@ install-static:
+@@ -323,6 +331,7 @@ install-static:
  	[ -e $(DESTDIR)$(LIBDIR) ] || $(INSTALL) -d -m 755 $(DESTDIR)$(LIBDIR)/
  	@echo Installing static library
  	$(INSTALL_DATA) libzstd.a $(DESTDIR)$(LIBDIR)
 +	$(INSTALL_DATA) libzstd_pic.a $(DESTDIR)$(LIBDIR)
  
+ .PHONY: install-shared
  install-shared:
- 	# only generate libzstd.so if it's not already present
