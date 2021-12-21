@@ -1,4 +1,4 @@
---- gegl/gegl-config.c.orig	2021-03-27 19:13:57 UTC
+--- gegl/gegl-config.c.orig	2021-12-18 23:49:45 UTC
 +++ gegl/gegl-config.c
 @@ -285,6 +285,21 @@ gegl_config_class_init (GeglConfigClass
                               ) * page_size;
