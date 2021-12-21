@@ -1,4 +1,4 @@
---- pr/src/pthreads/ptsynch.c.orig	2021-05-26 16:06:44 UTC
+--- pr/src/pthreads/ptsynch.c.orig	2021-12-17 15:29:39 UTC
 +++ pr/src/pthreads/ptsynch.c
 @@ -25,7 +25,7 @@ static pthread_condattr_t _pt_cvar_attr;
  extern PTDebug pt_debug;  /* this is shared between several modules */
