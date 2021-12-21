@@ -1,4 +1,4 @@
---- util/perl/OpenSSL/config.pm.orig	2021-09-07 11:46:32 UTC
+--- util/perl/OpenSSL/config.pm.orig	2021-12-14 16:16:25 UTC
 +++ util/perl/OpenSSL/config.pm
 @@ -716,20 +716,7 @@ EOF
        [ 'sun4.*-.*-solaris2',     { target => "solaris-sparcv7" } ],
