@@ -68,8 +68,6 @@ The file must be opened in binary mode (with the `"rb"` flag).
 Binary mode will enforce decoding the file as UTF-8 with universal newlines
 disabled,
 both of which are required to correctly parse TOML.
-Support for text file objects is deprecated for removal in the next major
-release.
 
 ### Handle invalid TOML<a name="handle-invalid-toml">
 
@@ -98,3 +96,5 @@ parse_float=Decimal)
 assert toml_dict["precision-matters"] == Decimal("0.982492")
 ```
 
+Note that `decimal.Decimal` can be replaced with another callable that
+converts a TOML float from string to a Python type.
