@@ -2,7 +2,7 @@ $NetBSD: patch-boost_process_detail_posix_handles.hpp,v 1.2 2020/09/10 07:54:52 
 
 dirfd(3) on NetBSD is implemented as a macro and cannot use namespace prefix.
 
---- boost/process/detail/posix/handles.hpp.orig	2021-08-05 09:42:29 UTC
+--- boost/process/detail/posix/handles.hpp.orig	2021-12-02 06:47:36 UTC
 +++ boost/process/detail/posix/handles.hpp
 @@ -31,7 +31,11 @@ inline std::vector<native_handle_type> g
      else
