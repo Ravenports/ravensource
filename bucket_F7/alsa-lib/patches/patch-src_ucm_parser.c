@@ -1,6 +1,6 @@
---- src/ucm/parser.c.orig	2021-06-14 10:28:44 UTC
+--- src/ucm/parser.c.orig	2021-12-09 13:17:59 UTC
 +++ src/ucm/parser.c
-@@ -2478,7 +2478,7 @@ int uc_mgr_scan_master_configs(const cha
+@@ -2479,7 +2479,7 @@ int uc_mgr_scan_master_configs(const cha
  		snprintf(filename, sizeof(filename), "%s/ucm2/conf.virt.d",
  			 snd_config_topdir());
  

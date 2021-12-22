@@ -1,4 +1,4 @@
---- include/pcm.h.orig	2021-06-14 10:28:44 UTC
+--- include/pcm.h.orig	2021-12-09 13:17:59 UTC
 +++ include/pcm.h
 @@ -29,6 +29,13 @@
  #ifndef __ALSA_PCM_H
