@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.8.1
+DEF[PORTVERSION]=	0.9.0
 DEF[GCC_VERSION]=	EXTRACT_INFO(GCCBASE_VERSION)
 DEF[GCC_LIB]=		toolchain/ravensys-gcc/{{ASLIB}}
 DEF[GCC_TARGET_LIB]=	${GCC_LIB}/gcc/{{CONFIGURE_TARGET}}/${GCC_VERSION}
@@ -36,8 +36,6 @@ RUN_DEPENDS=		libcxx:primary:standard
 
 USES=			cmake clang
 INSTALL_REQ_TOOLCHAIN=	yes
-
-BROKEN[all]=		Requires exactly llvm 12 but that is no longer available
 
 post-patch-linux:
 	${REINPLACE_CMD} -e 's|EXE_LDFLAGS " "|EXE_LDFLAGS "-Wl,-rpath,${LOCALBASE}/lib "|'\
