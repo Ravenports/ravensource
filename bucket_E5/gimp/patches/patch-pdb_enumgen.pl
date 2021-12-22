@@ -1,5 +1,5 @@
 Should be ok.
---- pdb/enumgen.pl.orig	2021-09-14 15:53:09 UTC
+--- pdb/enumgen.pl.orig	2021-12-19 20:48:34 UTC
 +++ pdb/enumgen.pl
 @@ -211,7 +211,7 @@ while (<>) {
         \*/@@gx;
