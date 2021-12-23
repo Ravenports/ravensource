@@ -87,8 +87,13 @@ QMAKE_ARGS=		--enable-application=browser
 			--with-system-nss
 			--with-system-png="{{LOCALBASE}}"
 			--with-system-zlib
+			--without-wasm-sandboxed-libraries
 CONFIGURE_ENV=		PYTHON3={{PYTHON_CMD}}
 			SETUPTOOLS_USE_DISTUTILS=stdlib
+# work around bindgen not finding ICU, e.g.
+# dist/include/mozilla/intl/ICU4CGlue.h:8:10:
+# fatal error: 'unicode/uenum.h' file not found, err: true
+			BINDGEN_CFLAGS="-I{{LOCALBASE}}/include"
 MAKE_ENV=		PYTHON3={{PYTHON_CMD}}
 			CXXSTDLIB="stdc++"
 
