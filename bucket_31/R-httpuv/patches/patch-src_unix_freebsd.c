@@ -1,4 +1,4 @@
---- src/libuv/src/unix/freebsd.c.orig	2020-05-15 16:23:13 UTC
+--- src/libuv/src/unix/freebsd.c.orig	2020-06-05 16:40:07 UTC
 +++ src/libuv/src/unix/freebsd.c
 @@ -58,7 +58,8 @@ void uv__platform_loop_delete(uv_loop_t*
  
