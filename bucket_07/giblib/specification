@@ -25,9 +25,12 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/giblib
 
+BUILDRUN_DEPENDS=	imlib2:single:standard
+
 USES=			libtool pkgconfig fbsd10fix
 MUST_CONFIGURE=		gnu
-BUILDRUN_DEPENDS=	imlib2:single:standard
+CONFIGURE_ARGS=		--with-imlib2-prefix={{LOCALBASE}}/bin
+			--with-imlib2-exec-prefix={{LOCALBASE}}/bin
 SOVERSION=		${SOVERSION}
 
 post-install:
