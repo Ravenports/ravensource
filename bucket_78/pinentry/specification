@@ -83,6 +83,7 @@ CONFIGURE_ARGS=		--enable-libsecret
 [NCURSES].CONFIGURE_ENABLE_BOTH=	pinentry-curses
 [NCURSES].CONFIGURE_ARGS_OFF=		--disable-fallback-curses
 [NCURSES].USES_ON=			ncurses
+[NCURSES].CFLAGS_ON=			-DWITH_UTF8_CONVERSION
 
 post-install-NOTSTD-ON:
 	${RM} ${STAGEDIR}${PREFIX}/bin/pinentry
