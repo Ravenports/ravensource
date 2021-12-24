@@ -5,7 +5,7 @@
      }
  #endif
 -#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__DragonFly__) || defined(__OpenBSD__)
-+#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__OpenBSD__)
++#if defined(__OpenBSD__)
      /* These OSes report battery time in minutes. */
      hide_seconds = true;
  #endif

@@ -5,7 +5,7 @@
  
  #endif
 -#if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
-+#if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
++#if defined(__NetBSD__) || defined(__OpenBSD__)
      char *mixerpath;
      char defaultmixer[] = "/dev/mixer";
      int mixfd, vol, devmask = 0;

@@ -5,7 +5,7 @@
   *
   */
 -#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__APPLE__)
-+#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__OpenBSD__) || defined(__APPLE__)
++#if defined(__OpenBSD__) || defined(__APPLE__)
  static bool below_threshold(struct statfs buf, const char *prefix_type, const char *threshold_type, const double low_threshold) {
  #else
  static bool below_threshold(struct statvfs buf, const char *prefix_type, const char *threshold_type, const double low_threshold) {
@@ -14,7 +14,7 @@
      INSTANCE(ctx->path);
  
 -#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__APPLE__)
-+#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__OpenBSD__) || defined(__APPLE__)
++#if defined(__OpenBSD__) || defined(__APPLE__)
      struct statfs buf;
  
 -    if (statfs(path, &buf) == -1)
@@ -23,7 +23,7 @@
  
      mounted = true;
 -#elif defined(__NetBSD__)
-+#elif defined(__NetBSD__) || defined(__DragonFly__)
++#elif defined(__NetBSD__) || defined(__DragonFly__) || defined(__FreeBSD__)
      struct statvfs buf;
  
 -    if (statvfs(path, &buf) == -1)
