@@ -334,7 +334,7 @@ install-platform: install-common
 		${DESTDIR}${BASE}/usr/share/master.passwd
 	${MKDIR} ${DESTDIR}${BASE}/var/run
 	# handle ldconfig hints
-	${INSTALL_PROGRAM} ../${OPSYS:tl}/sbin/ldconfig \
+	${BSD_INSTALL_PROGRAM} ../${OPSYS:tl}/sbin/ldconfig \
 		${DESTDIR}${BASE}/usr/bin/ldconfig
 	../${OPSYS:tl}/usr/sbin/chroot ${DESTDIR}${BASE} /usr/bin/ldconfig /usr/lib
 	rm ${DESTDIR}${BASE}/usr/bin/ldconfig
