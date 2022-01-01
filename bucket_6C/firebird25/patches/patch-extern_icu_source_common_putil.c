@@ -1,4 +1,4 @@
---- extern/icu/source/common/putil.c.orig	2018-01-05 09:38:19 UTC
+--- extern/icu/source/common/putil.c.orig	2019-06-17 15:15:52 UTC
 +++ extern/icu/source/common/putil.c
 @@ -43,9 +43,8 @@
  #ifndef PTX
