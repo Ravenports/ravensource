@@ -1,7 +1,7 @@
-DEF[X264_BUILD]=	161
-DEF[X264_REV]=		3020
-DEF[X264_COMMIT]=	d198931a63049db1f2c92d96c34904c69fde8117
-DEF[X264_GITVER]=	d198931
+DEF[X264_BUILD]=	163
+DEF[X264_REV]=		3060
+DEF[X264_COMMIT]=	5db6aa6cab1b146e07b60cc1736a01f21da01154
+DEF[X264_GITVER]=	5db6aa6
 DEF[PORTVERSION]=	0.${X264_BUILD}.${X264_REV}
 # NOTES
 # We use tarballs from the *stable* branch of the upstream git repository.
@@ -41,8 +41,7 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		multimedia/x264
 
 BUILD_DEPENDS=		bash:primary:standard
-BUILDRUN_DEPENDS=	libav:single:standard
-			l-smash:single:standard
+BUILDRUN_DEPENDS=	l-smash:single:standard
 
 USES=			pkgconfig gmake shebangfix
 SHEBANG_FILES=		configure
@@ -64,6 +63,8 @@ CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
 			--disable-gpac
 			--disable-ffms
 			--disable-avs
+# lavf requires ffmpeg causing circular dependency failure
+			--disable-lavf
 
 [H10P].DESCRIPTION=			Enable High 10 Profile 10-bit encoding
 [H10P].BUILD_DEPENDS_OFF=		opencl-headers:single:standard
