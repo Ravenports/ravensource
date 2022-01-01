@@ -59,6 +59,7 @@ while read ravenport version fpc_port; do
 	rtmpdump) ;;		# ditto
 	libzen) ;;		# ditto
 	compiler-rt) ;;		# ditto
+	mariadb102) ;;		# ditto
 	ImageMagick) ;;		# W.X.Y.Z rather than W.X.Y-Z
 	irssi) ;;		# fake version
 	libcdio-paranoia) ;;	# Symbols in version fake as older
@@ -110,6 +111,8 @@ while read ravenport version fpc_port; do
 	simple_components) ;;	# removed
 	py27-pygobject) ;;	# removed
 	py27-setuptools) ;;	# removed
+	aws) ;;			# removed
+	db6) ;;			# removed
 
 	mdds) ;;		# latest for libreoffice
 
