@@ -1,10 +1,8 @@
-DEF[PORTVERSION]=	0.4.0.20190527
-DEF[TAG]=		9f6204e
+DEF[PORTVERSION]=	13.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libclc
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Required library functions for OpenCL C language
@@ -12,8 +10,8 @@ HOMEPAGE=		http://libclc.llvm.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/llvm-mirror:libclc:${TAG}
-DISTFILE[1]=		generated:main
+SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${PORTVERSION}/
+DISTFILE[1]=		libclc-${PORTVERSION}.src.tar.xz:main
 
 SPKGS[standard]=	single
 
@@ -28,37 +26,11 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		devel/libclc
 
 BUILD_DEPENDS=		libedit:single:standard
+			spirv-llvm-translator:single:standard
 # #			rocm-device-libs:single:standard
 
-USES=			python:build gmake cmake:insource clang:keepcc
-MAKE_ENV=		MAKE={{GMAKE}}
-			DESTDIR={{STAGEDIR}}
+USES=			python:build cmake clang:keepcc
+MAKE_ENV=		MAKE=make
 # Force ccache to work with clang
 			CCACHE_CPP2=yes
-
-post-patch-sunos:
-	${SED} -i.sunos -e 's/-fno-rtti/-fno-rtti -fno-use-cxa-atexit/' \
-		-e '/lpthread/ s|-Wl,|-Wl,-rpath ${PREFIX}/toolchain/ravensys-gcc/lib/amd64 -Wl,|'\
-		${WRKSRC}/configure.py
-
-post-patch:
-	${REINPLACE_CMD} \
-# #		-e 's|__CLC_INTERNAL|__CLC_INTERNAL
-# --rocm-device-lib-path=${LOCALBASE}/amdgcn/bitcode|'\
-		-e 's|__CLC_INTERNAL|__CLC_INTERNAL -nogpulib|'\
-		${WRKSRC}/build/ninja_syntax.py \
-		${WRKSRC}/configure.py
-	# add ccache support
-	if [ "${BUILD_WITH_CCACHE}" = "yes" ]; then \
-	  ${SED} -i.ccache \
-	  -e "s|llvm_clang =.*|llvm_clang = '/usr/libexec/clang'|"\
-	  -e "s|cxx_compiler = os.*|cxx_compiler = '/usr/libexec/clang++'|"\
-	  ${WRKSRC}/configure.py ;\
-	fi
-
-do-configure:
-	(cd ${WRKSRC} && ${PYTHON_CMD} configure.py ${CONFIGURE_ARGS} \
-		-g make \
-		--pkgconfigdir=${PREFIX}/lib/pkgconfig \
-		--with-llvm-config=${LOCALBASE}/bin/llvm-config \
-		--prefix=${PREFIX})
+DISTNAME=		libclc-${PORTVERSION}.src/
