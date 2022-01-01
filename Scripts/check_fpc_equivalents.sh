@@ -57,6 +57,8 @@ while read ravenport version fpc_port; do
 	apr1|apr-util) ;;	# Different version scheme from FPC
 	aom) ;;                 # ditto
 	rtmpdump) ;;		# ditto
+	libzen) ;;		# ditto
+	compiler-rt) ;;		# ditto
 	ImageMagick) ;;		# W.X.Y.Z rather than W.X.Y-Z
 	irssi) ;;		# fake version
 	libcdio-paranoia) ;;	# Symbols in version fake as older
@@ -80,6 +82,7 @@ while read ravenport version fpc_port; do
 	norm) ;;		# fails to recognize 1.5.8 > 1.5r6
 	double-conversion) ;;	# garbage version, recheck periodically
 	w3m) ;;			# Different version scheme (we use OpenBSD now)
+	webkitgtk) ;;		# older branch
 
 	libexecinfo) ;;		# Different source from FPC
 	doas) ;;		# ditto
@@ -105,10 +108,17 @@ while read ravenport version fpc_port; do
 	sparforte) ;;		# removed
 	aucatctl) ;;		# removed
 	simple_components) ;;	# removed
+	py27-pygobject) ;;	# removed
+	py27-setuptools) ;;	# removed
 
 	mdds) ;;		# latest for libreoffice
 
 	libadalang*) ;;		# Rest are ports that FPC doesn't have yet
+	ada_libfswatch) ;;
+	ada_language_server) ;;
+	ada_spawn) ;;
+	langkit_support) ;;
+	ACATS) ;;
 	libtickit) ;;
 	libmpack) ;;
 	lua-mpack) ;;
@@ -153,6 +163,13 @@ while read ravenport version fpc_port; do
 	opencl-clhpp) ;;
 	rocm-device-libs) ;;
 	php80-json) ;;
+	b3sum) ;;
+	dosfstools) ;;
+	libvss) ;;
+	gdk-pixbuf-xlib) ;;
+	dos2unix) ;;
+	msgpack-cxx) ;;
+	libmd) ;;
 	*) echo "${ravenport} ${version}"
    esac
 done < ${tmpfile}
