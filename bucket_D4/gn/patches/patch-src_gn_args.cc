@@ -1,4 +1,4 @@
---- src/gn/args.cc.orig	2020-08-12 19:30:44 UTC
+--- src/gn/args.cc.orig	2021-12-17 12:22:18 UTC
 +++ src/gn/args.cc
 @@ -308,8 +308,12 @@ void Args::SetSystemVarsLocked(Scope* de
    os = "mac";

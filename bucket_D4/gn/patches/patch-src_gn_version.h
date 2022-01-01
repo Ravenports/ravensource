@@ -1,8 +1,8 @@
---- src/gn/version.h.orig	2020-08-12 19:30:44 UTC
+--- src/gn/version.h.orig	2021-12-17 12:22:18 UTC
 +++ src/gn/version.h
-@@ -8,6 +8,15 @@
- #include <optional>
- #include <string>
+@@ -15,6 +15,15 @@
+ #undef minor
+ #endif
  
 +// Undefine major/minor from sys/types.h
 +#ifdef major

@@ -1,4 +1,4 @@
---- src/util/build_config.h.orig	2020-08-12 19:30:44 UTC
+--- src/util/build_config.h.orig	2021-12-17 12:22:18 UTC
 +++ src/util/build_config.h
 @@ -40,6 +40,8 @@
  #define OS_WIN 1
@@ -9,7 +9,7 @@
  #elif defined(__FreeBSD__)
  #define OS_FREEBSD 1
  #elif defined(__NetBSD__)
-@@ -64,13 +66,14 @@
+@@ -67,13 +69,14 @@
  
  // For access to standard BSD features, use OS_BSD instead of a
  // more specific macro.

@@ -1,19 +1,17 @@
 .git/ is missing in archive, so use version from environment
 
---- build/gen.py.orig	2020-08-12 19:30:44 UTC
+--- build/gen.py.orig	2021-12-17 12:22:18 UTC
 +++ build/gen.py
-@@ -47,6 +47,10 @@ class Platform(object):
+@@ -47,6 +47,8 @@ class Platform(object):
        self._platform = 'fuchsia'
      elif self._platform.startswith('freebsd'):
        self._platform = 'freebsd'
 +    elif self._platform.startswith('dragonfly'):
 +      self._platform = 'freebsd'
-+    elif self._platform.startswith('netbsd'):
-+      self._platform = 'freebsd'
+     elif self._platform.startswith('netbsd'):
+       self._platform = 'netbsd'
      elif self._platform.startswith('openbsd'):
-       self._platform = 'openbsd'
-     elif self._platform.startswith('haiku'):
-@@ -149,25 +153,16 @@ def main(argv):
+@@ -213,25 +215,16 @@ def main(argv):
  
  
  def GenerateLastCommitPosition(host, header):

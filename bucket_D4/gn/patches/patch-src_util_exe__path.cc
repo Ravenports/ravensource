@@ -1,11 +1,11 @@
---- src/util/exe_path.cc.orig	2020-08-12 19:30:44 UTC
+--- src/util/exe_path.cc.orig	2021-12-17 12:22:18 UTC
 +++ src/util/exe_path.cc
 @@ -15,7 +15,7 @@
  #include <windows.h>
  
  #include "base/win/win_util.h"
--#elif defined(OS_FREEBSD)
-+#elif defined(OS_FREEBSD) || defined(OS_DRAGONFLY)
+-#elif defined(OS_FREEBSD) || defined(OS_NETBSD)
++#elif defined(OS_FREEBSD) || defined(OS_NETBSD) || defined(OS_DRAGONFLY)
  #include <limits.h>
  #include <sys/sysctl.h>
  #include <sys/types.h>
@@ -18,21 +18,3 @@
  
  base::FilePath GetExePath() {
    int mib[] = {CTL_KERN, KERN_PROC, KERN_PROC_PATHNAME, -1};
-@@ -69,6 +69,17 @@ base::FilePath GetExePath() {
-   return base::FilePath(buf);
- }
- 
-+#elif defined(OS_NETBSD)
-+
-+base::FilePath GetExePath() {
-+  /*
-+   * Not sure how this is done in NetBSD, just hardcode
-+   * it to installed location.
-+   */
-+  const char *self_path = "%%SELF_PATH%%";
-+  return base::FilePath(self_path);
-+}
-+
- #elif defined(OS_HAIKU)
- 
- base::FilePath GetExePath() {

@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1823
+DEF[PORTVERSION]=	1962
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gn
@@ -45,8 +45,6 @@ C_USES[linux]=		iconv
 pre-configure:
 	${REINPLACE_CMD} -e 's/"python"/"${PYTHON_CMD:T}"/' \
 		${WRKSRC}/src/gn/exec_process_unittest.cc
-	${REINPLACE_CMD} -e 's|%%SELF_PATH%%|${PREFIX}/bin/gn|' \
-		${WRKSRC}/src/util/exe_path.cc
 
 do-install:
 	${INSTALL_PROGRAM} ${INSTALL_WRKSRC}/gn ${STAGEDIR}${PREFIX}/bin
