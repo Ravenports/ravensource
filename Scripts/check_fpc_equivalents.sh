@@ -114,7 +114,8 @@ while read ravenport version fpc_port; do
 	aws) ;;			# removed
 	db6) ;;			# removed
 
-	mdds) ;;		# latest for libreoffice
+	mdds-1.5) ;;		# latest for libreoffice
+	mdds) ;;
 
 	libadalang*) ;;		# Rest are ports that FPC doesn't have yet
 	ada_libfswatch) ;;
