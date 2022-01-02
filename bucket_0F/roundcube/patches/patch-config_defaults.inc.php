@@ -1,4 +1,4 @@
---- config/defaults.inc.php.orig	2021-11-22 21:12:11 UTC
+--- config/defaults.inc.php.orig	2021-12-29 22:29:23 UTC
 +++ config/defaults.inc.php
 @@ -922,8 +922,8 @@ $config['spellcheck_dictionary'] = false
  // You can connect to any other googie-compliant service by setting 'spellcheck_uri' accordingly.
