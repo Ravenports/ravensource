@@ -1,4 +1,4 @@
---- lumina-checkpass/lumina-checkpass.pro.orig	2021-10-02 19:05:49 UTC
+--- lumina-checkpass/lumina-checkpass.pro.orig	2021-12-26 02:33:45 UTC
 +++ lumina-checkpass/lumina-checkpass.pro
 @@ -13,6 +13,5 @@ LIBS     += -lpam
  SOURCES += main.c
