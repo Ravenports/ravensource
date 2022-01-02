@@ -1,6 +1,6 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(GTK4_PORT_VERSION)
 DEF[GTK_VERSION]=	EXTRACT_INFO(GTK4_VERSION)
-DEF[SOVERSION]=		1.400.1
+DEF[SOVERSION]=		1.600.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gtk4
@@ -27,6 +27,7 @@ OPT_ON[all]=		CUPS BROADWAY FFMPEG
 
 BUILD_DEPENDS=		sassc:single:standard
 			git:primary:lite
+			python-docutils:single:python_used
 BUILDRUN_DEPENDS=	libepoxy:single:standard
 			libxkbcommon:single:standard
 			graphene:primary:standard
@@ -81,7 +82,9 @@ VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 [BROADWAY].CONFIGURE_ARGS_OFF=		-Dbroadway-backend=false
 
 post-patch:
-	${REINPLACE_CMD} -e 's|/docbook.sourceforge.net/|/cdn.docbook.org/|'\
+	${REINPLACE_CMD} \
+		-e 's|/docbook.sourceforge.net/|/cdn.docbook.org/|'\
+		-e "s|'rst2man'|'rst2man.py'|" \
 		${WRKSRC}/docs/reference/gtk/meson.build
 
 post-install:
