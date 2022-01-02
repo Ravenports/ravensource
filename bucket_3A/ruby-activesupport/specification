@@ -4,10 +4,10 @@ DEF[PORTVERSION]=	7.0.0
 NAMEBASE=		ruby-activesupport
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
-VARIANTS=		v26 v27 v30
-SDESC[v26]=		Rails support for multibyte strings + (v26)
+VARIANTS=		v27 v30 v31
 SDESC[v27]=		Rails support for multibyte strings + (v27)
 SDESC[v30]=		Rails support for multibyte strings + (v30)
+SDESC[v31]=		Rails support for multibyte strings + (v31)
 HOMEPAGE=		https://rubyonrails.org
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -16,15 +16,15 @@ SITES[main]=		RUBYGEMS/
 DISTFILE[1]=		activesupport-7.0.0.gem:main
 DIST_SUBDIR=		ruby
 
-SPKGS[v26]=		single
 SPKGS[v27]=		single
 SPKGS[v30]=		single
+SPKGS[v31]=		single
 
-OPTIONS_AVAILABLE=	RUBY26 RUBY27 RUBY30
+OPTIONS_AVAILABLE=	RUBY27 RUBY30 RUBY31
 OPTIONS_STANDARD=	none
-VOPTS[v26]=		RUBY26=ON RUBY27=OFF RUBY30=OFF
-VOPTS[v27]=		RUBY26=OFF RUBY27=ON RUBY30=OFF
-VOPTS[v30]=		RUBY26=OFF RUBY27=OFF RUBY30=ON
+VOPTS[v27]=		RUBY27=ON RUBY30=OFF RUBY31=OFF
+VOPTS[v30]=		RUBY27=OFF RUBY30=ON RUBY31=OFF
+VOPTS[v31]=		RUBY27=OFF RUBY30=OFF RUBY31=ON
 
 # License listed inside gem specification
 # => "MIT"
@@ -38,12 +38,6 @@ VOPTS[v30]=		RUBY26=OFF RUBY27=OFF RUBY30=ON
 DISTNAME=		activesupport-${PORTVERSION}
 GENERATED=		yes
 
-[RUBY26].USES_ON=			gem:v26
-[RUBY26].BUILDRUN_DEPENDS_ON=		ruby-i18n:single:v26
-					ruby-tzinfo:single:v26
-					ruby-concurrent-ruby:single:v26
-					ruby-minitest:single:v26
-[RUBY26].BROKEN_ON=			Does not meet minimum Ruby version requirements
 [RUBY27].USES_ON=			gem:v27
 [RUBY27].BUILDRUN_DEPENDS_ON=		ruby-i18n:single:v27
 					ruby-tzinfo:single:v27
@@ -54,4 +48,9 @@ GENERATED=		yes
 					ruby-tzinfo:single:v30
 					ruby-concurrent-ruby:single:v30
 					ruby-minitest:single:v30
+[RUBY31].USES_ON=			gem:v31
+[RUBY31].BUILDRUN_DEPENDS_ON=		ruby-i18n:single:v31
+					ruby-tzinfo:single:v31
+					ruby-concurrent-ruby:single:v31
+					ruby-minitest:single:v31
 

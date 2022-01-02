@@ -4,10 +4,10 @@ DEF[PORTVERSION]=	4.11.0
 NAMEBASE=		ruby-mini_magick
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
-VARIANTS=		v26 v27 v30
-SDESC[v26]=		Memory-efficient image manipulation (v26)
+VARIANTS=		v27 v30 v31
 SDESC[v27]=		Memory-efficient image manipulation (v27)
 SDESC[v30]=		Memory-efficient image manipulation (v30)
+SDESC[v31]=		Memory-efficient image manipulation (v31)
 HOMEPAGE=		https://github.com/minimagick/minimagick
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -16,15 +16,15 @@ SITES[main]=		RUBYGEMS/
 DISTFILE[1]=		mini_magick-4.11.0.gem:main
 DIST_SUBDIR=		ruby
 
-SPKGS[v26]=		single
 SPKGS[v27]=		single
 SPKGS[v30]=		single
+SPKGS[v31]=		single
 
-OPTIONS_AVAILABLE=	RUBY26 RUBY27 RUBY30
+OPTIONS_AVAILABLE=	RUBY27 RUBY30 RUBY31
 OPTIONS_STANDARD=	none
-VOPTS[v26]=		RUBY26=ON RUBY27=OFF RUBY30=OFF
-VOPTS[v27]=		RUBY26=OFF RUBY27=ON RUBY30=OFF
-VOPTS[v30]=		RUBY26=OFF RUBY27=OFF RUBY30=ON
+VOPTS[v27]=		RUBY27=ON RUBY30=OFF RUBY31=OFF
+VOPTS[v30]=		RUBY27=OFF RUBY30=ON RUBY31=OFF
+VOPTS[v31]=		RUBY27=OFF RUBY30=OFF RUBY31=ON
 
 # License listed inside gem specification
 # => "MIT"
@@ -40,7 +40,7 @@ VOPTS[v30]=		RUBY26=OFF RUBY27=OFF RUBY30=ON
 DISTNAME=		mini_magick-${PORTVERSION}
 GENERATED=		yes
 
-[RUBY26].USES_ON=			gem:v26
 [RUBY27].USES_ON=			gem:v27
 [RUBY30].USES_ON=			gem:v30
+[RUBY31].USES_ON=			gem:v31
 
