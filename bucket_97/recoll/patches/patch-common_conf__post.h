@@ -1,4 +1,4 @@
---- common/conf_post.h.orig	2021-08-17 07:16:21 UTC
+--- common/conf_post.h.orig	2021-12-18 18:16:45 UTC
 +++ common/conf_post.h
 @@ -67,18 +67,4 @@ typedef int ssize_t;
  #  define PRETEND_USE(expr) ((void)(expr))
