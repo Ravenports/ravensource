@@ -1,4 +1,4 @@
---- modules/core/src/system.cpp.orig	2021-10-09 15:48:26 UTC
+--- modules/core/src/system.cpp.orig	2021-12-25 03:53:27 UTC
 +++ modules/core/src/system.cpp
 @@ -128,7 +128,7 @@ void* allocSingletonNewBuffer(size_t siz
  #include <cstdlib>        // std::abort
@@ -8,8 +8,8 @@
 +#if defined __ANDROID__ || defined __unix__ || defined __FreeBSD__ || defined __OpenBSD__ || defined __HAIKU__ || defined __Fuchsia__ || defined __DragonFly__ || defined __sun__
  #  include <unistd.h>
  #  include <fcntl.h>
- #if defined __QNXNTO__
-@@ -249,7 +249,7 @@ std::wstring GetTempFileNameWinRT(std::w
+ #if defined __QNX__
+@@ -252,7 +252,7 @@ std::wstring GetTempFileNameWinRT(std::w
  #include "omp.h"
  #endif
  
