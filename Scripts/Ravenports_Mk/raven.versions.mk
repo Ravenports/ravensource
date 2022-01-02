@@ -37,8 +37,8 @@ PERL_5.34_VERSION=	5.34.0
 
 RUBY_DEFAULT?=		2.7
 
-RUBY_2.6_VERSION=	2.6.6
-RUBY_2.7_VERSION=	2.7.2
+RUBY_2.6_VERSION=	2.6.9
+RUBY_2.7_VERSION=	2.7.5
 RUBY_3.0_VERSION=	3.0.3
 
 #-------------------------------------------------------------------------

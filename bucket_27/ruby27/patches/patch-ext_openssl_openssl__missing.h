@@ -1,4 +1,4 @@
---- ext/openssl/openssl_missing.h.orig	2020-10-01 12:15:38 UTC
+--- ext/openssl/openssl_missing.h.orig	2021-11-24 11:21:17 UTC
 +++ ext/openssl/openssl_missing.h
 @@ -72,6 +72,9 @@ void ossl_HMAC_CTX_free(HMAC_CTX *);
  #if !defined(HAVE_X509_STORE_SET_EX_DATA)

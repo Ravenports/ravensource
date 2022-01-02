@@ -1,4 +1,4 @@
---- tool/rbinstall.rb.orig	2020-03-31 11:23:13 UTC
+--- tool/rbinstall.rb.orig	2021-11-24 11:53:13 UTC
 +++ tool/rbinstall.rb
 @@ -789,13 +789,6 @@ end
  

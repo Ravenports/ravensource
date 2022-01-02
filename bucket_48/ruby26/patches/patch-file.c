@@ -1,4 +1,4 @@
---- file.c.orig	2020-03-31 11:23:13 UTC
+--- file.c.orig	2021-11-24 11:53:13 UTC
 +++ file.c
 @@ -19,9 +19,6 @@
  #include <sys/cygwin.h>
@@ -19,7 +19,7 @@
  # define NORMALIZE_UTF8PATH 1
  static VALUE
  rb_str_append_normalized_ospath(VALUE str, const char *ptr, long len)
-@@ -3687,7 +3684,7 @@ rb_file_expand_path_internal(VALUE fname
+@@ -3708,7 +3705,7 @@ rb_file_expand_path_internal(VALUE fname
  	    b = ++s;
  	    break;
  	  default:

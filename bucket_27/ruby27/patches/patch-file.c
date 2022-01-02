@@ -1,4 +1,4 @@
---- file.c.orig	2020-10-01 12:15:38 UTC
+--- file.c.orig	2021-11-24 11:21:17 UTC
 +++ file.c
 @@ -28,7 +28,6 @@
  #   define API_AVAILABLE(...)
@@ -17,7 +17,7 @@
  # define NORMALIZE_UTF8PATH 1
  static VALUE
  rb_str_append_normalized_ospath(VALUE str, const char *ptr, long len)
-@@ -3836,7 +3835,7 @@ rb_file_expand_path_internal(VALUE fname
+@@ -3857,7 +3856,7 @@ rb_file_expand_path_internal(VALUE fname
  	    b = ++s;
  	    break;
  	  default:
