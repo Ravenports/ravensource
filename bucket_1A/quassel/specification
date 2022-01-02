@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	0.13.1
+DEF[PORTVERSION]=	0.14.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		quassel
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		irc
 VARIANTS=		standard
 SDESC[standard]=	Cross-platform distributed IRC client
@@ -38,6 +37,7 @@ BUILD_DEPENDS=		libdbusmenu-qt:primary:standard
 			qt5-qtmultimedia:single:standard
 			qt5-qtscript:single:standard
 			qt5-qttools:single:standard
+			boost-libraries:rest:python_default
 
 USES=			cpe cmake pkgconfig qt5
 CPE_VENDOR=		quassel-irc
@@ -54,6 +54,7 @@ CMAKE_ARGS=		-DCMAKE_PREFIX_PATH={{PREFIX}}/lib/qt5/cmake
 			-DWITH_OXYGEN_ICONS=OFF
 			-WITH_WEBENGINE=OFF
 			-DWITH_WEBKIT=OFF
+SOVERSION=		${PORTVERSION}
 
 EXRUN[client]=		libdbusmenu-qt:primary:standard
 			qca:single:standard
