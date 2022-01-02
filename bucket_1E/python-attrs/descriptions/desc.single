@@ -1,10 +1,11 @@
-======================================
-attrs: Classes Without Boilerplate
-======================================
+
+.. image:: https://www.attrs.org/en/stable/_static/attrs_logo.png
+   :alt: attrs logo
+   :align: center
 
 attrs is the Python package that will bring back the **joy** of **writing
 classes** by relieving you from the drudgery of implementing object
-protocols (aka [dunder] methods).
+protocols (aka [dunder methods]).
 [Trusted by NASA] for Mars missions since 2020!
 
 Its main goal is to help you to write **concise** and **correct** software
@@ -19,12 +20,12 @@ the attributes on that class:
 
 .. code-block:: pycon
 
-   >>> import attr
+   >>> from attrs import asdict, define, make_class, Factory
 
-   >>> @attr.s
-   ... class SomeClass(object):
-   ...     a_number = attr.ib(default=42)
-   ...     list_of_numbers = attr.ib(factory=list)
+   >>> @define
+   ... class SomeClass:
+   ...     a_number: int = 42
+   ...     list_of_numbers: list[int] = Factory(list)
    ...
    ...     def hard_math(self, another_number):
    ...         return self.a_number + sum(self.list_of_numbers) *
@@ -41,13 +42,13 @@ another_number
    >>> sc != SomeClass(2, [3, 2, 1])
    True
 
-   >>> attr.asdict(sc)
+   >>> asdict(sc)
    {'a_number': 1, 'list_of_numbers': [1, 2, 3]}
 
    >>> SomeClass()
    SomeClass(a_number=42, list_of_numbers=[])
 
-   >>> C = attr.make_class("C", ["a", "b"])
+   >>> C = make_class("C", ["a", "b"])
    >>> C("foo", "bar")
    C(a='foo', b='bar')
 
@@ -55,46 +56,45 @@ After *declaring* your attributes attrs gives you:
 
 - a concise and explicit overview of the class's attributes,
 - a nice human-readable __repr__,
-- a complete set of comparison methods (equality and ordering),
+- a equality-checking methods,
 - an initializer,
 - and much more,
 
 *without* writing dull boilerplate code again and again and *without*
 runtime performance penalties.
 
-On Python 3.6 and later, you can often even drop the calls to ``attr.ib()``
-by using [type annotations].
+**Hate type annotations**!?
+No problem!
+Types are entirely **optional** with attrs.
+Simply assign ``attrs.field()`` to the attributes instead of annotating
+them with types.
 
-This gives you the power to use actual classes with actual types in your
-code instead of confusing tuple\ s or [confusingly behaving] namedtuple\ s.
-Which in turn encourages you to write *small classes* that do [one thing
-well].
-Never again violate the [single responsibility principle] just because
-implementing __init__ et al is a painful drag.
+----
+
+This example uses attrs's modern APIs that have been introduced in version
+20.1.0, and the attrs package import name that has been added in version
+21.3.0.
+The classic APIs (``@attr.s``, ``attr.ib``, plus their serious business
+aliases) and the attr package import name will remain **indefinitely**.
+
+Please check out [On The Core API Names] for a more in-depth explanation.
+
+Data Classes
+============
+
+On the tin, attrs might remind you of dataclasses (and indeed, dataclasses
+are a descendant of attrs).
+In practice it does a lot more and is more flexible.
+For instance it allows you to define [special handling of NumPy arrays for
+equality checks], or allows more ways to [plug into the initialization
+process].
+
+For more details, please refer to our [comparison page].
 
 .. -getting-help-
 
 Getting Help
 ============
 
-Please use the ``python-attrs`` tag on [StackOverflow] to get help.
+Please use the ``python-attrs`` tag on [Stack Overflow] to get help.
 
-Answering questions of your fellow developers is also a great way to help
-the project!
-
-.. -project-information-
-
-Project Information
-===================
-
-attrs is released under the [MIT] license,
-its documentation lives at [Read the Docs],
-the code on [GitHub],
-and the latest release on [PyPI].
-It’s rigorously tested on Python 2.7, 3.5+, and PyPy.
-
-We collect information on **third-party extensions** in our [wiki].
-Feel free to browse and add your own!
-
-If you'd like to contribute to attrs you're most welcome and we've written
-[a little guide] to get you started!
