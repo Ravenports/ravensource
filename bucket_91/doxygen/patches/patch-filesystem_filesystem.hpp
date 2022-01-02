@@ -1,4 +1,4 @@
---- filesystem/filesystem.hpp.orig	2021-05-24 09:14:03 UTC
+--- filesystem/filesystem.hpp.orig	2021-12-12 11:59:45 UTC
 +++ filesystem/filesystem.hpp
 @@ -56,6 +56,9 @@
  #define GHC_OS_MACOS
