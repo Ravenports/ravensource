@@ -1,4 +1,4 @@
---- hw/xfree86/common/xf86Config.c.orig	2021-11-06 23:45:18 UTC
+--- hw/xfree86/common/xf86Config.c.orig	2021-12-15 13:51:50 UTC
 +++ hw/xfree86/common/xf86Config.c
 @@ -1279,13 +1279,16 @@ checkCoreInputDevices(serverLayoutPtr se
      }
