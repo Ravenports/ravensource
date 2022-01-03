@@ -1,4 +1,4 @@
---- ucb/source/ucp/webdav/DateTimeHelper.cxx.orig	2021-11-18 11:33:09 UTC
+--- ucb/source/ucp/webdav/DateTimeHelper.cxx.orig	2021-12-21 19:06:48 UTC
 +++ ucb/source/ucp/webdav/DateTimeHelper.cxx
 @@ -17,6 +17,8 @@
   *   the License at http://www.apache.org/licenses/LICENSE-2.0 .

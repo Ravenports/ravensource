@@ -1,4 +1,4 @@
---- sal/osl/unx/thread.cxx.orig	2021-11-18 11:33:09 UTC
+--- sal/osl/unx/thread.cxx.orig	2021-12-21 19:06:48 UTC
 +++ sal/osl/unx/thread.cxx
 @@ -36,6 +36,10 @@
  #define pthread_setname_np pthread_set_name_np
