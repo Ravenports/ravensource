@@ -1,4 +1,4 @@
---- hw/xfree86/common/xf86Xinput.c.orig	2021-12-15 13:51:50 UTC
+--- hw/xfree86/common/xf86Xinput.c.orig	2022-01-02 22:41:56 UTC
 +++ hw/xfree86/common/xf86Xinput.c
 @@ -1065,6 +1065,7 @@ NewInputDeviceRequest(InputOption *optio
          if (strcmp(key, "_source") == 0 &&
