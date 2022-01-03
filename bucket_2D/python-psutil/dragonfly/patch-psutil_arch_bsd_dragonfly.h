@@ -1,4 +1,4 @@
---- /dev/null	2020-12-20 15:01:22 UTC
+--- /dev/null	2022-01-03 02:47:34 UTC
 +++ psutil/arch/bsd/dragonfly.h
 @@ -0,0 +1,27 @@
 +/*

@@ -1,14 +1,14 @@
---- psutil/__init__.py.orig	2020-12-18 23:38:52 UTC
+--- psutil/__init__.py.orig	2021-12-28 11:22:47 UTC
 +++ psutil/__init__.py
-@@ -86,6 +86,7 @@ from ._common import LINUX
- from ._common import MACOS
- from ._common import NETBSD  # NOQA
+@@ -62,6 +62,7 @@ from ._common import NIC_DUPLEX_FULL
+ from ._common import NIC_DUPLEX_HALF
+ from ._common import NIC_DUPLEX_UNKNOWN
  from ._common import OPENBSD  # NOQA
 +from ._common import DRAGONFLY # NOQA
  from ._common import OSX  # deprecated alias
  from ._common import POSIX  # NOQA
- from ._common import SUNOS
-@@ -168,7 +169,7 @@ __all__ = [
+ from ._common import POWER_TIME_UNKNOWN
+@@ -170,7 +171,7 @@ __all__ = [
      "POWER_TIME_UNKNOWN", "POWER_TIME_UNLIMITED",
  
      "BSD", "FREEBSD", "LINUX", "NETBSD", "OPENBSD", "MACOS", "OSX", "POSIX",

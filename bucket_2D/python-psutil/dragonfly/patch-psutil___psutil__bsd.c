@@ -1,4 +1,4 @@
---- psutil/_psutil_bsd.c.orig	2020-12-18 23:38:52 UTC
+--- psutil/_psutil_bsd.c.orig	2021-11-26 20:08:22 UTC
 +++ psutil/_psutil_bsd.c
 @@ -19,6 +19,7 @@
      #define _KMEMUSER
@@ -16,7 +16,7 @@
  #include <netinet/in_systm.h>
  #include <netinet/ip.h>
  #include <netinet/in_pcb.h>
-@@ -94,6 +94,10 @@
+@@ -95,6 +95,10 @@
      #ifndef DTYPE_VNODE
          #define DTYPE_VNODE 1
      #endif
@@ -27,7 +27,7 @@
  #endif
  
  
-@@ -134,6 +138,8 @@ psutil_pids(PyObject *self, PyObject *ar
+@@ -135,6 +139,8 @@ psutil_pids(PyObject *self, PyObject *ar
          for (idx = 0; idx < num_processes; idx++) {
  #ifdef PSUTIL_FREEBSD
              py_pid = PyLong_FromPid(proclist->ki_pid);
@@ -36,7 +36,7 @@
  #elif defined(PSUTIL_OPENBSD) || defined(PSUTIL_NETBSD)
              py_pid = PyLong_FromPid(proclist->p_pid);
  #endif
-@@ -203,6 +209,8 @@ psutil_proc_oneshot_info(PyObject *self,
+@@ -204,6 +210,8 @@ psutil_proc_oneshot_info(PyObject *self,
      // Process
  #ifdef PSUTIL_FREEBSD
      sprintf(str, "%s", kp.ki_comm);
@@ -45,7 +45,7 @@
  #elif defined(PSUTIL_OPENBSD) || defined(PSUTIL_NETBSD)
      sprintf(str, "%s", kp.p_comm);
  #endif
-@@ -222,6 +230,12 @@ psutil_proc_oneshot_info(PyObject *self,
+@@ -223,6 +231,12 @@ psutil_proc_oneshot_info(PyObject *self,
      memtext = (long)kp.ki_tsize * pagesize;
      memdata = (long)kp.ki_dsize * pagesize;
      memstack = (long)kp.ki_ssize * pagesize;
@@ -58,7 +58,7 @@
  #else
      rss = (long)kp.p_vm_rssize * pagesize;
      #ifdef PSUTIL_OPENBSD
-@@ -259,6 +273,8 @@ psutil_proc_oneshot_info(PyObject *self,
+@@ -260,6 +274,8 @@ psutil_proc_oneshot_info(PyObject *self,
  
  #ifdef PSUTIL_FREEBSD
      py_ppid = PyLong_FromPid(kp.ki_ppid);
@@ -67,7 +67,7 @@
  #elif defined(PSUTIL_OPENBSD) || defined(PSUTIL_NETBSD)
      py_ppid = PyLong_FromPid(kp.p_ppid);
  #else
-@@ -368,6 +384,8 @@ psutil_proc_name(PyObject *self, PyObjec
+@@ -369,6 +385,8 @@ psutil_proc_name(PyObject *self, PyObjec
  
  #ifdef PSUTIL_FREEBSD
      sprintf(str, "%s", kp.ki_comm);
@@ -76,7 +76,7 @@
  #elif defined(PSUTIL_OPENBSD) || defined(PSUTIL_NETBSD)
      sprintf(str, "%s", kp.p_comm);
  #endif
-@@ -411,7 +429,7 @@ psutil_proc_environ(PyObject *self, PyOb
+@@ -412,7 +430,7 @@ psutil_proc_environ(PyObject *self, PyOb
      if (!PyArg_ParseTuple(args, "l", &pid))
          return NULL;
  
@@ -85,7 +85,7 @@
      kd = kvm_openfiles(NULL, "/dev/null", NULL, 0, errbuf);
  #else
      kd = kvm_openfiles(NULL, NULL, NULL, KVM_NO_FILES, errbuf);
-@@ -425,7 +443,7 @@ psutil_proc_environ(PyObject *self, PyOb
+@@ -426,7 +444,7 @@ psutil_proc_environ(PyObject *self, PyOb
      if (!py_retdict)
          goto error;
  
@@ -94,7 +94,7 @@
      p = kvm_getprocs(kd, KERN_PROC_PID, pid, &cnt);
  #elif defined(PSUTIL_OPENBSD)
      p = kvm_getprocs(kd, KERN_PROC_PID, pid, sizeof(*p), &cnt);
-@@ -455,6 +473,8 @@ psutil_proc_environ(PyObject *self, PyOb
+@@ -456,6 +474,8 @@ psutil_proc_environ(PyObject *self, PyOb
  #else
      if ((p)->ki_flag & P_SYSTEM) {
  #endif
