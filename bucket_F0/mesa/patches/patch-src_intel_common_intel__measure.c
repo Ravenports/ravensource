@@ -1,4 +1,4 @@
---- src/intel/common/intel_measure.c.orig	2021-10-28 16:49:53 UTC
+--- src/intel/common/intel_measure.c.orig	2021-12-29 21:05:19 UTC
 +++ src/intel/common/intel_measure.c
 @@ -42,6 +42,46 @@
  #include "util/macros.h"

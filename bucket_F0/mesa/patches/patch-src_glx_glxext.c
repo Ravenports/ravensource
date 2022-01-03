@@ -1,8 +1,8 @@
 # work-around for https://bugs.freedesktop.org/show_bug.cgi?id=100627
 #
---- src/glx/glxext.c.orig	2021-10-28 16:49:53 UTC
+--- src/glx/glxext.c.orig	2021-12-29 21:05:19 UTC
 +++ src/glx/glxext.c
-@@ -933,6 +933,9 @@ __glXInitialize(Display * dpy)
+@@ -924,6 +924,9 @@ __glXInitialize(Display * dpy)
  #if defined(GLX_USE_DRM)
     if (glx_direct && glx_accel) {
  #if defined(HAVE_DRI3)

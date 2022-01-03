@@ -1,6 +1,6 @@
---- src/gallium/drivers/radeonsi/si_state_shaders.c.orig	2021-10-28 16:49:53 UTC
+--- src/gallium/drivers/radeonsi/si_state_shaders.c.orig	2021-12-29 21:05:19 UTC
 +++ src/gallium/drivers/radeonsi/si_state_shaders.c
-@@ -2138,6 +2138,7 @@ static void si_build_shader_variant(stru
+@@ -2228,6 +2228,7 @@ static void si_build_shader_variant(stru
        return;
     }
  
@@ -8,7 +8,7 @@
     if (shader->compiler_ctx_state.is_debug_context) {
        FILE *f = open_memstream(&shader->shader_log, &shader->shader_log_size);
        if (f) {
-@@ -2145,6 +2146,7 @@ static void si_build_shader_variant(stru
+@@ -2235,6 +2236,7 @@ static void si_build_shader_variant(stru
           fclose(f);
        }
     }
