@@ -1,15 +1,15 @@
---- src/lj_prng.c.orig	2021-05-06 06:13:24 UTC
+--- src/lj_prng.c.orig	2021-11-17 04:07:33 UTC
 +++ src/lj_prng.c
 @@ -109,6 +109,7 @@ static PRGR libfunc_rgr;
  #include <sys/syscall.h>
  #else
  
 +# ifndef LJ_TARGET_HAS_GETENTROPY
- #if LJ_TARGET_OSX
- #include <Availability.h>
- #if __MAC_OS_X_VERSION_MIN_REQUIRED >= 101200 || \
-@@ -118,6 +119,7 @@ static PRGR libfunc_rgr;
- #elif LJ_TARGET_BSD || LJ_TARGET_SOLARIS || LJ_TARGET_CYGWIN
+ #if LJ_TARGET_OSX && !LJ_TARGET_IOS
+ /*
+ ** In their infinite wisdom Apple decided to disallow getentropy() in the
+@@ -124,6 +125,7 @@ static PRGR libfunc_rgr;
+ #elif (LJ_TARGET_BSD && !defined(__NetBSD__)) || LJ_TARGET_SOLARIS || LJ_TARGET_CYGWIN
  #define LJ_TARGET_HAS_GETENTROPY	1
  #endif
 +# endif
