@@ -35,9 +35,8 @@ BUILDRUN_DEPENDS=	libepoxy:single:standard
 
 EXRUN[icon_cache]=	gdk-pixbuf:primary:standard
 
-USES=			gettext-tools gmake pkgconfig gnome-icons:primary
+USES=			gettext-tools gmake pkgconfig cpe meson gtk-doc
 			schemas:primary perl:build python:build
-			cpe meson gtk-doc
 # removed introspection
 GNOME_COMPONENTS=	atk cairo gdkpixbuf pango
 XORG_COMPONENTS=	xext x11 xinerama xi xrandr xcursor xfixes
@@ -94,3 +93,4 @@ post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gtk-4.0/modules
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gtk-4.0/${GTK_VERSION}/engines
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gtk-4.0/${GTK_VERSION}/loaders
+	# gtk4 has no icons in share/icons so skip gtk3 post-install step.
