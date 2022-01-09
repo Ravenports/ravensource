@@ -1,6 +1,8 @@
-DEF[PORTVERSION]=	1.12.0
-DEF[SOVERSION]=		0.24.2
+DEF[PORTVERSION]=	1.13.0
+DEF[SOVERSION]=		0.25.0
 DEF[FA_VERSION]=	1.5.3
+DEF[TAG]=		release-${PORTVERSION}
+DEF[GNULIB_HASH]=	2f3892304bd432c5ca3f291b3ef7d8a912a85e96
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		augeas
@@ -11,9 +13,12 @@ SDESC[standard]=	Configuration editing tool and API
 HOMEPAGE=		http://augeas.net/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main
-SITES[main]=		http://download.augeas.net/
-DISTFILE[1]=		augeas-${PORTVERSION}.tar.gz:main
+DOWNLOAD_GROUPS=	main savannah
+SITES[main]=		GITHUB/hercules-team:augeas:${TAG}
+SITES[savannah]=	https://git.savannah.gnu.org/cgit/gnulib.git/snapshot/
+DISTFILE[1]=		generated:main
+DISTFILE[2]=		gnulib-${GNULIB_HASH}.tar.gz:savannah
+DF_INDEX=		1 2
 
 SPKGS[standard]=	single
 
@@ -22,8 +27,11 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		textproc/augeas
 
-USES=			autoreconf cpe gmake libtool pkgconfig readline
-			cclibs:single
+BUILD_DEPENDS=		bash:primary:standard
+			libtool:single:standard
+
+USES=			autoreconf:build cpe bison gmake libtool
+			pkgconfig readline cclibs:single
 GNOME_COMPONENTS=	libxml2
 MUST_CONFIGURE=		gnu
 INSTALL_REQ_TOOLCHAIN=	yes
@@ -32,7 +40,10 @@ PLIST_SUB=		FA_SOVERSION=${FA_VERSION}
 			FA_SOMAJOR=${FA_VERSION:R:R}
 SOVERSION=		${SOVERSION}
 
-post-patch:
+post-extract:
+	${MV} ${WRKDIR}/gnulib-${GNULIB_HASH} ${WRKSRC}/gnulib
+
+pre-configure:
 	${REINPLACE_CMD} -e 's|%%PREFIX%%|${PREFIX}|' \
 		${WRKSRC}/lenses/pg_hba.aug \
 		${WRKSRC}/lenses/postgresql.aug
@@ -40,3 +51,7 @@ post-patch:
 		${WRKSRC}/lenses/puppet.aug \
 		${WRKSRC}/lenses/puppet_auth.aug \
 		${WRKSRC}/lenses/puppetfileserver.aug
+	(cd ${WRKSRC} && ${LOCALBASE}/bin/bash ./autogen.sh \
+		--gnulib-srcdir=${WRKSRC}/gnulib \
+		--disable-dependency-tracking \
+		--enable-debug=no)
