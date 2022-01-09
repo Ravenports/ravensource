@@ -1,25 +1,16 @@
---- Makefile.orig	2021-12-21 22:22:11 UTC
+--- Makefile.orig	2022-01-03 19:11:10 UTC
 +++ Makefile
-@@ -16,7 +16,7 @@
- # along with this program; if not, write to the Free Software
- # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- 
--prefix=/usr/local
-+prefix=__PREFIX__
- 
- CC=gcc
- INSTALL=install
-@@ -33,13 +33,11 @@ OBJS=tree.o list.o hash.o color.o file.o
+@@ -32,13 +32,13 @@ OBJS=tree.o list.o hash.o color.o file.o
  
  # Linux defaults:
  #CFLAGS=-ggdb -pedantic -Wall -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
--CFLAGS=-O4 -pedantic -Wall -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+-CFLAGS=-O3 -pedantic -Wall -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
  LDFLAGS=-s
  
  # Uncomment for FreeBSD:
  #CC=cc
--#CFLAGS=-O2 -Wall -fomit-frame-pointer
--#LDFLAGS=-s
+ #CFLAGS=-O2 -Wall -fomit-frame-pointer
+ #LDFLAGS=-s
 +CFLAGS=-Wall -fomit-frame-pointer
  
  # Uncomment for OpenBSD:
