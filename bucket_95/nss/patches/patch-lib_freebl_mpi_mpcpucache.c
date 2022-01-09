@@ -1,4 +1,4 @@
---- lib/freebl/mpi/mpcpucache.c.orig	2021-12-15 14:15:36 UTC
+--- lib/freebl/mpi/mpcpucache.c.orig	2022-01-06 11:38:58 UTC
 +++ lib/freebl/mpi/mpcpucache.c
 @@ -706,6 +706,32 @@ s_mpi_getProcessorLineSize()
  #endif
