@@ -2,10 +2,6 @@ DEF[PORTVERSION]=	EXTRACT_INFO(GTK3_PORT_VERSION)
 DEF[LIBVERSION]=	0.2404.27
 DEF[GTK_VERSION]=	EXTRACT_INFO(GTK3_VERSION)
 # ----------------------------------------------------------------------------
-# Please keep gtk3 in sync with the following x11-themes ports:
-#   adwaita-icon-theme
-#   gnome-themes-standard (tbd)
-#   mate-themes (tbd)
 
 NAMEBASE=		gtk3
 VERSION=		${PORTVERSION}
@@ -30,10 +26,6 @@ OPT_ON[all]=		DBUS BROADWAY
 FPC_EQUIVALENT=		x11-toolkits/gtk30
 
 BUILDRUN_DEPENDS=	libepoxy:single:standard
-
-# we can no longer specify adwaita as run depends because it requires
-# gtk3 component (icon update), aka circular dependency
-# RUN_DEPENDS=		adwaita-icon-theme:single:standard
 
 EXRUN[primary]=		gtk3:icon_cache:standard
 EXRUN[icon_cache]=	gdk-pixbuf:primary:standard
