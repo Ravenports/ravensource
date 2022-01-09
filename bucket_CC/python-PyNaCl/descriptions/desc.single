@@ -9,8 +9,8 @@ PyNaCl: Python binding to the libsodium library
 PyNaCl is a Python binding to `libsodium`_, which is a fork of the
 `Networking and Cryptography library`_. These libraries have a stated goal
 of
-improving usability, security and speed. It supports Python 2.7 and 3.5+ as
-well as PyPy 2.6+.
+improving usability, security and speed. It supports Python 3.6+ as well as
+PyPy 3.
 
 .. _libsodium: https://github.com/jedisct1/libsodium
 .. _Networking and Cryptography library: https://nacl.cr.yp.to/
@@ -44,6 +44,17 @@ and run:
 
     $ pip install pynacl
 
+Faster wheel build
+------------------
+
+You can define the environment variable LIBSODIUM_MAKE_ARGS to pass
+arguments to make
+and enable `parallelization`_:
+
+.. code-block:: console
+
+    $ LIBSODIUM_MAKE_ARGS=-j4 pip install pynacl
+
 Linux source build
 ------------------
 
@@ -66,6 +77,9 @@ setuptools
    is generally discouraged, and is completely unsupported in PyNaCl's
 case.
 
+.. _parallelization:
+https://www.gnu.org/software/make/manual/html_node/Parallel.html
+
 .. _libsodium: https://github.com/jedisct1/libsodium
 
 .. [#many] [manylinux1 wheels]
@@ -75,26 +89,12 @@ case.
 Changelog
 =========
 
-1.4.0 (2020-05-25)
+1.5.0 (2022-01-07)
 ------------------
 
-* Update libsodium to 1.0.18.
-* **BACKWARDS INCOMPATIBLE:** We no longer distribute 32-bit manylinux1
-  wheels. Continuing to produce them was a maintenance burden.
-* Added support for Python 3.8, and removed support for Python 3.4.
-* Add low level bindings for extracting the seed and the public key
-  from crypto_sign_ed25519 secret key
-* Add low level bindings for deterministic random generation.
-* Add wheel and setuptools setup_requirements in ``setup.py`` (#485)
-* Fix checks on very slow builders (#481, #495)
-* Add low-level bindings to ed25519 arithmetic functions
-* Update low-level blake2b state implementation
-* Fix wrong short-input behavior of SealedBox.decrypt() (#517)
-* Raise CryptPrefixError exception instead of InvalidkeyError when trying
-  to check a password against a verifier stored in a unknown format (#519)
-* Add support for minimal builds of libsodium. Trying to call functions
-  not available in a minimal build will raise an UnavailableError
-  exception. To compile a minimal build of the bundled libsodium, set
-  the SODIUM_INSTALL_MINIMAL environment variable to any non-empty
-  string (e.g. ``SODIUM_INSTALL_MINIMAL=1``) for setup.
-
+* **BACKWARDS INCOMPATIBLE:** Removed support for Python 2.7 and Python
+3.5.
+* **BACKWARDS INCOMPATIBLE:** We no longer distribute manylinux1
+  wheels.
+* Added manylinux2014, manylinux_2_24, musllinux, and macOS
+  universal2 wheels (the latter supports macOS arm64).

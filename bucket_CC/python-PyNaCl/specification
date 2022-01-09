@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.4.0
+DEF[PORTVERSION]=	1.5.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-PyNaCl
@@ -29,22 +29,16 @@ GENERATED=		yes
 DISTNAME=		PyNaCl-${PORTVERSION}
 
 # install_requires extracted from setup.py
-# six
 # cffi>=1.4.1
 # setuptools
-# wheel
 # cffi>=1.4.1
 
 [PY39].USES_ON=				python:py39,sutools
-[PY39].BUILDRUN_DEPENDS_ON=		python-six:single:py39
-					python-cffi:single:py39
+[PY39].BUILDRUN_DEPENDS_ON=		python-cffi:single:py39
 					python-setuptools:single:py39
-					python-wheel:single:py39
 [PY310].USES_ON=			python:py310,sutools
-[PY310].BUILDRUN_DEPENDS_ON=		python-six:single:py310
-					python-cffi:single:py310
+[PY310].BUILDRUN_DEPENDS_ON=		python-cffi:single:py310
 					python-setuptools:single:py310
-					python-wheel:single:py310
 
 BUILDRUN_DEPENDS=	libsodium:single:standard
 INSTALL_REQ_TOOLCHAIN=	yes
