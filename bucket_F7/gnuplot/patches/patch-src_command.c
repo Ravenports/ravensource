@@ -1,4 +1,4 @@
---- src/command.c.orig	2021-04-24 02:30:03 UTC
+--- src/command.c.orig	2021-11-09 00:14:46 UTC
 +++ src/command.c
 @@ -113,6 +113,9 @@ static int thread_rl_RetCode = -1; /* re
  

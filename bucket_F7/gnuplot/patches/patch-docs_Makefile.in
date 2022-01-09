@@ -1,6 +1,6 @@
---- docs/Makefile.in.orig	2021-04-30 06:30:00 UTC
+--- docs/Makefile.in.orig	2022-01-03 02:19:34 UTC
 +++ docs/Makefile.in
-@@ -1031,7 +1031,7 @@ uninstall-am: uninstall-gihDATA
+@@ -1033,7 +1033,7 @@ uninstall-am: uninstall-gihDATA
  $(GNUPLOT_EXE):
  	( cd ../src ; $(MAKE) gnuplot$(EXEEXT) )
  @BUILD_LUA_TRUE@$(LUA_HELP): $(top_srcdir)/term/lua/gnuplot-tikz.lua
@@ -9,7 +9,7 @@
  
  allterm.h: $(CORETERM) $(LUA_HELP)
  	$(AM_V_GEN) for e in `egrep "^[ 	]*START_HELP" $(CORETERM) |\
-@@ -1057,15 +1057,15 @@ groff: grotxt grodvi grops
+@@ -1059,15 +1059,15 @@ groff: grotxt grodvi grops
  
  grotxt: gnuplot.txt
  gnuplot.txt: gnuplot.ms $(srcdir)/titlepag.ms
