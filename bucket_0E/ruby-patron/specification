@@ -1,19 +1,19 @@
-DEF[PORTVERSION]=	2.0.1
+DEF[PORTVERSION]=	0.13.3
 # ------------------------------------------------------------------------
 
-NAMEBASE=		ruby-faraday-httpclient
+NAMEBASE=		ruby-patron
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v27 v30 v31
-SDESC[v27]=		Faraday adapter for HTTPClient (v27)
-SDESC[v30]=		Faraday adapter for HTTPClient (v30)
-SDESC[v31]=		Faraday adapter for HTTPClient (v31)
-HOMEPAGE=		https://github.com/lostisland/faraday-httpclient
+SDESC[v27]=		Patron HTTP Client (v27)
+SDESC[v30]=		Patron HTTP Client (v30)
+SDESC[v31]=		Patron HTTP Client (v31)
+HOMEPAGE=		https://github.com/toland/patron
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		faraday-httpclient-2.0.1.gem:main
+DISTFILE[1]=		patron-0.13.3.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v27]=		single
@@ -27,18 +27,22 @@ VOPTS[v30]=		RUBY27=OFF RUBY30=ON RUBY31=OFF
 VOPTS[v31]=		RUBY27=OFF RUBY30=OFF RUBY31=ON
 
 # License listed inside gem specification
-# => "MIT"
+# => Not provided.
 
 # Requirements according to gem specification:
-#   httpclient (>= 2.2)
+#   rake (~> 10, development)
+#   bundler (>= 0, development)
+#   rspec (>= 2.3.0, development)
+#   simplecov (~> 0.10, development)
+#   yard (~> 0.9.11, development)
+#   rack (~> 1, development)
+#   puma (~> 3.11, development)
+#   rake-compiler (>= 0, development)
 
-DISTNAME=		faraday-httpclient-${PORTVERSION}
+DISTNAME=		patron-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY27].USES_ON=			gem:v27
-[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-httpclient:single:v27
 [RUBY30].USES_ON=			gem:v30
-[RUBY30].BUILDRUN_DEPENDS_ON=		ruby-httpclient:single:v30
 [RUBY31].USES_ON=			gem:v31
-[RUBY31].BUILDRUN_DEPENDS_ON=		ruby-httpclient:single:v31
 
