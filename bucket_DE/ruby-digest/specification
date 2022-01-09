@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	3.1.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-digest
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v27 v30 v31
+SDESC[v27]=		Message digest libraries framework (v27)
+SDESC[v30]=		Message digest libraries framework (v30)
+SDESC[v31]=		Message digest libraries framework (v31)
+HOMEPAGE=		https://github.com/ruby/digest
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		digest-3.1.0.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v27]=		single
+SPKGS[v30]=		single
+SPKGS[v31]=		single
+
+OPTIONS_AVAILABLE=	RUBY27 RUBY30 RUBY31
+OPTIONS_STANDARD=	none
+VOPTS[v27]=		RUBY27=ON RUBY30=OFF RUBY31=OFF
+VOPTS[v30]=		RUBY27=OFF RUBY30=ON RUBY31=OFF
+VOPTS[v31]=		RUBY27=OFF RUBY30=OFF RUBY31=ON
+
+# License listed inside gem specification
+# => "Ruby", "BSD-2-Clause"
+
+# Requirements according to gem specification:
+
+DISTNAME=		digest-${PORTVERSION}
+GENERATED=		yes
+
+[RUBY27].USES_ON=			gem:v27
+[RUBY30].USES_ON=			gem:v30
+[RUBY31].USES_ON=			gem:v31
+

@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	7.0.0
+DEF[PORTVERSION]=	7.0.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-actionmailbox
@@ -13,7 +13,7 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		actionmailbox-7.0.0.gem:main
+DISTFILE[1]=		actionmailbox-7.0.1.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v27]=		single
@@ -30,12 +30,15 @@ VOPTS[v31]=		RUBY27=OFF RUBY30=OFF RUBY31=ON
 # => "MIT"
 
 # Requirements according to gem specification:
-#   activesupport (= 7.0.0)
-#   activerecord (= 7.0.0)
-#   activestorage (= 7.0.0)
-#   activejob (= 7.0.0)
-#   actionpack (= 7.0.0)
+#   activesupport (= 7.0.1)
+#   activerecord (= 7.0.1)
+#   activestorage (= 7.0.1)
+#   activejob (= 7.0.1)
+#   actionpack (= 7.0.1)
 #   mail (>= 2.7.1)
+#   net-imap (>= 0)
+#   net-pop (>= 0)
+#   net-smtp (>= 0)
 
 DISTNAME=		actionmailbox-${PORTVERSION}
 GENERATED=		yes
@@ -47,6 +50,9 @@ GENERATED=		yes
 					ruby-activejob:single:v27
 					ruby-actionpack:single:v27
 					ruby-mail:single:v27
+					ruby-net-imap:single:v27
+					ruby-net-pop:single:v27
+					ruby-net-smtp:single:v27
 [RUBY30].USES_ON=			gem:v30
 [RUBY30].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v30
 					ruby-activerecord:single:v30
@@ -54,6 +60,9 @@ GENERATED=		yes
 					ruby-activejob:single:v30
 					ruby-actionpack:single:v30
 					ruby-mail:single:v30
+					ruby-net-imap:single:v30
+					ruby-net-pop:single:v30
+					ruby-net-smtp:single:v30
 [RUBY31].USES_ON=			gem:v31
 [RUBY31].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v31
 					ruby-activerecord:single:v31
@@ -61,4 +70,7 @@ GENERATED=		yes
 					ruby-activejob:single:v31
 					ruby-actionpack:single:v31
 					ruby-mail:single:v31
+					ruby-net-imap:single:v31
+					ruby-net-pop:single:v31
+					ruby-net-smtp:single:v31
 

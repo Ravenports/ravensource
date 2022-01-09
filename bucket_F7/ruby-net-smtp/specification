@@ -1,0 +1,52 @@
+DEF[PORTVERSION]=	0.3.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-net-smtp
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v27 v30 v31
+SDESC[v27]=		Simple Mail Transfer Protocol client library (v27)
+SDESC[v30]=		Simple Mail Transfer Protocol client library (v30)
+SDESC[v31]=		Simple Mail Transfer Protocol client library (v31)
+HOMEPAGE=		https://github.com/ruby/net-smtp
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		net-smtp-0.3.1.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v27]=		single
+SPKGS[v30]=		single
+SPKGS[v31]=		single
+
+OPTIONS_AVAILABLE=	RUBY27 RUBY30 RUBY31
+OPTIONS_STANDARD=	none
+VOPTS[v27]=		RUBY27=ON RUBY30=OFF RUBY31=OFF
+VOPTS[v30]=		RUBY27=OFF RUBY30=ON RUBY31=OFF
+VOPTS[v31]=		RUBY27=OFF RUBY30=OFF RUBY31=ON
+
+# License listed inside gem specification
+# => "Ruby", "BSD-2-Clause"
+
+# Requirements according to gem specification:
+#   net-protocol (>= 0)
+#   digest (>= 0)
+#   timeout (>= 0)
+
+DISTNAME=		net-smtp-${PORTVERSION}
+GENERATED=		yes
+
+[RUBY27].USES_ON=			gem:v27
+[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-net-protocol:single:v27
+					ruby-digest:single:v27
+					ruby-timeout:single:v27
+[RUBY30].USES_ON=			gem:v30
+[RUBY30].BUILDRUN_DEPENDS_ON=		ruby-net-protocol:single:v30
+					ruby-digest:single:v30
+					ruby-timeout:single:v30
+[RUBY31].USES_ON=			gem:v31
+[RUBY31].BUILDRUN_DEPENDS_ON=		ruby-net-protocol:single:v31
+					ruby-digest:single:v31
+					ruby-timeout:single:v31
+
