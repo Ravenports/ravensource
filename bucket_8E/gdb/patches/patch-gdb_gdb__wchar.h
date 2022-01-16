@@ -1,6 +1,6 @@
 diff --git gdb/gdb_wchar.h gdb/gdb_wchar.h
 index 868fe04..1311080 100644
---- gdb/gdb_wchar.h.orig	2021-04-25 04:04:35 UTC
+--- gdb/gdb_wchar.h.orig	2022-01-16 11:19:02 UTC
 +++ gdb/gdb_wchar.h
 @@ -59,7 +59,7 @@
     iconvlist.  */

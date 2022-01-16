@@ -1,4 +1,4 @@
---- gdb/python/python-config.py.orig	2021-07-03 17:41:10 UTC
+--- gdb/python/python-config.py.orig	2022-01-16 11:19:03 UTC
 +++ gdb/python/python-config.py
 @@ -65,6 +65,8 @@ for opt in opt_flags:
  

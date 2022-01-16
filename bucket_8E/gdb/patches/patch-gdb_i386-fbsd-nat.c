@@ -1,4 +1,4 @@
---- gdb/i386-fbsd-nat.c.orig	2021-07-03 17:41:10 UTC
+--- gdb/i386-fbsd-nat.c.orig	2022-01-16 11:19:02 UTC
 +++ gdb/i386-fbsd-nat.c
 @@ -43,8 +43,6 @@ public:
    const struct target_desc *read_description () override;

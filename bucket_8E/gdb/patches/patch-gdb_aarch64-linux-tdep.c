@@ -1,4 +1,4 @@
---- gdb/aarch64-linux-tdep.c.orig	2021-09-13 01:32:09 UTC
+--- gdb/aarch64-linux-tdep.c.orig	2022-01-16 11:21:18 UTC
 +++ gdb/aarch64-linux-tdep.c
 @@ -1725,13 +1725,13 @@ aarch64_linux_report_signal_info (struct
      return;

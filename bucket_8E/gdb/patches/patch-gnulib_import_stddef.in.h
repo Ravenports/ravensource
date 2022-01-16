@@ -1,4 +1,4 @@
---- gnulib/import/stddef.in.h.orig	2021-07-03 17:41:09 UTC
+--- gnulib/import/stddef.in.h.orig	2022-01-16 11:19:03 UTC
 +++ gnulib/import/stddef.in.h
 @@ -107,7 +107,7 @@ typedef long max_align_t;
  #if defined _MSC_VER && defined __cplusplus

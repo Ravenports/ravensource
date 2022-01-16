@@ -1,4 +1,4 @@
---- gdb/sparc64-linux-tdep.c.orig	2021-09-13 01:32:09 UTC
+--- gdb/sparc64-linux-tdep.c.orig	2022-01-16 11:21:18 UTC
 +++ gdb/sparc64-linux-tdep.c
 @@ -129,14 +129,14 @@ sparc64_linux_report_signal_info (struct
      return;

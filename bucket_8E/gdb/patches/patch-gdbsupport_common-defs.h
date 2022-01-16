@@ -1,4 +1,4 @@
---- gdbsupport/common-defs.h.orig	2021-09-13 01:31:48 UTC
+--- gdbsupport/common-defs.h.orig	2022-01-16 11:19:03 UTC
 +++ gdbsupport/common-defs.h
 @@ -47,9 +47,15 @@
  
