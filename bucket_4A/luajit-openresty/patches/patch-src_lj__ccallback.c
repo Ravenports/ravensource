@@ -1,4 +1,4 @@
---- src/lj_ccallback.c.orig	2021-05-06 06:13:24 UTC
+--- src/lj_ccallback.c.orig	2022-01-11 05:27:47 UTC
 +++ src/lj_ccallback.c
 @@ -20,6 +20,7 @@
  #include "lj_mcode.h"
@@ -6,5 +6,5 @@
  #include "lj_vm.h"
 +#include "lualib.h"
  
- /* -- Target-specific handling of callback slots -------------------------- */
- 
+ #if LJ_ARCH_PPC_ELFV2
+ #include "lualib.h"
