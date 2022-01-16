@@ -1,0 +1,21 @@
+From 5f4a7c65837a56e62c133db33c28cd1ea71db662 Mon Sep 17 00:00:00 2001
+From: Ka Ho Ng <khng@FreeBSD.org>
+Date: Tue, 11 Jan 2022 23:29:36 -0500
+Subject: [PATCH] Makefile: Includes natpmp_declspec.h as well
+
+Otherwise the header installed would not work.
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- Makefile.orig
++++ Makefile
+@@ -61,7 +61,7 @@ else
+ endif
+ endif
+ 
+-HEADERS = natpmp.h
++HEADERS = natpmp.h natpmp_declspec.h
+ 
+ EXECUTABLES = testgetgateway natpmpc-shared natpmpc-static
+ 
