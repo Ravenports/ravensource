@@ -27,12 +27,12 @@ You can get Django Widget Tweaks by using pip::
 
 To enable `widget_tweaks` in your project you need to add it to
 `INSTALLED_APPS` in your projects
-`settings.py` file::
+`settings.py` file:
 
-    INSTALLED_APPS = [
-        ...
+.. code-block:: python
+
+    INSTALLED_APPS += [
         'widget_tweaks',
-        ...
    ]
 
 Usage
@@ -60,7 +60,9 @@ This is a template tag that can be used as an alternative to aforementioned
 filters.  This template tag renders a field using a syntax similar to plain
 HTML attributes.
 
-Example::
+Example:
+
+.. code-block:: html+django
 
     {% load widget_tweaks %}
 
@@ -81,7 +83,9 @@ Example::
 
 For fields rendered with ``{% render_field %} tag it is possible
 to set error class and required fields class by using
-WIDGET_ERROR_CLASS and  WIDGET_REQUIRED_CLASS`` template variables::
+WIDGET_ERROR_CLASS and  WIDGET_REQUIRED_CLASS`` template variables:
+
+.. code-block:: html+django
 
     {% with WIDGET_ERROR_CLASS='my_error'
 WIDGET_REQUIRED_CLASS='my_required' %}
@@ -93,8 +97,4 @@ WIDGET_REQUIRED_CLASS='my_required' %}
 You can be creative with these variables: e.g. a context processor could
 set a default CSS error class on all fields rendered by
 ``{% render_field %}``.
-
-attr
-----
-Adds or replaces any single html attribute for the form field.
 
