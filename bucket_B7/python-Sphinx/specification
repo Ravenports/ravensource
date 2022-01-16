@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.3.2
+DEF[PORTVERSION]=	4.4.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-Sphinx
@@ -11,7 +11,7 @@ HOMEPAGE=		https://www.sphinx-doc.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/30/30/065cac95f6b55edf93756b5478a416b4d727480e901e94c2575e9ea38d99
+SITES[main]=		PYPIWHL/c4/85/978c06c898331b72080242f18ab7a6021f1055285fb1db9e6554c79264cd
 DISTFILE[1]=		Sphinx-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py39]=		single
@@ -43,16 +43,15 @@ DISTNAME=		Sphinx-${PORTVERSION}.dist-info
 # alabaster (<0.8,>=0.7)
 # imagesize
 # requests (>=2.5.0)
-# setuptools
 # packaging
+# importlib-metadata (>=4.4) ; python_version < "3.10"
 # colorama (>=0.3.5) ; sys_platform=="win32"
 # sphinxcontrib-websupport ; extra == 'docs'
 # flake8 (>=3.5.0) ; extra == 'lint'
 # isort ; extra == 'lint'
-# mypy (>=0.920) ; extra == 'lint'
+# mypy (>=0.931) ; extra == 'lint'
 # docutils-stubs ; extra == 'lint'
 # types-typed-ast ; extra == 'lint'
-# types-pkg-resources ; extra == 'lint'
 # types-requests ; extra == 'lint'
 # pytest ; extra == 'test'
 # pytest-cov ; extra == 'test'
@@ -75,8 +74,8 @@ DISTNAME=		Sphinx-${PORTVERSION}.dist-info
 					python-alabaster:single:py39
 					python-imagesize:single:py39
 					python-requests:single:py39
-					python-setuptools:single:py39
 					python-packaging:single:py39
+					python-importlib-metadata:single:py39
 					python-colorama:single:py39
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-sphinxcontrib-applehelp:single:py310
@@ -93,7 +92,6 @@ DISTNAME=		Sphinx-${PORTVERSION}.dist-info
 					python-alabaster:single:py310
 					python-imagesize:single:py310
 					python-requests:single:py310
-					python-setuptools:single:py310
 					python-packaging:single:py310
 					python-colorama:single:py310
 
