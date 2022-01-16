@@ -1,18 +1,18 @@
-DEF[PORTVERSION]=	4.05
+DEF[PORTVERSION]=	0.72
 # ------------------------------------------------------------------------
 
-NAMEBASE=		perl-JSON
+NAMEBASE=		perl-OpenGL-GLUT
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		532 534
-SDESC[532]=		JavaScript Object Notation encoder/decoder (5.32)
-SDESC[534]=		JavaScript Object Notation encoder/decoder (5.34)
-HOMEPAGE=		https://github.com/makamaka/JSON
+SDESC[532]=		Perl bindings to the GLUT/FreeGLUT toolkit (5.32)
+SDESC[534]=		Perl bindings to the GLUT/FreeGLUT toolkit (5.34)
+HOMEPAGE=		https://github.com/Perl-GPU/OpenGL-GLUT
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		CPAN/ID:I/IS/ISHIGAKI
-DISTFILE[1]=		JSON-${PORTVERSION}.tar.gz:main
+SITES[main]=		CPAN/ID:E/ET/ETJ
+DISTFILE[1]=		OpenGL-GLUT-${PORTVERSION}.tar.gz:main
 
 SPKGS[532]=		single
 SPKGS[534]=		single
@@ -23,22 +23,22 @@ VOPTS[532]=		PERL_532=ON PERL_534=OFF
 VOPTS[534]=		PERL_532=OFF PERL_534=ON
 
 # License listed in CPAN directory:
-# perl_5
+# unknown
 
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		JSON-${PORTVERSION}
+DISTNAME=		OpenGL-GLUT-${PORTVERSION}
 
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Test::More (perl 5.32 core) (perl 5.34 core)
-# |      runtime : JSON::XS
+# |      runtime : OpenGL
 # |        build : ExtUtils::MakeMaker (perl 5.32 core) (perl 5.34 core)
 # |    configure : ExtUtils::MakeMaker (perl 5.32 core) (perl 5.34 core)
+# |         test : Test::More (perl 5.32 core) (perl 5.34 core)
 
 [PERL_532].USES_ON=			perl:532,configure
-[PERL_532].BUILDRUN_DEPENDS_ON=		perl-JSON-XS:single:532
+[PERL_532].BUILDRUN_DEPENDS_ON=		perl-OpenGL:single:532
 [PERL_534].USES_ON=			perl:534,configure
-[PERL_534].BUILDRUN_DEPENDS_ON=		perl-JSON-XS:single:534
+[PERL_534].BUILDRUN_DEPENDS_ON=		perl-OpenGL:single:534
 

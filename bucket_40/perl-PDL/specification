@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.064
+DEF[PORTVERSION]=	2.068
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-PDL
@@ -32,7 +32,6 @@ DISTNAME=		PDL-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Convert::UU
 # |      runtime : Data::Dumper (perl 5.32 core) (perl 5.34 core)
 # |      runtime : File::Map
 # |      runtime : File::Which
@@ -50,6 +49,7 @@ DISTNAME=		PDL-${PORTVERSION}
 # |      runtime : Inline
 # |      runtime : Inline::C
 # |      runtime : OpenGL
+# |      runtime : OpenGL::GLUT
 # |        build : ExtUtils::MakeMaker (perl 5.32 core) (perl 5.34 core)
 # |        build : File::Path (perl 5.32 core) (perl 5.34 core)
 # |    configure : Carp (perl 5.32 core) (perl 5.34 core)
@@ -67,8 +67,7 @@ DISTNAME=		PDL-${PORTVERSION}
 # |         test : Test::Warn
 
 [PERL_532].USES_ON=			perl:532,configure
-[PERL_532].BUILDRUN_DEPENDS_ON=		perl-Convert-UU:single:532
-					perl-File-Map:single:532
+[PERL_532].BUILDRUN_DEPENDS_ON=		perl-File-Map:single:532
 					perl-File-Which:single:532
 					perl-Pod-Parser:single:532
 					perl-TermReadKey:single:532
@@ -76,12 +75,12 @@ DISTNAME=		PDL-${PORTVERSION}
 					perl-Inline:single:532
 					perl-Inline-C:single:532
 					perl-OpenGL:single:532
+					perl-OpenGL-GLUT:single:532
 [PERL_532].BUILD_DEPENDS_ON=		perl-Devel-CheckLib:single:532
 					perl-ExtUtils-Depends:single:532
 					perl-PGPLOT:single:532
 [PERL_534].USES_ON=			perl:534,configure
-[PERL_534].BUILDRUN_DEPENDS_ON=		perl-Convert-UU:single:534
-					perl-File-Map:single:534
+[PERL_534].BUILDRUN_DEPENDS_ON=		perl-File-Map:single:534
 					perl-File-Which:single:534
 					perl-Pod-Parser:single:534
 					perl-TermReadKey:single:534
@@ -89,6 +88,7 @@ DISTNAME=		PDL-${PORTVERSION}
 					perl-Inline:single:534
 					perl-Inline-C:single:534
 					perl-OpenGL:single:534
+					perl-OpenGL-GLUT:single:534
 [PERL_534].BUILD_DEPENDS_ON=		perl-Devel-CheckLib:single:534
 					perl-ExtUtils-Depends:single:534
 					perl-PGPLOT:single:534
