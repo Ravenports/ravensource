@@ -1,4 +1,4 @@
---- setup.py.orig	2021-11-15 17:43:00 UTC
+--- setup.py.orig	2022-01-13 21:21:23 UTC
 +++ setup.py
 @@ -45,7 +45,10 @@ TEST_EXTENSIONS = True
  
@@ -12,7 +12,7 @@
  
  def get_platform():
      # Cross compiling
-@@ -1001,8 +1004,6 @@ class PyBuildExt(build_ext):
+@@ -1004,8 +1007,6 @@ class PyBuildExt(build_ext):
          # use the same library for the readline and curses modules.
          if 'curses' in readline_termcap_library:
              curses_library = readline_termcap_library
@@ -21,7 +21,7 @@
          # Issue 36210: OSS provided ncurses does not link on AIX
          # Use IBM supplied 'curses' for successful build of _curses
          elif AIX and self.compiler.find_library_file(self.lib_dirs, 'curses'):
-@@ -1072,10 +1073,6 @@ class PyBuildExt(build_ext):
+@@ -1075,10 +1076,6 @@ class PyBuildExt(build_ext):
                  # for OS X but we need _XOPEN_SOURCE_EXTENDED here for
                  # ncurses wide char support
                  curses_defines.append(('_XOPEN_SOURCE_EXTENDED', '1'))
@@ -32,7 +32,7 @@
  
          curses_enabled = True
          if curses_library.startswith('ncurses'):
-@@ -1567,7 +1564,7 @@ class PyBuildExt(build_ext):
+@@ -1570,7 +1567,7 @@ class PyBuildExt(build_ext):
              self.missing.extend(['resource', 'termios'])
  
          # Platform-specific libraries
