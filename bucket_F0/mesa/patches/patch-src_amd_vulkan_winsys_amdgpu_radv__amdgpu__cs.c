@@ -1,6 +1,6 @@
 - Define ETIME if missing
 
---- src/amd/vulkan/winsys/amdgpu/radv_amdgpu_cs.c.orig	2021-12-29 21:05:19 UTC
+--- src/amd/vulkan/winsys/amdgpu/radv_amdgpu_cs.c.orig	2022-01-12 21:32:28 UTC
 +++ src/amd/vulkan/winsys/amdgpu/radv_amdgpu_cs.c
 @@ -41,6 +41,10 @@
  

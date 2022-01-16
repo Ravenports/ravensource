@@ -1,4 +1,4 @@
---- src/gallium/auxiliary/rbug/rbug_texture.c.orig	2021-12-29 21:05:19 UTC
+--- src/gallium/auxiliary/rbug/rbug_texture.c.orig	2022-01-12 21:32:28 UTC
 +++ src/gallium/auxiliary/rbug/rbug_texture.c
 @@ -36,6 +36,10 @@
  
