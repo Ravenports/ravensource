@@ -1,0 +1,22 @@
+--- configure.orig	2021-12-21 11:07:48 UTC
++++ configure
+@@ -2967,13 +2967,18 @@ $as_echo "#define AIX 1" >>confdefs.h
+ 	EXPORT_SYMBOLS_STYLE=aix
+     ;;
+ 
+-  amd64-*-freebsd* | x86_64*-*-freebsd* | x86_64*-*-k*bsd*-gnu)
++  amd64-*-freebsd* | x86_64*-*-freebsd* | x86_64-*-dragonfly*)
+     MAKEFILE_PREFIX=freebsd_amd64
+     case "$build" in
+         x86_64*-*-k*bsd-gnu)      # Debian/kFreeBSD
+             PLATFORM=GENTOOFREEBSD
+             INSTALL_PREFIX=linux
+             ;;
++	x86_64-*-dragonfly*)
++            PLATFORM=FREEBSD
++            INSTALL_PREFIX=freebsd
++$as_echo "#define DRAGONFLY 1" >>confdefs.h
++	    ;;
+ 		*)
+             PLATFORM=FREEBSD
+             INSTALL_PREFIX=freebsd

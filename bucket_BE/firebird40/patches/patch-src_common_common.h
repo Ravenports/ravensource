@@ -1,4 +1,4 @@
---- src/common/common.h.orig	2021-05-29 15:05:05 UTC
+--- src/common/common.h.orig	2021-12-21 10:19:50 UTC
 +++ src/common/common.h
 @@ -262,7 +262,7 @@
  /*****************************************************

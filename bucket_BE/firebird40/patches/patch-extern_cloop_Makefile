@@ -1,4 +1,4 @@
---- extern/cloop/Makefile.orig	2021-05-29 15:05:05 UTC
+--- extern/cloop/Makefile.orig	2021-12-21 10:19:50 UTC
 +++ extern/cloop/Makefile
 @@ -6,7 +6,7 @@ TARGET	:= release
  
@@ -14,10 +14,10 @@
  OBJS_CPP := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRCS_CPP))
  
 -C_FLAGS := -ggdb -fPIC -MMD -MP -W -Wall -Wno-unused-parameter
--CXX_FLAGS := $(C_FLAGS)
+-CXX_FLAGS := $(C_FLAGS) -std=c++11
 +COMMON_C_FLAGS := -ggdb -fPIC -MMD -MP -W -Wall -Wno-unused-parameter
 +C_FLAGS := $(COMMON_C_FLAGS) $(CFLAGS) $(CPPFLAGS)
-+CXX_FLAGS := $(COMMON_C_FLAGS) $(CXXFLAGS) $(CPPFLAGS)
- FPC_FLAGS := -Mdelphi
++CXX_FLAGS := $(COMMON_C_FLAGS) -std=c++11
+ FPC_FLAGS := -Mdelphi -Cg
  
  ifeq ($(shell uname),FreeBSD)
