@@ -1,8 +1,8 @@
---- libavutil/common.h.orig	2021-10-24 20:47:07 UTC
+--- libavutil/common.h.orig	2022-01-14 18:45:40 UTC
 +++ libavutil/common.h
-@@ -50,6 +50,10 @@
- #   define AV_NE(be, le) (le)
- #endif
+@@ -43,6 +43,10 @@
+ #include "macros.h"
+ #include "version.h"
  
 +#ifndef	UINT64_C
 +#define	UINT64_C(c)	(c ## UL)
