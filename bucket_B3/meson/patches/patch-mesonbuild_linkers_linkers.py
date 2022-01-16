@@ -1,4 +1,4 @@
---- mesonbuild/linkers/linkers.py.orig	2021-12-22 17:54:33 UTC
+--- mesonbuild/linkers/linkers.py.orig	2022-01-02 20:12:32 UTC
 +++ mesonbuild/linkers/linkers.py
 @@ -1292,7 +1292,12 @@ class SolarisDynamicLinker(PosixDynamicL
      def get_link_whole_for(self, args: T.List[str]) -> T.List[str]:
