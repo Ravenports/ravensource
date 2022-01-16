@@ -1,14 +1,14 @@
---- filan.c.orig	2021-10-31 18:06:09 UTC
+--- filan.c.orig	2022-01-08 20:59:57 UTC
 +++ filan.c
-@@ -905,6 +905,7 @@ int tcpan(int fd, FILE *outfile) {
- #if WITH_TCP
+@@ -907,6 +907,7 @@ int tcpan(int fd, FILE *outfile) {
+ #if WITH_TCP && defined(TCP_INFO)
  
  int tcpan2(int fd, FILE *outfile) {
 +# ifdef TCP_INFO
     struct tcp_info tcpinfo;
     socklen_t tcpinfolen = sizeof(tcpinfo);
     int result;
-@@ -930,6 +931,9 @@ int tcpan2(int fd, FILE *outfile) {
+@@ -932,6 +933,9 @@ int tcpan2(int fd, FILE *outfile) {
     // fprintf(outfile, "%s={%u}\t", "TCPI_", tcpinfo.tcpi_);
  
     return 0;
