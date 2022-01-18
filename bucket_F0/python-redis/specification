@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.1.0
+DEF[PORTVERSION]=	4.1.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-redis
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/redis/redis-py
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/bf/ae/426f5c20c8e6daab1676c87071ce3d804d5574e1d656b03daf87916b6b19
+SITES[main]=		PYPIWHL/45/64/6e0bbfe8288bb366f513cbc98444847787377f234fc5b5a8926a3360f3a6
 DISTFILE[1]=		redis-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py39]=		single
@@ -30,11 +30,12 @@ DISTNAME=		redis-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # deprecated (>=1.2.3)
-# packaging (>=21.3)
+# packaging (>=20.4)
 # importlib-metadata (>=1.0) ; python_version < "3.8"
-# cryptography (>=36.0.1) ; extra == 'cryptography'
-# requests (>=2.26.0) ; extra == 'cryptography'
 # hiredis (>=1.0.0) ; extra == 'hiredis'
+# cryptography (>=36.0.1) ; extra == 'ocsp'
+# pyopenssl (==20.0.1) ; extra == 'ocsp'
+# requests (>=2.26.0) ; extra == 'ocsp'
 
 [PY39].USES_ON=				python:py39,wheel
 [PY39].RUN_DEPENDS_ON=			python-Deprecated:single:py39
