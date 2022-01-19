@@ -1,4 +1,4 @@
---- vcl/source/app/svapp.cxx.orig	2021-12-21 19:06:48 UTC
+--- vcl/source/app/svapp.cxx.orig	2022-01-12 19:09:02 UTC
 +++ vcl/source/app/svapp.cxx
 @@ -1198,7 +1198,7 @@ OUString Application::GetHWOSConfInfo(co
  #endif
