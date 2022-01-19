@@ -1,4 +1,4 @@
---- src/libical/icaltz-util.c.orig	2021-12-08 23:36:12 UTC
+--- src/libical/icaltz-util.c.orig	2022-01-17 15:19:56 UTC
 +++ src/libical/icaltz-util.c
 @@ -53,6 +53,13 @@
  #define bswap_32 swap32
