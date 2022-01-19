@@ -1,4 +1,4 @@
---- deps/v8/src/trap-handler/trap-handler.h.orig	2022-01-10 16:28:36 UTC
+--- deps/v8/src/trap-handler/trap-handler.h.orig	2022-01-18 13:35:02 UTC
 +++ deps/v8/src/trap-handler/trap-handler.h
 @@ -20,6 +20,7 @@ namespace trap_handler {
  // X64 on Linux, Windows, MacOS, FreeBSD.
