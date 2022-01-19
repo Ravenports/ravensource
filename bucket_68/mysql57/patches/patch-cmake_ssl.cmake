@@ -1,6 +1,6 @@
---- cmake/ssl.cmake.orig	2021-09-07 05:26:47 UTC
+--- cmake/ssl.cmake.orig	2021-11-29 20:09:43 UTC
 +++ cmake/ssl.cmake
-@@ -193,17 +193,10 @@ MACRO (MYSQL_CHECK_SSL)
+@@ -218,17 +218,10 @@ MACRO (MYSQL_CHECK_SSL)
        )
      SET(OPENSSL_VERSION ${OPENSSL_VERSION} CACHE INTERNAL "")
  

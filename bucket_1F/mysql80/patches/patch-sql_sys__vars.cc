@@ -1,6 +1,6 @@
---- sql/sys_vars.cc.orig	2021-09-28 11:46:34 UTC
+--- sql/sys_vars.cc.orig	2021-12-17 16:07:27 UTC
 +++ sql/sys_vars.cc
-@@ -2235,7 +2235,7 @@ static Sys_var_ulong Sys_interactive_tim
+@@ -2243,7 +2243,7 @@ static Sys_var_ulong Sys_interactive_tim
      "The number of seconds the server waits for activity on an interactive "
      "connection before closing it",
      SESSION_VAR(net_interactive_timeout), CMD_LINE(REQUIRED_ARG),
@@ -9,7 +9,7 @@
  
  static Sys_var_ulong Sys_join_buffer_size(
      "join_buffer_size", "The size of the buffer that is used for full joins",
-@@ -3085,7 +3085,7 @@ static Sys_var_ulong Sys_net_read_timeou
+@@ -3093,7 +3093,7 @@ static Sys_var_ulong Sys_net_read_timeou
      "Number of seconds to wait for more data from a connection before "
      "aborting the read",
      SESSION_VAR(net_read_timeout), CMD_LINE(REQUIRED_ARG),
@@ -18,7 +18,7 @@
      NO_MUTEX_GUARD, NOT_IN_BINLOG, ON_CHECK(nullptr),
      ON_UPDATE(fix_net_read_timeout));
  
-@@ -3106,7 +3106,7 @@ static Sys_var_ulong Sys_net_write_timeo
+@@ -3114,7 +3114,7 @@ static Sys_var_ulong Sys_net_write_timeo
      "Number of seconds to wait for a block to be written to a connection "
      "before aborting the write",
      SESSION_VAR(net_write_timeout), CMD_LINE(REQUIRED_ARG),
@@ -27,7 +27,7 @@
      NO_MUTEX_GUARD, NOT_IN_BINLOG, ON_CHECK(nullptr),
      ON_UPDATE(fix_net_write_timeout));
  
-@@ -5103,7 +5103,7 @@ static Sys_var_ulong Sys_net_wait_timeou
+@@ -5180,7 +5180,7 @@ static Sys_var_ulong Sys_net_wait_timeou
      "The number of seconds the server waits for activity on a "
      "connection before closing it",
      SESSION_VAR(net_wait_timeout), CMD_LINE(REQUIRED_ARG),
