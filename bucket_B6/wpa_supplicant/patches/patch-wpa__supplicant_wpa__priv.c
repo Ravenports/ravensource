@@ -1,6 +1,6 @@
---- wpa_supplicant/wpa_priv.c.orig	2019-08-07 13:25:25 UTC
+--- wpa_supplicant/wpa_priv.c.orig	2022-01-16 20:51:29 UTC
 +++ wpa_supplicant/wpa_priv.c
-@@ -1197,6 +1197,7 @@ static void usage(void)
+@@ -1205,6 +1205,7 @@ static void usage(void)
  int main(int argc, char *argv[])
  {
  	int c, i;
@@ -8,7 +8,7 @@
  	int ret = -1;
  	char *pid_file = NULL;
  	int daemonize = 0;
-@@ -1239,6 +1240,7 @@ int main(int argc, char *argv[])
+@@ -1247,6 +1248,7 @@ int main(int argc, char *argv[])
  		usage();
  		goto out2;
  	}
@@ -16,7 +16,7 @@
  
  	wpa_printf(MSG_DEBUG, "wpa_priv control directory: '%s'", ctrl_dir);
  
-@@ -1272,7 +1274,8 @@ out:
+@@ -1280,7 +1282,8 @@ out:
  		wpa_priv_interface_deinit(prev);
  	}
  

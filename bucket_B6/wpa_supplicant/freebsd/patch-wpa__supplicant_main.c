@@ -1,4 +1,4 @@
---- wpa_supplicant/main.c.orig	2019-08-07 13:25:25 UTC
+--- wpa_supplicant/main.c.orig	2022-01-16 20:51:29 UTC
 +++ wpa_supplicant/main.c
 @@ -66,7 +66,7 @@ static void usage(void)
  	       "  -c = Configuration file\n"
