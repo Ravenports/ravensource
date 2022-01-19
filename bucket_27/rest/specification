@@ -1,7 +1,7 @@
-DEF[PORTVERSION]=	0.8.1
+DEF[PORTVERSION]=	0.9.0
 DEF[FOLDER]=		${PORTVERSION:R}
 DEF[SOVERSION]=		0.0.0
-DEF[REST_API]=		0.7
+DEF[REST_API]=		1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rest
@@ -16,7 +16,8 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNOME/rest/${FOLDER}
 DISTFILE[1]=		rest-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary docs examples
+# SPKGS[standard]=	complete primary docs examples
+SPKGS[standard]=	complete primary examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,18 +31,25 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/librest
 
+# BUILD_DEPENDS=	python-gi-docgen:single:python_default
 BUILDRUN_DEPENDS=	nss:caroot:standard
 			libsoup-2.4:primary:standard
+			json-glib:primary:standard
 
-USES=			gmake pkgconfig libtool gtk-doc
+USES=			meson pkgconfig
 GNOME_COMPONENTS=	glib libxml2
 # #			 introspection
+# #			USES=gtk-doc requires introspection
 SOVERSION=		${SOVERSION}
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-ca-certificates={{LOCALBASE}}/share/certs/ca-root-nss.crt
-INSTALL_TARGET=		install-strip
+MESON_ARGS=		-Dca_certificates_path={{LOCALBASE}}/share/certs/ca-root-nss.crt
+			-Dca_certificates=false
+			-Dintrospection=false
+			-Dexamples=false
+			-Dgtk_doc=false
+			-Dsoup2=true
+			-Dtests=false
 INSTALL_REQ_TOOLCHAIN=	yes
-GTKDOC_OUTPUT_BASEDIR=	rest-${REST_API}
+# GTKDOC_OUTPUT_BASEDIR=	rest-${REST_API}
 PLIST_SUB=		API=${REST_API}
 			INTRO="@comment "
 
