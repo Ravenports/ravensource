@@ -1,4 +1,4 @@
---- p11-kit/server.c.orig	2021-05-25 07:15:23 UTC
+--- p11-kit/server.c.orig	2021-07-22 15:43:53 UTC
 +++ p11-kit/server.c
 @@ -91,6 +91,12 @@ typedef void (*sighandler_t)(int);
  #define _(x) (x)
