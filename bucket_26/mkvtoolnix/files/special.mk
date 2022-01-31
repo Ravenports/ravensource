@@ -1,1 +1,1 @@
-MAKE_CMD=	rake30 -v
+MAKE_CMD=	rake -v
