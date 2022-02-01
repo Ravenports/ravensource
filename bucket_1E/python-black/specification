@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	21.12b0
+DEF[PORTVERSION]=	22.1.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-black
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/psf/black
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/9b/27/b2f98b627738b02dcac06ae9e2ab13f14ab906fe6dd6366050c76883d4b5
+SITES[main]=		PYPIWHL/a5/59/bd6d44da2b364fd2bd7a0b2ce2edfe200b79faad1cde14ce5ef13d504393
 DISTFILE[1]=		black-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py39]=		single
@@ -29,20 +29,18 @@ GENERATED=		yes
 DISTNAME=		black-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# click (>=7.1.2)
+# click (>=8.0.0)
 # platformdirs (>=2)
-# tomli (<2.0.0,>=0.2.6)
-# pathspec (<1,>=0.9.0)
-# typing-extensions (>=3.10.0.0)
+# tomli (>=1.1.0)
+# pathspec (>=0.9.0)
 # mypy-extensions (>=0.4.3)
+# typing-extensions (>=3.10.0.0) ; python_version < "3.10"
 # dataclasses (>=0.6) ; python_version < "3.7"
 # typed-ast (>=1.4.2) ; python_version < "3.8" and implementation_name == "cpython"
-# typing-extensions (!=3.10.0.1) ; python_version >= "3.10"
 # colorama (>=0.4.3) ; extra == 'colorama'
 # aiohttp (>=3.7.4) ; extra == 'd'
 # ipython (>=7.8.0) ; extra == 'jupyter'
 # tokenize-rt (>=3.2.0) ; extra == 'jupyter'
-# typed-ast (>=1.4.3) ; extra == 'python2'
 # uvloop (>=0.15.2) ; extra == 'uvloop'
 
 [PY39].USES_ON=				python:py39,wheel
@@ -50,13 +48,12 @@ DISTNAME=		black-${PORTVERSION}.dist-info
 					python-platformdirs:single:py39
 					python-tomli:single:py39
 					python-pathspec:single:py39
-					python-typing-extensions:single:py39
 					python-mypy-extensions:single:py39
+					python-typing-extensions:single:py39
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-click:single:py310
 					python-platformdirs:single:py310
 					python-tomli:single:py310
 					python-pathspec:single:py310
-					python-typing-extensions:single:py310
 					python-mypy-extensions:single:py310
 
