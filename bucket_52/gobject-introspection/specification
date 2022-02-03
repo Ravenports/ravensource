@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	1.70.0
 
 NAMEBASE=		gobject-introspection
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Introspection data generator for GObject libraries
@@ -41,6 +41,11 @@ SHEBANG_FILES=		misc/update-gtkdoc-tests.py
 			misc/update-glib-annotations.py
 			tests/gi-tester
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e 's|python@0@|python${PYTHON_VER}|' \
 		${WRKSRC}/tools/meson.build
+
+post-install:
+	# remove artifacts from doctemplates fix
+	${FIND} ${STAGEDIR}${PREFIX}/lib/gobject-introspection/giscanner/doctemplates \
+		-type f -name "meson.build*" -delete
