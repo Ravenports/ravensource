@@ -1,4 +1,4 @@
---- Modules/FindSDL.cmake.orig	2021-12-07 15:44:21 UTC
+--- Modules/FindSDL.cmake.orig	2022-01-25 13:45:06 UTC
 +++ Modules/FindSDL.cmake
 @@ -124,6 +124,11 @@ else()
    set(VC_LIB_PATH_SUFFIX lib/x86)
