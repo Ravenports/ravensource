@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.4.63
+DEF[PORTVERSION]=	1.4.64
 DEF[REVISION]=		0
 DEF[CACHEDIR]=		/var/cache/lighttpd
 DEF[LOGDIR]=		/var/log/lighttpd
@@ -34,9 +34,9 @@ GROUPS=			wwwraven
 USERGROUP_SPKG=		single
 
 BUILDRUN_DEPENDS=	libev:single:standard
+			pcre2:primary:standard
 
-USES=			autoreconf cpe gmake libtool pkgconfig ssl lua zlib
-			bz2 pcre
+USES=			autoreconf cpe gmake libtool pkgconfig ssl lua zlib bz2
 MUST_CONFIGURE=		gnu
 CFLAGS=			-std=gnu99
 CONFIGURE_ARGS=		--libdir={{PREFIX}}/lib/lighttpd
@@ -46,9 +46,7 @@ CONFIGURE_ARGS=		--libdir={{PREFIX}}/lib/lighttpd
 			--with-openssl-libs={{OPENSSLLIB}}
 			--with-lua
 			--with-bzip2
-			--without-gdbm
 			--without-krb5
-			--without-memcached
 			--without-valgrind
 			--without-webdav-props
 			--without-webdav-locks
@@ -73,14 +71,14 @@ VAR_OPSYS[linux]=	CONFIGURE_ARGS=--with-attr
 [LDAP].MAKEFILE_ON=			REQUIRES+=slapd
 [LDAP].CONFIGURE_WITH_BOTH=		ldap
 
-[MYSQL].DESCRIPTION=			MySQL support (mod_authn_mysql, mod_mysql_vhost)
+[MYSQL].DESCRIPTION=			MySQL support (mod_vhostdb_mysql)
 [MYSQL].USES_ON=			mysql
 [MYSQL].MAKEFILE_ON=			REQUIRES+=mysql
 [MYSQL].CONFIGURE_WITH_BOTH=		mysql
 
-[GEOIP].DESCRIPTION=			GeoIP location support
-[GEOIP].BUILDRUN_DEPENDS_ON=		GeoIP:single:standard
-[GEOIP].CONFIGURE_WITH_BOTH=		geoip
+[GEOIP].DESCRIPTION=			GeoIP location support (mod_maxminddb)
+[GEOIP].BUILDRUN_DEPENDS_ON=		libmaxminddb:single:standard
+[GEOIP].CONFIGURE_WITH_BOTH=		maxminddb
 
 post-patch:
 	${REINPLACE_CMD} -E \
@@ -117,11 +115,11 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/doc/config/${FILE} \
 		${STAGEDIR}${PREFIX}/etc/lighttpd/${FILE}.sample
 .endfor
-.for FILE in access_log.conf auth.conf cgi.conf cml.conf \
+.for FILE in access_log.conf auth.conf cgi.conf \
 	debug.conf dirlisting.conf evhost.conf expire.conf fastcgi.conf \
-	magnet.conf mime.conf mysql_vhost.conf proxy.conf rrdtool.conf \
+	magnet.conf mime.conf proxy.conf rrdtool.conf \
 	scgi.conf secdownload.conf simple_vhost.conf ssi.conf status.conf \
-	trigger_b4_dl.conf userdir.conf webdav.conf
+	userdir.conf webdav.conf
 	${INSTALL_DATA} ${WRKSRC}/doc/config/conf.d/${FILE} \
 		${STAGEDIR}${PREFIX}/etc/lighttpd/conf.d/${FILE}.sample
 .endfor
