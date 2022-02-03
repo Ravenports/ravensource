@@ -1,6 +1,6 @@
---- source/dialogs/combi.c.orig	2021-10-28 22:39:30 UTC
+--- source/dialogs/combi.c.orig	2022-01-24 15:48:21 UTC
 +++ source/dialogs/combi.c
-@@ -39,6 +39,15 @@
+@@ -40,6 +40,15 @@
  #include <pango/pango.h>
  #include <theme.h>
  
