@@ -1,6 +1,6 @@
---- cmake_admin/DefaultDirs.cmake.orig	2021-09-11 16:26:35 UTC
+--- cmake_admin/DefaultDirs.cmake.orig	2022-01-23 14:33:33 UTC
 +++ cmake_admin/DefaultDirs.cmake
-@@ -53,7 +53,7 @@ set (INFO_INSTALL_DIR "share/info" CACHE
+@@ -58,7 +58,7 @@ set (INFO_INSTALL_DIR "share/info" CACHE
  mark_as_advanced (INFO_INSTALL_DIR) 
  
  # MAN_INSTALL_DIR - the man pages install dir
