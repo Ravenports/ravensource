@@ -1,4 +1,4 @@
---- lib/cyrusdb_twoskip.c.orig	2021-05-10 04:34:24 UTC
+--- lib/cyrusdb_twoskip.c.orig	2022-02-02 02:46:43 UTC
 +++ lib/cyrusdb_twoskip.c
 @@ -449,6 +449,7 @@ static int recovery2(struct dbengine *db
  #define SIZE(db) mappedfile_size((db)->mf)

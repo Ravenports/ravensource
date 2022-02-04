@@ -1,4 +1,4 @@
---- imap/tls.c.orig	2021-05-10 04:34:24 UTC
+--- imap/tls.c.orig	2022-02-02 02:46:43 UTC
 +++ imap/tls.c
 @@ -782,12 +782,14 @@ EXPORTED int     tls_init_serverengine(c
      off |= SSL_OP_ALL;            /* Work around all known bugs */
