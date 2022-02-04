@@ -1,13 +1,12 @@
 # 9.odd.x is considered the "devel" branch currently
 # Stick to even, e.g. 9.14.x, 9.16.x
 # DEF[REALVERSION]=	9.12.1-P2
-DEF[REALVERSION]=	9.16.24
+DEF[REALVERSION]=	9.18.0
 DEF[PORTVERSION]=	${REALVERSION:S/-/./}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		bind
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		dns net
 VARIANTS=		standard
 SDESC[standard]=	Berkeley Internet Name Domain (Domain Name Server)
@@ -20,8 +19,8 @@ DISTFILE[1]=		bind-${REALVERSION}.tar.xz:main
 
 SPKGS[standard]=	complete server tools docs
 
-OPTIONS_AVAILABLE=	FILTER_AAAA FIXED_RRSET GEOIP LARGE_FILE QUERYTRACE
-OPTIONS_STANDARD=	FILTER_AAAA FIXED_RRSET GEOIP LARGE_FILE QUERYTRACE
+OPTIONS_AVAILABLE=	FIXED_RRSET GEOIP LARGE_FILE QUERYTRACE
+OPTIONS_STANDARD=	FIXED_RRSET GEOIP LARGE_FILE QUERYTRACE
 
 LICENSE=		MPL:server
 LICENSE_FILE=		MPL:{{WRKSRC}}/COPYRIGHT
@@ -32,12 +31,13 @@ FPC_EQUIVALENT=		dns/bind916
 BUILD_DEPENDS=		idnkit:single:standard
 BUILDRUN_DEPENDS=	libxml2:single:standard
 			json-c:primary:standard
-			libedit:single:standard
 			libuv:single:standard
 			lmdb:single:standard
+			libnghttp2:single:standard
 EXRUN[tools]=		idnkit:single:standard
 
-USES=			cclibs:server,tools cpe iconv pkgconfig ssl
+USES=			cclibs:server,tools cpe iconv pkgconfig ssl readline
+			libtool perl:build
 CPE_VENDOR=		isc
 SINGLE_JOB=		yes
 DISTNAME=		bind-${REALVERSION}
@@ -45,41 +45,26 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--localstatedir=/var
 			--sysconfdir={{ETCDIR}}
 			--disable-linux-caps
-			--disable-symtable
 			--disable-dnstap
-			--disable-native-pkcs11
 			--without-gssapi
-			--without-python
-			--without-gost
-			--with-randomdev=/dev/random
-			--with-readline="-L{{LOCALBASE}}/lib -ledit"
+			--with-readline
 			--with-openssl={{OPENSSLBASE}}
-			--with-dlopen=yes
-			--with-idn={{LOCALBASE}}
-			--with-libjson
 			--with-lmdb
-			--with-dlz-filesystem=yes
-			--enable-ipv6
-			--enable-threads
-			--enable-rpz-nsdname
-			--enable-rpz-nsip
-			{{ICONV_CONFIGURE_ARG}}
 			STD_CDEFINES="-DDIG_SIGCHASE=1"
-# --with-libxml2={{LOCALBASE}}
 RC_SUBR=		named:server
 SUB_FILES=		pkg-message-server
 			named.conf
 PLIST_SUB=		ETCDIR={{BIND_ETCDIR}}
+			LIBVER=${PORTVERSION}
+INSTALL_REQ_TOOLCHAIN=	yes
 
-[FILTER_AAAA].DESCRIPTION=		Enable filtering of AAAA records
 [FIXED_RRSET].DESCRIPTION=		Enable fixed rrset ordering
 [GEOIP].DESCRIPTION=			Allow geographically based ACL
 [LARGE_FILE].DESCRIPTION=		64-bit file support
 [QUERYTRACE].DESCRIPTION=		Enable the very verbose query tracelogging
 
-[FILTER_AAAA].CONFIGURE_ENABLE_BOTH=	filter-aaaa
 [FIXED_RRSET].CONFIGURE_ENABLE_BOTH=	fixed-rrset
-[GEOIP].CONFIGURE_WITH_BOTH=		geoip
+[GEOIP].CONFIGURE_ENABLE_BOTH=		geoip
 [GEOIP].BUILDRUN_DEPENDS_ON=		GeoIP:single:standard
 [LARGE_FILE].CONFIGURE_ENABLE_BOTH=	largefile
 [QUERYTRACE].CONFIGURE_ENABLE_BOTH=	querytrace
@@ -103,14 +88,8 @@ post-install:
 		${STAGEDIR}${ETCDIR}/master
 	${INSTALL_DATA} ${FILESDIR}/localhost-reverse.db \
 		${STAGEDIR}${ETCDIR}/master
-	${INSTALL_DATA} ${WRKSRC}/bin/rndc/rndc.conf \
-		${STAGEDIR}${ETCDIR}/rndc.conf.sample
 	${RM} -r ${STAGEDIR}/var
 
 	# documentation
 	${INSTALL_DATA} ${WRKSRC}/doc/arm/*.rst ${STAGEDIR}${STD_DOCDIR}/arm
-	${INSTALL_DATA} ${WRKSRC}/CHANGES \
-		${WRKSRC}/HISTORY* ${WRKSRC}/README* ${STAGEDIR}${STD_DOCDIR}
-
-	# strip
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/named/filter-aaaa.so
+	${INSTALL_DATA} ${WRKSRC}/CHANGES ${WRKSRC}/README* ${STAGEDIR}${STD_DOCDIR}
