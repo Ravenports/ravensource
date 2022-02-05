@@ -1,6 +1,6 @@
---- locate/updatedb.sh.orig	2021-01-02 00:46:51 UTC
+--- locate/updatedb.sh.orig	2022-01-02 23:34:22 UTC
 +++ locate/updatedb.sh
-@@ -292,7 +292,7 @@ cd "$changeto"
+@@ -293,7 +293,7 @@ cd "$changeto"
  if test -n "$SEARCHPATHS"; then
    if [ "$LOCALUSER" != "" ]; then
      # : A1
@@ -9,7 +9,7 @@
      "$find $SEARCHPATHS $FINDOPTIONS \
       \\( $prunefs_exp \
       -type d -regex '$PRUNEREGEX' \\) -prune -o $print_option"
-@@ -308,7 +308,7 @@ if test -n "$NETPATHS"; then
+@@ -309,7 +309,7 @@ if test -n "$NETPATHS"; then
  myuid=`getuid`
  if [ "$myuid" = 0 ]; then
      # : A3
