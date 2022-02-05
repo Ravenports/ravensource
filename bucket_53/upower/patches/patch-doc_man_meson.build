@@ -1,0 +1,11 @@
+--- doc/man/meson.build.orig	2022-02-02 19:12:58 UTC
++++ doc/man/meson.build
+@@ -10,7 +10,7 @@ foreach man: man_pages
+         '@0@.@1@'.format(man[0], man[1]),
+         input: files(join_paths(man[0] + '.xml')),
+         output: '@0@.@1@'.format(man[0], man[1]),
+-        command: [xsltproc, '--output', '@OUTPUT@', '-nonet', 'http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl', '@INPUT@'],
++        command: [xsltproc, '--output', '@OUTPUT@', '-nonet', 'http://cdn.docbook.org/release/xsl/current/manpages/docbook.xsl', '@INPUT@'],
+         build_by_default: get_option('man'),
+         install: get_option('man'),
+         install_dir: get_option('prefix') / get_option('mandir') / 'man@0@'.format(man[1]),

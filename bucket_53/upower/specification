@@ -1,6 +1,6 @@
-DEF[PORTVERSION]=	0.99.13
-DEF[SITEVERSION]=	UPOWER_${PORTVERSION:S/./_/g}
-DEF[SOVERSION]=		3.0.1
+DEF[PORTVERSION]=	0.99.14
+DEF[SITEVERSION]=	v${PORTVERSION}
+DEF[SOVERSION]=		3.1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		upower
@@ -40,24 +40,26 @@ BUILDRUN_DEPENDS=	dbus-glib:primary:standard
 BR_DEPS[linux]=		libgudev:single:standard
 			libusb:single:standard
 
-USES=			autoreconf gettext-tools:build
-			gmake libtool pkgconfig gtk-doc
+USES=			gettext-tools:build meson pkgconfig gtk-doc
 GNOME_COMPONENTS=	glib intltool
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-gtk-doc
-			--without-idevice
-			--with-udevrulesdir=/etc/udev/rules.d
-INSTALL_TARGET=		install-strip
+MESON_ARGS=		-Dman=true
+			-Dgtk-doc=true
+			-Dintrospection=enabled
+			-Dudevrulesdir=/etc/udev/rules.d
+			-Dsystemdsystemunitdir=no
+			-Didevice=disabled
 SOVERSION=		${SOVERSION}
 CFLAGS=			-Wno-deprecated-declarations
 GTKDOC_OUTPUT_BASEDIR=	UPower
 DISTNAME=		upower-${SITEVERSION}
+INSTALL_REQ_TOOLCHAIN=	yes
 
-VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--with-backend=freebsd
-# VAR_OPSYS[linux]=	CONFIGURE_ARGS=--with-backend=gudev
-
-post-patch-sunos:
-	${REINPLACE_CMD} -e '/as-needed/ s/^.*$$/NOOP=1/' ${WRKSRC}/configure
+VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=-Dos_backend=freebsd
+VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=-Dos_backend=freebsd
+VAR_OPSYS[netbsd]=	CONFIGURE_ARGS=-Dos_backend=netbsd
+VAR_OPSYS[linux]=	CONFIGURE_ARGS=-Dos_backend=linux
+VAR_OPSYS[sunos]=	CONFIGURE_ARGS=-Dos_backend=dummy
 
 post-stage:
 	${RM} -r ${STAGEDIR}/var
+
