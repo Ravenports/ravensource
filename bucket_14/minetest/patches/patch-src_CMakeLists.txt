@@ -1,8 +1,8 @@
---- src/CMakeLists.txt.orig	2021-04-10 16:41:12 UTC
+--- src/CMakeLists.txt.orig	2022-01-30 21:58:18 UTC
 +++ src/CMakeLists.txt
-@@ -756,19 +756,7 @@ else()
- 	# - we don't deal with Inf/NaN or signed zero
- 	set(MATH_FLAGS "-fno-math-errno -fno-trapping-math -ffinite-math-only -fno-signed-zeros")
+@@ -768,19 +768,7 @@ else()
+ 		endif()
+ 	endif()
  
 -	set(CMAKE_CXX_FLAGS_RELEASE "-DNDEBUG ${RELEASE_WARNING_FLAGS} ${WARNING_FLAGS} ${OTHER_FLAGS} -Wall -pipe -funroll-loops")
 -	if(CMAKE_SYSTEM_NAME MATCHES "(Darwin|BSD|DragonFly)")
@@ -16,8 +16,8 @@
 -		else()
 -			set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${MATH_FLAGS}")
 -		endif()
--	endif(CMAKE_SYSTEM_NAME MATCHES "(Darwin|BSD|DragonFly)")
-+	set(CMAKE_CXX_FLAGS_RELEASE "-DNDEBUG ${RELEASE_WARNING_FLAGS} ${WARNING_FLAGS} ${OTHER_FLAGS} -Wall")
+-	endif()
++	set(CMAKE_CXX_FLAGS_RELEASE "-DNDEBUG ${RELEASE_WARNING_FLAGS} ${WARNING_FLAGS} ${OTHER_FLAGS} -Wall -funroll-loops")
  	set(CMAKE_CXX_FLAGS_SEMIDEBUG "-g -O1 -Wall ${WARNING_FLAGS} ${OTHER_FLAGS}")
  	set(CMAKE_CXX_FLAGS_DEBUG "-g -O0 -Wall ${WARNING_FLAGS} ${OTHER_FLAGS}")
  

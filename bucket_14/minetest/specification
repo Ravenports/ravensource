@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	5.4.1
+DEF[PORTVERSION]=	5.5.0
+DEF[IRRLICHT_VER]=	1.9.0mt4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		minetest
@@ -9,12 +10,14 @@ SDESC[standard]=	Infinite-world block sandbox game
 HOMEPAGE=		https://www.minetest.net/
 CONTACT=		Leonid_Bobrov[goleo@disroot.org]
 
-DOWNLOAD_GROUPS=	main game
+DOWNLOAD_GROUPS=	main game light
 SITES[main]=		GITHUB/minetest:minetest:${PORTVERSION}
 SITES[game]=		GITHUB/minetest:minetest_game:${PORTVERSION}
+SITES[light]=		GITHUB/minetest:irrlicht:${IRRLICHT_VER}:lib/irrlichtmt
 DISTFILE[1]=		generated:main
 DISTFILE[2]=		generated:game
-DF_INDEX=		1 2
+DISTFILE[3]=		generated:light
+DF_INDEX=		1 2 3
 
 SPKGS[standard]=	complete client server data docs nls
 
@@ -33,13 +36,9 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		games/minetest
 
-USES=			cmake gettext-tools iconv jpeg mesa
-			ncurses png pgsql:client sqlite bz2
-CMAKE_ARGS=		-DBUILD_SERVER=TRUE
-			-DENABLE_SYSTEM_JSONCPP=TRUE
-XORG_COMPONENTS=	x11 xext xxf86vm sm ice
 BUILD_DEPENDS=		doxygen:single:standard
 			gmp:static:standard
+			evdev-proto:single:standard
 BUILDRUN_DEPENDS=	curl:primary:standard
 			freetype:primary:standard
 			gmp:shared:standard
@@ -55,6 +54,15 @@ BUILDRUN_DEPENDS=	curl:primary:standard
 			libGLU:single:standard
 EXRUN[client]=		minetest:data:standard
 EXRUN[server]=		minetest:data:standard
+
+USES=			cmake gettext-tools iconv jpeg mesa dos2unix
+			ncurses png pgsql:client sqlite bz2 zstd
+XORG_COMPONENTS=	x11 xext xxf86vm sm ice
+DOS2UNIX_FILES=		lib/irrlichtmt/source/Irrlicht/CIrrDeviceLinux.cpp
+			lib/irrlichtmt/source/Irrlicht/os.cpp
+CMAKE_ARGS=		-DBUILD_SERVER=TRUE
+			-DENABLE_SYSTEM_JSONCPP=TRUE
+			-DCUSTOM_MANDIR:STRING="share/man"
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/minetest*
