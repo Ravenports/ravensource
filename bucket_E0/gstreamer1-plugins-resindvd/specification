@@ -42,8 +42,7 @@ GNOME_COMPONENTS=	glib
 # GNOME_COMPONENTS=introspection disabled on gstreamer1
 CPE_VENDOR=		freedesktop
 CPE_PRODUCT=		gst-plugins-bad
-MESON_ARGS=		-Dgst_player_tests=false
-			-Daccurip=disabled
+MESON_ARGS=		-Daccurip=disabled
 			-Dadpcmdec=disabled
 			-Dadpcmenc=disabled
 			-Daiff=disabled
@@ -142,7 +141,6 @@ MESON_ARGS=		-Dgst_player_tests=false
 			-Dkms=disabled
 			-Dladspa=disabled
 			-Dlibde265=disabled
-			-Dlibmms=disabled
 			-Dlv2=disabled
 			-Dmediafoundation=disabled
 			-Dmicrodns=disabled
@@ -153,7 +151,6 @@ MESON_ARGS=		-Dgst_player_tests=false
 			-Dmusepack=disabled
 			-Dneon=disabled
 			-Dnvcodec=disabled
-			-Dofa=disabled
 			-Dopenal=disabled
 			-Dopenexr=disabled
 			-Dopenh264=disabled
@@ -204,6 +201,8 @@ MESON_ARGS=		-Dgst_player_tests=false
 			-Dexamples=disabled
 			-Dtests=disabled
 			-Dorc=disabled
+			-Dcodecalpha=disabled
+			-Dgpl=enabled
 DISTNAME=		gst-plugins-bad-${PORTVERSION}
 PLIST_SUB=		GSTVER=${GST_VERSION}
 			PLUGIN=${PLUGIN}
@@ -219,3 +218,6 @@ post-patch:
 		-e "/subdir..tools../d" \
 		-e "/subdir..data../d" \
 		${WRKSRC}/meson.build
+
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/lib/pkgconfig/gstreamer-plugins-bad-1.0.pc

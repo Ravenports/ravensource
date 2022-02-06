@@ -1,9 +1,9 @@
---- ext/ogg/meson.build.orig	2020-09-07 23:03:35 UTC
+--- ext/ogg/meson.build.orig	2022-02-03 19:53:32 UTC
 +++ ext/ogg/meson.build
 @@ -11,6 +11,11 @@ ogg_sources = [
  ]
  
- ogg_dep = dependency('ogg', version : '>=1.0', required : get_option('ogg'))
+ ogg_dep = dependency('ogg', allow_fallback: true, version : '>=1.0', required : get_option('ogg'))
 +video_dep = cc.find_library ('gstvideo-1.0', required : true)
 +audio_dep = cc.find_library ('gstaudio-1.0', required : true)
 +pbutils_dep = cc.find_library ('gstpbutils-1.0', required : true)

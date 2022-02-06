@@ -82,7 +82,10 @@ PLIST_SUB=		GSTVER=${GST_VERSION}
 
 post-patch:
 	${REINPLACE_CMD} \
-		-e "/subdir..gst-libs../d" \
+		-e "s/subdir..gst-libs../build_gstgl = false/" \
 		-e "/subdir..pkgconfig../d" \
 		${WRKSRC}/meson.build
 	${REINPLACE_CMD} -e "/subdir..ximage../d" ${WRKSRC}/sys/meson.build
+
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/lib/pkgconfig/gstreamer-plugins-base-1.0.pc
