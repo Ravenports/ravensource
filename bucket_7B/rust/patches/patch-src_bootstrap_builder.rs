@@ -1,4 +1,4 @@
---- src/bootstrap/builder.rs.orig	2022-01-11 11:18:25 UTC
+--- src/bootstrap/builder.rs.orig	2022-01-20 17:48:09 UTC
 +++ src/bootstrap/builder.rs
 @@ -1176,12 +1176,13 @@ impl<'a> Builder<'a> {
                  rustflags.arg("-Zosx-rpath-install-name");
