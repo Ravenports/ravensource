@@ -1,4 +1,4 @@
---- lib/Interpreter/Interpreter.cpp.orig	2021-09-24 16:18:10 UTC
+--- lib/Interpreter/Interpreter.cpp.orig	2022-01-20 21:31:59 UTC
 +++ lib/Interpreter/Interpreter.cpp
 @@ -47,14 +47,22 @@ GetCC1Arguments(DiagnosticsEngine *Diagn
    // failed. Extract that job from the Compilation.
