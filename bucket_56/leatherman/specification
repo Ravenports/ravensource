@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.12.6
+DEF[PORTVERSION]=	1.12.7
 DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -32,10 +32,12 @@ BUILDRUN_DEPENDS=	curl:primary:standard
 USES=			cmake ruby gettext-tools
 CMAKE_ARGS=		-DLEATHERMAN_SHARED:BOOL=ON
 			-DENABLE_CXX_WERROR:BOOL=OFF
+			-DLEATHERMAN_ENABLE_TESTING:BOOL=OFF
 # Problem with boost cmake and linking
 			-DBoost_NO_BOOST_CMAKE:BOOL=ON
 CXXFLAGS=		-Wno-class-memaccess
 			-Wno-ignored-qualifiers
+			-Wno-catch-value
 SOVERSION=		${SOVERSION}
 
 post-patch:
