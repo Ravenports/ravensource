@@ -1,21 +1,60 @@
-From 5f4a7c65837a56e62c133db33c28cd1ea71db662 Mon Sep 17 00:00:00 2001
+From f7fd32e5409a9e85fa41ae7cf3cf3498b8402904 Mon Sep 17 00:00:00 2001
 From: Ka Ho Ng <khng@FreeBSD.org>
-Date: Tue, 11 Jan 2022 23:29:36 -0500
-Subject: [PATCH] Makefile: Includes natpmp_declspec.h as well
+Date: Tue, 25 Jan 2022 23:10:56 -0500
+Subject: [PATCH] Makefile: prepend DESTDIR to INSTALLDIRx variables
 
-Otherwise the header installed would not work.
+This allows the files to be first staged instead of being directly
+installed into the path specified in INSTALLPREFIX.
+
+The purpose is to allow the FreeBSD ports Makefile to cleanly install
+the files into the stagedir without hacks.
+
+Sponsored by:	The FreeBSD Foundation
 ---
- Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ Makefile | 26 +++++++++++++-------------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
 
 --- Makefile.orig
 +++ Makefile
-@@ -61,7 +61,7 @@ else
- endif
- endif
+@@ -110,16 +110,16 @@ depend:
+ 	makedepend -f$(MAKEFILE_LIST) -Y $(OBJS:.o=.c) 2>/dev/null
  
--HEADERS = natpmp.h
-+HEADERS = natpmp.h natpmp_declspec.h
+ install:	$(HEADERS) $(STATICLIB) $(SHAREDLIB) natpmpc-shared natpmp.pc
+-	$(INSTALL) -d $(INSTALLDIRINC)
+-	$(INSTALL) -m 644 $(HEADERS) $(INSTALLDIRINC)
+-	$(INSTALL) -d $(INSTALLDIRLIB)
+-	$(INSTALL) -m 644 $(STATICLIB) $(INSTALLDIRLIB)
+-	$(INSTALL) -m 644 $(SHAREDLIB) $(INSTALLDIRLIB)/$(SONAME)
++	$(INSTALL) -d $(DESTDIR)$(INSTALLDIRINC)
++	$(INSTALL) -m 644 $(HEADERS) $(DESTDIR)$(INSTALLDIRINC)
++	$(INSTALL) -d $(DESTDIR)$(INSTALLDIRLIB)
++	$(INSTALL) -m 644 $(STATICLIB) $(DESTDIR)$(INSTALLDIRLIB)
++	$(INSTALL) -m 644 $(SHAREDLIB) $(DESTDIR)$(INSTALLDIRLIB)/$(SONAME)
+ 	$(INSTALL) -d $(DESTDIR)$(PKGCONFIGDIR)
+ 	$(INSTALL) -m 644 natpmp.pc $(DESTDIR)$(PKGCONFIGDIR)
+-	$(INSTALL) -d $(INSTALLDIRBIN)
+-	$(INSTALL) -m 755 natpmpc-shared $(INSTALLDIRBIN)/natpmpc
+-	ln -s -f $(SONAME) $(INSTALLDIRLIB)/$(SHAREDLIB)
++	$(INSTALL) -d $(DESTDIR)$(INSTALLDIRBIN)
++	$(INSTALL) -m 755 natpmpc-shared $(DESTDIR)$(INSTALLDIRBIN)/natpmpc
++	ln -s -f $(SONAME) $(DESTDIR)$(INSTALLDIRLIB)/$(SHAREDLIB)
  
- EXECUTABLES = testgetgateway natpmpc-shared natpmpc-static
+ $(JNIHEADERS): fr/free/miniupnp/libnatpmp/NatPmp.class
+ 	$(JAVAH) -jni fr.free.miniupnp.libnatpmp.NatPmp
+@@ -169,11 +169,11 @@ mvn_install:
+ 	 -DcreateChecksum=true
  
+ cleaninstall:
+-	$(RM) $(addprefix $(INSTALLDIRINC), $(HEADERS))
+-	$(RM) $(INSTALLDIRLIB)/$(SONAME)
+-	$(RM) $(INSTALLDIRLIB)/$(SHAREDLIB)
+-	$(RM) $(INSTALLDIRLIB)/$(STATICLIB)
+-	$(RM) $(INSTALLDIRLIB)/$(PKGCONFIGDIR)
++	$(RM) $(addprefix $(DESTDIR)$(INSTALLDIRINC)/, $(HEADERS))
++	$(RM) $(DESTDIR)$(INSTALLDIRLIB)/$(SONAME)
++	$(RM) $(DESTDIR)$(INSTALLDIRLIB)/$(SHAREDLIB)
++	$(RM) $(DESTDIR)$(INSTALLDIRLIB)/$(STATICLIB)
++	$(RM) $(DESTDIR)$(PKGCONFIGDIR)
+ 
+ natpmp.pc: VERSION
+ 	$(RM) $@
