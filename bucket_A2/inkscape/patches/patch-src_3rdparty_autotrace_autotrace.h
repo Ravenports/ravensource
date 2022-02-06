@@ -1,4 +1,4 @@
---- src/3rdparty/autotrace/autotrace.h.orig	2021-05-25 11:35:00 UTC
+--- src/3rdparty/autotrace/autotrace.h.orig	2022-02-05 01:12:19 UTC
 +++ src/3rdparty/autotrace/autotrace.h
 @@ -22,8 +22,8 @@
  #define AUTOTRACE_H
