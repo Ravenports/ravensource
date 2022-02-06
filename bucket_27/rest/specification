@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.9.0
+DEF[PORTVERSION]=	1.0.0
 DEF[FOLDER]=		${PORTVERSION:R}
 DEF[SOVERSION]=		0.0.0
 DEF[REST_API]=		1.0
@@ -13,8 +13,8 @@ HOMEPAGE=		https://wiki.gnome.org/Projects/Librest
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GNOME/rest/${FOLDER}
-DISTFILE[1]=		rest-${PORTVERSION}.tar.xz:main
+SITES[main]=		https://gitlab.gnome.org/GNOME/librest/-/archive/${PORTVERSION}/
+DISTFILE[1]=		librest-${PORTVERSION}.tar.gz:main
 
 # SPKGS[standard]=	complete primary docs examples
 SPKGS[standard]=	complete primary examples
@@ -48,6 +48,7 @@ MESON_ARGS=		-Dca_certificates_path={{LOCALBASE}}/share/certs/ca-root-nss.crt
 			-Dgtk_doc=false
 			-Dsoup2=true
 			-Dtests=false
+DISTNAME=		librest-${PORTVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
 # GTKDOC_OUTPUT_BASEDIR=	rest-${REST_API}
 PLIST_SUB=		API=${REST_API}
