@@ -1,4 +1,4 @@
---- vcl/unx/generic/app/geninst.cxx.orig	2022-01-12 19:09:02 UTC
+--- vcl/unx/generic/app/geninst.cxx.orig	2022-01-26 14:35:29 UTC
 +++ vcl/unx/generic/app/geninst.cxx
 @@ -22,7 +22,7 @@
  #if defined(LINUX)
