@@ -1,26 +1,17 @@
---- scribus/CMakeLists.txt.orig	2021-04-25 20:24:52 UTC
+--- scribus/CMakeLists.txt.orig	2022-01-23 16:16:24 UTC
 +++ scribus/CMakeLists.txt
-@@ -750,7 +750,7 @@ else()
- endif()
- 
- ##TEST FIX FOR 6897
--if (CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" OR CMAKE_SYSTEM_NAME STREQUAL "OpenBSD")
-+if (CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" OR CMAKE_SYSTEM_NAME STREQUAL "OpenBSD" OR CMAKE_SYSTEM_NAME STREQUAL "DragonFly")
- # Use the -E / --export-dynamic flag to ensure that symbols in the Scribus
- # binary are in the public symbol table for plugins. The symbols must also
- # be set as SCRIBUS_API if we're building with -fvisibility=hidden .
-@@ -826,12 +826,12 @@ endif ()
+@@ -822,12 +822,12 @@ endif ()
  
  # required to resolve symbols from libdl when ld is called with --no-add-needed
  # #9310 for the OpenBSD addition
 -if(UNIX AND NOT CMAKE_SYSTEM_NAME STREQUAL "OpenBSD" AND NOT CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" AND NOT HAIKU)
 +if(UNIX AND NOT CMAKE_SYSTEM_NAME STREQUAL "OpenBSD" AND NOT CMAKE_SYSTEM_NAME MATCHES "FreeBSD|DragonFly" AND NOT HAIKU)
- 	target_link_libraries(${EXE_NAME} dl)
+   target_link_libraries(${EXE_NAME} PUBLIC ${CMAKE_DL_LIBS})
  endif()
  
  # #9311 for the OpenBSD addition
 -if(CMAKE_SYSTEM_NAME STREQUAL "OpenBSD" OR CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
-+if(CMAKE_SYSTEM_NAME STREQUAL "OpenBSD" OR CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" OR CMAKE_SYSTEM_NAME STREQUAL "DragonFly")
- 	target_link_libraries(${EXE_NAME} util execinfo)
++if(CMAKE_SYSTEM_NAME STREQUAL "OpenBSD" OR CMAKE_SYSTEM_NAME MATCHES "FreeBSD|DragonFly")
+   target_link_libraries(${EXE_NAME} PRIVATE util execinfo)
  endif()
  
