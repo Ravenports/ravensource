@@ -1,4 +1,4 @@
---- Src/jobs.c.orig	2019-02-01 00:37:34 UTC
+--- Src/jobs.c.orig	2020-01-05 17:59:57 UTC
 +++ Src/jobs.c
 @@ -743,15 +743,15 @@ printtime(struct timeval *real, child_ti
      /* go ahead and compute these, since almost every TIMEFMT will have them */
