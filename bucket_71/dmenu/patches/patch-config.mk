@@ -1,7 +1,7 @@
---- config.mk.orig	2019-02-02 12:55:02 UTC
+--- config.mk.orig	2020-09-02 16:37:07 UTC
 +++ config.mk
 @@ -2,11 +2,11 @@
- VERSION = 4.9
+ VERSION = 5.0
  
  # paths
 -PREFIX = /usr/local
