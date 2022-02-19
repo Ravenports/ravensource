@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	2.10.6
+DEF[XNAME]=		driver-input-evdev
+DEF[ALTNAME]=		xf86-input-evdev
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-driver-input-evdev
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_drivers
+VARIANTS=		standard
+SDESC[standard]=	X.org event device input driver
+HOMEPAGE=		https://www.x.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		XORG/individual/driver
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11-drivers/${ALTNAME}
+
+# Only support Linux for now to which event devices are native.
+# Other platforms need unsatisfied dependencies.
+ONLY_FOR_OPSYS=		linux
+
+USES=			libtool pkgconfig
+
+BUILDRUN_DEPENDS=	libevdev:single:standard
+			mtdev:single:standard
+			xorg-server:single:standard
+
+DISTNAME=		${ALTNAME}-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
