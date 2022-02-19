@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	29
+DEF[SOVERSION]=		2.3.7
+DEF[SOFTLINKS]=		depmod insmod lsmod modinfo modprobe rmmod
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kmod
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	Linux kernel module management tools and library
+HOMEPAGE=		https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://cdn.kernel.org/pub/linux/utils/kernel/kmod/
+DISTFILE[1]=		kmod-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Library is LGPL21, tools are GPLv2+
+LICENSE=		GPLv2+:single LGPL21:single
+LICENSE_FILE=		GPLv2+:stock
+			LGPL21:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/tools/kmod.h
+LICENSE_SCHEME=		multi
+
+ONLY_FOR_OPSYS=		linux
+
+USES=			gmake libtool
+MUST_CONFIGURE=		gnu
+
+SOVERSION=		${SOVERSION}
+
+post-install:
+.for s in ${SOFTLINKS}
+	ln -s ${PREFIX}/bin/kmod ${STAGEDIR}${PREFIX}/bin/${s}
+.endfor
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libkmod.so.${SOVERSION}
