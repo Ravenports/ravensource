@@ -4,6 +4,7 @@ DEF[SOMAJOR]=		27
 
 NAMEBASE=		exiv2
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Exif and Iptc metadata manipulation library
@@ -11,8 +12,8 @@ HOMEPAGE=		https://www.exiv2.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://www.exiv2.org/builds/
-DISTFILE[1]=		exiv2-${PORTVERSION}-Source.tar.gz:main
+SITES[main]=		GITHUB/Exiv2:exiv2:v${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete primary examples nls
 
@@ -30,7 +31,6 @@ FPC_EQUIVALENT=		graphics/exiv2
 
 USES=			cpe cmake iconv zlib c++:primary,examples
 			expat gettext-runtime gettext-tools
-DISTNAME=		exiv2-${PORTVERSION}-Source
 CMAKE_ARGS=		-DEXIV2_ENABLE_VIDEO:BOOL=ON
 			-DEXIV2_BUILD_PO:BOOL=ON
 			-DEXIV2_BUILD_DOC:BOOL=OFF
