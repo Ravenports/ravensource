@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.2.2
+DEF[PORTVERSION]=	2.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-django-js-asset
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/matthiask/django-js-asset/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/aa/2d/98089cf51c8e83bc70723021390b94a3638a4a0ce30a47e2e70476b2095d
-DISTFILE[1]=		django_js_asset-${PORTVERSION}-py2.py3-none-any.whl:main
+SITES[main]=		PYPIWHL/89/dd/67936526e547dd14ca4e5d13ab1655bc4aefa410f092ad13de3a085a3d51
+DISTFILE[1]=		django_js_asset-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py39]=		single
 SPKGS[py310]=		single
@@ -23,14 +23,17 @@ VOPTS[py39]=		PY39=ON PY310=OFF
 VOPTS[py310]=		PY39=OFF PY310=ON
 
 # License listed at PyPI
-# BSD License
+# BSD-3-Clause
 
 GENERATED=		yes
 DISTNAME=		django_js_asset-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-
+# Django (>=2.2)
+# coverage ; extra == 'tests'
 
 [PY39].USES_ON=				python:py39,wheel
+[PY39].RUN_DEPENDS_ON=			python-Django:single:py39
 [PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-Django:single:py310
 

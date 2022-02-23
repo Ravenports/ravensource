@@ -39,6 +39,23 @@ Installation of the latest development version:
 pip install https://github.com/python-distro/distro/archive/master.tar.gz
 ```
 
+To use as a standalone script, download `distro.py` directly:
+
+```shell
+curl -O
+https://raw.githubusercontent.com/python-distro/distro/master/src/distro/distro.py
+python distro.py
+`
+
+distro`` is safe to vendor within projects that do not wish to add
+dependencies.
+
+```shell
+cd myproject
+curl -O
+https://raw.githubusercontent.com/python-distro/distro/master/src/distro/distro.py
+```
+
 ## Usage
 
 ```bash
@@ -81,20 +98,3 @@ function
 [`platform.dist`]
 was already deprecated since Python 2.6 and removed in Python 3.8. Still,
 there
-are many cases in which access to that information is needed. See [Python
-issue
-1322] for more information.
-
-The `distro` package implements a robust and inclusive way of retrieving
-the
-information about a distribution based on new standards and old methods,
-namely from these data sources (from high to low precedence):
-
-* The os-release file `/etc/os-release` if present, with a fall-back on
-`/usr/lib/os-release` if needed.
-* The output of the `lsb_release` command, if available.
-* The distro release file (`/etc/*(-|_)(release|version)`), if present.
-* The `uname` command for BSD based distrubtions.
-
-## Python and Distribution Support
-
