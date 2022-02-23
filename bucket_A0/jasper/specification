@@ -1,5 +1,6 @@
-DEF[PORTVERSION]=	2.0.33
+DEF[PORTVERSION]=	3.0.2
 DEF[HASH]=		version-${PORTVERSION}
+DEF[SOVERSION]=		6.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		jasper
@@ -31,6 +32,7 @@ CMAKE_ARGS=		-DJAS_ENABLE_DOC:BOOL=ON
 			-DJAS_ENABLE_SHARED:BOOL=ON
 # to work around 'v' getting removed by error in this case
 DISTNAME=		jasper-version-${PORTVERSION}
+SOVERSION=		${SOVERSION}
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
