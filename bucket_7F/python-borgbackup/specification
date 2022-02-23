@@ -1,3 +1,4 @@
+# Manually updated
 DEF[PORTVERSION]=	1.2.0
 # ------------------------------------------------------------------------
 
@@ -30,11 +31,26 @@ DISTNAME=		borgbackup-${PORTVERSION}
 
 # install_requires extracted from setup.py
 # Warning: can not import pkgconfig python package.
+# Detected OpenSSL [via BORG_OPENSSL_PREFIX]
+# Using bundled LZ4
+# Using bundled ZSTD
+# Using bundled xxhash
+# msgpack!=1.0.1,<=1.0.3,>=0.5.6
+# packaging
+# setuptools_scm>=1.7
 
 [PY39].USES_ON=				python:py39,sutools
-[PY39].BUILDRUN_DEPENDS_ON=		python-Warning: can not import pkgconfig python package.:single:py39
+[PY39].BUILD_DEPENDS_ON=		python-pkgconfig:single:py39
+[PY39].BUILDRUN_DEPENDS_ON=		python-msgpack:single:py39
+					python-packaging:single:py39
+					python-setuptools-scm:single:py39
 [PY310].USES_ON=			python:py310,sutools
-[PY310].BUILDRUN_DEPENDS_ON=		python-Warning: can not import pkgconfig python package.:single:py310
+[PY310].BUILD_DEPENDS_ON=		python-pkgconfig:single:py310
+[PY310].BUILDRUN_DEPENDS_ON=		python-msgpack:single:py310
+					python-packaging:single:py310
+					python-setuptools-scm:single:py310
+
+BUILDRUN_DEPENDS=	xxhash:single:standard
 
 USES=			ssl lz4 zstd
 
