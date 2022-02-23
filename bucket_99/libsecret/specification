@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://ftp.gnome.org/pub/GNOME/sources/libsecret/${PORTVERSION:R}/
 DISTFILE[1]=		libsecret-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls docs
+SPKGS[standard]=	complete primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -32,20 +32,17 @@ BUILDRUN_DEPENDS=	docbook-xsl:primary:standard
 			libgcrypt:single:standard
 			vala:single:standard
 
-USES=			gettext-tools gmake libtool pkgconfig
+USES=			gettext-tools gmake libtool meson pkgconfig
 GNOME_COMPONENTS=	glib libxslt intltool introspection
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-introspection
-INSTALL_TARGET=		install-strip
+# Docs fail to build, disable for now
+MESON_ARGS=		-Dgtk_doc=false
 
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 
 post-patch:
-	${REINPLACE_CMD} -e 's|__DBPATH__|${PREFIX}/share/xsl/docbook/manpages|' ${WRKSRC}/Makefile.in
-
-post-install:
-	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/libsecret-1 \
-		${STAGEDIR}${PREFIX}/share/doc/libsecret
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
+	${REINPLACE_CMD} -e 's|docbook.sourceforge.net|cdn.docbook.org|g' \
+		${WRKSRC}/docs/man/meson.build
