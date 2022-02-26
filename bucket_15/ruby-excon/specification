@@ -1,0 +1,53 @@
+DEF[PORTVERSION]=	0.91.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-excon
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v27 v30 v31
+SDESC[v27]=		Speed, persistence, http(s) (v27)
+SDESC[v30]=		Speed, persistence, http(s) (v30)
+SDESC[v31]=		Speed, persistence, http(s) (v31)
+HOMEPAGE=		https://github.com/excon/excon
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		excon-0.91.0.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v27]=		single
+SPKGS[v30]=		single
+SPKGS[v31]=		single
+
+OPTIONS_AVAILABLE=	RUBY27 RUBY30 RUBY31
+OPTIONS_STANDARD=	none
+VOPTS[v27]=		RUBY27=ON RUBY30=OFF RUBY31=OFF
+VOPTS[v30]=		RUBY27=OFF RUBY30=ON RUBY31=OFF
+VOPTS[v31]=		RUBY27=OFF RUBY30=OFF RUBY31=ON
+
+# License listed inside gem specification
+# => "MIT"
+
+# Requirements according to gem specification:
+#   rspec (>= 3.5.0, development)
+#   activesupport (>= 0, development)
+#   delorean (>= 0, development)
+#   eventmachine (>= 1.0.4, development)
+#   open4 (>= 0, development)
+#   rake (>= 0, development)
+#   rdoc (>= 0, development)
+#   shindo (>= 0, development)
+#   sinatra (>= 0, development)
+#   sinatra-contrib (>= 0, development)
+#   json (>= 1.8.5, development)
+#   puma (>= 0, development)
+#   webrick (>= 0, development)
+
+DISTNAME=		excon-${PORTVERSION}
+GENERATED=		yes
+
+[RUBY27].USES_ON=			gem:v27
+[RUBY30].USES_ON=			gem:v30
+[RUBY31].USES_ON=			gem:v31
+

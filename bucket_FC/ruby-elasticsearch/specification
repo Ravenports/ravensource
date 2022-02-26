@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	7.17.0
+DEF[PORTVERSION]=	8.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-elasticsearch
@@ -8,12 +8,12 @@ VARIANTS=		v27 v30 v31
 SDESC[v27]=		Ruby integrations for Elasticsearch (v27)
 SDESC[v30]=		Ruby integrations for Elasticsearch (v30)
 SDESC[v31]=		Ruby integrations for Elasticsearch (v31)
-HOMEPAGE=		https://www.elastic.co/guide/en/elasticsearch/client/ruby-api/7.16/index.html
+HOMEPAGE=		https://www.elastic.co/guide/en/elasticsearch/client/ruby-api/current/index.html
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		elasticsearch-7.17.0.gem:main
+DISTFILE[1]=		elasticsearch-8.0.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v27]=		single
@@ -30,12 +30,12 @@ VOPTS[v31]=		RUBY27=OFF RUBY30=OFF RUBY31=ON
 # => "Apache-2.0"
 
 # Requirements according to gem specification:
-#   elasticsearch-transport (= 7.17.0)
-#   elasticsearch-api (= 7.17.0)
+#   elastic-transport (= 8.0.0)
+#   elasticsearch-api (= 8.0.0)
 #   bundler (>= 0, development)
 #   byebug (>= 0, development)
 #   pry (>= 0, development)
-#   rake (~> 13, development)
+#   rake (>= 0, development)
 #   require-prof (>= 0, development)
 #   rspec (>= 0, development)
 #   ruby-prof (>= 0, development)
@@ -47,12 +47,12 @@ DISTNAME=		elasticsearch-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY27].USES_ON=			gem:v27
-[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-elasticsearch-transport:single:v27
+[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-elastic-transport:single:v27
 					ruby-elasticsearch-api:single:v27
 [RUBY30].USES_ON=			gem:v30
-[RUBY30].BUILDRUN_DEPENDS_ON=		ruby-elasticsearch-transport:single:v30
+[RUBY30].BUILDRUN_DEPENDS_ON=		ruby-elastic-transport:single:v30
 					ruby-elasticsearch-api:single:v30
 [RUBY31].USES_ON=			gem:v31
-[RUBY31].BUILDRUN_DEPENDS_ON=		ruby-elasticsearch-transport:single:v31
+[RUBY31].BUILDRUN_DEPENDS_ON=		ruby-elastic-transport:single:v31
 					ruby-elasticsearch-api:single:v31
 

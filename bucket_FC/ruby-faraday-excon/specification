@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.1.0
+DEF[PORTVERSION]=	2.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-faraday-excon
@@ -13,7 +13,7 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		faraday-excon-1.1.0.gem:main
+DISTFILE[1]=		faraday-excon-2.0.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v27]=		single
@@ -30,22 +30,19 @@ VOPTS[v31]=		RUBY27=OFF RUBY30=OFF RUBY31=ON
 # => "MIT"
 
 # Requirements according to gem specification:
-#   excon (>= 0.27.4, development)
-#   bundler (~> 2.0, development)
-#   faraday (~> 1.0, development)
-#   rake (~> 13.0, development)
-#   rspec (~> 3.0, development)
-#   simplecov (~> 0.19.0, development)
-#   multipart-parser (~> 0.1.1, development)
-#   webmock (~> 3.4, development)
-#   rubocop (~> 0.91.1, development)
-#   rubocop-packaging (~> 0.5, development)
-#   rubocop-performance (~> 1.0, development)
+#   excon (>= 0.27.4)
+#   faraday (~> 2.0.0.alpha.pre.2)
 
 DISTNAME=		faraday-excon-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY27].USES_ON=			gem:v27
+[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-excon:single:v27
+					ruby-faraday:single:v27
 [RUBY30].USES_ON=			gem:v30
+[RUBY30].BUILDRUN_DEPENDS_ON=		ruby-excon:single:v30
+					ruby-faraday:single:v30
 [RUBY31].USES_ON=			gem:v31
+[RUBY31].BUILDRUN_DEPENDS_ON=		ruby-excon:single:v31
+					ruby-faraday:single:v31
 
