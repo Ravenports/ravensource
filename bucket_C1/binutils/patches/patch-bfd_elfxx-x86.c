@@ -1,6 +1,6 @@
---- bfd/elfxx-x86.c.orig	2021-07-08 11:37:19 UTC
+--- bfd/elfxx-x86.c.orig	2022-02-08 09:00:25 UTC
 +++ bfd/elfxx-x86.c
-@@ -28,8 +28,8 @@
+@@ -26,8 +26,8 @@
     section.  */
  
  #define ELF32_DYNAMIC_INTERPRETER "/usr/lib/libc.so.1"
