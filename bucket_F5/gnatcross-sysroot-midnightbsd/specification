@@ -1,0 +1,55 @@
+DEF[PORTVERSION]=	1
+DEF[M20_RELEASE]=	2.0.6
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gnatcross-sysroot-midnightbsd
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		AMD64_R20 I386_R20
+SDESC[AMD64_R20]=	MidnightBSD 2.0 C/Ada cross-compiler sysroot AMD64
+SDESC[I386_R20]=	MidnightBSD 2.0 C/Ada cross-compiler sysroot I386
+HOMEPAGE=		none
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://ravenports.elderlinux.org/distcache/
+DISTFILE[1]=		base-amd64-2.0.6-20210530.txz:main
+DISTFILE[2]=		base-i386-2.0.6-20210530.txz:main
+DIST_SUBDIR=		gnatcross/midnightbsd
+
+SPKGS[AMD64_R20]=	single
+SPKGS[I386_R20]=	single
+
+OPTIONS_AVAILABLE=	AMD64R20 I386R20
+OPTIONS_STANDARD=	none
+VOPTS[AMD64_R20]=	AMD64R20=ON I386R20=OFF
+VOPTS[I386_R20]=	AMD64R20=OFF I386R20=ON
+
+SKIP_BUILD=		yes
+INVALID_RPATH=		yes
+EXTRACT_HEAD[1]=	{{TAR}} -xf
+EXTRACT_TAIL[1]=	--no-same-owner --no-same-permissions lib/ usr/include/ usr/lib/
+EXTRACT_DIRTY=		1 2
+
+[AMD64R20].DESCRIPTION=			Package MidnightBSD/AMD64 ${M20_RELEASE} system root
+[AMD64R20].MAKEFILE_ON=			CTARGET=x86_64-raven-midnightbsd${M20_RELEASE}
+					PREFIX={{LOCALBASE}}/MidnightBSD20_AMD64
+[AMD64R20].DF_INDEX_ON=			1
+[I386R20].DESCRIPTION=			Package MidnightBSD/I386 ${M20_RELEASE} system root
+[I386R20].MAKEFILE_ON=			CTARGET=i386-raven-midnightbsd${M20_RELEASE}
+					PREFIX={{LOCALBASE}}/MidnightBSD20_I386
+[I386R20].DF_INDEX_ON=			2
+
+post-extract-dragonfly:
+	/bin/chflags -R noschg ${WRKDIR}
+
+post-extract-freebsd:
+	/bin/chflags -R noschg ${WRKDIR}
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/sysroot/usr
+	${MV} ${WRKDIR}/gnatcross-sys*/lib ${STAGEDIR}${PREFIX}/sysroot
+	${MV} ${WRKDIR}/gnatcross-sys*/usr/include ${STAGEDIR}${PREFIX}/sysroot/usr
+	${MV} ${WRKDIR}/gnatcross-sys*/usr/lib ${STAGEDIR}${PREFIX}/sysroot/usr
+	${ECHO_CMD} ${CTARGET} > ${STAGEDIR}${PREFIX}/sysroot/target_triplet
+	(cd ${STAGEDIR}${PREFIX}; ${FIND} sysroot -type d -empty -delete)
