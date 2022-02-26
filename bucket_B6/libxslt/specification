@@ -1,6 +1,7 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(LIBXSLT_VERSION)
 DEF[PORTREVISION]=	EXTRACT_INFO(LIBXSLT_REVISION)
 DEF[EXSLTVERSION]=	0.8.20
+DEF[FOLDER]=		${PORTVERSION:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libxslt
@@ -12,10 +13,8 @@ HOMEPAGE=		http://xmlsoft.org/XSLT/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		ftp://xmlsoft.org/libxml2/
-			http://xmlsoft.org/sources/
-			ftp://gd.tuwien.ac.at/pub/libxml/
-DISTFILE[1]=		libxslt-${PORTVERSION}.tar.gz:main
+SITES[main]=		GNOME/libxslt/${FOLDER}
+DISTFILE[1]=		libxslt-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome2
 
 SPKGS[standard]=	single
@@ -43,9 +42,7 @@ CPE_VENDOR=		xmlsoft
 PLIST_SUB=		XSLTVERSION=${PORTVERSION}
 			EXSLTVERSION=${EXSLTVERSION}
 
-post-patch:
-	${REINPLACE_CMD} -e '/^install-data-am:/ s|install-data-local||' \
-		${WRKSRC}/doc/Makefile.in
-	${REINPLACE_CMD} -e 's|[$$](bindir)/xsltproc|../xsltproc/xsltproc|g ; \
-		s|[$$](bindir)/xmllint|../xmllint/xmllint|g' \
-		${WRKSRC}/doc/Makefile.in
+post-install:
+	# docs are disabled via patch
+	${INSTALL_MAN} ${WRKSRC}/doc/xsltproc.1 \
+		${STAGEDIR}${MANPREFIX}/man/man1/
