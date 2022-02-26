@@ -1,4 +1,4 @@
---- dbus/dbus-sysdeps-unix.c.orig	2020-07-02 09:08:39 UTC
+--- dbus/dbus-sysdeps-unix.c.orig	2021-12-17 12:55:33 UTC
 +++ dbus/dbus-sysdeps-unix.c
 @@ -24,6 +24,14 @@
  
