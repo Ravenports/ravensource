@@ -1,6 +1,6 @@
 # work-around for https://bugs.freedesktop.org/show_bug.cgi?id=100627
 #
---- src/glx/glxext.c.orig	2022-01-26 18:36:23 UTC
+--- src/glx/glxext.c.orig	2022-02-09 20:10:39 UTC
 +++ src/glx/glxext.c
 @@ -924,6 +924,9 @@ __glXInitialize(Display * dpy)
  #if defined(GLX_USE_DRM)

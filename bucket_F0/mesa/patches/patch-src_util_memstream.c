@@ -1,4 +1,4 @@
---- src/util/memstream.c.orig	2022-01-26 18:36:23 UTC
+--- src/util/memstream.c.orig	2022-02-09 20:10:39 UTC
 +++ src/util/memstream.c
 @@ -51,7 +51,7 @@ u_memstream_open(struct u_memstream *mem
     }

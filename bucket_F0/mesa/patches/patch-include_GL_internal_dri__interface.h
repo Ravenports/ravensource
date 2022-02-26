@@ -1,7 +1,7 @@
 GCC on 9.x doesn't allow types to be overwritten, these types are defined
 in drm.h also, which causes build issues in xorg-server.
 
---- include/GL/internal/dri_interface.h.orig	2022-01-26 18:36:23 UTC
+--- include/GL/internal/dri_interface.h.orig	2022-02-09 20:10:39 UTC
 +++ include/GL/internal/dri_interface.h
 @@ -40,13 +40,7 @@
  #ifndef DRI_INTERFACE_H
