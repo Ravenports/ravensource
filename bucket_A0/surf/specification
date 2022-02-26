@@ -1,10 +1,9 @@
-# rerolled
 DEF[PORTVERSION]=	2.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		surf
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		www
 VARIANTS=		standard
 SDESC[standard]=	Simple webkit browser adhering suckless principles
@@ -30,7 +29,7 @@ RUN_DEPENDS=		curl:primary:standard
 			dmenu:single:standard
 			stterm:single:standard
 			xorg-xprop:single:standard
-BUILDRUN_DEPENDS=	webkitgtk:complete:standard
+BUILDRUN_DEPENDS=	webkit2:primary:gtk3
 			gcr:primary:standard
 
 USES=			pkgconfig
@@ -44,7 +43,12 @@ post-patch:
 		/^GTKLIB/s| =| ?=| ; \
 		/^CPPFLAGS/s| =| +=|' \
 		${WRKSRC}/config.mk
+	${REINPLACE_CMD} 's|-4.0|-4.1|g' ${WRKSRC}/config.mk
 
 pre-build:
 	# workaround missing common.h
 	echo "#define MSGBUFSZ 8" > ${WRKSRC}/common.h
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/surf
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/surf/webext-surf.so
