@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.34
+DEF[PORTVERSION]=	2.35.1
 DEF[XNAME]=		xkeyboard-config
 DEF[ALTNAME]=		xkeyboard-config
 # ----------------------------------------------------------------------------
@@ -13,7 +13,7 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		XORG/individual/data/${ALTNAME}
-DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		xorg
 
 SPKGS[standard]=	complete primary nls
@@ -27,22 +27,21 @@ LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		libxslt:single:standard
 
-USES=			cpe gmake perl:build python:build gettext-tools pkgconfig shebangfix
+USES=			cpe meson gettext-tools pkgconfig shebangfix
+			perl:build python:build
 XORG_COMPONENTS=	x11
 CPE_VENDOR=		xkeyboard_config_project
 CPE_PRODUCT=		${ALTNAME}
 DISTNAME=		${ALTNAME}-${PORTVERSION}
 SHEBANG_FILES=		rules/merge.py
 			rules/compat/map-variants.py
-MAKE_ARGS=		pkgconfigdir={{PREFIX}}/lib/pkgconfig
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-xkb-base={{PREFIX}}/share/X11/xkb
-			--with-xkb-rules-symlink=xorg
-INSTALL_TARGET=		install-strip
+MESON_ARGS=		-Dxkb-base={{PREFIX}}/share/X11/xkb
+			-Dxorg-rules-symlinks=true
+			-Dcompat-rules=true
 FPC_EQUIVALENT=		x11/${ALTNAME}
 PLIST_SUB=		FMS={{VAR1:U7}}
 VAR_OPSYS[sunos]=	VAR1=5
 
 post-install:
-	@${MKDIR} ${STAGEDIR}/var/lib/xkb
+	${MKDIR} ${STAGEDIR}/var/lib/xkb
 	${LN} -sf /var/lib/xkb ${STAGEDIR}${PREFIX}/share/X11/xkb/compiled
