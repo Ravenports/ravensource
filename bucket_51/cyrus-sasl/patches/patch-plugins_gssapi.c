@@ -1,4 +1,4 @@
---- plugins/gssapi.c.orig	2018-11-08 17:29:57 UTC
+--- plugins/gssapi.c.orig	2022-02-18 21:53:25 UTC
 +++ plugins/gssapi.c
 @@ -1668,8 +1668,10 @@ static int gssapi_client_mech_step(void
      if (clientoutlen)
