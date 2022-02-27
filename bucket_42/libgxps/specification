@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	0.3.2
+DEF[SOVERSION]=		2.2.4
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libgxps
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	GObject-based lib for handling/rendering XPS docs
+HOMEPAGE=		https://gitlab.gnome.org/GNOME/libgxps
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/libgxps/${PORTVERSION:R}/
+DISTFILE[1]=		libgxps-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:single
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libgxps/gxps.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/libgxps
+
+USES=			meson pkgconfig
+GNOME_COMPONENTS=	cairo glib introspection
+BUILDRUN_DEPENDS=	lcms2:primary:standard
+			libarchive:single:standard
+
+MESON_ARGS=		-Denable-test=false
+SOVERSION=		${SOVERSION}
