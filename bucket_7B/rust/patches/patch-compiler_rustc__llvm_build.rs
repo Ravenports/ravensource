@@ -1,4 +1,4 @@
---- compiler/rustc_llvm/build.rs.orig	2022-01-20 17:48:08 UTC
+--- compiler/rustc_llvm/build.rs.orig	2022-02-23 04:07:21 UTC
 +++ compiler/rustc_llvm/build.rs
 @@ -259,22 +259,7 @@ fn main() {
      }
@@ -22,5 +22,5 @@
 -    };
 +    let stdcppname = "stdc++";
  
-     // RISC-V requires libatomic for sub-word atomic operations
-     if target.starts_with("riscv") {
+     // RISC-V GCC erroneously requires libatomic for sub-word
+     // atomic operations. FreeBSD uses Clang as its system
