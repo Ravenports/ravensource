@@ -1,0 +1,64 @@
+DEF[PORTVERSION]=	1.26.0
+DEF[SOVERSION]=		1.4.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		caja
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_fm
+VARIANTS=		standard
+SDESC[standard]=	File manager for the MATE desktop
+HOMEPAGE=		https://mate-desktop.org
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://pub.mate-desktop.org/releases/${PORTVERSION:R}/
+DISTFILE[1]=		caja-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		mate
+
+SPKGS[standard]=	complete primary nls docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Main program is under GPL, extensions library under LGPL
+LICENSE=		GPLv2+:primary
+			LGPL20+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+			LGPL20+:{{WRKSRC}}/COPYING.LIB
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/caja-window.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		x11-fm/caja
+
+BUILD_DEPENDS=		appstream-glib:primary:standard
+BUILDRUN_DEPENDS=	exempi:single:standard
+			gvfs:primary:standard
+			libexif:primary:standard
+			libnotify:primary:standard
+			mate-desktop:primary:standard
+
+USES=			desktop-utils:primary gettext-runtime gettext-tools:build
+			gmake gtk-doc libtool mime-info:primary pkgconfig
+			schemas:primary
+XORG_COMPONENTS=	sm
+GNOME_COMPONENTS=	gdkpixbuf glib gtk3 introspection intltool pango
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-dependency-tracking
+			--disable-packagekit
+			--enable-gtk-doc
+			--enable-introspection
+
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
+
+GLIB_SCHEMAS=		org.mate.caja.gschema.xml
+			org.mate.media-handling.gschema.xml
+
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/doc
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/libcaja-extension \
+		${STAGEDIR}${PREFIX}/share/doc
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
