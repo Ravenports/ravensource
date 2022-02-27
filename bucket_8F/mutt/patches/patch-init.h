@@ -1,6 +1,6 @@
---- init.h.orig	2021-12-30 20:43:42 UTC
+--- init.h.orig	2022-02-12 19:31:59 UTC
 +++ init.h
-@@ -1261,6 +1261,11 @@ struct option_t MuttVars[] = {
+@@ -1304,6 +1304,11 @@ struct option_t MuttVars[] = {
    ** sent to both the list and your address, resulting in two copies
    ** of the same email for you.
    */
@@ -12,7 +12,7 @@
    { "force_name",	DT_BOOL, R_NONE, {.l=OPTFORCENAME}, {.l=0} },
    /*
    ** .pp
-@@ -3799,6 +3804,15 @@ struct option_t MuttVars[] = {
+@@ -3907,6 +3912,15 @@ struct option_t MuttVars[] = {
    ** to determine the key to use. It will ask you to supply a key, if it can't find one.
    ** (S/MIME only)
    */
