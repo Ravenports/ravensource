@@ -1,6 +1,6 @@
---- src/third_party/httplib.h.orig	2021-11-17 19:31:58 UTC
+--- src/third_party/httplib.h.orig	2022-02-27 20:03:02 UTC
 +++ src/third_party/httplib.h
-@@ -161,7 +161,9 @@ using socket_t = SOCKET;
+@@ -169,7 +169,9 @@ using socket_t = SOCKET;
  
  #include <arpa/inet.h>
  #include <cstring>

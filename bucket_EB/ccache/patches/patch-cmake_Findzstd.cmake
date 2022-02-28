@@ -1,4 +1,4 @@
---- cmake/Findzstd.cmake.orig	2021-11-17 19:31:58 UTC
+--- cmake/Findzstd.cmake.orig	2022-02-27 20:03:02 UTC
 +++ cmake/Findzstd.cmake
 @@ -41,7 +41,7 @@ if(ZSTD_FROM_INTERNET)
  

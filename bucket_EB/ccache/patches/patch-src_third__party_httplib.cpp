@@ -1,6 +1,6 @@
---- src/third_party/httplib.cpp.orig	2021-11-17 19:31:58 UTC
+--- src/third_party/httplib.cpp.orig	2022-02-27 20:03:02 UTC
 +++ src/third_party/httplib.cpp
-@@ -764,7 +764,7 @@ bool bind_ip_address(socket_t sock, cons
+@@ -800,7 +800,7 @@ bool bind_ip_address(socket_t sock, cons
    return ret;
  }
  
