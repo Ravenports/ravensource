@@ -1,10 +1,10 @@
---- osdef.h.in.orig	2020-02-05 20:09:38 UTC
+--- osdef.h.in.orig	2022-01-28 14:06:02 UTC
 +++ osdef.h.in
 @@ -111,7 +111,7 @@ extern int   setsid __P((void));
  extern int   setpgid __P((int, int));
  extern int   tcsetpgrp __P((int, int));
  #endif
--extern int   ioctl __P((int, int, char *));
+-extern int   ioctl __P((int, unsigned long, char *));
 +extern int   ioctl __P((int, unsigned long, ...));
  
  extern int   kill __P((int, int));

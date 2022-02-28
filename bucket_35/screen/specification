@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.8.0
+DEF[PORTVERSION]=	4.9.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		screen
@@ -20,7 +20,7 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		sysutils/screen
 
-USES=			gmake cpe ncurses
+USES=			autoreconf gmake cpe ncurses
 MUST_CONFIGURE=		gnu
 MAKE_ARGS=		WITH_MAN=1
 CFLAGS=			-I{{NCURSESINC}}
@@ -30,7 +30,6 @@ CPE_VENDOR=		gnu
 
 post-patch:
 	${RM} ${WRKSRC}/doc/screen.info*
-	${REINPLACE_CMD} -e 's|/dev/ptmx|/nonexistent|' ${WRKSRC}/configure
 
 post-install:
 	${INSTALL_DATA} ${FILESDIR}/screenrc.sample \

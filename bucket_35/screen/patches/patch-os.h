@@ -1,4 +1,4 @@
---- os.h.orig	2020-02-05 20:09:38 UTC
+--- os.h.orig	2022-01-28 14:06:02 UTC
 +++ os.h
 @@ -250,9 +250,11 @@ extern int errno;
  #endif

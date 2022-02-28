@@ -1,0 +1,100 @@
+--- configure.ac.orig	2022-01-28 14:06:02 UTC
++++ configure.ac
+@@ -626,20 +626,14 @@ dnl
+ AC_CHECKING(for tgetent)
+ AC_TRY_LINK(,tgetent((char *)0, (char *)0);,,
+ olibs="$LIBS"
+-LIBS="-lcurses $olibs"
+-AC_CHECKING(libcurses)
+-AC_TRY_LINK(,[
+-#ifdef __hpux
+-__sorry_hpux_libcurses_is_totally_broken_in_10_10();
+-#else
+-tgetent((char *)0, (char *)0);
+-#endif
+-],,
+-LIBS="-ltermcap $olibs"
+-AC_CHECKING(libtermcap)
++LIBS="-lxxcurses $olibs"
++AC_CHECKING(libxxcurses)
++AC_TRY_LINK(,[ -tgetent((char *)0, (char *)0); ],,
++LIBS="-lxxtermcap $olibs"
++AC_CHECKING(libxxtermcap)
+ AC_TRY_LINK(,tgetent((char *)0, (char *)0);,,
+-LIBS="-ltermlib $olibs"
+-AC_CHECKING(libtermlib)
++LIBS="-lxxtermlib $olibs"
++AC_CHECKING(libxxtermlib)
+ AC_TRY_LINK(,tgetent((char *)0, (char *)0);,,
+ LIBS="-lncursesw $olibs"
+ AC_CHECKING(libncursesw)
+@@ -658,7 +652,8 @@ AC_MSG_ERROR(!!! no tgetent - no screen)
+ AC_TRY_RUN([
+ main()
+ {
+- exit(strcmp(tgoto("%p1%d", 0, 1), "1") ? 0 : 1);
++ char *tgoto(const char *, int, int);
++ exit(strcmp(tgoto("%d%d", 0, 1), "1") ? 0 : 1);
+ }], AC_NOTE(- you use the termcap database),
+ AC_NOTE(- you use the terminfo database) AC_DEFINE(TERMINFO),
+ AC_NOTE(- skipping check because we are cross compiling; assuming terminfo database is used) AC_DEFINE(TERMINFO))
+@@ -678,7 +673,7 @@ fi
+ if test "$cross_compiling" = no ; then
+ AC_CHECKING(for SVR4 ptys)
+ sysvr4ptys=
+-if test -c /dev/ptmx ; then
++if test -c /nonexistent ; then
+ AC_TRY_LINK([],[ptsname(0);grantpt(0);unlockpt(0);],[AC_DEFINE(HAVE_SVR4_PTYS)
+ sysvr4ptys=1])
+ fi
+@@ -710,12 +705,9 @@ dnl ptys=`echo /dev/ptyp??`
+ dnl else
+ dnl ptys=`echo $pdir/pty??`
+ dnl fi
+-if test "$ptys" != "$pdir/pty??" ; then
+-p0=`echo $ptys | tr ' ' '\012' | sed -e 's/^.*\(.\).$/\1/g' | sort -u | tr -d '\012'`
+-p1=`echo $ptys | tr ' ' '\012' | sed -e 's/^.*\(.\)$/\1/g'  | sort -u | tr -d '\012'`
+-AC_DEFINE_UNQUOTED(PTYRANGE0,"$p0")
+-AC_DEFINE_UNQUOTED(PTYRANGE1,"$p1")
+-fi
++# XXX: hardcoded, since port must be devfs and various setups independent
++AC_DEFINE_UNQUOTED(PTYRANGE0,"pqrsPQRSlmnoLMNO")
++AC_DEFINE_UNQUOTED(PTYRANGE1,"0123456789abcdefghijklmnopqrstuv")
+ fi
+ 
+ dnl    ****  pty mode/group handling ****
+@@ -815,9 +807,11 @@ AC_CHECKING(getutent)
+ AC_TRY_LINK([
+ #include <time.h> /* to get time_t on SCO */
+ #include <sys/types.h>
+-#if defined(SVR4) && !defined(DGUX)
++#if (defined(SVR4) && !defined(DGUX)) || defined(__FreeBSD__) || defined(__DragonFly__)
+ #include <utmpx.h>
+ #define utmp utmpx
++#define pututline pututxline
++#define getutent getutxent
+ #else
+ #include <utmp.h>
+ #endif
+@@ -832,9 +826,11 @@ AC_CHECKING(getutent with -lgen)
+ AC_TRY_LINK([
+ #include <time.h>
+ #include <sys/types.h>
+-#if defined(SVR4) && !defined(DGUX)
++#if (defined(SVR4) && !defined(DGUX)) || defined(__FreeBSD__)
+ #include <utmpx.h>
+ #define utmp utmpx
++#define pututline pututxline
++#define getutent getutxent
+ #else
+ #include <utmp.h>
+ #endif
+@@ -848,7 +844,7 @@ AC_CHECKING(ut_host)
+ AC_TRY_COMPILE([
+ #include <time.h>
+ #include <sys/types.h>
+-#if defined(SVR4) && !defined(DGUX)
++#if (defined(SVR4) && !defined(DGUX)) || defined(__FreeBSD__) || defined(__DragonFly__)
+ #include <utmpx.h>
+ #define utmp utmpx
+ #else

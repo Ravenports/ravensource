@@ -1,4 +1,4 @@
---- utmp.c.orig	2020-02-05 20:09:38 UTC
+--- utmp.c.orig	2022-01-28 14:06:02 UTC
 +++ utmp.c
 @@ -38,6 +38,9 @@
  #include <utempter.h>
