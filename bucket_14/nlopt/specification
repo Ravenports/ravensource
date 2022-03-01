@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	2.7.1
+DEF[RELEASE]=		v${PORTVERSION}
+DEF[SOVERSION]=		0.11.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		nlopt
+VERSION=		${PORTVERSION}
+KEYWORDS=		math
+VARIANTS=		standard
+SDESC[standard]=	Nonlinear optimization library
+HOMEPAGE=		none
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/stevengj:nlopt:${RELEASE}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		math/nlopt
+
+LICENSE=		MIT:single LGPL21:single
+LICENSE_TERMS=		single:{{WRKSRC}}/COPYING
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYRIGHT
+			LGPL21:stock
+LICENSE_SCHEME=		multi
+
+BUILD_DEPENDS=		swig:primary:standard
+			gmp:static:standard
+BUILDRUN_DEPENDS=	gmp:shared:standard
+			guile22:single:standard
+			python-numpy:single:python_used
+
+USES=			cmake pkgconfig python
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libnlopt.so
+	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/_nlopt.so
