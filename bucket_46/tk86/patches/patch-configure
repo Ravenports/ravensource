@@ -15,13 +15,14 @@
  
  	    CFLAGS_OPTIMIZE="-O2"
  	    # egcs-2.91.66 on Redhat Linux 6.0 generates lots of warnings
-@@ -5214,11 +5218,13 @@ fi
+@@ -5213,12 +5217,15 @@ fi
+ 	    #CFLAGS_OPTIMIZE="${CFLAGS_OPTIMIZE} -D__NO_STRING_INLINES -D__NO_MATH_INLINES"
  
  	    SHLIB_LD='${CC} ${CFLAGS} ${LDFLAGS} -shared'
++	    TK_SHLIB_LD_EXTRAS="-Wl,-soname,libtk${TCL_TRIM_DOTS}.so.1"
  	    DL_OBJS="tclLoadDl.o"
 -	    DL_LIBS="-ldl"
--	    LDFLAGS="$LDFLAGS -Wl,--export-dynamic"
-+	    LDFLAGS="$LDFLAGS -Wl,--export-dynamic -Wl,-soname,libtk${TCL_TRIM_DOTS}.so.1"
+ 	    LDFLAGS="$LDFLAGS -Wl,--export-dynamic"
  
  	    case $system in
 -	    DragonFly-*|FreeBSD-*)
@@ -32,7 +33,7 @@
  		if test "${TCL_THREADS}" = "1"; then
  
  		    # The -pthread needs to go in the LDFLAGS, not LIBS
-@@ -5394,7 +5400,7 @@ fi
+@@ -5394,7 +5401,7 @@ fi
  	    UNSHARED_LIB_SUFFIX='${TCL_TRIM_DOTS}.a'
  	    TCL_LIB_VERSIONS_OK=nodots
  	    ;;
