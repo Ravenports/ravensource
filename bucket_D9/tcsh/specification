@@ -22,5 +22,9 @@ LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/Copyright
 LICENSE_SCHEME=		solo
 
-USES=			ncurses
+BUILD_DEPENDS=		db5:static:standard
+
+USES=			ncurses:static
 MUST_CONFIGURE=		gnu
+CONFIGURE_ENV=		ac_cv_search_tgetent="-ltinfo -ldb -lpthread"
+LDFLAGS=		-static -L{{LOCALBASE}}/lib/db5
