@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.02
+DEF[PORTVERSION]=	6.03
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xscreensaver
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.jwz.org/xscreensaver/
 DISTFILE[1]=		xscreensaver-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary nls gl gtk
+SPKGS[standard]=	complete primary gl gtk
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -34,9 +34,10 @@ EXRUN[gtk]=		libglade:single:standard
 			gdk-pixbuf-xlib:single:standard
 			xscreensaver:primary:standard
 
-USES=			cpe gettext-tools gmake jpeg png
+USES=			cpe gettext-tools:build gmake jpeg perl:run png shebangfix
 XORG_COMPONENTS=	x11 xext xft xi xinerama xmu xrandr xt xxf86vm
 GNOME_COMPONENTS=	gdkpixbuf gtk2 intltool
+SHEBANG_GLOB=		*.pl
 CPE_VENDOR=		xscreensaver_project
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-configdir={{PREFIX}}/share/xscreensaver/config/
