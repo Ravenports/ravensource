@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2.8.2.0
-DEF[MANVERSION]=	2.8.0.1.1
+DEF[PORTVERSION]=	2.8.3.0
+DEF[MANVERSION]=	2.8.1.0.4
 # Upstream documentation is only available as HTML; converted manpages are
 # an external project (thanks a lot for maintaining, flexibeast!)
 # ----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ post-patch:
 
 post-build:
 	(cd ${WRKDIR}/execline-man-pages-${MANVERSION} && \
-		make)
+		make install)
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
