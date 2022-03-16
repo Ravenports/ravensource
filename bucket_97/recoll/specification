@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.31.6
+DEF[PORTVERSION]=	1.32.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		recoll
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.lesbonscomptes.com/recoll/
 DISTFILE[1]=		recoll-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary docs examples
+SPKGS[standard]=	complete primary docs examples nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -45,16 +45,7 @@ USES=			bison gmake iconv libtool pkgconfig shebangfix
 			python:sutools qt5 mesa
 GNOME_COMPONENTS=	libxslt
 SHEBANG_FILES=		filters/*.py
-			filters/rcl7z
-			filters/rclaudio
-			filters/rclchm
-			filters/rcldia
-			filters/rclepu*
-			filters/rclics
 			filters/rclimg
-			filters/rclinfo
-			filters/rcl[krtw]ar
-			filters/rclzip
 			desktop/hotrecoll.py
 MUST_CONFIGURE=		gnu
 MAKE_ENV=		PYTHON_CMD={{PYTHON_CMD}}
