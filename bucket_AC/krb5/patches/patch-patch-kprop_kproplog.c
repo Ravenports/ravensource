@@ -2,7 +2,7 @@ $NetBSD: patch-kprop_kproplog.c,v 1.1 2020/04/09 10:57:49 adam Exp $
 
 Fix mmap -Werror=incompatible-pointer-types.
 
---- kprop/kproplog.c.orig	2021-02-18 16:35:16 UTC
+--- kprop/kproplog.c.orig	2021-07-22 15:50:07 UTC
 +++ kprop/kproplog.c
 @@ -412,7 +412,7 @@ map_ulog(const char *filename)
          return NULL;
