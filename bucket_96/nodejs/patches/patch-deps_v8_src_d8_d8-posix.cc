@@ -1,4 +1,4 @@
---- deps/v8/src/d8/d8-posix.cc.orig	2022-03-09 15:59:53 UTC
+--- deps/v8/src/d8/d8-posix.cc.orig	2022-03-10 18:17:27 UTC
 +++ deps/v8/src/d8/d8-posix.cc
 @@ -340,7 +340,7 @@ static Local<Value> GetStdout(Isolate* i
  // See http://code.google.com/p/v8/issues/detail?id=401.
