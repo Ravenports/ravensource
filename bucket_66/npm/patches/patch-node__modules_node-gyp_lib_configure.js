@@ -2,7 +2,7 @@ $NetBSD: patch-node__modules_node-gyp_lib_configure.js,v 1.3 2019/11/24 20:21:23
 
 Skip Python detection, version 2.7 is required and we know where it is.
 
---- node_modules/node-gyp/lib/configure.js.orig	2022-03-03 21:10:57 UTC
+--- node_modules/node-gyp/lib/configure.js.orig	2022-03-10 18:35:22 UTC
 +++ node_modules/node-gyp/lib/configure.js
 @@ -15,21 +15,14 @@ if (win) {
  }
