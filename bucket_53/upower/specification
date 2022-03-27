@@ -56,10 +56,10 @@ INSTALL_REQ_TOOLCHAIN=	yes
 
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=-Dos_backend=freebsd
 VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=-Dos_backend=freebsd
+			CFLAGS=-D__WANT_NO_INLINED___ERROR
 VAR_OPSYS[netbsd]=	CONFIGURE_ARGS=-Dos_backend=netbsd
 VAR_OPSYS[linux]=	CONFIGURE_ARGS=-Dos_backend=linux
 VAR_OPSYS[sunos]=	CONFIGURE_ARGS=-Dos_backend=dummy
 
 post-stage:
 	${RM} -r ${STAGEDIR}/var
-

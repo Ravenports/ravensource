@@ -1,6 +1,17 @@
 --- meson.build.orig	2022-03-09 17:46:34 UTC
 +++ meson.build
-@@ -104,8 +104,10 @@ endif
+@@ -83,6 +83,10 @@ if os_backend == 'linux'
+   endif
+ endif
+ 
++if os_backend == 'freebsd'
++  gudev_dep = cc.find_library('kvm', required: true)
++endif
++
+ historydir = get_option('historydir')
+ if historydir == ''
+     historydir = get_option('prefix') / get_option('localstatedir') / 'lib' / 'upower'
+@@ -104,8 +108,10 @@ endif
  # Generate configuration file
  config_h = configure_file(output: 'config.h', configuration: cdata)
  
