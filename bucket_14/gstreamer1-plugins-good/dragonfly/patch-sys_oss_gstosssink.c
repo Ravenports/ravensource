@@ -1,6 +1,6 @@
---- sys/oss/gstosssink.c.orig	2022-02-02 15:06:48 UTC
+--- sys/oss/gstosssink.c.orig	2022-03-14 11:33:40 UTC
 +++ sys/oss/gstosssink.c
-@@ -106,7 +106,10 @@ enum
+@@ -107,7 +107,10 @@ enum
    PROP_DEVICE,
  };
  
@@ -12,7 +12,7 @@
  
  static GstStaticPadTemplate osssink_sink_factory =
      GST_STATIC_PAD_TEMPLATE ("sink",
-@@ -321,6 +324,9 @@ gst_oss_sink_get_format (GstAudioRingBuf
+@@ -324,6 +327,9 @@ gst_oss_sink_get_format (GstAudioRingBuf
      case GST_AUDIO_RING_BUFFER_FORMAT_TYPE_RAW:
      {
        switch (rfmt) {
@@ -22,7 +22,7 @@
          case GST_AUDIO_FORMAT_U8:
            result = AFMT_U8;
            break;
-@@ -330,15 +336,36 @@ gst_oss_sink_get_format (GstAudioRingBuf
+@@ -333,15 +339,36 @@ gst_oss_sink_get_format (GstAudioRingBuf
          case GST_AUDIO_FORMAT_S16BE:
            result = AFMT_S16_BE;
            break;
@@ -62,7 +62,7 @@
          default:
            result = 0;
            break;
-@@ -441,7 +468,7 @@ gst_oss_sink_prepare (GstAudioSink * asi
+@@ -444,7 +471,7 @@ gst_oss_sink_prepare (GstAudioSink * asi
    rate = GST_AUDIO_INFO_RATE (&spec->info);
    channels = GST_AUDIO_INFO_CHANNELS (&spec->info);
  

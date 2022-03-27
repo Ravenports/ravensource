@@ -1,6 +1,6 @@
---- sys/oss/gstosssrc.c.orig	2022-02-02 15:06:48 UTC
+--- sys/oss/gstosssrc.c.orig	2022-03-14 11:33:40 UTC
 +++ sys/oss/gstosssrc.c
-@@ -100,7 +100,10 @@ static guint gst_oss_src_read (GstAudioS
+@@ -103,7 +103,10 @@ static guint gst_oss_src_read (GstAudioS
  static guint gst_oss_src_delay (GstAudioSrc * asrc);
  static void gst_oss_src_reset (GstAudioSrc * asrc);
  
@@ -12,7 +12,7 @@
  
  static GstStaticPadTemplate osssrc_src_factory = GST_STATIC_PAD_TEMPLATE ("src",
      GST_PAD_SRC,
-@@ -313,6 +316,9 @@ gst_oss_src_get_format (GstAudioRingBuff
+@@ -316,6 +319,9 @@ gst_oss_src_get_format (GstAudioRingBuff
      case GST_AUDIO_RING_BUFFER_FORMAT_TYPE_RAW:
      {
        switch (rfmt) {
@@ -22,7 +22,7 @@
          case GST_AUDIO_FORMAT_U8:
            result = AFMT_U8;
            break;
-@@ -322,15 +328,36 @@ gst_oss_src_get_format (GstAudioRingBuff
+@@ -325,15 +331,36 @@ gst_oss_src_get_format (GstAudioRingBuff
          case GST_AUDIO_FORMAT_S16BE:
            result = AFMT_S16_BE;
            break;
@@ -62,7 +62,7 @@
          default:
            result = 0;
            break;
-@@ -427,7 +454,7 @@ gst_oss_src_prepare (GstAudioSrc * asrc,
+@@ -430,7 +457,7 @@ gst_oss_src_prepare (GstAudioSrc * asrc,
    rate = GST_AUDIO_INFO_RATE (&spec->info);
    channels = GST_AUDIO_INFO_CHANNELS (&spec->info);
  
