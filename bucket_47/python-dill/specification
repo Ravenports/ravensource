@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.3.4
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-dill
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py39 py310
+SDESC[py39]=		Serialize all of python (3.9)
+SDESC[py310]=		Serialize all of python (3.10)
+HOMEPAGE=		https://github.com/uqfoundation/dill
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/b6/c3/973676ceb86b60835bb3978c6db67a5dc06be6cfdbd14ef0f5a13e3fc9fd
+DISTFILE[1]=		dill-${PORTVERSION}-py2.py3-none-any.whl:main
+
+SPKGS[py39]=		single
+SPKGS[py310]=		single
+
+OPTIONS_AVAILABLE=	PY39 PY310
+OPTIONS_STANDARD=	none
+VOPTS[py39]=		PY39=ON PY310=OFF
+VOPTS[py310]=		PY39=OFF PY310=ON
+
+# License listed at PyPI
+# 3-clause BSD
+
+GENERATED=		yes
+DISTNAME=		dill-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# objgraph (>=1.7.2); extra == 'graph'
+
+[PY39].USES_ON=				python:py39,wheel
+[PY310].USES_ON=			python:py310,wheel
+

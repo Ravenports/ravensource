@@ -1,0 +1,100 @@
+-----------------------------
+dill: serialize all of python
+-----------------------------
+
+About Dill
+==========
+
+dill extends python's pickle module for serializing and de-serializing
+python objects to the majority of the built-in python types. Serialization
+is the process of converting an object to a byte stream, and the inverse
+of which is converting a byte stream back to a python object hierarchy.
+
+dill provides the user the same interface as the pickle module, and
+also includes some additional features. In addition to pickling python
+objects, dill provides the ability to save the state of an interpreter
+session in a single command.  Hence, it would be feasable to save an
+interpreter session, close the interpreter, ship the pickled file to
+another computer, open a new interpreter, unpickle the session and
+thus continue from the 'saved' state of the original interpreter
+session.
+
+dill can be used to store python objects to a file, but the primary
+usage is to send python objects across the network as a byte stream.
+dill is quite flexible, and allows arbitrary user defined classes
+and functions to be serialized.  Thus dill is not intended to be
+secure against erroneously or maliciously constructed data. It is
+left to the user to decide whether the data they unpickle is from
+a trustworthy source.
+
+dill is part of pathos, a python framework for heterogeneous computing.
+dill is in active development, so any user feedback, bug reports, comments,
+or suggestions are highly appreciated.  A list of issues is located at
+https://github.com/uqfoundation/dill/issues, with a legacy list maintained
+at https://uqfoundation.github.io/project/pathos/query.
+
+Major Features
+==============
+
+dill can pickle the following standard types:
+
+    - none, type, bool, int, long, float, complex, str, unicode,
+    - tuple, list, dict, file, buffer, builtin,
+    - both old and new style classes,
+    - instances of old and new style classes,
+    - set, frozenset, array, functions, exceptions
+
+dill can also pickle more 'exotic' standard types:
+
+    - functions with yields, nested functions, lambdas,
+    - cell, method, unboundmethod, module, code, methodwrapper,
+    - dictproxy, methoddescriptor, getsetdescriptor, memberdescriptor,
+    - wrapperdescriptor, xrange, slice,
+    - notimplemented, ellipsis, quit
+
+dill cannot yet pickle these standard types:
+
+    - frame, generator, traceback
+
+dill also provides the capability to:
+
+    - save and load python interpreter sessions
+    - save and extract the source code from functions and classes
+    - interactively diagnose pickling errors
+
+Current Release
+===============
+
+This documentation is for version ``dill-0.3.4``.
+
+The latest released version of dill is available from:
+
+    https://pypi.org/project/dill
+
+dill is distributed under a 3-clause BSD license.
+
+    >>> import dill
+    >>> dill.license()
+
+Development Version
+===================
+
+You can get the latest development version with all the shiny new features
+at:
+
+    https://github.com/uqfoundation
+
+If you have a new contribution, please submit a pull request.
+
+Installation
+============
+
+dill is packaged to install from source, so you must
+download the tarball, unzip, and run the installer::
+
+    [download]
+    $ tar -xvzf dill-0.3.4.tar.gz
+    $ cd dill-0.3.4
+    $ python setup py build
+    $ python setup py install
+
