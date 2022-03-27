@@ -296,6 +296,7 @@ function inline_fix_setup ($namebase, $src) {
        "django-colorful" => false,
        "pyzmq"        => '/cythonize(/ s|, |, quiet=True, |',
        "cffsubr"      => 's|"Linux"|platform.system()|',
+       "pygit2"       => false,
    );
    $setup = $src . "/setup.py";
    if (array_key_exists($namebase, $known_issues)) {
@@ -349,6 +350,10 @@ function inline_fix_setup ($namebase, $src) {
            case "tqdm":
                $xf = $src . "/setup.cfg";
                shell_exec ("sed -i.bak -e \"s|setuptools_scm\[toml\]|toml>=0.10; setuptools_scm|\" $xf");
+               break;
+           case "pygit2":
+               $xf = $src . "/requirements.txt";
+               shell_exec ("sed -i.bak -e \"/python_version < .3\.8/d\" $xf");
                break;
        }
    }
