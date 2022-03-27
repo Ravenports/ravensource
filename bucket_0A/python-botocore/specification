@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.24.8
+DEF[PORTVERSION]=	1.24.27
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-botocore
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/boto/botocore
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/ae/e6/f841946cf32a862ddfa0a6de1114339033b1f34a6f94d2cb868ab68a96f0
+SITES[main]=		PYPIWHL/8c/aa/6cc99c732cf2f6ea22717bb9dcee1be8c5a7585e5195c4ec330c7ef071a3
 DISTFILE[1]=		botocore-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py39]=		single
@@ -29,17 +29,17 @@ GENERATED=		yes
 DISTNAME=		botocore-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# jmespath (<1.0.0,>=0.7.1)
 # python-dateutil (<3.0.0,>=2.1)
 # urllib3 (<1.27,>=1.25.4)
-# awscrt (==0.12.5) ; extra == 'crt'
+# jmespath (<2.0.0,>=0.7.1)
+# awscrt (==0.13.5) ; extra == 'crt'
 
 [PY39].USES_ON=				python:py39,wheel
-[PY39].RUN_DEPENDS_ON=			python-jmespath:single:py39
-					python-python-dateutil:single:py39
+[PY39].RUN_DEPENDS_ON=			python-python-dateutil:single:py39
 					python-urllib3:single:py39
+					python-jmespath:single:py39
 [PY310].USES_ON=			python:py310,wheel
-[PY310].RUN_DEPENDS_ON=			python-jmespath:single:py310
-					python-python-dateutil:single:py310
+[PY310].RUN_DEPENDS_ON=			python-python-dateutil:single:py310
 					python-urllib3:single:py310
+					python-jmespath:single:py310
 

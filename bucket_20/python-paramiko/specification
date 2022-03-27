@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.9.2
+DEF[PORTVERSION]=	2.10.3
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-paramiko
@@ -11,7 +11,7 @@ HOMEPAGE=		https://paramiko.org
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/60/3e/84c52fb09db84548c5d366bac8863125c6db099b87495e04c8af5527e6f1
+SITES[main]=		PYPIWHL/be/6f/f0ec5f5fb00d270ebd80946be561795c67468473eb495222794cae285d40
 DISTFILE[1]=		paramiko-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py39]=		single
@@ -32,6 +32,7 @@ DISTNAME=		paramiko-${PORTVERSION}.dist-info
 # bcrypt (>=3.1.3)
 # cryptography (>=2.5)
 # pynacl (>=1.0.1)
+# six
 # pyasn1 (>=0.1.7) ; extra == 'all'
 # pynacl (>=1.0.1) ; extra == 'all'
 # bcrypt (>=3.1.3) ; extra == 'all'
@@ -49,8 +50,13 @@ DISTNAME=		paramiko-${PORTVERSION}.dist-info
 [PY39].RUN_DEPENDS_ON=			python-bcrypt:single:py39
 					python-cryptography:single:py39
 					python-PyNaCl:single:py39
+					python-six:single:py39
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-bcrypt:single:py310
 					python-cryptography:single:py310
 					python-PyNaCl:single:py310
+					python-six:single:py310
 
+USES=			cpe
+CPE_VENDOR=		paramiko
+CPE_PRODUCT=		paramiko

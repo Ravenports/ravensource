@@ -14,6 +14,16 @@ Redis]
 
 ---------------------------------------------
 
+## Python Notice
+
+redis-py 4.2.x will be the last generation of redis-py to support python
+3.6 as it has been [End of Life'd].  Async support was introduced in
+redis-py 4.2.x thanks to [aioredis], which necessitates this change. We
+will continue to maintain 3.6 support as long as possible - but the plan is
+for redis-py version 5+ to offically remove 3.6.
+
+---------------------------
+
 ## Installation
 
 redis-py requires a running Redis server. See [Redis's
@@ -51,7 +61,7 @@ contributing].
 
 ## Getting Started
 
-redis-py supports Python 3.6+.
+redis-py supports Python 3.7+.
 
 ``` pycon
 >>> import redis
@@ -88,13 +98,3 @@ Relying on `*args` caused issues with the optional argument order,
 especially in Python 2.7. Relying on `**kwargs` caused potential
 collision issues of user keys with the argument names in the method
 signature.
-
-To resolve this, redis-py 3.0 has changed these three commands to all
-accept a single positional argument named mapping that is expected to be
-a dict. For MSET and MSETNX, the dict is a mapping of key-names -\>
-values. For ZADD, the dict is a mapping of element-names -\> score.
-
-MSET, MSETNX and ZADD now look like:
-
-``` pycon
-def mset(self, mapping):

@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.1.4
+DEF[PORTVERSION]=	4.2.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-redis
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/redis/redis-py
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/c5/fa/730caa74a6d6d88c289176161b2f56cac27f108cf3102165343dbaf1bc84
+SITES[main]=		PYPIWHL/83/f0/f00f8dc8033ef31b97317cbac96e6b54b14f9e08a55b573e1ac9d003082c
 DISTFILE[1]=		redis-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py39]=		single
@@ -31,6 +31,8 @@ DISTNAME=		redis-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 # deprecated (>=1.2.3)
 # packaging (>=20.4)
+# typing-extensions
+# async-timeout (>=4.0.2)
 # importlib-metadata (>=1.0) ; python_version < "3.8"
 # hiredis (>=1.0.0) ; extra == 'hiredis'
 # cryptography (>=36.0.1) ; extra == 'ocsp'
@@ -40,7 +42,11 @@ DISTNAME=		redis-${PORTVERSION}.dist-info
 [PY39].USES_ON=				python:py39,wheel
 [PY39].RUN_DEPENDS_ON=			python-Deprecated:single:py39
 					python-packaging:single:py39
+					python-typing-extensions:single:py39
+					python-async-timeout:single:py39
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-Deprecated:single:py310
 					python-packaging:single:py310
+					python-typing-extensions:single:py310
+					python-async-timeout:single:py310
 
