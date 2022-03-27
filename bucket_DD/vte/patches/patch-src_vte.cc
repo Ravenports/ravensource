@@ -1,4 +1,4 @@
---- src/vte.cc.orig	2021-10-08 17:27:02 UTC
+--- src/vte.cc.orig	2022-03-27 17:52:19 UTC
 +++ src/vte.cc
 @@ -34,6 +34,13 @@
  #ifdef HAVE_SYS_STREAM_H
