@@ -161,21 +161,21 @@ include/dpkg/varbuf.h
 include/dpkg/version.h
 libexec/libdpkg.a
 libexec/dpkg/dpkg-db-backup
-libexec/dpkg/methods/disk/desc.mounted
-libexec/dpkg/methods/disk/install
-libexec/dpkg/methods/disk/names
-libexec/dpkg/methods/disk/setup
-libexec/dpkg/methods/disk/update
+libexec/dpkg/methods/file/desc.file
+libexec/dpkg/methods/file/install
+libexec/dpkg/methods/file/names
+libexec/dpkg/methods/file/setup
+libexec/dpkg/methods/file/update
 libexec/dpkg/methods/ftp/desc.ftp
 libexec/dpkg/methods/ftp/install
 libexec/dpkg/methods/ftp/names
 libexec/dpkg/methods/ftp/setup
 libexec/dpkg/methods/ftp/update
-libexec/dpkg/methods/multicd/desc.multi_cd
-libexec/dpkg/methods/multicd/install
-libexec/dpkg/methods/multicd/names
-libexec/dpkg/methods/multicd/setup
-libexec/dpkg/methods/multicd/update
+libexec/dpkg/methods/media/desc.media
+libexec/dpkg/methods/media/install
+libexec/dpkg/methods/media/names
+libexec/dpkg/methods/media/setup
+libexec/dpkg/methods/media/update
 libexec/pkgconfig/libdpkg.pc
 sbin/dpkg-fsys-usrunmess
 share/aclocal/dpkg-arch.m4
@@ -264,7 +264,6 @@ share/man/de/man7/deb-version.7.gz
 share/man/de/man8/dpkg-fsys-usrunmess.8.gz
 share/man/es/man1/dpkg-distaddfile.1.gz
 share/man/es/man1/dpkg-split.1.gz
-share/man/es/man1/update-alternatives.1.gz
 share/man/es/man5/deb-old.5.gz
 share/man/es/man5/dpkg.cfg.5.gz
 share/man/es/man5/dselect.cfg.5.gz
@@ -296,10 +295,6 @@ share/man/fr/man5/deb-changes.5.gz
 share/man/fr/man5/deb-control.5.gz
 share/man/fr/man5/deb-old.5.gz
 share/man/fr/man5/deb-origin.5.gz
-share/man/fr/man5/deb-postinst.5.gz
-share/man/fr/man5/deb-postrm.5.gz
-share/man/fr/man5/deb-preinst.5.gz
-share/man/fr/man5/deb-prerm.5.gz
 share/man/fr/man5/deb-src-control.5.gz
 share/man/fr/man5/deb-src-files.5.gz
 share/man/fr/man5/deb-src-rules.5.gz
@@ -316,14 +311,12 @@ share/man/hu/man5/dselect.cfg.5.gz
 share/man/it/man1/dpkg-distaddfile.1.gz
 share/man/it/man1/dpkg-maintscript-helper.1.gz
 share/man/it/man1/dpkg-split.1.gz
-share/man/it/man1/update-alternatives.1.gz
 share/man/it/man5/deb-old.5.gz
 share/man/it/man5/deb.5.gz
 share/man/it/man5/dpkg.cfg.5.gz
 share/man/it/man5/dselect.cfg.5.gz
 share/man/ja/man1/dpkg-distaddfile.1.gz
 share/man/ja/man1/dpkg-split.1.gz
-share/man/ja/man1/update-alternatives.1.gz
 share/man/ja/man5/deb-old.5.gz
 share/man/ja/man5/dpkg.cfg.5.gz
 share/man/ja/man5/dselect.cfg.5.gz
@@ -468,10 +461,10 @@ share/man/nl/man5/deb-changes.5.gz
 share/man/nl/man5/deb-conffiles.5.gz
 share/man/nl/man5/deb-control.5.gz
 share/man/nl/man5/deb-extra-override.5.gz
+share/man/nl/man5/deb-md5sums.5.gz
 share/man/nl/man5/deb-old.5.gz
 share/man/nl/man5/deb-origin.5.gz
 share/man/nl/man5/deb-override.5.gz
-share/man/nl/man5/deb-postinst.5.gz
 share/man/nl/man5/deb-postrm.5.gz
 share/man/nl/man5/deb-preinst.5.gz
 share/man/nl/man5/deb-prerm.5.gz
@@ -493,7 +486,6 @@ share/man/nl/man7/deb-version.7.gz
 share/man/nl/man8/dpkg-fsys-usrunmess.8.gz
 share/man/pl/man1/dpkg-distaddfile.1.gz
 share/man/pl/man1/dpkg-split.1.gz
-share/man/pl/man1/update-alternatives.1.gz
 share/man/pl/man5/deb-old.5.gz
 share/man/pl/man5/dpkg.cfg.5.gz
 share/man/pl/man5/dselect.cfg.5.gz
@@ -531,10 +523,10 @@ share/man/pt/man5/deb-changes.5.gz
 share/man/pt/man5/deb-conffiles.5.gz
 share/man/pt/man5/deb-control.5.gz
 share/man/pt/man5/deb-extra-override.5.gz
+share/man/pt/man5/deb-md5sums.5.gz
 share/man/pt/man5/deb-old.5.gz
 share/man/pt/man5/deb-origin.5.gz
 share/man/pt/man5/deb-override.5.gz
-share/man/pt/man5/deb-postinst.5.gz
 share/man/pt/man5/deb-postrm.5.gz
 share/man/pt/man5/deb-preinst.5.gz
 share/man/pt/man5/deb-prerm.5.gz
@@ -554,24 +546,69 @@ share/man/pt/man5/dsc.5.gz
 share/man/pt/man5/dselect.cfg.5.gz
 share/man/pt/man7/deb-version.7.gz
 share/man/pt/man8/dpkg-fsys-usrunmess.8.gz
+share/man/sv/man1/dpkg-architecture.1.gz
+share/man/sv/man1/dpkg-buildflags.1.gz
+share/man/sv/man1/dpkg-buildpackage.1.gz
+share/man/sv/man1/dpkg-checkbuilddeps.1.gz
+share/man/sv/man1/dpkg-deb.1.gz
 share/man/sv/man1/dpkg-distaddfile.1.gz
+share/man/sv/man1/dpkg-divert.1.gz
+share/man/sv/man1/dpkg-genbuildinfo.1.gz
+share/man/sv/man1/dpkg-genchanges.1.gz
 share/man/sv/man1/dpkg-gencontrol.1.gz
+share/man/sv/man1/dpkg-gensymbols.1.gz
 share/man/sv/man1/dpkg-maintscript-helper.1.gz
+share/man/sv/man1/dpkg-mergechangelogs.1.gz
+share/man/sv/man1/dpkg-name.1.gz
+share/man/sv/man1/dpkg-parsechangelog.1.gz
+share/man/sv/man1/dpkg-query.1.gz
+share/man/sv/man1/dpkg-realpath.1.gz
+share/man/sv/man1/dpkg-scanpackages.1.gz
+share/man/sv/man1/dpkg-scansources.1.gz
+share/man/sv/man1/dpkg-shlibdeps.1.gz
+share/man/sv/man1/dpkg-source.1.gz
 share/man/sv/man1/dpkg-split.1.gz
+share/man/sv/man1/dpkg-statoverride.1.gz
+share/man/sv/man1/dpkg-trigger.1.gz
+share/man/sv/man1/dpkg-vendor.1.gz
+share/man/sv/man1/dpkg.1.gz
+share/man/sv/man1/dselect.1.gz
 share/man/sv/man1/update-alternatives.1.gz
+share/man/sv/man5/deb-buildinfo.5.gz
+share/man/sv/man5/deb-changelog.5.gz
+share/man/sv/man5/deb-changes.5.gz
+share/man/sv/man5/deb-conffiles.5.gz
+share/man/sv/man5/deb-control.5.gz
+share/man/sv/man5/deb-extra-override.5.gz
 share/man/sv/man5/deb-old.5.gz
+share/man/sv/man5/deb-origin.5.gz
+share/man/sv/man5/deb-override.5.gz
+share/man/sv/man5/deb-shlibs.5.gz
+share/man/sv/man5/deb-split.5.gz
+share/man/sv/man5/deb-src-control.5.gz
+share/man/sv/man5/deb-src-files.5.gz
+share/man/sv/man5/deb-src-rules.5.gz
+share/man/sv/man5/deb-src-symbols.5.gz
+share/man/sv/man5/deb-substvars.5.gz
+share/man/sv/man5/deb-symbols.5.gz
+share/man/sv/man5/deb-triggers.5.gz
 share/man/sv/man5/deb.5.gz
+share/man/sv/man5/deb822.5.gz
 share/man/sv/man5/dpkg.cfg.5.gz
+share/man/sv/man5/dsc.5.gz
 share/man/sv/man5/dselect.cfg.5.gz
+share/man/sv/man7/deb-version.7.gz
+share/man/sv/man8/dpkg-fsys-usrunmess.8.gz
+share/man/sv/man8/start-stop-daemon.8.gz
 share/polkit-1/actions/org.dpkg.pkexec.update-alternatives.policy
 share/zsh/vendor-completions/_dpkg-parsechangelog
 @dir /var/db/dpkg/alternatives
 @dir /var/db/dpkg/info
 @dir /var/db/dpkg/methods
-@dir /var/db/dpkg/methods/disk
+@dir /var/db/dpkg/methods/file
 @dir /var/db/dpkg/methods/ftp
+@dir /var/db/dpkg/methods/media
 @dir /var/db/dpkg/methods/mnt
-@dir /var/db/dpkg/methods/multicd
 @dir /var/db/dpkg/parts
 @dir /var/db/dpkg/updates
 @dir etc/dpkg/dpkg.cfg.d
