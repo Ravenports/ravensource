@@ -1,6 +1,6 @@
---- server/mdb6.c.orig	2021-05-14 10:51:30 UTC
+--- server/mdb6.c.orig	2022-03-08 09:26:03 UTC
 +++ server/mdb6.c
-@@ -1945,7 +1945,7 @@ create_prefix6(struct ipv6_pool *pool, s
+@@ -1129,7 +1129,7 @@ create_lease6(struct ipv6_pool *pool, st
  		}
  		new_ds.data = new_ds.buffer->data;
  		memcpy(new_ds.buffer->data, ds.data, ds.len);
