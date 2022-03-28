@@ -1,4 +1,4 @@
---- tools/mouse-dpi-tool.c.orig	2021-11-09 00:05:22 UTC
+--- tools/mouse-dpi-tool.c.orig	2022-03-25 04:33:26 UTC
 +++ tools/mouse-dpi-tool.c
 @@ -5,6 +5,11 @@
  
