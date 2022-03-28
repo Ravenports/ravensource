@@ -1,4 +1,4 @@
---- lib/tty/tty-ncurses.c.orig	2021-08-01 16:45:58 UTC
+--- lib/tty/tty-ncurses.c.orig	2022-03-20 10:02:46 UTC
 +++ lib/tty/tty-ncurses.c
 @@ -289,7 +289,7 @@ tty_shutdown (void)
  void
