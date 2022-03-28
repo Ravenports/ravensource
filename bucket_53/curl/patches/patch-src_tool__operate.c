@@ -1,6 +1,6 @@
---- src/tool_operate.c.orig	2022-01-03 16:36:46 UTC
+--- src/tool_operate.c.orig	2022-03-01 17:06:54 UTC
 +++ src/tool_operate.c
-@@ -1057,20 +1057,7 @@ static CURLcode single_transfer(struct G
+@@ -1043,20 +1043,7 @@ static CURLcode single_transfer(struct G
              DEBUGASSERT(!outs->filename);
            }
  
@@ -22,7 +22,7 @@
  #ifdef __VMS
              /* open file for output, forcing VMS output format into stream
                 mode which is needed for stat() call above to always work. */
-@@ -1087,6 +1074,19 @@ static CURLcode single_transfer(struct G
+@@ -1073,6 +1060,19 @@ static CURLcode single_transfer(struct G
              }
              outs->fopened = TRUE;
              outs->stream = file;
