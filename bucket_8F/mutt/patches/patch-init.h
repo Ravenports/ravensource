@@ -1,4 +1,4 @@
---- init.h.orig	2022-02-12 19:31:59 UTC
+--- init.h.orig	2022-03-24 21:38:29 UTC
 +++ init.h
 @@ -1304,6 +1304,11 @@ struct option_t MuttVars[] = {
    ** sent to both the list and your address, resulting in two copies
