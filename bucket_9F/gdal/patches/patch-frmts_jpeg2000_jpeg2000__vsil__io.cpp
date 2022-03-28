@@ -1,4 +1,4 @@
---- frmts/jpeg2000/jpeg2000_vsil_io.cpp.orig	2021-12-27 20:28:08 UTC
+--- frmts/jpeg2000/jpeg2000_vsil_io.cpp.orig	2022-03-08 10:13:45 UTC
 +++ frmts/jpeg2000/jpeg2000_vsil_io.cpp
 @@ -94,28 +94,18 @@ typedef struct {
  * File stream object.
