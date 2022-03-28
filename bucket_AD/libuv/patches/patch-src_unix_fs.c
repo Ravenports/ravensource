@@ -1,6 +1,6 @@
---- src/unix/fs.c.orig	2022-01-04 14:18:00 UTC
+--- src/unix/fs.c.orig	2022-03-09 17:54:54 UTC
 +++ src/unix/fs.c
-@@ -1127,13 +1127,13 @@ static ssize_t uv__fs_sendfile(uv_fs_t*
+@@ -1139,13 +1139,13 @@ static ssize_t uv__fs_sendfile(uv_fs_t*
  static ssize_t uv__fs_utime(uv_fs_t* req) {
  #if defined(__linux__)                                                         \
      || defined(_AIX71)                                                         \
@@ -15,11 +15,11 @@
      || defined(__DragonFly__)                                                 \
      || defined(__FreeBSD__)                                                   \
      || defined(__FreeBSD_kernel__)                                            \
-@@ -1167,7 +1167,6 @@ static ssize_t uv__fs_utime(uv_fs_t* req
+@@ -1179,7 +1179,6 @@ static ssize_t uv__fs_utime(uv_fs_t* req
  static ssize_t uv__fs_lutime(uv_fs_t* req) {
  #if defined(__linux__)            ||                                           \
      defined(_AIX71)               ||                                           \
 -    defined(__sun)                ||                                           \
-     defined(__HAIKU__)
+     defined(__HAIKU__)            ||                                           \
+     defined(__GNU__)
    struct timespec ts[2];
-   ts[0] = uv__fs_to_timespec(req->atime);
