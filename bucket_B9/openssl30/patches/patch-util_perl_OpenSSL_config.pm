@@ -1,6 +1,6 @@
---- util/perl/OpenSSL/config.pm.orig	2021-12-14 16:16:25 UTC
+--- util/perl/OpenSSL/config.pm.orig	2022-03-15 14:30:24 UTC
 +++ util/perl/OpenSSL/config.pm
-@@ -716,20 +716,7 @@ EOF
+@@ -724,20 +724,7 @@ EOF
        [ 'sun4.*-.*-solaris2',     { target => "solaris-sparcv7" } ],
        [ '.*86.*-.*-solaris2',
          sub {
@@ -22,7 +22,7 @@
          }
        ],
        # We don't have any sunos target in Configurations/*.conf, so why here?
-@@ -744,6 +731,7 @@ EOF
+@@ -753,6 +740,7 @@ EOF
        [ 'sparc64-.*-.*bsd.*',     { target => "BSD-sparc64" } ],
        [ 'ia64-.*-.*bsd.*',        { target => "BSD-ia64" } ],
        [ 'x86_64-.*-dragonfly.*',  { target => "BSD-x86_64" } ],
