@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	2.1
+DEF[PORTVERSION]=	2.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		shared-mime-info
 VERSION=		${PORTVERSION}
-REVISION=		3
 KEYWORDS=		misc
 VARIANTS=		standard
 SDESC[standard]=	MIME types database from freedesktop.org project
@@ -43,3 +42,7 @@ post-extract:
 post-patch:
 	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g' \
 		${WRKSRC}/src/update-mime-database.c
+
+post-install:
+	${MV} ${STAGEDIR}${PREFIX}/share/pkgconfig \
+		${STAGEDIR}${PREFIX}/lib/
