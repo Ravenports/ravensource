@@ -2,9 +2,9 @@ $NetBSD: patch-Source_JavaScriptCore_runtime_MachineContext.h,v 1.2 2021/05/13 0
 
 Add support for NetBSD.
 
---- Source/JavaScriptCore/runtime/MachineContext.h.orig	2021-09-01 09:16:46 UTC
+--- Source/JavaScriptCore/runtime/MachineContext.h.orig	2022-02-23 08:58:54 UTC
 +++ Source/JavaScriptCore/runtime/MachineContext.h
-@@ -195,6 +195,22 @@ static inline void*& stackPointerImpl(mc
+@@ -176,6 +176,22 @@ static inline void*& stackPointerImpl(mc
  #error Unknown Architecture
  #endif
  
@@ -27,7 +27,7 @@ Add support for NetBSD.
  #elif OS(FUCHSIA) || OS(LINUX)
  
  #if CPU(X86)
-@@ -346,6 +362,22 @@ static inline void*& framePointerImpl(mc
+@@ -305,6 +321,22 @@ static inline void*& framePointerImpl(mc
  #error Unknown Architecture
  #endif
  
@@ -50,7 +50,7 @@ Add support for NetBSD.
  #elif OS(FUCHSIA) || OS(LINUX)
  
  // The following sequence depends on glibc's sys/ucontext.h.
-@@ -496,6 +528,22 @@ static inline void*& instructionPointerI
+@@ -446,6 +478,22 @@ static inline void*& instructionPointerI
  #else
  #error Unknown Architecture
  #endif
@@ -73,7 +73,7 @@ Add support for NetBSD.
  
  #elif OS(FUCHSIA) || OS(LINUX)
  
-@@ -654,6 +702,22 @@ inline void*& argumentPointer<1>(mcontex
+@@ -586,6 +634,22 @@ inline void*& argumentPointer<1>(mcontex
  #else
  #error Unknown Architecture
  #endif
@@ -96,7 +96,7 @@ Add support for NetBSD.
  
  #elif OS(FUCHSIA) || OS(LINUX)
  
-@@ -771,6 +835,22 @@ inline void*& llintInstructionPointer(mc
+@@ -705,6 +769,22 @@ inline void*& llintInstructionPointer(mc
  #else
  #error Unknown Architecture
  #endif
