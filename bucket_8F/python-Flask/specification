@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.0.3
+DEF[PORTVERSION]=	2.1.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-Flask
@@ -11,7 +11,7 @@ HOMEPAGE=		https://palletsprojects.com/p/flask
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/cd/77/59df23681f4fd19b7cbbb5e92484d46ad587554f5d490f33ef907e456132
+SITES[main]=		PYPIWHL/ef/31/3ca16c38b92da4850301e426105ba2b747c480d7fe2715ff703360d3880f
 DISTFILE[1]=		Flask-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py39]=		single
@@ -32,7 +32,8 @@ DISTNAME=		Flask-${PORTVERSION}.dist-info
 # Werkzeug (>=2.0)
 # Jinja2 (>=3.0)
 # itsdangerous (>=2.0)
-# click (>=7.1.2)
+# click (>=8.0)
+# importlib-metadata ; python_version < "3.10"
 # asgiref (>=3.2) ; extra == 'async'
 # python-dotenv ; extra == 'dotenv'
 
@@ -41,6 +42,7 @@ DISTNAME=		Flask-${PORTVERSION}.dist-info
 					python-Jinja2:single:py39
 					python-itsdangerous:single:py39
 					python-click:single:py39
+					python-importlib-metadata:single:py39
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-Werkzeug:single:py310
 					python-Jinja2:single:py310

@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	22.1.0
+DEF[PORTVERSION]=	22.3.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-black
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/psf/black
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/a5/59/bd6d44da2b364fd2bd7a0b2ce2edfe200b79faad1cde14ce5ef13d504393
+SITES[main]=		PYPIWHL/2e/ef/a38a2189959246543e60859fb65bd3143129f6d18dfc7bcdd79217f81ca2
 DISTFILE[1]=		black-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py39]=		single
@@ -31,10 +31,10 @@ DISTNAME=		black-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 # click (>=8.0.0)
 # platformdirs (>=2)
-# tomli (>=1.1.0)
 # pathspec (>=0.9.0)
 # mypy-extensions (>=0.4.3)
 # typing-extensions (>=3.10.0.0) ; python_version < "3.10"
+# tomli (>=1.1.0) ; python_version < "3.11"
 # dataclasses (>=0.6) ; python_version < "3.7"
 # typed-ast (>=1.4.2) ; python_version < "3.8" and implementation_name == "cpython"
 # colorama (>=0.4.3) ; extra == 'colorama'
@@ -46,14 +46,14 @@ DISTNAME=		black-${PORTVERSION}.dist-info
 [PY39].USES_ON=				python:py39,wheel
 [PY39].RUN_DEPENDS_ON=			python-click:single:py39
 					python-platformdirs:single:py39
-					python-tomli:single:py39
 					python-pathspec:single:py39
 					python-mypy-extensions:single:py39
 					python-typing-extensions:single:py39
+					python-tomli:single:py39
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-click:single:py310
 					python-platformdirs:single:py310
-					python-tomli:single:py310
 					python-pathspec:single:py310
 					python-mypy-extensions:single:py310
+					python-tomli:single:py310
 
