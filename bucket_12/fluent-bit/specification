@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.8.13
 
 NAMEBASE=		fluent-bit
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		standard
 SDESC[standard]=	Fast and Lightweight Log processor and forwarder
@@ -27,8 +28,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		sysutils/fluent-bit
 
-USES=			cpe cmake bison zlib gmake execinfo shebangfix
+USES=			cpe cmake bison zlib gmake shebangfix
 			cclibs:primary,library
+# Don't use execinfo, keep dependencies down
 # -Werror=truncation on mbedtls on gcc, clang works though
 			clang
 SHEBANG_ADD_SH=		lib/luajit-2.1.0-1e66d0f/configure
