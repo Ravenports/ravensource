@@ -1,19 +1,19 @@
-DEF[PORTVERSION]=	0.1.2
+DEF[PORTVERSION]=	0.1.3
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-net-protocol
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v27 v30 v31
-SDESC[v27]=		Abstruct interface for net-* client (v27)
-SDESC[v30]=		Abstruct interface for net-* client (v30)
-SDESC[v31]=		Abstruct interface for net-* client (v31)
+SDESC[v27]=		Abstract interface for net-* client (v27)
+SDESC[v30]=		Abstract interface for net-* client (v30)
+SDESC[v31]=		Abstract interface for net-* client (v31)
 HOMEPAGE=		https://github.com/ruby/net-protocol
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		net-protocol-0.1.2.gem:main
+DISTFILE[1]=		net-protocol-0.1.3.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v27]=		single
@@ -31,18 +31,14 @@ VOPTS[v31]=		RUBY27=OFF RUBY30=OFF RUBY31=ON
 
 # Requirements according to gem specification:
 #   timeout (>= 0)
-#   io-wait (>= 0)
 
 DISTNAME=		net-protocol-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY27].USES_ON=			gem:v27
 [RUBY27].BUILDRUN_DEPENDS_ON=		ruby-timeout:single:v27
-					ruby-io-wait:single:v27
 [RUBY30].USES_ON=			gem:v30
 [RUBY30].BUILDRUN_DEPENDS_ON=		ruby-timeout:single:v30
-					ruby-io-wait:single:v30
 [RUBY31].USES_ON=			gem:v31
 [RUBY31].BUILDRUN_DEPENDS_ON=		ruby-timeout:single:v31
-					ruby-io-wait:single:v31
 
