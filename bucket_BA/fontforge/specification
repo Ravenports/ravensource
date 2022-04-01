@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	20201107
+DEF[PORTVERSION]=	20220308
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fontforge
@@ -35,9 +35,11 @@ BUILDRUN_DEPENDS=	libspiro:single:standard
 			fontconfig:primary:standard
 			freetype:primary:standard
 RUN_DEPENDS=		fonts-unifont:single:standard
+# Work around some kind of USES=python bug (the run is ignore)
+			python39:single:standard
 
-USES=			cpe cmake iconv:wchar_t pkgconfig png jpeg tiff gif readline
-			python mime-info:primary
+USES=			cpe python cmake iconv:wchar_t pkgconfig
+			png jpeg tiff gif readline mime-info:primary
 			gettext-runtime gettext-tools
 			gnome-icons:primary desktop-utils:primary
 GNOME_COMPONENTS=	glib libxml2 cairo pango gtk3
