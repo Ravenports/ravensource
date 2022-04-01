@@ -4,9 +4,9 @@ Removing this code from ARM builds resolves it.
 
 https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=183536
 
---- src/fccompat.c.orig	2016-07-11 02:41:06 UTC
+--- src/fccompat.c.orig	2020-12-03 11:45:00 UTC
 +++ src/fccompat.c
-@@ -191,7 +191,7 @@ FcRandom(void)
+@@ -209,7 +209,7 @@ FcRandom(void)
  #else
      random_r (&fcrandbuf, &result);
  #endif
