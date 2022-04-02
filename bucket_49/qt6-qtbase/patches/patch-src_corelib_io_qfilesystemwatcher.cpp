@@ -1,4 +1,4 @@
---- src/corelib/io/qfilesystemwatcher.cpp.orig	2022-01-11 14:01:22 UTC
+--- src/corelib/io/qfilesystemwatcher.cpp.orig	2022-02-16 13:13:47 UTC
 +++ src/corelib/io/qfilesystemwatcher.cpp
 @@ -58,6 +58,8 @@
  #  include "qfilesystemwatcher_inotify_p.h"
