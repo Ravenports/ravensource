@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2022.1
 
 NAMEBASE=		python-gi-docgen
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		python
 VARIANTS=		py39 py310
 SDESC[py39]=		Documentation tool for GObject-based libs (3.9)
@@ -54,3 +55,5 @@ DISTNAME=		gi_docgen-${PORTVERSION}.dist-info
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/pkgconfig/gi-docgen.pc ${STAGEDIR}${PREFIX}/lib/pkgconfig/gi-docgen.pc
 	${RMDIR} ${STAGEDIR}${PREFIX}/share/pkgconfig
+# Add path with our prefix to the hard-coded xdg_data_dirs
+	${REINPLACE_CMD} 's!/usr/share:!/${PREFIX}/share:/usr/share:!' ${STAGEDIR}${PREFIX}/lib/python${PYTHON_VER}/site-packages/gidocgen/utils.py
