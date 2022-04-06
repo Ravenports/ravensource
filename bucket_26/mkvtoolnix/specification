@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	65.0.0
+DEF[PORTVERSION]=	66.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mkvtoolnix
@@ -61,3 +61,11 @@ CONFIGURE_ENV=		PKG_CONFIG_PATH="{{LOCALBASE}}/lib/qt5/pkgconfig"
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 
+post-patch:
+	${FIND} ${WRKSRC} -type f -name "windows\.cpp" -delete
+	${FIND} ${WRKSRC} -type f -name "macos\.cpp" -delete
+	${FIND} ${WRKSRC} -type f -name "[wm]*_program_runner*" -delete
+	${RM} ${WRKSRC}/src/mkvtoolnix-gui/util/windows_font.cpp
+	if [ "${OPSYS}" != "Linux" ]; then \
+	   ${RM} ${WRKSRC}/src/mkvtoolnix-gui/jobs/program_runner/linux_program_runner.*; \
+	fi
