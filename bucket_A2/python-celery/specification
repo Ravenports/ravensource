@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.2.3
+DEF[PORTVERSION]=	5.2.6
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-celery
@@ -11,7 +11,7 @@ HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/1e/c2/52a01d3f53ddf57c80b011714dd63295c69426121d35d0ff41976b83506c
+SITES[main]=		PYPIWHL/a0/ed/8a2e381aa9fa6fa5ac6891b0b472e927892f57a39842eff18cc917ceba57
 DISTFILE[1]=		celery-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py39]=		single
@@ -37,7 +37,7 @@ DISTNAME=		celery-${PORTVERSION}.dist-info
 # click-didyoumean (>=0.0.3)
 # click-repl (>=0.2.0)
 # click-plugins (>=1.1.1)
-# setuptools (<59.7.0,>=59.1.1)
+# importlib-metadata (>=1.4.0) ; python_version < "3.8"
 # pyArango (>=1.3.2) ; extra == 'arangodb'
 # cryptography ; extra == 'auth'
 # azure-storage-blob (==12.9.0) ; extra == 'azureblockblob'
@@ -81,7 +81,6 @@ DISTNAME=		celery-${PORTVERSION}.dist-info
 					python-click-didyoumean:single:py39
 					python-click-repl:single:py39
 					python-click-plugins:single:py39
-					python-setuptools:single:py39
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-pytz:single:py310
 					python-billiard:single:py310
@@ -91,7 +90,6 @@ DISTNAME=		celery-${PORTVERSION}.dist-info
 					python-click-didyoumean:single:py310
 					python-click-repl:single:py310
 					python-click-plugins:single:py310
-					python-setuptools:single:py310
 
 USES=			cpe
 CPE_VENDOR=		celeryproject

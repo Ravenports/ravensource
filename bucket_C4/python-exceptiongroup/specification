@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	1.0.0rc2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-exceptiongroup
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py39 py310
+SDESC[py39]=		Backport of PEP 654 (exception groups) (3.9)
+SDESC[py310]=		Backport of PEP 654 (exception groups) (3.10)
+HOMEPAGE=		none
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/84/9e/0aaafdcfb4613b045fa547a73b51ece17df0e2389de153172ddc2c0c1f6d
+DISTFILE[1]=		exceptiongroup-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py39]=		single
+SPKGS[py310]=		single
+
+OPTIONS_AVAILABLE=	PY39 PY310
+OPTIONS_STANDARD=	none
+VOPTS[py39]=		PY39=ON PY310=OFF
+VOPTS[py310]=		PY39=OFF PY310=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		exceptiongroup-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# pytest >= 6 ; extra == "test"
+# coverage >= 6 ; extra == "test"
+
+[PY39].USES_ON=				python:py39,wheel
+[PY310].USES_ON=			python:py310,wheel
+
