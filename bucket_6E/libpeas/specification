@@ -1,6 +1,6 @@
 # Even releases are for production, uneven are development versions
-DEF[PORTVERSION]=	1.30.0
-DEF[SOVERSION]=		0.3000.0
+DEF[PORTVERSION]=	1.32.0
+DEF[SOVERSION]=		0.3200.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libpeas
@@ -33,10 +33,11 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libpeas
 
-RUN_DEPENDS=		gobject-introspection:single:standard
+BUILD_DEPENDS=		python-gi-docgen:single:python_default
+BUILDRUN_DEPENDS=	gobject-introspection:single:standard
 
-# We don't have Lua5.1, so Lua cannot be supported here.
-# Libpeas still supports 5.1 only as of 1.24.0. Maybe re-check later.
+# We don't have very old Lua5.1, so no Lua support for now.
+# Libpeas still only supports 5.1 as of 1.32.0. Maybe re-check later.
 
 USES=			cpe meson pkgconfig gtk-doc
 			gettext-runtime gettext-tools:build
