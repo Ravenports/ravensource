@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.52.7
+DEF[PORTVERSION]=	2.54.0
 DEF[GTK_VERSION]=	EXTRACT_INFO(GTK2_VERSION)
 DEF[NORUST_VERSION]=	2.40.21
 DEF[RUST_SOVERSION]=	2.48.0
@@ -34,6 +34,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/librsvg2-rust
 
+BUILD_DEPENDS=		python-docutils:single:python_default
+			python-gi-docgen:single:python_default
 BUILDRUN_DEPENDS=	freetype:primary:standard
 
 USES=			gettext-tools gmake png libtool pkgconfig perl:build
@@ -84,7 +86,4 @@ pre-configure-RUSTLESS-OFF:
 		${LOCALBASE}/bin/cargo update
 
 post-install:
-	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
-	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/rsvg-2.0 \
-		${STAGEDIR}${STD_DOCDIR}/html
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/rsvg-convert
