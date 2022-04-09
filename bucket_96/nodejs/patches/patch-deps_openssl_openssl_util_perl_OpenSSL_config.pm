@@ -1,4 +1,4 @@
---- deps/openssl/openssl/util/perl/OpenSSL/config.pm.orig	2022-03-22 02:56:43 UTC
+--- deps/openssl/openssl/util/perl/OpenSSL/config.pm.orig	2022-03-17 19:34:30 UTC
 +++ deps/openssl/openssl/util/perl/OpenSSL/config.pm
 @@ -753,6 +753,7 @@ EOF
        [ 'sparc64-.*-.*bsd.*',     { target => "BSD-sparc64" } ],
