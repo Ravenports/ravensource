@@ -85,6 +85,7 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/scripts/chklref/chklref.pl \
 	texmf-dist/scripts/chktex/chkweb.sh \
 	texmf-dist/scripts/chktex/deweb.pl \
+	texmf-dist/scripts/citation-style-language/citeproc.lua \
 	texmf-dist/scripts/cjk-gs-integrate/cjk-gs-integrate.pl \
 	texmf-dist/scripts/clojure-pamphlet/pamphletangler \
 	texmf-dist/scripts/cluttex/cluttex.lua \
@@ -155,6 +156,7 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/scripts/listings-ext/listings-ext.sh \
 	texmf-dist/scripts/ltxfileinfo/ltxfileinfo \
 	texmf-dist/scripts/ltximg/ltximg.pl \
+	texmf-dist/scripts/luafindfont/luafindfont.lua \
 	texmf-dist/scripts/luaotfload/luaotfload-tool.lua \
 	texmf-dist/scripts/lwarp/lwarpmk.lua \
 	texmf-dist/scripts/m-tx/m-tx.lua \

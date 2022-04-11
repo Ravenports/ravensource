@@ -1,6 +1,6 @@
 # Update together with texlive-bin when the annual release happens
-DEF[YEAR]=		2021
-DEF[PORTVERSION]=	${YEAR}0325
+DEF[YEAR]=		2022
+DEF[PORTVERSION]=	${YEAR}0321
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		texlive-texmf
@@ -62,10 +62,15 @@ SHEBANG_FILES=		texmf-dist/doc/latex/ucs/unsupported/u2ps
 			texmf-dist/scripts/logicpuzzle/createlpsudoku
 			texmf-dist/scripts/logicpuzzle/lpsmag
 
-post-extract:
+post-patch:
+	${REINPLACE_CMD} -e 's!/usr/bin/luatex!${PREFIX}/bin/luatex!' \
+		${WRKSRC}/texmf-dist/tex/generic/pgfplots/lua/prepcontour.lua \
+		${WRKSRC}/texmf-dist/tex/generic/pgfplots/lua/prepcontour_cli.lua
 	${FIND} ${WRKSRC} -name '*.orig' -delete
 	${FIND} ${WRKSRC} -name '*.bak' -delete
 	${FIND} ${WRKSRC} -type d -empty -delete
+# texmf-dist/tex/generic/pgfplots/lua/prepcontour.lua
+# texmf-dist/tex/generic/pgfplots/lua/prepcontour_cli.lua
 
 do-install:
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
