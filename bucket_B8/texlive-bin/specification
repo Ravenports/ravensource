@@ -1,8 +1,8 @@
 # Update together with texlive-texmf when the annual release happens
-DEF[YEAR]=		2021
-DEF[PORTVERSION]=	${YEAR}0325
-DEF[LIBKPATHSEA]=	6.3.3
-DEF[LIBPTEXENC]=	1.3.9
+DEF[YEAR]=		2022
+DEF[PORTVERSION]=	${YEAR}0321
+DEF[LIBKPATHSEA]=	6.3.4
+DEF[LIBPTEXENC]=	1.4.0
 DEF[LIBSYNCTEX]=	2.0.0
 DEF[LIBTEXLUA53]=	5.3.6
 DEF[LIBTEXLUAJIT]=	2.1.0
@@ -10,7 +10,6 @@ DEF[LIBTEXLUAJIT]=	2.1.0
 
 NAMEBASE=		texlive-bin
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		print
 VARIANTS=		standard
 SDESC[standard]=	Binary and input files for TeXlive
@@ -28,7 +27,7 @@ DISTFILE[4]=		lppl.txt:lppl
 DIST_SUBDIR=		texlive
 DF_INDEX=		1 2 3 4
 
-SPKGS[standard]=	complete primary docs bibtex context
+SPKGS[standard]=	complete primary docs bibtex context engine_hitex
 			engine_luatex engine_pdftex engine_xetex
 			synctex tlmgr utils xindy
 
@@ -52,6 +51,7 @@ CPE_PRODUCT=		texlive
 
 EXRUN[primary]=		texlive-bin:tlmgr:standard
 EXRUN[bibtex]=		texlive-bin:primary:standard
+EXRUN[engine_hitex]=	texlive-bin:primary:standard
 EXRUN[engine_luatex]=	texlive-bin:primary:standard
 EXRUN[engine_pdftex]=	texlive-bin:primary:standard
 EXRUN[engine_xetex]=	texlive-bin:primary:standard
