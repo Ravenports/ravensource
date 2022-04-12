@@ -171,6 +171,7 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/scripts/multibibliography/multibibliography.pl \
 	texmf-dist/scripts/musixtex/musixflx.lua \
 	texmf-dist/scripts/musixtex/musixtex.lua \
+	texmf-dist/scripts/optexcount/optexcount \
 	texmf-dist/scripts/pax/pdfannotextractor.pl \
 	texmf-dist/scripts/pdfbook2/pdfbook2 \
 	texmf-dist/scripts/pdfcrop/pdfcrop.pl \
@@ -255,8 +256,12 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/scripts/texlive-extra/texconfig-sys.sh \
 	texmf-dist/scripts/texlive-extra/texconfig.sh \
 	texmf-dist/scripts/texlive-extra/texlinks.sh \
+	texmf-dist/scripts/texlive-extra/xelatex-unsafe.sh \
+	texmf-dist/scripts/texlive-extra/xetex-unsafe.sh \
 	texmf-dist/scripts/texliveonfly/texliveonfly.py \
 	texmf-dist/scripts/texloganalyser/texloganalyser \
+	texmf-dist/scripts/texlogfilter/texlogfilter \
+	texmf-dist/scripts/texlogsieve/texlogsieve \
 	texmf-dist/scripts/texosquery/texosquery-jre5.sh \
 	texmf-dist/scripts/texosquery/texosquery-jre8.sh \
 	texmf-dist/scripts/texosquery/texosquery.sh \
