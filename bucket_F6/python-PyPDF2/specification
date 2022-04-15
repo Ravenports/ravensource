@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.26.0
+DEF[PORTVERSION]=	1.27.5
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-PyPDF2
@@ -11,8 +11,8 @@ HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/P/PyPDF2
-DISTFILE[1]=		PyPDF2-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/22/97/ee9a267699aa71a82744302f1ef9cea4418f3959430a99db3de7aec8025c
+DISTFILE[1]=		PyPDF2-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py39]=		single
 SPKGS[py310]=		single
@@ -23,14 +23,14 @@ VOPTS[py39]=		PY39=ON PY310=OFF
 VOPTS[py310]=		PY39=OFF PY310=ON
 
 # License listed at PyPI
-# UNKNOWN
+# BSD-3-Clause
 
 GENERATED=		yes
-DISTNAME=		PyPDF2-${PORTVERSION}
+DISTNAME=		PyPDF2-${PORTVERSION}.dist-info
 
-# install_requires extracted from setup.py
+# Requires-Dist extracted from wheel metadata
 
 
-[PY39].USES_ON=				python:py39,sutools
-[PY310].USES_ON=			python:py310,sutools
+[PY39].USES_ON=				python:py39,wheel
+[PY310].USES_ON=			python:py310,wheel
 
