@@ -1,6 +1,6 @@
---- glib/tests/utils.c.orig	2022-03-17 15:01:31 UTC
+--- glib/tests/utils.c.orig	2022-04-14 11:15:25 UTC
 +++ glib/tests/utils.c
-@@ -708,7 +708,7 @@ test_xdg_dirs (void)
+@@ -697,7 +697,7 @@ test_xdg_dirs (void)
  
    xdg = (gchar *)g_getenv ("XDG_CONFIG_DIRS");
    if (!xdg)
