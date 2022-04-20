@@ -1,4 +1,4 @@
---- src/stty.c.orig	2021-09-24 11:31:05 UTC
+--- src/stty.c.orig	2022-04-08 11:22:18 UTC
 +++ src/stty.c
 @@ -288,10 +288,10 @@ static struct mode_info const mode_info[
  # ifdef TAB3
