@@ -454,7 +454,7 @@ function get_run_depends ($base_dependencies, $pversion) {
              eval($teststr);
         }
         if ($required) {
-            $req = trim(preg_replace('/^Requires-Dist: ([^ <>=~!\[]+)(.*)$/', '\1', $line));
+            $req = trim(preg_replace('/^Requires-Dist: ([^ <>=~!\[;]+)(.*)$/', '\1', $line));
             if (array_key_exists ($req, $data_corrections)) {
                 $req = $data_corrections[$req];
             }
