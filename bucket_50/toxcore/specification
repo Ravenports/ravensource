@@ -1,5 +1,6 @@
-DEF[PORTVERSION]=	0.2.17
-DEF[SOVERSION]=		2.17.0
+DEF[PORTVERSION]=	0.2.18
+DEF[SOVERSION]=		2.18.0
+DEF[CMP_VERSION]=	20
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		toxcore
@@ -10,9 +11,13 @@ SDESC[standard]=	Tox chat protocol library
 HOMEPAGE=		https://tox.chat/
 CONTACT=		Leonid_Bobrov[goleo@disroot.org]
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main cmp
 SITES[main]=		GITHUB/TokTok:c-toxcore:v${PORTVERSION}
+SITES[cmp]=		GITHUB/camgunz:cmp:v${CMP_VERSION}
 DISTFILE[1]=		generated:main
+DISTFILE[2]=		generated:cmp
+DIST_SUBDIR=		tox
+DF_INDEX=		1 2
 
 SPKGS[standard]=	single
 
@@ -28,6 +33,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net-im/tox
 
+EXTRACT_ONLY=		1
+
 USES=			cpe cmake libtool pkgconfig
 CPE_VENDOR=		toktok
 CPE_PRODUCT=		toxcore
@@ -37,6 +44,13 @@ BUILDRUN_DEPENDS=	libconfig:single:standard
 			msgpack:single:standard
 			opus:single:standard
 SOVERSION=		${SOVERSION}
+
+post-extract:
+	(cd ${WRKSRC}/third_party &&\
+		tar -xzf ${DISTDIR}/tox/camgunz-cmp-${CMP_VERSION}.tar.gz &&\
+		ls &&\
+		rmdir cmp &&\
+		mv cmp-${CMP_VERSION} cmp)
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/DHT_bootstrap
