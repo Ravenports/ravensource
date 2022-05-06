@@ -1,9 +1,12 @@
 DEF[PORTVERSION]=	0.1.18
 DEF[SOVERSION]=		10.11.0
+# Documentation building with gtk-doc currently broken, disabling for now.
+# Re-check on update!
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libnice
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net_im devel
 VARIANTS=		standard
 SDESC[standard]=	Implementation of ICE standard (RFC 5245)
@@ -14,7 +17,8 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://nice.freedesktop.org/releases/
 DISTFILE[1]=		libnice-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary gstreamer docs
+SPKGS[standard]=	complete primary gstreamer
+# docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -35,7 +39,7 @@ EXRUN[gstreamer]=	gstreamer1-plugins-base:primary:standard
 USES=			gmake pkgconfig ssl meson gtk-doc
 			gettext-runtime gettext-tools
 GNOME_COMPONENTS=	glib introspection
-MESON_ARGS=		-Dgtk_doc=enabled
+MESON_ARGS=		-Dgtk_doc=disabled
 			-Dexamples=disabled
 			-Dtests=disabled
 			-Dintrospection=enabled
