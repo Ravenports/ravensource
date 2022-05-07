@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	8.5.5
+DEF[PORTVERSION]=	8.6.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		npm
@@ -50,7 +50,9 @@ post-patch:
 		${WRKSRC}/node_modules/node-gyp/lib/configure.js
 	# don't build twice
 	${REINPLACE_CMD} -e 's/install: all/install:/' ${WRKSRC}/Makefile
+	${REINPLACE_CMD} -e 's/resetdeps/dumpconf/' ${WRKSRC}/Makefile
 	${FIND} ${WRKSRC} -name "*.bak" -type f -delete
+	cd ${WRKSRC} && node bin/npm-cli.js install marked-man --no-global --no-timing --no-save
 
 do-install:
 	${FIND} ${WRKSRC} -type f -name '*.orig' -delete
