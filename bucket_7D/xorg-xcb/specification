@@ -1,6 +1,7 @@
-DEF[PORTVERSION]=	1.14
+DEF[PORTVERSION]=	1.15
 DEF[XNAME]=		xcb
 DEF[ALTNAME]=		libxcb
+DEF[DRI3_SOVERSION]=	0.1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xorg-${XNAME}
@@ -26,6 +27,8 @@ LICENSE=		MIT:single
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
+FPC_EQUIVALENT=		x11/libxcb
+
 BUILD_DEPENDS=		check:single:standard
 			xcb-proto:single:standard
 BUILDRUN_DEPENDS=	libpthread-stubs:single:standard
@@ -47,9 +50,10 @@ CONFIGURE_ARGS=		--disable-build-docs
 			NEEDED_LIBS="-L{{LOCALBASE}}/lib -lXau `pkg-config --libs pthread-stubs`"
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
+PLIST_SUB=		DRI3_SOVERSION=${DRI3_SOVERSION}
+			DRI3_SOMAJOR=${DRI3_SOVERSION:R:R}
 CPE_VENDOR=		x
 CPE_PRODUCT=		libxcb
-FPC_EQUIVALENT=		x11/libxcb
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/${ALTNAME}
