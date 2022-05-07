@@ -1,5 +1,7 @@
 DEF[PORTVERSION]=	3.3.10
 DEF[SOVERSION]=		3.6.9
+# OpenMP disabled on FreeBSD to make the port build again. Needs proper fix
+# eventually.
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fftw
@@ -56,6 +58,7 @@ SOVERSION=		${SOVERSION}
 [FLAV].INFO_OFF=			single:fftw3
 
 VAR_OPSYS[dragonfly]=	VAR1="@comment "
+VAR_OPSYS[freebsd]=	VAR1="@comment "
 
 post-patch:
 	${REINPLACE_CMD} -e 's|/etc/fftw|${PREFIX}/etc/fftw|' \
