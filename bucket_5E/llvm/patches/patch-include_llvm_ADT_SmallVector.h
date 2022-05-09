@@ -1,8 +1,8 @@
 Fix SunOS CS,DS conflict not handled by include/llvm-c/DataTypes.h
 
---- include/llvm/ADT/SmallVector.h.orig	2022-01-20 21:31:59 UTC
+--- include/llvm/ADT/SmallVector.h.orig	2022-04-29 00:10:18 UTC
 +++ include/llvm/ADT/SmallVector.h
-@@ -32,6 +32,11 @@
+@@ -30,6 +30,11 @@
  #include <type_traits>
  #include <utility>
  
@@ -13,4 +13,4 @@ Fix SunOS CS,DS conflict not handled by include/llvm-c/DataTypes.h
 +
  namespace llvm {
  
- /// This is all the stuff common to all SmallVectors.
+ template <typename IteratorT> class iterator_range;

@@ -1,4 +1,4 @@
---- MachO/ExportTrie.cpp.orig	2022-01-20 21:31:59 UTC
+--- MachO/ExportTrie.cpp.orig	2022-04-29 00:10:18 UTC
 +++ MachO/ExportTrie.cpp
 @@ -34,6 +34,22 @@
  //

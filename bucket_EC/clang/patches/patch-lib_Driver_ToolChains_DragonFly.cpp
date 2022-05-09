@@ -1,4 +1,4 @@
---- lib/Driver/ToolChains/DragonFly.cpp.orig	2022-01-20 21:31:59 UTC
+--- lib/Driver/ToolChains/DragonFly.cpp.orig	2022-04-29 00:10:18 UTC
 +++ lib/Driver/ToolChains/DragonFly.cpp
 @@ -71,7 +71,7 @@ void dragonfly::Linker::ConstructJob(Com
        CmdArgs.push_back("-Bshareable");
@@ -9,7 +9,7 @@
      }
      CmdArgs.push_back("--hash-style=gnu");
      CmdArgs.push_back("--enable-new-dtags");
-@@ -114,19 +114,28 @@ void dragonfly::Linker::ConstructJob(Com
+@@ -115,19 +115,29 @@ void dragonfly::Linker::ConstructJob(Com
            Args.MakeArgString(getToolChain().GetFilePath("crtbegin.o")));
    }
  
@@ -24,27 +24,28 @@
  
    AddLinkerInputs(getToolChain(), Inputs, Args, CmdArgs, JA);
  
--  if (!Args.hasArg(options::OPT_nostdlib, options::OPT_nodefaultlibs)) {
--    CmdArgs.push_back("-L/usr/lib/gcc80");
 +  CmdArgs.push_back("-L@RAVEN_GCC@");
 +  CmdArgs.push_back("-L@LOCALBASE@/lib");
- 
--    if (!Args.hasArg(options::OPT_static)) {
--      CmdArgs.push_back("-rpath");
--      CmdArgs.push_back("/usr/lib/gcc80");
--    }
++
 +  if (!Args.hasArg(options::OPT_static)) {
 +    CmdArgs.push_back("-rpath");
 +    CmdArgs.push_back("@RAVEN_GCC@");
 +    CmdArgs.push_back("-rpath");
 +    CmdArgs.push_back("@LOCALBASE@/lib");
 +  }
++
+   if (!Args.hasArg(options::OPT_nostdlib, options::OPT_nodefaultlibs,
+                    options::OPT_r)) {
+-    CmdArgs.push_back("-L/usr/lib/gcc80");
+-
+-    if (!Args.hasArg(options::OPT_static)) {
+-      CmdArgs.push_back("-rpath");
+-      CmdArgs.push_back("/usr/lib/gcc80");
+-    }
  
-+  if (!Args.hasArg(options::OPT_nostdlib, options::OPT_nodefaultlibs)) {
      if (D.CCCIsCXX()) {
        if (getToolChain().ShouldLinkCXXStdlib(Args))
-         getToolChain().AddCXXStdlibLibArgs(Args, CmdArgs);
-@@ -145,16 +154,7 @@ void dragonfly::Linker::ConstructJob(Com
+@@ -147,16 +157,7 @@ void dragonfly::Linker::ConstructJob(Com
          CmdArgs.push_back("-lgcc");
          CmdArgs.push_back("-lgcc_eh");
      } else {
@@ -62,7 +63,7 @@
      }
    }
  
-@@ -189,7 +189,8 @@ DragonFly::DragonFly(const Driver &D, co
+@@ -192,7 +193,8 @@ DragonFly::DragonFly(const Driver &D, co
  
    getFilePaths().push_back(getDriver().Dir + "/../lib");
    getFilePaths().push_back("/usr/lib");
@@ -72,7 +73,7 @@
  }
  
  Tool *DragonFly::buildAssembler() const {
-@@ -199,3 +200,5 @@ Tool *DragonFly::buildAssembler() const
+@@ -202,3 +204,5 @@ Tool *DragonFly::buildAssembler() const
  Tool *DragonFly::buildLinker() const {
    return new tools::dragonfly::Linker(*this);
  }

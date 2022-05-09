@@ -1,6 +1,6 @@
---- lib/Driver/ToolChains/FreeBSD.cpp.orig	2022-01-20 21:31:59 UTC
+--- lib/Driver/ToolChains/FreeBSD.cpp.orig	2022-04-29 00:10:18 UTC
 +++ lib/Driver/ToolChains/FreeBSD.cpp
-@@ -293,6 +293,16 @@ void freebsd::Linker::ConstructJob(Compi
+@@ -294,6 +294,16 @@ void freebsd::Linker::ConstructJob(Compi
    addLinkerCompressDebugSectionsOption(ToolChain, Args, CmdArgs);
    AddLinkerInputs(ToolChain, Inputs, Args, CmdArgs, JA);
  
@@ -14,10 +14,10 @@
 +    CmdArgs.push_back("@LOCALBASE@/lib");
 +  }
 +
-   bool Profiling = Args.hasArg(options::OPT_pg) &&
-                    ToolChain.getTriple().getOSMajorVersion() < 14;
-   if (!Args.hasArg(options::OPT_nostdlib, options::OPT_nodefaultlibs)) {
-@@ -388,11 +398,11 @@ FreeBSD::FreeBSD(const Driver &D, const
+   unsigned Major = ToolChain.getTriple().getOSMajorVersion();
+   bool Profiling = Args.hasArg(options::OPT_pg) && Major != 0 && Major < 14;
+   if (!Args.hasArg(options::OPT_nostdlib, options::OPT_nodefaultlibs,
+@@ -391,12 +401,11 @@ FreeBSD::FreeBSD(const Driver &D, const
      getFilePaths().push_back(getDriver().SysRoot + "/usr/lib32");
    else
      getFilePaths().push_back(getDriver().SysRoot + "/usr/lib");
@@ -26,7 +26,8 @@
  }
  
  ToolChain::CXXStdlibType FreeBSD::GetDefaultCXXStdlibType() const {
--  if (getTriple().getOSMajorVersion() >= 10)
+-  unsigned Major = getTriple().getOSMajorVersion();
+-  if (Major >= 10 || Major == 0)
 -    return ToolChain::CST_Libcxx;
    return ToolChain::CST_Libstdcxx;
  }

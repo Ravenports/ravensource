@@ -1,6 +1,6 @@
---- projects/libcxx/include/__locale.orig	2022-01-20 21:31:59 UTC
+--- projects/libcxx/include/__locale.orig	2022-04-29 00:10:18 UTC
 +++ projects/libcxx/include/__locale
-@@ -35,7 +35,7 @@
+@@ -34,7 +34,7 @@
  # include <__support/newlib/xlocale.h>
  #elif defined(__OpenBSD__)
  # include <__support/openbsd/xlocale.h>
@@ -9,9 +9,9 @@
      || defined(__EMSCRIPTEN__) || defined(__IBMCPP__))
  # include <xlocale.h>
  #elif defined(__Fuchsia__)
-@@ -450,10 +450,10 @@ public:
+@@ -454,10 +454,10 @@ public:
      static const mask blank  = _BLANK;
-     static const mask __regex_word = 0x80;
+     static const mask __regex_word = 0x4000; // 0x8000 and 0x0100 and 0x00ff are used
  # define _LIBCPP_CTYPE_MASK_IS_COMPOSITE_PRINT
 -#elif defined(__APPLE__) || defined(__FreeBSD__) || defined(__EMSCRIPTEN__) || defined(__NetBSD__)
 +#elif defined(__APPLE__) || defined(__FreeDragon__) || defined(__EMSCRIPTEN__) || defined(__NetBSD__)

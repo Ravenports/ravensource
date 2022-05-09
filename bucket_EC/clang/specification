@@ -1,5 +1,5 @@
 DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM_VERSION)
-DEF[PORTREVISION]=	1
+DEF[PORTREVISION]=	0
 DEF[MAJORMIN]=		${LLVM_VERSION:R}
 DEF[MAJOR]=		${LLVM_VERSION:R:R}
 DEF[GCC_VERSION]=	EXTRACT_INFO(GCCBASE_VERSION)
@@ -102,7 +102,7 @@ post-patch:
 		${WRKSRC}/lib/Driver/ToolChains/DragonFly.cpp \
 		${WRKSRC}/lib/Driver/ToolChains/FreeBSD.cpp \
 		${WRKSRC}/lib/Driver/ToolChains/Gnu.cpp \
-		${WRKSRC}/lib/Frontend/InitHeaderSearch.cpp
+		${WRKSRC}/lib/Lex/InitHeaderSearch.cpp
 
 post-patch-freebsd:
 	# Remove headers that conflict with /usr/include
@@ -138,7 +138,8 @@ post-install:
 	clang-extdef-mapping clang-offload-bundler \
 	clang-move clang-offload-wrapper clang-refactor clang-rename clang-apply-replacements \
 	clang-scan-deps clang-change-namespace clang-include-fixer clang-query \
-	clang-reorder-fields clang-tidy find-all-symbols \
+	clang-reorder-fields clang-tidy find-all-symbols clang-linker-wrapper \
+	clang-nvlink-wrapper clang-repl \
 	modularize diagtool pp-trace #clangd
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${F}
 .endfor

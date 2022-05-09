@@ -37,6 +37,7 @@ CMAKE_BUILD_TYPE=	Release
 CMAKE_ARGS=		-DLLVM_HOST_TRIPLE:STRING="{{CONFIGURE_TARGET}}"
 			-DLLVM_ENABLE_SPHINX=ON
 			-DLIBCXX_CXX_ABI_LIBRARY_PATH={{WRKDIR}}/.build/lib
+			-DLIBCXX_INCLUDE_BENCHMARKS:BOOL=OFF
 CXXFLAGS=		-Wno-attributes
 			-Wno-deprecated-declarations
 			-Wno-empty-body
@@ -49,8 +50,14 @@ post-extract:
 		${WRKSRC}/projects/libcxx
 	${MV} ${WRKDIR}/libcxxabi-${LLVM_VERSION}.src \
 		${WRKSRC}/projects/libcxxabi
+	${CP} ${WRKDIR}/cmake/Modules/* ${WRKSRC}/projects/libcxx/cmake/Modules/
+	${CP} ${WRKDIR}/cmake/Modules/* ${WRKSRC}/projects/libcxxabi/cmake/Modules/
 	${SED} -e 's|%%VERSION%%|${LLVM_VERSION}|' ${FILESDIR}/CMakeLists.txt \
 		> ${WRKSRC}/CMakeLists.txt
+
+pre-configure:
+	${REINPLACE_CMD} -e '/add_dependencies(cxx_static unwind)/d' \
+		${WRKSRC}/projects/libcxx/src/CMakeLists.txt
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libc++.so

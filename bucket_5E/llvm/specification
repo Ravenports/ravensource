@@ -53,6 +53,7 @@ CMAKE_ARGS=		-DLLVM_BUILD_LLVM_DYLIB=ON
 			-DLLVM_INSTALL_UTILS:BOOL=ON
 			-DLLVM_ENABLE_RTTI:BOOL=ON
 			-DLLVM_ENABLE_EH:BOOL=ON
+			-DLLVM_INCLUDE_BENCHMARKS:BOOL=OFF
 CMAKE_BUILD_TYPE=	Release
 PLIST_SUB=		LLVM_RELEASE="${LLVM_VERSION}"
 			LLVM_MAJOR="${MAJOR}"
@@ -83,8 +84,10 @@ post-install:
 	llvm-profdata llvm-rc llvm-readobj llvm-rtdyld llvm-size \
 	llvm-split llvm-stress llvm-strings llvm-symbolizer llvm-tblgen \
 	llvm-undname llvm-xray llvm-jitlink llvm-lipo llvm-reduce \
-	llvm-otool llvm-sim llvm-tapi-diff llvm-windres \
-	obj2yaml opt sancov sanstats \
+	llvm-otool llvm-sim llvm-tapi-diff llvm-windres llvm-debuginfod-find \
+	llvm-gsymutil llvm-jitlink-executor llvm-libtool-darwin llvm-ml \
+	llvm-profgen llvm-tli-checker \
+	obj2yaml opt sancov sanstats split-file \
 	verify-uselistorder yaml2obj FileCheck count not yaml-bench \
 	lli-child-target llvm-PerfectShuffle
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${F}
