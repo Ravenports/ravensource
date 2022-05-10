@@ -4,12 +4,11 @@ DEF[SUFFIX]=		${MYSQL_RELEASE:S/.//g}
 DEF[MY_DBDIR]=		/var/db/mysql
 DEF[MY_SECDIR]=		/var/db/mysql_secure
 DEF[MY_TMPDIR]=		/var/db/mysql_tmpdir
-DEF[PROTOBUF_SOVER]=	3.19.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mysql${SUFFIX}
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		databases
 VARIANTS=		standard
 SDESC[standard]=	Multithreaded SQL database (server)
@@ -42,6 +41,7 @@ FPC_EQUIVALENT=		databases/mysql80-server
 
 BUILD_DEPENDS=		libedit:single:standard
 BUILDRUN_DEPENDS=	libevent:single:standard
+			protobuf:single:standard
 EXRUN[client]=		libedit:single:standard
 			zlib:complete:standard
 # #			can't use "ssl" here, currently it assumes libressl
@@ -78,6 +78,7 @@ CMAKE_ARGS=		-DINSTALL_PKGCONFIGDIR="{{LOCALBASE}}/lib/pkgconfig"
 			-DWITH_BOOST="{{WRKSRC}}/boost"
 			-DWITH_EDITLINE=system
 			-DWITH_LIBEVENT=system
+			-DWITH_PROTOBUF=system
 			-DWITH_LZ4=system
 			-DWITH_ZLIB=system
 			-DWITH_SSL={{OPENSSLBASE}}
@@ -94,7 +95,6 @@ PLIST_SUB=		MY_DBDIR=${MY_DBDIR}
 			MY_SECDIR=${MY_SECDIR}
 			MY_TMPDIR=${MY_TMPDIR}
 			RPCGEN=
-			PROTOBUF_SOVER=${PROTOBUF_SOVER}
 RC_SUBR=		mysql-server:server
 USERS=			mysql
 GROUPS=			mysql
@@ -163,10 +163,8 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/lib*.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/plugin/*.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmysql*.so.1
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libprotobuf-lite.so.*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/mysqld
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysqlrouter/*.so
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/private/libprotobuf*
 	# Linux doesn't like -R flags
 	${SED} -i'' -e 's| -R| -Wl,-rpath,|g' \
 		${STAGEDIR}${PREFIX}/bin/mysql_config
