@@ -1,7 +1,7 @@
 NetBSD does not support log1pl
 
---- src/plfit/hzeta.c.orig	2021-10-14 20:57:32 UTC
-+++ src/plfit/hzeta.c
+--- src/vendor/plfit/hzeta.c.orig	2022-04-19 16:23:25 UTC
++++ src/vendor/plfit/hzeta.c
 @@ -393,7 +393,7 @@ double hsl_sf_hzeta_deriv2(const double
  
  static inline
