@@ -1,6 +1,6 @@
---- scribus/plugins/import/pdf/slaoutput.cpp.orig	2022-02-07 00:28:49 UTC
+--- scribus/plugins/import/pdf/slaoutput.cpp.orig
 +++ scribus/plugins/import/pdf/slaoutput.cpp
-@@ -7,6 +7,11 @@ for which a new license (GPL+exception)
+@@ -7,6 +7,11 @@ for which a new license (GPL+exception) is in place.
  
  #include "slaoutput.h"
  
@@ -12,7 +12,7 @@
  #include <poppler/GlobalParams.h>
  #include <poppler/poppler-config.h>
  #include <poppler/FileSpec.h>
-@@ -3027,18 +3032,24 @@ void SlaOutputDev::markPoint(POPPLER_CON
+@@ -3027,18 +3032,24 @@ void SlaOutputDev::markPoint(POPPLER_CONST char *name, Dict *properties)
  void SlaOutputDev::updateFont(GfxState *state)
  {
  	GfxFont *gfxFont;
@@ -43,7 +43,7 @@
  	double m11, m12, m21, m22, fontSize;
  	SplashCoord mat[4];
  	int n = 0;
-@@ -3046,9 +3057,6 @@ void SlaOutputDev::updateFont(GfxState *
+@@ -3046,9 +3057,6 @@ void SlaOutputDev::updateFont(GfxState *state)
  	SplashCoord matrix[6];
  
  	m_font = nullptr;
@@ -53,21 +53,7 @@
  
  	gfxFont = state->getFont();
  	if (!gfxFont)
-@@ -3064,10 +3072,10 @@ void SlaOutputDev::updateFont(GfxState *
- 		delete id;
- 	else
- 	{
--		if (!(fontLoc = gfxFont->locateFont(xref, nullptr)))
-+		fontLoc = gfxFont->locateFont((xref) ? xref : pdfDoc->getXRef(), nullptr);
-+		if (!fontLoc)
- 		{
--			error(errSyntaxError, -1, "Couldn't find a font for '{0:s}'",
--			gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
-+			error(errSyntaxError, -1, "Couldn't find a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
- 			goto err2;
- 		}
- 
-@@ -3083,7 +3091,11 @@ void SlaOutputDev::updateFont(GfxState *
+@@ -3083,7 +3091,11 @@ void SlaOutputDev::updateFont(GfxState *state)
  		}
  		else
  		{ // gfxFontLocExternal
@@ -79,7 +65,7 @@
  			fontType = fontLoc->fontType;
  		}
  
-@@ -3136,9 +3148,14 @@ void SlaOutputDev::updateFont(GfxState *
+@@ -3136,9 +3148,14 @@ void SlaOutputDev::updateFont(GfxState *state)
  				ff = FoFiTrueType::make(tmpBuf, tmpBufLen);
  			if (ff)
  			{
@@ -95,7 +81,7 @@
  			}
  			else
  			{
-@@ -3209,8 +3226,13 @@ void SlaOutputDev::updateFont(GfxState *
+@@ -3209,8 +3226,13 @@ void SlaOutputDev::updateFont(GfxState *state)
  					ff = FoFiTrueType::make(tmpBuf, tmpBufLen);
  				if (! ff)
  					goto err2;
@@ -109,7 +95,7 @@
  			}
  			if (!(fontFile = m_fontEngine->loadTrueTypeFont(
  							id,
-@@ -3247,14 +3269,19 @@ void SlaOutputDev::updateFont(GfxState *
+@@ -3247,14 +3269,19 @@ void SlaOutputDev::updateFont(GfxState *state)
  	mat[3] = -m22;
  	m_font = m_fontEngine->getFont(fontFile, mat, matrix);
  
