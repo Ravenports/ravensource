@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.13.1
+DEF[PORTVERSION]=	1.13.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		lagrange
@@ -32,6 +32,7 @@ BUILDRUN_DEPENDS=	fribidi:single:standard
 			harfbuzz:primary:standard
 			libunistring:primary:standard
 			mpg123:single:standard
+			WebP:single:standard
 
 # Use system libraries instead of bundled ones
 CMAKE_ARGS=		-DENABLE_FRIBIDI:BOOL=ON
@@ -39,6 +40,7 @@ CMAKE_ARGS=		-DENABLE_FRIBIDI:BOOL=ON
 			-DENABLE_HARFBUZZ:BOOL=ON
 			-DENABLE_HARFBUZZ_MINIMAL:BOOL=OFF
 			-DENABLE_MPG123:BOOL=ON
+			-DENABLE_WEBP:BOOL=ON
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/lagrange
