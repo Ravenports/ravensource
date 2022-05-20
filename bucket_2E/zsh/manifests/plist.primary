@@ -454,6 +454,7 @@
 %%ONLY-NETBSD%%share/zsh/%%ZSH_VER%%/functions/Zftp/zfuput
 %%ONLY-NETBSD%%share/zsh/%%ZSH_VER%%/scripts/newuser
 bin/zsh-%%ZSH_VER%%
+lib/zsh/%%ZSH_VER%%/zsh/watch.so
 share/man/man1/zsh.1.gz
 share/man/man1/zshall.1.gz
 share/man/man1/zshbuiltins.1.gz
@@ -547,13 +548,18 @@ share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_freebsd-update
 share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_fstat
 share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_fw_update
 share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_gstat
+share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_ipfw
 share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_jail
 share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_jails
 share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_jexec
 share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_jls
 share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_jot
+share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_kdump
 share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_kld
+share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_ktrace
+share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_ktrace_points
 share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_ldap
+share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_login_classes
 share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_mixerctl
 share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_nbsd_architectures
 share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_obsd_architectures
@@ -566,10 +572,17 @@ share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_portsnap
 share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_powerd
 share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_procstat
 share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_rcctl
+share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_routing_domains
+share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_routing_tables
 share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_signify
 share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_sockstat
+share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_sysclean
+share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_sysmerge
+share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_syspatch
 share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_sysrc
 share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_systat
+share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_sysupgrade
+share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_usbconfig
 share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_vmctl
 share/zsh/%%ZSH_VER%%/functions/Completion/BSD/_watch-snoop
 share/zsh/%%ZSH_VER%%/functions/Completion/Base/_all_labels
@@ -616,6 +629,7 @@ share/zsh/%%ZSH_VER%%/functions/Completion/Base/_next_label
 share/zsh/%%ZSH_VER%%/functions/Completion/Base/_next_tags
 share/zsh/%%ZSH_VER%%/functions/Completion/Base/_normal
 share/zsh/%%ZSH_VER%%/functions/Completion/Base/_nothing
+share/zsh/%%ZSH_VER%%/functions/Completion/Base/_numbers
 share/zsh/%%ZSH_VER%%/functions/Completion/Base/_oldlist
 share/zsh/%%ZSH_VER%%/functions/Completion/Base/_pick_variant
 share/zsh/%%ZSH_VER%%/functions/Completion/Base/_prefix
@@ -700,6 +714,7 @@ share/zsh/%%ZSH_VER%%/functions/Completion/Debian/_debdiff
 share/zsh/%%ZSH_VER%%/functions/Completion/Debian/_debfoster
 share/zsh/%%ZSH_VER%%/functions/Completion/Debian/_deborphan
 share/zsh/%%ZSH_VER%%/functions/Completion/Debian/_debsign
+share/zsh/%%ZSH_VER%%/functions/Completion/Debian/_debsnap
 share/zsh/%%ZSH_VER%%/functions/Completion/Debian/_debuild
 share/zsh/%%ZSH_VER%%/functions/Completion/Debian/_dlocate
 share/zsh/%%ZSH_VER%%/functions/Completion/Debian/_dpatch-edit-patch
@@ -709,6 +724,7 @@ share/zsh/%%ZSH_VER%%/functions/Completion/Debian/_dpkg-cross
 share/zsh/%%ZSH_VER%%/functions/Completion/Debian/_dpkg-repack
 share/zsh/%%ZSH_VER%%/functions/Completion/Debian/_dpkg_source
 share/zsh/%%ZSH_VER%%/functions/Completion/Debian/_dput
+share/zsh/%%ZSH_VER%%/functions/Completion/Debian/_dscverify
 share/zsh/%%ZSH_VER%%/functions/Completion/Debian/_dupload
 share/zsh/%%ZSH_VER%%/functions/Completion/Debian/_git-buildpackage
 share/zsh/%%ZSH_VER%%/functions/Completion/Debian/_grep-excuses
@@ -737,10 +753,13 @@ share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_acpi
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_acpitool
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_alsa-utils
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_analyseplugin
+share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_basenc
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_brctl
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_btrfs
+share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_capabilities
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_chattr
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_chcon
+share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_choom
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_chrt
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_cpupower
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_cryptsetup
@@ -763,14 +782,19 @@ share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_kpartx
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_losetup
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_lsattr
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_lsblk
+share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_lsns
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_lsusb
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_ltrace
+share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_mat
+share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_mat2
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_mdadm
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_mii-tool
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_modutils
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_mondo
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_networkmanager
+share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_nsenter
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_opkg
+share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_perf
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_pidof
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_pkgtool
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_pmap
@@ -780,6 +804,7 @@ share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_selinux_contexts
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_selinux_roles
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_selinux_types
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_selinux_users
+share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_setpriv
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_setsid
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_slabtop
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_ss
@@ -791,6 +816,7 @@ share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_tpb
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_tracepath
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_tune2fs
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_uml
+share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_unshare
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_valgrind
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_vserver
 share/zsh/%%ZSH_VER%%/functions/Completion/Linux/_wakeup_capable_devices
@@ -894,7 +920,9 @@ share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_cpio
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_cplay
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_crontab
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_cscope
+share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_csplit
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_cssh
+share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_ctags
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_ctags_tags
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_curl
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_cut
@@ -926,6 +954,7 @@ share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_doas
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_domains
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_dos2unix
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_drill
+share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_dropbox
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_dsh
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_dtruss
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_du
@@ -1031,6 +1060,7 @@ share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_locale
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_localedef
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_locales
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_locate
+share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_logger
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_look
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_lp
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_ls
@@ -1086,6 +1116,7 @@ share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_objdump
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_object_files
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_od
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_openstack
+share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_opustools
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_other_accounts
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_pack
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_pandoc
@@ -1102,12 +1133,14 @@ share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_perl
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_perl_basepods
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_perl_modules
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_perldoc
+share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_pgids
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_pgrep
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_php
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_picocom
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_pids
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_pine
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_ping
+share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_pip
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_pkg-config
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_pkg_instance
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_pkgadd
@@ -1118,6 +1151,7 @@ share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_ports
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_postfix
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_postgresql
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_postscript
+share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_pr
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_printenv
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_printers
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_process_names
@@ -1125,6 +1159,7 @@ share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_prove
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_ps
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_pspdf
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_psutils
+share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_ptx
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_pump
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_pv
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_pwgen
@@ -1228,6 +1263,7 @@ share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_tput
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_tr
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_transmission
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_tree
+share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_truncate
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_truss
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_tty
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_ttys
@@ -1246,7 +1282,7 @@ share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_user_admin
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_user_at_host
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_users
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_users_on
-share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_vcsh
+share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_vi
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_vim
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_visudo
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_vmstat
@@ -1275,10 +1311,8 @@ share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_zcat
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_zdump
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_zfs
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_zfs_dataset
-share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_zfs_keysource_props
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_zfs_pool
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_zip
-share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_zpool
 share/zsh/%%ZSH_VER%%/functions/Completion/Unix/_zsh
 share/zsh/%%ZSH_VER%%/functions/Completion/X/_acroread
 share/zsh/%%ZSH_VER%%/functions/Completion/X/_code
@@ -1331,6 +1365,7 @@ share/zsh/%%ZSH_VER%%/functions/Completion/X/_xclip
 share/zsh/%%ZSH_VER%%/functions/Completion/X/_xdvi
 share/zsh/%%ZSH_VER%%/functions/Completion/X/_xfig
 share/zsh/%%ZSH_VER%%/functions/Completion/X/_xft_fonts
+share/zsh/%%ZSH_VER%%/functions/Completion/X/_xinput
 share/zsh/%%ZSH_VER%%/functions/Completion/X/_xloadimage
 share/zsh/%%ZSH_VER%%/functions/Completion/X/_xmodmap
 share/zsh/%%ZSH_VER%%/functions/Completion/X/_xournal
@@ -1344,6 +1379,7 @@ share/zsh/%%ZSH_VER%%/functions/Completion/X/_xterm
 share/zsh/%%ZSH_VER%%/functions/Completion/X/_xv
 share/zsh/%%ZSH_VER%%/functions/Completion/X/_xwit
 share/zsh/%%ZSH_VER%%/functions/Completion/X/_zeal
+share/zsh/%%ZSH_VER%%/functions/Completion/Zsh/__arguments
 share/zsh/%%ZSH_VER%%/functions/Completion/Zsh/_add-zle-hook-widget
 share/zsh/%%ZSH_VER%%/functions/Completion/Zsh/_add-zsh-hook
 share/zsh/%%ZSH_VER%%/functions/Completion/Zsh/_alias
@@ -1424,6 +1460,8 @@ share/zsh/%%ZSH_VER%%/functions/Completion/Zsh/_user_math_func
 share/zsh/%%ZSH_VER%%/functions/Completion/Zsh/_value
 share/zsh/%%ZSH_VER%%/functions/Completion/Zsh/_vared
 share/zsh/%%ZSH_VER%%/functions/Completion/Zsh/_vars
+share/zsh/%%ZSH_VER%%/functions/Completion/Zsh/_vcs_info
+share/zsh/%%ZSH_VER%%/functions/Completion/Zsh/_vcs_info_hooks
 share/zsh/%%ZSH_VER%%/functions/Completion/Zsh/_wait
 share/zsh/%%ZSH_VER%%/functions/Completion/Zsh/_which
 share/zsh/%%ZSH_VER%%/functions/Completion/Zsh/_widgets
@@ -1469,6 +1507,7 @@ share/zsh/%%ZSH_VER%%/functions/Misc/promptnl
 share/zsh/%%ZSH_VER%%/functions/Misc/regexp-replace
 share/zsh/%%ZSH_VER%%/functions/Misc/relative
 share/zsh/%%ZSH_VER%%/functions/Misc/run-help
+share/zsh/%%ZSH_VER%%/functions/Misc/run-help-btrfs
 share/zsh/%%ZSH_VER%%/functions/Misc/run-help-git
 share/zsh/%%ZSH_VER%%/functions/Misc/run-help-ip
 share/zsh/%%ZSH_VER%%/functions/Misc/run-help-openssl
@@ -1523,7 +1562,10 @@ share/zsh/%%ZSH_VER%%/functions/VCS_Info/VCS_INFO_patch2subject
 share/zsh/%%ZSH_VER%%/functions/VCS_Info/VCS_INFO_quilt
 share/zsh/%%ZSH_VER%%/functions/VCS_Info/VCS_INFO_reposub
 share/zsh/%%ZSH_VER%%/functions/VCS_Info/VCS_INFO_set
+share/zsh/%%ZSH_VER%%/functions/VCS_Info/VCS_INFO_set-branch-format
 share/zsh/%%ZSH_VER%%/functions/VCS_Info/VCS_INFO_set-patch-format
+share/zsh/%%ZSH_VER%%/functions/VCS_Info/test-repo-git-rebase-apply
+share/zsh/%%ZSH_VER%%/functions/VCS_Info/test-repo-git-rebase-merge
 share/zsh/%%ZSH_VER%%/functions/VCS_Info/vcs_info
 share/zsh/%%ZSH_VER%%/functions/VCS_Info/vcs_info_hookadd
 share/zsh/%%ZSH_VER%%/functions/VCS_Info/vcs_info_hookdel
@@ -1662,7 +1704,6 @@ share/zsh/%%ZSH_VER%%/help/kill
 share/zsh/%%ZSH_VER%%/help/let
 share/zsh/%%ZSH_VER%%/help/limit
 share/zsh/%%ZSH_VER%%/help/local
-share/zsh/%%ZSH_VER%%/help/log
 share/zsh/%%ZSH_VER%%/help/logout
 share/zsh/%%ZSH_VER%%/help/noglob
 share/zsh/%%ZSH_VER%%/help/popd

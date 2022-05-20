@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.8.1
+DEF[PORTVERSION]=	5.9
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		zsh
@@ -10,7 +10,7 @@ HOMEPAGE=		https://www.zsh.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/zsh/zsh/${PORTVERSION}
+SITES[main]=		https://www.zsh.org/pub/
 DISTFILE[1]=		zsh-${PORTVERSION}.tar.xz:main
 # DISTFILE[2]=		zsh-${PORTVERSION}-doc.tar.xz:main
 # DF_INDEX=		1 2
@@ -61,6 +61,7 @@ INSTALL_REQ_TOOLCHAIN=	yes
 
 post-patch:
 	${FIND} ${WRKSRC} -name "*.orig" -delete
+	${REINPLACE_CMD} -i'' -e 's|__PREFIX__|${PREFIX}|' ${WRKSRC}/Functions/VCS_Info/test-repo-git-rebase*
 
 post-patch-freebsd:
 	# FreeBSD's clock_gettime(2) is in libc, not librt; see PR 167857
