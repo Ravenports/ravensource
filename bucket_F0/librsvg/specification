@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.54.1
+DEF[PORTVERSION]=	2.54.2
 DEF[GTK_VERSION]=	EXTRACT_INFO(GTK2_VERSION)
 DEF[NORUST_VERSION]=	2.40.21
 DEF[RUST_SOVERSION]=	2.48.0
@@ -38,8 +38,8 @@ BUILD_DEPENDS=		python-docutils:single:python_default
 			python-gi-docgen:single:python_default
 BUILDRUN_DEPENDS=	freetype:primary:standard
 
-USES=			gettext-tools gmake png libtool pkgconfig perl:build
-			cpe python:build
+USES=			cpe gettext-tools gmake gtk-doc png libtool pkgconfig
+			perl:build python:build
 GNOME_COMPONENTS=	cairo pango gdkpixbuf libxml2 introspection libcroco
 CPE_VENDOR=		gnome
 MUST_CONFIGURE=		gnu
@@ -47,6 +47,7 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-vala
 			--disable-Bsymbolic
 			--docdir={{STD_DOCDIR}}
+			--enable-gtk-doc
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 DISTNAME=		generic-librsvg
