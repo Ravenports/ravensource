@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.13.2
+DEF[PORTVERSION]=	1.13.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		lagrange
@@ -28,7 +28,8 @@ USES=			cmake pcre pkgconfig zlib ssl:openssl11
 SDL_COMPONENTS=		sdl2
 
 BUILD_DEPENDS=		zip:single:standard
-BUILDRUN_DEPENDS=	fribidi:single:standard
+BUILDRUN_DEPENDS=	curl:primary:standard
+			fribidi:single:standard
 			harfbuzz:primary:standard
 			libunistring:primary:standard
 			mpg123:single:standard
@@ -42,5 +43,13 @@ CMAKE_ARGS=		-DENABLE_FRIBIDI:BOOL=ON
 			-DENABLE_MPG123:BOOL=ON
 			-DENABLE_WEBP:BOOL=ON
 
+post-patch:
+	${REINPLACE_CMD} -i'' -e "s|__PREFIX__|${PREFIX}|g" \
+		-e "s|__STAGEDIR__|${STAGEDIR}|" ${WRKSRC}/build-tui.sh
+
+post-build:
+	(cd ${WRKSRC} && ./build-tui.sh)
+
 post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/clagrange
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/lagrange
