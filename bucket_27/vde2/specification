@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.3.2
+DEF[PORTVERSION]=	2.3.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		vde2
@@ -10,8 +10,8 @@ HOMEPAGE=		http://vde.sourceforge.net/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/vde/vde2/${PORTVERSION}/
-DISTFILE[1]=		vde2-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/virtualsquare:vde-2:v${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
@@ -33,7 +33,7 @@ ONLY_FOR_OPSYS=		dragonfly freebsd linux darwin
 
 BUILDRUN_DEPENDS=	libpcap:single:standard
 
-USES=			gmake libtool ssl
+USES=			autoreconf gmake libtool ssl
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-python
 MAKE_ENV=		V=1
@@ -44,11 +44,9 @@ INSTALL_REQ_TOOLCHAIN=	yes
 VAR_OPSYS[linux]=	CFLAGS=-D_BSD_SOURCE=1
 
 post-patch:
-	${REINPLACE_CMD} -e '/-Wall/s|-O2||g' ${WRKSRC}/configure
+	${REINPLACE_CMD} -e '/-Wall/s|-O2||g' ${WRKSRC}/configure.ac
 	${REINPLACE_CMD} -e 's|$$(MAKE).*install-data-hook||g' \
-		${WRKSRC}/man/Makefile.in
-	${REINPLACE_CMD} -e 's|^AM_CFLAGS|#AM_CFLAGS|g' \
-		${WRKSRC}/src/slirpvde/Makefile.in
+		${WRKSRC}/man/Makefile.am
 
 post-install:
 	${LN} -sf unixcmd.1 ${STAGEDIR}${MANPREFIX}/man/man1/vdecmd.1

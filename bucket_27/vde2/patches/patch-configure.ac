@@ -1,0 +1,20 @@
+--- configure.ac.orig	2022-05-21 05:07:12.960406000 +0200
++++ configure.ac	2022-05-21 05:08:30.208378000 +0200
+@@ -107,7 +107,7 @@
+     AC_DEFINE([VDE_DARWIN], 1, [If defined, this is a Darwin system])
+     darwin_gcc=yes
+   ;;
+-  freebsd*)
++  freebsd*|dragonfly*)
+     AC_DEFINE([VDE_FREEBSD], 1, [If defined, this is a FreeBSD system])
+   ;;
+   *)
+@@ -190,7 +190,7 @@
+ http://tuntaposx.sourceforge.net/])
+       fi
+       ;;
+-    freebsd*)
++    freebsd*|dragonfly*)
+       AC_CHECK_HEADER([net/if_tun.h],
+         [AC_DEFINE([HAVE_TUNTAP], 1, [If defined, tuntap support is compiled in])],
+         [warn_tuntap=yes])
