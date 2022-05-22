@@ -1,7 +1,7 @@
---- Src/watch.c.orig	2022-02-12 12:44:25 UTC
-+++ Src/watch.c
+--- Src/Modules/watch.c.orig	2022-05-08 06:18:22 UTC
++++ Src/Modules/watch.c
 @@ -30,8 +30,11 @@
- #include "zsh.mdh"
+ #include "watch.mdh"
  
  /* Headers for utmp/utmpx structures */
 -#ifdef HAVE_UTMP_H
