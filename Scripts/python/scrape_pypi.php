@@ -294,7 +294,7 @@ function inline_fix_setup ($namebase, $src) {
        "soupsieve"    => false,
        "xml2rfc"      => false,
        "django-colorful" => false,
-       "pyzmq"        => '/cythonize(/ s|, |, quiet=True, |',
+       "pyzmq"        => '/cythonize(/ s|, |, quiet=True, |; /packaging.version/d; s|if V(.*$|if False:|',
        "cffsubr"      => 's|"Linux"|platform.system()|',
        "pygit2"       => false,
    );
