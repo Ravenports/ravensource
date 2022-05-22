@@ -1,8 +1,6 @@
 # PyZMQ: Python bindings for ØMQ
 
-[Build Status]
-
-This package contains Python bindings for [ØMQ].
+This package contains Python bindings for [ZeroMQ].
 ØMQ is a lightweight and fast messaging implementation.
 
 PyZMQ should work with any reasonable version of Python (≥ 3.4),
@@ -51,7 +49,9 @@ For more detail on building pyzmq, see [our Wiki].
 We build wheels for macOS, Windows, and Linux, so you can get a binary on
 those platforms with:
 
-    pip install pyzmq
+`
+pip install pyzmq
+`
 
 but compiling from source with `pip install pyzmq` should work in most
 environments.
@@ -64,17 +64,21 @@ compiled
 configured the way you want it),
 you can force installation with:
 
-    pip install --no-binary=:all: pyzmq
+```
+pip install --no-binary=:all: pyzmq
+```
 
 When compiling pyzmq (e.g. installing with pip on Linux),
 it is generally recommended that zeromq be installed separately,
 via homebrew, apt, yum, etc:
 
-    # Debian-based
-    sudo apt-get install libzmq3-dev
+```
+# Debian-based
+sudo apt-get install libzmq3-dev
 
-    # RHEL-based
-    sudo yum install libzmq3-devel
+# RHEL-based
+sudo yum install libzmq3-devel
+```
 
 If this is not available, pyzmq will _try_ to build libzmq as a Python
 Extension,
@@ -89,12 +93,8 @@ pyzmq 16 drops support Python 2.6 and 3.2.
 If you need to use one of those Python versions, you can pin your pyzmq
 version to before 16:
 
-    pip install 'pyzmq<16'
+```
+pip install 'pyzmq<16'
+```
 
-For libzmq 2.0.x, use 'pyzmq<2.1'
-
-pyzmq-2.1.11 was the last version of pyzmq to support Python 2.5,
-and pyzmq ≥ 2.2.0 requires Python ≥ 2.6.
-pyzmq-13.0.0 introduces PyPy support via CFFI, which only supports
-libzmq-3.2.2 and newer.
-
+For libzmq 2.0.x, use 'pyzmq\<2.1'
