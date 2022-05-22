@@ -1,6 +1,6 @@
---- lib/monkey/plugins/liana/liana.c.orig	2022-03-01 03:43:38 UTC
+--- lib/monkey/plugins/liana/liana.c.orig	2022-04-26 04:07:54 UTC
 +++ lib/monkey/plugins/liana/liana.c
-@@ -112,7 +112,7 @@ int mk_liana_send_file(int socket_fd, in
+@@ -109,7 +109,7 @@ int mk_liana_send_file(int socket_fd, in
          return len;
      }
      return ret;

@@ -1,6 +1,6 @@
---- include/fluent-bit/flb_endian.h.orig	2022-03-01 03:43:38 UTC
+--- include/fluent-bit/flb_endian.h.orig	2022-04-26 04:07:54 UTC
 +++ include/fluent-bit/flb_endian.h
-@@ -40,7 +40,7 @@
+@@ -39,7 +39,7 @@
   */
  #if defined(__GLIBC__)
  #include <endian.h>
