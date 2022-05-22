@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.4.2
+DEF[PORTVERSION]=	3.4.3
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-gettext
@@ -13,7 +13,7 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		gettext-3.4.2.gem:main
+DISTFILE[1]=		gettext-3.4.3.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v27]=		single
@@ -30,6 +30,7 @@ VOPTS[v31]=		RUBY27=OFF RUBY30=OFF RUBY31=ON
 # => "Ruby", "LGPL-3.0+"
 
 # Requirements according to gem specification:
+#   erubi (>= 0)
 #   locale (>= 2.0.5)
 #   prime (>= 0)
 #   text (>= 1.3.0)
@@ -45,15 +46,18 @@ DISTNAME=		gettext-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY27].USES_ON=			gem:v27
-[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-locale:single:v27
+[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-erubi:single:v27
+					ruby-locale:single:v27
 					ruby-prime:single:v27
 					ruby-text:single:v27
 [RUBY30].USES_ON=			gem:v30
-[RUBY30].BUILDRUN_DEPENDS_ON=		ruby-locale:single:v30
+[RUBY30].BUILDRUN_DEPENDS_ON=		ruby-erubi:single:v30
+					ruby-locale:single:v30
 					ruby-prime:single:v30
 					ruby-text:single:v30
 [RUBY31].USES_ON=			gem:v31
-[RUBY31].BUILDRUN_DEPENDS_ON=		ruby-locale:single:v31
+[RUBY31].BUILDRUN_DEPENDS_ON=		ruby-erubi:single:v31
+					ruby-locale:single:v31
 					ruby-prime:single:v31
 					ruby-text:single:v31
 
