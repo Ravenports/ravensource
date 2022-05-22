@@ -37,6 +37,9 @@ SUB_FILES=		pkg-message-single
 C_USES[linux]=		iconv
 VAR_OPSYS[linux]=	LDFLAGS=-liconv
 
+# DragonFly can't support the IPv6 code, build without network
+VAR_OPSYS[dragonfly]=	CMAKE_ARGS=-DNONET:BOOL=ON
+
 do-install:
 	${INSTALL_PROGRAM} ${WRKDIR}/.build/devilutionx \
 		${STAGEDIR}${PREFIX}/bin
