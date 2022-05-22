@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	2.1
 
 NAMEBASE=		surf
 VERSION=		${PORTVERSION}
-REVISION=		3
+REVISION=		4
 KEYWORDS=		www
 VARIANTS=		standard
 SDESC[standard]=	Simple webkit browser adhering suckless principles
@@ -29,7 +29,7 @@ RUN_DEPENDS=		curl:primary:standard
 			dmenu:single:standard
 			stterm:single:standard
 			xorg-xprop:single:standard
-BUILDRUN_DEPENDS=	webkit2:primary:gtk3
+BUILDRUN_DEPENDS=	webkit2:primary:api40
 			gcr:primary:standard
 
 USES=			pkgconfig
@@ -43,7 +43,6 @@ post-patch:
 		/^GTKLIB/s| =| ?=| ; \
 		/^CPPFLAGS/s| =| +=|' \
 		${WRKSRC}/config.mk
-	${REINPLACE_CMD} 's|-4.0|-4.1|g' ${WRKSRC}/config.mk
 
 pre-build:
 	# workaround missing common.h
