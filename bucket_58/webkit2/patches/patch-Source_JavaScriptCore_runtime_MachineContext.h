@@ -2,7 +2,7 @@ $NetBSD: patch-Source_JavaScriptCore_runtime_MachineContext.h,v 1.2 2021/05/13 0
 
 Add support for NetBSD.
 
---- Source/JavaScriptCore/runtime/MachineContext.h.orig	2022-02-23 08:58:54 UTC
+--- Source/JavaScriptCore/runtime/MachineContext.h.orig	2022-02-23 11:41:41 UTC
 +++ Source/JavaScriptCore/runtime/MachineContext.h
 @@ -176,6 +176,22 @@ static inline void*& stackPointerImpl(mc
  #error Unknown Architecture
