@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	1.9.2
 
 NAMEBASE=		fluent-bit
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		sysutils
 VARIANTS=		standard
 SDESC[standard]=	Fast and Lightweight Log processor and forwarder
@@ -31,13 +31,12 @@ FPC_EQUIVALENT=		sysutils/fluent-bit
 USES=			cpe cmake bison zlib gmake shebangfix
 			cclibs:primary,library
 # Don't use execinfo, keep dependencies down
-# -Werror=truncation on mbedtls on gcc, clang works though
-			clang
 SHEBANG_ADD_SH=		lib/luajit-2.1.0-1e66d0f/configure
 CPE_VENDOR=		treasuredata
 CPE_PRODUCT=		fluent_bit
 CMAKE_ARGS=		-DFLB_DEBUG=Off
 			-DFLB_TRACE=Off
+			-DFLB_BACKTRACE=Off
 			-DFLB_TLS=On
 			-DFLB_EXAMPLES=On
 			-DFLB_OUT_PGSQL=Off
