@@ -1,5 +1,5 @@
---- build-tui.sh.orig	2022-05-06 11:47:39.000000000 +0200
-+++ build-tui.sh	2022-05-22 01:50:55.454261000 +0200
+--- build-tui.sh.orig	2022-05-06 09:47:39 UTC
++++ build-tui.sh
 @@ -14,8 +14,10 @@
  #
  # You can customize the install directory prefix here and build type here:
@@ -12,7 +12,7 @@
  
  #-----------------------------------------------------------------------------
  
-@@ -71,8 +73,5 @@
+@@ -71,8 +73,5 @@ cmake --build . || exit 1
  
  echo "-----"
  echo "clagrange and resources.lgr can be found in 'build-tui'."
