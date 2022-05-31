@@ -1,10 +1,13 @@
---- glib/gmem.c.orig	2022-04-14 11:15:25 UTC
+--- glib/gmem.c.orig	2022-05-31 19:57:51 UTC
 +++ glib/gmem.c
-@@ -57,6 +57,7 @@
- #include "gbacktrace.h"
- #include "gtestutils.h"
- #include "gthread.h"
-+#include "gthreadprivate.h"
- #include "glib_trace.h"
+@@ -36,8 +36,10 @@
  
- /* notes on macros:
+ #if defined(HAVE_MEMALIGN) || defined(HAVE__ALIGNED_MALLOC)
+ /* Required for _aligned_malloc() and _aligned_free() on Windows */
++#if !defined(__FreeBSD__)
+ #include <malloc.h>
+ #endif
++#endif
+ 
+ #ifdef HAVE__ALIGNED_MALLOC
+ /* _aligned_malloc() takes parameters of aligned_malloc() in reverse order */
