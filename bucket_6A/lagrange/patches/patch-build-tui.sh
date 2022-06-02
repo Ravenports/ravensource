@@ -1,6 +1,6 @@
---- build-tui.sh.orig	2022-05-06 09:47:39 UTC
-+++ build-tui.sh
-@@ -14,8 +14,10 @@
+--- build-tui.sh.orig	2022-05-19 08:13:53.000000000 +0200
++++ build-tui.sh	2022-06-02 23:25:09.934882000 +0200
+@@ -14,23 +14,15 @@
  #
  # You can customize the install directory prefix here and build type here:
  
@@ -10,15 +10,30 @@
 +export PKG_CONFIG_PATH=/__PREFIX__/openssl11/lib/pkgconfig
 +export LDFLAGS="-L/__PREFIX__/openssl11/lib -Wl,-rpath,/__PREFIX__/openssl11/lib"
  
- #-----------------------------------------------------------------------------
+ echo "\nThis script will build and optionally install clagrange with"
+ echo "statically linked the_Foundation and SEALCurses. First, let's configure"
+ echo "the build.\n"
  
-@@ -71,8 +73,5 @@ cmake --build . || exit 1
+-read -p "Build type? [${CMAKE_BUILD_TYPE}] " INPUT
+-if [ "${INPUT}." != "." ]; then
+-    CMAKE_BUILD_TYPE=${INPUT}
+-fi
+-
+-read -p "Install prefix? [${INSTALL_PREFIX}] " INPUT
+-if [ "${INPUT}." != "." ]; then
+-    INSTALL_PREFIX=${INPUT}
+-fi
+-
+ if [ ! -d lib/sealcurses ]; then
+     read -p "'lib/sealcurses' not found. Clone with Git? [Yn] " INPUT
+     if [ "${INPUT}." = "n." ]; then
+@@ -97,8 +89,5 @@
  
  echo "-----"
  echo "clagrange and resources.lgr can be found in 'build-tui'."
--read -p "Do you want to install them to ${INSTALL_PREFIX}? [yN] " CONFIRMED
+-read -p "Do you want to install them to ${INSTALL_PREFIX}? (sudo) [yN] " CONFIRMED
 -if [ "${CONFIRMED}" = "y" ]; then
--    cmake --install .
+-    sudo cmake --install .
 -    exit
 -fi
 +cmake --install .
