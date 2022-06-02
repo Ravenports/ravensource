@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.03
+DEF[PORTVERSION]=	6.04
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xscreensaver
@@ -39,7 +39,7 @@ XORG_COMPONENTS=	x11 xext xft xi xinerama xmu xrandr xt xxf86vm
 GNOME_COMPONENTS=	gdkpixbuf gtk2 intltool
 SHEBANG_GLOB=		*.pl
 CPE_VENDOR=		xscreensaver_project
-MUST_CONFIGURE=		gnu
+MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--with-configdir={{PREFIX}}/share/xscreensaver/config/
 			--with-app-defaults={{PREFIX}}/lib/X11/app-defaults/
 			--with-dpms-ext
@@ -55,6 +55,7 @@ CONFIGURE_ARGS=		--with-configdir={{PREFIX}}/share/xscreensaver/config/
 			--with-randr-ext
 			--with-xshm-ext
 			--enable-locking
+			--prefix={{PREFIX}}
 CFLAGS=			-I{{PREFIX}}/include/gdk-pixbuf-2.0
 MAKE_ARGS=		install_prefix={{STAGEDIR}}
 
