@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.27.12
+DEF[PORTVERSION]=	2.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-PyPDF2
@@ -11,7 +11,7 @@ HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/68/97/1501eaf50a50e30343760df715e0db0a15cbcfd6e13840318d159490477e
+SITES[main]=		PYPIWHL/76/23/3cb3218c421a1b9b7b378cafd032869dddbc0e6a7f3a940c296d0c40b304
 DISTFILE[1]=		PyPDF2-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py39]=		single
@@ -29,8 +29,9 @@ GENERATED=		yes
 DISTNAME=		PyPDF2-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-
+# typing-extensions ; python_version < "3.10"
 
 [PY39].USES_ON=				python:py39,wheel
+[PY39].RUN_DEPENDS_ON=			python-typing-extensions:single:py39
 [PY310].USES_ON=			python:py310,wheel
 

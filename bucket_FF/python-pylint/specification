@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.13.9
+DEF[PORTVERSION]=	2.14.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pylint
@@ -11,7 +11,7 @@ HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/03/09/7b710f4aab53e3ccc0d9596557bf020c5ad06312e54ec1b60402ec9d694f
+SITES[main]=		PYPIWHL/93/98/d6fc527125a4e1d2bfd4d1692c7821cbc866400f490139b1779f78428e71
 DISTFILE[1]=		pylint-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py39]=		single
@@ -34,10 +34,12 @@ DISTNAME=		pylint-${PORTVERSION}.dist-info
 # astroid (<=2.12.0-dev0,>=2.11.5)
 # isort (<6,>=4.2.5)
 # mccabe (<0.8,>=0.6)
+# tomlkit (>=0.10.1)
 # typing-extensions (>=3.10.0) ; python_version < "3.10"
 # tomli (>=1.1.0) ; python_version < "3.11"
 # colorama ; sys_platform == "win32"
-# gitpython (>3) ; extra == 'testutil'
+# pyenchant (~=3.2) ; extra == 'spelling'
+# gitpython (>3) ; extra == 'testutils'
 
 [PY39].USES_ON=				python:py39,wheel
 [PY39].RUN_DEPENDS_ON=			python-dill:single:py39
@@ -45,6 +47,7 @@ DISTNAME=		pylint-${PORTVERSION}.dist-info
 					python-astroid:single:py39
 					python-isort:single:py39
 					python-mccabe:single:py39
+					python-tomlkit:single:py39
 					python-typing-extensions:single:py39
 					python-tomli:single:py39
 					python-colorama:single:py39
@@ -54,6 +57,7 @@ DISTNAME=		pylint-${PORTVERSION}.dist-info
 					python-astroid:single:py310
 					python-isort:single:py310
 					python-mccabe:single:py310
+					python-tomlkit:single:py310
 					python-tomli:single:py310
 					python-colorama:single:py310
 
