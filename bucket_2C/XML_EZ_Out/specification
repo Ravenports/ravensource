@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.06
 
 NAMEBASE=		XML_EZ_Out
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc ada
 VARIANTS=		standard
 SDESC[standard]=	Library for emitting XML from Ada programs
@@ -39,13 +40,13 @@ do-build:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -p -Pxezo_bld)
 
 do-install:
-	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gnat \
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/gpr \
 		${STAGEDIR}${PREFIX}/lib/xml_ez_out \
 		${STAGEDIR}${PREFIX}/include/xml_ez_out \
 		${STAGEDIR}${STD_EXAMPLESDIR} \
 		${STAGEDIR}${STD_DOCDIR}
 	${INSTALL_DATA} ${FILESDIR}/xml_ez_out.gpr \
-		${STAGEDIR}${PREFIX}/lib/gnat
+		${STAGEDIR}${PREFIX}/share/gpr
 	${INSTALL_DATA} ${BUILD_WRKSRC}/mckae* \
 		${STAGEDIR}${PREFIX}/include/xml_ez_out
 	${INSTALL_DATA} ${WRKSRC}/lib/* ${STAGEDIR}${PREFIX}/lib/xml_ez_out
