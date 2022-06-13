@@ -31,9 +31,9 @@
 -	install -p -m 644 src/shared/$(ENDIANESS)/*.adb $(DESTDIR)/adainclude/
 -	install -p -m 644 src/shared/generic/*.adb $(DESTDIR)/adainclude/
 +	
-+	install -d -m 755 $(DESTDIR)$(PREFIX)/include/libsparkcrypto/adainclude $(DESTDIR)$(PREFIX)/include/libsparkcrypto/sharedinclude $(DESTDIR)$(PREFIX)/lib/gnat $(DESTDIR)$(PREFIX)/lib/libsparkcrypto
++	install -d -m 755 $(DESTDIR)$(PREFIX)/include/libsparkcrypto/adainclude $(DESTDIR)$(PREFIX)/include/libsparkcrypto/sharedinclude $(DESTDIR)$(PREFIX)/share/gpr $(DESTDIR)$(PREFIX)/lib/libsparkcrypto
 +	$(foreach RTS,$(RUNTIME),install -p -m 755 $(OUTPUT_DIR)/build/adalib/$(RTS)/libsparkcrypto$(LIBPREFIX) $(DESTDIR)$(PREFIX)/lib/libsparkcrypto/libsparkcrypto$(LIBPREFIX);)
-+	install -p -m 644 build/libsparkcrypto.gpr $(DESTDIR)$(PREFIX)/lib/gnat/libsparkcrypto.gpr
++	install -p -m 644 build/libsparkcrypto.gpr $(DESTDIR)$(PREFIX)/share/gpr/libsparkcrypto.gpr
 +	install -p -m 644 src/shared/generic/*.ads $(DESTDIR)$(PREFIX)/include/libsparkcrypto/sharedinclude/
 +	install -p -m 644 src/ada/generic/*.ad? $(DESTDIR)$(PREFIX)/include/libsparkcrypto/adainclude/
 +	$(foreach IO,$(subst native,textio,$(subst zfp,nullio,$(RUNTIME))),install -d -m 755 $(DESTDIR)$(PREFIX)/include/libsparkcrypto/adainclude/$(IO); install -p -m 644 src/ada/$(IO)/*.ad? $(DESTDIR)$(PREFIX)/include/libsparkcrypto/adainclude/$(IO);)
