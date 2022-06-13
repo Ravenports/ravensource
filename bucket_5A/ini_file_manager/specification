@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	09
 
 NAMEBASE=		ini_file_manager
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		misc ada
 VARIANTS=		standard
 SDESC[standard]=	Ini configuration file manipulator for Ada
@@ -40,13 +41,13 @@ do-build:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -p -Pconstruct)
 
 do-install:
-	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gnat \
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/gpr \
 		${STAGEDIR}${PREFIX}/lib/ini_file_manager \
 		${STAGEDIR}${PREFIX}/include/ini_file_manager \
 		${STAGEDIR}${STD_EXAMPLESDIR} \
 		${STAGEDIR}${STD_DOCDIR}
 	${INSTALL_DATA} ${FILESDIR}/ini_file_manager.gpr \
-		${STAGEDIR}${PREFIX}/lib/gnat
+		${STAGEDIR}${PREFIX}/share/gpr
 	${INSTALL_DATA} ${WRKSRC}/src/* \
 		${STAGEDIR}${PREFIX}/include/ini_file_manager
 	${INSTALL_DATA} ${WRKSRC}/lib/*  \
