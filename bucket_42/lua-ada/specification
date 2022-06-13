@@ -7,6 +7,7 @@ DEF[REPLACEMENT]=	"-L{{LOCALBASE}}/lib", "-Wl,-R,{{LOCALBASE}}/lib","-llua-{{LUA
 
 NAMEBASE=		lua-ada
 VERSION=		${PORTVERSION}
+REVISION=		1
 EPOCH=			1
 KEYWORDS=		lang devel
 VARIANTS=		standard
@@ -45,9 +46,9 @@ do-build:
 
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/lua-ada \
-		${STAGEDIR}${PREFIX}/lib/gnat \
+		${STAGEDIR}${PREFIX}/share/gpr \
 		${STAGEDIR}${PREFIX}/include/lua-ada
 	${INSTALL_DATA} ${WRKSRC}/lib/* ${STAGEDIR}${PREFIX}/lib/lua-ada
-	${INSTALL_DATA} ${WRKDIR}/lua.gpr ${STAGEDIR}${PREFIX}/lib/gnat
+	${INSTALL_DATA} ${WRKDIR}/lua.gpr ${STAGEDIR}${PREFIX}/share/gpr
 	${INSTALL_DATA} ${WRKSRC}/src/*.ad[bs] \
 		${STAGEDIR}${PREFIX}/include/lua-ada
