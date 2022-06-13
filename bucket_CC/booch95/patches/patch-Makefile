@@ -1,0 +1,11 @@
+--- Makefile.orig	2019-04-12 16:38:21 UTC
++++ Makefile
+@@ -20,7 +20,7 @@ prefix ?= $(realpath $(dir $(shell which
+ 
+ # Work out where to install the GPR
+ debian = $(and $(wildcard /etc/debian_version),$(filter $(prefix),/usr))
+-GPR_INSTALL_SUBDIR = $(if $(debian),share/ada/adainclude,lib/gnat)
++GPR_INSTALL_SUBDIR = $(if $(debian),share/ada/adainclude,share/gpr)
+ 
+ GPRBUILD ?= gprbuild
+ GPRCLEAN ?= gprclean

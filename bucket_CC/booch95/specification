@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	20190412
 
 NAMEBASE=		booch95
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel ada
 VARIANTS=		standard
 SDESC[standard]=	Ada95 Booch Components
@@ -46,3 +47,4 @@ post-install:
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 	${INSTALL_DATA} ${WRKSRC}/html/* ${STAGEDIR}${STD_DOCDIR}/
 	${RM} ${STAGEDIR}${STD_DOCDIR}/Makefile
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
