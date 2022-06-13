@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	20170419
 
 NAMEBASE=		libadacrypt
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security ada
 VARIANTS=		standard
 SDESC[standard]=	Crypto library for Ada with a nice API
@@ -33,7 +34,7 @@ post-patch:
 		${WRKSRC}/libadacrypt.gpr
 
 do-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/gnat \
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/gpr \
 		${STAGEDIR}${PREFIX}/lib/adacrypt \
 		${STAGEDIR}${PREFIX}/include/adacrypt
 	${INSTALL_DATA} ${WRKSRC}/src/*.ad[bs] \
@@ -41,4 +42,4 @@ do-install:
 	${INSTALL_DATA} ${WRKSRC}/lib/* \
 		${STAGEDIR}${PREFIX}/lib/adacrypt
 	${INSTALL_DATA} ${FILESDIR}/adacrypt.gpr \
-		${STAGEDIR}${PREFIX}/lib/gnat
+		${STAGEDIR}${PREFIX}/share/gpr
