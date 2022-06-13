@@ -1,5 +1,5 @@
 DEF[PORTVERSION]=	4.57
-DEF[REVISION]=		0
+DEF[REVISION]=		1
 DEF[DEST]=		{{STAGEDIR}}{{PREFIX}}
 DEF[C]=			components
 DEF[CS]=		connections_server
@@ -60,7 +60,6 @@ do-install:
 .for PROJECT in ${INSTALL_PROJECTS}
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprinstall -p \
 		--prefix=${DEST} \
-		--project-subdir=${DEST}/lib/gnat \
 		--sources-subdir=${DEST}/include/${PORTNAME}/${PROJECT} \
 		--lib-subdir=${DEST}/lib/${PORTNAME}/${PROJECT} \
 		${PROJECT}.gpr)
@@ -68,4 +67,4 @@ do-install:
 	# end of workaround: remove dummy object file
 	${RM} ${WRKSRC}/strings_edit-text_edit.o
 	# Eject manifests, we don't use them
-	${RM} -r ${DEST}/lib/gnat/manifests
+	${RM} -r ${DEST}/share/gpr/manifests
