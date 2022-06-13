@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	0.4.2
 
 NAMEBASE=		anet
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net
 VARIANTS=		standard
 SDESC[standard]=	Networking library for Ada
@@ -46,7 +47,7 @@ post-patch:
 	${REINPLACE_CMD} -e 's|DESTDIR|DEST2|g' ${WRKSRC}/doc/Makefile
 
 do-install:
-	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gnat \
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/gpr \
 		${STAGEDIR}${PREFIX}/lib/anet \
 		${STAGEDIR}${PREFIX}/include/anet \
 		${STAGEDIR}${STD_DOCDIR}
@@ -55,5 +56,5 @@ do-install:
 	${INSTALL_DATA} ${WRKSRC}/lib/bsd/static/*.ali \
 		${STAGEDIR}${PREFIX}/lib/anet
 	${INSTALL_DATA} ${WRKSRC}/lib/bsd/static/*.a ${STAGEDIR}${PREFIX}/lib
-	${INSTALL_DATA} ${WRKSRC}/gnat/anet.gpr ${STAGEDIR}${PREFIX}/lib/gnat
+	${INSTALL_DATA} ${WRKSRC}/gnat/anet.gpr ${STAGEDIR}${PREFIX}/share/gpr
 	(cd ${WRKSRC}/doc && ${COPYTREE_SHARE} html ${STAGEDIR}${STD_DOCDIR})
