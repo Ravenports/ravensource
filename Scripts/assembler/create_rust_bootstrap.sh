@@ -60,8 +60,9 @@ sleep 2
 # build rust-installer
 
 (cd ${BBASE} && git clone https://github.com/rust-lang/rust-installer.git)
-env PATH=${PATH}:${RASSY}/raven/bin CARGO_HTTP_CAINFO=/raven/share/certs/ca-root-nss.crt \
-   cargo build --manifest-path="${RINST}/Cargo.toml"
+# env PATH=${PATH}:${RASSY}/raven/bin CARGO_HTTP_CAINFO=/raven/share/certs/ca-root-nss.crt \
+#   cargo build --manifest-path="${RINST}/Cargo.toml"
+env PATH=${PATH}:${RASSY}/raven/bin cargo build --manifest-path="${RINST}/Cargo.toml"
 
 if [ $? -ne 0 ]; then
    echo "rust-installer build failed, aborting ..."
