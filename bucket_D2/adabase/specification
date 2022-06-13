@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	3.1
 
 NAMEBASE=		adabase
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		databases ada
 VARIANTS=		standard sqlite
 SDESC[standard]=	Thick database bindings for Ada
@@ -64,7 +65,7 @@ do-build:
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/include/adabase \
 		${STAGEDIR}${PREFIX}/lib/adabase \
-		${STAGEDIR}${PREFIX}/lib/gnat
+		${STAGEDIR}${PREFIX}/share/gpr
 	${INSTALL_DATA} ${WRKSRC}/lib/* ${STAGEDIR}${PREFIX}/lib/adabase
 	${INSTALL_DATA} ${WRKSRC}/src/*/*.ad[bs] ${WRKSRC}/src/adabase.ads \
 		${STAGEDIR}${PREFIX}/include/adabase
@@ -72,4 +73,4 @@ do-install:
 	       -e "s|@MYSQL@|${DRVMYSQL}|" \
 	       -e "s|@PGSQL@|${DRVPGSQL}|" \
 	       -e "s|@SQLITE@|${DRVSQLITE}|" ${WRKSRC}/adabase.gpr.in > \
-		${STAGEDIR}${PREFIX}/lib/gnat/adabase.gpr
+		${STAGEDIR}${PREFIX}/share/gpr/adabase.gpr
