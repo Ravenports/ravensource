@@ -4,6 +4,7 @@ DEF[TAG]=		3b7b49e
 
 NAMEBASE=		PragmARC
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel ada
 VARIANTS=		standard
 SDESC[standard]=	PragmAda Reusable Components
@@ -39,8 +40,9 @@ do-build:
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/include/pragmarcs \
 		${STAGEDIR}${PREFIX}/lib/pragmarcs \
-		${STAGEDIR}${PREFIX}/lib/gnat
+		${STAGEDIR}${PREFIX}/share/gpr
 	${INSTALL_DATA} ${WRKSRC}/library/* ${STAGEDIR}${PREFIX}/lib/pragmarcs
 	${INSTALL_DATA} ${WRKSRC}/*.ad[bs] \
 		${STAGEDIR}${PREFIX}/include/pragmarcs
-	${INSTALL_DATA} ${FILESDIR}/pragmarcs.gpr ${STAGEDIR}${PREFIX}/lib/gnat
+	${INSTALL_DATA} ${FILESDIR}/pragmarcs.gpr \
+		${STAGEDIR}${PREFIX}/share/gpr
