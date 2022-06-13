@@ -5,6 +5,7 @@ DEF[DEMOS]=		bwt_demo demo_csv_into_zip demo_zip demo_unzip
 
 NAMEBASE=		zip-ada
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		archivers ada
 VARIANTS=		standard
 SDESC[standard]=	Zip compression library written in Ada
@@ -38,7 +39,7 @@ do-install:
 		  ${STAGEDIR}${STD_EXAMPLESDIR} \
 		  ${STAGEDIR}${PREFIX}/include/zip-ada \
 		  ${STAGEDIR}${PREFIX}/lib/zip-ada \
-		  ${STAGEDIR}${PREFIX}/lib/gnat
+		  ${STAGEDIR}${PREFIX}/share/gpr
 	@${MKDIR} ${WRKSRC}/obj_tools ${WRKSRC}/obj_demos
 .for F in ${ZTOOLS}
 	${INSTALL_PROGRAM} ${WRKSRC}/${F} ${STAGEDIR}${PREFIX}/bin/
@@ -57,4 +58,4 @@ do-install:
 		${STAGEDIR}${PREFIX}/lib/zip-ada/
 	${RM} ${STAGEDIR}${PREFIX}/lib/zip-ada/b__*.ali
 	${INSTALL_DATA} ${WRKSRC}/obj_opt/*.a ${STAGEDIR}${PREFIX}/lib/zip-ada/
-	${INSTALL_DATA} ${FILESDIR}/zip-ada.gpr ${STAGEDIR}${PREFIX}/lib/gnat/
+	${INSTALL_DATA} ${FILESDIR}/zip-ada.gpr ${STAGEDIR}${PREFIX}/share/gpr/
