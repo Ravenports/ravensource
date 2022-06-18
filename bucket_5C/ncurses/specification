@@ -9,6 +9,7 @@ DEF[EXAMPLES_CPP]=	Makefile NEWS PROBLEMS README-first cursesapp.cc cursesapp.h 
 
 NAMEBASE=		ncurses
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard static
 SDESC[standard]=	Terminal-independent lib for full-screen output
@@ -72,7 +73,6 @@ CONFIGURE_ARGS=		--datadir={{PREFIX}}/share/misc
 CONFIGURE_ENV=		gnat_exists="no"
 BUILD_WRKSRC=		${NOWIDEC_WRKSRC}
 INSTALL_WRKSRC=		${NOWIDEC_WRKSRC}
-CPPFLAGS=		-P
 PLIST_SUB=		ABI_VER=${PORTVERSION:R}
 			REL_VER=${PORTVERSION}
 
@@ -82,8 +82,8 @@ VAR_OPSYS[sunos]=	CONFIGURE_ENV=LIBS="-lrt -lresolv -lsocket"
 [STATIC].CONFIGURE_ARGS_OFF=		--with-shared=yes
 
 post-extract:
-	@${MKDIR} ${WIDEC_WRKSRC}
-	@${MKDIR} ${NOWIDEC_WRKSRC}
+	${MKDIR} ${WIDEC_WRKSRC}
+	${MKDIR} ${NOWIDEC_WRKSRC}
 
 post-patch:
 	${REINPLACE_CMD} -e 's,$$(INSTALL_PROG) ncurses-config,@INSTALL_SCRIPT@ ncurses-config,' ${WRKSRC}/misc/Makefile.in
@@ -118,7 +118,6 @@ post-build:
 	# compiler even there.
 	(cd ${.CURDIR} && ${MAKE} ${.MAKEFLAGS} \
 		INSTALL_WRKSRC=${WIDEC_WRKSRC} do-install)
-	# Remove -ldb-5 from pc files.  It's been statically linked in
 
 post-install-STATIC-ON:
 	${MV} ${STAGEDIR}${PREFIX}/share/misc/terminfo.db \
@@ -130,7 +129,7 @@ post-install-STATIC-OFF:
 	${MV} ${STAGEDIR}${PREFIX}/share/misc/terminfo.db \
 		${STAGEDIR}${PREFIX}/share/misc/terminfo.db.default
 
-	@${MKDIR} ${STAGEDIR}${NOWIDEC_EXAMDIR}/c++
+	${MKDIR} ${STAGEDIR}${NOWIDEC_EXAMDIR}/c++
 .for f in ${EXAMPLES}
 	${INSTALL_DATA} ${NOWIDEC_WRKSRC}/test/${f} \
 		${STAGEDIR}${NOWIDEC_EXAMDIR}/
@@ -139,7 +138,7 @@ post-install-STATIC-OFF:
 	${INSTALL_DATA} ${NOWIDEC_WRKSRC}/c++/${f} \
 		${STAGEDIR}${NOWIDEC_EXAMDIR}/c++/
 .endfor
-	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 .for f in ${DOCS}
 	${INSTALL_DATA} ${WRKSRC}/${f} ${STAGEDIR}${STD_DOCDIR}/
 .endfor
