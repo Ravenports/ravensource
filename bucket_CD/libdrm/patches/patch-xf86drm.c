@@ -1,4 +1,4 @@
---- xf86drm.c.orig	2021-11-25 20:33:02 UTC
+--- xf86drm.c.orig	2022-06-03 04:04:41 UTC
 +++ xf86drm.c
 @@ -63,7 +63,17 @@
  #include <math.h>
@@ -19,7 +19,7 @@
  #include <sys/param.h>
  #include <sys/pciio.h>
  #endif
-@@ -312,8 +322,10 @@ drmGetFormatModifierNameFromArm(uint64_t
+@@ -313,8 +323,10 @@ drmGetFormatModifierNameFromArm(uint64_t
      char *modifier_name = NULL;
      bool result = false;
  
@@ -30,7 +30,7 @@
          return NULL;
  
      switch (type) {
-@@ -458,8 +470,10 @@ drmGetFormatModifierNameFromAmd(uint64_t
+@@ -459,8 +471,10 @@ drmGetFormatModifierNameFromAmd(uint64_t
      tile_version = AMD_FMT_MOD_GET(TILE_VERSION, modifier);
      dcc = AMD_FMT_MOD_GET(DCC, modifier);
  
@@ -41,7 +41,7 @@
          return NULL;
  
      /* add tile  */
-@@ -962,7 +976,7 @@ static int drmGetMinorBase(int type)
+@@ -963,7 +977,7 @@ static int drmGetMinorBase(int type)
  
  static int drmGetMinorType(int major, int minor)
  {
@@ -50,7 +50,7 @@
      char name[SPECNAMELEN];
      int id;
  
-@@ -3218,7 +3232,7 @@ drm_public int drmIsMaster(int fd)
+@@ -3219,7 +3233,7 @@ drm_public int drmIsMaster(int fd)
  
  drm_public char *drmGetDeviceNameFromFd(int fd)
  {
@@ -59,7 +59,7 @@
      struct stat sbuf;
      int maj, min;
      int nodetype;
-@@ -3265,7 +3279,7 @@ static bool drmNodeIsDRM(int maj, int mi
+@@ -3266,7 +3280,7 @@ static bool drmNodeIsDRM(int maj, int mi
      snprintf(path, sizeof(path), "/sys/dev/char/%d:%d/device/drm",
               maj, min);
      return stat(path, &sbuf) == 0;
@@ -68,7 +68,7 @@
      char name[SPECNAMELEN];
  
      if (!devname_r(makedev(maj, min), S_IFCHR, name, sizeof(name)))
-@@ -3388,7 +3402,7 @@ static char *drmGetMinorNameForFD(int fd
+@@ -3389,7 +3403,7 @@ static char *drmGetMinorNameForFD(int fd
  
      closedir(sysdir);
      return NULL;
@@ -77,7 +77,7 @@
      struct stat sbuf;
      char dname[SPECNAMELEN];
      const char *mname;
-@@ -3599,7 +3613,7 @@ get_pci_path(int maj, int min, char *pci
+@@ -3600,7 +3614,7 @@ get_pci_path(int maj, int min, char *pci
  }
  #endif
  
