@@ -1,4 +1,4 @@
---- src/event/modules/ngx_kqueue_module.c.orig	2022-01-25 15:03:52 UTC
+--- src/event/modules/ngx_kqueue_module.c.orig	2022-05-23 23:59:19 UTC
 +++ src/event/modules/ngx_kqueue_module.c
 @@ -429,8 +429,7 @@ ngx_kqueue_set_event(ngx_event_t *ev, ng
      if (filter == EVFILT_VNODE) {
