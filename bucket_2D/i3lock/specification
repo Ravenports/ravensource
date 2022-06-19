@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.13
+DEF[PORTVERSION]=	2.14
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		i3lock
@@ -11,7 +11,7 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://i3wm.org/i3lock/
-DISTFILE[1]=		i3lock-${PORTVERSION}.tar.bz2:main
+DISTFILE[1]=		i3lock-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	single
 
@@ -34,7 +34,5 @@ BUILDRUN_DEPENDS=	cairo:single:standard
 			libev:single:standard
 			openpam:single:standard
 
-USES=			gmake iconv pkgconfig
+USES=			meson pkgconfig
 XORG_COMPONENTS=	x11 xcb xt xext
-MUST_CONFIGURE=		gnu
-CONFIGURE_ENV=		ac_cv_search_iconv_open=-liconv
