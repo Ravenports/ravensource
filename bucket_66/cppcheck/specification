@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.7.5
+DEF[PORTVERSION]=	2.8
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		cppcheck
@@ -43,7 +43,7 @@ CMAKE_ARGS=		-DHAVE_RULES:BOOL=ON
 			-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
 			-DNPROC="{{MAKE_JOBS_NUMBER}}"
 CPPFLAGS=		-Wno-unused-function
-
+SINGLE_JOB=		yes
 
 post-build:
 	cd ${WRKSRC}/man && \

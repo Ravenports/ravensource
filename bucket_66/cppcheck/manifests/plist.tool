@@ -1,7 +1,6 @@
 bin/cppcheck
 bin/cppcheck-htmlreport
 share/Cppcheck/addons/__init__.py
-share/Cppcheck/addons/cert.py
 share/Cppcheck/addons/cppcheck.py
 share/Cppcheck/addons/cppcheckdata.py
 share/Cppcheck/addons/findcasts.py
