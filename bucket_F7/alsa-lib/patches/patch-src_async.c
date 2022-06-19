@@ -1,6 +1,6 @@
 $NetBSD: patch-bk,v 1.1 2008/12/25 13:18:00 hasso Exp $
 
---- src/async.c.orig	2021-12-09 13:17:59 UTC
+--- src/async.c.orig	2022-06-17 09:42:05 UTC
 +++ src/async.c
 @@ -54,6 +54,15 @@ static LIST_HEAD(snd_async_handlers);
  

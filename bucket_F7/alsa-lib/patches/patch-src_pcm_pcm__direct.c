@@ -1,4 +1,4 @@
---- src/pcm/pcm_direct.c.orig	2021-12-09 13:17:59 UTC
+--- src/pcm/pcm_direct.c.orig	2022-06-17 09:42:05 UTC
 +++ src/pcm/pcm_direct.c
 @@ -44,12 +44,17 @@
   *
