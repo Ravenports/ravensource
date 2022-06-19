@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	21.3.7
+DEF[PORTVERSION]=	22.1.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mesa
@@ -74,7 +74,6 @@ SOL_FUNCTIONS=		dirfd:src/util/disk_cache.c
 MESON_ARGS=		-Dplatforms=x11{{WAYPLAT}}
 			-Dzstd=enabled
 			-Ddri3=true
-			-Ddri-drivers={{DRI_DRIVERS:tW:tl:C/[[:space:]]/,/g}}
 			-Dgallium-drivers={{GALLIUM_DRIVERS:tW:tl:C/[[:space:]]/,/g}}
 			-Dgallium-vdpau=enabled
 			-Dosmesa=true
@@ -137,11 +136,7 @@ VAR_OPSYS[sunos]=	CPPFLAGS=-D__EXTENSIONS__=1
 					MESON_ARGS+=-Dgallium-opencl=icd
 [LLVMPIPE].MAKEFILE_OFF=		MESON_ARGS+=-Dgallium-opencl=disabled
 
-[X86_DRIVERS].MAKEFILE_ON=		DRI_DRIVERS+=R100
-					DRI_DRIVERS+=R200
-					DRI_DRIVERS+=I915
-					DRI_DRIVERS+=I965
-					GALLIUM_DRIVERS+=R300
+[X86_DRIVERS].MAKEFILE_ON=		GALLIUM_DRIVERS+=R300
 					GALLIUM_DRIVERS+=SVGA
 					VULKAN_DRIVERS+={{VULKAN_DRIVERS_X86}}
 [ARM_DRIVERS].MAKEFILE_ON=		GALLIUM_DRIVERS+=FREEDRENO

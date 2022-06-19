@@ -1,4 +1,4 @@
---- src/util/u_thread.h.orig	2022-02-09 20:10:39 UTC
+--- src/util/u_thread.h.orig	2022-06-16 16:17:53 UTC
 +++ src/util/u_thread.h
 @@ -40,6 +40,7 @@
  #include <signal.h>
@@ -8,7 +8,7 @@
  #endif
  #endif
  
-@@ -129,7 +130,7 @@ static inline thrd_t u_thread_create(int
+@@ -125,7 +126,7 @@ static inline thrd_t u_thread_create(int
  static inline void u_thread_setname( const char *name )
  {
  #if defined(HAVE_PTHREAD)
@@ -17,7 +17,7 @@
     int ret = pthread_setname_np(pthread_self(), name);
     if (ret == ERANGE) {
        char buf[16];
-@@ -138,7 +139,7 @@ static inline void u_thread_setname( con
+@@ -134,7 +135,7 @@ static inline void u_thread_setname( con
        buf[len] = '\0';
        pthread_setname_np(pthread_self(), buf);
     }
@@ -26,7 +26,7 @@
     pthread_set_name_np(pthread_self(), name);
  #elif DETECT_OS_NETBSD
     pthread_setname_np(pthread_self(), "%s", (void *)name);
-@@ -146,8 +147,6 @@ static inline void u_thread_setname( con
+@@ -142,8 +143,6 @@ static inline void u_thread_setname( con
     pthread_setname_np(name);
  #elif DETECT_OS_HAIKU
     rename_thread(find_thread(NULL), name);
@@ -35,7 +35,7 @@
  #endif
  #endif
     (void)name;
-@@ -242,7 +241,7 @@ util_set_current_thread_affinity(const u
+@@ -238,7 +237,7 @@ util_set_current_thread_affinity(const u
  static inline int64_t
  util_thread_get_time_nano(thrd_t thread)
  {

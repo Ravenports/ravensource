@@ -1,10 +1,10 @@
 # work-around for https://bugs.freedesktop.org/show_bug.cgi?id=100627
 #
---- src/glx/glxext.c.orig	2022-02-09 20:10:39 UTC
+--- src/glx/glxext.c.orig	2022-06-16 16:17:53 UTC
 +++ src/glx/glxext.c
-@@ -924,6 +924,9 @@ __glXInitialize(Display * dpy)
+@@ -947,6 +947,9 @@ __glXInitialize(Display * dpy)
  #if defined(GLX_USE_DRM)
-    if (glx_direct && glx_accel) {
+    if (glx_direct && glx_accel && !zink) {
  #if defined(HAVE_DRI3)
 +#if (defined(__FreeBSD__) || defined(__FreeBSD_kernel__)) && !defined(__DRM_NEXT__)
 +      if (env_var_as_boolean("LIBGL_DRI3_ENABLE", false))

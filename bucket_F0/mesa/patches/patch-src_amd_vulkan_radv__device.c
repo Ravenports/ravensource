@@ -1,9 +1,9 @@
 - Define CLOCK_MONOTONIC_RAW if missing
 
---- src/amd/vulkan/radv_device.c.orig	2022-02-09 20:10:39 UTC
+--- src/amd/vulkan/radv_device.c.orig	2022-06-16 16:17:53 UTC
 +++ src/amd/vulkan/radv_device.c
-@@ -113,6 +113,14 @@ radv_get_absolute_timeout(uint64_t timeo
-    }
+@@ -97,6 +97,14 @@ radv_get_current_time(void)
+    return os_time_get_nano();
  }
  
 +#ifndef CLOCK_MONOTONIC_RAW
@@ -15,5 +15,5 @@
 +#endif
 +
  static int
- radv_device_get_cache_uuid(enum radeon_family family, void *uuid)
+ radv_device_get_cache_uuid(struct radv_physical_device *pdevice, void *uuid)
  {

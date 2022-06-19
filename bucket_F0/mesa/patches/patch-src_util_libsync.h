@@ -1,8 +1,8 @@
---- src/util/libsync.h.orig	2022-02-09 20:10:39 UTC
+--- src/util/libsync.h.orig	2022-06-16 16:17:53 UTC
 +++ src/util/libsync.h
-@@ -37,6 +37,10 @@
- #include <sys/poll.h>
+@@ -38,6 +38,10 @@
  #include <unistd.h>
+ #include <time.h>
  
 +#ifdef __sun__
 +#include <sys/ioccom.h>
