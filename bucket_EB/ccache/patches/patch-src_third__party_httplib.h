@@ -1,4 +1,4 @@
---- src/third_party/httplib.h.orig	2022-02-27 20:03:02 UTC
+--- src/third_party/httplib.h.orig	2022-05-15 18:39:37 UTC
 +++ src/third_party/httplib.h
 @@ -169,7 +169,9 @@ using socket_t = SOCKET;
  
