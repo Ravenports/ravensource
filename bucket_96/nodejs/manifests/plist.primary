@@ -18,6 +18,7 @@ include/node/v8-data.h
 include/node/v8-date.h
 include/node/v8-debug.h
 include/node/v8-embedder-heap.h
+include/node/v8-embedder-state-scope.h
 include/node/v8-exception.h
 include/node/v8-extension.h
 include/node/v8-external.h
@@ -183,7 +184,6 @@ include/node/openssl/ocsp_no-asm.h
 include/node/openssl/ocsperr.h
 include/node/openssl/opensslconf.h
 include/node/openssl/opensslconf_asm.h
-include/node/openssl/opensslconf_no-asm.h
 include/node/openssl/opensslv.h
 include/node/openssl/opensslv_asm.h
 include/node/openssl/opensslv_no-asm.h
@@ -988,20 +988,14 @@ include/node/openssl/archs/aix64-gcc-as/no-asm/providers/common/include/prov/der
 include/node/openssl/archs/aix64-gcc-as/no-asm/providers/common/include/prov/der_rsa.h
 include/node/openssl/archs/aix64-gcc-as/no-asm/providers/common/include/prov/der_sm2.h
 include/node/openssl/archs/aix64-gcc-as/no-asm/providers/common/include/prov/der_wrap.h
-include/node/openssl/archs/aix64-gcc/asm/crypto/buildinf.h
 include/node/openssl/archs/aix64-gcc/asm/crypto/include/internal/bn_conf.h
 include/node/openssl/archs/aix64-gcc/asm/crypto/include/internal/dso_conf.h
-include/node/openssl/archs/aix64-gcc/asm/include/progs.h
 include/node/openssl/archs/aix64-gcc/asm/include/openssl/opensslconf.h
-include/node/openssl/archs/aix64-gcc/asm_avx2/crypto/buildinf.h
 include/node/openssl/archs/aix64-gcc/asm_avx2/crypto/include/internal/bn_conf.h
 include/node/openssl/archs/aix64-gcc/asm_avx2/crypto/include/internal/dso_conf.h
-include/node/openssl/archs/aix64-gcc/asm_avx2/include/progs.h
 include/node/openssl/archs/aix64-gcc/asm_avx2/include/openssl/opensslconf.h
-include/node/openssl/archs/aix64-gcc/no-asm/crypto/buildinf.h
 include/node/openssl/archs/aix64-gcc/no-asm/crypto/include/internal/bn_conf.h
 include/node/openssl/archs/aix64-gcc/no-asm/crypto/include/internal/dso_conf.h
-include/node/openssl/archs/aix64-gcc/no-asm/include/progs.h
 include/node/openssl/archs/aix64-gcc/no-asm/include/openssl/opensslconf.h
 include/node/openssl/archs/darwin-i386-cc/asm/crypto/buildinf.h
 include/node/openssl/archs/darwin-i386-cc/asm/crypto/include/internal/bn_conf.h
@@ -2797,6 +2791,7 @@ include/node/openssl/archs/solaris64-x86_64-gcc/no-asm/providers/common/include/
 include/node/openssl/archs/solaris64-x86_64-gcc/no-asm/providers/common/include/prov/der_rsa.h
 include/node/openssl/archs/solaris64-x86_64-gcc/no-asm/providers/common/include/prov/der_sm2.h
 include/node/openssl/archs/solaris64-x86_64-gcc/no-asm/providers/common/include/prov/der_wrap.h
+lib/node_modules/corepack/CHANGELOG.md
 lib/node_modules/corepack/LICENSE.md
 lib/node_modules/corepack/README.md
 lib/node_modules/corepack/package.json
@@ -2806,6 +2801,7 @@ lib/node_modules/corepack/dist/npx.js
 lib/node_modules/corepack/dist/pnpm.js
 lib/node_modules/corepack/dist/pnpx.js
 lib/node_modules/corepack/dist/vcc.js
+lib/node_modules/corepack/dist/vendors-_yarn_berry_cache_proxy-agent-npm-5_0_0-41772f4b01-9_zip_node_modules_proxy-agent_index_js.js
 lib/node_modules/corepack/dist/yarn.js
 lib/node_modules/corepack/dist/yarnpkg.js
 lib/node_modules/corepack/shims/corepack
@@ -2844,9 +2840,6 @@ lib/node_modules/corepack/shims/nodewin/pnpm.ps1
 lib/node_modules/corepack/shims/nodewin/pnpx
 lib/node_modules/corepack/shims/nodewin/pnpx.cmd
 lib/node_modules/corepack/shims/nodewin/pnpx.ps1
-lib/node_modules/corepack/shims/nodewin/vcc
-lib/node_modules/corepack/shims/nodewin/vcc.cmd
-lib/node_modules/corepack/shims/nodewin/vcc.ps1
 lib/node_modules/corepack/shims/nodewin/yarn
 lib/node_modules/corepack/shims/nodewin/yarn.cmd
 lib/node_modules/corepack/shims/nodewin/yarn.ps1
