@@ -1,7 +1,7 @@
 /usr gets changed to ${LOCALBASE} in post-patch:, so we
 cheat and set xpdf's path to /usr/lib.
 
---- src/plugins/fts/decode2text.sh.orig	2022-02-02 11:42:23 UTC
+--- src/plugins/fts/decode2text.sh.orig	2022-06-14 06:55:03 UTC
 +++ src/plugins/fts/decode2text.sh
 @@ -79,16 +79,20 @@ wait_timeout() {
  LANG=en_US.UTF-8
