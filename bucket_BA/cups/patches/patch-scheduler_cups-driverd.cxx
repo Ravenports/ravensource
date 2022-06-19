@@ -1,4 +1,4 @@
---- scheduler/cups-driverd.cxx.orig	2021-11-29 14:27:31 UTC
+--- scheduler/cups-driverd.cxx.orig	2022-05-26 06:17:21 UTC
 +++ scheduler/cups-driverd.cxx
 @@ -913,7 +913,7 @@ get_file(const char *name,		/* I - Name
    }
