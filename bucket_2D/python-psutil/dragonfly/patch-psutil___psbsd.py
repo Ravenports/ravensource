@@ -1,4 +1,4 @@
---- psutil/_psbsd.py.orig	2021-12-15 09:34:00 UTC
+--- psutil/_psbsd.py.orig	2022-05-16 12:04:03 UTC
 +++ psutil/_psbsd.py
 @@ -19,6 +19,7 @@ from . import _psutil_posix as cext_posi
  from ._common import FREEBSD

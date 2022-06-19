@@ -1,4 +1,4 @@
---- psutil/_psutil_bsd.c.orig	2021-11-26 20:08:22 UTC
+--- psutil/_psutil_bsd.c.orig	2022-03-31 17:45:56 UTC
 +++ psutil/_psutil_bsd.c
 @@ -19,6 +19,7 @@
      #define _KMEMUSER
@@ -16,7 +16,7 @@
  #include <netinet/in_systm.h>
  #include <netinet/ip.h>
  #include <netinet/in_pcb.h>
-@@ -95,6 +95,10 @@
+@@ -101,6 +101,10 @@
      #ifndef DTYPE_VNODE
          #define DTYPE_VNODE 1
      #endif
