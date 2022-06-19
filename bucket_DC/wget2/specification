@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.0.0
+DEF[PORTVERSION]=	2.0.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		wget2
@@ -48,6 +48,7 @@ CONFIGURE_ARGS=		--with-openssl=no
 			--without-pcre
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
+CFLAGS=			-Wno-attributes
 
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/bin/wget2_noinstall
