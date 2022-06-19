@@ -1,4 +1,4 @@
---- src/ck.h.orig	2022-01-19 17:53:51 UTC
+--- src/ck.h.orig	2022-06-08 03:05:16 UTC
 +++ src/ck.h
 @@ -18,11 +18,12 @@
  #endif
