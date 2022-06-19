@@ -1,4 +1,4 @@
---- coreconf/ruleset.mk.orig	2022-03-31 17:12:57 UTC
+--- coreconf/ruleset.mk.orig	2022-05-26 09:54:33 UTC
 +++ coreconf/ruleset.mk
 @@ -30,7 +30,7 @@
  #
