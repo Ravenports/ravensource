@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.1.4
+DEF[PORTVERSION]=	3.2.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		git-lfs
@@ -47,8 +47,8 @@ do-build:
 
 do-install:
 	${CP} ${WRKSRC}/git-lfs ${STAGEDIR}${PREFIX}/bin
-	${CP} ${WRKSRC}/man/*.1 ${STAGEDIR}${PREFIX}/share/man/man1
-	${CP} ${WRKSRC}/man/*.5 ${STAGEDIR}${PREFIX}/share/man/man5
+	${CP} ${WRKSRC}/man/man1/*.1 ${STAGEDIR}${PREFIX}/share/man/man1
+	${CP} ${WRKSRC}/man/man5/*.5 ${STAGEDIR}${PREFIX}/share/man/man5
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/git-lfs
