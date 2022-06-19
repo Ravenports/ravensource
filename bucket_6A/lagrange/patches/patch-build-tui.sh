@@ -1,5 +1,5 @@
---- build-tui.sh.orig	2022-05-19 08:13:53.000000000 +0200
-+++ build-tui.sh	2022-06-02 23:25:09.934882000 +0200
+--- build-tui.sh.orig	2022-05-26 07:03:40 UTC
++++ build-tui.sh
 @@ -14,23 +14,15 @@
  #
  # You can customize the install directory prefix here and build type here:
@@ -27,7 +27,7 @@
  if [ ! -d lib/sealcurses ]; then
      read -p "'lib/sealcurses' not found. Clone with Git? [Yn] " INPUT
      if [ "${INPUT}." = "n." ]; then
-@@ -97,8 +89,5 @@
+@@ -97,8 +89,5 @@ cmake --build . || exit 1
  
  echo "-----"
  echo "clagrange and resources.lgr can be found in 'build-tui'."
