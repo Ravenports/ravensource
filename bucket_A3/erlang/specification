@@ -3,7 +3,7 @@ DEF[ERL_RELEASE]=	${MAJOR_RELEASE}.3
 DEF[DOC_RELEASE]=	${MAJOR_RELEASE}.2
 DEF[POINT_RELEASE]=	.3
 DEF[PORTVERSION]=	${ERL_RELEASE}${POINT_RELEASE:S/.0//}
-DEF[REVISION]=		0
+DEF[REVISION]=		1
 DEF[ASN1_DOC_VSN]=	5.0.17
 DEF[ASN1_VSN]=		5.0.18
 DEF[COMMTEST_DOC_VSN]=	1.22
@@ -89,24 +89,19 @@ SDESC[standard]=	Concurrent functional programming language
 HOMEPAGE=		https://www.erlang.org/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main erlangse publish olgeni github
+DOWNLOAD_GROUPS=	main olgeni github
 SITES[main]=		https://fossies.org/linux/misc/
 			https://erlang.org/download/
-SITES[erlangse]=	http://www.erlang.se/doc/
-SITES[publish]=		http://www.erlang.se/publications/
 SITES[olgeni]=		FREELOCAL/olgeni
 SITES[github]=		GITHUB/erlang:otp:OTP-${PORTVERSION}
 DISTFILE[1]=		generated:github
 DISTFILE[2]=		otp_doc_man_${DOC_RELEASE}.tar.gz:main
 DISTFILE[3]=		otp_doc_html_${DOC_RELEASE}.tar.gz:main
-DISTFILE[4]=		bjarnelic.pdf:publish
-DISTFILE[5]=		mnesia_overview.pdf:publish
-DISTFILE[6]=		programming_rules.pdf:erlangse
-DISTFILE[7]=		master_thesis_patterns.pdf:olgeni
-DISTFILE[8]=		armstrong_thesis_2003.pdf:olgeni
-DISTFILE[9]=		erlang-book-part1.pdf:main
+DISTFILE[4]=		master_thesis_patterns.pdf:olgeni
+DISTFILE[5]=		armstrong_thesis_2003.pdf:olgeni
+DISTFILE[6]=		erlang-book-part1.pdf:main
 DIST_SUBDIR=		erlang
-DF_INDEX=		1 2 3 4 5 6 7 8 9
+DF_INDEX=		1 2 3 4 5 6
 
 SPKGS[standard]=	complete primary docs
 
@@ -277,8 +272,7 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/lib/dialyzer/doc/*.txt \
 		${STAGEDIR}${PREFIX}/lib/erlang/lib/dialyzer-*/doc/
 	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
-.for df in bjarnelic mnesia_overview programming_rules master_thesis_patterns \
-	armstrong_thesis_2003 erlang-book-part1
+.for df in master_thesis_patterns armstrong_thesis_2003 erlang-book-part1
 	${INSTALL_DATA} ${DISTDIR}/${DIST_SUBDIR}/${df}.pdf ${STAGEDIR}/${STD_DOCDIR}
 .endfor
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/erlang/lib/odbc-*
