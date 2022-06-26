@@ -1,6 +1,6 @@
---- src/main/Makefile.in.orig	2021-04-19 22:02:06 UTC
+--- src/main/Makefile.in.orig	2022-03-24 23:02:06 UTC
 +++ src/main/Makefile.in
-@@ -113,7 +113,7 @@ libR_la_LIBADD =  $(MAIN_OBJS) $(EXTRA_S
+@@ -114,7 +114,7 @@ libR_la_LIBADD =  $(MAIN_OBJS) $(EXTRA_S
  libR_la_DEPENDENCIES = $(STATIC_LIBS) $(R_TZONE) @WANT_R_SHLIB_TRUE@ @USE_EXPORTFILES_TRUE@ $(top_builddir)/etc/R.exp
  
  ## The next is needed for macOS only at present
@@ -9,7 +9,7 @@
  
  
  all: R
-@@ -203,6 +203,7 @@ install-bin: installdirs
+@@ -204,6 +204,7 @@ install-bin: installdirs
  install-lib: installdirs
  	@$(MKINSTALLDIRS) "$(DESTDIR)$(Rexeclibdir)"
  	@$(SHELL) $(top_srcdir)/tools/copy-if-change $(libR_la) "$(DESTDIR)$(Rexeclibdir)/$(libR_la)"
