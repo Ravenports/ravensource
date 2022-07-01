@@ -29,22 +29,14 @@ https://github.com/lxml/lxml/tarball/lxml-4.9#egg=lxml-4.9bugfix
 as soon as a maintenance branch has been established.  Note that this
 requires Cython to be installed at an appropriate version for the build.
 
-4.9.0 (2022-06-01)
+4.9.1 (2022-07-01)
 ==================
 
 Bugs fixed
 ----------
 
-* GH#341: The mixin inheritance order in ``lxml.html`` was corrected.
-  Patch by xmo-odoo.
-
-Other changes
--------------
-
-* Built with Cython 0.29.30 to adapt to changes in Python 3.11 and 3.12.
-
-* Wheels include zlib 1.2.12, libxml2 2.9.14 and libxslt 1.1.35
-  (libxml2 2.9.12+ and libxslt 1.1.34 on Windows).
-
-* GH#343: Windows-AArch64 build support in Visual Studio.
-  Patch by Steve Dower.
+* A crash was resolved when using ``iterwalk()`` (or ``canonicalize()``)
+  after parsing certain incorrect input.  Note that ``iterwalk()`` can
+crash
+  on *valid* input parsed with the same parser *after* failing to parse the
+  incorrect input.
