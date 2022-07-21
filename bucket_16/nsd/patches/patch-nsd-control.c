@@ -1,8 +1,8 @@
---- nsd-control.c.orig	2022-02-17 07:58:13 UTC
+--- nsd-control.c.orig	2022-05-13 06:56:14 UTC
 +++ nsd-control.c
-@@ -74,6 +74,10 @@ static void ssl_path_err(const char* s,
- /** timeout to wait for connection over stream, in msec */
- #define NSD_CONTROL_CONNECT_TIMEOUT 5000
+@@ -83,6 +83,10 @@ int zonec_parse_string(region_type* ATTR
+ 	return 0;
+ }
  
 +#ifndef AF_LOCAL
 +#define AF_LOCAL AF_UNIX
