@@ -209,7 +209,7 @@ ZLIB_VERSION=			1.2.12
 GHOSTSCRIPT_VERSION=		9.56.1
 SPHINX_UNDERSCORE=		1.13.1
 ANCIENT_UNDERSCORE=		1.3.1
-LATEST_JQUERY=			3.5.1
+LATEST_JQUERY=			3.6.0
 
 # ------------------------------------------------------------------------
 # Gnatcross options
