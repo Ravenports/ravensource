@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	0.3.7
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-profvis
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		standard
+SDESC[standard]=	Interactive Visualizations for Profiling R Code
+HOMEPAGE=		https://rstudio.github.io/profvis/
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+DISTFILE[1]=		profvis_0.3.7.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => GPL-3 | file LICENSE
+
+USES=			cran gmake
+DISTNAME=		profvis
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-htmlwidgets:single:standard
+			R-stringr:single:standard
+
+
