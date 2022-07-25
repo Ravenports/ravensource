@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.51
+DEF[PORTVERSION]=	1.52
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Finance-Quote
@@ -47,11 +47,14 @@ DISTNAME=		Finance-Quote-${PORTVERSION}
 # |      runtime : HTTP::Request
 # |      runtime : HTTP::Request::Common
 # |      runtime : HTTP::Status
+# |      runtime : IO::Handle (perl 5.32 core) (perl 5.34 core)
 # |      runtime : IO::Uncompress::Unzip (perl 5.32 core) (perl 5.34 core)
 # |      runtime : JSON
+# |      runtime : LWP::Protocol::https
 # |      runtime : LWP::Simple
 # |      runtime : LWP::UserAgent
 # |      runtime : Module::Load (perl 5.32 core) (perl 5.34 core)
+# |      runtime : Mozilla::CA
 # |      runtime : POSIX (perl 5.32 core) (perl 5.34 core)
 # |      runtime : Scalar::Util (perl 5.32 core) (perl 5.34 core)
 # |      runtime : Spreadsheet::XLSX
@@ -76,17 +79,12 @@ DISTNAME=		Finance-Quote-${PORTVERSION}
 # |         test : DateTime::Duration
 # |         test : DateTime::Format::ISO8601
 # |         test : File::Spec (perl 5.32 core) (perl 5.34 core)
-# |         test : HTML::TokeParser::Simple
-# |         test : HTML::TreeBuilder::XPath
-# |         test : Scalar::Util (perl 5.32 core) (perl 5.34 core)
-# |         test : Spreadsheet::XLSX
+# |         test : String::Util
 # |         test : Test::Kwalitee
 # |         test : Test::More (perl 5.32 core) (perl 5.34 core)
 # |         test : Test::Perl::Critic
 # |         test : Test::Pod
 # |         test : Test::Pod::Coverage
-# |         test : Time::Piece (perl 5.32 core) (perl 5.34 core)
-# |         test : Web::Scraper
 # |         test : feature (perl 5.32 core) (perl 5.34 core)
 
 [PERL_532].USES_ON=			perl:532,configure
@@ -100,7 +98,9 @@ DISTNAME=		Finance-Quote-${PORTVERSION}
 					perl-HTTP-Cookies:single:532
 					perl-HTTP-Message:single:532
 					perl-JSON:single:532
+					perl-LWP-Protocol-https:single:532
 					perl-libwww-perl:single:532
+					perl-Mozilla-CA:single:532
 					perl-Spreadsheet-XLSX:single:532
 					perl-String-Util:single:532
 					perl-Text-Template:single:532
@@ -118,7 +118,9 @@ DISTNAME=		Finance-Quote-${PORTVERSION}
 					perl-HTTP-Cookies:single:534
 					perl-HTTP-Message:single:534
 					perl-JSON:single:534
+					perl-LWP-Protocol-https:single:534
 					perl-libwww-perl:single:534
+					perl-Mozilla-CA:single:534
 					perl-Spreadsheet-XLSX:single:534
 					perl-String-Util:single:534
 					perl-Text-Template:single:534
