@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.1.2
+DEF[PORTVERSION]=	2.2.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-Werkzeug
@@ -11,7 +11,7 @@ HOMEPAGE=		https://palletsprojects.com/p/werkzeug/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/c4/44/f50f2d22cdfb6d56c03d1b4cc3cfa03ebee2f21b59a7768f151e43415ba5
+SITES[main]=		PYPIWHL/d3/63/0e4cb01bc4fe5c62ce63587c9471645afdb8a1a3dc2fa1fe2b6a3fbb78f5
 DISTFILE[1]=		Werkzeug-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py39]=		single
@@ -29,10 +29,13 @@ GENERATED=		yes
 DISTNAME=		Werkzeug-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
+# MarkupSafe (>=2.1.1)
 # watchdog ; extra == 'watchdog'
 
 [PY39].USES_ON=				python:py39,wheel
+[PY39].RUN_DEPENDS_ON=			python-MarkupSafe:single:py39
 [PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-MarkupSafe:single:py310
 
 USES=			cpe
 CPE_VENDOR=		palletsprojects

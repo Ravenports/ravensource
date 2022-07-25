@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.11.6
+DEF[PORTVERSION]=	2.12.2
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-astroid
@@ -7,11 +7,11 @@ KEYWORDS=		python
 VARIANTS=		py39 py310
 SDESC[py39]=		Abstract syntax tree with inference support (3.9)
 SDESC[py310]=		Abstract syntax tree with inference support (3.10)
-HOMEPAGE=		https://github.com/PyCQA/astroid
+HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/b6/38/1b2188bea6b5346ea2f97f063c99fdadb36707a7b3a95ff4fe73e242c33c
+SITES[main]=		PYPIWHL/1e/af/aa89620229ed5871cfab8fcb2abd25fac310f474b4fe37cf272d1d174704
 DISTFILE[1]=		astroid-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py39]=		single
@@ -31,17 +31,14 @@ DISTNAME=		astroid-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 # lazy-object-proxy (>=1.4.0)
 # wrapt (<2,>=1.11)
-# setuptools (>=20.0)
 # typed-ast (<2.0,>=1.4.0) ; implementation_name == "cpython" and python_version < "3.8"
 # typing-extensions (>=3.10) ; python_version < "3.10"
 
 [PY39].USES_ON=				python:py39,wheel
 [PY39].RUN_DEPENDS_ON=			python-lazy-object-proxy:single:py39
 					python-wrapt:single:py39
-					python-setuptools:single:py39
 					python-typing-extensions:single:py39
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-lazy-object-proxy:single:py310
 					python-wrapt:single:py310
-					python-setuptools:single:py310
 
