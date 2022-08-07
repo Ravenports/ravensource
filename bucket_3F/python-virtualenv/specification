@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	20.15.1
+DEF[PORTVERSION]=	20.16.3
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-virtualenv
@@ -11,7 +11,7 @@ HOMEPAGE=		https://virtualenv.pypa.io/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/6f/43/df7c7b1b7a5ac4e41fac24c3682c1cc32f2c1d683d308bba2500338d1e3e
+SITES[main]=		PYPIWHL/c2/d2/e80b6ad57bc0727fe0bbe7d9c496bde4ef3008e57f452ed1bfafe6618d04
 DISTFILE[1]=		virtualenv-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py39]=		single
@@ -29,39 +29,35 @@ GENERATED=		yes
 DISTNAME=		virtualenv-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# distlib (<1,>=0.3.1)
-# filelock (<4,>=3.2)
-# platformdirs (<3,>=2)
-# six (<2,>=1.9.0)
-# pathlib2 (<3,>=2.3.3) ; python_version < "3.4" and sys_platform != "win32"
-# importlib-resources (>=1.0) ; python_version < "3.7"
-# importlib-metadata (>=0.12) ; python_version < "3.8"
-# proselint (>=0.10.2) ; extra == 'docs'
-# sphinx (>=3) ; extra == 'docs'
-# sphinx-argparse (>=0.2.5) ; extra == 'docs'
-# sphinx-rtd-theme (>=0.4.3) ; extra == 'docs'
-# towncrier (>=21.3) ; extra == 'docs'
-# coverage (>=4) ; extra == 'testing'
+# distlib (<1,>=0.3.5)
+# filelock (<4,>=3.4.1)
+# platformdirs (<3,>=2.4)
+# importlib-resources (>=5.4) ; python_version < "3.7"
+# importlib-metadata (>=4.8.3) ; python_version < "3.8"
+# proselint (>=0.13) ; extra == 'docs'
+# sphinx (>=5.1.1) ; extra == 'docs'
+# sphinx-argparse (>=0.3.1) ; extra == 'docs'
+# sphinx-rtd-theme (>=1) ; extra == 'docs'
+# towncrier (>=21.9) ; extra == 'docs'
+# coverage (>=6.2) ; extra == 'testing'
 # coverage-enable-subprocess (>=1) ; extra == 'testing'
-# flaky (>=3) ; extra == 'testing'
-# pytest (>=4) ; extra == 'testing'
+# flaky (>=3.7) ; extra == 'testing'
+# packaging (>=21.3) ; extra == 'testing'
+# pytest (>=7.0.1) ; extra == 'testing'
 # pytest-env (>=0.6.2) ; extra == 'testing'
-# pytest-freezegun (>=0.4.1) ; extra == 'testing'
-# pytest-mock (>=2) ; extra == 'testing'
-# pytest-randomly (>=1) ; extra == 'testing'
-# pytest-timeout (>=1) ; extra == 'testing'
-# packaging (>=20.0) ; (python_version > "3.4") and extra == 'testing'
+# pytest-freezegun (>=0.4.2) ; extra == 'testing'
+# pytest-mock (>=3.6.1) ; extra == 'testing'
+# pytest-randomly (>=3.10.3) ; extra == 'testing'
+# pytest-timeout (>=2.1) ; extra == 'testing'
 
 [PY39].USES_ON=				python:py39,wheel
 [PY39].RUN_DEPENDS_ON=			python-distlib:single:py39
 					python-filelock:single:py39
 					python-platformdirs:single:py39
-					python-six:single:py39
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-distlib:single:py310
 					python-filelock:single:py310
 					python-platformdirs:single:py310
-					python-six:single:py310
 
 USES=			cpe
 CPE_VENDOR=		python
