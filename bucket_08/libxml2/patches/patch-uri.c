@@ -12,7 +12,7 @@ bogus values when called with URIs that have rootless paths
 (e.g. "urx:b:b" becomes "urx://b%3Ab" where "urx:b%3Ab" would be
 correct)
 
---- uri.c.orig	2022-02-12 15:36:48 UTC
+--- uri.c.orig	2022-05-02 10:52:43 UTC
 +++ uri.c
 @@ -1207,6 +1207,8 @@ xmlSaveUri(xmlURIPtr uri) {
                  if (temp == NULL) goto mem_error;
