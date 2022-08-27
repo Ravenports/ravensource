@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.15
+DEF[PORTVERSION]=	1.16
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Astro-FITS-CFITSIO
@@ -23,7 +23,7 @@ VOPTS[532]=		PERL_532=ON PERL_534=OFF
 VOPTS[534]=		PERL_532=OFF PERL_534=ON
 
 # License listed in CPAN directory:
-# unknown
+# perl_5
 
 GENERATED=		yes
 SINGLE_JOB=		yes
@@ -33,9 +33,15 @@ DISTNAME=		Astro-FITS-CFITSIO-${PORTVERSION}
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
 # |        build : ExtUtils::MakeMaker (perl 5.32 core) (perl 5.34 core)
+# |    configure : Alien::Base::Wrapper
+# |    configure : Alien::CFITSIO
 # |    configure : ExtUtils::MakeMaker (perl 5.32 core) (perl 5.34 core)
 
 [PERL_532].USES_ON=			perl:532,configure
+[PERL_532].BUILD_DEPENDS_ON=		perl-Alien-Build:single:532
+					perl-Alien-CFITSIO:single:532
 [PERL_534].USES_ON=			perl:534,configure
+[PERL_534].BUILD_DEPENDS_ON=		perl-Alien-Build:single:534
+					perl-Alien-CFITSIO:single:534
 
 BUILDRUN_DEPENDS=	cfitsio:primary:standard
