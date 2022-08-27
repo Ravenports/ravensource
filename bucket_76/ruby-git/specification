@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.11.0
+DEF[PORTVERSION]=	1.12.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-git
@@ -13,7 +13,7 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		git-1.11.0.gem:main
+DISTFILE[1]=		git-1.12.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v27]=		single
@@ -30,22 +30,26 @@ VOPTS[v31]=		RUBY27=OFF RUBY30=OFF RUBY31=ON
 # => "MIT"
 
 # Requirements according to gem specification:
+#   addressable (~> 2.8)
 #   rchardet (~> 1.8)
 #   bump (~> 0.10, development)
 #   minitar (~> 0.9, development)
 #   rake (~> 13.0, development)
 #   test-unit (~> 3.3, development)
 #   redcarpet (~> 3.5, development)
-#   yard (~> 0.9, development)
+#   yard (~> 0.9, >= 0.9.28, development)
 #   yardstick (~> 0.9, development)
 
 DISTNAME=		git-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY27].USES_ON=			gem:v27
-[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-rchardet:single:v27
+[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-addressable:single:v27
+					ruby-rchardet:single:v27
 [RUBY30].USES_ON=			gem:v30
-[RUBY30].BUILDRUN_DEPENDS_ON=		ruby-rchardet:single:v30
+[RUBY30].BUILDRUN_DEPENDS_ON=		ruby-addressable:single:v30
+					ruby-rchardet:single:v30
 [RUBY31].USES_ON=			gem:v31
-[RUBY31].BUILDRUN_DEPENDS_ON=		ruby-rchardet:single:v31
+[RUBY31].BUILDRUN_DEPENDS_ON=		ruby-addressable:single:v31
+					ruby-rchardet:single:v31
 
