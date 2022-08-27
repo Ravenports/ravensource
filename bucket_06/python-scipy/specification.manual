@@ -5,3 +5,6 @@ BUILDRUN_DEPENDS=	lapack:lapack:standard
 INSTALL_REQ_TOOLCHAIN=	yes
 USES=			shebangfix
 SHEBANG_GLOB=		test_gcrotmk.py
+
+post-install:
+	${RMDIR} ${STAGEDIR}${PYTHON_SITELIBDIR}/scipy/linalg/src/lapack_deprecations
