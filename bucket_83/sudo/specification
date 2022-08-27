@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.9.11p3
 
 NAMEBASE=		sudo
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Allows restricted root access for specified users
@@ -21,7 +22,7 @@ OPTIONS_STANDARD=	none
 
 LICENSE=		CUSTOM1:primary
 LICENSE_NAME=		CUSTOM1:"Sudo License"
-LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/doc/LICENSE
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.md
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/sudo
@@ -35,6 +36,7 @@ CPE_VENDOR=		todd_miller
 INSTALL_REQ_TOOLCHAIN=	yes
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--sysconfdir={{PREFIX}}/etc
+			--with-rundir=/var/run/sudo
 			--with-exampledir={{PREFIX}}/share/examples/sudo
 			--with-ignore-dot
 			--with-tty-tickets
@@ -70,6 +72,9 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/sudoreplay
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/cvtsudoers
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/sbin/visudo
-.for f in group_file.so libsudo_util.so sudoers.so system_group.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/sbin/sudo_logsrvd
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/sbin/sudo_sendlog
+.for f in group_file.so libsudo_util.so sudoers.so system_group.so \
+	audit_json.so sample_approval.so sudo_intercept.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/sudo/${f}
 .endfor
