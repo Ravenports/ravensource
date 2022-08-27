@@ -1,5 +1,23 @@
 --- deps/v8/src/base/platform/platform-posix.cc.orig	2022-06-16 12:18:00 UTC
 +++ deps/v8/src/base/platform/platform-posix.cc
+@@ -68,7 +68,7 @@
+ #include <sys/syscall.h>
+ #endif
+ 
+-#if V8_OS_FREEBSD || V8_OS_DARWIN || V8_OS_OPENBSD || V8_OS_SOLARIS
++#if V8_OS_FREEBSD || V8_OS_DARWIN || V8_OS_OPENBSD || V8_OS_SOLARIS || V8_OS_DRAGONFLYBSD
+ #define MAP_ANONYMOUS MAP_ANON
+ #endif
+ 
+@@ -149,7 +149,7 @@ int GetFlagsForMemoryPermission(OS::Memo
+   int flags = MAP_ANONYMOUS;
+   flags |= (page_type == PageType::kShared) ? MAP_SHARED : MAP_PRIVATE;
+   if (access == OS::MemoryPermission::kNoAccess) {
+-#if !V8_OS_AIX && !V8_OS_FREEBSD && !V8_OS_QNX
++#if !V8_OS_AIX && !V8_OS_FREEBSD && !V8_OS_QNX && !V8_OS_DRAGONFLYBSD
+     flags |= MAP_NORESERVE;
+ #endif  // !V8_OS_AIX && !V8_OS_FREEBSD && !V8_OS_QNX
+ #if V8_OS_QNX
 @@ -1000,8 +1000,13 @@ Thread::Thread(const Options& options)
      : data_(new PlatformData),
        stack_size_(options.stack_size()),
@@ -14,7 +32,12 @@
    set_name(options.name());
  }
  
-@@ -1016,7 +1021,7 @@ static void SetThreadName(const char* na
+@@ -1012,11 +1017,11 @@ Thread::~Thread() {
+ 
+ 
+ static void SetThreadName(const char* name) {
+-#if V8_OS_DRAGONFLYBSD || V8_OS_FREEBSD || V8_OS_OPENBSD
++#if V8_OS_DRAGONFLYBSD || V8_OS_FREEBSD || V8_OS_OPENBSD || V8_OS_DRAGONFLYBSD
    pthread_set_name_np(pthread_self(), name);
  #elif V8_OS_NETBSD
    STATIC_ASSERT(Thread::kMaxThreadNameLength <= PTHREAD_MAX_NAMELEN_NP);
