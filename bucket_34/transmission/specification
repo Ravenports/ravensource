@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	3.00
 
 NAMEBASE=		transmission
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net_p2p
 VARIANTS=		standard daemon gtk qt web
 SDESC[standard]=	Lightweight BitTorrent client (CLI client)
@@ -89,12 +90,6 @@ CMAKE_ARGS=		-DENABLE_NLS:BOOL=ON
 					miniupnpc:single:standard
 [WEB].USES_OFF=				cpe cmake iconv pkgconfig ssl zlib
 					gettext-runtime
-
-post-patch:
-	# allow use of dht 0.26 (tranmission expects older 0.24)
-	${REINPLACE_CMD} -e 's|dht/dht.h|dht.h|' \
-		${WRKSRC}/cmake/FindDHT.cmake \
-		${WRKSRC}/libtransmission/tr-dht.c
 
 post-patch-WEB-ON:
 	${FIND} ${WRKSRC}/web \( \
