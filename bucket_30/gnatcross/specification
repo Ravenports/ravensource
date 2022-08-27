@@ -5,6 +5,8 @@ DEF[IDENTIFICATION]=	EXTRACT_INFO(GCC11_IDENTIFICATION)
 DEF[GCC_VERSION]=	EXTRACT_INFO(GCC11_VERSION)
 DEF[FREEBSD_11]=	EXTRACT_INFO(GNATCROSS_FREEBSD_11)
 DEF[FREEBSD_12]=	EXTRACT_INFO(GNATCROSS_FREEBSD_12)
+DEF[DRACO_TAG]=		11.3.0-rev1
+DEF[DRACO_DIR]=		patches-11.3.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnatcross
@@ -19,9 +21,16 @@ SDESC[SOL10]=		C/Ada cross-compiler, target: Solaris 10 (x86-64)
 HOMEPAGE=		http://www.dragonlace.net
 CONTACT=		John_Marino[draco@marino.st]
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main draco
 SITES[main]=		GCC/${MS_SUBDIR}
+SITES[draco]=		https://raw.githubusercontent.com/jrmarino/draco/${DRACO_TAG}/generated/${DRACO_DIR}/
 DISTFILE[1]=		${IDENTIFICATION}.tar.xz:main
+DISTFILE[2]=		patch-diff-ada:draco
+DISTFILE[3]=		patch-diff-core:draco
+DISTFILE[4]=		patch-diff-cxx:draco
+DISTFILE[5]=		patch-diff-ada-testsuite:draco
+DISTFILE[6]=		patch-diff-gcc-testsuite:draco
+DIST_SUBDIR=		gcc11_${DRACO_TAG}
 
 SPKGS[FARM64_R11]=	single
 SPKGS[FAMD64_R12]=	single
@@ -50,6 +59,8 @@ B_DEPS[darwin]=		libiconv:static:standard
 BUILD_DEPENDS=		gmp:static:standard
 			mpfr:static:standard
 			mpc:static:standard
+
+PATCHFILES=		2 3 4 5 6
 
 # Do not set MUST_CONFIGURE to gnu (avoid LATE_CONFIGURE_ARGS)
 
