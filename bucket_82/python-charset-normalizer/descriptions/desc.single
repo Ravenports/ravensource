@@ -34,11 +34,12 @@ Detector**, also known as **Chardet**.
 | `Universal**`     | ❌            | ✅                 | ❌ |
 | `Reliable` **without** distinguishable standards | ❌ | ✅ | ✅ |
 | `Reliable` **with** distinguishable standards | ✅ | ✅ | ✅ |
-| `Free & Open`  | ✅             | ✅                | ✅ |
-| `License` | LGPL-2.1 | MIT | MPL-1.1
+| `License` | LGPL-2.1<br>_restrictive_ | MIT | MPL-1.1<br>_restrictive_ |
 | `Native Python` | ✅ | ✅ | ❌ |
 | `Detect spoken language` | ❌ | ✅ | N/A |
-| `Supported Encoding` | 30 | :tada: [93]  | 40
+| `UnicodeDecodeError Safety` | ❌ | ✅ | ❌ |
+| `Whl Size` | 193.6 kB | 39.5 kB | ~200 kB |
+| `Supported Encoding` | 33 | :tada: [93]  | 40
 
 <p align="center">
 [image][image]
@@ -61,7 +62,7 @@ are some numbers.
 |
 | ------------- | :-------------: | :------------------: |
 :------------------: |
-|      [chardet]        |     92 %     |     200 ms      |       5 file/sec
+|      [chardet]        |     86 %     |     200 ms      |       5 file/sec
        |
 | charset-normalizer |    **98 %**     |     **39 ms**      |       26
 file/sec    |
@@ -83,6 +84,9 @@ details on used files, see GHA workflows.
 updated to include more files.
 > The actual delays heavily depends on your CPU capabilities. The factors
 should remain the same.
+> Keep in mind that the stats are generous and that Chardet accuracy vs our
+is measured using Chardet initial capability
+> (eg. Supported Encoding) Challenge-them if you want.
 
 [cchardet] is a non-native (cpp binding) and unmaintained faster
 alternative with 
@@ -94,7 +98,3 @@ most important factor, you should try it.
 Using PyPi for latest stable
 ```sh
 pip install charset-normalizer -U
-```
-
-If you want a more up-to-date `unicodedata` than the one available in your
-Python setup.
