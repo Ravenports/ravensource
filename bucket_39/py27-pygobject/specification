@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	3.36.1
 
 NAMEBASE=		py27-pygobject
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		python devel
 VARIANTS=		standard
 SDESC[standard]=	Python bindings for GObject (PY 27)
@@ -31,6 +32,7 @@ RUN_DEPENDS=		gobject-introspection:single:standard
 USES=			gmake libtool pkgconfig meson python:py27
 GNOME_COMPONENTS=	introspection
 MESON_ARGS=		-Dpython=python{{PYTHON_VER}}
+			-Dtests=false
 INSTALL_TARGET=		install-strip
 DISTNAME=		pygobject-${PORTVERSION}
 
