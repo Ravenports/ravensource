@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.72.0
 
 NAMEBASE=		gobject-introspection
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Introspection data generator for GObject libraries
@@ -32,7 +33,8 @@ BUILDRUN_DEPENDS=	libffi:single:standard
 
 USES=			bison meson pkgconfig shebangfix python
 GNOME_COMPONENTS=	glib
-CONFIGURE_ARGS=		-Dpython={{PYTHON}}
+CONFIGURE_ARGS=		-Dpython={{PYTHON_CMD}}
+			-Ddoctool=disabled
 MAKE_ENV=		HOME={{WRKDIR}}
 INSTALL_TARGET=		install-strip
 SHEBANG_FILES=		misc/update-gtkdoc-tests.py
@@ -41,8 +43,9 @@ SHEBANG_FILES=		misc/update-gtkdoc-tests.py
 			tests/gi-tester
 
 pre-configure:
-	${REINPLACE_CMD} -e 's|python@0@|python${PYTHON_VER}|' \
+	${REINPLACE_CMD} -e 's|%%PYTHON_CMD%%|${PYTHON_CMD}|' \
 		${WRKSRC}/tools/meson.build
+	# ${REINPLACE_CMD} -e "/'tests'/d" ${WRKSRC}/meson.build
 
 post-install:
 	# remove artifacts from doctemplates fix
