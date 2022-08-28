@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.2.0
 
 NAMEBASE=		glew
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	OpenGL Extension Wrangler Library
@@ -24,7 +25,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/glew
 
-USES=			gmake mesa zlib
+BUILDRUN_DEPENDS=	libglvnd:single:standard
+
+USES=			gmake zlib
 XORG_COMPONENTS=	x11
 MAKE_ENV=		GLEW_DEST={{PREFIX}}
 			GLEW_PREFIX={{PREFIX}}
