@@ -5,6 +5,7 @@ DEF[BINS]=		CallbackMaker Fractals Fractals_random Lorenz One Resizer multi-touc
 
 NAMEBASE=		freeglut
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	FOSS implementation of the GLUT library
@@ -27,8 +28,9 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		graphics/freeglut
 
 BUILDRUN_DEPENDS=	libGLU:single:standard
+			libglvnd:single:standard
 
-USES=			cmake:insource mesa
+USES=			cmake:insource
 XORG_COMPONENTS=	ice x11 xi xrandr
 INSTALL_TARGET=		install/strip
 SOVERSION=		${SOVERSION}
