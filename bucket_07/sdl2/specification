@@ -4,6 +4,7 @@ DEF[SOVERSION]=		0.22.0
 
 NAMEBASE=		sdl2
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Cross-platform multimedia development API
@@ -71,7 +72,7 @@ CONFIGURE_ARGS=		--disable-video-opengles
 SOVERSION=		${SOVERSION}
 
 [OPENGL].CONFIGURE_ENABLE_BOTH=		video-opengl
-[OPENGL].USES_ON=			mesa
+[OPENGL].BUILDRUN_DEPENDS_ON=		libglvnd:single:standard
 
 # [PULSEAUDIO].CONFIGURE_ENABLE_BOTH=	pulseaudio pulseaudio-shared
 # [PULSEAUDIO].BUILDRUN_DEPENDS_ON=	pulseaudio:single:standard

@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.2.15
 
 NAMEBASE=		sdl1
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Cross-platform multimedia development API
@@ -54,7 +55,7 @@ CONFIGURE_ARGS=		--disable-alsa
 [AALIB].BUILDRUN_DEPENDS_ON=		aalib:single:standard
 
 [OPENGL].CONFIGURE_ENABLE_BOTH=		video-opengl
-[OPENGL].USES_ON=			mesa
+[OPENGL].BUILDRUN_DEPENDS_ON=		libglvnd:single:standard
 
 # [NAS].CONFIGURE_ENABLE_BOTH=		nas
 # [NAS].BUILDRUN_DEPENDS_ON=		nas:single:standard
