@@ -5,6 +5,7 @@ DEF[SOMINOR]=		${PORTVERSION:R:E}
 
 NAMEBASE=		sfml
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel multimedia
 VARIANTS=		standard
 SDESC[standard]=	Simple Fast Multimedia Library
@@ -26,7 +27,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/sfml
 
-USES=			cmake mesa jpeg
+USES=			cmake jpeg
 CMAKE_ARGS=		-DSFML_INSTALL_PKGCONFIG_FILES=ON
 			-DSFML_USE_SYSTEM_DEPS=ON
 XORG_COMPONENTS=	x11 xrandr
@@ -34,6 +35,7 @@ BUILDRUN_DEPENDS=	flac:primary:standard
 			freetype:primary:standard
 			libogg:primary:standard
 			libvorbis:primary:standard
+			libglvnd:single:standard
 			openal:single:standard
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		SOMINOR=${SOMINOR}
