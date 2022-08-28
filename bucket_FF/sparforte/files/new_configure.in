@@ -7,6 +7,7 @@ SETPGSQL=@SETPGSQL@
 SETSOUND=@SETSOUND@
 SETPCRE=@SETPCRE@
 SETGL=@SETGL@
+SETL10N=@SETL10N@
 
 CCTYPE=ada
 CPUTYPE="@ARCH@"
@@ -40,6 +41,8 @@ APQINCLSSUB=
 PCRELIBSSUB=
 PCREOBJSUB=
 PCREFLAG=
+L10NLIBS=
+L10NFLAG=
 
 if [ "${SETAPQ}" = "ON" ]; then
   APQ="apq-2.1"
@@ -80,8 +83,13 @@ if [ "${SETGL}" = "ON" ]; then
 fi
 
 if [ "${SETPCRE}" = "ON" ]; then
-    PCRELIBSSUB=-lpcre
-    PCREOBJSUB=c_pcre.o
+   PCRELIBSSUB="-lpcre"
+   PCREOBJSUB="c_pcre.o"
+fi
+
+if [ "${SETL10N}" = "ON" ]; then
+   L10NLIBS="c_l10n.o"
+   L10NFLAG=1
 fi
 
 echo "Creating GNUmakefile"
@@ -124,6 +132,8 @@ echo "Creating src/GNUmakefile"
  -e "s|PCRELIBSSUB|${PCRELIBSSUB}|g" \
  -e "s|PCREOBJSUB|${PCREOBJSUB}|g" \
  -e "s|PCREFLAG|${PCREFLAG}|g" \
+ -e "s|L10NFLAGSUB|${L10NFLAG}|g" \
+ -e "s|L10NLIBSSUB|${L10NLIBS}|g" \
  src/GNUmakefile.orig > src/GNUmakefile
 
 echo "Creating src/bdb/GNUmakefile"

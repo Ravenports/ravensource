@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.4.1
+DEF[PORTVERSION]=	2.5
 DEF[TAG]=		v${PORTVERSION}
 DEF[SF_SRC]=		{{WRKSRC}}/src
 DEF[SCAL]=		scanner-calendar
@@ -18,12 +18,12 @@ DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete primary examples docs
 
-OPTIONS_AVAILABLE=	CGI OPENGL SOUND MYSQL PGSQL PCRE
-OPTIONS_STANDARD=	CGI OPENGL SOUND MYSQL PGSQL PCRE
+OPTIONS_AVAILABLE=	CGI OPENGL SOUND MYSQL PGSQL PCRE L10N
+OPTIONS_STANDARD=	CGI OPENGL SOUND MYSQL PGSQL PCRE L10N
 OPTGROUP_RESTRICTED=	DBASE
 OPTDESCR[DBASE]=	Databases supported
 OPTGROUP[DBASE]=	MYSQL PGSQL
-OPT_ON[all]=		MYSQL PGSQL OPENGL SOUND PCRE
+OPT_ON[all]=		MYSQL PGSQL OPENGL SOUND PCRE L10N
 
 LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
@@ -69,7 +69,7 @@ VAR_ARCH[i386]=		MAKEFILE_LINE=CPU_SDL=spar_os-sdl-32bit
 					SFARG+=-DPOSTGRES=true
 [PGSQL].MAKEFILE_OFF=			SFARG+=-DPOSTGRES=false
 
-[OPENGL].USES_ON=			mesa
+[OPENGL].BUILDRUN_DEPENDS_ON=		libglvnd:single:standard
 [OPENGL].MAKEFILE_ON=			SETGL=ON
 					SFARG+=-DOPENGL=true
 [OPENGL].MAKEFILE_OFF=			SFARG+=-DOPENGL=false
@@ -86,6 +86,11 @@ VAR_ARCH[i386]=		MAKEFILE_LINE=CPU_SDL=spar_os-sdl-32bit
 					SFARG+=-DPCRE=true
 [PCRE].MAKEFILE_OFF=			SFARG+=-DPCRE=false
 
+[L10N].DESCRIPTION=			Build with localization support
+[L10N].MAKEFILE_ON=			SETL10N=ON
+					SFARG+=-DL10N=true
+[L10N].MAKEFILE_OFF=			SFARG+=-DL10N=false
+
 post-extract:
 	# Create a compact configure script for ports collection
 	${SED} -e "s|@CPU_FLAG@|${SF_CPU_FLAG}|" \
@@ -99,6 +104,7 @@ post-extract:
 		-e "s|@SETSOUND@|${SETSOUND}|" \
 		-e "s|@SETGL@|${SETGL}|" \
 		-e "s|@SETPCRE@|${SETPCRE}|" \
+		-e "s|@SETL10N@|${SETL10N}|" \
 		-e "s|@SED@|${SED}|" \
 		-e "s|@OPENSSLLIB@|${OPENSSLLIB}|g" \
 		${FILESDIR}/new_configure.in > ${WRKSRC}/new_configure
@@ -150,8 +156,8 @@ post-configure:
 	done
 
 post-install:
-	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
-	@${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/spar
 	(cd ${WRKSRC}/doc && ${COPYTREE_SHARE} \* ${STAGEDIR}${STD_DOCDIR})
 	${MV} ${WRKSRC}/examples/incomplete ${WRKDIR}/

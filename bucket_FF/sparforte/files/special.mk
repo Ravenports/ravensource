@@ -6,14 +6,15 @@ PREPFILES= \
 	parser_dbm.adb \
 	parser_gnat_cgi.adb \
 	parser_hash_io.adb \
+	parser_l10n.adb \
 	parser_mysql.adb \
 	parser_mysqlm.adb \
 	parser_pen.adb \
 	parser_sound.adb \
 	parser_strings_pcre.adb \
+	pegasoft-user_io-getline.adb \
 	scanner_res.adb \
 	scanner_res.ads \
-	user_io-getline.adb \
 	world.ads
 
 .if ${SETMYSQL} == "ON" || ${SETPGSQL} == "ON"
