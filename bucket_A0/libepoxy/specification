@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.5.10
 
 NAMEBASE=		libepoxy
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	OpenGL function pointer management library
@@ -26,7 +27,9 @@ FPC_EQUIVALENT=		graphics/libepoxy
 
 B_DEPS[sunos]=		libbsd4sol:single:standard
 
-USES=			mesa meson pkgconfig python:build
+BUILDRUN_DEPENDS=	libglvnd:single:standard
+
+USES=			meson pkgconfig python:build
 XORG_COMPONENTS=	x11
 
 VAR_OPSYS[sunos]=	CFLAGS=-I{{LOCALBASE}}/include/bsd
