@@ -5,6 +5,7 @@ DEF[SOMINOR]=		${SOVERSION:R:E}
 
 NAMEBASE=		irrlicht
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	High performance realtime 3D engine
@@ -26,7 +27,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11-toolkits/irrlicht
 
-USES=			c++:single cclibs:single dos2unix gmake jpeg mesa png bz2
+BUILDRUN_DEPENDS=	libglvnd:single:standard
+
+USES=			c++:single cclibs:single dos2unix gmake jpeg png bz2
 DOS2UNIX_GLOB=		Makefile
 			*.cpp
 			*.h
