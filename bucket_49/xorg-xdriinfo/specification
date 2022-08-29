@@ -5,6 +5,7 @@ DEF[ALTNAME]=		xdriinfo
 
 NAMEBASE=		xorg-${XNAME}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11
 VARIANTS=		standard
 SDESC[standard]=	Query configuration information of DRI drivers
@@ -25,7 +26,8 @@ LICENSE=		MIT:single
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-USES=			mesa
+BUILDRUN_DEPENDS=	libglvnd:single:standard
+
 XORG_COMPONENTS=	x11
 DISTNAME=		${ALTNAME}-${PORTVERSION}
 MUST_CONFIGURE=		gnu
