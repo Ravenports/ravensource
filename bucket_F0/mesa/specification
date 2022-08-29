@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	22.1.2
 
 NAMEBASE=		mesa
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Mesa 3D Graphics Library
@@ -73,12 +74,16 @@ SOL_FUNCTIONS=		dirfd:src/util/disk_cache.c
 			strndup:src/gallium/drivers/radeonsi/si_debug.c
 MESON_ARGS=		-Dplatforms=x11{{WAYPLAT}}
 			-Dzstd=enabled
-			-Ddri3=true
+			-Ddri3=enabled
 			-Dgallium-drivers={{GALLIUM_DRIVERS:tW:tl:C/[[:space:]]/,/g}}
 			-Dgallium-vdpau=enabled
 			-Dosmesa=true
-			-Dlibunwind=false
+			-Dlibunwind=disabled
 			-Dgles1=disabled
+			-Dgles2=disabled
+			-Dglx=auto
+			-Dopengl=true
+			-Degl=disabled
 			-Dvulkan-drivers={{VULKAN_DRIVERS:tW:tl:C/[[:space:]]/,/g}}
 
 # There are issues that need to be fixed to use TLS model "initial-exec"
@@ -157,3 +162,7 @@ post-patch:
 	${REINPLACE_CMD} -e 's|/etc/|${PREFIX}/etc/|g' \
 		${WRKSRC}/src/util/xmlconfig.c
 
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/lib/libGL.so*
+	${RM} ${STAGEDIR}${PREFIX}/include/GL/g*.h
+	${RM} ${STAGEDIR}${PREFIX}/lib/pkgconfig/gl.pc
