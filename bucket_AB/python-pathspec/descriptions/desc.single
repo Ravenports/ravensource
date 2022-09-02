@@ -1,6 +1,6 @@
 
-*pathspec*: Path Specification
-==============================
+PathSpec
+========
 
 *pathspec* is a utility library for pattern matching of file paths. So
 far this only includes Git's wildmatch pattern matching which itself is
@@ -19,7 +19,7 @@ certain files, and ignore others depending on certain conditions::
 	>>> # The gitignore-style patterns for files to select, but we're
 including
 	>>> # instead of ignoring.
-	>>> spec = """
+	>>> spec_text = """
 	...
 	... # This is a comment because the line begins with a hash: "#"
 	...
@@ -54,27 +54,28 @@ PathSpec class provides an interface around pattern implementations::
 
 	>>> spec =
 pathspec.PathSpec.from_lines(pathspec.patterns.GitWildMatchPattern,
-spec.splitlines())
+spec_text.splitlines())
 
 That may be a mouthful but it allows for additional patterns to be
 implemented
 in the future without them having to deal with anything but matching the
 paths
 sent to them. GitWildMatchPattern is the implementation of the actual
-pattern which internally gets converted into a regular expression.
-PathSpec is a simple wrapper around a list of compiled patterns.
+pattern which internally gets converted into a regular expression. PathSpec
+is a simple wrapper around a list of compiled patterns.
 
 To make things simpler, we can use the registered name for a pattern class
 instead of always having to provide a reference to the class itself. The
 GitWildMatchPattern class is registered as **gitwildmatch**::
 
-	>>> spec = pathspec.PathSpec.from_lines('gitwildmatch', spec.splitlines())
+	>>> spec = pathspec.PathSpec.from_lines('gitwildmatch',
+spec_text.splitlines())
 
 If we wanted to manually compile the patterns we can just do the
 following::
 
 	>>> patterns = map(pathspec.patterns.GitWildMatchPattern,
-spec.splitlines())
+spec_text.splitlines())
 	>>> spec = PathSpec(patterns)
 
 ``PathSpec.from_lines()`` is simply a class method which does just that.
@@ -97,4 +98,3 @@ Or check to see if an individual file matches::
 
 	>>> is_matched = spec.match_file(file_path)
 
-License
