@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	8.0.1
+DEF[PORTVERSION]=	8.1.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-elastic-transport
@@ -13,7 +13,7 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		elastic-transport-8.0.1.gem:main
+DISTFILE[1]=		elastic-transport-8.1.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v27]=		single
@@ -30,18 +30,15 @@ VOPTS[v31]=		RUBY27=OFF RUBY30=OFF RUBY31=ON
 # => "Apache-2.0"
 
 # Requirements according to gem specification:
+#   faraday (< 3)
 #   multi_json (>= 0)
-#   faraday (~> 1)
+#   curb (>= 0, development)
 #   bundler (>= 0, development)
 #   cane (>= 0, development)
-#   curb (>= 0, development)
 #   hashie (>= 0, development)
-#   httpclient (>= 0, development)
 #   minitest (>= 0, development)
 #   minitest-reporters (>= 0, development)
 #   mocha (>= 0, development)
-#   net-http-persistent (>= 0, development)
-#   patron (>= 0, development)
 #   pry (>= 0, development)
 #   rake (~> 13, development)
 #   require-prof (>= 0, development)
@@ -49,19 +46,18 @@ VOPTS[v31]=		RUBY27=OFF RUBY30=OFF RUBY31=ON
 #   shoulda-context (>= 0, development)
 #   simplecov (>= 0, development)
 #   test-unit (~> 2, development)
-#   typhoeus (~> 1.4, development)
 #   yard (>= 0, development)
 
 DISTNAME=		elastic-transport-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY27].USES_ON=			gem:v27
-[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-multi_json:single:v27
-					ruby-faraday:single:v27
+[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-faraday:single:v27
+					ruby-multi_json:single:v27
 [RUBY30].USES_ON=			gem:v30
-[RUBY30].BUILDRUN_DEPENDS_ON=		ruby-multi_json:single:v30
-					ruby-faraday:single:v30
+[RUBY30].BUILDRUN_DEPENDS_ON=		ruby-faraday:single:v30
+					ruby-multi_json:single:v30
 [RUBY31].USES_ON=			gem:v31
-[RUBY31].BUILDRUN_DEPENDS_ON=		ruby-multi_json:single:v31
-					ruby-faraday:single:v31
+[RUBY31].BUILDRUN_DEPENDS_ON=		ruby-faraday:single:v31
+					ruby-multi_json:single:v31
 
