@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.3.0
+DEF[PORTVERSION]=	2.4.0
 DEF[VERSION]=		${PORTVERSION:S/./_/g}
 # ----------------------------------------------------------------------------
 
@@ -11,8 +11,8 @@ HOMEPAGE=		http://libharu.org
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://github.com/libharu/libharu/archive/
-DISTFILE[1]=		RELEASE_${VERSION}.tar.gz:main
+SITES[main]=		GITHUB/libharu:libharu:v${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
@@ -25,14 +25,22 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		print/libharu
 
-USES=			autoreconf dos2unix libtool zlib png
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-png=/raven
-			--with-zlib=/raven
-
-DISTNAME=		libharu-RELEASE_${VERSION}
-
+USES=			cmake dos2unix libtool zlib png
+CMAKE_ARGS=		-DLIBHPDF_STATIC=OFF
 SOVERSION=		${PORTVERSION}
 
 post-patch:
-		awk '/The license of Haru/{f=1;next} /Acknowledgment/{f=0} f' ${WRKSRC}/README > ${WRKDIR}/TERMS
+	awk '/The license of Haru/{f=1;next} /Acknowledgment/{f=0} f' ${WRKSRC}/README.md > ${WRKDIR}/TERMS
+
+pre-configure:
+	${REINPLACE_CMD} -e "/bindings/d" ${WRKSRC}/CMakeLists.txt
+	${REINPLACE_CMD} -e "s#add_library(haru#add_library(hpdf#" \
+		${WRKSRC}/src/CMakeLists.txt
+	${REINPLACE_CMD} -e "s#target_link_libraries (haru#target_link_libraries (hpdf#" \
+		${WRKSRC}/src/CMakeLists.txt
+
+post-stage:
+	${INSTALL_LIB} ${BUILD_WRKSRC}/src/lib* ${STAGEDIR}${PREFIX}/lib/
+	${RM} ${STAGEDIR}${PREFIX}/README.md
+	${RM} ${STAGEDIR}${PREFIX}/CHANGES
+	${RM} ${STAGEDIR}${PREFIX}/INSTALL
