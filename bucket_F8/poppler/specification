@@ -8,6 +8,7 @@ DEF[QT5_SOVERSION]=	1.31.0
 
 NAMEBASE=		poppler
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics print
 VARIANTS=		standard
 SDESC[standard]=	PDF rendering library
@@ -20,8 +21,8 @@ DISTFILE[1]=		poppler-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	complete primary cpp glib qt5 utils
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	INTROSPECTION
+OPTIONS_STANDARD=	INTROSPECTION
 
 LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
@@ -33,7 +34,6 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		graphics/poppler
 
 BUILD_DEPENDS=		cairo:single:standard
-			gobject-introspection:single:standard
 			qt5-qttools:single:standard
 			qt5-qtbase:primary:standard
 			boost-libraries:rest:python_used
@@ -71,6 +71,9 @@ PLIST_SUB=		CPP_SOVERSION=${CPP_SOVERSION}
 			GLIB_SOMAJOR=${GLIB_SOVERSION:R:R}
 SOVERSION=		${SOVERSION}
 SOL_FUNCTIONS=		strndup:poppler/GlobalParams.cc
+
+[INTROSPECTION].DESCRIPTION=		Build with introspection
+[INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libpop*.so
