@@ -4,6 +4,7 @@ DEF[SOVERSION]=		2.2.4
 
 NAMEBASE=		libgxps
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	GObject-based lib for handling/rendering XPS docs
@@ -16,8 +17,8 @@ DISTFILE[1]=		libgxps-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	single
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	INTROSPECTION
+OPTIONS_STANDARD=	INTROSPECTION
 
 LICENSE=		LGPL21+:single
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
@@ -28,11 +29,17 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/libgxps
 
-USES=			cpe meson pkgconfig
+USES=			cpe meson pkgconfig tiff jpeg
 CPE_VENDOR=		gnome
-GNOME_COMPONENTS=	cairo glib introspection
+GNOME_COMPONENTS=	cairo glib
 BUILDRUN_DEPENDS=	lcms2:primary:standard
 			libarchive:single:standard
 
 MESON_ARGS=		-Denable-test=false
+			-Denable-gtk-doc=false
+			-Denable-man=false
 SOVERSION=		${SOVERSION}
+
+[INTROSPECTION].DESCRIPTION=		Build with introspection
+[INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
+[INTROSPECTION].CONFIGURE_ARGS_OFF=	-Ddisable-introspection=true
