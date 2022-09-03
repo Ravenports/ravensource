@@ -17,8 +17,8 @@ DIST_SUBDIR=		gnome3
 
 SPKGS[standard]=	single
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	CAIRO
+OPTIONS_STANDARD=	CAIRO
 
 LICENSE=		GPLv2+:single LGPL21+:single
 LICENSE_TERMS=		single:{{WRKSRC}}/COPYING
@@ -28,19 +28,21 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		devel/gobject-introspection
 
-BUILD_DEPENDS=		cairo:single:standard
 BUILDRUN_DEPENDS=	libffi:single:standard
 
 USES=			bison meson pkgconfig shebangfix python
 GNOME_COMPONENTS=	glib
-CONFIGURE_ARGS=		-Dpython={{PYTHON_CMD}}
+MESON_ARGS=		-Dpython={{PYTHON_CMD}}
 			-Ddoctool=disabled
 INSTALL_TARGET=		install-strip
+
+[CAIRO].DESCRIPTION=			Include cairo for tests
+[CAIRO].BUILD_DEPENDS_ON=		cairo:single:standard
+[CAIRO].CONFIGURE_ARGS_OFF=		-Dcairo=disabled
 
 pre-configure:
 	${REINPLACE_CMD} -e 's|%%PYTHON_CMD%%|${PYTHON_CMD}|' \
 		${WRKSRC}/tools/meson.build
-	# ${REINPLACE_CMD} -e "/'tests'/d" ${WRKSRC}/meson.build
 
 post-install:
 	# remove artifacts from doctemplates fix
