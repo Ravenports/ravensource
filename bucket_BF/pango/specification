@@ -18,8 +18,8 @@ DIST_SUBDIR=		gnome2
 
 SPKGS[standard]=	complete primary docs
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	INTROSPECTION
+OPTIONS_STANDARD=	INTROSPECTION
 
 LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
@@ -38,12 +38,16 @@ RUN_DEPENDS=		xorg-truetype-fonts:single:standard
 
 USES=			cpe gmake meson perl:build pkgconfig zlib:build
 # gi-docgen library not found:  USES=gtk-doc
-GNOME_COMPONENTS=	cairo glib introspection
+GNOME_COMPONENTS=	cairo glib
 XORG_COMPONENTS=	x11 xft xrender
-CONFIGURE_ARGS=		-Dgtk_doc=false
+MESON_ARGS=		-Dgtk_doc=false
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
 PLIST_SUB=		VERSION=${PANGO_VERSION} LIBVERSION=${LIBVERSION}
+
+[INTROSPECTION].DESCRIPTION=		Build introspection files
+[INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
+[INTROSPECTION].CONFIGURE_ARGS_OFF=	-Dintrospection=disabled
 
 post-patch-sunos:
 	${REINPLACE_CMD} -e "s|'-D_POSIX_C_SOURCE=200809L', ||" \
