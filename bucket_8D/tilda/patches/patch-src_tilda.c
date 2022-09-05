@@ -11,7 +11,17 @@
  #define _POSIX_SOURCE /* feature test macro for signal functions */
  #define _XOPEN_SOURCE /* feature test macro for popen */
  
-@@ -232,7 +236,11 @@ nomatch:
+@@ -54,7 +58,9 @@
+ #include <sys/stat.h>
+ #include <sys/file.h>
+ #include <errno.h>
++#if !defined(__DragonFly__)
+ #include <sys/dir.h>
++#endif
+ #include <errno.h>
+ #include <fcntl.h>
+ #include <string.h>
+@@ -232,7 +238,11 @@ nomatch:
  static GSList *getPids() {
      GSList *pids = NULL;
      FILE *ps_output;
