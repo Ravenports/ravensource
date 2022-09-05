@@ -4,6 +4,7 @@ DEF[SOVERSION]=		1.4.0
 
 NAMEBASE=		caja
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11_fm
 VARIANTS=		standard
 SDESC[standard]=	File manager for the MATE desktop
@@ -17,8 +18,8 @@ DIST_SUBDIR=		mate
 
 SPKGS[standard]=	complete primary nls docs
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	INTROSPECTION
+OPTIONS_STANDARD=	INTROSPECTION
 
 # Main program is under GPL, extensions library under LGPL
 LICENSE=		GPLv2+:primary
@@ -43,7 +44,7 @@ USES=			desktop-utils:primary gettext-runtime gettext-tools:build
 			gmake gtk-doc libtool mime-info:primary pkgconfig
 			schemas:primary
 XORG_COMPONENTS=	sm
-GNOME_COMPONENTS=	gdkpixbuf glib gtk3 introspection intltool pango
+GNOME_COMPONENTS=	gdkpixbuf glib gtk3 intltool pango
 
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-dependency-tracking
@@ -56,6 +57,11 @@ SOVERSION=		${SOVERSION}
 
 GLIB_SCHEMAS=		org.mate.caja.gschema.xml
 			org.mate.media-handling.gschema.xml
+
+[INTROSPECTION].DESCRIPTION=		Build with introspection
+[INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
+[INTROSPECTION].CONFIGURE_ENABLE_BOTH=	introspection
+
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/doc
