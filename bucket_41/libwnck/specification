@@ -4,6 +4,7 @@ DEF[SOVERSION]=		0.3.0
 
 NAMEBASE=		libwnck
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11
 VARIANTS=		standard
 SDESC[standard]=	GNOME window navigator construction kit library
@@ -16,8 +17,8 @@ DISTFILE[1]=		libwnck-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	complete primary nls
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	INTROSPECTION
+OPTIONS_STANDARD=	INTROSPECTION
 
 FPC_EQUIVALENT=		x11-toolkits/libwnck3
 
@@ -33,13 +34,18 @@ BUILDRUN_DEPENDS=	startup-notification:single:standard
 USES=			bison gettext-runtime gettext-tools:build
 			gmake libtool pkgconfig meson
 XORG_COMPONENTS=	xres x11
-GNOME_COMPONENTS=	gtk3 intltool introspection
+GNOME_COMPONENTS=	gtk3 intltool
 INSTALL_TARGET=		install-strip
 MESON_ARGS=		-Dinstall_tools=false
 			-Dgtk_doc=false
 SOVERSION=		${SOVERSION}
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
+
+[INTROSPECTION].DESCRIPTION=		Build with introspection
+[INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
+[INTROSPECTION].CONFIGURE_ARGS_ON=	-Dintrospection=enabled
+[INTROSPECTION].CONFIGURE_ARGS_OFF=	-Dintrospection=disabled
 
 post-patch-sunos:
 	${REINPLACE_CMD} -e 's|link_args: libwnck_ldflags|link_args: []|'\
