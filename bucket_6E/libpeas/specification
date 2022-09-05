@@ -5,6 +5,7 @@ DEF[SOVERSION]=		0.3200.0
 
 NAMEBASE=		libpeas
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		py310 py39
 SDESC[py310]=		GObject-based plugins engine (3.10)
@@ -19,10 +20,10 @@ DISTFILE[1]=		libpeas-${PORTVERSION}.tar.xz:main
 SPKGS[py310]=		complete primary python examples nls docs
 SPKGS[py39]=		complete primary python examples nls docs
 
-OPTIONS_AVAILABLE=	PY310 PY39
-OPTIONS_STANDARD=	none
-VOPTS[py310]=		PY310=ON PY39=OFF
-VOPTS[py39]=		PY310=OFF PY39=ON
+OPTIONS_AVAILABLE=	PY310 PY39 INTROSPECTION
+OPTIONS_STANDARD=	INTROSPECTION
+VOPTS[py310]=		PY310=ON PY39=OFF INTROSPECTION=OFF
+VOPTS[py39]=		PY310=OFF PY39=ON INTROSPECTION=OFF
 
 LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
@@ -33,22 +34,19 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libpeas
 
-BUILD_DEPENDS=		python-gi-docgen:single:python_default
-BUILDRUN_DEPENDS=	gobject-introspection:single:standard
-
 # We don't have very old Lua5.1, so no Lua support for now.
 # Libpeas still only supports 5.1 as of 1.32.0. Maybe re-check later.
 
+BUILDRUN_DEPENDS=	python-PyGObject:single:python_used
+
 USES=			cpe meson pkgconfig gtk-doc
 			gettext-runtime gettext-tools:build
-GNOME_COMPONENTS=	gtk3 intltool introspection pygobject
+GNOME_COMPONENTS=	gtk3 intltool
 CPE_VENDOR=		gnome
 MESON_ARGS=		-Dlua51=false
 			-Dvapi=false
 			-Dglade_catalog=false
-			-Dintrospection=true
 			-Dwidgetry=true
-			-Dgtk_doc=true
 			-Ddemos=true
 			-Dpython3=true
 			-Dpython2=false
@@ -61,6 +59,12 @@ VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 
 [PY310].USES_ON=			python:py310
 [PY39].USES_ON=				python:py39
+
+[INTROSPECTION].DESCRIPTION=		Build documentation with introspection
+[INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
+[INTROSPECTION].CONFIGURE_ARGS_ON=	-Dintrospection=true -Dgtk_doc=true
+[INTROSPECTION].CONFIGURE_ARGS_OFF=	-Dintrospection=false -Dgtk_doc=false
+[INTROSPECTION].BUILD_DEPENDS_ON=	python-gi-docgen:single:python_default
 
 post-patch:
 	${REINPLACE_CMD} \
