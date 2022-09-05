@@ -4,6 +4,7 @@ DEF[SOVERSION]=		17.1.4
 
 NAMEBASE=		mate-desktop
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11
 VARIANTS=		standard
 SDESC[standard]=	MATE desktop common UI API library
@@ -17,8 +18,8 @@ DIST_SUBDIR=		mate
 
 SPKGS[standard]=	complete primary nls docs
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	INTROSPECTION
+OPTIONS_STANDARD=	INTROSPECTION
 
 # Programs are GPL-licensed, library parts LGPL-licensed
 # Docs are under GNU Free Documentation License
@@ -36,13 +37,12 @@ FPC_EQUIVALENT=		x11/mate-desktop
 BUILD_DEPENDS=		iso-codes:primary:standard
 BUILDRUN_DEPENDS=	startup-notification:single:standard
 
-USES=			gettext-runtime gettext-tools:build libtool pkgconfig gmake gtk-doc
-GNOME_COMPONENTS=	dconf glib gdkpixbuf gtk3 intltool introspection
-
+USES=			gettext-runtime gettext-tools:build libtool
+			pkgconfig gmake gtk-doc
+GNOME_COMPONENTS=	dconf glib gdkpixbuf gtk3 intltool
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-gtk-doc
 INSTALL_TARGET=		install-strip
-
 SOVERSION=		${SOVERSION}
 
 GLIB_SCHEMAS=		org.mate.accessibility-keyboard.gschema.xml
@@ -63,3 +63,6 @@ GLIB_SCHEMAS=		org.mate.accessibility-keyboard.gschema.xml
 			org.mate.thumbnail-cache.gschema.xml
 			org.mate.thumbnailers.gschema.xml
 			org.mate.typing-break.gschema.xml
+
+[INTROSPECTION].DESCRIPTION=		Build with introspection
+[INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
