@@ -1,4 +1,4 @@
---- filesystem/filesystem.hpp.orig	2021-12-12 11:59:45 UTC
+--- filesystem/filesystem.hpp.orig	2022-08-11 20:14:32 UTC
 +++ filesystem/filesystem.hpp
 @@ -56,6 +56,9 @@
  #define GHC_OS_MACOS
@@ -10,7 +10,7 @@
  #if defined(__ANDROID__)
  #define GHC_OS_ANDROID
  #endif
-@@ -4483,6 +4486,20 @@ GHC_INLINE void last_write_time(const pa
+@@ -4486,6 +4489,20 @@ GHC_INLINE void last_write_time(const pa
      if (!::SetFileTime(file.get(), 0, 0, &ft)) {
          ec = detail::make_system_error();
      }
