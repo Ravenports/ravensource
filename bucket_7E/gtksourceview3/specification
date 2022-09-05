@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	3.24.11
 
 NAMEBASE=		gtksourceview3
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		x11_toolkits
 VARIANTS=		standard
 SDESC[standard]=	GTK3 syntax highlighting text widget
@@ -17,8 +17,8 @@ DIST_SUBDIR=		gnome3
 
 SPKGS[standard]=	complete primary docs nls
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	INTROSPECTION
+OPTIONS_STANDARD=	INTROSPECTION
 
 LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
@@ -29,21 +29,22 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11-toolkits/gtksourceview3
 
-BUILD_DEPENDS=		vala:single:standard
-
 USES=			gmake libtool pkgconfig gettext-tools perl:build
 			python:build
-GNOME_COMPONENTS=	cairo gdkpixbuf gtk3 introspection libxml2
+GNOME_COMPONENTS=	cairo gdkpixbuf gtk3 libxml2
 DISTNAME=		gtksourceview-${PORTVERSION}
 INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--localstatedir={{PREFIX}}/share
 			--with-html-dir={{PREFIX}}/share/doc
 			--disable-gtk-doc
-			--with-gconf-source=xml:merged:{{PREFIX}}/etc/gconf/gconf.xml.defaults
 			--enable-compile-warnings=no
 			--enable-glade-catalog=no
-			--enable-introspection
+
+[INTROSPECTION].DESCRIPTION=		Build vala bindings with introspection
+[INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
+[INTROSPECTION].CONFIGURE_ENABLE_BOTH=	introspection vala
+[INTROSPECTION].BUILD_DEPENDS_ON=	vala:single:standard
 
 pre-patch:
 	${FIND} ${WRKSRC} -name "Makefile.in" -type f | \
