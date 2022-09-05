@@ -1,5 +1,5 @@
 DEF[IGNORE_VERCOMP]=	6.0_
-DEF[VER_DATESTAMP]=	20220601
+DEF[VER_DATESTAMP]=	20220801
 DEF[PORTVERSION]=	${IGNORE_VERCOMP}${VER_DATESTAMP}
 DEF[DISTPREFIX]=	sjp-aspell6
 DEF[DIST_ITERATION]=	0
@@ -19,7 +19,9 @@ HOMEPAGE=		https://sjp.pl/slownik/en/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://sjp.pl/slownik/ort/
+# always cache - sjp.pl doesn't keep older version
+# SITES[main]=		https://sjp.pl/slownik/ort/
+SITES[main]=		none
 DISTFILE[1]=		${DISTPREFIX}-${SUFFIX}-${PORTVERSION}-${DIST_ITERATION}.tar.bz2:main
 
 SPKGS[standard]=	single
