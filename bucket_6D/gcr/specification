@@ -7,6 +7,7 @@ DEF[SOVERSION_gcrui]=	1.0.0
 
 NAMEBASE=		gcr
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Library for bits of crypto UI and parsing
@@ -19,8 +20,8 @@ DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete primary nls docs
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	INTROSPECTION
+OPTIONS_STANDARD=	INTROSPECTION
 
 LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
@@ -46,10 +47,9 @@ USES=			gettext-tools gmake pkgconfig gtk-doc meson
 			desktop-utils:primary
 			mime-info:primary
 			solaris-funcs
-GNOME_COMPONENTS=	gtk3 introspection
+GNOME_COMPONENTS=	gtk3
 MESON_ARGS=		-Dgtk_doc=true
 			-Dgtk=true
-			-Dintrospection=true
 SOL_FUNCTIONS=		err.h:err.h
 			timegm:gck/gck-slot.c
 INSTALL_TARGET=		install-strip
@@ -68,6 +68,11 @@ PLIST_SUB=		GCK_SOVER=${SOVERSION_gck}
 			GCRUI_SOMAJOR=${SOVERSION_gcrui:R:R}
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
+
+[INTROSPECTION].DESCRIPTION=		Build vala bindings with introspection
+[INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
+[INTROSPECTION].CONFIGURE_ARGS_ON=	-Dintrospection=true
+[INTROSPECTION].CONFIGURE_ARGS_OFF=	-Dintrospection=false
 
 pre-configure:
 	# timegm compat function untested by upstream in all cases
