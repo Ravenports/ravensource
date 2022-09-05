@@ -21,14 +21,14 @@ DIST_SUBDIR=		gnome2
 
 SPKGS[standard]=	complete primary nls
 
-OPTIONS_AVAILABLE=	CUPS
+OPTIONS_AVAILABLE=	CUPS INTROSPECTION
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		x11-toolkits/gtk20
 
 USES=			gettext-tools gmake libtool pkgconfig gnome-icons:primary
 			perl:build python:build shebangfix cpe
-GNOME_COMPONENTS=	atk cairo gdkpixbuf pango introspection
+GNOME_COMPONENTS=	atk cairo gdkpixbuf pango
 XORG_COMPONENTS=	xext x11 xinerama xi xrandr xcursor xfixes
 			xdamage xcomposite
 CPE_VENDOR=		gtk
@@ -48,6 +48,10 @@ VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 [CUPS].BROKEN_ON=			CUPS option not supported yet
 [CUPS].CONFIGURE_ENABLE_BOTH=		cups
 [CUPS].BUILDRUN_DEPENDS_ON=		cups:single:standard
+
+[INTROSPECTION].DESCRIPTION=		Build with introspection
+[INTROSPECTION].CONFIGURE_ENABLE_BOTH=	introspection
+[INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
 
 pre-configure:
 	${REINPLACE_CMD} -e 's|[{]libdir[}]/locale|{datadir}/locale|g' \
