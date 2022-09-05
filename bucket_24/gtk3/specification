@@ -18,8 +18,8 @@ DIST_SUBDIR=		gnome3
 
 SPKGS[standard]=	complete primary nls icon_cache
 
-OPTIONS_AVAILABLE=	DBUS CUPS CLOUDPRINT COLORD BROADWAY
-OPTIONS_STANDARD=	DBUS BROADWAY
+OPTIONS_AVAILABLE=	DBUS CUPS CLOUDPRINT COLORD BROADWAY INTROSPECTION
+OPTIONS_STANDARD=	DBUS BROADWAY INTROSPECTION
 OPT_ON[all]=		DBUS BROADWAY
 
 FPC_EQUIVALENT=		x11-toolkits/gtk30
@@ -31,7 +31,7 @@ EXRUN[icon_cache]=	gdk-pixbuf:primary:standard
 
 USES=			gettext-tools gmake libtool pkgconfig
 			schemas:primary perl:build python:build cpe
-GNOME_COMPONENTS=	atk cairo gdkpixbuf pango introspection
+GNOME_COMPONENTS=	atk cairo gdkpixbuf pango
 XORG_COMPONENTS=	xext x11 xinerama xi xrandr xcursor xfixes
 			xdamage xcomposite
 CPE_VENDOR=		gtk
@@ -39,7 +39,6 @@ CPE_PRODUCT=		gtk\+
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-x11-backend
 			--disable-wayland-backend
-			--enable-introspection
 CPPFLAGS=		-fno-omit-frame-pointer
 PLIST_SUB=		LIBVERSION=${LIBVERSION}
 			GTK_VERSION=${GTK_VERSION}
@@ -59,6 +58,7 @@ VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 [DBUS].DESCRIPTION=			AT-SPI ATK bridge support (requires dbus)
 [BROADWAY].DESCRIPTION=			Backend for HTML5 and websocket support
 [CLOUDPRINT].DESCRIPTION=		Support for printing to cloud
+[INTROSPECTION].DESCRIPTION=		Build with introspection files
 
 [DBUS].CONFIGURE_WITH_BOTH=		atk-bridge
 [DBUS].BUILDRUN_DEPENDS_ON=		at-spi2-atk:single:standard
@@ -75,6 +75,9 @@ VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 [CUPS].BUILDRUN_DEPENDS_ON=		cups:single:standard
 
 [BROADWAY].CONFIGURE_ENABLE_BOTH=	broadway-backend
+
+[INTROSPECTION].CONFIGURE_ENABLE_BOTH=	introspection
+[INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
 
 post-patch:
 	${REINPLACE_CMD} -e 's|[{]libdir[}]/locale|{datadir}/locale|g' \
