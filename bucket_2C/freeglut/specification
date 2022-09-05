@@ -34,6 +34,9 @@ USES=			cmake:insource
 XORG_COMPONENTS=	ice x11 xi xrandr
 INSTALL_TARGET=		install/strip
 SOVERSION=		${SOVERSION}
+# For FreeBSD
+INSTALL_REQ_TOOLCHAIN=	yes
+
 VAR_OPSYS[freebsd]=	LDFLAGS=-lusbhid
 			LDFLAGS=-lm
 VAR_OPSYS[sunos]=	LDFLAGS=-lrt
