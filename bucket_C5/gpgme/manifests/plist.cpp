@@ -17,6 +17,7 @@ include/gpgme++/gpggencardkeyinteractor.h
 include/gpgme++/gpgmefw.h
 include/gpgme++/gpgmepp_export.h
 include/gpgme++/gpgmepp_version.h
+include/gpgme++/gpgrevokekeyeditinteractor.h
 include/gpgme++/gpgsetexpirytimeeditinteractor.h
 include/gpgme++/gpgsetownertrusteditinteractor.h
 include/gpgme++/gpgsignkeyeditinteractor.h
