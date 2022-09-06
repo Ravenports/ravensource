@@ -1,8 +1,8 @@
---- libavutil/common.h.orig	2022-01-14 18:45:40 UTC
+--- libavutil/common.h.orig	2022-07-22 17:58:39 UTC
 +++ libavutil/common.h
-@@ -43,6 +43,10 @@
+@@ -42,6 +42,10 @@
+ #include "attributes.h"
  #include "macros.h"
- #include "version.h"
  
 +#ifndef	UINT64_C
 +#define	UINT64_C(c)	(c ## UL)
