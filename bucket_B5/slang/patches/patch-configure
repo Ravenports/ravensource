@@ -1,11 +1,11 @@
---- configure.orig	2018-03-04 23:16:36 UTC
+--- configure.orig	2022-08-05 10:33:27 UTC
 +++ configure
-@@ -6189,7 +6189,7 @@ case "$host_os" in
+@@ -6146,7 +6146,7 @@ case "$host_os" in
       ELFLIB_MAJOR_MINOR="lib\$(THIS_LIB).\$(ELF_MAJOR_VERSION).\$(ELF_MINOR_VERSION).dylib"
       ELFLIB_MAJOR_MINOR_MICRO="lib\$(THIS_LIB).\$(ELF_MAJOR_VERSION).\$(ELF_MINOR_VERSION).\$(ELF_MICRO_VERSION).dylib"
       ;;
 -  *freebsd* )
 +  *freebsd* | *dragonfly* )
      ELF_CC="\$(CC)"
-     ELF_CFLAGS="\$(CFLAGS) -fPIC"
+     ELF_CFLAGS="\$(CFLAGS) \$(CPPFLAGS) -fPIC"
      #if test "X$PORTOBJFORMAT" = "Xelf" ; then
