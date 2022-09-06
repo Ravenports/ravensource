@@ -1,4 +1,4 @@
---- src/eventcomm.h.orig	2015-11-24 23:47:05 UTC
+--- src/eventcomm.h.orig	2022-07-10 23:40:13 UTC
 +++ src/eventcomm.h
 @@ -30,7 +30,15 @@
  #include <xorg-server.h>
