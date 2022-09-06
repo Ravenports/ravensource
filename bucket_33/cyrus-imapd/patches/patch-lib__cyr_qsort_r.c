@@ -1,4 +1,4 @@
---- lib/cyr_qsort_r.c.orig	2022-02-02 02:28:53 UTC
+--- lib/cyr_qsort_r.c.orig	2022-04-05 23:50:01 UTC
 +++ lib/cyr_qsort_r.c
 @@ -20,14 +20,14 @@ EXPORTED void cyr_qsort_r(void *base, si
  // NOTE: this is kinda ugly, but it's OK if you're not multithreaded
