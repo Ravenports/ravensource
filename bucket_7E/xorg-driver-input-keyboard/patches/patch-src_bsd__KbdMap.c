@@ -7,7 +7,7 @@ a segmentation fault during X.Org server startup.
 PR:             191459
 Submitted by:   Claude Buisson <clbuisson@orange.fr> (earlier version)
 
---- src/bsd_KbdMap.c.orig	2015-08-07 03:16:08 UTC
+--- src/bsd_KbdMap.c.orig	2022-07-10 23:28:06 UTC
 +++ src/bsd_KbdMap.c
 @@ -27,168 +27,6 @@
  #include "xf86Keymap.h"

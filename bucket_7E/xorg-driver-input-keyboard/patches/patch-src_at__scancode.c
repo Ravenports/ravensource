@@ -1,4 +1,4 @@
---- src/at_scancode.c.orig	2014-02-10 22:04:31 UTC
+--- src/at_scancode.c.orig	2022-07-10 23:28:06 UTC
 +++ src/at_scancode.c
 @@ -82,6 +82,10 @@ ATScancode(InputInfoPtr pInfo, int *scan
         case KEY_Prefix0:
