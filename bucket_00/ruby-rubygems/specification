@@ -1,7 +1,7 @@
 # manually maintained
-DEF[PORTVERSION]=	3.3.16
+DEF[PORTVERSION]=	3.3.21
 DEF[GEMS_BASE_DIR]=	lib/ruby/gems
-DEF[BUNDLERVER]=	2.3.16
+DEF[BUNDLERVER]=	2.3.21
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ruby-rubygems
@@ -70,3 +70,6 @@ do-install:
 	${FIND} ${STAGEDIR}${PREFIX}/share/rubygems \
 		${STAGEDIR}${PREFIX}/lib/ruby \
 		-type d -empty -delete
+	# remove new duplicates
+	${RM} -f ${STAGEDIR}${PREFIX}/bin/bundle
+	${RM} -f ${STAGEDIR}${PREFIX}/bin/bundler
