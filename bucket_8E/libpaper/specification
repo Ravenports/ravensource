@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	1.1.28
+DEF[PORTVERSION]=	1.2.3
+DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libpaper
@@ -6,12 +7,12 @@ VERSION=		${PORTVERSION}
 KEYWORDS=		print
 VARIANTS=		standard
 SDESC[standard]=	Library for paper size management
-HOMEPAGE=		https://packages.qa.debian.org/libp/libpaper.html
+HOMEPAGE=		https://github.com/rrthomas/libpaper
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://ftp.debian.org/debian/pool/main/libp/libpaper/
-DISTFILE[1]=		libpaper_${PORTVERSION}.tar.gz:main
+SITES[main]=		https://github.com/rrthomas/libpaper/releases/download/v${PORTVERSION}/
+DISTFILE[1]=		libpaper-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	single
 
@@ -20,14 +21,25 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		print/libpaper
 
-USES=			autoreconf libtool
+LICENSE=		LGPL3+:single
+LICENSE_FILE=		LGPL3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		help2man:single:standard
+
+USES=			autoreconf libtool gmake
 DISTNAME=		libpaper-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
 
 post-extract:
 	${ECHO_CMD} a4 > ${WRKDIR}/papersize.a4
 	${ECHO_CMD} letter > ${WRKDIR}/papersize.letter
+	# extract terms
+	${AWK} '/^Libpaper is distrib/,/is in the public domain./' \
+		${WRKSRC}/README > ${WRKDIR}/TERMS
 
 post-configure:
 	${REINPLACE_CMD} -e 's|$${prefix}|${PREFIX}|g' \
@@ -37,3 +49,5 @@ post-install:
 	(cd ${WRKDIR} && \
 		${INSTALL_DATA} papersize.a4 papersize.letter \
 		${STAGEDIR}${PREFIX}/etc)
+	# only a single package
+	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/libpaper
