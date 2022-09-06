@@ -89,10 +89,6 @@ pre-configure-dragonfly:
 	${REINPLACE_CMD} -e 's|sys/disk\.h|sys/skipdisk.h|' \
 		${WRKSRC}/meson.build
 
-pre-install:
-	# for some reason file is considered out-of-date
-	${TOUCH} ${WRKSRC}/config-host.mak
-
 post-install:
 	${INSTALL_SCRIPT} ${FILESDIR}/qemu-ifup.sample \
 		${STAGEDIR}${PREFIX}/etc

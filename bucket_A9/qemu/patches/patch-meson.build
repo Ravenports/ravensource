@@ -1,5 +1,14 @@
 --- meson.build.orig	2021-12-14 20:42:02 UTC
 +++ meson.build
+@@ -54,7 +54,7 @@ have_block = have_system or have_tools
+ 
+ python = import('python').find_installation()
+ 
+-supported_oses = ['windows', 'freebsd', 'netbsd', 'openbsd', 'darwin', 'sunos', 'linux']
++supported_oses = ['windows', 'freebsd', 'netbsd', 'openbsd', 'darwin', 'sunos', 'linux', 'dragonfly']
+ supported_cpus = ['ppc', 'ppc64', 's390x', 'riscv', 'x86', 'x86_64',
+   'arm', 'aarch64', 'mips', 'mips64', 'sparc', 'sparc64']
+ 
 @@ -722,15 +722,16 @@ if have_system and not get_option('curse
        has_curses_h = cc.has_header('curses.h', args: curses_compile_args)
      endif
