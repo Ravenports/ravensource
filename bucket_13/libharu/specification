@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.4.0
+DEF[PORTVERSION]=	2.4.1
 DEF[VERSION]=		${PORTVERSION:S/./_/g}
 # ----------------------------------------------------------------------------
 
@@ -41,6 +41,7 @@ pre-configure:
 
 post-stage:
 	${INSTALL_LIB} ${BUILD_WRKSRC}/src/lib* ${STAGEDIR}${PREFIX}/lib/
-	${RM} ${STAGEDIR}${PREFIX}/README.md
-	${RM} ${STAGEDIR}${PREFIX}/CHANGES
-	${RM} ${STAGEDIR}${PREFIX}/INSTALL
+	${RM} ${STAGEDIR}${PREFIX}/share/libharu/README.md
+	${RM} ${STAGEDIR}${PREFIX}/share/libharu/CHANGES
+	${RM} ${STAGEDIR}${PREFIX}/share/libharu/INSTALL
+	${RMDIR} ${STAGEDIR}${PREFIX}/share/libharu
