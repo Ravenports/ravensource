@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.9.4
+DEF[PORTVERSION]=	1.9.8
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fluent-bit
@@ -27,8 +27,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		sysutils/fluent-bit
 
-USES=			cpe cmake bison zlib gmake shebangfix
-			cclibs:primary,library
+USES=			cpe cmake bison zlib gmake pkgconfig shebangfix
+			ssl python:build cclibs:primary,library
 # Don't use execinfo, keep dependencies down
 SHEBANG_ADD_SH=		lib/luajit-2.1.0-1e66d0f/configure
 CPE_VENDOR=		treasuredata
@@ -39,6 +39,7 @@ CMAKE_ARGS=		-DFLB_DEBUG=Off
 			-DFLB_TLS=On
 			-DFLB_EXAMPLES=On
 			-DFLB_OUT_PGSQL=Off
+			-DFLB_CONFIG_YAML=Off
 			-DFLB_HTTP_SERVER=On
 RC_SUBR=		fluent-bit:primary
 
