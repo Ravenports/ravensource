@@ -1,4 +1,4 @@
---- gcr/meson.build.orig	2021-03-27 06:18:27 UTC
+--- gcr/meson.build.orig	2022-07-14 12:35:50 UTC
 +++ gcr/meson.build
 @@ -154,6 +154,8 @@ gcr_base_linkflags = cc.get_supported_li
    '-Wl,--version-script,@0@'.format(gcr_base_symbolmap),
@@ -16,4 +16,4 @@
 +#SUNOS link_args: ['-lsocket'],
  )
  
- # Services
+ if get_option('ssh_agent')

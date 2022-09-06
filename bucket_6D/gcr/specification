@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.40.0
+DEF[PORTVERSION]=	3.41.1
 DEF[SOVERSION_gck]=	0.0.0
 DEF[SOVERSION_gcr]=	1.0.0
 DEF[SOVERSION_gcrbase]=	1.0.0
@@ -7,7 +7,6 @@ DEF[SOVERSION_gcrui]=	1.0.0
 
 NAMEBASE=		gcr
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Library for bits of crypto UI and parsing
@@ -34,22 +33,22 @@ FPC_EQUIVALENT=		security/gcr
 
 BUILD_DEPENDS=		libtool:single:standard
 			intltool:single:standard
-			vala:single:standard
 			gnupg:primary:standard
 BUILDRUN_DEPENDS=	dbus:single:standard
+			libsecret:primary:standard
 			libgcrypt:single:standard
 			libtasn1:primary:standard
 			p11-kit:primary:standard
+			openssh:single:standard
 
-USES=			gettext-tools gmake pkgconfig gtk-doc meson
+USES=			gettext-tools gmake pkgconfig meson
 			python:build
 			schemas:primary
 			desktop-utils:primary
 			mime-info:primary
 			solaris-funcs
 GNOME_COMPONENTS=	gtk3
-MESON_ARGS=		-Dgtk_doc=true
-			-Dgtk=true
+MESON_ARGS=		-Dgtk=true
 SOL_FUNCTIONS=		err.h:err.h
 			timegm:gck/gck-slot.c
 INSTALL_TARGET=		install-strip
@@ -69,10 +68,15 @@ PLIST_SUB=		GCK_SOVER=${SOVERSION_gck}
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 
-[INTROSPECTION].DESCRIPTION=		Build vala bindings with introspection
+[INTROSPECTION].DESCRIPTION=		Build doc and vala bindings with introspection
+[INTROSPECTION].BUILD_DEPENDS_ON=	python-gi-docgen:single:python_used
+					vala:single:standard
+[INTROSPECTION].USES_ON=		gtk-doc
 [INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
 [INTROSPECTION].CONFIGURE_ARGS_ON=	-Dintrospection=true
+					-Dgtk_doc=true
 [INTROSPECTION].CONFIGURE_ARGS_OFF=	-Dintrospection=false
+					-Dgtk_doc=false
 
 pre-configure:
 	# timegm compat function untested by upstream in all cases
