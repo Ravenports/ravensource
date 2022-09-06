@@ -1,4 +1,4 @@
---- src/tools/hunspell.cxx.orig	2018-11-12 20:38:56 UTC
+--- src/tools/hunspell.cxx.orig	2022-08-22 13:53:31 UTC
 +++ src/tools/hunspell.cxx
 @@ -116,9 +116,9 @@
  #include "../parsers/odfparser.hxx"
