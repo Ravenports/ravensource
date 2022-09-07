@@ -1,0 +1,14 @@
+--- docs/man/meson.build.orig	2022-07-11 08:46:06 UTC
++++ docs/man/meson.build
+@@ -5,8 +5,10 @@ xsltproc_cmd = [
+   xsltproc,
+   '--output', '@OUTPUT@',
+   '--nonet',
++  '--path',
++  '__DBPATH__',
+   '--stringparam', 'man.base.url.for.relative.links', pk_api_docpath + '/',
+-  'http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl',
++  'http://cdn.docbook.org/release/xsl/current/manpages/docbook.xsl',
+   '@INPUT@',
+ ]
+ 

@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.120
+DEF[PORTVERSION]=	121
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		polkit
@@ -38,32 +38,31 @@ BUILD_DEPENDS=		docbook-xsl:primary:standard
 BUILDRUN_DEPENDS=	dbus:single:standard
 			expat:complete:standard
 			openpam:single:standard
-			mozjs78:single:standard
+			duktape:complete:standard
 
-USES=			gettext-tools gmake libtool pkgconfig shebangfix
+USES=			gettext-tools meson pkgconfig shebangfix
 			solaris-funcs cpe
 GNOME_COMPONENTS=	glib introspection libxslt
 CPE_VENDOR=		polkit_project
 SHEBANG_FILES=		{{WRKSRC}}/src/polkitbackend/toarray.pl
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-authfw=pam
-			--with-pam-include=system
-			--with-os-type={{OPSYS}}
-			--disable-libsystemd-login
-			--disable-libelogind
-			--disable-static
-			--enable-introspection=yes
-			--localstatedir=/var
-			--disable-test
-INSTALL_TARGET=		install-strip
-INSTALL_REQ_TOOLCHAIN=	yes
+DISTNAME=		polkit-v.${PORTVERSION}
+MESON_ARGS=		-Dauthfw=pam
+			-Dpam_prefix={{LOCALBASE}}
+			-Dos_type=netbsd
+			-Dintrospection=true
+			-Dtests=false
+			-Dman=true
+			-Dgtk_doc=false
+			-Dpolkitd_user=polkitd
+			-Dsession_tracking=ConsoleKit
 CFLAGS=			-Wno-deprecated-declarations
 SOL_FUNCTIONS=		getline:src/polkitagent/polkitagenthelperprivate.c
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 
-post-patch:
-	${REINPLACE_CMD} -e 's|__DBPATH__|${PREFIX}/share/xsl/docbook/manpages|' ${WRKSRC}/docs/man/Makefile.in
+pre-configure:
+	${REINPLACE_CMD} -e 's|__DBPATH__|${PREFIX}/share/xsl/docbook/manpages|' \
+	${WRKSRC}/docs/man/meson.build
 	${REINPLACE_CMD} -e 's|/usr/bin/|${PREFIX}/bin/|g' \
 		${WRKSRC}/docs/man/pkexec.xml \
 		${WRKSRC}/src/examples/org.freedesktop.policykit.examples.pkexec.policy.in
