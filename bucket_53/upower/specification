@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.99.17
+DEF[PORTVERSION]=	1.90.0
 DEF[SITEVERSION]=	v${PORTVERSION}
 DEF[SOVERSION]=		3.1.0
 # ----------------------------------------------------------------------------
@@ -45,7 +45,6 @@ GNOME_COMPONENTS=	glib intltool
 MESON_ARGS=		-Dman=true
 			-Dgtk-doc=true
 			-Dintrospection=enabled
-			-Dudevrulesdir=/etc/udev/rules.d
 			-Dsystemdsystemunitdir=no
 			-Didevice=disabled
 SOVERSION=		${SOVERSION}
@@ -55,10 +54,14 @@ DISTNAME=		upower-${SITEVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
 
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=-Dos_backend=freebsd
+			CONFIGURE_ARGS=-Dudevrulesdir=no
+			CONFIGURE_ARGS=-Dudevhwdbdir=no
+			LDFLAGS=-lkvm
 VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=-Dos_backend=freebsd
 			CFLAGS=-D__WANT_NO_INLINED___ERROR
 VAR_OPSYS[netbsd]=	CONFIGURE_ARGS=-Dos_backend=netbsd
 VAR_OPSYS[linux]=	CONFIGURE_ARGS=-Dos_backend=linux
+			CONFIGURE_ARGS=-Dudevrulesdir=/etc/udev/rules.d
 VAR_OPSYS[sunos]=	CONFIGURE_ARGS=-Dos_backend=dummy
 
 post-stage:
