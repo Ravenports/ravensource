@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.04
+DEF[PORTVERSION]=	6.05
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xscreensaver
@@ -23,7 +23,6 @@ FPC_EQUIVALENT=		x11/xscreensaver
 BUILD_DEPENDS=		freeglut:primary:standard
 			gle:primary:standard
 			libglade:single:standard
-			gdk-pixbuf-xlib:single:standard
 			tar:primary:standard
 BUILDRUN_DEPENDS=	bc:single:standard
 			openpam:single:standard
@@ -31,12 +30,11 @@ EXRUN[gl]=		freeglut:primary:standard
 			gle:primary:standard
 			xscreensaver:primary:standard
 EXRUN[gtk]=		libglade:single:standard
-			gdk-pixbuf-xlib:single:standard
 			xscreensaver:primary:standard
 
 USES=			cpe gettext-tools:build gmake jpeg perl:run png shebangfix
 XORG_COMPONENTS=	x11 xext xft xi xinerama xmu xrandr xt xxf86vm
-GNOME_COMPONENTS=	gdkpixbuf gtk2 intltool
+GNOME_COMPONENTS=	gdkpixbuf gtk3 intltool
 SHEBANG_GLOB=		*.pl
 CPE_VENDOR=		xscreensaver_project
 MUST_CONFIGURE=		yes
