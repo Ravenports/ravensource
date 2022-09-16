@@ -1,4 +1,4 @@
---- pr/src/pthreads/ptio.c.orig	2021-12-17 15:29:39 UTC
+--- pr/src/pthreads/ptio.c.orig	2022-05-25 21:34:56 UTC
 +++ pr/src/pthreads/ptio.c
 @@ -191,6 +191,7 @@ static PRBool _pr_ipv6_v6only_on_by_defa
      || defined(HPUX10_30) || defined(HPUX11) \

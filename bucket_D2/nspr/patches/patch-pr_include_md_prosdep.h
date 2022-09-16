@@ -1,4 +1,4 @@
---- pr/include/md/prosdep.h.orig	2021-12-17 15:29:39 UTC
+--- pr/include/md/prosdep.h.orig	2022-05-25 21:34:56 UTC
 +++ pr/include/md/prosdep.h
 @@ -43,6 +43,9 @@ PR_BEGIN_EXTERN_C
  #elif defined(OPENBSD)
