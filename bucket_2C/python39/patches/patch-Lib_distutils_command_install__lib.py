@@ -11,7 +11,7 @@ record file nonetheless.
  Lib/distutils/tests/test_install_lib.py |  8 ++++++--
  2 files changed, 19 insertions(+), 6 deletions(-)
 
---- Lib/distutils/command/install_lib.py.orig	2022-03-23 21:12:08 UTC
+--- Lib/distutils/command/install_lib.py.orig	2022-05-17 11:12:56 UTC
 +++ Lib/distutils/command/install_lib.py
 @@ -164,12 +164,21 @@ class install_lib(Command):
              ext = os.path.splitext(os.path.normcase(py_file))[1]
