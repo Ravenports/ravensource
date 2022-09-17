@@ -1,18 +1,19 @@
 Internationalized Domain Names in Applications (IDNA)
 =====================================================
 
-Support for the Internationalised Domain Names in Applications
-(IDNA) protocol as specified in [RFC 5891].
-This is the latest version of the protocol and is sometimes referred to as
-“IDNA 2008”.
+Support for the Internationalized Domain Names in
+Applications (IDNA) protocol as specified in [RFC 5891
+]. This is the latest version of
+the protocol and is sometimes referred to as “IDNA 2008”.
 
-This library also provides support for Unicode Technical Standard 46,
-[Unicode IDNA Compatibility Processing].
+This library also provides support for Unicode Technical
+Standard 46, [Unicode IDNA Compatibility Processing
+].
 
-This acts as a suitable replacement for the “encodings.idna” module
-that
-comes with the Python standard library, but which only supports the
-older superseded IDNA specification ([RFC 3490]).
+This acts as a suitable replacement for the “encodings.idna”
+module that comes with the Python standard library, but which
+only supports the older superseded IDNA specification ([RFC 3490
+]).
 
 Basic functions are simply executed:
 
@@ -27,23 +28,17 @@ Basic functions are simply executed:
 Installation
 ------------
 
-To install this library, you can use pip:
+This package is available for installation from PyPI:
 
 .. code-block:: bash
 
-    $ pip install idna
-
-Alternatively, you can install the package using the bundled setup script:
-
-.. code-block:: bash
-
-    $ python setup.py install
+    $ python3 -m pip install idna
 
 Usage
 -----
 
-For typical usage, the encode and decode functions will take a domain
-name argument and perform a conversion to A-labels or U-labels
+For typical usage, the encode and decode functions will take a
+domain name argument and perform a conversion to A-labels or U-labels
 respectively.
 
 .. code-block:: pycon
@@ -65,8 +60,8 @@ You may use the codec encoding and decoding methods using the
     >>> print(b'xn--d1acufc.xn--80akhbyknj4f'.decode('idna'))
     домен.испытание
 
-Conversions can be applied at a per-label basis using the ulabel or alabel
-functions if necessary:
+Conversions can be applied at a per-label basis using the ulabel or
+alabel functions if necessary:
 
 .. code-block:: pycon
 
@@ -76,21 +71,22 @@ functions if necessary:
 Compatibility Mapping (UTS #46)
 +++++++++++++++++++++++++++++++
 
-As described in [RFC 5895], the IDNA
-specification does not normalize input from different potential ways a user
-may input a domain name. This functionality, known as a “mapping”, is 
-considered by the specification to be a local user-interface issue distinct
-from IDNA conversion functionality.
+As described in [RFC 5895], the
+IDNA specification does not normalize input from different potential
+ways a user may input a domain name. This functionality, known as
+a “mapping”, is considered by the specification to be a local
+user-interface issue distinct from IDNA conversion functionality.
 
-This library provides one such mapping, that was developed by the Unicode
-Consortium. Known as [Unicode IDNA Compatibility Processing],
-it provides for both a regular mapping for typical applications, as well as
-a transitional mapping to help migrate from older IDNA 2003 applications.
+This library provides one such mapping, that was developed by the
+Unicode Consortium. Known as [Unicode IDNA Compatibility Processing
+], it provides for both a regular
+mapping for typical applications, as well as a transitional mapping to
+help migrate from older IDNA 2003 applications.
 
 For example, “Königsgäßchen” is not a permissible label as *LATIN
-CAPITAL
-LETTER K* is not allowed (nor are capital letters in general). UTS 46 will
-convert this into lower case prior to applying the IDNA conversion.
+CAPITAL LETTER K* is not allowed (nor are capital letters in general).
+UTS 46 will convert this into lower case prior to applying the IDNA
+conversion.
 
 .. code-block:: pycon
 
@@ -98,3 +94,7 @@ convert this into lower case prior to applying the IDNA conversion.
     >>> idna.encode('Königsgäßchen')
     ...
     idna.core.InvalidCodepoint: Codepoint U+004B at position 1 of
+'Königsgäßchen' not allowed
+    >>> idna.encode('Königsgäßchen', uts46=True)
+    b'xn--knigsgchen-b4a3dun'
+    >>> print(idna.decode('xn--knigsgchen-b4a3dun'))
