@@ -1,4 +1,4 @@
---- src/conf.c.orig	2022-06-17 09:42:05 UTC
+--- src/conf.c.orig	2022-07-08 15:34:30 UTC
 +++ src/conf.c
 @@ -4115,7 +4115,7 @@ static int config_file_load(snd_config_t
  	if (!S_ISDIR(st.st_mode))
