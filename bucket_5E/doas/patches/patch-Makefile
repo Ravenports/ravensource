@@ -1,4 +1,4 @@
---- Makefile.orig	2021-09-13 18:13:57 UTC
+--- Makefile.orig	2022-09-12 20:33:17 UTC
 +++ Makefile
 @@ -11,12 +11,11 @@ OBJECTS=doas.o env.o compat/execvpe.o co
  OPT?=-O2
@@ -14,7 +14,7 @@
      CPPFLAGS+=-Icompat
      CFLAGS+=-D_GNU_SOURCE
      COMPAT+=closefrom.o errc.o getprogname.o setprogname.o strlcat.o strlcpy.o strtonum.o verrc.o
-@@ -31,11 +30,15 @@ ifeq ($(UNAME_S),NetBSD)
+@@ -35,11 +34,15 @@ ifeq ($(UNAME_S),NetBSD)
      OBJECTS=doas.o env.o y.tab.o
      LDFLAGS+=-lutil
  endif
