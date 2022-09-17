@@ -1,14 +1,13 @@
-DEF[PORTVERSION]=	0.11.1
+DEF[PORTVERSION]=	0.12.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		profanity
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		net net_im
 VARIANTS=		standard
 SDESC[standard]=	Console based XMPP client
 HOMEPAGE=		https://profanity-im.github.io/
-CONTACT=		Leonid_Bobrov[goleo@disroot.org]
+CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://profanity-im.github.io/tarballs/
@@ -36,6 +35,7 @@ CONFIGURE_ARGS=		--enable-c-plugins
 			--enable-notifications
 			--enable-otr
 			--enable-pgp
+			--disable-omemo
 			--with-xscreensaver=no
 BUILD_DEPENDS=		autoconf-archive:single:standard
 			libtool:single:standard
@@ -45,6 +45,7 @@ BUILDRUN_DEPENDS=	curl:primary:standard
 			libnotify:primary:standard
 			libotr:single:standard
 			libuuid:single:standard
+			libstrophe:single:standard
 # may be some kind of ravenadm bug, USES=python is ignored
 			python39:single:standard
 INSTALL_TARGET=		install-strip
@@ -53,7 +54,7 @@ pre-configure:
 	${MKDIR} ${WRKSRC}/m4
 	(cd ${WRKSRC} && autoreconf -fiv)
 
-post-patch:
-	${REINPLACE_CMD} -e "s,python,python${PYTHON_VER},g" \
-		-e "/PACKAGE_STATUS=/ s|development|release|" \
-		${WRKSRC}/configure.ac
+# post-patch:
+# #	${REINPLACE_CMD} -e "s,python,python${PYTHON_VER},g" \
+# #		-e "/PACKAGE_STATUS=/ s|development|release|" \
+# #		${WRKSRC}/configure.ac
