@@ -1,4 +1,4 @@
---- src/lj_prng.c.orig	2022-03-09 09:35:49 UTC
+--- src/lj_prng.c.orig	2022-04-05 12:12:47 UTC
 +++ src/lj_prng.c
 @@ -109,6 +109,7 @@ static PRGR libfunc_rgr;
  #include <sys/syscall.h>
