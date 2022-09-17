@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	7.92
+DEF[PORTVERSION]=	7.93
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		nmap
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Port scanning utility for large networks
@@ -33,6 +32,7 @@ CONFIGURE_ARGS=		--with-openssl={{OPENSSLBASE}}
 			--with-libpcap={{LOCALBASE}}
 			--with-liblua=included
 			--without-nmap-update
+CFLAGS=			-fPIC
 CPPFLAGS=		-I{{OPENSSLINC}}
 INSTALL_REQ_TOOLCHAIN=	yes
 
