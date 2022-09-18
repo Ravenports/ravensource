@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.2.1
+DEF[PORTVERSION]=	3.3.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		postgis
@@ -63,7 +63,7 @@ pre-configure:
 	(cd ${WRKSRC} && ${SH} ./autogen.sh)
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/[rs]*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/postgresql/*.so
 	(cd ${WRKSRC}/extras/tiger_geocoder && \
 		${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/share/postgis/tiger_geocoder )
