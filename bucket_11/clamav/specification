@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.104.2
+DEF[PORTVERSION]=	0.105.1
 DEF[SOVERSION]=		9.1.0
 DEF[FRESH_SOVERSION]=	2.0.2
 DEF[DBDIR]=		/var/db/clamav
@@ -39,6 +39,7 @@ FPC_EQUIVALENT=		security/clamav
 
 BUILD_DEPENDS=		json-c:primary:standard
 			doxygen:single:standard
+			rust:single:standard
 BUILDRUN_DEPENDS=	curl:primary:standard
 			libltdl:single:standard
 			libmspack:single:standard
@@ -69,7 +70,7 @@ SUB_LIST=		CHMOD={{CHMOD}}
 			RUNDIR=${RUNDIR}
 
 USES=			cpe cmake ncurses pkgconfig ssl iconv zlib
-			bz2 c++:primary
+			bz2 execinfo c++:primary
 GNOME_COMPONENTS=	libxml2
 CMAKE_ARGS=		-DCLAMAV_USER:STRING="${CLAMAV_USER}"
 			-DCLAMAV_GROUP:STRING="${CLAMAV_GROUP}"
