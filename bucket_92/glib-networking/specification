@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.72.0
+DEF[PORTVERSION]=	2.74.0
 DEF[DLFOLDER]=		${PORTVERSION:R}
 # ----------------------------------------------------------------------------
 
@@ -30,15 +30,14 @@ FPC_EQUIVALENT=		net/glib-networking
 
 BUILDRUN_DEPENDS=	nss:caroot:standard
 			gsettings-desktop-schemas:primary:standard
-			gnutls:primary:standard
+			gnutls-devel:primary:standard
 			libgcrypt:single:standard
 			p11-kit:primary:standard
 			dbus:single:standard
 			libproxy:single:standard
 
-USES=			cpe gettext-tools libtool meson pkgconfig shebangfix
+USES=			cpe gettext-tools libtool meson pkgconfig
 CPE_VENDOR=		gnome
-SHEBANG_FILES=		meson_post_install.py
 GNOME_COMPONENTS=	glib intltool
 MESON_ARGS=		-Dstatic_modules=true
 			-Dinstalled_tests=false
