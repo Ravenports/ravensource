@@ -83,7 +83,7 @@ MANIFEST=$(cd ${RASSY}/${NAME_STD}/rust-std-${DFLY} && find -s * -type f)
 for M in ${MANIFEST}; do
 	echo "file:${M}" >> ${RASSY}/${NAME_STD}/rust-std-${DFLY}/manifest.in
 done
-${RINST}/target/debug/fabricate script \
+${RINST}/target/debug/rust-installer script \
 	--product-name=Rust \
 	--rel-manifest-dir=rustlib \
 	--success-message=std-is-standing-at-the-ready. \
@@ -108,7 +108,7 @@ MANIFEST=$(cd ${RASSY}/${NAME_C}/rustc && find -s * -type f)
 for M in ${MANIFEST}; do
 	echo "file:${M}" >> ${RASSY}/${NAME_C}/rustc/manifest.in
 done
-${RINST}/target/debug/fabricate script \
+${RINST}/target/debug/rust-installer script \
 	--product-name=Rust \
 	--rel-manifest-dir=rustlib \
 	--success-message=Rust-is-ready-to-roll. \
@@ -130,7 +130,7 @@ MANIFEST=$(cd ${RASSY}/${NAME_CARGO}/cargo && find -s * -type f)
 for M in ${MANIFEST}; do
 	echo "file:${M}" >> ${RASSY}/${NAME_CARGO}/cargo/manifest.in
 done
-${RINST}/target/debug/fabricate script \
+${RINST}/target/debug/rust-installer script \
 	--product-name=Rust \
 	--rel-manifest-dir=rustlib \
 	--success-message=Cargo-is-cool-to-cruise. \
@@ -141,4 +141,4 @@ echo "Creating and relocating ${NAME_CARGO_PKG}."
 (cd ${RASSY} && ${MYTAR} -c --zstd -f ${NAME_CARGO_PKG} ${NAME_CARGO}) && mv ${RASSY}/${NAME_CARGO_PKG} ${DISTDIR}/
 
 echo "cleaning everything up."
-rm -rf ${RASSY} ${RINST}
+# rm -rf ${RASSY} ${RINST}
