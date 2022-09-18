@@ -1,6 +1,6 @@
---- glib/glib-unix.c.orig	2022-06-30 14:15:17 UTC
+--- glib/glib-unix.c.orig	2022-09-17 18:38:17 UTC
 +++ glib/glib-unix.c
-@@ -31,6 +31,9 @@
+@@ -33,6 +33,9 @@
  
  #include <string.h>
  #include <sys/types.h>

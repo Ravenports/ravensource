@@ -1,6 +1,6 @@
---- gio/gunixvolume.c.orig	2022-06-30 14:15:17 UTC
+--- gio/gunixvolume.c.orig	2022-09-17 18:38:17 UTC
 +++ gio/gunixvolume.c
-@@ -367,9 +367,14 @@ g_unix_volume_eject (GVolume
+@@ -369,9 +369,14 @@ g_unix_volume_eject (GVolume
                       gpointer             user_data)
  {
    GUnixVolume *unix_volume = G_UNIX_VOLUME (volume);

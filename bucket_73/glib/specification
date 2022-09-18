@@ -1,6 +1,6 @@
 # Glib has even/odd releases (e.g 2.60, 2.62, 2.64 ... are stable)
-DEF[PORTVERSION]=	2.72.3
-DEF[LIBVERSION]=	0.7200.3
+DEF[PORTVERSION]=	2.74.0
+DEF[LIBVERSION]=	0.7400.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		glib
@@ -32,20 +32,17 @@ FPC_EQUIVALENT=		devel/glib20
 
 BUILD_DEPENDS=		xmlto:single:standard
 BUILDRUN_DEPENDS=	libffi:single:standard
+			pcre2:primary:standard
 RUN_DEPENDS=		zlib:static:standard
-			pcre:static:standard
 
 USES=			gettext-tools gettext-runtime gmake libtool perl:build
 			pkgconfig python:build shebangfix zlib meson iconv cpe
-			pcre
-MESON_ARGS=		-Diconv=external
-			-Dselinux=disabled
+MESON_ARGS=		-Dselinux=disabled
 			-Dxattr=false
 			-Dlibmount=disabled
 			-Ddtrace=false
 			-Dman=true
 			-Dgtk_doc=false
-			-Dfam=false
 			-Db_lundef=false
 			-Dtests=false
 INSTALL_TARGET=		install-strip
@@ -70,6 +67,11 @@ VAR_OPSYS[sunos]=	CFLAGS=-fPIC
 SET_DEBUGGING_ON=	yes
 
 post-patch:
+	for F in ${pyscripts}; do \
+		${CHMOD} ${BINMODE} ${WRKSRC}/$$F; \
+	done
+
+pre-configure:
 	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g ; \
 		s|/usr/share/locale/locale|${LOCALBASE}/share/locale/locale|g' \
 			${WRKSRC}/glib/gutils.c
@@ -77,11 +79,6 @@ post-patch:
 		${WRKSRC}/gio/gunixmounts.c \
 		${WRKSRC}/gio/xdgmime/xdgmime.c \
 		${WRKSRC}/glib/tests/utils.c
-	for F in ${pyscripts}; do \
-		${CHMOD} ${BINMODE} ${WRKSRC}/$$F; \
-	done
-
-pre-configure:
 	${REINPLACE_CMD} \
 		-e 's|/docbook.sourceforge.net/|/cdn.docbook.org/|' \
 		-e "/-Werror=/d" \

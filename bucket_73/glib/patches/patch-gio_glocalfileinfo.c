@@ -1,6 +1,6 @@
---- gio/glocalfileinfo.c.orig	2022-06-30 14:15:17 UTC
+--- gio/glocalfileinfo.c.orig	2022-09-17 18:38:17 UTC
 +++ gio/glocalfileinfo.c
-@@ -22,6 +22,10 @@
+@@ -24,6 +24,10 @@
  
  #include "config.h"
  

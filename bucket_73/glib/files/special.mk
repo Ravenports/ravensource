@@ -4,7 +4,6 @@ gio_MAN=	gdbus.1 gsettings.1 gio-querymodules.1 \
 		glib-compile-resources.1 gresource.1 gdbus-codegen.1
 gobject_MAN=	glib-genmarshal.1 glib-mkenums.1 gobject-query.1
 pyscripts=	gio/tests/gengiotypefuncs.py \
-		gio/gio-querymodules-wrapper.py \
 		glib/update-gtranslit.py \
 
 

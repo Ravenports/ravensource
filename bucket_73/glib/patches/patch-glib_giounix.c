@@ -1,6 +1,6 @@
---- glib/giounix.c.orig	2022-06-30 14:15:17 UTC
+--- glib/giounix.c.orig	2022-09-17 18:38:17 UTC
 +++ glib/giounix.c
-@@ -31,7 +31,9 @@
+@@ -33,7 +33,9 @@
  
  #include "config.h"
  
