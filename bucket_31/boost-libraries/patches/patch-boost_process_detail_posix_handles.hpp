@@ -2,9 +2,9 @@ $NetBSD: patch-boost_process_detail_posix_handles.hpp,v 1.2 2020/09/10 07:54:52 
 
 dirfd(3) on NetBSD is implemented as a macro and cannot use namespace prefix.
 
---- boost/process/detail/posix/handles.hpp.orig	2021-12-02 06:47:36 UTC
+--- boost/process/detail/posix/handles.hpp.orig	2022-08-04 02:47:11 UTC
 +++ boost/process/detail/posix/handles.hpp
-@@ -31,7 +31,11 @@ inline std::vector<native_handle_type> g
+@@ -33,7 +33,11 @@ inline std::vector<native_handle_type> g
      else
          ec.clear();
  
@@ -16,7 +16,7 @@ dirfd(3) on NetBSD is implemented as a macro and cannot use namespace prefix.
  
      struct ::dirent * ent_p;
  
-@@ -115,7 +119,11 @@ struct limit_handles_ : handler_base_ext
+@@ -117,7 +121,11 @@ struct limit_handles_ : handler_base_ext
              return;
          }
  

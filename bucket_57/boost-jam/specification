@@ -40,7 +40,7 @@ CXXFLAGS=		{{LDFLAGS}}
 EXTRACT_HEAD[1]=	{{TAR}} -xf
 EXTRACT_TAIL[1]=	{{DISTNAME}}/${ENGINE_DIR} {{DISTNAME}}/LICENSE_1_0.txt
 
-post-patch:
+pre-configure:
 	# removing -O3 flag
 	${REINPLACE_CMD} -e 's|-O3 ||g' ${BUILD_WRKSRC}/build.sh
 	# hardcode executable path on fallback
@@ -52,4 +52,5 @@ do-build:
 
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/bin
-	${INSTALL_PROGRAM} ${INSTALL_WRKSRC}/bjam ${STAGEDIR}${PREFIX}/bin/
+	${INSTALL_PROGRAM} ${INSTALL_WRKSRC}/b2 ${STAGEDIR}${PREFIX}/bin/
+	(cd ${STAGEDIR}${PREFIX}/bin && ln -s b2 bjam)
