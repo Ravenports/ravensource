@@ -1,6 +1,6 @@
---- lib/irrlichtmt/source/Irrlicht/os.cpp.orig	2022-02-05 15:29:15 UTC
+--- lib/irrlichtmt/source/Irrlicht/os.cpp.orig	2022-09-18 03:54:51 UTC
 +++ lib/irrlichtmt/source/Irrlicht/os.cpp
-@@ -25,7 +25,7 @@
+@@ -23,7 +23,7 @@
  	#define bswap_16(X) OSReadSwapInt16(&X,0)
  	#define bswap_32(X) OSReadSwapInt32(&X,0)
  	#define bswap_64(X) OSReadSwapInt64(&X,0)
