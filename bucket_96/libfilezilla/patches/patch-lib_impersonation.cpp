@@ -1,4 +1,4 @@
---- lib/impersonation.cpp.orig	2022-04-01 12:35:07 UTC
+--- lib/impersonation.cpp.orig	2022-09-05 13:38:02 UTC
 +++ lib/impersonation.cpp
 @@ -7,7 +7,11 @@
  #include <optional>
@@ -13,7 +13,7 @@
  #include <crypt.h>
  #include <shadow.h>
  #endif
-@@ -79,7 +83,7 @@ std::optional<gid_t> get_group(fz::nativ
+@@ -98,7 +102,7 @@ std::optional<gid_t> get_group(native_st
  	return {};
  }
  
@@ -22,24 +22,24 @@
  struct shadow_holder {
  	shadow_holder() = default;
  	shadow_holder(shadow_holder const&) = delete;
-@@ -171,7 +175,7 @@ std::vector<gid_t> get_supplementary(std
+@@ -190,7 +194,7 @@ std::vector<gid_t> get_supplementary(std
  
- bool check_auth(fz::native_string const& username, fz::native_string const& password)
+ bool check_auth(native_string const& username, native_string const& password)
  {
 -#if FZ_UNIX
 +#ifdef SHADOW_SUPPORTED
  	auto shadow = get_shadow(username);
  	if (shadow.shadow_) {
  		struct crypt_data data{};
-@@ -217,6 +221,7 @@ bool check_auth(fz::native_string const&
- impersonation_token::impersonation_token(fz::native_string const& username, fz::native_string const& password)
+@@ -236,6 +240,7 @@ bool check_auth(native_string const& use
+ impersonation_token::impersonation_token(native_string const& username, native_string const& password)
  {
  	auto pwd = get_passwd(username);
 +#ifdef SHADOW_SUPPORTED
  	if (pwd.pwd_) {
  		if (check_auth(username, password)) {
  			impl_ = std::make_unique<impersonation_token_impl>();
-@@ -229,6 +234,22 @@ impersonation_token::impersonation_token
+@@ -248,6 +253,22 @@ impersonation_token::impersonation_token
  			impl_->sup_groups_ = get_supplementary(username, pwd.pwd_->pw_gid);
  		}
  	}
@@ -61,4 +61,4 @@
 +#endif    /* SHADOW_SUPPORTED */
  }
  
- impersonation_token::impersonation_token(fz::native_string const& username, impersonation_flag flag, fz::native_string const& group)
+ impersonation_token::impersonation_token(native_string const& username, impersonation_flag flag, native_string const& group)
