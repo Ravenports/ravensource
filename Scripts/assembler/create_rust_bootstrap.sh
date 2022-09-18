@@ -141,4 +141,4 @@ echo "Creating and relocating ${NAME_CARGO_PKG}."
 (cd ${RASSY} && ${MYTAR} -c --zstd -f ${NAME_CARGO_PKG} ${NAME_CARGO}) && mv ${RASSY}/${NAME_CARGO_PKG} ${DISTDIR}/
 
 echo "cleaning everything up."
-# rm -rf ${RASSY} ${RINST}
+rm -rf ${RASSY} ${RINST}
