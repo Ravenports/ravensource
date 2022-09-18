@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.7
+DEF[PORTVERSION]=	3.8
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnugrep
@@ -30,7 +30,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		textproc/gnugrep
 
-USES=			charsetfix pcre:build cpe
+USES=			charsetfix cpe
 DISTNAME=		grep-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 INFO=			primary:grep
@@ -40,11 +40,17 @@ CONFIGURE_ARGS=		--enable-perl-regexp
 
 [RAVENSYS].DESCRIPTION=			For ravensys-root - built without NLS
 [RAVENSYS].USES_OFF=			gettext-runtime
+[RAVENSYS].BUILDRUN_DEPENDS_OFF=	pcre2:primary:standard
+[RAVENSYS].BUILD_DEPENDS_ON=		pcre2:primary:standard
 [RAVENSYS].CONFIGURE_ARGS_OFF=		--enable-nls
 					--with-libintl-prefix={{LOCALBASE}}
 [RAVENSYS].CONFIGURE_ARGS_ON=		--disable-nls
 
-post-patch:
+post-patch-RAVENSYS-ON:
+	# Force static linking of pcre2
+	${RM} ${LOCALBASE}/lib/libpcre2-8.so*
+
+pre-configure:
 	${REINPLACE_CMD} 's:@grep@:${LOCALBASE}/bin/&:' \
 		${WRKSRC}/src/egrep.sh
 	${REINPLACE_CMD} 's|mkinstalldirs = .*|mkinstalldirs = ${MKDIR}|g' \
