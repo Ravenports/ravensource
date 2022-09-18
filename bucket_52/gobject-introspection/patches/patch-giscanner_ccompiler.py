@@ -1,6 +1,6 @@
---- giscanner/ccompiler.py.orig	2022-03-18 11:53:54 UTC
+--- giscanner/ccompiler.py.orig	2022-09-17 18:52:38 UTC
 +++ giscanner/ccompiler.py
-@@ -197,7 +197,7 @@ class CCompiler(object):
+@@ -232,7 +232,7 @@ class CCompiler(object):
  
                  # Ensure libraries are always linked as we are going to use ldd to work
                  # out their names later
