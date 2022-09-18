@@ -7,7 +7,7 @@
 -        "/usr/local/ssl",
 -        "/usr/local/openssl",
 -        "/usr/local/share",
-+	"@PREFIX@/share",
++        "@PREFIX@/share",
          "/usr/lib/ssl",
          "/usr/ssl",
          "/etc/openssl",
