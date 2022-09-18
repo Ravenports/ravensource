@@ -1,4 +1,4 @@
---- setup.py.orig	2022-03-23 20:12:04 UTC
+--- setup.py.orig	2022-08-01 20:25:27 UTC
 +++ setup.py
 @@ -58,7 +58,10 @@ with warnings.catch_warnings():
  TEST_EXTENSIONS = (sysconfig.get_config_var('TEST_MODULES') == 'yes')
@@ -12,7 +12,7 @@
  
  # --list-module-names option used by Tools/scripts/generate_module_names.py
  LIST_MODULE_NAMES = False
-@@ -1106,8 +1109,6 @@ class PyBuildExt(build_ext):
+@@ -1105,8 +1108,6 @@ class PyBuildExt(build_ext):
          # use the same library for the readline and curses modules.
          if 'curses' in readline_termcap_library:
              curses_library = readline_termcap_library
@@ -21,7 +21,7 @@
          # Issue 36210: OSS provided ncurses does not link on AIX
          # Use IBM supplied 'curses' for successful build of _curses
          elif AIX and self.compiler.find_library_file(self.lib_dirs, 'curses'):
-@@ -1177,10 +1178,6 @@ class PyBuildExt(build_ext):
+@@ -1176,10 +1177,6 @@ class PyBuildExt(build_ext):
                  # for OS X but we need _XOPEN_SOURCE_EXTENDED here for
                  # ncurses wide char support
                  curses_defines.append(('_XOPEN_SOURCE_EXTENDED', '1'))
@@ -32,12 +32,12 @@
  
          curses_enabled = True
          if curses_library.startswith('ncurses'):
-@@ -1662,7 +1659,7 @@ class PyBuildExt(build_ext):
+@@ -1661,7 +1658,7 @@ class PyBuildExt(build_ext):
              self.missing.extend(['resource', 'termios'])
  
          # Platform-specific libraries
 -        if HOST_PLATFORM.startswith(('linux', 'freebsd', 'gnukfreebsd')):
 +        if HOST_PLATFORM.startswith(('linux', 'dragonfly', 'freebsd', 'gnukfreebsd')):
              self.add(Extension('ossaudiodev', ['ossaudiodev.c']))
-         elif not AIX:
-             self.missing.append('ossaudiodev')
+         elif HOST_PLATFORM.startswith(('netbsd')):
+             self.add(Extension('ossaudiodev', ['ossaudiodev.c'],
