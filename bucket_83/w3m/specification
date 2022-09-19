@@ -1,15 +1,14 @@
-# When hash changes, bump REVISION
-# This is for repology which only recognizes X.Y.Z as a valid version number
-DEF[PORTVERSION]=	0.5.3
-# DEBIAN no longer used.  was version 0.5.3pl38
-DEF[DEBIAN]=		38
-# equivalent to debian/${PORTVERSION}-${DEBIAN} but slash can't be there
-DEF[SNAPHASH]=		74d1ac7
+# Repology finally accepts Debian as new source, but it has to be
+# with the crazy git version scheme, otherwise only X.Y.Z accepted.
+DEF[BASEVERSION]=	0.5.3
+DEF[RELEASE_DATE]=	20220429
+DEF[PORTVERSION]=	${BASEVERSION}.git${RELEASE_DATE}
+DEF[SALSA_HASH]=	c13fce1252c265a50b08c7515f7cd207
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		w3m
 VERSION=		${PORTVERSION}
-EPOCH=			2
+EPOCH=			3
 KEYWORDS=		www
 VARIANTS=		standard
 SDESC[standard]=	Pager/text-based WWW browser
@@ -17,8 +16,8 @@ HOMEPAGE=		http://w3m.sourceforge.net/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/tats:w3m:${SNAPHASH}
-DISTFILE[1]=		generated:main
+SITES[main]=		https://salsa.debian.org/debian/w3m/uploads/${SALSA_HASH}/
+DISTFILE[1]=		w3m-${BASEVERSION}+git${RELEASE_DATE}.tar.xz:main
 
 SPKGS[standard]=	complete primary docs
 
@@ -29,8 +28,7 @@ LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKDIR}}/LICENSE
 LICENSE_SCHEME=		solo
 
-# We follow OpenBSD versioning now (recognized by repology)
-# FPC_EQUIVALENT=		www/w3m
+FPC_EQUIVALENT=		www/w3m
 
 BUILDRUN_DEPENDS=	boehm_garbage_collector:single:standard
 
@@ -42,6 +40,7 @@ CONFIGURE_ARGS=		--with-gc={{LOCALBASE}}
 			--disable-nls
 			--enable-image=no
 CONFIGURE_ENV=		DEFS="-I{{LOCALBASE}}/include"
+DISTNAME=		w3m-${BASEVERSION}+git${RELEASE_DATE}
 SINGLE_JOB=		yes
 
 post-extract:
@@ -49,23 +48,9 @@ post-extract:
 
 post-patch:
 	${REINPLACE_CMD} \
-		-e 's|`\(expr\) \(.*\) : \(.*\)`|`\1 \\( \2 : \3 \\)`|' \
 		-e 's|/usr/local|${LOCALBASE}|g' \
 		-e 's|mytinfo|tinfo|g' \
 		${WRKSRC}/configure
-	${REINPLACE_CMD} -e '/USE_EGD/ s/define/undef/' ${WRKSRC}/config.h.in
-	${FIND} ${WRKSRC}/doc* -type f \! -name HISTORY \
-		-exec ${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|g' {} +
-	${CP} ${WRKSRC}/doc-jp/README.func ${WRKSRC}/README.func.bak
-	${ICONV_CMD} -f EUC-JP -t UTF-8 ${WRKSRC}/README.func.bak \
-		> ${WRKSRC}/doc-jp/README.func
-	${CP} ${WRKSRC}/scripts/w3mhelp-funcdesc.ja.pl.in \
-		${WRKSRC}/scripts/w3mhelp-funcdesc.ja.pl.in.bak
-	${ICONV_CMD} -f EUC-JP -t UTF-8 \
-		${WRKSRC}/scripts/w3mhelp-funcdesc.ja.pl.in.bak \
-		> ${WRKSRC}/scripts/w3mhelp-funcdesc.ja.pl.in
-	${REINPLACE_CMD} -e 's|EUC-JP|UTF-8|g' \
-		${WRKSRC}/scripts/w3mhelp-funcdesc.ja.pl.in
 
 post-patch-linux:
 	# fix conflict with glibc
@@ -73,7 +58,7 @@ post-patch-linux:
 		${WRKSRC}/istream.[ch]
 
 post-install:
-	@${MKDIR} \
+	${MKDIR} \
 		${STAGEDIR}${PREFIX}/share/doc/w3m/japanese \
 		${STAGEDIR}${PREFIX}/share/doc/w3m/english \
 		${STAGEDIR}${MANPREFIX}/man/ja/man1
