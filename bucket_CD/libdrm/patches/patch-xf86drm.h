@@ -1,4 +1,4 @@
---- xf86drm.h.orig	2022-06-03 04:04:41 UTC
+--- xf86drm.h.orig	2022-08-31 14:38:38 UTC
 +++ xf86drm.h
 @@ -59,6 +59,9 @@ extern "C" {
  #else /* One of the *BSDs */
