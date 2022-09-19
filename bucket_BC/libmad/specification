@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	0.15.1b
+DEF[PORTVERSION]=	0.16.3
+DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libmad
@@ -11,8 +12,8 @@ HOMEPAGE=		http://www.underbit.com/products/mad/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/mad/libmad/${PORTVERSION}
-DISTFILE[1]=		libmad-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/tenacityteam:libmad:${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 SPKGS[speed]=		single
@@ -23,20 +24,19 @@ VOPTS[speed]=		SPEED=ON
 
 FPC_EQUIVALENT=		audio/libmad
 
-USES=			libtool fbsd10fix
-INSTALL_TARGET=		install-strip
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-debugging
-			--enable-sso
+USES=			cmake
+CMAKE_ARGS=		-DMADD_ASM=off
+			-DMADD16_ASM=off
+			-DASO=on
+			-DBUILD_SHARED_LIBS=on
 SUB_FILES=		mad.pc
 SUB_LIST=		VERSION=${PORTVERSION}
+SOVERSION=		${SOVERSION}
 
 [SPEED].DESCRIPTION=			Optimize for speed over accuracy
-[SPEED].CONFIGURE_ARGS_ON=		--enable-speed
-[SPEED].CONFIGURE_ARGS_OFF=		--enable-accuracy
-
-post-patch:
-	${REINPLACE_CMD} -e 's| -fforce-mem||' ${WRKSRC}/configure
+[SPEED].CMAKE_ARGS_ON=			-DOPTIMIZE=SPEED
+[SPEED].CMAKE_ARGS_OFF=			-DOPTIMIZE=ACCURACY
 
 post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmad.so.${SOVERSION}
 	${INSTALL_DATA} ${WRKDIR}/mad.pc ${STAGEDIR}${PREFIX}/lib/pkgconfig/
