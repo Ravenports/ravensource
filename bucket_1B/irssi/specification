@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.2.3
+DEF[PORTVERSION]=	1.4.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		irssi
@@ -28,35 +28,18 @@ LICENSE_SCHEME=		solo
 # FreeBSD moved to fake version 1.3.d.344 (current is 1.2.2)
 # FPC_EQUIVALENT=		irc/irssi
 
-USES=			cpe gettext-runtime gmake libtool ncurses perl
+USES=			cpe gettext-runtime ncurses perl meson
 			pkgconfig ssl
 GNOME_COMPONENTS=	glib
-INSTALL_TARGET=		install-strip
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-socks
-			--with-bot
-			--with-proxy
-			--with-true-color
-			--with-perl-lib=site
+MESON_ARGS=		-Dwith-bot=yes
+			-Dwith-proxy=yes
+			-Denable-true-color=yes
+			-Dwith-perl-lib=site
 PLIST_SUB=		MODULE={{BUNDLE:Uso}}
 
-# FIX: MacOS unnecessary rebuild of irssi
-INSTALL_REQ_TOOLCHAIN=	yes
-
-VAR_OPSYS[darwin]=	MAKEFILE_LINE=BUNDLE=bundle
-
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e 's|/usr|${PREFIX}|' -e 's|/etc|${PREFIX}&|' \
 		${WRKSRC}/docs/irssi.1
 
-post-configure:
-	${MV} ${WRKSRC}/irssi.conf ${WRKSRC}/irssi.conf.sample
-
 post-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/irssi/modules
-	${RM} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Irssi/.packlist
-	${RM} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Irssi/*/.packlist
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Irssi/Irssi.${BUNDLE:Uso}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Irssi/Irc/Irc.${BUNDLE:Uso}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Irssi/TextUI/TextUI.${BUNDLE:Uso}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Irssi/UI/UI.${BUNDLE:Uso}
+	${INSTALL_DATA} ${WRKSRC}/irssi.conf ${STAGEDIR}${PREFIX}/etc/irssi.conf.sample
