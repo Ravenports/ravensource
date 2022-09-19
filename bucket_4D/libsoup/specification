@@ -1,7 +1,7 @@
 # libsoup has even/odd releases, so stick to e.g. 2.60.x, 2.62.x, etc
-DEF[PORTVERSION]=	3.0.8
+DEF[PORTVERSION]=	3.2.0
 DEF[LIBVERSION]=	3.0
-DEF[SOVERSION]=		0.0.6
+DEF[SOVERSION]=		0.6.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libsoup
@@ -18,8 +18,9 @@ DISTFILE[1]=		libsoup-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	complete primary nls docs
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	INTROSPECTION
+OPTIONS_STANDARD=	INTROSPECTION
+OPT_ON[all]=		INTROSPECTION
 
 LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
@@ -34,26 +35,34 @@ BUILDRUN_DEPENDS=	brotli:single:standard
 			glib-networking:primary:standard
 			libpsl:single:standard
 			libnghttp2:single:standard
+			krb5:primary:standard
 RUN_DEPENDS=		libgcrypt:single:standard
 
 USES=			gettext-tools gmake libtool pkgconfig
-			sqlite meson gtk-doc cpe
+			sqlite meson cpe
 CPE_VENDOR=		gnome
-GNOME_COMPONENTS=	glib intltool introspection libxml2
-MESON_ARGS=		-Dgtk_doc=true
-# #			--  introspection segfaults these days --
-			-Dintrospection=disabled
+GNOME_COMPONENTS=	glib intltool libxml2
+MESON_ARGS=		-Dgssapi=enabled
 
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 
 SOVERSION=		${SOVERSION}
-GTKDOC_OUTPUT_BASEDIR=	libsoup-${LIBVERSION}
 PLIST_SUB=		LIBVERSION=${LIBVERSION}
-			INTRO="@comment "
 
 VAR_OPSYS[linux]=	CFLAGS=-D_GNU_SOURCE
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
+
+[INTROSPECTION].DESCRIPTION=		Build documentation and vala bindings
+[INTROSPECTION].BUILD_DEPENDS_ON=	python-gi-docgen:single:python_default
+					vala:single:standard
+[INTROSPECTION].CONFIGURE_ARGS_ON=	-Dintrospection=enabled
+					-Ddocs=enabled
+					-Dvapi=enabled
+[INTROSPECTION].CONFIGURE_ARGS_OFF=	-Dintrospection=disabled
+					-Ddocs=disabled
+					-Dvapi=disabled
+[INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/libsoup/soup-connection.h \
