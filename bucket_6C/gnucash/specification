@@ -1,4 +1,4 @@
-DEF[BASEVER]=		4.10
+DEF[BASEVER]=		4.11
 # DEF[DASH]=		-1
 # DEF[PORTVERSION]=	${BASEVER}${DASH:S/-/./}
 # DEF[DISTVERSION]=	${BASEVER}${DASH}
@@ -119,9 +119,6 @@ post-install:
 	(cd ${STAGEDIR}${PREFIX}/share/gnucash/icons/hicolor && \
 		${RM} -r 22x22 32x32 48x48 64x64 96x96 \
 			128x128 256x256 scalable)
-	${RMDIR} ${STAGEDIR}${PREFIX}/share/icons/hicolor/*/actions
-	${RMDIR} ${STAGEDIR}${PREFIX}/share/gnucash/icons/hicolor/16x16/apps
-	${RMDIR} ${STAGEDIR}${PREFIX}/share/gnucash/icons/hicolor/24x24/apps
 	${RM} ${STAGEDIR}${STD_DOCDIR}/ChangeLog*
 	${RM} ${STAGEDIR}${STD_DOCDIR}/LICENSE
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gnucash/*.${LIBEXT}
