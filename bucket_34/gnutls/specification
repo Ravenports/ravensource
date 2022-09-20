@@ -1,15 +1,13 @@
-# note that branch 3.6 is considered stable
-DEF[DL_FOLDER]=		3.6
-DEF[BASEVERSION]=	${DL_FOLDER}.16
+DEF[DL_FOLDER]=		3.7
+DEF[BASEVERSION]=	${DL_FOLDER}.7
 DEF[PORTVERSION]=	${BASEVERSION}
-DEF[SOVERSION]=		30.28.2
-DEF[SOXXVERSION]=	28.1.0
+DEF[SOVERSION]=		30.34.1
+DEF[SOXXVERSION]=	30.0.0
 DEF[SOXXMAJOR]=		${SOXXVERSION:R:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnutls
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		security net
 VARIANTS=		standard
 SDESC[standard]=	GNU Transport Layer Security library
@@ -20,7 +18,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNUPG/gnutls/v${DL_FOLDER}
 DISTFILE[1]=		gnutls-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[standard]=	complete library primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -41,9 +39,12 @@ BUILDRUN_DEPENDS=	libunistring:primary:standard
 			nss:caroot:standard
 B_DEPS[sunos]=		libbsd4sol:single:standard
 
+EXRUN[primary]=		gnutls:library:standard
+
 USES=			cpe gmake iconv libtool makeinfo pkgconfig
 			gettext-runtime zlib
 CPE_VENDOR=		gnu
+CPE_PRODUCT=		gnutls
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 MUST_CONFIGURE=		gnu
