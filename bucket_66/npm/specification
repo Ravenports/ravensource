@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	8.16.0
+DEF[PORTVERSION]=	8.19.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		npm
@@ -32,11 +32,14 @@ CPE_VENDOR=		cli_project
 CPE_PRODUCT=		cli
 CPE_TARGET_SW=		node.js
 SINGLE_JOB=		yes
-
 SHEBANG_GLOB=		*.py
 			resetdeps.sh
 SHEBANG_FILES=		lib/utils/completion.sh
 MANDIRS=		{{PREFIX}}/lib/node_modules/npm/man
+
+# Seems we can't build the documentation, no man pages anymore
+BUILD_TARGET=		mandocs
+SKIP_BUILD=		yes
 
 post-patch:
 	${GREP} -rl "/usr/local" ${WRKSRC} | ${XARGS} \
@@ -45,22 +48,20 @@ post-patch:
 		${REINPLACE_CMD} -e 's|/usr/bin/env node|${LOCALBASE}/bin/node|'
 	${GREP} -rl "/usr/bin/env bash" ${WRKSRC} | ${XARGS} \
 		${REINPLACE_CMD} -e 's|/usr/bin/env bash|${LOCALBASE}/bin/bash|'
+	${GREP} -rl "exec python" ${WRKSRC} | ${XARGS} \
+		${REINPLACE_CMD} -e 's|exec python|exec ${PYTHON_CMD}|'
 	# fix python location
 	${REINPLACE_CMD} -e 's|PYTHONBIN|${PYTHON_CMD}|' \
 		${WRKSRC}/node_modules/node-gyp/lib/configure.js
-	# don't build twice
-	${REINPLACE_CMD} -e 's/install: all/install:/' ${WRKSRC}/Makefile
-	${REINPLACE_CMD} -e 's/resetdeps/dumpconf/' ${WRKSRC}/Makefile
-	${FIND} ${WRKSRC} -name "*.bak" -type f -delete
-	cd ${WRKSRC} && node bin/npm-cli.js install marked-man --no-global --no-timing --no-save
+	${FIND} ${WRKSRC} \( -name "*.bak" -o -name "*.orig" \) -type f -delete
 
 do-install:
-	${FIND} ${WRKSRC} -type f -name '*.orig' -delete
 	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_ARGS} \
 		${LOCALBASE}/bin/node bin/npm-cli.js pack
 	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_ARGS} \
 		${LOCALBASE}/bin/node bin/npm-cli.js \
 		install -g -f npm-${PORTVERSION}.tgz
+	${ECHO_CMD} 'python=${PYTHON_CMD}' > ${STAGEDIR}${PREFIX}/etc/npmrc
 	# repeat shebang fix
 	${FIND} ${STAGEDIR}${PREFIX}/lib/node_modules/npm/node_modules/node-gyp -type f -name "*.py" |\
 		${XARGS} ${SED} -i'' -e "s|/usr/bin/env python|${PYTHON_CMD}|"

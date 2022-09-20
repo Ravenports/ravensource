@@ -1,18 +1,15 @@
-$NetBSD: patch-node__modules_node-gyp_lib_configure.js,v 1.3 2019/11/24 20:21:23 adam Exp $
-
-Skip Python detection, version 2.7 is required and we know where it is.
-
---- node_modules/node-gyp/lib/configure.js.orig	2022-07-20 20:28:24 UTC
+--- node_modules/node-gyp/lib/configure.js.orig	2022-09-13 23:13:51 UTC
 +++ node_modules/node-gyp/lib/configure.js
-@@ -15,21 +15,14 @@ if (win) {
+@@ -15,7 +15,7 @@ if (win) {
  }
  
  function configure (gyp, argv, callback) {
 -  var python
 +  var python = '@PYTHONBIN@'
    var buildDir = path.resolve('build')
+   var buildBinsDir = path.join(buildDir, 'node_gyp_bins')
    var configNames = ['config.gypi', 'common.gypi']
-   var configs = []
+@@ -23,14 +23,7 @@ function configure (gyp, argv, callback)
    var nodeDir
    var release = processRelease(argv, gyp, process.version, process.release)
  
