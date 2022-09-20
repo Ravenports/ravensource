@@ -1,4 +1,4 @@
---- src/remote/inet.cpp.orig	2021-12-21 10:19:51 UTC
+--- src/remote/inet.cpp.orig	2022-08-10 09:04:28 UTC
 +++ src/remote/inet.cpp
 @@ -960,7 +960,7 @@ rem_port* INET_connect(const TEXT* name,
  		gai_hints.ai_family = ((host.hasData() || !ipv6) ? AF_UNSPEC : AF_INET6);

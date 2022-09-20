@@ -1,4 +1,4 @@
---- src/gpre/languages/cob.cpp.orig	2021-12-21 10:19:50 UTC
+--- src/gpre/languages/cob.cpp.orig	2022-08-10 09:04:28 UTC
 +++ src/gpre/languages/cob.cpp
 @@ -60,7 +60,7 @@
  static const char* const COMMIT			= "commit";

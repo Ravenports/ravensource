@@ -1,4 +1,4 @@
---- builds/cmake/BuildFunctions.cmake.orig	2021-12-21 10:19:50 UTC
+--- builds/cmake/BuildFunctions.cmake.orig	2022-08-10 09:04:28 UTC
 +++ builds/cmake/BuildFunctions.cmake
 @@ -73,7 +73,7 @@ if (UNIX)
              if (APPLE)

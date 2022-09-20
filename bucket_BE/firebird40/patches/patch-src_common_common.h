@@ -1,6 +1,6 @@
---- src/common/common.h.orig	2021-12-21 10:19:50 UTC
+--- src/common/common.h.orig	2022-08-10 09:04:28 UTC
 +++ src/common/common.h
-@@ -262,7 +262,7 @@
+@@ -264,7 +264,7 @@
  /*****************************************************
  * FreeBSD for Intel platforms
  *****************************************************/
@@ -9,7 +9,7 @@
  
  #define FB_OS OsFreeBsd
  #define FB_CC CcGcc
-@@ -286,7 +286,7 @@
+@@ -288,7 +288,7 @@
  #define USE_POSIX_THREADS
  #endif
  

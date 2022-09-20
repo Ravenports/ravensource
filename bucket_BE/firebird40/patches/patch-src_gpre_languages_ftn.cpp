@@ -1,4 +1,4 @@
---- src/gpre/languages/ftn.cpp.orig	2021-12-21 10:19:50 UTC
+--- src/gpre/languages/ftn.cpp.orig	2022-08-10 09:04:28 UTC
 +++ src/gpre/languages/ftn.cpp
 @@ -225,7 +225,7 @@ const char* const I4CONST_2			= "";
  const char* const COMMENT			= "*     ";

@@ -1,4 +1,4 @@
---- src/common/SimilarToRegex.cpp.orig	2021-12-21 10:19:50 UTC
+--- src/common/SimilarToRegex.cpp.orig	2022-08-10 09:04:28 UTC
 +++ src/common/SimilarToRegex.cpp
 @@ -110,7 +110,8 @@ namespace
  			options.set_log_errors(false);
