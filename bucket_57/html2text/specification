@@ -1,10 +1,9 @@
 # Continued by Fabian Groffen officially
-DEF[PORTVERSION]=	2.0.0
+DEF[PORTVERSION]=	2.1.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		html2text
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		standard
 SDESC[standard]=	Converts HTML documents into plain text
@@ -29,9 +28,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		textproc/html2text
 
-USES=			c++:single iconv
+USES=			c++:single iconv gmake
 MUST_CONFIGURE=		yes
-MAKE_ARGS=		PREFIX={{PREFIX}}
+CONFIGURE_ARGS=		PREFIX={{PREFIX}}
 			MANDIR={{MANPREFIX}}/man
 CXXFLAGS=		-Wno-write-strings
 			-Wno-deprecated-declarations
