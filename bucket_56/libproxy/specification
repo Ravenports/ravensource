@@ -83,7 +83,8 @@ post-patch:
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/proxy
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libproxy.${LIBEXT}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libproxy.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libproxy/${PORTVERSION}/modules/config_pacrunner.so
 
 post-install-PERL-ON:
 	${STRIP_CMD} ${STAGEDIR}${SITE_ARCH}/auto/Net/Libproxy/Libproxy.so
