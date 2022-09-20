@@ -1,15 +1,13 @@
---- meson.build.orig	2022-03-25 04:33:26 UTC
+--- meson.build.orig	2022-08-02 01:28:52 UTC
 +++ meson.build
-@@ -39,9 +39,9 @@ pkgconfig = import('pkgconfig')
+@@ -40,8 +40,8 @@ pkgconfig = import('pkgconfig')
  dep_lm = cc.find_library('m')
  dep_rt = cc.find_library('rt')
  
--input_h = join_paths(meson.source_root(), 'include', 'linux', host_machine.system(), 'input.h')
--uinput_h = join_paths(meson.source_root(), 'include', 'linux', host_machine.system(), 'uinput.h')
--input_event_codes_h = join_paths(meson.source_root(), 'include', 'linux', host_machine.system(), 'input-event-codes.h')
-+input_h = join_paths(meson.source_root(), 'include', 'linux', 'input.h')
-+uinput_h = join_paths(meson.source_root(), 'include', 'linux', 'uinput.h')
-+input_event_codes_h = join_paths(meson.source_root(), 'include', 'linux', 'input-event-codes.h')
+-input_h = dir_root / 'include' / 'linux' / host_machine.system() / 'input.h'
+-input_event_codes_h = dir_root / 'include' / 'linux' / host_machine.system() / 'input-event-codes.h'
++input_h = dir_root / 'include' / 'linux' / 'input.h'
++input_event_codes_h = dir_root / 'include' / 'linux' / 'input-event-codes.h'
  
  # event-names.h
  make_event_names = find_program('libevdev/make-event-names.py')
