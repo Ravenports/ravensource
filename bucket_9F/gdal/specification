@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.4.3
+DEF[PORTVERSION]=	3.5.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gdal
@@ -81,6 +81,7 @@ CONFIGURE_ARGS=		--datadir={{LOCALBASE}}/share
 			{{ICONV_CONFIGURE_ARG}}
 CFLAGS=			-fPIC
 SOVERSION=		${PORTVERSION}
+INSTALL_REQ_TOOLCHAIN=	yes
 
 post-patch:
 	${REINPLACE_CMD} -e '/^#GDAL_SLIB_SONAME/ s|^#||' ${WRKSRC}/GDALmake.opt.in
