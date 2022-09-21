@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.0.25
+DEF[PORTVERSION]=	1.0.26
 DEF[SOVERSION]=		0.3.0
 # ----------------------------------------------------------------------------
 
@@ -21,8 +21,8 @@ OPTIONS_STANDARD=	none
 
 ONLY_FOR_OPSYS=		linux netbsd openbsd darwin
 
-USES=			autoreconf libtool
-
+USES=			autoreconf libtool pkgconfig cclibs:single
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
+CONFIGURE_ARGS=		--enable-udev=no
