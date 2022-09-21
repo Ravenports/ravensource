@@ -1,6 +1,6 @@
---- deps/hiredis/Makefile.orig	2021-10-04 10:59:40 UTC
+--- deps/hiredis/Makefile.orig	2022-07-18 13:04:07 UTC
 +++ deps/hiredis/Makefile
-@@ -21,7 +21,7 @@ HIREDIS_PATCH=$(shell grep HIREDIS_PATCH
+@@ -15,7 +15,7 @@ HIREDIS_PATCH=$(shell grep HIREDIS_PATCH
  HIREDIS_SONAME=$(shell grep HIREDIS_SONAME hiredis.h | awk '{print $$3}')
  
  # Installation related variables and target
@@ -9,7 +9,7 @@
  INCLUDE_PATH?=include/hiredis
  LIBRARY_PATH?=lib
  PKGCONF_PATH?=pkgconfig
-@@ -44,9 +44,7 @@ export REDIS_TEST_CONFIG
+@@ -38,9 +38,7 @@ export REDIS_TEST_CONFIG
  # Fallback to gcc when $CC is not in $PATH.
  CC:=$(shell sh -c 'type $${CC%% *} >/dev/null 2>/dev/null && echo $(CC) || echo gcc')
  CXX:=$(shell sh -c 'type $${CXX%% *} >/dev/null 2>/dev/null && echo $(CXX) || echo g++')
@@ -19,7 +19,7 @@
  REAL_CFLAGS=$(OPTIMIZATION) -fPIC $(CPPFLAGS) $(CFLAGS) $(WARNINGS) $(DEBUG_FLAGS)
  REAL_LDFLAGS=$(LDFLAGS)
  
-@@ -100,6 +98,15 @@ ifeq ($(uname_S),SunOS)
+@@ -127,6 +125,15 @@ ifeq ($(uname_S),SunOS)
    DYLIB_MAKE_CMD=$(CC) $(SUN_SHARED_FLAG) -o $(DYLIBNAME) -h $(DYLIB_MINOR_NAME) $(LDFLAGS)
    SSL_DYLIB_MAKE_CMD=$(CC) $(SUN_SHARED_FLAG) -o $(SSL_DYLIBNAME) -h $(SSL_DYLIB_MINOR_NAME) $(LDFLAGS) $(SSL_LDFLAGS)
  endif
