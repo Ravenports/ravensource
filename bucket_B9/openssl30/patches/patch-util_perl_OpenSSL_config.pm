@@ -1,4 +1,4 @@
---- util/perl/OpenSSL/config.pm.orig	2022-03-15 14:30:24 UTC
+--- util/perl/OpenSSL/config.pm.orig	2022-07-05 08:57:04 UTC
 +++ util/perl/OpenSSL/config.pm
 @@ -724,20 +724,7 @@ EOF
        [ 'sun4.*-.*-solaris2',     { target => "solaris-sparcv7" } ],
@@ -28,5 +28,5 @@
        [ 'x86_64-.*-dragonfly.*',  { target => "BSD-x86_64" } ],
 +      [ 'x86_64-.*-netbsd.*',     { target => "BSD-x86_64" } ],
        [ 'amd64-.*-.*bsd.*',       { target => "BSD-x86_64" } ],
+       [ 'arm64-.*-.*bsd.*',       { target => "BSD-aarch64" } ],
        [ '.*86.*-.*-.*bsd.*',
-         sub {
