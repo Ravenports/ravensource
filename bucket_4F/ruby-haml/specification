@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.2.2
+DEF[PORTVERSION]=	6.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-haml
@@ -8,12 +8,12 @@ VARIANTS=		v27 v30 v31
 SDESC[v27]=		HTML Abstraction Markup Language (v27)
 SDESC[v30]=		HTML Abstraction Markup Language (v30)
 SDESC[v31]=		HTML Abstraction Markup Language (v31)
-HOMEPAGE=		https://haml.info/
+HOMEPAGE=		https://haml.info
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		haml-5.2.2.gem:main
+DISTFILE[1]=		haml-6.0.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v27]=		single
@@ -30,25 +30,38 @@ VOPTS[v31]=		RUBY27=OFF RUBY30=OFF RUBY31=ON
 # => "MIT"
 
 # Requirements according to gem specification:
-#   temple (>= 0.8.0)
+#   temple (>= 0.8.2)
+#   thor (>= 0)
 #   tilt (>= 0)
-#   rails (>= 4.0.0, development)
-#   rbench (>= 0, development)
-#   minitest (>= 4.0, development)
-#   nokogiri (>= 0, development)
-#   simplecov (>= 0, development)
+#   benchmark_driver (>= 0, development)
+#   bundler (>= 0, development)
+#   coffee-script (>= 0, development)
+#   erubi (>= 0, development)
+#   haml (>= 5, development)
+#   less (>= 0, development)
+#   minitest-reporters (~> 1.1, development)
+#   rails (>= 4.0, development)
+#   rake (>= 0, development)
+#   rake-compiler (>= 0, development)
+#   sass (>= 0, development)
+#   slim (>= 0, development)
+#   string_template (>= 0, development)
+#   unindent (>= 0, development)
 
 DISTNAME=		haml-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY27].USES_ON=			gem:v27
 [RUBY27].BUILDRUN_DEPENDS_ON=		ruby-temple:single:v27
+					ruby-thor:single:v27
 					ruby-tilt:single:v27
 [RUBY30].USES_ON=			gem:v30
 [RUBY30].BUILDRUN_DEPENDS_ON=		ruby-temple:single:v30
+					ruby-thor:single:v30
 					ruby-tilt:single:v30
 [RUBY31].USES_ON=			gem:v31
 [RUBY31].BUILDRUN_DEPENDS_ON=		ruby-temple:single:v31
+					ruby-thor:single:v31
 					ruby-tilt:single:v31
 
 USES=			cpe
