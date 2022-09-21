@@ -1,9 +1,9 @@
---- program/lib/Roundcube/rcube_message.php.orig	2021-12-29 22:29:24 UTC
+--- program/lib/Roundcube/rcube_message.php.orig	2022-07-23 20:17:14 UTC
 +++ program/lib/Roundcube/rcube_message.php
-@@ -910,8 +910,7 @@ class rcube_message
+@@ -912,8 +912,7 @@ class rcube_message
                  else if (
                      preg_match('/^(inline|attach)/', $mail_part->disposition)
-                     || $mail_part->headers['content-id']
+                     || !empty($mail_part->headers['content-id'])
 -                    || ($mail_part->filename &&
 -                        (empty($mail_part->disposition) || preg_match('/^[a-z0-9!#$&.+^_-]+$/i', $mail_part->disposition)))
 +                    || $mail_part->filename

@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.5.2
+DEF[PORTVERSION]=	1.6.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		roundcube
@@ -80,7 +80,6 @@ SKIP_BUILD=		yes
 
 post-patch:
 	${FIND} ${WRKSRC} -type f -name "*.orig" -delete
-	${RMDIR} ${WRKSRC}/plugins/archive/skins/larry
 	# remove unsupported databases
 	${MV} ${WRKSRC}/SQL/mssql ${WRKDIR}/
 	${MV} ${WRKSRC}/SQL/oracle ${WRKDIR}/
