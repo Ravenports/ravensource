@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2021.06.30
+DEF[PORTVERSION]=	2022.05.18
 DEF[LATEST_API]=	3.0
 DEF[HASH]=		v${PORTVERSION}
 # ----------------------------------------------------------------------------
@@ -22,8 +22,4 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		devel/opencl
 
-SKIP_BUILD=		yes
-
-do-install:
-	${MKDIR} ${STAGEDIR}${PREFIX}/include/CL
-	${INSTALL_DATA} ${WRKSRC}/CL/*.h ${STAGEDIR}${PREFIX}/include/CL
+USES=			cmake
