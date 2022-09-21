@@ -1,4 +1,4 @@
---- config.orig	2022-05-03 13:41:15 UTC
+--- config.orig	2022-07-05 09:08:33 UTC
 +++ config
 @@ -686,15 +686,7 @@ case "$GUESSOS" in
    sun4d-*-solaris2)	OUT="solaris-sparcv8-$CC" ;;
@@ -17,12 +17,13 @@
  	;;
    *-*-sunos4)		OUT="sunos-$CC" ;;
  
-@@ -708,15 +700,10 @@ case "$GUESSOS" in
+@@ -708,16 +700,11 @@ case "$GUESSOS" in
    sparc64-*-*bsd*)	OUT="BSD-sparc64" ;;
    ia64-*-*bsd*)		OUT="BSD-ia64" ;;
    x86_64-*-dragonfly*)  OUT="BSD-x86_64" ;;
 +  x86_64-*-netbsd*)     OUT="BSD-x86_64" ;;
    amd64-*-*bsd*)	OUT="BSD-x86_64" ;;
+   arm64-*-*bsd*)	OUT="BSD-aarch64" ;;
    *86*-*-*bsd*)		# mimic ld behaviour when it's looking for libc...
 -			if [ -L /usr/lib/libc.so ]; then	# [Free|Net]BSD
 -			    libc=/usr/lib/libc.so
