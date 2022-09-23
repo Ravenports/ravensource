@@ -11,10 +11,10 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/
-			http://llvm.org/releases/${LLVM_VERSION}/
 DISTFILE[1]=		libcxx-${LLVM_VERSION}.src.tar.xz:main
 DISTFILE[2]=		libcxxabi-${LLVM_VERSION}.src.tar.xz:main
-DF_INDEX=		1 2
+DISTFILE[3]=		cmake-${LLVM_VERSION}.src.tar.xz:main
+DF_INDEX=		1 2 3
 
 SPKGS[standard]=	complete primary abi experimental
 
@@ -50,10 +50,14 @@ post-extract:
 		${WRKSRC}/projects/libcxx
 	${MV} ${WRKDIR}/libcxxabi-${LLVM_VERSION}.src \
 		${WRKSRC}/projects/libcxxabi
-	${CP} ${WRKDIR}/cmake/Modules/* ${WRKSRC}/projects/libcxx/cmake/Modules/
-	${CP} ${WRKDIR}/cmake/Modules/* ${WRKSRC}/projects/libcxxabi/cmake/Modules/
 	${SED} -e 's|%%VERSION%%|${LLVM_VERSION}|' ${FILESDIR}/CMakeLists.txt \
 		> ${WRKSRC}/CMakeLists.txt
+	# install more cmake functions
+	${CP} ${WRKDIR}/cmake-${LLVM_VERSION}.src/Modules/* \
+		${WRKSRC}/projects/libcxx/cmake/Modules/
+	${CP} ${WRKDIR}/cmake-${LLVM_VERSION}.src/Modules/* \
+		${WRKSRC}/projects/libcxxabi/cmake/Modules/
+
 
 pre-configure:
 	${REINPLACE_CMD} -e '/add_dependencies(cxx_static unwind)/d' \

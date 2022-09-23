@@ -1,11 +1,11 @@
---- projects/libcxx/CMakeLists.txt.orig	2022-04-29 00:10:18 UTC
+--- projects/libcxx/CMakeLists.txt.orig	2022-09-20 06:05:50 UTC
 +++ projects/libcxx/CMakeLists.txt
-@@ -217,8 +217,6 @@ if (LIBCXX_CXX_ABI STREQUAL "default")
-   if (LIBCXX_TARGETING_MSVC)
-     # FIXME: Figure out how to configure the ABI library on Windows.
-     set(LIBCXX_CXX_ABI_LIBNAME "vcruntime")
--  elseif (${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD")
--    set(LIBCXX_CXX_ABI_LIBNAME "libcxxrt")
-   elseif (NOT LIBCXX_STANDALONE_BUILD OR HAVE_LIBCXXABI)
-     set(LIBCXX_CXX_ABI_LIBNAME "libcxxabi")
-   else()
+@@ -210,8 +210,6 @@ option(LIBCXX_ENABLE_BACKWARDS_COMPATIBI
+ # ABI Library options ---------------------------------------------------------
+ if (LIBCXX_TARGETING_MSVC)
+   set(LIBCXX_DEFAULT_ABI_LIBRARY "vcruntime")
+-elseif (${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD")
+-  set(LIBCXX_DEFAULT_ABI_LIBRARY "libcxxrt")
+ else()
+   set(LIBCXX_DEFAULT_ABI_LIBRARY "libcxxabi")
+ endif()

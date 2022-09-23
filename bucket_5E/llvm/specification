@@ -16,8 +16,9 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/
-			http://llvm.org/releases/${LLVM_VERSION}/
 DISTFILE[1]=		llvm-${PORTVERSION}.src.tar.xz:main
+DISTFILE[2]=		cmake-${PORTVERSION}.src.tar.xz:main
+DF_INDEX=		1 2
 
 SPKGS[standard]=	single
 
@@ -65,6 +66,9 @@ BLOCK_WATCHDOG=		yes
 [GOLD].DESCRIPTION=			Build the LLVM Gold plugin for LTO
 [GOLD].CMAKE_ARGS_ON=			-DLLVM_BINUTILS_INCDIR={{LOCALBASE}}/toolchain/include
 					-DLLVM_USE_LINKER=gold
+
+post-extract:
+	${CP} ${WRKDIR}/cmake-*/Modules/* ${WRKSRC}/cmake/modules/
 
 post-patch:
 	${REINPLACE_CMD} -e "s|/usr/local|${PREFIX}|g" \

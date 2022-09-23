@@ -12,11 +12,11 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/
-			http://llvm.org/releases/${LLVM_VERSION}/
 DISTFILE[1]=		libunwind-${LLVM_VERSION}.src.tar.xz:main
 DISTFILE[2]=		libcxx-${LLVM_VERSION}.src.tar.xz:main
 DISTFILE[3]=		llvm-${LLVM_VERSION}.src.tar.xz:main
-DF_INDEX=		1 2 3
+DISTFILE[4]=		cmake-${LLVM_VERSION}.src.tar.xz:main
+DF_INDEX=		1 2 3 4
 
 SPKGS[standard]=	single
 
@@ -41,6 +41,9 @@ post-extract:
 	${MV} ${WRKDIR}/libcxx-${LLVM_VERSION}.src ${WRKDIR}/libcxx
 	# can't build c++ or libunwind separately anymore
 	${MV} ${WRKDIR}/llvm-${LLVM_VERSION}.src ${WRKDIR}/llvm
+	# Install more cmake functions
+	${CP} ${WRKDIR}/cmake-${LLVM_VERSION}.src/Modules/* \
+		${WRKSRC}/cmake/Modules/
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/include/*.h ${STAGEDIR}${PREFIX}/include/

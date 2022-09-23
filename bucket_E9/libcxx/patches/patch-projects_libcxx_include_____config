@@ -1,4 +1,4 @@
---- projects/libcxx/include/__config.orig	2022-04-29 00:10:18 UTC
+--- projects/libcxx/include/__config.orig	2022-09-20 06:05:50 UTC
 +++ projects/libcxx/include/__config
 @@ -12,6 +12,10 @@
  
@@ -11,86 +11,53 @@
  #if defined(_MSC_VER) && !defined(__clang__)
  #  if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
  #    define _LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER
-@@ -129,7 +133,7 @@
- #  endif
+@@ -138,7 +142,7 @@
+ #    endif
  // Feature macros for disabling pre ABI v1 features. All of these options
  // are deprecated.
--#  if defined(__FreeBSD__)
-+#  if defined(__FreeDragon__)
- #    define _LIBCPP_DEPRECATED_ABI_DISABLE_PAIR_TRIVIAL_COPY_CTOR
- #  endif
- #endif
-@@ -285,7 +289,7 @@
- #  endif // __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
- #endif // __BYTE_ORDER__
- 
--#ifdef __FreeBSD__
-+#ifdef __FreeDragon__
- #  include <sys/endian.h>
- #  include <osreldate.h>
- #  if _BYTE_ORDER == _LITTLE_ENDIAN
-@@ -293,7 +297,7 @@
- #  else  // _BYTE_ORDER == _LITTLE_ENDIAN
- #    define _LIBCPP_BIG_ENDIAN
- #  endif  // _BYTE_ORDER == _LITTLE_ENDIAN
--#endif // __FreeBSD__
-+#endif // __FreeDragon__
- 
- #if defined(__NetBSD__) || defined(__OpenBSD__)
- #  include <sys/endian.h>
-@@ -428,13 +432,16 @@
- # define _LIBCPP_HAS_ALIGNED_ALLOC
- #else
- #if (defined(__ISO_C_VISIBLE) && (__ISO_C_VISIBLE >= 2011)) || __cplusplus >= 201103L
--#  if defined(__FreeBSD__)
-+#  if defined(__FreeDragon__)
- #    define _LIBCPP_HAS_ALIGNED_ALLOC
- #    define _LIBCPP_HAS_QUICK_EXIT
- #    if __FreeBSD_version >= 1300064 || \
-        (__FreeBSD_version >= 1201504 && __FreeBSD_version < 1300000)
- #      define _LIBCPP_HAS_TIMESPEC_GET
+-#    if defined(__FreeBSD__)
++#    if defined(__FreeDragon__)
+ #      define _LIBCPP_DEPRECATED_ABI_DISABLE_PAIR_TRIVIAL_COPY_CTOR
  #    endif
-+#    if defined(__DragonFly__)
-+#      define _LIBCPP_HAS_TIMESPEC_GET
-+#    endif
- #  elif defined(__BIONIC__)
- #    if __ANDROID_API__ >= 21
- #      define _LIBCPP_HAS_QUICK_EXIT
-@@ -960,12 +967,12 @@ typedef unsigned int   char32_t;
- #   define _LIBCPP_EXTERN_TEMPLATE_EVEN_IN_DEBUG_MODE(...) extern template __VA_ARGS__;
- #endif
+ #  endif
+@@ -290,7 +294,7 @@ If there are users of this configuration
+ #    endif // __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
+ #  endif   // __BYTE_ORDER__
  
--#if defined(__APPLE__) || defined(__FreeBSD__) || defined(_LIBCPP_MSVCRT_LIKE) || \
-+#if defined(__APPLE__) || defined(__FreeDragon__) || defined(_LIBCPP_MSVCRT_LIKE) || \
-     defined(__sun__) || defined(__NetBSD__)
- #define _LIBCPP_LOCALE__L_EXTENSIONS 1
- #endif
+-#  ifdef __FreeBSD__
++#  ifdef __FreeDragon__
+ #    include <sys/endian.h>
+ #    include <osreldate.h>
+ #    if _BYTE_ORDER == _LITTLE_ENDIAN
+@@ -298,7 +302,7 @@ If there are users of this configuration
+ #    else // _BYTE_ORDER == _LITTLE_ENDIAN
+ #      define _LIBCPP_BIG_ENDIAN
+ #    endif // _BYTE_ORDER == _LITTLE_ENDIAN
+-#  endif   // __FreeBSD__
++#  endif   // __FreeDragon__
  
--#ifdef __FreeBSD__
-+#ifdef __FreeDragon__
- #define _DECLARE_C99_LDBL_MATH 1
- #endif
+ #  if defined(__NetBSD__) || defined(__OpenBSD__)
+ #    include <sys/endian.h>
+@@ -752,11 +756,11 @@ _LIBCPP_BEGIN_NAMESPACE_STD _LIBCPP_END_
+ #    define _LIBCPP_HAS_NO_ALIGNED_ALLOCATION
+ #  endif
  
-@@ -986,11 +993,11 @@ typedef unsigned int   char32_t;
- #  define _LIBCPP_HAS_NO_ALIGNED_ALLOCATION
- #endif
+-#  if defined(__APPLE__) || defined(__FreeBSD__)
++#  if defined(__APPLE__) || defined(__FreeDragon__)
+ #    define _LIBCPP_HAS_DEFAULTRUNELOCALE
+ #  endif
  
--#if defined(__APPLE__) || defined(__FreeBSD__)
-+#if defined(__APPLE__) || defined(__FreeDragon__)
- #define _LIBCPP_HAS_DEFAULTRUNELOCALE
- #endif
+-#  if defined(__APPLE__) || defined(__FreeBSD__) || defined(__sun__)
++#  if defined(__APPLE__) || defined(__FreeDragon__) || defined(__sun__)
+ #    define _LIBCPP_WCTYPE_IS_MASK
+ #  endif
  
--#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__sun__)
-+#if defined(__APPLE__) || defined(__FreeDragon__) || defined(__sun__)
- #define _LIBCPP_WCTYPE_IS_MASK
- #endif
+@@ -901,7 +905,7 @@ _LIBCPP_BEGIN_NAMESPACE_STD _LIBCPP_END_
+       !defined(_LIBCPP_HAS_THREAD_API_WIN32) &&                                                                        \
+       !defined(_LIBCPP_HAS_THREAD_API_EXTERNAL)
  
-@@ -1136,7 +1143,7 @@ extern "C" _LIBCPP_FUNC_VIS void __sanit
-     !defined(_LIBCPP_HAS_THREAD_API_PTHREAD) && \
-     !defined(_LIBCPP_HAS_THREAD_API_WIN32) && \
-     !defined(_LIBCPP_HAS_THREAD_API_EXTERNAL)
--#  if defined(__FreeBSD__) || \
-+#  if defined(__FreeDragon__) || \
-       defined(__wasi__) || \
-       defined(__NetBSD__) || \
-       defined(__OpenBSD__) || \
+-#    if defined(__FreeBSD__) ||                                                                                        \
++#    if defined(__FreeDragon__) ||                                                                                        \
+         defined(__wasi__) ||                                                                                           \
+         defined(__NetBSD__) ||                                                                                         \
+         defined(__OpenBSD__) ||                                                                                        \

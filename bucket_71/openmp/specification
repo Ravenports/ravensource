@@ -1,5 +1,6 @@
 DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM_VERSION)
 DEF[PORTREVISION]=	0
+DEF[MAJOR]=		${LLVM_VERSION:R:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		openmp
@@ -12,8 +13,9 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/
-			http://llvm.org/releases/${LLVM_VERSION}/
 DISTFILE[1]=		openmp-${LLVM_VERSION}.src.tar.xz:main
+DISTFILE[2]=		cmake-${LLVM_VERSION}.src.tar.xz:main
+DF_INDEX=		1 2
 
 SPKGS[standard]=	single
 
@@ -35,8 +37,13 @@ CMAKE_BUILD_TYPE=	Release
 DISTNAME=		openmp-${LLVM_VERSION}.src
 CMAKE_ARGS=		-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
 PLIST_SUB=		AMDGCN={{VAR1}}
+			LLVM_MAJOR="${MAJOR}"
 
 VAR_OPSYS[freebsd]=	VAR1="@comment "
+
+post-extract:
+	${CP} ${WRKDIR}/cmake-${LLVM_VERSION}.src/Modules/* \
+		${WRKSRC}/cmake/
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libomp.${LIBEXT}

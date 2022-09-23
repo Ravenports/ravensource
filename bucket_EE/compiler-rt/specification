@@ -12,6 +12,8 @@ CONTACT=		nobody
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/
 DISTFILE[1]=		compiler-rt-${LLVM_VERSION}.src.tar.xz:main
+DISTFILE[2]=		cmake-${LLVM_VERSION}.src.tar.xz:main
+DF_INDEX=		1 2
 
 SPKGS[standard]=	single
 
@@ -30,3 +32,7 @@ BUILDRUN_DEPENDS=	llvm:single:standard
 USES=			cmake ninja python:build c++:single
 DISTNAME=		compiler-rt-${LLVM_VERSION}.src
 PLIST_SUB=		OPSYSLC={{OPSYS:tl}}
+
+post-extract:
+	${CP} ${WRKDIR}/cmake-${LLVM_VERSION}.src/Modules/* \
+		${WRKSRC}/cmake/Modules/

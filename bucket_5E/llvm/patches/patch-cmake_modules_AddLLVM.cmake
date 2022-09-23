@@ -1,6 +1,6 @@
---- cmake/modules/AddLLVM.cmake.orig	2022-04-29 00:10:18 UTC
+--- cmake/modules/AddLLVM.cmake.orig	2022-09-20 06:05:50 UTC
 +++ cmake/modules/AddLLVM.cmake
-@@ -219,14 +219,10 @@ if (NOT DEFINED LLVM_LINKER_DETECTED AND
+@@ -225,14 +225,10 @@ if (NOT DEFINED LLVM_LINKER_DETECTED AND
        set(LLVM_LINKER_DETECTED YES CACHE INTERNAL "")
        set(LLVM_LINKER_IS_GNULD YES CACHE INTERNAL "")
        message(STATUS "Linker detection: GNU ld")

@@ -1,4 +1,4 @@
---- lib/Lex/InitHeaderSearch.cpp.orig	2022-04-29 00:10:18 UTC
+--- lib/Lex/InitHeaderSearch.cpp.orig	2022-09-20 06:05:50 UTC
 +++ lib/Lex/InitHeaderSearch.cpp
 @@ -234,7 +234,6 @@ void InitHeaderSearch::AddDefaultCInclud
    if (HSOpts.UseStandardSystemIncludes) {
@@ -8,7 +8,7 @@
      case llvm::Triple::NetBSD:
      case llvm::Triple::OpenBSD:
      case llvm::Triple::NaCl:
-@@ -410,8 +409,15 @@ void InitHeaderSearch::AddDefaultCPlusPl
+@@ -413,8 +412,15 @@ void InitHeaderSearch::AddDefaultCPlusPl
        break;
      }
      break;

@@ -1,8 +1,8 @@
---- lib/Driver/ToolChains/DragonFly.cpp.orig	2022-04-29 00:10:18 UTC
+--- lib/Driver/ToolChains/DragonFly.cpp.orig	2022-09-20 06:05:50 UTC
 +++ lib/Driver/ToolChains/DragonFly.cpp
 @@ -71,7 +71,7 @@ void dragonfly::Linker::ConstructJob(Com
        CmdArgs.push_back("-Bshareable");
-     else {
+     else if (!Args.hasArg(options::OPT_r)) {
        CmdArgs.push_back("-dynamic-linker");
 -      CmdArgs.push_back("/usr/libexec/ld-elf.so.2");
 +      CmdArgs.push_back("/libexec/ld-elf.so.2");
