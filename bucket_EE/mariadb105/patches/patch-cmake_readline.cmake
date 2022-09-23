@@ -1,4 +1,4 @@
---- cmake/readline.cmake.orig	2022-02-10 20:11:29 UTC
+--- cmake/readline.cmake.orig	2022-08-10 10:53:19 UTC
 +++ cmake/readline.cmake
 @@ -52,40 +52,17 @@ MACRO (MYSQL_CHECK_MULTIBYTE)
  ENDMACRO()
@@ -12,7 +12,7 @@
      remove CMakeCache.txt and rerun cmake.")
 -   IF(CMAKE_SYSTEM_NAME MATCHES "Linux")
 -    SET(ERRORMSG ${ERRORMSG} 
--    "On Debian/Ubuntu, package name is libncurses5-dev, on Redhat and derivates " 
+-    "On Debian/Ubuntu, package name is libncurses5-dev, on Redhat and derivatives " 
 -    "it is ncurses-devel.")
 -   ENDIF()
     MESSAGE(FATAL_ERROR ${ERRORMSG})
