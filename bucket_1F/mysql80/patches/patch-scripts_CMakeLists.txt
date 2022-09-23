@@ -1,4 +1,4 @@
---- scripts/CMakeLists.txt.orig	2021-12-17 16:07:27 UTC
+--- scripts/CMakeLists.txt.orig	2022-07-06 21:36:34 UTC
 +++ scripts/CMakeLists.txt
 @@ -214,11 +214,7 @@ IF(MY_COMPILER_IS_GNU_OR_CLANG)
    STRING(REGEX REPLACE "-std=c..[0-9]+" "" CXXFLAGS "${CXXFLAGS}")
@@ -38,16 +38,16 @@
    SET(RPATH_OPTION " -R$pkglibdir")
  ENDIF()
  
-@@ -323,6 +314,8 @@ MACRO(EXTRACT_LINK_LIBRARIES target var)
-         GET_FILENAME_COMPONENT(lib "${lib}" NAME_WE)
-         STRING(REGEX REPLACE "^lib" "" lib "${lib}")
+@@ -332,6 +323,8 @@ MACRO(EXTRACT_LINK_LIBRARIES target var)
+           SET(${var} "${${var}}-L${dir} " )
+         ENDIF()
          SET(${var} "${${var}}-l${lib} " )
 +      ELSEIF(lib STREQUAL "-pthread")
 +        SET(${var} "${${var}}-pthread " )
        ELSE()
          SET(${var} "${${var}}-l${lib} " )
        ENDIF()
-@@ -345,21 +338,10 @@ ELSE()
+@@ -354,21 +347,10 @@ ELSE()
    GET_TARGET_PROPERTY(LIBMYSQL_OS_OUTPUT_NAME libmysql OUTPUT_NAME)
  ENDIF()
  
@@ -70,7 +70,7 @@
  
  MESSAGE(STATUS "CONFIG_CLIENT_LIBS ${CONFIG_CLIENT_LIBS}")
  MESSAGE(STATUS "CONFIG_LIBS_PRIVATE ${CONFIG_LIBS_PRIVATE}")
-@@ -425,7 +407,7 @@ ELSE()
+@@ -434,7 +416,7 @@ ELSE()
    FOREACH(file ${BIN_SCRIPTS})
      IF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${file}.sh)
        CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/${file}.sh
