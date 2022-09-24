@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	0.3.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-mdit-py-plugins
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py39 py310
+SDESC[py39]=		Collection of plugins for markdown-it-py (3.9)
+SDESC[py310]=		Collection of plugins for markdown-it-py (3.10)
+HOMEPAGE=		https://github.com/executablebooks/mdit-py-plugins
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/5b/c4/1cf60e11b55197fa2e5e8d2f732a229690f5a08b018ae1cf4c00585ca834
+DISTFILE[1]=		mdit_py_plugins-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py39]=		single
+SPKGS[py310]=		single
+
+OPTIONS_AVAILABLE=	PY39 PY310
+OPTIONS_STANDARD=	none
+VOPTS[py39]=		PY39=ON PY310=OFF
+VOPTS[py310]=		PY39=OFF PY310=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		mdit_py_plugins-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# markdown-it-py (<3.0.0,>=1.0.0)
+# pre-commit (==2.6) ; extra == 'code_style'
+# myst-parser (~=0.14.0) ; extra == 'rtd'
+# sphinx-book-theme (~=0.1.0) ; extra == 'rtd'
+# coverage ; extra == 'testing'
+# pytest (<4,>=3.6) ; extra == 'testing'
+# pytest-cov ; extra == 'testing'
+# pytest-regressions ; extra == 'testing'
+
+[PY39].USES_ON=				python:py39,wheel
+[PY39].RUN_DEPENDS_ON=			python-markdown-it-py:single:py39
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-markdown-it-py:single:py310
+
