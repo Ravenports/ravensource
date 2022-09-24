@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.6.6
+DEF[PORTVERSION]=	2.7.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		keepassxc
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/keepassxreboot/keepassxc/releases/download/${PORTVERSION}/
 DISTFILE[1]=		keepassxc-${PORTVERSION}-src.tar.xz:main
 
-SPKGS[standard]=	complete primary nls docs
+SPKGS[standard]=	complete primary docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -52,6 +52,8 @@ BUILDRUN_DEPENDS=	argon2:single:standard
 			qt5-qtsvg:single:standard
 			qt5-qtx11extras:single:standard
 			quazip:single:standard
+			botan:primary:standard
+			minizip:primary:standard
 
 USES=			cmake pkgconfig qt5 desktop-utils:primary
 			mime-info:primary
@@ -73,7 +75,6 @@ do-install:
 	${MAKE_CMD} DESTDIR=${STAGEDIR} install)
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/keepassxc
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/keepassxc-cli
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/keepassxc/libkeepassx-autotype-xcb.so
 	# relocate docs
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 	${MV} ${STAGEDIR}${PREFIX}/share/keepassxc/docs/* \
