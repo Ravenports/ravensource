@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.1.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-mdurl
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py39 py310
+SDESC[py39]=		Markdown URL utilities (3.9)
+SDESC[py310]=		Markdown URL utilities (3.10)
+HOMEPAGE=		none
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/b3/38/89ba8ad64ae25be8de66a6d463314cf1eb366222074cfda9ee839c56a4b4
+DISTFILE[1]=		mdurl-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py39]=		single
+SPKGS[py310]=		single
+
+OPTIONS_AVAILABLE=	PY39 PY310
+OPTIONS_STANDARD=	none
+VOPTS[py39]=		PY39=ON PY310=OFF
+VOPTS[py310]=		PY39=OFF PY310=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		mdurl-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+
+
+[PY39].USES_ON=				python:py39,wheel
+[PY310].USES_ON=			python:py310,wheel
+

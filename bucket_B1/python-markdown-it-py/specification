@@ -1,0 +1,62 @@
+DEF[PORTVERSION]=	2.1.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-markdown-it-py
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py39 py310
+SDESC[py39]=		Port of Markdown-it, markdown done right (3.9)
+SDESC[py310]=		Port of Markdown-it, markdown done right (3.10)
+HOMEPAGE=		none
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/f9/3f/ecd1b708973b9a3e4574b43cffc1ce8eb98696da34f1a1c44a68c3c0d737
+DISTFILE[1]=		markdown_it_py-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py39]=		single
+SPKGS[py310]=		single
+
+OPTIONS_AVAILABLE=	PY39 PY310
+OPTIONS_STANDARD=	none
+VOPTS[py39]=		PY39=ON PY310=OFF
+VOPTS[py310]=		PY39=OFF PY310=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		markdown_it_py-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# mdurl~=0.1
+# typing_extensions>=3.7.4;python_version<'3.8'
+# psutil ; extra == "benchmarking"
+# pytest ; extra == "benchmarking"
+# pytest-benchmark~=3.2 ; extra == "benchmarking"
+# pre-commit==2.6 ; extra == "code_style"
+# commonmark~=0.9.1 ; extra == "compare"
+# markdown~=3.3.6 ; extra == "compare"
+# mistletoe~=0.8.1 ; extra == "compare"
+# mistune~=2.0.2 ; extra == "compare"
+# panflute~=2.1.3 ; extra == "compare"
+# linkify-it-py~=1.0 ; extra == "linkify"
+# mdit-py-plugins ; extra == "plugins"
+# gprof2dot ; extra == "profiling"
+# attrs ; extra == "rtd"
+# myst-parser ; extra == "rtd"
+# pyyaml ; extra == "rtd"
+# sphinx ; extra == "rtd"
+# sphinx-copybutton ; extra == "rtd"
+# sphinx-design ; extra == "rtd"
+# sphinx_book_theme ; extra == "rtd"
+# coverage ; extra == "testing"
+# pytest ; extra == "testing"
+# pytest-cov ; extra == "testing"
+# pytest-regressions ; extra == "testing"
+
+[PY39].USES_ON=				python:py39,wheel
+[PY39].RUN_DEPENDS_ON=			python-mdurl:single:py39
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-mdurl:single:py310
+
