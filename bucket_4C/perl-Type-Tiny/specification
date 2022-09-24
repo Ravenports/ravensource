@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.016010
+DEF[PORTVERSION]=	2.000000
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Type-Tiny
@@ -33,34 +33,35 @@ DISTNAME=		Type-Tiny-${PORTVERSION}
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
 # |      runtime : Exporter::Tiny
+# |      runtime : Class::XSAccessor
 # |      runtime : Devel::LexAlias
 # |      runtime : Devel::StackTrace
 # |      runtime : Ref::Util::XS
 # |      runtime : Regexp::Util
 # |      runtime : Sub::Util (perl 5.32 core) (perl 5.34 core)
-# |      runtime : Type::Tie
 # |      runtime : Type::Tiny::XS
 # |    configure : ExtUtils::MakeMaker (perl 5.32 core) (perl 5.34 core)
 # |    configure : CPAN::Meta::Requirements (perl 5.32 core) (perl 5.34 core)
 # |         test : Test::More (perl 5.32 core) (perl 5.34 core)
+# |         test : Test::Deep
 # |         test : Test::Tester (perl 5.32 core) (perl 5.34 core)
 # |         test : Test::Warnings
 
 [PERL_532].USES_ON=			perl:532,configure
 [PERL_532].BUILDRUN_DEPENDS_ON=		perl-Exporter-Tiny:single:532
+					perl-Class-XSAccessor:single:532
 					perl-Devel-LexAlias:single:532
 					perl-Devel-StackTrace:single:532
 					perl-Ref-Util-XS:single:532
 					perl-Regexp-Util:single:532
-					perl-Type-Tie:single:532
 					perl-Type-Tiny-XS:single:532
 [PERL_534].USES_ON=			perl:534,configure
 [PERL_534].BUILDRUN_DEPENDS_ON=		perl-Exporter-Tiny:single:534
+					perl-Class-XSAccessor:single:534
 					perl-Devel-LexAlias:single:534
 					perl-Devel-StackTrace:single:534
 					perl-Ref-Util-XS:single:534
 					perl-Regexp-Util:single:534
-					perl-Type-Tie:single:534
 					perl-Type-Tiny-XS:single:534
 
 # On solaris "file" locks up on /construction/perl-Type-Tiny/stage/
