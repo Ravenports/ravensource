@@ -1,0 +1,53 @@
+DEF[PORTVERSION]=	0.3.5
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-exhale
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py39 py310
+SDESC[py39]=		C++ library API documentation generator (3.9)
+SDESC[py310]=		C++ library API documentation generator (3.10)
+HOMEPAGE=		https://github.com/svenevs/exhale
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/ef/db/5a9dc67bab8e04c4244b6e49b39a034319b82dc316efd34ece562eb54b7b
+DISTFILE[1]=		exhale-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py39]=		single
+SPKGS[py310]=		single
+
+OPTIONS_AVAILABLE=	PY39 PY310
+OPTIONS_STANDARD=	none
+VOPTS[py39]=		PY39=ON PY310=OFF
+VOPTS[py310]=		PY39=OFF PY310=ON
+
+# License listed at PyPI
+# BSD 3-Clause License
+
+GENERATED=		yes
+DISTNAME=		exhale-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# docutils (>=0.12)
+# Sphinx (<5,>=3.0)
+# breathe (>=4.32.0)
+# beautifulsoup4
+# lxml
+# six
+
+[PY39].USES_ON=				python:py39,wheel
+[PY39].RUN_DEPENDS_ON=			python-docutils:single:py39
+					python-Sphinx:single:py39
+					python-breathe:single:py39
+					python-beautifulsoup4:single:py39
+					python-lxml:single:py39
+					python-six:single:py39
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-docutils:single:py310
+					python-Sphinx:single:py310
+					python-breathe:single:py310
+					python-beautifulsoup4:single:py310
+					python-lxml:single:py310
+					python-six:single:py310
+
