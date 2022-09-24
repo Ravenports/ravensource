@@ -1,6 +1,6 @@
---- src/egl/drivers/dri2/platform_wayland.c.orig	2022-08-17 16:53:25 UTC
+--- src/egl/drivers/dri2/platform_wayland.c.orig	2022-09-20 21:01:37 UTC
 +++ src/egl/drivers/dri2/platform_wayland.c
-@@ -1912,12 +1912,14 @@ registry_handle_global_drm(void *data, s
+@@ -1934,12 +1934,14 @@ registry_handle_global_drm(void *data, s
     if (strcmp(interface, "wl_drm") == 0) {
        dri2_dpy->wl_drm_version = MIN2(version, 2);
        dri2_dpy->wl_drm_name = name;

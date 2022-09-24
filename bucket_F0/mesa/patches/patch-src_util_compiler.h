@@ -1,6 +1,6 @@
---- src/util/compiler.h.orig	2022-08-17 16:53:25 UTC
+--- src/util/compiler.h.orig	2022-09-20 21:01:37 UTC
 +++ src/util/compiler.h
-@@ -51,6 +51,9 @@
+@@ -49,6 +49,9 @@
  #if defined(__linux__)
  #include <byteswap.h>
  #define CPU_TO_LE32( x )	bswap_32( x )

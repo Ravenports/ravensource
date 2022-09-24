@@ -1,6 +1,6 @@
---- src/intel/isl/isl.h.orig	2022-08-17 16:53:25 UTC
+--- src/intel/isl/isl.h.orig	2022-09-20 21:01:37 UTC
 +++ src/intel/isl/isl.h
-@@ -48,6 +48,9 @@
+@@ -47,6 +47,9 @@
  #include "util/format/u_format.h"
  
  #ifdef __cplusplus

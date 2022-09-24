@@ -1,22 +1,21 @@
-- Implement futex_wake() and futex_wait() via _umtx_op()
-
---- src/util/futex.h.orig	2022-08-17 16:53:25 UTC
+--- src/util/futex.h.orig	2022-09-20 21:01:37 UTC
 +++ src/util/futex.h
-@@ -30,10 +30,35 @@
+@@ -30,14 +30,36 @@
  #include <limits.h>
  #include <stdint.h>
  #include <unistd.h>
-+#if defined(__FreeBSD__)
++#if defined __FreeBSD__
 +#include <errno.h>
-+# if __FreeBSD__ < 11
-+#  include <machine/atomic.h>
-+# endif
 +#include <sys/umtx.h>
 +#else
  #include <linux/futex.h>
  #include <sys/syscall.h>
 +#endif
  #include <sys/time.h>
+ 
+ #ifndef SYS_futex
+ #define SYS_futex SYS_futex_time64
+ #endif
  
 +#if defined(__FreeBSD__)
 +static inline int futex_wake(uint32_t *addr, int count)
@@ -38,7 +37,7 @@
  static inline long sys_futex(void *addr1, int op, int val1, const struct timespec *timeout, void *addr2, int val3)
  {
     return syscall(SYS_futex, addr1, op, val1, timeout, addr2, val3);
-@@ -51,6 +76,7 @@ static inline int futex_wait(uint32_t *a
+@@ -55,6 +77,7 @@ static inline int futex_wait(uint32_t *a
     return sys_futex(addr, FUTEX_WAIT_BITSET, value, timeout, NULL,
                      FUTEX_BITSET_MATCH_ANY);
  }
