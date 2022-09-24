@@ -29,7 +29,7 @@ VOPTS[py310]=		PY39=OFF PY310=ON
 
 FPC_EQUIVALENT=		textproc/py-libxml2
 
-USES=			cpe gmake iconv gettext-runtime libtool
+USES=			cpe gmake iconv gettext-runtime libtool pkgconfig
 GNOME_COMPONENTS=	libxml2
 CPE_VENDOR=		xmlsoft
 CPE_PRODUCT=		libxml2
@@ -42,8 +42,8 @@ CONFIGURE_ARGS=		--with-iconv={{ICONV_PREFIX}}
 			--with-html-dir={{PREFIX}}/share/doc
 			--with-html-subdir=libxml2
 			--with-python={{PYTHON_CMD}}
-CPE_VENDOR=		xmlsoft
-CPE_VENDOR=		libxml2
+			--enable-static
+CFLAGS=			-Wno-deprecated-declarations
 
 [PY39].USES_ON=				python:py39
 [PY310].USES_ON=			python:py310
@@ -51,3 +51,4 @@ CPE_VENDOR=		libxml2
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/libxml2mod.so
 	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/libxml2-python-${PORTVERSION}
+	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/libxml2
