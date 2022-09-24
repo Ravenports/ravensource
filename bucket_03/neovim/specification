@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.6.1
+DEF[PORTVERSION]=	0.7.2
 DEF[SPEC_LUA]=		5.2
 DEF[LUA_VARIANT]=	lua${SPEC_LUA:S/.//}
 # ----------------------------------------------------------------------------
@@ -51,15 +51,15 @@ INSTALL_REQ_TOOLCHAIN=	yes
 
 post-extract:
 	${AWK} '/Apache License/,/^====$$/' \
-		${WRKSRC}/LICENSE > ${WRKDIR}/LICENSE_APACHE
+		${WRKSRC}/LICENSE.txt > ${WRKDIR}/LICENSE_APACHE
 	${AWK} '/^VIM LICENSE/,/at your option/' \
-		${WRKSRC}/LICENSE > ${WRKDIR}/LICENSE_VIM
+		${WRKSRC}/LICENSE.txt > ${WRKDIR}/LICENSE_VIM
 	${AWK} '/^====/{exit}; {print}' \
-		${WRKSRC}/LICENSE > ${WRKDIR}/TERMS
+		${WRKSRC}/LICENSE.txt > ${WRKDIR}/TERMS
 	echo "[See APACHE20.standard file]" >> ${WRKDIR}/TERMS
 	echo >> ${WRKDIR}/TERMS
 	${AWK} '/^The above license/,/^The Vim license follows/' \
-		${WRKSRC}/LICENSE >> ${WRKDIR}/TERMS
+		${WRKSRC}/LICENSE.txt >> ${WRKDIR}/TERMS
 	echo "[See CUSTOM1.standard file]" >> ${WRKDIR}/TERMS
 
 post-patch-sunos:

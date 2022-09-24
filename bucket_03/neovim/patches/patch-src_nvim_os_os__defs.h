@@ -1,7 +1,7 @@
---- src/nvim/os/os_defs.h.orig	2021-12-31 17:02:21 UTC
+--- src/nvim/os/os_defs.h.orig	2022-06-26 15:08:22 UTC
 +++ src/nvim/os/os_defs.h
-@@ -13,6 +13,10 @@
- # include "nvim/os/unix_defs.h"
+@@ -17,6 +17,10 @@
+ # define NAME_MAX _XOPEN_NAME_MAX
  #endif
  
 +#ifdef __sun__

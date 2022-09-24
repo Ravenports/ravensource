@@ -1,16 +1,9 @@
---- src/nvim/os/pty_process_unix.c.orig	2021-12-31 17:02:21 UTC
+--- src/nvim/os/pty_process_unix.c.orig	2022-06-26 15:08:22 UTC
 +++ src/nvim/os/pty_process_unix.c
-@@ -15,6 +15,78 @@
- # include <libutil.h>
- #elif defined(__OpenBSD__) || defined(__NetBSD__) || defined(__APPLE__)
- # include <util.h>
-+#elif defined __sun__
-+#include <fcntl.h>
-+#include <strings.h>
-+#include <unistd.h>
-+#include <stropts.h>
-+#include <nvim/log.h>
-+
+@@ -21,6 +21,71 @@
+ # include <sys/stream.h>
+ # include <sys/syscall.h>
+ # include <unistd.h>
 +static int
 +cfsetspeed(struct termios *t, speed_t speed) {
 +   cfsetispeed(t, speed);
