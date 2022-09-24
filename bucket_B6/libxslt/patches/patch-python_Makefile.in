@@ -1,0 +1,13 @@
+--- python/Makefile.in.orig	2022-08-29 14:47:39 UTC
++++ python/Makefile.in
+@@ -134,8 +134,8 @@ am__installdirs = "$(DESTDIR)$(pyexecdir
+ LTLIBRARIES = $(pyexec_LTLIBRARIES)
+ am__DEPENDENCIES_1 =
+ @WITH_PYTHON_TRUE@libxsltmod_la_DEPENDENCIES =  \
+-@WITH_PYTHON_TRUE@	$(top_builddir)/libxslt/libxslt.la \
+-@WITH_PYTHON_TRUE@	$(top_builddir)/libexslt/libexslt.la \
++@WITH_PYTHON_TRUE@	-lxslt \
++@WITH_PYTHON_TRUE@	-lexslt \
+ @WITH_PYTHON_TRUE@	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
+ am__libxsltmod_la_SOURCES_DIST = libxslt.c types.c
+ @WITH_PYTHON_TRUE@am_libxsltmod_la_OBJECTS = libxsltmod_la-libxslt.lo \
