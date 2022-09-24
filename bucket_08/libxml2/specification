@@ -29,11 +29,10 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-schemas
 			--with-threads
 			--with-iconv={{ICONV_PREFIX}}
-			--with-html-dir={{PREFIX}}/share/doc
-			--with-html-subdir=libxml2
 			--without-icu
 			--with-lzma=/usr
 			--without-python
+			--enable-static
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 SHEBANG_GLOB=		*.py
@@ -54,3 +53,4 @@ post-patch:
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}
