@@ -1,6 +1,7 @@
 DEF[PORTVERSION]=	2.10.8
 DEF[FOLDER]=		${PORTVERSION:R}
 DEF[SOVERSION]=		0.0.0
+DEF[CAT1]=		http://cdn.docbook.org/release/xsl/current/
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libsigcxx2
@@ -42,8 +43,8 @@ MESON_ARGS=		-Dbuild-examples=false
 			-Dbuild-pdf=false
 			-Dbuild-documentation=true
 
-post-patch:
-	${REINPLACE_CMD} -e 's|/docbook.sourceforge.net/|/cdn.docbook.org/|'\
+pre-configure:
+	${REINPLACE_CMD} -e "s|${CAT1}|file://${LOCALBASE}/share/xsl/docbook/|" \
 		${WRKSRC}/docs/doc-manual.am \
 		${WRKSRC}/tools/tutorial-custom-cmd.py
 
