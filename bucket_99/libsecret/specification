@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	0.20.5
 DEF[SOVERSION]=		0.0.0
+DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl/current
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libsecret
@@ -43,6 +44,6 @@ SOVERSION=		${SOVERSION}
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 
-post-patch:
-	${REINPLACE_CMD} -e 's|docbook.sourceforge.net|cdn.docbook.org|g' \
+pre-configure:
+	${REINPLACE_CMD} -e 's|${CAT1}|file://${LOCALBASE}/share/xsl/docbook|' \
 		${WRKSRC}/docs/man/meson.build
