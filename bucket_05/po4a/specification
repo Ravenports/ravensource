@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	0.68
+DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl/current/
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		po4a
@@ -42,6 +43,8 @@ post-extract:
 	${AWK} '/^\# Copyright and license/,EOF' \
 		${WRKSRC}/README.md > ${WRKDIR}/TERMS
 
-post-patch:
-	${REINPLACE_CMD} -e 's|docbook.sourceforge.net|cdn.docbook.org|g' \
+pre-configure:
+	${REINPLACE_CMD} -e "s|${CAT1}|file://${LOCALBASE}/share/xsl/docbook/|" \
+		${WRKSRC}/Po4aBuilder.pm
+	${REINPLACE_CMD} -e "s|${CAT1}|file://${LOCALBASE}/share/xsl/docbook/|" \
 		${WRKSRC}/po/pod/*.po
