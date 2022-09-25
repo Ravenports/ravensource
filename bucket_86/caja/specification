@@ -1,5 +1,6 @@
-DEF[PORTVERSION]=	1.26.1
+DEF[PORTVERSION]=	1.26.2
 DEF[SOVERSION]=		1.4.0
+DEF[DIST_BASEFILE]=	caja-glib-2.50-${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		caja
@@ -12,7 +13,7 @@ CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://pub.mate-desktop.org/releases/${PORTVERSION:R}/
-DISTFILE[1]=		caja-${PORTVERSION}.tar.xz:main
+DISTFILE[1]=		${DIST_BASEFILE}.tar.xz:main
 DIST_SUBDIR=		mate
 
 SPKGS[standard]=	complete primary nls docs
@@ -51,11 +52,13 @@ CONFIGURE_ARGS=		--disable-dependency-tracking
 			--enable-gtk-doc
 			--enable-introspection
 
+DISTNAME=		${DIST_BASEFILE}
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 
 GLIB_SCHEMAS=		org.mate.caja.gschema.xml
 			org.mate.media-handling.gschema.xml
+PLIST_SUB=		NLS_SUFFIX=-glib-2.50
 
 [INTROSPECTION].DESCRIPTION=		Build with introspection
 [INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
