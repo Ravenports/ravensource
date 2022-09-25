@@ -1,9 +1,10 @@
 DEF[PORTVERSION]=	0.0.28
+DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl/current
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xmlto
 VERSION=		${PORTVERSION}
-REVISION=		4
+REVISION=		5
 KEYWORDS=		textproc
 VARIANTS=		standard
 SDESC[standard]=	Front-end to an XSL toolchain
@@ -41,7 +42,7 @@ MAKE_ENV=		HOME=/dev/null
 SUB_FILES=		pkg-message-single
 SUB_LIST=		DATADIR={{LOCALBASE}}/share/xmlto
 
-post-patch:
+pre-configure:
 	# get rid of nonstandard "type" option -t:
 	${SED} -i'' -e 's/type -t/which/;' \
 		${WRKSRC}/format/docbook/epub \
@@ -50,8 +51,8 @@ post-patch:
 		${WRKSRC}/format/fo/pdf \
 		${WRKSRC}/format/xhtml1/txt
 	# Fix schema url
-	${SED} -i'' -e 's|docbook.sourceforge.net|cdn.docbook.org|g' \
-		${WRKSRC}/format/docbook/*
+	${SED} -i'' -e 's|${CAT1}|file://${LOCALBASE}/share/xsl/docbook|g' \
+		${WRKSRC}/format/docbook/* ${WRKSRC}/xmlto.in
 	# get rid of GNU-make-ism (BSD make defines $< only in suffix rules)
 	${REINPLACE_CMD} -e '/^GEN_MANPAGE/{s/\$$</$$>/;}' ${WRKSRC}/Makefile.in
 
