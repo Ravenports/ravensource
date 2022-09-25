@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.2
 
 NAMEBASE=		shared-mime-info
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		misc
 VARIANTS=		standard
 SDESC[standard]=	MIME types database from freedesktop.org project
@@ -39,9 +40,12 @@ post-extract:
 	${AWK} '/Copyright/,/file named COPYING/' \
 		${WRKSRC}/src/update-mime-database.c > ${WRKDIR}/TERMS
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g' \
 		${WRKSRC}/src/update-mime-database.c
+	# Use local dtd
+	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
+		${WRKSRC}/data/shared-mime-info-spec.xml
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/pkgconfig \
