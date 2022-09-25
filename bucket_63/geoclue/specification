@@ -4,6 +4,7 @@ DEF[SOVERSION]=		0.0.0
 
 NAMEBASE=		geoclue
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net
 VARIANTS=		standard
 SDESC[standard]=	D-Bus service to provide location information
@@ -16,8 +17,9 @@ DISTFILE[1]=		geoclue-${PORTVERSION}.tar.bz2:main
 
 SPKGS[standard]=	single
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	INTROSPECTION
+OPTIONS_STANDARD=	INTROSPECTION
+OPT_ON[all]=		INTROSPECTION
 
 LICENSE=		GPLv2+:single
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
@@ -33,19 +35,24 @@ BUILDRUN_DEPENDS=	json-glib:primary:standard
 			libnotify:primary:standard
 
 USES=			gettext-tools gmake pkgconfig meson shebangfix
-GNOME_COMPONENTS=	glib intltool introspection
+GNOME_COMPONENTS=	glib intltool
 MESON_ARGS=		-D3g-source=false
 			-Dcdma-source=false
 			-Dnmea-source=false
 			-Dmodem-gps-source=false
 			-Dgtk-doc=false
-# #			-- introspection segfaults now --
-			-Dintrospection=false
 SHEBANG_FILES=		demo/install-file.py
 SOVERSION=		${SOVERSION}
-PLIST_SUB=		INTRO="@comment "
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
+
+[INTROSPECTION].DESCRIPTION=		Build with introspection and vala bindings
+[INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
+[INTROSPECTION].CONFIGURE_ARGS_OFF=	-Dintrospection=false
+					-Dvapi=false
+[INTROSPECTION].CONFIGURE_ARGS_ON=	-Dintrospection=true
+					-Dvapi=true
+[INTROSPECTION].BUILD_DEPENDS_ON=	vala:single:standard
 
 pre-configure:
 	${CHMOD} ${BINMODE} ${WRKSRC}/demo/install-file.py
