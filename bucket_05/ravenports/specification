@@ -1,16 +1,16 @@
-DEF[PORTVERSION]=	20180730
+DEF[PORTVERSION]=	20220925
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravenports
 VERSION=		${PORTVERSION}
 KEYWORDS=		raven
-VARIANTS=		dragonfly freebsd_amd64 netbsd_amd64 linux sunos macos
+VARIANTS=		dragonfly freebsd_amd64 netbsd_amd64 linux sunos
 SDESC[linux]=		Install turnkey Ravenports on Linux
 SDESC[dragonfly]=	Install turnkey Ravenports on DragonFly
 SDESC[freebsd_amd64]=	Install turnkey Ravenports on FreeBSD/amd64
 SDESC[netbsd_amd64]=	Install turnkey Ravenports on NetBSD/amd64
 SDESC[sunos]=		Install turnkey Ravenports on Solaris 10u8
-SDESC[macos]=		Install turnkey Ravenports on Darwin/MacOS
+# SDESC[macos]=		Install turnkey Ravenports on Darwin/MacOS
 HOMEPAGE=		https://github.com/jrmarino/Ravenports
 CONTACT=		John_Marino[draco@marino.st]
 
@@ -21,16 +21,14 @@ SPKGS[dragonfly]=	single
 SPKGS[freebsd_amd64]=	single
 SPKGS[netbsd_amd64]=	single
 SPKGS[sunos]=		single
-SPKGS[macos]=		single
 
-OPTIONS_AVAILABLE=	DRAGONFLY FREEBSDAMD64 LINUX SUNOS MACOS NET64
+OPTIONS_AVAILABLE=	DRAGONFLY FREEBSDAMD64 LINUX SUNOS NET64
 OPTIONS_STANDARD=	none
-VOPTS[dragonfly]=	DRAGONFLY=ON FREEBSDAMD64=OFF LINUX=OFF SUNOS=OFF MACOS=OFF NET64=OFF
-VOPTS[freebsd_amd64]=	DRAGONFLY=OFF FREEBSDAMD64=ON LINUX=OFF SUNOS=OFF MACOS=OFF NET64=OFF
-VOPTS[linux]=		DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=ON SUNOS=OFF MACOS=OFF NET64=OFF
-VOPTS[sunos]=		DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=OFF SUNOS=ON MACOS=OFF NET64=OFF
-VOPTS[macos]=		DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=OFF SUNOS=OFF MACOS=ON NET64=OFF
-VOPTS[netbsd_amd64]=	DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=OFF SUNOS=OFF MACOS=OFF NET64=ON
+VOPTS[dragonfly]=	DRAGONFLY=ON FREEBSDAMD64=OFF LINUX=OFF SUNOS=OFF NET64=OFF
+VOPTS[freebsd_amd64]=	DRAGONFLY=OFF FREEBSDAMD64=ON LINUX=OFF SUNOS=OFF NET64=OFF
+VOPTS[linux]=		DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=ON SUNOS=OFF NET64=OFF
+VOPTS[sunos]=		DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=OFF SUNOS=ON NET64=OFF
+VOPTS[netbsd_amd64]=	DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=OFF SUNOS=OFF NET64=ON
 
 RUN_DEPENDS=		ravensw:single:standard
 			ravenadm:single:standard
@@ -55,5 +53,5 @@ SKIP_INSTALL=		yes
 [SUNOS].DESCRIPTION=			Solaris/Illumos support
 [SUNOS].RUN_DEPENDS_ON=			ravensys-root:single:sunos
 
-[MACOS].DESCRIPTION=			MacOS support (High Sierra and later)
-[MACOS].RUN_DEPENDS_ON=			ravensys-root:single:macos
+# [MACOS].DESCRIPTION=			MacOS support (High Sierra and later)
+# [MACOS].RUN_DEPENDS_ON=		ravensys-root:single:macos
