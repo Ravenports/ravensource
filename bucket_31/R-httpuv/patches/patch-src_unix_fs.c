@@ -1,14 +1,13 @@
---- src/libuv/src/unix/fs.c.orig	2020-06-05 16:40:07 UTC
+--- src/libuv/src/unix/fs.c.orig	2022-03-31 20:36:47 UTC
 +++ src/libuv/src/unix/fs.c
-@@ -976,7 +976,6 @@ static ssize_t uv__fs_sendfile(uv_fs_t*
+@@ -1127,13 +1127,13 @@ static ssize_t uv__fs_sendfile(uv_fs_t*
  static ssize_t uv__fs_utime(uv_fs_t* req) {
  #if defined(__linux__)                                                         \
      || defined(_AIX71)                                                         \
 -    || defined(__sun)                                                          \
      || defined(__HAIKU__)
-   /* utimesat() has nanosecond resolution but we stick to microseconds
-    * for the sake of consistency with other platforms.
-@@ -986,6 +985,7 @@ static ssize_t uv__fs_utime(uv_fs_t* req
+   struct timespec ts[2];
+   ts[0] = uv__fs_to_timespec(req->atime);
    ts[1] = uv__fs_to_timespec(req->mtime);
    return utimensat(AT_FDCWD, req->path, ts, 0);
  #elif defined(__APPLE__)                                                      \
@@ -16,7 +15,7 @@
      || defined(__DragonFly__)                                                 \
      || defined(__FreeBSD__)                                                   \
      || defined(__FreeBSD_kernel__)                                            \
-@@ -1019,7 +1019,6 @@ static ssize_t uv__fs_utime(uv_fs_t* req
+@@ -1167,7 +1167,6 @@ static ssize_t uv__fs_utime(uv_fs_t* req
  static ssize_t uv__fs_lutime(uv_fs_t* req) {
  #if defined(__linux__)            ||                                           \
      defined(_AIX71)               ||                                           \
