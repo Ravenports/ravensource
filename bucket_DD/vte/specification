@@ -53,11 +53,11 @@ VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 [INTROSPECTION].CONFIGURE_ARGS_ON=	-Dgir=true -Dvapi=true
 [INTROSPECTION].CONFIGURE_ARGS_OFF=	-Dgir=false -Dvapi=false
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e '/fstack-prot/d' ${WRKSRC}/meson.build
 	${REINPLACE_CMD} -e 's|linux|skipx|' ${WRKSRC}/src/pty.cc
 
-post-patch-sunos:
+pre-configure-sunos:
 	${REINPLACE_CMD} \
 		-e 's|sys/ioctl\.h|sys/termios.h|' \
 		-e '/Bsymbolic-functions/d' \
