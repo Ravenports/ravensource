@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	1.10.3
+DEF[PORTVERSION]=	1.11.0
+DEF[RELEASE_VERSION]=	${PORTVERSION}.20220519
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		megatools
@@ -11,7 +12,7 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://megatools.megous.com/builds/
-DISTFILE[1]=		megatools-${PORTVERSION}.tar.gz:main
+DISTFILE[1]=		megatools-${RELEASE_VERSION}.tar.gz:main
 
 SPKGS[standard]=	single
 
@@ -28,20 +29,15 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/lib/tools.h
 LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		asciidoc:single:standard
+			docbook2X:primary:standard
 BUILDRUN_DEPENDS=	curl:primary:standard
 
-USES=			gmake libtool pkgconfig ssl
-			gettext-runtime
+USES=			gmake meson pkgconfig ssl gettext-runtime
 GNOME_COMPONENTS=	glib
-MUST_CONFIGURE=		gnu
-CONFIGURE_ENV=		OPENSSL_CFLAGS="-I{{OPENSSLINC}}"
-			OPENSSL_LIBS="-L{{OPENSSLLIB}} -lcrypto -lssl"
+MESON_ARGS=		-Dman=true
+			-Dsymlinks=false
 INSTALL_TARGET=		install-strip
-
-post-patch:
-	# Unsilence build
-	${REINPLACE_CMD} -e '/^export\ MAKEFLAGS/s|^|#|' \
-	${WRKSRC}/Makefile.in
+DISTNAME=		megatools-${RELEASE_VERSION}
 
 post-install:
 	# remove useless doc
