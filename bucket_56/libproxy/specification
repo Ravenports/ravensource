@@ -4,6 +4,7 @@ DEF[SOVERSION]=		1.0.0
 
 NAMEBASE=		libproxy
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net devel
 VARIANTS=		standard minimal
 SDESC[standard]=	Library for automatic proxy configuration mgmt
@@ -68,7 +69,8 @@ VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 					-DPYTHON_SITEPKG_DIR={{PYTHON_SITELIBDIR}}
 
 [VALA].DESCRIPTION=			Build with Vala binding
-[VALA].BUILDRUN_DEPENDS_ON=		vala:single:standard
+[VALA].BUILD_DEPENDS_ON=		vala:single:standard
+[VALA].BUILDRUN_DEPENDS_ON=		dbus:single:standard
 [VALA].CMAKE_ARGS_ON=			-DWITH_VALA:BOOL=ON
 [VALA].CMAKE_ARGS_OFF=			-DWITH_VALA:BOOL=OFF
 
@@ -84,6 +86,8 @@ post-patch:
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/proxy
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libproxy.so
+
+post-install-VALA-ON:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libproxy/${PORTVERSION}/modules/config_pacrunner.so
 
 post-install-PERL-ON:
