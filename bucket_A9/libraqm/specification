@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	0.9.0
 DEF[SOVERSION]=		${PORTVERSION}
+DEF[CAT1]=		http://www.oasis-open.org/docbook/xml/
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libraqm
@@ -34,3 +35,7 @@ MESON_ARGS=		-Ddocs=true
 SOVERSION=		${SOVERSION}
 DISTNAME=		raqm-${PORTVERSION}
 GTKDOC_OUTPUT_BASEDIR=	raqm
+
+pre-configure:
+	${REINPLACE_CMD} -e "s|${CAT1}|file://${LOCALBASE}/share/xml/docbook/|" \
+		${WRKSRC}/docs/raqm-docs.xml
