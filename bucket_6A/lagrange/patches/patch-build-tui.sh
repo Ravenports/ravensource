@@ -1,11 +1,11 @@
---- build-tui.sh.orig	2022-05-26 07:03:40 UTC
+--- build-tui.sh.orig	2022-06-30 05:46:44 UTC
 +++ build-tui.sh
 @@ -14,23 +14,15 @@
  #
  # You can customize the install directory prefix here and build type here:
  
 -INSTALL_PREFIX="/usr/local"
-+INSTALL_PREFIX="__STAGEDIR____PREFIX__"
++INSTALL_PREFIX="__PREFIX__"
  CMAKE_BUILD_TYPE="Release"
 +export PKG_CONFIG_PATH=/__PREFIX__/openssl11/lib/pkgconfig
 +export LDFLAGS="-L/__PREFIX__/openssl11/lib -Wl,-rpath,/__PREFIX__/openssl11/lib"
@@ -27,7 +27,14 @@
  if [ ! -d lib/sealcurses ]; then
      read -p "'lib/sealcurses' not found. Clone with Git? [Yn] " INPUT
      if [ "${INPUT}." = "n." ]; then
-@@ -97,8 +89,5 @@ cmake --build . || exit 1
+@@ -91,14 +83,11 @@ cmake .. \
+     -DENABLE_HARFBUZZ=NO \
+     -DENABLE_POPUP_MENUS=NO \
+     -DENABLE_IDLE_SLEEP=NO \
++    -DCMAKE_SKIP_RPATH:BOOL=TRUE \
+     -Dthe_Foundation_DIR="${BUILD_DIR}/lib/cmake/the_Foundation" \
+     $*
+ cmake --build . || exit 1
  
  echo "-----"
  echo "clagrange and resources.lgr can be found in 'build-tui'."
@@ -36,5 +43,4 @@
 -    sudo cmake --install .
 -    exit
 -fi
-+cmake --install .
 +exit

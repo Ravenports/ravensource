@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.13.6
+DEF[PORTVERSION]=	1.13.7
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		lagrange
@@ -25,6 +25,7 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		www/lagrange
 
 USES=			cmake ncurses pcre pkgconfig zlib ssl:openssl11
+			desktop-utils:single
 SDL_COMPONENTS=		sdl2
 
 BUILD_DEPENDS=		zip:single:standard
@@ -43,7 +44,7 @@ CMAKE_ARGS=		-DENABLE_FRIBIDI:BOOL=ON
 			-DENABLE_MPG123:BOOL=ON
 			-DENABLE_WEBP:BOOL=ON
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -i'' -e "s|__PREFIX__|${PREFIX}|g" \
 		-e "s|__STAGEDIR__|${STAGEDIR}|" ${WRKSRC}/build-tui.sh
 
@@ -51,5 +52,6 @@ post-build:
 	(cd ${WRKSRC} && ./build-tui.sh)
 
 post-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/build-tui/clagrange ${STAGEDIR}${PREFIX}/bin/
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/clagrange
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/lagrange
