@@ -1,8 +1,7 @@
 DEF[PORTVERSION]=	0.8.1
 DEF[SOVERSION]=		4.0.0
 DEF[NOTIFYVERS]=	0.7
-DEF[URL0]=		http://docbook.sourceforge.net/release/xsl-ns/
-DEF[URL1]=		http://cdn.docbook.org/release/xsl/
+DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl-ns/current/
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libnotify
@@ -44,8 +43,9 @@ MESON_ARGS=		-Dtests=false
 PLIST_SUB=		NOTIFYVERS=${NOTIFYVERS}
 SOVERSION=		${SOVERSION}
 
-post-patch:
-	${REINPLACE_CMD} -e "s|${URL0}|${URL1}|" ${WRKSRC}/meson.build
+pre-configure:
+	${REINPLACE_CMD} -e "s|${CAT1}|file://${LOCALBASE}/share/xsl/docbook/|" \
+		${WRKSRC}/meson.build
 
 post-patch-sunos:
 	${REINPLACE_CMD} -e 's|link_args: libnotify_ldflags|link_args: []|'\
