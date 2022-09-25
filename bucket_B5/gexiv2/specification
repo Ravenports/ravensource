@@ -1,6 +1,7 @@
 DEF[PORTVERSION]=	0.14.0
 DEF[SOVERSION]=		2.14.0
 DEF[FOLDER]=		${PORTVERSION:R}
+DEF[CAT1]=		http://www.oasis-open.org/docbook/xml/
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gexiv2
@@ -40,6 +41,9 @@ SOVERSION=		${SOVERSION}
 MESON_ARGS=		-Dgtk_doc=true
 INSTALL_REQ_TOOLCHAIN=	yes
 
+pre-configure:
+	${REINPLACE_CMD} -e "s|${CAT1}|file://${LOCALBASE}/share/xml/docbook/|" \
+		${WRKSRC}/docs/reference/gexiv2-docs.xml
 pre-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/vala/vapi
 
