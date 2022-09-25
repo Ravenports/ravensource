@@ -1,6 +1,7 @@
 DEF[PORTVERSION]=	1.90.0
 DEF[SITEVERSION]=	v${PORTVERSION}
 DEF[SOVERSION]=		3.1.0
+DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl/current/
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		upower
@@ -58,11 +59,17 @@ VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=-Dos_backend=freebsd
 			CONFIGURE_ARGS=-Dudevhwdbdir=no
 			LDFLAGS=-lkvm
 VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=-Dos_backend=freebsd
+			CONFIGURE_ARGS=-Dudevrulesdir=no
+			CONFIGURE_ARGS=-Dudevhwdbdir=no
 			CFLAGS=-D__WANT_NO_INLINED___ERROR
 VAR_OPSYS[netbsd]=	CONFIGURE_ARGS=-Dos_backend=netbsd
 VAR_OPSYS[linux]=	CONFIGURE_ARGS=-Dos_backend=linux
 			CONFIGURE_ARGS=-Dudevrulesdir=/etc/udev/rules.d
 VAR_OPSYS[sunos]=	CONFIGURE_ARGS=-Dos_backend=dummy
+
+pre-configure:
+	${REINPLACE_CMD} -e "s|${CAT1}|file://${LOCALBASE}/share/xsl/docbook/|" \
+		${WRKSRC}/doc/man/meson.build
 
 post-stage:
 	${RM} -r ${STAGEDIR}/var
