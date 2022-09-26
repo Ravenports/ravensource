@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	91.7.0
+DEF[PORTVERSION]=	102.3.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		thunderbird
@@ -49,6 +49,7 @@ BUILDRUN_DEPENDS=	nss:primary:standard
 			ffmpeg:primary:standard
 			dbus-glib:primary:standard
 			startup-notification:single:standard
+			botan:primary:standard
 
 USES=			cpe desktop-utils:single gmake jpeg png zlib
 			perl:build pkgconfig iconv bz2 python:build
@@ -65,13 +66,14 @@ QMAKE_ARGS=		--prefix="{{PREFIX}}"
 			--with-system-nspr
 			--with-system-zlib
 			--with-system-icu
-			--with-system-png="{{LOCALBASE}}"
-			--with-system-jpeg="{{LOCALBASE}}"
+			--with-system-png
+			--with-system-jpeg
 			--with-system-libevent
 			--with-system-harfbuzz
 			--with-system-graphite2
 			--with-system-av1
 			--with-system-webp
+			--with-system-botan
 			--enable-system-ffi
 			--enable-system-pixman
 			--enable-install-strip
@@ -95,6 +97,7 @@ QMAKE_ARGS=		--prefix="{{PREFIX}}"
 			--disable-tests
 			--disable-updater
 			--disable-hardening
+			--without-wasm-sandboxed-libraries
 CONFIGURE_ENV=		PYTHON3={{PYTHON_CMD}}
 			SETUPTOOLS_USE_DISTUTILS=stdlib
 MAKE_ENV=		PYTHON3={{PYTHON_CMD}}
@@ -132,11 +135,7 @@ post-patch:
 
 	# disable rust checksums
 	${REINPLACE_CMD} -e 's/"files":{[^}]*}/"files":{}/' \
-		 ${WRKSRC}/third_party/rust/packed_simd/.cargo-checksum.json
-
-post-patch-dragonfly:
-	${REINPLACE_CMD} -e '/<malloc.h>/d' \
-		${WRKSRC}/comm/ldap/c-sdk/libraries/liblber/lber-int.h
+		 ${WRKSRC}/third_party/rust/packed_simd_2/.cargo-checksum.json
 
 pre-configure:
 	(cd ${WRKSRC} && ${LOCALBASE}/bin/autoconf-2.13)
