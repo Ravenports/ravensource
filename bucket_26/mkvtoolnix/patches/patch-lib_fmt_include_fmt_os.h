@@ -1,4 +1,4 @@
---- lib/fmt/include/fmt/os.h.orig	2022-03-13 12:54:59 UTC
+--- lib/fmt/include/fmt/os.h.orig	2022-04-10 13:55:56 UTC
 +++ lib/fmt/include/fmt/os.h
 @@ -15,7 +15,7 @@
  #include <cstdlib>       // strtod_l

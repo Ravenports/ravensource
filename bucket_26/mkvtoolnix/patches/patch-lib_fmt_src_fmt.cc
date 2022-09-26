@@ -1,4 +1,4 @@
---- lib/fmt/src/fmt.cc.orig	2022-03-13 12:54:59 UTC
+--- lib/fmt/src/fmt.cc.orig	2022-04-10 13:55:56 UTC
 +++ lib/fmt/src/fmt.cc
 @@ -46,7 +46,7 @@ module;
  #if _MSC_VER
