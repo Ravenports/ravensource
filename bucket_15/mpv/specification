@@ -1,11 +1,12 @@
 DEF[PORTVERSION]=	0.34.1
-DEF[WAF_TAG]=		2.0.8
+DEF[WAF_TAG]=		2.0.24
 DEF[SOVERSION]=		1.109.0
 DEF[PY_BUILD]=		python_default
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mpv
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		standard
 SDESC[standard]=	Advanced general-purpose multimedia player
@@ -14,9 +15,9 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main waf
 SITES[main]=		GITHUB/mpv-player:mpv:v${PORTVERSION}
-SITES[waf]=		GITHUB/waf-project:waf:waf-${WAF_TAG}
+SITES[waf]=		https://gitlab.com/ita1024/waf/-/archive/waf-${WAF_TAG}/
 DISTFILE[1]=		generated:main
-DISTFILE[2]=		generated:waf
+DISTFILE[2]=		waf-waf-${WAF_TAG}.tar.bz2:waf
 DF_INDEX=		1 2
 
 SPKGS[standard]=	complete primary examples docs
