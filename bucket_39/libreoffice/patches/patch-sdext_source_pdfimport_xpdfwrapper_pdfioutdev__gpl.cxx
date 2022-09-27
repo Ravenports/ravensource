@@ -55,7 +55,25 @@
  }
  
  #if POPPLER_CHECK_VERSION(0, 83, 0)
-@@ -759,7 +776,11 @@ void PDFOutDev::updateFont(GfxState *sta
+@@ -652,8 +669,16 @@ void PDFOutDev::updateLineDash(GfxState
+         return;
+     assert(state);
+ 
+-    double* dashArray; int arrayLen; double startOffset;
++    int arrayLen; double startOffset;
++#if POPPLER_CHECK_VERSION(22, 9, 0)
++    const double* dashArray;
++    const std::vector<double> &dash = state->getLineDash(&startOffset);
++    dashArray = dash.data();
++    arrayLen = dash.size();
++#else
++    double* dashArray;
+     state->getLineDash(&dashArray, &arrayLen, &startOffset);
++#endif
+ 
+     printf( "updateLineDash" );
+     if( arrayLen && dashArray )
+@@ -759,7 +784,11 @@ void PDFOutDev::updateFont(GfxState *sta
  {
      assert(state);
  
