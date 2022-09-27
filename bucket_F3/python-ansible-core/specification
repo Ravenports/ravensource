@@ -48,7 +48,10 @@ DISTNAME=		ansible_core-${PORTVERSION}.dist-info
 					python-packaging:single:py310
 					python-resolvelib:single:py310
 
-USES=			cpe shebangfix
-SHEBANG_REGEX=		[.]/test/.*[.]py
+USES=			cpe
 CPE_VENDOR=		redhat
 CPE_PRODUCT=		ansible
+
+post-install:
+	${GREP} -rl "#!/usr/bin/env python" ${STAGEDIR}${PYTHON_SITELIBDIR}/ansible* |\
+	${XARGS} ${SED} -i'' -e 's|/usr/bin/env python|${PYTHON_CMD}|'
