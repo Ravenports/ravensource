@@ -1,6 +1,7 @@
 # Glib has even/odd releases (e.g 2.60, 2.62, 2.64 ... are stable)
 DEF[PORTVERSION]=	2.74.0
 DEF[LIBVERSION]=	0.7400.0
+DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl/current/
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		glib
@@ -80,7 +81,7 @@ pre-configure:
 		${WRKSRC}/gio/xdgmime/xdgmime.c \
 		${WRKSRC}/glib/tests/utils.c
 	${REINPLACE_CMD} \
-		-e 's|/docbook.sourceforge.net/|/cdn.docbook.org/|' \
+		-e "s|${CAT1}|file://${LOCALBASE}/share/xsl/docbook/|" \
 		-e "/-Werror=/d" \
 		${WRKSRC}/meson.build
 
