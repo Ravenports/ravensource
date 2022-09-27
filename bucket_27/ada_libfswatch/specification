@@ -28,7 +28,7 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/libfswatch.ads
 LICENSE_SCHEME=		multi
 
-BUILD_DEPENDS=		fswatch:primary:standard
+BUILD_DEPENDS=		fswatch:single:standard
 BUILDRUN_DEPENDS=	gnatcoll-core:primary:standard
 
 USES=			gprbuild gmake
@@ -38,7 +38,7 @@ post-patch:
 	# fix makefile
 	${REINPLACE_CMD} -e 's|(DESTDIR)|&$$(PREFIX)|' ${WRKSRC}/Makefile
 
-pre-build:
+post-extract:
 	${MKDIR} ${WRKSRC}/libfswatch/include/libfswatch/c ${WRKSRC}/libfswatch/lib
 	${CP} ${LOCALBASE}/lib/libfswatch.a ${WRKSRC}/libfswatch/lib/
 	${CP} -pRP ${LOCALBASE}/include/libfswatch/* ${WRKSRC}/libfswatch/include/libfswatch/

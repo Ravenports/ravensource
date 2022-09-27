@@ -4,6 +4,7 @@ DEF[HASH]=		1.17.1
 
 NAMEBASE=		fswatch
 VERSION=		${PORTVERSION}
+REVISION=		2
 KEYWORDS=		sysutils
 VARIANTS=		standard
 SDESC[standard]=	Cross-platform file change monitor
@@ -14,21 +15,20 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/emcrisostomo:fswatch:${HASH}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[standard]=	single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv3+:primary APACHE20:primary
+LICENSE=		GPLv3+:single APACHE20:single
 LICENSE_SCHEME=		dual
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
 			APACHE20:{{WRKSRC}}/LICENSE-2.0.txt
-LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
 
 FPC_EQUIVALENT=		sysutils/fswatch-mon
 
-USES=			cmake gettext-runtime gettext-tools c++:primary
-# not-sed CMAKE_ARGS=	-DBUILD_SHARED_LIBS:BOOL=ON
+USES=			cmake c++:single
 LDFLAGS=		-lpthread
 
 post-extract:
