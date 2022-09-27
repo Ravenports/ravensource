@@ -1,3 +1,4 @@
+# ICE on GCC 11.2.0, see https://gcc.gnu.org/bugzilla/show_bug.cgi?id=103703
 DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM_VERSION)
 # ----------------------------------------------------------------------------
 
@@ -32,12 +33,15 @@ BUILD_DEPENDS=		python-Sphinx:single:python_default
 			llvm:single:standard
 BUILDRUN_DEPENDS=	llvm-libunwind:single:standard
 
-USES=			cmake cclibs:primary python:build
+USES=			cmake cclibs:primary python:build clang
 CMAKE_BUILD_TYPE=	Release
 CMAKE_ARGS=		-DLLVM_HOST_TRIPLE:STRING="{{CONFIGURE_TARGET}}"
 			-DLLVM_ENABLE_SPHINX=ON
 			-DLIBCXX_CXX_ABI_LIBRARY_PATH={{WRKDIR}}/.build/lib
 			-DLIBCXX_INCLUDE_BENCHMARKS:BOOL=OFF
+			-DPython3_EXECUTABLE={{PYTHON_CMD}}
+# #			-DLIBCXXABI_ENABLE_STATIC_UNWINDER:BOOL=OFF
+# #			-DLIBCXX_ENABLE_STATIC_ABI_LIBRARY:BOOL=ON
 CXXFLAGS=		-Wno-attributes
 			-Wno-deprecated-declarations
 			-Wno-empty-body
@@ -58,9 +62,8 @@ post-extract:
 	${CP} ${WRKDIR}/cmake-${LLVM_VERSION}.src/Modules/* \
 		${WRKSRC}/projects/libcxxabi/cmake/Modules/
 
-
 pre-configure:
-	${REINPLACE_CMD} -e '/add_dependencies(cxx_static unwind)/d' \
+	# ${REINPLACE_CMD} -e '/add_dependencies(cxx_static unwind)/d' \
 		${WRKSRC}/projects/libcxx/src/CMakeLists.txt
 
 post-install:
