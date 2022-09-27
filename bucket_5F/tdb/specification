@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	1.4.7
+DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl/current/
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		tdb
@@ -46,7 +47,7 @@ SOVERSION=		${PORTVERSION}
 
 post-patch:
 	# enable docbook to build manpages
-	${REINPLACE_CMD} -e 's|/docbook.sourceforge.net/|/cdn.docbook.org/|' \
+	${REINPLACE_CMD} -e "s|${CAT1}|file://${LOCALBASE}/share/xsl/docbook/|" \
 		${WRKSRC}/buildtools/wafsamba/wafsamba.py \
 		${WRKSRC}/buildtools/wafsamba/samba_conftests.py
 	${REINPLACE_CMD} -e 's|python3|python${PYTHON_VER}|g' \
