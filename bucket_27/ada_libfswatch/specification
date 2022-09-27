@@ -4,6 +4,7 @@ DEF[HASH]=		94c0a5f
 
 NAMEBASE=		ada_libfswatch
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel sysutils
 VARIANTS=		standard
 SDESC[standard]=	Ada binding to the libfswatch library
@@ -40,4 +41,4 @@ post-patch:
 pre-build:
 	${MKDIR} ${WRKSRC}/libfswatch/include/libfswatch/c ${WRKSRC}/libfswatch/lib
 	${CP} ${LOCALBASE}/lib/libfswatch.a ${WRKSRC}/libfswatch/lib/
-	${CP} ${LOCALBASE}/include/libfswatch/* ${WRKSRC}/libfswatch/include/libfswatch/c
+	${CP} -pRP ${LOCALBASE}/include/libfswatch/* ${WRKSRC}/libfswatch/include/libfswatch/
