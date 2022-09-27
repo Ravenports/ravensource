@@ -1,6 +1,7 @@
 DEF[PORTVERSION]=	3.2.0
 DEF[FOLDER]=		${PORTVERSION:R}
 DEF[SOVERSION]=		0.0.0
+DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl/current/
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libsigcxx
@@ -28,6 +29,7 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/sigc++/sigc++.h
 LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		doxygen:single:standard
+			docbook-xsl:primary:standard
 
 USES=			gmake perl:build c++:primary meson
 GNOME_COMPONENTS=	libxslt
@@ -37,6 +39,10 @@ SOVERSION=		${SOVERSION}
 MESON_ARGS=		-Dbuild-examples=false
 			-Dbuild-pdf=false
 			-Dbuild-documentation=true
+
+pre-configure:
+	${REINPLACE_CMD} -e "s|${CAT1}|file://${LOCALBASE}/share/xsl/docbook/|" \
+		${WRKSRC}/tools/tutorial-custom-cmd.py
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/doc/libsigc* \
