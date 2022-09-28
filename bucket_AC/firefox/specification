@@ -81,11 +81,11 @@ QMAKE_ARGS=		--enable-application=browser
 			--with-system-graphite2
 			--with-system-harfbuzz
 			--with-system-icu
-			--with-system-jpeg="{{LOCALBASE}}"
+			--with-system-jpeg
 			--with-system-libevent
 			--with-system-nspr
 			--with-system-nss
-			--with-system-png="{{LOCALBASE}}"
+			--with-system-png
 			--with-system-zlib
 			--without-wasm-sandboxed-libraries
 CONFIGURE_ENV=		PYTHON3={{PYTHON_CMD}}
@@ -128,7 +128,7 @@ pre-configure:
 	(cd ${WRKSRC}/js/src/ && ${LOCALBASE}/bin/autoconf-2.13)
 
 post-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/share/pixmaps \
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/pixmaps \
 		${STAGEDIR}${PREFIX}/share/applications
 	${INSTALL_DATA} ${WRKSRC}/taskcluster/docker/firefox-snap/firefox.desktop \
 		${STAGEDIR}${PREFIX}/share/applications/
