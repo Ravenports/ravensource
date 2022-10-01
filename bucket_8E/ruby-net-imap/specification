@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.2.3
+DEF[PORTVERSION]=	0.3.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-net-imap
@@ -13,7 +13,7 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		net-imap-0.2.3.gem:main
+DISTFILE[1]=		net-imap-0.3.1.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v27]=		single
@@ -31,22 +31,16 @@ VOPTS[v31]=		RUBY27=OFF RUBY30=OFF RUBY31=ON
 
 # Requirements according to gem specification:
 #   net-protocol (>= 0)
-#   digest (>= 0)
-#   strscan (>= 0)
+#   digest (>= 0, development)
+#   strscan (>= 0, development)
 
 DISTNAME=		net-imap-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY27].USES_ON=			gem:v27
 [RUBY27].BUILDRUN_DEPENDS_ON=		ruby-net-protocol:single:v27
-					ruby-digest:single:v27
-					ruby-strscan:single:v27
 [RUBY30].USES_ON=			gem:v30
 [RUBY30].BUILDRUN_DEPENDS_ON=		ruby-net-protocol:single:v30
-					ruby-digest:single:v30
-					ruby-strscan:single:v30
 [RUBY31].USES_ON=			gem:v31
 [RUBY31].BUILDRUN_DEPENDS_ON=		ruby-net-protocol:single:v31
-					ruby-digest:single:v31
-					ruby-strscan:single:v31
 
