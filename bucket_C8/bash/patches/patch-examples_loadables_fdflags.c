@@ -1,4 +1,4 @@
---- examples/loadables/fdflags.c.orig	2019-03-01 19:25:23 UTC
+--- examples/loadables/fdflags.c.orig	2022-07-26 14:16:57 UTC
 +++ examples/loadables/fdflags.c
 @@ -109,6 +109,8 @@ static const struct
  
