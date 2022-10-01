@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.3.0
+DEF[PORTVERSION]=	0.3.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-mdit-py-plugins
@@ -7,11 +7,11 @@ KEYWORDS=		python
 VARIANTS=		py39 py310
 SDESC[py39]=		Collection of plugins for markdown-it-py (3.9)
 SDESC[py310]=		Collection of plugins for markdown-it-py (3.10)
-HOMEPAGE=		https://github.com/executablebooks/mdit-py-plugins
+HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/5b/c4/1cf60e11b55197fa2e5e8d2f732a229690f5a08b018ae1cf4c00585ca834
+SITES[main]=		PYPIWHL/de/d9/20870f611989b8dcfd2395eddefdd4b1983d6c36513cce7fbbe9eb345768
 DISTFILE[1]=		mdit_py_plugins-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py39]=		single
@@ -23,20 +23,21 @@ VOPTS[py39]=		PY39=ON PY310=OFF
 VOPTS[py310]=		PY39=OFF PY310=ON
 
 # License listed at PyPI
-# MIT
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		mdit_py_plugins-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# markdown-it-py (<3.0.0,>=1.0.0)
-# pre-commit (==2.6) ; extra == 'code_style'
-# myst-parser (~=0.14.0) ; extra == 'rtd'
-# sphinx-book-theme (~=0.1.0) ; extra == 'rtd'
-# coverage ; extra == 'testing'
-# pytest (<4,>=3.6) ; extra == 'testing'
-# pytest-cov ; extra == 'testing'
-# pytest-regressions ; extra == 'testing'
+# markdown-it-py>=1.0.0,<3.0.0
+# pre-commit ; extra == "code_style"
+# attrs ; extra == "rtd"
+# myst-parser~=0.16.1 ; extra == "rtd"
+# sphinx-book-theme~=0.1.0 ; extra == "rtd"
+# coverage ; extra == "testing"
+# pytest ; extra == "testing"
+# pytest-cov ; extra == "testing"
+# pytest-regressions ; extra == "testing"
 
 [PY39].USES_ON=				python:py39,wheel
 [PY39].RUN_DEPENDS_ON=			python-markdown-it-py:single:py39
