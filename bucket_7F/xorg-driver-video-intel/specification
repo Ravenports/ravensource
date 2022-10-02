@@ -1,30 +1,30 @@
-DEF[SNAPDATE]=		20181203
-DEF[PORTVERSION]=	2.99.917.${SNAPDATE}
-DEF[TAG]=		e5ff8e1828f97891c819c919d7115c6e18b2eb1f
+DEF[PORTVERSION]=	2.99.917.916
+DEF[TAG]=		31486f40f8e8f8923ca0799aea84b58799754564
 DEF[XNAME]=		driver-video-intel
 DEF[ALTNAME]=		xf86-video-intel
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xorg-${XNAME}
 VERSION=		${PORTVERSION}
+EPOCH=			1
 KEYWORDS=		x11_drivers
 VARIANTS=		standard
-SDESC[standard]=	X.org driver for Intel graphics controllers
+SDESC[standard]=	X.org legacy driver for Intel graphic chipsets
 HOMEPAGE=		https://www.x.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://cgit.freedesktop.org/xorg/driver/xf86-video-intel/snapshot/
-DISTFILE[1]=		${TAG}.tar.xz:main
+SITES[main]=		https://gitlab.freedesktop.org/xorg/driver/xf86-video-intel/-/archive/
+DISTFILE[1]=		${TAG}.tar.bz2:main
 
 SPKGS[standard]=	single
 
-OPTIONS_AVAILABLE=	SNA UXA
-OPTIONS_STANDARD=	SNA UXA
+OPTIONS_AVAILABLE=	SNA UXA XVMC
+OPTIONS_STANDARD=	SNA UXA XVMC
 OPTGROUP_RADIO=		ACCEL
 OPTDESCR[ACCEL]=	Default AccelMethod (if not specified in xorg.conf)
 OPTGROUP[ACCEL]=	SNA UXA
-OPT_ON[all]=		UXA
+OPT_ON[all]=		UXA XVMC
 
 LICENSE=		MIT:single
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
@@ -34,13 +34,15 @@ NOT_FOR_ARCH=		aarch64
 FPC_EQUIVALENT=		x11-drivers/${ALTNAME}
 
 BUILDRUN_DEPENDS=	xorg-server:single:standard
-			xorg-xcb-util:single:standard
 			libdrm:single:standard
 
 USES=			mesa libtool cpe autoreconf
-XORG_COMPONENTS=	xorgproto pciaccess pixman x11 xcb xext xrender xv xvmc
-DISTNAME=		${TAG}
+XORG_COMPONENTS=	xorgproto pciaccess pixman
+DISTNAME=		xf86-video-intel-${TAG}
 MUST_CONFIGURE=		gnu
+CONFIGURE_ENV=		ac_cv_header_sys_sysinfo_h=no
+CONFIGURE_ARGS=		--disable-udev
+			--with-builderstring="${PORTVERSION}"
 INSTALL_TARGET=		install-strip
 CPE_VENDOR=		x
 CPE_PRODUCT=		${ALTNAME}
@@ -51,6 +53,12 @@ CFLAGS=			-Wunused-but-set-variable
 
 [UXA].CONFIGURE_ARGS_ON=		--with-default-accel=uxa
 [SNA].CONFIGURE_ARGS_ON=		--with-default-accel=sna
+
+[XVMC].DESCRIPTION=			X11 XvMC video extension support
+[XVMC].XORG_COMPONENTS_ON=		x11 xcb xvmc
+[XVMC].CONFIGURE_ENABLE_BOTH=		xvmc
+[XVMC].BUILDRUN_DEPENDS_ON=		xorg-xcb-util:single:standard
+
 
 pre-configure-dragonfly:
 	# Prefer to use dfly specific sigjmp_buf for less errors
