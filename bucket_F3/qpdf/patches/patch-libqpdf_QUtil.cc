@@ -1,6 +1,6 @@
---- libqpdf/QUtil.cc.orig	2022-09-14 21:04:13 UTC
+--- libqpdf/QUtil.cc.orig	2022-10-01 16:04:50 UTC
 +++ libqpdf/QUtil.cc
-@@ -944,6 +944,9 @@ QUtil::get_current_qpdf_time()
+@@ -946,6 +946,9 @@ QUtil::get_current_qpdf_time()
  # if HAVE_TM_GMTOFF
      // tm_gmtoff is seconds after UTC
      int tzoff = -static_cast<int>(ltime.tm_gmtoff / 60);
