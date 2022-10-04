@@ -1,4 +1,4 @@
---- ofxconnect/ofxpartner.cpp.orig	2022-09-08 20:08:58 UTC
+--- ofxconnect/ofxpartner.cpp.orig	2022-10-03 20:22:59 UTC
 +++ ofxconnect/ofxpartner.cpp
 @@ -37,6 +37,7 @@
  #include <vector>
