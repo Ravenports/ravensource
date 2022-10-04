@@ -1,4 +1,4 @@
---- erts/etc/unix/run_erl.c.orig	2022-08-17 15:09:33 UTC
+--- erts/etc/unix/run_erl.c.orig	2022-10-03 08:12:56 UTC
 +++ erts/etc/unix/run_erl.c
 @@ -81,9 +81,6 @@
  #ifdef HAVE_LIBUTIL_H
