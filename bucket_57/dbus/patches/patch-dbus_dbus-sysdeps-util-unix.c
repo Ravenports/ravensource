@@ -1,14 +1,14 @@
---- dbus/dbus-sysdeps-util-unix.c.orig	2022-02-25 14:57:18 UTC
+--- dbus/dbus-sysdeps-util-unix.c.orig	2022-09-14 12:12:21 UTC
 +++ dbus/dbus-sysdeps-util-unix.c
-@@ -42,6 +42,7 @@
+@@ -43,6 +43,7 @@
  #include <stdio.h>
  #include <errno.h>
  #include <fcntl.h>
 +#include <syslog.h>
+ #include <limits.h>
  #include <sys/stat.h>
  #ifdef HAVE_SYS_RESOURCE_H
- #include <sys/resource.h>
-@@ -51,6 +52,10 @@
+@@ -53,6 +54,10 @@
  #include <dirent.h>
  #include <sys/un.h>
  
@@ -16,10 +16,10 @@
 +#include <pwd.h>
 +#endif
 +
- #ifdef HAVE_SYS_SYSLIMITS_H
- #include <sys/syslimits.h>
+ #ifdef HAVE_SYS_PRCTL_H
+ #include <sys/prctl.h>
  #endif
-@@ -570,8 +575,31 @@ _dbus_user_at_console (const char *usern
+@@ -578,8 +583,31 @@ _dbus_user_at_console (const char *usern
  #ifdef DBUS_CONSOLE_AUTH_DIR
    DBusString u, f;
    dbus_bool_t result;
@@ -51,7 +51,7 @@
    if (!_dbus_string_init (&f))
      {
        _DBUS_SET_OOM (error);
-@@ -596,6 +624,7 @@ _dbus_user_at_console (const char *usern
+@@ -604,6 +632,7 @@ _dbus_user_at_console (const char *usern
  
   out:
    _dbus_string_free (&f);
