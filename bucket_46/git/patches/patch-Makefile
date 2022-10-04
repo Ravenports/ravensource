@@ -1,11 +1,12 @@
---- Makefile.orig	2022-08-30 17:57:12 UTC
+--- Makefile.orig	2022-10-02 23:02:46 UTC
 +++ Makefile
-@@ -543,11 +543,11 @@ infodir = $(prefix)/share/info
+@@ -547,12 +547,12 @@ infodir = $(prefix)/share/info
  gitexecdir = libexec/git-core
  mergetoolsdir = $(gitexecdir)/mergetools
  sharedir = $(prefix)/share
 -gitwebdir = $(sharedir)/gitweb
 +gitwebdir = $(sharedir)/examples/git/gitweb
+ gitwebstaticdir = $(gitwebdir)/static
  perllibdir = $(sharedir)/perl5
  localedir = $(sharedir)/locale
  template_dir = share/git-core/templates
@@ -14,7 +15,7 @@
  ETC_GITCONFIG = $(sysconfdir)/gitconfig
  ETC_GITATTRIBUTES = $(sysconfdir)/gitattributes
  lib = lib
-@@ -1524,9 +1524,9 @@ EXTLIBS += -lz
+@@ -1539,9 +1539,9 @@ EXTLIBS += -lz
  
  ifndef NO_OPENSSL
  	OPENSSL_LIBSSL = -lssl
@@ -27,7 +28,7 @@
  	else
  		OPENSSL_LINK =
  	endif
-@@ -2426,7 +2426,7 @@ git-instaweb: git-instaweb.sh GIT-SCRIPT
+@@ -2442,7 +2442,7 @@ git-instaweb: git-instaweb.sh GIT-SCRIPT
  	chmod +x $@+ && \
  	mv $@+ $@
  else # NO_PERL
@@ -36,7 +37,7 @@
  	$(QUIET_GEN) \
  	sed -e '1s|#!.*/sh|#!$(SHELL_PATH_SQ)|' \
  	    -e 's|@@REASON@@|NO_PERL=$(NO_PERL)|g' \
-@@ -3215,12 +3215,12 @@ endif
+@@ -3261,12 +3261,12 @@ endif
  ifndef NO_GETTEXT
  	$(INSTALL) -d -m 755 '$(DESTDIR_SQ)$(localedir_SQ)'
  	(cd po/build/locale && $(TAR) cf - .) | \
@@ -48,6 +49,15 @@
  	(cd perl/build/lib && $(TAR) cf - .) | \
 -	(cd '$(DESTDIR_SQ)$(perllibdir_SQ)' && umask 022 && $(TAR) xof -)
 +	(cd '$(DESTDIR_SQ)$(perllibdir_SQ)' && umask 022 && $(TAR) xof - --no-same-owner --no-same-permissions)
- 	$(MAKE) -C gitweb install
  endif
  ifndef NO_TCLTK
+ 	$(MAKE) -C gitk-git install
+@@ -3333,7 +3333,7 @@ install-man: install-man-perl
+ install-man-perl: man-perl
+ 	$(INSTALL) -d -m 755 '$(DESTDIR_SQ)$(mandir_SQ)/man3'
+ 	(cd perl/build/man/man3 && $(TAR) cf - .) | \
+-	(cd '$(DESTDIR_SQ)$(mandir_SQ)/man3' && umask 022 && $(TAR) xof -)
++	(cd '$(DESTDIR_SQ)$(mandir_SQ)/man3' && umask 022 && $(TAR) xof - --no-same-permissions)
+ 
+ install-html:
+ 	$(MAKE) -C Documentation install-html
