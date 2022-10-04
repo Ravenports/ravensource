@@ -1,4 +1,4 @@
---- charset.c.orig	2021-06-03 17:45:48 UTC
+--- charset.c.orig	2022-07-22 19:26:24 UTC
 +++ charset.c
 @@ -432,6 +432,10 @@ binary_char(c)
  control_char(c)
@@ -13,7 +13,7 @@
  }
 @@ -447,6 +451,20 @@ prchar(c)
  	/* {{ This buffer can be overrun if LESSBINFMT is a long string. }} */
- 	static char buf[32];
+ 	static char buf[MAX_PRCHAR_LEN+1];
  
 +#ifdef COLOR_LESS
 +	if(c == ESC)
