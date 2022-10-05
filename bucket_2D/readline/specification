@@ -1,7 +1,9 @@
 DEF[PATCHLEVEL]=	2
 DEF[PATCH_DIST]=	2 3
-DEF[READLINE_VERSION]=	8.1
-DEF[PORTVERSION]=	${READLINE_VERSION}.${PATCHLEVEL}
+DEF[READLINE_VERSION]=	8.2
+# DEF[PORTVERSION]=	${READLINE_VERSION}.${PATCHLEVEL}
+DEF[PORTVERSION]=	${READLINE_VERSION}
+DEF[DIST_VERSION]=	${READLINE_VERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		readline
@@ -14,10 +16,10 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main patches
 SITES[main]=		GNU/readline
-SITES[patches]=		GNU/readline/readline-${PORTVERSION:R}-patches
-DISTFILE[1]=		readline-${PORTVERSION:R}.tar.gz:main
-DISTFILE[2]=		readline${PORTVERSION:R:S/.//}-001:patches
-DISTFILE[3]=		readline${PORTVERSION:R:S/.//}-002:patches
+SITES[patches]=		GNU/readline/readline-${DIST_VERSION}-patches
+DISTFILE[1]=		readline-${DIST_VERSION}.tar.gz:main
+# DISTFILE[2]=		readline${DIST_VERSION:S/.//}-001:patches
+# DISTFILE[3]=		readline${DIST_VERSION:S/.//}-002:patches
 
 SPKGS[standard]=	single
 
@@ -34,10 +36,10 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		devel/readline
 
 USES=			cpe ncurses
-DISTNAME=		readline-${PORTVERSION:R}
-PATCHFILES=		${PATCH_DIST}
+DISTNAME=		readline-${DIST_VERSION}
+# PATCHFILES=		${PATCH_DIST}
 CPE_VENDOR=		gnu
-CPE_VERSION=		${PORTVERSION:R}
+CPE_VERSION=		${DIST_VERSION}
 CPE_UPDATE=		${PATCHLEVEL}
 INFO=			single:history
 			single:readline
