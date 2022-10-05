@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	4.4.3
+DEF[DISTRIBUTION]=	4.4.3-P1
+DEF[PORTVERSION]=	${DISTRIBUTION:S/-/./}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		dhcp
@@ -10,8 +11,8 @@ HOMEPAGE=		https://www.isc.org/downloads/dhcp/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://ftp.isc.org/isc/dhcp/${PORTVERSION}/
-DISTFILE[1]=		dhcp-${PORTVERSION}.tar.gz:main
+SITES[main]=		https://ftp.isc.org/isc/dhcp/${DISTRIBUTION}/
+DISTFILE[1]=		dhcp-${DISTRIBUTION}.tar.gz:main
 
 SPKGS[standard]=	complete server client relay
 
@@ -42,6 +43,7 @@ SUB_LIST=		MANPREFIX={{MANPREFIX}}
 USES=			cpe gmake ssl shebangfix cclibs:server,client,relay
 SHEBANG_FILES=		contrib/ldap/dhcpd-conf-to-ldap
 CPE_VENDOR=		isc
+DISTNAME=		dhcp-${DISTRIBUTION}
 SINGLE_JOB=		yes
 MUST_CONFIGURE=		gnu
 CPPFLAGS=		-D_PATH_DHCLIENT_SCRIPT='\"{{PREFIX}}/sbin/dhclient-script\"'

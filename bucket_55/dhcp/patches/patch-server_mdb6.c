@@ -1,4 +1,4 @@
---- server/mdb6.c.orig	2022-03-08 09:26:03 UTC
+--- server/mdb6.c.orig	2022-09-28 14:39:15 UTC
 +++ server/mdb6.c
 @@ -1129,7 +1129,7 @@ create_lease6(struct ipv6_pool *pool, st
  		}
