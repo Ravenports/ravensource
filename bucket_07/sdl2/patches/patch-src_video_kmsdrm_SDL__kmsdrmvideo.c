@@ -1,6 +1,6 @@
---- src/video/kmsdrm/SDL_kmsdrmvideo.c.orig	2022-01-08 02:29:52 UTC
+--- src/video/kmsdrm/SDL_kmsdrmvideo.c.orig	2022-10-04 23:48:08 UTC
 +++ src/video/kmsdrm/SDL_kmsdrmvideo.c
-@@ -71,6 +71,10 @@ static SDL_bool openbsd69orgreater = SDL
+@@ -68,6 +68,10 @@ static char kmsdrm_dri_cardpath[32];
  #define EGL_PLATFORM_GBM_MESA 0x31D7
  #endif
  
@@ -9,5 +9,5 @@
 +#endif
 +
  static int
- check_modestting(int devindex)
+ get_driindex(void)
  {
