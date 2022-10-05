@@ -1,7 +1,7 @@
---- config.mk.orig	2020-09-02 16:37:07 UTC
+--- config.mk.orig	2022-10-04 17:36:58 UTC
 +++ config.mk
 @@ -2,11 +2,11 @@
- VERSION = 5.0
+ VERSION = 5.2
  
  # paths
 -PREFIX = /usr/local
@@ -15,15 +15,16 @@
  
  # Xinerama, comment if you don't want it
  XINERAMALIBS  = -lXinerama
-@@ -16,16 +16,16 @@ XINERAMAFLAGS = -DXINERAMA
+@@ -16,7 +16,7 @@ XINERAMAFLAGS = -DXINERAMA
  FREETYPELIBS = -lfontconfig -lXft
  FREETYPEINC = /usr/include/freetype2
  # OpenBSD (uncomment)
 -#FREETYPEINC = $(X11INC)/freetype2
 +FREETYPEINC = $(X11INC)/freetype2
+ #MANPREFIX = ${PREFIX}/man
  
  # includes and libs
- INCS = -I$(X11INC) -I$(FREETYPEINC)
+@@ -24,9 +24,9 @@ INCS = -I$(X11INC) -I$(FREETYPEINC)
  LIBS = -L$(X11LIB) -lX11 $(XINERAMALIBS) $(FREETYPELIBS)
  
  # flags
