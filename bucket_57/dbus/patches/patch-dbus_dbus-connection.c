@@ -1,4 +1,4 @@
---- dbus/dbus-connection.c.orig	2022-02-23 14:39:11 UTC
+--- dbus/dbus-connection.c.orig	2022-10-02 14:06:53 UTC
 +++ dbus/dbus-connection.c
 @@ -2385,7 +2385,7 @@ _dbus_connection_block_pending_call (DBu
    DBusConnection *connection;

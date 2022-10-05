@@ -1,4 +1,4 @@
---- dbus/dbus-sysdeps-util-unix.c.orig	2022-09-14 12:12:21 UTC
+--- dbus/dbus-sysdeps-util-unix.c.orig	2022-10-02 14:06:53 UTC
 +++ dbus/dbus-sysdeps-util-unix.c
 @@ -43,6 +43,7 @@
  #include <stdio.h>
