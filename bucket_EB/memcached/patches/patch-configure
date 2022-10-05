@@ -1,15 +1,15 @@
---- configure.ac.orig	2022-02-21 18:58:33 UTC
-+++ configure.ac
-@@ -188,7 +188,7 @@ if test "x$enable_dtrace" = "xyes"; then
-   if test "x$DTRACE" != "xno"; then
-     AC_DEFINE([ENABLE_DTRACE],1,[Set to nonzero if you want to include DTRACE])
+--- configure.orig	2022-08-27 00:37:42 UTC
++++ configure
+@@ -5859,7 +5859,7 @@ fi
+ printf "%s\n" "#define ENABLE_DTRACE 1" >>confdefs.h
+ 
      build_dtrace=yes
 -    $DTRACE -h -o conftest.h -s memcached_dtrace.d 2>/dev/zero
 +    /usr/bin/true
      if test $? -eq 0
      then
          dtrace_instrument_obj=yes
-@@ -814,7 +814,7 @@ then
+@@ -8421,7 +8421,7 @@ printf "%s\n" "#define _GNU_SOURCE 1" >>
  elif test "$GCC" = "yes"
  then
    GCC_VERSION=`$CC -dumpversion`
