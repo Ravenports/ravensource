@@ -1,6 +1,6 @@
 https://github.com/mesonbuild/meson/pull/4324
 
---- unittests/linuxliketests.py.orig	2022-08-13 08:48:46 UTC
+--- unittests/linuxliketests.py.orig	2022-10-05 21:20:57 UTC
 +++ unittests/linuxliketests.py
 @@ -1573,7 +1573,7 @@ class LinuxlikeTests(BasePlatformTests):
          # Test that installed libraries works
