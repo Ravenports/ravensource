@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.20.4
+DEF[PORTVERSION]=	3.22.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		meld
@@ -28,25 +28,29 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		textproc/meld
 
 BUILD_DEPENDS=		itstool:single:standard
+BUILDRUN_DEPENDS=	gtksourceview4:primary:standard
+			python-pycairo:single:python_used
+			appstream-glib:primary:standard
 
-USES=			gettext-tools shebangfix
-			python:sutools,python_default
+USES=			meson gettext-tools shebangfix pkgconfig python
 			desktop-utils:primary
 			gnome-icons:primary
 			mime-info:primary
 			schemas:primary
-GNOME_COMPONENTS=	gtksourceview3 pygobject intltool
+GNOME_COMPONENTS=	pygobject intltool
 SHEBANG_FILES=		bin/meld
 GLIB_SCHEMAS=		org.gnome.meld.gschema.xml
-PYD_INSTALL_TARGET=	--no-update-icon-cache
-			--no-compile-schemas
-			install
-PYD_INSTALLARGS=	--record
-			{{_PYTHONPKGLIST}}
-			-c
-			-O1
-			--prefix={{PREFIX}}
-			--root={{STAGEDIR}}
+
+post-extract:
+	# hide setup.py which triggers USES=python
+	${MV} ${WRKSRC}/setup.py ${WRKSRC}/setup.py.deactivated
+
+pre-configure:
+	# find python
+	${REINPLACE_CMD} \
+		-e "/dependency.'python3'/ s|python3|python-${PYTHON_VER}|" \
+		-e "/dependency.'py3cairo'/ s|py3cairo|py${PYTHON_SUFFIX}cairo|" \
+		${WRKSRC}/meson.build
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/meld*
