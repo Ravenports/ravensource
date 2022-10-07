@@ -1,0 +1,56 @@
+From e4b42480f6fd63a117e1d8a3d90fb69434133c28 Mon Sep 17 00:00:00 2001
+From: Daniel Engberg <daniel.engberg.lists@pyret.net>
+Date: Thu, 5 May 2022 08:21:43 +0200
+Subject: [PATCH] Allow both static and shared builds using Meson on non
+ Windows platforms
+
+Allow builds to be both or either static and shared instead of
+hardcoding static and create symlinks for shared library as used
+in multiple distributions
+---
+ meson.build | 26 +++++++++++++++++++++-----
+ 1 file changed, 21 insertions(+), 5 deletions(-)
+
+--- meson.build.orig
++++ meson.build
+@@ -17,6 +17,11 @@ conf_data = configuration_data()
+ 
+ cc = meson.get_compiler('c')
+ 
++if host_machine.system() != 'windows' 
++	soversion = '0'
++	libversion = '0.0.0'
++endif
++
+ conf_data.set10('HAVE_CONFIG_H', true)
+ conf_data.set10('HAVE_ALLOCA_H', cc.check_header('alloca.h'))
+ 
+@@ -68,12 +73,23 @@ if conf_data.get('HAVE_MEMPCPY') == 0
+ 	argp_source += files(['mempcpy.c'])
+ endif
+ 
+-argp_library = static_library('argp',
+-	argp_source,
+-	include_directories : '.',
+-	dependencies : deps,
+-	install : true
++if host_machine.system() != 'windows'
++	argp_library = library('argp',
++		argp_source,
++		include_directories : '.',
++		soversion: soversion,
++		version: libversion,
++		dependencies : deps,
++		install : true
++	)
++else	
++	argp_library = static_library('argp',
++		argp_source,
++		include_directories : '.',
++		dependencies : deps,
++		install : true
+ )
++endif
+ 
+ argp_dep = declare_dependency(link_with : argp_library,
+ 	include_directories : '.')

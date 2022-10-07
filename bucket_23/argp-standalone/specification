@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.4.1
+DEF[PORTVERSION]=	1.5.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		argp-standalone
@@ -6,11 +6,11 @@ VERSION=		${PORTVERSION}
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Arguments parsing functions from GLIBC
-HOMEPAGE=		none
+HOMEPAGE=		https://github.com/argp-standalone/argp-standalone/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/ericonr:argp-standalone:${PORTVERSION}
+SITES[main]=		GITHUB/argp-standalone:argp-standalone:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
@@ -30,9 +30,8 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/argp.h
 LICENSE_AWK=		TERMS:"_ARGP_H"
 LICENSE_SCHEME=		solo
 
-USES=			autoreconf libtool
-MUST_CONFIGURE=		gnu
-INSTALL_TARGET=		install-strip
+USES=			meson gettext-runtime
+MESON_ARGS=		-Ddefault_library=both
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/argp.h ${STAGEDIR}${PREFIX}/include
