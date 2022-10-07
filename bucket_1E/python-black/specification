@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	22.8.0
+DEF[PORTVERSION]=	22.10.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-black
@@ -7,11 +7,11 @@ KEYWORDS=		python
 VARIANTS=		py39 py310
 SDESC[py39]=		Uncompromising code formatter (3.9)
 SDESC[py310]=		Uncompromising code formatter (3.10)
-HOMEPAGE=		https://github.com/psf/black
+HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/c6/63/a852b07abc942dc069b5457af40feca82667cf5ed9faec7d4688a4d9c7da
+SITES[main]=		PYPIWHL/ce/6f/74492b8852ee4f2ad2178178f6b65bc8fc80ad539abe56c1c23eab6732e2
 DISTFILE[1]=		black-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py39]=		single
@@ -23,37 +23,36 @@ VOPTS[py39]=		PY39=ON PY310=OFF
 VOPTS[py310]=		PY39=OFF PY310=ON
 
 # License listed at PyPI
-# MIT
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		black-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# click (>=8.0.0)
-# platformdirs (>=2)
-# pathspec (>=0.9.0)
-# mypy-extensions (>=0.4.3)
-# tomli (>=1.1.0) ; python_full_version < "3.11.0a7"
-# typing-extensions (>=3.10.0.0) ; python_version < "3.10"
-# dataclasses (>=0.6) ; python_version < "3.7"
-# typed-ast (>=1.4.2) ; python_version < "3.8" and implementation_name == "cpython"
-# colorama (>=0.4.3) ; extra == 'colorama'
-# aiohttp (>=3.7.4) ; extra == 'd'
-# ipython (>=7.8.0) ; extra == 'jupyter'
-# tokenize-rt (>=3.2.0) ; extra == 'jupyter'
-# uvloop (>=0.15.2) ; extra == 'uvloop'
+# click>=8.0.0
+# mypy-extensions>=0.4.3
+# pathspec>=0.9.0
+# platformdirs>=2
+# tomli>=1.1.0; python_full_version < '3.11.0a7'
+# typed-ast>=1.4.2; python_version < '3.8' and implementation_name == 'cpython'
+# typing-extensions>=3.10.0.0; python_version < '3.10'
+# colorama>=0.4.3; extra == 'colorama'
+# aiohttp>=3.7.4; extra == 'd'
+# ipython>=7.8.0; extra == 'jupyter'
+# tokenize-rt>=3.2.0; extra == 'jupyter'
+# uvloop>=0.15.2; extra == 'uvloop'
 
 [PY39].USES_ON=				python:py39,wheel
 [PY39].RUN_DEPENDS_ON=			python-click:single:py39
-					python-platformdirs:single:py39
-					python-pathspec:single:py39
 					python-mypy-extensions:single:py39
+					python-pathspec:single:py39
+					python-platformdirs:single:py39
 					python-tomli:single:py39
 					python-typing-extensions:single:py39
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-click:single:py310
-					python-platformdirs:single:py310
-					python-pathspec:single:py310
 					python-mypy-extensions:single:py310
+					python-pathspec:single:py310
+					python-platformdirs:single:py310
 					python-tomli:single:py310
 
