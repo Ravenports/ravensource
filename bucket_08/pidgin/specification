@@ -5,6 +5,7 @@ DEF[MODULES]=		gg,irc,jabber,novell,simple,zephyr,sametime
 
 NAMEBASE=		pidgin
 VERSION=		${PORTVERSION}
+REVISION=		2
 KEYWORDS=		net_im
 VARIANTS=		standard
 SDESC[standard]=	Multi-protocol instant messaging client
@@ -35,7 +36,8 @@ BUILDRUN_DEPENDS=	startup-notification:single:standard
 			farstream:primary:standard
 			libidn:primary:standard
 			nss:primary:standard
-			gtkspell:primary:standard
+# Requires ancient gtkspell2, disable for now
+# #			gtkspell:primary:standard
 			dbus-glib:primary:standard
 			cyrus-sasl:primary:standard
 
@@ -61,6 +63,7 @@ CONFIGURE_ARGS=		--with-dynamic-prpls=${MODULES}
 			--disable-gevolution
 			--disable-avahi
 			--disable-meanwhile
+			--disable-gtkspell
 			--with-nspr-includes="{{LOCALBASE}}/include/nspr"
 			--with-nspr-libs="{{LOCALBASE}}/lib"
 			--with-nss-includes="{{LOCALBASE}}/include/nss/nss"
