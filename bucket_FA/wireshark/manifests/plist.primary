@@ -15,11 +15,12 @@ bin/wireshark
 include/wireshark/cfile.h
 include/wireshark/cli_main.h
 include/wireshark/file.h
-include/wireshark/globals.h
+include/wireshark/wireshark.h
 include/wireshark/ws_attributes.h
 include/wireshark/ws_compiler_tests.h
 include/wireshark/ws_diag_control.h
 include/wireshark/ws_log_defs.h
+include/wireshark/ws_posix_compat.h
 include/wireshark/ws_symbol_export.h
 include/wireshark/ws_version.h
 include/wireshark/epan/addr_and_mask.h
@@ -75,12 +76,12 @@ include/wireshark/epan/follow.h
 include/wireshark/epan/frame_data.h
 include/wireshark/epan/frame_data_sequence.h
 include/wireshark/epan/funnel.h
-include/wireshark/epan/garrayfix.h
 include/wireshark/epan/golay.h
 include/wireshark/epan/guid-utils.h
 include/wireshark/epan/iana_charsets.h
 include/wireshark/epan/iax2_codec_type.h
 include/wireshark/epan/in_cksum.h
+include/wireshark/epan/introspection.h
 include/wireshark/epan/ip_opts.h
 include/wireshark/epan/ipproto.h
 include/wireshark/epan/ipv4.h
@@ -131,7 +132,6 @@ include/wireshark/epan/t35.h
 include/wireshark/epan/tap-voip.h
 include/wireshark/epan/tap.h
 include/wireshark/epan/tfs.h
-include/wireshark/epan/time_fmt.h
 include/wireshark/epan/timestamp.h
 include/wireshark/epan/timestats.h
 include/wireshark/epan/to_str.h
@@ -149,6 +149,7 @@ include/wireshark/epan/xdlc.h
 include/wireshark/epan/dfilter/dfilter.h
 include/wireshark/epan/dfilter/drange.h
 include/wireshark/epan/dissectors/cond_ace_token_enum.h
+include/wireshark/epan/dissectors/file-pcapng.h
 include/wireshark/epan/dissectors/file-rbm.h
 include/wireshark/epan/dissectors/packet-6lowpan.h
 include/wireshark/epan/dissectors/packet-a21.h
@@ -168,8 +169,10 @@ include/wireshark/epan/dissectors/packet-asap+enrp-common.h
 include/wireshark/epan/dissectors/packet-atalk.h
 include/wireshark/epan/dissectors/packet-atm.h
 include/wireshark/epan/dissectors/packet-atn-ulcs.h
+include/wireshark/epan/dissectors/packet-autosar-ipdu-multiplexer.h
 include/wireshark/epan/dissectors/packet-bacapp.h
 include/wireshark/epan/dissectors/packet-bacnet.h
+include/wireshark/epan/dissectors/packet-bblog.h
 include/wireshark/epan/dissectors/packet-ber.h
 include/wireshark/epan/dissectors/packet-bfd.h
 include/wireshark/epan/dissectors/packet-bgp.h
@@ -235,6 +238,7 @@ include/wireshark/epan/dissectors/packet-diameter.h
 include/wireshark/epan/dissectors/packet-diameter_3gpp.h
 include/wireshark/epan/dissectors/packet-diffserv-mpls-common.h
 include/wireshark/epan/dissectors/packet-disp.h
+include/wireshark/epan/dissectors/packet-dlt.h
 include/wireshark/epan/dissectors/packet-dns.h
 include/wireshark/epan/dissectors/packet-docsis-tlv.h
 include/wireshark/epan/dissectors/packet-doip.h
@@ -272,6 +276,7 @@ include/wireshark/epan/dissectors/packet-fmp.h
 include/wireshark/epan/dissectors/packet-frame.h
 include/wireshark/epan/dissectors/packet-ftam.h
 include/wireshark/epan/dissectors/packet-ftdi-ft.h
+include/wireshark/epan/dissectors/packet-gdt.h
 include/wireshark/epan/dissectors/packet-geonw.h
 include/wireshark/epan/dissectors/packet-giop.h
 include/wireshark/epan/dissectors/packet-gluster.h
@@ -491,7 +496,8 @@ include/wireshark/epan/dissectors/packet-t38.h
 include/wireshark/epan/dissectors/packet-tacacs.h
 include/wireshark/epan/dissectors/packet-tcap.h
 include/wireshark/epan/dissectors/packet-tcp.h
-include/wireshark/epan/dissectors/packet-tcpclv3.h
+include/wireshark/epan/dissectors/packet-tcpcl.h
+include/wireshark/epan/dissectors/packet-tecmp.h
 include/wireshark/epan/dissectors/packet-tetra.h
 include/wireshark/epan/dissectors/packet-thrift.h
 include/wireshark/epan/dissectors/packet-tls-utils.h
@@ -506,6 +512,7 @@ include/wireshark/epan/dissectors/packet-uaudp.h
 include/wireshark/epan/dissectors/packet-uavcan-dsdl.h
 include/wireshark/epan/dissectors/packet-ubertooth.h
 include/wireshark/epan/dissectors/packet-udp.h
+include/wireshark/epan/dissectors/packet-uds.h
 include/wireshark/epan/dissectors/packet-umts_fp.h
 include/wireshark/epan/dissectors/packet-umts_mac.h
 include/wireshark/epan/dissectors/packet-umts_rlc.h
@@ -566,7 +573,6 @@ include/wireshark/wsutil/bitswap.h
 include/wireshark/wsutil/buffer.h
 include/wireshark/wsutil/codecs.h
 include/wireshark/wsutil/color.h
-include/wireshark/wsutil/copyright_info.h
 include/wireshark/wsutil/cpu_info.h
 include/wireshark/wsutil/crash_info.h
 include/wireshark/wsutil/crc10.h
@@ -582,6 +588,7 @@ include/wireshark/wsutil/curve25519.h
 include/wireshark/wsutil/eax.h
 include/wireshark/wsutil/epochs.h
 include/wireshark/wsutil/exported_pdu_tlvs.h
+include/wireshark/wsutil/feature_list.h
 include/wireshark/wsutil/filesystem.h
 include/wireshark/wsutil/g711.h
 include/wireshark/wsutil/glib-compat.h
@@ -600,6 +607,7 @@ include/wireshark/wsutil/please_report_bug.h
 include/wireshark/wsutil/pow2.h
 include/wireshark/wsutil/privileges.h
 include/wireshark/wsutil/processes.h
+include/wireshark/wsutil/regex.h
 include/wireshark/wsutil/report_message.h
 include/wireshark/wsutil/sign_ext.h
 include/wireshark/wsutil/sober128.h
@@ -619,7 +627,9 @@ include/wireshark/wsutil/ws_getopt.h
 include/wireshark/wsutil/ws_mempbrk.h
 include/wireshark/wsutil/ws_mempbrk_int.h
 include/wireshark/wsutil/ws_pipe.h
+include/wireshark/wsutil/ws_return.h
 include/wireshark/wsutil/ws_roundup.h
+include/wireshark/wsutil/wsgcrypt.h
 include/wireshark/wsutil/wsjson.h
 include/wireshark/wsutil/wslog.h
 include/wireshark/wsutil/xtea.h
@@ -630,6 +640,7 @@ include/wireshark/wsutil/wmem/wmem_interval_tree.h
 include/wireshark/wsutil/wmem/wmem_list.h
 include/wireshark/wsutil/wmem/wmem_map.h
 include/wireshark/wsutil/wmem/wmem_miscutl.h
+include/wireshark/wsutil/wmem/wmem_multimap.h
 include/wireshark/wsutil/wmem/wmem_queue.h
 include/wireshark/wsutil/wmem/wmem_stack.h
 include/wireshark/wsutil/wmem/wmem_strbuf.h
@@ -661,6 +672,7 @@ lib/wireshark/extcap/ciscodump
 lib/wireshark/extcap/randpktdump
 lib/wireshark/extcap/sshdump
 lib/wireshark/extcap/udpdump
+lib/wireshark/extcap/wifidump
 lib/wireshark/plugins/%%PLUGIN_VER%%/codecs/g711.so
 lib/wireshark/plugins/%%PLUGIN_VER%%/codecs/l16mono.so
 lib/wireshark/plugins/%%PLUGIN_VER%%/epan/ethercat.so
@@ -710,11 +722,13 @@ share/man/man1/sshdump.1.gz
 share/man/man1/text2pcap.1.gz
 share/man/man1/tshark.1.gz
 share/man/man1/udpdump.1.gz
+share/man/man1/wifidump.1.gz
 share/man/man1/wireshark.1.gz
 share/man/man4/extcap.4.gz
 share/man/man4/wireshark-filter.4.gz
 share/metainfo/org.wireshark.Wireshark.metainfo.xml
 share/mime/packages/org.wireshark.Wireshark.xml
+share/wireshark/Acknowledgements.md
 share/wireshark/cfilters
 share/wireshark/colorfilters
 share/wireshark/console.lua
