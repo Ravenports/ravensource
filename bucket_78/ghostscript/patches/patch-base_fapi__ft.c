@@ -1,8 +1,8 @@
---- base/fapi_ft.c.orig	2022-03-29 07:30:53 UTC
+--- base/fapi_ft.c.orig	2022-09-21 08:39:46 UTC
 +++ base/fapi_ft.c
-@@ -61,6 +61,10 @@
+@@ -60,6 +60,10 @@
+ #include FT_MULTIPLE_MASTERS_H
  #include FT_TYPE1_TABLES_H
- #include FT_SIZES_H
  
 +#ifndef FT_CALLBACK_DEF
 +#define FT_CALLBACK_DEF( x )  static x
