@@ -1,4 +1,4 @@
---- lib/Lex/InitHeaderSearch.cpp.orig	2022-09-20 06:05:50 UTC
+--- lib/Lex/InitHeaderSearch.cpp.orig	2022-10-04 09:29:17 UTC
 +++ lib/Lex/InitHeaderSearch.cpp
 @@ -234,7 +234,6 @@ void InitHeaderSearch::AddDefaultCInclud
    if (HSOpts.UseStandardSystemIncludes) {
