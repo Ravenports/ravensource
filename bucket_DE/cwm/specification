@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.7
+DEF[PORTVERSION]=	7.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		cwm
@@ -18,14 +18,13 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-# Freebsd started using snapshot, ignore comparison
-# FPC_EQUIVALENT=		x11-wm/cwm
+FPC_EQUIVALENT=		x11-wm/cwm
 
 LICENSE=		BSD2CLAUSE:single
 LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/BSD2CLAUSE
 LICENSE_SCHEME=		solo
 
-USES=			pkgconfig:build fonts solaris-funcs
+USES=			pkgconfig:build fonts solaris-funcs gmake
 XORG_COMPONENTS=	x11 xft xinerama xrandr
 SOL_FUNCTIONS=		err.h:err.h
 			asprintf:xmalloc.c
@@ -34,7 +33,7 @@ SOL_FUNCTIONS=		err.h:err.h
 			strsep:util.c
 			strsep:kbfunc.c
 			getline:kbfunc.c
-CFLAGS=			-I.
+SINGLE_JOB=		yes
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/cwm ${STAGEDIR}${PREFIX}/bin
