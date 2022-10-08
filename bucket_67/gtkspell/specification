@@ -1,9 +1,9 @@
-DEF[PORTVERSION]=	2.0.16
+DEF[PORTVERSION]=	3.0.10
+DEF[SOVERSION]=		0.2.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gtkspell
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		standard
 SDESC[standard]=	Spell-checking addon for GTK's TextView widget
@@ -12,7 +12,7 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/gtkspell/${PORTVERSION}
-DISTFILE[1]=		gtkspell-${PORTVERSION}.tar.gz:main
+DISTFILE[1]=		gtkspell3-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	complete primary nls
 
@@ -28,13 +28,17 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		textproc/gtkspell
 
-BUILDRUN_DEPENDS=	enchant1:single:standard
+BUILDRUN_DEPENDS=	enchant:single:standard
+			fribidi:single:standard
+			iso-codes:primary:standard
 
-USES=			gmake libtool pkgconfig fbsd10fix
+USES=			gmake libtool pkgconfig
 			gettext-runtime gettext-tools
-GNOME_COMPONENTS=	gtk2 intltool
+GNOME_COMPONENTS=	gtk3 intltool gdkpixbuf cairo
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
+DISTNAME=		gtkspell3-${PORTVERSION}
 
 post-patch:
 	${REINPLACE_CMD} -e '/^SUBDIRS/ s|docs||' ${WRKSRC}/Makefile.in
