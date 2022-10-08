@@ -1,15 +1,15 @@
---- configure.orig	2020-05-02 14:03:18 UTC
+--- configure.orig	2022-09-05 18:36:11 UTC
 +++ configure
-@@ -4047,7 +4047,7 @@ case "${host}" in
+@@ -4000,7 +4000,7 @@ case "${host}" in
  
-     DEFAULT_DEFAULT_wxUSE_MOTIF=1
+     DEFAULT_DEFAULT_wxUSE_GTK=1
    ;;
 -  *-*-freebsd*)
 +  *-*-dragonfly*|*-*-freebsd*)
      USE_BSD=1
      USE_FREEBSD=1
      $as_echo "#define __FREEBSD__ 1" >>confdefs.h
-@@ -21657,6 +21657,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
+@@ -25257,6 +25257,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
  
  
  SEARCH_INCLUDE="\
@@ -17,7 +17,7 @@
      /usr/local/include        \
      /usr/local/X11/include    \
      /usr/local/include/X11    \
-@@ -31499,9 +31500,6 @@ $as_echo "$as_me: WARNING: BeOS threads
+@@ -36397,9 +36398,6 @@ $as_echo "$as_me: WARNING: BeOS threads
                                          THREAD_OPTS="-pthreads $THREAD_OPTS"
                  fi
                  ;;
@@ -27,27 +27,27 @@
            *-*-darwin* | *-*-cygwin* )
                                                  THREAD_OPTS=""
                  ;;
-@@ -32764,7 +32762,7 @@ else
-         fi
+@@ -37691,6 +37689,8 @@ else
      fi
  fi
--
-+OPTIMISE_CFLAGS=
  
- if test "x$WXWIN_COMPATIBILITY_2_6" = "xyes"; then
-     $as_echo "#define WXWIN_COMPATIBILITY_2_6 1" >>confdefs.h
-@@ -39001,6 +38999,7 @@ fi
++OPTIMISE_CFLAGS=
++
+ if test "x$wxUSE_REPRODUCIBLE_BUILD" = "xyes"; then
+     $as_echo "#define wxUSE_REPRODUCIBLE_BUILD 1" >>confdefs.h
+ 
+@@ -43989,6 +43989,7 @@ fi
        ;;
  
        powerpc-apple-macos* | \
 +      *-*-dragonfly* | \
-       *-*-freebsd* | *-*-openbsd* | *-*-netbsd* | *-*-gnu* | *-*-k*bsd*-gnu | \
+       *-*-freebsd* | *-*-openbsd* | *-*-haiku* | *-*-netbsd* | *-*-gnu* | *-*-k*bsd*-gnu | \
        *-*-mirbsd* | \
        *-*-sunos4* | \
-@@ -39042,6 +39041,7 @@ fi
+@@ -44030,6 +44031,7 @@ fi
  
      case "${BAKEFILE_HOST}" in
-       *-*-linux* | *-*-freebsd* | *-*-openbsd* | *-*-netbsd* | \
+       *-*-linux* | *-*-freebsd* | *-*-openbsd* | *-*-haiku* | *-*-netbsd* | \
 +      *-*-dragonfly* | *-*-solaris2* | \
        *-*-k*bsd*-gnu | *-*-mirbsd* | *-*-gnu* )
          if test "x$SUNCXX" = "xyes"; then
