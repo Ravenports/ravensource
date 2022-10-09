@@ -2,9 +2,9 @@ $NetBSD: patch-Source_JavaScriptCore_runtime_MachineContext.h,v 1.2 2021/05/13 0
 
 Add support for NetBSD.
 
---- Source/JavaScriptCore/runtime/MachineContext.h.orig	2022-02-23 11:41:41 UTC
+--- Source/JavaScriptCore/runtime/MachineContext.h.orig	2022-08-31 07:59:51 UTC
 +++ Source/JavaScriptCore/runtime/MachineContext.h
-@@ -176,6 +176,22 @@ static inline void*& stackPointerImpl(mc
+@@ -193,6 +193,22 @@ static inline void*& stackPointerImpl(mc
  #error Unknown Architecture
  #endif
  
@@ -27,7 +27,7 @@ Add support for NetBSD.
  #elif OS(FUCHSIA) || OS(LINUX)
  
  #if CPU(X86)
-@@ -305,6 +321,22 @@ static inline void*& framePointerImpl(mc
+@@ -338,6 +354,22 @@ static inline void*& framePointerImpl(mc
  #error Unknown Architecture
  #endif
  
@@ -50,7 +50,7 @@ Add support for NetBSD.
  #elif OS(FUCHSIA) || OS(LINUX)
  
  // The following sequence depends on glibc's sys/ucontext.h.
-@@ -446,6 +478,22 @@ static inline void*& instructionPointerI
+@@ -495,6 +527,22 @@ static inline void*& instructionPointerI
  #else
  #error Unknown Architecture
  #endif
@@ -73,7 +73,7 @@ Add support for NetBSD.
  
  #elif OS(FUCHSIA) || OS(LINUX)
  
-@@ -586,6 +634,22 @@ inline void*& argumentPointer<1>(mcontex
+@@ -651,6 +699,22 @@ inline void*& argumentPointer<1>(mcontex
  #else
  #error Unknown Architecture
  #endif
@@ -96,14 +96,10 @@ Add support for NetBSD.
  
  #elif OS(FUCHSIA) || OS(LINUX)
  
-@@ -705,6 +769,22 @@ inline void*& llintInstructionPointer(mc
- #else
- #error Unknown Architecture
- #endif
-+ 
-+#elif OS(NETBSD)
-+
-+#if CPU(X86)
+@@ -774,6 +838,22 @@ inline void*& llintInstructionPointer(mc
+ #elif OS(NETBSD)
+ 
+ #if CPU(X86)
 +    return reinterpret_cast<void*&>((uintptr_t&) machineContext.__gregs[_REG_ESI]);
 +#elif CPU(X86_64)
 +    return reinterpret_cast<void*&>((uintptr_t&) machineContext.__gregs[_REG_R8]);
@@ -116,6 +112,10 @@ Add support for NetBSD.
 +#else
 +#error Unknown Architecture
 +#endif
- 
- #elif OS(FUCHSIA) || OS(LINUX)
- 
++ 
++#elif OS(NETBSD)
++
++#if CPU(X86)
+     return reinterpret_cast<void*&>((uintptr_t&) machineContext.__gregs[_REG_ESI]);
+ #elif CPU(X86_64)
+     return reinterpret_cast<void*&>((uintptr_t&) machineContext.__gregs[_REG_R8]);

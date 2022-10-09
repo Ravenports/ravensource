@@ -1,4 +1,4 @@
---- Source/WebCore/Modules/fetch/FetchBodyConsumer.cpp.orig	2022-02-23 11:41:48 UTC
+--- Source/WebCore/Modules/fetch/FetchBodyConsumer.cpp.orig	2022-09-14 11:58:10 UTC
 +++ Source/WebCore/Modules/fetch/FetchBodyConsumer.cpp
 @@ -40,6 +40,32 @@
  #include <wtf/StringExtras.h>

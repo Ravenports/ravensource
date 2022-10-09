@@ -1,6 +1,6 @@
---- Source/WebKit/PlatformGTK.cmake.orig	2022-02-24 12:51:39 UTC
+--- Source/WebKit/PlatformGTK.cmake.orig	2022-09-14 11:58:10 UTC
 +++ Source/WebKit/PlatformGTK.cmake
-@@ -34,7 +34,7 @@ add_definitions(-DLOCALEDIR="${CMAKE_INS
+@@ -42,7 +42,7 @@ add_definitions(-DLOCALEDIR="${CMAKE_INS
  add_definitions(-DDATADIR="${CMAKE_INSTALL_FULL_DATADIR}")
  add_definitions(-DLIBDIR="${LIB_INSTALL_DIR}")
  

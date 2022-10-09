@@ -1,17 +1,17 @@
---- Source/WebKit/Platform/unix/SharedMemoryUnix.cpp.orig	2022-02-23 11:41:51 UTC
+--- Source/WebKit/Platform/unix/SharedMemoryUnix.cpp.orig	2022-09-14 11:58:10 UTC
 +++ Source/WebKit/Platform/unix/SharedMemoryUnix.cpp
-@@ -153,7 +153,13 @@ static int createSharedMemory()
+@@ -148,7 +148,13 @@ static int createSharedMemory()
  #else
      CString tempName;
      for (int tries = 0; fileDescriptor == -1 && tries < 10; ++tries) {
--        String name = String("/WK2SharedMemory.") + String::number(static_cast<unsigned>(WTF::randomNumber() * (std::numeric_limits<unsigned>::max() + 1.0)));
-+        String name =
+-        auto name = makeString("/WK2SharedMemory.", static_cast<unsigned>(WTF::randomNumber() * (std::numeric_limits<unsigned>::max() + 1.0)));
++        auto name =
 +#ifdef __DragonFly__
-+                      String("/tmp/WK2SharedMemory.")
++   makeString("/tmp/WK2SharedMemory.",
 +#else
-+                      String("/WK2SharedMemory.")
++   makeString("/WK2SharedMemory.",
 +#endif
-+                      + String::number(static_cast<unsigned>(WTF::randomNumber() * (std::numeric_limits<unsigned>::max() + 1.0)));
++   static_cast<unsigned>(WTF::randomNumber() * (std::numeric_limits<unsigned>::max() + 1.0)));
          tempName = name.utf8();
  
          do {
