@@ -4,6 +4,7 @@ DEF[BUREMOVE]=		coffdump dlltool dllwrap nlmconv srconv sysdump windmc windres
 
 NAMEBASE=		binutils
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	GNU binary tools
@@ -50,6 +51,10 @@ PLIST_SUB=		PLUGINAPI={{PLUGINAPI}}
 			GPROF={{GPROF}}
 			TARGET={{CONFIGURE_TARGET}}
 			CTF={{SKIP_CTF:U}}
+
+# We need DT_RPATH set instead of DT_RUNPATH
+# See rtld man page, we need to be invulnerable to LD_LIBRARY_PATH
+LDFLAGS=		-Wl,--disable-new-dtags
 
 # Consider making gold the default linker on new platforms
 # Don't set linux for gold -- it fails to link port compiler
