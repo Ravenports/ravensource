@@ -40,7 +40,6 @@ PERCENT_BSD_LIST= \
 	svx/Executable_gengal.mk \
 	vcl/Executable_vcldemo.mk \
 	vcl/Executable_visualbackendtest.mk \
-	vcl/Executable_ui-previewer.mk \
 	vcl/Executable_mtfdemo.mk \
 	vcl/Module_vcl.mk \
 	vcl/Library_desktop_detector.mk \

@@ -1,6 +1,6 @@
---- svtools/source/svrtf/parrtf.cxx.orig	2022-01-26 14:35:29 UTC
+--- svtools/source/svrtf/parrtf.cxx.orig	2022-09-21 11:04:23 UTC
 +++ svtools/source/svrtf/parrtf.cxx
-@@ -52,6 +52,7 @@ SvRTFParser::~SvRTFParser()
+@@ -51,6 +51,7 @@ SvRTFParser::~SvRTFParser()
  {
  }
  
