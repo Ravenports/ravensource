@@ -6,6 +6,8 @@ DEF[IDENTIFICATION]=	EXTRACT_INFO(GCC10_IDENTIFICATION)
 DEF[GCC_VERSION]=	EXTRACT_INFO(GCC10_VERSION)
 DEF[STDCXX_VERSION]=	6.0.28
 DEF[TOOLCHAIN]=		{{LOCALBASE}}/toolchain
+DEF[DRACO_TAG]=		10.4.0-base
+DEF[DRACO_DIR]=		patches-10.4.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gcc10
@@ -17,9 +19,16 @@ SDESC[standard]=	GNU Compiler collection (GCC), Series ${BRANCH}
 HOMEPAGE=		https://gcc.gnu.org/
 CONTACT=		John_Marino[draco@marino.st]
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main draco
 SITES[main]=		GCC/${MS_SUBDIR}
+SITES[draco]=		https://raw.githubusercontent.com/jrmarino/draco/${DRACO_TAG}/generated/${DRACO_DIR}/
 DISTFILE[1]=		${IDENTIFICATION}.tar.xz:main
+DISTFILE[2]=		patch-diff-ada:draco
+DISTFILE[3]=		patch-diff-core:draco
+DISTFILE[4]=		patch-diff-cxx:draco
+DISTFILE[5]=		patch-diff-ada-testsuite:draco
+DISTFILE[6]=		patch-diff-gcc-testsuite:draco
+DIST_SUBDIR=		gcc10_${DRACO_TAG}
 
 SPKGS[standard]=	complete compilers ada_run cxx_run fortran_run libs infopages nls
 
@@ -37,8 +46,6 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		lang/gcc10
 
-BROKEN[dragonfly]=	Stopped building after sysroot update
-
 B_DEPS[freebsd]=	libiconv:static:standard
 B_DEPS[dragonfly]=	libiconv:static:standard
 B_DEPS[darwin]=		libiconv:static:standard
@@ -51,6 +58,8 @@ EXRUN[ada_run]=		gcc${BRANCH}:libs:standard
 EXRUN[cxx_run]=		gcc${BRANCH}:libs:standard
 EXRUN[fortran_run]=	gcc${BRANCH}:libs:standard
 EXRUN[compilers]=	gcc${BRANCH}:cxx_run:standard
+
+PATCHFILES=		2 3 4 5 6
 
 USES=			cpe gmake libtool perl:build makeinfo
 DISTNAME=		${IDENTIFICATION}
