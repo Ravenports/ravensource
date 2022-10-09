@@ -656,6 +656,7 @@ function scrape_python_info ($namebase, $force, $PVA, $PVB) {
          if (strlen($obj->info->license) > 77) {
             $temp = wordwrap ($obj->info->license, 70);
             $lines = explode("\n", $temp);
+            $lines = array_map('trim', $lines);
             $result["license"] = join("\n# ", $lines);
          }
 
