@@ -1,6 +1,6 @@
---- util/coroutine-ucontext.c.orig	2021-12-14 20:42:01 UTC
+--- util/coroutine-ucontext.c.orig	2022-08-30 16:41:57 UTC
 +++ util/coroutine-ucontext.c
-@@ -221,7 +221,15 @@ Coroutine *qemu_coroutine_new(void)
+@@ -225,7 +225,15 @@ Coroutine *qemu_coroutine_new(void)
                  2, arg.i[0], arg.i[1]);
  
      /* swapcontext() in, siglongjmp() back out */

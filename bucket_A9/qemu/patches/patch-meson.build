@@ -1,15 +1,24 @@
---- meson.build.orig	2021-12-14 20:42:02 UTC
+--- meson.build.orig	2022-08-30 16:41:57 UTC
 +++ meson.build
-@@ -54,7 +54,7 @@ have_block = have_system or have_tools
+@@ -47,7 +47,7 @@ genh = []
+ qapi_trace_events = []
  
- python = import('python').find_installation()
- 
+ bsd_oses = ['gnu/kfreebsd', 'freebsd', 'netbsd', 'openbsd', 'dragonfly', 'darwin']
 -supported_oses = ['windows', 'freebsd', 'netbsd', 'openbsd', 'darwin', 'sunos', 'linux']
 +supported_oses = ['windows', 'freebsd', 'netbsd', 'openbsd', 'darwin', 'sunos', 'linux', 'dragonfly']
  supported_cpus = ['ppc', 'ppc64', 's390x', 'riscv', 'x86', 'x86_64',
-   'arm', 'aarch64', 'mips', 'mips64', 'sparc', 'sparc64']
+   'arm', 'aarch64', 'loongarch64', 'mips', 'mips64', 'sparc', 'sparc64']
  
-@@ -722,15 +722,16 @@ if have_system and not get_option('curse
+@@ -416,7 +416,7 @@ if get_option('hax').allowed()
+     accelerators += 'CONFIG_HAX'
+   endif
+ endif
+-if targetos == 'netbsd'
++if targetos in [ 'netbsd', 'dragonfly' ]
+   nvmm = cc.find_library('nvmm', required: get_option('nvmm'))
+   if nvmm.found()
+     accelerators += 'CONFIG_NVMM'
+@@ -851,15 +851,16 @@ if have_system and get_option('curses').
        has_curses_h = cc.has_header('curses.h', args: curses_compile_args)
      endif
      if has_curses_h

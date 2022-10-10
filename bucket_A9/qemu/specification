@@ -1,5 +1,5 @@
 # docs temporarily disabled because Sphinx 4.2 has fatal regression
-DEF[PORTVERSION]=	6.2.0
+DEF[PORTVERSION]=	7.1.0
 DEF[JQUERY]=		EXTRACT_INFO(LATEST_JQUERY)
 DEF[UNDERSCORE]=	EXTRACT_INFO(SPHINX_UNDERSCORE)
 # ----------------------------------------------------------------------------
@@ -95,6 +95,9 @@ post-install:
 	${INSTALL_SCRIPT} ${FILESDIR}/qemu-ifdown.sample \
 		${STAGEDIR}${PREFIX}/etc
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/qemu-*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/elf2dmp
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/share/qemu/palcode-clipper
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/share/qemu/hppa-firmware.img
 	(cd ${WRKSRC} && ${COPYTREE_SHARE} docs ${STAGEDIR}${STD_DOCDIR}/)
 	# remove sphinx leftovers
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}/docs/sphinx
