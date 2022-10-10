@@ -26,6 +26,18 @@ https://zopeinterface.readthedocs.io/en/latest/
  Changes
 =========
 
+5.5.0 (2022-10-10)
+==================
+
+- Add support for Python 3.10 and 3.11 (as of 3.11.0rc2).
+
+- Add missing Trove classifier showing support for Python 3.9.
+
+- Add some more entries to ``zope.interface.interfaces.__all__``.
+
+- Disable unsafe math optimizations in C code.  See [pull request 262
+ ].
+
 5.4.0 (2021-04-15)
 ==================
 
@@ -86,15 +98,3 @@ https://zopeinterface.readthedocs.io/en/latest/
   implementation BaseAdapterRegistry.subscribed()`` for querying
   directly registered subscribers. See [issue 230
  ].
-
-- Add the maintenance method
-  ``Components.rebuildUtilityRegistryFromLocalCache()``. Most users
-  will not need this, but it can be useful if the ``Components.utilities
-  registry is suspected to be out of sync with the Components``
-  object itself (this might happen to persistent Components
-  implementations in the face of bugs).
-
-- Fix the Provides and ClassProvides descriptors to stop
-  allowing redundant interfaces (those already implemented by the
-  underlying class or meta class) to produce an inconsistent
-  resolution order. This is similar to the change in ``@implementer``
