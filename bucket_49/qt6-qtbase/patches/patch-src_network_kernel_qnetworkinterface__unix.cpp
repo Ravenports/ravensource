@@ -1,6 +1,6 @@
---- src/network/kernel/qnetworkinterface_unix.cpp.orig	2022-02-16 13:13:47 UTC
+--- src/network/kernel/qnetworkinterface_unix.cpp.orig	2022-09-19 10:23:04 UTC
 +++ src/network/kernel/qnetworkinterface_unix.cpp
-@@ -99,7 +99,7 @@ uint QNetworkInterfaceManager::interface
+@@ -63,7 +63,7 @@ uint QNetworkInterfaceManager::interface
  {
  #ifndef QT_NO_IPV6IFNAME
      return ::if_nametoindex(name.toLatin1());
@@ -9,7 +9,7 @@
      struct ifreq req;
      int socket = qt_safe_socket(AF_INET, SOCK_STREAM, 0);
      if (socket < 0)
-@@ -152,7 +152,7 @@ QString QNetworkInterfaceManager::interf
+@@ -117,7 +117,7 @@ QString QNetworkInterfaceManager::interf
  
  static int getMtu(int socket, struct ifreq *req)
  {
@@ -18,7 +18,7 @@
      if (qt_safe_ioctl(socket, SIOCGIFMTU, req) == 0)
          return req->ifr_mtu;
  #endif
-@@ -220,7 +220,7 @@ static QNetworkInterfacePrivate *findInt
+@@ -185,7 +185,7 @@ static QNetworkInterfacePrivate *findInt
      QNetworkInterfacePrivate *iface = nullptr;
      int ifindex = 0;
  

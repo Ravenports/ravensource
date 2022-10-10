@@ -1,6 +1,6 @@
---- src/platformsupport/input/evdevtablet/qevdevtablethandler.cpp.orig	2022-02-16 13:13:47 UTC
+--- src/platformsupport/input/evdevtablet/qevdevtablethandler.cpp.orig	2022-09-19 10:23:04 UTC
 +++ src/platformsupport/input/evdevtablet/qevdevtablethandler.cpp
-@@ -46,11 +46,7 @@
+@@ -10,11 +10,7 @@
  #include <QLoggingCategory>
  #include <QtCore/private/qcore_unix_p.h>
  #include <qpa/qwindowsysteminterface.h>

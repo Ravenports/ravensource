@@ -1,6 +1,6 @@
---- src/3rdparty/masm/wtf/Assertions.h.orig	2022-03-04 04:35:36 UTC
+--- src/3rdparty/masm/wtf/Assertions.h.orig	2022-09-23 07:21:41 UTC
 +++ src/3rdparty/masm/wtf/Assertions.h
-@@ -344,7 +344,7 @@ while (0)
+@@ -348,7 +348,7 @@ while (0)
  
  /* COMPILE_ASSERT */
  #ifndef COMPILE_ASSERT

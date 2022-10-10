@@ -1,6 +1,6 @@
---- src/corelib/io/qfilesystemwatcher.cpp.orig	2022-02-16 13:13:47 UTC
+--- src/corelib/io/qfilesystemwatcher.cpp.orig	2022-09-19 10:23:04 UTC
 +++ src/corelib/io/qfilesystemwatcher.cpp
-@@ -58,6 +58,8 @@
+@@ -22,6 +22,8 @@
  #  include "qfilesystemwatcher_inotify_p.h"
  #elif defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD) || defined(Q_OS_OPENBSD) || defined(QT_PLATFORM_UIKIT)
  #  include "qfilesystemwatcher_kqueue_p.h"
