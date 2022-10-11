@@ -1,0 +1,57 @@
+DEF[PORTVERSION]=	0.9.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-ronn-ng
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v27 v30 v31
+SDESC[v27]=		Builds man pages from Markdown (v27)
+SDESC[v30]=		Builds man pages from Markdown (v30)
+SDESC[v31]=		Builds man pages from Markdown (v31)
+HOMEPAGE=		https://github.com/apjanke/ronn-ng
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		ronn-ng-0.9.1.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v27]=		single
+SPKGS[v30]=		single
+SPKGS[v31]=		single
+
+OPTIONS_AVAILABLE=	RUBY27 RUBY30 RUBY31
+OPTIONS_STANDARD=	none
+VOPTS[v27]=		RUBY27=ON RUBY30=OFF RUBY31=OFF
+VOPTS[v30]=		RUBY27=OFF RUBY30=ON RUBY31=OFF
+VOPTS[v31]=		RUBY27=OFF RUBY30=OFF RUBY31=ON
+
+# License listed inside gem specification
+# => "MIT"
+
+# Requirements according to gem specification:
+#   kramdown (~> 2.1)
+#   mustache (~> 0.7, >= 0.7.0)
+#   nokogiri (~> 1.9, >= 1.9.0)
+#   rack (~> 2.0, >= 2.0.6, development)
+#   rake (~> 12.3, >= 12.3.0, development)
+#   rubocop (~> 0.60, >= 0.57.1, development)
+#   sinatra (~> 2.0, >= 2.0.0, development)
+#   test-unit (~> 3.2, >= 3.2.7, development)
+
+DISTNAME=		ronn-ng-${PORTVERSION}
+GENERATED=		yes
+
+[RUBY27].USES_ON=			gem:v27
+[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-kramdown:single:v27
+					ruby-mustache:single:v27
+					ruby-nokogiri:single:v27
+[RUBY30].USES_ON=			gem:v30
+[RUBY30].BUILDRUN_DEPENDS_ON=		ruby-kramdown:single:v30
+					ruby-mustache:single:v30
+					ruby-nokogiri:single:v30
+[RUBY31].USES_ON=			gem:v31
+[RUBY31].BUILDRUN_DEPENDS_ON=		ruby-kramdown:single:v31
+					ruby-mustache:single:v31
+					ruby-nokogiri:single:v31
+

@@ -1,19 +1,19 @@
-DEF[PORTVERSION]=	0.7.3
+DEF[PORTVERSION]=	2.4.0
 # ------------------------------------------------------------------------
 
-NAMEBASE=		ruby-ronn
+NAMEBASE=		ruby-kramdown
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v27 v30 v31
-SDESC[v27]=		Builds manuals (v27)
-SDESC[v30]=		Builds manuals (v30)
-SDESC[v31]=		Builds manuals (v31)
-HOMEPAGE=		none
+SDESC[v27]=		Fast pure-Ruby markdown parser (v27)
+SDESC[v30]=		Fast pure-Ruby markdown parser (v30)
+SDESC[v31]=		Fast pure-Ruby markdown parser (v31)
+HOMEPAGE=		http://kramdown.gettalong.org
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		ronn-0.7.3.gem:main
+DISTFILE[1]=		kramdown-2.4.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v27]=		single
@@ -27,26 +27,21 @@ VOPTS[v30]=		RUBY27=OFF RUBY30=ON RUBY31=OFF
 VOPTS[v31]=		RUBY27=OFF RUBY30=OFF RUBY31=ON
 
 # License listed inside gem specification
-# => Not provided.
+# => "MIT"
 
 # Requirements according to gem specification:
-#   hpricot (>= 0.8.2)
-#   rdiscount (>= 1.5.8)
-#   mustache (>= 0.7.0)
+#   rexml (>= 0)
+#   minitest (~> 5.0, development)
+#   rouge (~> 3.0, >= 3.26.0, development)
+#   stringex (~> 1.5.1, development)
 
-DISTNAME=		ronn-${PORTVERSION}
+DISTNAME=		kramdown-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY27].USES_ON=			gem:v27
-[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-hpricot:single:v27
-					ruby-rdiscount:single:v27
-					ruby-mustache:single:v27
+[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-rexml:single:v27
 [RUBY30].USES_ON=			gem:v30
-[RUBY30].BUILDRUN_DEPENDS_ON=		ruby-hpricot:single:v30
-					ruby-rdiscount:single:v30
-					ruby-mustache:single:v30
+[RUBY30].BUILDRUN_DEPENDS_ON=		ruby-rexml:single:v30
 [RUBY31].USES_ON=			gem:v31
-[RUBY31].BUILDRUN_DEPENDS_ON=		ruby-hpricot:single:v31
-					ruby-rdiscount:single:v31
-					ruby-mustache:single:v31
+[RUBY31].BUILDRUN_DEPENDS_ON=		ruby-rexml:single:v31
 
