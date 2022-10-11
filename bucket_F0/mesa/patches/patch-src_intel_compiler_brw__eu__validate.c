@@ -1,4 +1,4 @@
---- src/intel/compiler/brw_eu_validate.c.orig	2022-09-20 21:01:37 UTC
+--- src/intel/compiler/brw_eu_validate.c.orig	2022-10-11 18:53:31 UTC
 +++ src/intel/compiler/brw_eu_validate.c
 @@ -41,6 +41,39 @@
  #include <stdlib.h>
