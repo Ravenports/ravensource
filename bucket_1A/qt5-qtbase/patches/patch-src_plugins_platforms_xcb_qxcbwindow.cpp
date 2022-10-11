@@ -1,6 +1,6 @@
---- src/plugins/platforms/xcb/qxcbwindow.cpp.orig	2020-10-27 08:02:11 UTC
+--- src/plugins/platforms/xcb/qxcbwindow.cpp.orig	2022-06-24 10:42:02 UTC
 +++ src/plugins/platforms/xcb/qxcbwindow.cpp
-@@ -698,7 +698,7 @@ void QXcbWindow::show()
+@@ -706,7 +706,7 @@ void QXcbWindow::show()
          if (isTransient(window())) {
              const QWindow *tp = window()->transientParent();
              if (tp && tp->handle())

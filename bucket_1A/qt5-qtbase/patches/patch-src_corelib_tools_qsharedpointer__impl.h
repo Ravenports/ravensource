@@ -1,4 +1,4 @@
---- src/corelib/tools/qsharedpointer_impl.h.orig	2020-10-27 08:02:11 UTC
+--- src/corelib/tools/qsharedpointer_impl.h.orig	2022-06-24 10:42:02 UTC
 +++ src/corelib/tools/qsharedpointer_impl.h
 @@ -156,8 +156,6 @@ namespace QtSharedPointer {
          inline void checkQObjectShared(...) { }
