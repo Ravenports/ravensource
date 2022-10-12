@@ -250,18 +250,21 @@ sharedmimeinfo() {
 }
 
 suidfiles() {
-	local filelist
+	local filelist listargs
 
 	filelist=$(find "${STAGEDIR}" -type f \
 		\( -perm -u+x -or -perm -g+x -or -perm -o+x \) \
-		\( -perm -u+s -or -perm -g+s \))
+		\( -perm -u+s -or -perm -g+s \) -print0)
 	if [ -n "${filelist}" ]; then
 		warn "setuid files in the stage directory (are these necessary?):"
 		if [ "${OPSYS}" = "Linux" ] || [ "${OPSYS}" = "SunOS" ]; then
-		   ls -lid --time-style=long-iso "${filelist}"
+		   listargs="-lid --time-style=long-iso"
 		else
-		   ls -lidT "${filelist}"
+		   listargs="-lidT"
 		fi
+		(cd "${STAGEDIR}" && find * -type f \
+			\( -perm -u+x -or -perm -g+x -or -perm -o+x \) \
+			\( -perm -u+s -or -perm -g+s \) -print0 | xargs -0 ls "$listargs")
 	fi
 	return 0
 }
