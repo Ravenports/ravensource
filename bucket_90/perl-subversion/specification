@@ -4,11 +4,11 @@ DEF[PORTVERSION]=	EXTRACT_INFO(SUBVERSION_VERSION)
 
 NAMEBASE=		perl-subversion
 VERSION=		${PORTVERSION}
-REVISION=		3
+REVISION=		4
 KEYWORDS=		devel perl
-VARIANTS=		532 534
-SDESC[532]=		Perl bindings to Subversion (v532)
+VARIANTS=		534 536
 SDESC[534]=		Perl bindings to Subversion (v534)
+SDESC[536]=		Perl bindings to Subversion (v536)
 HOMEPAGE=		https://subversion.apache.org/
 CONTACT=		nobody
 
@@ -19,17 +19,17 @@ DISTFILE[1]=		subversion-${PORTVERSION}.tar.bz2:main
 SPKGS[532]=		single
 SPKGS[534]=		single
 
-OPTIONS_AVAILABLE=	PERL_532 PERL_534
+OPTIONS_AVAILABLE=	PERL_534 PERL_536
 OPTIONS_STANDARD=	none
-VOPTS[532]=		PERL_532=ON PERL_534=OFF
-VOPTS[534]=		PERL_532=OFF PERL_534=ON
+VOPTS[534]=		PERL_534=ON PERL_536=OFF
+VOPTS[536]=		PERL_534=OFF PERL_536=ON
 
 FPC_EQUIVALENT=		devel/p5-subversion
 
 SINGLE_JOB=		yes
 
-[PERL_532].USES_ON=			perl:532
 [PERL_534].USES_ON=			perl:534
+[PERL_536].USES_ON=			perl:536
 
 BUILD_DEPENDS=		utf8proc:single:standard
 BUILDRUN_DEPENDS=	serf:single:standard
