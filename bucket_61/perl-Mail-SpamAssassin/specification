@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	3.004006
 NAMEBASE=		perl-Mail-SpamAssassin
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		532 534
-SDESC[532]=		Extensible mail filter that identifies spam (5.32)
+VARIANTS=		534 536
 SDESC[534]=		Extensible mail filter that identifies spam (5.34)
+SDESC[536]=		Extensible mail filter that identifies spam (5.36)
 HOMEPAGE=		http://svn.apache.org/repos/asf/spamassassin/
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:S/SI/SIDNEY
 DISTFILE[1]=		Mail-SpamAssassin-3.4.6.tar.gz:main
 
-SPKGS[532]=		single
 SPKGS[534]=		single
+SPKGS[536]=		single
 
-OPTIONS_AVAILABLE=	PERL_532 PERL_534
+OPTIONS_AVAILABLE=	PERL_534 PERL_536
 OPTIONS_STANDARD=	none
-VOPTS[532]=		PERL_532=ON PERL_534=OFF
-VOPTS[534]=		PERL_532=OFF PERL_534=ON
+VOPTS[534]=		PERL_534=ON PERL_536=OFF
+VOPTS[536]=		PERL_534=OFF PERL_536=ON
 
 # License listed in CPAN directory:
 # apache_2_0
@@ -32,35 +32,35 @@ DISTNAME=		Mail-SpamAssassin-3.4.6
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Archive::Tar (perl 5.32 core) (perl 5.34 core)
+# |      runtime : Archive::Tar (perl 5.34 core) (perl 5.36 core)
 # |      runtime : Digest::SHA1
-# |      runtime : Errno (perl 5.32 core) (perl 5.34 core)
-# |      runtime : File::Copy (perl 5.32 core) (perl 5.34 core)
-# |      runtime : File::Spec (perl 5.32 core) (perl 5.34 core)
+# |      runtime : Errno (perl 5.34 core) (perl 5.36 core)
+# |      runtime : File::Copy (perl 5.34 core) (perl 5.36 core)
+# |      runtime : File::Spec (perl 5.34 core) (perl 5.36 core)
 # |      runtime : HTML::Parser
-# |      runtime : IO::Zlib (perl 5.32 core) (perl 5.34 core)
+# |      runtime : IO::Zlib (perl 5.34 core) (perl 5.36 core)
 # |      runtime : Mail::DKIM
 # |      runtime : Net::DNS
 # |      runtime : NetAddr::IP
-# |      runtime : Pod::Usage (perl 5.32 core) (perl 5.34 core)
-# |      runtime : Sys::Hostname (perl 5.32 core) (perl 5.34 core)
-# |      runtime : Test::More (perl 5.32 core) (perl 5.34 core)
-# |      runtime : Time::HiRes (perl 5.32 core) (perl 5.34 core)
-# |      runtime : Time::Local (perl 5.32 core) (perl 5.34 core)
-# |        build : ExtUtils::MakeMaker (perl 5.32 core) (perl 5.34 core)
+# |      runtime : Pod::Usage (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Sys::Hostname (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Test::More (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Time::HiRes (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Time::Local (perl 5.34 core) (perl 5.36 core)
+# |        build : ExtUtils::MakeMaker (perl 5.34 core) (perl 5.36 core)
 
-[PERL_532].USES_ON=			perl:532,configure
-[PERL_532].BUILDRUN_DEPENDS_ON=		perl-Digest-SHA1:single:532
-					perl-HTML-Parser:single:532
-					perl-Mail-DKIM:single:532
-					perl-Net-DNS:single:532
-					perl-NetAddr-IP:single:532
 [PERL_534].USES_ON=			perl:534,configure
 [PERL_534].BUILDRUN_DEPENDS_ON=		perl-Digest-SHA1:single:534
 					perl-HTML-Parser:single:534
 					perl-Mail-DKIM:single:534
 					perl-Net-DNS:single:534
 					perl-NetAddr-IP:single:534
+[PERL_536].USES_ON=			perl:536,configure
+[PERL_536].BUILDRUN_DEPENDS_ON=		perl-Digest-SHA1:single:536
+					perl-HTML-Parser:single:536
+					perl-Mail-DKIM:single:536
+					perl-Net-DNS:single:536
+					perl-NetAddr-IP:single:536
 
 USES=			cpe
 CPE_VENDOR=		apache

@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.276
 NAMEBASE=		perl-PPI
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		532 534
-SDESC[532]=		Parse and Manipulate Perl without Perl (5.32)
+VARIANTS=		534 536
 SDESC[534]=		Parse and Manipulate Perl without Perl (5.34)
+SDESC[536]=		Parse and Manipulate Perl without Perl (5.36)
 HOMEPAGE=		https://github.com/Perl-Critic/PPI
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:O/OA/OALDERS
 DISTFILE[1]=		PPI-${PORTVERSION}.tar.gz:main
 
-SPKGS[532]=		single
 SPKGS[534]=		single
+SPKGS[536]=		single
 
-OPTIONS_AVAILABLE=	PERL_532 PERL_534
+OPTIONS_AVAILABLE=	PERL_534 PERL_536
 OPTIONS_STANDARD=	none
-VOPTS[532]=		PERL_532=ON PERL_534=OFF
-VOPTS[534]=		PERL_532=OFF PERL_534=ON
+VOPTS[534]=		PERL_534=ON PERL_536=OFF
+VOPTS[536]=		PERL_534=OFF PERL_536=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,45 +32,45 @@ DISTNAME=		PPI-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.32 core) (perl 5.34 core)
+# |      runtime : Carp (perl 5.34 core) (perl 5.36 core)
 # |      runtime : Clone
-# |      runtime : Digest::MD5 (perl 5.32 core) (perl 5.34 core)
-# |      runtime : Exporter (perl 5.32 core) (perl 5.34 core)
-# |      runtime : File::Path (perl 5.32 core) (perl 5.34 core)
-# |      runtime : File::Spec (perl 5.32 core) (perl 5.34 core)
-# |      runtime : List::Util (perl 5.32 core) (perl 5.34 core)
+# |      runtime : Digest::MD5 (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Exporter (perl 5.34 core) (perl 5.36 core)
+# |      runtime : File::Path (perl 5.34 core) (perl 5.36 core)
+# |      runtime : File::Spec (perl 5.34 core) (perl 5.36 core)
+# |      runtime : List::Util (perl 5.34 core) (perl 5.36 core)
 # |      runtime : Params::Util
-# |      runtime : Scalar::Util (perl 5.32 core) (perl 5.34 core)
-# |      runtime : Storable (perl 5.32 core) (perl 5.34 core)
+# |      runtime : Scalar::Util (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Storable (perl 5.34 core) (perl 5.36 core)
 # |      runtime : Task::Weaken
-# |      runtime : constant (perl 5.32 core) (perl 5.34 core)
-# |      runtime : if (perl 5.32 core) (perl 5.34 core)
-# |      runtime : overload (perl 5.32 core) (perl 5.34 core)
-# |      runtime : strict (perl 5.32 core) (perl 5.34 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.32 core) (perl 5.34 core)
-# |         test : B (perl 5.32 core) (perl 5.34 core)
+# |      runtime : constant (perl 5.34 core) (perl 5.36 core)
+# |      runtime : if (perl 5.34 core) (perl 5.36 core)
+# |      runtime : overload (perl 5.34 core) (perl 5.36 core)
+# |      runtime : strict (perl 5.34 core) (perl 5.36 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.34 core) (perl 5.36 core)
+# |         test : B (perl 5.34 core) (perl 5.36 core)
 # |         test : Class::Inspector
-# |         test : Encode (perl 5.32 core) (perl 5.34 core)
-# |         test : ExtUtils::MakeMaker (perl 5.32 core) (perl 5.34 core)
-# |         test : File::Copy (perl 5.32 core) (perl 5.34 core)
-# |         test : File::Spec (perl 5.32 core) (perl 5.34 core)
-# |         test : File::Spec::Functions (perl 5.32 core) (perl 5.34 core)
-# |         test : File::Temp (perl 5.32 core) (perl 5.34 core)
-# |         test : Test::More (perl 5.32 core) (perl 5.34 core)
+# |         test : Encode (perl 5.34 core) (perl 5.36 core)
+# |         test : ExtUtils::MakeMaker (perl 5.34 core) (perl 5.36 core)
+# |         test : File::Copy (perl 5.34 core) (perl 5.36 core)
+# |         test : File::Spec (perl 5.34 core) (perl 5.36 core)
+# |         test : File::Spec::Functions (perl 5.34 core) (perl 5.36 core)
+# |         test : File::Temp (perl 5.34 core) (perl 5.36 core)
+# |         test : Test::More (perl 5.34 core) (perl 5.36 core)
 # |         test : Test::NoWarnings
 # |         test : Test::Object
 # |         test : Test::SubCalls
-# |         test : lib (perl 5.32 core) (perl 5.34 core)
-# |         test : utf8 (perl 5.32 core) (perl 5.34 core)
-# |         test : warnings (perl 5.32 core) (perl 5.34 core)
-# |         test : CPAN::Meta (perl 5.32 core) (perl 5.34 core)
+# |         test : lib (perl 5.34 core) (perl 5.36 core)
+# |         test : utf8 (perl 5.34 core) (perl 5.36 core)
+# |         test : warnings (perl 5.34 core) (perl 5.36 core)
+# |         test : CPAN::Meta (perl 5.34 core) (perl 5.36 core)
 
-[PERL_532].USES_ON=			perl:532,configure
-[PERL_532].BUILDRUN_DEPENDS_ON=		perl-Clone:single:532
-					perl-Params-Util:single:532
-					perl-Task-Weaken:single:532
 [PERL_534].USES_ON=			perl:534,configure
 [PERL_534].BUILDRUN_DEPENDS_ON=		perl-Clone:single:534
 					perl-Params-Util:single:534
 					perl-Task-Weaken:single:534
+[PERL_536].USES_ON=			perl:536,configure
+[PERL_536].BUILDRUN_DEPENDS_ON=		perl-Clone:single:536
+					perl-Params-Util:single:536
+					perl-Task-Weaken:single:536
 

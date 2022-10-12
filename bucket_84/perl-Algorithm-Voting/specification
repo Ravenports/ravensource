@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.01
 NAMEBASE=		perl-Algorithm-Voting
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		532 534
-SDESC[532]=		Voting algorithm implementations (5.32)
+VARIANTS=		534 536
 SDESC[534]=		Voting algorithm implementations (5.34)
+SDESC[536]=		Voting algorithm implementations (5.36)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:J/JT/JTRAMMELL
 DISTFILE[1]=		Algorithm-Voting-${PORTVERSION}.tar.gz:main
 
-SPKGS[532]=		single
 SPKGS[534]=		single
+SPKGS[536]=		single
 
-OPTIONS_AVAILABLE=	PERL_532 PERL_534
+OPTIONS_AVAILABLE=	PERL_534 PERL_536
 OPTIONS_STANDARD=	none
-VOPTS[532]=		PERL_532=ON PERL_534=OFF
-VOPTS[534]=		PERL_532=OFF PERL_534=ON
+VOPTS[534]=		PERL_534=ON PERL_536=OFF
+VOPTS[536]=		PERL_534=OFF PERL_536=ON
 
 # License listed in CPAN directory:
 # perl
@@ -32,30 +32,30 @@ DISTNAME=		Algorithm-Voting-${PORTVERSION}
 # ---------------------------------------------
 # |   Prerequisites extracted from META.yml
 # ---------------------------------------------
-# |     build_requires : File::Spec (perl 5.32.1 core) (perl 5.34.1 core)
+# |     build_requires : File::Spec (perl 5.34.1 core) (perl 5.36.0 core)
 # |     build_requires : Module::Build::Compat
 # |     build_requires : Test::Exception
-# |     build_requires : Test::More (perl 5.32.1 core) (perl 5.34.1 core)
-# |     build_requires : base (perl 5.32.1 core) (perl 5.34.1 core)
-# |     build_requires : strict (perl 5.32.1 core) (perl 5.34.1 core)
-# |     build_requires : warnings (perl 5.32.1 core) (perl 5.34.1 core)
-# |           requires : Carp (perl 5.32.1 core) (perl 5.34.1 core)
+# |     build_requires : Test::More (perl 5.34.1 core) (perl 5.36.0 core)
+# |     build_requires : base (perl 5.34.1 core) (perl 5.36.0 core)
+# |     build_requires : strict (perl 5.34.1 core) (perl 5.36.0 core)
+# |     build_requires : warnings (perl 5.34.1 core) (perl 5.36.0 core)
+# |           requires : Carp (perl 5.34.1 core) (perl 5.36.0 core)
 # |           requires : Class::Accessor::Fast
-# |           requires : Data::Dumper (perl 5.32.1 core) (perl 5.34.1 core)
-# |           requires : Digest::MD5 (perl 5.32.1 core) (perl 5.34.1 core)
-# |           requires : List::Util (perl 5.32.1 core) (perl 5.34.1 core)
-# |           requires : Math::BigInt (perl 5.32.1 core) (perl 5.34.1 core)
+# |           requires : Data::Dumper (perl 5.34.1 core) (perl 5.36.0 core)
+# |           requires : Digest::MD5 (perl 5.34.1 core) (perl 5.36.0 core)
+# |           requires : List::Util (perl 5.34.1 core) (perl 5.36.0 core)
+# |           requires : Math::BigInt (perl 5.34.1 core) (perl 5.36.0 core)
 # |           requires : Params::Validate
-# |           requires : Scalar::Util (perl 5.32.1 core) (perl 5.34.1 core)
+# |           requires : Scalar::Util (perl 5.34.1 core) (perl 5.36.0 core)
 
-[PERL_532].USES_ON=			perl:532,buildmod,run
-[PERL_532].BUILDRUN_DEPENDS_ON=		perl-Class-Accessor:single:532
-					perl-Params-Validate:single:532
-[PERL_532].BUILD_DEPENDS_ON=		perl-Module-Build:single:532
-					perl-Test-Exception:single:532
 [PERL_534].USES_ON=			perl:534,buildmod,run
 [PERL_534].BUILDRUN_DEPENDS_ON=		perl-Class-Accessor:single:534
 					perl-Params-Validate:single:534
 [PERL_534].BUILD_DEPENDS_ON=		perl-Module-Build:single:534
 					perl-Test-Exception:single:534
+[PERL_536].USES_ON=			perl:536,buildmod,run
+[PERL_536].BUILDRUN_DEPENDS_ON=		perl-Class-Accessor:single:536
+					perl-Params-Validate:single:536
+[PERL_536].BUILD_DEPENDS_ON=		perl-Module-Build:single:536
+					perl-Test-Exception:single:536
 

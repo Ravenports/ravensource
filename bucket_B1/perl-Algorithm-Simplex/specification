@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.44
 NAMEBASE=		perl-Algorithm-Simplex
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		532 534
-SDESC[532]=		Tucker Tableaux simplex algorithm (5.32)
+VARIANTS=		534 536
 SDESC[534]=		Tucker Tableaux simplex algorithm (5.34)
+SDESC[536]=		Tucker Tableaux simplex algorithm (5.36)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:M/MA/MATEU
 DISTFILE[1]=		Algorithm-Simplex-${PORTVERSION}.tar.gz:main
 
-SPKGS[532]=		single
 SPKGS[534]=		single
+SPKGS[536]=		single
 
-OPTIONS_AVAILABLE=	PERL_532 PERL_534
+OPTIONS_AVAILABLE=	PERL_534 PERL_536
 OPTIONS_STANDARD=	none
-VOPTS[532]=		PERL_532=ON PERL_534=OFF
-VOPTS[534]=		PERL_532=OFF PERL_534=ON
+VOPTS[534]=		PERL_534=ON PERL_536=OFF
+VOPTS[536]=		PERL_534=OFF PERL_536=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,26 +32,26 @@ DISTNAME=		Algorithm-Simplex-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Math::BigRat (perl 5.32 core) (perl 5.34 core)
+# |      runtime : Math::BigRat (perl 5.34 core) (perl 5.36 core)
 # |      runtime : Math::Cephes::Fraction
 # |      runtime : Moo
 # |      runtime : MooX::Types::MooseLike
 # |      runtime : PDL
 # |      runtime : PDL::Lite
 # |      runtime : namespace::clean
-# |        build : Test::More (perl 5.32 core) (perl 5.34 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.32 core) (perl 5.34 core)
+# |        build : Test::More (perl 5.34 core) (perl 5.36 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.34 core) (perl 5.36 core)
 
-[PERL_532].USES_ON=			perl:532,configure
-[PERL_532].BUILDRUN_DEPENDS_ON=		perl-Math-Cephes:single:532
-					perl-Moo:single:532
-					perl-MooX-Types-MooseLike:single:532
-					perl-PDL:single:532
-					perl-namespace-clean:single:532
 [PERL_534].USES_ON=			perl:534,configure
 [PERL_534].BUILDRUN_DEPENDS_ON=		perl-Math-Cephes:single:534
 					perl-Moo:single:534
 					perl-MooX-Types-MooseLike:single:534
 					perl-PDL:single:534
 					perl-namespace-clean:single:534
+[PERL_536].USES_ON=			perl:536,configure
+[PERL_536].BUILDRUN_DEPENDS_ON=		perl-Math-Cephes:single:536
+					perl-Moo:single:536
+					perl-MooX-Types-MooseLike:single:536
+					perl-PDL:single:536
+					perl-namespace-clean:single:536
 

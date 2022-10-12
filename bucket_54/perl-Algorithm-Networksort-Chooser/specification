@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.110
 NAMEBASE=		perl-Algorithm-Networksort-Chooser
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		532 534
-SDESC[532]=		Helper utility for Algorithm::Networksort (5.32)
+VARIANTS=		534 536
 SDESC[534]=		Helper utility for Algorithm::Networksort (5.34)
+SDESC[536]=		Helper utility for Algorithm::Networksort (5.36)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:F/FR/FRACTAL
 DISTFILE[1]=		Algorithm-Networksort-Chooser-${PORTVERSION}.tar.gz:main
 
-SPKGS[532]=		single
 SPKGS[534]=		single
+SPKGS[536]=		single
 
-OPTIONS_AVAILABLE=	PERL_532 PERL_534
+OPTIONS_AVAILABLE=	PERL_534 PERL_536
 OPTIONS_STANDARD=	none
-VOPTS[532]=		PERL_532=ON PERL_534=OFF
-VOPTS[534]=		PERL_532=OFF PERL_534=ON
+VOPTS[534]=		PERL_534=ON PERL_536=OFF
+VOPTS[536]=		PERL_534=OFF PERL_536=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -33,18 +33,18 @@ DISTNAME=		Algorithm-Networksort-Chooser-${PORTVERSION}
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
 # |      runtime : Algorithm::Networksort
-# |      runtime : Getopt::Long (perl 5.32 core) (perl 5.34 core)
+# |      runtime : Getopt::Long (perl 5.34 core) (perl 5.36 core)
 # |      runtime : Math::Combinatorics
 # |      runtime : common::sense
-# |        build : ExtUtils::MakeMaker (perl 5.32 core) (perl 5.34 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.32 core) (perl 5.34 core)
+# |        build : ExtUtils::MakeMaker (perl 5.34 core) (perl 5.36 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.34 core) (perl 5.36 core)
 
-[PERL_532].USES_ON=			perl:532,configure
-[PERL_532].BUILDRUN_DEPENDS_ON=		perl-Algorithm-Networksort:single:532
-					perl-Math-Combinatorics:single:532
-					perl-common-sense:single:532
 [PERL_534].USES_ON=			perl:534,configure
 [PERL_534].BUILDRUN_DEPENDS_ON=		perl-Algorithm-Networksort:single:534
 					perl-Math-Combinatorics:single:534
 					perl-common-sense:single:534
+[PERL_536].USES_ON=			perl:536,configure
+[PERL_536].BUILDRUN_DEPENDS_ON=		perl-Algorithm-Networksort:single:536
+					perl-Math-Combinatorics:single:536
+					perl-common-sense:single:536
 

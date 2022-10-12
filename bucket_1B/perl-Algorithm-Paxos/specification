@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.001
 NAMEBASE=		perl-Algorithm-Paxos
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		532 534
-SDESC[532]=		Implementation of the Paxos protocol (5.32)
+VARIANTS=		534 536
 SDESC[534]=		Implementation of the Paxos protocol (5.34)
+SDESC[536]=		Implementation of the Paxos protocol (5.36)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:P/PE/PERIGRIN
 DISTFILE[1]=		Algorithm-Paxos-${PORTVERSION}.tar.gz:main
 
-SPKGS[532]=		single
 SPKGS[534]=		single
+SPKGS[536]=		single
 
-OPTIONS_AVAILABLE=	PERL_532 PERL_534
+OPTIONS_AVAILABLE=	PERL_534 PERL_536
 OPTIONS_STANDARD=	none
-VOPTS[532]=		PERL_532=ON PERL_534=OFF
-VOPTS[534]=		PERL_532=OFF PERL_534=ON
+VOPTS[534]=		PERL_534=ON PERL_536=OFF
+VOPTS[536]=		PERL_534=OFF PERL_536=ON
 
 # License listed in CPAN directory:
 # perl
@@ -32,10 +32,10 @@ DISTNAME=		Algorithm-Paxos-${PORTVERSION}
 # ---------------------------------------------
 # |   Prerequisites extracted from META.yml
 # ---------------------------------------------
-# | configure_requires : ExtUtils::MakeMaker (perl 5.32.1 core) (perl 5.34.1 core)
-# |     build_requires : File::Find (perl 5.32.1 core) (perl 5.34.1 core)
-# |     build_requires : Test::More (perl 5.32.1 core) (perl 5.34.1 core)
-# |     build_requires : strict (perl 5.32.1 core) (perl 5.34.1 core)
+# | configure_requires : ExtUtils::MakeMaker (perl 5.34.1 core) (perl 5.36.0 core)
+# |     build_requires : File::Find (perl 5.34.1 core) (perl 5.36.0 core)
+# |     build_requires : Test::More (perl 5.34.1 core) (perl 5.36.0 core)
+# |     build_requires : strict (perl 5.34.1 core) (perl 5.36.0 core)
 # |           requires : Moose
 # |           requires : Moose::Role
 # |           requires : Sub::Exporter
@@ -44,16 +44,16 @@ DISTNAME=		Algorithm-Paxos-${PORTVERSION}
 # |           requires : Try::Tiny
 # |           requires : namespace::autoclean
 
-[PERL_532].USES_ON=			perl:532,configure
-[PERL_532].BUILDRUN_DEPENDS_ON=		perl-Moose:single:532
-					perl-Sub-Exporter:single:532
-					perl-Throwable:single:532
-					perl-Try-Tiny:single:532
-					perl-namespace-autoclean:single:532
 [PERL_534].USES_ON=			perl:534,configure
 [PERL_534].BUILDRUN_DEPENDS_ON=		perl-Moose:single:534
 					perl-Sub-Exporter:single:534
 					perl-Throwable:single:534
 					perl-Try-Tiny:single:534
 					perl-namespace-autoclean:single:534
+[PERL_536].USES_ON=			perl:536,configure
+[PERL_536].BUILDRUN_DEPENDS_ON=		perl-Moose:single:536
+					perl-Sub-Exporter:single:536
+					perl-Throwable:single:536
+					perl-Try-Tiny:single:536
+					perl-namespace-autoclean:single:536
 

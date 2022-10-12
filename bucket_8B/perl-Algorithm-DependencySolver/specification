@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.01
 NAMEBASE=		perl-Algorithm-DependencySolver
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		532 534
-SDESC[532]=		Solve scheduling access to shared resource (5.32)
+VARIANTS=		534 536
 SDESC[534]=		Solve scheduling access to shared resource (5.34)
+SDESC[536]=		Solve scheduling access to shared resource (5.36)
 HOMEPAGE=		https://github.com/lokku/Algorithm-DependencySolver
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:K/KA/KAORU
 DISTFILE[1]=		Algorithm-DependencySolver-${PORTVERSION}.tar.gz:main
 
-SPKGS[532]=		single
 SPKGS[534]=		single
+SPKGS[536]=		single
 
-OPTIONS_AVAILABLE=	PERL_532 PERL_534
+OPTIONS_AVAILABLE=	PERL_534 PERL_536
 OPTIONS_STANDARD=	none
-VOPTS[532]=		PERL_532=ON PERL_534=OFF
-VOPTS[534]=		PERL_532=OFF PERL_534=ON
+VOPTS[534]=		PERL_534=ON PERL_536=OFF
+VOPTS[536]=		PERL_534=OFF PERL_536=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,7 +32,7 @@ DISTNAME=		Algorithm-DependencySolver-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Data::Dumper (perl 5.32 core) (perl 5.34 core)
+# |      runtime : Data::Dumper (perl 5.34 core) (perl 5.36 core)
 # |      runtime : Graph
 # |      runtime : Graph::Convert
 # |      runtime : Graph::Easy
@@ -41,24 +41,15 @@ DISTNAME=		Algorithm-DependencySolver-${PORTVERSION}
 # |      runtime : Moose
 # |      runtime : MooseX::FollowPBP
 # |      runtime : MooseX::Method::Signatures
-# |    configure : ExtUtils::MakeMaker (perl 5.32 core) (perl 5.34 core)
-# |         test : File::Spec::Functions (perl 5.32 core) (perl 5.34 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.34 core) (perl 5.36 core)
+# |         test : File::Spec::Functions (perl 5.34 core) (perl 5.36 core)
 # |         test : File::Type
 # |         test : File::Which
 # |         test : Test::Deep
 # |         test : Test::Exception
-# |         test : Test::More (perl 5.32 core) (perl 5.34 core)
+# |         test : Test::More (perl 5.34 core) (perl 5.36 core)
 # |         test : Test::TempDir::Tiny
 
-[PERL_532].USES_ON=			perl:532,configure
-[PERL_532].BUILDRUN_DEPENDS_ON=		perl-Graph:single:532
-					perl-Graph-Convert:single:532
-					perl-Graph-Easy:single:532
-					perl-List-Compare:single:532
-					perl-List-MoreUtils:single:532
-					perl-Moose:single:532
-					perl-MooseX-FollowPBP:single:532
-					perl-MooseX-Method-Signatures:single:532
 [PERL_534].USES_ON=			perl:534,configure
 [PERL_534].BUILDRUN_DEPENDS_ON=		perl-Graph:single:534
 					perl-Graph-Convert:single:534
@@ -68,4 +59,13 @@ DISTNAME=		Algorithm-DependencySolver-${PORTVERSION}
 					perl-Moose:single:534
 					perl-MooseX-FollowPBP:single:534
 					perl-MooseX-Method-Signatures:single:534
+[PERL_536].USES_ON=			perl:536,configure
+[PERL_536].BUILDRUN_DEPENDS_ON=		perl-Graph:single:536
+					perl-Graph-Convert:single:536
+					perl-Graph-Easy:single:536
+					perl-List-Compare:single:536
+					perl-List-MoreUtils:single:536
+					perl-Moose:single:536
+					perl-MooseX-FollowPBP:single:536
+					perl-MooseX-Method-Signatures:single:536
 

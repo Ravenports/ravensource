@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.16
 NAMEBASE=		perl-ExtUtils-PkgConfig
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		532 534
-SDESC[532]=		Simplistic interface to pkg-config (5.32)
+VARIANTS=		534 536
 SDESC[534]=		Simplistic interface to pkg-config (5.34)
+SDESC[536]=		Simplistic interface to pkg-config (5.36)
 HOMEPAGE=		http://git.gnome.org/browse/perl-ExtUtils-PkgConfig
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:X/XA/XAOC
 DISTFILE[1]=		ExtUtils-PkgConfig-${PORTVERSION}.tar.gz:main
 
-SPKGS[532]=		single
 SPKGS[534]=		single
+SPKGS[536]=		single
 
-OPTIONS_AVAILABLE=	PERL_532 PERL_534
+OPTIONS_AVAILABLE=	PERL_534 PERL_536
 OPTIONS_STANDARD=	none
-VOPTS[532]=		PERL_532=ON PERL_534=OFF
-VOPTS[534]=		PERL_532=OFF PERL_534=ON
+VOPTS[534]=		PERL_534=ON PERL_536=OFF
+VOPTS[536]=		PERL_534=OFF PERL_536=ON
 
 # License listed in CPAN directory:
 # unknown, lgpl_2_1
@@ -32,10 +32,10 @@ DISTNAME=		ExtUtils-PkgConfig-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |        build : ExtUtils::MakeMaker (perl 5.32 core) (perl 5.34 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.32 core) (perl 5.34 core)
+# |        build : ExtUtils::MakeMaker (perl 5.34 core) (perl 5.36 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.34 core) (perl 5.36 core)
 
-[PERL_532].USES_ON=			perl:532,configure
 [PERL_534].USES_ON=			perl:534,configure
+[PERL_536].USES_ON=			perl:536,configure
 
 USES=			pkgconfig

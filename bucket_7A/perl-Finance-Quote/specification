@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.53
 NAMEBASE=		perl-Finance-Quote
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		532 534
-SDESC[532]=		Get quotes from various stock exchanges (5.32)
+VARIANTS=		534 536
 SDESC[534]=		Get quotes from various stock exchanges (5.34)
+SDESC[536]=		Get quotes from various stock exchanges (5.36)
 HOMEPAGE=		https://github.com/finance-quote/finance-quote
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:B/BP/BPSCHUCK
 DISTFILE[1]=		Finance-Quote-${PORTVERSION}.tar.gz:main
 
-SPKGS[532]=		single
 SPKGS[534]=		single
+SPKGS[536]=		single
 
-OPTIONS_AVAILABLE=	PERL_532 PERL_534
+OPTIONS_AVAILABLE=	PERL_534 PERL_536
 OPTIONS_STANDARD=	none
-VOPTS[532]=		PERL_532=ON PERL_534=OFF
-VOPTS[534]=		PERL_532=OFF PERL_534=ON
+VOPTS[534]=		PERL_534=ON PERL_536=OFF
+VOPTS[536]=		PERL_534=OFF PERL_536=ON
 
 # License listed in CPAN directory:
 # gpl_2
@@ -32,12 +32,12 @@ DISTNAME=		Finance-Quote-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.32 core) (perl 5.34 core)
-# |      runtime : Data::Dumper (perl 5.32 core) (perl 5.34 core)
+# |      runtime : Carp (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Data::Dumper (perl 5.34 core) (perl 5.36 core)
 # |      runtime : DateTime
 # |      runtime : DateTime::Format::Strptime
-# |      runtime : Encode (perl 5.32 core) (perl 5.34 core)
-# |      runtime : Exporter (perl 5.32 core) (perl 5.34 core)
+# |      runtime : Encode (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Exporter (perl 5.34 core) (perl 5.36 core)
 # |      runtime : HTML::TableExtract
 # |      runtime : HTML::TokeParser
 # |      runtime : HTML::TokeParser::Simple
@@ -48,64 +48,45 @@ DISTNAME=		Finance-Quote-${PORTVERSION}
 # |      runtime : HTTP::Request
 # |      runtime : HTTP::Request::Common
 # |      runtime : HTTP::Status
-# |      runtime : IO::Handle (perl 5.32 core) (perl 5.34 core)
-# |      runtime : IO::Uncompress::Unzip (perl 5.32 core) (perl 5.34 core)
+# |      runtime : IO::Handle (perl 5.34 core) (perl 5.36 core)
+# |      runtime : IO::Uncompress::Unzip (perl 5.34 core) (perl 5.36 core)
 # |      runtime : JSON
 # |      runtime : LWP::Simple
 # |      runtime : LWP::UserAgent
-# |      runtime : Module::Load (perl 5.32 core) (perl 5.34 core)
+# |      runtime : Module::Load (perl 5.34 core) (perl 5.36 core)
 # |      runtime : Mozilla::CA
-# |      runtime : POSIX (perl 5.32 core) (perl 5.34 core)
-# |      runtime : Scalar::Util (perl 5.32 core) (perl 5.34 core)
+# |      runtime : POSIX (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Scalar::Util (perl 5.34 core) (perl 5.36 core)
 # |      runtime : Spreadsheet::XLSX
 # |      runtime : String::Util
 # |      runtime : Text::Template
-# |      runtime : Time::Piece (perl 5.32 core) (perl 5.34 core)
-# |      runtime : Time::Seconds (perl 5.32 core) (perl 5.34 core)
+# |      runtime : Time::Piece (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Time::Seconds (perl 5.34 core) (perl 5.36 core)
 # |      runtime : Try::Tiny
 # |      runtime : Web::Scraper
 # |      runtime : XML::LibXML
-# |      runtime : base (perl 5.32 core) (perl 5.34 core)
-# |      runtime : constant (perl 5.32 core) (perl 5.34 core)
-# |      runtime : if (perl 5.32 core) (perl 5.34 core)
-# |      runtime : strict (perl 5.32 core) (perl 5.34 core)
-# |      runtime : utf8 (perl 5.32 core) (perl 5.34 core)
-# |      runtime : vars (perl 5.32 core) (perl 5.34 core)
-# |      runtime : warnings (perl 5.32 core) (perl 5.34 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.32 core) (perl 5.34 core)
+# |      runtime : base (perl 5.34 core) (perl 5.36 core)
+# |      runtime : constant (perl 5.34 core) (perl 5.36 core)
+# |      runtime : if (perl 5.34 core) (perl 5.36 core)
+# |      runtime : strict (perl 5.34 core) (perl 5.36 core)
+# |      runtime : utf8 (perl 5.34 core) (perl 5.36 core)
+# |      runtime : vars (perl 5.34 core) (perl 5.36 core)
+# |      runtime : warnings (perl 5.34 core) (perl 5.36 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.34 core) (perl 5.36 core)
 # |         test : Date::Manip
 # |         test : Date::Range
 # |         test : Date::Simple
 # |         test : DateTime::Duration
 # |         test : DateTime::Format::ISO8601
-# |         test : File::Spec (perl 5.32 core) (perl 5.34 core)
+# |         test : File::Spec (perl 5.34 core) (perl 5.36 core)
 # |         test : String::Util
 # |         test : Test::Kwalitee
-# |         test : Test::More (perl 5.32 core) (perl 5.34 core)
+# |         test : Test::More (perl 5.34 core) (perl 5.36 core)
 # |         test : Test::Perl::Critic
 # |         test : Test::Pod
 # |         test : Test::Pod::Coverage
-# |         test : feature (perl 5.32 core) (perl 5.34 core)
+# |         test : feature (perl 5.34 core) (perl 5.36 core)
 
-[PERL_532].USES_ON=			perl:532,configure
-[PERL_532].BUILDRUN_DEPENDS_ON=		perl-DateTime:single:532
-					perl-DateTime-Format-Strptime:single:532
-					perl-HTML-TableExtract:single:532
-					perl-HTML-Parser:single:532
-					perl-HTML-TokeParser-Simple:single:532
-					perl-HTML-Tree:single:532
-					perl-HTML-TreeBuilder-XPath:single:532
-					perl-HTTP-Cookies:single:532
-					perl-HTTP-Message:single:532
-					perl-JSON:single:532
-					perl-libwww-perl:single:532
-					perl-Mozilla-CA:single:532
-					perl-Spreadsheet-XLSX:single:532
-					perl-String-Util:single:532
-					perl-Text-Template:single:532
-					perl-Try-Tiny:single:532
-					perl-Web-Scraper:single:532
-					perl-XML-LibXML:single:532
 [PERL_534].USES_ON=			perl:534,configure
 [PERL_534].BUILDRUN_DEPENDS_ON=		perl-DateTime:single:534
 					perl-DateTime-Format-Strptime:single:534
@@ -125,4 +106,23 @@ DISTNAME=		Finance-Quote-${PORTVERSION}
 					perl-Try-Tiny:single:534
 					perl-Web-Scraper:single:534
 					perl-XML-LibXML:single:534
+[PERL_536].USES_ON=			perl:536,configure
+[PERL_536].BUILDRUN_DEPENDS_ON=		perl-DateTime:single:536
+					perl-DateTime-Format-Strptime:single:536
+					perl-HTML-TableExtract:single:536
+					perl-HTML-Parser:single:536
+					perl-HTML-TokeParser-Simple:single:536
+					perl-HTML-Tree:single:536
+					perl-HTML-TreeBuilder-XPath:single:536
+					perl-HTTP-Cookies:single:536
+					perl-HTTP-Message:single:536
+					perl-JSON:single:536
+					perl-libwww-perl:single:536
+					perl-Mozilla-CA:single:536
+					perl-Spreadsheet-XLSX:single:536
+					perl-String-Util:single:536
+					perl-Text-Template:single:536
+					perl-Try-Tiny:single:536
+					perl-Web-Scraper:single:536
+					perl-XML-LibXML:single:536
 
