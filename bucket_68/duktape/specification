@@ -4,6 +4,7 @@ DEF[SOVERSION]=		207.20700
 
 NAMEBASE=		duktape
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		lang
 VARIANTS=		standard
 SDESC[standard]=	Embeddable Javascript engine w. compact footprint
@@ -41,7 +42,7 @@ do-install:
 	${INSTALL_DATA} ${WRKSRC}/src/duktape.h ${STAGEDIR}${PREFIX}/include
 	${INSTALL_DATA} ${WRKSRC}/src/duk_config.h ${STAGEDIR}${PREFIX}/include
 .for l in libduktape.so libduktaped.so
-	${INSTALL_LIB} ${WRKSRC}/${l}.${SOVERSION} ${STAGEDIR}${PREFIX}/lib
-	${LN} -s ${PREFIX}/lib/${l}.${SOVERSION} ${STAGEDIR}${PREFIX}/lib/${l}
-	${LN} -s ${PREFIX}/lib/${l}.${SOVERSION} ${STAGEDIR}${PREFIX}/lib/${l}.${SOVERSION:R}
+	${INSTALL_LIB} ${WRKSRC}/${l}.${SOVERSION} ${STAGEDIR}${PREFIX}/lib/
+	${LN} -s ${l}.${SOVERSION} ${STAGEDIR}${PREFIX}/lib/${l}
+	${LN} -s ${l}.${SOVERSION} ${STAGEDIR}${PREFIX}/lib/${l}.${SOVERSION:R}
 .endfor
