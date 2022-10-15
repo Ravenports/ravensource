@@ -1,7 +1,7 @@
-DEF[PORTVERSION]=	3.3.4
-DEF[SOVERSION]=		48.0.2
-DEF[TLS_SOVERSION]=	20.0.3
-DEF[CRY_SOVERSION]=	46.0.2
+DEF[PORTVERSION]=	3.4.3
+DEF[SOVERSION]=		50.0.0
+DEF[TLS_SOVERSION]=	22.0.0
+DEF[CRY_SOVERSION]=	47.0.0
 DEF[NAMEBASE]=		libressl
 DEF[BASE]=		{{PREFIX}}/${NAMEBASE}
 # ----------------------------------------------------------------------------
@@ -39,8 +39,8 @@ USES=			autoreconf cpe libtool pkgconfig
 DISTNAME=		libressl-${PORTVERSION}
 CPE_VENDOR=		openbsd
 CPE_PRODUCT=		libressl
-GNU_CONFIGURE_PREFIX=	${BASE}
 MUST_CONFIGURE=		gnu
+GNU_CONFIGURE_PREFIX=	${BASE}
 CONFIGURE_ARGS=		--enable-nc
 			--disable-hardening
 			--with-openssldir={{PREFIX}}/etc/${NAMEBASE}
@@ -57,6 +57,7 @@ PLIST_SUB=		CRY_SOMAJOR=${CRY_SOVERSION:R:R}
 [STATIC].CFLAGS_OFF=			-fpic -DPIC
 [STATIC].CONFIGURE_ARGS_ON=		--enable-shared=no
 [SKIP_MANPAGES].DESCRIPTION=		Skip LibreSSL manpage installation
+[SKIP_MANPAGES].MAKEFILE_OFF=		MANPREFIX={{PREFIX}}/${NAMEBASE}/share
 
 post-build-STATIC-OFF:
 	# assemble PIC libraries
@@ -75,7 +76,7 @@ post-build-STATIC-OFF:
 		&& ranlib libtls_pic.a
 
 post-install:
-	${RM} -r ${STAGEDIR}/${PREFIX}/etc/${NAMEBASE}/cert.pem
+	${RM} -r ${STAGEDIR}${PREFIX}/etc/${NAMEBASE}/cert.pem
 
 post-install-STATIC-OFF:
 	# install our PIC libraries
@@ -84,6 +85,9 @@ post-install-STATIC-OFF:
 		${BUILD_WRKSRC}/libssl_pic.a \
 		${BUILD_WRKSRC}/libtls_pic.a \
 		${STAGEDIR}${PREFIX}/${NAMEBASE}/lib/
+
+post-install-STATIC-ON:
+	${STRIP_CMD} ${STAGEDIR}${BASE}/bin/nc
 
 post-configure:
 	# fix libtool for libtls.la
@@ -97,8 +101,9 @@ post-patch-SKIP_MANPAGES-ON:
 	${REINPLACE_CMD} -e 's| man||' ${WRKSRC}/Makefile.am
 
 post-install-SKIP_MANPAGES-ON:
-	# nc.1, openssl.1, opcpcheck.8 still get installed
+	# nc.1, openssl.1, ocspcheck.8 still get installed
 	${RM} -r ${STAGEDIR}${BASE}/share
+	${RM} -r ${STAGEDIR}${PREFIX}/share/man/man[18]
 
 post-install-SKIP_MANPAGES-OFF:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/man.d

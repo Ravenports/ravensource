@@ -1,1 +1,0 @@
-MANPREFIX=	${PREFIX}/libressl/share
