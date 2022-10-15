@@ -1,8 +1,4 @@
-DEF[PORTVERSION]=	3.41.1
-DEF[SOVERSION_gck]=	0.0.0
-DEF[SOVERSION_gcr]=	1.0.0
-DEF[SOVERSION_gcrbase]=	1.0.0
-DEF[SOVERSION_gcrui]=	1.0.0
+DEF[PORTVERSION]=	4.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gcr
@@ -21,6 +17,7 @@ SPKGS[standard]=	complete primary nls docs
 
 OPTIONS_AVAILABLE=	INTROSPECTION
 OPTIONS_STANDARD=	INTROSPECTION
+OPT_ON[all]=		INTROSPECTION
 
 LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
@@ -47,24 +44,13 @@ USES=			gettext-tools gmake pkgconfig meson
 			desktop-utils:primary
 			mime-info:primary
 			solaris-funcs
-GNOME_COMPONENTS=	gtk3
-MESON_ARGS=		-Dgtk=true
+GNOME_COMPONENTS=	gtk4
+MESON_ARGS=		-Dgtk4=true
+			-Dsystemd=disabled
 SOL_FUNCTIONS=		err.h:err.h
 			timegm:gck/gck-slot.c
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
-GTKDOC_OUTPUT_BASEDIR=	gcr
-
-GLIB_SCHEMAS=		org.gnome.crypto.pgp.gschema.xml
-
-PLIST_SUB=		GCK_SOVER=${SOVERSION_gck}
-			GCK_SOMAJOR=${SOVERSION_gck:R:R}
-			GCR_SOVER=${SOVERSION_gcr}
-			GCR_SOMAJOR=${SOVERSION_gcr:R:R}
-			GCRBASE_SOVER=${SOVERSION_gcrbase}
-			GCRBASE_SOMAJOR=${SOVERSION_gcrbase:R:R}
-			GCRUI_SOVER=${SOVERSION_gcrui}
-			GCRUI_SOMAJOR=${SOVERSION_gcrui:R:R}
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 
@@ -75,8 +61,10 @@ VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 [INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
 [INTROSPECTION].CONFIGURE_ARGS_ON=	-Dintrospection=true
 					-Dgtk_doc=true
+					-Dvapi=true
 [INTROSPECTION].CONFIGURE_ARGS_OFF=	-Dintrospection=false
 					-Dgtk_doc=false
+					-Dvapi=false
 
 pre-configure:
 	# timegm compat function untested by upstream in all cases

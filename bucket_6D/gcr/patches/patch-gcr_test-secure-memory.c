@@ -1,6 +1,6 @@
---- gcr/test-secure-memory.c.orig	2022-07-14 12:35:50 UTC
+--- gcr/test-secure-memory.c.orig	2022-10-11 20:30:13 UTC
 +++ gcr/test-secure-memory.c
-@@ -55,6 +55,10 @@ extern int egg_secure_warnings;
+@@ -54,6 +54,10 @@ find_non_zero (gpointer mem, gsize len)
  static gsize
  get_rlimit_memlock (void)
  {
@@ -11,7 +11,7 @@
  	struct rlimit memlock;
  
  	/* If the test program is running as a privileged user, it is
-@@ -83,6 +87,7 @@ get_rlimit_memlock (void)
+@@ -82,6 +86,7 @@ get_rlimit_memlock (void)
  	}
  
  	return memlock.rlim_cur;

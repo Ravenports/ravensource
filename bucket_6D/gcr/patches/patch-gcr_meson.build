@@ -1,15 +1,15 @@
---- gcr/meson.build.orig	2022-07-14 12:35:50 UTC
+--- gcr/meson.build.orig	2022-10-11 20:30:13 UTC
 +++ gcr/meson.build
-@@ -154,6 +154,8 @@ gcr_base_linkflags = cc.get_supported_li
-   '-Wl,--version-script,@0@'.format(gcr_base_symbolmap),
+@@ -140,6 +140,8 @@ gcr_linkflags = cc.get_supported_link_ar
+   '-Wl,--version-script,@0@'.format(gcr_symbolmap),
  )
  
 +#SUNOS gcr_base_linkflags += '-lsocket'
 +
- gcr_base_lib = shared_library('gcr-base-@0@'.format(gcr_major_version),
-   gcr_base_sources,
-   dependencies: gcr_base_deps,
-@@ -236,6 +238,7 @@ gcr_ssh_askpass = executable('gcr-ssh-as
+ gcr_lib = shared_library(gcr_basename,
+   gcr_sources,
+   dependencies: gcr_deps,
+@@ -219,6 +221,7 @@ gcr_ssh_askpass = executable('gcr4-ssh-a
    include_directories: config_h_dir,
    install: true,
    install_dir: get_option('libexecdir'),
