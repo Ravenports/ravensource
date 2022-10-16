@@ -113,10 +113,10 @@ post-patch:
 	${REINPLACE_CMD} -e 's/"files":{[^}]*}/"files":{}/' \
 		 ${WRKSRC}/vendor/*/.cargo-checksum.json
 
-	# for rust 1.43 bootstrap built with libressl 3.0
-	# (cd ${LOCALBASE}/libressl/lib && \
-		${LN} -s libssl.so libssl.so.47 && \
-		${LN} -s libcrypto.so libcrypto.so.45)
+	# for rust 1.63 bootstrap built with libressl 3.0
+	(cd ${LOCALBASE}/libressl/lib && \
+		${LN} -s libssl.so libssl.so.48 && \
+		${LN} -s libcrypto.so libcrypto.so.46)
 
 pre-configure:
 	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|' \
