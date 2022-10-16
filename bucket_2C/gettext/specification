@@ -7,6 +7,7 @@ DEF[SOVERSION]=		${PORTVERSION}
 
 NAMEBASE=		gettext
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	GNU internationalization and localization system
@@ -30,9 +31,9 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		devel/gettext
 
-RUN_DEPENDS=		libiconv:static:standard
+BUILD_DEPENDS=		libiconv:static:standard
 
-USES=			charsetfix cpe iconv libtool c++:asprintf
+USES=			charsetfix cpe libtool c++:asprintf
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-csharp
 			--disable-java
@@ -65,7 +66,7 @@ post-extract:
 	${AWK} '/HAVE_CONFIG_H/ {exit}; {print}' \
 		${WRKSRC}/gettext-runtime/intl/textdomain.c >> ${WRKDIR}/TERMS
 
-post-patch:
+pre-configure:
 	# Do not install csharp and java documentation.
 	${REINPLACE_CMD} -E '/^SUBDIRS =/s/(intl-csharp|intl-java)//g' \
 		${WRKSRC}/gettext-runtime/Makefile.in
@@ -76,6 +77,11 @@ post-patch:
 		-e '/^installdirs-local:/s/installdirs-html//' \
 		${WRKSRC}/gettext-runtime/libasprintf/Makefile.in \
 		${WRKSRC}/gettext-runtime/man/Makefile.in
+	# use libiconv_pic.a instead of libiconv.so
+	${REINPLACE_CMD} -e "s|names_next_round='iconv '|names_next_round='iconv_pic '|" \
+		${WRKSRC}/gettext-tools/configure \
+		${WRKSRC}/gettext-runtime/configure \
+		${WRKSRC}/libtextstyle/configure
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/gettext-${PORTVERSION} \
