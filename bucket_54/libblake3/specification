@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	1.3.1
+DEF[RELEASE_TAG]=	${PORTVERSION}
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libblake3
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		standard
+SDESC[standard]=	C implementation of BLAKE3 is a cryptographic hash
+HOMEPAGE=		https://github.com/BLAKE3-team/BLAKE3/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/BLAKE3-team:BLAKE3:${RELEASE_TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CC0_10:single APACHE20:single
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_FILE=		CC0_10:stock APACHE20:stock
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/../LICENSE
+LICENSE_AWK=		TERMS:"^------"
+LICENSE_SCHEME=		dual
+
+SUB_FILES=		CMakeLists.txt
+SUB_LIST=		SOVERSION=${SOVERSION}
+			SOMAJOR=${SOVERSION:R:R}
+
+USES=			cmake
+SOVERSION=		${SOVERSION}
+DISTNAME=		BLAKE3-${PORTVERSION}/c
+SINGLE_JOB=		yes
+
+pre-configure:
+	# Install makefile
+	${INSTALL_DATA} ${WRKDIR}/CMakeLists.txt ${WRKSRC}/
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libblake3.so

@@ -1,0 +1,47 @@
+# static, shared, and PIC fetch library
+
+project(Blake3_Crypto C ASM)
+
+include_directories(
+	${CMAKE_SOURCE_DIR}
+	${CMAKE_CURRENT_BINARY_DIR}
+)
+
+set (asmfiles
+	${CMAKE_SOURCE_DIR}/blake3_sse2_x86-64_unix.S
+	${CMAKE_SOURCE_DIR}/blake3_sse41_x86-64_unix.S
+	${CMAKE_SOURCE_DIR}/blake3_avx2_x86-64_unix.S
+    	${CMAKE_SOURCE_DIR}/blake3_avx512_x86-64_unix.S
+)
+
+set (libsrcs
+	${CMAKE_SOURCE_DIR}/blake3.c
+	${CMAKE_SOURCE_DIR}/blake3_dispatch.c
+	${CMAKE_SOURCE_DIR}/blake3_portable.c
+	${asmfiles}
+)
+
+add_library(blake3obj ${libsrcs})
+set_property(TARGET blake3obj PROPERTY POSITION_INDEPENDENT_CODE 1)
+
+add_library(blake3 SHARED $<TARGET_OBJECTS:blake3obj>)
+add_library(blake3_pic STATIC $<TARGET_OBJECTS:blake3obj>)
+add_library(blake3_static ${libsrcs})
+
+set_target_properties(blake3 PROPERTIES VERSION %%SOVERSION%%)
+set_target_properties(blake3 PROPERTIES SOVERSION %%SOMAJOR%%)
+
+install(TARGETS blake3
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+
+install(TARGETS blake3_pic
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libblake3_static.a
+	RENAME libblake3.a
+	DESTINATION lib
+)
+
+install(FILES ${CMAKE_SOURCE_DIR}/blake3.h DESTINATION include)
