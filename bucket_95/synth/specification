@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.12
 
 NAMEBASE=		synth
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		standard
 SDESC[standard]=	Custom package repository builder for FreeBSD
@@ -26,6 +27,7 @@ LICENSE_SCHEME=		solo
 
 ONLY_FOR_OPSYS=		freebsd dragonfly
 
+RUN_DEPENDS=		ncurses:primary:standard
 BUILD_DEPENDS=		adacurses:primary:standard
 			ini_file_manager:complete:standard
 
@@ -66,3 +68,5 @@ do-install:
 	${INSTALL_DATA} ${WRKSRC}/shell-completers/_synth \
 		${STAGEDIR}${PREFIX}/share/zsh/site-functions
 	${INSTALL_DATA} ${WRKSRC}/www/* ${STAGEDIR}${PREFIX}/share/synth
+	# synth expects pkg to be at ${PREFIX}/sbin/pkg so symlink to it
+	(cd ${STAGEDIR}${PREFIX}/sbin && ln -s /usr/local/sbin/pkg)
