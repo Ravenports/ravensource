@@ -1,0 +1,90 @@
+DEF[PORTVERSION]=	3.41.1
+DEF[SOVERSION_gck]=	0.0.0
+DEF[SOVERSION_gcr]=	1.0.0
+DEF[SOVERSION_gcrbase]=	1.0.0
+DEF[SOVERSION_gcrui]=	1.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gcr3
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		standard
+SDESC[standard]=	Library for bits of crypto UI and parsing
+HOMEPAGE=		https://github.com/GNOME/gcr
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/GNOME:gcr:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary nls docs
+
+OPTIONS_AVAILABLE=	INTROSPECTION
+OPTIONS_STANDARD=	INTROSPECTION
+OPT_ON[all]=		INTROSPECTION
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gcr/gcr.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		security/gcr
+
+BUILD_DEPENDS=		libtool:single:standard
+			intltool:single:standard
+			gnupg:primary:standard
+BUILDRUN_DEPENDS=	dbus:single:standard
+			libsecret:primary:standard
+			libgcrypt:single:standard
+			libtasn1:primary:standard
+			p11-kit:primary:standard
+			openssh:single:standard
+
+USES=			gettext-tools gmake pkgconfig meson
+			python:build
+			schemas:primary
+			desktop-utils:primary
+			mime-info:primary
+			solaris-funcs
+GNOME_COMPONENTS=	gtk3
+MESON_ARGS=		-Dgtk=true
+SOL_FUNCTIONS=		err.h:err.h
+			timegm:gck/gck-slot.c
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+GTKDOC_OUTPUT_BASEDIR=	gcr
+
+GLIB_SCHEMAS=		org.gnome.crypto.pgp.gschema.xml
+
+PLIST_SUB=		GCK_SOVER=${SOVERSION_gck}
+			GCK_SOMAJOR=${SOVERSION_gck:R:R}
+			GCR_SOVER=${SOVERSION_gcr}
+			GCR_SOMAJOR=${SOVERSION_gcr:R:R}
+			GCRBASE_SOVER=${SOVERSION_gcrbase}
+			GCRBASE_SOMAJOR=${SOVERSION_gcrbase:R:R}
+			GCRUI_SOVER=${SOVERSION_gcrui}
+			GCRUI_SOMAJOR=${SOVERSION_gcrui:R:R}
+
+VAR_OPSYS[sunos]=	LDFLAGS=-lintl
+
+[INTROSPECTION].DESCRIPTION=		Build doc and vala bindings with introspection
+[INTROSPECTION].BUILD_DEPENDS_ON=	python-gi-docgen:single:python_used
+					vala:single:standard
+[INTROSPECTION].USES_ON=		gtk-doc
+[INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
+[INTROSPECTION].CONFIGURE_ARGS_ON=	-Dintrospection=true
+					-Dgtk_doc=true
+[INTROSPECTION].CONFIGURE_ARGS_OFF=	-Dintrospection=false
+					-Dgtk_doc=false
+
+pre-configure:
+	# timegm compat function untested by upstream in all cases
+	${REINPLACE_CMD} -e 's|"egg/egg-timegm.h"|<time.h>|' \
+		${WRKSRC}/gck/gck-slot.c
+
+pre-configure-sunos:
+	${REINPLACE_CMD} -e '/_XOPEN_SOURCE/d; s|#SUNOS ||' \
+		${WRKSRC}/gcr/meson.build \
+		${WRKSRC}/gck/meson.build
