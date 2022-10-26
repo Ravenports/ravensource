@@ -1,8 +1,8 @@
---- gettext-tools/libgettextpo/glthread/threadlib.c.orig	2020-04-11 10:00:55 UTC
+--- gettext-tools/libgettextpo/glthread/threadlib.c.orig	2022-09-11 12:47:51 UTC
 +++ gettext-tools/libgettextpo/glthread/threadlib.c
-@@ -29,11 +29,10 @@
+@@ -62,11 +62,10 @@ glthread_in_use (void)
  
- # if PTHREAD_IN_USE_DETECTION_HARD
+ /* Test using pthread_create.  */
  
 -/* The function to be executed by a dummy thread.  */
 -static void *
@@ -15,7 +15,7 @@
  }
  
  int
-@@ -44,19 +43,10 @@ glthread_in_use (void)
+@@ -77,19 +76,10 @@ glthread_in_use (void)
  
    if (!tested)
      {
