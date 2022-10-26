@@ -1,4 +1,4 @@
---- tests/pixbuf-randomly-modified.c.orig	2022-08-09 15:42:02 UTC
+--- tests/pixbuf-randomly-modified.c.orig	2022-10-25 16:53:28 UTC
 +++ tests/pixbuf-randomly-modified.c
 @@ -18,6 +18,9 @@
   */
