@@ -14,7 +14,7 @@ Also,
    - Force use of just "gcc"
    - Recognize IMAKECPPFLAGS in the environment
 
---- imake.c.orig	2019-03-16 23:26:24 UTC
+--- imake.c.orig	2022-10-19 17:33:50 UTC
 +++ imake.c
 @@ -303,9 +303,9 @@ void KludgeOutputLine(char **), KludgeRe
  const char *cpp = NULL;
@@ -37,8 +37,8 @@ Also,
  boolean haveImakefileC = FALSE;
  const char	*cleanedImakefile = NULL;
  const char	*program;
-@@ -412,7 +412,8 @@ main(int argc, char *argv[])
- 		fd = mkstemp(tmpMakefileName);
+@@ -407,7 +407,8 @@ main(int argc, char *argv[])
+ 
  		if (fd == -1 || (tmpfd = fdopen(fd, "w+")) == NULL) {
  		   if (fd != -1) {
 -		      unlink(tmpMakefileName); close(fd);
@@ -47,7 +47,7 @@ Also,
  		   }
  		   LogFatal("Cannot create temporary file %s.", tmpMakefileName);
  		}
-@@ -454,12 +455,14 @@ showit(FILE *fd)
+@@ -449,12 +450,14 @@ showit(FILE *fd)
  void
  wrapup(void)
  {
@@ -61,8 +61,8 @@ Also,
 +#endif
  }
  
- #ifdef SIGNALRETURNSINT
-@@ -488,6 +491,10 @@ init(void)
+ void
+@@ -479,6 +482,10 @@ init(void)
  	while (cpp_argv[ cpp_argindex ] != NULL)
  		cpp_argindex++;
  
@@ -73,7 +73,7 @@ Also,
  #if defined CROSSCOMPILE
  	if (sys == netBSD)
  	  if (CrossCompiling) {
-@@ -531,6 +538,14 @@ init(void)
+@@ -522,6 +529,14 @@ init(void)
  				AddCppArg(p);
  			}
  	}
@@ -88,7 +88,7 @@ Also,
  	if ((p = getenv("IMAKECPP")))
  		cpp = p;
  	if ((p = getenv("IMAKEMAKE")))
-@@ -773,6 +788,13 @@ doit(FILE *outfd, const char *cmd, const
+@@ -764,6 +779,13 @@ doit(FILE *outfd, const char *cmd, const
  {
  	int		pid;
  	waitType	status;
@@ -102,7 +102,7 @@ Also,
  
  	/*
  	 * Fork and exec the command.
-@@ -1139,32 +1161,7 @@ get_ld_version(FILE *inFile)
+@@ -1130,32 +1152,7 @@ get_ld_version(FILE *inFile)
  static void
  get_binary_format(FILE *inFile)
  {
@@ -136,7 +136,7 @@ Also,
  
    fprintf(inFile, "#define DefaultToElfFormat %s\n", iself ? "YES" : "NO");
  }
-@@ -1337,54 +1334,8 @@ get_gcc_version(FILE *inFile, char *name
+@@ -1328,54 +1325,8 @@ get_gcc_version(FILE *inFile, char *name
  static boolean
  get_gcc(char *cmd)
  {
@@ -166,7 +166,7 @@ Also,
 -    };
 -
 -    if (CrossCompiling) {
--	int i;
+-	unsigned int i;
 -	for (i = 0; i < sizeof (cross_cc_name) / sizeof cross_cc_name[0]; i++){
 -	    strcpy (cmd, CrossCompileDir);
 -	    strcat (cmd, "/");
@@ -179,7 +179,7 @@ Also,
 -    } else
 -#endif
 -      {
--	int i;
+-	unsigned int i;
 -	for (i = 0; i < sizeof (gcc_path) / sizeof gcc_path[0]; i++) {
 -	    if (lstat (gcc_path[i], &sb) == 0) {
 -		strcpy (cmd, gcc_path[i]);
@@ -188,12 +188,12 @@ Also,
 -	}
 -      }
 -    return FALSE;
-+	strcpy(cmd, "gcc");
-+	return TRUE;
++      strcpy(cmd, "gcc");
++      return TRUE;
  }
  
  #ifdef CROSSCOMPILE
-@@ -1795,12 +1746,15 @@ CleanCppInput(const char *imakefile)
+@@ -1786,12 +1737,15 @@ CleanCppInput(const char *imakefile)
  			    outFile = fdopen(fd, "w");
  			if (outFile == NULL) {
  			    if (fd != -1) {

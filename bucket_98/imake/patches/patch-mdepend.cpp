@@ -1,4 +1,4 @@
---- mdepend.cpp.orig	2019-03-16 23:26:24 UTC
+--- mdepend.cpp.orig	2022-10-19 17:33:50 UTC
 +++ mdepend.cpp
 @@ -125,9 +125,6 @@ do
  			    shift
