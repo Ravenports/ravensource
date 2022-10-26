@@ -1,4 +1,4 @@
---- cursor/cursor.h.orig	2016-05-12 07:51:59 UTC
+--- cursor/cursor.h.orig	2022-10-18 17:09:55 UTC
 +++ cursor/cursor.h
 @@ -161,7 +161,7 @@ typedef struct xcint_image_t {
  } __attribute__((packed)) xcint_image_t;
