@@ -13,7 +13,7 @@ of which is converting a byte stream back to a python object hierarchy.
 dill provides the user the same interface as the pickle module, and
 also includes some additional features. In addition to pickling python
 objects, dill provides the ability to save the state of an interpreter
-session in a single command.  Hence, it would be feasable to save an
+session in a single command.  Hence, it would be feasible to save an
 interpreter session, close the interpreter, ship the pickled file to
 another computer, open a new interpreter, unpickle the session and
 thus continue from the 'saved' state of the original interpreter
@@ -31,26 +31,27 @@ dill is part of pathos, a python framework for heterogeneous computing.
 dill is in active development, so any user feedback, bug reports, comments,
 or suggestions are highly appreciated.  A list of issues is located at
 https://github.com/uqfoundation/dill/issues, with a legacy list maintained
-at https://uqfoundation.github.io/project/pathos/query.
+at
+https://uqfoundation.github.io/project/pathos/query.
 
 Major Features
 ==============
 
 dill can pickle the following standard types:
 
-    - none, type, bool, int, long, float, complex, str, unicode,
+    - none, type, bool, int, float, complex, bytes, str,
     - tuple, list, dict, file, buffer, builtin,
-    - both old and new style classes,
-    - instances of old and new style classes,
+    - python classes, namedtuples, dataclasses, metaclasses,
+    - instances of classes,
     - set, frozenset, array, functions, exceptions
 
 dill can also pickle more 'exotic' standard types:
 
     - functions with yields, nested functions, lambdas,
     - cell, method, unboundmethod, module, code, methodwrapper,
-    - dictproxy, methoddescriptor, getsetdescriptor, memberdescriptor,
-    - wrapperdescriptor, xrange, slice,
-    - notimplemented, ellipsis, quit
+    - methoddescriptor, getsetdescriptor, memberdescriptor,
+wrapperdescriptor,
+    - dictproxy, slice, notimplemented, ellipsis, quit
 
 dill cannot yet pickle these standard types:
 
@@ -97,4 +98,3 @@ For windows users, to optionally install session history tools::
     $ pip install dill[readline]
 
 Requirements
-============
