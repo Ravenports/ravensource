@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	4.0.0
 
 NAMEBASE=		gcr
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Library for bits of crypto UI and parsing
@@ -75,3 +76,8 @@ pre-configure-sunos:
 	${REINPLACE_CMD} -e '/_XOPEN_SOURCE/d; s|#SUNOS ||' \
 		${WRKSRC}/gcr/meson.build \
 		${WRKSRC}/gck/meson.build
+
+post-install:
+	# avoid manifest conflict with gcr3
+	${MV} ${STAGEDIR}${PREFIX}/libexec/gcr-ssh-agent \
+		${STAGEDIR}${PREFIX}/libexec/gcr4-ssh-agent
