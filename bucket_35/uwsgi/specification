@@ -1,5 +1,6 @@
 # known to re-roll
-DEF[PORTVERSION]=	2.0.20
+DEF[PORTVERSION]=	2.0.21
+DEF[RELEASE_TAG]=	${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		uwsgi
@@ -11,8 +12,8 @@ HOMEPAGE=		http://projects.unbit.it/uwsgi/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://projects.unbit.it/downloads/
-DISTFILE[1]=		uwsgi-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/unbit:uwsgi:${RELEASE_TAG}
+DISTFILE[1]=		generated:main
 DIST_SUBDIR=		uswsi
 
 SPKGS[standard]=	single
@@ -60,7 +61,7 @@ do-configure:
 	# don't configure
 
 do-install:
-	@${MKDIR} ${STAGEDIR}${PYTHON_SITELIBDIR}
+	${MKDIR} ${STAGEDIR}${PYTHON_SITELIBDIR}
 	${INSTALL_PROGRAM} ${WRKSRC}/uwsgi ${STAGEDIR}${PREFIX}/bin/
 	${INSTALL_DATA} ${WRKSRC}/uwsgidecorators.py \
 		${STAGEDIR}${PYTHON_SITELIBDIR}
