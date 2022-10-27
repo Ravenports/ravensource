@@ -1,12 +1,12 @@
---- src/third_party/httplib.h.orig	2022-05-15 18:39:37 UTC
+--- src/third_party/httplib.h.orig	2022-10-22 17:48:41 UTC
 +++ src/third_party/httplib.h
-@@ -169,7 +169,9 @@ using socket_t = SOCKET;
+@@ -168,7 +168,9 @@ using socket_t = SOCKET;
+ #else // not _WIN32
  
  #include <arpa/inet.h>
- #include <cstring>
 +#ifndef __sun
  #include <ifaddrs.h>
 +#endif
+ #include <net/if.h>
  #include <netdb.h>
  #include <netinet/in.h>
- #ifdef __linux__
