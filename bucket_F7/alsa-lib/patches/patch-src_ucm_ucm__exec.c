@@ -1,4 +1,4 @@
---- src/ucm/ucm_exec.c.orig	2022-07-08 15:34:30 UTC
+--- src/ucm/ucm_exec.c.orig	2022-10-24 08:17:27 UTC
 +++ src/ucm/ucm_exec.c
 @@ -32,6 +32,12 @@
  #include <sys/wait.h>
@@ -11,5 +11,5 @@
 +char *environ[] = { 0 };
 +#endif 
  
- static pthread_mutex_t fork_lock = PTHREAD_MUTEX_INITIALIZER;
- 
+ #if defined(__NetBSD__) || defined(__OpenBSD__) || defined(__FreeBSD__) || defined(__DragonFly__)
+ #include <signal.h>
