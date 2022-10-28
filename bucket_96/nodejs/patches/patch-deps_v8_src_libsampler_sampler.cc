@@ -1,6 +1,6 @@
---- deps/v8/src/libsampler/sampler.cc.orig	2022-10-13 18:14:06 UTC
+--- deps/v8/src/libsampler/sampler.cc.orig	2022-10-17 20:23:25 UTC
 +++ deps/v8/src/libsampler/sampler.cc
-@@ -484,7 +484,7 @@ void SignalHandler::FillRegisterState(vo
+@@ -495,7 +495,7 @@ void SignalHandler::FillRegisterState(vo
    state->fp =
        reinterpret_cast<void*>(arm_thread_state64_get_fp(mcontext->__ss));
  #endif  // V8_HOST_ARCH_*

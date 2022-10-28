@@ -1,6 +1,16 @@
---- deps/v8/src/base/platform/platform-posix.cc.orig	2022-10-13 18:14:04 UTC
+--- deps/v8/src/base/platform/platform-posix.cc.orig	2022-10-17 20:23:25 UTC
 +++ deps/v8/src/base/platform/platform-posix.cc
-@@ -68,7 +68,7 @@
+@@ -54,7 +54,9 @@
+ #include <mach/mach.h>
+ #include <malloc/malloc.h>
+ #else
++# ifndef __DragonFly__
+ #include <malloc.h>
++# endif
+ #endif
+ 
+ #if V8_OS_LINUX
+@@ -71,7 +73,7 @@
  #include <sys/syscall.h>
  #endif
  
@@ -9,7 +19,7 @@
  #define MAP_ANONYMOUS MAP_ANON
  #endif
  
-@@ -149,7 +149,7 @@ int GetFlagsForMemoryPermission(OS::Memo
+@@ -133,7 +135,7 @@ int GetFlagsForMemoryPermission(OS::Memo
    int flags = MAP_ANONYMOUS;
    flags |= (page_type == PageType::kShared) ? MAP_SHARED : MAP_PRIVATE;
    if (access == OS::MemoryPermission::kNoAccess) {
@@ -18,7 +28,7 @@
      flags |= MAP_NORESERVE;
  #endif  // !V8_OS_AIX && !V8_OS_FREEBSD && !V8_OS_QNX
  #if V8_OS_QNX
-@@ -1000,8 +1000,13 @@ Thread::Thread(const Options& options)
+@@ -1045,8 +1047,13 @@ Thread::Thread(const Options& options)
      : data_(new PlatformData),
        stack_size_(options.stack_size()),
        start_semaphore_(nullptr) {
@@ -32,21 +42,16 @@
    set_name(options.name());
  }
  
-@@ -1012,11 +1017,11 @@ Thread::~Thread() {
- 
- 
- static void SetThreadName(const char* name) {
--#if V8_OS_DRAGONFLYBSD || V8_OS_FREEBSD || V8_OS_OPENBSD
-+#if V8_OS_DRAGONFLYBSD || V8_OS_FREEBSD || V8_OS_OPENBSD || V8_OS_DRAGONFLYBSD
+@@ -1061,7 +1068,7 @@ static void SetThreadName(const char* na
    pthread_set_name_np(pthread_self(), name);
  #elif V8_OS_NETBSD
-   STATIC_ASSERT(Thread::kMaxThreadNameLength <= PTHREAD_MAX_NAMELEN_NP);
+   static_assert(Thread::kMaxThreadNameLength <= PTHREAD_MAX_NAMELEN_NP);
 -  pthread_setname_np(pthread_self(), "%s", name);
 +  pthread_setname_np(pthread_self(), "%s", (void *)name);
  #elif V8_OS_DARWIN
    // pthread_setname_np is only available in 10.6 or later, so test
    // for it at runtime.
-@@ -1214,6 +1219,7 @@ void Thread::SetThreadLocal(LocalStorage
+@@ -1209,6 +1216,7 @@ void Thread::SetThreadLocal(LocalStorage
  // support it. MacOS and FreeBSD are different here.
  #if !defined(V8_OS_FREEBSD) && !defined(V8_OS_DARWIN) && !defined(_AIX) && \
      !defined(V8_OS_SOLARIS)
@@ -54,7 +59,7 @@
  
  // static
  Stack::StackSlot Stack::GetStackStart() {
-@@ -1239,6 +1245,7 @@ Stack::StackSlot Stack::GetStackStart()
+@@ -1234,6 +1242,7 @@ Stack::StackSlot Stack::GetStackStart()
  #endif  // !defined(V8_LIBC_GLIBC)
  }
  
