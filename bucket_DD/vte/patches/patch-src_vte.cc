@@ -1,6 +1,6 @@
---- src/vte.cc.orig	2022-03-27 17:52:19 UTC
+--- src/vte.cc.orig	2022-09-23 18:46:10 UTC
 +++ src/vte.cc
-@@ -34,6 +34,13 @@
+@@ -33,6 +33,13 @@
  #ifdef HAVE_SYS_STREAM_H
  #include <sys/stream.h>
  #endif

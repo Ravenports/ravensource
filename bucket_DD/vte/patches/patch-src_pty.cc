@@ -1,6 +1,6 @@
---- src/pty.cc.orig	2022-03-27 17:52:19 UTC
+--- src/pty.cc.orig	2022-09-23 18:46:10 UTC
 +++ src/pty.cc
-@@ -77,6 +77,10 @@
+@@ -72,6 +72,10 @@
  
  #include "missing.hh"
  
@@ -11,7 +11,7 @@
  namespace vte::base {
  
  Pty*
-@@ -349,6 +353,7 @@ Pty::get_size(int* rows,
+@@ -344,6 +348,7 @@ Pty::get_size(int* rows,
          return false;
  }
  
@@ -19,7 +19,7 @@
  static int
  fd_set_cpkt(vte::libc::FD& fd)
  {
-@@ -365,6 +370,7 @@ fd_set_cpkt(vte::libc::FD& fd)
+@@ -360,6 +365,7 @@ fd_set_cpkt(vte::libc::FD& fd)
  #endif
          return ret;
  }
@@ -27,7 +27,7 @@
  
  static int
  fd_setup(vte::libc::FD& fd)
-@@ -399,6 +405,7 @@ fd_setup(vte::libc::FD& fd)
+@@ -394,6 +400,7 @@ fd_setup(vte::libc::FD& fd)
                  return -1;
          }
  
@@ -35,7 +35,7 @@
          if (fd_set_cpkt(fd) < 0) {
                  auto errsv = vte::libc::ErrnoSaver{};
                  _vte_debug_print(VTE_DEBUG_PTY,
-@@ -406,6 +413,7 @@ fd_setup(vte::libc::FD& fd)
+@@ -401,6 +408,7 @@ fd_setup(vte::libc::FD& fd)
                                   "Setting packet mode", g_strerror(errsv));
                  return -1;
          }
@@ -43,7 +43,7 @@
  
          return 0;
  }
-@@ -465,6 +473,7 @@ _vte_pty_open_posix(void)
+@@ -460,6 +468,7 @@ _vte_pty_open_posix(void)
          }
  #endif /* !linux */
  
@@ -51,7 +51,7 @@
          if (fd_set_cpkt(fd) < 0) {
                  auto errsv = vte::libc::ErrnoSaver{};
                  _vte_debug_print(VTE_DEBUG_PTY,
-@@ -472,6 +481,7 @@ _vte_pty_open_posix(void)
+@@ -467,6 +476,7 @@ _vte_pty_open_posix(void)
                                   "Setting packet mode", g_strerror(errsv));
                  return {};
          }
