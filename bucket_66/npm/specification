@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	8.19.2
+DEF[PORTVERSION]=	9.0.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		npm
@@ -10,8 +10,8 @@ HOMEPAGE=		https://www.npmjs.com/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/npm:cli:v${PORTVERSION}
-DISTFILE[1]=		generated:main
+SITES[main]=		https://registry.npmjs.org/npm/-/
+DISTFILE[1]=		npm-${PORTVERSION}.tgz:main
 
 SPKGS[standard]=	single
 
@@ -19,49 +19,40 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 LICENSE=		ART20:single
-LICENSE_FILE=		ART20:{{WRKSRC}}/lib/node_modules/npm/LICENSE
+LICENSE_FILE=		ART20:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		www/npm
 
-BUILDRUN_DEPENDS=	bash:complete:standard
+RUN_DEPENDS=		bash:complete:standard
 			nodejs:complete:standard
 
-USES=			cpe python shebangfix gmake perl:build
+USES=			cpe python shebangfix
 CPE_VENDOR=		cli_project
 CPE_PRODUCT=		cli
 CPE_TARGET_SW=		node.js
-SINGLE_JOB=		yes
 SHEBANG_GLOB=		*.py
 			resetdeps.sh
 SHEBANG_FILES=		lib/utils/completion.sh
 MANDIRS=		{{PREFIX}}/lib/node_modules/npm/man
-
-# Seems we can't build the documentation, no man pages anymore
-BUILD_TARGET=		mandocs
+DISTNAME=		package
 SKIP_BUILD=		yes
 
 post-patch:
+	# Update /usr/local paths
 	${GREP} -rl "/usr/local" ${WRKSRC} | ${XARGS} \
 		${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g'
-	${GREP} -rl "/usr/bin/env node" ${WRKSRC} | ${XARGS} \
-		${REINPLACE_CMD} -e 's|/usr/bin/env node|${LOCALBASE}/bin/node|'
-	${GREP} -rl "/usr/bin/env bash" ${WRKSRC} | ${XARGS} \
-		${REINPLACE_CMD} -e 's|/usr/bin/env bash|${LOCALBASE}/bin/bash|'
-	${GREP} -rl "exec python" ${WRKSRC} | ${XARGS} \
-		${REINPLACE_CMD} -e 's|exec python|exec ${PYTHON_CMD}|'
-	# fix python location
-	${REINPLACE_CMD} -e 's|PYTHONBIN|${PYTHON_CMD}|' \
-		${WRKSRC}/node_modules/node-gyp/lib/configure.js
+	# clean up patch and sed leftovers
 	${FIND} ${WRKSRC} \( -name "*.bak" -o -name "*.orig" \) -type f -delete
 
 do-install:
-	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_ARGS} \
-		${LOCALBASE}/bin/node bin/npm-cli.js pack
-	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_ARGS} \
-		${LOCALBASE}/bin/node bin/npm-cli.js \
-		install -g -f npm-${PORTVERSION}.tgz
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/node_modules
+	(cd ${WRKSRC} && \
+	${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/lib/node_modules/npm)
+
+post-install:
 	${ECHO_CMD} 'python=${PYTHON_CMD}' > ${STAGEDIR}${PREFIX}/etc/npmrc
-	# repeat shebang fix
-	${FIND} ${STAGEDIR}${PREFIX}/lib/node_modules/npm/node_modules/node-gyp -type f -name "*.py" |\
-		${XARGS} ${SED} -i'' -e "s|/usr/bin/env python|${PYTHON_CMD}|"
+	(cd ${STAGEDIR}${PREFIX}/bin &&\
+	${LN} -s ../lib/node_modules/npm/bin/npm-cli.js npm &&\
+	${LN} -s ../lib/node_modules/npm/bin/npx-cli.js npx)
+	${CHMOD} 755 ${STAGEDIR}${PREFIX}/lib/node_modules/npm/bin/*

@@ -1,4 +1,4 @@
---- node_modules/node-gyp/lib/configure.js.orig	2022-09-13 23:13:51 UTC
+--- node_modules/node-gyp/lib/configure.js.orig	2022-10-26 21:52:50 UTC
 +++ node_modules/node-gyp/lib/configure.js
 @@ -15,7 +15,7 @@ if (win) {
  }
