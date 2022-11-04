@@ -3,6 +3,12 @@
 FNR==NR {
   # store crates list
   n=split ($0,item,"-")
+  if (item[1] == "wasi") {	# handle awful wasi tag
+     name[FNR""] = "wasi"
+     version[FNR""] = substr($0, 6)
+     ll++
+     next
+  }
   version[FNR""] = item[n]
   name[FNR""] = item[1]
   for (j=2; j < n; j++)
