@@ -48,10 +48,16 @@ FPC_EQUIVALENT=		x11/xorg
 					xorg-apps:single:standard
 					xcursor-themes:single:standard
 [MINIMAL].RUN_DEPENDS_ON=		xorg-driver-input-mouse:single:standard
-					xorg-driver-input-keyboard:single:standard
 					xorg-driver-video-vesa:single:standard
 					xorg-xauth:single:standard
 					xinit:single:standard
+
+BR_DEPS[linux]=		xorg-driver-input-evdev:single:standard
+BR_DEPS[freebsd]=	xorg-driver-input-keyboard:single:standard
+BR_DEPS[dragonfly]=	xorg-driver-input-keyboard:single:standard
+BR_DEPS[netbsd]=	xorg-driver-input-keyboard:single:standard
+BR_DEPS[sunos]=		xorg-driver-input-keyboard:single:standard
+
 
 SKIP_BUILD=		yes
 SKIP_INSTALL=		yes
