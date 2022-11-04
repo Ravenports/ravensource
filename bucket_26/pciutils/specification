@@ -44,3 +44,6 @@ VAR_OPSYS[netbsd]=	MAKEFILE_LINE=LIBNAME=libpciutils
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libpc*.so
+
+post-install-linux:
+	(cd ${STAGEDIR}${PREFIX} && mv bin/lspci sbin/lspci)
