@@ -4,6 +4,7 @@ DEF[LIBVERSION]=	1.7.0
 
 NAMEBASE=		nfdump
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net_mgmt
 VARIANTS=		standard
 SDESC[standard]=	Tools to collect and process netflow data
@@ -16,8 +17,11 @@ DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	PCAP
+OPTIONS_STANDARD=	PCAP
+OPT_ON[freebsd]=	PCAP
+OPT_ON[dragonfly]=	PCAP
+OPT_ON[netbsd]=		PCAP
 
 LICENSE=		BSD3CLAUSE:single
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/BSD-license.txt
@@ -27,26 +31,27 @@ FPC_EQUIVALENT=		net-mgmt/nfdump
 
 BUILDRUN_DEPENDS=	flex:primary:standard
 			rrdtool:primary:standard
-			libpcap:single:standard
 
 USES=			cpe autoreconf libtool pkgconfig
 CPE_VENDOR=		nfdump_project
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-rrdpath={{LOCALBASE}}
 			--enable-nftrack
-			--enable-readpcap
-			--enable-nfpcapd
 			--enable-sflow
 			--enable-nfprofile
 			--enable-fixtimebug
 			--enable-nsel
 			--disable-influxdb
-			--disable-compat15
 
 SINGLE_JOB=		yes
 PLIST_SUB=		VERSION=${LIBVERSION}
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
+
+[PCAP].DESCRIPTION=			Include Package Capture capability
+[PCAP].CONFIGURE_ARGS_ON=		--enable-readpcap
+					--enable-nfpcapd
+[PCAP].BUILDRUN_DEPENDS_ON=		libpcap:single:standard
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/etc/nfdump.conf.dist \
