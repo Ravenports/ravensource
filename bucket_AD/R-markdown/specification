@@ -1,17 +1,17 @@
-DEF[PORTVERSION]=	1.2
+DEF[PORTVERSION]=	1.3
 # ------------------------------------------------------------------------
 
 NAMEBASE=		R-markdown
 VERSION=		${PORTVERSION}
 KEYWORDS=		cran
 VARIANTS=		standard
-SDESC[standard]=	Render Markdown with the C Library 'Sundown'
+SDESC[standard]=	Render Markdown with 'commonmark'
 HOMEPAGE=		https://github.com/rstudio/markdown
 CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CRAN/src/contrib
-DISTFILE[1]=		markdown_1.2.tar.gz:main
+DISTFILE[1]=		markdown_1.3.tar.gz:main
 DIST_SUBDIR=		CRAN
 DF_INDEX=		1
 
@@ -28,7 +28,8 @@ DISTNAME=		markdown
 GENERATED=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
 
-BUILDRUN_DEPENDS=	R-xfun:single:standard
+BUILDRUN_DEPENDS=	R-commonmark:single:standard
+			R-xfun:single:standard
 			R-mime:single:standard
 
 
