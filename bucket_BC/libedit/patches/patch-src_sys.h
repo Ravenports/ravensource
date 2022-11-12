@@ -1,6 +1,6 @@
---- src/sys.h.orig	2022-10-09 12:16:55 UTC
+--- src/sys.h.orig	2022-10-30 05:35:40 UTC
 +++ src/sys.h
-@@ -48,6 +48,10 @@
+@@ -44,6 +44,10 @@
  #include <sys/types.h>
  #endif
  
@@ -11,7 +11,7 @@
  #if !defined(__attribute__) && (defined(__cplusplus) || !defined(__GNUC__)  || __GNUC__ == 2 && __GNUC_MINOR__ < 8)
  # define __attribute__(A)
  #endif
-@@ -127,13 +131,4 @@ typedef unsigned int	u_int32_t;
+@@ -123,13 +127,4 @@ typedef unsigned int	u_int32_t;
  #define	REGEX		/* Use POSIX.2 regular expression functions */
  #undef	REGEXP		/* Use UNIX V8 regular expression functions */
  
