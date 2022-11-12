@@ -1,6 +1,6 @@
---- nsd-control.c.orig	2022-05-13 06:56:14 UTC
+--- nsd-control.c.orig	2022-11-10 08:11:36 UTC
 +++ nsd-control.c
-@@ -83,6 +83,10 @@ int zonec_parse_string(region_type* ATTR
+@@ -84,6 +84,10 @@ int zonec_parse_string(region_type* ATTR
  	return 0;
  }
  
