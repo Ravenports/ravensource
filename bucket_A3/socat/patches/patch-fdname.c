@@ -1,8 +1,8 @@
 Use correct prototype for getprotobynumber_r() on SunOS
 
---- fdname.c.orig	2022-01-08 20:59:57 UTC
+--- fdname.c.orig	2022-10-30 15:21:47 UTC
 +++ fdname.c
-@@ -232,7 +232,7 @@ int sockname(int fd, FILE *outfile, char
+@@ -250,7 +250,7 @@ int sockname(int fd, FILE *outfile, char
     /*Linux struct ifreq ifc = {{{ 0 }}};*/
     struct ifreq ifc = {{ 0 }};
  #endif
@@ -11,7 +11,7 @@ Use correct prototype for getprotobynumber_r() on SunOS
  
  #if defined(SO_PROTOCOL) || defined(SO_PROTOTYPE)
     optlen = sizeof(proto);
-@@ -254,7 +254,12 @@ int sockname(int fd, FILE *outfile, char
+@@ -281,7 +281,12 @@ int sockname(int fd, FILE *outfile, char
  
  #if defined(SO_PROTOCOL) || defined(SO_PROTOTYPE)
  #if HAVE_GETPROTOBYNUMBER_R==1 /* Linux */
