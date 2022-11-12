@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.13.1
+DEF[PORTVERSION]=	0.14.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-ufoLib2
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/fonttools/ufoLib2
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/ee/f5/60dec73e461670fe03bd9582862b20f268f920691f2e2b25533b19c258fe
+SITES[main]=		PYPIWHL/13/60/d29bddbb8c268e91abb2a06d77cab11b7488edc646f03ec16cf3c15ea4d5
 DISTFILE[1]=		ufoLib2-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py39]=		single
@@ -29,11 +29,15 @@ GENERATED=		yes
 DISTNAME=		ufoLib2-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# attrs (>=20.1.0)
+# attrs (>=22.1.0)
 # fonttools[ufo] (>=4.0.0)
 # typing-extensions ; python_version < "3.8"
-# cattrs (>=1.10.0) ; extra == 'converters'
+# cattrs (>=22.2.0) ; extra == 'converters'
+# cattrs (>=22.2.0) ; extra == 'json'
+# orjson ; (platform_python_implementation != "PyPy") and extra == 'json'
 # lxml ; extra == 'lxml'
+# cattrs (>=22.2.0) ; extra == 'msgpack'
+# msgpack ; extra == 'msgpack'
 
 [PY39].USES_ON=				python:py39,wheel
 [PY39].RUN_DEPENDS_ON=			python-attrs:single:py39
