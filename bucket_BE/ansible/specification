@@ -1,5 +1,5 @@
 # manually maintained (no python- prefix, no multiple versions)
-DEF[PORTVERSION]=	6.5.0
+DEF[PORTVERSION]=	6.6.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ansible
@@ -50,3 +50,7 @@ post-patch:
 		-e 's|/etc/ansible|${PREFIX}/etc|g' \
 		-e 's|/usr/share/ansible|${PREFIX}/share/ansible|g'
 	${FIND} ${WRKSRC} -type f -name "*.bak" -delete
+
+post-install:
+	# Don't package windows powershell files
+	${RM} ${STAGEDIR}${PYTHON_SITELIBDIR}/ansible_collections/lowlydba/sqlserver/plugins/modules/*.ps1
