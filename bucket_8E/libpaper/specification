@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.0.1
+DEF[PORTVERSION]=	2.0.3
 DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -31,6 +31,7 @@ BUILD_DEPENDS=		help2man:single:standard
 USES=			autoreconf libtool gmake
 DISTNAME=		libpaper-${PORTVERSION}
 MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-relocatable
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 
@@ -42,8 +43,7 @@ post-extract:
 		${WRKSRC}/README > ${WRKDIR}/TERMS
 
 post-configure:
-	${REINPLACE_CMD} -e 's|$${prefix}|${PREFIX}|g' \
-		${WRKSRC}/config.h ${WRKSRC}/src/paperconfig
+	${REINPLACE_CMD} -e 's|$${prefix}|${PREFIX}|g' ${WRKSRC}/config.h
 
 post-install:
 	(cd ${WRKDIR} && \
