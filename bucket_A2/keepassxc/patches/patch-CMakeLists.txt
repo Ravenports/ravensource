@@ -1,11 +1,11 @@
---- CMakeLists.txt.orig	2022-04-06 03:12:34 UTC
+--- CMakeLists.txt.orig	2022-10-29 19:07:50 UTC
 +++ CMakeLists.txt
-@@ -447,7 +447,7 @@ include(CLangFormat)
- 
- set(QT_COMPONENTS Core Network Concurrent Gui Svg Widgets Test LinguistTools)
- if(UNIX AND NOT APPLE)
--    find_package(Qt5 COMPONENTS ${QT_COMPONENTS} DBus X11Extras REQUIRED)
-+    find_package(Qt5 COMPONENTS ${QT_COMPONENTS} DBus X11Extras REQUIRED HINTS /__PREFIX__/lib/qt5/cmake ENV PATH)
+@@ -476,7 +476,7 @@ if(UNIX AND NOT APPLE)
+     if(WITH_XC_X11)
+         list(APPEND QT_COMPONENTS X11Extras)
+     endif()
+-    find_package(Qt5 COMPONENTS ${QT_COMPONENTS} DBus REQUIRED)
++    find_package(Qt5 COMPONENTS ${QT_COMPONENTS} DBus REQUIRED HINTS /__PREFIX__/lib/qt5/cmake ENV PATH)
  elseif(APPLE)
      find_package(Qt5 COMPONENTS ${QT_COMPONENTS} REQUIRED HINTS
-             /usr/local/opt/qt/lib/cmake
+             /usr/local/opt/qt@5/lib/cmake

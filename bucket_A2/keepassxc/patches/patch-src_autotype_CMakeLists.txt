@@ -1,11 +1,11 @@
---- src/autotype/CMakeLists.txt.orig	2022-04-06 03:12:34 UTC
+--- src/autotype/CMakeLists.txt.orig	2022-10-29 19:07:50 UTC
 +++ src/autotype/CMakeLists.txt
 @@ -1,7 +1,7 @@
  if(WITH_XC_AUTOTYPE)
      if(UNIX AND NOT APPLE AND NOT HAIKU)
-         find_package(X11)
--        find_package(Qt5X11Extras 5.2)
-+        find_package(Qt5X11Extras 5.2 HINTS /__PREFIX__/lib/qt5/cmake ENV PATH)
+         find_package(X11 REQUIRED COMPONENTS Xi XTest)
+-        find_package(Qt5X11Extras 5.2 REQUIRED)
++        find_package(Qt5X11Extras 5.2 REQUIRED HINTS /__PREFIX__/lib/qt5/cmake ENV PATH)
          if(PRINT_SUMMARY)
              add_feature_info(libXi X11_Xi_FOUND "The X11 Xi Protocol library is required for auto-type")
              add_feature_info(libXtst X11_XTest_FOUND "The X11 XTEST Protocol library is required for auto-type")
