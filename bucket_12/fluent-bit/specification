@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.9.9
+DEF[PORTVERSION]=	2.0.5
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fluent-bit
@@ -30,7 +30,7 @@ FPC_EQUIVALENT=		sysutils/fluent-bit
 USES=			cpe cmake bison zlib gmake pkgconfig shebangfix
 			ssl python:build cclibs:primary,library
 # Don't use execinfo, keep dependencies down
-SHEBANG_ADD_SH=		lib/luajit-2.1.0-1e66d0f/configure
+SHEBANG_ADD_SH=		lib/luajit-3065c9/configure
 CPE_VENDOR=		treasuredata
 CPE_PRODUCT=		fluent_bit
 CMAKE_ARGS=		-DFLB_DEBUG=Off
@@ -43,6 +43,17 @@ CMAKE_ARGS=		-DFLB_DEBUG=Off
 			-DFLB_HTTP_SERVER=On
 RC_SUBR=		fluent-bit:primary
 
+# For some reason, CMake is clearing this variable, ignoring CMakeList
+# It's only set for *BSD* so dragonfly needs
+VAR_OPSYS[dragonfly]=	CMAKE_ARGS=-DFLB_WASM=Off
+VAR_OPSYS[freebsd]=	CMAKE_ARGS=-DFLB_WASM=Off
+VAR_OPSYS[netbsd]=	CMAKE_ARGS=-DFLB_WASM=Off
+
+pre-configure:
+	# seems several platforms have issue with entropy
+	${REINPLACE_CMD} -e '/#define LJ_TARGET_HAS_GETENTROPY/s@1@0@g' \
+		${WRKSRC}/lib/luajit-*/src/lj_prng.c
+
 post-install:
 	${MV} ${STAGEDIR}${ETCDIR}/fluent-bit.conf \
 		${STAGEDIR}${ETCDIR}/fluent-bit.conf.sample
@@ -50,3 +61,7 @@ post-install:
 		${STAGEDIR}${ETCDIR}/parsers.conf.sample
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/fluent-bit
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/fluent-bit/libfluent-bit.so
+	# don't install conflicting luajit files
+	${RM} ${STAGEDIR}${PREFIX}/bin/luajit
+	${RM} ${STAGEDIR}${PREFIX}/lib/libluajit.a
+	${RM} -r ${STAGEDIR}${PREFIX}/include/luajit
