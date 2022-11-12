@@ -51,6 +51,8 @@ BUILDRUN_DEPENDS=	nss:primary:standard
 			startup-notification:single:standard
 			botan:primary:standard
 
+BR_DEPS[linux]=		sndio:single:standard
+
 USES=			cpe desktop-utils:single gmake jpeg png zlib
 			perl:build pkgconfig iconv bz2 python:build
 			gettext-runtime clang:keepcc
@@ -104,6 +106,7 @@ MAKE_ENV=		PYTHON3={{PYTHON_CMD}}
 			CXXSTDLIB="stdc++"
 
 VAR_OPSYS[linux]=	QMAKE_ARGS=--disable-elf-hack
+			QMAKE_ARGS=--enable-audio-backends=sndio
 
 post-patch:
 	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
