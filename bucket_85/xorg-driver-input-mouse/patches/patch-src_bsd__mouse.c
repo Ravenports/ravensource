@@ -1,4 +1,4 @@
---- src/bsd_mouse.c.orig	2018-06-19 04:36:21 UTC
+--- src/bsd_mouse.c.orig	2022-11-02 02:44:34 UTC
 +++ src/bsd_mouse.c
 @@ -26,6 +26,24 @@
   * authorization from the copyright holder(s) and author(s).
@@ -155,8 +155,8 @@
          (protocol && xf86NameCmp(protocol, "SysMouse") == 0)) {
          /*
           * As the FreeBSD sysmouse driver defaults to protocol level 0
--         * everytime it is opened we enforce protocol level 1 again at
-+         * everytime it is closed we enforce protocol level 1 again at
+-         * every time it is opened we enforce protocol level 1 again at
++         * every time it is closed we enforce protocol level 1 again at
           * this point.
           */
          mode.level = 1;
@@ -718,7 +718,7 @@
      pInfo->fd = xf86OpenSerial(pInfo->options);
 @@ -672,19 +959,134 @@ usbPreInit(InputInfoPtr pInfo, const cha
      }
-     /* Get USB informations */
+     /* Get USB information */
      reportDesc = hid_get_report_desc(pInfo->fd);
 -    /* Get packet size & iid */
 -#ifdef USB_NEW_HID

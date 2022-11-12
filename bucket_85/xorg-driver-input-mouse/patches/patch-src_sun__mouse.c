@@ -2,9 +2,9 @@ $NetBSD: patch-src_sun__mouse.c,v 1.2 2016/11/17 08:06:52 wiz Exp $
 
 rearrange includes to fix build on OmniOS. Include unistd.h for ioctl(2).
 
---- src/sun_mouse.c.orig	2018-06-19 04:36:21 UTC
+--- src/sun_mouse.c.orig	2022-11-02 02:44:34 UTC
 +++ src/sun_mouse.c
-@@ -51,6 +51,10 @@
+@@ -55,6 +55,10 @@
  #include <xorg-config.h>
  #endif
  
@@ -15,7 +15,7 @@ rearrange includes to fix build on OmniOS. Include unistd.h for ioctl(2).
  #include "xorg-server.h"
  #include "xf86.h"
  #include "xf86_OSlib.h"
-@@ -58,9 +62,6 @@
+@@ -62,9 +66,6 @@
  #include "xisb.h"
  #include "mipointer.h"
  #include "xf86Crtc.h"
