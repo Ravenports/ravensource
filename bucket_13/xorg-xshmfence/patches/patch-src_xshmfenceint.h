@@ -1,4 +1,4 @@
---- src/xshmfenceint.h.orig	2018-02-26 17:26:59 UTC
+--- src/xshmfenceint.h.orig	2022-10-18 16:50:22 UTC
 +++ src/xshmfenceint.h
 @@ -23,6 +23,7 @@
  #ifndef _XSHMFENCEINT_H_
