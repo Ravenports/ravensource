@@ -1,6 +1,6 @@
---- setup.py.orig	2022-05-16 12:04:03 UTC
+--- setup.py.orig	2022-10-21 20:20:35 UTC
 +++ setup.py
-@@ -44,6 +44,7 @@ from _common import LINUX  # NOQA
+@@ -50,6 +50,7 @@ from _common import LINUX  # NOQA
  from _common import MACOS  # NOQA
  from _common import NETBSD  # NOQA
  from _common import OPENBSD  # NOQA
@@ -8,10 +8,11 @@
  from _common import POSIX  # NOQA
  from _common import SUNOS  # NOQA
  from _common import WINDOWS  # NOQA
-@@ -241,6 +242,17 @@ elif NETBSD:
+@@ -260,6 +261,18 @@ elif NETBSD:
          ],
          define_macros=macros,
-         libraries=["kvm"])
+         libraries=["kvm"],
++        **py_limited_api)
 +
 +elif DRAGONFLY:
 +    macros.append(("PSUTIL_DRAGONFLY", 1))
@@ -22,7 +23,7 @@
 +            'psutil/arch/bsd/dragonfly.c',
 +        ],
 +        define_macros=macros,
-+        libraries=["kvm"])
++        libraries=["kvm"],
+         **py_limited_api)
  
  elif LINUX:
-     def get_ethtool_macro():

@@ -1,4 +1,4 @@
---- psutil/__init__.py.orig	2022-05-16 12:04:03 UTC
+--- psutil/__init__.py.orig	2022-10-21 20:20:35 UTC
 +++ psutil/__init__.py
 @@ -62,6 +62,7 @@ from ._common import NIC_DUPLEX_FULL
  from ._common import NIC_DUPLEX_HALF

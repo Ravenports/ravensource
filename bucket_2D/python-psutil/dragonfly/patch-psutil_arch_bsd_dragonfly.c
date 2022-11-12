@@ -1,4 +1,4 @@
---- /dev/null	2022-06-19 22:49:12 UTC
+--- /dev/null	2022-11-12 05:13:28 UTC
 +++ psutil/arch/bsd/dragonfly.c
 @@ -0,0 +1,557 @@
 +/*

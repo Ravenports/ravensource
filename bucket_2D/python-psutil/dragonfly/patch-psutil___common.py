@@ -1,4 +1,4 @@
---- psutil/_common.py.orig	2022-05-16 12:04:03 UTC
+--- psutil/_common.py.orig	2022-10-21 20:20:35 UTC
 +++ psutil/_common.py
 @@ -49,7 +49,7 @@ _DEFAULT = object()
  __all__ = [
