@@ -2,9 +2,9 @@ $NetBSD: patch-node__modules_node-gyp_gyp_pylib_gyp_generator_make.py,v 1.1 2018
 
 Ensure we use the system libtool on OSX.
 
---- node_modules/node-gyp/gyp/pylib/gyp/generator/make.py.orig	2022-10-26 21:52:50 UTC
+--- node_modules/node-gyp/gyp/pylib/gyp/generator/make.py.orig	1985-10-26 08:15:00 UTC
 +++ node_modules/node-gyp/gyp/pylib/gyp/generator/make.py
-@@ -179,7 +179,7 @@ cmd_solink_module = $(LINK.$(TOOLSET)) -
+@@ -207,7 +207,7 @@ cmd_solink_module = $(LINK.$(TOOLSET)) -
  
  LINK_COMMANDS_MAC = """\
  quiet_cmd_alink = LIBTOOL-STATIC $@

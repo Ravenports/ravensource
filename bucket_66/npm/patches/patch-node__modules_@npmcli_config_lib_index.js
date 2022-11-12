@@ -1,4 +1,4 @@
---- node_modules/@npmcli/config/lib/index.js.orig	2022-10-26 21:52:50 UTC
+--- node_modules/@npmcli/config/lib/index.js.orig	1985-10-26 08:15:00 UTC
 +++ node_modules/@npmcli/config/lib/index.js
 @@ -329,6 +329,9 @@ class Config {
  
