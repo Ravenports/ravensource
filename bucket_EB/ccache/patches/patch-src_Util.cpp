@@ -1,6 +1,6 @@
---- src/Util.cpp.orig	2022-10-22 17:48:41 UTC
+--- src/Util.cpp.orig	2022-11-05 15:49:59 UTC
 +++ src/Util.cpp
-@@ -39,6 +39,7 @@ extern "C" {
+@@ -41,6 +41,7 @@ extern "C" {
  #include "third_party/base32hex.h"
  }
  
