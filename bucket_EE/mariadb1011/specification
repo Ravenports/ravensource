@@ -97,10 +97,6 @@ VAR_OPSYS[freebsd]=	CXXFLAGS=-DHAVE_POSIX_MEMALIGN=1
 VAR_OPSYS[netbsd]=	MAKEFILE_LINE=AUTHSOCKET="@comment "
 			MAKEFILE_LINE=PAM=
 
-post-patch:
-# #	${CP} ${WRKSRC}/cmake/os/FreeBSD.cmake \
-# #		${WRKSRC}/cmake/os/DragonFly.cmake
-
 pre-configure:
 	${REINPLACE_CMD} 's|/usr/bin/env python|${PYTHON_CMD}|' \
 		${WRKSRC}/CMakeLists.txt
