@@ -1,4 +1,4 @@
---- storage/innobase/lz4.cmake.orig	2022-08-10 09:34:56 UTC
+--- storage/innobase/lz4.cmake.orig	2022-11-02 11:52:42 UTC
 +++ storage/innobase/lz4.cmake
 @@ -17,9 +17,16 @@ SET(WITH_INNODB_LZ4 AUTO CACHE STRING
  

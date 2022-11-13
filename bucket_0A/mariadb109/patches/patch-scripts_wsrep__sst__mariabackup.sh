@@ -1,4 +1,4 @@
---- scripts/wsrep_sst_mariabackup.sh.orig	2022-09-13 19:14:39 UTC
+--- scripts/wsrep_sst_mariabackup.sh.orig	2022-11-03 10:51:44 UTC
 +++ scripts/wsrep_sst_mariabackup.sh
 @@ -793,7 +793,7 @@ recv_joiner()
      local ltcmd="$tcmd"
