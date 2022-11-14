@@ -1,6 +1,6 @@
---- compiler/rustc_llvm/build.rs.orig	2022-09-19 14:07:21 UTC
+--- compiler/rustc_llvm/build.rs.orig	2022-11-02 14:36:24 UTC
 +++ compiler/rustc_llvm/build.rs
-@@ -316,23 +316,7 @@ fn main() {
+@@ -323,23 +323,7 @@ fn main() {
      }
  
      let llvm_static_stdcpp = tracked_env_var_os("LLVM_STATIC_STDCPP");
@@ -24,4 +24,4 @@
 +    let stdcppname = "stdc++";
  
      // RISC-V GCC erroneously requires libatomic for sub-word
-     // atomic operations. FreeBSD uses Clang as its system
+     // atomic operations. Some BSD uses Clang as its system
