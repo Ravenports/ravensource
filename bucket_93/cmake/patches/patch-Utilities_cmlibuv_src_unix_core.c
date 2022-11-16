@@ -1,6 +1,6 @@
---- Utilities/cmlibuv/src/unix/core.c.orig	2022-11-01 14:55:49 UTC
+--- Utilities/cmlibuv/src/unix/core.c.orig	2022-11-16 14:42:03 UTC
 +++ Utilities/cmlibuv/src/unix/core.c
-@@ -85,6 +85,11 @@ extern char** environ;
+@@ -86,6 +86,11 @@ extern char** environ;
  # include <sys/cpuset.h>
  #endif
  
@@ -10,5 +10,5 @@
 +#endif
 +
  #if defined(__MVS__)
- #include <sys/ioctl.h>
- #endif
+ # include <sys/ioctl.h>
+ # include "zos-sys-info.h"
