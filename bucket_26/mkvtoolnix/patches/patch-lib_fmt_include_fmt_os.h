@@ -1,7 +1,7 @@
---- lib/fmt/include/fmt/os.h.orig	2022-04-10 13:55:56 UTC
+--- lib/fmt/include/fmt/os.h.orig	2022-11-13 11:57:41 UTC
 +++ lib/fmt/include/fmt/os.h
-@@ -15,7 +15,7 @@
- #include <cstdlib>       // strtod_l
+@@ -13,7 +13,7 @@
+ #include <cstdio>
  #include <system_error>  // std::system_error
  
 -#if defined __APPLE__ || defined(__FreeBSD__)
