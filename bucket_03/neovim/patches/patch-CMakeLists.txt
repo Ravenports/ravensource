@@ -1,6 +1,6 @@
---- CMakeLists.txt.orig	2022-09-30 15:15:13 UTC
+--- CMakeLists.txt.orig	2022-11-14 09:12:05 UTC
 +++ CMakeLists.txt
-@@ -333,19 +333,6 @@ if(HAS_WVLA_FLAG)
+@@ -334,19 +334,6 @@ if(HAS_WVLA_FLAG)
    add_compile_options(-Wvla)
  endif()
  
@@ -20,7 +20,7 @@
  
  check_c_compiler_flag(-fno-common HAVE_FNO_COMMON)
  if (HAVE_FNO_COMMON)
-@@ -378,7 +365,7 @@ add_definitions(-DINCLUDE_GENERATED_DECL
+@@ -379,7 +366,7 @@ add_definitions(-DINCLUDE_GENERATED_DECL
  
  if(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "Clang")
    if(CMAKE_SYSTEM_NAME STREQUAL "SunOS")
@@ -29,7 +29,7 @@
    elseif(NOT CMAKE_SYSTEM_NAME STREQUAL "Darwin")
      set(NO_UNDEFINED "-Wl,--no-undefined")
    endif()
-@@ -548,7 +535,7 @@ endforeach()
+@@ -549,7 +536,7 @@ endforeach()
  
  # Find Lua interpreter
  include(LuaHelpers)
