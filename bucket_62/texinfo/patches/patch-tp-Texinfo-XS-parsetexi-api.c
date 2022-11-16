@@ -1,6 +1,6 @@
---- tp/Texinfo/XS/parsetexi/api.c.orig	2021-03-12 20:48:49 UTC
+--- tp/Texinfo/XS/parsetexi/api.c.orig	2022-10-23 12:56:25 UTC
 +++ tp/Texinfo/XS/parsetexi/api.c
-@@ -25,7 +25,9 @@
+@@ -30,7 +30,9 @@
  
  #undef context
  
