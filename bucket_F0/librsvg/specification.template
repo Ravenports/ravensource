@@ -1,0 +1,87 @@
+DEF[PORTVERSION]=	%%VERSION%%
+DEF[GTK_VERSION]=	EXTRACT_INFO(GTK2_VERSION)
+DEF[SOVERSION]=		2.48.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		librsvg
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	SVG vector-graphic files rendering library
+HOMEPAGE=		http://live.gnome.org/LibRsvg
+CONTACT=		nobody
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		GNOME/librsvg/${PORTVERSION:R}
+%%CR_SITES%%
+
+DISTFILE[1]=		librsvg-${PORTVERSION}.tar.xz:main
+%%CR_DISTFILES%%
+%%DF_INDEX%%
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	INTROSPECTION
+OPTIONS_STANDARD=	INTROSPECTION
+OPT_ON[all]=		INTROSPECTION
+
+# we can't use LICENSE_AWK/_SOURCE here (used before post-extract)
+# Note, for rustless version, it's actually LGPL20+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING.LIB
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/librsvg2-rust
+
+BUILD_DEPENDS=		python-docutils:single:python_default
+BUILDRUN_DEPENDS=	freetype:primary:standard
+
+USES=			cpe gettext-tools gmake gtk-doc png libtool pkgconfig
+			perl:build python:build cargo
+GNOME_COMPONENTS=	cairo pango gdkpixbuf libxml2 libcroco
+CPE_VENDOR=		gnome
+MUST_CONFIGURE=		gnu
+# vala caused circular dep (vala requires graphviz which requires librsvg)
+CONFIGURE_ARGS=		--disable-vala
+			--disable-Bsymbolic
+			--docdir={{STD_DOCDIR}}
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+PLIST_SUB=		PORTVERSION=${PORTVERSION}
+			GTK_VERSION=${GTK_VERSION}
+SOVERSION=		${SOVERSION}
+CARGO_SKIP_CONFIGURE=	yes
+CARGO_SKIP_BUILD=	yes
+CARGO_SKIP_INSTALL=	yes
+
+[INTROSPECTION].DESCRIPTION=		Build with introspection
+[INTROSPECTION].BUILD_DEPENDS_ON=	python-gi-docgen:single:python_default
+[INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
+[INTROSPECTION].CONFIGURE_ARGS_ON=	--enable-gtk-doc
+[INTROSPECTION].CONFIGURE_ARGS_OFF=	--enable-introspection=no
+
+post-patch:
+	# extract license terms
+	${AWK} '/RSVG_H/ {exit}; {print}' ${WRKSRC}/include/librsvg/rsvg.h > ${WRKDIR}/TERMS
+
+pre-configure:
+	${MKDIR} ${WRKDIR}/.cargo
+	@${ECHO_CMD} "[source.cargo]" > ${WRKDIR}/.cargo/config
+	@${ECHO_CMD} "directory = '${CARGO_VENDOR_DIR}'" >> ${WRKDIR}/.cargo/config
+	@${ECHO_CMD} "[source.crates-io]" >> ${WRKDIR}/.cargo/config
+	@${ECHO_CMD} "replace-with = 'cargo'" >> ${WRKDIR}/.cargo/config
+	@if ! ${GREP} -qF '[profile.release]' ${CARGO_CARGOTOML}; then \
+		${ECHO_CMD} "" >> ${CARGO_CARGOTOML}; \
+		${ECHO_CMD} "[profile.release]" >> ${CARGO_CARGOTOML}; \
+		${ECHO_CMD} "opt-level = 2" >> ${CARGO_CARGOTOML}; \
+		${ECHO_CMD} "debug = false" >> ${CARGO_CARGOTOML}; \
+	fi
+	${CARGO_CARGO_RUN} update \
+		--manifest-path ${CARGO_CARGOTOML} \
+		--verbose \
+		${CARGO_CONFIG_ARGS}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/rsvg-convert
+	${RM} ${STAGEDIR}${PREFIX}/.crates2.json
