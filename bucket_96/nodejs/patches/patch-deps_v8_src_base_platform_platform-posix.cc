@@ -1,4 +1,4 @@
---- deps/v8/src/base/platform/platform-posix.cc.orig	2022-10-17 20:23:25 UTC
+--- deps/v8/src/base/platform/platform-posix.cc.orig	2022-11-14 02:26:05 UTC
 +++ deps/v8/src/base/platform/platform-posix.cc
 @@ -54,7 +54,9 @@
  #include <mach/mach.h>
@@ -28,7 +28,7 @@
      flags |= MAP_NORESERVE;
  #endif  // !V8_OS_AIX && !V8_OS_FREEBSD && !V8_OS_QNX
  #if V8_OS_QNX
-@@ -1045,8 +1047,13 @@ Thread::Thread(const Options& options)
+@@ -1064,8 +1066,13 @@ Thread::Thread(const Options& options)
      : data_(new PlatformData),
        stack_size_(options.stack_size()),
        start_semaphore_(nullptr) {
@@ -42,7 +42,7 @@
    set_name(options.name());
  }
  
-@@ -1061,7 +1068,7 @@ static void SetThreadName(const char* na
+@@ -1080,7 +1087,7 @@ static void SetThreadName(const char* na
    pthread_set_name_np(pthread_self(), name);
  #elif V8_OS_NETBSD
    static_assert(Thread::kMaxThreadNameLength <= PTHREAD_MAX_NAMELEN_NP);
@@ -51,7 +51,7 @@
  #elif V8_OS_DARWIN
    // pthread_setname_np is only available in 10.6 or later, so test
    // for it at runtime.
-@@ -1209,6 +1216,7 @@ void Thread::SetThreadLocal(LocalStorage
+@@ -1228,6 +1235,7 @@ void Thread::SetThreadLocal(LocalStorage
  // support it. MacOS and FreeBSD are different here.
  #if !defined(V8_OS_FREEBSD) && !defined(V8_OS_DARWIN) && !defined(_AIX) && \
      !defined(V8_OS_SOLARIS)
@@ -59,7 +59,7 @@
  
  // static
  Stack::StackSlot Stack::GetStackStart() {
-@@ -1234,6 +1242,7 @@ Stack::StackSlot Stack::GetStackStart()
+@@ -1253,6 +1261,7 @@ Stack::StackSlot Stack::GetStackStart()
  #endif  // !defined(V8_LIBC_GLIBC)
  }
  
