@@ -1,7 +1,8 @@
 # manually maintained
+DEF[PV311]=		EXTRACT_VERSION(PYTHON_3.11_VERSION)
 DEF[PV310]=		EXTRACT_VERSION(PYTHON_3.10_VERSION)
 DEF[PV39]=		EXTRACT_VERSION(PYTHON_3.9_VERSION)
-DEF[PORTVERSION]=	${PV310}
+DEF[PORTVERSION]=	${PV311}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		python-sqlite3
@@ -10,22 +11,27 @@ KEYWORDS=		databases python
 VARIANTS=		py39 py310
 SDESC[py39]=		Python 3.9 bindings to the SQLite3 library
 SDESC[py310]=		Python 3.10 bindings to the SQLite3 library
+# SDESC[py311]=		Python 3.11 bindings to the SQLite3 library
 HOMEPAGE=		https://www.python.org/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	none pv39 pv310
+DOWNLOAD_GROUPS=	none pv39 pv310 pv311
 SITES[pv39]=		https://www.python.org/ftp/python/${PV39}/
 SITES[pv310]=		https://www.python.org/ftp/python/${PV310}/
+SITES[pv311]=		https://www.python.org/ftp/python/${PV311}/
 DISTFILE[1]=		Python-${PV39}.tar.xz:pv39
 DISTFILE[2]=		Python-${PV310}.tar.xz:pv310
+DISTFILE[3]=		Python-${PV311}.tar.xz:pv311
 
 SPKGS[py39]=		single
 SPKGS[py310]=		single
+# SPKGS[py311]=		single
 
-OPTIONS_AVAILABLE=	PY39 PY310
+OPTIONS_AVAILABLE=	PY39 PY310 PY311
 OPTIONS_STANDARD=	none
-VOPTS[py39]=		PY39=ON PY310=OFF
-VOPTS[py310]=		PY39=OFF PY310=ON
+VOPTS[py39]=		PY39=ON PY310=OFF PY311=OFF
+VOPTS[py310]=		PY39=OFF PY310=ON PY311=OFF
+# VOPTS[py311]=		PY39=OFF PY310=OFF PY311=ON
 
 FPC_EQUIVALENT=		databases/py-sqlite3
 
@@ -42,11 +48,19 @@ DISTNAME=		Python/Modules
 [PY310].USES_ON=			python:py310,sutools
 [PY310].DF_INDEX_ON=			2
 
+[PY311].DESCRIPTION=			Build with python 3.11
+# [PY311].USES_ON=			python:py311,sutools
+# [PY311].DF_INDEX_ON=			3
+
 post-extract-PY39-ON:
 	${MV} ${WRKDIR}/Python-${PV39}  ${WRKDIR}/Python
 	${CP} ${FILESDIR}/setup3.py ${WRKSRC}/setup.py
 
 post-extract-PY310-ON:
+	${MV} ${WRKDIR}/Python-${PV310}  ${WRKDIR}/Python
+	${CP} ${FILESDIR}/setup3.py ${WRKSRC}/setup.py
+
+post-extract-PY311-ON:
 	${MV} ${WRKDIR}/Python-${PV310}  ${WRKDIR}/Python
 	${CP} ${FILESDIR}/setup3.py ${WRKSRC}/setup.py
 
