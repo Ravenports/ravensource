@@ -203,6 +203,22 @@ function sanitize_homepage ($namebase, $original_homepage) {
     $hp0 = trim($hp_parts[0]);
     $hp_parts = explode (" ", $hp0);
     $hp1 = trim($hp_parts[0]);
+    if (strpos($hp1, "://") !== false) {
+        $hp_parts = explode ("://", $hp1);
+        $base_homepage = $hp_parts[1];
+    } else {
+        $base_homepage = $hp1;
+    }
+
+    $hplen = strlen($base_homepage);
+    foreach ($data_homepage as $deadpage) {
+        $deadsize = strlen($deadpage);
+        if ($deadsize >= $base_homepage) {
+            if ($deadpage == substr($base_homepage, 0, $deadsize)) {
+                return "none";
+            }
+        }
+    }
 
     if (use_https_instead ($hp1)) {
        return go_secure ($hp1);
