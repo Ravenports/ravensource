@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	7.0.1
+DEF[PORTVERSION]=	7.0.2
 DEF[TAG]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -36,6 +36,7 @@ BUILDRUN_DEPENDS=	freeglut:primary:standard
 			libltdl:single:standard
 			expat:shared:standard
 			ghostscript:primary:standard
+			poppler:glib:standard
 
 USES=			bison cpe cmake jpeg mesa pkgconfig zlib
 			shebangfix iconv gettext-tools gettext-runtime
@@ -50,6 +51,7 @@ CMAKE_ARGS=		-Denable_ltdl:BOOL=ON
 			-Dwith_ortho:BOOL=ON
 			-Dwith_sfdp:BOOL=ON
 			-Dwith_smyrna:BOOL=OFF
+			-Dwith_gvedit:BOOL=OFF
 			-Dwith_zlib:BOOL=ON
 			-Duse_sanitizers:BOOL=OFF
 			-Duse_coverage:BOOL=OFF
