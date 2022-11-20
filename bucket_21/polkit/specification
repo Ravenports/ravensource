@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	121
+DEF[PORTVERSION]=	122
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		polkit
@@ -10,7 +10,7 @@ HOMEPAGE=		https://www.freedesktop.org/wiki/Software/polkit/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://www.freedesktop.org/software/polkit/releases/
+SITES[main]=		https://gitlab.freedesktop.org/polkit/polkit/-/archive/${PORTVERSION}/
 DISTFILE[1]=		polkit-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	complete primary nls
@@ -45,9 +45,8 @@ USES=			gettext-tools meson pkgconfig shebangfix
 GNOME_COMPONENTS=	glib introspection libxslt
 CPE_VENDOR=		polkit_project
 SHEBANG_FILES=		{{WRKSRC}}/src/polkitbackend/toarray.pl
-DISTNAME=		polkit-v.${PORTVERSION}
 MESON_ARGS=		-Dauthfw=pam
-			-Dpam_prefix={{LOCALBASE}}
+			-Dpam_prefix={{LOCALBASE}}/etc/pam.d
 			-Dos_type=netbsd
 			-Dintrospection=true
 			-Dtests=false
@@ -77,7 +76,7 @@ post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/dbus-1/system.d/org.freedesktop.PolicyKit1.conf \
 	${STAGEDIR}${PREFIX}/share/dbus-1/system.d/org.freedesktop.PolicyKit1.conf.sample
 .for i in 10-vendor.d 20-org.d 30-site.d 50-local.d 90-mandatory.d
-	${MKDIR} ${STAGEDIR}${PREFIX}/etc/polkit-1/localauthority/${i}
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/polkit-1/localauthority/${i}
 	${MKDIR} ${STAGEDIR}/var/lib/polkit-1/localauthority/${i}
 .endfor
 	# Disable system-d for now

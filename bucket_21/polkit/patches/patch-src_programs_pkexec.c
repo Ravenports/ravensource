@@ -1,7 +1,7 @@
 Avoid conflict with SunOS function.
 Provide solaris header for LOG_AUTHPRIV
 
---- src/programs/pkexec.c.orig	2018-05-31 11:52:53 UTC
+--- src/programs/pkexec.c.orig	2022-10-26 12:12:24 UTC
 +++ src/programs/pkexec.c
 @@ -45,6 +45,9 @@
  
@@ -22,7 +22,7 @@ Provide solaris header for LOG_AUTHPRIV
          gpointer   user_data)
  {
    gint fd;
-@@ -918,7 +921,7 @@ main (int argc, char *argv[])
+@@ -941,7 +944,7 @@ main (int argc, char *argv[])
      }
  
    /* set close_on_exec on all file descriptors except stdin, stdout, stderr */

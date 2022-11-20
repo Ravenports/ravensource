@@ -3,7 +3,6 @@ bin/pkcheck
 @(root,,4755) bin/pkexec
 bin/pkttyagent
 etc/pam.d/polkit-1
-etc/polkit-1/rules.d/50-default.rules
 include/polkit-1/polkit/polkit.h
 include/polkit-1/polkit/polkitactiondescription.h
 include/polkit-1/polkit/polkitauthority.h
@@ -57,15 +56,16 @@ share/man/man8/polkit.8.gz
 share/man/man8/polkitd.8.gz
 share/polkit-1/policyconfig-1.dtd
 share/polkit-1/actions/org.freedesktop.policykit.policy
+share/polkit-1/rules.d/50-default.rules
 @dir /var/lib/polkit-1/localauthority/10-vendor.d
 @dir /var/lib/polkit-1/localauthority/20-org.d
 @dir /var/lib/polkit-1/localauthority/30-site.d
 @dir /var/lib/polkit-1/localauthority/50-local.d
 @dir /var/lib/polkit-1/localauthority/90-mandatory.d
-@dir etc/polkit-1/localauthority/10-vendor.d
-@dir etc/polkit-1/localauthority/20-org.d
-@dir etc/polkit-1/localauthority/30-site.d
-@dir etc/polkit-1/localauthority/50-local.d
-@dir etc/polkit-1/localauthority/90-mandatory.d
-@dir(polkitd,,700) share/polkit-1/rules.d
-@postexec chown polkitd %D/etc/polkit-1/rules.d && chmod 700 %D/etc/polkit-1/rules.d
+@dir etc/polkit-1/rules.d
+@dir share/polkit-1/localauthority/10-vendor.d
+@dir share/polkit-1/localauthority/20-org.d
+@dir share/polkit-1/localauthority/30-site.d
+@dir share/polkit-1/localauthority/50-local.d
+@dir share/polkit-1/localauthority/90-mandatory.d
+@postexec chown polkitd %D/share/polkit-1/rules.d && chmod 700 %D/share/polkit-1/rules.d
