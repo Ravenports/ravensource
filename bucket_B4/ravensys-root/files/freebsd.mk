@@ -106,6 +106,7 @@ dynamic_lib_FreeBSD=\
 	/lib/libthr.so.3 \
 	/lib/libdevstat.so.7 \
 	/lib/libjail.so.1 \
+	/usr/lib/libdevinfo.so.6 \
 	/usr/lib/libexecinfo.so.1 \
 	/usr/lib/librpcsvc.so.5\
 	/usr/lib/librt.so.1 \
@@ -301,6 +302,7 @@ install-platform: install-common
 		ln -s libthr.so.3 libthr.so && \
 		ln -s libbsdxml.so.4 libbsdxml.so && \
 		ln -s libdevstat.so.7 libdevstat.so && \
+		ln -s libdevinfo.so.6 libdevinfo.so && \
 		ln -s libprocstat.so.1 libprocstat.so && \
 		ln -s libgeom.so.5 libgeom.so && \
 		ln -s ${PREFIX}/lib/libexecinfo.so libexecinfo.so && \
