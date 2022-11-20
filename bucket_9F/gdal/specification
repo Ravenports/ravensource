@@ -1,4 +1,7 @@
-DEF[PORTVERSION]=	3.5.2
+DEF[PORTVERSION]=	3.6.0.1
+DEF[RELEASE]=		3.6.0
+DEF[SOMAJOR]=		32
+DEF[SOVERSION]=		${SOMAJOR}.${RELEASE}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gdal
@@ -10,8 +13,8 @@ HOMEPAGE=		https://www.gdal.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://download.osgeo.org/gdal/${PORTVERSION}/
-DISTFILE[1]=		gdal-${PORTVERSION}.tar.xz:main
+SITES[main]=		http://download.osgeo.org/gdal/${RELEASE}/
+DISTFILE[1]=		gdal-${RELEASE}.tar.xz:main
 
 SPKGS[standard]=	single
 
@@ -24,80 +27,109 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/gdal
 
-# Disable jasper, frequently breaks API, currently broken with 3.0.2
+BUILD_DEPENDS=		expat:static:standard
+			lz4:static:standard
 BUILDRUN_DEPENDS=	libgeotiff:single:standard
 			cfitsio:primary:standard
-# #			jasper:primary:standard
 			WebP:single:standard
 			openjpeg:single:standard
+			pcre2:primary:standard
+			expat:shared:standard
+			lz4:shared:standard
+			xz:single:standard
+			libxml2:single:standard
+			libheif:single:standard
+			hdf5:primary:standard
+			geos:single:standard
+			openexr:primary:standard
 
 # Can't use json-c externally because libjson-c support requires a
 # private json_object header that it shouldn't refer to.
 
 SINGLE_JOB=		yes
 
-USES=			cpe gmake png jpeg gif iconv sqlite pkgconfig zstd
+USES=			cpe cmake png jpeg gif iconv sqlite pkgconfig zstd
 CPE_VENDOR=		osgeo
-MAKEFILE=		GNUmakefile
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--datadir={{LOCALBASE}}/share
-			--enable-static=yes
-			--with-geotiff={{LOCALBASE}}
-			--with-gif={{LOCALBASE}}
-			--with-gnm=yes
-			--with-jpeg={{LOCALBASE}}
-			--with-openjpeg={{LOCALBASE}}
-			--with-libjson-c=internal
-			--with-liblzma=yes
-			--with-libtiff={{LOCALBASE}}
-			--with-libz={{LOCALBASE}}
-			--with-png={{LOCALBASE}}
-			--with-cfitsio={{LOCALBASE}}
-# #			--with-jasper={{LOCALBASE}}
-			--with-webp={{LOCALBASE}}
-			--with-sqlite3={{LOCALBASE}}
-			--with-threads=yes
-			--with-curl=no
-			--with-geos=no
-			--with-xml2=no
-			--with-pg=no
-			--with-mysql=no
-			--with-sfcgal=no
-			--with-ld-shared="{{CXX}} -shared"
-			--without-libtool
-			--without-armadillo
-			--without-ecw
-			--without-expat
-			--without-freexl
-			--without-gta
-			--without-hdf5
-			--without-libkml
-			--without-netcdf
-			--without-odbc
-			--without-pcre
-			--without-podofo
-			--without-spatialite
-			--without-xerces
-			{{ICONV_CONFIGURE_ARG}}
-CFLAGS=			-fPIC
-SOVERSION=		${PORTVERSION}
-INSTALL_REQ_TOOLCHAIN=	yes
+CMAKE_ARGS=		-DGDAL_USE_INTERNAL_LIBS=OFF
+			-DGDAL_USE_JSONC_INTERNAL=ON
+			-DGDAL_USE_LERC_INTERNAL=ON
+			-DGDAL_USE_JPEG12_INTERNAL=ON
+			-DGDAL_USE_OPENCAD_INTERNAL=ON
+			-DGDAL_USE_QHULL_INTERNAL=ON
+			-DGDAL_USE_CFITSIO=ON
+			-DGDAL_USE_EXPAT=ON
+			-DGDAL_USE_GEOS=ON
+			-DGDAL_USE_GEOTIFF=ON
+			-DGDAL_USE_GIF=ON
+			-DGDAL_USE_HDF5=ON
+			-DGDAL_USE_HEIF=ON
+			-DGDAL_USE_ICONV=ON
+			-DGDAL_USE_JPEG=ON
+			-DGDAL_USE_LIBXML2=ON
+			-DGDAL_USE_LZ4=ON
+			-DGDAL_USE_OPENEXR=ON
+			-DGDAL_USE_OPENJPEG=ON
+			-DGDAL_USE_PCRE2=ON
+			-DGDAL_USE_PNG=ON
+			-DGDAL_USE_SQLITE3=ON
+			-DGDAL_USE_TIFF=ON
+			-DGDAL_USE_WEBP=ON
+			-DGDAL_USE_ZLIB=ON
+			-DGDAL_USE_ZSTD=ON
 
-post-patch:
-	${REINPLACE_CMD} -e '/^#GDAL_SLIB_SONAME/ s|^#||' ${WRKSRC}/GDALmake.opt.in
-	${REINPLACE_CMD} -e 's| LICENSE.TXT||' ${WRKSRC}/GNUmakefile
-	${REINPLACE_CMD} -e 's|-lminizip|-lkmlminizip|' ${WRKSRC}/configure
-	# Clean up bundled libraries
-	${RM} -r ${WRKSRC}/frmts/gif/giflib/
-	${RM} -r ${WRKSRC}/frmts/gtiff/libgeotiff/
-	${RM} -r ${WRKSRC}/frmts/gtiff/libtiff/
-	${RM} -r ${WRKSRC}/frmts/png/libpng/
-	${RM} -r ${WRKSRC}/frmts/zlib/
+			-DGDAL_USE_ARMADILLO=OFF
+			-DGDAL_USE_ARROW=OFF
+			-DGDAL_USE_BASISU=OFF
+			-DGDAL_USE_BLOSC=OFF
+			-DGDAL_USE_BRUNSLI=OFF
+			-DGDAL_USE_CRNLIB=OFF
+			-DGDAL_USE_CURL=OFF
+			-DGDAL_USE_CRYPTOPP=OFF
+			-DGDAL_USE_DEFLATE=OFF
+			-DGDAL_USE_ECW=OFF
+			-DGDAL_USE_FILEGDB=OFF
+			-DGDAL_USE_FREEXL=OFF
+			-DGDAL_USE_FYBA=OFF
+			-DGDAL_USE_GTA=OFF
+			-DGDAL_USE_HDF4=OFF
+			-DGDAL_USE_IDB=OFF
+			-DGDAL_USE_JXL=OFF
+			-DGDAL_USE_KDU=OFF
+			-DGDAL_USE_KEA=OFF
+			-DGDAL_USE_LIBKML=OFF
+			-DGDAL_USE_LIBQB3=OFF
+			-DGDAL_USE_LURATECH=OFF
+			-DGDAL_USE_MONGOCXX=OFF
+			-DGDAL_USE_MRSID=OFF
+			-DGDAL_USE_MSSQL_NCLI=OFF
+			-DGDAL_USE_MSSQL_ODBC=OFF
+			-DGDAL_USE_MYSQL=OFF
+			-DGDAL_USE_NETCDF=OFF
+			-DGDAL_USE_ODBC=OFF
+			-DGDAL_USE_ODBCCPP=OFF
+			-DGDAL_USE_OGDI=OFF
+			-DGDAL_USE_OPENCL=OFF
+			-DGDAL_USE_OPENSSL=OFF
+			-DGDAL_USE_ORACLE=OFF
+			-DGDAL_USE_PARQUET=OFF
+			-DGDAL_USE_PDFIUM=OFF
+			-DGDAL_USE_POPPLER=OFF
+			-DGDAL_USE_POSTGRESQL=OFF
+			-DGDAL_USE_RASTERLITE2=OFF
+			-DGDAL_USE_RDB=OFF
+			-DGDAL_USE_SPATIALITE=OFF
+			-DGDAL_USE_SFCGAL=OFF
+			-DGDAL_USE_TEIGHA=OFF
+			-DGDAL_USE_TILEDB=OFF
+			-DGDAL_USE_XERCESC=OFF
+
+			-DBUILD_PYTHON_BINDINGS=OFF
+DISTNAME=		gdal-${RELEASE}
+PLIST_SUB=		GDAL_SOMAJOR=${SOMAJOR}
+			GDAL_SOVERSION=${SOVERSION}
 
 post-install:
-	(cd ${WRKSRC}/gnm/ && \
-		${INSTALL_DATA} gnm.h gnm_api.h gnm_priv.h gnmgraph.h \
-		${STAGEDIR}${PREFIX}/include/)
-	${INSTALL_DATA} ${WRKSRC}/libgdal.a ${STAGEDIR}${PREFIX}/lib/
-	${INSTALL_DATA} ${WRKSRC}/GDALmake.opt ${STAGEDIR}${PREFIX}/share/gdal/
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gdal[^-]*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gnm*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/[no]*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgdal.so
