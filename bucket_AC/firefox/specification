@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	EXTRACT_INFO(FIREFOX_VERSION)
+DEF[PORTVERSION]=	107.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		firefox
@@ -125,10 +125,6 @@ post-patch:
 	done
 	@${ECHO_CMD} LDFLAGS=\"-Wl,-rpath,${PREFIX}/lib/firefox\" \
 		>> ${WRKSRC}/.mozconfig
-
-pre-configure:
-	(cd ${WRKSRC} && ${LOCALBASE}/bin/autoconf-2.13)
-	(cd ${WRKSRC}/js/src/ && ${LOCALBASE}/bin/autoconf-2.13)
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/pixmaps \
