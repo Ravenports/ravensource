@@ -226,10 +226,10 @@ do-install:
 	@${ECHO_MSG} "... Handle any unstripped dynamically linked objects"
 	@${FIND} ${STAGEDIR}${PREFIX} -type f | while read f; \
 	do \
-		check=$$(file "$$f" | grep "dynamically linked, not stripped"); \
+		check=$$(file "$$f" | grep "dynamically linked,.*not stripped"); \
 		if [ -n "$$check" ]; then \
 			${STRIP_CMD} "$$f"; \
-		fi; \
+Kn		fi; \
 	done
 .      endif
 .    endif
