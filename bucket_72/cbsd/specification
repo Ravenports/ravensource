@@ -1,0 +1,98 @@
+DEF[PORTVERSION]=	13.1.16
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		cbsd
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	FreeBSD jails, bhyve and Xen manager
+HOMEPAGE=		https://www.bsdstore.ru/en/about.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/cbsd:cbsd:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		sysutils/cbsd
+
+LICENSE=		BSD2CLAUSE:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+ONLY_FOR_OPSYS=		freebsd dragonfly
+
+RUN_DEPENDS=		rsync:single:standard
+			sudo:complete:standard
+			nss:caroot:standard
+BUILDRUN_DEPENDS=	libssh2:single:standard
+			sqlite:single:standard
+			libedit:single:standard
+			fetch:single:library
+			elftoolchain:libraries:standard
+			file:single:standard
+
+RC_SUBR=		cbsdd:single
+			cbsdrsyncd:single
+			cbsd-statsd-bhyve:single
+			cbsd-statsd-hoster:single
+			cbsd-statsd-jail:single
+
+SUB_FILES=		pkg-message-single
+			pkg-deinstall-single
+
+USERS=			cbsd
+GROUPS=			cbsd
+USERGROUP_SPKG=		single
+
+USES=			pkgconfig ssl cmake
+MANDIRS=		{{PREFIX}}/cbsd/man
+SINGLE_JOB=		yes
+
+post-extract:
+	${MKDIR} ${WRKSRC}/bin/tool_mknodes
+	${MKDIR} ${WRKSRC}/bin/tool_mksyntax
+	${INSTALL_DATA} ${FILESDIR}/CM.txt \
+		${WRKSRC}/CMakeLists.txt
+	${INSTALL_DATA} ${FILESDIR}/CM_bin.txt \
+		${WRKSRC}/bin/CMakeLists.txt
+	${INSTALL_DATA} ${FILESDIR}/CM_bin_mknodes.txt \
+		${WRKSRC}/bin/tool_mknodes/CMakeLists.txt
+	${INSTALL_DATA} ${FILESDIR}/CM_bin_mksyntax.txt \
+		${WRKSRC}/bin/tool_mksyntax/CMakeLists.txt
+	${INSTALL_DATA} ${FILESDIR}/CM_bin_cbsdsh.txt \
+		${WRKSRC}/bin/cbsdsh/CMakeLists.txt
+	${INSTALL_DATA} ${FILESDIR}/CM_misc.txt \
+		${WRKSRC}/misc/CMakeLists.txt
+	${INSTALL_DATA} ${FILESDIR}/CM_tools.txt \
+		${WRKSRC}/tools/CMakeLists.txt
+	${INSTALL_DATA} ${FILESDIR}/CM_sbin.txt \
+		${WRKSRC}/sbin/CMakeLists.txt
+
+pre-configure:
+	${REINPLACE_CMD} -e '/<sys\/elf_common.h>/d' \
+		${WRKSRC}/misc/src/elf_tables.c
+	# fix hardcoded path
+	${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|g' \
+		${WRKSRC}/bin/rexe
+
+post-install:
+	# remove empty share directories
+	${FIND} ${STAGEDIR}${PREFIX}/cbsd/share -type d -empty -delete
+	# Add symbolic link
+	${MKDIR} ${STAGEDIR}${PREFIX}/libexec/bsdconfig
+	(cd ${STAGEDIR}${PREFIX}/libexec/bsdconfig &&\
+		${LN} -sf ../../cbsd/share/bsdconfig/cbsd cbsd)
+	# Strip
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/cbsd
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/cbsd/bin/c*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/cbsd/sbin/netmask
+	(cd ${STAGEDIR}${PREFIX}/cbsd && ${FIND} tools misc -type f | while read f; \
+	do \
+	    check=$$(file "$$f" | grep "dynamically linked,.*not stripped"); \
+	    if [ -n "$$check" ]; then ${STRIP_CMD} "$$f"; fi; \
+	done)

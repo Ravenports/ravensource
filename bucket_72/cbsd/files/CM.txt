@@ -1,0 +1,48 @@
+cmake_minimum_required(VERSION 3.16)
+project(cbsd)
+
+SET(CMAKE_SKIP_BUILD_RPATH TRUE)
+add_subdirectory(misc)
+add_subdirectory(bin)
+add_subdirectory(sbin)
+add_subdirectory(tools)
+
+install(DIRECTORY bhyvectl DESTINATION cbsd FILES_MATCHING PATTERN "b*")
+install(DIRECTORY jailctl DESTINATION cbsd FILES_MATCHING PATTERN "j*")
+install(DIRECTORY nodectl DESTINATION cbsd FILES_MATCHING PATTERN "n*")
+install(DIRECTORY qemuctl DESTINATION cbsd FILES_MATCHING PATTERN "q*")
+install(DIRECTORY vboxctl DESTINATION cbsd FILES_MATCHING PATTERN "v*")
+install(DIRECTORY xenctl DESTINATION cbsd FILES_MATCHING PATTERN "x*")
+install(DIRECTORY rc.d DESTINATION cbsd FILES_MATCHING PATTERN "*")
+install(DIRECTORY subr DESTINATION cbsd FILES_MATCHING PATTERN "*")
+install(DIRECTORY sudoexec DESTINATION cbsd FILES_MATCHING PATTERN "*")
+install(DIRECTORY system DESTINATION cbsd FILES_MATCHING PATTERN "*")
+install(DIRECTORY release DESTINATION cbsd FILES_MATCHING PATTERN "*")
+install(DIRECTORY upgrade DESTINATION cbsd FILES_MATCHING PATTERN "*")
+install(DIRECTORY man DESTINATION cbsd FILES_MATCHING PATTERN "*.[12345678]")
+install(DIRECTORY etc/defaults DESTINATION cbsd/etc FILES_MATCHING PATTERN "*")
+install(DIRECTORY modules/
+  DESTINATION cbsd/modules
+  PATTERN ".gitignore" EXCLUDE
+  PATTERN "placeholder" EXCLUDE
+)
+install(DIRECTORY share/
+  DESTINATION cbsd/share
+  PATTERN "placeholder" EXCLUDE
+)
+install(DIRECTORY tools/
+  DESTINATION cbsd/tools
+  PATTERN "src" EXCLUDE
+  PATTERN "CMakeLists.txt" EXCLUDE
+)
+install(DIRECTORY misc/
+  DESTINATION cbsd/misc
+  PATTERN "src" EXCLUDE
+  PATTERN "CMakeLists.txt" EXCLUDE
+)
+
+install(FILES man/cbsd.8 DESTINATION share/man/man8)
+install(FILES securecmd DESTINATION cbsd)
+install(FILES cbsd.conf DESTINATION cbsd RENAME cbsd.conf.sample)
+install(FILES etc/modules.conf DESTINATION cbsd/etc RENAME modules.conf.sample)
+install(FILES etc/spice.conf DESTINATION cbsd/etc RENAME spice.conf.sample)
