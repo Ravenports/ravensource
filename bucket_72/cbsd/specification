@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	13.1.16
 
 NAMEBASE=		cbsd
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		standard
 SDESC[standard]=	FreeBSD jails, bhyve and Xen manager
@@ -29,11 +30,11 @@ ONLY_FOR_OPSYS=		freebsd dragonfly
 RUN_DEPENDS=		rsync:single:standard
 			sudo:complete:standard
 			nss:caroot:standard
+BUILD_DEPENDS=		elftoolchain:libraries:standard
 BUILDRUN_DEPENDS=	libssh2:single:standard
 			sqlite:single:standard
 			libedit:single:standard
 			fetch:single:library
-			elftoolchain:libraries:standard
 			file:single:standard
 
 RC_SUBR=		cbsdd:single
@@ -76,9 +77,12 @@ post-extract:
 pre-configure:
 	${REINPLACE_CMD} -e '/<sys\/elf_common.h>/d' \
 		${WRKSRC}/misc/src/elf_tables.c
-	# fix hardcoded path
-	${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|g' \
-		${WRKSRC}/bin/rexe
+	# fix hardcoded paths
+	${GREP} -rl '/usr/local' ${WRKSRC} | ${XARGS} \
+		${SED} -i'' -e 's|/usr/local|${PREFIX}|g'
+	# fix search path
+	${REINPLACE_CMD} -e 's|_PATH_DEFPATH|"/bin:/sbin:/usr/bin:/usr/sbin:${PREFIX}/bin:${PREFIX}/sbin"|'\
+		${WRKSRC}/bin/cbsdsh/var.c
 
 post-install:
 	# remove empty share directories
