@@ -4,7 +4,7 @@
  #include <mach/mach.h>
  #include <malloc/malloc.h>
  #else
-+# ifndef __DragonFly__
++# if !V8_OS_FREEBSD && !V8_OS_DRAGONFLYBSD
  #include <malloc.h>
 +# endif
  #endif
