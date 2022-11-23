@@ -1,4 +1,4 @@
---- src/GLdispatch/vnd-glapi/glapi.h.orig	2022-08-22 13:02:53 UTC
+--- src/GLdispatch/vnd-glapi/glapi.h.orig	2022-11-21 21:05:30 UTC
 +++ src/GLdispatch/vnd-glapi/glapi.h
 @@ -88,7 +88,7 @@ enum {
   */

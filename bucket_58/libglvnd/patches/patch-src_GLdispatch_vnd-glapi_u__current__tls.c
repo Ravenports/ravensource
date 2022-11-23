@@ -1,4 +1,4 @@
---- src/GLdispatch/vnd-glapi/u_current_tls.c.orig	2022-08-22 13:02:53 UTC
+--- src/GLdispatch/vnd-glapi/u_current_tls.c.orig	2022-11-21 21:05:30 UTC
 +++ src/GLdispatch/vnd-glapi/u_current_tls.c
 @@ -30,7 +30,7 @@
  #include "stub.h"
