@@ -1,4 +1,4 @@
---- unix/tclUnixInit.c.orig	2021-10-29 17:08:08 UTC
+--- unix/tclUnixInit.c.orig	2022-06-06 15:58:41 UTC
 +++ unix/tclUnixInit.c
 @@ -395,14 +395,6 @@ TclpInitPlatform(void)
  #endif /* SIGPIPE */
