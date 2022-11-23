@@ -229,7 +229,7 @@ do-install:
 		check=$$(file "$$f" | grep "dynamically linked,.*not stripped"); \
 		if [ -n "$$check" ]; then \
 			${STRIP_CMD} "$$f"; \
-Kn		fi; \
+		fi; \
 	done
 .      endif
 .    endif
