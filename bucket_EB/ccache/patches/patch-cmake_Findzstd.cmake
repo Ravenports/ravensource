@@ -1,4 +1,4 @@
---- cmake/Findzstd.cmake.orig	2022-11-05 15:49:59 UTC
+--- cmake/Findzstd.cmake.orig	2022-11-21 18:53:32 UTC
 +++ cmake/Findzstd.cmake
 @@ -10,7 +10,7 @@ if(PKG_CONFIG_FOUND)
    find_library(ZSTD_LIBRARY zstd HINTS ${PC_ZSTD_LIBDIR} ${PC_ZSTD_LIBRARY_DIRS})

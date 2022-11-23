@@ -1,4 +1,4 @@
---- src/third_party/httplib.h.orig	2022-11-05 15:49:59 UTC
+--- src/third_party/httplib.h.orig	2022-11-21 18:53:32 UTC
 +++ src/third_party/httplib.h
 @@ -168,7 +168,9 @@ using socket_t = SOCKET;
  #else // not _WIN32
