@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.11.1
+DEF[PORTVERSION]=	2.11.2
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-PyPDF2
@@ -11,8 +11,8 @@ HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/b4/fa/f895bfb28444157faf277c313e05f36001f0c8a8f270ba5c6ca1a2e5216e
-DISTFILE[1]=		PyPDF2-${PORTVERSION}-py3-none-any.whl:main
+SITES[main]=		PYPIWHL/dd/0c/9775d7dac61753f0831a96d908aa285773b7c95aac99be7bf972c478259c
+DISTFILE[1]=		pypdf2-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py39]=		single
 SPKGS[py310]=		single
@@ -23,15 +23,27 @@ VOPTS[py39]=		PY39=ON PY310=OFF
 VOPTS[py310]=		PY39=OFF PY310=ON
 
 # License listed at PyPI
-# BSD-3-Clause
+# Not provided.
 
 GENERATED=		yes
-DISTNAME=		PyPDF2-${PORTVERSION}.dist-info
+DISTNAME=		pypdf2-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# typing-extensions (>=3.10.0.0) ; python_version < "3.10"
-# dataclasses ; python_version < "3.7"
-# PyCryptodome ; extra == 'crypto'
+# typing_extensions >= 3.10.0.0; python_version < '3.10'
+# dataclasses; python_version < '3.7'
+# PyCryptodome ; extra == "crypto"
+# black ; extra == "dev"
+# pip-tools ; extra == "dev"
+# pre-commit<2.18.0 ; extra == "dev"
+# pytest-cov ; extra == "dev"
+# flit ; extra == "dev"
+# wheel ; extra == "dev"
+# sphinx ; extra == "docs"
+# sphinx_rtd_theme ; extra == "docs"
+# myst_parser ; extra == "docs"
+# PyCryptodome ; extra == "full"
+# Pillow ; extra == "full"
+# Pillow ; extra == "image"
 
 [PY39].USES_ON=				python:py39,wheel
 [PY39].RUN_DEPENDS_ON=			python-typing-extensions:single:py39
