@@ -1,6 +1,6 @@
---- src/qml/Qt6QmlMacros.cmake.orig	2022-09-23 07:21:41 UTC
+--- src/qml/Qt6QmlMacros.cmake.orig	2022-11-08 16:09:50 UTC
 +++ src/qml/Qt6QmlMacros.cmake
-@@ -1615,7 +1615,6 @@ function(qt6_add_qml_plugin target)
+@@ -1619,7 +1619,6 @@ function(qt6_add_qml_plugin target)
          string(REPLACE "/" ";" path "qml/${arg_TARGET_PATH}")
          list(LENGTH path path_count)
          string(REPEAT "../" ${path_count} rel_path)
@@ -8,7 +8,7 @@
          if(APPLE)
              set(install_rpath
                  # If embedded in an app bundle, search in a bundle-local path
-@@ -1631,7 +1630,7 @@ function(qt6_add_qml_plugin target)
+@@ -1635,7 +1634,7 @@ function(qt6_add_qml_plugin target)
                  "@loader_path/${rel_path}"
              )
          else()

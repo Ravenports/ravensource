@@ -1,4 +1,4 @@
---- src/platformsupport/input/evdevtouch/qevdevtouchhandler.cpp.orig	2022-09-19 10:23:04 UTC
+--- src/platformsupport/input/evdevtouch/qevdevtouchhandler.cpp.orig	2022-11-03 12:40:18 UTC
 +++ src/platformsupport/input/evdevtouch/qevdevtouchhandler.cpp
 @@ -17,11 +17,7 @@
  

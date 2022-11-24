@@ -1,4 +1,4 @@
---- tests/auto/corelib/plugin/qpluginloader/tst_qpluginloader.cpp.orig	2022-09-19 10:23:04 UTC
+--- tests/auto/corelib/plugin/qpluginloader/tst_qpluginloader.cpp.orig	2022-11-03 12:40:18 UTC
 +++ tests/auto/corelib/plugin/qpluginloader/tst_qpluginloader.cpp
 @@ -70,11 +70,7 @@
  #endif
