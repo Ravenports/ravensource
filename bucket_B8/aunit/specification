@@ -1,13 +1,12 @@
-DEF[PORTVERSION]=	2021
-DEF[DATE]=		20210518-19DC5
-DEF[CORE_HASH]=		c8eadafc40c016859e127cd0e82411fcd8f3e749
-DEF[FILEBASE]=		aunit-${PORTVERSION}-${DATE}-src
-DEF[JQUERY]=		3.5.1
-DEF[UNDERSCORE]=	EXTRACT_INFO(ANCIENT_UNDERSCORE)
+DEF[PORTVERSION]=	23.0.0
+DEF[RELEASE]=		v${PORTVERSION}
+DEF[JQUERY]=		EXTRACT_INFO(LATEST_JQUERY)
+DEF[UNDERSCORE]=	EXTRACT_INFO(SPHINX_UNDERSCORE)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		aunit
 VERSION=		${PORTVERSION}
+EPOCH=			1
 KEYWORDS=		devel ada
 VARIANTS=		standard
 SDESC[standard]=	Ada unit testing framework
@@ -15,10 +14,10 @@ HOMEPAGE=		https://github.com/adacore/aunit
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		ADACORE/${CORE_HASH}?filename=${FILEBASE}.tar.gz&x=/
-DISTFILE[1]=		${FILEBASE}.tar.gz:main
+SITES[main]=		GITHUB/AdaCore:aunit:${RELEASE}
+DISTFILE[1]=		generate:main
 
-SPKGS[standard]=	complete primary docs examples
+SPKGS[standard]=	complete primary examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -33,7 +32,6 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		devel/aunit
 
 USES=			ada:primary gmake gprbuild
-DISTNAME=		${FILEBASE}
 INSTALL_REQ_TOOLCHAIN=	yes
 PLIST_SUB=		JQUERY=${JQUERY}
 			UNDERSCORE=${UNDERSCORE}
