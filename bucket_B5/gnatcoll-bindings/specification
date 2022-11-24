@@ -1,7 +1,5 @@
-DEF[PORTVERSION]=	2021
-DEF[DATE]=		20210518-19B15
-DEF[CORE_HASH]=		d93655ced17f15c5f376b6861825df3f9c183980
-DEF[FILEBASE]=		gnatcoll-bindings-${PORTVERSION}-${DATE}-src
+DEF[PORTVERSION]=	23.0.0
+DEF[RELEASE]=		v${PORTVERSION}
 DEF[BASE_COMPONENTS]=	gmp iconv readline syslog
 DEF[COMPONENTS]=	${BASE_COMPONENTS} python python3
 DEF[SOVERSION]=		0.0
@@ -13,7 +11,6 @@ DEF[PY3_INCLUDEDIR]=	{{LOCALBASE}}/include/python${PY3DEFAULT}
 
 NAMEBASE=		gnatcoll-bindings
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Core packages of GNAT Components Collection
@@ -21,8 +18,8 @@ HOMEPAGE=		https://github.com/AdaCore/gnatcoll-bindings
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		ADACORE/${CORE_HASH}?filename=${FILEBASE}.tar.gz&x=/
-DISTFILE[1]=		${FILEBASE}.tar.gz:main
+SITES[main]=		GITHUB/AdaCore:gnatcoll-bindings:${RELEASE}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete gmp iconv python python3 readline syslog examples
 
@@ -51,7 +48,6 @@ EXRUN[python]=		python27:single:standard
 EXRUN[python3]=		python${THIRD_SNAKE}:single:standard
 
 USES=			gprbuild gmake iconv:build python:py27,build
-DISTNAME=		${FILEBASE}
 MAKE_ENV=		BUILD=PROD
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
@@ -68,6 +64,7 @@ do-build:
 .  for libtype in ${LIBTYPES}
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		gprbuild -p -XLIBRARY_TYPE=${libtype} \
+		-XGNATCOLL_ICONV_OPT="-liconv_pic" \
 		-P ${component}/gnatcoll_${component}.gpr)
 .  endfor
 	# handle python components separately
@@ -92,6 +89,7 @@ do-install:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV}\
 		gprinstall -p --prefix=${WRKDIR}/${component}/${libtype}\
 		-XLIBRARY_TYPE=${libtype} \
+		-XGNATCOLL_ICONV_OPT="-liconv_pic" \
 		-P ${component}/gnatcoll_${component}.gpr)
 .  endfor
 	${MKDIR} ${STAGEDIR}${PREFIX}/include/gnatcoll_${component}
