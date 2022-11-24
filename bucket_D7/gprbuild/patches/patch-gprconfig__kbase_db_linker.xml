@@ -1,0 +1,37 @@
+--- gprconfig_kbase/db/linker.xml.orig	2022-09-22 17:09:05 UTC
++++ gprconfig_kbase/db/linker.xml
+@@ -1200,13 +1200,33 @@
+     </config>
+   </configuration>
+ 
++  <!-- linux and bsd -->
++  <configuration>
++    <compilers>
++       <compiler language="Ada" />
++    </compilers>
++    <targets>
++       <target name="^.*freebsd.*$" />
++       <target name="^.*dragonfly.*$" />
++       <target name="^.*openbsd.*$" />
++       <target name="^.*netbsd.*$" />
++       <target name="^.*linux.*$" />
++    </targets>
++    <config>
++   package Linker is
++      for Required_Switches use
++        Linker'Required_Switches
++        &amp; ("-Wl,-rpath,${RUNTIME_DIR(ada)}adalib");
++   end Linker;
++    </config>
++  </configuration>
++
+   <!-- Cross linux, QNX: add rpath-link to the runtime -->
+   <configuration>
+     <compilers>
+        <compiler language="Ada" />
+     </compilers>
+      <targets>
+-       <target name="^.*-linux.*$" />
+        <target name="^.*-qnx[0-9]*"/>
+      </targets>
+     <config>

@@ -1,18 +1,13 @@
-DEF[PORTVERSION]=	2021
-DEF[DATE]=		20210519-19A34
-DEF[XML_DATE]=		20210518-19D50
-DEF[CORE_HASH]=		23a77a37247ff811609e23a0a271f445c299fc8f
-DEF[XML_HASH]=		6a2cf72f308cc787926b12ddc20993fcf2b8ea79
-DEF[CORE_FILEBASE]=	gprbuild-${PORTVERSION}-${DATE}-src
-DEF[XML_FILEBASE]=	xmlada-${PORTVERSION}-${XML_DATE}-src
-DEF[KBASE_HASH]=	223c8a8
-DEF[JQUERY]=		3.5.1
-DEF[UNDERSCORE]=	EXTRACT_INFO(ANCIENT_UNDERSCORE)
+DEF[PORTVERSION]=	23.0.0
+DEF[THIS_RELEASE]=	v${PORTVERSION}
+DEF[XML_RELEASE]=	v23.0.0
+DEF[KBASE_RELEASE]=	v23.0.0
+DEF[JQUERY]=		EXTRACT_INFO(LATEST_JQUERY)
+DEF[UNDERSCORE]=	EXTRACT_INFO(SPHINX_UNDERSCORE)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gprbuild
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		devel ada
 VARIANTS=		standard
 SDESC[standard]=	Adacore multi-language software build tool
@@ -20,15 +15,15 @@ HOMEPAGE=		https://docs.adacore.com/live/wave/gprbuild/html/gprbuild_ug/gprbuild
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main xmlada kbase
-SITES[main]=		ADACORE/${CORE_HASH}?filename=${CORE_FILEBASE}.tar.gz&x=/
-SITES[xmlada]=		ADACORE/${XML_HASH}?filename=${XML_FILEBASE}.tar.gz&x=/
-SITES[kbase]=		GITHUB/AdaCore:gprconfig_kb:${KBASE_HASH}:gprconfig_kbase
-DISTFILE[1]=		${CORE_FILEBASE}.tar.gz:main
-DISTFILE[2]=		${XML_FILEBASE}.tar.gz:xmlada
+SITES[main]=		GITHUB/AdaCore:gprbuild:${THIS_RELEASE}
+SITES[xmlada]=		GITHUB/AdaCore:xmlada:${XML_RELEASE}
+SITES[kbase]=		GITHUB/AdaCore:gprconfig_kb:${KBASE_RELEASE}:gprconfig_kbase
+DISTFILE[1]=		generated:main
+DISTFILE[2]=		generated:xmlada
 DISTFILE[3]=		generated:kbase
 DF_INDEX=		1 2 3
 
-SPKGS[standard]=	complete primary gprlib docs examples
+SPKGS[standard]=	complete primary gprlib examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -40,18 +35,13 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/gprbuild.ads
 LICENSE_SCHEME=		solo
 
-# FreeBSD uses a different version scheme
-# FPC_EQUIVALENT=		devel/gprbuild
-
 BUILD_DEPENDS=		xmlada:primary:standard
 EXRUN[gprlib]=		xmlada:primary:standard
 
 USES=			gmake
-DISTNAME=		${CORE_FILEBASE}
 MAKE_ARGS=		prefix={{STAGEDIR}}{{PREFIX}}
 			ENABLE_SHARED=yes
 			BUILD=production
-# #			BUILD=debug
 			PROCESSORS={{MAKE_JOBS_NUMBER}}
 			TARGET={{CONFIGURE_TARGET}}
 INSTALL_REQ_TOOLCHAIN=	yes
@@ -62,24 +52,17 @@ PLIST_SUB=		JQUERY=${JQUERY}
 			UNDERSCORE=${UNDERSCORE}
 # SET_DEBUGGING_ON=	yes
 
-post-patch:
-	${SED} -i"" \
-		-e "s|@LOCALBASE@|${LOCALBASE}|" \
-		-e "s|@GCCX@|ravensys-gcc|" \
-		${WRKSRC}/share/gprconfig/compilers.xml
-	# the relocatable library fails to build, limit to static(-pic)
+pre-configure:
 	${RM} ${WRKSRC}/gprconfig_kbase/db/*.orig
-	${REINPLACE_CMD} -e 's|"-gnatwe", ||' ${WRKSRC}/gprbuild.gpr
 	${FIND} ${WRKSRC}/examples -name '.cvsignore' -delete
-	# fix bashism on /bin/sh and use common install arguments
-	${REINPLACE_CMD} -e 's|==|=|g; s| -t||; s|/bin/bash|/bin/sh|; s|{@:2}|{@}|' \
-		${WRKSRC}/bootstrap.sh
+	${REINPLACE_CMD} -e 's|"-gnatwe", ||' ${WRKSRC}/gprbuild.gpr
+	${REINPLACE_CMD} -e 's|make -C|gmake -C|' ${WRKSRC}/Makefile
 
 do-configure:
 	# create bootstrap version of gprbuild
 	${MKDIR} ${WRKDIR}/bootstrap_construction
 	(cd ${WRKDIR}/bootstrap_construction && ${WRKSRC}/bootstrap.sh \
-	  --with-xmlada=${WRKDIR}/${XML_FILEBASE} \
+	  --with-xmlada=${WRKDIR}/xmlada-${XML_RELEASE:S/v//} \
 	  --with-kb=${WRKSRC}/gprconfig_kbase \
 	  --srcdir=${WRKSRC} \
 	  --prefix=${WRKDIR}/bootstrap)
@@ -88,11 +71,7 @@ do-configure:
 
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/doinstall
-	${RM} -r ${STAGEDIR}${STD_DOCDIR}/html/_sources
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
-	${MV} ${STAGEDIR}${STD_DOCDIR}/info/gprbuild_ug.info \
-		${STAGEDIR}${PREFIX}/share/info
-	${RM} -r ${STAGEDIR}${STD_DOCDIR}/info
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/gprbuild/*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gpr/relocatable/gpr/libgpr.so

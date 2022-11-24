@@ -1,0 +1,29 @@
+--- gprconfig_kbase/db/compilers.xml.orig	2022-09-22 17:09:05 UTC
++++ gprconfig_kbase/db/compilers.xml
+@@ -180,21 +180,19 @@
+     </version>
+     <languages>Ada</languages>
+     <variable name="gcc_version">
+-      <external>${PREFIX}gcc -v</external>
++      <external>ada -v</external>
+       <grep regexp="^[-\w]*gcc \S+ (\S+)" group="1"></grep>
+     </variable>
+     <variable name="gcc_version_major">
+-      <external>${PREFIX}gcc -v</external>
++      <external>ada -v</external>
+       <grep regexp="^[-\w]*gcc \S+ (\d+)\.\d+\.\d+" group="1"></grep>
+     </variable>
+     <runtimes default="default,kernel,native">
+-       <directory group="default" >\.\./lib(32|64)?/gcc(-lib)?/$TARGET/($gcc_version|$gcc_version_major)/adalib/</directory>
+-       <directory group="default" contents="^rts-">\.\./lib(32|64)?/gcc(-lib)?/$TARGET/($gcc_version|$gcc_version_major)/ada_object_path</directory>
+-       <directory group="4" >\.\./lib(32|64)?/gcc(-lib)?/$TARGET/($gcc_version|$gcc_version_major)/rts-(.*)/adalib/</directory>
+-       <directory group="2" >\.\./$TARGET/lib(32|64)?/gnat/(.*)/adalib/</directory>
++       <directory group="default">\.\./lib/gcc/$TARGET/$gcc_version/adalib</directory>
++       <directory group="0">/raven/toolchain/ravensys-gcc/lib/gcc/$TARGET/$gcc_version/adalib</directory>
+     </runtimes>
+     <target>
+-      <external>${PREFIX}gcc -dumpmachine</external>
++      <external>ada -dumpmachine</external>
+       <grep regexp="[^\r\n]+"></grep>
+     </target>
+   </compiler_description>

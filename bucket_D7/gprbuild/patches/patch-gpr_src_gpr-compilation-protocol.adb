@@ -1,6 +1,6 @@
 Revert to older code compatible with gcc9
 
---- gpr/src/gpr-compilation-protocol.adb.orig	2021-05-19 05:22:13 UTC
+--- gpr/src/gpr-compilation-protocol.adb.orig	2022-09-22 17:08:57 UTC
 +++ gpr/src/gpr-compilation-protocol.adb
 @@ -22,7 +22,7 @@
  --                                                                          --
@@ -11,7 +11,7 @@ Revert to older code compatible with gcc9
  with Ada.Calendar.Formatting;    use Ada.Calendar.Formatting;
  with Ada.Characters.Handling;
  with Ada.Directories;            use Ada.Directories;
-@@ -972,18 +972,29 @@ package body GPR.Compilation.Protocol is
+@@ -971,18 +971,29 @@ package body GPR.Compilation.Protocol is
     procedure Set_File_Stamp
       (Path_Name : String; Time_Stamp : Time_Stamp_Type)
     is
