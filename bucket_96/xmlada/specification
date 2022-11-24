@@ -1,14 +1,11 @@
-DEF[PORTVERSION]=	2021
-DEF[DATE]=		20210518-19D50
-DEF[CORE_HASH]=		6a2cf72f308cc787926b12ddc20993fcf2b8ea79
-DEF[FILEBASE]=		xmlada-${PORTVERSION}-${DATE}-src
-DEF[JQUERY]=		3.5.1
-DEF[UNDERSCORE]=	EXTRACT_INFO(ANCIENT_UNDERSCORE)
+DEF[PORTVERSION]=	23.0.0
+DEF[RELEASE]=		v${PORTVERSION}
+DEF[JQUERY]=		EXTRACT_INFO(LATEST_JQUERY)
+DEF[UNDERSCORE]=	EXTRACT_INFO(SPHINX_UNDERSCORE)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xmlada
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		textproc ada
 VARIANTS=		standard
 SDESC[standard]=	Adacore XML suite for the Ada language
@@ -16,9 +13,10 @@ HOMEPAGE=		https://github.com/AdaCore/xmlada
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		ADACORE/${CORE_HASH}?filename=${FILEBASE}.tar.gz&x=/
-DISTFILE[1]=		${FILEBASE}.tar.gz:main
+SITES[main]=		GITHUB/Adacore:xmlada:${RELEASE}
+DISTFILE[1]=		generated:main
 DF_INDEX=		1
+
 SPKGS[standard]=	complete primary docs
 
 OPTIONS_AVAILABLE=	none
@@ -33,9 +31,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		textproc/xmlada
 
+BUILD_DEPENDS=		python-Sphinx:single:python_default
+
 USES=			cclibs:primary ada:primary
-DISTNAME=		xmlada-${PORTVERSION}-${DATE}-src
-BUILD_TARGET=		schema_libs
+BUILD_TARGET=		schema_libs gen-docs
 MAKEFILE=		Makefile.bsd
 MAKE_ARGS=		LIBVER=${PORTVERSION}
 			PROCESSORS={{MAKE_JOBS_NUMBER}}
