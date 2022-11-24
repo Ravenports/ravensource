@@ -1,6 +1,6 @@
---- configure.ac.orig	2022-02-18 09:42:25 UTC
+--- configure.ac.orig	2022-11-24 10:20:31 UTC
 +++ configure.ac
-@@ -318,14 +318,6 @@ AS_CASE(["$host_os:$build_os"],
+@@ -325,14 +325,6 @@ AS_CASE(["$host_os:$build_os"],
      # clang version 1.0 (http://llvm.org/svn/llvm-project/cfe/tags/Apple/clang-23 exported)
      # Apple clang version 2.0 (tags/Apple/clang-137) (based on LLVM 2.9svn)
      # Apple clang version 2.1 (tags/Apple/clang-163.7.1) (based on LLVM 3.0svn)
@@ -15,7 +15,7 @@
  ])
  
  AS_CASE(["$target_os"],
-@@ -348,7 +340,7 @@ AC_SUBST(GCC)
+@@ -355,7 +347,7 @@ AC_SUBST(GCC)
  AC_SUBST(LD)
  AS_IF([test "$GCC" = yes], [
      linker_flag=-Wl,
@@ -24,7 +24,7 @@
      gcc_major=`echo =__GNUC__ | $CC -E -xc - | sed '/^=/!d;s///'`
      gcc_minor=`echo =__GNUC_MINOR__ | $CC -E -xc - | sed '/^=/!d;s///'`
      test -n "$gcc_major" || gcc_major=0
-@@ -974,7 +966,6 @@ AS_CASE(["$target_os"],
+@@ -1015,7 +1007,6 @@ AS_CASE(["$target_os"],
  [rhapsody*], [	],
  [darwin*], [
  		ORIG_LIBS="$LIBS"
@@ -32,7 +32,7 @@
  		RUBY_APPEND_OPTIONS(CPPFLAGS, -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT)
  		AC_CACHE_CHECK([whether syscall(2) is deprecated], rb_cv_syscall_deprecated,
  		    [RUBY_WERROR_FLAG([
-@@ -3446,7 +3437,7 @@ AS_CASE("$enable_shared", [yes], [
+@@ -3452,7 +3443,7 @@ AS_CASE("$enable_shared", [yes], [
      [sunos4*], [
  	LIBRUBY_ALIASES='$(LIBRUBY_SONAME) lib$(RUBY_SO_NAME).$(SOEXT)'
  	],
@@ -41,7 +41,7 @@
  	RUBY_APPEND_OPTIONS(LIBRUBY_DLDFLAGS, ['-Wl,-soname,$(LIBRUBY_SONAME)' "$LDFLAGS_OPTDIR"])
  	LIBRUBY_ALIASES='$(LIBRUBY_SONAME) lib$(RUBY_SO_NAME).$(SOEXT)'
  	AS_IF([test "$load_relative" = yes], [
-@@ -3455,17 +3446,9 @@ AS_CASE("$enable_shared", [yes], [
+@@ -3461,17 +3452,9 @@ AS_CASE("$enable_shared", [yes], [
  	    LIBRUBY_RELATIVE=yes
  	])
  	],
@@ -60,7 +60,7 @@
  	],
      [netbsd*], [
  	LIBRUBY_SONAME='lib$(RUBY_SO_NAME).$(SOEXT).$(MAJOR)$(MINOR)'
-@@ -3504,8 +3487,8 @@ AS_CASE("$enable_shared", [yes], [
+@@ -3510,8 +3493,8 @@ AS_CASE("$enable_shared", [yes], [
  	],
      [darwin*], [
  	LIBRUBY_SO='lib$(RUBY_SO_NAME).$(SOEXT)'
