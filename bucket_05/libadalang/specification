@@ -1,12 +1,11 @@
-DEF[PORTVERSION]=	2021
-DEF[DATE]=		20210518-199BE
-DEF[CORE_HASH]=		7a191b8dd41b28a9b93424a5aedac3c5ec76b046
-DEF[FILEBASE]=		libadalang-${PORTVERSION}-${DATE}-src
+DEF[PORTVERSION]=	23.0.0
+DEF[RELEASE]=		v${PORTVERSION}
 DEF[GNARL]=		"-lgnarl","-Wl,-rpath,{{PREFIX}}/lib"
 # ------------------------------------------------------------------------
 
 NAMEBASE=		libadalang
 VERSION=		${PORTVERSION}
+EPOCH=			1
 KEYWORDS=		lang devel
 VARIANTS=		standard
 SDESC[standard]=	High-performance semantic engine for Ada
@@ -14,8 +13,8 @@ HOMEPAGE=		https://github.com/AdaCore/libadalang
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		ADACORE/${CORE_HASH}?filename=${FILEBASE}.tar.gz&x=/
-DISTFILE[1]=		${FILEBASE}.tar.gz:main
+SITES[main]=		GITHUB/AdaCore:libadalang:${RELEASE}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
@@ -34,7 +33,6 @@ BUILDRUN_DEPENDS=	langkit:single:standard
 USES=			gprbuild python:build ada:single
 MUST_CONFIGURE=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
-DISTNAME=		${FILEBASE}
 MAKE_ARGS=		--build-mode prod
 			--library-types=static,static-pic,relocatable
 
