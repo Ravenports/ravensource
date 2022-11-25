@@ -1,7 +1,5 @@
-DEF[PORTVERSION]=	2021
-DEF[DATE]=		20210701-19A43
-DEF[CORE_HASH]=		28342768afab1e644a660b96051c04e5e9d3bcb0
-DEF[FILEBASE]=		spawn-${PORTVERSION}-${DATE}-src
+DEF[PORTVERSION]=	23.0.0
+DEF[RELEASE]=		v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ada_spawn
@@ -13,8 +11,8 @@ HOMEPAGE=		none
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		ADACORE/${CORE_HASH}?filename=${FILEBASE}.tar.gz&x=/
-DISTFILE[1]=		${FILEBASE}.tar.gz:main
+SITES[main]=		GITHUB/AdaCore:spawn:${RELEASE}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
@@ -31,7 +29,6 @@ LICENSE_SCHEME=		solo
 BUILDRUN_DEPENDS=	gtkada:primary:standard
 
 USES=			gmake gprbuild
-DISTNAME=		${FILEBASE}
 INSTALL_REQ_TOOLCHAIN=	yes
 MAKE_ENV=		BUILD_MODE=prod
 
