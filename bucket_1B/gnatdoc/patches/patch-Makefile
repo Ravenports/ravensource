@@ -1,0 +1,16 @@
+--- Makefile.orig	2022-09-20 14:18:23 UTC
++++ Makefile
+@@ -1,7 +1,11 @@
+ 
+ all:
+-	gprbuild -j0 -p -P gnat/libgnatdoc.gpr -XSUPERPROJECT=
+-	gprbuild -j0 -p -P gnat/gnatdoc.gpr -XGPR_UNIT_PROVIDER_LIBRARY_TYPE=static -XSUPERPROJECT= -XGPR_UNIT_PROVIDER_BUILD=debug
++	gprbuild -j0 -p -P gnat/libgnatdoc.gpr -XLIBRARY_TYPE=static-pic -XSUPERPROJECT=
++	gprbuild -j0 -p -P gnat/gnatdoc.gpr -XLIBRARY_TYPE=static-pic -XGPR_UNIT_PROVIDER_LIBRARY_TYPE=static -XSUPERPROJECT= -XGPR_UNIT_PROVIDER_BUILD=debug
++
++install:
++	gprinstall -p -P gnat/libgnatdoc.gpr -XLIBRARY_TYPE=static-pic -XSUPERPROJECT= --prefix=${DESTDIR}${PREFIX}
++	gprinstall -p -P gnat/gnatdoc.gpr -XLIBRARY_TYPE=static-pic -XGPR_UNIT_PROVIDER_LIBRARY_TYPE=static -XSUPERPROJECT= -XGPR_UNIT_PROVIDER_BUILD=debug --prefix=${DESTDIR}${PREFIX}
+ 
+ clean:
+ 	rm -rf .objs bin
