@@ -1,0 +1,23 @@
+--- gpr2-tools.gpr.orig	2022-09-22 17:09:03 UTC
++++ gpr2-tools.gpr
+@@ -74,12 +74,14 @@ project GPR2.Tools is
+ 
+    package Builder is
+       for Executable ("gprbuild-main.adb") use Edge_Tools_Prefix & "build";
+-      for Executable ("gprconfig.adb")       use "gprconfig";
+-      for Executable ("gprclean-main.adb")   use "gprclean";
+-      for Executable ("gprdoc-main.adb")     use "gprdoc";
+-      for Executable ("gprinspect-main.adb") use "gprinspect";
+-      for Executable ("gprinstall-main.adb") use "gprinstall";
+-      for Executable ("gprls-main.adb")      use "gprls";
++      for Executable ("gprconfig.adb")       use Edge_Tools_Prefix & "config";
++      for Executable ("gprclean-main.adb")   use Edge_Tools_Prefix & "clean";
++      for Executable ("gprdoc-main.adb")     use Edge_Tools_Prefix & "doc";
++      for Executable ("gprinspect-main.adb") use Edge_Tools_Prefix & "inspect";
++      for Executable ("gprinstall-main.adb") use Edge_Tools_Prefix & "install";
++      for Executable ("gprls-main.adb")      use Edge_Tools_Prefix & "ls";
++      for Executable ("gprdump.adb")         use Edge_Tools_Prefix & "dump";
++      for Executable ("gprremote.adb")       use Edge_Tools_Prefix & "remote";
+ 
+       for Switches (others) use ("-m", "-j" & Processors);
+    end Builder;

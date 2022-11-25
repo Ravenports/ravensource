@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	23.0.0
+DEF[RELEASE]=		v${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gpr
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc ada
+VARIANTS=		standard
+SDESC[standard]=	Parser for GPR Project files
+HOMEPAGE=		https://github.com/AdaCore/gpr
+CONTACT=		John_Marino[draco@marino]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/AdaCore:gpr:${RELEASE}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		APACHE20:single GPLv3+:single
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+			GPLv3+:{{WRKSRC}}//COPYING3
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+BUILDRUN_DEPENDS=	langkit:single:standard
+			libadalang:single:standard
+
+USES=			gmake gprbuild python:build
+MAKE_ARGS=		prefix="{{STAGEDIR}}{{PREFIX}}"
+			GPR2KBDIR="{{LOCALBASE}}/share/gprconfig"
+			GPR2_EDGE_TOOLS_PREFIX="gpr"
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-extract:
+	${AWK} '/^LICENSE/,EOF' ${WRKSRC}/README.md > ${WRKDIR}/TERMS
+
+post-install:
+	# remove manifests
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
+	${RM} -r ${STAGEDIR}${PREFIX}/gpr2/share
+	# strip binaries
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/gpr2/bin/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gpr2.relocatable/libgpr2.so
