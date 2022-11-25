@@ -1,8 +1,8 @@
---- Makefile.orig	2021-06-15 05:07:58 UTC
+--- Makefile.orig	2021-09-25 08:58:04 UTC
 +++ Makefile
-@@ -5,6 +5,11 @@ all:
- 	gprbuild -p -P gnat/vss_text.gpr -XVSS_BUILD_MODE=$(BUILD_MODE) -cargs $(ADAFLAGS)
- 	gprbuild -p -P gnat/vss_json.gpr -XVSS_BUILD_MODE=$(BUILD_MODE) -cargs $(ADAFLAGS)
+@@ -27,6 +27,11 @@ generate:
+ 	rm -f source/text/ucd/*.ad[sb]
+ 	gnatchop .objs/ucd.ada source/text/ucd
  
 +install:
 +	gprinstall --prefix=$(DESTDIR)$(PREFIX) -p -P gnat/vss_text.gpr
@@ -10,5 +10,5 @@
 +	gprinstall --prefix=$(DESTDIR)$(PREFIX) -p -P gnat/vss_gnat.gpr
 +
  build_tests:
- 	gprbuild -p -P gnat/tests/vss_text_tests.gpr
- 	gprbuild -p -P gnat/tests/vss_json_tests.gpr
+ 	gprbuild $(GPRBUILD_FLAGS) gnat/tests/vss_text_tests.gpr
+ 	gprbuild $(GPRBUILD_FLAGS) gnat/tests/vss_json_tests.gpr
