@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	23.0.0
+DEF[RELEASE]=		v${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gpr-unit-provider
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel ada
+VARIANTS=		standard
+SDESC[standard]=	Unit provider for Libadalang
+HOMEPAGE=		https://github.com/AdaCore/gpr-unit-provider
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/AdaCore:gpr-unit-provider:${RELEASE}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:single GPLv3RLE:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
+			GPLv3RLE:{{WRKSRC}}/COPYING.RUNTIME
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/libadalang-gpr2_provider.ads
+LICENSE_SCHEME=		multi
+
+
+BUILD_DEPENDS=		gpr:single:standard
+			libadalang:single:standard
+
+USES=			gmake gprbuild
+INSTALL_REQ_TOOLCHAIN=	yes
+MAKE_ARGS=		prefix="{{STAGEDIR}}{{PREFIX}}"
+			LIB_TYPES=static-pic
+
+post-install:
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
