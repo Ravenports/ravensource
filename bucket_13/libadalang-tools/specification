@@ -1,11 +1,10 @@
-DEF[PORTVERSION]=	2021
-DEF[DATE]=		20210519-19A69
-DEF[CORE_HASH]=		21b42a7e6ced5c227fa001eff9c9d39c75d3d58f
-DEF[FILEBASE]=		libadalang-tools-${PORTVERSION}-${DATE}-src
+DEF[PORTVERSION]=	23.0.0
+DEF[RELEASE]=		v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libadalang-tools
 VERSION=		${PORTVERSION}
+EPOCH=			1
 KEYWORDS=		python lang devel
 VARIANTS=		standard
 SDESC[standard]=	Development tools based on libadalang
@@ -13,8 +12,8 @@ HOMEPAGE=		https://github.com/AdaCore/libadalang-tools
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		ADACORE/${CORE_HASH}?filename=${FILEBASE}.tar.gz&x=/
-DISTFILE[1]=		${FILEBASE}.tar.gz:main
+SITES[main]=		GITHUB/AdaCore:libadalang-tools:${RELEASE}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
@@ -31,17 +30,15 @@ LICENSE_SCHEME=		solo
 BUILD_DEPENDS=		libiconv:static:standard
 			gmp:static:standard
 BUILDRUN_DEPENDS=	libadalang:single:standard
+			templates-parser:single:standard
 			libiconv:shared:standard
 			gmp:shared:standard
 
 USES=			gprbuild
 INSTALL_REQ_TOOLCHAIN=	yes
-DISTNAME=		${FILEBASE}
 BUILD_TARGET=		lib bin
 INSTALL_TARGET=		install-bin-strip install-lib
 MAKE_ARGS=		BUILD_MODE=prod
-# #			LIBRARY_TYPE=relocatable
-# #			ALL_LIBRARY_TYPES=relocatable
 			PROCESSORS={{MAKE_JOBS_NUMBER}}
 
 post-install:
