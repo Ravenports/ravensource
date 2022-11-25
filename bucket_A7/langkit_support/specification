@@ -1,12 +1,11 @@
-DEF[PORTVERSION]=	2021
-DEF[DATE]=		20210518-19B8E
-DEF[CORE_HASH]=		709e5ffa66fd8181655951e0ec8ed04e1d2977e2
-DEF[FILEBASE]=		langkit-${PORTVERSION}-${DATE}-src
+DEF[PORTVERSION]=	23.0.0
+DEF[RELEASE]=		v${PORTVERSION}
 DEF[BUILD_MODE]=	prod
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		langkit_support
 VERSION=		${PORTVERSION}
+EPOCH=			1
 KEYWORDS=		ada devel
 VARIANTS=		standard
 SDESC[standard]=	Support files for Ada Langkit
@@ -14,8 +13,8 @@ HOMEPAGE=		https://github.com/AdaCore/langkit
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		ADACORE/${CORE_HASH}?filename=${FILEBASE}.tar.gz&x=/
-DISTFILE[1]=		${FILEBASE}.tar.gz:main
+SITES[main]=		GITHUB/AdaCore:langkit:${RELEASE}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
@@ -24,6 +23,7 @@ OPTIONS_STANDARD=	none
 
 BUILDRUN_DEPENDS=	gnatcoll-core:primary:standard
 			gnatcoll-bindings:iconv:standard
+			gnatcoll-bindings:gmp:standard
 			xmlada:primary:standard
 
 LICENSE=		GPLv3+:single GPLv3RLE:single
@@ -36,7 +36,7 @@ LICENSE_SCHEME=		multi
 
 USES=			gprbuild
 INSTALL_REQ_TOOLCHAIN=	yes
-DISTNAME=		${FILEBASE}/support
+DISTNAME=		langkit-${PORTVERSION}/langkit/support
 
 do-build:
 .for LT in static-pic relocatable static
@@ -57,6 +57,8 @@ do-install:
 		-XLIBRARY_TYPE="${LT}"\
 		-XBUILD_MODE="${BUILD_MODE}")
 .endfor
+	# strip
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/langkit_support.relocatable/liblangkit_support.so
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
 	# replace gpr file
 	${INSTALL_DATA} ${FILESDIR}/langkit_support.gpr \

@@ -1,11 +1,10 @@
-DEF[PORTVERSION]=	2021
-DEF[DATE]=		20210518-19B8E
-DEF[CORE_HASH]=		709e5ffa66fd8181655951e0ec8ed04e1d2977e2
-DEF[FILEBASE]=		langkit-${PORTVERSION}-${DATE}-src
+DEF[PORTVERSION]=	23.0.0
+DEF[RELEASE]=		v${PORTVERSION}
 # ------------------------------------------------------------------------
 
 NAMEBASE=		langkit
 VERSION=		${PORTVERSION}
+EPOCH=			1
 KEYWORDS=		lang devel
 VARIANTS=		standard
 SDESC[standard]=	Syntactic and semantic language analysis compiler
@@ -13,8 +12,8 @@ HOMEPAGE=		https://github.com/AdaCore/langkit
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		ADACORE/${CORE_HASH}?filename=${FILEBASE}.tar.gz&x=/
-DISTFILE[1]=		${FILEBASE}.tar.gz:main
+SITES[main]=		GITHUB/AdaCore:langkit:${RELEASE}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
@@ -26,7 +25,7 @@ LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
 			GPLv3RLE:{{WRKSRC}}/COPYING.RUNTIME
 LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
-LICENSE_SOURCE=		TERMS:{{WRKSRC}}/support/langkit_support.ads
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/langkit/support/langkit_support.ads
 LICENSE_SCHEME=		multi
 
 BUILDRUN_DEPENDS=	python-Mako:single:python_used
@@ -37,7 +36,6 @@ BUILDRUN_DEPENDS=	python-Mako:single:python_used
 RUN_DEPENDS=		langkit_support:single:standard
 
 USES=			python:sutools
-DISTNAME=		${FILEBASE}
 MAKE_ENV=		PYTHONPATH={{WRKSRC}}
 SKIP_BUILD=		yes
 
