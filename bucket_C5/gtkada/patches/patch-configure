@@ -1,6 +1,6 @@
---- configure.orig	2021-05-19 05:35:13 UTC
+--- configure.orig	2022-09-29 10:11:58 UTC
 +++ configure
-@@ -2120,6 +2120,11 @@ fi
+@@ -2313,6 +2313,11 @@ fi
        ac_GNATLIB=`cd $ac_GNATDIR; ls libgnat-*.dll | sed 's,lib,,;s,.dll,,'`
        OS_SPECIFIC_LINK_OPTIONS=-Wl,-L$ac_GNATDIR,-l$ac_GNATLIB
        ;;
@@ -12,28 +12,3 @@
     *darwin*)
        SO_EXT=.dylib
        NEED_OBJECTIVE_C=yes
-@@ -3570,7 +3575,7 @@ $as_echo_n "checking for GTK - version >
-     GTK_CFLAGS=`$PKG_CONFIG $GTK --cflags`
-     GTK_LIBS=`$PKG_CONFIG $GTK gmodule-2.0 fontconfig --libs`
- 
--            GTK_LIBS="$GTK_LIBS $LDFLAGS"
-+            GTK_LIBS="$GTK_LIBS $LDFLAGS -lm -lX11"
- 
-                     ac_save_CFLAGS="$CFLAGS"
-     ac_save_LIBS="$LIBS"
-@@ -3687,14 +3692,7 @@ fi
-       GL_CFLAGS=""
-    else
-       GL_CFLAGS="-I$with_GL_prefix/include"
--      case "${host}" in
--         *64*)
--            GL_LDOPTS="-L$with_GL_prefix/lib64"
--            ;;
--         *)
--            GL_LDOPTS="-L$with_GL_prefix/lib"
--            ;;
--      esac
-+      GL_LDOPTS="-L$with_GL_prefix/lib"
-    fi
- 
-    saved_LIBS="$LIBS"

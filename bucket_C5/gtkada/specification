@@ -1,10 +1,7 @@
 # docs disabled due to breaking regression in Sphinx 4.2
-DEF[PORTVERSION]=	2021
-DEF[DATE]=		20210518-1A011
-DEF[CORE_HASH]=		8f1daefcb56e3ee7feaad67bac66deb0f7c37a82
-DEF[FILEBASE]=		gtkada-${PORTVERSION}-${DATE}-src
+DEF[PORTVERSION]=	23.0.0
+DEF[RELEASE]=		v${PORTVERSION}
 DEF[SOVERSION]=		18.0w
-DEF[ALT_TAG]=		013b6f4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gtkada
@@ -17,13 +14,10 @@ HOMEPAGE=		https://github.com/adacore/gtkada
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-# SITES[main]=		ADACORE/${CORE_HASH}?filename=${FILEBASE}.tar.gz&x=/
-# DISTFILE[1]=		${FILEBASE}.tar.gz:main
-SITES[main]=		GITHUB/AdaCore:gtkada:${ALT_TAG}
+SITES[main]=		GITHUB/AdaCore:gtkada:${RELEASE}
 DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete primary
-# docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -48,12 +42,11 @@ CONFIGURE_ARGS=		--with-GL=no
 			--enable-static
 			--enable-build=Production
 BUILD_TARGET=		tools static relocatable
-# #			docs
 MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
 			PRJDIR=share/gpr
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
-SET_DEBUGGING_ON=	yes
+# SET_DEBUGGING_ON=	yes
 
 do-build:
 	# This target is recreated because -j cannot be set, but
