@@ -1,4 +1,4 @@
---- m4macros/attributes.m4.orig	2022-10-25 12:53:22 UTC
+--- m4macros/attributes.m4.orig	2022-11-24 12:29:05 UTC
 +++ m4macros/attributes.m4
 @@ -86,7 +86,7 @@ AC_DEFUN([CC_NOUNDEFINED], [
       dnl FreeBSD (et al.) does not complete linking for shared objects when pthreads

@@ -1,4 +1,4 @@
---- gio/xdgmime/xdgmimecache.h.orig	2022-10-25 12:53:22 UTC
+--- gio/xdgmime/xdgmimecache.h.orig	2022-11-24 12:29:05 UTC
 +++ gio/xdgmime/xdgmimecache.h
 @@ -46,6 +46,9 @@ typedef struct _XdgMimeCache XdgMimeCach
  #define _xdg_mime_cache_get_icon                      XDG_RESERVED_ENTRY(cache_get_icon)
