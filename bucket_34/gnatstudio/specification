@@ -1,7 +1,5 @@
-DEF[PORTVERSION]=	2021
-DEF[DATE]=		20210701-19B6B
-DEF[CORE_HASH]=		e940520a321c0aa8b624be178306147970c6b6f9
-DEF[FILEBASE]=		gps-${PORTVERSION}-${DATE}-src
+DEF[PORTVERSION]=	20220512
+DEF[RELEASE]=		gnatstudio-cr-${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnatstudio
@@ -13,8 +11,8 @@ HOMEPAGE=		https://www.adacore.com/gnatpro/toolsuite/gnatstudio
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		ADACORE/${CORE_HASH}?filename=${FILEBASE}.tar.gz&x=/
-DISTFILE[1]=		${FILEBASE}.tar.gz:main
+SITES[main]=		GITHUB/AdaCore:gnatstudio:${RELEASE}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete primary docs examples
 
@@ -29,32 +27,28 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gnatstudio/src/gps-main.adb
 LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		libadalang:single:standard
-			ada_language_server:single:standard
 			libvss:single:standard
+			python-Sphinx:single:python_used
 BUILDRUN_DEPENDS=	gnatcoll-db:complete:standard
-			gnatcoll-bindings:python:standard
+			gnatcoll-bindings:python3:standard
+			ada_language_server:single:standard
 			fontconfig:primary:standard
 			freetype:primary:standard
-			clang:compiler:standard
 			gtkada:primary:standard
-			py27-pygobject:single:standard
+			python-PyGObject:single:python_used
 			gmp:shared:standard
 RUN_DEPENDS=		librsvg:primary:standard
 			gdb:single:standard
-			py27-pep8:single:standard
-			py27-jedi:single:standard
 EXRUN[primary]=		ravensys-gcc:complete:standard
 
 USES=			gprbuild:buildrun gettext-tools gmake pkgconfig zlib
-			perl:build python:py27 shebangfix iconv
+			python perl:build shebangfix iconv
 XORG_COMPONENTS=	x11
 GNOME_COMPONENTS=	gtk3 cairo gdkpixbuf
 
-DISTNAME=		${FILEBASE}
 MUST_CONFIGURE=		gnu
 CONFIGURE_ENV=		AWK=/usr/bin/awk
 CONFIGURE_ARGS=		--with-gtk=3.0
-			--with-clang={{LOCALBASE}}/lib
 BUILD_TARGET=		default
 MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
 			PYTHON_CMD={{PYTHON_CMD}}
@@ -72,6 +66,10 @@ SHEBANG_FILES=		share/support/core/gs_utils/internal/dialogs.py
 [DEBUG].MAKE_ARGS_ON=			BUILD=Debug
 [DEBUG].MAKE_ARGS_OFF=			BUILD=Production
 [DEBUG].MAKEFILE_ON=			WITH_DEBUG=yes
+
+post-extract:
+	${FIND} ${WRKSRC} -type f -name ".cvsignore" -delete
+	${FIND} ${WRKSRC} -type d -empty -delete
 
 post-patch:
 	${ECHO} "GNAT_SOURCES=" > ${WRKSRC}/Makefile.gnat
@@ -92,23 +90,19 @@ pre-configure:
 	${REINPLACE_CMD} -e 's|iso-8859|ISO8859|' \
 		${WRKSRC}/cli/src/gps-cli_scripts.adb \
 		${WRKSRC}/cli/src/gnatdoc_main.adb
-	${REINPLACE_CMD} \
-		-e 's|-lclang|-Wl,-rpath,${LOCALBASE}/lib -lclang|' \
-		-e 's|module="pygobject|module="py27-pygobject|' \
-		${WRKSRC}/configure
 	${REINPLACE_CMD} -e 's/relocatable/static/g' \
 		-e '/GPRBUILD_BUILD_TYPE_FLAGS=/ s|FLAGS=|FLAGS=-j${MAKE_JOBS_NUMBER} |' \
 		-e 's| -ws||' \
 		${WRKSRC}/gnatstudio/Makefile
 	${REINPLACE_CMD} -e 's/relocatable/static/g' \
 		${WRKSRC}/testsuite/Makefile
+	${REINPLACE_CMD} -e 's/latexpdf//g' ${WRKSRC}/docs/Makefile.in
 
 do-build:
+	cd ${WRKSRC}/docs && ${SETENV} ${MAKE_ENV} \
+		${MAKE_CMD} ${MAKE_ARGS} all
 	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${MAKE_CMD} ${MAKE_ARGS} ${BUILD_TARGET}
-	# block all docs (Sphinx is python3 only)
-	# cd ${WRKSRC}/docs && ${SETENV} ${MAKE_ENV} \
-	#	${MAKE_CMD} ${MAKE_ARGS} all
 
 post-install:
 	${FIND} ${STAGEDIR}${PREFIX} -type f -name ".gitignore" -delete
