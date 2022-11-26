@@ -32,6 +32,9 @@ USES=			gmake gprbuild
 INSTALL_REQ_TOOLCHAIN=	yes
 MAKE_ENV=		BUILD_MODE=prod
 
+post-extract:
+	${CP} ${FILESDIR}/ptsname_r.c ${WRKSRC}/source/spawn
+
 do-build:
 .for LT in relocatable static-pic static
 . for GPR in spawn.gpr spawn_glib.gpr
