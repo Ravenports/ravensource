@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	4.1.1
+DEF[BASEVERSION]=	4.1.1
+DEF[PORTVERSION]=	${BASEVERSION}p1
 DEF[SOVERSION]=		6.1.1
 # ----------------------------------------------------------------------------
 
@@ -10,12 +11,12 @@ SDESC[standard]=	Multiple-precision floating-point number library
 HOMEPAGE=		https://www.mpfr.org/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main
-SITES[main]=		https://www.mpfr.org/mpfr-${PORTVERSION}/
-DISTFILE[1]=		mpfr-${PORTVERSION}.tar.xz:main
-# DISTFILE[2]=		patch01:main
+DOWNLOAD_GROUPS=	main patches
+SITES[main]=		https://www.mpfr.org/mpfr-${BASEVERSION}/
+DISTFILE[1]=		mpfr-${BASEVERSION}.tar.xz:main
+DISTFILE[2]=		patch01:main
 # DISTFILE[3]=		patch02:main
-DIST_SUBDIR=		mpfr-${PORTVERSION}
+DIST_SUBDIR=		mpfr-${BASEVERSION}
 DF_INDEX=		1
 
 SPKGS[standard]=	complete static shared docs
@@ -32,8 +33,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		math/mpfr
 
-# PATCHFILES=		2 3
-# PATCHFILES_STRIP=	-p1
+PATCHFILES=		2
+PATCHFILES_STRIP=	-p1
 
 BUILD_DEPENDS=		gmp:complete:standard
 EXRUN[shared]=		gmp:shared:standard
@@ -45,6 +46,7 @@ INSTALL_TARGET=		install-strip
 TEST_TARGET=		check
 INFO=			static:mpfr
 SOVERSION=		${SOVERSION}
+DISTNAME=		mpfr-${BASEVERSION}
 
 do-test:
 	 (cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE} check)
