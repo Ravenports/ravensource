@@ -1,7 +1,7 @@
 DEF[PORTVERSION]=	23.0.0
 DEF[RELEASE]=		v${PORTVERSION}
 DEF[BASE_COMPONENTS]=	gmp iconv readline syslog
-DEF[COMPONENTS]=	${BASE_COMPONENTS} python python3
+DEF[COMPONENTS]=	${BASE_COMPONENTS} python
 DEF[SOVERSION]=		0.0
 DEF[LIBTYPES]=		static static-pic relocatable
 DEF[PY3DEFAULT]=	EXTRACT_VERSION(PYTHON3_DEFAULT)
@@ -22,7 +22,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/AdaCore:gnatcoll-bindings:${RELEASE}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete gmp iconv python python3 readline syslog examples
+SPKGS[standard]=	complete gmp iconv python3 readline syslog examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -45,20 +45,16 @@ BUILDRUN_DEPENDS=	gnatcoll-core:primary:standard
 EXRUN[gmp]=		gmp:shared:standard
 EXRUN[iconv]=		libiconv:shared:standard
 EXRUN[readline]=	readline:single:standard
-EXRUN[python]=		python27:single:standard
 EXRUN[python3]=		python${THIRD_SNAKE}:single:standard
 
-USES=			gprbuild gmake iconv:build python:py27,build
+USES=			gprbuild gmake iconv:build python:build
 MAKE_ENV=		BUILD=PROD
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
 
-pre-configure:
-	${MV} ${WRKSRC}/python3/gnatcoll_python.gpr \
-	      ${WRKSRC}/python3/gnatcoll_python3.gpr
-	${REINPLACE_CMD} -e '/project/ s|GnatColl_Python|GnatColl_Python3|' \
-		-e '/^end / s|GnatColl_Python|GnatColl_Python3|' \
-		${WRKSRC}/python3/gnatcoll_python3.gpr
+post-extract:
+	${MV} ${WRKSRC}/python ${WRKSRC}/python2
+	${MV} ${WRKSRC}/python3 ${WRKSRC}/python
 
 do-build:
 .for component in ${BASE_COMPONENTS}
@@ -70,14 +66,10 @@ do-build:
 .  endfor
 	# handle python components separately
 .  for libtype in ${LIBTYPES}
-	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} AUTOPYTHON=2.7 \
-		GNATCOLL_PYTHON_CFLAGS="-I${PYTHON_INCLUDEDIR}" \
-		gprbuild -p -XLIBRARY_TYPE=${libtype} \
-		-P python/gnatcoll_python.gpr)
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} AUTOPYTHON=${PY3DEFAULT} \
 		GNATCOLL_PYTHON_CFLAGS="-I${PY3_INCLUDEDIR}" \
 		gprbuild -p -XLIBRARY_TYPE=${libtype} \
-		-P python3/gnatcoll_python3.gpr)
+		-P python/gnatcoll_python.gpr)
 .  endfor
 .endfor
 
@@ -112,7 +104,7 @@ do-install:
 	${SH} ${FILESDIR}/gen_gpr.sh \
 		"${component}" \
 		"${STAGEDIR}${PREFIX}" \
-		"-I${ "${component:Mpython3}" != "":?${PY3_INCLUDEDIR}:${PYTHON_INCLUDEDIR}}" \
+		"-I${PY3_INCLUDEDIR}" \
 		"${SOVERSION}" \
 		"-lpython${PY3DEFAULT}"
 .endfor

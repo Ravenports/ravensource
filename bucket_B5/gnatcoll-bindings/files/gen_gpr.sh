@@ -35,17 +35,10 @@ case "$name" in
 		linker_opts=
 		;;
 	"python")
-		name=python
+		name=python3
 		component=Python
 		component_upper=PYTHON
 		component_lower="python"
-		linker_opts='"-lpython2.7"'
-		;;
-	"python3")
-		name=python3
-		component=Python3
-		component_upper=PYTHON3
-		component_lower="python3"
 		linker_opts="${python3_linking}"
 		;;
 	*)
