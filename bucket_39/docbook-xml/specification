@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.0.1
+DEF[PORTVERSION]=	5.1
 DEF[OASIS]=		https://docbook.org/xml
 DEF[DBKDIR]=		share/xml/docbook
 DEF[DBCAT_SGML]=	{{PREFIX}}/${DBKDIR}/catalog
@@ -13,20 +13,22 @@ SDESC[standard]=	DocBook XML DTD
 HOMEPAGE=		http://www.oasis-open.org/docbook/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main db42 db43 db44 db45 db501
+DOWNLOAD_GROUPS=	main db42 db43 db44 db45 db501 db51
 SITES[main]=		${OASIS}/4.1.2/
 SITES[db42]=		${OASIS}/4.2/
 SITES[db43]=		${OASIS}/4.3/
 SITES[db44]=		${OASIS}/4.4/
 SITES[db45]=		${OASIS}/4.5/
 SITES[db501]=		${OASIS}/5.0.1/
+SITES[db51]=		${OASIS}/5.1/
 DISTFILE[1]=		docbkx412.zip:main
 DISTFILE[2]=		docbook-xml-4.2.zip:db42
 DISTFILE[3]=		docbook-xml-4.3.zip:db43
 DISTFILE[4]=		docbook-xml-4.4.zip:db44
 DISTFILE[5]=		docbook-xml-4.5.zip:db45
-DISTFILE[6]=		docbook-${PORTVERSION}.zip:db501
-DF_INDEX=		1 2 3 4 5 6
+DISTFILE[6]=		docbook-5.0.1.zip:db501
+DISTFILE[7]=		docbook-v5.1-os.zip:db51
+DF_INDEX=		1 2 3 4 5 6 7
 
 SPKGS[standard]=	single
 
@@ -39,12 +41,11 @@ BUILDRUN_DEPENDS=	xmlcharent:single:standard
 			xmlcatmgr:single:standard
 
 SKIP_BUILD=		yes
-EXTRACT_DIRTY=		1 2 3 4 5
+EXTRACT_DIRTY=		1 2 3 4 5 7
 PLIST_SUB=		DBKDIR=${DBKDIR}
-			DBV=${PORTVERSION}
 
 post-extract:
-	${MV} ${WRKDIR}/docbook-${PORTVERSION} ${WRKDIR}/docbook-xml_6
+	${MV} ${WRKDIR}/docbook-5.0.1 ${WRKDIR}/docbook-xml_6
 
 pre-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/${DBKDIR}
@@ -55,17 +56,24 @@ pre-install:
 	    add nextCatalog "${LOCALBASE}/share/xml/xmlcharent/catalog.xml"
 
 do-install:
-.for DF in ${DF_INDEX}
+.for DF in 1 2 3 4 5 6
 	D=${DL_SITES_${DISTFILE_${DF}:C/.*://}:H:T}; \
 	${MKDIR} ${STAGEDIR}${PREFIX}/${DBKDIR}/$$D; \
 	(cd ${WRKDIR}/docbook-xml_${DF} && \
 	${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/${DBKDIR}/$$D); \
 	xmlcatmgr -c ${STAGEDIR}${DBCAT_XML} \
 	    add nextCatalog "${PREFIX}/${DBKDIR}/$$D/catalog.xml"; \
-	test "$$D" = 5.0 || test "$$D" = 4.1.2 || \
+	if [ -f "${STAGEDIR}${PREFIX}/${DBKDIR}/$$D/docbook.cat" ]; then \
 	    ${ECHO_CMD} "CATALOG \"${PREFIX}/${DBKDIR}/$$D/docbook.cat\"" \
-	    >> ${STAGEDIR}${DBCAT_SGML}
+	    >> ${STAGEDIR}${DBCAT_SGML}; \
+	fi
 .endfor
+	# version 5.1 distfile has different file structure
+	${MKDIR} ${STAGEDIR}${PREFIX}/${DBKDIR}/5.1
+	(cd ${WRKDIR}/docbook-xml_7/schemas && \
+	${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/${DBKDIR}/5.1)
+	xmlcatmgr -c ${STAGEDIR}${DBCAT_XML} \
+	    add nextCatalog "${PREFIX}/${DBKDIR}/5.1/catalog.xml"; \
 
 post-install:
 	${INSTALL_DATA} ${FILESDIR}/catalog412.xml \
