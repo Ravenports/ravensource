@@ -1,8 +1,8 @@
 netbsd: Workaround bad substition errors
 
---- configure.orig	2022-09-21 11:09:04 UTC
+--- configure.orig	2022-11-16 17:31:12 UTC
 +++ configure
-@@ -5858,9 +5858,6 @@ if test -z "$host" -a -z "$build" -a "`w
+@@ -5861,9 +5861,6 @@ if test -z "$host" -a -z "$build" -a "`w
              if test -n "$opt_d" -o -n "$opt_s"; then
                  input=$($BUILDDIR/solenv/wsl/wsl-lo-helper.exe --8.3 "$input")
              fi
@@ -12,7 +12,7 @@ netbsd: Workaround bad substition errors
              echo "$input"
          else
              # Print Unix path
-@@ -15473,7 +15470,7 @@ printf %s "checking for BUILD platform c
+@@ -15501,7 +15498,7 @@ printf %s "checking for BUILD platform c
          $with_build_platform_configure_options \
          --srcdir=$srcdir \
          2>&1 | sed -e 's/^/    /'
@@ -21,7 +21,7 @@ netbsd: Workaround bad substition errors
          as_fn_error $? "Running the configure script for BUILD side failed, see CONF-FOR-BUILD/config.log" "$LINENO" 5
      fi
  
-@@ -42761,9 +42758,6 @@ printf "%s\n" "$qt5_libdir" >&6; }
+@@ -42798,9 +42795,6 @@ printf "%s\n" "$qt5_libdir" >&6; }
      fi
  
      if test "$_os" = "Emscripten"; then

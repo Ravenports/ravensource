@@ -1,4 +1,4 @@
---- include/LibreOfficeKit/LibreOfficeKitInit.h.orig	2022-09-21 11:04:23 UTC
+--- include/LibreOfficeKit/LibreOfficeKitInit.h.orig	2022-11-16 17:29:15 UTC
 +++ include/LibreOfficeKit/LibreOfficeKitInit.h
 @@ -20,7 +20,7 @@
  
