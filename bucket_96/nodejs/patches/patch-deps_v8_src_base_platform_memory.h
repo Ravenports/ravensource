@@ -4,7 +4,7 @@
  #if V8_OS_DARWIN
  #include <malloc/malloc.h>
  #else  // !V8_OS_DARWIN
-+# ifndef __DragonFly__
++# if !V8_OS_FREEBSD && !V8_OS_DRAGONFLYBSD
  #include <malloc.h>
 +# endif
  #endif  // !V8_OS_DARWIN
