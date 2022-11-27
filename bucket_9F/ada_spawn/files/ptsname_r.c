@@ -1,4 +1,14 @@
 #ifdef __DragonFly__
+# define __NEEDS_PTSNAME_R__
+#endif
+#ifdef __FreeBSD__
+# include <sys/param.h>
+# if __FreeBSD_version < 1203000
+#  define __NEEDS_PTSNAME_R__
+# endif
+#endif
+
+#ifdef __NEEDS_PTSNAME_R__
 
 #include <stdlib.h>
 #include <errno.h>
