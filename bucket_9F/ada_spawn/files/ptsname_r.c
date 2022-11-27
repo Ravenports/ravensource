@@ -14,12 +14,11 @@
 #include <errno.h>
 #include <string.h>
 
-
 /* Store at most BUFLEN characters of the pathname of the slave pseudo
    terminal associated with the master FD is open on in BUF.
    Return 0 on success, otherwise an error number.  */
 int
-ptsname_r (int fd, char *buf, size_t buflen)
+__ptsname_r (int fd, char *buf, size_t buflen)
 {
   int saved_errno = errno;
   char tmpbuf[5 + 4 + 10 + 1];
@@ -50,6 +49,16 @@ ptsname_r (int fd, char *buf, size_t buflen)
      exist.  */
   errno = saved_errno;
   return 0;
+}
+
+#else
+
+#include <stdlib.h>
+
+int
+__ptsname_r (int fd, char *buf, size_t buflen)
+{
+  return ptsname_r (fd, buf, buflen);
 }
 
 #endif
