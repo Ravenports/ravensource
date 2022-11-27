@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.7.4
+DEF[PORTVERSION]=	0.8.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		a52dec
@@ -6,11 +6,11 @@ VERSION=		${PORTVERSION}
 KEYWORDS=		audio
 VARIANTS=		standard
 SDESC[standard]=	ATSC A/52 stream decoder and library
-HOMEPAGE=		http://liba52.sourceforge.net/
+HOMEPAGE=		https://git.adelielinux.org/community/a52dec/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://liba52.sourceforge.io/files/
+SITES[main]=		https://distfiles.adelielinux.org/source/a52dec/
 DISTFILE[1]=		a52dec-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	single
@@ -20,17 +20,19 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		audio/liba52
 
-USES=			gmake libtool fbsd10fix
+USES=			gmake libtool
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-oss
 			--enable-shared
+INSTALL_TARGET=		install-strip
 
-post-patch:
-	${REINPLACE_CMD} '/-prefer-non-pic/d' ${WRKSRC}/configure
-	${REINPLACE_CMD} -E -e 's!-O3!${CFLAGS}!' -e 's!-mcpu=[^"]+"!"!' \
-		${CONFIGURE_WRKSRC}/${CONFIGURE_SCRIPT}
+pre-configure:
+	${REINPLACE_CMD} -E \
+		-e 's!-O3!${CFLAGS}!' \
+		-e 's!-mcpu=[^"]+"!"!' \
+		-e '/-prefer-non-pic/d' \
+		 ${WRKSRC}/configure
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/liba52/a52_internal.h \
 		${STAGEDIR}${PREFIX}/include/a52dec
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/liba52.so
