@@ -1,0 +1,23 @@
+--- Makefile.orig	2022-11-03 08:41:39 UTC
++++ Makefile
+@@ -29,14 +29,17 @@ REV     = 7
+ VERSION = $(MAJOR).$(MINOR).$(REV)
+ PCSCADA = libpcscada-$(VERSION)
+ 
++ADALIB!= gnatls -v | grep adalib | awk '{print $$1}'
++LDFLAGS=-Wl,-rpath,${ADALIB},-L${ADALIB}
++
+ # This variable explicitly exists for override by people with a
+ # different directory hierarchy.
+ GPRINSTALLFLAGS ?= \
+-  --prefix=$(PREFIX) \
++  --prefix=$(DESTDIR)$(PREFIX) \
+   --no-manifest \
+-  --ali-subdir=lib/ada/adalib/pcscada \
++  --ali-subdir=lib/pcscada \
+   --lib-subdir=lib \
+-  --sources-subdir=share/ada/adainclude/pcscada \
++  --sources-subdir=include/pcscada \
+   # EOL
+ 
+ TARBALL = $(PCSCADA).tar.bz2

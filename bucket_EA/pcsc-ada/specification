@@ -1,5 +1,4 @@
-DEF[PORTVERSION]=	0.7.6
-DEF[GPRLINK]=		"-L{{LOCALBASE}}/lib", "-Wl,-rpath,{{LOCALBASE}}/lib",
+DEF[PORTVERSION]=	0.7.7
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		pcsc-ada
@@ -33,46 +32,21 @@ FPC_EQUIVALENT=		devel/pcsc-ada
 BUILD_DEPENDS=		ruby-asciidoctor:single:ruby_default
 BUILDRUN_DEPENDS=	pcsc-lite:primary:standard
 
-USES=			gprbuild gmake
+USES=			gprbuild gmake ada:primary
 DISTNAME=		libpcscada-${PORTVERSION}
-# BUILD_TARGET+= examples no longer builders
-BUILD_TARGET=		all doc
+BUILD_TARGET=		build-lib build-doc
 MAKE_ARGS=		NUM_CPUS={{MAKE_JOBS_NUMBER}}
-			LIBRARY_KIND=static
+INSTALL_REQ_TOOLCHAIN=	yes
 
 [TESTED].DESCRIPTION=			Run unit test suite before installation
 [TESTED].BUILD_DEPENDS_ON=		ahven:primary:standard
-[TESTED].BUILD_TARGET_ON=		utests
+[TESTED].BUILD_TARGET_ON=		build-utests
 
 [INTF_TEST].DESCRIPTION=		Run interface tests against installed smart card
 [INTF_TEST].BUILD_DEPENDS_ON=		ahven:primary:standard
-[INTF_TEST].BUILD_TARGET_ON=		itests
+[INTF_TEST].BUILD_TARGET_ON=		build-itests
 
-post-patch:
-	${REINPLACE_CMD} -e 's|@LINK_OPTIONS@|${GPRLINK} |' \
-		${WRKSRC}/pcscada_lib.gpr
-
-do-build:
-	# We cannot use a redefined ALL_TARGET because MAKE_JOBS_SAFE is set
-	# for PROCESSORS, but that also sets -j for gmake can break build
-	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
-		${MAKE_CMD} ${MAKE_ARGS:NDESTDIR=*} ${BUILD_TARGET})
-
-do-install:
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/gpr \
-		${STAGEDIR}${PREFIX}/lib/pcscada \
-		${STAGEDIR}${PREFIX}/include/pcscada \
-# #		${STAGEDIR}${STD_EXAMPLESDIR}/src \
-# #		${STAGEDIR}${STD_EXAMPLESDIR}/bin \
-		${STAGEDIR}${STD_DOCDIR}
-	${INSTALL_DATA} ${WRKSRC}/src/*.ad[bs] \
-		${STAGEDIR}${PREFIX}/include/pcscada
-	${INSTALL_DATA} ${WRKSRC}/lib/static/* \
-		${STAGEDIR}${PREFIX}/lib/pcscada
-	${INSTALL_DATA} ${FILESDIR}/pcscada.gpr ${STAGEDIR}${PREFIX}/share/gpr
-	(cd ${WRKSRC}/doc && ${COPYTREE_SHARE} html ${STAGEDIR}${STD_DOCDIR})
-# #	(cd ${WRKSRC}/examples && ${COPYTREE_SHARE} . \
-# #		${STAGEDIR}${STD_EXAMPLESDIR}/src)
-# #	${RM} ${STAGEDIR}${STD_EXAMPLESDIR}/src/*/*.bak
-# #	(cd ${WRKSRC}/obj/examples && ${INSTALL_PROGRAM} cardd pinpad \
-# #		thin_example ${STAGEDIR}${STD_EXAMPLESDIR}/bin)
+post-install:
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}/html
+	${INSTALL_DATA} ${WRKSRC}/doc/html/* ${STAGEDIR}${STD_DOCDIR}/html
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libpcscada.so
