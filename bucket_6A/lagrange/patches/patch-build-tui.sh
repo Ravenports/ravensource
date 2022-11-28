@@ -1,4 +1,4 @@
---- build-tui.sh.orig	2022-11-02 17:11:20 UTC
+--- build-tui.sh.orig	2022-11-26 13:32:12 UTC
 +++ build-tui.sh
 @@ -14,25 +14,15 @@
  #
@@ -29,7 +29,15 @@
  if [ ! -d lib/sealcurses ]; then
      echo "'lib/sealcurses' not found. Clone with Git? [Yn]"
      read INPUT
-@@ -95,15 +85,11 @@ cmake .. \
+@@ -85,7 +75,6 @@ cmake --install .
+ 
+ cd ..
+ export PKG_CONFIG_PATH="${BUILD_DIR}/lib/pkgconfig":${PKG_CONFIG_PATH}
+-LDFLAGS="`pkg-config --static --libs the_Foundation`"
+ cmake .. \
+     -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} \
+     -DCMAKE_EXE_LINKER_FLAGS="${LDFLAGS}" \
+@@ -97,15 +86,11 @@ cmake .. \
      -DENABLE_HARFBUZZ=NO \
      -DENABLE_POPUP_MENUS=NO \
      -DENABLE_IDLE_SLEEP=NO \
