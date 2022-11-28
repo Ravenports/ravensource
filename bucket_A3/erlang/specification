@@ -213,7 +213,8 @@ PLIST_SUB=		COMPILER_VSN=${COMPILER_VSN}
 			RELEASE=${MAJOR_RELEASE}
 
 VAR_OPSYS[freebsd]=	CFLAGS=-DMAP_NORESERVE=0
-C_USES[freebsd]=	clang
+# GCC on FreeBSD still has PCH bug in it, affects asmjit
+			CONFIGURE_ARGS=--disable-jit
 
 [NATIVE].DESCRIPTION=			Build native HiPE compiler
 [NATIVE].CONFIGURE_ENABLE_BOTH=		hipe native-libs
