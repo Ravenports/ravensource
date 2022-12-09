@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	1.2.1
+DEF[PORTVERSION]=	1.2.2
+DEF[GEOMVER]=		1.2.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		inkscape
@@ -73,6 +74,7 @@ CMAKE_ARGS=		-DWITH_GNOME_VFS:BOOL=OFF
 			-DWITH_NLS:BOOL=ON
 			-DBUILD_SHARED_LIBS:BOOL=OFF
 INSTALL_REQ_TOOLCHAIN=	yes
+PLIST_SUB=		GEOMVER=${GEOMVER}
 
 post-extract:
 	${MV} ${WRKDIR}/inkscape-${PORTVERSION}* ${WRKSRC}
