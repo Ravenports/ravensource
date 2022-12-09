@@ -1,4 +1,4 @@
---- src/xshmfence_alloc.c.orig	2022-10-18 16:50:22 UTC
+--- src/xshmfence_alloc.c.orig	2022-12-08 16:08:26 UTC
 +++ src/xshmfence_alloc.c
 @@ -69,7 +69,7 @@ int
  xshmfence_alloc_shm(void)
