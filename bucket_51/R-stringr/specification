@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.4.1
+DEF[PORTVERSION]=	1.5.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		R-stringr
@@ -11,7 +11,7 @@ CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CRAN/src/contrib
-DISTFILE[1]=		stringr_1.4.1.tar.gz:main
+DISTFILE[1]=		stringr_1.5.0.tar.gz:main
 DIST_SUBDIR=		CRAN
 DF_INDEX=		1
 
@@ -21,15 +21,19 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 # License listed on https://cran.r-project.org/
-# => GPL-2 | file LICENSE
+# => MIT + file LICENSE
 
 USES=			cran gmake
 DISTNAME=		stringr
 GENERATED=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
 
-BUILDRUN_DEPENDS=	R-glue:single:standard
+BUILDRUN_DEPENDS=	R-cli:single:standard
+			R-glue:single:standard
+			R-lifecycle:single:standard
 			R-magrittr:single:standard
+			R-rlang:single:standard
 			R-stringi:single:standard
+			R-vctrs:single:standard
 
 
