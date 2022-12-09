@@ -1,4 +1,4 @@
---- config/config_ruby.rb.orig	2022-11-26 05:06:45 UTC
+--- config/config_ruby.rb.orig	2022-12-03 16:31:35 UTC
 +++ config/config_ruby.rb
 @@ -5,11 +5,14 @@ CONFIG = RbConfig::MAKEFILE_CONFIG
  
