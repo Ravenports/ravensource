@@ -1,19 +1,19 @@
-DEF[PORTVERSION]=	0.2.1
+DEF[PORTVERSION]=	3.3.1
 # ------------------------------------------------------------------------
 
-NAMEBASE=		ruby-net-protocol
+NAMEBASE=		ruby-date
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v27 v30 v31
-SDESC[v27]=		Abstract interface for net-* client (v27)
-SDESC[v30]=		Abstract interface for net-* client (v30)
-SDESC[v31]=		Abstract interface for net-* client (v31)
-HOMEPAGE=		https://github.com/ruby/net-protocol
+SDESC[v27]=		Module for handling dates (v27)
+SDESC[v30]=		Module for handling dates (v30)
+SDESC[v31]=		Module for handling dates (v31)
+HOMEPAGE=		https://github.com/ruby/date
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		net-protocol-0.2.1.gem:main
+DISTFILE[1]=		date-3.3.1.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v27]=		single
@@ -30,15 +30,11 @@ VOPTS[v31]=		RUBY27=OFF RUBY30=OFF RUBY31=ON
 # => "Ruby", "BSD-2-Clause"
 
 # Requirements according to gem specification:
-#   timeout (>= 0)
 
-DISTNAME=		net-protocol-${PORTVERSION}
+DISTNAME=		date-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY27].USES_ON=			gem:v27
-[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-timeout:single:v27
 [RUBY30].USES_ON=			gem:v30
-[RUBY30].BUILDRUN_DEPENDS_ON=		ruby-timeout:single:v30
 [RUBY31].USES_ON=			gem:v31
-[RUBY31].BUILDRUN_DEPENDS_ON=		ruby-timeout:single:v31
 

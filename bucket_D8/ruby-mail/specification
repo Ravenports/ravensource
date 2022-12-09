@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.7.1
+DEF[PORTVERSION]=	2.8.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-mail
@@ -13,7 +13,7 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		mail-2.7.1.gem:main
+DISTFILE[1]=		mail-2.8.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v27]=		single
@@ -31,9 +31,13 @@ VOPTS[v31]=		RUBY27=OFF RUBY30=OFF RUBY31=ON
 
 # Requirements according to gem specification:
 #   mini_mime (>= 0.1.1)
+#   net-smtp (>= 0)
+#   net-imap (>= 0)
+#   net-pop (>= 0)
 #   bundler (>= 1.0.3, development)
 #   rake (> 0.8.7, development)
 #   rspec (~> 3.0, development)
+#   rspec-benchmark (>= 0, development)
 #   rdoc (>= 0, development)
 #   rufo (>= 0, development)
 
@@ -42,8 +46,17 @@ GENERATED=		yes
 
 [RUBY27].USES_ON=			gem:v27
 [RUBY27].BUILDRUN_DEPENDS_ON=		ruby-mini_mime:single:v27
+					ruby-net-smtp:single:v27
+					ruby-net-imap:single:v27
+					ruby-net-pop:single:v27
 [RUBY30].USES_ON=			gem:v30
 [RUBY30].BUILDRUN_DEPENDS_ON=		ruby-mini_mime:single:v30
+					ruby-net-smtp:single:v30
+					ruby-net-imap:single:v30
+					ruby-net-pop:single:v30
 [RUBY31].USES_ON=			gem:v31
 [RUBY31].BUILDRUN_DEPENDS_ON=		ruby-mini_mime:single:v31
+					ruby-net-smtp:single:v31
+					ruby-net-imap:single:v31
+					ruby-net-pop:single:v31
 
