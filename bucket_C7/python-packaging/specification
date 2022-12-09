@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	21.3
+DEF[PORTVERSION]=	22.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-packaging
@@ -7,11 +7,11 @@ KEYWORDS=		python
 VARIANTS=		py39 py310
 SDESC[py39]=		Core utilities for Python packages (3.9)
 SDESC[py310]=		Core utilities for Python packages (3.10)
-HOMEPAGE=		https://github.com/pypa/packaging
+HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/05/8e/8de486cbd03baba4deef4142bd643a3e7bbe954a784dc1bb17142572d127
+SITES[main]=		PYPIWHL/8f/7b/42582927d281d7cb035609cd3a543ffac89b74f3f4ee8e1c50914bcb57eb
 DISTFILE[1]=		packaging-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py39]=		single
@@ -23,18 +23,16 @@ VOPTS[py39]=		PY39=ON PY310=OFF
 VOPTS[py310]=		PY39=OFF PY310=ON
 
 # License listed at PyPI
-# BSD-2-Clause or Apache-2.0
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		packaging-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# pyparsing (!=3.0.5,>=2.0.2)
+
 
 [PY39].USES_ON=				python:py39,wheel
-[PY39].RUN_DEPENDS_ON=			python-pyparsing:single:py39
 [PY310].USES_ON=			python:py310,wheel
-[PY310].RUN_DEPENDS_ON=			python-pyparsing:single:py310
 
 post-stage:
 	# Revert ill-conceived limit of pyparsing version 2
