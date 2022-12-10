@@ -1,9 +1,9 @@
 #
 # generate displayname as dictated in the xauth manpage
 #
---- startx.cpp.orig	2018-03-10 01:46:03 UTC
+--- startx.cpp.orig	2022-12-03 22:18:43 UTC
 +++ startx.cpp
-@@ -166,7 +166,7 @@ while [ x"$1" != x ]; do
+@@ -168,7 +168,7 @@ while [ x"$1" != x ]; do
  	else
  	    XCOMM display must be the FIRST server argument
  	    if [ x"$serverargs" = x ] && @@
@@ -12,7 +12,7 @@
  		display="$1"
  	    else
  		serverargs="$serverargs $1"
-@@ -296,9 +296,9 @@ EOF
+@@ -287,9 +287,9 @@ EOF
      XCOMM now add the same credentials to the client authority file
      XCOMM if '$displayname' already exists do not overwrite it as another
      XCOMM server may need it. Add them to the '$xserverauthfile' instead.
