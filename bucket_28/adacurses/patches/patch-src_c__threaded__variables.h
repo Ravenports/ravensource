@@ -1,6 +1,6 @@
---- src/c_threaded_variables.h.orig	2015-08-06 23:09:47 UTC
+--- src/c_threaded_variables.h.orig	2020-02-02 23:34:34 UTC
 +++ src/c_threaded_variables.h
-@@ -31,7 +31,6 @@
+@@ -32,7 +32,6 @@
  #ifndef __C_THREADED_VARIABLES_H
  #define __C_THREADED_VARIABLES_H
  
@@ -8,7 +8,7 @@
  
  #if HAVE_INTTYPES_H
  # include <inttypes.h>
-@@ -41,7 +40,7 @@
+@@ -42,7 +41,7 @@
  # endif
  #endif
  

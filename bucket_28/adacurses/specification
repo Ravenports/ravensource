@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	20180127
+DEF[PORTVERSION]=	20211021
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		adacurses
 VERSION=		${PORTVERSION}
-REVISION=		3
 KEYWORDS=		devel ada
 VARIANTS=		standard
 SDESC[standard]=	Ada95 bindings for ncurses
@@ -49,8 +48,6 @@ post-patch:
 		${WRKSRC}/gen/terminal_interface-curses-panels.ads.m4
 	${REINPLACE_CMD} -e 's|@LIBS@|@LIBS@ -lmenu -lform -lpanel|' \
 		${WRKSRC}/samples/Makefile.in
-	${REINPLACE_CMD} -e "s|@PREFIX@|${NCURSESBASE}|g" \
-		${WRKSRC}/src/library.gpr
 
 post-patch-darwin:
 	${REINPLACE_CMD} -e 's|,-R,|,-rpath,|' \

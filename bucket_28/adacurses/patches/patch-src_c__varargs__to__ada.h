@@ -1,6 +1,6 @@
---- src/c_varargs_to_ada.h.orig	2015-08-06 23:08:47 UTC
+--- src/c_varargs_to_ada.h.orig	2020-02-02 23:34:34 UTC
 +++ src/c_varargs_to_ada.h
-@@ -34,12 +34,12 @@
+@@ -35,12 +35,12 @@
  #ifdef HAVE_CONFIG_H
  #include <ncurses_cfg.h>
  #else

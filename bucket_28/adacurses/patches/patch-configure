@@ -1,24 +1,24 @@
---- configure.orig	2018-01-16 21:50:06 UTC
+--- configure.orig	2021-10-17 15:16:26 UTC
 +++ configure
-@@ -9446,7 +9446,7 @@ case $cf_cv_system_name in
- 	LD_RPATH_OPT="-Wl,-rpath,"
- 	;;
- (dragonfly*)
--	LD_RPATH_OPT="-rpath "
-+	LD_RPATH_OPT="-Wl,-rpath,"
- 	;;
- (netbsd*)
- 	LD_RPATH_OPT="-Wl,-rpath,"
-@@ -9455,7 +9455,7 @@ case $cf_cv_system_name in
- 	LD_RPATH_OPT="-rpath "
- 	;;
- (solaris2*)
--	LD_RPATH_OPT="-R"
-+	LD_RPATH_OPT="-Wl,-R"
- 	;;
- (*)
- 	;;
-@@ -9941,11 +9941,11 @@ CF_EOF
+@@ -11505,7 +11505,7 @@ echo $ECHO_N "checking for an rpath opti
+ 		LD_RPATH_OPT="-Wl,-rpath,"
+ 		;;
+ 	(dragonfly*)
+-		LD_RPATH_OPT="-rpath "
++		LD_RPATH_OPT="-Wl,-rpath,"
+ 		;;
+ 	(netbsd*)
+ 		LD_RPATH_OPT="-Wl,-rpath,"
+@@ -11514,7 +11514,7 @@ echo $ECHO_N "checking for an rpath opti
+ 		LD_RPATH_OPT="-rpath "
+ 		;;
+ 	(solaris2*)
+-		LD_RPATH_OPT="-R"
++		LD_RPATH_OPT="-Wl,-R"
+ 		;;
+ 	(*)
+ 		;;
+@@ -12126,11 +12126,11 @@ CF_EOF
  		# tested with SunOS 5.5.1 (solaris 2.5.1) and gcc 2.7.2
  		# tested with SunOS 5.10 (solaris 10) and gcc 3.4.3
  		if test "$DFT_LWR_MODEL" = "shared" ; then
@@ -32,12 +32,3 @@
  		fi
  
  	test "$cf_cv_shlib_version" = auto && cf_cv_shlib_version=rel
-@@ -14443,7 +14443,7 @@ echo "$as_me:14442: result: $cf_gnat_ver
- echo "${ECHO_T}$cf_gnat_version" >&6
- 
- case $cf_gnat_version in
--(3.1[1-9]*|3.[2-9]*|[4-9].*|20[0-9][0-9])
-+(3.1[1-9]*|3.[2-9]*|[4-9].*|20[0-9][0-9]|1[0-9].[0-9].[0-9])
- 	cf_cv_prog_gnat_correct=yes
- 	;;
- (*)
