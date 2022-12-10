@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	0.105.1
-DEF[SOVERSION]=		9.1.0
+DEF[PORTVERSION]=	1.0.0
+DEF[SOVERSION]=		11.0.0
 DEF[FRESH_SOVERSION]=	2.0.2
 DEF[DBDIR]=		/var/db/clamav
 DEF[LOGDIR]=		/var/log/clamav
@@ -124,5 +124,5 @@ post-install:
 		  ${STAGEDIR}${LOGDIR} \
 		  ${STAGEDIR}${RUNDIR}
 	cd ${STAGEDIR}${PREFIX}/bin && ${STRIP_CMD} clambc clamconf clamdscan \
-		clamdtop clamscan clamsubmit freshclam sigtool
+		clamdtop clamscan clamsubmit freshclam sigtool ex_*
 	cd ${STAGEDIR}${PREFIX} && ${STRIP_CMD} sbin/clamd lib/lib*.so
