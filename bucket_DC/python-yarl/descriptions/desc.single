@@ -1,0 +1,100 @@
+yarl
+====
+
+  :align: right
+
+    :alt: Chat on Gitter
+
+Introduction
+------------
+
+Url is constructed from str:
+
+.. code-block:: pycon
+
+   >>> from yarl import URL
+   >>> url = URL('https://www.python.org/~guido?arg=1#frag')
+   >>> url
+   URL('https://www.python.org/~guido?arg=1#frag')
+
+All url parts: *scheme*, *user*, *password*, *host*, *port*, *path*,
+*query* and *fragment* are accessible by properties:
+
+.. code-block:: pycon
+
+   >>> url.scheme
+   'https'
+   >>> url.host
+   'www.python.org'
+   >>> url.path
+   '/~guido'
+   >>> url.query_string
+   'arg=1'
+   >>> url.query
+   <MultiDictProxy('arg': '1')>
+   >>> url.fragment
+   'frag'
+
+All url manipulations produce a new url object:
+
+.. code-block:: pycon
+
+   >>> url = URL('https://www.python.org')
+   >>> url / 'foo' / 'bar'
+   URL('https://www.python.org/foo/bar')
+   >>> url / 'foo' % {'bar': 'baz'}
+   URL('https://www.python.org/foo?bar=baz')
+
+Strings passed to constructor and modification methods are
+automatically encoded giving canonical representation as result:
+
+.. code-block:: pycon
+
+   >>> url = URL('https://www.python.org/путь')
+   >>> url
+   URL('https://www.python.org/%D0%BF%D1%83%D1%82%D1%8C')
+
+Regular properties are *percent-decoded*, use raw_ versions for
+getting *encoded* strings:
+
+.. code-block:: pycon
+
+   >>> url.path
+   '/путь'
+
+   >>> url.raw_path
+   '/%D0%BF%D1%83%D1%82%D1%8C'
+
+Human readable representation of URL is available as ``.human_repr()``:
+
+.. code-block:: pycon
+
+   >>> url.human_repr()
+   'https://www.python.org/путь'
+
+For full documentation please read https://yarl.readthedocs.org.
+
+Installation
+------------
+
+::
+
+   $ pip install yarl
+
+The library is Python 3 only!
+
+PyPI contains binary wheels for Linux, Windows and MacOS.  If you want to
+install
+yarl on another operating system (like *Alpine Linux*, which is not
+manylinux-compliant because of the missing glibc and therefore, cannot be
+used with our wheels) the the tarball will be used to compile the library
+from
+the source code. It requires a C compiler and and Python headers installed.
+
+To skip the compilation you must explicitly opt-in by setting the
+`YARL_NO_EXTENSIONS`
+environment variable to a non-empty value, e.g.:
+
+.. code-block:: bash
+
+   $ YARL_NO_EXTENSIONS=1 pip install yarl

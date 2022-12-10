@@ -1,0 +1,56 @@
+DEF[PORTVERSION]=	3.8.3
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-aiohttp
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py39 py310
+SDESC[py39]=		Async http client/server framework (3.9)
+SDESC[py310]=		Async http client/server framework (3.10)
+HOMEPAGE=		https://github.com/aio-libs/aiohttp
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/a/aiohttp
+DISTFILE[1]=		aiohttp-${PORTVERSION}.tar.gz:main
+
+SPKGS[py39]=		single
+SPKGS[py310]=		single
+
+OPTIONS_AVAILABLE=	PY39 PY310
+OPTIONS_STANDARD=	none
+VOPTS[py39]=		PY39=ON PY310=OFF
+VOPTS[py310]=		PY39=OFF PY310=ON
+
+# License listed at PyPI
+# Apache 2
+
+GENERATED=		yes
+DISTNAME=		aiohttp-${PORTVERSION}
+
+# install_requires extracted from setup.py
+# attrs>=17.3.0
+# charset-normalizer<3.0,>=2.0
+# multidict<7.0,>=4.5
+# async_timeout<5.0,>=4.0.0a3
+# yarl<2.0,>=1.0
+# frozenlist>=1.1.1
+# aiosignal>=1.1.2
+
+[PY39].USES_ON=				python:py39,sutools
+[PY39].BUILDRUN_DEPENDS_ON=		python-attrs:single:py39
+					python-charset-normalizer:single:py39
+					python-multidict:single:py39
+					python-async-timeout:single:py39
+					python-yarl:single:py39
+					python-frozenlist:single:py39
+					python-aiosignal:single:py39
+[PY310].USES_ON=			python:py310,sutools
+[PY310].BUILDRUN_DEPENDS_ON=		python-attrs:single:py310
+					python-charset-normalizer:single:py310
+					python-multidict:single:py310
+					python-async-timeout:single:py310
+					python-yarl:single:py310
+					python-frozenlist:single:py310
+					python-aiosignal:single:py310
+

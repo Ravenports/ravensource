@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	6.0.3
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-multidict
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py39 py310
+SDESC[py39]=		Multidict implementation (3.9)
+SDESC[py310]=		Multidict implementation (3.10)
+HOMEPAGE=		https://github.com/aio-libs/multidict
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/m/multidict
+DISTFILE[1]=		multidict-${PORTVERSION}.tar.gz:main
+
+SPKGS[py39]=		single
+SPKGS[py310]=		single
+
+OPTIONS_AVAILABLE=	PY39 PY310
+OPTIONS_STANDARD=	none
+VOPTS[py39]=		PY39=ON PY310=OFF
+VOPTS[py310]=		PY39=OFF PY310=ON
+
+# License listed at PyPI
+# Apache 2
+
+GENERATED=		yes
+DISTNAME=		multidict-${PORTVERSION}
+
+# install_requires extracted from setup.py
+
+
+[PY39].USES_ON=				python:py39,sutools
+[PY310].USES_ON=			python:py310,sutools
+
