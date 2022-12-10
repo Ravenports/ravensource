@@ -1,4 +1,4 @@
---- lenses/pg_hba.aug.orig	2021-10-24 07:01:19 UTC
+--- lenses/pg_hba.aug.orig	2022-12-07 12:55:55 UTC
 +++ lenses/pg_hba.aug
 @@ -81,6 +81,7 @@ module Pg_Hba =
      (* View: filter

@@ -1,14 +1,14 @@
---- gnulib/m4/gnulib-common.m4.orig	2021-01-26 16:36:05 UTC
+--- gnulib/m4/gnulib-common.m4.orig	2022-12-02 14:49:07 UTC
 +++ gnulib/m4/gnulib-common.m4
-@@ -226,11 +226,7 @@ AC_DEFUN([gl_COMMON_BODY], [
- # define _GL_ATTRIBUTE_NOINLINE
- #endif
- 
+@@ -345,11 +345,7 @@ AC_DEFUN([gl_COMMON_BODY], [
+    _GL_ATTRIBUTE_NONNULL () declares that all pointer arguments must not be
+    null.  */
+ /* Applies to: functions.  */
 -#if _GL_HAS_ATTRIBUTE (nonnull)
 -# define _GL_ATTRIBUTE_NONNULL(args) __attribute__ ((__nonnull__ args))
 -#else
  # define _GL_ATTRIBUTE_NONNULL(args)
 -#endif
  
- #if _GL_HAS_ATTRIBUTE (nonstring)
- # define _GL_ATTRIBUTE_NONSTRING __attribute__ ((__nonstring__))
+ /* _GL_ATTRIBUTE_NONSTRING declares that the contents of a character array is
+    not meant to be NUL-terminated.  */
