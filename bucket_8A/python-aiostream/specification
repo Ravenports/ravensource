@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.4.5
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-aiostream
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py39 py310
+SDESC[py39]=		Asynchronous iteration operators (3.9)
+SDESC[py310]=		Asynchronous iteration operators (3.10)
+HOMEPAGE=		https://github.com/vxgmichel/aiostream
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/4a/29/d94dc724b543d0ff16e177a3ce4eaa6253afb6350aa7ba372a8fe7e01f20
+DISTFILE[1]=		aiostream-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py39]=		single
+SPKGS[py310]=		single
+
+OPTIONS_AVAILABLE=	PY39 PY310
+OPTIONS_STANDARD=	none
+VOPTS[py39]=		PY39=ON PY310=OFF
+VOPTS[py310]=		PY39=OFF PY310=ON
+
+# License listed at PyPI
+# GPLv3
+
+GENERATED=		yes
+DISTNAME=		aiostream-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# async-exit-stack ; python_version < "3.7"
+
+[PY39].USES_ON=				python:py39,wheel
+[PY310].USES_ON=			python:py310,wheel
+
