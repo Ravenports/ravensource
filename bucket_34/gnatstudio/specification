@@ -106,6 +106,7 @@ do-build:
 
 post-install:
 	${FIND} ${STAGEDIR}${PREFIX} -type f -name ".gitignore" -delete
+	${FIND} ${STAGEDIR}${PREFIX} -type f -name "*.orig" -delete
 	${FIND} ${STAGEDIR}${PREFIX} -type d -empty -delete
 	${FIND} ${STAGEDIR}${PREFIX} -type d -name "__pycache__" | ${XARGS} rm -rf
 	${INSTALL_SCRIPT} ${WRKDIR}/gps ${STAGEDIR}${PREFIX}/bin
