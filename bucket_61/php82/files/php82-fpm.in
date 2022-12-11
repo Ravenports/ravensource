@@ -1,0 +1,67 @@
+#!/bin/sh
+#
+
+# PROVIDE: php%%SUFFIX%%-fpm
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+#
+# Add the following line to /etc/rc.conf to enable php-fpm:
+# php%%SUFFIX%%_fpm_enable="YES"
+#
+
+. /etc/rc.subr
+
+name="php%%SUFFIX%%_fpm"
+rcvar=php%%SUFFIX%%_fpm_enable
+
+start_precmd="php%%SUFFIX%%_fpm_prestart"
+restart_precmd="php%%SUFFIX%%_fpm_checkconfig"
+reload_precmd="php%%SUFFIX%%_fpm_checkconfig"
+configtest_cmd="php%%SUFFIX%%_fpm_checkconfig"
+
+load_rc_config "$name"
+
+: ${php%%SUFFIX%%_fpm_enable="NO"}
+: ${php%%SUFFIX%%_fpm_umask=""}
+
+extra_commands="reload configtest logrotate"
+
+command="%%PREFIX%%/sbin/php-fpm"
+pidfile="/var/run/php-fpm.pid"
+sig_stop="QUIT"
+sig_reload="USR2"
+logrotate_cmd="php%%SUFFIX%%_fpm_logrotate"
+
+required_files="%%PREFIX%%/etc/php-fpm.conf"
+
+php%%SUFFIX%%_fpm_logrotate() {
+        if [ -z "$rc_pid" ]; then
+                _run_rc_notrunning
+                return 1
+        fi
+        echo "Rotating logs $name."
+        kill -USR1 $rc_pid
+}
+
+php%%SUFFIX%%_fpm_checkconfig()
+{
+        echo "Performing sanity check on php-fpm configuration:"
+        eval ${command} -t
+}
+
+php%%SUFFIX%%_fpm_prestart()
+{
+	php%%SUFFIX%%_fpm_checkconfig
+	checkconfig=$?
+	if [ $checkconfig -ne 0  ]; then
+		return $checkconfig
+	fi
+
+	if [ ! -z "$php%%SUFFIX%%_fpm_umask"  ]; then
+		echo "Setting umask to: ${php%%SUFFIX%%_fpm_umask}"
+		umask $php%%SUFFIX%%_fpm_umask
+	fi
+}
+
+run_rc_command "$1"
