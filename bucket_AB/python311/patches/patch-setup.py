@@ -32,3 +32,17 @@
  
          curses_enabled = True
          if curses_library.startswith('ncurses'):
+@@ -1176,7 +1173,12 @@ class PyBuildExt(build_ext):
+             self.missing.append('_curses_panel')
+ 
+     def detect_crypt(self):
+-        self.addext(Extension('_crypt', ['_cryptmodule.c']))
++        if self.compiler.find_library_file(self.lib_dirs, 'crypt'):
++            libs = ['crypt']
++        else:
++            libs = []
++
++        self.addext(Extension('_crypt', ['_cryptmodule.c'], libraries=libs))
+ 
+     def detect_dbm_gdbm(self):
+         # Modules that provide persistent dictionary-like semantics.  You will
