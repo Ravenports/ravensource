@@ -83,13 +83,11 @@ TCL_8.6_VERSION=	8.6.13
 
 #-------------------------------------------------------------------------
 # PGSQL
-# Possible values: 10, 11, 12, 13, 14, 15
-# PGSQL 10 is no longer being updated
+# Possible values: 11, 12, 13, 14, 15
 #-------------------------------------------------------------------------
 
-PGSQL_DEFAULT?=		12
+PGSQL_DEFAULT?=		14
 
-PGSQL_10_VERSION=	10.23
 PGSQL_11_VERSION=	11.18
 PGSQL_12_VERSION=	12.13
 PGSQL_13_VERSION=	13.9
@@ -146,7 +144,6 @@ FIREBIRD_4.0_VERSION=	4.0.2
 
 PHP_DEFAULT?=		8.1
 
-PHP_7.4_VERSION=	7.4.33
 PHP_8.0_VERSION=	8.0.26
 PHP_8.1_VERSION=	8.1.13
 PHP_8.2_VERSION=	8.2.0
