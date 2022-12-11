@@ -14,7 +14,7 @@ SITES[main]=		https://unit.nginx.org/download/
 DISTFILE[1]=		unit-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	complete unitd python perl
-			php74 php80 php81
+			php80 php81 php82
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,11 +28,11 @@ FPC_EQUIVALENT=		www/unit
 
 RC_SUBR=		unitd:unitd
 
-BUILD_DEPENDS=		php74:single:standard
+BUILD_DEPENDS=		php82:single:standard
 			php81:single:standard
 			php80:single:standard
 EXRUN[perl]=		perl
-EXRUN[php74]=		php74:single:standard
+EXRUN[php82]=		php82:single:standard
 EXRUN[php80]=		php80:single:standard
 EXRUN[php81]=		php81:single:standard
 EXRUN[python]=		python
@@ -62,9 +62,9 @@ post-configure:
 	(cd ${CONFIGURE_WRKSRC} \
 	  && ./configure python --config=python${PYTHON_VER}-config \
 	  && ./configure perl --module=perl${PERL_VER} \
-	  && ./configure php --module=php74\
-			--config=php-config74\
-			--lib-path=${PREFIX}/lib/php74 \
+	  && ./configure php --module=php82\
+			--config=php-config82\
+			--lib-path=${PREFIX}/lib/php82 \
 	  && ./configure php --module=php80\
 			--config=php-config80\
 			--lib-path=${PREFIX}/lib/php80 \
