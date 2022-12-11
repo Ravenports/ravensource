@@ -9,9 +9,9 @@ NAMEBASE=		boost-libraries
 VERSION=		${PORTVERSION}
 REVISION=		${REVISION}
 KEYWORDS=		devel c++
-VARIANTS=		py39 py310
+VARIANTS=		py311 py310
 SDESC[py310]=		Free portable C++ libraries (3.10)
-SDESC[py39]=		Free portable C++ libraries (3.9)
+SDESC[py311]=		Free portable C++ libraries (3.11)
 HOMEPAGE=		https://www.boost.org/
 CONTACT=		nobody
 
@@ -20,12 +20,12 @@ SITES[main]=		https://boostorg.jfrog.io/artifactory/main/release/${PORTVERSION}/
 DISTFILE[1]=		boost_${BOOSTVER}.tar.bz2:main
 
 SPKGS[py310]=		complete rest python
-SPKGS[py39]=		complete rest python
+SPKGS[py311]=		complete rest python
 
-OPTIONS_AVAILABLE=	PY310 PY39
+OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
-VOPTS[py310]=		PY310=ON PY39=OFF
-VOPTS[py39]=		PY310=OFF PY39=ON
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
 
 FPC_EQUIVALENT=		devel/boost-all
 
@@ -83,7 +83,7 @@ VAR_OPSYS[netbsd]=	MAKE_ARGS=pch=off
 			MAKEFILE_LINE=FIBER="@comment "
 
 [PY310].USES_ON=			python:py310,build
-[PY39].USES_ON=				python:py39,build
+[PY311].USES_ON=			python:py311,build
 
 post-patch:
 	${REINPLACE_CMD} -e 's|$$(RPATH)|${HARDCODE_RPATH}|' \

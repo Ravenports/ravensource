@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	4.1.4
 NAMEBASE=		python-Django
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py39 py310
-SDESC[py39]=		High-level Python Web framework (3.9)
+VARIANTS=		py310 py311
 SDESC[py310]=		High-level Python Web framework (3.10)
+SDESC[py311]=		High-level Python Web framework (3.11)
 HOMEPAGE=		https://www.djangoproject.com/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPIWHL/21/26/28895838228c46ece278d764720995d5a51e4bce7d02d2a54e70f59108e1
 DISTFILE[1]=		Django-${PORTVERSION}-py3-none-any.whl:main
 
-SPKGS[py39]=		single
 SPKGS[py310]=		single
+SPKGS[py311]=		single
 
-OPTIONS_AVAILABLE=	PY39 PY310
+OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
-VOPTS[py39]=		PY39=ON PY310=OFF
-VOPTS[py310]=		PY39=OFF PY310=ON
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # BSD-3-Clause
@@ -36,14 +36,14 @@ DISTNAME=		Django-${PORTVERSION}.dist-info
 # argon2-cffi (>=19.1.0) ; extra == 'argon2'
 # bcrypt ; extra == 'bcrypt'
 
-[PY39].USES_ON=				python:py39,wheel
-[PY39].RUN_DEPENDS_ON=			python-asgiref:single:py39
-					python-sqlparse:single:py39
-					python-tzdata:single:py39
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-asgiref:single:py310
 					python-sqlparse:single:py310
 					python-tzdata:single:py310
+[PY311].USES_ON=			python:py311,wheel
+[PY311].RUN_DEPENDS_ON=			python-asgiref:single:py311
+					python-sqlparse:single:py311
+					python-tzdata:single:py311
 
 USES=			cpe shebangfix
 CPE_VENDOR=		djangoproject

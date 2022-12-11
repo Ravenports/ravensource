@@ -43,13 +43,12 @@ RUBY_3.1_VERSION=	3.1.3
 
 #-------------------------------------------------------------------------
 # PYTHON
-# Possible values: 2.7, 3.9, 3.10, 3.11
+# Possible values: 2.7, 3.10, 3.11
 #-------------------------------------------------------------------------
 
-PYTHON3_DEFAULT?=	3.9
+PYTHON3_DEFAULT?=	3.10
 
 PYTHON_2.7_VERSION=	2.7.18
-PYTHON_3.9_VERSION=	3.9.15
 PYTHON_3.10_VERSION=	3.10.8
 PYTHON_3.11_VERSION=	3.11.0
 
@@ -99,14 +98,17 @@ PGSQL_15_VERSION=	15.1
 # Possible values: oracle-(5.7,8.0), mariadb-(10.[3456789], 10.1[01]),
 #                  percona-(5.5,5.6,5.7), galera-(5.5,5.6,5.7)
 #
-# Short term MariaDB releases:
-#   MariaDB 10.7   EOL 14 Feb 2023
-#   MariaDB 10.8   EOL 20 May 2023
-#   MariaDB 10.9   EOL 22 Aug 2023
-#   MariaDB 10.10  DEVELOPMENT
+# MariaDB releases:
+#   MariaDB 10.3   EOL 25 May 2023 (STABLE)
+#   MariaDB 10.4   EOL 18 JUN 2024 (STABLE)
+#   MariaDB 10.5   EOL 24 JUN 2025 (STABLE)
+#   MariaDB 10.6   EOL 06 JUL 2026 (STABLE)
+#   MariaDB 10.7   EOL 14 Feb 2023 (SHORT TERM)
+#   MariaDB 10.8   EOL 20 May 2023 (SHORT TERM)
+#   MariaDB 10.9   EOL 22 Aug 2023 (SHORT TERM)
+#   MariaDB 10.10  CURRENT
 #   MariaDB 10.11  DEVELOPMENT
 #
-# LONG TERM SUPPORT - MariaDB 10.6 (EOL 06 Jul 2026)
 #-------------------------------------------------------------------------
 
 MYSQL_DEFAULT=			oracle-8.0

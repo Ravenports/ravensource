@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.10.1
 NAMEBASE=		python-pybind11
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py39 py310
-SDESC[py39]=		Seamless operability with C++11 (3.9)
+VARIANTS=		py310 py311
 SDESC[py310]=		Seamless operability with C++11 (3.10)
+SDESC[py311]=		Seamless operability with C++11 (3.11)
 HOMEPAGE=		https://github.com/pybind/pybind11
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPIWHL/1d/53/e6b27f3596278f9dd1d28ef1ddb344fd0cd5db98ef2179d69a2044e11897
 DISTFILE[1]=		pybind11-${PORTVERSION}-py3-none-any.whl:main
 
-SPKGS[py39]=		single
 SPKGS[py310]=		single
+SPKGS[py311]=		single
 
-OPTIONS_AVAILABLE=	PY39 PY310
+OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
-VOPTS[py39]=		PY39=ON PY310=OFF
-VOPTS[py310]=		PY39=OFF PY310=ON
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # BSD
@@ -31,6 +31,6 @@ DISTNAME=		pybind11-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 # pybind11-global (==2.10.1) ; extra == 'global'
 
-[PY39].USES_ON=				python:py39,wheel
 [PY310].USES_ON=			python:py310,wheel
+[PY311].USES_ON=			python:py311,wheel
 

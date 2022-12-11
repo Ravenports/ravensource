@@ -293,6 +293,7 @@ function inline_fix_setup ($namebase, $src) {
        "multidict"    => '/print(/d',
        "frozenlist"   => '/print(/d',
        "yarl"         => '/print(/d',
+       "aiohttp"      => '/print(/d',
        "black"        => '/extensions/d',
        "soupsieve"    => false,
        "xml2rfc"      => false,

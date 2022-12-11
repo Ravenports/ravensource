@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.4.16
 NAMEBASE=		python-fs
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py39 py310
-SDESC[py39]=		Python's filesystem abstraction layer (3.9)
+VARIANTS=		py310 py311
 SDESC[py310]=		Python's filesystem abstraction layer (3.10)
+SDESC[py311]=		Python's filesystem abstraction layer (3.11)
 HOMEPAGE=		https://github.com/PyFilesystem/pyfilesystem2
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPIWHL/b9/5c/a3d95dc1ec6cdeb032d789b552ecc76effa3557ea9186e1566df6aac18df
 DISTFILE[1]=		fs-${PORTVERSION}-py2.py3-none-any.whl:main
 
-SPKGS[py39]=		single
 SPKGS[py310]=		single
+SPKGS[py311]=		single
 
-OPTIONS_AVAILABLE=	PY39 PY310
+OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
-VOPTS[py39]=		PY39=ON PY310=OFF
-VOPTS[py310]=		PY39=OFF PY310=ON
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # MIT
@@ -37,12 +37,12 @@ DISTNAME=		fs-${PORTVERSION}.dist-info
 # typing (~=3.6) ; python_version < "3.6"
 # scandir (~=1.5) ; (python_version < "3.5") and extra == 'scandir'
 
-[PY39].USES_ON=				python:py39,wheel
-[PY39].RUN_DEPENDS_ON=			python-appdirs:single:py39
-					python-setuptools:single:py39
-					python-six:single:py39
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-appdirs:single:py310
 					python-setuptools:single:py310
 					python-six:single:py310
+[PY311].USES_ON=			python:py311,wheel
+[PY311].RUN_DEPENDS_ON=			python-appdirs:single:py311
+					python-setuptools:single:py311
+					python-six:single:py311
 

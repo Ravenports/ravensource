@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.9.1
 NAMEBASE=		python-commonmark
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py39 py310
-SDESC[py39]=		Parser for the CommonMark Markdown spec (3.9)
+VARIANTS=		py310 py311
 SDESC[py310]=		Parser for the CommonMark Markdown spec (3.10)
+SDESC[py311]=		Parser for the CommonMark Markdown spec (3.11)
 HOMEPAGE=		https://github.com/rtfd/commonmark.py
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPIWHL/b1/92/dfd892312d822f36c55366118b95d914e5f16de11044a27cf10a7d71bbbf
 DISTFILE[1]=		commonmark-${PORTVERSION}-py2.py3-none-any.whl:main
 
-SPKGS[py39]=		single
 SPKGS[py310]=		single
+SPKGS[py311]=		single
 
-OPTIONS_AVAILABLE=	PY39 PY310
+OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
-VOPTS[py39]=		PY39=ON PY310=OFF
-VOPTS[py310]=		PY39=OFF PY310=ON
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # BSD-3-Clause
@@ -33,6 +33,6 @@ DISTNAME=		commonmark-${PORTVERSION}.dist-info
 # flake8 (==3.7.8) ; extra == 'test'
 # hypothesis (==3.55.3) ; extra == 'test'
 
-[PY39].USES_ON=				python:py39,wheel
 [PY310].USES_ON=			python:py310,wheel
+[PY311].USES_ON=			python:py311,wheel
 

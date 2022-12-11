@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.15.8
 NAMEBASE=		python-pylint
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py39 py310
-SDESC[py39]=		Python code static checker (3.9)
+VARIANTS=		py310 py311
 SDESC[py310]=		Python code static checker (3.10)
+SDESC[py311]=		Python code static checker (3.11)
 HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPIWHL/0d/03/3a96bda38c4b3c77394d9769bda4a35411103849d66f9db790d30a00f258
 DISTFILE[1]=		pylint-${PORTVERSION}-py3-none-any.whl:main
 
-SPKGS[py39]=		single
 SPKGS[py310]=		single
+SPKGS[py311]=		single
 
-OPTIONS_AVAILABLE=	PY39 PY310
+OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
-VOPTS[py39]=		PY39=ON PY310=OFF
-VOPTS[py310]=		PY39=OFF PY310=ON
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # GPL-2.0-or-later
@@ -41,16 +41,6 @@ DISTNAME=		pylint-${PORTVERSION}.dist-info
 # pyenchant (~=3.2) ; extra == 'spelling'
 # gitpython (>3) ; extra == 'testutils'
 
-[PY39].USES_ON=				python:py39,wheel
-[PY39].RUN_DEPENDS_ON=			python-dill:single:py39
-					python-platformdirs:single:py39
-					python-astroid:single:py39
-					python-isort:single:py39
-					python-mccabe:single:py39
-					python-tomlkit:single:py39
-					python-typing-extensions:single:py39
-					python-tomli:single:py39
-					python-colorama:single:py39
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-dill:single:py310
 					python-platformdirs:single:py310
@@ -60,5 +50,13 @@ DISTNAME=		pylint-${PORTVERSION}.dist-info
 					python-tomlkit:single:py310
 					python-tomli:single:py310
 					python-colorama:single:py310
+[PY311].USES_ON=			python:py311,wheel
+[PY311].RUN_DEPENDS_ON=			python-dill:single:py311
+					python-platformdirs:single:py311
+					python-astroid:single:py311
+					python-isort:single:py311
+					python-mccabe:single:py311
+					python-tomlkit:single:py311
+					python-colorama:single:py311
 
 BUILDRUN_DEPENDS=	python-pytest-runner:single:python_used

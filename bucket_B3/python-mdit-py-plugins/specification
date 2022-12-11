@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.3.3
 NAMEBASE=		python-mdit-py-plugins
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py39 py310
-SDESC[py39]=		Collection of plugins for markdown-it-py (3.9)
+VARIANTS=		py310 py311
 SDESC[py310]=		Collection of plugins for markdown-it-py (3.10)
+SDESC[py311]=		Collection of plugins for markdown-it-py (3.11)
 HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPIWHL/33/eb/c358112e8265f827cf8228eda36cf2a720ad933f5ca66f47f808edf4bb34
 DISTFILE[1]=		mdit_py_plugins-${PORTVERSION}-py3-none-any.whl:main
 
-SPKGS[py39]=		single
 SPKGS[py310]=		single
+SPKGS[py311]=		single
 
-OPTIONS_AVAILABLE=	PY39 PY310
+OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
-VOPTS[py39]=		PY39=ON PY310=OFF
-VOPTS[py310]=		PY39=OFF PY310=ON
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # Not provided.
@@ -39,8 +39,8 @@ DISTNAME=		mdit_py_plugins-${PORTVERSION}.dist-info
 # pytest-cov ; extra == "testing"
 # pytest-regressions ; extra == "testing"
 
-[PY39].USES_ON=				python:py39,wheel
-[PY39].RUN_DEPENDS_ON=			python-markdown-it-py:single:py39
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-markdown-it-py:single:py310
+[PY311].USES_ON=			python:py311,wheel
+[PY311].RUN_DEPENDS_ON=			python-markdown-it-py:single:py311
 

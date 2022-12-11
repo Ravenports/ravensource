@@ -1,9 +1,9 @@
-#!/raven/bin/php74
+#!/raven/bin/php80
 <?php
-# Requires php74 with openssl, json, and posix extensions
+# Requires php80 with openssl and posix extensions
 # if arguments are given, they are used as the toplevel ports,
 # overriding the master top-level ports list
-# Also requires: python 3.9
+# Also requires: python 3.10
 #                python-setuptools-scm
 #                python-setuptools-git
 #                python-setuptools-rust
@@ -35,8 +35,8 @@ $namebase_queue = array();
 $port_data = array();
 $truncated_summaries = array();
 $ravensource_directory = "";
-$VA = 39;	# single point of change when python
-$VB = 310;	# series are changed in ravenports
+$VA = 310;	# single point of change when python
+$VB = 311;	# series are changed in ravenports
 $PYTHON_VERSION_A = -1;
 $PYTHON_VERSION_B = -1;
 
@@ -223,7 +223,7 @@ function meets_version_requirements ($PYVER, $requirements_string) {
                 break;
             case "!=":
                 # inverted!  We're satisfied if we *don't* match
-                if ($py_version >= $minver && $py_version < $nexvar) {
+                if ($py_version >= $minver && $py_version < $nexver) {
                     $satisfied = false;
                 }
                 break;
@@ -360,6 +360,13 @@ function generate_port($namebase) {
     $variants_block = join(" ", $variants);
     $primo = $variants[0];
     $arg = $whl_file ? ',wheel' : ',sutools';
+
+    $vopts_block = "";
+    $buildrun_block = "";
+    $comments_block = "";
+    $subpackages_block = "";
+    $available_options = "";
+
     foreach ($variants as $V) {
         $prereturn = ($V == $primo) ? "" : "\n";
         $VX = substr($V, 2, 1) . "." . substr($V, 3);

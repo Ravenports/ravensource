@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	4.17.3
 NAMEBASE=		python-jsonschema
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py39 py310
-SDESC[py39]=		Alternate implementation of JSON Schema (3.9)
+VARIANTS=		py310 py311
 SDESC[py310]=		Alternate implementation of JSON Schema (3.10)
+SDESC[py311]=		Alternate implementation of JSON Schema (3.11)
 HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPIWHL/c1/97/c698bd9350f307daad79dd740806e1a59becd693bd11443a0f531e3229b3
 DISTFILE[1]=		jsonschema-${PORTVERSION}-py3-none-any.whl:main
 
-SPKGS[py39]=		single
 SPKGS[py310]=		single
+SPKGS[py311]=		single
 
-OPTIONS_AVAILABLE=	PY39 PY310
+OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
-VOPTS[py39]=		PY39=ON PY310=OFF
-VOPTS[py310]=		PY39=OFF PY310=ON
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # MIT
@@ -52,10 +52,10 @@ DISTNAME=		jsonschema-${PORTVERSION}.dist-info
 # uri-template; extra == 'format-nongpl'
 # webcolors>=1.11; extra == 'format-nongpl'
 
-[PY39].USES_ON=				python:py39,wheel
-[PY39].RUN_DEPENDS_ON=			python-attrs:single:py39
-					python-pyrsistent:single:py39
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-attrs:single:py310
 					python-pyrsistent:single:py310
+[PY311].USES_ON=			python:py311,wheel
+[PY311].RUN_DEPENDS_ON=			python-attrs:single:py311
+					python-pyrsistent:single:py311
 
