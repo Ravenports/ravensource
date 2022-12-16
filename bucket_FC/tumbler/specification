@@ -1,5 +1,5 @@
 # Stable: 4.16.x, 4.18.x
-DEF[PORTVERSION]=	4.16.1
+DEF[PORTVERSION]=	4.18.0
 DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
@@ -33,6 +33,7 @@ LICENSE_SCHEME=		solo
 
 BUILDRUN_DEPENDS=	freetype:primary:standard
 			libexif:primary:standard
+			libxfce4util:primary:standard
 			gstreamer1:primary:standard
 USES=			gettext-tools:build gettext-runtime gmake jpeg
 			libtool pkgconfig
@@ -58,3 +59,4 @@ post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/tumbler \
 		${STAGEDIR}${PREFIX}/share/doc/tumbler
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/systemd
