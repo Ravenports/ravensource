@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	0.6.6
+DEF[SOVERSION]=		0.3.3
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libopenmpt
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		standard
+SDESC[standard]=	Cross-platform mod music library & player
+HOMEPAGE=		https://lib.openmpt.org/libopenmpt/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://lib.openmpt.org/files/libopenmpt/src/
+DISTFILE[1]=		libopenmpt-${PORTVERSION}+release.autotools.tar.gz:main
+
+SPKGS[standard]=	complete primary library docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		audio/libopenmpt
+
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+DISTNAME=		libopenmpt-${PORTVERSION}+release.autotools
+
+BUILDRUN_DEPENDS=	libogg:primary:standard
+			libsndfile:primary:standard
+			libvorbis:primary:standard
+			mpg123:library:standard
+			portaudio:primary:standard
+
+USES=			libtool pkgconfig zlib
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--without-portaudiocpp
+
+EXRUN[primary]=		libopenmpt:library:standard
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/libopenmpt/LICENSE
+	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/libopenmpt/README.md
