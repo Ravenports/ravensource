@@ -6,6 +6,7 @@ DEF[LIBSYN]=		0.1.4
 
 NAMEBASE=		mpg123
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		audio
 VARIANTS=		standard
 SDESC[standard]=	Console MP3 player and decoder library
@@ -16,7 +17,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://www.mpg123.de/download/
 DISTFILE[1]=		mpg123-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary library
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -24,6 +25,8 @@ OPTIONS_STANDARD=	none
 FPC_EQUIVALENT=		audio/mpg123
 
 BUILDRUN_DEPENDS=	libltdl:single:standard
+
+EXRUN[primary]=		mpg123:library:standard
 
 USES=			cpe gmake libtool
 MUST_CONFIGURE=		gnu
