@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	1.74.1
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gjs
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		standard
+SDESC[standard]=	Javascript bindings for GNOME
+HOMEPAGE=		https://gitlab.gnome.org/GNOME/gjs/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.gnome.org/sources/gjs/${PORTVERSION:R}/
+DISTFILE[1]=		gjs-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# It's complicated... The project as a whole is dual-licensed MIT & LGPLv2+
+# However there's individual files here under CC0, MPL-2.0, BSD3CLAUSE, GPL...
+LICENSE=		MIT:single
+			LGPL20+:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSES/MIT.txt
+			LGPL20+:{{WRKSRC}}/LICENCES/LGPL-2.0-or-later.txt
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		lang/gjs
+
+BUILDRUN_DEPENDS=	dbus:single:standard
+			gobject-introspection:single:standard
+			spidermonkey:single:standard
+
+USES=			meson pkgconfig
+GNOME_COMPONENTS=	cairo glib
+
+MESON_ARGS=		-Dcairo=enabled
+			-Dreadline=enabled
+			-Dprofiler=disabled
+			-Dinstalled_tests=false
+
+SOVERSION=		${SOVERSION}
+
+C_USES[freebsd]=	clang
