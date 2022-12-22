@@ -19,7 +19,7 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-ONLY_FOR_OPSYS=		linux
+ONLY_FOR_OPSYS=		dragonfly freebsd linux
 
 LICENSE=		GPLv2+:single
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
@@ -33,3 +33,6 @@ GNOME_COMPONENTS=	glib introspection
 MESON_ARGS=		-Dgtk_doc=false
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
+
+BR_DEPS[freebsd]=	libudev-devd:single:standard
+BR_DEPS[dragonfly]=	libudev-devd:single:standard
