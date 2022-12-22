@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	3.42.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		zenity
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Display GNOME dialogs from the command line
+HOMEPAGE=		https://gitlab.gnome.org/GNOME/zenity
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/zenity/${PORTVERSION:R}/
+DISTFILE[1]=		zenity-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome3
+
+SPKGS[standard]=	complete primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Terms claim LGPL20+ while the COPYING file is for LGPL21
+LICENSE=		LGPL20+:primary
+LICENSE_FILE=		LGPL20+:stock
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/option.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11/zenity
+
+USES=			gettext-runtime gettext-tools:build meson pkgconfig
+GNOME_COMPONENTS=	gtk3
+BUILDRUN_DEPENDS=	libnotify:primary:standard
+			webkit2:primary:api40
+BUILD_DEPENDS=		itstool:single:standard
+
+MESON_ARGS=		-Dlibnotify=true
+			-Dwebkitgtk=true
