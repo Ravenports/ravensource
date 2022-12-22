@@ -1,0 +1,61 @@
+DEF[PORTVERSION]=	3.40.0
+DEF[CAT1]=		http://www.oasis-open.org/docbook/xml/
+DEF[CAT2]=		http://docbook.sourceforge.net/release/xsl/current/
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		glade
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	User interface builder for GTK+3
+HOMEPAGE=		https://gitlab.gnome.org/GNOME/glade/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.gnome.org/sources/glade/${PORTVERSION:R}/
+DISTFILE[1]=		glade-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome3
+
+SPKGS[standard]=	complete primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Mostly licensed under LGPL21+ unless indicated otherwise (some files may be GPLv2)
+# Annoyingly, while TERMS indicate LGPL21+, the COPYING.LGPL file is LGPL20...
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:stock
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/glade-intro.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/glade
+
+BUILD_DEPENDS=		appstream-glib:primary:standard
+			docbook-xsl:primary:standard
+			itstool:single:standard
+			libxslt:single:standard
+BUILDRUN_DEPENDS=	gjs:single:standard
+			python-PyGObject:single:python_used
+			webkit2:primary:api40
+
+USES=			desktop-utils:primary gettext-tools:build gettext-runtime
+			meson pkgconfig
+GNOME_COMPONENTS=	glib gtk3 introspection
+
+MESON_ARGS=		-Dpython=enabled
+			-Dwebkit2gtk=enabled
+			-Dgladeui=true
+			-Dgtk_doc=false
+			-Dman=true
+
+pre-configure:
+	${REINPLACE_CMD} -e "s|${CAT1}|file://${LOCALBASE}/share/xml/docbook/|" \
+		${WRKSRC}/man/glade-previewer.xml
+	${REINPLACE_CMD} -e "s|${CAT1}|file://${LOCALBASE}/share/xml/docbook/|" \
+		${WRKSRC}/man/glade.xml
+	${REINPLACE_CMD} \
+		-e "s|${CAT2}|file://${LOCALBASE}/share/xsl/docbook/|" \
+		-e "/-Werror=/d" \
+		${WRKSRC}/man/meson.build
