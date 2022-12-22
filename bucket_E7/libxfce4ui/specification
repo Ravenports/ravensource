@@ -30,7 +30,9 @@ LICENSE_TERMS=		complete:{{WRKSRC}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libxfce4ui/libxfce4ui.h
 
-BUILDRUN_DEPENDS=	startup-notification:single:standard
+BUILDRUN_DEPENDS=	glade:primary:standard
+			libgtop:primary:standard
+			startup-notification:single:standard
 			xfconf:primary:standard
 USES=			gettext-runtime gettext-tools:build gmake libtool pkgconfig
 GNOME_COMPONENTS=	glib gtk3 intltool
@@ -41,3 +43,7 @@ INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
 
 SOVERSION=		${SOVERSION}
+
+BR_DEPS[dragonfly]=	libgudev:single:standard
+BR_DEPS[freebsd]=	libgudev:single:standard
+BR_DEPS[linux]=		libgudev:single:standard
