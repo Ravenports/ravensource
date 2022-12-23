@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.0.0
+DEF[PORTVERSION]=	2.0.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-autopep8
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/hhatto/autopep8
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/2a/c0/a1372bd95578778aae8dc5359e4f8ec03a94479d2f36e30543298d30c48a
+SITES[main]=		PYPIWHL/82/f8/9cc97232fb1612327525903296f5e4d8ba1c4acc3469c18afdeba839ce62
 DISTFILE[1]=		autopep8-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -29,13 +29,12 @@ GENERATED=		yes
 DISTNAME=		autopep8-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# pycodestyle (>=2.9.1)
-# tomli
+# pycodestyle (>=2.10.0)
+# tomli ; python_version < "3.11"
 
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-pycodestyle:single:py310
 					python-tomli:single:py310
 [PY311].USES_ON=			python:py311,wheel
 [PY311].RUN_DEPENDS_ON=			python-pycodestyle:single:py311
-					python-tomli:single:py311
 

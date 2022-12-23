@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.15.8
+DEF[PORTVERSION]=	2.15.9
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pylint
@@ -11,7 +11,7 @@ HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/0d/03/3a96bda38c4b3c77394d9769bda4a35411103849d66f9db790d30a00f258
+SITES[main]=		PYPIWHL/7d/df/0e50d5640ed4c6a492cdc6df0c281afee3f85d98209e7ec7b31243838b40
 DISTFILE[1]=		pylint-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -29,34 +29,35 @@ GENERATED=		yes
 DISTNAME=		pylint-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# dill (>=0.2)
 # platformdirs (>=2.2.0)
 # astroid (<=2.14.0-dev0,>=2.12.13)
 # isort (<6,>=4.2.5)
 # mccabe (<0.8,>=0.6)
 # tomlkit (>=0.10.1)
 # typing-extensions (>=3.10.0) ; python_version < "3.10"
+# dill (>=0.2) ; python_version < "3.11"
 # tomli (>=1.1.0) ; python_version < "3.11"
+# dill (>=0.3.6) ; python_version >= "3.11"
 # colorama (>=0.4.5) ; sys_platform == "win32"
 # pyenchant (~=3.2) ; extra == 'spelling'
 # gitpython (>3) ; extra == 'testutils'
 
 [PY310].USES_ON=			python:py310,wheel
-[PY310].RUN_DEPENDS_ON=			python-dill:single:py310
-					python-platformdirs:single:py310
+[PY310].RUN_DEPENDS_ON=			python-platformdirs:single:py310
 					python-astroid:single:py310
 					python-isort:single:py310
 					python-mccabe:single:py310
 					python-tomlkit:single:py310
+					python-dill:single:py310
 					python-tomli:single:py310
 					python-colorama:single:py310
 [PY311].USES_ON=			python:py311,wheel
-[PY311].RUN_DEPENDS_ON=			python-dill:single:py311
-					python-platformdirs:single:py311
+[PY311].RUN_DEPENDS_ON=			python-platformdirs:single:py311
 					python-astroid:single:py311
 					python-isort:single:py311
 					python-mccabe:single:py311
 					python-tomlkit:single:py311
+					python-dill:single:py311
 					python-colorama:single:py311
 
 BUILDRUN_DEPENDS=	python-pytest-runner:single:python_used

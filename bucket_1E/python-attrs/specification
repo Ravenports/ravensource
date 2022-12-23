@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	22.1.0
+DEF[PORTVERSION]=	22.2.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-attrs
@@ -11,8 +11,8 @@ HOMEPAGE=		https://www.attrs.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/f2/bc/d817287d1aa01878af07c19505fafd1165cd6a119e9d0821ca1d1c20312d
-DISTFILE[1]=		attrs-${PORTVERSION}-py2.py3-none-any.whl:main
+SITES[main]=		PYPIWHL/fb/6e/6f83bf616d2becdf333a1640f1d463fef3150e2e926b7010cb0f81c95e88
+DISTFILE[1]=		attrs-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
 SPKGS[py311]=		single
@@ -29,37 +29,33 @@ GENERATED=		yes
 DISTNAME=		attrs-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# coverage[toml] (>=5.0.2) ; extra == 'dev'
-# hypothesis ; extra == 'dev'
-# pympler ; extra == 'dev'
-# pytest (>=4.3.0) ; extra == 'dev'
-# mypy (!=0.940,>=0.900) ; extra == 'dev'
-# pytest-mypy-plugins ; extra == 'dev'
-# zope.interface ; extra == 'dev'
-# furo ; extra == 'dev'
-# sphinx ; extra == 'dev'
-# sphinx-notfound-page ; extra == 'dev'
-# pre-commit ; extra == 'dev'
-# cloudpickle ; (platform_python_implementation == "CPython") and extra == 'dev'
+# attrs[tests] ; extra == 'cov'
+# coverage-enable-subprocess ; extra == 'cov'
+# coverage[toml] (>=5.3) ; extra == 'cov'
+# attrs[docs,tests] ; extra == 'dev'
 # furo ; extra == 'docs'
 # sphinx ; extra == 'docs'
+# myst-parser ; extra == 'docs'
 # zope.interface ; extra == 'docs'
 # sphinx-notfound-page ; extra == 'docs'
-# coverage[toml] (>=5.0.2) ; extra == 'tests'
-# hypothesis ; extra == 'tests'
-# pympler ; extra == 'tests'
-# pytest (>=4.3.0) ; extra == 'tests'
-# mypy (!=0.940,>=0.900) ; extra == 'tests'
-# pytest-mypy-plugins ; extra == 'tests'
+# sphinxcontrib-towncrier ; extra == 'docs'
+# towncrier ; extra == 'docs'
+# attrs[tests-no-zope] ; extra == 'tests'
 # zope.interface ; extra == 'tests'
-# cloudpickle ; (platform_python_implementation == "CPython") and extra == 'tests'
-# coverage[toml] (>=5.0.2) ; extra == 'tests_no_zope'
+# hypothesis ; extra == 'tests-no-zope'
+# pympler ; extra == 'tests-no-zope'
+# pytest (>=4.3.0) ; extra == 'tests-no-zope'
+# pytest-xdist[psutil] ; extra == 'tests-no-zope'
+# cloudpickle ; (platform_python_implementation == "CPython") and extra == 'tests-no-zope'
+# mypy (<0.990,>=0.971) ; (platform_python_implementation == "CPython") and extra == 'tests-no-zope'
+# pytest-mypy-plugins ; (platform_python_implementation == "CPython" and python_version < "3.11") and extra == 'tests-no-zope'
 # hypothesis ; extra == 'tests_no_zope'
 # pympler ; extra == 'tests_no_zope'
 # pytest (>=4.3.0) ; extra == 'tests_no_zope'
-# mypy (!=0.940,>=0.900) ; extra == 'tests_no_zope'
-# pytest-mypy-plugins ; extra == 'tests_no_zope'
+# pytest-xdist[psutil] ; extra == 'tests_no_zope'
 # cloudpickle ; (platform_python_implementation == "CPython") and extra == 'tests_no_zope'
+# mypy (<0.990,>=0.971) ; (platform_python_implementation == "CPython") and extra == 'tests_no_zope'
+# pytest-mypy-plugins ; (platform_python_implementation == "CPython" and python_version < "3.11") and extra == 'tests_no_zope'
 
 [PY310].USES_ON=			python:py310,wheel
 [PY311].USES_ON=			python:py311,wheel

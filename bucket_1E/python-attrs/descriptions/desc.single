@@ -1,9 +1,29 @@
+<p align="center">
+  
+    [image]
+  
+</p>
 
-.. image:: https://www.attrs.org/en/stable/_static/attrs_logo.png
-   :alt: attrs logo
-   :align: center
+<p align="center">
+   
+       [image]
+   
+   
+      [image]
+   
+   [image]
+   
+      [image]
+   
+   
+      [image]
+   
+   [image]
+</p>
 
-attrs is the Python package that will bring back the **joy** of **writing
+<!-- teaser-begin -->
+
+*attrs* is the Python package that will bring back the **joy** of **writing
 classes** by relieving you from the drudgery of implementing object
 protocols (aka [dunder methods]).
 [Trusted by NASA] for Mars missions since 2020!
@@ -11,90 +31,70 @@ protocols (aka [dunder methods]).
 Its main goal is to help you to write **concise** and **correct** software
 without slowing down your code.
 
-.. teaser-end
+## Sponsors
 
-For that, it gives you a class decorator and a way to declaratively define
-the attributes on that class:
+*attrs* would not be possible without our [amazing sponsors].
+Especially those generously supporting us at the *The Organization* tier
+and higher:
 
-.. -code-begin-
+<p align="center">
+   
+      [image]</img>
+   
 
-.. code-block:: pycon
+   
+      [image]</img>
+   
 
-   >>> from attrs import asdict, define, make_class, Factory
+   
+      [image]</img>
+   
 
-   >>> @define
-   ... class SomeClass:
-   ...     a_number: int = 42
-   ...     list_of_numbers: list[int] = Factory(list)
-   ...
-   ...     def hard_math(self, another_number):
-   ...         return self.a_number + sum(self.list_of_numbers) *
+   
+      [image]</img>
+   
+</p>
+
+<p align="center">
+   <strong>Please consider joining them to help make <em>attrs</em>’s
+maintenance more sustainable!</strong>
+</p>
+
+<!-- teaser-end -->
+
+## Example
+
+*attrs* gives you a class decorator and a way to declaratively define the
+attributes on that class:
+
+<!-- code-begin -->
+
+```pycon
+>>> from attrs import asdict, define, make_class, Factory
+
+>>> @define
+... class SomeClass:
+...     a_number: int = 42
+...     list_of_numbers: list[int] = Factory(list)
+...
+...     def hard_math(self, another_number):
+...         return self.a_number + sum(self.list_of_numbers) *
 another_number
 
-   >>> sc = SomeClass(1, [1, 2, 3])
-   >>> sc
-   SomeClass(a_number=1, list_of_numbers=[1, 2, 3])
+>>> sc = SomeClass(1, [1, 2, 3])
+>>> sc
+SomeClass(a_number=1, list_of_numbers=[1, 2, 3])
 
-   >>> sc.hard_math(3)
-   19
-   >>> sc == SomeClass(1, [1, 2, 3])
-   True
-   >>> sc != SomeClass(2, [3, 2, 1])
-   True
+>>> sc.hard_math(3)
+19
+>>> sc == SomeClass(1, [1, 2, 3])
+True
+>>> sc != SomeClass(2, [3, 2, 1])
+True
 
-   >>> asdict(sc)
-   {'a_number': 1, 'list_of_numbers': [1, 2, 3]}
+>>> asdict(sc)
+{'a_number': 1, 'list_of_numbers': [1, 2, 3]}
 
-   >>> SomeClass()
-   SomeClass(a_number=42, list_of_numbers=[])
+>>> SomeClass()
+SomeClass(a_number=42, list_of_numbers=[])
 
-   >>> C = make_class("C", ["a", "b"])
-   >>> C("foo", "bar")
-   C(a='foo', b='bar')
-
-After *declaring* your attributes, attrs gives you:
-
-- a concise and explicit overview of the class's attributes,
-- a nice human-readable __repr__,
-- equality-checking methods,
-- an initializer,
-- and much more,
-
-*without* writing dull boilerplate code again and again and *without*
-runtime performance penalties.
-
-**Hate type annotations**!?
-No problem!
-Types are entirely **optional** with attrs.
-Simply assign ``attrs.field()`` to the attributes instead of annotating
-them with types.
-
-----
-
-This example uses attrs's modern APIs that have been introduced in version
-20.1.0, and the attrs package import name that has been added in version
-21.3.0.
-The classic APIs (``@attr.s``, ``attr.ib``, plus their serious-business
-aliases) and the attr package import name will remain **indefinitely**.
-
-Please check out [On The Core API Names] for a more in-depth explanation.
-
-Data Classes
-============
-
-On the tin, attrs might remind you of dataclasses (and indeed, dataclasses
-[are a descendant] of attrs).
-In practice it does a lot more and is more flexible.
-For instance it allows you to define [special handling of NumPy arrays for
-equality checks], or allows more ways to [plug into the initialization
-process].
-
-For more details, please refer to our [comparison page].
-
-.. -project-information-
-
-Project Information
-===================
-
-- **License**: [MIT]
-- **PyPI**: https://pypi.org/project/attrs/

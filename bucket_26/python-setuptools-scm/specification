@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	7.0.5
+DEF[PORTVERSION]=	7.1.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-setuptools-scm
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/pypa/setuptools_scm/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/01/ed/75a20e7b075e8ecb1f84e8debf833917905d8790b78008915bd68dddd5c4
+SITES[main]=		PYPIWHL/1d/66/8f42c941be949ef2b22fe905d850c794e7c170a526023612aad5f3a121ad
 DISTFILE[1]=		setuptools_scm-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -31,8 +31,8 @@ DISTNAME=		setuptools_scm-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 # packaging (>=20.0)
 # setuptools
-# tomli (>=1.0.0)
 # typing-extensions
+# tomli (>=1.0.0) ; python_version < "3.11"
 # importlib-metadata ; python_version < "3.8"
 # pytest (>=6.2) ; extra == 'test'
 # virtualenv (>20) ; extra == 'test'
@@ -41,11 +41,10 @@ DISTNAME=		setuptools_scm-${PORTVERSION}.dist-info
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-packaging:single:py310
 					python-setuptools:single:py310
-					python-tomli:single:py310
 					python-typing-extensions:single:py310
+					python-tomli:single:py310
 [PY311].USES_ON=			python:py311,wheel
 [PY311].RUN_DEPENDS_ON=			python-packaging:single:py311
 					python-setuptools:single:py311
-					python-tomli:single:py311
 					python-typing-extensions:single:py311
 

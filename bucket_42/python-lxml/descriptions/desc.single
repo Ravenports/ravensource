@@ -29,14 +29,25 @@ https://github.com/lxml/lxml/tarball/lxml-4.9#egg=lxml-4.9bugfix
 as soon as a maintenance branch has been established.  Note that this
 requires Cython to be installed at an appropriate version for the build.
 
-4.9.1 (2022-07-01)
+4.9.2 (2022-12-13)
 ==================
 
 Bugs fixed
 ----------
 
-* A crash was resolved when using ``iterwalk()`` (or ``canonicalize()``)
-  after parsing certain incorrect input.  Note that ``iterwalk()`` can
-crash
-  on *valid* input parsed with the same parser *after* failing to parse the
-  incorrect input.
+* CVE-2022-2309: A Bug in libxml2 2.9.1[0-4] could let namespace
+declarations
+  from a failed parser run leak into later parser runs.  This bug was
+worked around
+  in lxml and resolved in libxml2 2.10.0.
+  https://gitlab.gnome.org/GNOME/libxml2/-/issues/378
+
+Other changes
+-------------
+
+* LP#1981760: ``Element.attrib now registers as
+collections.abc.MutableMapping``.
+
+* lxml now has a static build setup for macOS on ARM64 machines (not used
+for building wheels).
+  Patch by Quentin Leffray.
