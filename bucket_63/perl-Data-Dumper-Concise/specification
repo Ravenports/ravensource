@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	2.023
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Data-Dumper-Concise
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		534 536
+SDESC[534]=		Compact data dumps (5.34)
+SDESC[536]=		Compact data dumps (5.36)
+HOMEPAGE=		https://github.com/p5sagit/Data-Dumper-Concise
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:E/ET/ETHER
+DISTFILE[1]=		Data-Dumper-Concise-${PORTVERSION}.tar.gz:main
+
+SPKGS[534]=		single
+SPKGS[536]=		single
+
+OPTIONS_AVAILABLE=	PERL_534 PERL_536
+OPTIONS_STANDARD=	none
+VOPTS[534]=		PERL_534=ON PERL_536=OFF
+VOPTS[536]=		PERL_534=OFF PERL_536=ON
+
+# License listed in CPAN directory:
+# perl_5
+
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Data-Dumper-Concise-${PORTVERSION}
+
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : Data::Dumper (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Exporter (perl 5.34 core) (perl 5.36 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.34 core) (perl 5.36 core)
+# |         test : Test::More (perl 5.34 core) (perl 5.36 core)
+
+[PERL_534].USES_ON=			perl:534,configure
+[PERL_536].USES_ON=			perl:536,configure
+

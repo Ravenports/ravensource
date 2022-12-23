@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.004006
+DEF[PORTVERSION]=	4.000000
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Mail-SpamAssassin
@@ -12,7 +12,7 @@ CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:S/SI/SIDNEY
-DISTFILE[1]=		Mail-SpamAssassin-3.4.6.tar.gz:main
+DISTFILE[1]=		Mail-SpamAssassin-4.0.0.tar.gz:main
 
 SPKGS[534]=		single
 SPKGS[536]=		single
@@ -23,17 +23,16 @@ VOPTS[534]=		PERL_534=ON PERL_536=OFF
 VOPTS[536]=		PERL_534=OFF PERL_536=ON
 
 # License listed in CPAN directory:
-# apache_2_0
+# unknown, apache_2_0
 
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		Mail-SpamAssassin-3.4.6
+DISTNAME=		Mail-SpamAssassin-4.0.0
 
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
 # |      runtime : Archive::Tar (perl 5.34 core) (perl 5.36 core)
-# |      runtime : Digest::SHA1
 # |      runtime : Errno (perl 5.34 core) (perl 5.36 core)
 # |      runtime : File::Copy (perl 5.34 core) (perl 5.36 core)
 # |      runtime : File::Spec (perl 5.34 core) (perl 5.36 core)
@@ -44,23 +43,99 @@ DISTNAME=		Mail-SpamAssassin-3.4.6
 # |      runtime : NetAddr::IP
 # |      runtime : Pod::Usage (perl 5.34 core) (perl 5.36 core)
 # |      runtime : Sys::Hostname (perl 5.34 core) (perl 5.36 core)
-# |      runtime : Test::More (perl 5.34 core) (perl 5.36 core)
 # |      runtime : Time::HiRes (perl 5.34 core) (perl 5.36 core)
 # |      runtime : Time::Local (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Archive::Zip
+# |      runtime : BSD::Resource
+# |      runtime : Compress::Zlib (perl 5.34 core) (perl 5.36 core)
+# |      runtime : DBD::SQLite
+# |      runtime : DBI
+# |      runtime : DB_File (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Email::Address::XS
+# |      runtime : Encode::Detect::Detector
+# |      runtime : Geo::IP
+# |      runtime : IO::Socket::INET6
+# |      runtime : IO::Socket::IP (perl 5.34 core) (perl 5.36 core)
+# |      runtime : IO::Socket::SSL
+# |      runtime : IO::String
+# |      runtime : IP::Country::DB_File
+# |      runtime : IP::Country::Fast
+# |      runtime : LWP::UserAgent
+# |      runtime : MIME::Base64 (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Mail::DKIM
+# |      runtime : Mail::DMARC
+# |      runtime : Mail::SPF
+# |      runtime : MaxMind::DB::Reader
+# |      runtime : MaxMind::DB::Reader::XS
+# |      runtime : Net::CIDR::Lite
+# |      runtime : Net::LibIDN
+# |      runtime : Net::LibIDN2
+# |      runtime : Net::Patricia
+# |      runtime : Net::SMTP (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Razor2::Client::Agent
 # |        build : ExtUtils::MakeMaker (perl 5.34 core) (perl 5.36 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.34 core) (perl 5.36 core)
+# |         test : Devel::Cycle
+# |         test : Perl::Critic::Policy::Perlsecret
+# |         test : Perl::Critic::Policy::TestingAndDebugging::ProhibitNoStrict
+# |         test : Test::More (perl 5.34 core) (perl 5.36 core)
+# |         test : Text::Diff
+# |         test : Net::DNS::Nameserver
 
 [PERL_534].USES_ON=			perl:534,configure
-[PERL_534].BUILDRUN_DEPENDS_ON=		perl-Digest-SHA1:single:534
-					perl-HTML-Parser:single:534
+[PERL_534].BUILDRUN_DEPENDS_ON=		perl-HTML-Parser:single:534
 					perl-Mail-DKIM:single:534
 					perl-Net-DNS:single:534
 					perl-NetAddr-IP:single:534
+					perl-Archive-Zip:single:534
+					perl-BSD-Resource:single:534
+					perl-DBD-SQLite:single:534
+					perl-DBI:single:534
+					perl-Email-Address-XS:single:534
+					perl-Encode-Detect:single:534
+					perl-Geo-IP:single:534
+					perl-IO-Socket-INET6:single:534
+					perl-IO-Socket-SSL:single:534
+					perl-IO-String:single:534
+					perl-IP-Country-DB_File:single:534
+					perl-IP-Country:single:534
+					perl-libwww-perl:single:534
+					perl-Mail-DMARC:single:534
+					perl-Mail-SPF:single:534
+					perl-MaxMind-DB-Reader:single:534
+					perl-MaxMind-DB-Reader-XS:single:534
+					perl-Net-CIDR-Lite:single:534
+					perl-Net-LibIDN:single:534
+					perl-Net-LibIDN2:single:534
+					perl-Net-Patricia:single:534
+					perl-Razor2-Client-Agent:single:534
 [PERL_536].USES_ON=			perl:536,configure
-[PERL_536].BUILDRUN_DEPENDS_ON=		perl-Digest-SHA1:single:536
-					perl-HTML-Parser:single:536
+[PERL_536].BUILDRUN_DEPENDS_ON=		perl-HTML-Parser:single:536
 					perl-Mail-DKIM:single:536
 					perl-Net-DNS:single:536
 					perl-NetAddr-IP:single:536
+					perl-Archive-Zip:single:536
+					perl-BSD-Resource:single:536
+					perl-DBD-SQLite:single:536
+					perl-DBI:single:536
+					perl-Email-Address-XS:single:536
+					perl-Encode-Detect:single:536
+					perl-Geo-IP:single:536
+					perl-IO-Socket-INET6:single:536
+					perl-IO-Socket-SSL:single:536
+					perl-IO-String:single:536
+					perl-IP-Country-DB_File:single:536
+					perl-IP-Country:single:536
+					perl-libwww-perl:single:536
+					perl-Mail-DMARC:single:536
+					perl-Mail-SPF:single:536
+					perl-MaxMind-DB-Reader:single:536
+					perl-MaxMind-DB-Reader-XS:single:536
+					perl-Net-CIDR-Lite:single:536
+					perl-Net-LibIDN:single:536
+					perl-Net-LibIDN2:single:536
+					perl-Net-Patricia:single:536
+					perl-Razor2-Client-Agent:single:536
 
 USES=			cpe
 CPE_VENDOR=		apache

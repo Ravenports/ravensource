@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	1.2212
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Net-IMAP-Simple
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		534 536
+SDESC[534]=		Simple IMAP account handling (5.34)
+SDESC[536]=		Simple IMAP account handling (5.36)
+HOMEPAGE=		https://github.com/jettero/net--imap--simple
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:J/JE/JETTERO
+DISTFILE[1]=		Net-IMAP-Simple-${PORTVERSION}.tar.gz:main
+
+SPKGS[534]=		single
+SPKGS[536]=		single
+
+OPTIONS_AVAILABLE=	PERL_534 PERL_536
+OPTIONS_STANDARD=	none
+VOPTS[534]=		PERL_534=ON PERL_536=OFF
+VOPTS[536]=		PERL_534=OFF PERL_536=ON
+
+# License listed in CPAN directory:
+# perl_5
+
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Net-IMAP-Simple-${PORTVERSION}
+
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : IO::Select (perl 5.34 core) (perl 5.36 core)
+# |      runtime : IO::Socket (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Parse::RecDescent
+# |        build : ExtUtils::MakeMaker (perl 5.34 core) (perl 5.36 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.34 core) (perl 5.36 core)
+
+[PERL_534].USES_ON=			perl:534,configure
+[PERL_534].BUILDRUN_DEPENDS_ON=		perl-Parse-RecDescent:single:534
+[PERL_536].USES_ON=			perl:536,configure
+[PERL_536].BUILDRUN_DEPENDS_ON=		perl-Parse-RecDescent:single:536
+

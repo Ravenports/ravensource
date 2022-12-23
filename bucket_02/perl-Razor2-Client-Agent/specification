@@ -1,0 +1,52 @@
+DEF[PORTVERSION]=	2.86
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Razor2-Client-Agent
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		534 536
+SDESC[534]=		UI routines for razor agents (5.34)
+SDESC[536]=		UI routines for razor agents (5.36)
+HOMEPAGE=		https://github.com/toddr/Razor2-Client-Agent
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:T/TO/TODDR
+DISTFILE[1]=		Razor2-Client-Agent-${PORTVERSION}.tar.gz:main
+
+SPKGS[534]=		single
+SPKGS[536]=		single
+
+OPTIONS_AVAILABLE=	PERL_534 PERL_536
+OPTIONS_STANDARD=	none
+VOPTS[534]=		PERL_534=ON PERL_536=OFF
+VOPTS[536]=		PERL_534=OFF PERL_536=ON
+
+# License listed in CPAN directory:
+# perl_5
+
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Razor2-Client-Agent-${PORTVERSION}
+
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : Digest::SHA1
+# |      runtime : File::Copy (perl 5.34 core) (perl 5.36 core)
+# |      runtime : File::Spec (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Getopt::Long (perl 5.34 core) (perl 5.36 core)
+# |      runtime : MIME::Base64 (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Test::More (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Time::HiRes (perl 5.34 core) (perl 5.36 core)
+# |      runtime : URI::Escape
+# |        build : ExtUtils::MakeMaker (perl 5.34 core) (perl 5.36 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.34 core) (perl 5.36 core)
+
+[PERL_534].USES_ON=			perl:534,configure
+[PERL_534].BUILDRUN_DEPENDS_ON=		perl-Digest-SHA1:single:534
+					perl-URI:single:534
+[PERL_536].USES_ON=			perl:536,configure
+[PERL_536].BUILDRUN_DEPENDS_ON=		perl-Digest-SHA1:single:536
+					perl-URI:single:536
+
