@@ -3,9 +3,9 @@ with sbrk(2).
 
 https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=221751
 
---- examples/mountlist.c.orig
+--- examples/mountlist.c.orig	2019-02-04 20:15:22 UTC
 +++ examples/mountlist.c
-@@ -71,16 +71,12 @@
+@@ -71,16 +71,12 @@ main (int argc, char *argv [])
  
  	printf ("Host = '%s' - %u\n\n", buffer, port);
  
@@ -22,7 +22,7 @@ https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=221751
  	mount_entries = glibtop_get_mountlist (&mount_list, 1);
  
  	if (mount_entries == NULL)
-@@ -108,8 +104,6 @@
+@@ -108,8 +104,6 @@ main (int argc, char *argv [])
  
  	g_free (mount_entries);
  

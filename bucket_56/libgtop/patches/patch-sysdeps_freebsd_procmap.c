@@ -1,6 +1,14 @@
---- sysdeps/freebsd/procmap.c.orig	2021-06-06 05:13:00 UTC
+--- sysdeps/freebsd/procmap.c.orig	2019-02-04 20:15:22 UTC
 +++ sysdeps/freebsd/procmap.c
-@@ -34,6 +34,8 @@
+@@ -24,6 +24,7 @@
+ #include <glibtop/error.h>
+ #include <glibtop/procmap.h>
+ 
++#ifndef __DragonFly__ /* TODO */
+ #include <glibtop_suid.h>
+ 
+ #include <kvm.h>
+@@ -34,6 +35,8 @@
  #include <vm/vm_map.h>
  #include <vm/vm.h>
  
@@ -9,7 +17,7 @@
  #define _KVM_VNODE
  #include <sys/vnode.h>
  #undef _KVM_VNODE
-@@ -51,14 +53,15 @@
+@@ -51,13 +54,14 @@
  #define _KERNEL
  #include <sys/mount.h>
  #include <ufs/ufs/quota.h>
@@ -21,13 +29,12 @@
  #include <fs/devfs/devfs_int.h>
  #endif
  #undef _KERNEL
+-
 +#include <ufs/ufs/inode.h>
  
--
  #if (__FreeBSD_version >= 1101001)
  #define _KERNEL
- #include <ufs/ufs/extattr.h>
-@@ -95,12 +98,14 @@ _glibtop_sysdeps_freebsd_dev_inode (glibtop *server, s
+@@ -95,12 +99,14 @@ _glibtop_sysdeps_freebsd_dev_inode (glib
          struct cdev_priv priv;
  #if __FreeBSD_version < 800039
          struct cdev si;
@@ -43,7 +50,7 @@
   	             (char *) &tagptr, sizeof (tagptr)) != sizeof (tagptr) ||
              kvm_read (server->machine->kd, (gulong) tagptr,
  		     (char *) tagstr, sizeof (tagstr)) != sizeof (tagstr))
-@@ -120,7 +125,7 @@ _glibtop_sysdeps_freebsd_dev_inode (glibtop *server, s
+@@ -120,7 +126,7 @@ _glibtop_sysdeps_freebsd_dev_inode (glib
                  return;
          }
  
@@ -52,10 +59,21 @@
   	              sizeof (inode)) != sizeof (inode))
          {
                  glibtop_warn_io_r (server, "kvm_read (inode)");
-@@ -231,6 +236,32 @@ _glibtop_init_proc_map_p (glibtop *server)
+@@ -222,6 +228,9 @@ _glibtop_sysdeps_freebsd_dev_inode (glib
+ 	    } /* end-if IS_UFS */
+ }
+ #endif
++#else
++static const unsigned long _glibtop_sysdeps_proc_map = 0;
++#endif /* __DragonFly__ */
+ 
+ /* Init function. */
+ 
+@@ -231,20 +240,51 @@ _glibtop_init_proc_map_p (glibtop *serve
          server->sysdeps.proc_map = _glibtop_sysdeps_proc_map;
  }
  
++#ifndef __DragonFly__
 +static int
 +vm_map_reader(void *token, vm_map_entry_t addr, vm_map_entry_t dest)
 +{
@@ -65,7 +83,7 @@
 +	return (kvm_read (kd, (gulong) addr, dest, sizeof(*dest)) == sizeof(*dest));
 +}
 +
-+#if (__FreeBSD_version < 1300062)
++#if (__FreeBSD_version < 1300062) && !defined(__DragonFly__)
 +typedef int vm_map_entry_reader(void *token, vm_map_entry_t addr,
 +    vm_map_entry_t dest);
 +
@@ -81,13 +99,18 @@
 +	return (next);
 +}
 +#endif
++#endif
 +
  /* Provides detailed information about a process. */
  
  glibtop_map_entry *
-@@ -238,13 +269,12 @@ glibtop_get_proc_map_p (glibtop *server, glibtop_proc_
+ glibtop_get_proc_map_p (glibtop *server, glibtop_proc_map *buf,
                          pid_t pid)
  {
++#ifdef __DragonFly__
++	memset (buf, 0, sizeof (glibtop_proc_map));
++	return NULL;
++#else
          struct kinfo_proc *pinfo;
 -        struct vm_map_entry entry, *first;
 +        struct vm_map_entry entry;
@@ -101,7 +124,7 @@
  
          memset (buf, 0, sizeof (glibtop_proc_map));
  
-@@ -273,16 +303,6 @@ glibtop_get_proc_map_p (glibtop *server, glibtop_proc_
+@@ -273,16 +313,6 @@ glibtop_get_proc_map_p (glibtop *server,
                  return NULL;
          }
  
@@ -118,7 +141,7 @@
          /* Walk through the `vm_map_entry' list ... */
  
          /* I tested this a few times with `mmap'; as soon as you write
-@@ -292,21 +312,17 @@ glibtop_get_proc_map_p (glibtop *server, glibtop_proc_
+@@ -292,21 +322,17 @@ glibtop_get_proc_map_p (glibtop *server,
          maps = g_array_sized_new(FALSE, FALSE, sizeof(glibtop_map_entry),
                                   vmspace.vm_map.nentries);
  
@@ -147,7 +170,7 @@
  
                  if (entry.eflags & (MAP_ENTRY_IS_SUB_MAP))
                          continue;
-@@ -377,7 +393,7 @@ glibtop_get_proc_map_p (glibtop *server, glibtop_proc_
+@@ -377,7 +403,7 @@ glibtop_get_proc_map_p (glibtop *server,
                  if (entry.protection & VM_PROT_EXECUTE)
                          mentry->perm |= GLIBTOP_MAP_PERM_EXECUTE;
  
@@ -156,3 +179,9 @@
  
          glibtop_suid_leave (server);
  
+@@ -388,4 +414,5 @@ glibtop_get_proc_map_p (glibtop *server,
+         buf->total  = (guint64) (buf->number * buf->size);
+ 
+         return (glibtop_map_entry*) g_array_free(maps, FALSE);
++#endif
+ }

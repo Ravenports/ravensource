@@ -1,6 +1,6 @@
---- sysdeps/freebsd/procopenfiles.c.orig	2014-10-12 07:17:26 UTC
+--- sysdeps/freebsd/procopenfiles.c.orig	2019-02-04 20:15:22 UTC
 +++ sysdeps/freebsd/procopenfiles.c
-@@ -322,12 +322,21 @@ glibtop_get_proc_open_files_s (glibtop *server, glibto
+@@ -322,12 +322,21 @@ glibtop_get_proc_open_files_s (glibtop *
  				struct sockaddr_un *sun;
  
  				entry.type = GLIBTOP_FILE_TYPE_LOCALSOCKET;
@@ -22,7 +22,7 @@
  					g_strlcpy(entry.info.localsock.name,
  						  addrstr,
  						  sizeof(entry.info.localsock.name));
-@@ -335,7 +344,11 @@ glibtop_get_proc_open_files_s (glibtop *server, glibto
+@@ -335,7 +344,11 @@ glibtop_get_proc_open_files_s (glibtop *
  				} else {
  					char *addrstr;
  
@@ -34,7 +34,7 @@
  					g_strlcpy(entry.info.localsock.name,
  						  addrstr,
  						  sizeof(entry.info.localsock.name));
-@@ -349,12 +362,20 @@ glibtop_get_proc_open_files_s (glibtop *server, glibto
+@@ -349,12 +362,20 @@ glibtop_get_proc_open_files_s (glibtop *
  					entry.type = GLIBTOP_FILE_TYPE_INETSOCKET;
  				else
  					entry.type = GLIBTOP_FILE_TYPE_INET6SOCKET;

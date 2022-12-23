@@ -1,6 +1,42 @@
---- configure.orig	2015-08-13 20:06:09.161030000 +0200
-+++ configure	2015-08-13 20:07:04.020683000 +0200
-@@ -14503,6 +14503,57 @@
+--- configure.orig	2019-03-11 08:56:47 UTC
++++ configure
+@@ -13955,7 +13955,7 @@ $as_echo_n "checking for libgtop sysdeps
+ 	  libgtop_sysdeps_private_fsusage=yes
+ 	  libgtop_postinstall='chgrp kmem $(bindir)/libgtop_server2 && chmod 2555 $(bindir)/libgtop_server2'
+ 	  ;;
+-	freebsd*|kfreebsd*)
++	freebsd*|dragonfly*|kfreebsd*)
+ 	  libgtop_sysdeps_dir=freebsd
+ 	  libgtop_need_server=yes
+ 	  libgtop_sysdeps_private_mountlist=yes
+@@ -14020,7 +14020,7 @@ $as_echo "$libgtop_sysdeps_dir" >&6; }
+ 
+ 
+ 	case "$host_os" in
+-	*bsd*)
++	*bsd*|dragonfly*)
+ 	  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for kvm_open in -lkvm" >&5
+ $as_echo_n "checking for kvm_open in -lkvm... " >&6; }
+ if ${ac_cv_lib_kvm_kvm_open+:} false; then :
+@@ -14101,6 +14101,8 @@ $as_echo_n "checking for I4B... " >&6; }
+ 
+ #if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__FreeBSD_kernel__)
+ #include <net/if_sppp.h>
++#elif defined(__DragonFly__)
++#include <net/sppp/if_sppp.h>
+ #else
+ #include <i4b/sppp/if_sppp.h>
+ #endif
+@@ -14147,6 +14149,8 @@ $as_echo_n "checking for I4B accounting.
+ 
+ #if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__FreeBSD_kernel__)
+ #include <net/if_sppp.h>
++#elif defined(__DragonFly__)
++#include <net/sppp/if_sppp.h>
+ #else
+ #include <i4b/sppp/if_sppp.h>
+ #endif
+@@ -14462,6 +14466,57 @@ $as_echo "#define HAVE_IFADDRS_H 1" >>co
  
  fi
  
@@ -58,3 +94,12 @@
  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for an ANSI C-conforming const" >&5
  $as_echo_n "checking for an ANSI C-conforming const... " >&6; }
  if ${ac_cv_c_const+:} false; then :
+@@ -18806,7 +18861,7 @@ if test x$cross_compiling = xyes ; then
+         sunos*)
+           fu_cv_sys_stat_statfs4=yes
+           ;;
+-        freebsd*)
++        freebsd*|dragonfly*)
+           fu_cv_sys_stat_statfs2_bsize=yes
+           ;;
+         osf*)
