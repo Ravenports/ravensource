@@ -32,13 +32,12 @@ BUILDRUN_DEPENDS=	libogg:primary:standard
 			libvorbis:primary:standard
 			mpg123:library:standard
 			portaudio:primary:standard
+EXRUN[primary]=		libopenmpt:library:standard
 
-USES=			libtool pkgconfig zlib
-
+USES=			cpe libtool pkgconfig zlib
+CPE_VENDOR=		openmpt
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--without-portaudiocpp
-
-EXRUN[primary]=		libopenmpt:library:standard
 SOVERSION=		${SOVERSION}
 
 post-install:
