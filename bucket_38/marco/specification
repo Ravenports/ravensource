@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	1.26.1
+DEF[SOVERSION]=		2.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		marco
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_wm
+VARIANTS=		standard
+SDESC[standard]=	Fully-fledged but low-frills WM for the MATE DE
+HOMEPAGE=		https://mate-desktop.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://pub.mate-desktop.org/releases/${PORTVERSION:R}/
+DISTFILE[1]=		marco-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/core/main.c
+LICENSE_AWK=		TERMS:"Program startup."
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11-wm/marco
+
+BUILD_DEPENDS=		itstool:single:standard
+BUILDRUN_DEPENDS=	libcanberra:primary:standard
+			startup-notification:single:standard
+			zenity:primary:standard
+
+USES=			gettext-runtime gettext-tools:build gmake libtool pkgconfig
+XORG_COMPONENTS=	xres
+GNOME_COMPONENTS=	glib gtk3
+
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
+
+GLIB_SCHEMAS=		org.mate.marco.gschema.xml
