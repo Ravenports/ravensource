@@ -328,8 +328,6 @@ install-platform: install-common
 	${BSD_INSTALL_PROGRAM} ${LOCALBASE}/bin/bsd_realpath \
 		${DESTDIR}${BASE}/bin/realpath
 
-	cp ${LOCALBASE}/lib/libdl.a ${DESTDIR}${BASE}/usr/lib/
-
 	# locale information
 .  for LC in CTYPE MONETARY NUMERIC TIME
 	cp ../${OPSYS:tl}/usr/share/locale/en_US.UTF-8/LC_${LC} \
