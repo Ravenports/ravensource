@@ -4,7 +4,7 @@ DEF[SOVERSION]=		17.1.4
 
 NAMEBASE=		mate-desktop
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		x11
 VARIANTS=		standard
 SDESC[standard]=	MATE desktop common UI API library
@@ -37,8 +37,8 @@ FPC_EQUIVALENT=		x11/mate-desktop
 BUILD_DEPENDS=		iso-codes:primary:standard
 BUILDRUN_DEPENDS=	startup-notification:single:standard
 
-USES=			gettext-runtime gettext-tools:build libtool
-			pkgconfig gmake gtk-doc
+USES=			gettext-runtime gettext-tools:build gmake gtk-doc
+			libtool pkgconfig schemas:primary
 GNOME_COMPONENTS=	dconf glib gdkpixbuf gtk3 intltool
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-gtk-doc
