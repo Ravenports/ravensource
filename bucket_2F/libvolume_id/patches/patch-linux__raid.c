@@ -5,7 +5,7 @@
  #include <errno.h>
  #include <ctype.h>
 -#ifdef __FreeBSD__
-+#if defined(__FreeBSD__) || defined(__DragonFly__)
++#if defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__) || defined(__OpenBSD__)
  #include <sys/endian.h>
 -#else
 +#elif !defined(__APPLE__) && !defined(__sun__)

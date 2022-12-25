@@ -5,10 +5,10 @@
  #include "util.h"
  
 -#ifdef __FreeBSD__
-+#if defined(__FreeBSD__) || defined(__DragonFly__)
++#if defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
  #include <sys/param.h>
 -#if __FreeBSD_version < 800067
-+#if __FreeBSD_version < 800067 && __DragonFly_version < 200202
++#if __FreeBSD_version < 800067 && __DragonFly_version < 200202 && __NetBSD_Version__ < 599001100
  static size_t strnlen (const char *s, size_t maxlen)
  {
  	size_t i;
