@@ -49,8 +49,13 @@ SOVERSION=		${SOVERSION}
 PLIST_SUB=		JQUERY=${JQUERY}
 			UNDERSCORE=${UNDERSCORE}
 
+VAR_OPSYS[linux]=	MAKEFILE_LINE=DYNLINK="-ldl"
+
 pre-configure:
-	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|' ${WRKSRC}/gnatcoll.gpr
+	${REINPLACE_CMD} \
+		-e 's|@PREFIX@|${PREFIX}|' \
+		-e 's|@DYNLINK@|${DYNLINK}|' \
+		${WRKSRC}/gnatcoll.gpr
 
 do-configure:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} setup)

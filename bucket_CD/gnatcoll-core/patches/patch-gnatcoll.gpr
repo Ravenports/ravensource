@@ -1,5 +1,14 @@
 --- gnatcoll.gpr.orig	2022-09-22 17:07:27 UTC
 +++ gnatcoll.gpr
+@@ -97,7 +97,7 @@ project GnatColl is
+    end case;
+    case OS is
+       when "unix" =>
+-         Extra_Libs := Extra_Libs & ("-ldl"); --  For gnatcoll.plugins
++         Extra_Libs := Extra_Libs & ("@DYNLINK@"); --  For gnatcoll.plugins
+       when others =>
+          null;
+    end case;
 @@ -116,7 +116,7 @@ project GnatColl is
  
     case Library_Type is
