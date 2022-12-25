@@ -5,7 +5,7 @@
  #endif
  #if !defined strnicmp && !defined PORTABLE_STRNICMP
 -  #if defined __LINUX__ || defined __FreeBSD__ || defined __OpenBSD__ || defined __APPLE__
-+  #if defined __LINUX__ || defined __FreeBSD__ || defined __OpenBSD__ || defined __APPLE__ || defined __DragonFly__ || defined __NetBSD_
++  #if defined __LINUX__ || defined __FreeBSD__ || defined __OpenBSD__ || defined __APPLE__ || defined __DragonFly__ || defined __NetBSD__
      #define strnicmp  strncasecmp
    #endif
  #endif
