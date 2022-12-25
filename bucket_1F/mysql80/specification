@@ -8,7 +8,7 @@ DEF[MY_TMPDIR]=		/var/db/mysql_tmpdir
 
 NAMEBASE=		mysql${SUFFIX}
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		databases
 VARIANTS=		standard
 SDESC[standard]=	Multithreaded SQL database (server)
@@ -40,10 +40,14 @@ LICENSE_SCHEME=		multi
 FPC_EQUIVALENT=		databases/mysql80-server
 
 BUILD_DEPENDS=		libedit:single:standard
+			Zstandard:static:standard
 BUILDRUN_DEPENDS=	libevent:single:standard
 			protobuf:single:standard
+			Zstandard:shared:standard
+			icu:single:standard
 EXRUN[client]=		libedit:single:standard
 			zlib:complete:standard
+			Zstandard:shared:standard
 # #			can't use "ssl" here, currently it assumes libressl
 			openssl11:single:standard
 
@@ -81,6 +85,8 @@ CMAKE_ARGS=		-DINSTALL_PKGCONFIGDIR="{{LOCALBASE}}/lib/pkgconfig"
 			-DWITH_PROTOBUF=system
 			-DWITH_LZ4=system
 			-DWITH_ZLIB=system
+			-DWITH_ZSTD=system
+			-DWITH_ICU=system
 			-DWITH_SSL={{OPENSSLBASE}}
 			-DINSTALL_MYSQLTESTDIR=0
 			-DZLIB_INCLUDE_DIR={{LOCALBASE}}/include
