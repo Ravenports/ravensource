@@ -5,7 +5,7 @@
  #endif
  
 -#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
-+#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__DragonFly__)
++#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__DragonFly__) || defined(__NetBSD__)
  #include <sys/time.h>
  #include <sys/syscall.h>
  #include <sys/types.h>
@@ -42,7 +42,7 @@
  	syscall(SYS_write, (int)(fd), (const void *)(buf), (size_t)(len));
  
 -#if defined(__FreeBSD__)
-+#if defined(__FreeBSD__) || defined (__DragonFly__)
++#if defined(__FreeBSD__) || defined (__DragonFly__) || defined(__NetBSD__)
  #define SYS_MMAP(addr, len, prot, flags, fd, off) \
  	__syscall(SYS_mmap, (void *)(addr), (size_t)(len), \
  			(int)(prot), (int)(flags), (int)(fd), (off_t)(off))
