@@ -22,3 +22,15 @@
  #elif defined(__FreeBSD__)
      bool ok = true;
  
+@@ -319,7 +334,11 @@ gegl_config_class_init (GeglConfigClass
+     }
+ #else
+     mem_total = (uint64_t) sysconf (_SC_PHYS_PAGES) * sysconf (_SC_PAGESIZE);
++# ifdef _SC_AVPHYS_PAGES
+     mem_available = (uint64_t) sysconf (_SC_AVPHYS_PAGES) * sysconf (_SC_PAGESIZE);
++# else
++    mem_available = (uint64_t) sysconf (_SC_PHYS_PAGES) * sysconf (_SC_PAGESIZE);
++# endif
+ #endif
+ 
+     default_tile_cache_size = mem_total;
