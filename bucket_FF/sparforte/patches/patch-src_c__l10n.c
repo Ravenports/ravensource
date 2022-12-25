@@ -5,7 +5,7 @@
  
  char *langinfo_decimal_point() {
 -#if defined(__APPLE__) || defined(__FreeBSD__)
-+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__)
++#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
     return undefined;
  #else
     return nl_langinfo( DECIMAL_POINT );
@@ -14,7 +14,7 @@
  
  char *langinfo_thousands_sep() {
 -#if defined(__APPLE__) || defined(__FreeBSD__)
-+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__)
++#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
     return undefined;
  #else
     return nl_langinfo( THOUSANDS_SEP );
@@ -23,7 +23,7 @@
  
  char *langinfo_currency_symbol() {
 -#if defined(__APPLE__) || defined(__FreeBSD__)
-+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__)
++#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
     return undefined;
  #else
     return nl_langinfo( CURRENCY_SYMBOL );
@@ -32,7 +32,7 @@
  
  char *langinfo_positive_sign() {
 -#if defined(__APPLE__) || defined(__FreeBSD__)
-+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__)
++#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
     return undefined;
  #else
     return nl_langinfo( POSITIVE_SIGN );
@@ -41,7 +41,7 @@
  
  char *langinfo_negative_sign() {
 -#if defined(__APPLE__) || defined(__FreeBSD__)
-+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__)
++#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
     return undefined;
  #else
     return nl_langinfo( NEGATIVE_SIGN );
@@ -50,7 +50,7 @@
  
  char *langinfo_int_curr_symbol() {
 -#if defined(__APPLE__) || defined(__FreeBSD__)
-+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__)
++#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
     return undefined;
  #else
     return nl_langinfo( INT_CURR_SYMBOL );
@@ -59,7 +59,7 @@
  
  char *langinfo_grouping() {
 -#if defined(__APPLE__) || defined(__FreeBSD__)
-+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__)
++#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
     return "\0";
  #else
     return nl_langinfo( GROUPING );
@@ -68,7 +68,7 @@
  
  char *langinfo_frac_digits() {
 -#if defined(__APPLE__) || defined(__FreeBSD__)
-+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__)
++#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
     return undefined;
  #else
     return nl_langinfo( FRAC_DIGITS );
@@ -77,7 +77,7 @@
  
  char *langinfo_int_frac_digits() {
 -#if defined(__APPLE__) || defined(__FreeBSD__)
-+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__)
++#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
     return undefined;
  #else
     return nl_langinfo( INT_FRAC_DIGITS );
@@ -86,7 +86,7 @@
  
  char *langinfo_p_cs_precedes() {
 -#if defined(__APPLE__) || defined(__FreeBSD__)
-+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__)
++#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
     return undefined;
  #else
     return nl_langinfo( P_CS_PRECEDES );
@@ -95,7 +95,7 @@
  
  char *langinfo_p_sep_by_space() {
 -#if defined(__APPLE__) || defined(__FreeBSD__)
-+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__)
++#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
     return undefined;
  #else
     return nl_langinfo( P_SEP_BY_SPACE );
@@ -104,7 +104,7 @@
  
  char *langinfo_p_sign_posn() {
 -#if defined(__APPLE__) || defined(__FreeBSD__)
-+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__)
++#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
     return undefined;
  #else
     return nl_langinfo( P_SIGN_POSN );
@@ -113,7 +113,7 @@
  
  char *langinfo_n_cs_precedes() {
 -#if defined(__APPLE__) || defined(__FreeBSD__)
-+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__)
++#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
     return undefined;
  #else
     return nl_langinfo( N_CS_PRECEDES );
@@ -122,7 +122,7 @@
  
  char *langinfo_n_sep_by_space() {
 -#if defined(__APPLE__) || defined(__FreeBSD__)
-+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__)
++#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
     return undefined;
  #else
     return nl_langinfo( N_SEP_BY_SPACE );
@@ -131,7 +131,7 @@
  
  char *langinfo_n_sign_posn() {
 -#if defined(__APPLE__) || defined(__FreeBSD__)
-+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__)
++#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
     return undefined;
  #else
     return nl_langinfo( N_SIGN_POSN );
@@ -140,7 +140,7 @@
  
  char *langinfo_mon_decimal_point() {
 -#if defined(__APPLE__) || defined(__FreeBSD__)
-+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__)
++#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
     return undefined;
  #else
     return nl_langinfo( MON_DECIMAL_POINT );
@@ -149,7 +149,7 @@
  
  char *langinfo_mon_thousands_sep() {
 -#if defined(__APPLE__) || defined(__FreeBSD__)
-+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__)
++#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
     return undefined;
  #else
     return nl_langinfo( MON_THOUSANDS_SEP );
@@ -158,7 +158,7 @@
  
  char *langinfo_mon_grouping() {
 -#if defined(__APPLE__) || defined(__FreeBSD__)
-+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__)
++#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
     return "\0";
  #else
     return nl_langinfo( MON_GROUPING );
@@ -167,7 +167,7 @@
  
  char *langinfo_era_year() {
 -#if defined(__APPLE__) || defined(__FreeBSD__)
-+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__)
++#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
     return undefined;
  #else
     return nl_langinfo( ERA_YEAR );
