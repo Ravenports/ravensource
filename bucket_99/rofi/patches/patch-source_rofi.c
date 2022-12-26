@@ -4,7 +4,7 @@
  #include <stdlib.h>
  #include <string.h>
  #include <sys/types.h>
-+#if defined __FreeBSD__
++#if defined __FreeBSD__ || defined __NetBSD__
 +#include <sys/stat.h>
 +#endif
  #include <sysexits.h>
