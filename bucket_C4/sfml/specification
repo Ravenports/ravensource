@@ -52,6 +52,17 @@ post-patch-dragonfly:
 	${REINPLACE_CMD} 's|dev/usb/usbhid.h|bus/u4b/usbhid.h|' \
 		${WRKSRC}/src/SFML/Window/FreeBSD/JoystickImpl.hpp
 
+post-patch-netbsd:
+	${REINPLACE_CMD} 's|SFML_SYSTEM_OPENBSD|SFML_SYSTEM_NETBSD|' \
+		${WRKSRC}/src/SFML/Window/CursorImpl.hpp \
+		${WRKSRC}/src/SFML/Window/GlContext.cpp \
+		${WRKSRC}/src/SFML/Window/SensorImpl.hpp \
+		${WRKSRC}/src/SFML/Window/WindowImpl.cpp \
+		${WRKSRC}/src/SFML/Window/InputImpl.hpp \
+		${WRKSRC}/src/SFML/Window/ClipboardImpl.hpp \
+		${WRKSRC}/include/SFML/OpenGL.hpp \
+		${WRKSRC}/include/SFML/Window/WindowHandle.hpp
+
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so.${SOVERSION}
 	${RM} -r ${STAGEDIR}${PREFIX}/share/SFML
