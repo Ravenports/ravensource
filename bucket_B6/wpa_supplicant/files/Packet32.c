@@ -46,14 +46,16 @@
 #include <sys/fcntl.h>
 #include <net/if.h>
 #include <net/if_dl.h>
+#if defined(__FreeBSD__) || defined(__DragonFly__)
 #include <net/if_var.h>
+#endif
 
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <net/route.h>
 
-#ifdef __FreeBSD__
+#if defined(__FreeBSD__) || defined(__NetBSD__)
 #include <net80211/ieee80211_ioctl.h>
 #endif
 #ifdef __DragonFly__

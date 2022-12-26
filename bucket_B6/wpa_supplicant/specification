@@ -46,6 +46,7 @@ OPT_ON[all]=		WIRED
 			HOTSPOT
 OPT_ON[dragonfly]=	BSD NDIS
 OPT_ON[freebsd]=	BSD NDIS
+OPT_ON[netbsd]=		BSD NDIS
 OPT_ON[sunos]=		NDIS
 
 LICENSE=		BSD3CLAUSE:single
@@ -72,6 +73,7 @@ SUB_FILES=		pkg-message-single-dragonfly
 
 VAR_OPSYS[freebsd]=	LDFLAGS=-lutil
 VAR_OPSYS[dragonfly]=	LDFLAGS=-lutil
+VAR_OPSYS[netbsd]=	LDFLAGS=-lutil
 
 [BSD].DESCRIPTION=			BSD net80211 interface
 [NDIS].DESCRIPTION=			Windows NDIS interface
@@ -149,6 +151,11 @@ post-patch:
 	${ECHO_CMD} CONFIG_TLS=openssl >> ${BUILD_WRKSRC}/.config
 
 post-patch-freebsd:
+	${ECHO_CMD} CONFIG_L2_PACKET=freebsd >> ${BUILD_WRKSRC}/.config
+	${CP} ${FILESDIR}/Packet32.[ch] ${FILESDIR}/ntddndis.h \
+		${WRKSRC}/src/utils
+
+post-patch-netbsd:
 	${ECHO_CMD} CONFIG_L2_PACKET=freebsd >> ${BUILD_WRKSRC}/.config
 	${CP} ${FILESDIR}/Packet32.[ch] ${FILESDIR}/ntddndis.h \
 		${WRKSRC}/src/utils
