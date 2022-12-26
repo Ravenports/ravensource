@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.2.4
 
 NAMEBASE=		cdrdao
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		standard
 SDESC[standard]=	Tool to write CD-Rs in Disk-At-Once Mode
@@ -29,19 +30,28 @@ USES=			cpe gmake pkgconfig c++:single
 CPE_VENDOR=		andreas_mueller
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-gcdmaster=no
-			--without-pcctsbin
-			--without-pcctsinc
+			--with-pcctsbin={{PREFIX}}/bin
+			--with-pcctsinc={{PREFIX}}/include/pccts
 			--with-posix-threads=no
-			--with-scglib
 CONFIGURE_ENV=		AO_LIBS=-lao
 			MAD_LIBS=-lmad
 			VORBISFILE_LIBS=-lvorbisfile
 MAKE_ENV=		CCOM=cc
 
+VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-scglib
+VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--with-scglib
+VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--with-scglib
+			LDFLAGS=-lvolmgt
+			LDFLAGS=-lnsl
+
 post-extract-dragonfly:
 	(cd ${WRKSRC}/scsilib/RULES \
 		&& ${CP} -p os-freebsd.id os-dragonfly.id \
 		&& ${CP} -p i386-freebsd-cc.rul x86_64-freebsd-cc.rul)
+
+post-extract-netbsd:
+	(cd ${WRKSRC}/scsilib/RULES \
+		&& ${CP} -p i386-netbsd-cc.rul x86_64-netbsd-cc.rul)
 
 post-extract-freebsd:
 	(cd ${WRKSRC}/scsilib/RULES \

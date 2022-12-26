@@ -12,3 +12,16 @@
  
  #include "ScsiIf.h"
  #include "log.h"
+@@ -221,6 +225,12 @@ int ScsiIf::inquiry()
+ 	for (i = 3; i >= 0 && revision_[i] == ' '; i--)
+ 		revision_[i] = 0;
+ 
++	if (vendor_[0] == 0)
++		strncpy(vendor_, "UNKNOWN", 8);
++
++	if (product_[0] == 0)
++		strncpy(product_, "UNKNOWN", 8);
++
+ 	return 0;
+ }
+ 
