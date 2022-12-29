@@ -24,6 +24,8 @@ LICENSE=		BSD2CLAUSE:single
 LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/BSD2CLAUSE
 LICENSE_SCHEME=		solo
 
+BR_DEPS[linux]=		libbsd:single:standard
+
 USES=			pkgconfig:build fonts solaris-funcs gmake
 XORG_COMPONENTS=	x11 xft xinerama xrandr
 SOL_FUNCTIONS=		err.h:err.h
@@ -34,6 +36,10 @@ SOL_FUNCTIONS=		err.h:err.h
 			strsep:kbfunc.c
 			getline:kbfunc.c
 SINGLE_JOB=		yes
+
+VAR_OPSYS[linux]=	CFLAGS=-DLIBBSD_OVERLAY
+			CFLAGS=-I{{LOCALBASE}}/include/bsd
+			LDFLAGS=-lbsd
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/cwm ${STAGEDIR}${PREFIX}/bin
