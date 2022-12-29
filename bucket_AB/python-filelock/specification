@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.8.2
+DEF[PORTVERSION]=	3.9.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-filelock
@@ -7,11 +7,11 @@ KEYWORDS=		python
 VARIANTS=		py310 py311
 SDESC[py310]=		Platform independent file lock (3.10)
 SDESC[py311]=		Platform independent file lock (3.11)
-HOMEPAGE=		https://github.com/tox-dev/py-filelock
+HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/7c/37/4fed6f28d8010c791437b808a94f37c4ae58ee3998b653d2c0286a8cc190
+SITES[main]=		PYPIWHL/14/4c/b201d0292ca4e0950f0741212935eac9996f69cd66b92a3587e594999163
 DISTFILE[1]=		filelock-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -23,20 +23,20 @@ VOPTS[py310]=		PY310=ON PY311=OFF
 VOPTS[py311]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
-# Unlicense
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		filelock-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# furo (>=2022.9.29) ; extra == 'docs'
-# sphinx (>=5.3) ; extra == 'docs'
-# sphinx-autodoc-typehints (>=1.19.5) ; extra == 'docs'
-# covdefaults (>=2.2.2) ; extra == 'testing'
-# coverage (>=6.5) ; extra == 'testing'
-# pytest (>=7.2) ; extra == 'testing'
-# pytest-cov (>=4) ; extra == 'testing'
-# pytest-timeout (>=2.1) ; extra == 'testing'
+# furo>=2022.12.7; extra == 'docs'
+# sphinx-autodoc-typehints>=1.19.5; extra == 'docs'
+# sphinx>=5.3; extra == 'docs'
+# covdefaults>=2.2.2; extra == 'testing'
+# coverage>=7.0.1; extra == 'testing'
+# pytest-cov>=4; extra == 'testing'
+# pytest-timeout>=2.1; extra == 'testing'
+# pytest>=7.2; extra == 'testing'
 
 [PY310].USES_ON=			python:py310,wheel
 [PY311].USES_ON=			python:py311,wheel
