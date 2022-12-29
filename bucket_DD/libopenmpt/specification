@@ -4,6 +4,7 @@ DEF[SOVERSION]=		0.3.3
 
 NAMEBASE=		libopenmpt
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		audio
 VARIANTS=		standard
 SDESC[standard]=	Cross-platform mod music library & player
@@ -38,6 +39,8 @@ USES=			cpe libtool pkgconfig zlib
 CPE_VENDOR=		openmpt
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--without-portaudiocpp
+			--without-pulseaudio
+INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 
 post-install:
