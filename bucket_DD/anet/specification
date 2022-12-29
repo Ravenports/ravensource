@@ -15,8 +15,11 @@ DISTFILE[1]=		libanet-${PORTVERSION}.tar.bz2:main
 
 SPKGS[standard]=	complete primary docs
 
-OPTIONS_AVAILABLE=	TESTED
-OPTIONS_STANDARD=	TESTED
+OPTIONS_AVAILABLE=	TESTED BSD
+OPTIONS_STANDARD=	TESTED BSD
+OPT_ON[dragonfly]=	BSD
+OPT_ON[freebsd]=	BSD
+OPT_ON[netbsd]=		BSD
 
 LICENSE=		GMGPL:primary
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
@@ -36,13 +39,13 @@ DISTNAME=		libanet-${PORTVERSION}
 MAKE_ARGS=		NUM_CPUS={{MAKE_JOBS_NUMBER}}
 INSTALL_REQ_TOOLCHAIN=	yes
 
-VAR_OPSYS[dragonfly]=	MAKE_ARGS=OS=bsd
-VAR_OPSYS[freebsd]=	MAKE_ARGS=OS=bsd
-VAR_OPSYS[netbsd]=	MAKE_ARGS=OS=bsd
-
 [TESTED].DESCRIPTION=			Run unit test suite before installation
 [TESTED].BUILD_DEPENDS_ON=		ahven:primary:standard
-[TESTED].BUILD_TARGET_ON=		build-tests
+[TESTED].BUILD_TARGET_ON=		tests
+
+[BSD].DESCRIPTION=			Build on BSD platform
+[BSD].EXTRA_PATCHES_ON=			extra-src_anet-sockets-inet.adb
+[BSD].MAKE_ARGS_ON=			OS=bsd
 
 pre-configure:
 	${REINPLACE_CMD} -e 's|=lib/gnat|=share/gpr|' ${WRKSRC}/Makefile
