@@ -1,6 +1,5 @@
-DEF[PORTVERSION]=	4.4.0
-DEF[SOVERSION]=		5.8.0
-DEF[SOMAJOR]=		${SOVERSION:R:R}
+DEF[PORTVERSION]=	4.5.0
+DEF[SOVERSION]=		6.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		tiff
@@ -26,35 +25,16 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/tiff
 
+BUILD_DEPENDS=		Zstandard:static:standard
 BUILDRUN_DEPENDS=	jbigkit:single:standard
+			xz:single:standard
+			Zstandard:shared:standard
 
-USES=			cpe jpeg libtool c++:primary zlib
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-jpeg-include-dir={{LOCALBASE}}/include
-			--with-jpeg-lib-dir={{LOCALBASE}}/lib
-			--enable-ld-version-script
-			--without-x
-INSTALL_TARGET=		install-strip
-INSTALL_REQ_TOOLCHAIN=	yes
-TEST_TARGET=		check
+USES=			cpe jpeg c++:primary zlib cmake
 CPE_PRODUCT=		libtiff
 CPE_VERSION=		${PORTVERSION}
-PLIST_SUB=		SOVERSION=${SOVERSION}
-			SOMAJOR=${SOMAJOR}
-
-post-patch:
-	${REINPLACE_CMD} "/\.po 0/d" ${WRKSRC}/man/*
-
-pre-configure:
-	${REINPLACE_CMD} \
-		-e 's|tiffgt.1 ||' \
-		${WRKSRC}/man/Makefile.in
-	${REINPLACE_CMD} -e 's|^docfiles|no-docfiles|' \
-		-e 's|man html|man|' ${WRKSRC}/Makefile.in
+SOVERSION=		${SOVERSION}
 
 post-install:
-	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}/images ${STAGEDIR}${STD_DOCDIR}/man
-	${INSTALL_DATA} ${WRKSRC}/html/*.html ${STAGEDIR}${STD_DOCDIR}/
-	${INSTALL_DATA} ${WRKSRC}/html/images/*.jpg ${STAGEDIR}${STD_DOCDIR}/images/
-	${INSTALL_DATA} ${WRKSRC}/html/images/*.gif ${STAGEDIR}${STD_DOCDIR}/images/
-	${INSTALL_DATA} ${WRKSRC}/html/man/*.html ${STAGEDIR}${STD_DOCDIR}/man/
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
