@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.15.05
+DEF[PORTVERSION]=	2.16.01
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		nasm
@@ -21,21 +21,28 @@ SPKGS[standard]=	complete primary docs
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		BSD2CLAUSE:primary
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		perl-Font-TTF:single:perl_used
+			perl-IO-String:single:perl_used
+
 FPC_EQUIVALENT=		devel/nasm
 
-USES=			cpe gmake
+USES=			cpe gmake perl:build
 CPE_VENDOR=		nasm
 CPE_PRODUCT=		netwide_assembler
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		ac_cv_func_strspn=yes
+CONFIGURE_ARGS=		--docdir="{{STD_DOCDIR}}"
 MAKE_ARGS=		INSTALLROOT={{STAGEDIR}}
-INSTALL_TARGET=		install install_rdf
+INSTALL_TARGET=		install install_doc
 
 post-patch:
 	# fix gmake on macos
 	${REINPLACE_CMD} -e 's|[$$][(]A[)]|a|g' ${WRKSRC}/Makefile.in
 
 post-install:
-	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 	(cd ${WRKSRC}/doc && ${COPYTREE_SHARE} html ${STAGEDIR}${STD_DOCDIR})
 	${INSTALL_DATA} ${WRKSRC}/doc/nasmdoc.txt ${STAGEDIR}${STD_DOCDIR}
