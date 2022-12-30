@@ -1,4 +1,4 @@
---- lib/cyr_qsort_r.h.orig	2022-04-05 23:50:01 UTC
+--- lib/cyr_qsort_r.h.orig	2022-11-02 02:18:02 UTC
 +++ lib/cyr_qsort_r.h
 @@ -33,7 +33,7 @@
  #endif

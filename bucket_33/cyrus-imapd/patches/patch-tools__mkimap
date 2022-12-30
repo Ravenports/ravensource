@@ -1,6 +1,6 @@
 Index: tools/mkimap
 diff -u tools/mkimap.orig tools/mkimap
---- tools/mkimap.orig	2022-06-27 00:41:40 UTC
+--- tools/mkimap.orig	2022-11-02 02:18:02 UTC
 +++ tools/mkimap
 @@ -75,6 +75,9 @@ sub read_conf {
  
@@ -12,7 +12,7 @@ diff -u tools/mkimap.orig tools/mkimap
  push @configs, $imapdconf;
  
  while ($conf = shift @configs) {
-@@ -85,6 +88,7 @@ $d = $confdir;
+@@ -87,6 +90,7 @@ $d = $confdir;
  
  print "configuring $d...\n";
  
@@ -20,7 +20,7 @@ diff -u tools/mkimap.orig tools/mkimap
  chdir $d or die "couldn't change to $d";
  
  mkdir "proc", 0755 || warn "can't create $d/proc: $!";
-@@ -95,12 +99,15 @@ mkdir "msg", 0755 || warn "can't create
+@@ -97,12 +101,15 @@ mkdir "msg", 0755 || warn "can't create
  mkdir "ptclient", 0755 || warn "can't create $d/ptclient: $!";
  mkdir "sync", 0755 || warn "can't create $d/sync: $!";
  

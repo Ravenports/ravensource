@@ -1,10 +1,10 @@
 Index: lib/libcyr_cfg.c
 diff -u -p lib/libcyr_cfg.c.orig lib/libcyr_cfg.c
---- lib/libcyr_cfg.c.orig	2022-06-27 00:41:40 UTC
+--- lib/libcyr_cfg.c.orig	2022-11-02 02:18:02 UTC
 +++ lib/libcyr_cfg.c
-@@ -50,7 +50,7 @@
- #include "libcyr_cfg.h"
- #include "cyrusdb.h"
+@@ -52,7 +52,7 @@
+ #include "xmalloc.h"
+ #include "util.h"
  
 -#if defined(__GNUC__) && __GNUC__ > 1
 +#if defined(__GNUC__) && __GNUC__ > 1 && !defined(__INTEL_COMPILER)
