@@ -1,5 +1,5 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(GTK3_PORT_VERSION)
-DEF[LIBVERSION]=	0.2404.31
+DEF[LIBVERSION]=	0.2404.32
 DEF[GTK_VERSION]=	EXTRACT_INFO(GTK3_VERSION)
 # ----------------------------------------------------------------------------
 
@@ -29,21 +29,20 @@ BUILDRUN_DEPENDS=	libepoxy:single:standard
 EXRUN[primary]=		gtk3:icon_cache:standard
 EXRUN[icon_cache]=	gdk-pixbuf:primary:standard
 
-USES=			gettext-tools gmake libtool pkgconfig
+USES=			gettext-tools pkgconfig meson
 			schemas:primary perl:build python:build cpe
 GNOME_COMPONENTS=	atk cairo gdkpixbuf pango
 XORG_COMPONENTS=	xext x11 xinerama xi xrandr xcursor xfixes
 			xdamage xcomposite
 CPE_VENDOR=		gtk
 CPE_PRODUCT=		gtk\+
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-x11-backend
-			--disable-wayland-backend
+MESON_ARGS=		-Dx11_backend=true
+			-Dwayland_backend=false
+			-Dtests=false
+			-Dexamples=false
 CPPFLAGS=		-fno-omit-frame-pointer
 PLIST_SUB=		LIBVERSION=${LIBVERSION}
 			GTK_VERSION=${GTK_VERSION}
-INSTALL_TARGET=		install-strip
-INSTALL_REQ_TOOLCHAIN=	yes
 DISTNAME=		gtk+-${PORTVERSION}
 
 GLIB_SCHEMAS=		org.gtk.Demo.gschema.xml
@@ -60,38 +59,29 @@ VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 [CLOUDPRINT].DESCRIPTION=		Support for printing to cloud
 [INTROSPECTION].DESCRIPTION=		Build with introspection files
 
-[DBUS].CONFIGURE_WITH_BOTH=		atk-bridge
 [DBUS].BUILDRUN_DEPENDS_ON=		at-spi2-atk:single:standard
 
 [CUPS].BROKEN_ON=			CUPS option not supported yet
 [CLOUDPRINT].BROKEN_ON=			CLOUDPRINT option not supported yet
 [COLORD].BROKEN_ON=			COLORD option not supported yet
 
-[CLOUDPRINT].CONFIGURE_ENABLE_BOTH=	cloudprint
+[CLOUDPRINT].CONFIGURE_ARGS_ON=		-Dcloudproviders=true
 [CLOUDPRINT].BUILDRUN_DEPENDS_ON=	librest:single:standard
 					json-glib:primary:standard
 
-[CUPS].CONFIGURE_ENABLE_BOTH=		cups
+[CUPS].CONFIGURE_ARGS_ON=		-Dprint_backends=cups,file,lpr
+[CUPS].CONFIGURE_ARGS_OFF=		-Dprint_backends=file,lpr
 [CUPS].BUILDRUN_DEPENDS_ON=		cups:single:standard
 
-[BROADWAY].CONFIGURE_ENABLE_BOTH=	broadway-backend
+[BROADWAY].CONFIGURE_ARGS_ON=		-Dbroadway_backend=true
 
-[INTROSPECTION].CONFIGURE_ENABLE_BOTH=	introspection
+[INTROSPECTION].CONFIGURE_ARGS_OFF=	-Dintrospection=false
 [INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
-
-post-patch:
-	${REINPLACE_CMD} -e 's|[{]libdir[}]/locale|{datadir}/locale|g' \
-		${WRKSRC}/configure
-
-pre-build:
-	${RM} -r ${WRKSRC}/docs/gtk.info*
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gtk-3.0/modules
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gtk-3.0/${GTK_VERSION}/engines
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gtk-3.0/${GTK_VERSION}/loaders
-	${INSTALL_MAN} ${WRKSRC}/docs/reference/gtk/gtk-query-immodules-3.0.1 \
-		${STAGEDIR}${MANPREFIX}/man/man1
 	# add icon-update instructions to manifest
 	@splist="${WRKDIR}/.manifest.primary.mktmp"; \
 	for i in `${GREP} "^share/icons/.*/" $${splist} | ${CUT} -d / -f 1-3 | ${SORT} -u`; \
