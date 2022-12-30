@@ -5,7 +5,7 @@ DEF[MODULES]=		common fo html images lib manpages params xhtml eclipse epub exte
 
 NAMEBASE=		docbook-xsl
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		textproc
 VARIANTS=		standard
 SDESC[standard]=	XSL DocBook stylesheets
@@ -60,3 +60,7 @@ do-install:
 	for i in $${files}; do \
 		${INSTALL_DATA} $${i} ${STAGEDIR}${PREFIX}/${INSTDIR}; \
 	done
+
+	# fix docbook URL
+	${GREP} -rl '/docbook.sourceforge.net/' ${STAGEDIR} | ${XARGS} \
+		${SED} -i'' -e 's|/docbook.sourceforge.net/|/cdn.docbook.org/|g'

@@ -29,3 +29,8 @@ USES=			gmake
 DISTNAME=		xorg-sgml-doctools-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 MAKE_ARGS=		pkgconfigdir="{{PREFIX}}/lib/pkgconfig"
+
+post-install:
+	# fix docbook URL
+	${GREP} -rl '/docbook.sourceforge.net/' ${STAGEDIR} | ${XARGS} \
+		${SED} -i'' -e 's|/docbook.sourceforge.net/|/cdn.docbook.org/|g'
