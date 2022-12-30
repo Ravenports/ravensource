@@ -1,4 +1,4 @@
---- tc.alloc.c.orig	2022-12-04 08:20:48 UTC
+--- tc.alloc.c.orig	2022-12-21 19:44:53 UTC
 +++ tc.alloc.c
 @@ -670,6 +670,7 @@ showall(Char **v, struct command *c)
  }
