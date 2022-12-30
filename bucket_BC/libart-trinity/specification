@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	14.0.13
+DEF[SOVERSION]=		2.3.21
+# Original libart has been unmaintained for over a decade. The Trinity Desktop
+# Environment is one of the projects which still require this and has become
+# the new upstream, continuing to maintain it.
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libart-trinity
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Library for high-performance 2D graphics
+HOMEPAGE=		https://www.trinitydesktop.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://mirror.ppa.trinitydesktop.org/trinity/releases/R${PORTVERSION}/main/dependencies/
+DISTFILE[1]=		libart-lgpl-trinity-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL20+:single
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/art_misc.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+# FreeBSD, like many others, still packages the old, unmaintained version 2.3.21 (from 2010!)
+# FPC_EQUIVALENT=	graphics/libart_lgpl
+
+DISTNAME=		libart-lgpl-trinity-${PORTVERSION}
+
+BUILD_DEPENDS=		cmake-trinity:single:standard
+
+USES=			cmake libtool
+
+SOVERSION=		${SOVERSION}
