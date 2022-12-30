@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.9.13
+DEF[PORTVERSION]=	0.9.14
 DEF[SOVERSION]=		${PORTVERSION}
 DEF[SOMAJOR]=		1
 DEF[TAG]=		LibVNCServer-${PORTVERSION}
@@ -6,7 +6,6 @@ DEF[TAG]=		LibVNCServer-${PORTVERSION}
 
 NAMEBASE=		libvncserver
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		net
 VARIANTS=		standard
 SDESC[standard]=	VNC server and client C libraries
@@ -17,8 +16,6 @@ DOWNLOAD_GROUPS=	main commits
 SITES[main]=		GITHUB/LibVNC:libvncserver:${TAG}
 SITES[commits]=		https://github.com/LibVNC/libvncserver/commit/
 DISTFILE[1]=		generated:main
-DISTFILE[2]=		132c1389390c.patch:commits
-DISTFILE[3]=		0becaf749e83.patch:commits
 DIST_SUBDIR=		vncserver
 DF_INDEX=		1
 
@@ -35,9 +32,6 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/rfb/rfb.h
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net/libvncserver
-
-PATCHFILES=		2 3
-PATCHFILES_STRIP=	-p1
 
 BUILDRUN_DEPENDS=	libgcrypt:single:standard
 			libgpg-error:primary:standard

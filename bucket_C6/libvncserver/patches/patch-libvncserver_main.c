@@ -1,4 +1,4 @@
---- libvncserver/main.c.orig	2020-06-13 18:49:53 UTC
+--- libvncserver/main.c.orig	2022-12-18 21:00:32 UTC
 +++ libvncserver/main.c
 @@ -20,6 +20,10 @@
  #include <stdarg.h>
