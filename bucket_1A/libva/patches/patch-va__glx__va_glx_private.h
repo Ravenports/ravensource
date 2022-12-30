@@ -1,4 +1,4 @@
---- va/glx/va_glx_private.h.orig	2022-09-27 07:38:26 UTC
+--- va/glx/va_glx_private.h.orig	2022-12-21 14:28:59 UTC
 +++ va/glx/va_glx_private.h
 @@ -38,7 +38,7 @@ typedef void (*PFNGLXBINDTEXIMAGEEXTPROC
  typedef void (*PFNGLXRELEASETEXIMAGEEXTPROC)(Display *, GLXDrawable, int);
