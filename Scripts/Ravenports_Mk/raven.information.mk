@@ -179,6 +179,8 @@ RUBY_3.0_PATCHLEVEL=		0
 RUBY_3.1_REVISION=		0
 RUBY_3.1_PATCHLEVEL=		0
 
+RUBY_3.2_REVISION=		0
+RUBY_3.2_PATCHLEVEL=		0
 
 # ------------------------------------------------------------------------
 # gnome
