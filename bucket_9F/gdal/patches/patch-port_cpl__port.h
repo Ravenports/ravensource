@@ -1,4 +1,4 @@
---- port/cpl_port.h.orig	2022-11-06 20:09:21 UTC
+--- port/cpl_port.h.orig	2022-12-13 23:02:36 UTC
 +++ port/cpl_port.h
 @@ -607,7 +607,7 @@ static inline int CPLIsFinite(double f)
  }
