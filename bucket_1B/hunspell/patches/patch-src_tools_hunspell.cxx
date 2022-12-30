@@ -1,4 +1,4 @@
---- src/tools/hunspell.cxx.orig	2022-08-22 13:53:31 UTC
+--- src/tools/hunspell.cxx.orig	2022-12-29 20:10:49 UTC
 +++ src/tools/hunspell.cxx
 @@ -116,9 +116,9 @@
  #include "../parsers/odfparser.hxx"
@@ -38,7 +38,7 @@
  #define HOME getenv("HOME")
  #define DICBASENAME ".hunspell_"
  #define LOGFILE "/tmp/hunspell.log"
-@@ -640,6 +634,12 @@ char* mymkdtemp(char *templ) {
+@@ -650,6 +644,12 @@ char* mymkdtemp(char *templ) {
      return NULL;
    }
    return odftmpdir;
