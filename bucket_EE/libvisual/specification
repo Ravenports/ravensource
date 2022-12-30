@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	0.4.0
+DEF[PORTVERSION]=	0.4.1
 DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libvisual
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Abstraction library between apps and visual plugin
@@ -29,7 +28,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/libvisual04
 
-USES=			fbsd10fix gettext-runtime gettext-tools gmake libtool:keepla pkgconfig
+BUILDRUN_DEPENDS=	sdl1:primary:standard
+
+USES=			gettext-runtime gettext-tools gmake libtool:keepla
+			pkgconfig
 MUST_CONFIGURE=		gnu
 LDFLAGS=		-lpthread
 
