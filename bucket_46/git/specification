@@ -1,5 +1,4 @@
-DEF[PORTVERSION]=	2.38.1
-DEF[RN]=		share/doc/git/RelNotes
+DEF[PORTVERSION]=	2.39.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		git
@@ -43,7 +42,7 @@ BUILDRUN_DEPENDS=	curl:primary:standard
 EXTRACT_DIRTY=		3
 
 USES=			cpe autoreconf gmake iconv ssl zlib shebangfix
-			pcre expat
+			pcre expat python:build
 INSTALL_REQ_TOOLCHAIN=	yes
 BUILD_TARGET=		all strip
 MUST_CONFIGURE=		gnu
@@ -82,7 +81,6 @@ RC_SUBR=		git_daemon:primary
 [LITE].USES_OFF=			gettext-runtime
 					gettext-tools
 					tcl:tk
-					python:build
 					perl
 [LITE].USES_ON=				perl:build
 [LITE].MAKE_ARGS_OFF=			TCL_PATH={{TCLSH}}
@@ -179,30 +177,4 @@ post-install-LITE-OFF:
 	(cd ${WRKDIR}/git_3 && ${COPYTREE_SHARE} . ${STAGEDIR}${STD_DOCDIR})
 	${LN} -s git.html ${STAGEDIR}${STD_DOCDIR}/index.html
 
-	# combine release notes for major.minor releases to avoid an
-	# ever-changing package list.  Releases 1.5.0 to 1.8.5 uses 4 point versions
-.for minor in 5 6 7 8 9
-.  for point in 0 1 2 3 4 5 6 7 8 9 10 11 12
-	@if [ -f "${STAGEDIR}${PREFIX}/${RN}/1.${minor}.${point}.txt" ]; then \
-	  ${CAT} ${STAGEDIR}${PREFIX}/${RN}/1.${minor}.${point}.txt >> ${STAGEDIR}${PREFIX}/${RN}/1.${minor}.txt; \
-	  ${RM}  ${STAGEDIR}${PREFIX}/${RN}/1.${minor}.${point}.txt; \
-	  ${ECHO_CMD} "Merge 1.${minor}.${point}.txt => 1.${minor}.txt"; \
-	fi
-.    for subpoint in 1 2 3 4 5 6 7 8 9
-	@if [ -f "${STAGEDIR}${PREFIX}/${RN}/1.${minor}.${point}.${subpoint}.txt" ]; then \
-	  ${CAT} ${STAGEDIR}${PREFIX}/${RN}/1.${minor}.${point}.${subpoint}.txt >> ${STAGEDIR}${PREFIX}/${RN}/1.${minor}.txt; \
-	  ${RM}  ${STAGEDIR}${PREFIX}/${RN}/1.${minor}.${point}.${subpoint}.txt; \
-	  ${ECHO_CMD} "Merge 1.${minor}.${point}.${subpoint}.txt => 1.${minor}.txt"; \
-	fi
-.    endfor
-.  endfor
-.endfor
-.for minor in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38
-.    for point in 0 1 2 3 4 5 6 7 8 9 10 11 12
-	@if [ -f "${STAGEDIR}${PREFIX}/${RN}/2.${minor}.${point}.txt" ]; then \
-	  ${CAT} ${STAGEDIR}${PREFIX}/${RN}/2.${minor}.${point}.txt >> ${STAGEDIR}${PREFIX}/${RN}/2.${minor}.txt; \
-	  ${RM} ${STAGEDIR}${PREFIX}/${RN}/2.${minor}.${point}.txt; \
-	  ${ECHO_CMD} "Merge 2.${minor}.${point}.txt => 2.${minor}.txt"; \
-	fi
-.    endfor
-.endfor
+	${PYTHON_CMD} ${FILESDIR}/packdoc.py "${STAGEDIR}" "${PREFIX}"
