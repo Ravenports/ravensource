@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	5.32.0
 
 NAMEBASE=		monit
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		standard
 SDESC[standard]=	Unix system management and proactive monitoring
@@ -32,7 +33,7 @@ BUILDRUN_DEPENDS=	openpam:single:standard
 SUB_FILES=		pkg-message-single
 RC_SUBR=		monit:single
 
-USES=			cpe ssl bison gmake zlib
+USES=			cpe ssl:openssl11 bison gmake zlib
 CPE_VENDOR=		tildeslash
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-ssl-dir={{OPENSSLBASE}}
