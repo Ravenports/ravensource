@@ -9,9 +9,8 @@ NAMEBASE=		boost-libraries
 VERSION=		${PORTVERSION}
 REVISION=		${REVISION}
 KEYWORDS=		devel c++
-VARIANTS=		py311 py310
-SDESC[py310]=		Free portable C++ libraries (3.10)
-SDESC[py311]=		Free portable C++ libraries (3.11)
+VARIANTS=		standard
+SDESC[standard]=	Free portable C++ source libraries
 HOMEPAGE=		https://www.boost.org/
 CONTACT=		nobody
 
@@ -19,27 +18,23 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://boostorg.jfrog.io/artifactory/main/release/${PORTVERSION}/source/
 DISTFILE[1]=		boost_${BOOSTVER}.tar.bz2:main
 
-SPKGS[py310]=		complete rest python
-SPKGS[py311]=		complete rest python
+SPKGS[standard]=	single
 
-OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
-VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
 
 FPC_EQUIVALENT=		devel/boost-all
 
-LICENSE=		CUSTOM1:rest
+LICENSE=		CUSTOM1:single
 LICENSE_NAME=		CUSTOM1:"Boost Software License - Version 1.0"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE_1_0.txt
 LICENSE_SCHEME=		solo
 
-# xz and bzip are brought in by python* so add them to explicit run depends
 BUILD_DEPENDS=		boost-jam:single:standard
 BUILDRUN_DEPENDS=	icu:single:standard
 			xz:single:standard
 
-USES=			cpe iconv c++:rest,python zlib bz2
+USES=			cpe iconv c++:single zlib bz2
 DISTNAME=		boost_${BOOSTVER}
 BUILD_TARGET=		stage
 MAKE_ARGS=		--layout=system
@@ -48,28 +43,20 @@ MAKE_ARGS=		--layout=system
 			-d+2
 			toolset=gcc
 			--without-mpi
+			--without-python
 			{{_MAKE_JOBS}}
 			threading=multi
 			link=shared,static
 			-sICONV_PATH={{ICONV_PREFIX}}
 			-sICU_PATH={{LOCALBASE}}
-MAKE_ENV=		PYTHON_ROOT="{{LOCALBASE}}"
-			PYTHON_VERSION="{{PYTHON_VERSION}}"
-			PYTHON_INCLUDES="{{PYTHON_INCLUDEDIR}}"
-			PYTHON_LIB_PATH="{{PYTHON_LIBDIR}}"
-			ZLIB_INCLUDE="{{LOCALBASE}}/include"
+MAKE_ENV=		ZLIB_INCLUDE="{{LOCALBASE}}/include"
 			ZLIB_LIBPATH="{{LOCALBASE}}/lib"
 			BZIP2_INCLUDE="{{LOCALBASE}}/include"
 			BZIP2_LIBPATH="{{LOCALBASE}}/lib"
-SUB_FILES=		pkg-message-python
-SUB_LIST=		PYTHON_INCLUDEDIR="{{PYTHON_INCLUDEDIR}}"
-			PYTHON_LIBDIR="{{PYTHON_LIBDIR}}"
-			PYTHON_VERSION="{{PYTHON_VERSION}}"
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		BOOSTVER=${PORTVERSION}
 			SOMAJMIN=${PORTVERSION:R}
-			PYLIB_SUFFIX={{PYTHON_SUFFIX}}
 			MATH_C99L={{MATHC99L}}
 			MATH_TR1L={{MATHTR1L}}
 			STADDR2LINE={{STADDR2LINE}}
@@ -88,16 +75,9 @@ VAR_OPSYS[netbsd]=	MAKE_ARGS=pch=off
 			MAKE_ARGS=--without-json
 			MAKEFILE_LINE=JSON="@comment "
 
-[PY310].USES_ON=			python:py310,build
-[PY311].USES_ON=			python:py311,build
-
 post-patch:
 	${REINPLACE_CMD} -e 's|$$(RPATH)|${HARDCODE_RPATH}|' \
 		${WRKSRC}/tools/build/src/tools/gcc.jam
-
-pre-build:
-	${ECHO_CMD} "using python : " ${PYTHON_VER} " : " ${PYTHON_CMD} " : " ${PYTHON_INCLUDEDIR} ";" \
-		>> ${WRKSRC}/tools/build/src/site-config.jam
 
 do-build:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
