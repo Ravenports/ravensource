@@ -1,0 +1,56 @@
+DEF[PORTVERSION]=	0.97.3
+DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl/current/
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		dia
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Diagram creation program, similar to MS-Visio
+HOMEPAGE=		https://gitlab.gnome.org/GNOME/dia/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.gnome.org/sources/dia/${PORTVERSION:R}/
+DISTFILE[1]=		dia-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome2
+
+SPKGS[standard]=	complete primary nls docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/app/dia-props.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/dia
+
+BUILD_DEPENDS=		docbook-xsl:primary:standard
+			intltool:single:standard
+BUILDRUN_DEPENDS=	libart-trinity:single:standard
+# #			libEMF:primary:standard
+# configure just won't pick up libEMF for some reason. Ignore that for now.
+
+
+USES=			desktop-utils:primary gettext-runtime gettext-tools:build
+			gmake libtool pkgconfig
+GNOME_COMPONENTS=	glib gtk2
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-gnome
+			--enable-libemf
+			--with-cairo
+			--without-hardbooks
+CONFIGURE_ENV=		emf_ok=yes
+INSTALL_TARGET=		install-strip
+
+CXXFLAGS=		-fpermissive
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-patch:
+	${REINPLACE_CMD} -e "s|${CAT1}|file://${LOCALBASE}/share/xsl/docbook/|" \
+		${WRKSRC}/configure
