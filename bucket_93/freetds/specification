@@ -28,13 +28,11 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		databases/freetds
 
-BROKEN_SSL=		openssl11
-
 BUILDRUN_DEPENDS=	libgcrypt:single:standard
 			unixODBC:primary:standard
 
 USES=			autoreconf cpe gettext-tools gmake iconv
-			libtool:keepla pkgconfig readline ssl
+			libtool:keepla pkgconfig readline ssl:openssl11
 INSTALL_TARGET=		install-strip
 LDFLAGS=		-lgcrypt -lpthread
 MUST_CONFIGURE=		gnu
