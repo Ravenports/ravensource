@@ -1,0 +1,47 @@
+DEF[PORTVERSION]=	1.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gtkdatabox
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_toolkits
+VARIANTS=		standard
+SDESC[standard]=	GTK+ widget to display fluctuating numerical data
+HOMEPAGE=		https://sourceforge.net/projects/gtkdatabox/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://downloads.sourceforge.net/project/gtkdatabox/gtkdatabox-1/
+DISTFILE[1]=		gtkdatabox-${PORTVERSION}.tar.gz:main
+# SITES[main]=		https://downloads.sourceforge.net/gtkdatabox/
+# DISTFILE[1]=		gtkdatabox-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gtk/gtkdatabox.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11-toolkits/gtkdatabox
+
+BUILDRUN_DEPENDS=	glade:primary:standard
+
+USES=			libtool pkgconfig
+GNOME_COMPONENTS=	gtk3
+LDFLAGS=		-lm
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-gtk-doc
+			--enable-glade
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-install:
+	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/gtkdatabox-1 \
+		${STAGEDIR}${PREFIX}/share/doc
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
