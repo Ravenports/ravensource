@@ -4,10 +4,10 @@ DEF[PORTVERSION]=	2.8.1
 NAMEBASE=		ruby-addressable
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
-VARIANTS=		v27 v30 v31
-SDESC[v27]=		URI Implementation (v27)
+VARIANTS=		v30 v31 v32
 SDESC[v30]=		URI Implementation (v30)
 SDESC[v31]=		URI Implementation (v31)
+SDESC[v32]=		URI Implementation (v32)
 HOMEPAGE=		https://github.com/sporkmonger/addressable
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -16,15 +16,15 @@ SITES[main]=		RUBYGEMS/
 DISTFILE[1]=		addressable-2.8.1.gem:main
 DIST_SUBDIR=		ruby
 
-SPKGS[v27]=		single
 SPKGS[v30]=		single
 SPKGS[v31]=		single
+SPKGS[v32]=		single
 
-OPTIONS_AVAILABLE=	RUBY27 RUBY30 RUBY31
+OPTIONS_AVAILABLE=	RUBY30 RUBY31 RUBY32
 OPTIONS_STANDARD=	none
-VOPTS[v27]=		RUBY27=ON RUBY30=OFF RUBY31=OFF
-VOPTS[v30]=		RUBY27=OFF RUBY30=ON RUBY31=OFF
-VOPTS[v31]=		RUBY27=OFF RUBY30=OFF RUBY31=ON
+VOPTS[v30]=		RUBY30=ON RUBY31=OFF RUBY32=OFF
+VOPTS[v31]=		RUBY30=OFF RUBY31=ON RUBY32=OFF
+VOPTS[v32]=		RUBY30=OFF RUBY31=OFF RUBY32=ON
 
 # License listed inside gem specification
 # => "Apache-2.0"
@@ -36,12 +36,12 @@ VOPTS[v31]=		RUBY27=OFF RUBY30=OFF RUBY31=ON
 DISTNAME=		addressable-${PORTVERSION}
 GENERATED=		yes
 
-[RUBY27].USES_ON=			gem:v27
-[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-public_suffix:single:v27
 [RUBY30].USES_ON=			gem:v30
 [RUBY30].BUILDRUN_DEPENDS_ON=		ruby-public_suffix:single:v30
 [RUBY31].USES_ON=			gem:v31
 [RUBY31].BUILDRUN_DEPENDS_ON=		ruby-public_suffix:single:v31
+[RUBY32].USES_ON=			gem:v32
+[RUBY32].BUILDRUN_DEPENDS_ON=		ruby-public_suffix:single:v32
 
 USES=			cpe
 CPE_VENDOR=		addressable_project

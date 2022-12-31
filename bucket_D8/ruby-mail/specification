@@ -4,10 +4,10 @@ DEF[PORTVERSION]=	2.8.0
 NAMEBASE=		ruby-mail
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
-VARIANTS=		v27 v30 v31
-SDESC[v27]=		Really Ruby mail handler (v27)
+VARIANTS=		v30 v31 v32
 SDESC[v30]=		Really Ruby mail handler (v30)
 SDESC[v31]=		Really Ruby mail handler (v31)
+SDESC[v32]=		Really Ruby mail handler (v32)
 HOMEPAGE=		https://github.com/mikel/mail
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -16,15 +16,15 @@ SITES[main]=		RUBYGEMS/
 DISTFILE[1]=		mail-2.8.0.gem:main
 DIST_SUBDIR=		ruby
 
-SPKGS[v27]=		single
 SPKGS[v30]=		single
 SPKGS[v31]=		single
+SPKGS[v32]=		single
 
-OPTIONS_AVAILABLE=	RUBY27 RUBY30 RUBY31
+OPTIONS_AVAILABLE=	RUBY30 RUBY31 RUBY32
 OPTIONS_STANDARD=	none
-VOPTS[v27]=		RUBY27=ON RUBY30=OFF RUBY31=OFF
-VOPTS[v30]=		RUBY27=OFF RUBY30=ON RUBY31=OFF
-VOPTS[v31]=		RUBY27=OFF RUBY30=OFF RUBY31=ON
+VOPTS[v30]=		RUBY30=ON RUBY31=OFF RUBY32=OFF
+VOPTS[v31]=		RUBY30=OFF RUBY31=ON RUBY32=OFF
+VOPTS[v32]=		RUBY30=OFF RUBY31=OFF RUBY32=ON
 
 # License listed inside gem specification
 # => "MIT"
@@ -44,11 +44,6 @@ VOPTS[v31]=		RUBY27=OFF RUBY30=OFF RUBY31=ON
 DISTNAME=		mail-${PORTVERSION}
 GENERATED=		yes
 
-[RUBY27].USES_ON=			gem:v27
-[RUBY27].BUILDRUN_DEPENDS_ON=		ruby-mini_mime:single:v27
-					ruby-net-smtp:single:v27
-					ruby-net-imap:single:v27
-					ruby-net-pop:single:v27
 [RUBY30].USES_ON=			gem:v30
 [RUBY30].BUILDRUN_DEPENDS_ON=		ruby-mini_mime:single:v30
 					ruby-net-smtp:single:v30
@@ -59,4 +54,9 @@ GENERATED=		yes
 					ruby-net-smtp:single:v31
 					ruby-net-imap:single:v31
 					ruby-net-pop:single:v31
+[RUBY32].USES_ON=			gem:v32
+[RUBY32].BUILDRUN_DEPENDS_ON=		ruby-mini_mime:single:v32
+					ruby-net-smtp:single:v32
+					ruby-net-imap:single:v32
+					ruby-net-pop:single:v32
 

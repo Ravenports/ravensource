@@ -1,6 +1,6 @@
-#!/raven/bin/php74
+#!/raven/bin/php80
 <?php
-# Requires php74 with openssl and posix extensions
+# Requires php80 with openssl and posix extensions
 # if arguments are given, they are used as the toplevel ports,
 # overriding the master top-level ports list
 
@@ -29,9 +29,9 @@ $namebase_queue = array();
 $port_data = array();
 $truncated_summaries = array();
 $ravensource_directory = "";
-$VA = 27;	# single point of change when ruby
-$VB = 30;	# series are changed in ravenports
-$VC = 31;
+$VA = 30;	# single point of change when ruby
+$VB = 31;	# series are changed in ravenports
+$VC = 32;
 $RUBY_VERSION_A = -1;
 $RUBY_VERSION_B = -1;
 $RUBY_VERSION_C = -1;
@@ -303,6 +303,12 @@ function generate_port($namebase) {
             }
         }
     }
+
+    $vopts_block = "";
+    $buildrun_block = "";
+    $comments_block = "";
+    $subpackages_block = "";
+    $available_options = "";
 
     # variant-base work
     $variants = determine_variants ($namebase, $port_data[$namebase]["min_ruby"]);
