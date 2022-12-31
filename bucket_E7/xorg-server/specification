@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	21.1.4
+DEF[PORTVERSION]=	21.1.6
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xorg-server
@@ -40,27 +40,19 @@ RUN_DEPENDS=		xorg-xkeyboard-config:primary:standard
 			xorg-xkbcomp:single:standard
 BUILDRUN_DEPENDS=	xorg-xcvt:single:standard
 
-USES=			cpe gmake libtool perl:build ssl solaris-funcs
+USES=			cpe perl:build ssl solaris-funcs meson
 XORG_COMPONENTS=	xorgproto xtransproto
 			pixman xshmfence xau xdmcp xfont2
 CPE_VENDOR=		x.org
 SOL_FUNCTIONS=		strnlen:xkb/XKBGAlloc.c
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-xkb-path={{LOCALBASE}}/share/X11/xkb
-			--with-fontrootdir={{LOCALBASE}}/share/fonts
-			--without-doxygen
-			--without-xmlto
-			--without-fop
-			--localstatedir=/var
-			--disable-config-hal
-			--disable-config-udev
-			--disable-config-udev-kms
-			--disable-install-setuid
-			--without-dtrace
-			--enable-glamor
-			--enable-xcsecurity
-			--enable-xtrans-send-fds=yes
-INSTALL_TARGET=		install-strip
+MESON_ARGS=		-Dxkb_dir="{{LOCALBASE}}/share/X11/xkb"
+			-Ddefault_font_path="{{LOCALBASE}}/share/fonts"
+			-Dglamor=true
+			-Dxcsecurity=true
+			-Ddtrace=false
+			-Dhal=false
+			-Dudev=false
+			-Dudev_kms=false
 
 VAR_OPSYS[sunos]=	CFLAGS=-DO_CLOEXEC=0
 # #			For reallocarray:
@@ -73,6 +65,8 @@ VAR_OPSYS[netbsd]=	CPPFLAGS=-D_OPENBSD_SOURCE
 [DEVD].DESCRIPTION=			Use devd for autoconfiguration of input devices
 [SUID].DESCRIPTION=			Install the Xorg server with setuid bit set
 
+[XORG].BUILD_DEPENDS_ON=		xorg-sgml-doctools:single:standard
+					xmlto:single:standard
 [XORG].BUILDRUN_DEPENDS_ON=		libdrm:single:standard
 					libepoxy:single:standard
 					mesa:drivers:standard
@@ -89,52 +83,33 @@ VAR_OPSYS[netbsd]=	CPPFLAGS=-D_OPENBSD_SOURCE
 					mesa:drivers:standard
 					libglvnd:single:standard
 
-[NEST].CONFIGURE_ENABLE_BOTH=		xnest
-[VIRTUAL].CONFIGURE_ENABLE_BOTH=	xvfb
-[XEPHYR].CONFIGURE_ENABLE_BOTH=		xephyr kdrive
-[XORG].CONFIGURE_ENABLE_BOTH=		docs devel-docs xorg
+[NEST].CONFIGURE_ARGS_ON=		-Dxnest=true
+[NEST].CONFIGURE_ARGS_OFF=		-Dxnest=false
+[VIRTUAL].CONFIGURE_ARGS_ON=		-Dxvfb=true
+[VIRTUAL].CONFIGURE_ARGS_OFF=		-Dxvfb=false
+[XEPHYR].CONFIGURE_ARGS_ON=		-Dxephyr=true
+[XEPHYR].CONFIGURE_ARGS_OFF=		-Dxephyr=false
+[XORG].CONFIGURE_ARGS_ON=		-Ddocs=true
+					-Ddevel-docs=true
+					-Dxorg=true
+[XORG].CONFIGURE_ARGS_OFF=		-Ddocs=false
+					-Ddevel-docs=false
+					-Dxorg=false
 
 [NEST].XORG_COMPONENTS_ON=		x11 xext
 [XEPHYR].XORG_COMPONENTS_ON=		x11 xcb xcb-util xcb-util-image
 					xcb-util-wm xcb-util-keysyms xcb-render-util
 [XORG].XORG_COMPONENTS_ON=		pciaccess xfont2
-
 [XORG].SUB_FILES_ON=			pkg-install-single pkg-deinstall-single
 
-post-patch:
-	# build libglx.so but don't install it yet. (done in pre-install)
-	${REINPLACE_CMD} -e 's|@GLX_TRUE@GLXMODS =|@GLX_BOGUS@GLXMODS =|g' \
-		-e 's|^LTLIBRARIES = |LTLIBRARIES = libglx.la |g' \
-		${WRKSRC}/hw/xfree86/dixmods/Makefile.in
-
 post-configure-DEVD-ON:
-	${REINPLACE_CMD} -e 's|config\.c|config.c devd.c|g' \
-		-e 's|config\.lo|config.lo devd.lo|g' \
-		${WRKSRC}/config/Makefile
 	${REINPLACE_CMD} -e 's|^/\* #undef CONFIG_UDEV \*/|#define CONFIG_DEVD 1|' \
 		${WRKSRC}/include/dix-config.h
 
 post-install-XORG-ON:
-	# The .xorg dir because else the xorg-server might not load the
-	# correct libglx module.
-	${MKDIR} ${STAGEDIR}${PREFIX}/lib/xorg/modules/extensions/.xorg
-	${INSTALL_LIB} ${WRKSRC}/hw/xfree86/dixmods/.libs/libglx.so \
-		${STAGEDIR}${PREFIX}/lib/xorg/modules/extensions/.xorg/
-	${MKDIR} ${STAGEDIR}${PREFIX}/etc/X11/xorg.conf.d
-	${RM} -r ${STAGEDIR}/var
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}
 
 post-install-XORG-OFF:
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/xorg
 	${RM} ${STAGEDIR}${PREFIX}/share/man/man1/Xserver.1
 
-do-install-VIRTUAL-ON:
-	(cd ${WRKSRC}/hw/vfb && \
-		DESTDIR=${STAGEDIR} ${MAKE_CMD} install)
-
-do-install-XEPHYR-ON:
-	(cd ${WRKSRC}/hw/kdrive/ephyr && \
-		DESTDIR=${STAGEDIR} ${MAKE_CMD} install)
-
-do-install-NEST-ON:
-	(cd ${WRKSRC}/hw/xnest && \
-		DESTDIR=${STAGEDIR} ${MAKE_CMD} install)
