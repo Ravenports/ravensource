@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	0.365
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		hwdata
+VERSION=		${PORTVERSION}
+KEYWORDS=		misc
+VARIANTS=		standard
+SDESC[standard]=	Database of IDs used in PCI, PNP and USB devices
+HOMEPAGE=		https://github.com/vcrhonek/hwdata/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/vcrhonek:hwdata:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Licensing is chaotic; the LICENSE file states that the project is dual-licensed GPLv2+
+# and XFree86 1.0. GPLv2 is present (COPYING), but there's no trace of the other license.
+# Also pci.ids mentiones dual-licensing GPLv2+ and BSD3CLAUSE. I'm not going to decide
+# what's the best way to deal with this.
+
+FPC_EQUIVALENT=		misc/hwdata
+
+USES=			gmake
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--prefix={{PREFIX}}
+			--datadir={{PREFIX}}/share
