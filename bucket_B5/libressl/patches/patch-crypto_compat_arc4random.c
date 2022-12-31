@@ -1,7 +1,7 @@
---- crypto/compat/arc4random.c.orig	2022-03-13 17:27:46 UTC
+--- crypto/compat/arc4random.c.orig	2022-10-25 00:57:42 UTC
 +++ crypto/compat/arc4random.c
-@@ -88,7 +88,7 @@ _rs_stir(void)
- 	u_char rnd[KEYSZ + IVSZ];
+@@ -91,7 +91,7 @@ _rs_stir(void)
+ 	uint32_t rekey_fuzz = 0;
  
  	if (getentropy(rnd, sizeof rnd) == -1)
 -		_getentropy_fail();
