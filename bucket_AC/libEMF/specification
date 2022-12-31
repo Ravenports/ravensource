@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	1.0.13
+DEF[SOVERSION]=		1.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libEMF
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Enhanced Metafile generation Library
+HOMEPAGE=		https://libemf.sourceforge.net/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/libemf/libemf/${PORTVERSION}
+DISTFILE[1]=		libemf-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Mostly LGPL21, at least one file GPLv2
+LICENSE=		GPLv2+:primary
+			LGPL21+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+			LGPL21+:{{WRKSRC}}/COPYING.LIB
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libemf/libemf.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		graphics/libemf
+
+USES=			libtool c++:primary
+
+DISTNAME=		libemf-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-editing
+
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libEMF.so.${SOVERSION}
+	${MKDIR} -p ${STAGEDIR}${PREFIX}/share/doc/libEMF
+	cd ${WRKSRC}/doc/html && ${COPYTREE_SHARE} . \
+		${STAGEDIR}${PREFIX}/share/doc/libEMF
