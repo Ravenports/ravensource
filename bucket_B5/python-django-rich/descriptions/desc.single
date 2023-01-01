@@ -1,0 +1,100 @@
+===========
+django-rich
+===========
+
+   :alt: pre-commit
+
+Extensions for using [Rich] with Django.
+
+Requirements
+------------
+
+Python 3.7 to 3.11 supported.
+
+Django 3.2 to 4.1 supported.
+
+----
+
+**Want to work smarter and faster?**
+Check out my book [Boost Your Django DX] which covers many ways to improve
+your development experience.
+I wrote django-rich whilst working on the book!
+
+----
+
+Installation
+------------
+
+1. Install with **pip**:
+
+   .. code-block:: sh
+
+       python -m pip install django-rich
+
+Reference
+---------
+
+``django_rich.management.RichCommand``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A subclass of Django’s |BaseCommand|__ class that sets its
+``self.console`` to a Rich |Console|__.
+The Console uses the command’s stdout argument, which defaults to
+``sys.stdout``.
+Colourization is enabled or disabled according to Django’s ``--no-color
+and --force-color`` flags.
+
+.. |BaseCommand| replace:: BaseCommand
+__
+https://docs.djangoproject.com/en/stable/howto/custom-management-commands/#django.core.management.BaseCommand
+
+.. |Console| replace:: Console
+__ https://rich.readthedocs.io/en/stable/console.html
+
+You can use ``self.console`` like so:
+
+.. code-block:: python
+
+    from django_rich.management import RichCommand
+
+    class Command(RichCommand):
+        def handle(self, *args, **options):
+            self.console.print("[bold red]Alert![/bold red]")
+
+You can customize the construction of the Console by overriding the
+make_rich_console class attribute.
+This should be a callable that returns a Console, such as a
+|functools.partial|__.
+For example, to disable the default-on markup and highlighting flags:
+
+.. |functools.partial| replace:: ``functools.partial``
+__ https://docs.python.org/3/library/functools.html#functools.partial
+
+.. code-block:: python
+
+    from functools import partial
+
+    from django_rich.management import RichCommand
+    from rich.console import Console
+
+    class Command(RichCommand):
+        make_rich_console = partial(Console, markup=False, highlight=False)
+
+        def handle(self, *args, **options):
+            ...
+
+``django_rich.test.RichRunner``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A subclass of Django's |DiscoverRunner|__ with colourized outputs and [nice
+traceback rendering].
+
+.. image::
+https://raw.githubusercontent.com/adamchainz/django-rich/main/img/RichRunner.png
+
+.. |DiscoverRunner| replace:: DiscoverRunner
+__
+https://docs.djangoproject.com/en/stable/topics/testing/advanced/#defining-a-test-runner
+
+To use this class, point your |TEST_RUNNER|__ setting to it:
+

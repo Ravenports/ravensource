@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	1.3
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-text-unidecode
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Most basic Text::Unidecode port (3.10)
+SDESC[py311]=		Most basic Text::Unidecode port (3.11)
+HOMEPAGE=		https://github.com/kmike/text-unidecode/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/a6/a5/c0b6468d3824fe3fde30dbb5e1f687b291608f9473681bbf7dabbf5a87d7
+DISTFILE[1]=		text_unidecode-${PORTVERSION}-py2.py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# Artistic License
+
+GENERATED=		yes
+DISTNAME=		text_unidecode-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+
+
+[PY310].USES_ON=			python:py310,wheel
+[PY311].USES_ON=			python:py311,wheel
+

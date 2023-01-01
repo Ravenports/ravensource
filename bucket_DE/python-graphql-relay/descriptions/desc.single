@@ -1,0 +1,100 @@
+# Relay Library for GraphQL Python
+
+GraphQL-relay-py is the [Relay] library for
+[GraphQL-core].
+
+It allows the easy creation of Relay-compliant servers using GraphQL-core.
+
+GraphQL-Relay-Py is a Python port of
+[graphql-relay-js],
+while GraphQL-Core is a Python port of
+[GraphQL.js],
+the reference implementation of GraphQL for JavaScript.
+
+Since version 3, GraphQL-Relay-Py and GraphQL-Core support Python 3.6 and
+above only.
+For older versions of Python, you can use version 2 of these libraries.
+
+[PyPI version]
+![Test Status]
+![Lint Status]
+[Dependency Updates]
+[Python 3 Status]
+[Code Style]
+
+## Getting Started
+
+A basic understanding of GraphQL and of the GraphQL Python implementation
+is needed
+to provide context for this library.
+
+An overview of GraphQL in general is available in the
+[README] for the
+[Specification for GraphQL].
+
+This library is designed to work with the
+the [GraphQL-Core]
+Python reference implementation of a GraphQL server.
+
+An overview of the functionality that a Relay-compliant GraphQL server
+should provide
+is in the [GraphQL Relay Specification]
+on the [Relay website].
+That overview describes a simple set of examples that exist
+as [tests] in this repository.
+A good way to get started with this repository is to walk through that
+documentation
+and the corresponding tests in this library together.
+
+## Using Relay Library for GraphQL Python (graphql-core)
+
+Install Relay Library for GraphQL Python
+
+```sh
+pip install graphql-core
+pip install graphql-relay
+```
+
+When building a schema for [GraphQL],
+the provided library functions can be used to simplify the creation of
+Relay patterns.
+
+All the functions that are explained in the following sections must be
+imported from the top level of the `graphql_relay` package, like this:
+`python
+from graphql_relay import connection_definitions
+`
+
+### Connections
+
+Helper functions are provided for both building the GraphQL types
+for connections and for implementing the `resolve` method for fields
+returning those types.
+
+ - `connection_args` returns the arguments that fields should provide when
+they return a connection type that supports bidirectional pagination.
+ - `forward_connection_args` returns the arguments that fields should
+provide when
+they return a connection type that only supports forward pagination.
+ - `backward_connection_args` returns the arguments that fields should
+provide when
+they return a connection type that only supports backward pagination.
+ - `connection_definitions` returns a `connection_type` and its associated
+`edgeType`, given a name and a node type.
+ - `connection_from_array` is a helper method that takes an array and the
+arguments from `connection_args`, does pagination and filtering, and
+returns
+an object in the shape expected by a `connection_type`'s `resolve`
+function.
+ - `cursor_for_object_in_connection` is a helper method that takes an array
+and a
+member object, and returns a cursor for use in the mutation payload.
+ - `offset_to_cursor` takes the index of a member object in an array
+ and returns an opaque cursor for use in the mutation payload.
+ - `cursor_to_offset` takes an opaque cursor (created with
+`offset_to_cursor`)
+and returns the corresponding array index.
+
+An example usage of these methods from the [test schema]:
+
+```python

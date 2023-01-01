@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	2.3
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-promise
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Promises/A+ implementation for Python (3.10)
+SDESC[py311]=		Promises/A+ implementation for Python (3.11)
+HOMEPAGE=		https://github.com/syrusakbary/promise
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/p/promise
+DISTFILE[1]=		promise-${PORTVERSION}.tar.gz:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		promise-${PORTVERSION}
+
+# install_requires extracted from setup.py
+# six
+
+[PY310].USES_ON=			python:py310,sutools
+[PY310].BUILDRUN_DEPENDS_ON=		python-six:single:py310
+[PY311].USES_ON=			python:py311,sutools
+[PY311].BUILDRUN_DEPENDS_ON=		python-six:single:py311
+

@@ -1,0 +1,76 @@
+DEF[PORTVERSION]=	3.0.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-graphene-django
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Graphene Django integration (3.10)
+SDESC[py311]=		Graphene Django integration (3.11)
+HOMEPAGE=		https://github.com/graphql-python/graphene-django
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/5f/e8/10837a3f971c96b331368c89356c7f8b87d206f520403750f2409542a690
+DISTFILE[1]=		graphene_django-${PORTVERSION}-py2.py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		graphene_django-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# graphene (<4,>=3.0)
+# graphql-core (<4,>=3.1.0)
+# graphql-relay (<4,>=3.1.1)
+# Django (>=3.2)
+# promise (>=2.1)
+# text-unidecode
+# black (==22.8.0) ; extra == 'dev'
+# flake8 (==5.0.4) ; extra == 'dev'
+# flake8-black (==0.3.3) ; extra == 'dev'
+# flake8-bugbear (==22.9.11) ; extra == 'dev'
+# pytest (>=7.1.3) ; extra == 'dev'
+# pytest-cov ; extra == 'dev'
+# pytest-random-order ; extra == 'dev'
+# coveralls ; extra == 'dev'
+# mock ; extra == 'dev'
+# pytz ; extra == 'dev'
+# django-filter (>=22.1) ; extra == 'dev'
+# pytest-django (>=4.5.2) ; extra == 'dev'
+# djangorestframework (>=3.6.3) ; extra == 'dev'
+# djangorestframework (>=3.6.3) ; extra == 'rest_framework'
+# pytest (>=7.1.3) ; extra == 'test'
+# pytest-cov ; extra == 'test'
+# pytest-random-order ; extra == 'test'
+# coveralls ; extra == 'test'
+# mock ; extra == 'test'
+# pytz ; extra == 'test'
+# django-filter (>=22.1) ; extra == 'test'
+# pytest-django (>=4.5.2) ; extra == 'test'
+# djangorestframework (>=3.6.3) ; extra == 'test'
+
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-graphene:single:py310
+					python-graphql-core:single:py310
+					python-graphql-relay:single:py310
+					python-Django:single:py310
+					python-promise:single:py310
+					python-text-unidecode:single:py310
+[PY311].USES_ON=			python:py311,wheel
+[PY311].RUN_DEPENDS_ON=			python-graphene:single:py311
+					python-graphql-core:single:py311
+					python-graphql-relay:single:py311
+					python-Django:single:py311
+					python-promise:single:py311
+					python-text-unidecode:single:py311
+

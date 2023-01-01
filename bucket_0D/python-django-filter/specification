@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	22.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-django-filter
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Django dynamic filter of querysets (3.10)
+SDESC[py311]=		Django dynamic filter of querysets (3.11)
+HOMEPAGE=		https://github.com/carltongibson/django-filter/tree/main
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/58/99/3dc8a7d997a18596c15f588690d46e9802d983f6c1486813ec4db018c481
+DISTFILE[1]=		django_filter-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# BSD
+
+GENERATED=		yes
+DISTNAME=		django_filter-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# Django (>=3.2)
+
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-Django:single:py310
+[PY311].USES_ON=			python:py311,wheel
+[PY311].RUN_DEPENDS_ON=			python-Django:single:py311
+

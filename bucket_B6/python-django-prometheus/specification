@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	2.2.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-django-prometheus
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Django app monitor with Prometheus.io (3.10)
+SDESC[py311]=		Django app monitor with Prometheus.io (3.11)
+HOMEPAGE=		https://github.com/korfuri/django-prometheus
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/f3/26/dbf0111fb13540f35a93a201e1ec759cb7aeaa124665da9673ff51c86b7d
+DISTFILE[1]=		django_prometheus-${PORTVERSION}-py2.py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# Apache
+
+GENERATED=		yes
+DISTNAME=		django_prometheus-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# prometheus-client (>=0.7)
+
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-prometheus-client:single:py310
+[PY311].USES_ON=			python:py311,wheel
+[PY311].RUN_DEPENDS_ON=			python-prometheus-client:single:py311
+

@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	13.0.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-rich
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Rich text library (3.10)
+SDESC[py311]=		Rich text library (3.11)
+HOMEPAGE=		https://github.com/Textualize/rich
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/92/37/2732511fdd5c6e037af9e92b87dbb50049c02fd3a8c070bc75eed6c798b3
+DISTFILE[1]=		rich-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		rich-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# commonmark (>=0.9.0,<0.10.0)
+# ipywidgets (>=7.5.1,<8.0.0); extra == "jupyter"
+# pygments (>=2.6.0,<3.0.0)
+# typing-extensions (>=4.0.0,<5.0); python_version < "3.9"
+
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-commonmark:single:py310
+					python-Pygments:single:py310
+[PY311].USES_ON=			python:py311,wheel
+[PY311].RUN_DEPENDS_ON=			python-commonmark:single:py311
+					python-Pygments:single:py311
+
