@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	%%VERSION%%
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		comtrya
+VERSION=		${PORTVERSION}
+KEYWORDS=		rust sysutils
+VARIANTS=		standard
+SDESC[standard]=	Configuration Management for Localhost
+HOMEPAGE=		https://www.comtrya.dev/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		https://crates.io/api/v1/crates/comtrya/${PORTVERSION}/download?dummy=/
+%%CR_SITES%%
+
+DISTFILE[1]=		comtrya-${PORTVERSION}.tar.gz:main
+%%CR_DISTFILES%%
+%%DF_INDEX%%
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+USES=			cargo cclibs:single zlib ssl:openssl11 gmake perl:build
+
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/.crates2.json

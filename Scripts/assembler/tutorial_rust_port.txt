@@ -1,0 +1,177 @@
+This document describes how to create a new rust-based port from scratch.
+To update an existing rust-based port, steps 1,3,5,6 are the main ones
+that need to be repeated.
+
+=========================================
+  Step 1: Generate the crate list
+=========================================
+
+1A) Manually obtain the Cargo.lock file.
+
+    Example 1, from github:
+       $ cd /tmp
+       $ fetch "https://crates.io/api/v1/crates/comtrya/0.8.2/download?dummy=/comtrya-0.8.2.tar.gz"
+       location: /tmp/comtrya-0.8.2/Cargo.lock
+
+    Example 2, from distribution file:
+       $ cd /tmp
+       $ fetch "https://crates.io/api/v1/crates/b3sum/1.3.3/download?dummy=/b3sum-1.3.3.tar.gz"
+       $ tar -xf b3sum-1.3.3.tar.gz
+       location: /tmp/b3sum-1.3.3/Cargo.lock
+
+
+1B) Select the name and version of the ravenport.
+
+    Example 1: selected "comtrya", "0.8.2"
+    Example 2: selected "b3sum", "1.3.3"
+
+
+1C) Create the crate list
+
+    Example 1:
+      $ cd <ravensource-repo>/Scripts/miscellaneous
+      $ ./gen_crates_list.sh comtrya /tmp/comtrya-0.8.2/Cargo.lock
+
+    Example 2:
+      $ cd <ravensource-repo>/Scripts/miscellaneous
+      $ ./gen_crates_list.sh b3sum /tmp/b3sum-1.3.3/Cargo.lock
+
+
+=========================================
+  Step 2: Create specification template
+=========================================
+
+2A) Create the empty specification template
+
+    Example 1:
+      $ eval `ravenadm dev jump contrya`
+      $ ravenadm dev template save
+      $ mv specification specification.template
+
+    Example 2:
+      $ eval `ravenadm dev jump b3sum`
+      $ ravenadm dev template save
+      $ mv specification specification.template
+
+2B) Add the template fields
+
+    Change line: "# DEF[PORTVERSION]=     1.00"
+             To: "DEF[PORTVERSION]=       %%VERSION%%"
+
+    Change line: "DOWNLOAD_GROUPS=        main"
+             To: "%%DOWNLOAD_GROUPS%%"
+
+    Change line: "SITES[main]=            http://www.example.com/"
+             To: "SITES[main]=            https://crates.io/api/v1/crates/< namebase >/${PORTVERSION}/download?dummy=/"
+                 "%%CR_SITES%%"
+
+     After line: "DISTFILE[1]=            x-${PORTVERSION}.tar.gz:main"
+            Add: "%%CR_DISTFILES%%"
+                 "%%DF_INDEX%%"
+
+2C) Other template updates
+
+    a. Set NAMEBASE
+    b. Set KEYWORDS to "rust" and a second appropriate keyword
+    c. set DESC[standard]
+    d. set HOMEPAGE (maybe "https://crates.io/crates/<namebase>")
+    e. set CONTACT
+    f. set DISTFILE[1] (suggested "<namebase>-${PORTVERSION}.tar.gz:main")
+    g. set LICENSE (optional but suggested)
+    h. set USES (minimum "cargo", but maybe "cclibs:single" too)
+    i. set FPC_EQUIVALENT if relevant
+    j. Drop .crates2.json if installed:
+       post-install:
+               ${RM} ${STAGEDIR}${PREFIX}/.crates2.json
+    k. SITES[main]/DISTFILE[1]: if not listed in https://crates.io, change to actual
+       download site and distribution filename.
+
+
+=========================================
+  Step 3: Generate specification
+=========================================
+
+    Use the already selected namebase and version to generate
+    the specification file.
+
+    Example 1:
+      $ cd <ravensource-repo>/Scripts/miscellaneous
+      $ ./rust_port.sh comtrya 0.8.2
+
+    Example 2:
+      $ cd <ravensource-repo>/Scripts/miscellaneous
+      $ ./rust_port.sh b3sum 1.3.3
+
+
+=========================================
+  Step 4: Create description file
+=========================================
+
+    The port description file needs to be written and saved.
+
+    Example 1:
+      $ eval `ravenadm dev jump contrya`
+      $ nano descriptions/desc.single
+
+    Example 2:
+      $ eval `ravenadm dev jump b3sum`
+      $ nano descriptions/desc.single
+
+
+=========================================
+  Step 5: Create the distinfo file
+=========================================
+
+    $ ravenadm dev buildsheet . save
+    $ ravenadm dev generate-index
+    $ ravenadm dev distinfo
+
+    Note that the last command can take an absurdly long time.
+    Even simple rust applications can have hundreds of rust modules that
+    as build dependencies.  It's crazy.
+
+
+=========================================
+  Step 6: Build the port
+=========================================
+
+    Example 1:
+      $ ravenadm dev buildsheet . save
+      $ ravenadm test comtrya
+
+    Example 2:
+      $ ravenadm dev buildsheet . save
+      $ ravenadm test b3sum
+
+
+=========================================
+  Step 7: Install manifest
+=========================================
+
+    The previous build will never succeed because the manifest is missing.
+    Check the logs to see if installation completed though.  If it did,
+    copy the manifest over
+
+    Example 1:
+      $ vi /build/ravenports/release62/logs/logs/comtrya___standard.log
+      $ cp /build/ravenports/release62/manifests/comtrya___standard.txt manifests/plist.single
+
+    Example 2:
+      $ vi /build/ravenports/release62/logs/logs/b3sum___standard.log
+      $ cp /build/ravenports/release62/manifests/b3sum___standard.txt manifests/plist.single
+
+    If the build failed, fix it as you would any other port. (rust knowledge required).
+    It's also possible dependencies are missing, e.g. USES+= ssl gmake perl:build
+
+
+=========================================
+  Step 8: Commit port
+=========================================
+
+    Check the port builds correctly and then commit it.
+
+    Example 1:
+      $ ravenadm dev buildsheet . save
+      $ ravenadm test comtrya
+      $ git add .
+      $ git commit -m "Add comtrya port"
