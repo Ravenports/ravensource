@@ -1,0 +1,68 @@
+DEF[PORTVERSION]=	4.3.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-social-auth-core
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Python social authentication made simple (3.10)
+SDESC[py311]=		Python social authentication made simple (3.11)
+HOMEPAGE=		https://github.com/python-social-auth/social-core
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/60/f9/5387e450842d785f4e100e3766bf0d2a8aa44acad619459cf7abff72a9c5
+DISTFILE[1]=		social_auth_core-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# BSD
+
+GENERATED=		yes
+DISTNAME=		social_auth_core-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# requests (>=2.9.1)
+# oauthlib (>=1.0.3)
+# requests-oauthlib (>=0.6.1)
+# PyJWT (>=2.0.0)
+# cryptography (>=1.4)
+# defusedxml (>=0.5.0rc1)
+# python3-openid (>=3.0.10)
+# python-jose (>=3.0.0) ; extra == 'all'
+# python3-saml (>=1.2.1) ; extra == 'all'
+# lxml (<4.7) ; extra == 'all'
+# cryptography (>=2.1.1) ; extra == 'all'
+# python-jose (>=3.0.0) ; extra == 'allpy3'
+# python3-saml (>=1.2.1) ; extra == 'allpy3'
+# lxml (<4.7) ; extra == 'allpy3'
+# cryptography (>=2.1.1) ; extra == 'allpy3'
+# cryptography (>=2.1.1) ; extra == 'azuread'
+# python-jose (>=3.0.0) ; extra == 'openidconnect'
+# python3-saml (>=1.2.1) ; extra == 'saml'
+# lxml (<4.7) ; extra == 'saml'
+
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-requests:single:py310
+					python-oauthlib:single:py310
+					python-requests-oauthlib:single:py310
+					python-PyJWT:single:py310
+					python-cryptography:single:py310
+					python-defusedxml:single:py310
+					python-python3-openid:single:py310
+[PY311].USES_ON=			python:py311,wheel
+[PY311].RUN_DEPENDS_ON=			python-requests:single:py311
+					python-oauthlib:single:py311
+					python-requests-oauthlib:single:py311
+					python-PyJWT:single:py311
+					python-cryptography:single:py311
+					python-defusedxml:single:py311
+					python-python3-openid:single:py311
+

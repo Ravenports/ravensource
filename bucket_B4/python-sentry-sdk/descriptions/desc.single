@@ -1,0 +1,100 @@
+<p align="center">
+  
+    [image]
+  
+</p>
+
+_Bad software is everywhere, and we're tired of it. Sentry is on a mission
+to help developers write better software faster, so we can get back to
+enjoying technology. If you want to join us [<kbd>**Check out our open
+positions**</kbd>]_
+
+# Official Sentry SDK for Python
+
+[Build Status]
+[![PyPi page link -- version]](https://pypi.python.org/pypi/sentry-sdk)
+[Discord]
+
+This is the official Python SDK for [Sentry]
+
+---
+
+## Getting Started
+
+### Install
+
+```bash
+pip install --upgrade sentry-sdk
+```
+
+### Configuration
+
+```python
+import sentry_sdk
+
+sentry_sdk.init(
+    "https://12927b5f211046b575ee51fd8b1ac34f@o1.ingest.sentry.io/1",
+
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production.
+    traces_sample_rate=1.0,
+)
+```
+
+### Usage
+
+```python
+from sentry_sdk import capture_message
+capture_message("Hello World")  # Will create an event in Sentry.
+
+raise ValueError()  # Will also create an event in Sentry.
+```
+
+- To learn more about how to use the SDK [refer to our docs]
+- Are you coming from raven-python? [Use this migration guide]
+- To learn about internals use the [API Reference]
+
+## Integrations
+
+(If you want to create a new integration have a look at the [Adding a new
+integration checklist].)
+
+- [Django]
+- [Flask]
+- [Bottle]
+- [AWS Lambda]
+- [Google Cloud Functions]
+- [WSGI]
+- [ASGI]
+- [Starlette]
+- [FastAPI]
+- [AIOHTTP]
+- [RQ (Redis Queue)]
+- [Celery]
+- [Chalice]
+- [Falcon]
+- [Quart]
+- [Sanic]
+- [Tornado]
+- [Tryton]
+- [Pyramid]
+- [Logging]
+- [Apache Airflow]
+- [Apache Beam]
+- [Apache Spark]
+
+## Migrate From sentry-raven
+
+The old `raven-python` client has entered maintenance mode and was moved
+[here].
+
+If you're using `raven-python`, we recommend you to migrate to this new
+SDK. You can find the benefits of migrating and how to do it in our
+[migration guide].
+
+## Contributing to the SDK
+
+Please refer to [CONTRIBUTING.md].
+
+## Getting help/support

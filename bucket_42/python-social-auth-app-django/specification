@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	5.0.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-social-auth-app-django
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Social authentication for Django (3.10)
+SDESC[py311]=		Social authentication for Django (3.11)
+HOMEPAGE=		https://github.com/python-social-auth/social-app-django
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/08/00/fe5049b9fdcb8cd829eba30b068a311590722a91a576304b267e084aaeca
+DISTFILE[1]=		social_auth_app_django-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# BSD
+
+GENERATED=		yes
+DISTNAME=		social_auth_app_django-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# social-auth-core (>=4.1.0)
+
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-social-auth-core:single:py310
+[PY311].USES_ON=			python:py311,wheel
+[PY311].RUN_DEPENDS_ON=			python-social-auth-core:single:py311
+

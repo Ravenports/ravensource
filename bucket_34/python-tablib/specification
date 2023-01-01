@@ -1,0 +1,51 @@
+DEF[PORTVERSION]=	3.3.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-tablib
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Format-agnostic tabular dataset library (3.10)
+SDESC[py311]=		Format-agnostic tabular dataset library (3.11)
+HOMEPAGE=		https://tablib.readthedocs.io
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/c5/dd/ee02d734eff7e48e82fc22b71b40e28d7e43d65fb8b5055f73bf09b751fd
+DISTFILE[1]=		tablib-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		tablib-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# markuppy ; extra == 'all'
+# odfpy ; extra == 'all'
+# openpyxl (>=2.6.0) ; extra == 'all'
+# pandas ; extra == 'all'
+# pyyaml ; extra == 'all'
+# tabulate ; extra == 'all'
+# xlrd ; extra == 'all'
+# xlwt ; extra == 'all'
+# tabulate ; extra == 'cli'
+# markuppy ; extra == 'html'
+# odfpy ; extra == 'ods'
+# pandas ; extra == 'pandas'
+# xlrd ; extra == 'xls'
+# xlwt ; extra == 'xls'
+# openpyxl (>=2.6.0) ; extra == 'xlsx'
+# pyyaml ; extra == 'yaml'
+
+[PY310].USES_ON=			python:py310,wheel
+[PY311].USES_ON=			python:py311,wheel
+

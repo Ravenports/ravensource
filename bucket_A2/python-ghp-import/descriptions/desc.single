@@ -1,0 +1,100 @@
+GitHub Pages Import
+===================
+
+[CI status]
+[CircleCI]
+[TravisCI]
+
+[License]
+[Version]
+
+As part of [gunicorn][gunicorn], [Benoit Chesneau][benoit] and [Paul
+Davis][davisp]
+were looking at how to host documentation. There's the obvious method of
+using [GitHub's post-receive hook][github-post] to trigger doc builds and
+rsync
+to a webserver, but we ended up wanting to try out github's hosting to make
+the
+whole interface a bit more robust.
+
+[GitHub Pages][gh-pages] is a pretty awesome service that GitHub provides
+for
+hosting project documentation. The only thing is that it requires a
+`gh-pages` branch that is the site's document root. This means that keeping
+documentation sources in the branch with code is a bit difficult. And it
+really
+turns into a head scratcher for things like [Sphinx][sphinx] that want to
+access documentation sources and code sources at the same time.
+
+Then we stumbled across an interesting looking package called
+[github-tools][github-tools] that looked almost like what we wanted. It was
+a tad
+complicated and more involved than we wanted but it gave us an idea. Why
+not
+just write a script that can copy a directory to the `gh-pages` branch of
+the
+repository. This saves us from even having to think about the branch and
+everything becomes magical.
+
+This is what `ghp-import` was written for.
+
+[gunicorn]: http://www.gunicorn.com/ "Gunicorn"
+[benoit]: http://github.com/benoitc "Benoît Chesneau"
+[davisp]: http://github.com/davisp "Paul J. Davis"
+[github-post]: https://help.github.com/articles/post-receive-hooks "GitHub
+Post-Receive Hook"
+[gh-pages]: http://pages.github.com/ "GitHub Pages"
+[sphinx]: http://sphinx.pocoo.org/ "Sphinx Documentation"
+[github-tools]: http://dinoboff.github.com/github-tools/ "github-tools"
+
+Big Fat Warning
+---------------
+
+This will **DESTROY** your `gh-pages` branch. If you love it, you'll want
+to
+take backups before playing with this. This script assumes that `gh-pages`
+is
+100% derivative. You should never edit files in your `gh-pages` branch by
+hand
+if you're using this script because you will lose your work.
+
+When used with a prefix, only files below the set prefix will be destroyed,
+limiting the
+above warning to just that directory and everything below it.
+
+Usage
+-----
+
+```
+Usage: ghp-import [OPTIONS] DIRECTORY
+
+Options:
+  -n, --no-jekyll       Include a .nojekyll file in the branch.
+  -c CNAME, --cname=CNAME
+                        Write a CNAME file with the given CNAME.
+  -m MESG, --message=MESG
+                        The commit message to use on the target branch.
+  -p, --push            Push the branch to origin/{branch} after
+committing.
+  -x PREFIX, --prefix=PREFIX
+                        The prefix to add to each file that gets pushed to
+the
+                        remote. Only files below this prefix will be
+cleared
+                        out. [none]
+  -f, --force           Force the push to the repository.
+  -o, --no-history      Force new commit without parent history.
+  -r REMOTE, --remote=REMOTE
+                        The name of the remote to push to. [origin]
+  -b BRANCH, --branch=BRANCH
+                        Name of the branch to write to. [gh-pages]
+  -s, --shell           Use the shell when invoking Git. [False]
+  -l, --follow-links    Follow symlinks when adding files. [False]
+  -h, --help            show this help message and exit
+```
+
+Its pretty simple. Inside your repository just run `ghp-import $DOCS_DIR`
+where `$DOCS_DIR` is the path to the **built** documentation. This will
+write a
+commit to your `gh-pages` branch with the current documents in it.
+

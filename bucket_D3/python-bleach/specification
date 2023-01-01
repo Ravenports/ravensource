@@ -1,0 +1,56 @@
+DEF[PORTVERSION]=	5.0.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-bleach
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Easy safelist-based HTML-sanitizing tool (3.10)
+SDESC[py311]=		Easy safelist-based HTML-sanitizing tool (3.11)
+HOMEPAGE=		https://github.com/mozilla/bleach
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/d4/87/508104336a2bc0c4cfdbdceedc0f44dc72da3abc0460c57e323ddd1b3257
+DISTFILE[1]=		bleach-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# Apache Software License
+
+GENERATED=		yes
+DISTNAME=		bleach-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# six (>=1.9.0)
+# webencodings
+# tinycss2 (<1.2,>=1.1.0) ; extra == 'css'
+# build (==0.8.0) ; extra == 'dev'
+# flake8 (==4.0.1) ; extra == 'dev'
+# hashin (==0.17.0) ; extra == 'dev'
+# pip-tools (==6.6.2) ; extra == 'dev'
+# pytest (==7.1.2) ; extra == 'dev'
+# Sphinx (==4.3.2) ; extra == 'dev'
+# tox (==3.25.0) ; extra == 'dev'
+# twine (==4.0.1) ; extra == 'dev'
+# wheel (==0.37.1) ; extra == 'dev'
+# black (==22.3.0) ; (implementation_name == "cpython") and extra == 'dev'
+# mypy (==0.961) ; (implementation_name == "cpython") and extra == 'dev'
+
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-six:single:py310
+					python-webencodings:single:py310
+[PY311].USES_ON=			python:py311,wheel
+[PY311].RUN_DEPENDS_ON=			python-six:single:py311
+					python-webencodings:single:py311
+
+post-install:
+	${SED} -i'' -e 's|/bin/bash|${PREFIX}/bin/bash|' \
+		${STAGEDIR}${PYTHON_SITELIBDIR}/bleach/_vendor/vendor_install.sh

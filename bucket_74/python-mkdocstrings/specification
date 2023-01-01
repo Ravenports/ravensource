@@ -1,0 +1,56 @@
+DEF[PORTVERSION]=	0.19.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-mkdocstrings
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Documentation from sources for MkDocs (3.10)
+SDESC[py311]=		Documentation from sources for MkDocs (3.11)
+HOMEPAGE=		none
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/f1/b3/67004de33f860586d27301fc12d949f56026a5fc42f8004566e454659985
+DISTFILE[1]=		mkdocstrings-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# ISC
+
+GENERATED=		yes
+DISTNAME=		mkdocstrings-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# Jinja2>=2.11.1
+# Markdown>=3.3
+# MarkupSafe>=1.1
+# mkdocs-autorefs>=0.3.1
+# mkdocs>=1.2
+# pymdown-extensions>=6.3
+# mkdocstrings-crystal>=0.3.4; extra == "crystal"
+# mkdocstrings-python>=0.5.2; extra == "python"
+# mkdocstrings-python-legacy>=0.2.1; extra == "python-legacy"
+
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-Jinja2:single:py310
+					python-Markdown:single:py310
+					python-MarkupSafe:single:py310
+					python-mkdocs-autorefs:single:py310
+					python-mkdocs:single:py310
+					python-pymdown-extensions:single:py310
+[PY311].USES_ON=			python:py311,wheel
+[PY311].RUN_DEPENDS_ON=			python-Jinja2:single:py311
+					python-Markdown:single:py311
+					python-MarkupSafe:single:py311
+					python-mkdocs-autorefs:single:py311
+					python-mkdocs:single:py311
+					python-pymdown-extensions:single:py311
+

@@ -1,0 +1,67 @@
+DEF[PORTVERSION]=	1.12.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-sentry-sdk
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Sentry client (3.10)
+SDESC[py311]=		Sentry client (3.11)
+HOMEPAGE=		https://github.com/getsentry/sentry-python
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/5f/aa/526c8ed2f1e499d641d4cd05a91cd56be9c078597c4b39033a43e794f827
+DISTFILE[1]=		sentry_sdk-${PORTVERSION}-py2.py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# BSD
+
+GENERATED=		yes
+DISTNAME=		sentry_sdk-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# certifi
+# urllib3 (>=1.25.7) ; python_version <= "3.4"
+# urllib3 (>=1.26.9) ; python_version == "3.5"
+# urllib3 (>=1.26.11) ; python_version >= "3.6"
+# aiohttp (>=3.5) ; extra == 'aiohttp'
+# apache-beam (>=2.12) ; extra == 'beam'
+# bottle (>=0.12.13) ; extra == 'bottle'
+# celery (>=3) ; extra == 'celery'
+# chalice (>=1.16.0) ; extra == 'chalice'
+# django (>=1.8) ; extra == 'django'
+# falcon (>=1.4) ; extra == 'falcon'
+# fastapi (>=0.79.0) ; extra == 'fastapi'
+# flask (>=0.11) ; extra == 'flask'
+# blinker (>=1.1) ; extra == 'flask'
+# httpx (>=0.16.0) ; extra == 'httpx'
+# opentelemetry-distro (>=0.350b0) ; extra == 'opentelemetry'
+# pure-eval ; extra == 'pure_eval'
+# executing ; extra == 'pure_eval'
+# asttokens ; extra == 'pure_eval'
+# pymongo (>=3.1) ; extra == 'pymongo'
+# pyspark (>=2.4.4) ; extra == 'pyspark'
+# quart (>=0.16.1) ; extra == 'quart'
+# blinker (>=1.1) ; extra == 'quart'
+# rq (>=0.6) ; extra == 'rq'
+# sanic (>=0.8) ; extra == 'sanic'
+# sqlalchemy (>=1.2) ; extra == 'sqlalchemy'
+# starlette (>=0.19.1) ; extra == 'starlette'
+# tornado (>=5) ; extra == 'tornado'
+
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-certifi:single:py310
+					python-urllib3:single:py310
+[PY311].USES_ON=			python:py311,wheel
+[PY311].RUN_DEPENDS_ON=			python-certifi:single:py311
+					python-urllib3:single:py311
+

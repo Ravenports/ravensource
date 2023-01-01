@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	1.1.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-mkdocs-material-extensions
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		MkDocs extension for Markdown (3.10)
+SDESC[py311]=		MkDocs extension for Markdown (3.11)
+HOMEPAGE=		none
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/fd/c9/35af8ceabace3e33d1fb64b1749c6f4dac6129faa32f8a4229791f89f56a
+DISTFILE[1]=		mkdocs_material_extensions-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		mkdocs_material_extensions-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+
+
+[PY310].USES_ON=			python:py310,wheel
+[PY311].USES_ON=			python:py311,wheel
+

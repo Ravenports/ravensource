@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	3.2.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-python3-openid
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		OpenID support for servers and consumers (3.10)
+SDESC[py311]=		OpenID support for servers and consumers (3.11)
+HOMEPAGE=		https://github.com/necaris/python3-openid
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/e0/a5/c6ba13860bdf5525f1ab01e01cc667578d6f1efc8a1dba355700fb04c29b
+DISTFILE[1]=		python3_openid-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		python3_openid-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# defusedxml
+# mysql-connector-python ; extra == 'mysql'
+# psycopg2 ; extra == 'postgresql'
+
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-defusedxml:single:py310
+[PY311].USES_ON=			python:py311,wheel
+[PY311].RUN_DEPENDS_ON=			python-defusedxml:single:py311
+

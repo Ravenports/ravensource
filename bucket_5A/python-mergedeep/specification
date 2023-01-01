@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	1.3.4
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-mergedeep
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Deep merge function for 🐍 (3.10)
+SDESC[py311]=		Deep merge function for 🐍 (3.11)
+HOMEPAGE=		https://github.com/clarketm/mergedeep
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/2c/19/04f9b178c2d8a15b076c8b5140708fa6ffc5601fb6f1e975537072df5b2a
+DISTFILE[1]=		mergedeep-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		mergedeep-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+
+
+[PY310].USES_ON=			python:py310,wheel
+[PY311].USES_ON=			python:py311,wheel
+
