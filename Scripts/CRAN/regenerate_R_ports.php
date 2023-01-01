@@ -1,6 +1,6 @@
-#!/raven/bin/php74
+#!/raven/bin/php80
 <?php
-# Requires php74 with openssl and posix extensions
+# Requires php80 with openssl and posix extensions
 # if arguments are given, they are used as the toplevel ports,
 # overriding the master top-level ports list
 
@@ -203,6 +203,7 @@ CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CRAN/src/contrib
+			https://loki.dragonflybsd.org/cranfiles/
 DISTFILE[1]=		$tarball:main
 DIST_SUBDIR=		CRAN
 DF_INDEX=		1
