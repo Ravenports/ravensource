@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	3.14
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		klavaro
+VERSION=		${PORTVERSION}
+KEYWORDS=		misc
+VARIANTS=		standard
+SDESC[standard]=	Flexible touch typing tutor and trainer
+HOMEPAGE=		https://sourceforge.net/projects/klavaro/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.sourceforge.net/project/klavaro/
+DISTFILE[1]=		klavaro-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/main.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		games/klavaro
+
+BUILD_DEPENDS=		intltool:single:standard
+BUILDRUN_DEPENDS=	gtkdatabox:primary:standard
+USES=			gettext-runtime gettext-tools:build gmake pkgconfig
+
+MUST_CONFIGURE=		gnu
+
+post-extract:
+	${REINPLACE_CMD} -e 's|/usr|${PREFIX}|' \
+		${WRKSRC}/data/klavaro.desktop.in
