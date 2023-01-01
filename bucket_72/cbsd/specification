@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	13.1.19
 
 NAMEBASE=		cbsd
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		sysutils
 VARIANTS=		standard
 SDESC[standard]=	FreeBSD jails, bhyve and Xen manager
@@ -85,8 +85,6 @@ pre-configure:
 		${WRKSRC}/bin/cbsdsh/var.c
 
 post-install:
-	# remove empty share directories
-	${FIND} ${STAGEDIR}${PREFIX}/cbsd/share -type d -empty -delete
 	# Add symbolic link
 	${MKDIR} ${STAGEDIR}${PREFIX}/libexec/bsdconfig
 	(cd ${STAGEDIR}${PREFIX}/libexec/bsdconfig &&\
