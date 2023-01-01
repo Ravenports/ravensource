@@ -9,6 +9,7 @@ DEF[JSSOVERSION50]=	0.0.0
 
 NAMEBASE=		webkit2
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		www
 VARIANTS=		api40 api41 api50
 SDESC[api40]=		Opensource browser engine using GTK+3 (API 4.0)
@@ -140,21 +141,27 @@ post-install:
 
 post-install-API40-ON:
 	(cd ${STAGEDIR}${PREFIX}/bin && \
-	 ${LN} -s ../libexec/webkit2gtk-4.0/jsc jsc-4 && \
-	 ${LN} -s ../libexec/webkit2gtk-4.0/MiniBrowser MiniBrowser-4)
+	 ${LN} -s ../libexec/webkit2gtk-4.0/jsc jsc-4.0 && \
+	 ${LN} -s ../libexec/webkit2gtk-4.0/MiniBrowser MiniBrowser-4.0)
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/webkit2gtk-4.0/injected-bundle/*.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/webkit2gtk-4.0/*
+	${MV} ${STAGEDIR}${PREFIX}/bin/WebKitWebDriver \
+		${STAGEDIR}${PREFIX}/bin/WebKitWebDriver-4.0
 
 post-install-API41-ON:
 	(cd ${STAGEDIR}${PREFIX}/bin && \
-	 ${LN} -s ../libexec/webkit2gtk-4.1/jsc jsc-4 && \
-	 ${LN} -s ../libexec/webkit2gtk-4.1/MiniBrowser MiniBrowser-4)
+	 ${LN} -s ../libexec/webkit2gtk-4.1/jsc jsc-4.1 && \
+	 ${LN} -s ../libexec/webkit2gtk-4.1/MiniBrowser MiniBrowser-4.1)
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/webkit2gtk-4.1/injected-bundle/*.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/webkit2gtk-4.1/*
+	${MV} ${STAGEDIR}${PREFIX}/bin/WebKitWebDriver \
+		${STAGEDIR}${PREFIX}/bin/WebKitWebDriver-4.1
 
 post-install-API50-ON:
 	(cd ${STAGEDIR}${PREFIX}/bin && \
-	 ${LN} -s ../libexec/webkit2gtk-5.0/jsc jsc-5 && \
-	 ${LN} -s ../libexec/webkit2gtk-5.0/MiniBrowser MiniBrowser-5)
+	 ${LN} -s ../libexec/webkit2gtk-5.0/jsc jsc-5.0 && \
+	 ${LN} -s ../libexec/webkit2gtk-5.0/MiniBrowser MiniBrowser-5.0)
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/webkit2gtk-5.0/injected-bundle/*.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/webkit2gtk-5.0/*
+	${MV} ${STAGEDIR}${PREFIX}/bin/WebKitWebDriver \
+		${STAGEDIR}${PREFIX}/bin/WebKitWebDriver-5.0
