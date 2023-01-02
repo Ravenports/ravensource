@@ -5,7 +5,7 @@ DEF[CURL_VERSION]=	7.87.0
 
 NAMEBASE=		rust
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		lang
 VARIANTS=		standard
 SDESC[standard]=	Systems programming language from Mozilla
@@ -67,8 +67,8 @@ BUILD_DEPENDS=		bash:primary:standard
 # USES=c++:single is redundant
 EXRUN[single]=		ravensys-gcc:compilers:standard
 
-USES=			cpe gmake zlib python:build shebangfix
-			ncurses execinfo c++:single dos2unix ssl:build
+USES=			cpe gmake zlib:build python:build shebangfix
+			ncurses execinfo:build c++:single dos2unix ssl:build
 CPE_VENDOR=		rust-lang
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--release-channel=stable
@@ -111,11 +111,18 @@ VAR_OPSYS[linux]=	MAKEFILE_LINE=BOOTSTRAP_RUST=${RUSTX_BOOT}
 			MAKEFILE_LINE=BOOTSTRAP_CARGO=${RUSTX_BOOT}
 
 post-extract:
+	# remove link to shared libressl, execinfo and zlib
+	# replace static versions with PIC versions
 	(cd ${LOCALBASE}/libressl/lib \
 		&& ${CP} libssl_pic.a libssl.a \
 		&& ${CP} libcrypto_pic.a libcrypto.a \
 		&& ${CP} libtls_pic.a libtls.a \
-		&& rm lib*.so)
+		&& ${RM} lib*.so)
+	(cd ${LOCALBASE}/lib \
+		&& ${CP} libexecinfo_pic.a libexecinfo.a \
+		&& ${CP} libz_pic.a libz.a \
+		&& ${RM} libexecinfo.so \
+		&& ${RM} libz.so)
 
 post-patch:
 	# Use rpath suitable for libz et al.
