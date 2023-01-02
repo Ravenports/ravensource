@@ -1,4 +1,4 @@
---- src/log.c.orig	2022-10-24 19:22:50 UTC
+--- src/log.c.orig	2023-01-02 08:39:00 UTC
 +++ src/log.c
 @@ -142,7 +142,7 @@ void open_logbuffer(void) {
          logbuffer_size = physical_mem_bytes * 0.01;
