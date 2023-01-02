@@ -1,0 +1,11 @@
+--- vendor/curl-sys/curl/lib/Makefile.m32.orig	2022-11-02 16:21:40 UTC
++++ vendor/curl-sys/curl/lib/Makefile.m32
+@@ -313,7 +313,7 @@ ifdef SSL
+     endif
+     ifeq "$(wildcard $(OPENSSL_PATH)/lib)" "$(OPENSSL_PATH)/lib"
+       OPENSSL_LIBPATH = $(OPENSSL_PATH)/lib
+-      OPENSSL_LIBS = -lcrypto -lssl
++      OPENSSL_LIBS = -lcrypto_pic -lssl_pic
+     endif
+   endif
+   ifndef DYN
