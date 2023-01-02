@@ -2,9 +2,9 @@ $NetBSD: patch-fontforge_splinefont.h,v 1.3 2019/09/02 14:45:37 nia Exp $
 
 NetBSD does not implement uselocale().
 
---- fontforge/splinefont.h.orig	2022-03-08 10:14:24 UTC
+--- fontforge/splinefont.h.orig	2023-01-01 05:25:21 UTC
 +++ fontforge/splinefont.h
-@@ -2632,17 +2632,33 @@ extern bool isSplinePointPartOfGuide( Sp
+@@ -2630,17 +2630,33 @@ extern bool isSplinePointPartOfGuide( Sp
  
  extern void debug_printHint( StemInfo *h, char* msg );
  
