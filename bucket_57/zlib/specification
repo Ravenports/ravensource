@@ -31,6 +31,15 @@ MUST_CONFIGURE=		yes
 CONFIGURE_ENV=		prefix="{{PREFIX}}"
 			cflags="{{CFLAGS}}"
 SOVERSION=		${SOVERSION}
+SINGLE_JOB=		yes
+
+post-build:
+	# assemble PIC library
+	(cd ${WRKSRC} \
+	 && ${AR} -cq libz_pic.a *.lo \
+	 && ranlib libz_pic.a)
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libz.${LIBEXT}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libz.so
+	# install our PIC library
+	${INSTALL_DATA} ${WRKSRC}/libz_pic.a ${STAGEDIR}${PREFIX}/lib/
