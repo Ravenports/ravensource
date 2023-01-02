@@ -25,6 +25,16 @@ LICENSE_AWK=		BSD2CLAUSE:"^$$"
 LICENSE_SOURCE=		BSD2CLAUSE:{{WRKSRC}}/execinfo.h
 LICENSE_SCHEME=		solo
 
+SINGLE_JOB=		yes
+
+post-build:
+	# assemble PIC library
+	(cd ${WRKSRC} \
+	 && ${AR} -cq libexecinfo_pic.a *.So \
+	 && ranlib libexecinfo_pic.a)
+
 post-install:
 	${INSTALL_MAN} ${FILESDIR}/backtrace.3 \
 		${STAGEDIR}${MANPREFIX}/man/man3/
+	# install our PIC library
+	${INSTALL_DATA} ${WRKSRC}/libexecinfo_pic.a ${STAGEDIR}${PREFIX}/lib/
