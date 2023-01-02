@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	3.25.1
 
 NAMEBASE=		cmake
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Cross-platform Makefile generator
@@ -26,8 +27,7 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		devel/cmake
 
 BUILD_DEPENDS=		python-Sphinx:single:python_default
-BUILDRUN_DEPENDS=	curl:primary:standard
-			expat:complete:standard
+BUILDRUN_DEPENDS=	expat:complete:standard
 			jsoncpp:single:standard
 			libarchive:single:standard
 			libuv:single:standard
@@ -41,6 +41,8 @@ CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
 			--docdir="/share/doc/cmake"
 			--mandir="/share/man"
 			--system-libs
+			--no-system-curl
+			--no-system-nghttp2
 			--parallel={{MAKE_JOBS_NUMBER}}
 			--init="{{FILESDIR}}/InitialCache.cmake"
 # something is wrong with Sphinx - locks up build...
