@@ -1,4 +1,4 @@
---- vendor/libssh2-sys/libssh2/src/openssl.h.orig	2022-11-02 16:21:41 UTC
+--- vendor/libssh2-sys/libssh2/src/openssl.h.orig	2022-12-12 18:23:58 UTC
 +++ vendor/libssh2-sys/libssh2/src/openssl.h
 @@ -57,8 +57,9 @@
  #include <openssl/pem.h>

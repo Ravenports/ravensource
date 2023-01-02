@@ -1,11 +1,10 @@
-DEF[PORTVERSION]=	1.65.0
-DEF[RUSTX_BOOT]=	1.64.0
+DEF[PORTVERSION]=	1.66.0
+DEF[RUSTX_BOOT]=	1.65.0
 DEF[CURL_VERSION]=	7.87.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rust
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		lang
 VARIANTS=		standard
 SDESC[standard]=	Systems programming language from Mozilla
@@ -60,7 +59,7 @@ EXTRACT_ONLY=		1 14
 
 BUILD_DEPENDS=		bash:primary:standard
 			cmake:single:standard
-			libssh2:single:standard
+			ncurses:primary:standard
 			nss:caroot:standard
 
 # required for rust linking (also pulls in c++ and gcc-libs so
@@ -68,7 +67,7 @@ BUILD_DEPENDS=		bash:primary:standard
 EXRUN[single]=		ravensys-gcc:compilers:standard
 
 USES=			cpe gmake zlib:build python:build shebangfix
-			ncurses execinfo:build c++:single dos2unix ssl:build
+			execinfo:build c++:single dos2unix ssl:build
 CPE_VENDOR=		rust-lang
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--release-channel=stable
@@ -110,7 +109,18 @@ VAR_OPSYS[netbsd]=	MAKEFILE_LINE=BOOTSTRAP_RUST=${RUSTX_BOOT}
 VAR_OPSYS[linux]=	MAKEFILE_LINE=BOOTSTRAP_RUST=${RUSTX_BOOT}
 			MAKEFILE_LINE=BOOTSTRAP_CARGO=${RUSTX_BOOT}
 
-post-extract:
+pre-configure:
+	# Use rpath suitable for libz et al.
+	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|g' \
+		-e 's|@OPENSSLLIB@|${OPENSSLLIB}|g' \
+		${WRKSRC}/src/bootstrap/builder.rs
+	# Disable vendor checksums
+	${REINPLACE_CMD} -e 's/"files":{[^}]*}/"files":{}/' \
+		 ${WRKSRC}/vendor/*/.cargo-checksum.json
+	# Enable rust to find certificates
+	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|' \
+		${WRKSRC}/vendor/openssl-probe/src/lib.rs
+
 	# remove link to shared libressl, execinfo and zlib
 	# replace static versions with PIC versions
 	(cd ${LOCALBASE}/libressl/lib \
@@ -124,24 +134,6 @@ post-extract:
 		&& ${RM} libexecinfo.so \
 		&& ${RM} libz.so)
 
-post-patch:
-	# Use rpath suitable for libz et al.
-	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|g' \
-		-e 's|@OPENSSLLIB@|${OPENSSLLIB}|g' \
-		${WRKSRC}/src/bootstrap/builder.rs
-	# Disable vendor checksums
-	${REINPLACE_CMD} -e 's/"files":{[^}]*}/"files":{}/' \
-		 ${WRKSRC}/vendor/*/.cargo-checksum.json
-
-post-patch-dragonfly:
-	# for rust 1.64 bootstrap (leave commented out)
-	(cd ${LOCALBASE}/libressl/lib && \
-		${LN} -s /usr/lib/libssl.so.50.0.0 libssl.so.50 && \
-		${LN} -s /usr/lib/libcrypto.so.47.0.0 libcrypto.so.47)
-
-pre-configure:
-	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|' \
-		${WRKSRC}/vendor/openssl-probe/src/lib.rs
 	# build curl here.
 	${SH} ${FILESDIR}/build_curl.sh "${PREFIX}" "${CONFIGURE_TARGET}"
 	(cd ${WRKDIR}/curl-* && ${MAKE_CMD})
