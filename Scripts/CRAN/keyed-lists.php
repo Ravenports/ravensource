@@ -184,7 +184,8 @@ function sanitize_homepage ($namebase, $original_homepage) {
     $hplen = strlen($base_homepage);
     foreach ($data_homepage as $deadpage) {
         $deadsize = strlen($deadpage);
-        if ($deadsize >= $base_homepage) {
+        $homepage_len = strlen($base_homepage);
+        if ($deadsize <= $homepage_len) {
             if ($deadpage == substr($base_homepage, 0, $deadsize)) {
                 return "none";
             }
