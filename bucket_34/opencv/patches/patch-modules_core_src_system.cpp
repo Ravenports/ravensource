@@ -1,6 +1,6 @@
---- modules/core/src/system.cpp.orig	2021-12-25 03:53:27 UTC
+--- modules/core/src/system.cpp.orig	2022-12-28 14:31:52 UTC
 +++ modules/core/src/system.cpp
-@@ -128,7 +128,7 @@ void* allocSingletonNewBuffer(size_t siz
+@@ -131,7 +131,7 @@ void* allocSingletonNewBuffer(size_t siz
  #include <cstdlib>        // std::abort
  #endif
  
@@ -9,7 +9,7 @@
  #  include <unistd.h>
  #  include <fcntl.h>
  #if defined __QNX__
-@@ -252,7 +252,7 @@ std::wstring GetTempFileNameWinRT(std::w
+@@ -255,7 +255,7 @@ std::wstring GetTempFileNameWinRT(std::w
  #include "omp.h"
  #endif
  
