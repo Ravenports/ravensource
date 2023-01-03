@@ -4,6 +4,7 @@ DEF[SUFFIX]=		${PORTVERSION:R:S/.//}
 DEF[PG_USER]=		pgsql
 DEF[PG_GROUP]=		pgsql
 DEF[PG_UID]=		60000
+DEF[DATADIR]=		data${PORTVERSION:R}0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		${NAMEBASE}
@@ -89,6 +90,7 @@ SUB_FILES=		502.pgsql
 SUB_LIST=		PG_GROUP=${PG_GROUP}
 			PG_USER=${PG_USER}
 			PG_UID=${PG_UID}
+			DATADIR=${DATADIR}
 
 VAR_OPSYS[sunos]=	CONFIGURE_ENV=ac_cv_search_bind_textdomain_codeset=-lintl
 			CONFIGURE_ARGS=--with-template=solaris
