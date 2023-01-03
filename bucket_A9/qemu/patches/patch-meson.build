@@ -1,4 +1,4 @@
---- meson.build.orig	2022-08-30 16:41:57 UTC
+--- meson.build.orig	2022-12-14 16:28:45 UTC
 +++ meson.build
 @@ -47,7 +47,7 @@ genh = []
  qapi_trace_events = []
@@ -7,9 +7,9 @@
 -supported_oses = ['windows', 'freebsd', 'netbsd', 'openbsd', 'darwin', 'sunos', 'linux']
 +supported_oses = ['windows', 'freebsd', 'netbsd', 'openbsd', 'darwin', 'sunos', 'linux', 'dragonfly']
  supported_cpus = ['ppc', 'ppc64', 's390x', 'riscv', 'x86', 'x86_64',
-   'arm', 'aarch64', 'loongarch64', 'mips', 'mips64', 'sparc', 'sparc64']
+   'arm', 'aarch64', 'loongarch64', 'mips', 'mips64', 'sparc64']
  
-@@ -416,7 +416,7 @@ if get_option('hax').allowed()
+@@ -444,7 +444,7 @@ if get_option('hax').allowed()
      accelerators += 'CONFIG_HAX'
    endif
  endif
@@ -18,7 +18,7 @@
    nvmm = cc.find_library('nvmm', required: get_option('nvmm'))
    if nvmm.found()
      accelerators += 'CONFIG_NVMM'
-@@ -851,15 +851,16 @@ if have_system and get_option('curses').
+@@ -910,15 +910,16 @@ if have_system and get_option('curses').
        has_curses_h = cc.has_header('curses.h', args: curses_compile_args)
      endif
      if has_curses_h
