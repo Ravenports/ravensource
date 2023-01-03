@@ -1,4 +1,4 @@
---- src/nfpcapd/nfpcapd.c.orig	2022-09-30 11:33:14 UTC
+--- src/nfpcapd/nfpcapd.c.orig	2022-12-24 12:30:59 UTC
 +++ src/nfpcapd/nfpcapd.c
 @@ -33,6 +33,7 @@
  #include <errno.h>
