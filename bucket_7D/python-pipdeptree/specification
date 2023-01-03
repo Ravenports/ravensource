@@ -1,0 +1,58 @@
+DEF[PORTVERSION]=	2.3.3
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-pipdeptree
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Utility to show package dependency tree (3.10)
+SDESC[py311]=		Utility to show package dependency tree (3.11)
+HOMEPAGE=		none
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/73/83/6db58ab558d511302941af4d4b70e9ee7d603c9b87dc073635e2000d9715
+DISTFILE[1]=		pipdeptree-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# Copyright (c) The pipdeptree developers  Permission is hereby granted,
+# free of charge, to any person obtaining a copy of this software and
+# associated documentation files (the "Software"), to deal in the
+# Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or
+# sell copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following conditions:
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.  THE
+# SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+GENERATED=		yes
+DISTNAME=		pipdeptree-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# graphviz>=0.20.1; extra == 'graphviz'
+# covdefaults>=2.2; extra == 'test'
+# diff-cover>=7.0.1; extra == 'test'
+# pip>=22.3; extra == 'test'
+# pytest-cov>=4; extra == 'test'
+# pytest-mock>=3.10; extra == 'test'
+# pytest>=7.2; extra == 'test'
+# virtualenv<21,>=20.16.6; extra == 'test'
+
+[PY310].USES_ON=			python:py310,wheel
+[PY311].USES_ON=			python:py311,wheel
+
