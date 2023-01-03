@@ -33,9 +33,9 @@ BUILDRUN_DEPENDS=	expat:complete:standard
 			libuv:single:standard
 			rhash:single:standard
 
-USES=			ncurses c++:single zlib
+USES=			ncurses c++:single ssl zlib
 MUST_CONFIGURE=		yes
-CONFIGURE_ENV=		MAKE=make
+CONFIGURE_ENV=		MAKE=make OPENSSL_ROOT_DIR={{PREFIX}}/libressl
 CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
 			--datadir="/share/cmake"
 			--docdir="/share/doc/cmake"
