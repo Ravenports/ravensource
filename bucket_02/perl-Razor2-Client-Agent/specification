@@ -50,3 +50,8 @@ DISTNAME=		Razor2-Client-Agent-${PORTVERSION}
 [PERL_536].BUILDRUN_DEPENDS_ON=		perl-Digest-SHA1:single:536
 					perl-URI:single:536
 
+post-install:
+	# relocate stray man pages
+	${MKDIR} ${STAGEDIR}${PREFIX}/${SITE_PERL_REL}/man/man5
+	${MV} ${STAGEDIR}${MANPREFIX}/man/man5/razor* \
+		${STAGEDIR}${PREFIX}/${SITE_PERL_REL}/man/man5/
