@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	3.25.1
 
 NAMEBASE=		cmake
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Cross-platform Makefile generator
@@ -33,9 +33,10 @@ BUILDRUN_DEPENDS=	expat:complete:standard
 			libuv:single:standard
 			rhash:single:standard
 
-USES=			ncurses c++:single zlib
+USES=			ncurses c++:single zlib ssl:build
 MUST_CONFIGURE=		yes
 CONFIGURE_ENV=		MAKE=make
+			OPENSSL_ROOT_DIR={{OPENSSLBASE}}
 CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
 			--datadir="/share/cmake"
 			--docdir="/share/doc/cmake"
@@ -52,7 +53,7 @@ INSTALL_TARGET=		install/strip
 
 VAR_OPSYS[netbsd]=	CXXFLAGS=-D_NETBSD_SOURCE
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e "s@CYGWIN@true@g" \
 		${WRKSRC}/Modules/FindCurses.cmake
 	${REINPLACE_CMD} -e "s@<form.h>@<ncurses/form.h>@g" \
@@ -72,6 +73,10 @@ post-patch:
 		${WRKSRC}/Modules/FindDCMTK.cmake
 	${REINPLACE_CMD} -e 's|__APPLE__|__SKIPME__|' \
 		${WRKSRC}/Source/cmGlobalXCodeGenerator.cxx
+	# Hardcode CA bundle
+	${REINPLACE_CMD} -e 's|@RAVEN_CERT@|${LOCALBASE}/share/certs/ca-root-nss.crt|'\
+		${WRKSRC}/Utilities/cmcurl/lib/CMakeLists.txt
+	# Remove backups
 	${FIND} ${WRKSRC} -name "*.bak" -delete -o -name "*.orig" -delete
 
 	# cmake-gui(1) will be installed by a separate port.  Remove the man page's
