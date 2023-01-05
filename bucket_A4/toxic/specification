@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	0.11.3
 
 NAMEBASE=		toxic
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net net_im net_p2p
 VARIANTS=		standard
 SDESC[standard]=	Ncurses-based Tox client
@@ -36,7 +37,7 @@ BUILDRUN_DEPENDS=	curl:primary:standard
 			toxcore:single:standard
 
 USES=			desktop-utils:single gmake ncurses pkgconfig
-			python shebangfix
+			python:build shebangfix
 XORG_COMPONENTS=	x11
 SHEBANG_FILES=		apidoc/python/source/conf.py
 CFLAGS=			-I{{NCURSESINC}}
@@ -45,19 +46,13 @@ MAKE_ARGS=		ENABLE_PYTHON=1
 			PREFIX="{{PREFIX}}"
 			USER_CFLAGS="{{CFLAGS}}"
 			USER_LDFLAGS="{{LDFLAGS}}"
+SINGLE_JOB=		yes
 
 post-patch:
-	if [ "${PYTHON_SUFFIX}" -gt 37 ]; then \
-		${REINPLACE_CMD} \
-		-e 's|LIBS = python3|LIBS = python-${PYTHON_VER}|' \
-		-e 's|python3-config|python${PYTHON_VER}-config --embed|g' \
-		${WRKSRC}/cfg/checks/python.mk ;\
-	else \
-		${REINPLACE_CMD} \
-		-e 's|LIBS = python3|LIBS = python-${PYTHON_VER}|' \
+	${REINPLACE_CMD} \
+		-e 's|LIBS = python3|LIBS = python${PYTHON_VER}|' \
 		-e 's|python3-config|python${PYTHON_VER}-config|g' \
-		${WRKSRC}/cfg/checks/python.mk ;\
-	fi
+		${WRKSRC}/cfg/checks/python.mk
 	# log the build
 	${REINPLACE_CMD} -e '/@.[(]CC[)]/ s|@||' ${WRKSRC}/Makefile
 

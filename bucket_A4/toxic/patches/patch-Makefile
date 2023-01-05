@@ -1,0 +1,13 @@
+--- Makefile.orig	2023-01-05 22:54:08 UTC
++++ Makefile
+@@ -42,10 +42,6 @@ ifeq ($(UNAME_S), OpenBSD)
+ LIBS := $(filter-out ncursesw, $(LIBS))
+ LDFLAGS += -lncursesw
+ endif
+-ifeq ($(UNAME_S), NetBSD)
+-LIBS := $(filter-out ncursesw, $(LIBS))
+-LDFLAGS += -lncursesw
+-endif
+ ifeq ($(UNAME_S), Darwin)
+     -include $(CFG_DIR)/systems/Darwin.mk
+ endif
