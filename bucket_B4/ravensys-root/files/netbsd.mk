@@ -81,6 +81,7 @@ static_lib_NetBSD=\
 	/usr/lib/libossaudio.a \
 	/usr/lib/libposix.a \
 	/usr/lib/libperfuse.a \
+	/usr/lib/libprop.a \
 	/usr/lib/libpuffs.a \
 	/usr/lib/libquota.a \
 	/usr/lib/crt0.o \
@@ -117,6 +118,7 @@ dynamic_lib_NetBSD=\
 	/usr/lib/libossaudio.so.1 \
 	/usr/lib/libposix.so.0 \
 	/usr/lib/libperfuse.so.0 \
+	/usr/lib/libprop.so.1 \
 	/usr/lib/libpuffs.so.2 \
 	/usr/lib/libquota.so.1 \
 	${ONLY_SO} \
@@ -317,6 +319,7 @@ install-platform: install-common
 		ln -s libposix.so.0 libposix.so && \
 		ln -s libperfuse.so.0 libperfuse.so && \
 		ln -s libpuffs.so.2 libpuffs.so && \
+		ln -s librop.so.1 libprop.so && \
 		ln -s libquota.so.1 libquota.so && \
 		ln -s libx86_64.so.0 libx86_64.so && \
 		ln -s libusbhid.so.1 libusbhid.so)
