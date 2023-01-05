@@ -1,17 +1,32 @@
 DEF[PORTVERSION]=	1.4.1
+DEF[SMACK_HASH]=	2997ee0e41e91bb723003bc09234be553b190e38
+DEF[AUDIOLIB_HASH]=	1a69135313c79817b38a3a99826d4ac28d627fdf
+DEF[SIMPLEINI_HASH]=	9b3ed7ec815997bc8c5b9edf140d6bde653e1458
+DEF[LIBMPQ_HASH]=	0f10bd1600f406b13932bf5351ba713361262184
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		devilutionX
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		games
 VARIANTS=		standard
 SDESC[standard]=	Reverse-engineered Diablo 1 engine made portable
 HOMEPAGE=		https://github.com/diasurgical/devilutionX
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main smack audiolib simpleini libmpq
 SITES[main]=		GITHUB/diasurgical:devilutionX:${PORTVERSION}
+SITES[smack]=		GITHUB/diasurgical:libsmackerdec:${SMACK_HASH}
+SITES[audiolib]=	GITHUB/realnc:SDL_audiolib:${AUDIOLIB_HASH}
+SITES[simpleini]=	GITHUB/brofield:simpleini:${SIMPLEINI_HASH}
+SITES[libmpq]=		GITHUB/diasurgical:libmpq:${LIBMPQ_HASH}
 DISTFILE[1]=		generated:main
+DISTFILE[2]=		generated:smack
+DISTFILE[3]=		generated:audiolib
+DISTFILE[4]=		generated:simpleini
+DISTFILE[5]=		generated:libmpq
+DIST_SUBDIR=		devilutionX
+DF_INDEX=		1 2 3 4 5
 
 SPKGS[standard]=	single
 
@@ -26,12 +41,18 @@ FPC_EQUIVALENT=		games/devilutionX
 
 BUILD_DEPENDS=		gtest:single:standard
 BUILDRUN_DEPENDS=	libsodium:single:standard
+			fmt:single:standard
 
-USES=			cmake pkgconfig gettext-tools
-SDL_COMPONENTS=		mixer2 ttf2
+USES=			cmake pkgconfig gettext-tools png dos2unix
+SDL_COMPONENTS=		mixer2 ttf2 sdl2 image2
+DOS2UNIX_GLOB=		*.cpp
+			*.h
+			CMakeLists.txt
 CMAKE_ARGS=		-DBINARY_RELEASE:BOOL=ON
 			-DVERSION_NUM="${PORTVERSION}"
 			-DDISABLE_ZERO_TIER:BOOL=ON
+			-DFETCHCONTENT_FULLY_DISCONNECTED:BOOL=ON
+			-Wno-dev
 SUB_FILES=		pkg-message-single
 
 C_USES[linux]=		iconv
@@ -39,6 +60,14 @@ VAR_OPSYS[linux]=	LDFLAGS=-liconv
 
 # DragonFly can't support the IPv6 code, build without network
 VAR_OPSYS[dragonfly]=	CMAKE_ARGS=-DNONET:BOOL=ON
+
+post-extract:
+	${MKDIR} ${BUILD_WRKSRC}/_deps
+	(cd ${BUILD_WRKSRC}/_deps \
+	&& ${MV} ${WRKDIR}/libsmackerdec-${SMACK_HASH} libsmackerdec-src \
+	&& ${MV} ${WRKDIR}/libmpq-${LIBMPQ_HASH} libmpq-src \
+	&& ${MV} ${WRKDIR}/simpleini-${SIMPLEINI_HASH} simpleini-src \
+	&& ${MV} ${WRKDIR}/SDL_audiolib-${AUDIOLIB_HASH} sdl_audiolib-src)
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKDIR}/.build/devilutionx \
