@@ -1,20 +1,12 @@
+$NetBSD: patch-src_print__disk__info.c,v 1.3 2022/04/12 14:43:01 nia Exp $
+
+Fix building on BSD. Upstream code was changed and the BSD paths
+were not tested.
+
 --- src/print_disk_info.c.orig	2021-11-09 07:27:11 UTC
 +++ src/print_disk_info.c
-@@ -63,7 +63,7 @@ static int print_bytes_human(char *outwa
-  * Determines whether remaining bytes are below given threshold.
-  *
-  */
--#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__APPLE__)
-+#if defined(__OpenBSD__) || defined(__APPLE__)
- static bool below_threshold(struct statfs buf, const char *prefix_type, const char *threshold_type, const double low_threshold) {
- #else
- static bool below_threshold(struct statvfs buf, const char *prefix_type, const char *threshold_type, const double low_threshold) {
-@@ -124,17 +124,17 @@ void print_disk_info(disk_info_ctx_t *ct
- 
-     INSTANCE(ctx->path);
- 
--#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__APPLE__)
-+#if defined(__OpenBSD__) || defined(__APPLE__)
+@@ -127,14 +127,14 @@ void print_disk_info(disk_info_ctx_t *ct
+ #if defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__APPLE__)
      struct statfs buf;
  
 -    if (statfs(path, &buf) == -1)
@@ -22,8 +14,7 @@
          return;
  
      mounted = true;
--#elif defined(__NetBSD__)
-+#elif defined(__NetBSD__) || defined(__DragonFly__) || defined(__FreeBSD__)
+ #elif defined(__NetBSD__)
      struct statvfs buf;
  
 -    if (statvfs(path, &buf) == -1)
