@@ -77,6 +77,7 @@ static_lib_FreeBSD=\
 	/usr/lib/libdevstat.a \
 	/usr/lib/libgeom.a \
 	/usr/lib/libkvm.a \
+	/usr/lib/libmemstat.a \
 	/usr/lib/libprocstat.a \
 	/usr/lib/libthr.a \
 	/usr/lib/libusb.a \
@@ -108,6 +109,7 @@ dynamic_lib_FreeBSD=\
 	/lib/libjail.so.1 \
 	/usr/lib/libdevinfo.so.6 \
 	/usr/lib/libexecinfo.so.1 \
+	/usr/lib/libmemstat.so.3 \
 	/usr/lib/librpcsvc.so.5\
 	/usr/lib/librt.so.1 \
 	/usr/lib/libprocstat.so.1 \
@@ -293,6 +295,7 @@ install-platform: install-common
 		ln -s libm.so.5 libm.so && \
 		ln -s librt.so.1 librt.so && \
 		ln -s libkvm.so.7 libkvm.so && \
+		ln -s libmemstat.so.3 libmemstat.so && \
 		ln -s libcam.so.7 libcam.so && \
 		ln -s libcrypt.so.5 libcrypt.so && \
 		ln -s libutil.so.9 libutil.so && \
