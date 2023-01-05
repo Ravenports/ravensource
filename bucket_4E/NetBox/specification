@@ -1,0 +1,91 @@
+DEF[PORTVERSION]=	3.4.1
+# ----------------------------------------------------------------------------
+# Many thanks to Kai Wang for the magnificent FreeBSD port on which this one
+# is very heavily based! All the work including rc.d and periodic scripts as
+# well as the wiki setup guide were done by him. I merely adapted his work.
+
+NAMEBASE=		NetBox
+VERSION=		${PORTVERSION}
+KEYWORDS=		net_mgmt
+VARIANTS=		standard
+SDESC[standard]=	Flexible IPAM and DCIM tool with plugin support
+HOMEPAGE=		https://github.com/netbox-community/netbox/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/netbox-community:netbox:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary docs examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		APACHE20:primary
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE.txt
+LICENSE_TERMS=		primary:{{WRKSRC}}/NOTICE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net-mgmt/netbox
+
+RUN_DEPENDS=		python-Django:single:python_default
+			python-Jinja2:single:python_default
+			python-Markdown:single:python_default
+			python-Pillow:single:python_default
+			python-PyYAML:single:python_default
+			python-bleach:single:python_default
+			python-chardet:single:python_default
+			python-django-cors-headers:single:python_default
+			python-django-debug-toolbar:single:python_default
+			python-django-filter:single:python_default
+			python-django-graphiql-debug-toolbar:single:python_default
+			python-django-mptt:single:python_default
+			python-django-pglocks:single:python_default
+			python-django-prometheus:single:python_default
+			python-django-redis:single:python_default
+			python-django-rich:single:python_default
+			python-django-rq:single:python_default
+			python-django-tables2:single:python_default
+			python-django-taggit:single:python_default
+			python-django-timezone-field:single:python_default
+			python-djangorestframework:single:python_default
+			python-drf-yasg:single:python_default
+			python-graphene-django:single:python_default
+			python-gunicorn:single:python_default
+			python-markdown-include:single:python_default
+			python-mkdocs-material:single:python_default
+			python-mkdocstrings:single:python_default
+			python-netaddr:single:python_default
+			python-psycopg2:single:python_default
+			python-sentry-sdk:single:python_default
+			python-social-auth-app-django:single:python_default
+			python-social-auth-core:single:python_default
+			python-svgwrite:single:python_default
+			python-tablib:single:python_default
+			python-tzdata:single:python_default
+			redis:single:standard
+
+SKIP_BUILD=		yes
+SUB_FILES=		850.netbox-housekeeping.sample netbox_rq.sample netboxrc.sample pkg-message-primary
+SUB_LIST=		PYTHON_CMD={{PYTHON_CMD}}
+			PYTHON_VER={{PYTHON_VER}}
+
+do-install:
+	(cd ${WRKSRC}/netbox && \
+	for src in $$( ${FIND} . ! -name '*.bak' ) ; do \
+		DEST=${STAGEDIR}${PREFIX}/share/netbox/$${src#.} && \
+		if ${TEST} -d "$$src" ; then \
+			${MKDIR} "$$DEST" ; \
+		else \
+			${INSTALL_DATA} "$$src" "$$DEST" ; \
+		fi \
+	done)
+	cd ${WRKSRC} && ${COPYTREE_SHARE} docs ${STAGEDIR}${PREFIX}/share/netbox/docs
+	${INSTALL_DATA} ${WRKSRC}/mkdocs.yml ${STAGEDIR}${PREFIX}/share/netbox
+	${MKDIR} -p ${STAGEDIR}${PREFIX}/share/examples/netbox/bsd
+	${INSTALL_DATA} ${WRKSRC}/contrib/apache.conf ${STAGEDIR}${PREFIX}/share/examples/netbox
+	${INSTALL_DATA} ${WRKSRC}/contrib/gunicorn.py ${STAGEDIR}${PREFIX}/share/examples/netbox
+	${INSTALL_DATA} ${WRKSRC}/contrib/nginx.conf ${STAGEDIR}${PREFIX}/share/examples/netbox
+	${INSTALL_DATA} ${WRKDIR}/850.netbox-housekeeping.sample ${STAGEDIR}${PREFIX}/share/examples/netbox/bsd
+	${INSTALL_DATA} ${WRKDIR}/netbox_rq.sample ${STAGEDIR}${PREFIX}/share/examples/netbox/bsd
+	${INSTALL_DATA} ${WRKDIR}/netboxrc.sample ${STAGEDIR}${PREFIX}/share/examples/netbox/bsd
