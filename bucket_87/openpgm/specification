@@ -41,6 +41,8 @@ DISTNAME=		openpgm-${RELEASE_TAG}/openpgm/pgm
 INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
 
+VAR_OPSYS[netbsd]=	CONFIGURE_ENV=ac_cv_func_getprotobyname_r=no
+
 post-extract:
 	${MV} ${WRKSRC}/openpgm-5.2.pc.in ${WRKSRC}/openpgm-5.3.pc.in
 

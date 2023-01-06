@@ -4,7 +4,7 @@
  #	include <ws2tcpip.h>
  #elif defined (__APPLE__)
  #	include <libkern/OSByteOrder.h>
-+#elif defined (__FreeBSD__) || defined (__DragonFly__)
++#elif defined (__FreeBSD__) || defined (__DragonFly__) || defined (__NetBSD__)
 +#       include <sys/endian.h>
 +#elif defined (__sun)
 +#       include <sys/byteorder.h>
@@ -15,7 +15,7 @@
  	return _byteswap_ushort (x);
  #elif defined (__APPLE__)
  	return OSSwapInt16 (x);
-+#elif defined (__FreeBSD__) || defined (__DragonFly__)
++#elif defined (__FreeBSD__) || defined (__DragonFly__) || defined (__NetBSD__)
 +	return bswap16 (x);
 +#elif defined (__sun)
 +	return BSWAP_16 (x);
@@ -26,7 +26,7 @@
  	return _byteswap_ulong (x);
  #elif defined (__APPLE__)
  	return OSSwapInt32 (x);
-+#elif defined (__FreeBSD__) || defined (__DragonFly__)
++#elif defined (__FreeBSD__) || defined (__DragonFly__) || defined (__NetBSD__)
 +	return bswap32 (x);
 +#elif defined (__sun)
 +	return BSWAP_32 (x);
