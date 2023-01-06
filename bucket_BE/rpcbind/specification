@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	1.2.6
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		rpcbind
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		standard
+SDESC[standard]=	Universal address to RPC program number mapper
+HOMEPAGE=		https://sourceforge.net/projects/rpcbind/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/rpcbind/rpcbind/${PORTVERSION}
+DISTFILE[1]=		rpcbind-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+ONLY_FOR_OPSYS=		linux
+BUILDRUN_DEPENDS=	libtirpc:single:standard
+
+USES=			pkgconfig
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-warmstarts
+			--with-systemdsystemunitdir=no
