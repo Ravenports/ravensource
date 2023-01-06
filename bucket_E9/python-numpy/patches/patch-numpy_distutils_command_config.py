@@ -9,9 +9,9 @@ for example 0. So compiling 'log1pl(0)' is always successful
 even if -lm is not added to the compiler's commandline arguments.
 Use GNU autotools style check with ugly workaround.
 
---- numpy/distutils/command/config.py.orig	2022-05-17 10:56:58.000000000 +0000
+--- numpy/distutils/command/config.py.orig	2022-12-26 03:52:52 UTC
 +++ numpy/distutils/command/config.py
-@@ -321,11 +321,7 @@ class config(old_config):
+@@ -320,11 +320,7 @@ class config(old_config):
          # return a value.
          self._check_compiler()
          body = []
@@ -24,7 +24,7 @@ Use GNU autotools style check with ugly workaround.
          # Handle MSVC intrinsics: force MS compiler to make a function call.
          # Useful to test for some functions when built with optimization on, to
          # avoid build error because the intrinsic and our 'fake' test
-@@ -336,15 +332,16 @@ class config(old_config):
+@@ -335,15 +331,16 @@ class config(old_config):
          body.append("int main (void) {")
          if call:
              if call_args is None:
@@ -43,7 +43,7 @@ Use GNU autotools style check with ugly workaround.
                               libraries, library_dirs)
  
      def check_funcs_once(self, funcs,
-@@ -376,10 +373,8 @@ class config(old_config):
+@@ -375,10 +372,8 @@ class config(old_config):
          """
          self._check_compiler()
          body = []
@@ -56,7 +56,7 @@ Use GNU autotools style check with ugly workaround.
  
          # Handle MS intrinsics. See check_func for more info.
          body.append("#ifdef _MSC_VER")
-@@ -395,7 +390,7 @@ class config(old_config):
+@@ -394,7 +389,7 @@ class config(old_config):
                          args = ''
                      else:
                          args = call_args[f]
@@ -65,7 +65,7 @@ Use GNU autotools style check with ugly workaround.
                  else:
                      body.append("  %s;" % f)
          else:
-@@ -405,7 +400,7 @@ class config(old_config):
+@@ -404,7 +399,7 @@ class config(old_config):
          body.append("}")
          body = '\n'.join(body) + "\n"
  
