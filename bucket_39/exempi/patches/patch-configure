@@ -1,0 +1,13 @@
+--- configure.orig	2022-12-10 16:14:37 UTC
++++ configure
+@@ -18737,7 +18737,9 @@ case $build_vendor in
+ 		;;
+ 	*)
+ 		EXEMPI_PLATFORM_DEF=UNIX_ENV
+-		LDFLAGS="$LDFLAGS -lrt -ldl"
++		case $host_os in
++		linux*) LDFLAGS="$LDFLAGS -lrt -ldl";;
++		esac
+ 		;;
+ esac
+ 
