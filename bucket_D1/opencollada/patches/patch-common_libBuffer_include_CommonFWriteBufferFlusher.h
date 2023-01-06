@@ -5,7 +5,7 @@
  #   include <cstdlib> /* size_t */
  #   include <cstdio>  /* FILE */
 -#ifdef __FreeBSD__
-+#if defined __FreeBSD__ || defined __DragonFly__
++#if defined __FreeBSD__ || defined __DragonFly__ || defined __NetBSD__
  #include <stdint.h> /* int64_t */
  #endif
  #endif
