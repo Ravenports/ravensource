@@ -1,4 +1,4 @@
---- src/cctz/src/time_zone_libc.cc.orig	2018-01-10 15:12:31 UTC
+--- src/cctz/src/time_zone_libc.cc.orig	2020-10-23 14:44:20 UTC
 +++ src/cctz/src/time_zone_libc.cc
 @@ -28,7 +28,7 @@
  #  define OFFSET(tm) ((tm).__tm_gmtoff)
