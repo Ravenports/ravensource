@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	0.9.23
+# ----------------------------------------------------------------------------
+# Version 0.10.0 for now is effectively Linux-only due depending on libtirpc.
+# We package this older version in addition to the regular unfs3 port because
+# it still supports SunRPC and is thus portable across most Unix-likes.
+
+NAMEBASE=		unfs3-sunrpc
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		standard
+SDESC[standard]=	User-space implementation of the NFSv3 server spec
+HOMEPAGE=		https://unfs3.github.io
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/unfs3/unfs3/releases/download/unfs3-${PORTVERSION}/
+DISTFILE[1]=		unfs3-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net/unfs3
+
+NOT_FOR_OPSYS=		linux
+USES=			autoreconf bison:build gmake pkgconfig
+
+DISTNAME=		unfs3-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ENV=		YACC=bison
+SINGLE_JOB=		yes
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/sbin/unfsd
