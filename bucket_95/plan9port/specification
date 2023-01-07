@@ -33,6 +33,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/plan9port
 
+BROKEN[netbsd]=		libthread does not build (i386 only)
+
 USES=			perl:build shebangfix
 XORG_COMPONENTS=	x11 xext xt
 BUILDRUN_DEPENDS=	fontconfig:primary:standard
@@ -65,7 +67,7 @@ post-extract:
 	${TAR} -C ${WRKSRC}/dict -xf ${DISTDIR}/roget.tar.bz2
 	${TAR} -C ${WRKSRC}/sky -xf ${DISTDIR}/scat.tgz
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e 's|/lib/font/bit|${PREFIX}/plan9/font|' \
 		${WRKSRC}/src/cmd/acme/acme.c
 	${REINPLACE_CMD} -e 's|#!/bin/rc|#!${PREFIX}/plan9/bin/rc|' \
