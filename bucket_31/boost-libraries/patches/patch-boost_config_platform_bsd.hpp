@@ -1,6 +1,6 @@
 $NetBSD: patch-boost_config_platform_bsd.hpp,v 1.2 2021/09/29 16:11:04 adam Exp $
 
---- boost/config/platform/bsd.hpp.orig	2022-08-04 02:47:06 UTC
+--- boost/config/platform/bsd.hpp.orig	2022-12-08 01:02:40 UTC
 +++ boost/config/platform/bsd.hpp
 @@ -38,7 +38,7 @@
  // and not in <unistd.h>

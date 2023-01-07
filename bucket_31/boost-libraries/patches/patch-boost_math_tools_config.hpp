@@ -1,6 +1,6 @@
---- boost/math/tools/config.hpp.orig	2022-08-04 02:47:09 UTC
+--- boost/math/tools/config.hpp.orig	2022-12-08 01:02:44 UTC
 +++ boost/math/tools/config.hpp
-@@ -126,7 +126,7 @@
+@@ -174,7 +174,7 @@
  
  #include <boost/math/tools/user.hpp>
  
@@ -9,7 +9,7 @@
     || (defined(__hppa) && !defined(__OpenBSD__)) || (defined(__NO_LONG_DOUBLE_MATH) && (DBL_MANT_DIG != LDBL_MANT_DIG))) \
     && !defined(BOOST_MATH_NO_LONG_DOUBLE_MATH_FUNCTIONS)
  //#  define BOOST_MATH_NO_LONG_DOUBLE_MATH_FUNCTIONS
-@@ -200,7 +200,7 @@
+@@ -248,7 +248,7 @@
  #  define BOOST_MATH_NO_DEDUCED_FUNCTION_POINTERS
  #endif
  
@@ -18,7 +18,7 @@
  #  define BOOST_MATH_USE_C99
  #endif
  
-@@ -349,6 +349,7 @@ struct non_type {};
+@@ -397,6 +397,7 @@ struct non_type {};
  // And then the actual configuration:
  //
  #if defined(BOOST_MATH_STANDALONE) && defined(_GLIBCXX_USE_FLOAT128) && defined(__GNUC__) && defined(__GNUC_MINOR__) && defined(__GNUC_PATCHLEVEL__) && !defined(__STRICT_ANSI__) \

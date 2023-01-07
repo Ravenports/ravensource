@@ -16,7 +16,7 @@ Change it to internal linkage.
  include/boost/phoenix/stl/tuple.hpp | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
---- boost/phoenix/stl/tuple.hpp.orig
+--- boost/phoenix/stl/tuple.hpp.orig	2022-12-08 01:02:46 UTC
 +++ boost/phoenix/stl/tuple.hpp
 @@ -110,7 +110,7 @@ namespace boost { namespace phoenix {
      namespace placeholders {
