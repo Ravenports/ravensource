@@ -5,6 +5,7 @@ DEF[RLSOVERSION]=	0.0.0
 
 NAMEBASE=		guile22
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		lang
 VARIANTS=		standard
 SDESC[standard]=	GNU Ubiquitous Intelligent Language for Extensions
@@ -44,11 +45,28 @@ DISTNAME=		guile-${PORTVERSION}
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 MUST_CONFIGURE=		gnu
+# MAKE_ENV=		LANG=en_US.UTF-8
+# MAKE_ENV=		LC_ALL=en_US.UTF-8
 CONFIGURE_ARGS=		--enable-nls
 			--with-threads
+CFLAGS=			-fno-stack-check -g
 INFO=			single:guile
 			single:r5rs
 PLIST_SUB=		GUILE_VER=${PORTVERSION:R}
 			RLSOVERSION=${RLSOVERSION}
 			RLSOMAJOR=${RLSOVERSION:R:R}
 SOVERSION=		${SOVERSION}
+
+pre-configure-netbsd:
+	# work around locale segfault
+	${REINPLACE_CMD} -e 's/GUILE_AUTO_COMPILE=0/LC_ALL=en_US.UTF-8 GUILE_AUTO_COMPILE=0/' \
+		${WRKSRC}/libguile/Makefile.in \
+		${WRKSRC}/bootstrap/Makefile.in \
+		${WRKSRC}/module/Makefile.in \
+		${WRKSRC}/guile-readline/Makefile.in
+	${REINPLACE_CMD} -e 's|$$(AM_V_GEN)|LC_ALL=en_US.UTF-8|' \
+		${WRKSRC}/Makefile.in
+
+post-configure-netbsd:
+	# https://debbugs.gnu.org/cgi/bugreport.cgi?bug=24002
+	${ECHO} '#define FLEXIBLE_ARRAY_MEMBER /**/' >> ${WRKSRC}/config.h
