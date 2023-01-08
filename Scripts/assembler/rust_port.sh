@@ -11,28 +11,29 @@ if [ $# -lt 2 ]; then
    exit 1
 fi
 
-CONSPIR=$(/raven/bin/ravenadm dev info D)
-DPATH=$(dirname $0)
-SCRIPTSDIR=$(cd ${DPATH}/.. && pwd -P)
-RAVENSRC=$(dirname ${SCRIPTSDIR})
+DPATH=$(dirname "$0")
+SCRIPTSDIR=$(cd "${DPATH}/.." && pwd -P)
+RAVENSRC=$(dirname "${SCRIPTSDIR}")
 
-VERSION=${2}
-LOCATE=$(/raven/bin/ravenadm locate $1)
+VERSION="$2"
+LOCATE=$(/raven/bin/ravenadm locate "$1")
 FOLDER=${RAVENSRC}/bucket_${LOCATE#*bucket_}
 FILE_CRATES=${FOLDER}/crates.list
 FILE_SPTEMP=${FOLDER}/specification.template
 TARGET=${FOLDER}/specification
 
-for F in ${FILE_CRATES} ${FILE_SPTEMP}; do
-  if [ ! -f ${F} ]; then
+for F in "${FILE_CRATES}" "${FILE_SPTEMP}"; do
+  if [ ! -f "${F}" ]; then
      echo "missing file: ${F}"
      exit 1
   fi
 done
 
-sed -e "s|%%VERSION%%|${VERSION}|" ${FILE_SPTEMP} > /tmp/spec.1
+skip_crate=$(awk '/DEF\[SKIP_CRATE\]/ {print $2}' "${FILE_SPTEMP}")
 
-awk -f ${SCRIPTSDIR}/assembler/_rustcrate.awk ${FILE_CRATES} /tmp/spec.1 > ${TARGET}
+sed -e "s|%%VERSION%%|${VERSION}|" "${FILE_SPTEMP}" > /tmp/spec.1
+
+awk -vskip="${skip_crate}" -f "${SCRIPTSDIR}/assembler/_rustcrate.awk" "${FILE_CRATES}" /tmp/spec.1 > "${TARGET}"
 echo "file written: ${TARGET}"
 
 rm -f /tmp/spec.1

@@ -3,17 +3,26 @@
 FNR==NR {
   # store crates list
   n=split ($0,item,"-")
-  if (item[1] == "wasi") {	# handle awful wasi tag
-     name[FNR""] = "wasi"
-     version[FNR""] = substr($0, 6)
-     ll++
+
+  # Omitted skipped crates
+  if (skip != "" && item[1] == skip) {
      next
   }
-  version[FNR""] = item[n]
-  name[FNR""] = item[1]
-  for (j=2; j < n; j++)
-     name[FNR""] = name[FNR""] "-" item[j]
+
+  # handle awful wasi tag
+  if (item[1] == "wasi") {
+     ll++
+     name[ll""] = "wasi"
+     version[ll""] = substr($0, 6)
+     next
+  }
+
+  # handle standard crates
   ll++
+  version[ll""] = item[n]
+  name[ll""] = item[1]
+  for (j=2; j < n; j++)
+     name[ll""] = name[ll""] "-" item[j]
   next
 }
 
