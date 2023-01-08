@@ -25,6 +25,12 @@ for redis-py version 4.4+ to officially remove 3.6.
 
 ## Installation
 
+Start a redis via docker:
+
+``` bash
+docker run -p 6379:6379 -it redis/redis-stack:latest
+```
+
 To install redis-py, simply:
 
 ``` bash
@@ -92,9 +98,3 @@ to adhere to the official command syntax. There are a few exceptions:
     The pipeline is wrapped with the MULTI and EXEC statements by
     default when it is executed, which can be disabled by specifying
     transaction=False. See more about Pipelines below.
-
--   **SUBSCRIBE/LISTEN**: Similar to pipelines, PubSub is implemented as
-    a separate class as it places the underlying connection in a state
-    where it can\'t execute non-pubsub commands. Calling the pubsub
-    method from the Redis client will return a PubSub instance where you
-    can subscribe to channels and listen for messages. You can only call

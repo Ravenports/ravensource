@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.13.0
+DEF[PORTVERSION]=	2.13.2
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-astroid
@@ -11,7 +11,7 @@ HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/9c/f0/0670c97609c1df7ae978f94e694a8c1c2da8acca46fddbed01da60c63ed6
+SITES[main]=		PYPIWHL/1b/1a/b39c78909f72793ae75fb2daaecfd0393f413448ce30381f5052c2a7ce31
 DISTFILE[1]=		astroid-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -30,15 +30,17 @@ DISTNAME=		astroid-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # lazy-object-proxy (>=1.4.0)
+# typing-extensions (>=4.0.0)
 # typed-ast (<2.0,>=1.4.0) ; implementation_name == "cpython" and python_version < "3.8"
-# typing-extensions (>=3.10) ; python_version < "3.10"
 # wrapt (<2,>=1.11) ; python_version < "3.11"
 # wrapt (<2,>=1.14) ; python_version >= "3.11"
 
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-lazy-object-proxy:single:py310
+					python-typing-extensions:single:py310
 					python-wrapt:single:py310
 [PY311].USES_ON=			python:py311,wheel
 [PY311].RUN_DEPENDS_ON=			python-lazy-object-proxy:single:py311
+					python-typing-extensions:single:py311
 					python-wrapt:single:py311
 
