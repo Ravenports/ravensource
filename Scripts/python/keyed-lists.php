@@ -7,6 +7,7 @@ $data_homepage = array();
 $data_toplevel_ports = array();
 $data_https_redirect = array();
 $data_corrections = array();
+$data_homepage_redirect = array();
 
 
 # procedure to set global variables.
@@ -18,6 +19,7 @@ function ingest_file ($datatype, $scriptdir) {
         $data_summary,
         $data_description,
         $data_homepage,
+        $data_homepage_redirect,
         $data_https_redirect,
         $data_toplevel_ports,
         $data_corrections;
@@ -37,6 +39,10 @@ function ingest_file ($datatype, $scriptdir) {
         case "deadhome":
             $filename = "list.dead-homepage";
             $varname = "data_homepage";
+            break;
+        case "newhome":
+            $filename = "list.new-homepage";
+            $varname = "data_homepage_redirect";
             break;
         case "toplevel":
             $filename = "list.python";
@@ -203,15 +209,14 @@ function use_https_instead ($url) {
 
 # Modifies homepage if necessary.
 # 1) If the homepage is marked as dead, return "none"
-# 2) If the homepage requires redirection, handle that too.
+# 2) If the homepage requires https redirection, handle that too.
 # 3) If there's more than 1 value, take the first one.
+# 4) If the page is on the new homepage list, use the new homepage.
 function sanitize_homepage ($namebase, $original_homepage) {
-    global $data_homepage;
+    global $data_homepage, $data_homepage_redirect;
 
-    if ( in_array($namebase, $data_homepage)
-      || $original_homepage == "UNSET"
-      || $original_homepage == ""
-    ) {
+    if ($original_homepage == "UNSET" || $original_homepage == "")
+    {
        return "none";
     }
 
@@ -219,6 +224,29 @@ function sanitize_homepage ($namebase, $original_homepage) {
     $hp0 = trim($hp_parts[0]);
     $hp_parts = explode (" ", $hp0);
     $hp1 = trim($hp_parts[0]);
+
+    # now replace with new homepage if it qualifies
+    if (array_key_exists($hp1, $data_homepage_redirect)) {
+        $hp1 = $data_homepage_redirect[$hp1];
+    }
+
+    if (strpos($hp1, "://") !== false) {
+        $hp_parts = explode ("://", $hp1);
+        $base_homepage = $hp_parts[1];
+    } else {
+        $base_homepage = $hp1;
+    }
+
+    $hplen = strlen($base_homepage);
+    foreach ($data_homepage as $deadpage) {
+        $deadsize = strlen($deadpage);
+        $homepage_len = strlen($base_homepage);
+        if ($deadsize <= $homepage_len) {
+            if ($deadpage == substr($base_homepage, 0, $deadsize)) {
+                return "none";
+            }
+        }
+    }
 
     if (use_https_instead ($hp1)) {
        return go_secure ($hp1);

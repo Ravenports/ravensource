@@ -18,6 +18,7 @@ define ("DEAD_HOMEPAGES", "deadhome");
 define ("TOPLEVEL_PORTS", "toplevel");
 define ("HTTP_REDIRECT", "redirect");
 define ("CORRECTIONS", "depfixes");
+define ("NEW_HOMEPAGES", "newhome");
 
 require_once $SCRIPTDIR . "/keyed-lists.php";
 require_once $SCRIPTDIR . "/scrape_pypi.php";
@@ -26,6 +27,7 @@ require_once $SCRIPTDIR . "/scrape_pypi.php";
 ingest_file (SUMMARIES, $SCRIPTDIR);
 ingest_file (DESCRIPTIONS, $SCRIPTDIR);
 ingest_file (DEAD_HOMEPAGES, $SCRIPTDIR);
+ingest_file (NEW_HOMEPAGES, $SCRIPTDIR);
 ingest_file (HTTP_REDIRECT, $SCRIPTDIR);
 ingest_file (CORRECTIONS, $SCRIPTDIR);
 set_top_level_ports (TOPLEVEL_PORTS, $SCRIPTDIR);
