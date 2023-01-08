@@ -1,4 +1,6 @@
+# Manually maintained
 DEF[PORTVERSION]=	%%VERSION%%
+DEF[SKIP_CRATE]=	orjson
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-orjson
@@ -35,10 +37,19 @@ DISTNAME=		orjson-${PORTVERSION}
 USES=			cargo
 CARGO_CARGOTOML=	{{WRKSRC}}/Cargo.toml
 CARGO_CARGOLOCK=	{{WRKSRC}}/Cargo.lock
+CARGO_SKIP_CONFIGURE=	yes
+CARGO_SKIP_BUILD=	yes
+CARGO_SKIP_INSTALL=	yes
+PLIST_SUB=		VER=${PORTVERSION}
 
 [PY310].USES_ON=			python:py310
-[PY310].BUILD_DEPENDS_ON=		python-setuptools-rust:single:py311
+[PY310].BUILD_DEPENDS_ON=		python-setuptools-rust:single:py310
+					python-maturin:single:py310
+					python-pip:single:py310
 [PY311].USES_ON=			python:py311
+[PY311].BUILD_DEPENDS_ON=		python-setuptools-rust:single:py311
+					python-maturin:single:py311
+					python-pip:single:py311
 
 post-patch:
 	${MKDIR} ${WRKSRC}/.cargo
@@ -46,3 +57,26 @@ post-patch:
 	echo "directory = '${CARGO_VENDOR_DIR}'" >> ${WRKSRC}/.cargo/config.toml
 	echo "[source.crates-io]" >> ${WRKSRC}/.cargo/config.toml
 	echo "replace-with = 'cargo'" >> ${WRKSRC}/.cargo/config.toml
+
+do-build:
+	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} maturin build \
+		--release \
+		--interpreter ${PYTHON_CMD})
+
+do-install:
+	# Due to upstream not supplying a setup.py file or other way to install
+	# using pip command for now...
+	${SETENV} ${MAKE_ENV} pip install \
+		--verbose \
+		--no-index \
+		--no-compile \
+		--progress-bar off \
+		--root=${STAGEDIR} \
+		--root-user-action=ignore \
+		--disable-pip-version-check \
+		--no-deps ${INSTALL_WRKSRC}/target/wheels/*.whl
+	(cd ${STAGEDIR} && ${PYTHON_CMD} -m compileall -d / . ||:)
+	${INSTALL_LIB} ${WRKSRC}/target/release/liborjson.so \
+		${STAGEDIR}${PYTHON_SITELIBDIR}/orjson
+	${CHMOD} +x ${STAGEDIR}${PYTHON_SITELIBDIR}/orjson/liborjson.so
+	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/orjson/orjson.*.so
