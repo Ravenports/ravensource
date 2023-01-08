@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	3.1.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Test-Compile
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		534 536
+SDESC[534]=		Assert that your Perl files compile OK (5.34)
+SDESC[536]=		Assert that your Perl files compile OK (5.36)
+HOMEPAGE=		https://github.com/egiles/test-compile
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:E/EG/EGILES
+DISTFILE[1]=		Test-Compile-v3.1.0.tar.gz:main
+
+SPKGS[534]=		single
+SPKGS[536]=		single
+
+OPTIONS_AVAILABLE=	PERL_534 PERL_536
+OPTIONS_STANDARD=	none
+VOPTS[534]=		PERL_534=ON PERL_536=OFF
+VOPTS[536]=		PERL_534=OFF PERL_536=ON
+
+# License listed in CPAN directory:
+# perl_5
+
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Test-Compile-v3.1.0
+
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : Exporter (perl 5.34 core) (perl 5.36 core)
+# |      runtime : parent (perl 5.34 core) (perl 5.36 core)
+# |    configure : Module::Build
+# |    configure : version (perl 5.34 core) (perl 5.36 core)
+
+[PERL_534].USES_ON=			perl:534,buildmod,run
+[PERL_534].BUILD_DEPENDS_ON=		perl-Module-Build:single:534
+[PERL_536].USES_ON=			perl:536,buildmod,run
+[PERL_536].BUILD_DEPENDS_ON=		perl-Module-Build:single:536
+

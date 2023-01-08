@@ -1,0 +1,63 @@
+DEF[PORTVERSION]=	6.0.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Net-SNMP
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		534 536
+SDESC[534]=		Object oriented interface to SNMP (5.34)
+SDESC[536]=		Object oriented interface to SNMP (5.36)
+HOMEPAGE=		none
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:D/DT/DTOWN
+DISTFILE[1]=		Net-SNMP-v6.0.1.tar.gz:main
+
+SPKGS[534]=		single
+SPKGS[536]=		single
+
+OPTIONS_AVAILABLE=	PERL_534 PERL_536
+OPTIONS_STANDARD=	none
+VOPTS[534]=		PERL_534=ON PERL_536=OFF
+VOPTS[536]=		PERL_534=OFF PERL_536=ON
+
+# License listed in CPAN directory:
+# perl
+
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Net-SNMP-v6.0.1
+
+# ---------------------------------------------
+# |   Prerequisites extracted from META.yml
+# ---------------------------------------------
+# | configure_requires : Module::Build
+# |     build_requires : Test (perl 5.34.1 core) (perl 5.36.0 core)
+# |           requires : Carp (perl 5.34.1 core) (perl 5.36.0 core)
+# |           requires : Errno (perl 5.34.1 core) (perl 5.36.0 core)
+# |           requires : Exporter (perl 5.34.1 core) (perl 5.36.0 core)
+# |           requires : IO::Socket (perl 5.34.1 core) (perl 5.36.0 core)
+# |           requires : Math::BigInt (perl 5.34.1 core) (perl 5.36.0 core)
+# |         recommends : Crypt::DES
+# |         recommends : Crypt::Rijndael
+# |         recommends : Digest::HMAC
+# |         recommends : Digest::MD5 (perl 5.34.1 core) (perl 5.36.0 core)
+# |         recommends : Digest::SHA1
+# |         recommends : Socket6
+
+[PERL_534].USES_ON=			perl:534,buildmod,run
+[PERL_534].BUILDRUN_DEPENDS_ON=		perl-Crypt-DES:single:534
+					perl-Crypt-Rijndael:single:534
+					perl-Digest-HMAC:single:534
+					perl-Digest-SHA1:single:534
+					perl-Socket6:single:534
+[PERL_534].BUILD_DEPENDS_ON=		perl-Module-Build:single:534
+[PERL_536].USES_ON=			perl:536,buildmod,run
+[PERL_536].BUILDRUN_DEPENDS_ON=		perl-Crypt-DES:single:536
+					perl-Crypt-Rijndael:single:536
+					perl-Digest-HMAC:single:536
+					perl-Digest-SHA1:single:536
+					perl-Socket6:single:536
+[PERL_536].BUILD_DEPENDS_ON=		perl-Module-Build:single:536
+

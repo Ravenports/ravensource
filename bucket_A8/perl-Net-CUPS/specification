@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	0.64
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Net-CUPS
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		534 536
+SDESC[534]=		Common Unix Printing System Interface (5.34)
+SDESC[536]=		Common Unix Printing System Interface (5.36)
+HOMEPAGE=		https://github.com/niner/perl-Net-CUPS
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:N/NI/NINE
+DISTFILE[1]=		Net-CUPS-${PORTVERSION}.tar.gz:main
+
+SPKGS[534]=		single
+SPKGS[536]=		single
+
+OPTIONS_AVAILABLE=	PERL_534 PERL_536
+OPTIONS_STANDARD=	none
+VOPTS[534]=		PERL_534=ON PERL_536=OFF
+VOPTS[536]=		PERL_534=OFF PERL_536=ON
+
+# License listed in CPAN directory:
+# perl_5
+
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Net-CUPS-${PORTVERSION}
+
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : Test::More (perl 5.34 core) (perl 5.36 core)
+# |        build : ExtUtils::MakeMaker (perl 5.34 core) (perl 5.36 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.34 core) (perl 5.36 core)
+
+[PERL_534].USES_ON=			perl:534,configure
+[PERL_536].USES_ON=			perl:536,configure
+

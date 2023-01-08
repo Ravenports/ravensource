@@ -1,0 +1,49 @@
+DEF[PORTVERSION]=	1.20190531
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-SUPER
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		534 536
+SDESC[534]=		Control superclass method dispatch (5.34)
+SDESC[536]=		Control superclass method dispatch (5.36)
+HOMEPAGE=		https://github.com/chromatic/SUPER.git
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:C/CH/CHROMATIC
+DISTFILE[1]=		SUPER-${PORTVERSION}.tar.gz:main
+
+SPKGS[534]=		single
+SPKGS[536]=		single
+
+OPTIONS_AVAILABLE=	PERL_534 PERL_536
+OPTIONS_STANDARD=	none
+VOPTS[534]=		PERL_534=ON PERL_536=OFF
+VOPTS[536]=		PERL_534=OFF PERL_536=ON
+
+# License listed in CPAN directory:
+# perl
+
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		SUPER-${PORTVERSION}
+
+# ---------------------------------------------
+# |   Prerequisites extracted from META.yml
+# ---------------------------------------------
+# | configure_requires : ExtUtils::MakeMaker (perl 5.34.1 core) (perl 5.36.0 core)
+# |     build_requires : Test::More (perl 5.34.1 core) (perl 5.36.0 core)
+# |     build_requires : base (perl 5.34.1 core) (perl 5.36.0 core)
+# |     build_requires : lib (perl 5.34.1 core) (perl 5.36.0 core)
+# |           requires : Carp (perl 5.34.1 core) (perl 5.36.0 core)
+# |           requires : Scalar::Util (perl 5.34.1 core) (perl 5.36.0 core)
+# |           requires : Sub::Identify
+# |           requires : strict (perl 5.34.1 core) (perl 5.36.0 core)
+# |           requires : warnings (perl 5.34.1 core) (perl 5.36.0 core)
+
+[PERL_534].USES_ON=			perl:534,buildmod,run
+[PERL_534].BUILDRUN_DEPENDS_ON=		perl-Sub-Identify:single:534
+[PERL_536].USES_ON=			perl:536,buildmod,run
+[PERL_536].BUILDRUN_DEPENDS_ON=		perl-Sub-Identify:single:536
+

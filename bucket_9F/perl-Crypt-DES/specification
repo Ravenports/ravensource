@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	2.07
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Crypt-DES
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		534 536
+SDESC[534]=		Perl DES encryption module (5.34)
+SDESC[536]=		Perl DES encryption module (5.36)
+HOMEPAGE=		none
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:D/DP/DPARIS
+DISTFILE[1]=		Crypt-DES-${PORTVERSION}.tar.gz:main
+
+SPKGS[534]=		single
+SPKGS[536]=		single
+
+OPTIONS_AVAILABLE=	PERL_534 PERL_536
+OPTIONS_STANDARD=	none
+VOPTS[534]=		PERL_534=ON PERL_536=OFF
+VOPTS[536]=		PERL_534=OFF PERL_536=ON
+
+# License listed in CPAN directory:
+# unknown
+
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Crypt-DES-${PORTVERSION}
+
+# ---------------------------------------------
+# |   Prerequisites extracted from META.yml
+# ---------------------------------------------
+# | configure_requires : ExtUtils::MakeMaker (perl 5.34.1 core) (perl 5.36.0 core)
+# |     build_requires : ExtUtils::MakeMaker (perl 5.34.1 core) (perl 5.36.0 core)
+
+[PERL_534].USES_ON=			perl:534,configure
+[PERL_536].USES_ON=			perl:536,configure
+

@@ -203,6 +203,12 @@ function is_core ($check_VA, $cpan_metaname) {
 #                   S/SA/SAXJAZMAN/malware/XML-Malware-0.01.tar.gz
 #                   R/RS/RSAVAGE/Tree-DAG_Node-1.31.tgz
 function set_namebase_author_tarball ($input, &$namebase, &$author, &$distfile, &$cpandir, &$pkgname) {
+    # one-off correction (remove when obsolete)
+    if ($input == "G/GB/GBOUGARD/FusionInventory-Agent_2.6.tar.gz") {
+echo("FOUND!");
+       $input = "G/GB/GBOUGARD/FusionInventory-Agent-2.6.tar.gz";
+    }
+
     $parts    = explode("/", $input);
     $numparts = count($parts);
     $author   = $parts[2];

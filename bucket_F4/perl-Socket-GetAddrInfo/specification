@@ -1,0 +1,53 @@
+DEF[PORTVERSION]=	0.22
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Socket-GetAddrInfo
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		534 536
+SDESC[534]=		Address name resolving functions (5.34)
+SDESC[536]=		Address name resolving functions (5.36)
+HOMEPAGE=		none
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:P/PE/PEVANS
+DISTFILE[1]=		Socket-GetAddrInfo-${PORTVERSION}.tar.gz:main
+
+SPKGS[534]=		single
+SPKGS[536]=		single
+
+OPTIONS_AVAILABLE=	PERL_534 PERL_536
+OPTIONS_STANDARD=	none
+VOPTS[534]=		PERL_534=ON PERL_536=OFF
+VOPTS[536]=		PERL_534=OFF PERL_536=ON
+
+# License listed in CPAN directory:
+# perl_5
+
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Socket-GetAddrInfo-${PORTVERSION}
+
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : Exporter (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Socket (perl 5.34 core) (perl 5.36 core)
+# |        build : ExtUtils::CBuilder (perl 5.34 core) (perl 5.36 core)
+# |        build : ExtUtils::CChecker
+# |        build : Module::Build
+# |        build : Module::Build::Compat
+# |        build : Scalar::Util (perl 5.34 core) (perl 5.36 core)
+# |        build : Test::More (perl 5.34 core) (perl 5.36 core)
+# |    configure : ExtUtils::CBuilder (perl 5.34 core) (perl 5.36 core)
+# |    configure : ExtUtils::CChecker
+# |    configure : Module::Build
+
+[PERL_534].USES_ON=			perl:534,buildmod,run
+[PERL_534].BUILD_DEPENDS_ON=		perl-ExtUtils-CChecker:single:534
+					perl-Module-Build:single:534
+[PERL_536].USES_ON=			perl:536,buildmod,run
+[PERL_536].BUILD_DEPENDS_ON=		perl-ExtUtils-CChecker:single:536
+					perl-Module-Build:single:536
+
