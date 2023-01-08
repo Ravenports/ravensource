@@ -1,0 +1,100 @@
+json2html
+=========
+
+Python wrapper to convert JSON into a human readable HTML Table
+representation.
+
+|Latest Version| |Downloads| |Build|
+
+Features
+--------
+
+* User friendly tablular fomat, easy to read and share.
+* If value of the key is array of objects and all the keys are same(value
+of the key is a dict of list), the module will club by default. Eg.
+
+.. code-block:: bash
+
+	input = {
+		"sampleData": [{
+			"a":1, "b":2, "c":3
+		}, {
+			"a":5, "b":6, "c":7
+		}]
+	}
+
+	will create only one row combining the results. This feature can be turned
+off by explicitly passing an argument ``clubbing = False``.
+
+* Generated table can be provided some attributes explicitly. Eg. giving an
+id, class or any ``data-*`` attribute.
+* Python 3 compatible
+
+Live Demo
+----------
+
+[Click here] for the online demo.
+
+List of valid arguments
+-----------------------
+
+``json2html.convert`` - The module's convert method accepts the following
+arguments:
+
+===================== ================
+Argument              Description
+--------------------- ----------------
+`json`                a valid JSON; This can either be a string in valid
+JSON format or a python object that is either dict-like or list-like at the
+top level.
+--------------------- ----------------
+`table_attributes`    e.g. pass `id="info-table"` or
+`class="bootstrap-class"`/`data-*` to apply these attributes to the
+generated table
+--------------------- ----------------
+`clubbing`            turn on[default]/off clubbing of list with same keys
+of a dict / Array of objects with same key
+--------------------- ----------------
+`encode`              turn on/off[default] encoding of result to escaped
+html, compatible with any browser
+--------------------- ----------------
+`escape`              turn on[default]/off escaping of html tags in text
+nodes (prevents XSS attacks in case you pass untrusted data to json2html)
+===================== ================
+
+Installation
+------------
+
+.. code-block:: bash
+
+	$ pip install json2html
+
+Or, Download [here] and run `python setup.py install` after changing
+directory to `/json2html`
+
+Example Usage
+-------------
+
+**Example 1:** Basic usage
+
+.. code-block:: python
+
+	from json2html import *
+	input = {
+		"name": "json2html",
+		"description": "Converts JSON to HTML tabular representation"
+	}
+	json2html.convert(json = input)
+
+Output:
+
+.. code-block:: bash
+
+	<table
+border="1"><tr><th>name</th><td>json2html</td></tr><tr><th>description</th><td>converts
+JSON to HTML tabular representation</td></tr></table>
+
+============ ========================================================
+name         json2html
+------------ --------------------------------------------------------
+description  Converts JSON to HTML tabular representation

@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.0.0.0.18
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-netbox-data-disk
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Netbox Disk Plugin (3.10)
+SDESC[py311]=		Netbox Disk Plugin (3.11)
+HOMEPAGE=		none
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/ed/fe/7e48cbe0429beb400373d7709933940a91164143a0ff6d9be106d6c55ce6
+DISTFILE[1]=		netbox_data_disk-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		netbox_data_disk-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+
+
+[PY310].USES_ON=			python:py310,wheel
+[PY311].USES_ON=			python:py311,wheel
+

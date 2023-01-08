@@ -1,0 +1,100 @@
+
+
+jsonargparse
+============
+
+https://github.com/omni-us/jsonargparse/
+
+This package is an extension to python's argparse which simplifies parsing
+of
+configuration options from command line arguments, json configuration files
+([yaml] or [jsonnet] supersets),
+environment variables and hard-coded defaults.
+
+The aim is similar to other projects such as [configargparse
+], [yconf
+], [confuse
+], [typer
+], [OmegaConf
+], [Fire
+] and [click
+]. The obvious question is, why yet another
+package similar to many already existing ones? The answer is simply that
+none of
+the existing projects had the exact features we wanted and after analyzing
+the
+alternatives it seemed simpler to start a new project.
+
+Features
+========
+
+- Great support of type hints for automatic creation of parsers and minimal
+  boilerplate command line interfaces.
+
+- Non-intrusive/decoupled parsing logic. No need to inherit from a special
+class
+  or add decorators or use custom type hints.
+
+- Easy to implement configurable dependency injection (object composition).
+
+- Support for nested namespaces making possible to parse config files with
+  non-flat hierarchies.
+
+- Parsing of relative paths within config files and path lists.
+
+- Support for two popular supersets of json: yaml and jsonnet.
+
+- Parsers can be configured just like with python's argparse, thus it has a
+  gentle learning curve.
+
+- Several convenient types and action classes to ease common parsing use
+cases
+  (paths, comparison operators, json schemas, enums, regex strings, ...).
+
+- Support for command line tab argument completion using [argcomplete
+ ].
+
+.. _installation:
+
+Installation
+============
+
+You can install using [pip] as:
+
+.. code-block:: bash
+
+    pip install jsonargparse
+
+By default the only dependency that jsonargparse installs is [PyYAML
+]. However, several optional features can be
+enabled by specifying any of the following extras requires: signatures,
+jsonschema, jsonnet, urls, argcomplete and reconplogger.
+There is also the all extras require to enable all optional features.
+Installing jsonargparse with extras require is as follows:
+
+.. code-block:: bash
+
+    pip install "jsonargparse[signatures,urls]"  # Enable signatures and
+URLs features
+    pip install "jsonargparse[all]"              # Enable all optional
+features
+
+The following table references sections that describe optional features and
+the
+corresponding extras requires that enables them.
+
++-----------------------------+-------------+-------------+---------+------------+------------+
+|                             | urls/fsspec | argcomplete | jsonnet |
+jsonschema | signatures |
++-----------------------------+-------------+-------------+---------+------------+------------+
+| `classes-methods-functions` |             |             |         |      
+     | ✓          |
++-----------------------------+-------------+-------------+---------+------------+------------+
+| `parsing-urls`              | ✓           |             |         |    
+       |            |
++-----------------------------+-------------+-------------+---------+------------+------------+
+| `json-schemas`              |             |             |         | ✓  
+       |            |
++-----------------------------+-------------+-------------+---------+------------+------------+
+| `jsonnet-files`             |             |             | ✓       |    
+       |            |

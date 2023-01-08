@@ -1,0 +1,91 @@
+DEF[PORTVERSION]=	4.19.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-jsonargparse
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		JSON argument and config file parser (3.10)
+SDESC[py311]=		JSON argument and config file parser (3.11)
+HOMEPAGE=		https://github.com/omni-us/jsonargparse
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/88/32/a68ac6cc18194fa88a56b1e7920e1a96deee14e759a906d902275a86c301
+DISTFILE[1]=		jsonargparse-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		jsonargparse-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# PyYAML (>=3.13)
+# contextvars (>=2.4) ; python_version == "3.6"
+# dataclasses (>=0.8) ; python_version == "3.6"
+# docstring-parser (>=0.15) ; extra == 'all'
+# typeshed-client (>=2.1.0) ; extra == 'all'
+# jsonschema (>=3.2.0) ; extra == 'all'
+# requests (>=2.18.4) ; extra == 'all'
+# fsspec (>=0.8.4) ; extra == 'all'
+# argcomplete (>=2.0.0) ; extra == 'all'
+# ruyaml (>=0.20.0) ; extra == 'all'
+# omegaconf (>=2.1.1) ; extra == 'all'
+# reconplogger (>=4.4.0) ; extra == 'all'
+# jsonnet-binary (>=0.17.0) ; (os_name != "posix") and extra == 'all'
+# jsonnet (>=0.13.0) ; (os_name == "posix") and extra == 'all'
+# typing-extensions (>=3.10.0.0) ; (python_version < "3.8") and extra == 'all'
+# argcomplete (>=2.0.0) ; extra == 'argcomplete'
+# coverage (>=4.5.1) ; extra == 'dev'
+# types-PyYAML (>=6.0.11) ; extra == 'dev'
+# responses (>=0.12.0) ; extra == 'dev'
+# types-requests (>=2.28.9) ; extra == 'dev'
+# Sphinx (>=1.7.9) ; extra == 'dev'
+# sphinx-rtd-theme (>=0.4.3) ; extra == 'dev'
+# autodocsumm (>=0.1.10) ; extra == 'dev'
+# sphinx-autodoc-typehints (>=1.19.5) ; extra == 'dev'
+# pylint (>=2.15.6) ; extra == 'dev'
+# mypy (>=0.701) ; extra == 'dev'
+# pre-commit (>=2.19.0) ; extra == 'dev'
+# tox (>=3.25.0) ; extra == 'dev'
+# pycodestyle (>=2.5.0) ; extra == 'dev'
+# Sphinx (>=1.7.9) ; extra == 'doc'
+# sphinx-rtd-theme (>=0.4.3) ; extra == 'doc'
+# autodocsumm (>=0.1.10) ; extra == 'doc'
+# sphinx-autodoc-typehints (>=1.19.5) ; extra == 'doc'
+# fsspec (>=0.8.4) ; extra == 'fsspec'
+# jsonnet-binary (>=0.17.0) ; (os_name != "posix") and extra == 'jsonnet'
+# jsonnet (>=0.13.0) ; (os_name == "posix") and extra == 'jsonnet'
+# jsonschema (>=3.2.0) ; extra == 'jsonschema'
+# bump2version (>=0.5.11) ; extra == 'maintainer'
+# types-PyYAML (>=6.0.11) ; extra == 'mypy'
+# mypy (>=0.701) ; extra == 'mypy'
+# omegaconf (>=2.1.1) ; extra == 'omegaconf'
+# pylint (>=2.15.6) ; extra == 'pylint'
+# reconplogger (>=4.4.0) ; extra == 'reconplogger'
+# ruyaml (>=0.20.0) ; extra == 'ruyaml'
+# docstring-parser (>=0.15) ; extra == 'signatures'
+# typeshed-client (>=2.1.0) ; extra == 'signatures'
+# coverage (>=4.5.1) ; extra == 'test'
+# types-PyYAML (>=6.0.11) ; extra == 'test'
+# responses (>=0.12.0) ; extra == 'test'
+# types-requests (>=2.28.9) ; extra == 'test'
+# coverage (>=4.5.1) ; extra == 'test_no_urls'
+# types-PyYAML (>=6.0.11) ; extra == 'types_pyyaml'
+# typing-extensions (>=3.10.0.0) ; (python_version < "3.8") and extra == 'typing_extensions'
+# requests (>=2.18.4) ; extra == 'urls'
+
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-PyYAML:single:py310
+[PY311].USES_ON=			python:py311,wheel
+[PY311].RUN_DEPENDS_ON=			python-PyYAML:single:py311
+

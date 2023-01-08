@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	6.6.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-kani-fork-pynetbox
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		NetBox API client library (3.10)
+SDESC[py311]=		NetBox API client library (3.11)
+HOMEPAGE=		https://github.com/kani999/pynetbox
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/k/kani-fork-pynetbox
+DISTFILE[1]=		kani-fork-pynetbox-${PORTVERSION}.tar.gz:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# Apache2
+
+GENERATED=		yes
+DISTNAME=		kani-fork-pynetbox-${PORTVERSION}
+
+# install_requires extracted from setup.py
+# requests<3.0,>=2.20.0
+# six==1.*
+
+[PY310].USES_ON=			python:py310,sutools
+[PY310].BUILDRUN_DEPENDS_ON=		python-requests:single:py310
+					python-six:single:py310
+[PY311].USES_ON=			python:py311,sutools
+[PY311].BUILDRUN_DEPENDS_ON=		python-requests:single:py311
+					python-six:single:py311
+

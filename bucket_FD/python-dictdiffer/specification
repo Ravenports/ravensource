@@ -1,0 +1,71 @@
+DEF[PORTVERSION]=	0.9.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-dictdiffer
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Library to diff and patch dictionaries (3.10)
+SDESC[py311]=		Library to diff and patch dictionaries (3.11)
+HOMEPAGE=		https://github.com/inveniosoftware/dictdiffer
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/47/ef/4cb333825d10317a36a1154341ba37e6e9c087bac99c1990ef07ffdb376f
+DISTFILE[1]=		dictdiffer-${PORTVERSION}-py2.py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		dictdiffer-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# Sphinx (>=3) ; extra == 'all'
+# sphinx-rtd-theme (>=0.2) ; extra == 'all'
+# check-manifest (>=0.42) ; extra == 'all'
+# mock (>=1.3.0) ; extra == 'all'
+# pytest-cov (>=2.10.1) ; extra == 'all'
+# pytest-isort (>=1.2.0) ; extra == 'all'
+# sphinx (>=3) ; extra == 'all'
+# tox (>=3.7.0) ; extra == 'all'
+# numpy (>=1.13.0) ; (python_version < "3.7") and extra == 'all'
+# numpy (>=1.15.0) ; (python_version < "3.8") and extra == 'all'
+# numpy (>=1.18.0) ; (python_version < "3.9") and extra == 'all'
+# pytest (==5.4.3) ; (python_version <= "3.5") and extra == 'all'
+# pytest-pycodestyle (>=2) ; (python_version <= "3.5") and extra == 'all'
+# pytest-pydocstyle (>=2) ; (python_version <= "3.5") and extra == 'all'
+# pytest (>=6) ; (python_version > "3.5") and extra == 'all'
+# pytest-pycodestyle (>=2.2.0) ; (python_version > "3.5") and extra == 'all'
+# pytest-pydocstyle (>=2.2.0) ; (python_version > "3.5") and extra == 'all'
+# numpy (>=1.20.0) ; (python_version >= "3.9") and extra == 'all'
+# Sphinx (>=3) ; extra == 'docs'
+# sphinx-rtd-theme (>=0.2) ; extra == 'docs'
+# numpy (>=1.13.0) ; (python_version < "3.7") and extra == 'numpy'
+# numpy (>=1.15.0) ; (python_version < "3.8") and extra == 'numpy'
+# numpy (>=1.18.0) ; (python_version < "3.9") and extra == 'numpy'
+# numpy (>=1.20.0) ; (python_version >= "3.9") and extra == 'numpy'
+# check-manifest (>=0.42) ; extra == 'tests'
+# mock (>=1.3.0) ; extra == 'tests'
+# pytest-cov (>=2.10.1) ; extra == 'tests'
+# pytest-isort (>=1.2.0) ; extra == 'tests'
+# sphinx (>=3) ; extra == 'tests'
+# tox (>=3.7.0) ; extra == 'tests'
+# pytest (==5.4.3) ; (python_version <= "3.5") and extra == 'tests'
+# pytest-pycodestyle (>=2) ; (python_version <= "3.5") and extra == 'tests'
+# pytest-pydocstyle (>=2) ; (python_version <= "3.5") and extra == 'tests'
+# pytest (>=6) ; (python_version > "3.5") and extra == 'tests'
+# pytest-pycodestyle (>=2.2.0) ; (python_version > "3.5") and extra == 'tests'
+# pytest-pydocstyle (>=2.2.0) ; (python_version > "3.5") and extra == 'tests'
+
+[PY310].USES_ON=			python:py310,wheel
+[PY311].USES_ON=			python:py311,wheel
+

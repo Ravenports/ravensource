@@ -1,0 +1,47 @@
+DEF[PORTVERSION]=	2.3
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-PyDriller
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Framework for MSR (3.10)
+SDESC[py311]=		Framework for MSR (3.11)
+HOMEPAGE=		https://github.com/ishepard/pydriller
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/4a/87/34beb73a3bede0f530cbe53f3d74f002c1b30cea5449194a813b2e6f4501
+DISTFILE[1]=		PyDriller-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# Apache License
+
+GENERATED=		yes
+DISTNAME=		PyDriller-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# gitpython
+# pytz
+# types-pytz
+# lizard
+
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-GitPython:single:py310
+					python-pytz:single:py310
+					python-types-pytz:single:py310
+					python-lizard:single:py310
+[PY311].USES_ON=			python:py311,wheel
+[PY311].RUN_DEPENDS_ON=			python-GitPython:single:py311
+					python-pytz:single:py311
+					python-types-pytz:single:py311
+					python-lizard:single:py311
+

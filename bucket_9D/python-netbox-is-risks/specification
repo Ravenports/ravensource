@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.1.3
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-netbox-is-risks
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Info Security risk plugin for Netbox (3.10)
+SDESC[py311]=		Info Security risk plugin for Netbox (3.11)
+HOMEPAGE=		none
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/79/9f/039eaa16946d60ea6ba4fdb7dcc4a596f5fbf15f80787f80258d39dd753e
+DISTFILE[1]=		netbox_is_risks-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		netbox_is_risks-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+
+
+[PY310].USES_ON=			python:py310,wheel
+[PY311].USES_ON=			python:py311,wheel
+

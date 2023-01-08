@@ -1,0 +1,53 @@
+DEF[PORTVERSION]=	0.9.8
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-netdoc
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Network Documentation plugin for NetBox (3.10)
+SDESC[py311]=		Network Documentation plugin for NetBox (3.11)
+HOMEPAGE=		https://github.com/dainok/netdoc
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/n/netdoc
+DISTFILE[1]=		netdoc-${PORTVERSION}.tar.gz:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# GNU v3.0
+
+GENERATED=		yes
+DISTNAME=		netdoc-${PORTVERSION}
+
+# install_requires extracted from setup.py
+# python-slugify
+# nornir==3.3.0
+# nornir_utils==0.2.0
+# nornir_netmiko==0.1.2
+# macaddress
+# ouilookup
+
+[PY310].USES_ON=			python:py310,sutools
+[PY310].BUILDRUN_DEPENDS_ON=		python-python-slugify:single:py310
+					python-nornir:single:py310
+					python-nornir-utils:single:py310
+					python-nornir-netmiko:single:py310
+					python-macaddress:single:py310
+					python-ouilookup:single:py310
+[PY311].USES_ON=			python:py311,sutools
+[PY311].BUILDRUN_DEPENDS_ON=		python-python-slugify:single:py311
+					python-nornir:single:py311
+					python-nornir-utils:single:py311
+					python-nornir-netmiko:single:py311
+					python-macaddress:single:py311
+					python-ouilookup:single:py311
+

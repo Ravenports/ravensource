@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	2.2.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-dnspython
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		DNS toolkit for Python (3.10)
+SDESC[py311]=		DNS toolkit for Python (3.11)
+HOMEPAGE=		https://www.dnspython.org
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/9b/ed/28fb14146c7033ba0e89decd92a4fa16b0b69b84471e2deab3cc4337cc35
+DISTFILE[1]=		dnspython-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# ISC
+
+GENERATED=		yes
+DISTNAME=		dnspython-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# cryptography (>=2.6,<37.0); extra == "dnssec"
+# curio (>=1.2,<2.0); extra == "curio"
+# h2 (>=4.1.0); (python_full_version >= "3.6.2") and (extra == "doh")
+# httpx (>=0.21.1); (python_full_version >= "3.6.2") and (extra == "doh")
+# idna (>=2.1,<4.0); extra == "idna"
+# requests (>=2.23.0,<3.0.0); extra == "doh"
+# requests-toolbelt (>=0.9.1,<0.10.0); extra == "doh"
+# sniffio (>=1.1,<2.0); extra == "curio"
+# trio (>=0.14,<0.20); extra == "trio"
+# wmi (>=1.5.1,<2.0.0); extra == "wmi"
+
+[PY310].USES_ON=			python:py310,wheel
+[PY311].USES_ON=			python:py311,wheel
+

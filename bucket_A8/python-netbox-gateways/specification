@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.4.3
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-netbox-gateways
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Manage simple prefix default gateways (3.10)
+SDESC[py311]=		Manage simple prefix default gateways (3.11)
+HOMEPAGE=		none
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/e4/cf/c160efb35230d657a40dc1a2749510b0ce41822e79e90994199a3e97088e
+DISTFILE[1]=		netbox_gateways-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		netbox_gateways-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+
+
+[PY310].USES_ON=			python:py310,wheel
+[PY311].USES_ON=			python:py311,wheel
+

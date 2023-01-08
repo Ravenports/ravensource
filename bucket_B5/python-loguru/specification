@@ -1,0 +1,49 @@
+DEF[PORTVERSION]=	0.6.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-loguru
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Python logging made (stupidly) simple (3.10)
+SDESC[py311]=		Python logging made (stupidly) simple (3.11)
+HOMEPAGE=		https://github.com/Delgan/loguru
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/fe/21/e1d1da2586865a159fc73b611f36bdd50b6c4043cb6132d3d5e972988028
+DISTFILE[1]=		loguru-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# MIT license
+
+GENERATED=		yes
+DISTNAME=		loguru-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# aiocontextvars (>=0.2.0) ; python_version < "3.7"
+# colorama (>=0.3.4) ; sys_platform == "win32"
+# win32-setctime (>=1.0.0) ; sys_platform == "win32"
+# colorama (>=0.3.4) ; extra == 'dev'
+# docutils (==0.16) ; extra == 'dev'
+# flake8 (>=3.7.7) ; extra == 'dev'
+# tox (>=3.9.0) ; extra == 'dev'
+# pytest (>=4.6.2) ; extra == 'dev'
+# pytest-cov (>=2.7.1) ; extra == 'dev'
+# black (>=19.10b0) ; (python_version >= "3.6") and extra == 'dev'
+# isort (>=5.1.1) ; (python_version >= "3.6") and extra == 'dev'
+# Sphinx (>=4.1.1) ; (python_version >= "3.6") and extra == 'dev'
+# sphinx-autobuild (>=0.7.1) ; (python_version >= "3.6") and extra == 'dev'
+# sphinx-rtd-theme (>=0.4.3) ; (python_version >= "3.6") and extra == 'dev'
+
+[PY310].USES_ON=			python:py310,wheel
+[PY311].USES_ON=			python:py311,wheel
+

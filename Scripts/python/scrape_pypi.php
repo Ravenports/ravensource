@@ -298,9 +298,13 @@ function inline_fix_setup ($namebase, $src) {
        "soupsieve"    => false,
        "xml2rfc"      => false,
        "django-colorful" => false,
+       "netbox-network-importer" => '/pyats\[full\]/d',
        "pyzmq"        => '/cythonize(/ s|, |, quiet=True, |; /packaging.version/d; s|if V(.*$|if False:|',
        "cffsubr"      => 's|"Linux"|platform.system()|',
        "pygit2"       => false,
+       "python-netbox" => '/install_requires=/ s|.ipaddress., ||',
+       "netdoc"        => '/install_requires=/ s|.ipaddress., ||',
+       "pycryptodome"  => false,
    );
    $setup = $src . "/setup.py";
    if (array_key_exists($namebase, $known_issues)) {
@@ -359,6 +363,10 @@ function inline_fix_setup ($namebase, $src) {
                $xf = $src . "/requirements.txt";
                shell_exec ("sed -i.bak -e \"/python_version < .3\.8/d\" $xf");
                break;
+           case "pycryptodome":
+               $xf = $src . "/compiler_opt.py";
+               shell_exec ("sed -i.bak -e \"s|print(.*|pass|\" $xf");
+               break;
        }
    }
 
@@ -406,12 +414,15 @@ function only_dists($var) {
 }
 
 
-# Line doesn't contain "extras" or platform_system == "Windows"
+# Line doesn't contain "extras" or platform_system == "Windows" or "win32"
 function skip_extras($var) {
    if (strpos($var, "enum-compat") !== false) {
       return false;
    }
    if (strpos($var, '"Windows"') !== false) {
+      return false;
+   }
+   if (strpos($var, '"win32"') !== false) {
       return false;
    }
    $pos = strpos($var, "extra ==");
@@ -459,6 +470,11 @@ function get_run_depends ($base_dependencies, $pversion) {
         }
         if ($required) {
             $req = trim(preg_replace('/^Requires-Dist: ([^ <>=~!\[;]+)(.*)$/', '\1', $line));
+            # ansible doesn't follow normal python naming rules, must be added manually
+            # importlib is obsolete due to being included in modern python
+            if (in_array($req, array("ansible", "importlib"))) {
+               continue;
+            }
             if (array_key_exists ($req, $data_corrections)) {
                 $req = $data_corrections[$req];
             }
@@ -500,10 +516,14 @@ function set_buildrun (&$portdata, $PVA, $PVB) {
         }
     }
     if ($portdata["wheel_dist"]) {
-        # Damn
-        if (substr($distname, 0, 6) == "eyeD3-") {
-            $distname = "eyed3-" . substr($distname, 6);
-        }
+       # Damn
+       if (substr($distname, 0, 6) == "eyeD3-") {
+          $distname = "eyed3-" . substr($distname, 6);
+       }
+       echo(substr($distname, 0, 23) . "\n");
+       if (substr($distname, 0, 23) == "sphinxcontrib.applehelp") {
+          $distname = str_replace("b.a", "b_a", $distname);
+       }
        $src = $WORKZONE . "/" . $distname . ".dist-info";
        $metadata = $src . "/METADATA";
        if (!file_exists($metadata)) {

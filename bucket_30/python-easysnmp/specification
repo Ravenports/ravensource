@@ -1,0 +1,37 @@
+# Manually maintained
+DEF[PORTVERSION]=	0.2.6
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-easysnmp
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Library based on official Net-SNMP bindings (3.10)
+SDESC[py311]=		Library based on official Net-SNMP bindings (3.11)
+HOMEPAGE=		https://github.com/kamakazikamikaze/easysnmp
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/e/easysnmp
+DISTFILE[1]=		easysnmp-${PORTVERSION}.tar.gz:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# BSD
+
+GENERATED=		yes
+DISTNAME=		easysnmp-${PORTVERSION}
+
+# install_requires extracted from setup.py
+
+
+[PY310].USES_ON=			python:py310,sutools
+[PY311].USES_ON=			python:py311,sutools
+

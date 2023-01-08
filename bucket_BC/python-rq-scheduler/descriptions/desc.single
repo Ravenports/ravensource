@@ -1,0 +1,100 @@
+============
+RQ Scheduler
+============
+
+[RQ Scheduler] is a small package that
+adds job scheduling capabilities to [RQ],
+a [Redis] based Python queuing library.
+
+====================
+Support RQ Scheduler
+====================
+
+If you find ``rq-scheduler`` useful, please consider supporting its
+development via [Tidelift].
+
+============
+Requirements
+============
+
+* `RQ`_
+
+============
+Installation
+============
+
+You can install `RQ Scheduler`_ via pip::
+
+    pip install rq-scheduler
+
+Or you can download the latest stable package from [PyPI].
+
+=====
+Usage
+=====
+
+Schedule a job involves doing two different things:
+
+1. Putting a job in the scheduler
+2. Running a scheduler that will move scheduled jobs into queues when the
+time comes
+
+----------------
+Scheduling a Job
+----------------
+
+There are two ways you can schedule a job. The first is using RQ
+Scheduler's enqueue_at
+
+.. code-block:: python
+
+    from redis import Redis
+    from rq import Queue
+    from rq_scheduler import Scheduler
+    from datetime import datetime
+
+    scheduler = Scheduler(connection=Redis()) # Get a scheduler for the
+"default" queue
+    scheduler = Scheduler('foo', connection=Redis()) # Get a scheduler for
+the "foo" queue
+
+    # You can also instantiate a Scheduler using an RQ Queue
+    queue = Queue('bar', connection=Redis())
+    scheduler = Scheduler(queue=queue)
+
+    # Puts a job into the scheduler. The API is similar to RQ except that
+it
+    # takes a datetime object as first argument. So for example to schedule
+a
+    # job to run on Jan 1st 2020 we do:
+    scheduler.enqueue_at(datetime(2020, 1, 1), func) # Date time should be
+in UTC
+
+    # Here's another example scheduling a job to run at a specific date and
+time (in UTC),
+    # complete with args and kwargs.
+    scheduler.enqueue_at(datetime(2020, 1, 1, 3, 4), func, foo, bar=baz)
+
+    # You can choose the queue type where jobs will be enqueued by passing
+the name of the type to the scheduler
+    # used to enqueue
+    scheduler = Scheduler('foo', queue_class="rq.Queue")
+    scheduler.enqueue_at(datetime(2020, 1, 1), func) # The job will be
+enqueued at the queue named "foo" using the queue type "rq.Queue"
+
+The second way is using enqueue_in. Instead of taking a datetime object,
+this method expects a timedelta and schedules the job to run at
+X seconds/minutes/hours/days/weeks later. For example, if we want to
+monitor how
+popular a tweet is a few times during the course of the day, we could do
+something like
+
+.. code-block:: python
+
+    from datetime import timedelta
+
+    # Schedule a job to run 10 minutes, 1 hour and 1 day later
+    scheduler.enqueue_in(timedelta(minutes=10), count_retweets, tweet_id)
+    scheduler.enqueue_in(timedelta(hours=1), count_retweets, tweet_id)
+    scheduler.enqueue_in(timedelta(days=1), count_retweets, tweet_id)
+

@@ -1,0 +1,100 @@
+ncclient: Python library for NETCONF clients
+--------------------------------------------
+
+ncclient is a Python library that facilitates client-side scripting and
+application development around the NETCONF protocol. ncclient was
+developed by [Shikar Bhushan]. It is now
+maintained by `Leonidas Poulopoulos (@leopoul) <http://ncclient.org>`
+and `Einar Nilsen-Nygaard (@einarnn)`.
+
+Docs:
+`http://ncclient.readthedocs.org <http://ncclient.readthedocs.org>`_
+
+Github:
+`https://github.com/ncclient/ncclient
+<https://github.com/ncclient/ncclient>`_
+
+Requirements:
+^^^^^^^^^^^^^
+
+-  Python 2.7 or Python 3.4+
+-  setuptools 0.6+
+-  Paramiko 1.7+
+-  lxml 3.3.0+
+-  libxml2
+-  libxslt
+
+If you are on Debian/Ubuntu install the following libs (via aptitude or
+apt-get):
+
+-  libxml2-dev
+-  libxslt1-dev
+
+Installation:
+^^^^^^^^^^^^^
+
+::
+
+    [ncclient] $ sudo python setup.py install
+
+or via pip:
+
+::
+
+    pip install ncclient
+
+Examples:
+^^^^^^^^^
+
+::
+
+    [ncclient] $ python examples/juniper/*.py
+
+Usage
+~~~~~
+
+Get device running config
+'''''''''''''''''''''''''
+
+Use either an interactive Python console (ipython) or integrate the
+following in your code:
+
+::
+
+    from ncclient import manager
+
+    with manager.connect(host=host, port=830, username=user,
+hostkey_verify=False) as m:
+        c = m.get_config(source='running').data_xml
+        with open("%s.xml" % host, 'w') as f:
+            f.write(c)
+
+As of 0.4.1 ncclient integrates Juniper's and Cisco's forks, lots of new
+concepts
+have been introduced that ease management of Juniper and Cisco devices
+respectively.
+The biggest change is the introduction of device handlers in connection
+paramms.
+For example to invoke Juniper's functions annd params one has to re-write
+the above with 
+**device\_params={'name':'junos'}**:
+
+::
+
+    from ncclient import manager
+
+    with manager.connect(host=host, port=830, username=user,
+hostkey_verify=False, device_params={'name':'junos'}) as m:
+        c = m.get_config(source='running').data_xml
+        with open("%s.xml" % host, 'w') as f:
+            f.write(c)
+
+Device handlers are easy to implement and prove to be futureproof.
+
+Supported device handlers
+'''''''''''''''''''''''''
+
+* Juniper: `device_params={'name':'junos'}`
+* Cisco:
+    - CSR: `device_params={'name':'csr'}`
+    - Nexus: `device_params={'name':'nexus'}`

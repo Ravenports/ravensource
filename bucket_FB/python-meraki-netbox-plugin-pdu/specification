@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	0.0.9
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-meraki-netbox-plugin-pdu
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Power Distribution Unit plugin for Netbox (3.10)
+SDESC[py311]=		Power Distribution Unit plugin for Netbox (3.11)
+HOMEPAGE=		https://github.com/minitriga/axians-netbox-plugin-pdu
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/35/1f/37f6fc6fed2c9b74f561a7d1d5a1cea5683b03e5920ee69e2dd8d99cfd2d
+DISTFILE[1]=		meraki_netbox_plugin_pdu-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# Apache-2.0
+
+GENERATED=		yes
+DISTNAME=		meraki_netbox_plugin_pdu-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# easysnmp (>=0.2.5,<0.3.0)
+# invoke (>=1.4.1,<2.0.0)
+# rq-scheduler (>=0.10.0,<0.11.0)
+
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-easysnmp:single:py310
+					python-invoke:single:py310
+					python-rq-scheduler:single:py310
+[PY311].USES_ON=			python:py311,wheel
+[PY311].RUN_DEPENDS_ON=			python-easysnmp:single:py311
+					python-invoke:single:py311
+					python-rq-scheduler:single:py311
+

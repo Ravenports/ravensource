@@ -1,0 +1,100 @@
+macaddress
+==========
+
+A module for handling hardware identifiers like MAC addresses.
+
+This module makes it easy to:
+
+1. check if a string represents a valid MAC address, or a similar
+   hardware identifier like an EUI-64, OUI, etc,
+
+2. convert between string and binary forms of MAC addresses and
+   other hardware identifiers,
+
+and so on.
+
+Heavily inspired by the ipaddress module, but not yet quite
+as featureful.
+
+Versioning
+----------
+
+This library's version numbers follow the `SemVer 2.0.0
+specification <https://semver.org/spec/v2.0.0.html>`_.
+
+Installation
+------------
+
+::
+
+    pip install macaddress
+
+Usage
+-----
+
+Import:
+
+.. code:: python
+
+    >>> import macaddress
+
+Classes are provided for the common hardware identifier
+types: EUI48 (also available as MAC), EUI64,
+OUI, and so on. If those aren't enough, you can
+easily define others with just a few lines of code.
+
+Parse or Validate String
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+When only one address type is valid:
+
+All provided classes support the standard and common formats.
+For example, the EUI48 class supports the following
+formats:
+
+.. code:: python
+
+    >>> macaddress.EUI48('01-23-45-67-89-ab')
+    EUI48('01-23-45-67-89-AB')
+    >>> macaddress.EUI48('01:23:45:67:89:ab')
+    EUI48('01-23-45-67-89-AB')
+    >>> macaddress.EUI48('0123.4567.89ab')
+    EUI48('01-23-45-67-89-AB')
+    >>> macaddress.EUI48('0123456789ab')
+    EUI48('01-23-45-67-89-AB')
+
+You can inspect what formats a hardware address class supports
+by looking at its formats attribute:
+
+.. code:: python
+
+    >>> macaddress.OUI.formats
+    ('xx-xx-xx', 'xx:xx:xx', 'xxxxxx')
+
+Each x in the format string matches one hexadecimal
+"digit", and all other characters are matched literally.
+
+If the string does not match one of the formats, a
+ValueError is raised:
+
+.. code:: python
+
+    >>> try:
+    ...     macaddress.MAC('foo bar')
+    ... except ValueError as error:
+    ...     print(error)
+    ...
+    'foo bar' cannot be parsed as EUI48
+
+If you need to parse in a format that isn't supported,
+you can define a subclass and add the formats:
+
+.. code:: python
+
+    >>> class MAC(macaddress.MAC):
+    ...     formats = macaddress.MAC.formats + (
+    ...         'xx-xx-xx-xx-xx-xx-',
+    ...         'xx:xx:xx:xx:xx:xx:',
+    ...         'xxxx.xxxx.xxxx.',
+    ...     )
+    ...

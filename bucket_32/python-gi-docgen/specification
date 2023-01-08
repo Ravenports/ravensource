@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2022.2
+DEF[PORTVERSION]=	2023.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-gi-docgen
@@ -11,7 +11,7 @@ HOMEPAGE=		https://gitlab.gnome.org/GNOME/gi-docgen
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/65/5b/7871594383b4a9812d251a795cc9463094e165aff689de813bfcc7a3ce0d
+SITES[main]=		PYPIWHL/2c/57/9b927fab538fe9acc932411aaa54785e3911917291773b1a95b7cfcdd0be
 DISTFILE[1]=		gi_docgen-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -33,22 +33,21 @@ DISTNAME=		gi_docgen-${PORTVERSION}.dist-info
 # MarkupSafe
 # Pygments
 # jinja2
-# toml
 # typogrify
+# tomli ; python_version < "3.11"
 
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-Markdown:single:py310
 					python-MarkupSafe:single:py310
 					python-Pygments:single:py310
 					python-Jinja2:single:py310
-					python-toml:single:py310
 					python-typogrify:single:py310
+					python-tomli:single:py310
 [PY311].USES_ON=			python:py311,wheel
 [PY311].RUN_DEPENDS_ON=			python-Markdown:single:py311
 					python-MarkupSafe:single:py311
 					python-Pygments:single:py311
 					python-Jinja2:single:py311
-					python-toml:single:py311
 					python-typogrify:single:py311
 
 post-install:

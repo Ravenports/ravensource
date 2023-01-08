@@ -1,0 +1,100 @@
+pretty-yaml (or pyaml)
+======================
+
+PyYAML-based python module to produce pretty and readable YAML-serialized
+data.
+
+This module is for serialization only, see `ruamel.yaml`_ module for
+literate
+YAML parsing (keeping track of comments, spacing, line/column numbers of
+values, etc).
+
+[note: to dump stuff parsed by ruamel.yaml with this module, use only
+``YAML(typ='safe')`` there]
+
+.. contents::
+  :backlinks: none
+
+Warning
+-------
+
+Prime goal of this module is to produce human-readable output that can be
+easily
+manipulated and re-used, but maybe with some occasional caveats.
+
+One good example of such "caveat" is that e.g. ``{'foo': '123'} will
+serialize
+to foo: 123``, which for PyYAML would be a bug, as 123 will then be read
+back
+as an integer from that, but here it's a feature.
+
+So please do not rely on the thing to produce output that can always be
+deserialized exactly to what was exported, at least - use PyYAML (e.g. with
+options from the next section) for that.
+
+What this module does and why
+-----------------------------
+
+YAML is generally nice and easy format to read *if* it was written by
+humans.
+
+PyYAML can a do fairly decent job of making stuff readable, and the best
+combination of parameters for such output that I've seen so far is probably
+this one::
+
+  >>> m = [123, 45.67, {1: None, 2: False}, u'some text']
+  >>> data = dict(a=u'asldnsa\nasldpáknsa\n', b=u'whatever text', ma=m,
+mb=m)
+  >>> yaml.safe_dump(data, sys.stdout, allow_unicode=True,
+default_flow_style=False)
+  a: 'asldnsa
+
+    asldpáknsa
+
+    '
+  b: whatever text
+  ma: &id001
+  - 123
+  - 45.67
+  - 1: null
+    2: false
+  - some text
+  mb: *id001
+
+pyaml tries to improve on that a bit, with the following tweaks:
+
+* Most human-friendly representation options in PyYAML (that I know of) get
+  picked as defaults.
+
+* Does not dump "null" values, if possible, replacing these with just empty
+  strings, which have the same meaning but reduce visual clutter and are
+easier
+  to edit.
+
+* Dicts, sets, OrderedDicts, defaultdicts, namedtuples, etc are
+representable
+  and get sorted on output (OrderedDicts and namedtuples keep their
+ordering),
+  so that output would be as diff-friendly as possible, and not arbitrarily
+  depend on python internals.
+
+  It appears that at least recent PyYAML versions also do such sorting for
+  python dicts.
+
+* List items get indented, as they should be.
+
+* bytestrings that can't be auto-converted to unicode raise error, as yaml
+has
+  no "binary bytes" (i.e. unix strings) type.
+
+* Attempt is made to pick more readable string representation styles,
+depending
+  on the value, e.g.::
+
+    >>> yaml.safe_dump(cert, sys.stdout)
+    cert: '-----BEGIN CERTIFICATE-----
+
+      MIIH3jCCBcagAwIBAgIJAJi7AjQ4Z87OMA0GCSqGSIb3DQEBCwUAMIHBMRcwFQYD
+
+      VQQKFA52YWxlcm9uLm5vX2lzcDEeMBwGA1UECxMVQ2VydGlmaWNhdGUgQXV0aG9y
+    ...

@@ -1,0 +1,52 @@
+DEF[PORTVERSION]=	3.3.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-nornir
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Automation framework to manage devices (3.10)
+SDESC[py311]=		Automation framework to manage devices (3.11)
+HOMEPAGE=		https://github.com/nornir-automation/nornir
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/ea/5d/6830b979da385d7a74f31770b245fd38ae3b02af5c9e084a6096f453b1dc
+DISTFILE[1]=		nornir-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# Apache 2.0
+
+GENERATED=		yes
+DISTNAME=		nornir-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# importlib-metadata (>=4,<5); python_version < "3.10"
+# jupyter (>=1,<2); extra == "docs"
+# mypy_extensions (>=0.4.1,<0.5.0)
+# nbsphinx (>=0.8,<0.9); extra == "docs"
+# pygments (>=2,<3); extra == "docs"
+# ruamel.yaml (>=0.17)
+# sphinx (>=4,<5); extra == "docs"
+# sphinx-issues (>=3.0,<4.0); extra == "docs"
+# sphinx_rtd_theme (>=1.0,<2.0); extra == "docs"
+# sphinxcontrib-napoleon (>=0.7,<0.8); extra == "docs"
+# typing_extensions (>=4.1,<5.0)
+
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-mypy-extensions:single:py310
+					python-ruamel.yaml:single:py310
+					python-typing-extensions:single:py310
+[PY311].USES_ON=			python:py311,wheel
+[PY311].RUN_DEPENDS_ON=			python-mypy-extensions:single:py311
+					python-ruamel.yaml:single:py311
+					python-typing-extensions:single:py311
+

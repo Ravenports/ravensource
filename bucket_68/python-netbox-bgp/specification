@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.8.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-netbox-bgp
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		BGP related stuff (3.10)
+SDESC[py311]=		BGP related stuff (3.11)
+HOMEPAGE=		https://github.com/k01ek/netbox-bgp
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/b4/f5/dbb4253adf2c8b154adccd94b3037f2fdda1805190c53000d2d19db8a5e0
+DISTFILE[1]=		netbox_bgp-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		netbox_bgp-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+
+
+[PY310].USES_ON=			python:py310,wheel
+[PY311].USES_ON=			python:py311,wheel
+

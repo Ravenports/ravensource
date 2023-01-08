@@ -1,0 +1,82 @@
+<h1 align="center">NetBox DNS</h1>
+
+<p align="center"><i>NetBox DNS is a NetBox plugin for managing DNS
+data.</i></p>
+
+<div align="center">
+[image]
+[image]
+[image]
+[image]
+[image]
+[image]
+[image]
+</div>
+
+## Features
+
+* Manage name servers
+* Manage DNS zone information, automatically generating SOA and NS records
+* Automatically create and update PTR records for A and AAAA records
+* Optionally organize zones in views to cater for split horizon DNS and
+multi site deployments
+
+NetBox DNS is using the standardized NetBox plugin interface, so it also
+takes advantage of the NetBox tagging and change log features.
+
+## Requirements
+
+* NetBox 3.4 or higher
+* Python 3.8 or higher
+
+## Installation & Configuration
+
+### Installation
+
+```
+$ source /opt/netbox/venv/bin/activate
+(venv) $ pip install netbox-dns
+```
+
+### Configuration
+
+Add the plugin to the NetBox config. `~/netbox/configuration.py`
+
+```python
+PLUGINS = [
+    "netbox_dns",
+]
+```
+
+To permanently mount the plugin when updating NetBox:
+
+```
+echo netbox-dns >> ~/netbox/local_requirements.txt
+```
+
+To add the required netbox_dns tables to your database run the following
+command from your NetBox directory:
+
+```
+./manage.py migrate
+```
+
+Full reference: [Using Plugins - NetBox Documentation]
+
+## Screenshots
+
+![Zones]
+
+![Zone Detail]
+
+![Records]
+
+![Record Detail]
+
+## Contribute
+
+Contributions are always welcome! Please see: [contributing guide]
+
+## License
+
+MIT

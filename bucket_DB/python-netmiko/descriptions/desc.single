@@ -1,0 +1,100 @@
+[![PyPI - Python Version]](https://img.shields.io/pypi/pyversions/netmiko)
+[PyPI]
+[Downloads]
+[GitHub contributors]
+[Code Style]
+
+[image]
+
+Netmiko
+=======
+
+Multi-vendor library to simplify CLI connections to network devices
+
+<br />
+
+## Why Netmiko?
+Network automation to screen-scraping devices is primarily concerned with
+gathering output from show commands and with making configuration changes.
+
+Netmiko aims to accomplish both of these operations and to do it across a
+very broad set of platforms. It seeks to do this while abstracting away
+low-level state control (i.e. eliminate low-level regex pattern matching to
+the extent practical).
+
+<br />
+
+## Getting Started
+- [Getting Started]
+
+<br />
+
+## Examples
+*You really should look here.*
+
+- [Netmiko Examples]
+
+<br />
+
+## Supported Platforms
+
+[PLATFORMS]
+
+<br />
+
+## Installation
+
+To install netmiko, simply us pip:
+
+```
+$ pip install netmiko
+```
+
+<br />
+
+## API-Documentation
+
+[API-Documentation]
+
+<br />
+
+## Common Issues/FAQ
+
+Answers to some [common questions]
+
+<br />
+
+### Tutorials
+
+- [Netmiko Overview]
+- [Secure Copy]
+- [Netmiko through SSH Proxy]
+- [Netmiko and TextFSM]
+- [Netmiko and what constitutes done]
+
+<br />
+
+### Getting Started:
+
+#### Create a dictionary representing the device.
+
+Supported device_types can be found in [ssh_dispatcher.py], see
+CLASS_MAPPER keys.
+```py
+from netmiko import ConnectHandler
+
+cisco_881 = {
+    'device_type': 'cisco_ios',
+    'host':   '10.10.10.10',
+    'username': 'test',
+    'password': 'password',
+    'port' : 8022,          # optional, defaults to 22
+    'secret': 'secret',     # optional, defaults to ''
+}
+
+```
+
+#### Establish an SSH connection to the device by passing in the device
+dictionary.
+
+```py

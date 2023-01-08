@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	1.3.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-json2html
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		JSON to HTML Table Representation (3.10)
+SDESC[py311]=		JSON to HTML Table Representation (3.11)
+HOMEPAGE=		https://github.com/softvar/json2html
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/j/json2html
+DISTFILE[1]=		json2html-${PORTVERSION}.tar.gz:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		json2html-${PORTVERSION}
+
+# install_requires extracted from setup.py
+
+
+[PY310].USES_ON=			python:py310,sutools
+[PY311].USES_ON=			python:py311,sutools
+

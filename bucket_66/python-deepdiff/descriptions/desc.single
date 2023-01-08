@@ -1,0 +1,100 @@
+# DeepDiff v 6.2.3
+
+![Downloads]
+![Python Versions]
+![License]
+[Build Status]
+[codecov]
+
+## DeepDiff Overview
+
+- DeepDiff: Deep Difference of dictionaries, iterables, strings and other
+objects. It will recursively look for all the changes.
+- DeepSearch: Search for objects within other objects.
+- DeepHash: Hash any object based on their content.
+
+Tested on Python 3.7+ and PyPy3.
+
+- **[Documentation]**
+
+## What is new?
+
+Please check the [ChangeLog] file for the detailed information.
+
+DeepDiff 6-2-0
+
+- Major improvement in the diff report for lists when items are all
+hashable and the order of items is important.
+
+DeepDiff 6-1-0
+
+- DeepDiff.affected_paths can be used to get the list of all paths where a
+change, addition, or deletion was reported for.
+- DeepDiff.affected_root_keys can be used to get the list of all paths
+where a change, addition, or deletion was reported for.  
+- Bugfix: ValueError when using Decimal 0.x #339  by [Enric Pou]
+- Serialization of UUID 
+
+DeepDiff 6-0-0
+
+- [Exclude obj callback strict] parameter is added to DeepDiff by Mikhail
+Khviyuzov [mskhviyu].
+- A fix for diffing using `iterable_compare_func` with nested objects by
+[dtorres-sf] who originally contributed this feature.
+
+Note: There are no breaking changes in DeepDiff 6 compared to the latest
+DeepDiff 5 releases.
+
+## Installation
+
+### Install from PyPi:
+
+`pip install deepdiff`
+
+If you want to use DeepDiff from commandline:
+
+`pip install "deepdiff[cli]"`
+
+### Importing
+
+```python
+>>> from deepdiff import DeepDiff  # For Deep Difference of 2 objects
+>>> from deepdiff import grep, DeepSearch  # For finding if item exists in
+an object
+>>> from deepdiff import DeepHash  # For hashing objects based on their
+contents
+```
+
+Note: if you want to use DeepDiff via commandline, make sure to run `pip
+install "deepdiff[cli]"`. Then you can access the commands via:
+
+- DeepDiff
+    - `$ deep diff --help`
+- Delta
+    - `$ deep patch --help`
+- grep
+    - `$ deep grep --help`
+- extract
+    - `$ deep extract --help`
+
+# Deep Diff
+
+DeepDiff gets the difference of 2 objects.
+
+> - Please take a look at the [DeepDiff docs]
+> - The full documentation of all modules can be found on
+<https://zepworks.com/deepdiff/6.2.3/>
+> - Tutorials and posts about DeepDiff can be found on
+<https://zepworks.com/tags/deepdiff/>
+
+## A few Examples
+
+> Note: This is just a brief overview of what DeepDiff can do. Please visit
+<https://zepworks.com/deepdiff/6.2.3/> for full documentation.
+
+### List difference ignoring order or duplicates
+
+```python
+>>> t1 = {1:1, 2:2, 3:3, 4:{"a":"hello", "b":[1, 2, 3]}}
+>>> t2 = {1:1, 2:2, 3:3, 4:{"a":"hello", "b":[1, 3, 2, 3]}}
+>>> ddiff = DeepDiff(t1, t2, ignore_order=True)

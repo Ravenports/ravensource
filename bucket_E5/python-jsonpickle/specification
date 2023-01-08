@@ -1,0 +1,54 @@
+DEF[PORTVERSION]=	3.0.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-jsonpickle
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Serialize arbitrary object graph into JSON (3.10)
+SDESC[py311]=		Serialize arbitrary object graph into JSON (3.11)
+HOMEPAGE=		https://github.com/jsonpickle/jsonpickle
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/4c/2f/75afdf7c9688eba3575072034abf4572833c4ef291177d2510a103c5f251
+DISTFILE[1]=		jsonpickle-${PORTVERSION}-py2.py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		jsonpickle-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# importlib-metadata ; python_version < "3.8"
+# sphinx ; extra == 'docs'
+# jaraco.packaging (>=3.2) ; extra == 'docs'
+# rst.linker (>=1.9) ; extra == 'docs'
+# pytest (!=3.7.3,>=3.5) ; extra == 'testing'
+# pytest-checkdocs (>=1.2.3) ; extra == 'testing'
+# pytest-flake8 (>=1.1.1) ; extra == 'testing'
+# pytest-black-multipy ; extra == 'testing'
+# pytest-cov ; extra == 'testing'
+# ecdsa ; extra == 'testing'
+# feedparser ; extra == 'testing'
+# gmpy2 ; extra == 'testing'
+# numpy ; extra == 'testing'
+# pandas ; extra == 'testing'
+# pymongo ; extra == 'testing'
+# scikit-learn ; extra == 'testing'
+# sqlalchemy ; extra == 'testing'
+# simplejson ; extra == 'testing.libs'
+# ujson ; extra == 'testing.libs'
+
+[PY310].USES_ON=			python:py310,wheel
+[PY311].USES_ON=			python:py311,wheel
+

@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.3.5
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-netbox-users-and-computers
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Netbox plugin to manage Active Directory (3.10)
+SDESC[py311]=		Netbox plugin to manage Active Directory (3.11)
+HOMEPAGE=		none
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/4d/05/02016810a62efc5cd9f3557d749b491ba9da02ac9e283286c123f1e2b81a
+DISTFILE[1]=		netbox_users_and_computers-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		netbox_users_and_computers-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+
+
+[PY310].USES_ON=			python:py310,wheel
+[PY311].USES_ON=			python:py311,wheel
+

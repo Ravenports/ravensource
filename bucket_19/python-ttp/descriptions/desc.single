@@ -1,0 +1,100 @@
+[Downloads]
+[PyPI versions]
+[Documentation status]
+
+# Template Text Parser
+
+TTP is a Python library for semi-structured text parsing using templates.
+
+## Why?
+
+To save ones time on transforming raw text into structured data and beyond.
+
+## How?
+
+Regexes, regexes everywhere... but, dynamically formed out of TTP templates
+with added capabilities to simplify the  process of getting desired
+outcome.
+
+## What?
+
+In essence TTP can help to:
+  - Prepare, sort and load text data for parsing
+  - Parse text using regexes dynamically derived out of templates
+  - Process matches on the fly using broad set of built-in or custom
+functions
+  - Combine match results in a structure with arbitrary hierarchy
+  - Transform results in desired format to ease consumption by humans or
+machines
+  - Return results to various destinations for storage or further
+processing
+
+Reference [documentation] for more information.
+
+TTP [Networktocode Slack channel]
+
+Collection of [TTP Templates]
+
+## Example - as simple as it can be
+
+Simple interfaces configuration parsing example
+
+<details><summary>Code</summary>
+
+```python
+from ttp import ttp
+import pprint
+
+data = """
+interface Loopback0
+ description Router-id-loopback
+ ip address 192.168.0.113/24
+!
+interface Vlan778
+ description CPE_Acces_Vlan
+ ip address 2002::fd37/124
+ ip vrf CPE1
+!
+"""
+
+template = """
+interface {{ interface }}
+ ip address {{ ip }}/{{ mask }}
+ description {{ description }}
+ ip vrf {{ vrf }}
+"""
+
+parser = ttp(data, template)
+parser.parse()
+pprint.pprint(parser.result(), width=100)
+
+# prints:
+# [[[{'description': 'Router-id-loopback',
+#     'interface': 'Loopback0',
+#     'ip': '192.168.0.113',
+#     'mask': '24'},
+#    {'description': 'CPE_Acces_Vlan',
+#     'interface': 'Vlan778',
+#     'ip': '2002::fd37',
+#     'mask': '124',
+#     'vrf': 'CPE1'}]]]
+```
+</details>
+
+## Example - a bit more complicated
+
+For this example lets say we want to parse BGP peerings output, but combine
+state with configuration data, at the end we want to get pretty looking
+text table printed to screen.
+
+<details><summary>Code</summary>
+
+```python
+template="""
+<doc>
+This template first parses "show bgp vrf CUST-1 vpnv4 unicast summary"
+commands
+output, forming results for "bgp_state" dictionary, where peer ip is a key.
+
+Following that, "show run | section bgp" output parsed by group "bgp_cfg".
+That

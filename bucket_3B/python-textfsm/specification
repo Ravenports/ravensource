@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	1.1.3
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-textfsm
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Module for parsing semi-structured text (3.10)
+SDESC[py311]=		Module for parsing semi-structured text (3.11)
+HOMEPAGE=		https://github.com/google/textfsm
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/f8/f2/235703136dc9f25d1498c0f0b49ed99a4d7f98c361f322a5da586eb1ee06
+DISTFILE[1]=		textfsm-${PORTVERSION}-py2.py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# Apache License, Version 2.0
+
+GENERATED=		yes
+DISTNAME=		textfsm-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# six
+# future
+
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-six:single:py310
+					python-future:single:py310
+[PY311].USES_ON=			python:py311,wheel
+[PY311].RUN_DEPENDS_ON=			python-six:single:py311
+					python-future:single:py311
+

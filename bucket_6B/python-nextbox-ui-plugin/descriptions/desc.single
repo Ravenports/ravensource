@@ -1,0 +1,100 @@
+# NextBox UI Plugin
+
+A topology visualization plugin for [NetBox] powered by [NextUI] Toolkit.
+Netbox v2.8.0+ is required.
+
+# Installation
+
+General installation steps and considerations follow the [official
+guidelines].
+
+### Package Installation from PyPi
+
+Assuming you use a Virtual Environment for Netbox:
+```
+$ source /opt/netbox/venv/bin/activate
+(venv) $ pip3 install nextbox-ui-plugin
+```
+
+### Package Installation from Source Code
+The source code is available on [GitHub].<br/>
+Download and install the package. Assuming you use a Virtual Environment
+for Netbox:
+```
+$ git clone https://github.com/iDebugAll/nextbox-ui-plugin
+$ cd nextbox-ui-plugin
+$ source /opt/netbox/venv/bin/activate
+(venv) $ pip3 install .
+```
+
+To ensure NextBox UI plugin is automatically re-installed during future
+upgrades, create a file named `local_requirements.txt` (if not already
+existing) in the NetBox root directory (alongside `requirements.txt`) and
+list the `nextbox-ui-plugin` package:
+
+```no-highlight
+# echo nextbox-ui-plugin >> local_requirements.txt
+```
+
+### Enable the Plugin
+In a global Netbox **configuration.py** configuration file, update or add
+PLUGINS parameter:
+```python
+PLUGINS = [
+    'nextbox_ui_plugin',
+]
+```
+
+Optionally, update a PLUGINS_CONFIG parameter in **configuration.py** to
+rewrite default plugin behavior:
+```python
+#PLUGINS_CONFIG = {
+#    'nextbox_ui_plugin': {
+#        'layers_sort_order': (
+#            ADD YOUR SETTINGS HERE
+#            layer_sort_order is a tuple
+#        ),
+#        'icon_model_map': {
+#            ADD YOUR SETTINGS HERE
+#            icon_model_map is a dict
+#        },
+#        'icon_role_map': {
+#            ADD YOUR SETTINGS HERE
+#            icon_role_map is a dict
+#        }
+#        'undisplayed_device_role_slugs': (
+# #          ADD YOUR SETTINGS HERE
+#            undisplayed_device_role_slugs value is a list or a tuple
+#            Listed device role slugs are hidden on initial view load,
+#            you may then hide/display any layer with a control button.
+#        ),
+#        'undisplayed_device_tags': (
+#           ADD YOUR SETTINGS HERE
+#           undisplayed_device_tags value is a list or a tuple of regex
+strings.
+#           Devices with tags matching any of listed regular expressions
+are hidden
+#           on initial view load, you may then hide/display any layer with
+a control button.
+#        ),
+#        'select_layers_list_include_device_tags': (
+#           ADD YOUR SETTINGS HERE
+#           select_layers_list_include_device_tags value is a list or a
+tuple of regex strings.
+#           Use this parameter to control tags listed in Select Layers
+menu.
+#           If specified, it works as allow list.
+#        ),
+#        'select_layers_list_exclude_device_tags': (
+#           ADD YOUR SETTINGS HERE
+#           select_layers_list_exclude_device_tags value is a list or a
+tuple of regex strings.
+#           Use this parameter to control tags listed in Select Layers
+menu.
+#           If specified, it filters out matched tags from the list, except
+ones mathcing 'undisplayed_device_tags'.
+#        ),
+#        'DISPLAY_PASSIVE_DEVICES': True|False,
+#        'DISPLAY_LOGICAL_MULTICABLE_LINKS': True|False,
+#        'DISPLAY_UNCONNECTED': True|False,
+#        'INITIAL_LAYOUT': 'vertical'|'horizontal'|'auto'

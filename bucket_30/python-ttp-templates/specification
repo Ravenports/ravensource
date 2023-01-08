@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	0.3.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-ttp-templates
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Template Text Parser Templates collections (3.10)
+SDESC[py311]=		Template Text Parser Templates collections (3.11)
+HOMEPAGE=		https://github.com/dmulyalin/ttp_templates
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/94/6d/151bf9d86912737c7da336cbf57e9ae91a8cccd4751b69d3efbeb8262f37
+DISTFILE[1]=		ttp_templates-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		ttp_templates-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# mkdocs (==1.2.4); (python_version >= "3.7") and (extra == "docs")
+# mkdocs-material (==7.2.2); (python_version >= "3.7") and (extra == "docs")
+# mkdocs-material-extensions (==1.0.1); (python_version >= "3.7") and (extra == "docs")
+# mkdocstrings[python] (>=0.18.0,<0.19.0); (python_version >= "3.7") and (extra == "docs")
+# pygments (==2.11); (python_version >= "3.7") and (extra == "docs")
+# pymdown-extensions (==9.3); (python_version >= "3.7") and (extra == "docs")
+# ttp (>=0.6.0)
+
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-ttp:single:py310
+[PY311].USES_ON=			python:py311,wheel
+[PY311].RUN_DEPENDS_ON=			python-ttp:single:py311
+
