@@ -1,0 +1,91 @@
+DEF[PORTVERSION]=	5.9.3
+DEF[SOVERSION]=		40.2.0
+DEF[NS_LOGFILE]=	/var/log/snmpd.log
+DEF[NS_PERSISTENTDIR]=	/var/net-snmp
+DEF[MODULES]=		smux disman/event-mib mibII/mta_sendmail mibII/tcpTable ucd-snmp/diskio mibII/ipv6
+DEF[NOT_MODULES]=	ucd_snmp host ucd-snmp/memory sctp-mib
+# Do we need a user-definably EXTRACT_INFO function?
+DEF[NS_CONTACT]=	default_user@contact.domain
+DEF[NS_LOCATION]=	defaultlocation
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		net-snmp
+VERSION=		${PORTVERSION}
+KEYWORDS=		net_mgmt
+VARIANTS=		standard
+SDESC[standard]=	Extensible SNMP implementation
+HOMEPAGE=		https://sourceforge.net/projects/net-snmp
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/net-snmp/net-snmp/${PORTVERSION}
+DISTFILE[1]=		net-snmp-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		net-mgmt/net-snmp
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+RC_SUBR=		snmpd:single snmptrapd:single
+SUB_FILES=		pkg-message-single
+
+USES=			cpe libtool perl ssl ncurses
+CPE_PRODUCT=		net-snmp
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-shared
+			--enable-internal-md5
+			--enable-embedded-perl
+			--with-perl-modules
+			--with-dummy-values
+			--without-libwrap
+			--without-kmem-usage
+			--with-openssl="{{OPENSSLBASE}}"
+			--with-default-snmp-version="3"
+			--with-logfile="${NS_LOGFILE}"
+			--with-persistent-directory="${NS_PERSISTENTDIR}"
+			--with-mib-modules="${MODULES}"
+			--with-out-mib-modules="${NOT_MODULES}"
+			--with-sys-contact="${NS_CONTACT}"
+			--with-sys-location="${NS_LOCATION}"
+CONFIGURE_ENV=		PERLPROG="{{PERL}}"
+			SED="{{SED}}"
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
+
+VAR_OPSYS[dragonfly]=	MAKE_ENV=MIB_SYSTEM_LIBS=-lkinfo
+			MAKE_ENV=OPSYS=DragonFly
+# configure has inverted check w/ -D_KERNEL first and -D_KERNEL_STRUCTURES next
+			CONFIGURE_ARGS=ac_cv_IFNET_NEEDS_KERNEL=no
+
+post-extract-linux:
+	for XX in 7 8 9 10 11 12 13 14 15 16 17; do \
+	  ${CP} ${WRKSRC}/include/net-snmp/system/darwin.h \
+	  ${WRKSRC}/include/net-snmp/system/darwin$${XX}.h ;\
+	done
+
+pre-configure-dragonfly:
+	${CP} ${FILESDIR}/cpu_dragonfly.c \
+		${WRKSRC}/agent/mibgroup/hardware/cpu/cpu_nlist.c
+
+pre-configure:
+	# ${REINPLACE_CMD} -e 's/-fstack-protector*//g' ${WRKSRC}/ltmain.sh
+	${REINPLACE_CMD} -E -e 's|return pci_lookup_name|disabled broken|g' \
+		${WRKSRC}/configure
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/sbin/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/[ae]*
+	${STRIP_CMD} ${STAGEDIR}${SITE_ARCH}/auto/SNMP/SNMP.so
+	${STRIP_CMD} ${STAGEDIR}${SITE_ARCH}/auto/NetSNMP/*/*.so
+	${STRIP_CMD} ${STAGEDIR}${SITE_ARCH}/auto/NetSNMP/agent/default_store/default_store.so
+	for last in bulkget bulkwalk delta df get getnext netstat ping ps set status \
+	    table test translate trap usm vacm walk; do \
+		${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/snmp$${last}; \
+	done

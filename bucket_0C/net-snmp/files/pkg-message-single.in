@@ -1,0 +1,10 @@
+This port installs snmpd, header files and libraries but does not
+     start snmpd by default.
+     If you want to auto-start snmpd and snmptrapd:, add the following to
+     /etc/rc.conf:
+
+	snmpd_enable="YES"
+	snmpd_flags="-a"
+	snmpd_conffile="%%PREFIX%%/share/snmp/snmpd.conf /etc/snmpd.conf"
+	snmptrapd_enable="YES"
+	snmptrapd_flags="-a -p /var/run/snmptrapd.pid"
