@@ -1,0 +1,60 @@
+# Manually maintained
+DEF[PORTVERSION]=	%%VERSION%%
+DEF[SKIP_CRATE]=	maturin
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-maturin
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 py311
+SDESC[py310]=		Build and publish python rust packages (3.10)
+SDESC[py311]=		Build and publish python rust packages (3.11)
+HOMEPAGE=		https://github.com/pyo3/maturin
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		PYPI/m/maturin
+%%CR_SITES%%
+
+DISTFILE[1]=		maturin-${PORTVERSION}.tar.gz:main
+%%CR_DISTFILES%%
+%%DF_INDEX%%
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# MIT OR Apache-2.0
+
+GENERATED=		yes
+DISTNAME=		maturin-${PORTVERSION}
+
+# install_requires extracted from setup.py
+# setuptools-rust>=1.4.0
+
+[PY310].USES_ON=			python:py310,sutools
+[PY310].BUILDRUN_DEPENDS_ON=		python-setuptools-rust:single:py310
+					python-tomli:single:py310
+[PY311].USES_ON=			python:py311,sutools
+[PY311].BUILDRUN_DEPENDS_ON=		python-setuptools-rust:single:py311
+
+BUILD_DEPENDS=		rust:single:standard
+
+USES=			cargo
+CARGO_CARGOTOML=	{{WRKSRC}}/Cargo.toml
+CARGO_CARGOLOCK=	{{WRKSRC}}/Cargo.lock
+CARGO_SKIP_CONFIGURE=	yes
+CARGO_SKIP_BUILD=	yes
+CARGO_SKIP_INSTALL=	yes
+
+post-patch:
+	${MKDIR} ${WRKSRC}/.cargo
+	echo "[source.cargo]" >> ${WRKSRC}/.cargo/config.toml
+	echo "directory = '${CARGO_VENDOR_DIR}'" >> ${WRKSRC}/.cargo/config.toml
+	echo "[source.crates-io]" >> ${WRKSRC}/.cargo/config.toml
+	echo "replace-with = 'cargo'" >> ${WRKSRC}/.cargo/config.toml
