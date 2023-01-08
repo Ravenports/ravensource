@@ -34,6 +34,7 @@ set_top_level_ports (TOPLEVEL_PORTS, $SCRIPTDIR);
 $namebase_queue = array();
 $port_data = array();
 $truncated_summaries = array();
+$no_descriptions = array();
 $ravensource_directory = "";
 $VA = 310;	# single point of change when python
 $VB = 311;	# series are changed in ravenports
@@ -270,6 +271,7 @@ function generate_port($namebase) {
         $EXTS,
         $EXTPATS,
         $port_data,
+        $no_descriptions,
         $truncated_summaries,
         $ravensource_directory;
 
@@ -286,12 +288,13 @@ function generate_port($namebase) {
     if (!file_exists($descdir)) {
         mkdir ($descdir, 0755, true);
     }
+    $pretty_desc = produce_long_description ($namebase, $port_data[$namebase]["description"]);
+    if ($pretty_desc == "\n") {
+        array_push($no_descriptions, $namebase);
+    }
     file_put_contents (
         $descfile,
-        produce_long_description (
-            $namebase,
-            $port_data[$namebase]["description"]
-        )
+        $pretty_desc
     );
 
     # specification filename
@@ -469,6 +472,12 @@ foreach (array_keys($port_data) as $namebase) {
 if (count($truncated_summaries)) {
     echo "The following python ports have summaries that are too long:\n";
     foreach ($truncated_summaries as $namebase) {
+        echo "  python-" . $namebase . "\n";
+    }
+}
+if (count($no_descriptions)) {
+    echo "The following python ports do not have descriptions:\n";
+    foreach ($no_descriptions as $namebase) {
         echo "  python-" . $namebase . "\n";
     }
 }

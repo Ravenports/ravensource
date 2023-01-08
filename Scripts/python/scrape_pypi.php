@@ -516,11 +516,10 @@ function set_buildrun (&$portdata, $PVA, $PVB) {
         }
     }
     if ($portdata["wheel_dist"]) {
-       # Damn
+       # Correct any misnamed distfiles
        if (substr($distname, 0, 6) == "eyeD3-") {
           $distname = "eyed3-" . substr($distname, 6);
        }
-       echo(substr($distname, 0, 23) . "\n");
        if (substr($distname, 0, 23) == "sphinxcontrib.applehelp") {
           $distname = str_replace("b.a", "b_a", $distname);
        }
