@@ -197,7 +197,7 @@ do-install:
 		--root ${STAGEDIR} \
 		${DISTDIR}/${DIST_SUBDIR}/${DISTFILE_1:C/:.*//}
 	# compile them separately (avoids embedded stagedir)
-	(cd ${STAGEDIR} && ${PYTHON_CMD} -m compileall -d / .)
+	(cd ${STAGEDIR} && ${PYTHON_CMD} -m compileall -d / . ||:)
 .    endif
 
 .  elif exists(${WRKSRC}/${PYSETUP})
