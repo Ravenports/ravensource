@@ -1,0 +1,48 @@
+DEF[PORTVERSION]=	%%VERSION%%
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-orjson
+VERSION=		${PORTVERSION}
+KEYWORDS=		python rust
+VARIANTS=		py310 py311
+SDESC[py310]=		Fast, correct Python JSON library (3.10)
+SDESC[py311]=		Fast, correct Python JSON library (3.11)
+HOMEPAGE=		https://github.com/ijl/orjson
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		PYPI/o/orjson
+%%CR_SITES%%
+
+DISTFILE[1]=		orjson-${PORTVERSION}.tar.gz:main
+%%CR_DISTFILES%%
+%%DF_INDEX%%
+
+SPKGS[py310]=		single
+SPKGS[py311]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[py311]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# Apache-2.0 OR MIT
+
+GENERATED=		yes
+DISTNAME=		orjson-${PORTVERSION}
+
+USES=			cargo
+CARGO_CARGOTOML=	{{WRKSRC}}/Cargo.toml
+CARGO_CARGOLOCK=	{{WRKSRC}}/Cargo.lock
+
+[PY310].USES_ON=			python:py310
+[PY310].BUILD_DEPENDS_ON=		python-setuptools-rust:single:py311
+[PY311].USES_ON=			python:py311
+
+post-patch:
+	${MKDIR} ${WRKSRC}/.cargo
+	echo "[source.cargo]" >> ${WRKSRC}/.cargo/config.toml
+	echo "directory = '${CARGO_VENDOR_DIR}'" >> ${WRKSRC}/.cargo/config.toml
+	echo "[source.crates-io]" >> ${WRKSRC}/.cargo/config.toml
+	echo "replace-with = 'cargo'" >> ${WRKSRC}/.cargo/config.toml
