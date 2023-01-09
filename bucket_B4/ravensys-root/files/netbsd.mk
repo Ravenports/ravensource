@@ -62,6 +62,7 @@ Usr_Bin_NetBSD= \
 
 Usr_Sbin_NetBSD=\
 	/usr/sbin/pwd_mkdb \
+	/usr/sbin/paxctl \
 	# end
 
 static_lib_NetBSD=\
