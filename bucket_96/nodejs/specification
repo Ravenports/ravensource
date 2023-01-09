@@ -51,9 +51,8 @@ MAKE_ENV=		CC.host={{CC}}
 			LINK.target={{CXX}}
 INSTALL_REQ_TOOLCHAIN=	yes
 
-BROKEN[netbsd]=		Run OOM on mksnapshot step near end
-VAR_OPSYS[netbsd]=	CONFIGURE_ENV=GYP_DEFINES="OS=netbsd"
-			MAKE_ENV=GYP_DEFINES="OS=netbsd"
+VAR_OPSYS[netbsd]=	CONFIGURE_ARGS=--dest-os=netbsd
+			CONFIGURE_ARGS=--experimental-enable-pointer-compression
 
 pre-configure:
 	${GREP} -rl "/usr/local" ${WRKSRC} | \
@@ -85,6 +84,15 @@ pre-configure-netbsd:
 	# hack to avoid undefined reference to 'engine_load_devcrypto_int'
 	${REINPLACE_CMD} -e 's/ifndef OPENSSL_NO_DEVCRYPTOENG/if 0/' \
 		${WRKSRC}/deps/openssl/openssl/crypto/init.c
+	${REINPLACE_CMD} -e 's/=="freebsd"/=="netbsd"/g' \
+		${WRKSRC}/deps/openssl/*.gypi
+
+post-configure-netbsd:
+	# Fixes "Fatal process OOM in Failed to reserve virtual memory for CodeRange" error
+	# in addition to enable-pointer-compression option
+	${REINPLACE_CMD} -E 's|(call do_cmd,link\))|\1\n\t/usr/sbin/paxctl +m $$@|'\
+		${WRKSRC}/out/tools/v8_gypfiles/mksnapshot.target.mk \
+		${WRKSRC}/out/node_mksnapshot.target.mk
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/node

@@ -1,4 +1,4 @@
---- deps/v8/src/base/platform/memory.h.orig	2022-11-29 18:29:51 UTC
+--- deps/v8/src/base/platform/memory.h.orig	2022-12-14 11:28:42 UTC
 +++ deps/v8/src/base/platform/memory.h
 @@ -20,10 +20,12 @@
  #if V8_OS_DARWIN
@@ -10,7 +10,7 @@
  #endif  // !V8_OS_DARWIN
  
 -#if (V8_OS_POSIX && !V8_OS_AIX && !V8_OS_SOLARIS) || V8_OS_WIN
-+#if (V8_OS_POSIX && !V8_OS_AIX && !V8_OS_SOLARIS && !V8_OS_DRAGONFLYBSD && !V8_OS_FREEBSD) || V8_OS_WIN
++#if (V8_OS_POSIX && !V8_OS_AIX && !V8_OS_SOLARIS && !V8_OS_DRAGONFLYBSD && !V8_OS_FREEBSD && !V8_OS_NETBSD) || V8_OS_WIN
  #define V8_HAS_MALLOC_USABLE_SIZE 1
  #endif  // (V8_OS_POSIX && !V8_OS_AIX && !V8_OS_SOLARIS) || V8_OS_WIN
  
