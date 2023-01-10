@@ -1,18 +1,24 @@
---- lib/Lex/InitHeaderSearch.cpp.orig	2022-10-18 06:29:45 UTC
+--- lib/Lex/InitHeaderSearch.cpp.orig	2022-11-29 10:05:58 UTC
 +++ lib/Lex/InitHeaderSearch.cpp
-@@ -234,7 +234,6 @@ void InitHeaderSearch::AddDefaultCInclud
+@@ -234,8 +234,6 @@ void InitHeaderSearch::AddDefaultCInclud
    if (HSOpts.UseStandardSystemIncludes) {
      switch (os) {
      case llvm::Triple::CloudABI:
 -    case llvm::Triple::FreeBSD:
-     case llvm::Triple::NetBSD:
+-    case llvm::Triple::NetBSD:
      case llvm::Triple::OpenBSD:
      case llvm::Triple::NaCl:
-@@ -413,8 +412,15 @@ void InitHeaderSearch::AddDefaultCPlusPl
+     case llvm::Triple::PS4:
+@@ -413,8 +411,20 @@ void InitHeaderSearch::AddDefaultCPlusPl
        break;
      }
      break;
 +  case llvm::Triple::FreeBSD:
++    AddPath("@RAVEN_GXX_HEADERS_DIR@", CXXSystem, false);
++    AddPath("@RAVEN_GXX_HEADERS_DIR@/backward", CXXSystem, false);
++    AddPath("@RAVEN_GXX_HEADERS_DIR@/" + triple.getTriple(), CXXSystem, false);
++    break;
++  case llvm::Triple::NetBSD:
 +    AddPath("@RAVEN_GXX_HEADERS_DIR@", CXXSystem, false);
 +    AddPath("@RAVEN_GXX_HEADERS_DIR@/backward", CXXSystem, false);
 +    AddPath("@RAVEN_GXX_HEADERS_DIR@/" + triple.getTriple(), CXXSystem, false);

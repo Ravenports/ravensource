@@ -81,6 +81,8 @@ VAR_OPSYS[dragonfly]=	CMAKE_ARGS=-DLLVM_USE_LINKER=gold
 			CMAKE_ARGS=-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
 VAR_OPSYS[freebsd]=	CMAKE_ARGS=-DLLVM_USE_LINKER=gold
 			CMAKE_ARGS=-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
+VAR_OPSYS[netbsd]=	CMAKE_ARGS=-DLLVM_USE_LINKER=gold
+			CMAKE_ARGS=-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
 VAR_OPSYS[linux]=	CMAKE_ARGS=-DLLVM_USE_LINKER=gold
 			CMAKE_ARGS=-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
 VAR_OPSYS[sunos]=	CMAKE_ARGS=-DCMAKE_SKIP_RPATH:BOOL=TRUE
@@ -102,6 +104,7 @@ post-patch:
 		-e 's|@RAVEN_GXX_HEADERS_DIR@|${LOCALBASE}/${GXX_INCLUDE}|' \
 		${WRKSRC}/lib/Driver/ToolChains/DragonFly.cpp \
 		${WRKSRC}/lib/Driver/ToolChains/FreeBSD.cpp \
+		${WRKSRC}/lib/Driver/ToolChains/NetBSD.cpp \
 		${WRKSRC}/lib/Driver/ToolChains/Gnu.cpp \
 		${WRKSRC}/lib/Lex/InitHeaderSearch.cpp
 
@@ -120,6 +123,18 @@ post-patch-freebsd:
 		${WRKSRC}/lib/Headers/CMakeLists.txt
 
 post-patch-dragonfly:
+	# Remove headers that conflict with /usr/include
+	${REINPLACE_CMD} \
+		-e '/ limits.h/d' \
+		-e '/ stdalign.h/d' \
+		-e '/ stdarg.h/d' \
+		-e '/ stdbool.h/d' \
+		-e '/ stddef.h/d' \
+		-e '/ stdint.h/d' \
+		-e '/ stdnoreturn.h/d' \
+		${WRKSRC}/lib/Headers/CMakeLists.txt
+
+post-patch-netbsd:
 	# Remove headers that conflict with /usr/include
 	${REINPLACE_CMD} \
 		-e '/ limits.h/d' \
