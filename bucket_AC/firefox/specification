@@ -48,6 +48,7 @@ BUILDRUN_DEPENDS=	dbus-glib:primary:standard
 RUN_DEPENDS=		pciutils:library:standard
 
 BR_DEPS[linux]=		sndio:single:standard
+BR_DEPS[netbsd]=	sndio:single:standard
 
 USES=			cpe desktop-utils:single gmake jpeg perl:build
 			pkgconfig png python:build zlib clang:keepcc
@@ -101,6 +102,7 @@ MAKE_ENV=		PYTHON3={{PYTHON_CMD}}
 
 VAR_OPSYS[linux]=	QMAKE_ARGS=--disable-elf-hack
 			QMAKE_ARGS=--enable-audio-backends=sndio
+VAR_OPSYS[netbsd]=	QMAKE_ARGS=--enable-audio-backends=sndio
 
 post-patch:
 	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
@@ -133,3 +135,6 @@ post-install:
 		${STAGEDIR}${PREFIX}/share/applications/
 	${LN} -sf ${PREFIX}/lib/firefox/browser/chrome/icons/default/default48.png \
 		${STAGEDIR}${PREFIX}/share/pixmaps/firefox.png
+
+post-install-netbsd:
+	${PAXCTL} +m ${STAGEDIR}${PREFIX}/lib/firefox/plugin-container
