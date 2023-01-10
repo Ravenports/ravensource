@@ -2,7 +2,7 @@ DEF[PORTVERSION]=	5.9.3
 DEF[SOVERSION]=		40.2.0
 DEF[NS_LOGFILE]=	/var/log/snmpd.log
 DEF[NS_PERSISTENTDIR]=	/var/net-snmp
-DEF[MODULES]=		smux disman/event-mib mibII/mta_sendmail mibII/tcpTable ucd-snmp/diskio mibII/ipv6
+DEF[MODULES]=		smux disman/event-mib mibII/mta_sendmail ucd-snmp/diskio
 DEF[NOT_MODULES]=	ucd_snmp host ucd-snmp/memory sctp-mib
 # Do we need a user-definably EXTRACT_INFO function?
 DEF[NS_CONTACT]=	default_user@contact.domain
@@ -49,8 +49,8 @@ CONFIGURE_ARGS=		--enable-shared
 			--with-default-snmp-version="3"
 			--with-logfile="${NS_LOGFILE}"
 			--with-persistent-directory="${NS_PERSISTENTDIR}"
-			--with-mib-modules="${MODULES}"
-			--with-out-mib-modules="${NOT_MODULES}"
+			--with-mib-modules="${MODULES}{{OPSYS_MODS:S/,/ /}}"
+			--with-out-mib-modules="${NOT_MODULES}{{OPSYS_NOMODS:S/,/ /}}"
 			--with-sys-contact="${NS_CONTACT}"
 			--with-sys-location="${NS_LOCATION}"
 CONFIGURE_ENV=		PERLPROG="{{PERL}}"
@@ -62,6 +62,10 @@ VAR_OPSYS[dragonfly]=	MAKE_ENV=MIB_SYSTEM_LIBS=-lkinfo
 			MAKE_ENV=OPSYS=DragonFly
 # configure has inverted check w/ -D_KERNEL first and -D_KERNEL_STRUCTURES next
 			CONFIGURE_ARGS=ac_cv_IFNET_NEEDS_KERNEL=no
+			MAKEFILE_LINE=OPSYS_MODS=,mibII/tcpTable,mibII/ipv6
+VAR_OPSYS[freebsd]=	MAKEFILE_LINE=OPSYS_MODS=,mibII/tcpTable,mibII/ipv6
+VAR_OPSYS[netbsd]=	MAKEFILE_LINE=OPSYS_MODS=,mibII/kernel_netbsd
+			MAKEFILE_LINE=OPSYS_NOMODS=,mibII/ipv6,mibII/tcpTable,mibII/udpTable
 
 post-extract-linux:
 	for XX in 7 8 9 10 11 12 13 14 15 16 17; do \
