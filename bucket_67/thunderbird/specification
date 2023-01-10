@@ -52,6 +52,7 @@ BUILDRUN_DEPENDS=	nss:primary:standard
 			botan:primary:standard
 
 BR_DEPS[linux]=		sndio:single:standard
+BR_DEPS[netbsd]=	sndio:single:standard
 
 USES=			cpe desktop-utils:single gmake jpeg png zlib
 			perl:build pkgconfig iconv bz2 python:build
@@ -107,6 +108,7 @@ MAKE_ENV=		PYTHON3={{PYTHON_CMD}}
 
 VAR_OPSYS[linux]=	QMAKE_ARGS=--disable-elf-hack
 			QMAKE_ARGS=--enable-audio-backends=sndio
+VAR_OPSYS[netbsd]=	QMAKE_ARGS=--enable-audio-backends=sndio
 
 post-patch:
 	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
@@ -143,6 +145,11 @@ post-patch:
 pre-configure:
 	(cd ${WRKSRC} && ${LOCALBASE}/bin/autoconf-2.13)
 	(cd ${WRKSRC}/js/src/ && ${LOCALBASE}/bin/autoconf-2.13)
+
+pre-configure-netbsd:
+	# Fix error: expected constructor __RCSID("$NetBSD: keyring.c,v 1.50 2011/06/25 00:37:44 agc Exp $");
+	${REINPLACE_CMD} -e 's/__NetBSD__/__NEVER__/' \
+		${WRKSRC}/comm/third_party/rnp/src/librekey/key_store_pgp.cpp
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/applications
