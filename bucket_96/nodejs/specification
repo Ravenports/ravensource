@@ -90,10 +90,13 @@ pre-configure-netbsd:
 post-configure-netbsd:
 	# Fixes "Fatal process OOM in Failed to reserve virtual memory for CodeRange" error
 	# in addition to enable-pointer-compression option
-	${REINPLACE_CMD} -E 's|(call do_cmd,link\))|\1\n\t/usr/sbin/paxctl +m $$@|'\
+	${REINPLACE_CMD} -E 's|(call do_cmd,link\))|\1\n\t${PAXCTL} +m $$@|'\
 		${WRKSRC}/out/tools/v8_gypfiles/mksnapshot.target.mk \
 		${WRKSRC}/out/node_mksnapshot.target.mk
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/node
 	${CHOWN} ${MANMODE} ${STAGEDIR}${PREFIX}/share/man/man1/node.1
+
+post-install-netbsd:
+	${PAXCTL} +m ${STAGEDIR}${PREFIX}/bin/node
