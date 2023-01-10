@@ -163,3 +163,7 @@ post-install:
 	${RM} ${STAGEDIR}${PREFIX}/bin/thunderbird
 	(cd ${STAGEDIR}${PREFIX}/bin && \
 		${LN} -sf ../lib/thunderbird/thunderbird thunderbird)
+
+post-install-netbsd:
+	${PAXCTL} +m ${STAGEDIR}${PREFIX}/lib/thunderbird/thunderbird
+	${PAXCTL} +m ${STAGEDIR}${PREFIX}/lib/thunderbird/thunderbird-bin
