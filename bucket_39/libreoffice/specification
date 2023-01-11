@@ -197,6 +197,9 @@ pre-configure:
 		-e 's|{CCACHE/\*sccache\*/}|{CCACHE}|g' \
 		${WRKSRC}/configure
 
+pre-configure-netbsd:
+	${REINPLACE_CMD} -e 's|#! /bin/sh|#!${LOCALBASE}/bin/bash|' ${WRKSRC}/configure
+
 post-configure:
 	${TOUCH} ${WRKSRC}/src.downloaded
 
@@ -236,3 +239,11 @@ post-install:
 .for B in ${PROGRAM_BINARIES}
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libreoffice/program/${B}
 .endfor
+
+post-install-netbsd:
+	${PAXCTL} +m ${STAGEDIR}${PREFIX}/lib/libreoffice/program/soffice.bin
+
+pre-build-netbsd:
+	cd ${BUILD_WRKSRC} &&\
+	${DO_MAKE_BUILD} Executable_gengal &&\
+	${PAXCTL} +m instdir/program/gengal.bin
