@@ -43,3 +43,7 @@ post-patch:
 		${WRKSRC}/examples/demo_copy.cpp \
 		${WRKSRC}/examples/demo_info.cpp \
 		${WRKSRC}/examples/demo_tag.cpp
+
+post-install-netbsd:
+	# remove extra symlink to match manifest
+	${RM} ${STAGEDIR}${PREFIX}/lib/libid3-${PORTVERSION:R}.so
