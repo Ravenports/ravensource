@@ -6,10 +6,12 @@ DEF[BASEVER]=		4.13
 # DEF[DISTVERSION]=	${BASEVER}b
 DEF[PORTVERSION]=	${BASEVER}
 DEF[DISTVERSION]=	${BASEVER}
+DEF[GUILE_SITE]=	3.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnucash
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		finance
 VARIANTS=		standard
 SDESC[standard]=	Financial accounting software
@@ -50,7 +52,7 @@ BUILDRUN_DEPENDS=	gnome-keyring:primary:standard
 			aqbanking:primary:standard
 			libdbi-drivers:primary:sqlite
 			libofx:primary:standard
-			guile22:single:standard
+			guile:single:standard
 			webkit2:primary:api41
 			gwenhywfar:gtk3:standard
 RUN_DEPENDS=		hicolor-icon-theme:single:standard
@@ -94,6 +96,7 @@ GLIB_SCHEMAS=		org.gnucash.GnuCash.dialogs.business.gschema.xml
 			org.gnucash.GnuCash.window.pages.gschema.xml
 			org.gnucash.GnuCash.deprecated.gschema.xml
 MAKE_ENV=		XDG_CACHE_HOME={{WRKDIR}}/.cache
+PLIST_SUB=		GVER=${GUILE_SITE}
 
 post-patch:
 	# disable testing and fix XDG_DATA_DIRS
