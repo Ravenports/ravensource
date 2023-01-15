@@ -1,10 +1,12 @@
 DEF[PORTVERSION]=	2.7.1
 DEF[RELEASE]=		v${PORTVERSION}
 DEF[SOVERSION]=		0.11.1
+DEF[GUILE_SITE]=	3.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		nlopt
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		math
 VARIANTS=		standard
 SDESC[standard]=	Nonlinear optimization library
@@ -31,15 +33,12 @@ LICENSE_SCHEME=		multi
 BUILD_DEPENDS=		swig:primary:standard
 			gmp:static:standard
 BUILDRUN_DEPENDS=	gmp:shared:standard
-			guile22:single:standard
+			guile:single:standard
 			python-numpy:single:python_used
 
 USES=			cmake pkgconfig python
 SOVERSION=		${SOVERSION}
-
-# guile on netbsd segfaults if locale isn't set
-VAR_OPSYS[netbsd]=	CONFIGURE_ENV=LC_ALL=en_US.UTF-8
-			MAKE_ENV=LC_ALL=en_US.UTF-8
+PLIST_SUB=		GVER=${GUILE_SITE}
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libnlopt.so
