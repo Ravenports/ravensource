@@ -78,6 +78,9 @@ SUB_LIST=		CC={{CC:Q}}
 			PLATFORM={{VAR1}}
 PLIST_SUB=		QTVER=${PORTVERSION}
 			SOMAJORMIN=${PORTVERSION:R}
+			INPSUPPORT={{FEAT_INPSUPPORT}}
+			XCB={{FEAT_XCB}}
+			EVDEV={{FEAT_EVDEV}}
 SOVERSION=		${PORTVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
 SHEBANG_FILES=		mkspecs/features/uikit/devices.py
@@ -86,17 +89,20 @@ SHEBANG_FILES=		mkspecs/features/uikit/devices.py
 			util/android/android_emulator_launcher.sh
 
 VAR_OPSYS[dragonfly]=	VAR1=dragonfly
+			MAKEFILE_LINE=FEAT_INPSUPPORT="@comment "
+			MAKEFILE_LINE=FEAT_XCB="@comment "
+			MAKEFILE_LINE=FEAT_EVDEV="@comment "
 VAR_OPSYS[freebsd]=	VAR1=freebsd
 VAR_OPSYS[netbsd]=	VAR1=netbsd
+			MAKEFILE_LINE=FEAT_EVDEV="@comment "
 VAR_OPSYS[sunos]=	VAR1=solaris
 			VAR2=" /lib/64"
 VAR_OPSYS[linux]=	VAR1=linux
 			VAR2=" /usr/lib/x86_64-linux-gnu"
-BROKEN[netbsd]=		detects 'unsupported-OS' instead of netbsd-g++
 
 post-patch:
 	${MKDIR} ${WRKSRC}/mkspecs/dragonfly-g++
-.for platform in dragonfly-g++ netbsd-g++ #unsupported-OS
+.for platform in dragonfly-g++ netbsd-g++
 	${INSTALL_DATA} ${WRKSRC}/mkspecs/freebsd-g++/qplatformdefs.h \
 		${WRKSRC}/mkspecs/${platform}/
 .endfor
