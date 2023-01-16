@@ -3,11 +3,11 @@ DEF[PORTVERSION]=	1.6.2
 
 NAMEBASE=		ossp-uuid
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		misc devel
 VARIANTS=		standard
 SDESC[standard]=	Tool/Lib for generating Universally Unique IDs
-# ossp.org disappeared in mid-2018
-HOMEPAGE=		none
+HOMEPAGE=		http://www.ossp.org/pkg/lib/uuid/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
@@ -28,20 +28,22 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		misc/ossp-uuid
 
-USES=			libtool fbsd10fix c++:single
+USES=			cmake c++:single
 DISTNAME=		uuid-${PORTVERSION}
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-cxx
-			--includedir={{PREFIX}}/include/ossp
 
-post-patch:
-	### Fixes lib conflicts with misc/e2fsprogs-libuuid ###
-	${REINPLACE_CMD} -e 's/libuuid.la/libossp-uuid.la/' \
-		-e 's/libuuid++.la/libossp-uuid++.la/' ${WRKSRC}/Makefile.in
+post-extract:
+	${CP} ${FILESDIR}/CMakeLists.txt ${WRKSRC}/
+
+pre-configure:
+	# Run gnu configure script to generate config.h
+	(cd ${WRKSRC} && ${SETENV} ${SCRIPTS_ENV} ${SH} configure\
+		--prefix=${PREFIX} \
+		--with-cxx \
+		--includedir=${PREFIX}/include/ossp \
+		--libdir=${PREFIX}/lib/ossp \
+	)
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libossp-*.${LIBEXT}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/ossp/lib*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/uuid
 
-do-test:
-	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_FLAGS} \
-		${MAKEFILE} ${MAKE_ARGS} check)
