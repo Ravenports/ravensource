@@ -80,6 +80,8 @@ post-patch:
 	${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|g' \
 		${WRKSRC}/cpan/CPAN/scripts/cpan \
 		${WRKSRC}/cpan/Encode/bin/enc2xs
+	# remove bad netbsd hint
+	${RM} ${WRKSRC}/cpan/DB_File/hints/netbsd.pl
 
 post-patch-sunos:
 	${REINPLACE_CMD} -e '/^libs = / s/= /= -lm /' \
