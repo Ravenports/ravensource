@@ -1,6 +1,6 @@
---- src/absl/base/internal/sysinfo.cc.orig	2021-09-21 13:18:13 UTC
+--- src/absl/base/internal/sysinfo.cc.orig	2023-01-11 14:22:54 UTC
 +++ src/absl/base/internal/sysinfo.cc
-@@ -31,7 +31,7 @@
+@@ -30,7 +30,7 @@
  #include <sys/syscall.h>
  #endif
  
