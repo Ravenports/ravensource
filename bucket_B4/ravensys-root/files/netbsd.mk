@@ -143,6 +143,7 @@ headers_NetBSD_dirs=\
 	netinet \
 	netinet6 \
 	netipsec \
+	netsmb \
 	nfs \
 	ntfs \
 	prop \
