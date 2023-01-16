@@ -73,6 +73,7 @@ static_lib_NetBSD=\
 	/usr/lib/libcrypt.a \
 	/usr/lib/libcompat.a \
 	/usr/lib/libdevmapper.a \
+	/usr/lib/libresolv.a \
 	/usr/lib/librpcsvc.a \
 	/usr/lib/libpthread.a \
 	/usr/lib/libkvm.a \
@@ -109,6 +110,7 @@ dynamic_lib_NetBSD=\
 	/usr/lib/libutil.so.7 \
 	/usr/lib/libcrypt.so.1 \
 	/usr/lib/libkvm.so.6 \
+	/usr/lib/libresolv.so.3 \
 	/usr/lib/librpcsvc.so.1 \
 	/usr/lib/librt.so.1 \
 	/usr/lib/libdevmapper.so.1 \
@@ -311,6 +313,7 @@ install-platform: install-common
 		ln -s libutil.so.7 libutil.so && \
 		ln -s libcrypt.so.1 libcrypt.so && \
 		ln -s libkvm.so.6 libkvm.so && \
+		ln -s libresolv.so.3 libresolv.so && \
 		ln -s librpcsvc.so.1 librpcsvc.so && \
 		ln -s librt.so.1 librt.so && \
 		ln -s libdevmapper.so.1 libdevmapper.so && \
