@@ -318,7 +318,6 @@ install-platform: install-common
 		> ${DESTDIR}${BASE}/usr/lib/libc.so
 	${BSD_INSTALL_SCRIPT} ../${OPSYS:tl}/usr/bin/lorder ${DESTDIR}${BASE}/usr/bin/
 
-	cp ${LOCALBASE}/lib/libdl.a ${DESTDIR}${BASE}/usr/lib/
 	rmdir ${DESTDIR}${BASE}/usr/include/dev/nand
 	rmdir ${DESTDIR}${BASE}/usr/include/dev/powermac_nvram
 	

@@ -319,7 +319,6 @@ install-platform: install-common
 	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/lib/${item} ${DESTDIR}${BASE}/usr/lib/${item}
 .  endfor
 
-	cp ${LOCALBASE}/lib/libdl.a ${DESTDIR}${BASE}/usr/lib/
 	rm ${DESTDIR}${BASE}/usr/include/net/zlib.h
 	rm -rf ${DESTDIR}${BASE}/usr/include/net/ipfw*
 	rm -rf ${DESTDIR}${BASE}/usr/include/net/pf
