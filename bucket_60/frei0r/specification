@@ -1,9 +1,10 @@
-DEF[PORTVERSION]=	EXTRACT_INFO(FREI0R_VERSION)
+# DEF[PORTVERSION]=	EXTRACT_INFO(FREI0R_VERSION)
+DEF[PORTVERSION]=	2.2.0
+DEF[TAG]=		v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		frei0r
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Minimalistic plugin API for video effects
@@ -11,8 +12,8 @@ HOMEPAGE=		https://frei0r.dyne.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://files.dyne.org/frei0r/releases/
-DISTFILE[1]=		frei0r-plugins-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/dyne:frei0r:${TAG}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
@@ -21,6 +22,9 @@ OPTIONS_STANDARD=	none
 
 LICENSE=		GPLv2:single
 LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"frei0r\.hpp"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/generator/nois0r/nois0r.cpp
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/frei0r
@@ -28,7 +32,6 @@ FPC_EQUIVALENT=		graphics/frei0r
 USES=			cmake pkgconfig c++:single
 GNOME_COMPONENTS=	cairo
 SINGLE_JOB=		yes
-DISTNAME=		frei0r-plugins-${PORTVERSION}
 CMAKE_ARGS=		-DWITHOUT_OPENCV:BOOL=ON
 			-DWITHOUT_GAVL:BOOL=ON
 
