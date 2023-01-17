@@ -1,7 +1,8 @@
-DEF[PORTVERSION]=	2.3.6.1
+DEF[FILEVERSION]=	2.3.7-1
+DEF[PORTVERSION]=	2.3.7.1
 DEF[MAJORVER]=		${PORTVERSION:R:R}
 # configure.ac date
-DEF[LYX_DATE]=		2020-06-02
+DEF[LYX_DATE]=		2023-01-03
 DEF[XY]=		${MAJORVER:S/.//}
 DEF[DISTVER]=		${PORTVERSION:R}-${PORTVERSION:S|.|/|g:T}
 # ----------------------------------------------------------------------------
@@ -18,7 +19,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://www-ftp.lip6.fr/ftp/pub/lyx/stable/${MAJORVER}.x/
 			http://sunsite.icm.edu.pl/pub/unix/editors/lyx/stable/${MAJORVER}.x/
 			ftp://ftp.lyx.org/pub/lyx/stable/${MAJORVER}.x/
-DISTFILE[1]=		lyx-${PORTVERSION}.tar.xz:main
+DISTFILE[1]=		lyx-${FILEVERSION}.tar.xz:main
 
 SPKGS[standard]=	complete primary docs examples
 
@@ -79,6 +80,7 @@ SHEBANG_FILES=		lib/configure.py
 			lib/scripts/svg2pstex.py
 LDFLAGS=		{{ICONV_LIB}}
 PLIST_SUB=		MV=${MAJORVER}
+DISTNAME=		lyx-${PORTVERSION:R}
 
 post-patch:
 	${GREP} -rl "python -tt" ${WRKSRC} | ${XARGS} \
