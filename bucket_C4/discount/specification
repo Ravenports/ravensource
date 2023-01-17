@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	2.2.7b
+DEF[SOVERSION]=		2.2.7
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		discount
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	C implementation of the Markdown specification
+HOMEPAGE=		https://www.pell.portland.or.us/~orc/Code/discount/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.pell.portland.or.us/~orc/Code/discount/
+DISTFILE[1]=		discount-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary samples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYRIGHT
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		textproc/discount
+
+USES=			pkgconfig
+
+MUST_CONFIGURE=		yes
+CONFIGURE_SCRIPT=	configure.sh
+CONFIGURE_ARGS=		--prefix={{PREFIX}}
+			--mandir={{PREFIX}}/share/man
+			--shared
+			--with-dl=both
+			--with-fenced-code
+			--with-github-tags
+			--with-id-anchor
+INSTALL_TARGET=		install.everything
+SOVERSION=		${SOVERSION}
+
+EXRUN[samples]=		discount:primary:standard
+
+post-stage:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmarkdown.so
