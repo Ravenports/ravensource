@@ -2,7 +2,7 @@ $NetBSD: patch-rapid_plugin_group__replication_libmysqlgcs_src_bindings_xcom_xco
 
 Workaround netbsd prototype of xdrproc_t being 2 arguments.
 
---- rapid/plugin/group_replication/libmysqlgcs/src/bindings/xcom/xcom/xcom_memory.c.orig	2022-08-30 03:50:14 UTC
+--- rapid/plugin/group_replication/libmysqlgcs/src/bindings/xcom/xcom/xcom_memory.c.orig	2022-12-07 18:10:52 UTC
 +++ rapid/plugin/group_replication/libmysqlgcs/src/bindings/xcom/xcom/xcom_memory.c
 @@ -50,7 +50,14 @@ my_xdr_free (xdrproc_t proc, char *objp)
      is the case). This will keep this code cross-platform

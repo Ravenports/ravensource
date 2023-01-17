@@ -1,4 +1,4 @@
---- sql/sys_vars.cc.orig	2022-08-30 03:50:14 UTC
+--- sql/sys_vars.cc.orig	2022-12-07 18:10:52 UTC
 +++ sql/sys_vars.cc
 @@ -1759,7 +1759,7 @@ static Sys_var_ulong Sys_interactive_tim
         "connection before closing it",

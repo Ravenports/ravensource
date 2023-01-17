@@ -1,4 +1,4 @@
---- cmake/ssl.cmake.orig	2022-08-30 03:50:14 UTC
+--- cmake/ssl.cmake.orig	2022-12-07 18:10:52 UTC
 +++ cmake/ssl.cmake
 @@ -219,17 +219,10 @@ MACRO (MYSQL_CHECK_SSL)
        )
