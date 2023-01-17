@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	6.4
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		dwm
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_wm
+VARIANTS=		standard
+SDESC[standard]=	Dynamic suckless window manager for X
+HOMEPAGE=		https://dwm.suckless.org
+CONTACT=		Todd_Martin[warfox@sdf.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://dl.suckless.org/dwm/
+DISTFILE[1]=		dwm-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11-wm/dwm
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+USES=			gmake pkgconfig
+XORG_COMPONENTS=	x11 xft xinerama
+
+post-patch:
+	${REINPLACE_CMD} 's!__PREFIX__!${PREFIX}!g' \
+			${WRKSRC}/config.mk
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/dwm
