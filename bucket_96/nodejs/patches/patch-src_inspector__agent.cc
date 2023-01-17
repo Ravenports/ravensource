@@ -1,4 +1,4 @@
---- src/inspector_agent.cc.orig	2022-12-14 11:28:44 UTC
+--- src/inspector_agent.cc.orig	2023-01-05 21:23:28 UTC
 +++ src/inspector_agent.cc
 @@ -98,7 +98,7 @@ static int StartDebugSignalHandler() {
    CHECK_EQ(0, uv_sem_init(&start_io_thread_semaphore, 0));

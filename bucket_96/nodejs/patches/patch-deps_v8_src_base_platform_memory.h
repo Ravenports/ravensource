@@ -1,4 +1,4 @@
---- deps/v8/src/base/platform/memory.h.orig	2022-12-14 11:28:42 UTC
+--- deps/v8/src/base/platform/memory.h.orig	2023-01-05 21:23:27 UTC
 +++ deps/v8/src/base/platform/memory.h
 @@ -20,10 +20,12 @@
  #if V8_OS_DARWIN
