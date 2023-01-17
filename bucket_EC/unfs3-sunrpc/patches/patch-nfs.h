@@ -4,7 +4,7 @@
  #ifdef __APPLE__
  typedef off_t off64_t;
  #endif
-+#ifdef __NetBSD__
++#if defined __NetBSD__ || defined __DragonFly__
 +typedef off_t off64_t;
 +#endif
  #endif
