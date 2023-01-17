@@ -34,3 +34,7 @@ USES=			cmake pkgconfig
 
 DISTNAME=		extra-cmake-modules-${PORTVERSION}
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH={{PREFIX}}/lib/qt5/cmake
+
+pre-configure:
+	# remove patch backups before they get installed
+	${FIND} ${WRKSRC} -name "*.orig" -delete
