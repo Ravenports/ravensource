@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	5.102.0
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kf5-karchive
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers
+VARIANTS=		standard
+SDESC[standard]=	KF5 library for handling archive formats
+HOMEPAGE=		https://api.kde,org/frameworks/karchive/html/index.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
+DISTFILE[1]=		karchive-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL20+:primary
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/LICENSES/LGPL-2.0-or-later.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/karchive.h
+LICENSE_AWK=		TERMS:"ifndef KARCHIVE_H"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		archivers/kf5-archive
+
+BUILD_DEPENDS=		kf5-extra-cmake-modules:primary:standard
+			Zstandard:static:standard
+BUILDRUN_DEPENDS=	bzip2:shared:standard
+			qt5-qtbase:primary:standard
+			xz:single:standard
+			Zstandard:shared:standard
+
+USES=			cmake pkgconfig zlib
+
+DISTNAME=		karchive-${PORTVERSION}
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt5/cmake
+SOVERSION=		${SOVERSION}
+
+post-stage:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libKF5Archive.so
