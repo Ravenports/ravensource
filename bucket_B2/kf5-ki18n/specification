@@ -2,17 +2,17 @@ DEF[PORTVERSION]=	5.102.0
 DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		kf5-karchive
+NAMEBASE=		kf5-ki18n
 VERSION=		${PORTVERSION}
-KEYWORDS=		archivers
+KEYWORDS=		devel
 VARIANTS=		standard
-SDESC[standard]=	KF5 library for handling archive formats
-HOMEPAGE=		https://api.kde.org/frameworks/karchive/html/index.html
+SDESC[standard]=	KF5 advanced internationalization framework
+HOMEPAGE=		https://api.kde.org/frameworks/ki18n/html/index.html
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
-DISTFILE[1]=		karchive-${PORTVERSION}.tar.xz:main
+DISTFILE[1]=		ki18n-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	complete primary nls
 
@@ -22,24 +22,25 @@ OPTIONS_STANDARD=	none
 LICENSE=		LGPL20+:primary
 LICENSE_FILE=		LGPL20+:{{WRKSRC}}/LICENSES/LGPL-2.0-or-later.txt
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
-LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/karchive.h
-LICENSE_AWK=		TERMS:"ifndef KARCHIVE_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/i18n/main.cpp
+LICENSE_AWK=		TERMS:"ki18n_logging.h"
 LICENSE_SCHEME=		solo
 
-FPC_EQUIVALENT=		archivers/kf5-archive
+FPC_EQUIVALENT=		devel/k5f-ki18n
 
 BUILD_DEPENDS=		kf5-extra-cmake-modules:primary:standard
-			Zstandard:static:standard
-BUILDRUN_DEPENDS=	bzip2:shared:standard
+BUILDRUN_DEPENDS=	iso-codes:primary:standard
 			qt5-qtbase:primary:standard
-			xz:single:standard
-			Zstandard:shared:standard
+			qt5-qtdeclarative:single:standard
 
-USES=			cmake pkgconfig zlib
+USES=			cmake gettext-runtime gettext-tools python:build
 
-DISTNAME=		karchive-${PORTVERSION}
+DISTNAME=		ki18n-${PORTVERSION}
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt5/cmake
 SOVERSION=		${SOVERSION}
 
 post-stage:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libKF5Archive.so
+	(cd ${STAGEDIR}${PREFIX} && ${STRIP_CMD} lib/libKF5I18n.so \
+		lib/libKF5I18nLocaleData.so \
+		lib/qt5/plugins/kf5/ktranscript.so \
+		lib/qt5/qml/org/kde/i18n/localeData/libki18nlocaledataqmlplugin.so)
