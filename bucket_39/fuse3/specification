@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.12.0
+DEF[PORTVERSION]=	3.13.0
 DEF[HASH]=		fuse-${PORTVERSION}
 DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
@@ -38,10 +38,9 @@ CPE_VENDOR=		fuse_project
 CPE_PRODUCT=		fuse
 SOVERSION=		${SOVERSION}
 MESON_ARGS=		-Dtests=false
+			-Dexamples=false
 
-post-patch:
-	# temporary, remove when 3.4.0 released
-	${REINPLACE_CMD} -e 's|3.4.0|${PORTVERSION}|' ${WRKSRC}/meson.build
+VAR_OPSYS[netbsd]=	CFLAGS=-D__off64_t=off_t
 
 post-install-linux:
 	${RM} -r ${STAGEDIR}/dev
