@@ -1,4 +1,4 @@
---- cmake/plugin.cmake.orig	2022-09-13 16:15:16 UTC
+--- cmake/plugin.cmake.orig	2022-12-16 15:34:44 UTC
 +++ cmake/plugin.cmake
 @@ -247,15 +247,6 @@ MACRO(MYSQL_ADD_PLUGIN plugin_arg)
  
