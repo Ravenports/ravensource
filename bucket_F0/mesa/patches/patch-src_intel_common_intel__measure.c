@@ -1,8 +1,8 @@
---- src/intel/common/intel_measure.c.orig	2022-12-10 00:00:21 UTC
+--- src/intel/common/intel_measure.c.orig	2023-01-11 17:46:41 UTC
 +++ src/intel/common/intel_measure.c
-@@ -42,6 +42,46 @@
- #include "util/macros.h"
+@@ -41,6 +41,46 @@
  #include "util/u_debug.h"
+ #include "util/macros.h"
  
 +#ifdef __sun
 +static int

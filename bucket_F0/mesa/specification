@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	22.2.5
+DEF[PORTVERSION]=	22.3.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mesa
@@ -125,7 +125,6 @@ VAR_OPSYS[sunos]=	CPPFLAGS=-D__EXTENSIONS__=1
 [WAYLAND].DESCRIPTION=			Build Vulkan drivers for Wayland platform
 
 [LLVMPIPE].USES_ON=			clang:keepcc
-[LLVMPIPE].XORG_COMPONENTS_ON=		xvmc
 [LLVMPIPE].BUILD_DEPENDS_ON=		libclc:single:standard
 					opencl-headers:single:standard
 [LLVMPIPE].BUILDRUN_DEPENDS_ON=		llvm:single:standard
@@ -135,7 +134,6 @@ VAR_OPSYS[sunos]=	CPPFLAGS=-D__EXTENSIONS__=1
 					GALLIUM_LLVM_DRIVERS+=RADEONSI
 					GALLIUM_DRIVERS+={{GALLIUM_LLVM_DRIVERS}}
 					MESON_ARGS+=-Dllvm=true
-					MESON_ARGS+=-Dgallium-xvmc=enabled
 					MESON_ARGS+=-Dgallium-va=enabled
 					MESON_ARGS+=-Dgallium-opencl=icd
 [LLVMPIPE].MAKEFILE_OFF=		MESON_ARGS+=-Dgallium-opencl=disabled
