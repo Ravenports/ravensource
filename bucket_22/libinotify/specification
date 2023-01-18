@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	20211018
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libinotify
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Kqueue-based inotify shim for *BSD
+HOMEPAGE=		https://github.com/libinotify-kqueue/libinotify-kqueue
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/libinotify-kqueue:libinotify-kqueue:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/libinotify
+
+USES=			autoreconf libtool
+
+DISTNAME=		libinotify-kqueue-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-skip-subfiles=fusefs,smbfs
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
