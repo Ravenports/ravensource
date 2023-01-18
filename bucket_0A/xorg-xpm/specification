@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.5.14
+DEF[PORTVERSION]=	3.5.15
 DEF[XNAME]=		xpm
 DEF[ALTNAME]=		libXpm
 # ----------------------------------------------------------------------------
@@ -30,6 +30,8 @@ XORG_COMPONENTS=	x11 xext xt
 DISTNAME=		${ALTNAME}-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 CONFIGURE_ENV=		ac_cv_search_gettext=no
+CONFIGURE_ARGS=		--disable-stat-zfile
+			--disable-open-zfile
 INSTALL_TARGET=		install-strip
 FPC_EQUIVALENT=		x11/${ALTNAME}
 CPE_VENDOR=		libxpm_project
