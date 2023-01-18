@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.0.6
+DEF[PORTVERSION]=	5.0.7
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-configobj
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/DiffSK/configobj
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/c/configobj
-DISTFILE[1]=		configobj-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/90/11/28e9678700acd4a50e2ecec7eee2614e0f57e1ca70ddee70168241728c27
+DISTFILE[1]=		configobj-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py310]=		single
 SPKGS[py311]=		single
@@ -23,16 +23,16 @@ VOPTS[py310]=		PY310=ON PY311=OFF
 VOPTS[py311]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
-# UNKNOWN
+# BSD (2 clause)
 
 GENERATED=		yes
-DISTNAME=		configobj-${PORTVERSION}
+DISTNAME=		configobj-${PORTVERSION}.dist-info
 
-# install_requires extracted from setup.py
+# Requires-Dist extracted from wheel metadata
 # six
 
-[PY310].USES_ON=			python:py310,sutools
-[PY310].BUILDRUN_DEPENDS_ON=		python-six:single:py310
-[PY311].USES_ON=			python:py311,sutools
-[PY311].BUILDRUN_DEPENDS_ON=		python-six:single:py311
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-six:single:py310
+[PY311].USES_ON=			python:py311,wheel
+[PY311].RUN_DEPENDS_ON=			python-six:single:py311
 
