@@ -5,6 +5,7 @@ DEF[GNARL]=		"-lgnarl","-Wl,-rpath,{{PREFIX}}/lib"
 
 NAMEBASE=		libadalang
 VERSION=		${PORTVERSION}
+REVISION=		1
 EPOCH=			1
 KEYWORDS=		lang devel
 VARIANTS=		standard
@@ -21,10 +22,11 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	DEBUG
 OPTIONS_STANDARD=	DEBUG
 
-# Fixed in later versions, TERMS missing (GPLv3 not valid)
-LICENSE=		GPLv3+:single
-LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
+LICENSE=		APACHE20:single
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
 LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/extensions/src/libadalang-auto_provider.ads
+LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
 BUILDRUN_DEPENDS=	langkit:single:standard
@@ -33,15 +35,12 @@ BUILDRUN_DEPENDS=	langkit:single:standard
 USES=			gprbuild python:build ada:single
 MUST_CONFIGURE=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
-MAKE_ARGS=		--build-mode prod
+MAKE_ARGS=		--build-mode dev
 			--library-types=static,static-pic,relocatable
+SET_DEBUGGING_ON=	yes
 
 VAR_OPSYS[dragonfly]=	MAKEFILE_LINE=XTRALIB=,"-lutil"
 VAR_OPSYS[freebsd]=	MAKEFILE_LINE=XTRALIB=,"-lutil"
-
-post-extract:
-	${AWK} '/Libadalang is free software/,/www.gnu.org/' \
-		${WRKSRC}/ada/copyright.py > ${WRKDIR}/TERMS
 
 do-configure:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
