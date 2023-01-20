@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	2.20.14.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		dasm
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel lang
+VARIANTS=		standard
+SDESC[standard]=	Versatile macro assembler for 8bit microprocessors
+HOMEPAGE=		https://dasm-assembler.github.io
+CONTACT=		Todd_Martin[warfox@sdf.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/dasm-assembler:dasm:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:single
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/main.c
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/dasm
+
+USES=			gmake
+
+post-stage:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
