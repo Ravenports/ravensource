@@ -12,9 +12,9 @@ dri3-swap.c:236:22: note: initialize the variable 'tmp' to silence this warning
                                           ^
                                            = NULL
 
---- benchmarks/dri3-swap.c.orig	2019-02-21 22:26:50 UTC
+--- benchmarks/dri3-swap.c.orig	2021-01-15 20:59:05 UTC
 +++ benchmarks/dri3-swap.c
-@@ -233,7 +233,7 @@ static void run(Display *dpy, Window win)
+@@ -233,7 +233,7 @@ static void run(Display *dpy, Window win
  	clock_gettime(CLOCK_MONOTONIC, &start);
  	do {
  		for (n = 0; n < 1000; n++) {

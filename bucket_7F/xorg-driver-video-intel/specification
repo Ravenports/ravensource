@@ -6,6 +6,7 @@ DEF[ALTNAME]=		xf86-video-intel
 
 NAMEBASE=		xorg-${XNAME}
 VERSION=		${PORTVERSION}
+REVISION=		1
 EPOCH=			1
 KEYWORDS=		x11_drivers
 VARIANTS=		standard
@@ -42,6 +43,10 @@ DISTNAME=		xf86-video-intel-${TAG}
 MUST_CONFIGURE=		gnu
 CONFIGURE_ENV=		ac_cv_header_sys_sysinfo_h=no
 CONFIGURE_ARGS=		--disable-udev
+			--disable-tools
+			--enable-dri
+			--enable-dri2
+			--enable-dri3
 			--with-builderstring="${PORTVERSION}"
 INSTALL_TARGET=		install-strip
 CPE_VENDOR=		x

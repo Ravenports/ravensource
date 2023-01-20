@@ -9,3 +9,13 @@
  #include <sys/types.h>
  #include <sys/endian.h>
  #ifdef __OpenBSD__
+@@ -67,6 +67,9 @@
+ #else
+ #define bswap_32 bswap32
+ #endif
++#elif defined(__sun)
++#include <sys/byteorder.h>
++#define bswap_32 BSWAP_32
+ #else
+ #include <byteswap.h>
+ #endif

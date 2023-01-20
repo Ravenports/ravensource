@@ -116,7 +116,7 @@ kgem.c:7503:24: note: initialize the variable 'bo' to silence this warning
                               ^
                                = NULL
 
---- src/intel_list.h.orig	2019-02-21 22:26:50 UTC
+--- src/intel_list.h.orig	2021-01-15 20:59:05 UTC
 +++ src/intel_list.h
 @@ -325,12 +325,12 @@ list_is_empty(const struct list *head)
   *

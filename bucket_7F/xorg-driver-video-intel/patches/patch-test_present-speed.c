@@ -59,9 +59,9 @@ present-speed.c:467:22: note: initialize the variable 'tmp' to silence this warn
                                           ^
                                            = NULL
 
---- test/present-speed.c.orig	2019-02-21 22:26:50 UTC
+--- test/present-speed.c.orig	2021-01-15 20:59:05 UTC
 +++ test/present-speed.c
-@@ -226,7 +226,7 @@ static void run(Display *dpy, Window win, const char *
+@@ -226,7 +226,7 @@ static void run(Display *dpy, Window win
  	clock_gettime(CLOCK_MONOTONIC, &start);
  	do {
  		for (n = 0; n < 1000; n++) {

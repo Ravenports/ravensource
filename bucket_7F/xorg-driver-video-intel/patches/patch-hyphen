@@ -1,24 +1,123 @@
 Add hyphen to RANDR output names for consistency with modesetting(4x)
 
---- src/sna/sna_display.c.orig	2018-12-03 09:01:25 UTC
+--- src/sna/sna_display.c.orig	2021-01-15 20:59:05 UTC
 +++ src/sna/sna_display.c
-@@ -5126,7 +5126,7 @@ sna_output_add(struct sna *sna, unsigned id, unsigned 
- 		output_name = output_names[compat_conn.conn.connector_type];
- 	else
- 		output_name = "UNKNOWN";
--	len = snprintf(name, 32, "%s%d", output_name, compat_conn.conn.connector_type_id);
-+	len = snprintf(name, 32, "%s-%d", output_name, compat_conn.conn.connector_type_id);
- 	if (output_ignored(scrn, name))
- 		return 0;
+@@ -467,7 +467,7 @@ static inline uint32_t fb_id(struct kgem
  
---- src/uxa/intel_display.c.orig	2018-12-03 09:01:25 UTC
+ unsigned sna_crtc_count_sprites(xf86CrtcPtr crtc)
+ {
+-	struct plane *sprite;
++	struct plane *sprite = NULL;
+ 	unsigned count;
+ 
+ 	count = 0;
+@@ -479,7 +479,7 @@ unsigned sna_crtc_count_sprites(xf86Crtc
+ 
+ static struct plane *lookup_sprite(struct sna_crtc *crtc, unsigned idx)
+ {
+-	struct plane *sprite;
++	struct plane *sprite = NULL;
+ 
+ 	list_for_each_entry(sprite, &crtc->sprites, link)
+ 		if (idx-- == 0)
+@@ -1727,7 +1727,7 @@ static bool wait_for_shadow(struct sna *
+ 
+ 	if ((flags & MOVE_WRITE) == 0) {
+ 		if ((flags & __MOVE_SCANOUT) == 0) {
+-			struct sna_crtc *crtc;
++			struct sna_crtc *crtc = NULL;
+ 
+ 			list_for_each_entry(crtc, &sna->mode.shadow_crtc, shadow_link) {
+ 				if (overlap(&sna->mode.shadow_region.extents,
+@@ -1768,7 +1768,7 @@ static bool wait_for_shadow(struct sna *
+ 
+ 	flip_active = sna->mode.flip_active;
+ 	if (flip_active) {
+-		struct sna_crtc *crtc;
++		struct sna_crtc *crtc = NULL;
+ 		list_for_each_entry(crtc, &sna->mode.shadow_crtc, shadow_link)
+ 			flip_active -= crtc->flip_pending;
+ 		DBG(("%s: %d flips still pending, shadow flip_active=%d\n",
+@@ -3263,7 +3263,7 @@ static void
+ sna_crtc_destroy(xf86CrtcPtr crtc)
+ {
+ 	struct sna_crtc *sna_crtc = to_sna_crtc(crtc);
+-	struct plane *sprite, *sn;
++	struct plane *sprite = NULL, *sn;
+ 
+ 	if (sna_crtc == NULL)
+ 		return;
+@@ -3652,7 +3652,7 @@ bool sna_has_sprite_format(struct sna *s
+ 
+ 	for (i = 0; i < sna->mode.num_real_crtc; i++) {
+ 		struct sna_crtc *sna_crtc = to_sna_crtc(config->crtc[i]);
+-		struct plane *plane;
++		struct plane *plane = NULL;
+ 
+ 		list_for_each_entry(plane, &sna_crtc->sprites, link) {
+ 			struct local_mode_get_plane p;
+@@ -8639,7 +8639,7 @@ sna_mode_disable_secondary_planes(struct
+ 	for (c = 0; c < sna->mode.num_real_crtc; c++) {
+ 		xf86CrtcPtr crtc = config->crtc[c];
+ 		struct sna_crtc *sna_crtc = to_sna_crtc(crtc);
+-		struct plane *plane;
++		struct plane *plane = NULL;
+ 
+ 		list_for_each_entry(plane, &sna_crtc->sprites, link) {
+ 			struct local_mode_get_plane p;
+@@ -8737,7 +8737,7 @@ static bool
+ sna_crtc_hide_planes(struct sna *sna, struct sna_crtc *crtc)
+ {
+ 	struct local_mode_set_plane s;
+-	struct plane *plane;
++	struct plane *plane = NULL;
+ 
+ 	if (crtc->primary.id == 0)
+ 		return false;
+@@ -8774,7 +8774,7 @@ void sna_mode_reset(struct sna *sna)
+ 
+ 	for (i = 0; i < sna->mode.num_real_crtc; i++) {
+ 		struct sna_crtc *sna_crtc = to_sna_crtc(config->crtc[i]);
+-		struct plane *plane;
++		struct plane *plane = NULL;
+ 
+ 		assert(sna_crtc != NULL);
+ 
+--- src/uxa/intel_display.c.orig	2021-01-15 20:59:05 UTC
 +++ src/uxa/intel_display.c
-@@ -1484,7 +1484,7 @@ drmmode_create_name(ScrnInfoPtr pScrn, drmModeConnecto
- 		else
- 			output_name = "UNKNOWN";
+@@ -1872,7 +1872,7 @@ intel_drm_abort_one(struct intel_drm_que
+ void
+ intel_drm_abort(ScrnInfoPtr scrn, Bool (*match)(void *data, void *match_data), void *match_data)
+ {
+-	struct intel_drm_queue *q;
++	struct intel_drm_queue *q = NULL;
  
--		snprintf(name, 32, "%s%d",
-+		snprintf(name, 32, "%s-%d",
- 			 output_name, koutput->connector_type_id);
- 	}
- }
+ 	list_for_each_entry(q, &intel_drm_queue, list) {
+ 		if (match(q->data, match_data)) {
+@@ -1888,7 +1888,7 @@ intel_drm_abort(ScrnInfoPtr scrn, Bool (
+ void
+ intel_drm_abort_seq(ScrnInfoPtr scrn, uint32_t seq)
+ {
+-	struct intel_drm_queue *q;
++	struct intel_drm_queue *q = NULL;
+ 
+ 	list_for_each_entry(q, &intel_drm_queue, list) {
+ 		if (q->seq == seq) {
+@@ -1905,7 +1905,7 @@ intel_drm_abort_seq(ScrnInfoPtr scrn, ui
+ static void
+ intel_drm_abort_scrn(ScrnInfoPtr scrn)
+ {
+-	struct intel_drm_queue *q, *tmp;
++	struct intel_drm_queue *q = NULL, *tmp;
+ 
+ 	list_for_each_entry_safe(q, tmp, &intel_drm_queue, list) {
+ 		if (q->scrn == scrn)
+@@ -1994,7 +1994,7 @@ static void
+ intel_drm_handler(int fd, uint32_t frame, uint32_t sec, uint32_t usec, void *user_ptr)
+ {
+ 	uint32_t user_data = (intptr_t)user_ptr;
+-	struct intel_drm_queue *q;
++	struct intel_drm_queue *q = NULL;
+ 
+ 	list_for_each_entry(q, &intel_drm_queue, list) {
+ 		if (q->seq == user_data) {
