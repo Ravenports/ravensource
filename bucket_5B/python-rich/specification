@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	13.1.0
+DEF[PORTVERSION]=	13.2.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-rich
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/Textualize/rich
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/55/19/8b1ed0f3ea49306b8115afe84e8e5cd92925d732260efc75e4e3e3089bf0
+SITES[main]=		PYPIWHL/0e/cf/a6369a2aee266c2d7604230f083d4bd14b8f69bc69eb25b3da63b9f2f853
 DISTFILE[1]=		rich-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -29,15 +29,15 @@ GENERATED=		yes
 DISTNAME=		rich-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# commonmark (>=0.9.0,<0.10.0)
 # ipywidgets (>=7.5.1,<8.0.0); extra == "jupyter"
+# markdown-it-py (>=2.1.0,<3.0.0)
 # pygments (>=2.6.0,<3.0.0)
 # typing-extensions (>=4.0.0,<5.0); python_version < "3.9"
 
 [PY310].USES_ON=			python:py310,wheel
-[PY310].RUN_DEPENDS_ON=			python-commonmark:single:py310
+[PY310].RUN_DEPENDS_ON=			python-markdown-it-py:single:py310
 					python-Pygments:single:py310
 [PY311].USES_ON=			python:py311,wheel
-[PY311].RUN_DEPENDS_ON=			python-commonmark:single:py311
+[PY311].RUN_DEPENDS_ON=			python-markdown-it-py:single:py311
 					python-Pygments:single:py311
 
