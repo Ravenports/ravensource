@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.14.2
+DEF[PORTVERSION]=	1.15.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		lagrange
@@ -47,6 +47,9 @@ CMAKE_ARGS=		-DENABLE_FRIBIDI:BOOL=ON
 pre-configure:
 	${REINPLACE_CMD} -i'' -e "s|__PREFIX__|${PREFIX}|g" \
 		-e "s|__STAGEDIR__|${STAGEDIR}|" ${WRKSRC}/build-tui.sh
+	# unclear why SDL_HINT_WINDOWS_DPI_AWARENESS is not defined; it's in SDL_hints.h
+	# it's for windows only anywhy, just cut it out
+	${REINPLACE_CMD} -e '/SDL_HINT_WINDOWS_DPI_AWARENESS/d' ${WRKSRC}/src/main.c
 
 post-build:
 	(cd ${WRKSRC} && ./build-tui.sh)
