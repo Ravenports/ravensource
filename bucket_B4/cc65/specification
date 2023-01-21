@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	2.19
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		cc65
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel lang
+VARIANTS=		standard
+SDESC[standard]=	Complete cross development 6502 package
+HOMEPAGE=		https://cc65.github.io
+CONTACT=		Todd_Martin[warfox@sdf.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/cc65:cc65:V${PORTVERSION}
+DISTFILE[1]=		generate:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		ZLIB:single
+LICENSE_FILE=		ZLIB:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/cc65
+
+USES=			gmake
+
+DISTNAME=		cc65-${PORTVERSION}
+
+post-stage:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
