@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.9.1
+DEF[PORTVERSION]=	0.10.1
 DEF[GCC_VERSION]=	EXTRACT_INFO(GCCBASE_VERSION)
 DEF[GCC_LIB]=		toolchain/ravensys-gcc/{{ASLIB}}
 DEF[GCC_TARGET_LIB]=	${GCC_LIB}/gcc/{{CONFIGURE_TARGET}}/${GCC_VERSION}
@@ -6,7 +6,6 @@ DEF[GCC_TARGET_LIB]=	${GCC_LIB}/gcc/{{CONFIGURE_TARGET}}/${GCC_VERSION}
 
 NAMEBASE=		zig
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		devel lang
 VARIANTS=		standard
 SDESC[standard]=	Programming language
@@ -31,9 +30,10 @@ ONLY_FOR_OPSYS=		freebsd dragonfly netbsd linux
 
 BROKEN[linux]=		final linking: undefined reference to `getrandom'
 
-BUILD_DEPENDS=		clang13:complete:standard
-			lld13:single:standard
-BUILDRUN_DEPENDS=	llvm13:single:standard
+BUILD_DEPENDS=		clang:complete:standard
+			lld:single:standard
+BUILDRUN_DEPENDS=	llvm:single:standard
+RUN_DEPENDS=		clang:dynlibs:standard
 
 USES=			cmake
 INSTALL_REQ_TOOLCHAIN=	yes
