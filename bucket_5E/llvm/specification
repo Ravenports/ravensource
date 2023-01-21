@@ -35,8 +35,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/llvm70
 
-USES=			cmake ninja ncurses python:build
-			execinfo zlib shebangfix c++:single
+BUILD_DEPENDS=		ncurses:primary:standard
+
+USES=			cmake ninja python:build execinfo:build bdb:static zlib:build
+			shebangfix c++:single
 GNOME_COMPONENTS=	libxml2
 DISTNAME=		llvm-${PORTVERSION}.src
 CFLAGS=			-DNDEBUG
@@ -69,12 +71,27 @@ BLOCK_WATCHDOG=		yes
 
 post-extract:
 	${CP} ${WRKDIR}/cmake-*/Modules/* ${WRKSRC}/cmake/modules/
+	# force static linking of execinfo
+	${RM} ${LOCALBASE}/lib/libexecinfo.so
+	${MV} ${LOCALBASE}/lib/libexecinfo_pic.a ${LOCALBASE}/lib/libexecinfo.a
+	# disable detection of shared db5
+	${RM} ${LOCALBASE}/lib/db5/libdb.so
+	# disable detection of shared curses/tinfo
+	${RM} ${LOCALBASE}/lib/libtinfo.so
+	${RM} ${LOCALBASE}/lib/libncurses.so
+	# disable detection of shared zlib
+	${RM} ${LOCALBASE}/lib/libz.so
+	${MV} ${LOCALBASE}/lib/libz_pic.a ${LOCALBASE}/lib/libz.a
 
 post-patch:
 	${REINPLACE_CMD} -e "s|/usr/local|${PREFIX}|g" \
 		${WRKSRC}/CMakeLists.txt
 
 post-install:
+	# Fix exports after execinfo/zlib statically linked
+	${SED} -i'' -e 's|;execinfo||; s|;ZLIB::ZLIB||' \
+		${STAGEDIR}${PREFIX}/lib/cmake/llvm/LLVMExports.cmake
+
 	${RM} -r ${STAGEDIR}${PREFIX}/include/llvm/MC/MCAnalysis
 	${RM} -r ${STAGEDIR}${PREFIX}/include/llvm/BinaryFormat/WasmRelocs
 
@@ -90,10 +107,11 @@ post-install:
 	llvm-undname llvm-xray llvm-jitlink llvm-lipo llvm-reduce \
 	llvm-otool llvm-sim llvm-tapi-diff llvm-windres llvm-debuginfod-find \
 	llvm-gsymutil llvm-jitlink-executor llvm-libtool-darwin llvm-ml \
-	llvm-profgen llvm-tli-checker \
-	obj2yaml opt sancov sanstats split-file \
-	verify-uselistorder yaml2obj FileCheck count not yaml-bench \
-	lli-child-target llvm-PerfectShuffle
+	llvm-profgen llvm-tli-checker llvm-debuginfod llvm-dwarfutil \
+	llvm-PerfectShuffle llvm-remark-size-diff \
+	obj2yaml opt sancov sanstats split-file verify-uselistorder yaml2obj \
+	FileCheck count not yaml-bench lli-child-target \
+	UnicodeNameMappingGenerator
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${F}
 .endfor
 .for F in libLLVM-${MAJOR}.so libLTO.so.${MAJOR} libRemarks.so.${MAJOR}
