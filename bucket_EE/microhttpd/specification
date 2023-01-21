@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	14Aug2014
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		microhttpd
+VERSION=		${PORTVERSION}
+KEYWORDS=		www
+VARIANTS=		standard
+SDESC[standard]=	Small acme http server
+HOMEPAGE=		https://acme.com/software/micro_httpd
+CONTACT=		Todd_Martin[warfox@sdf.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://acme.com/software/micro_httpd/
+DISTFILE[1]=		micro_httpd_${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		www/microhttpd
+
+LICENSE=		BSD2CLAUSE:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKDIR}}/LICENSE
+LICENSE_SOURCE=		BSD2CLAUSE:{{WRKSRC}}/micro_httpd.c
+LICENSE_AWK=		BSD2CLAUSE:"^$$"
+LICENSE_SCHEME=		solo
+
+USES=			gmake
+
+DISTNAME=		micro_httpd
+
+post-patch:
+		${REINPLACE_CMD} 's!__PREFIX__!${PREFIX}!g' \
+			${WRKSRC}/Makefile

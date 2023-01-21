@@ -1,0 +1,25 @@
+--- Makefile	2014-08-11 19:13:42.000000000 +0000
++++ Makefile.new	2023-01-18 22:40:37.872395513 +0000
+@@ -1,5 +1,5 @@
+-BINDIR =	/usr/local/sbin
+-MANDIR =	/usr/local/man/man8
++BINDIR =	__PREFIX__/bin
++MANDIR =	__PREFIX__/share/man/man1
+ CC =		cc
+ CFLAGS =	-O -ansi -pedantic -U__STRICT_ANSI__ -Wall -Wpointer-arith -Wshadow -Wcast-qual -Wcast-align -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wredundant-decls -Wno-long-long
+ #SYSVLIBS =	-lnsl -lsocket
+@@ -14,10 +14,10 @@
+ 	$(CC) $(CFLAGS) -c micro_httpd.c
+ 
+ install:	all
+-	rm -f $(BINDIR)/micro_httpd
+-	cp micro_httpd $(BINDIR)/micro_httpd
+-	rm -f $(MANDIR)/micro_httpd.8
+-	cp micro_httpd.8 $(MANDIR)/micro_httpd.8
++	rm -f ${DESTDIR}$(BINDIR)/micro_httpd
++	cp micro_httpd ${DESTDIR}$(BINDIR)/micro_httpd
++	rm -f ${DESTDIR}$(MANDIR)/micro_httpd.1
++	cp micro_httpd.8 ${DESTDIR}$(MANDIR)/micro_httpd.1
+ 
+ clean:
+ 	rm -f micro_httpd *.o core core.* *.core
