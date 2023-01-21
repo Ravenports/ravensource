@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	0.114.0
+DEF[SOVERSION]=		1.114.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		polkit-qt-1
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	Qt5 wrapper around polkit-1
+HOMEPAGE=		https://api.kde.org/polkit-qt-1/html/index.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/polkit-qt-1/
+DISTFILE[1]=		polkit-qt-1-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL20+:single
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/LICENSES/GPL-2.0-or-later.txt
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/core/polkitqt1-authority.h
+LICENSE_AWK=		TERMS:"ifndef POLKITQT1"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		sysutils/polkit-qt
+
+BUILDRUN_DEPENDS=	polkit:primary:standard
+			qt5-qtbase:primary:standard
+
+USES=			cmake pkgconfig
+GNOME_COMPONENTS=	glib
+
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt5/cmake
+SOVERSION=		${SOVERSION}
+
+post-stage:
+	(cd ${STAGEDIR}${PREFIX}/lib && ${STRIP_CMD} libpolkit-qt5-agent-1.so \
+		libpolkit-qt5-core-1.so \
+		libpolkit-qt5-gui-1.so)
