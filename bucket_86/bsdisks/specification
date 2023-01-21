@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	0.29
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		bsdisks
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	UDisks2 service implementation for FreeBSD
+HOMEPAGE=		https://foss.heptapod.net/bsdutils/bsdisks
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://foss.heptapod.net/bsdutils/bsdisks/-/archive/${PORTVERSION}/
+DISTFILE[1]=		bsdisks-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKDIR}}/LICENSE
+LICENSE_SOURCE=		BSD3CLAUSE:{{WRKSRC}}/main.cpp
+LICENSE_AWK=		BSD3CLAUSE:"include <QSet>"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		sysutils/bsdisks
+
+ONLY_FOR_OPSYS=		freebsd
+
+BUILDRUN_DEPENDS=	qt5-qtbase:primary:standard
+
+USES=			cmake
+
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt5/cmake
+
+post-stage:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/bsdisks
