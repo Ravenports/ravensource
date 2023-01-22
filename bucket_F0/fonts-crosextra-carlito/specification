@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	20130920
+DEF[PORTVERSION]=	20220224
+DEF[DISTVERSION]=	${PORTVERSION}-1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fonts-crosextra-carlito
@@ -10,8 +11,8 @@ HOMEPAGE=		https://bugs.chromium.org/p/chromium/issues/detail?id=280557
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://gsdview.appspot.com/chromeos-localmirror/distfiles/
-DISTFILE[1]=		crosextrafonts-carlito-${PORTVERSION}.tar.gz:main
+SITES[main]=		https://salsa.debian.org/fonts-team/fonts-crosextra-carlito/-/archive/debian/${DISTVERSION}/
+DISTFILE[1]=		fonts-crosextra-carlito-debian-${DISTVERSION}.tar.bz2:main
 
 SPKGS[standard]=	single
 
@@ -23,8 +24,8 @@ FPC_EQUIVALENT=		x11-fonts/crosextrafonts-carlito-ttf
 USES=			fonts
 SKIP_BUILD=		yes
 FONTNAME=		Carlito
-DISTNAME=		crosextrafonts-carlito-${PORTVERSION}
+DISTNAME=		fonts-crosextra-carlito-debian-${DISTVERSION}
 
 do-install:
 	${MKDIR} ${STAGEDIR}${FONTSDIR}
-	(cd ${WRKSRC} && ${INSTALL_DATA} *.ttf ${STAGEDIR}${FONTSDIR})
+	(cd ${WRKSRC}/fonts/ttf && ${INSTALL_DATA} *.ttf ${STAGEDIR}${FONTSDIR})
