@@ -1,4 +1,4 @@
---- src/corelib/plugin/qelfparser_p.cpp.orig	2022-11-03 12:40:18 UTC
+--- src/corelib/plugin/qelfparser_p.cpp.orig	2022-11-16 07:54:24 UTC
 +++ src/corelib/plugin/qelfparser_p.cpp
 @@ -12,12 +12,12 @@
  #include <qnumeric.h>
@@ -18,4 +18,4 @@
 +#define SELFMAG		4
  #endif
  
- QT_BEGIN_NAMESPACE
+ // Support older ELFOSABI define for GNU/Linux

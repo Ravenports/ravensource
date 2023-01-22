@@ -2,7 +2,7 @@ $NetBSD: patch-src_qml_jit_qv4assemblercommon__p.h,v 1.1 2022/11/25 11:50:59 nro
 
 Add NetBSD & Solaris support.
 
---- src/qml/jit/qv4assemblercommon_p.h.orig	2022-11-08 16:09:50 UTC
+--- src/qml/jit/qv4assemblercommon_p.h.orig	2022-12-12 14:33:20 UTC
 +++ src/qml/jit/qv4assemblercommon_p.h
 @@ -30,7 +30,7 @@ namespace QV4 {
  namespace JIT {

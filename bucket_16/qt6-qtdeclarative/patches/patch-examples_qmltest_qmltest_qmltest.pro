@@ -1,4 +1,4 @@
---- examples/qmltest/qmltest/qmltest.pro.orig	2022-11-08 16:09:50 UTC
+--- examples/qmltest/qmltest/qmltest.pro.orig	2022-12-12 14:33:20 UTC
 +++ examples/qmltest/qmltest/qmltest.pro
 @@ -14,7 +14,7 @@ TESTDATA += tst_basic.qml tst_item.qml
  # This code exists solely for the purpose of building this example
