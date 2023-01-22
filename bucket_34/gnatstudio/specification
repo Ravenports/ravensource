@@ -4,7 +4,7 @@ DEF[RELEASE]=		gnatstudio-cr-${PORTVERSION}
 
 NAMEBASE=		gnatstudio
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Multilanguage IDE for Ada, SPARK, C/C++, and more
@@ -114,3 +114,6 @@ post-install:
 	${INSTALL_SCRIPT} ${WRKDIR}/gps ${STAGEDIR}${PREFIX}/bin
 	echo "This is the GPS GPL Edition for Ravenports." \
 		> ${STAGEDIR}${PREFIX}/share/gnatstudio/about.txt
+
+post-install-netbsd:
+	${PAXCTL} +m ${STAGEDIR}${PREFIX}/bin/gnatstudio
