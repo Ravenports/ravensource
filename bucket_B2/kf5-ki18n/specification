@@ -20,11 +20,13 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 LICENSE=		LGPL20+:primary
+			LGPL21:primary
+			LGPL3:primary
 LICENSE_FILE=		LGPL20+:{{WRKSRC}}/LICENSES/LGPL-2.0-or-later.txt
+			LGPL21:{{WRKSRC}}/LICENSES/LGPL-2.1-only.txt
+			LGPL3:{{WRKSRC}}/LICENSES/LGPL-3.0-only.txt
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
-LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/i18n/main.cpp
-LICENSE_AWK=		TERMS:"ki18n_logging.h"
-LICENSE_SCHEME=		solo
+LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		devel/k5f-ki18n
 
@@ -38,6 +40,17 @@ USES=			cmake gettext-runtime gettext-tools python:build
 DISTNAME=		ki18n-${PORTVERSION}
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt5/cmake
 SOVERSION=		${SOVERSION}
+
+post-extract:
+	${ECHO} "Terms extracted from 'src/i18n/main.cpp':" > \
+		${WRKDIR}/TERMS
+	${SED} -n '/ki18n_logging/!p;//q' ${WRKSRC}/src/i18n/main.cpp >> \
+		${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/i18n/klocalizedtranslator.h':" >> \
+		${WRKDIR}/TERMS
+	${SED} -n '/KLOCALIZEDTRANSLATOR_H/!p;//q' \
+		${WRKSRC}/src/i18n/klocalizedtranslator.h >> \
+		${WRKDIR}/TERMS
 
 post-stage:
 	(cd ${STAGEDIR}${PREFIX} && ${STRIP_CMD} lib/libKF5I18n.so \
