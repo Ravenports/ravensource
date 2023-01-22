@@ -1,4 +1,4 @@
---- tools/configure/configure-tests-postgresql.adb.orig	2011-12-27 08:20:56 UTC
+--- tools/configure/configure-tests-postgresql.adb.orig	2021-08-30 10:37:26 UTC
 +++ tools/configure/configure-tests-postgresql.adb
 @@ -187,7 +187,7 @@ package body Configure.Tests.PostgreSQL
               (PostgreSQL_Library_Options,

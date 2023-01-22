@@ -1,6 +1,6 @@
---- tools/configure/configure-tests-mysql.adb.orig	2015-03-17 15:01:56 UTC
+--- tools/configure/configure-tests-mysql.adb.orig	2021-08-30 10:37:26 UTC
 +++ tools/configure/configure-tests-mysql.adb
-@@ -219,7 +219,7 @@ package body Configure.Tests.MySQL is
+@@ -223,7 +223,7 @@ package body Configure.Tests.MySQL is
               (MySQL_Library_Options,
                +"""-L"
                   & Self.Switches.Libdir

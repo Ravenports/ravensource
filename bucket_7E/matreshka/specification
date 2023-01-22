@@ -1,6 +1,8 @@
 DEF[PORTVERSION]=	21.0
 DEF[CURRENTGCC]=	EXTRACT_INFO(GCCBASE_VERSION)
 DEF[LIBSUFFIX]=		${CURRENTGCC:R}
+DEF[SOVERSION]=		20.0
+DEF[GPRFLAGS]=		--no-manifest
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		matreshka
@@ -17,8 +19,8 @@ DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
-OPTIONS_AVAILABLE=	SQLITE FIREBIRD PGSQL MYSQL ORACLE AMF
-OPTIONS_STANDARD=	SQLITE FIREBIRD PGSQL MYSQL ORACLE AMF
+OPTIONS_AVAILABLE=	SQLITE PGSQL MYSQL AMF
+OPTIONS_STANDARD=	SQLITE PGSQL MYSQL AMF
 OPT_ON[all]=		SQLITE PGSQL MYSQL
 
 FPC_EQUIVALENT=		devel/matreshka
@@ -26,45 +28,32 @@ FPC_EQUIVALENT=		devel/matreshka
 USES=			gmake pkgconfig gprbuild ada:single
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--prefix={{PREFIX}}
-SINGLE_JOB=		yes
+			--gprdir={{PREFIX}}/share/gpr
 INSTALL_REQ_TOOLCHAIN=	yes
 MAKE_ENV=		SMP_MFLAGS=-j{{MAKE_JOBS_NUMBER}}
 PLIST_SUB=		LIBSUFFIX=${LIBSUFFIX}
-SOVERSION=		${PORTVERSION}
-
-
-BROKEN[all]=		Builds everything over and over
+SOVERSION=		${SOVERSION}
+DISTNAME=		matreshka-${PORTVERSION}/matreshka
 
 [AMF].DESCRIPTION=			Build Ada Modeling Framework
-[ORACLE].DESCRIPTION=			Oracle database support
 
 [MYSQL].USES_ON=			mysql:client
 [PGSQL].USES_ON=			pgsql:client
 [SQLITE].USES_ON=			sqlite
-# [FIREBIRD].USES_ON=			firebird
-[FIREBIRD].BROKEN_ON=			not yet implemented
-[ORACLE].BROKEN_ON=			not yet implemented
 
 [SQLITE].CONFIGURE_ENABLE_BOTH=		sqlite3
 [PGSQL].CONFIGURE_ENABLE_BOTH=		postgresql
 [MYSQL].CONFIGURE_ENABLE_BOTH=		mysql
-[ORACLE].CONFIGURE_ENABLE_BOTH=		oracle
 [AMF].CONFIGURE_ENABLE_BOTH=		amf
-[FIREBIRD].CONFIGURE_ENABLE_BOTH=	firebird
-[FIREBIRD].CONFIGURE_ARGS_ON=		--with-firebird-libdir={{LOCALBASE}}/lib
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e "s|@PREFIX@|${LOCALBASE}|" \
 		${WRKSRC}/tools/configure/configure-tests-mysql.adb \
 		${WRKSRC}/tools/configure/configure-tests-postgresql.adb \
 		${WRKSRC}/tools/configure/configure-tests-sqlite3.adb
-	# Added for gcc 11
-	${REINPLACE_CMD} -e "/No_Elaboration_Code/d" \
-		${WRKSRC}/source/league/ucd/matreshka-internals-unicode-ucd-core.ads \
-		${WRKSRC}/source/league/ucd/matreshka-internals-unicode-ucd-cases.ads \
-		${WRKSRC}/source/league/ucd/matreshka-internals-unicode-ucd-colls.ads
-
-pre-configure:
+	# skip manifest installation
+	${REINPLACE_CMD} -E '/GPRINSTALL_FLAGS/ s|(GPRINSTALL_FLAGS =)|\1 ${GPRFLAGS}|' \
+		${WRKSRC}/Makefile.install
 	(cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} ${MAKE_CMD} config)
 
 post-install:

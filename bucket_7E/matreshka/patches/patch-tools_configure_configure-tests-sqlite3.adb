@@ -1,4 +1,4 @@
---- tools/configure/configure-tests-sqlite3.adb.orig	2015-05-13 12:17:27 UTC
+--- tools/configure/configure-tests-sqlite3.adb.orig	2021-08-30 10:37:26 UTC
 +++ tools/configure/configure-tests-sqlite3.adb
 @@ -87,7 +87,7 @@ package body Configure.Tests.SQLite3 is
               (SQLite3_Library_Options,
