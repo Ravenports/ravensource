@@ -1,4 +1,4 @@
---- vendor/rustix/src/imp/libc/fs/dir.rs.orig	2022-12-12 18:23:59 UTC
+--- vendor/rustix/src/imp/libc/fs/dir.rs.orig	2023-01-10 22:12:01 UTC
 +++ vendor/rustix/src/imp/libc/fs/dir.rs
 @@ -172,10 +172,10 @@ unsafe fn read_dirent(input: &libc_diren
      )))]

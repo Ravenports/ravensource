@@ -7,7 +7,7 @@ Subject: [PATCH] Don't panic on stable since miri is not available there
  src/bootstrap/install.rs | 12 ++++++++----
  1 file changed, 8 insertions(+), 4 deletions(-)
 index c53d0d7e4cb7c..1815a0973072b 100644
---- src/bootstrap/install.rs.orig	2022-12-12 16:02:12 UTC
+--- src/bootstrap/install.rs.orig	2023-01-10 18:47:33 UTC
 +++ src/bootstrap/install.rs
 @@ -200,10 +200,14 @@ install!((self, builder, _config),
          install_sh(builder, "clippy", self.compiler.stage, Some(self.target), &tarball);

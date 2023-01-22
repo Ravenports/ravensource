@@ -1,4 +1,4 @@
---- vendor/rustix/src/imp/libc/process/types.rs.orig	2022-12-12 18:23:59 UTC
+--- vendor/rustix/src/imp/libc/process/types.rs.orig	2023-01-10 22:12:01 UTC
 +++ vendor/rustix/src/imp/libc/process/types.rs
 @@ -197,6 +197,7 @@ pub enum Signal {
          target_os = "macos",

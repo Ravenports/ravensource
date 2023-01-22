@@ -1,4 +1,4 @@
---- library/unwind/build.rs.orig	2022-12-12 16:02:12 UTC
+--- library/unwind/build.rs.orig	2023-01-10 18:47:33 UTC
 +++ library/unwind/build.rs
 @@ -36,7 +36,7 @@ fn main() {
      } else if target.contains("illumos") {
