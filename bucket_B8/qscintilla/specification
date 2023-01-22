@@ -4,9 +4,11 @@ DEF[SOVERSION]=		15.1.1
 
 NAMEBASE=		qscintilla
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
-VARIANTS=		standard
-SDESC[standard]=	Qt port of the Scintilla C++ editor control
+VARIANTS=		qt5 qt6
+SDESC[qt5]=		Qt5 port of the Scintilla C++ editor control
+SDESC[qt6]=		Qt6 port of the Scintilla C++ editor control
 HOMEPAGE=		https://www.riverbankcomputing.com/software/qscintilla/intro
 CONTACT=		nobody
 
@@ -14,10 +16,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.riverbankcomputing.com/static/Downloads/QScintilla/${PORTVERSION}/
 DISTFILE[1]=		QScintilla_src-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary docs nls
+SPKGS[qt5]=		complete primary docs
+SPKGS[qt6]=		complete primary docs
 
-OPTIONS_AVAILABLE=	none
+OPTIONS_AVAILABLE=	QT5 QT6
 OPTIONS_STANDARD=	none
+VOPTS[qt5]=		QT5=ON QT6=OFF
+VOPTS[qt6]=		QT5=OFF QT6=ON
 
 LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/LICENCE
@@ -26,15 +31,26 @@ LICENSE_AWK=		TERMS:"SCINTILLAQT_H"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/ScintillaQt.h
 LICENSE_SCHEME=		solo
 
-FPC_EQUIVALENT=		devel/qscintilla2-qt5
+FPC_EQUIVALENT=		devel/qscintilla2-qt6
 
-BUILDRUN_DEPENDS=	qt5-qtbase:primary:standard
+BUILDRUN_DEPENDS=	libglvnd:single:standard
 
-USES=			gmake qt5 mesa
+USES=			gmake
 
 DISTNAME=		QScintilla_src-${PORTVERSION}/src
 PLIST_SUB=		SOMAJORMIN=${SOVERSION:R}
+			Q={{VAR1}}
 SOVERSION=		${SOVERSION}
+
+[QT5].DESCRIPTION=			Qt5 variant
+[QT5].USES_ON=				qt5
+[QT5].MAKEFILE_ON=			VAR1=qt5
+[QT5].BUILDRUN_DEPENDS_ON=		qt5-qtbase:primary:standard
+
+[QT6].DESCRIPTION=			Qt6 variant
+[QT6].USES_ON=				qt6
+[QT6].MAKEFILE_ON=			VAR1=qt6
+[QT6].BUILDRUN_DEPENDS_ON=		qt6-qtbase:primary:standard
 
 post-install:
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}/html
