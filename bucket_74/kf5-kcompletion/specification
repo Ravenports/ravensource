@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	5.102.0
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kf5-kcompletion
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_toolkits
+VARIANTS=		standard
+SDESC[standard]=	KF5 text completion helpers and widgets
+HOMEPAGE=		https://api.kde.org/frameworks/kcompletion/html/index.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
+DISTFILE[1]=		kcompletion-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL20+:primary
+			LGPL21+:primary
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/LICENSES/LGPL-2.0-or-later.txt
+			LGPL21+:{{WRKSRC}}/LICENSES/LGPL-2.1-or-later.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		x11-toolkits/kf5-kcompletion
+
+BUILD_DEPENDS=		kf5-extra-cmake-modules:primary:standard
+BUILDRUN_DEPENDS=	kf5-kconfig:primary:standard
+			kf5-kwidgetsaddons:primary:standard
+			qt5-qtbase:primary:standard
+
+USES=			cmake
+
+DISTNAME=		kcompletion-${PORTVERSION}
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt5/cmake
+SOVERSION=		${SOVERSION}
+
+post-extract:
+	${ECHO} "Terms extracted from 'src/klineedit.h':" > ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/klineedit.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/kcombobox.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/kcombobox.h >> ${WRKDIR}/TERMS
+
+post-stage:
+	(cd ${STAGEDIR}${PREFIX} && ${STRIP_CMD} lib/libKF5Completion.so \
+		lib/qt5/plugins/designer/kcompletion5widgets.so)
