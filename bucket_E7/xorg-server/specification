@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	21.1.6
 
 NAMEBASE=		xorg-server
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11_servers
 VARIANTS=		standard virtual xephyr nest
 SDESC[standard]=	X.Org X server and related programs
@@ -101,7 +102,6 @@ VAR_OPSYS[netbsd]=	CPPFLAGS=-D_OPENBSD_SOURCE
 [XEPHYR].XORG_COMPONENTS_ON=		x11 xcb xcb-util xcb-util-image
 					xcb-util-wm xcb-util-keysyms xcb-render-util
 [XORG].XORG_COMPONENTS_ON=		pciaccess xfont2
-[XORG].SUB_FILES_ON=			pkg-install-single pkg-deinstall-single
 
 post-configure-DEVD-ON:
 	${REINPLACE_CMD} -e 's|^/\* #undef CONFIG_UDEV \*/|#define CONFIG_DEVD 1|' \
