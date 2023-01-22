@@ -1,6 +1,6 @@
---- vcl/source/app/svapp.cxx.orig	2022-11-16 17:29:15 UTC
+--- vcl/source/app/svapp.cxx.orig	2023-01-12 21:06:06 UTC
 +++ vcl/source/app/svapp.cxx
-@@ -1299,7 +1299,7 @@ OUString Application::GetHWOSConfInfo(co
+@@ -1314,7 +1314,7 @@ OUString Application::GetHWOSConfInfo(co
  #endif
              appendDetails(u"", Localize(SV_APP_DEFAULT, bLocalize));
  

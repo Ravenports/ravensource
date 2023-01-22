@@ -1,15 +1,15 @@
-DEF[PORTVERSION]=	7.4.3.2
+DEF[PORTVERSION]=	7.5.0.2
+DEF[HELPVERSION]=	7.5.0.1
 DEF[CXXWARN]=		-Wno-deprecated-declarations -Wno-undef Wno-unused-parameter -Wno-unused-function -Wno-unused-local-typedefs -Wno-unused-variable -Wno-ignored-qualifiers -Woverloaded-virtual
-DEF[PROGRAM_BINARIES]=	oosplash regmerge regview uri-encode xpdfimport opencltest
+DEF[PROGRAM_BINARIES]=	oosplash regview uri-encode xpdfimport opencltest
 DEF[OPENSTTF]=		f543e6e2d7275557a839a164941c0a86e5f2c3f2a0042bfc434c88c6dde9e140-opens___.ttf
 DEF[DTOAVER]=		20180411
 DEF[SKIA]=		m103-b301ff025004c9cd82816c86c547588e6c24b466
-DEF[DRAGONBOX]=		1.1.0
+DEF[DRAGONBOX]=		1.1.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libreoffice
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		editors
 VARIANTS=		standard
 SDESC[standard]=	Free Software Productivity Suite
@@ -22,7 +22,7 @@ SITES[main]=		https://fossies.org/linux/misc/libreoffice/src/
 SITES[opens]=		https://dev-www.libreoffice.org/extern/
 SITES[devwww]=		https://dev-www.libreoffice.org/src/
 DISTFILE[1]=		libreoffice-${PORTVERSION}.tar.xz:main
-DISTFILE[2]=		libreoffice-help-${PORTVERSION}.tar.xz:main
+DISTFILE[2]=		libreoffice-help-${HELPVERSION}.tar.xz:main
 DISTFILE[3]=		${OPENSTTF}:opens
 DISTFILE[4]=		dtoa-${DTOAVER}.tgz:devwww
 DISTFILE[5]=		skia-${SKIA}.tar.xz:devwww
@@ -190,6 +190,10 @@ post-extract:
 	${CP} ${DISTDIR}/dtoa-${DTOAVER}.tgz ${WRKSRC}/tarballs
 	${CP} ${DISTDIR}/skia-${SKIA}.tar.xz ${WRKSRC}/tarballs
 	${CP} ${DISTDIR}/dragonbox-${DRAGONBOX}.tar.gz ${WRKSRC}/tarballs
+	if [ "${PORTVERSION}" != "${HELPVERSION}" ]; then \
+	   ${MV} ${WRKDIR}/libreoffice-${HELPVERSION}/helpcontent2 \
+	   ${WRKDIR}/libreoffice-${PORTVERSION}/;\
+	fi
 
 pre-configure:
 	${TOUCH} ${WRKSRC}/autogen.lastrun
@@ -204,6 +208,7 @@ post-configure:
 	${TOUCH} ${WRKSRC}/src.downloaded
 
 post-patch:
+	@${ECHO_CMD} "Running post-patch target"
 	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|' \
 		${WRKSRC}/shell/source/unix/exec/shellexec.cxx
 
@@ -212,6 +217,7 @@ post-patch-dragonfly:
 	# Also, ooinstall is fed wrong TMPDIR which is redefined a few times
 	# So let's just hardcode it
 
+	@${ECHO_CMD} "Running DragonFly post-patch target"
 	${REINPLACE_CMD} -e 's|$$ENV{TMPDIR};|"${WRKDIR}";|' \
 		${WRKSRC}/solenv/bin/ooinstall
 
