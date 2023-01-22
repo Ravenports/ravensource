@@ -1,4 +1,4 @@
---- input.h.orig	2023-01-16 02:01:18 UTC
+--- input.h.orig	2023-01-22 21:02:06 UTC
 +++ input.h
 @@ -17,6 +17,10 @@
  #include <linux/types.h>

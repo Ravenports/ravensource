@@ -1,6 +1,6 @@
---- videodev2.h.orig	2023-01-16 02:01:18 UTC
+--- videodev2.h.orig	2023-01-22 21:02:06 UTC
 +++ videodev2.h
-@@ -65,6 +65,10 @@
+@@ -66,6 +66,10 @@
  #include <linux/v4l2-common.h>
  #include <linux/v4l2-controls.h>
  
