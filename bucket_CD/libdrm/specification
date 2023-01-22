@@ -43,10 +43,31 @@ XORG_COMPONENTS=	pciaccess
 MESON_ARGS=		-Dman-pages=enabled
 			-Dinstall-test-programs=true
 			-Dcairo-tests=disabled
+			-Dradeon=enabled
+			-Damdgpu=enabled
+			-Dnouveau=enabled
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lrt
+VAR_OPSYS[netbsd]=	LDFLAGS=-lpci
 
 [ARM].DESCRIPTION=			DRM Drivers for AARCH64 architecture
+[ARM].CONFIGURE_ARGS_ON=		-Detnaviv=enabled
+					-Dexynos=enabled
+					-Dfreedreno=enabled
+					-Domap=enabled
+					-Dtegra=enabled
+					-Dvc4=enabled
+[ARM].CONFIGURE_ARGS_OFF=		-Detnaviv=disabled
+					-Dexynos=disabled
+					-Dfreedreno=disabled
+					-Domap=disabled
+					-Dtegra=disabled
+					-Dvc4=disabled
+
 [X86].DESCRIPTION=			DRM Drivers for amd64 and i386 architectures
+[X86].CONFIGURE_ARGS_ON=		-Dintel=enabled
+					-Dvmwgfx=enabled
+[X86].CONFIGURE_ARGS_OFF=		-Dintel=disabled
+					-Dvmwgfx=disabled

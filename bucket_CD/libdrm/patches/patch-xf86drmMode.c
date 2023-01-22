@@ -1,26 +1,21 @@
-From e41ca0a00f88ef8f8d1999417f198db033172f8d Mon Sep 17 00:00:00 2001
-From: Emmanuel Vadot <manu@FreeBSD.org>
-Date: Thu, 4 Jun 2020 11:05:27 +0200
-Subject: [PATCH] xf86Mode: Always include sys/types.h
-
-On FreeBSD when building with GCC this include is needed for sysctl.h
-On Clang based build it is included via header polution and I'm sure
-that it is also the case on Linux.
-
-Signed-off-by: Emmanuel Vadot <manu@FreeBSD.org>
----
- xf86drmMode.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/xf86drmMode.c b/xf86drmMode.c
-index 5af27c4a..6121fe89 100644
 --- xf86drmMode.c.orig	2022-11-03 08:33:36 UTC
 +++ xf86drmMode.c
-@@ -37,6 +37,7 @@
- #include <limits.h>
- #include <stdint.h>
+@@ -39,9 +39,7 @@
  #include <stdlib.h>
-+#include <sys/types.h>
  #include <sys/ioctl.h>
  #if HAVE_SYS_SYSCTL_H
- #ifdef __FreeBSD__
+-#ifdef __FreeBSD__
+ #include <sys/types.h>
+-#endif
+ #include <sys/sysctl.h>
+ #endif
+ #include <stdio.h>
+@@ -1119,7 +1117,7 @@ drm_public int drmModePageFlipTarget(int
+ 
+ drm_public int drmModeSetPlane(int fd, uint32_t plane_id, uint32_t crtc_id,
+ 		    uint32_t fb_id, uint32_t flags,
+-		    int32_t crtc_x, int32_t crtc_y,
++		    uint32_t crtc_x, int32_t crtc_y,
+ 		    uint32_t crtc_w, uint32_t crtc_h,
+ 		    uint32_t src_x, uint32_t src_y,
+ 		    uint32_t src_w, uint32_t src_h)
