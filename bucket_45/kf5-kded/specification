@@ -1,0 +1,53 @@
+DEF[PORTVERSION]=	5.102.0
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kf5-kded
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	KF5 extensible daemon for system level services
+HOMEPAGE=		https://api.kde.org/frameworks/kded/html/index.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
+DISTFILE[1]=		kded-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL20:single
+			LGPL20+:single
+LICENSE_FILE=		LGPL20:{{WRKSRC}}/LICENSES/LGPL-2.0-only.txt
+			LGPL20+:{{WRKSRC}}/LICENSES/LGPL-2.0-or-later.txt
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		x11/kf5-kded
+
+BUILD_DEPENDS=		kf5-extra-cmake-modules:primary:standard
+			kf5-kdoctools:primary:standard
+BUILDRUN_DEPENDS=	kf5-kconfig:primary:standard
+			kf5-kcoreaddons:primary:standard
+			kf5-kcrash:single:standard
+			kf5-kdbusaddons:primary:standard
+			kf5-kservice:primary:standard
+			qt5-qtbase:primary:standard
+
+USES=			cmake
+
+DISTNAME=		kded-${PORTVERSION}
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt5/cmake
+SOVERSION=		${SOVERSION}
+
+post-extract:
+	${ECHO} "Terms extracted from 'src/kded.h':" > ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/kded.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/kdedadaptor.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/kdedadaptor.h >> ${WRKDIR}/TERMS
+
+post-stage:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/kded5
