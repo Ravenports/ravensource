@@ -1,0 +1,57 @@
+DEF[PORTVERSION]=	5.102.0
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kf5-kservice
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	KF5 advanced plugin and service introspection
+HOMEPAGE=		https://api.kde.org/frameworks/kservice/html/index.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
+DISTFILE[1]=		kservice-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL20:primary
+			LGPL20+:primary
+			LGPL3:primary
+LICENSE_FILE=		LGPL20:{{WRKSRC}}/LICENSES/LGPL-2.0-only.txt
+			LGPL20+:{{WRKSRC}}/LICENSES/LGPL-2.0-or-later.txt
+			LGPL3:{{WRKSRC}}/LICENSES/LGPL-3.0-only.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		devel/kf5-kservice
+
+BUILD_DEPENDS=		kf5-extra-cmake-modules:primary:standard
+			kf5-kdoctools:primary:standard
+BUILDRUN_DEPENDS=	kf5-karchive:primary:standard
+			kf5-kconfig:primary:standard
+			kf5-kcrash:single:standard
+			kf5-kdbusaddons:primary:standard
+			kf5-ki18n:primary:standard
+			qt5-qtbase:primary:standard
+
+USES=			bison cmake gettext-runtime gettext-tools:build
+
+DISTNAME=		kservice-${PORTVERSION}
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt5/cmake
+SOVERSION=		${SOVERSION}
+
+post-extract:
+	${ECHO} "Terms extracted from 'src/services/kservice.h':" > ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/services/kservice.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/sycoca/ksycocadevices_p.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/sycoca/ksycocadevices_p.h >> \
+		${WRKDIR}/TERMS
+
+post-stage:
+	(cd ${STAGEDIR}${PREFIX} && ${STRIP_CMD} bin/kbuildsycoca5 \
+		lib/libKF5Service.so)
