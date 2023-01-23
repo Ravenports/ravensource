@@ -440,7 +440,8 @@ function skip_bad_SU_requirements($var) {
 # Obtain runtime dependencies from wheel file
 function scan_wheel_for_rundeps ($metafile) {
     $contents = file_get_contents ($metafile);
-    return (array_filter(explode("\n", $contents), "only_dists"));
+    $intermediate = array_filter(explode("\n", $contents), "only_dists");
+    return (array_map("trim", $intermediate));
 }
 
 

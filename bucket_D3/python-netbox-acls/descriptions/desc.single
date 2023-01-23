@@ -19,37 +19,47 @@ Based on the NetBox plugin tutorial by [jeremystretch]:
 - [demo repository]
 - [tutorial]
 
-All credit should go to Jeremy.  Thanks Jeremy!
+All credit should go to Jeremy. Thanks, Jeremy!
 
 This project just looks to build on top of this framework and model
 presented.
 
+## Contributing
+
+This project is currently maintained jointly by:
+
+- [Abhimanyu Saharan]
+- [Ryan Merolle]
+
+See the [CONTRIBUTING] for more information.
+
 ## Compatibility
 
-This plugin was first developed using 3.2.5, and tested with all of 3.2.
+Each Plugin Version listed below has been tested with its corresponding
+NetBox Version.
 
 | NetBox Version | Plugin Version |
-|----------------|----------------|
-|       3.2      |      1.0.1     |
-|       3.3      |      1.1.0     |
+|:--------------:|:--------------:|
+|      3.2       |     1.0.1      |
+|      3.3       |     1.1.0      |
+|      3.4       |     1.2.0      |
 
 ## Installing
 
 For adding to a NetBox Docker setup see
 [the general instructions for using netbox-docker with plugins].
 
-While this is still in development and not yet on pypi you can install with
-pip:
+You can install with pip:
 
 ```bash
-pip install git+https://github.com/ryanmerolle/netbox-acls.git@dev
+pip install netbox-acls
 ```
 
 or by adding to your `local_requirements.txt` or `plugin_requirements.txt`
 (netbox-docker):
 
 ```bash
-git+https://github.com/ryanmerolle/netbox-acls.git@dev
+netbox-acls
 ```
 
 Enable the plugin in `/opt/netbox/netbox/netbox/configuration.py`,
@@ -65,28 +75,26 @@ PLUGINS_CONFIG = {
 }
 ```
 
+## Developing
+
+### VSCode + Docker + Dev Containers
+
+To develop this plugin further one can use the included .devcontainer
+configuration. This configuration creates a docker container which includes
+a fully working netbox installation. Currently it should work when using
+WSL 2. For this to work make sure you have Docker Desktop installed and the
+WSL 2 integrations activated.
+
+1. In the WSL terminal, enter `code` to run Visual studio code.
+2. Install the devcontainer extension "ms-vscode-remote.remote-containers"
+3. Press Ctrl+Shift+P and use the "Dev Container: Clone Repository in
+Container Volume" function to clone this repository. This will take a while
+depending on your computer
+4. If you'd like the netbox instance to be prepopulated with example data
+from [netbox-initializers] run `make  initializers`
+5. Start the netbox instance using `make all`
+
+Your netbox instance will be served under 0.0.0.0:8000, so it should now be
+available under localhost:8000.
+
 ## Screenshots
-
-Access List - List View
-![Access List - List View]
-
-Access List (Type Extended) - Individual View
-![Access List Type Extended - Individual View]
-
-Access List (Type Standard) - Individual View
-![Access List Type Standard - Individual View]
-
-Extended Access List Rules - List View
-![Extended Access List Rules - List View]
-
-Standard Access List Rules - List View
-![Standard Access List Rules - List View]
-
-Access List Interface Assignments- List View
-![Access List Interface Assignments- List View]
-
-Host (device, virtual_chassis, virtual_machine) Access Lists - New Card
-![Host Access Lists - New Card]
-
-Host Interface (vminterface interface) Access Lists - New Card
-![Host Interface Access Lists - New Card]
