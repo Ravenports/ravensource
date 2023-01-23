@@ -1,5 +1,5 @@
 This document describes how to create a new go-based port from scratch.
-To update an existing go-based port, only steps 2 and 3 need to be repeated.
+To update an existing go-based port, only steps 2, 3, 5 and 6 need to be repeated.
 Note that golang port generation does not generate an intermediate
 "crates list".  The intermediate step is handled internally.
 
@@ -70,8 +70,69 @@ Prerequisite: golang-single-standard package must be installed
 =========================================
 
     Use the already selected namebase and version to generate
-    the specification file.
+    the specification file.  The directory to the go.mod and go.sum
+    files is also needed.
+
+    Example:
+      $ cd <ravensource-repo>/Scripts/miscellaneous
+      $ ./golang_port.sh git-lfs 3.3.0 /tmp/git-lfs-3.3.0
+
+
+=========================================
+  Step 4: Create description file
+=========================================
+
+    The port description file needs to be written and saved.
 
     Example 1:
-      $ cd <ravensource-repo>/Scripts/miscellaneous
-      $ ./golang_port.sh git-lfs 3.3.0
+      $ eval `ravenadm dev jump git-lfs`
+      $ nano descriptions/desc.single
+
+
+=========================================
+  Step 5: Create the distinfo file
+=========================================
+
+    $ ravenadm dev buildsheet . save
+    $ ravenadm dev generate-index
+    $ ravenadm dev distinfo
+
+    Note that the last command can take an absurdly long time.
+    Even simple applications can have hundreds of go modules that
+    as build dependencies.  It's crazy.
+
+
+=========================================
+  Step 6: Build the port
+=========================================
+
+    Example:
+      $ ravenadm dev buildsheet . save
+      $ ravenadm test git-lfs
+
+
+=========================================
+  Step 7: Install manifest
+=========================================
+
+    The previous build will never succeed because the manifest is missing.
+    Check the logs to see if installation completed though.  If it did,
+    copy the manifest over
+
+    Example:
+      $ vi /build/ravenports/release62/logs/logs/git-lfs___standard.log
+      $ cp /build/ravenports/release62/manifests/git-lfs___standard.txt manifests/plist.primary
+      split out the docs files to manifests/plist.docs
+
+
+=========================================
+  Step 8: Commit port
+=========================================
+
+    Check the port builds correctly and then commit it.
+
+    Example 1:
+      $ ravenadm dev buildsheet . save
+      $ ravenadm test git-lfs
+      $ git add .
+      $ git commit -m "Add git-lfs port"
