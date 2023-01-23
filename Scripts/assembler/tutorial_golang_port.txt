@@ -1,0 +1,77 @@
+This document describes how to create a new go-based port from scratch.
+To update an existing go-based port, only steps 2 and 3 need to be repeated.
+Note that golang port generation does not generate an intermediate
+"crates list".  The intermediate step is handled internally.
+
+Prerequisite: golang-single-standard package must be installed
+
+
+=========================================
+  Step 1: Create specification template
+=========================================
+
+1A) Create the empty specification template
+
+    Example:
+      $ eval `ravenadm dev jump git-lfs`
+      $ ravenadm dev template save
+      $ mv specification specification.template
+
+2B) Add the template fields
+
+    Change line: "# DEF[PORTVERSION]=     1.00"
+             To: "DEF[PORTVERSION]=       %%VERSION%%"
+
+    Change line: "DOWNLOAD_GROUPS=        main"
+             To: "%%DOWNLOAD_GROUPS%%"
+
+    Change line: "SITES[main]=            http://www.example.com/"
+             To: "SITES[main]=            GITHUB/git-lfs:git-lfs:v${PORTVERSION}  <-tailor
+                 "%%CR_SITES%%"
+
+    Change line: "DISTFILE[1]=            x-${PORTVERSION}.tar.gz:main"
+             To: "DISTFILE[1]=            generated:main                          <-tailor
+
+    Afterwards:
+            Add: "%%CR_DISTFILES%%"
+                 "%%DF_INDEX%%"
+
+2C) Other template updates
+
+    a. Set NAMEBASE
+    b. Set KEYWORDS to appropriate keyword
+    c. set DESC[standard]
+    d. set HOMEPAGE
+    e. set CONTACT
+    f. set LICENSE (optional but suggested)
+    g. set USES
+    h. set FPC_EQUIVALENT if relevant
+
+
+=========================================
+  Step 2: Obtain mod and sum files
+=========================================
+
+1A) Manually obtain the go.mod and go.sum files.
+
+    Example:
+       $ cd /tmp
+       $ fetch "https://github.com/git-lfs/git-lfs/releases/download/v3.3.0/git-lfs-v3.3.0.tar.gz"
+       $ tar -rx git-lfs-v3.3.0.tar.gz
+       location: /tmp/git-lfs-3.3.0/go.mod and /tmp/git-lfs-3.3.0/go.sum
+
+1B) Select the name and version of the ravenport.
+
+    Example: selected "git-lfs", "3.3.0"
+
+
+=========================================
+  Step 3: Generate specification
+=========================================
+
+    Use the already selected namebase and version to generate
+    the specification file.
+
+    Example 1:
+      $ cd <ravensource-repo>/Scripts/miscellaneous
+      $ ./golang_port.sh git-lfs 3.3.0

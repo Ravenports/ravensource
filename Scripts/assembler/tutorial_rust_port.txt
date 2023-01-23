@@ -11,6 +11,7 @@ that need to be repeated.
     Example 1, from github:
        $ cd /tmp
        $ fetch "https://crates.io/api/v1/crates/comtrya/0.8.2/download?dummy=/comtrya-0.8.2.tar.gz"
+       $ tar -xf /comtrya-0.8.2.tar.gz
        location: /tmp/comtrya-0.8.2/Cargo.lock
 
     Example 2, from distribution file:
@@ -62,10 +63,13 @@ that need to be repeated.
              To: "%%DOWNLOAD_GROUPS%%"
 
     Change line: "SITES[main]=            http://www.example.com/"
-             To: "SITES[main]=            https://crates.io/api/v1/crates/< namebase >/${PORTVERSION}/download?dummy=/"
+             To: "SITES[main]=            https://crates.io/api/v1/crates/b3sum/${PORTVERSION}/download?dummy=/"  <-tailor
                  "%%CR_SITES%%"
 
-     After line: "DISTFILE[1]=            x-${PORTVERSION}.tar.gz:main"
+    Change line: "DISTFILE[1]=            x-${PORTVERSION}.tar.gz:main"
+             To: "DISTFILE[1]=            b3sum-${PORTVERSION}.tar.gz:main         <-tailor
+
+    Afterwards:
             Add: "%%CR_DISTFILES%%"
                  "%%DF_INDEX%%"
 
@@ -76,15 +80,12 @@ that need to be repeated.
     c. set DESC[standard]
     d. set HOMEPAGE (maybe "https://crates.io/crates/<namebase>")
     e. set CONTACT
-    f. set DISTFILE[1] (suggested "<namebase>-${PORTVERSION}.tar.gz:main")
-    g. set LICENSE (optional but suggested)
-    h. set USES (minimum "cargo", but maybe "cclibs:single" too)
-    i. set FPC_EQUIVALENT if relevant
-    j. Drop .crates2.json if installed:
+    f. set LICENSE (optional but suggested)
+    g. set USES (minimum "cargo", but maybe "cclibs:single" too)
+    h. set FPC_EQUIVALENT if relevant
+    i. Drop .crates2.json if installed:
        post-install:
                ${RM} ${STAGEDIR}${PREFIX}/.crates2.json
-    k. SITES[main]/DISTFILE[1]: if not listed in https://crates.io, change to actual
-       download site and distribution filename.
 
 
 =========================================
