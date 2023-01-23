@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	5.102.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kf5-breeze-icons
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_themes
+VARIANTS=		standard
+SDESC[standard]=	Breeze icon theme for KDE
+HOMEPAGE=		https://api.kde.org/frameworks/breeze-icons/html/index.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
+DISTFILE[1]=		breeze-icons-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL3+:single
+LICENSE_FILE=		LGPL3+:{{WRKSRC}}/COPYING-ICONS
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/COPYING-ICONS
+LICENSE_AWK=		TERMS:"-----"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11-themes/kf5-breeze-icons
+
+BUILD_DEPENDS=		kf5-extra-cmake-modules:primary:standard
+			python-lxml:single:python_default
+BUILDRUN_DEPENDS=	qt5-qtbase:primary:standard
+
+USES=			cmake python:build
+
+DISTNAME=		breeze-icons-${PORTVERSION}
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt5/cmake
