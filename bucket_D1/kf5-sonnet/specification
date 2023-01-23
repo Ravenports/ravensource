@@ -1,0 +1,57 @@
+DEF[PORTVERSION]=	5.102.0
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kf5-sonnet
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	KF5 plugin-based spell checking library
+HOMEPAGE=		https://api.kde.org/frameworks/sonnet/html/index.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
+DISTFILE[1]=		sonnet-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL20+:primary
+			LGPL21+:primary
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/LICENSES/LGPL-2.0-or-later.txt
+			LGPL21+:{{WRKSRC}}/LICENSES/LGPL-2.1-or-later.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		textproc/kf5-sonnet
+
+BUILD_DEPENDS=		kf5-extra-cmake-modules:primary:standard
+BUILDRUN_DEPENDS=	aspell:primary:standard
+			hunspell:single:standard
+			qt5-qtbase:primary:standard
+			qt5-qtdeclarative:single:standard
+
+USES=			cmake
+
+DISTNAME=		sonnet-${PORTVERSION}
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt5/cmake
+SOVERSION=		${SOVERSION}
+
+post-extract:
+	${ECHO} "Terms extracted from 'src/core/tokenizer_p.h':" > ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/core/tokenizer_p.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/ui/dialog.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/ui/dialog.h >> ${WRKDIR}/TERMS
+
+post-stage:
+	(cd ${STAGEDIR}${PREFIX} && ${STRIP_CMD} bin/gentrigrams \
+		bin/parsetrigrams \
+		lib/libKF5SonnetCore.so \
+		lib/libKF5SonnetUi.so \
+		lib/qt5/plugins/designer/sonnetui5widgets.so \
+		lib/qt5/plugins/kf5/sonnet/sonnet_aspell.so \
+		lib/qt5/plugins/kf5/sonnet/sonnet_hunspell.so \
+		lib/qt5/qml/org/kde/sonnet/libsonnetquickplugin.so)
