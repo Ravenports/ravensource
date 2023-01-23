@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	5.102.0
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kf5-attica
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_toolkits
+VARIANTS=		standard
+SDESC[standard]=	Open Collaboration Services API library, KDE5 vers
+HOMEPAGE=		https://api.kde.org/frameworks/attica/html/index.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
+DISTFILE[1]=		attica-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL20+:single
+			LGPL21:single
+			LGPL3:single
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/LICENSES/LGPL-2.0-or-later.txt
+			LGPL21:{{WRKSRC}}/LICENSES/LGPL-2.1-only.txt
+			LGPL3:{{WRKSRC}}/LICENSES/LGPL-3.0-only.txt
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		x11-toolkits/kf5-attica
+
+BUILD_DEPENDS=		kf5-extra-cmake-modules:primary:standard
+BUILDRUN_DEPENDS=	qt5-qtbase:primary:standard
+
+USES=			cmake
+
+DISTNAME=		attica-${PORTVERSION}
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt5/cmake
+SOVERSION=		${SOVERSION}
+
+post-extract:
+	${ECHO} "Terms extracted from 'src/version.h.cmake':" > ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/version.h.cmake >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/person.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/person.h >> ${WRKDIR}/TERMS
