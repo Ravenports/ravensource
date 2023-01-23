@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	5.102.0
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kf5-kitemviews
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_toolkits
+VARIANTS=		standard
+SDESC[standard]=	KF5 widget add-ons for Qt Model/View
+HOMEPAGE=		https://api.kde.org/frameworks/kitemviews/html/index.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
+DISTFILE[1]=		kitemviews-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL20:primary
+			LGPL20+:primary
+LICENSE_FILE=		LGPL20:{{WRKSRC}}/LICENSES/LGPL-2.0-only.txt
+			LGPL20+:{{WRKSRC}}/LICENSES/LGPL-2.0-or-later.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		x11-toolkits/kf5-kitemviews
+
+BUILD_DEPENDS=		kf5-extra-cmake-modules:primary:standard
+BUILDRUN_DEPENDS=	qt5-qtbase:primary:standard
+
+USES=			cmake
+
+DISTNAME=		kitemviews-${PORTVERSION}
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt5/cmake
+SOVERSION=		${SOVERSION}
+
+post-extract:
+	${ECHO} "Terms extracted from 'src/ktreewidgetsearchline.h':" > ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/ktreewidgetsearchline.h >> \
+		${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/kcategorizedview.h:" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/kcategorizedview.h >> \
+		${WRKDIR}/TERMS
+
+post-stage:
+	(cd ${STAGEDIR}${PREFIX}/lib && ${STRIP_CMD} libKF5ItemViews.so \
+		qt5/plugins/designer/kitemviews5widgets.so)
