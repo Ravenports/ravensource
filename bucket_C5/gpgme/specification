@@ -5,7 +5,7 @@ DEF[CPP_SOVERSION]=	6.15.0
 
 NAMEBASE=		gpgme
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	GnuPG Made Easy - high level crypto API
@@ -27,13 +27,15 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/gpgme
 
+BUILD_DEPENDS=		libgpg-error:dev:standard
 BUILDRUN_DEPENDS=	libgpg-error:primary:standard
 			libassuan:single:standard
 			gnupg:primary:standard
 
 EXRUN[cpp]=		gpgme:primary:standard
+			libassuan:single:standard
 
-USES=			cpe gmake libtool shebangfix
+USES=			cpe gmake libtool shebangfix c++:cpp
 SHEBANG_FILES=		tests/gpg/pinentry
 CPE_VENDOR=		gnu
 MUST_CONFIGURE=		gnu

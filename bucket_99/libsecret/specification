@@ -5,6 +5,7 @@ DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl/current
 
 NAMEBASE=		libsecret
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Library to access the secret service API
@@ -29,9 +30,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/libsecret
 
-BUILDRUN_DEPENDS=	docbook-xsl:primary:standard
-			libgcrypt:single:standard
+BUILD_DEPENDS=		libgpg-error:dev:standard
+			docbook-xsl:primary:standard
 			vala:single:standard
+BUILDRUN_DEPENDS=	libgcrypt:single:standard
 
 USES=			gettext-tools gmake libtool meson pkgconfig
 GNOME_COMPONENTS=	glib libxslt intltool introspection

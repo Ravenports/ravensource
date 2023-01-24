@@ -7,7 +7,7 @@ KEYWORDS=		net net_im irc
 VARIANTS=		standard
 SDESC[standard]=	Fast, light and extensible chat client
 HOMEPAGE=		https://www.weechat.org
-CONTACT=		Leonid_Bobrov[goleo@disroot.org]
+CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.weechat.org/files/src/
@@ -27,6 +27,13 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		irc/weechat
 
+BUILD_DEPENDS=		libgpg-error:dev:standard
+BUILDRUN_DEPENDS=	aspell:primary:standard
+			curl:primary:standard
+			gnutls:primary:standard
+			libgcrypt:single:standard
+			libgpg-error:primary:standard
+
 USES=			cmake gettext-tools gettext-runtime iconv libtool
 			lua ncurses perl pkgconfig python tcl cpe ruby zlib zstd
 CMAKE_ARGS=		-DENABLE_PYTHON3:BOOL=ON
@@ -34,11 +41,6 @@ CMAKE_ARGS=		-DENABLE_PYTHON3:BOOL=ON
 			-DENABLE_PHP:BOOL=OFF
 			-DENABLE_GUILE:BOOL=OFF
 			-DENABLE_JAVASCRIPT:BOOL=OFF
-BUILDRUN_DEPENDS=	aspell:primary:standard
-			curl:primary:standard
-			gnutls:primary:standard
-			libgcrypt:single:standard
-			libgpg-error:primary:standard
 
 post-patch:
 	${GREP} -l '/usr/local' \
