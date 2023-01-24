@@ -32,9 +32,9 @@ BUILD_DEPENDS=		docbook-xsl:primary:standard
 			gdbm:primary:static
 BUILDRUN_DEPENDS=	cyrus-sasl:primary:standard
 			gettext:runtime:standard
-# #see below		gpgme:primary:standard
-# #			libassuan:single:standard
-# #			libgpg-error:primary:standard
+			gpgme:primary:standard
+			libassuan:single:standard
+			libgpg-error:primary:standard
 			libidn2:primary:standard
 RUN_DEPENDS=		media-types:single:standard
 
@@ -49,9 +49,7 @@ CONFIGURE_ARGS=		--disable-debug
 			--enable-compressed
 			--enable-external_dotlock
 			--enable-fcntl
-# mutt segfaults with gpgme (+nls?)
-# #			--enable-gpgme
-			--disable-gpgme
+			--enable-gpgme
 			--enable-hcache
 			--enable-imap
 			--enable-nls
@@ -70,6 +68,7 @@ CONFIGURE_ARGS=		--disable-debug
 			--with-libiconv-prefix={{LOCALBASE}}
 			--without-kyotocabinet
 			--without-tokyocabinet
+			--without-included-gettext
 			--without-qdbm
 
 post-install:
