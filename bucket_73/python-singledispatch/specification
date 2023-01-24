@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	4.0.0
 NAMEBASE=		python-singledispatch
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		Backport of single-dispatch functions (3.10)
-SDESC[py311]=		Backport of single-dispatch functions (3.11)
+SDESC[v11]=		Backport of single-dispatch functions (3.11)
 HOMEPAGE=		https://github.com/jaraco/singledispatch
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/6c/90/6769cbded8b783758941cad5c7fc5172e10fc6ccbd0476984d0c
 DISTFILE[1]=		singledispatch-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # Not provided.
@@ -45,5 +45,5 @@ DISTNAME=		singledispatch-${PORTVERSION}.dist-info
 # pytest-flake8 ; (python_version < "3.12") and extra == 'testing'
 
 [PY310].USES_ON=			python:py310,wheel
-[PY311].USES_ON=			python:py311,wheel
+[PY311].USES_ON=			python:v11,wheel
 

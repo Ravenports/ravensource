@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	4.34.0
 NAMEBASE=		python-breathe
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		Sphinx Doxygen renderer (3.10)
-SDESC[py311]=		Sphinx Doxygen renderer (3.11)
+SDESC[v11]=		Sphinx Doxygen renderer (3.11)
 HOMEPAGE=		https://github.com/michaeljones/breathe
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/e8/6b/1385608a27653b6f02047d23f365f5dde7a54a266a0b3358b578
 DISTFILE[1]=		breathe-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # BSD
@@ -35,7 +35,7 @@ DISTNAME=		breathe-${PORTVERSION}.dist-info
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-Sphinx:single:py310
 					python-docutils:single:py310
-[PY311].USES_ON=			python:py311,wheel
-[PY311].RUN_DEPENDS_ON=			python-Sphinx:single:py311
-					python-docutils:single:py311
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-Sphinx:single:v11
+					python-docutils:single:v11
 

@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	21.0.0
 NAMEBASE=		python-hyperlink
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		Featureful, immutable, and correct URL (3.10)
-SDESC[py311]=		Featureful, immutable, and correct URL (3.11)
+SDESC[v11]=		Featureful, immutable, and correct URL (3.11)
 HOMEPAGE=		https://github.com/python-hyper/hyperlink
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/6e/aa/8caf6a0a3e62863cbb9dab27135660acba46903b703e224f14f4
 DISTFILE[1]=		hyperlink-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # MIT
@@ -34,6 +34,6 @@ DISTNAME=		hyperlink-${PORTVERSION}.dist-info
 
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-idna:single:py310
-[PY311].USES_ON=			python:py311,wheel
-[PY311].RUN_DEPENDS_ON=			python-idna:single:py311
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-idna:single:v11
 

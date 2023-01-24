@@ -38,10 +38,12 @@ $port_data = array();
 $truncated_summaries = array();
 $no_descriptions = array();
 $ravensource_directory = "";
-$VA = 310;	# single point of change when python
-$VB = 311;	# series are changed in ravenports
+$DUO = array();
+$DUO["VA"] = array ("version" => 310, "variant" => "py310");   # single point of change when python
+$DUO["VB"] = array ("version" => 311, "variant" => "v11");     # series are changed in ravenports
 $PYTHON_VERSION_A = -1;
 $PYTHON_VERSION_B = -1;
+
 
 # Sets the initial scan list as the top-level ports
 function set_initial_queue() {
@@ -53,16 +55,29 @@ function set_initial_queue() {
 }
 
 
+# Return version when given a variant
+function variant_to_version($variant) {
+    global $DUO;
+
+    foreach ($DUO as $V) {
+        if ($V["variant"] == $variant) {
+           return $V["version"];
+        }
+    }
+    return 0;
+}
+
+
 # Python generator isn't recursive, so we only make one pass.
 function cycle_through_queue ($force_setting) {
     global
-        $VA, $VB,
+        $DUO,
         $port_data,
         $namebase_queue;
 
     set_up_cache();
     foreach ($namebase_queue as $namebase) {
-        $port_data[$namebase] = scrape_python_info ($namebase, $force_setting, $VA, $VB);
+        $port_data[$namebase] = scrape_python_info ($namebase, $force_setting, $DUO);
         if (!$port_data[$namebase]["success"]) {
             echo "Error scanning $namebase port\n";
         }
@@ -90,13 +105,13 @@ function bucket_directory($namebase) {
 # Slurp raven.versions.mk to determine latest python version
 function set_python_version($ravensource) {
     global
-        $VA, $VB,
+        $DUO,
         $PYTHON_VERSION_A,
         $PYTHON_VERSION_B;
 
     # transitional issue, VA=39 VB=310
-    $VAS = strval($VA);
-    $VBS = strval($VB);
+    $VAS = strval($DUO["VA"]["version"]);
+    $VBS = strval($DUO["VB"]["version"]);
 
     $PA = substr($VAS, 0, 1) . "[.]" . substr($VAS, 1);
     $PB = substr($VBS, 0, 1) . "[.]" . substr($VBS, 1);
@@ -127,13 +142,13 @@ function set_python_version($ravensource) {
 # return True if the port builds on the given version.
 function meets_version_requirements ($PYVER, $requirements_string) {
     global
-        $VA, $VB,
+        $DUO,
         $PYTHON_VERSION_A,
         $PYTHON_VERSION_B;
 
     switch ($PYVER) {
-        case $VA : $py_version = $PYTHON_VERSION_A; break;
-        case $VB : $py_version = $PYTHON_VERSION_B; break;
+        case $DUO["VA"]["version"] : $py_version = $PYTHON_VERSION_A; break;
+        case $DUO["VB"]["version"] : $py_version = $PYTHON_VERSION_B; break;
         default  : exit ("Dev error: unrecognized PYVER ($PYVER)\n");
     }
 
@@ -246,13 +261,13 @@ function meets_version_requirements ($PYVER, $requirements_string) {
 # return an array of variants based on meeting python version requirements
 # Python 2.7 is determined manually
 function determine_variants($namebase, $requirements) {
-    global $VA, $VB;
+    global $DUO;
 
     $variants = array();
-    foreach (array($VA, $VB) as $V) {
-        if (meets_version_requirements($V, $requirements)) {
-            array_push($variants, "py" . $V);
-        }
+    foreach ($DUO as $V) {
+       if (meets_version_requirements($V["version"], $requirements)) {
+           array_push($variants, $V["variant"]);
+       }
     }
 
     if (empty($variants)) {
@@ -374,23 +389,24 @@ function generate_port($namebase) {
 
     foreach ($variants as $V) {
         $prereturn = ($V == $primo) ? "" : "\n";
-        $VX = substr($V, 2, 1) . "." . substr($V, 3);
+        $SV = variant_to_version($V);
+        $SVT = strval($SV);
+        $VX = substr($SVT, 0, 1) . "." . substr($SVT, 1);
         $comments_block    .= $prereturn . "SDESC[$V]=\t\t$comment ($VX)";
         $subpackages_block .= "SPKGS[$V]=\t\tsingle\n";
         $vopts_block       .= "VOPTS[$V]=\t\t";
         foreach ($variants as $Z) {
             $prespace = ($Z == $primo) ? "" : " ";
             $setting  = ($Z == $V) ? "ON" : "OFF";
-            $SZ = substr($Z, 2);
+            $SZ = strval(variant_to_version($Z));
             $vopts_block       .= $prespace . "PY" . $SZ . "=" . $setting;
         }
         $vopts_block .= "\n";
         $prespace = ($V == $primo) ? "" : " ";
-        $SV = substr($V, 2);
         $available_options .= $prespace . "PY" . $SV;
 
-        # SV be 2 or 3 characters.  We need 4 tabs on 2, and 3 tabs on 3
-        $tabs = (strlen($SV) == 2) ? "\t\t\t\t" : "\t\t\t";
+        # SV is 3 characters now.  We need 3 tabs
+        $tabs = "\t\t\t";
         $buildrun_block .= "[PY" . $SV . "].USES_ON=" .$tabs . "python:" . $V . $arg . "\n";
         if (count($port_data[$namebase]["buildrun"])) {
             $buildrun_block .= "[PY" . $SV . "].BUILDRUN_DEPENDS_ON=\t\t";
@@ -399,10 +415,10 @@ function generate_port($namebase) {
                 $buildrun_block .= $indent . $DEP . ":single:" . $V . "\n";
             }
         }
-        if (count($port_data[$namebase]["justrun_py" . $SV])) {
+        if (count($port_data[$namebase]["justrun_" . $V])) {
             $buildrun_block .= "[PY" . $SV . "].RUN_DEPENDS_ON=\t\t\t";
-            foreach ($port_data[$namebase]["justrun_py" . $SV] as $DEP) {
-                $indent = ($DEP == $port_data[$namebase]["justrun_py" . $SV][0]) ? "" : "\t\t\t\t\t";
+            foreach ($port_data[$namebase]["justrun_" . $V] as $DEP) {
+                $indent = ($DEP == $port_data[$namebase]["justrun_" . $V][0]) ? "" : "\t\t\t\t\t";
                 $buildrun_block .= $indent . $DEP . ":single:" . $V . "\n";
             }
         }

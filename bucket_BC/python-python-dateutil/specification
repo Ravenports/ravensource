@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.8.2
 NAMEBASE=		python-python-dateutil
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		Extension to the standard datetime module (3.10)
-SDESC[py311]=		Extension to the standard datetime module (3.11)
+SDESC[v11]=		Extension to the standard datetime module (3.11)
 HOMEPAGE=		https://github.com/dateutil/dateutil
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/36/7a/87837f39d0296e723bb9b62bbb257d0355c7f6128853c78955f5
 DISTFILE[1]=		python_dateutil-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # Dual License
@@ -33,6 +33,6 @@ DISTNAME=		python_dateutil-${PORTVERSION}.dist-info
 
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-six:single:py310
-[PY311].USES_ON=			python:py311,wheel
-[PY311].RUN_DEPENDS_ON=			python-six:single:py311
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-six:single:v11
 

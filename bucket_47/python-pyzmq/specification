@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	25.0.0
 NAMEBASE=		python-pyzmq
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		Python bindings for 0MQ (3.10)
-SDESC[py311]=		Python bindings for 0MQ (3.11)
+SDESC[v11]=		Python bindings for 0MQ (3.11)
 HOMEPAGE=		https://pyzmq.readthedocs.org
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPI/p/pyzmq
 DISTFILE[1]=		pyzmq-${PORTVERSION}.tar.gz:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # LGPL+BSD
@@ -32,7 +32,7 @@ DISTNAME=		pyzmq-${PORTVERSION}
 
 
 [PY310].USES_ON=			python:py310,sutools
-[PY311].USES_ON=			python:py311,sutools
+[PY311].USES_ON=			python:v11,sutools
 
 BUILDRUN_DEPENDS=	zeromq:single:standard
 BUILD_DEPENDS=		python-packaging:single:python_used

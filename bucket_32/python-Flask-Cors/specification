@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	3.0.10
 NAMEBASE=		python-Flask-Cors
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		Cross Origin Resource Sharing extension (3.10)
-SDESC[py311]=		Cross Origin Resource Sharing extension (3.11)
+SDESC[v11]=		Cross Origin Resource Sharing extension (3.11)
 HOMEPAGE=		https://github.com/corydolphin/flask-cors
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/db/84/901e700de86604b1c4ef4b57110d4e947c218b9997adf5d38fa7
 DISTFILE[1]=		Flask_Cors-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # MIT
@@ -35,9 +35,9 @@ DISTNAME=		Flask_Cors-${PORTVERSION}.dist-info
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-Flask:single:py310
 					python-six:single:py310
-[PY311].USES_ON=			python:py311,wheel
-[PY311].RUN_DEPENDS_ON=			python-Flask:single:py311
-					python-six:single:py311
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-Flask:single:v11
+					python-six:single:v11
 
 USES=			cpe
 CPE_VENDOR=		flask-cors_project

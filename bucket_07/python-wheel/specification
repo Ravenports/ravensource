@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.38.4
 NAMEBASE=		python-wheel
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		Built-package format for Python (3.10)
-SDESC[py311]=		Built-package format for Python (3.11)
+SDESC[v11]=		Built-package format for Python (3.11)
 HOMEPAGE=		https://github.com/pypa/wheel
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/bd/7c/d38a0b30ce22fc26ed7dbc087c6d00851fb3395e9d0dac40bec1
 DISTFILE[1]=		wheel-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # MIT
@@ -32,7 +32,7 @@ DISTNAME=		wheel-${PORTVERSION}.dist-info
 # pytest (>=3.0.0) ; extra == 'test'
 
 [PY310].USES_ON=			python:py310,wheel
-[PY311].USES_ON=			python:py311,wheel
+[PY311].USES_ON=			python:v11,wheel
 
 USES=			cpe
 CPE_VENDOR=		wheel_project

@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	3.3.0
 NAMEBASE=		python-tablib
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		Format-agnostic tabular dataset library (3.10)
-SDESC[py311]=		Format-agnostic tabular dataset library (3.11)
+SDESC[v11]=		Format-agnostic tabular dataset library (3.11)
 HOMEPAGE=		https://tablib.readthedocs.io
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/c5/dd/ee02d734eff7e48e82fc22b71b40e28d7e43d65fb8b5055f73bf
 DISTFILE[1]=		tablib-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # MIT
@@ -47,7 +47,7 @@ DISTNAME=		tablib-${PORTVERSION}.dist-info
 # pyyaml ; extra == 'yaml'
 
 [PY310].USES_ON=			python:py310,wheel
-[PY311].USES_ON=			python:py311,wheel
+[PY311].USES_ON=			python:v11,wheel
 
 USES=			cpe
 CPE_VENDOR=		python

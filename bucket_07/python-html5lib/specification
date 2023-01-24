@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.1
 NAMEBASE=		python-html5lib
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		HTML parser based on WHATWG specification (3.10)
-SDESC[py311]=		HTML parser based on WHATWG specification (3.11)
+SDESC[v11]=		HTML parser based on WHATWG specification (3.11)
 HOMEPAGE=		https://github.com/html5lib/html5lib-python
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/6c/dd/a834df6482147d48e225a49515aabc28974ad5a4ca3215c18a88
 DISTFILE[1]=		html5lib-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # MIT License
@@ -41,7 +41,7 @@ DISTNAME=		html5lib-${PORTVERSION}.dist-info
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-six:single:py310
 					python-webencodings:single:py310
-[PY311].USES_ON=			python:py311,wheel
-[PY311].RUN_DEPENDS_ON=			python-six:single:py311
-					python-webencodings:single:py311
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-six:single:v11
+					python-webencodings:single:v11
 

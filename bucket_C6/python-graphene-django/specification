@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	3.0.0
 NAMEBASE=		python-graphene-django
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		Graphene Django integration (3.10)
-SDESC[py311]=		Graphene Django integration (3.11)
+SDESC[v11]=		Graphene Django integration (3.11)
 HOMEPAGE=		https://github.com/graphql-python/graphene-django
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/5f/e8/10837a3f971c96b331368c89356c7f8b87d206f520403750f240
 DISTFILE[1]=		graphene_django-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # MIT
@@ -66,11 +66,11 @@ DISTNAME=		graphene_django-${PORTVERSION}.dist-info
 					python-Django:single:py310
 					python-promise:single:py310
 					python-text-unidecode:single:py310
-[PY311].USES_ON=			python:py311,wheel
-[PY311].RUN_DEPENDS_ON=			python-graphene:single:py311
-					python-graphql-core:single:py311
-					python-graphql-relay:single:py311
-					python-Django:single:py311
-					python-promise:single:py311
-					python-text-unidecode:single:py311
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-graphene:single:v11
+					python-graphql-core:single:v11
+					python-graphql-relay:single:v11
+					python-Django:single:v11
+					python-promise:single:v11
+					python-text-unidecode:single:v11
 

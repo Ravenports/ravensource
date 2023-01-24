@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.3.3
 NAMEBASE=		python-mdit-py-plugins
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		Collection of plugins for markdown-it-py (3.10)
-SDESC[py311]=		Collection of plugins for markdown-it-py (3.11)
+SDESC[v11]=		Collection of plugins for markdown-it-py (3.11)
 HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/33/eb/c358112e8265f827cf8228eda36cf2a720ad933f5ca66f47f808
 DISTFILE[1]=		mdit_py_plugins-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # Not provided.
@@ -41,6 +41,6 @@ DISTNAME=		mdit_py_plugins-${PORTVERSION}.dist-info
 
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-markdown-it-py:single:py310
-[PY311].USES_ON=			python:py311,wheel
-[PY311].RUN_DEPENDS_ON=			python-markdown-it-py:single:py311
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-markdown-it-py:single:v11
 

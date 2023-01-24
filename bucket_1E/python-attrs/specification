@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	22.2.0
 NAMEBASE=		python-attrs
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		Classes Without Boilerplate (3.10)
-SDESC[py311]=		Classes Without Boilerplate (3.11)
+SDESC[v11]=		Classes Without Boilerplate (3.11)
 HOMEPAGE=		https://www.attrs.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/fb/6e/6f83bf616d2becdf333a1640f1d463fef3150e2e926b7010cb0f
 DISTFILE[1]=		attrs-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # MIT
@@ -58,5 +58,5 @@ DISTNAME=		attrs-${PORTVERSION}.dist-info
 # pytest-mypy-plugins ; (platform_python_implementation == "CPython" and python_version < "3.11") and extra == 'tests_no_zope'
 
 [PY310].USES_ON=			python:py310,wheel
-[PY311].USES_ON=			python:py311,wheel
+[PY311].USES_ON=			python:v11,wheel
 

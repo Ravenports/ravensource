@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.30
 NAMEBASE=		python-uuid
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		UUID object and generation function (3.10)
-SDESC[py311]=		UUID object and generation function (3.11)
+SDESC[v11]=		UUID object and generation function (3.11)
 HOMEPAGE=		http://zesty.ca/python/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPI/u/uuid
 DISTFILE[1]=		uuid-${PORTVERSION}.tar.gz:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # UNKNOWN
@@ -32,5 +32,5 @@ DISTNAME=		uuid-${PORTVERSION}
 
 
 [PY310].USES_ON=			python:py310,sutools
-[PY311].USES_ON=			python:py311,sutools
+[PY311].USES_ON=			python:v11,sutools
 

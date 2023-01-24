@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	3.8.1
 NAMEBASE=		python-django-debug-toolbar
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		Debug info of current request/response (3.10)
-SDESC[py311]=		Debug info of current request/response (3.11)
+SDESC[v11]=		Debug info of current request/response (3.11)
 HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/c7/c3/fd81e84ce86904019112428c690a06ab19c66742c917a898dcf9
 DISTFILE[1]=		django_debug_toolbar-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # BSD-3-Clause
@@ -35,7 +35,7 @@ DISTNAME=		django_debug_toolbar-${PORTVERSION}.dist-info
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-Django:single:py310
 					python-sqlparse:single:py310
-[PY311].USES_ON=			python:py311,wheel
-[PY311].RUN_DEPENDS_ON=			python-Django:single:py311
-					python-sqlparse:single:py311
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-Django:single:v11
+					python-sqlparse:single:v11
 

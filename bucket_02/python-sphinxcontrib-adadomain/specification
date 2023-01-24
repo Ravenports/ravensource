@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.2
 NAMEBASE=		python-sphinxcontrib-adadomain
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		Sphinx "adadomain" extension (3.10)
-SDESC[py311]=		Sphinx "adadomain" extension (3.11)
+SDESC[v11]=		Sphinx "adadomain" extension (3.11)
 HOMEPAGE=		https://bitbucket.org/tkoskine/sphinxcontrib-adadomain
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPI/s/sphinxcontrib-adadomain
 DISTFILE[1]=		sphinxcontrib-adadomain-${PORTVERSION}.tar.gz:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # BSD
@@ -33,6 +33,6 @@ DISTNAME=		sphinxcontrib-adadomain-${PORTVERSION}
 
 [PY310].USES_ON=			python:py310,sutools
 [PY310].BUILDRUN_DEPENDS_ON=		python-Sphinx:single:py310
-[PY311].USES_ON=			python:py311,sutools
-[PY311].BUILDRUN_DEPENDS_ON=		python-Sphinx:single:py311
+[PY311].USES_ON=			python:v11,sutools
+[PY311].BUILDRUN_DEPENDS_ON=		python-Sphinx:single:v11
 
