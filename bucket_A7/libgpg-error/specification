@@ -4,6 +4,7 @@ DEF[SOVERSION]=		0.33.1
 
 NAMEBASE=		libgpg-error
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security devel
 VARIANTS=		standard
 SDESC[standard]=	Common error values for all GnuPG components
@@ -14,7 +15,9 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNUPG/libgpg-error
 DISTFILE[1]=		libgpg-error-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary nls
+# Used to have "nls" subpackage, but it caused segfaults in mutt.
+# Until this is solved, don't support or package NLS
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,7 +31,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/libgpg-error
 
-USES=			cpe gmake libtool gettext-runtime iconv
+# drop USES+=gettext-runtime due to NLS disabled
+USES=			cpe gmake libtool iconv
 CPE_VENDOR=		gnupg
 CPE_PRODUCT=		libgpg-error
 MUST_CONFIGURE=		gnu
@@ -37,6 +41,7 @@ INFO=			primary:gpgrt
 CPPFLAGS=		-P
 CONFIGURE_ARGS=		--enable-static=yes
 			--with-libintl-prefix={{LOCALBASE}}
+			--disable-nls
 			{{ICONV_CONFIGURE_ARG}}
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
