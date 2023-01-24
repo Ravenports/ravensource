@@ -489,7 +489,7 @@ function get_run_depends ($base_dependencies, $pversion) {
 
 
 # Establish buildruns (only using latest python)
-function set_buildrun (&$portdata, $PVA, $PVB) {
+function set_buildrun (&$portdata, $PDUO) {
     global
         $data_corrections,
         $EXTS,
@@ -534,8 +534,9 @@ function set_buildrun (&$portdata, $PVA, $PVB) {
        $base_reqs = array_filter($req_lines, "skip_extras");
        $comment_reqs = preg_replace('/^Requires-Dist: /', '# ', $req_lines);
        $portdata["req_comment"] .= join("\n", $comment_reqs);
-       $portdata["justrun_py" . $PVA] = get_run_depends ($base_reqs, $PVA);
-       $portdata["justrun_py" . $PVB] = get_run_depends ($base_reqs, $PVB);
+       foreach ($PDUO as $V) {
+           $portdata["justrun_" . $V["variant"]] = get_run_depends ($base_reqs, $V["version"]);
+       }
        return;
     }
 
@@ -635,7 +636,7 @@ function trails($main_string, $fragment) {
 
 
 # main function to ready python module and extract usable information
-function scrape_python_info ($namebase, $force, $PVA, $PVB) {
+function scrape_python_info ($namebase, $force, $PDUO) {
     $result = array(
         "success"     => false,
         "name"        => $namebase,
@@ -651,8 +652,8 @@ function scrape_python_info ($namebase, $force, $PVA, $PVB) {
         "pypi_uri"    => "UNSET",
         "wheel_dist"  => false,
         "buildrun"    => array(),
-        "justrun_py" . $PVA => array(),
-        "justrun_py" . $PVB => array(),
+        "justrun_" . $PDUO["VA"]["variant"] => array(),
+        "justrun_" . $PDUO["VB"]["variant"] => array(),
         "req_comment" => "# install_requires extracted from setup.py\n",
     );
 
@@ -765,7 +766,7 @@ function scrape_python_info ($namebase, $force, $PVA, $PVB) {
                  return $result;
              }
          }
-         set_buildrun($result, $PVA, $PVB);
+         set_buildrun($result, $PDUO);
          $result["success"] = true;
     }
 
