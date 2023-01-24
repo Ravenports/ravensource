@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	0.13.1
 
 NAMEBASE=		profanity
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net net_im
 VARIANTS=		standard
 SDESC[standard]=	Console based XMPP client
@@ -25,8 +26,21 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net-im/profanity
 
+BUILD_DEPENDS=		autoconf-archive:single:standard
+			libtool:single:standard
+			expat:static:standard
+			libgpg-error:dev:standard
+BUILDRUN_DEPENDS=	curl:primary:standard
+			gpgme:primary:standard
+			libmesode:single:standard
+			libnotify:primary:standard
+			libotr:single:standard
+			libuuid:single:standard
+			libstrophe:single:standard
+			expat:shared:standard
+
 USES=			libtool ncurses pkgconfig readline ssl gmake
-			autoreconf:build python
+			autoreconf:build python sqlite
 GNOME_COMPONENTS=	glib
 MUST_CONFIGURE=		gnu
 CFLAGS=			-I{{NCURSESINC}}
@@ -37,15 +51,6 @@ CONFIGURE_ARGS=		--enable-c-plugins
 			--enable-pgp
 			--disable-omemo
 			--with-xscreensaver=no
-BUILD_DEPENDS=		autoconf-archive:single:standard
-			libtool:single:standard
-BUILDRUN_DEPENDS=	curl:primary:standard
-			gpgme:primary:standard
-			libmesode:single:standard
-			libnotify:primary:standard
-			libotr:single:standard
-			libuuid:single:standard
-			libstrophe:single:standard
 INSTALL_TARGET=		install-strip
 
 pre-configure:
