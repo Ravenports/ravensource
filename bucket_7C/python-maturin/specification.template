@@ -6,9 +6,9 @@ DEF[SKIP_CRATE]=	maturin
 NAMEBASE=		python-maturin
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		Build and publish python rust packages (3.10)
-SDESC[py311]=		Build and publish python rust packages (3.11)
+SDESC[v11]=		Build and publish python rust packages (3.11)
 HOMEPAGE=		https://github.com/pyo3/maturin
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -21,12 +21,12 @@ DISTFILE[1]=		maturin-${PORTVERSION}.tar.gz:main
 %%DF_INDEX%%
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # MIT OR Apache-2.0
@@ -40,8 +40,8 @@ DISTNAME=		maturin-${PORTVERSION}
 [PY310].USES_ON=			python:py310,sutools
 [PY310].BUILDRUN_DEPENDS_ON=		python-setuptools-rust:single:py310
 					python-tomli:single:py310
-[PY311].USES_ON=			python:py311,sutools
-[PY311].BUILDRUN_DEPENDS_ON=		python-setuptools-rust:single:py311
+[PY311].USES_ON=			python:v11,sutools
+[PY311].BUILDRUN_DEPENDS_ON=		python-setuptools-rust:single:v11
 
 BUILD_DEPENDS=		rust:single:standard
 

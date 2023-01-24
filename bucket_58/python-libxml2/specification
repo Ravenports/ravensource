@@ -8,8 +8,8 @@ NAMEBASE=		python-libxml2
 VERSION=		${PORTVERSION}
 REVISION=		${PORTREVISION}
 KEYWORDS=		python textproc
-VARIANTS=		py311 py310
-SDESC[py311]=		Python bindings for libxml2 (3.11)
+VARIANTS=		v11 py310
+SDESC[v11]=		Python bindings for libxml2 (3.11)
 SDESC[py310]=		Python bindings for libxml2 (3.10)
 HOMEPAGE=		http://xmlsoft.org/
 CONTACT=		nobody
@@ -19,12 +19,12 @@ SITES[main]=		GNOME/libxml2/${FOLDER}
 DISTFILE[1]=		libxml2-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome2
 
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 SPKGS[py310]=		single
 
 OPTIONS_AVAILABLE=	PY311 PY310
 OPTIONS_STANDARD=	none
-VOPTS[py311]=		PY311=ON PY310=OFF
+VOPTS[v11]=		PY311=ON PY310=OFF
 VOPTS[py310]=		PY311=OFF PY310=ON
 
 FPC_EQUIVALENT=		textproc/py-libxml2
@@ -43,7 +43,7 @@ CONFIGURE_ARGS=		--with-iconv={{ICONV_PREFIX}}
 			--enable-static
 CFLAGS=			-Wno-deprecated-declarations
 
-[PY311].USES_ON=			python:py311
+[PY311].USES_ON=			python:v11
 [PY310].USES_ON=			python:py310
 
 post-install:
