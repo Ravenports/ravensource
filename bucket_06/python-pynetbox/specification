@@ -1,26 +1,26 @@
-DEF[PORTVERSION]=	7.0.0
+DEF[PORTVERSION]=	7.0.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pynetbox
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		NetBox API client library (3.10)
-SDESC[py311]=		NetBox API client library (3.11)
-HOMEPAGE=		https://github.com/netbox-community/netbox
+SDESC[v11]=		NetBox API client library (3.11)
+HOMEPAGE=		https://github.com/netbox-community/pynetbox
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/0b/0e/0bef16e3e844bde8f3a793b64e6a90a9025e2e77a09e62477348e5b5d43d
+SITES[main]=		PYPIWHL/23/2f/d879fb8e4d3e03ee705aea9abca8137f1a780da1cd3532c4a1e1a02179b4
 DISTFILE[1]=		pynetbox-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # Apache2
@@ -33,6 +33,6 @@ DISTNAME=		pynetbox-${PORTVERSION}.dist-info
 
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-requests:single:py310
-[PY311].USES_ON=			python:py311,wheel
-[PY311].RUN_DEPENDS_ON=			python-requests:single:py311
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-requests:single:v11
 

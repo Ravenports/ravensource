@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.0.2
 NAMEBASE=		python-funcsigs
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		Signature functions backport from 3.3 (3.10)
-SDESC[py311]=		Signature functions backport from 3.3 (3.11)
+SDESC[v11]=		Signature functions backport from 3.3 (3.11)
 HOMEPAGE=		http://funcsigs.readthedocs.org
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/69/cb/f5be453359271714c01b9bd06126eaf2e368f1fddfff30818754
 DISTFILE[1]=		funcsigs-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # ASL
@@ -32,5 +32,5 @@ DISTNAME=		funcsigs-${PORTVERSION}.dist-info
 # ordereddict; python_version<"2.7"
 
 [PY310].USES_ON=			python:py310,wheel
-[PY311].USES_ON=			python:py311,wheel
+[PY311].USES_ON=			python:v11,wheel
 

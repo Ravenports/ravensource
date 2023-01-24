@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.15.10
 NAMEBASE=		python-pylint
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		Python code static checker (3.10)
-SDESC[py311]=		Python code static checker (3.11)
+SDESC[v11]=		Python code static checker (3.11)
 HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/6e/25/9b0182245b148d7d48fcb9009364f73618d517bd74947a94c17b
 DISTFILE[1]=		pylint-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # GPL-2.0-or-later
@@ -50,12 +50,12 @@ DISTNAME=		pylint-${PORTVERSION}.dist-info
 					python-tomlkit:single:py310
 					python-dill:single:py310
 					python-tomli:single:py310
-[PY311].USES_ON=			python:py311,wheel
-[PY311].RUN_DEPENDS_ON=			python-platformdirs:single:py311
-					python-astroid:single:py311
-					python-isort:single:py311
-					python-mccabe:single:py311
-					python-tomlkit:single:py311
-					python-dill:single:py311
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-platformdirs:single:v11
+					python-astroid:single:v11
+					python-isort:single:v11
+					python-mccabe:single:v11
+					python-tomlkit:single:v11
+					python-dill:single:v11
 
 BUILDRUN_DEPENDS=	python-pytest-runner:single:python_used

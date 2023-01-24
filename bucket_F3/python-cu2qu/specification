@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.6.7.post2
 NAMEBASE=		python-cu2qu
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		Cubic-to-quadratic bezier curve conversion (3.10)
-SDESC[py311]=		Cubic-to-quadratic bezier curve conversion (3.11)
+SDESC[v11]=		Cubic-to-quadratic bezier curve conversion (3.11)
 HOMEPAGE=		https://github.com/googlefonts
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/95/fc/3ab12da45eeffc25e2411ff2c93550a5e8d1c354019653bdc2ba
 DISTFILE[1]=		cu2qu-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # Apache License, Version 2.0
@@ -34,6 +34,6 @@ DISTNAME=		cu2qu-${PORTVERSION}.dist-info
 
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-fonttools:single:py310
-[PY311].USES_ON=			python:py311,wheel
-[PY311].RUN_DEPENDS_ON=			python-fonttools:single:py311
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-fonttools:single:v11
 

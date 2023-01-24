@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.14.0
 NAMEBASE=		python-Pygments
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		Syntax highlighting package (3.10)
-SDESC[py311]=		Syntax highlighting package (3.11)
+SDESC[v11]=		Syntax highlighting package (3.11)
 HOMEPAGE=		https://pygments.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/0b/42/d9d95cc461f098f204cd20c85642ae40fbff81f74c300341b8d0
 DISTFILE[1]=		Pygments-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # BSD-2-Clause
@@ -32,7 +32,7 @@ DISTNAME=		Pygments-${PORTVERSION}.dist-info
 # importlib-metadata ; (python_version < "3.8") and extra == 'plugins'
 
 [PY310].USES_ON=			python:py310,wheel
-[PY311].USES_ON=			python:py311,wheel
+[PY311].USES_ON=			python:v11,wheel
 
 USES=			cpe
 CPE_VENDOR=		pygments

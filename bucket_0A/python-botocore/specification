@@ -1,26 +1,26 @@
-DEF[PORTVERSION]=	1.29.54
+DEF[PORTVERSION]=	1.29.55
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-botocore
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		Low-level, data-driven core of boto 3 (3.10)
-SDESC[py311]=		Low-level, data-driven core of boto 3 (3.11)
+SDESC[v11]=		Low-level, data-driven core of boto 3 (3.11)
 HOMEPAGE=		https://github.com/boto/botocore
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/e1/aa/3aa289b69336c188a09b26f6d14a30c9aeb2bba1efb756af33e16eb94d48
+SITES[main]=		PYPIWHL/62/ae/115b3b111026b3f91ebdc67b478df9bb0fc8b45a951fdb28d9d4fa07abcb
 DISTFILE[1]=		botocore-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # Apache License 2.0
@@ -38,8 +38,8 @@ DISTNAME=		botocore-${PORTVERSION}.dist-info
 [PY310].RUN_DEPENDS_ON=			python-jmespath:single:py310
 					python-python-dateutil:single:py310
 					python-urllib3:single:py310
-[PY311].USES_ON=			python:py311,wheel
-[PY311].RUN_DEPENDS_ON=			python-jmespath:single:py311
-					python-python-dateutil:single:py311
-					python-urllib3:single:py311
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-jmespath:single:v11
+					python-python-dateutil:single:v11
+					python-urllib3:single:v11
 

@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.7.1
 NAMEBASE=		python-defusedxml
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		XML bomb protection for stdlib modules (3.10)
-SDESC[py311]=		XML bomb protection for stdlib modules (3.11)
+SDESC[v11]=		XML bomb protection for stdlib modules (3.11)
 HOMEPAGE=		https://github.com/tiran/defusedxml
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/07/6c/aa3f2f849e01cb6a001cd8554a88d4c77c5c1a31c95bdf1cf930
 DISTFILE[1]=		defusedxml-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # PSFL
@@ -32,5 +32,5 @@ DISTNAME=		defusedxml-${PORTVERSION}.dist-info
 
 
 [PY310].USES_ON=			python:py310,wheel
-[PY311].USES_ON=			python:py311,wheel
+[PY311].USES_ON=			python:v11,wheel
 

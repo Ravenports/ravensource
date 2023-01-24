@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	3.6.12
 NAMEBASE=		python-reportlab
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		Library for generating PDFs and graphics (3.10)
-SDESC[py311]=		Library for generating PDFs and graphics (3.11)
+SDESC[v11]=		Library for generating PDFs and graphics (3.11)
 HOMEPAGE=		http://www.reportlab.com/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPI/r/reportlab
 DISTFILE[1]=		reportlab-${PORTVERSION}.tar.gz:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # BSD license (see license.txt for details), Copyright (c) 2000-2018,
@@ -33,6 +33,6 @@ DISTNAME=		reportlab-${PORTVERSION}
 
 
 [PY310].USES_ON=			python:py310,sutools
-[PY311].USES_ON=			python:py311,sutools
+[PY311].USES_ON=			python:v11,sutools
 
 BUILDRUN_DEPENDS=	freetype:primary:standard

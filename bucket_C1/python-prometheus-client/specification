@@ -1,26 +1,26 @@
-DEF[PORTVERSION]=	0.15.0
+DEF[PORTVERSION]=	0.16.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-prometheus-client
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		Client for Prometheus monitoring system (3.10)
-SDESC[py311]=		Client for Prometheus monitoring system (3.11)
+SDESC[v11]=		Client for Prometheus monitoring system (3.11)
 HOMEPAGE=		https://github.com/prometheus/client_python
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/2e/5e/4225463cdac1098aac718b1d8adf8f9dc3d6aaea55f4f85a2f7d572b4f7c
+SITES[main]=		PYPIWHL/5b/8e/6a546e439b4366ab9eab0a736876eb1e1916dd93b4a1fa560ef711d24f8c
 DISTFILE[1]=		prometheus_client-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # Apache Software License 2.0
@@ -32,5 +32,5 @@ DISTNAME=		prometheus_client-${PORTVERSION}.dist-info
 # twisted ; extra == 'twisted'
 
 [PY310].USES_ON=			python:py310,wheel
-[PY311].USES_ON=			python:py311,wheel
+[PY311].USES_ON=			python:v11,wheel
 

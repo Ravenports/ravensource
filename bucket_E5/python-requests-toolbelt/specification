@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.10.1
 NAMEBASE=		python-requests-toolbelt
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		Utilities collection for Requests (3.10)
-SDESC[py311]=		Utilities collection for Requests (3.11)
+SDESC[v11]=		Utilities collection for Requests (3.11)
 HOMEPAGE=		https://toolbelt.readthedocs.io/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/05/d3/bf87a36bff1cb88fd30a509fd366c70ec30676517ee791b2f77e
 DISTFILE[1]=		requests_toolbelt-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # Apache 2.0
@@ -33,6 +33,6 @@ DISTNAME=		requests_toolbelt-${PORTVERSION}.dist-info
 
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-requests:single:py310
-[PY311].USES_ON=			python:py311,wheel
-[PY311].RUN_DEPENDS_ON=			python-requests:single:py311
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-requests:single:v11
 

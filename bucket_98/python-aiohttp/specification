@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	3.8.3
 NAMEBASE=		python-aiohttp
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		Async http client/server framework (3.10)
-SDESC[py311]=		Async http client/server framework (3.11)
+SDESC[v11]=		Async http client/server framework (3.11)
 HOMEPAGE=		https://github.com/aio-libs/aiohttp
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPI/a/aiohttp
 DISTFILE[1]=		aiohttp-${PORTVERSION}.tar.gz:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # Apache 2
@@ -45,14 +45,14 @@ DISTNAME=		aiohttp-${PORTVERSION}
 					python-yarl:single:py310
 					python-frozenlist:single:py310
 					python-aiosignal:single:py310
-[PY311].USES_ON=			python:py311,sutools
-[PY311].BUILDRUN_DEPENDS_ON=		python-attrs:single:py311
-					python-charset-normalizer:single:py311
-					python-multidict:single:py311
-					python-async-timeout:single:py311
-					python-yarl:single:py311
-					python-frozenlist:single:py311
-					python-aiosignal:single:py311
+[PY311].USES_ON=			python:v11,sutools
+[PY311].BUILDRUN_DEPENDS_ON=		python-attrs:single:v11
+					python-charset-normalizer:single:v11
+					python-multidict:single:v11
+					python-async-timeout:single:v11
+					python-yarl:single:v11
+					python-frozenlist:single:v11
+					python-aiosignal:single:v11
 
 USES=			cpe
 CPE_VENDOR=		aiohttp_project

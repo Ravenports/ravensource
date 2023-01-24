@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	3.13.0
 NAMEBASE=		python-django-cors-headers
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		Django handler for CORS server headers (3.10)
-SDESC[py311]=		Django handler for CORS server headers (3.11)
+SDESC[v11]=		Django handler for CORS server headers (3.11)
 HOMEPAGE=		https://github.com/adamchainz/django-cors-headers
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/db/e2/912cdc408f7ddc07967e94c3d785389c36fbfdcb48755393fbf6
 DISTFILE[1]=		django_cors_headers-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # MIT License
@@ -33,6 +33,6 @@ DISTNAME=		django_cors_headers-${PORTVERSION}.dist-info
 
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-Django:single:py310
-[PY311].USES_ON=			python:py311,wheel
-[PY311].RUN_DEPENDS_ON=			python-Django:single:py311
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-Django:single:v11
 

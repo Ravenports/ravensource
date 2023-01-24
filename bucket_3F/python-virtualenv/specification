@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	20.17.1
 NAMEBASE=		python-virtualenv
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		Virtual Python Environment builder (3.10)
-SDESC[py311]=		Virtual Python Environment builder (3.11)
+SDESC[v11]=		Virtual Python Environment builder (3.11)
 HOMEPAGE=		https://virtualenv.pypa.io/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/18/a2/7931d40ecb02b5236a34ac53770f2f6931e3082b7a7dafe915d8
 DISTFILE[1]=		virtualenv-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # MIT
@@ -54,10 +54,10 @@ DISTNAME=		virtualenv-${PORTVERSION}.dist-info
 [PY310].RUN_DEPENDS_ON=			python-distlib:single:py310
 					python-filelock:single:py310
 					python-platformdirs:single:py310
-[PY311].USES_ON=			python:py311,wheel
-[PY311].RUN_DEPENDS_ON=			python-distlib:single:py311
-					python-filelock:single:py311
-					python-platformdirs:single:py311
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-distlib:single:v11
+					python-filelock:single:v11
+					python-platformdirs:single:v11
 
 USES=			cpe
 CPE_VENDOR=		python

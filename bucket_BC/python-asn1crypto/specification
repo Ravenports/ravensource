@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.5.1
 NAMEBASE=		python-asn1crypto
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		Performant ASN.1 handling library (3.10)
-SDESC[py311]=		Performant ASN.1 handling library (3.11)
+SDESC[v11]=		Performant ASN.1 handling library (3.11)
 HOMEPAGE=		https://github.com/wbond/asn1crypto
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/c9/7f/09065fd9e27da0eda08b4d6897f1c13535066174cc023af248fc
 DISTFILE[1]=		asn1crypto-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # MIT
@@ -32,5 +32,5 @@ DISTNAME=		asn1crypto-${PORTVERSION}.dist-info
 
 
 [PY310].USES_ON=			python:py310,wheel
-[PY311].USES_ON=			python:py311,wheel
+[PY311].USES_ON=			python:v11,wheel
 

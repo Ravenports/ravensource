@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.0.3
 NAMEBASE=		python-sphinxcontrib-qthelp
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 py311
+VARIANTS=		py310 v11
 SDESC[py310]=		Sphinx extension: QtHelp documents (3.10)
-SDESC[py311]=		Sphinx extension: QtHelp documents (3.11)
+SDESC[v11]=		Sphinx extension: QtHelp documents (3.11)
 HOMEPAGE=		http://sphinx-doc.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,12 +15,12 @@ SITES[main]=		PYPIWHL/2b/14/05f9206cf4e9cfca1afb5fd224c7cd434dcc3a433d6d9e4e0264
 DISTFILE[1]=		sphinxcontrib_qthelp-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py310]=		single
-SPKGS[py311]=		single
+SPKGS[v11]=		single
 
 OPTIONS_AVAILABLE=	PY310 PY311
 OPTIONS_STANDARD=	none
 VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[py311]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
 # BSD
@@ -35,5 +35,5 @@ DISTNAME=		sphinxcontrib_qthelp-${PORTVERSION}.dist-info
 # pytest ; extra == 'test'
 
 [PY310].USES_ON=			python:py310,wheel
-[PY311].USES_ON=			python:py311,wheel
+[PY311].USES_ON=			python:v11,wheel
 
