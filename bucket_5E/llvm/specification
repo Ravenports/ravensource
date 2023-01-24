@@ -1,5 +1,5 @@
 DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM_VERSION)
-DEF[PORTREVISION]=	0
+DEF[PORTREVISION]=	1
 DEF[PORTVERSION]=	${LLVM_VERSION}
 DEF[MAJORMIN]=		${PORTVERSION:R}
 DEF[MAJOR]=		${PORTVERSION:R:R}
@@ -37,7 +37,7 @@ FPC_EQUIVALENT=		devel/llvm70
 
 BUILD_DEPENDS=		ncurses:primary:standard
 
-USES=			cmake ninja python:build execinfo:build bdb:static zlib:build
+USES=			cmake ninja python:build execinfo zlib bdb:static
 			shebangfix c++:single
 GNOME_COMPONENTS=	libxml2
 DISTNAME=		llvm-${PORTVERSION}.src
@@ -71,27 +71,17 @@ BLOCK_WATCHDOG=		yes
 
 post-extract:
 	${CP} ${WRKDIR}/cmake-*/Modules/* ${WRKSRC}/cmake/modules/
-	# force static linking of execinfo
-	${RM} ${LOCALBASE}/lib/libexecinfo.so
-	${MV} ${LOCALBASE}/lib/libexecinfo_pic.a ${LOCALBASE}/lib/libexecinfo.a
 	# disable detection of shared db5
 	${RM} ${LOCALBASE}/lib/db5/libdb.so
 	# disable detection of shared curses/tinfo
 	${RM} ${LOCALBASE}/lib/libtinfo.so
 	${RM} ${LOCALBASE}/lib/libncurses.so
-	# disable detection of shared zlib
-	${RM} ${LOCALBASE}/lib/libz.so
-	${MV} ${LOCALBASE}/lib/libz_pic.a ${LOCALBASE}/lib/libz.a
 
 post-patch:
 	${REINPLACE_CMD} -e "s|/usr/local|${PREFIX}|g" \
 		${WRKSRC}/CMakeLists.txt
 
 post-install:
-	# Fix exports after execinfo/zlib statically linked
-	${SED} -i'' -e 's|;execinfo||; s|;ZLIB::ZLIB||' \
-		${STAGEDIR}${PREFIX}/lib/cmake/llvm/LLVMExports.cmake
-
 	${RM} -r ${STAGEDIR}${PREFIX}/include/llvm/MC/MCAnalysis
 	${RM} -r ${STAGEDIR}${PREFIX}/include/llvm/BinaryFormat/WasmRelocs
 
