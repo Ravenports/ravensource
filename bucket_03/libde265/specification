@@ -4,6 +4,7 @@ DEF[SOVERSION]=		0.1.2
 
 NAMEBASE=		libde265
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		standard
 SDESC[standard]=	Open h.265 video codec implementation
@@ -14,21 +15,21 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/strukturag:libde265:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL3+:single
+LICENSE=		LGPL3+:primary
 LICENSE_FILE=		LGPL3+:{{WRKSRC}}/libde265/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"DE265_H"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libde265/de265.h
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		multimedia/libde265
 
-USES=			cpe autoreconf libtool pkgconfig c++:single
+USES=			cpe autoreconf libtool pkgconfig c++:primary
 CPE_VENDOR=		struktur
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-sherlock265

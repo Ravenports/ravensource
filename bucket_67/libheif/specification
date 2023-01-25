@@ -4,6 +4,7 @@ DEF[SOVERSION]=		${PORTVERSION}
 
 NAMEBASE=		libheif
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	HEIF file format decoder and encoder
@@ -28,8 +29,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/libheif
 
+BUILD_DEPENDS=		libde265:dev:standard
 BUILDRUN_DEPENDS=	x265:single:standard
-			libde265:single:standard
+			libde265:primary:standard
 
 USES=			autoreconf libtool pkgconfig shebangfix
 			cpe jpeg png mime-info:single
