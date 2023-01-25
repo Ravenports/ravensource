@@ -23,7 +23,7 @@ LICENSE=		ISCL:single
 LICENSE_FILE=		ISCL:{{FILESDIR}}/LICENSE_ISC
 LICENSE_SCHEME=		solo
 
-SUB_FILES=		only3.c
+SUB_FILES=		autoselect.c
 SUB_LIST=		ALPHA=${ALPHA}
 			BRAVO=${BRAVO}
 
@@ -32,9 +32,9 @@ post-patch:
 	${CP} ${WRKDIR}/*.c ${WRKSRC}
 
 do-build:
-	(cd ${WRKSRC} && ${CC} ${CFLAGS} ${LDFLAGS} -o only3 only3.c)
+	(cd ${WRKSRC} && ${CC} ${CFLAGS} ${LDFLAGS} -o autoselect autoselect.c)
 
 do-install:
-.for prog in python python3 python-config python-config3 2to3 idle pydoc
-	${INSTALL_PROGRAM} ${WRKSRC}/only3 ${STAGEDIR}${PREFIX}/bin/${prog}
+.for prog in python python3 python-config python-config3 idle pydoc
+	${INSTALL_PROGRAM} ${WRKSRC}/autoselect ${STAGEDIR}${PREFIX}/bin/${prog}
 .endfor

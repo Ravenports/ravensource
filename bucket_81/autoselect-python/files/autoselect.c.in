@@ -58,15 +58,12 @@ main(int argc, char **argv)
 	else
 		cmd = argv[0];
 
-	if (strcmp (cmd, "python-config3") == 0) {
+	if (strcmp (cmd, "python-config") == 0) {
 		snprintf(recommand, 1024,
 			"%%PREFIX%%/bin/python%s-config", pyver);
-	} else if (strcmp (cmd, "python3") == 0) {
-		snprintf(recommand, 1024,
-			"%%PREFIX%%/bin/python%s", pyver);
 	} else {
-		printf ("only3 doesn't handle this file: %s\n", cmd);
-		exit (1);
+		snprintf(recommand, 1024,
+			"%%PREFIX%%/bin/%s%s", cmd, pyver);
 	}
 	argv[0] = recommand;
 	execv(recommand, argv);
