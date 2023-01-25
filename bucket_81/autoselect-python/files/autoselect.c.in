@@ -1,7 +1,7 @@
 /*
  * This program will determine the latest version of python
  * installed by checking %%PREFIX%%/bin/python-<x> where <x> checks
- * all possible versions.
+ * all possible versions of python 3.
  * 
  * If no version is present, an error message will be displayed,
  * otherwise the versioned counterpart of the python command
@@ -26,10 +26,8 @@ main(int argc, char **argv)
 	char *pyver    = NULL;
 	char *PYTHON_A = "%%PREFIX%%/bin/python%%ALPHA%%";
 	char *PYTHON_B = "%%PREFIX%%/bin/python%%BRAVO%%";
-	char *PYTHON_C = "%%PREFIX%%/bin/python%%CHARLIE%%";
 	char *ALPHA    = "%%ALPHA%%";
 	char *BRAVO    = "%%BRAVO%%";
-	char *CHARLIE  = "%%CHARLIE%%";
 
 	override = getenv("AUTOPYTHON");
 	if (override != NULL) {
@@ -37,8 +35,6 @@ main(int argc, char **argv)
 			pyver = ALPHA;
 		} else if (strcmp (override, BRAVO) == 0) {
 			pyver = BRAVO;
-		} else if (strcmp (override, CHARLIE) == 0) {
-			pyver = CHARLIE;
 		}
 	}
 	if (pyver == NULL) {
@@ -46,11 +42,9 @@ main(int argc, char **argv)
 			pyver = ALPHA;
 		} else if (access(PYTHON_B, F_OK) != -1) {
 			pyver = BRAVO;
-		} else if (access(PYTHON_C, F_OK) != -1) {
-			pyver = CHARLIE;
 		} else {
-			/* no versions of python are installed */
-			printf ("There are no versions of python installed at %%PREFIX%%/bin\n");
+			/* no versions of python 3 are installed */
+			printf ("There are no versions of python 3 installed at %%PREFIX%%/bin\n");
 			exit (1);
 		}
 	}
@@ -67,6 +61,12 @@ main(int argc, char **argv)
 	if (strcmp (cmd, "python-config") == 0) {
 		snprintf(recommand, 1024,
 			"%%PREFIX%%/bin/python%s-config", pyver);
+	} else if (strcmp (cmd, "python-config3") == 0) {
+		snprintf(recommand, 1024,
+			"%%PREFIX%%/bin/python%s-config", pyver);
+	} else if (strcmp (cmd, "python3") == 0) {
+		snprintf(recommand, 1024,
+                        "%%PREFIX%%/bin/python%s", pyver);
 	} else if (strcmp (cmd, "2to3") == 0) {
 		snprintf(recommand, 1024,
 			"%%PREFIX%%/bin/2to3-", pyver);
