@@ -1,12 +1,13 @@
-DEF[PORTVERSION]=	1.6.0
+DEF[PORTVERSION]=	1.6.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		roundcube
 VERSION=		${PORTVERSION}
 KEYWORDS=		mail www
-VARIANTS=		php80 php81
+VARIANTS=		php80 php81 php82
 SDESC[php80]=		Open source webmail software (php80)
 SDESC[php81]=		Open source webmail software (php81)
+SDESC[php82]=		Open source webmail software (php82)
 HOMEPAGE=		https://roundcube.net/
 CONTACT=		nobody
 
@@ -16,11 +17,13 @@ DISTFILE[1]=		roundcubemail-${PORTVERSION}-complete.tar.gz:main
 
 SPKGS[php80]=		complete primary docs
 SPKGS[php81]=		complete primary docs
+SPKGS[php82]=		complete primary docs
 
-OPTIONS_AVAILABLE=	P80 P81
+OPTIONS_AVAILABLE=	P80 P81 P82
 OPTIONS_STANDARD=	none
-VOPTS[php80]=		P80=ON P81=OFF
-VOPTS[php81]=		P80=OFF P81=ON
+VOPTS[php80]=		P80=ON P81=OFF P82=OFF
+VOPTS[php81]=		P80=OFF P81=ON P82=OFF
+VOPTS[php82]=		P80=OFF P81=OFF P82=ON
 
 FPC_EQUIVALENT=		mail/roundcube
 
@@ -77,6 +80,25 @@ SKIP_BUILD=		yes
 					php81-pdo_sqlite:single:standard
 					php81-pdo_pgsql:single:standard
 					php81-pdo_mysql:single:standard
+
+[P82].DESCRIPTION=			Build upon PHP 8.2
+[P82].RUN_DEPENDS_ON=			php82-mbstring:single:standard
+					php82-session:single:standard
+					php82-iconv:single:standard
+					php82-dom:single:standard
+					php82-xml:single:standard
+					php82-intl:single:standard
+					php82-zip:single:standard
+					php82-filter:single:standard
+					php82-openssl:single:standard
+					php82-fileinfo:single:standard
+					php82-exif:single:standard
+					php82-ctype:single:standard
+					php82-gd:single:standard
+					php82-pspell:single:standard
+					php82-pdo_sqlite:single:standard
+					php82-pdo_pgsql:single:standard
+					php82-pdo_mysql:single:standard
 
 post-patch:
 	${FIND} ${WRKSRC} -type f -name "*.orig" -delete
