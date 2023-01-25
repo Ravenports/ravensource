@@ -8,6 +8,7 @@ DEF[POSIX_VER]=		0.0.7
 
 NAMEBASE=		pcre
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel textproc
 VARIANTS=		standard
 SDESC[standard]=	Perl Compatible Regular Expressions library
@@ -18,18 +19,18 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/pcre/pcre/${PORTVERSION}
 DISTFILE[1]=		pcre-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete static shared docs
+SPKGS[standard]=	complete primary cpp dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		BSD3CLAUSE:static
+LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/pcre
 
-USES=			cpe c++:shared libtool
+USES=			cpe libtool c++:cpp
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-utf
 			--enable-unicode-properties
