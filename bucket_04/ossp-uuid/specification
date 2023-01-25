@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	1.6.2
 
 NAMEBASE=		ossp-uuid
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		misc devel
 VARIANTS=		standard
 SDESC[standard]=	Tool/Lib for generating Universally Unique IDs
@@ -15,12 +15,12 @@ SITES[main]=		http://www.mirrorservice.org/sites/ftp.ossp.org/pkg/lib/uuid/
 			ftp://ftp.ntua.gr/pub/utils/ossp/lib/uuid/
 DISTFILE[1]=		uuid-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKDIR}}/LICENSE
 LICENSE_AWK=		MIT:"^$$"
 LICENSE_SOURCE=		MIT:{{WRKSRC}}/uuid.c
@@ -28,7 +28,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		misc/ossp-uuid
 
-USES=			cmake c++:single
+USES=			cmake c++:primary
 DISTNAME=		uuid-${PORTVERSION}
 
 post-extract:

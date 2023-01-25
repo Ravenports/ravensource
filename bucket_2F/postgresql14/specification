@@ -9,7 +9,7 @@ DEF[DATADIR]=		data${PORTVERSION:R}0
 
 NAMEBASE=		${NAMEBASE}
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		databases
 VARIANTS=		standard
 SDESC[standard]=	Powerful, open source object-relational database
@@ -38,8 +38,10 @@ BUILD_DEPENDS=		docbook-sgml:single:standard
 			OpenSP:single:standard
 			readline:single:standard
 BUILDRUN_DEPENDS=	libxslt:single:standard
-BR_DEPS[linux]=		ossp-uuid:single:standard
-BR_DEPS[sunos]=		ossp-uuid:single:standard
+B_DEPS[linux]=		ossp-uuid:dev:standard
+BR_DEPS[linux]=		ossp-uuid:primary:standard
+B_DEPS[sunos]=		ossp-uuid:dev:standard
+BR_DEPS[sunos]=		ossp-uuid:primary:standard
 BR_DEPS[darwin]=	libuuid:single:standard
 
 EXRUN[server]=		${NAMEBASE}:client:standard
