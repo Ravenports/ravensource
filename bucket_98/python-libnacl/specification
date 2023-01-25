@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.8.0
 
 NAMEBASE=		python-libnacl
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		python
 VARIANTS=		py310 v11
 SDESC[py310]=		Python bindings for libsodium (3.10)
@@ -34,4 +35,5 @@ DISTNAME=		libnacl-${PORTVERSION}.dist-info
 [PY310].USES_ON=			python:py310,wheel
 [PY311].USES_ON=			python:v11,wheel
 
-BUILDRUN_DEPENDS=	libsodium:single:standard
+BUILD_DEPENDS=		libsodium:dev:standard
+BUILDRUN_DEPENDS=	libsodium:primary:standard

@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.5.0
 
 NAMEBASE=		python-PyNaCl
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		python
 VARIANTS=		py310 v11
 SDESC[py310]=		Binding to NaCl Cryptography library (3.10)
@@ -40,7 +41,8 @@ DISTNAME=		PyNaCl-${PORTVERSION}
 [PY311].BUILDRUN_DEPENDS_ON=		python-cffi:single:v11
 					python-setuptools:single:v11
 
-BUILDRUN_DEPENDS=	libsodium:single:standard
+BUILD_DEPENDS=		libsodium:dev:standard
+BUILDRUN_DEPENDS=	libsodium:primary:standard
 INSTALL_REQ_TOOLCHAIN=	yes
 
 post-patch:

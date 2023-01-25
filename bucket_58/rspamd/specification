@@ -5,6 +5,7 @@ DEF[JQUERY]=		3.6.1
 
 NAMEBASE=		rspamd
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		mail
 VARIANTS=		standard
 SDESC[standard]=	Fast, free and open-source spam filtering system
@@ -23,9 +24,10 @@ OPTIONS_STANDARD=	none
 FPC_EQUIVALENT=		mail/rspamd
 
 RUN_DEPENDS=		nss:caroot:standard
-BUILD_DEPENDS=		ragel:primary:standard
+BUILD_DEPENDS=		libsodium:dev:standard
+			ragel:primary:standard
 BUILDRUN_DEPENDS=	icu:single:standard
-			libsodium:single:standard
+			libsodium:primary:standard
 			luajit:single:standard
 			pcre2:primary:standard
 

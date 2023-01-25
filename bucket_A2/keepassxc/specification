@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.7.4
 
 NAMEBASE=		keepassxc
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Community fork of the KeePassX password manager
@@ -43,9 +44,10 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		security/keepassxc
 
-BUILD_DEPENDS=		ruby-asciidoctor:single:ruby_default
+BUILD_DEPENDS=		libsodium:dev:standard
+			ruby-asciidoctor:single:ruby_default
 BUILDRUN_DEPENDS=	argon2:single:standard
-			libsodium:single:standard
+			libsodium:primary:standard
 			qrencode:single:standard
 			qt5-qtbase:primary:standard
 			qt5-qttools:single:standard

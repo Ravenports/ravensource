@@ -4,6 +4,7 @@ DEF[SOVERSION]=		5.2.4
 
 NAMEBASE=		zeromq
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net
 VARIANTS=		standard
 SDESC[standard]=	High-performance, asynchronous messaging library
@@ -28,9 +29,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net/libzmq4
 
-BUILD_DEPENDS=		xmlto:single:standard
-			asciidoc:single:standard
-BUILDRUN_DEPENDS=	libsodium:single:standard
+BUILD_DEPENDS=		asciidoc:single:standard
+			libsodium:dev:standard
+			xmlto:single:standard
+BUILDRUN_DEPENDS=	libsodium:primary:standard
 			norm:single:standard
 
 USES=			cpe gmake libtool pkgconfig

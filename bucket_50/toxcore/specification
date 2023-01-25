@@ -5,6 +5,7 @@ DEF[CMP_VERSION]=	20
 
 NAMEBASE=		toxcore
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net net_im net_p2p
 VARIANTS=		standard
 SDESC[standard]=	Tox chat protocol library
@@ -38,8 +39,9 @@ EXTRACT_ONLY=		1
 USES=			cpe cmake libtool pkgconfig
 CPE_VENDOR=		toktok
 CPE_PRODUCT=		toxcore
+BUILD_DEPENDS=		libsodium:dev:standard
 BUILDRUN_DEPENDS=	libconfig:single:standard
-			libsodium:single:standard
+			libsodium:primary:standard
 			libvpx:single:standard
 			msgpack:single:standard
 			opus:single:standard
