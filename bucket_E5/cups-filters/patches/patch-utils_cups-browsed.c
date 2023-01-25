@@ -1,4 +1,4 @@
---- utils/cups-browsed.c.orig	2022-08-24 12:39:01 UTC
+--- utils/cups-browsed.c.orig	2023-01-25 01:41:08 UTC
 +++ utils/cups-browsed.c
 @@ -23,17 +23,17 @@
  

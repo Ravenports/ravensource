@@ -1,4 +1,4 @@
---- filter/gstoraster.c.orig	2022-08-24 12:39:01 UTC
+--- filter/gstoraster.c.orig	2023-01-25 01:41:08 UTC
 +++ filter/gstoraster.c
 @@ -50,6 +50,8 @@ MIT Open Source License  -  http://www.o
  #include <errno.h>

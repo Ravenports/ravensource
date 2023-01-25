@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.28.16
+DEF[PORTVERSION]=	1.28.17
 DEF[SOVERSION]=		1.0.0
 # ----------------------------------------------------------------------------
 
@@ -11,17 +11,18 @@ HOMEPAGE=		https://openprinting.github.io/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://www.openprinting.org/download/cups-filters/
+SITES[main]=		https://github.com/OpenPrinting/cups-filters/releases/download/${PORTVERSION}/
+			https://www.openprinting.org/download/cups-filters/
 DISTFILE[1]=		cups-filters-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		print/cups-filters
 
-RC_SUBR=		cups_browsed:single
+RC_SUBR=		cups_browsed:primary
 
 BUILD_DEPENDS=		fonts-dejavu:single:standard
 			ghostscript:primary:standard

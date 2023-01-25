@@ -1,4 +1,4 @@
---- cupsfilters/colormanager.c.orig	2022-08-24 12:39:01 UTC
+--- cupsfilters/colormanager.c.orig	2023-01-25 01:41:08 UTC
 +++ cupsfilters/colormanager.c
 @@ -26,6 +26,7 @@ MIT Open Source License  -  http://www.o
  */
