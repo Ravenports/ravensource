@@ -1,4 +1,4 @@
---- src/vmware.c.orig	2018-05-17 07:42:24 UTC
+--- src/vmware.c.orig	2023-01-24 02:52:01 UTC
 +++ src/vmware.c
 @@ -381,7 +381,7 @@ VMWAREPreInit(ScrnInfoPtr pScrn, int fla
                     "No supported VMware SVGA found (read ID 0x%08x).\n", id);
