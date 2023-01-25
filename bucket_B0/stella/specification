@@ -25,9 +25,12 @@ LICENSE_FILE=		GPLv2:{{WRKSRC}}/License.txt
 LICENSE_TERMS=		primary:{{WRKSRC}}/Copyright.txt
 LICENSE_SCHEME=		solo
 
-USES=			gmake c++:primary sqlite zlib png
+# USES=sqlite doesn't work yet, stella takes the bundled version
+USES=			pkgconfig gmake zlib png c++:primary
 SDL_COMPONENTS=		sdl2
-MUST_CONFIGURE=		gnu
+MUST_CONFIGURE=		yes
+CONFIGURE_ARGS=		--prefix={{PREFIX}}
+			--build
 
 post-stage:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/stella
