@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	6.7
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		stella
+VERSION=		${PORTVERSION}
+KEYWORDS=		emulators
+VARIANTS=		standard
+SDESC[standard]=	Multi-platform Atari 2600 emulator
+HOMEPAGE=		https://www.stella-emu.github.io
+CONTACT=		Todd_Martin[warfox@sdf.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/stella-emu:stella:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		emulators/stella
+
+LICENSE=		GPLv2:primary
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/License.txt
+LICENSE_TERMS=		primary:{{WRKSRC}}/Copyright.txt
+LICENSE_SCHEME=		solo
+
+USES=			gmake c++:primary sqlite zlib png
+SDL_COMPONENTS=		sdl2
+MUST_CONFIGURE=		gnu
+
+post-stage:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/stella
