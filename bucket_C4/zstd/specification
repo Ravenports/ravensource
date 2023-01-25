@@ -1,0 +1,56 @@
+DEF[PORTVERSION]=	1.5.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		zstd
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers
+VARIANTS=		standard
+SDESC[standard]=	Fast real-time compression algorithm (aka zstd)
+HOMEPAGE=		https://facebook.github.io/zstd/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/facebook:zstd:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary dev man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:primary GPLv2:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+			GPLv2:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"__cplusplus"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/lib/zstd.h
+LICENSE_SCHEME=		dual
+
+FPC_EQUIVALENT=		archivers/zstd
+
+USES=			cpe gmake zlib:build
+CPE_VENDOR=		facebook
+CPE_PRODUCT=		zstandard
+BUILD_TARGET=		default
+MAKE_ARGS=		INCLUDEDIR="{{PREFIX}}/include"
+			LIBDIR="{{PREFIX}}/lib"
+			MANDIR="{{MANPREFIX}}/man"
+			PKGCONFIGDIR="{{PREFIX}}/lib/pkgconfig"
+			INSTALL_PROGRAM="{{INSTALL_PROGRAM}}"
+			INSTALL_SCRIPT="{{INSTALL_SCRIPT}}"
+			INSTALL_DATA="{{INSTALL_DATA}}"
+			INSTALL_MAN="{{INSTALL_MAN}}"
+			INSTALL=install
+			HASH=md5
+SOVERSION=		${PORTVERSION}
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-patch:
+	${REINPLACE_CMD} -e '/define BACKTRACES_ENABLE/d' \
+		${WRKSRC}/programs/fileio.c
+
+post-patch-sunos:
+	${REINPLACE_CMD} -e 's| DragonFly| DragonFly SunOS|' \
+		${WRKSRC}/Makefile
+	${REINPLACE_CMD} -e 's|LDFLAGS +=|LDFLAGS += -lrt|' \
+		${WRKSRC}/programs/Makefile
