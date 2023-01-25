@@ -35,6 +35,6 @@ do-build:
 	(cd ${WRKSRC} && ${CC} ${CFLAGS} ${LDFLAGS} -o autoselect autoselect.c)
 
 do-install:
-.for prog in python python3 python-config python-config3 idle pydoc
+.for prog in python python3 python-config python-config3 2to3 idle pydoc
 	${INSTALL_PROGRAM} ${WRKSRC}/autoselect ${STAGEDIR}${PREFIX}/bin/${prog}
 .endfor
