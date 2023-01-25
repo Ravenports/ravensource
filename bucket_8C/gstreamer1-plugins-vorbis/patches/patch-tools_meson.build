@@ -1,0 +1,9 @@
+--- tools/meson.build.orig	2023-01-23 19:29:34 UTC
++++ tools/meson.build
+@@ -1,3 +1,6 @@
++tag_dep = cc.find_library ('gsttag-1.0', required : true)
++audio_dep = cc.find_library ('gstaudio-1.0', required : true)
++pbutils_dep = cc.find_library ('gstpbutils-1.0', required : true)
+ tool_deps = [pbutils_dep, audio_dep, video_dep, tag_dep, gst_dep, gst_base_dep, gmodule_dep]
+ 
+ extra_args = []

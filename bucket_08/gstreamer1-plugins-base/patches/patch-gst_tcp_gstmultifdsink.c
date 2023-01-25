@@ -1,7 +1,7 @@
---- gst/tcp/gstmultifdsink.c.orig	2022-03-14 11:33:40 UTC
+--- gst/tcp/gstmultifdsink.c.orig	2023-01-23 19:29:34 UTC
 +++ gst/tcp/gstmultifdsink.c
 @@ -107,6 +107,9 @@
- #include <gst/gst-i18n-plugin.h>
+ #include <glib/gi18n-lib.h>
  
  #include <sys/ioctl.h>
 +#ifdef __sun

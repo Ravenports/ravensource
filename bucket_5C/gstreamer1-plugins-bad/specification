@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://gstreamer.freedesktop.org/src/gst-plugins-bad/
 DISTFILE[1]=		gst-plugins-bad-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[standard]=	complete primary dev nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,6 +29,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		multimedia/gstreamer1-plugins-bad
 
+BUILD_DEPENDS=		libgpg-error:dev:standard
+			gstreamer1:dev:standard
+			gstreamer1-plugins-base:dev:standard
 BUILDRUN_DEPENDS=	gstreamer1:primary:standard
 			gstreamer1-plugins-base:primary:standard
 			libgcrypt:single:standard
@@ -53,6 +56,7 @@ MESON_ARGS=		-Daccurip=enabled
 			-Dautoconvert=enabled
 			-Dbayer=enabled
 			-Dcamerabin2=enabled
+			-Dcodectimestamper=enabled
 			-Dcoloreffects=enabled
 			-Ddebugutils=enabled
 			-Ddvbsubenc=enabled

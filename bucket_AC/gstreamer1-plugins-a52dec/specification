@@ -31,7 +31,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		${FPC}
 
-BUILD_DEPENDS=		gstreamer1-plugins-ugly:primary:standard
+BUILD_DEPENDS=		gstreamer1:dev:standard
+			gstreamer1-plugins-base:dev:standard
+			gstreamer1-plugins-ugly:primary:standard
 BUILDRUN_DEPENDS=	gstreamer1-plugins-base:primary:standard
 			gstreamer1:primary:standard
 			a52dec:single:standard
@@ -43,7 +45,6 @@ MESON_ARGS=		-Dasfdemux=disabled
 			-Ddvdlpcmdec=disabled
 			-Ddvdsub=disabled
 			-Drealmedia=disabled
-			-Dxingmux=disabled
 # external dependencies required
 			-Da52dec=enabled
 			-Damrnb=disabled

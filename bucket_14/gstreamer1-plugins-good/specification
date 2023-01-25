@@ -31,6 +31,9 @@ FPC_EQUIVALENT=		multimedia/gstreamer1-plugins-good
 
 # Nasm brokes build on FreeBSD
 # #			nasm:primary:standard
+BUILD_DEPENDS=		libgpg-error:dev:standard
+			gstreamer1:dev:standard
+			gstreamer1-plugins-base:dev:standard
 BUILDRUN_DEPENDS=	gstreamer1:primary:standard
 			gstreamer1-plugins-base:primary:standard
 
@@ -38,7 +41,8 @@ USES=			gmake pkgconfig zlib bz2 meson
 			gettext-runtime gettext-tools
 GNOME_COMPONENTS=	glib
 # GNOME_COMPONENTS=introspection disabled on gstreamer1
-MESON_ARGS=		-Dalpha=enabled
+MESON_ARGS=		-Dadaptivedemux2=enabled
+			-Dalpha=enabled
 			-Dapetag=enabled
 			-Daudiofx=enabled
 			-Daudioparsers=enabled
@@ -81,6 +85,7 @@ MESON_ARGS=		-Dalpha=enabled
 			-Dwavenc=enabled
 			-Dwavparse=enabled
 			-Dy4m=enabled
+			-Dxingmux=enabled
 			-Daalib=disabled
 			-Dbz2=enabled
 			-Dcairo=disabled

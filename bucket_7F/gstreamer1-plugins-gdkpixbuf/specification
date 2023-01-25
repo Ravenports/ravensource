@@ -31,7 +31,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		${FPC}
 
-BUILD_DEPENDS=		gstreamer1-plugins-good:primary:standard
+BUILD_DEPENDS=		gstreamer1:dev:standard
+			gstreamer1-plugins-base:dev:standard
+			gstreamer1-plugins-good:primary:standard
 BUILDRUN_DEPENDS=	gstreamer1-plugins-base:primary:standard
 			gstreamer1:primary:standard
 
@@ -126,6 +128,8 @@ MESON_ARGS=		-Dalpha=disabled
 			-Dexamples=disabled
 			-Dtests=disabled
 			-Dorc=disabled
+			-Dadaptivedemux2=disabled
+			-Dxingmux=disabled
 DISTNAME=		gst-plugins-good-${PORTVERSION}
 PLIST_SUB=		GSTVER=${GST_VERSION}
 			PLUGIN=${PLUGIN}
