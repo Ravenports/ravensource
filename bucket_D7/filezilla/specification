@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.62.2
+DEF[PORTVERSION]=	3.63.0
 DEF[SOVERSION]=		${PORTVERSION}
 DEF[WXRC_CMD]=		wxrc-gtk3u-3.0
 DEF[WX_CONFIG]=		wx-config
@@ -30,6 +30,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		ftp/filezilla
 
+BUILD_DEPENDS=		libfilezilla:dev:standard
 BUILDRUN_DEPENDS=	xdg-utils:single:standard
 			libfilezilla:primary:standard
 			libgcrypt:single:standard
@@ -74,3 +75,7 @@ post-patch:
 		-e 's/idna/idn2/g' \
 		-e '/<idn-free.h>/d' \
 		${WRKSRC}/src/engine/controlsocket.cpp
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libfzclient-commonui-private.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libfzclient-private.so
