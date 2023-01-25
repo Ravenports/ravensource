@@ -2,7 +2,6 @@
 DEF[PORTVERSION]=	4
 DEF[ALPHA]=		3.10
 DEF[BRAVO]=		3.11
-DEF[CHARLIE]=		2.7
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		autoselect-python
@@ -24,24 +23,18 @@ LICENSE=		ISCL:single
 LICENSE_FILE=		ISCL:{{FILESDIR}}/LICENSE_ISC
 LICENSE_SCHEME=		solo
 
-SUB_FILES=		autoselect.c
-			only3.c
+SUB_FILES=		only3.c
 SUB_LIST=		ALPHA=${ALPHA}
 			BRAVO=${BRAVO}
-			CHARLIE=${CHARLIE}
 
 post-patch:
 	${MKDIR} ${WRKSRC}
 	${CP} ${WRKDIR}/*.c ${WRKSRC}
 
 do-build:
-	(cd ${WRKSRC} && ${CC} ${CFLAGS} ${LDFLAGS} -o generic autoselect.c)
-	(cd ${WRKSRC} && ${CC} ${CFLAGS} ${LDFLAGS} -o only3   only3.c)
+	(cd ${WRKSRC} && ${CC} ${CFLAGS} ${LDFLAGS} -o only3 only3.c)
 
 do-install:
-.for prog in 2to3 idle pydoc python python-config
-	${INSTALL_PROGRAM} ${WRKSRC}/generic  ${STAGEDIR}${PREFIX}/bin/${prog}
-.endfor
-.for prog in python3 python-config3
+.for prog in python python3 python-config python-config3 2to3 idle pydoc
 	${INSTALL_PROGRAM} ${WRKSRC}/only3 ${STAGEDIR}${PREFIX}/bin/${prog}
 .endfor
