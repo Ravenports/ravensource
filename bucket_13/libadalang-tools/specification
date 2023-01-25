@@ -27,14 +27,12 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/pp.ads
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		libiconv:static:standard
-			gmp:static:standard
+BUILD_DEPENDS=		gmp:static:standard
 BUILDRUN_DEPENDS=	libadalang:single:standard
 			templates-parser:single:standard
-			libiconv:shared:standard
 			gmp:shared:standard
 
-USES=			gprbuild
+USES=			gprbuild iconv
 INSTALL_REQ_TOOLCHAIN=	yes
 BUILD_TARGET=		lib bin
 INSTALL_TARGET=		install-bin-strip install-lib
