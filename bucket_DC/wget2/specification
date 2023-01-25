@@ -20,11 +20,9 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		www/wget2
 
-BUILD_DEPENDS=		Zstandard:static:standard
-			bzip2:static:standard
+BUILD_DEPENDS=		bzip2:static:standard
 			doxygen:single:standard
-BUILDRUN_DEPENDS=	Zstandard:shared:standard
-			pcre2:primary:standard
+BUILDRUN_DEPENDS=	pcre2:primary:standard
 			libidn2:primary:standard
 			brotli:single:standard
 			xz:single:standard
@@ -37,7 +35,7 @@ BUILDRUN_DEPENDS=	Zstandard:shared:standard
 RUN_DEPENDS=		nss:caroot:standard
 
 USES=			cpe gmake pkgconfig zlib iconv libtool makeinfo
-			python:build gettext-runtime gettext-tools
+			python:build gettext-runtime gettext-tools zstd
 CPE_VENDOR=		gnu
 CPE_PRODUCT=		wget
 MUST_CONFIGURE=		gnu

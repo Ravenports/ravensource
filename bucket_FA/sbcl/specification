@@ -49,14 +49,12 @@ FPC_EQUIVALENT=		lang/sbcl
 NOT_FOR_OPSYS=		sunos darwin netbsd
 
 RUN_DEPENDS=		asdf:primary:standard
-			Zstandard:shared:standard
 BUILD_DEPENDS=		gmp:static:standard
 			mpfr:static:standard
-			Zstandard:static:standard
 BUILDRUN_DEPENDS=	gmp:shared:standard
 			mpfr:shared:standard
 
-USES=			gmake makeinfo zlib
+USES=			gmake makeinfo zlib zstd
 SUB_FILES=		sbclrc
 CMAKE_ARGS=		--prefix="{{PREFIX}}"
 			--xc-host="{{WRKDIR}}/bootstrap/src/runtime/sbcl --core {{WRKDIR}}/bootstrap/output/sbcl.core --noinform --disable-debugger --no-sysinit --no-userinit"

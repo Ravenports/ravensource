@@ -39,20 +39,18 @@ LICENSE_SCHEME=		multi
 FPC_EQUIVALENT=		databases/mysql80-server
 
 BUILD_DEPENDS=		libedit:single:standard
-			Zstandard:static:standard
 BUILDRUN_DEPENDS=	libevent:single:standard
 			protobuf:single:standard
-			Zstandard:shared:standard
 			icu:single:standard
 EXRUN[client]=		libedit:single:standard
 			zlib:complete:standard
-			Zstandard:shared:standard
+			zstd:primary:standard
 # #			can't use "ssl" here, currently it assumes libressl
 			openssl11:single:standard
 
 B_DEPS[linux]=		patchelf:primary:standard
 
-USES=			bison cmake perl:run shebangfix zlib cpe
+USES=			cpe bison cmake perl:run shebangfix zlib zstd
 			lz4 execinfo ssl:openssl11 pkgconfig
 			c++:server,client cclibs:server,client
 CPE_VENDOR=		oracle
