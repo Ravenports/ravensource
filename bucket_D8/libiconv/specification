@@ -4,6 +4,7 @@ DEF[SOVERSION]=		2.6.1
 
 NAMEBASE=		libiconv
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		converters devel
 VARIANTS=		standard
 SDESC[standard]=	Character set conversion library
@@ -14,15 +15,15 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/libiconv
 DISTFILE[1]=		libiconv-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete static shared
+SPKGS[standard]=	complete primary dev man
 
 OPTIONS_AVAILABLE=	ENCODINGS
 OPTIONS_STANDARD=	ENCODINGS
 OPT_ON[all]=		ENCODINGS
 
-LICENSE=		GPLv3+:static
+LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		static:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^\#include"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/iconv.c
 LICENSE_SCHEME=		solo
