@@ -5,6 +5,7 @@ DEF[SOVERSION]=		8.0.1
 
 NAMEBASE=		libunwind
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Generic stack unwinding library
@@ -15,12 +16,12 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://download.savannah.nongnu.org/releases/libunwind/
 DISTFILE[1]=		libunwind-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
@@ -31,7 +32,7 @@ ONLY_FOR_OPSYS=		freebsd linux
 # ONLY_FOR_ARCH=	amd64 i386
 
 
-USES=			cpe libtool pkgconfig cclibs:single
+USES=			cpe libtool pkgconfig cclibs:primary
 CPE_VENDOR=		libunwind_project
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		ac_cv_path_LATEX2MAN=1
