@@ -43,10 +43,11 @@ BUILDRUN_DEPENDS=	libmatroska:single:standard
 # Another example of g++ ICE, use clang to build on FreeBSD
 C_USES[freebsd]=	clang
 
-USES=			zlib pkgconfig gettext-tools gettext-runtime
+USES=			zlib pkgconfig gettext-tools gettext-runtime iconv:build
 			solaris-funcs mime-info:primary desktop-utils:primary
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-boost="{{LOCALBASE}}"
+MUST_CONFIGURE=		yes
+CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
+			--with-boost="{{LOCALBASE}}"
 			--with-docbook-xsl-root="{{PREFIX}}/share/xsl/docbook"
 			--with-dvdread
 			--enable-qt5=yes
