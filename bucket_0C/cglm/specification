@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	0.8.8
 
 NAMEBASE=		cglm
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		math
 VARIANTS=		standard
 SDESC[standard]=	GLM library for C
@@ -13,18 +14,19 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/recp:cglm:v${PORTVERSION}
 DISTFILE[1]=		generate:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		math/cglm
 
 USES=			cmake
+SOVERSION=		${PORTVERSION}
 
 post-stage:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libcglm.so.0.8.8
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libcglm.so.${PORTVERSION}
