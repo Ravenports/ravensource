@@ -5,6 +5,7 @@ DEF[ATCH_HASH]=		c46b1047ba841c20d1225ae73ad6e4cd
 
 NAMEBASE=		gf2x
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		math
 VARIANTS=		standard
 SDESC[standard]=	Lib for multiplying polynomials over binary fields
@@ -15,18 +16,18 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://gitlab.inria.fr/gf2x/gf2x/uploads/${ATCH_HASH}/
 DISTFILE[1]=		gf2x-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 # If toom-gpl-placeholder.c is used instad of toom-gpl.c, LGPL2+ applies to
 # the project.
-LICENSE=		GPLv3+:single
-			LGPL21:single
+LICENSE=		GPLv3+:primary
+			LGPL21:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
 			LGPL21:{{WRKSRC}}/COPYING.LIB
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gf2x.h
 LICENSE_AWK=		TERMS:"Multiplication"
 LICENSE_SCHEME=		multi

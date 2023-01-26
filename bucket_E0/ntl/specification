@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	11.5.1
 
 NAMEBASE=		ntl
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		math
 VARIANTS=		standard
 SDESC[standard]=	Victor Shoup's Number Theory Library
@@ -25,8 +26,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		math/ntl
 
-BUILD_DEPENDS=		gmp:static:standard
-BUILDRUN_DEPENDS=	gf2x:single:standard
+BUILD_DEPENDS=		gf2x:dev:standard
+			gmp:static:standard
+BUILDRUN_DEPENDS=	gf2x:primary:standard
 
 USES=			perl:build
 MAKEFILE=		makefile
