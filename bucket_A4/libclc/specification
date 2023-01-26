@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	13.0.0
 
 NAMEBASE=		libclc
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Required library functions for OpenCL C language
@@ -26,7 +27,8 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		devel/libclc
 
 BUILD_DEPENDS=		libedit:single:standard
-			spirv-llvm-translator:single:standard
+			spirv-llvm-translator:primary:standard
+			spirv-llvm-translator:dev:standard
 # #			rocm-device-libs:single:standard
 
 USES=			python:build cmake clang:keepcc
