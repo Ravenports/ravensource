@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	4.33
 
 NAMEBASE=		libev
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	High-performance event loop/event model
@@ -13,16 +14,29 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://dist.schmorp.de/libev/Attic/
 DISTFILE[1]=		libev-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:primary
+			GPLv2+:primary
+LICENSE_FILE=		BSD2CLAUSE:{{WRKDIR}}/BSD2CLAUSE
+			GPLv2+:stock
+LICENSE_SOURCE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_AWK=		BSD2CLAUSE:"DAMAGE.$"
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		devel/libev
 
 USES=			libtool pkgconfig
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
+
+post-extract:
+	${AWK} '/Alternatively,/,/or the GPL./' ${WRKSRC}/LICENSE > \
+		${WRKDIR}/TERMS
 
 post-patch:
 	${SED} -e 's|%PREFIX%|${PREFIX}|g ; s|%VERSION%|${PORTVERSION}|g' \

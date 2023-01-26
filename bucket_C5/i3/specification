@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	4.22
 
 NAMEBASE=		i3
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11_wm
 VARIANTS=		standard
 SDESC[standard]=	Improved dynamic tiling window manager
@@ -21,12 +22,13 @@ OPTIONS_STANDARD=	none
 FPC_EQUIVALENT=		x11-wm/i3
 
 BUILD_DEPENDS=		bash:primary:standard
+			libev:dev:standard
 BUILDRUN_DEPENDS=	startup-notification:single:standard
 			yajl:single:standard
 			cairo:single:standard
 			pango:primary:standard
 			libxkbcommon:single:standard
-			libev:single:standard
+			libev:primary:standard
 RUN_DEPENDS=		perl-IPC-Run:single:perl_default
 			perl-Try-Tiny:single:perl_default
 			perl-AnyEvent-I3:single:perl_default

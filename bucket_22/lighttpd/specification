@@ -1,5 +1,5 @@
 DEF[PORTVERSION]=	1.4.68
-DEF[REVISION]=		0
+DEF[REVISION]=		1
 DEF[CACHEDIR]=		/var/cache/lighttpd
 DEF[LOGDIR]=		/var/log/lighttpd
 DEF[HOMEDIR]=		/var/run/lighttpd
@@ -33,7 +33,8 @@ USERS=			wwwraven
 GROUPS=			wwwraven
 USERGROUP_SPKG=		single
 
-BUILDRUN_DEPENDS=	libev:single:standard
+BUILD_DEPENDS=		libev:dev:standard
+BUILDRUN_DEPENDS=	libev:primary:standard
 			pcre2:primary:standard
 
 USES=			autoreconf cpe gmake libtool pkgconfig ssl lua zlib bz2

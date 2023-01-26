@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.14.1
 
 NAMEBASE=		i3lock
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11
 VARIANTS=		standard
 SDESC[standard]=	Slightly improved screen locker based on slock
@@ -24,6 +25,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11/i3lock
 
+BUILD_DEPENDS=		libev:dev:standard
 BUILDRUN_DEPENDS=	cairo:single:standard
 			xorg-xcb-util:single:standard
 			xorg-xcb-util-keysyms:single:standard
@@ -31,7 +33,7 @@ BUILDRUN_DEPENDS=	cairo:single:standard
 			xorg-xcb-util-xrm:single:standard
 			xorg-xkbfile:single:standard
 			libxkbcommon:single:standard
-			libev:single:standard
+			libev:primary:standard
 			openpam:single:standard
 
 USES=			meson pkgconfig
