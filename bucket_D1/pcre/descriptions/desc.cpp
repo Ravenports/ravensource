@@ -4,5 +4,4 @@ its own native API, as well as a set of wrapper functions that correspond
 to the POSIX regular expression API. The PCRE library is free, even for
 building proprietary software.
 
-This package contains the shared libraries and executables.
-
+This package contains the c++ libraries.
