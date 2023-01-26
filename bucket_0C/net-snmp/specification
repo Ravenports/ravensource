@@ -11,6 +11,7 @@ DEF[NS_LOCATION]=	defaultlocation
 
 NAMEBASE=		net-snmp
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net_mgmt
 VARIANTS=		standard
 SDESC[standard]=	Extensible SNMP implementation
@@ -21,19 +22,19 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/net-snmp/net-snmp/${PORTVERSION}
 DISTFILE[1]=		net-snmp-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		net-mgmt/net-snmp
 
-LICENSE=		BSD3CLAUSE:single
+LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-RC_SUBR=		snmpd:single snmptrapd:single
-SUB_FILES=		pkg-message-single
+RC_SUBR=		snmpd:primary snmptrapd:primary
+SUB_FILES=		pkg-message-primary
 
 USES=			cpe libtool perl ssl ncurses
 CPE_PRODUCT=		net-snmp

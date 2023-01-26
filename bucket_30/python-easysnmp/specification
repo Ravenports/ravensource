@@ -4,6 +4,7 @@ DEF[PORTVERSION]=	0.2.6
 
 NAMEBASE=		python-easysnmp
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		python
 VARIANTS=		py310 v11
 SDESC[py310]=		Library based on official Net-SNMP bindings (3.10)
@@ -26,7 +27,8 @@ VOPTS[v11]=		PY310=OFF PY311=ON
 # License listed at PyPI
 # BSD
 
-BUILDRUN_DEPENDS=	net-snmp:single:standard
+BUILD_DEPENDS=		net-snmp:dev:standard
+BUILDRUN_DEPENDS=	net-snmp:primary:standard
 
 GENERATED=		yes
 DISTNAME=		easysnmp-${PORTVERSION}
