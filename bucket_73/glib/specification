@@ -6,6 +6,7 @@ DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl/current/
 
 NAMEBASE=		glib
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Some useful routines of C programming
@@ -17,7 +18,7 @@ SITES[main]=		GNOME/glib/${PORTVERSION:R}
 DISTFILE[1]=		glib-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome2
 
-SPKGS[standard]=	complete primary nls
+SPKGS[standard]=	complete primary dev man nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -34,6 +35,8 @@ FPC_EQUIVALENT=		devel/glib20
 BUILD_DEPENDS=		xmlto:single:standard
 BUILDRUN_DEPENDS=	libffi:single:standard
 			pcre2:primary:standard
+
+EXRUN[dev]=		zlib:dev:standard
 
 USES=			gettext-tools gettext-runtime gmake libtool perl:build
 			pkgconfig python:build shebangfix zlib meson iconv cpe
