@@ -36,9 +36,10 @@ FPC_EQUIVALENT=		devel/libpeas
 # We don't have very old Lua5.1, so no Lua support for now.
 # Libpeas still only supports 5.1 as of 1.32.0. Maybe re-check later.
 
+BUILD_DEPENDS=		harfbuzz:dev:standard
 BUILDRUN_DEPENDS=	python-PyGObject:single:python_used
 
-USES=			cpe meson pkgconfig gtk-doc gettext-tools:build
+USES=			cpe meson pkgconfig gettext-tools:build
 GNOME_COMPONENTS=	gtk3 intltool
 CPE_VENDOR=		gnome
 MESON_ARGS=		-Dlua51=false
@@ -63,6 +64,7 @@ VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 [INTROSPECTION].CONFIGURE_ARGS_ON=	-Dintrospection=true -Dgtk_doc=true
 [INTROSPECTION].CONFIGURE_ARGS_OFF=	-Dintrospection=false -Dgtk_doc=false
 [INTROSPECTION].BUILD_DEPENDS_ON=	python-gi-docgen:single:python_default
+[INTROSPECTION].USES_ON=		gtk-doc
 
 post-patch:
 	${REINPLACE_CMD} \
