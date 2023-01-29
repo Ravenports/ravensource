@@ -112,7 +112,7 @@ install-common: skeleton
 .for item in m4 bzip2 bunzip2 bzcat bzgrep bzegrep bzfgrep lockf \
 	grep file flex flex++ gzip gunzip zcat zcmp zdiff zegrep \
 	zfgrep zgrep lzcat lzcmp lzdiff lzegrep lzfgrep lzgrep lzma \
-	unlzma unxz xz xzcat xzcmp xzdiff xzegrep xzfgrep xzgrep yacc \
+	unlzma unxz xzcat xzcmp xzdiff xzegrep xzfgrep xzgrep yacc \
 	unzip less mtree bsdcat dupe genpatch portfix patch fetch \
 	rpcgen sed find xargs cmp diff diff3 sdiff \
 	install wc sort od mknod seq
@@ -123,7 +123,7 @@ install-common: skeleton
 .endfor
 
 	${BSD_INSTALL_PROGRAM} ${LOCALBASE}/toolchain/bin/objdump ${DESTDIR}${BASE}/usr/bin/objdump-sysroot
-.for item in nawk/awk less/more bmake/make \
+.for item in nawk/awk less/more bmake/make xz-static/xz \
 	bsdcpio/cpio bsdtar/tar ravensys-uname/uname nvi/vi
 	${BSD_INSTALL_PROGRAM} ${LOCALBASE}/bin/${item:H} ${DESTDIR}${BASE}/usr/bin/${item:T}
 .endfor
