@@ -63,7 +63,7 @@ CPE_VERSION=		${PORTVERSION:R}
 					CONF_OPT_RUBY=--disable-rubyinterp
 					CONF_OPT_TCL=--disable-tclinterp
 [LOADED].USES_ON=			gnome-icons
-					lua perl python ruby tcl
+					lua perl python ruby tcl zlib:build
 [LOADED].MAKE_ARGS_ON=			CONF_OPT_FEAT=--with-features=huge
 					CONF_OPT_INPUT=--enable-xim
 					CONF_OPT_OUTPUT=--enable-fontset
@@ -76,6 +76,7 @@ CPE_VERSION=		${PORTVERSION:R}
 					CONF_OPT_PYTHON="--enable-python3interp --disable-pythoninterp"
 [LOADED].XORG_COMPONENTS_ON=		ice sm x11 xpm xt
 [LOADED].GNOME_COMPONENTS_ON=		cairo gdkpixbuf gtk3
+[LOADED].BUILD_DEPENDS_ON=		harfbuzz:dev:standard
 
 post-extract:
 	${AWK} '/\*manual-copyright\*/,/\|iccf\|/' \

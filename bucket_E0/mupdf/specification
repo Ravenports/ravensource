@@ -28,6 +28,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/mupdf
 
+BUILD_DEPENDS=		harfbuzz:dev:standard
 BUILDRUN_DEPENDS=	curl:primary:standard
 			freetype:primary:standard
 			harfbuzz:primary:standard
@@ -37,7 +38,7 @@ BUILDRUN_DEPENDS=	curl:primary:standard
 			gumbo:single:standard
 
 # requires libjpeg, jpeg-turbo (USES=jpeg) will not work
-USES=			cpe gmake pkgconfig
+USES=			cpe gmake pkgconfig zlib:build
 XORG_COMPONENTS=	x11 xcursor xext xinerama xrandr
 CPE_VENDOR=		artifex
 DISTNAME=		mupdf-${PORTVERSION}-source

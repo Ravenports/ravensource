@@ -28,8 +28,12 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/libqrencode
 
-USES=			cmake iconv pkgconfig
+USES=			cmake iconv pkgconfig zlib:build
 BUILDRUN_DEPENDS=	png:single:standard
 MUST_CONFIGURE=		gnu
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS=ON
 SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libqrencode.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/qrencode
