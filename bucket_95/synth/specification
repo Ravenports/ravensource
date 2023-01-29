@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	2.12
 
 NAMEBASE=		synth
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		sysutils
 VARIANTS=		standard
 SDESC[standard]=	Custom package repository builder for FreeBSD
@@ -43,6 +43,8 @@ pre-configure:
 	# Support Ini-File-Manager 09
 	${REINPLACE_CMD} -e "s|(File_Name =>|(Config_File_Name =>|" \
 		${WRKSRC}/src/parameters.adb
+	# Fix paths in the man page
+	${REINPLACE_CMD} -e "s|/usr/local|${PREFIX}|g" ${WRKSRC}/synth.1
 
 do-build:
 	(cd ${WRKSRC}/src && ${SETENV} ${MAKE_ENV} \
