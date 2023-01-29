@@ -58,22 +58,20 @@ SOVERSION=		${SOVERSION}
 
 [NOT_STD].USES_OFF=			zstd expat bz2 zlib
 [NOT_STD].BUILDRUN_DEPENDS_OFF=		libressl:single:standard
-					xz:single:standard
 [NOT_STD].CONFIGURE_ARGS_OFF=		--enable-shared=yes
 
 [STATIC].USES_ON=			zstd:build
 					expat:build
 					bz2:build
 					zlib:build
+					xz:build
 [STATIC].LDFLAGS_OFF=			-Wl,-rpath,{{LOCALBASE}}/libressl/lib
 [STATIC].BUILD_DEPENDS_ON=		libressl:single:static
-					xz:single:static
 [STATIC].CONFIGURE_ARGS_ON=		--enable-shared=no
 					--enable-static=yes
 
-[EXTENDED].USES_ON=			lz4 lzo zstd expat bz2 zlib
+[EXTENDED].USES_ON=			lz4 lzo zstd expat bz2 zlib xz
 [EXTENDED].BUILDRUN_DEPENDS_ON=		libressl:single:standard
-					xz:single:standard
 [EXTENDED].CONFIGURE_ARGS_ON=		--enable-shared=yes
 					--with-lzo2
 					--with-lz4
@@ -99,6 +97,7 @@ pre-configure-STATIC-ON:
 	# Remove dead symlinks that confust linker
 	${RM} ${LOCALBASE}/lib/libbz2.so
 	${RM} ${LOCALBASE}/lib/libexpat.so
+	${RM} ${LOCALBASE}/lib/liblzma.so
 
 post-build-RAVENSW-ON:
 	# assemble PIC library
