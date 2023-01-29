@@ -1,13 +1,13 @@
 DEF[PORTVERSION]=	1
-DEF[M30_RELEASE]=	3.0.0
+DEF[M3_RELEASE]=	3.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnatcross-sysroot-midnightbsd
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang
-VARIANTS=		AMD64_R30 I386_R30
-SDESC[AMD64_R30]=	MidnightBSD 3.0 C/Ada cross-compiler sysroot AMD64
-SDESC[I386_R30]=	MidnightBSD 3.0 C/Ada cross-compiler sysroot I386
+VARIANTS=		AMD64_R3 I386_R3
+SDESC[AMD64_R3]=	MidnightBSD R3 C/Ada cross-compiler sysroot AMD64
+SDESC[I386_R3]=		MidnightBSD R3 C/Ada cross-compiler sysroot I386
 HOMEPAGE=		none
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -18,13 +18,13 @@ DISTFILE[1]=		base-amd64-3.0.0-221021.txz:main
 DISTFILE[2]=		base-i386-3.0.0-221122.txz:main
 DIST_SUBDIR=		gnatcross/midnightbsd
 
-SPKGS[AMD64_R30]=	single
-SPKGS[I386_R30]=	single
+SPKGS[AMD64_R3]=	single
+SPKGS[I386_R3]=		single
 
-OPTIONS_AVAILABLE=	AMD64R30 I386R30
+OPTIONS_AVAILABLE=	AMD64R3 I386R3
 OPTIONS_STANDARD=	none
-VOPTS[AMD64_R30]=	AMD64R30=ON I386R30=OFF
-VOPTS[I386_R30]=	AMD64R30=OFF I386R30=ON
+VOPTS[AMD64_R3]=	AMD64R3=ON I386R3=OFF
+VOPTS[I386_R3]=		AMD64R3=OFF I386R3=ON
 
 SKIP_BUILD=		yes
 INVALID_RPATH=		yes
@@ -32,14 +32,14 @@ EXTRACT_HEAD[1]=	{{TAR}} -xf
 EXTRACT_TAIL[1]=	--no-same-owner --no-same-permissions lib/ usr/include/ usr/lib/
 EXTRACT_DIRTY=		1 2
 
-[AMD64R30].DESCRIPTION=			Package MidnightBSD/AMD64 ${M30_RELEASE} system root
-[AMD64R30].MAKEFILE_ON=			CTARGET=x86_64-raven-midnightbsd${M30_RELEASE}
-					PREFIX={{LOCALBASE}}/MidnightBSD30_AMD64
-[AMD64R30].DF_INDEX_ON=			1
-[I386R30].DESCRIPTION=			Package MidnightBSD/I386 ${M30_RELEASE} system root
-[I386R30].MAKEFILE_ON=			CTARGET=i386-raven-midnightbsd${M30_RELEASE}
-					PREFIX={{LOCALBASE}}/MidnightBSD30_I386
-[I386R30].DF_INDEX_ON=			2
+[AMD64R3].DESCRIPTION=			Package MidnightBSD/AMD64 ${M3_RELEASE} system root
+[AMD64R3].MAKEFILE_ON=			CTARGET=x86_64-raven-midnightbsd${M3_RELEASE}
+					PREFIX={{LOCALBASE}}/MidnightBSD3_AMD64
+[AMD64R3].DF_INDEX_ON=			1
+[I386R3].DESCRIPTION=			Package MidnightBSD/I386 ${M3_RELEASE} system root
+[I386R3].MAKEFILE_ON=			CTARGET=i386-raven-midnightbsd${M3_RELEASE}
+					PREFIX={{LOCALBASE}}/MidnightBSD3_I386
+[I386R3].DF_INDEX_ON=			2
 
 post-extract-dragonfly:
 	/bin/chflags -R noschg ${WRKDIR}
