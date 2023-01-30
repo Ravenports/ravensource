@@ -14,7 +14,7 @@
  
  	if test "$vi_cv_widechar" = "yes"; then
 -	    for vi_cv_curses in ncurses ncursesw curses; do
-+	    for vi_cv_curses in "ncurses -ltinfo" "ncursesw -ltinfow -ldb" curses; do
++	    for vi_cv_curses in "ncurses -ltinfo" "ncursesw -ltinfow" curses; do
  		as_ac_Lib=`echo "ac_cv_lib_$vi_cv_curses''_waddnwstr" | $as_tr_sh`
  { echo "$as_me:$LINENO: checking for waddnwstr in -l$vi_cv_curses" >&5
  echo $ECHO_N "checking for waddnwstr in -l$vi_cv_curses... $ECHO_C" >&6; }
@@ -23,7 +23,7 @@
  	    done
  	else
 -	    for vi_cv_curses in ncurses ncursesw curses; do
-+	    for vi_cv_curses in "ncurses -ltinfo" "ncursesw -ltinfow -ldb" curses; do
++	    for vi_cv_curses in "ncurses -ltinfo" "ncursesw -ltinfow" curses; do
  		as_ac_Lib=`echo "ac_cv_lib_$vi_cv_curses''_initscr" | $as_tr_sh`
  { echo "$as_me:$LINENO: checking for initscr in -l$vi_cv_curses" >&5
  echo $ECHO_N "checking for initscr in -l$vi_cv_curses... $ECHO_C" >&6; }

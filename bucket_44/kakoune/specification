@@ -28,13 +28,9 @@ USES=			c++:primary gmake ncurses
 
 # kakoune's makefile can not detect g++ using "c++ --version"
 CXXFLAGS=		-I{{NCURSESINC}} -Wno-init-list-lifetime
-
 MAKE_ARGS=		debug=no static=no
 MAKE_ENV=		CXX="{{CXX}}"
-
 MANDIRS=		{{PREFIX}}/share/kak/man/man1
-
-BUILDRUN_DEPENDS=	ncurses:primary:standard
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/kak

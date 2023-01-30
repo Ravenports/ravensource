@@ -1,5 +1,14 @@
---- Makefile.orig	2023-01-05 22:54:08 UTC
+--- Makefile.orig	2021-12-24 19:21:26 UTC
 +++ Makefile
+@@ -3,7 +3,7 @@ CFG_DIR = $(BASE_DIR)/cfg
+ 
+ -include $(CFG_DIR)/global_vars.mk
+ 
+-LIBS = toxcore ncursesw libconfig libcurl
++LIBS = toxcore ncurses libconfig libcurl
+ 
+ CFLAGS ?= -std=c99 -pthread -Wall -Wpedantic -Wunused -fstack-protector-all -Wvla -Wno-missing-braces
+ CFLAGS += '-DTOXICVER="$(VERSION)"' -DHAVE_WIDECHAR -D_XOPEN_SOURCE_EXTENDED -D_FILE_OFFSET_BITS=64
 @@ -42,10 +42,6 @@ ifeq ($(UNAME_S), OpenBSD)
  LIBS := $(filter-out ncursesw, $(LIBS))
  LDFLAGS += -lncursesw

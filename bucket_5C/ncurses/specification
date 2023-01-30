@@ -1,50 +1,46 @@
 DEF[PORTVERSION]=	6.4
-DEF[WIDEC_WRKSRC]=	{{WRKSRC}}/build.widec
-DEF[NOWIDEC_WRKSRC]=	{{WRKSRC}}/build.nowidec
-DEF[NOWIDEC_EXAMDIR]=	{{PREFIX}}/share/examples/ncurses/nowidec
-DEF[DOCS]=		ANNOUNCE NEWS README doc/html/announce.html doc/hackguide.doc doc/html/hackguide.html doc/html/index.html doc/ncurses-intro.doc doc/html/ncurses-intro.html
-DEF[EXAMPLES]=		Makefile README blue.c bs.6 bs.c cardfile.c cardfile.dat ditto.c dots.c filter.c firework.c firstlast.c gdc.6 gdc.c hanoi.c hashtest.c knight.c lrtest.c ncurses.c newdemo.c railroad.c rain.c tclock.c test.priv.h testaddch.c testcurs.c testscanw.c view.c worm.c xmas.c
-DEF[EXAMPLES_CPP]=	Makefile NEWS PROBLEMS README-first cursesapp.cc cursesapp.h cursesf.cc cursesf.h cursesm.cc cursesm.h cursesmain.cc cursesp.cc cursesp.h cursesw.cc cursesw.h cursslk.cc cursslk.h demo.cc etip.h internal.h
+DEF[TERMINFO_VER]=	20210816
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ncurses
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
-VARIANTS=		standard static
+VARIANTS=		standard
 SDESC[standard]=	Terminal-independent lib for full-screen output
-SDESC[static]=		Minimal static-only version of ncurses
 HOMEPAGE=		https://invisible-island.net/ncurses/ncurses.html
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main tsite
 SITES[main]=		http://invisible-mirror.net/archives/ncurses/
 			ftp://invisible-island.net/ncurses/
+SITES[tsite]=		http://invisible-mirror.net/archives/ncurses/current/
 DISTFILE[1]=		ncurses-${PORTVERSION}.tar.gz:main
+DISTFILE[2]=		terminfo-${TERMINFO_VER}.src.gz:tsite
+DF_INDEX=		1 2
 
-SPKGS[standard]=	complete primary examples docs
-SPKGS[static]=		primary
+SPKGS[standard]=	complete primary tools dev man terminfo docs
 
-OPTIONS_AVAILABLE=	STATIC
+OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
-VOPTS[static]=		STATIC=ON
 
 LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-# FreeBSD uses development snapshot now, so version comparison is useless
-# FPC_EQUIVALENT=		devel/ncurses
+FPC_EQUIVALENT=		devel/ncurses
 
-USES=			cpe bdb:static pkgconfig terminfo:primary shebangfix
+EXTRACT_HEAD[2]=	{{GZIP_CMD}} -kdc
+EXTRACT_TAIL[2]=	> {{WRKDIR}}/terminfo.src
+
+EXRUN[tools]=		ncurses:primary:standard
+
+USES=			cpe pkgconfig shebangfix
 SHEBANG_FILES=		test/tracemunch
 CPE_VENDOR=		gnu
 
 MUST_CONFIGURE=		gnu
-SINGLE_JOB=		yes
-INSTALL_REQ_TOOLCHAIN=	yes
-CONFIGURE_WRKSRC=	${NOWIDEC_WRKSRC}
-CONFIGURE_SCRIPT=	../configure
-CONFIGURE_ARGS=		--datadir={{PREFIX}}/share/misc
+CONFIGURE_ARGS=		--datadir={{PREFIX}}/share
 			--disable-overwrite
 			--disable-termcap
 			--enable-bsdpad
@@ -52,100 +48,49 @@ CONFIGURE_ARGS=		--datadir={{PREFIX}}/share/misc
 			--enable-colorfgbg
 			--disable-home-terminfo
 			--with-pkg-config=yes
+			--with-shared
 			--enable-pc-files
 			--with-termlib
 			--program-prefix=
+			--enable-widec
 			--enable-rpath
 			--disable-root-environ
+			--disable-lib-suffixes
+			--disable-db-install
 			--with-manpage-format=gzip
-			--srcdir=../
 			--without-debug
 			--without-manpage-renames
 			--without-ada
 			--mandir={{MANPREFIX}}/man
-			--with-hashed-db=db5
+			--without-hashed-db
 			--with-shlib-version=rel
-			--datadir={{PREFIX}}/share/misc
-			--with-default-terminfo-dir={{PREFIX}}/share/misc/terminfo
-			--with-terminfo-dirs={{PREFIX}}/share/misc/terminfo:/usr/share/terminfo
+			--with-default-terminfo-dir={{PREFIX}}/share/site-terminfo
+			--with-terminfo-dirs="{{PREFIX}}/share/terminfo:{{LOCALBASE}}/share/site-terminfo"
 			--with-pkg-config-libdir={{PREFIX}}/lib/pkgconfig
 CONFIGURE_ENV=		gnat_exists="no"
-BUILD_WRKSRC=		${NOWIDEC_WRKSRC}
-INSTALL_WRKSRC=		${NOWIDEC_WRKSRC}
+INSTALL_REQ_TOOLCHAIN=	yes
 PLIST_SUB=		ABI_VER=${PORTVERSION:R}
 			REL_VER=${PORTVERSION}
 
 VAR_OPSYS[sunos]=	CONFIGURE_ENV=LIBS="-lrt -lresolv -lsocket"
 
-[STATIC].CONFIGURE_ARGS_ON=		--enable-shared=no
-[STATIC].CONFIGURE_ARGS_OFF=		--with-shared=yes
-
-post-extract:
-	${MKDIR} ${WIDEC_WRKSRC}
-	${MKDIR} ${NOWIDEC_WRKSRC}
-
 post-patch:
-	${REINPLACE_CMD} -e 's,$$(INSTALL_PROG) ncurses-config,@INSTALL_SCRIPT@ ncurses-config,' ${WRKSRC}/misc/Makefile.in
+	${REINPLACE_CMD} -e 's,$$(INSTALL_PROG) ncurses-config,@INSTALL_SCRIPT@ ncurses-config,' \
+		${WRKSRC}/misc/Makefile.in
 	${REINPLACE_CMD} -e 's,/usr/include,${PREFIX}/include,g' ${WRKSRC}/misc/ncurses-config.in
 
-post-patch-freebsd:
-	# static libdb requires post-linking with pthread library
-	${REINPLACE_CMD} -e 's|(LIBS_TIC)|(LIBS_TIC) -lpthread|' \
-		-e 's|(LIBS_TINFO)|(LIBS_TINFO) -lpthread|' \
-		${WRKSRC}/progs/Makefile.in
-	${REINPLACE_CMD} -e 's|(MATH_LIB)|(MATH_LIB) -lpthread|' \
-		${WRKSRC}/test/Makefile.in
-	${REINPLACE_CMD} -e 's|(TEST_LDFLAGS)|(TEST_LDFLAGS) -lpthread|' \
-		${WRKSRC}/c++/Makefile.in
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
 
-post-configure:
-	cd ${.CURDIR} && \
-	    ${SET_LATE_CONFIGURE_ARGS} \
-	    ${MAKE} ${.MAKEFLAGS} CONFIGURE_WRKSRC=${WIDEC_WRKSRC} \
-	    CONFIGURE_ARGS="${CONFIGURE_ARGS} --enable-widec" \
-	    do-configure
-.for d in test c++
-	${CP} -R ${WRKSRC}/${d}/* ${WIDEC_WRKSRC}/${d}/
-	${CP} -R ${WRKSRC}/${d}/* ${NOWIDEC_WRKSRC}/${d}/
-.endfor
-
-post-build:
-	(cd ${.CURDIR} && ${MAKE} ${.MAKEFLAGS} \
-		BUILD_WRKSRC=${WIDEC_WRKSRC} do-build)
-
-	# Shift post-install to post-build.   The installation uses the
-	# compiler even there.
-	(cd ${.CURDIR} && ${MAKE} ${.MAKEFLAGS} \
-		INSTALL_WRKSRC=${WIDEC_WRKSRC} do-install)
-
-post-install-STATIC-ON:
-	${MV} ${STAGEDIR}${PREFIX}/share/misc/terminfo.db \
-		${STAGEDIR}${PREFIX}/share/misc/terminfo.db.default
-	${RM} -r ${STAGEDIR}${MANPREFIX}/man
-
-post-install-STATIC-OFF:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.${LIBEXT}
-	${MV} ${STAGEDIR}${PREFIX}/share/misc/terminfo.db \
-		${STAGEDIR}${PREFIX}/share/misc/terminfo.db.default
-
-	${MKDIR} ${STAGEDIR}${NOWIDEC_EXAMDIR}/c++
-.for f in ${EXAMPLES}
-	${INSTALL_DATA} ${NOWIDEC_WRKSRC}/test/${f} \
-		${STAGEDIR}${NOWIDEC_EXAMDIR}/
-.endfor
-.for f in ${EXAMPLES_CPP}
-	${INSTALL_DATA} ${NOWIDEC_WRKSRC}/c++/${f} \
-		${STAGEDIR}${NOWIDEC_EXAMDIR}/c++/
-.endfor
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
-.for f in ${DOCS}
-	${INSTALL_DATA} ${WRKSRC}/${f} ${STAGEDIR}${STD_DOCDIR}/
-.endfor
+	@for f in ${FILES_DOCS}; do \
+	  ${INSTALL_DATA} ${WRKSRC}/$$f ${STAGEDIR}${STD_DOCDIR}/; \
+	  ${ECHO} installed document $$f; \
+	done
 
-post-stage:
-	${SED} -i'' -E \
-		-e 's| -ldb-5||' \
-		-e 's| -Wl,[[:graph:]]*/db5||' \
-		-e 's| -L[[:graph:]]*/db5||' \
-		${STAGEDIR}${PREFIX}/lib/pkgconfig/*.pc \
-		${STAGEDIR}${PREFIX}/bin/ncurse*-config
+	# create the terminfo database
+	${CP} ${WRKSRC}/lib/libncurses.so* ${LOCALBASE}/lib
+	${CP} ${WRKSRC}/lib/libtinfo.so* ${LOCALBASE}/lib
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/terminfo
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/site-terminfo
+	${WRKSRC}/progs/tic -sx -o ${STAGEDIR}${PREFIX}/share/terminfo ${WRKDIR}/terminfo.src
