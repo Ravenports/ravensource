@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.17.0
+DEF[PORTVERSION]=	0.18.0
 DEF[LIBRE_VERSION]=	0.16.1
 # ----------------------------------------------------------------------------
 
@@ -17,22 +17,21 @@ SITES[libre]=		https://gitlab.com/ixion/ixion/-/archive/${LIBRE_VERSION}/
 DISTFILE[1]=		ixion-${PORTVERSION}.tar.bz2:main
 DISTFILE[2]=		ixion-${LIBRE_VERSION}.tar.bz2:libre
 
-SPKGS[standard]=	single
-SPKGS[libre]=		single
+SPKGS[standard]=	complete primary dev
+SPKGS[libre]=		complete primary dev
 
 OPTIONS_AVAILABLE=	LIBRE
 OPTIONS_STANDARD=	none
 VOPTS[libre]=		LIBRE=ON
 
-LICENSE=		MPL:single
+LICENSE=		MPL:primary
 LICENSE_FILE=		MPL:{{WRKSRC}}/LICENSE
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/libixion/address.cpp
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		mdds-1.7:single:standard
-			spdlog:single:standard
+BUILD_DEPENDS=		spdlog:single:standard
 BUILDRUN_DEPENDS=	boost-libraries:single:standard
 
 USES=			cmake python:build zlib
@@ -48,6 +47,8 @@ VAR_OPSYS[linux]=	LDFLAGS=-ldl
 [LIBRE].DESCRIPTION=			Build older 0.16 version for Libreoffice
 [LIBRE].DF_INDEX_OFF=			1
 [LIBRE].DF_INDEX_ON=			2
+[LIBRE].BUILD_DEPENDS_ON=		mdds-1.7:single:standard
+[LIBRE].BUILD_DEPENDS_OFF=		mdds:single:standard
 [LIBRE].MAKEFILE_OFF=			VER=${PORTVERSION:R}
 					VAR_VERSION=${PORTVERSION}
 [LIBRE].MAKEFILE_ON=			VER=${LIBRE_VERSION:R}
