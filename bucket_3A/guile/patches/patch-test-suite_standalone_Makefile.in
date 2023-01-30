@@ -2,9 +2,9 @@ $NetBSD: patch-test-suite_standalone_Makefile.in,v 1.1 2022/03/08 00:09:30 wiz E
 
 Disable PaX MPROTECT for some tests (needed due to its JIT).
 
---- test-suite/standalone/Makefile.in.orig	2022-02-10 20:03:23 UTC
+--- test-suite/standalone/Makefile.in.orig	2023-01-25 12:58:55 UTC
 +++ test-suite/standalone/Makefile.in
-@@ -2361,86 +2361,107 @@ libtest-ffi.la: $(libtest_ffi_la_OBJECTS
+@@ -2451,86 +2451,107 @@ libtest-ffi.la: $(libtest_ffi_la_OBJECTS
  test-conversion$(EXEEXT): $(test_conversion_OBJECTS) $(test_conversion_DEPENDENCIES) $(EXTRA_test_conversion_DEPENDENCIES) 
  	@rm -f test-conversion$(EXEEXT)
  	$(AM_V_CCLD)$(test_conversion_LINK) $(test_conversion_OBJECTS) $(test_conversion_LDADD) $(LIBS)

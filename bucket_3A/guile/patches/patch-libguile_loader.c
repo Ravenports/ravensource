@@ -2,7 +2,7 @@ $NetBSD: patch-libguile_loader.c,v 1.1 2022/03/08 00:09:30 wiz Exp $
 
 Use correct mmap permissions for later PROT_WRITE mprotect.
 
---- libguile/loader.c.orig	2021-02-03 22:00:27 UTC
+--- libguile/loader.c.orig	2023-01-23 11:16:43 UTC
 +++ libguile/loader.c
 @@ -501,7 +501,7 @@ map_file_contents (int fd, size_t len, i
    char *data;

@@ -2,9 +2,9 @@ $NetBSD: patch-libguile_Makefile.in,v 1.1 2022/03/08 00:09:30 wiz Exp $
 
 Disable PaX MPROTECT for guile binary (needed due to its JIT).
 
---- libguile/Makefile.in.orig	2022-02-10 20:03:22 UTC
+--- libguile/Makefile.in.orig	2023-01-20 07:50:04 UTC
 +++ libguile/Makefile.in
-@@ -2771,6 +2771,7 @@ libguile-@GUILE_EFFECTIVE_VERSION@.la: $
+@@ -2864,6 +2864,7 @@ libguile-@GUILE_EFFECTIVE_VERSION@.la: $
  guile$(EXEEXT): $(guile_OBJECTS) $(guile_DEPENDENCIES) $(EXTRA_guile_DEPENDENCIES) 
  	@rm -f guile$(EXEEXT)
  	$(AM_V_CCLD)$(guile_LINK) $(guile_OBJECTS) $(guile_LDADD) $(LIBS)

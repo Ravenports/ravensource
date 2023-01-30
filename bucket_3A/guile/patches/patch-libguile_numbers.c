@@ -1,4 +1,4 @@
---- libguile/numbers.c.orig	2022-02-10 19:37:59 UTC
+--- libguile/numbers.c.orig	2023-01-16 21:58:25 UTC
 +++ libguile/numbers.c
 @@ -192,7 +192,7 @@ static double atanh (double x) { return
  
