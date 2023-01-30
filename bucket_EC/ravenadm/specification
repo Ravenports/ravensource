@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.92
+DEF[PORTVERSION]=	1.93
 DEF[PORTREVISION]=	0
 DEF[RELEASE_TAG]=	v${PORTVERSION}
 # ----------------------------------------------------------------------------
@@ -35,8 +35,9 @@ BUILD_WRKSRC=		{{WRKSRC}}/build
 
 [WATCHDOG].DESCRIPTION=			Use "watchdog" monitor to abort stalled builds
 [NCURSES].DESCRIPTION=			Activate options dialog and pretty build monitor
-[NCURSES].USES_ON=			ncurses
+[NCURSES].BUILDRUN_DEPENDS_ON=		ncurses:primary:standard
 [NCURSES].BUILD_DEPENDS_ON=		adacurses:primary:standard
+					ncurses:dev:standard
 [NCURSES].MAKE_ENV_ON=			WITH_DISPLAY=1
 
 # We have to link ncurses dynamically to force the terminfo database
