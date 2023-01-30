@@ -64,8 +64,8 @@ CONFIGURE_ARGS=		--datadir={{PREFIX}}/share
 			--mandir={{MANPREFIX}}/man
 			--without-hashed-db
 			--with-shlib-version=rel
-			--with-default-terminfo-dir={{PREFIX}}/share/misc/terminfo
-			--with-terminfo-dirs="{{PREFIX}}/share/terminfo:{{LOCALBASE}}/site-terminfo"
+			--with-default-terminfo-dir={{PREFIX}}/share/site-terminfo
+			--with-terminfo-dirs="{{PREFIX}}/share/terminfo:{{LOCALBASE}}/share/site-terminfo"
 			--with-pkg-config-libdir={{PREFIX}}/lib/pkgconfig
 CONFIGURE_ENV=		gnat_exists="no"
 INSTALL_REQ_TOOLCHAIN=	yes
@@ -92,4 +92,5 @@ post-install:
 	${CP} ${WRKSRC}/lib/libncurses.so* ${LOCALBASE}/lib
 	${CP} ${WRKSRC}/lib/libtinfo.so* ${LOCALBASE}/lib
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/terminfo
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/site-terminfo
 	${WRKSRC}/progs/tic -sx -o ${STAGEDIR}${PREFIX}/share/terminfo ${WRKDIR}/terminfo.src
