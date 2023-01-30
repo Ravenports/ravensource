@@ -49,7 +49,7 @@ MAKE_ARGS=		ENABLE_PYTHON=1
 			USER_LDFLAGS="{{LDFLAGS}}"
 SINGLE_JOB=		yes
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} \
 		-e 's|LIBS = python3|LIBS = python${PYTHON_VER}|' \
 		-e 's|python3-config|python${PYTHON_VER}-config|g' \
