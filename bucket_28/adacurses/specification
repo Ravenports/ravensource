@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	20211021
 
 NAMEBASE=		adacurses
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel ada
 VARIANTS=		standard
 SDESC[standard]=	Ada95 bindings for ncurses
@@ -25,7 +26,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/adacurses
 
-USES=			gmake pkgconfig ncurses
+# don't remove, need for bootstrapping between ravenadm 1.92 and 1.93
+BUILD_DEPENDS=		ncurses:dev:standard
+
+USES=			autoreconf gmake pkgconfig ncurses
 DISTNAME=		AdaCurses-${PORTVERSION}
 SINGLE_JOB=		yes
 MUST_CONFIGURE=		gnu
