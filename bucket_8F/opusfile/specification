@@ -8,7 +8,7 @@ KEYWORDS=		audio
 VARIANTS=		standard
 SDESC[standard]=	Opus playback library
 HOMEPAGE=		https://www.opus-codec.org/
-CONTACT=		Leonid_Bobrov[goleo@disroot.org]
+CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		MOZILLA/opus
@@ -26,9 +26,11 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		audio/opusfile
 
-USES=			autoreconf gmake libtool pkgconfig ssl
 BUILDRUN_DEPENDS=	libogg:primary:standard
 			opus:single:standard
+
+USES=			autoreconf cpe gmake libtool pkgconfig ssl
+CPE_VENDOR=		xiph
 MUST_CONFIGURE=		gnu
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
