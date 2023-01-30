@@ -30,15 +30,20 @@ LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		sysutils/less
 
-USES=			cpe gmake ncurses:static bdb:static
+USES=			cpe gmake ncurses:build
 CPE_VENDOR=		gnu
-MUST_CONFIGURE=		gnu
+MUST_CONFIGURE=		yes
+CONFIGURE_ARGS=		--prefix={{PREFIX}}
 
 VAR_OPSYS[sunos]=	CONFIGURE_ENV=LIBS="-lrt -lsocket"
 
 [COLOR].DESCRIPTION=			Color support via escape sequences
 [COLOR].CPPFLAGS_ON=			-DCOLOR_LESS
 
-post-patch:
-	${REINPLACE_CMD} -e 's|-lcurses|-lncurses -ltinfo -ldb|' ${WRKSRC}/configure
+post-extract:
+	# support static linking
+	${RM} ${LOCALBASE}/lib/lib*.so
+
+pre-configure:
+	${REINPLACE_CMD} -e 's|-lcurses|-lncurses -ltinfo|' ${WRKSRC}/configure
 	${HEAD} -n 18 ${WRKSRC}/README > ${WRKDIR}/TERMS
