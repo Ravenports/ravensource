@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	4.0.3
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ctwm
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_wm
+VARIANTS=		standard
+SDESC[standard]=	Window manager that iterated on twm
+HOMEPAGE=		https://www.ctwm.org
+CONTACT=		Todd_Martin[warfox@sdf.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://ctwm.org/dist/
+DISTFILE[1]=		ctwm-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11_wm/ctwm
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKCSRC}}/COPYRIGHT
+LICENSE_SCHEME=		solo
+
+USES=			cmake jpeg
+XORG_COMPONENTS=	x11 xft xinerama xmu xpm
+
+post-patch:
+	${REINPLACE_CMD} 's!__PREFIX__!${PREFIX}!g' \
+			${WRKSRC}/CMakeLists.txt
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ctwm
