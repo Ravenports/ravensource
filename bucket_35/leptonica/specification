@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.83.0
+DEF[PORTVERSION]=	1.83.1
 DEF[SOVERSION]=		6.0.0
 # ----------------------------------------------------------------------------
 
@@ -14,12 +14,12 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/DanBloomberg/leptonica/releases/download/${PORTVERSION}/
 DISTFILE[1]=		leptonica-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		BSD2CLAUSE:single
+LICENSE=		BSD2CLAUSE:primary
 LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/src/leptonica-license.txt
 LICENSE_SCHEME=		solo
 
@@ -27,6 +27,8 @@ FPC_EQUIVALENT=		graphics/leptonica
 
 BUILDRUN_DEPENDS=	WebP:single:standard
 			openjpeg:single:standard
+
+EXRUN[tools]=		leptonica:primary:standard
 
 USES=			cpe png jpeg tiff gif libtool solaris-funcs
 SOL_FUNCTIONS=		dirfd:src/sarray1.c
