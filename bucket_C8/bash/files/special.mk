@@ -9,7 +9,6 @@ CONFIGURE_ARGS:=	${CONFIGURE_ARGS:N--enable-static-link}
 CONFIGURE_ENV+=		ac_cv_func_dlopen=no
 
 TINFOLIBS=		${LOCALBASE}/lib/libtinfo.a \
-			${LOCALBASE}/lib/db5/libdb.a \
 			-lpthread
 
 post-configure-opsys:

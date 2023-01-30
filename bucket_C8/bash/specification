@@ -57,6 +57,9 @@ LICENSE_SCHEME=		solo
 
 # readline is bundled and linked statically
 
+BUILD_DEPENDS=		ncurses:dev:standard
+RUN_DEPENDS=		ncurses:terminfo:standard
+
 USES=			bison cpe solaris-funcs
 DISTNAME=		bash-${PORTVERSION}
 MUST_CONFIGURE=		gnu
@@ -84,13 +87,13 @@ SOL_FUNCTIONS=		mkdtemp:lib/sh/tmpfile.c
 # Mac linker doesn't have -export-dynamic equivalent
 VAR_OPSYS[dragonfly]=	VAR1=-Wl,--export-dynamic
 VAR_OPSYS[freebsd]=	VAR1=-Wl,--export-dynamic
+VAR_OPSYS[netbsd]=	VAR1=-Wl,--export-dynamic
 VAR_OPSYS[linux]=	VAR1=-Wl,--export-dynamic
 
 [NLS].USES_ON=				gettext-runtime iconv
 [NLS].CONFIGURE_ENABLE_BOTH=		nls
 [NLS].CONFIGURE_ARGS_ON=		--with-libiconv-prefix={{ICONV_PREFIX}}
 
-[STATIC].BUILD_DEPENDS_ON=		ncurses:primary:static
 [STATIC].BUILDRUN_DEPENDS_OFF=		ncurses:primary:standard
 [STATIC].CFLAGS_ON=			-fcommon
 
@@ -103,6 +106,10 @@ post-patch:
 	${TOUCH} ${WRKSRC}/parse.y
 	${RM} ${WRKSRC}/y.tab.c
 	${REINPLACE_CMD} -e "s|%%PREFIX%%|${PREFIX}|g" ${WRKSRC}/doc/bash.1
+
+post-extract-STATIC-ON:
+	# force static linking
+	${RM} ${LOCALBASE}/lib/libncurses.so
 
 post-configure:
 	${FIND} ${WRKSRC} -name Makefile -print0 | ${XARGS} -0 \
