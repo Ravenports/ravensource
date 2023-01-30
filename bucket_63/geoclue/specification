@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	2.6.0
+DEF[PORTVERSION]=	2.7.0
 DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		geoclue
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		net
 VARIANTS=		standard
 SDESC[standard]=	D-Bus service to provide location information
@@ -15,15 +14,15 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/${PORTVERSION}/
 DISTFILE[1]=		geoclue-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man
 
 OPTIONS_AVAILABLE=	INTROSPECTION
 OPTIONS_STANDARD=	INTROSPECTION
 OPT_ON[all]=		INTROSPECTION
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/gclue-error.h
 LICENSE_SCHEME=		solo
@@ -31,7 +30,7 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		net/geoclue
 
 BUILDRUN_DEPENDS=	json-glib:primary:standard
-			libsoup-2.4:primary:standard
+			libsoup:primary:standard
 			libnotify:primary:standard
 
 USES=			gettext-tools gmake pkgconfig meson shebangfix
