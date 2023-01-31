@@ -1,6 +1,6 @@
---- vendor/libc-0.2.126/src/unix/bsd/freebsdlike/dragonfly/mod.rs.orig	2023-01-10 22:12:00 UTC
-+++ vendor/libc-0.2.126/src/unix/bsd/freebsdlike/dragonfly/mod.rs
-@@ -387,8 +387,8 @@ s_no_extra_traits! {
+--- vendor/libc-0.2.127/src/unix/bsd/freebsdlike/dragonfly/mod.rs.orig	2023-01-25 01:49:16 UTC
++++ vendor/libc-0.2.127/src/unix/bsd/freebsdlike/dragonfly/mod.rs
+@@ -442,8 +442,8 @@ s_no_extra_traits! {
          pub d_fileno: ::ino_t,
          pub d_namlen: u16,
          pub d_type: u8,
@@ -11,7 +11,7 @@
          pub d_name: [::c_char; 256],
      }
  
-@@ -846,6 +846,7 @@ cfg_if! {
+@@ -901,6 +901,7 @@ cfg_if! {
  
  pub const RAND_MAX: ::c_int = 0x7fff_ffff;
  pub const PTHREAD_STACK_MIN: ::size_t = 16384;

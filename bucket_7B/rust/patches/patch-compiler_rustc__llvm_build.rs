@@ -1,6 +1,6 @@
---- compiler/rustc_llvm/build.rs.orig	2023-01-10 18:47:32 UTC
+--- compiler/rustc_llvm/build.rs.orig	2023-01-24 23:11:45 UTC
 +++ compiler/rustc_llvm/build.rs
-@@ -323,23 +323,7 @@ fn main() {
+@@ -326,23 +326,7 @@ fn main() {
      }
  
      let llvm_static_stdcpp = tracked_env_var_os("LLVM_STATIC_STDCPP");
@@ -15,7 +15,7 @@
 -        "c++"
 -    } else if target.contains("netbsd") && llvm_static_stdcpp.is_some() {
 -        // NetBSD uses a separate library when relocation is required
--        "stdc++_pic"
+-        "stdc++_p"
 -    } else if llvm_use_libcxx.is_some() {
 -        "c++"
 -    } else {

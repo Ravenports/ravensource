@@ -1,4 +1,4 @@
---- vendor/openssl-sys/build/main.rs.orig	2023-01-10 22:12:01 UTC
+--- vendor/openssl-sys/build/main.rs.orig	2023-01-25 01:49:17 UTC
 +++ vendor/openssl-sys/build/main.rs
 @@ -254,6 +254,9 @@ See rust-openssl README for more informa
              (3, 3, _) => ('3', '3', 'x'),
