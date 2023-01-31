@@ -5,7 +5,6 @@ DEF[SOMAJOR]=		${SOVERSION:R:R}
 
 NAMEBASE=		apr-util
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Apache Portable Runtime Utility library
@@ -16,12 +15,19 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		APACHE/apr
 DISTFILE[1]=		apr-util-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-# FPC_EQUIVALENT=	would be devel/apr, but version is custom
+# FPC_EQUIVALENT=	devel/apr bad version / removed
+
+LICENSE=		APACHE20:primary
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/apu.h.in
+LICENSE_SCHEME=		solo
 
 BUILDRUN_DEPENDS=	apr1:single:standard
 			unixODBC:primary:standard
@@ -31,6 +37,7 @@ USES=			iconv libtool cpe ssl bdb:5 sqlite expat
 CPE_VENDOR=		apache
 CPE_PRODUCT=		apr-util
 CPE_VERSION=		${PORTVERSION}
+DISTNAME=		apr-util-1.6.2-rc3
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-apr={{LOCALBASE}}
 			--with-expat={{LOCALBASE}}
