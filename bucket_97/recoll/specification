@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.34.0
+DEF[PORTVERSION]=	1.34.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		recoll
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.lesbonscomptes.com/recoll/
 DISTFILE[1]=		recoll-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary docs examples nls
+SPKGS[standard]=	complete primary lang man docs examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -31,6 +31,7 @@ BUILDRUN_DEPENDS=	xapian-core:primary:standard
 			aspell:primary:standard
 			chmlib:single:standard
 			qt5-qtbase:primary:standard
+			qt5-qttools:single:standard
 RUN_DEPENDS=		unrar:single:standard
 			antiword:primary:standard
 			catdoc:primary:standard
@@ -91,6 +92,10 @@ post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/recoll/doc/* \
 		${STAGEDIR}${STD_DOCDIR}/
 	${RM} -r ${STAGEDIR}${PREFIX}/share/recoll/doc
+	# language file installation broke -working around it
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/recoll/translations
+	${INSTALL_DATA} ${WRKSRC}/qtgui/.qm/recoll_*.qm \
+		${STAGEDIR}${PREFIX}/share/recoll/translations/
 	# autoplist for python files
 	@(cd ${STAGEDIR}${PREFIX} && \
 	${FIND} lib/python* \( -type f -o -type l \) 2>/dev/null | ${SORT}) \
