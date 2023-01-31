@@ -6,7 +6,7 @@ DEF[SOVERSION]=		1.11.1
 
 NAMEBASE=		libsoup-2.4
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Simple Object Access Protocol implementation in C
@@ -17,7 +17,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://ftp.gnome.org/pub/GNOME/sources/libsoup/${PORTVERSION:R}/
 DISTFILE[1]=		libsoup-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls docs
+SPKGS[standard]=	complete primary dev nls docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -31,6 +31,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libsoup
 
+BUILD_DEPENDS=		vala:single:standard
 BUILDRUN_DEPENDS=	brotli:single:standard
 			glib-networking:primary:standard
 			libpsl:single:standard
@@ -42,8 +43,7 @@ CPE_VENDOR=		gnome
 CPE_PRODUCT=		libsoup
 GNOME_COMPONENTS=	glib intltool introspection libxml2
 MESON_ARGS=		-Dgtk_doc=true
-# #			--  introspection crashing a lot, now on NetBSD --
-			-Dintrospection=disabled
+			-Dintrospection=enabled
 
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
@@ -52,7 +52,7 @@ SOVERSION=		${SOVERSION}
 GTKDOC_OUTPUT_BASEDIR=	libsoup-${LIBVERSION}
 DISTNAME=		libsoup-${PORTVERSION}
 PLIST_SUB=		LIBVERSION=${LIBVERSION}
-			INTRO="@comment "
+			INTRO=""
 
 VAR_OPSYS[linux]=	CFLAGS=-D_GNU_SOURCE
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
