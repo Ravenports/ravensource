@@ -53,6 +53,9 @@ CARGO_SKIP_BUILD=	yes
 CARGO_SKIP_INSTALL=	yes
 
 post-patch:
+	# fix cargo build options
+	${REINPLACE_CMD} -e 's|--locked|--offline|' ${WRKSRC}/setup.py
+	# create directives
 	${MKDIR} ${WRKSRC}/.cargo
 	echo "[source.cargo]" >> ${WRKSRC}/.cargo/config.toml
 	echo "directory = '${CARGO_VENDOR_DIR}'" >> ${WRKSRC}/.cargo/config.toml
