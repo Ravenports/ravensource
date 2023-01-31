@@ -1,7 +1,7 @@
 # upstram PR: https://bz.apache.org/bugzilla/show_bug.cgi?id=59914
 # FreeBSD PR: 211430
 ========================================================================
---- poll/unix/kqueue.c.orig	2015-03-20 01:34:07 UTC
+--- poll/unix/kqueue.c.orig	2022-01-19 23:17:18 UTC
 +++ poll/unix/kqueue.c
 @@ -25,21 +25,40 @@
  
@@ -53,8 +53,8 @@
      return rv;
  }
  
-@@ -290,7 +309,9 @@ static apr_status_t impl_pollset_poll(ap
-                 pollset->p->result_set[j] = fd;
+@@ -293,7 +312,9 @@ static apr_status_t impl_pollset_poll(ap
+                 pollset->p->result_set[j] = *fd;
                  pollset->p->result_set[j].rtnevents =
                          get_kqueue_revent(pollset->p->ke_set[i].filter,
 -                                          pollset->p->ke_set[i].flags);
@@ -64,9 +64,9 @@
                  j++;
              }
          }
-@@ -471,7 +492,9 @@ static apr_status_t impl_pollcb_poll(apr
-             apr_pollfd_t *pollfd = (apr_pollfd_t *)(pollcb->pollset.ke[i].udata);
-             
+@@ -478,7 +499,9 @@ static apr_status_t impl_pollcb_poll(apr
+             }
+ 
              pollfd->rtnevents = get_kqueue_revent(pollcb->pollset.ke[i].filter,
 -                                                  pollcb->pollset.ke[i].flags);
 +                                                  pollcb->pollset.ke[i].flags,

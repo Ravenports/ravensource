@@ -15,16 +15,24 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		APACHE/apr
 DISTFILE[1]=		apr-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-# FPC_EQUIVALENT=	would be devel/apr, but version is custom
+# FPC_EQUIVALENT=	would be devel/apr1, but version is custom
+
+LICENSE=		APACHE20:primary
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/apr.h.in
+LICENSE_SCHEME=		solo
 
 USES=			cpe iconv libtool ssl
 CPE_VENDOR=		apache
 CPE_PRODUCT=		portable_runtime
+DISTNAME=		apr-1.7.1-rc2
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-installbuilddir={{PREFIX}}/share/apr1/build-1
 			--enable-threads
@@ -35,7 +43,6 @@ CONFIGURE_ARGS=		--with-installbuilddir={{PREFIX}}/share/apr1/build-1
 			--with-openssl={{OPENSSLBASE}}
 LDFLAGS=		-L{{OPENSSLLIB}}
 CPPFLAGS=		-I{{OPENSSLINC}}
-DISTNAME=		apr-${PORTVERSION}
 PLIST_SUB=		SOVERSION=${SOVERSION}
 			SOMAJOR=${SOMAJOR}
 
