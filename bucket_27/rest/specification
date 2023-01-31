@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.0.0
+DEF[PORTVERSION]=	0.9.1
 DEF[FOLDER]=		${PORTVERSION:R}
 DEF[SOVERSION]=		0.0.0
 DEF[REST_API]=		1.0
@@ -6,6 +6,8 @@ DEF[REST_API]=		1.0
 
 NAMEBASE=		rest
 VERSION=		${PORTVERSION}
+# Amateur hour: https://gitlab.gnome.org/GNOME/librest/-/issues/17
+EPOCH=			1
 KEYWORDS=		devel www
 VARIANTS=		standard
 SDESC[standard]=	Easy access to RESTful web services
@@ -16,8 +18,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://gitlab.gnome.org/GNOME/librest/-/archive/${PORTVERSION}/
 DISTFILE[1]=		librest-${PORTVERSION}.tar.gz:main
 
-# SPKGS[standard]=	complete primary docs examples
-SPKGS[standard]=	complete primary examples
+SPKGS[standard]=	complete primary dev examples docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -31,28 +32,27 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/librest
 
-# BUILD_DEPENDS=	python-gi-docgen:single:python_default
+BUILD_DEPENDS=		python-gi-docgen:single:python_default
+			libsoup-2.4:dev:standard
 BUILDRUN_DEPENDS=	nss:caroot:standard
 			libsoup-2.4:primary:standard
 			json-glib:primary:standard
 
-USES=			meson pkgconfig
-GNOME_COMPONENTS=	glib libxml2
-# #			 introspection
-# #			USES=gtk-doc requires introspection
+USES=			meson pkgconfig gtk-doc
+GNOME_COMPONENTS=	glib libxml2 introspection
 SOVERSION=		${SOVERSION}
 MESON_ARGS=		-Dca_certificates_path={{LOCALBASE}}/share/certs/ca-root-nss.crt
 			-Dca_certificates=false
-			-Dintrospection=false
+			-Dintrospection=true
 			-Dexamples=false
-			-Dgtk_doc=false
+			-Dgtk_doc=true
 			-Dsoup2=true
 			-Dtests=false
 DISTNAME=		librest-${PORTVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
-# GTKDOC_OUTPUT_BASEDIR=	rest-${REST_API}
+GTKDOC_OUTPUT_BASEDIR=	rest-${REST_API}
 PLIST_SUB=		API=${REST_API}
-			INTRO="@comment "
+			INTRO=""
 
 post-install:
 	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
