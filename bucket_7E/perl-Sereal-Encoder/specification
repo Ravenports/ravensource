@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.001
+DEF[PORTVERSION]=	5.002
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Sereal-Encoder
@@ -32,6 +32,7 @@ DISTNAME=		Sereal-Encoder-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
+# |      runtime : Sereal::Decoder
 # |      runtime : XSLoader (perl 5.34 core) (perl 5.36 core)
 # |        build : Data::Dumper (perl 5.34 core) (perl 5.36 core)
 # |        build : ExtUtils::ParseXS (perl 5.34 core) (perl 5.36 core)
@@ -40,6 +41,7 @@ DISTNAME=		Sereal-Encoder-${PORTVERSION}
 # |        build : File::Spec (perl 5.34 core) (perl 5.36 core)
 # |        build : Hash::Util (perl 5.34 core) (perl 5.36 core)
 # |        build : Scalar::Util (perl 5.34 core) (perl 5.36 core)
+# |        build : Sereal::Decoder
 # |        build : Test::Deep
 # |        build : Test::Differences
 # |        build : Test::LongString
@@ -58,11 +60,13 @@ DISTNAME=		Sereal-Encoder-${PORTVERSION}
 # |         test : Test::Warn
 
 [PERL_534].USES_ON=			perl:534,configure
+[PERL_534].BUILDRUN_DEPENDS_ON=		perl-Sereal-Decoder:single:534
 [PERL_534].BUILD_DEPENDS_ON=		perl-Test-Deep:single:534
 					perl-Test-Differences:single:534
 					perl-Test-LongString:single:534
 					perl-Test-Warn:single:534
 [PERL_536].USES_ON=			perl:536,configure
+[PERL_536].BUILDRUN_DEPENDS_ON=		perl-Sereal-Decoder:single:536
 [PERL_536].BUILD_DEPENDS_ON=		perl-Test-Deep:single:536
 					perl-Test-Differences:single:536
 					perl-Test-LongString:single:536
