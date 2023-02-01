@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	22.12.0
+DEF[PORTVERSION]=	23.1.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-black
@@ -11,7 +11,7 @@ HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/0c/51/1f7f93c0555eaf4cbb628e26ba026e3256174a45bd9397ff1ea7cf96bad5
+SITES[main]=		PYPIWHL/18/99/bb1be0ff3a7e912679ad234a3c4884fa7689dfcc4eae85bddb6c04feaa62
 DISTFILE[1]=		black-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -31,9 +31,10 @@ DISTNAME=		black-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 # click>=8.0.0
 # mypy-extensions>=0.4.3
+# packaging>=22.0
 # pathspec>=0.9.0
 # platformdirs>=2
-# tomli>=1.1.0; python_full_version < '3.11.0a7'
+# tomli>=1.1.0; python_version < '3.11'
 # typed-ast>=1.4.2; python_version < '3.8' and implementation_name == 'cpython'
 # typing-extensions>=3.10.0.0; python_version < '3.10'
 # colorama>=0.4.3; extra == 'colorama'
@@ -45,13 +46,14 @@ DISTNAME=		black-${PORTVERSION}.dist-info
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-click:single:py310
 					python-mypy-extensions:single:py310
+					python-packaging:single:py310
 					python-pathspec:single:py310
 					python-platformdirs:single:py310
 					python-tomli:single:py310
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-click:single:v11
 					python-mypy-extensions:single:v11
+					python-packaging:single:v11
 					python-pathspec:single:v11
 					python-platformdirs:single:v11
-					python-tomli:single:v11
 

@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	7.3.1
+DEF[PORTVERSION]=	7.4
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-qrcode
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/lincolnloop/python-qrcode
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/q/qrcode
-DISTFILE[1]=		qrcode-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/d2/ed/25b79f182b7f6de6a3bbbf9f09f8213d35238ff27c05895be36ab184e42a
+DISTFILE[1]=		qrcode-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
 SPKGS[v11]=		single
@@ -26,11 +26,29 @@ VOPTS[v11]=		PY310=OFF PY311=ON
 # BSD
 
 GENERATED=		yes
-DISTNAME=		qrcode-${PORTVERSION}
+DISTNAME=		qrcode-${PORTVERSION}.dist-info
 
-# install_requires extracted from setup.py
+# Requires-Dist extracted from wheel metadata
+# typing-extensions
+# pypng
+# colorama ; platform_system == "Windows"
+# zest.releaser[recommended] ; extra == 'all'
+# tox ; extra == 'all'
+# pytest ; extra == 'all'
+# pytest-cov ; extra == 'all'
+# pillow (>=9.1.0) ; extra == 'all'
+# tox ; extra == 'dev'
+# pytest ; extra == 'dev'
+# pytest-cov ; extra == 'dev'
+# zest.releaser[recommended] ; extra == 'maintainer'
+# pillow (>=9.1.0) ; extra == 'pil'
+# coverage ; extra == 'test'
+# pytest ; extra == 'test'
 
-
-[PY310].USES_ON=			python:py310,sutools
-[PY311].USES_ON=			python:v11,sutools
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-typing-extensions:single:py310
+					python-pypng:single:py310
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-typing-extensions:single:v11
+					python-pypng:single:v11
 

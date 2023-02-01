@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.0.0
+DEF[PORTVERSION]=	2.0.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-SQLAlchemy
@@ -11,8 +11,8 @@ HOMEPAGE=		https://www.sqlalchemy.org
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/00/c9/4fab29c5efaf72df0ad9b46f783197f35b66ddaad62db26c69befb504830
-DISTFILE[1]=		SQLAlchemy-${PORTVERSION}-py3-none-any.whl:main
+SITES[main]=		PYPI/S/SQLAlchemy
+DISTFILE[1]=		SQLAlchemy-${PORTVERSION}.tar.gz:main
 
 SPKGS[py310]=		single
 SPKGS[v11]=		single
@@ -26,43 +26,15 @@ VOPTS[v11]=		PY310=OFF PY311=ON
 # MIT
 
 GENERATED=		yes
-DISTNAME=		SQLAlchemy-${PORTVERSION}.dist-info
+DISTNAME=		SQLAlchemy-${PORTVERSION}
 
-# Requires-Dist extracted from wheel metadata
-# typing-extensions (>=4.2.0)
-# greenlet (!=0.4.17) ; platform_machine == "aarch64" or (platform_machine == "ppc64le" or (platform_machine == "x86_64" or (platform_machine == "amd64" or (platform_machine == "AMD64" or (platform_machine == "win32" or platform_machine == "WIN32")))))
-# importlib-metadata ; python_version < "3.8"
-# greenlet (!=0.4.17) ; extra == 'aiomysql'
-# aiomysql ; extra == 'aiomysql'
-# greenlet (!=0.4.17) ; extra == 'aiosqlite'
-# aiosqlite ; extra == 'aiosqlite'
-# typing-extensions (!=3.10.0.1) ; extra == 'aiosqlite'
-# greenlet (!=0.4.17) ; extra == 'asyncio'
-# greenlet (!=0.4.17) ; extra == 'asyncmy'
-# asyncmy (!=0.2.4,>=0.2.3) ; extra == 'asyncmy'
-# mariadb (!=1.1.2,!=1.1.5,>=1.0.1) ; extra == 'mariadb_connector'
-# pyodbc ; extra == 'mssql'
-# pymssql ; extra == 'mssql_pymssql'
-# pyodbc ; extra == 'mssql_pyodbc'
-# mypy (>=0.910) ; extra == 'mypy'
-# mysqlclient (>=1.4.0) ; extra == 'mysql'
-# mysql-connector-python ; extra == 'mysql_connector'
-# cx-oracle (>=7) ; extra == 'oracle'
-# oracledb (>=1.0.1) ; extra == 'oracle_oracledb'
-# psycopg2 (>=2.7) ; extra == 'postgresql'
-# greenlet (!=0.4.17) ; extra == 'postgresql_asyncpg'
-# asyncpg ; extra == 'postgresql_asyncpg'
-# pg8000 (>=1.29.1) ; extra == 'postgresql_pg8000'
-# psycopg (>=3.0.7) ; extra == 'postgresql_psycopg'
-# psycopg2-binary ; extra == 'postgresql_psycopg2binary'
-# psycopg2cffi ; extra == 'postgresql_psycopg2cffi'
-# pymysql ; extra == 'pymysql'
-# sqlcipher3-binary ; extra == 'sqlcipher'
+# install_requires extracted from setup.py
+# typing-extensions>=4.2.0
 
-[PY310].USES_ON=			python:py310,wheel
-[PY310].RUN_DEPENDS_ON=			python-typing-extensions:single:py310
-[PY311].USES_ON=			python:v11,wheel
-[PY311].RUN_DEPENDS_ON=			python-typing-extensions:single:v11
+[PY310].USES_ON=			python:py310,sutools
+[PY310].BUILDRUN_DEPENDS_ON=		python-typing-extensions:single:py310
+[PY311].USES_ON=			python:v11,sutools
+[PY311].BUILDRUN_DEPENDS_ON=		python-typing-extensions:single:v11
 
 USES=			cpe
 CPE_VENDOR=		sqlalchemy
