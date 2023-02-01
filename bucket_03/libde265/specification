@@ -36,3 +36,11 @@ CONFIGURE_ARGS=		--disable-sherlock265
 			--enable-encoder
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
+
+pre-configure:
+	# not sure why pc file isn't getting fully replaced
+	${REINPLACE_CMD} -e 's|@CMAKE_INSTALL_PREFIX@|${PREFIX}|' \
+		-e 's/@CMAKE_INSTALL_LIBDIR@/lib/' \
+		-e 's/@CMAKE_INSTALL_INCLUDEDIR@/include/' \
+		${WRKSRC}/libde265.pc.in
+
