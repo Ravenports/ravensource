@@ -23,8 +23,7 @@ FPC_EQUIVALENT=		graphics/tesseract
 
 BUILD_DEPENDS=		harfbuzz:dev:standard
 			leptonica:dev:standard
-BUILDRUN_DEPENDS=	fontconfig:primary:standard
-			icu:single:standard
+BUILDRUN_DEPENDS=	icu:single:standard
 			leptonica:primary:standard
 			llvm:single:standard
 			pango:primary:standard
@@ -33,8 +32,8 @@ EXRUN[tools]=		tesseract:library:standard
 
 # See patch freebsd/patch-configure.ac
 C_USES[freebsd]=	fortran:library
-USES=			cpe autoreconf libtool pkgconfig fortran:library,tools
-
+USES=			cpe autoreconf libtool fontconfig pkgconfig
+			fortran:library,tools
 CPE_VENDOR=		tesseract_project
 MUST_CONFIGURE=		gnu
 CONFIGURE_ENV=		LIBLEPT_HEADERSDIR="{{LOCALBASE}}/include/leptonica"
