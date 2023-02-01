@@ -1,6 +1,6 @@
---- compat.c.orig	Tue Jul 20 10:55:02 2004
-+++ compat.c	Tue Jul 20 10:55:55 2004
-@@ -16,6 +16,10 @@
+--- compat.c.orig	2023-01-31 15:13:17 UTC
++++ compat.c
+@@ -14,6 +14,10 @@
     +----------------------------------------------------------------------+
   */
  
@@ -9,5 +9,5 @@
 +#endif
 +
  #include "php.h"
- #if defined(HAVE_LIBXML) && defined(HAVE_XML) && !defined(HAVE_LIBEXPAT)
+ #if defined(HAVE_LIBXML) && (defined(HAVE_XML) || defined(HAVE_XMLRPC)) && !defined(HAVE_LIBEXPAT)
  #include "expat_compat.h"

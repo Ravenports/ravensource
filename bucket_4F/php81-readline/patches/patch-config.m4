@@ -1,4 +1,4 @@
---- config.m4.orig	2019-11-10 23:33:34 UTC
+--- config.m4.orig	2023-01-31 15:13:17 UTC
 +++ config.m4
 @@ -3,16 +3,10 @@ PHP_ARG_WITH([libedit],
    [AS_HELP_STRING([--with-libedit],
