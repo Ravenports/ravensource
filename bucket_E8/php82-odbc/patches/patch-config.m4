@@ -1,4 +1,4 @@
---- config.m4.orig	2019-11-10 23:33:39 UTC
+--- config.m4.orig	2023-01-31 13:31:55 UTC
 +++ config.m4
 @@ -91,6 +91,9 @@ AC_DEFUN([PHP_ODBC_FIND_EMPRESS_BCS_LIBS
  dnl

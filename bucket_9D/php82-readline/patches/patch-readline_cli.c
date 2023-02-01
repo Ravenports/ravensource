@@ -1,6 +1,6 @@
---- readline_cli.c.orig	2019-11-10 23:33:34 UTC
+--- readline_cli.c.orig	2023-01-31 13:31:55 UTC
 +++ readline_cli.c
-@@ -21,6 +21,10 @@
+@@ -19,6 +19,10 @@
  #include "config.h"
  #endif
  

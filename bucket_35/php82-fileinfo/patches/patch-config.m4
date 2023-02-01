@@ -1,8 +1,8 @@
---- config.m4.orig	2010-09-07 15:45:30.000000000 +0200
-+++ config.m4	2010-09-07 15:46:50.000000000 +0200
-@@ -4,6 +4,9 @@
- PHP_ARG_ENABLE(fileinfo, for fileinfo support,
- [  --disable-fileinfo      Disable fileinfo support], yes)
+--- config.m4.orig	2023-01-31 13:31:55 UTC
++++ config.m4
+@@ -4,6 +4,9 @@ PHP_ARG_ENABLE([fileinfo],
+     [Disable fileinfo support])],
+   [yes])
  
 +PHP_ARG_WITH(pcre-dir, pcre install prefix,
 +[  --with-pcre-dir           FILEINFO: pcre install prefix], no, no)
@@ -10,9 +10,9 @@
  if test "$PHP_FILEINFO" != "no"; then
  
    libmagic_sources=" \
-@@ -13,6 +16,8 @@
-     libmagic/is_tar.c libmagic/magic.c libmagic/print.c \
-     libmagic/readcdf.c libmagic/readelf.c libmagic/softmagic.c"
+@@ -49,6 +52,8 @@ int main(void)
+     libmagic_sources="$libmagic_sources libmagic/strcasestr.c"
+   ],[AC_MSG_RESULT([skipped, cross-compiling])])
  
 +  PHP_ADD_INCLUDE($PHP_PCRE_DIR/include)
 +

@@ -1,4 +1,4 @@
---- config.m4.orig	2019-11-10 23:33:28 UTC
+--- config.m4.orig	2023-01-31 13:31:55 UTC
 +++ config.m4
 @@ -4,8 +4,39 @@ PHP_ARG_ENABLE([simplexml],
      [Disable SimpleXML support])],

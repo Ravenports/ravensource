@@ -1,4 +1,4 @@
---- config.m4.orig	2020-11-24 17:04:03 UTC
+--- config.m4.orig	2023-01-31 13:31:55 UTC
 +++ config.m4
 @@ -37,6 +37,31 @@ AC_DEFUN([PHP_MBSTRING_EXTENSION], [
  
@@ -32,7 +32,7 @@
    if test "$ext_shared" != "no" && test -f "$ext_builddir/config.h.in"; then
      out="$abs_builddir/config.h"
    fi
-@@ -198,6 +223,9 @@ PHP_ARG_ENABLE([mbregex],
+@@ -169,6 +194,9 @@ PHP_ARG_ENABLE([mbregex],
    [yes],
    [no])
  
