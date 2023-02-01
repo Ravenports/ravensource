@@ -26,6 +26,7 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		www/surf
 
 BUILD_DEPENDS=		harfbuzz:dev:standard
+			libsoup-2.4:dev:standard
 RUN_DEPENDS=		curl:primary:standard
 			dmenu:single:standard
 			stterm:single:standard
@@ -35,7 +36,7 @@ BUILDRUN_DEPENDS=	webkit2:primary:api40
 
 USES=			pkgconfig
 XORG_COMPONENTS=	x11
-GNOME_COMPONENTS=	cairo gtk3 pango gdkpixbuf
+GNOME_COMPONENTS=	glib cairo gtk3 pango gdkpixbuf
 
 post-patch:
 	${REINPLACE_CMD} -e \
