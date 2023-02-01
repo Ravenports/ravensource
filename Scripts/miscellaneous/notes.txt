@@ -1,0 +1,8 @@
+To figure out which php ports needs REVISION reset:
+
+> git status | grep distinfo | awk '{print $2}' | sed 's|/distinfo|/specification|' | xargs grep REVISION
+
+To figure out which php ports have patch directories:
+
+> git status | grep distinfo | awk '{print $2}' | sed 's|/distinfo||' | xargs -I {} find "{}" -type d -name "patches"
+
