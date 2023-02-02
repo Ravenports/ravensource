@@ -32,7 +32,7 @@ BUILD_DEPENDS=		jam:primary:standard
 BUILDRUN_DEPENDS=	fltk:primary:standard
 			dbus:single:standard
 
-USES=			pkgconfig python zlib shebangfix
+USES=			pkgconfig python jpeg zlib shebangfix
 SHEBANG_FILES=		tools/edelib-mk-indextheme
 			tools/edelib-convert-icontheme
 MUST_CONFIGURE=		gnu
@@ -41,13 +41,15 @@ post-patch:
 		${CP} ${FILESDIR}/scheme.h ${WRKSRC}/edelib/ts
 
 do-build:
-		(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
-			jam)
+		(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} jam)
 
 do-install:
 		(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
 			prefix="${STAGEDIR}${PREFIX}" \
 			jam install)
-
-post-stage:
+		# strip
+		${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/edelib-dbus-explorer
+		${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/edelib-script
+		${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/edelib-update-font-cache
+		# remove documents
 		${RM} -r ${STAGEDIR}${PREFIX}/share/doc

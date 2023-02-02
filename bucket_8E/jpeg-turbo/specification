@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.1.4
+DEF[PORTVERSION]=	2.1.5
 DEF[SOVERSION]=		8.2.2
 DEF[TURBOVERSION]=	0.2.0
 # ----------------------------------------------------------------------------
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/libjpeg-turbo/${PORTVERSION}
 DISTFILE[1]=		libjpeg-turbo-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary turbo docs
+SPKGS[standard]=	complete primary tools dev man docs
 
 OPTIONS_AVAILABLE=	NASM
 OPTIONS_STANDARD=	NASM
@@ -24,14 +24,19 @@ OPT_ON[x86_64]=		NASM
 
 LICENSE=		BSD3CLAUSE:primary CUSTOM1:primary ZLIB:primary
 LICENSE_NAME=		CUSTOM1:"Independent JPEG Group License"
-LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/turbojpeg.c
-			ZLIB:{{WRKSRC}}/simd/jsimdext.inc
-			CUSTOM1:{{WRKSRC}}/README.ijg
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/LICENSE.md
+			ZLIB:{{WRKSRC}}/simd/nasm/jsimdext.inc
+LICENSE_AWK=		TERMS:"^The Modified"
+			ZLIB:"^; ==========="
+LICENSE_FILE=		CUSTOM1:{{WRKDIR}}/IJGL
+			BSD3CLAUSE:{{WRKDIR}}/BSD
+			ZLIB:{{WRKDIR}}/ZLIB
 LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		graphics/jpeg-turbo
 
-EXRUN[turbo]=		jpeg-turbo:primary:standard
+EXRUN[tools]=		jpeg-turbo:primary:standard
 
 USES=			cpe cmake
 DISTNAME=		libjpeg-turbo-${PORTVERSION}
@@ -45,3 +50,13 @@ PLIST_SUB=		TURBOVERSION=${TURBOVERSION}
 
 [NASM].DESCRIPTION=			Use nasm to construct optimized assembly
 [NASM].BUILD_DEPENDS_ON=		nasm:primary:standard
+
+post-extract:
+	${AWK} '/^The Modified /,/^Why Three Licenses/' \
+		${WRKSRC}/LICENSE.md > ${WRKDIR}/BSD
+	${AWK} '/^LEGAL ISSUES/,/^REFERENCES/' \
+		${WRKSRC}/README.ijg > ${WRKDIR}/IJGL
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
