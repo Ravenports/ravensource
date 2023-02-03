@@ -7,6 +7,7 @@ DEF[SOVERSION]=		${PORTVERSION}
 
 NAMEBASE=		gettext
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	GNU internationalization and localization system
@@ -17,18 +18,21 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/gettext
 DISTFILE[1]=		gettext-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete runtime tools asprintf nls docs
+SPKGS[standard]=	complete primary asprintf tools bldtools dev solinks nls man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv3+:runtime LGPL21+:runtime
+LICENSE=		GPLv3+:primary LGPL21+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
 			LGPL21+:{{WRKSRC}}/gettext-runtime/intl/COPYING.LIB
-LICENSE_TERMS=		runtime:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		devel/gettext
+
+EXRUN[tools]=		gettext:primary:standard
+EXRUN[bldtools]=	gettext:primary:standard
 
 USES=			charsetfix cpe libtool iconv:build c++:asprintf
 MUST_CONFIGURE=		gnu
@@ -46,14 +50,15 @@ CONFIGURE_ENV=		ac_cv_lib_rt_sched_yield=no
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 PLIST_SUB=		VERSION=${PORTVERSION:R}
-			GETTEXTPO=${GETTEXTPO}
+			PO_SOVERSION=${GETTEXTPO}
+			PO_SOMAJOR=${GETTEXTPO:R:R}
 			LIBINTL=${LIBINTL}
 			GTS_SOMAJOR=${GETTEXTSTYLE:R:R}
 			GTS_SOVERSION=${GETTEXTSTYLE}
 			EXTERNAL={{EXTERNAL}}
 SOVERSION=		${SOVERSION}
 TEST_TARGET=		check
-INFO=			runtime:autosprintf runtime:gettext
+INFO=			asprintf:autosprintf primary:gettext
 CPE_PRODUCT=		gettext
 CPE_VENDOR=		gnu
 
