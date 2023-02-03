@@ -33,7 +33,7 @@ EXRUN[tools]=		tesseract:library:standard
 # See patch freebsd/patch-configure.ac
 C_USES[freebsd]=	fortran:library
 USES=			cpe autoreconf libtool fontconfig pkgconfig
-			fortran:library,tools
+			gettext fortran:library,tools
 CPE_VENDOR=		tesseract_project
 MUST_CONFIGURE=		gnu
 CONFIGURE_ENV=		LIBLEPT_HEADERSDIR="{{LOCALBASE}}/include/leptonica"
@@ -46,3 +46,6 @@ LDFLAGS=		-lpthread
 
 post-patch:
 	${REINPLACE_CMD} -e 's|-O3 -DNDEBUG||' ${WRKSRC}/configure.ac
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
