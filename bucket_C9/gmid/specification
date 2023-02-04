@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	1.8.6
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gmid
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		standard
+SDESC[standard]=	Simple and secure Gemini server
+HOMEPAGE=		https://gmid.omarpolo.com/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/omar-polo:gmid:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		ISCL:primary
+LICENSE_FILE=		ISCL:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net/gmid
+
+USERS=			_gmid
+GROUPS=			_gmid
+USERGROUP_SPKG=		primary
+
+BUILDRUN_DEPENDS=	libevent:single:standard
+
+USES=			pkgconfig ssl
+RC_SUBR=		gmid:primary
+SUB_FILES=		gmid.conf.sample
+
+MUST_CONFIGURE=		yes
+CONFIGURE_ARGS=		--prefix={{PREFIX}}
+			MANDIR={{PREFIX}}/share/man
+
+post-stage:
+	${INSTALL_DATA} ${WRKDIR}/gmid.conf.sample \
+		${STAGEDIR}${PREFIX}/etc/
