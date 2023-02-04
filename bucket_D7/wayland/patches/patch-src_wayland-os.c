@@ -1,15 +1,15 @@
---- src/wayland-os.c.orig	2021-01-27 16:49:04 UTC
-+++ src/wayland-os.c
-@@ -30,7 +30,7 @@
- #include <unistd.h>
+--- src/wayland-os.c.orig	2022-10-22 10:58:42.178509000 +0200
++++ src/wayland-os.c	2022-10-31 16:39:33.763815000 +0100
+@@ -33,7 +33,7 @@
  #include <fcntl.h>
  #include <errno.h>
+ #include <string.h>
 -#include <sys/epoll.h>
 +#include <sys/event.h>
- 
- #include "../config.h"
- #include "wayland-os.h"
-@@ -62,11 +62,13 @@ wl_os_socket_cloexec(int domain, int typ
+ #include <sys/mman.h>
+ #include <sys/un.h>
+ #ifdef HAVE_SYS_UCRED_H
+@@ -69,17 +69,19 @@
  {
  	int fd;
  
@@ -23,21 +23,23 @@
  
  	fd = socket(domain, type, protocol);
  	return set_cloexec_or_close(fd);
-@@ -121,6 +123,7 @@ recvmsg_cloexec_fallback(int sockfd, str
- ssize_t
- wl_os_recvmsg_cloexec(int sockfd, struct msghdr *msg, int flags)
+ }
+ 
+-#if defined(__FreeBSD__)
++#if defined(__FreeBSD__) || defined(__DragonFly__)
+ int
+ wl_os_socket_peercred(int sockfd, uid_t *uid, gid_t *gid, pid_t *pid)
  {
-+#ifdef MSG_CMSG_CLOEXEC
- 	ssize_t len;
+@@ -87,7 +89,7 @@
+ 	struct xucred ucred;
  
- 	len = recvmsg(sockfd, msg, flags | MSG_CMSG_CLOEXEC);
-@@ -128,24 +131,17 @@ wl_os_recvmsg_cloexec(int sockfd, struct
- 		return len;
- 	if (errno != EINVAL)
+ 	len = sizeof(ucred);
+-	if (getsockopt(sockfd, SOL_LOCAL, LOCAL_PEERCRED, &ucred, &len) < 0 ||
++	if (getsockopt(sockfd, 0, LOCAL_PEERCRED, &ucred, &len) < 0 ||
+ 	    ucred.cr_version != XUCRED_VERSION)
  		return -1;
-+#endif
- 
- 	return recvmsg_cloexec_fallback(sockfd, msg, flags);
+ 	*uid = ucred.cr_uid;
+@@ -189,19 +191,11 @@
  }
  
  int
