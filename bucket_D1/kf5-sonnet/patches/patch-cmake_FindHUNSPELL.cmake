@@ -1,6 +1,6 @@
---- cmake/FindHUNSPELL.cmake.orig	2019-01-06 20:29:23 UTC
+--- cmake/FindHUNSPELL.cmake.orig	2023-01-11 22:49:57 UTC
 +++ cmake/FindHUNSPELL.cmake
-@@ -40,7 +40,7 @@ find_path(HUNSPELL_INCLUDE_DIRS
+@@ -17,7 +17,7 @@ find_path(HUNSPELL_INCLUDE_DIRS
            HINTS ${PKG_HUNSPELL_INCLUDE_DIRS}
  )
  find_library(HUNSPELL_LIBRARIES
