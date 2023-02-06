@@ -1,5 +1,5 @@
 DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM_VERSION)
-DEF[PORTREVISION]=	1
+DEF[PORTREVISION]=	2
 DEF[PORTVERSION]=	${LLVM_VERSION}
 DEF[MAJORMIN]=		${PORTVERSION:R}
 DEF[MAJOR]=		${PORTVERSION:R:R}
@@ -35,9 +35,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/llvm70
 
-BUILD_DEPENDS=		ncurses:primary:standard
-
-USES=			cmake ninja python:build execinfo zlib bdb:static
+USES=			cmake ninja python:build execinfo zlib ncurses:dev
 			shebangfix c++:single
 GNOME_COMPONENTS=	libxml2
 DISTNAME=		llvm-${PORTVERSION}.src
@@ -71,11 +69,12 @@ BLOCK_WATCHDOG=		yes
 
 post-extract:
 	${CP} ${WRKDIR}/cmake-*/Modules/* ${WRKSRC}/cmake/modules/
-	# disable detection of shared db5
-	${RM} ${LOCALBASE}/lib/db5/libdb.so
-	# disable detection of shared curses/tinfo
+	# disable detection of shared ncurses/tinfo
 	${RM} ${LOCALBASE}/lib/libtinfo.so
 	${RM} ${LOCALBASE}/lib/libncurses.so
+	# Use PIC versions of ncurses/tinfo instead of static
+	${MV} ${LOCALBASE}/lib/libtinfo_pic.a ${LOCALBASE}/lib/libtinfo.a
+	${MV} ${LOCALBASE}/lib/libncurses_pic.a ${LOCALBASE}/lib/libncurses.a
 
 post-patch:
 	${REINPLACE_CMD} -e "s|/usr/local|${PREFIX}|g" \
