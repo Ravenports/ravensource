@@ -1,5 +1,4 @@
-DEF[PORTVERSION]=	5.102.0
-DEF[SOVERSION]=		${PORTVERSION}
+DEF[PORTVERSION]=	EXTRACT_INFO(KDE_FRAMEWORKS_VERSION)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		kf5-sonnet
@@ -38,7 +37,7 @@ USES=			cmake
 
 DISTNAME=		sonnet-${PORTVERSION}
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt5/cmake
-SOVERSION=		${SOVERSION}
+SOVERSION=		${PORTVERSION}
 
 post-extract:
 	${ECHO} "Terms extracted from 'src/core/tokenizer_p.h':" > ${WRKDIR}/TERMS
