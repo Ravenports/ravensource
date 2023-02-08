@@ -1,6 +1,6 @@
---- Makefile.orig	2022-12-02 10:12:54.000000000 +0100
-+++ Makefile	2022-12-31 19:30:25.328487000 +0100
-@@ -48,12 +48,8 @@
+--- Makefile.orig	2023-02-02 08:57:31 UTC
++++ Makefile
+@@ -48,12 +48,8 @@ install: Makefile.inc hwdata.pc
  	for foo in $(IDFILES) ; do \
  		install -m 644 $$foo $(DESTDIR)$(datadir)/$(NAME) ;\
  	done
@@ -15,7 +15,7 @@
  
  commit:
  	git commit -vas ||:
-@@ -161,4 +157,3 @@
+@@ -164,4 +160,3 @@ pnp.ids: pnp.ids.orig pnp.ids.patch
  	else \
  	    cat $?; \
  	fi | sed 's/\s\+$$//' >$@
