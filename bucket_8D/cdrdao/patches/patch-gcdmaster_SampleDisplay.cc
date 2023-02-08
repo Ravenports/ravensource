@@ -1,11 +1,11 @@
---- gcdmaster/SampleDisplay.cc.orig	2018-05-16 10:25:12 UTC
+--- gcdmaster/SampleDisplay.cc.orig	2023-02-03 14:46:06 UTC
 +++ gcdmaster/SampleDisplay.cc
-@@ -1025,8 +1025,6 @@ void SampleDisplay::updateSamples()
+@@ -905,8 +905,6 @@ void SampleDisplay::updateSamples()
+                 rcenter_ - pos1);
+         }
  
- 	}
+-        if (&pixmap_ == 0)
+-          std::cout << "null !!" << std::endl;
  
--	if (&pixmap_ == 0)
--	  std::cout << "null !!" << std::endl;
- 
- 	if (0 && (gint)di < sampleEndX_) {
- 	  pos = sampleBuf[len -1].left() * halfHeight;
+         if (0 && (gint) di < sampleEndX_) {
+           pos = sampleBuf[len - 1].left() * halfHeight;

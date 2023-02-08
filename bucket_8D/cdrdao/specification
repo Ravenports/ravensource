@@ -1,9 +1,9 @@
-DEF[PORTVERSION]=	1.2.4
+DEF[PORTVERSION]=	1.2.5
+DEF[FOLDER]=		rel_1_2_5
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		cdrdao
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		standard
 SDESC[standard]=	Tool to write CD-Rs in Disk-At-Once Mode
@@ -11,7 +11,7 @@ HOMEPAGE=		https://cdrdao.sourceforge.net
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/cdrdao
+SITES[main]=		SF/cdrdao/${FOLDER}
 DISTFILE[1]=		cdrdao-${PORTVERSION}.tar.bz2:main
 
 SPKGS[standard]=	single
@@ -43,19 +43,6 @@ VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--with-scglib
 VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--with-scglib
 			LDFLAGS=-lvolmgt
 			LDFLAGS=-lnsl
-
-post-extract-dragonfly:
-	(cd ${WRKSRC}/scsilib/RULES \
-		&& ${CP} -p os-freebsd.id os-dragonfly.id \
-		&& ${CP} -p i386-freebsd-cc.rul x86_64-freebsd-cc.rul)
-
-post-extract-netbsd:
-	(cd ${WRKSRC}/scsilib/RULES \
-		&& ${CP} -p i386-netbsd-cc.rul x86_64-netbsd-cc.rul)
-
-post-extract-freebsd:
-	(cd ${WRKSRC}/scsilib/RULES \
-		&& ${CP} -p i386-freebsd-cc.rul amd64-freebsd-cc.rul)
 
 post-patch:
 .for i in 45libdeflt 45libedc 45libfile 45libhfs_iso 45libparanoia 45libunls \

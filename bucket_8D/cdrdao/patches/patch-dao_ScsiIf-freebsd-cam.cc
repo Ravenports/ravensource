@@ -1,4 +1,4 @@
---- dao/ScsiIf-freebsd-cam.cc.orig	2018-05-16 10:46:39 UTC
+--- dao/ScsiIf-freebsd-cam.cc.orig	2023-01-25 14:30:35 UTC
 +++ dao/ScsiIf-freebsd-cam.cc
 @@ -28,7 +28,11 @@
  #include <string.h>
@@ -12,7 +12,7 @@
  
  #include "ScsiIf.h"
  #include "log.h"
-@@ -221,6 +225,12 @@ int ScsiIf::inquiry()
+@@ -220,6 +224,12 @@ int ScsiIf::inquiry()
  	for (i = 3; i >= 0 && revision_[i] == ' '; i--)
  		revision_[i] = 0;
  

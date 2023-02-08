@@ -1,4 +1,4 @@
---- dao/ScsiIf-linux.cc.orig	2018-05-16 10:46:39 UTC
+--- dao/ScsiIf-linux.cc.orig	2023-02-03 14:46:06 UTC
 +++ dao/ScsiIf-linux.cc
 @@ -33,6 +33,7 @@
  #include <asm/param.h>
@@ -8,7 +8,7 @@
  
  #include "ScsiIf.h"
  #include "sg_err.h"
-@@ -276,7 +277,13 @@ int ScsiIf::inquiry()
+@@ -272,7 +273,13 @@ int ScsiIf::inquiry()
      for (i = 3; i >= 0 && revision_[i] == ' '; i--) {
  	revision_[i] = 0;
      }

@@ -1,4 +1,4 @@
---- trackdb/FormatOgg.cc.orig	2018-05-15 13:30:52 UTC
+--- trackdb/FormatOgg.cc.orig	2021-03-15 09:13:15 UTC
 +++ trackdb/FormatOgg.cc
 @@ -84,6 +84,7 @@ FormatSupport::Status FormatOgg::oggInit
        return FS_WRONG_FORMAT;

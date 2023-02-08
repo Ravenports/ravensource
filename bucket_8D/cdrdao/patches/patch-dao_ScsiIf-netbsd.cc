@@ -1,4 +1,4 @@
---- dao/ScsiIf-netbsd.cc.orig	2018-05-15 13:30:52 UTC
+--- dao/ScsiIf-netbsd.cc.orig	2021-03-15 09:13:15 UTC
 +++ dao/ScsiIf-netbsd.cc
 @@ -22,9 +22,7 @@
  #include <unistd.h>
