@@ -10,7 +10,7 @@ KEYWORDS=		devel multimedia
 VARIANTS=		standard
 SDESC[standard]=	Simple Fast Multimedia Library
 HOMEPAGE=		https://www.sfml-dev.org/
-CONTACT=		Leonid_Bobrov[goleo@disroot.org]
+CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/SFML:SFML:${PORTVERSION}
@@ -27,16 +27,18 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/sfml
 
-USES=			cmake jpeg
-CMAKE_ARGS=		-DSFML_INSTALL_PKGCONFIG_FILES=ON
-			-DSFML_USE_SYSTEM_DEPS=ON
-XORG_COMPONENTS=	x11 xrandr
+BUILD_DEPENDS=		openal:dev:standard
 BUILDRUN_DEPENDS=	flac:primary:standard
 			freetype:primary:standard
 			libogg:primary:standard
 			libvorbis:primary:standard
 			libglvnd:single:standard
-			openal:single:standard
+			openal:primary:standard
+
+USES=			cmake jpeg
+CMAKE_ARGS=		-DSFML_INSTALL_PKGCONFIG_FILES=ON
+			-DSFML_USE_SYSTEM_DEPS=ON
+XORG_COMPONENTS=	x11 xrandr
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		SOMINOR=${SOMINOR}
 

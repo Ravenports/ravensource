@@ -8,7 +8,7 @@ KEYWORDS=		audio
 VARIANTS=		standard
 SDESC[standard]=	OpenAL Utility Toolkit (ALUT)
 HOMEPAGE=		http://www.openal.org/
-CONTACT=		Leonid_Bobrov[goleo@disroot.org]
+CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		http://ravenports.elderlinux.org/distcache/
@@ -30,9 +30,11 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		audio/freealut
 
+BUILD_DEPENDS=		openal:dev:standard
+BUILDRUN_DEPENDS=	openal:primary:standard
+
 USES=			gmake libtool pkgconfig fbsd10fix
 MUST_CONFIGURE=		gnu
-BUILDRUN_DEPENDS=	openal:single:standard
 SOVERSION=		${SOVERSION}
 INSTALL_TARGET=		install-strip
 
