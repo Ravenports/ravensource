@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.22.2
+DEF[PORTVERSION]=	1.23.0
 DEF[SOVERSION]=		${PORTVERSION}
 DEF[TAG]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
@@ -15,21 +15,21 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/kcat:openal-soft:${TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL20+:single
+LICENSE=		LGPL20+:primary
 LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^\#include"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/alc/alc.cpp
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		audio/openal-soft
 
-USES=			c++:single cmake zlib gmake
+USES=			c++:primary cmake zlib gmake
 CMAKE_ARGS=		-DALSOFT_DLOPEN=Off
 			-DALSOFT_UTILS=On
 			-DALSOFT_EXAMPLES=Off
