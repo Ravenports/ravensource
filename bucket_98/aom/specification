@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.5.0
+DEF[PORTVERSION]=	3.6.0
 DEF[TAG]=		v${PORTVERSION}
 DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
@@ -15,12 +15,12 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/jbeich:aom:${TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		BSD2CLAUSE:single
+LICENSE=		BSD2CLAUSE:primary
 LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
@@ -29,7 +29,7 @@ LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		nasm:primary:standard
 
-USES=			cmake c++:single perl:build
+USES=			cmake c++:primary perl:build
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
 			-DENABLE_DOCS:BOOL=OFF
 			-DENABLE_TESTS:BOOL=OFF
