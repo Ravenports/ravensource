@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	1.14.4
-DEF[SOVERSION]=		3.32.1
+DEF[PORTVERSION]=	1.14.6
+DEF[SOVERSION]=		3.32.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		dbus
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Message bus system for IPC communication
@@ -15,16 +14,16 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://dbus.freedesktop.org/releases/dbus/
 DISTFILE[1]=		dbus-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		CUSTOM1:single GPLv2+:single
+LICENSE=		CUSTOM1:primary GPLv2+:primary
 LICENSE_NAME=		CUSTOM1:"Academic Free License version 2.1"
 LICENSE_FILE=		GPLv2+:stock
 			CUSTOM1:{{WRKDIR}}/LICENSE_AFL
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^The Academic"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		dual
@@ -49,10 +48,10 @@ INSTALL_TARGET=		install-strip
 SHEBANG_FILES=		tools/GetAllMatchRules.py
 CPE_VENDOR=		freedesktop
 
-RC_SUBR=		dbus:single
+RC_SUBR=		dbus:primary
 USERS=			messagebus
 GROUPS=			messagebus
-USERGROUP_SPKG=		single
+USERGROUP_SPKG=		primary
 
 PLIST_SUB=		VERSION="1.0"
 			GROUPS={{GROUPS}}
