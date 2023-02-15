@@ -1,5 +1,5 @@
 # careful updating this port.  It frequently breaks libreoffice and inkscape
-DEF[PORTVERSION]=	23.01.0
+DEF[PORTVERSION]=	23.02.0
 DEF[SOVERSION]=		126.0.0
 DEF[CPP_SOVERSION]=	0.11.0
 DEF[GLIB_SOVERSION]=	8.24.0
@@ -18,7 +18,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://poppler.freedesktop.org/
 DISTFILE[1]=		poppler-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary cpp glib qt5 utils
+SPKGS[standard]=	complete primary cpp glib qt5 utils man cppdev glibdev qt5dev
 
 OPTIONS_AVAILABLE=	INTROSPECTION
 OPTIONS_STANDARD=	INTROSPECTION
@@ -38,9 +38,10 @@ BUILD_DEPENDS=		cairo:single:standard
 			boost-libraries:single:standard
 			glib:dev:standard
 			gettext:solinks:standard
+			poppler-data:dev:standard
 BUILDRUN_DEPENDS=	lcms2:primary:standard
 			openjpeg:single:standard
-			poppler-data:single:standard
+			poppler-data:primary:standard
 			curl:primary:standard
 EXRUN[cpp]=		poppler:primary:standard
 EXRUN[glib]=		poppler:primary:standard
