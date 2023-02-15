@@ -5,6 +5,7 @@ DEF[GTK_VERSION]=	EXTRACT_INFO(GTK3_VERSION)
 
 NAMEBASE=		gtk3
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11_toolkits
 VARIANTS=		standard
 SDESC[standard]=	Gimp Toolkit for X11 GUI
@@ -16,7 +17,7 @@ SITES[main]=		GNOME/gtk+/${PORTVERSION:R}
 DISTFILE[1]=		gtk+-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome3
 
-SPKGS[standard]=	complete primary nls icon_cache
+SPKGS[standard]=	complete primary dev nls icon_cache
 
 OPTIONS_AVAILABLE=	DBUS CUPS CLOUDPRINT COLORD BROADWAY INTROSPECTION
 OPTIONS_STANDARD=	DBUS BROADWAY INTROSPECTION
@@ -25,11 +26,13 @@ OPT_ON[all]=		DBUS BROADWAY INTROSPECTION
 FPC_EQUIVALENT=		x11-toolkits/gtk30
 
 BUILD_DEPENDS=		harfbuzz:dev:standard
-			dbus:dev:standard
 BUILDRUN_DEPENDS=	libepoxy:single:standard
 
+# Technically EXRUN[dev] is conditional based on option
+# However Ravenadm doesn't currently have an option-based EXRUN
 EXRUN[primary]=		gtk3:icon_cache:standard
 EXRUN[icon_cache]=	gdk-pixbuf:primary:standard
+EXRUN[dev]=		at-spi2-atk:dev:standard
 
 USES=			pkgconfig meson schemas:primary
 			perl:build python:build cpe
@@ -61,7 +64,9 @@ VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 [CLOUDPRINT].DESCRIPTION=		Support for printing to cloud
 [INTROSPECTION].DESCRIPTION=		Build with introspection files
 
-[DBUS].BUILDRUN_DEPENDS_ON=		at-spi2-atk:single:standard
+[DBUS].BUILD_DEPENDS_ON=		at-spi2-atk:dev:standard
+[DBUS].BUILDRUN_DEPENDS_ON=		at-spi2-atk:primary:standard
+					dbus:primary:standard
 
 [CUPS].BROKEN_ON=			CUPS option not supported yet
 [CLOUDPRINT].BROKEN_ON=			CLOUDPRINT option not supported yet
