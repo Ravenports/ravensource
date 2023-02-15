@@ -606,8 +606,12 @@ EOF;
     }
     file_put_contents($mockfile, $program);
     $requirements = shell_exec ("cd $src && $PYTHONEXE obtain-req.py");
-    $clean_reqs = array_filter(explode("\n", $requirements));
-    $clean_reqs = array_filter($clean_reqs, "skip_bad_SU_requirements");
+    if ($requirements === null) {
+       $clean_reqs = array();
+    } else {
+       $clean_reqs = array_filter(explode("\n", $requirements));
+       $clean_reqs = array_filter($clean_reqs, "skip_bad_SU_requirements");
+    }
     $comment_reqs = preg_replace('/^/', '# ', $clean_reqs);
     $portdata["req_comment"] .= join("\n", $comment_reqs);
     $stripped_reqs = preg_replace('/(.*)([><!=~].*)$/U', '\1', $clean_reqs);
@@ -678,7 +682,7 @@ function scrape_python_info ($namebase, $force, $PDUO) {
          $result["pypi_uri"]	= substr($namebase, 0, 1) . "/" . $namebase;
 
          # handle really long licenses
-         if (strlen($obj->info->license) > 77) {
+         if ($obj->info->license !== null && (strlen($obj->info->license) > 77)) {
             $temp = wordwrap ($obj->info->license, 70);
             $lines = explode("\n", $temp);
             $lines = array_map('trim', $lines);
