@@ -1,6 +1,6 @@
-#!/raven/bin/php74
+#!/raven/bin/php82
 <?php
-# Requires php74 with openssl, json, yaml and posix extensions
+# Requires php82 with openssl, json, yaml and posix extensions
 # Also requires the *latest* version of one Ravenports perl to be installed
 # If arguments are given, they are used as the toplevel ports,
 # overriding the master top-level ports list
@@ -188,6 +188,13 @@ function generate_port($namebase) {
     $variants_block = join(" ", $variants);
     $primo = $variants[0];
     $usearg = $port_data[$namebase]["pl_builder"];
+
+    $vopts_block = "";
+    $buildrun_block = "";
+    $comments_block = "";
+    $subpackages_block = "";
+    $available_options = "";
+
     foreach ($variants as $V) {
         $prereturn = ($V == $primo) ? "" : "\n";
         $VX = $varver[$V];

@@ -106,7 +106,7 @@ function sanitize_summary ($namebase, $original_summary) {
 
     if (array_key_exists($namebase, $data_summary)) {
         $summary = $data_summary[$namebase];
-        if ($summary > $maxlen) {
+        if (strlen($summary) > $maxlen) {
             exit ("Summary override of $namebase is too long.\n");
         }
         $test = ucfirst(trim($summary));
@@ -213,7 +213,7 @@ function sanitize_homepage ($namebase, $original_homepage) {
     $hplen = strlen($base_homepage);
     foreach ($data_homepage as $deadpage) {
         $deadsize = strlen($deadpage);
-        if ($deadsize >= $base_homepage) {
+        if ($deadsize <= $hplen) {
             if ($deadpage == substr($base_homepage, 0, $deadsize)) {
                 return "none";
             }

@@ -370,7 +370,7 @@ function finish_port_json (&$port) {
              . "/" . $port["namebase"];
     $cache_dir = $SPECS_DIR . "/" . $port["author"] . "/" . $port["pkgname"];
     $metafile = $cache_dir . "/META.json";
-    $json_string = file_get_contents ($metafile, $meta);
+    $json_string = file_get_contents ($metafile);
     $obj = json_decode($json_string, false, 512, JSON_INVALID_UTF8_IGNORE);
     if (is_null($obj)) {
         exit ("Failed to decode $metafile");
@@ -517,7 +517,7 @@ function finish_port_yaml (&$port) {
              . "/" . $port["namebase"];
     $cache_dir = $SPECS_DIR . "/" . $port["author"] . "/" . $port["pkgname"];
     $metafile = $cache_dir . "/META.yml";
-    $yaml_string = file_get_contents ($metafile, $meta);
+    $yaml_string = file_get_contents ($metafile);
     $obj = yaml_parse($yaml_string);
     if (is_null($obj)) {
         exit ("Failed to decode $metafile");
