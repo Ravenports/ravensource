@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.18.1
+DEF[PORTVERSION]=	3.18.3
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-simplejson
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/simplejson/simplejson
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/s/simplejson
-DISTFILE[1]=		simplejson-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/17/62/09219ecd46f057e80e8d814b935f747e539940e07905f4f6aa4296990350
+DISTFILE[1]=		simplejson-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
 SPKGS[v11]=		single
@@ -26,13 +26,13 @@ VOPTS[v11]=		PY310=OFF PY311=ON
 # MIT License
 
 GENERATED=		yes
-DISTNAME=		simplejson-${PORTVERSION}
+DISTNAME=		simplejson-${PORTVERSION}.dist-info
 
-# install_requires extracted from setup.py
+# Requires-Dist extracted from wheel metadata
 
 
-[PY310].USES_ON=			python:py310,sutools
-[PY311].USES_ON=			python:v11,sutools
+[PY310].USES_ON=			python:py310,wheel
+[PY311].USES_ON=			python:v11,wheel
 
 USES=			cpe
 CPE_VENDOR=		simplejson_project

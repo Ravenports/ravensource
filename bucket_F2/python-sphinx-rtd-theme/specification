@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.1.1
+DEF[PORTVERSION]=	1.2.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-sphinx-rtd-theme
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/readthedocs/sphinx_rtd_theme
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/35/d0/e3b9b03bb6d253033d4d5b0855da6f5c3ed0000652710ed1bd80c72704a9
+SITES[main]=		PYPIWHL/b3/46/c167351699e5dc126798385cf37c26ba9df7a26c6f8855661d9f966d6ced
 DISTFILE[1]=		sphinx_rtd_theme-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -29,8 +29,9 @@ GENERATED=		yes
 DISTNAME=		sphinx_rtd_theme-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# sphinx (<6,>=1.6)
-# docutils (<0.18)
+# sphinx (<7,>=1.6)
+# docutils (<0.19)
+# sphinxcontrib-jquery (!=3.0.0,>=2.0.0) ; python_version > "3"
 # transifex-client ; extra == 'dev'
 # sphinxcontrib-httpdomain ; extra == 'dev'
 # bump2version ; extra == 'dev'
@@ -39,9 +40,11 @@ DISTNAME=		sphinx_rtd_theme-${PORTVERSION}.dist-info
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-Sphinx:single:py310
 					python-docutils:single:py310
+					python-sphinxcontrib-jquery:single:py310
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-Sphinx:single:v11
 					python-docutils:single:v11
+					python-sphinxcontrib-jquery:single:v11
 
 # avoid use of node and node-sass
 MAKE_ENV=		CI=yes
