@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.38.0
 
 NAMEBASE=		at-spi2-atk
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		accessibility x11_toolkits
 VARIANTS=		standard
 SDESC[standard]=	Assisted Technology Provider module for GTK+
@@ -14,7 +15,7 @@ SITES[main]=		GNOME/at-spi2-atk/${PORTVERSION:R}
 DISTFILE[1]=		at-spi2-atk-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome3
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -22,7 +23,10 @@ OPTIONS_STANDARD=	none
 FPC_EQUIVALENT=		accessibility/at-spi2-atk
 
 BUILD_DEPENDS=		dbus:dev:standard
+			at-spi2-core:dev:standard
 BUILDRUN_DEPENDS=	at-spi2-core:primary:standard
+
+EXRUN[dev]=		dbus:dev:standard
 
 USES=			cpe gmake libtool pkgconfig meson
 GNOME_COMPONENTS=	atk intltool
