@@ -70,12 +70,14 @@ VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 
 [VALA].DESCRIPTION=			Build with Vala binding
 [VALA].BUILD_DEPENDS_ON=		vala:single:standard
-[VALA].BUILDRUN_DEPENDS_ON=		dbus:single:standard
+					dbus:dev:standard
+[VALA].BUILDRUN_DEPENDS_ON=		dbus:primary:standard
 [VALA].CMAKE_ARGS_ON=			-DWITH_VALA:BOOL=ON
 [VALA].CMAKE_ARGS_OFF=			-DWITH_VALA:BOOL=OFF
 
 [NETWORKMGR].DESCRIPTION=		Build with Network Manager support
-[NETWORKMGR].BUILDRUN_DEPENDS_ON=	dbus:single:standard
+[NETWORKMGR].BUILD_DEPENDS_ON=		dbus:dev:standard
+[NETWORKMGR].BUILDRUN_DEPENDS_ON=	dbus:primary:standard
 [NETWORKMGR].CMAKE_ARGS_ON=		-WITH_DBUS:BOOL=ON
 
 post-patch:
