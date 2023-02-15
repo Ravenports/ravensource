@@ -1,6 +1,6 @@
---- Makefile.orig	2022-10-07 04:48:26 UTC
+--- Makefile.orig	2023-02-07 22:45:28 UTC
 +++ Makefile
-@@ -547,12 +547,12 @@ infodir = $(prefix)/share/info
+@@ -612,12 +612,12 @@ infodir = $(prefix)/share/info
  gitexecdir = libexec/git-core
  mergetoolsdir = $(gitexecdir)/mergetools
  sharedir = $(prefix)/share
@@ -15,7 +15,7 @@
  ETC_GITCONFIG = $(sysconfdir)/gitconfig
  ETC_GITATTRIBUTES = $(sysconfdir)/gitattributes
  lib = lib
-@@ -1539,9 +1539,9 @@ EXTLIBS += -lz
+@@ -1650,9 +1650,9 @@ EXTLIBS += -lz
  
  ifndef NO_OPENSSL
  	OPENSSL_LIBSSL = -lssl
@@ -28,7 +28,7 @@
  	else
  		OPENSSL_LINK =
  	endif
-@@ -2442,7 +2442,7 @@ git-instaweb: git-instaweb.sh GIT-SCRIPT
+@@ -2554,7 +2554,7 @@ git-instaweb: git-instaweb.sh GIT-SCRIPT
  	chmod +x $@+ && \
  	mv $@+ $@
  else # NO_PERL
@@ -37,7 +37,7 @@
  	$(QUIET_GEN) \
  	sed -e '1s|#!.*/sh|#!$(SHELL_PATH_SQ)|' \
  	    -e 's|@@REASON@@|NO_PERL=$(NO_PERL)|g' \
-@@ -3261,12 +3261,12 @@ endif
+@@ -3456,12 +3456,12 @@ endif
  ifndef NO_GETTEXT
  	$(INSTALL) -d -m 755 '$(DESTDIR_SQ)$(localedir_SQ)'
  	(cd po/build/locale && $(TAR) cf - .) | \
@@ -52,7 +52,7 @@
  endif
  ifndef NO_TCLTK
  	$(MAKE) -C gitk-git install
-@@ -3333,7 +3333,7 @@ install-man: install-man-perl
+@@ -3528,7 +3528,7 @@ install-man: install-man-perl
  install-man-perl: man-perl
  	$(INSTALL) -d -m 755 '$(DESTDIR_SQ)$(mandir_SQ)/man3'
  	(cd perl/build/man/man3 && $(TAR) cf - .) | \
