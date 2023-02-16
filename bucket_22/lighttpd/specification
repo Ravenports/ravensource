@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	1.4.68
-DEF[REVISION]=		1
+DEF[PORTVERSION]=	1.4.69
+DEF[REVISION]=		0
 DEF[CACHEDIR]=		/var/cache/lighttpd
 DEF[LOGDIR]=		/var/log/lighttpd
 DEF[HOMEDIR]=		/var/run/lighttpd
@@ -119,7 +119,7 @@ post-install:
 .for FILE in access_log.conf auth.conf cgi.conf \
 	debug.conf dirlisting.conf evhost.conf expire.conf fastcgi.conf \
 	magnet.conf mime.conf proxy.conf rrdtool.conf \
-	scgi.conf secdownload.conf simple_vhost.conf ssi.conf status.conf \
+	scgi.conf simple_vhost.conf ssi.conf status.conf \
 	userdir.conf webdav.conf
 	${INSTALL_DATA} ${WRKSRC}/doc/config/conf.d/${FILE} \
 		${STAGEDIR}${PREFIX}/etc/lighttpd/conf.d/${FILE}.sample
