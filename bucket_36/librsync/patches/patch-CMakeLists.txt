@@ -1,6 +1,6 @@
---- CMakeLists.txt.orig	2021-04-10 04:22:47 UTC
+--- CMakeLists.txt.orig	2023-02-16 07:16:28 UTC
 +++ CMakeLists.txt
-@@ -150,6 +150,12 @@ message (STATUS "PROJECT_NAME  = ${PROJE
+@@ -162,6 +162,12 @@ message (STATUS "PROJECT_NAME  = ${PROJE
  message (STATUS "BUILD_HOSTNAME = ${BUILD_HOSTNAME}")
  message (STATUS "CMAKE_SYSTEM = ${CMAKE_SYSTEM}")
  
@@ -13,9 +13,9 @@
  # Find POPT
  find_package(POPT)
  if (POPT_FOUND)
-@@ -319,12 +325,6 @@ enable_testing()
+@@ -371,12 +377,6 @@ enable_testing()
  # Create conf files
- configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/src/config.h)
+ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/src/config.h)
  
 -# We need to be able to #include "file" from a few places,
 -# * The original source dir
