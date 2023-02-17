@@ -6,6 +6,7 @@ DEF[BASE]=		{{PREFIX}}/${NAMEBASE}
 
 NAMEBASE=		${NAMEBASE}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security devel
 VARIANTS=		standard
 SDESC[standard]=	SSL and crypto library
@@ -16,15 +17,15 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.openssl.org/source/
 DISTFILE[1]=		openssl-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man
 
-OPTIONS_AVAILABLE=	SKIP_MANPAGES ASM EC SHARED SSE2 SSL2 SSL3 I386 THREADS
-OPTIONS_STANDARD=	SKIP_MANPAGES ASM EC SHARED SSE2 SSL2 SSL3 I386 THREADS
-OPT_ON[all]=		SHARED SSE2 SSL2 SSL3 THREADS
+OPTIONS_AVAILABLE=	ASM EC SSE2 SSL2 SSL3 I386 THREADS
+OPTIONS_STANDARD=	ASM EC SSE2 SSL2 SSL3 I386 THREADS
+OPT_ON[all]=		SSE2 SSL2 SSL3 THREADS
 OPT_ON[x86_64]=		ASM EC
 OPT_ON[i386]=		I386
 
-LICENSE=		OpenSSL:single
+LICENSE=		OpenSSL:primary
 LICENSE_FILE=		OpenSSL:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
@@ -43,25 +44,21 @@ CONFIGURE_ARGS=		no-md2
 			no-rfc3779
 			no-sctp
 			no-gmp
+			shared
 MAKE_ARGS=		WHOLE_ARCHIVE_FLAG=--whole-archive
 MAKE_ENV=		LIBRPATH="{{BASE}}/lib"
 			GREP_OPTIONS=
+			SHLIBVER=${OPENSSL_SHLIBVER}
 PLIST_SUB=		BASE=${NAMEBASE}
+			SHLIBVER=${OPENSSL_SHLIBVER}
 
 VAR_OPSYS[sunos]=	VAR1=MACHINE=x86_64
-
-[SKIP_MANPAGES].DESCRIPTION=		Avoid installing OpenSSL manpages
 
 [ASM].CONFIGURE_ARGS_OFF=		no-asm
 
 [EC].DESCRIPTION=			Optimize NIST elliptic curves
 [EC].CONFIGURE_ARGS_OFF=		no-ec_nistp_64_gcc_128
 [EC].CONFIGURE_ARGS_ON=			enable-ec_nistp_64_gcc_128
-
-[SHARED].DESCRIPTION=			Build shared libs
-[SHARED].CONFIGURE_ARGS_ON=		shared
-[SHARED].MAKE_ENV_ON=			SHLIBVER=${OPENSSL_SHLIBVER}
-[SHARED].PLIST_SUB_ON=			SHLIBVER=${OPENSSL_SHLIBVER}
 
 [SSE2].DESCRIPTION=			Runtime SSE2 detection
 [SSE2].CONFIGURE_ARGS_OFF=		no-sse2
@@ -87,11 +84,6 @@ post-patch:
 		${WRKSRC}/crypto/opensslv.h
 	${REINPLACE_CMD} -e 's|ERR_R_MALLOC_ERROR|ERR_R_MALLOC_FAILURE|' \
 		${WRKSRC}/crypto/bio/bss_dgram.c
-
-post-patch-SKIP_MANPAGES-ON:
-	${GREP} -L openssl_manual_section ${WRKSRC}/doc/crypto/*.pod | ${XARGS} ${RM}
-	${RM} -r ${WRKSRC}/doc/ssl/*.pod
-	${REINPLACE_CMD} -e 's|pod doc/ssl/\*\.pod|pod|' ${WRKSRC}/Makefile.org
 
 post-patch-SSL3-OFF:
 	${REINPLACE_CMD} -e '/for protocol in TLSv1.2 SSLv3;/ s/ SSLv3//' \
@@ -119,7 +111,6 @@ post-configure:
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${BASE}/bin/openssl
 
-post-install-SHARED-ON:
 .for i in libcrypto libssl
 	${INSTALL_LIB} ${WRKSRC}/$i.so.${OPENSSL_SHLIBVER} ${STAGEDIR}${BASE}/lib
 	${STRIP_CMD} ${STAGEDIR}${BASE}/lib/$i.so.${OPENSSL_SHLIBVER}
@@ -127,13 +118,7 @@ post-install-SHARED-ON:
 .endfor
 	${STRIP_CMD} ${STAGEDIR}${BASE}/lib/engines/*.so
 
-post-install-SHARED-OFF:
-	${RMDIR} ${STAGEDIR}${BASE}/lib/engines
-
-post-install-SKIP_MANPAGES-ON:
-	${RM} -r ${STAGEDIR}${MANPREFIX}/man
-
-post-install-SKIP_MANPAGES-OFF:
+	# Handle man pages
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/man.d
 	${ECHO_CMD} "MANPATH ${PREFIX}/${NAMEBASE}/share/man" \
 		>> ${STAGEDIR}${PREFIX}/etc/man.d/${NAMEBASE}.conf
