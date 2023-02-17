@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	1.14.2
+DEF[PORTVERSION]=	1.15.1
 DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libheif
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	HEIF file format decoder and encoder
@@ -15,14 +14,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/strukturag:libheif:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL3+:single
+LICENSE=		LGPL3+:primary
 LICENSE_FILE=		LGPL3+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"LIBHEIF_HEIF_H"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libheif/heif.h
 LICENSE_SCHEME=		solo
@@ -35,7 +34,7 @@ BUILDRUN_DEPENDS=	x265:primary:standard
 			libde265:primary:standard
 
 USES=			autoreconf libtool pkgconfig shebangfix
-			cpe jpeg png mime-info:single zlib:build
+			cpe jpeg png mime-info:primary zlib:build
 CPE_VENDOR=		struktur
 SHEBANG_GLOB=		*.sh
 MUST_CONFIGURE=		gnu
