@@ -1,6 +1,6 @@
 - Define CLOCK_MONOTONIC_RAW if missing
 
---- src/amd/vulkan/radv_device.c.orig	2023-01-26 17:07:55 UTC
+--- src/amd/vulkan/radv_device.c.orig	2023-02-08 21:05:36 UTC
 +++ src/amd/vulkan/radv_device.c
 @@ -104,6 +104,14 @@ parse_hex(char *out, const char *in, uns
     }
