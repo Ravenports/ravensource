@@ -89,16 +89,14 @@ CMAKE_ARGS=		-DENABLE_NLS:BOOL=ON
 [QT].MAKE_ARGS_ON=			DESTDIR="{{STAGEDIR}}"
 
 [WEB].DESCRIPTION=			Build transmission web interface
-[WEB].BUILD_DEPENDS_OFF=		curl:dev:standard
-[WEB].BUILDRUN_DEPENDS_OFF=		curl:primary:standard
-					libevent:single:standard
+[WEB].BUILDRUN_DEPENDS_OFF=		libevent:single:standard
 					dht:single:standard
 					libb64:single:standard
 					libnatpmp:single:standard
 					libutp:single:standard
 					miniupnpc:single:standard
 [WEB].USES_OFF=				cpe cmake iconv pkgconfig ssl zlib
-					gettext
+					gettext curl
 
 post-patch-WEB-ON:
 	${FIND} ${WRKSRC}/web \( \

@@ -41,9 +41,7 @@ BUILD_DEPENDS=		json-c:primary:standard
 			doxygen:single:standard
 			rust:single:standard
 			libmspack:dev:standard
-			curl:dev:standard
-BUILDRUN_DEPENDS=	curl:primary:standard
-			libltdl:single:standard
+BUILDRUN_DEPENDS=	libltdl:single:standard
 			libmspack:primary:standard
 			pcre2:primary:standard
 
@@ -72,7 +70,7 @@ SUB_LIST=		CHMOD={{CHMOD}}
 			RUNDIR=${RUNDIR}
 
 USES=			cpe cmake ncurses pkgconfig ssl iconv zlib
-			bz2 execinfo c++:primary
+			curl bz2 execinfo c++:primary
 GNOME_COMPONENTS=	libxml2
 CMAKE_ARGS=		-DCLAMAV_USER:STRING="${CLAMAV_USER}"
 			-DCLAMAV_GROUP:STRING="${CLAMAV_GROUP}"
