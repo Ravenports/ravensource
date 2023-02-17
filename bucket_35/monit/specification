@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	5.32.0
+DEF[PORTVERSION]=	5.33.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		monit
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		standard
 SDESC[standard]=	Unix system management and proactive monitoring
@@ -14,14 +13,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://mmonit.com/monit/dist/
 DISTFILE[1]=		monit-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		AGPLv3:single
+LICENSE=		AGPLv3:primary
 LICENSE_FILE=		AGPLv3:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/monit.h
 LICENSE_SCHEME=		solo
@@ -30,8 +29,8 @@ FPC_EQUIVALENT=		sysutils/monit
 
 BUILDRUN_DEPENDS=	openpam:single:standard
 
-SUB_FILES=		pkg-message-single
-RC_SUBR=		monit:single
+SUB_FILES=		pkg-message-primary
+RC_SUBR=		monit:primary
 
 USES=			cpe ssl:openssl11 bison gmake zlib
 CPE_VENDOR=		tildeslash
