@@ -2,9 +2,8 @@ DEF[PORTVERSION]=	1.0.3
 DEF[SOVERSION]=		1.0.2
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		sdl_sound
+NAMEBASE=		sdl1_sound
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		audio
 VARIANTS=		standard
 SDESC[standard]=	SDL audio library/player for popular formats
@@ -15,15 +14,15 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://icculus.org/SDL_sound/downloads/
 DISTFILE[1]=		SDL_sound-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 # Actually some parts of the code are dual-licensed LGPL, GPL, Artistic
-LICENSE=		LGPL21+:single
+LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/SDL_sound.h
 LICENSE_AWK=		TERMS:"mainpage SDL_sound"
 LICENSE_SCHEME=		solo
