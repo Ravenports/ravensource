@@ -4,6 +4,7 @@ DEF[MINOR_VER]=		${PORTVERSION:R}
 
 NAMEBASE=		qt5-qtbase
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11_toolkits devel
 VARIANTS=		standard
 SDESC[standard]=	Qt5 - QtBase component
@@ -19,14 +20,15 @@ SPKGS[standard]=	complete primary docs
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-BUILD_DEPENDS=		evdev-proto:single:standard
+BUILD_DEPENDS=		at-spi2-atk:dev:standard
+			evdev-proto:single:standard
 			harfbuzz:dev:standard
-			at-spi2-atk:dev:standard
+			libdrm:dev:standard
 BUILDRUN_DEPENDS=	pcre2:primary:standard
 			harfbuzz:icu:standard
 			icu:single:standard
 # |			libproxy:single:standard
-			libdrm:single:standard
+			libdrm:primary:standard
 			libxkbcommon:single:standard
 			at-spi2-atk:primary:standard
 
