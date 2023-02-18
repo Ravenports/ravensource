@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	0.4.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libvisual-plugins
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Set of plugins for the libvisual framework
+HOMEPAGE=		http://libvisual.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/Libvisual/libvisual/releases/download/libvisual-plugins-${PORTVERSION}/
+DISTFILE[1]=		libvisual-plugins-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Mostly GPLv2, README indicates possible other licenses; some terms mention LGPL21+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/plugins/morph/tentacle/morph_tentacle.c
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/libvisual04-plugins
+
+BUILD_DEPENDS=		gtk2:dev:standard
+			harfbuzz:dev:standard
+BUILDRUN_DEPENDS=	libGLU:single:standard
+			libvisual:primary:standard
+
+USES=			libtool pkgconfig
+GNOME_COMPONENTS=	gtk2
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-gstreamer-plugin
+INSTALL_TARGET=		install-strip
