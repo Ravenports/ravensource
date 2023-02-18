@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.8.1
+DEF[PORTVERSION]=	0.8.2
 DEF[SOVERSION]=		4.0.0
 DEF[NOTIFYVERS]=	0.7
 DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl-ns/current/
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://ftp.gnome.org/pub/GNOME/sources/libnotify/${PORTVERSION:R}/
 DISTFILE[1]=		libnotify-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary docs man dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,10 +30,12 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libnotify
 
-BUILD_DEPENDS=		docbook-xsl:primary:standard
+BUILD_DEPENDS=		cmake:single:standard
+			docbook-xsl:primary:standard
+			python-gi-docgen:single:python_default
 
-USES=			gmake meson pkgconfig gtk-doc
-GNOME_COMPONENTS=	glib gdkpixbuf intltool introspection
+USES=			meson pkgconfig gtk-doc
+GNOME_COMPONENTS=	glib gdkpixbuf gtk3 intltool introspection
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
 MESON_ARGS=		-Dtests=false
