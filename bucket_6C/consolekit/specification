@@ -4,6 +4,7 @@ DEF[CAT1]=		http://www.oasis-open.org/docbook/xml/
 
 NAMEBASE=		consolekit
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		standard
 SDESC[standard]=	Framework for defining and tracking users
@@ -28,12 +29,13 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		sysutils/consolekit2
 
-BUILD_DEPENDS=		libtool:single:standard
-			dbus:dev:standard
+BUILD_DEPENDS=		dbus:dev:standard
+			libdrm:dev:standard
+			libtool:single:standard
 BUILDRUN_DEPENDS=	dbus:primary:standard
+			libdrm:primary:standard
 			openpam:single:standard
 			polkit:primary:standard
-			libdrm:single:standard
 
 USES=			autoreconf:build gmake libtool pkgconfig zlib
 			gtk-doc
