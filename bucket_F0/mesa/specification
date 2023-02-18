@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	22.3.5
 
 NAMEBASE=		mesa
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Mesa 3D Graphics Library
@@ -44,13 +45,14 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		graphics/mesa-libs
 
-BUILD_DEPENDS=		python-Mako:single:python_used
-			libpthread-stubs:single:standard
+BUILD_DEPENDS=		libdrm:dev:standard
 			libelf:dev:standard
 			libelf:primary:standard
-			libvdpau:single:standard
+			libpthread-stubs:single:standard
 			libva:single:standard
-BUILDRUN_DEPENDS=	libdrm:single:standard
+			libvdpau:single:standard
+			python-Mako:single:python_used
+BUILDRUN_DEPENDS=	libdrm:primary:standard
 EXRUN[drivers]=		mesa:libs:standard
 			libelf:primary:standard
 
