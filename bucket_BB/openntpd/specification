@@ -1,0 +1,30 @@
+DEF[PORTVERSION]=	6.8p1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		openntpd
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		standard
+SDESC[standard]=	Network Time Protocol (NTP) Daemon
+HOMEPAGE=		https://www.openntp.org
+CONTACT=		Todd_Martin[warfox@sdf.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://ftp.openbsd.org/pub/OpenBSD/OpenNTPD/
+DISTFILE[1]=		openntpd-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		ISCL:primary
+LICENSE_FILE=		ISCL:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net/openntp
+
+MUST_CONFIGURE=		gnu
+
+post-stage:
+	${RM} -r ${STAGEDIR}/var
