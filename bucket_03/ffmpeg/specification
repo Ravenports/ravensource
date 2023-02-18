@@ -11,7 +11,7 @@ DEF[SO_SCALE]=		6.7.100
 
 NAMEBASE=		ffmpeg
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		multimedia audio net
 VARIANTS=		standard
 SDESC[standard]=	Play, record, convert, and stream audio and video
@@ -35,13 +35,14 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		multimedia/ffmpeg
 
-BUILD_DEPENDS=		nasm:primary:standard
+BUILD_DEPENDS=		libdrm:dev:standard
 			libgpg-error:dev:standard
-			gmp:static:standard
-			x265:dev:standard
-			harfbuzz:dev:standard
-			gettext:solinks:standard
 			libvpx:dev:standard
+			gettext:solinks:standard
+			gmp:static:standard
+			harfbuzz:dev:standard
+			nasm:primary:standard
+			x265:dev:standard
 BUILDRUN_DEPENDS=	gmp:shared:standard
 			libass:single:standard
 			freetype:primary:standard
@@ -56,7 +57,7 @@ BUILDRUN_DEPENDS=	gmp:shared:standard
 			libvdpau:single:standard
 			libvorbis:primary:standard
 			libvpx:primary:standard
-			libdrm:single:standard
+			libdrm:primary:standard
 			librsvg:primary:standard
 			WebP:single:standard
 			x264:library:standard
