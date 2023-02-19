@@ -1,6 +1,7 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(LIBXML2_VERSION)
 DEF[PORTREVISION]=	EXTRACT_INFO(LIBXML2_REVISION)
 DEF[FOLDER]=		${PORTVERSION:R}
+DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libxml2
@@ -17,7 +18,7 @@ SITES[main]=		GNOME/libxml2/${FOLDER}
 DISTFILE[1]=		libxml2-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome2
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -36,7 +37,7 @@ CONFIGURE_ARGS=		--with-schemas
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 SHEBANG_GLOB=		*.py
-PLIST_SUB=		LIBVERSION=${PORTVERSION}
+SOVERSION=		${SOVERSION}
 CPE_VENDOR=		xmlsoft
 
 post-patch:
