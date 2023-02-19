@@ -7,6 +7,7 @@ DEF[PLUGIN_VER]=	${PORTVERSION:R}
 
 NAMEBASE=		wireshark
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net
 VARIANTS=		standard
 SDESC[standard]=	Network traffic analyzer
@@ -32,13 +33,14 @@ LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		net/wireshark
 
-BUILD_DEPENDS=		doxygen:single:standard
-			qt5-qttools:single:standard
-			bison:primary:standard
-			ruby-asciidoctor:single:ruby_default
+BUILD_DEPENDS=		bison:primary:standard
+			c-ares:dev:standard
+			doxygen:single:standard
+			gnutls:dev:standard
 			libgpg-error:dev:standard
 			libnghttp2:dev:standard
-			c-ares:dev:standard
+			qt5-qttools:single:standard
+			ruby-asciidoctor:single:ruby_default
 BUILDRUN_DEPENDS=	libgpg-error:primary:standard
 			libgcrypt:single:standard
 			libnghttp2:primary:standard
