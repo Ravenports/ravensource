@@ -11,7 +11,7 @@ _INCLUDE_USES_GIF_MK=	yes
 # -----------------------------------------------------
 # Incorporated in ravenadm
 # -----------------------------------------------------
-#.if ${zstd_ARGS:Mbuild}
+#.if ${gif_ARGS:Mbuild}
 # BUILD_DEPENDS+=	giflib:dev:standard
 #.else
 # BUILD_DEPENDS+=	giflib:dev:standard
