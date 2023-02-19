@@ -15,14 +15,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://cairographics.org/releases/
 DISTFILE[1]=		cairomm-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL21+:single
+LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/cairomm/cairomm.h
 LICENSE_SCHEME=		solo
@@ -32,6 +32,8 @@ FPC_EQUIVALENT=		graphics/cairomm
 BUILD_DEPENDS=		glib:dev:standard
 BUILDRUN_DEPENDS=	freetype:primary:standard
 			libsigcxx2:primary:standard
+
+EXRUN[dev]=		fontconfig:dev:standard
 
 USES=			gmake pkgconfig png libtool zlib:build
 GNOME_COMPONENTS=	cairo
