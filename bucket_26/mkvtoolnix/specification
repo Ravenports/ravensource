@@ -27,7 +27,6 @@ BUILD_DEPENDS=		docbook-xsl:primary:standard
 			qt5-qtbase:primary:standard
 			gmp:static:standard
 BUILDRUN_DEPENDS=	libmatroska:single:standard
-			pcre2:primary:standard
 			libvorbis:primary:standard
 			libogg:primary:standard
 			flac:primary:standard
@@ -43,7 +42,7 @@ BUILDRUN_DEPENDS=	libmatroska:single:standard
 # Another example of g++ ICE, use clang to build on FreeBSD
 C_USES[freebsd]=	clang
 
-USES=			zlib pkgconfig gettext iconv:build
+USES=			zlib pkgconfig gettext pcre2 iconv:build
 			solaris-funcs mime-info:primary desktop-utils:primary
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
