@@ -27,13 +27,12 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/gdal
 
+BUILD_DEPENDS=		libheif:dev:standard
 BUILDRUN_DEPENDS=	libgeotiff:single:standard
 			cfitsio:primary:standard
 			WebP:single:standard
 			openjpeg:single:standard
-			pcre2:primary:standard
-			libxml2:single:standard
-			libheif:single:standard
+			libheif:primary:standard
 			hdf5:primary:standard
 			geos:single:standard
 			openexr:primary:standard
@@ -43,8 +42,9 @@ BUILDRUN_DEPENDS=	libgeotiff:single:standard
 
 SINGLE_JOB=		yes
 
-USES=			cpe cmake png jpeg gif iconv sqlite pkgconfig
-			zstd expat lz4 zlib xz
+USES=			cpe cmake png jpeg gif tiff iconv sqlite pkgconfig
+			zstd expat lz4 zlib xz pcre2
+GNOME_COMPONENTS=	libxml2
 CPE_VENDOR=		osgeo
 CMAKE_ARGS=		-DGDAL_USE_INTERNAL_LIBS=OFF
 			-DGDAL_USE_JSONC_INTERNAL=ON

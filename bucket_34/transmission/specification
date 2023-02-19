@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	3.00
 
 NAMEBASE=		transmission
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		net_p2p
 VARIANTS=		standard daemon gtk qt web
 SDESC[standard]=	Lightweight BitTorrent client (CLI client)
@@ -65,6 +65,7 @@ CMAKE_ARGS=		-DENABLE_NLS:BOOL=ON
 [GTK].USES_ON=				desktop-utils:single
 [GTK].GNOME_COMPONENTS_ON=		cairo gdkpixbuf gtk3 pango intltool
 [GTK].BUILD_DEPENDS_ON=			appstream-glib:primary:standard
+					libnotify:dev:standard
 					harfbuzz:dev:standard
 [GTK].BUILDRUN_DEPENDS_ON=		dbus-glib:primary:standard
 					libnotify:primary:standard
@@ -89,15 +90,14 @@ CMAKE_ARGS=		-DENABLE_NLS:BOOL=ON
 [QT].MAKE_ARGS_ON=			DESTDIR="{{STAGEDIR}}"
 
 [WEB].DESCRIPTION=			Build transmission web interface
-[WEB].BUILDRUN_DEPENDS_OFF=		curl:primary:standard
-					libevent:single:standard
+[WEB].BUILDRUN_DEPENDS_OFF=		libevent:single:standard
 					dht:single:standard
 					libb64:single:standard
 					libnatpmp:single:standard
 					libutp:single:standard
 					miniupnpc:single:standard
 [WEB].USES_OFF=				cpe cmake iconv pkgconfig ssl zlib
-					gettext
+					gettext curl
 
 post-patch-WEB-ON:
 	${FIND} ${WRKSRC}/web \( \

@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	0.6.13
 
 NAMEBASE=		libcroco
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		standard
 SDESC[standard]=	CSS2 parsing library
@@ -14,7 +15,7 @@ SITES[main]=		GNOME/libcroco/${PORTVERSION:R}
 DISTFILE[1]=		libcroco-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome2
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary dev docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -32,7 +33,7 @@ PLIST_SUB=		VERSION="${PORTVERSION:R}"
 VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--disable-Bsymbolic
 
 post-install:
-	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/libcroco \
 		${STAGEDIR}${PREFIX}/share/doc/
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc

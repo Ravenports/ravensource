@@ -6,6 +6,7 @@ DEF[DBLIBS]=		libdb libdb_cxx libdb_stl libdb_sql
 
 NAMEBASE=		db6
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		databases java
 VARIANTS=		standard
 SDESC[standard]=	Oracle Berkeley DB, revision 6
@@ -18,15 +19,15 @@ SITES[main]=		http://mirror.umd.edu/gentoo/distfiles/
 DISTFILE[1]=		db-${PORTVERSION}.tar.gz:main
 DIST_SUBDIR=		bdb
 
-SPKGS[standard]=	complete shared static docs
+SPKGS[standard]=	complete primary dev tools docs
 
 OPTIONS_AVAILABLE=	CRYPTO TCL JAVA
 OPTIONS_STANDARD=	CRYPTO TCL JAVA
 OPT_ON[all]=		CRYPTO
 
-LICENSE=		AGPLv3:shared
+LICENSE=		AGPLv3:primary
 LICENSE_FILE=		AGPLv3:stock
-LICENSE_TERMS=		shared:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^ \*$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
@@ -34,7 +35,9 @@ LICENSE_SCHEME=		solo
 # Removed from FPC (not downloadable without registration (??))
 # FPC_EQUIVALENT=		databases/db6
 
-USES=			cpe gmake libtool c++:shared
+EXRUN[tools]=		db6:primary:standard
+
+USES=			cpe gmake libtool c++:primary
 CPE_VENDOR=		oracle
 CPE_PRODUCT=		berkeley_db
 DISTNAME=		db-${PORTVERSION}

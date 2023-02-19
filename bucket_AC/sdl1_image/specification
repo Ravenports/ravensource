@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.2.12
 
 NAMEBASE=		sdl1_image
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Load images of various formats as SDL surfaces
@@ -13,10 +14,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://www.libsdl.org/projects/SDL_image/release/
 DISTFILE[1]=		SDL_image-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
+
+LICENSE=		ZLIB:primary
+LICENSE_FILE=		ZLIB:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/sdl_image
 

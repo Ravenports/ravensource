@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.87
+DEF[PORTVERSION]=	3.88.1
 DEF[DIST]=		{{WRKDIR}}/nss-${PORTVERSION}/dist
 DEF[BINS_A]=		certutil cmsutil crlutil derdump makepqg mangle
 DEF[BINS_B]=		modutil ocspclnt oidcalc p7content p7env p7sign p7verify
@@ -22,7 +22,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		MOZILLA/security/nss/releases/NSS_${PORTVERSION:S/./_/g}_RTM/src
 DISTFILE[1]=		nss-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary caroot
+SPKGS[standard]=	complete primary caroot dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -33,10 +33,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/nss
 
-BUILD_DEPENDS=		libressl:single:static
+BUILD_DEPENDS=		libressl:primary:standard
 BUILDRUN_DEPENDS=	nspr:single:standard
 
-USES=			cpe gmake perl:build sqlite zlib
+USES=			cpe gmake perl:build sqlite zlib ssl:build
 DISTNAME=		nss-${PORTVERSION}/nss
 SINGLE_JOB=		yes
 CPE_VENDOR=		mozilla
@@ -62,7 +62,7 @@ VAR_OPSYS[sunos]=	MAKE_ENV=NS_USE_GCC=1
 			MAKE_ENV=NO_MDUPDATE=1
 VAR_OPSYS[linux]=	MAKE_ENV=RPATH=-Wl,-rpath,{{PREFIX}}/lib/nss
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} '/NSS_DEFAULT_SYSTEM/s,/etc,${PREFIX}&,' \
 		${WRKSRC}/lib/sysinit/nsssysinit.c
 	(cd ${WRKSRC} && \
@@ -73,6 +73,9 @@ post-patch:
 		${XARGS} ${GREP} -l -F '/bin/bash' | \
 		${XARGS} ${REINPLACE_CMD} -e 's|#! */bin/bash|#!${SH}|'
 	${REINPLACE_CMD} -e 's/@OS_RELEASE@/${OSREL}/' ${WRKSRC}/coreconf/arch.mk
+
+	# prevent attempt to link to shared ssl libraries
+	${RM} ${LOCALBASE}/libressl/lib*.so
 
 post-build:
 	${SETENV} ${MAKE_ENV} ${PERL} ${WRKDIR}/MAca-bundle.pl \

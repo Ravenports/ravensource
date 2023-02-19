@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.0.0
+DEF[PORTVERSION]=	1.0.1
 DEF[SOVERSION]=		11.0.0
 DEF[FRESH_SOVERSION]=	2.0.2
 DEF[DBDIR]=		/var/db/clamav
@@ -20,7 +20,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.clamav.net/downloads/production/
 DISTFILE[1]=		clamav-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -41,10 +41,8 @@ BUILD_DEPENDS=		json-c:primary:standard
 			doxygen:single:standard
 			rust:single:standard
 			libmspack:dev:standard
-BUILDRUN_DEPENDS=	curl:primary:standard
-			libltdl:single:standard
+BUILDRUN_DEPENDS=	libltdl:single:standard
 			libmspack:primary:standard
-			pcre2:primary:standard
 
 RUN_DEPENDS=		arc:single:standard
 			arj:single:standard
@@ -71,7 +69,7 @@ SUB_LIST=		CHMOD={{CHMOD}}
 			RUNDIR=${RUNDIR}
 
 USES=			cpe cmake ncurses pkgconfig ssl iconv zlib
-			bz2 execinfo c++:primary
+			pcre2 curl bz2 execinfo c++:primary
 GNOME_COMPONENTS=	libxml2
 CMAKE_ARGS=		-DCLAMAV_USER:STRING="${CLAMAV_USER}"
 			-DCLAMAV_GROUP:STRING="${CLAMAV_GROUP}"

@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	0.11.3
 
 NAMEBASE=		toxic
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		net net_im net_p2p
 VARIANTS=		standard
 SDESC[standard]=	Ncurses-based Tox client
@@ -31,14 +31,14 @@ FPC_EQUIVALENT=		net-im/toxic
 
 BUILD_DEPENDS=		evdev-proto:single:standard
 			libsodium:dev:standard
-BUILDRUN_DEPENDS=	curl:primary:standard
-			freealut:single:standard
+			libnotify:dev:standard
+BUILDRUN_DEPENDS=	freealut:single:standard
 			libnotify:primary:standard
 			qrencode:single:standard
 			toxcore:single:standard
 
 USES=			desktop-utils:single gmake ncurses pkgconfig
-			zlib:build python:build shebangfix
+			curl zlib:build python:build shebangfix
 XORG_COMPONENTS=	x11
 SHEBANG_FILES=		apidoc/python/source/conf.py
 CFLAGS=			-I{{NCURSESINC}}

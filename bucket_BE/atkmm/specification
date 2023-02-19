@@ -5,6 +5,7 @@ DEF[API]=		2.36
 
 NAMEBASE=		atkmm
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		accessibility
 VARIANTS=		standard
 SDESC[standard]=	C++ bindings for ATK
@@ -15,14 +16,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNOME/atkmm/${PORTVERSION:R}/
 DISTFILE[1]=		atkmm-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL21+:single
+LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"_ATKMM_H"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/atk/atkmm.h
 LICENSE_SCHEME=		solo
@@ -30,7 +31,7 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		accessibility/atkmm
 
 USES=			gmake pkgconfig meson
-GNOME_COMPONENTS=	atk glibmm
+GNOME_COMPONENTS=	atk glibmm libsigc++30
 INSTALL_TARGET=		install-strip
 MESON_ARGS=		-Dbuild-documentation=false
 SOVERSION=		${SOVERSION}

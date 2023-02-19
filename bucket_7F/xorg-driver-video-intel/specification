@@ -6,7 +6,7 @@ DEF[ALTNAME]=		xf86-video-intel
 
 NAMEBASE=		xorg-${XNAME}
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 EPOCH=			1
 KEYWORDS=		x11_drivers
 VARIANTS=		standard
@@ -34,8 +34,9 @@ LICENSE_SCHEME=		solo
 NOT_FOR_ARCH=		aarch64
 FPC_EQUIVALENT=		x11-drivers/${ALTNAME}
 
-BUILDRUN_DEPENDS=	xorg-server:single:standard
-			libdrm:single:standard
+BUILD_DEPENDS=		libdrm:dev:standard
+BUILDRUN_DEPENDS=	libdrm:primary:standard
+			xorg-server:single:standard
 
 USES=			mesa libtool cpe autoreconf
 XORG_COMPONENTS=	xorgproto pciaccess pixman

@@ -1,10 +1,11 @@
 DEF[PORTVERSION]=	1.50.12
 DEF[PANGO_VERSION]=	1.8.0
-DEF[LIBVERSION]=	0.5000.12
+DEF[SOVERSION]=		0.5000.12
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		pango
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11_toolkits
 VARIANTS=		standard
 SDESC[standard]=	Open-source framework for rendering of i18n text
@@ -16,7 +17,7 @@ SITES[main]=		GNOME/pango/${PORTVERSION:R}
 DISTFILE[1]=		pango-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome2
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary dev docs
 
 OPTIONS_AVAILABLE=	INTROSPECTION
 OPTIONS_STANDARD=	INTROSPECTION
@@ -35,16 +36,18 @@ BUILD_DEPENDS=		harfbuzz:dev:standard
 BUILDRUN_DEPENDS=	freetype:primary:standard
 			harfbuzz:primary:standard
 			fribidi:single:standard
+			python-gi-docgen:single:python_default
 RUN_DEPENDS=		xorg-truetype-fonts:single:standard
 
+EXRUN[dev]=		fontconfig:dev:standard
+
 USES=			cpe gmake meson perl:build fontconfig pkgconfig zlib:build
-# gi-docgen library not found:  USES=gtk-doc
 GNOME_COMPONENTS=	cairo glib
 XORG_COMPONENTS=	x11 xft xrender
-MESON_ARGS=		-Dgtk_doc=false
+MESON_ARGS=		-Dgtk_doc=true
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
-PLIST_SUB=		VERSION=${PANGO_VERSION} LIBVERSION=${LIBVERSION}
+SOVERSION=		${SOVERSION}
 
 [INTROSPECTION].DESCRIPTION=		Build introspection files
 [INTROSPECTION].GNOME_COMPONENTS_ON=	introspection

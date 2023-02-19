@@ -6,6 +6,7 @@ DEF[SOVERSION]=		0.6.0
 
 NAMEBASE=		libsoup
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Simple Object Access Protocol implementation in C
@@ -16,7 +17,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://ftp.gnome.org/pub/GNOME/sources/libsoup/${PORTVERSION:R}/
 DISTFILE[1]=		libsoup-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls docs
+SPKGS[standard]=	complete primary dev nls docs
 
 OPTIONS_AVAILABLE=	INTROSPECTION
 OPTIONS_STANDARD=	INTROSPECTION
@@ -31,12 +32,15 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libsoup
 
+BUILD_DEPENDS=		libnghttp2:dev:standard
 BUILDRUN_DEPENDS=	brotli:single:standard
 			glib-networking:primary:standard
 			libpsl:single:standard
-			libnghttp2:single:standard
+			libnghttp2:primary:standard
 			krb5:primary:standard
 RUN_DEPENDS=		libgcrypt:single:standard
+
+EXRUN[dev]=		libnghttp2:dev:standard
 
 USES=			gmake libtool pkgconfig sqlite meson cpe
 CPE_VENDOR=		gnome

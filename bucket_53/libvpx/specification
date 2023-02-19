@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	1.12.0
-DEF[SOVERSION]=		7.1.0
+DEF[PORTVERSION]=	1.13.0
+DEF[SOVERSION]=		8.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libvpx
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		standard
 SDESC[standard]=	VP8 Video Codec SDK
@@ -15,12 +14,12 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/webmproject:libvpx:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		BSD3CLAUSE:single
+LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
@@ -28,7 +27,7 @@ FPC_EQUIVALENT=		multimedia/libvpx
 
 BUILD_DEPENDS=		yasm:single:standard
 
-USES=			cpe gmake perl:build shebangfix c++:single
+USES=			cpe gmake perl:build shebangfix c++:primary
 CPE_VENDOR=		webmproject
 CPE_PRODUCT=		libvpx
 MUST_CONFIGURE=		yes

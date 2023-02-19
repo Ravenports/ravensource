@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.6.1
+DEF[PORTVERSION]=	3.6.2
 DEF[SOVERSION]=		53.0.0
 DEF[TLS_SOVERSION]=	26.0.0
 DEF[CRY_SOVERSION]=	50.0.0
@@ -9,9 +9,8 @@ DEF[BASE]=		{{PREFIX}}/${NAMEBASE}
 NAMEBASE=		${NAMEBASE}
 VERSION=		${PORTVERSION}
 KEYWORDS=		security devel
-VARIANTS=		standard static
+VARIANTS=		standard
 SDESC[standard]=	OpenBSD fork of the OpenSSL SSL/TLS protocol
-SDESC[static]=		Static minimal version of LibreSSL
 HOMEPAGE=		http://www.libressl.org/
 CONTACT=		nobody
 
@@ -19,14 +18,12 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		OPENBSD/LibreSSL
 DISTFILE[1]=		libressl-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
-SPKGS[static]=		single
+SPKGS[standard]=	complete primary dev man
 
-OPTIONS_AVAILABLE=	STATIC SKIP_MANPAGES
-OPTIONS_STANDARD=	SKIP_MANPAGES
-VOPTS[static]=		STATIC=ON SKIP_MANPAGES=ON
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
 
-LICENSE=		OpenSSL:single ISCL:single
+LICENSE=		OpenSSL:primary ISCL:primary
 LICENSE_FILE=		OpenSSL:{{WRKSRC}}/COPYING
 			ISCL:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		multi
@@ -54,12 +51,7 @@ PLIST_SUB=		CRY_SOMAJOR=${CRY_SOVERSION:R:R}
 			TLS_SOVERSION=${TLS_SOVERSION}
 			NAMEBASE=${NAMEBASE}
 
-[STATIC].CFLAGS_OFF=			-fpic -DPIC
-[STATIC].CONFIGURE_ARGS_ON=		--enable-shared=no
-[SKIP_MANPAGES].DESCRIPTION=		Skip LibreSSL manpage installation
-[SKIP_MANPAGES].MAKEFILE_OFF=		MANPREFIX={{PREFIX}}/${NAMEBASE}/share
-
-post-build-STATIC-OFF:
+post-build:
 	# assemble PIC libraries
 	cd ${BUILD_WRKSRC} &&\
 		${AR} -crsv libcrypto_pic.a \
@@ -78,7 +70,6 @@ post-build-STATIC-OFF:
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/etc/${NAMEBASE}/cert.pem
 
-post-install-STATIC-OFF:
 	# install our PIC libraries
 	${INSTALL_DATA} \
 		${BUILD_WRKSRC}/libcrypto_pic.a \
@@ -86,8 +77,10 @@ post-install-STATIC-OFF:
 		${BUILD_WRKSRC}/libtls_pic.a \
 		${STAGEDIR}${PREFIX}/${NAMEBASE}/lib/
 
-post-install-STATIC-ON:
-	${STRIP_CMD} ${STAGEDIR}${BASE}/bin/nc
+	# Handle man pages
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/man.d
+	${ECHO_CMD} "MANPATH ${PREFIX}/${NAMEBASE}/share/man" \
+		>> ${STAGEDIR}${PREFIX}/etc/man.d/${NAMEBASE}.conf
 
 post-configure:
 	# fix libtool for libtls.la
@@ -96,16 +89,3 @@ post-configure:
 
 post-install-dragonfly:
 	${INSTALL_SCRIPT} ${WRKSRC}/apps/nc/nc ${STAGEDIR}${BASE}/bin/nc
-
-post-patch-SKIP_MANPAGES-ON:
-	${REINPLACE_CMD} -e 's| man||' ${WRKSRC}/Makefile.am
-
-post-install-SKIP_MANPAGES-ON:
-	# nc.1, openssl.1, ocspcheck.8 still get installed
-	${RM} -r ${STAGEDIR}${BASE}/share
-	${RM} -r ${STAGEDIR}${PREFIX}/share/man/man[18]
-
-post-install-SKIP_MANPAGES-OFF:
-	${MKDIR} ${STAGEDIR}${PREFIX}/etc/man.d
-	${ECHO_CMD} "MANPATH ${PREFIX}/${NAMEBASE}/share/man" \
-		>> ${STAGEDIR}${PREFIX}/etc/man.d/${NAMEBASE}.conf

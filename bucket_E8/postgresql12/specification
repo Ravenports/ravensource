@@ -35,8 +35,10 @@ BUILD_DEPENDS=		docbook-sgml:single:standard
 			docbook-dsssl:single:standard
 			openjade:single:standard
 			OpenSP:single:standard
-			readline:single:standard
-BUILDRUN_DEPENDS=	libxslt:single:standard
+			readline:dev:standard
+			readline:primary:standard
+			libxslt:dev:standard
+BUILDRUN_DEPENDS=	libxslt:primary:standard
 B_DEPS[linux]=		ossp-uuid:dev:standard
 BR_DEPS[linux]=		ossp-uuid:primary:standard
 B_DEPS[sunos]=		ossp-uuid:dev:standard
@@ -45,12 +47,12 @@ BR_DEPS[darwin]=	libuuid:single:standard
 
 EXRUN[server]=		postgresql12:client:standard
 EXRUN[client]=		gettext:primary:standard
-			libxslt:single:standard
-			readline:single:standard
+			libxslt:primary:standard
+			readline:primary:standard
 			zlib:primary:standard
 			ssl
 EXRUN[contrib]=		postgresql12:client:standard
-			libxslt:single:standard
+			libxslt:primary:standard
 			zlib:primary:standard
 			gettext:primary:standard
 			ssl
@@ -64,6 +66,7 @@ USERGROUP_SPKG=		server
 
 USES=			bison gmake perl:build tcl:build ssl python:build zlib
 			gettext cpe
+GNOME_COMPONENTS=	libxml2
 CPE_VENDOR=		postgresql
 CPE_PRODUCT=		postgresql
 DISTNAME=		postgresql-${PORTVERSION}

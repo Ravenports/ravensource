@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	2.6.4
 
 NAMEBASE=		libglade
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Library for dynamically loading GLADE interfaces
@@ -15,14 +15,14 @@ SITES[main]=		GNOME/libglade/${PORTVERSION:R}
 DISTFILE[1]=		libglade-${PORTVERSION}.tar.bz2:main
 DIST_SUBDIR=		gnome2
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"GLADE_H"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/glade/glade.h
 LICENSE_SCHEME=		solo
@@ -32,8 +32,8 @@ FPC_EQUIVALENT=		devel/libglade2
 BUILD_DEPENDS=		harfbuzz:dev:standard
 RUN_DEPENDS=		xmlcatmgr:single:standard
 
-USES=			gmake libtool:keepla pkgconfig fbsd10fix
-GNOME_COMPONENTS=	libxml2 gtk2
+USES=			gmake libtool pkgconfig fbsd10fix
+GNOME_COMPONENTS=	libxml2 gtk2 cairo pango
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-html-dir={{PREFIX}}/share/doc
 			--disable-gtk-doc

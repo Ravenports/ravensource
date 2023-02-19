@@ -1,7 +1,7 @@
 # 9.odd.x is considered the "devel" branch currently
 # Stick to even, e.g. 9.14.x, 9.16.x
 # DEF[REALVERSION]=	9.12.1-P2
-DEF[REALVERSION]=	9.18.11
+DEF[REALVERSION]=	9.18.12
 DEF[PORTVERSION]=	${REALVERSION:S/-/./}
 # ----------------------------------------------------------------------------
 
@@ -17,7 +17,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		ISC/bind9/${REALVERSION}
 DISTFILE[1]=		bind-${REALVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete server tools docs
+SPKGS[standard]=	complete server tools man dev docs
 
 OPTIONS_AVAILABLE=	FIXED_RRSET GEOIP LARGE_FILE QUERYTRACE
 OPTIONS_STANDARD=	FIXED_RRSET GEOIP LARGE_FILE QUERYTRACE
@@ -29,16 +29,18 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		dns/bind916
 
 BUILD_DEPENDS=		idnkit:single:standard
-BUILDRUN_DEPENDS=	libxml2:single:standard
-			json-c:primary:standard
+			lmdb:dev:standard
+			libnghttp2:dev:standard
+BUILDRUN_DEPENDS=	json-c:primary:standard
 			libuv:single:standard
-			lmdb:single:standard
-			libnghttp2:single:standard
+			lmdb:primary:standard
+			libnghttp2:primary:standard
 EXRUN[tools]=		idnkit:single:standard
 
 USES=			cclibs:server,tools cpe iconv pkgconfig ssl
 			readline ncurses:build libtool perl:build
 CPE_VENDOR=		isc
+GNOME_COMPONENTS=	libxml2
 SINGLE_JOB=		yes
 DISTNAME=		bind-${REALVERSION}
 MUST_CONFIGURE=		gnu

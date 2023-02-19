@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	7.87.0
+DEF[PORTVERSION]=	7.88.0
 DEF[SOVERSION]=		4.8.0
 DEF[DOCS]=		FAQ INSTALL KNOWN_BUGS MAIL-ETIQUETTE THANKS TODO options-in-versions
 # MANUAL
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://curl.haxx.se/download/
 DISTFILE[1]=		curl-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary manpages examples docs
+SPKGS[standard]=	complete primary dev man examples docs
 
 OPTIONS_AVAILABLE=	IDN LDAP LDAPS SSH2
 OPTIONS_STANDARD=	IDN LDAP LDAPS SSH2
@@ -26,7 +26,8 @@ LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
 RUN_DEPENDS=		nss:caroot:standard
-BUILDRUN_DEPENDS=	libnghttp2:single:standard
+BUILD_DEPENDS=		libnghttp2:dev:standard
+BUILDRUN_DEPENDS=	libnghttp2:primary:standard
 
 FPC_EQUIVALENT=		ftp/curl
 
