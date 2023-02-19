@@ -1,8 +1,10 @@
 DEF[PORTVERSION]=	5.6.2
+DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gtksourceview5
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11_toolkits
 VARIANTS=		standard
 SDESC[standard]=	GTK3 syntax highlighting text widget
@@ -14,11 +16,11 @@ SITES[main]=		GNOME/gtksourceview/${PORTVERSION:R}
 DISTFILE[1]=		gtksourceview-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome3
 
-# disable docs (since gcc11)
-SPKGS[standard]=	complete primary nls
+SPKGS[standard]=	complete primary dev nls docs
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+# gtk4 introspection currently off, so INTROSPECTION off by default
+OPTIONS_AVAILABLE=	INTROSPECTION
+OPTIONS_STANDARD=	INTROSPECTION
 
 LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
@@ -29,18 +31,21 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11-toolkits/gtksourceview4
 
-BUILD_DEPENDS=		vala:single:standard
-			harfbuzz:dev:standard
+BUILD_DEPENDS=		harfbuzz:dev:standard
 BUILDRUN_DEPENDS=	gtk4:icon_cache:standard
 			pcre2:primary:standard
 
-USES=			meson pkgconfig gtk-doc
+USES=			meson pkgconfig
 GNOME_COMPONENTS=	cairo gdkpixbuf gtk4 libxml2
 DISTNAME=		gtksourceview-${PORTVERSION}
 MESON_ARGS=		-Dinstall_tests=false
-			-Dvapi=true
-# #			-Dgtk_doc=true
-			-Dgtk_doc=false
-			-Dintrospection=disabled
 INSTALL_REQ_TOOLCHAIN=	yes
 GTKDOC_OUTPUT_BASEDIR=	gtksourceview-5.0
+SOVERSION=		${SOVERSION}
+
+[INTROSPECTION].DESCRIPTION=		Build vala bindings with introspection
+[INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
+[INTROSPECTION].CONFIGURE_ARGS_ON=	-Dvapi=true -Dgtk_doc=true -Dintrospection=enabled
+[INTROSPECTION].CONFIGURE_ARGS_OFF=	-Dvapi=false -Dgtk_doc=false -Dintrospection=disabled
+[INTROSPECTION].BUILD_DEPENDS_ON=	vala:single:standard
+[INTROSPECTION].USES_ON=		gtk-doc
