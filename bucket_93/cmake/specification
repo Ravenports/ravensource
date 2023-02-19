@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	3.25.2
 
 NAMEBASE=		cmake
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Cross-platform Makefile generator
@@ -14,12 +15,12 @@ SITES[main]=		https://www.cmake.org/files/v${PORTVERSION:R}/
 			https://fossies.org/linux/misc/
 DISTFILE[1]=		cmake-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		BSD3CLAUSE:single
+LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/Copyright.txt
 LICENSE_SCHEME=		solo
 
@@ -31,7 +32,7 @@ BUILDRUN_DEPENDS=	jsoncpp:single:standard
 			libuv:single:standard
 			rhash:single:standard
 
-USES=			ncurses c++:single zlib ssl:build expat
+USES=			ncurses zlib ssl:build expat c++:primary
 MUST_CONFIGURE=		yes
 CONFIGURE_ENV=		MAKE=make
 			OPENSSL_ROOT_DIR={{OPENSSLBASE}}
@@ -84,10 +85,10 @@ pre-configure:
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/cmake \
 		${STAGEDIR}${PREFIX}/share/emacs/site-lisp
-	(cd ${WRKSRC} && \
-		${COPYTREE_SHARE} Modules ${STAGEDIR}${PREFIX}/share/cmake)
-	(cd ${WRKSRC} && \
-		${COPYTREE_SHARE} Templates ${STAGEDIR}${PREFIX}/share/cmake)
 	${INSTALL_DATA} ${WRKSRC}/Auxiliary/cmake-mode.el \
 		${STAGEDIR}${PREFIX}/share/emacs/site-lisp/
-	${RM} -r ${STAGEDIR}${STD_DOCDIR}
+	# Skip redundant licensing
+	${RM} -rf ${STAGEDIR}${STD_DOCDIR}/*
+
+	# Relocate Help to docs
+	${MV} ${STAGEDIR}${PREFIX}/share/cmake/Help ${STAGEDIR}${STD_DOCDIR}/
