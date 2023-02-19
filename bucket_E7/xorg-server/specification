@@ -35,9 +35,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11-servers/xorg-server
 
-BUILD_DEPENDS=		xorg-fontutil:single:standard
-			xorg-xkbfile:single:standard
+BUILD_DEPENDS=		libdrm:dev:standard
 			libgpg-error:dev:standard
+			xorg-fontutil:single:standard
+			xorg-xkbfile:single:standard
 RUN_DEPENDS=		xorg-xkeyboard-config:primary:standard
 			xorg-xkbcomp:single:standard
 BUILDRUN_DEPENDS=	xorg-xcvt:single:standard
@@ -68,14 +69,12 @@ VAR_OPSYS[netbsd]=	CPPFLAGS=-D_OPENBSD_SOURCE
 [DEVD].DESCRIPTION=			Use devd for autoconfiguration of input devices
 [SUID].DESCRIPTION=			Install the Xorg server with setuid bit set
 
-[XORG].BUILD_DEPENDS_ON=		libdrm:dev:standard
-					xmlto:single:standard
+[XORG].BUILD_DEPENDS_ON=		xmlto:single:standard
 					xorg-sgml-doctools:single:standard
 [XORG].BUILDRUN_DEPENDS_ON=		libdrm:primary:standard
 					libepoxy:single:standard
 					mesa:drivers:standard
-[XEPHYR].BUILD_DEPENDS_ON=		libdrm:dev:standard
-					mesa:drivers:standard
+[XEPHYR].BUILD_DEPENDS_ON=		mesa:drivers:standard
 [XEPHYR].BUILDRUN_DEPENDS_ON=		libdrm:primary:standard
 					libepoxy:single:standard
 					libglvnd:single:standard
