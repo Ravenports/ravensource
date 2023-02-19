@@ -4,6 +4,7 @@ DEF[SOVERSION]=		12.60.0
 
 NAMEBASE=		libmicrohttpd
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		www
 VARIANTS=		standard
 SDESC[standard]=	Small C library to run an HTTP server
@@ -14,20 +15,21 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/libmicrohttpd
 DISTFILE[1]=		libmicrohttpd-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL21+:single
+LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"CONNECTION_H"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/microhttpd/connection.h
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		www/libmicrohttpd
 
+BUILD_DEPENDS=		gnutls:dev:standard
 BUILDRUN_DEPENDS=	gnutls:primary:standard
 			libgcrypt:single:standard
 
@@ -38,8 +40,8 @@ CONFIGURE_ARGS=		--enable-https
 			--disable-examples
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
-INFO=			single:libmicrohttpd
-			single:libmicrohttpd-tutorial
+INFO=			man:libmicrohttpd
+			man:libmicrohttpd-tutorial
 
 post-patch-dragonfly:
 	# export PF_UNET, pipe2(), etc
