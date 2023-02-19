@@ -5,6 +5,7 @@ DEF[YEAR]=		2022
 
 NAMEBASE=		sqlite
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		databases
 VARIANTS=		standard editline
 # variants only affect sqlite binary (history not linked to library)
@@ -19,14 +20,14 @@ SITES[main]=		https://www.sqlite.org/${YEAR}/
 			http://www3.sqlite.org/${YEAR}/
 DISTFILE[1]=		sqlite-autoconf-${LONGVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
-SPKGS[editline]=	single
+SPKGS[standard]=	complete primary dev man
+SPKGS[editline]=	complete primary dev man
 
 OPTIONS_AVAILABLE=	SKIP_READLINE EDITLINE
 OPTIONS_STANDARD=	none
 VOPTS[editline]=	SKIP_READLINE=ON EDITLINE=ON
 
-LICENSE=		PUBDOM:single
+LICENSE=		PUBDOM:primary
 LICENSE_FILE=		PUBDOM:{{WRKDIR}}/LICENSE
 LICENSE_AWK=		PUBDOM:"\*\*\*\*\*"
 LICENSE_SOURCE=		PUBDOM:{{WRKSRC}}/sqlite3.h
