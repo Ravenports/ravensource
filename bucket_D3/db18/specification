@@ -6,6 +6,7 @@ DEF[DBLIBS]=		libdb libdb_cxx libdb_stl
 
 NAMEBASE=		db18
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		databases java
 VARIANTS=		standard
 SDESC[standard]=	Oracle Berkeley DB, revision 18
@@ -18,22 +19,24 @@ SITES[main]=		https://fossies.org/linux/misc/
 DISTFILE[1]=		db-${PORTVERSION}.tar.gz:main
 DIST_SUBDIR=		bdb
 
-SPKGS[standard]=	complete shared static docs
+SPKGS[standard]=	complete primary dev tools docs
 
 OPTIONS_AVAILABLE=	CRYPTO TCL
 OPTIONS_STANDARD=	CRYPTO TCL
 OPT_ON[all]=		CRYPTO
 
-LICENSE=		AGPLv3:shared
+LICENSE=		AGPLv3:primary
 LICENSE_FILE=		AGPLv3:stock
-LICENSE_TERMS=		shared:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^ \*$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		databases/db18
 
-USES=			cpe gmake libtool c++:shared
+EXRUN[tools]=		db18:primary:standard
+
+USES=			cpe gmake libtool c++:primary
 CPE_VENDOR=		oracle
 CPE_PRODUCT=		berkeley_db
 DISTNAME=		db-${PORTVERSION}
