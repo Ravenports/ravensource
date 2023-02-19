@@ -4,6 +4,7 @@ DEF[SOVERSION]=		6.0.0
 
 NAMEBASE=		tiff
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	TIFF image format library and tools
@@ -14,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://download.osgeo.org/libtiff/
 DISTFILE[1]=		tiff-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary tools dev docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -26,6 +27,10 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		graphics/tiff
 
 BUILDRUN_DEPENDS=	jbigkit:single:standard
+
+EXRUN[dev]=		zstd:dev:standard
+			xz:dev:standard
+EXRUN[tools]=		tiff:primary:standard
 
 USES=			cpe jpeg c++:primary zlib cmake zstd xz
 CPE_PRODUCT=		libtiff
