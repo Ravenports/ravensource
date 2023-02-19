@@ -6,7 +6,7 @@ DEF[DBLIBS]=		libdb libdb_cxx libdb_sql
 
 NAMEBASE=		db5
 VERSION=		${PORTVERSION}
-REVISION=		3
+REVISION=		4
 KEYWORDS=		databases java
 VARIANTS=		standard
 SDESC[standard]=	Oracle Berkeley DB, revision 5
@@ -18,20 +18,22 @@ SITES[main]=		https://download.oracle.com/berkeley-db/
 DISTFILE[1]=		db-${PORTVERSION}.tar.gz:main
 DIST_SUBDIR=		bdb
 
-SPKGS[standard]=	complete shared static docs
+SPKGS[standard]=	complete primary dev tools docs
 
 OPTIONS_AVAILABLE=	CRYPTO TCL
 OPTIONS_STANDARD=	CRYPTO TCL
 OPT_ON[all]=		CRYPTO
 
-LICENSE=		CUSTOM1:shared
+LICENSE=		CUSTOM1:primary
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE
 LICENSE_NAME=		CUSTOM1:"Sleepycat License"
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		databases/db5
 
-USES=			cpe gmake libtool c++:shared fbsd10fix
+EXRUN[tools]=		db5:primary:standard
+
+USES=			cpe gmake libtool c++:primary fbsd10fix
 CPE_VENDOR=		oracle
 CPE_PRODUCT=		berkeley_db
 DISTNAME=		db-${PORTVERSION}
