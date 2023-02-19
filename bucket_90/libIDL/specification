@@ -4,6 +4,7 @@ DEF[SOVERSION]=		0.0.0
 
 NAMEBASE=		libIDL
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Library for creating trees of CORBA IDL files
@@ -14,25 +15,26 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://ftp.gnome.org/pub/GNOME/sources/libIDL/${PORTVERSION:R}/
 DISTFILE[1]=		libIDL-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL21+:single
+LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/libIDL/IDL.h
 LICENSE_AWK=		TERMS:"ifndef __IDL_H"
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libIDL
 
-USES=			bison gmake libtool:keepla pkgconfig fbsd10fix
+USES=			bison gmake libtool pkgconfig fbsd10fix
 GNOME_COMPONENTS=	glib
 
 INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
 INSTALL_REQ_TOOLCHAIN=	yes
+INFO=			primary:libIDL2
 
 SOVERSION=		${SOVERSION}
