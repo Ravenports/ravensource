@@ -67,6 +67,7 @@ USERGROUP_SPKG=		server
 
 USES=			bison gmake perl:build tcl:build ssl python:build zlib
 			gettext cpe
+GNOME_COMPONENTS=	libxml2
 CPE_VENDOR=		postgresql
 CPE_PRODUCT=		postgresql
 DISTNAME=		postgresql-${PORTVERSION}
@@ -118,7 +119,7 @@ post-patch-sunos:
 		${WRKSRC}/src/makefiles/Makefile.solaris
 
 post-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/periodic/daily
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/periodic/daily
 	${INSTALL_SCRIPT} ${WRKDIR}/502.pgsql \
 		${STAGEDIR}${PREFIX}/etc/periodic/daily
 	# install-world doesn't strip (and install-strip won't install enough)
