@@ -42,3 +42,7 @@ BUILD_DEPENDS=		protobuf:single:standard
 
 post-patch:
 	${MKDIR} ${WRKSRC}/google/protobuf/compiler/
+
+post-install:
+	${SED} -i'' -e 's|/usr/bin/env python|${PYTHON_CMD}|'\
+	${STAGEDIR}${PYTHON_SITELIBDIR}/google/protobuf/internal/_parameterized.py
