@@ -9,7 +9,7 @@ KEYWORDS=		databases
 VARIANTS=		standard
 SDESC[standard]=	Fast key-value storage library
 HOMEPAGE=		https://github.com/google/leveldb
-CONTACT=		Leonid_Bobrov[goleo@disroot.org]
+CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/google:leveldb:${PORTVERSION}
@@ -26,9 +26,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		databases/leveldb
 
-USES=			c++:primary cmake
+USES=			c++:primary cmake sqlite
 BUILDRUN_DEPENDS=	snappy:single:standard
-			sqlite:single:standard
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
 			-DLEVELDB_BUILD_BENCHMARKS:BOOL=OFF
 			-DLEVELDB_BUILD_TESTS:BOOL=OFF

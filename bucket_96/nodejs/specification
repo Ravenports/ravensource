@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	19.5.0
+DEF[PORTVERSION]=	19.6.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		nodejs
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://nodejs.org/dist/v${PORTVERSION}/
 DISTFILE[1]=		node-v${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -26,9 +26,10 @@ FPC_EQUIVALENT=		www/node
 
 BROKEN[sunos]=		The ld.sun linker does not support required options
 
+BUILD_DEPENDS=		libnghttp2:dev:standard
 BUILDRUN_DEPENDS=	icu:single:standard
 			libuv:single:standard
-			libnghttp2:single:standard
+			libnghttp2:primary:standard
 
 USES=			execinfo gmake python:build pkgconfig shebangfix
 			cpe zlib

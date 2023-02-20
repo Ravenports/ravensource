@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.1.1s
+DEF[PORTVERSION]=	1.1.1t
 DEF[SOVERSION]=		1.1
 DEF[NAMEBASE]=		openssl11
 DEF[BASE]=		{{PREFIX}}/${NAMEBASE}
@@ -6,7 +6,6 @@ DEF[BASE]=		{{PREFIX}}/${NAMEBASE}
 
 NAMEBASE=		${NAMEBASE}
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		security devel
 VARIANTS=		standard
 SDESC[standard]=	SSL and crypto library
@@ -17,15 +16,15 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.openssl.org/source/
 DISTFILE[1]=		openssl-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man
 
-OPTIONS_AVAILABLE=	SKIP_MANPAGES ASM EC SHARED SSE2 SSL3 I386 THREADS ZLIB
-OPTIONS_STANDARD=	SKIP_MANPAGES ASM EC SHARED SSE2 SSL3 I386 THREADS ZLIB
-OPT_ON[all]=		SHARED SSE2 THREADS
+OPTIONS_AVAILABLE=	ASM EC SSE2 SSL3 I386 THREADS ZLIB
+OPTIONS_STANDARD=	ASM EC SSE2 SSL3 I386 THREADS ZLIB
+OPT_ON[all]=		SSE2 THREADS
 OPT_ON[x86_64]=		ASM EC
 OPT_ON[i386]=		I386
 
-LICENSE=		OpenSSL:single
+LICENSE=		OpenSSL:primary
 LICENSE_FILE=		OpenSSL:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
@@ -58,15 +57,10 @@ PLIST_SUB=		BASE=${NAMEBASE}
 
 VAR_OPSYS[sunos]=	CONFIGURE_ARGS=-lrt
 
-[SKIP_MANPAGES].DESCRIPTION=		Avoid installing OpenSSL section 3 manpages
-
 [ASM].CONFIGURE_ARGS_OFF=		no-asm
 
 [EC].DESCRIPTION=			Optimize NIST elliptic curves
 [EC].CONFIGURE_ARGS_ON=			enable-ec_nistp_64_gcc_128
-
-[SHARED].DESCRIPTION=			Build shared libs
-[SHARED].CONFIGURE_ARGS_OFF=		no-shared
 
 [SSE2].DESCRIPTION=			Runtime SSE2 detection
 [SSE2].CONFIGURE_ARGS_OFF=		no-sse2
@@ -88,28 +82,16 @@ post-patch:
 		-e 's| install_html_docs$$||' \
 		${WRKSRC}/Configurations/unix-Makefile.tmpl
 
-post-patch-SKIP_MANPAGES-ON:
-	${REINPLACE_CMD} -e 's|\[ 1, 3, 5, 7 \]|[ 1, 5, 7 ]|' \
-		-e 's|man1:man3:man5:man7|man1:man5:man7|' \
-		${WRKSRC}/util/process_docs.pl
-
-post-install-SHARED-ON:
-.for i in libcrypto libssl
-	${STRIP_CMD} ${STAGEDIR}${BASE}/lib/lib*.${LIBEXT}
-.endfor
-.for i in capi padlock
-	${STRIP_CMD} ${STAGEDIR}${BASE}/lib/engines-*/${i}.${LIBEXT}
-.endfor
-
-post-install-SHARED-OFF:
-	${RMDIR} ${STAGEDIR}${BASE}/lib/engines-*
-
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${BASE}/bin/openssl
 	${RM} ${STAGEDIR}${PREFIX}/etc/${NAMEBASE}/openssl.cnf
 	${RM} ${STAGEDIR}${PREFIX}/etc/${NAMEBASE}/ct_log_list.cnf
 
-post-install-SKIP_MANPAGES-OFF:
+	# Handle man pages
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/man.d
 	${ECHO_CMD} "MANPATH ${PREFIX}/${NAMEBASE}/share/man" \
 		>> ${STAGEDIR}${PREFIX}/etc/man.d/${NAMEBASE}.conf
+
+	# strip
+	${STRIP_CMD} ${STAGEDIR}${BASE}/lib/lib*.so
+	${STRIP_CMD} ${STAGEDIR}${BASE}/lib/engines-1.1/*.so

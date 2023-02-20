@@ -1,5 +1,5 @@
 DEF[VERSION]=		7.1.0
-DEF[PORTVERSION]=	${VERSION}-61
+DEF[PORTVERSION]=	${VERSION}-62
 DEF[RELEASE_TAG]=	${PORTVERSION}
 DEF[SOVERSION]=		10.0.0
 # ----------------------------------------------------------------------------
@@ -36,6 +36,7 @@ LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		libde265:dev:standard
 			x265:dev:standard
+			libheif:dev:standard
 BUILDRUN_DEPENDS=	libltdl:single:standard
 			freetype:primary:standard
 			fftw:single:standard
@@ -47,7 +48,7 @@ BUILDRUN_DEPENDS=	libltdl:single:standard
 			lcms2:primary:standard
 			liblqr:primary:standard
 			libwmf:single:standard
-			libheif:single:standard
+			libheif:primary:standard
 			libraw:primary:standard
 			libraqm:primary:standard
 			openexr:primary:standard
@@ -95,8 +96,7 @@ VAR_OPSYS[netbsd]=	CONFIGURE_ENV=ac_cv_lib_dl_dlopen=no
 
 [X11].DESCRIPTION=			Variant with X support
 [X11].BUILDRUN_DEPENDS_ON=		ghostscript:x11:standard
-					librsvg:primary:standard
-[X11].GNOME_COMPONENTS_ON=		pango cairo gdkpixbuf
+[X11].GNOME_COMPONENTS_ON=		pango cairo gdkpixbuf librsvg
 [X11].XORG_COMPONENTS_ON=		sm ice x11 xext xt
 [X11].CONFIGURE_WITH_BOTH=		rsvg x
 [X11].CONFIGURE_ARGS_OFF=		--without-pango

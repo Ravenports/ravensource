@@ -11,7 +11,7 @@ DEF[SO_SCALE]=		6.7.100
 
 NAMEBASE=		ffmpeg
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		multimedia audio net
 VARIANTS=		standard
 SDESC[standard]=	Play, record, convert, and stream audio and video
@@ -35,12 +35,15 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		multimedia/ffmpeg
 
-BUILD_DEPENDS=		nasm:primary:standard
+BUILD_DEPENDS=		libdrm:dev:standard
 			libgpg-error:dev:standard
-			gmp:static:standard
-			x265:dev:standard
-			harfbuzz:dev:standard
+			libvpx:dev:standard
 			gettext:solinks:standard
+			gmp:static:standard
+			gnutls:dev:standard
+			harfbuzz:dev:standard
+			nasm:primary:standard
+			x265:dev:standard
 BUILDRUN_DEPENDS=	gmp:shared:standard
 			libass:single:standard
 			freetype:primary:standard
@@ -54,9 +57,8 @@ BUILDRUN_DEPENDS=	gmp:shared:standard
 			libva:single:standard
 			libvdpau:single:standard
 			libvorbis:primary:standard
-			libvpx:single:standard
-			libdrm:single:standard
-			librsvg:primary:standard
+			libvpx:primary:standard
+			libdrm:primary:standard
 			WebP:single:standard
 			x264:library:standard
 			x265:primary:standard
@@ -68,7 +70,7 @@ RC_SUBR=		ffserver:primary
 
 USES=			cpe gmake iconv zlib perl:build fontconfig pkgconfig
 			gettext:build shebangfix
-GNOME_COMPONENTS=	libxml2
+GNOME_COMPONENTS=	libxml2 librsvg
 SDL_COMPONENTS=		sdl2
 MUST_CONFIGURE=		yes
 SHEBANG_FILES=		doc/texi2pod.pl

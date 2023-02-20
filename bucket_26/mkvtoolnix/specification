@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	73.0.0
+DEF[PORTVERSION]=	74.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mkvtoolnix
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://mkvtoolnix.download/sources/
 DISTFILE[1]=		mkvtoolnix-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[standard]=	complete primary man nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -22,12 +22,11 @@ FPC_EQUIVALENT=		multimedia/mkvtoolnix
 
 BUILD_DEPENDS=		docbook-xsl:primary:standard
 			ruby-rake:single:ruby_default
-			libxslt:single:standard
+			libxslt:primary:standard
 			po4a:primary:standard
 			qt5-qtbase:primary:standard
 			gmp:static:standard
 BUILDRUN_DEPENDS=	libmatroska:single:standard
-			pcre2:primary:standard
 			libvorbis:primary:standard
 			libogg:primary:standard
 			flac:primary:standard
@@ -43,7 +42,7 @@ BUILDRUN_DEPENDS=	libmatroska:single:standard
 # Another example of g++ ICE, use clang to build on FreeBSD
 C_USES[freebsd]=	clang
 
-USES=			zlib pkgconfig gettext iconv:build
+USES=			zlib pkgconfig gettext pcre2 iconv:build
 			solaris-funcs mime-info:primary desktop-utils:primary
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--prefix="{{PREFIX}}"

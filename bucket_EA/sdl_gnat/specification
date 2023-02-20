@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	2013
 
 NAMEBASE=		sdl_gnat
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Ada thin bindings for SDL (GPLv3)
@@ -22,9 +22,9 @@ OPTIONS_STANDARD=	none
 FPC_EQUIVALENT=		devel/sdl_gnat
 
 BUILD_DEPENDS=		libglvnd:single:standard
-			sdl1_ttf:single:standard
 
 USES=			gprbuild
+SDL_COMPONENTS=		ttf1
 
 post-patch:
 	${REINPLACE_CMD} -e 's|@PREFIX@|${LOCALBASE}|' \

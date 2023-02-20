@@ -12,7 +12,7 @@ DEF[SO_SCALE]=		5.9.100
 
 NAMEBASE=		ffmpeg4
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		multimedia audio net
 VARIANTS=		standard
 SDESC[standard]=	Legacy stream audio and video library
@@ -36,12 +36,15 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		multimedia/ffmpeg
 
-BUILD_DEPENDS=		nasm:primary:standard
-			libgpg-error:dev:standard
+BUILD_DEPENDS=		gettext:solinks:standard
 			gmp:static:standard
-			x265:dev:standard
+			gnutls:dev:standard
 			harfbuzz:dev:standard
-			gettext:solinks:standard
+			libdrm:dev:standard
+			libgpg-error:dev:standard
+			libvpx:dev:standard
+			nasm:primary:standard
+			x265:dev:standard
 BUILDRUN_DEPENDS=	gmp:shared:standard
 			libass:single:standard
 			freetype:primary:standard
@@ -55,9 +58,8 @@ BUILDRUN_DEPENDS=	gmp:shared:standard
 			libva:single:standard
 			libvdpau:single:standard
 			libvorbis:primary:standard
-			libvpx:single:standard
-			libdrm:single:standard
-			librsvg:primary:standard
+			libvpx:primary:standard
+			libdrm:primary:standard
 			WebP:single:standard
 			x264:library:standard
 			x265:primary:standard
@@ -71,7 +73,7 @@ USES=			cpe gmake iconv zlib perl:build fontconfig
 			pkgconfig shebangfix gettext:build
 CPE_VENDOR=		ffmpeg
 CPE_PRODUCT=		ffmpeg
-GNOME_COMPONENTS=	libxml2
+GNOME_COMPONENTS=	libxml2 librsvg
 SDL_COMPONENTS=		sdl2
 MUST_CONFIGURE=		yes
 SHEBANG_FILES=		doc/texi2pod.pl

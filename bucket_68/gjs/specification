@@ -4,6 +4,7 @@ DEF[SOVERSION]=		0.0.0
 
 NAMEBASE=		gjs
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		lang
 VARIANTS=		standard
 SDESC[standard]=	Javascript bindings for GNOME
@@ -30,12 +31,12 @@ LICENSE_SCHEME=		multi
 FPC_EQUIVALENT=		lang/gjs
 
 BUILD_DEPENDS=		dbus:dev:standard
+			spidermonkey:dev:standard
 BUILDRUN_DEPENDS=	dbus:primary:standard
-			gobject-introspection:single:standard
-			spidermonkey:single:standard
+			spidermonkey:primary:standard
 
 USES=			meson pkgconfig
-GNOME_COMPONENTS=	cairo glib
+GNOME_COMPONENTS=	cairo glib introspection
 
 MESON_ARGS=		-Dcairo=enabled
 			-Dreadline=enabled

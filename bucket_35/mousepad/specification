@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	0.5.10
+DEF[PORTVERSION]=	0.6.0
 DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mousepad
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		editors
 VARIANTS=		standard
 SDESC[standard]=	Simple text editor for the Xfce DE
@@ -29,13 +28,12 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		editors/mousepad
 
-BUILDRUN_DEPENDS=	gtksourceview3:primary:standard
-			xfconf:primary:standard
+BUILDRUN_DEPENDS=	xfconf:primary:standard
 			harfbuzz:dev:standard
 
 USES=			desktop-utils:primary schemas:primary
 			gmake libtool fontconfig:build pkgconfig
-GNOME_COMPONENTS=	glib intltool gtk3
+GNOME_COMPONENTS=	glib intltool gtk3 gtksourceview3
 
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-gtk3

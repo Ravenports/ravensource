@@ -5,6 +5,7 @@ DEF[WXCONFIG]=		/bin/wx-config
 
 NAMEBASE=		veracrypt
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Strong disk encryption based on TrueCrypt
@@ -35,7 +36,8 @@ FPC_EQUIVALENT=		security/veracrypt
 
 ONLY_FOR_OPSYS=		freebsd linux sunos
 
-BUILD_DEPENDS=		yasm:single:standard
+BUILD_DEPENDS=		wxWidgets:dev:standard
+			yasm:single:standard
 BUILDRUN_DEPENDS=	fuse2:single:standard
 			wxWidgets:primary:standard
 RUN_DEPENDS=		sudo:primary:standard

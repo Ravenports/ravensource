@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	2.4.2
 
 NAMEBASE=		cups
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		print
 VARIANTS=		standard
 SDESC[standard]=	Common UNIX Printing System
@@ -33,11 +33,12 @@ GROUPS=			cups
 USERS=			cups
 USERGROUP_SPKG=		primary
 
-BUILD_DEPENDS=		libpaper:dev:standard
-			dbus:dev:standard
-BUILDRUN_DEPENDS=	gnutls:primary:standard
+BUILD_DEPENDS=		dbus:dev:standard
+			gnutls:dev:standard
+			libpaper:dev:standard
+BUILDRUN_DEPENDS=	dbus:primary:standard
+			gnutls:primary:standard
 			libpaper:primary:standard
-			dbus:primary:standard
 
 USES=			cpe gmake iconv pkgconfig
 CPE_VENDOR=		apple

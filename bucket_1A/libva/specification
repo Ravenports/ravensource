@@ -4,6 +4,7 @@ DEF[SOVERSION]=		2.1700.0
 
 NAMEBASE=		libva
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		standard
 SDESC[standard]=	VAAPI wrapper and dummy driver
@@ -25,7 +26,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		multimedia/libva
 
-BUILDRUN_DEPENDS=	libdrm:single:standard
+BUILD_DEPENDS=		libdrm:dev:standard
+BUILDRUN_DEPENDS=	libdrm:primary:standard
 			libglvnd:single:standard
 
 USES=			gmake meson pkgconfig solaris-funcs

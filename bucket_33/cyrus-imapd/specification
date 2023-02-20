@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.6.0
+DEF[PORTVERSION]=	3.6.1
 DEF[SOVERSION]=		0.0.0
 DEF[CYRUS_USER]=	cyrus
 DEF[CYRUS_GROUP]=	cyrus
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/cyrusimap/cyrus-imapd/releases/download/cyrus-imapd-${PORTVERSION}/
 DISTFILE[1]=		cyrus-imapd-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary docs examples
+SPKGS[standard]=	complete primary dev man docs examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,13 +30,14 @@ LICENSE_SCHEME=		solo
 SOVERSION=		${SOVERSION}
 
 BUILD_DEPENDS=		xapian-core:dev:standard
+			libnghttp2:dev:standard
 BUILDRUN_DEPENDS=	cyrus-sasl:primary:standard
 			icu:single:standard
 			jansson:single:standard
 			xapian-core:primary:standard
 			rsync:single:standard
 			krb5:primary:standard
-			libnghttp2:single:standard
+			libnghttp2:primary:standard
 			libical:single:standard
 			brotli:single:standard
 

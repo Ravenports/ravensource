@@ -1,10 +1,10 @@
 DEF[PORTVERSION]=	1.16.0
-DEF[LIBVER]=		2.11600.0
+DEF[SOVERSION]=		2.11600.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		cairo
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Vector graphics library with cross-device support
@@ -15,22 +15,25 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://cairographics.org/releases/
 DISTFILE[1]=		cairo-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		CUSTOM1:single LGPL21:single
+LICENSE=		CUSTOM1:primary LGPL21:primary
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/COPYING-MPL-1.1
 			LGPL21:{{WRKSRC}}/COPYING-LGPL-2.1
 LICENSE_NAME=		CUSTOM1:"Mozilla Public License (MPL) version 1.1"
-LICENSE_TERMS=		single:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		graphics/cairo
 
 BUILD_DEPENDS=		libatomic_ops:single:standard
 BUILDRUN_DEPENDS=	libglvnd:single:standard
+
+EXRUN[dev]=		fontconfig:dev:standard
+			png:dev:standard
 
 USES=			cpe libtool fontconfig pkgconfig png
 MUST_CONFIGURE=		gnu
@@ -51,7 +54,7 @@ XORG_COMPONENTS=	pixman x11 xext xrender xcb-render-util
 GNOME_COMPONENTS=	glib
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
-PLIST_SUB=		LIBVER=${LIBVER}
+SOVERSION=		${SOVERSION}
 
 VAR_OPSYS[sunos]=	CFLAGS=-D_XOPEN_SOURCE=600
 VAR_OPSYS[netbsd]=	CONFIGURE_ENV=ac_cv_lib_dl_dlsym=false

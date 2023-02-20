@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.0.1
 
 NAMEBASE=		wget2
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net ftp www
 VARIANTS=		standard
 SDESC[standard]=	File retrieval tool using HTTP, HTTPS, and FTP
@@ -21,18 +22,19 @@ OPTIONS_STANDARD=	none
 FPC_EQUIVALENT=		www/wget2
 
 BUILD_DEPENDS=		doxygen:single:standard
-BUILDRUN_DEPENDS=	pcre2:primary:standard
-			libidn2:primary:standard
-			brotli:single:standard
-			lzip:single:standard
+			gnutls:dev:standard
+			libnghttp2:dev:standard
+BUILDRUN_DEPENDS=	brotli:single:standard
 			gnutls:primary:standard
-			libpsl:single:standard
-			libnghttp2:single:standard
 			gpgme:primary:standard
+			libidn2:primary:standard
+			libnghttp2:primary:standard
+			libpsl:single:standard
+			lzip:single:standard
 RUN_DEPENDS=		nss:caroot:standard
 
 USES=			cpe gmake pkgconfig iconv libtool makeinfo
-			python:build gettext zstd bz2 zlib xz
+			python:build gettext zstd bz2 zlib xz pcre2
 CPE_VENDOR=		gnu
 CPE_PRODUCT=		wget
 MUST_CONFIGURE=		gnu

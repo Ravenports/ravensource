@@ -7,6 +7,7 @@ DEF[DIST_VERSION]=	${READLINE_VERSION}
 
 NAMEBASE=		readline
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Library for editing command lines during typing
@@ -20,14 +21,14 @@ DISTFILE[1]=		readline-${DIST_VERSION}.tar.gz:main
 DISTFILE[2]=		readline${DIST_VERSION:S/.//}-001:patches
 # DISTFILE[3]=		readline${DIST_VERSION:S/.//}-002:patches
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man examples docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv3+:single
+LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"_READLINE_H_"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/readline.h
 LICENSE_SCHEME=		solo
@@ -40,15 +41,19 @@ PATCHFILES=		${PATCH_DIST}
 CPE_VENDOR=		gnu
 CPE_VERSION=		${DIST_VERSION}
 CPE_UPDATE=		${PATCHLEVEL}
-INFO=			single:history
-			single:readline
-			single:rluserman
+INFO=			dev:history
+			dev:readline
+			dev:rluserman
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-curses
 CFLAGS=			-I{{NCURSESINC}}
 SOVERSION=		${READLINE_VERSION}
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libhistory.${LIBEXT} \
-		${STAGEDIR}${PREFIX}/lib/libreadline.${LIBEXT}
-	${RM} -r ${STAGEDIR}${STD_DOCDIR}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libhistory.so \
+		${STAGEDIR}${PREFIX}/lib/libreadline.so
+
+	# relocate examples
+	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+	${MV} ${STAGEDIR}${PREFIX}/share/readline/* ${STAGEDIR}${STD_EXAMPLESDIR}/
+	${RMDIR} ${STAGEDIR}${PREFIX}/share/readline

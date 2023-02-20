@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.74.0
 
 NAMEBASE=		gobject-introspection
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Introspection data generator for GObject libraries
@@ -14,14 +15,14 @@ SITES[main]=		GNOME/gobject-introspection/${PORTVERSION:R}
 DISTFILE[1]=		gobject-introspection-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome3
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man
 
 OPTIONS_AVAILABLE=	CAIRO
 OPTIONS_STANDARD=	CAIRO
 OPT_ON[all]=		CAIRO
 
-LICENSE=		GPLv2+:single LGPL21+:single
-LICENSE_TERMS=		single:{{WRKSRC}}/COPYING
+LICENSE=		GPLv2+:primary LGPL21+:primary
+LICENSE_TERMS=		primary:{{WRKSRC}}/COPYING
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING.GPL
 			LGPL21+:{{WRKSRC}}/COPYING.LGPL
 LICENSE_SCHEME=		multi
@@ -37,7 +38,7 @@ MESON_ARGS=		-Dpython={{PYTHON_CMD}}
 INSTALL_TARGET=		install-strip
 
 [CAIRO].DESCRIPTION=			Include cairo for tests
-[CAIRO].BUILD_DEPENDS_ON=		cairo:single:standard
+[CAIRO].GNOME_COMPONENTS_ON=		cairo
 [CAIRO].CONFIGURE_ARGS_OFF=		-Dcairo=disabled
 
 pre-configure:

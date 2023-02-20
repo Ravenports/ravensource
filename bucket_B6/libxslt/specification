@@ -2,6 +2,7 @@ DEF[PORTVERSION]=	EXTRACT_INFO(LIBXSLT_VERSION)
 DEF[PORTREVISION]=	EXTRACT_INFO(LIBXSLT_REVISION)
 DEF[EXSLTVERSION]=	0.8.20
 DEF[FOLDER]=		${PORTVERSION:R}
+DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libxslt
@@ -17,12 +18,12 @@ SITES[main]=		GNOME/libxslt/${FOLDER}
 DISTFILE[1]=		libxslt-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome2
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
@@ -42,8 +43,9 @@ CONFIGURE_ARGS=		--with-html-dir={{PREFIX}}/share/doc
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
 CPE_VENDOR=		xmlsoft
-PLIST_SUB=		XSLTVERSION=${PORTVERSION}
-			EXSLTVERSION=${EXSLTVERSION}
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		EXSLTSOVERSION=${EXSLTVERSION}
+			EXSLTSOMAJOR=${EXSLTVERSION:R:R}
 
 post-install:
 	# docs are disabled via patch

@@ -1,6 +1,6 @@
 Index: lib/libcyr_cfg.c
 diff -u -p lib/libcyr_cfg.c.orig lib/libcyr_cfg.c
---- lib/libcyr_cfg.c.orig	2022-11-02 02:18:02 UTC
+--- lib/libcyr_cfg.c.orig	2023-02-10 03:31:17 UTC
 +++ lib/libcyr_cfg.c
 @@ -52,7 +52,7 @@
  #include "xmalloc.h"
