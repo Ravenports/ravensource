@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.3.3
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-n2g
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 v11
+SDESC[py310]=		Need To Graph (3.10)
+SDESC[v11]=		Need To Graph (3.11)
+HOMEPAGE=		https://github.com/dmulyalin/N2G
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/59/7a/4213c9c5efdc5f4f85b73819128108186ec1d1b8252bf85087608b331f6d
+DISTFILE[1]=		N2G-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[v11]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[v11]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		N2G-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+
+
+[PY310].USES_ON=			python:py310,wheel
+[PY311].USES_ON=			python:v11,wheel
+
