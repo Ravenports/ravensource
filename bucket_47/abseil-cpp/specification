@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	20230125.1
+DEF[RELEASE]=		${PORTVERSION}
+DEF[SOVERSION]=		2301.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		abseil-cpp
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Abseil C++ Common Libraries
+HOMEPAGE=		https://abseil.io/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/abseil:abseil-cpp:${RELEASE}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/abseil
+
+LICENSE=		APACHE20:primary
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/absl/algorithm/algorithm.h
+LICENSE_AWK=		TERMS:"^\/\/ File"
+LICENSE_SCHEME=		solo
+
+USES=			cmake c++:primary
+CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
+			-DCMAKE_CXX_STANDARD=17
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
