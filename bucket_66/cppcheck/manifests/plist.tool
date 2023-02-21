@@ -75,4 +75,3 @@ share/Cppcheck/platforms/pic8-enhanced.xml
 share/Cppcheck/platforms/pic8.xml
 share/Cppcheck/platforms/unix32-unsigned.xml
 share/Cppcheck/platforms/unix64-unsigned.xml
-share/man/man1/cppcheck.1.gz
