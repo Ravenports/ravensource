@@ -1,4 +1,4 @@
---- makefile.orig	2022-10-24 15:36:02 UTC
+--- makefile.orig	2023-02-06 10:31:30 UTC
 +++ makefile
 @@ -2,14 +2,13 @@
  # Makefile for UNIX - unrar
@@ -39,14 +39,14 @@
  all:	unrar
  
  install:	install-unrar
-@@ -153,12 +159,10 @@ sfx:	clean $(OBJECTS)
+@@ -156,12 +162,10 @@ sfx:	$(OBJECTS)
  	$(LINK) -o default.sfx $(LDFLAGS) $(OBJECTS)
  	$(STRIP) default.sfx
  
 -lib:	WHAT=RARDLL
 -lib:	CXXFLAGS+=$(LIBFLAGS)
--lib:	clean $(OBJECTS) $(LIB_OBJ)
-+lib: $(SOBJECTS)
+-lib:	$(OBJECTS) $(LIB_OBJ)
++lib:	$(SOBJECTS)
  	@rm -f libunrar.*
 -	$(LINK) -shared -o libunrar.so $(LDFLAGS) $(OBJECTS) $(LIB_OBJ)
 -	$(AR) rcs libunrar.a $(OBJECTS) $(LIB_OBJ)

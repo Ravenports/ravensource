@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.2.5
+DEF[PORTVERSION]=	6.2.6
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		unrar
@@ -13,12 +13,12 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.rarlab.com/rar/
 DISTFILE[1]=		unrarsrc-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		CUSTOM1:single
+LICENSE=		CUSTOM1:primary
 LICENSE_NAME=		CUSTOM1:"unRAR License"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/license.txt
 LICENSE_SCHEME=		solo
@@ -27,7 +27,7 @@ LICENSE_SCHEME=		solo
 # updated: freebsd uses fake version (5.50 rather than 5.5.8)
 # FPC_EQUIVALENT=		archivers/unrar
 
-USES=			cpe ssl:openssl10 c++:single
+USES=			cpe ssl:openssl10 c++:primary
 CPE_VENDOR=		rarlab
 BUILD_TARGET=		unrar lib
 MAKEFILE=		makefile
