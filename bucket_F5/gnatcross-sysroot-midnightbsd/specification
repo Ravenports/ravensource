@@ -54,4 +54,6 @@ do-install:
 	${MV} ${WRKDIR}/gnatcross-sys*/usr/include ${STAGEDIR}${PREFIX}/sysroot/usr
 	${MV} ${WRKDIR}/gnatcross-sys*/usr/lib ${STAGEDIR}${PREFIX}/sysroot/usr
 	${ECHO_CMD} ${CTARGET} > ${STAGEDIR}${PREFIX}/sysroot/target_triplet
-	(cd ${STAGEDIR}${PREFIX}; ${FIND} sysroot -type d -empty -delete)
+	(cd ${STAGEDIR}${PREFIX}; ${FIND} sysroot -type d -empty -delete && \
+		${FIND} sysroot -name '*_p.a' -delete && \
+		${FIND} sysroot -name 'libexecinfo*' -delete)
