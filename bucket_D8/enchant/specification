@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.3.3
+DEF[PORTVERSION]=	2.3.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		enchant
@@ -15,20 +15,22 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/AbiWord/enchant/releases/download/v${PORTVERSION}/
 DISTFILE[1]=		enchant-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL21+:single
+LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING.LIB
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/enchant.h
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		textproc/enchant
 
+BUILD_DEPENDS=		groff:primary:standard
+			mandoc:single:standard
 BUILDRUN_DEPENDS=	hunspell:single:standard
 			aspell:primary:standard
 
@@ -46,3 +48,4 @@ CONFIGURE_ARGS=		--with-hspell=no
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${PORTVERSION}
+SINGLE_JOB=		yes
