@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.67.0
+DEF[PORTVERSION]=	1.67.1
 DEF[RUSTX_BOOT]=	1.66.1
 DEF[CURL_VERSION]=	7.87.0
 # ----------------------------------------------------------------------------
@@ -61,6 +61,10 @@ BUILD_DEPENDS=		bash:primary:standard
 			cmake:primary:standard
 			ncurses:primary:standard
 			nss:caroot:standard
+
+# Rust calls -lexecinfo during linking although it doesn't appear in final binary
+# The dev package has the solink to make this happen, so it's a run dependency
+RUN_DEPENDS=		libexecinfo:dev:standard
 
 # required for rust linking (also pulls in c++ and gcc-libs so
 # USES=c++:single is redundant

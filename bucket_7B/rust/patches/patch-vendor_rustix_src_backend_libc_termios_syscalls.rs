@@ -10,7 +10,7 @@ porting to new OS's.
 
 Fixes #467.
 
---- vendor/rustix/src/backend/libc/termios/syscalls.rs.orig	2023-01-25 01:49:17 UTC
+--- vendor/rustix/src/backend/libc/termios/syscalls.rs.orig	2023-02-07 09:07:51 UTC
 +++ vendor/rustix/src/backend/libc/termios/syscalls.rs
 @@ -10,11 +10,11 @@ use crate::fd::BorrowedFd;
  #[cfg(feature = "procfs")]
