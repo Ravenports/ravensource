@@ -43,12 +43,6 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		print/texlive-base
 
 EXTRACT_ONLY=		1 2
-USES=			cpe gmake libtool perl png shebangfix zlib readline:build
-XORG_COMPONENTS=	pixman x11 xaw
-GNOME_COMPONENTS=	cairo
-CPE_VENDOR=		tug
-CPE_PRODUCT=		texlive
-
 EXRUN[primary]=		texlive-bin:tlmgr:standard
 EXRUN[bibtex]=		texlive-bin:primary:standard
 EXRUN[engine_hitex]=	texlive-bin:primary:standard
@@ -65,8 +59,7 @@ BUILD_DEPENDS=		gmp:static:standard
 			harfbuzz:dev:standard
 			libpaper:dev:standard
 			poppler:dev:standard
-BUILDRUN_DEPENDS=	freetype:primary:standard
-			gmp:shared:standard
+BUILDRUN_DEPENDS=	gmp:shared:standard
 			graphite:single:standard
 			harfbuzz:icu:standard
 			icu:single:standard
@@ -78,6 +71,13 @@ BUILDRUN_DEPENDS=	freetype:primary:standard
 RUN_DEPENDS=		libffcall:single:standard
 			libsigsegv:shared:standard
 			texlive-texmf:primary:standard
+
+USES=			cpe gmake libtool perl png shebangfix zlib readline:build
+			freetype
+XORG_COMPONENTS=	pixman x11 xaw
+GNOME_COMPONENTS=	cairo
+CPE_VENDOR=		tug
+CPE_PRODUCT=		texlive
 
 INSTALL_REQ_TOOLCHAIN=	yes
 DISTNAME=		texlive-${PORTVERSION}-source

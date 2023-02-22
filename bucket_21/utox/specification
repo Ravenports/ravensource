@@ -30,7 +30,6 @@ BUILD_DEPENDS=		check:single:standard
 			dbus:dev:standard
 			libvpx:dev:standard
 BUILDRUN_DEPENDS=	dbus:primary:standard
-			freetype:primary:standard
 			openal:primary:standard
 			toxcore:single:standard
 			video4linux:primary:standard
@@ -40,7 +39,8 @@ B_DEPS[freebsd]=	evdev-proto:single:standard
 B_DEPS[dragonfly]=	evdev-proto:single:standard
 B_DEPS[netbsd]=		evdev-proto:single:standard
 
-USES=			cmake desktop-utils:single dos2unix fontconfig pkgconfig
+USES=			cmake desktop-utils:single dos2unix fontconfig
+			freetype pkgconfig
 XORG_COMPONENTS=	ice sm x11 xext xrender
 DISTNAME=		uTox
 CMAKE_ARGS=		-DENABLE_FILTERAUDIO=Off

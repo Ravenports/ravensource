@@ -32,8 +32,7 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		x11-toolkits/pango
 
 BUILD_DEPENDS=		harfbuzz:dev:standard
-BUILDRUN_DEPENDS=	freetype:primary:standard
-			harfbuzz:primary:standard
+BUILDRUN_DEPENDS=	harfbuzz:primary:standard
 			fribidi:single:standard
 			python-gi-docgen:single:python_default
 RUN_DEPENDS=		xorg-truetype-fonts:single:standard
@@ -41,7 +40,8 @@ RUN_DEPENDS=		xorg-truetype-fonts:single:standard
 EXRUN[dev]=		fontconfig:dev:standard
 			cairo:dev:standard
 
-USES=			cpe gmake meson perl:build fontconfig pkgconfig zlib:build
+USES=			cpe gmake meson perl:build fontconfig pkgconfig
+			freetype zlib:build
 GNOME_COMPONENTS=	cairo glib
 XORG_COMPONENTS=	x11 xft xrender
 MESON_ARGS=		-Dgtk_doc=true

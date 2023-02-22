@@ -130,7 +130,7 @@ INSTALL_REQ_TOOLCHAIN=	yes
 [X11GTK].GNOME_COMPONENTS_ON=		cairo gtk3 librsvg
 [X11GTK].XORG_COMPONENTS_ON=		xft xrender ice sm x11 xcb xfixes
 					xinerama xrandr xpm
-[X11GTK].USES_ON=			png fontconfig desktop-utils
+[X11GTK].USES_ON=			png freetype fontconfig desktop-utils
 					gnome-icons jpeg tiff gif
 [X11GTK].CONFIGURE_ARGS_ON=		--with-x-toolkit=gtk3
 					{{VAR1}}
@@ -150,8 +150,7 @@ INSTALL_REQ_TOOLCHAIN=	yes
 					toolkit-scroll-bars
 					xwidgets
 [X11GTK].BUILD_DEPENDS_ON=		harfbuzz:dev:standard
-[X11GTK].BUILDRUN_DEPENDS_ON=		freetype:primary:standard
-					m17n-lib:single:standard
+[X11GTK].BUILDRUN_DEPENDS_ON=		m17n-lib:single:standard
 					webkit2:complete:api40
 
 # gconf, imagemagick
