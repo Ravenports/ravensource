@@ -5,6 +5,7 @@ DEF[ALTNAME]=		libXft
 
 NAMEBASE=		xorg-${XNAME}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11_fonts
 VARIANTS=		standard
 SDESC[standard]=	Client-sided font API for X applications
@@ -16,10 +17,12 @@ SITES[main]=		XORG/individual/lib
 DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		xorg
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
+
+EXRUN[dev]=		fontconfig:dev:standard
 
 USES=			libtool fontconfig pkgconfig zlib:build
 XORG_COMPONENTS=	xrender
