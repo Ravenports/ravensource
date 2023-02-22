@@ -1,6 +1,6 @@
---- ../src/google/protobuf/stubs/port.h.orig	2022-12-13 00:03:12 UTC
+--- ../src/google/protobuf/stubs/port.h.orig	2023-02-16 17:13:25 UTC
 +++ ../src/google/protobuf/stubs/port.h
-@@ -59,12 +59,14 @@
+@@ -61,12 +61,14 @@
  #else
  #ifdef __APPLE__
  #include <machine/endian.h>  // __BYTE_ORDER
@@ -13,10 +13,10 @@
  #include <sys/machine.h>  // BYTE_ORDER
 +#elif defined(__sun__)
 +#define __LITTLE_ENDIAN__
+ #elif defined(__QNX__)
+ #include <sys/param.h>  // BYTE_ORDER
  #else
- #if !defined(__QNX__)
- #include <endian.h>  // __BYTE_ORDER
-@@ -82,6 +84,8 @@
+@@ -84,6 +86,8 @@
  #ifdef _MSC_VER
  #include <stdlib.h>  // NOLINT(build/include)
  #include <intrin.h>
@@ -25,7 +25,7 @@
  #elif defined(__APPLE__)
  #include <libkern/OSByteOrder.h>
  #elif defined(__linux__) || defined(__ANDROID__) || defined(__CYGWIN__)
-@@ -242,6 +246,11 @@ inline void GOOGLE_UNALIGNED_STORE64(voi
+@@ -190,6 +194,11 @@ inline void GOOGLE_UNALIGNED_STORE64(voi
  #define bswap_32(x) _byteswap_ulong(x)
  #define bswap_64(x) _byteswap_uint64(x)
  
