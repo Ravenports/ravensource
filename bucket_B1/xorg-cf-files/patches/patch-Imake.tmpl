@@ -1,6 +1,6 @@
---- Imake.tmpl.orig	2021-08-02 01:00:38 UTC
-+++ Imake.tmpl
-@@ -890,7 +890,7 @@ TCLIBDIR = TclLibDir
+--- Imake.tmpl.orig	2023-02-25 16:46:32.094005000 +0100
++++ Imake.tmpl	2023-02-25 16:49:25.156172000 +0100
+@@ -890,7 +890,7 @@
  #endif
  #ifndef ManDirectoryRoot
  #ifdef ProjectRoot
@@ -9,19 +9,20 @@
  #else
  #define ManDirectoryRoot SystemManDirectory
  #endif
-@@ -1078,11 +1078,7 @@ TCLIBDIR = TclLibDir
+@@ -1078,12 +1078,8 @@
  #define ArCmdBase ar
  #endif
  #ifndef ArCmd
--#if HasLargeTmp || SystemV4 || LinuxBinUtilsMajorVersion
+-#if HasLargeTmp || SystemV4 || HasGnuAr
  #define ArCmd ArCmdBase cq
 -#else
 -#define ArCmd ArCmdBase clq
--#endif
  #endif
+-#endif
  #ifndef ArAddCmd
  #if HasLargeTmp || SystemV4
-@@ -1205,16 +1201,8 @@ TCLIBDIR = TclLibDir
+ #define ArAddCmd ArCmdBase ru
+@@ -1205,16 +1201,8 @@
  #define PreProcessCmd CcCmd -E
  #endif
  #ifndef InstallCmd		/* hack should be in project */
@@ -38,7 +39,7 @@
  #ifndef InstallFlags
  #define InstallFlags -c
  #endif
-@@ -1823,7 +1811,7 @@ CXXEXTRA_INCLUDES = CplusplusExtraInclud
+@@ -1823,7 +1811,7 @@
         CXXOPTIONS = CplusplusOptions
        CXXINCLUDES = $(INCLUDES) $(TOP_INCLUDES) $(CXXEXTRA_INCLUDES)
         CXXDEFINES = $(CXXINCLUDES) $(CXXSTD_DEFINES) $(THREADS_CXXDEFINES) $(DEFINES) $(CXXEXTRA_DEFINES)
@@ -47,7 +48,7 @@
  #endif
           COMPRESS = CompressCmd
            GZIPCMD = GzipCmd
-@@ -2073,7 +2061,7 @@ MODLDCOMBINEFLAGS = ModuleLdCombineFlags
+@@ -2073,7 +2061,7 @@
   */
        ALLINCLUDES = $(INCLUDES) $(EXTRA_INCLUDES) $(TOP_INCLUDES) $(INSTALLED_INCLUDES) $(STD_INCLUDES)
         ALLDEFINES = $(ALLINCLUDES) $(STD_DEFINES) $(PROTO_DEFINES) $(THREADS_DEFINES) $(MODULE_DEFINES) $(DEFINES) $(EXTRA_DEFINES)
