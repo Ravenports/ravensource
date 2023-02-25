@@ -3,11 +3,11 @@ DEF[PORTVERSION]=	4.4
 
 NAMEBASE=		gmake
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
-VARIANTS=		standard noprefix ravensys
+VARIANTS=		standard noprefix
 SDESC[standard]=	GNU variant of 'make' utility
 SDESC[noprefix]=	GNU make with unprefixed program name
-SDESC[ravensys]=	GNU make without native language support
 HOMEPAGE=		https://www.gnu.org/software/make/
 CONTACT=		nobody
 
@@ -15,44 +15,33 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/make
 DISTFILE[1]=		make-${PORTVERSION}.tar.gz:main
 
-# LEGACY/BOOTSTRAP ISSUE !!
-# This port originated with a "single" subpackage. Many ports feature
-# USES=gmake.  Due to potential bootstrapping issues, we can't change this
-# to a typical "complete primary nls" subpackage.  We just have to accept
-# a misnamed port.
-SPKGS[standard]=	complete single nls
-SPKGS[noprefix]=	complete single nls
-SPKGS[ravensys]=	single
+SPKGS[standard]=	complete primary dev nls man
+SPKGS[noprefix]=	complete primary dev nls man
 
-OPTIONS_AVAILABLE=	NOPREFIX RAVENSYS
+OPTIONS_AVAILABLE=	NOPREFIX
 OPTIONS_STANDARD=	none
-VOPTS[noprefix]=	NOPREFIX=ON RAVENSYS=OFF
-VOPTS[ravensys]=	NOPREFIX=OFF RAVENSYS=ON
+VOPTS[noprefix]=	NOPREFIX=ON
 
-LICENSE=		GPLv3:single
+LICENSE=		GPLv3:primary
 LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^\#include"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/main.c
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/gmake
 
-USES=			cpe
+USES=			cpe gettext:build iconv:build
 CPE_VENDOR=		gnu
 CPE_PRODUCT=		make
 
 DISTNAME=		make-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--without-guile
-INFO=			single:make
+			--enable-nls
+INFO=			primary:make
 
 [NOPREFIX].DESCRIPTION=			Build without prefixing program with "g"
 [NOPREFIX].CONFIGURE_ARGS_OFF=		--program-prefix=g
-
-[RAVENSYS].DESCRIPTION=			Build without Native Language Support
-[RAVENSYS].CONFIGURE_ARGS_ON=		--disable-nls
-[RAVENSYS].CONFIGURE_ARGS_OFF=		--enable-nls
-					--with-libintl-prefix={{LOCALBASE}}
-					{{ICONV_CONFIGURE_ARG}}
-[RAVENSYS].USES_OFF=			gettext
+[NOPREFIX].PLIST_SUB_OFF=		GNUPREFIX=g
+[NOPREFIX].PLIST_SUB_ON=		GNUPREFIX=
