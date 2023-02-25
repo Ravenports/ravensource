@@ -1,4 +1,4 @@
---- src/amdgpu_drm_queue.c.orig	2021-07-30 13:44:22 UTC
+--- src/amdgpu_drm_queue.c.orig	2022-02-23 12:27:54 UTC
 +++ src/amdgpu_drm_queue.c
 @@ -94,7 +94,7 @@ amdgpu_drm_queue_handler(int fd, unsigne
  			 unsigned int usec, void *user_ptr)
