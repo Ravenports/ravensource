@@ -15,7 +15,7 @@ SITES[main]=		https://mesa.freedesktop.org/archive/
 			ftp://ftp.freedesktop.org/pub/mesa/
 DISTFILE[1]=		mesa-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete libs drivers dev
+SPKGS[standard]=	complete primary drivers dev
 
 # WAYLAND only for DF and can't be used due to circularly dep
 # from graphviz (mesa)
@@ -29,9 +29,9 @@ OPT_ON[dragonfly]=	LLVMPIPE//i386|x86_64
 OPT_ON[linux]=		LLVMPIPE//i386|x86_64
 # OPT_ON[sunos]=	LLVMPIPE	# libclc stopped building again
 
-LICENSE=		MIT:libs
-			CUSTOM1:libs
-			CUSTOM2:libs
+LICENSE=		MIT:primary
+			CUSTOM1:primary
+			CUSTOM2:primary
 LICENSE_FILE=		MIT:{{WRKDIR}}/LICENSE_MIT
 			CUSTOM1:{{WRKDIR}}/LICENSE_KHRONOS
 			CUSTOM2:{{WRKDIR}}/LICENSE_SGI
@@ -53,12 +53,12 @@ BUILD_DEPENDS=		libdrm:dev:standard
 			libvdpau:single:standard
 			python-Mako:single:python_used
 BUILDRUN_DEPENDS=	libdrm:primary:standard
-EXRUN[drivers]=		mesa:libs:standard
+EXRUN[drivers]=		mesa:primary:standard
 			libelf:primary:standard
 
 USES=			cpe bison gettext:build gmake meson pkgconfig
 			zstd zlib expat shebangfix solaris-funcs
-			python:build c++:libs,drivers
+			python:build c++:primary,drivers
 XORG_COMPONENTS=	x11 xdamage xext xfixes xshmfence xxf86vm xv xrandr xcb
 CPE_VENDOR=		mesa3d
 SOL_FUNCTIONS=		dirfd:src/util/disk_cache.c
