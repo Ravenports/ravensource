@@ -37,15 +37,13 @@ FPC_EQUIVALENT=		x11-servers/xorg-server
 
 BUILD_DEPENDS=		libdrm:dev:standard
 			libgpg-error:dev:standard
-			xorg-fontutil:single:standard
-			xorg-xkbfile:single:standard
 RUN_DEPENDS=		xorg-xkeyboard-config:primary:standard
-			xorg-xkbcomp:single:standard
 BUILDRUN_DEPENDS=	xorg-xcvt:single:standard
+			xorg-xkbcomp:single:standard
 
 USES=			cpe perl:build ssl solaris-funcs meson zlib:build
 XORG_COMPONENTS=	xorgproto xtransproto
-			pixman xshmfence xau xdmcp xfont2
+			pixman xshmfence xau xdmcp xfont2 xkbfile
 CPE_VENDOR=		x.org
 SOL_FUNCTIONS=		strnlen:xkb/XKBGAlloc.c
 MESON_ARGS=		-Dxkb_dir="{{LOCALBASE}}/share/X11/xkb"
@@ -88,6 +86,7 @@ VAR_OPSYS[netbsd]=	CPPFLAGS=-D_OPENBSD_SOURCE
 [NEST].BUILDRUN_DEPENDS_ON=		libglvnd:single:standard
 [NEST].BUILD_DEPENDS_ON=		libepoxy:single:standard
 					mesa:drivers:standard
+					mesa:dev:standard
 					libglvnd:single:standard
 
 [NEST].CONFIGURE_ARGS_ON=		-Dxnest=true
