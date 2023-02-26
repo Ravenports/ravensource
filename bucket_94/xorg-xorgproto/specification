@@ -4,6 +4,7 @@ DEF[XNAME]=		xorgproto
 
 NAMEBASE=		xorg-${XNAME}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11
 VARIANTS=		standard
 SDESC[standard]=	Combined X.Org X11 Protocol headers
@@ -38,3 +39,6 @@ post-patch:
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/doc
+	# this has to be a single manifest for now.
+	# prevent man page from installing
+	${RM} ${STAGEDIR}${PREFIX}/share/man/man7/Xprint.7
