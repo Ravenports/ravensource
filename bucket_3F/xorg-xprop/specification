@@ -5,6 +5,7 @@ DEF[ALTNAME]=		xprop
 
 NAMEBASE=		xorg-${XNAME}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11
 VARIANTS=		standard
 SDESC[standard]=	Property displayer for X
@@ -16,10 +17,14 @@ SITES[main]=		XORG/individual/app
 DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		xorg
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
 
 XORG_COMPONENTS=	x11 xmu
 DISTNAME=		${ALTNAME}-${PORTVERSION}
