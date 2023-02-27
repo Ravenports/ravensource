@@ -17,10 +17,10 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		XORG/individual/xserver
 DISTFILE[1]=		xorg-server-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
-SPKGS[virtual]=		single
-SPKGS[nest]=		single
-SPKGS[xephyr]=		single
+SPKGS[standard]=	complete primary man dev
+SPKGS[virtual]=		complete primary man
+SPKGS[nest]=		complete primary man
+SPKGS[xephyr]=		complete primary man
 
 OPTIONS_AVAILABLE=	XORG VIRTUAL XEPHYR NEST DEVD SUID
 OPTIONS_STANDARD=	XORG DEVD SUID
@@ -29,7 +29,7 @@ VOPTS[xephyr]=		XORG=OFF VIRTUAL=OFF XEPHYR=ON NEST=OFF DEVD=OFF SUID=OFF
 VOPTS[nest]=		XORG=OFF VIRTUAL=OFF XEPHYR=OFF NEST=ON DEVD=OFF SUID=OFF
 OPT_ON[all]=		XORG SUID
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
@@ -40,6 +40,8 @@ BUILD_DEPENDS=		libdrm:dev:standard
 RUN_DEPENDS=		xorg-xkeyboard-config:primary:standard
 BUILDRUN_DEPENDS=	xorg-xcvt:single:standard
 			xorg-xkbcomp:single:standard
+
+EXRUN[dev]=		xorg-pixman:dev:standard
 
 USES=			cpe perl:build ssl solaris-funcs meson zlib:build
 XORG_COMPONENTS=	xorgproto xtransproto
