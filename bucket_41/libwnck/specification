@@ -4,6 +4,7 @@ DEF[SOVERSION]=		0.3.0
 
 NAMEBASE=		libwnck
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11
 VARIANTS=		standard
 SDESC[standard]=	GNOME window navigator construction kit library
@@ -14,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://ftp.gnome.org/pub/GNOME/sources/libwnck/${PORTVERSION:R}/
 DISTFILE[1]=		libwnck-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[standard]=	complete primary dev nls
 
 OPTIONS_AVAILABLE=	INTROSPECTION
 OPTIONS_STANDARD=	INTROSPECTION
@@ -30,6 +31,8 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libwnck/libwnck.h
 
 BUILD_DEPENDS=		harfbuzz:dev:standard
 BUILDRUN_DEPENDS=	startup-notification:single:standard
+
+EXRUN[dev]=		xorg-xres:dev:standard
 
 USES=			bison gmake libtool pkgconfig meson
 XORG_COMPONENTS=	xres x11
