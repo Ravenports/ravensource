@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.11.0
+DEF[PORTVERSION]=	0.13.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-rq-scheduler
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/rq/rq-scheduler
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/44/b1/e36da6d642bf3b5e0e2ca964ee9a23c9925265469adf0f9639a43281d360
+SITES[main]=		PYPIWHL/67/c5/092d7ef1a3119f3557fd6ccada641abeb046267b42990f6f639d7806e0f0
 DISTFILE[1]=		rq_scheduler-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -29,18 +29,21 @@ GENERATED=		yes
 DISTNAME=		rq_scheduler-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# croniter (>=0.3.9)
+# crontab (>=0.23.0)
 # rq (>=0.13)
 # python-dateutil
+# freezegun
 
 [PY310].USES_ON=			python:py310,wheel
-[PY310].RUN_DEPENDS_ON=			python-croniter:single:py310
+[PY310].RUN_DEPENDS_ON=			python-crontab:single:py310
 					python-rq:single:py310
 					python-python-dateutil:single:py310
+					python-freezegun:single:py310
 [PY311].USES_ON=			python:v11,wheel
-[PY311].RUN_DEPENDS_ON=			python-croniter:single:v11
+[PY311].RUN_DEPENDS_ON=			python-crontab:single:v11
 					python-rq:single:v11
 					python-python-dateutil:single:v11
+					python-freezegun:single:v11
 
 post-install:
 	${SED} -i'' -e 's|/usr/bin/env python|${PYTHON_CMD}|' \
