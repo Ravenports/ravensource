@@ -55,7 +55,8 @@ SOVERSION=		${SOVERSION}
 [QUAD].CMAKE_ARGS_ON=			-DENABLE_QUAD_PRECISION:BOOL=ON
 [FLAV].INFO_OFF=			single:fftw3
 
-VAR_OPSYS[dragonfly]=	VAR1="@comment "
+# omp builds on dragonfly now
+# VAR_OPSYS[dragonfly]=	VAR1="@comment "
 
 post-patch:
 	${REINPLACE_CMD} -e 's|/etc/fftw|${PREFIX}/etc/fftw|' \
