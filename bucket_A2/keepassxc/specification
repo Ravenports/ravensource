@@ -59,6 +59,7 @@ BUILDRUN_DEPENDS=	argon2:single:standard
 
 USES=			cmake pkgconfig qt5 zlib desktop-utils:primary
 			mime-info:primary
+XORG_COMPONENTS=	x11 xi xtst
 CMAKE_ARGS=		-DKEEPASSXC_BUILD_TYPE:STRING=Release
 			-DWITH_XC_BROWSER:BOOL=ON
 			-DWITH_XC_KEESHARE:BOOL=ON
@@ -77,6 +78,8 @@ do-install:
 	${MAKE_CMD} DESTDIR=${STAGEDIR} install)
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/keepassxc
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/keepassxc-cli
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/keepassxc-proxy
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/keepassxc/libkeepassxc-autotype-xcb.so
 	# relocate docs
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 	${MV} ${STAGEDIR}${PREFIX}/share/keepassxc/docs/* \

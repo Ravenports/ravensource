@@ -5,6 +5,7 @@ DEF[ALTNAME]=		libXext
 
 NAMEBASE=		xorg-${XNAME}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11
 VARIANTS=		standard
 SDESC[standard]=	X11 Extension library
@@ -16,14 +17,17 @@ SITES[main]=		XORG/individual/lib
 DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		xorg
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
+
+EXRUN[dev]=		xorg-x11:dev:standard
+			xorg-xau:dev:standard
 
 USES=			cpe libtool
 XORG_COMPONENTS=	x11 xau

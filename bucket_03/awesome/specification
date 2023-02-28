@@ -39,11 +39,10 @@ BUILDRUN_DEPENDS=	dbus:primary:standard
 			libxkbcommon:single:standard
 			lua-lgi:single:lua53
 			startup-notification:single:standard
-			xorg-xcb-util-cursor:single:standard
-			xorg-xcb-util-keysyms:single:standard
-			xorg-xcb-util-wm:single:standard
-			xorg-xcb-util-xrm:single:standard
+
 USES=			cmake gmake lua pkgconfig execinfo
+XORG_COMPONENTS=	xcb-util-cursor xcb-util-keysyms xcb-util-wm
+			xcb-util-xrm xcb-util
 GNOME_COMPONENTS=	cairo gdkpixbuf pango introspection
 CMAKE_ARGS=		-DSYSCONFDIR={{PREFIX}}/etc
 

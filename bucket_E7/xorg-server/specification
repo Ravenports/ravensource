@@ -17,10 +17,10 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		XORG/individual/xserver
 DISTFILE[1]=		xorg-server-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
-SPKGS[virtual]=		single
-SPKGS[nest]=		single
-SPKGS[xephyr]=		single
+SPKGS[standard]=	complete primary man dev
+SPKGS[virtual]=		complete primary man
+SPKGS[nest]=		complete primary man
+SPKGS[xephyr]=		complete primary man
 
 OPTIONS_AVAILABLE=	XORG VIRTUAL XEPHYR NEST DEVD SUID
 OPTIONS_STANDARD=	XORG DEVD SUID
@@ -29,7 +29,7 @@ VOPTS[xephyr]=		XORG=OFF VIRTUAL=OFF XEPHYR=ON NEST=OFF DEVD=OFF SUID=OFF
 VOPTS[nest]=		XORG=OFF VIRTUAL=OFF XEPHYR=OFF NEST=ON DEVD=OFF SUID=OFF
 OPT_ON[all]=		XORG SUID
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
@@ -37,15 +37,16 @@ FPC_EQUIVALENT=		x11-servers/xorg-server
 
 BUILD_DEPENDS=		libdrm:dev:standard
 			libgpg-error:dev:standard
-			xorg-fontutil:single:standard
-			xorg-xkbfile:single:standard
 RUN_DEPENDS=		xorg-xkeyboard-config:primary:standard
-			xorg-xkbcomp:single:standard
 BUILDRUN_DEPENDS=	xorg-xcvt:single:standard
+			xorg-xkbcomp:single:standard
+
+EXRUN[dev]=		xorg-pixman:dev:standard
+			xorg-pciaccess:dev:standard
 
 USES=			cpe perl:build ssl solaris-funcs meson zlib:build
 XORG_COMPONENTS=	xorgproto xtransproto
-			pixman xshmfence xau xdmcp xfont2
+			pixman xshmfence xau xdmcp xfont2 xkbfile
 CPE_VENDOR=		x.org
 SOL_FUNCTIONS=		strnlen:xkb/XKBGAlloc.c
 MESON_ARGS=		-Dxkb_dir="{{LOCALBASE}}/share/X11/xkb"
@@ -71,20 +72,28 @@ VAR_OPSYS[netbsd]=	CPPFLAGS=-D_OPENBSD_SOURCE
 
 [XORG].BUILD_DEPENDS_ON=		xmlto:single:standard
 					xorg-sgml-doctools:single:standard
+					mesa:dev:standard
+					libepoxy:dev:standard
 [XORG].BUILDRUN_DEPENDS_ON=		libdrm:primary:standard
-					libepoxy:single:standard
+					libepoxy:primary:standard
 					mesa:drivers:standard
 [XEPHYR].BUILD_DEPENDS_ON=		mesa:drivers:standard
+					mesa:dev:standard
+					libepoxy:dev:standard
 [XEPHYR].BUILDRUN_DEPENDS_ON=		libdrm:primary:standard
-					libepoxy:single:standard
+					libepoxy:primary:standard
 					libglvnd:single:standard
 [VIRTUAL].BUILDRUN_DEPENDS_ON=		libglvnd:single:standard
-[VIRTUAL].BUILD_DEPENDS_ON=		libepoxy:single:standard
+[VIRTUAL].BUILD_DEPENDS_ON=		libepoxy:primary:standard
+					libepoxy:dev:standard
 					mesa:drivers:standard
+					mesa:dev:standard
 					libglvnd:single:standard
 [NEST].BUILDRUN_DEPENDS_ON=		libglvnd:single:standard
-[NEST].BUILD_DEPENDS_ON=		libepoxy:single:standard
+[NEST].BUILD_DEPENDS_ON=		libepoxy:primary:standard
+					libepoxy:dev:standard
 					mesa:drivers:standard
+					mesa:dev:standard
 					libglvnd:single:standard
 
 [NEST].CONFIGURE_ARGS_ON=		-Dxnest=true

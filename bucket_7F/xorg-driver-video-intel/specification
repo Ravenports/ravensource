@@ -35,11 +35,12 @@ NOT_FOR_ARCH=		aarch64
 FPC_EQUIVALENT=		x11-drivers/${ALTNAME}
 
 BUILD_DEPENDS=		libdrm:dev:standard
+			xorg-server:dev:standard
 BUILDRUN_DEPENDS=	libdrm:primary:standard
-			xorg-server:single:standard
+			xorg-server:primary:standard
 
 USES=			mesa libtool cpe autoreconf
-XORG_COMPONENTS=	xorgproto pciaccess pixman xfont2
+XORG_COMPONENTS=	xorgproto x11 xfont2 xvmc xcb
 DISTNAME=		xf86-video-intel-${TAG}
 MUST_CONFIGURE=		gnu
 CONFIGURE_ENV=		ac_cv_header_sys_sysinfo_h=no
@@ -61,9 +62,8 @@ CFLAGS=			-Wunused-but-set-variable
 [SNA].CONFIGURE_ARGS_ON=		--with-default-accel=sna
 
 [XVMC].DESCRIPTION=			X11 XvMC video extension support
-[XVMC].XORG_COMPONENTS_ON=		x11 xcb xvmc
+[XVMC].XORG_COMPONENTS_ON=		x11 xcb xvmc xcb-util
 [XVMC].CONFIGURE_ENABLE_BOTH=		xvmc
-[XVMC].BUILDRUN_DEPENDS_ON=		xorg-xcb-util:single:standard
 
 
 pre-configure-dragonfly:
