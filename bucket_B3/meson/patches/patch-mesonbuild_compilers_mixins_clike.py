@@ -1,6 +1,6 @@
---- mesonbuild/compilers/mixins/clike.py.orig	2022-12-23 16:10:22 UTC
+--- mesonbuild/compilers/mixins/clike.py.orig	2023-02-20 12:58:43 UTC
 +++ mesonbuild/compilers/mixins/clike.py
-@@ -84,7 +84,7 @@ class CLikeCompilerArgs(arglist.Compiler
+@@ -85,7 +85,7 @@ class CLikeCompilerArgs(arglist.Compiler
          # This covers all ld.bfd, ld.gold, ld.gold, and xild on Linux, which
          # all act like (or are) gnu ld
          # TODO: this could probably be added to the DynamicLinker instead
