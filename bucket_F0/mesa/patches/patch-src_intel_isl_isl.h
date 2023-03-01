@@ -1,4 +1,4 @@
---- src/intel/isl/isl.h.orig	2023-02-08 21:05:36 UTC
+--- src/intel/isl/isl.h.orig	2023-02-22 20:35:56 UTC
 +++ src/intel/isl/isl.h
 @@ -47,6 +47,9 @@
  #include "util/format/u_format.h"
