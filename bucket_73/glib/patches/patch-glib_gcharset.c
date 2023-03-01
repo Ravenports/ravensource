@@ -1,4 +1,4 @@
---- glib/gcharset.c.orig	2022-12-21 21:16:58 UTC
+--- glib/gcharset.c.orig	2023-02-23 13:54:27 UTC
 +++ glib/gcharset.c
 @@ -287,6 +287,11 @@ _g_get_ctype_charset (const char **chars
  

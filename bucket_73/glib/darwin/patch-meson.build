@@ -1,67 +1,21 @@
---- meson.build.orig	2018-12-18 14:51:14 UTC
+--- meson.build.orig	2023-02-23 13:54:27 UTC
 +++ meson.build
-@@ -609,42 +609,23 @@ glib_have_os_x_9_or_later = false
- glib_have_carbon = false
- glib_have_cocoa = false
- if host_system == 'darwin'
--  add_languages('objc')
--  objcc = meson.get_compiler('objc')
+@@ -2119,7 +2119,7 @@ if libintl.found()
+   #
+   # Meson's builtin dependency lookup as of 0.60.0 doesn't check for
+   # pthread, so we do this manually here.
+-  if cc.has_function('ngettext', dependencies : libintl)
++  if cc.has_function('ngettext', dependencies : libintl) and host_system != 'sunos'
+     libintl_deps += [libintl]
+   else
+     libintl_pthread = cc.find_library('pthread', required : false)
+@@ -2308,8 +2308,7 @@ env_program = find_program('env', requir
  
-   osx_ldflags += ['-Wl,-framework,CoreFoundation']
- 
--  # Mac OS X Carbon support
--  glib_have_carbon = objcc.compiles('''#include <Carbon/Carbon.h>
--                                       #include <CoreServices/CoreServices.h>''',
--                                    name : 'Mac OS X Carbon support')
-+  glib_have_carbon = false
-+  glib_have_cocoa = false 
-+  glib_have_os_x_9_or_later = true
- 
-   if glib_have_carbon
-     glib_conf.set('HAVE_CARBON', true)
-     osx_ldflags += '-Wl,-framework,Carbon'
--    glib_have_os_x_9_or_later = objcc.compiles('''#include <AvailabilityMacros.h>
--                                                  #if MAC_OS_X_VERSION_MIN_REQUIRED < 1090
--                                                  #error Compiling for minimum OS X version before 10.9
--                                                  #endif''',
--                                               name : 'OS X 9 or later')
-   endif
- 
--  # Mac OS X Cocoa support
--  glib_have_cocoa = objcc.compiles('''#include <Cocoa/Cocoa.h>
--                                      #ifdef GNUSTEP_BASE_VERSION
--                                      #error "Detected GNUstep, not Cocoa"
--                                      #endif''',
--                                   name : 'Mac OS X Cocoa support')
--
-   if glib_have_cocoa
-     glib_conf.set('HAVE_COCOA', true)
-     osx_ldflags += ['-Wl,-framework,Foundation', '-Wl,-framework,AppKit']
-   endif
- 
--  # FIXME: libgio mix C and objC source files and there is no way to reliably
--  # know which language flags it's going to use to link. Add to both languages
--  # for now. See https://github.com/mesonbuild/meson/issues/3585.
--  add_project_link_arguments(osx_ldflags, language : ['objc', 'c'])
+ # FIXME: How to detect Solaris? https://github.com/mesonbuild/meson/issues/1578
+ if host_system == 'sunos'
+-  glib_conf.set('_XOPEN_SOURCE_EXTENDED', 1)
+-  glib_conf.set('_XOPEN_SOURCE', 2)
++  glib_conf.set('_XOPEN_SOURCE', 600)
+   glib_conf.set('__EXTENSIONS__',1)
  endif
- 
- # Check for futex(2)
-@@ -1771,10 +1752,6 @@ endif
- # proxy-libintl subproject.
- # FIXME: glib-gettext.m4 has much more checks to detect broken/uncompatible
- # implementations. This could be extended if issues are found in some platforms.
--if cc.has_function('ngettext')
--  libintl = []
--  have_bind_textdomain_codeset = cc.has_function('bind_textdomain_codeset')
--else
-   libintl = cc.find_library('intl', required : false)
-   if not libintl.found()
-     libintl = subproject('proxy-libintl').get_variable('intl_dep')
-@@ -1783,7 +1760,6 @@ else
-     have_bind_textdomain_codeset = cc.has_function('bind_textdomain_codeset',
-                                                    dependencies : libintl)
-   endif
--endif
- 
- glib_conf.set('HAVE_BIND_TEXTDOMAIN_CODESET', have_bind_textdomain_codeset)
  
