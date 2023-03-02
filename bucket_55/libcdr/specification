@@ -5,6 +5,7 @@ DEF[CDR_VER]=		0.1
 
 NAMEBASE=		libcdr
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics devel
 VARIANTS=		standard
 SDESC[standard]=	CorelDraw file format importer library
@@ -15,12 +16,12 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://dev-www.libreoffice.org/src/libcdr/
 DISTFILE[1]=		libcdr-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MPL:single
+LICENSE=		MPL:primary
 LICENSE_FILE=		MPL:{{WRKSRC}}/COPYING.MPL
 LICENSE_SCHEME=		solo
 
@@ -31,6 +32,9 @@ BUILD_DEPENDS=		boost-libraries:single:standard
 BUILDRUN_DEPENDS=	icu:single:standard
 			librevenge:single:standard
 			lcms2:primary:standard
+
+EXRUN[dev]=		lcms2:dev:standard
+EXRUN[tools]=		lcms2:primary:standard
 
 USES=			libtool pkgconfig zlib
 MUST_CONFIGURE=		gnu
