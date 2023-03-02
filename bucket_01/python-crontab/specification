@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	1.0.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-crontab
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 v11
+SDESC[py310]=		Parse and use crontab schedules in Python (3.10)
+SDESC[v11]=		Parse and use crontab schedules in Python (3.11)
+HOMEPAGE=		https://github.com/josiahcarlson/parse-crontab
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/c/crontab
+DISTFILE[1]=		crontab-${PORTVERSION}.tar.gz:main
+
+SPKGS[py310]=		single
+SPKGS[v11]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[v11]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# GNU LGPL v2.1
+
+GENERATED=		yes
+DISTNAME=		crontab-${PORTVERSION}
+
+# install_requires extracted from setup.py
+
+
+[PY310].USES_ON=			python:py310,sutools
+[PY311].USES_ON=			python:v11,sutools
+

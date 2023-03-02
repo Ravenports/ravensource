@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	1.2.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-freezegun
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 v11
+SDESC[py310]=		Let your Python tests travel through time (3.10)
+SDESC[v11]=		Let your Python tests travel through time (3.11)
+HOMEPAGE=		https://github.com/spulec/freezegun
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/50/cd/ba1c8319c002727ccfa03049127218d1767232a77219924d03ba170e0601
+DISTFILE[1]=		freezegun-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[v11]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[v11]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# Apache 2.0
+
+GENERATED=		yes
+DISTNAME=		freezegun-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# python-dateutil (>=2.7)
+
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-python-dateutil:single:py310
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-python-dateutil:single:v11
+
