@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.10.32
+DEF[PORTVERSION]=	2.10.34
 DEF[SOVERSION]=		0.1000.${PORTVERSION:E}
 # ----------------------------------------------------------------------------
 
@@ -32,6 +32,7 @@ BUILD_DEPENDS=		iso-codes:primary:standard
 			libheif:dev:standard
 			gegl:dev:standard
 			babl:dev:standard
+			lcms2:dev:standard
 BUILDRUN_DEPENDS=	libmypaint:primary:standard
 			mypaint-brushes1:single:standard
 			glib-networking:primary:standard
@@ -46,6 +47,7 @@ BUILDRUN_DEPENDS=	libmypaint:primary:standard
 			xdg-utils:single:standard
 			poppler:glib:standard
 			poppler-data:primary:standard
+			lcms2:primary:standard
 
 USES=			cpe gmake jpeg iconv libtool pkgconfig shebangfix
 			freetype execinfo xz bz2 zlib tiff
@@ -89,8 +91,3 @@ INSTALL_REQ_TOOLCHAIN=	yes
 [LINUX].BUILDRUN_DEPENDS_ON=		libgudev:single:standard
 [LINUX].MAKEFILE_ON=			VAR1="-lexecinfo -lm -ldl"
 [LINUX].MAKEFILE_OFF=			VAR1="-lexecinfo -lm"
-
-post-extract:
-	# workaround recent change in babl
-	${CP} ${LOCALBASE}/lib/pkgconfig/babl-0.1.pc \
-		${LOCALBASE}/lib/pkgconfig/babl.pc
