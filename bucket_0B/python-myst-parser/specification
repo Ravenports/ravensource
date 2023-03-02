@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.18.1
+DEF[PORTVERSION]=	0.19.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-myst-parser
@@ -11,7 +11,7 @@ HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/72/fd/594c936c65e707deda5670e8fff5ca2c948a12e922813eab5d316694e9ca
+SITES[main]=		PYPIWHL/85/11/9cba587300d9c2a9e961c366a244aeca83ee08d88024241480522c3a180d
 DISTFILE[1]=		myst_parser-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -32,26 +32,33 @@ DISTNAME=		myst_parser-${PORTVERSION}.dist-info
 # docutils>=0.15,<0.20
 # jinja2
 # markdown-it-py>=1.0.0,<3.0.0
-# mdit-py-plugins~=0.3.1
+# mdit-py-plugins~=0.3.4
 # pyyaml
-# sphinx>=4,<6
-# typing-extensions
-# pre-commit~=2.12 ; extra == "code_style"
+# sphinx>=5,<7
+# typing-extensions; python_version < "3.8"
+# pre-commit~=3.0 ; extra == "code_style"
 # linkify-it-py~=1.0 ; extra == "linkify"
 # ipython ; extra == "rtd"
-# sphinx-book-theme ; extra == "rtd"
-# sphinx-design ; extra == "rtd"
+# sphinx-book-theme==1.0.0rc2 ; extra == "rtd"
+# pydata-sphinx-theme==v0.13.0rc4 ; extra == "rtd"
+# sphinx-design2 ; extra == "rtd"
+# sphinx-copybutton ; extra == "rtd"
 # sphinxext-rediraffe~=0.2.7 ; extra == "rtd"
-# sphinxcontrib.mermaid~=0.7.1 ; extra == "rtd"
-# sphinxext-opengraph~=0.6.3 ; extra == "rtd"
+# sphinxext-opengraph~=0.7.5 ; extra == "rtd"
+# sphinx-pyscript ; extra == "rtd"
+# sphinx-tippy>=0.3.1 ; extra == "rtd"
+# sphinx-autodoc2~=0.4.2 ; extra == "rtd"
+# sphinx-togglebutton ; extra == "rtd"
 # beautifulsoup4 ; extra == "testing"
 # coverage[toml] ; extra == "testing"
-# pytest>=6,<7 ; extra == "testing"
+# pytest>=7,<8 ; extra == "testing"
 # pytest-cov ; extra == "testing"
 # pytest-regressions ; extra == "testing"
 # pytest-param-files~=0.3.4 ; extra == "testing"
 # sphinx-pytest ; extra == "testing"
-# sphinx<5.2 ; extra == "testing"
+# pygments ; extra == "testing-docutils"
+# pytest>=7,<8 ; extra == "testing-docutils"
+# pytest-param-files~=0.3.4 ; extra == "testing-docutils"
 
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-docutils:single:py310
@@ -60,7 +67,6 @@ DISTNAME=		myst_parser-${PORTVERSION}.dist-info
 					python-mdit-py-plugins:single:py310
 					python-PyYAML:single:py310
 					python-Sphinx:single:py310
-					python-typing-extensions:single:py310
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-docutils:single:v11
 					python-Jinja2:single:v11
@@ -68,5 +74,4 @@ DISTNAME=		myst_parser-${PORTVERSION}.dist-info
 					python-mdit-py-plugins:single:v11
 					python-PyYAML:single:v11
 					python-Sphinx:single:v11
-					python-typing-extensions:single:v11
 
