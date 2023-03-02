@@ -1,6 +1,6 @@
-DEF[PORTVERSION]=	9.1.1
+DEF[PORTVERSION]=	9.2.0
 DEF[PROJ_API]=		25
-DEF[SOVERSION]=		25.9.1.1
+DEF[SOVERSION]=		25.9.2.0
 DEF[DATUMGRID_VER]=	1.8
 # ----------------------------------------------------------------------------
 
@@ -18,12 +18,12 @@ DISTFILE[1]=		proj-${PORTVERSION}.tar.gz:main
 DISTFILE[2]=		proj-datumgrid-${DATUMGRID_VER}.zip:main
 DF_INDEX=		1 2
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
@@ -31,7 +31,9 @@ FPC_EQUIVALENT=		graphics/proj
 
 BUILD_DEPENDS=		gtest:single:standard
 
-USES=			cmake pkgconfig sqlite tiff curl c++:single
+EXRUN[tools]=		proj:primary:standard
+
+USES=			cmake pkgconfig sqlite tiff curl c++:primary
 EXTRACT_DIRTY=		2
 PLIST_SUB=		PROJ_API=${PROJ_API}
 			SOVERSION=${SOVERSION}
