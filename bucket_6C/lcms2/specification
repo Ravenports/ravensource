@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2.14
-DEF[SOVERSION]=		2.0.14
+DEF[PORTVERSION]=	2.15
+DEF[SOVERSION]=		2.0.15
 DEF[VERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -17,7 +17,7 @@ DISTFILE[1]=		lcms2-${PORTVERSION}.tar.gz:main
 # known to reroll
 DIST_SUBDIR=		lcms2
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary tools dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,6 +27,8 @@ LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/lcms2
+
+EXRUN[tools]=		lcms2:primary:standard
 
 USES=			cpe jpeg tiff libtool
 CPE_VENDOR=		littlecms
