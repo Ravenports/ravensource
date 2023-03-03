@@ -1,6 +1,6 @@
---- sql/mysqld.cc.orig	2022-11-14 18:12:13 UTC
+--- sql/mysqld.cc.orig	2023-02-01 17:30:48 UTC
 +++ sql/mysqld.cc
-@@ -4670,8 +4670,9 @@ static void init_ssl()
+@@ -4657,8 +4657,9 @@ static void init_ssl()
          sql_print_warning("SSL error: %s",buf);
        }
      }
