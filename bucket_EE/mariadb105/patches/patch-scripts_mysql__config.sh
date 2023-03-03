@@ -1,4 +1,4 @@
---- scripts/mysql_config.sh.orig	2022-11-02 12:37:20 UTC
+--- scripts/mysql_config.sh.orig	2023-01-30 20:31:35 UTC
 +++ scripts/mysql_config.sh
 @@ -87,7 +87,9 @@ fi
  
