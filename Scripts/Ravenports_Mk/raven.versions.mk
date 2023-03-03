@@ -97,7 +97,7 @@ PGSQL_15_VERSION=	15.2
 # Possible values: oracle-(5.7,8.0), mariadb-(10.[3456789], 10.1[01]),
 #                  percona-(5.5,5.6,5.7), galera-(5.5,5.6,5.7)
 #
-# MariaDB releases:
+# MariaDB releases:   (After 20 May 23, remove 10.3, 10.8, 10.9, 10.10)
 #   MariaDB 10.3   EOL 25 May 2023 (STABLE)
 #   MariaDB 10.4   EOL 18 JUN 2024 (STABLE)
 #   MariaDB 10.5   EOL 24 JUN 2025 (STABLE)
@@ -114,14 +114,14 @@ MYSQL_DEFAULT=			oracle-8.0
 
 MYSQL_oracle-8.0_VERSION=	8.0.32
 MYSQL_oracle-5.7_VERSION=	5.7.41
-MYSQL_mariadb-10.3_VERSION=	10.3.37
-MYSQL_mariadb-10.4_VERSION=	10.4.27
-MYSQL_mariadb-10.5_VERSION=	10.5.18
-MYSQL_mariadb-10.6_VERSION=	10.6.11
-MYSQL_mariadb-10.8_VERSION=	10.8.6
-MYSQL_mariadb-10.9_VERSION=	10.9.4
-MYSQL_mariadb-10.10_VERSION=	10.10.2
-MYSQL_mariadb-10.11_VERSION=	10.11.1
+MYSQL_mariadb-10.3_VERSION=	10.3.38
+MYSQL_mariadb-10.4_VERSION=	10.4.28
+MYSQL_mariadb-10.5_VERSION=	10.5.19
+MYSQL_mariadb-10.6_VERSION=	10.6.12
+MYSQL_mariadb-10.8_VERSION=	10.8.7
+MYSQL_mariadb-10.9_VERSION=	10.9.5
+MYSQL_mariadb-10.10_VERSION=	10.10.3
+MYSQL_mariadb-10.11_VERSION=	10.11.2
 MYSQL_percona-5.7_VERSION=	5.7.17
 MYSQL_percona-5.6_VERSION=	5.6.35
 MYSQL_percona-5.5_VERSION=	5.5.54
