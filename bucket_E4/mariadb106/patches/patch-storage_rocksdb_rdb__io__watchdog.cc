@@ -1,6 +1,6 @@
 If timer_t is an integer type, setting it to nullptr fails.
 
---- storage/rocksdb/rdb_io_watchdog.cc.orig	2022-11-03 10:07:25 UTC
+--- storage/rocksdb/rdb_io_watchdog.cc.orig	2023-02-01 15:03:32 UTC
 +++ storage/rocksdb/rdb_io_watchdog.cc
 @@ -111,7 +111,11 @@ void Rdb_io_watchdog::io_check_callback(
      sql_print_warning("Deleting the watchdog I/O timer failed with %d.", errno);
