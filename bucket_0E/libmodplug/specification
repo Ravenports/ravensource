@@ -4,6 +4,7 @@ DEF[SOVERSION]=		1.0.0
 
 NAMEBASE=		libmodplug
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		audio
 VARIANTS=		standard
 SDESC[standard]=	Sound module playing library
@@ -14,18 +15,18 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/modplug-xmms/libmodplug/${PORTVERSION}
 DISTFILE[1]=		libmodplug-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		audio/libmodplug
 
-LICENSE=		PUBDOM:single
+LICENSE=		PUBDOM:primary
 LICENSE_FILE=		PUBDOM:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-USES=			cpe libtool pkgconfig c++:single
+USES=			cpe libtool pkgconfig c++:primary
 CPE_VENDOR=		konstanty_bialkowski
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
