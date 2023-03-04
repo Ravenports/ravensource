@@ -1,17 +1,16 @@
-DEF[PORTVERSION]=	5.1.2
-DEF[SO_AVCODEC]=	59.37.100
-DEF[SO_AVDEVICE]=	59.7.100
-DEF[SO_AVFILTER]=	8.44.100
-DEF[SO_AVFORMAT]=	59.27.100
-DEF[SO_AVUTIL]=		57.28.100
-DEF[SO_POSTPROC]=	56.6.100
-DEF[SO_SWRESAMPLE]=	4.7.100
-DEF[SO_SCALE]=		6.7.100
+DEF[PORTVERSION]=	6.0
+DEF[SO_AVCODEC]=	60.3.100
+DEF[SO_AVDEVICE]=	60.1.100
+DEF[SO_AVFILTER]=	9.3.100
+DEF[SO_AVFORMAT]=	60.3.100
+DEF[SO_AVUTIL]=		58.2.100
+DEF[SO_POSTPROC]=	57.1.100
+DEF[SO_SWRESAMPLE]=	4.10.100
+DEF[SO_SCALE]=		7.1.100
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ffmpeg
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		multimedia audio net
 VARIANTS=		standard
 SDESC[standard]=	Play, record, convert, and stream audio and video
@@ -22,7 +21,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://ffmpeg.org/releases/
 DISTFILE[1]=		ffmpeg-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary examples docs
+SPKGS[standard]=	complete primary tools examples dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -64,6 +63,8 @@ BUILDRUN_DEPENDS=	gmp:shared:standard
 			x265:primary:standard
 			xvid:single:standard
 
+EXRUN[tools]=		ffmpeg:primary:standard
+
 RC_SUBR=		ffserver:primary
 
 # opencv support removed because version 3.x requires c++ compilation
@@ -75,6 +76,7 @@ SDL_COMPONENTS=		sdl2
 MUST_CONFIGURE=		yes
 SHEBANG_FILES=		doc/texi2pod.pl
 SHEBANG_ADD_SH=		ffbuild/libversion.sh
+DISTNAME=		ffmpeg-${PORTVERSION}
 CONFIGURE_ARGS=		--cc="{{CC}}"
 			--prefix="{{PREFIX}}"
 			--mandir="{{MANPREFIX}}/man"
