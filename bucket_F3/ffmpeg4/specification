@@ -12,7 +12,7 @@ DEF[SO_SCALE]=		5.9.100
 
 NAMEBASE=		ffmpeg4
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		multimedia audio net
 VARIANTS=		standard
 SDESC[standard]=	Legacy stream audio and video library
@@ -23,7 +23,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://ffmpeg.org/releases/
 DISTFILE[1]=		ffmpeg-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary examples docs
+SPKGS[standard]=	complete primary tools dev examples man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -64,6 +64,8 @@ BUILDRUN_DEPENDS=	gmp:shared:standard
 			x264:library:standard
 			x265:primary:standard
 			xvid:single:standard
+
+EXRUN[tools]=		ffmpeg4:primary:standard
 
 RC_SUBR=		ffserver:primary
 
