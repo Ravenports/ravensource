@@ -1,10 +1,10 @@
---- qt/Application.h.orig	2020-05-22 11:04:23 UTC
+--- qt/Application.h.orig	2023-02-22 19:12:15 UTC
 +++ qt/Application.h
-@@ -12,6 +12,7 @@
- #include <QTimer>
- #include <QTranslator>
+@@ -16,6 +16,7 @@
+ 
+ #include <libtransmission/tr-macros.h>
  
 +#include <time.h>
  #include "FaviconCache.h"
  #include "Typedefs.h"
- 
+ #include "Utils.h" // std::hash<QString>

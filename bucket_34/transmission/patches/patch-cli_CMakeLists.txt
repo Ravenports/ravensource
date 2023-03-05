@@ -1,12 +1,12 @@
---- cli/CMakeLists.txt.orig	2020-05-22 11:04:23 UTC
+--- cli/CMakeLists.txt.orig	2023-02-22 19:12:15 UTC
 +++ cli/CMakeLists.txt
-@@ -9,6 +9,9 @@ tr_win32_app_info(${PROJECT_NAME}_WIN32_
+@@ -4,6 +4,9 @@ target_sources(${TR_NAME}-cli
+     PRIVATE
+         cli.cc)
  
- add_executable(${TR_NAME}-cli cli.c ${${PROJECT_NAME}_WIN32_RC_FILE})
- include_directories(${TR_NAME}-cli ${CURL_INCLUDE_DIRS})
 +if (CMAKE_SYSTEM_NAME MATCHES "NetBSD")
 +   target_link_libraries(${TR_NAME}-cli quota)
 +endif()
- target_link_libraries(${TR_NAME}-cli ${TR_NAME})
- 
- install(TARGETS ${TR_NAME}-cli DESTINATION ${CMAKE_INSTALL_BINDIR})
+ target_link_libraries(${TR_NAME}-cli
+     PRIVATE
+         ${TR_NAME}

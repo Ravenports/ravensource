@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	3.00
+DEF[PORTVERSION]=	4.0.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		transmission
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		net_p2p
 VARIANTS=		standard daemon gtk qt web
 SDESC[standard]=	Lightweight BitTorrent client (CLI client)
@@ -15,13 +14,13 @@ HOMEPAGE=		https://transmissionbt.com/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://github.com/transmission/transmission-releases/raw/master/
+SITES[main]=		https://github.com/transmission/transmission/releases/download/${PORTVERSION}/
 DISTFILE[1]=		transmission-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
-SPKGS[daemon]=		single
-SPKGS[gtk]=		complete primary nls
-SPKGS[qt]=		complete primary nls
+SPKGS[standard]=	complete primary man
+SPKGS[daemon]=		complete primary man
+SPKGS[gtk]=		complete primary man nls
+SPKGS[qt]=		complete primary man nls
 SPKGS[web]=		single
 
 OPTIONS_AVAILABLE=	NOTSTD DAEMON GTK QT WEB
@@ -63,7 +62,7 @@ CMAKE_ARGS=		-DENABLE_NLS:BOOL=ON
 [GTK].CMAKE_ARGS_ON=			-DENABLE_GTK:BOOL=ON
 [GTK].CMAKE_ARGS_OFF=			-DENABLE_GTK:BOOL=OFF
 [GTK].USES_ON=				desktop-utils:single
-[GTK].GNOME_COMPONENTS_ON=		cairo gdkpixbuf gtk3 pango intltool
+[GTK].GNOME_COMPONENTS_ON=		cairo gdkpixbuf gtk3 pango intltool gtkmm40 glibmm
 [GTK].BUILD_DEPENDS_ON=			appstream-glib:primary:standard
 					libnotify:dev:standard
 					harfbuzz:dev:standard
@@ -71,33 +70,29 @@ CMAKE_ARGS=		-DENABLE_NLS:BOOL=ON
 					libnotify:primary:standard
 [GTK].RUN_DEPENDS_ON=			xdg-utils:single:standard
 
-# Save WIP for transmission 4.00
-# [QT].DESCRIPTION=			Build Qt6 version of transmission
-# args					-DUSE_QT_VERSION=6
-# args					-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt6/cmake/"
-# [QT].USES_ON=				qt6
-# [QT].BUILDRUN_DEPENDS_ON=		qt6-qtbase:primary:standard
-# [QT].BUILD_DEPENDS_ON=		qt6-qttools:single:standard
-
-[QT].DESCRIPTION=			Build Qt version of transmission
+[QT].DESCRIPTION=			Build Qt6 version of transmission
 [QT].CMAKE_ARGS_ON=			-DENABLE_QT:BOOL=ON
-					-DUSE_QT5:BOOL=ON
-					-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
+					-DUSE_QT_VERSION=6
+					-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt6/cmake/"
 [QT].CMAKE_ARGS_OFF=			-DENABLE_QT:BOOL=OFF
-[QT].USES_ON=				qt5
-[QT].BUILDRUN_DEPENDS_ON=		qt5-qtbase:primary:standard
-[QT].BUILD_DEPENDS_ON=			qt5-qttools:single:standard
+[QT].USES_ON=				qt6
+[QT].BUILDRUN_DEPENDS_ON=		qt6-qtbase:primary:standard
+					qt6-qtsvg:single:standard
+					libdeflate:primary:standard
+[QT].BUILD_DEPENDS_ON=			qt6-qttools:single:standard
+					libdeflate:dev:standard
 [QT].MAKE_ARGS_ON=			DESTDIR="{{STAGEDIR}}"
 
 [WEB].DESCRIPTION=			Build transmission web interface
+[WEB].BUILD_DEPENDS_OFF=		libutp:dev:standard
 [WEB].BUILDRUN_DEPENDS_OFF=		libevent:single:standard
 					dht:single:standard
 					libb64:single:standard
 					libnatpmp:single:standard
-					libutp:single:standard
 					miniupnpc:single:standard
+					libpsl:single:standard
 [WEB].USES_OFF=				cpe cmake iconv pkgconfig ssl zlib
-					gettext curl
+					gettext curl python:build c++:primary
 
 post-patch-WEB-ON:
 	${FIND} ${WRKSRC}/web \( \
@@ -114,6 +109,7 @@ do-install-WEB-ON:
 	(cd ${WRKSRC} && \
 	${COPYTREE_SHARE} web ${STAGEDIR}${PREFIX}/share/transmission)
 	${RM} ${STAGEDIR}${PREFIX}/share/transmission/web/LICENSE
+	${RMDIR} ${STAGEDIR}${PREFIX}/share/transmission/web/assets/css
 
 post-install-DAEMON-ON:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/transmission/home

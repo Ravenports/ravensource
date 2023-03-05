@@ -1,19 +1,6 @@
---- CMakeLists.txt.orig	2020-05-22 11:04:23 UTC
+--- CMakeLists.txt.orig	2023-02-22 22:41:16 UTC
 +++ CMakeLists.txt
-@@ -437,7 +437,11 @@ set(NEEDED_HEADERS
-     xlocale.h)
- 
- if(ENABLE_NLS)
--    list(APPEND NEEDED_HEADERS libintl.h)
-+	list(APPEND NEEDED_HEADERS libintl.h)
-+	find_package(Intl)
-+	if(Intl_FOUND)
-+		set(LIBINTL_LIBRARY ${Intl_LIBRARIES})
-+	endif()
- endif()
- 
- foreach(H ${NEEDED_HEADERS})
-@@ -553,10 +557,6 @@ foreach(P daemon cli utils gtk qt mac)
+@@ -783,10 +783,6 @@ foreach(P cli daemon gtk mac qt utils)
      endif()
  endforeach()
  
@@ -22,5 +9,5 @@
 -endif()
 -
  if(INSTALL_DOC)
-     install(FILES AUTHORS COPYING NEWS.md README.md extras/rpc-spec.txt extras/send-email-when-torrent-done.sh DESTINATION ${CMAKE_INSTALL_DOCDIR})
- endif()
+     install(
+         FILES
