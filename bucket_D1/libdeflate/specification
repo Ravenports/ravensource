@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	1.17
+DEF[RELEASE_TAG]=	v${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libdeflate
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers
+VARIANTS=		standard
+SDESC[standard]=	Fast DEFLATE-based compression library
+HOMEPAGE=		https://github.com/ebiggers/libdeflate
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/ebiggers:libdeflate:${RELEASE_TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary tools dev docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		archivers/libdeflate
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+EXRUN[tools]=		libdeflate:primary:standard
+
+USES=			cmake
+CMAKE_ARGS=		-DLIBDEFLATE_USE_SHARED_LIB:BOOL=ON
+
+post-patch:
+	${REINPLACE_CMD} -e '/-O2 -DNDEBUG/d' ${WRKSRC}/CMakeLists.txt
+
+post-install:
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${WRKSRC}/*.md ${STAGEDIR}${STD_DOCDIR}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
