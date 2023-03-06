@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	1.7.15
+DEF[RELEASE_TAG]=	v${PORTVERSION}
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		cjson
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Ultralightweight JSON parser in ANSI C
+HOMEPAGE=		https://github.com/DaveGamble/cJSON
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/DaveGamble:cJSON:${RELEASE_TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/libcjson
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+USES=			cmake
+CMAKE_ARGS=		-DBUILD_SHARED_AND_STATIC_LIBS:BOOL=ON
+			-DENABLE_CJSON_UTILS:BOOL=ON
+			-DENABLE_TARGET_EXPORT:BOOL=ON
+			-DENABLE_CUSTOM_COMPILER_FLAGS:BOOL=OFF
+SOVERSION=		${SOVERSION}
