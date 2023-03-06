@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	9.9.2
+DEF[PORTVERSION]=	9.10
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pymdown-extensions
@@ -11,7 +11,7 @@ HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/b7/70/0926b40d01fd2d708798994135f50ce02459499c36a25423b55901f7a7c5
+SITES[main]=		PYPIWHL/34/30/a16f0671c64c996726c48811b0d2c6c97f8d12926c9ad1c34e21a3d7155b
 DISTFILE[1]=		pymdown_extensions-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -30,9 +30,12 @@ DISTNAME=		pymdown_extensions-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # markdown>=3.2
+# pyyaml
 
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-Markdown:single:py310
+					python-PyYAML:single:py310
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-Markdown:single:v11
+					python-PyYAML:single:v11
 
