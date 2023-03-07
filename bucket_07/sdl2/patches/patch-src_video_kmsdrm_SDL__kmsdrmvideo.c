@@ -1,4 +1,4 @@
---- src/video/kmsdrm/SDL_kmsdrmvideo.c.orig	2023-01-03 14:45:18 UTC
+--- src/video/kmsdrm/SDL_kmsdrmvideo.c.orig	2023-03-06 23:52:05 UTC
 +++ src/video/kmsdrm/SDL_kmsdrmvideo.c
 @@ -68,6 +68,10 @@ static char kmsdrm_dri_cardpath[32];
  #define EGL_PLATFORM_GBM_MESA 0x31D7
