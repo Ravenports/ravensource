@@ -1,0 +1,71 @@
+DEF[PORTVERSION]=	1.19.5
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		go119
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		standard
+SDESC[standard]=	Go programming language compiler
+HOMEPAGE=		https://golang.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://golang.org/dl/
+DISTFILE[1]=		go${PORTVERSION}.src.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		lang/go
+
+NOT_FOR_ARCH=		aarch64
+
+BUILD_DEPENDS=		go14:single:standard
+
+USES=			cpe shebangfix
+CPE_VENDOR=		golang
+CPE_PRODUCT=		go
+SHEBANG_LANG=		bash
+			perl
+SHEBANG_FILES=		src/*.bash
+			lib/time/*.bash
+			misc/wasm/go_js_wasm_exec
+			src/cmd/go/*.sh
+			src/regexp/syntax/*.pl
+			src/crypto/internal/boring/build.sh
+			src/go/doc/comment/mkstd.sh
+SHEBANG_OLD_BASH=	"/usr/bin/env bash"
+SHEBANG_NEW_BASH=	{{SH}}
+DISTNAME=		go
+PLIST_SUB=		opsys_ARCH={{OPSYS:tl}}_{{GOARCH}}
+
+post-patch:
+	@cd ${WRKSRC} && ${FIND} . -name '*.orig' -delete
+	${RM} ${WRKSRC}/src/*.rc ${WRKSRC}/include/plan9/mklibc.rc
+	${FIND} ${WRKSRC} -type d -name testdata | ${XARGS} ${RM} -r
+
+do-build:
+	cd ${WRKSRC}/src && \
+		GOROOT=${WRKSRC} \
+		GOROOT_FINAL=${PREFIX}/go119 \
+		GOROOT_BOOTSTRAP=${LOCALBASE}/go14 \
+		GOBIN= \
+		GOARCH=${GOARCH} \
+		GOOS=${OPSYS:tl} \
+		GO386=${GO386} \
+		CC=gcc \
+		${SH} make.bash
+
+do-install:
+	${CP} -a ${WRKSRC} ${STAGEDIR}${PREFIX}/go119
+	${RM} -r ${STAGEDIR}${PREFIX}/go119/pkg/obj
+	${RM} -r ${STAGEDIR}${PREFIX}/go119/misc/cgo/testplugin/altpath
+	${RM} -r ${STAGEDIR}${PREFIX}/go119/test
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/go119/bin/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/go119/pkg/tool/${OPSYS:tl}_${GOARCH}/*
