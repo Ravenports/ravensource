@@ -1,9 +1,10 @@
---- external/skia/UnpackedTarball_skia.mk.orig	2023-01-25 14:26:33 UTC
+--- external/skia/UnpackedTarball_skia.mk.orig	2023-02-22 19:52:27 UTC
 +++ external/skia/UnpackedTarball_skia.mk
-@@ -40,6 +40,7 @@ skia_patches := \
-     tdf148624.patch.1 \
+@@ -41,6 +41,8 @@ skia_patches := \
      constexpr-template.patch.0 \
      missing-include.patch.0 \
+     tdf147342.patch.0 \
++    gfx-skia-skia-src-core-SkCpu.cpp.patch.0 \
 +    netbsd.patch.0 \
  
  $(eval $(call gb_UnpackedTarball_set_patchlevel,skia,1))

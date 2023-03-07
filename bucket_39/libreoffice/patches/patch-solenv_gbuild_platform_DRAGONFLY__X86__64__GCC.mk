@@ -1,4 +1,4 @@
---- solenv/gbuild/platform/DRAGONFLY_X86_64_GCC.mk.orig	2023-01-25 14:26:33 UTC
+--- solenv/gbuild/platform/DRAGONFLY_X86_64_GCC.mk.orig	2023-02-22 19:52:27 UTC
 +++ solenv/gbuild/platform/DRAGONFLY_X86_64_GCC.mk
 @@ -11,6 +11,6 @@
  
