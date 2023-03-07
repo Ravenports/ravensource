@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.19.5
+DEF[PORTVERSION]=	1.20.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		golang
@@ -26,7 +26,7 @@ FPC_EQUIVALENT=		lang/go
 
 NOT_FOR_ARCH=		aarch64
 
-BUILD_DEPENDS=		go14:single:standard
+BUILD_DEPENDS=		go119:single:standard
 
 USES=			cpe shebangfix
 CPE_VENDOR=		golang
@@ -40,23 +40,32 @@ SHEBANG_FILES=		src/*.bash
 			src/regexp/syntax/*.pl
 			src/crypto/internal/boring/build.sh
 			src/go/doc/comment/mkstd.sh
+			src/runtime/race/mkcgo.sh
+			src/crypto/internal/boring/*.sh
 SHEBANG_OLD_BASH=	"/usr/bin/env bash"
 SHEBANG_NEW_BASH=	{{SH}}
 DISTNAME=		go
 PLIST_SUB=		opsys_ARCH={{OPSYS:tl}}_{{GOARCH}}
 
-post-patch:
-	@cd ${WRKSRC} && ${FIND} . -name '*.orig' -delete
+pre-configure:
+	${REINPLACE_CMD} -e 's|type -ap |type |' ${WRKSRC}/src/make.bash
+	${REINPLACE_CMD} -e 's|^if ulimit -T|false \&\& &|' ${WRKSRC}/src/run.bash
+	${FIND} ${WRKSRC} -name '*.orig' -delete
+	${FIND} ${WRKSRC} -name '*.bak' -delete
 	${RM} ${WRKSRC}/src/*.rc ${WRKSRC}/include/plan9/mklibc.rc
 	${FIND} ${WRKSRC} -type d -name testdata | ${XARGS} ${RM} -r
 
 do-build:
-	cd ${WRKSRC}/src && \
-		GOROOT=${WRKSRC} GOROOT_FINAL=${PREFIX}/go \
-		GOROOT_BOOTSTRAP=${LOCALBASE}/go14 \
-		GOBIN= GOARCH=${GOARCH} GOOS=${OPSYS:tl} \
-		GO386=${GO386} CC=gcc \
-		${SH} make.bash
+	cd ${WRKSRC}/src && ${SETENV} \
+		XDG_CACHE_HOME=${WRKDIR} \
+		GOROOT_BOOTSTRAP=${LOCALBASE}/go119 \
+		GOROOT=${WRKSRC} \
+		GOROOT_FINAL=${PREFIX}/go \
+		GOBIN= GOARCH=${GOARCH} \
+		GOOS=${OPSYS:tl} \
+		GO386=${GO386} \
+		CC=gcc \
+		${SH} make.bash -v
 
 do-install:
 	${CP} -a ${WRKSRC} ${STAGEDIR}${PREFIX}
@@ -68,3 +77,5 @@ do-install:
 .endfor
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/go/pkg/tool/${OPSYS:tl}_${GOARCH}/*
 # ${STRIP_CMD} ${STAGEDIR}${PREFIX}/go/pkg/bootstrap/bin/*
+	# remove test
+	${RM} -r ${STAGEDIR}${PREFIX}/go/test
