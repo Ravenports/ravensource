@@ -34,8 +34,10 @@ def scan_failed_build_log(logs_directory):
     filename = logs_directory + "/02_failure_list.log"
     with open(filename, "r", encoding="utf-8") as fin:
         for line in fin:
-            elements = line.strip().split(" ")
-            result.append(elements[1])
+            lean_line = line.strip()
+            if " " in lean_line:
+                elements = lean_line.split(" ")
+                result.append(elements[1])
     return result
 
 
@@ -52,12 +54,14 @@ def scan_skipped_ports_log(logs_directory):
     filename = logs_directory + "/04_skipped_list.log"
     with open(filename, "r", encoding="utf-8") as fin:
         for line in fin:
-            elements = line.strip().split(" ")
-            failed = elements[2]
-            skipped = elements[0]
-            if failed not in result:
-                result[failed] = []
-            result[failed].append(skipped)
+            lean_line = line.strip()
+            if " " in lean_line:
+                elements = lean_line.split(" ")
+                failed = elements[2]
+                skipped = elements[0]
+                if failed not in result:
+                    result[failed] = []
+                result[failed].append(skipped)
     return result
 
 
