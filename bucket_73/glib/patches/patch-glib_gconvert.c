@@ -1,4 +1,4 @@
---- glib/gconvert.c.orig	2023-02-23 13:54:27 UTC
+--- glib/gconvert.c.orig	2023-03-10 14:33:15 UTC
 +++ glib/gconvert.c
 @@ -217,6 +217,18 @@ g_iconv_open (const gchar  *to_codeset,
  	      const gchar  *from_codeset)
