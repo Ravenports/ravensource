@@ -26,8 +26,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		databases/leveldb
 
+BUILD_DEPENDS=		snappy:dev:standard
+BUILDRUN_DEPENDS=	snappy:primary:standard
+
 USES=			c++:primary cmake sqlite
-BUILDRUN_DEPENDS=	snappy:single:standard
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
 			-DLEVELDB_BUILD_BENCHMARKS:BOOL=OFF
 			-DLEVELDB_BUILD_TESTS:BOOL=OFF
