@@ -8,6 +8,7 @@ DEF[CAT2]=		http://www.oasis-open.org/docbook/xml/
 
 NAMEBASE=		appstream-glib
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Library for reading and writing AppStream metadata
@@ -19,7 +20,7 @@ SITES[main]=		https://people.freedesktop.org/~hughsient/appstream-glib/releases/
 DISTFILE[1]=		appstream-glib-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome3
 
-SPKGS[standard]=	complete primary nls docs
+SPKGS[standard]=	complete primary tools dev nls man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -40,6 +41,8 @@ BUILDRUN_DEPENDS=	libyaml:single:standard
 			libarchive:single:standard
 			json-glib:primary:standard
 			gcab:primary:standard
+
+EXRUN[tools]=		appstream-glib:primary:standard
 
 USES=			gmake libtool pkgconfig sqlite meson gtk-doc
 			curl fontconfig ssl:build
