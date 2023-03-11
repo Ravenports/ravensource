@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.1.9
+DEF[PORTVERSION]=	1.1.10
 DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -14,18 +14,18 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/google:snappy:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		BSD3CLAUSE:single
+LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		archivers/snappy
 
-USES=			c++:single cclibs:single cmake
+USES=			c++:primary cclibs:primary cmake
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
 			-DSNAPPY_BUILD_TESTS:BOOL=OFF
 			-DSNAPPY_BUILD_BENCHMARKS:BOOL=OFF
