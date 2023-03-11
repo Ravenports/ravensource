@@ -20,8 +20,7 @@ SPKGS[standard]=	complete primary docs
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-BUILD_DEPENDS=		at-spi2-atk:dev:standard
-			evdev-proto:single:standard
+BUILD_DEPENDS=		evdev-proto:single:standard
 			harfbuzz:dev:standard
 			libdrm:dev:standard
 BUILDRUN_DEPENDS=	harfbuzz:icu:standard
@@ -29,12 +28,12 @@ BUILDRUN_DEPENDS=	harfbuzz:icu:standard
 # |			libproxy:single:standard
 			libdrm:primary:standard
 			libxkbcommon:single:standard
-			at-spi2-atk:primary:standard
 
 USES=			qt5 gmake zlib png sqlite jpeg pkgconfig execinfo
 			freetype pcre2 iconv perl:build shebangfix ssl:openssl11 cpe
 XORG_COMPONENTS=	x11 xcb xcb-util xcb-util-image xcb-util-keysyms
 			xcb-util-wm xcb-render-util
+GNOME_COMPONENTS=	atk
 CPE_VENDOR=		qt
 CPE_PRODUCT=		qt
 CONFIGURE_ARGS=		-system-harfbuzz
