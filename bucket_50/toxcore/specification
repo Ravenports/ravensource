@@ -5,12 +5,12 @@ DEF[CMP_VERSION]=	20
 
 NAMEBASE=		toxcore
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		net net_im net_p2p
 VARIANTS=		standard
 SDESC[standard]=	Tox chat protocol library
 HOMEPAGE=		https://tox.chat/
-CONTACT=		Leonid_Bobrov[goleo@disroot.org]
+CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main cmp
 SITES[main]=		GITHUB/TokTok:c-toxcore:v${PORTVERSION}
@@ -20,14 +20,14 @@ DISTFILE[2]=		generated:cmp
 DIST_SUBDIR=		tox
 DF_INDEX=		1 2
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv3+:single
+LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/LICENSE
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^\#ifdef"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/toxcore/tox.c
 LICENSE_SCHEME=		solo
@@ -36,9 +36,6 @@ FPC_EQUIVALENT=		net-im/tox
 
 EXTRACT_ONLY=		1
 
-USES=			cpe cmake libtool pkgconfig
-CPE_VENDOR=		toktok
-CPE_PRODUCT=		toxcore
 BUILD_DEPENDS=		libsodium:dev:standard
 			libvpx:dev:standard
 			msgpack:dev:standard
@@ -47,6 +44,13 @@ BUILDRUN_DEPENDS=	libconfig:single:standard
 			libvpx:primary:standard
 			msgpack:primary:standard
 			opus:single:standard
+
+EXRUN[dev]=		libvpx:dev:standard
+EXRUN[tools]=		toxcore:primary:standard
+
+USES=			cpe cmake libtool pkgconfig
+CPE_VENDOR=		toktok
+CPE_PRODUCT=		toxcore
 SOVERSION=		${SOVERSION}
 
 post-extract:
