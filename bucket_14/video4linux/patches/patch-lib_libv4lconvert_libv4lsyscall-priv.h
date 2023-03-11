@@ -1,4 +1,4 @@
---- lib/libv4lconvert/libv4lsyscall-priv.h.orig	2017-01-22 17:33:34 UTC
+--- lib/libv4lconvert/libv4lsyscall-priv.h.orig	2023-02-24 16:40:23 UTC
 +++ lib/libv4lconvert/libv4lsyscall-priv.h
 @@ -51,7 +51,7 @@
  #endif

@@ -1,4 +1,4 @@
---- lib/libv4lconvert/control/libv4lcontrol.c.orig	2021-10-16 09:28:31 UTC
+--- lib/libv4lconvert/control/libv4lcontrol.c.orig	2023-02-24 16:49:19 UTC
 +++ lib/libv4lconvert/control/libv4lcontrol.c
 @@ -20,7 +20,7 @@
   */
