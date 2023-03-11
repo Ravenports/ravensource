@@ -1,4 +1,4 @@
---- src/util/u_math.h.orig	2023-02-22 20:35:56 UTC
+--- src/util/u_math.h.orig	2023-03-08 18:37:09 UTC
 +++ src/util/u_math.h
 @@ -52,6 +52,7 @@
  extern "C" {
