@@ -1,4 +1,4 @@
---- src/lib/OpenEXRCore/internal_xdr.h.orig	2022-04-07 00:52:25 UTC
+--- src/lib/OpenEXRCore/internal_xdr.h.orig	2023-03-05 20:23:47 UTC
 +++ src/lib/OpenEXRCore/internal_xdr.h
 @@ -64,6 +64,21 @@
  #  include <sys/endian.h>

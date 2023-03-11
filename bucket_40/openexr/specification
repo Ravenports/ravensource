@@ -1,7 +1,7 @@
-DEF[PORTVERSION]=	3.1.5
+DEF[PORTVERSION]=	3.1.6
 DEF[MAJOR]=		${PORTVERSION:R:S|.|_|}
 DEF[MAJOR2]=		${MAJOR:S|_||}
-DEF[SOVERSION]=		30.5.1
+DEF[SOVERSION]=		30.6.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		openexr
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/AcademySoftwareFoundation:openexr:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary examples
+SPKGS[standard]=	complete primary dev tools examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,6 +28,8 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		graphics/openexr
 
 BUILDRUN_DEPENDS=	Imath:single:standard
+
+EXRUN[tools]=		openexr:primary:standard
 
 USES=			cpe cmake pkgconfig zlib c++:primary
 CMAKE_ARGS=		-DCMAKE_INSTALL_PREFIX={{PREFIX}}
