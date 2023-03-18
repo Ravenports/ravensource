@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	3.11.1
-DEF[SOVERSION]=		1.17.1
+DEF[PORTVERSION]=	3.11.2
+DEF[SOVERSION]=		1.17.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		geos
@@ -14,21 +14,21 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.osgeo.org/geos/
 DISTFILE[1]=		geos-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL21:single
+LICENSE=		LGPL21:primary
 LICENSE_FILE=		LGPL21:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/geos.h
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/geos
 
-USES=			cmake c++:single
+USES=			cmake c++:primary
 PLIST_SUB=		PORTVERSION=${PORTVERSION}
 SOVERSION=		${SOVERSION}
 
