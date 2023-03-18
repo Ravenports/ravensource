@@ -4,8 +4,10 @@ share/doc/cmake/Help/command/FIND_XXX.txt
 share/doc/cmake/Help/command/FIND_XXX_ORDER.txt
 share/doc/cmake/Help/command/FIND_XXX_REGISTRY_VIEW.txt
 share/doc/cmake/Help/command/FIND_XXX_ROOT.txt
+share/doc/cmake/Help/command/GENEX_NOTE.txt
 share/doc/cmake/Help/command/LINK_OPTIONS_LINKER.txt
 share/doc/cmake/Help/command/OPTIONS_SHELL.txt
+share/doc/cmake/Help/command/SUPPORTED_LANGUAGES.txt
 share/doc/cmake/Help/command/add_compile_definitions.rst
 share/doc/cmake/Help/command/add_compile_options.rst
 share/doc/cmake/Help/command/add_custom_command.rst
@@ -174,6 +176,7 @@ share/doc/cmake/Help/envvar/CMAKE_PREFIX_PATH.rst
 share/doc/cmake/Help/envvar/CMAKE_TOOLCHAIN_FILE.rst
 share/doc/cmake/Help/envvar/CSFLAGS.rst
 share/doc/cmake/Help/envvar/CTEST_INTERACTIVE_DEBUG_MODE.rst
+share/doc/cmake/Help/envvar/CTEST_NO_TESTS_ACTION.rst
 share/doc/cmake/Help/envvar/CTEST_OUTPUT_ON_FAILURE.rst
 share/doc/cmake/Help/envvar/CTEST_PARALLEL_LEVEL.rst
 share/doc/cmake/Help/envvar/CTEST_PROGRESS_OUTPUT.rst
@@ -246,6 +249,7 @@ share/doc/cmake/Help/manual/ccmake.1.rst
 share/doc/cmake/Help/manual/cmake-buildsystem.7.rst
 share/doc/cmake/Help/manual/cmake-commands.7.rst
 share/doc/cmake/Help/manual/cmake-compile-features.7.rst
+share/doc/cmake/Help/manual/cmake-configure-log.7.rst
 share/doc/cmake/Help/manual/cmake-developer.7.rst
 share/doc/cmake/Help/manual/cmake-env-variables.7.rst
 share/doc/cmake/Help/manual/cmake-file-api.7.rst
@@ -679,6 +683,7 @@ share/doc/cmake/Help/policy/CMP0139.rst
 share/doc/cmake/Help/policy/CMP0140.rst
 share/doc/cmake/Help/policy/CMP0141.rst
 share/doc/cmake/Help/policy/CMP0142.rst
+share/doc/cmake/Help/policy/CMP0143.rst
 share/doc/cmake/Help/policy/DEPRECATED.txt
 share/doc/cmake/Help/policy/DISALLOWED_COMMAND.txt
 share/doc/cmake/Help/prop_cache/ADVANCED.rst
@@ -777,6 +782,7 @@ share/doc/cmake/Help/prop_sf/COMPILE_DEFINITIONS.rst
 share/doc/cmake/Help/prop_sf/COMPILE_DEFINITIONS_CONFIG.rst
 share/doc/cmake/Help/prop_sf/COMPILE_FLAGS.rst
 share/doc/cmake/Help/prop_sf/COMPILE_OPTIONS.rst
+share/doc/cmake/Help/prop_sf/CXX_SCAN_FOR_MODULES.rst
 share/doc/cmake/Help/prop_sf/EXTERNAL_OBJECT.rst
 share/doc/cmake/Help/prop_sf/Fortran_FORMAT.rst
 share/doc/cmake/Help/prop_sf/Fortran_PREPROCESS.rst
@@ -937,6 +943,7 @@ share/doc/cmake/Help/prop_tgt/CXX_MODULE_HEADER_UNIT_SET_NAME.rst
 share/doc/cmake/Help/prop_tgt/CXX_MODULE_SET.rst
 share/doc/cmake/Help/prop_tgt/CXX_MODULE_SETS.rst
 share/doc/cmake/Help/prop_tgt/CXX_MODULE_SET_NAME.rst
+share/doc/cmake/Help/prop_tgt/CXX_SCAN_FOR_MODULES.rst
 share/doc/cmake/Help/prop_tgt/CXX_STANDARD.rst
 share/doc/cmake/Help/prop_tgt/CXX_STANDARD_REQUIRED.rst
 share/doc/cmake/Help/prop_tgt/C_EXTENSIONS.rst
@@ -1047,6 +1054,7 @@ share/doc/cmake/Help/prop_tgt/JOB_POOL_LINK.rst
 share/doc/cmake/Help/prop_tgt/JOB_POOL_PRECOMPILE_HEADER.rst
 share/doc/cmake/Help/prop_tgt/LABELS.rst
 share/doc/cmake/Help/prop_tgt/LANG_CLANG_TIDY.rst
+share/doc/cmake/Help/prop_tgt/LANG_CLANG_TIDY_EXPORT_FIXES_DIR.rst
 share/doc/cmake/Help/prop_tgt/LANG_COMPILER_LAUNCHER.rst
 share/doc/cmake/Help/prop_tgt/LANG_CPPCHECK.rst
 share/doc/cmake/Help/prop_tgt/LANG_CPPLINT.rst
@@ -1258,6 +1266,7 @@ share/doc/cmake/Help/release/3.22.rst
 share/doc/cmake/Help/release/3.23.rst
 share/doc/cmake/Help/release/3.24.rst
 share/doc/cmake/Help/release/3.25.rst
+share/doc/cmake/Help/release/3.26.rst
 share/doc/cmake/Help/release/3.3.rst
 share/doc/cmake/Help/release/3.4.rst
 share/doc/cmake/Help/release/3.5.rst
@@ -1383,6 +1392,7 @@ share/doc/cmake/Help/variable/CMAKE_CURRENT_LIST_LINE.rst
 share/doc/cmake/Help/variable/CMAKE_CURRENT_SOURCE_DIR.rst
 share/doc/cmake/Help/variable/CMAKE_CXX_COMPILE_FEATURES.rst
 share/doc/cmake/Help/variable/CMAKE_CXX_EXTENSIONS.rst
+share/doc/cmake/Help/variable/CMAKE_CXX_SCAN_FOR_MODULES.rst
 share/doc/cmake/Help/variable/CMAKE_CXX_STANDARD.rst
 share/doc/cmake/Help/variable/CMAKE_CXX_STANDARD_REQUIRED.rst
 share/doc/cmake/Help/variable/CMAKE_C_COMPILE_FEATURES.rst
@@ -1526,6 +1536,7 @@ share/doc/cmake/Help/variable/CMAKE_LANG_ARCHIVE_CREATE.rst
 share/doc/cmake/Help/variable/CMAKE_LANG_ARCHIVE_FINISH.rst
 share/doc/cmake/Help/variable/CMAKE_LANG_BYTE_ORDER.rst
 share/doc/cmake/Help/variable/CMAKE_LANG_CLANG_TIDY.rst
+share/doc/cmake/Help/variable/CMAKE_LANG_CLANG_TIDY_EXPORT_FIXES_DIR.rst
 share/doc/cmake/Help/variable/CMAKE_LANG_COMPILER.rst
 share/doc/cmake/Help/variable/CMAKE_LANG_COMPILER_ABI.rst
 share/doc/cmake/Help/variable/CMAKE_LANG_COMPILER_AR.rst
@@ -1779,6 +1790,8 @@ share/doc/cmake/Help/variable/CMAKE_VS_SDK_SOURCE_DIRECTORIES.rst
 share/doc/cmake/Help/variable/CMAKE_VS_TARGET_FRAMEWORK_IDENTIFIER.rst
 share/doc/cmake/Help/variable/CMAKE_VS_TARGET_FRAMEWORK_TARGETS_VERSION.rst
 share/doc/cmake/Help/variable/CMAKE_VS_TARGET_FRAMEWORK_VERSION.rst
+share/doc/cmake/Help/variable/CMAKE_VS_VERSION_BUILD_NUMBER.rst
+share/doc/cmake/Help/variable/CMAKE_VS_VERSION_BUILD_NUMBER_COMPONENTS.txt
 share/doc/cmake/Help/variable/CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION.rst
 share/doc/cmake/Help/variable/CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION_MAXIMUM.rst
 share/doc/cmake/Help/variable/CMAKE_VS_WINRT_BY_DEFAULT.rst
