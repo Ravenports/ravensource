@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	3.3.2
 
 NAMEBASE=		postgis
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		databases geography
 VARIANTS=		standard
 SDESC[standard]=	Spatial and Geographic objects for PostgreSQL
@@ -25,13 +26,14 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		databases/postgis32
 
-BUILD_DEPENDS=		libtool:single:standard
+BUILD_DEPENDS=		geos:dev:standard
 			harfbuzz:dev:standard
+			libtool:single:standard
 			proj:dev:standard
-BUILDRUN_DEPENDS=	proj:primary:standard
-			geos:single:standard
-			gdal:single:standard
+BUILDRUN_DEPENDS=	gdal:single:standard
+			geos:primary:standard
 			json-c:primary:standard
+			proj:primary:standard
 			protobuf-c:single:standard
 
 USES=			autoreconf:build gmake iconv libtool pkgconfig pcre
