@@ -1,0 +1,11 @@
+--- tls/tests/meson.build.orig	2023-03-17 15:11:38 UTC
++++ tls/tests/meson.build
+@@ -71,7 +71,7 @@ foreach backend: backends
+       '-D_GNU_SOURCE',
+     ]
+ 
+-    if not ['windows'].contains(host_system)
++    if host_system.contains('linux')
+       program_deps += cc.find_library('dl')
+     endif
+ 

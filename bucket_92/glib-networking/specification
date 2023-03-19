@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	2.74.0
+DEF[PORTVERSION]=	2.76.0
 DEF[DLFOLDER]=		${PORTVERSION:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		glib-networking
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		net devel
 VARIANTS=		standard
 SDESC[standard]=	Network-related giomodules for GLib
@@ -15,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://ftp.gnome.org/pub/GNOME/sources/glib-networking/${DLFOLDER}/
 DISTFILE[1]=		glib-networking-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[standard]=	complete primary dev nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -42,7 +41,7 @@ BUILDRUN_DEPENDS=	nss:caroot:standard
 USES=			cpe libtool meson pkgconfig
 CPE_VENDOR=		gnome
 GNOME_COMPONENTS=	glib intltool
-MESON_ARGS=		-Dstatic_modules=true
+MESON_ARGS=		-Ddefault_library=both
 			-Dinstalled_tests=false
 INSTALL_TARGET=		install-strip
 
