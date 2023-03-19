@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.2.3
+DEF[PORTVERSION]=	6.3.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-deepdiff
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/seperman/deepdiff
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/a7/dd/85c0fa878b5cd8e5c128500729874c8622337490130d86e1d40e0ad04187
+SITES[main]=		PYPIWHL/33/4f/8feec2f9ef4515fc63566ec95a4775afd3ab1f08b563240469aa6afabd41
 DISTFILE[1]=		deepdiff-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -30,14 +30,12 @@ DISTNAME=		deepdiff-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # ordered-set (<4.2.0,>=4.0.2)
-# orjson
 # click (==8.1.3) ; extra == 'cli'
 # pyyaml (==6.0) ; extra == 'cli'
+# orjson ; extra == 'optimize'
 
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-ordered-set:single:py310
-					python-orjson:single:py310
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-ordered-set:single:v11
-					python-orjson:single:v11
 

@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.0.0
+DEF[PORTVERSION]=	4.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-sphinxcontrib.jquery
@@ -11,8 +11,8 @@ HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/f8/a6/bc7619ffa69b15288e7bbce56ec53819176485d79afea66489de59c8154e
-DISTFILE[1]=		sphinxcontrib.jquery-${PORTVERSION}-py2.py3-none-any.whl:main
+SITES[main]=		PYPIWHL/76/85/749bd22d1a68db7291c89e2ebca53f4306c3f205853cf31e9de279034c3c
+DISTFILE[1]=		sphinxcontrib_jquery-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py310]=		single
 SPKGS[v11]=		single
@@ -26,11 +26,13 @@ VOPTS[v11]=		PY310=OFF PY311=ON
 # Not provided.
 
 GENERATED=		yes
-DISTNAME=		sphinxcontrib.jquery-${PORTVERSION}.dist-info
+DISTNAME=		sphinxcontrib_jquery-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-
+# Sphinx>=1.8
 
 [PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-Sphinx:single:py310
 [PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-Sphinx:single:v11
 
