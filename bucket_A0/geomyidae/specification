@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	0.69
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		geomyidae
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		standard
+SDESC[standard]=	Small C-based Gopher server
+HOMEPAGE=		http://r-36.net/scm/geomyidae/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		ftp://bitreich.org/releases/geomyidae/
+DISTFILE[1]=		geomyidae-v${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	primary man examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+DISTNAME=		geomyidae-v${PORTVERSION}
+USES=			ssl
+
+post-patch:
+	${REINPLACE_CMD} 's!__PREFIX__!${PREFIX}!g' ${WRKSRC}/Makefile
+
+post-stage:
+	(cd ${WRKSRC} && \
+		${COPYTREE_SHARE} "CGI.md cgi-examples rc.d" ${STAGEDIR}${STD_EXAMPLESDIR})
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/geomyidae
