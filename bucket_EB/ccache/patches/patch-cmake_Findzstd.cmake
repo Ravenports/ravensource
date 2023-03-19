@@ -1,11 +1,11 @@
---- cmake/Findzstd.cmake.orig	2022-11-21 18:53:32 UTC
+--- cmake/Findzstd.cmake.orig	2023-03-12 21:00:43 UTC
 +++ cmake/Findzstd.cmake
-@@ -10,7 +10,7 @@ if(PKG_CONFIG_FOUND)
-   find_library(ZSTD_LIBRARY zstd HINTS ${PC_ZSTD_LIBDIR} ${PC_ZSTD_LIBRARY_DIRS})
-   find_path(ZSTD_INCLUDE_DIR zstd.h HINTS ${PC_ZSTD_INCLUDEDIR} ${PC_ZSTD_INCLUDE_DIRS})
- else()
--  find_library(ZSTD_LIBRARY zstd)
-+  find_library(ZSTD_LIBRARY zstd_pic)
-   find_path(ZSTD_INCLUDE_DIR zstd.h)
- endif()
+@@ -20,7 +20,7 @@ else()
+   endif()
  
+   if(NOT zstd_FOUND)
+-    find_library(ZSTD_LIBRARY zstd)
++    find_library(ZSTD_LIBRARY zstd_pic)
+     find_path(ZSTD_INCLUDE_DIR zstd.h)
+     if(ZSTD_LIBRARY AND ZSTD_INCLUDE_DIR)
+       message(STATUS "Using zstd from ${ZSTD_LIBRARY}")
