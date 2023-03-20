@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	0.11.1
+DEF[GTK_VERSION]=	EXTRACT_INFO(GTK2_VERSION)
+DEF[RELEASE]=		v${PORTVERSION}
+DEF[SOVERSION]=		15.0.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libavif
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Library for encoding and decoding .avif files
+HOMEPAGE=		none
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/AOMediaCodec:libavif:${RELEASE}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary tools dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		graphics/libavif
+
+LICENSE=		BSD2CLAUSE:primary
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+EXRUN[tools]=		libavif:primary:standard
+
+BUILD_DEPENDS=		aom:dev:standard
+			dav1d:dev:standard
+BUILDRUN_DEPENDS=	aom:primary:standard
+			dav1d:primary:standard
+
+USES=			cpe cmake jpeg png pkgconfig
+GNOME_COMPONENTS=	gdkpixbuf
+CPE_VENDOR=		aomedia
+CMAKE_ARGS=		-DAVIF_BUILD_APPS:BOOL=ON
+			-DAVIF_CODEC_AOM:BOOL=ON
+			-DAVIF_CODEC_DAV1D:BOOL=ON
+			-DAVIF_BUILD_GDK_PIXBUF:BOOL=ON
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		GTK2_VERSION=${GTK_VERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/avif*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libavif.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gdk-pixbuf-2.0/${GTK_VERSION}/loaders/libpixbufloader-avif.so
