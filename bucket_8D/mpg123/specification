@@ -1,7 +1,7 @@
-DEF[PORTVERSION]=	1.31.2
+DEF[PORTVERSION]=	1.31.3
 DEF[SOVERSION]=		0.47.0
 DEF[LIBOUT]=		0.4.7
-DEF[LIBSYN]=		0.1.4
+DEF[LIBSYN]=		0.1.5
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mpg123
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://www.mpg123.de/download/
 DISTFILE[1]=		mpg123-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary library
+SPKGS[standard]=	complete primary tools dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,7 +25,7 @@ FPC_EQUIVALENT=		audio/mpg123
 
 BUILDRUN_DEPENDS=	libltdl:single:standard
 
-EXRUN[primary]=		mpg123:library:standard
+EXRUN[tools]=		mpg123:primary:standard
 
 USES=			cpe gmake libtool
 MUST_CONFIGURE=		gnu
