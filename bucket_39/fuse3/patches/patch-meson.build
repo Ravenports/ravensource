@@ -1,11 +1,11 @@
---- meson.build.orig	2022-09-08 10:02:45 UTC
+--- meson.build.orig	2023-02-17 09:31:14 UTC
 +++ meson.build
-@@ -48,7 +48,7 @@ endforeach
- cfg.set('HAVE_SETXATTR', 
+@@ -59,7 +59,7 @@ endforeach
+ private_cfg.set('HAVE_SETXATTR', 
          cc.has_function('setxattr', prefix: '#include <sys/xattr.h>'))
- cfg.set('HAVE_ICONV', 
+ private_cfg.set('HAVE_ICONV', 
 -        cc.has_function('iconv', prefix: '#include <iconv.h>'))
 +        cc.has_function('dontuseiconv', prefix: '#include <iconv.h>'))
  
  # Test if structs have specific member
- cfg.set('HAVE_STRUCT_STAT_ST_ATIM',
+ private_cfg.set('HAVE_STRUCT_STAT_ST_ATIM',
