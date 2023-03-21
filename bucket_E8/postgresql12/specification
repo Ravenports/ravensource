@@ -99,6 +99,8 @@ SUB_LIST=		PG_GROUP=${PG_GROUP}
 VAR_OPSYS[sunos]=	CONFIGURE_ENV=ac_cv_search_bind_textdomain_codeset=-lintl
 			CONFIGURE_ARGS=--with-template=solaris
 			CONFIGURE_ARGS=--with-uuid=ossp
+			LDFLAGS=-L{{PREFIX}}/lib/ossp
+			LDFLAGS=-Wl,-rpath,{{PREFIX}}/lib/ossp
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--with-template=freebsd
 			CONFIGURE_ARGS=--with-uuid=bsd
 VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-template=freebsd
@@ -111,6 +113,8 @@ VAR_OPSYS[darwin]=	CONFIGURE_ARGS=--with-template=darwin
 			CONFIGURE_ARGS=--with-uuid=e2fs
 VAR_OPSYS[linux]=	CONFIGURE_ARGS=--with-template=linux
 			CONFIGURE_ARGS=--with-uuid=ossp
+			LDFLAGS=-L{{PREFIX}}/lib/ossp
+			LDFLAGS=-Wl,-rpath,{{PREFIX}}/lib/ossp
 
 post-patch-sunos:
 	${REINPLACE_CMD} -e '/sqlmansect/d' \
