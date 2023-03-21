@@ -1,0 +1,56 @@
+DEF[PORTVERSION]=	1.19.0-2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		forgejo
+VERSION=		${PORTVERSION}
+KEYWORDS=		www
+VARIANTS=		standard
+SDESC[standard]=	Painless, self-hosted Git service (GitHub-like)
+HOMEPAGE=		https://forgejo.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main bundles
+SITES[main]=		https://codeberg.org/forgejo/forgejo/releases/download/v${PORTVERSION}/
+DISTFILE[1]=		forgejo-src-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+USERS=			forgejo
+GROUPS=			forgejo
+USERGROUP_SPKG=		single
+
+BUILD_DEPENDS=		golang:single:standard
+RUN_DEPENDS=		git-lfs:single:standard
+
+USES=			gmake
+RC_SUBR=		forgejo:single
+SUB_FILES=		app.ini.sample
+			pkg-message-single
+SUB_LIST=		GITUSER=forgejo
+
+DISTNAME=		forgejo-src-${PORTVERSION}
+MAKE_ENV=		GOFLAGS="-mod=vendor"
+			GOBIN="{{WRKDIR}}/bin"
+			TAGS="bindata sqlite sqlite_unlock_notify"
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-extract:
+	${ECHO_CMD} ${PORTVERSION} > ${WRKSRC}/VERSION
+
+do-build:
+	(cd ${WRKSRC} && \
+	${SETENV} ${MAKE_ENV} go build . )
+
+post-install:
+	${INSTALL_PROGRAM} ${WRKDIR}/bin/gitea ${STAGEDIR}${PREFIX}/bin
+	${LN} -s ${PREFIX}/bin/gitea ${STAGEDIR}${PREFIX}/bin/forgejo
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/forgejo/conf
+	${INSTALL_DATA} ${WRKSRC}/custom/conf/app.example.ini ${STAGEDIR}${PREFIX}/etc/forgejo/conf/app.ini.examples
+	${INSTALL_DATA} ${WRKDIR}/app.ini.sample ${STAGEDIR}${PREFIX}/etc/forgejo/conf/app.ini.sample
