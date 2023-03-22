@@ -1,6 +1,6 @@
---- Source/WTF/wtf/MemoryPressureHandler.cpp.orig	2022-09-16 06:02:57 UTC
+--- Source/WTF/wtf/MemoryPressureHandler.cpp.orig	2023-02-20 09:22:13 UTC
 +++ Source/WTF/wtf/MemoryPressureHandler.cpp
-@@ -56,7 +56,7 @@ MemoryPressureHandler& MemoryPressureHan
+@@ -65,7 +65,7 @@ static MemoryPressureHandler* memoryPres
  }
  
  MemoryPressureHandler::MemoryPressureHandler()

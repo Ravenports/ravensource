@@ -1,19 +1,19 @@
-DEF[PORTVERSION]=	2.38.5
-DEF[SOVERSION40]=	37.57.8
-DEF[SOVERSION41]=	0.2.8
-DEF[SOVERSION50]=	0.0.0
-DEF[JSSOVERSION40]=	18.21.8
-DEF[JSSOVERSION41]=	0.2.8
-DEF[JSSOVERSION50]=	0.0.0
+DEF[PORTVERSION]=	2.40.0
+DEF[SOVERSION40]=	37.63.1
+DEF[SOVERSION41]=	0.8.1
+DEF[SOVERSION60]=	4.0.1
+DEF[JSSOVERSION40]=	18.22.9
+DEF[JSSOVERSION41]=	0.3.9
+DEF[JSSOVERSION60]=	1.0.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		webkit2
 VERSION=		${PORTVERSION}
 KEYWORDS=		www
-VARIANTS=		api40 api41 api50
+VARIANTS=		api40 api41 api60
 SDESC[api40]=		Opensource browser engine using GTK+3 (API 4.0)
 SDESC[api41]=		Opensource browser engine using GTK+3 (API 4.1)
-SDESC[api50]=		Opensource browser engine using GTK4 (API 5.0)
+SDESC[api60]=		Opensource browser engine using GTK4 (API 6.0)
 HOMEPAGE=		https://www.webkitgtk.org/
 CONTACT=		nobody
 
@@ -24,13 +24,13 @@ DISTFILE[1]=		webkitgtk-${PORTVERSION}.tar.xz:main
 
 SPKGS[api40]=		complete primary nls dev
 SPKGS[api41]=		complete primary nls dev
-SPKGS[api50]=		complete primary nls dev
+SPKGS[api60]=		complete primary nls dev
 
-OPTIONS_AVAILABLE=	API40 API41 API50
+OPTIONS_AVAILABLE=	API40 API41 API60
 OPTIONS_STANDARD=	none
-VOPTS[api40]=		API40=ON API41=OFF API50=OFF
-VOPTS[api41]=		API40=OFF API41=ON API50=OFF
-VOPTS[api50]=		API40=OFF API41=OFF API50=ON
+VOPTS[api40]=		API40=ON API41=OFF API60=OFF
+VOPTS[api41]=		API40=OFF API41=ON API60=OFF
+VOPTS[api60]=		API40=OFF API41=OFF API60=ON
 
 LICENSE=		GPLv2+:primary BSD3CLAUSE:primary
 LICENSE_FILE=		GPLv2+:stock
@@ -54,6 +54,9 @@ BUILD_DEPENDS=		geoclue:dev:standard
 			libnotify:dev:standard
 			enchant:dev:standard
 			lcms2:dev:standard
+# #			libdrm:dev:standard
+			libavif:dev:standard
+			unifdef:primary:standard
 BUILDRUN_DEPENDS=	enchant:primary:standard
 			WebP:single:standard
 			libsecret:primary:standard
@@ -69,6 +72,8 @@ BUILDRUN_DEPENDS=	enchant:primary:standard
 			gstreamer1-plugins-base:primary:standard
 			openjpeg:single:standard
 			lcms2:primary:standard
+# #			libdrm:primary:standard
+			libavif:primary:standard
 
 # required for ENABLE_GAMEPAD=ON
 # #			libmanette:single:standard
@@ -94,6 +99,9 @@ CMAKE_ARGS=		-DPORT=GTK
 			-DSUPPRESS_ASSERT:BOOL=ON
 			-DUSE_SYSTEMD:BOOL=OFF
 			-DUSE_GSTREAMER_GL:BOOL=OFF
+			-DUSE_GSTREAMER_TRANSCODER:BOOL=OFF
+# only for Linux, freeBSD 13, and NetBSD 10 (requires eventfd)
+			-DUSE_GBM:BOOL=OFF
 CONFIGURE_ENV=		XDG_CACHE_HOME={{WRKDIR}}
 CXXFLAGS=		-DFIXED_EXECUTABLE_MEMORY_POOL_SIZE_IN_MB=32
 PLIST_SUB=		INTRO="@comment "
@@ -122,17 +130,19 @@ INSTALL_REQ_TOOLCHAIN=	yes
 					WKAPI=4.1
 					WKAPIMAJOR=4
 
-[API50].DESCRIPTION=			Build WebKit2 API 5.0 variant
-[API50].BUILD_DEPENDS_ON=		libsoup:dev:standard
-[API50].BUILDRUN_DEPENDS_ON=		libsoup:primary:standard
-[API50].GNOME_COMPONENTS_ON=		gtk4
-[API50].CMAKE_ARGS_ON=			-DUSE_GTK4=ON
-[API50].PLIST_SUB_ON=			JSSOVERSION=${JSSOVERSION50}
-					JSSOMAJOR=${JSSOVERSION50:R:R}
-					SOVERSION=${SOVERSION50}
-					SOMAJOR=${SOVERSION50:R:R}
-					WKAPI=5.0
-					WKAPIMAJOR=5
+[API60].DESCRIPTION=			Build WebKit2 API 6.0 variant
+[API60].BUILD_DEPENDS_ON=		libsoup:dev:standard
+					libepoxy:dev:standard
+[API60].BUILDRUN_DEPENDS_ON=		libsoup:primary:standard
+					libepoxy:dev:standard
+[API60].GNOME_COMPONENTS_ON=		gtk4
+[API60].CMAKE_ARGS_ON=			-DUSE_GTK4=ON
+[API60].PLIST_SUB_ON=			JSSOVERSION=${JSSOVERSION60}
+					JSSOMAJOR=${JSSOVERSION60:R:R}
+					SOVERSION=${SOVERSION60}
+					SOMAJOR=${SOVERSION60:R:R}
+					WKAPI=6.0
+					WKAPIMAJOR=6
 
 VAR_OPSYS[sunos]=	CMAKE_ARGS=-DUSE_LD_GOLD:BOOL=OFF
 
@@ -167,11 +177,11 @@ post-install-API41-ON:
 	${MV} ${STAGEDIR}${PREFIX}/bin/WebKitWebDriver \
 		${STAGEDIR}${PREFIX}/bin/WebKitWebDriver-4.1
 
-post-install-API50-ON:
+post-install-API60-ON:
 	(cd ${STAGEDIR}${PREFIX}/bin && \
-	 ${LN} -s ../libexec/webkit2gtk-5.0/jsc jsc-5.0 && \
-	 ${LN} -s ../libexec/webkit2gtk-5.0/MiniBrowser MiniBrowser-5.0)
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/webkit2gtk-5.0/injected-bundle/*.so
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/webkit2gtk-5.0/*
+	 ${LN} -s ../libexec/webkit2gtk-6.0/jsc jsc-6.0 && \
+	 ${LN} -s ../libexec/webkit2gtk-6.0/MiniBrowser MiniBrowser-6.0)
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/webkitgtk-6.0/injected-bundle/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/webkitgtk-6.0/*
 	${MV} ${STAGEDIR}${PREFIX}/bin/WebKitWebDriver \
-		${STAGEDIR}${PREFIX}/bin/WebKitWebDriver-5.0
+		${STAGEDIR}${PREFIX}/bin/WebKitWebDriver-6.0

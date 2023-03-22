@@ -1,9 +1,9 @@
---- Source/bmalloc/libpas/src/libpas/pas_probabilistic_guard_malloc_allocator.c.orig	2022-09-08 11:51:52 UTC
+--- Source/bmalloc/libpas/src/libpas/pas_probabilistic_guard_malloc_allocator.c.orig	2023-02-20 09:22:22 UTC
 +++ Source/bmalloc/libpas/src/libpas/pas_probabilistic_guard_malloc_allocator.c
-@@ -103,11 +103,13 @@ pas_allocation_result pas_probabilistic_
- 
-     // ensure physical addresses are released
-     // TODO: investigate using MADV_FREE_REUSABLE instead
+@@ -114,11 +114,13 @@ pas_allocation_result pas_probabilistic_
+      * ensure physical addresses are released
+      * TODO: investigate using MADV_FREE_REUSABLE instead
+      */
 +    /* Linux 4.5, Ravenports uses 4.4
      int madvise_res = madvise((void *) upper_guard_page, page_size, MADV_FREE);
      PAS_ASSERT(!madvise_res);
@@ -12,9 +12,9 @@
      PAS_ASSERT(!madvise_res);
 +    */
  
-     // the key is the location where the user's starting memory address is located.
-     // allocations are right aligned, so the end backs up to the upper guard page.
-@@ -166,8 +168,10 @@ void pas_probabilistic_guard_malloc_deal
+     /*
+      * the key is the location where the user's starting memory address is located.
+@@ -180,8 +182,10 @@ void pas_probabilistic_guard_malloc_deal
  
      // ensure physical addresses are released
      // TODO: investigate using MADV_FREE_REUSABLE instead
