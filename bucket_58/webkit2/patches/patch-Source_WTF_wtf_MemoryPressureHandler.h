@@ -1,4 +1,4 @@
---- Source/WTF/wtf/MemoryPressureHandler.h.orig	2022-08-31 07:59:55 UTC
+--- Source/WTF/wtf/MemoryPressureHandler.h.orig	2023-02-20 09:22:13 UTC
 +++ Source/WTF/wtf/MemoryPressureHandler.h
 @@ -81,7 +81,7 @@ public:
  
@@ -9,12 +9,12 @@
      WTF_EXPORT_PRIVATE void triggerMemoryPressureEvent(bool isCritical);
  #endif
  
-@@ -277,7 +277,7 @@ private:
+@@ -274,7 +274,7 @@ private:
      Win32Handle m_lowMemoryHandle;
  #endif
  
 -#if OS(LINUX) || OS(FREEBSD)
 +#if OS(LINUX) || OS(FREEBSD) || defined(__DragonFly__)
-     RunLoop::Timer<MemoryPressureHandler> m_holdOffTimer;
+     RunLoop::Timer m_holdOffTimer;
      void holdOffTimerFired();
  #endif

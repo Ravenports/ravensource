@@ -1,17 +1,14 @@
---- Source/WebKit/Platform/unix/SharedMemoryUnix.cpp.orig	2022-09-14 11:58:10 UTC
+--- Source/WebKit/Platform/unix/SharedMemoryUnix.cpp.orig	2023-02-20 09:22:20 UTC
 +++ Source/WebKit/Platform/unix/SharedMemoryUnix.cpp
-@@ -148,7 +148,13 @@ static int createSharedMemory()
+@@ -129,7 +129,11 @@ static UnixFileDescriptor createSharedMe
  #else
      CString tempName;
      for (int tries = 0; fileDescriptor == -1 && tries < 10; ++tries) {
--        auto name = makeString("/WK2SharedMemory.", static_cast<unsigned>(WTF::randomNumber() * (std::numeric_limits<unsigned>::max() + 1.0)));
-+        auto name =
-+#ifdef __DragonFly__
-+   makeString("/tmp/WK2SharedMemory.",
-+#else
-+   makeString("/WK2SharedMemory.",
-+#endif
-+   static_cast<unsigned>(WTF::randomNumber() * (std::numeric_limits<unsigned>::max() + 1.0)));
++# ifdef __DragonFly__
++        auto name = makeString("/tmp/WK2SharedMemory.", cryptographicallyRandomNumber<unsigned>());
++# else
+         auto name = makeString("/WK2SharedMemory.", cryptographicallyRandomNumber<unsigned>());
++# endif
          tempName = name.utf8();
  
          do {
