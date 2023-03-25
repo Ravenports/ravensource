@@ -5,6 +5,7 @@ DEF[CPP_SOVERSION]=	6.16.0
 
 NAMEBASE=		gpgme
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	GnuPG Made Easy - high level crypto API
@@ -15,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNUPG/gpgme
 DISTFILE[1]=		gpgme-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary cpp
+SPKGS[standard]=	complete primary tools cpp dev cppdev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,12 +28,12 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		security/gpgme
 
 BUILD_DEPENDS=		libgpg-error:dev:standard
+			libassuan:dev:standard
 BUILDRUN_DEPENDS=	libgpg-error:primary:standard
-			libassuan:single:standard
 			gnupg:primary:standard
 
+EXRUN[tools]=		gpgme:primary:standard
 EXRUN[cpp]=		gpgme:primary:standard
-			libassuan:single:standard
 
 USES=			cpe gmake libtool shebangfix c++:cpp
 SHEBANG_FILES=		tests/gpg/pinentry
