@@ -4,6 +4,7 @@ DEF[SOVERSION]=		0.8.5
 
 NAMEBASE=		libassuan
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Assuan - an IPC library for non-persistent servers
@@ -14,14 +15,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNUPG/libassuan
 DISTFILE[1]=		libassuan-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL21+:single
+LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING.LIB
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"@configure_input@"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/assuan.h.in
 LICENSE_SCHEME=		solo
@@ -35,4 +36,4 @@ USES=			libtool
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
-INFO=			single:assuan
+INFO=			dev:assuan
