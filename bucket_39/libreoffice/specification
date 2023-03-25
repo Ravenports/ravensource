@@ -43,6 +43,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		editors/libreoffice
 
+# we probably don't need ucpp anymore
 BUILD_DEPENDS=		bash:primary:standard
 			bison:primary:standard
 			cppunit:single:standard
@@ -118,6 +119,8 @@ BUILDRUN_DEPENDS=	box2d:single:standard
 			QR-Code-generator:single:standard
 			WebP:single:standard
 
+B_DEPS[linux]=		gpgme:dev:standard
+			gpgme:cppdev:standard
 BR_DEPS[linux]=		gpgme:cpp:standard
 
 USES=			autoreconf:build perl:build gmake curl jpeg pkgconfig
@@ -162,7 +165,6 @@ CONFIGURE_ARGS=		--enable-gtk3
 			--with-system-dicts
 			--with-system-libs
 			--with-system-libxml
-			--with-system-ucpp
 			--with-system-zlib
 			--with-system-nss
 			--with-system-openssl
