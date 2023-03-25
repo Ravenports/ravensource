@@ -6,6 +6,7 @@ DEF[X_LINUX_1]=		EXTRACT_VERSION(PLATFORM_Linux_x86-64)
 DEF[X_SOLARIS]=		EXTRACT_VERSION(PLATFORM_SunOS_x86-64)
 DEF[X_NETBSD]=		EXTRACT_VERSION(PLATFORM_NetBSD_x86-64)
 DEF[X_APPLE]=		EXTRACT_VERSION(PLATFORM_MacOS_x86-64)
+DEF[X_MIDNIGHT]=	EXTRACT_VERSION(PLATFORM_MidnightBSD_x86-64)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravensys-utils
@@ -49,6 +50,7 @@ VAR_OPSYS[linux]=	MAKEFILE_LINE=SYSTEM=${X_LINUX_1}
 VAR_OPSYS[sunos]=	MAKEFILE_LINE=SYSTEM=${X_SOLARIS}
 VAR_OPSYS[darwin]=	MAKEFILE_LINE=SYSTEM=${X_APPLE}
 VAR_OPSYS[netbsd]=	MAKEFILE_LINE=SYSTEM=${X_NETBSD}
+VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=SYSTEM=${X_MIDNIGHT}
 
 post-install:
 .for prog in md5 mtree patch ravensys-uname which rpcgen
