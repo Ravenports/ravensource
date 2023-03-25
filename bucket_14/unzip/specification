@@ -5,7 +5,7 @@ DEF[ICONV_LINK]=	-L{{ICONV_LIBRARY_PATH}} {{ICONV_LIB}} -Wl,-rpath,{{ICONV_LIBRA
 
 NAMEBASE=		unzip
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		archivers
 VARIANTS=		standard chinese korean russian
 SDESC[standard]=	Extraction utility for .zip format archives
@@ -37,7 +37,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		archivers/unzip
 
-USES=			cpe bz2:build zlib
+USES=			cpe bz2:build zlib:build
 CPE_VENDOR=		info-zip
 BUILD_TARGET=		generic_zlib unzipsfx
 DISTNAME=		unzip${PORTVERSION:S/.//}
@@ -78,6 +78,11 @@ VAR_OPSYS[darwin]=	CPPFLAGS=-DBSD
 [LANG_RU].KEYWORDS_ON=			russian
 [LANG_RU].EXTRA_PATCHES_ON=		extra-ru-patch-ebcdic.h
 
+post-extract:
+	# statically link libz
+	${RM} ${LOCALBASE}/lib/libz.so
+	${MV} ${LOCALBASE}/lib/libz_pic.a ${LOCALBASE}/lib/libz.a
+
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/unzip ${STAGEDIR}${PREFIX}/bin
 	(cd ${WRKSRC} && \
@@ -87,7 +92,7 @@ do-install:
 	${INSTALL_MAN} ${WRKSRC}/man/unzip.1 ${STAGEDIR}${PREFIX}/share/man/man1
 	(cd ${WRKSRC}/man && ${INSTALL_MAN} funzip.1 unzipsfx.1 zipgrep.1 \
 		zipinfo.1 ${STAGEDIR}${PREFIX}/share/man/man1)
-	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 	(cd ${WRKSRC} && ${INSTALL_DATA} README WHERE ${STAGEDIR}${STD_DOCDIR})
 
 post-install-LANG_CN-ON:
