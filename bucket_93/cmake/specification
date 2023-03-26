@@ -51,6 +51,9 @@ INSTALL_TARGET=		install/strip
 
 VAR_OPSYS[netbsd]=	CXXFLAGS=-D_NETBSD_SOURCE
 
+post-patch:
+	${CP} ${FILESDIR}/MidnightBSD.cmake ${WRKSRC}/Modules/Platform
+
 pre-configure:
 	${REINPLACE_CMD} -e "s@CYGWIN@true@g" \
 		${WRKSRC}/Modules/FindCurses.cmake
