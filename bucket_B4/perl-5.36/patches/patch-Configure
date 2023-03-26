@@ -1,6 +1,16 @@
 --- Configure.orig	2022-05-20 00:01:22 UTC
 +++ Configure
-@@ -3889,7 +3889,10 @@ esac
+@@ -3518,6 +3518,9 @@ EOM
+ 			esac
+ 			$test -f /system/lib/libandroid.so && osname=linux-android
+ 			;;
++		midnightbsd) osname=midnightbsd
++			osvers="$3"
++			;;
+ 		MiNT)	osname=mint
+ 			;;
+ 		minix)	osname=minix
+@@ -3889,7 +3892,10 @@ esac
  . ./posthint.sh
  
  : who configured the system
@@ -12,7 +22,7 @@
  case "$cf_by" in
  "")
  	cf_by=`(logname) 2>/dev/null`
-@@ -5017,7 +5020,7 @@ esac
+@@ -5017,7 +5023,7 @@ esac
  : Now check and see which directories actually exist, avoiding duplicates
  for xxx in $dlist
  do
@@ -21,7 +31,16 @@
  		case " $libpth " in
  		*" $xxx "*) ;;
  		*) libpth="$libpth $xxx";;
-@@ -9615,8 +9618,7 @@ prefixvar=siteman3dir
+@@ -8834,7 +8840,7 @@ if "$useshrplib"; then
+ 	solaris)
+ 		xxx="-R $shrpdir"
+ 		;;
+-	freebsd|minix|mirbsd|netbsd|openbsd|interix|dragonfly|bitrig)
++	freebsd|minix|mirbsd|netbsd|openbsd|interix|dragonfly|midnightbsd|bitrig)
+ 		xxx="-Wl,-R$shrpdir"
+ 		;;
+ 	bsdos|linux|irix*|dec_osf|gnu*|haiku)
+@@ -9615,8 +9621,7 @@ prefixvar=siteman3dir
  
  : determine where add-on public executable scripts go
  case "$sitescript" in
