@@ -37,7 +37,7 @@
  
          # Platform-specific libraries
 -        if HOST_PLATFORM.startswith(('linux', 'freebsd', 'gnukfreebsd')):
-+        if HOST_PLATFORM.startswith(('linux', 'dragonfly', 'freebsd', 'gnukfreebsd')):
++        if HOST_PLATFORM.startswith(('linux', 'dragonfly', 'freebsd', 'midnightbsd')):
              self.add(Extension('ossaudiodev', ['ossaudiodev.c']))
          elif HOST_PLATFORM.startswith(('netbsd')):
              self.add(Extension('ossaudiodev', ['ossaudiodev.c'],
