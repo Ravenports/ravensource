@@ -1,0 +1,20 @@
+--- Makefile.am.orig	2022-07-12 16:16:33 UTC
++++ Makefile.am
+@@ -446,6 +446,17 @@ libuv_la_SOURCES += src/unix/bsd-ifaddrs
+ test_run_tests_LDFLAGS += -lutil
+ endif
+ 
++if MIDNIGHT 
++uvinclude_HEADERS += include/uv/bsd.h
++libuv_la_SOURCES += src/unix/bsd-ifaddrs.c \
++                    src/unix/bsd-proctitle.c \
++                    src/unix/freebsd.c \
++                    src/unix/kqueue.c \
++                    src/unix/posix-hrtime.c \
++                    src/unix/random-getrandom.c
++test_run_tests_LDFLAGS += -lutil
++endif
++
+ if HAIKU
+ uvinclude_HEADERS += include/uv/posix.h
+ libuv_la_CFLAGS += -D_BSD_SOURCE
