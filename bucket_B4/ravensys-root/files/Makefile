@@ -52,9 +52,9 @@ common-skeleton:
 		${DESTDIR}${BASE}/usr/lib/pkgconfig \
 		${DESTDIR}${BASE}/usr/libexec \
 		${DESTDIR}${BASE}/usr/share/file \
-		${DESTDIR}${BASE}/usr/share/terminfo/d \
-		${DESTDIR}${BASE}/usr/share/terminfo/v \
-		${DESTDIR}${BASE}/usr/share/terminfo/x \
+		${DESTDIR}${BASE}/usr/share/rvn-terminfo/d \
+		${DESTDIR}${BASE}/usr/share/rvn-terminfo/v \
+		${DESTDIR}${BASE}/usr/share/rvn-terminfo/x \
 		${DESTDIR}${BASE}/usr/local \
 		${DESTDIR}${BASE}/usr/include/arpa \
 		${DESTDIR}${BASE}/usr/include/net \
@@ -131,9 +131,9 @@ install-common: skeleton
 	${BSD_INSTALL_PROGRAM} ${LOCALBASE}/bin/${item:H} ${DESTDIR}${BASE}/usr/bin/${item:T}
 .endfor
 	ln -s m4 ${DESTDIR}${BASE}/usr/bin/gm4
-	${BSD_INSTALL_DATA} ${LOCALBASE}/share/terminfo/d/dumb ${DESTDIR}${BASE}/usr/share/terminfo/d/
-	${BSD_INSTALL_DATA} ${LOCALBASE}/share/terminfo/v/vt100 ${DESTDIR}${BASE}/usr/share/terminfo/v/
-	${BSD_INSTALL_DATA} ${LOCALBASE}/share/terminfo/x/xterm ${DESTDIR}${BASE}/usr/share/terminfo/x/
+	${BSD_INSTALL_DATA} ${LOCALBASE}/share/terminfo/d/dumb ${DESTDIR}${BASE}/usr/share/rvn-terminfo/d/
+	${BSD_INSTALL_DATA} ${LOCALBASE}/share/terminfo/v/vt100 ${DESTDIR}${BASE}/usr/share/rvn-terminfo/v/
+	${BSD_INSTALL_DATA} ${LOCALBASE}/share/terminfo/x/xterm ${DESTDIR}${BASE}/usr/share/rvn-terminfo/x/
 	${BSD_INSTALL_PROGRAM} ${LOCALBASE}/sbin/ravensw ${DESTDIR}${BASE}/usr/bin/
 	${BSD_INSTALL_PROGRAM} ${LOCALBASE}/sbin/makewhatis ${DESTDIR}${BASE}/usr/bin/
 	${BSD_INSTALL_DATA} ${LOCALBASE}/share/file/magic.mgc ${DESTDIR}${BASE}/usr/share/file/
