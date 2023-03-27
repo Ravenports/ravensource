@@ -1,10 +1,37 @@
 --- configure.orig	2022-10-14 12:41:28 UTC
 +++ configure
+@@ -6650,7 +6650,7 @@ darwin* | rhapsody*)
+   lt_cv_deplibs_check_method=pass_all
+   ;;
+ 
+-freebsd* | dragonfly*)
++freebsd* | dragonfly* | midnight*)
+   if echo __ELF__ | $CC -E - | $GREP __ELF__ > /dev/null; then
+     case $host_cpu in
+     i*86 )
+@@ -11064,7 +11064,7 @@ fi
+       ;;
+ 
+     # FreeBSD 3 and greater uses gcc -shared to do shared libraries.
+-    freebsd* | dragonfly*)
++    freebsd* | dragonfly* | midnight*)
+       archive_cmds='$CC -shared $pic_flag -o $lib $libobjs $deplibs $compiler_flags'
+       hardcode_libdir_flag_spec='-R$libdir'
+       hardcode_direct=yes
+@@ -12114,7 +12114,7 @@ dgux*)
+   shlibpath_var=LD_LIBRARY_PATH
+   ;;
+ 
+-freebsd* | dragonfly*)
++freebsd* | dragonfly* | midnight*)
+   # DragonFly does not have aout.  When/if they implement a new
+   # versioning mechanism, adjust this.
+   if test -x /usr/bin/objformat; then
 @@ -16008,6 +16008,8 @@ fi
  	       fi
  	   fi
         ;;
-+       *freebsd*|*dragonfly*) THREAD_LIBS=""
++       *freebsd*|*dragonfly*|*midnight*) THREAD_LIBS=""
 +       ;;
      esac
      if test "$WITH_THREADS" = "1" ; then
