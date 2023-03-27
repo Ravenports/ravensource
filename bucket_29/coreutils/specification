@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	9.1
 
 NAMEBASE=		coreutils
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils textproc
 VARIANTS=		standard noprefix ravensys
 SDESC[standard]=	FSF core utilities (prefixed with g)
@@ -15,9 +16,9 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/coreutils
 DISTFILE[1]=		coreutils-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls
-SPKGS[noprefix]=	complete primary nls
-SPKGS[ravensys]=	primary
+SPKGS[standard]=	complete primary man nls
+SPKGS[noprefix]=	complete primary man nls
+SPKGS[ravensys]=	complete primary man
 
 OPTIONS_AVAILABLE=	NOTSTD RAVENSYS
 OPTIONS_STANDARD=	none
@@ -35,7 +36,7 @@ FPC_EQUIVALENT=		sysutils/coreutils
 
 BUILD_DEPENDS=		gmp:static:standard
 
-USES=			cpe gmake iconv:build perl:build charsetfix
+USES=			cpe gmake iconv:build charsetfix
 CPE_VENDOR=		gnu
 SINGLE_JOB=		yes
 INFO=			primary:coreutils
@@ -46,6 +47,8 @@ INSTALL_REQ_TOOLCHAIN=	yes
 
 [NOTSTD].DESCRIPTION=			Not the standard variant
 [NOTSTD].CONFIGURE_ARGS_OFF=		--program-prefix=g
+[NOTSTD].PLIST_SUB_OFF=			G=g
+[NOTSTD].PLIST_SUB_ON=			G=
 
 [RAVENSYS].DESCRIPTION=			For ravensys-root - built without NLS
 [RAVENSYS].USES_OFF=			gettext
