@@ -101,6 +101,10 @@ VAR_OPSYS[midnightbsd]=	VAR1=/libexec/ld-elf.so.1
 			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold=default
 			MAKEFILE_LINE=CONFIGURE_TARGET=x86_64-raven-freebsd12.3
 
+post-extract:
+	# remove ability to dynamicaly link zlib
+	${RM} ${LOCALBASE}/lib/libz.so
+
 post-patch:
 	${REINPLACE_CMD} \
 		-e 's|@ELF64_INTERPRETER@|${VAR1}|' \
