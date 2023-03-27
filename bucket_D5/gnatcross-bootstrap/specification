@@ -1,12 +1,14 @@
-DEF[PORTVERSION]=	EXTRACT_INFO(GCC9_PORTVERSION)
-DEF[PORTREVISION]=	EXTRACT_INFO(GCC9_BOOTSTRAP_REVISION)
-DEF[BRANCH]=		EXTRACT_INFO(GCC9_BRANCH)
-DEF[MS_SUBDIR]=		EXTRACT_INFO(GCC9_MS_SUBDIR)
-DEF[IDENTIFICATION]=	EXTRACT_INFO(GCC9_IDENTIFICATION)
-DEF[GCC_VERSION]=	EXTRACT_INFO(GCC9_VERSION)
-DEF[GCC_PREFIX]=	toolchain/gcc9
+DEF[PORTVERSION]=	EXTRACT_INFO(GCC11_PORTVERSION)
+DEF[PORTREVISION]=	EXTRACT_INFO(GCC11_BOOTSTRAP_REVISION)
+DEF[BRANCH]=		EXTRACT_INFO(GCC11_BRANCH)
+DEF[MS_SUBDIR]=		EXTRACT_INFO(GCC11_MS_SUBDIR)
+DEF[IDENTIFICATION]=	EXTRACT_INFO(GCC11_IDENTIFICATION)
+DEF[GCC_VERSION]=	EXTRACT_INFO(GCC11_VERSION)
+DEF[GCC_PREFIX]=	toolchain/gcc11
 DEF[FREEBSD_11]=	EXTRACT_INFO(GNATCROSS_FREEBSD_11)
 DEF[FREEBSD_12]=	EXTRACT_INFO(GNATCROSS_FREEBSD_12)
+DEF[DRACO_TAG]=		11.3.0-rev1
+DEF[DRACO_DIR]=		patches-11.3.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnatcross-bootstrap
@@ -18,29 +20,38 @@ SDESC[standard]=	Gnatcross-to-native compiler generator
 HOMEPAGE=		http://www.dragonlace.net/
 CONTACT=		John_Marino[draco@marino.st]
 
-DOWNLOAD_GROUPS=	main mpfr gmp mpc iconv
+DOWNLOAD_GROUPS=	main mpfr gmp mpc iconv draco
 SITES[main]=		GCC/${MS_SUBDIR}
 SITES[mpfr]=		https://www.mpfr.org/mpfr-3.1.4/
 SITES[mpc]=		GNU/mpc
 SITES[gmp]=		GNU/gmp
 SITES[iconv]=		GNU/libiconv
+SITES[draco]=		https://raw.githubusercontent.com/jrmarino/draco/${DRACO_TAG}/generated/${DRACO_DIR}/
 DISTFILE[1]=		${IDENTIFICATION}.tar.xz:main
 DISTFILE[2]=		mpfr-3.1.4.tar.xz:mpfr
 DISTFILE[3]=		gmp-6.1.0.tar.xz:gmp
 DISTFILE[4]=		mpc-1.0.3.tar.gz:mpc
 DISTFILE[5]=		libiconv-1.15.tar.gz:iconv
+DISTFILE[6]=		patch-diff-ada:draco
+DISTFILE[7]=		patch-diff-core:draco
+DISTFILE[8]=		patch-diff-cxx:draco
+DISTFILE[9]=		patch-diff-ada-testsuite:draco
+DISTFILE[10]=		patch-diff-gcc-testsuite:draco
+DIST_SUBDIR=		gnatcross-bootstrap
 DF_INDEX=		1 2 3 4 5
 
 SPKGS[standard]=	single
 
-OPTIONS_AVAILABLE=	DISABLE FARM64_R11 FAMD64_R12 FI386_R12 SOL10
-OPTIONS_STANDARD=	DISABLE FARM64_R11 FAMD64_R12 FI386_R12 SOL10
+OPTIONS_AVAILABLE=	DISABLE FARM64_R11 FAMD64_R12 FI386_R12 SOL10 MAMD64_R3
+OPTIONS_STANDARD=	DISABLE FARM64_R11 FAMD64_R12 FI386_R12 SOL10 MAMD64_R3
 OPTGROUP_RADIO=		TARGET
 OPTDESCR[TARGET]=	Target platform for generated compiler
-OPTGROUP[TARGET]=	DISABLE FARM64_R11 FAMD64_R12 FI386_R12 SOL10
+OPTGROUP[TARGET]=	DISABLE FARM64_R11 FAMD64_R12 FI386_R12 SOL10 MAMD64_R3
 OPT_ON[all]=		DISABLE
 
-BROKEN[all]=		RP compiler can't built older gcc9 anymore, requires update
+PATCHFILES=		6 7 8 9 10
+
+BUILD_DEPENDS=		zstd:primary:standard
 
 # Since basing on gcc8, getting ld error on libquadmath
 # ../libquadmath/.libs/libquadmath.so: _end: invalid version 21 (max 3)
@@ -50,7 +61,7 @@ BROKEN[all]=		RP compiler can't built older gcc9 anymore, requires update
 # No such file or directory: include "quadmath_weak.h"
 # so fortran removed from languages
 
-USES=			gmake libtool perl:build zstd:build
+USES=			gmake libtool perl:build
 DISTNAME=		${IDENTIFICATION}
 PLIST_SUB=		TGTSYS={{TGTSYS}}
 INSTALL_TARGET=		install-strip
@@ -140,6 +151,16 @@ CONFIGURE_ENV=		build_configargs="CPPFLAGS=\"{{CPPFLAGS}}\""
 					ac_cv_func_madvise=no
 [SOL10].BROKEN_ON=			Doesn't get pass configure
 
+[MAMD64_R3].DESCRIPTION=		Build native compiler for MidnighBSD/AMD64 R3.0.0
+[MAMD64_R3].CONFIGURE_ARGS_ON=		--build={{CONFIGURE_TARGET}}
+					--host=x86_64-raven-freebsd12.3
+					--target=x86_64-raven-freebsd12.3
+					--disable-libstdcxx-pch
+[MAMD64_R3].BUILD_DEPENDS_ON=		gnatcross:single:MAMD64_R3
+[MAMD64_R3].MAKEFILE_ON=		TGTSYS=x86_64-raven-freebsd12.3
+					BSPREFIX={{LOCALBASE}}/MidnightBSD_AMD64
+					PREPEND_PATH={{BSPREFIX}}/{{TGTSYS}}/bin:{{BSPREFIX}}/bin
+
 post-extract:
 	${MKDIR} ${WRKSRC}/libiconv
 	${MV} ${WRKDIR}/gmp-*      ${WRKSRC}/gmp
@@ -182,6 +203,12 @@ post-patch-FI386_R12-ON:
 	${REINPLACE_CMD} -e 's/#undef HAVE_ALIGNED_ALLOC/#define HAVE_ALIGNED_ALLOC 1/' \
 		${WRKSRC}/libstdc++-v3/config.h.in
 
+post-patch-MAMD64_R3-ON:
+	# work around malloc detection issue
+	${REINPLACE_CMD} -e 's/#undef HAVE_ALIGNED_ALLOC/#define HAVE_ALIGNED_ALLOC 1/' \
+		${WRKSRC}/libstdc++-v3/config.h.in
+	${REINPLACE_CMD} -e '/<malloc.h>/d' ${WRKSRC}/libiberty/hashtab.c
+
 post-install:
 	cp ${STAGEDIR}${PREFIX}/${GCC_PREFIX}/bin/gcc ${STAGEDIR}${PREFIX}/${GCC_PREFIX}/bin/cc
 	cp ${STAGEDIR}${PREFIX}/${GCC_PREFIX}/bin/g++ ${STAGEDIR}${PREFIX}/${GCC_PREFIX}/bin/CC
@@ -195,6 +222,9 @@ post-install-FAMD64_R12-ON:
 	${RM} -r ${STAGEDIR}${PREFIX}/${GCC_PREFIX}/lib/gcc/${TGTSYS}/${GCC_VERSION}/include-fixed
 
 post-install-FI386_R12-ON:
+	${RM} -r ${STAGEDIR}${PREFIX}/${GCC_PREFIX}/lib/gcc/${TGTSYS}/${GCC_VERSION}/include-fixed
+
+post-install-MAMD64_R3-ON:
 	${RM} -r ${STAGEDIR}${PREFIX}/${GCC_PREFIX}/lib/gcc/${TGTSYS}/${GCC_VERSION}/include-fixed
 
 post-stage:
