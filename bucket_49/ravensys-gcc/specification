@@ -48,6 +48,7 @@ FPC_EQUIVALENT=		lang/gcc11
 
 C_USES[freebsd]=	iconv:build
 C_USES[dragonfly]=	iconv:build
+C_USES[midnightbsd]=	iconv:build
 C_USES[netbsd]=		iconv:build
 C_USES[solaris]=	iconv:build
 C_USES[darwin]=		iconv:build
@@ -124,6 +125,12 @@ VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--enable-symvers=no
 			CONFIGURE_ARGS=--with-as=${TOOLCHAIN}/bin/as
 			CONFIGURE_ARGS=--without-gnu-ld
 			CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
+VAR_OPSYS[midnightbsd]=	CONFIGURE_ARGS=--disable-libstdcxx-pch
+			CONFIGURE_ARGS=--with-gnu-as
+			CONFIGURE_ARGS=--with-as=${TOOLCHAIN}/bin/as
+			CONFIGURE_ARGS=--with-ld=${TOOLCHAIN}/bin/ld
+			CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
+			MAKEFILE_LINE=CONFIGURE_TARGET=x86_64-raven-freebsd12.3
 
 # Special case for ports compiler:
 # Don't support info pages.  This causes dependency on indexinfo,
@@ -197,6 +204,9 @@ post-install-dragonfly:
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/include-fixed
 
 post-install-freebsd:
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/include-fixed
+
+post-install-midnightbsd:
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/include-fixed
 
 post-install-netbsd:
