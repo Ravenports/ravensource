@@ -1,10 +1,11 @@
 DEF[PORTVERSION]=	1
-DEF[M3_RELEASE]=	3.0.0
+DEF[MBSD64_TARGET]=	x86_64-raven-freebsd12.3
+DEF[MBSD32_TARGET]=	i386-raven-freebsd12.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnatcross-sysroot-midnightbsd
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		lang
 VARIANTS=		AMD64_R3 I386_R3
 SDESC[AMD64_R3]=	MidnightBSD R3 C/Ada cross-compiler sysroot AMD64
@@ -13,9 +14,10 @@ HOMEPAGE=		none
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 # Release 3.0 is not out, yet. Using dev snapshots for now.
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main leaf
 SITES[main]=		http://ravenports.elderlinux.org/distcache/midnightbsd/
-DISTFILE[1]=		base-amd64-3.0.0-230213.txz:main
+SITES[leaf]=		https://leaf.dragonflybsd.org/~marino/raven-distfiles/
+DISTFILE[1]=		mbsd-3.0.0-amd64-base.txz:leaf
 DISTFILE[2]=		base-i386-3.0.0-221122.txz:main
 DIST_SUBDIR=		gnatcross/midnightbsd
 
@@ -33,13 +35,14 @@ EXTRACT_HEAD[1]=	{{TAR}} -xf
 EXTRACT_TAIL[1]=	--no-same-owner --no-same-permissions lib/ usr/include/ usr/lib/
 EXTRACT_DIRTY=		1 2
 
-[AMD64R3].DESCRIPTION=			Package MidnightBSD/AMD64 ${M3_RELEASE} system root
-[AMD64R3].MAKEFILE_ON=			CTARGET=x86_64-raven-midnightbsd${M3_RELEASE}
-					PREFIX={{LOCALBASE}}/MidnightBSD3_AMD64
+[AMD64R3].DESCRIPTION=			Package MidnightBSD/AMD64 system root
+[AMD64R3].MAKEFILE_ON=			CTARGET=${MBSD64_TARGET}
+					PREFIX={{LOCALBASE}}/MidnightBSD_AMD64
 [AMD64R3].DF_INDEX_ON=			1
-[I386R3].DESCRIPTION=			Package MidnightBSD/I386 ${M3_RELEASE} system root
-[I386R3].MAKEFILE_ON=			CTARGET=i386-raven-midnightbsd${M3_RELEASE}
-					PREFIX={{LOCALBASE}}/MidnightBSD3_I386
+
+[I386R3].DESCRIPTION=			Package MidnightBSD/I386 system root
+[I386R3].MAKEFILE_ON=			CTARGET=${MBSD32_TARGET}
+					PREFIX={{LOCALBASE}}/MidnightBSD_I386
 [I386R3].DF_INDEX_ON=			2
 
 post-extract-dragonfly:
@@ -48,12 +51,16 @@ post-extract-dragonfly:
 post-extract-freebsd:
 	/bin/chflags -R noschg ${WRKDIR}
 
+post-extract-midnightbsd:
+	/bin/chflags -R noschg ${WRKDIR}
+
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/sysroot/usr
 	${MV} ${WRKDIR}/gnatcross-sys*/lib ${STAGEDIR}${PREFIX}/sysroot
 	${MV} ${WRKDIR}/gnatcross-sys*/usr/include ${STAGEDIR}${PREFIX}/sysroot/usr
 	${MV} ${WRKDIR}/gnatcross-sys*/usr/lib ${STAGEDIR}${PREFIX}/sysroot/usr
+	${RM} -r ${STAGEDIR}${PREFIX}/sysroot/usr/lib/clang
+	${RM} -r ${STAGEDIR}${PREFIX}/sysroot/usr/lib/perl5
 	${ECHO_CMD} ${CTARGET} > ${STAGEDIR}${PREFIX}/sysroot/target_triplet
 	(cd ${STAGEDIR}${PREFIX}; ${FIND} sysroot -type d -empty -delete && \
-		${FIND} sysroot -name '*_p.a' -delete && \
-		${FIND} sysroot -name 'libexecinfo*' -delete)
+		${FIND} sysroot -name '*_p.a' -delete)
