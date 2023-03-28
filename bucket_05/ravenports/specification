@@ -1,14 +1,15 @@
-DEF[PORTVERSION]=	20220925
+DEF[PORTVERSION]=	20230327
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravenports
 VERSION=		${PORTVERSION}
 KEYWORDS=		raven
-VARIANTS=		dragonfly freebsd_amd64 netbsd_amd64 linux sunos
+VARIANTS=		dragonfly freebsd_amd64 netbsd_amd64 linux sunos mbsd_amd64
 SDESC[linux]=		Install turnkey Ravenports on Linux
 SDESC[dragonfly]=	Install turnkey Ravenports on DragonFly
 SDESC[freebsd_amd64]=	Install turnkey Ravenports on FreeBSD/amd64
 SDESC[netbsd_amd64]=	Install turnkey Ravenports on NetBSD/amd64
+SDESC[mbsd_amd64]=	Install turnkey Ravenports on MidnightBSD/amd64
 SDESC[sunos]=		Install turnkey Ravenports on Solaris 10u8
 # SDESC[macos]=		Install turnkey Ravenports on Darwin/MacOS
 HOMEPAGE=		https://github.com/jrmarino/Ravenports
@@ -20,15 +21,17 @@ SPKGS[linux]=		single
 SPKGS[dragonfly]=	single
 SPKGS[freebsd_amd64]=	single
 SPKGS[netbsd_amd64]=	single
+SPKGS[mbsd_amd64]=	single
 SPKGS[sunos]=		single
 
-OPTIONS_AVAILABLE=	DRAGONFLY FREEBSDAMD64 LINUX SUNOS NET64
+OPTIONS_AVAILABLE=	DRAGONFLY FREEBSDAMD64 LINUX SUNOS NET64 MID64
 OPTIONS_STANDARD=	none
-VOPTS[dragonfly]=	DRAGONFLY=ON FREEBSDAMD64=OFF LINUX=OFF SUNOS=OFF NET64=OFF
-VOPTS[freebsd_amd64]=	DRAGONFLY=OFF FREEBSDAMD64=ON LINUX=OFF SUNOS=OFF NET64=OFF
-VOPTS[linux]=		DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=ON SUNOS=OFF NET64=OFF
-VOPTS[sunos]=		DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=OFF SUNOS=ON NET64=OFF
-VOPTS[netbsd_amd64]=	DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=OFF SUNOS=OFF NET64=ON
+VOPTS[dragonfly]=	DRAGONFLY=ON FREEBSDAMD64=OFF LINUX=OFF SUNOS=OFF NET64=OFF MID64=OFF
+VOPTS[freebsd_amd64]=	DRAGONFLY=OFF FREEBSDAMD64=ON LINUX=OFF SUNOS=OFF NET64=OFF MID64=OFF
+VOPTS[linux]=		DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=ON SUNOS=OFF NET64=OFF MID64=OFF
+VOPTS[sunos]=		DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=OFF SUNOS=ON NET64=OFF MID64=OFF
+VOPTS[netbsd_amd64]=	DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=OFF SUNOS=OFF NET64=ON MID64=OFF
+VOPTS[mbsd_amd64]=	DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=OFF SUNOS=OFF NET64=OFF MID64=ON
 
 RUN_DEPENDS=		ravensw:single:standard
 			ravenadm:single:standard
@@ -46,6 +49,9 @@ SKIP_INSTALL=		yes
 
 [NET64].DESCRIPTION=			NetBSD/amd64 support
 [NET64].RUN_DEPENDS_ON=			ravensys-root:single:netbsd_amd64
+
+[MID64].DESCRIPTION=			MidnightBSD/amd64 support
+[MID64].RUN_DEPENDS_ON=			ravensys-root:single:mbsd_amd64
 
 [LINUX].DESCRIPTION=			Linux support
 [LINUX].RUN_DEPENDS_ON=			ravensys-root:single:linux
