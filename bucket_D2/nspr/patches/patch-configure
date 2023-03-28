@@ -1,9 +1,10 @@
---- configure.orig	2022-05-25 21:34:56 UTC
+--- configure.orig	2022-09-12 11:40:15 UTC
 +++ configure
-@@ -6563,6 +6563,21 @@ tools are selected during the Xcode/Deve
+@@ -6563,7 +6563,22 @@ tools are selected during the Xcode/Deve
      fi
      ;;
  
+-*-freebsd*)
 +*-dragonfly*)
 +    if test -z "$USE_NSPR_THREADS"; then
 +        USE_PTHREADS=1
@@ -19,9 +20,10 @@
 +    PR_MD_CSRCS=freebsd.c
 +    ;;
 +
- *-freebsd*)
++*-freebsd*|*-midnight*)
      if test -z "$USE_NSPR_THREADS"; then
          USE_PTHREADS=1
+     fi
 @@ -7232,7 +7247,6 @@ $as_echo "$as_me: WARNING: Unknown versi
      CPU_ARCH=`uname -p`
      MDCPUCFG_H=_solaris.cfg
@@ -43,7 +45,7 @@
  	    ac_cv_have_dash_pthread=yes
  		case "$target_os" in
 -	    freebsd*)
-+	    freebsd*|dragonfly*)
++	    freebsd*|dragonfly*|midnight*)
  # Freebsd doesn't use -pthread for compiles, it uses them for linking
              ;;
  	    *)
@@ -52,7 +54,7 @@
          fi
  	    ;;
 -    *-freebsd*)
-+    *-freebsd*|*-dragonfly*)
++    *-freebsd*|*-dragonfly*|*-midnight*)
  	    $as_echo "#define _REENTRANT 1" >>confdefs.h
  
  	    $as_echo "#define _THREAD_SAFE 1" >>confdefs.h
@@ -61,7 +63,7 @@
      fi
      ;;
 -*-freebsd*)
-+*-freebsd*|*-dragonfly*)
++*-freebsd*|*-dragonfly*|*-midnight*)
      if test -n "$USE_NSPR_THREADS"; then
          $as_echo "#define _PR_LOCAL_THREADS_ONLY 1" >>confdefs.h
  
