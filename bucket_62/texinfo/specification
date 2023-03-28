@@ -7,6 +7,7 @@ DEF[DATE_TEXINFO_TEX]=	20221112
 
 NAMEBASE=		texinfo
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		print
 VARIANTS=		standard
 SDESC[standard]=	Typeset documentation system, multiple formats
@@ -23,7 +24,7 @@ DISTFILE[4]=		texi2dvi-${DATE_TEXI2DVI}:dports
 DIST_SUBDIR=		texinfo/${DLFOLDER}
 DF_INDEX=		1 2 3 4
 
-SPKGS[standard]=	complete primary nls
+SPKGS[standard]=	complete primary nls man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -49,12 +50,15 @@ INSTALL_TARGET=		install install-tex
 CPE_VENDOR=		gnu
 CPE_VERSION=		${PORTVERSION:R}
 PLIST_SUB=		TEXMF=share/texmf
-INFO=			primary:texinfo
-			primary:info-stnd
-			primary:texi2any_api
-			primary:texi2any_internals
+			XS={{NOXS:U""}}
+INFO=			man:texinfo
+			man:info-stnd
+			man:texi2any_api
+			man:texi2any_internals
 MAKE_ARGS=		TEXMF={{LOCALBASE}}/share/texmf
 			PERL={{LOCALBASE}}/bin/perl
+
+VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=NOXS="@comment "
 
 # All platforms except for Darwin build properly
 # On Darwin, the programs relink the static libraries and
@@ -62,12 +66,14 @@ MAKE_ARGS=		TEXMF={{LOCALBASE}}/share/texmf
 # following line can be removed.
 # INSTALL_REQ_TOOLCHAIN=	yes
 
-post-patch:
+post-extract:
 	${CHMOD} 755 ${WRKSRC}/build-aux/install-sh
 	${CP} ${DISTDIR}/${DIST_SUBDIR}/texinfo.tex-${DATE_TEXINFO_TEX} \
 		${WRKSRC}/doc/texinfo.txt
 	${INSTALL_SCRIPT} ${DISTDIR}/${DIST_SUBDIR}/texi2dvi-${DATE_TEXI2DVI} \
 		${WRKSRC}/util/texi2dvi
+
+pre-configure:
 	${REINPLACE_CMD} -e '/rm -f $$(DESTDIR)/ s|$$| $$(DESTDIR)$$(xsdir)/XSParagraph.*|' \
 		${WRKSRC}/tp/Texinfo/XS/Makefile.in
 	${REINPLACE_CMD} -e 's|free (.*)|Safe&|' ${WRKSRC}/tp/Texinfo/XS/misc.c
@@ -75,8 +81,10 @@ post-patch:
 		${WRKSRC}/configure \
 		${WRKSRC}/tp/Texinfo/XS/configure
 
-post-patch-darwin:
+pre-configure-darwin:
 	${REINPLACE_CMD} -e "s|'cr'|'Scr'|" ${WRKSRC}/configure
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/texinfo/*.so
+	if [ -d "${STAGEDIR}${PREFIX}/lib/texinfo" ]; then \
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/texinfo/*.so ;\
+	fi
