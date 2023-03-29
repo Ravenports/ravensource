@@ -5,7 +5,7 @@
  
  	    ;;
 -	Linux*|GNU*|NetBSD-Debian|DragonFly-*|FreeBSD-*)
-+	Linux*|GNU*|NetBSD-*|DragonFly-*|FreeBSD-*|SunOS-*)
++	Linux*|GNU*|NetBSD-*|DragonFly-*|FreeBSD-*|SunOS-*|MidnightBSD-*)
  	    SHLIB_CFLAGS="-fPIC"
  	    SHLIB_SUFFIX=".so"
 +	    TCL_TRIM_DOTS=`echo ${VERSION} | tr -d .`
@@ -29,7 +29,7 @@
 +	    Linux-*|GNU*)
 +		DL_LIBS="-ldl"
 +		;;
-+	    DragonFly-*|FreeBSD-*|NetBSD-*)
++	    DragonFly-*|FreeBSD-*|NetBSD-*|MidnightBSD-*)
  		if test "${TCL_THREADS}" = "1"; then
  
  		    # The -pthread needs to go in the LDFLAGS, not LIBS
