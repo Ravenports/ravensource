@@ -71,7 +71,7 @@ VAR_OPSYS[darwin]=	CONFIGURE_ENV=ac_cv_func_backtrace=no
 			MAKEFILE_LINE=MODULE=bundle
 VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--disable-jit-support
 
-post-patch:
+pre-configure:
 	${FIND} ${WRKSRC}/ -name "*.orig" -delete
 	# Disable all bundled gems
 	# We install these from other ports
@@ -85,7 +85,7 @@ post-patch:
 	${RM} ${BUILD_WRKSRC}/man/bundle*
 	${RM} ${BUILD_WRKSRC}/man/gemfile*
 
-post-patch-linux:
+pre-configure-linux:
 	# <sys/vnode.h> does not exist on linux
 	${REINPLACE_CMD} -e '/vnode\.h/d' ${WRKSRC}/dir.c
 
