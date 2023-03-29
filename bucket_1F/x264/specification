@@ -46,14 +46,13 @@ BUILDRUN_DEPENDS=	l-smash:single:standard
 USES=			pkgconfig gmake shebangfix
 SHEBANG_FILES=		configure
 INSTALL_REQ_TOOLCHAIN=	yes
-MUST_CONFIGURE=		yes
+MUST_CONFIGURE=		gnu
 PLIST_SUB=		X264_BUILD=${X264_BUILD}
 DISTNAME=		x264-${X264_GITVER}-${X264_COMMIT}
 CFLAGS=			-I{{LOCALBASE}}/include/libav
 LDFLAGS=		-L{{LOCALBASE}}/lib/libav
 			-Wl,-rpath,{{LOCALBASE}}/lib/libav
-CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
-			--host="{{CONFIGURE_TARGET}}"
+CONFIGURE_ARGS=		--host="{{CONFIGURE_TARGET}}"
 			--extra-cflags="{{CPPFLAGS}} {{CFLAGS}}"
 			--extra-ldflags="{{LDFLAGS}}"
 			--enable-static
