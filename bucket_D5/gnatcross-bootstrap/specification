@@ -7,6 +7,7 @@ DEF[GCC_VERSION]=	EXTRACT_INFO(GCC11_VERSION)
 DEF[GCC_PREFIX]=	toolchain/gcc11
 DEF[FREEBSD_11]=	EXTRACT_INFO(GNATCROSS_FREEBSD_11)
 DEF[FREEBSD_12]=	EXTRACT_INFO(GNATCROSS_FREEBSD_12)
+DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 DEF[DRACO_TAG]=		11.3.0-rev1
 DEF[DRACO_DIR]=		patches-11.3.0
 # ----------------------------------------------------------------------------
@@ -153,11 +154,11 @@ CONFIGURE_ENV=		build_configargs="CPPFLAGS=\"{{CPPFLAGS}}\""
 
 [MAMD64_R3].DESCRIPTION=		Build native compiler for MidnighBSD/AMD64 R3.0.0
 [MAMD64_R3].CONFIGURE_ARGS_ON=		--build={{CONFIGURE_TARGET}}
-					--host=x86_64-raven-freebsd12.3
-					--target=x86_64-raven-freebsd12.3
+					--host=${MBSD64_TARGET}
+					--target=${MBSD64_TARGET}
 					--disable-libstdcxx-pch
 [MAMD64_R3].BUILD_DEPENDS_ON=		gnatcross:single:MAMD64_R3
-[MAMD64_R3].MAKEFILE_ON=		TGTSYS=x86_64-raven-freebsd12.3
+[MAMD64_R3].MAKEFILE_ON=		TGTSYS=${MBSD64_TARGET}
 					BSPREFIX={{LOCALBASE}}/MidnightBSD_AMD64
 					PREPEND_PATH={{BSPREFIX}}/{{TGTSYS}}/bin:{{BSPREFIX}}/bin
 
