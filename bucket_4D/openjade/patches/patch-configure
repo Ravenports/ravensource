@@ -18,3 +18,44 @@
  echo "$as_me:$LINENO: checking for gettext" >&5
  echo $ECHO_N "checking for gettext... $ECHO_C" >&6
  if test "${ac_cv_func_gettext+set}" = set; then
+@@ -6085,7 +6089,7 @@ darwin* | rhapsody*)
+   esac
+   ;;
+ 
+-freebsd*)
++freebsd* | dragonfly* | midnight*)
+   if echo __ELF__ | $CC -E - | grep __ELF__ > /dev/null; then
+     case $host_cpu in
+     i*86 )
+@@ -7919,9 +7923,6 @@ else
+     whole_archive_flag_spec='-all_load $convenience'
+     ;;
+ 
+-  freebsd1*)
+-    ld_shlibs=no
+-    ;;
+ 
+   # FreeBSD 2.2.[012] allows us to include c++rt0.o to get C++ constructor
+   # support.  Future versions do this automatically, but an explicit c++rt0.o
+@@ -7943,7 +7944,7 @@ else
+     ;;
+ 
+   # FreeBSD 3 and greater uses gcc -shared to do shared libraries.
+-  freebsd*)
++  freebsd* | dragonfly* | midnight*)
+     archive_cmds='$CC -shared -o $lib $libobjs $deplibs $compiler_flags'
+     hardcode_libdir_flag_spec='-R$libdir'
+     hardcode_direct=yes
+@@ -8342,11 +8343,7 @@ darwin* | rhapsody*)
+   shlibpath_var=DYLD_LIBRARY_PATH
+   ;;
+ 
+-freebsd1*)
+-  dynamic_linker=no
+-  ;;
+-
+-freebsd*)
++freebsd* | dragonfly* | midnight*)
+   objformat=`test -x /usr/bin/objformat && /usr/bin/objformat || echo aout`
+   version_type=freebsd-$objformat
+   case $version_type in
