@@ -35,7 +35,7 @@ BUILDRUN_DEPENDS=	libgcrypt:single:standard
 			nspr:single:standard
 			nss:primary:standard
 
-USES=			cpe gmake libtool pkgconfig ssl
+USES=			cpe gmake libtool pkgconfig ssl mbsdfix
 GNOME_COMPONENTS=	libxslt
 CPE_VENDOR=		xmlsec_project
 MUST_CONFIGURE=		gnu
@@ -57,7 +57,7 @@ INSTALL_REQ_TOOLCHAIN=	yes
 DISTNAME=		xmlsec1-${PORTVERSION}
 SOVERSION=		${PORTVERSION}
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} \
 		-e 's/mozilla-nss/nss/' \
 		-e 's/mozilla-nspr/nspr/' \
