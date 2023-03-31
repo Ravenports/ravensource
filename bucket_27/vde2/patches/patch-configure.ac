@@ -5,7 +5,7 @@
      darwin_gcc=yes
    ;;
 -  freebsd*)
-+  freebsd*|dragonfly*|netbsd*)
++  freebsd*|dragonfly*|netbsd*|midnight*)
      AC_DEFINE([VDE_FREEBSD], 1, [If defined, this is a FreeBSD system])
    ;;
    *)
@@ -14,7 +14,7 @@
        fi
        ;;
 -    freebsd*)
-+    freebsd*|dragonfly*|netbsd*)
++    freebsd*|dragonfly*|netbsd*|midnight*)
        AC_CHECK_HEADER([net/if_tun.h],
          [AC_DEFINE([HAVE_TUNTAP], 1, [If defined, tuntap support is compiled in])],
          [warn_tuntap=yes])
