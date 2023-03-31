@@ -1,1 +1,5 @@
 USES=			iconv:build zlib:build bz2:build xz:build pcre2:build
+
+post-extract:
+	${CP} ${MK_TEMPLATES}/config.guess ${WRKSRC}/src/libuv/config.guess
+	${CP} ${MK_TEMPLATES}/config.sub ${WRKSRC}/src/libuv/config.sub
