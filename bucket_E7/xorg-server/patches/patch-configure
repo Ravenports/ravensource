@@ -1,0 +1,47 @@
+--- configure.orig	2023-02-07 01:17:00 UTC
++++ configure
+@@ -24645,7 +24645,7 @@ printf "%s\n" "#define USE_ALPHA_PIO 1"
+   x86_64*|amd64*)
+ 	I386_VIDEO=yes
+ 	case $host_os in
+-		*freebsd*)
++		*freebsd*|*midnight*)
+ printf "%s\n" "#define USE_DEV_IO 1" >>confdefs.h
+  ;;
+ 		*dragonfly*)
+@@ -24716,7 +24716,7 @@ fi
+ 
+ DRI=no
+ case $host_os in
+-  *freebsd* | *dragonfly*)
++  *freebsd* | *dragonfly*| *midnight*)
+ 	case $host_os in
+ 		kfreebsd*-gnu) ;;
+ 		*)
+@@ -28035,7 +28035,7 @@ fi
+ case "x$XTRANS_SEND_FDS" in
+ xauto)
+ 	case "$host_os" in
+-	linux*|solaris*|freebsd*|dragonfly*|openbsd*)
++	linux*|solaris*|freebsd*|dragonfly*|openbsd*|midnight*)
+ 		XTRANS_SEND_FDS=yes
+ 		;;
+ 	*)
+@@ -30651,7 +30651,7 @@ printf "%s\n" "#define PCI_TXT_IDS_PATH
+   test "$exec_prefix_NONE" && exec_prefix=NONE
+ 
+ 		case $host_os in
+-		  gnu* | freebsd* | kfreebsd*-gnu | netbsd* | openbsd* | solaris* | dragonfly*)
++		  gnu* | freebsd* | kfreebsd*-gnu | netbsd* | openbsd* | solaris* | dragonfly* | midnight*)
+ 			xorg_bus_bsdpci="yes"
+ 			;;
+ 		esac
+@@ -30701,7 +30701,7 @@ fi
+ 
+ done
+ 		;;
+-	  freebsd* | kfreebsd*-gnu | dragonfly*)
++	  freebsd* | kfreebsd*-gnu | dragonfly* | midnight*)
+ 		XORG_OS_SUBDIR="bsd"
+ 		;;
+ 	  netbsd*)

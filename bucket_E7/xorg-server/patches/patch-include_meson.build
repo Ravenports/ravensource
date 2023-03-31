@@ -1,6 +1,22 @@
---- include/meson.build.orig	2022-12-19 10:53:03 UTC
+--- include/meson.build.orig	2023-02-07 01:16:51 UTC
 +++ include/meson.build
-@@ -384,7 +384,7 @@ if host_machine.system() == 'freebsd' or
+@@ -278,7 +278,7 @@ supports_syscons = false
+ supports_wscons = false
+ csrg_based = false
+ 
+-if host_machine.system() == 'freebsd' or host_machine.system() == 'dragonfly'
++if ['freebsd', 'dragonfly', 'midnightbsd'].contains(host_machine.system())
+   supports_pccons = true
+   supports_pcvt = true
+   supports_syscons = true
+@@ -377,13 +377,13 @@ xorg_data.set('HAVE_STROPTS_H', cc.has_h
+ xorg_data.set('HAVE_SYS_KD_H', cc.has_header('sys/kd.h') ? '1' : false)
+ xorg_data.set('HAVE_SYS_VT_H', cc.has_header('sys/vt.h') ? '1' : false)
+ 
+-if host_machine.system() == 'freebsd' or host_machine.system() == 'dragonfly'
++if ['freebsd', 'dragonfly', 'midnightbsd'].contains(host_machine.system())
+     if host_machine.cpu_family() == 'x86' or host_machine.cpu_family() == 'x86_64'
+         xorg_data.set('USE_DEV_IO', '1')
      endif
  elif host_machine.system() == 'netbsd'
      if host_machine.cpu_family() == 'x86' or host_machine.cpu_family() == 'x86_64'
