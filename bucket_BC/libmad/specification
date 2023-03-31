@@ -12,8 +12,9 @@ HOMEPAGE=		http://www.underbit.com/products/mad/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/tenacityteam:libmad:${PORTVERSION}
-DISTFILE[1]=		generated:main
+SITES[main]=		https://codeberg.org/tenacityteam/libmad/archive/
+DISTFILE[1]=		${PORTVERSION}.tar.gz:main
+DIST_SUBDIR=		libmad
 
 SPKGS[standard]=	single
 SPKGS[speed]=		single
@@ -32,6 +33,7 @@ CMAKE_ARGS=		-DMADD_ASM=off
 SUB_FILES=		mad.pc
 SUB_LIST=		VERSION=${PORTVERSION}
 SOVERSION=		${SOVERSION}
+DISTNAME=		libmad
 
 [SPEED].DESCRIPTION=			Optimize for speed over accuracy
 [SPEED].CMAKE_ARGS_ON=			-DOPTIMIZE=SPEED
