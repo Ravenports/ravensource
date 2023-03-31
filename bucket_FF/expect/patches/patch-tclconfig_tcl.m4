@@ -499,7 +499,7 @@
 -	    esac
  	    ;;
 -	FreeBSD-*)
-+	DragonFly-*|FreeBSD-*)
++	DragonFly-*|FreeBSD-*|MidnightBSD-*)
  	    # This configuration from FreeBSD Ports.
  	    SHLIB_CFLAGS="-fPIC"
  	    SHLIB_LD="${CC} -shared"
