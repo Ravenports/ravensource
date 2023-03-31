@@ -62,6 +62,7 @@ PLIST_SUB=		BOOSTVER=${PORTVERSION}
 			FIBER={{FIBER}}
 			WAVE={{WAVE}}
 			JSON={{JSON}}
+			EXECMON={{EXECMON}}
 CPE_VENDOR=		boost
 CPE_PRODUCT=		boost
 
@@ -71,6 +72,12 @@ VAR_OPSYS[netbsd]=	MAKE_ARGS=pch=off
 # json breaks on NetBSD after 1.77 due to json error code.  Traced to gcc11 c++ headers?
 			MAKE_ARGS=--without-json
 			MAKEFILE_LINE=JSON="@comment "
+# prg_exec_monitor is broken in mports too
+VAR_OPSYS[midnightbsd]=	MAKE_ARGS=pch=off
+			MAKEFILE_LINE=EXECMON="@comment "
+
+post-extract-midnightbsd:
+	${RM} -r ${WRKSRC}/libs/test
 
 post-patch:
 	${REINPLACE_CMD} -e 's|$$(RPATH)|${HARDCODE_RPATH}|' \
