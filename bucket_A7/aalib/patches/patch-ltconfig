@@ -1,0 +1,20 @@
+--- ltconfig.intermediate	2001-04-26 14:37:31 UTC
++++ ltconfig
+@@ -1360,7 +1360,7 @@ else
+     ;;
+ 
+   # FreeBSD 3 and greater uses gcc -shared to do shared libraries.
+-  freebsd*)
++  freebsd*|dragonfly*|midnight*)
+     archive_cmds='$CC -shared -o $lib $libobjs $deplibs $linkopts'
+     hardcode_libdir_flag_spec='-R$libdir'
+     hardcode_direct=yes
+@@ -1886,7 +1886,7 @@ freebsd1*)
+   dynamic_linker=no
+   ;;
+   
+-freebsd*)
++freebsd*|dragonfly*|midnight*)
+   objformat=`test -x /usr/bin/objformat && /usr/bin/objformat || echo aout`
+   version_type=freebsd-$objformat
+   case "$version_type" in
