@@ -5,7 +5,7 @@
      DEFAULT_DEFAULT_wxUSE_MOTIF=1
    ;;
 -  *-*-freebsd*)
-+  *-*-dragonfly*|*-*-freebsd*)
++  *-*-dragonfly*|*-*-freebsd*|*-*-midnight*)
      USE_BSD=1
      USE_FREEBSD=1
      $as_echo "#define __FREEBSD__ 1" >>confdefs.h
@@ -45,19 +45,20 @@
  
  if test "x$WXWIN_COMPATIBILITY_2_6" = "xyes"; then
      $as_echo "#define WXWIN_COMPATIBILITY_2_6 1" >>confdefs.h
-@@ -39001,6 +38999,7 @@ fi
+@@ -39001,6 +38999,8 @@ fi
        ;;
  
        powerpc-apple-macos* | \
 +      *-*-dragonfly* | \
++      *-*-midnight* | \
        *-*-freebsd* | *-*-openbsd* | *-*-netbsd* | *-*-gnu* | *-*-k*bsd*-gnu | \
        *-*-mirbsd* | \
        *-*-sunos4* | \
-@@ -39042,6 +39041,7 @@ fi
+@@ -39042,6 +39042,7 @@ fi
  
      case "${BAKEFILE_HOST}" in
        *-*-linux* | *-*-freebsd* | *-*-openbsd* | *-*-netbsd* | \
-+      *-*-dragonfly* | *-*-solaris2* | \
++      *-*-dragonfly* | *-*-midnight* | *-*-solaris2* | \
        *-*-k*bsd*-gnu | *-*-mirbsd* | *-*-gnu* )
          if test "x$SUNCXX" = "xyes"; then
              SONAME_FLAG="-h "
