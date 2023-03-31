@@ -13,9 +13,7 @@ HOMEPAGE=		https://www.unidata.ucar.edu/software/udunits/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-# SITES[main]=		GITHUB/Unidata:UDUNITS-2:${RELEASE_TAG}
-# DISTFILE[1]=		generated:main
-SITES[main]=		ftp://ftp.unidata.ucar.edu/pub/udunits/
+SITES[main]=		https://downloads.unidata.ucar.edu/udunits/${PORTVERSION}/
 DISTFILE[1]=		udunits-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	complete primary docs
@@ -31,7 +29,7 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		science/udunits
 
 # USES=			autoreconf expat libtool makeinfo
-USES=			expat libtool makeinfo
+USES=			expat libtool makeinfo mbsdfix
 MUST_CONFIGURE=		gnu
 CONFIGURE_ENV=		ac_cv_header_CUnit_CUnit_h=no
 INSTALL_TARGET=		install-strip
