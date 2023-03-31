@@ -5,7 +5,7 @@
          HEADERS += io/qfilesystemwatcher_inotify_p.h
      } else {
 -        freebsd|darwin|openbsd|netbsd {
-+        freebsd|darwin|openbsd|netbsd|dragonfly {
++        freebsd|darwin|openbsd|netbsd|dragonfly|midnightbsd {
              SOURCES += io/qfilesystemwatcher_kqueue.cpp
              HEADERS += io/qfilesystemwatcher_kqueue_p.h
          }
