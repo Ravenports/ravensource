@@ -6,8 +6,8 @@
  
 -linux|freebsd|openbsd|netbsd:qtHaveModule(dbus):SUBDIRS += geoclue
 -linux|freebsd|openbsd|netbsd:qtHaveModule(dbus):SUBDIRS += geoclue2
-+linux|freebsd|openbsd|netbsd|dragonfly:qtHaveModule(dbus):SUBDIRS += geoclue
-+linux|freebsd|openbsd|netbsd|dragonfly:qtHaveModule(dbus):SUBDIRS += geoclue2
++linux|freebsd|openbsd|netbsd|midnightbsd|dragonfly:qtHaveModule(dbus):SUBDIRS += geoclue
++linux|freebsd|openbsd|netbsd|midnightbsd|dragonfly:qtHaveModule(dbus):SUBDIRS += geoclue2
  qtConfig(gypsy):SUBDIRS += gypsy
  qtConfig(winrt_geolocation):SUBDIRS += winrt
  qtHaveModule(simulator):SUBDIRS += simulator
