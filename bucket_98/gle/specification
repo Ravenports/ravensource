@@ -53,6 +53,11 @@ post-patch-freebsd:
 	${REINPLACE_CMD} -e "s/malloc.h/stdlib.h/g" ${WRKSRC}/src/${f}
 .endfor
 
+post-patch-midnightbsd:
+.for f in ${FILESTOPATCH}
+	${REINPLACE_CMD} -e "s/malloc.h/stdlib.h/g" ${WRKSRC}/src/${f}
+.endfor
+
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/doc/gle/html/* \
 		${STAGEDIR}${PREFIX}/share/doc/gle
