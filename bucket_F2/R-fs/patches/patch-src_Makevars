@@ -1,6 +1,6 @@
 --- src/Makevars.orig	2023-02-06 09:31:27 UTC
 +++ src/Makevars
-@@ -10,6 +10,7 @@ OBJECTS = $(SOURCES:.cc=.o)
+@@ -10,13 +10,20 @@ OBJECTS = $(SOURCES:.cc=.o)
  ifeq ($(UNAME), SunOS)
  PKG_LIBS += -lkstat -lsendfile -lsocket -lxnet
  OBJECTS +=  bsd/setmode.o bsd/strmode.o bsd/reallocarray.o
@@ -8,7 +8,10 @@
  endif
  ifeq ($(UNAME), FreeBSD)
  PKG_LIBS += -lkvm
-@@ -17,6 +18,9 @@ endif
+ endif
++ifeq ($(UNAME), MidnightBSD)
++PKG_LIBS += -lkvm
++endif
  ifeq ($(UNAME), OpenBSD)
  PKG_LIBS += -lkvm
  endif
@@ -18,7 +21,7 @@
  ifneq ($(filter $(UNAME), Linux AIX OS400),)
  OBJECTS +=  bsd/setmode.o bsd/strmode.o bsd/reallocarray.o
  endif
-@@ -29,7 +33,7 @@ $(SHLIB): $(LIBUV)/.libs/libuv.a
+@@ -29,7 +36,7 @@ $(SHLIB): $(LIBUV)/.libs/libuv.a
  
  $(LIBUV)/Makefile:
  	(cd $(LIBUV) \
