@@ -42,6 +42,10 @@ CMAKE_ARGS=		-DFLB_DEBUG=Off
 			-DFLB_HTTP_SERVER=On
 RC_SUBR=		fluent-bit:primary
 
+post-extract:
+	${CP} ${MK_TEMPLATES}/config.sub ${WRKSRC}/lib/onigmo/config.sub
+	${CP} ${MK_TEMPLATES}/config.guess ${WRKSRC}/lib/onigmo/config.guess
+
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/etc/fluent-bit/fluent-bit.conf \
 		${STAGEDIR}${PREFIX}/etc/fluent-bit/fluent-bit.conf.sample
