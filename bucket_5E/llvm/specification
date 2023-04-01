@@ -3,6 +3,7 @@ DEF[PORTREVISION]=	2
 DEF[PORTVERSION]=	${LLVM_VERSION}
 DEF[MAJORMIN]=		${PORTVERSION:R}
 DEF[MAJOR]=		${PORTVERSION:R:R}
+DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		llvm
@@ -63,6 +64,8 @@ SHEBANG_FILES=		utils/llvm-lit/llvm-lit.in
 
 BLOCK_WATCHDOG=		yes
 
+VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
+
 [GOLD].DESCRIPTION=			Build the LLVM Gold plugin for LTO
 [GOLD].CMAKE_ARGS_ON=			-DLLVM_BINUTILS_INCDIR={{LOCALBASE}}/toolchain/include
 					-DLLVM_USE_LINKER=gold
@@ -75,10 +78,9 @@ post-extract:
 	# Use PIC versions of ncurses/tinfo instead of static
 	${MV} ${LOCALBASE}/lib/libtinfo_pic.a ${LOCALBASE}/lib/libtinfo.a
 	${MV} ${LOCALBASE}/lib/libncurses_pic.a ${LOCALBASE}/lib/libncurses.a
-
-post-patch:
-	${REINPLACE_CMD} -e "s|/usr/local|${PREFIX}|g" \
-		${WRKSRC}/CMakeLists.txt
+	# Replace config.(sub|guess)
+	${CP} ${MK_TEMPLATES}/config.guess ${WRKSRC}/cmake/config.guess
+	${CP} ${MK_TEMPLATES}/config.sub ${WRKSRC}/cmake/config.sub
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/include/llvm/MC/MCAnalysis
