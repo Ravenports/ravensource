@@ -23,12 +23,12 @@ FPC_EQUIVALENT=		x11/xorg-cf-files
 
 MUST_CONFIGURE=		gnu
 
-post-extract:
-	${CP} ${FILESDIR}/MidnightBSD.cf ${WRKSRC}/MidnightBSD.cf
-
 post-patch:
 	${MV} ${WRKSRC}/NetBSD.cf ${WRKSRC}/NetBSD.cf.original
 	${CP} ${WRKSRC}/DragonFly.cf ${WRKSRC}/NetBSD.cf
+
+pre-configure-midnightbsd:
+	${CP} ${FILESDIR}/MidnightBSD.cf ${WRKSRC}/FreeBSD.cf
 
 pre-configure:
 	${REINPLACE_CMD} 's|\(define ExtraXaw[^ ]*\) [$$].*|\1 /**/|' \
