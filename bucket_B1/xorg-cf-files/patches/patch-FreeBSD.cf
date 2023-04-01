@@ -1,5 +1,5 @@
---- ./FreeBSD.cf.orig	2021-08-02 01:00:38 UTC
-+++ ./FreeBSD.cf
+--- FreeBSD.cf.orig	2023-02-22 02:28:43 UTC
++++ FreeBSD.cf
 @@ -78,6 +78,7 @@ XCOMM operating system:  OSName (OSMajor
  #define HasIssetugid		YES
  #define HasPoll			YES
@@ -25,7 +25,7 @@
  #endif
  
  /* This fixes linking C programs against libGLU on FreeBSD 3.x */
-@@ -178,7 +173,9 @@ XCOMM operating system:  OSName (OSMajor
+@@ -181,7 +176,9 @@ XCOMM operating system:  OSName (OSMajor
  #ifndef CplusplusCmd
  #define CplusplusCmd		c++
  #endif
@@ -35,7 +35,7 @@
  #define PreProcessCmd		CppCmd
  #define StandardCppOptions	-traditional
  #define StandardCppDefines	/**/
-@@ -338,7 +335,7 @@ XCOMM operating system:  OSName (OSMajor
+@@ -341,7 +338,7 @@ XCOMM operating system:  OSName (OSMajor
  #ifndef LibraryRpathLoadFlags
  # if UseRpath
  #  if UseElfFormat
@@ -44,7 +44,7 @@
  #  else
  #   define LibraryRpathLoadFlags	-R $(USRLIBDIRPATH)
  #  endif
-@@ -470,14 +467,14 @@ XCOMM operating system:  OSName (OSMajor
+@@ -473,14 +470,14 @@ XCOMM operating system:  OSName (OSMajor
  /* The GCC strength-reduce bug is fixed for FreeBSD 2.1.5 and later */
  #ifndef DefaultGcc2i386Opt
  #if OSMajorVersion > 2 || (OSMajorVersion == 2 && OSMinorVersion > 1) || (OSMajorVersion == 2 && OSMinorVersion == 1 && OSTeenyVersion >= 5)
@@ -61,7 +61,7 @@
  #endif
  
  #ifndef PreIncDir
-@@ -498,6 +495,10 @@ XCOMM operating system:  OSName (OSMajor
+@@ -501,6 +498,10 @@ XCOMM operating system:  OSName (OSMajor
  #define SystemManDirectory	/usr/share/man
  #endif
  
