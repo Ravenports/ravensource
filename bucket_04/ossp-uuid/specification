@@ -28,11 +28,13 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		misc/ossp-uuid
 
-USES=			cmake c++:primary
+USES=			cmake c++:primary mbsdfix
 DISTNAME=		uuid-${PORTVERSION}
 
 post-extract:
 	${CP} ${FILESDIR}/CMakeLists.txt ${WRKSRC}/
+	${CP} ${MK_TEMPLATES}/config.sub ${WRKSRC}/config.sub
+	${CP} ${MK_TEMPLATES}/config.guess ${WRKSRC}/config.guess
 
 pre-configure:
 	# Run gnu configure script to generate config.h
