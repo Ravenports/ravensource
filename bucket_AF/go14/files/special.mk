@@ -8,3 +8,9 @@ GOOBJ=8
 GOARCH=unknown
 GOOBJ=unknown
 .endif
+
+.if ${OPSYS} == "MidnightBSD"
+GOSYS=freebsd
+.else
+GOSYS=${OPSYS:tl}
+.endif

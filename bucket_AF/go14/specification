@@ -43,9 +43,9 @@ SHEBANG_NEW_BASH=	{{SH}}
 DISTNAME=		go
 PLIST_SUB=		ARCH={{GOARCH}}
 			GOOBJ={{GOOBJ}}
-			OPSYSL={{OPSYS:tl}}
+			OPSYSL={{GOSYS}}
 
-post-patch:
+pre-configure:
 	@cd ${WRKSRC} && ${FIND} . -name '*.orig' -delete
 	${RM} ${WRKSRC}/src/*.rc ${WRKSRC}/include/plan9/mklibc.rc
 	${FIND} ${WRKSRC} -type d -name testdata | ${XARGS} ${RM} -r
@@ -54,11 +54,11 @@ do-build:
 	cd ${WRKSRC}/src && \
 		CC=${CC} \
 		GOROOT=${WRKSRC} GOROOT_FINAL=${PREFIX}/go14 \
-		GOBIN= GOARCH=${GOARCH} GOOS=${OPSYS:tl} \
+		GOBIN= GOARCH=${GOARCH} GOOS=${GOSYS} \
 		CGO_ENABLED=0 \
 		${SH} make.bash
 
 do-install:
 	${CP} -a ${WRKSRC} ${STAGEDIR}${PREFIX}/go14
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/go14/bin/*
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/go14/pkg/tool/${OPSYS:tl}_${GOARCH}/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/go14/pkg/tool/${GOSYS}_${GOARCH}/*
