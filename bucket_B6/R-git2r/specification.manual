@@ -1,3 +1,7 @@
 USES=			pkgconfig ssl
 BUILD_DEPENDS=		libgit2:dev:standard
 BUILDRUN_DEPENDS=	libgit2:primary:standard
+
+post-extract:
+	${CP} ${MK_TEMPLATES}/config.guess ${WRKSRC}/tools/config.guess
+	${CP} ${MK_TEMPLATES}/config.sub ${WRKSRC}/tools/config.sub
