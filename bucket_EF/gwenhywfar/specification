@@ -67,7 +67,7 @@ EXRUN[qt5]=		gwenhywfar:primary:standard
 			qt5-qtbase:primary:standard
 
 USES=			gmake iconv libtool pkgconfig ssl zlib:build
-			fontconfig gettext
+			fontconfig gettext mbsdfix
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-release="yes"
 			--with-guis="gtk2 gtk3 qt5"
@@ -82,6 +82,7 @@ SOVERSION=		${SOVERSION}
 
 VAR_OPSYS[freebsd]=	LDFLAGS=-lintl
 VAR_OPSYS[dragonfly]=	LDFLAGS=-lintl
+VAR_OPSYS[midnightbsd]=	LDFLAGS=-lintl
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 VAR_OPSYS[netbsd]=	LDFLAGS=-lintl
 			CONFIGURE_ENV=ac_cv_lib_dl_dlopen=no
