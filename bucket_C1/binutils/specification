@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(BINUTILS_VERSION)
 DEF[BUREMOVE]=		coffdump dlltool dllwrap nlmconv srconv sysdump windmc windres
+DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		binutils
@@ -82,6 +83,11 @@ VAR_OPSYS[linux]=	VAR1=/lib/ld64.so.1
 			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold
 			MAKEFILE_LINE=SFRAME="@comment "
 VAR_OPSYS[openbsd]=	MAKEFILE_LINE=PLUGINAPI="@comment "
+VAR_OPSYS[midnightbsd]=	VAR1=/libexec/ld-elf.so.1
+			VAR2=/libexec/ld-elf.so.1
+			MAKEFILE_LINE=BUILD_GOLD=yes
+			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold=default
+			MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
 
 [RELRO].DESCRIPTION=			enable -z relro in ELF linker by default
 [RELRO].CONFIGURE_ARGS_ON=		--enable-relro
