@@ -6,6 +6,7 @@ DEF[GCC_VERSION]=	EXTRACT_INFO(GCCBASE_VERSION)
 DEF[GCC_LIB]=		toolchain/ravensys-gcc/{{ASLIB}}
 DEF[GXX_INCLUDE]=	toolchain/ravensys-gcc/include/c++/${GCC_VERSION}
 DEF[GCC_TARGET_LIB]=	${GCC_LIB}/gcc/{{CONFIGURE_TARGET}}/${GCC_VERSION}
+DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		clang
@@ -87,6 +88,9 @@ VAR_OPSYS[linux]=	CMAKE_ARGS=-DLLVM_USE_LINKER=gold
 			CMAKE_ARGS=-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
 VAR_OPSYS[sunos]=	CMAKE_ARGS=-DCMAKE_SKIP_RPATH:BOOL=TRUE
 			LDFLAGS=-Wl,-R{{LOCALBASE}}/llvm/lib
+VAR_OPSYS[midnightbsd]=	CMAKE_ARGS=-DLLVM_USE_LINKER=gold
+			CMAKE_ARGS=-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
+			MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
 
 post-extract:
 	${MV} ${WRKDIR}/clang-tools-extra-${LLVM_VERSION}.src \
@@ -144,6 +148,20 @@ post-patch-netbsd:
 		-e '/ stddef.h/d' \
 		-e '/ stdint.h/d' \
 		-e '/ stdnoreturn.h/d' \
+		${WRKSRC}/lib/Headers/CMakeLists.txt
+
+post-patch-midnightbsd:
+	# Remove headers that conflict with /usr/include
+	${REINPLACE_CMD} \
+		-e '/ limits.h/d' \
+		-e '/ stdalign.h/d' \
+		-e '/ stdarg.h/d' \
+		-e '/ stdatomic.h/d' \
+		-e '/ stdbool.h/d' \
+		-e '/ stddef.h/d' \
+		-e '/ stdint.h/d' \
+		-e '/ stdnoreturn.h/d' \
+		-e '/ varargs.h/d' \
 		${WRKSRC}/lib/Headers/CMakeLists.txt
 
 post-install:
