@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	1.2.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-conflicted
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		standard
+SDESC[standard]=	Alternative Conflict Resolution Strategy
+HOMEPAGE=		https://conflicted.r-lib.org/
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+			https://loki.dragonflybsd.org/cranfiles/
+DISTFILE[1]=		conflicted_1.2.0.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => MIT + file LICENSE
+
+USES=			cran gmake
+DISTNAME=		conflicted
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-cli:single:standard
+			R-memoise:single:standard
+			R-rlang:single:standard
+
+
