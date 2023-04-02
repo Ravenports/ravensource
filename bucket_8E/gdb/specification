@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	11.2
 DEF[SUFFIX]=		${PORTVERSION:S/.//g}
+DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gdb
@@ -62,6 +63,8 @@ CFLAGS=			-DRL_NO_COMPAT
 PLIST_SUB=		VER=${SUFFIX}
 EXTRACT_HEAD[1]=	{{TAR}} -xf
 EXTRACT_TAIL[1]=	--exclude dejagnu --exclude expect --exclude sim --exclude texinfo --exclude intl --exclude readline
+
+VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
 
 post-patch:
 	${REINPLACE_CMD} -e 's|$$| [GDB v${PORTVERSION} for ${OPSYS}]|' \
