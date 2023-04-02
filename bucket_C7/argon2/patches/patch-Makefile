@@ -1,10 +1,12 @@
---- Makefile.orig	2019-07-02 16:38:45 UTC
+--- Makefile.orig	2019-05-20 09:18:00 UTC
 +++ Makefile
-@@ -77,8 +77,10 @@ ifeq ($(KERNEL_NAME), Linux)
+@@ -76,9 +76,11 @@ ifeq ($(KERNEL_NAME), Linux)
+ 	LINKED_LIB_EXT := so
  	PC_EXTRA_LIBS ?= -lrt -ldl
  endif
- ifeq ($(KERNEL_NAME), $(filter $(KERNEL_NAME),DragonFly FreeBSD NetBSD OpenBSD))
+-ifeq ($(KERNEL_NAME), $(filter $(KERNEL_NAME),DragonFly FreeBSD NetBSD OpenBSD))
 -	LIB_EXT := so
++ifeq ($(KERNEL_NAME), $(filter $(KERNEL_NAME),DragonFly FreeBSD NetBSD OpenBSD MidnightBSD))
 +	LIB_EXT := so.$(ABI_VERSION)
  	LIB_CFLAGS := -shared -fPIC
 +	SO_LDFLAGS := -Wl,-soname,lib$(LIB_NAME).$(LIB_EXT)
