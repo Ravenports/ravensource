@@ -34,3 +34,7 @@ BUILDRUN_DEPENDS=	R-DBI:single:standard
 
 SHEBANG_FILES=		inst/devTests/copyTest.sh
 			inst/devTests/timeTypeComparison.r
+
+post-extract:
+	${CP} ${MK_TEMPLATES}/config.guess ${WRKSRC}/src/config.guess
+	${CP} ${MK_TEMPLATES}/config.sub ${WRKSRC}/src/config.sub
