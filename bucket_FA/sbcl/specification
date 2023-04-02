@@ -32,7 +32,7 @@ OPT_ON[linux]=		LINUX CONCURRENCY
 OPT_ON[sunos]=		SUNOS
 OPT_ON[darwin]=		MACOS
 OPT_ON[netbsd]=		NETBSD
-OPT_ON[midnightbsd]=	MIDNIGHT
+OPT_ON[midnightbsd]=	MIDNIGHT CONCURRENCY
 
 LICENSE=		PUBDOM:single
 			BSD3CLAUSE:single
@@ -85,7 +85,10 @@ CMAKE_ARGS=		--prefix="{{PREFIX}}"
 
 [DRAGONFLY].DF_INDEX_ON=		2
 [FREEBSD].DF_INDEX_ON=			3
+[MIDNIGHT].DF_INDEX_ON=			3
 [LINUX].DF_INDEX_ON=			4
+
+[MIDNIGHT].BROKEN_ON=			FreeBSD bootstrap segfaults - another is needed
 
 [CONCURRENCY].CMAKE_ARGS_OFF=		--without-sb-thread
 					--without-restore-fs-segment-register-from-tls
