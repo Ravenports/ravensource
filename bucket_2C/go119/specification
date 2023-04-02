@@ -43,9 +43,9 @@ SHEBANG_FILES=		src/*.bash
 SHEBANG_OLD_BASH=	"/usr/bin/env bash"
 SHEBANG_NEW_BASH=	{{SH}}
 DISTNAME=		go
-PLIST_SUB=		opsys_ARCH={{OPSYS:tl}}_{{GOARCH}}
+PLIST_SUB=		opsys_ARCH={{GOSYS}}_{{GOARCH}}
 
-post-patch:
+pre-configure:
 	@cd ${WRKSRC} && ${FIND} . -name '*.orig' -delete
 	${RM} ${WRKSRC}/src/*.rc ${WRKSRC}/include/plan9/mklibc.rc
 	${FIND} ${WRKSRC} -type d -name testdata | ${XARGS} ${RM} -r
@@ -57,7 +57,7 @@ do-build:
 		GOROOT_BOOTSTRAP=${LOCALBASE}/go14 \
 		GOBIN= \
 		GOARCH=${GOARCH} \
-		GOOS=${OPSYS:tl} \
+		GOOS=${GOSYS} \
 		GO386=${GO386} \
 		CC=gcc \
 		${SH} make.bash
@@ -68,4 +68,4 @@ do-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/go119/misc/cgo/testplugin/altpath
 	${RM} -r ${STAGEDIR}${PREFIX}/go119/test
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/go119/bin/*
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/go119/pkg/tool/${OPSYS:tl}_${GOARCH}/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/go119/pkg/tool/${GOSYS}_${GOARCH}/*
