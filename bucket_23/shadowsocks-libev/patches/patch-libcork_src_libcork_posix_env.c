@@ -5,7 +5,7 @@
   * [1] http://www.gnu.org/software/gnulib/manual/html_node/clearenv.html
   */
 +
-+#if (defined(__FreeBSD__) && (__FreeBSD__ < 14)) || defined(__NetBSD__)
++#if (defined(__FreeBSD__) && (__FreeBSD__ < 14) && !defined(__MidnightBSD__)) || defined(__NetBSD__)
 +/* Since FreeBSD 14.0-CURRENT, the clearenv(3) function was added to stdlib.
 + * See https://reviews.freebsd.org/R10:597b02675751e48dd04777f1e91fee382bf3a966
 + */
