@@ -27,6 +27,7 @@ LICENSE_AWK=		TERMS:"__LIBV4L2_H"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/lib/include/libv4l2.h
 LICENSE_SCHEME=		solo
 
+BR_DEPS[midnightbsd]=	argp-standalone:single:standard
 BR_DEPS[dragonfly]=	argp-standalone:single:standard
 BR_DEPS[freebsd]=	argp-standalone:single:standard
 BR_DEPS[netbsd]=	argp-standalone:single:standard
@@ -62,7 +63,12 @@ post-patch-dragonfly:
 		${WRKSRC}/lib/libv4lconvert/libv4lconvert.pc.in
 	${TOUCH} ${WRKSRC}/lib/include/sys/sysmacros.h
 
+post-patch-midnightbsd:
+	${REINPLACE_CMD} -e 's| -lrt||' \
+		${WRKSRC}/lib/libv4lconvert/Makefile.in \
+		${WRKSRC}/lib/libv4lconvert/libv4lconvert.pc.in
+	${TOUCH} ${WRKSRC}/lib/include/sys/sysmacros.h
+
 post-install-linux:
 	${MV} ${STAGEDIR}/lib/* ${STAGEDIR}${PREFIX}/lib
 	${RMDIR} ${STAGEDIR}/lib
-
