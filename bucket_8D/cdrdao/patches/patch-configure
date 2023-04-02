@@ -5,7 +5,7 @@
        ;;
  
 -  *-freebsd*)
-+  *-freebsd*|*-dragonfly*)
++  *-freebsd*|*-dragonfly*|*-midnight*)
        scsilib_libs="-lcam"
        scsilib_objs="ScsiIf-freebsd-cam.o"
        ;;
@@ -14,7 +14,7 @@
  
  case "$host" in
 -  *-freebsd*)
-+  *-freebsd* | *-dragonfly*)
++  *-freebsd*|*-dragonfly*|*-midnight*)
  	      if test "$use_pthreads" = yes; then
  		LDFLAGS="-pthread $LDFLAGS"
  		thread_libs=""
@@ -23,7 +23,7 @@
  
  case "$host" in
 -  *-linux* | *-freebsd* | *-solaris*)
-+  *-linux* | *-freebsd* | *-dragonfly* | *-solaris*)
++  *-linux* | *-freebsd* | *-dragonfly* | *-solaris* | *-midnight*)
  	     sound_if_obj=SoundIF-ao.o
  	     ;;
  
