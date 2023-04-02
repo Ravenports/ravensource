@@ -40,7 +40,7 @@ QMAKE_ARGS=		PREFIX="{{PREFIX}}"
 			L_MANDIR="{{PREFIX}}/share/man"
 			CONFIG+=WITH_I18N
 
-post-patch:
+pre-configure:
 	${GREP} -rl "/usr/local" ${WRKDIR}/lumina-${TAG} | \
 		${XARGS} ${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|g'
 	${FIND} ${WRKDIR}/lumina-${TAG} -name "*.bak" -type f -delete
