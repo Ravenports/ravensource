@@ -60,7 +60,7 @@ MAKEFILE=		makefile
 MAKE_ARGS=		helpdir={{PREFIX}}/share/lynx_help
 			docdir={{STD_DOCDIR}}
 
-post-patch:
+pre-configure:
 	# use libidn2 instead of libidn
 	${REINPLACE_CMD} -e 's|idna\.h|idn2.h|; s|-lidn|-lidn2|' \
 		${WRKSRC}/configure
