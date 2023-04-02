@@ -26,6 +26,7 @@ midnightfix:
 		${SED} -i.mbsdbak \
 			-e 's#freebsd\* | dragonfly\*)#freebsd* | dragonfly* | midnight*)#g' \
 			-e 's#freebsd\* | kfreebsd\*-gnu | dragonfly\*)#freebsd* | dragonfly* | midnight*)#g' \
+			-e 's#freebsd\* | kfreebsd\*-gnu)#freebsd* | dragonfly* | midnight*)#g' \
 			$${f} ; \
 		${TOUCH} -mr $${f}.mbsdbak $${f} ; \
 		cmp -s $${f}.mbsdbak $${f} || ${ECHO_MSG} "===>       applied to $${f}"; \
