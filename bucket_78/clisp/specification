@@ -48,5 +48,9 @@ PLIST_SUB=		VERSION="${POSTED_VERSION}"
 
 VAR_OPSYS[dragonfly]=	LDFLAGS=-pthread
 
+post-extract:
+	${CP} ${MK_TEMPLATES}/config.guess ${WRKSRC}/src/build-aux/config.guess
+	${CP} ${MK_TEMPLATES}/config.sub ${WRKSRC}/src/build-aux/config.sub
+
 do-build:
 	( cd ${WRKSRC}/src && make )
