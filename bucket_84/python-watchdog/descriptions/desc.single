@@ -6,7 +6,7 @@ Watchdog
 
 Python API and shell utilities to monitor file system events.
 
-Works on 3.6+.
+Works on 3.7+.
 
 Example API Usage
 -----------------
@@ -18,6 +18,27 @@ as command-line arguments and logs events generated:
 
 Changelog
 ---------
+
+3.0.0
+~~~~~
+
+2023-03-20 • [full history]
+
+- Drop support for Python 3.6.
+- watchdog is now PEP 561 compatible, and tested with mypy
+- Fix missing ``> in FileSystemEvent.__repr__()``  (`#980
+<https://github.com/gorakhargosh/watchdog/pull/980>`__)
+- [ci] Lots of improvements
+- [inotify] Return from ``InotifyEmitter.queue_events()`` if not launched
+when thread is inactive (`#963
+<https://github.com/gorakhargosh/watchdog/pull/963>`__)
+- [tests] Stability improvements
+- [utils] Remove handling of ``threading.Event.isSet`` spelling (`#962
+<https://github.com/gorakhargosh/watchdog/pull/962>`__)
+- [watchmedo] Fixed tricks YAML generation (`#965
+<https://github.com/gorakhargosh/watchdog/pull/965>`__)
+- Thanks to our beloved contributors: @kurtmckee, @altendky, @agroszer,
+@BoboTiG
 
 2.3.1
 ~~~~~
@@ -77,24 +98,3 @@ on non-Unix OSes (`#935
 <https://github.com/gorakhargosh/watchdog/pull/932>`__)
 - [documentation] HTML documentation builds are now tested for errors
 (`#902 <https://github.com/gorakhargosh/watchdog/pull/902>`__)
-- [documentation] Fix typos here, and there (`#910
-<https://github.com/gorakhargosh/watchdog/pull/910>`__)
-- [fsevents2] The fsevents2 observer is now deprecated (`#909
-<https://github.com/gorakhargosh/watchdog/pull/909>`__)
-- [tests] The error message returned by musl libc for error code ``-1`` is
-now allowed (`#923 <https://github.com/gorakhargosh/watchdog/pull/923>`__)
-- [utils] Remove unnecessary code in ``dirsnapshot.py`` (`#930
-<https://github.com/gorakhargosh/watchdog/pull/930>`__)
-- [watchmedo] Handle shutdown events from SIGHUP (`#912
-<https://github.com/gorakhargosh/watchdog/pull/912>`__)
-- Thanks to our beloved contributors: @kurtmckee, @babymastodon,
-@QuantumEnergyE, @timgates42, @BoboTiG
-
-2.1.9
-~~~~~
-
-2022-06-10 • [full history]
-
-- [fsevents] Fix flakey test to assert that there are no errors when
-stopping the emitter.
-- [inotify] Suppress occasional ``OSError: [Errno 9] Bad file descriptor``

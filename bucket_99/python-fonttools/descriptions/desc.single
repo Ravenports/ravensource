@@ -29,6 +29,16 @@ install it with [pip]:
 Changelog
 ~~~~~~~~~
 
+4.39.3 (released 2023-03-28)
+----------------------------
+
+- [sbix] Fixed TypeError when compiling empty glyphs whose imageData is
+None, regression
+  was introduced in v4.39 (#3059).
+- [ttFont] Fixed AttributeError on python <= 3.10 when opening a TTFont
+from a tempfile
+  SpooledTemporaryFile, seekable method only added on python 3.11 (#3052).
+
 4.39.2 (released 2023-03-16)
 ----------------------------
 
@@ -88,13 +98,3 @@ the unlikely
 --no-prune-unicode-ranges,
   previously the two options were involuntarily bundled together (#3012).
 - [fontBuilder] Add debug parameter to addOpenTypeFeatures method to add
-source
-  debugging information to the font in the Debg private table (#3008).
-- [name] Make NameRecord `__lt__` comparison not fail on Unicode encoding
-errors (#3006).
-- [featureVars] Fixed bug in overlayBox (#3003, #3005).
-- [glyf] Added experimental support for cubic bezier curves in TrueType
-glyf table, as
-  outlined in glyf v1 proposal (#2988):
- 
-https://github.com/harfbuzz/boring-expansion-spec/blob/main/glyf1-cubicOutlines.md

@@ -13,16 +13,6 @@ The Python interface to the Redis key-value store.
 
 ---------------------------------------------
 
-## Python Notice
-
-redis-py 4.3.x will be the last generation of redis-py to support python
-3.6 as it has been [End of Life'd].  Async support was introduced in
-redis-py 4.2.x thanks to [aioredis], which necessitates this change. We
-will continue to maintain 3.6 support as long as possible - but the plan is
-for redis-py version 4.4+ to officially remove 3.6.
-
----------------------------
-
 ## Installation
 
 Start a redis via docker:
@@ -43,11 +33,24 @@ By default, if hiredis >= 1.0 is available, redis-py will attempt to use it
 for response parsing.
 
 ``` bash
-$ pip install redis[hiredis]
+$ pip install "redis[hiredis]"
 ```
 
 Looking for a high-level library to handle object mapping? See
 [redis-om-python]!
+
+## Supported Redis Versions
+
+The most recent version of this library supports redis version [5.0],
+[6.0], [6.2], and [7.0].
+
+The table below higlights version compatibility of the most-recent library
+versions and redis versions.
+
+| Library version | Supported redis versions |
+|-----------------|-------------------|
+| 3.5.3 | <= 6.2 Family of releases |
+| >= 4.1.0 | Version 5.0 to current |
 
 ## Usage
 
@@ -95,6 +98,3 @@ does a great job of explaining each command in detail. redis-py attempts
 to adhere to the official command syntax. There are a few exceptions:
 
 -   **MULTI/EXEC**: These are implemented as part of the Pipeline class.
-    The pipeline is wrapped with the MULTI and EXEC statements by
-    default when it is executed, which can be disabled by specifying
-    transaction=False. See more about Pipelines below.
