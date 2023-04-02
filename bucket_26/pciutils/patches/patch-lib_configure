@@ -1,0 +1,13 @@
+--- lib/configure.orig	2022-11-20 12:06:14 UTC
++++ lib/configure
+@@ -31,6 +31,10 @@ if [ -z "$HOST" ] ; then
+ 	then
+ 		sys=freebsd
+ 	fi
++	if [ "$sys" = "MidnightBSD" ]
++	then
++		sys=freebsd
++	fi
+ 	if [ "$sys" = "GNU/kFreeBSD" ]
+ 	then
+ 		sys=kfreebsd
