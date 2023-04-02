@@ -44,6 +44,7 @@ OPT_ON[all]=		WIRED
 			TLS PEAP TTLS MSCHAPV2 GTC LEAP OTP PSK
 			WPS PKCS SMARTCARD IEEE80211R SYSLOG INTERWORKING
 			HOTSPOT
+OPT_ON[midnightbsd]=	BSD NDIS
 OPT_ON[dragonfly]=	BSD NDIS
 OPT_ON[freebsd]=	BSD NDIS
 OPT_ON[netbsd]=		BSD NDIS
@@ -161,6 +162,11 @@ post-patch-netbsd:
 		${WRKSRC}/src/utils
 
 post-patch-dragonfly:
+	${ECHO_CMD} CONFIG_L2_PACKET=freebsd >> ${BUILD_WRKSRC}/.config
+	${CP} ${FILESDIR}/Packet32.[ch] ${FILESDIR}/ntddndis.h \
+		${WRKSRC}/src/utils
+
+post-patch-midnightbsd:
 	${ECHO_CMD} CONFIG_L2_PACKET=freebsd >> ${BUILD_WRKSRC}/.config
 	${CP} ${FILESDIR}/Packet32.[ch] ${FILESDIR}/ntddndis.h \
 		${WRKSRC}/src/utils
