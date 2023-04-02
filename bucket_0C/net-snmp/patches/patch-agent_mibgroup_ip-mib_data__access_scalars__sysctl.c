@@ -12,7 +12,7 @@
  #include <errno.h>
  #include <stdlib.h>
  
-+#if defined(__FreeBSD_version) && __FreeBSD_version > 1400066
++#if defined(__MidnightBSD__) || (defined(__FreeBSD_version) && __FreeBSD_version > 1400066)
 +#define IPFRAGTTL	60	/* time to live for frags, slowhz */
 +#define PR_SLOWHZ	2	/* 2 slow timeouts per second */
 +#define PR_FASTHZ	5	/* 5 fast timeouts per second */

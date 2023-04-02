@@ -36,7 +36,7 @@ LICENSE_SCHEME=		solo
 RC_SUBR=		snmpd:primary snmptrapd:primary
 SUB_FILES=		pkg-message-primary
 
-USES=			cpe libtool perl ssl ncurses
+USES=			cpe libtool perl ssl ncurses mbsdfix
 CPE_PRODUCT=		net-snmp
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-shared
@@ -67,12 +67,17 @@ VAR_OPSYS[dragonfly]=	MAKE_ENV=MIB_SYSTEM_LIBS=-lkinfo
 VAR_OPSYS[freebsd]=	MAKEFILE_LINE=OPSYS_MODS=,mibII/tcpTable,mibII/ipv6
 VAR_OPSYS[netbsd]=	MAKEFILE_LINE=OPSYS_MODS=,mibII/kernel_netbsd
 			MAKEFILE_LINE=OPSYS_NOMODS=,mibII/ipv6,mibII/tcpTable,mibII/udpTable
+VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=OPSYS_MODS=,mibII/tcpTable,mibII/ipv6
 
 post-extract-linux:
 	for XX in 7 8 9 10 11 12 13 14 15 16 17; do \
 	  ${CP} ${WRKSRC}/include/net-snmp/system/darwin.h \
 	  ${WRKSRC}/include/net-snmp/system/darwin$${XX}.h ;\
 	done
+
+pre-configure-midnightbsd:
+	${CP} ${WRKSRC}/include/net-snmp/system/freebsd12.h \
+	${WRKSRC}/include/net-snmp/system/midnightbsd3.h \
 
 pre-configure-dragonfly:
 	${CP} ${FILESDIR}/cpu_dragonfly.c \
