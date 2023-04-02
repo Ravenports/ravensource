@@ -45,7 +45,7 @@ SHEBANG_FILES=		src/*.bash
 SHEBANG_OLD_BASH=	"/usr/bin/env bash"
 SHEBANG_NEW_BASH=	{{SH}}
 DISTNAME=		go
-PLIST_SUB=		opsys_ARCH={{OPSYS:tl}}_{{GOARCH}}
+PLIST_SUB=		opsys_ARCH={{GOSYS}}_{{GOARCH}}
 
 pre-configure:
 	${REINPLACE_CMD} -e 's|type -ap |type |' ${WRKSRC}/src/make.bash
@@ -62,7 +62,7 @@ do-build:
 		GOROOT=${WRKSRC} \
 		GOROOT_FINAL=${PREFIX}/go \
 		GOBIN= GOARCH=${GOARCH} \
-		GOOS=${OPSYS:tl} \
+		GOOS=${GOSYS} \
 		GO386=${GO386} \
 		CC=gcc \
 		${SH} make.bash -v
@@ -75,7 +75,7 @@ do-install:
 	${LN} -sf ../go/bin/${f} ${STAGEDIR}${PREFIX}/bin/${f}
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${f}
 .endfor
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/go/pkg/tool/${OPSYS:tl}_${GOARCH}/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/go/pkg/tool/${GOSYS}_${GOARCH}/*
 # ${STRIP_CMD} ${STAGEDIR}${PREFIX}/go/pkg/bootstrap/bin/*
 	# remove test
 	${RM} -r ${STAGEDIR}${PREFIX}/go/test

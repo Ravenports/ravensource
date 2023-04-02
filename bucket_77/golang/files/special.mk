@@ -5,3 +5,9 @@ GOARCH=i386
 .else
 GOARCH=unknown
 .endif
+
+.if ${OPSYS} == "MidnightBSD"
+GOSYS=freebsd
+.else
+GOSYS=${OPSYS:tl}
+.endif
