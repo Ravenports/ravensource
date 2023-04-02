@@ -1,8 +1,10 @@
 DEF[PORTVERSION]=	5.9
+DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		zsh
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		shells
 VARIANTS=		standard
 SDESC[standard]=	Interactive Z Shell
@@ -15,10 +17,13 @@ DISTFILE[1]=		zsh-${PORTVERSION}.tar.xz:main
 DISTFILE[2]=		zsh-${PORTVERSION}-doc.tar.xz:main
 DF_INDEX=		1 2
 
-SPKGS[standard]=	complete primary examples docs
+SPKGS[standard]=	complete primary examples docs man
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	CCLOCK
+OPTIONS_STANDARD=	CCLOCK
+OPT_ON[freebsd]=	CCLOCK
+OPT_ON[dragonfly]=	CCLOCK
+OPT_ON[midnightbsd]=	CCLOCK
 
 LICENSE=		CUSTOM1:primary
 LICENSE_NAME=		CUSTOM1:"ZSH license"
@@ -59,24 +64,23 @@ VAR_OPSYS[sunos]=	CPPFLAGS=-D_XPG6
 			CPPFLAGS=-DHAVE_BOOLCODES
 			LDFLAGS=-ltinfo
 
+# It is a mystery why MBSD needs to fake as freebsd.
+VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
+
 PLIST_SUB=		ZSH_VER="${PORTVERSION}"
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install install.info install.html
 
 # note: --enable-zsh-mem causes lockup, at least on DF
 
-post-patch:
+[CCLOCK].DESCRIPTION=			Adjust linking of clock_gettext
+
+pre-configure:
 	${FIND} ${WRKSRC} -name "*.orig" -delete
 	${REINPLACE_CMD} -i'' -e 's|__PREFIX__|${PREFIX}|' ${WRKSRC}/Functions/VCS_Info/test-repo-git-rebase*
 
-post-patch-freebsd:
-	# FreeBSD's clock_gettime(2) is in libc, not librt; see PR 167857
-	${REINPLACE_CMD} -e '/LIBS/s|-lrt||' ${WRKSRC}/configure
-	${REINPLACE_CMD} -i'' -e "s|/etc/|${LOCALBASE}/etc/|" \
-		${WRKSRC}/Functions/MIME/zsh-mime-setup
-
-post-patch-dragonfly:
-	# DragonFly's clock_gettime(2) is in libc, not librt
+pre-configure-CCLOCK-ON:
+	# xBSD's clock_gettime(2) is in libc, not librt
 	${REINPLACE_CMD} -e '/LIBS/s|-lrt||' ${WRKSRC}/configure
 	${REINPLACE_CMD} -i'' -e "s|/etc/|${LOCALBASE}/etc/|" \
 		${WRKSRC}/Functions/MIME/zsh-mime-setup
