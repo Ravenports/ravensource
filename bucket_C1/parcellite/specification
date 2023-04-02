@@ -40,6 +40,7 @@ LDFLAGS=		-lgio-2.0
 VAR_OPSYS[netbsd]=	LDFLAGS=-lintl
 VAR_OPSYS[freebsd]=	LDFLAGS=-lintl
 VAR_OPSYS[dragonfly]=	LDFLAGS=-lintl
+VAR_OPSYS[midnightbsd]=	LDFLAGS=-lintl
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 
 post-patch:
@@ -51,5 +52,9 @@ post-patch-dragonfly:
 		${WRKSRC}/src/utils.c
 
 post-patch-freebsd:
+	${REINPLACE_CMD} -e 's|/proc|/compat/linux/proc|g' \
+		${WRKSRC}/src/utils.c
+
+post-patch-midnightbsd:
 	${REINPLACE_CMD} -e 's|/proc|/compat/linux/proc|g' \
 		${WRKSRC}/src/utils.c
