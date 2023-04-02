@@ -33,7 +33,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/plan9port
 
-BROKEN[netbsd]=		libthread does not build (i386 only)
+# Too many freebsd version checks on macros
+# On NetBSD, libthread only builds on i386
+NOT_FOR_OPSYS=		midnightbsd netbsd
 
 USES=			perl:build zlib:build fontconfig shebangfix
 XORG_COMPONENTS=	x11 xext xt
@@ -59,13 +61,13 @@ SHEBANG_FILES=		src/cmd/map/mapdemo.rc
 SHEBANG_LANG=		rc
 
 post-extract:
-	${GREP} -rl "/usr/local" ${WRKSRC} | \
-		${XARGS} ${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g'
 	${TAR} -C ${WRKSRC}/dict -xf ${DISTDIR}/pgw.tar.bz2
 	${TAR} -C ${WRKSRC}/dict -xf ${DISTDIR}/roget.tar.bz2
 	${TAR} -C ${WRKSRC}/sky -xf ${DISTDIR}/scat.tgz
 
 pre-configure:
+	${GREP} -rl "/usr/local" ${WRKSRC} | \
+		${XARGS} ${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g'
 	${REINPLACE_CMD} -e 's|/lib/font/bit|${PREFIX}/plan9/font|' \
 		${WRKSRC}/src/cmd/acme/acme.c
 	${REINPLACE_CMD} -e 's|#!/bin/rc|#!${PREFIX}/plan9/bin/rc|' \
