@@ -63,5 +63,9 @@ MAKE_ARGS=		install_prefix={{STAGEDIR}}
 EXTRACT_HEAD[1]=	{{LOCALBASE}}/bin/gtar -xf
 EXTRACT_TAIL[1]=	--no-same-owner --no-same-permissions
 
+post-extract:
+	${CP} ${MK_TEMPLATES}/config.guess ${WRKSRC}/config.guess
+	${CP} ${MK_TEMPLATES}/config.sub ${WRKSRC}/config.sub
+
 post-install:
 	${RM} -r ${STAGEDIR}/etc
