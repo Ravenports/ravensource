@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	102.9.0
 DEF[MAJOR]=		${PORTVERSION:R:R}
+DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		spidermonkey
@@ -59,6 +60,7 @@ PLIST_SUB=		MOZJS_MAJOR=${MAJOR}
 			MOZJS_MINOR=${PORTVERSION:R:E}
 
 VAR_OPSYS[linux]=	MAKEFILE_LINE=CONFIGURE_TARGET=x86_64-ravenadm-linux-gnu
+VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
 
 pre-configure:
 	(cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} \
@@ -66,6 +68,8 @@ pre-configure:
 	${SH} ${WRKSRC}/../../build/autoconf/autoconf.sh \
 	--localdir=${WRKSRC}/../../js/src configure.in > configure)
 	${CHMOD} 755 ${WRKSRC}/configure
+	${REINPLACE_CMD} -e "s|%%MBSD64_TGT%%|${MBSD64_TARGET}|" \
+	${WRKSRC}/../../build/autoconf/config.guess
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/js${MAJOR}
