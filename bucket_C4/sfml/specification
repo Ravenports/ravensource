@@ -53,6 +53,12 @@ post-patch-dragonfly:
 	${REINPLACE_CMD} 's|dev/usb/usbhid.h|bus/u4b/usbhid.h|' \
 		${WRKSRC}/src/SFML/Window/FreeBSD/JoystickImpl.hpp
 
+post-patch-midnightbsd:
+	${REINPLACE_CMD} 's|FreeBSD|MidnightBSD|' \
+		${WRKSRC}/cmake/Config.cmake \
+		${WRKSRC}/include/SFML/Window/WindowHandle.hpp \
+		${WRKSRC}/include/SFML/Config.hpp
+
 post-patch-netbsd:
 	${REINPLACE_CMD} 's|SFML_SYSTEM_OPENBSD|SFML_SYSTEM_NETBSD|' \
 		${WRKSRC}/src/SFML/Window/CursorImpl.hpp \
