@@ -2,6 +2,7 @@ DEF[SNAPSHOT]=		2022-06-17
 DEF[SVNREV]=		6339
 DEF[PORTVERSION]=	${SNAPSHOT:S/-//g}
 DEF[RBINS]=		{{WRKSRC}}/cslbuild/{{CONFIGURE_TARGET}}
+DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		reduce
@@ -53,6 +54,7 @@ SINGLE_JOB=		yes
 SUB_FILES=		redcsl
 CONFIGURE_TARGET=	{{VAR1}}
 
+VAR_OPSYS[midnightbsd]=	VAR1=${MBSD64_TARGET}
 VAR_OPSYS[dragonfly]=	VAR1={{ARCH_STANDARD}}-raven-dragonfly{{MAJOR}}
 VAR_OPSYS[freebsd]=	VAR1={{ARCH_STANDARD}}-raven-freebsd{{MAJOR}}
 VAR_OPSYS[netbsd]=	VAR1={{ARCH_STANDARD}}-raven-netbsd{{MAJOR}}
