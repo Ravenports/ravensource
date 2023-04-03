@@ -108,7 +108,7 @@ SOVERSION=		${PORTVERSION}
 # skip FP16,POPCNT,FMA3 on x86_64 to widen common denominator
 VAR_ARCH[x86_64]=	CMAKE_ARGS=-DCPU_BASELINE_DISABLE:STRING="FP16,POPCNT,FMA3"
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e 's|share/OpenCV/doc|${DOCSDIR_REL}|g' \
 		-e 's|share/OpenCV/samples|${EXAMPLESDIR_REL}|g' \
 		${WRKSRC}/CMakeLists.txt
