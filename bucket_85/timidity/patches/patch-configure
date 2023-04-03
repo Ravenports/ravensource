@@ -1,0 +1,47 @@
+--- configure.orig	2018-08-28 23:33:39 UTC
++++ configure
+@@ -3930,7 +3930,7 @@ case "$target" in
+         test -n "$SHLD" || SHLD="ld -Bshareable"
+     so="so"
+     ;;
+-  *-*-freebsd*)
++  *-*-freebsd*|*-*-dragonfly|*-*-midnight*)
+     if test "$ELFFORMAT" = yes; then
+ 	test -n "$SHLD" || SHLD="ld -Bshareable"
+     else
+@@ -12600,7 +12600,7 @@ fi;
+ 
+ if test "x$au_enable_default" = xyes; then
+   case "$target" in
+-  *-*-linux*|*-*-freebsd*)
++  *-*-linux*|*-*-freebsd*|*-*-dragonfly*|*-*-midnight*)
+     au_enable_oss=yes
+     ;;
+   *-*-bsdi2.0)
+@@ -12658,7 +12658,7 @@ if test "x$au_enable_oss" = xyes; then
+ echo "${ECHO_T}yes - <sys/soundcard.h>" >&6
+   else
+     case "$target" in
+-      *linux*|*freebsd*)
++      *linux*|*freebsd*|*dragonfly*|*midnight*)
+                 echo "$as_me:$LINENO: result: yes" >&5
+ echo "${ECHO_T}yes" >&6
+         ;;
+@@ -17518,7 +17518,7 @@ fi
+ 
+    LIBS="$LIBS $lib_curses_opt"
+     case "$target" in
+-       *-*-freebsd123*)
++       *-*-skip*)
+          EXTRALIBS="$EXTRALIBS -lmytinfo"
+          ;;
+      esac
+@@ -17529,7 +17529,7 @@ xdynamic)
+   dynamic_targets="$dynamic_targets if_ncurses.\$(so)"
+    n_so_libs="$lib_curses_opt"
+     case "$target" in
+-       *-*-freebsd123*)
++       *-*-skip*)
+          EXTRALIBS="$EXTRALIBS -lmytinfo"
+          ;;
+      esac
