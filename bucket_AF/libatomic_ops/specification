@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	7.6.14
+DEF[PORTVERSION]=	7.8.0
+DEF[SOVERSION]=		1.2.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libatomic_ops
@@ -13,27 +14,23 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/ivmai:libatomic_ops:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single GPLv2:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKDIR}}/MIT_LICENSE
-			GPLv2:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKSRC}}/doc/LICENSING.txt
-LICENSE_AWK=		MIT:"^$$"
-LICENSE_SOURCE=		MIT:{{WRKSRC}}/src/atomic_ops.h
-LICENSE_SCHEME=		multi
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libatomic_ops
 
 USES=			autoreconf libtool
 MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-shared
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
 
-post-patch:
-	# Inhibit installation of extra copy of GPL and docs
-	# If documentation is not wanted, just disable it instead of fixing
-	${REINPLACE_CMD} -e '/SUBDIRS/ s| doc||' \
-		-e '/dist_doc_DATA/d' ${WRKSRC}/Makefile.am
-	${REINPLACE_CMD} -e '/doc\/Makefile/d' ${WRKSRC}/configure.ac
+post-install:
+	${RM} ${STAGEDIR}${STD_DOCDIR}/COPYING
+	${RM} ${STAGEDIR}${STD_DOCDIR}/LICENSE
