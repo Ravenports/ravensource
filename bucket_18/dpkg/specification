@@ -22,6 +22,7 @@ OPT_ON[freebsd]=	DAEMON
 OPT_ON[netbsd]=		DAEMON
 OPT_ON[linux]=		DAEMON
 OPT_ON[darwin]=		DAEMON
+OPT_ON[midnightbsd]=	DAEMON
 # Setting daemon on sunos will result in broken build
 
 LICENSE=		GPLv2+:primary
@@ -52,6 +53,8 @@ CONFIGURE_ARGS=		--with-admindir=/var/db/dpkg
 			--enable-nls
 CONFIGURE_ENV=		PERL_LIBDIR="{{PREFIX}}/{{SITE_PERL_REL}}"
 LDFLAGS=		-ltinfo
+
+VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=amd64-raven-freebsd12
 
 [DAEMON].DESCRIPTION=			Include start-stop daemon
 [DAEMON].CONFIGURE_ARGS_OFF=		--disable-start-stop-daemon
