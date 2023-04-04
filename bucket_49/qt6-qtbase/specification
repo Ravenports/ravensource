@@ -31,8 +31,9 @@ BUILDRUN_DEPENDS=	harfbuzz:icu:standard
 			libb2:single:standard
 			cups:primary:standard
 
-# GCC ICEs on this port; use clang to build it on FreeBSD
+# GCC ICEs on this port; use clang to build it on FreeBSD and Midnight
 C_USES[freebsd]=	clang
+C_USES[midnightbsd]=	clang
 
 USES=			qt6 zlib png sqlite jpeg pkgconfig execinfo
 			iconv perl:build shebangfix ssl:openssl11
@@ -49,7 +50,6 @@ CMAKE_ARGS=		-DFEATURE_system_zlib=ON
 			-DFEATURE_system_freetype=ON
 			-DFEATURE_libpng=ON
 			-DFEATURE_libjpeg=ON
-# #			-DFEATURE_xkbcommon=ON
 			-DFEATURE_icu=ON
 			-DFEATURE_libproxy=ON
 			-DFEATURE_sql_sqlite=ON
@@ -99,14 +99,16 @@ VAR_OPSYS[sunos]=	VAR1=solaris
 			VAR2=" /lib/64"
 VAR_OPSYS[linux]=	VAR1=linux
 			VAR2=" /usr/lib/x86_64-linux-gnu"
+VAR_OPSYS[midnightbsd]=	VAR1=midnightbsd
 
 post-patch:
 	${MKDIR} ${WRKSRC}/mkspecs/dragonfly-g++
-.for platform in dragonfly-g++ netbsd-g++
+	${MKDIR} ${WRKSRC}/mkspecs/midnightbsd-g++
+.for platform in dragonfly-g++ netbsd-g++ midnightbsd-g++
 	${INSTALL_DATA} ${WRKSRC}/mkspecs/freebsd-g++/qplatformdefs.h \
 		${WRKSRC}/mkspecs/${platform}/
 .endfor
-.for MKS in dragonfly-g++ freebsd-g++ linux-g++ solaris-g++-64 netbsd-g++
+.for MKS in dragonfly-g++ freebsd-g++ linux-g++ solaris-g++-64 netbsd-g++ midnightbsd-g++
 	${INSTALL_DATA} ${WRKDIR}/qmake.conf ${WRKSRC}/mkspecs/${MKS}/
 .endfor
 	# Clean up files created by patching
