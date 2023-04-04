@@ -1,6 +1,6 @@
---- main.c.orig	2023-02-25 20:04:29 UTC
+--- main.c.orig	2023-03-25 20:40:17 UTC
 +++ main.c
-@@ -1427,6 +1427,12 @@ main_Init(int argc, char **argv)
+@@ -1432,6 +1432,12 @@ main_Init(int argc, char **argv)
  		Global_Set_ReadOnly(".MAKE.UID", buf);
  		snprintf(buf, sizeof buf, "%u", getgid());
  		Global_Set_ReadOnly(".MAKE.GID", buf);
