@@ -25,7 +25,11 @@ OPTIONS_STANDARD=	none
 BUILDRUN_DEPENDS=	qt6-qtbase:primary:standard
 
 C_USES[freebsd]=	clang
+C_USES[midnightbsd]=	clang
+
 R_DEPS[freebsd]=	clang:dynlibs:standard
+			llvm:single:standard
+R_DEPS[midnightbsd]=	clang:dynlibs:standard
 			llvm:single:standard
 
 USES=			qt6 cmake pkgconfig perl:build cpe
