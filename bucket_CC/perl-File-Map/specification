@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.68
+DEF[PORTVERSION]=	0.70
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-File-Map
@@ -32,12 +32,9 @@ DISTNAME=		File-Map-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.34 core) (perl 5.36 core)
-# |      runtime : PerlIO::Layers
 # |      runtime : Sub::Exporter::Progressive
 # |      runtime : XSLoader (perl 5.34 core) (perl 5.36 core)
 # |      runtime : strict (perl 5.34 core) (perl 5.36 core)
-# |      runtime : subs (perl 5.34 core) (perl 5.36 core)
 # |      runtime : warnings (perl 5.34 core) (perl 5.36 core)
 # |        build : Module::Build
 # |    configure : Module::Build
@@ -53,11 +50,9 @@ DISTNAME=		File-Map-${PORTVERSION}
 # |         test : utf8 (perl 5.34 core) (perl 5.36 core)
 
 [PERL_534].USES_ON=			perl:534,buildmod,run
-[PERL_534].BUILDRUN_DEPENDS_ON=		perl-PerlIO-Layers:single:534
-					perl-Sub-Exporter-Progressive:single:534
+[PERL_534].BUILDRUN_DEPENDS_ON=		perl-Sub-Exporter-Progressive:single:534
 [PERL_534].BUILD_DEPENDS_ON=		perl-Module-Build:single:534
 [PERL_536].USES_ON=			perl:536,buildmod,run
-[PERL_536].BUILDRUN_DEPENDS_ON=		perl-PerlIO-Layers:single:536
-					perl-Sub-Exporter-Progressive:single:536
+[PERL_536].BUILDRUN_DEPENDS_ON=		perl-Sub-Exporter-Progressive:single:536
 [PERL_536].BUILD_DEPENDS_ON=		perl-Module-Build:single:536
 
