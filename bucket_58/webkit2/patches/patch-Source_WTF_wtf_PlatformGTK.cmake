@@ -5,7 +5,7 @@
          unix/MemoryPressureHandlerUnix.cpp
      )
 -elseif (CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
-+elseif (CMAKE_SYSTEM_NAME MATCHES "FreeBSD|DragonFly")
++elseif (CMAKE_SYSTEM_NAME MATCHES "FreeBSD|DragonFly|MidnightBSD")
      list(APPEND WTF_SOURCES
          generic/MemoryFootprintGeneric.cpp
  

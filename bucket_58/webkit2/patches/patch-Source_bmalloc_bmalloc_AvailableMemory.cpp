@@ -14,7 +14,7 @@
      // (for example) and we have code that depends on those boundaries.
      return ((sizeAccordingToKernel + multiple - 1) / multiple) * multiple;
 -#elif BOS(FREEBSD) || BOS(LINUX)
-+#elif BOS(FREEBSD)
++#elif BOS(FREEBSD) || defined(__MidnightBSD__)
 +    long pages = sysconf(_SC_PHYS_PAGES);
 +    long pageSize = sysconf(_SC_PAGE_SIZE);
 +    if (pages == -1 || pageSize == -1)

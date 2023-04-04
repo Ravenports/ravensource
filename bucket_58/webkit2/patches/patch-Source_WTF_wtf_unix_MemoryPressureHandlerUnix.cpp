@@ -4,7 +4,7 @@
  #include "config.h"
  #include <wtf/MemoryPressureHandler.h>
  
-+#if OS(FREEBSD) || defined(__DragonFly__)
++#if OS(FREEBSD) || defined(__DragonFly__) || defined(__MidnightBSD__)
 +#include <stdlib.h>
 +#else
  #include <malloc.h>
@@ -17,7 +17,7 @@
  #if OS(LINUX)
  #include <wtf/linux/CurrentProcessMemoryStatus.h>
 -#elif OS(FREEBSD)
-+#elif OS(FREEBSD) || defined(__DragonFly__)
++#elif OS(FREEBSD) || defined(__DragonFly__) || defined(__MidnightBSD__)
  #include <sys/sysctl.h>
  #include <sys/types.h>
  #include <sys/user.h>
@@ -26,7 +26,7 @@
      currentProcessMemoryStatus(memoryStatus);
      return (memoryStatus.resident - memoryStatus.shared);
 -#elif OS(FREEBSD)
-+#elif OS(FREEBSD) || defined(__DragonFly__)
++#elif OS(FREEBSD) || defined(__DragonFly__) || defined(__MidnightBSD__)
      static size_t pageSize = sysconf(_SC_PAGE_SIZE);
      struct kinfo_proc info;
      size_t infolen = sizeof(info);

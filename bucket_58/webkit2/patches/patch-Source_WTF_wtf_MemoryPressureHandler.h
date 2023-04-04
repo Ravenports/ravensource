@@ -5,7 +5,7 @@
      WTF_EXPORT_PRIVATE void setShouldUsePeriodicMemoryMonitor(bool);
  
 -#if OS(LINUX) || OS(FREEBSD)
-+#if OS(LINUX) || OS(FREEBSD) || defined(__DragonFly__)
++#if OS(LINUX) || OS(FREEBSD) || defined(__DragonFly__) || defined(__MidnightBSD__)
      WTF_EXPORT_PRIVATE void triggerMemoryPressureEvent(bool isCritical);
  #endif
  
@@ -14,7 +14,7 @@
  #endif
  
 -#if OS(LINUX) || OS(FREEBSD)
-+#if OS(LINUX) || OS(FREEBSD) || defined(__DragonFly__)
++#if OS(LINUX) || OS(FREEBSD) || defined(__DragonFly__) || defined(__MidnightBSD__)
      RunLoop::Timer m_holdOffTimer;
      void holdOffTimerFired();
  #endif
