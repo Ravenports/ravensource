@@ -48,6 +48,9 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-nls
 			--enable-polkit
 			--with-xsession-prefix={{PREFIX}}
-VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--with-backend=freebsd
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
+
+VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--with-backend=freebsd
+VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-backend=freebsd
+VAR_OPSYS[midnightbsd]=	CONFIGURE_ARGS=--with-backend=freebsd
