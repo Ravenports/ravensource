@@ -1,6 +1,6 @@
---- Utilities/cmcurl/lib/url.c.orig	2023-03-08 15:01:06 UTC
+--- Utilities/cmcurl/lib/url.c.orig	2023-03-29 18:19:57 UTC
 +++ Utilities/cmcurl/lib/url.c
-@@ -647,6 +647,10 @@ CURLcode Curl_init_userdefined(struct Cu
+@@ -638,6 +638,10 @@ CURLcode Curl_init_userdefined(struct Cu
      CURL_HTTP_VERSION_1_1
  #endif
      ;
@@ -9,5 +9,5 @@
 +  set->no_signal = TRUE;
 +#endif
    Curl_http2_init_userset(set);
+   set->quick_exit = 0L;
    return result;
- }
