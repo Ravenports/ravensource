@@ -10,7 +10,31 @@
              echo "$input"
          else
              # Print Unix path
-@@ -15467,7 +15464,7 @@ printf %s "checking for BUILD platform c
+@@ -6971,6 +6968,14 @@ dragonfly*)
+     _os=DragonFly
+     ;;
+ 
++midnight*)
++    using_freetype_fontconfig=yes
++    using_x11=yes
++    build_skia=yes
++    PTHREAD_LIBS="-pthread"
++    _os=FreeBSD
++    ;;
++
+ linux-android*)
+     # API exists, but seems not really usable since Android 7 AFAIK
+     usable_dlapi=no
+@@ -14694,7 +14699,7 @@ dragonfly*)
+     esac
+     ;;
+ 
+-freebsd*)
++freebsd*|midnight*)
+     COM=GCC
+     RTL_OS=FreeBSD
+     OS=FREEBSD
+@@ -15467,7 +15472,7 @@ printf %s "checking for BUILD platform c
          $with_build_platform_configure_options \
          --srcdir=$srcdir \
          2>&1 | sed -e 's/^/    /'
@@ -19,7 +43,34 @@
          as_fn_error $? "Running the configure script for BUILD side failed, see CONF-FOR-BUILD/config.log" "$LINENO" 5
      fi
  
-@@ -42779,9 +42776,6 @@ printf "%s\n" "$qt5_libdir" >&6; }
+@@ -22741,7 +22746,7 @@ if test -n "$ENABLE_JAVA" -a -z "$JAVAIN
+         test -d "$JAVA_HOME/include/native_thread" && JAVAINC="$JAVAINC -I$JAVA_HOME/include/native_thread"
+         ;;
+ 
+-    freebsd*)
++    freebsd*|midnight*)
+         JAVAINC="-I$JAVA_HOME/include"
+         JAVAINC="$JAVAINC -I$JAVA_HOME/include/freebsd"
+         JAVAINC="$JAVAINC -I$JAVA_HOME/include/bsd"
+@@ -23715,7 +23720,7 @@ printf %s "checking for object file form
+                     ;;
+                 esac
+               ;;
+-              kfreebsd* | freebsd* | netbsd* | openbsd*)
++              kfreebsd* | freebsd* | netbsd* | openbsd*| midnight*)
+                 if echo __ELF__ | $CC -E - | grep __ELF__ > /dev/null; then
+                   objfmt='BSD-a.out'
+                 else
+@@ -39140,7 +39145,7 @@ elif $GNUCP --version 2>/dev/null | grep
+ printf "%s\n" "yes" >&6; }
+ else
+     case "$build_os" in
+-    darwin*|netbsd*|openbsd*|freebsd*|dragonfly*|aix*)
++    darwin*|netbsd*|openbsd*|freebsd*|dragonfly*|midnight*|aix*)
+         x_GNUCP=\#
+         GNUCP=''
+         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no gnucp found - using the system's cp command" >&5
+@@ -42779,9 +42784,6 @@ printf "%s\n" "$qt5_libdir" >&6; }
      fi
  
      if test "$_os" = "Emscripten"; then
@@ -28,4 +79,13 @@
 -        fi
          if test ! -f "${qt5_platformsdir}"/libqwasm.a -o ! -f "$QT5_PLATFORMS_SRCDIR"/wasm_shell.html; then
              as_fn_error $? "No Qt5 WASM QPA plugin found in ${qt5_platformsdir} or ${QT5_PLATFORMS_SRCDIR}" "$LINENO" 5
+         fi
+@@ -46455,7 +46457,7 @@ else
+ 
+     case "$host_os" in
+ 
+-    aix*|dragonfly*|freebsd*|linux-gnu*|*netbsd*|openbsd*)
++    aix*|dragonfly*|freebsd*|linux-gnu*|*netbsd*|openbsd*|midnight*)
+         if test "$ENABLE_JAVA" != ""; then
+             pathmunge "$JAVA_HOME/bin" "after"
          fi

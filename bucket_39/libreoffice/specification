@@ -247,6 +247,15 @@ post-patch-dragonfly:
 		echo "${F} was not altered" || /usr/bin/true
 .endfor
 
+post-patch-midnightbsd:
+	# Avoid stripping in /tmp, it takes too much space
+	# Also, ooinstall is fed wrong TMPDIR which is redefined a few times
+	# So let's just hardcode it
+
+	@${ECHO_CMD} "Running MidnightBSD post-patch target"
+	${REINPLACE_CMD} -e 's|$$ENV{TMPDIR};|"${WRKDIR}";|' \
+		${WRKSRC}/solenv/bin/ooinstall
+
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/libreoffice/sdk/classes
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/libreoffice/share/uno_packages
