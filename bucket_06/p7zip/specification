@@ -1,9 +1,9 @@
-DEF[PORTVERSION]=	16.02
+DEF[PORTVERSION]=	17.05
+DEF[RELEASE_TAG]=	v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		p7zip
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		archivers
 VARIANTS=		standard
 SDESC[standard]=	File archiver with high compression ratio
@@ -11,8 +11,8 @@ HOMEPAGE=		https://p7zip.sourceforge.net/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/p7zip/p7zip/${PORTVERSION}
-DISTFILE[1]=		p7zip_${PORTVERSION}_src_all.tar.bz2:main
+SITES[main]=		GITHUB/p7zip-project:p7zip:${RELEASE_TAG}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete primary man docs
 
@@ -28,13 +28,12 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		archivers/p7zip
 
-USES=			cpe c++:primary
+USES=			cpe gmake c++:primary
 CPE_VENDOR=		7-zip
 SINGLE_JOB=		yes
 BUILD_TARGET=		all3
 MAKEFILE=		makefile
 MAKE_ARGS=		OPTFLAGS="{{CXXFLAGS}}"
-DISTNAME=		p7zip_${PORTVERSION}
 
 post-patch:
 	${REINPLACE_CMD} -e 's|{DEST_SHARE_DOC}|${STD_DOCDIR}|' \
