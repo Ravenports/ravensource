@@ -50,6 +50,7 @@ USES=			cmake pkgconfig gettext:build png dos2unix
 SDL_COMPONENTS=		mixer2 ttf2 sdl2 image2
 DOS2UNIX_GLOB=		*.cpp
 			*.h
+			*.cmake
 			CMakeLists.txt
 CMAKE_ARGS=		-DBINARY_RELEASE:BOOL=ON
 			-DVERSION_NUM="${PORTVERSION}"
@@ -62,7 +63,8 @@ C_USES[linux]=		iconv
 VAR_OPSYS[linux]=	LDFLAGS=-liconv
 
 # DragonFly can't support the IPv6 code, build without network
-VAR_OPSYS[dragonfly]=	CMAKE_ARGS=-DNONET:BOOL=ON
+# Comment out -- might be fixed now
+# VAR_OPSYS[dragonfly]=	CMAKE_ARGS=-DNONET:BOOL=ON
 
 post-extract:
 	${MKDIR} ${BUILD_WRKSRC}/_deps
