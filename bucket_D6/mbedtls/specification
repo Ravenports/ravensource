@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.3.0
+DEF[PORTVERSION]=	3.4.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mbedtls
@@ -13,19 +13,21 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/ARMmbed:mbedtls:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		security/mbedtls
 
-LICENSE=		APACHE20:single
+LICENSE=		APACHE20:primary
 LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"MBEDTLS_SSL_H"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/mbedtls/ssl.h
 LICENSE_SCHEME=		solo
+
+EXRUN[tools]=		mbedtls:primary:standard
 
 USES=			cpe gmake python
 CPE_VENDOR=		arm
