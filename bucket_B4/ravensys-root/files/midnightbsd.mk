@@ -264,11 +264,12 @@ headers_MidnightBSD=\
 	bsm/audit.h \
 	libusb20.h \
 	libusb20_desc.h \
+	jail.h \
 	kenv.h \
 	libgeom.h \
 	libprocstat.h \
 	malloc_np.h \
-	jail.h \
+	ohash.h \
 	# end
 
 pcfiles_MidnightBSD=\
