@@ -28,3 +28,6 @@ USES=			autoreconf ncurses pkgconfig ssl
 
 MUST_CONFIGURE=		gnu
 CFLAGS=			-I{{PREFIX}}/include/ncurses
+
+# On MBSD, ohash is in libutil, but it's not usable.
+VAR_OPSYS[midnightbsd]=	CONFIGURE_ENV=ac_cv_lib_util_ohash_init=no
