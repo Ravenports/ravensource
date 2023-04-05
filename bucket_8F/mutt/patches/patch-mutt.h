@@ -1,4 +1,4 @@
---- mutt.h.orig	2022-10-08 19:51:54 UTC
+--- mutt.h.orig	2023-03-25 19:50:20 UTC
 +++ mutt.h
 @@ -168,6 +168,16 @@ typedef enum
    MUTT_WRITE_HEADER_MIME
@@ -25,7 +25,7 @@
  
    /* actions for mutt_pattern_comp/mutt_pattern_exec */
    MUTT_AND,
-@@ -436,6 +447,7 @@ enum
+@@ -435,6 +446,7 @@ enum
    OPTFCCCLEAR,
    OPTFLAGSAFE,
    OPTFOLLOWUPTO,
@@ -33,7 +33,7 @@
    OPTFORCENAME,
    OPTFORWDECODE,
    OPTFORWQUOTE,
-@@ -609,6 +621,7 @@ enum
+@@ -608,6 +620,7 @@ enum
    OPTSMIMEISDEFAULT,
    OPTSMIMESELFENCRYPT,
    OPTASKCERTLABEL,
