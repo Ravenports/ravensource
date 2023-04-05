@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	102.9.0
+DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		thunderbird
@@ -116,6 +117,7 @@ MAKE_ENV=		PYTHON3={{PYTHON_CMD}}
 VAR_OPSYS[linux]=	QMAKE_ARGS=--disable-elf-hack
 			QMAKE_ARGS=--enable-audio-backends=sndio
 VAR_OPSYS[netbsd]=	QMAKE_ARGS=--enable-audio-backends=sndio
+VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
 
 post-patch:
 	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
@@ -152,6 +154,8 @@ post-patch:
 pre-configure:
 	(cd ${WRKSRC} && ${LOCALBASE}/bin/autoconf-2.13)
 	(cd ${WRKSRC}/js/src/ && ${LOCALBASE}/bin/autoconf-2.13)
+	${REINPLACE_CMD} -e "s|%%MBSD64_TGT%%|${MBSD64_TARGET}|" \
+		${WRKSRC}/build/autoconf/config.guess
 
 pre-configure-netbsd:
 	# Fix error: expected constructor __RCSID("$NetBSD: keyring.c,v 1.50 2011/06/25 00:37:44 agc Exp $");
