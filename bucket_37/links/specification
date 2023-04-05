@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	2.28
+DEF[PORTVERSION]=	2.29
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		links
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		www
 VARIANTS=		standard x11
 SDESC[standard]=	Lynx-like web browser (terminal-only variant)
@@ -15,16 +14,16 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://links.twibright.com/download/
 DISTFILE[1]=		links-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
-SPKGS[x11]=		single
+SPKGS[standard]=	complete primary man
+SPKGS[x11]=		complete primary man
 
 OPTIONS_AVAILABLE=	X11
 OPTIONS_STANDARD=	none
 VOPTS[x11]=		X11=ON
 
-LICENSE=		GPLv2:single
+LICENSE=		GPLv2:primary
 LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/links.h
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
