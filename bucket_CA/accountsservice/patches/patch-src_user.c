@@ -1,6 +1,6 @@
---- src/user.c.orig	2019-04-23 17:16:09.000000000 +0200
-+++ src/user.c	2021-06-03 15:56:17.985242000 +0200
-@@ -138,9 +138,14 @@
+--- src/user.c.orig	2019-04-23 15:16:09 UTC
++++ src/user.c
+@@ -138,9 +138,14 @@ user_reset_icon_file (User *user)
  }
  
  void
@@ -15,7 +15,7 @@
  {
          g_autofree gchar *real_name = NULL;
          gboolean is_system_account;
-@@ -199,8 +204,10 @@
+@@ -199,8 +204,10 @@ user_update_from_pwent (User          *u
          accounts_user_set_shell (ACCOUNTS_USER (user), pwent->pw_shell);
  
          passwd = NULL;
@@ -26,7 +26,7 @@
  
          if (passwd && passwd[0] == '!') {
                  locked = TRUE;
-@@ -218,6 +225,7 @@
+@@ -218,6 +225,7 @@ user_update_from_pwent (User          *u
                  mode = PASSWORD_MODE_NONE;
          }
  
@@ -34,7 +34,7 @@
          if (spent) {
                  if (spent->sp_lstchg == 0) {
                          mode = PASSWORD_MODE_SET_AT_LOGIN;
-@@ -231,6 +239,9 @@
+@@ -231,6 +239,9 @@ user_update_from_pwent (User          *u
                  user->days_after_expiration_until_lock = spent->sp_inact;
                  user->account_expiration_policy_known = TRUE;
          }
@@ -44,7 +44,7 @@
  
          accounts_user_set_password_mode (ACCOUNTS_USER (user), mode);
          is_system_account = !user_classify_is_human (accounts_user_get_uid (ACCOUNTS_USER (user)),
-@@ -844,11 +855,11 @@
+@@ -844,11 +855,11 @@ user_change_real_name_authorized_cb (Dae
                           accounts_user_get_uid (ACCOUNTS_USER (user)),
                           name);
  
@@ -61,7 +61,7 @@
                  argv[5] = NULL;
  
                  if (!spawn_with_login_uid (context, argv, &error)) {
-@@ -913,11 +924,11 @@
+@@ -913,11 +924,11 @@ user_change_user_name_authorized_cb (Dae
                           accounts_user_get_uid (ACCOUNTS_USER (user)),
                           name);
  
@@ -78,7 +78,7 @@
                  argv[5] = NULL;
  
                  if (!spawn_with_login_uid (context, argv, &error)) {
-@@ -1312,7 +1323,7 @@
+@@ -1312,7 +1323,7 @@ user_change_home_dir_authorized_cb (Daem
  {
          gchar *home_dir = data;
          g_autoptr(GError) error = NULL;
@@ -87,7 +87,7 @@
  
          if (g_strcmp0 (accounts_user_get_home_directory (ACCOUNTS_USER (user)), home_dir) != 0) {
                  sys_log (context,
-@@ -1321,13 +1332,12 @@
+@@ -1321,13 +1332,12 @@ user_change_home_dir_authorized_cb (Daem
                           accounts_user_get_uid (ACCOUNTS_USER (user)),
                           home_dir);
  
@@ -107,7 +107,7 @@
  
                  if (!spawn_with_login_uid (context, argv, &error)) {
                          throw_error (context, ERROR_FAILED, "running '%s' failed: %s", argv[0], error->message);
-@@ -1378,11 +1388,11 @@
+@@ -1378,11 +1388,11 @@ user_change_shell_authorized_cb (Daemon
                           accounts_user_get_uid (ACCOUNTS_USER (user)),
                           shell);
  
@@ -124,7 +124,7 @@
                  argv[5] = NULL;
  
                  if (!spawn_with_login_uid (context, argv, &error)) {
-@@ -1593,7 +1603,7 @@
+@@ -1593,7 +1603,7 @@ user_change_locked_authorized_cb (Daemon
  {
          gboolean locked = GPOINTER_TO_INT (data);
          g_autoptr(GError) error = NULL;
@@ -133,7 +133,7 @@
  
          if (accounts_user_get_locked (ACCOUNTS_USER (user)) != locked) {
                  sys_log (context,
-@@ -1601,11 +1611,10 @@
+@@ -1601,11 +1611,10 @@ user_change_locked_authorized_cb (Daemon
                           locked ? "locking" : "unlocking",
                           accounts_user_get_user_name (ACCOUNTS_USER (user)),
                           accounts_user_get_uid (ACCOUNTS_USER (user)));
@@ -149,7 +149,7 @@
  
                  if (!spawn_with_login_uid (context, argv, &error)) {
                          throw_error (context, ERROR_FAILED, "running '%s' failed: %s", argv[0], error->message);
-@@ -1726,11 +1735,11 @@
+@@ -1726,11 +1735,11 @@ user_change_account_type_authorized_cb (
  
                  g_free (groups);
  
@@ -166,7 +166,7 @@
                  argv[5] = NULL;
  
                  if (!spawn_with_login_uid (context, argv, &error)) {
-@@ -1780,7 +1789,7 @@
+@@ -1780,7 +1789,7 @@ user_change_password_mode_authorized_cb
  {
          PasswordMode mode = GPOINTER_TO_INT (data);
          g_autoptr(GError) error = NULL;
@@ -175,7 +175,7 @@
  
          if (((PasswordMode) accounts_user_get_password_mode (ACCOUNTS_USER (user))) != mode) {
                  sys_log (context,
-@@ -1795,10 +1804,8 @@
+@@ -1795,10 +1804,8 @@ user_change_password_mode_authorized_cb
                      mode == PASSWORD_MODE_NONE) {
  
                          argv[0] = "/usr/bin/passwd";
@@ -188,7 +188,7 @@
  
                          if (!spawn_with_login_uid (context, argv, &error)) {
                                  throw_error (context, ERROR_FAILED, "running '%s' failed: %s", argv[0], error->message);
-@@ -1806,12 +1813,11 @@
+@@ -1806,12 +1813,11 @@ user_change_password_mode_authorized_cb
                          }
  
                          if (mode == PASSWORD_MODE_SET_AT_LOGIN) {
@@ -205,7 +205,7 @@
  
                                  if (!spawn_with_login_uid (context, argv, &error)) {
                                          throw_error (context, ERROR_FAILED, "running '%s' failed: %s", argv[0], error->message);
-@@ -1827,11 +1833,10 @@
+@@ -1827,11 +1833,10 @@ user_change_password_mode_authorized_cb
                          accounts_user_set_locked (ACCOUNTS_USER (user), FALSE);
                  }
                  else if (accounts_user_get_locked (ACCOUNTS_USER (user))) {
@@ -221,7 +221,7 @@
  
                          if (!spawn_with_login_uid (context, argv, &error)) {
                                  throw_error (context, ERROR_FAILED, "running '%s' failed: %s", argv[0], error->message);
-@@ -1896,7 +1901,7 @@
+@@ -1896,7 +1901,7 @@ user_change_password_authorized_cb (Daem
  {
          gchar **strings = data;
          g_autoptr(GError) error = NULL;
@@ -230,7 +230,7 @@
  
          sys_log (context,
                   "set password and hint of user '%s' (%d)",
-@@ -1905,12 +1910,11 @@
+@@ -1905,12 +1910,11 @@ user_change_password_authorized_cb (Daem
  
          g_object_freeze_notify (G_OBJECT (user));
  

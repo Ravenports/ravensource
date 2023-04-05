@@ -1,6 +1,6 @@
---- meson_post_install.py.orig	2019-04-23 17:16:09.000000000 +0200
-+++ meson_post_install.py	2021-06-03 15:47:58.660402000 +0200
-@@ -9,8 +9,8 @@
+--- meson_post_install.py.orig	2019-04-23 15:16:09 UTC
++++ meson_post_install.py
+@@ -9,8 +9,8 @@ localstatedir = os.path.normpath(destdir
  # FIXME: meson will not track the creation of these directories
  #        https://github.com/mesonbuild/meson/blob/master/mesonbuild/scripts/uninstall.py#L39
  dst_dirs = [

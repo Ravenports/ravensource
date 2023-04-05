@@ -1,5 +1,5 @@
---- src/user.h.orig	2019-04-23 17:16:09.000000000 +0200
-+++ src/user.h	2021-06-03 16:07:13.902776000 +0200
+--- src/user.h.orig	2019-04-23 15:16:09 UTC
++++ src/user.h
 @@ -22,7 +22,9 @@
  
  #include <sys/types.h>
@@ -10,7 +10,7 @@
  
  #include <glib.h>
  #include <gio/gio.h>
-@@ -54,9 +56,14 @@
+@@ -54,9 +56,14 @@ GType          user_get_type
  User *         user_new                     (Daemon        *daemon,
                                               uid_t          uid);
  
