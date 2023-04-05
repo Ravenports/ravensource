@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	109.0.1
+DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		firefox
@@ -111,6 +112,7 @@ MAKE_ENV=		PYTHON3={{PYTHON_CMD}}
 VAR_OPSYS[linux]=	QMAKE_ARGS=--disable-elf-hack
 			QMAKE_ARGS=--enable-audio-backends=sndio
 VAR_OPSYS[netbsd]=	QMAKE_ARGS=--enable-audio-backends=sndio
+VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
 
 post-patch:
 	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
@@ -127,6 +129,9 @@ post-patch:
 	# disable rust checksums
 	${REINPLACE_CMD} -e 's/"files":{[^}]*}/"files":{}/' \
 		 ${WRKSRC}/third_party/rust/libc/.cargo-checksum.json
+	# Fix midnight
+	${REINPLACE_CMD} -e "s|%%MBSD64_TGT%%|${MBSD64_TARGET}|" \
+		${WRKSRC}/build/autoconf/config.guess
 	# Set mozilla options
 	@${ECHO_CMD} "--=> Setting configuration <=--"
 	@for arg in ${QMAKE_ARGS}; do \
