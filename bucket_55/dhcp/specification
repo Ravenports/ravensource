@@ -1,5 +1,6 @@
 DEF[DISTRIBUTION]=	4.4.3-P1
 DEF[PORTVERSION]=	${DISTRIBUTION:S/-/./}
+DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		dhcp
@@ -34,10 +35,14 @@ USERGROUP_SPKG=		server
 EXRUN[client]=		ssl
 EXRUN[relay]=		ssl
 
-SUB_FILES=		pkg-message-client-freebsd
+SUB_FILES=		pkg-message-client-netbsd
+			pkg-message-client-freebsd
 			pkg-message-client-dragonfly
+			pkg-message-client-midnightbsd
+			pkg-message-server-netbsd
 			pkg-message-server-freebsd
 			pkg-message-server-dragonfly
+			pkg-message-server-midnightbsd
 SUB_LIST=		MANPREFIX={{MANPREFIX}}
 
 USES=			cpe gmake ssl shebangfix cclibs:server,client,relay
@@ -58,6 +63,7 @@ CONFIGURE_ARGS=		--localstatedir=/var
 
 VAR_OPSYS[sunos]=	CPPFLAGS=-D_XOPEN_SOURCE=600
 			CPPFLAGS=-D__EXTENSIONS__
+VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
 
 [BINLEASES].DESCRIPTION=		Enable support for binary insertion of leases
 [BINLEASES].CONFIGURE_ENABLE_BOTH=	binary-leases
