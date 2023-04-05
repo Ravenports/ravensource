@@ -8,7 +8,7 @@
  #include <glibtop_suid.h>
  
  #include <kvm.h>
-@@ -34,6 +35,8 @@
+@@ -34,12 +35,14 @@
  #include <vm/vm_map.h>
  #include <vm/vm.h>
  
@@ -17,7 +17,14 @@
  #define _KVM_VNODE
  #include <sys/vnode.h>
  #undef _KVM_VNODE
-@@ -51,13 +54,14 @@
+ 
+ #include <sys/conf.h>
+-#if (__FreeBSD_version >= 800038) || (__FreeBSD_kernel_version >= 800038)
++#if defined(__MidnightBSD__) || (__FreeBSD_version >= 800038) || (__FreeBSD_kernel_version >= 800038)
+ #define _WANT_FILE
+ #include <sys/file.h>
+ #undef _WANT_FILE
+@@ -51,15 +54,16 @@
  #define _KERNEL
  #include <sys/mount.h>
  #include <ufs/ufs/quota.h>
@@ -25,15 +32,28 @@
 +#include <ufs/ufs/extattr.h>
 +#include <ufs/ufs/ufsmount.h>
  #include <fs/devfs/devfs.h>
- #if (__FreeBSD_version >= 600006) || defined(__FreeBSD_kernel__)
+-#if (__FreeBSD_version >= 600006) || defined(__FreeBSD_kernel__)
++#if defined(__MidnightBSD__) ||  (__FreeBSD_version >= 600006) || defined(__FreeBSD_kernel__)
  #include <fs/devfs/devfs_int.h>
  #endif
  #undef _KERNEL
--
 +#include <ufs/ufs/inode.h>
  
- #if (__FreeBSD_version >= 1101001)
+-
+-#if (__FreeBSD_version >= 1101001)
++#if defined(__MidnightBSD__) || (__FreeBSD_version >= 1101001)
  #define _KERNEL
+ #include <ufs/ufs/extattr.h>
+ #include <ufs/ufs/ufsmount.h>
+@@ -79,7 +83,7 @@ static const unsigned long _glibtop_sysd
+         (1L << GLIBTOP_MAP_ENTRY_OFFSET) + (1L << GLIBTOP_MAP_ENTRY_PERM) +
+         (1L << GLIBTOP_MAP_ENTRY_INODE) + (1L << GLIBTOP_MAP_ENTRY_DEVICE);
+ 
+-#if (__FreeBSD_version >= 600006) || defined(__FreeBSD_kernel__)
++#if defined(__MidnightBSD__) || (__FreeBSD_version >= 600006) || defined(__FreeBSD_kernel__)
+ void _glibtop_sysdeps_freebsd_dev_inode (glibtop *server, struct vnode *vnode, struct vnode *vn, guint64 *inum, guint64 *dev);
+ 
+ void
 @@ -95,12 +99,14 @@ _glibtop_sysdeps_freebsd_dev_inode (glib
          struct cdev_priv priv;
  #if __FreeBSD_version < 800039
@@ -59,6 +79,24 @@
   	              sizeof (inode)) != sizeof (inode))
          {
                  glibtop_warn_io_r (server, "kvm_read (inode)");
+@@ -175,7 +181,7 @@ _glibtop_sysdeps_freebsd_dev_inode (glib
+                 *inum = inode.i_number;
+ 
+ 
+-#if (__FreeBSD_version >= 1101001)
++#if defined(__MidnightBSD__) || (__FreeBSD_version >= 1101001)
+ /*
+   The ufs struct inode changed between 11.0 and 11.1.
+ 
+@@ -201,7 +207,7 @@ _glibtop_sysdeps_freebsd_dev_inode (glib
+ 		*dev = priv.cdp_inode;
+ 
+ #else /* older versions */
+-#if (__FreeBSD_version >= 800039) || (__FreeBSD_kernel_version >= 800039)
++#if defined(__MidnightBSD__) || (__FreeBSD_version >= 800039) || (__FreeBSD_kernel_version >= 800039)
+         if (kvm_read (server->machine->kd, (gulong) cdev2priv(inode.i_dev), (char *) &priv,
+ 		      sizeof (priv))
+ #else
 @@ -222,6 +228,9 @@ _glibtop_sysdeps_freebsd_dev_inode (glib
  	    } /* end-if IS_UFS */
  }
@@ -83,7 +121,7 @@
 +	return (kvm_read (kd, (gulong) addr, dest, sizeof(*dest)) == sizeof(*dest));
 +}
 +
-+#if (__FreeBSD_version < 1300062) && !defined(__DragonFly__)
++#if !defined(__DragonFly__) && (defined(__MidnightBSD__) || (__FreeBSD_version < 1300062))
 +typedef int vm_map_entry_reader(void *token, vm_map_entry_t addr,
 +    vm_map_entry_t dest);
 +

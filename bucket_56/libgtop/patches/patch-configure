@@ -1,11 +1,38 @@
 --- configure.orig	2019-03-11 08:56:47 UTC
 +++ configure
+@@ -7309,7 +7309,7 @@ darwin* | rhapsody*)
+   lt_cv_deplibs_check_method=pass_all
+   ;;
+ 
+-freebsd* | dragonfly*)
++freebsd* | dragonfly* | midnightbsd*)
+   if echo __ELF__ | $CC -E - | $GREP __ELF__ > /dev/null; then
+     case $host_cpu in
+     i*86 )
+@@ -11573,7 +11573,7 @@ fi
+       ;;
+ 
+     # FreeBSD 3 and greater uses gcc -shared to do shared libraries.
+-    freebsd* | dragonfly*)
++    freebsd* | dragonfly* | midnight*)
+       archive_cmds='$CC -shared $pic_flag -o $lib $libobjs $deplibs $compiler_flags'
+       hardcode_libdir_flag_spec='-R$libdir'
+       hardcode_direct=yes
+@@ -12618,7 +12618,7 @@ dgux*)
+   shlibpath_var=LD_LIBRARY_PATH
+   ;;
+ 
+-freebsd* | dragonfly*)
++freebsd* | dragonfly* | midnight*)
+   # DragonFly does not have aout.  When/if they implement a new
+   # versioning mechanism, adjust this.
+   if test -x /usr/bin/objformat; then
 @@ -13955,7 +13955,7 @@ $as_echo_n "checking for libgtop sysdeps
  	  libgtop_sysdeps_private_fsusage=yes
  	  libgtop_postinstall='chgrp kmem $(bindir)/libgtop_server2 && chmod 2555 $(bindir)/libgtop_server2'
  	  ;;
 -	freebsd*|kfreebsd*)
-+	freebsd*|dragonfly*|kfreebsd*)
++	freebsd*|dragonfly*|kfreebsd*|midnight*)
  	  libgtop_sysdeps_dir=freebsd
  	  libgtop_need_server=yes
  	  libgtop_sysdeps_private_mountlist=yes
@@ -99,7 +126,7 @@
            fu_cv_sys_stat_statfs4=yes
            ;;
 -        freebsd*)
-+        freebsd*|dragonfly*)
++        freebsd*|dragonfly*|midnight*)
            fu_cv_sys_stat_statfs2_bsize=yes
            ;;
          osf*)
