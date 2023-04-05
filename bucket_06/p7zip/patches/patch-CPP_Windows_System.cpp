@@ -1,4 +1,4 @@
---- CPP/Windows/System.cpp.orig	2015-11-20 21:33:04 UTC
+--- CPP/Windows/System.cpp.orig	2023-03-03 12:16:28 UTC
 +++ CPP/Windows/System.cpp
 @@ -44,7 +44,7 @@ namespace NWindows
  		#elif defined (__FreeBSD__) || defined (__FreeBSD_kernel__)
