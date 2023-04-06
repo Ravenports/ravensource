@@ -2,7 +2,7 @@ $NetBSD: patch-libxfsm_xfsm-shutdown-common.h,v 1.1 2019/05/23 02:56:07 gutterid
 
 Add NetBSD commands.
 
---- libxfsm/xfsm-shutdown-common.h.orig	2019-05-05 22:00:21 UTC
+--- libxfsm/xfsm-shutdown-common.h.orig	2020-04-07 09:04:33 UTC
 +++ libxfsm/xfsm-shutdown-common.h
 @@ -70,4 +70,9 @@
  #define UP_BACKEND_HIBERNATE_COMMAND "/usr/sbin/ZZZ"
