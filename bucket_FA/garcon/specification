@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	4.18.0
+DEF[PORTVERSION]=	4.18.1
 DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		garcon
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		standard
 SDESC[standard]=	Library implementing freedesktop.org menu specs
@@ -15,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://archive.xfce.org/src/xfce/garcon/${PORTVERSION:R}/
 DISTFILE[1]=		garcon-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary docs nls
+SPKGS[standard]=	complete primary dev docs nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -35,6 +34,8 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/garcon/garcon.h
 BUILD_DEPENDS=		harfbuzz:dev:standard
 			libxfce4ui:dev:standard
 BUILDRUN_DEPENDS=	libxfce4ui:primary:standard
+
+EXRUN[dev]=		libxfce4ui:dev:standard
 
 USES=			gmake libtool pkgconfig
 GNOME_COMPONENTS=	glib gtk3 intltool cairo gdkpixbuf introspection
