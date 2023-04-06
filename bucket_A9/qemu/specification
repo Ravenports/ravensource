@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.qemu.org/
 DISTFILE[1]=		qemu-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary docs nls
+SPKGS[standard]=	complete primary docs nls man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -69,7 +69,6 @@ CONFIGURE_ARGS=		--disable-usb-redir
 CFLAGS=			-I{{NCURSESBASE}}/include/ncursesw
 PLIST_SUB=		JQUERY=${JQUERY}
 			UNDERSCORE=${UNDERSCORE}
-			MAN=""
 BUILD_WRKSRC=		{{WRKSRC}}/build
 INSTALL_WRKSRC=		{{WRKSRC}}/build
 
@@ -79,6 +78,10 @@ VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--disable-netmap
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-netmap
 			CONFIGURE_ARGS=--disable-linux-user
 			CONFIGURE_ARGS=--disable-linux-aio
+VAR_OPSYS[midnightbsd]=	CONFIGURE_ARGS=--enable-netmap
+			CONFIGURE_ARGS=--disable-linux-user
+			CONFIGURE_ARGS=--disable-linux-aio
+			CONFIGURE_ARGS=--extra-ldflags=-lutil
 VAR_OPSYS[linux]=	CONFIGURE_ARGS=--disable-netmap
 # linux-user requires newer linux base, remove when that comes
 			CONFIGURE_ARGS=--disable-linux-user
@@ -86,6 +89,8 @@ VAR_OPSYS[linux]=	CONFIGURE_ARGS=--disable-netmap
 post-patch:
 	# silence some include warnings
 	${MKDIR} ${WRKSRC}/bsd-user/dragonfly
+	# support midnight
+	${CP} -a ${WRKSRC}/bsd-user/freebsd ${WRKSRC}/bsd-user/midnightbsd
 
 pre-configure-dragonfly:
 	# On dragonfly, userland programs can't include <sys/disk.h>

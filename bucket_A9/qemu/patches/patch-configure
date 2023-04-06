@@ -1,0 +1,22 @@
+--- configure.orig	2022-12-14 16:28:45 UTC
++++ configure
+@@ -430,6 +430,8 @@ elif check_define __sun__ ; then
+   targetos=sunos
+ elif check_define __HAIKU__ ; then
+   targetos=haiku
++elif check_define __MidnightBSD__ ; then
++  targetos=freebsd
+ elif check_define __FreeBSD__ ; then
+   targetos=freebsd
+ elif check_define __FreeBSD_kernel__ && check_define __GLIBC__; then
+@@ -471,6 +473,10 @@ dragonfly)
+   bsd="yes"
+   make="${MAKE-gmake}"
+ ;;
++midnightbsd)
++  bsd="yes"
++  make="${MAKE-gmake}"
++;;
+ netbsd)
+   bsd="yes"
+   make="${MAKE-gmake}"
