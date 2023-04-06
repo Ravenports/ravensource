@@ -5,7 +5,7 @@
  #include <sys/jail.h>
  
 -#ifdef __DragonFly__
-+#if defined(_DragonFly__) || defined(__MidnightBSD__)
++#if defined(__DragonFly__) || defined(__MidnightBSD__)
  
  #include <sys/types.h>
  #include <sys/sysctl.h>
