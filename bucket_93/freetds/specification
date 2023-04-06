@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.3.17
+DEF[PORTVERSION]=	1.3.18
 DEF[TDS_VER]=		7.4
 # ----------------------------------------------------------------------------
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://www.freetds.org/files/stable/
 DISTFILE[1]=		freetds-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary tools dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -31,8 +31,10 @@ FPC_EQUIVALENT=		databases/freetds
 BUILDRUN_DEPENDS=	libgcrypt:single:standard
 			unixODBC:primary:standard
 
+EXRUN[tools]=		freetds:primary:standard
+
 USES=			autoreconf cpe gettext:build gmake iconv
-			libtool:keepla pkgconfig readline ssl:openssl11
+			libtool pkgconfig readline ssl:openssl11
 INSTALL_TARGET=		install-strip
 LDFLAGS=		-lgcrypt -lpthread
 MUST_CONFIGURE=		gnu
