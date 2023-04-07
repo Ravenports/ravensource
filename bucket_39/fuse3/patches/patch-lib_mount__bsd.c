@@ -1,4 +1,4 @@
---- lib/mount_bsd.c.orig	2023-02-17 09:31:14 UTC
+--- lib/mount_bsd.c.orig	2023-03-26 10:44:40 UTC
 +++ lib/mount_bsd.c
 @@ -8,7 +8,7 @@
    See the file COPYING.LIB.
