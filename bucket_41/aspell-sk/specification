@@ -1,12 +1,11 @@
-DEF[PORTVERSION]=	2.04
+DEF[PORTVERSION]=	2.4.7
 DEF[DISTPREFIX]=	aspell6
-DEF[DIST_ITERATION]=	0
+DEF[DIST_ITERATION]=	1
 DEF[LANGUAGE]=		Slovak
 DEF[SUFFIX]=		sk
 DEF[CORE_VERSION]=	EXTRACT_INFO(ASPELL_CORE_VERSION)
 DEF[VERINST]=		EXTRACT_INFO(ASPELL_INSTALL_VERSION)
-DEF[DEBVER]=		${PORTVERSION}+ds.1
-DEF[DEBLOVER]=		1%257.1.0_rc3-3
+DEF[DLFOLDER]=		112
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		aspell-${SUFFIX}
@@ -14,16 +13,12 @@ VERSION=		${PORTVERSION}.${DIST_ITERATION}
 KEYWORDS=		textproc
 VARIANTS=		standard
 SDESC[standard]=	Aspell ${LANGUAGE} dictionary
-# HOMEPAGE=		https://www.sk-spell.sk.cx/aspell-sk
-HOMEPAGE=		https://salsa.debian.org/debian/aspell-sk
+HOMEPAGE=		https://www.sk-spell.sk.cx/aspell-sk
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main debLO
-SITES[main]=		https://salsa.debian.org/debian/aspell-sk/-/archive/debian/${DEBVER}/
-SITES[debLO]=		https://salsa.debian.org/libreoffice-team/libreoffice/libreoffice-dictionaries/-/archive/debian/${DEBLOVER}/
-DISTFILE[1]=		aspell-sk-debian-${DEBVER}.tar.gz:main
-DISTFILE[2]=		libreoffice-dictionaries-debian-${DEBLOVER}.tar.gz:debLO
-DF_INDEX=		1 2
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://spell.linux.sk/file_download/${DLFOLDER}/
+DISTFILE[1]=		${DISTPREFIX}-${SUFFIX}-${PORTVERSION}-${DIST_ITERATION}.tar.bz2:main
 
 SPKGS[standard]=	single
 
@@ -43,36 +38,10 @@ FPC_EQUIVALENT=		textproc/${SUFFIX}-aspell
 
 BUILDRUN_DEPENDS=	aspell:primary:standard
 
+USES=			gmake
+MUST_CONFIGURE=		yes
 PLIST_SUB=		VER=${VERINST}
-DISTNAME=		aspell-sk-debian-${DEBVER}
+DISTNAME=		${DISTPREFIX}-${SUFFIX}-${PORTVERSION}-${DIST_ITERATION}
 
 post-extract:
-	${CP} ${WRKDIR}/libreoffice-*/dictionaries/sk_SK/sk_SK.aff\
-		${WRKSRC}/sk_affix.dat
-	${CP} ${WRKDIR}/libreoffice-*/dictionaries/sk_SK/sk_SK.dic\
-		${WRKSRC}/sk.dic
-
-do-build:
-	${SED}\
-	-e 1d \
-	-e 's/ [a-z][a-z]:.*//' \
-	-e '/ /d' \
-	-e '/-/d' \
-	-e '/??/d' \
-	-e '/??/d' \
-	${WRKSRC}/sk.dic > ${WRKSRC}/sk.wl.unsorted
-	${SORT} -u ${WRKSRC}/sk.wl.unsorted > ${WRKSRC}/sk.wl
-	cd ${WRKSRC} && ${LOCALBASE}/bin/prezip -sz sk.wl
-	cd ${WRKSRC} && ${LOCALBASE}/bin/prezip -d < sk.cwl | \
-	 ${LOCALBASE}/bin/aspell --lang=sk create master ./sk.rws
-
-do-install:
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/aspell
-	${MKDIR} ${STAGEDIR}${PREFIX}/lib/aspell-${VERINST}
-	${INSTALL_DATA} \
-		${WRKSRC}/*.alias \
-		${WRKSRC}/*.multi \
-		${WRKSRC}/*.rws \
-		${STAGEDIR}${PREFIX}/share/aspell/
-	${INSTALL_DATA} ${WRKSRC}/*.dat \
-		${STAGEDIR}${PREFIX}/lib/aspell-${VERINST}/
+	${CHMOD} 755 ${WRKSRC}/configure
