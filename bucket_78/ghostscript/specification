@@ -1,7 +1,7 @@
 # Check jbig2dec; it may need upgradinging simultaneously
 DEF[GHOSTVER]=		EXTRACT_INFO(GHOSTSCRIPT_VERSION)
 DEF[PORTVERSION]=	${GHOSTVER}
-DEF[DIST_VERSION]=	${GHOSTVER:S/10.0/10./}
+DEF[DIST_VERSION]=	${GHOSTVER}
 DEF[DLFOLDER]=		gs${DIST_VERSION:S/.//g}
 DEF[DATADIR]=		{{PREFIX}}/share/ghostscript/${PORTVERSION}
 DEF[SOVERSION]=		${PORTVERSION:R}
@@ -19,7 +19,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/${DLFOLDER}/
 DISTFILE[1]=		ghostscript-${DIST_VERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary x11 docs
+SPKGS[standard]=	complete primary x11 man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -77,6 +77,7 @@ CONFIGURE_ARGS=		--disable-compile-inits
 			--with-libpaper
 			--with-system-libtiff
 			--with-x
+			--disable-hidden-visibility
 CONFIGURE_ENV=		LIBS=-Wl,-rpath,{{PREFIX}}/lib
 BUILD_TARGET=		so ./obj/X11.so
 INSTALL_TARGET=		soinstall install-shared
@@ -119,4 +120,3 @@ post-install:
 	${LN} -s ../../../cmap \
 		${STAGEDIR}${DATADIR}/Resource/CMap
 	${RM} ${STAGEDIR}${STD_DOCDIR}/${PORTVERSION}/COPYING
-	${RMDIR} ${STAGEDIR}${STD_DOCDIR}/${PORTVERSION}/images

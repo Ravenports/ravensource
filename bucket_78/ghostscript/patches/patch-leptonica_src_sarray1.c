@@ -1,4 +1,4 @@
---- leptonica/src/sarray1.c.orig	2022-09-21 08:39:46 UTC
+--- leptonica/src/sarray1.c.orig	2023-03-27 06:53:17 UTC
 +++ leptonica/src/sarray1.c
 @@ -149,6 +149,13 @@
  #endif  /* ! _WIN32 */
