@@ -1,4 +1,4 @@
---- cmake/Depends.cmake.orig	2023-03-28 13:23:40 UTC
+--- cmake/Depends.cmake.orig	2023-04-07 11:42:39 UTC
 +++ cmake/Depends.cmake
 @@ -42,6 +42,7 @@ else ()
      set (TFDN_ENABLE_WEBREQUEST OFF CACHE BOOL "")
