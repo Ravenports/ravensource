@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.4.1
+DEF[PORTVERSION]=	0.4.2
 DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
@@ -11,10 +11,11 @@ HOMEPAGE=		https://sourceforge.net/projects/libvisual/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/libvisual/libvisual/libvisual-${PORTVERSION}
-DISTFILE[1]=		libvisual-${PORTVERSION}.tar.gz:main
+SITES[main]=		https://github.com/Libvisual/libvisual/releases/download/libvisual-${PORTVERSION}/
+DISTFILE[1]=		libvisual-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[standard]=	complete primary tools dev man
+# nls (broken)
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,9 +29,12 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/libvisual04
 
-USES=			gettext gmake libtool:keepla pkgconfig mbsdfix
+EXRUN[tools]=		libvisual:primary:standard
+
+USES=			gmake libtool pkgconfig mbsdfix c++:tools
 SDL_COMPONENTS=		sdl1
 MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-nls
 LDFLAGS=		-lpthread
 
 SOVERSION=		${SOVERSION}
