@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	1.10.1
-DEF[SOVERSION]=		20.4.1
+DEF[PORTVERSION]=	1.10.2
+DEF[SOVERSION]=		20.4.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libgcrypt
@@ -14,17 +14,17 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNUPG/libgcrypt
 DISTFILE[1]=		libgcrypt-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 # library is LGPL21+, help programs are GPLv2+
-LICENSE=		GPLv2+:single
-			LGPL21+:single
+LICENSE=		GPLv2+:primary
+			LGPL21+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
 			LGPL21+:{{WRKSRC}}/COPYING.LIB
-LICENSE_TERMS=		single:{{WRKSRC}}/LICENSES
+LICENSE_TERMS=		primary:{{WRKSRC}}/LICENSES
 LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		security/libgcrypt
@@ -32,13 +32,16 @@ FPC_EQUIVALENT=		security/libgcrypt
 BUILD_DEPENDS=		libgpg-error:dev:standard
 BUILDRUN_DEPENDS=	libgpg-error:primary:standard
 
+EXRUN[dev]=		libgpg-error:dev:standard
+EXRUN[tools]=		libgcrypt:primary:standard
+
 USES=			cpe libtool makeinfo mbsdfix
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-drng-support
 			--enable-static=yes
 # #			--disable-asm
 CONFIGURE_ENV=		MAKEINFO="makeinfo --no-split"
-INFO=			single:gcrypt
+INFO=			tools:gcrypt
 CPE_VENDOR=		gnupg
 INSTALL_TARGET=		install-strip
 TEST_TARGET=		check
