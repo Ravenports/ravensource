@@ -1,4 +1,4 @@
---- Include/pymacro.h.orig	2023-02-07 13:37:51 UTC
+--- Include/pymacro.h.orig	2023-04-04 22:22:17 UTC
 +++ Include/pymacro.h
 @@ -6,8 +6,10 @@
  // the static_assert() macro. Define the static_assert() macro in Python until
