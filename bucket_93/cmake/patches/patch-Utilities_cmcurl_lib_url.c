@@ -1,4 +1,4 @@
---- Utilities/cmcurl/lib/url.c.orig	2023-03-29 18:19:57 UTC
+--- Utilities/cmcurl/lib/url.c.orig	2023-04-04 18:59:48 UTC
 +++ Utilities/cmcurl/lib/url.c
 @@ -638,6 +638,10 @@ CURLcode Curl_init_userdefined(struct Cu
      CURL_HTTP_VERSION_1_1
