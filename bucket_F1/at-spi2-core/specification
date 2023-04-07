@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.46.0
+DEF[PORTVERSION]=	2.48.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		at-spi2-core
@@ -29,6 +29,8 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		accessibility/at-spi2-core
 
 BUILD_DEPENDS=		dbus:dev:standard
+			python-gi-docgen:single:python_default
+			python-Sphinx:single:python_default
 BUILDRUN_DEPENDS=	dbus:primary:standard
 
 EXRUN[dev]=		dbus:dev:standard
@@ -38,8 +40,8 @@ USES=			gmake libtool pkgconfig meson gtk-doc zlib:build
 GNOME_COMPONENTS=	glib intltool introspection libxml2
 XORG_COMPONENTS=	x11 xi xtst xext sm ice
 MESON_ARGS=		-Ddocs=true
-			-Dintrospection=yes
-			-Dx11=yes
+			-Dintrospection=enabled
+			-Dx11=enabled
 INSTALL_REQ_TOOLCHAIN=	yes
 GTKDOC_OUTPUT_BASEDIR=	libatspi
 
