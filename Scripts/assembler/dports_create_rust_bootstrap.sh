@@ -19,7 +19,7 @@
 #
 # requires installation:
 #   libexecinfo-single-standard
-#   gcc9-complete-standard
+#   ravensys-gcc-complete-standard
 
 if [ $# -lt 1 ]; then
    echo "Usage: $0 rust_version <revision,epoch>"
