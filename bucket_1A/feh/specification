@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.9.1
+DEF[PORTVERSION]=	3.10
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		feh
@@ -13,12 +13,12 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://feh.finalrewind.org/
 DISTFILE[1]=		feh-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
@@ -28,7 +28,7 @@ BUILD_DEPENDS=		imlib2:dev:standard
 BUILDRUN_DEPENDS=	libexif:primary:standard
 			imlib2:primary:standard
 
-USES=			cpe gmake perl:run png desktop-utils:single
+USES=			cpe gmake perl:run png desktop-utils:primary
 			curl solaris-funcs
 XORG_COMPONENTS=	x11 xt xinerama
 CPE_VENDOR=		feh_project
