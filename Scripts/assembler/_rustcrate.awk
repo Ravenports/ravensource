@@ -4,8 +4,10 @@ FNR==NR {
   # store crates list
   n=split ($0,item,"-")
 
-  # Omitted skipped crates
-  if (skip != "" && item[1] == skip) {
+  # Omitted skipped crates.  'skip' variable can contain hyphens
+  testname = item[1]
+  for (j=2; j < n; j++) { testname = testname "-" item[j] }
+  if (skip != "" && testname == skip) {
      next
   }
 
