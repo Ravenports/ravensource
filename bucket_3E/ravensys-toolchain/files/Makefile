@@ -33,7 +33,6 @@ install:
 	cp -a ${LOCALBASE:T}/toolchain/include      ${DESTDIR}${PREFIX}/
 	cp -a ${LOCALBASE:T}/toolchain/ravensys-gcc ${DESTDIR}${PREFIX}/
 	rm -rf ${DESTDIR}${PREFIX}/ravensys-gcc/share/licenses
-	(cd ${DESTDIR}${PREFIX} && ln -s ravensys-gcc ${PREVGCC})
 
 .if "${OPSYS}" == "SunOS"
 	rm ${DESTDIR}${PREFIX}/bin/ld
