@@ -1,5 +1,6 @@
 # manually updated rust-based port
 DEF[PORTVERSION]=	%%VERSION%%
+DEF[SKIP_CRATE]=	cryptography-rust
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-cryptography
@@ -44,9 +45,11 @@ DISTNAME=		cryptography-${PORTVERSION}
 [PY311].BUILDRUN_DEPENDS_ON=		python-cffi:single:v11
 					python-setuptools-rust:single:v11
 
-USES=			cpe cargo ssl cclibs:single
+USES=			cpe cargo ssl pkgconfig cclibs:single
 CPE_VENDOR=		python-cryptography_project
 CPE_PRODUCT=		python-cryptography
+MAKE_ENV=		OPENSSL_STATIC=1
+INSTALL_REQ_TOOLCHAIN=	yes
 
 CARGO_CARGOTOML=	{{WRKSRC}}/src/rust/Cargo.toml
 CARGO_CARGOLOCK=	{{WRKSRC}}/src/rust/Cargo.lock
