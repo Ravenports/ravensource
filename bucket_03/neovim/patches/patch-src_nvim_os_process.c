@@ -1,7 +1,7 @@
---- src/nvim/os/process.c.orig	2022-12-29 16:12:10 UTC
+--- src/nvim/os/process.c.orig	2023-04-07 11:26:29 UTC
 +++ src/nvim/os/process.c
-@@ -12,13 +12,13 @@
- # include <tlhelp32.h>  // for CreateToolhelp32Snapshot
+@@ -23,13 +23,13 @@
+ # include "nvim/api/private/helpers.h"
  #endif
  
 -#if defined(__FreeBSD__)  // XXX: OpenBSD ?
@@ -16,7 +16,7 @@
  # include <sys/param.h>
  #endif
  
-@@ -146,6 +146,9 @@ int os_proc_children(int ppid, int **pro
+@@ -150,6 +150,9 @@ int os_proc_children(int ppid, int **pro
  # elif defined(__FreeBSD__)
  #  define KP_PID(o) o.ki_pid
  #  define KP_PPID(o) o.ki_ppid

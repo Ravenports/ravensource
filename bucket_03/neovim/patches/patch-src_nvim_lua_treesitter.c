@@ -1,6 +1,6 @@
---- src/nvim/lua/treesitter.c.orig	2022-12-29 16:12:10 UTC
+--- src/nvim/lua/treesitter.c.orig	2023-04-07 11:26:29 UTC
 +++ src/nvim/lua/treesitter.c
-@@ -119,7 +119,11 @@ static PMap(cstr_t) langs = MAP_INIT;
+@@ -132,7 +132,11 @@ static PMap(cstr_t) langs = MAP_INIT;
  static void build_meta(lua_State *L, const char *tname, const luaL_Reg *meta)
  {
    if (luaL_newmetatable(L, tname)) {  // [meta]
@@ -12,7 +12,7 @@
  
      lua_pushvalue(L, -1);  // [meta, meta]
      lua_setfield(L, -2, "__index");  // [meta]
-@@ -488,7 +492,11 @@ static void range_from_lua(lua_State *L,
+@@ -539,7 +543,11 @@ static void range_from_lua(lua_State *L,
  
    if (lua_istable(L, -1)) {
      // should be a table of 6 elements
@@ -24,7 +24,7 @@
        goto error;
      }
  
-@@ -561,7 +569,11 @@ static int parser_set_ranges(lua_State *
+@@ -612,7 +620,11 @@ static int parser_set_ranges(lua_State *
                        "argument for parser:set_included_ranges() should be a table.");
    }
  
@@ -36,7 +36,7 @@
    TSRange *ranges = xmalloc(sizeof(TSRange) * tbl_len);
  
    // [ parser, ranges ]
-@@ -620,7 +632,11 @@ void push_tree(lua_State *L, TSTree *tre
+@@ -700,7 +712,11 @@ void push_tree(lua_State *L, TSTree *tre
    lua_createtable(L, 1, 0);  // [udata, reftable]
    lua_pushvalue(L, -2);  // [udata, reftable, udata]
    lua_rawseti(L, -2, 1);  // [udata, reftable]
@@ -48,7 +48,7 @@
  }
  
  static TSTree **tree_check(lua_State *L, int index)
-@@ -675,8 +691,13 @@ static void push_node(lua_State *L, TSNo
+@@ -755,8 +771,13 @@ static void push_node(lua_State *L, TSNo
    *ud = node;
    lua_getfield(L, LUA_REGISTRYINDEX, TS_META_NODE);  // [udata, meta]
    lua_setmetatable(L, -2);  // [udata]
