@@ -1,4 +1,4 @@
---- include/qemu/bswap.h.orig	2022-12-14 16:28:45 UTC
+--- include/qemu/bswap.h.orig	2023-04-05 20:10:24 UTC
 +++ include/qemu/bswap.h
 @@ -4,7 +4,7 @@
  #ifdef CONFIG_MACHINE_BSWAP_H

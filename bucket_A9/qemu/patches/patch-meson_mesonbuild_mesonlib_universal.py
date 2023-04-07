@@ -1,4 +1,4 @@
---- meson/mesonbuild/mesonlib/universal.py.orig	2022-12-14 16:29:34 UTC
+--- meson/mesonbuild/mesonlib/universal.py.orig	2023-04-05 20:11:08 UTC
 +++ meson/mesonbuild/mesonlib/universal.py
 @@ -658,7 +658,7 @@ def is_netbsd() -> bool:
  
