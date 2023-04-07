@@ -1,4 +1,4 @@
-DEF[BASEVER]=		4.13
+DEF[BASEVER]=		5.0
 # DEF[DASH]=		-1
 # DEF[PORTVERSION]=	${BASEVER}${DASH:S/-/./}
 # DEF[DISTVERSION]=	${BASEVER}${DASH}
@@ -11,7 +11,6 @@ DEF[GUILE_SITE]=	3.0
 
 NAMEBASE=		gnucash
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		finance
 VARIANTS=		standard
 SDESC[standard]=	Financial accounting software
@@ -22,7 +21,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/gnucash/gnucash%20%28stable%29/${BASEVER}
 DISTFILE[1]=		gnucash-${DISTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary nls docs
+SPKGS[standard]=	complete primary nls man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -101,7 +100,7 @@ GLIB_SCHEMAS=		org.gnucash.GnuCash.dialogs.business.gschema.xml
 MAKE_ENV=		XDG_CACHE_HOME={{WRKDIR}}/.cache
 PLIST_SUB=		GVER=${GUILE_SITE}
 
-post-patch:
+pre-configure:
 	# disable testing and fix XDG_DATA_DIRS
 	(cd ${WRKSRC} && \
 		${FIND} . -type f -name CMakeLists.txt \
@@ -116,7 +115,7 @@ post-patch:
 		{} +)
 	${SED} -i.flag -e '/-Wno-deprecated-register/d' \
 		${WRKSRC}/libgnucash/engine/CMakeLists.txt
-	${REINPLACE_CMD} 's|-4.0|-4.1|g' ${WRKSRC}/CMakeLists.txt
+	# ${REINPLACE_CMD} 's|-4.0|-4.1|g' ${WRKSRC}/CMakeLists.txt
 	${MKDIR} ${WRKSRC}/bin
 
 post-install:
