@@ -1,4 +1,4 @@
-Revert to older code compatible with gcc9
+Revert to older code compatible with gcc
 
 --- gpr/src/gpr-compilation-protocol.adb.orig	2022-09-22 17:08:57 UTC
 +++ gpr/src/gpr-compilation-protocol.adb
