@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	7.23.0
+DEF[PORTVERSION]=	7.24.0
 DEF[ETCDIR]=		{{PREFIX}}/etc/puppet
 DEF[RUBYDEF]=		EXTRACT_VERSION(RUBY_DEFAULT)
 DEF[RV]=		v${RUBYDEF:S/.//}
@@ -28,8 +28,6 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		sysutils/puppet7
 
-BROKEN[all]=		Newest concurrent rubygem breaks build
-
 BUILDRUN_DEPENDS=	ruby-facter:single:${RV}
 			ruby-hiera:single:${RV}
 			ruby-semantic_puppet:single:${RV}
@@ -37,7 +35,7 @@ BUILDRUN_DEPENDS=	ruby-facter:single:${RV}
 			ruby-locale:single:${RV}
 			ruby-multi_json:single:${RV}
 			ruby-puppet-resource_api:single:${RV}
-			ruby-concurrent-ruby:single:${RV}
+			ruby-concurrent-ruby1.1:single:${RV}
 			ruby-deep_merge:single:${RV}
 			ruby-scanf:single:${RV}
 
