@@ -1,6 +1,6 @@
---- configure.ac.orig	2023-01-06 05:13:49 UTC
+--- configure.ac.orig	2023-03-27 16:45:04 UTC
 +++ configure.ac
-@@ -642,7 +642,7 @@ else
+@@ -638,7 +638,7 @@ else
        if test "x$GUILE_CONFIG" = "x"; then
          use_guile="No (guile not available)"
        else
@@ -9,7 +9,7 @@
          GUILE_VERSION_MAJOR=`echo $GUILE_VERSION | cut -d '.' -f 1`
          GUILE_VERSION_MINOR=`echo $GUILE_VERSION | cut -d '.' -f 2`
          AC_CHECK_PROGS(GUILE,guile$GUILE_VERSION_MAJOR.$GUILE_VERSION_MINOR guile$GUILE_VERSION_MAJOR guile)
-@@ -853,16 +853,16 @@ else
+@@ -818,16 +818,16 @@ else
              if test "x$PKG_CONFIG" != "x"; then
  	        AC_MSG_CHECKING(for Lua headers and libraries with pkg-config)
  	        echo
@@ -29,7 +29,7 @@
  		           LUA_LIBS="$LUA_LFLAGS "`$PKG_CONFIG --libs lualib$l`
  		        fi
                          break
-@@ -1226,6 +1226,7 @@ else
+@@ -1191,6 +1191,7 @@ else
  	    use_ruby="No (ruby not available)"
            else
              RUBY_CFLAGS="-I`$RUBY $srcdir/config/config_ruby.rb archdir`"
@@ -37,7 +37,7 @@
  	    # hack for powerpc-darwin8 (10.4)
  	    if test "x$DARWIN" = "xyes"; then
  	      RUBY_CFLAGS=`echo $RUBY_CFLAGS | sed 's/powerpc/universal/'`
-@@ -2052,44 +2053,6 @@ else
+@@ -1950,44 +1951,6 @@ else
  fi
  AM_CONDITIONAL(WITH_QUARTZ, [test "x$use_quartz" = "xYes"])
  

@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	7.1.0
+DEF[PORTVERSION]=	8.0.1
 DEF[TAG]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://gitlab.com/graphviz/graphviz/-/archive/${TAG}/
 DISTFILE[1]=		graphviz-${TAG}.tar.gz:main
 
-SPKGS[standard]=	complete primary examples docs
+SPKGS[standard]=	complete primary tools dev examples man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -37,6 +37,8 @@ BUILDRUN_DEPENDS=	freeglut:primary:standard
 			libltdl:single:standard
 			ghostscript:primary:standard
 			poppler:glib:standard
+
+EXRUN[tools]=		graphviz:primary:standard
 
 USES=			bison cpe cmake jpeg mesa pkgconfig zlib expat
 			shebangfix iconv python:build
