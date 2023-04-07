@@ -1,4 +1,4 @@
---- cmake/ConfigureChecks.cmake.orig	2023-01-07 14:12:25 UTC
+--- cmake/ConfigureChecks.cmake.orig	2023-03-25 06:50:41 UTC
 +++ cmake/ConfigureChecks.cmake
 @@ -215,8 +215,8 @@ int main () {
  # Check if tputs needs a function reading an int or char.
