@@ -1,6 +1,6 @@
 # manually maintained, it's required definition doesn't register with auto
 # generated anymore
-DEF[PORTVERSION]=	1.5.3
+DEF[PORTVERSION]=	2.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pandas
@@ -40,10 +40,14 @@ GENERATED=		yes
 [PY310].BUILDRUN_DEPENDS_ON=		python-python-dateutil:single:py310
 					python-pytz:single:py310
 					python-numpy:single:py310
+					python-versioneer:single:py310
+[PY310].BROKEN_ON=			configparser.NoSectionError: No section: 'versioneer'
+
 [PY311].USES_ON=			python:v11,sutools
 [PY311].BUILDRUN_DEPENDS_ON=		python-python-dateutil:single:v11
 					python-pytz:single:v11
 					python-numpy:single:v11
+					python-versioneer:single:v11
 
 USES=			cpe
 CPE_VENDOR=		numfocus
