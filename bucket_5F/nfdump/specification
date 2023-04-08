@@ -21,6 +21,7 @@ OPTIONS_STANDARD=	PCAP
 OPT_ON[freebsd]=	PCAP
 OPT_ON[dragonfly]=	PCAP
 OPT_ON[netbsd]=		PCAP
+OPT_ON[midnightbsd]=	PCAP
 
 LICENSE=		BSD3CLAUSE:single
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/BSD-license.txt
@@ -50,7 +51,8 @@ INSTALL_REQ_TOOLCHAIN=	yes
 [PCAP].DESCRIPTION=			Include Package Capture capability
 [PCAP].CONFIGURE_ARGS_ON=		--enable-readpcap
 					--enable-nfpcapd
-[PCAP].BUILDRUN_DEPENDS_ON=		libpcap:single:standard
+[PCAP].BUILD_DEPENDS_ON=		libpcap:dev:standard
+[PCAP].BUILDRUN_DEPENDS_ON=		libpcap:primary:standard
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/etc/nfdump.conf.dist \
