@@ -1,5 +1,5 @@
---- tests/os-wrappers-test.c.orig	2022-11-01 14:26:03.250878000 +0100
-+++ tests/os-wrappers-test.c	2022-11-01 14:28:28.137680000 +0100
+--- tests/os-wrappers-test.c.orig	2023-04-04 07:58:31 UTC
++++ tests/os-wrappers-test.c
 @@ -39,7 +39,6 @@
  #include <stdarg.h>
  #include <fcntl.h>
@@ -8,7 +8,7 @@
  
  #include "wayland-private.h"
  #include "test-runner.h"
-@@ -152,15 +151,7 @@
+@@ -152,15 +151,7 @@ recvmsg(int sockfd, struct msghdr *msg,
  __attribute__ ((visibility("default"))) int
  epoll_create1(int flags)
  {
@@ -25,7 +25,7 @@
  }
  
  static void
-@@ -375,6 +366,7 @@
+@@ -375,6 +366,7 @@ TEST(os_wrappers_recvmsg_cloexec_fallbac
  	do_os_wrappers_recvmsg_cloexec(1);
  }
  
@@ -33,7 +33,7 @@
  static void
  do_os_wrappers_epoll_create_cloexec(int n)
  {
-@@ -406,5 +398,6 @@
+@@ -406,5 +398,6 @@ TEST(os_wrappers_epoll_create_cloexec_fa
  	init_fallbacks(1);
  	do_os_wrappers_epoll_create_cloexec(2);
  }

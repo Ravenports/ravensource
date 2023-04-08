@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	1.21.0
+DEF[PORTVERSION]=	1.22.0
+DEF[SOVERSION]=		0.22.0
+DEF[SOEGL]=		1.22.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		wayland
@@ -13,14 +15,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://gitlab.freedesktop.org/wayland/wayland/-/releases/${PORTVERSION}/downloads/
 DISTFILE[1]=		wayland-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary
+SPKGS[standard]=	complete primary dev tools
 # manpages docs
 # disables docs subpackage until graphviz's dot fixed
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:complete
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
@@ -30,8 +32,9 @@ FPC_EQUIVALENT=		graphics/wayland
 ONLY_FOR_OPSYS=		dragonfly
 
 BUILD_DEPENDS=		libxslt:primary:standard
-
 BUILDRUN_DEPENDS=	libffi:single:standard
+
+EXRUN[tools]=		wayland:primary:standard
 
 USES=			cpe meson pkgconfig expat
 GNOME_COMPONENTS=	libxml2
@@ -40,3 +43,6 @@ MESON_ARGS=		-Ddocumentation=false
 
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		EGLSOVERSION=${SOEGL}
+			EGLSOMAJOR=${SOEGL:R:R}

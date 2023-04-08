@@ -1,5 +1,5 @@
---- src/wayland-os.c.orig	2022-10-22 10:58:42.178509000 +0200
-+++ src/wayland-os.c	2022-10-31 16:39:33.763815000 +0100
+--- src/wayland-os.c.orig	2023-04-04 07:58:31 UTC
++++ src/wayland-os.c
 @@ -33,7 +33,7 @@
  #include <fcntl.h>
  #include <errno.h>
@@ -9,7 +9,7 @@
  #include <sys/mman.h>
  #include <sys/un.h>
  #ifdef HAVE_SYS_UCRED_H
-@@ -69,17 +69,19 @@
+@@ -69,17 +69,19 @@ wl_os_socket_cloexec(int domain, int typ
  {
  	int fd;
  
@@ -30,7 +30,7 @@
  int
  wl_os_socket_peercred(int sockfd, uid_t *uid, gid_t *gid, pid_t *pid)
  {
-@@ -87,7 +89,7 @@
+@@ -87,7 +89,7 @@ wl_os_socket_peercred(int sockfd, uid_t
  	struct xucred ucred;
  
  	len = sizeof(ucred);
@@ -39,7 +39,7 @@
  	    ucred.cr_version != XUCRED_VERSION)
  		return -1;
  	*uid = ucred.cr_uid;
-@@ -189,19 +191,11 @@
+@@ -189,19 +191,11 @@ wl_os_recvmsg_cloexec(int sockfd, struct
  }
  
  int

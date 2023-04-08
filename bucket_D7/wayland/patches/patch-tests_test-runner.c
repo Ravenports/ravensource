@@ -1,5 +1,5 @@
---- tests/test-runner.c.orig	2022-11-01 14:11:31.710109000 +0100
-+++ tests/test-runner.c	2022-11-01 14:24:36.312796000 +0100
+--- tests/test-runner.c.orig	2023-04-04 07:58:31 UTC
++++ tests/test-runner.c
 @@ -29,6 +29,7 @@
  #include <unistd.h>
  #include <stdio.h>
@@ -18,7 +18,7 @@
  #ifndef PR_SET_PTRACER
  # define PR_SET_PTRACER 0x59616d61
  #endif
-@@ -276,17 +279,22 @@
+@@ -276,17 +279,22 @@ is_debugger_attached(void)
  		close(pipefd[0]);
  		if (buf == '-')
  			_exit(1);
@@ -41,7 +41,7 @@
  		rc = prctl(PR_SET_PTRACER, pid);
  		if (rc != 0 && errno != EINVAL) {
  			/* An error prevents us from telling if a debugger is attached.
-@@ -300,6 +308,7 @@
+@@ -300,6 +308,7 @@ is_debugger_attached(void)
  			/* Signal to client that parent is ready by passing '+' */
  			write(pipefd[1], "+", 1);
  		}
@@ -49,7 +49,7 @@
  		close(pipefd[1]);
  
  		waitpid(pid, &status, 0);
-@@ -315,18 +324,16 @@
+@@ -315,18 +324,16 @@ int main(int argc, char *argv[])
  	const struct test *t;
  	pid_t pid;
  	int total, pass;
@@ -74,7 +74,7 @@
  
  	if (argc == 2 && strcmp(argv[1], "--help") == 0)
  		usage(argv[0], EXIT_SUCCESS);
-@@ -358,6 +365,12 @@
+@@ -358,6 +365,12 @@ int main(int argc, char *argv[])
  		if (pid == 0)
  			run_test(t); /* never returns */
  
@@ -87,7 +87,7 @@
  		if (waitid(P_PID, pid, &info, WEXITED)) {
  			stderr_set_color(RED);
  			fprintf(stderr, "waitid failed: %s\n",
-@@ -366,6 +379,21 @@
+@@ -366,6 +379,21 @@ int main(int argc, char *argv[])
  
  			abort();
  		}
@@ -109,7 +109,7 @@
  
  		switch (info.si_code) {
  		case CLD_EXITED:
-@@ -390,6 +418,7 @@
+@@ -390,6 +418,7 @@ int main(int argc, char *argv[])
  
  			break;
  		}
