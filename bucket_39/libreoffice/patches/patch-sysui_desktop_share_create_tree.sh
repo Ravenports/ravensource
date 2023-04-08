@@ -1,4 +1,4 @@
---- sysui/desktop/share/create_tree.sh.orig	2023-03-09 19:40:54 UTC
+--- sysui/desktop/share/create_tree.sh.orig	2023-03-24 16:53:38 UTC
 +++ sysui/desktop/share/create_tree.sh
 @@ -37,7 +37,7 @@ test -n "${OFFICE_PREFIX}" && office_pre
  office_root=${office_prefix}/${PREFIX}
