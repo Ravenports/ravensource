@@ -138,6 +138,13 @@ pre-install-linux:
 	orjson-${PORTVERSION}-cp${PYTHON_SUFFIX}-cp${PYTHON_SUFFIX}-manylinux_2_24_x86_64.whl\
 	orjson-${PORTVERSION}-cp${PYTHON_SUFFIX}-cp${PYTHON_SUFFIX}-manylinux_2_23_x86_64.whl)
 
+pre-install-midnightbsd:
+	# Due to rust limitations, maturin must set target OS as freebsd, but
+	# pip doesn't recognize that as a legal combination.  Rename to complete build.
+	(cd ${INSTALL_WRKSRC}/target/wheels/ && ${MV}\
+	orjson-${PORTVERSION}-cp${PYTHON_SUFFIX}-cp${PYTHON_SUFFIX}-freebsd_*.whl\
+	orjson-${PORTVERSION}-cp${PYTHON_SUFFIX}-cp${PYTHON_SUFFIX}-midnightbsd_3_0_0_amd64.whl)
+
 do-install:
 	# Due to upstream not supplying a setup.py file or other way to install
 	# using pip command for now...
