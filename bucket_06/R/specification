@@ -91,7 +91,7 @@ INFO=			primary:R-admin
 			primary:R-lang
 
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e "s|/usr/local|${LOCALBASE}|g" \
 		${WRKSRC}/configure
 	${REINPLACE_CMD} "s|%%LIBVER%%|${SOVERSION}|" \
