@@ -1,15 +1,15 @@
---- cmake/QtPlatformSupport.cmake.orig	2022-11-16 07:54:24 UTC
+--- cmake/QtPlatformSupport.cmake.orig	2023-03-14 08:29:43 UTC
 +++ cmake/QtPlatformSupport.cmake
-@@ -16,6 +16,8 @@ qt_set01(QNX CMAKE_SYSTEM_NAME STREQUAL
+@@ -19,6 +19,8 @@ qt_set01(QNX CMAKE_SYSTEM_NAME STREQUAL
  qt_set01(OPENBSD CMAKE_SYSTEM_NAME STREQUAL "OpenBSD") # FIXME: How to identify this?
  qt_set01(FREEBSD CMAKE_SYSTEM_NAME STREQUAL "FreeBSD") # FIXME: How to identify this?
  qt_set01(NETBSD CMAKE_SYSTEM_NAME STREQUAL "NetBSD") # FIXME: How to identify this?
 +qt_set01(DRAGONFLY CMAKE_SYSTEM_NAME STREQUAL "DragonFly") # FIXME: How to identify this?
 +qt_set01(MIDNIGHT CMAKE_SYSTEM_NAME STREQUAL "MidnightBSD") # FIXME: How to identify this?
  qt_set01(WASM CMAKE_SYSTEM_NAME STREQUAL "Emscripten" OR EMSCRIPTEN)
+ qt_set01(WASM64 QT_QMAKE_TARGET_MKSPEC STREQUAL "wasm-emscripten-64")
  qt_set01(SOLARIS CMAKE_SYSTEM_NAME STREQUAL "SunOS")
- qt_set01(HURD CMAKE_SYSTEM_NAME STREQUAL "GNU")
-@@ -24,7 +26,7 @@ qt_set01(HURD CMAKE_SYSTEM_NAME STREQUAL
+@@ -28,7 +30,7 @@ qt_set01(HURD CMAKE_SYSTEM_NAME STREQUAL
  # compile definition into its generated toolchain.cmake file
  qt_set01(WEBOS CMAKE_CXX_FLAGS MATCHES "-D__WEBOS__")
  

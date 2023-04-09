@@ -17,14 +17,15 @@ SITES[main]=		https://qt.mirror.constant.com/official_releases/qt/${MINOR_VER}/$
 			https://download.qt.io/official_releases/qt/${MINOR_VER}/${PORTVERSION}/submodules/
 DISTFILE[1]=		${COMPONENT}-everywhere-src-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-BUILDRUN_DEPENDS=	qt6-qtbase:primary:standard
-			qt6-qtdeclarative:single:standard
-			qt6-qtshadertools:single:standard
+BUILD_DEPENDS=		qt6-qtbase:dev:standard
+			qt6-qtshadertools:dev:standard
+			qt6-qtdeclarative:dev:standard
+BUILDRUN_DEPENDS=	qt6-qtdeclarative:primary:standard
 
 C_USES[freebsd]=	clang
 C_USES[midnightbsd]=	clang

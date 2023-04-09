@@ -17,15 +17,18 @@ SITES[main]=		https://qt.mirror.constant.com/official_releases/qt/${MINOR_VER}/$
 			https://download.qt.io/official_releases/qt/${MINOR_VER}/${PORTVERSION}/submodules/
 DISTFILE[1]=		${COMPONENT}-everywhere-src-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 BUILD_DEPENDS=		xorg-x11:dev:standard
 			wayland:dev:standard
+			qt6-qtbase:dev:standard
+			qt6-qtdeclarative:dev:standard
+			wayland:tools:standard
 BUILDRUN_DEPENDS=	qt6-qtbase:primary:standard
-			qt6-qtdeclarative:single:standard
+			qt6-qtdeclarative:primary:standard
 			wayland:primary:standard
 
 USES=			qt6 cmake pkgconfig perl:build cpe

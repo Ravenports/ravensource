@@ -1,4 +1,4 @@
---- src/corelib/plugin/qelfparser_p.cpp.orig	2022-11-16 07:54:24 UTC
+--- src/corelib/plugin/qelfparser_p.cpp.orig	2023-03-14 08:29:43 UTC
 +++ src/corelib/plugin/qelfparser_p.cpp
 @@ -12,12 +12,12 @@
  #include <qnumeric.h>
