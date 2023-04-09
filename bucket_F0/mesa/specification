@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	22.3.7
 
 NAMEBASE=		mesa
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Mesa 3D Graphics Library
@@ -163,8 +164,10 @@ pre-patch-linux:
 	# qsort fixes for BSD break linux
 	${RM} ${PATCHDIR}/patch-meson.build
 
-post-patch:
-	${REINPLACE_CMD} -e 's|/etc/|${PREFIX}/etc/|g' \
+pre-configure:
+	${REINPLACE_CMD} \
+		-e '/SYSCONFDIR/ s|/etc|${PREFIX}/etc|g' \
+		-e '/DATADIR/ s|/usr/share|${PREFIX}/share|g' \
 		${WRKSRC}/src/util/xmlconfig.c
 
 post-install:
@@ -172,3 +175,5 @@ post-install:
 	${RM} ${STAGEDIR}${PREFIX}/include/GL/g*.h
 	${RM} ${STAGEDIR}${PREFIX}/lib/pkgconfig/gl.pc
 	${RM} -r ${STAGEDIR}${PREFIX}/include/KHR
+	${INSTALL_DATA} ${FILESDIR}/01-freebsd.conf \
+		${STAGEDIR}${PREFIX}/share/drirc.d
