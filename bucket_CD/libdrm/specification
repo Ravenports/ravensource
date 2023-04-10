@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.4.115
 
 NAMEBASE=		libdrm
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics x11
 VARIANTS=		standard
 SDESC[standard]=	Direct Rendering Module services kernel interface
@@ -15,11 +16,12 @@ DISTFILE[1]=		libdrm-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	complete primary man dev
 
-OPTIONS_AVAILABLE=	ARM X86
-OPTIONS_STANDARD=	ARM X86
+OPTIONS_AVAILABLE=	ARM X86 NOUVEAU
+OPTIONS_STANDARD=	ARM X86 NOUVEAU
 OPT_ON[aarch64]=	ARM
 OPT_ON[x86_64]=		X86
 OPT_ON[i386]=		X86
+OPT_ON[linux]=		NOUVEAU
 
 LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKDIR}}/LICENSE_MIT
@@ -45,7 +47,6 @@ MESON_ARGS=		-Dman-pages=enabled
 			-Dcairo-tests=disabled
 			-Dradeon=enabled
 			-Damdgpu=enabled
-			-Dnouveau=enabled
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 
@@ -62,6 +63,7 @@ VAR_OPSYS[netbsd]=	LDFLAGS=-lpci
 [ARM].CONFIGURE_ARGS_OFF=		-Detnaviv=disabled
 					-Dexynos=disabled
 					-Dfreedreno=disabled
+					-Dfreedreno-kgsl=false
 					-Domap=disabled
 					-Dtegra=disabled
 					-Dvc4=disabled
@@ -71,3 +73,7 @@ VAR_OPSYS[netbsd]=	LDFLAGS=-lpci
 					-Dvmwgfx=enabled
 [X86].CONFIGURE_ARGS_OFF=		-Dintel=disabled
 					-Dvmwgfx=disabled
+
+[NOUVEAU].DESCRIPTION=			Build x86 Nouveau driver
+[NOUVEAU].CONFIGURE_ARGS_ON=		-Dnouveau=enabled
+[NOUVEAU].CONFIGURE_ARGS_OFF=		-Dnouveau=disabled
