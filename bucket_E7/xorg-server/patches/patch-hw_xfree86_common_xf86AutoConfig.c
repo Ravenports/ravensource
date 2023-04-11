@@ -16,7 +16,7 @@
 -#else
 +#elif defined(__linux__)
      xf86AddMatchedDriver(md, "fbdev");
-+#elif defined(__FreeBSD__)
++#elif defined(__FreeBSD__) || defined(__DragonFly__)
 +    xf86AddMatchedDriver(md, "scfb");
  #endif
  #endif                          /* !__sun */

@@ -1,0 +1,28 @@
+--- hw/xfree86/os-support/meson.build.orig	2023-03-29 12:55:03 UTC
++++ hw/xfree86/os-support/meson.build
+@@ -91,7 +91,7 @@ elif host_machine.system() == 'sunos'
+         error('Unknown CPU family for Solaris build')
+     endif
+ 
+-elif host_machine.system().endswith('bsd')
++elif host_machine.system().endswith('bsd') or host_machine.system() == 'dragonfly'
+     srcs_xorg_os_support += [
+         'bsd/bsd_VTsw.c',
+         'bsd/bsd_bell.c',
+@@ -120,14 +120,14 @@ elif host_machine.system().endswith('bsd
+         srcs_xorg_os_support += 'shared/ioperm_noop.c'
+     elif host_machine.cpu_family() == 'alpha'
+         srcs_xorg_os_support += 'bsd/alpha_video.c'
+-        if host_machine.system() == 'freebsd'
++        if host_machine.system() == 'freebsd' or host_machine.system() == 'midnightbsd'
+             os_dep += cc.find_library('io')
+         elif host_machine.system() == 'netbsd'
+             os_c_args += '-DUSE_ALPHA_PIO'
+         endif
+     endif
+ 
+-    if host_machine.system() == 'freebsd'
++    if ['freebsd', 'dragonfly', 'midnightbsd'].contains(host_machine.system())
+         srcs_xorg_os_support += 'bsd/bsd_kmod.c'
+     else
+         srcs_xorg_os_support += 'shared/kmod_noop.c'
