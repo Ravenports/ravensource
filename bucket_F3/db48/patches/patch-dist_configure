@@ -1,0 +1,146 @@
+--- dist/configure.orig	2010-04-12 20:25:23 UTC
++++ dist/configure
+@@ -4523,7 +4523,7 @@ bsdi3*)	CC=${CC-"shlicc2"}
+ 	LIBSO_LIBS="$LIBSO_LIBS -lipc";;
+ cygwin*)
+ 	CPPFLAGS="$CPPFLAGS -D_GNU_SOURCE -D_REENTRANT";;
+-freebsd*)
++freebsd*|dragonfly*|midnight*)
+ 	CPPFLAGS="$CPPFLAGS -D_THREAD_SAFE"
+ 	LDFLAGS="$LDFLAGS -pthread";;
+ gnu*|k*bsd*-gnu|linux*)
+@@ -6282,7 +6282,7 @@ fi
+ # we're using.
+ case "$host_os" in
+ sysv5UnixWare*|sysv5OpenUNIX8*)
+-	if test "$GCC" == "yes"; then
++	if test "$GCC" = "yes"; then
+ 		CPPFLAGS="$CPPFLAGS -pthread"
+ 		LDFLAGS="$LDFLAGS -pthread"
+ 	else
+@@ -7323,7 +7323,7 @@ darwin* | rhapsody*)
+   lt_cv_deplibs_check_method=pass_all
+   ;;
+ 
+-freebsd* | dragonfly*)
++freebsd* | dragonfly* | midnight*)
+   if echo __ELF__ | $CC -E - | $GREP __ELF__ > /dev/null; then
+     case $host_cpu in
+     i*86 )
+@@ -11202,10 +11202,6 @@ if test -z "$aix_libpath"; then aix_libp
+       hardcode_shlibpath_var=no
+       ;;
+ 
+-    freebsd1*)
+-      ld_shlibs=no
+-      ;;
+-
+     # FreeBSD 2.2.[012] allows us to include c++rt0.o to get C++ constructor
+     # support.  Future versions do this automatically, but an explicit c++rt0.o
+     # does not break anything, and helps significantly (at the cost of a little
+@@ -11218,7 +11214,7 @@ if test -z "$aix_libpath"; then aix_libp
+       ;;
+ 
+     # Unfortunately, older versions of FreeBSD 2 do not have this feature.
+-    freebsd2*)
++    freebsd2.*)
+       archive_cmds='$LD -Bshareable -o $lib $libobjs $deplibs $linker_flags'
+       hardcode_direct=yes
+       hardcode_minus_L=yes
+@@ -11226,7 +11222,7 @@ if test -z "$aix_libpath"; then aix_libp
+       ;;
+ 
+     # FreeBSD 3 and greater uses gcc -shared to do shared libraries.
+-    freebsd* | dragonfly*)
++    freebsd* | dragonfly* | midnight*)
+       archive_cmds='$CC -shared -o $lib $libobjs $deplibs $compiler_flags'
+       hardcode_libdir_flag_spec='-R$libdir'
+       hardcode_direct=yes
+@@ -12077,18 +12073,14 @@ dgux*)
+   shlibpath_var=LD_LIBRARY_PATH
+   ;;
+ 
+-freebsd1*)
+-  dynamic_linker=no
+-  ;;
+-
+-freebsd* | dragonfly*)
++freebsd* | dragonfly* | midnight*)
+   # DragonFly does not have aout.  When/if they implement a new
+   # versioning mechanism, adjust this.
+   if test -x /usr/bin/objformat; then
+     objformat=`/usr/bin/objformat`
+   else
+     case $host_os in
+-    freebsd[123]*) objformat=aout ;;
++    freebsd[123].*) objformat=aout ;;
+     *) objformat=elf ;;
+     esac
+   fi
+@@ -12106,7 +12098,7 @@ freebsd* | dragonfly*)
+   esac
+   shlibpath_var=LD_LIBRARY_PATH
+   case $host_os in
+-  freebsd2*)
++  freebsd2.*)
+     shlibpath_overrides_runpath=yes
+     ;;
+   freebsd3.[01]* | freebsdelf3.[01]*)
+@@ -13772,7 +13764,7 @@ if test -z "$aix_libpath"; then aix_libp
+         esac
+         ;;
+ 
+-      freebsd[12]*)
++      freebsd[12].*)
+         # C++ shared libraries reported to be fairly broken before
+ 	# switch to ELF
+         ld_shlibs_CXX=no
+@@ -13782,7 +13774,7 @@ if test -z "$aix_libpath"; then aix_libp
+         archive_cmds_need_lc_CXX=no
+         ;;
+ 
+-      freebsd* | dragonfly*)
++      freebsd* | dragonfly* | midnight*)
+         # FreeBSD 3 and later use GNU C++ and GNU ld with standard ELF
+         # conventions
+         ld_shlibs_CXX=yes
+@@ -14732,7 +14724,7 @@ $as_echo_n "checking for $compiler optio
+ 	    ;;
+ 	esac
+ 	;;
+-      freebsd* | dragonfly*)
++      freebsd* | dragonfly* | midnight*)
+ 	# FreeBSD uses GNU C++
+ 	;;
+       hpux9* | hpux10* | hpux11*)
+@@ -15530,18 +15522,18 @@ dgux*)
+   shlibpath_var=LD_LIBRARY_PATH
+   ;;
+ 
+-freebsd1*)
++freebsd1.*)
+   dynamic_linker=no
+   ;;
+ 
+-freebsd* | dragonfly*)
++freebsd* | dragonfly* | midnight*)
+   # DragonFly does not have aout.  When/if they implement a new
+   # versioning mechanism, adjust this.
+   if test -x /usr/bin/objformat; then
+     objformat=`/usr/bin/objformat`
+   else
+     case $host_os in
+-    freebsd[123]*) objformat=aout ;;
++    freebsd[123].*) objformat=aout ;;
+     *) objformat=elf ;;
+     esac
+   fi
+@@ -15559,7 +15551,7 @@ freebsd* | dragonfly*)
+   esac
+   shlibpath_var=LD_LIBRARY_PATH
+   case $host_os in
+-  freebsd2*)
++  freebsd2.*)
+     shlibpath_overrides_runpath=yes
+     ;;
+   freebsd3.[01]* | freebsdelf3.[01]*)

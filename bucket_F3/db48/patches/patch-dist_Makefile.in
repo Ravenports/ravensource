@@ -1,0 +1,86 @@
+--- dist/Makefile.in.orig	2010-04-12 20:25:22 UTC
++++ dist/Makefile.in
+@@ -11,7 +11,7 @@ exec_prefix=@exec_prefix@
+ bindir=	@bindir@
+ includedir=@includedir@
+ libdir=	@libdir@
+-docdir=	$(prefix)/docs
++docdir=	$(prefix)/share/docs/db4
+ 
+ dmode=	755
+ emode=	555
+@@ -61,7 +61,7 @@ LIBS=		@LIBSO_LIBS@
+ TEST_LIBS=	@TEST_LIBS@
+ LIBCSO_LIBS=	@LIBCSO_LIBS@ @LIBSO_LIBS@
+ 
+-libdb_base=	libdb
++libdb_base=	libdb4
+ libdb=		$(libdb_base).a
+ libdb_version=	$(libdb_base)-$(LIBVERSION).a
+ libso=		$(libdb_base)-$(LIBVERSION)@SOSUFFIX@
+@@ -80,7 +80,7 @@ CXXLINK=	@MAKEFILE_CXXLINK@ @CXXFLAGS@
+ XSOLINK=	@MAKEFILE_XSOLINK@ @CXXFLAGS@
+ LIBXSO_LIBS=	@LIBXSO_LIBS@ @LIBSO_LIBS@
+ 
+-libcxx_base=	libdb_cxx
++libcxx_base=	libdb4_cxx
+ libcxx=		$(libcxx_base).a
+ libcxx_version=	$(libcxx_base)-$(LIBVERSION).a
+ libxso=		$(libcxx_base)-$(LIBVERSION)@SOSUFFIX@
+@@ -124,9 +124,9 @@ JAVA_EXDIR=	$(srcdir)/examples_java/src
+ JAVA_SLEEPYCAT=	$(srcdir)/java/src/com/sleepycat
+ JAVA_MANIFEST=	$(srcdir)/java/jarManifestEntries
+ 
+-libj_jarfile=	db.jar
++libj_jarfile=	db4.jar
+ libj_exjarfile=	dbexamples.jar
+-libjso_base=	libdb_java
++libjso_base=	libdb4_java
+ libjso=		$(libjso_base)-$(LIBVERSION)@JMODSUFFIX@
+ libjso_static=	$(libjso_base)-$(LIBVERSION).a
+ libjso_target=	$(libjso_base)-$(LIBVERSION).la
+@@ -141,7 +141,7 @@ libjso_g=	$(libjso_base)-$(LIBVERSION)_g
+ ##################################################
+ TCL_INCLUDE_SPEC=	@TCL_INCLUDE_SPEC@
+ LIBTSO_LIBS=	@LIBTSO_LIBS@ @LIBSO_LIBS@
+-libtso_base=	libdb_tcl
++libtso_base=	libdb4_tcl
+ libtso=		$(libtso_base)-$(LIBVERSION)@LIBTSO_MODSUFFIX@
+ libtso_static=	$(libtso_base)-$(LIBVERSION).a
+ libtso_target=	$(libtso_base)-$(LIBVERSION).la
+@@ -942,11 +942,7 @@ install_include:
+ 	    $(CHMOD) $(dmode) $(DESTDIR)$(includedir))
+ 	@cd $(DESTDIR)$(includedir) && $(RM) $(INCDOT)
+ 	@for f in $(INCDOT); do \
+-	    for d in . $(srcdir)/stl ; do \
+-	        test -f $$d/$$f && \
+-	            $(CP) -p $$d/$$f $(DESTDIR)$(includedir) ; \
+-	    done ; \
+-	    $(CHMOD) $(fmode) $(DESTDIR)$(includedir)/$$f ; \
++	    $(BSD_INSTALL_DATA) $$f $(DESTDIR)$(includedir) ; \
+ 	done
+ 
+ uninstall_include:
+@@ -958,7 +954,7 @@ install_lib:
+ 	    ($(MKDIR) -p $(DESTDIR)$(libdir) && \
+ 	    $(CHMOD) $(dmode) $(DESTDIR)$(libdir))
+ 	@cd $(DESTDIR)$(libdir) && $(RM) $(LIB_INSTALL_FILE_LIST)
+-	@$(INSTALLER) @INSTALL_LIBS@ $(DESTDIR)$(libdir)
++	@libtool --mode=install $(BSD_INSTALL_LIB) @INSTALL_LIBS@ $(DESTDIR)$(libdir)
+ 	@(cd $(DESTDIR)$(libdir) && \
+ 	    test -f $(libso) && $(LN) -s $(libso) $(libso_default); \
+ 	    test -f $(libso) && $(LN) -s $(libso) $(libso_major); \
+@@ -984,11 +980,8 @@ install_utilities:
+ 	    ($(MKDIR) -p $(DESTDIR)$(bindir) && \
+ 	    $(CHMOD) $(dmode) $(DESTDIR)$(bindir))
+ 	@for i in $(UTIL_PROGS); do \
+-		test -f $$i.exe && i=$$i.exe || i=$$i; \
+-		$(RM) $(DESTDIR)$(bindir)/$$i; \
+-		$(INSTALLER) $$i $(DESTDIR)$(bindir)/$$i; \
+-		$(STRIP) $(DESTDIR)$(bindir)/$$i; \
+-		$(CHMOD) $(emode) $(DESTDIR)$(bindir)/$$i; \
++		target="${DESTDIR}${bindir}/`echo $$i | sed '${transform}'`"; \
++		libtool --mode=install $(BSD_INSTALL_PROGRAM) $$i $$target; \
+ 	done
+ 
+ uninstall_utilities:

@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	4.8.30
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		db4
+VERSION=		${PORTVERSION}
+KEYWORDS=		databases
+VARIANTS=		standard
+SDESC[standard]=	Berkeley DB version 4 from Oracle
+HOMEPAGE=		https://www.oracle.com/database/technologies/related/berkeleydb.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://download.oracle.com/berkeley-db/
+			http://download-uk.oracle.com/berkeley-db/
+DISTFILE[1]=		db-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary cxx tools dev docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:primary
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE
+LICENSE_NAME=		CUSTOM1:"Sleepycat License"
+LICENSE_SCHEME=		solo
+
+EXRUN[tools]=		db4:primary:standard
+
+USES=			libtool:build c++:cxx
+MUST_CONFIGURE=		yes
+CONFIGURE_ARGS=		--prefix={{PREFIX}}
+			--enable-compat185
+			--enable-cxx
+			--includedir={{PREFIX}}/include/db4
+			--program-transform-name=s,db_,db4_,
+CONFIGURE_WRKSRC=	{{WRKSRC}}/build_unix
+BUILD_WRKSRC=		{{WRKSRC}}/build_unix
+INSTALL_WRKSRC=		{{WRKSRC}}/build_unix
+CONFIGURE_SCRIPT=	../dist/configure
+DISTNAME=		db-${PORTVERSION}
+
+post-install:
+	# remove duplicate static libraries
+	${RM} ${STAGEDIR}${PREFIX}/lib/libdb4-4.8.a
+	${RM} ${STAGEDIR}${PREFIX}/lib/libdb4_cxx-4.8.a
