@@ -1,21 +1,53 @@
-# DEF[PORTVERSION]=	1.00
+DEF[PORTVERSION]=	2.2.0
+DEF[RELEASE_TAG]=	v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		...
+NAMEBASE=		nvi2
 VERSION=		${PORTVERSION}
-KEYWORDS=		...
+KEYWORDS=		editors
 VARIANTS=		standard
-SDESC[standard]=	...
-HOMEPAGE=		none
-CONTACT=		Jay_Leno[jay@aarp.org]
+SDESC[standard]=	Updated implementation of the ex/vi text editor
+HOMEPAGE=		https://github.com/lichray/nvi2/
+CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://www.example.com/
-DISTFILE[1]=		x-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/lichray:nvi2:${RELEASE_TAG}
+DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-FPC_EQUIVALENT=		...
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		editors/nvi2
+
+BUILD_DEPENDS=		db4:dev:standard
+
+BROKEN[all]=		db4 1.85 compat mode doesn't support bfname
+
+USES=			cmake ncurses iconv
+CMAKE_ARGS=		-DENABLE_WIDECHAR:BOOL=ON
+			-DENABLE_ICONV:BOOL=ON
+CFLAGS=			-I{{LOCALBASE}}/db4/include
+			-I{{NCURSESINC}}
+# LDFLAGS=		-L{{LOCALBASE}}/db4/lib
+
+pre-configure-dragonfly:
+	${REINPLACE_CMD} -e 's|TAILQ_FOREACH_SAFE|TAILQ_FOREACH_MUTABLE|'\
+		${WRKSRC}/common/exf.c \
+		${WRKSRC}/ex/ex_global.c
+	${REINPLACE_CMD} -e 's|SLIST_FOREACH_SAFE|SLIST_FOREACH_MUTABLE|'\
+		${WRKSRC}/cl/cl_term.c \
+		${WRKSRC}/ex/ex_cscope.c
+
+do-install:
+	${INSTALL_PROGRAM} ${BUILD_WRKSRC}/nvi ${STAGEDIR}${PREFIX}/bin
+	${LN} ${STAGEDIR}${PREFIX}/bin/nvi ${STAGEDIR}${PREFIX}/bin/nex
+	${LN} ${STAGEDIR}${PREFIX}/bin/nvi ${STAGEDIR}${PREFIX}/bin/nview
+	${INSTALL_MAN} ${WRKSRC}/man/vi.1 ${STAGEDIR}${MAN1PREFIX}/man/man1/nvi.1
+	${LN} -sf nvi.1 ${STAGEDIR}${MAN1PREFIX}/man/man1/nex.1
+	${LN} -sf nvi.1 ${STAGEDIR}${MAN1PREFIX}/man/man1/nview.1
