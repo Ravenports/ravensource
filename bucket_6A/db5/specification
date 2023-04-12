@@ -6,7 +6,7 @@ DEF[DBLIBS]=		libdb libdb_cxx libdb_sql
 
 NAMEBASE=		db5
 VERSION=		${PORTVERSION}
-REVISION=		4
+REVISION=		5
 KEYWORDS=		databases java
 VARIANTS=		standard
 SDESC[standard]=	Oracle Berkeley DB, revision 5
@@ -18,7 +18,7 @@ SITES[main]=		https://download.oracle.com/berkeley-db/
 DISTFILE[1]=		db-${PORTVERSION}.tar.gz:main
 DIST_SUBDIR=		bdb
 
-SPKGS[standard]=	complete primary dev tools docs
+SPKGS[standard]=	complete primary cxx dev tools docs
 
 OPTIONS_AVAILABLE=	CRYPTO TCL
 OPTIONS_STANDARD=	CRYPTO TCL
@@ -33,22 +33,20 @@ FPC_EQUIVALENT=		databases/db5
 
 EXRUN[tools]=		db5:primary:standard
 
-USES=			cpe gmake libtool c++:primary fbsd10fix
+USES=			cpe gmake libtool c++:cxx fbsd10fix
 CPE_VENDOR=		oracle
 CPE_PRODUCT=		berkeley_db
 DISTNAME=		db-${PORTVERSION}
-MUST_CONFIGURE=		gnu
+MUST_CONFIGURE=		yes
 CONFIGURE_OUTSOURCE=	yes
 CONFIGURE_WRKSRC=	{{WRKSRC}}/build_unix
 CONFIGURE_SCRIPT=	dist/configure
-CONFIGURE_ARGS=		--enable-dbm
+CONFIGURE_ARGS=		--prefix={{PREFIX}}/db5
+			--enable-dbm
 			--enable-cxx
 			--enable-sql
 			--enable-sql_codegen
-			--disable-stl
-			--includedir={{PREFIX}}/include/db5
-			--libdir={{PREFIX}}/lib/db5
-			--bindir={{PREFIX}}/bin/db5
+			--enable-stl
 INSTALL_TARGET=		install_include
 			install_lib
 			install_utilities
@@ -66,7 +64,7 @@ VAR_OPSYS[darwin]=	CONFIGURE_ARGS=lt_cv_apple_cc_single_mod=yes
 [CRYPTO].DESCRIPTION=			Cryptography support
 [CRYPTO].CONFIGURE_WITH_BOTH=		cryptography=yes
 
-# [TCL].USES_ON=			tcl:85+
+[TCL].USES_ON=				tcl
 [TCL].CONFIGURE_ARGS_ON=		--with-tcl={{TCL_LIBDIR}}
 [TCL].CONFIGURE_ARGS_OFF=		--disable-tcl
 
@@ -84,65 +82,20 @@ post-patch-sunos:
 		${WRKSRC}/util/db_sql_codegen/sqlite/sqliteInt.h
 
 post-install:
-.for i in ${DBLIBS}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/db5/${i}-${BDBVER}.${LIBEXT}
-.if "${.MAKE.OS.NAME}" == "Darwin"
-	${LN} -s -f db5/${i}-${BDBVER}.0.0.0.dylib \
-		${STAGEDIR}${PREFIX}/lib/${i}-${BDBVER}.0.dylib
-	${LN} -s -f db5/${i}-${BDBVER}.0.0.0.dylib \
-		${STAGEDIR}${PREFIX}/lib/${i}-${BDBVER}.dylib
-	${LN} -s -f db5/${i}-${BDBVER}.0.0.0.dylib \
-		${STAGEDIR}${PREFIX}/lib/${i}-${BDBMAJ}.0.dylib
-	${LN} -s -f db5/${i}-${BDBVER}.0.0.0.dylib \
-		${STAGEDIR}${PREFIX}/lib/${i}-${BDBMAJ}.dylib
-.else
-	${LN} -s -f db5/${i}-${BDBVER}.so.0.0.0 \
-		${STAGEDIR}${PREFIX}/lib/${i}-${BDBVER}.so.0
-	${LN} -s -f db5/${i}-${BDBVER}.so.0.0.0 \
-		${STAGEDIR}${PREFIX}/lib/${i}-${BDBVER}.so
-	${LN} -s -f db5/${i}-${BDBVER}.so.0.0.0 \
-		${STAGEDIR}${PREFIX}/lib/${i}-${BDBMAJ}.so.0
-	${LN} -s -f db5/${i}-${BDBVER}.so.0.0.0 \
-		${STAGEDIR}${PREFIX}/lib/${i}-${BDBMAJ}.so
-.endif
-	${RM} ${STAGEDIR}${PREFIX}/lib/db5/${i}.a
-	${LN} -s ${i}-${BDBVER}.a ${STAGEDIR}${PREFIX}/lib/db5/${i}.a
-	${LN} -s ${i}-${BDBVER}.a ${STAGEDIR}${PREFIX}/lib/db5/${i}-${BDBMAJ}.a
-.endfor
-	cd ${STAGEDIR}${PREFIX}/bin/db5; \
-	for i in *; do ${LN} -s -f db5/$$i ../$$i-${BDBVER} ; \
-		       ${LN} -s -f db5/$$i ../$$i-${BDBMAJ} ; done
+	# remove duplicate static libraries
+	${RM} ${STAGEDIR}${PREFIX}/db5/lib/lib*-${BDBVER}.a
+	# strip libraries
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/db5/lib/lib*.so
+	# remove java
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}/java
 .for i in gsg gsg_db_rep gsg_txn
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}/${i}/JAVA
 .endfor
 
 post-install-TCL-ON:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/db5/libdb_tcl-${BDBVER}.${LIBEXT}
-.if "${OPSYS}" == "Darwin"
-	${LN} -s -f db5/libdb_tcl-${BDBVER}.0.0.0.dylib \
-		${STAGEDIR}${PREFIX}/lib/libdb_tcl-${BDBVER}.0.dylib
-	${LN} -s -f db5/libdb_tcl-${BDBVER}.0.0.0.dylib \
-		${STAGEDIR}${PREFIX}/lib/libdb_tcl-${BDBMAJ}.dylib
-	${LN} -s -f db5/libdb_tcl-${BDBVER}.0.0.0.dylib \
-		${STAGEDIR}${PREFIX}/lib/libdb_tcl-${BDBVER}.dylib
-	${LN} -s -f db5/libdb_tcl-${BDBVER}.0.0.0.dylib \
-		${STAGEDIR}${PREFIX}/lib/libdb_tcl-${BDBMAJ}.0.dylib
-.else
-	${LN} -s -f db5/libdb_tcl-${BDBVER}.so.0.0.0 \
-		${STAGEDIR}${PREFIX}/lib/libdb_tcl-${BDBVER}.so.0
-	${LN} -s -f db5/libdb_tcl-${BDBVER}.so.0.0.0 \
-		${STAGEDIR}${PREFIX}/lib/libdb_tcl-${BDBMAJ}.so
-	${LN} -s -f db5/libdb_tcl-${BDBVER}.so.0.0.0 \
-		${STAGEDIR}${PREFIX}/lib/libdb_tcl-${BDBVER}.so
-	${LN} -s -f db5/libdb_tcl-${BDBVER}.so.0.0.0 \
-		${STAGEDIR}${PREFIX}/lib/libdb_tcl-${BDBMAJ}.so.0
-.endif
-	${LN} -s -f libdb_tcl-${BDBVER}.a \
-		${STAGEDIR}${PREFIX}/lib/db5/libdb_tcl.a
 	echo "package ifneeded Db_tcl ${BDBVER} \
 	      [list load [file join $$dir libdb_tcl-${BDBVER}.so]] \
-	     " > ${STAGEDIR}${PREFIX}/lib/db5/pkgIndex.tcl
+	     " > ${STAGEDIR}${PREFIX}/db5/lib/pkgIndex.tcl
 
 post-install-TCL-OFF:
 .for i in api_reference/TCL
