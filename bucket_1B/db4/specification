@@ -28,11 +28,9 @@ EXRUN[tools]=		db4:primary:standard
 
 USES=			libtool:build c++:cxx
 MUST_CONFIGURE=		yes
-CONFIGURE_ARGS=		--prefix={{PREFIX}}
+CONFIGURE_ARGS=		--prefix={{PREFIX}}/db4
 			--enable-compat185
 			--enable-cxx
-			--includedir={{PREFIX}}/include/db4
-			--program-transform-name=s,db_,db4_,
 CONFIGURE_WRKSRC=	{{WRKSRC}}/build_unix
 BUILD_WRKSRC=		{{WRKSRC}}/build_unix
 INSTALL_WRKSRC=		{{WRKSRC}}/build_unix
@@ -41,5 +39,5 @@ DISTNAME=		db-${PORTVERSION}
 
 post-install:
 	# remove duplicate static libraries
-	${RM} ${STAGEDIR}${PREFIX}/lib/libdb4-4.8.a
-	${RM} ${STAGEDIR}${PREFIX}/lib/libdb4_cxx-4.8.a
+	${RM} ${STAGEDIR}${PREFIX}/db4/lib/libdb-4.8.a
+	${RM} ${STAGEDIR}${PREFIX}/db4/lib/libdb_cxx-4.8.a

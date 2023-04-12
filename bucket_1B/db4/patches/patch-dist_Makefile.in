@@ -5,49 +5,10 @@
  includedir=@includedir@
  libdir=	@libdir@
 -docdir=	$(prefix)/docs
-+docdir=	$(prefix)/share/docs/db4
++docdir=	$(prefix)/../share/docs/db4
  
  dmode=	755
  emode=	555
-@@ -61,7 +61,7 @@ LIBS=		@LIBSO_LIBS@
- TEST_LIBS=	@TEST_LIBS@
- LIBCSO_LIBS=	@LIBCSO_LIBS@ @LIBSO_LIBS@
- 
--libdb_base=	libdb
-+libdb_base=	libdb4
- libdb=		$(libdb_base).a
- libdb_version=	$(libdb_base)-$(LIBVERSION).a
- libso=		$(libdb_base)-$(LIBVERSION)@SOSUFFIX@
-@@ -80,7 +80,7 @@ CXXLINK=	@MAKEFILE_CXXLINK@ @CXXFLAGS@
- XSOLINK=	@MAKEFILE_XSOLINK@ @CXXFLAGS@
- LIBXSO_LIBS=	@LIBXSO_LIBS@ @LIBSO_LIBS@
- 
--libcxx_base=	libdb_cxx
-+libcxx_base=	libdb4_cxx
- libcxx=		$(libcxx_base).a
- libcxx_version=	$(libcxx_base)-$(LIBVERSION).a
- libxso=		$(libcxx_base)-$(LIBVERSION)@SOSUFFIX@
-@@ -124,9 +124,9 @@ JAVA_EXDIR=	$(srcdir)/examples_java/src
- JAVA_SLEEPYCAT=	$(srcdir)/java/src/com/sleepycat
- JAVA_MANIFEST=	$(srcdir)/java/jarManifestEntries
- 
--libj_jarfile=	db.jar
-+libj_jarfile=	db4.jar
- libj_exjarfile=	dbexamples.jar
--libjso_base=	libdb_java
-+libjso_base=	libdb4_java
- libjso=		$(libjso_base)-$(LIBVERSION)@JMODSUFFIX@
- libjso_static=	$(libjso_base)-$(LIBVERSION).a
- libjso_target=	$(libjso_base)-$(LIBVERSION).la
-@@ -141,7 +141,7 @@ libjso_g=	$(libjso_base)-$(LIBVERSION)_g
- ##################################################
- TCL_INCLUDE_SPEC=	@TCL_INCLUDE_SPEC@
- LIBTSO_LIBS=	@LIBTSO_LIBS@ @LIBSO_LIBS@
--libtso_base=	libdb_tcl
-+libtso_base=	libdb4_tcl
- libtso=		$(libtso_base)-$(LIBVERSION)@LIBTSO_MODSUFFIX@
- libtso_static=	$(libtso_base)-$(LIBVERSION).a
- libtso_target=	$(libtso_base)-$(LIBVERSION).la
 @@ -942,11 +942,7 @@ install_include:
  	    $(CHMOD) $(dmode) $(DESTDIR)$(includedir))
  	@cd $(DESTDIR)$(includedir) && $(RM) $(INCDOT)
