@@ -6,7 +6,7 @@ DEF[DBLIBS]=		libdb libdb_cxx libdb_stl
 
 NAMEBASE=		db18
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		databases java
 VARIANTS=		standard
 SDESC[standard]=	Oracle Berkeley DB, revision 18
@@ -19,7 +19,7 @@ SITES[main]=		https://fossies.org/linux/misc/
 DISTFILE[1]=		db-${PORTVERSION}.tar.gz:main
 DIST_SUBDIR=		bdb
 
-SPKGS[standard]=	complete primary dev tools docs
+SPKGS[standard]=	complete primary cxx tools dev docs
 
 OPTIONS_AVAILABLE=	CRYPTO TCL
 OPTIONS_STANDARD=	CRYPTO TCL
@@ -36,22 +36,20 @@ FPC_EQUIVALENT=		databases/db18
 
 EXRUN[tools]=		db18:primary:standard
 
-USES=			cpe gmake libtool c++:primary mbsdfix
+USES=			cpe gmake libtool c++:cxx mbsdfix
 CPE_VENDOR=		oracle
 CPE_PRODUCT=		berkeley_db
 DISTNAME=		db-${PORTVERSION}
-MUST_CONFIGURE=		gnu
+MUST_CONFIGURE=		yes
 CONFIGURE_OUTSOURCE=	yes
 CONFIGURE_WRKSRC=	{{WRKSRC}}/build_unix
 CONFIGURE_SCRIPT=	dist/configure
-CONFIGURE_ARGS=		--enable-cxx
+CONFIGURE_ARGS=		--prefix={{PREFIX}}/db18
+			--enable-cxx
 			--enable-stl
 			--enable-sql
 			--enable-sql_codegen
 			--disable-atomicsupport
-			--includedir={{PREFIX}}/include/db18
-			--libdir={{PREFIX}}/lib/db18
-			--bindir={{PREFIX}}/bin/db18
 INSTALL_TARGET=		install_include
 			install_lib
 			install_utilities
@@ -72,13 +70,10 @@ post-patch:
 		${WRKSRC}/dist/Makefile.in
 
 post-install:
-.for i in ${DBLIBS}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/db18/${i}-${BDBVER}.so
-	${LN} -s -f db18/${i}-${BDBVER}.so ${STAGEDIR}${PREFIX}/lib
-	${LN} -s -f ${i}-${BDBVER}.a ${STAGEDIR}${PREFIX}/lib/db18/${i}.a
-.endfor
-	cd ${STAGEDIR}${PREFIX}/bin/db18; \
-	for i in *; do ${LN} -s -f db18/$$i ../$$i-${BDBVER} ; done
+	# remove duplicate static libraries
+	${RM} ${STAGEDIR}${PREFIX}/db18/lib/lib*-${BDBVER}.a
+	# strip libraries
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/db18/lib/lib*.so
 	# remove java
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}/java
 .for i in gsg gsg_db_rep gsg_txn
@@ -86,13 +81,9 @@ post-install:
 .endfor
 
 post-install-TCL-ON:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/db18/libdb_tcl-${BDBVER}.so
-	${LN} -s -f db18/libdb_tcl-${BDBVER}.so ${STAGEDIR}${PREFIX}/lib
-	${LN} -s -f libdb_tcl-${BDBVER}.a \
-		${STAGEDIR}${PREFIX}/lib/db18/libdb_tcl.a
 	echo "package ifneeded Db_tcl ${BDBVER} \
 	      [list load [file join $$dir libdb_tcl-${BDBVER}.so]] \
-	     " > ${STAGEDIR}${PREFIX}/lib/db18/pkgIndex.tcl
+	     " > ${STAGEDIR}${PREFIX}/db18/lib/pkgIndex.tcl
 
 post-install-TCL-OFF:
 .for i in api_reference/TCL
