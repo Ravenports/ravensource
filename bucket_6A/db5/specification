@@ -55,6 +55,7 @@ PLIST_SUB=		BDBMAJ=${BDBMAJ}
 			BDBVER=${BDBVER}
 MAKE_ARGS=		docdir={{STD_DOCDIR}}
 CFLAGS=			-fPIC
+LDFLAGS=		-Wl,-rpath,{{PREFIX}}/db5/lib
 
 VAR_ARCH[aarch64]=	CONFIGURE_ARGS=--enable-posixmutexes
 			CONFIGURE_ARGS=--with-mutex=POSIX/pthreads
