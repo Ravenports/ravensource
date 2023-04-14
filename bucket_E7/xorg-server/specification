@@ -27,7 +27,10 @@ OPTIONS_STANDARD=	XORG DEVD
 VOPTS[virtual]=		XORG=OFF VIRTUAL=ON XEPHYR=OFF NEST=OFF DEVD=OFF
 VOPTS[xephyr]=		XORG=OFF VIRTUAL=OFF XEPHYR=ON NEST=OFF DEVD=OFF
 VOPTS[nest]=		XORG=OFF VIRTUAL=OFF XEPHYR=OFF NEST=ON DEVD=OFF
-OPT_ON[all]=		XORG DEVD
+OPT_ON[all]=		XORG
+# DEVD turned off for now, /dev/input/* not working on BSDs
+# Perhaps it can be turned on for Linux only for now
+# OPT_ON[all]=		XORG DEVD
 
 LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
