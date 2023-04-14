@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	21.1.8
 
 NAMEBASE=		xorg-server
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		x11_servers
 VARIANTS=		standard virtual xephyr nest
 SDESC[standard]=	X.Org X server and related programs
@@ -22,12 +22,12 @@ SPKGS[virtual]=		complete primary man
 SPKGS[nest]=		complete primary man
 SPKGS[xephyr]=		complete primary man
 
-OPTIONS_AVAILABLE=	XORG VIRTUAL XEPHYR NEST DEVD SUID
-OPTIONS_STANDARD=	XORG DEVD SUID
-VOPTS[virtual]=		XORG=OFF VIRTUAL=ON XEPHYR=OFF NEST=OFF DEVD=OFF SUID=OFF
-VOPTS[xephyr]=		XORG=OFF VIRTUAL=OFF XEPHYR=ON NEST=OFF DEVD=OFF SUID=OFF
-VOPTS[nest]=		XORG=OFF VIRTUAL=OFF XEPHYR=OFF NEST=ON DEVD=OFF SUID=OFF
-OPT_ON[all]=		XORG DEVD SUID
+OPTIONS_AVAILABLE=	XORG VIRTUAL XEPHYR NEST DEVD
+OPTIONS_STANDARD=	XORG DEVD
+VOPTS[virtual]=		XORG=OFF VIRTUAL=ON XEPHYR=OFF NEST=OFF DEVD=OFF
+VOPTS[xephyr]=		XORG=OFF VIRTUAL=OFF XEPHYR=ON NEST=OFF DEVD=OFF
+VOPTS[nest]=		XORG=OFF VIRTUAL=OFF XEPHYR=OFF NEST=ON DEVD=OFF
+OPT_ON[all]=		XORG DEVD
 
 LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
@@ -71,7 +71,6 @@ VAR_OPSYS[netbsd]=	CPPFLAGS=-D_OPENBSD_SOURCE
 [XEPHYR].DESCRIPTION=			Build as kdrive-base X server
 [NEST].DESCRIPTION=			Build as nesting X server
 [DEVD].DESCRIPTION=			Use devd for autoconfiguration of input devices
-[SUID].DESCRIPTION=			Install the Xorg server with setuid bit set
 
 [XORG].BUILD_DEPENDS_ON=		xmlto:single:standard
 					xorg-sgml-doctools:single:standard
@@ -110,6 +109,7 @@ VAR_OPSYS[netbsd]=	CPPFLAGS=-D_OPENBSD_SOURCE
 					-Ddevel-docs=true
 					-Dxorg=true
 					-Dlog_dir=/var/log
+					-Dsuid_wrapper=true
 [XORG].CONFIGURE_ARGS_OFF=		-Ddocs=false
 					-Ddevel-docs=false
 					-Dxorg=false
@@ -119,13 +119,15 @@ VAR_OPSYS[netbsd]=	CPPFLAGS=-D_OPENBSD_SOURCE
 					xcb-util-wm xcb-util-keysyms xcb-render-util
 [XORG].XORG_COMPONENTS_ON=		pciaccess xfont2
 
-[SUID].CONFIGURE_ARGS_ON=		-Dsuid_wrapper=true
 [DEVD].BUILDRUN_DEPENDS_ON=		libudev-devd:single:standard
 [DEVD].CONFIGURE_ARGS_ON=		-Dudev=true
 [DEVD].CONFIGURE_ARGS_OFF=		-Dudev=false
 
 post-install-XORG-ON:
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/X11/xorg.conf.d
+	${INSTALL_DATA} ${FILESDIR}/20-evdev-kbd.conf \
+		${STAGEDIR}${PREFIX}/share/X11/xorg.conf.d
 
 post-install-XORG-OFF:
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/xorg

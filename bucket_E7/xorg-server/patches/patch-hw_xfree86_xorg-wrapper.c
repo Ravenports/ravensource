@@ -1,3 +1,6 @@
+* Skip the detection of root rights requirement, the assumption that presence
+* of KMS drivers removes the root requirement is only valid for Linux
+
 --- hw/xfree86/xorg-wrapper.c.orig	2023-03-29 12:55:03 UTC
 +++ hw/xfree86/xorg-wrapper.c
 @@ -39,7 +39,7 @@
@@ -18,19 +21,21 @@
      int idx;
  
      if (ioctl(fd, VT_GETINDEX, &idx) != -1)
-@@ -230,6 +230,7 @@ int main(int argc, char *argv[])
+@@ -191,7 +191,7 @@ static int on_console(int fd)
+ 
+ int main(int argc, char *argv[])
+ {
+-#ifdef WITH_LIBDRM
++#if defined(WITH_LIBDRM) && defined(__linux__)
+     struct drm_mode_card_res res;
+ #endif
+     char buf[PATH_MAX];
+@@ -230,7 +230,7 @@ int main(int argc, char *argv[])
          }
      }
  
-+#if !defined(__DragonFly__)
- #ifdef WITH_LIBDRM
+-#ifdef WITH_LIBDRM
++#if defined(WITH_LIBDRM) && defined(__linux__)
      /* Detect if we need root rights, except when overridden by the config */
      if (needs_root_rights == -1) {
-@@ -250,6 +251,7 @@ int main(int argc, char *argv[])
-         }
-     }
- #endif
-+#endif
- 
-     /* If we've found cards, and all cards support kms, drop root rights */
-     if (needs_root_rights == 0 || (total_cards && kms_cards == total_cards)) {
+         for (i = 0; i < 16; i++) {
