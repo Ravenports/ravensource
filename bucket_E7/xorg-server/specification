@@ -60,6 +60,8 @@ MESON_ARGS=		-Dxkb_dir="{{LOCALBASE}}/share/X11/xkb"
 			-Dsystemd_logind=false
 			-Dxselinux=false
 			-Dfallback_input_driver=libinput
+			-Dxkb_dir={{LOCALBASE}}/share/X11/xkb
+			-Dxkb_output_dir=/var/lib/xkb
 
 VAR_OPSYS[sunos]=	CFLAGS=-DO_CLOEXEC=0
 # #			For reallocarray:
@@ -126,9 +128,13 @@ VAR_OPSYS[netbsd]=	CPPFLAGS=-D_OPENBSD_SOURCE
 post-install-XORG-ON:
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/X11/xorg.conf.d
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/X11/xorg.conf.d
+	${MKDIR} ${STAGEDIR}${fontpathd}
+	${MKDIR} ${STAGEDIR}/var/lib/xkb
 	${INSTALL_DATA} ${FILESDIR}/20-evdev-kbd.conf \
 		${STAGEDIR}${PREFIX}/share/X11/xorg.conf.d
 
 post-install-XORG-OFF:
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/xorg
 	${RM} ${STAGEDIR}${PREFIX}/share/man/man1/Xserver.1
+	${MKDIR} ${STAGEDIR}/var/lib/xkb
