@@ -34,13 +34,21 @@ fetch_command() {
 			echo "fetch ${url} -o ${local_file}"
 			;;
 		NetBSD)
-			echo "ftp ${url} -o ${local_file}"
+			echo "ftp -o ${local_file} ${url}"
 			;;
 		SunOS)
 			echo "/usr/sfw/bin/wget ${url} -O ${local_file}"
 			;;
-		Darwin|Linux)
+		Darwin)
 			echo "curl ${url} --output ${local_file}"
+			;;
+		Linux)
+			if which curl
+			then
+				echo "curl ${url} --output ${local_file}"
+			else
+				echo "wget ${url} -O ${local_file}"
+			fi
 			;;
 		*)
 			echo "fetch_command: Unrecognized platform"
@@ -208,8 +216,11 @@ check_for_prereqs() {
 	case "$OPSYS" in
 		Linux)
 			if ! which curl; then
-				echo "The download requires the curl program on Linux"
+			    if ! which wget; then
+				echo "The download requires the curl or wget on Linux"
+				echo "Neither program was found."
 				exit 1
+			    fi
 			fi
 			;;
 		*) ;;
