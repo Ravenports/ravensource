@@ -65,6 +65,11 @@ MAKE_ARGS=		docdir={{STD_DOCDIR}}
 [TCL].CONFIGURE_ARGS_ON=		--with-tcl={{TCL_LIBDIR}}
 [TCL].CONFIGURE_ARGS_OFF=		--disable-tcl
 
+post-extract:
+	# This port actually has a gnu autotools
+	${CP} ${MK_TEMPLATES}/config.guess ${WRKSRC}/dist/config.guess
+	${CP} ${MK_TEMPLATES}/config.sub ${WRKSRC}/dist/config.sub
+
 post-patch:
 	${REINPLACE_CMD} -e 's/bdb-sql//; s/gsg_db_server//' \
 		${WRKSRC}/dist/Makefile.in

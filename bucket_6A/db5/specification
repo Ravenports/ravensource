@@ -68,6 +68,17 @@ VAR_OPSYS[darwin]=	CONFIGURE_ARGS=lt_cv_apple_cc_single_mod=yes
 [TCL].CONFIGURE_ARGS_ON=		--with-tcl={{TCL_LIBDIR}}
 [TCL].CONFIGURE_ARGS_OFF=		--disable-tcl
 
+post-extract:
+	# This port actually has a gnu autotools
+	${CP} ${MK_TEMPLATES}/config.guess ${WRKSRC}/dist/config.guess
+	${CP} ${MK_TEMPLATES}/config.guess ${WRKSRC}/lang/sql/jdbc/config.guess
+	${CP} ${MK_TEMPLATES}/config.guess ${WRKSRC}/lang/sql/sqlite/config.guess
+	${CP} ${MK_TEMPLATES}/config.guess ${WRKSRC}/lang/sql/odbc/config.guess
+	${CP} ${MK_TEMPLATES}/config.sub ${WRKSRC}/dist/config.sub
+	${CP} ${MK_TEMPLATES}/config.sub ${WRKSRC}/lang/sql/jdbc/config.sub
+	${CP} ${MK_TEMPLATES}/config.sub ${WRKSRC}/lang/sql/sqlite/config.sub
+	${CP} ${MK_TEMPLATES}/config.sub ${WRKSRC}/lang/sql/odbc/config.sub
+
 post-patch:
 	${REINPLACE_CMD} -e '/^DOCLIST/{s/csharp//;}' \
 		${WRKSRC}/dist/Makefile.in
