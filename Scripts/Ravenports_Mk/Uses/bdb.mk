@@ -39,7 +39,7 @@ BDB_LIB_CXX_NAME=	db_cxx
 BDB_LIB_DIR=		${LOCALBASE}/db${BDB_VER}/lib
 BDB_INCLUDE_DIR=	${LOCALBASE}/db${BDB_VER}/include
 
-LDFLAGS+=		-L${BDB_LIB_DIR} -Wl,-rpath,${BDB_LIB_DIR} -lpthread
+LDFLAGS+=		-L${BDB_LIB_DIR} -lpthread
 CPPFLAGS+=		-I${BDB_INCLUDE_DIR}
 CFLAGS+=		-I${BDB_INCLUDE_DIR}
 
