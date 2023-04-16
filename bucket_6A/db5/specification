@@ -55,7 +55,6 @@ PLIST_SUB=		BDBMAJ=${BDBMAJ}
 			BDBVER=${BDBVER}
 MAKE_ARGS=		docdir={{STD_DOCDIR}}
 CFLAGS=			-fPIC
-LDFLAGS=		-Wl,-rpath,{{PREFIX}}/db5/lib
 
 VAR_ARCH[aarch64]=	CONFIGURE_ARGS=--enable-posixmutexes
 			CONFIGURE_ARGS=--with-mutex=POSIX/pthreads
@@ -87,6 +86,11 @@ post-install:
 	${RM} ${STAGEDIR}${PREFIX}/db5/lib/lib*-${BDBVER}.a
 	# strip libraries
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/db5/lib/lib*.so
+	# Avoid need for a specific rpath
+	${LN} -s ../db5/lib/libdb-${BDBVER}.so.0 ${STAGEDIR}${PREFIX}/lib/libdb-${BDBVER}.so.0
+	${LN} -s ../db5/lib/libdb_cxx-${BDBVER}.so.0 ${STAGEDIR}${PREFIX}/lib/libdb_cxx-${BDBVER}.so.0
+	${LN} -s ../db5/lib/libdb_sql-${BDBVER}.so.0 ${STAGEDIR}${PREFIX}/lib/libdb_sql-${BDBVER}.so.0
+	${LN} -s ../db5/lib/libdb_stl-${BDBVER}.so.0 ${STAGEDIR}${PREFIX}/lib/libdb_stl-${BDBVER}.so.0
 	# remove java
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}/java
 .for i in gsg gsg_db_rep gsg_txn
@@ -94,6 +98,7 @@ post-install:
 .endfor
 
 post-install-TCL-ON:
+	${LN} -s db5/libdb_tcl-${BDBVER}.so ${STAGEDIR}${PREFIX}/lib/libdb_tcl-${BDBVER}.so
 	echo "package ifneeded Db_tcl ${BDBVER} \
 	      [list load [file join $$dir libdb_tcl-${BDBVER}.so]] \
 	     " > ${STAGEDIR}${PREFIX}/db5/lib/pkgIndex.tcl
