@@ -74,6 +74,10 @@ post-install:
 	${RM} ${STAGEDIR}${PREFIX}/db18/lib/lib*-${BDBVER}.a
 	# strip libraries
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/db18/lib/lib*.so
+	# Avoid need for a specific rpath
+	${LN} -s ../db18/lib/libdb-${BDBVER}.so ${STAGEDIR}${PREFIX}/lib/libdb-${BDBVER}.so
+	${LN} -s ../db18/lib/libdb_cxx-${BDBVER}.so ${STAGEDIR}${PREFIX}/lib/libdb_cxx-${BDBVER}.so
+	${LN} -s ../db18/lib/libdb_stl-${BDBVER}.so ${STAGEDIR}${PREFIX}/lib/libdb_stl-${BDBVER}.so
 	# remove java
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}/java
 .for i in gsg gsg_db_rep gsg_txn
@@ -81,6 +85,7 @@ post-install:
 .endfor
 
 post-install-TCL-ON:
+	${LN} -s db18/libdb_tcl-${BDBVER}.so ${STAGEDIR}${PREFIX}/lib/libdb_tcl-${BDBVER}.so
 	echo "package ifneeded Db_tcl ${BDBVER} \
 	      [list load [file join $$dir libdb_tcl-${BDBVER}.so]] \
 	     " > ${STAGEDIR}${PREFIX}/db18/lib/pkgIndex.tcl
