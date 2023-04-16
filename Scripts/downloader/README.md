@@ -3,6 +3,7 @@
 This script is used to install a functional ravensw on supported
 platforms quickly.
 
+```
 ============
 FreeBSD
 DragonFly
@@ -29,3 +30,5 @@ Linux
 user> curl http://www.ravenports.com/repository/ravenports-downloader.sh | sudo /bin/bash
       - or -
 user> wget http://www.ravenports.com/repository/ravenports-downloader.sh -O - | sudo /bin/bash
+
+```
