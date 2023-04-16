@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	4.8.30
+DEF[BDBVER]=		${PORTVERSION:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		db4
@@ -39,5 +40,8 @@ DISTNAME=		db-${PORTVERSION}
 
 post-install:
 	# remove duplicate static libraries
-	${RM} ${STAGEDIR}${PREFIX}/db4/lib/libdb-4.8.a
-	${RM} ${STAGEDIR}${PREFIX}/db4/lib/libdb_cxx-4.8.a
+	${RM} ${STAGEDIR}${PREFIX}/db4/lib/libdb-${BDBVER}.a
+	${RM} ${STAGEDIR}${PREFIX}/db4/lib/libdb_cxx-${BDBVER}.a
+	# Avoid need for a specific rpath
+	${LN} -s ../db4/lib/libdb-${BDBVER}.so ${STAGEDIR}${PREFIX}/lib/libdb-${BDBVER}.so
+	${LN} -s ../db4/lib/libdb_cxx-${BDBVER}.so ${STAGEDIR}${PREFIX}/lib/libdb_cxx-${BDBVER}.so
