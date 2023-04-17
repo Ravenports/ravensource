@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	1.21.1
+DEF[PORTVERSION]=	1.22.0
 # known to re-roll distfiles
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mupdf
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Lightweight PDF and XPS viewer
@@ -16,7 +15,7 @@ SITES[main]=		https://mupdf.com/downloads/archive/
 			https://mupdf.com/downloads/
 DISTFILE[1]=		mupdf-${PORTVERSION}-source.tar.gz:main
 
-SPKGS[standard]=	complete primary docs examples
+SPKGS[standard]=	complete primary tools dev man docs examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -34,6 +33,8 @@ BUILDRUN_DEPENDS=	harfbuzz:primary:standard
 			jbig2dec:single:standard
 			freeglut:primary:standard
 			gumbo:single:standard
+
+EXRUN[tools]=		mupdf:primary:standard
 
 # requires libjpeg, jpeg-turbo (USES=jpeg) will not work
 USES=			cpe gmake pkgconfig zlib:build curl freetype
