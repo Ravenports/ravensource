@@ -7,7 +7,7 @@
 # will set the ABI to the latest package set available.
 #
 # shellcheck disable=SC3043
-# Last-Modified: 14 APR 2023
+# Last-Modified: 17 APR 2023
 
 OPSYS=$(uname -s)
 if [ "$OPSYS" = "SunOS" ]; then
@@ -217,7 +217,7 @@ check_for_prereqs() {
 		Linux)
 			if ! which curl; then
 			    if ! which wget; then
-				echo "The download requires the curl or wget on Linux"
+				echo "The download requires curl or wget on Linux"
 				echo "Neither program was found."
 				exit 1
 			    fi
