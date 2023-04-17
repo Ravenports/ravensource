@@ -10,6 +10,15 @@
  
  with_freedreno_kgsl = get_option('freedreno-kgsl')
  if with_freedreno_kgsl
+@@ -1188,7 +1189,7 @@ else
+   endif
+ 
+   # FreeBSD annotated <pthread.h> but Mesa isn't ready
+-  if not (cc.get_id() == 'clang' and host_machine.system() == 'freebsd')
++  if not (cc.get_id() == 'clang' and ['freebsd', 'midnightbsd'].contains(host_machine.system()))
+     _trial_c += ['-Werror=thread-safety']
+   endif
+ 
 @@ -1434,34 +1435,34 @@ foreach f, prefix: functions_to_detect
  endforeach
  
