@@ -1,0 +1,49 @@
+DEF[PORTVERSION]=	1.6.57
+DEF[SOVERSION]=		0.0.57
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		fox
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_toolkits
+VARIANTS=		standard
+SDESC[standard]=	Fast, frugal and portable C++ GUI toolkit
+HOMEPAGE=		http://fox-toolkit.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://fox-toolkit.org/ftp/
+DISTFILE[1]=		fox-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary dev docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+			CUSTOM1:primary
+LICENSE_NAME=		CUSTOM1:"Fox Relinking Exemption"
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/LICENSE
+			CUSTOM1:{{WRKSRC}}/LICENSE_ADDENDUM
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/fxpriv.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		dual
+
+FPC_EQUIVALENT=		x11-toolkits/fox16
+
+USES=			freetype jpeg libtool mbsdfix pkgconfig png tiff zlib
+XORG_COMPONENTS=	x11 xft xrender xext xcursor xrandr xfixes xi
+
+BUILD_DEPENDS=		bzip2:dev:standard
+BUILDRUN_DEPENDS=	bzip2:primary:standard
+			libGLU:single:standard
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-release
+CPPFLAGS=		-I{{PREFIX}}/include/freetype2
+
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD}	${STAGEDIR}${PREFIX}/lib/*.so
