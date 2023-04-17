@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	1.2.1
-DEF[SOVERSION]=		12.0.0
+DEF[PORTVERSION]=	1.3.0
+DEF[SOVERSION]=		13.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libfm-qt
@@ -14,16 +14,16 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/lxqt/libfm-qt/releases/download/${PORTVERSION}/
 DISTFILE[1]=		libfm-qt-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev lang
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		x11/libfm-qt
 
-LICENSE=		LGPL21+:single
+LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/LICENSE
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/libfmqt.h
 LICENSE_SCHEME=		solo
@@ -35,7 +35,7 @@ BUILDRUN_DEPENDS=	menu-cache:single:standard
 			qt5-qtbase:primary:standard
 			qt5-qtx11extras:single:standard
 
-USES=			cmake pkgconfig mime-info:single perl:build
+USES=			cmake pkgconfig mime-info:primary perl:build
 XORG_COMPONENTS=	x11 xcb
 GNOME_COMPONENTS=	glib
 SOVERSION=		${SOVERSION}
