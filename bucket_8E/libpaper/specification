@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.0.10
+DEF[PORTVERSION]=	2.1.0
 DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/rrthomas/libpaper/releases/download/v${PORTVERSION}/
 DISTFILE[1]=		libpaper-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev man
+SPKGS[standard]=	complete primary tools dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,6 +27,8 @@ LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		help2man:single:standard
+
+EXRUN[tools]=		libpaper:primary:standard
 
 USES=			autoreconf libtool gmake
 DISTNAME=		libpaper-${PORTVERSION}
