@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	2.19.3
-DEF[SOVERSION]=		19.19.3
+DEF[PORTVERSION]=	3.0.0
+DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		botan
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Crypto library written in C++
@@ -15,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/randombit:botan:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary tools dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -34,7 +33,7 @@ USES=			cpe gmake shebangfix zlib bz2 xz sqlite python
 CPE_VENDOR=		botan_project
 CPE_PRODUCT=		botan
 SHEBANG_FILES=		configure.py
-			src/python/botan2.py
+			src/python/botan3.py
 			src/scripts/install.py
 MUST_CONFIGURE=		yes
 CONFIGURE_SCRIPT=	configure.py
@@ -57,4 +56,4 @@ post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/doc/botan-${PORTVERSION} \
 		${STAGEDIR}${STD_DOCDIR}
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/botan
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libbotan-2.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libbotan-3.so
