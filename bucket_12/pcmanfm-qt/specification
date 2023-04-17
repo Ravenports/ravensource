@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.2.1
+DEF[PORTVERSION]=	1.3.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		pcmanfm-qt
@@ -13,30 +13,33 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/lxqt/pcmanfm-qt/releases/download/${PORTVERSION}/
 DISTFILE[1]=		pcmanfm-qt-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary lang man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		x11-fm/pcmanfm-qt
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/LICENSE
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^\#include"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/pcmanfm/application.cpp
 LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		qt5-qttools:single:standard
 			lxqt-build-tools:single:standard
-BUILDRUN_DEPENDS=	libfm-qt:single:standard
+			libfm-qt:dev:standard
+BUILDRUN_DEPENDS=	libfm-qt:primary:standard
 			menu-cache:single:standard
 			libexif:primary:standard
 			qt5-qtbase:primary:standard
 			qt5-qtx11extras:single:standard
 
-USES=			cmake desktop-utils:single pkgconfig
-			c++:single perl:build
+EXRUN[lang]=		libfm-qt:lang:standard
+
+USES=			cmake desktop-utils:primary pkgconfig
+			c++:primary perl:build
 XORG_COMPONENTS=	x11 xcb
 GNOME_COMPONENTS=	glib
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
