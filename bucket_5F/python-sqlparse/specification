@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.4.3
+DEF[PORTVERSION]=	0.4.4
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-sqlparse
@@ -7,11 +7,11 @@ KEYWORDS=		python
 VARIANTS=		py310 v11
 SDESC[py310]=		Non-validating SQL parser (3.10)
 SDESC[v11]=		Non-validating SQL parser (3.11)
-HOMEPAGE=		https://github.com/andialbrecht/sqlparse
+HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/97/d3/31dd2c3e48fc2060819f4acb0686248250a0f2326356306b38a42e059144
+SITES[main]=		PYPIWHL/98/5a/66d7c9305baa9f11857f247d4ba761402cea75db6058ff850ed7128957b7
 DISTFILE[1]=		sqlparse-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -23,13 +23,17 @@ VOPTS[py310]=		PY310=ON PY311=OFF
 VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
-# BSD-3-Clause
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		sqlparse-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-
+# flake8 ; extra == "dev"
+# build ; extra == "dev"
+# sphinx ; extra == "doc"
+# pytest ; extra == "test"
+# pytest-cov ; extra == "test"
 
 [PY310].USES_ON=			python:py310,wheel
 [PY311].USES_ON=			python:v11,wheel

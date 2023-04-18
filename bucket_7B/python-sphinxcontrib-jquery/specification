@@ -1,18 +1,18 @@
-DEF[PORTVERSION]=	1.0.4
+DEF[PORTVERSION]=	4.1
 # ------------------------------------------------------------------------
 
-NAMEBASE=		python-sphinxcontrib.applehelp
+NAMEBASE=		python-sphinxcontrib-jquery
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		py310 v11
-SDESC[py310]=		Sphinx extension: apple help books (3.10)
-SDESC[v11]=		Sphinx extension: apple help books (3.11)
+SDESC[py310]=		Use jQuery for newer Sphinx releases (3.10)
+SDESC[v11]=		Use jQuery for newer Sphinx releases (3.11)
 HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/06/c1/5e2cafbd03105ce50d8500f9b4e8a6e8d02e22d0475b574c3b3e9451a15f
-DISTFILE[1]=		sphinxcontrib_applehelp-${PORTVERSION}-py3-none-any.whl:main
+SITES[main]=		PYPIWHL/76/85/749bd22d1a68db7291c89e2ebca53f4306c3f205853cf31e9de279034c3c
+DISTFILE[1]=		sphinxcontrib_jquery-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py310]=		single
 SPKGS[v11]=		single
@@ -23,17 +23,16 @@ VOPTS[py310]=		PY310=ON PY311=OFF
 VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
-# BSD-2-Clause
+# Not provided.
 
 GENERATED=		yes
-DISTNAME=		sphinxcontrib_applehelp-${PORTVERSION}.dist-info
+DISTNAME=		sphinxcontrib_jquery-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# flake8 ; extra == 'lint'
-# mypy ; extra == 'lint'
-# docutils-stubs ; extra == 'lint'
-# pytest ; extra == 'test'
+# Sphinx>=1.8
 
 [PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-Sphinx:single:py310
 [PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-Sphinx:single:v11
 
