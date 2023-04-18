@@ -2,7 +2,7 @@ $NetBSD: patch-rapid_plugin_group__replication_libmysqlgcs_src_bindings_xcom_xco
 
 Workaround netbsd prototype of xdrproc_t being 2 arguments.
 
---- rapid/plugin/group_replication/libmysqlgcs/src/bindings/xcom/xcom/xcom_transport.c.orig	2022-12-07 18:10:52 UTC
+--- rapid/plugin/group_replication/libmysqlgcs/src/bindings/xcom/xcom/xcom_transport.c.orig	2023-03-16 15:25:04 UTC
 +++ rapid/plugin/group_replication/libmysqlgcs/src/bindings/xcom/xcom/xcom_transport.c
 @@ -360,7 +360,11 @@ int apply_xdr(xcom_proto x_proto, gpoint
  	*/

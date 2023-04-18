@@ -1,4 +1,4 @@
---- rapid/plugin/x/mysqlx_configure.cmake.orig	2022-12-07 18:10:52 UTC
+--- rapid/plugin/x/mysqlx_configure.cmake.orig	2023-03-16 15:25:04 UTC
 +++ rapid/plugin/x/mysqlx_configure.cmake
 @@ -42,6 +42,7 @@ CONFIGURE_FILE(${MYSQLX_PROJECT_DIR}/src
  CONFIGURE_FILE(${MYSQLX_PROJECT_DIR}/src/mysqlx_version.h.in
