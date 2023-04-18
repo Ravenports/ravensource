@@ -1,6 +1,6 @@
 DEF[BASEVERSION]=	4.2.0
-# DEF[PORTVERSION]=	${BASEVERSION}p1
-DEF[PORTVERSION]=	${BASEVERSION}
+DEF[PORTVERSION]=	${BASEVERSION}p4
+# DEF[PORTVERSION]=	${BASEVERSION}
 DEF[SOVERSION]=		6.2.0
 # ----------------------------------------------------------------------------
 
@@ -15,8 +15,10 @@ CONTACT=		nobody
 DOWNLOAD_GROUPS=	main patches
 SITES[main]=		https://www.mpfr.org/mpfr-${BASEVERSION}/
 DISTFILE[1]=		mpfr-${BASEVERSION}.tar.xz:main
-# DISTFILE[2]=		patch01:main
-# DISTFILE[3]=		patch02:main
+DISTFILE[2]=		patch01:main
+DISTFILE[3]=		patch02:main
+DISTFILE[4]=		patch03:main
+DISTFILE[5]=		patch04:main
 DIST_SUBDIR=		mpfr-${BASEVERSION}
 DF_INDEX=		1
 
@@ -34,8 +36,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		math/mpfr
 
-# PATCHFILES=		2
-# PATCHFILES_STRIP=	-p1
+PATCHFILES=		2 3 4 5
+PATCHFILES_STRIP=	-p1
 
 BUILD_DEPENDS=		gmp:complete:standard
 EXRUN[shared]=		gmp:shared:standard
