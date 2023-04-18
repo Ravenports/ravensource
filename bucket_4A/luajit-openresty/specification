@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.1-20230119
+DEF[PORTVERSION]=	2.1-20230410
 DEF[TAG]=		v${PORTVERSION}
 DEF[SOVERSION]=		2.1.0
 DEF[LUAJIT_VERSION]=	2.1.0-beta3
@@ -18,18 +18,20 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/openresty:luajit2:${TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		lang/luajit-openresty
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYRIGHT
 LICENSE_SCHEME=		solo
 
-USES=			cpe gmake cclibs:single
+EXRUN[tools]=		luajit-openresty:primary:standard
+
+USES=			cpe gmake cclibs:primary
 CPE_VENDOR=		luajit
 CPE_PRODUCT=		luajit
 MAKE_ARGS=		CC={{CC}} Q=
