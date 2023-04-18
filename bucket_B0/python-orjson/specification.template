@@ -34,7 +34,7 @@ VOPTS[v11]=		PY310=OFF PY311=ON
 GENERATED=		yes
 DISTNAME=		orjson-${PORTVERSION}
 
-USES=			cargo
+USES=			cargo cclibs:single
 CARGO_CARGOTOML=	{{WRKSRC}}/Cargo.toml
 CARGO_CARGOLOCK=	{{WRKSRC}}/Cargo.lock
 CARGO_SKIP_CONFIGURE=	yes
@@ -65,6 +65,13 @@ do-build:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} maturin build \
 		--release \
 		--interpreter ${PYTHON_CMD})
+
+pre-install-midnightbsd:
+	# Due to rust limitations, maturin must set target OS as freebsd, but
+	# pip doesn't recognize that as a legal combination.  Rename to complete build.
+	(cd ${INSTALL_WRKSRC}/target/wheels/ && ${MV}\
+	orjson-${PORTVERSION}-cp${PYTHON_SUFFIX}-cp${PYTHON_SUFFIX}-freebsd_*.whl\
+	orjson-${PORTVERSION}-cp${PYTHON_SUFFIX}-cp${PYTHON_SUFFIX}-midnightbsd_3_0_0_amd64.whl)
 
 pre-install-linux:
 	# for some reason compatibility ends at -manylinux_2_23_x86_64
