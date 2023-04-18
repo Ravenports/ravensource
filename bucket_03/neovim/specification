@@ -29,18 +29,19 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		editors/neovim
 
+BUILD_DEPENDS=		gperf:primary:standard
+			lua-lpeg:single:${LUA_VARIANT}
+			lua-bitop:single:${LUA_VARIANT}
+			lua-mpack:single:${LUA_VARIANT}
+			msgpack:dev:standard
+			luajit-openresty:dev:standard
 BUILDRUN_DEPENDS=	msgpack:primary:standard
 			libtermkey:single:standard
 			libvterm:single:standard
 			libuv:single:standard
 			libluv:single:standard
 			tree-sitter:single:standard
-			luajit-openresty:single:standard
-BUILD_DEPENDS=		gperf:primary:standard
-			lua-lpeg:single:${LUA_VARIANT}
-			lua-bitop:single:${LUA_VARIANT}
-			lua-mpack:single:${LUA_VARIANT}
-			msgpack:dev:standard
+			luajit-openresty:primary:standard
 
 USES=			cmake gmake libtool pkgconfig lua:${SPEC_LUA},build
 			gettext desktop-utils:primary
