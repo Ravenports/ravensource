@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	5.6.1
-DEF[IRRLICHT_VER]=	1.9.0mt8
+DEF[PORTVERSION]=	5.7.0
+DEF[IRRLICHT_VER]=	1.9.0mt10
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		minetest
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		games
 VARIANTS=		standard
 SDESC[standard]=	Infinite-world block sandbox game
@@ -20,7 +19,7 @@ DISTFILE[2]=		generated:game
 DISTFILE[3]=		generated:light
 DF_INDEX=		1 2 3
 
-SPKGS[standard]=	complete client server data docs nls
+SPKGS[standard]=	complete client server data man docs nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -70,5 +69,7 @@ CMAKE_ARGS=		-DBUILD_SERVER=TRUE
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/minetest*
-	${MV} ${WRKDIR}/minetest_game-${PORTVERSION} \
-		${STAGEDIR}${PREFIX}/share/minetest/games/minetest
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/minetest/games/minetest
+	(cd ${WRKDIR}/minetest_game-${PORTVERSION} && \
+		${COPYTREE_SHARE} "game.conf menu mods" \
+		${STAGEDIR}${PREFIX}/share/minetest/games/minetest)

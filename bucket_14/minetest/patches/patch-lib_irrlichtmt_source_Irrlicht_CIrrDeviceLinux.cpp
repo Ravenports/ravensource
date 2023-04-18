@@ -1,6 +1,6 @@
---- lib/irrlichtmt/source/Irrlicht/CIrrDeviceLinux.cpp.orig	2022-05-22 18:05:36 UTC
+--- lib/irrlichtmt/source/Irrlicht/CIrrDeviceLinux.cpp.orig	2023-04-18 01:34:38 UTC
 +++ lib/irrlichtmt/source/Irrlicht/CIrrDeviceLinux.cpp
-@@ -715,7 +715,7 @@ EKEY_CODE CIrrDeviceLinux::getKeyCode(XE
+@@ -686,7 +686,7 @@ EKEY_CODE CIrrDeviceLinux::getKeyCode(XE
  	}
  	if (keyCode == 0)
  	{
