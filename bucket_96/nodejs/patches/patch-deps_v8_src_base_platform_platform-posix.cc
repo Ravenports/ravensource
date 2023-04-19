@@ -1,4 +1,4 @@
---- deps/v8/src/base/platform/platform-posix.cc.orig	2023-04-10 19:58:51 UTC
+--- deps/v8/src/base/platform/platform-posix.cc.orig	2023-04-17 21:15:54 UTC
 +++ deps/v8/src/base/platform/platform-posix.cc
 @@ -54,7 +54,9 @@
  #include <mach/mach.h>
@@ -52,22 +52,24 @@
    return reinterpret_cast<void*>(raw_addr);
  }
  
-@@ -552,12 +554,10 @@ bool OS::DiscardSystemPages(void* addres
+@@ -553,14 +555,11 @@ bool OS::DiscardSystemPages(void* addres
      // MADV_FREE_REUSABLE sometimes fails, so fall back to MADV_DONTNEED.
      ret = madvise(address, size, MADV_DONTNEED);
    }
 -#elif defined(_AIX) || defined(V8_OS_SOLARIS)
 -  int ret = madvise(reinterpret_cast<caddr_t>(address), size, MADV_FREE);
-+elif defined(POSIX_MADV_DONTNEED)
++#elif defined(POSIX_MADV_DONTNEED)
 +  int ret = posix_madvise(address, size, POSIX_MADV_DONTNEED);
-   if (ret != 0 && errno == ENOSYS)
+   if (ret != 0 && errno == ENOSYS) {
      return true;  // madvise is not available on all systems.
--  if (ret != 0 && errno == EINVAL)
+   }
+-  if (ret != 0 && errno == EINVAL) {
 -    ret = madvise(reinterpret_cast<caddr_t>(address), size, MADV_DONTNEED);
+-  }
  #else
    int ret = madvise(address, size, MADV_DONTNEED);
  #endif
-@@ -1064,7 +1064,11 @@ Thread::Thread(const Options& options)
+@@ -1075,7 +1074,11 @@ Thread::Thread(const Options& options)
      : data_(new PlatformData),
        stack_size_(options.stack_size()),
        start_semaphore_(nullptr) {
@@ -79,7 +81,7 @@
    if (stack_size_ > 0) stack_size_ = std::max(stack_size_, min_stack_size);
    set_name(options.name());
  }
-@@ -1080,7 +1084,7 @@ static void SetThreadName(const char* na
+@@ -1091,7 +1094,7 @@ static void SetThreadName(const char* na
    pthread_set_name_np(pthread_self(), name);
  #elif V8_OS_NETBSD
    static_assert(Thread::kMaxThreadNameLength <= PTHREAD_MAX_NAMELEN_NP);
@@ -88,15 +90,15 @@
  #elif V8_OS_DARWIN
    // pthread_setname_np is only available in 10.6 or later, so test
    // for it at runtime.
-@@ -1228,6 +1232,7 @@ void Thread::SetThreadLocal(LocalStorage
+@@ -1239,6 +1242,7 @@ void Thread::SetThreadLocal(LocalStorage
  // support it. MacOS and FreeBSD are different here.
  #if !defined(V8_OS_FREEBSD) && !defined(V8_OS_DARWIN) && !defined(_AIX) && \
      !defined(V8_OS_SOLARIS)
 +#if !defined(V8_OS_DRAGONFLYBSD)
  
  // static
- Stack::StackSlot Stack::GetStackStart() {
-@@ -1253,6 +1258,7 @@ Stack::StackSlot Stack::GetStackStart()
+ Stack::StackSlot Stack::ObtainCurrentThreadStackStart() {
+@@ -1264,6 +1268,7 @@ Stack::StackSlot Stack::ObtainCurrentThr
  #endif  // !defined(V8_LIBC_GLIBC)
  }
  
