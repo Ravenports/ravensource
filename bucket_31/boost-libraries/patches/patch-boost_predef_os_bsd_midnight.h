@@ -1,4 +1,4 @@
---- boost/predef/os/bsd/midnight.h.orig	2023-03-16 13:57:11 UTC
+--- /dev/null	2023-04-19 04:18:08 UTC
 +++ boost/predef/os/bsd/midnight.h
 @@ -0,0 +1,59 @@
 +/*

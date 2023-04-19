@@ -1,15 +1,13 @@
-$NetBSD: patch-boost_math_tools_promotion.hpp,v 1.1 2021/11/30 16:57:25 adam Exp $
-
 Remove the guard; long double should be allowed as a type, even when
 long double math functions are not present. Allows py-scipy to build.
 
---- boost/math/tools/promotion.hpp.orig	2022-12-08 01:02:44 UTC
+--- boost/math/tools/promotion.hpp.orig	2023-04-10 13:47:36 UTC
 +++ boost/math/tools/promotion.hpp
 @@ -133,12 +133,6 @@ namespace boost
              >::type
           >::type;
  
--#ifdef BOOST_MATH_NO_LONG_DOUBLE_MATH_FUNCTIONS
+-#if defined(BOOST_MATH_NO_LONG_DOUBLE_MATH_FUNCTIONS)
 -         //
 -         // Guard against use of long double if it's not supported:
 -         //

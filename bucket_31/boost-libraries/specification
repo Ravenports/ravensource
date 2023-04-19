@@ -18,14 +18,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://boostorg.jfrog.io/artifactory/main/release/${PORTVERSION}/source/
 DISTFILE[1]=		boost_${BOOSTVER}.tar.bz2:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		devel/boost-all
 
-LICENSE=		CUSTOM1:single
+LICENSE=		CUSTOM1:primary
 LICENSE_NAME=		CUSTOM1:"Boost Software License - Version 1.0"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE_1_0.txt
 LICENSE_SCHEME=		solo
@@ -33,7 +33,7 @@ LICENSE_SCHEME=		solo
 BUILD_DEPENDS=		boost-jam:single:standard
 BUILDRUN_DEPENDS=	icu:single:standard
 
-USES=			cpe iconv c++:single zlib bz2 xz
+USES=			cpe iconv c++:primary zlib bz2 xz
 DISTNAME=		boost_${BOOSTVER}
 BUILD_TARGET=		stage
 MAKE_ARGS=		--layout=system

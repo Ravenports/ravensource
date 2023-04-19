@@ -1,6 +1,6 @@
 $NetBSD: patch-boost_math_special__functions_expm1.hpp,v 1.1 2017/05/29 14:39:29 ryoon Exp $
 
---- boost/math/special_functions/expm1.hpp.orig	2022-12-08 01:02:44 UTC
+--- boost/math/special_functions/expm1.hpp.orig	2023-04-10 13:47:36 UTC
 +++ boost/math/special_functions/expm1.hpp
 @@ -293,7 +293,7 @@ inline typename tools::promote_args<T>::
  #endif
