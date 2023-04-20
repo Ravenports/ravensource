@@ -18,12 +18,12 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/unicode-org/icu/releases/download/release-${FOLDER}/
 DISTFILE[1]=		icu4c-${NAMEDVERSION}-src.tgz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		CUSTOM1:single
+LICENSE=		CUSTOM1:primary
 LICENSE_FILE=		CUSTOM1:{{WRKDIR}}/icu/LICENSE
 LICENSE_NAME=		CUSTOM1:"ICU License"
 LICENSE_SCHEME=		solo
@@ -36,7 +36,7 @@ FPC_EQUIVALENT=		devel/icu
 # Thus it's impossible to implement lx as a subpackage
 # ------------------------------------------------------
 
-USES=			cpe gmake c++:single python:build
+USES=			cpe gmake c++:primary python:build
 CPE_VENDOR=		icu-project
 CPE_PRODUCT=		international_components_for_unicode
 CPE_TARGET_SW=		c\/c\+\+

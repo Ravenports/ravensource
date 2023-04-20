@@ -1,14 +1,5 @@
---- common/putil.cpp.orig	2022-10-19 00:53:21 UTC
+--- common/putil.cpp.orig	2023-04-13 21:41:15 UTC
 +++ common/putil.cpp
-@@ -2004,7 +2004,7 @@ remapPlatformDependentCodepage(const cha
-          */
-         name = "ISO-8859-1";
-     }
--#elif U_PLATFORM_IS_DARWIN_BASED
-+#elif U_PLATFORM_IS_DARWIN_BASED || U_PLATFORM == U_PF_BSD
-     if (locale == NULL && *name == 0) {
-         /*
-         No locale was specified, and an empty name was passed in.
 @@ -2023,11 +2023,6 @@ remapPlatformDependentCodepage(const cha
           */
          name = "UTF-8";
@@ -19,7 +10,7 @@
 -        name = "EUC-KR";
 -    }
  #elif U_PLATFORM == U_PF_HPUX
-     if (locale != NULL && uprv_strcmp(locale, "zh_HK") == 0 && uprv_strcmp(name, "big5") == 0) {
+     if (locale != nullptr && uprv_strcmp(locale, "zh_HK") == 0 && uprv_strcmp(name, "big5") == 0) {
          /* HP decided to extend big5 as hkbig5 even though it's not compatible :-( */
 @@ -2183,7 +2178,7 @@ int_getDefaultCodepage()
         nl_langinfo may use the same buffer as setlocale. */
