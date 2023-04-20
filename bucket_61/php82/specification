@@ -5,6 +5,7 @@ DEF[SOMAJOR]=		${PORTVERSION:R:R}
 
 NAMEBASE=		php${SUFFIX}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		lang www php
 VARIANTS=		standard
 SDESC[standard]=	PHP Hypertext Preprocessor version ${PORTVERSION:R}
@@ -15,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PHP/distributions
 DISTFILE[1]=		php-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man
 
 OPTIONS_AVAILABLE=	CLI CGI FPM EMBED DEBUGGER
 OPTIONS_STANDARD=	CLI CGI FPM EMBED DEBUGGER
@@ -26,7 +27,7 @@ OPT_ON[all]=		CLI CGI FPM EMBED DEBUGGER
 
 FPC_EQUIVALENT=		lang/php${SUFFIX}
 
-LICENSE=		CUSTOM1:single
+LICENSE=		CUSTOM1:primary
 LICENSE_NAME=		CUSTOM1:"PHP License v3.01"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
@@ -37,7 +38,7 @@ USES=			cpe gmake pkgconfig zlib pcre2 mbsdfix
 CPE_PRODUCT=		php
 GNOME_COMPONENTS=	libxml2
 DISTNAME=		php-${PORTVERSION}
-RC_SUBR=		php${SUFFIX}-fpm:single
+RC_SUBR=		php${SUFFIX}-fpm:primary
 MUST_CONFIGURE=		gnu
 DESTDIRNAME=		INSTALL_ROOT
 
