@@ -1,4 +1,4 @@
---- udev-hwdb.c.orig	2021-09-04 13:20:25 UTC
+--- udev-hwdb.c.orig	2023-01-16 23:20:51 UTC
 +++ udev-hwdb.c
 @@ -23,6 +23,7 @@
   * SUCH DAMAGE.
@@ -7,4 +7,4 @@
 +#include "config.h"
  #include "utils.h"
  
- #include <stddef.h>
+ #include <errno.h>

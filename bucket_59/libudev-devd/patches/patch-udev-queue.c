@@ -1,4 +1,4 @@
---- udev-queue.c.orig	2021-09-04 13:20:25 UTC
+--- udev-queue.c.orig	2023-01-16 23:20:51 UTC
 +++ udev-queue.c
 @@ -23,6 +23,7 @@
   * SUCH DAMAGE.
