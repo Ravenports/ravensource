@@ -1,11 +1,10 @@
-DEF[PORTVERSION]=	1.19.0
-DEF[SOVERSION]=		11.28.0
-DEF[CPP_SOVERSION]=	6.16.0
+DEF[PORTVERSION]=	1.20.0
+DEF[SOVERSION]=		11.29.0
+DEF[CPP_SOVERSION]=	6.17.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gpgme
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	GnuPG Made Easy - high level crypto API
@@ -22,7 +21,10 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 LICENSE=		LGPL21+:primary
-LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING.LESSOR
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING.LESSER
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"HAVE_CONFIG_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/version.c
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/gpgme
