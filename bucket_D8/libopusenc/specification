@@ -8,7 +8,7 @@ KEYWORDS=		audio
 VARIANTS=		standard
 SDESC[standard]=	High-level API for encoding .opus files
 HOMEPAGE=		https://www.opus-codec.org/
-CONTACT=		Leonid_Bobrov[goleo@disroot.org]
+CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		MOZILLA/opus
@@ -26,8 +26,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		audio/opus-tools
 
+BUILD_DEPENDS=		opus:dev:standard
+BUILDRUN_DEPENDS=	opus:primary:standard
+
 USES=			gmake libtool pkgconfig mbsdfix
 MUST_CONFIGURE=		gnu
-BUILDRUN_DEPENDS=	opus:single:standard
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
