@@ -15,24 +15,26 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITLAB/orcus:orcus:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MPL:single
+LICENSE=		MPL:primary
 LICENSE_FILE=		MPL:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/liborcus
-
-PLIST_SUB=		VER=${ORCUS_VERSION}
 
 BUILD_DEPENDS=		mdds-1.7:single:standard
 			ixion:dev:libre
 			boost-libraries:dev:standard
 BUILDRUN_DEPENDS=	boost-libraries:primary:standard
 			ixion:primary:libre
+
+EXRUN[tools]=		liborcus17:primary:standard
+
+PLIST_SUB=		VER=${ORCUS_VERSION}
 
 USES=			pkgconfig zlib cmake python:build bz2:build
 INSTALL_REQ_TOOLCHAIN=	yes
