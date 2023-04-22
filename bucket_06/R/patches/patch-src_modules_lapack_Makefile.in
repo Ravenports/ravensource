@@ -1,6 +1,6 @@
---- src/modules/lapack/Makefile.in.orig	2020-07-31 22:15:01 UTC
+--- src/modules/lapack/Makefile.in.orig	2023-03-23 23:02:05 UTC
 +++ src/modules/lapack/Makefile.in
-@@ -87,17 +87,19 @@ $(lapack_la): $(lapack_la_OBJECTS)
+@@ -104,17 +104,19 @@ $(lapack_la): $(lapack_la_OBJECTS)
  ## Include BLAS here, as with (static) ATLAS that pulls all the
  ## BLAS routines into one place.
  $(Rlapack_la): $(LIBOBJECTS)
@@ -22,7 +22,7 @@
  installdirs:
  	@$(MKINSTALLDIRS) "$(DESTDIR)$(Rexecmodulesdir)"
  install-strip-Rlapack:
-@@ -110,6 +112,7 @@ install-strip: @USE_EXTERNAL_LAPACK_FALS
+@@ -127,6 +129,7 @@ install-strip: @USE_EXTERNAL_LAPACK_FALS
  	@if test -n "$(STRIP_SHARED_LIB)"; then \
  	  $(STRIP_SHARED_LIB) "$(DESTDIR)$(Rexecmodulesdir)/$(lapack_la)"; \
  	fi

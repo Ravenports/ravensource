@@ -1,6 +1,6 @@
---- src/extra/blas/Makefile.in.orig	2020-03-26 23:02:26 UTC
+--- src/extra/blas/Makefile.in.orig	2023-03-23 23:02:02 UTC
 +++ src/extra/blas/Makefile.in
-@@ -20,7 +20,7 @@ SOURCES = blas00.c blas.f cmplxblas.f
+@@ -25,7 +25,7 @@ SOURCES = blas00.c blas.f cmplxblas.f bl
  @BUILD_LTO_CHECK_TRUE@Rblas_la = libRblas.a
  ## @RBLAS_LDFLAGS@ is used on macOS
  ## first for internal BLAS
@@ -9,7 +9,7 @@
  ## then external one
  Rblas_la_LIBADD0 = @RBLAS_LDFLAGS@
  
-@@ -45,6 +45,7 @@ Rblas_install: $(Rblas_la)
+@@ -55,6 +55,7 @@ Rblas_install: $(Rblas_la)
  	@$(MKINSTALLDIRS) "$(DESTDIR)$(Rexeclibdir)"
  	@$(SHELL) $(top_srcdir)/tools/copy-if-change $(Rblas_la) \
  	  "$(DESTDIR)$(Rexeclibdir)/$(Rblas_la)"
@@ -17,7 +17,7 @@
  
  Rblas_install-strip: $(Rblas_la)
  	@$(MKINSTALLDIRS) "$(DESTDIR)$(Rexeclibdir)"
-@@ -52,6 +53,7 @@ Rblas_install-strip: $(Rblas_la)
+@@ -62,6 +63,7 @@ Rblas_install-strip: $(Rblas_la)
  	@if test -n "$(STRIP_SHARED_LIB)"; then \
  	  $(STRIP_SHARED_LIB) "$(DESTDIR)$(Rexeclibdir)/$(Rblas_la)" ;\
  	fi

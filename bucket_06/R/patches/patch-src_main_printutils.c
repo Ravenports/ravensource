@@ -1,4 +1,4 @@
---- src/main/printutils.c.orig	2022-03-24 23:02:06 UTC
+--- src/main/printutils.c.orig	2023-03-23 23:02:05 UTC
 +++ src/main/printutils.c
 @@ -740,9 +740,6 @@ const char *EncodeString(SEXP s, int w,
  			*/
