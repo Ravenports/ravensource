@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.20.1
+DEF[PORTVERSION]=	4.21.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-jsonargparse
@@ -7,11 +7,11 @@ KEYWORDS=		python
 VARIANTS=		py310 v11
 SDESC[py310]=		JSON argument and config file parser (3.10)
 SDESC[v11]=		JSON argument and config file parser (3.11)
-HOMEPAGE=		https://github.com/omni-us/jsonargparse
+HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/eb/d7/d51be8ef9cb8c39075092c64e988145d87bf25b8813bcea801809445fd24
+SITES[main]=		PYPIWHL/9b/ae/a809446e1916901bcd2b2d4655a1431ac9c79e99b6192f4ba241dec61c35
 DISTFILE[1]=		jsonargparse-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -23,7 +23,23 @@ VOPTS[py310]=		PY310=ON PY311=OFF
 VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
-# MIT
+# The MIT License (MIT)  Copyright (c) 2019-present, Mauricio Villegas
+# <mauricio@omnius.com>  Permission is hereby granted, free of charge,
+# to any person obtaining a copy of this software and associated
+# documentation files (the "Software"), to deal in the Software without
+# restriction, including without limitation the rights to use, copy,
+# modify, merge, publish, distribute, sublicense, and/or sell copies of
+# the Software, and to permit persons to whom the Software is furnished
+# to do so, subject to the following conditions:  The above copyright
+# notice and this permission notice shall be included in all copies or
+# substantial portions of the Software.  THE SOFTWARE IS PROVIDED "AS
+# IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+# NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+# PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS
+# OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+# ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+# OTHER DEALINGS IN THE SOFTWARE.
 
 GENERATED=		yes
 DISTNAME=		jsonargparse-${PORTVERSION}.dist-info
@@ -32,29 +48,21 @@ DISTNAME=		jsonargparse-${PORTVERSION}.dist-info
 # PyYAML (>=3.13)
 # contextvars (>=2.4) ; python_version == "3.6"
 # dataclasses (>=0.8) ; python_version == "3.6"
-# docstring-parser (>=0.15) ; extra == 'all'
-# typeshed-client (>=2.1.0) ; extra == 'all'
-# jsonschema (>=3.2.0) ; extra == 'all'
-# requests (>=2.18.4) ; extra == 'all'
-# fsspec (>=0.8.4) ; extra == 'all'
-# argcomplete (>=2.0.0) ; extra == 'all'
-# ruyaml (>=0.20.0) ; extra == 'all'
-# omegaconf (>=2.1.1) ; extra == 'all'
-# reconplogger (>=4.4.0) ; extra == 'all'
-# jsonnet-binary (>=0.17.0) ; (os_name != "posix") and extra == 'all'
-# jsonnet (>=0.13.0) ; (os_name == "posix") and extra == 'all'
-# typing-extensions (>=3.10.0.0) ; (python_version < "3.8") and extra == 'all'
+# jsonargparse[signatures] ; extra == 'all'
+# jsonargparse[jsonschema] ; extra == 'all'
+# jsonargparse[jsonnet] ; extra == 'all'
+# jsonargparse[urls] ; extra == 'all'
+# jsonargparse[fsspec] ; extra == 'all'
+# jsonargparse[argcomplete] ; extra == 'all'
+# jsonargparse[ruyaml] ; extra == 'all'
+# jsonargparse[omegaconf] ; extra == 'all'
+# jsonargparse[typing-extensions] ; extra == 'all'
+# jsonargparse[reconplogger] ; extra == 'all'
 # argcomplete (>=2.0.0) ; extra == 'argcomplete'
-# coverage (>=4.5.1) ; extra == 'dev'
-# types-PyYAML (>=6.0.11) ; extra == 'dev'
-# responses (>=0.12.0) ; extra == 'dev'
-# types-requests (>=2.28.9) ; extra == 'dev'
-# Sphinx (>=1.7.9) ; extra == 'dev'
-# sphinx-rtd-theme (>=0.4.3) ; extra == 'dev'
-# autodocsumm (>=0.1.10) ; extra == 'dev'
-# sphinx-autodoc-typehints (>=1.19.5) ; extra == 'dev'
-# pylint (>=2.15.6) ; extra == 'dev'
-# mypy (>=0.701) ; extra == 'dev'
+# jsonargparse[test] ; extra == 'dev'
+# jsonargparse[doc] ; extra == 'dev'
+# jsonargparse[pylint] ; extra == 'dev'
+# jsonargparse[mypy] ; extra == 'dev'
 # pre-commit (>=2.19.0) ; extra == 'dev'
 # tox (>=3.25.0) ; extra == 'dev'
 # pycodestyle (>=2.5.0) ; extra == 'dev'
@@ -67,21 +75,24 @@ DISTNAME=		jsonargparse-${PORTVERSION}.dist-info
 # jsonnet (>=0.13.0) ; (os_name == "posix") and extra == 'jsonnet'
 # jsonschema (>=3.2.0) ; extra == 'jsonschema'
 # bump2version (>=0.5.11) ; extra == 'maintainer'
-# types-PyYAML (>=6.0.11) ; extra == 'mypy'
+# jsonargparse[types-pyyaml] ; extra == 'mypy'
 # mypy (>=0.701) ; extra == 'mypy'
 # omegaconf (>=2.1.1) ; extra == 'omegaconf'
 # pylint (>=2.15.6) ; extra == 'pylint'
 # reconplogger (>=4.4.0) ; extra == 'reconplogger'
 # ruyaml (>=0.20.0) ; extra == 'ruyaml'
+# jsonargparse[typing-extensions] ; extra == 'signatures'
 # docstring-parser (>=0.15) ; extra == 'signatures'
 # typeshed-client (>=2.1.0) ; extra == 'signatures'
-# coverage (>=4.5.1) ; extra == 'test'
-# types-PyYAML (>=6.0.11) ; extra == 'test'
+# jsonargparse[test-no-urls] ; extra == 'test'
+# jsonargparse[types-pyyaml] ; extra == 'test'
 # responses (>=0.12.0) ; extra == 'test'
 # types-requests (>=2.28.9) ; extra == 'test'
-# coverage (>=4.5.1) ; extra == 'test_no_urls'
-# types-PyYAML (>=6.0.11) ; extra == 'types_pyyaml'
-# typing-extensions (>=3.10.0.0) ; (python_version < "3.8") and extra == 'typing_extensions'
+# attrs (>=22.2.0) ; extra == 'test'
+# coverage (>=4.5.1) ; extra == 'test-no-urls'
+# pydantic (>=1.10.7) ; (python_version > "3.6") and extra == 'test'
+# types-PyYAML (>=6.0.11) ; extra == 'types-pyyaml'
+# typing-extensions (>=3.10.0.0) ; (python_version < "3.10") and extra == 'typing-extensions'
 # requests (>=2.18.4) ; extra == 'urls'
 
 [PY310].USES_ON=			python:py310,wheel
