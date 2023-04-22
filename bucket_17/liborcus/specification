@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	0.17.2
-DEF[ORCUS_VERSION]=	0.17
+DEF[PORTVERSION]=	0.18.1
+DEF[ORCUS_VERSION]=	0.18
 DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
@@ -15,30 +15,32 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITLAB/orcus:orcus:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MPL:single
+LICENSE=		MPL:primary
 LICENSE_FILE=		MPL:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/liborcus
 
-PLIST_SUB=		VER=${ORCUS_VERSION}
-
-BUILD_DEPENDS=		mdds-1.7:single:standard
-			ixion:dev:libre
+BUILD_DEPENDS=		mdds:single:standard
+			ixion:dev:standard
 			boost-libraries:dev:standard
 BUILDRUN_DEPENDS=	boost-libraries:primary:standard
-			ixion:primary:libre
+			ixion:primary:standard
+
+EXRUN[tools]=		liborcus:primary:standard
+
+PLIST_SUB=		VER=${ORCUS_VERSION}
 
 USES=			pkgconfig zlib cmake python:build bz2:build
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
 CMAKE_ARGS=		-DMDDS_INCLUDEDIR:STRING="{{LOCALBASE}}/include/mdds-1.2"
-			-DIXION_INCLUDEDIR:STRING="{{LOCALBASE}}/include/ixion-0.17"
+			-DIXION_INCLUDEDIR:STRING="{{LOCALBASE}}/include/ixion-0.18"
 LDFLAGS=		-lboost_program_options
 			-lboost_thread
 			-lboost_filesystem
