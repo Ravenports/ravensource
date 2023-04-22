@@ -1,0 +1,27 @@
+--- src/CMakeLists.txt.orig	2022-08-16 13:34:02 UTC
++++ src/CMakeLists.txt
+@@ -171,7 +171,7 @@ endif (HAVE_GETADDRINFO_A AND WITH_ADNS)
+ if (UNIX)
+ 	if (APPLE)
+ 		set (MOSQ_LIBS ${MOSQ_LIBS} dl m)
+-    elseif (${CMAKE_SYSTEM_NAME} MATCHES "OpenBSD")
++    elseif (${CMAKE_SYSTEM_NAME} MATCHES "OpenBSD|FreeBSD|DragonFly|MidnightBSD")
+ 	    set (MOSQ_LIBS ${MOSQ_LIBS} m)
+ 	elseif (${CMAKE_SYSTEM_NAME} MATCHES "NetBSD")
+ 		set (MOSQ_LIBS ${MOSQ_LIBS} m)
+@@ -194,13 +194,13 @@ endif (WIN32)
+ 
+ if (WITH_WEBSOCKETS)
+ 	if (STATIC_WEBSOCKETS)
+-		set (MOSQ_LIBS ${MOSQ_LIBS} websockets_static)
++		set (MOSQ_LIBS ${MOSQ_LIBS} websockets pthread)
+ 		if (WIN32)
+ 			set (MOSQ_LIBS ${MOSQ_LIBS} iphlpapi)
+ 			link_directories(${mosquitto_SOURCE_DIR})
+ 		endif (WIN32)
+ 	else (STATIC_WEBSOCKETS)
+-		set (MOSQ_LIBS ${MOSQ_LIBS} websockets)
++		set (MOSQ_LIBS ${MOSQ_LIBS} websockets pthread)
+ 	endif (STATIC_WEBSOCKETS)
+ endif (WITH_WEBSOCKETS)
+ 

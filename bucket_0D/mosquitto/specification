@@ -1,0 +1,73 @@
+DEF[PORTVERSION]=	2.0.15
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mosquitto
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		standard
+SDESC[standard]=	Message broker implementing the MQTT protocol
+HOMEPAGE=		https://mosquitto.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://mosquitto.org/files/source/
+DISTFILE[1]=		mosquitto-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary tools cxx dev man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		net/mosquitto
+
+LICENSE=		CUSTOM1:tools CUSTOM2:tools
+LICENSE_TERMS=		tools:{{WRKSRC}}/LICENSE.txt
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/edl-v10
+			CUSTOM2:{{WRKSRC}}/epl-v20
+LICENSE_NAME=		CUSTOM1:"Eclipse Distribution License v1.0"
+			CUSTOM2:"Eclipse Public License v2.0"
+LICENSE_SCHEME=		dual
+
+BUILD_DEPENDS=		cjson:dev:standard
+			libuuid:dev:standard
+			c-ares:dev:standard
+			libwebsockets:dev:standard
+			docbook-xsl:primary:standard
+			libxslt:dev:standard
+			libxslt:primary:standard
+BUILDRUN_DEPENDS=	cjson:primary:standard
+			libuuid:primary:standard
+			c-ares:primary:standard
+			libwebsockets:primary:standard
+RUN_DEPENDS=		nss:caroot:standard
+
+EXRUN[tools]=		mosquitto:primary:standard
+EXRUN[cxx]=		mosquitto:primary:standard
+
+RC_SUBR=		mosquitto:tools
+USERGROUP_SPKG=		primary
+USERS=			nobody
+
+USES=			cpe cmake ssl zlib c++:cxx
+CPE_VENDOR=		eclipse
+CMAKE_ARGS=		-DWITH_SRV:BOOL=ON
+			-DWITH_WEBSOCKETS:BOOL=ON
+			-DOPENSSL_ROOT_DIR={{OPENSSLBASE}}
+SOVERSION=		${SOVERSION}
+
+pre-configure:
+	${REINPLACE_CMD} -e 's|%%PREFIX%%|${PREFIX}|g' ${WRKSRC}/mosquitto.conf
+
+post-install:
+	${MV} ${STAGEDIR}${PREFIX}/etc/mosquitto/pwfile.example \
+		${STAGEDIR}${PREFIX}/etc/mosquitto/pwfile.sample
+	${MV} ${STAGEDIR}${PREFIX}/etc/mosquitto/pskfile.example \
+		${STAGEDIR}${PREFIX}/etc/mosquitto/pskfile.sample
+	${MV} ${STAGEDIR}${PREFIX}/etc/mosquitto/aclfile.example \
+		${STAGEDIR}${PREFIX}/etc/mosquitto/aclfile.sample
+	${MV} ${STAGEDIR}${PREFIX}/etc/mosquitto/mosquitto.conf \
+		${STAGEDIR}${PREFIX}/etc/mosquitto/mosquitto.conf.sample
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/m*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/sbin/mosquitto
