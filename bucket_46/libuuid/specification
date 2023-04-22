@@ -5,6 +5,7 @@ DEF[SOVERSION]=		1.3.0
 
 NAMEBASE=		libuuid
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		misc devel
 VARIANTS=		standard
 SDESC[standard]=	Tool/Lib for generating Universally Unique IDs
@@ -15,15 +16,16 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v${DLFOLDER}/
 DISTFILE[1]=		util-linux-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev man
 
 OPTIONS_AVAILABLE=	NOSETPROC
 OPTIONS_STANDARD=	NOSETPROC
+OPT_ON[midnightbsd]=	NOSETPROC
 OPT_ON[dragonfly]=	NOSETPROC
 OPT_ON[freebsd]=	NOSETPROC
 OPT_ON[sunos]=		NOSETPROC
 
-LICENSE=		BSD3CLAUSE:single
+LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKDIR}}/BSD3
 LICENSE_AWK=		BSD3CLAUSE:"^$$"
 LICENSE_SOURCE=		BSD3CLAUSE:{{WRKSRC}}/libuuid/src/uuid.h
@@ -32,6 +34,8 @@ LICENSE_SCHEME=		solo
 BUILD_DEPENDS=		bison:primary:standard
 			libtool:single:standard
 			ruby-asciidoctor:single:ruby_default
+
+EXRUN[tools]=		libuuid:primary:standard
 
 # DO NOT add gtk-doc to USES!
 # It causes circularly dependency on sunos/linux (through python)
