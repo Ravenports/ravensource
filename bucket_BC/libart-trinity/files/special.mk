@@ -1,0 +1,1 @@
+CMAKE_ARGS+=	-DCMAKE_MODULE_PATH:PATH="${WRKDIR}/cmake-trinity-${VERSION}/modules"

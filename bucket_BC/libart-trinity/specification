@@ -13,18 +13,21 @@ SDESC[standard]=	Library for high-performance 2D graphics
 HOMEPAGE=		https://www.trinitydesktop.org/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main cmodules
 SITES[main]=		https://mirror.ppa.trinitydesktop.org/trinity/releases/R${PORTVERSION}/main/dependencies/
+SITES[cmodules]=	https://mirror.ppa.trinitydesktop.org/trinity/releases/R${PORTVERSION}/main/common/
 DISTFILE[1]=		libart-lgpl-trinity-${PORTVERSION}.tar.xz:main
+DISTFILE[2]=		cmake-trinity-14.0.13.tar.xz:cmodules
+DF_INDEX=		1 2
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL20+:single
+LICENSE=		LGPL20+:primary
 LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/art_misc.h
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
@@ -32,10 +35,9 @@ LICENSE_SCHEME=		solo
 # FreeBSD, like many others, still packages the old, unmaintained version 2.3.21 (from 2010!)
 # FPC_EQUIVALENT=	graphics/libart_lgpl
 
-DISTNAME=		libart-lgpl-trinity-${PORTVERSION}
-
-BUILD_DEPENDS=		cmake-trinity:single:standard
-
 USES=			cmake libtool
-
+DISTNAME=		libart-lgpl-trinity-${PORTVERSION}
 SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libart_lgpl_2.so
