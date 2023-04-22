@@ -17,6 +17,7 @@ DISTFILE[1]=		sbcl-${PORTVERSION}-source.tar.bz2:main
 DISTFILE[2]=		sbcl-${BOOTVSN}-x86-64-dragonfly-binary.tar.bz2:boot
 DISTFILE[3]=		sbcl-${BOOTVSN}-x86-64-freebsd-binary.tar.bz2:boot
 DISTFILE[4]=		sbcl-${BOOTVSN}-x86-64-linux-binary.tar.bz2:boot
+DISTFILE[5]=		sbcl-${BOOTVSN}-x86-64-netbsd-binary.tar.bz2:boot
 DF_INDEX=		1
 
 SPKGS[standard]=	single
@@ -47,7 +48,7 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		lang/sbcl
 
-NOT_FOR_OPSYS=		sunos darwin netbsd
+NOT_FOR_OPSYS=		sunos darwin
 
 RUN_DEPENDS=		asdf:primary:standard
 BUILD_DEPENDS=		gmp:static:standard
@@ -87,6 +88,7 @@ CMAKE_ARGS=		--prefix="{{PREFIX}}"
 [FREEBSD].DF_INDEX_ON=			3
 [MIDNIGHT].DF_INDEX_ON=			3
 [LINUX].DF_INDEX_ON=			4
+[NETBSD].DF_INDEX_ON=			5
 
 [MIDNIGHT].BROKEN_ON=			FreeBSD bootstrap segfaults - another is needed
 
