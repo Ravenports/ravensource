@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	2.2.7b
-DEF[SOVERSION]=		2.2.7
+DEF[PORTVERSION]=	3.0.0a
+DEF[SOVERSION]=		3.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		discount
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		standard
 SDESC[standard]=	C implementation of the Markdown specification
@@ -12,8 +11,8 @@ HOMEPAGE=		https://www.pell.portland.or.us/~orc/Code/discount/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://www.pell.portland.or.us/~orc/Code/discount/
-DISTFILE[1]=		discount-${PORTVERSION}.tar.bz2:main
+SITES[main]=		GITHUB/Orc:discount:v${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete primary dev man samples
 
@@ -27,7 +26,6 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		textproc/discount
 
 USES=			pkgconfig
-
 MUST_CONFIGURE=		yes
 CONFIGURE_SCRIPT=	configure.sh
 CONFIGURE_ARGS=		--prefix={{PREFIX}}
