@@ -35,10 +35,11 @@ SUB_FILES=		pkg-deinstall-single pkg-message-single
 SUB_LIST=		DATADIR={{PREFIX}}/share/ktoblzcheck
 PLIST_SUB=		BANKDATE=${BANKDATE}
 
-USES=			cmake python
+USES=			cmake python c++:single
 CMAKE_ARGS=		-DENABLE_BANKDATA_DOWNLOAD:BOOL=OFF
 SOVERSION=		${SOVERSION}
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ktoblzcheck
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ibanchk
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libktoblzcheck.so
