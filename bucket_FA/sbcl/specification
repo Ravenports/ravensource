@@ -57,6 +57,8 @@ BUILD_DEPENDS=		gmp:static:standard
 BUILDRUN_DEPENDS=	gmp:shared:standard
 			mpfr:shared:standard
 
+B_DEPS[midnightbsd]=	clisp:primary:standard
+
 USES=			gmake makeinfo zlib zstd
 SUB_FILES=		sbclrc
 CMAKE_ARGS=		--prefix="{{PREFIX}}"
@@ -70,6 +72,9 @@ CMAKE_ARGS=		--prefix="{{PREFIX}}"
 			--without-sb-safepoint
 			--without-sb-thruption
 			--without-sb-wtimer
+
+VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CMAKE_ARGS:={{CMAKE_ARGS:N--xc-host=*}}
+			MAKEFILE_LINE=CMAKE_ARGS+=--xc-host=clisp
 
 # CMAKE_ARGS were repurposed
 # On DragonFly, the self-tests fail on concurrency module, so disable
@@ -92,8 +97,6 @@ CMAKE_ARGS=		--prefix="{{PREFIX}}"
 [NETBSD].DF_INDEX_ON=			5
 [SUNOS].DF_INDEX_ON=			6
 
-[MIDNIGHT].BROKEN_ON=			FreeBSD bootstrap segfaults - another is needed
-
 [CONCURRENCY].CMAKE_ARGS_OFF=		--without-sb-thread
 					--without-restore-fs-segment-register-from-tls
 [CONCURRENCY].CMAKE_ARGS_ON=		--with-sb-thread
@@ -102,7 +105,9 @@ CMAKE_ARGS=		--prefix="{{PREFIX}}"
 [SIMD].CMAKE_ARGS_OFF=			--without-sb-simd
 
 post-extract:
-	${MV} ${WRKDIR}/sbcl-${BOOTVSN}-* ${WRKDIR}/bootstrap
+	if [ ! -f "${LOCALBASE}/bin/clisp" ]; then \
+		${MV} ${WRKDIR}/sbcl-${BOOTVSN}-* ${WRKDIR}/bootstrap ;\
+	fi
 	# Extract licenses into separate files
 	${AWK} '/^;;;; Portions of LOOP/,/;;;; specification/' \
 		${WRKSRC}/COPYING > ${WRKDIR}/LICENSE_PUBDOM
