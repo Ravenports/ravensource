@@ -1,8 +1,8 @@
---- src/nfpcapd/pcaproc.h.orig	2022-12-24 12:30:59 UTC
+--- src/nfpcapd/pcaproc.h.orig	2023-04-23 12:29:32 UTC
 +++ src/nfpcapd/pcaproc.h
-@@ -41,6 +41,7 @@
- #include <stdint.h>
+@@ -40,6 +40,7 @@
  #endif
+ #include <stdint.h>
  
 +#include <sys/types.h>
  #ifdef HAVE_NET_ETHERNET_H
