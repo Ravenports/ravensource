@@ -1,6 +1,6 @@
---- meson.build.orig	2023-04-05 20:10:24 UTC
+--- meson.build.orig	2023-04-19 16:31:47 UTC
 +++ meson.build
-@@ -46,8 +46,8 @@ config_host_data = configuration_data()
+@@ -58,8 +58,8 @@ config_host_data = configuration_data()
  genh = []
  qapi_trace_events = []
  
@@ -11,7 +11,7 @@
  supported_cpus = ['ppc', 'ppc64', 's390x', 'riscv', 'x86', 'x86_64',
    'arm', 'aarch64', 'loongarch64', 'mips', 'mips64', 'sparc64']
  
-@@ -444,7 +444,7 @@ if get_option('hax').allowed()
+@@ -441,7 +441,7 @@ if get_option('hax').allowed()
      accelerators += 'CONFIG_HAX'
    endif
  endif
@@ -20,7 +20,7 @@
    nvmm = cc.find_library('nvmm', required: get_option('nvmm'))
    if nvmm.found()
      accelerators += 'CONFIG_NVMM'
-@@ -887,7 +887,7 @@ if have_system and get_option('curses').
+@@ -889,7 +889,7 @@ if have_system and get_option('curses').
        return 0;
      }'''
  
@@ -29,7 +29,7 @@
    curses = dependency(curses_dep_list,
                        required: false,
                        method: 'pkg-config',
-@@ -910,15 +910,16 @@ if have_system and get_option('curses').
+@@ -912,15 +912,16 @@ if have_system and get_option('curses').
        has_curses_h = cc.has_header('curses.h', args: curses_compile_args)
      endif
      if has_curses_h
