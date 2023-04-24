@@ -1,4 +1,4 @@
---- scripts/xdg-utils-common.in.orig	2020-02-20 21:01:04 UTC
+--- scripts/xdg-utils-common.in.orig	2022-11-06 12:27:56 UTC
 +++ scripts/xdg-utils-common.in
 @@ -22,7 +22,7 @@ first_word()
  # map a binary to a .desktop file
@@ -6,7 +6,7 @@
  {
 -    search="${XDG_DATA_HOME:-$HOME/.local/share}:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
 +    search="${XDG_DATA_HOME:-$HOME/.local/share}:${XDG_DATA_DIRS:-%%LOCALBASE%%/share:/usr/share}"
-     binary="`which "$1"`"
+     binary="`command -v "$1"`"
      binary="`readlink -f "$binary"`"
      base="`basename "$binary"`"
 @@ -52,7 +52,7 @@ binary_to_desktop_file()

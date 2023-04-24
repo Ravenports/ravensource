@@ -1,4 +1,4 @@
---- scripts/xdg-open.in.orig	2020-02-20 21:01:04 UTC
+--- scripts/xdg-open.in.orig	2022-11-06 12:27:56 UTC
 +++ scripts/xdg-open.in
 @@ -15,6 +15,12 @@
  #
@@ -40,7 +40,7 @@
  #-----------------------------------------
  # Recursively search .desktop file
  
-@@ -343,7 +360,7 @@ open_generic_xdg_mime()
+@@ -342,7 +359,7 @@ open_generic_xdg_mime()
          [ -n "$xdg_user_dir" ] || xdg_user_dir="$HOME/.local/share"
  
          xdg_system_dirs="$XDG_DATA_DIRS"
@@ -49,7 +49,7 @@
  
  DEBUG 3 "$xdg_user_dir:$xdg_system_dirs"
          for x in `echo "$xdg_user_dir:$xdg_system_dirs" | sed 's/:/ /g'`; do
-@@ -439,7 +456,7 @@ open_generic()
+@@ -438,7 +455,7 @@ open_generic()
      if [ x"$BROWSER" = x"" ]; then
          BROWSER=www-browser:links2:elinks:links:lynx:w3m
          if has_display; then
@@ -58,7 +58,7 @@
          fi
      fi
  
-@@ -541,6 +558,10 @@ case "$DE" in
+@@ -540,6 +557,10 @@ case "$DE" in
      open_mate "$url"
      ;;
  
