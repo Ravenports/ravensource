@@ -1,4 +1,4 @@
---- hints/netbsd.sh.orig	2020-12-28 16:57:44 UTC
+--- hints/netbsd.sh.orig	2023-03-02 11:53:19 UTC
 +++ hints/netbsd.sh
 @@ -202,8 +202,8 @@ EOCBU
  # Set sensible defaults for NetBSD: look for local software in
