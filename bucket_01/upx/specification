@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	4.0.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		upx
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers
+VARIANTS=		standard
+SDESC[standard]=	Ultimate Packer for eXecutables
+HOMEPAGE=		https://upx.github.io/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/upx/upx/releases/download/v${PORTVERSION}/
+DISTFILE[1]=		upx-${PORTVERSION}-src.tar.xz:main
+
+SPKGS[standard]=	complete primary man docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		archivers/upx
+
+LICENSE=		GPLv2+:primary
+LICENSE_TERMS=		primary:{{WRKSRC}}/LICENSE
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+USES=			cpe cmake c++:primary
+CPE_VENDOR=		upx_project
+DISTNAME=		upx-${PORTVERSION}-src
+
+post-install:
+	${RM} ${STAGEDIR}${STD_DOCDIR}/COPYING
+	${RM} ${STAGEDIR}${STD_DOCDIR}/LICENSE
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/upx
