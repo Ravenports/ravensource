@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.2.3
+DEF[PORTVERSION]=	2.3.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-Flask
@@ -7,11 +7,11 @@ KEYWORDS=		python
 VARIANTS=		py310 v11
 SDESC[py310]=		Lightweight WSGI web application framework (3.10)
 SDESC[v11]=		Lightweight WSGI web application framework (3.11)
-HOMEPAGE=		https://palletsprojects.com/p/flask
+HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/95/9c/a3542594ce4973786236a1b7b702b8ca81dbf40ea270f0f96284f0c27348
+SITES[main]=		PYPIWHL/24/dd/45df0b0b93f449cb217486136071294595b2d6f8840eaf38704773093a37
 DISTFILE[1]=		Flask-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -29,10 +29,11 @@ GENERATED=		yes
 DISTNAME=		Flask-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# Werkzeug (>=2.2.2)
-# Jinja2 (>=3.0)
-# itsdangerous (>=2.0)
-# click (>=8.0)
+# Werkzeug (>=2.3.0)
+# Jinja2 (>=3.1.2)
+# itsdangerous (>=2.1.2)
+# click (>=8.1.3)
+# blinker (>=1.6.2)
 # importlib-metadata (>=3.6.0) ; python_version < "3.10"
 # asgiref (>=3.2) ; extra == 'async'
 # python-dotenv ; extra == 'dotenv'
@@ -42,11 +43,13 @@ DISTNAME=		Flask-${PORTVERSION}.dist-info
 					python-Jinja2:single:py310
 					python-itsdangerous:single:py310
 					python-click:single:py310
+					python-blinker:single:py310
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-Werkzeug:single:v11
 					python-Jinja2:single:v11
 					python-itsdangerous:single:v11
 					python-click:single:v11
+					python-blinker:single:v11
 
 USES=			cpe
 CPE_VENDOR=		palletsprojects
