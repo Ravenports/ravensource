@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	3.2.6
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ncftp
+VERSION=		${PORTVERSION}
+KEYWORDS=		ftp
+VARIANTS=		standard
+SDESC[standard]=	Set of free application programs implementing FTP
+HOMEPAGE=		https://www.ncftp.com/ncftp/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://ftp.mirrorservice.org/sites/ftp.ncftp.com/ncftp/
+DISTFILE[1]=		ncftp-${PORTVERSION}-src.tar.xz:main
+
+SPKGS[standard]=	complete primary man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		ftp/ncftp3
+
+LICENSE=		ARTPERL10:primary
+LICENSE_FILE=		ARTPERL10:{{WRKSRC}}/doc/LICENSE.txt
+LICENSE_SCHEME=		solo
+
+# Could not get ncurses library to be detected.
+# Just build without it - lost ncftpbookmarks program
+
+USES=			perl:build
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--without-curses
+			--without-ncurses
+
