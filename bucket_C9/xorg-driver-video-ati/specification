@@ -1,11 +1,10 @@
-DEF[PORTVERSION]=	19.1.0
+DEF[PORTVERSION]=	22.0.0
 DEF[XNAME]=		driver-video-ati
 DEF[ALTNAME]=		xf86-video-ati
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xorg-${XNAME}
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		x11_drivers
 VARIANTS=		standard
 SDESC[standard]=	ATI Radeon video driver for the Xorg X server
@@ -14,7 +13,7 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		XORG/individual/driver
-DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	single
 
@@ -31,7 +30,7 @@ BUILD_DEPENDS=		libdrm:dev:standard
 			xorg-server:dev:standard
 BUILDRUN_DEPENDS=	xorg-server:primary:standard
 
-USES=			libtool mesa mbsdfix
+USES=			libtool mesa
 XORG_COMPONENTS=	xorgproto
 DISTNAME=		${ALTNAME}-${PORTVERSION}
 MUST_CONFIGURE=		gnu
