@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.3.5
+DEF[PORTVERSION]=	2.3.6
 DEF[SOVERSION]=		${PORTVERSION}
 DEF[PLUGINS]=		cyrus-sasl gcrypt gnupg logger nss softstore
 # ----------------------------------------------------------------------------
@@ -22,9 +22,11 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		devel/qca
 
-BUILD_DEPENDS=		doxygen:single:standard
+BUILD_DEPENDS=		botan:dev:standard
+			doxygen:single:standard
 			libgcrypt:dev:standard
-BUILDRUN_DEPENDS=	cyrus-sasl:primary:standard
+BUILDRUN_DEPENDS=	botan:primary:standard
+			cyrus-sasl:primary:standard
 			gnupg:primary:standard
 			nss:complete:standard
 			qt5-qtbase:primary:standard
@@ -40,7 +42,7 @@ USES=			cmake pkgconfig qt5
 CMAKE_ARGS=		-DBUILD_PLUGINS=none
 			-DBUILD_TESTS=no
 			-DQT4_BUILD=OFF
-			-DWITH_botan_PLUGIN=no
+			-DWITH_botan_PLUGIN=yes
 			-DWITH_cyrus-sasl_PLUGIN=yes
 			-DWITH_gcrypt_PLUGIN=yes
 			-DWITH_gnupg_PLUGIN=yes
@@ -52,9 +54,6 @@ CMAKE_ARGS=		-DBUILD_PLUGINS=none
 			-DCMAKE_PREFIX_PATH={{PREFIX}}/lib/qt5/cmake
 			-DQCA_FEATURE_INSTALL_DIR={{PREFIX}}/lib/qt5/mkspecs/features
 			-DQCA_MAN_INSTALL_DIR={{PREFIX}}/share/man
-# -DOPENSSL_INCLUDE_DIR={{PREFIX}}/openssl11/include
-# -DOPENSSL_SSL_LIBRARY={{PREFIX}}/openssl11/lib/libssl.so
-# -DOPENSSL_CRYPTO_LIBRARY={{PREFIX}}/openssl11/lib/libcrypto.so
 CONFIGURE_ENV=		QC_CERTSTORE_PATH={{LOCALBASE}}/share/certs/ca-root-nss.crt
 
 SOVERSION=		${SOVERSION}
