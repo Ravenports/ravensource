@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	0.3.3
-DEF[SOVERSION]=		3.0.3
+DEF[PORTVERSION]=	0.3.4
+DEF[SOVERSION]=		3.0.4
 DEF[WPG_VER]=		0.3
 # ----------------------------------------------------------------------------
 
@@ -23,16 +23,21 @@ OPTIONS_STANDARD=	none
 LICENSE=		MPL:single
 			LGPL21:single
 LICENSE_FILE=		MPL:{{WRKSRC}}/COPYING.MPL
-			LGPL21:{{WRKSRC}}/COPYING.PGPL
+			LGPL21:{{WRKSRC}}/COPYING.LGPL
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/lib/libwpg_utils.h
+LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		graphics/libwpg03
 
-BUILD_DEPENDS=		librevenge:dev:standard
-BUILDRUN_DEPENDS=	librevenge:primary:standard
+BUILD_DEPENDS=		boost-libraries:dev:standard
+			librevenge:dev:standard
+BUILDRUN_DEPENDS=	boost-libraries:primary:standard
+			librevenge:primary:standard
 			libwpd:single:standard
 
-USES=			libtool pkgconfig shebangfix perl:build mbsdfix
+USES=			libtool pkgconfig shebangfix perl:build
 SHEBANG_FILES=		src/conv/svg/wpg2svgbatch.pl
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-werror
