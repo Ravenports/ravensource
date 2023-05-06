@@ -1,29 +1,29 @@
---- python/Makefile.in.orig	2023-04-11 11:28:11 UTC
+--- python/Makefile.in.orig	2023-04-30 12:05:10 UTC
 +++ python/Makefile.in
-@@ -137,7 +137,7 @@ am__installdirs = "$(DESTDIR)$(pyexecdir
+@@ -140,7 +140,7 @@ am__installdirs = "$(DESTDIR)$(pyexecdir
  LTLIBRARIES = $(pyexec_LTLIBRARIES)
  am__DEPENDENCIES_1 =
  @WITH_PYTHON_TRUE@libxml2mod_la_DEPENDENCIES =  \
 -@WITH_PYTHON_TRUE@	$(top_builddir)/libxml2.la \
 +@WITH_PYTHON_TRUE@	-lxml2 \
- @WITH_PYTHON_TRUE@	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
  @WITH_PYTHON_TRUE@	$(am__DEPENDENCIES_1)
  am__libxml2mod_la_SOURCES_DIST = libxml.c libxml_wrap.h types.c
-@@ -489,7 +489,7 @@ target_alias = @target_alias@
+ @WITH_PYTHON_TRUE@am_libxml2mod_la_OBJECTS = libxml.lo types.lo
+@@ -468,7 +468,7 @@ target_alias = @target_alias@
  top_build_prefix = @top_build_prefix@
  top_builddir = @top_builddir@
  top_srcdir = @top_srcdir@
 -SUBDIRS = . tests
 +SUBDIRS = .
- docsdir = $(docdir)/python
- dist_docs_DATA = TODO
  EXTRA_DIST = \
-@@ -506,7 +506,7 @@ EXTRA_DIST = \
+ 	generator.py		\
+ 	libxml.py		\
+@@ -483,7 +483,7 @@ EXTRA_DIST = \
  @WITH_PYTHON_TRUE@libxml2mod_la_SOURCES = libxml.c libxml_wrap.h types.c
  @WITH_PYTHON_TRUE@nodist_libxml2mod_la_SOURCES = libxml2-py.h libxml2-py.c
- @WITH_PYTHON_TRUE@libxml2mod_la_LDFLAGS = $(CYGWIN_EXTRA_LDFLAGS) $(WIN32_EXTRA_LDFLAGS) -module -avoid-version
--@WITH_PYTHON_TRUE@libxml2mod_la_LIBADD = $(top_builddir)/libxml2.la $(CYGWIN_EXTRA_PYTHON_LIBADD) $(WIN32_EXTRA_PYTHON_LIBADD) $(PYTHON_LIBS)
-+@WITH_PYTHON_TRUE@libxml2mod_la_LIBADD = -lxml2 $(CYGWIN_EXTRA_PYTHON_LIBADD) $(WIN32_EXTRA_PYTHON_LIBADD) $(PYTHON_LIBS)
+ @WITH_PYTHON_TRUE@libxml2mod_la_LDFLAGS = $(AM_LDFLAGS) $(PYTHON_LDFLAGS) -module -avoid-version
+-@WITH_PYTHON_TRUE@libxml2mod_la_LIBADD = $(top_builddir)/libxml2.la $(PYTHON_LIBS)
++@WITH_PYTHON_TRUE@libxml2mod_la_LIBADD = -lxml2 $(PYTHON_LIBS)
  @WITH_PYTHON_TRUE@BUILT_SOURCES = libxml2-export.c libxml2-py.h libxml2-py.c
  @WITH_PYTHON_TRUE@python_PYTHON = drv_libxml2.py
  @WITH_PYTHON_TRUE@nodist_python_PYTHON = libxml2.py
