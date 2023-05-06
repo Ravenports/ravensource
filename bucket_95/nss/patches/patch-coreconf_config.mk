@@ -1,4 +1,4 @@
---- coreconf/config.mk.orig	2023-03-09 18:38:30 UTC
+--- coreconf/config.mk.orig	2023-05-05 17:06:27 UTC
 +++ coreconf/config.mk
 @@ -31,7 +31,7 @@ endif
  #######################################################################
