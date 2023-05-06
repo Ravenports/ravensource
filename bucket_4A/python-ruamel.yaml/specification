@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.17.21
+DEF[PORTVERSION]=	0.17.23
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-ruamel.yaml
@@ -11,7 +11,7 @@ HOMEPAGE=		https://sourceforge.net/p/ruamel-yaml/code/ci/default/tree
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/9e/cb/938214ac358fbef7058343b3765c79a1b7ed0c366f7f992ce7ff38335652
+SITES[main]=		PYPIWHL/62/c6/2489d768c89ec1ec46afa385c6e33e3902ebe3f19c2f10599e22d704b353
 DISTFILE[1]=		ruamel.yaml-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -29,11 +29,12 @@ GENERATED=		yes
 DISTNAME=		ruamel.yaml-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# ruamel.yaml.clib (>=0.2.6) ; platform_python_implementation=="CPython" and python_version<"3.11"
+# ruamel.yaml.clib (>=0.2.7) ; platform_python_implementation=="CPython" and python_version<"3.12"
 # ryd ; extra == 'docs'
 # ruamel.yaml.jinja2 (>=0.2) ; extra == 'jinja2'
 
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-ruamel.yaml.clib:single:py310
 [PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-ruamel.yaml.clib:single:v11
 

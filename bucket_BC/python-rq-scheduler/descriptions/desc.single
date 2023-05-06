@@ -60,7 +60,7 @@ the "foo" queue
 
     # You can also instantiate a Scheduler using an RQ Queue
     queue = Queue('bar', connection=Redis())
-    scheduler = Scheduler(queue=queue)
+    scheduler = Scheduler(queue=queue, connection=queue.connection)
 
     # Puts a job into the scheduler. The API is similar to RQ except that
 it

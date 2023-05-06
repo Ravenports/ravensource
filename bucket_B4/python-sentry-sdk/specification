@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.21.0
+DEF[PORTVERSION]=	1.22.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-sentry-sdk
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/getsentry/sentry-python
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/c0/dd/b8d56bbb8c75113ad58625f6a380a95711fd4bb546ccb30a15345156c65a
+SITES[main]=		PYPIWHL/20/43/73d735a485dc7a247a054199af2c19da2e7e163cbb8e06c07e3cec64e806
 DISTFILE[1]=		sentry_sdk-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -29,6 +29,7 @@ GENERATED=		yes
 DISTNAME=		sentry_sdk-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
+# urllib3 (<2.0.0)
 # certifi
 # urllib3 (>=1.25.7) ; python_version <= "3.4"
 # urllib3 (>=1.26.9) ; python_version == "3.5"
@@ -63,9 +64,9 @@ DISTNAME=		sentry_sdk-${PORTVERSION}.dist-info
 # tornado (>=5) ; extra == 'tornado'
 
 [PY310].USES_ON=			python:py310,wheel
-[PY310].RUN_DEPENDS_ON=			python-certifi:single:py310
-					python-urllib3:single:py310
+[PY310].RUN_DEPENDS_ON=			python-urllib3:single:py310
+					python-certifi:single:py310
 [PY311].USES_ON=			python:v11,wheel
-[PY311].RUN_DEPENDS_ON=			python-certifi:single:v11
-					python-urllib3:single:v11
+[PY311].RUN_DEPENDS_ON=			python-urllib3:single:v11
+					python-certifi:single:v11
 

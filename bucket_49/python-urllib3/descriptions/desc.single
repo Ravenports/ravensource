@@ -1,3 +1,20 @@
+<h1 align="center">
+
+![urllib3]
+
+</h1>
+
+<p align="center">
+  [image]
+  [image]
+  [image]
+  [image]
+  [image]
+  [image]<br>
+  [image]
+  [image]
+  [image]
+</p>
 
 urllib3 is a powerful, *user-friendly* HTTP client for Python. Much of the
 Python ecosystem already uses urllib3 and you should too.
@@ -9,92 +26,75 @@ standard libraries:
 - Client-side SSL/TLS verification.
 - File uploads with multipart encoding.
 - Helpers for retrying requests and dealing with HTTP redirects.
-- Support for gzip, deflate, and brotli encoding.
+- Support for gzip, deflate, brotli, and zstd encoding.
 - Proxy support for HTTP and SOCKS.
 - 100% test coverage.
 
 urllib3 is powerful and easy to use:
 
-.. code-block:: python
+```python3
+>>> import urllib3
+>>> resp = urllib3.request("GET", "http://httpbin.org/robots.txt")
+>>> resp.status
+200
+>>> resp.data
+b"User-agent: *\nDisallow: /deny\n"
+```
 
-    >>> import urllib3
-    >>> http = urllib3.PoolManager()
-    >>> r = http.request('GET', 'http://httpbin.org/robots.txt')
-    >>> r.status
-    200
-    >>> r.data
-    'User-agent: *\nDisallow: /deny\n'
+## Installing
 
-Installing
-----------
+urllib3 can be installed with [pip]:
 
-urllib3 can be installed with [pip]::
+```bash
+$ python -m pip install urllib3
+```
 
-    $ python -m pip install urllib3
+Alternatively, you can grab the latest source code from [GitHub]:
 
-Alternatively, you can grab the latest source code from [GitHub]::
+```bash
+$ git clone https://github.com/urllib3/urllib3.git
+$ cd urllib3
+$ pip install .
+```
 
-    $ git clone https://github.com/urllib3/urllib3.git
-    $ cd urllib3
-    $ git checkout 1.26.x
-    $ pip install .
+## Documentation
 
-Documentation
--------------
+urllib3 has usage and reference documentation at [urllib3.readthedocs.io].
 
-urllib3 has usage and reference documentation at `urllib3.readthedocs.io
-<https://urllib3.readthedocs.io>`_.
+## Community
 
-Contributing
-------------
+urllib3 has a [community Discord channel] for asking questions and
+collaborating with other contributors. Drop by and say hello 👋
+
+## Contributing
 
 urllib3 happily accepts contributions. Please see our
 [contributing documentation]
 for some tips on getting started.
 
-Security Disclosures
---------------------
+## Security Disclosures
 
 To report a security vulnerability, please use the
 [Tidelift security contact].
 Tidelift will coordinate the fix and disclosure with maintainers.
 
-Maintainers
------------
+## Maintainers
 
-- `@sethmlarson <https://github.com/sethmlarson>`__ (Seth M. Larson)
-- `@pquentin <https://github.com/pquentin>`__ (Quentin Pradet)
-- `@theacodes <https://github.com/theacodes>`__ (Thea Flowers)
-- `@haikuginger <https://github.com/haikuginger>`__ (Jess Shapiro)
-- `@lukasa <https://github.com/lukasa>`__ (Cory Benfield)
-- `@sigmavirus24 <https://github.com/sigmavirus24>`__ (Ian Stapleton
-Cordasco)
-- `@shazow <https://github.com/shazow>`__ (Andrey Petrov)
+- [@sethmlarson] (Seth M. Larson)
+- [@pquentin] (Quentin Pradet)
+- [@theacodes] (Thea Flowers)
+- [@haikuginger] (Jess Shapiro)
+- [@lukasa] (Cory Benfield)
+- [@sigmavirus24] (Ian Stapleton Cordasco)
+- [@shazow] (Andrey Petrov)
 
 👋
 
-Sponsorship
------------
+## Sponsorship
 
 If your company benefits from this library, please consider [sponsoring its
 development].
 
-For Enterprise
---------------
+## For Enterprise
 
-.. |tideliftlogo| image::
-https://nedbatchelder.com/pix/Tidelift_Logos_RGB_Tidelift_Shorthand_On-White_small.png
-   :width: 75
-   :alt: Tidelift
-
-.. list-table::
-   :widths: 10 100
-
-   * - |tideliftlogo|
-     - Professional support for urllib3 is available as part of the
-`Tidelift
-       Subscription`_.  Tidelift gives software development teams a single
-source for
-       purchasing and maintaining their software, with professional grade
-assurances
-       from the experts who know it best, while seamlessly integrating with
+Professional support for urllib3 is available as part of the [Tidelift

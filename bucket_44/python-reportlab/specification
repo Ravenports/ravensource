@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.6.12
+DEF[PORTVERSION]=	4.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-reportlab
@@ -11,8 +11,8 @@ HOMEPAGE=		http://www.reportlab.com/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/r/reportlab
-DISTFILE[1]=		reportlab-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/a2/31/ebd3d48525ddb71790e61cdb28621517d1c4a245feb87fb503384b103eb8
+DISTFILE[1]=		reportlab-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
 SPKGS[v11]=		single
@@ -23,16 +23,26 @@ VOPTS[py310]=		PY310=ON PY311=OFF
 VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
-# BSD license (see license.txt for details), Copyright (c) 2000-2018,
+# BSD license (see license.txt for details), Copyright (c) 2000-2022,
 # ReportLab Inc.
 
 GENERATED=		yes
-DISTNAME=		reportlab-${PORTVERSION}
+DISTNAME=		reportlab-${PORTVERSION}.dist-info
 
-# install_requires extracted from setup.py
+# Requires-Dist extracted from wheel metadata
+# pillow (>=9.0.0)
+# rlPyCairo (<1,>=0.2.0)
+# freetype-py (<2.4,>=2.3.0)
+# rl-accel (<1.1,>=0.9.0) ; extra == 'rl_accel'
+# rl-renderPM (<4.1,>=4.0.3) ; extra == 'rl_renderpm'
 
-
-[PY310].USES_ON=			python:py310,sutools
-[PY311].USES_ON=			python:v11,sutools
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-pillow:single:py310
+					python-rlPyCairo:single:py310
+					python-freetype-py:single:py310
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-pillow:single:v11
+					python-rlPyCairo:single:v11
+					python-freetype-py:single:v11
 
 USES=			freetype

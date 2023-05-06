@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	20.22.0
+DEF[PORTVERSION]=	20.23.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-virtualenv
@@ -11,7 +11,7 @@ HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/b9/dc/44f55e57b8c106391987b17fe17db0ef3cc6364a935d1691b89df0e149a7
+SITES[main]=		PYPIWHL/f1/0a/18755fa6aec794fd539b050beeaa905fa5c77c64356aa8bdecb62c01581a
 DISTFILE[1]=		virtualenv-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -45,11 +45,13 @@ DISTNAME=		virtualenv-${PORTVERSION}.dist-info
 # flaky>=3.7; extra == 'test'
 # packaging>=23.1; extra == 'test'
 # pytest-env>=0.8.1; extra == 'test'
-# pytest-freezegun>=0.4.2; extra == 'test'
+# pytest-freezegun>=0.4.2; platform_python_implementation == 'PyPy' and extra == 'test'
 # pytest-mock>=3.10; extra == 'test'
 # pytest-randomly>=3.12; extra == 'test'
 # pytest-timeout>=2.1; extra == 'test'
 # pytest>=7.3.1; extra == 'test'
+# setuptools>=67.7.1; extra == 'test'
+# time-machine>=2.9; platform_python_implementation == 'CPython' and extra == 'test'
 
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-distlib:single:py310
