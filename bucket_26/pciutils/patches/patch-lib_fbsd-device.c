@@ -1,4 +1,4 @@
---- lib/fbsd-device.c.orig	2022-11-20 12:06:14 UTC
+--- lib/fbsd-device.c.orig	2023-05-01 13:00:27 UTC
 +++ lib/fbsd-device.c
 @@ -23,7 +23,7 @@
  #  endif
