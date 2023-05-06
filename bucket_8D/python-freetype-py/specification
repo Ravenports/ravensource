@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	2.4.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-freetype-py
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 v11
+SDESC[py310]=		Freetype python bindings (3.10)
+SDESC[v11]=		Freetype python bindings (3.11)
+HOMEPAGE=		https://github.com/rougier/freetype-py
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/f/freetype-py
+DISTFILE[1]=		freetype-py-${PORTVERSION}.zip:main
+
+SPKGS[py310]=		single
+SPKGS[v11]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[v11]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		freetype-py-${PORTVERSION}
+
+# install_requires extracted from setup.py
+# setuptools_scm
+
+[PY310].USES_ON=			python:py310,sutools
+[PY310].BUILDRUN_DEPENDS_ON=		python-setuptools-scm:single:py310
+[PY311].USES_ON=			python:v11,sutools
+[PY311].BUILDRUN_DEPENDS_ON=		python-setuptools-scm:single:v11
+

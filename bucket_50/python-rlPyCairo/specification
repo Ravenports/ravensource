@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	0.2.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-rlPyCairo
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 v11
+SDESC[py310]=		Plugin for reportlab.graphics.renderPM (3.10)
+SDESC[v11]=		Plugin for reportlab.graphics.renderPM (3.11)
+HOMEPAGE=		none
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/12/b7/a659c64433ae732fc9e372e79eeaf9fd29c9bc324a4e4101f2d3171086fa
+DISTFILE[1]=		rlPyCairo-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[v11]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[v11]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# BSD license, Copyright (c) 2000-2022, ReportLab Inc.
+
+GENERATED=		yes
+DISTNAME=		rlPyCairo-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# pycairo (>=1.20.0)
+# freetype-py (>=2.3)
+
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-pycairo:single:py310
+					python-freetype-py:single:py310
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-pycairo:single:v11
+					python-freetype-py:single:v11
+

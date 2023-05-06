@@ -1,0 +1,100 @@
+=====================================
+README
+=====================================
+
+(C) Copyright ReportLab Europe Ltd. 2000-2021.
+See ``LICENSE.txt`` for license details.
+
+This is a plugin for the ReportLab PDF Toolkit.
+which constructs rich PDF documents, and also creation
+of charts in a variety of bitmap and vector formats.
+
+This plugin is intended to replace most of the usage of the
+libart based C extension _renderPM which has been shown to
+have issues when rendering complex documents.
+
+This backend can be brought into use by setting 
+reportlab.rl_config.renderPMBackend = 'rlPyCairo'
+any of the methods detailed in reportlab/rl_config.py
+can be used to accomplish this.
+
+The new backend seems able to handle all the same behaviour as
+_renderPM and the only place where it seems inferior is in the
+rendering of scaled images and the speed with which it draws
+text.
+
+At present the rlPyCairo backend only uses the _renderPM extension 
+to use its mapping of ReportLab font names to extract paths for
+rendering this is no doubt the reason for its slowness when
+rendering text.
+
+Currently we are not making use of any of the more advanced 
+abilities of PyCairo such as transparency, patterns etc,
+but that may change in the future.
+
+Contents of this file:
+
+1. Licensing
+
+2. Installation
+
+   2.1 General Prerequisites
+
+   2.2 Source Distribution mercurial
+
+3. Prerequisites / Dependencies
+
+4. Documentation
+
+5. Tests
+
+6. Acknowledgements and Thanks
+
+1. Licensing
+============
+BSD license.  See ``LICENSE.txt`` for details.
+
+2. Installation
+===============
+
+In most cases, pip install reportlab`` will do the job.
+
+2.1 General prerequisites
+--------------------------
+You need to have installed Python (versions 2.7 or >=3.6) and reportlab
+and ideally PIL or Pillow with Freetype support; more notes on
+prerequisites
+follow below.
+
+2.2. Where to get the code
+------------------------------------------
+Latest sources are available from ReportLab's
+open source download area::
+
+    https://hg.reportlab.com/hg-pulic/rlPyCairo
+
+You can obtain the latest code from our Mercurial repository with::
+
+    hg clone https://hg.reportlab.com/hg-public/rlPyCairo
+
+All released packages are available from our pypi at
+
+	https://www.reportlab.com/pypi/
+
+Main releases are also available from the Python Package Index:
+
+    https://pypi.python.org/
+
+A mirror only repository is available for git users at
+
+	https://github.com/MrBitBucket/rlPyCairo-mirror
+
+please do not use this for issue reporting etc; use the mail list at
+
+    https://pairlist2.pair.net/mailman/listinfo/reportlab-users
+
+3. Prerequisites / Dependencies
+===============================
+This works with Python versions 2.7 or >=3.6. Older versions are available
+going back to Python 1.5 or thereabouts.
+

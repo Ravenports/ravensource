@@ -305,6 +305,7 @@ function inline_fix_setup ($namebase, $src) {
        "python-netbox" => '/install_requires=/ s|.ipaddress., ||',
        "netdoc"        => '/install_requires=/ s|.ipaddress., ||',
        "pycryptodome"  => false,
+       "freetype-py"   => '/system-provided FreeType/d',
    );
    $setup = $src . "/setup.py";
    if (array_key_exists($namebase, $known_issues)) {
