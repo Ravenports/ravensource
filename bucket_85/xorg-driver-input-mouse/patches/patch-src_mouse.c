@@ -1,4 +1,4 @@
---- src/mouse.c.orig	2022-11-02 02:44:34 UTC
+--- src/mouse.c.orig	2023-05-05 00:25:20 UTC
 +++ src/mouse.c
 @@ -310,13 +310,39 @@ MouseCommonOptions(InputInfoPtr pInfo)
  

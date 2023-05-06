@@ -1,4 +1,4 @@
---- src/bsd_mouse.c.orig	2022-11-02 02:44:34 UTC
+--- src/bsd_mouse.c.orig	2023-05-05 00:25:20 UTC
 +++ src/bsd_mouse.c
 @@ -26,6 +26,24 @@
   * authorization from the copyright holder(s) and author(s).
