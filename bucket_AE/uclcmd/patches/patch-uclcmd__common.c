@@ -1,4 +1,4 @@
---- uclcmd_common.c.orig	2017-04-28 04:19:05 UTC
+--- uclcmd_common.c.orig	2021-12-06 19:25:25 UTC
 +++ uclcmd_common.c
 @@ -30,6 +30,35 @@
  
