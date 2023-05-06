@@ -1,5 +1,5 @@
 # Manually maintained
-DEF[PORTVERSION]=	3.8.10
+DEF[PORTVERSION]=	3.8.11
 DEF[SKIP_CRATE]=	orjson
 # ------------------------------------------------------------------------
 
@@ -31,22 +31,22 @@ SITES[cr11]=		CRATES/compact_str:0.7.0
 SITES[cr12]=		CRATES/encoding_rs:0.8.32
 SITES[cr13]=		CRATES/itoa:1.0.6
 SITES[cr14]=		CRATES/itoap:1.0.1
-SITES[cr15]=		CRATES/libc:0.2.141
+SITES[cr15]=		CRATES/libc:0.2.142
 SITES[cr16]=		CRATES/libm:0.1.4
 SITES[cr17]=		CRATES/num-integer:0.1.45
 SITES[cr18]=		CRATES/num-traits:0.2.15
 SITES[cr19]=		CRATES/once_cell:1.17.1
 SITES[cr20]=		CRATES/packed_simd_2:0.3.8
-SITES[cr21]=		CRATES/pyo3-build-config:0.18.2
-SITES[cr22]=		CRATES/pyo3-ffi:0.18.2
+SITES[cr21]=		CRATES/pyo3-build-config:0.18.3
+SITES[cr22]=		CRATES/pyo3-ffi:0.18.3
 SITES[cr23]=		CRATES/rustversion:1.0.12
 SITES[cr24]=		CRATES/ryu:1.0.13
-SITES[cr25]=		CRATES/serde:1.0.159
-SITES[cr26]=		CRATES/serde_json:1.0.95
+SITES[cr25]=		CRATES/serde:1.0.160
+SITES[cr26]=		CRATES/serde_json:1.0.96
 SITES[cr27]=		CRATES/simdutf8:0.1.4
 SITES[cr28]=		CRATES/smallvec:1.10.0
 SITES[cr29]=		CRATES/static_assertions:1.1.0
-SITES[cr30]=		CRATES/target-lexicon:0.12.6
+SITES[cr30]=		CRATES/target-lexicon:0.12.7
 SITES[cr31]=		CRATES/version_check:0.9.4
 
 DISTFILE[1]=		orjson-${PORTVERSION}.tar.gz:main
@@ -132,18 +132,18 @@ do-build:
 		--release \
 		--interpreter ${PYTHON_CMD})
 
-pre-install-linux:
-	# for some reason compatibility ends at -manylinux_2_23_x86_64
-	(cd ${INSTALL_WRKSRC}/target/wheels/ && ${MV}\
-	orjson-${PORTVERSION}-cp${PYTHON_SUFFIX}-cp${PYTHON_SUFFIX}-manylinux_2_24_x86_64.whl\
-	orjson-${PORTVERSION}-cp${PYTHON_SUFFIX}-cp${PYTHON_SUFFIX}-manylinux_2_23_x86_64.whl)
-
 pre-install-midnightbsd:
 	# Due to rust limitations, maturin must set target OS as freebsd, but
 	# pip doesn't recognize that as a legal combination.  Rename to complete build.
 	(cd ${INSTALL_WRKSRC}/target/wheels/ && ${MV}\
 	orjson-${PORTVERSION}-cp${PYTHON_SUFFIX}-cp${PYTHON_SUFFIX}-freebsd_*.whl\
 	orjson-${PORTVERSION}-cp${PYTHON_SUFFIX}-cp${PYTHON_SUFFIX}-midnightbsd_3_0_0_amd64.whl)
+
+pre-install-linux:
+	# for some reason compatibility ends at -manylinux_2_23_x86_64
+	(cd ${INSTALL_WRKSRC}/target/wheels/ && ${MV}\
+	orjson-${PORTVERSION}-cp${PYTHON_SUFFIX}-cp${PYTHON_SUFFIX}-manylinux_2_24_x86_64.whl\
+	orjson-${PORTVERSION}-cp${PYTHON_SUFFIX}-cp${PYTHON_SUFFIX}-manylinux_2_23_x86_64.whl)
 
 do-install:
 	# Due to upstream not supplying a setup.py file or other way to install
