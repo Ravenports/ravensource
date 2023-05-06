@@ -208,6 +208,7 @@ headers_BSD=\
 	getopt.h \
 	ieeefp.h \
 	ifaddrs.h \
+	kenv.h \
 	kvm.h \
 	libusb.h \
 	libusb20.h \
