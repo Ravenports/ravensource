@@ -1,4 +1,4 @@
---- absl/base/config.h.orig	2023-03-27 14:58:21 UTC
+--- absl/base/config.h.orig	2023-05-04 14:32:38 UTC
 +++ absl/base/config.h
 @@ -429,7 +429,7 @@ static_assert(ABSL_INTERNAL_INLINE_NAMES
      defined(__asmjs__) || defined(__wasm__) || defined(__Fuchsia__) ||    \
