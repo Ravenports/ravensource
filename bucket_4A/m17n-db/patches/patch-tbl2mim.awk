@@ -1,4 +1,4 @@
---- tbl2mim.awk.orig	2014-11-28 22:57:30 UTC
+--- tbl2mim.awk.orig	2023-04-26 10:19:35 UTC
 +++ tbl2mim.awk
 @@ -1,4 +1,4 @@
 -#!/usr/bin/gawk -f

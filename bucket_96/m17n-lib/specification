@@ -15,14 +15,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SAVANNAH/m17n
 DISTFILE[1]=		m17n-lib-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL21+:single
+LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"_M17N_H_"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/m17n.h
 LICENSE_SCHEME=		solo
@@ -30,10 +30,14 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		devel/m17n-lib
 
 BUILD_DEPENDS=		bison:primary:standard
+			m17n-db:dev:standard
+			freetype:dev:standard
 BUILDRUN_DEPENDS=	fribidi:single:standard
 			libGD:single:standard
 			libotf:single:standard
-			m17n-db:single:standard
+			m17n-db:primary:standard
+
+EXRUN[tools]=		m17n-lib:primary:standard
 
 USES=			autoreconf gettext:build libtool
 			fontconfig pkgconfig

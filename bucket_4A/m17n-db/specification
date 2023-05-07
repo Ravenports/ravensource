@@ -18,12 +18,17 @@ DISTFILE[1]=		m17n-db-${PORTVERSION}.tar.gz:main
 DISTFILE[2]=		glibc-${GLIBC_VERSION}.tar.xz:gnu
 DF_INDEX=		1 2
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		devel/m17n-db
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
 
 USES=			gmake pkgconfig
 MUST_CONFIGURE=		gnu
@@ -33,6 +38,10 @@ MAKE_ARGS=		pkgconfigdir={{PREFIX}}/lib/pkgconfig
 
 post-extract:
 	${MV} ${WRKDIR}/glibc-${GLIBC_VERSION} ${WRKSRC}/
+	# extract license terms
+	${AWK} '/^\#\# Copyright/,EOF' \
+		${WRKSRC}/README > ${WRKDIR}/TERMS
+
 
 post-patch:
 	${REINPLACE_CMD} -E 's|(m17n_scriptdir = ).*|\1${PREFIX}/bin|' \
