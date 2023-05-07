@@ -53,8 +53,13 @@ INSTALL_TARGET=		install-strip
 
 SOVERSION=		${SOVERSION}
 
-BR_DEPS[dragonfly]=	libgudev:single:standard
-BR_DEPS[freebsd]=	libgudev:single:standard
+B_DEPS[dragonfly]=	libgudev:dev:standard
+BR_DEPS[dragonfly]=	libgudev:primary:standard
+
+B_DEPS[freebsd]=	libgudev:dev:standard
+BR_DEPS[freebsd]=	libgudev:primary:standard
 			libgtop:primary:standard
-BR_DEPS[linux]=		libgudev:single:standard
+
+B_DEPS[linux]=		libgudev:dev:standard
+BR_DEPS[linux]=		libgudev:primary:standard
 			libgtop:primary:standard
