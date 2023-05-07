@@ -5,7 +5,7 @@ DEF[SOMINOR]=		${PORTVERSION:R:E}
 
 NAMEBASE=		sfml
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		devel multimedia
 VARIANTS=		standard
 SDESC[standard]=	Simple Fast Multimedia Library
@@ -16,12 +16,12 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/SFML:SFML:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		ZLIB:single
+LICENSE=		ZLIB:primary
 LICENSE_FILE=		ZLIB:{{WRKSRC}}/license.md
 LICENSE_SCHEME=		solo
 
@@ -29,10 +29,15 @@ FPC_EQUIVALENT=		devel/sfml
 
 BUILD_DEPENDS=		openal:dev:standard
 			libvorbis:dev:standard
+			flac:dev:standard
 BUILDRUN_DEPENDS=	flac:primary:standard
 			libvorbis:primary:standard
 			libglvnd:single:standard
 			openal:primary:standard
+
+EXRUN[dev]=		flac:dev:standard
+			openal:dev:standard
+			libvorbis:dev:standard
 
 USES=			cmake jpeg freetype
 CMAKE_ARGS=		-DSFML_INSTALL_PKGCONFIG_FILES=ON
