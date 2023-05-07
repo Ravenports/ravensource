@@ -5,6 +5,7 @@ DEF[SOVERSION]=		1.0.35
 
 NAMEBASE=		libsndfile
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		audio
 VARIANTS=		standard
 SDESC[standard]=	Library for reading and writing sound files
@@ -15,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/erikd:libsndfile:${TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary tools dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,6 +29,9 @@ BUILDRUN_DEPENDS=	flac:primary:standard
 			libvorbis:primary:standard
 			opus:primary:standard
 			speex:primary:standard
+
+EXRUN[dev]=		opus:dev:standard
+EXRUN[tools]=		libsndfile:primary:standard
 
 USES=			cmake cpe gmake pkgconfig python:build
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=true
