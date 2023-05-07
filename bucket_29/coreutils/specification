@@ -54,10 +54,6 @@ INSTALL_REQ_TOOLCHAIN=	yes
 [RAVENSYS].CONFIGURE_ARGS_OFF=		--enable-nls
 [RAVENSYS].CONFIGURE_ARGS_ON=		--disable-nls
 
-post-patch-freebsd:
-	${REINPLACE_CMD} -e "s/--output/--no-discard-stderr --output/" \
-		${WRKSRC}/Makefile.in
-
 post-build:
 	${REINPLACE_CMD} -e "s/ lib / /g" ${WRKSRC}/Makefile
 
