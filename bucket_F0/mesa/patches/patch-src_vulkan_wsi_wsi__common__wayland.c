@@ -3,7 +3,7 @@ wayland 1.22
 https://gitlab.freedesktop.org/mesa/mesa/-/commit/ee5d2250fd15
 https://gitlab.freedesktop.org/mesa/mesa/-/commit/689ce66a4332
 
---- src/vulkan/wsi/wsi_common_wayland.c.orig	2023-03-08 18:37:09 UTC
+--- src/vulkan/wsi/wsi_common_wayland.c.orig	2023-04-20 23:06:54 UTC
 +++ src/vulkan/wsi/wsi_common_wayland.c
 @@ -1156,12 +1156,6 @@ wsi_wl_surface_destroy(VkIcdSurfaceBase
     struct wsi_wl_surface *wsi_wl_surface =

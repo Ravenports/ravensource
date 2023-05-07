@@ -1,6 +1,6 @@
---- meson.build.orig	2023-03-08 18:37:09 UTC
+--- meson.build.orig	2023-04-20 23:06:54 UTC
 +++ meson.build
-@@ -173,7 +173,8 @@ with_any_opengl = with_opengl or with_gl
+@@ -174,7 +174,8 @@ with_any_opengl = with_opengl or with_gl
  # Only build shared_glapi if at least one OpenGL API is enabled
  with_shared_glapi = with_shared_glapi and with_any_opengl
  
@@ -10,7 +10,7 @@
  
  with_freedreno_kgsl = get_option('freedreno-kgsl')
  if with_freedreno_kgsl
-@@ -1188,7 +1189,7 @@ else
+@@ -1218,7 +1219,7 @@ else
    endif
  
    # FreeBSD annotated <pthread.h> but Mesa isn't ready
@@ -19,7 +19,7 @@
      _trial_c += ['-Werror=thread-safety']
    endif
  
-@@ -1434,34 +1435,34 @@ foreach f, prefix: functions_to_detect
+@@ -1466,34 +1467,34 @@ foreach f, prefix: functions_to_detect
  endforeach
  
  if cpp.links('''
