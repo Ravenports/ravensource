@@ -18,8 +18,13 @@ DIST_SUBDIR=		xfce
 
 SPKGS[standard]=	complete primary docs nls
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	GUDEV
+OPTIONS_STANDARD=	GUDEV
+OPT_ON[dragonfly]=	GUDEV
+OPT_ON[midnightbsd]=	GUDEV
+OPT_ON[freebsd]=	GUDEV
+OPT_ON[netbsd]=		GUDEV
+OPT_ON[linux]=		GUDEV
 
 FPC_EQUIVALENT=		x11-fm/thunar
 
@@ -73,6 +78,10 @@ INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		INTRO="@comment "
+
+[GUDEV].DESCRIPTION=			Build with gudev library
+[GUDEV].BUILD_DEPENDS_ON=		libgudev:dev:standard
+[GUDEV].BUILDRUN_DEPENDS_ON=		libgudev:primary:standard
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/thunarx \
