@@ -207,6 +207,8 @@ function set_namebase_author_tarball ($input, &$namebase, &$author, &$distfile, 
     if ($input == "G/GB/GBOUGARD/FusionInventory-Agent_2.6.tar.gz") {
 echo("FOUND!");
        $input = "G/GB/GBOUGARD/FusionInventory-Agent-2.6.tar.gz";
+    } else if ($input == "H/HA/HAARG/Config-Any-0.32.tar.gz") {
+       $input = "H/HA/HAARG/Config-Any-0.33.tar.gz";
     }
 
     $parts    = explode("/", $input);
