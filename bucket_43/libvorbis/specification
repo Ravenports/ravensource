@@ -6,6 +6,7 @@ DEF[FILE_SOVERSION]=	3.3.8
 
 NAMEBASE=		libvorbis
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		audio
 VARIANTS=		standard
 SDESC[standard]=	Vorbis General Audio Compression Codec
@@ -16,7 +17,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://downloads.xiph.org/releases/vorbis/
 DISTFILE[1]=		libvorbis-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary dev docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,6 +30,8 @@ FPC_EQUIVALENT=		audio/libvorbis
 
 BUILD_DEPENDS=		libogg:dev:standard
 BUILDRUN_DEPENDS=	libogg:primary:standard
+
+EXRUN[dev]=		libogg:dev:standard
 
 USES=			cpe libtool mbsdfix
 CPE_VENDOR=		xiph.org
