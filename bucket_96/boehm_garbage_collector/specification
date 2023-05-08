@@ -29,9 +29,9 @@ OPTIONS_STANDARD=	none
 VOPTS[redirect]=	THREADED=OFF REDIRECT=ON
 VOPTS[threaded]=	THREADED=ON REDIRECT=OFF
 
-LICENSE=		BSD2CLAUSE:single
+LICENSE=		MIT:single
 LICENSE_SCHEME=		solo
-LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
 
 FPC_EQUIVALENT=		devel/boehm-gc
 
@@ -61,6 +61,9 @@ PLIST_SUB=		GCVERSION=${GCVERSION}
 [THREADED].CMAKE_ARGS_OFF=		-Denable_threads:BOOL=OFF
 [REDIRECT].CMAKE_ARGS_ON=		-Denable_redirect_malloc:BOOL=ON
 [REDIRECT].CMAKE_ARGS_OFF=		-Denable_redirect_malloc:BOOL=OFF
+
+post-extract:
+	cd ${WRKSRC} && awk 'x==1 {print} /Copyright &/ {x=1}' README.md > LICENSE
 
 post-patch:
 	${REINPLACE_CMD} -e "s|%%PREFIX%%|${PREFIX}|g" ${WRKSRC}/doc/gc.man
