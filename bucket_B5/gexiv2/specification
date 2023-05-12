@@ -33,13 +33,18 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		graphics/gexiv2
 
 BUILD_DEPENDS=		vala:single:standard
+			exiv2:dev:standard
 BUILDRUN_DEPENDS=	exiv2:primary:standard
+
+EXRUN[dev]=		glib:dev:standard
 
 USES=			pkgconfig libtool:build meson gtk-doc
 GNOME_COMPONENTS=	glib introspection pygobject
 SOVERSION=		${SOVERSION}
 MESON_ARGS=		-Dgtk_doc=true
 INSTALL_REQ_TOOLCHAIN=	yes
+
+PATCH_STRIP=		-p1
 
 pre-configure:
 	${REINPLACE_CMD} -e "s|${CAT1}|file://${LOCALBASE}/share/xml/docbook/|" \
