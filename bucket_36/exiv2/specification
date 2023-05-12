@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	0.27.6
-DEF[SOMAJOR]=		27
+DEF[PORTVERSION]=	0.28.0
+DEF[SOMAJOR]=		28
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		exiv2
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/Exiv2:exiv2:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary examples nls
+SPKGS[standard]=	complete primary tools dev nls man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -22,20 +22,26 @@ OPTIONS_STANDARD=	none
 LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
-LICENSE_AWK=		TERMS:"Abstract:"
-LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/exiv2.cpp
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/image.cpp
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/exiv2
 
-USES=			cpe cmake iconv zlib c++:primary,examples
+BUILD_DEPENDS=		brotli:dev:standard
+BUILDRUN_DEPENDS=	brotli:primary:standard
+
+EXRUN[tools]=		exiv2:primary:standard
+
+USES=			cpe cmake iconv zlib c++:primary
 			expat gettext
 CMAKE_ARGS=		-DEXIV2_ENABLE_VIDEO:BOOL=ON
 			-DEXIV2_BUILD_PO:BOOL=ON
 			-DEXIV2_BUILD_DOC:BOOL=OFF
-			-DEXIV2_BUILD_SAMPLES:BOOL=ON
+			-DEXIV2_BUILD_SAMPLES:BOOL=OFF
 			-DEXIV2_ENABLE_EXTERNAL_XMP:BOOL=OFF
 			-DEXIV2_ENABLE_WEBREADY:BOOL=OFF
+			-DEXIV2_ENABLE_INIH:BOOL=OFF
 			-DEXIV2_ENABLE_NLS:BOOL=ON
 PLIST_SUB=		SOVERSION=${PORTVERSION}
 			SOMAJOR=${SOMAJOR}

@@ -1,8 +1,8 @@
 $NetBSD: patch-cmake_config.h.cmake,v 1.1 2019/10/25 09:44:26 kamil Exp $
 
---- cmake/config.h.cmake.orig	2021-06-15 14:08:36 UTC
+--- cmake/config.h.cmake.orig	2023-05-08 16:01:13 UTC
 +++ cmake/config.h.cmake
-@@ -35,7 +35,17 @@
+@@ -29,7 +29,17 @@
  
  /* Define to `const' or to empty, depending on the second argument of `iconv'. */
  #cmakedefine ICONV_ACCEPTS_CONST_INPUT
