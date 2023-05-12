@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.6.0
+DEF[PORTVERSION]=	3.6.1
 DEF[TAG]=		v${PORTVERSION}
 DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/jbeich:aom:${TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[standard]=	complete primary tools dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,6 +28,8 @@ LICENSE_SCHEME=		solo
 # FPC_EQUIVALENT=		multimedia/aom
 
 BUILD_DEPENDS=		nasm:primary:standard
+
+EXRUN[tools]=		aom:primary:standard
 
 USES=			cmake c++:primary perl:build
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
