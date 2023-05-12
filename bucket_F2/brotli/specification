@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	1.0.9
 
 NAMEBASE=		brotli
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		archivers devel
 VARIANTS=		standard
 SDESC[standard]=	Generic-purpose lossless compression algorithm
@@ -14,18 +14,20 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/google:brotli:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		archivers/brotli
 
 BUILD_DEPENDS=		bc:single:standard
+
+EXRUN[tools]=		brotli:primary:standard
 
 USES=			cpe autoreconf:build libtool:build gmake pkgconfig
 CPE_VENDOR=		google
