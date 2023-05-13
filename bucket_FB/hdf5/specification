@@ -1,9 +1,10 @@
-DEF[PORTVERSION]=	1.14.0
+DEF[PORTVERSION]=	1.14.1
 DEF[FOLDER]=		${PORTVERSION:R}
-DEF[SOVERSION]=		310.0.0
-DEF[HDF5_FORT_SOVER]=	310.0.0
-DEF[HL_SOVER]=		310.0.0
-DEF[HL_FORT_SOVER]=	310.0.0
+DEF[SOVERSION]=		310.1.0
+DEF[CPP_SOVERSION]=	310.0.1
+DEF[HDF5_FORT_SOVER]=	310.1.0
+DEF[HL_SOVER]=		310.0.1
+DEF[HL_FORT_SOVER]=	310.0.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		hdf5
@@ -16,9 +17,9 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-${FOLDER}/hdf5-${PORTVERSION}/src/
-DISTFILE[1]=		hdf5-${PORTVERSION}.tar.gz:main
+DISTFILE[1]=		hdf5-${PORTVERSION}-2.tar.gz:main
 
-SPKGS[standard]=	complete primary examples
+SPKGS[standard]=	complete primary cxx fort tools dev examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,7 +30,11 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		science/hdf5
 
-USES=			cpe libtool c++:primary fortran:primary mbsdfix
+EXRUN[tools]=		hdf5:dev:standard
+EXRUN[cxx]=		hdf5:primary:standard
+EXRUN[fort]=		hdf5:primary:standard
+
+USES=			cpe libtool c++:cxx fortran:fort mbsdfix
 CPE_VENDOR=		hdfgroup
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-instrument
@@ -44,9 +49,12 @@ PLIST_SUB=		HL_SOVER=${HL_SOVER}
 			HDF5_FORT_SOMAJOR=${HDF5_FORT_SOVER:R:R}
 			HL_FORT_SOVER=${HL_FORT_SOVER}
 			HL_FORT_SOMAJOR=${HL_FORT_SOVER:R:R}
+			CPP_SOVERSION=${CPP_SOVERSION}
+			CPP_SOMAJOR=${CPP_SOVERSION:R:R}
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 SINGLE_JOB=		yes
+DISTNAME=		hdf5-${PORTVERSION}-2
 
 post-patch:
 	${REINPLACE_CMD} -e 's|-O3||g' ${WRKSRC}/config/gnu-flags
