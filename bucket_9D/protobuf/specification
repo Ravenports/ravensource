@@ -1,9 +1,7 @@
 # Note: protobuf-c is tightly coupled to protobuf and needs to be updated
 #       and tested together
-# DEF[PORTVERSION]=	22.0
-# DEF[SOVERSION]=		4.22.0.0
-DEF[PORTVERSION]=	21.12
-DEF[SOVERSION]=		3.21.12.0
+DEF[PORTVERSION]=	23.0
+DEF[SOVERSION]=		23.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		protobuf
@@ -24,22 +22,21 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 LICENSE=		BSD3CLAUSE:primary
-LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/../LICENSE
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/protobuf
 
-# BUILD_DEPENDS=		abseil-cpp:dev:standard
-# BUILDRUN_DEPENDS=	abseil-cpp:primary:standard
+BUILD_DEPENDS=		abseil-cpp:dev:standard
+BUILDRUN_DEPENDS=	abseil-cpp:primary:standard
 
-# EXRUN[dev]=		abseil-cpp:dev:standard
+EXRUN[dev]=		abseil-cpp:dev:standard
 
 USES=			cpe cmake pkgconfig zlib c++:primary
 CPE_VENDOR=		google
 CMAKE_ARGS=		-Dprotobuf_BUILD_TESTS:BOOL=OFF
 			-DBUILD_SHARED_LIBS:BOOL=ON
-# #			-Dprotobuf_ABSL_PROVIDER:STRING=package
-DISTNAME=		protobuf-${PORTVERSION}/cmake
+			-Dprotobuf_ABSL_PROVIDER:STRING=package
 PLIST_SUB=		PROTOCVER=${SOVERSION}
 # protobuf doesn't build with RP gold linker v2.37 (still true FEB 2022)
 LDFLAGS=		-fuse-ld=bfd
