@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.29.1
+DEF[PORTVERSION]=	1.30.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		nginx-unit
@@ -45,10 +45,11 @@ CPE_VENDOR=		nginx
 CPE_PRODUCT=		unit
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--prefix={{PREFIX}}
-			--modules=libexec/unit/modules
-			--state=libexec/unit
-			--log=/var/log/nginx-unit/unit.log
-			--pid=/var/run/nginx-unit/unit.pid
+			--modulesdir={{PREFIX}}/libexec/unit/modules
+			--statedir={{PREFIX}}/libexec/unit
+			--localstatedir=/var
+			--runstatedir=/var/run/nginx-unit
+			--logdir=/var/log/nginx-unit
 			--control=unix:/var/run/nginx-unit/control.unit.sock
 			--ld-opt="-L{{LOCALBASE}}/lib -Wl,-rpath,{{LOCALBASE}}/lib"
 SUB_LIST=		UNIT_PIDFILE=/var/log/nginx-unit/unit.log
@@ -77,7 +78,5 @@ post-configure:
 	)
 
 post-install:
-	${MKDIR} ${STAGEDIR}/var/log/nginx-unit
-	${MKDIR} ${STAGEDIR}/var/run/nginx-unit
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/sbin/unitd
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/unit/modules/*.so
