@@ -1,5 +1,6 @@
-DEF[PORTVERSION]=	0.9.8
+DEF[PORTVERSION]=	0.10.0
 DEF[SOVERSION]=		${PORTVERSION}
+DEF[RELEASE_TAG]=	${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		podofo
@@ -11,17 +12,17 @@ HOMEPAGE=		https://sourceforge.net/projects/podofo/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/podofo/podofo/${PORTVERSION}
-DISTFILE[1]=		podofo-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/podofo:podofo:${RELEASE_TAG}
+DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/podofo/podofo.h
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
@@ -31,18 +32,16 @@ FPC_EQUIVALENT=		graphics/podofo
 BUILDRUN_DEPENDS=	libidn:primary:standard
 			libunistring:primary:standard
 
+EXRUN[tools]=		podofo:primary:standard
+
 USES=			cpe cmake pkgconfig jpeg png tiff zlib
-			fontconfig ssl:openssl10 c++:single
+			fontconfig ssl:openssl30 c++:primary
+GNOME_COMPONENTS=	libxml2
 CPE_VENDOR=		podofo_project
-CMAKE_ARGS=		-DWANT_TIFF:BOOL=ON
-			-DWANT_PNG:BOOL=ON
-			-DWANT_LIBJPEG:BOOL=ON
-			-DWANT_LUA:BOOL=ON
-			-DPODOFO_BUILD_SHARED:BOOL=ON
-			-DPODOFO_BUILD_STATIC:BOOL=ON
-			-DOPENSSL_INCLUDE_DIR="{{OPENSSLINC}}"
+CMAKE_ARGS=		-DOPENSSL_INCLUDE_DIR="{{OPENSSLINC}}"
 			-DOPENSSL_LIBRARIES="{{OPENSSLDIR}}"
-			-DFREETYPE_INCLUDE_DIR="{{LOCALBASE}}/include/freetype2"
+			-DPODOFO_BUILD_TOOLS:BOOL=ON
+			-DMANDIR={{MANPREFIX}}/man/
 SOVERSION=		${SOVERSION}
 
 post-install:
