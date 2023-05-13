@@ -151,6 +151,7 @@ function generate_port($namebase) {
     # prepare buildrun dependencies
     $SS = ":single:standard\n";
     $buildrun_list = array();
+    $build_list = array();
     foreach ($port_data[$namebase]["buildrun"] as $DEP) {
         array_push($buildrun_list, "R-" . $DEP . $SS);
     }
@@ -160,15 +161,25 @@ function generate_port($namebase) {
     if (file_exists ($manual_specs)) {
         $lines = file($manual_specs);
         foreach ($lines as $line) {
+            if (strlen($line) > 3 && substr($line, 0, 3) == "\t\t\t") {
+               echo ("$namebase spec.man needs USES=/BUILD*_DEPENDS= for $line");
+            }
             if ( strlen($line) > 8
               && substr($line, 0, 8) == "USES=\t\t\t")
             {
                 $uses .= " " . trim(substr($line, 8));
-            } else if ( strlen($line) > 18
+            }
+            else if ( strlen($line) > 18
                      && substr($line, 0, 18) == "BUILDRUN_DEPENDS=\t")
             {
                 array_push($buildrun_list, trim(substr($line, 18)) . "\n");
-            } else {
+            }
+            else if ( strlen($line) > 16
+                     && substr($line, 0, 16) == "BUILD_DEPENDS=\t\t")
+            {
+                array_push($build_list, trim(substr($line, 16)) . "\n");
+            }
+            else {
                 if (substr($line, -1) == "\n") {
                     $manual_portion .= $line;
                 } else {
@@ -187,6 +198,15 @@ function generate_port($namebase) {
         else {
             $buildrun_dependencies .= "\t\t\t" . $DEP;
         }
+    }
+    $ibuild = 0;
+    foreach ($build_list as $DEP) {
+       $ibuild++;
+       if ($ibuild == 1) {
+            $buildrun_dependencies .= "\nBUILD_DEPENDS=\t\t" . $DEP;
+       } else {
+            $buildrun_dependencies .= "\t\t\t" . $DEP;
+       }
     }
 
     $specification = <<<EOD
