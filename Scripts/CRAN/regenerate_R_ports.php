@@ -158,25 +158,37 @@ function generate_port($namebase) {
 
     # Get specification.manual (if it exists)
     $manual_portion = "";
+    $last_definition = "";
     if (file_exists ($manual_specs)) {
         $lines = file($manual_specs);
         foreach ($lines as $line) {
-            if (strlen($line) > 3 && substr($line, 0, 3) == "\t\t\t") {
+            if (strlen($line) > 3 &&
+                substr($line, 0, 3) == "\t\t\t" &&
+                in_array($last_definition, array
+                (
+                    "USES",
+                    "BUILDRUN_DEPENDS",
+                    "BUILD_DEPENDS"
+                )))
+            {
                echo ("$namebase spec.man needs USES=/BUILD*_DEPENDS= for $line");
             }
             if ( strlen($line) > 8
               && substr($line, 0, 8) == "USES=\t\t\t")
             {
+                $last_definition = "USES";
                 $uses .= " " . trim(substr($line, 8));
             }
             else if ( strlen($line) > 18
                      && substr($line, 0, 18) == "BUILDRUN_DEPENDS=\t")
             {
+                $last_definition = "BUILDRUN_DEPENDS";
                 array_push($buildrun_list, trim(substr($line, 18)) . "\n");
             }
             else if ( strlen($line) > 16
                      && substr($line, 0, 16) == "BUILD_DEPENDS=\t\t")
             {
+                $last_definition = "BUILD_DEPENDS";
                 array_push($build_list, trim(substr($line, 16)) . "\n");
             }
             else {
@@ -184,6 +196,9 @@ function generate_port($namebase) {
                     $manual_portion .= $line;
                 } else {
                     $manual_portion .= $line . "\n";
+                }
+                if (strlen($line) > 2 && substr($line,0,1) != "\t") {
+                    $last_definition = "MANUAL";
                 }
             }
         }
