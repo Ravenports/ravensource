@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	9.1.0
+DEF[PORTVERSION]=	10.0.0
 DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -14,18 +14,18 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/fmtlib/fmt/releases/download/${PORTVERSION}/
 DISTFILE[1]=		fmt-${PORTVERSION}.zip:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE.rst
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libfmt
 
-USES=			cpe cmake ninja c++:single
+USES=			cpe cmake ninja c++:primary
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
 			-DFMT_DOC:BOOL=OFF
 			-DFMT_TEST:BOOL=OFF
