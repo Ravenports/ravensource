@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.4.69
+DEF[PORTVERSION]=	1.4.70
 DEF[REVISION]=		0
 DEF[CACHEDIR]=		/var/cache/lighttpd
 DEF[LOGDIR]=		/var/log/lighttpd
@@ -18,12 +18,12 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://download.lighttpd.net/lighttpd/releases-1.4.x/
 DISTFILE[1]=		lighttpd-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary man
 
 OPTIONS_AVAILABLE=	LDAP MYSQL GEOIP
 OPTIONS_STANDARD=	LDAP MYSQL GEOIP
 
-LICENSE=		BSD3CLAUSE:single
+LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
@@ -31,7 +31,7 @@ FPC_EQUIVALENT=		www/lighttpd
 
 USERS=			wwwraven
 GROUPS=			wwwraven
-USERGROUP_SPKG=		single
+USERGROUP_SPKG=		primary
 
 BUILD_DEPENDS=		libev:dev:standard
 BUILDRUN_DEPENDS=	libev:primary:standard
@@ -59,7 +59,7 @@ PLIST_SUB=		WWWOWN="wwwraven"
 			HOMEDIR="${HOMEDIR}"
 			LOGDIR="${LOGDIR}"
 
-RC_SUBR=		lighttpd:single
+RC_SUBR=		lighttpd:primary
 SUB_LIST=		REQUIRE="DAEMON {{REQUIRES}}"
 
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--with-attr
