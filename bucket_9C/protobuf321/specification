@@ -1,0 +1,40 @@
+# Older release of protobuf need by other packages
+DEF[PORTVERSION]=	21.12
+DEF[SOVERSION]=		3.21.12.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		protobuf321
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Google's data interchange format
+HOMEPAGE=		https://github.com/google/protobuf
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/google:protobuf:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/../LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/protobuf
+
+USES=			cpe cmake pkgconfig zlib c++:primary
+CPE_VENDOR=		google
+CMAKE_ARGS=		-Dprotobuf_BUILD_TESTS:BOOL=OFF
+			-DBUILD_SHARED_LIBS:BOOL=ON
+DISTNAME=		protobuf-${PORTVERSION}/cmake
+PLIST_SUB=		PROTOCVER=${SOVERSION}
+# protobuf doesn't build with RP gold linker v2.37 (still true FEB 2022)
+LDFLAGS=		-fuse-ld=bfd
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/protoc
