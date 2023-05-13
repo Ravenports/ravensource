@@ -1,5 +1,6 @@
-DEF[PORTVERSION]=	1.14.1
-DEF[FOLDER]=		${PORTVERSION:R}
+DEF[PORTVERSION]=	1.14.1-2
+DEF[FOLDER]=		hdf5-1.14
+DEF[SUBFOLDER]=		hdf5-1.14.1
 DEF[SOVERSION]=		310.1.0
 DEF[CPP_SOVERSION]=	310.0.1
 DEF[HDF5_FORT_SOVER]=	310.1.0
@@ -16,8 +17,8 @@ HOMEPAGE=		https://www.hdfgroup.org/solutions/hdf5/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-${FOLDER}/hdf5-${PORTVERSION}/src/
-DISTFILE[1]=		hdf5-${PORTVERSION}-2.tar.gz:main
+SITES[main]=		https://support.hdfgroup.org/ftp/HDF5/releases/${FOLDER}/${SUBFOLDER}/src/
+DISTFILE[1]=		hdf5-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	complete primary cxx fort tools dev examples
 
@@ -54,7 +55,6 @@ PLIST_SUB=		HL_SOVER=${HL_SOVER}
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 SINGLE_JOB=		yes
-DISTNAME=		hdf5-${PORTVERSION}-2
 
 post-patch:
 	${REINPLACE_CMD} -e 's|-O3||g' ${WRKSRC}/config/gnu-flags
