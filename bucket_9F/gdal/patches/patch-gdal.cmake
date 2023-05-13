@@ -1,6 +1,6 @@
---- gdal.cmake.orig	2023-03-07 17:14:56 UTC
+--- gdal.cmake.orig	2023-05-02 13:47:12 UTC
 +++ gdal.cmake
-@@ -279,7 +279,7 @@ endif ()
+@@ -280,7 +280,7 @@ endif ()
  if (CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
    include(CheckLinkerFlag)
    check_linker_flag(C "-Wl,--no-undefined" HAS_NO_UNDEFINED)

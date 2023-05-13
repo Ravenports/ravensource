@@ -1,6 +1,6 @@
-DEF[PORTVERSION]=	3.6.4
-DEF[RELEASE]=		3.6.4
-DEF[SOMAJOR]=		32
+DEF[PORTVERSION]=	3.7.0
+DEF[RELEASE]=		${PORTVERSION}
+DEF[SOMAJOR]=		33
 DEF[SOVERSION]=		${SOMAJOR}.${RELEASE}
 # ----------------------------------------------------------------------------
 
@@ -16,12 +16,12 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://download.osgeo.org/gdal/${RELEASE}/
 DISTFILE[1]=		gdal-${RELEASE}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE.TXT
 LICENSE_SCHEME=		solo
 
@@ -31,6 +31,7 @@ BUILD_DEPENDS=		geos:dev:standard
 			libheif:dev:standard
 			openexr:dev:standard
 			proj:dev:standard
+			hdf5:dev:standard
 BUILDRUN_DEPENDS=	libgeotiff:single:standard
 			cfitsio:primary:standard
 			WebP:single:standard
@@ -40,11 +41,12 @@ BUILDRUN_DEPENDS=	libgeotiff:single:standard
 			geos:primary:standard
 			openexr:primary:standard
 			proj:primary:standard
+			libarchive:single:standard
+
+EXRUN[tools]=		gdal:primary:standard
 
 # Can't use json-c externally because libjson-c support requires a
 # private json_object header that it shouldn't refer to.
-
-SINGLE_JOB=		yes
 
 USES=			cpe cmake png jpeg gif tiff iconv sqlite pkgconfig
 			zstd expat lz4 zlib xz pcre2 ssl curl
@@ -131,5 +133,5 @@ PLIST_SUB=		GDAL_SOMAJOR=${SOMAJOR}
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gdal[^-]*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gnm*
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/[no]*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/[nos]*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgdal.so
