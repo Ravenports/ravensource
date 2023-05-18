@@ -1,6 +1,6 @@
---- configure.py.orig	2023-04-17 21:15:51 UTC
+--- configure.py.orig	2023-05-03 11:53:59 UTC
 +++ configure.py
-@@ -44,6 +44,7 @@ from utils import SearchFiles
+@@ -47,6 +47,7 @@ from utils import SearchFiles
  parser = argparse.ArgumentParser()
  
  valid_os = ('win', 'mac', 'solaris', 'freebsd', 'openbsd', 'linux',
