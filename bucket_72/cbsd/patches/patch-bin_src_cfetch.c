@@ -1,4 +1,4 @@
---- bin/src/cfetch.c.orig	2023-04-09 08:57:00 UTC
+--- bin/src/cfetch.c.orig	2023-05-10 14:34:24 UTC
 +++ bin/src/cfetch.c
 @@ -99,7 +99,7 @@ main(int argc, char *argv[])
  static int
