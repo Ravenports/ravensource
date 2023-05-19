@@ -1,96 +1,70 @@
-DEF[PORTVERSION]=	0.4.18
+DEF[PORTVERSION]=	0.5.0
 DEF[SOVERSION]=		1.0.0
+DEF[RELEASE_TAG]=	libproxy-${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libproxy
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		net devel
-VARIANTS=		standard minimal
+VARIANTS=		standard
 SDESC[standard]=	Library for automatic proxy configuration mgmt
-SDESC[minimal]=		Libproxy without any additional bindings
 HOMEPAGE=		https://libproxy.github.io/libproxy
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/libproxy:libproxy:${PORTVERSION}
+SITES[main]=		GITHUB/libproxy:libproxy:${RELEASE_TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
-SPKGS[minimal]=		single
+SPKGS[standard]=	complete primary dev tools man docs
 
-OPTIONS_AVAILABLE=	PERL PYTHON VALA NETWORKMGR
-OPTIONS_STANDARD=	PERL PYTHON VALA
-OPT_ON[all]=		PERL PYTHON VALA
-VOPTS[minimal]=		PERL=OFF PYTHON=OFF VALA=OFF NETWORKMGR=OFF
-# Other variants may be feasible in the future as deps become available
+OPTIONS_AVAILABLE=	VALA
+OPTIONS_STANDARD=	VALA
+OPT_ON[all]=		VALA
 
-# Other bindings not currently available in Raven:
-# Mono, GConf, GSettings, kreadconfig, kreadconfig5, MozJS,
-# NetworkManager, Webkit, Webkit2
-
-LICENSE=		LGPL21+:single
+LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
-LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libproxy/proxy.h
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/libproxy/proxy.h
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net/libproxy
 
-USES=			cpe cclibs:single c++:single cmake pkgconfig zlib:build
+BUILD_DEPENDS=		duktape:dev:standard
+			bash:primary:standard
+BUILDRUN_DEPENDS=	duktape:primary:standard
+
+USES=			cpe meson pkgconfig shebangfix zlib:build
 CPE_VENDOR=		libproxy_project
-CMAKE_ARGS=		-DBIPR:BOOL=OFF
-			-DWITH_DOTNET:BOOL=OFF
-			-DWITH_NATUS:BOOL=OFF
-			-DWITH_NM:BOOL=OFF
-			-DWITH_GNOME2:BOOL=OFF
-			-DWITH_GNOME3:BOOL=OFF
-			-DWITH_KDE:BOOL=OFF
-			-DWITH_MOZJS:BOOL=OFF
-			-DWITH_PYTHON2:BOOL=OFF
-			-DWITH_PYTHON3:BOOL=OFF
-			-DWITH_WEBKIT:BOOL=OFF
-			-DWITH_WEBKIT3:BOOL=OFF
+# test requires libsoup which introduces circ dependency
+MESON_ARGS=		-Dconfig-gnome=false
+			-Dconfig-sysconfig=false
+			-Dconfig-windows=false
+			-Dconfig-osx=false
+			-Dconfig-kde=false
+			-Dconfig-env=true
+			-Ddocs=true
+			-Dtests=false
+			-Dpacrunner-duktape=true
+			-Dcurl=false
 PLIST_SUB=		VERSION=${PORTVERSION}
 SOVERSION=		${SOVERSION}
+SHEBANG_FILES=		data/*.sh
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 			LDFLAGS=-lnsl
-
-[PERL].DESCRIPTION=			Build with Perl binding
-[PERL].USES_ON=				perl
-[PERL].CMAKE_ARGS_ON=			-DWITH_PERL:BOOL=ON
-[PERL].CMAKE_ARGS_OFF=			-DWITH_PERL:BOOL=OFF
-					-DPERL_LINK_LIBPERL:BOOL=OFF
-[PYTHON].DESCRIPTION=			Build with Python binding
-[PYTHON].USES_ON=			python
-[PYTHON].CMAKE_ARGS_ON=			-DWITH_PYTHON{{PYTHON_MAJOR_VER}}:BOOL=ON
-					-DPYTHON_SITEPKG_DIR={{PYTHON_SITELIBDIR}}
 
 [VALA].DESCRIPTION=			Build with Vala binding
 [VALA].BUILD_DEPENDS_ON=		vala:single:standard
 					dbus:dev:standard
 [VALA].BUILDRUN_DEPENDS_ON=		dbus:primary:standard
-[VALA].CMAKE_ARGS_ON=			-DWITH_VALA:BOOL=ON
-[VALA].CMAKE_ARGS_OFF=			-DWITH_VALA:BOOL=OFF
-
-[NETWORKMGR].DESCRIPTION=		Build with Network Manager support
-[NETWORKMGR].BUILD_DEPENDS_ON=		dbus:dev:standard
-[NETWORKMGR].BUILDRUN_DEPENDS_ON=	dbus:primary:standard
-[NETWORKMGR].CMAKE_ARGS_ON=		-WITH_DBUS:BOOL=ON
-
-post-patch:
-	# support python 3.8 and 3.9
-	${REINPLACE_CMD} -e 's/ 3\.6/ 3.9 3.8 3.7 3.6/' \
-		${WRKSRC}/cmake/FindPython3Interp.cmake
-
+[VALA].GNOME_COMPONENTS_ON=		introspection
+[VALA].CMAKE_ARGS_ON=			-Dvapi=true
+					-Dintrospection=true
+[VALA].CMAKE_ARGS_OFF=			-Dvapi=false
+					-Dintrospection=false
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/proxy
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libproxy.so
-
-post-install-VALA-ON:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libproxy/${PORTVERSION}/modules/config_pacrunner.so
-
-post-install-PERL-ON:
-	${STRIP_CMD} ${STAGEDIR}${SITE_ARCH}/auto/Net/Libproxy/Libproxy.so
+	# relocate docs
+	${MV} ${STAGEDIR}${PREFIX}/share/doc/libproxy-1.0 ${STAGEDIR}${STD_DOCDIR}
