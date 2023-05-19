@@ -1,4 +1,4 @@
---- sys/oss/gstosshelper.c.orig	2023-01-23 19:29:34 UTC
+--- sys/oss/gstosshelper.c.orig	2023-05-19 08:23:19 UTC
 +++ sys/oss/gstosshelper.c
 @@ -82,9 +82,9 @@ GstCaps *
  gst_oss_helper_probe_caps (gint fd)
@@ -62,7 +62,7 @@
      default:
        g_assert_not_reached ();
        return NULL;
-@@ -320,13 +344,17 @@ gst_oss_helper_rate_check_rate (GstOssPr
+@@ -316,13 +340,17 @@ gst_oss_helper_rate_check_rate (GstOssPr
    int format;
    int n_channels;
    int ret;
