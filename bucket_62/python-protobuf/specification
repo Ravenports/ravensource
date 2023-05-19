@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.23.0
+DEF[PORTVERSION]=	4.23.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-protobuf
@@ -11,7 +11,7 @@ HOMEPAGE=		https://developers.google.com/protocol-buffers/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/bf/65/f0ee96df56178e36705b3c97e69f9f7f08f64907632ecbbc08df0d3545da
+SITES[main]=		PYPIWHL/d1/2a/bf4c68e2ef7552bbd9f6a17937fd46ab4eaee6b7b5e4723a6e00b4270144
 DISTFILE[1]=		protobuf-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -34,16 +34,14 @@ DISTNAME=		protobuf-${PORTVERSION}.dist-info
 [PY310].USES_ON=			python:py310,wheel
 [PY311].USES_ON=			python:v11,wheel
 
-USES=			cpe
+USES=			cpe shebangfix
 CPE_VENDOR=		google
 CPE_PRODUCT=		protobuf-python
 BUILDRUN_DEPENDS=	protobuf:primary:standard
 BUILD_DEPENDS=		protobuf:dev:standard
 			python-wheel:single:python_used
+SHEBANG_FILES=		stage{{PYTHON_SITELIBDIR}}/google/protobuf/internal/_parameterized.py
+
 
 post-patch:
 	${MKDIR} ${WRKSRC}/google/protobuf/compiler/
-
-post-install:
-	${SED} -i'' -e 's|/usr/bin/env python|${PYTHON_CMD}|'\
-	${STAGEDIR}${PYTHON_SITELIBDIR}/google/protobuf/internal/_parameterized.py

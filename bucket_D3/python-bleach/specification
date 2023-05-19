@@ -40,10 +40,7 @@ DISTNAME=		bleach-${PORTVERSION}.dist-info
 [PY311].RUN_DEPENDS_ON=			python-six:single:v11
 					python-webencodings:single:v11
 
-USES=			cpe
+USES=			cpe shebangfix
 CPE_VENDOR=		mozilla
 CPE_PRODUCT=		bleach
-
-post-install:
-	${SED} -i'' -e 's|/bin/bash|${PREFIX}/bin/bash|' \
-		${STAGEDIR}${PYTHON_SITELIBDIR}/bleach/_vendor/vendor_install.sh
+SHEBANG_FILES=		stage{{PYTHON_SITELIBDIR}}/bleach/_vendor/vendor_install.sh

@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.14.5
+DEF[PORTVERSION]=	2.15.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-ansible-core
@@ -11,7 +11,7 @@ HOMEPAGE=		https://ansible.com/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/76/bb/69d22be4928d4124a6957670b9e6a4e2ac651b4ea2dc8f0557684a7e4837
+SITES[main]=		PYPIWHL/3b/48/9612767699d2e45efadb6c00dd61a02f2db0d8bd1642345bd0ee9472fe6a
 DISTFILE[1]=		ansible_core-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -33,7 +33,8 @@ DISTNAME=		ansible_core-${PORTVERSION}.dist-info
 # PyYAML (>=5.1)
 # cryptography
 # packaging
-# resolvelib (<0.9.0,>=0.5.3)
+# resolvelib (<1.1.0,>=0.5.3)
+# importlib-resources (<5.1,>=5.0) ; python_version < "3.10"
 
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-Jinja2:single:py310
@@ -48,10 +49,7 @@ DISTNAME=		ansible_core-${PORTVERSION}.dist-info
 					python-packaging:single:v11
 					python-resolvelib:single:v11
 
-USES=			cpe
+USES=			cpe shebangfix
 CPE_VENDOR=		redhat
 CPE_PRODUCT=		ansible
-
-post-install:
-	${GREP} -rl "#!/usr/bin/env python" ${STAGEDIR}${PYTHON_SITELIBDIR}/ansible* |\
-	${XARGS} ${SED} -i'' -e 's|/usr/bin/env python|${PYTHON_CMD}|'
+SHEBANG_FILES=		stage{{PYTHON_SITELIBDIR}}/ansible_test/_util/target/cli/ansible_test_cli_stub.py

@@ -1,7 +1,4 @@
-USES=			cpe
+USES=			cpe shebangfix
 CPE_VENDOR=		redhat
 CPE_PRODUCT=		ansible
-
-post-install:
-	${GREP} -rl "#!/usr/bin/env python" ${STAGEDIR}${PYTHON_SITELIBDIR}/ansible* |\
-	${XARGS} ${SED} -i'' -e 's|/usr/bin/env python|${PYTHON_CMD}|'
+SHEBANG_FILES=		stage{{PYTHON_SITELIBDIR}}/ansible_test/_util/target/cli/ansible_test_cli_stub.py

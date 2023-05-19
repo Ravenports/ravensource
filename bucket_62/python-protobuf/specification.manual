@@ -1,13 +1,11 @@
-USES=			cpe
+USES=			cpe shebangfix
 CPE_VENDOR=		google
 CPE_PRODUCT=		protobuf-python
 BUILDRUN_DEPENDS=	protobuf:primary:standard
 BUILD_DEPENDS=		protobuf:dev:standard
 			python-wheel:single:python_used
+SHEBANG_FILES=		stage{{PYTHON_SITELIBDIR}}/google/protobuf/internal/_parameterized.py
+
 
 post-patch:
 	${MKDIR} ${WRKSRC}/google/protobuf/compiler/
-
-post-install:
-	${SED} -i'' -e 's|/usr/bin/env python|${PYTHON_CMD}|'\
-	${STAGEDIR}${PYTHON_SITELIBDIR}/google/protobuf/internal/_parameterized.py
