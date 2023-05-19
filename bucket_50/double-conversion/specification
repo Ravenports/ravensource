@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	3.2.1
-DEF[SOVERSION]=		3.2.0
+DEF[PORTVERSION]=	3.3.0
+DEF[SOVERSION]=		3.3.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		double-conversion
@@ -14,19 +14,19 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/google:double-conversion:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		BSD3CLAUSE:single
+LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 # FreeBSD has garbage version 3.1.5.19
 # FPC_EQUIVALENT=		devel/double-conversion
 
-USES=			cmake c++:single
+USES=			cmake c++:primary
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
 SOVERSION=		${SOVERSION}
 
