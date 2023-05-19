@@ -4,7 +4,7 @@ DEF[SOVERSION]=		207.20700
 
 NAMEBASE=		duktape
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		lang
 VARIANTS=		standard
 SDESC[standard]=	Embeddable Javascript engine w. compact footprint
@@ -33,18 +33,13 @@ USES=			cpe gmake
 CPE_VENDOR=		duktape_project
 CPE_PRODUCT=		duktape
 SOVERSION=		${SOVERSION}
+MAKE_ARGS=		INSTALL_PREFIX={{PREFIX}}
+MAKEFILE=		Makefile.sharedlibrary
 
-do-build:
-	(cd ${WRKSRC} && \
-		gmake -f Makefile.cmdline duk && \
-		gmake -f Makefile.sharedlibrary )
+post-build:
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_CMD} ${MAKE_FLAGS} \
+		Makefile.cmdline duk)
 
-do-install:
+post-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/duk ${STAGEDIR}${PREFIX}/bin
-	${INSTALL_DATA} ${WRKSRC}/src/duktape.h ${STAGEDIR}${PREFIX}/include
-	${INSTALL_DATA} ${WRKSRC}/src/duk_config.h ${STAGEDIR}${PREFIX}/include
-.for l in libduktape.so libduktaped.so
-	${INSTALL_LIB} ${WRKSRC}/${l}.${SOVERSION} ${STAGEDIR}${PREFIX}/lib/
-	${LN} -s ${l}.${SOVERSION} ${STAGEDIR}${PREFIX}/lib/${l}
-	${LN} -s ${l}.${SOVERSION} ${STAGEDIR}${PREFIX}/lib/${l}.${SOVERSION:R}
-.endfor
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
