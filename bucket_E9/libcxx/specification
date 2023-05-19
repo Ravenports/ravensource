@@ -35,7 +35,9 @@ BUILD_DEPENDS=		python-Sphinx:single:python_default
 			llvm:single:standard
 BUILDRUN_DEPENDS=	llvm-libunwind:single:standard
 
-USES=			cmake cclibs:primary python:build
+USES=			cpe cmake cclibs:primary python:build
+CPE_VENDOR=		llvm
+CPE_PRODUCT=		llvm
 CMAKE_BUILD_TYPE=	Release
 CMAKE_ARGS=		-DLLVM_HOST_TRIPLE:STRING="{{CONFIGURE_TARGET}}"
 			-DLLVM_ENABLE_SPHINX=ON

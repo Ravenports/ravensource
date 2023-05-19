@@ -30,9 +30,10 @@ LICENSE_SCHEME=		solo
 BUILD_DEPENDS=		clang:complete:standard
 BUILDRUN_DEPENDS=	llvm:single:standard
 
-USES=			cmake perl:build pkgconfig zlib
+USES=			cpe cmake perl:build pkgconfig zlib
 			c++:single
-
+CPE_VENDOR=		llvm
+CPE_PRODUCT=		llvm
 CMAKE_BUILD_TYPE=	Release
 DISTNAME=		openmp-${LLVM_VERSION}.src
 CMAKE_ARGS=		-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
