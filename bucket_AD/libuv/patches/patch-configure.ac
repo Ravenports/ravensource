@@ -1,9 +1,14 @@
---- configure.ac.orig	2022-07-12 16:16:33 UTC
+Dragonfly is getting counted as FreeBSD too so we're linking statically twice.
+Just disable dragonfly and use the freebsd config for now.
+--- configure.ac.orig	2023-05-19 11:21:01 UTC
 +++ configure.ac
-@@ -63,6 +63,7 @@ AM_CONDITIONAL([DARWIN],   [AS_CASE([$ho
- AM_CONDITIONAL([DRAGONFLY],[AS_CASE([$host_os],[dragonfly*],    [true], [false])])
- AM_CONDITIONAL([FREEBSD],  [AS_CASE([$host_os],[*freebsd*],     [true], [false])])
- AM_CONDITIONAL([KFREEBSD], [AS_CASE([$host_os],[kfreebsd*],     [true], [false])])
+@@ -60,8 +60,9 @@ AM_CONDITIONAL([AIX],      [AS_CASE([$ho
+ AM_CONDITIONAL([ANDROID],  [AS_CASE([$host_os],[linux-android*],[true], [false])])
+ AM_CONDITIONAL([CYGWIN],   [AS_CASE([$host_os],[cygwin*],       [true], [false])])
+ AM_CONDITIONAL([DARWIN],   [AS_CASE([$host_os],[darwin*],       [true], [false])])
+-AM_CONDITIONAL([DRAGONFLY],[AS_CASE([$host_os],[dragonfly*],    [true], [false])])
++AM_CONDITIONAL([DRAGONFLY],[AS_CASE([$host_os],[xxdragonfly*],    [true], [false])])
+ AM_CONDITIONAL([FREEBSD],  [AS_CASE([$host_os],[freebsd*],      [true], [false])])
 +AM_CONDITIONAL([MIDNIGHT], [AS_CASE([$host_os],[midnightbsd*],  [true], [false])])
  AM_CONDITIONAL([HAIKU],    [AS_CASE([$host_os],[haiku],         [true], [false])])
  AM_CONDITIONAL([HURD],     [AS_CASE([$host_os],[gnu*],          [true], [false])])
