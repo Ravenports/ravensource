@@ -5,6 +5,7 @@ DEF[HOGWEED_SOVERSION]=	6.7
 
 NAMEBASE=		nettle
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security net
 VARIANTS=		standard
 SDESC[standard]=	Low-level cryptographic library
@@ -15,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/nettle
 DISTFILE[1]=		nettle-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev docs examples
+SPKGS[standard]=	complete primary tools dev docs examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -32,6 +33,8 @@ FPC_EQUIVALENT=		security/nettle
 
 BUILD_DEPENDS=		gmp:static:standard
 BUILDRUN_DEPENDS=	gmp:shared:standard
+
+EXRUN[tools]=		nettle:primary:standard
 
 USES=			cpe gmake makeinfo
 CPE_VENDOR=		nettle_project
