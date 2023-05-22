@@ -20,16 +20,20 @@ DIST_SUBDIR=		gnome2
 
 SPKGS[standard]=	complete primary dev man
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	ICONV
+OPTIONS_STANDARD=	ICONV
+OPT_ON[midnightbsd]=	ICONV
+OPT_ON[dragonfly]=	ICONV
+OPT_ON[freebsd]=	ICONV
+OPT_ON[netbsd]=		ICONV
+OPT_ON[sunos]=		ICONV
 
 FPC_EQUIVALENT=		textproc/libxml2
 
-USES=			cpe gmake iconv libtool pkgconfig shebangfix mbsdfix
+USES=			cpe gmake libtool pkgconfig shebangfix mbsdfix
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-schemas
 			--with-threads
-			--with-iconv={{ICONV_PREFIX}}
 			--without-icu
 			--with-lzma=/usr
 			--without-python
@@ -40,12 +44,9 @@ SHEBANG_GLOB=		*.py
 SOVERSION=		${SOVERSION}
 CPE_VENDOR=		xmlsoft
 
-# We should be able to remove this at v2.11.3
-VAR_OPSYS[midnightbsd]=	CONFIGURE_ENV=ac_cv_search_iconv=-liconv
-VAR_OPSYS[dragonfly]=	CONFIGURE_ENV=ac_cv_search_iconv=-liconv
-VAR_OPSYS[freebsd]=	CONFIGURE_ENV=ac_cv_search_iconv=-liconv
-VAR_OPSYS[netbsd]=	CONFIGURE_ENV=ac_cv_search_iconv=-liconv
-VAR_OPSYS[sunos]=	CONFIGURE_ENV=ac_cv_search_iconv=-liconv
+[ICONV].DESCRIPTION=			Build with RP-provided iconv library
+[ICONV].USES_ON=			iconv
+[ICONV].CONFIGURE_ARGS_ON=		--with-iconv={{ICONV_PREFIX}}
 
 post-patch:
 .for f in catalog.c xmlcatalog.c xmllint.c doc/xmllint.1
