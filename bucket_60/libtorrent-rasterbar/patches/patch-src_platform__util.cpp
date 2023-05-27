@@ -1,4 +1,4 @@
---- src/platform_util.cpp.orig	2022-10-23 11:27:37 UTC
+--- src/platform_util.cpp.orig	2023-05-22 06:38:35 UTC
 +++ src/platform_util.cpp
 @@ -40,7 +40,7 @@ POSSIBILITY OF SUCH DAMAGE.
  

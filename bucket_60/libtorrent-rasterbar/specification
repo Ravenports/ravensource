@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.0.8
+DEF[PORTVERSION]=	2.0.9
 DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -14,17 +14,21 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/arvidn/libtorrent/releases/download/v${PORTVERSION}/
 DISTFILE[1]=		libtorrent-rasterbar-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		net-p2p/libtorrent-rasterbar
 
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
 BUILD_DEPENDS=		boost-libraries:dev:standard
 BUILDRUN_DEPENDS=	boost-libraries:primary:standard
 
-USES=			cpe cmake libtool pkgconfig ssl c++:single
+USES=			cpe cmake libtool pkgconfig ssl c++:primary
 CPE_VENDOR=		rasterbar_software
 CPE_PRODUCT=		libtorrent
 SOVERSION=		${SOVERSION}
