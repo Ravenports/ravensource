@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	2023.5.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-drf-spectacular-sidecar
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 v11
+SDESC[py310]=		Swagger UI and Redoc builds for Django (3.10)
+SDESC[v11]=		Swagger UI and Redoc builds for Django (3.11)
+HOMEPAGE=		https://github.com/tfranzel/drf-spectacular-sidecar
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/18/9d/f3c4021d7ba9502a1d633707f674130db86b59e1d09ef1ad7464541ab1e7
+DISTFILE[1]=		drf_spectacular_sidecar-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[v11]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[v11]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# BSD
+
+GENERATED=		yes
+DISTNAME=		drf_spectacular_sidecar-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# Django (>=2.2)
+
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-Django:single:py310
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-Django:single:v11
+

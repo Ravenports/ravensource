@@ -1,0 +1,33 @@
+===============
+drf-spectacular
+===============
+
+|build-status| |codecov| |docs| |pypi-version| |pypi-dl|
+
+Sane and flexible `OpenAPI 3.0`_ schema generation for `Django REST
+framework`_.
+
+This project has 3 goals:
+    1. Extract as much schema information from DRF as possible.
+    2. Provide flexibility to make the schema usable in the real world (not
+only toy examples).
+    3. Generate a schema that works well with the most popular client
+generators.
+
+The code is a heavily modified fork of the
+[DRF OpenAPI generator],
+which is/was lacking all of the below listed features.
+
+Features
+    - Serializers modelled as components. (arbitrary nesting and recursion
+supported)
+    - `@extend_schema
+<https://drf-spectacular.readthedocs.io/en/latest/drf_spectacular.html#drf_spectacular.utils.extend_schema>`_
+decorator for customization of APIView, Viewsets, function-based views, and
+``@action``
+        - additional parameters
+        - request/response serializer override (with status codes)
+        - polymorphic responses either manually with
+PolymorphicProxySerializer helper or via rest_polymorphic's
+PolymorphicSerializer)
+        - 

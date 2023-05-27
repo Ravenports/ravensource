@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	0.6.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-s3transfer
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 v11
+SDESC[py310]=		Amazon S3 Transfer Manager (3.10)
+SDESC[v11]=		Amazon S3 Transfer Manager (3.11)
+HOMEPAGE=		https://github.com/boto/s3transfer
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/ec/fa/9416461ee05efabe477d588288bdd88acb69a51ee4b31a9b73d3b5b716fc
+DISTFILE[1]=		s3transfer-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[v11]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[v11]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# Apache License 2.0
+
+GENERATED=		yes
+DISTNAME=		s3transfer-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# botocore (<2.0a.0,>=1.12.36)
+# botocore[crt] (<2.0a.0,>=1.20.29) ; extra == 'crt'
+
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-botocore:single:py310
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-botocore:single:v11
+

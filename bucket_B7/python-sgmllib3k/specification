@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	1.0.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-sgmllib3k
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 v11
+SDESC[py310]=		Py3k port of sgmllib (3.10)
+SDESC[v11]=		Py3k port of sgmllib (3.11)
+HOMEPAGE=		http://hg.hardcoded.net/sgmllib
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/s/sgmllib3k
+DISTFILE[1]=		sgmllib3k-${PORTVERSION}.tar.gz:main
+
+SPKGS[py310]=		single
+SPKGS[v11]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[v11]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# BSD License
+
+GENERATED=		yes
+DISTNAME=		sgmllib3k-${PORTVERSION}
+
+# install_requires extracted from setup.py
+
+
+[PY310].USES_ON=			python:py310,sutools
+[PY311].USES_ON=			python:v11,sutools
+
