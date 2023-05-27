@@ -1,4 +1,4 @@
---- src/google/protobuf/compiler/command_line_interface.cc.orig	2023-05-08 16:48:50 UTC
+--- src/google/protobuf/compiler/command_line_interface.cc.orig	2023-05-25 20:56:25 UTC
 +++ src/google/protobuf/compiler/command_line_interface.cc
 @@ -70,7 +70,7 @@
  
