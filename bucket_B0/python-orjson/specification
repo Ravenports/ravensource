@@ -1,5 +1,5 @@
 # Manually maintained
-DEF[PORTVERSION]=	3.8.12
+DEF[PORTVERSION]=	3.8.14
 DEF[SKIP_CRATE]=	orjson
 # ------------------------------------------------------------------------
 
@@ -31,7 +31,7 @@ SITES[cr11]=		CRATES/compact_str:0.7.0
 SITES[cr12]=		CRATES/encoding_rs:0.8.32
 SITES[cr13]=		CRATES/itoa:1.0.6
 SITES[cr14]=		CRATES/itoap:1.0.1
-SITES[cr15]=		CRATES/libc:0.2.143
+SITES[cr15]=		CRATES/libc:0.2.144
 SITES[cr16]=		CRATES/libm:0.1.4
 SITES[cr17]=		CRATES/num-integer:0.1.45
 SITES[cr18]=		CRATES/num-traits:0.2.15
@@ -41,7 +41,7 @@ SITES[cr21]=		CRATES/pyo3-build-config:0.18.3
 SITES[cr22]=		CRATES/pyo3-ffi:0.18.3
 SITES[cr23]=		CRATES/rustversion:1.0.12
 SITES[cr24]=		CRATES/ryu:1.0.13
-SITES[cr25]=		CRATES/serde:1.0.162
+SITES[cr25]=		CRATES/serde:1.0.163
 SITES[cr26]=		CRATES/serde_json:1.0.96
 SITES[cr27]=		CRATES/simdutf8:0.1.4
 SITES[cr28]=		CRATES/smallvec:1.10.0
@@ -122,6 +122,7 @@ VAR_OPSYS[linux]=	MAKEFILE_LINE=CPYTHON={{PYTHON_SUFFIX}}-x86_64-linux-gnu
 
 post-patch:
 	${MKDIR} ${WRKSRC}/.cargo
+	${RM} ${WRKSRC}/.cargo/config.toml
 	echo "[source.cargo]" >> ${WRKSRC}/.cargo/config.toml
 	echo "directory = '${CARGO_VENDOR_DIR}'" >> ${WRKSRC}/.cargo/config.toml
 	echo "[source.crates-io]" >> ${WRKSRC}/.cargo/config.toml

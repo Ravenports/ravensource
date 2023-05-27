@@ -56,6 +56,7 @@ VAR_OPSYS[linux]=	MAKEFILE_LINE=CPYTHON={{PYTHON_SUFFIX}}-x86_64-linux-gnu
 
 post-patch:
 	${MKDIR} ${WRKSRC}/.cargo
+	${RM} ${WRKSRC}/.cargo/config.toml
 	echo "[source.cargo]" >> ${WRKSRC}/.cargo/config.toml
 	echo "directory = '${CARGO_VENDOR_DIR}'" >> ${WRKSRC}/.cargo/config.toml
 	echo "[source.crates-io]" >> ${WRKSRC}/.cargo/config.toml
