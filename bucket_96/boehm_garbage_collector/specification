@@ -1,6 +1,6 @@
-DEF[PORTVERSION]=	8.2.2
+DEF[PORTVERSION]=	8.2.4
 DEF[SOVERSION]=		1.5.0
-DEF[GCVERSION]=		1.5.1
+DEF[GCVERSION]=		1.5.2
 DEF[CPPVERSION]=	1.5.0
 DEF[TBAVERSION]=	1.5.0
 # ----------------------------------------------------------------------------
@@ -20,16 +20,16 @@ SITES[old]=		http://www.hboehm.info/gc/gc_source/
 SITES[main]=		https://github.com/ivmai/bdwgc/releases/download/v${PORTVERSION}/
 DISTFILE[1]=		gc-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
-SPKGS[redirect]=	single
-SPKGS[threaded]=	single
+SPKGS[standard]=	complete primary dev man
+SPKGS[redirect]=	complete primary dev man
+SPKGS[threaded]=	complete primary dev man
 
 OPTIONS_AVAILABLE=	THREADED REDIRECT
 OPTIONS_STANDARD=	none
 VOPTS[redirect]=	THREADED=OFF REDIRECT=ON
 VOPTS[threaded]=	THREADED=ON REDIRECT=OFF
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_SCHEME=		solo
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
 
@@ -38,7 +38,7 @@ FPC_EQUIVALENT=		devel/boehm-gc
 BUILD_DEPENDS=		libatomic_ops:dev:standard
 BUILDRUN_DEPENDS=	libatomic_ops:primary:standard
 
-USES=			cpe cmake pkgconfig c++:single
+USES=			cpe cmake pkgconfig c++:primary
 CPE_VENDOR=		boehm-demers-weiser
 CPE_PRODUCT=		garbage_collector
 CMAKE_ARGS=		-Denable_docs:BOOL=OFF
