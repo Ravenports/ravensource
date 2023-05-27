@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.7.4
 
 NAMEBASE=		uacme
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Plain C ACMEv2 client with minimal dependencies
@@ -33,14 +34,22 @@ BUILD_DEPENDS=		asciidoc:single:standard
 			libev:dev:standard
 BUILDRUN_DEPENDS=	curl:primary:standard
 			libev:primary:standard
-# Opting for OpenSSL as the ualpn feature is incompatible with LibreSSL
-USES=			gmake pkgconfig ssl:openssl30
+USES=			gmake pkgconfig ssl
+# The ualpn feature is incompatible with LibreSSL but building uacme
+# against OpenSSL results in a segfault.
 
 DISTNAME=		uacme-upstream-${PORTVERSION}
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--datadir={{STD_EXAMPLESDIR}}
+CONFIGURE_ARGS=		--datadir={{STD_EXAMPLESDIR}}/../
 			--disable-maintainer-mode
 			--enable-docs
 			--sysconfdir={{PREFIX}}/etc
 			--with-openssl={{OPENSSLBASE}}
-			--with-ualpn
+			--without-ualpn
+
+SUB_FILES=		pkg-message-primary
+SUB_LIST=		STD_EXAMPLESDIR={{STD_EXAMPLESDIR}}
+
+post-install:
+	mkdir -p ${STAGEDIR}${PREFIX}/etc/ssl/uacme
+	mkdir -p ${STAGEDIR}${PREFIX}/libexec
