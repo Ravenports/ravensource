@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.5.0
+DEF[PORTVERSION]=	1.6.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-rails-html-sanitizer
@@ -13,7 +13,7 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		rails-html-sanitizer-1.5.0.gem:main
+DISTFILE[1]=		rails-html-sanitizer-1.6.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v30]=		single
@@ -30,21 +30,21 @@ VOPTS[v32]=		RUBY30=OFF RUBY31=OFF RUBY32=ON
 # => "MIT"
 
 # Requirements according to gem specification:
-#   loofah (~> 2.19, >= 2.19.1)
-#   bundler (>= 1.3, development)
-#   rake (>= 0, development)
-#   minitest (>= 0, development)
-#   rails-dom-testing (>= 0, development)
+#   loofah (~> 2.21)
+#   nokogiri (~> 1.14)
 
 DISTNAME=		rails-html-sanitizer-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY30].USES_ON=			gem:v30
 [RUBY30].BUILDRUN_DEPENDS_ON=		ruby-loofah:single:v30
+					ruby-nokogiri:single:v30
 [RUBY31].USES_ON=			gem:v31
 [RUBY31].BUILDRUN_DEPENDS_ON=		ruby-loofah:single:v31
+					ruby-nokogiri:single:v31
 [RUBY32].USES_ON=			gem:v32
 [RUBY32].BUILDRUN_DEPENDS_ON=		ruby-loofah:single:v32
+					ruby-nokogiri:single:v32
 
 USES=			cpe
 CPE_VENDOR=		rubyonrails
