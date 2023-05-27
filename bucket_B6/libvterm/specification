@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	0.3.1
+DEF[PORTVERSION]=	0.3.2
 DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libvterm
 VERSION=		${PORTVERSION}
-EPOCH=			1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	VT220/xterm/ECMA-48 terminal emulator
@@ -15,16 +14,18 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.leonerd.org.uk/code/libvterm/
 DISTFILE[1]=		libvterm-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libvterm
+
+EXRUN[tools]=		libvterm:primary:standard
 
 USES=			cpe gmake libtool:build perl:build
 CPE_VENDOR=		leonerd
