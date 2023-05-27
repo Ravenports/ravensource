@@ -1,4 +1,4 @@
---- imap/tls.c.orig	2023-02-12 22:29:57 UTC
+--- imap/tls.c.orig	2023-05-17 03:43:58 UTC
 +++ imap/tls.c
 @@ -782,12 +782,14 @@ EXPORTED int     tls_init_serverengine(c
      off |= SSL_OP_ALL;            /* Work around all known bugs */
@@ -16,7 +16,7 @@
          //syslog(LOG_DEBUG, "TLS server engine: Disabled TLSv1.3");
          off |= SSL_OP_NO_TLSv1_3;
  #else
-@@ -1560,7 +1562,9 @@ HIDDEN int tls_init_clientengine(int ver
+@@ -1568,7 +1570,9 @@ HIDDEN int tls_init_clientengine(int ver
      off |= SSL_OP_ALL;            /* Work around all known bugs */
      off |= SSL_OP_NO_SSLv2;       /* Disable insecure SSLv2 */
      off |= SSL_OP_NO_SSLv3;       /* Disable insecure SSLv3 */

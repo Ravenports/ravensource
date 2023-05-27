@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.6.1
+DEF[PORTVERSION]=	3.8.0
 DEF[SOVERSION]=		0.0.0
 DEF[CYRUS_USER]=	cyrus
 DEF[CYRUS_GROUP]=	cyrus
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/cyrusimap/cyrus-imapd/releases/download/cyrus-imapd-${PORTVERSION}/
 DISTFILE[1]=		cyrus-imapd-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev man docs examples
+SPKGS[standard]=	complete primary tools dev man docs examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -42,6 +42,8 @@ BUILDRUN_DEPENDS=	cyrus-sasl:primary:standard
 			libnghttp2:primary:standard
 			libical:single:standard
 			brotli:primary:standard
+
+EXRUN[tools]=		cyrus-imapd:primary:standard
 
 # we can't use libuuid:standard due to conflict in DragonFly
 #    with <sys/statvfs> pulling in sys/uuid.h
