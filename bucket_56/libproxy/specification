@@ -1,6 +1,6 @@
-DEF[PORTVERSION]=	0.5.0
+DEF[PORTVERSION]=	0.5.1
 DEF[SOVERSION]=		1.0.0
-DEF[RELEASE_TAG]=	libproxy-${PORTVERSION}
+DEF[RELEASE_TAG]=	${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libproxy
@@ -50,6 +50,7 @@ MESON_ARGS=		-Dconfig-gnome=false
 PLIST_SUB=		VERSION=${PORTVERSION}
 SOVERSION=		${SOVERSION}
 SHEBANG_FILES=		data/*.sh
+LDFLAGS=		-Wl,-rpath,{{PREFIX}}/lib/libproxy
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 			LDFLAGS=-lnsl
