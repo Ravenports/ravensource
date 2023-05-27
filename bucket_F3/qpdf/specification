@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	11.3.0
-DEF[SOVERSION]=		29.3.0
+DEF[PORTVERSION]=	11.4.0
+DEF[SOVERSION]=		29.4.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		qpdf
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/qpdf/qpdf/${PORTVERSION}
 DISTFILE[1]=		qpdf-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev man docs
+SPKGS[standard]=	complete primary tools dev man docs examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,9 +27,16 @@ LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		print/qpdf
 
+EXRUN[tools]=		qpdf:primary:standard
+
 USES=			cpe cmake jpeg zlib c++:primary
 CPE_VENDOR=		qpdf_project
 SOVERSION=		${SOVERSION}
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/fix-qdf
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libqpdf.so
+	# put examples in the correct spot
+	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+	${MV} ${STAGEDIR}${STD_DOCDIR}/examples/* ${STAGEDIR}${STD_EXAMPLESDIR}/
+	${RMDIR} ${STAGEDIR}${STD_DOCDIR}/examples
