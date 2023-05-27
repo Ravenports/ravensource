@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.9
+DEF[PORTVERSION]=	3.10
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		diffutils
@@ -15,9 +15,9 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/diffutils
 DISTFILE[1]=		diffutils-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls
-SPKGS[noprefix]=	complete primary nls
-SPKGS[ravensys]=	primary
+SPKGS[standard]=	complete primary nls man
+SPKGS[noprefix]=	complete primary nls man
+SPKGS[ravensys]=	complete primary man
 
 OPTIONS_AVAILABLE=	NOTSTD RAVENSYS
 OPTIONS_STANDARD=	none
@@ -41,6 +41,8 @@ INFO=			primary:diffutils
 
 [NOTSTD].DESCRIPTION=			Not the standard variant
 [NOTSTD].CONFIGURE_ARGS_OFF=		--program-prefix=g
+[NOTSTD].PLIST_SUB_OFF=			G=g
+[NOTSTD].PLIST_SUB_ON=			G=
 
 [RAVENSYS].DESCRIPTION=			For ravensys-root - built without NLS
 [RAVENSYS].USES_OFF=			gettext
