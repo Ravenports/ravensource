@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.6.0
+DEF[PORTVERSION]=	3.7.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-asgiref
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/django/asgiref/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/8f/29/38d10a47b322a77b2d12c2b79c789f52956f733cb701d4d5157c76b5f238
+SITES[main]=		PYPIWHL/2b/ad/2b292d71b1cd1e6203b3de5901490e76a1721b3660c5fde06cf6cdbd7532
 DISTFILE[1]=		asgiref-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -29,11 +29,12 @@ GENERATED=		yes
 DISTNAME=		asgiref-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# typing-extensions ; python_version < "3.8"
+# typing-extensions (>=4) ; python_version < "3.11"
 # pytest ; extra == 'tests'
 # pytest-asyncio ; extra == 'tests'
 # mypy (>=0.800) ; extra == 'tests'
 
 [PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-typing-extensions:single:py310
 [PY311].USES_ON=			python:v11,wheel
 

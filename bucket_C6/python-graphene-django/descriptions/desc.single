@@ -1,24 +1,100 @@
-Please read
-`UPGRADE-v2.0.md
-<https://github.com/graphql-python/graphene/blob/master/UPGRADE-v2.0.md>`__
-to learn how to upgrade to Graphene ``2.0``.
+# ![Graphene Logo] Graphene-Django
 
---------------
+[![build][build-image]][build-url]
+[![pypi][pypi-image]][pypi-url]
+[![Anaconda-Server Badge][conda-image]][conda-url]
+[![coveralls][coveralls-image]][coveralls-url]
 
-|Graphene Logo| Graphene-Django |Build Status| |PyPI version| |Coverage
-Status|
-===============================================================================
+[build-image]:
+https://github.com/graphql-python/graphene-django/workflows/Tests/badge.svg
+[build-url]: https://github.com/graphql-python/graphene-django/actions
+[pypi-image]: https://img.shields.io/pypi/v/graphene-django.svg?style=flat
+[pypi-url]: https://pypi.org/project/graphene-django/
+[coveralls-image]:
+https://coveralls.io/repos/github/graphql-python/graphene-django/badge.svg?branch=master
+[coveralls-url]:
+https://coveralls.io/github/graphql-python/graphene-django?branch=master
+[conda-image]:
+https://img.shields.io/conda/vn/conda-forge/graphene-django.svg
+[conda-url]: https://anaconda.org/conda-forge/graphene-django
 
-A [Django] integration for
-[Graphene].
+Graphene-Django is an open-source library that provides seamless
+integration between Django, a high-level Python web framework, and
+Graphene, a library for building GraphQL APIs. The library allows
+developers to create GraphQL APIs in Django quickly and efficiently while
+maintaining a high level of performance.
 
-Documentation
--------------
+## Features
 
-`Visit the documentation to get started!
-<https://docs.graphene-python.org/projects/django/en/latest/>`__
+* Seamless integration with Django models
+* Automatic generation of GraphQL schema
+* Integration with Django's authentication and permission system
+* Easy querying and filtering of data
+* Support for Django's pagination system
+* Compatible with Django's form and validation system
+* Extensive documentation and community support
 
-Quickstart
-----------
+## Installation
 
-For installing graphene, just run this command in your shell
+To install Graphene-Django, run the following command:
+
+```
+pip install graphene-django
+```
+
+## Configuration
+
+After installation, add 'graphene_django' to your Django project's
+`INSTALLED_APPS` list and define the GraphQL schema in your project's
+settings:
+
+```python
+INSTALLED_APPS = [
+    # ...
+    'graphene_django',
+]
+
+GRAPHENE = {
+    'SCHEMA': 'myapp.schema.schema'
+}
+```
+
+## Usage
+
+To use Graphene-Django, create a `schema.py` file in your Django app
+directory and define your GraphQL types and queries:
+
+```python
+import graphene
+from graphene_django import DjangoObjectType
+from .models import MyModel
+
+class MyModelType(DjangoObjectType):
+    class Meta:
+        model = MyModel
+
+class Query(graphene.ObjectType):
+    mymodels = graphene.List(MyModelType)
+
+    def resolve_mymodels(self, info, **kwargs):
+        return MyModel.objects.all()
+
+schema = graphene.Schema(query=Query)
+```
+
+Then, expose the GraphQL API in your Django project's `urls.py` file:
+
+```python
+from django.urls import path
+from graphene_django.views import GraphQLView
+from . import schema
+
+urlpatterns = [
+    # ...
+    path('graphql/', GraphQLView.as_view(graphiql=True)), # Given that
+schema path is defined in GRAPHENE['SCHEMA'] in your settings.py
+]
+```
+
+## Testing
+

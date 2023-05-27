@@ -4,8 +4,8 @@ ruamel.yaml
 
 ``ruamel.yaml`` is a YAML 1.2 loader/dumper package for Python.
 
-:version:       0.17.26
-:updated:       2023-05-09
+:version:       0.17.28
+:updated:       2023-05-26
 :documentation: http://yaml.readthedocs.io
 :repository:    https://sourceforge.net/projects/ruamel-yaml/
 :pypi:          https://pypi.org/project/ruamel.yaml/
@@ -50,8 +50,23 @@ ChangeLog
 .. should insert NEXT: at the beginning of line for next key (with empty
 line)
 
+0.17.28 (2023-05-26):
+  - fix for issue 464: documents ending with document end marker without
+final newline
+    fail to load (reported by [Mariusz Rusiniak])
+
+0.17.27 (2023-05-25):
+  - fix issue with inline mappings as value for merge keys
+    (reported by Sirish on [StackOverflow])
+  - fix for 468, error inserting after accessing merge attribute on
+CommentedMap
+    (reported by [Bastien gerard])
+  - fix for issue 461 pop + insert on same `CommentedMap` key throwing
+error
+    (reported by [John Thorvald Wodder II]) 
+
 0.17.26 (2023-05-09):
-  - Fix for error on edge cage for issue 459
+  - fix for error on edge cage for issue 459
 
 0.17.25 (2023-05-09):
   - fix for regression while dumping wrapped strings with too many
@@ -83,18 +98,3 @@ mapping).
     (reported by John Lin on <StackOverflow 
     `<https://stackoverflow.com/q/76089100/1307905>`__)
   - fix issue 454: high Unicode (emojis) in quoted strings always
-    escaped (reported by `Michal Čihař
-<https://sourceforge.net/u/nijel/profile/>`__
-    based on a question on StackOverflow).
-  - fix issue with emitter conservatively inserting extra backslashes in
-wrapped
-    quoted strings (reported by thebenman on [StackOverflow 
-   ])
-
-0.17.22 (2023-05-02):
-
-  - fix issue 449 where the second exclamation marks got URL encoded
-(reported
-    and fixing PR provided by [John Stark])
-  - fix issue with indent != 2 and literal scalars with empty first line
-    (reported by wrdis on [StackOverflow])

@@ -3,6 +3,9 @@
 [![Chat at
 https://gitter.im/python/typing]](https://gitter.im/python/typing)
 
+[Documentation] –
+[PyPI]
+
 ## Overview
 
 The `typing_extensions` module serves two related purposes:
@@ -15,86 +18,21 @@ example,
 and
   added to the `typing` module.
 
-New features may be added to `typing_extensions` as soon as they are
-specified
-in a PEP that has been added to the [python/peps]
-repository. If the PEP is accepted, the feature will then be added to
-`typing`
-for the next CPython release. No typing PEP has been rejected so far, so we
-haven't yet figured out how to deal with that possibility.
-
-Starting with version 4.0.0, `typing_extensions` uses
+`typing_extensions` uses
 [Semantic Versioning]. The
-major version is incremented for all backwards-incompatible changes.
+major version will be incremented only for backwards-incompatible changes.
 Therefore, it's safe to depend
 on `typing_extensions` like this: `typing_extensions >=x.y, <(x+1)`,
 where `x.y` is the first version that includes all features you need.
 
-`typing_extensions` supports Python versions 3.7 and higher. In the future,
-support for older Python versions will be dropped some time after that
-version
-reaches end of life.
+`typing_extensions` supports Python versions 3.7 and higher.
 
 ## Included items
 
-This module currently contains the following:
+See [the documentation] for a
+complete listing of module contents.
 
-- Experimental features
+## Running tests
 
-  - `override` (see [PEP 698])
-  - The `default=` argument to `TypeVar`, `ParamSpec`, and `TypeVarTuple`
-(see [PEP 696])
-  - The `infer_variance=` argument to `TypeVar` (see [PEP 695])
-  - The `@deprecated` decorator (see [PEP 702])
-
-- In `typing` since Python 3.11
-
-  - `assert_never`
-  - `assert_type`
-  - `clear_overloads`
-  - `@dataclass_transform()` (see [PEP 681])
-  - `get_overloads`
-  - `LiteralString` (see [PEP 675])
-  - `Never`
-  - `NotRequired` (see [PEP 655])
-  - `reveal_type`
-  - `Required` (see [PEP 655])
-  - `Self` (see [PEP 673])
-  - `TypeVarTuple` (see [PEP 646]; the `typing_extensions` version supports
-the `default=` argument from [PEP 696])
-  - `Unpack` (see [PEP 646])
-
-- In `typing` since Python 3.10
-
-  - `Concatenate` (see [PEP 612])
-  - `ParamSpec` (see [PEP 612]; the `typing_extensions` version supports
-the `default=` argument from [PEP 696])
-  - `ParamSpecArgs` (see [PEP 612])
-  - `ParamSpecKwargs` (see [PEP 612])
-  - `TypeAlias` (see [PEP 613])
-  - `TypeGuard` (see [PEP 647])
-  - `is_typeddict`
-
-- In `typing` since Python 3.9
-
-  - `Annotated` (see [PEP 593])
-
-- In `typing` since Python 3.8
-
-  - `final` (see [PEP 591])
-  - `Final` (see [PEP 591])
-  - `Literal` (see [PEP 586])
-  - `Protocol` (see [PEP 544])
-  - `runtime_checkable` (see [PEP 544])
-  - `TypedDict` (see [PEP 589])
-  - `get_origin` (`typing_extensions` provides this function only in Python
-3.7+)
-  - `get_args` (`typing_extensions` provides this function only in Python
-3.7+)
-
-- In `typing` since Python 3.7
-
-  - `OrderedDict`
-
-- In `typing` since Python 3.5 or 3.6 (see [the typing documentation] for
-details)
+To run tests, navigate into the `src/` directory and run
+`test_typing_extensions.py`.
