@@ -1,4 +1,4 @@
---- src/xfpm-pm-helper.c.orig	2020-11-04 23:23:14 UTC
+--- src/xfpm-pm-helper.c.orig	2021-01-24 21:59:36 UTC
 +++ src/xfpm-pm-helper.c
 @@ -77,6 +77,10 @@
  #define UP_BACKEND_SUSPEND_COMMAND  "/usr/sbin/zzz"
