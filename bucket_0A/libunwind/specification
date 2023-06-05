@@ -1,11 +1,11 @@
-DEF[PORTVERSION]=	1.6.2
+DEF[PORTVERSION]=	1.7.0
+DEF[DISTVERSION]=	1.70
 DEF[ARCH]=		x86_64
 DEF[SOVERSION]=		8.0.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libunwind
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Generic stack unwinding library
@@ -13,8 +13,8 @@ HOMEPAGE=		http://savannah.nongnu.org/projects/libunwind
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://download.savannah.nongnu.org/releases/libunwind/
-DISTFILE[1]=		libunwind-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/libunwind:libunwind:v${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete primary dev man
 
@@ -33,7 +33,7 @@ ONLY_FOR_OPSYS=		freebsd linux
 # ONLY_FOR_ARCH=	amd64 i386
 
 
-USES=			cpe libtool pkgconfig cclibs:primary
+USES=			autoreconf cpe libtool pkgconfig cclibs:primary
 CPE_VENDOR=		libunwind_project
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		ac_cv_path_LATEX2MAN=1
