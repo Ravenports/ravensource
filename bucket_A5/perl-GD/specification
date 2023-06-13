@@ -1,12 +1,12 @@
-DEF[PORTVERSION]=	2.76
+DEF[PORTVERSION]=	2.77
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-GD
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		534 536
-SDESC[534]=		Perl interface to the gd2 graphics library (5.34)
-SDESC[536]=		Perl interface to the gd2 graphics library (5.36)
+SDESC[534]=		Interface to the libgd graphics library (5.34)
+SDESC[536]=		Interface to the libgd graphics library (5.36)
 HOMEPAGE=		https://github.com/lstein/Perl-GD
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -33,11 +33,6 @@ DISTNAME=		GD-${PORTVERSION}
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
 # |      runtime : Math::Trig (perl 5.34 core) (perl 5.36 core)
-# |      runtime : ExtUtils::Constant (perl 5.34 core) (perl 5.36 core)
-# |      runtime : ExtUtils::PkgConfig
-# |      runtime : Math::Trig (perl 5.34 core) (perl 5.36 core)
-# |      runtime : Test::Fork
-# |      runtime : Test::More (perl 5.34 core) (perl 5.36 core)
 # |        build : ExtUtils::MakeMaker (perl 5.34 core) (perl 5.36 core)
 # |    configure : ExtUtils::Constant (perl 5.34 core) (perl 5.36 core)
 # |    configure : ExtUtils::PkgConfig
@@ -45,11 +40,9 @@ DISTNAME=		GD-${PORTVERSION}
 # |         test : Test::More (perl 5.34 core) (perl 5.36 core)
 
 [PERL_534].USES_ON=			perl:534,configure
-[PERL_534].BUILDRUN_DEPENDS_ON=		perl-ExtUtils-PkgConfig:single:534
-					perl-Test-Fork:single:534
+[PERL_534].BUILD_DEPENDS_ON=		perl-ExtUtils-PkgConfig:single:534
 [PERL_536].USES_ON=			perl:536,configure
-[PERL_536].BUILDRUN_DEPENDS_ON=		perl-ExtUtils-PkgConfig:single:536
-					perl-Test-Fork:single:536
+[PERL_536].BUILD_DEPENDS_ON=		perl-ExtUtils-PkgConfig:single:536
 
 USES=			pkgconfig
 BUILDRUN_DEPENDS=	libGD:single:standard
