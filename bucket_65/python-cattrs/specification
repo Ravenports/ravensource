@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	22.2.0
+DEF[PORTVERSION]=	23.1.2
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-cattrs
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/python-attrs/cattrs
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/43/3b/1d34fc4449174dfd2bc5ad7047a23edb6558b2e4b5a41b25a8ad6655c6c7
+SITES[main]=		PYPIWHL/3a/ba/05df14efaa0624fac6b1510e87f5ce446208d2f6ce50270a89b6268aebfe
 DISTFILE[1]=		cattrs-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -29,13 +29,21 @@ GENERATED=		yes
 DISTNAME=		cattrs-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
+# PyYAML (>=6.0,<7.0) ; extra == "pyyaml"
 # attrs (>=20)
-# exceptiongroup; python_version < "3.11"
-# typing_extensions; python_version < "3.8"
+# cbor2 (>=5.4.6,<6.0.0) ; extra == "cbor2"
+# exceptiongroup ; python_version < "3.11"
+# msgpack (>=1.0.2,<2.0.0) ; extra == "msgpack"
+# orjson (>=3.5.2,<4.0.0) ; (implementation_name == "cpython") and (extra == "orjson")
+# pymongo (>=4.2.0,<5.0.0) ; extra == "bson"
+# tomlkit (>=0.11.4,<0.12.0) ; (python_version < "4") and (extra == "tomlkit")
+# typing_extensions (>=4.1.0) ; python_version < "3.11"
+# ujson (>=5.4.0,<6.0.0) ; extra == "ujson"
 
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-attrs:single:py310
 					python-exceptiongroup:single:py310
+					python-typing-extensions:single:py310
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-attrs:single:v11
 

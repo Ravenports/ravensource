@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.33.0
+DEF[PORTVERSION]=	0.40.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-yapf
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/google/yapf
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/32/ec/531851d561ecb656bd58dc102338d0aa07e086788f351c63a9f6b8a00fe6
-DISTFILE[1]=		yapf-${PORTVERSION}-py2.py3-none-any.whl:main
+SITES[main]=		PYPIWHL/3f/f8/cdb8667fc19e8c851e6271cde962ad2e7c6b28ea1fde1aeb572963da7da0
+DISTFILE[1]=		yapf-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
 SPKGS[v11]=		single
@@ -29,10 +29,16 @@ GENERATED=		yes
 DISTNAME=		yapf-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
+# importlib-metadata (>=6.6.0)
+# platformdirs (>=3.5.1)
 # tomli (>=2.0.1)
 
 [PY310].USES_ON=			python:py310,wheel
-[PY310].RUN_DEPENDS_ON=			python-tomli:single:py310
+[PY310].RUN_DEPENDS_ON=			python-importlib-metadata:single:py310
+					python-platformdirs:single:py310
+					python-tomli:single:py310
 [PY311].USES_ON=			python:v11,wheel
-[PY311].RUN_DEPENDS_ON=			python-tomli:single:v11
+[PY311].RUN_DEPENDS_ON=			python-importlib-metadata:single:v11
+					python-platformdirs:single:v11
+					python-tomli:single:v11
 

@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.0.0
+DEF[PORTVERSION]=	4.0.4
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-reportlab
@@ -11,7 +11,7 @@ HOMEPAGE=		http://www.reportlab.com/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/a2/31/ebd3d48525ddb71790e61cdb28621517d1c4a245feb87fb503384b103eb8
+SITES[main]=		PYPIWHL/db/8a/68ad8fb26592f1749c19b6e651296eeffb808a81f56be3dc09a739120676
 DISTFILE[1]=		reportlab-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -31,18 +31,14 @@ DISTNAME=		reportlab-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # pillow (>=9.0.0)
-# rlPyCairo (<1,>=0.2.0)
-# freetype-py (<2.4,>=2.3.0)
-# rl-accel (<1.1,>=0.9.0) ; extra == 'rl_accel'
-# rl-renderPM (<4.1,>=4.0.3) ; extra == 'rl_renderpm'
+# rl-accel (<1.1,>=0.9.0) ; extra == 'accel'
+# rlPyCairo (<1,>=0.2.0) ; extra == 'pycairo'
+# freetype-py (<2.4,>=2.3.0) ; extra == 'pycairo'
+# rl-renderPM (<4.1,>=4.0.3) ; extra == 'renderpm'
 
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-Pillow:single:py310
-					python-rlPyCairo:single:py310
-					python-freetype-py:single:py310
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-Pillow:single:v11
-					python-rlPyCairo:single:v11
-					python-freetype-py:single:v11
 
 USES=			freetype

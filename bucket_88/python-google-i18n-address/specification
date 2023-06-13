@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.5.2
+DEF[PORTVERSION]=	3.1.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-google-i18n-address
@@ -7,12 +7,12 @@ KEYWORDS=		python
 VARIANTS=		py310 v11
 SDESC[py310]=		Address validation for Google's i18n DB (3.10)
 SDESC[v11]=		Address validation for Google's i18n DB (3.11)
-HOMEPAGE=		https://github.com/mirumee/google-i18n-address
+HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/54/9a/e4ff95b7642bdaa178106bf0cf72847d5f9ffeac838b136ee0c7a1660987
-DISTFILE[1]=		google_i18n_address-${PORTVERSION}-py3-none-any.whl:main
+SITES[main]=		PYPIWHL/79/27/9a9685e0821cc2745c6b20aef18c43395574c7501e70bfa6b0e81e5cd8cf
+DISTFILE[1]=		google_i18n_address-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[py310]=		single
 SPKGS[v11]=		single
@@ -23,13 +23,17 @@ VOPTS[py310]=		PY310=ON PY311=OFF
 VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
-# BSD
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		google_i18n_address-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# requests (>=2.7.0)
+# requests>=2.7.0
+# black; extra == 'dev'
+# ruff; extra == 'dev'
+# pytest; extra == 'test'
+# pytest-cov; extra == 'test'
 
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-requests:single:py310
