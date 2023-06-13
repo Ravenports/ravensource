@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	4.0.3
 
 NAMEBASE=		transmission
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net_p2p
 VARIANTS=		standard daemon gtk qt web
 SDESC[standard]=	Lightweight BitTorrent client (CLI client)
@@ -88,11 +89,12 @@ CMAKE_ARGS=		-DENABLE_NLS:BOOL=ON
 [WEB].DESCRIPTION=			Build transmission web interface
 [WEB].BUILD_DEPENDS_OFF=		libutp:dev:standard
 					libevent:dev:standard
+					miniupnpc:dev:standard
 [WEB].BUILDRUN_DEPENDS_OFF=		libevent:primary:standard
 					dht:single:standard
 					libb64:single:standard
 					libnatpmp:single:standard
-					miniupnpc:single:standard
+					miniupnpc:primary:standard
 					libpsl:single:standard
 [WEB].USES_OFF=				cpe cmake iconv pkgconfig ssl zlib
 					gettext curl python:build c++:primary
