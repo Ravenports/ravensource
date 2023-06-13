@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	2.2.4
+DEF[PORTVERSION]=	2.2.5
+DEF[SOMAJOR]=		17
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		miniupnpc
@@ -13,16 +14,19 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://miniupnp.free.fr/files/
 DISTFILE[1]=		miniupnpc-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		BSD3CLAUSE:single
+LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net/miniupnpc
 
 USES=			cmake
-RC_SUBR=		miniupnpc:single
+RC_SUBR=		miniupnpc:primary
+
+SOVERSION=		${PORTVERSION}
+PLIST_SUB=		SOMAJOR=${SOMAJOR}
