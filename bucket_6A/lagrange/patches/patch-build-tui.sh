@@ -1,4 +1,4 @@
---- build-tui.sh.orig	2023-05-22 09:30:51 UTC
+--- build-tui.sh.orig	2023-05-29 09:22:47 UTC
 +++ build-tui.sh
 @@ -14,25 +14,15 @@
  #
