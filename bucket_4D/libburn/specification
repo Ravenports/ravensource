@@ -4,6 +4,7 @@ DEF[SOVERSION]=		4.109.0
 
 NAMEBASE=		libburn
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Lib for reading/mastering/writing optical disks
@@ -14,19 +15,21 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://files.libburnia-project.org/releases/
 DISTFILE[1]=		libburn-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libburn/libburn.h
 LICENSE_AWK=		TERMS:"ifndef LIBBURN_H"
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libburn
+
+EXRUN[tools]=		libburn:primary:standard
 
 USES=			libtool
 
