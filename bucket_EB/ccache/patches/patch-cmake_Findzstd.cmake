@@ -1,6 +1,6 @@
---- cmake/Findzstd.cmake.orig	2023-03-12 21:00:43 UTC
+--- cmake/Findzstd.cmake.orig	2023-06-12 19:17:31 UTC
 +++ cmake/Findzstd.cmake
-@@ -20,7 +20,7 @@ else()
+@@ -25,7 +25,7 @@ else()
    endif()
  
    if(NOT zstd_FOUND)
