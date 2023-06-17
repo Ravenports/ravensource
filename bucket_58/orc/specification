@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	0.4.33
-DEF[SOVERSION]=		0.33.0
+DEF[PORTVERSION]=	0.4.34
+DEF[SOVERSION]=		0.34.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		orc
@@ -14,12 +14,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://gstreamer.freedesktop.org/data/src/orc/
 DISTFILE[1]=		orc-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary docs examples
+SPKGS[standard]=	complete primary tools dev docs examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		devel/orc
+
+EXRUN[tools]=		orc:primary:standard
 
 USES=			meson pkgconfig
 INSTALL_TARGET=		install-strip
