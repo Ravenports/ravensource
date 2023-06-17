@@ -1,6 +1,6 @@
---- http.c.orig	2023-03-13 17:11:32 UTC
+--- http.c.orig	2023-06-01 07:03:05 UTC
 +++ http.c
-@@ -2028,7 +2028,11 @@ static int http_request_reauth(const cha
+@@ -2154,7 +2154,11 @@ static int http_request_reauth(const cha
  			return HTTP_START_FAILED;
  		}
  		rewind(result);
