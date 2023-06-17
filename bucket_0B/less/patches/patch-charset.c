@@ -1,8 +1,8 @@
---- charset.c.orig	2022-07-22 19:26:24 UTC
+--- charset.c.orig	2023-05-03 18:43:01 UTC
 +++ charset.c
-@@ -432,6 +432,10 @@ binary_char(c)
- control_char(c)
- 	LWCHAR c;
+@@ -525,6 +525,10 @@ public int binary_char(LWCHAR c)
+  */
+ public int control_char(LWCHAR c)
  {
 +#ifdef COLOR_LESS
 +	if (c == ESC)
@@ -11,7 +11,7 @@
  	c &= 0377;
  	return (chardef[c] & IS_CONTROL_CHAR);
  }
-@@ -447,6 +451,20 @@ prchar(c)
+@@ -538,6 +542,20 @@ public char * prchar(LWCHAR c)
  	/* {{ This buffer can be overrun if LESSBINFMT is a long string. }} */
  	static char buf[MAX_PRCHAR_LEN+1];
  
@@ -32,7 +32,7 @@
  	c &= 0377;
  	if ((c < 128 || !utf_mode) && !control_char(c))
  		SNPRINTF1(buf, sizeof(buf), "%c", (int) c);
-@@ -470,6 +488,7 @@ prchar(c)
+@@ -561,6 +579,7 @@ public char * prchar(LWCHAR c)
  #endif
  	else
  		SNPRINTF1(buf, sizeof(buf), binfmt, c);
