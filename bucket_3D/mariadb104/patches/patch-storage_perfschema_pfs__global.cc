@@ -1,4 +1,4 @@
---- storage/perfschema/pfs_global.cc.orig	2023-05-05 08:22:35 UTC
+--- storage/perfschema/pfs_global.cc.orig	2023-06-05 15:28:11 UTC
 +++ storage/perfschema/pfs_global.cc
 @@ -46,6 +46,9 @@
  #else
