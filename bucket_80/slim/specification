@@ -1,9 +1,9 @@
-DEF[PORTVERSION]=	1.3.6
+DEF[PORTVERSION]=	1.4.0
+DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		slim
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		x11
 VARIANTS=		standard
 SDESC[standard]=	Simple desktop-independent login manager for X11
@@ -11,17 +11,17 @@ HOMEPAGE=		https://sourceforge.net/projects/slim.berlios/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/slim.berlios/
+SITES[main]=		SF/slim-fork
 DISTFILE[1]=		slim-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/app.h
 LICENSE_AWK=		TERMS:"ifndef _APP_H_"
 LICENSE_SCHEME=		solo
@@ -32,23 +32,23 @@ BUILD_DEPENDS=		dbus:dev:standard
 			consolekit:dev:standard
 BUILDRUN_DEPENDS=	consolekit:primary:standard
 
-USES=			c++:single cmake jpeg fontconfig
+RC_SUBR=		slim:primary
+
+USES=			c++:primary cmake jpeg fontconfig
 			pkgconfig png zlib
 XORG_COMPONENTS=	x11 xft xmu xrandr
-
 CMAKE_ARGS=		-DBUILD_SLIMLOCK=no
 			-DBUILD_SHARED_LIBS=yes
 			-DUSE_CONSOLEKIT=yes
-
-RC_SUBR=		slim:single
+SOVERSION=		${SOVERSION}
 
 post-patch:
-	${CP} ${WRKSRC}/slim.conf ${WRKSRC}/slim.conf.sample
-	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
-		${WRKSRC}/slim.conf.sample
-	${REINPLACE_CMD} -e 's|%%PREFIX%%|${PREFIX}|g' \
+	${MV} ${WRKSRC}/slim.conf ${WRKSRC}/slim.conf.sample
+	${REINPLACE_CMD} \
+		-e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
+		-e 's|%%PREFIX%%|${PREFIX}|g' \
 		${WRKSRC}/slim.conf.sample
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/slim
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libslim.so.${PORTVERSION}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libslim.so
