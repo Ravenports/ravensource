@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2023-03-01
-DEF[SOVERSION]=		10.0.0
+DEF[PORTVERSION]=	2023-06-02
+DEF[SOVERSION]=		11.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		re2
@@ -25,7 +25,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/re2
 
-USES=			c++:single gmake
+BUILD_DEPENDS=		abseil-cpp:dev:standard
+BUILDRUN_DEPENDS=	abseil-cpp:primary:standard
+
+USES=			c++:single gmake pkgconfig
 MAKE_ARGS=		prefix={{PREFIX}}
 
 SOVERSION=		${SOVERSION}
