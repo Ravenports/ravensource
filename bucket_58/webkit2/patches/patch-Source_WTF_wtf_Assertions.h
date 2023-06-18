@@ -2,9 +2,9 @@ $NetBSD: patch-Source_WTF_wtf_Assertions.h,v 1.1 2021/01/12 15:21:31 jperkin Exp
 
 Use regular static_assert on SunOS.
 
---- Source/WTF/wtf/Assertions.h.orig	2023-02-20 11:57:18 UTC
+--- Source/WTF/wtf/Assertions.h.orig	2023-05-29 07:59:44 UTC
 +++ Source/WTF/wtf/Assertions.h
-@@ -473,7 +473,7 @@ constexpr bool assertionFailureDueToUnre
+@@ -477,7 +477,7 @@ constexpr bool assertionFailureDueToUnre
  
  /* COMPILE_ASSERT */
  #ifndef COMPILE_ASSERT
