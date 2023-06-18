@@ -1,7 +1,7 @@
---- CMake/functions/devilutionx_library.cmake.orig	2023-04-05 20:06:24 UTC
+--- CMake/functions/devilutionx_library.cmake.orig	2023-06-18 17:54:38 UTC
 +++ CMake/functions/devilutionx_library.cmake
-@@ -48,7 +48,7 @@ function(add_devilutionx_library NAME)
-     target_compile_options(${NAME} PUBLIC -fsigned-char)
+@@ -45,7 +45,7 @@ function(add_devilutionx_library NAME)
+     target_compile_options(${NAME} PUBLIC -Wall -Wextra -Wno-unused-parameter)
    endif()
  
 -  if(NOT WIN32 AND NOT APPLE AND NOT ${CMAKE_SYSTEM_NAME} STREQUAL FreeBSD)

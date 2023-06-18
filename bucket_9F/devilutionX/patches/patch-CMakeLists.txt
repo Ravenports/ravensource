@@ -1,10 +1,10 @@
---- CMakeLists.txt.orig	2023-01-04 23:06:45 UTC
+--- CMakeLists.txt.orig	2023-06-18 17:54:38 UTC
 +++ CMakeLists.txt
-@@ -156,7 +156,6 @@ if(NONET)
-   set(PACKET_ENCRYPTION OFF)
+@@ -213,7 +213,6 @@ if(PIE)
+   set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
  endif()
  
 -find_program(CCACHE_PROGRAM ccache)
  if(CCACHE_PROGRAM)
-   set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CCACHE_PROGRAM}")
- endif()
+   set(CMAKE_C_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
+   set(CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
