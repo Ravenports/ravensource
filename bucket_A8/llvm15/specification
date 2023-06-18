@@ -22,7 +22,7 @@ DISTFILE[1]=		llvm-${PORTVERSION}.src.tar.xz:main
 DISTFILE[2]=		cmake-${PORTVERSION}.src.tar.xz:main
 DF_INDEX=		1 2
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev
 
 OPTIONS_AVAILABLE=	GOLD
 OPTIONS_STANDARD=	GOLD
@@ -30,15 +30,15 @@ OPT_ON[freebsd]=	GOLD//x86_64
 OPT_ON[dragonfly]=	GOLD//x86_64
 OPT_ON[linux]=		GOLD//x86_64
 
-LICENSE=		CUSTOM1:single
+LICENSE=		CUSTOM1:primary
 LICENSE_NAME=		CUSTOM1:"University of Illinois/NCSA Open Source License"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.TXT
 LICENSE_SCHEME=		solo
 
-FPC_EQUIVALENT=		devel/llvm70
+EXRUN[tools]=		${NAMEBASE}:primary:standard
 
 USES=			cmake ninja python:build execinfo zlib ncurses:dev
-			cpe shebangfix c++:single
+			cpe shebangfix c++:primary
 GNOME_COMPONENTS=	libxml2
 CPE_VENDOR=		llvm
 CPE_PRODUCT=		llvm
@@ -47,7 +47,7 @@ CFLAGS=			-DNDEBUG
 CXXFLAGS=		-DNDEBUG
 CMAKE_ARGS=		-DLLVM_BUILD_LLVM_DYLIB=ON
 			-DLLVM_LINK_LLVM_DYLIB=ON
-			-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/${NAMEBASE}/lib"
+			-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
 			-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON
 			-DLLVM_HOST_TRIPLE:STRING="{{CONFIGURE_TARGET}}"
 			-DLLVM_PARALLEL_LINK_JOBS=1
@@ -60,10 +60,8 @@ CMAKE_ARGS=		-DLLVM_BUILD_LLVM_DYLIB=ON
 			-DLLVM_ENABLE_EH:BOOL=ON
 			-DLLVM_INCLUDE_BENCHMARKS:BOOL=OFF
 CMAKE_BUILD_TYPE=	Release
-CMAKE_INSTALL_PREFIX=	{{PREFIX}}/${NAMEBASE}
 PLIST_SUB=		LLVM_RELEASE="${LLVM_VERSION}"
 			LLVM_MAJOR="${MAJOR}"
-			NAMEBASE="${NAMEBASE}"
 SHEBANG_FILES=		utils/llvm-lit/llvm-lit.in
 			tools/opt-viewer/*.py
 
@@ -88,8 +86,8 @@ post-extract:
 	${CP} ${MK_TEMPLATES}/config.sub ${WRKSRC}/cmake/config.sub
 
 post-install:
-	${RM} -r ${STAGEDIR}${PREFIX}/${NAMEBASE}/include/llvm/MC/MCAnalysis
-	${RM} -r ${STAGEDIR}${PREFIX}/${NAMEBASE}/include/llvm/BinaryFormat/WasmRelocs
+	${RM} -r ${STAGEDIR}${PREFIX}/include/llvm/MC/MCAnalysis
+	${RM} -r ${STAGEDIR}${PREFIX}/include/llvm/BinaryFormat/WasmRelocs
 
 	# don't use llvm-strip yet, it doesn't work on SunOS or MacOS
 .for F in bugpoint dsymutil llc lli llvm-ar llvm-as llvm-bcanalyzer \
@@ -108,11 +106,11 @@ post-install:
 	obj2yaml opt sancov sanstats split-file verify-uselistorder yaml2obj \
 	FileCheck count not yaml-bench lli-child-target \
 	UnicodeNameMappingGenerator
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${NAMEBASE}/bin/${F}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${F}
 .endfor
 .for F in libLLVM-${MAJOR}.so libLTO.so.${MAJOR} libRemarks.so.${MAJOR}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${NAMEBASE}/lib/${F}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/${F}
 .endfor
 
 post-install-GOLD-ON:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${NAMEBASE}/lib/LLVMgold.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/LLVMgold.so
