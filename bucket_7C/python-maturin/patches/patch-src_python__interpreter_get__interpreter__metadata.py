@@ -1,4 +1,4 @@
---- src/python_interpreter/get_interpreter_metadata.py.orig	2023-04-06 09:38:20 UTC
+--- src/python_interpreter/get_interpreter_metadata.py.orig	2023-06-10 12:17:57 UTC
 +++ src/python_interpreter/get_interpreter_metadata.py
 @@ -19,6 +19,13 @@ if platform.python_implementation() == "
  else:
@@ -14,10 +14,10 @@
  metadata = {
      # sys.implementation.name can differ from platform.python_implementation(), for example
      # Pyston has sys.implementation.name == "pyston" while platform.python_implementation() == cpython
-@@ -31,9 +38,9 @@ metadata = {
+@@ -30,9 +37,9 @@ metadata = {
+     "interpreter": platform.python_implementation().lower(),
      "ext_suffix": ext_suffix,
      "soabi": sysconfig.get_config_var("SOABI") or None,
-     "abi_tag": (sysconfig.get_config_var("SOABI") or "-").split("-")[1] or None,
 -    "platform": sysconfig.get_platform(),
 +    "platform": myplatform,
      # This one isn't technically necessary, but still very useful for sanity checks
