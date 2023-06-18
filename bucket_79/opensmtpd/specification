@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.8.0p2
+DEF[PORTVERSION]=	7.3.0p0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		opensmtpd
@@ -13,12 +13,12 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.opensmtpd.org/archives/
 DISTFILE[1]=		opensmtpd-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		ISCL:single
+LICENSE=		ISCL:primary
 LICENSE_FILE=		ISCL:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
@@ -30,12 +30,12 @@ BUILDRUN_DEPENDS=	libevent:primary:standard
 			libasr:single:standard
 RUN_DEPENDS=		nss:caroot:standard
 
-RC_SUBR=		smtpd:single
-SUB_FILES=		pkg-message-single
+RC_SUBR=		smtpd:primary
+SUB_FILES=		pkg-message-primary
 
 USERS=			_smtpd _smtpq
 GROUPS=			_smtpd _smtpq
-USERGROUP_SPKG=		single
+USERGROUP_SPKG=		primary
 
 USES=			cpe libtool ssl:libressl-devel zlib
 CPE_VENDOR=		openbsd
