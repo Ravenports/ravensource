@@ -1,4 +1,4 @@
---- Makefile.pre.in.orig	2023-04-04 22:22:17 UTC
+--- Makefile.pre.in.orig	2023-06-06 22:00:27 UTC
 +++ Makefile.pre.in
 @@ -81,7 +81,6 @@ MAKESETUP=      $(srcdir)/Modules/makese
  OPT=		@OPT@
@@ -54,7 +54,7 @@
  	-rm -f $(DESTDIR)$(BINDIR)/python3-config
  	(cd $(DESTDIR)$(BINDIR); $(LN) -s python$(VERSION)-config python3-config)
  	-rm -f $(DESTDIR)$(LIBPC)/python3.pc
-@@ -2213,6 +2204,12 @@ libainstall: all python-config
+@@ -2247,6 +2238,12 @@ libainstall: all python-config
  	$(INSTALL_SCRIPT) $(srcdir)/install-sh $(DESTDIR)$(LIBPL)/install-sh
  	$(INSTALL_SCRIPT) python-config.py $(DESTDIR)$(LIBPL)/python-config.py
  	$(INSTALL_SCRIPT) python-config $(DESTDIR)$(BINDIR)/python$(LDVERSION)-config
@@ -67,7 +67,7 @@
  	@if [ -s Modules/python.exp -a \
  		"`echo $(MACHDEP) | sed 's/^\(...\).*/\1/'`" = "aix" ]; then \
  		echo; echo "Installing support files for building shared extension modules on AIX:"; \
-@@ -2232,7 +2229,8 @@ libainstall: all python-config
+@@ -2266,7 +2263,8 @@ libainstall: all python-config
  # Install the dynamically loadable modules
  # This goes into $(exec_prefix)
  sharedinstall: all
