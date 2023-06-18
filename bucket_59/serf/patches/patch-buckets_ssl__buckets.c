@@ -1,4 +1,4 @@
---- buckets/ssl_buckets.c.orig	2016-06-30 15:45:07 UTC
+--- buckets/ssl_buckets.c.orig	2023-05-18 09:33:55 UTC
 +++ buckets/ssl_buckets.c
 @@ -52,7 +52,7 @@
  #define APR_ARRAY_PUSH(ary,type) (*((type *)apr_array_push(ary)))

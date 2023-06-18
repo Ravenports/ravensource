@@ -1,4 +1,4 @@
---- SConstruct.orig	2015-09-17 12:46:24 UTC
+--- SConstruct.orig	2023-05-18 09:33:55 UTC
 +++ SConstruct
 @@ -74,6 +74,9 @@ else:
  
@@ -10,7 +10,7 @@
    PathVariable('PREFIX',
                 'Directory to install under',
                 default_prefix,
-@@ -153,6 +156,7 @@ if sys.platform == 'win32':
+@@ -162,6 +165,7 @@ if sys.platform == 'win32':
      )
  
  env = Environment(variables=opts,
@@ -18,25 +18,7 @@
                    tools=('default', 'textfile',),
                    CPPPATH=['.', ],
                    )
-@@ -166,7 +170,7 @@ env.Append(BUILDERS = {
- match = re.search('SERF_MAJOR_VERSION ([0-9]+).*'
-                   'SERF_MINOR_VERSION ([0-9]+).*'
-                   'SERF_PATCH_VERSION ([0-9]+)',
--                  env.File('serf.h').get_contents(),
-+                  env.File('serf.h').get_contents().decode('utf-8'),
-                   re.DOTALL)
- MAJOR, MINOR, PATCH = [int(x) for x in match.groups()]
- env.Append(MAJOR=str(MAJOR))
-@@ -183,7 +187,7 @@ CALLOUT_OKAY = not (env.GetOption('clean
- 
- unknown = opts.UnknownVariables()
- if unknown:
--  print 'Warning: Used unknown variables:', ', '.join(unknown.keys())
-+  print ('Warning: Used unknown variables:', ', '.join(unknown.keys()))
- 
- apr = str(env['APR'])
- apu = str(env['APU'])
-@@ -215,8 +219,7 @@ incdir = '$PREFIX/include/serf-$MAJOR'
+@@ -224,8 +228,7 @@ incdir = '$PREFIX/include/serf-$MAJOR'
  # Unfortunately we can't set the .dylib compatibility_version option separately
  # from current_version, so don't use the PATCH level to avoid that build and
  # runtime patch levels have to be identical.
@@ -46,7 +28,7 @@
  
  LIBNAME = 'libserf-%d' % (MAJOR,)
  if sys.platform != 'win32':
-@@ -364,8 +367,8 @@ else:
+@@ -386,8 +389,8 @@ else:
    ### there is probably a better way to run/capture output.
    ### env.ParseConfig() may be handy for getting this stuff into the build
    if CALLOUT_OKAY:
@@ -57,7 +39,7 @@
    else:
      apr_libs = ''
      apu_libs = ''
-@@ -406,6 +409,8 @@ pkgconfig = env.Textfile('serf-%d.pc' %
+@@ -428,6 +431,8 @@ pkgconfig = env.Textfile('serf-%d.pc' %
  
  env.Default(lib_static, lib_shared, pkgconfig)
  
