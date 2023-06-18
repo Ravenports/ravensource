@@ -1,12 +1,11 @@
---- util/meson.build.orig	2023-03-26 10:44:40 UTC
+--- util/meson.build.orig	2023-06-09 09:36:28 UTC
 +++ util/meson.build
-@@ -16,8 +16,7 @@ executable('mount.fuse3', ['mount.fuse.c
- 
- udevrulesdir = get_option('udevrulesdir')
+@@ -18,7 +18,7 @@ udevrulesdir = get_option('udevrulesdir'
  if udevrulesdir == ''
--  udev = dependency('udev')
--  udevrulesdir = join_paths(udev.get_pkgconfig_variable('udevdir'), 'rules.d')
-+  udevrulesdir = '/etc/udev/rules.d'
+   udev = dependency('udev', required: false)
+   if udev.found()
+-     udevrulesdir = join_paths(udev.get_variable(pkgconfig: 'udevdir'), 'rules.d')
++     udevrulesdir = '/etc/udev/rules.d'
+   endif
  endif
  
- meson.add_install_script('install_helper.sh',
