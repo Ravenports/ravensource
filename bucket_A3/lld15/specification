@@ -32,7 +32,9 @@ LICENSE_SCHEME=		solo
 # 1) it doesn't actually build any docs
 # 2) it pulls in shared ncurses, libz, etc.
 
-BUILDRUN_DEPENDS=	${LLVMBASE}:single:standard
+BUILD_DEPENDS=		${LLVMBASE}:tools:standard
+			${LLVMBASE}:dev:standard
+BUILDRUN_DEPENDS=	${LLVMBASE}:primary:standard
 
 USES=			cpe cmake c++:single solaris-funcs zlib:build
 CPE_VENDOR=		llvm
