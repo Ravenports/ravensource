@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	102.11.2
+DEF[PORTVERSION]=	102.12.0
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 # ----------------------------------------------------------------------------
 
@@ -47,6 +47,8 @@ BUILD_DEPENDS=		rust:single:standard
 			icu:dev:standard
 			libproxy:dev:standard
 			libevent:dev:standard
+			llvm15:tools:standard
+			clang15:complete:standard
 BUILDRUN_DEPENDS=	nss:primary:standard
 			icu:primary:standard
 			libffi:single:standard
@@ -68,7 +70,6 @@ BR_DEPS[netbsd]=	sndio:single:standard
 
 USES=			cpe desktop-utils:single gmake jpeg png zlib
 			perl:build pkgconfig iconv bz2 python:build
-			clang:keepcc
 XORG_COMPONENTS=	x11 xcb xcomposite xdamage xext xfixes xrender xt
 			pixman
 GNOME_COMPONENTS=	gconf gtk2 gtk3 gdkpixbuf pango
@@ -152,8 +153,10 @@ post-patch:
 		>> ${WRKSRC}/.mozconfig
 
 	# disable rust checksums
+.for RD in mp4parse
 	${REINPLACE_CMD} -e 's/"files":{[^}]*}/"files":{}/' \
-		 ${WRKSRC}/third_party/rust/packed_simd_2/.cargo-checksum.json
+		 ${WRKSRC}/third_party/rust/${RD}/.cargo-checksum.json
+.endfor
 
 pre-configure:
 	(cd ${WRKSRC} && ${LOCALBASE}/bin/autoconf-2.13)
