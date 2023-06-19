@@ -2,7 +2,7 @@ $NetBSD: patch-include_llvm_Analysis_ConstantFolding.h,v 1.1 2019/01/26 21:17:20
 
 Fix SunOS CS conflict not handled by include/llvm-c/DataTypes.h
 
---- include/llvm/Analysis/ConstantFolding.h.orig	2022-10-18 06:29:45 UTC
+--- include/llvm/Analysis/ConstantFolding.h.orig	2023-06-10 22:58:16 UTC
 +++ include/llvm/Analysis/ConstantFolding.h
 @@ -21,6 +21,10 @@
  

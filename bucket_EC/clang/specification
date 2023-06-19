@@ -23,7 +23,8 @@ SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${L
 			http://llvm.org/releases/${LLVM_VERSION}/
 DISTFILE[1]=		clang-${LLVM_VERSION}.src.tar.xz:main
 DISTFILE[2]=		clang-tools-extra-${LLVM_VERSION}.src.tar.xz:main
-DF_INDEX=		1 2
+DISTFILE[3]=		cmake-${LLVM_VERSION}.src.tar.xz:main
+DF_INDEX=		1 2 3
 
 SPKGS[standard]=	complete compiler extra dynlibs
 
@@ -35,11 +36,13 @@ LICENSE_NAME=		CUSTOM1:"University of Illinois/NCSA Open Source License"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.TXT
 LICENSE_SCHEME=		solo
 
-BUILDRUN_DEPENDS=	llvm:single:standard
+BUILD_DEPENDS=		llvm:dev:standard
+			llvm:tools:standard
+BUILDRUN_DEPENDS=	llvm:primary:standard
 
 EXRUN[compiler]=	clang:dynlibs:standard
-EXRUN[dynlibs]=		llvm:single:standard
-EXRUN[extra]=		llvm:single:standard
+EXRUN[dynlibs]=		llvm:primary:standard
+EXRUN[extra]=		llvm:primary:standard
 
 USES=			cmake ninja ncurses zlib execinfo
 			cpe shebangfix python:build
@@ -76,6 +79,7 @@ CMAKE_ARGS=		-DLLVM_BUILD_LLVM_DYLIB=ON
 # #			broken on clang 12.0.0 (missing completion header
 			-DCLANG_ENABLE_CLANGD:BOOL=OFF
 			-DPython3_EXECUTABLE={{PYTHON_CMD}}
+			-DLLVM_COMMON_CMAKE_UTILS={{WRKDIR}}/cmake-${LLVM_VERSION}.src
 PLIST_SUB=		LLVM_RELEASE="${LLVM_VERSION}"
 			LLVM_MAJOR="${MAJOR}"
 			LLVM_SOVERSION="${LLVM_VERSION:R}"
@@ -176,11 +180,11 @@ post-install:
 		${STAGEDIR}${PREFIX}/bin/
 .for F in c-index-test clang-${MAJOR} clang-check clang-doc clang-format \
 	clang-extdef-mapping clang-offload-bundler \
-	clang-move clang-offload-wrapper clang-refactor clang-rename clang-apply-replacements \
+	clang-move clang-refactor clang-rename clang-apply-replacements \
 	clang-scan-deps clang-change-namespace clang-include-fixer clang-query \
 	clang-reorder-fields clang-tidy find-all-symbols clang-linker-wrapper \
-	clang-nvlink-wrapper clang-repl clang-offload-packager clang-pseudo \
-	modularize diagtool pp-trace #clangd
+	clang-repl clang-offload-packager clang-pseudo amdgpu-arch nvptx-arch \
+	modularize diagtool pp-trace clang-include-cleaner
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${F}
 .endfor
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libclang.${LIBEXT}

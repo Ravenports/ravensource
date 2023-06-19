@@ -1,6 +1,6 @@
---- lib/Driver/ToolChains/Gnu.cpp.orig	2022-10-18 06:29:45 UTC
+--- lib/Driver/ToolChains/Gnu.cpp.orig	2023-06-10 22:58:16 UTC
 +++ lib/Driver/ToolChains/Gnu.cpp
-@@ -474,6 +474,9 @@ void tools::gnutools::Linker::ConstructJ
+@@ -480,6 +480,9 @@ void tools::gnutools::Linker::ConstructJ
    if (IsStatic) {
      CmdArgs.push_back("-static");
    } else {
@@ -10,7 +10,7 @@
      if (Args.hasArg(options::OPT_rdynamic))
        CmdArgs.push_back("-export-dynamic");
  
-@@ -604,6 +607,8 @@ void tools::gnutools::Linker::ConstructJ
+@@ -603,6 +606,8 @@ void tools::gnutools::Linker::ConstructJ
  
    if (!Args.hasArg(options::OPT_nostdlib, options::OPT_r)) {
      if (!Args.hasArg(options::OPT_nodefaultlibs)) {

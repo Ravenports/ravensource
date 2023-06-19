@@ -1,6 +1,6 @@
---- lib/Driver/ToolChains/NetBSD.cpp.orig	2022-11-29 10:05:58 UTC
+--- lib/Driver/ToolChains/NetBSD.cpp.orig	2023-06-10 22:58:16 UTC
 +++ lib/Driver/ToolChains/NetBSD.cpp
-@@ -265,10 +265,15 @@ void netbsd::Linker::ConstructJob(Compil
+@@ -266,10 +266,15 @@ void netbsd::Linker::ConstructJob(Compil
    bool NeedsXRayDeps = addXRayRuntime(ToolChain, Args, CmdArgs);
    AddLinkerInputs(ToolChain, Inputs, Args, CmdArgs, JA);
  
@@ -19,7 +19,7 @@
    }
  
    VersionTuple OsVersion = Triple.getOSVersion();
-@@ -288,7 +293,6 @@ void netbsd::Linker::ConstructJob(Compil
+@@ -289,7 +294,6 @@ void netbsd::Linker::ConstructJob(Compil
      case llvm::Triple::sparcv9:
      case llvm::Triple::x86:
      case llvm::Triple::x86_64:
@@ -27,7 +27,7 @@
        break;
      default:
        break;
-@@ -313,21 +317,20 @@ void netbsd::Linker::ConstructJob(Compil
+@@ -314,21 +318,20 @@ void netbsd::Linker::ConstructJob(Compil
        linkXRayRuntimeDeps(ToolChain, CmdArgs);
      if (Args.hasArg(options::OPT_pthread))
        CmdArgs.push_back("-lpthread");
@@ -55,7 +55,7 @@
        }
      }
    }
-@@ -427,7 +430,7 @@ ToolChain::CXXStdlibType NetBSD::GetDefa
+@@ -428,7 +431,7 @@ ToolChain::CXXStdlibType NetBSD::GetDefa
      case llvm::Triple::sparcv9:
      case llvm::Triple::x86:
      case llvm::Triple::x86_64:
@@ -64,7 +64,7 @@
      default:
        break;
      }
-@@ -458,8 +461,6 @@ void NetBSD::addLibCxxIncludePaths(const
+@@ -493,8 +496,6 @@ void NetBSD::addLibCxxIncludePaths(const
  
  void NetBSD::addLibStdCxxIncludePaths(const llvm::opt::ArgList &DriverArgs,
                                        llvm::opt::ArgStringList &CC1Args) const {

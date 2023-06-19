@@ -1,4 +1,4 @@
---- MachO/InputFiles.cpp.orig	2022-10-04 09:29:17 UTC
+--- MachO/InputFiles.cpp.orig	2023-06-10 22:58:16 UTC
 +++ MachO/InputFiles.cpp
 @@ -41,6 +41,22 @@
  //

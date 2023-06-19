@@ -28,7 +28,9 @@ LICENSE_SCHEME=		solo
 BROKEN[freebsd]=	Needs md5.h, sha224.h headers normally in system root
 BROKEN[netbsd]=		missing headers from system root
 
-BUILDRUN_DEPENDS=	llvm:single:standard
+BUILD_DEPENDS=		llvm:dev:standard
+			llvm:tools:standard
+BUILDRUN_DEPENDS=	llvm:primary:standard
 
 B_DEPS[netbsd]=		libmd:dev:standard
 BR_DEPS[netbsd]=	libmd:primary:standard

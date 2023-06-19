@@ -1,6 +1,6 @@
---- lib/Driver/ToolChains/FreeBSD.cpp.orig	2022-10-18 06:29:45 UTC
+--- lib/Driver/ToolChains/FreeBSD.cpp.orig	2023-06-10 22:58:16 UTC
 +++ lib/Driver/ToolChains/FreeBSD.cpp
-@@ -296,6 +296,16 @@ void freebsd::Linker::ConstructJob(Compi
+@@ -286,6 +286,16 @@ void freebsd::Linker::ConstructJob(Compi
    addLinkerCompressDebugSectionsOption(ToolChain, Args, CmdArgs);
    AddLinkerInputs(ToolChain, Inputs, Args, CmdArgs, JA);
  
@@ -17,7 +17,7 @@
    unsigned Major = ToolChain.getTriple().getOSMajorVersion();
    bool Profiling = Args.hasArg(options::OPT_pg) && Major != 0 && Major < 14;
    if (!Args.hasArg(options::OPT_nostdlib, options::OPT_nodefaultlibs,
-@@ -393,12 +403,11 @@ FreeBSD::FreeBSD(const Driver &D, const
+@@ -383,6 +393,8 @@ FreeBSD::FreeBSD(const Driver &D, const
      getFilePaths().push_back(concat(getDriver().SysRoot, "/usr/lib32"));
    else
      getFilePaths().push_back(concat(getDriver().SysRoot, "/usr/lib"));
@@ -25,10 +25,4 @@
 +    getFilePaths().push_back("@RAVEN_GCC_TARGET@");
  }
  
- ToolChain::CXXStdlibType FreeBSD::GetDefaultCXXStdlibType() const {
--  unsigned Major = getTriple().getOSMajorVersion();
--  if (Major >= 10 || Major == 0)
--    return ToolChain::CST_Libcxx;
-   return ToolChain::CST_Libstdcxx;
- }
- 
+ unsigned FreeBSD::GetDefaultDwarfVersion() const {

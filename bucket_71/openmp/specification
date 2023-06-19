@@ -17,21 +17,24 @@ DISTFILE[1]=		openmp-${LLVM_VERSION}.src.tar.xz:main
 DISTFILE[2]=		cmake-${LLVM_VERSION}.src.tar.xz:main
 DF_INDEX=		1 2
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		CUSTOM1:single
+LICENSE=		CUSTOM1:primary
 LICENSE_NAME=		CUSTOM1:"Apache 2.0 License with LLVM Exceptions"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.TXT
 LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		clang:complete:standard
-BUILDRUN_DEPENDS=	llvm:single:standard
+			llvm:dev:standard
+			llvm:tools:standard
+			libxml2:dev:standard
+BUILDRUN_DEPENDS=	llvm:primary:standard
 
-USES=			cpe cmake perl:build pkgconfig zlib
-			c++:single
+USES=			cpe cmake perl:build pkgconfig zlib ncurses:dev
+			c++:primary
 CPE_VENDOR=		llvm
 CPE_PRODUCT=		llvm
 CMAKE_BUILD_TYPE=	Release
@@ -44,6 +47,4 @@ post-extract:
 		${WRKSRC}/cmake/
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libomp.${LIBEXT}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libomptarget.${LIBEXT}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libarcher.${LIBEXT}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so

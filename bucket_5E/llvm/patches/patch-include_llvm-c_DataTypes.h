@@ -2,7 +2,7 @@ $NetBSD: patch-include_llvm-c_DataTypes.h,v 1.1 2019/01/26 21:17:20 tnn Exp $
 
 Don't implement sys/regset.h workaround, fix source instead.
 
---- include/llvm-c/DataTypes.h.orig	2022-10-18 06:29:45 UTC
+--- include/llvm-c/DataTypes.h.orig	2023-06-10 22:58:16 UTC
 +++ include/llvm-c/DataTypes.h
 @@ -77,4 +77,27 @@ typedef signed int ssize_t;
  # define UINT64_MAX 0xffffffffffffffffULL

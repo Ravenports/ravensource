@@ -1,5 +1,5 @@
 DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM_VERSION)
-DEF[PORTREVISION]=	2
+DEF[PORTREVISION]=	0
 DEF[PORTVERSION]=	${LLVM_VERSION}
 DEF[MAJORMIN]=		${PORTVERSION:R}
 DEF[MAJOR]=		${PORTVERSION:R:R}
@@ -21,7 +21,7 @@ DISTFILE[1]=		llvm-${PORTVERSION}.src.tar.xz:main
 DISTFILE[2]=		cmake-${PORTVERSION}.src.tar.xz:main
 DF_INDEX=		1 2
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev
 
 OPTIONS_AVAILABLE=	GOLD
 OPTIONS_STANDARD=	GOLD
@@ -29,15 +29,15 @@ OPT_ON[freebsd]=	GOLD//x86_64
 OPT_ON[dragonfly]=	GOLD//x86_64
 OPT_ON[linux]=		GOLD//x86_64
 
-LICENSE=		CUSTOM1:single
+LICENSE=		CUSTOM1:primary
 LICENSE_NAME=		CUSTOM1:"University of Illinois/NCSA Open Source License"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.TXT
 LICENSE_SCHEME=		solo
 
-FPC_EQUIVALENT=		devel/llvm70
+EXRUN[tools]=		llvm:primary:standard
 
 USES=			cmake ninja python:build execinfo zlib ncurses:dev
-			cpe shebangfix c++:single
+			cpe shebangfix c++:primary
 GNOME_COMPONENTS=	libxml2
 CPE_VENDOR=		llvm
 CPE_PRODUCT=		llvm
@@ -58,6 +58,7 @@ CMAKE_ARGS=		-DLLVM_BUILD_LLVM_DYLIB=ON
 			-DLLVM_ENABLE_RTTI:BOOL=ON
 			-DLLVM_ENABLE_EH:BOOL=ON
 			-DLLVM_INCLUDE_BENCHMARKS:BOOL=OFF
+			-DLLVM_COMMON_CMAKE_UTILS={{WRKDIR}}/cmake-${LLVM_VERSION}.src
 CMAKE_BUILD_TYPE=	Release
 PLIST_SUB=		LLVM_RELEASE="${LLVM_VERSION}"
 			LLVM_MAJOR="${MAJOR}"
@@ -72,8 +73,7 @@ VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
 [GOLD].CMAKE_ARGS_ON=			-DLLVM_BINUTILS_INCDIR={{LOCALBASE}}/toolchain/include
 					-DLLVM_USE_LINKER=gold
 
-post-extract:
-	${CP} ${WRKDIR}/cmake-*/Modules/* ${WRKSRC}/cmake/modules/
+pre-configure:
 	# disable detection of shared ncurses/tinfo
 	${RM} ${LOCALBASE}/lib/libtinfo.so
 	${RM} ${LOCALBASE}/lib/libncurses.so
@@ -104,7 +104,7 @@ post-install:
 	llvm-PerfectShuffle llvm-remark-size-diff \
 	obj2yaml opt sancov sanstats split-file verify-uselistorder yaml2obj \
 	FileCheck count not yaml-bench lli-child-target \
-	UnicodeNameMappingGenerator
+	UnicodeNameMappingGenerator llvm-debuginfo-analyzer llvm-remarkutil
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${F}
 .endfor
 .for F in libLLVM-${MAJOR}.so libLTO.so.${MAJOR} libRemarks.so.${MAJOR}

@@ -1,4 +1,4 @@
---- projects/libcxx/include/__config.orig	2022-10-04 09:29:17 UTC
+--- projects/libcxx/include/__config.orig	2023-06-10 22:58:16 UTC
 +++ projects/libcxx/include/__config
 @@ -12,6 +12,10 @@
  
@@ -11,7 +11,7 @@
  #if defined(_MSC_VER) && !defined(__clang__)
  #  if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
  #    define _LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER
-@@ -150,7 +154,7 @@
+@@ -162,7 +166,7 @@
  #    endif
  // Feature macros for disabling pre ABI v1 features. All of these options
  // are deprecated.
@@ -20,7 +20,7 @@
  #      define _LIBCPP_DEPRECATED_ABI_DISABLE_PAIR_TRIVIAL_COPY_CTOR
  #    endif
  #  endif
-@@ -290,7 +294,7 @@ If there are users of this configuration
+@@ -299,7 +303,7 @@
  #    endif // __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
  #  endif   // __BYTE_ORDER__
  
@@ -29,7 +29,7 @@
  #    include <sys/endian.h>
  #    include <osreldate.h>
  #    if _BYTE_ORDER == _LITTLE_ENDIAN
-@@ -298,7 +302,7 @@ If there are users of this configuration
+@@ -307,7 +311,7 @@
  #    else // _BYTE_ORDER == _LITTLE_ENDIAN
  #      define _LIBCPP_BIG_ENDIAN
  #    endif // _BYTE_ORDER == _LITTLE_ENDIAN
@@ -38,8 +38,8 @@
  
  #  if defined(__NetBSD__) || defined(__OpenBSD__)
  #    include <sys/endian.h>
-@@ -752,11 +756,11 @@ _LIBCPP_BEGIN_NAMESPACE_STD _LIBCPP_END_
- #    define _LIBCPP_HAS_NO_ALIGNED_ALLOCATION
+@@ -760,11 +764,11 @@ _LIBCPP_BEGIN_NAMESPACE_STD _LIBCPP_END_
+ #    define _LIBCPP_HAS_NO_C11_ALIGNED_ALLOC
  #  endif
  
 -#  if defined(__APPLE__) || defined(__FreeBSD__)
@@ -52,7 +52,7 @@
  #    define _LIBCPP_WCTYPE_IS_MASK
  #  endif
  
-@@ -901,7 +905,7 @@ _LIBCPP_BEGIN_NAMESPACE_STD _LIBCPP_END_
+@@ -919,7 +923,7 @@ _LIBCPP_BEGIN_NAMESPACE_STD _LIBCPP_END_
        !defined(_LIBCPP_HAS_THREAD_API_WIN32) &&                                                                        \
        !defined(_LIBCPP_HAS_THREAD_API_EXTERNAL)
  
