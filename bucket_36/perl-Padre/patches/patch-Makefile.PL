@@ -1,6 +1,6 @@
---- Makefile.PL.orig	2013-11-09 03:10:25 UTC
+--- Makefile.PL.orig	2021-02-12 15:04:07 UTC
 +++ Makefile.PL
-@@ -46,20 +46,6 @@ configure_requires 'ExtUtils::Embed' => 
+@@ -54,20 +54,6 @@ configure_requires 'ExtUtils::Embed' =>
  #	exit 0;
  #}
  

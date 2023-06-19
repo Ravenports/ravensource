@@ -1,4 +1,4 @@
---- lib/Padre/Wx.pm.orig	2013-11-09 03:43:41 UTC
+--- lib/Padre/Wx.pm.orig	2023-06-14 06:59:47 UTC
 +++ lib/Padre/Wx.pm
 @@ -158,6 +158,7 @@ sub aui_pane_info {
  
