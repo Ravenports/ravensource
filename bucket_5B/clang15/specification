@@ -37,11 +37,13 @@ LICENSE_NAME=		CUSTOM1:"University of Illinois/NCSA Open Source License"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.TXT
 LICENSE_SCHEME=		solo
 
-BUILDRUN_DEPENDS=	llvm15:single:standard
+BUILD_DEPENDS=		${LLVMBASE}:dev:standard
+			${LLVMBASE}:tools:standard
+BUILDRUN_DEPENDS=	${LLVMBASE}:primary:standard
 
-EXRUN[compiler]=	clang15:dynlibs:standard
-EXRUN[dynlibs]=		llvm15:single:standard
-EXRUN[extra]=		llvm15:single:standard
+EXRUN[compiler]=	${NAMEBASE}:dynlibs:standard
+EXRUN[dynlibs]=		${LLVMBASE}:primary:standard
+EXRUN[extra]=		${LLVMBASE}:primary:standard
 
 USES=			cmake ninja ncurses zlib execinfo
 			cpe shebangfix python:build
@@ -50,7 +52,6 @@ GNOME_COMPONENTS=	libxml2
 CPE_VENDOR=		llvm
 CPE_PRODUCT=		llvm
 CMAKE_BUILD_TYPE=	Release
-CMAKE_INSTALL_PREFIX=	{{PREFIX}}/${LLVMBASE}
 DISTNAME=		clang-${LLVM_VERSION}.src
 SHEBANG_FILES=		utils/hmaptool/hmaptool
 			tools/scan-view/bin/scan-view
@@ -82,21 +83,20 @@ CMAKE_ARGS=		-DLLVM_BUILD_LLVM_DYLIB=ON
 PLIST_SUB=		LLVM_RELEASE="${LLVM_VERSION}"
 			LLVM_MAJOR="${MAJOR}"
 			LLVM_SOVERSION="${LLVM_VERSION:R}"
-			NAMEBASE="${LLVMBASE}"
 
 # We should probably use SKIP_RPATH for all platforms, not just sunos
 VAR_OPSYS[dragonfly]=	CMAKE_ARGS=-DLLVM_USE_LINKER=gold
-			CMAKE_ARGS=-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/${LLVMBASE}/lib"
+			CMAKE_ARGS=-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
 VAR_OPSYS[freebsd]=	CMAKE_ARGS=-DLLVM_USE_LINKER=gold
-			CMAKE_ARGS=-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/${LLVMBASE}/lib"
+			CMAKE_ARGS=-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
 VAR_OPSYS[netbsd]=	CMAKE_ARGS=-DLLVM_USE_LINKER=gold
-			CMAKE_ARGS=-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/${LLVMBASE}/lib"
+			CMAKE_ARGS=-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
 VAR_OPSYS[linux]=	CMAKE_ARGS=-DLLVM_USE_LINKER=gold
-			CMAKE_ARGS=-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/${LLVMBASE}/lib"
+			CMAKE_ARGS=-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
 VAR_OPSYS[sunos]=	CMAKE_ARGS=-DCMAKE_SKIP_RPATH:BOOL=TRUE
-			LDFLAGS=-Wl,-R{{LOCALBASE}}/${LLVMBASE}/llvm/lib
+			LDFLAGS=-Wl,-R{{LOCALBASE}}/llvm/lib
 VAR_OPSYS[midnightbsd]=	CMAKE_ARGS=-DLLVM_USE_LINKER=gold
-			CMAKE_ARGS=-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/${LLVMBASE}/lib"
+			CMAKE_ARGS=-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
 			CMAKE_ARGS=-DLLVM_DEFAULT_TARGET_TRIPLE=${MBSD64_TARGET}
 			CMAKE_ARGS=-DLLVM_HOST_TRIPLE=${MBSD64_TARGET}
 			MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
@@ -174,12 +174,10 @@ post-patch-midnightbsd:
 		${WRKSRC}/lib/Headers/CMakeLists.txt
 
 post-install:
-	${RMDIR} ${STAGEDIR}${PREFIX}/${LLVMBASE}/include/clang-tidy/plugin
-	${RMDIR} ${STAGEDIR}${PREFIX}/${LLVMBASE}/include/clang-tidy/misc/ConfusableTable
+	${RMDIR} ${STAGEDIR}${PREFIX}/include/clang-tidy/plugin
+	${RMDIR} ${STAGEDIR}${PREFIX}/include/clang-tidy/misc/ConfusableTable
 	${INSTALL_PROGRAM} ${WRKDIR}/.build/bin/clang-tblgen \
-		${STAGEDIR}${PREFIX}/${LLVMBASE}/bin/
-	# Remove man page (installed in wrong spot)
-	${RM} -r ${STAGEDIR}${PREFIX}/share/man/man1
+		${STAGEDIR}${PREFIX}/bin/
 .for F in c-index-test clang-${MAJOR} clang-check clang-doc clang-format \
 	clang-extdef-mapping clang-offload-bundler \
 	clang-move clang-offload-wrapper clang-refactor clang-rename clang-apply-replacements \
@@ -187,7 +185,7 @@ post-install:
 	clang-reorder-fields clang-tidy find-all-symbols clang-linker-wrapper \
 	clang-nvlink-wrapper clang-repl clang-offload-packager clang-pseudo \
 	modularize diagtool pp-trace #clangd
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${LLVMBASE}/bin/${F}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${F}
 .endfor
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${LLVMBASE}/lib/libclang.${LIBEXT}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${LLVMBASE}/lib/libclang-cpp.${LIBEXT}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libclang.${LIBEXT}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libclang-cpp.${LIBEXT}
