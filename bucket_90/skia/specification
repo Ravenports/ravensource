@@ -1,42 +1,46 @@
-DEF[PORTVERSION]=	2020-03-19
-DEF[HASH]=		4b55ff0
+DEF[PORTVERSION]=	113
+DEF[HASH]=		9bfb45d
 DEF[SFN_HASH]=		b55ff30
 DEF[DNG_HASH]=		c8d0c9b
-DEF[PIEX_HASH]=		256bd10
-DEF[ZLIB_HASH]=		47af7c5
+DEF[PIEX_HASH]=		f1e15dd
+DEF[ZLIB_HASH]=		c876c8f87101c5a75f6014b0f832499afeb65b73
+DEF[WUFFS_HASH]=	a0041ac
 DEF[TEX]=		third_party/externals
 DEF[SOVERSION]=		1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		skia
 VERSION=		${PORTVERSION}
-REVISION=		3
+REVISION=		0
+EPOCH=			1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Open-source 2D graphics library
 HOMEPAGE=		https://skia.org
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main sfn dng piex zlib
+DOWNLOAD_GROUPS=	main sfn dng piex zlib wuffs
 SITES[main]=		GITHUB/google:skia:${HASH}
 SITES[sfn]=		GITHUB/googlefonts:sfntly:${SFN_HASH}:${TEX}/sfntly
-SITES[dng]=		GITHUB/skia-mirror:dng_sdk:${DNG_HASH}:${TEX}/dng_sdk
+SITES[dng]=		GITHUB/QtSkia:dng_sdk:${DNG_HASH}:${TEX}/dng_sdk
 SITES[piex]=		GITHUB/google:piex:${PIEX_HASH}:${TEX}/piex
-SITES[zlib]=		GITHUB/skia-mirror:zlib:${ZLIB_HASH}:${TEX}/zlib
+SITES[zlib]=		https://chromium.googlesource.com/chromium/src/third_party/zlib/+archive/
+SITES[wuffs]=		GITHUB/google:wuffs-mirror-release-c:${WUFFS_HASH}:${TEX}/wuffs
 DISTFILE[1]=		generated:main
 DISTFILE[2]=		generated:sfn
 DISTFILE[3]=		generated:dng
 DISTFILE[4]=		generated:piex
-DISTFILE[5]=		generated:zlib
+DISTFILE[5]=		${ZLIB_HASH}.tar.gz:zlib
+DISTFILE[6]=		generated:wuffs
 DIST_SUBDIR=		skia-src
-DF_INDEX=		1 2 3 4 5
+DF_INDEX=		1 2 3 4 5 6
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		BSD3CLAUSE:single
+LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
@@ -49,7 +53,9 @@ BUILDRUN_DEPENDS=	WebP:single:standard
 			harfbuzz:primary:standard
 			harfbuzz:icu:standard
 
-USES=			ninja jpeg png expat zlib freetype c++:single
+EXTRACT_DIRTY=		5
+
+USES=			ninja jpeg png expat zlib freetype c++:primary
 CONFIGURE_OUTSOURCE=	yes
 SOVERSION=		${SOVERSION}
 
@@ -57,6 +63,9 @@ VAR_OPSYS[netbsd]=	VAR1=skia_enable_fontmgr_empty=true
 VAR_OPSYS[freebsd]=	VAR1=skia_enable_fontmgr_empty=true
 VAR_OPSYS[dragonfly]=	VAR1=skia_enable_fontmgr_empty=true
 VAR_OPSYS[midnightbsd]=	VAR1=skia_enable_fontmgr_empty=true
+
+post-extract:
+	${MV} ${WRKDIR}/skia_5 ${WRKSRC}/${TEX}/zlib
 
 pre-configure:
 	${REINPLACE_CMD} -e 's|/usr/include/harfbuzz|${LOCALBASE}/include/harfbuzz|'\
