@@ -1,4 +1,4 @@
---- leptonica/src/environ.h.orig	2023-03-27 06:53:17 UTC
+--- leptonica/src/environ.h.orig	2023-06-21 12:10:23 UTC
 +++ leptonica/src/environ.h
 @@ -172,7 +172,7 @@ typedef uintptr_t l_uintptr_t;
   * To use them on MacOS, which does not support these functions, set it to 0.
