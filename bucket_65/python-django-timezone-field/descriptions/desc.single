@@ -28,13 +28,28 @@ Django's behavior:
   [drop support for `pytz` altogether],
   and this app will likely do the same.
 
-When switching between `pytz` and `zoneinfo`, in general a
-[data migration] is _not_ needed, as both
-libraries recognize the same set of strings as valid timezones. Exceptions
-to that include if your local system has an
-unusual set of time zones installed, or if you are using the `Factory`
-timezone which `zoneinfo` recognizes but `pytz`
-does not.
+### Differences in recognized timezones between `pytz` and `zoneinfo`
+
+`pytz` and `zoneinfo` search for timezone data differently.
+
+- `pytz` bundles and searches within its own copy of the [IANA timezone DB]
+- `zoneinfo` first searches the local system's timezone DB for a match. If
+no match is found, it then searches within
+  the [`tzdata`] package if it is installed. The `tzdata` package contains
+a copy of
+  the IANA timezone DB.
+
+If the local system's timezone DB doesn't cover the entire IANA timezone DB
+and the `tzdata` package is not installed,
+you may run across errors like `ZoneInfoNotFoundError: 'No time zone found
+with key Pacific/Kanton'` for seemingly valid
+timezones when transitioning from `pytz` to `zoneinfo`. The easy fix is to
+add `tzdata` to your project with
+`poetry add tzdata` or `pip install tzdata`.
+
+Assuming you have the `tzdata` package installed if needed, no
+[data migration] should be necessary when
+switching from `pytz` to `zoneinfo`.
 
 ## Examples
 
@@ -83,18 +98,3 @@ like "Asia/Dubai"
 like "GMT+04:00 Asia/Dubai"
     tz3 = TimeZoneFormField(use_pytz=True)                      # returns
 pytz timezone objects
-    tz4 = TimeZoneFormField(use_pytz=False)                     # returns
-zoneinfo objects
-
-my_form = MyForm({"tz3": "Europe/Berlin", "tz4": "Europe/Berlin"})
-my_form.full_clean()         # validates against pytz.common_timezones by
-default
-my_form.cleaned_data["tz3"]  # value returned as pytz timezone: <DstTzInfo
-'Europe/Berlin' LMT+0:53:00 STD>
-my_form.cleaned_data["tz4"]  # value returned as zoneinfo:
-zoneinfo.ZoneInfo(key='Europe/Berlin')
-```
-
-### REST Framework Serializer Field
-
-```python

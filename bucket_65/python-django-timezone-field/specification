@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.0
+DEF[PORTVERSION]=	5.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-django-timezone-field
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/mfogel/django-timezone-field/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/c9/c0/1d8b814d74d4a001be436138c5b0fca0a3d3bc32454f19e88ada278121df
+SITES[main]=		PYPIWHL/a3/ba/d8226ac6a2d285e4f2b89d05707e7f025c7642586cb00388536d841b02f7
 DISTFILE[1]=		django_timezone_field-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -29,11 +29,14 @@ GENERATED=		yes
 DISTNAME=		django_timezone_field-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# backports.zoneinfo (>=0.2.1,<0.3.0); python_version < "3.9"
+# Django (>=2.2,<5.0,!=3.0.*,!=3.1.*)
+# backports.zoneinfo (>=0.2.1,<0.3.0) ; python_version < "3.9"
 # pytz
 
 [PY310].USES_ON=			python:py310,wheel
-[PY310].RUN_DEPENDS_ON=			python-pytz:single:py310
+[PY310].RUN_DEPENDS_ON=			python-Django:single:py310
+					python-pytz:single:py310
 [PY311].USES_ON=			python:v11,wheel
-[PY311].RUN_DEPENDS_ON=			python-pytz:single:v11
+[PY311].RUN_DEPENDS_ON=			python-Django:single:v11
+					python-pytz:single:v11
 
