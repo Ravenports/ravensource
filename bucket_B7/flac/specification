@@ -1,9 +1,10 @@
-DEF[PORTVERSION]=	1.4.2
+DEF[PORTVERSION]=	1.4.3
+DEF[SOVERSION]=		12.1.0
+DEF[CXX_SOVERSION]=	10.0.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		flac
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		audio
 VARIANTS=		standard
 SDESC[standard]=	Free Lossless Audio Codec
@@ -53,6 +54,9 @@ CONFIGURE_ARGS=		--enable-static
 			--with-ogg="{{LOCALBASE}}"
 			--disable-thorough-tests
 			--disable-xmms-plugin
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		CXX_SOMAJOR=${CXX_SOVERSION:R:R}
+			CXX_SOVERSION=${CXX_SOVERSION}
 
 post-install:
 	# manpages are blank, requires pandoc

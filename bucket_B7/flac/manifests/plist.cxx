@@ -1,2 +1,2 @@
-lib/libFLAC++.so.10
-lib/libFLAC++.so.10.0.0
+lib/libFLAC++.so.%%CXX_SOMAJOR%%
+lib/libFLAC++.so.%%CXX_SOVERSION%%
