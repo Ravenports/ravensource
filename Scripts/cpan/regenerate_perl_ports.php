@@ -15,6 +15,7 @@ define ("HTTP_REDIRECT", "redirect");
 define ("VERSION_OVERRIDE", "version");
 define ("REMOVE_V", "badv");
 define ("OVERWRITE_INDEX", "index");
+define ("EXPAND_VERSION", "badactor");
 
 require_once $SCRIPTDIR . "/keyed-lists.php";
 require_once $SCRIPTDIR . "/scrape_cpan.php";
@@ -27,6 +28,7 @@ ingest_file (HTTP_REDIRECT, $SCRIPTDIR);
 ingest_file (REMOVE_V, $SCRIPTDIR);
 ingest_file (OVERWRITE_INDEX, $SCRIPTDIR);
 ingest_file (VERSION_OVERRIDE, $SCRIPTDIR);
+ingest_file (EXPAND_VERSION, $SCRIPTDIR);
 set_top_level_ports (TOPLEVEL_PORTS, $SCRIPTDIR);
 
 # global variables
@@ -86,6 +88,17 @@ function cycle_through_queue ($force_setting) {
 }
 
 
+# given version x.y or x.y.z, the y component is right-padded with zeros
+# until it's 4 digits long
+function expand_version($raw_version) {
+   $parts = explode(".", $raw_version);
+   for ($x = strlen($parts[1]); $x < 4; $x++) {
+     $parts[1] .= "0";
+   }
+   return implode(".", $parts);
+}
+
+
 # Generate single port
 # creates: specification
 #          description/desc.single
@@ -97,6 +110,7 @@ function generate_port($namebase) {
         $port_data,
         $tagged_summaries,
         $truncated_summaries,
+        $data_version_expand,
         $ravensource_directory;
 
     $output_directory =
@@ -159,6 +173,13 @@ function generate_port($namebase) {
         if ($tarball != $port_data[$namebase]["distfile"]) {
             break;
         }
+    }
+
+    # Handle bad perl versions by expanding to 4 places
+    # See: https://github.com/repology/repology-rules/issues/697
+    if (in_array ($namebase, $data_version_expand)) {
+       $portversion = expand_version($portversion);
+       $tarball = $port_data[$namebase]["distfile"];
     }
 
     # Get specification.manual (if it exists)

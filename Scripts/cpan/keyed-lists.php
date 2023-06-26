@@ -9,6 +9,7 @@ $data_https_redirect = array();
 $data_remove_version = array();
 $data_index_overwrite = array();
 $data_version_override = array();
+$data_version_expand = array();
 
 
 # procedure to set global variables.
@@ -24,6 +25,7 @@ function ingest_file ($datatype, $scriptdir) {
         $data_toplevel_ports,
         $data_remove_version,
         $data_index_overwrite,
+        $data_version_expand,
         $data_version_override;
 
     $filename = "";
@@ -61,6 +63,10 @@ function ingest_file ($datatype, $scriptdir) {
         case "version":
             $filename = "list.version-override";
             $varname = "data_version_override";
+            break;
+        case "badactor":
+            $filename = "list.expand-version";
+            $varname = "data_version_expand";
             break;
         default:
             echo "illegal datatype: $datatype\n";
