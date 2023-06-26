@@ -180,6 +180,12 @@ function generate_port($namebase) {
     if (in_array ($namebase, $data_version_expand)) {
        $portversion = expand_version($portversion);
        $tarball = $port_data[$namebase]["distfile"];
+       foreach ($EXTS as $key => $ext) {
+          if (str_ends_with ($tarball, $ext)) {
+             $distname = substr($tarball, 0, strlen ($tarball) - strlen ($ext));
+             break;
+          }
+       }
     }
 
     # Get specification.manual (if it exists)
