@@ -1,4 +1,4 @@
---- lib/the_Foundation/Depends.cmake.orig	2023-05-29 09:23:32 UTC
+--- lib/the_Foundation/Depends.cmake.orig	2023-06-23 06:15:45 UTC
 +++ lib/the_Foundation/Depends.cmake
 @@ -14,24 +14,7 @@ if (NOT IOS AND NOT ANDROID)
      if (TFDN_ENABLE_TLSREQUEST)
