@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	3.6.0
+DEF[PORTVERSION]=	3.7.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		vimb
 VERSION=		${PORTVERSION}
-REVISION=		3
 KEYWORDS=		www
 VARIANTS=		standard
 SDESC[standard]=	Vim-like browser
@@ -14,14 +13,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/fanglingsu:vimb:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv3+:single
+LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/LICENSE
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^\#include"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/main.c
 LICENSE_SCHEME=		solo
@@ -30,11 +29,12 @@ FPC_EQUIVALENT=		www/vimb
 
 BUILD_DEPENDS=		glib:dev:standard
 			harfbuzz:dev:standard
-			libsoup-2.4:dev:standard
+			libsoup:dev:standard
+			webkit2:dev:api41
+BUILDRUN_DEPENDS=	webkit2:primary:api41
 
-USES=			desktop-utils:single gmake pkgconfig zlib:build gettext
+USES=			desktop-utils:primary gmake pkgconfig zlib:build gettext
 GNOME_COMPONENTS=	pango cairo gtk3
-BUILDRUN_DEPENDS=	webkit2:complete:api40
 CFLAGS=			-D_BSD_SOURCE
 MAKE_ENV=		V=1
 SINGLE_JOB=		yes

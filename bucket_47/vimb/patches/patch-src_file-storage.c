@@ -1,4 +1,4 @@
---- src/file-storage.c.orig	2020-01-02 22:17:49 UTC
+--- src/file-storage.c.orig	2023-06-19 20:39:23 UTC
 +++ src/file-storage.c
 @@ -23,6 +23,7 @@
  #include <glib/gstdio.h>

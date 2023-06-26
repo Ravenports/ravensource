@@ -1,4 +1,4 @@
---- src/history.c.orig	2020-01-02 22:17:49 UTC
+--- src/history.c.orig	2023-06-19 20:39:23 UTC
 +++ src/history.c
 @@ -259,8 +259,14 @@ static GList *load(FileStorage *s)
  static void write_to_file(GList *list, const char *file)

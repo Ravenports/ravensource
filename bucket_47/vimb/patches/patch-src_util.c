@@ -1,4 +1,4 @@
---- src/util.c.orig	2020-01-02 22:17:49 UTC
+--- src/util.c.orig	2023-06-19 20:39:23 UTC
 +++ src/util.c
 @@ -197,15 +197,22 @@ gboolean util_file_append(const char *fi
  {
