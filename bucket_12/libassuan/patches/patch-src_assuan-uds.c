@@ -2,7 +2,7 @@ $NetBSD: patch-src_assuan-uds.c,v 1.1.2.2 2017/05/28 08:44:18 spz Exp $
 
 Handle _XOPEN_SOURCE correctly.
 
---- src/assuan-uds.c.orig	2017-11-15 15:36:55 UTC
+--- src/assuan-uds.c.orig	2023-05-17 06:54:14 UTC
 +++ src/assuan-uds.c
 @@ -22,6 +22,14 @@
  #include <config.h>
