@@ -26,3 +26,33 @@
  }
  
  unsigned FreeBSD::GetDefaultDwarfVersion() const {
+@@ -426,22 +438,19 @@ void FreeBSD::AddClangSystemIncludeArgs(
+                           concat(D.SysRoot, "/usr/include"));
+ }
+ 
++void FreeBSD::addLibStdCxxIncludePaths(const llvm::opt::ArgList &DriverArgs,
++                                    llvm::opt::ArgStringList &CC1Args) const {
++  addSystemInclude(DriverArgs, CC1Args, "@RAVEN_GXX_HEADERS_DIR@");
++  addSystemInclude(DriverArgs, CC1Args, "@RAVEN_GXX_HEADERS_DIR@/backward");
++  addSystemInclude(DriverArgs, CC1Args, "@RAVEN_GXX_HEADERS_DIR@/@RAVEN_TRIPLE@");
++}
++
+ void FreeBSD::addLibCxxIncludePaths(const llvm::opt::ArgList &DriverArgs,
+                                     llvm::opt::ArgStringList &CC1Args) const {
+   addSystemInclude(DriverArgs, CC1Args,
+                    concat(getDriver().SysRoot, "/usr/include/c++/v1"));
+ }
+ 
+-void FreeBSD::AddCXXStdlibLibArgs(const ArgList &Args,
+-                                  ArgStringList &CmdArgs) const {
+-  unsigned Major = getTriple().getOSMajorVersion();
+-  bool Profiling = Args.hasArg(options::OPT_pg) && Major != 0 && Major < 14;
+-
+-  CmdArgs.push_back(Profiling ? "-lc++_p" : "-lc++");
+-  if (Args.hasArg(options::OPT_fexperimental_library))
+-    CmdArgs.push_back("-lc++experimental");
+-}
+-
+ void FreeBSD::AddCudaIncludeArgs(const ArgList &DriverArgs,
+                                  ArgStringList &CC1Args) const {
+   CudaInstallation.AddCudaIncludeArgs(DriverArgs, CC1Args);
