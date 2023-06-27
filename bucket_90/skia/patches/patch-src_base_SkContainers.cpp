@@ -4,7 +4,7 @@
  
  #if defined(SK_BUILD_FOR_MAC) || defined(SK_BUILD_FOR_IOS)
  #include <malloc/malloc.h>
-+#elif defined(__DragonFly__) || defined(__OpenBSD__)
++#elif defined(__DragonFly__) || defined(__OpenBSD__) || defined(__FreeBSD__)
 +// do-nothing
  #elif defined(SK_BUILD_FOR_ANDROID) || defined(SK_BUILD_FOR_UNIX)
  #include <malloc.h>
@@ -13,7 +13,7 @@
      #elif defined(SK_BUILD_FOR_ANDROID) && __ANDROID_API__ >= 17
          completeSize = malloc_usable_size(ptr);
          SkASSERT(completeSize >= size);
-+    #elif defined(__DragonFly__) || defined(__OpenBSD__)
++    #elif defined(__DragonFly__) || defined(__OpenBSD__) || defined(__FreeBSD__)
 +        // do-nothing
      #elif defined(SK_BUILD_FOR_UNIX)
          completeSize = malloc_usable_size(ptr);
