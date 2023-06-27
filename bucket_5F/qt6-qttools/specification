@@ -26,9 +26,12 @@ BUILD_DEPENDS=		qt6-qtbase:dev:standard
 BUILDRUN_DEPENDS=	qt6-qtbase:primary:standard
 
 C_USES[freebsd]=	clang
-			llvm:tools:standard
 C_USES[midnightbsd]=	clang
-			llvm:tools:standard
+
+B_DEPS[freebsd]=	llvm:tools:standard
+			llvm:dev:standard
+B_DEPS[midnightbsd]=	llvm:tools:standard
+			llvm:dev:standard
 
 R_DEPS[freebsd]=	clang:dynlibs:standard
 R_DEPS[midnightbsd]=	clang:dynlibs:standard
