@@ -1,4 +1,4 @@
---- deps/uv/common.gypi.orig	2023-05-16 06:58:20 UTC
+--- deps/uv/common.gypi.orig	2023-06-08 12:39:44 UTC
 +++ deps/uv/common.gypi
 @@ -135,7 +135,7 @@
            }]

@@ -1,4 +1,4 @@
---- deps/v8/src/base/platform/platform-freebsd.cc.orig	2023-05-16 06:58:20 UTC
+--- deps/v8/src/base/platform/platform-freebsd.cc.orig	2023-06-08 12:39:44 UTC
 +++ deps/v8/src/base/platform/platform-freebsd.cc
 @@ -48,7 +48,10 @@ static unsigned StringToLong(char* buffe
  }
