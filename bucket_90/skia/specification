@@ -61,6 +61,8 @@ USES=			ninja jpeg png expat zlib freetype c++:primary
 CONFIGURE_OUTSOURCE=	yes
 SOVERSION=		${SOVERSION}
 
+ONLY_FOR_OPSYS=		linux
+
 VAR_OPSYS[netbsd]=	VAR1=skia_enable_fontmgr_empty=true
 VAR_OPSYS[freebsd]=	VAR1=skia_enable_fontmgr_empty=true
 VAR_OPSYS[dragonfly]=	VAR1=skia_enable_fontmgr_empty=true
@@ -74,12 +76,6 @@ pre-configure:
 		${WRKSRC}/third_party/harfbuzz/BUILD.gn
 	${REINPLACE_CMD} -e 's|/usr/include/freetype2|${LOCALBASE}/include/freetype2|'\
 		${WRKSRC}/third_party/freetype2/BUILD.gn
-
-	# Delete reference to gn function "set_sources_assignment_filter"
-	# https://gn.googlesource.com/gn/+/55e535a6716e57320fdd3901f0347a5c30562199
-	${REINPLACE_CMD} -e '/set_sources_assignment_filter/d' \
-		-e '/visibility/d' \
-		${WRKSRC}/BUILD.gn
 
 do-configure:
 	${MKDIR} ${CONFIGURE_WRKSRC}
