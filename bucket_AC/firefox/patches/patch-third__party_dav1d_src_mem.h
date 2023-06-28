@@ -1,4 +1,4 @@
---- third_party/dav1d/src/mem.h.orig	2021-03-18 13:51:06 UTC
+--- third_party/dav1d/src/mem.h.orig	2023-06-08 22:09:50 UTC
 +++ third_party/dav1d/src/mem.h
 @@ -31,7 +31,7 @@
  #include <stdlib.h>

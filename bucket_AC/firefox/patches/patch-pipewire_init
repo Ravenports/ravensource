@@ -4,9 +4,9 @@
 
 diff --git third_party/libwebrtc/modules/desktop_capture/linux/wayland/shared_screencast_stream.cc third_party/libwebrtc/modules/desktop_capture/linux/wayland/shared_screencast_stream.cc
 index 49b64845100b..283c387db770 100644
---- third_party/libwebrtc/modules/desktop_capture/linux/wayland/shared_screencast_stream.cc
+--- third_party/libwebrtc/modules/desktop_capture/linux/wayland/shared_screencast_stream.cc.orig	2023-06-08 22:09:51 UTC
 +++ third_party/libwebrtc/modules/desktop_capture/linux/wayland/shared_screencast_stream.cc
-@@ -402,7 +402,7 @@ bool SharedScreenCastStreamPrivate::StartScreenCastStream(
+@@ -402,7 +402,7 @@ bool SharedScreenCastStreamPrivate::Star
  
    pw_stream_node_id_ = stream_node_id;
  
@@ -15,11 +15,9 @@ index 49b64845100b..283c387db770 100644
  
    pw_main_loop_ = pw_thread_loop_new("pipewire-main-loop", nullptr);
  
-diff --git third_party/libwebrtc/modules/desktop_capture/linux/wayland/test/test_screencast_stream_provider.cc third_party/libwebrtc/modules/desktop_capture/linux/wayland/test/test_screencast_stream_provider.cc
-index 3b829959aca8..9bdcdf1ffd51 100644
---- third_party/libwebrtc/modules/desktop_capture/linux/wayland/test/test_screencast_stream_provider.cc
+--- third_party/libwebrtc/modules/desktop_capture/linux/wayland/test/test_screencast_stream_provider.cc.orig	2023-06-08 22:09:50 UTC
 +++ third_party/libwebrtc/modules/desktop_capture/linux/wayland/test/test_screencast_stream_provider.cc
-@@ -36,7 +36,7 @@ TestScreenCastStreamProvider::TestScreenCastStreamProvider(Observer* observer,
+@@ -36,7 +36,7 @@ TestScreenCastStreamProvider::TestScreen
      return;
    }
  
@@ -28,11 +26,9 @@ index 3b829959aca8..9bdcdf1ffd51 100644
  
    pw_main_loop_ = pw_thread_loop_new("pipewire-test-main-loop", nullptr);
  
-diff --git third_party/libwebrtc/modules/portal/pipewire.sigs third_party/libwebrtc/modules/portal/pipewire.sigs
-index 139a8c37a551..9fe131d8daa6 100644
---- third_party/libwebrtc/modules/portal/pipewire.sigs
+--- third_party/libwebrtc/modules/portal/pipewire.sigs.orig	2023-06-08 22:09:49 UTC
 +++ third_party/libwebrtc/modules/portal/pipewire.sigs
-@@ -15,7 +15,7 @@ pw_loop * pw_loop_new(const spa_dict *props);
+@@ -15,7 +15,7 @@ pw_loop * pw_loop_new(const spa_dict *pr
  
  
  // pipewire.h
@@ -41,11 +37,9 @@ index 139a8c37a551..9fe131d8daa6 100644
  const char* pw_get_library_version();
  
  // properties.h
-diff --git third_party/pipewire/libpipewire/mozpipewire.cpp third_party/pipewire/libpipewire/mozpipewire.cpp
-index fbeeb8e5a760..46f768790946 100644
---- third_party/pipewire/libpipewire/mozpipewire.cpp
+--- third_party/pipewire/libpipewire/mozpipewire.cpp.orig	2023-06-08 22:09:51 UTC
 +++ third_party/pipewire/libpipewire/mozpipewire.cpp
-@@ -58,7 +58,7 @@ struct pw_context * (*pw_context_new_fn)(struct pw_loop *main_loop,
+@@ -58,7 +58,7 @@ struct pw_context * (*pw_context_new_fn)
                                        struct pw_properties *props,
                                        size_t user_data_size);
  static int (*pw_core_disconnect_fn)(struct pw_core *core);
@@ -87,9 +81,7 @@ index fbeeb8e5a760..46f768790946 100644
  }
  
  void
-diff --git third_party/pipewire/pipewire/pipewire.h third_party/pipewire/pipewire/pipewire.h
-index b932103f46e6..2c88e28421ec 100644
---- third_party/pipewire/pipewire/pipewire.h
+--- third_party/pipewire/pipewire/pipewire.h.orig	2023-06-08 22:09:51 UTC
 +++ third_party/pipewire/pipewire/pipewire.h
 @@ -69,9 +69,9 @@ extern "C" {
   * \{

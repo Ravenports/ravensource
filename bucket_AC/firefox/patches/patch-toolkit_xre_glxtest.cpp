@@ -1,6 +1,6 @@
---- toolkit/xre/glxtest/glxtest.cpp.orig	2023-05-28 22:08:21.663847000 +0200
-+++ toolkit/xre/glxtest/glxtest.cpp	2023-05-28 22:09:33.647075000 +0200
-@@ -195,9 +195,14 @@
+--- toolkit/xre/glxtest/glxtest.cpp.orig	2023-06-08 22:09:52 UTC
++++ toolkit/xre/glxtest/glxtest.cpp
+@@ -195,9 +195,14 @@ extern "C" {
  static void get_pci_status() {
    log("GLX_TEST: get_pci_status start\n");
  

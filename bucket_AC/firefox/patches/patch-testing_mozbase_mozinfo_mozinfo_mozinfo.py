@@ -1,6 +1,6 @@
---- testing/mozbase/mozinfo/mozinfo/mozinfo.py.orig	2023-03-10 22:19:09 UTC
+--- testing/mozbase/mozinfo/mozinfo/mozinfo.py.orig	2023-06-08 22:35:48 UTC
 +++ testing/mozbase/mozinfo/mozinfo/mozinfo.py
-@@ -133,7 +133,7 @@ elif system == "Linux":
+@@ -131,7 +131,7 @@ elif system == "Linux":
  
      info["os"] = "linux"
      info["linux_distro"] = distribution

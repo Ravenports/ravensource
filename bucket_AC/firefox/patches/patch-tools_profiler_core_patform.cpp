@@ -6,9 +6,9 @@ Date:   Mon Mar 28 21:54:35 2022 +0200
 
 diff --git tools/profiler/core/platform.cpp tools/profiler/core/platform.cpp
 index 92bcc1100687..2f17a88942a8 100644
---- tools/profiler/core/platform.cpp
+--- tools/profiler/core/platform.cpp.orig	2023-06-08 22:09:52 UTC
 +++ tools/profiler/core/platform.cpp
-@@ -111,6 +111,20 @@
+@@ -115,6 +115,20 @@
  #  include <cpuid.h>
  #endif
  
@@ -29,7 +29,7 @@ index 92bcc1100687..2f17a88942a8 100644
  #if defined(GP_OS_windows)
  #  include <processthreadsapi.h>
  
-@@ -6368,6 +6382,19 @@ void profiler_mark_thread_awake() {
+@@ -6703,6 +6717,19 @@ void profiler_mark_thread_awake() {
      cpuId = ebx >> 24;
    }
  #  endif

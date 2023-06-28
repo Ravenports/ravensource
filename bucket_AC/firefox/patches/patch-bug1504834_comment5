@@ -5,9 +5,9 @@ Rough progress patch
 
 diff --git gfx/2d/DrawTargetSkia.cpp gfx/2d/DrawTargetSkia.cpp
 index 6bbef8d..82b04ba 100644
---- gfx/2d/DrawTargetSkia.cpp
+--- gfx/2d/DrawTargetSkia.cpp.orig	2023-06-08 22:09:35 UTC
 +++ gfx/2d/DrawTargetSkia.cpp
-@@ -154,8 +154,7 @@ static IntRect CalculateSurfaceBounds(const IntSize& aSize, const Rect* aBounds,
+@@ -155,8 +155,7 @@ static IntRect CalculateSurfaceBounds(co
    return surfaceBounds.Intersect(bounds);
  }
  
@@ -17,11 +17,9 @@ index 6bbef8d..82b04ba 100644
  
  static bool VerifyRGBXFormat(uint8_t* aData, const IntSize& aSize,
                               const int32_t aStride, SurfaceFormat aFormat) {
-diff --git gfx/2d/Types.h gfx/2d/Types.h
-index 6b3bdc7..7c6c342 100644
---- gfx/2d/Types.h
+--- gfx/2d/Types.h.orig	2023-06-08 22:09:33 UTC
 +++ gfx/2d/Types.h
-@@ -90,15 +90,8 @@ enum class SurfaceFormat : int8_t {
+@@ -92,15 +92,8 @@ enum class SurfaceFormat : int8_t {
  // The following values are endian-independent synonyms. The _UINT32 suffix
  // indicates that the name reflects the layout when viewed as a uint32_t
  // value.
@@ -37,7 +35,7 @@ index 6b3bdc7..7c6c342 100644
  
    // The following values are OS and endian-independent synonyms.
    //
---- gfx/skia/skia/modules/skcms/skcms.cc.orig
+--- gfx/skia/skia/modules/skcms/skcms.cc.orig	2023-06-08 22:09:35 UTC
 +++ gfx/skia/skia/modules/skcms/skcms.cc
 @@ -30,6 +30,8 @@
          #include <avx512fintrin.h>
@@ -48,7 +46,7 @@ index 6b3bdc7..7c6c342 100644
  #endif
  
  static bool runtime_cpu_detection = true;
-@@ -324,20 +326,28 @@
+@@ -324,20 +326,28 @@ enum {
  static uint16_t read_big_u16(const uint8_t* ptr) {
      uint16_t be;
      memcpy(&be, ptr, sizeof(be));

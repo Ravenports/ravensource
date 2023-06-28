@@ -1,8 +1,8 @@
 # Accept API keys from environment like before bug 1294585
 
---- build/moz.configure/keyfiles.configure
+--- build/moz.configure/keyfiles.configure.orig	2023-06-08 22:09:32 UTC
 +++ build/moz.configure/keyfiles.configure
-@@ -19,6 +19,7 @@ def keyfile(desc, default=None, help=None, callback=lambda x: x):
+@@ -19,6 +19,7 @@ def keyfile(desc, default=None, help=Non
      @checking("for the %s key" % desc, lambda x: x and x is not no_key)
      @imports(_from="__builtin__", _import="open")
      @imports(_from="__builtin__", _import="IOError")
@@ -10,7 +10,7 @@
      def keyfile(value):
          if value:
              try:
-@@ -29,7 +30,7 @@ def keyfile(desc, default=None, help=None, callback=lambda x: x):
+@@ -29,7 +30,7 @@ def keyfile(desc, default=None, help=Non
                      raise FatalCheckError("'%s' is empty." % value[0])
              except IOError as e:
                  raise FatalCheckError("'%s': %s." % (value[0], e.strerror))

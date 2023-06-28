@@ -1,4 +1,4 @@
---- media/libcubeb/src/cubeb_jack.cpp.orig	2023-04-14 16:28:02 UTC
+--- media/libcubeb/src/cubeb_jack.cpp.orig	2023-06-08 22:09:41 UTC
 +++ media/libcubeb/src/cubeb_jack.cpp
 @@ -8,7 +8,7 @@
   */

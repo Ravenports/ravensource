@@ -1,7 +1,7 @@
---- ipc/chromium/src/base/shared_memory_posix.cc.orig	2020-04-29 20:59:57 UTC
+--- ipc/chromium/src/base/shared_memory_posix.cc.orig	2023-06-08 22:35:48 UTC
 +++ ipc/chromium/src/base/shared_memory_posix.cc
-@@ -182,6 +182,11 @@ bool SharedMemory::AppendPosixShmPrefix(
-     StringAppendF(str, "snap.%s.", kSnap);
+@@ -284,6 +284,11 @@ bool SharedMemory::AppendPosixShmPrefix(
+     StringAppendF(str, "snap.%s.", snap);
    }
  #  endif  // OS_LINUX
 +#  ifdef OS_DRAGONFLY

@@ -1,4 +1,4 @@
---- toolkit/components/protobuf/src/google/protobuf/stubs/port.h.orig	2022-09-22 18:17:47 UTC
+--- toolkit/components/protobuf/src/google/protobuf/stubs/port.h.orig	2023-06-08 22:09:52 UTC
 +++ toolkit/components/protobuf/src/google/protobuf/stubs/port.h
 @@ -59,7 +59,7 @@
  #else

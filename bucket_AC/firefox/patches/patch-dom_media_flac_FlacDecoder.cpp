@@ -1,6 +1,6 @@
 Enable FLAC on platforms without ffvpx like powerpc*
 
---- dom/media/flac/FlacDecoder.cpp.orig	2021-04-15 19:44:28 UTC
+--- dom/media/flac/FlacDecoder.cpp.orig	2023-06-08 22:09:33 UTC
 +++ dom/media/flac/FlacDecoder.cpp
 @@ -7,6 +7,7 @@
  #include "FlacDecoder.h"

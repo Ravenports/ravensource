@@ -23,7 +23,7 @@ Date:   Sun Dec 6 22:07:00 2020 +0000
 
 diff --git dom/gamepad/linux/LinuxGamepad.cpp dom/gamepad/linux/LinuxGamepad.cpp
 index deee47b9d267..31f0aad7ae4a 100644
---- dom/gamepad/linux/LinuxGamepad.cpp
+--- dom/gamepad/linux/LinuxGamepad.cpp.orig	2023-06-08 22:09:33 UTC
 +++ dom/gamepad/linux/LinuxGamepad.cpp
 @@ -5,15 +5,16 @@
   * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
@@ -109,7 +109,7 @@ index deee47b9d267..31f0aad7ae4a 100644
    static gboolean OnGamepadData(GIOChannel* source, GIOCondition condition,
                                  gpointer data);
  
-@@ -114,8 +129,14 @@ void LinuxGamepadService::AddDevice(struct udev_device* dev) {
+@@ -114,8 +129,14 @@ void LinuxGamepadService::AddDevice(stru
    g_io_channel_set_encoding(channel, nullptr, nullptr);
    g_io_channel_set_buffered(channel, FALSE);
    int fd = g_io_channel_unix_get_fd(channel);
@@ -125,7 +125,7 @@ index deee47b9d267..31f0aad7ae4a 100644
      strcpy(name, "unknown");
    }
    const char* vendor_id =
-@@ -131,20 +152,86 @@ void LinuxGamepadService::AddDevice(struct udev_device* dev) {
+@@ -131,20 +152,86 @@ void LinuxGamepadService::AddDevice(stru
        model_id = mUdev.udev_device_get_sysattr_value(parent, "id/product");
      }
    }
@@ -219,7 +219,7 @@ index deee47b9d267..31f0aad7ae4a 100644
    // TODO: Bug 1523355, implement gamepad lighindicator and touch for Linux.
  
    gamepad->source_id =
-@@ -257,7 +344,7 @@ bool LinuxGamepadService::is_gamepad(struct udev_device* dev) {
+@@ -257,7 +344,7 @@ bool LinuxGamepadService::is_gamepad(str
    if (!devpath) {
      return false;
    }
@@ -228,7 +228,7 @@ index deee47b9d267..31f0aad7ae4a 100644
      return false;
    }
  
-@@ -292,7 +379,7 @@ gboolean LinuxGamepadService::OnGamepadData(GIOChannel* source,
+@@ -292,7 +379,7 @@ gboolean LinuxGamepadService::OnGamepadD
    if (condition & G_IO_ERR || condition & G_IO_HUP) return FALSE;
  
    while (true) {
@@ -237,7 +237,7 @@ index deee47b9d267..31f0aad7ae4a 100644
      gsize count;
      GError* err = nullptr;
      if (g_io_channel_read_chars(source, (gchar*)&event, sizeof(event), &count,
-@@ -301,18 +388,125 @@ gboolean LinuxGamepadService::OnGamepadData(GIOChannel* source,
+@@ -301,18 +388,125 @@ gboolean LinuxGamepadService::OnGamepadD
        break;
      }
  
@@ -373,11 +373,9 @@ index deee47b9d267..31f0aad7ae4a 100644
          break;
      }
    }
-diff --git dom/gamepad/moz.build dom/gamepad/moz.build
-index 5f55d5a95e96..544b7f927736 100644
---- dom/gamepad/moz.build
+--- dom/gamepad/moz.build.orig	2023-06-08 22:09:34 UTC
 +++ dom/gamepad/moz.build
-@@ -59,7 +59,7 @@ elif CONFIG["MOZ_WIDGET_TOOLKIT"] == "windows":
+@@ -59,7 +59,7 @@ elif CONFIG["MOZ_WIDGET_TOOLKIT"] == "wi
      UNIFIED_SOURCES += ["windows/WindowsGamepad.cpp"]
  elif CONFIG["MOZ_WIDGET_TOOLKIT"] == "android":
      UNIFIED_SOURCES += ["android/AndroidGamepad.cpp"]
