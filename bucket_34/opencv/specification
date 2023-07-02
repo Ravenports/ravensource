@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	4.7.0
-DEF[SOMAJOR]=		407
+DEF[PORTVERSION]=	4.8.0
+DEF[SOMAJOR]=		408
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		opencv
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/opencv:opencv:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	primary core
+SPKGS[standard]=	complete primary tools dev core coredev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -31,7 +31,9 @@ BUILD_DEPENDS=		eigen:single:standard
 BUILDRUN_DEPENDS=	jasper:primary:standard
 			WebP:primary:standard
 			ffmpeg:primary:standard
+
 EXRUN[primary]=		opencv:core:standard
+EXRUN[tools]=		opencv:primary:standard
 
 USES=			cpe cmake pkgconfig jpeg png tiff zlib shebangfix
 SHEBANG_FILES=		cmake/templates/opencv_run_all_tests_unix.sh.in
@@ -63,6 +65,7 @@ CMAKE_ARGS=		-DWITH_VTK:BOOL=OFF
 			-DWITH_WEBP:BOOL=ON
 			-DWITH_V4L:BOOL=OFF
 			-DWITH-LIB4VL:BOOL=OFF
+			-DWITH_PROTOBUF:BOOL=OFF
 			-DBUILD_SHARED_LIBS:BOOL=ON
 			-DBUILD_ANDROID_EXAMPLES:BOOL=OFF
 			-DBUILD_DOCS:BOOL=OFF

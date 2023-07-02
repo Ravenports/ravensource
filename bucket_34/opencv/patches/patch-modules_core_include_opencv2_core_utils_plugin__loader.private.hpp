@@ -1,4 +1,4 @@
---- modules/core/include/opencv2/core/utils/plugin_loader.private.hpp.orig	2022-12-28 14:31:52 UTC
+--- modules/core/include/opencv2/core/utils/plugin_loader.private.hpp.orig	2023-06-28 11:53:33 UTC
 +++ modules/core/include/opencv2/core/utils/plugin_loader.private.hpp
 @@ -12,7 +12,7 @@
  
