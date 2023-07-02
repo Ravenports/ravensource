@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.24.1
+DEF[PORTVERSION]=	0.25.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		p11-kit
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/p11-glue/p11-kit/releases/download/${PORTVERSION}/
 DISTFILE[1]=		p11-kit-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary docs examples
+SPKGS[standard]=	complete primary dev tools docs examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,6 +27,8 @@ FPC_EQUIVALENT=		security/p11-kit
 BUILDRUN_DEPENDS=	nss:caroot:standard
 			libtasn1:primary:standard
 			libffi:single:standard
+
+EXRUN[tools]=		p11-kit:primary:standard
 
 B_DEPS[sunos]=		libbsd4sol:single:standard
 

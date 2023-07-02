@@ -1,4 +1,4 @@
---- common/message.c.orig	2021-07-22 15:43:53 UTC
+--- common/message.c.orig	2023-06-28 09:43:53 UTC
 +++ common/message.c
 @@ -41,7 +41,9 @@
   * Oh god. glibc is nasty. Changes behavior and definitions of POSIX
