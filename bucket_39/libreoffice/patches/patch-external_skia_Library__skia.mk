@@ -1,4 +1,4 @@
---- external/skia/Library_skia.mk.orig	2023-05-31 16:13:22 UTC
+--- external/skia/Library_skia.mk.orig	2023-06-29 21:05:51 UTC
 +++ external/skia/Library_skia.mk
 @@ -105,6 +105,14 @@ $(eval $(call gb_Library_add_libs,skia,\
  ))

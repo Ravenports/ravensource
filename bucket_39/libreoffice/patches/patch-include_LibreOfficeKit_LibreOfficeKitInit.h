@@ -1,4 +1,4 @@
---- include/LibreOfficeKit/LibreOfficeKitInit.h.orig	2023-05-31 16:13:22 UTC
+--- include/LibreOfficeKit/LibreOfficeKitInit.h.orig	2023-06-29 21:05:51 UTC
 +++ include/LibreOfficeKit/LibreOfficeKitInit.h
 @@ -19,6 +19,7 @@
  #endif

@@ -1,4 +1,4 @@
---- external/skia/UnpackedTarball_skia.mk.orig	2023-05-31 16:13:22 UTC
+--- external/skia/UnpackedTarball_skia.mk.orig	2023-06-29 21:05:51 UTC
 +++ external/skia/UnpackedTarball_skia.mk
 @@ -41,6 +41,8 @@ skia_patches := \
      constexpr-template.patch.0 \
