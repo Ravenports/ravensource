@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	1.13
-DEF[SOVERSION]=		1.19.0
+DEF[PORTVERSION]=	1.13.1
+DEF[SOVERSION]=		1.19.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		taglib
@@ -14,23 +14,23 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://taglib.org/releases/
 DISTFILE[1]=		taglib-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL21:single
-			MPL:single
+LICENSE=		LGPL21:primary
+			MPL:primary
 LICENSE_FILE=		LGPL21:{{WRKSRC}}/COPYING.LGPL
 			MPL:{{WRKSRC}}/COPYING.MPL
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"TAGLIB_H"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/taglib/toolkit/taglib.h
 LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		audio/taglib
 
-USES=			cmake cpe c++:single
+USES=			cmake cpe c++:primary
 CMAKE_ARGS=		-DWITH_ASF:BOOL=ON
 			-DWITH_MP4:BOOL=ON
 			-DBUILD_SHARED_LIBS:BOOL=ON
@@ -38,4 +38,4 @@ CPE_VENDOR=		scott_wheeler
 SOVERSION=		${SOVERSION}
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.${LIBEXT}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
