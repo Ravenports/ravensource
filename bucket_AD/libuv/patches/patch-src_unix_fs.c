@@ -1,6 +1,6 @@
---- src/unix/fs.c.orig	2023-05-19 11:21:01 UTC
+--- src/unix/fs.c.orig	2023-06-30 18:31:51 UTC
 +++ src/unix/fs.c
-@@ -1119,13 +1119,13 @@ static ssize_t uv__fs_sendfile(uv_fs_t*
+@@ -1098,13 +1098,13 @@ static ssize_t uv__fs_sendfile(uv_fs_t*
  static ssize_t uv__fs_utime(uv_fs_t* req) {
  #if defined(__linux__)                                                         \
      || defined(_AIX71)                                                         \
@@ -15,7 +15,7 @@
      || defined(__DragonFly__)                                                 \
      || defined(__FreeBSD__)                                                   \
      || defined(__NetBSD__)                                                    \
-@@ -1158,7 +1158,6 @@ static ssize_t uv__fs_utime(uv_fs_t* req
+@@ -1137,7 +1137,6 @@ static ssize_t uv__fs_utime(uv_fs_t* req
  static ssize_t uv__fs_lutime(uv_fs_t* req) {
  #if defined(__linux__)            ||                                           \
      defined(_AIX71)               ||                                           \
