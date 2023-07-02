@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.10.3
+DEF[PORTVERSION]=	2.11.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		cppcheck
@@ -13,14 +13,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/danmar:cppcheck:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete tool gui lang man
+SPKGS[standard]=	complete tools gui lang man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv3+:tool
+LICENSE=		GPLv3+:tools
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		tool:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		tools:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/cli/main.cpp
 LICENSE_SCHEME=		solo
@@ -31,12 +31,12 @@ BUILD_DEPENDS=		docbook-xsl:primary:standard
 BUILDRUN_DEPENDS=	qt5-qtbase:primary:standard
 			qt5-qttools:single:standard
 
-EXRUN[gui]=		cppcheck:tool:standard
+EXRUN[gui]=		cppcheck:tools:standard
 
 C_USES[freebsd]=	clang
 C_USES[midnightbsd]=	clang
 
-USES=			cmake shebangfix pcre python c++:tool,gui
+USES=			cmake shebangfix pcre python c++:tools,gui
 GNOME_COMPONENTS=	libxslt
 SHEBANG_FILES=		htmlreport/cppcheck-htmlreport
 CMAKE_ARGS=		-DHAVE_RULES:BOOL=ON
