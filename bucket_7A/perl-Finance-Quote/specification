@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.5600
+DEF[PORTVERSION]=	1.5700
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Finance-Quote
@@ -12,7 +12,7 @@ CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:B/BP/BPSCHUCK
-DISTFILE[1]=		Finance-Quote-1.56.tar.gz:main
+DISTFILE[1]=		Finance-Quote-1.57.tar.gz:main
 
 SPKGS[534]=		single
 SPKGS[536]=		single
@@ -27,13 +27,13 @@ VOPTS[536]=		PERL_534=OFF PERL_536=ON
 
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		Finance-Quote-1.56
+DISTNAME=		Finance-Quote-1.57
 
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
 # |      runtime : Carp (perl 5.34 core) (perl 5.36 core)
-# |      runtime : Data::Dumper (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Date::Manip
 # |      runtime : DateTime
 # |      runtime : DateTime::Format::Strptime
 # |      runtime : Encode (perl 5.34 core) (perl 5.36 core)
@@ -50,6 +50,7 @@ DISTNAME=		Finance-Quote-1.56
 # |      runtime : HTTP::Request::Common
 # |      runtime : HTTP::Status
 # |      runtime : IO::Handle (perl 5.34 core) (perl 5.36 core)
+# |      runtime : IO::String
 # |      runtime : IO::Uncompress::Unzip (perl 5.34 core) (perl 5.36 core)
 # |      runtime : JSON
 # |      runtime : LWP::Protocol::https
@@ -77,7 +78,6 @@ DISTNAME=		Finance-Quote-1.56
 # |      runtime : vars (perl 5.34 core) (perl 5.36 core)
 # |      runtime : warnings (perl 5.34 core) (perl 5.36 core)
 # |    configure : ExtUtils::MakeMaker (perl 5.34 core) (perl 5.36 core)
-# |         test : Date::Manip
 # |         test : Date::Range
 # |         test : Date::Simple
 # |         test : DateTime::Duration
@@ -92,7 +92,8 @@ DISTNAME=		Finance-Quote-1.56
 # |         test : feature (perl 5.34 core) (perl 5.36 core)
 
 [PERL_534].USES_ON=			perl:534,configure
-[PERL_534].BUILDRUN_DEPENDS_ON=		perl-DateTime:single:534
+[PERL_534].BUILDRUN_DEPENDS_ON=		perl-Date-Manip:single:534
+					perl-DateTime:single:534
 					perl-DateTime-Format-Strptime:single:534
 					perl-HTML-Parser:single:534
 					perl-HTML-TableExtract:single:534
@@ -101,6 +102,7 @@ DISTNAME=		Finance-Quote-1.56
 					perl-HTML-TreeBuilder-XPath:single:534
 					perl-HTTP-Cookies:single:534
 					perl-HTTP-Message:single:534
+					perl-IO-String:single:534
 					perl-JSON:single:534
 					perl-LWP-Protocol-https:single:534
 					perl-libwww-perl:single:534
@@ -113,7 +115,8 @@ DISTNAME=		Finance-Quote-1.56
 					perl-Web-Scraper:single:534
 					perl-XML-LibXML:single:534
 [PERL_536].USES_ON=			perl:536,configure
-[PERL_536].BUILDRUN_DEPENDS_ON=		perl-DateTime:single:536
+[PERL_536].BUILDRUN_DEPENDS_ON=		perl-Date-Manip:single:536
+					perl-DateTime:single:536
 					perl-DateTime-Format-Strptime:single:536
 					perl-HTML-Parser:single:536
 					perl-HTML-TableExtract:single:536
@@ -122,6 +125,7 @@ DISTNAME=		Finance-Quote-1.56
 					perl-HTML-TreeBuilder-XPath:single:536
 					perl-HTTP-Cookies:single:536
 					perl-HTTP-Message:single:536
+					perl-IO-String:single:536
 					perl-JSON:single:536
 					perl-LWP-Protocol-https:single:536
 					perl-libwww-perl:single:536
