@@ -1,10 +1,10 @@
 - Define CLOCK_MONOTONIC_RAW if missing
 
---- src/amd/vulkan/radv_device.c.orig	2023-04-20 23:06:54 UTC
+--- src/amd/vulkan/radv_device.c.orig	2023-06-22 16:42:08 UTC
 +++ src/amd/vulkan/radv_device.c
-@@ -105,6 +105,14 @@ parse_hex(char *out, const char *in, uns
-    }
- }
+@@ -443,6 +443,14 @@ radv_parse_force_vrs_config_file(const c
+ 
+ #define BUF_LEN ((10 * (sizeof(struct inotify_event) + NAME_MAX + 1)))
  
 +#ifndef CLOCK_MONOTONIC_RAW
 +# ifdef CLOCK_MONOTONIC_FAST
@@ -15,5 +15,5 @@
 +#endif
 +
  static int
- radv_device_get_cache_uuid(struct radv_physical_device *pdevice, void *uuid)
+ radv_notifier_thread_run(void *data)
  {
