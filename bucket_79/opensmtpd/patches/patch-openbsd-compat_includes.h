@@ -1,4 +1,4 @@
---- openbsd-compat/includes.h.orig	2023-05-09 17:48:24 UTC
+--- openbsd-compat/includes.h.orig	2023-06-27 14:04:38 UTC
 +++ openbsd-compat/includes.h
 @@ -65,6 +65,7 @@
  #endif
