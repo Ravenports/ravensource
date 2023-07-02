@@ -1,6 +1,6 @@
 $NetBSD: patch-src_main_character.c,v 1.5 2021/06/13 13:10:47 wen Exp $
 
---- src/main/character.c.orig	2023-03-23 23:02:05 UTC
+--- src/main/character.c.orig	2023-05-01 22:15:02 UTC
 +++ src/main/character.c
 @@ -1751,7 +1751,7 @@ attribute_hidden SEXP do_strtrim(SEXP ca
      return s;
