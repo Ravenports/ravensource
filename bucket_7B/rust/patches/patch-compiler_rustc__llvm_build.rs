@@ -1,6 +1,6 @@
---- compiler/rustc_llvm/build.rs.orig	2023-04-16 21:39:51 UTC
+--- compiler/rustc_llvm/build.rs.orig	2023-05-31 19:28:10 UTC
 +++ compiler/rustc_llvm/build.rs
-@@ -326,23 +326,7 @@ fn main() {
+@@ -327,24 +327,7 @@ fn main() {
      }
  
      let llvm_static_stdcpp = tracked_env_var_os("LLVM_STATIC_STDCPP");
@@ -11,6 +11,7 @@
 -    } else if target.contains("darwin")
 -        || target.contains("freebsd")
 -        || target.contains("windows-gnullvm")
+-        || target.contains("aix")
 -    {
 -        "c++"
 -    } else if target.contains("netbsd") && llvm_static_stdcpp.is_some() {

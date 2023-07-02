@@ -1,6 +1,6 @@
---- src/bootstrap/builder.rs.orig	2023-04-16 21:39:51 UTC
+--- src/bootstrap/builder.rs.orig	2023-05-31 19:28:10 UTC
 +++ src/bootstrap/builder.rs
-@@ -1544,12 +1544,13 @@ impl<'a> Builder<'a> {
+@@ -1606,12 +1606,13 @@ impl<'a> Builder<'a> {
                  Some("-Wl,-rpath,@loader_path/../lib")
              } else if !target.contains("windows") {
                  rustflags.arg("-Clink-args=-Wl,-z,origin");

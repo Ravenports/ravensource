@@ -1,4 +1,4 @@
---- src/llvm-project/llvm/lib/Support/Unix/Path.inc.orig	2023-04-16 21:40:30 UTC
+--- src/llvm-project/llvm/lib/Support/Unix/Path.inc.orig	2023-05-31 19:29:26 UTC
 +++ src/llvm-project/llvm/lib/Support/Unix/Path.inc
 @@ -42,6 +42,9 @@
  #if __has_include(<sys/clonefile.h>)
@@ -10,7 +10,7 @@
  #elif defined(__FreeBSD__)
  #include <osreldate.h>
  #if __FreeBSD_version >= 1300057
-@@ -206,6 +209,17 @@ std::string getMainExecutableImpl(const
+@@ -202,6 +205,17 @@ std::string getMainExecutableImpl(const
      if (realpath(exe_path, link_path))
        return link_path;
    }
