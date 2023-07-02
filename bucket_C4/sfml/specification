@@ -1,11 +1,10 @@
-DEF[PORTVERSION]=	2.5.1
+DEF[PORTVERSION]=	2.6.0
 DEF[SOVERSION]=		${PORTVERSION}
 DEF[SOMINOR]=		${PORTVERSION:R:E}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		sfml
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		devel multimedia
 VARIANTS=		standard
 SDESC[standard]=	Simple Fast Multimedia Library
@@ -42,7 +41,7 @@ EXRUN[dev]=		flac:dev:standard
 USES=			cmake jpeg freetype
 CMAKE_ARGS=		-DSFML_INSTALL_PKGCONFIG_FILES=ON
 			-DSFML_USE_SYSTEM_DEPS=ON
-XORG_COMPONENTS=	x11 xrandr
+XORG_COMPONENTS=	x11 xrandr xcursor
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		SOMINOR=${SOMINOR}
 
@@ -76,5 +75,5 @@ post-patch-netbsd:
 		${WRKSRC}/include/SFML/Window/WindowHandle.hpp
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so.${SOVERSION}
-	${RM} -r ${STAGEDIR}${PREFIX}/share/SFML
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
+	${RM} -r ${STAGEDIR}${PREFIX}/share/doc

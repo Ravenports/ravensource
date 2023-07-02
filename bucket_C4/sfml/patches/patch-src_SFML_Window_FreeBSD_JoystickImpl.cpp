@@ -2,9 +2,9 @@ $NetBSD: patch-src_SFML_Window_FreeBSD_JoystickImpl.cpp,v 1.1 2020/05/21 08:42:0
 
 add NetBSD support
 
---- src/SFML/Window/FreeBSD/JoystickImpl.cpp.orig	2017-02-08 11:29:16.000000000 +0000
+--- src/SFML/Window/FreeBSD/JoystickImpl.cpp.orig	2023-06-20 21:44:57 UTC
 +++ src/SFML/Window/FreeBSD/JoystickImpl.cpp
-@@ -53,6 +53,16 @@ namespace
+@@ -52,6 +52,16 @@ namespace
      std::map<unsigned int, std::string> plugged;
      std::map<int, std::pair<int, int> > hatValueMap;
  
