@@ -1,7 +1,7 @@
-DEF[PORTVERSION]=	11.02.00
-DEF[SOVERSION]=		11.102
+DEF[PORTVERSION]=	11.03.00
+DEF[SOVERSION]=		11.101
 # MAIN=advanced branch or trunk, USERGUIDE=userguide branch
-DEF[MAIN_TAG]=		59588cf
+DEF[MAIN_TAG]=		daf778ac40
 DEF[USERGUIDE_TAG]=	bd82abe
 # ----------------------------------------------------------------------------
 
@@ -69,7 +69,7 @@ SOVERSION=		${SOVERSION}
 VAR_OPSYS[sunos]=	MAKE_ARGS=NETWORKLD="-lsocket -lnsl"
 			MAKE_ARGS=LDSHLIB=-shared
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e 's|misc|share/netpbm|g' ${WRKSRC}/common.mk
 	${REINPLACE_CMD} \
 		-e 's|/sharedlink|/lib|g' \
@@ -79,7 +79,7 @@ post-patch:
 		-e 's|pkg-config|false|g' \
 		${WRKSRC}/GNUmakefile
 
-post-patch-sunos:
+pre-configure-sunos:
 	# Ridiculous but they hardcode it in every file so we have no choice.
 	${GREP} -rl "^#.*define.*_XOPEN_SOURCE" ${WRKSRC} |\
 	${XARGS} ${SED} -i'' -e '/_XOPEN_SOURCE/ s/500/600/' \
