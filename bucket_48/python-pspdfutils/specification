@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	3.0.4
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-pspdfutils
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 v11
+SDESC[py310]=		Manipulate PDF and PostScript documents (3.10)
+SDESC[v11]=		Manipulate PDF and PostScript documents (3.11)
+HOMEPAGE=		none
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/1f/ec/1fcaf48405a85634d828d303f28e1517f0a65542ed2eea433126c3f7c723
+DISTFILE[1]=		pspdfutils-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[v11]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[v11]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# GPL v3 or later
+
+GENERATED=		yes
+DISTNAME=		pspdfutils-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# puremagic
+# pypdf (>=3.8.0)
+
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-puremagic:single:py310
+					python-pypdf:single:py310
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-puremagic:single:v11
+					python-pypdf:single:v11
+

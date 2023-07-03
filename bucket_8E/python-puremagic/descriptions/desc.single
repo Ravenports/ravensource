@@ -1,0 +1,44 @@
+puremagic
+=========
+
+puremagic is a pure python module that will identify a file based off
+it's magic numbers.
+
+|CoverageStatus| |License| |PyPi|
+
+It is designed to be minimalistic and inherently cross platform
+compatible. It is also designed to be a stand in for python-magic, it
+incorporates the functions from\_file(filename[, mime]) and
+from\_string(string[, mime]) however the magic\_file() and
+magic\_string() are more powerful and will also display confidence and
+duplicate matches.
+
+It does NOT try to match files off non-magic string. In other words it
+will not search for a string within a certain window of bytes like
+others might.
+
+Advantages over using a wrapper for 'file' or 'libmagic':
+
+-  Faster
+-  Lightweight
+-  Cross platform compatible
+-  No dependencies
+
+Disadvantages:
+
+-  Does not have as many file types
+-  No multilingual comments
+-  Duplications due to small or reused magic numbers
+
+(Help fix the first two disadvantages by contributing!)
+
+Compatibility
+~~~~~~~~~~~~~
+
+-  Python 3.7+
+-  Pypy
+
+Using travis-ci to run continuous integration tests on listed platforms.
+
+Install from pypy
+-----------------

@@ -1,0 +1,51 @@
+DEF[PORTVERSION]=	3.12.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-pypdf
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 v11
+SDESC[py310]=		PDF transformation library (3.10)
+SDESC[v11]=		PDF transformation library (3.11)
+HOMEPAGE=		none
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/15/18/0d30ae5a32755c8cd1241cd896a44551b922ddd55b7212ded55c68ad27bf
+DISTFILE[1]=		pypdf-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[v11]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[v11]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		pypdf-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# typing_extensions >= 3.10.0.0; python_version < '3.10'
+# dataclasses; python_version < '3.7'
+# PyCryptodome ; extra == "crypto"
+# black ; extra == "dev"
+# pip-tools ; extra == "dev"
+# pre-commit<2.18.0 ; extra == "dev"
+# pytest-cov ; extra == "dev"
+# pytest-socket ; extra == "dev"
+# flit ; extra == "dev"
+# wheel ; extra == "dev"
+# sphinx ; extra == "docs"
+# sphinx_rtd_theme ; extra == "docs"
+# myst_parser ; extra == "docs"
+# PyCryptodome ; extra == "full"
+# Pillow ; extra == "full"
+# Pillow ; extra == "image"
+
+[PY310].USES_ON=			python:py310,wheel
+[PY311].USES_ON=			python:v11,wheel
+

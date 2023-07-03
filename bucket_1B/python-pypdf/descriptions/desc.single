@@ -1,0 +1,100 @@
+[PyPI version]
+[Python Support]
+[![]](https://pypdf.readthedocs.io/en/stable/)
+[GitHub last commit]
+[codecov]
+
+# pypdf
+
+pypdf is a free and open-source pure-python PDF library capable of
+splitting,
+[merging],
+[cropping, and transforming]
+the pages of PDF files. It can also add
+custom data, viewing options, and
+[passwords]
+to PDF files. pypdf can
+[retrieve text]
+and
+[metadata]
+from PDFs as well.
+
+## Installation
+
+Install pypdf using pip:
+
+`
+pip install pypdf
+`
+
+For using pypdf with AES encryption or decryption, install extra
+dependencies:
+
+```
+pip install pypdf[crypto]
+```
+
+> **NOTE**: `pypdf` 3.1.0 and above include significant improvements
+compared to
+> previous versions. Please refer to [the migration
+> guide] for
+> more information.
+
+## Usage
+
+```python
+from pypdf import PdfReader
+
+reader = PdfReader("example.pdf")
+number_of_pages = len(reader.pages)
+page = reader.pages[0]
+text = page.extract_text()
+```
+
+pypdf can do a lot more, e.g. splitting, merging, reading and creating
+annotations, decrypting and encrypting, and more. Check out [the
+documentation] for additional usage
+examples!
+
+For questions and answers, visit
+[StackOverflow]
+(tagged with [pypdf]).
+
+## Contributions
+
+Maintaining pypdf is a collaborative effort. You can support the project by
+writing documentation, helping to narrow down issues, and submitting code.
+
+### Q&A
+
+The experience pypdf users have covers the whole range from beginners who
+want to make their live easier to experts who developed software before PDF
+existed. You can contribute to the pypdf community by answering questions
+on [StackOverflow],
+helping in [discussions],
+and asking users who report issues for [MCVE]'s (Code + example PDF!).
+
+### Issues
+
+A good bug ticket includes a MCVE - a minimal complete verifiable example.
+For pypdf, this means that you must upload a PDF that causes the bug to
+occur
+as well as the code you're executing with all of the output. Use
+`print(pypdf.__version__)` to tell us which version you're using.
+
+### Code
+
+All code contributions are welcome, but smaller ones have a better chance
+to
+get included in a timely manner. Adding unit tests for new features or test
+cases for bugs you've fixed help us to ensure that the Pull Request (PR) is
+fine.
+
+pypdf includes a test suite which can be executed with `pytest`:
+
+```bash
+$ pytest
+===================== test session starts =====================
+platform linux -- Python 3.6.15, pytest-7.0.1, pluggy-1.0.0
+rootdir: /home/moose/GitHub/Martin/pypdf
+plugins: cov-3.0.0
