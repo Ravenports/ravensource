@@ -502,16 +502,6 @@ include/qt6/QtCore/QtTypeTraits
 include/qt6/QtCore/QtTypes
 include/qt6/QtCore/QtVersion
 include/qt6/QtCore/QtVersionChecks
-include/qt6/QtCore/bignum-dtoa.h
-include/qt6/QtCore/bignum.h
-include/qt6/QtCore/cached-powers.h
-include/qt6/QtCore/diy-fp.h
-include/qt6/QtCore/double-conversion.h
-include/qt6/QtCore/double-to-string.h
-include/qt6/QtCore/fast-dtoa.h
-include/qt6/QtCore/fixed-dtoa.h
-include/qt6/QtCore/forkfd.h
-include/qt6/QtCore/ieee.h
 include/qt6/QtCore/q20algorithm.h
 include/qt6/QtCore/q20functional.h
 include/qt6/QtCore/q20iterator.h
@@ -757,9 +747,6 @@ include/qt6/QtCore/qwineventnotifier.h
 include/qt6/QtCore/qxmlstream.h
 include/qt6/QtCore/qxpfunctional.h
 include/qt6/QtCore/qxptype_traits.h
-include/qt6/QtCore/string-to-double.h
-include/qt6/QtCore/strtod.h
-include/qt6/QtCore/utils.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qabstractanimation_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qabstracteventdispatcher_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qabstractfileengine_p.h
@@ -993,6 +980,10 @@ include/qt6/QtEglFSDeviceIntegration/%%QTVER%%/QtEglFSDeviceIntegration/private/
 include/qt6/QtEglFSDeviceIntegration/%%QTVER%%/QtEglFSDeviceIntegration/private/qeglfsoffscreenwindow_p.h
 include/qt6/QtEglFSDeviceIntegration/%%QTVER%%/QtEglFSDeviceIntegration/private/qeglfsscreen_p.h
 include/qt6/QtEglFSDeviceIntegration/%%QTVER%%/QtEglFSDeviceIntegration/private/qeglfswindow_p.h
+include/qt6/QtExampleIcons/QtExampleIcons
+include/qt6/QtExampleIcons/QtExampleIconsDepends
+include/qt6/QtExampleIcons/QtExampleIconsVersion
+include/qt6/QtExampleIcons/qtexampleiconsversion.h
 include/qt6/QtFbSupport/QtFbSupport
 include/qt6/QtFbSupport/QtFbSupportDepends
 include/qt6/QtFbSupport/QtFbSupportVersion
@@ -1220,7 +1211,6 @@ include/qt6/QtGui/QtEvents
 include/qt6/QtGui/QtGui
 include/qt6/QtGui/QtGuiDepends
 include/qt6/QtGui/QtGuiVersion
-include/qt6/QtGui/md4c.h
 include/qt6/QtGui/qabstractfileiconprovider.h
 include/qt6/QtGui/qabstracttextdocumentlayout.h
 include/qt6/QtGui/qaccessible.h
@@ -2475,6 +2465,8 @@ lib/qt6/libQt6DeviceDiscoverySupport.a
 lib/qt6/libQt6DeviceDiscoverySupport.prl
 lib/qt6/libQt6EglFSDeviceIntegration.prl
 lib/qt6/libQt6EglFSDeviceIntegration.so
+lib/qt6/libQt6ExampleIcons.a
+lib/qt6/libQt6ExampleIcons.prl
 lib/qt6/libQt6FbSupport.a
 lib/qt6/libQt6FbSupport.prl
 lib/qt6/libQt6Gui.prl
@@ -2751,6 +2743,13 @@ lib/qt6/cmake/Qt6EglFSDeviceIntegrationPrivate/Qt6EglFSDeviceIntegrationPrivateD
 lib/qt6/cmake/Qt6EglFSDeviceIntegrationPrivate/Qt6EglFSDeviceIntegrationPrivateTargets-release.cmake
 lib/qt6/cmake/Qt6EglFSDeviceIntegrationPrivate/Qt6EglFSDeviceIntegrationPrivateTargets.cmake
 lib/qt6/cmake/Qt6EglFSDeviceIntegrationPrivate/Qt6EglFSDeviceIntegrationPrivateVersionlessTargets.cmake
+lib/qt6/cmake/Qt6ExampleIconsPrivate/Qt6ExampleIconsPrivateAdditionalTargetInfo.cmake
+lib/qt6/cmake/Qt6ExampleIconsPrivate/Qt6ExampleIconsPrivateConfig.cmake
+lib/qt6/cmake/Qt6ExampleIconsPrivate/Qt6ExampleIconsPrivateConfigVersion.cmake
+lib/qt6/cmake/Qt6ExampleIconsPrivate/Qt6ExampleIconsPrivateConfigVersionImpl.cmake
+lib/qt6/cmake/Qt6ExampleIconsPrivate/Qt6ExampleIconsPrivateTargets-release.cmake
+lib/qt6/cmake/Qt6ExampleIconsPrivate/Qt6ExampleIconsPrivateTargets.cmake
+lib/qt6/cmake/Qt6ExampleIconsPrivate/Qt6ExampleIconsPrivateVersionlessTargets.cmake
 lib/qt6/cmake/Qt6FbSupportPrivate/Qt6FbSupportPrivateAdditionalTargetInfo.cmake
 lib/qt6/cmake/Qt6FbSupportPrivate/Qt6FbSupportPrivateConfig.cmake
 lib/qt6/cmake/Qt6FbSupportPrivate/Qt6FbSupportPrivateConfigVersion.cmake
@@ -2954,6 +2953,7 @@ lib/qt6/metatypes/qt6core_release_metatypes.json
 lib/qt6/metatypes/qt6dbus_release_metatypes.json
 lib/qt6/metatypes/qt6devicediscoverysupportprivate_release_metatypes.json
 lib/qt6/metatypes/qt6eglfsdeviceintegrationprivate_release_metatypes.json
+lib/qt6/metatypes/qt6exampleiconsprivate_release_metatypes.json
 lib/qt6/metatypes/qt6fbsupportprivate_release_metatypes.json
 lib/qt6/metatypes/qt6gui_release_metatypes.json
 lib/qt6/metatypes/qt6network_release_metatypes.json
@@ -3356,6 +3356,7 @@ lib/qt6/mkspecs/modules/qt_lib_dbus.pri
 lib/qt6/mkspecs/modules/qt_lib_dbus_private.pri
 lib/qt6/mkspecs/modules/qt_lib_devicediscovery_support_private.pri
 lib/qt6/mkspecs/modules/qt_lib_eglfsdeviceintegration_private.pri
+lib/qt6/mkspecs/modules/qt_lib_example_icons_private.pri
 lib/qt6/mkspecs/modules/qt_lib_fb_support_private.pri
 lib/qt6/mkspecs/modules/qt_lib_gui.pri
 lib/qt6/mkspecs/modules/qt_lib_gui_private.pri
@@ -3449,6 +3450,7 @@ lib/qt6/modules/Core.json
 lib/qt6/modules/DBus.json
 lib/qt6/modules/DeviceDiscoverySupportPrivate.json
 lib/qt6/modules/EglFSDeviceIntegrationPrivate.json
+lib/qt6/modules/ExampleIconsPrivate.json
 lib/qt6/modules/FbSupportPrivate.json
 lib/qt6/modules/Gui.json
 lib/qt6/modules/InputSupportPrivate.json
@@ -3460,6 +3462,7 @@ lib/qt6/modules/Sql.json
 lib/qt6/modules/Test.json
 lib/qt6/modules/Widgets.json
 lib/qt6/modules/Xml.json
+lib/qt6/objects-Release/ExampleIconsPrivate_resources_1/.rcc/qrc_example_icons.cpp.o
 lib/qt6/pkgconfig/Qt6Concurrent.pc
 lib/qt6/pkgconfig/Qt6Core.pc
 lib/qt6/pkgconfig/Qt6DBus.pc

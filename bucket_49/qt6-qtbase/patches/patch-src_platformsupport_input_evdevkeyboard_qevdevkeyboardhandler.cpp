@@ -1,4 +1,4 @@
---- src/platformsupport/input/evdevkeyboard/qevdevkeyboardhandler.cpp.orig	2023-03-14 08:29:43 UTC
+--- src/platformsupport/input/evdevkeyboard/qevdevkeyboardhandler.cpp.orig	2023-05-12 04:40:15 UTC
 +++ src/platformsupport/input/evdevkeyboard/qevdevkeyboardhandler.cpp
 @@ -17,11 +17,7 @@
  #include <QtGui/private/qguiapplication_p.h>

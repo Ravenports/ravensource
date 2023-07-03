@@ -1,4 +1,4 @@
---- src/qml/Qt6QmlMacros.cmake.orig	2023-03-23 08:11:12 UTC
+--- src/qml/Qt6QmlMacros.cmake.orig	2023-05-16 07:17:22 UTC
 +++ src/qml/Qt6QmlMacros.cmake
 @@ -1672,7 +1672,6 @@ function(qt6_add_qml_plugin target)
          string(REPLACE "/" ";" path "qml/${arg_TARGET_PATH}")

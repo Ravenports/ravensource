@@ -1,4 +1,4 @@
---- src/corelib/thread/qthread_unix.cpp.orig	2023-03-14 08:29:43 UTC
+--- src/corelib/thread/qthread_unix.cpp.orig	2023-05-12 04:40:15 UTC
 +++ src/corelib/thread/qthread_unix.cpp
 @@ -34,7 +34,7 @@
  #include <sched.h>
