@@ -1,12 +1,11 @@
-DEF[TAG]=		1.44.2-1
+DEF[TAG]=		1.45.0-0
 DEF[COMPAT_TAG]=	bc91f40
 DEF[PORTVERSION]=	${TAG:S/-/./}
-DEF[SOVERSION]=		1.44.2
+DEF[SOVERSION]=		1.45.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libluv
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		lang
 VARIANTS=		standard
 SDESC[standard]=	Bare libuv bindings for lua
@@ -20,14 +19,14 @@ DISTFILE[1]=		generated:main
 DISTFILE[2]=		generated:compat
 DF_INDEX=		1 2
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		APACHE20:single
+LICENSE=		APACHE20:primary
 LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE.txt
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"LUV_H"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/luv.h
 LICENSE_SCHEME=		solo
