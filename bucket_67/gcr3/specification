@@ -7,6 +7,7 @@ DEF[SOVERSION_gcrui]=	1.0.0
 
 NAMEBASE=		gcr3
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Library for bits of crypto UI and parsing
@@ -17,7 +18,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/GNOME:gcr:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary nls docs
+SPKGS[standard]=	complete primary tools dev nls docs
 
 OPTIONS_AVAILABLE=	INTROSPECTION
 OPTIONS_STANDARD=	INTROSPECTION
@@ -43,6 +44,9 @@ BUILDRUN_DEPENDS=	dbus:primary:standard
 			libtasn1:primary:standard
 			p11-kit:primary:standard
 			openssh:primary:standard
+
+EXRUN[dev]=		p11-kit:dev:standard
+EXRUN[tools]=		gcr3:primary:standard
 
 USES=			gmake pkgconfig meson
 			python:build
