@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	20230423
-DEF[TAG]=		a7d2fd6
+DEF[PORTVERSION]=	20230616
+DEF[TAG]=		6a850fd
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libnatpmp
@@ -14,16 +14,18 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/miniupnp:libnatpmp:${TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		BSD3CLAUSE:single
+LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net/libnatpmp
+
+EXRUN[tools]=		libnatpmp:primary:standard
 
 USES=			gmake
 MAKE_ARGS=		CC="{{CC}}"
