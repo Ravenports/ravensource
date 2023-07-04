@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	2.1
 
 NAMEBASE=		surf
 VERSION=		${PORTVERSION}
-REVISION=		5
+REVISION=		6
 KEYWORDS=		www
 VARIANTS=		standard
 SDESC[standard]=	Simple webkit browser adhering suckless principles
@@ -28,13 +28,13 @@ FPC_EQUIVALENT=		www/surf
 BUILD_DEPENDS=		harfbuzz:dev:standard
 			libsoup-2.4:dev:standard
 			webkit2:dev:api40
+			gcr3:dev:standard
+BUILDRUN_DEPENDS=	webkit2:primary:api40
+			gcr3:primary:standard
 RUN_DEPENDS=		curl:primary:standard
 			dmenu:single:standard
 			stterm:single:standard
 			xorg-xprop:complete:standard
-			gcr3:dev:standard
-BUILDRUN_DEPENDS=	webkit2:primary:api40
-			gcr3:primary:standard
 
 USES=			pkgconfig
 XORG_COMPONENTS=	x11
