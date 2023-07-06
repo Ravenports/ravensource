@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.17.3
+DEF[PORTVERSION]=	4.18.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-jsonschema
@@ -11,7 +11,7 @@ HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/c1/97/c698bd9350f307daad79dd740806e1a59becd693bd11443a0f531e3229b3
+SITES[main]=		PYPIWHL/8a/38/2c55180702a637be0fbb8aa95358213a750d25cad3e59869726a54309996
 DISTFILE[1]=		jsonschema-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -29,12 +29,12 @@ GENERATED=		yes
 DISTNAME=		jsonschema-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# attrs>=17.4.0
-# importlib-metadata; python_version < '3.8'
+# attrs>=22.2.0
 # importlib-resources>=1.4.0; python_version < '3.9'
+# jsonschema-specifications>=2023.03.6
 # pkgutil-resolve-name>=1.3.10; python_version < '3.9'
-# pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0
-# typing-extensions; python_version < '3.8'
+# referencing>=0.28.4
+# rpds-py>=0.7.1
 # fqdn; extra == 'format'
 # idna; extra == 'format'
 # isoduration; extra == 'format'
@@ -54,8 +54,12 @@ DISTNAME=		jsonschema-${PORTVERSION}.dist-info
 
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-attrs:single:py310
-					python-pyrsistent:single:py310
+					python-jsonschema-specifications:single:py310
+					python-referencing:single:py310
+					python-rpds-py:single:py310
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-attrs:single:v11
-					python-pyrsistent:single:v11
+					python-jsonschema-specifications:single:v11
+					python-referencing:single:v11
+					python-rpds-py:single:v11
 

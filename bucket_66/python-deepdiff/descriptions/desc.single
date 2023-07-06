@@ -1,4 +1,4 @@
-# DeepDiff v 6.3.0
+# DeepDiff v 6.3.1
 
 ![Downloads]
 ![Python Versions]
@@ -24,22 +24,28 @@ Tested on Python 3.7+ and PyPy3.
 
 Please check the [ChangeLog] file for the detailed information.
 
+DeepDiff 6-3-1
+
+This release includes many bug fixes.
+
+- Bugfix deephash for paths by [maggelus]
+- Bugfix deephash compiled regex [maggelus]
+- Fix tests dependent on toml by [martin-kokos]
+- Bugfix for `include_paths` for nested dictionaries by [kor4ik]
+- Use tomli and tomli-w for dealing with tomli files by [martin-kokos]
+- Bugfix for `datetime.date` by [Alex Sauer-Budge]
+
 DeepDiff 6-3-0
 
-- `PrefixOrSuffixOperator`: This operator will skip strings that are suffix
-or prefix of each other.
-- `include_obj_callback` and `include_obj_callback_strict` are added by
+- [`PrefixOrSuffixOperator`]: This operator will skip strings that are
+suffix or prefix of each other.
+- [`include_obj_callback`] and `include_obj_callback_strict` are added by
 [Håvard Thom].
 - Fixed a corner case where numpy's `np.float32` nans are not ignored when
 using `ignore_nan_equality` by [Noam Gottlieb]
 - `orjson` becomes optional again.
 - Fix for `ignore_type_in_groups` with numeric values so it does not report
 number changes when the number types are different.
-
-DeepDiff 6-2-0
-
-- Major improvement in the diff report for lists when items are all
-hashable and the order of items is important.
 
 ## Installation
 
@@ -56,6 +62,13 @@ functionalities such as improved json serialization:
 
 `pip install "deepdiff[optimize]"`
 
+Install optional packages:
+- [yaml]
+- [tomli] (python 3.10 and older) and [tomli-w] for writing
+- [clevercsv] for more rubust CSV parsing
+- [orjson] for speed and memory optimized parsing
+- [pydantic]
+
 # Documentation
 
 <https://zepworks.com/deepdiff/current/>
@@ -63,6 +76,12 @@ functionalities such as improved json serialization:
 # ChangeLog
 
 Please take a look at the [CHANGELOG] file.
+
+# Survey
+
+:mega: **Please fill out our [fast 5-question survey]** so that we can
+learn how & why you use DeepDiff, and what improvements we should make.
+Thank you! :dancers:
 
 # Contribute
 
@@ -79,19 +98,3 @@ flag.
 Or to see a more user friendly version, please run: `pytest --cov=deepdiff
 --cov-report term-missing --runslow`.
 
-Thank you!
-
-# Citing
-
-How to cite this library (APA style):
-
-    Dehpour, S. (2022). DeepDiff (Version 6.3.0) [Software]. Available from
-https://github.com/seperman/deepdiff.
-
-How to cite this library (Chicago style):
-
-    Dehpour, Sep. 2022. DeepDiff (version 6.3.0).
-
-# Authors
-
-Please take a look at the [AUTHORS] file.

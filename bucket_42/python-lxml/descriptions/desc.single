@@ -29,25 +29,29 @@ https://github.com/lxml/lxml/tarball/lxml-4.9#egg=lxml-4.9bugfix
 as soon as a maintenance branch has been established.  Note that this
 requires Cython to be installed at an appropriate version for the build.
 
-4.9.2 (2022-12-13)
+4.9.3 (2023-07-05)
 ==================
 
 Bugs fixed
 ----------
 
-* CVE-2022-2309: A Bug in libxml2 2.9.1[0-4] could let namespace
-declarations
-  from a failed parser run leak into later parser runs.  This bug was
-worked around
-  in lxml and resolved in libxml2 2.10.0.
-  https://gitlab.gnome.org/GNOME/libxml2/-/issues/378
+* ``lxml.objectify`` accepted non-decimal numbers like ``²²²`` as
+integers.
+
+* A memory leak in ``lxml.html.clean`` was resolved by switching to Cython
+0.29.34+.
+
+* GH#348: URL checking in the HTML cleaner was improved.
+  Patch by Tim McCormack.
+
+* GH#371, GH#373: Some regex strings were changed to raw strings to fix
+Python warnings.
+  Patches by Jakub Wilk and Anthony Sottile.
 
 Other changes
 -------------
 
-* LP#1981760: ``Element.attrib now registers as
-collections.abc.MutableMapping``.
+* Wheels include zlib 1.2.13, libxml2 2.10.3 and libxslt 1.1.38
+  (zlib 1.2.12, libxml2 2.10.3 and libxslt 1.1.37 on Windows).
 
-* lxml now has a static build setup for macOS on ARM64 machines (not used
-for building wheels).
-  Patch by Quentin Leffray.
+* Built with Cython 0.29.36 to adapt to changes in Python 3.12.
