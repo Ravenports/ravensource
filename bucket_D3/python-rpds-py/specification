@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.8.8
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-rpds-py
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 v11
+SDESC[py310]=		Bindings to Rust persistent data structures (3.10)
+SDESC[v11]=		Bindings to Rust persistent data structures (3.11)
+HOMEPAGE=		none
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/r/rpds-py
+DISTFILE[1]=		rpds_py-${PORTVERSION}.tar.gz:main
+
+SPKGS[py310]=		single
+SPKGS[v11]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[v11]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		rpds_py-${PORTVERSION}
+
+# install_requires extracted from setup.py
+
+
+[PY310].USES_ON=			python:py310,sutools
+[PY311].USES_ON=			python:v11,sutools
+
