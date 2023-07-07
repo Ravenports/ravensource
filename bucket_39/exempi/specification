@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2.6.3
-DEF[SOVERSION]=		8.1.3
+DEF[PORTVERSION]=	2.6.4
+DEF[SOVERSION]=		8.1.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		exempi
@@ -14,12 +14,12 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://libopenraw.freedesktop.org/download/
 DISTFILE[1]=		exempi-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		BSD3CLAUSE:single
+LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
@@ -27,6 +27,8 @@ FPC_EQUIVALENT=		textproc/exempi
 
 BUILD_DEPENDS=		boost-libraries:dev:standard
 BUILDRUN_DEPENDS=	boost-libraries:primary:standard
+
+EXRUN[tools]=		exempi:primary:standard
 
 USES=			cpe gmake libtool zlib expat
 CPE_VENDOR=		exempi_project
