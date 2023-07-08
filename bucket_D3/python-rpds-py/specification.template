@@ -1,0 +1,91 @@
+# Manually maintained
+DEF[PORTVERSION]=	%%VERSION%%
+DEF[SKIP_CRATE]=	rpds-py
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-rpds-py
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 v11
+SDESC[py310]=		Bindings to Rust persistent data structures (3.10)
+SDESC[v11]=		Bindings to Rust persistent data structures (3.11)
+HOMEPAGE=		https://github.com/crate-py/rpds
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		PYPI/r/rpds-py
+%%CR_SITES%%
+
+DISTFILE[1]=		rpds_py-${PORTVERSION}.tar.gz:main
+%%CR_DISTFILES%%
+%%DF_INDEX%%
+
+SPKGS[py310]=		single
+SPKGS[v11]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[v11]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# MIT
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+GENERATED=		yes
+DISTNAME=		rpds_py-${PORTVERSION}
+
+# install_requires extracted from setup.py
+
+
+[PY310].USES_ON=			python:py310
+[PY310].BUILD_DEPENDS_ON=		python-maturin:single:py310
+					python-pip:single:py310
+
+[PY311].USES_ON=			python:v11
+[PY311].BUILD_DEPENDS_ON=		python-maturin:single:v11
+					python-pip:single:v11
+
+BUILD_DEPENDS=		rust:single:standard
+
+USES=			cargo cclibs:single
+CARGO_CARGOTOML=	{{WRKSRC}}/Cargo.toml
+CARGO_CARGOLOCK=	{{WRKSRC}}/Cargo.lock
+CARGO_SKIP_CONFIGURE=	yes
+CARGO_SKIP_BUILD=	yes
+CARGO_SKIP_INSTALL=	yes
+PLIST_SUB=		VER=${PORTVERSION}
+
+post-patch:
+	# create directives
+	${MKDIR} ${WRKSRC}/.cargo
+	echo "[source.cargo]" >> ${WRKSRC}/.cargo/config.toml
+	echo "directory = '${CARGO_VENDOR_DIR}'" >> ${WRKSRC}/.cargo/config.toml
+	echo "[source.crates-io]" >> ${WRKSRC}/.cargo/config.toml
+	echo "replace-with = 'cargo'" >> ${WRKSRC}/.cargo/config.toml
+
+do-build:
+	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} maturin build \
+		--release \
+		--interpreter ${PYTHON_CMD})
+
+do-install:
+	# Due to upstream not supplying a setup.py file or other way to install
+	# using pip command for now...
+	${SETENV} ${MAKE_ENV} pip install \
+		--verbose \
+		--no-index \
+		--no-compile \
+		--progress-bar off \
+		--root=${STAGEDIR} \
+		--root-user-action=ignore \
+		--disable-pip-version-check \
+		--no-deps ${INSTALL_WRKSRC}/target/wheels/*.whl
+	(cd ${STAGEDIR} && ${PYTHON_CMD} -m compileall -d / . ||:)
+	${INSTALL_LIB} ${WRKSRC}/target/release/librpds.so \
+		${STAGEDIR}${PYTHON_SITELIBDIR}/rpds
+	${CHMOD} +x ${STAGEDIR}${PYTHON_SITELIBDIR}/rpds/librpds.so
+	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/rpds/rpds.*.so
