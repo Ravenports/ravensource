@@ -4,6 +4,7 @@ DEF[SOVERSION]=		${PORTVERSION}
 
 NAMEBASE=		tinyxml2
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		standard
 SDESC[standard]=	Simple, small and efficient C++ XML parser
@@ -14,19 +15,19 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/leethomason:tinyxml2:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		CUSTOM1:single
+LICENSE=		CUSTOM1:primary
 LICENSE_NAME=		CUSTOM1:"zlib License"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.txt
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		textproc/tinyxml2
 
-USES=			cmake:insource dos2unix c++:single
+USES=			cmake:insource dos2unix c++:primary
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
 			-DBUILD_TESTS:BOOL=OFF
 SOVERSION=		${SOVERSION}
