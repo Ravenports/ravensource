@@ -1,10 +1,10 @@
-DEF[PORTVERSION]=	1.5.6
+DEF[BASEVERSION]=	1.5.6
+DEF[PORTVERSION]=	${BASEVERSION}.pl01
 DEF[SOVERSION]=		6.92.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libisofs
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Lib for creating ISO9660 FS, supporting extensions
@@ -30,10 +30,9 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		devel/libisofs
 
 USES=			libtool iconv zlib mbsdfix
-
 MUST_CONFIGURE=		gnu
-
 SOVERSION=		${SOVERSION}
+DISTNAME=		libisofs-${BASEVERSION}
 
 pre-configure:
 	${REINPLACE_CMD} -e '/libdata/d' ${WRKSRC}/configure
