@@ -675,6 +675,17 @@ function scrape_python_info ($namebase, $force, $PDUO) {
          if (!is_array ($obj->releases->$version)) {
              return $result;
          }
+         if ($obj->info->home_page == "") {
+            if (property_exists($obj->info, "project_urls")) {
+               if ($obj->info->project_urls !== null) {
+                  if (property_exists($obj->info->project_urls, "Homepage")) {
+                     $obj->info->home_page = $obj->info->project_urls->Homepage;
+                  } else if (property_exists($obj->info->project_urls, "homepage")) {
+                     $obj->info->home_page = $obj->info->project_urls->homepage;
+                  }
+               }
+            }
+         }
          $result["version"]     = $version;
          $result["comment"]     = $obj->info->summary;
          $result["description"] = $obj->info->description;
