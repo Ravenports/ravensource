@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.10
+DEF[PORTVERSION]=	6.11
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-LWP-Protocol-https
@@ -35,7 +35,6 @@ DISTNAME=		LWP-Protocol-https-${PORTVERSION}
 # |      runtime : IO::Socket::SSL
 # |      runtime : LWP::Protocol::http
 # |      runtime : LWP::UserAgent
-# |      runtime : Mozilla::CA
 # |      runtime : Net::HTTPS
 # |      runtime : base (perl 5.34 core) (perl 5.36 core)
 # |      runtime : strict (perl 5.34 core) (perl 5.36 core)
@@ -50,6 +49,7 @@ DISTNAME=		LWP-Protocol-https-${PORTVERSION}
 # |         test : LWP::UserAgent
 # |         test : Socket (perl 5.34 core) (perl 5.36 core)
 # |         test : Test::More (perl 5.34 core) (perl 5.36 core)
+# |         test : Test::Needs
 # |         test : Test::RequiresInternet
 # |         test : warnings (perl 5.34 core) (perl 5.36 core)
 # |         test : CPAN::Meta (perl 5.34 core) (perl 5.36 core)
@@ -57,11 +57,9 @@ DISTNAME=		LWP-Protocol-https-${PORTVERSION}
 [PERL_534].USES_ON=			perl:534,configure
 [PERL_534].BUILDRUN_DEPENDS_ON=		perl-IO-Socket-SSL:single:534
 					perl-libwww-perl:single:534
-					perl-Mozilla-CA:single:534
 					perl-Net-HTTP:single:534
 [PERL_536].USES_ON=			perl:536,configure
 [PERL_536].BUILDRUN_DEPENDS_ON=		perl-IO-Socket-SSL:single:536
 					perl-libwww-perl:single:536
-					perl-Mozilla-CA:single:536
 					perl-Net-HTTP:single:536
 
