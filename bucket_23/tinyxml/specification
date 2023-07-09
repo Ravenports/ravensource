@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	2.6.2
+DEF[FILEVERSION]=	${PORTVERSION:S/./_/g}
+DEF[SOVERSION]=		3.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		tinyxml
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	Simple, small, C++ XML parser
+HOMEPAGE=		https://sourceforge.net/projects/tinyxml/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/tinyxml/tinyxml/${PORTVERSION}
+DISTFILE[1]=		tinyxml_${FILEVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary dev docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		textproc/tinyxml
+
+LICENSE=		ZLIB:primary
+LICENSE_FILE=		ZLIB:{{WRKDIR}}/LICENSE
+LICENSE_SOURCE=		ZLIB:{{WRKSRC}}/tinyxml.h
+LICENSE_AWK=		ZLIB:"^\*\/$"
+LICENSE_SCHEME=		solo
+
+USES=			cmake dos2unix c++:primary
+DISTNAME=		tinyxml
+SOVERSION=		${SOVERSION}
+
+post-extract:
+	${CP} ${FILESDIR}/CMakeLists.txt ${WRKSRC}/
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libtinyxml.so
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${WRKSRC}/docs/* ${STAGEDIR}${STD_DOCDIR}
