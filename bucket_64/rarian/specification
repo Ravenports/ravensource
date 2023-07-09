@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.8.2
+DEF[PORTVERSION]=	0.8.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rarian
@@ -13,19 +13,21 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://gitlab.freedesktop.org/rarian/rarian/-/releases/${PORTVERSION}/downloads/assets/
 DISTFILE[1]=		rarian-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		textproc/rarian
 
-BUILDRUN_DEPENDS=	bash:primary:standard
+BUILD_DEPENDS=		tinyxml:dev:standard
+BUILDRUN_DEPENDS=	tinyxml:primary:standard
+			bash:primary:standard
 			docbook-xsl:primary:standard
 			docbook-xml:single:standard
 RUN_DEPENDS=		getopt:single:standard
 
-USES=			gmake libtool python c++:single
+USES=			gmake libtool python c++:primary pkgconfig
 GNOME_COMPONENTS=	libxslt
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-convert-dir={{LOCALBASE}}/share/omf

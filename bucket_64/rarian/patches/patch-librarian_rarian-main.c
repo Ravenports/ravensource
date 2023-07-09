@@ -1,4 +1,4 @@
---- librarian/rarian-main.c.orig	2023-02-22 02:43:03 UTC
+--- librarian/rarian-main.c.orig	2023-05-06 00:02:46 UTC
 +++ librarian/rarian-main.c
 @@ -207,7 +207,7 @@ past:
      path = getenv("XDG_DATA_DIRS");
