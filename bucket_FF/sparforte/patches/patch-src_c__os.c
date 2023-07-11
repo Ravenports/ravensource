@@ -1,8 +1,8 @@
---- src/c_os.c.orig	2022-04-22 02:27:33 UTC
+--- src/c_os.c.orig	2023-05-06 21:39:55 UTC
 +++ src/c_os.c
-@@ -16,7 +16,7 @@
- #include <stdio.h>
- #include <limits.h>
+@@ -27,7 +27,7 @@
+ 
+ /* group_member() for BSD-based systems */
  
 -#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__)
 +#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)

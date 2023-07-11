@@ -23,6 +23,7 @@ BDBSUB="-L@PREFIX@/db5/lib -ldb bdb/c_bdb.o"
 RLINCLSUB="-I./areadline/"
 RLLIBSSUB="-L@PREFIX@/lib -lreadline -lhistory c_rl.o"
 RLFLAG="-DREADLINE"
+JOBSSUB="@JOBSSUB@"
 FASTCGISUB=
 SDLINCLSSUB=
 SDLLIBSTYPE=$(@PREFIX@/bin/pkgconf --libs SDL_image)
@@ -134,6 +135,7 @@ echo "Creating src/GNUmakefile"
  -e "s|PCREFLAG|${PCREFLAG}|g" \
  -e "s|L10NFLAGSUB|${L10NFLAG}|g" \
  -e "s|L10NLIBSSUB|${L10NLIBS}|g" \
+ -e "s|GMAKEJOBSSUB|${JOBSSUB}|g" \
  src/GNUmakefile.orig > src/GNUmakefile
 
 echo "Creating src/bdb/GNUmakefile"

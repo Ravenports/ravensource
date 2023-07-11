@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.5
+DEF[PORTVERSION]=	2.6.1
 DEF[TAG]=		v${PORTVERSION}
 DEF[SF_SRC]=		{{WRKSRC}}/src
 DEF[SCAL]=		scanner-calendar
@@ -112,6 +112,7 @@ post-extract:
 		-e "s|@SETL10N@|${SETL10N}|" \
 		-e "s|@SED@|${SED}|" \
 		-e "s|@OPENSSLLIB@|${OPENSSLLIB}|g" \
+		-e "s|@JOBSSUB@|${MAKE_JOBS_NUMBER}|g" \
 		${FILESDIR}/new_configure.in > ${WRKSRC}/new_configure
 	${CHMOD} 755 ${WRKSRC}/new_configure
 
@@ -121,6 +122,7 @@ post-patch:
 	${CP} ${SF_SRC}/${SCAL}-latest.adb ${SF_SRC}/${SCAL}.adb
 	${CP} ${SF_SRC}/${OSBIND}.ads ${SF_SRC}/spar_os.ads
 	${CP} ${SF_SRC}/${CPU_SDL}.ads ${SF_SRC}/spar_os-sdl.ads
+	${MV} ${SF_SRC}/spar_os_sdl.adb ${SF_SRC}/spar_os-sdl.adb
 	# Use the gcc compiler associated with the ada frontend.
 	# Without this substitution, the base compiler is used instead.
 	${REINPLACE_CMD} \
