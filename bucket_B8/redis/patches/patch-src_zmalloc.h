@@ -1,4 +1,4 @@
---- src/zmalloc.h.orig	2023-03-20 17:16:50 UTC
+--- src/zmalloc.h.orig	2023-07-10 11:39:42 UTC
 +++ src/zmalloc.h
 @@ -73,7 +73,7 @@
  #define ZMALLOC_LIB "libc"
