@@ -1,1 +1,100 @@
-GitPython is a Python library used to interact with Git repositories
+![Python package]
+[Documentation Status]
+[Packaging status]
+
+## [Gitoxide]: A peek into the future…
+
+I started working on GitPython in 2009, back in the days when Python was
+'my thing' and I had great plans with it.
+Of course, back in the days, I didn't really know what I was doing and this
+shows in many places. Somewhat similar to
+Python this happens to be 'good enough', but at the same time is deeply
+flawed and broken beyond repair.
+
+By now, GitPython is widely used and I am sure there is a good reason for
+that, it's something to be proud of and happy about.
+The community is maintaining the software and is keeping it relevant for
+which I am absolutely grateful. For the time to come I am happy to continue
+maintaining GitPython, remaining hopeful that one day it won't be needed
+anymore.
+
+More than 15 years after my first meeting with 'git' I am still in excited
+about it, and am happy to finally have the tools and
+probably the skills to scratch that itch of mine: implement `git` in a way
+that makes tool creation a piece of cake for most.
+
+If you like the idea and want to learn more, please head over to
+[gitoxide], an
+implementation of 'git' in [Rust].
+
+## GitPython
+
+GitPython is a python library used to interact with git repositories,
+high-level like git-porcelain,
+or low-level like git-plumbing.
+
+It provides abstractions of git objects for easy access of repository data
+often backed by calling the `git`
+command-line program.
+
+### DEVELOPMENT STATUS
+
+This project is in **maintenance mode**, which means that
+
+- …there will be no feature development, unless these are contributed
+- …there will be no bug fixes, unless they are relevant to the safety of
+users, or contributed
+- …issues will be responded to with waiting times of up to a month
+
+The project is open to contributions of all kinds, as well as new
+maintainers.
+
+### REQUIREMENTS
+
+GitPython needs the `git` executable to be installed on the system and
+available in your `PATH` for most operations.
+If it is not in your `PATH`, you can help GitPython find it by setting
+the `GIT_PYTHON_GIT_EXECUTABLE=<path/to/git>` environment variable.
+
+- Git (1.7.x or newer)
+- Python >= 3.7
+
+The list of dependencies are listed in `./requirements.txt` and
+`./test-requirements.txt`.
+The installer takes care of installing them for you.
+
+### INSTALL
+
+If you have downloaded the source code:
+
+```bash
+python setup.py install
+```
+
+or if you want to obtain a copy from the Pypi repository:
+
+`bash
+pip install GitPython
+`
+
+Both commands will install the required package dependencies.
+
+A distribution package can be obtained for manual installation at:
+<http://pypi.python.org/pypi/GitPython>.
+
+If you like to clone from source, you can do it like so:
+
+```bash
+git clone https://github.com/gitpython-developers/GitPython
+git submodule update --init --recursive
+./init-tests-after-clone.sh
+```
+
+### Limitations
+
+#### Leakage of System Resources
+
+GitPython is not suited for long-running processes (like daemons) as it
+tends to
+leak system resources. It was written in a time where destructors (as
+implemented

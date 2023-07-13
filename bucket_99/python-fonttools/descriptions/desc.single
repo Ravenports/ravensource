@@ -29,6 +29,30 @@ install it with [pip]:
 Changelog
 ~~~~~~~~~
 
+4.41.0 (released 2023-07-12)
+----------------------------
+
+- [fontBuilder] Fixed bug in setupOS2 with default panose attribute
+incorrectly being
+  set to a dict instead of a Panose object (#3201).
+- [name] Added method to removeUnusedNameRecords in the user range (#3185).
+- [varLib.instancer] Fixed issue with L4 instancing (moving default)
+(#3179).
+- [cffLib] Use latin1 so we can roundtrip non-ASCII in
+{Full,Font,Family}Name (#3202).
+- [designspaceLib] Mark <source name="..."> as optional in docs (as it is
+in the code).
+- [glyf-1] Fixed drawPoints() bug whereby last cubic segment becomes
+quadratic (#3189, #3190).
+- [fontBuilder] Propagate the 'hidden' flag to the fvar Axis instance
+(#3184).
+- [fontBuilder] Update setupAvar() to also support avar 2, fixing
+``_add_avar()`` call
+  site (#3183).
+- Added new ``voltLib.voltToFea`` submodule (originally Tiro Typeworks'
+"Volto") for
+  converting VOLT OpenType Layout sources to FEA format (#3164).
+
 4.40.0 (released 2023-06-12)
 ----------------------------
 
@@ -74,27 +98,3 @@ GDEF is
   subsetted before GSUB and GPOS (#3114, #3118).
 - [xmlReader] Fixed issue whereby DSIG table data was incorrectly parsed
 (#3115, #2614).
-- [varLib/merger] Fixed merging of SinglePos with pos=0 (#3111, #3112).
-- [feaLib] Demote "Feature has not been defined" error to a warning when
-building aalt
-  and referenced feature is empty (#3110).
-- [feaLib] Dedupe multiple substitutions with classes (#3105).
-
-4.39.4 (released 2023-05-10)
-----------------------------
-
-- [varLib.interpolatable] Allow for sparse masters (#3075)
-- [merge] Handle differing default/nominalWidthX in CFF (#3070)
-- [ttLib] Add missing main.py file to ttLib package (#3088)
-- [ttx] Fix missing composite instructions in XML (#3092)
-- [ttx] Fix split tables option to work on filenames containing '%' (#3096)
-- [featureVars] Process lookups for features other than rvrn last (#3099)
-- [feaLib] support multiple substitution with classes (#3103)
-
-4.39.3 (released 2023-03-28)
-----------------------------
-
-- [sbix] Fixed TypeError when compiling empty glyphs whose imageData is
-None, regression
-  was introduced in v4.39 (#3059).
-- [ttFont] Fixed AttributeError on python <= 3.10 when opening a TTFont
