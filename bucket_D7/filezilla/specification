@@ -1,12 +1,11 @@
-DEF[PORTVERSION]=	3.64.0
-DEF[SOVERSION]=		3.64.0
+DEF[PORTVERSION]=	3.65.0
+DEF[SOVERSION]=		3.65.0
 DEF[WXRC_CMD]=		wxrc-gtk3u-3.0
 DEF[WX_CONFIG]=		wx-config
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		filezilla
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		ftp
 VARIANTS=		standard
 SDESC[standard]=	Cross-platform graphical FTP, FTPS & SFTP client
@@ -37,6 +36,7 @@ BUILD_DEPENDS=		dbus:dev:standard
 			libfilezilla:dev:standard
 			libgcrypt:dev:standard
 			nettle:dev:standard
+			boost-libraries:dev:standard
 BUILDRUN_DEPENDS=	dbus:primary:standard
 			gnutls:primary:standard
 			libfilezilla:primary:standard
@@ -46,6 +46,7 @@ BUILDRUN_DEPENDS=	dbus:primary:standard
 			pugixml:single:standard
 			wxWidgets30:primary:standard
 			xdg-utils:single:standard
+			boost-libraries:primary:standard
 
 # FreeBSD's GCC ICEs
 # clang ICEs on the test.  Just assume c++17 works
