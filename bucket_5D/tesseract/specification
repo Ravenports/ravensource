@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.3.1
+DEF[PORTVERSION]=	5.3.2
 DEF[SOVERSION]=		5.0.3
 # ----------------------------------------------------------------------------
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/tesseract-ocr:tesseract:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete library tools
+SPKGS[standard]=	complete primary dev tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -31,7 +31,8 @@ BUILDRUN_DEPENDS=	icu:primary:standard
 			llvm:primary:standard
 			pango:primary:standard
 RUN_DEPENDS=		tesseract-data:latin:standard
-EXRUN[tools]=		tesseract:library:standard
+
+EXRUN[tools]=		tesseract:primary:standard
 
 # See patch freebsd/patch-configure.ac
 C_USES[freebsd]=	fortran:library
