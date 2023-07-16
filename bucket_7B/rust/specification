@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	1.70.0
-DEF[RUSTX_BOOT]=	1.69.0
+DEF[PORTVERSION]=	1.71.0
+DEF[RUSTX_BOOT]=	1.70.0
 DEF[CURL_VERSION]=	7.87.0
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 # ----------------------------------------------------------------------------
@@ -203,6 +203,8 @@ post-install:
 	${RM} ${STAGEDIR}${PREFIX}/lib/rustlib/install.log
 	${RM} ${STAGEDIR}${PREFIX}/lib/rustlib/uninstall.sh
 	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/rust
+	# Remove cargo-fmt.old, rustfmt.old, cargo-clippy.old, clippy-driver.old
+	${RM} ${STAGEDIR}${PREFIX}/bin/*.old
 
 	# Taken from FreeBSD Ports
 	# In post-install, we use the manifests generated during Rust install

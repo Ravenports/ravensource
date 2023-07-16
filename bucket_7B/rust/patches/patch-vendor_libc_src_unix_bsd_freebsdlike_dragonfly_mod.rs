@@ -1,4 +1,4 @@
---- vendor/libc/src/unix/bsd/freebsdlike/dragonfly/mod.rs.orig	2023-05-31 21:44:48 UTC
+--- vendor/libc/src/unix/bsd/freebsdlike/dragonfly/mod.rs.orig	2023-07-12 05:06:31 UTC
 +++ vendor/libc/src/unix/bsd/freebsdlike/dragonfly/mod.rs
 @@ -442,8 +442,8 @@ s_no_extra_traits! {
          pub d_fileno: ::ino_t,

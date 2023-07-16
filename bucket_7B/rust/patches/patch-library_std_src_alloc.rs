@@ -1,4 +1,4 @@
---- library/std/src/alloc.rs.orig	2023-05-31 19:28:10 UTC
+--- library/std/src/alloc.rs.orig	2023-07-12 03:32:40 UTC
 +++ library/std/src/alloc.rs
 @@ -330,18 +330,7 @@ pub fn take_alloc_error_hook() -> fn(Lay
  }

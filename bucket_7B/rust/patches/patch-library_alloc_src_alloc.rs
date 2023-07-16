@@ -1,6 +1,6 @@
---- library/alloc/src/alloc.rs.orig	2023-05-31 19:28:10 UTC
+--- library/alloc/src/alloc.rs.orig	2023-07-12 03:32:40 UTC
 +++ library/alloc/src/alloc.rs
-@@ -396,20 +396,7 @@ pub mod __alloc_error_handler {
+@@ -406,20 +406,7 @@ pub mod __alloc_error_handler {
      // `#[alloc_error_handler]`.
      #[rustc_std_internal_symbol]
      pub unsafe fn __rdl_oom(size: usize, _align: usize) -> ! {
