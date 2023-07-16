@@ -5,7 +5,6 @@ DEF[MS_SUBDIR]=		EXTRACT_INFO(GCC12_MS_SUBDIR)
 DEF[IDENTIFICATION]=	EXTRACT_INFO(GCC12_IDENTIFICATION)
 DEF[GCC_VERSION]=	EXTRACT_INFO(GCC12_VERSION)
 DEF[STDCXX_VERSION]=	6.0.30
-DEF[TOOLCHAIN]=		{{LOCALBASE}}/toolchain
 DEF[DRACO_TAG]=		12.2.0-rev1
 DEF[DRACO_DIR]=		patches-12.2.0
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
@@ -56,7 +55,7 @@ C_USES[darwin]=		iconv:build
 BUILD_DEPENDS=		gmp:static:standard
 			mpfr:static:standard
 			mpc:static:standard
-BUILDRUN_DEPENDS=	ravensys-binutils:single:standard
+BUILDRUN_DEPENDS=	binutils:primary:standard
 EXRUN[ada_run]=		gcc${BRANCH}:libs:standard
 EXRUN[cxx_run]=		gcc${BRANCH}:libs:standard
 EXRUN[fortran_run]=	gcc${BRANCH}:libs:standard
@@ -99,18 +98,18 @@ CONFIGURE_ARGS=		--enable-languages="c,c++,ada,fortran"
 NOT_FOR_OPSYS=		sunos
 
 VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-gnu-as
-			CONFIGURE_ARGS=--with-as=${TOOLCHAIN}/bin/as
-			CONFIGURE_ARGS=--with-ld=${TOOLCHAIN}/bin/ld
+			CONFIGURE_ARGS=--with-as={{LOCALBASE}}/bin/as
+			CONFIGURE_ARGS=--with-ld={{LOCALBASE}}/bin/ld
 			CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--disable-libstdcxx-pch
 			CONFIGURE_ARGS=--with-gnu-as
-			CONFIGURE_ARGS=--with-as=${TOOLCHAIN}/bin/as
-			CONFIGURE_ARGS=--with-ld=${TOOLCHAIN}/bin/ld
+			CONFIGURE_ARGS=--with-as={{LOCALBASE}}/bin/as
+			CONFIGURE_ARGS=--with-ld={{LOCALBASE}}/bin/ld
 			CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
 VAR_OPSYS[netbsd]=	CONFIGURE_ARGS=--disable-libstdcxx-pch
 			CONFIGURE_ARGS=--with-gnu-as
-			CONFIGURE_ARGS=--with-as=${TOOLCHAIN}/bin/as
-			CONFIGURE_ARGS=--with-ld=${TOOLCHAIN}/bin/ld
+			CONFIGURE_ARGS=--with-as={{LOCALBASE}}/bin/as
+			CONFIGURE_ARGS=--with-ld={{LOCALBASE}}/bin/ld
 			CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
 VAR_OPSYS[darwin]=	CONFIGURE_ARGS=--disable-libstdcxx-pch
 			CONFIGURE_ARGS=--with-ld=/usr/bin/ld
@@ -118,8 +117,8 @@ VAR_OPSYS[darwin]=	CONFIGURE_ARGS=--disable-libstdcxx-pch
 			CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
 VAR_OPSYS[midnightbsd]=	CONFIGURE_ARGS=--disable-libstdcxx-pch
 			CONFIGURE_ARGS=--with-gnu-as
-			CONFIGURE_ARGS=--with-as=${TOOLCHAIN}/bin/as
-			CONFIGURE_ARGS=--with-ld=${TOOLCHAIN}/bin/ld
+			CONFIGURE_ARGS=--with-as={{LOCALBASE}}/bin/as
+			CONFIGURE_ARGS=--with-ld={{LOCALBASE}}/bin/ld
 			CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
 			MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
 
