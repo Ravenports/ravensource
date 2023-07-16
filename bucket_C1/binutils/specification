@@ -5,6 +5,7 @@ DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 
 NAMEBASE=		binutils
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	GNU binary tools
@@ -57,17 +58,18 @@ PLIST_SUB=		PLUGINAPI={{PLUGINAPI}}
 # See rtld man page, we need to be invulnerable to LD_LIBRARY_PATH
 LDFLAGS=		-Wl,--disable-new-dtags
 
-# Consider making gold the default linker on new platforms
-# Don't set linux for gold -- it fails to link port compiler
+# This port differs from the ports binutils with regard to the gold linker.
+# The port binutils sets gold as default for many platforms, but this one
+# leaves bfd linker as the default for all platforms.
 
 VAR_OPSYS[dragonfly]=	VAR1=/libexec/ld-elf.so.2
 			VAR2=/libexec/ld-elf.so.2
 			MAKEFILE_LINE=BUILD_GOLD=yes
-			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold=default
+			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold
 VAR_OPSYS[freebsd]=	VAR1=/libexec/ld-elf.so.1
 			VAR2=/libexec/ld-elf.so.1
 			MAKEFILE_LINE=BUILD_GOLD=yes
-			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold=default
+			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold
 VAR_OPSYS[darwin]=	VAR1=/libexec/ld-elf.so.1
 			VAR2=/libexec/ld-elf.so.1
 			MAKEFILE_LINE=LINKER="@comment "
@@ -86,7 +88,7 @@ VAR_OPSYS[openbsd]=	MAKEFILE_LINE=PLUGINAPI="@comment "
 VAR_OPSYS[midnightbsd]=	VAR1=/libexec/ld-elf.so.1
 			VAR2=/libexec/ld-elf.so.1
 			MAKEFILE_LINE=BUILD_GOLD=yes
-			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold=default
+			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold
 			MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
 
 [RELRO].DESCRIPTION=			enable -z relro in ELF linker by default
