@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.4.3
+DEF[PORTVERSION]=	1.4.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rhash
@@ -14,29 +14,32 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/rhash:RHash:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
-SPKGS[ssl]=		single
+SPKGS[standard]=	complete primary tools dev man
+SPKGS[ssl]=		complete primary tools dev man
 
 OPTIONS_AVAILABLE=	SSL
 OPTIONS_STANDARD=	none
 VOPTS[ssl]=		SSL=ON
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/rhash
 
+EXRUN[tools]=		rhash:primary:standard
+
 USES=			cpe gettext
 CPE_VENDOR=		rhash_project
 DISTNAME=		RHash-${PORTVERSION}
-BUILD_TARGET=		build-shared
 INSTALL_TARGET=		install
 			install-pkg-config
+			install-lib-so-link
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
 			--enable-lib-shared
 			--enable-lib-static
+			--disable-gettext
 			--extra-cflags="{{CPPFLAGS}}"
 			--extra-ldflags="{{LDFLAGS}}"
 			--mandir="{{MANPREFIX}}/man"
@@ -58,10 +61,5 @@ post-patch:
 	${REINPLACE_CMD} -e '/rhash_wfile/d' ${WRKSRC}/librhash/rhash.h
 
 post-install:
-.if "${.MAKE.OS.NAME}" == "Darwin"
-	${LN} -s librhash.0.dylib ${STAGEDIR}${PREFIX}/lib/librhash.dylib
-.else
-	${LN} -s librhash.so.0 ${STAGEDIR}${PREFIX}/lib/librhash.so
-.endif
 	${MV} ${STAGEDIR}${PREFIX}/etc/rhashrc \
 	      ${STAGEDIR}${PREFIX}/etc/rhashrc.sample
