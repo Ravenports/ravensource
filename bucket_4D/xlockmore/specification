@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.71
+DEF[PORTVERSION]=	5.72
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xlockmore
@@ -14,12 +14,12 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://sillycycle.com/xlock/
 DISTFILE[1]=		xlockmore-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		ISCL:single
+LICENSE=		ISCL:primary
 LICENSE_FILE=		ISCL:{{WRKDIR}}/LICENSE
 LICENSE_AWK=		ISCL:"^\#include"
 LICENSE_SOURCE=		ISCL:{{WRKSRC}}/xlock/xlock.c
@@ -27,7 +27,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11/xlockmore
 
-USES=			cpe freetype c++:single
+USES=			cpe freetype c++:primary
 XORG_COMPONENTS=	x11 xaw ice sm xpm xext xinerama
 CPE_VENDOR=		david_bagley
 MUST_CONFIGURE=		gnu
