@@ -68,13 +68,16 @@ LDFLAGS=		-Wl,--disable-new-dtags
 # Set INVALID_RPATH to allow this as warning during build tests
 INVALID_RPATH=		yes
 
-# New: Likely to remove gold as default from all platforms soon
-# Don't set linux for gold -- it fails to link port compiler
+# Don't use enable-gold=default.
+# The gold linker was developed by Google which has moved on, so
+# gold is basically unmaintained now.  An increasing number of
+# things are failing to build with it (lately: rust)
+# Note on linux: gold fails to link port compiler
 
 VAR_OPSYS[dragonfly]=	VAR1=/libexec/ld-elf.so.2
 			VAR2=/libexec/ld-elf.so.2
 			MAKEFILE_LINE=BUILD_GOLD=yes
-			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold=default
+			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold
 VAR_OPSYS[freebsd]=	VAR1=/libexec/ld-elf.so.1
 			VAR2=/libexec/ld-elf.so.1
 			MAKEFILE_LINE=BUILD_GOLD=yes
@@ -82,7 +85,7 @@ VAR_OPSYS[freebsd]=	VAR1=/libexec/ld-elf.so.1
 VAR_OPSYS[netbsd]=	VAR1=/libexec/ld.elf-so
 			VAR2=/libexec/ld.elf_so-i386
 			MAKEFILE_LINE=BUILD_GOLD=yes
-			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold=default
+			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold
 VAR_OPSYS[darwin]=	VAR1=/libexec/ld-elf.so.1
 			VAR2=/libexec/ld-elf.so.1
 			MAKEFILE_LINE=LINKER="@comment "
