@@ -147,8 +147,8 @@ pre-configure:
 		&& ${RM} libz.so)
 
 	# build curl here.
-	${SH} ${FILESDIR}/build_curl.sh "${PREFIX}" "${CONFIGURE_TARGET}"
-	(cd ${WRKDIR}/curl-* && ${MAKE_CMD})
+	${SETENV} ${CONFIGURE_ENV} ${SH} ${FILESDIR}/build_curl.sh "${PREFIX}" "${CONFIGURE_TARGET}"
+	(cd ${WRKDIR}/curl-* && ${SETENV} ${CONFIGURE_ENV} ${MAKE_CMD})
 	${INSTALL_DATA} ${WRKDIR}/curl-${CURL_VERSION}/lib/.libs/libcurl.a \
 		${LOCALBASE}/lib/
 
@@ -160,7 +160,7 @@ pre-build:
 	for F in ${SRC_RUSTC} ${SRC_RUSTSTD} ${SRC_CARGO}; do\
 	   ${TAR} -C ${WRKDIR} -xf ${DISTDIR}/$$F.tar.${COMPEXT}\
 	     --no-same-owner --no-same-permissions;\
-	   ${LOCALBASE}/bin/bash ${WRKDIR}/$$F/install.sh\
+	   ${SETENV} ${CONFIGURE_ENV} ${LOCALBASE}/bin/bash ${WRKDIR}/$$F/install.sh\
 	     --prefix=${WRKDIR}/bootstrap;\
 	done
 
