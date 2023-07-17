@@ -1,0 +1,59 @@
+DEF[PORTVERSION]=	3.7.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-anyio
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 v11
+SDESC[py310]=		Layer built on asyncio or trio libraries (3.10)
+SDESC[v11]=		Layer built on asyncio or trio libraries (3.11)
+HOMEPAGE=		none
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/19/24/44299477fe7dcc9cb58d0a57d5a7588d6af2ff403fdd2d47a246c91a3246
+DISTFILE[1]=		anyio-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[v11]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[v11]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		anyio-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# idna (>=2.8)
+# sniffio (>=1.1)
+# exceptiongroup ; python_version < "3.11"
+# typing-extensions ; python_version < "3.8"
+# packaging ; extra == 'doc'
+# Sphinx ; extra == 'doc'
+# sphinx-rtd-theme (>=1.2.2) ; extra == 'doc'
+# sphinxcontrib-jquery ; extra == 'doc'
+# sphinx-autodoc-typehints (>=1.2.0) ; extra == 'doc'
+# anyio[trio] ; extra == 'test'
+# coverage[toml] (>=4.5) ; extra == 'test'
+# hypothesis (>=4.0) ; extra == 'test'
+# psutil (>=5.9) ; extra == 'test'
+# pytest (>=7.0) ; extra == 'test'
+# pytest-mock (>=3.6.1) ; extra == 'test'
+# trustme ; extra == 'test'
+# uvloop (>=0.17) ; (python_version < "3.12" and platform_python_implementation == "CPython" and platform_system != "Windows") and extra == 'test'
+# mock (>=4) ; (python_version < "3.8") and extra == 'test'
+# trio (<0.22) ; extra == 'trio'
+
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-idna:single:py310
+					python-sniffio:single:py310
+					python-exceptiongroup:single:py310
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-idna:single:v11
+					python-sniffio:single:v11
+

@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	1.3.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-sniffio
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 v11
+SDESC[py310]=		Determine which async library is used (3.10)
+SDESC[v11]=		Determine which async library is used (3.11)
+HOMEPAGE=		https://github.com/python-trio/sniffio
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/c3/a0/5dba8ed157b0136607c7f2151db695885606968d1fae123dc3391e0cfdbf
+DISTFILE[1]=		sniffio-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[v11]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[v11]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# MIT OR Apache-2.0
+
+GENERATED=		yes
+DISTNAME=		sniffio-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+
+
+[PY310].USES_ON=			python:py310,wheel
+[PY311].USES_ON=			python:v11,wheel
+
