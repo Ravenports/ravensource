@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	20.1.0
+DEF[PORTVERSION]=	21.0.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-gunicorn
@@ -11,7 +11,7 @@ HOMEPAGE=		https://gunicorn.org
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/e4/dd/5b190393e6066286773a67dfcc2f9492058e9b57c4867a95f1ba5caf0a83
+SITES[main]=		PYPIWHL/a8/91/3f96a766e0c4d6fc55b522a6fab2ba6da13e4e22f1b2b3730b241bedc141
 DISTFILE[1]=		gunicorn-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -29,16 +29,17 @@ GENERATED=		yes
 DISTNAME=		gunicorn-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# setuptools (>=3.0)
+# packaging
+# importlib-metadata ; python_version < "3.8"
 # eventlet (>=0.24.1) ; extra == 'eventlet'
 # gevent (>=1.4.0) ; extra == 'gevent'
 # setproctitle ; extra == 'setproctitle'
 # tornado (>=0.2) ; extra == 'tornado'
 
 [PY310].USES_ON=			python:py310,wheel
-[PY310].RUN_DEPENDS_ON=			python-setuptools:single:py310
+[PY310].RUN_DEPENDS_ON=			python-packaging:single:py310
 [PY311].USES_ON=			python:v11,wheel
-[PY311].RUN_DEPENDS_ON=			python-setuptools:single:v11
+[PY311].RUN_DEPENDS_ON=			python-packaging:single:v11
 
 USES=			cpe
 CPE_VENDOR=		gunicorn
