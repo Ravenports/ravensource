@@ -27,7 +27,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/rhash
 
-EXRUN[tools]=		rhash:primary:standard
+# We can't do the following line with variants (ssl variant will try to pull
+# in primary library).  Any user of the tools with have to pull the library
+# in explicitly.  The ambiguity is weakness - we need an addition tuple for variant
+# EXRUN[tools]=		rhash:primary:standard
 
 USES=			cpe gettext
 CPE_VENDOR=		rhash_project
