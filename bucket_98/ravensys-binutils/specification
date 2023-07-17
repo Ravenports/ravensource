@@ -68,7 +68,7 @@ LDFLAGS=		-Wl,--disable-new-dtags
 # Set INVALID_RPATH to allow this as warning during build tests
 INVALID_RPATH=		yes
 
-# Consider making gold the default linker on new platforms
+# New: Likely to remove gold as default from all platforms soon
 # Don't set linux for gold -- it fails to link port compiler
 
 VAR_OPSYS[dragonfly]=	VAR1=/libexec/ld-elf.so.2
@@ -78,7 +78,7 @@ VAR_OPSYS[dragonfly]=	VAR1=/libexec/ld-elf.so.2
 VAR_OPSYS[freebsd]=	VAR1=/libexec/ld-elf.so.1
 			VAR2=/libexec/ld-elf.so.1
 			MAKEFILE_LINE=BUILD_GOLD=yes
-			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold=default
+			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold
 VAR_OPSYS[netbsd]=	VAR1=/libexec/ld.elf-so
 			VAR2=/libexec/ld.elf_so-i386
 			MAKEFILE_LINE=BUILD_GOLD=yes
