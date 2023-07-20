@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	0.11.0
-DEF[SOVERSION]=		1.0.0
+DEF[PORTVERSION]=	0.12.0
+DEF[SOVERSION]=		2.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gumbo
@@ -7,12 +7,13 @@ VERSION=		${PORTVERSION}
 KEYWORDS=		devel textproc
 VARIANTS=		standard
 SDESC[standard]=	HTML5 parsing library in pure C99
-HOMEPAGE=		https://github.com/google/gumbo-parser
+HOMEPAGE=		https://codeberg.org/grisha/gumbo-parser
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/google:gumbo-parser:v${PORTVERSION}
-DISTFILE[1]=		generated:main
+SITES[main]=		https://codeberg.org/grisha/gumbo-parser/archive/
+DISTFILE[1]=		${PORTVERSION}.tar.gz:main
+DIST_SUBDIR=		gumbo
 
 SPKGS[standard]=	complete primary dev
 
@@ -32,3 +33,4 @@ USES=			autoreconf gmake libtool
 INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
 SOVERSION=		${SOVERSION}
+DISTNAME=		gumbo-parser
