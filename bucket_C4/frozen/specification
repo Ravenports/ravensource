@@ -1,0 +1,29 @@
+DEF[PORTVERSION]=	1.1.1
+DEF[TAG]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		frozen
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Constexpr header alternative to gperf for C++14
+HOMEPAGE=		https://github.com/serge-sans-paille/frozen
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/serge-sans-paille:frozen:${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		APACHE20:single
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/frozen/set.h
+LICENSE_SCHEME=		solo
+
+USES=			cmake
