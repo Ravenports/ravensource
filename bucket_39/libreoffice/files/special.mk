@@ -16,7 +16,6 @@ REPLACE_LIST= \
 	vcl/qa/cppunit/BitmapTest.cxx \
 	vcl/unx/generic/app/saldata.cxx \
 	vcl/unx/generic/dtrans/X11_selection.cxx \
-	vcl/unx/generic/gdi/salbmp.cxx \
 	vcl/unx/generic/printer/printerinfomanager.cxx \
 	desktop/unx/source/start.c \
 	sal/osl/unx/process_impl.cxx \

@@ -1,11 +1,12 @@
---- external/skia/UnpackedTarball_skia.mk.orig	2023-06-29 21:05:51 UTC
+--- external/skia/UnpackedTarball_skia.mk.orig	2023-07-07 16:45:40 UTC
 +++ external/skia/UnpackedTarball_skia.mk
-@@ -41,6 +41,8 @@ skia_patches := \
+@@ -37,6 +37,9 @@ skia_patches := \
+     vk_mem_alloc.patch.1 \
      constexpr-template.patch.0 \
-     missing-include.patch.0 \
      tdf147342.patch.0 \
 +    gfx-skia-skia-src-core-SkCpu.cpp.patch.0 \
 +    netbsd.patch.0 \
- 
- $(eval $(call gb_UnpackedTarball_set_patchlevel,skia,1))
++    SkContainers.cpp.patch.0 \
+     redefinition-of-op.patch.0 \
+     0001-Added-missing-include-cstdio.patch \
  

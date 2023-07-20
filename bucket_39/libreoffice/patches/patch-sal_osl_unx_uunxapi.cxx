@@ -1,4 +1,4 @@
---- sal/osl/unx/uunxapi.cxx.orig	2023-06-29 21:05:51 UTC
+--- sal/osl/unx/uunxapi.cxx.orig	2023-07-07 16:45:40 UTC
 +++ sal/osl/unx/uunxapi.cxx
 @@ -604,14 +604,22 @@ std::string UnixErrnoString(int nErrno)
          case EBFONT:
