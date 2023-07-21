@@ -1,4 +1,4 @@
---- cmake/ssl.cmake.orig	2023-03-16 17:22:37 UTC
+--- cmake/ssl.cmake.orig	2023-06-22 11:07:42 UTC
 +++ cmake/ssl.cmake
 @@ -499,7 +499,7 @@ ENDMACRO(MYSQL_CHECK_SSL)
  # or INSTALL_LIBDIR      (Mac)

@@ -1,4 +1,4 @@
---- sql/mysqld.cc.orig	2023-03-16 15:25:04 UTC
+--- sql/mysqld.cc.orig	2023-06-21 13:02:02 UTC
 +++ sql/mysqld.cc
 @@ -3433,7 +3433,7 @@ static void push_deprecated_tls_option_n
  static int init_ssl()

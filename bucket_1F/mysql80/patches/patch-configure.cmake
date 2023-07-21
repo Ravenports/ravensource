@@ -1,6 +1,6 @@
 * check for EVFILT_USER, if missing disable kqueue (necessary on NetBSD 9.x)
 
---- configure.cmake.orig	2023-03-16 17:22:37 UTC
+--- configure.cmake.orig	2023-06-22 11:07:42 UTC
 +++ configure.cmake
 @@ -182,11 +182,6 @@ ENDIF()
  #
@@ -14,7 +14,7 @@
  CHECK_INCLUDE_FILES (alloca.h HAVE_ALLOCA_H)
  CHECK_INCLUDE_FILES (arpa/inet.h HAVE_ARPA_INET_H)
  CHECK_INCLUDE_FILES (dlfcn.h HAVE_DLFCN_H)
-@@ -237,6 +232,7 @@ CHECK_FUNCTION_EXISTS (fcntl HAVE_FCNTL)
+@@ -240,6 +235,7 @@ CHECK_FUNCTION_EXISTS (fcntl HAVE_FCNTL)
  CHECK_FUNCTION_EXISTS (fdatasync HAVE_FDATASYNC)
  CHECK_SYMBOL_EXISTS(fdatasync "unistd.h" HAVE_DECL_FDATASYNC)
  CHECK_FUNCTION_EXISTS (fedisableexcept HAVE_FEDISABLEEXCEPT)
@@ -22,7 +22,7 @@
  CHECK_FUNCTION_EXISTS (fsync HAVE_FSYNC)
  CHECK_FUNCTION_EXISTS (gethrtime HAVE_GETHRTIME)
  CHECK_FUNCTION_EXISTS (getpass HAVE_GETPASS)
-@@ -297,6 +293,7 @@ CHECK_SYMBOL_EXISTS(TIOCGWINSZ "sys/ioct
+@@ -300,6 +296,7 @@ CHECK_SYMBOL_EXISTS(TIOCGWINSZ "sys/ioct
  CHECK_SYMBOL_EXISTS(FIONREAD "sys/ioctl.h" FIONREAD_IN_SYS_IOCTL)
  CHECK_SYMBOL_EXISTS(FIONREAD "sys/filio.h" FIONREAD_IN_SYS_FILIO)
  CHECK_SYMBOL_EXISTS(MADV_DONTDUMP "sys/mman.h" HAVE_MADV_DONTDUMP)
@@ -30,7 +30,7 @@
  CHECK_CXX_SOURCE_COMPILES(
  "#include <sys/types.h>
   #include <sys/stat.h>
-@@ -329,6 +326,14 @@ ELSEIF(HAVE_TIMER_CREATE AND HAVE_TIMER_
+@@ -332,6 +329,14 @@ ELSEIF(HAVE_TIMER_CREATE AND HAVE_TIMER_
    SET(HAVE_POSIX_TIMERS 1 CACHE INTERNAL "Have POSIX timer-related functions")
  ENDIF()
  
@@ -45,7 +45,7 @@
  IF(NOT HAVE_POSIX_TIMERS AND NOT HAVE_KQUEUE_TIMERS AND NOT WIN32)
    MESSAGE(FATAL_ERROR "No mysys timer support detected!")
  ENDIF()
-@@ -581,6 +586,7 @@ int main(int ac, char **av)
+@@ -563,6 +568,7 @@ int main(int ac, char **av)
  HAVE_SYS_GETTID)
  
  # Check for pthread_getthreadid_np()
@@ -53,7 +53,7 @@
  CHECK_C_SOURCE_COMPILES("
  #include <pthread_np.h>
  int main(int ac, char **av)
-@@ -589,6 +595,7 @@ int main(int ac, char **av)
+@@ -571,6 +577,7 @@ int main(int ac, char **av)
    return (tid != 0 ? 0 : 1);
  }"
  HAVE_PTHREAD_GETTHREADID_NP)

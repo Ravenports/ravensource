@@ -1,4 +1,4 @@
---- rapid/plugin/group_replication/libmysqlgcs/src/bindings/xcom/xcom/sock_probe_ix.c.orig	2023-03-16 15:25:04 UTC
+--- rapid/plugin/group_replication/libmysqlgcs/src/bindings/xcom/xcom/sock_probe_ix.c.orig	2023-06-21 13:02:02 UTC
 +++ rapid/plugin/group_replication/libmysqlgcs/src/bindings/xcom/xcom/sock_probe_ix.c
 @@ -147,7 +147,11 @@ static int init_sock_probe(sock_probe *s
     interfaces. We are doing this, since the size of sockaddr differs on

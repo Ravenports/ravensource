@@ -3,7 +3,7 @@ $NetBSD: patch-cmake_os_SunOS.cmake,v 1.3 2019/10/31 12:04:22 jperkin Exp $
 Do not attempt to detect ISA, it conflicts with wrappers.
 Disable HAVE_SOLARIS_LARGE_PAGES, only supported on Oracle Solaris.
 
---- cmake/os/SunOS.cmake.orig	2023-03-16 15:25:04 UTC
+--- cmake/os/SunOS.cmake.orig	2023-06-21 13:02:02 UTC
 +++ cmake/os/SunOS.cmake
 @@ -87,6 +87,7 @@ ADD_DEFINITIONS(-D__EXTENSIONS__)
  # http://docs.oracle.com/cd/E19455-01/806-5257/6je9h033k/index.html
