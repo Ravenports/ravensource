@@ -1,4 +1,4 @@
---- roms/u-boot/lib/bch.c.orig	2023-05-31 01:02:50 UTC
+--- roms/u-boot/lib/bch.c.orig	2023-07-10 01:31:58 UTC
 +++ roms/u-boot/lib/bch.c
 @@ -63,7 +63,7 @@
  #include <linux/bitops.h>
