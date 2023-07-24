@@ -55,21 +55,43 @@
        }
      }
    }
-@@ -428,7 +431,7 @@ ToolChain::CXXStdlibType NetBSD::GetDefa
-     case llvm::Triple::sparcv9:
-     case llvm::Triple::x86:
-     case llvm::Triple::x86_64:
+@@ -412,27 +415,6 @@ Tool *NetBSD::buildAssembler() const {
+ Tool *NetBSD::buildLinker() const { return new tools::netbsd::Linker(*this); }
+ 
+ ToolChain::CXXStdlibType NetBSD::GetDefaultCXXStdlibType() const {
+-  VersionTuple OsVersion = getTriple().getOSVersion();
+-  if (OsVersion >= VersionTuple(7) || OsVersion.getMajor() == 0) {
+-    switch (getArch()) {
+-    case llvm::Triple::aarch64:
+-    case llvm::Triple::aarch64_be:
+-    case llvm::Triple::arm:
+-    case llvm::Triple::armeb:
+-    case llvm::Triple::thumb:
+-    case llvm::Triple::thumbeb:
+-    case llvm::Triple::ppc:
+-    case llvm::Triple::ppc64:
+-    case llvm::Triple::ppc64le:
+-    case llvm::Triple::sparc:
+-    case llvm::Triple::sparcv9:
+-    case llvm::Triple::x86:
+-    case llvm::Triple::x86_64:
 -      return ToolChain::CST_Libcxx;
-+      return ToolChain::CST_Libstdcxx;
-     default:
-       break;
-     }
-@@ -493,8 +496,6 @@ void NetBSD::addLibCxxIncludePaths(const
+-    default:
+-      break;
+-    }
+-  }
+   return ToolChain::CST_Libstdcxx;
+ }
+ 
+@@ -493,8 +475,9 @@ void NetBSD::addLibCxxIncludePaths(const
  
  void NetBSD::addLibStdCxxIncludePaths(const llvm::opt::ArgList &DriverArgs,
                                        llvm::opt::ArgStringList &CC1Args) const {
 -  addLibStdCXXIncludePaths(getDriver().SysRoot + "/usr/include/g++", "", "",
 -                           DriverArgs, CC1Args);
++  addSystemInclude(DriverArgs, CC1Args, "@RAVEN_GXX_HEADERS_DIR@");
++  addSystemInclude(DriverArgs, CC1Args, "@RAVEN_GXX_HEADERS_DIR@/backward");
++  addSystemInclude(DriverArgs, CC1Args, "@RAVEN_GXX_HEADERS_DIR@/@RAVEN_TRIPLE@");
  }
  
  llvm::ExceptionHandling NetBSD::GetExceptionModel(const ArgList &Args) const {
