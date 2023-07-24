@@ -16,8 +16,15 @@ DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete primary tools dev core coredev
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	VIDEOIO
+OPTIONS_STANDARD=	VIDEOIO
+
+# videoio doesn't build on NetBSD
+OPT_ON[dragonfly]=	VIDEOIO
+OPT_ON[freebsd]=	VIDEOIO
+OPT_ON[midnightbsd]=	VIDEOIO
+OPT_ON[linux]=		VIDEOIO
+OPT_ON[sunos]=		VIDEOIO
 
 LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
@@ -111,6 +118,9 @@ SOVERSION=		${PORTVERSION}
 
 # skip FP16,POPCNT,FMA3 on x86_64 to widen common denominator
 VAR_ARCH[x86_64]=	CMAKE_ARGS=-DCPU_BASELINE_DISABLE:STRING="FP16,POPCNT,FMA3"
+
+[VIDEOIO].DESCRIPTION=			Support Video I/O encoding and decoding
+[VIDEOIO].CMAKE_ARGS_OFF=		-DBUILD_opencv_videoio:BOOL=OFF
 
 pre-configure:
 	${REINPLACE_CMD} -e 's|share/OpenCV/doc|${DOCSDIR_REL}|g' \
