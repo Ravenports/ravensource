@@ -41,6 +41,8 @@ GNOME_COMPONENTS=	glib
 SOVERSION=		${SOVERSION}
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
 
+VAR_OPSYS[netbsd]=	LDFLAGS=-pthread
+
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/include/libfm-qt/tests
 	${RMDIR} ${STAGEDIR}${PREFIX}/include/libfm-qt/translations
