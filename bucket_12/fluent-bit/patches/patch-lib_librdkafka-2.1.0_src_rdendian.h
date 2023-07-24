@@ -5,7 +5,7 @@
   */
  
 -#ifdef __FreeBSD__
-+#if defined(__FreeBSD__) || defined(__DragonFly__)
++#if defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
  #include <sys/endian.h>
  #elif defined __GLIBC__
  #include <endian.h>

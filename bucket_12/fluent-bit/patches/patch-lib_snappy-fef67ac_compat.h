@@ -4,7 +4,7 @@
  
  #ifdef __FreeBSD__
  #  include <sys/endian.h>
-+#elif defined __DragonFly__
++#elif defined __DragonFly__ || defined __NetBSD__
 +#  include <sys/endian.h>
  #elif defined(__APPLE_CC_) || defined(__MACH__)  /* MacOS/X support */
  #  include <machine/endian.h>

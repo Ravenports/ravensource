@@ -5,7 +5,7 @@
   * Allocation
   */
 -#if !defined(__FreeBSD__) && !defined(__OpenBSD__)
-+#if !defined(__FreeBSD__) && !defined(__OpenBSD__) && !defined(__DragonFly__)
++#if !defined(__FreeBSD__) && !defined(__OpenBSD__) && !defined(__DragonFly__) && !defined(__NetBSD__)
  /* alloca(3) is in stdlib on FreeBSD */
  #include <alloca.h>
  #endif
