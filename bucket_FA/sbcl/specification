@@ -17,8 +17,7 @@ DISTFILE[1]=		sbcl-${PORTVERSION}-source.tar.bz2:main
 DISTFILE[2]=		sbcl-${BOOTVSN}-x86-64-dragonfly-binary.tar.bz2:boot
 DISTFILE[3]=		sbcl-${BOOTVSN}-x86-64-freebsd-binary.tar.bz2:boot
 DISTFILE[4]=		sbcl-${BOOTVSN}-x86-64-linux-binary.tar.bz2:boot
-DISTFILE[5]=		sbcl-${BOOTVSN}-x86-64-netbsd-binary.tar.bz2:boot
-DISTFILE[6]=		sbcl-${BOOTVSN}-x86-solaris-binary.tar.bz2:boot
+DISTFILE[5]=		sbcl-${BOOTVSN}-x86-solaris-binary.tar.bz2:boot
 DF_INDEX=		1
 
 SPKGS[standard]=	single
@@ -58,6 +57,7 @@ BUILDRUN_DEPENDS=	gmp:shared:standard
 			mpfr:shared:standard
 
 B_DEPS[midnightbsd]=	clisp:primary:standard
+B_DEPS[netbsd]=		clisp:primary:standard
 
 USES=			gmake makeinfo zlib zstd
 SUB_FILES=		sbclrc
@@ -76,6 +76,10 @@ CMAKE_ARGS=		--prefix="{{PREFIX}}"
 VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CMAKE_ARGS:={{CMAKE_ARGS:N--xc-host=*}}
 			MAKEFILE_LINE=CMAKE_ARGS+=--xc-host=clisp
 
+VAR_OPSYS[netbsd]=	MAKEFILE_LINE=CMAKE_ARGS:={{CMAKE_ARGS:N--xc-host=*}}
+			MAKEFILE_LINE=CMAKE_ARGS+=--xc-host=clisp
+			MAKE_ENV=SBCL_PAXCTL="{{PAXCTL}} +m"
+
 # CMAKE_ARGS were repurposed
 # On DragonFly, the self-tests fail on concurrency module, so disable
 # threading by default on this platform
@@ -92,10 +96,8 @@ VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CMAKE_ARGS:={{CMAKE_ARGS:N--xc-host=*}}
 
 [DRAGONFLY].DF_INDEX_ON=		2
 [FREEBSD].DF_INDEX_ON=			3
-[MIDNIGHT].DF_INDEX_ON=			3
 [LINUX].DF_INDEX_ON=			4
-[NETBSD].DF_INDEX_ON=			5
-[SUNOS].DF_INDEX_ON=			6
+[SUNOS].DF_INDEX_ON=			5
 
 [CONCURRENCY].CMAKE_ARGS_OFF=		--without-sb-thread
 					--without-restore-fs-segment-register-from-tls
@@ -122,6 +124,10 @@ post-patch:
 		${WRKSRC}/src/code/toplevel.lisp \
 		${WRKSRC}/doc/sbcl.1 \
 		${WRKSRC}/doc/manual/start-stop.texinfo
+
+pre-build-netbsd:
+	# increase datasize limits on NetBSD
+	ulimit -d 2097152 && ulimit -a
 
 do-build:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${SH} make.sh ${CMAKE_ARGS} || ${TRUE})
