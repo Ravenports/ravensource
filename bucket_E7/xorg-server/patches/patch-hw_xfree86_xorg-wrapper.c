@@ -39,3 +39,20 @@
      /* Detect if we need root rights, except when overridden by the config */
      if (needs_root_rights == -1) {
          for (i = 0; i < 16; i++) {
+@@ -256,6 +256,8 @@ int main(int argc, char *argv[])
+         gid_t realgid = getgid();
+         uid_t realuid = getuid();
+ 
++#if !defined(__NetBSD__)
++	/* setresgid and setresuid are not implemented on NetBSD */
+         if (setresgid(-1, realgid, realgid) != 0) {
+             fprintf(stderr, "%s: Could not drop setgid privileges: %s\n",
+                 progname, strerror(errno));
+@@ -266,6 +268,7 @@ int main(int argc, char *argv[])
+                 progname, strerror(errno));
+             exit(1);
+         }
++#endif
+     }
+ 
+     snprintf(buf, sizeof(buf), "%s/Xorg", SUID_WRAPPER_DIR);
