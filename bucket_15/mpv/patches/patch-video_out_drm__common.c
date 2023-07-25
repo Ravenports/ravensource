@@ -2,7 +2,7 @@ $NetBSD: patch-video_out_drm__common.c,v 1.4 2020/12/19 11:27:51 leot Exp $
 
 Enable support for DRM on NetBSD.
 
---- video/out/drm_common.c.orig	2022-11-12 13:52:40 UTC
+--- video/out/drm_common.c.orig	2023-07-23 17:10:36 UTC
 +++ video/out/drm_common.c
 @@ -31,6 +31,9 @@
  

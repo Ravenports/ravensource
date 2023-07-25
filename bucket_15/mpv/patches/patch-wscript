@@ -4,9 +4,9 @@ $NetBSD: patch-wscript,v 1.9 2022/11/16 11:27:32 leot Exp $
 - Check for OSSv4 features that could not be on some platforms
   (e.g. NetBSD)
 
---- wscript.orig	2022-11-12 13:52:40 UTC
+--- wscript.orig	2023-07-23 17:10:36 UTC
 +++ wscript
-@@ -278,6 +278,11 @@ iconv support use --disable-iconv.",
+@@ -288,6 +288,11 @@ iconv support use --disable-iconv.",
          'func': check_statement(['sys/consio.h', 'sys/ioctl.h'],
                                  'int m; ioctl(0, VT_GETMODE, &m)'),
      }, {
@@ -18,7 +18,7 @@ $NetBSD: patch-wscript,v 1.9 2022/11/16 11:27:32 leot Exp $
          'name': 'gbm.h',
          'desc': 'gbm.h',
          'func': check_cc(header_name=['stdio.h', 'gbm.h']),
-@@ -441,7 +446,7 @@ audio_output_features = [
+@@ -459,7 +464,7 @@ audio_output_features = [
      }, {
          'name': '--oss-audio',
          'desc': 'OSSv4 audio output',
@@ -27,7 +27,7 @@ $NetBSD: patch-wscript,v 1.9 2022/11/16 11:27:32 leot Exp $
          'deps': 'posix && gpl',
      }, {
          'name': '--pipewire',
-@@ -508,7 +513,7 @@ video_output_features = [
+@@ -526,7 +531,7 @@ video_output_features = [
      }, {
          'name': '--drm',
          'desc': 'DRM',
