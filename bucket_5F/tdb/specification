@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.4.8
+DEF[PORTVERSION]=	1.4.9
 DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl/current/
 # ----------------------------------------------------------------------------
 
@@ -15,14 +15,14 @@ SITES[main]=		https://download.samba.org/pub/tdb/
 			https://ftp.samba.org/pub/tdb/
 DISTFILE[1]=		tdb-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev tools man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL3+:single
+LICENSE=		LGPL3+:primary
 LICENSE_FILE=		LGPL3+:stock
-LICENSE_TERMS=		single:{{WRKSRC}}/TERMS
+LICENSE_TERMS=		primary:{{WRKSRC}}/TERMS
 LICENSE_AWK=		TERMS:"^\#include"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/pytdb.c
 LICENSE_SCHEME=		solo
@@ -30,6 +30,8 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		databases/tdb
 
 BUILD_DEPENDS=		docbook-xsl:primary:standard
+
+EXRUN[tools]=		tdb:primary:standard
 
 USES=			compiler pkgconfig python gettext shebangfix
 GNOME_COMPONENTS=	libxslt
