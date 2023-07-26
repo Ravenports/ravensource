@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	1.2.2
-DEF[GEOMVER]=		1.2.2
+DEF[PORTVERSION]=	1.3
+DEF[GEOMVER]=		1.3.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		inkscape
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://media.inkscape.org/dl/resources/file/
 DISTFILE[1]=		inkscape-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls examples docs
+SPKGS[standard]=	complete primary dev nls examples man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -88,10 +88,18 @@ PLIST_SUB=		GEOMVER=${GEOMVER}
 
 post-extract:
 	${MV} ${WRKDIR}/inkscape-${PORTVERSION}* ${WRKSRC}
+	# Permanently rename files that include whitespace, CMake can't handle it
+	# If the name change breaks something downstream, we can convert it back
+	# in the post-install phase
+.for N in Asian Nature
+	${MV} "${WRKSRC}/share/paint/${N} patterns.svg" "${WRKSRC}/share/paint/${N}_patterns.svg"
+.endfor
 
-post-patch:
-	${REINPLACE_CMD} -e 's|COMMAND python3|COMMAND ${PYTHON_VERSION}|g' \
-		${WRKSRC}/share/*/CMakeLists.txt
+pre-configure:
+.for subdir in filters markers palettes symbols templates
+	${REINPLACE_CMD} -e 's|COMMAND python3|COMMAND ${PYTHON_CMD}|g' \
+		${WRKSRC}/share/${subdir}/CMakeLists.txt
+.endfor
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/inkscape/examples \
@@ -102,8 +110,4 @@ post-install:
 		${STAGEDIR}${STD_DOCDIR}/
 	${RM} ${STAGEDIR}${STD_DOCDIR}/COPYING
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
-	# there's some kind of bug in ravenadm perhaps?
-	# if in manifest, says file is not there, but if removed from
-	# manifest, says file is orphaned.  For now remove it.
-	${RM} ${STAGEDIR}${PREFIX}/share/inkscape/templates/default.es_MX.svg
 	${FIND} ${STAGEDIR}${PREFIX}/share/inkscape/extensions -type d -empty -delete
