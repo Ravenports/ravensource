@@ -7,7 +7,7 @@ DragonFly eventually gets malloc_usable_size, check again when sysroot updates
  #if defined(SK_BUILD_FOR_MAC) || defined(SK_BUILD_FOR_IOS)
  #include <malloc/malloc.h>
 -#elif defined(SK_BUILD_FOR_ANDROID) || (defined(SK_BUILD_FOR_UNIX) && !defined(__OpenBSD__))
-+#elif defined(SK_BUILD_FOR_ANDROID) || (defined(SK_BUILD_FOR_UNIX) && !defined(__OpenBSD__) && !defined(__DragonFly__) && !defined(__FreeBSD__))
++#elif defined(SK_BUILD_FOR_ANDROID) || (defined(SK_BUILD_FOR_UNIX) && !defined(__OpenBSD__) && !defined(__DragonFly__) && !defined(__FreeBSD__) && !defined(__NetBSD__))
  #include <malloc.h>
  #elif defined(SK_BUILD_FOR_WIN)
  #include <malloc.h>
@@ -16,7 +16,7 @@ DragonFly eventually gets malloc_usable_size, check again when sysroot updates
          completeSize = malloc_usable_size(ptr);
          SkASSERT(completeSize >= size);
 -    #elif defined(SK_BUILD_FOR_UNIX) && !defined(__OpenBSD__)
-+    #elif defined(SK_BUILD_FOR_UNIX) && !defined(__OpenBSD__) && !defined(__DragonFly__) && !defined(__FreeBSD__)
++    #elif defined(SK_BUILD_FOR_UNIX) && !defined(__OpenBSD__) && !defined(__DragonFly__) && !defined(__FreeBSD__) && !defined(__NetBSD__)
          completeSize = malloc_usable_size(ptr);
          SkASSERT(completeSize >= size);
      #elif defined(SK_BUILD_FOR_WIN)
