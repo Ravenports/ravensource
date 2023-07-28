@@ -637,7 +637,7 @@ DISTNAME=		scipy-${PORTVERSION}
 [PY311].USES_ON=			python:v11,sutools
 [PY311].BUILDRUN_DEPENDS_ON=		python-numpy:single:v11
 
-BUILD_DEPENDS=		python-Cython:single:python_used
+BUILD_DEPENDS=		cython2:single:python_used
 BUILDRUN_DEPENDS=	lapack:lapack:standard
 			python-pybind11:single:python_used
 			python-pythran:single:python_used
@@ -645,8 +645,6 @@ BUILDRUN_DEPENDS=	lapack:lapack:standard
 INSTALL_REQ_TOOLCHAIN=	yes
 USES=			shebangfix c++:single
 SHEBANG_GLOB=		test_gcrotmk.py
-
-BROKEN[all]=		Does not build with new Cython 3.0.0
 
 post-install:
 	${RMDIR} ${STAGEDIR}${PYTHON_SITELIBDIR}/scipy/linalg/src/lapack_deprecations
