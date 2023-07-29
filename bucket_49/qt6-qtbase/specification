@@ -4,7 +4,7 @@ DEF[MINOR_VER]=		${PORTVERSION:R}
 
 NAMEBASE=		qt6-qtbase
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		x11_toolkits devel
 VARIANTS=		standard
 SDESC[standard]=	Qt6 - QtBase component
@@ -25,6 +25,7 @@ BUILD_DEPENDS=		evdev-proto:single:standard
 			elftoolchain:libraries:standard
 			harfbuzz:dev:standard
 			icu:dev:standard
+			fontconfig:dev:standard
 # #			libproxy:dev:standard
 BUILDRUN_DEPENDS=	harfbuzz:icu:standard
 			icu:primary:standard
@@ -56,6 +57,7 @@ CMAKE_ARGS=		-DFEATURE_system_zlib=ON
 # #			-DFEATURE_libproxy=ON
 			-DFEATURE_sql_sqlite=ON
 			-DFEATURE_accessibility=ON
+			-DFEATURE_fontconfig=ON
 			-DINPUT_dbus=runtime
 			-DINPUT_openssl=linked
 			-DBUILD_SHARED_LIBS=ON
