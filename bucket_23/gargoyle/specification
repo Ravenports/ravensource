@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	2023.1
+DEF[TAG]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gargoyle
+VERSION=		${PORTVERSION}
+KEYWORDS=		games
+VARIANTS=		standard
+SDESC[standard]=	Graphical player for Interactive Fiction games
+HOMEPAGE=		http://ccxvii.net/gargoyle/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/garglk:garglk:${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary dev man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:stock
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/garglk/garglk.h
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		freetype:dev:standard
+BUILDRUN_DEPENDS=	freetype:primary:standard
+			qt5-qtbase:primary:standard
+
+USES=			cmake jpeg png zlib pkgconfig fontconfig
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
+SDL_COMPONENTS=		mixer2 sdl2
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gargoyle
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgarglk.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/gargoyle/*
