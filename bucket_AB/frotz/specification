@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://gitlab.com/DavidGriffith/frotz/-/archive/${PORTVERSION}/
 DISTFILE[1]=		frotz-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary man
+SPKGS[standard]=	complete primary dumb man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,10 +27,26 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/common/main.c
 LICENSE_SCHEME=		solo
 
-USES=			gmake ncurses pkgconfig
-MAKE_ENV=		CURSES=ncurses
+BUILD_DEPENDS=		freetype:dev:standard
+			libao:dev:standard
+			libsndfile:dev:standard
+			libsamplerate:dev:standard
+			libmodplug:dev:standard
+			xorg-bdftopcf:single:standard
+			xorg-mkfontscale:single:standard
+BUILDRUN_DEPENDS=	freetype:primary:standard
+			libao:primary:standard
+			libsndfile:primary:standard
+			libsamplerate:primary:standard
+			libmodplug:primary:standard
 
-BUILD_TARGET=		nosound dumb
+USES=			gmake ncurses pkgconfig jpeg png zlib
+			fonts execinfo:build
+SDL_COMPONENTS=		sdl2 mixer2
+XORG_COMPONENTS=	xt x11
+MAKE_ENV=		CURSES=ncurses
+INSTALL_TARGET=		install-all
+FONTNAME=		zork
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/frotz
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*frotz

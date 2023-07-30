@@ -48,7 +48,24 @@
  # macOS
  ifeq ($(UNAME_S),Darwin)
  MACOS = yes
-@@ -583,14 +542,6 @@ ifndef CURSES
+@@ -292,13 +251,14 @@ DOS_DIR = $(SRCDIR)/dos
+ X11_DIR = $(SRCDIR)/x11
+ X11_LIB = $(X11_DIR)/frotz_x11.a
+ export X11_PKGS = x11 xt libpng libjpeg zlib
+-X11_FONTDIR = $(DESTDIR)$(PREFIX)/share/fonts/X11/zork
++X11_FONTDIR = $(DESTDIR)$(PREFIX)/share/fonts/zork
+ X11_LDFLAGS = `pkg-config $(X11_PKGS) --libs` -lm
+ 
+ SDL_DIR = $(SRCDIR)/sdl
+ SDL_LIB = $(SDL_DIR)/frotz_sdl.a
+ export SDL_PKGS = libpng libjpeg sdl2 SDL2_mixer freetype2 zlib
+-SDL_LDFLAGS += $(shell $(PKG_CONFIG) $(SDL_PKGS) --libs) -lm
++SDL_LDFLAGS += $(shell $(PKG_CONFIG) $(SDL_PKGS) --libs) -lm -lexecinfo_pic
++SDL_CFLAGS += $(shell $(PKG_CONFIG) sdl2 --cflags)
+ 
+ SUBDIRS = $(COMMON_DIR) $(CURSES_DIR) $(X11_DIR) $(SDL_DIR) $(DUMB_DIR) $(BLORB_DIR) $(DOS_DIR)
+ SUB_CLEAN = $(SUBDIRS:%=%-clean)
+@@ -583,14 +543,6 @@ ifndef CURSES
  	@echo "** ERROR You need to pick a flavor of curses in the Makefile!"
  	exit 1
  endif
