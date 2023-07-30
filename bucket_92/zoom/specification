@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	1.1.5
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		zoom
+VERSION=		${PORTVERSION}
+KEYWORDS=		games
+VARIANTS=		standard
+SDESC[standard]=	Player for Z-Code, TADS and HUGO stories or games
+HOMEPAGE=		https://www.logicalshift.co.uk/unix/zoom/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.logicalshift.co.uk/unix/zoom/
+DISTFILE[1]=		zoom-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		games/zoom
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/zmachine.h
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		t1lib:dev:standard
+BUILDRUN_DEPENDS=	t1lib:primary:standard
+
+USES=			gmake png zlib perl:build
+XORG_COMPONENTS=	x11 xft xrender
+MUST_CONFIGURE=		gnu
+
+post-install:
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	cd ${WRKSRC}/manual && ${INSTALL_DATA} idx *.html *.gif *.png ${STAGEDIR}${STD_DOCDIR}
