@@ -1,0 +1,65 @@
+--- Makefile.orig	2022-04-14 06:47:41 UTC
++++ Makefile
+@@ -161,47 +161,6 @@ endif
+ endif
+ 
+ 
+-# OS-specific configurations.
+-# NetBSD
+-ifeq ($(UNAME_S),NetBSD)
+-NETBSD = yes
+-CFLAGS += -D_NETBSD_SOURCE -I/usr/pkg/include
+-LDFLAGS += -Wl,-R/usr/pkg/lib -L/usr/pkg/lib
+-SDL_LDFLAGS += -lexecinfo
+-ifeq ($(CURSES), ncursesw)
+-CURSES_CFLAGS += -I/usr/pkg/include/ncursesw
+-else
+-CURSES_CFLAGS += -I/usr/pkg/include/ncurses
+-endif
+-endif
+-
+-# FreeBSD
+-ifeq ($(UNAME_S),FreeBSD)
+-FREEBSD = yes
+-CFLAGS += -I/usr/local/include -D__BSD_VISIBLE=1
+-LDFLAGS += -L/usr/local/lib
+-SDL_LDFLAGS += -lexecinfo
+-endif
+-
+-# OpenBSD
+-ifeq ($(UNAME_S),OpenBSD)
+-OPENBSD = yes
+-NO_EXECINFO_H = yes
+-NO_UCONTEXT_H = yes
+-NO_IMMINTRIN_H = yes
+-CFLAGS += -I/usr/local/include
+-LDFLAGS += -L/usr/local/lib
+-SDL_CFLAGS += -DSDL_DISABLE_IMMINTRIN_H
+-SDL_LDFLAGS += -lexecinfo
+-endif
+-
+-# Linux
+-ifeq ($(UNAME_S),Linux)
+-LINUX = yes
+-CFLAGS += -D_POSIX_C_SOURCE=200809L
+-NPROCS = $(shell grep -c ^processor /proc/cpuinfo)
+-endif
+-
+ # macOS
+ ifeq ($(UNAME_S),Darwin)
+ MACOS = yes
+@@ -583,14 +542,6 @@ ifndef CURSES
+ 	@echo "** ERROR You need to pick a flavor of curses in the Makefile!"
+ 	exit 1
+ endif
+-ifeq ($(USE_UTF8), yes)
+-ifneq ($(CURSES),ncursesw)
+-ifndef MACOS
+-	@echo "** ERROR UTF-8 support only works with ncursesw!"
+-	exit 2
+-endif
+-endif
+-endif
+ 	@echo "** Generating $@"
+ 	@echo "#ifndef CURSES_DEFINES_H" > $@
+ 	@echo "#define CURSES_DEFINES_H" >> $@

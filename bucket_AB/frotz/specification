@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	2.54
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		frotz
+VERSION=		${PORTVERSION}
+KEYWORDS=		games
+VARIANTS=		standard
+SDESC[standard]=	Infocom-style interactive fiction player
+HOMEPAGE=		https://gitlab.com/DavidGriffith/frotz
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://gitlab.com/DavidGriffith/frotz/-/archive/${PORTVERSION}/
+DISTFILE[1]=		frotz-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		games/frotz
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/common/main.c
+LICENSE_SCHEME=		solo
+
+USES=			gmake ncurses pkgconfig
+MAKE_ENV=		CURSES=ncurses
+
+BUILD_TARGET=		nosound dumb
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/frotz
