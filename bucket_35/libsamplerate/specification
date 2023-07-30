@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	0.2.2
 
 NAMEBASE=		libsamplerate
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		audio
 VARIANTS=		standard
 SDESC[standard]=	Audio Sample Rate Converter library
@@ -13,12 +14,16 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/libsndfile/libsamplerate/releases/download/${PORTVERSION}/
 DISTFILE[1]=		libsamplerate-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary dev docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		audio/libsamplerate
+
+LICENSE=		BSD2CLAUSE:primary
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		libsndfile:dev:standard
 BUILDRUN_DEPENDS=	fftw:single:standard
