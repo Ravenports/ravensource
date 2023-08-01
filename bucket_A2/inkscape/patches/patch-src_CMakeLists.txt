@@ -1,0 +1,12 @@
+--- src/CMakeLists.txt.orig	2023-07-16 14:32:51 UTC
++++ src/CMakeLists.txt
+@@ -425,6 +425,9 @@ add_dependencies(inkscape_base cairo_ext
+ endif()
+ 
+ target_link_libraries(inkscape_base PUBLIC Boost::filesystem)
++if (CMAKE_SYSTEM_NAME MATCHES "Linux")
++target_link_libraries(inkscape_base PUBLIC dl)
++endif()
+ 
+ # Link the inkscape_base library against all external dependencies
+ target_link_libraries(inkscape_base
