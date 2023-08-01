@@ -58,6 +58,9 @@ CARGO_SKIP_CONFIGURE=	yes
 CARGO_SKIP_BUILD=	yes
 CARGO_SKIP_INSTALL=	yes
 PLIST_SUB=		VER=${PORTVERSION}
+			CPYTHON={{CPYTHON:U{{PYTHON_SUFFIX}}}}
+
+VAR_OPSYS[linux]=	MAKEFILE_LINE=CPYTHON={{PYTHON_SUFFIX}}-x86_64-linux-gnu
 
 post-patch:
 	# create directives
@@ -89,3 +92,9 @@ do-install:
 		${STAGEDIR}${PYTHON_SITELIBDIR}/rpds
 	${CHMOD} +x ${STAGEDIR}${PYTHON_SITELIBDIR}/rpds/librpds.so
 	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/rpds/rpds.*.so
+
+pre-install-linux:
+	# for some reason compatibility ends at -manylinux_2_23_x86_64
+	(cd ${INSTALL_WRKSRC}/target/wheels/ && ${MV}\
+	rpds_py-${PORTVERSION}-cp${PYTHON_SUFFIX}-cp${PYTHON_SUFFIX}-manylinux_2_24_x86_64.whl\
+	rpds_py-${PORTVERSION}-cp${PYTHON_SUFFIX}-cp${PYTHON_SUFFIX}-manylinux_2_23_x86_64.whl)
