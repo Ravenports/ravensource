@@ -4,6 +4,7 @@ DEF[SOVERSION]=		13.7.1
 
 NAMEBASE=		libarchive
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		archivers
 VARIANTS=		standard static extended ravensw
 SDESC[standard]=	Library to handle many streaming archive formats
@@ -18,10 +19,10 @@ SITES[main]=		http://libarchive.org/downloads/
 			https://www.libarchive.de/downloads/
 DISTFILE[1]=		libarchive-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev man
+SPKGS[standard]=	complete primary tools dev man
 SPKGS[static]=		complete primary dev man
-SPKGS[extended]=	complete primary dev man
-SPKGS[ravensw]=		single
+SPKGS[extended]=	complete primary tools dev man
+SPKGS[ravensw]=		dev
 
 OPTIONS_AVAILABLE=	NOT_STD STATIC EXTENDED RAVENSW
 OPTIONS_STANDARD=	none
@@ -36,6 +37,8 @@ LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		archivers/libarchive
+
+EXRUN[tools]=		primary
 
 USES=			cpe libtool mbsdfix
 MUST_CONFIGURE=		gnu
