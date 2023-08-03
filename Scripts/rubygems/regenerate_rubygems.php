@@ -1,6 +1,6 @@
 #!/raven/bin/php82
 <?php
-# Requires php80 with openssl and posix extensions
+# Requires php82 with openssl and posix extensions
 # if arguments are given, they are used as the toplevel ports,
 # overriding the master top-level ports list
 
