@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	3.6.2
-DEF[SOVERSION]=		13.6.2
+DEF[PORTVERSION]=	3.7.1
+DEF[SOVERSION]=		13.7.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libarchive
@@ -18,9 +18,9 @@ SITES[main]=		http://libarchive.org/downloads/
 			https://www.libarchive.de/downloads/
 DISTFILE[1]=		libarchive-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
-SPKGS[static]=		single
-SPKGS[extended]=	single
+SPKGS[standard]=	complete primary dev man
+SPKGS[static]=		complete primary dev man
+SPKGS[extended]=	complete primary dev man
 SPKGS[ravensw]=		single
 
 OPTIONS_AVAILABLE=	NOT_STD STATIC EXTENDED RAVENSW
@@ -29,7 +29,7 @@ VOPTS[static]=		NOT_STD=ON STATIC=ON EXTENDED=OFF RAVENSW=OFF
 VOPTS[extended]=	NOT_STD=ON STATIC=OFF EXTENDED=ON RAVENSW=OFF
 VOPTS[ravensw]=		NOT_STD=ON STATIC=OFF EXTENDED=OFF RAVENSW=ON
 
-LICENSE=		BSD2CLAUSE:single BSD3CLAUSE:single PUBDOM:single
+LICENSE=		BSD2CLAUSE:primary BSD3CLAUSE:primary PUBDOM:primary
 LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
 			BSD3CLAUSE:{{WRKSRC}}/COPYING
 			PUBDOM:{{WRKSRC}}/COPYING
@@ -91,6 +91,7 @@ SOVERSION=		${SOVERSION}
 					--enable-bsdtar=no
 					--enable-bsdcat=no
 					--enable-bsdcpio=no
+					--enable-bsdunzip=no
 
 do-test:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} check)
