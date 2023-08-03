@@ -1,4 +1,4 @@
---- util/perl/OpenSSL/config.pm.orig	2023-03-14 12:59:07 UTC
+--- util/perl/OpenSSL/config.pm.orig	2023-05-30 12:13:24 UTC
 +++ util/perl/OpenSSL/config.pm
 @@ -132,6 +132,7 @@ my $guess_patterns = [
            return "${hw}-whatever-netbsd";
@@ -8,7 +8,7 @@
      [ 'NetBSD:.*',                  '${MACHINE}-whatever-netbsd' ],
      [ 'OpenBSD:.*',                 '${MACHINE}-whatever-openbsd' ],
      [ 'OpenUNIX:.*',                '${MACHINE}-unknown-OpenUNIX${VERSION}' ],
-@@ -752,20 +753,7 @@ EOF
+@@ -756,20 +757,7 @@ EOF
        [ 'sun4.*-.*-solaris2',     { target => "solaris-sparcv7" } ],
        [ '.*86.*-.*-solaris2',
          sub {
@@ -30,7 +30,7 @@
          }
        ],
        # We don't have any sunos target in Configurations/*.conf, so why here?
-@@ -782,6 +770,8 @@ EOF
+@@ -786,6 +774,8 @@ EOF
        [ 'sparc64-.*-.*bsd.*',     { target => "BSD-sparc64" } ],
        [ 'ia64-.*-.*bsd.*',        { target => "BSD-ia64" } ],
        [ 'x86_64-.*-dragonfly.*',  { target => "BSD-x86_64" } ],
