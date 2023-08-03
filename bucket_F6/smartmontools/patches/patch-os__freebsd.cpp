@@ -1,4 +1,4 @@
---- os_freebsd.cpp.orig	2020-12-12 21:36:48 UTC
+--- os_freebsd.cpp.orig	2021-11-24 08:31:31 UTC
 +++ os_freebsd.cpp
 @@ -17,11 +17,13 @@
  #include <err.h>
@@ -16,7 +16,7 @@
  #include <sys/ata.h>
  #endif
  #include <sys/stat.h>
-@@ -54,12 +56,15 @@
+@@ -55,12 +57,15 @@
  #define FREEBSDVER __FreeBSD_kernel_version
  #endif
  
@@ -36,7 +36,7 @@
  #else
  #include <dev/usb/usb.h>
  #include <dev/usb/usbhid.h>
-@@ -1390,6 +1395,14 @@ smart_device * freebsd_scsi_device::auto
+@@ -1625,6 +1630,14 @@ smart_device * freebsd_scsi_device::auto
    if (len < 36)
      return this;
  
@@ -51,8 +51,8 @@
    // Use INQUIRY to detect type
  
    // 3ware ?
-@@ -1800,7 +1813,7 @@ bool freebsd_smart_interface::get_nvme_d
-   return true;
+@@ -2159,7 +2172,7 @@ freebsd_smart_interface::megaraid_pd_add
+   return (0);
  }
  
 -#if (FREEBSDVER < 800000) // without this build fail on FreeBSD 8
@@ -60,7 +60,7 @@
  static char done[USB_MAX_DEVICES];
  
  static int usbdevinfo(int f, int a, int rec, int busno, unsigned short & vendor_id,
-@@ -1856,7 +1869,7 @@ static int usbdevinfo(int f, int a, int
+@@ -2215,7 +2228,7 @@ static int usbdevinfo(int f, int a, int
  static int usbdevlist(int busno,unsigned short & vendor_id,
    unsigned short & product_id, unsigned short & version)
  {

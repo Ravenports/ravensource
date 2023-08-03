@@ -1,4 +1,4 @@
---- dev_areca.h.orig	2020-10-06 15:31:47 UTC
+--- dev_areca.h.orig	2021-02-01 20:36:02 UTC
 +++ dev_areca.h
 @@ -51,7 +51,7 @@ ARCMSR_CMD_TOTAL
  #define ARCMSR_IOCTL_CLEAR_RQBUFFER          (ARECA_SATA_RAID | FUNCTION_CLEAR_RQBUFFER)
