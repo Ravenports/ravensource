@@ -4,7 +4,7 @@ DEF[SOVERSION]=		2.2.4
 
 NAMEBASE=		libgxps
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	GObject-based lib for handling/rendering XPS docs
@@ -34,8 +34,9 @@ USES=			cpe meson pkgconfig tiff jpeg
 CPE_VENDOR=		gnome
 GNOME_COMPONENTS=	cairo glib
 BUILD_DEPENDS=		lcms2:dev:standard
+			libarchive:dev:standard
 BUILDRUN_DEPENDS=	lcms2:primary:standard
-			libarchive:single:standard
+			libarchive:primary:standard
 
 MESON_ARGS=		-Denable-test=false
 			-Denable-gtk-doc=false
