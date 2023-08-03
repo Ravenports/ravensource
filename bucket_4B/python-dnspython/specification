@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.4.0
+DEF[PORTVERSION]=	2.4.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-dnspython
@@ -11,7 +11,7 @@ HOMEPAGE=		https://www.dnspython.org
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/8f/a7/061a2659015c7e92e32270276dd61d0e21ec1c92a1599807c2d357f24d54
+SITES[main]=		PYPIWHL/71/30/deee2ffb94194437c730a1c6230d9310ab5f73926a2549cdab91453616bb
 DISTFILE[1]=		dnspython-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -31,18 +31,13 @@ DISTNAME=		dnspython-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 # aioquic (>=0.9.20) ; extra == "doq"
 # cryptography (>=2.6,<42.0) ; extra == "dnssec"
-# h2 (>=4.1.0) ; (python_version >= "3.8") and (extra == "doh")
-# httpcore (>=0.17.3) ; python_version >= "3.8"
-# httpx (>=0.24.1) ; (python_version >= "3.8") and (extra == "doh")
+# h2 (>=4.1.0) ; extra == "doh"
+# httpcore (>=0.17.3) ; extra == "doh"
+# httpx (>=0.24.1) ; extra == "doh"
 # idna (>=2.1,<4.0) ; extra == "idna"
-# sniffio (>=1.1,<2.0)
 # trio (>=0.14,<0.23) ; extra == "trio"
 # wmi (>=1.5.1,<2.0.0) ; extra == "wmi"
 
 [PY310].USES_ON=			python:py310,wheel
-[PY310].RUN_DEPENDS_ON=			python-httpcore:single:py310
-					python-sniffio:single:py310
 [PY311].USES_ON=			python:v11,wheel
-[PY311].RUN_DEPENDS_ON=			python-httpcore:single:v11
-					python-sniffio:single:v11
 

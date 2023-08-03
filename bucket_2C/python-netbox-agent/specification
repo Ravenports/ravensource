@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.6.2
+DEF[PORTVERSION]=	0.7.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-netbox-agent
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/solvik/netbox_agent
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/de/16/1f54c0df84182de9f93fe613cb2da58ace28e0edcd4a469ca4590815cae0
-DISTFILE[1]=		netbox_agent-${PORTVERSION}-py3-none-any.whl:main
+SITES[main]=		PYPI/n/netbox-agent
+DISTFILE[1]=		netbox_agent-${PORTVERSION}.tar.gz:main
 
 SPKGS[py310]=		single
 SPKGS[v11]=		single
@@ -26,25 +26,34 @@ VOPTS[v11]=		PY310=OFF PY311=ON
 # Apache2
 
 GENERATED=		yes
-DISTNAME=		netbox_agent-${PORTVERSION}.dist-info
+DISTNAME=		netbox_agent-${PORTVERSION}
 
-# Requires-Dist extracted from wheel metadata
-# pynetbox (==5.0.5)
-# netaddr (==0.8.0)
-# netifaces (==0.10.9)
-# pyyaml (==5.3.1)
-# jsonargparse (==2.32.2)
+# install_requires extracted from setup.py
+# pynetbox==6.1.2
+# netaddr==0.8.0
+# netifaces==0.10.9
+# pyyaml==5.4.1
+# jsonargparse==3.11.2
+# python-slugify==5.0.2
+# packaging==20.9
+# distro==1.7.0
 
-[PY310].USES_ON=			python:py310,wheel
-[PY310].RUN_DEPENDS_ON=			python-pynetbox:single:py310
+[PY310].USES_ON=			python:py310,sutools
+[PY310].BUILDRUN_DEPENDS_ON=		python-pynetbox:single:py310
 					python-netaddr:single:py310
 					python-netifaces:single:py310
 					python-PyYAML:single:py310
 					python-jsonargparse:single:py310
-[PY311].USES_ON=			python:v11,wheel
-[PY311].RUN_DEPENDS_ON=			python-pynetbox:single:v11
+					python-python-slugify:single:py310
+					python-packaging:single:py310
+					python-distro:single:py310
+[PY311].USES_ON=			python:v11,sutools
+[PY311].BUILDRUN_DEPENDS_ON=		python-pynetbox:single:v11
 					python-netaddr:single:v11
 					python-netifaces:single:v11
 					python-PyYAML:single:v11
 					python-jsonargparse:single:v11
+					python-python-slugify:single:v11
+					python-packaging:single:v11
+					python-distro:single:v11
 

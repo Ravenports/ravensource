@@ -29,6 +29,22 @@ install it with [pip]:
 Changelog
 ~~~~~~~~~
 
+4.42.0 (released 2023-08-02)
+----------------------------
+
+- [varLib] Use sentinel value 0xFFFF to mark a glyph advance in hmtx/vmtx
+as non
+  participating, allowing sparse masters to contain glyphs for variation
+purposes other
+  than {H,V}VAR (#3235).
+- [varLib/cff] Treat empty glyphs in non-default masters as missing, thus
+not participating
+  in CFF2 delta computation, similarly to how varLib already treats them
+for gvar (#3234).
+- Added varLib.avarPlanner script to deduce 'correct' avar v1 axis mappings
+based on
+  glyph average weights (#3223).
+
 4.41.1 (released 2023-07-21)
 ----------------------------
 
@@ -82,19 +98,3 @@ compile them
 to be
   published as always (pip will automatically chose them when no binary
 wheel is
-  available for the given platform, e.g. pypy). Use ``pip install
---no-binary=fonttools fonttools``
-  to expliclity request pip to install from the pure-python source.
-- [designspaceLib|varLib] Add initial support for specifying axis mappings
-and build
-  avar2 table from those (#3123).
-- [feaLib] Support variable ligature caret position (#3130).
-- [varLib|glyf] Added option to --drop-implied-oncurves; test for impliable
-oncurve
-  points either before or after rounding (#3146, #3147, #3155, #3156).
-- [TTGlyphPointPen] Don't error with empty contours, simply ignore them
-(#3145).
-- [sfnt] Fixed str vs bytes remnant of py3 transition in code dealing with
-de/compiling
-  WOFF metadata (#3129).
-- [instancer-solver] Fixed bug when moving default instance with sparse

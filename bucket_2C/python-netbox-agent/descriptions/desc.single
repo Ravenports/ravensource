@@ -18,9 +18,10 @@ IPv6)
 (`cmd` and `file` and custom ones)
 * Update existing `Device` and `Interface`
 * Handle blade moving (new slot, new chassis)
+* Handle blade GPU expansions
 * Automatic cabling (server's interface to switch's interface) using lldp
-* Local inventory using `Inventory Item` for CPU, RAM, RAID cards, physical
-disks (behind raid cards)
+* Local inventory using `Inventory Item` for CPU, GPU, RAM, RAID cards,
+physical disks (behind raid cards)
 * PSUs creation and power consumption reporting (based on vendor's tools)
 
 # Requirements
@@ -59,7 +60,7 @@ command line arguments (might include config file) > environment variables
 > default config file > defaults.
 
 ```
-# netbox_agent -c /etc/netbox_agent.yml --register
+# netbox_agent -c /etc/netbox_agent.yaml --register
 INFO:root:Creating chassis blade (serial: QTFCQ574502EF)
 INFO:root:Creating blade (serial: QTFCQ574502D2) myserver on chassis
 QTFCQ574502EF
@@ -97,4 +98,3 @@ INFO:root:Creating Disk Samsung SSD 850 S2RBNX0K101698D
 
 ```
 # Netbox configuration
-netbox:
