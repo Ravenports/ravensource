@@ -90,9 +90,9 @@ function cycle_through_queue ($force_setting) {
 
 # given version x.y or x.y.z, the y component is right-padded with zeros
 # until it's 4 digits long
-function expand_version($raw_version) {
+function expand_version($raw_version, $num_places) {
    $parts = explode(".", $raw_version);
-   for ($x = strlen($parts[1]); $x < 4; $x++) {
+   for ($x = strlen($parts[1]); $x < $num_places; $x++) {
      $parts[1] .= "0";
    }
    return implode(".", $parts);
@@ -177,8 +177,9 @@ function generate_port($namebase) {
 
     # Handle bad perl versions by expanding to 4 places
     # See: https://github.com/repology/repology-rules/issues/697
-    if (in_array ($namebase, $data_version_expand)) {
-       $portversion = expand_version($portversion);
+    if (array_key_exists ($namebase, $data_version_expand)) {
+       $places = intval($data_version_expand[$namebase]);
+       $portversion = expand_version($portversion, $places);
        $tarball = $port_data[$namebase]["distfile"];
        foreach ($EXTS as $key => $ext) {
           if (str_ends_with ($tarball, $ext)) {
