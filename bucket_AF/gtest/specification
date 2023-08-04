@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.13.0
+DEF[PORTVERSION]=	1.14.0
 DEF[TAG]=		v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -14,18 +14,18 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/google:googletest:${TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		BSD3CLAUSE:single
+LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/googletest
 
-USES=			c++:single cclibs:single cmake:outsource
+USES=			c++:primary cclibs:primary cmake:outsource
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS=ON
 			-Dgtest_build_tests=ON
 
