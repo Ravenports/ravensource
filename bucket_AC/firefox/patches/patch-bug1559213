@@ -11,8 +11,8 @@ Date:   Thu Jun 13 11:53:00 2019 -0700
  4 files changed, 34 insertions(+), 3 deletions(-)
 
 diff --git config/external/moz.build config/external/moz.build
-index ab77121..75595d9 100644
---- config/external/moz.build.orig	2023-06-08 22:09:32 UTC
+index a0877c9d717e..5caa2036e0ec 100644
+--- config/external/moz.build
 +++ config/external/moz.build
 @@ -45,8 +45,9 @@ if not CONFIG["MOZ_SYSTEM_LIBVPX"]:
      external_dirs += ["media/libvpx"]
@@ -26,29 +26,28 @@ index ab77121..75595d9 100644
  
  if not CONFIG["MOZ_SYSTEM_PNG"]:
      external_dirs += ["media/libpng"]
---- config/system-headers.mozbuild.orig	2023-06-28 17:49:53 UTC
+diff --git config/system-headers.mozbuild config/system-headers.mozbuild
+index d9489c8f15e4..4d2f15e18c1c 100644
+--- config/system-headers.mozbuild
 +++ config/system-headers.mozbuild
-@@ -1299,6 +1299,19 @@ if CONFIG['MOZ_SYSTEM_AV1']:
-         'dav1d/dav1d.h',
+@@ -1291,6 +1291,14 @@ if CONFIG['MOZ_ENABLE_LIBPROXY']:
+         'proxy.h',
      ]
  
-+if CONFIG['MOZ_SYSTEM_GRAPHITE2']:
++if CONFIG['MOZ_SYSTEM_AV1']:
 +    system_headers += [
-+        'graphite2/Font.h',
-+        'graphite2/Segment.h',
-+    ]
-+
-+if CONFIG['MOZ_SYSTEM_HARFBUZZ']:
-+    system_headers += [
-+        'harfbuzz/hb-glib.h',
-+        'harfbuzz/hb-ot.h',
-+        'harfbuzz/hb.h',
++        'aom/aom_decoder.h',
++        'aom/aomdx.h',
++        'aom/aom_image.h',
++        'dav1d/dav1d.h',
 +    ]
 +
  if CONFIG['MOZ_SYSTEM_LIBVPX']:
      system_headers += [
          'vpx_mem/vpx_mem.h',
---- dom/media/platforms/moz.build.orig	2023-06-08 22:09:33 UTC
+diff --git dom/media/platforms/moz.build dom/media/platforms/moz.build
+index c71f22a22eee..efbd523b1225 100644
+--- dom/media/platforms/moz.build
 +++ dom/media/platforms/moz.build
 @@ -80,6 +80,11 @@ if CONFIG["MOZ_AV1"]:
          "agnostic/AOMDecoder.cpp",
@@ -62,7 +61,9 @@ index ab77121..75595d9 100644
  
  if CONFIG["MOZ_OMX"]:
      EXPORTS += [
---- media/ffvpx/libavcodec/moz.build.orig	2023-06-08 22:09:41 UTC
+diff --git media/ffvpx/libavcodec/moz.build media/ffvpx/libavcodec/moz.build
+index 5675c28234a1..56344e5e4c98 100644
+--- media/ffvpx/libavcodec/moz.build
 +++ media/ffvpx/libavcodec/moz.build
 @@ -109,10 +109,14 @@ if not CONFIG['MOZ_FFVPX_AUDIOONLY']:
          'vp9recon.c',
@@ -73,41 +74,50 @@ index ab77121..75595d9 100644
 -        'media_libdav1d_asm',
 -    ]
 +    if CONFIG["MOZ_SYSTEM_AV1"]:
-+      CFLAGS += CONFIG['MOZ_SYSTEM_LIBDAV1D_CFLAGS']
-+      OS_LIBS += CONFIG['MOZ_SYSTEM_LIBDAV1D_LIBS']
++        CFLAGS += CONFIG['MOZ_SYSTEM_LIBDAV1D_CFLAGS']
++        OS_LIBS += CONFIG['MOZ_SYSTEM_LIBDAV1D_LIBS']
 +    else:
-+      USE_LIBS += [
-+          'dav1d',
-+          'media_libdav1d_asm',
-+      ]
-     if CONFIG['MOZ_WAYLAND']:
++        USE_LIBS += [
++            'dav1d',
++            'media_libdav1d_asm',
++        ]
+     if CONFIG["MOZ_WIDGET_TOOLKIT"] == "gtk":
          LOCAL_INCLUDES += ['/media/mozva']
          SOURCES += [
---- toolkit/moz.configure.orig	2023-06-28 17:49:53 UTC
+diff --git toolkit/moz.configure toolkit/moz.configure
+index 2e56fa46ce59..23e30935c4bc 100644
+--- toolkit/moz.configure
 +++ toolkit/moz.configure
-@@ -1308,6 +1308,25 @@ def geckodriver_default(enable_tests, ta
-         return False
-     return True
+@@ -745,7 +745,23 @@ def av1(value):
+         return True
  
-+# Graphite2
-+# ==============================================================
-+option("--with-system-graphite2",
-+       help="Use system graphite2 (located with pkgconfig)")
-+
-+system_graphite2 = pkg_check_modules("MOZ_GRAPHITE2", "graphite2",
-+                                     when="--with-system-graphite2")
-+
-+set_config("MOZ_SYSTEM_GRAPHITE2", depends_if(system_graphite2)(lambda _: True))
-+
-+# HarfBuzz
-+# ==============================================================
-+option("--with-system-harfbuzz",
-+       help="Use system harfbuzz (located with pkgconfig)")
-+
-+system_harfbuzz = pkg_check_modules("MOZ_HARFBUZZ", "harfbuzz >= 2.7.4",
-+                                    when="--with-system-harfbuzz")
-+
-+set_config("MOZ_SYSTEM_HARFBUZZ", depends_if(system_harfbuzz)(lambda _: True))
  
- option(
-     "--enable-geckodriver",
+-@depends(target, when=av1 & compile_environment)
++option("--with-system-av1",
++       help="Use system av1 (located with pkgconfig)")
++
++system_libaom_info = pkg_check_modules("MOZ_SYSTEM_LIBAOM", "aom >= 1.0.0",
++                                       when="--with-system-av1")
++
++system_libdav1d_info = pkg_check_modules("MOZ_SYSTEM_LIBDAV1D", "dav1d >= 0.1.1",
++                                         when="--with-system-av1")
++
++@depends(system_libaom_info, system_libdav1d_info)
++def system_av1(system_libaom_info, system_libdav1d_info):
++    has_av1_libs = False
++    if system_libaom_info and system_libdav1d_info:
++        has_av1_libs = True
++    return has_av1_libs
++
++@depends(target, when=av1 & depends(system_av1)(lambda v: not v) & compile_environment)
+ def dav1d_asm(target):
+     if target.cpu in ("aarch64", "x86", "x86_64"):
+         return True
+@@ -761,6 +777,7 @@ set_config("MOZ_DAV1D_ASM", dav1d_asm)
+ set_define("MOZ_DAV1D_ASM", dav1d_asm)
+ set_config("MOZ_AV1", av1)
+ set_define("MOZ_AV1", av1)
++set_config("MOZ_SYSTEM_AV1", depends_if(system_av1)(lambda _: True))
+ 
+ # JXL Image Codec Support
+ # ==============================================================
