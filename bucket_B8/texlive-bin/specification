@@ -1,8 +1,8 @@
 # Update together with texlive-texmf when the annual release happens
-DEF[YEAR]=		2022
-DEF[PORTVERSION]=	${YEAR}0321
-DEF[LIBKPATHSEA]=	6.3.4
-DEF[LIBPTEXENC]=	1.4.0
+DEF[YEAR]=		2023
+DEF[PORTVERSION]=	${YEAR}0313
+DEF[LIBKPATHSEA]=	6.3.5
+DEF[LIBPTEXENC]=	1.4.3
 DEF[LIBSYNCTEX]=	2.0.0
 DEF[LIBTEXLUA53]=	5.3.6
 DEF[LIBTEXLUAJIT]=	2.1.0
@@ -43,38 +43,40 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		print/texlive-base
 
 EXTRACT_ONLY=		1 2
-EXRUN[primary]=		texlive-bin:tlmgr:standard
-EXRUN[bibtex]=		texlive-bin:primary:standard
-EXRUN[engine_hitex]=	texlive-bin:primary:standard
-EXRUN[engine_luatex]=	texlive-bin:primary:standard
-EXRUN[engine_pdftex]=	texlive-bin:primary:standard
-EXRUN[engine_xetex]=	texlive-bin:primary:standard
-EXRUN[synctex]=		texlive-bin:primary:standard
+EXRUN[primary]=		tlmgr
+EXRUN[bibtex]=		primary
+EXRUN[engine_hitex]=	primary
+EXRUN[engine_luatex]=	primary
+EXRUN[engine_pdftex]=	primary
+EXRUN[engine_xetex]=	icu:data:standard
+			primary
+EXRUN[synctex]=		primary
 # from xindy.run, copy of clisp's base/lisp.run
-EXRUN[utils]=		readline:primary:standard
+EXRUN[utils]=		primary
 
 BUILD_DEPENDS=		gmp:static:standard
 			mpfr:static:standard
 			clisp:primary:standard
 			harfbuzz:dev:standard
+			icu:dev:standard
 			libpaper:dev:standard
 			poppler:dev:standard
-			icu:dev:standard
 BUILDRUN_DEPENDS=	gmp:shared:standard
 			graphite:single:standard
 			harfbuzz:icu:standard
+			icu:primary:standard
 			libGD:single:standard
 			libpaper:primary:standard
 			mpfr:shared:standard
 			poppler:primary:standard
+			potrace:library:standard
 			zziplib:primary:standard
-			icu:primary:standard
 RUN_DEPENDS=		libffcall:single:standard
 			libsigsegv:shared:standard
 			texlive-texmf:primary:standard
 
-USES=			cpe gmake libtool perl png shebangfix zlib readline:build
-			freetype mbsdfix
+USES=			cpe freetype gmake libtool ncurses perl png readline
+			shebangfix zlib mbsdfix
 XORG_COMPONENTS=	pixman x11 xaw
 GNOME_COMPONENTS=	cairo
 CPE_VENDOR=		tug
@@ -121,6 +123,7 @@ SHEBANG_FILES=		texk/texlive/linked_scripts/accfonts/mkt1font
 			texk/texlive/linked_scripts/accfonts/vpl2ovp
 			texk/texlive/linked_scripts/accfonts/vpl2vpl
 			texk/texlive/linked_scripts/arara/arara.sh
+			texk/texlive/linked_scripts/bibcop/bibcop.pl
 			texk/texlive/linked_scripts/bibexport/bibexport.sh
 			texk/texlive/linked_scripts/clojure-pamphlet/pamphletangler
 			texk/texlive/linked_scripts/ctan-o-mat/ctan-o-mat.pl
@@ -184,9 +187,9 @@ post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/info
 	${LN} -s eptex ${STAGEDIR}${PREFIX}/bin/platex
 	${LN} -s euptex ${STAGEDIR}${PREFIX}/bin/uplatex
-	${LN} -s luatex ${STAGEDIR}${PREFIX}/bin/dvilualatex
-	${LN} -s luatex ${STAGEDIR}${PREFIX}/bin/dviluatex
-	${LN} -s luatex ${STAGEDIR}${PREFIX}/bin/lualatex
+	${LN} -s luahbtex ${STAGEDIR}${PREFIX}/bin/dvilualatex
+	${LN} -s luahbtex ${STAGEDIR}${PREFIX}/bin/dviluatex
+	${LN} -s luahbtex ${STAGEDIR}${PREFIX}/bin/lualatex
 	${LN} -s tex ${STAGEDIR}${PREFIX}/bin/lollipop
 	${LN} -s xetex ${STAGEDIR}${PREFIX}/bin/xelatex
 	for lx in ${PDFTEX_LINKS}; do \
@@ -197,4 +200,7 @@ post-install:
 	done
 	for p in ${PROGRAMS0} ${PROGRAMS1} ${PROGRAMS2}; do \
 	   ${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/$$p ;\
+	done
+	for s in ${STUBS}; do \
+	    ${INSTALL_SCRIPT} ${WRKSRC}/texk/texlive/linked_scripts/context/stubs/unix/$$s ${STAGEDIR}${PREFIX}/bin/$$s ;\
 	done
