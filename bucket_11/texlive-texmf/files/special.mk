@@ -76,6 +76,7 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/scripts/authorindex/authorindex \
 	texmf-dist/scripts/bib2gls/bib2gls.sh \
 	texmf-dist/scripts/bib2gls/convertgls2bib.sh \
+	texmf-dist/scripts/bibcop/bibcop.pl \
 	texmf-dist/scripts/bibexport/bibexport.sh \
 	texmf-dist/scripts/bundledoc/arlatex \
 	texmf-dist/scripts/bundledoc/bundledoc \
@@ -86,6 +87,7 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/scripts/chktex/chkweb.sh \
 	texmf-dist/scripts/chktex/deweb.pl \
 	texmf-dist/scripts/citation-style-language/citeproc.lua \
+	texmf-dist/scripts/citation-style-language/citeproc-lua.lua \
 	texmf-dist/scripts/cjk-gs-integrate/cjk-gs-integrate.pl \
 	texmf-dist/scripts/clojure-pamphlet/pamphletangler \
 	texmf-dist/scripts/cluttex/cluttex.lua \
@@ -110,6 +112,7 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/scripts/ctanupload/ctanupload.pl \
 	texmf-dist/scripts/de-macro/de-macro \
 	texmf-dist/scripts/diadia/diadia.lua \
+	texmf-dist/scripts/digestif/digestif.texlua \
 	texmf-dist/scripts/dosepsbin/dosepsbin.pl \
 	texmf-dist/scripts/dtxgen/dtxgen \
 	texmf-dist/scripts/dviasm/dviasm.py \
@@ -172,6 +175,8 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/scripts/musixtex/musixflx.lua \
 	texmf-dist/scripts/musixtex/musixtex.lua \
 	texmf-dist/scripts/optexcount/optexcount \
+	texmf-dist/scripts/pagelayout/pagelayoutapi \
+	texmf-dist/scripts/pagelayout/textestvis \
 	texmf-dist/scripts/pax/pdfannotextractor.pl \
 	texmf-dist/scripts/pdfbook2/pdfbook2 \
 	texmf-dist/scripts/pdfcrop/pdfcrop.pl \
@@ -221,6 +226,7 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/scripts/tex4ht/htxetex.sh \
 	texmf-dist/scripts/tex4ht/mk4ht.pl \
 	texmf-dist/scripts/tex4ht/xhlatex.sh \
+	texmf-dist/scripts/texaccents/texaccents.sno \
 	texmf-dist/scripts/texcount/texcount.pl \
 	texmf-dist/scripts/texdef/texdef.pl \
 	texmf-dist/scripts/texdiff/texdiff \
@@ -235,6 +241,7 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/scripts/texlive/mktexmf \
 	texmf-dist/scripts/texlive/mktexpk \
 	texmf-dist/scripts/texlive/mktextfm \
+	texmf-dist/scripts/texlive/rungs.lua \
 	texmf-dist/scripts/texlive/rungs.tlu \
 	texmf-dist/scripts/texlive/tlmgr.pl \
 	texmf-dist/scripts/texlive/updmap-sys.sh \
