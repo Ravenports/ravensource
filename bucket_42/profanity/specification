@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	0.13.1
+DEF[PORTVERSION]=	0.14.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		profanity
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		net net_im
 VARIANTS=		standard
 SDESC[standard]=	Console based XMPP client
@@ -14,14 +13,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://profanity-im.github.io/tarballs/
 DISTFILE[1]=		profanity-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv3+:single
+LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKSRC}}/LICENSE.txt
+LICENSE_TERMS=		primary:{{WRKSRC}}/LICENSE.txt
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net-im/profanity
@@ -38,6 +37,8 @@ BUILDRUN_DEPENDS=	gpgme:primary:standard
 			libotr:single:standard
 			libuuid:primary:standard
 			libstrophe:single:standard
+
+EXRUN[primary]=		tools
 
 USES=			libtool ncurses pkgconfig readline ssl gmake
 			curl autoreconf:build python sqlite expat
