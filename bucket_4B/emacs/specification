@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	28.2
+DEF[PORTVERSION]=	29.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		emacs
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		editors
 VARIANTS=		standard desktop
 SDESC[standard]=	GNU Emacs text editor
@@ -15,16 +14,16 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/emacs
 DISTFILE[1]=		emacs-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
-SPKGS[desktop]=		single
+SPKGS[standard]=	complete primary man
+SPKGS[desktop]=		complete primary man
 
 OPTIONS_AVAILABLE=	X11GTK
 OPTIONS_STANDARD=	none
 VOPTS[desktop]=		X11GTK=ON
 
-LICENSE=		GPLv3+:single
+LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"EMACS_COMMANDS_H"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/commands.h
 LICENSE_SCHEME=		solo
@@ -33,7 +32,7 @@ FPC_EQUIVALENT=		editors/emacs
 
 USERS=			games
 GROUPS=			games
-USERGROUP_SPKG=		single
+USERGROUP_SPKG=		primary
 
 BUILD_DEPENDS=		gnutls:dev:standard
 BUILDRUN_DEPENDS=	gnutls:primary:standard
@@ -42,7 +41,7 @@ RUN_DEPENDS=		coreutils:primary:standard
 			ctags:single:standard
 
 USES=			cpe gmake makeinfo ncurses pkgconfig zlib
-			desktop-utils:single
+			desktop-utils:primary
 GNOME_COMPONENTS=	libxml2
 CPE_VENDOR=		gnu
 MUST_CONFIGURE=		gnu
@@ -55,68 +54,73 @@ CONFIGURE_ARGS=		--localstatedir=/var
 INFO_PATH=		share/emacs/info
 PLIST_SUB=		VERSION=${PORTVERSION}
 			GNU_HOST={{CONFIGURE_TARGET}}
-INFO=			single:ada-mode
-			single:auth
-			single:autotype
-			single:bovine
-			single:calc
-			single:ccmode
-			single:cl
-			single:dbus
-			single:dired-x
-			single:ebrowse
-			single:ede
-			single:ediff
-			single:edt
-			single:efaq
-			single:eieio
-			single:eintr
-			single:elisp
-			single:emacs
-			single:emacs-gnutls
-			single:emacs-mime
-			single:epa
-			single:erc
-			single:ert
-			single:eshell
-			single:eudc
-			single:eww
-			single:flymake
-			single:forms
-			single:gnus
-			single:htmlfontify
-			single:idlwave
-			single:ido
-			single:info
-			single:mairix-el
-			single:message
-			single:mh-e
-			single:newsticker
-			single:nxml-mode
-			single:octave-mode
-			single:org
-			single:pcl-cvs
-			single:pgg
-			single:rcirc
-			single:reftex
-			single:remember
-			single:sasl
-			single:sc
-			single:semantic
-			single:ses
-			single:sieve
-			single:smtpmail
-			single:speedbar
-			single:srecode
-			single:todo-mode
-			single:tramp
-			single:url
-			single:vhdl-mode
-			single:vip
-			single:viper
-			single:widget
-			single:wisent
-			single:woman
+INFO=			man:ada-mode
+			man:auth
+			man:autotype
+			man:bovine
+			man:calc
+			man:ccmode
+			man:cl
+			man:dbus
+			man:dired-x
+			man:ebrowse
+			man:ede
+			man:ediff
+			man:edt
+			man:efaq
+			man:eieio
+			man:eintr
+			man:elisp
+			man:emacs
+			man:emacs-gnutls
+			man:emacs-mime
+			man:epa
+			man:erc
+			man:ert
+			man:eshell
+			man:eudc
+			man:eww
+			man:flymake
+			man:forms
+			man:gnus
+			man:htmlfontify
+			man:idlwave
+			man:ido
+			man:info
+			man:mairix-el
+			man:message
+			man:mh-e
+			man:newsticker
+			man:nxml-mode
+			man:octave-mode
+			man:org
+			man:pcl-cvs
+			man:pgg
+			man:rcirc
+			man:reftex
+			man:remember
+			man:sasl
+			man:sc
+			man:semantic
+			man:ses
+			man:sieve
+			man:smtpmail
+			man:speedbar
+			man:srecode
+			man:todo-mode
+			man:tramp
+			man:url
+			man:vhdl-mode
+			man:vip
+			man:viper
+			man:widget
+			man:wisent
+			man:woman
+			man:modus-themes
+			man:transient
+			man:use-package
+			man:vtable
+			man:eglot
 
 VAR_OPSYS[freebsd]=	VAR1=--with-file-notification=kqueue
 			VAR2=--with-sound=oss

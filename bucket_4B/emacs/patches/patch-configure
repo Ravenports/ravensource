@@ -1,6 +1,6 @@
---- configure.orig	2022-09-06 22:41:02 UTC
+--- configure.orig	2023-07-23 07:58:47 UTC
 +++ configure
-@@ -5114,7 +5114,7 @@ case "${canonical}" in
+@@ -6082,7 +6082,7 @@ case "${canonical}" in
    ;;
  
    ## FreeBSD ports
@@ -9,7 +9,7 @@
      opsys=freebsd
    ;;
  
-@@ -5139,9 +5139,9 @@ case "${canonical}" in
+@@ -6107,9 +6107,9 @@ case "${canonical}" in
    ;;
  
    ## Apple Darwin / macOS
@@ -21,7 +21,7 @@
        i[3456]86-* | x86_64-* | arm-* | aarch64-* )  ;;
        * )            unported=yes ;;
      esac
-@@ -18784,9 +18784,9 @@ case "$opsys" in
+@@ -22889,9 +22889,9 @@ case "$opsys" in
    ##  The ncurses library has been moved out of the System framework in
    ##  Mac OS X 10.2.  So if configure detects it, set the command-line
    ##  option to use it.
@@ -32,10 +32,10 @@
 +  gnu*) LIBS_TERMCAP="-lncurses -ltinfo" ;;
  
    freebsd)
-     { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether FreeBSD is new enough to use terminfo" >&5
-@@ -18800,10 +18800,6 @@ else
+     { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking whether FreeBSD is new enough to use terminfo" >&5
+@@ -22906,10 +22906,6 @@ else $as_nop
  int
- main ()
+ main (void)
  {
 -#if __FreeBSD_version < 400000
 -fail;
@@ -44,8 +44,8 @@
    ;
    return 0;
  }
-@@ -18822,7 +18818,7 @@ fi
- $as_echo "$emacs_cv_freebsd_terminfo" >&6; }
+@@ -22929,7 +22925,7 @@ fi
+ printf "%s\n" "$emacs_cv_freebsd_terminfo" >&6; }
  
      if test $emacs_cv_freebsd_terminfo = yes; then
 -      LIBS_TERMCAP="-lncurses"
@@ -53,15 +53,16 @@
      else
        TERMINFO=no
        LIBS_TERMCAP="-ltermcap"
-@@ -18834,14 +18830,14 @@ $as_echo "$emacs_cv_freebsd_terminfo" >&
+@@ -22941,7 +22937,7 @@ printf "%s\n" "$emacs_cv_freebsd_terminf
      LIBS_TERMCAP=
      ;;
  
 -  netbsd)
 +  xxnetbsd)
-     if test "x$LIBS_TERMCAP" != "x-lterminfo"; then
-       TERMINFO=no
-       LIBS_TERMCAP="-ltermcap"
+     # NetBSD versions prior to 6.0 lack native terminfo, but have a
+     # tputs() built on top of termcap in these libraries. Use native
+     # termcap instead in this case. NetBSD >= 6.0 has native terminfo
+@@ -22952,7 +22948,7 @@ printf "%s\n" "$emacs_cv_freebsd_terminf
      fi
      ;;
  
