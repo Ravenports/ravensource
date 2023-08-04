@@ -29,11 +29,14 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		textproc/html2text
 
 USES=			c++:single iconv gmake
-MUST_CONFIGURE=		yes
-CONFIGURE_ARGS=		PREFIX={{PREFIX}}
-			MANDIR={{MANPREFIX}}/man
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		MANDIR={{MANPREFIX}}/man
 CXXFLAGS=		-Wno-write-strings
 			-Wno-deprecated-declarations
+
+post-extract:
+	${TOUCH} ${WRKSRC}/config.guess
+	${TOUCH} ${WRKSRC}/config.sub
 
 post-install:
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
