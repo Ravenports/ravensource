@@ -1,4 +1,4 @@
---- ext/standard/proc_open.c.orig	2023-02-14 11:05:44 UTC
+--- ext/standard/proc_open.c.orig	2023-08-03 17:13:08 UTC
 +++ ext/standard/proc_open.c
 @@ -45,10 +45,10 @@
  #if HAVE_OPENPTY
