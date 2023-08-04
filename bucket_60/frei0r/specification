@@ -1,5 +1,5 @@
 # DEF[PORTVERSION]=	EXTRACT_INFO(FREI0R_VERSION)
-DEF[PORTVERSION]=	2.3.0
+DEF[PORTVERSION]=	2.3.1
 DEF[TAG]=		v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -15,21 +15,21 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/dyne:frei0r:${TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2:single
+LICENSE=		GPLv2:primary
 LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"frei0r\.hpp"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/generator/nois0r/nois0r.cpp
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/frei0r
 
-USES=			cmake pkgconfig c++:single
+USES=			cmake pkgconfig c++:primary
 GNOME_COMPONENTS=	cairo
 SINGLE_JOB=		yes
 CMAKE_ARGS=		-DWITHOUT_OPENCV:BOOL=ON
