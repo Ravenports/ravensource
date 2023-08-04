@@ -1,4 +1,4 @@
---- lib/tsan/sanitizer_common/sanitizer_procmaps_bsd.cpp.orig	2023-01-17 23:40:56 UTC
+--- lib/tsan/sanitizer_common/sanitizer_procmaps_bsd.cpp.orig	2023-08-03 18:22:03 UTC
 +++ lib/tsan/sanitizer_common/sanitizer_procmaps_bsd.cpp
 @@ -29,13 +29,6 @@
  

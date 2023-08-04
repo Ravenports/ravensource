@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.10.1
+DEF[PORTVERSION]=	0.11.0
 DEF[GCC_VERSION]=	EXTRACT_INFO(GCCBASE_VERSION)
 DEF[GCC_LIB]=		toolchain/ravensys-gcc/{{ASLIB}}
 DEF[GCC_TARGET_LIB]=	${GCC_LIB}/gcc/{{CONFIGURE_TARGET}}/${GCC_VERSION}
@@ -32,23 +32,28 @@ ONLY_FOR_OPSYS=		freebsd dragonfly netbsd linux midnightbsd
 BROKEN[linux]=		final linking: undefined reference to `getrandom'
 BROKEN[netbsd]=		The .build/zig2 build-exe command fails
 
-BUILD_DEPENDS=		clang15:compiler:standard
-			lld15:single:standard
-			llvm15:tools:standard
-			llvm15:dev:standard
-BUILDRUN_DEPENDS=	clang15:dynlibs:standard
+BUILD_DEPENDS=		clang:compiler:standard
+			lld:dev:standard
+			lld:primary:standard
+			llvm:tools:standard
+			llvm:dev:standard
+BUILDRUN_DEPENDS=	clang:dynlibs:standard
 
-USES=			cmake ncurses execinfo zlib:build
+USES=			cmake ncurses execinfo zlib
 GNOME_COMPONENTS=	libxml2
 INSTALL_REQ_TOOLCHAIN=	yes
 
 VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
 
-pre-configure-linux:
-	${REINPLACE_CMD} -e 's|EXE_LDFLAGS " "|EXE_LDFLAGS "-Wl,-rpath,${LOCALBASE}/lib "|'\
-		${WRKSRC}/CMakeLists.txt
-
 pre-configure:
+	${REINPLACE_CMD} \
+		-e 's|@GCC_TARGET_LIBDIR@|${LOCALBASE}/${GCC_TARGET_LIB}|' \
+		${WRKSRC}/src/link/Elf.zig
+	${REINPLACE_CMD} \
+		-e 's|@GCC_TARGET_LIBDIR@|${LOCALBASE}/${GCC_TARGET_LIB}|' \
+		-e 's|@GCC_LIBDIR@|${LOCALBASE}/${GCC_LIB}|' \
+		-e 's|@LOCALBASE@|${LOCALBASE}|' \
+		${WRKSRC}/build.zig
 	${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|g' \
 		${WRKSRC}/cmake/Findclang.cmake \
 		${WRKSRC}/cmake/Findllvm.cmake \
@@ -73,8 +78,3 @@ post-install:
 		lib/zig/tsan \
 	\( -type f -o -type l \) 2>/dev/null | ${SORT}) \
 	>> ${WRKDIR}/.manifest.single.mktmp
-
-pre-build:
-	${REINPLACE_CMD} \
-		-e 's|@GCC_TARGET_LIBDIR@|${LOCALBASE}/${GCC_TARGET_LIB}|' \
-		${WRKSRC}/src/link/Elf.zig \

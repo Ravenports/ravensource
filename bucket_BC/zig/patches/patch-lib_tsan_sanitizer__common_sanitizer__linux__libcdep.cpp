@@ -1,4 +1,4 @@
---- lib/tsan/sanitizer_common/sanitizer_linux_libcdep.cpp.orig	2023-01-17 23:40:56 UTC
+--- lib/tsan/sanitizer_common/sanitizer_linux_libcdep.cpp.orig	2023-08-03 18:22:03 UTC
 +++ lib/tsan/sanitizer_common/sanitizer_linux_libcdep.cpp
 @@ -577,7 +577,7 @@ void GetThreadStackAndTls(bool main, upt
  
