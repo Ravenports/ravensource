@@ -167,6 +167,12 @@ post-patch-X11GTK-OFF:
 	${REINPLACE_CMD} -i'' -e 's/^Terminal=.*$$/Terminal=true/' \
 		${WRKSRC}/etc/emacs.desktop
 
+post-install:
+	# Hash constantly changes, so add this file dynamically
+	(cd ${STAGEDIR}${PREFIX} && \
+		${FIND} libexec -type f -name "emacs*[.]pdmp" \
+		>> ${WRKDIR}/.manifest.primary.mktmp)
+
 post-install-dragonfly:
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/systemd
 
