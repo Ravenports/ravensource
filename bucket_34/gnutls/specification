@@ -1,14 +1,13 @@
 DEF[DL_FOLDER]=		3.8
-DEF[BASEVERSION]=	${DL_FOLDER}.0
+DEF[BASEVERSION]=	${DL_FOLDER}.1
 DEF[PORTVERSION]=	${BASEVERSION}
-DEF[SOVERSION]=		30.35.0
+DEF[SOVERSION]=		30.36.0
 DEF[SOXXVERSION]=	30.0.0
 DEF[SOXXMAJOR]=		${SOXXVERSION:R:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnutls
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		security net
 VARIANTS=		standard
 SDESC[standard]=	GNU Transport Layer Security library
@@ -19,7 +18,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNUPG/gnutls/v${DL_FOLDER}
 DISTFILE[1]=		gnutls-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete library primary nls dev man
+SPKGS[standard]=	complete primary tools nls dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -42,7 +41,7 @@ BUILDRUN_DEPENDS=	libunistring:primary:standard
 			nss:caroot:standard
 B_DEPS[sunos]=		libbsd4sol:single:standard
 
-EXRUN[primary]=		gnutls:library:standard
+EXRUN[tools]=		primary
 EXRUN[dev]=		nettle:dev:standard
 			p11-kit:dev:standard
 
