@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.09
 NAMEBASE=		perl-Graph-Convert
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		534 536
-SDESC[534]=		Convert between Graph and Graph::Easy (5.34)
+VARIANTS=		536 538
 SDESC[536]=		Convert between Graph and Graph::Easy (5.36)
+SDESC[538]=		Convert between Graph and Graph::Easy (5.38)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:T/TE/TELS/graph
 DISTFILE[1]=		Graph-Convert-${PORTVERSION}.tar.gz:main
 
-SPKGS[534]=		single
 SPKGS[536]=		single
+SPKGS[538]=		single
 
-OPTIONS_AVAILABLE=	PERL_534 PERL_536
+OPTIONS_AVAILABLE=	PERL_536 PERL_538
 OPTIONS_STANDARD=	none
-VOPTS[534]=		PERL_534=ON PERL_536=OFF
-VOPTS[536]=		PERL_534=OFF PERL_536=ON
+VOPTS[536]=		PERL_536=ON PERL_538=OFF
+VOPTS[538]=		PERL_536=OFF PERL_538=ON
 
 # License listed in CPAN directory:
 # gpl
@@ -32,20 +32,20 @@ DISTNAME=		Graph-Convert-${PORTVERSION}
 # ---------------------------------------------
 # |   Prerequisites extracted from META.yml
 # ---------------------------------------------
-# |     build_requires : Test::More (perl 5.34.1 core) (perl 5.36.1 core)
+# |     build_requires : Test::More (perl 5.36.1 core) (perl 5.38.0 core)
 # |           requires : Graph
 # |           requires : Graph::Easy
 # |         recommends : Graph::Easy::As_svg
 # |         recommends : Graph::Easy::Manual
 
-[PERL_534].USES_ON=			perl:534,buildmod,run
-[PERL_534].BUILDRUN_DEPENDS_ON=		perl-Graph:single:534
-					perl-Graph-Easy:single:534
-					perl-Graph-Easy-As_svg:single:534
-					perl-Graph-Easy-Manual:single:534
 [PERL_536].USES_ON=			perl:536,buildmod,run
 [PERL_536].BUILDRUN_DEPENDS_ON=		perl-Graph:single:536
 					perl-Graph-Easy:single:536
 					perl-Graph-Easy-As_svg:single:536
 					perl-Graph-Easy-Manual:single:536
+[PERL_538].USES_ON=			perl:538,buildmod,run
+[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Graph:single:538
+					perl-Graph-Easy:single:538
+					perl-Graph-Easy-As_svg:single:538
+					perl-Graph-Easy-Manual:single:538
 

@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.27
 NAMEBASE=		perl-Parse-ErrorString-Perl
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		534 536
-SDESC[534]=		Parse error messages from perl interpreter (5.34)
+VARIANTS=		536 538
 SDESC[536]=		Parse error messages from perl interpreter (5.36)
+SDESC[538]=		Parse error messages from perl interpreter (5.38)
 HOMEPAGE=		https://github.com/PadreIDE/Parse-ErrorString-Perl
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:M/MA/MANWAR
 DISTFILE[1]=		Parse-ErrorString-Perl-${PORTVERSION}.tar.gz:main
 
-SPKGS[534]=		single
 SPKGS[536]=		single
+SPKGS[538]=		single
 
-OPTIONS_AVAILABLE=	PERL_534 PERL_536
+OPTIONS_AVAILABLE=	PERL_536 PERL_538
 OPTIONS_STANDARD=	none
-VOPTS[534]=		PERL_534=ON PERL_536=OFF
-VOPTS[536]=		PERL_534=OFF PERL_536=ON
+VOPTS[536]=		PERL_536=ON PERL_538=OFF
+VOPTS[538]=		PERL_536=OFF PERL_538=ON
 
 # License listed in CPAN directory:
 # perl
@@ -32,25 +32,25 @@ DISTNAME=		Parse-ErrorString-Perl-${PORTVERSION}
 # ---------------------------------------------
 # |   Prerequisites extracted from META.yml
 # ---------------------------------------------
-# | configure_requires : ExtUtils::MakeMaker (perl 5.34.1 core) (perl 5.36.1 core)
-# |     build_requires : ExtUtils::MakeMaker (perl 5.34.1 core) (perl 5.36.1 core)
+# | configure_requires : ExtUtils::MakeMaker (perl 5.36.1 core) (perl 5.38.0 core)
+# |     build_requires : ExtUtils::MakeMaker (perl 5.36.1 core) (perl 5.38.0 core)
 # |     build_requires : Test::Differences
-# |     build_requires : Test::More (perl 5.34.1 core) (perl 5.36.1 core)
-# |           requires : Carp (perl 5.34.1 core) (perl 5.36.1 core)
+# |     build_requires : Test::More (perl 5.36.1 core) (perl 5.38.0 core)
+# |           requires : Carp (perl 5.36.1 core) (perl 5.38.0 core)
 # |           requires : Class::XSAccessor
-# |           requires : File::Basename (perl 5.34.1 core) (perl 5.36.1 core)
-# |           requires : File::Spec (perl 5.34.1 core) (perl 5.36.1 core)
+# |           requires : File::Basename (perl 5.36.1 core) (perl 5.38.0 core)
+# |           requires : File::Spec (perl 5.36.1 core) (perl 5.38.0 core)
 # |           requires : Pod::Find
 # |           requires : Pod::POM
 
-[PERL_534].USES_ON=			perl:534,configure
-[PERL_534].BUILDRUN_DEPENDS_ON=		perl-Class-XSAccessor:single:534
-					perl-Pod-Parser:single:534
-					perl-Pod-POM:single:534
-[PERL_534].BUILD_DEPENDS_ON=		perl-Test-Differences:single:534
 [PERL_536].USES_ON=			perl:536,configure
 [PERL_536].BUILDRUN_DEPENDS_ON=		perl-Class-XSAccessor:single:536
 					perl-Pod-Parser:single:536
 					perl-Pod-POM:single:536
 [PERL_536].BUILD_DEPENDS_ON=		perl-Test-Differences:single:536
+[PERL_538].USES_ON=			perl:538,configure
+[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Class-XSAccessor:single:538
+					perl-Pod-Parser:single:538
+					perl-Pod-POM:single:538
+[PERL_538].BUILD_DEPENDS_ON=		perl-Test-Differences:single:538
 

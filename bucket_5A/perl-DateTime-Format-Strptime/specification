@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.79
 NAMEBASE=		perl-DateTime-Format-Strptime
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		534 536
-SDESC[534]=		Parse and format time patterns (5.34)
+VARIANTS=		536 538
 SDESC[536]=		Parse and format time patterns (5.36)
+SDESC[538]=		Parse and format time patterns (5.38)
 HOMEPAGE=		https://github.com/houseabsolute/DateTime-Format-Strptime
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:D/DR/DROLSKY
 DISTFILE[1]=		DateTime-Format-Strptime-${PORTVERSION}.tar.gz:main
 
-SPKGS[534]=		single
 SPKGS[536]=		single
+SPKGS[538]=		single
 
-OPTIONS_AVAILABLE=	PERL_534 PERL_536
+OPTIONS_AVAILABLE=	PERL_536 PERL_538
 OPTIONS_STANDARD=	none
-VOPTS[534]=		PERL_534=ON PERL_536=OFF
-VOPTS[536]=		PERL_534=OFF PERL_536=ON
+VOPTS[536]=		PERL_536=ON PERL_538=OFF
+VOPTS[538]=		PERL_536=OFF PERL_538=ON
 
 # License listed in CPAN directory:
 # artistic_2
@@ -32,13 +32,13 @@ DISTNAME=		DateTime-Format-Strptime-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Carp (perl 5.36 core) (perl 5.38 core)
 # |      runtime : DateTime
 # |      runtime : DateTime::Locale
 # |      runtime : DateTime::Locale::Base
 # |      runtime : DateTime::Locale::FromData
 # |      runtime : DateTime::TimeZone
-# |      runtime : Exporter (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Exporter (perl 5.36 core) (perl 5.38 core)
 # |      runtime : Params::ValidationCompiler
 # |      runtime : Specio
 # |      runtime : Specio::Declare
@@ -46,29 +46,22 @@ DISTNAME=		DateTime-Format-Strptime-${PORTVERSION}
 # |      runtime : Specio::Library::Builtins
 # |      runtime : Specio::Library::String
 # |      runtime : Try::Tiny
-# |      runtime : constant (perl 5.34 core) (perl 5.36 core)
-# |      runtime : parent (perl 5.34 core) (perl 5.36 core)
-# |      runtime : strict (perl 5.34 core) (perl 5.36 core)
-# |      runtime : warnings (perl 5.34 core) (perl 5.36 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.34 core) (perl 5.36 core)
-# |         test : ExtUtils::MakeMaker (perl 5.34 core) (perl 5.36 core)
-# |         test : File::Spec (perl 5.34 core) (perl 5.36 core)
-# |         test : FindBin (perl 5.34 core) (perl 5.36 core)
-# |         test : Test::Builder (perl 5.34 core) (perl 5.36 core)
+# |      runtime : constant (perl 5.36 core) (perl 5.38 core)
+# |      runtime : parent (perl 5.36 core) (perl 5.38 core)
+# |      runtime : strict (perl 5.36 core) (perl 5.38 core)
+# |      runtime : warnings (perl 5.36 core) (perl 5.38 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.36 core) (perl 5.38 core)
+# |         test : ExtUtils::MakeMaker (perl 5.36 core) (perl 5.38 core)
+# |         test : File::Spec (perl 5.36 core) (perl 5.38 core)
+# |         test : FindBin (perl 5.36 core) (perl 5.38 core)
+# |         test : Test::Builder (perl 5.36 core) (perl 5.38 core)
 # |         test : Test::Fatal
-# |         test : Test::More (perl 5.34 core) (perl 5.36 core)
+# |         test : Test::More (perl 5.36 core) (perl 5.38 core)
 # |         test : Test::Warnings
-# |         test : lib (perl 5.34 core) (perl 5.36 core)
-# |         test : utf8 (perl 5.34 core) (perl 5.36 core)
-# |         test : CPAN::Meta (perl 5.34 core) (perl 5.36 core)
+# |         test : lib (perl 5.36 core) (perl 5.38 core)
+# |         test : utf8 (perl 5.36 core) (perl 5.38 core)
+# |         test : CPAN::Meta (perl 5.36 core) (perl 5.38 core)
 
-[PERL_534].USES_ON=			perl:534,configure
-[PERL_534].BUILDRUN_DEPENDS_ON=		perl-DateTime:single:534
-					perl-DateTime-Locale:single:534
-					perl-DateTime-TimeZone:single:534
-					perl-Params-ValidationCompiler:single:534
-					perl-Specio:single:534
-					perl-Try-Tiny:single:534
 [PERL_536].USES_ON=			perl:536,configure
 [PERL_536].BUILDRUN_DEPENDS_ON=		perl-DateTime:single:536
 					perl-DateTime-Locale:single:536
@@ -76,4 +69,11 @@ DISTNAME=		DateTime-Format-Strptime-${PORTVERSION}
 					perl-Params-ValidationCompiler:single:536
 					perl-Specio:single:536
 					perl-Try-Tiny:single:536
+[PERL_538].USES_ON=			perl:538,configure
+[PERL_538].BUILDRUN_DEPENDS_ON=		perl-DateTime:single:538
+					perl-DateTime-Locale:single:538
+					perl-DateTime-TimeZone:single:538
+					perl-Params-ValidationCompiler:single:538
+					perl-Specio:single:538
+					perl-Try-Tiny:single:538
 

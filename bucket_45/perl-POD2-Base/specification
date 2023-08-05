@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.043
 NAMEBASE=		perl-POD2-Base
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		534 536
-SDESC[534]=		Base module for translations of Perl docs (5.34)
+VARIANTS=		536 538
 SDESC[536]=		Base module for translations of Perl docs (5.36)
+SDESC[538]=		Base module for translations of Perl docs (5.38)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:F/FE/FERREIRA
 DISTFILE[1]=		POD2-Base-${PORTVERSION}.tar.gz:main
 
-SPKGS[534]=		single
 SPKGS[536]=		single
+SPKGS[538]=		single
 
-OPTIONS_AVAILABLE=	PERL_534 PERL_536
+OPTIONS_AVAILABLE=	PERL_536 PERL_538
 OPTIONS_STANDARD=	none
-VOPTS[534]=		PERL_534=ON PERL_536=OFF
-VOPTS[536]=		PERL_534=OFF PERL_536=ON
+VOPTS[536]=		PERL_536=ON PERL_538=OFF
+VOPTS[538]=		PERL_536=OFF PERL_538=ON
 
 # License listed in CPAN directory:
 # perl
@@ -32,19 +32,19 @@ DISTNAME=		POD2-Base-${PORTVERSION}
 # ---------------------------------------------
 # |   Prerequisites extracted from META.yml
 # ---------------------------------------------
-# |           requires : File::Spec (perl 5.34.1 core) (perl 5.36.1 core)
-# |           requires : Test::More (perl 5.34.1 core) (perl 5.36.1 core)
-# |           requires : strict (perl 5.34.1 core) (perl 5.36.1 core)
-# |           requires : vars (perl 5.34.1 core) (perl 5.36.1 core)
-# |           requires : warnings (perl 5.34.1 core) (perl 5.36.1 core)
-# |         recommends : ExtUtils::MakeMaker (perl 5.34.1 core) (perl 5.36.1 core)
+# |           requires : File::Spec (perl 5.36.1 core) (perl 5.38.0 core)
+# |           requires : Test::More (perl 5.36.1 core) (perl 5.38.0 core)
+# |           requires : strict (perl 5.36.1 core) (perl 5.38.0 core)
+# |           requires : vars (perl 5.36.1 core) (perl 5.38.0 core)
+# |           requires : warnings (perl 5.36.1 core) (perl 5.38.0 core)
+# |         recommends : ExtUtils::MakeMaker (perl 5.36.1 core) (perl 5.38.0 core)
 # |         recommends : Test::Pod
 # |         recommends : Test::Pod::Coverage
 
-[PERL_534].USES_ON=			perl:534,configure
-[PERL_534].BUILDRUN_DEPENDS_ON=		perl-Test-Pod:single:534
-					perl-Test-Pod-Coverage:single:534
 [PERL_536].USES_ON=			perl:536,configure
 [PERL_536].BUILDRUN_DEPENDS_ON=		perl-Test-Pod:single:536
 					perl-Test-Pod-Coverage:single:536
+[PERL_538].USES_ON=			perl:538,configure
+[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Test-Pod:single:538
+					perl-Test-Pod-Coverage:single:538
 

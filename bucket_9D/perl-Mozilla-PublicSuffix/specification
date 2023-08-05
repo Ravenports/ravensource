@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.0.6
 NAMEBASE=		perl-Mozilla-PublicSuffix
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		534 536
-SDESC[534]=		Search Mozilla Public Suffix List (5.34)
+VARIANTS=		536 538
 SDESC[536]=		Search Mozilla Public Suffix List (5.36)
+SDESC[538]=		Search Mozilla Public Suffix List (5.38)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:T/TO/TOMHUKINS
 DISTFILE[1]=		Mozilla-PublicSuffix-v1.0.6.tar.gz:main
 
-SPKGS[534]=		single
 SPKGS[536]=		single
+SPKGS[538]=		single
 
-OPTIONS_AVAILABLE=	PERL_534 PERL_536
+OPTIONS_AVAILABLE=	PERL_536 PERL_538
 OPTIONS_STANDARD=	none
-VOPTS[534]=		PERL_534=ON PERL_536=OFF
-VOPTS[536]=		PERL_534=OFF PERL_536=ON
+VOPTS[536]=		PERL_536=ON PERL_538=OFF
+VOPTS[538]=		PERL_536=OFF PERL_538=ON
 
 # License listed in CPAN directory:
 # mit
@@ -32,23 +32,23 @@ DISTNAME=		Mozilla-PublicSuffix-v1.0.6
 # ---------------------------------------------
 # |   Prerequisites extracted from META.yml
 # ---------------------------------------------
-# | configure_requires : HTTP::Tiny (perl 5.34.1 core) (perl 5.36.1 core)
-# | configure_requires : IO::File (perl 5.34.1 core) (perl 5.36.1 core)
+# | configure_requires : HTTP::Tiny (perl 5.36.1 core) (perl 5.38.0 core)
+# | configure_requires : IO::File (perl 5.36.1 core) (perl 5.38.0 core)
 # | configure_requires : Module::Build
-# | configure_requires : Tie::File (perl 5.34.1 core) (perl 5.36.1 core)
+# | configure_requires : Tie::File (perl 5.36.1 core) (perl 5.38.0 core)
 # | configure_requires : URI
-# |     build_requires : File::Spec (perl 5.34.1 core) (perl 5.36.1 core)
-# |     build_requires : IO::Handle (perl 5.34.1 core) (perl 5.36.1 core)
-# |     build_requires : IPC::Open3 (perl 5.34.1 core) (perl 5.36.1 core)
+# |     build_requires : File::Spec (perl 5.36.1 core) (perl 5.38.0 core)
+# |     build_requires : IO::Handle (perl 5.36.1 core) (perl 5.38.0 core)
+# |     build_requires : IPC::Open3 (perl 5.36.1 core) (perl 5.38.0 core)
 # |     build_requires : Module::Build
-# |     build_requires : Test::More (perl 5.34.1 core) (perl 5.36.1 core)
-# |           requires : Exporter (perl 5.34.1 core) (perl 5.36.1 core)
+# |     build_requires : Test::More (perl 5.36.1 core) (perl 5.38.0 core)
+# |           requires : Exporter (perl 5.36.1 core) (perl 5.38.0 core)
 # |           requires : URI
 
-[PERL_534].USES_ON=			perl:534,buildmod,run
-[PERL_534].BUILDRUN_DEPENDS_ON=		perl-URI:single:534
-[PERL_534].BUILD_DEPENDS_ON=		perl-Module-Build:single:534
 [PERL_536].USES_ON=			perl:536,buildmod,run
 [PERL_536].BUILDRUN_DEPENDS_ON=		perl-URI:single:536
 [PERL_536].BUILD_DEPENDS_ON=		perl-Module-Build:single:536
+[PERL_538].USES_ON=			perl:538,buildmod,run
+[PERL_538].BUILDRUN_DEPENDS_ON=		perl-URI:single:538
+[PERL_538].BUILD_DEPENDS_ON=		perl-Module-Build:single:538
 

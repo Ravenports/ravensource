@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.71
 NAMEBASE=		perl-Log-Dispatch
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		534 536
-SDESC[534]=		Dispatches messages to one or more outputs (5.34)
+VARIANTS=		536 538
 SDESC[536]=		Dispatches messages to one or more outputs (5.36)
+SDESC[538]=		Dispatches messages to one or more outputs (5.38)
 HOMEPAGE=		https://github.com/houseabsolute/Log-Dispatch
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:D/DR/DROLSKY
 DISTFILE[1]=		Log-Dispatch-${PORTVERSION}.tar.gz:main
 
-SPKGS[534]=		single
 SPKGS[536]=		single
+SPKGS[538]=		single
 
-OPTIONS_AVAILABLE=	PERL_534 PERL_536
+OPTIONS_AVAILABLE=	PERL_536 PERL_538
 OPTIONS_STANDARD=	none
-VOPTS[534]=		PERL_534=ON PERL_536=OFF
-VOPTS[536]=		PERL_534=OFF PERL_536=ON
+VOPTS[536]=		PERL_536=ON PERL_538=OFF
+VOPTS[538]=		PERL_536=OFF PERL_538=ON
 
 # License listed in CPAN directory:
 # artistic_2
@@ -32,56 +32,48 @@ DISTNAME=		Log-Dispatch-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Carp (perl 5.36 core) (perl 5.38 core)
 # |      runtime : Devel::GlobalDestruction
 # |      runtime : Dist::CheckConflicts
-# |      runtime : Encode (perl 5.34 core) (perl 5.36 core)
-# |      runtime : Exporter (perl 5.34 core) (perl 5.36 core)
-# |      runtime : Fcntl (perl 5.34 core) (perl 5.36 core)
-# |      runtime : IO::Handle (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Encode (perl 5.36 core) (perl 5.38 core)
+# |      runtime : Exporter (perl 5.36 core) (perl 5.38 core)
+# |      runtime : Fcntl (perl 5.36 core) (perl 5.38 core)
+# |      runtime : IO::Handle (perl 5.36 core) (perl 5.38 core)
 # |      runtime : Module::Runtime
 # |      runtime : Params::ValidationCompiler
-# |      runtime : Scalar::Util (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Scalar::Util (perl 5.36 core) (perl 5.38 core)
 # |      runtime : Specio
 # |      runtime : Specio::Declare
 # |      runtime : Specio::Exporter
 # |      runtime : Specio::Library::Builtins
 # |      runtime : Specio::Library::Numeric
 # |      runtime : Specio::Library::String
-# |      runtime : Sys::Syslog (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Sys::Syslog (perl 5.36 core) (perl 5.38 core)
 # |      runtime : Try::Tiny
-# |      runtime : base (perl 5.34 core) (perl 5.36 core)
+# |      runtime : base (perl 5.36 core) (perl 5.38 core)
 # |      runtime : namespace::autoclean
-# |      runtime : parent (perl 5.34 core) (perl 5.36 core)
-# |      runtime : strict (perl 5.34 core) (perl 5.36 core)
-# |      runtime : warnings (perl 5.34 core) (perl 5.36 core)
+# |      runtime : parent (perl 5.36 core) (perl 5.38 core)
+# |      runtime : strict (perl 5.36 core) (perl 5.38 core)
+# |      runtime : warnings (perl 5.36 core) (perl 5.38 core)
 # |    configure : Dist::CheckConflicts
-# |    configure : ExtUtils::MakeMaker (perl 5.34 core) (perl 5.36 core)
-# |         test : Data::Dumper (perl 5.34 core) (perl 5.36 core)
-# |         test : ExtUtils::MakeMaker (perl 5.34 core) (perl 5.36 core)
-# |         test : File::Spec (perl 5.34 core) (perl 5.36 core)
-# |         test : File::Temp (perl 5.34 core) (perl 5.36 core)
-# |         test : FindBin (perl 5.34 core) (perl 5.36 core)
-# |         test : Getopt::Long (perl 5.34 core) (perl 5.36 core)
-# |         test : IO::File (perl 5.34 core) (perl 5.36 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.36 core) (perl 5.38 core)
+# |         test : Data::Dumper (perl 5.36 core) (perl 5.38 core)
+# |         test : ExtUtils::MakeMaker (perl 5.36 core) (perl 5.38 core)
+# |         test : File::Spec (perl 5.36 core) (perl 5.38 core)
+# |         test : File::Temp (perl 5.36 core) (perl 5.38 core)
+# |         test : FindBin (perl 5.36 core) (perl 5.38 core)
+# |         test : Getopt::Long (perl 5.36 core) (perl 5.38 core)
+# |         test : IO::File (perl 5.36 core) (perl 5.38 core)
 # |         test : IPC::Run3
-# |         test : POSIX (perl 5.34 core) (perl 5.36 core)
-# |         test : PerlIO (perl 5.34 core) (perl 5.36 core)
+# |         test : POSIX (perl 5.36 core) (perl 5.38 core)
+# |         test : PerlIO (perl 5.36 core) (perl 5.38 core)
 # |         test : Test::Fatal
-# |         test : Test::More (perl 5.34 core) (perl 5.36 core)
+# |         test : Test::More (perl 5.36 core) (perl 5.38 core)
 # |         test : Test::Needs
-# |         test : lib (perl 5.34 core) (perl 5.36 core)
-# |         test : utf8 (perl 5.34 core) (perl 5.36 core)
-# |         test : CPAN::Meta (perl 5.34 core) (perl 5.36 core)
+# |         test : lib (perl 5.36 core) (perl 5.38 core)
+# |         test : utf8 (perl 5.36 core) (perl 5.38 core)
+# |         test : CPAN::Meta (perl 5.36 core) (perl 5.38 core)
 
-[PERL_534].USES_ON=			perl:534,configure
-[PERL_534].BUILDRUN_DEPENDS_ON=		perl-Devel-GlobalDestruction:single:534
-					perl-Dist-CheckConflicts:single:534
-					perl-Module-Runtime:single:534
-					perl-Params-ValidationCompiler:single:534
-					perl-Specio:single:534
-					perl-Try-Tiny:single:534
-					perl-namespace-autoclean:single:534
 [PERL_536].USES_ON=			perl:536,configure
 [PERL_536].BUILDRUN_DEPENDS_ON=		perl-Devel-GlobalDestruction:single:536
 					perl-Dist-CheckConflicts:single:536
@@ -90,4 +82,12 @@ DISTNAME=		Log-Dispatch-${PORTVERSION}
 					perl-Specio:single:536
 					perl-Try-Tiny:single:536
 					perl-namespace-autoclean:single:536
+[PERL_538].USES_ON=			perl:538,configure
+[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Devel-GlobalDestruction:single:538
+					perl-Dist-CheckConflicts:single:538
+					perl-Module-Runtime:single:538
+					perl-Params-ValidationCompiler:single:538
+					perl-Specio:single:538
+					perl-Try-Tiny:single:538
+					perl-namespace-autoclean:single:538
 

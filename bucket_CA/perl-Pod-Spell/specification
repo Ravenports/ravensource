@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.26
 NAMEBASE=		perl-Pod-Spell
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		534 536
-SDESC[534]=		Formatter for spellchecking Pod (5.34)
+VARIANTS=		536 538
 SDESC[536]=		Formatter for spellchecking Pod (5.36)
+SDESC[538]=		Formatter for spellchecking Pod (5.38)
 HOMEPAGE=		https://github.com/perl-pod/Pod-Spell
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:H/HA/HAARG
 DISTFILE[1]=		Pod-Spell-${PORTVERSION}.tar.gz:main
 
-SPKGS[534]=		single
 SPKGS[536]=		single
+SPKGS[538]=		single
 
-OPTIONS_AVAILABLE=	PERL_534 PERL_536
+OPTIONS_AVAILABLE=	PERL_536 PERL_538
 OPTIONS_STANDARD=	none
-VOPTS[534]=		PERL_534=ON PERL_536=OFF
-VOPTS[536]=		PERL_534=OFF PERL_536=ON
+VOPTS[536]=		PERL_536=ON PERL_538=OFF
+VOPTS[538]=		PERL_536=OFF PERL_538=ON
 
 # License listed in CPAN directory:
 # artistic_2
@@ -32,35 +32,35 @@ DISTNAME=		Pod-Spell-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Carp (perl 5.36 core) (perl 5.38 core)
 # |      runtime : Class::Tiny
 # |      runtime : File::ShareDir
 # |      runtime : Lingua::EN::Inflect
-# |      runtime : POSIX (perl 5.34 core) (perl 5.36 core)
-# |      runtime : Pod::Escapes (perl 5.34 core) (perl 5.36 core)
-# |      runtime : Pod::Simple (perl 5.34 core) (perl 5.36 core)
-# |      runtime : Text::Wrap (perl 5.34 core) (perl 5.36 core)
-# |      runtime : constant (perl 5.34 core) (perl 5.36 core)
-# |      runtime : locale (perl 5.34 core) (perl 5.36 core)
-# |      runtime : parent (perl 5.34 core) (perl 5.36 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.34 core) (perl 5.36 core)
+# |      runtime : POSIX (perl 5.36 core) (perl 5.38 core)
+# |      runtime : Pod::Escapes (perl 5.36 core) (perl 5.38 core)
+# |      runtime : Pod::Simple (perl 5.36 core) (perl 5.38 core)
+# |      runtime : Text::Wrap (perl 5.36 core) (perl 5.38 core)
+# |      runtime : constant (perl 5.36 core) (perl 5.38 core)
+# |      runtime : locale (perl 5.36 core) (perl 5.38 core)
+# |      runtime : parent (perl 5.36 core) (perl 5.38 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.36 core) (perl 5.38 core)
 # |    configure : File::ShareDir::Install
-# |         test : ExtUtils::MakeMaker (perl 5.34 core) (perl 5.36 core)
-# |         test : File::Spec (perl 5.34 core) (perl 5.36 core)
-# |         test : File::Temp (perl 5.34 core) (perl 5.36 core)
-# |         test : IO::Handle (perl 5.34 core) (perl 5.36 core)
-# |         test : IPC::Open3 (perl 5.34 core) (perl 5.36 core)
-# |         test : Test::More (perl 5.34 core) (perl 5.36 core)
-# |         test : CPAN::Meta (perl 5.34 core) (perl 5.36 core)
+# |         test : ExtUtils::MakeMaker (perl 5.36 core) (perl 5.38 core)
+# |         test : File::Spec (perl 5.36 core) (perl 5.38 core)
+# |         test : File::Temp (perl 5.36 core) (perl 5.38 core)
+# |         test : IO::Handle (perl 5.36 core) (perl 5.38 core)
+# |         test : IPC::Open3 (perl 5.36 core) (perl 5.38 core)
+# |         test : Test::More (perl 5.36 core) (perl 5.38 core)
+# |         test : CPAN::Meta (perl 5.36 core) (perl 5.38 core)
 
-[PERL_534].USES_ON=			perl:534,configure
-[PERL_534].BUILDRUN_DEPENDS_ON=		perl-Class-Tiny:single:534
-					perl-File-ShareDir:single:534
-					perl-Lingua-EN-Inflect:single:534
-[PERL_534].BUILD_DEPENDS_ON=		perl-File-ShareDir-Install:single:534
 [PERL_536].USES_ON=			perl:536,configure
 [PERL_536].BUILDRUN_DEPENDS_ON=		perl-Class-Tiny:single:536
 					perl-File-ShareDir:single:536
 					perl-Lingua-EN-Inflect:single:536
 [PERL_536].BUILD_DEPENDS_ON=		perl-File-ShareDir-Install:single:536
+[PERL_538].USES_ON=			perl:538,configure
+[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Class-Tiny:single:538
+					perl-File-ShareDir:single:538
+					perl-Lingua-EN-Inflect:single:538
+[PERL_538].BUILD_DEPENDS_ON=		perl-File-ShareDir-Install:single:538
 

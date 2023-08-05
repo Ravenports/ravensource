@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.20230215
 NAMEBASE=		perl-Mail-DMARC
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		534 536
-SDESC[534]=		Perl implementation of DMARC (5.34)
+VARIANTS=		536 538
 SDESC[536]=		Perl implementation of DMARC (5.36)
+SDESC[538]=		Perl implementation of DMARC (5.38)
 HOMEPAGE=		https://github.com/msimerson/mail-dmarc
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:M/MB/MBRADSHAW
 DISTFILE[1]=		Mail-DMARC-${PORTVERSION}.tar.gz:main
 
-SPKGS[534]=		single
 SPKGS[536]=		single
+SPKGS[538]=		single
 
-OPTIONS_AVAILABLE=	PERL_534 PERL_536
+OPTIONS_AVAILABLE=	PERL_536 PERL_538
 OPTIONS_STANDARD=	none
-VOPTS[534]=		PERL_534=ON PERL_536=OFF
-VOPTS[536]=		PERL_534=OFF PERL_536=ON
+VOPTS[536]=		PERL_536=ON PERL_538=OFF
+VOPTS[538]=		PERL_536=OFF PERL_538=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,37 +32,37 @@ DISTNAME=		Mail-DMARC-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Carp (perl 5.36 core) (perl 5.38 core)
 # |      runtime : Config::Tiny
 # |      runtime : DBD::SQLite
 # |      runtime : DBIx::Simple
-# |      runtime : Data::Dumper (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Data::Dumper (perl 5.36 core) (perl 5.38 core)
 # |      runtime : Email::MIME
 # |      runtime : Email::Sender
 # |      runtime : Email::Sender::Simple
 # |      runtime : Email::Simple
-# |      runtime : Encode (perl 5.34 core) (perl 5.36 core)
-# |      runtime : English (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Encode (perl 5.36 core) (perl 5.38 core)
+# |      runtime : English (perl 5.36 core) (perl 5.38 core)
 # |      runtime : File::ShareDir
-# |      runtime : Getopt::Long (perl 5.34 core) (perl 5.36 core)
-# |      runtime : HTTP::Tiny (perl 5.34 core) (perl 5.36 core)
-# |      runtime : IO::Compress::Gzip (perl 5.34 core) (perl 5.36 core)
-# |      runtime : IO::Compress::Zip (perl 5.34 core) (perl 5.36 core)
-# |      runtime : IO::File (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Getopt::Long (perl 5.36 core) (perl 5.38 core)
+# |      runtime : HTTP::Tiny (perl 5.36 core) (perl 5.38 core)
+# |      runtime : IO::Compress::Gzip (perl 5.36 core) (perl 5.38 core)
+# |      runtime : IO::Compress::Zip (perl 5.36 core) (perl 5.38 core)
+# |      runtime : IO::File (perl 5.36 core) (perl 5.38 core)
 # |      runtime : IO::Socket::SSL
-# |      runtime : IO::Uncompress::Gunzip (perl 5.34 core) (perl 5.36 core)
-# |      runtime : IO::Uncompress::Unzip (perl 5.34 core) (perl 5.36 core)
+# |      runtime : IO::Uncompress::Gunzip (perl 5.36 core) (perl 5.38 core)
+# |      runtime : IO::Uncompress::Unzip (perl 5.36 core) (perl 5.38 core)
 # |      runtime : Net::DNS::Resolver
 # |      runtime : Net::IDN::Encode
 # |      runtime : Net::IP
 # |      runtime : Net::SSLeay
-# |      runtime : POSIX (perl 5.34 core) (perl 5.36 core)
-# |      runtime : Pod::Usage (perl 5.34 core) (perl 5.36 core)
+# |      runtime : POSIX (perl 5.36 core) (perl 5.38 core)
+# |      runtime : Pod::Usage (perl 5.36 core) (perl 5.38 core)
 # |      runtime : Regexp::Common
-# |      runtime : Socket (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Socket (perl 5.36 core) (perl 5.38 core)
 # |      runtime : Socket6
-# |      runtime : Sys::Hostname (perl 5.34 core) (perl 5.36 core)
-# |      runtime : Sys::Syslog (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Sys::Hostname (perl 5.36 core) (perl 5.38 core)
+# |      runtime : Sys::Syslog (perl 5.36 core) (perl 5.38 core)
 # |      runtime : Test::File::ShareDir
 # |      runtime : URI
 # |      runtime : XML::LibXML
@@ -74,32 +74,9 @@ DISTNAME=		Mail-DMARC-${PORTVERSION}
 # |    configure : Module::Build
 # |         test : Test::Exception
 # |         test : Test::File::ShareDir
-# |         test : Test::More (perl 5.34 core) (perl 5.36 core)
+# |         test : Test::More (perl 5.36 core) (perl 5.38 core)
 # |         test : Test::Output
 
-[PERL_534].USES_ON=			perl:534,buildmod,run
-[PERL_534].BUILDRUN_DEPENDS_ON=		perl-Config-Tiny:single:534
-					perl-DBD-SQLite:single:534
-					perl-DBIx-Simple:single:534
-					perl-Email-MIME:single:534
-					perl-Email-Sender:single:534
-					perl-Email-Simple:single:534
-					perl-File-ShareDir:single:534
-					perl-IO-Socket-SSL:single:534
-					perl-Net-DNS:single:534
-					perl-Net-IDN-Encode:single:534
-					perl-Net-IP:single:534
-					perl-Net-SSLeay:single:534
-					perl-Regexp-Common:single:534
-					perl-Socket6:single:534
-					perl-Test-File-ShareDir:single:534
-					perl-URI:single:534
-					perl-XML-LibXML:single:534
-					perl-Mail-DKIM:single:534
-					perl-Net-IMAP-Simple:single:534
-					perl-Net-SMTPS:single:534
-[PERL_534].BUILD_DEPENDS_ON=		perl-Module-Build:single:534
-					perl-File-ShareDir-Install:single:534
 [PERL_536].USES_ON=			perl:536,buildmod,run
 [PERL_536].BUILDRUN_DEPENDS_ON=		perl-Config-Tiny:single:536
 					perl-DBD-SQLite:single:536
@@ -123,4 +100,27 @@ DISTNAME=		Mail-DMARC-${PORTVERSION}
 					perl-Net-SMTPS:single:536
 [PERL_536].BUILD_DEPENDS_ON=		perl-Module-Build:single:536
 					perl-File-ShareDir-Install:single:536
+[PERL_538].USES_ON=			perl:538,buildmod,run
+[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Config-Tiny:single:538
+					perl-DBD-SQLite:single:538
+					perl-DBIx-Simple:single:538
+					perl-Email-MIME:single:538
+					perl-Email-Sender:single:538
+					perl-Email-Simple:single:538
+					perl-File-ShareDir:single:538
+					perl-IO-Socket-SSL:single:538
+					perl-Net-DNS:single:538
+					perl-Net-IDN-Encode:single:538
+					perl-Net-IP:single:538
+					perl-Net-SSLeay:single:538
+					perl-Regexp-Common:single:538
+					perl-Socket6:single:538
+					perl-Test-File-ShareDir:single:538
+					perl-URI:single:538
+					perl-XML-LibXML:single:538
+					perl-Mail-DKIM:single:538
+					perl-Net-IMAP-Simple:single:538
+					perl-Net-SMTPS:single:538
+[PERL_538].BUILD_DEPENDS_ON=		perl-Module-Build:single:538
+					perl-File-ShareDir-Install:single:538
 

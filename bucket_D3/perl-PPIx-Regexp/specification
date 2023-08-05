@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.088
 NAMEBASE=		perl-PPIx-Regexp
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		534 536
-SDESC[534]=		Parse regular expressions (5.34)
+VARIANTS=		536 538
 SDESC[536]=		Parse regular expressions (5.36)
+SDESC[538]=		Parse regular expressions (5.38)
 HOMEPAGE=		https://github.com/trwyant/perl-PPIx-Regexp
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:W/WY/WYANT
 DISTFILE[1]=		PPIx-Regexp-${PORTVERSION}.tar.gz:main
 
-SPKGS[534]=		single
 SPKGS[536]=		single
+SPKGS[538]=		single
 
-OPTIONS_AVAILABLE=	PERL_534 PERL_536
+OPTIONS_AVAILABLE=	PERL_536 PERL_538
 OPTIONS_STANDARD=	none
-VOPTS[534]=		PERL_534=ON PERL_536=OFF
-VOPTS[536]=		PERL_534=OFF PERL_536=ON
+VOPTS[536]=		PERL_536=ON PERL_538=OFF
+VOPTS[538]=		PERL_536=OFF PERL_538=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,33 +32,33 @@ DISTNAME=		PPIx-Regexp-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.34 core) (perl 5.36 core)
-# |      runtime : Encode (perl 5.34 core) (perl 5.36 core)
-# |      runtime : Exporter (perl 5.34 core) (perl 5.36 core)
-# |      runtime : List::Util (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Carp (perl 5.36 core) (perl 5.38 core)
+# |      runtime : Encode (perl 5.36 core) (perl 5.38 core)
+# |      runtime : Exporter (perl 5.36 core) (perl 5.38 core)
+# |      runtime : List::Util (perl 5.36 core) (perl 5.38 core)
 # |      runtime : PPI::Document
 # |      runtime : PPI::Dumper
-# |      runtime : Scalar::Util (perl 5.34 core) (perl 5.36 core)
+# |      runtime : Scalar::Util (perl 5.36 core) (perl 5.38 core)
 # |      runtime : Task::Weaken
-# |      runtime : base (perl 5.34 core) (perl 5.36 core)
-# |      runtime : constant (perl 5.34 core) (perl 5.36 core)
-# |      runtime : overload (perl 5.34 core) (perl 5.36 core)
-# |      runtime : strict (perl 5.34 core) (perl 5.36 core)
-# |      runtime : warnings (perl 5.34 core) (perl 5.36 core)
-# |        build : Test::More (perl 5.34 core) (perl 5.36 core)
-# |        build : charnames (perl 5.34 core) (perl 5.36 core)
-# |        build : lib (perl 5.34 core) (perl 5.36 core)
+# |      runtime : base (perl 5.36 core) (perl 5.38 core)
+# |      runtime : constant (perl 5.36 core) (perl 5.38 core)
+# |      runtime : overload (perl 5.36 core) (perl 5.38 core)
+# |      runtime : strict (perl 5.36 core) (perl 5.38 core)
+# |      runtime : warnings (perl 5.36 core) (perl 5.38 core)
+# |        build : Test::More (perl 5.36 core) (perl 5.38 core)
+# |        build : charnames (perl 5.36 core) (perl 5.38 core)
+# |        build : lib (perl 5.36 core) (perl 5.38 core)
 # |    configure : Module::Build
-# |    configure : lib (perl 5.34 core) (perl 5.36 core)
-# |    configure : strict (perl 5.34 core) (perl 5.36 core)
-# |    configure : warnings (perl 5.34 core) (perl 5.36 core)
+# |    configure : lib (perl 5.36 core) (perl 5.38 core)
+# |    configure : strict (perl 5.36 core) (perl 5.38 core)
+# |    configure : warnings (perl 5.36 core) (perl 5.38 core)
 
-[PERL_534].USES_ON=			perl:534,buildmod,run
-[PERL_534].BUILDRUN_DEPENDS_ON=		perl-PPI:single:534
-					perl-Task-Weaken:single:534
-[PERL_534].BUILD_DEPENDS_ON=		perl-Module-Build:single:534
 [PERL_536].USES_ON=			perl:536,buildmod,run
 [PERL_536].BUILDRUN_DEPENDS_ON=		perl-PPI:single:536
 					perl-Task-Weaken:single:536
 [PERL_536].BUILD_DEPENDS_ON=		perl-Module-Build:single:536
+[PERL_538].USES_ON=			perl:538,buildmod,run
+[PERL_538].BUILDRUN_DEPENDS_ON=		perl-PPI:single:538
+					perl-Task-Weaken:single:538
+[PERL_538].BUILD_DEPENDS_ON=		perl-Module-Build:single:538
 
