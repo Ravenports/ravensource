@@ -1,4 +1,4 @@
---- src/platformsupport/input/evdevkeyboard/qevdevkeyboard_defaultmap_p.h.orig	2023-05-12 04:40:15 UTC
+--- src/platformsupport/input/evdevkeyboard/qevdevkeyboard_defaultmap_p.h.orig	2023-07-06 10:02:03 UTC
 +++ src/platformsupport/input/evdevkeyboard/qevdevkeyboard_defaultmap_p.h
 @@ -17,11 +17,7 @@
  
