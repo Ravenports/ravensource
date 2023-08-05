@@ -25,9 +25,8 @@ ${_l:tu}_DEFAULT=	${base:C/.*=//g}
 # Possible values: 5.34 and 5.36
 #-------------------------------------------------------------------------
 
-PERL5_DEFAULT?=		5.34
+PERL5_DEFAULT?=		5.36
 
-PERL_5.34_VERSION=	5.34.1
 PERL_5.36_VERSION=	5.36.1
 PERL_5.38_VERSION=	5.38.0
 
