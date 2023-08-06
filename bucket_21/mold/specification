@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	2.0.0
+DEF[TAG]=		v${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mold
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Faster replacement for existing Unix linkers
+HOMEPAGE=		https://github.com/rui314/mold
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/rui314:mold:${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/mold
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+USES=			cmake zstd zlib ssl c++:primary
+CMAKE_ARGS=		-DMOLD_USE_SYSTEM_MIMALLOC=OFF
+			-DMOLD_USE_SYSTEM_TBB=OFF
+			-DOPENSSL_ROOT_DIR:STRING="{{OPENSSLBASE}}"
+
+pre-configure:
+	# don't duplicate license installation
+	${REINPLACE_CMD} -e '/LICENSE DESTINATION/d' ${WRKSRC}/CMakeLists.txt
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/mold
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mold/mold-wrapper.so
