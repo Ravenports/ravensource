@@ -133,7 +133,7 @@ GCC13_PHASE=			release
 # Ravenports base compiler
 # ------------------------------------------------------------------------
 
-GCCBASE_BRANCH=			11
+GCCBASE_BRANCH=			13
 GCCBASE_POINT=			2.0
 GCCBASE_VERSION=		${GCCBASE_BRANCH}.${GCCBASE_POINT}
 GCCBASE_REVISION=		0

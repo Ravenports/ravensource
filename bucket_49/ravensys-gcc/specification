@@ -5,10 +5,10 @@ DEF[MS_SUBDIR]=		EXTRACT_INFO(GCCBASE_MS_SUBDIR)
 DEF[IDENTIFICATION]=	EXTRACT_INFO(GCCBASE_IDENTIFICATION)
 DEF[GCC_VERSION]=	EXTRACT_INFO(GCCBASE_VERSION)
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
-DEF[STDCXX_VERSION]=	6.0.29
+DEF[STDCXX_VERSION]=	6.0.32
 DEF[TOOLCHAIN]=		{{LOCALBASE}}/toolchain
-DEF[DRACO_TAG]=		11.2.0-rev1
-DEF[DRACO_DIR]=		patches-11.2.0
+DEF[DRACO_TAG]=		13.2.0-base
+DEF[DRACO_DIR]=		patches-13.2.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravensys-gcc
@@ -29,7 +29,7 @@ DISTFILE[3]=		patch-diff-core:draco
 DISTFILE[4]=		patch-diff-cxx:draco
 DISTFILE[5]=		patch-diff-ada-testsuite:draco
 DISTFILE[6]=		patch-diff-gcc-testsuite:draco
-DIST_SUBDIR=		gcc11_${DRACO_TAG}
+DIST_SUBDIR=		ravensys-gcc_${DRACO_TAG}
 
 SPKGS[standard]=	complete compilers ada_run cxx_run fortran_run libs infopages
 
@@ -163,7 +163,7 @@ post-patch:
 	${REINPLACE_CMD} -e 's;\@PREFIX\@;${PREFIX:H};g' \
 		-e 's;\@GCCAUX\@;${NAMEBASE};' \
 		-e 's;\@LOCALBASE\@;${LOCALBASE};g' \
-		${WRKSRC}/gcc/gcc.c \
+		${WRKSRC}/gcc/gcc.cc \
 		${WRKSRC}/gcc/config/darwin.h \
 		${WRKSRC}/gcc/config/dragonfly.h \
 		${WRKSRC}/gcc/config/sol2.h \
@@ -208,8 +208,8 @@ post-install-dragonfly:
 post-install-freebsd:
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/include-fixed
 
-post-install-midnightbsd:
+post-install-netbsd:
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/include-fixed
 
-post-install-netbsd:
+post-install-midnightbsd:
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/include-fixed
