@@ -52,7 +52,6 @@ C_USES[dragonfly]=	iconv:build
 C_USES[midnightbsd]=	iconv:build
 C_USES[netbsd]=		iconv:build
 C_USES[solaris]=	iconv:build
-C_USES[darwin]=		iconv:build
 
 BUILD_DEPENDS=		gmp:static:standard
 			mpfr:static:standard
@@ -118,10 +117,6 @@ VAR_OPSYS[netbsd]=	CONFIGURE_ARGS=--disable-libstdcxx-pch
 			CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
 			CONFIGURE_ARGS=--disable-libssp
 			MAKEFILE_LINE=SSP="@comment "
-VAR_OPSYS[darwin]=	CONFIGURE_ARGS=--disable-libstdcxx-pch
-			CONFIGURE_ARGS=--with-ld=/usr/bin/ld
-			CONFIGURE_ARGS=--with-as=/usr/bin/as
-			CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
 VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--enable-symvers=no
 			CONFIGURE_ARGS=--with-gnu-as
 			CONFIGURE_ARGS=--with-as=${TOOLCHAIN}/bin/as
@@ -133,6 +128,11 @@ VAR_OPSYS[midnightbsd]=	CONFIGURE_ARGS=--disable-libstdcxx-pch
 			CONFIGURE_ARGS=--with-ld=${TOOLCHAIN}/bin/ld
 			CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
 			MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
+VAR_OPSYS[linux]=	CONFIGURE_ARGS=--with-gnu-as
+			CONFIGURE_ARGS=--with-as={{LOCALBASE}}/bin/as
+			CONFIGURE_ARGS=--with-ld={{LOCALBASE}}/bin/ld
+			CONFIGURE_ARGS=--disable-libssp
+			MAKEFILE_LINE=SSP="@comment "
 
 # Special case for ports compiler:
 # Don't support info pages.  This causes dependency on indexinfo,
