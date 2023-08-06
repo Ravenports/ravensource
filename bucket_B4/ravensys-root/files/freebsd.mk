@@ -318,8 +318,8 @@ install-platform: install-common
 		> ${DESTDIR}${BASE}/usr/lib/libc.so
 	${BSD_INSTALL_SCRIPT} ../${OPSYS:tl}/usr/bin/lorder ${DESTDIR}${BASE}/usr/bin/
 
-	rmdir ${DESTDIR}${BASE}/usr/include/dev/nand
 	rmdir ${DESTDIR}${BASE}/usr/include/dev/powermac_nvram
+	rmdir ${DESTDIR}${BASE}/usr/include/dev/wi
 	
 	# locale information
 .  for LC in COLLATE CTYPE MESSAGES MONETARY NUMERIC TIME
