@@ -178,6 +178,8 @@ post-patch:
 		${WRKSRC}/gcc/ada/traceback_symbolic.c
 	${REINPLACE_CMD} -e 's|static:crtbeginT.o%s;||' \
 		${WRKSRC}/gcc/config/freebsd-spec.h
+	# fix gcc-13 build of gcc-13 (don't specify c++11)
+	${REINPLACE_CMD} -e 's/ -std=c++11"/"/' ${WRKSRC}/configure
 
 post-patch-linux:
 	# undo BSD thin socket modification
