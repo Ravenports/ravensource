@@ -30,31 +30,6 @@ BOOST_LIBRARIES_REVISION=	0
 # Only keep the open branches of GCC
 # ------------------------------------------------------------------------
 # ------------------------------------------------------------------------
-# gcc10
-# ------------------------------------------------------------------------
-
-GCC10_BRANCH=			10
-GCC10_POINT=			5.0
-GCC10_VERSION=			${GCC10_BRANCH}.${GCC10_POINT}
-GCC10_SNAPSHOT=			20230707
-GCC10_BUILD_RELEASE=		yes
-GCC10_REVISION=			0
-GCC10_GNATCROSS_REVISION=	0
-GCC10_BOOTSTRAP_REVISION=	0
-
-.if ${GCC10_BUILD_RELEASE:Mno}
-GCC10_PORTVERSION=		${GCC10_BRANCH}.${GCC10_SNAPSHOT}
-GCC10_IDENTIFICATION=		gcc-${GCC10_BRANCH}-${GCC10_SNAPSHOT}
-GCC10_MS_SUBDIR=		snapshots/${GCC10_BRANCH}-${GCC10_SNAPSHOT}
-GCC10_PHASE=			snapshot
-.else
-GCC10_PORTVERSION=		${GCC10_VERSION}
-GCC10_IDENTIFICATION=		gcc-${GCC10_VERSION}
-GCC10_MS_SUBDIR=		releases/gcc-${GCC10_VERSION}
-GCC10_PHASE=			release
-.endif
-
-# ------------------------------------------------------------------------
 # gcc11
 # ------------------------------------------------------------------------
 
