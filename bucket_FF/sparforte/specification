@@ -36,6 +36,7 @@ LICENSE_SCHEME=		solo
 # FPC_EQUIVALENT=		shells/sparforte
 
 BROKEN[aarch64]=	fails to compile: gnat1: error: unknown value aarch64 for -march
+BROKEN[all]=		GNAT BUG DETECTED gnat_to_gnu_entity, parser_pen.adb
 
 BUILD_DEPENDS=		libGLU:dev:standard
 
@@ -118,7 +119,7 @@ post-extract:
 		${FILESDIR}/new_configure.in > ${WRKSRC}/new_configure
 	${CHMOD} 755 ${WRKSRC}/new_configure
 
-post-patch:
+pre-configure:
 	# move new 4 lines from post-extract to allow patching
 	${CP} ${SF_SRC}/${SCAL}-latest.ads ${SF_SRC}/${SCAL}.ads
 	${CP} ${SF_SRC}/${SCAL}-latest.adb ${SF_SRC}/${SCAL}.adb
