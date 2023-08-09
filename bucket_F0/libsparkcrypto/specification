@@ -38,6 +38,6 @@ MAKE_ENV=		SPARKARCH={{ARCH_STANDARD:S/i386/i686/}}
 			NO_TESTS=true
 			NO_SPARK=true
 
-post-patch:
+pre-configure:
 	#ports passed unwanted ARCH definition to Makefile
 	${REINPLACE_CMD} -e 's|ARCH|SPARKARCH|g' ${WRKSRC}/Makefile
