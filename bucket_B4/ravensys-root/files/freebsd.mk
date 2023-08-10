@@ -244,6 +244,7 @@ headers_BSD=\
 	runetype.h \
 	sdp.h \
 	stdalign.h \
+	stdatomic.h \
 	stdnoreturn.h \
 	stringlist.h \
 	sysexits.h \
