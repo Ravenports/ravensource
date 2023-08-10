@@ -59,6 +59,7 @@ CMAKE_ARGS=		-DFEATURE_system_zlib=ON
 			-DFEATURE_accessibility=ON
 			-DFEATURE_fontconfig=ON
 			-DFEATURE_openssl_linked=ON
+			-DFEATURE_opensslv11=ON
 			-DFEATURE_dbus_linked=OFF
 			-DBUILD_SHARED_LIBS=ON
 			-DQT_BUILD_TESTS=OFF
@@ -66,8 +67,8 @@ CMAKE_ARGS=		-DFEATURE_system_zlib=ON
 			-DQT_EXTRA_LIBDIRS="{{LOCALBASE}}/lib{{VAR2}}"
 			-DQT_EXTRA_INCLUDEPATHS={{LOCALBASE}}/include
 			-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/lib/qt6"
+			-DOPENSSL_ROOT_DIR:STRING="{{OPENSSLBASE}}"
 
-LDFLAGS=		-Wl,-rpath,{{OPENSSLLIB}}
 DISTNAME=		qtbase-everywhere-src-${PORTVERSION}
 SUB_FILES=		qmake.conf
 SUB_LIST=		CC={{CC:Q}}
