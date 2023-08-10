@@ -30,6 +30,9 @@ CMAKE_ARGS=		-DMOLD_USE_SYSTEM_MIMALLOC=OFF
 			-DMOLD_USE_SYSTEM_TBB=OFF
 			-DOPENSSL_ROOT_DIR:STRING="{{OPENSSLBASE}}"
 
+# FreeBSD hasn't implemented something needed for pre-compiled headers on gcc13
+C_USES[freebsd]=	clang
+
 pre-configure:
 	# don't duplicate license installation
 	${REINPLACE_CMD} -e '/LICENSE DESTINATION/d' ${WRKSRC}/CMakeLists.txt
