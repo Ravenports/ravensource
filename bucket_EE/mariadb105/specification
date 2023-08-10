@@ -16,8 +16,9 @@ DISTFILE[1]=		mariadb-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	complete server client dev man docs
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	ROCKSDB
+OPTIONS_STANDARD=	ROCKSDB
+# currently RocksDB doesn't build with gcc13's libstdc++
 
 LICENSE=		GPLv2:server
 LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
@@ -95,6 +96,10 @@ INSTALL_REQ_TOOLCHAIN=	yes
 VAR_OPSYS[freebsd]=	CXXFLAGS=-DHAVE_POSIX_MEMALIGN=1
 VAR_OPSYS[netbsd]=	MAKEFILE_LINE=AUTHSOCKET="@comment "
 			MAKEFILE_LINE=PAM=
+
+[ROCKSDB].DESCRIPTION=			Build RocksDB LSM Engine
+[ROCKSDB].CMAKE_ARGS_ON=		-DPLUGIN_ROCKSDB=DYNAMIC
+[ROCKSDB].CMAKE_ARGS_OFF=		-DPLUGIN_ROCKSDB=NO
 
 post-patch:
 	${CP} ${WRKSRC}/cmake/os/FreeBSD.cmake \
