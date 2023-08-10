@@ -4,7 +4,7 @@
  static forceinline upx_uint64_t bswap64(upx_uint64_t v) { return _byteswap_uint64(v); }
  
  #else
-+# if !defined(__FreeBSD__) && !defined(__DragonFly__)
++# if defined(__FreeBSD__) || defined(__DragonFly__)
  
  static forceinline constexpr unsigned bswap16(unsigned v) {
      // return __builtin_bswap16((upx_uint16_t) (v & 0xffff));
