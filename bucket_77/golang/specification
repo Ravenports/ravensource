@@ -9,14 +9,22 @@ SDESC[standard]=	Go programming language compiler
 HOMEPAGE=		https://golang.org/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main ravdist
 SITES[main]=		http://golang.org/dl/
+SITES[ravdist]=		https://leaf.dragonflybsd.org/~marino/raven-distfiles/
 DISTFILE[1]=		go${PORTVERSION}.src.tar.gz:main
+DISTFILE[2]=		freebsd-x86-64-go119.tar.zst:ravdist
+DF_INDEX=		1
 
 SPKGS[standard]=	single
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	BOOT_RP FREEBSD
+OPTIONS_STANDARD=	BOOT_RP FREEBSD
+OPT_ON[dragonfly]=	BOOT_RP
+OPT_ON[midnightbsd]=	BOOT_RP
+OPT_ON[netbsd]=		BOOT_RP
+OPT_ON[linux]=		BOOT_RP
+OPT_ON[freebsd]=	FREEBSD
 
 LICENSE=		BSD3CLAUSE:single
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
@@ -25,8 +33,6 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		lang/go
 
 NOT_FOR_ARCH=		aarch64
-
-BUILD_DEPENDS=		go119:single:standard
 
 USES=			cpe shebangfix
 CPE_VENDOR=		golang
@@ -46,6 +52,15 @@ SHEBANG_OLD_BASH=	"/usr/bin/env bash"
 SHEBANG_NEW_BASH=	{{SH}}
 DISTNAME=		go
 PLIST_SUB=		opsys_ARCH={{GOSYS}}_{{GOARCH}}
+
+[BOOT_RP].DESCRIPTION=			Bootstrap is Ravenports go119 package
+[BOOT_RP].BUILD_DEPENDS_ON=		go119:single:standard
+
+[FREEBSD].DESCRIPTION=			Bootstrap is externally packaged go119
+[FREEBSD].DF_INDEX_ON=			2
+
+post-extract-FREEBSD-ON:
+	(cd ${LOCALBASE} && ${LN} -s ${WRKDIR}/go119 go119)
 
 pre-configure:
 	${REINPLACE_CMD} -e 's|type -ap |type |' ${WRKSRC}/src/make.bash
