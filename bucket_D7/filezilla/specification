@@ -48,11 +48,6 @@ BUILDRUN_DEPENDS=	dbus:primary:standard
 			xdg-utils:single:standard
 			boost-libraries:primary:standard
 
-# FreeBSD's GCC ICEs
-# clang ICEs on the test.  Just assume c++17 works
-C_USES[freebsd]=	clang
-VAR_OPSYS[freebsd]=	CONFIGURE_ENV=ax_cv_cxx_compile_cxx17__std_cpp17=yes
-
 USES=			cpe gmake iconv pkgconfig sqlite zlib:build
 			fontconfig libtool
 GNOME_COMPONENTS=	cairo gtk3
