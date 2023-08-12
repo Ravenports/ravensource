@@ -34,7 +34,9 @@ BUILDRUN_DEPENDS=	harfbuzz:icu:standard
 			libb2:single:standard
 			cups:primary:standard
 
-# GCC ICEs on this port; use clang to build it on FreeBSD and Midnight
+# with gcc with no PCH: hidden symbol `__extendhfsf2' in
+# /raven/toolchain/ravensys-gcc/lib/gcc/x86_64-raven-freebsd13/13.2.0/libgcc.a(extendhfsf2.o)
+# is referenced by DSO
 C_USES[freebsd]=	clang
 C_USES[midnightbsd]=	clang
 
@@ -71,9 +73,7 @@ CMAKE_ARGS=		-DFEATURE_system_zlib=ON
 
 DISTNAME=		qtbase-everywhere-src-${PORTVERSION}
 SUB_FILES=		qmake.conf
-SUB_LIST=		CC={{CC:Q}}
-			CXX={{CXX:Q}}
-			LDFLAGS={{LDFLAGS:Q}}
+SUB_LIST=		LDFLAGS={{LDFLAGS:Q}}
 			CFLAGS={{CFLAGS:Q}}
 			CXXFLAGS={{CXXFLAGS:Q}}
 			AR={{AR:Q}}
@@ -94,7 +94,9 @@ SHEBANG_FILES=		mkspecs/features/uikit/devices.py
 			util/android/android_emulator_launcher.sh
 
 VAR_OPSYS[freebsd]=	VAR1=freebsd
+			CMAKE_ARGS=-DBUILD_WITH_PCH=OFF
 VAR_OPSYS[midnightbsd]=	VAR1=midnightbsd
+			CMAKE_ARGS=-DBUILD_WITH_PCH=OFF
 VAR_OPSYS[dragonfly]=	VAR1=dragonfly
 			MAKEFILE_LINE=FEAT_EVDEV="@comment "
 VAR_OPSYS[netbsd]=	VAR1=netbsd
