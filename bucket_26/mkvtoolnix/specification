@@ -41,10 +41,6 @@ BUILDRUN_DEPENDS=	libmatroska:single:standard
 			cmark:single:standard
 			qt5-qtsvg:single:standard
 
-# No more ICE, but clang still required due to "sorry, unimplemented: PCH allocation failure" on g++
-C_USES[freebsd]=	clang
-C_USES[midnightbsd]=	clang
-
 USES=			zlib pkgconfig gettext pcre2 iconv:build
 			solaris-funcs mime-info:primary desktop-utils:primary
 MUST_CONFIGURE=		gnu
@@ -62,6 +58,8 @@ SOL_FUNCTIONS=		timegm:src/common/date_time.cpp
 CONFIGURE_ENV=		PKG_CONFIG_PATH="{{LOCALBASE}}/lib/qt5/pkgconfig"
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
+VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-precompiled-headers=no
+VAR_OPSYS[midnightbsd]=	CONFIGURE_ARGS=--enable-precompiled-headers=no
 
 post-patch:
 	${FIND} ${WRKSRC} -type f -name "windows\.cpp" -delete
