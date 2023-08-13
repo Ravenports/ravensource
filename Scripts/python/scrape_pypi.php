@@ -430,6 +430,14 @@ function skip_extras($var) {
    return ($pos === false);
 }
 
+
+# prevent circular dependency on Sphinx
+function remove_sphinx($var) {
+    $pos = strpos($var, "Sphinx>=");
+    return ($pos === false);
+}
+
+
 # Line doesn't contain implementation_name == pypy
 function skip_bad_SU_requirements($var) {
    if (preg_match('/implementation_name == ["\']pypy["\']/', $var) > 0) {
@@ -533,6 +541,15 @@ function set_buildrun (&$portdata, $PDUO) {
        }
        $req_lines = scan_wheel_for_rundeps($metadata);
        $base_reqs = array_filter($req_lines, "skip_extras");
+       if (
+         (substr($distname, 0, 22) == "sphinxcontrib_htmlhelp") ||
+         (substr($distname, 0, 21) == "sphinxcontrib_devhelp") ||
+         (substr($distname, 0, 20) == "sphinxcontrib_qthelp") ||
+         (substr($distname, 0, 23) == "sphinxcontrib_applehelp") ||
+         (substr($distname, 0, 29) == "sphinxcontrib_serializinghtml")
+       ) {
+          $base_reqs = array_filter($base_reqs, "remove_sphinx");
+       }
        $comment_reqs = preg_replace('/^Requires-Dist: /', '# ', $req_lines);
        $portdata["req_comment"] .= join("\n", $comment_reqs);
        foreach ($PDUO as $V) {
