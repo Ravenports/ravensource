@@ -1,6 +1,7 @@
-DEF[PORTVERSION]=	0.7.0
+DEF[PORTVERSION]=	0.8.0
 DEF[SOVERSION]=		${PORTVERSION}
 DEF[MAJOR]=		${SOVERSION:R}
+DEF[TAG]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		yaml-cpp
@@ -12,21 +13,21 @@ HOMEPAGE=		https://github.com/jbeder/yaml-cpp
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/jbeder:yaml-cpp:yaml-cpp-${PORTVERSION}
+SITES[main]=		GITHUB/jbeder:yaml-cpp:${TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/yaml-cpp
 
-USES=			cpe cmake c++:single
+USES=			cpe cmake c++:primary
 CPE_VENDOR=		yaml-cpp_project
 CMAKE_ARGS=		-DYAML_BUILD_SHARED_LIBS:BOOL=ON
 			-DYAML_CPP_BUILD_TOOLS:BOOL=OFF
