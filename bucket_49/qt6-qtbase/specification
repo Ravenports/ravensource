@@ -37,12 +37,12 @@ BUILDRUN_DEPENDS=	harfbuzz:icu:standard
 # with gcc with no PCH: hidden symbol `__extendhfsf2' in
 # /raven/toolchain/ravensys-gcc/lib/gcc/x86_64-raven-freebsd13/13.2.0/libgcc.a(extendhfsf2.o)
 # is referenced by DSO
-C_USES[freebsd]=	clang
-C_USES[midnightbsd]=	clang
+# linker bug?  use clang for now.
 
 USES=			qt6 zlib png sqlite jpeg pkgconfig execinfo
 			iconv perl:build shebangfix ssl:openssl11
 			cpe cmake ninja zstd pcre2 freetype
+			clang
 XORG_COMPONENTS=	x11 xcb xcb-util xcb-util-image xcb-util-keysyms
 			xcb-util-wm xcb-render-util x11
 GNOME_COMPONENTS=	atk
