@@ -217,6 +217,7 @@ headers_BSD=\
 	link.h \
 	linker_set.h \
 	login_cap.h \
+	malloc_np.h \
 	memory.h \
 	mpool.h \
 	netconfig.h \
