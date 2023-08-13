@@ -1,4 +1,4 @@
---- libavutil/common.h.orig	2022-07-22 17:58:39 UTC
+--- libavutil/common.h.orig	2023-02-27 20:43:45 UTC
 +++ libavutil/common.h
 @@ -42,6 +42,10 @@
  #include "attributes.h"

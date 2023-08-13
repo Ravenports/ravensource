@@ -25,16 +25,8 @@ OPTIONS_STANDARD=	none
 BUILD_DEPENDS=		qt6-qtbase:dev:standard
 BUILDRUN_DEPENDS=	qt6-qtbase:primary:standard
 
-C_USES[freebsd]=	clang
-C_USES[midnightbsd]=	clang
-
-B_DEPS[freebsd]=	llvm:tools:standard
-			llvm:dev:standard
-B_DEPS[midnightbsd]=	llvm:tools:standard
-			llvm:dev:standard
-
-R_DEPS[freebsd]=	clang:dynlibs:standard
-R_DEPS[midnightbsd]=	clang:dynlibs:standard
+# qdoc requires clang, llvm, and more.
+# leave that tool unbuilt due to those heavy requires
 
 USES=			qt6 cmake pkgconfig perl:build cpe
 CPE_VENDOR=		qt

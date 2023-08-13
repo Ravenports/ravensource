@@ -16,7 +16,7 @@
  #include <sys/stat.h>
  #include <sys/file.h>
  #include <errno.h>
-+#if !defined(__DragonFly__)
++#if !defined(__DragonFly__) && !defined(__FreeBSD__)
  #include <sys/dir.h>
 +#endif
  #include <errno.h>

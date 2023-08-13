@@ -32,7 +32,7 @@ DISTFILE[5]=		patch-diff-ada-testsuite:draco
 DISTFILE[6]=		patch-diff-gcc-testsuite:draco
 DIST_SUBDIR=		gcc11_${DRACO_TAG}
 
-SPKGS[standard]=	complete compilers ada_run cxx_run fortran_run libs infopages nls
+SPKGS[standard]=	complete compilers cxx_run fortran_run libs infopages nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -51,13 +51,11 @@ FPC_EQUIVALENT=		lang/gcc11
 C_USES[freebsd]=	iconv:build
 C_USES[dragonfly]=	iconv:build
 C_USES[midnightbsd]=	iconv:build
-C_USES[darwin]=		iconv:build
 
 BUILD_DEPENDS=		gmp:static:standard
 			mpfr:static:standard
 			mpc:static:standard
 BUILDRUN_DEPENDS=	ravensys-binutils:single:standard
-EXRUN[ada_run]=		gcc${BRANCH}:libs:standard
 EXRUN[cxx_run]=		gcc${BRANCH}:libs:standard
 EXRUN[fortran_run]=	gcc${BRANCH}:libs:standard
 EXRUN[compilers]=	gcc${BRANCH}:cxx_run:standard
@@ -76,7 +74,7 @@ PLIST_SUB=		GCCVER=${GCC_VERSION}
 PREFIX=			{{LOCALBASE}}/toolchain/{{NAMEBASE}}
 INSTALL_TARGET=		install-strip
 CONFIGURE_OUTSOURCE=	yes
-CONFIGURE_ARGS=		--enable-languages="c,c++,ada,fortran"
+CONFIGURE_ARGS=		--enable-languages="c,c++,fortran"
 			--with-local-prefix={{LOCALBASE}}
 			--with-gmp={{LOCALBASE}}
 			--with-mpc={{LOCALBASE}}
@@ -112,10 +110,6 @@ VAR_OPSYS[netbsd]=	CONFIGURE_ARGS=--disable-libstdcxx-pch
 			CONFIGURE_ARGS=--with-as=${TOOLCHAIN}/bin/as
 			CONFIGURE_ARGS=--with-ld=${TOOLCHAIN}/bin/ld
 			CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
-VAR_OPSYS[darwin]=	CONFIGURE_ARGS=--disable-libstdcxx-pch
-			CONFIGURE_ARGS=--with-ld=/usr/bin/ld
-			CONFIGURE_ARGS=--with-as=/usr/bin/as
-			CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
 VAR_OPSYS[midnightbsd]=	CONFIGURE_ARGS=--disable-libstdcxx-pch
 			CONFIGURE_ARGS=--with-gnu-as
 			CONFIGURE_ARGS=--with-as=${TOOLCHAIN}/bin/as
@@ -129,9 +123,6 @@ INFO=			infopages:cpp
 			infopages:gccinstall
 			infopages:gccint
 			infopages:gfortran
-			infopages:gnat-style
-			infopages:gnat_rm
-			infopages:gnat_ugn
 			infopages:libquadmath
 			infopages:libitm
 			infopages:libgomp
@@ -175,28 +166,9 @@ post-patch:
 	${REINPLACE_CMD} -e 's|static:crtbeginT.o%s;||' \
 		${WRKSRC}/gcc/config/freebsd-spec.h
 
-post-patch-linux:
-	# undo BSD thin socket modification
-	${MV} ${WRKSRC}/gcc/ada/libgnat/g-socthi.ads.orig \
-		${WRKSRC}/gcc/ada/libgnat/g-socthi.ads
-
-post-patch-darwin:
-	# undo BSD thin socket modification
-	${MV} ${WRKSRC}/gcc/ada/libgnat/g-socthi.ads.orig \
-		${WRKSRC}/gcc/ada/libgnat/g-socthi.ads
-	${FIND} ${WRKSRC} -name configure | ${XARGS} \
-		${SED} -i.mac -e 's|apple-darwin|raven-darwin|' \
-		${WRKSRC}/gcc/configure
-
 post-install:
 	cp ${STAGEDIR}${PREFIX}/bin/gcc ${STAGEDIR}${PREFIX}/bin/cc
 	${RM} ${STAGEDIR}${MANPREFIX}/man/man7/*
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/adalib/libgnarl.${LIBEXT}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/adalib/libgnat.${LIBEXT}
-	# remove when info pages re-enabled
-	${RM} ${STAGEDIR}${PREFIX}/share/info/libitm.info
-	${RM} ${STAGEDIR}${PREFIX}/share/info/libgomp.info
-	${RM} ${STAGEDIR}${PREFIX}/share/info/libquadmath.info
 
 post-install-dragonfly:
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/include-fixed

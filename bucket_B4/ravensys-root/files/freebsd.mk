@@ -107,6 +107,8 @@ dynamic_lib_FreeBSD=\
 	/lib/libthr.so.3 \
 	/lib/libdevstat.so.7 \
 	/lib/libjail.so.1 \
+	/lib/libcasper.so.1 \
+	/lib/libnv.so.0 \
 	/usr/lib/libdevinfo.so.6 \
 	/usr/lib/libexecinfo.so.1 \
 	/usr/lib/libmemstat.so.3 \
@@ -242,6 +244,7 @@ headers_BSD=\
 	runetype.h \
 	sdp.h \
 	stdalign.h \
+	stdatomic.h \
 	stdnoreturn.h \
 	stringlist.h \
 	sysexits.h \
@@ -314,12 +317,14 @@ install-platform: install-common
 	${BSD_INSTALL_LIB} ../${OPSYS:tl}/lib/libgcc_s.so.1 ${DESTDIR}${BASE}/usr/lib/
 	${BSD_INSTALL_LIB} ../${OPSYS:tl}/lib/libcxxrt.so.1 ${DESTDIR}${BASE}/usr/lib/
 	${BSD_INSTALL_LIB} ../${OPSYS:tl}/usr/lib/libc++.so.1 ${DESTDIR}${BASE}/usr/lib/
+	${BSD_INSTALL_LIB} ../${OPSYS:tl}/lib/casper/libcap_fileargs.so.1 \
+		${DESTDIR}${BASE}/usr/lib/
 	sed -e 's|/lib/libc\.so|/usr/lib/libc.so|'  ../${OPSYS:tl}/usr/lib/libc.so \
 		> ${DESTDIR}${BASE}/usr/lib/libc.so
 	${BSD_INSTALL_SCRIPT} ../${OPSYS:tl}/usr/bin/lorder ${DESTDIR}${BASE}/usr/bin/
 
-	rmdir ${DESTDIR}${BASE}/usr/include/dev/nand
 	rmdir ${DESTDIR}${BASE}/usr/include/dev/powermac_nvram
+	rmdir ${DESTDIR}${BASE}/usr/include/dev/wi
 	
 	# locale information
 .  for LC in COLLATE CTYPE MESSAGES MONETARY NUMERIC TIME

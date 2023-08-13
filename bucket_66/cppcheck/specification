@@ -33,9 +33,6 @@ BUILDRUN_DEPENDS=	qt5-qtbase:primary:standard
 
 EXRUN[gui]=		cppcheck:tools:standard
 
-C_USES[freebsd]=	clang
-C_USES[midnightbsd]=	clang
-
 USES=			cmake shebangfix pcre python c++:tools,gui
 GNOME_COMPONENTS=	libxslt
 SHEBANG_FILES=		htmlreport/cppcheck-htmlreport
@@ -44,6 +41,7 @@ CMAKE_ARGS=		-DHAVE_RULES:BOOL=ON
 			-DBUILD_GUI:BOOL=ON
 			-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
 			-DNPROC="{{MAKE_JOBS_NUMBER}}"
+			-DCMAKE_DISABLE_PRECOMPILE_HEADERS:BOOL=ON
 CPPFLAGS=		-Wno-unused-function
 SINGLE_JOB=		yes
 

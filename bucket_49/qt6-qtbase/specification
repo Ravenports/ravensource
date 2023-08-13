@@ -34,13 +34,15 @@ BUILDRUN_DEPENDS=	harfbuzz:icu:standard
 			libb2:single:standard
 			cups:primary:standard
 
-# GCC ICEs on this port; use clang to build it on FreeBSD and Midnight
-C_USES[freebsd]=	clang
-C_USES[midnightbsd]=	clang
+# with gcc with no PCH: hidden symbol `__extendhfsf2' in
+# /raven/toolchain/ravensys-gcc/lib/gcc/x86_64-raven-freebsd13/13.2.0/libgcc.a(extendhfsf2.o)
+# is referenced by DSO
+# linker bug?  use clang for now.
 
 USES=			qt6 zlib png sqlite jpeg pkgconfig execinfo
 			iconv perl:build shebangfix ssl:openssl11
 			cpe cmake ninja zstd pcre2 freetype
+			clang
 XORG_COMPONENTS=	x11 xcb xcb-util xcb-util-image xcb-util-keysyms
 			xcb-util-wm xcb-render-util x11
 GNOME_COMPONENTS=	atk
@@ -58,21 +60,20 @@ CMAKE_ARGS=		-DFEATURE_system_zlib=ON
 			-DFEATURE_sql_sqlite=ON
 			-DFEATURE_accessibility=ON
 			-DFEATURE_fontconfig=ON
-			-DINPUT_dbus=runtime
-			-DINPUT_openssl=linked
+			-DFEATURE_openssl_linked=ON
+			-DFEATURE_opensslv11=ON
+			-DFEATURE_dbus_linked=OFF
 			-DBUILD_SHARED_LIBS=ON
 			-DQT_BUILD_TESTS=OFF
 			-DQT_BUILD_EXAMPLES=OFF
 			-DQT_EXTRA_LIBDIRS="{{LOCALBASE}}/lib{{VAR2}}"
 			-DQT_EXTRA_INCLUDEPATHS={{LOCALBASE}}/include
 			-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/lib/qt6"
+			-DOPENSSL_ROOT_DIR:STRING="{{OPENSSLBASE}}"
 
-LDFLAGS=		-Wl,-rpath,{{OPENSSLLIB}}
 DISTNAME=		qtbase-everywhere-src-${PORTVERSION}
 SUB_FILES=		qmake.conf
-SUB_LIST=		CC={{CC:Q}}
-			CXX={{CXX:Q}}
-			LDFLAGS={{LDFLAGS:Q}}
+SUB_LIST=		LDFLAGS={{LDFLAGS:Q}}
 			CFLAGS={{CFLAGS:Q}}
 			CXXFLAGS={{CXXFLAGS:Q}}
 			AR={{AR:Q}}
@@ -93,7 +94,9 @@ SHEBANG_FILES=		mkspecs/features/uikit/devices.py
 			util/android/android_emulator_launcher.sh
 
 VAR_OPSYS[freebsd]=	VAR1=freebsd
+			CMAKE_ARGS=-DBUILD_WITH_PCH=OFF
 VAR_OPSYS[midnightbsd]=	VAR1=midnightbsd
+			CMAKE_ARGS=-DBUILD_WITH_PCH=OFF
 VAR_OPSYS[dragonfly]=	VAR1=dragonfly
 			MAKEFILE_LINE=FEAT_EVDEV="@comment "
 VAR_OPSYS[netbsd]=	VAR1=netbsd

@@ -5,10 +5,10 @@ DEF[MS_SUBDIR]=		EXTRACT_INFO(GCCBASE_MS_SUBDIR)
 DEF[IDENTIFICATION]=	EXTRACT_INFO(GCCBASE_IDENTIFICATION)
 DEF[GCC_VERSION]=	EXTRACT_INFO(GCCBASE_VERSION)
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
-DEF[STDCXX_VERSION]=	6.0.29
+DEF[STDCXX_VERSION]=	6.0.32
 DEF[TOOLCHAIN]=		{{LOCALBASE}}/toolchain
-DEF[DRACO_TAG]=		11.2.0-rev1
-DEF[DRACO_DIR]=		patches-11.2.0
+DEF[DRACO_TAG]=		13.2.0-base
+DEF[DRACO_DIR]=		patches-13.2.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravensys-gcc
@@ -29,7 +29,7 @@ DISTFILE[3]=		patch-diff-core:draco
 DISTFILE[4]=		patch-diff-cxx:draco
 DISTFILE[5]=		patch-diff-ada-testsuite:draco
 DISTFILE[6]=		patch-diff-gcc-testsuite:draco
-DIST_SUBDIR=		gcc11_${DRACO_TAG}
+DIST_SUBDIR=		ravensys-gcc_${DRACO_TAG}
 
 SPKGS[standard]=	complete compilers ada_run cxx_run fortran_run libs infopages
 
@@ -52,7 +52,6 @@ C_USES[dragonfly]=	iconv:build
 C_USES[midnightbsd]=	iconv:build
 C_USES[netbsd]=		iconv:build
 C_USES[solaris]=	iconv:build
-C_USES[darwin]=		iconv:build
 
 BUILD_DEPENDS=		gmp:static:standard
 			mpfr:static:standard
@@ -118,10 +117,6 @@ VAR_OPSYS[netbsd]=	CONFIGURE_ARGS=--disable-libstdcxx-pch
 			CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
 			CONFIGURE_ARGS=--disable-libssp
 			MAKEFILE_LINE=SSP="@comment "
-VAR_OPSYS[darwin]=	CONFIGURE_ARGS=--disable-libstdcxx-pch
-			CONFIGURE_ARGS=--with-ld=/usr/bin/ld
-			CONFIGURE_ARGS=--with-as=/usr/bin/as
-			CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
 VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--enable-symvers=no
 			CONFIGURE_ARGS=--with-gnu-as
 			CONFIGURE_ARGS=--with-as=${TOOLCHAIN}/bin/as
@@ -133,6 +128,11 @@ VAR_OPSYS[midnightbsd]=	CONFIGURE_ARGS=--disable-libstdcxx-pch
 			CONFIGURE_ARGS=--with-ld=${TOOLCHAIN}/bin/ld
 			CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
 			MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
+VAR_OPSYS[linux]=	CONFIGURE_ARGS=--with-gnu-as
+			CONFIGURE_ARGS=--with-as={{LOCALBASE}}/bin/as
+			CONFIGURE_ARGS=--with-ld={{LOCALBASE}}/bin/ld
+			CONFIGURE_ARGS=--disable-libssp
+			MAKEFILE_LINE=SSP="@comment "
 
 # Special case for ports compiler:
 # Don't support info pages.  This causes dependency on indexinfo,
@@ -163,7 +163,7 @@ post-patch:
 	${REINPLACE_CMD} -e 's;\@PREFIX\@;${PREFIX:H};g' \
 		-e 's;\@GCCAUX\@;${NAMEBASE};' \
 		-e 's;\@LOCALBASE\@;${LOCALBASE};g' \
-		${WRKSRC}/gcc/gcc.c \
+		${WRKSRC}/gcc/gcc.cc \
 		${WRKSRC}/gcc/config/darwin.h \
 		${WRKSRC}/gcc/config/dragonfly.h \
 		${WRKSRC}/gcc/config/sol2.h \
@@ -178,6 +178,8 @@ post-patch:
 		${WRKSRC}/gcc/ada/traceback_symbolic.c
 	${REINPLACE_CMD} -e 's|static:crtbeginT.o%s;||' \
 		${WRKSRC}/gcc/config/freebsd-spec.h
+	# fix gcc-13 build of gcc-13 (don't specify c++11)
+	${REINPLACE_CMD} -e 's/ -std=c++11"/"/' ${WRKSRC}/configure
 
 post-patch-linux:
 	# undo BSD thin socket modification
@@ -208,8 +210,8 @@ post-install-dragonfly:
 post-install-freebsd:
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/include-fixed
 
-post-install-midnightbsd:
+post-install-netbsd:
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/include-fixed
 
-post-install-netbsd:
+post-install-midnightbsd:
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/include-fixed
