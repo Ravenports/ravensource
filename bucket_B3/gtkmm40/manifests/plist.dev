@@ -17,6 +17,7 @@ include/gtkmm-%%API%%/gdkmm/displaymanager.h
 include/gtkmm-%%API%%/gdkmm/drag.h
 include/gtkmm-%%API%%/gdkmm/dragsurface.h
 include/gtkmm-%%API%%/gdkmm/dragsurfaceimpl.h
+include/gtkmm-%%API%%/gdkmm/dragsurfacesize.h
 include/gtkmm-%%API%%/gdkmm/drawcontext.h
 include/gtkmm-%%API%%/gdkmm/drop.h
 include/gtkmm-%%API%%/gdkmm/enums.h
@@ -26,6 +27,10 @@ include/gtkmm-%%API%%/gdkmm/frametimings.h
 include/gtkmm-%%API%%/gdkmm/general.h
 include/gtkmm-%%API%%/gdkmm/glcontext.h
 include/gtkmm-%%API%%/gdkmm/gltexture.h
+include/gtkmm-%%API%%/gdkmm/gltexturebuilder.h
+include/gtkmm-%%API%%/gdkmm/graphene_point.h
+include/gtkmm-%%API%%/gdkmm/graphene_rect.h
+include/gtkmm-%%API%%/gdkmm/graphene_size.h
 include/gtkmm-%%API%%/gdkmm/memorytexture.h
 include/gtkmm-%%API%%/gdkmm/monitor.h
 include/gtkmm-%%API%%/gdkmm/paintable.h
@@ -40,6 +45,7 @@ include/gtkmm-%%API%%/gdkmm/popupsurfaceimpl.h
 include/gtkmm-%%API%%/gdkmm/rectangle.h
 include/gtkmm-%%API%%/gdkmm/rgba.h
 include/gtkmm-%%API%%/gdkmm/seat.h
+include/gtkmm-%%API%%/gdkmm/slot_async.h
 include/gtkmm-%%API%%/gdkmm/snapshot.h
 include/gtkmm-%%API%%/gdkmm/surface.h
 include/gtkmm-%%API%%/gdkmm/texture.h
@@ -65,6 +71,7 @@ include/gtkmm-%%API%%/gdkmm/private/display_p.h
 include/gtkmm-%%API%%/gdkmm/private/displaymanager_p.h
 include/gtkmm-%%API%%/gdkmm/private/drag_p.h
 include/gtkmm-%%API%%/gdkmm/private/dragsurface_p.h
+include/gtkmm-%%API%%/gdkmm/private/dragsurfacesize_p.h
 include/gtkmm-%%API%%/gdkmm/private/drawcontext_p.h
 include/gtkmm-%%API%%/gdkmm/private/drop_p.h
 include/gtkmm-%%API%%/gdkmm/private/enums_p.h
@@ -73,6 +80,10 @@ include/gtkmm-%%API%%/gdkmm/private/frameclock_p.h
 include/gtkmm-%%API%%/gdkmm/private/frametimings_p.h
 include/gtkmm-%%API%%/gdkmm/private/glcontext_p.h
 include/gtkmm-%%API%%/gdkmm/private/gltexture_p.h
+include/gtkmm-%%API%%/gdkmm/private/gltexturebuilder_p.h
+include/gtkmm-%%API%%/gdkmm/private/graphene_point_p.h
+include/gtkmm-%%API%%/gdkmm/private/graphene_rect_p.h
+include/gtkmm-%%API%%/gdkmm/private/graphene_size_p.h
 include/gtkmm-%%API%%/gdkmm/private/memorytexture_p.h
 include/gtkmm-%%API%%/gdkmm/private/monitor_p.h
 include/gtkmm-%%API%%/gdkmm/private/paintable_p.h
@@ -150,7 +161,9 @@ include/gtkmm-%%API%%/gtkmm/colorchooserdialog.h
 include/gtkmm-%%API%%/gtkmm/colordialog.h
 include/gtkmm-%%API%%/gtkmm/colordialogbutton.h
 include/gtkmm-%%API%%/gtkmm/columnview.h
+include/gtkmm-%%API%%/gtkmm/columnviewcell.h
 include/gtkmm-%%API%%/gtkmm/columnviewcolumn.h
+include/gtkmm-%%API%%/gtkmm/columnviewrow.h
 include/gtkmm-%%API%%/gtkmm/columnviewsorter.h
 include/gtkmm-%%API%%/gtkmm/combobox.h
 include/gtkmm-%%API%%/gtkmm/comboboxtext.h
@@ -238,6 +251,7 @@ include/gtkmm-%%API%%/gtkmm/linkbutton.h
 include/gtkmm-%%API%%/gtkmm/listbase.h
 include/gtkmm-%%API%%/gtkmm/listbox.h
 include/gtkmm-%%API%%/gtkmm/listboxrow.h
+include/gtkmm-%%API%%/gtkmm/listheader.h
 include/gtkmm-%%API%%/gtkmm/listitem.h
 include/gtkmm-%%API%%/gtkmm/listitemfactory.h
 include/gtkmm-%%API%%/gtkmm/liststore.h
@@ -291,8 +305,10 @@ include/gtkmm-%%API%%/gtkmm/scalebutton.h
 include/gtkmm-%%API%%/gtkmm/scrollable.h
 include/gtkmm-%%API%%/gtkmm/scrollbar.h
 include/gtkmm-%%API%%/gtkmm/scrolledwindow.h
+include/gtkmm-%%API%%/gtkmm/scrollinfo.h
 include/gtkmm-%%API%%/gtkmm/searchbar.h
 include/gtkmm-%%API%%/gtkmm/searchentry.h
+include/gtkmm-%%API%%/gtkmm/sectionmodel.h
 include/gtkmm-%%API%%/gtkmm/selectionfiltermodel.h
 include/gtkmm-%%API%%/gtkmm/selectionlistmodelimpl.h
 include/gtkmm-%%API%%/gtkmm/selectionmodel.h
@@ -329,6 +345,7 @@ include/gtkmm-%%API%%/gtkmm/stringsorter.h
 include/gtkmm-%%API%%/gtkmm/stylecontext.h
 include/gtkmm-%%API%%/gtkmm/styleprovider.h
 include/gtkmm-%%API%%/gtkmm/switch.h
+include/gtkmm-%%API%%/gtkmm/symbolicpaintable.h
 include/gtkmm-%%API%%/gtkmm/text.h
 include/gtkmm-%%API%%/gtkmm/textbuffer.h
 include/gtkmm-%%API%%/gtkmm/textchildanchor.h
@@ -421,7 +438,9 @@ include/gtkmm-%%API%%/gtkmm/private/colorchooserdialog_p.h
 include/gtkmm-%%API%%/gtkmm/private/colordialog_p.h
 include/gtkmm-%%API%%/gtkmm/private/colordialogbutton_p.h
 include/gtkmm-%%API%%/gtkmm/private/columnview_p.h
+include/gtkmm-%%API%%/gtkmm/private/columnviewcell_p.h
 include/gtkmm-%%API%%/gtkmm/private/columnviewcolumn_p.h
+include/gtkmm-%%API%%/gtkmm/private/columnviewrow_p.h
 include/gtkmm-%%API%%/gtkmm/private/columnviewsorter_p.h
 include/gtkmm-%%API%%/gtkmm/private/combobox_p.h
 include/gtkmm-%%API%%/gtkmm/private/comboboxtext_p.h
@@ -508,6 +527,7 @@ include/gtkmm-%%API%%/gtkmm/private/linkbutton_p.h
 include/gtkmm-%%API%%/gtkmm/private/listbase_p.h
 include/gtkmm-%%API%%/gtkmm/private/listbox_p.h
 include/gtkmm-%%API%%/gtkmm/private/listboxrow_p.h
+include/gtkmm-%%API%%/gtkmm/private/listheader_p.h
 include/gtkmm-%%API%%/gtkmm/private/listitem_p.h
 include/gtkmm-%%API%%/gtkmm/private/listitemfactory_p.h
 include/gtkmm-%%API%%/gtkmm/private/liststore_p.h
@@ -560,8 +580,10 @@ include/gtkmm-%%API%%/gtkmm/private/scalebutton_p.h
 include/gtkmm-%%API%%/gtkmm/private/scrollable_p.h
 include/gtkmm-%%API%%/gtkmm/private/scrollbar_p.h
 include/gtkmm-%%API%%/gtkmm/private/scrolledwindow_p.h
+include/gtkmm-%%API%%/gtkmm/private/scrollinfo_p.h
 include/gtkmm-%%API%%/gtkmm/private/searchbar_p.h
 include/gtkmm-%%API%%/gtkmm/private/searchentry_p.h
+include/gtkmm-%%API%%/gtkmm/private/sectionmodel_p.h
 include/gtkmm-%%API%%/gtkmm/private/selectionfiltermodel_p.h
 include/gtkmm-%%API%%/gtkmm/private/selectionmodel_p.h
 include/gtkmm-%%API%%/gtkmm/private/separator_p.h
@@ -597,6 +619,7 @@ include/gtkmm-%%API%%/gtkmm/private/stringsorter_p.h
 include/gtkmm-%%API%%/gtkmm/private/stylecontext_p.h
 include/gtkmm-%%API%%/gtkmm/private/styleprovider_p.h
 include/gtkmm-%%API%%/gtkmm/private/switch_p.h
+include/gtkmm-%%API%%/gtkmm/private/symbolicpaintable_p.h
 include/gtkmm-%%API%%/gtkmm/private/text_p.h
 include/gtkmm-%%API%%/gtkmm/private/textbuffer_p.h
 include/gtkmm-%%API%%/gtkmm/private/textchildanchor_p.h
