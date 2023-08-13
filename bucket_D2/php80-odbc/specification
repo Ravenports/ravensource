@@ -23,6 +23,7 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		${KEYWORD}/php${SUFFIX}-${MODULE}
 
+BUILD_DEPENDS=		unixODBC:dev:standard
 BUILDRUN_DEPENDS=	unixODBC:primary:standard
 
 USES=			php:ext,${SUFFIX} cpe
@@ -31,5 +32,6 @@ CPE_PRODUCT=		php
 DISTNAME=		php-${PORTVERSION}/ext/{{PHP_MODNAME}}
 CONFIGURE_ARGS=		--enable-${MODULE}
 			--with-unixODBC={{LOCALBASE}}
+
 EXTRACT_HEAD[1]=	{{TAR}} -xf
 EXTRACT_TAIL[1]=	php-${PORTVERSION}/ext/{{PHP_MODNAME}}
