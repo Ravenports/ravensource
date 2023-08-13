@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.5700
+DEF[PORTVERSION]=	1.5800
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Finance-Quote
@@ -12,7 +12,7 @@ CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:B/BP/BPSCHUCK
-DISTFILE[1]=		Finance-Quote-1.57.tar.gz:main
+DISTFILE[1]=		Finance-Quote-1.58.tar.gz:main
 
 SPKGS[536]=		single
 SPKGS[538]=		single
@@ -27,13 +27,12 @@ VOPTS[538]=		PERL_536=OFF PERL_538=ON
 
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		Finance-Quote-1.57
+DISTNAME=		Finance-Quote-1.58
 
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
 # |      runtime : Carp (perl 5.36 core) (perl 5.38 core)
-# |      runtime : Date::Manip
 # |      runtime : DateTime
 # |      runtime : DateTime::Format::Strptime
 # |      runtime : Encode (perl 5.36 core) (perl 5.38 core)
@@ -44,6 +43,7 @@ DISTNAME=		Finance-Quote-1.57
 # |      runtime : HTML::TokeParser::Simple
 # |      runtime : HTML::TreeBuilder
 # |      runtime : HTML::TreeBuilder::XPath
+# |      runtime : HTTP::CookieJar::LWP
 # |      runtime : HTTP::Cookies
 # |      runtime : HTTP::Headers
 # |      runtime : HTTP::Request
@@ -78,6 +78,7 @@ DISTNAME=		Finance-Quote-1.57
 # |      runtime : vars (perl 5.36 core) (perl 5.38 core)
 # |      runtime : warnings (perl 5.36 core) (perl 5.38 core)
 # |    configure : ExtUtils::MakeMaker (perl 5.36 core) (perl 5.38 core)
+# |         test : Date::Manip
 # |         test : Date::Range
 # |         test : Date::Simple
 # |         test : DateTime::Duration
@@ -92,14 +93,14 @@ DISTNAME=		Finance-Quote-1.57
 # |         test : feature (perl 5.36 core) (perl 5.38 core)
 
 [PERL_536].USES_ON=			perl:536,configure
-[PERL_536].BUILDRUN_DEPENDS_ON=		perl-Date-Manip:single:536
-					perl-DateTime:single:536
+[PERL_536].BUILDRUN_DEPENDS_ON=		perl-DateTime:single:536
 					perl-DateTime-Format-Strptime:single:536
 					perl-HTML-Parser:single:536
 					perl-HTML-TableExtract:single:536
 					perl-HTML-TokeParser-Simple:single:536
 					perl-HTML-Tree:single:536
 					perl-HTML-TreeBuilder-XPath:single:536
+					perl-HTTP-CookieJar:single:536
 					perl-HTTP-Cookies:single:536
 					perl-HTTP-Message:single:536
 					perl-IO-String:single:536
@@ -115,14 +116,14 @@ DISTNAME=		Finance-Quote-1.57
 					perl-Web-Scraper:single:536
 					perl-XML-LibXML:single:536
 [PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Date-Manip:single:538
-					perl-DateTime:single:538
+[PERL_538].BUILDRUN_DEPENDS_ON=		perl-DateTime:single:538
 					perl-DateTime-Format-Strptime:single:538
 					perl-HTML-Parser:single:538
 					perl-HTML-TableExtract:single:538
 					perl-HTML-TokeParser-Simple:single:538
 					perl-HTML-Tree:single:538
 					perl-HTML-TreeBuilder-XPath:single:538
+					perl-HTTP-CookieJar:single:538
 					perl-HTTP-Cookies:single:538
 					perl-HTTP-Message:single:538
 					perl-IO-String:single:538
