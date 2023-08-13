@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	3.27.1
+DEF[PORTVERSION]=	3.27.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		cmake
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Cross-platform Makefile generator
@@ -26,8 +25,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/cmake
 
-BUILD_DEPENDS=		python-Sphinx:single:python_default
-			libarchive:dev:standard
+BUILD_DEPENDS=		libarchive:dev:standard
 			libuv:dev:standard
 			rhash:dev:standard
 BUILDRUN_DEPENDS=	jsoncpp:single:standard
@@ -50,6 +48,7 @@ CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
 			--parallel={{MAKE_JOBS_NUMBER}}
 			--init="{{FILESDIR}}/InitialCache.cmake"
 # something is wrong with Sphinx - locks up build...
+# Now sphinx has circular dep with cmake, so we can't use it anyway.
 # #			--sphinx-man
 PLIST_SUB=		MANPAGES="@comment "
 INSTALL_TARGET=		install/strip
