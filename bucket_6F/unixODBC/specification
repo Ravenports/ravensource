@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.3.11
+DEF[PORTVERSION]=	2.3.12
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		unixODBC
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		ftp://ftp.unixodbc.org/pub/unixODBC/
 DISTFILE[1]=		unixODBC-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary tools dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -26,9 +26,9 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		databases/unixODBC
 
-# libtool:keepla because port uses lt_dlopen
+EXRUN[tools]=		primary
 
-USES=			cpe iconv libtool:keepla mbsdfix
+USES=			cpe iconv libtool mbsdfix
 CPE_VENDOR=		unixodbc
 CPE_PRODUCT=		unixodbc
 MUST_CONFIGURE=		gnu
