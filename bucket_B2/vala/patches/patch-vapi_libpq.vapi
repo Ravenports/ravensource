@@ -1,4 +1,4 @@
---- vapi/libpq.vapi.orig	2022-01-16 12:44:13 UTC
+--- vapi/libpq.vapi.orig	2023-08-12 13:05:41 UTC
 +++ vapi/libpq.vapi
 @@ -20,11 +20,7 @@
   *	Jukka-Pekka Iivonen <jp0409@jippii.fi>
