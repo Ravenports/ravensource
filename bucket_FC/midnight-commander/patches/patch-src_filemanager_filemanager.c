@@ -1,6 +1,6 @@
---- src/filemanager/filemanager.c.orig	2023-01-21 16:51:33 UTC
+--- src/filemanager/filemanager.c.orig	2023-08-06 13:26:05 UTC
 +++ src/filemanager/filemanager.c
-@@ -856,7 +856,7 @@ setup_mc (void)
+@@ -850,7 +850,7 @@ setup_mc (void)
  #endif /* HAVE_CHARSET */
  #endif /* HAVE_SLANG */
  

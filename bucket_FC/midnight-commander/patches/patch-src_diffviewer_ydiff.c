@@ -1,6 +1,6 @@
---- src/diffviewer/ydiff.c.orig	2023-01-21 16:51:33 UTC
+--- src/diffviewer/ydiff.c.orig	2023-08-06 13:26:05 UTC
 +++ src/diffviewer/ydiff.c
-@@ -819,7 +819,7 @@ dff_execute (const char *args, const cha
+@@ -822,7 +822,7 @@ dff_execute (const char *args, const cha
      /* escape potential $ to avoid shell variable substitutions in popen() */
      file1_esc = strutils_shell_escape (file1);
      file2_esc = strutils_shell_escape (file2);
