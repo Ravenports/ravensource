@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.0.2
+DEF[PORTVERSION]=	1.0.4
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-sphinxcontrib-devhelp
@@ -7,12 +7,12 @@ KEYWORDS=		python
 VARIANTS=		py310 v11
 SDESC[py310]=		Sphinx extension: Devhelp documents (3.10)
 SDESC[v11]=		Sphinx extension: Devhelp documents (3.11)
-HOMEPAGE=		http://sphinx-doc.org/
+HOMEPAGE=		https://www.sphinx-doc.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/c5/09/5de5ed43a521387f18bdf5f5af31d099605c992fd25372b2b9b825ce48ee
-DISTFILE[1]=		sphinxcontrib_devhelp-${PORTVERSION}-py2.py3-none-any.whl:main
+SITES[main]=		PYPIWHL/5d/b6/7f58acb86c93e54236ca8b5b79dd3873138397060a74a143b1c1e30ba6bf
+DISTFILE[1]=		sphinxcontrib_devhelp-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
 SPKGS[v11]=		single
@@ -23,17 +23,20 @@ VOPTS[py310]=		PY310=ON PY311=OFF
 VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
-# BSD
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		sphinxcontrib_devhelp-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# flake8 ; extra == 'lint'
-# mypy ; extra == 'lint'
-# docutils-stubs ; extra == 'lint'
-# pytest ; extra == 'test'
+# Sphinx>=5
+# flake8 ; extra == "lint"
+# mypy ; extra == "lint"
+# docutils-stubs ; extra == "lint"
+# pytest ; extra == "test"
 
 [PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-Sphinx:single:py310
 [PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-Sphinx:single:v11
 

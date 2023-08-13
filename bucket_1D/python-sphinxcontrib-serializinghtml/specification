@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.1.5
+DEF[PORTVERSION]=	1.1.7
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-sphinxcontrib-serializinghtml
@@ -7,12 +7,12 @@ KEYWORDS=		python
 VARIANTS=		py310 v11
 SDESC[py310]=		Sphinx extension: HTML serialization (3.10)
 SDESC[v11]=		Sphinx extension: HTML serialization (3.11)
-HOMEPAGE=		http://sphinx-doc.org/
+HOMEPAGE=		https://www.sphinx-doc.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/c6/77/5464ec50dd0f1c1037e3c93249b040c8fc8078fdda97530eeb02424b6eea
-DISTFILE[1]=		sphinxcontrib_serializinghtml-${PORTVERSION}-py2.py3-none-any.whl:main
+SITES[main]=		PYPIWHL/36/c6/0d5b3f258fdb107558163e88607eb6c245d8785fbd707e027f2da7fbc795
+DISTFILE[1]=		sphinxcontrib_serializinghtml-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
 SPKGS[v11]=		single
@@ -23,17 +23,20 @@ VOPTS[py310]=		PY310=ON PY311=OFF
 VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
-# BSD
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		sphinxcontrib_serializinghtml-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# flake8 ; extra == 'lint'
-# mypy ; extra == 'lint'
-# docutils-stubs ; extra == 'lint'
-# pytest ; extra == 'test'
+# Sphinx>=5
+# flake8 ; extra == "lint"
+# mypy ; extra == "lint"
+# docutils-stubs ; extra == "lint"
+# pytest ; extra == "test"
 
 [PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-Sphinx:single:py310
 [PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-Sphinx:single:v11
 

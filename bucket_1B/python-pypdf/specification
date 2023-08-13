@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.14.0
+DEF[PORTVERSION]=	3.15.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pypdf
@@ -11,7 +11,7 @@ HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/fe/e6/a23048e3ae56daf03479f5fe2f49af8d989cab1bcc1f8d2f15de83a3eaea
+SITES[main]=		PYPIWHL/06/f7/0a462dc4113271bfac2759e7c5ca57b1409a6c6f30013aa87fba8a725066
 DISTFILE[1]=		pypdf-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -31,7 +31,8 @@ DISTNAME=		pypdf-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 # typing_extensions >= 3.10.0.0; python_version < '3.10'
 # dataclasses; python_version < '3.7'
-# PyCryptodome ; extra == "crypto"
+# cryptography ; extra == "crypto" and ( python_version >= '3.7')
+# PyCryptodome ; extra == "crypto" and ( python_version == '3.6')
 # black ; extra == "dev"
 # pip-tools ; extra == "dev"
 # pre-commit<2.18.0 ; extra == "dev"
@@ -42,7 +43,8 @@ DISTNAME=		pypdf-${PORTVERSION}.dist-info
 # sphinx ; extra == "docs"
 # sphinx_rtd_theme ; extra == "docs"
 # myst_parser ; extra == "docs"
-# PyCryptodome ; extra == "full"
+# cryptography ; extra == "full" and ( python_version >= '3.7')
+# PyCryptodome ; extra == "full" and ( python_version == '3.6')
 # Pillow>=8.0.0 ; extra == "full"
 # Pillow>=8.0.0 ; extra == "image"
 

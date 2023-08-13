@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.0.4
+DEF[PORTVERSION]=	1.0.6
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-sphinxcontrib-applehelp
@@ -11,7 +11,7 @@ HOMEPAGE=		https://www.sphinx-doc.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/06/c1/5e2cafbd03105ce50d8500f9b4e8a6e8d02e22d0475b574c3b3e9451a15f
+SITES[main]=		PYPIWHL/b1/db/2c9a62f9d7c8abf45fa79d28a9d0c80e16cb42deac58a699cbd952efda1a
 DISTFILE[1]=		sphinxcontrib_applehelp-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -23,17 +23,20 @@ VOPTS[py310]=		PY310=ON PY311=OFF
 VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
-# BSD-2-Clause
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		sphinxcontrib_applehelp-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# flake8 ; extra == 'lint'
-# mypy ; extra == 'lint'
-# docutils-stubs ; extra == 'lint'
-# pytest ; extra == 'test'
+# Sphinx>=5
+# flake8 ; extra == "lint"
+# mypy ; extra == "lint"
+# docutils-stubs ; extra == "lint"
+# pytest ; extra == "test"
 
 [PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-Sphinx:single:py310
 [PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-Sphinx:single:v11
 

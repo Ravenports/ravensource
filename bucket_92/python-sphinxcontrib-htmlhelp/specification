@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.0.1
+DEF[PORTVERSION]=	2.0.3
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-sphinxcontrib-htmlhelp
@@ -11,7 +11,7 @@ HOMEPAGE=		https://www.sphinx-doc.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/6e/ee/a1f5e39046cbb5f8bc8fba87d1ddf1c6643fbc9194e58d26e606de4b9074
+SITES[main]=		PYPIWHL/d0/a1/5b678486ce3f7f3135ac5396db4591e967fc6709f27aa57fe13c97180953
 DISTFILE[1]=		sphinxcontrib_htmlhelp-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -23,18 +23,21 @@ VOPTS[py310]=		PY310=ON PY311=OFF
 VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
-# BSD-2-Clause
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		sphinxcontrib_htmlhelp-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# flake8 ; extra == 'lint'
-# mypy ; extra == 'lint'
-# docutils-stubs ; extra == 'lint'
-# pytest ; extra == 'test'
-# html5lib ; extra == 'test'
+# Sphinx>=5
+# flake8 ; extra == "lint"
+# mypy ; extra == "lint"
+# docutils-stubs ; extra == "lint"
+# pytest ; extra == "test"
+# html5lib ; extra == "test"
 
 [PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-Sphinx:single:py310
 [PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-Sphinx:single:v11
 
