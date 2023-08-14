@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	EXTRACT_VERSION(MYSQL_mariadb-11_VERSION)
 DEF[PORTNAME]=		mariadb11
+DEF[FMT_TAG]=		8.0.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		${PORTNAME}
@@ -10,10 +11,13 @@ SDESC[standard]=	Fast SQL database server, derived from MySQL
 HOMEPAGE=		https://mariadb.org/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main fmtsrc
 # SITES[main]=		https://downloads.mariadb.com/MariaDB/mariadb-${PORTVERSION}/source/
 SITES[main]=		https://mirrors.gigenet.com/mariadb/mariadb-${PORTVERSION}/source/
+SITES[fmtsrc]=		GITHUB/fmtlib:fmt:${FMT_TAG}
 DISTFILE[1]=		mariadb-${PORTVERSION}.tar.gz:main
+DISTFILE[2]=		generated:fmtsrc
+DF_INDEX=		1 2
 
 SPKGS[standard]=	complete server client dev man docs
 
@@ -31,7 +35,6 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		databases/mariadb104-server
 
 BUILD_DEPENDS=		bison:primary:standard
-			fmt:dev:standard
 			msgpack:dev:standard
 			snappy:dev:standard
 			boost-libraries:dev:standard
@@ -86,6 +89,7 @@ CMAKE_ARGS=		-DCOMPILATION_COMMENT="Ravenports"
 			-DWITH_SSL="{{OPENSSLBASE}}"
 			-DWITH_ZLIB=system
 			-DWITH_PCRE=system
+			-DWITH_LIBFMT=bundle
 			-Wno-dev
 DISTNAME=		mariadb-${PORTVERSION}
 SHEBANG_FILES=		scripts/*.sh
