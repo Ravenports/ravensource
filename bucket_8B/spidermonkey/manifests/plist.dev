@@ -10,11 +10,13 @@ include/mozjs-%%MOZJS_MAJOR%%/jstypes.h
 include/mozjs-%%MOZJS_MAJOR%%/malloc_decls.h
 include/mozjs-%%MOZJS_MAJOR%%/mozjemalloc_types.h
 include/mozjs-%%MOZJS_MAJOR%%/mozmemory.h
+include/mozjs-%%MOZJS_MAJOR%%/mozmemory_utils.h
 include/mozjs-%%MOZJS_MAJOR%%/mozmemory_wrap.h
 include/mozjs-%%MOZJS_MAJOR%%/double-conversion/double-conversion.h
 include/mozjs-%%MOZJS_MAJOR%%/double-conversion/double-to-string.h
 include/mozjs-%%MOZJS_MAJOR%%/double-conversion/string-to-double.h
 include/mozjs-%%MOZJS_MAJOR%%/double-conversion/utils.h
+include/mozjs-%%MOZJS_MAJOR%%/function2/function2.hpp
 include/mozjs-%%MOZJS_MAJOR%%/js/AllocPolicy.h
 include/mozjs-%%MOZJS_MAJOR%%/js/AllocationLogging.h
 include/mozjs-%%MOZJS_MAJOR%%/js/AllocationRecording.h
@@ -56,6 +58,7 @@ include/mozjs-%%MOZJS_MAJOR%%/js/Id.h
 include/mozjs-%%MOZJS_MAJOR%%/js/Initialization.h
 include/mozjs-%%MOZJS_MAJOR%%/js/Interrupt.h
 include/mozjs-%%MOZJS_MAJOR%%/js/JSON.h
+include/mozjs-%%MOZJS_MAJOR%%/js/JitCodeAPI.h
 include/mozjs-%%MOZJS_MAJOR%%/js/LocaleSensitive.h
 include/mozjs-%%MOZJS_MAJOR%%/js/MapAndSet.h
 include/mozjs-%%MOZJS_MAJOR%%/js/MemoryCallbacks.h
@@ -65,6 +68,7 @@ include/mozjs-%%MOZJS_MAJOR%%/js/Modules.h
 include/mozjs-%%MOZJS_MAJOR%%/js/Object.h
 include/mozjs-%%MOZJS_MAJOR%%/js/OffThreadScriptCompilation.h
 include/mozjs-%%MOZJS_MAJOR%%/js/Principals.h
+include/mozjs-%%MOZJS_MAJOR%%/js/Printer.h
 include/mozjs-%%MOZJS_MAJOR%%/js/Printf.h
 include/mozjs-%%MOZJS_MAJOR%%/js/ProfilingCategory.h
 include/mozjs-%%MOZJS_MAJOR%%/js/ProfilingCategoryList.h
@@ -87,12 +91,12 @@ include/mozjs-%%MOZJS_MAJOR%%/js/RootingAPI.h
 include/mozjs-%%MOZJS_MAJOR%%/js/SavedFrameAPI.h
 include/mozjs-%%MOZJS_MAJOR%%/js/ScalarType.h
 include/mozjs-%%MOZJS_MAJOR%%/js/ScriptPrivate.h
+include/mozjs-%%MOZJS_MAJOR%%/js/ShadowRealmCallbacks.h
 include/mozjs-%%MOZJS_MAJOR%%/js/SharedArrayBuffer.h
 include/mozjs-%%MOZJS_MAJOR%%/js/SliceBudget.h
 include/mozjs-%%MOZJS_MAJOR%%/js/SourceText.h
 include/mozjs-%%MOZJS_MAJOR%%/js/StableStringChars.h
 include/mozjs-%%MOZJS_MAJOR%%/js/Stack.h
-include/mozjs-%%MOZJS_MAJOR%%/js/Stream.h
 include/mozjs-%%MOZJS_MAJOR%%/js/StreamConsumer.h
 include/mozjs-%%MOZJS_MAJOR%%/js/String.h
 include/mozjs-%%MOZJS_MAJOR%%/js/StructuredClone.h
@@ -100,7 +104,6 @@ include/mozjs-%%MOZJS_MAJOR%%/js/SweepingAPI.h
 include/mozjs-%%MOZJS_MAJOR%%/js/Symbol.h
 include/mozjs-%%MOZJS_MAJOR%%/js/TelemetryTimers.h
 include/mozjs-%%MOZJS_MAJOR%%/js/TraceKind.h
-include/mozjs-%%MOZJS_MAJOR%%/js/TraceLoggerAPI.h
 include/mozjs-%%MOZJS_MAJOR%%/js/TracingAPI.h
 include/mozjs-%%MOZJS_MAJOR%%/js/Transcoding.h
 include/mozjs-%%MOZJS_MAJOR%%/js/TypeDecls.h
@@ -127,6 +130,7 @@ include/mozjs-%%MOZJS_MAJOR%%/js/WrapperCallbacks.h
 include/mozjs-%%MOZJS_MAJOR%%/js/Zone.h
 include/mozjs-%%MOZJS_MAJOR%%/js/experimental/CTypes.h
 include/mozjs-%%MOZJS_MAJOR%%/js/experimental/CodeCoverage.h
+include/mozjs-%%MOZJS_MAJOR%%/js/experimental/CompileScript.h
 include/mozjs-%%MOZJS_MAJOR%%/js/experimental/Intl.h
 include/mozjs-%%MOZJS_MAJOR%%/js/experimental/JSStencil.h
 include/mozjs-%%MOZJS_MAJOR%%/js/experimental/JitInfo.h
@@ -199,6 +203,7 @@ include/mozjs-%%MOZJS_MAJOR%%/mozilla/EnumTypeTraits.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/EnumeratedArray.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/EnumeratedRange.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/FStream.h
+include/mozjs-%%MOZJS_MAJOR%%/mozilla/FailureLatch.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/FastBernoulliTrial.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/FloatingPoint.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/FunctionRef.h
@@ -226,6 +231,8 @@ include/mozjs-%%MOZJS_MAJOR%%/mozilla/MemoryChecking.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/MemoryReporting.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/MmapFaultHandler.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/ModuloBuffer.h
+include/mozjs-%%MOZJS_MAJOR%%/mozilla/MoveOnlyFunction.h
+include/mozjs-%%MOZJS_MAJOR%%/mozilla/MruCache.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/NonDereferenceable.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/NotNull.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/Opaque.h
@@ -265,7 +272,9 @@ include/mozjs-%%MOZJS_MAJOR%%/mozilla/ResultVariant.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/ReverseIterator.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/RollingMean.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/SHA1.h
+include/mozjs-%%MOZJS_MAJOR%%/mozilla/SIMD.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/SPSCQueue.h
+include/mozjs-%%MOZJS_MAJOR%%/mozilla/SSE.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/Saturate.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/ScopeExit.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/Scoped.h
@@ -286,8 +295,6 @@ include/mozjs-%%MOZJS_MAJOR%%/mozilla/ThreadSafeWeakPtr.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/ThreadSafety.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/TimeStamp.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/ToString.h
-include/mozjs-%%MOZJS_MAJOR%%/mozilla/Tuple.h
-include/mozjs-%%MOZJS_MAJOR%%/mozilla/TypeTraits.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/TypedEnumBits.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/Types.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/UniquePtr.h
@@ -320,6 +327,7 @@ include/mozjs-%%MOZJS_MAJOR%%/mozilla/intl/DateTimePart.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/intl/DateTimePatternGenerator.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/intl/DisplayNames.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/intl/FormatBuffer.h
+include/mozjs-%%MOZJS_MAJOR%%/mozilla/intl/GeneralCategory.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/intl/ICU4CGlue.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/intl/ICU4CLibrary.h
 include/mozjs-%%MOZJS_MAJOR%%/mozilla/intl/ICUError.h
