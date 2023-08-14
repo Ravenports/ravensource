@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.98
+DEF[PORTVERSION]=	1.99
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-ORLite
@@ -7,11 +7,11 @@ KEYWORDS=		perl
 VARIANTS=		536 538
 SDESC[536]=		Extremely light weight SQLite-specific ORM (5.36)
 SDESC[538]=		Extremely light weight SQLite-specific ORM (5.38)
-HOMEPAGE=		none
+HOMEPAGE=		https://github.com/karenetheridge/ORLite
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		CPAN/ID:A/AD/ADAMK
+SITES[main]=		CPAN/ID:E/ET/ETHER
 DISTFILE[1]=		ORLite-${PORTVERSION}.tar.gz:main
 
 SPKGS[536]=		single
@@ -23,37 +23,48 @@ VOPTS[536]=		PERL_536=ON PERL_538=OFF
 VOPTS[538]=		PERL_536=OFF PERL_538=ON
 
 # License listed in CPAN directory:
-# perl
+# perl_5
 
 GENERATED=		yes
 SINGLE_JOB=		yes
 DISTNAME=		ORLite-${PORTVERSION}
 
-# ---------------------------------------------
-# |   Prerequisites extracted from META.yml
-# ---------------------------------------------
-# | configure_requires : ExtUtils::MakeMaker (perl 5.36.1 core) (perl 5.38.0 core)
-# |     build_requires : ExtUtils::MakeMaker (perl 5.36.1 core) (perl 5.38.0 core)
-# |     build_requires : Test::More (perl 5.36.1 core) (perl 5.38.0 core)
-# |     build_requires : Test::Script
-# |           requires : DBD::SQLite
-# |           requires : DBI
-# |           requires : File::Path (perl 5.36.1 core) (perl 5.38.0 core)
-# |           requires : File::Remove
-# |           requires : File::Spec (perl 5.36.1 core) (perl 5.38.0 core)
-# |           requires : File::Temp (perl 5.36.1 core) (perl 5.38.0 core)
-# |           requires : Params::Util
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : Carp (perl 5.36 core) (perl 5.38 core)
+# |      runtime : DBD::SQLite
+# |      runtime : DBI
+# |      runtime : File::Basename (perl 5.36 core) (perl 5.38 core)
+# |      runtime : File::Path (perl 5.36 core) (perl 5.38 core)
+# |      runtime : File::Remove
+# |      runtime : File::Spec (perl 5.36 core) (perl 5.38 core)
+# |      runtime : File::Temp (perl 5.36 core) (perl 5.38 core)
+# |      runtime : Params::Util
+# |      runtime : strict (perl 5.36 core) (perl 5.38 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.36 core) (perl 5.38 core)
+# |         test : Class::XSAccessor
+# |         test : Class::XSAccessor::Array
+# |         test : Exporter (perl 5.36 core) (perl 5.38 core)
+# |         test : ExtUtils::MakeMaker (perl 5.36 core) (perl 5.38 core)
+# |         test : File::Spec (perl 5.36 core) (perl 5.38 core)
+# |         test : File::Spec::Functions (perl 5.36 core) (perl 5.38 core)
+# |         test : Test::More (perl 5.36 core) (perl 5.38 core)
+# |         test : Test::Script
+# |         test : lib (perl 5.36 core) (perl 5.38 core)
+# |         test : utf8 (perl 5.36 core) (perl 5.38 core)
+# |         test : vars (perl 5.36 core) (perl 5.38 core)
+# |         test : warnings (perl 5.36 core) (perl 5.38 core)
+# |         test : CPAN::Meta (perl 5.36 core) (perl 5.38 core)
 
 [PERL_536].USES_ON=			perl:536,configure
 [PERL_536].BUILDRUN_DEPENDS_ON=		perl-DBD-SQLite:single:536
 					perl-DBI:single:536
 					perl-File-Remove:single:536
 					perl-Params-Util:single:536
-[PERL_536].BUILD_DEPENDS_ON=		perl-Test-Script:single:536
 [PERL_538].USES_ON=			perl:538,configure
 [PERL_538].BUILDRUN_DEPENDS_ON=		perl-DBD-SQLite:single:538
 					perl-DBI:single:538
 					perl-File-Remove:single:538
 					perl-Params-Util:single:538
-[PERL_538].BUILD_DEPENDS_ON=		perl-Test-Script:single:538
 
