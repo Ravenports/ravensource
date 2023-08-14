@@ -3,7 +3,7 @@ $NetBSD: patch-boost_process_detail_posix_is__running.hpp,v 1.1 2020/09/09 06:38
 Cannot use static asserts on WIFEXITED() & friends because the
 internal _W_INT macro uses (void*) which is not allowed in constexprs.
 
---- boost/process/detail/posix/is_running.hpp.orig	2023-04-10 13:47:38 UTC
+--- boost/process/detail/posix/is_running.hpp.orig	2023-08-08 21:02:55 UTC
 +++ boost/process/detail/posix/is_running.hpp
 @@ -17,10 +17,12 @@ namespace boost { namespace process { na
  // This bit arrangement of status codes is not guaranteed by POSIX, but (according to comments in

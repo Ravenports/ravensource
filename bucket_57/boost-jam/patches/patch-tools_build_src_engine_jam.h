@@ -1,4 +1,4 @@
---- tools/build/src/engine/jam.h.orig	2023-04-10 13:47:41 UTC
+--- tools/build/src/engine/jam.h.orig	2023-08-08 21:02:56 UTC
 +++ tools/build/src/engine/jam.h
 @@ -300,7 +300,7 @@
      #define OSMINOR "OS=SINIX"
