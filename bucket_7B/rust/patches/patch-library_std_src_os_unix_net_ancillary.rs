@@ -13,7 +13,7 @@ error[E0412]: cannot find type `sockcred2` in module `libc`
  library/std/src/os/unix/net/ancillary.rs | 1 +
  1 file changed, 1 insertion(+)
 
---- library/std/src/os/unix/net/ancillary.rs.orig	2023-07-12 03:32:40 UTC
+--- library/std/src/os/unix/net/ancillary.rs.orig	2023-08-03 12:13:07 UTC
 +++ library/std/src/os/unix/net/ancillary.rs
 @@ -17,6 +17,7 @@ mod libc {
      pub use libc::c_int;

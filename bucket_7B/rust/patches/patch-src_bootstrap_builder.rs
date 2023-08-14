@@ -1,4 +1,4 @@
---- src/bootstrap/builder.rs.orig	2023-07-12 03:32:40 UTC
+--- src/bootstrap/builder.rs.orig	2023-08-03 12:13:07 UTC
 +++ src/bootstrap/builder.rs
 @@ -1636,12 +1636,13 @@ impl<'a> Builder<'a> {
                  Some("-Wl,-rpath,@loader_path/../lib")
