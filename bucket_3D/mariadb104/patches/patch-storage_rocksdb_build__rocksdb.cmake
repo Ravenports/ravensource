@@ -1,4 +1,4 @@
---- storage/rocksdb/build_rocksdb.cmake.orig	2023-06-05 15:28:11 UTC
+--- storage/rocksdb/build_rocksdb.cmake.orig	2023-08-10 19:55:51 UTC
 +++ storage/rocksdb/build_rocksdb.cmake
 @@ -90,7 +90,7 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "Linux"
    add_definitions(-DOS_LINUX)
