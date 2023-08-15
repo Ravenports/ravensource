@@ -77,6 +77,8 @@ PLIST_SUB=		GCCVER=${GCC_VERSION}
 			BRANCH=${BRANCH}
 			VSTDCXX=${STDCXX_VERSION}
 			SSP={{SSP}}
+			CC1_SHARED={{CC1_SHARED}}
+			CC1_STATIC={{CC1_STATIC:U"@comment "}}
 PREFIX=			{{LOCALBASE}}/toolchain/{{NAMEBASE}}
 INSTALL_TARGET=		install-strip
 CONFIGURE_OUTSOURCE=	yes
@@ -117,6 +119,8 @@ VAR_OPSYS[netbsd]=	CONFIGURE_ARGS=--disable-libstdcxx-pch
 			CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
 			CONFIGURE_ARGS=--disable-libssp
 			MAKEFILE_LINE=SSP="@comment "
+			MAKEFILE_LINE=CC1_SHARED="@comment "
+			MAKEFILE_LINE=CC1_STATIC=
 VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--enable-symvers=no
 			CONFIGURE_ARGS=--with-gnu-as
 			CONFIGURE_ARGS=--with-as=${TOOLCHAIN}/bin/as
