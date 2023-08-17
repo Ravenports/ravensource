@@ -1,6 +1,6 @@
---- tests/check_public.c.orig	2020-02-22 20:50:14 UTC
+--- tests/check_public.c.orig	2023-08-16 20:18:30 UTC
 +++ tests/check_public.c
-@@ -30,7 +30,10 @@ static void parse_display_pass(const cha
+@@ -34,7 +34,10 @@ static void parse_display_pass(const cha
  		else if(test_type == TEST_ENVIRONMENT)
  		{
  			argument = 0;
@@ -12,7 +12,7 @@
  		}
  
  		got_host = (char *) -1;
-@@ -150,7 +153,7 @@ END_TEST
+@@ -185,7 +188,7 @@ END_TEST
  
  START_TEST(parse_display_negative)
  {
