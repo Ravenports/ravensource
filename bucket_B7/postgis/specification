@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.3.4
+DEF[PORTVERSION]=	3.4.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		postgis
@@ -13,14 +13,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://download.osgeo.org/postgis/source/
 DISTFILE[1]=		postgis-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary man
 
 OPTIONS_AVAILABLE=	SFCGAL
 OPTIONS_STANDARD=	SFCGAL
 
-LICENSE=		GPLv2:single
+LICENSE=		GPLv2:primary
 LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKSRC}}/LICENSE.TXT
+LICENSE_TERMS=		primary:{{WRKSRC}}/LICENSE.TXT
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		databases/postgis32
@@ -79,4 +79,4 @@ post-install:
 	# automatic plist for share/postgresql/extension.  It changes every release
 	${FIND} ${STAGEDIR}${PREFIX}/share/postgresql/extension ! -type d |\
 		${SED} -e 's,^${STAGEDIR}${PREFIX}/,,' \
-		>> ${WRKDIR}/.manifest.single.mktmp
+		>> ${WRKDIR}/.manifest.primary.mktmp
