@@ -4,7 +4,7 @@
  #define _GNU_SOURCE 1
  
 -#if !defined(__OpenBSD__) && !defined(__FreeBSD__)
-+#if !defined(__OpenBSD__) && !defined(__FreeBSD__) && !defined(__DragonFly__)
++#if !defined(__OpenBSD__) && !defined(__FreeBSD__) && !defined(__DragonFly__) && !defined(__NetBSD__)
  #  include <alloca.h>
  #endif
  #include <dlfcn.h>
