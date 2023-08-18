@@ -1,0 +1,91 @@
+DEF[PRIME]=		9.2
+DEF[X_CURRENT]=		EXTRACT_VERSION(PLATFORM_NetBSD_x86-64)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ravensys-root-netbsd_amd64
+VERSION=		${PRIME}
+KEYWORDS=		raven
+VARIANTS=		standard
+SDESC[standard]=	NetBSD/AMD64 ${PRIME} builder system root
+HOMEPAGE=		none
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main netbsd
+SITES[main]=		https://leaf.dragonflybsd.org/~marino/dports-src/
+SITES[netbsd]=		https://cdn.netbsd.org/pub/NetBSD/NetBSD-${PRIME}/images/
+
+DISTFILE[1]=		dummy-tarball.tar.gz:main
+DISTFILE[2]=		NetBSD-${PRIME}-amd64.iso:netbsd
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	NOTSTD
+OPTIONS_STANDARD=	none
+
+ONLY_FOR_OPSYS=		netbsd
+
+INVALID_RPATH=		yes
+
+BUILD_DEPENDS=		nawk:single:standard
+			diffutils:primary:ravensys
+			libarchive:primary:static
+			gnugrep:primary:ravensys
+			file:single:ravensys
+			findutils:primary:ravensys
+			flex:primary:ravensys
+			gzip:single:standard
+			xz:tools:standard
+			unzip:primary:standard
+			m4:primary:noprefix
+			bmake:single:standard
+			sed:primary:ravensys
+			byacc:primary:standard
+			less:single:standard
+			nvi:single:standard
+			coreutils:primary:ravensys
+			ravensys-binutils:single:standard
+			ncurses:terminfo:standard
+			ravensw:single:standard
+			mandoc:single:standard
+			genpatch:single:standard
+			lockf:single:standard
+			fetch:single:standard
+			ravensys-utils:single:standard
+			ccache:primary:standard
+			bzip2:tools:standard
+
+SKIP_BUILD=		yes
+SINGLE_JOB=		yes
+EXTRACT_DIRTY=		2
+PLIST_SUB=		BASE={{SYSPATH}}
+INFRASTRUCTURE=		yes
+
+MAKE_ENV=		OPSYS="{{OPSYS}}"
+			ARCH="{{ARCH}}"
+			ARCHSTD="{{ARCH_STANDARD}}"
+			OSVERSION="{{OSVERSION}}"
+			OSREL="{{OSREL}}"
+			OSMAJOR="{{MAJOR}}"
+			MKDIR="{{MKDIR}}"
+			GCCX=ravensys-gcc
+MAKE_ARGS=		BASE={{RSYS}}
+
+[NOTSTD].DESCRIPTION=			Earlier system root of NetBSD/AMD64
+[NOTSTD].DF_INDEX_OFF=			2
+[NOTSTD].MAKEFILE_OFF=			SYSTEM=${X_CURRENT}
+
+pre-fetch-NOTSTD-OFF:
+	${SH} ${MK_SCRIPTS}/ravensys-root-validate_pkgs.sh ${PREFIX} \
+		${OPSYS} ${ARCH} ${ARCH_STANDARD} ${OSVERSION} ${OSREL} ${MAJOR}
+
+post-extract:
+	${MKDIR} ${WRKSRC} ${WRKDIR}/netbsd
+	${INSTALL_DATA} ${FILESDIR}/netbsd.mk ${WRKSRC}/system_specifics.mk
+	${INSTALL_DATA} ${MK_SCRIPTS}/ravensys-root-Makefile ${WRKSRC}/Makefile
+
+post-extract-NOTSTD-OFF:
+	(cd ${WRKDIR}/netbsd \
+		&& ${TAR} -xf ${WRKDIR}/${NAMEBASE}_2/amd64/binary/sets/base.tar.xz \
+		&& ${TAR} -xf ${WRKDIR}/${NAMEBASE}_2/amd64/binary/sets/comp.tar.xz \
+		&& ${TAR} -xf ${WRKDIR}/${NAMEBASE}_2/amd64/binary/sets/etc.tar.xz)
+	${RM} -r ${WRKDIR}/${NAMEBASE}_2
