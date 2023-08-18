@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	7.0.12
+DEF[PORTVERSION]=	7.2.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		redis
@@ -39,6 +39,8 @@ LDFLAGS=		-lm -lexecinfo
 MAKE_ENV=		V=yo
 
 VAR_OPSYS[linux]=	LDFLAGS=-ldl
+# certain release of freebsd and dragonfly will need
+# -DNO_MALLOC_USABLE_SIZE
 
 do-install:
 	(cd ${WRKSRC}/src && \
