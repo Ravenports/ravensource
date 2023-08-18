@@ -4,11 +4,9 @@ DEF[FREEBSD_RELEASE]=	13.2
 DEF[NETBSD_RELEASE]=	9.2
 DEF[MIDNIGHT_RELEASE]=	3.0.0
 DEF[X_FREEBSD_1]=	EXTRACT_VERSION(PLATFORM_FreeBSD_x86-64)
-DEF[X_DRAGONFLY]=	EXTRACT_VERSION(PLATFORM_DragonFly_x86-64)
 DEF[X_LINUX_1]=		EXTRACT_VERSION(PLATFORM_Linux_x86-64)
 DEF[X_SOLARIS]=		EXTRACT_VERSION(PLATFORM_SunOS_x86-64)
 DEF[X_NETBSD]=		EXTRACT_VERSION(PLATFORM_NetBSD_x86-64)
-DEF[X_APPLE]=		EXTRACT_VERSION(PLATFORM_MacOS_x86-64)
 DEF[X_MIDNIGHT_1]=	EXTRACT_VERSION(PLATFORM_MidnightBSD_x86-64)
 # ----------------------------------------------------------------------------
 
@@ -16,22 +14,19 @@ NAMEBASE=		ravensys-root
 VERSION=		3.4
 REVISION=		0
 KEYWORDS=		raven
-VARIANTS=		dragonfly freebsd_amd64 linux sunos netbsd_amd64 mbsd_amd64
-SDESC[dragonfly]=	DragonFly64 system root for Ravenports build env
+VARIANTS=		freebsd_amd64 linux sunos netbsd_amd64 mbsd_amd64
 SDESC[freebsd_amd64]=	FreeBSD-amd64 system root for Ravenports build env
 SDESC[netbsd_amd64]=	NetBSD-amd64 system root for Ravenports build env
 SDESC[mbsd_amd64]=	MidnightBSD-amd64 system root for Ravenports env
 SDESC[linux]=		Linux system root for Ravenports build env
 SDESC[sunos]=		Solaris 10 system root for Ravenports build env
-# SDESC[macos]=		MacOS/Darwin system root for Ravenports build env
 HOMEPAGE=		none
 CONTACT=		John_Marino[draco@marino.st]
 
-DOWNLOAD_GROUPS=	main avalon ubuntu1 ubuntu2 ubuntu3 ubuntu4 ubuntu5
+DOWNLOAD_GROUPS=	main ubuntu1 ubuntu2 ubuntu3 ubuntu4 ubuntu5
 			ubuntu6 ubuntu7 ubuntu8 ubuntu9 ubuntu10 ubuntu11
 			freebsd_amd64 dragonlace netbsd sting midnight
 SITES[main]=		https://leaf.dragonflybsd.org/~marino/dports-src/
-SITES[avalon]=		https://mirror-master.dragonflybsd.org/iso-images/
 SITES[freebsd_amd64]=	http://ftp-archive.freebsd.org/pub/FreeBSD-Archive/old-releases/amd64/amd64/ISO-IMAGES/${FREEBSD_RELEASE}/
 SITES[dragonlace]=	http://downloads.dragonlace.net/misc/
 SITES[netbsd]=		https://cdn.netbsd.org/pub/NetBSD/NetBSD-${NETBSD_RELEASE}/images/
@@ -50,7 +45,7 @@ SITES[sting]=		http://www.ravenports.com/cache-distfiles/
 SITES[midnight]=	https://archer.midnightbsd.org/ftp/releases/amd64/ISO-IMAGES/${MIDNIGHT_RELEASE}/
 
 DISTFILE[1]=		dummy-tarball.tar.gz:main
-DISTFILE[2]=		dfly-x86_64-${DF_RELEASE}_REL.iso.bz2:avalon
+DISTFILE[2]=		dummy-file-2.txt:main
 # DISTFILE[3]=		libc6_2.23-0ubuntu9_amd64.deb:ubuntu1
 # DISTFILE[4]=		libc6-dev_2.23-0ubuntu9_amd64.deb:ubuntu1
 # DISTFILE[9]=		libc-bin_2.23-0ubuntu9_amd64.deb:ubuntu1
@@ -83,22 +78,19 @@ DISTFILE[23]=		libudev-dev_229-4ubuntu21.27_amd64.deb:ubuntu11
 DISTFILE[24]=		NetBSD-${NETBSD_RELEASE}-amd64.iso:netbsd
 DISTFILE[25]=		MidnightBSD-${MIDNIGHT_RELEASE}--amd64-disc1.iso:midnight
 
-SPKGS[dragonfly]=	single
 SPKGS[freebsd_amd64]=	single
 SPKGS[netbsd_amd64]=	single
 SPKGS[linux]=		single
 SPKGS[sunos]=		single
 SPKGS[mbsd_amd64]=	single
 
-# Remove MACOS option on next update
-OPTIONS_AVAILABLE=	DRAGONFLY FREEBSDAMD64 LINUX SUNOS MACOS NET64 MBSD64
+OPTIONS_AVAILABLE=	FREEBSDAMD64 LINUX SUNOS NET64 MBSD64
 OPTIONS_STANDARD=	none
-VOPTS[dragonfly]=	DRAGONFLY=ON FREEBSDAMD64=OFF LINUX=OFF SUNOS=OFF MACOS=OFF NET64=OFF MBSD64=OFF
-VOPTS[freebsd_amd64]=	DRAGONFLY=OFF FREEBSDAMD64=ON LINUX=OFF SUNOS=OFF MACOS=OFF NET64=OFF MBSD64=OFF
-VOPTS[linux]=		DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=ON SUNOS=OFF MACOS=OFF NET64=OFF MBSD64=OFF
-VOPTS[sunos]=		DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=OFF SUNOS=ON MACOS=OFF NET64=OFF MBSD64=OFF
-VOPTS[netbsd_amd64]=	DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=OFF SUNOS=OFF MACOS=OFF NET64=ON MBSD64=OFF
-VOPTS[mbsd_amd64]=	DRAGONFLY=OFF FREEBSDAMD64=OFF LINUX=OFF SUNOS=OFF MACOS=OFF NET64=OFF MBSD64=ON
+VOPTS[freebsd_amd64]=	FREEBSDAMD64=ON LINUX=OFF SUNOS=OFF NET64=OFF MBSD64=OFF
+VOPTS[linux]=		FREEBSDAMD64=OFF LINUX=ON SUNOS=OFF NET64=OFF MBSD64=OFF
+VOPTS[sunos]=		FREEBSDAMD64=OFF LINUX=OFF SUNOS=ON NET64=OFF MBSD64=OFF
+VOPTS[netbsd_amd64]=	FREEBSDAMD64=OFF LINUX=OFF SUNOS=OFF NET64=ON MBSD64=OFF
+VOPTS[mbsd_amd64]=	FREEBSDAMD64=OFF LINUX=OFF SUNOS=OFF NET64=OFF MBSD64=ON
 
 INVALID_RPATH=		yes
 
@@ -150,16 +142,10 @@ MAKE_ENV=		OPSYS="{{OPSYS}}"
 			GCCX=ravensys-gcc
 MAKE_ARGS=		BASE={{RSYS}}
 VAR_OPSYS[freebsd]=	MAKEFILE_LINE=SYSTEM=${X_FREEBSD_1}
-VAR_OPSYS[dragonfly]=	MAKEFILE_LINE=SYSTEM=${X_DRAGONFLY}
 VAR_OPSYS[linux]=	MAKEFILE_LINE=SYSTEM=${X_LINUX_1}
 VAR_OPSYS[sunos]=	MAKEFILE_LINE=SYSTEM=${X_SOLARIS}
-VAR_OPSYS[darwin]=	MAKEFILE_LINE=SYSTEM=${X_APPLE}
 VAR_OPSYS[netbsd]=	MAKEFILE_LINE=SYSTEM=${X_NETBSD}
 VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=SYSTEM=${X_MIDNIGHT_1}
-
-[DRAGONFLY].DESCRIPTION=		Ravenports system root for DragonFly
-[DRAGONFLY].ONLY_FOR_OPSYS_ON=		dragonfly
-[DRAGONFLY].DF_INDEX_ON=		2
 
 [LINUX].DESCRIPTION=			Ravenports system root for Linux
 [LINUX].ONLY_FOR_OPSYS_ON=		linux
@@ -173,10 +159,6 @@ VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=SYSTEM=${X_MIDNIGHT_1}
 [SUNOS].ONLY_FOR_OPSYS_ON=		sunos
 [SUNOS].DF_INDEX_ON=			16
 
-[MACOS].DESCRIPTION=			Ravenports system root for MacOS/Darwin
-[MACOS].ONLY_FOR_OPSYS_ON=		darwin
-# DIST REMOVED [MACOS].DF_INDEX_ON=	20
-
 [NET64].DESCRIPTION=			Ravenports system root for NetBSD/AMD64
 [NET64].ONLY_FOR_OPSYS_ON=		netbsd
 [NET64].DF_INDEX_ON=			24
@@ -188,12 +170,6 @@ VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=SYSTEM=${X_MIDNIGHT_1}
 pre-fetch:
 	${SH} ${FILESDIR}/validate_pkgs.sh ${PREFIX} ${OPSYS} ${ARCH} \
 		${ARCH_STANDARD} ${OSVERSION} ${OSREL} ${MAJOR}
-
-post-extract-DRAGONFLY-ON:
-	${MV} ${WRKDIR}/${NAMEBASE}_2 ${WRKDIR}/dragonfly
-	@${MKDIR} ${WRKSRC}
-	${INSTALL_DATA} ${FILESDIR}/Makefile ${WRKSRC}/
-	${INSTALL_DATA} ${FILESDIR}/dragonfly.mk ${WRKSRC}/system_specifics.mk
 
 post-extract-LINUX-ON:
 	${MV} ${WRKDIR}/${NAMEBASE}_3 ${WRKDIR}/linux
@@ -227,12 +203,6 @@ post-extract-SUNOS-ON:
 	${INSTALL_DATA} ${FILESDIR}/Makefile ${WRKSRC}/
 	${RM} ${WRKDIR}/sunos/usr/include/png.h
 	${RM} ${WRKDIR}/sunos/usr/include/pngconf.h
-
-post-extract-MACOS-ON:
-	${MV} ${WRKDIR}/mac-sysroot ${WRKDIR}/darwin
-	@${MKDIR} ${WRKSRC}
-	${INSTALL_DATA} ${FILESDIR}/Makefile ${WRKSRC}/
-	${INSTALL_DATA} ${FILESDIR}/sunos.mk ${WRKSRC}/system_specifics.mk
 
 post-extract-NET64-ON:
 	@${MKDIR} ${WRKSRC} ${WRKDIR}/netbsd
