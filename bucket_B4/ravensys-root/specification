@@ -1,7 +1,5 @@
 DEF[EXTRA_UBUNTU]=	4 5 6 7 8 9 10 11 12 13 17 18 19 20 21 22 23
-DEF[FREEBSD_RELEASE]=	13.2
 DEF[MIDNIGHT_RELEASE]=	3.0.0
-DEF[X_FREEBSD_1]=	EXTRACT_VERSION(PLATFORM_FreeBSD_x86-64)
 DEF[X_LINUX_1]=		EXTRACT_VERSION(PLATFORM_Linux_x86-64)
 DEF[X_SOLARIS]=		EXTRACT_VERSION(PLATFORM_SunOS_x86-64)
 DEF[X_MIDNIGHT_1]=	EXTRACT_VERSION(PLATFORM_MidnightBSD_x86-64)
@@ -11,8 +9,7 @@ NAMEBASE=		ravensys-root
 VERSION=		3.4
 REVISION=		0
 KEYWORDS=		raven
-VARIANTS=		freebsd_amd64 linux sunos mbsd_amd64
-SDESC[freebsd_amd64]=	FreeBSD-amd64 system root for Ravenports build env
+VARIANTS=		linux sunos mbsd_amd64
 SDESC[mbsd_amd64]=	MidnightBSD-amd64 system root for Ravenports env
 SDESC[linux]=		Linux system root for Ravenports build env
 SDESC[sunos]=		Solaris 10 system root for Ravenports build env
@@ -21,9 +18,8 @@ CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main ubuntu1 ubuntu2 ubuntu3 ubuntu4 ubuntu5
 			ubuntu6 ubuntu7 ubuntu8 ubuntu9 ubuntu10 ubuntu11
-			freebsd_amd64 dragonlace sting midnight
+			dragonlace sting midnight
 SITES[main]=		https://leaf.dragonflybsd.org/~marino/dports-src/
-SITES[freebsd_amd64]=	http://ftp-archive.freebsd.org/pub/FreeBSD-Archive/old-releases/amd64/amd64/ISO-IMAGES/${FREEBSD_RELEASE}/
 SITES[dragonlace]=	http://downloads.dragonlace.net/misc/
 SITES[ubuntu1]=		http://security.ubuntu.com/ubuntu/pool/main/g/glibc/
 SITES[ubuntu2]=		UBUNTU/h/hostname
@@ -61,7 +57,7 @@ DISTFILE[11]=		passwd_4.2-3.1ubuntu5.3_amd64.deb:ubuntu7
 DISTFILE[12]=		linux-libc-dev_4.4.0-78.99_amd64.deb:sting
 DISTFILE[13]=		libc6-dev-amd64_2.23-0ubuntu9_i386.deb:sting
 DISTFILE[14]=		libc6-dev_2.23-0ubuntu9_i386.deb:sting
-DISTFILE[15]=		FreeBSD-${FREEBSD_RELEASE}-RELEASE-amd64-disc1.iso:freebsd_amd64
+DISTFILE[15]=		dummy-file-4.txt:main
 DISTFILE[16]=		solaris_root_10_u8.v11.tar.xz:dragonlace
 DISTFILE[17]=		locales_2.23-0ubuntu10_all.deb:sting
 DISTFILE[18]=		libattr1-dev_2.4.47-2_amd64.deb:ubuntu9
@@ -73,17 +69,15 @@ DISTFILE[23]=		libudev-dev_229-4ubuntu21.27_amd64.deb:ubuntu11
 DISTFILE[24]=		dummy-file-3.txt:main
 DISTFILE[25]=		MidnightBSD-${MIDNIGHT_RELEASE}--amd64-disc1.iso:midnight
 
-SPKGS[freebsd_amd64]=	single
 SPKGS[linux]=		single
 SPKGS[sunos]=		single
 SPKGS[mbsd_amd64]=	single
 
-OPTIONS_AVAILABLE=	FREEBSDAMD64 LINUX SUNOS MBSD64
+OPTIONS_AVAILABLE=	LINUX SUNOS MBSD64
 OPTIONS_STANDARD=	none
-VOPTS[freebsd_amd64]=	FREEBSDAMD64=ON LINUX=OFF SUNOS=OFF MBSD64=OFF
-VOPTS[linux]=		FREEBSDAMD64=OFF LINUX=ON SUNOS=OFF MBSD64=OFF
-VOPTS[sunos]=		FREEBSDAMD64=OFF LINUX=OFF SUNOS=ON MBSD64=OFF
-VOPTS[mbsd_amd64]=	FREEBSDAMD64=OFF LINUX=OFF SUNOS=OFF MBSD64=ON
+VOPTS[linux]=		LINUX=ON SUNOS=OFF MBSD64=OFF
+VOPTS[sunos]=		LINUX=OFF SUNOS=ON MBSD64=OFF
+VOPTS[mbsd_amd64]=	LINUX=OFF SUNOS=OFF MBSD64=ON
 
 INVALID_RPATH=		yes
 
@@ -119,7 +113,7 @@ B_DEPS[linux]=		shadow:single:standard
 
 SKIP_BUILD=		yes
 SINGLE_JOB=		yes
-EXTRACT_DIRTY=		3 ${EXTRA_UBUNTU} 14 15 25
+EXTRACT_DIRTY=		3 ${EXTRA_UBUNTU} 14 25
 EXTRACT_DEB_PACKAGE=	3 ${EXTRA_UBUNTU} 14
 
 PLIST_SUB=		BASE={{SYSPATH}}
@@ -134,7 +128,6 @@ MAKE_ENV=		OPSYS="{{OPSYS}}"
 			MKDIR="{{MKDIR}}"
 			GCCX=ravensys-gcc
 MAKE_ARGS=		BASE={{RSYS}}
-VAR_OPSYS[freebsd]=	MAKEFILE_LINE=SYSTEM=${X_FREEBSD_1}
 VAR_OPSYS[linux]=	MAKEFILE_LINE=SYSTEM=${X_LINUX_1}
 VAR_OPSYS[sunos]=	MAKEFILE_LINE=SYSTEM=${X_SOLARIS}
 VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=SYSTEM=${X_MIDNIGHT_1}
@@ -142,10 +135,6 @@ VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=SYSTEM=${X_MIDNIGHT_1}
 [LINUX].DESCRIPTION=			Ravenports system root for Linux
 [LINUX].ONLY_FOR_OPSYS_ON=		linux
 [LINUX].DF_INDEX_ON=			3 ${EXTRA_UBUNTU} 14
-
-[FREEBSDAMD64].DESCRIPTION=		Ravenports system root for FreeBSD/AMD64
-[FREEBSDAMD64].ONLY_FOR_OPSYS_ON=	freebsd
-[FREEBSDAMD64].DF_INDEX_ON=		15
 
 [SUNOS].DESCRIPTION=			Ravenports system root for Solaris 10
 [SUNOS].ONLY_FOR_OPSYS_ON=		sunos
@@ -168,14 +157,6 @@ post-extract-LINUX-ON:
 	@${MKDIR} ${WRKSRC}
 	${INSTALL_DATA} ${FILESDIR}/Makefile ${WRKSRC}/
 	${INSTALL_DATA} ${FILESDIR}/linux.mk ${WRKSRC}/system_specifics.mk
-
-post-extract-FREEBSDAMD64-ON:
-	${MV} ${WRKDIR}/${NAMEBASE}_15 ${WRKDIR}/freebsd
-	@${MKDIR} ${WRKSRC}
-	${INSTALL_DATA} ${FILESDIR}/Makefile ${WRKSRC}/
-	${INSTALL_DATA} ${FILESDIR}/freebsd.mk ${WRKSRC}/system_specifics.mk
-	(cd ${WRKDIR}/freebsd && ${TAR} -xf usr/freebsd-dist/base.txz \
-		--no-same-owner --no-same-permissions)
 
 post-extract-MBSD64-ON:
 	${MV} ${WRKDIR}/${NAMEBASE}_25 ${WRKDIR}/midnightbsd
