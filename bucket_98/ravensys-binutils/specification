@@ -58,6 +58,7 @@ PLIST_SUB=		PLUGINAPI={{PLUGINAPI}}
 			GPROF={{GPROF}}
 			TARGET={{CONFIGURE_TARGET}}
 			CTF={{SKIP_CTF:U}}
+			SFRAME={{SFRAME}}
 INFRASTRUCTURE=		yes
 DISTNAME=		binutils-${PORTVERSION}
 PREFIX=			{{LOCALBASE}}/toolchain
@@ -99,6 +100,7 @@ VAR_OPSYS[linux]=	VAR1=/lib/ld64.so.1
 			VAR2=/lib/ldx32.so.1
 			MAKEFILE_LINE=BUILD_GOLD=yes
 			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold
+			MAKEFILE_LINE=SFRAME="@comment "
 VAR_OPSYS[openbsd]=	MAKEFILE_LINE=PLUGINAPI="@comment "
 VAR_OPSYS[midnightbsd]=	VAR1=/libexec/ld-elf.so.1
 			VAR2=/libexec/ld-elf.so.1
