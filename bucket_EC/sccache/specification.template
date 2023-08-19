@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	%%VERSION%%
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		sccache
+VERSION=		${PORTVERSION}
+KEYWORDS=		rust devel
+VARIANTS=		standard
+SDESC[standard]=	Shared compilation cache for C/C++ and Rust
+HOMEPAGE=		https://github.com/mozilla/sccache
+CONTACT=		nobody
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		https://crates.io/api/v1/crates/sccache/${PORTVERSION}/download?dummy=/
+%%CR_SITES%%
+
+DISTFILE[1]=		ccache-${PORTVERSION}.tar.gz:main
+%%CR_DISTFILES%%
+%%DF_INDEX%%
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		APACHE20:primary
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/main.rs
+LICENSE_SCHEME=		solo
+
+USES=			cargo cclibs:primary pkgconfig ssl zstd
+
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/.crates2.json
+
+	# install the only documentation we have
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${WRKSRC}/README.md ${STAGEDIR}${STD_DOCDIR}
