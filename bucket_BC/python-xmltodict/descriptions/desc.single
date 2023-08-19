@@ -1,0 +1,100 @@
+# xmltodict
+
+`xmltodict` is a Python module that makes working with XML feel like you
+are working with [JSON], as in this ["spec"]:
+
+[Build Status]
+
+```python
+>>> print(json.dumps(xmltodict.parse("""
+...  <mydocument has="an attribute">
+...    <and>
+...      <many>elements</many>
+...      <many>more elements</many>
+...    </and>
+...    <plus a="complex">
+...      element as well
+...    </plus>
+...  </mydocument>
+...  """), indent=4))
+{
+    "mydocument": {
+        "@has": "an attribute", 
+        "and": {
+            "many": [
+                "elements", 
+                "more elements"
+           ]
+        }, 
+        "plus": {
+            "@a": "complex", 
+            "#text": "element as well"
+        }
+    }
+}
+```
+
+## Namespace support
+
+By default, `xmltodict` does no XML namespace processing (it just treats
+namespace declarations as regular node attributes), but passing
+`process_namespaces=True` will make it expand namespaces for you:
+
+```python
+>>> xml = """
+... <root xmlns="http://defaultns.com/"
+...       xmlns:a="http://a.com/"
+...       xmlns:b="http://b.com/">
+...   <x>1</x>
+...   <a:y>2</a:y>
+...   <b:z>3</b:z>
+... </root>
+... """
+>>> xmltodict.parse(xml, process_namespaces=True) == {
+...     'http://defaultns.com/:root': {
+...         'http://defaultns.com/:x': '1',
+...         'http://a.com/:y': '2',
+...         'http://b.com/:z': '3',
+...     }
+... }
+True
+```
+
+It also lets you collapse certain namespaces to shorthand prefixes, or skip
+them altogether:
+
+```python
+>>> namespaces = {
+...     'http://defaultns.com/': None, # skip this namespace
+...     'http://a.com/': 'ns_a', # collapse "http://a.com/" -> "ns_a"
+... }
+>>> xmltodict.parse(xml, process_namespaces=True, namespaces=namespaces) ==
+{
+...     'root': {
+...         'x': '1',
+...         'ns_a:y': '2',
+...         'http://b.com/:z': '3',
+...     },
+... }
+True
+```
+
+## Streaming mode
+
+`xmltodict` is very fast ([Expat]-based) and has a streaming mode with a
+small memory footprint, suitable for big XML dumps like [Discogs] or
+[Wikipedia]:
+
+```python
+>>> def handle_artist(_, artist):
+...     print(artist['name'])
+...     return True
+>>> 
+>>> xmltodict.parse(GzipFile('discogs_artists.xml.gz'),
+...     item_depth=2, item_callback=handle_artist)
+A Perfect Circle
+Fantômas
+King Crimson
+Chris Potter
+...
+```
