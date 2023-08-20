@@ -1,7 +1,7 @@
---- lib/fmt/src/fmt.cc.orig	2023-04-30 10:27:29 UTC
+--- lib/fmt/src/fmt.cc.orig	2023-08-20 09:03:28 UTC
 +++ lib/fmt/src/fmt.cc
-@@ -46,7 +46,7 @@ module;
- #if _MSC_VER
+@@ -41,7 +41,7 @@ module;
+ #if defined(_MSC_VER) || defined(__MINGW32__)
  #  include <intrin.h>
  #endif
 -#if defined __APPLE__ || defined(__FreeBSD__)
