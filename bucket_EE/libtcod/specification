@@ -6,6 +6,7 @@ DEF[UNDERSCORE]=	EXTRACT_INFO(SPHINX_UNDERSCORE)
 
 NAMEBASE=		libtcod
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Roguelike game development library
@@ -16,8 +17,8 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/libtcod:libtcod:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-# Drop samples, they don't build on linux
-SPKGS[standard]=	complete primary dev docs
+# Drop samples, they don't build on linux (drop docs too, see below)
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -48,13 +49,15 @@ SOVERSION=		${SOVERSION}
 
 # Doc generation is kind of broken in version 1.15.
 # But among the garbage due to missing data there's some useful info, too.
-post-build:
-	(cd ${WRKSRC}/../../docs && gmake html)
+# Broken on Midnight BSD: AttributeError: 'PosixPath' object has no attribute 'rstrip'
+# so just kill the problematic docs
+# post-build:
+# #	(cd ${WRKSRC}/../../docs && gmake html)
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/libtcod
-	${MV} ${WRKSRC}/../../docs/_build/html ${STAGEDIR}${STD_DOCDIR}
-	${RM} -r ${STAGEDIR}${STD_DOCDIR}/_sources
+# #	${MV} ${WRKSRC}/../../docs/_build/html ${STAGEDIR}${STD_DOCDIR}
+# #	${RM} -r ${STAGEDIR}${STD_DOCDIR}/_sources
 # #	(cd ${WRKSRC}/../../samples && \
 # #		${COPYTREE_SHARE} . ${STAGEDIR}${STD_EXAMPLESDIR})
 	(cd ${WRKSRC}/../../ && \
