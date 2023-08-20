@@ -1,6 +1,6 @@
 --- absl/base/internal/sysinfo.cc.orig	2023-08-07 18:40:00 UTC
 +++ absl/base/internal/sysinfo.cc
-@@ -26,11 +26,15 @@
+@@ -26,11 +26,19 @@
  #include <unistd.h>
  #endif
  
@@ -14,11 +14,15 @@
 +#include <lwp.h> // For _lwp_self()
 +#endif
 +
++#if defined(__MidnightBSD__)
++#include <pthread_np.h>
++#endif
++
 +#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__)
  #include <sys/sysctl.h>
  #endif
  
-@@ -432,6 +436,18 @@ pid_t GetTID() {
+@@ -432,6 +440,24 @@ pid_t GetTID() {
    return static_cast<pid_t>(tid);
  }
  
@@ -32,6 +36,12 @@
 +
 +pid_t GetTID() {
 +  return static_cast<pid_t>(_lwp_self());
++}
++
++#elif defined(__MidnightBSD__)
++
++pid_t GetTID() {
++  return static_cast<pid_t>(pthread_getthreadid_np());
 +}
 +
  #elif defined(__native_client__)
