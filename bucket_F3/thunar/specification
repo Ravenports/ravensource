@@ -5,6 +5,7 @@ DEF[SOVERSION]=		0.0.0
 
 NAMEBASE=		thunar
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11_fm
 VARIANTS=		standard
 SDESC[standard]=	File manager for Xfce
@@ -18,13 +19,18 @@ DIST_SUBDIR=		xfce
 
 SPKGS[standard]=	complete primary docs nls
 
-OPTIONS_AVAILABLE=	GUDEV
-OPTIONS_STANDARD=	GUDEV
-OPT_ON[dragonfly]=	GUDEV
-OPT_ON[midnightbsd]=	GUDEV
-OPT_ON[freebsd]=	GUDEV
-OPT_ON[netbsd]=		GUDEV
+OPTIONS_AVAILABLE=	GUDEV GUDEV-DEVD NO-GUDEV
+OPTIONS_STANDARD=	GUDEV GUDEV-DEVD NO-GUDEV
+OPTGROUP_RADIO=		GUDEVS
+OPTDESCR[GUDEVS]=	Flavors of libudev gobject bindings
+OPTGROUP[GUDEVS]=	NO-GUDEV GUDEV GUDEV-DEVD
+
+OPT_ON[dragonfly]=	GUDEV-DEVD
+OPT_ON[midnightbsd]=	GUDEV-DEVD
+OPT_ON[freebsd]=	GUDEV-DEVD
+OPT_ON[netbsd]=		GUDEV-DEVD
 OPT_ON[linux]=		GUDEV
+OPT_ON[sunos]=		NO-GUDEV
 
 FPC_EQUIVALENT=		x11-fm/thunar
 
@@ -80,9 +86,15 @@ INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		INTRO="@comment "
 
+[NO-GUDEV].DESCRIPTION=			Build without gudev support
+
 [GUDEV].DESCRIPTION=			Build with gudev library
 [GUDEV].BUILD_DEPENDS_ON=		libgudev:dev:standard
 [GUDEV].BUILDRUN_DEPENDS_ON=		libgudev:primary:standard
+
+[GUDEV-DEVD].DESCRIPTION=		Build with gudev-devd library (BSD)
+[GUDEV-DEVD].BUILD_DEPENDS_ON=		libgudev-devd:dev:standard
+[GUDEV-DEVD].BUILDRUN_DEPENDS_ON=	libgudev-devd:primary:standard
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/thunarx \
