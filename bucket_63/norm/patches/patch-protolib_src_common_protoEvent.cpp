@@ -5,7 +5,7 @@
  #include <unistd.h>
  #include <fcntl.h>
 -#ifdef LINUX
-+#if defined LINUX || defined(__FreeBSD__)
++#if defined LINUX || (defined(__FreeBSD__) && !defined(__MidnightBSD__))
  #include <sys/eventfd.h>
  #endif // LINUX
  #endif  // if/else WIN32/UNIX
