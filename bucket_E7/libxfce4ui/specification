@@ -5,6 +5,7 @@ DEF[SOVERSION]=		0.0.0
 
 NAMEBASE=		libxfce4ui
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11
 VARIANTS=		standard
 SDESC[standard]=	Xfce UI library containing various GTK+ widgets
@@ -53,15 +54,18 @@ INSTALL_TARGET=		install-strip
 
 SOVERSION=		${SOVERSION}
 
-B_DEPS[dragonfly]=	libgudev:dev:standard
-BR_DEPS[dragonfly]=	libgudev:primary:standard
+B_DEPS[dragonfly]=	libgudev-devd:dev:standard
+BR_DEPS[dragonfly]=	libgudev-devd:primary:standard
 
-B_DEPS[freebsd]=	libgudev:dev:standard
-BR_DEPS[freebsd]=	libgudev:primary:standard
+B_DEPS[netbsd]=		libgudev-devd:dev:standard
+BR_DEPS[netbsd]=	libgudev-devd:primary:standard
+
+B_DEPS[freebsd]=	libgudev-devd:dev:standard
+BR_DEPS[freebsd]=	libgudev-devd:primary:standard
 			libgtop:primary:standard
 
-B_DEPS[midnightbsd]=	libgudev:dev:standard
-BR_DEPS[midnightbsd]=	libgudev:primary:standard
+B_DEPS[midnightbsd]=	libgudev-devd:dev:standard
+BR_DEPS[midnightbsd]=	libgudev-devd:primary:standard
 			libgtop:primary:standard
 
 B_DEPS[linux]=		libgudev:dev:standard
