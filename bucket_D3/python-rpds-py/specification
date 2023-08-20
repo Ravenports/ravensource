@@ -167,6 +167,13 @@ do-install:
 	${CHMOD} +x ${STAGEDIR}${PYTHON_SITELIBDIR}/rpds/librpds.so
 	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/rpds/rpds.*.so
 
+pre-install-midnightbsd:
+	# Due to rust limitations, maturin must set target OS as freebsd, but
+	# pip doesn't recognize that as a legal combination.  Rename to complete build.
+	(cd ${INSTALL_WRKSRC}/target/wheels/ && ${MV}\
+	rpds_py-${PORTVERSION}-cp${PYTHON_SUFFIX}-cp${PYTHON_SUFFIX}-freebsd_*.whl\
+	rpds_py-${PORTVERSION}-cp${PYTHON_SUFFIX}-cp${PYTHON_SUFFIX}-midnightbsd_3_0_0_amd64.whl)
+
 pre-install-linux:
 	# for some reason compatibility ends at -manylinux_2_23_x86_64
 	(cd ${INSTALL_WRKSRC}/target/wheels/ && ${MV}\
