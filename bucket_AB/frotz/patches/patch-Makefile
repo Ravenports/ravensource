@@ -1,9 +1,10 @@
 --- Makefile.orig	2022-04-14 06:47:41 UTC
 +++ Makefile
-@@ -161,47 +161,6 @@ endif
+@@ -160,46 +160,11 @@ CURSES_LDFLAGS += -l$(CURSES)
+ endif
  endif
  
- 
+-
 -# OS-specific configurations.
 -# NetBSD
 -ifeq ($(UNAME_S),NetBSD)
@@ -38,17 +39,16 @@
 -SDL_LDFLAGS += -lexecinfo
 -endif
 -
--# Linux
--ifeq ($(UNAME_S),Linux)
--LINUX = yes
--CFLAGS += -D_POSIX_C_SOURCE=200809L
+ # Linux
+ ifeq ($(UNAME_S),Linux)
+ LINUX = yes
+ CFLAGS += -D_POSIX_C_SOURCE=200809L
 -NPROCS = $(shell grep -c ^processor /proc/cpuinfo)
--endif
--
++SDL_LDFLAGS += -ldl
+ endif
+ 
  # macOS
- ifeq ($(UNAME_S),Darwin)
- MACOS = yes
-@@ -292,13 +251,14 @@ DOS_DIR = $(SRCDIR)/dos
+@@ -292,13 +257,14 @@ DOS_DIR = $(SRCDIR)/dos
  X11_DIR = $(SRCDIR)/x11
  X11_LIB = $(X11_DIR)/frotz_x11.a
  export X11_PKGS = x11 xt libpng libjpeg zlib
@@ -65,7 +65,7 @@
  
  SUBDIRS = $(COMMON_DIR) $(CURSES_DIR) $(X11_DIR) $(SDL_DIR) $(DUMB_DIR) $(BLORB_DIR) $(DOS_DIR)
  SUB_CLEAN = $(SUBDIRS:%=%-clean)
-@@ -583,14 +543,6 @@ ifndef CURSES
+@@ -583,14 +549,6 @@ ifndef CURSES
  	@echo "** ERROR You need to pick a flavor of curses in the Makefile!"
  	exit 1
  endif
