@@ -270,6 +270,7 @@ headers_MidnightBSD=\
 	libprocstat.h \
 	malloc_np.h \
 	ohash.h \
+	stdatomic.h \
 	# end
 
 pcfiles_MidnightBSD=\
