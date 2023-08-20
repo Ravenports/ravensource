@@ -1,4 +1,4 @@
---- agent/mibgroup/mibII/udpTable.c.orig	2022-07-13 21:14:14 UTC
+--- agent/mibgroup/mibII/udpTable.c.orig	2023-08-15 20:32:01 UTC
 +++ agent/mibgroup/mibII/udpTable.c
 @@ -94,10 +94,10 @@ struct netsnmp_udpEntry_s {
  #define INP_NEXT_SYMBOL		inp_queue.cqe_next	/* or set via <net-snmp/system/openbsd.h> */

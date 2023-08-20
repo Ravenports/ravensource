@@ -1,4 +1,4 @@
---- agent/mibgroup/hardware/memory/memory_freebsd.c.orig	2022-07-13 21:14:14 UTC
+--- agent/mibgroup/hardware/memory/memory_freebsd.c.orig	2023-08-15 20:32:01 UTC
 +++ agent/mibgroup/hardware/memory/memory_freebsd.c
 @@ -164,7 +164,7 @@ int netsnmp_mem_arch_load( netsnmp_cache
          if (!mem->descr)

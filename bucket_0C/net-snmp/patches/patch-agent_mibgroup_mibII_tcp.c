@@ -1,4 +1,4 @@
---- agent/mibgroup/mibII/tcp.c.orig	2022-07-13 21:14:14 UTC
+--- agent/mibgroup/mibII/tcp.c.orig	2023-08-15 20:32:01 UTC
 +++ agent/mibgroup/mibII/tcp.c
 @@ -8,6 +8,14 @@
  #include <net-snmp/net-snmp-features.h>
@@ -12,6 +12,6 @@
 +#define PR_FASTHZ	5	/* 5 fast timeouts per second */
 +#endif
 +
- #if HAVE_STDLIB_H
+ #ifdef HAVE_STDLIB_H
  #include <stdlib.h>
  #endif
