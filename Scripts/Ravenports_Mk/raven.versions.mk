@@ -145,4 +145,12 @@ PLATFORM_NetBSD_x86-64=		NetBSD/x86_64/x86_64/902000000/9.2/9
 PLATFORM_MidnightBSD_x86-64=	MidnightBSD/amd64/x86_64/300005/3.0.0/3
 PLATFORM_OpenBSD_x86-64=	OpenBSD/amd64/x86_64/tbd/tbd/tbd
 
+#-------------------------------------------------------------------------
+# To support old system roots
+#-------------------------------------------------------------------------
+
+PREVIOUS_DF64_R62=		DragonFly/x86_64/x86_64/600200/6.2/6.2
+PREVIOUS_Linux_K44=		Linux/x86_64/x86_64/440053/4.4.0/4.4
+PREVIOUS_FBSD64_R12=		FreeBSD/amd64/x86_64/1202000/12.2/12
+
 .endif # defined (_INCLUDE_BSD_DEFAULT_VERSIONS_MK)
