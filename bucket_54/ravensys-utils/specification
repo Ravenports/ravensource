@@ -7,14 +7,20 @@ DEF[X_SOLARIS]=		EXTRACT_VERSION(PLATFORM_SunOS_x86-64)
 DEF[X_NETBSD]=		EXTRACT_VERSION(PLATFORM_NetBSD_x86-64)
 DEF[X_APPLE]=		EXTRACT_VERSION(PLATFORM_MacOS_x86-64)
 DEF[X_MIDNIGHT]=	EXTRACT_VERSION(PLATFORM_MidnightBSD_x86-64)
+DEF[OLDSR_DRAGONFLY]=	EXTRACT_VERSION(PREVIOUS_DF64_R62)
+DEF[OLDSR_FREEBSD_1]=	EXTRACT_VERSION(PREVIOUS_FBSD64_R12)
+DEF[OLDSR_LINUX_1]=	EXTRACT_VERSION(PREVIOUS_Linux_K44)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravensys-utils
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		raven sysutils
-VARIANTS=		standard
+VARIANTS=		standard prevdbsd prevfbsd prevlinux
 SDESC[standard]=	Consistent tools for Ravenports system root
+SDESC[prevdbsd]=	System root tools for previous DragonFly
+SDESC[prevfbsd]=	System root tools for previous FreeBSD
+SDESC[prevlinux]=	System root tools for previous Linux
 HOMEPAGE=		https://github.com/ravenports/ravensys-utils
 CONTACT=		John_Marino[draco@marino.st]
 
@@ -23,9 +29,15 @@ SITES[main]=		GITHUB/ravenports:ravensys-utils:${TAG}
 DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
+SPKGS[prevdbsd]=	single
+SPKGS[prevfbsd]=	single
+SPKGS[prevlinux]=	single
 
-OPTIONS_AVAILABLE=	none
+OPTIONS_AVAILABLE=	PREV_DBSD PREV_FBSD PREV_LINUX
 OPTIONS_STANDARD=	none
+VOPTS[prevdbsd]=	PREV_DBSD=ON PREV_FBSD=OFF PREV_LINUX=OFF
+VOPTS[prevfbsd]=	PREV_DBSD=OFF PREV_FBSD=ON PREV_LINUX=OFF
+VOPTS[prevlinux]=	PREV_DBSD=OFF PREV_FBSD=OFF PREV_LINUX=ON
 
 LICENSE=		CUSTOM1:single
 LICENSE_NAME=		CUSTOM1:"ravensys-utils: all tools feature BSD-like license"
@@ -53,6 +65,18 @@ VAR_OPSYS[sunos]=	MAKEFILE_LINE=SYSTEM=${X_SOLARIS}
 VAR_OPSYS[darwin]=	MAKEFILE_LINE=SYSTEM=${X_APPLE}
 VAR_OPSYS[netbsd]=	MAKEFILE_LINE=SYSTEM=${X_NETBSD}
 VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=SYSTEM=${X_MIDNIGHT}
+
+[PREV_DBSD].DESCRIPTION=		Hardcode uname values to older DragonFly release
+[PREV_DBSD].MAKEFILE_ON=		SYSTEM=${OLDSR_DRAGONFLY}
+[PREV_DBSD].ONLY_FOR_OPSYS_ON=		dragonfly
+
+[PREV_FBSD].DESCRIPTION=		Hardcode uname values to older FreeBSD release
+[PREV_FBSD].MAKEFILE_ON=		SYSTEM=${OLDSR_FREEBSD_1}
+[PREV_FBSD].ONLY_FOR_OPSYS_ON=		freebsd
+
+[PREV_LINUX].DESCRIPTION=		Hardcode uname values to older Linux release
+[PREV_LINUX].MAKEFILE_ON=		SYSTEM=${OLDSR_LINUX_1}
+[PREV_LINUX].ONLY_FOR_OPSYS_ON=		linux
 
 post-install:
 .for prog in md5 mtree patch ravensys-uname which rpcgen
