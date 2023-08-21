@@ -300,7 +300,7 @@ install-platform: install-common
 	# convert ldd from bash to dash
 	sed -i'' -e "s|/bin/bash|/bin/dash|" ${DESTDIR}${BASE}/usr/bin/ldd
 	# i386 version conflicts with amd64 version, so copy just the i386 files separately
-	cp ${CPA} ../ravensys-root-linux_14/usr/include/i386-linux-gnu ${DESTDIR}${BASE}/usr/include/
+	cp ${CPA} ../i386_files/usr/include/i386-linux-gnu ${DESTDIR}${BASE}/usr/include/
 	# locales
 	${MKDIR} ${DESTDIR}${BASE}/usr/lib/locale
 	${MKDIR} ${DESTDIR}${BASE}/usr/share/i18n/charmaps

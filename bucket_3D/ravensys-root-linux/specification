@@ -3,7 +3,7 @@ DEF[ABI26_RELEASE]=	2.6.32
 DEF[X_CURRENT]=		EXTRACT_VERSION(PLATFORM_Linux_x86-64)
 DEF[X_ABI26]=		Linux/x86_64/x86_64/440053/4.4.0/4.4
 DEF[ABI26_FILES]=	2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
-DEF[ABI32_FILES]=	2
+DEF[ABI32_FILES]=	21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravensys-root-linux
@@ -17,6 +17,9 @@ CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main sting ubuntu1 ubuntu2 ubuntu3 ubuntu4 ubuntu5 ubuntu6
 			ubuntu7 ubuntu8 ubuntu9 ubuntu10 ubuntu11
+			debian1 debian2 debian3 debian4 debian5 debian6 debian7
+			debian8 debian9 debian10 debian11 debian12 debian13 debian14
+			debian15 debian16 debian17
 SITES[main]=		https://leaf.dragonflybsd.org/~marino/dports-src/
 SITES[ubuntu1]=		http://security.ubuntu.com/ubuntu/pool/main/g/glibc/
 SITES[ubuntu2]=		UBUNTU/h/hostname
@@ -30,6 +33,23 @@ SITES[ubuntu9]=		UBUNTU/a/attr
 SITES[ubuntu10]=	UBUNTU/a/acl
 SITES[ubuntu11]=	http://security.ubuntu.com/ubuntu/pool/main/s/systemd/
 SITES[sting]=		http://www.ravenports.com/cache-distfiles/
+
+SITES[debian1]=		DEBIAN/pool/main/g/glibc
+SITES[debian2]=		DEBIAN/pool/main/a/attr
+SITES[debian3]=		DEBIAN/pool/main/a/acl
+SITES[debian4]=		DEBIAN/pool/main/s/systemd
+SITES[debian5]=		http://security.debian.org/debian-security/pool/updates/main/l/linux/
+SITES[debian6]=		DEBIAN/pool/main/h/hostname
+SITES[debian7]=		DEBIAN/pool/main/d/dash
+SITES[debian8]=		DEBIAN/pool/main/s/shadow
+SITES[debian9]=		DEBIAN/pool/main/p/pax
+SITES[debian10]=	DEBIAN/pool/main/libx/libxcrypt
+SITES[debian11]=	DEBIAN/pool/main/libn/libnsl
+SITES[debian12]=	DEBIAN/pool/main/libt/libtirpc
+SITES[debian13]=	DEBIAN/pool/main/libn/libnss-nis
+SITES[debian14]=	DEBIAN/pool/main/libn/libnss-nisplus
+SITES[debian15]=	DEBIAN/pool/main/n/nss
+SITES[debian16]=	DEBIAN/pool/main/g/gnu-which
 
 DISTFILE[1]=		dummy-tarball.tar.gz:main
 DISTFILE[2]=		locales_2.23-0ubuntu10_all.deb:sting
@@ -51,6 +71,35 @@ DISTFILE[17]=		libacl1-dev_2.2.52-3_amd64.deb:ubuntu10
 DISTFILE[18]=		libacl1_2.2.52-3_amd64.deb:ubuntu10
 DISTFILE[19]=		libudev1_229-4ubuntu21.27_amd64.deb:ubuntu11
 DISTFILE[20]=		libudev-dev_229-4ubuntu21.27_amd64.deb:ubuntu11
+
+DISTFILE[21]=		libc6-dev_2.36-9+deb12u1_i386.deb:debian1
+DISTFILE[22]=		libc6-dev_2.36-9+deb12u1_amd64.deb:debian1
+DISTFILE[23]=		libc6-dev-amd64_2.36-9+deb12u1_i386.deb:debian1
+DISTFILE[24]=		libc6-amd64_2.36-9+deb12u1_i386.deb:debian1
+DISTFILE[25]=		libc-bin_2.36-9+deb12u1_amd64.deb:debian1
+DISTFILE[26]=		libattr1-dev_2.5.1-4_amd64.deb:debian2
+DISTFILE[27]=		libattr1_2.5.1-4_amd64.deb:debian2
+DISTFILE[28]=		libacl1-dev_2.3.1-3_amd64.deb:debian3
+DISTFILE[29]=		libacl1_2.3.1-3_amd64.deb:debian3
+DISTFILE[30]=		libudev-dev_252.12-1~deb12u1_amd64.deb:debian4
+DISTFILE[31]=		libudev1_252.12-1~deb12u1_amd64.deb:debian4
+DISTFILE[32]=		libcrypt-dev_4.4.33-2_amd64.deb:debian10
+DISTFILE[33]=		libcrypt1_4.4.33-2_amd64.deb:debian10
+DISTFILE[34]=		libnsl-dev_1.3.0-2_amd64.deb:debian11
+DISTFILE[35]=		libnsl2_1.3.0-2_amd64.deb:debian11
+DISTFILE[36]=		libtirpc-dev_1.3.3+ds-1_amd64.deb:debian12
+DISTFILE[37]=		libtirpc3_1.3.3+ds-1_amd64.deb:debian12
+DISTFILE[38]=		libnss3-dev_3.87.1-1_amd64.deb:debian15
+DISTFILE[39]=		libnss3_3.87.1-1_amd64.deb:debian15
+DISTFILE[40]=		linux-libc-dev_6.1.38-4_amd64.deb:debian5
+DISTFILE[41]=		locales_2.36-9+deb12u1_all.deb:debian1
+DISTFILE[42]=		hostname_3.23+nmu1_amd64.deb:debian6
+DISTFILE[43]=		dash_0.5.12-2_amd64.deb:debian7
+DISTFILE[44]=		passwd_4.13+dfsg1-1+b1_amd64.deb:debian8
+DISTFILE[45]=		pax_20201030-1_amd64.deb:debian9
+DISTFILE[46]=		libnss-nis_3.1-4_amd64.deb:debian13
+DISTFILE[47]=		libnss-nisplus_1.3-4_amd64.deb:debian14
+DISTFILE[48]=		gnu-which_2.21+dfsg-2_amd64.deb:debian16
 
 DIST_SUBDIR=		linux-sysroot
 
@@ -97,8 +146,8 @@ BUILD_DEPENDS=		nawk:single:standard
 
 SKIP_BUILD=		yes
 SINGLE_JOB=		yes
-EXTRACT_DIRTY=		${ABI26_FILES}
-EXTRACT_DEB_PACKAGE=	${ABI26_FILES}
+EXTRACT_DIRTY=		${ABI26_FILES} ${ABI32_FILES}
+EXTRACT_DEB_PACKAGE=	${ABI26_FILES} ${ABI32_FILES}
 PLIST_SUB=		BASE={{SYSPATH}}
 INFRASTRUCTURE=		yes
 
@@ -121,21 +170,35 @@ MAKE_ARGS=		BASE={{RSYS}}
 [ABI26].MAKEFILE_ON=			SYSTEM=${X_ABI26}
 
 pre-fetch-NOTSTD-OFF:
-	${SH} ${MK_SCRIPTS}/ravensys-root-validate_pkgs.sh ${PREFIX} \
+	# temp disable
+	# ${SH} ${MK_SCRIPTS}/ravensys-root-validate_pkgs.sh ${PREFIX} \
 		${OPSYS} ${ARCH} ${ARCH_STANDARD} ${OSVERSION} ${OSREL} ${MAJOR}
 
 post-extract:
-	${MKDIR} ${WRKSRC}
-	${INSTALL_DATA} ${FILESDIR}/linux.mk ${WRKSRC}/system_specifics.mk
+	${MKDIR} ${WRKSRC} ${WRKDIR}/linux
 	${INSTALL_DATA} ${MK_SCRIPTS}/ravensys-root-Makefile ${WRKSRC}/Makefile
 
 post-extract-NOTSTD-OFF:
-	# ${MV} ${WRKDIR}/${NAMEBASE}_2 ${WRKDIR}/dragonfly
+	${INSTALL_DATA} ${FILESDIR}/linux61.mk ${WRKSRC}/system_specifics.mk
+.for NDX in ${ABI32_FILES}
+	@if [ "${NDX}" = "23" ]; then \
+		echo "move ${NAMEBASE}_${NDX} to i386_files" ;\
+		${MV} ${WRKDIR}/${NAMEBASE}_${NDX} ${WRKDIR}/i386_files ;\
+	else \
+		echo "copy ${NAMEBASE}_${NDX} files over" ;\
+		cp -a ${WRKDIR}/${NAMEBASE}_${NDX}/* ${WRKDIR}/linux/ ;\
+		${RM} -r ${WRKDIR}/${NAMEBASE}_${NDX} ;\
+	fi
+.endfor
 
 post-extract-ABI26-ON:
-	${MKDIR} ${WRKDIR}/linux
+	${INSTALL_DATA} ${FILESDIR}/linux.mk ${WRKSRC}/system_specifics.mk
 .for NDX in ${ABI26_FILES}
-	if [ "${NDX}" != "14" ]; then \
+	@if [ "${NDX}" = "14" ]; then \
+		echo "move ${NAMEBASE}_${NDX} to i386_files" ;\
+		${MV} ${WRKDIR}/${NAMEBASE}_${NDX} ${WRKDIR}/i386_files ;\
+	else \
+		echo "copy ${NAMEBASE}_${NDX} files over" ;\
 		cp -a ${WRKDIR}/${NAMEBASE}_${NDX}/* ${WRKDIR}/linux/ ;\
 		${RM} -r ${WRKDIR}/${NAMEBASE}_${NDX} ;\
 	fi
