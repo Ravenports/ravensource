@@ -4,7 +4,7 @@ DEF[SOVERSION]=		0.3.0
 
 NAMEBASE=		libgudev
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	GObject bindings for libudev
@@ -20,7 +20,7 @@ SPKGS[standard]=	complete primary dev
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-ONLY_FOR_OPSYS=		dragonfly freebsd netbsd linux midnightbsd
+ONLY_FOR_OPSYS=		linux
 
 LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
@@ -28,11 +28,6 @@ LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gudev/gudev.h
 LICENSE_SCHEME=		solo
-
-BUILD_DEPENDS=		libudev-devd:dev:standard
-BUILDRUN_DEPENDS=	libudev-devd:primary:standard
-
-EXRUN[dev]=		libudev-devd:dev:standard
 
 USES=			pkgconfig gmake meson
 GNOME_COMPONENTS=	glib introspection
