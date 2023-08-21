@@ -90,7 +90,7 @@ install-platform: install-common
 		${DESTDIR}${BASE}/usr/share/group
 	${BSD_INSTALL_DATA} /port/files/linux-passwd \
 		${DESTDIR}${BASE}/usr/share/passwd
-	# ${BSD_INSTALL_DATA} ../${OPSYS:tl}/etc/ld.so.conf.d/x86_64-linux-gnu.conf \
-		${DESTDIR}${BASE}/usr/share/x86_64-linux-gnu.conf
-	# echo "include /etc/ld.so.conf.d/*.conf" > ${DESTDIR}${BASE}/usr/share/ld.so.conf
-	# ln -s asm-generic ${DESTDIR}${BASE}/usr/include/asm
+	echo "# Multiarch support for Ravenports" > ${DESTDIR}${BASE}/usr/share/x86_64-linux-gnu.conf
+	echo "/lib/x86_64-linux-gnu" >> ${DESTDIR}${BASE}/usr/share/x86_64-linux-gnu.conf
+	echo "/usr/lib/x86_64-linux-gnu" >> ${DESTDIR}${BASE}/usr/share/x86_64-linux-gnu.conf
+	echo "include /etc/ld.so.conf.d/*.conf" > ${DESTDIR}${BASE}/usr/share/ld.so.conf
