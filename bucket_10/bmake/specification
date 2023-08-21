@@ -7,13 +7,19 @@ DEF[X_SOLARIS]=		EXTRACT_VERSION(PLATFORM_SunOS_x86-64)
 DEF[X_APPLE]=		EXTRACT_VERSION(PLATFORM_MacOS_x86-64)
 DEF[X_NETBSD]=		EXTRACT_VERSION(PLATFORM_NetBSD_x86-64)
 DEF[X_MIDNIGHT]=	EXTRACT_VERSION(PLATFORM_MidnightBSD_x86-64)
+DEF[OLDSR_DRAGONFLY]=	EXTRACT_VERSION(PREVIOUS_DF64_R62)
+DEF[OLDSR_FREEBSD_1]=	EXTRACT_VERSION(PREVIOUS_FBSD64_R12)
+DEF[OLDSR_LINUX_1]=	EXTRACT_VERSION(PREVIOUS_Linux_K44)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		bmake
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		standard
+VARIANTS=		standard prevdbsd prevfbsd prevlinux
 SDESC[standard]=	Portable version of NetBSD 'make' utility
+SDESC[prevdbsd]=	BSD Make encoded for previous DragonFly sysroot
+SDESC[prevfbsd]=	BSD Make encoded for previous FreeBSD sysroot
+SDESC[prevlinux]=	BSD Make encoded for previous Linux sysroot
 HOMEPAGE=		http://www.crufty.net/help/sjg/bmake.html
 CONTACT=		nobody
 
@@ -23,9 +29,15 @@ SITES[main]=		https://cdn.netbsd.org/pub/NetBSD/misc/sjg/
 DISTFILE[1]=		bmake-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	single
+SPKGS[prevdbsd]=	single
+SPKGS[prevfbsd]=	single
+SPKGS[prevlinux]=	single
 
-OPTIONS_AVAILABLE=	none
+OPTIONS_AVAILABLE=	PREV_DBSD PREV_FBSD PREV_LINUX
 OPTIONS_STANDARD=	none
+VOPTS[prevdbsd]=	PREV_DBSD=ON PREV_FBSD=OFF PREV_LINUX=OFF
+VOPTS[prevfbsd]=	PREV_DBSD=OFF PREV_FBSD=ON PREV_LINUX=OFF
+VOPTS[prevlinux]=	PREV_DBSD=OFF PREV_FBSD=OFF PREV_LINUX=ON
 
 LICENSE=		BSD3CLAUSE:single
 LICENSE_FILE=		BSD3CLAUSE:{{WRKDIR}}/LICENSE
@@ -48,6 +60,18 @@ VAR_OPSYS[sunos]=	MAKEFILE_LINE=SYSTEM=${X_SOLARIS}
 VAR_OPSYS[darwin]=	MAKEFILE_LINE=SYSTEM=${X_APPLE}
 VAR_OPSYS[netbsd]=	MAKEFILE_LINE=SYSTEM=${X_NETBSD}
 VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=SYSTEM=${X_MIDNIGHT}
+
+[PREV_DBSD].DESCRIPTION=		Hardcode OS values to older DragonFly release
+[PREV_DBSD].MAKEFILE_ON=		SYSTEM=${OLDSR_DRAGONFLY}
+[PREV_DBSD].ONLY_FOR_OPSYS_ON=		dragonfly
+
+[PREV_FBSD].DESCRIPTION=		Hardcode OS values to older FreeBSD release
+[PREV_FBSD].MAKEFILE_ON=		SYSTEM=${OLDSR_FREEBSD_1}
+[PREV_FBSD].ONLY_FOR_OPSYS_ON=		freebsd
+
+[PREV_LINUX].DESCRIPTION=		Hardcode OS values to older Linux release
+[PREV_LINUX].MAKEFILE_ON=		SYSTEM=${OLDSR_LINUX_1}
+[PREV_LINUX].ONLY_FOR_OPSYS_ON=		linux
 
 post-patch:
 	${REINPLACE_CMD} -e 's|@CFLAGS@|\
