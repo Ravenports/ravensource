@@ -1,4 +1,4 @@
---- build-tui.sh.orig	2023-06-23 06:14:22 UTC
+--- build-tui.sh.orig	2023-08-11 11:45:46 UTC
 +++ build-tui.sh
 @@ -14,25 +14,15 @@
  #
@@ -29,30 +29,16 @@
  if [ ! -d lib/sealcurses ]; then
      echo "'lib/sealcurses' not found. Clone with Git? [Yn]"
      read INPUT
-@@ -67,6 +57,7 @@ cmake ../../lib/the_Foundation -DCMAKE_B
-     -DTFDN_STATIC_LIBRARY=YES \
-     -DTFDN_ENABLE_WEBREQUEST=NO \
-     -DTFDN_ENABLE_TESTS=NO \
-+    -DCMAKE_INSTALL_LIBDIR:STRING="lib" \
-     -DCMAKE_INSTALL_PREFIX="${BUILD_DIR}" $*
- cmake --build . || exit 1
- cmake --install .
-@@ -79,13 +70,13 @@ cmake ../../lib/sealcurses -DCMAKE_BUILD
-     -DCMAKE_C_FLAGS_RELEASE=-O1 \
-     -DENABLE_SHARED=NO \
-     -Dthe_Foundation_DIR="${BUILD_DIR}/lib/cmake/the_Foundation" \
-+    -DCMAKE_INSTALL_LIBDIR:STRING="lib" \
-     -DCMAKE_INSTALL_PREFIX="${BUILD_DIR}" $*
- cmake --build . || exit 1
- cmake --install .
+@@ -87,7 +77,7 @@ cmake --install .
  
  cd ..
  export PKG_CONFIG_PATH="${BUILD_DIR}/lib/pkgconfig":${PKG_CONFIG_PATH}
 -LDFLAGS="`pkg-config --static --libs the_Foundation`"
++LDFLAGS="`pkg-config --static --libs the_Foundation` ${LDFLAGS}"
  cmake .. \
      -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} \
      -DCMAKE_EXE_LINKER_FLAGS="${LDFLAGS}" \
-@@ -97,15 +88,11 @@ cmake .. \
+@@ -99,19 +89,11 @@ cmake .. \
      -DENABLE_HARFBUZZ=NO \
      -DENABLE_POPUP_MENUS=NO \
      -DENABLE_IDLE_SLEEP=NO \
@@ -63,10 +49,14 @@
  
  echo "-----"
  echo "clagrange and resources.lgr can be found in 'build-tui'."
--echo "Do you want to install them to ${INSTALL_PREFIX}? (sudo) [yN]"
+-echo "Do you want to install them to ${INSTALL_PREFIX}? (s=sudo) [syN]"
 -read CONFIRMED
--if [ "${CONFIRMED}" = "y" ]; then
+-if [ "${CONFIRMED}" = "s" ]; then
 -    sudo cmake --install .
+-    exit
+-fi
+-if [ "${CONFIRMED}" = "y" ]; then
+-     cmake --install .
 -    exit
 -fi
 +exit

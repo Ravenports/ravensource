@@ -1,11 +1,11 @@
---- lib/sealcurses/CMakeLists.txt.orig	2023-06-23 06:15:47 UTC
+--- lib/sealcurses/CMakeLists.txt.orig	2023-08-11 11:46:01 UTC
 +++ lib/sealcurses/CMakeLists.txt
-@@ -8,7 +8,7 @@ find_package (PkgConfig REQUIRED)
+@@ -10,7 +10,7 @@ find_package (PkgConfig REQUIRED)
  set (CMAKE_C_STANDARD 11)
  
  # Find Curses.
--pkg_check_modules (CURSES ncursesw)
+-pkg_check_modules (CURSES ${NCURSES_PACKAGE}>=6)
 +pkg_check_modules (CURSES ncurses)
  if (NOT CURSES_FOUND)
-     find_library (CURSES curses)
+     find_library (CURSES ncurses>=6)
      if (NOT CURSES)
