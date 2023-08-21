@@ -66,8 +66,6 @@ install-platform: install-common
 	# ldd and which are scripts, can't be stripped
 	${BSD_INSTALL_SCRIPT} ../linux/usr/bin/ldd ${DESTDIR}${BASE}/usr/bin/
 	${BSD_INSTALL_SCRIPT} ../linux/usr/bin/which.gnu ${DESTDIR}${BASE}/usr/bin/which
-	# i386 version conflicts with amd64 version, so copy just the i386 files separately
-	cp ${CPA} ../i386_files/usr/include/i386-linux-gnu ${DESTDIR}${BASE}/usr/include/
 	# from bash package
 	cp ${CPA} ${LOCALBASE}/bin/bash ${DESTDIR}${BASE}/bin/
 

@@ -3,7 +3,7 @@ DEF[ABI26_RELEASE]=	2.6.32
 DEF[X_CURRENT]=		EXTRACT_VERSION(PLATFORM_Linux_x86-64)
 DEF[X_ABI26]=		EXTRACT_VERSION(PREVIOUS_Linux_K44)
 DEF[ABI26_FILES]=	2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
-DEF[ABI32_FILES]=	21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48
+DEF[ABI32_FILES]=	21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravensys-root-linux
@@ -72,17 +72,17 @@ DISTFILE[18]=		libacl1_2.2.52-3_amd64.deb:ubuntu10
 DISTFILE[19]=		libudev1_229-4ubuntu21.27_amd64.deb:ubuntu11
 DISTFILE[20]=		libudev-dev_229-4ubuntu21.27_amd64.deb:ubuntu11
 
-DISTFILE[21]=		libc6-dev_2.36-9+deb12u1_i386.deb:debian1
+DISTFILE[21]=		locales_2.36-9+deb12u1_all.deb:debian1
 DISTFILE[22]=		libc6-dev_2.36-9+deb12u1_amd64.deb:debian1
-DISTFILE[23]=		libc6-dev-amd64_2.36-9+deb12u1_i386.deb:debian1
-DISTFILE[24]=		libc6-amd64_2.36-9+deb12u1_i386.deb:debian1
-DISTFILE[25]=		libc-bin_2.36-9+deb12u1_amd64.deb:debian1
-DISTFILE[26]=		libattr1-dev_2.5.1-4_amd64.deb:debian2
-DISTFILE[27]=		libattr1_2.5.1-4_amd64.deb:debian2
-DISTFILE[28]=		libacl1-dev_2.3.1-3_amd64.deb:debian3
-DISTFILE[29]=		libacl1_2.3.1-3_amd64.deb:debian3
-DISTFILE[30]=		libudev-dev_252.12-1~deb12u1_amd64.deb:debian4
-DISTFILE[31]=		libudev1_252.12-1~deb12u1_amd64.deb:debian4
+DISTFILE[23]=		libc6-amd64_2.36-9+deb12u1_i386.deb:debian1
+DISTFILE[24]=		libc-bin_2.36-9+deb12u1_amd64.deb:debian1
+DISTFILE[25]=		libattr1-dev_2.5.1-4_amd64.deb:debian2
+DISTFILE[26]=		libattr1_2.5.1-4_amd64.deb:debian2
+DISTFILE[27]=		libacl1-dev_2.3.1-3_amd64.deb:debian3
+DISTFILE[28]=		libacl1_2.3.1-3_amd64.deb:debian3
+DISTFILE[29]=		libudev-dev_252.12-1~deb12u1_amd64.deb:debian4
+DISTFILE[30]=		libudev1_252.12-1~deb12u1_amd64.deb:debian4
+DISTFILE[31]=		linux-libc-dev_6.1.38-4_amd64.deb:debian5
 DISTFILE[32]=		libcrypt-dev_4.4.33-2_amd64.deb:debian10
 DISTFILE[33]=		libcrypt1_4.4.33-2_amd64.deb:debian10
 DISTFILE[34]=		libnsl-dev_1.3.0-2_amd64.deb:debian11
@@ -91,16 +91,13 @@ DISTFILE[36]=		libtirpc-dev_1.3.3+ds-1_amd64.deb:debian12
 DISTFILE[37]=		libtirpc3_1.3.3+ds-1_amd64.deb:debian12
 DISTFILE[38]=		libnss3-dev_3.87.1-1_amd64.deb:debian15
 DISTFILE[39]=		libnss3_3.87.1-1_amd64.deb:debian15
-DISTFILE[40]=		linux-libc-dev_6.1.38-4_amd64.deb:debian5
-DISTFILE[41]=		locales_2.36-9+deb12u1_all.deb:debian1
-DISTFILE[42]=		hostname_3.23+nmu1_amd64.deb:debian6
-DISTFILE[43]=		dash_0.5.12-2_amd64.deb:debian7
-DISTFILE[44]=		passwd_4.13+dfsg1-1+b1_amd64.deb:debian8
-DISTFILE[45]=		pax_20201030-1_amd64.deb:debian9
-DISTFILE[46]=		libnss-nis_3.1-4_amd64.deb:debian13
-DISTFILE[47]=		libnss-nisplus_1.3-4_amd64.deb:debian14
-DISTFILE[48]=		gnu-which_2.21+dfsg-2_amd64.deb:debian16
-
+DISTFILE[40]=		gnu-which_2.21+dfsg-2_amd64.deb:debian16
+DISTFILE[41]=		hostname_3.23+nmu1_amd64.deb:debian6
+DISTFILE[42]=		dash_0.5.12-2_amd64.deb:debian7
+DISTFILE[43]=		passwd_4.13+dfsg1-1+b1_amd64.deb:debian8
+DISTFILE[44]=		pax_20201030-1_amd64.deb:debian9
+DISTFILE[45]=		libnss-nis_3.1-4_amd64.deb:debian13
+DISTFILE[46]=		libnss-nisplus_1.3-4_amd64.deb:debian14
 DIST_SUBDIR=		linux-sysroot
 
 SPKGS[standard]=	single
@@ -182,14 +179,9 @@ post-extract:
 post-extract-NOTSTD-OFF:
 	${INSTALL_DATA} ${FILESDIR}/linux61.mk ${WRKSRC}/system_specifics.mk
 .for NDX in ${ABI32_FILES}
-	@if [ "${NDX}" = "23" ]; then \
-		echo "move ${NAMEBASE}_${NDX} to i386_files" ;\
-		${MV} ${WRKDIR}/${NAMEBASE}_${NDX} ${WRKDIR}/i386_files ;\
-	else \
-		echo "copy ${NAMEBASE}_${NDX} files over" ;\
-		cp -a ${WRKDIR}/${NAMEBASE}_${NDX}/* ${WRKDIR}/linux/ ;\
-		${RM} -r ${WRKDIR}/${NAMEBASE}_${NDX} ;\
-	fi
+	@echo "copy ${NAMEBASE}_${NDX} files over"
+	@cp -a ${WRKDIR}/${NAMEBASE}_${NDX}/* ${WRKDIR}/linux/
+	@${RM} -r ${WRKDIR}/${NAMEBASE}_${NDX}
 .endfor
 
 post-extract-ABI26-ON:
