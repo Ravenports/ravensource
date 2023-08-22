@@ -28,6 +28,10 @@ Django's behavior:
   [drop support for `pytz` altogether],
   and this app will likely do the same.
 
+Note that this app does _not_ declare `pytz` to be a dependency, so if
+you're using this app with `use_pytz=True`, you'll need
+to ensure `pytz` is included in the environment yourself.
+
 ### Differences in recognized timezones between `pytz` and `zoneinfo`
 
 `pytz` and `zoneinfo` search for timezone data differently.
@@ -35,8 +39,8 @@ Django's behavior:
 - `pytz` bundles and searches within its own copy of the [IANA timezone DB]
 - `zoneinfo` first searches the local system's timezone DB for a match. If
 no match is found, it then searches within
-  the [`tzdata`] package if it is installed. The `tzdata` package contains
-a copy of
+  the [`tzdata`] package _if it is installed_. The `tzdata` package
+contains a copy of
   the IANA timezone DB.
 
 If the local system's timezone DB doesn't cover the entire IANA timezone DB
@@ -94,7 +98,3 @@ from timezone_field import TimeZoneFormField
 class MyForm(forms.Form):
     tz1 = TimeZoneFormField()                                   # renders
 like "Asia/Dubai"
-    tz2 = TimeZoneFormField(choices_display="WITH_GMT_OFFSET")  # renders
-like "GMT+04:00 Asia/Dubai"
-    tz3 = TimeZoneFormField(use_pytz=True)                      # returns
-pytz timezone objects

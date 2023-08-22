@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.6.0
+DEF[PORTVERSION]=	1.7.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-setuptools-rust
@@ -7,11 +7,11 @@ KEYWORDS=		python
 VARIANTS=		py310 v11
 SDESC[py310]=		Setuptools Rust extension plugin (3.10)
 SDESC[v11]=		Setuptools Rust extension plugin (3.11)
-HOMEPAGE=		https://github.com/PyO3/setuptools-rust
+HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/57/db/7cc20ad859bc2a6a0c60e497c4be19784a8d14ff8e53a6da6ee4a6edd500
+SITES[main]=		PYPIWHL/5b/be/8d88f5982d61fefa2cbc633b167d2553875169eee136b584089667c37e93
 DISTFILE[1]=		setuptools_rust-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -23,20 +23,22 @@ VOPTS[py310]=		PY310=ON PY311=OFF
 VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
-# MIT
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		setuptools_rust-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# setuptools (>=62.4)
-# semantic-version (<3,>=2.8.2)
-# typing-extensions (>=3.7.4.3)
+# setuptools >=62.4
+# semantic-version <3,>=2.8.2
+# typing-extensions >=3.7.4.3
+# tomli >=1.2.1 ; python_version < "3.11"
 
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-setuptools:single:py310
 					python-semantic-version:single:py310
 					python-typing-extensions:single:py310
+					python-tomli:single:py310
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-setuptools:single:v11
 					python-semantic-version:single:v11
