@@ -197,14 +197,5 @@ post-install:
 	${RM} ${STAGEDIR}${PREFIX}/share/info/libgomp.info
 	${RM} ${STAGEDIR}${PREFIX}/share/info/libquadmath.info
 
-post-install-dragonfly:
-	${RM} -r ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/include-fixed
-
-post-install-freebsd:
-	${RM} -r ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/include-fixed
-
-post-install-netbsd:
-	${RM} -r ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/include-fixed
-
-post-install-midnightbsd:
+	# do this for all platforms now
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/include-fixed
