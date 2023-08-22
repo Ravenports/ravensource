@@ -48,10 +48,12 @@ install-platform: install-common
 	cp ${CPA} ../linux/lib ${DESTDIR}${BASE}/
 	cp ${CPA} ../linux/lib64 ${DESTDIR}${BASE}/
 	cp ${CPA} ../linux/usr/lib/* ${DESTDIR}${BASE}/usr/lib/
-	cp ${CPA} ../linux/usr/lib64 ${DESTDIR}${BASE}/usr/
 	cp ${CPA} ../linux/usr/include ${DESTDIR}${BASE}/usr/
 	cp ${CPA} ../linux/usr/share/i18n ${DESTDIR}${BASE}/usr/share/
 	cp ${CPA} ../linux/usr/share/locale ${DESTDIR}${BASE}/usr/share/
+
+	# bring in ldconfig at a new location
+	cp ${CPA} ../linux/sbin/ldconfig ${DESTDIR}${BASE}/usr/bin/
 
 	# remove original pc files
 	rm -rf ${DESTDIR}${BASE}/usr/lib/x86_64-linux-gnu/pkgconfig
@@ -90,7 +92,11 @@ install-platform: install-common
 		${DESTDIR}${BASE}/usr/share/group
 	${BSD_INSTALL_DATA} /port/files/linux-passwd \
 		${DESTDIR}${BASE}/usr/share/passwd
+
+	# ld search path support
 	echo "# Multiarch support for Ravenports" > ${DESTDIR}${BASE}/usr/share/x86_64-linux-gnu.conf
 	echo "/lib/x86_64-linux-gnu" >> ${DESTDIR}${BASE}/usr/share/x86_64-linux-gnu.conf
 	echo "/usr/lib/x86_64-linux-gnu" >> ${DESTDIR}${BASE}/usr/share/x86_64-linux-gnu.conf
 	echo "include /etc/ld.so.conf.d/*.conf" > ${DESTDIR}${BASE}/usr/share/ld.so.conf
+	cp ${CPA} ../ravensys-root-linux_47/ld.so.cache \
+		${DESTDIR}${BASE}/usr/share/
