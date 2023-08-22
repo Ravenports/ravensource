@@ -87,6 +87,8 @@ install-platform: install-common
 	cp ${CPA} ${LOCALBASE}/bin/${item} ${DESTDIR}${BASE}/usr/bin/${item}
 .  endfor
 
+	rmdir ${DESTDIR}${BASE}/usr/lib/x86_64-linux-gnu/krb5/plugins/libkrb5
+
 	# former "post-install" target
 	${BSD_INSTALL_DATA} /port/files/linux-group \
 		${DESTDIR}${BASE}/usr/share/group
