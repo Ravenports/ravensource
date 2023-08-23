@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	2.0.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-pyquery
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 v11
+SDESC[py310]=		Jquery-like library for python (3.10)
+SDESC[v11]=		Jquery-like library for python (3.11)
+HOMEPAGE=		https://github.com/gawel/pyquery
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/36/b7/f7ccf9e52e2817e1265d3719c600fa4ef33c07de4d5ef0ced3f43ab1cef2
+DISTFILE[1]=		pyquery-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[v11]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[v11]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# BSD
+
+GENERATED=		yes
+DISTNAME=		pyquery-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# lxml (>=2.1)
+# cssselect (>=1.2.0)
+# requests ; extra == 'test'
+# webob ; extra == 'test'
+# webtest ; extra == 'test'
+# pytest ; extra == 'test'
+# pytest-cov ; extra == 'test'
+
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-lxml:single:py310
+					python-cssselect:single:py310
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-lxml:single:v11
+					python-cssselect:single:v11
+
