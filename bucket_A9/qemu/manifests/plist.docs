@@ -78,7 +78,9 @@ share/doc/qemu/devel/modules.html
 share/doc/qemu/devel/multi-process.html
 share/doc/qemu/devel/multi-thread-tcg.html
 share/doc/qemu/devel/qapi-code-gen.html
+share/doc/qemu/devel/qdev-api.html
 share/doc/qemu/devel/qgraph.html
+share/doc/qemu/devel/qom-api.html
 share/doc/qemu/devel/qom.html
 share/doc/qemu/devel/qtest.html
 share/doc/qemu/devel/replay.html
@@ -100,6 +102,7 @@ share/doc/qemu/devel/ui.html
 share/doc/qemu/devel/vfio-migration.html
 share/doc/qemu/devel/virtio-backends.html
 share/doc/qemu/devel/writing-monitor-commands.html
+share/doc/qemu/devel/zoned-storage.html
 share/doc/qemu/docs/COLO-FT.txt
 share/doc/qemu/docs/block-replication.txt
 share/doc/qemu/docs/bypass-iommu.txt
@@ -126,7 +129,6 @@ share/doc/qemu/docs/qemupciserial.inf
 share/doc/qemu/docs/rdma.txt
 share/doc/qemu/docs/spice-port-fqdn.txt
 share/doc/qemu/docs/throttle.txt
-share/doc/qemu/docs/u2f.txt
 share/doc/qemu/docs/xbzrle.txt
 share/doc/qemu/docs/xen-save-devices-state.txt
 share/doc/qemu/docs/_templates/footer.html
@@ -177,7 +179,9 @@ share/doc/qemu/docs/devel/multi-process.rst
 share/doc/qemu/docs/devel/multi-thread-tcg.rst
 share/doc/qemu/docs/devel/multiple-iothreads.txt
 share/doc/qemu/docs/devel/qapi-code-gen.rst
+share/doc/qemu/docs/devel/qdev-api.rst
 share/doc/qemu/docs/devel/qgraph.rst
+share/doc/qemu/docs/devel/qom-api.rst
 share/doc/qemu/docs/devel/qom.rst
 share/doc/qemu/docs/devel/qtest.rst
 share/doc/qemu/docs/devel/rcu.txt
@@ -201,6 +205,7 @@ share/doc/qemu/docs/devel/vfio-migration.rst
 share/doc/qemu/docs/devel/virtio-backends.rst
 share/doc/qemu/docs/devel/virtio-migration.txt
 share/doc/qemu/docs/devel/writing-monitor-commands.rst
+share/doc/qemu/docs/devel/zoned-storage.rst
 share/doc/qemu/docs/interop/barrier.rst
 share/doc/qemu/docs/interop/bitmaps.rst
 share/doc/qemu/docs/interop/dbus-display.rst
@@ -219,8 +224,7 @@ share/doc/qemu/docs/interop/qemu-ga-ref.rst
 share/doc/qemu/docs/interop/qemu-ga.rst
 share/doc/qemu/docs/interop/qemu-qmp-ref.rst
 share/doc/qemu/docs/interop/qemu-storage-daemon-qmp-ref.rst
-share/doc/qemu/docs/interop/qmp-intro.txt
-share/doc/qemu/docs/interop/qmp-spec.txt
+share/doc/qemu/docs/interop/qmp-spec.rst
 share/doc/qemu/docs/interop/vhost-user-gpu.rst
 share/doc/qemu/docs/interop/vhost-user.json
 share/doc/qemu/docs/interop/vhost-user.rst
@@ -238,9 +242,9 @@ share/doc/qemu/docs/specs/edu.txt
 share/doc/qemu/docs/specs/fw_cfg.rst
 share/doc/qemu/docs/specs/index.rst
 share/doc/qemu/docs/specs/ivshmem-spec.txt
-share/doc/qemu/docs/specs/pci-ids.txt
-share/doc/qemu/docs/specs/pci-serial.txt
-share/doc/qemu/docs/specs/pci-testdev.txt
+share/doc/qemu/docs/specs/pci-ids.rst
+share/doc/qemu/docs/specs/pci-serial.rst
+share/doc/qemu/docs/specs/pci-testdev.rst
 share/doc/qemu/docs/specs/ppc-spapr-hcalls.rst
 share/doc/qemu/docs/specs/ppc-spapr-hotplug.rst
 share/doc/qemu/docs/specs/ppc-spapr-numa.rst
@@ -315,6 +319,7 @@ share/doc/qemu/docs/system/tls.rst
 share/doc/qemu/docs/system/virtio-net-failover.rst
 share/doc/qemu/docs/system/vnc-security.rst
 share/doc/qemu/docs/system/arm/aspeed.rst
+share/doc/qemu/docs/system/arm/bananapi_m2u.rst
 share/doc/qemu/docs/system/arm/collie.rst
 share/doc/qemu/docs/system/arm/cpu-features.rst
 share/doc/qemu/docs/system/arm/cubieboard.rst
@@ -345,6 +350,7 @@ share/doc/qemu/docs/system/arm/sx1.rst
 share/doc/qemu/docs/system/arm/versatile.rst
 share/doc/qemu/docs/system/arm/vexpress.rst
 share/doc/qemu/docs/system/arm/virt.rst
+share/doc/qemu/docs/system/arm/xenpvh.rst
 share/doc/qemu/docs/system/arm/xlnx-versal-virt.rst
 share/doc/qemu/docs/system/arm/xscale.rst
 share/doc/qemu/docs/system/devices/can.rst
@@ -353,8 +359,10 @@ share/doc/qemu/docs/system/devices/ccid.rst
 share/doc/qemu/docs/system/devices/cxl.rst
 share/doc/qemu/docs/system/devices/igb.rst
 share/doc/qemu/docs/system/devices/ivshmem.rst
+share/doc/qemu/docs/system/devices/keyboard.rst
 share/doc/qemu/docs/system/devices/net.rst
 share/doc/qemu/docs/system/devices/nvme.rst
+share/doc/qemu/docs/system/devices/usb-u2f.rst
 share/doc/qemu/docs/system/devices/usb.rst
 share/doc/qemu/docs/system/devices/vhost-user-rng.rst
 share/doc/qemu/docs/system/devices/vhost-user.rst
@@ -410,6 +418,7 @@ share/doc/qemu/interop/qemu-ga-ref.html
 share/doc/qemu/interop/qemu-ga.html
 share/doc/qemu/interop/qemu-qmp-ref.html
 share/doc/qemu/interop/qemu-storage-daemon-qmp-ref.html
+share/doc/qemu/interop/qmp-spec.html
 share/doc/qemu/interop/vhost-user-gpu.html
 share/doc/qemu/interop/vhost-user.html
 share/doc/qemu/interop/vhost-vdpa.html
@@ -424,6 +433,9 @@ share/doc/qemu/specs/acpi_nvdimm.html
 share/doc/qemu/specs/acpi_pci_hotplug.html
 share/doc/qemu/specs/fw_cfg.html
 share/doc/qemu/specs/index.html
+share/doc/qemu/specs/pci-ids.html
+share/doc/qemu/specs/pci-serial.html
+share/doc/qemu/specs/pci-testdev.html
 share/doc/qemu/specs/ppc-spapr-hcalls.html
 share/doc/qemu/specs/ppc-spapr-hotplug.html
 share/doc/qemu/specs/ppc-spapr-numa.html
@@ -476,6 +488,7 @@ share/doc/qemu/system/tls.html
 share/doc/qemu/system/virtio-net-failover.html
 share/doc/qemu/system/vnc-security.html
 share/doc/qemu/system/arm/aspeed.html
+share/doc/qemu/system/arm/bananapi_m2u.html
 share/doc/qemu/system/arm/collie.html
 share/doc/qemu/system/arm/cpu-features.html
 share/doc/qemu/system/arm/cubieboard.html
@@ -506,6 +519,7 @@ share/doc/qemu/system/arm/sx1.html
 share/doc/qemu/system/arm/versatile.html
 share/doc/qemu/system/arm/vexpress.html
 share/doc/qemu/system/arm/virt.html
+share/doc/qemu/system/arm/xenpvh.html
 share/doc/qemu/system/arm/xlnx-versal-virt.html
 share/doc/qemu/system/arm/xscale.html
 share/doc/qemu/system/devices/can.html
@@ -514,8 +528,10 @@ share/doc/qemu/system/devices/ccid.html
 share/doc/qemu/system/devices/cxl.html
 share/doc/qemu/system/devices/igb.html
 share/doc/qemu/system/devices/ivshmem.html
+share/doc/qemu/system/devices/keyboard.html
 share/doc/qemu/system/devices/net.html
 share/doc/qemu/system/devices/nvme.html
+share/doc/qemu/system/devices/usb-u2f.html
 share/doc/qemu/system/devices/usb.html
 share/doc/qemu/system/devices/vhost-user-rng.html
 share/doc/qemu/system/devices/vhost-user.html

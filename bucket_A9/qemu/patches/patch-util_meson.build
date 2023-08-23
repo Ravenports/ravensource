@@ -1,0 +1,11 @@
+--- util/meson.build.orig	2023-08-22 15:34:02 UTC
++++ util/meson.build
+@@ -14,7 +14,7 @@ util_ss.add(when: 'CONFIG_POSIX', if_tru
+ util_ss.add(when: 'CONFIG_POSIX', if_true: files('event_notifier-posix.c'))
+ util_ss.add(when: 'CONFIG_POSIX', if_true: files('mmap-alloc.c'))
+ freebsd_dep = []
+-if targetos == 'freebsd'
++if targetos in ['freebsd', 'midnightbsd', 'dragonfly']
+   freebsd_dep = util
+ endif
+ util_ss.add(when: 'CONFIG_POSIX', if_true: [files('oslib-posix.c'), freebsd_dep])

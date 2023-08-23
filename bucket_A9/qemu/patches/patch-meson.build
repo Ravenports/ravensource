@@ -1,6 +1,6 @@
---- meson.build.orig	2023-08-10 22:51:48 UTC
+--- meson.build.orig	2023-08-22 15:34:02 UTC
 +++ meson.build
-@@ -58,8 +58,8 @@ config_host_data = configuration_data()
+@@ -53,8 +53,8 @@ config_host_data = configuration_data()
  genh = []
  qapi_trace_events = []
  
@@ -8,10 +8,10 @@
 -supported_oses = ['windows', 'freebsd', 'netbsd', 'openbsd', 'darwin', 'sunos', 'linux']
 +bsd_oses = ['midnightbsd', 'freebsd', 'netbsd', 'openbsd', 'dragonfly', 'darwin']
 +supported_oses = ['windows', 'freebsd', 'netbsd', 'openbsd', 'darwin', 'sunos', 'linux', 'dragonfly', 'midnightbsd']
- supported_cpus = ['ppc', 'ppc64', 's390x', 'riscv', 'x86', 'x86_64',
+ supported_cpus = ['ppc', 'ppc64', 's390x', 'riscv32', 'riscv64', 'x86', 'x86_64',
    'arm', 'aarch64', 'loongarch64', 'mips', 'mips64', 'sparc64']
  
-@@ -441,7 +441,7 @@ if get_option('hax').allowed()
+@@ -668,7 +668,7 @@ if get_option('hax').allowed()
      accelerators += 'CONFIG_HAX'
    endif
  endif
@@ -20,7 +20,7 @@
    nvmm = cc.find_library('nvmm', required: get_option('nvmm'))
    if nvmm.found()
      accelerators += 'CONFIG_NVMM'
-@@ -889,7 +889,7 @@ if have_system and get_option('curses').
+@@ -1161,7 +1161,7 @@ if have_system and get_option('curses').
        return 0;
      }'''
  
@@ -28,8 +28,8 @@
 +  curses_dep_list = targetos == 'windows' ? ['ncurses', 'ncursesw'] : ['ncurses']
    curses = dependency(curses_dep_list,
                        required: false,
-                       method: 'pkg-config',
-@@ -912,15 +912,16 @@ if have_system and get_option('curses').
+                       method: 'pkg-config')
+@@ -1184,14 +1184,15 @@ if have_system and get_option('curses').
        has_curses_h = cc.has_header('curses.h', args: curses_compile_args)
      endif
      if has_curses_h
@@ -38,8 +38,7 @@
 +      curses_libname_list = (targetos == 'windows' ? ['pdcurses'] : ['ncurses'])
        foreach curses_libname : curses_libname_list
          libcurses = cc.find_library(curses_libname,
-                                     required: false,
-                                     kwargs: static_kwargs)
+                                     required: false)
          if libcurses.found()
 -          if cc.links(curses_test, args: curses_compile_args, dependencies: libcurses)
 +          if cc.links(curses_test, args: curses_compile_args, dependencies: [libncurses,libtinfo])

@@ -1,6 +1,6 @@
---- accel/tcg/translate-all.c.orig	2023-08-10 22:51:47 UTC
+--- accel/tcg/translate-all.c.orig	2023-08-22 15:34:01 UTC
 +++ accel/tcg/translate-all.c
-@@ -28,7 +28,7 @@
+@@ -27,7 +27,7 @@
  #include "qemu.h"
  #if defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
  #include <sys/param.h>
