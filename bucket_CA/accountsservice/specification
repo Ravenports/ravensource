@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	0.6.55
+DEF[PORTVERSION]=	23.13.9
+DEF[FBSD_TAG]=		1ad45945
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		accountsservice
@@ -10,8 +11,8 @@ HOMEPAGE=		https://www.freedesktop.org/wiki/Software/AccountsService/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://www.freedesktop.org/software/accountsservice/
-DISTFILE[1]=		accountsservice-${PORTVERSION}.tar.xz:main
+SITES[main]=		https://gitlab.freedesktop.org/arrowd/accountsservice/-/archive/${FBSD_TAG}/
+DISTFILE[1]=		accountsservice-${FBSD_TAG}.tar.gz:main
 
 SPKGS[standard]=	complete primary nls docs
 
@@ -29,14 +30,20 @@ FPC_EQUIVALENT=		sysutils/accountsservice
 
 BUILD_DEPENDS=		xmlto:single:standard
 			dbus:dev:standard
+			consolekit:dev:standard
 BUILDRUN_DEPENDS=	polkit:primary:standard
+			consolekit:primary:standard
 
 USES=			cpe meson pkgconfig
 GNOME_COMPONENTS=	glib introspection
 CPE_VENDOR=		freedesktop
-MESON_ARGS=		-Dsystemd=false
-			-Dsystemdsystemunitdir=no
-			-Delogind=false
-			-Dintrospection=true
+MESON_ARGS=		-Dsystemdsystemunitdir=no
+			-Dconsolekit=true
+			-Dlocalstatedir=/var
 			-Ddocbook=true
 			-Dgtk_doc=false
+			-Dvapi=false
+			-Dtests=false
+DISTNAME=		accountsservice-${FBSD_TAG}
+
+BROKEN[all]=		save work in progress
