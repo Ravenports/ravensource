@@ -3,7 +3,7 @@ DEF[ABI26_RELEASE]=	2.6.32
 DEF[X_CURRENT]=		EXTRACT_VERSION(PLATFORM_Linux_x86-64)
 DEF[X_ABI26]=		EXTRACT_VERSION(PREVIOUS_Linux_K44)
 DEF[ABI26_FILES]=	2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
-DEF[ABI32_FILES]=	21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 48 49 50 51 52 53 54 55
+DEF[ABI32_FILES]=	21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 49 50 51 52 53 54 55 56
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravensys-root-linux
@@ -105,14 +105,15 @@ DISTFILE[44]=		pax_20201030-1_amd64.deb:debian9
 DISTFILE[45]=		libnss-nis_3.1-4_amd64.deb:debian13
 DISTFILE[46]=		libnss-nisplus_1.3-4_amd64.deb:debian14
 DISTFILE[47]=		ld.so.cache.tar.gz:leaf
-DISTFILE[48]=		libgssapi-krb5-2_1.20.1-2_amd64.deb:debian17
-DISTFILE[49]=		libkrb5-3_1.20.1-2_amd64.deb:debian17
-DISTFILE[50]=		libk5crypto3_1.20.1-2_amd64.deb:debian17
-DISTFILE[51]=		libkrb5support0_1.20.1-2_amd64.deb:debian17
-DISTFILE[52]=		libcom-err2_1.47.0-2_amd64.deb:debian18
-DISTFILE[53]=		libkeyutils1_1.6.3-2_amd64.deb:debian19
-DISTFILE[54]=		libbsd0_0.11.7-2_amd64.deb:debian20
-DISTFILE[55]=		libmd0_1.0.4-2_amd64.deb:debian21
+DISTFILE[48]=		locale-archive.tar.zst:leaf
+DISTFILE[49]=		libgssapi-krb5-2_1.20.1-2_amd64.deb:debian17
+DISTFILE[50]=		libkrb5-3_1.20.1-2_amd64.deb:debian17
+DISTFILE[51]=		libk5crypto3_1.20.1-2_amd64.deb:debian17
+DISTFILE[52]=		libkrb5support0_1.20.1-2_amd64.deb:debian17
+DISTFILE[53]=		libcom-err2_1.47.0-2_amd64.deb:debian18
+DISTFILE[54]=		libkeyutils1_1.6.3-2_amd64.deb:debian19
+DISTFILE[55]=		libbsd0_0.11.7-2_amd64.deb:debian20
+DISTFILE[56]=		libmd0_1.0.4-2_amd64.deb:debian21
 DIST_SUBDIR=		linux-sysroot
 
 SPKGS[standard]=	single
@@ -156,7 +157,7 @@ BUILD_DEPENDS=		nawk:single:standard
 
 SKIP_BUILD=		yes
 SINGLE_JOB=		yes
-EXTRACT_DIRTY=		${ABI26_FILES} ${ABI32_FILES} 47
+EXTRACT_DIRTY=		${ABI26_FILES} ${ABI32_FILES} 47 48
 EXTRACT_DEB_PACKAGE=	${ABI26_FILES} ${ABI32_FILES}
 PLIST_SUB=		BASE={{SYSPATH}}
 INFRASTRUCTURE=		yes
@@ -172,7 +173,7 @@ MAKE_ENV=		OPSYS="{{OPSYS}}"
 MAKE_ARGS=		BASE={{RSYS}}
 
 [NOTSTD].DESCRIPTION=			Earlier system root of GNU/Linux
-[NOTSTD].DF_INDEX_OFF=			${ABI32_FILES} 47
+[NOTSTD].DF_INDEX_OFF=			${ABI32_FILES} 47 48
 [NOTSTD].MAKEFILE_OFF=			SYSTEM=${X_CURRENT}
 [NOTSTD].BUILD_DEPENDS_OFF=		bmake:single:standard
 					ravensys-utils:single:standard

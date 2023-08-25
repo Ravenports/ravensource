@@ -102,3 +102,7 @@ install-platform: install-common
 	echo "include /etc/ld.so.conf.d/*.conf" > ${DESTDIR}${BASE}/usr/share/ld.so.conf
 	cp ${CPA} ../ravensys-root-linux_47/ld.so.cache \
 		${DESTDIR}${BASE}/usr/share/
+
+	# pre-generated locale definitions
+	cp ${CPA} ../ravensys-root-linux_48/locale-archive \
+		${DESTDIR}${BASE}/usr/lib/locale/
