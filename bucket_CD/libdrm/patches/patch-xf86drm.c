@@ -1,4 +1,4 @@
---- xf86drm.c.orig	2022-11-03 08:33:36 UTC
+--- xf86drm.c.orig	2023-08-23 09:57:39 UTC
 +++ xf86drm.c
 @@ -63,7 +63,17 @@
  #include <math.h>
@@ -31,7 +31,7 @@
  #endif
  
  #ifdef __OpenBSD__
-@@ -313,8 +326,10 @@ drmGetFormatModifierNameFromArm(uint64_t
+@@ -317,8 +330,10 @@ drmGetFormatModifierNameFromArm(uint64_t
      char *modifier_name = NULL;
      bool result = false;
  
@@ -42,7 +42,7 @@
          return NULL;
  
      switch (type) {
-@@ -459,8 +474,10 @@ drmGetFormatModifierNameFromAmd(uint64_t
+@@ -463,8 +478,10 @@ drmGetFormatModifierNameFromAmd(uint64_t
      tile_version = AMD_FMT_MOD_GET(TILE_VERSION, modifier);
      dcc = AMD_FMT_MOD_GET(DCC, modifier);
  
@@ -53,7 +53,7 @@
          return NULL;
  
      /* add tile  */
-@@ -963,7 +980,7 @@ static int drmGetMinorBase(int type)
+@@ -1033,7 +1050,7 @@ static int drmGetMinorBase(int type)
  
  static int drmGetMinorType(int major, int minor)
  {
@@ -62,7 +62,7 @@
      char name[SPECNAMELEN];
      int id;
  
-@@ -3219,7 +3236,7 @@ drm_public int drmIsMaster(int fd)
+@@ -3286,7 +3303,7 @@ drm_public int drmIsMaster(int fd)
  
  drm_public char *drmGetDeviceNameFromFd(int fd)
  {
@@ -71,7 +71,7 @@
      struct stat sbuf;
      int maj, min;
      int nodetype;
-@@ -3266,7 +3283,7 @@ static bool drmNodeIsDRM(int maj, int mi
+@@ -3333,7 +3350,7 @@ static bool drmNodeIsDRM(int maj, int mi
      snprintf(path, sizeof(path), "/sys/dev/char/%d:%d/device/drm",
               maj, min);
      return stat(path, &sbuf) == 0;
@@ -80,7 +80,7 @@
      char name[SPECNAMELEN];
  
      if (!devname_r(makedev(maj, min), S_IFCHR, name, sizeof(name)))
-@@ -3389,7 +3406,7 @@ static char *drmGetMinorNameForFD(int fd
+@@ -3456,7 +3473,7 @@ static char *drmGetMinorNameForFD(int fd
  
      closedir(sysdir);
      return NULL;
@@ -89,7 +89,7 @@
      struct stat sbuf;
      char dname[SPECNAMELEN];
      const char *mname;
-@@ -3574,6 +3591,65 @@ static int drmParseSubsystemType(int maj
+@@ -3641,6 +3658,65 @@ static int drmParseSubsystemType(int maj
              return DRM_BUS_VIRTIO;
       }
      return subsystem_type;
@@ -155,7 +155,7 @@
  #elif defined(__OpenBSD__) || defined(__DragonFly__) || defined(__FreeBSD__)
      return DRM_BUS_PCI;
  #else
-@@ -3600,7 +3676,7 @@ get_pci_path(int maj, int min, char *pci
+@@ -3667,7 +3743,7 @@ get_pci_path(int maj, int min, char *pci
  }
  #endif
  
@@ -164,7 +164,7 @@
  static int get_sysctl_pci_bus_info(int maj, int min, drmPciBusInfoPtr info)
  {
      char dname[SPECNAMELEN];
-@@ -3685,6 +3761,73 @@ static int drmParsePciBusInfo(int maj, i
+@@ -3749,6 +3825,73 @@ static int drmParsePciBusInfo(int maj, i
      info->func = func;
  
      return 0;
@@ -238,7 +238,7 @@
  #elif defined(__OpenBSD__) || defined(__DragonFly__)
      struct drm_pciinfo pinfo;
      int fd, type;
-@@ -3857,6 +4000,48 @@ static int drmParsePciDeviceInfo(int maj
+@@ -3917,6 +4060,48 @@ static int drmParsePciDeviceInfo(int maj
          return parse_config_sysfs_file(maj, min, device);
  
      return 0;
