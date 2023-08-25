@@ -1,0 +1,11 @@
+--- meson.build.orig	1970-01-01 00:00:00 UTC
++++ meson.build
+@@ -20,7 +20,7 @@ project(
+ 
+ # https://mesonbuild.com/Python-module.html
+ py_mod = import('python')
+-py3 = py_mod.find_installation(pure: false)
++py3 = py_mod.find_installation('%%PYTHONCMD%%', pure: false)
+ py3_dep = py3.dependency()
+ 
+ # Emit a warning for 32-bit Python installs on Windows; users are getting
