@@ -1,4 +1,4 @@
---- texk/web2c/luatexdir/luaffi/ffi.h.intermediate	2023-08-25 13:06:31 UTC
+--- texk/web2c/luatexdir/luaffi/ffi.h.orig	2019-01-20 23:58:29 UTC
 +++ texk/web2c/luatexdir/luaffi/ffi.h
 @@ -42,7 +42,7 @@ extern "C" {
  #include <sys/mman.h>
