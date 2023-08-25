@@ -1,10 +1,11 @@
---- texk/web2c/luatexdir/luaffi/ffi.h.intermediate	2019-01-20 23:58:29 UTC
+--- texk/web2c/luatexdir/luaffi/ffi.h.intermediate	2023-08-25 13:06:31 UTC
 +++ texk/web2c/luatexdir/luaffi/ffi.h
-@@ -62,6 +62,7 @@ struct jit;
- #define DASM_EXTERN(a,b,c,d) get_extern(a,b,c,d)
+@@ -42,7 +42,7 @@ extern "C" {
+ #include <sys/mman.h>
+ #endif
  
- #include "dynasm/dasm_proto.h"
-+#include <complex.h>
- 
- #if defined LUA_FFI_BUILD_AS_DLL
- # define EXPORT __declspec(dllexport)
+-#if ( defined( _WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__bsdi__) || defined(__DragonFly__))
++#if 0
+ /* We should include something equivalent to */
+ /* complex.h                                 */
+ #else
