@@ -42,3 +42,17 @@ post-extract:
 	${MKDIR} ${WRKSRC}/libfswatch/include/libfswatch/c ${WRKSRC}/libfswatch/lib
 	${CP} ${LOCALBASE}/lib/libfswatch.a ${WRKSRC}/libfswatch/lib/
 	${CP} -pRP ${LOCALBASE}/include/libfswatch/* ${WRKSRC}/libfswatch/include/libfswatch/
+
+post-install:
+	# auto-plist include/ada_libfswatch and lib/ada_libfswatch
+	# The number for file pairs vary based on the specific headers of the
+	# system building it, so every platform would need its own manifest section
+	# and in the case of multiple system roots on a single OS, the manifest can't
+	# satisfy both (e.g. differs between the old and new linux sysroots, but both
+	# are simultaneously supported).
+	${FIND} ${STAGEDIR}${PREFIX}/include/ada_libfswatch ! -type d | \
+		${SED} -e 's,^${STAGEDIR}${PREFIX}/,,' \
+		>> ${WRKDIR}/.manifest.single.mktmp
+	${FIND} ${STAGEDIR}${PREFIX}/lib/ada_libfswatch ! -type d | \
+		${SED} -e 's,^${STAGEDIR}${PREFIX}/,,' \
+		>> ${WRKDIR}/.manifest.single.mktmp
