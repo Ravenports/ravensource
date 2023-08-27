@@ -1,0 +1,21 @@
+From 961c1de02ebcdc7279f2a8d95d87598189978bdf Mon Sep 17 00:00:00 2001
+From: Gleb Popov <6yearold@gmail.com>
+Date: Tue, 4 Jul 2023 09:49:18 +0300
+Subject: [PATCH] Allow calls to CanSuspendThenHibernate
+
+---
+ data/ConsoleKit.conf | 3 +++
+ 1 file changed, 3 insertions(+)
+
+--- data/ConsoleKit.conf.orig	2023-08-11 16:26:44 UTC
++++ data/ConsoleKit.conf
+@@ -56,6 +56,9 @@
+            send_member="CanSuspend"/>
+     <allow send_destination="org.freedesktop.ConsoleKit"
+            send_interface="org.freedesktop.ConsoleKit.Manager"
++           send_member="CanSuspendThenHibernate"/>
++    <allow send_destination="org.freedesktop.ConsoleKit"
++           send_interface="org.freedesktop.ConsoleKit.Manager"
+            send_member="Hibernate"/>
+     <allow send_destination="org.freedesktop.ConsoleKit"
+            send_interface="org.freedesktop.ConsoleKit.Manager"

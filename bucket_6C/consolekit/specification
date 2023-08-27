@@ -1,9 +1,14 @@
 DEF[PORTVERSION]=	1.2.6
 DEF[CAT1]=		http://www.oasis-open.org/docbook/xml/
+# mainstream = GITHUB/ConsoleKit2:ConsoleKit2
+# parallel fork hash is below
+DEF[FORK_TAG]=		3ead222
+# parallel fork broke gtk-docs
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		consolekit
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		standard
 SDESC[standard]=	Framework for defining and tracking users
@@ -11,13 +16,14 @@ HOMEPAGE=		https://github.com/ConsoleKit2/ConsoleKit2
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/ConsoleKit2:ConsoleKit2:${PORTVERSION}
+SITES[main]=		GITHUB/arrowd:ConsoleKit2:${FORK_TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary dev docs man nls
+SPKGS[standard]=	complete primary dev man nls
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	X11
+OPTIONS_STANDARD=	X11
+OPT_ON[all]=		X11
 
 LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
@@ -36,9 +42,7 @@ BUILDRUN_DEPENDS=	dbus:primary:standard
 			openpam:single:standard
 			polkit:primary:standard
 
-USES=			autoreconf:build gmake libtool pkgconfig zlib
-			gtk-doc
-XORG_COMPONENTS=	x11
+USES=			autoreconf gmake libtool pkgconfig zlib
 GNOME_COMPONENTS=	glib libxslt introspection
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-pid-file=/var/run/consolekit.pid
@@ -47,20 +51,28 @@ CONFIGURE_ARGS=		--with-pid-file=/var/run/consolekit.pid
 			--localstatedir=/var
 			--enable-polkit
 			--enable-introspection
-			--enable-gtk-doc
+			--enable-libdrm
+			--disable-gtk-doc
 			--disable-udev-acl
 			--disable-libcgmanager
 			--disable-libevdev
 			--without-systemdsystemunitdir
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
-GTKDOC_OUTPUT_BASEDIR=	libconsolekit-1.0
-DISTNAME=		ConsoleKit2-${PORTVERSION}
+# GTKDOC_OUTPUT_BASEDIR=	libconsolekit-1.0
 
 VAR_OPSYS[sunos]=	CPPFLAGS=-DO_CLOEXEC=0
 			LDFLAGS=-lintl
 
+[X11].XORG_COMPONENTS_ON=		x11
+[X11].CONFIGURE_WITH_BOTH=		x
+
 pre-configure:
 	${REINPLACE_CMD} -e "s|${CAT1}|file://${LOCALBASE}/share/xml/docbook/|" \
 		${WRKSRC}/doc/libconsolekit/libconsolekit-docs.xml
-	cd ${WRKSRC} && ${SETENV} NOCONFIGURE=1 ${SH} ./autogen.sh
+
+post-install:
+.for script in hibernate hybridsleep restart stop suspend
+	(cd ${STAGEDIR}${PREFIX}/lib/ConsoleKit/scripts && \
+		${MV} ck-system-${script} ck-system-${script}.sample)
+.endfor
