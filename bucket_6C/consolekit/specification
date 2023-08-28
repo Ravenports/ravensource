@@ -52,7 +52,6 @@ CONFIGURE_ARGS=		--with-pid-file=/var/run/consolekit.pid
 			--enable-polkit
 			--enable-introspection
 			--enable-libdrm
-			--disable-gtk-doc
 			--disable-udev-acl
 			--disable-libcgmanager
 			--disable-libevdev
@@ -60,9 +59,14 @@ CONFIGURE_ARGS=		--with-pid-file=/var/run/consolekit.pid
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 # GTKDOC_OUTPUT_BASEDIR=	libconsolekit-1.0
+PLIST_SUB=		X11_SCRIPTS={{X11_SCRIPTS:U"@comment "}}
 
 VAR_OPSYS[sunos]=	CPPFLAGS=-DO_CLOEXEC=0
 			LDFLAGS=-lintl
+
+VAR_OPSYS[freebsd]=	MAKEFILE_LINE=X11_SCRIPTS=
+VAR_OPSYS[dragonfly]=	MAKEFILE_LINE=X11_SCRIPTS=
+VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=X11_SCRIPTS=
 
 [X11].XORG_COMPONENTS_ON=		x11
 [X11].CONFIGURE_WITH_BOTH=		x
