@@ -1,0 +1,48 @@
+DEF[PORTVERSION]=	2.7.0
+DEF[SOVERSION]=		9.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libwacom
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Library to supply metadata about tablet devices
+HOMEPAGE=		https://github.com/linuxwacom/libwacom/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/linuxwacom/libwacom/releases/download/libwacom-${PORTVERSION}/
+DISTFILE[1]=		libwacom-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary dev man
+
+OPTIONS_AVAILABLE=	NODEVD
+OPTIONS_STANDARD=	NODEVD
+
+OPT_ON[linux]=		NODEVD
+OPT_ON[sunos]=		NODEVD
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11/libwacom
+
+BUILD_DEPENDS=		doxygen:single:standard
+			evdev-proto:single:standard
+			gtk2:dev:standard
+			harfbuzz:dev:standard
+			libxml2:dev:standard
+BUILDRUN_DEPENDS=	libxml2:primary:standard
+
+USES=			meson pkgconfig
+GNOME_COMPONENTS=	glib gtk2 librsvg
+MESON_ARGS=		-Dtests=disabled
+
+SOVERSION=		${SOVERSION}
+
+[NODEVD].DESCRIPTION=			Build with devd-enabled libgudev fork
+[NODEVD].BUILD_DEPENDS_OFF=		libgudev-devd:dev:standard
+[NODEVD].BUILDRUN_DEPENDS_OFF=		libgudev-devd:primary:standard
+[NODEVD].BUILD_DEPENDS_ON=		libgudev:dev:standard
+[NODEVD].BUILDRUN_DEPENDS_ON=		libgudev:primary:standard
