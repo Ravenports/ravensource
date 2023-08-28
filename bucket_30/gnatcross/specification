@@ -110,7 +110,6 @@ INFRASTRUCTURE=		yes
 
 VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
-BROKEN[linux]=		libcpp won't build properly on FreeBSD hosts or genmatch segfaults
 
 [FARM64R11].DESCRIPTION=		Set target to FreeBSD/ARM64 (Release 11)
 [FARM64R11].BUILDRUN_DEPENDS_ON=	gnatcross-binutils:single:FARM64_R11
@@ -218,13 +217,6 @@ post-patch-SOL10-ON:
 	# undo BSD thin socket modification
 	${MV} ${WRKSRC}/gcc/ada/libgnat/g-socthi.ads.orig \
 		${WRKSRC}/gcc/ada/libgnat/g-socthi.ads
-
-post-patch-linux:
-	# libcpp won't link with libc's iconv functions properly
-	# so remove iconv capability on linux-based cross compiler
-	${MV} ${WRKSRC}/libcpp/charset.c ${WRKSRC}/libcpp/charset.c.orig
-	${ECHO} "#define LIBICONV_PLUG 1" > ${WRKSRC}/libcpp/charset.c
-	${CAT} ${WRKSRC}/libcpp/charset.c.orig >> ${WRKSRC}/libcpp/charset.c
 
 do-install:
 	# Buggy makefile; seems to have forgotten this is a cross compiler
