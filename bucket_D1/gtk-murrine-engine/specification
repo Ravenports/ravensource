@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	0.98.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gtk-murrine-engine
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_themes
+VARIANTS=		standard
+SDESC[standard]=	Murrine GTK+2 theme engine
+HOMEPAGE=		none
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/murrine/${PORTVERSION:R}/
+DISTFILE[1]=		murrine-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Terms define LGPL20+ but COPYING files are 21 and 30
+LICENSE=		LGPL20+:single
+LICENSE_FILE=		LGPL20+:stock
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/murrine_style.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		gtk-murrine-engine
+
+BUILD_DEPENDS=		harfbuzz:dev:standard
+
+USES=			gettext gmake libtool pkgconfig
+GNOME_COMPONENTS=	gtk2 intltool
+
+MUST_CONFIGURE=		gnu
+DISTNAME=		murrine-${PORTVERSION}
+
+post-patch:
+	${REINPLACE_CMD} -e 's|glib/gtimer.h|glib.h|g' \
+		${WRKSRC}/src/animation.c
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gtk-2.0/2.10.0/engines/libmurrine.so
