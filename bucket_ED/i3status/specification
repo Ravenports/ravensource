@@ -37,7 +37,8 @@ MESON_ARGS=		-Ddocs=true
 			-Dpulseaudio=false
 			-Ddocdir=share/docs/i3status
 
-BROKEN[linux]=		Assumes netlink and alsa headers present
+B_DEPS[linux]=		alsa-lib:dev:standard
+BR_DEPS[linux]=		alsa-lib:primary:standard
 
 pre-configure:
 	${REINPLACE_CMD} -e 's|/etc|${PREFIX}/etc|g' ${WRKSRC}/i3status.c
