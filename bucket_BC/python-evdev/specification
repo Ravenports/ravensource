@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	1.6.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-evdev
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 v11
+SDESC[py310]=		Linux input handling subsystem bindings (3.10)
+SDESC[v11]=		Linux input handling subsystem bindings (3.11)
+HOMEPAGE=		https://github.com/gvalkov/python-evdev
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/e/evdev
+DISTFILE[1]=		evdev-${PORTVERSION}.tar.gz:main
+
+SPKGS[py310]=		single
+SPKGS[v11]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[v11]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# Revised BSD License
+
+GENERATED=		yes
+DISTNAME=		evdev-${PORTVERSION}
+
+# install_requires extracted from setup.py
+
+
+[PY310].USES_ON=			python:py310,sutools
+[PY311].USES_ON=			python:v11,sutools
+

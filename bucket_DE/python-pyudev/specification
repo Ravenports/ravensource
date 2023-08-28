@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.24.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-pyudev
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 v11
+SDESC[py310]=		Libudev binding (3.10)
+SDESC[v11]=		Libudev binding (3.11)
+HOMEPAGE=		http://pyudev.readthedocs.org/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/87/1d/82b016f11cd15e8ebcb01132cbe36039ce122c15c51341de9fcbe10483ae
+DISTFILE[1]=		pyudev-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[v11]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[v11]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# LGPL 2.1+
+
+GENERATED=		yes
+DISTNAME=		pyudev-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+
+
+[PY310].USES_ON=			python:py310,wheel
+[PY311].USES_ON=			python:v11,wheel
+
