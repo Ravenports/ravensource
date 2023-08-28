@@ -74,6 +74,7 @@ Linux_shared_libs=\
 	libnss_nis-2.23.so/libnss_nis.so.2 \
 	libnss_nisplus-2.23.so/libnss_nisplus.so.2 \
 	libudev.so.1.6.4/libudev.so.1 \
+	libtirpc.so.3.0.0/libtirpc.so.3 \
 	# end
 
 Linux_extra_libs1=\
@@ -112,7 +113,7 @@ headers_Linux_dirs=\
 	netrose \
 	nfs \
 	protocols \
-	rpc \
+	tirpc \
 	rpcsvc \
 	sound \
 	scsi \

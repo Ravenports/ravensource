@@ -3,11 +3,12 @@ DEF[ABI26_RELEASE]=	2.6.32
 DEF[X_CURRENT]=		EXTRACT_VERSION(PLATFORM_Linux_x86-64)
 DEF[X_ABI26]=		EXTRACT_VERSION(PREVIOUS_Linux_K44)
 DEF[ABI26_FILES]=	2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
-DEF[ABI32_FILES]=	21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 49 50 51 52 53 54 55 56
+DEF[ABI32_FILES]=	21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 49 50 51 52 53 54 55 56 57 58 59 60
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravensys-root-linux
 VERSION=		${PRIME}
+REVISION=		1
 KEYWORDS=		raven
 VARIANTS=		standard ABI26
 SDESC[standard]=	Linux ${PRIME} builder system root
@@ -20,6 +21,7 @@ DOWNLOAD_GROUPS=	main leaf sting ubuntu1 ubuntu2 ubuntu3 ubuntu4 ubuntu5 ubuntu6
 			debian1 debian2 debian3 debian4 debian5 debian6 debian7
 			debian8 debian9 debian10 debian11 debian12 debian13 debian14
 			debian15 debian16 debian17 debian18 debian19 debian20 debian21
+			debian22
 SITES[main]=		https://leaf.dragonflybsd.org/~marino/dports-src/
 SITES[ubuntu1]=		http://security.ubuntu.com/ubuntu/pool/main/g/glibc/
 SITES[ubuntu2]=		UBUNTU/h/hostname
@@ -56,6 +58,7 @@ SITES[debian18]=	DEBIAN/pool/main/e/e2fsprogs
 SITES[debian19]=	DEBIAN/pool/main/k/keyutils
 SITES[debian20]=	DEBIAN/pool/main/libb/libbsd
 SITES[debian21]=	DEBIAN/pool/main/libm/libmd
+SITES[debian22]=	DEBIAN/pool/main/libn/libnl3
 
 DISTFILE[1]=		dummy-tarball.tar.gz:main
 DISTFILE[2]=		locales_2.23-0ubuntu10_all.deb:sting
@@ -114,6 +117,10 @@ DISTFILE[53]=		libcom-err2_1.47.0-2_amd64.deb:debian18
 DISTFILE[54]=		libkeyutils1_1.6.3-2_amd64.deb:debian19
 DISTFILE[55]=		libbsd0_0.11.7-2_amd64.deb:debian20
 DISTFILE[56]=		libmd0_1.0.4-2_amd64.deb:debian21
+DISTFILE[57]=		libnl-genl-3-dev_3.7.0-0.2+b1_amd64.deb:debian22
+DISTFILE[58]=		libnl-genl-3-200_3.7.0-0.2+b1_amd64.deb:debian22
+DISTFILE[59]=		libnl-3-dev_3.7.0-0.2+b1_amd64.deb:debian22
+DISTFILE[60]=		libnl-3-200_3.7.0-0.2+b1_amd64.deb:debian22
 DIST_SUBDIR=		linux-sysroot
 
 SPKGS[standard]=	single
@@ -179,7 +186,7 @@ MAKE_ARGS=		BASE={{RSYS}}
 					ravensys-utils:single:standard
 
 [ABI26].DESCRIPTION=			GNU/Linux ABI ${ABI26_RELEASE} system root
-[ABI26].DF_INDEX_ON=			${ABI26_FILES}
+[ABI26].DF_INDEX_ON=			${ABI26_FILES} 36 37
 [ABI26].MAKEFILE_ON=			SYSTEM=${X_ABI26}
 [ABI26].BUILD_DEPENDS_ON=		bmake:single:prevlinux
 					ravensys-utils:single:prevlinux
@@ -202,7 +209,7 @@ post-extract-NOTSTD-OFF:
 
 post-extract-ABI26-ON:
 	${INSTALL_DATA} ${FILESDIR}/linux.mk ${WRKSRC}/system_specifics.mk
-.for NDX in ${ABI26_FILES}
+.for NDX in ${ABI26_FILES} 36 37
 	@if [ "${NDX}" = "14" ]; then \
 		echo "move ${NAMEBASE}_${NDX} to i386_files" ;\
 		${MV} ${WRKDIR}/${NAMEBASE}_${NDX} ${WRKDIR}/i386_files ;\
