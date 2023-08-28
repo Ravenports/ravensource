@@ -27,6 +27,7 @@ pcfiles_Linux=\
 	libxcrypt.pc \
 	libnl-genl-3.0.pc \
 	libnl-3.0.pc \
+	libsystemd.pc \
 	nss.pc \
 	# end
 
