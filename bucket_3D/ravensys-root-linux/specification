@@ -3,7 +3,9 @@ DEF[ABI26_RELEASE]=	2.6.32
 DEF[X_CURRENT]=		EXTRACT_VERSION(PLATFORM_Linux_x86-64)
 DEF[X_ABI26]=		EXTRACT_VERSION(PREVIOUS_Linux_K44)
 DEF[ABI26_FILES]=	2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
-DEF[ABI32_FILES]=	21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 49 50 51 52 53 54 55 56 57 58 59 60 61 62
+DEF[ABI32_FILES_1]=	21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45
+DEF[ABI32_FILES_2]=	46 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64
+DEF[ABI32_FILES]=	${ABI32_FILES_1} ${ABI32_FILES_2}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravensys-root-linux
@@ -21,7 +23,7 @@ DOWNLOAD_GROUPS=	main leaf sting ubuntu1 ubuntu2 ubuntu3 ubuntu4 ubuntu5 ubuntu6
 			debian1 debian2 debian3 debian4 debian5 debian6 debian7
 			debian8 debian9 debian10 debian11 debian12 debian13 debian14
 			debian15 debian16 debian17 debian18 debian19 debian20 debian21
-			debian22 debian23
+			debian22 debian23 debian24 debian25
 SITES[main]=		https://leaf.dragonflybsd.org/~marino/dports-src/
 SITES[ubuntu1]=		http://security.ubuntu.com/ubuntu/pool/main/g/glibc/
 SITES[ubuntu2]=		UBUNTU/h/hostname
@@ -60,6 +62,8 @@ SITES[debian20]=	DEBIAN/pool/main/libb/libbsd
 SITES[debian21]=	DEBIAN/pool/main/libm/libmd
 SITES[debian22]=	DEBIAN/pool/main/libn/libnl3
 SITES[debian23]=	DEBIAN/pool/main/s/systemd
+SITES[debian24]=	DEBIAN/pool/main/libz/libzstd
+SITES[debian25]=	DEBIAN/pool/main/l/lz4
 
 DISTFILE[1]=		dummy-tarball.tar.gz:main
 DISTFILE[2]=		locales_2.23-0ubuntu10_all.deb:sting
@@ -124,6 +128,9 @@ DISTFILE[59]=		libnl-3-dev_3.7.0-0.2+b1_amd64.deb:debian22
 DISTFILE[60]=		libnl-3-200_3.7.0-0.2+b1_amd64.deb:debian22
 DISTFILE[61]=		libsystemd-dev_252.12-1~deb12u1_amd64.deb:debian23
 DISTFILE[62]=		libsystemd0_247.3-7+deb11u2_amd64.deb:debian23
+DISTFILE[63]=		libzstd1_1.5.4+dfsg2-5_amd64.deb:debian24
+DISTFILE[64]=		liblz4-1_1.9.4-1_amd64.deb:debian25
+
 DIST_SUBDIR=		linux-sysroot
 
 SPKGS[standard]=	single
