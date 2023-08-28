@@ -10,19 +10,23 @@ SDESC[standard]=	D-Bus service for user account query/manipulation
 HOMEPAGE=		https://www.freedesktop.org/wiki/Software/AccountsService/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
-DOWNLOAD_GROUPS=	main
-SITES[main]=		https://gitlab.freedesktop.org/arrowd/accountsservice/-/archive/${FBSD_TAG}/
-DISTFILE[1]=		accountsservice-${FBSD_TAG}.tar.gz:main
+DOWNLOAD_GROUPS=	main freebsd
+SITES[main]=		https://gitlab.freedesktop.org/arrowd/accountsservice/-/archive/${PORTVERSION}/
+SITES[freebsd]=		https://gitlab.freedesktop.org/arrowd/accountsservice/-/archive/${FBSD_TAG}/
+DISTFILE[1]=		accountsservice-${FBSD_TAG}.tar.gz:freebsd
+DISTFILE[2]=		accountsservice-${PORTVERSION}.tar.gz:main
+DF_INDEX=		1 2
 
 SPKGS[standard]=	complete primary nls docs
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	LINUX
+OPTIONS_STANDARD=	LINUX
+OPT_ON[linux]=		LINUX
 
 LICENSE=		GPLv3+:primary
-LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_FILE=		GPLv3+:{{WRKDIR}}/accountsservice-${FBSD_TAG}/COPYING
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
-LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/accounts-daemon.h
+LICENSE_SOURCE=		TERMS:{{WRKDIR}}/accountsservice-${FBSD_TAG}/src/accounts-daemon.h
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
@@ -38,10 +42,19 @@ USES=			cpe meson pkgconfig
 GNOME_COMPONENTS=	glib introspection
 CPE_VENDOR=		freedesktop
 MESON_ARGS=		-Dsystemdsystemunitdir=no
-			-Dconsolekit=true
 			-Dlocalstatedir=/var
 			-Ddocbook=true
 			-Dgtk_doc=false
 			-Dvapi=false
-			-Dtests=false
-DISTNAME=		accountsservice-${FBSD_TAG}
+DISTNAME=		accountsservice
+PATCH_WRKSRC=		{{WRKDIR}}/accountsservice-${FBSD_TAG}
+
+[LINUX].DESCRIPTION=			Support for Linux system
+[LINUX].CONFIGURE_ARGS_OFF=		-Dconsolekit=true
+					-Dtests=false
+
+pre-configure-LINUX-ON:
+	ln -s accountsservice-${PORTVERSION} ${WRKDIR}/accountsservice
+
+pre-configure-LINUX-OFF:
+	ln -s accountsservice-${FBSD_TAG} ${WRKDIR}/accountsservice
