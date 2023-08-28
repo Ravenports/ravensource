@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	0.0.20230411
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libepoll-shim
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Small epoll implementation using kqueue
+HOMEPAGE=		https://github.com/jiixyj/epoll-shim
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/jiixyj:epoll-shim:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/libepoll-shim
+
+NOT_FOR_OPSYS=		linux sunos
+
+USES=			cmake
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
