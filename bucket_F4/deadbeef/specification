@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	1.8.4
+DEF[PORTVERSION]=	1.9.5
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		deadbeef
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		audio
 VARIANTS=		standard
 SDESC[standard]=	Ultimate music player for Unix-like systems
@@ -11,10 +10,11 @@ HOMEPAGE=		http://deadbeef.sourceforge.net/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/DeaDBeeF-Player:deadbeef:${PORTVERSION}
-DISTFILE[1]=		generated:main
+# SITES[main]=		GITHUB/DeaDBeeF-Player:deadbeef:${PORTVERSION}
+SITES[main]=		SF/deadbeef/travis/linux/${PORTVERSION}
+DISTFILE[1]=		deadbeef-1.9.5.tar.bz2:main
 
-SPKGS[standard]=	complete primary nls docs
+SPKGS[standard]=	complete primary dev nls docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -46,6 +46,7 @@ BUILD_DEPENDS=		yasm:single:standard
 			flac:dev:standard
 			libzip:dev:standard
 			libsamplerate:dev:standard
+			libdispatch:dev:standard
 BUILDRUN_DEPENDS=	libmad:single:standard
 			jansson:single:standard
 			imlib2:primary:standard
@@ -57,57 +58,33 @@ BUILDRUN_DEPENDS=	libmad:single:standard
 			libsamplerate:primary:standard
 			libzip:primary:standard
 			ffmpeg4:primary:standard
+			libdispatch:primary:standard
 
-USES=			autoreconf gmake iconv libtool pkgconfig jpeg
-			shebangfix gnome-icons:primary desktop-utils:primary
-			curl solaris-funcs
+USES=			curl gmake iconv libtool pkgconfig jpeg shebangfix
+			gnome-icons:primary desktop-utils:primary
+			clang
 GNOME_COMPONENTS=	intltool gtk3
-SOL_FUNCTIONS=		strcasestr:plugins/artwork/artwork.c
-			strcasestr:plugins/artwork-legacy/artwork.c
-			strcasestr:junklib.c
+XORG_COMPONENTS=	x11
 INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-alsa
-			--disable-nullout
+CONFIGURE_ARGS=		--disable-libretro
 			--disable-static
-			--disable-cdda
 			--disable-gtk2
 			--enable-gtk3
-CPPFLAGS=		-I../dumb/dumb-kode54/include
-			-I../../plugins/libmp4ff
-			-I../../plugins/gme/game-music-emu-0.6pre
-			-I./sidplay-libs/libsidplay/include/sidplay
+CFLAGS=			-Wno-error
+CXXFLAGS=		-std=c++14
+LDFLAGS=		-L{{LOCALBASE}}/lib -Wl,-rpath,{{LOCALBASE}}/lib
 SHEBANG_FILES=		yasmwrapper.sh
+PLIST_SUB=		OSS={{OSS:U"@comment "}}
+
+B_DEPS[linux]=		alsa-lib:dev:standard
+BR_DEPS[linux]=		alsa-lib:primary:standard
+
+VAR_OPSYS[linux]=	CONFIGURE_ARGS=--disable-oss
 
 post-extract:
 	(cd ${WRKSRC} && ${HEAD} -n 100 plugins/*/COPYING \
 		> ${WRKDIR}/LICENSE_PLUGINS)
-	# Fix libintl linking
-	${REINPLACE_CMD} -e 's/INTL_LIBS/INTLLIBS/' ${WRKSRC}/Makefile.am
-	# Another intl fix for autoconf 2.70
-	${REINPLACE_CMD} -e 's|@USE_INCLUDED_LIBINTL@|no|g' \
-		-e 's|@BUILD_INCLUDED_LIBINTL@|no|g' \
-		${WRKSRC}/intl/Makefile.in
-
-pre-configure:
-	(cd ${WRKSRC} && ${SH} ${WRKSRC}/autogen.sh)
-
-post-patch:
-	# Do not link to libsupc++ which may be PIC-unsafe (breaks 64-bit arches)
-	# ${REINPLACE_CMD} -e 's, -lsupc++,,' \
-	#	${WRKSRC}/plugins/adplug/Makefile.in \
-	#	${WRKSRC}/plugins/gme/Makefile.in \
-	#	${WRKSRC}/plugins/sid/Makefile.in \
-	#	${WRKSRC}/plugins/supereq/Makefile.in
-	${REINPLACE_CMD} -e 's,/etc/timidity++/timidity-freepats.cfg:/etc/timidity/freepats.cfg:/etc/timidity/,${LOCALBASE}/share/,' \
-		${WRKSRC}/plugins/wildmidi/wildmidiplug.c
-	# ${REINPLACE_CMD} \
-	#	-e '/HAVE_OGG" = "yes"/ {n; n; /HAVE_VORBISPLUGIN=yes/d;}' \
-	#	${WRKSRC}/configure
-
-	# Fix build with libzip-1.0
-	${REINPLACE_CMD} 's,zip_file_t,zip_file_DB,g' \
-		${WRKSRC}/plugins/vfs_zip/vfs_zip.c
 
 post-install:
 	# remove duplicate licenses

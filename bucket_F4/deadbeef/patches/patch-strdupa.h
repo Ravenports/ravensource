@@ -1,4 +1,4 @@
---- strdupa.h.orig	2020-06-28 13:41:28 UTC
+--- strdupa.h.orig	2023-02-19 17:12:18 UTC
 +++ strdupa.h
 @@ -31,7 +31,7 @@
      ({									      \
