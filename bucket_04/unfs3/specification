@@ -17,8 +17,9 @@ DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	TIRPC
+OPTIONS_STANDARD=	TIRPC
+OPT_ON[linux]=		TIRPC/4.4
 
 LICENSE=		BSD3CLAUSE:single
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
@@ -27,14 +28,16 @@ LICENSE_SCHEME=		solo
 # FPC_EQUIVALENT=		net/unfs3 -- older version since this one is Linux-only
 
 ONLY_FOR_OPSYS=		linux
-BUILDRUN_DEPENDS=	libtirpc:single:standard
+
 RUN_DEPENDS=		rpcbind:single:standard
 
 USES=			autoreconf gmake pkgconfig
-
 DISTNAME=		unfs3-unfs3-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 SINGLE_JOB=		yes
+
+[TIRPC].DESCRIPTION=			Build with Ravenports tirpc library
+[TIRPC].BUILDRUN_DEPENDS_ON=		libtirpc:single:standard
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/sbin/unfsd
