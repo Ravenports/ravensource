@@ -217,6 +217,12 @@ post-extract-NOTSTD-OFF:
 	@${RM} -r ${WRKDIR}/${NAMEBASE}_${NDX}
 .endfor
 
+pre-extract-ABI26-ON:
+.if "${.MAKE.OS.MAJOR}" == "6.1"
+	@echo "Linux 6.1 can't build ravensys-root-linux:ABI26"
+	false
+.endif
+
 post-extract-ABI26-ON:
 	${INSTALL_DATA} ${FILESDIR}/linux.mk ${WRKSRC}/system_specifics.mk
 .for NDX in ${ABI26_FILES} 36 37
