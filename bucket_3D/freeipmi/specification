@@ -1,0 +1,77 @@
+DEF[PORTVERSION]=	1.6.11
+DEF[SOVERSION]=		17.2.10
+DEF[PMICONSOLE_VER]=	2.3.6
+DEF[PMIMONITOR_VER]=	6.0.9
+DEF[PMIDETECT_VER]=	0.0.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		freeipmi
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	IPMI remote console and system management software
+HOMEPAGE=		https://www.gnu.org/software/freeipmi/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/freeipmi
+DISTFILE[1]=		freeipmi-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary dev tools man docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		sysutils/freeipmi
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"FREEIPMI_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libfreeipmi/include/freeipmi/freeipmi.h.in
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		libgcrypt:dev:standard
+BUILDRUN_DEPENDS=	libgcrypt:primary:standard
+
+BR_DEPS[midnightbsd]=	argp-standalone:single:standard
+BR_DEPS[dragonfly]=	argp-standalone:single:standard
+BR_DEPS[freebsd]=	argp-standalone:single:standard
+BR_DEPS[netbsd]=	argp-standalone:single:standard
+BR_DEPS[sunos]=		argp-standalone:single:standard
+
+EXRUN[tools]=		primary
+
+USES=			gmake libtool makeinfo shebangfix
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-init-scripts
+			--sysconfdir={{PREFIX}}/etc/freeipmi
+			--with-ipmi-monitoring-sdr-cache-dir=/var/db/freeipmi/ipmimonitoringsdrcache
+			--with-ipmiseld-cache-dir=/var/db/freeipmi/ipmiseld
+			--with-pkgconfig-dir={{PREFIX}}/lib/pkgconfig
+INFO=			docs:freeipmi-faq
+SHEBANG_FILES=		contrib/ganglia/ganglia_ipmi_sensors.pl
+			contrib/nagios/nagios_ipmi_sensors.pl
+			contrib/pet/check_rmcpping
+			contrib/pet/petalert.pl
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		PMICONSOLE_SOVERSION=${PMICONSOLE_VER}
+			PMICONSOLE_SOMAJOR=${PMICONSOLE_VER:R:R}
+			PMIMONITOR_SOVERSION=${PMIMONITOR_VER}
+			PMIMONITOR_SOMAJOR=${PMIMONITOR_VER:R:R}
+			PMIDETECT_SOVERSION=${PMIDETECT_VER}
+			PMIDETECT_SOMAJOR=${PMIDETECT_VER:R:R}
+
+pre-configure:
+	${FIND} ${WRKSRC} -name '*.man' -o -name '*.pre.in' |\
+		 ${XARGS} -I % ${REINPLACE_CMD} -e '/^\.\\\"/ s|$$|"|' %
+	${REINPLACE_CMD} -e 's|\($$(LN_S) -f \)$$(sbindir)/|\1|' ${WRKSRC}/*/Makefile.in
+
+post-install:
+	${MKDIR} -m 0700 -p \
+		${STAGEDIR}/var/db/freeipmi/ipmimonitoringsdrcache \
+		${STAGEDIR}/var/db/freeipmi/ipmiseld \
+		${STAGEDIR}/var/lib/freeipmi \
+		${STAGEDIR}/var/run/freeipmi
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so

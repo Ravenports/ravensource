@@ -1,0 +1,27 @@
+--- configure.orig	2023-06-07 23:23:58 UTC
++++ configure
+@@ -14941,6 +14941,9 @@ case "${host_cpu}-${host_os}" in
+         #
+         acx_pthread_flags="pthreads pthread none -Kthread -kthread lthread -pthread -pthreads -mthreads --thread-safe -mt"
+         ;;
++	*bsd*|*dragonfly*)
++	acx_pthread_flags="pthread -pthread"
++	;;
+ esac
+ 
+ if test x"$acx_pthread_ok" = xno; then
+@@ -15155,12 +15158,12 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
+ 
+ 
+ 
+-FREEIPMI_SYSCONFDIR=${sysconfdir}/freeipmi/
++FREEIPMI_SYSCONFDIR=${sysconfdir}
+ 
+ 
+ 
+   # Must expand nested unquoting
+-  FREEIPMI_CONFIG_FILE_DEFAULT_TMP1="`eval echo $FREEIPMI_SYSCONFDIR/freeipmi.conf`"
++  FREEIPMI_CONFIG_FILE_DEFAULT_TMP1="`eval echo $FREEIPMI_SYSCONFDIR/freeipmi.conf.sample`"
+   FREEIPMI_CONFIG_FILE_DEFAULT_TMP2="`echo $FREEIPMI_CONFIG_FILE_DEFAULT_TMP1 | sed 's/^NONE/$ac_default_prefix/'`"
+   FREEIPMI_CONFIG_FILE_DEFAULT="`eval echo $FREEIPMI_CONFIG_FILE_DEFAULT_TMP2`"
+ 
