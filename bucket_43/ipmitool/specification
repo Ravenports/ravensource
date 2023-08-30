@@ -1,0 +1,56 @@
+DEF[PORTVERSION]=	1.8.19
+DEF[FILE_VERSION]=	${PORTVERSION:S/./_/g}
+DEF[IANA_VERSION]=	20230829
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ipmitool
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	Command-line interface to IPMI-enabled devices
+HOMEPAGE=		https://codeberg.org/IPMITool/ipmitool
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main iana
+SITES[main]=		https://codeberg.org/IPMITool/ipmitool/archive/
+SITES[iana]=		https://leaf.dragonflybsd.org/~marino/raven-distfiles/iana/
+DISTFILE[1]=		IPMITOOL_${FILE_VERSION}.tar.gz:main
+DISTFILE[2]=		enterprise-numbers-${IANA_VERSION}.tar.gz:iana
+DF_INDEX=		1 2
+
+SPKGS[standard]=	complete primary man docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		sysutils/ipmitool
+
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		freeipmi:dev:standard
+BUILDRUN_DEPENDS=	freeipmi:primary:standard
+
+USES=			cpe gmake readline ssl autoreconf
+CPE_VENDOR=		sun
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-intf-open
+			--enable-intf-free
+DISTNAME=		ipmitool
+SUB_FILES=		status-ipmi.sh
+
+EXTRACT_DIRTY=		2
+
+post-install:
+	# remove duplicate license
+	${RM} ${STAGEDIR}${STD_DOCDIR}/COPYING
+	# install periodic
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/periodic/daily
+	${INSTALL_SCRIPT} ${WRKDIR}/status-ipmi.sh \
+		${STAGEDIR}${PREFIX}/etc/periodic/daily/400.status-ipmi
+	# install IANA database
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/misc/
+	${INSTALL_DATA} ${WRKDIR}/${NAMEBASE}_2/enterprise-numbers-${IANA_VERSION}.txt \
+		${STAGEDIR}${PREFIX}/share/misc/enterprise-numbers
+
