@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	7.0.1
+DEF[PORTVERSION]=	7.1.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pynetbox
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/netbox-community/pynetbox
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/23/2f/d879fb8e4d3e03ee705aea9abca8137f1a780da1cd3532c4a1e1a02179b4
+SITES[main]=		PYPIWHL/39/ed/38de766e902963bbfdb17c3a4b38cdc8f2d613bcb6cad696926edf1fc17a
 DISTFILE[1]=		pynetbox-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -29,10 +29,13 @@ GENERATED=		yes
 DISTNAME=		pynetbox-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# requests (<3.0,>=2.20.0)
+# requests <3.0,>=2.20.0
+# packaging <24.0
 
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-requests:single:py310
+					python-packaging:single:py310
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-requests:single:v11
+					python-packaging:single:v11
 

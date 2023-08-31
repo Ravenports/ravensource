@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.7.1
+DEF[PORTVERSION]=	4.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-anyio
@@ -11,7 +11,7 @@ HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/19/24/44299477fe7dcc9cb58d0a57d5a7588d6af2ff403fdd2d47a246c91a3246
+SITES[main]=		PYPIWHL/36/55/ad4de788d84a630656ece71059665e01ca793c04294c463fd84132f40fe6
 DISTFILE[1]=		anyio-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -29,25 +29,21 @@ GENERATED=		yes
 DISTNAME=		anyio-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# idna (>=2.8)
-# sniffio (>=1.1)
-# exceptiongroup ; python_version < "3.11"
-# typing-extensions ; python_version < "3.8"
+# idna >=2.8
+# sniffio >=1.1
+# exceptiongroup >=1.0.2 ; python_version < "3.11"
 # packaging ; extra == 'doc'
-# Sphinx ; extra == 'doc'
-# sphinx-rtd-theme (>=1.2.2) ; extra == 'doc'
-# sphinxcontrib-jquery ; extra == 'doc'
-# sphinx-autodoc-typehints (>=1.2.0) ; extra == 'doc'
+# Sphinx >=7 ; extra == 'doc'
+# sphinx-autodoc-typehints >=1.2.0 ; extra == 'doc'
 # anyio[trio] ; extra == 'test'
-# coverage[toml] (>=4.5) ; extra == 'test'
-# hypothesis (>=4.0) ; extra == 'test'
-# psutil (>=5.9) ; extra == 'test'
-# pytest (>=7.0) ; extra == 'test'
-# pytest-mock (>=3.6.1) ; extra == 'test'
+# coverage[toml] >=7 ; extra == 'test'
+# hypothesis >=4.0 ; extra == 'test'
+# psutil >=5.9 ; extra == 'test'
+# pytest >=7.0 ; extra == 'test'
+# pytest-mock >=3.6.1 ; extra == 'test'
 # trustme ; extra == 'test'
-# uvloop (>=0.17) ; (python_version < "3.12" and platform_python_implementation == "CPython" and platform_system != "Windows") and extra == 'test'
-# mock (>=4) ; (python_version < "3.8") and extra == 'test'
-# trio (<0.22) ; extra == 'trio'
+# uvloop >=0.17 ; (python_version < "3.12" and platform_python_implementation == "CPython" and platform_system != "Windows") and extra == 'test'
+# trio >=0.22 ; extra == 'trio'
 
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-idna:single:py310

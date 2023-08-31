@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.12.2
+DEF[PORTVERSION]=	3.12.3
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-filelock
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/tox-dev/py-filelock
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/00/45/ec3407adf6f6b5bf867a4462b2b0af27597a26bd3cd6e2534cb6ab029938
+SITES[main]=		PYPIWHL/52/90/45223db4e1df30ff14e8aebf9a1bf0222da2e7b49e53692c968f36817812
 DISTFILE[1]=		filelock-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -29,17 +29,19 @@ GENERATED=		yes
 DISTNAME=		filelock-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# furo>=2023.5.20; extra == 'docs'
-# sphinx-autodoc-typehints!=1.23.4,>=1.23; extra == 'docs'
-# sphinx>=7.0.1; extra == 'docs'
+# typing-extensions>=4.7.1; python_version < '3.11'
+# furo>=2023.7.26; extra == 'docs'
+# sphinx-autodoc-typehints!=1.23.4,>=1.24; extra == 'docs'
+# sphinx>=7.1.2; extra == 'docs'
 # covdefaults>=2.3; extra == 'testing'
-# coverage>=7.2.7; extra == 'testing'
-# diff-cover>=7.5; extra == 'testing'
+# coverage>=7.3; extra == 'testing'
+# diff-cover>=7.7; extra == 'testing'
 # pytest-cov>=4.1; extra == 'testing'
-# pytest-mock>=3.10; extra == 'testing'
+# pytest-mock>=3.11.1; extra == 'testing'
 # pytest-timeout>=2.1; extra == 'testing'
-# pytest>=7.3.1; extra == 'testing'
+# pytest>=7.4; extra == 'testing'
 
 [PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-typing-extensions:single:py310
 [PY311].USES_ON=			python:v11,wheel
 
