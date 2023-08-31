@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.7.0
+DEF[PORTVERSION]=	2.8.0
 DEF[SOVERSION]=		9.0.0
 # ----------------------------------------------------------------------------
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/linuxwacom/libwacom/releases/download/libwacom-${PORTVERSION}/
 DISTFILE[1]=		libwacom-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev man
+SPKGS[standard]=	complete primary dev man tools
 
 OPTIONS_AVAILABLE=	NODEVD
 OPTIONS_STANDARD=	NODEVD
@@ -27,6 +27,8 @@ LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11/libwacom
+
+EXRUN[tools]=		primary
 
 BUILD_DEPENDS=		doxygen:single:standard
 			evdev-proto:single:standard
