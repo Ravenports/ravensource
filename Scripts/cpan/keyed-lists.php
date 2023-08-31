@@ -88,6 +88,9 @@ function ingest_file ($datatype, $scriptdir) {
 # Given a short description, it strips out common articles and ensures
 # The first letter is capitalized
 function make_comment ($shortdesc) {
+    if (is_null($shortdesc)) {
+        return "Invalid short description";
+    }
     $copystring = $shortdesc;
     $copystring = preg_replace ("/^A /i", "", $copystring);
     $copystring = preg_replace ("/^An /i", "", $copystring);
