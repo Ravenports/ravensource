@@ -423,6 +423,9 @@ function skip_extras($var) {
    if (strpos($var, '"Windows"') !== false) {
       return false;
    }
+   if (strpos($var, "'Windows'") !== false) {
+      return false;
+   }
    if (strpos($var, '"win32"') !== false) {
       return false;
    }
