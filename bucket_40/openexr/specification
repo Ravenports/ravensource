@@ -1,7 +1,7 @@
-DEF[PORTVERSION]=	3.1.11
+DEF[PORTVERSION]=	3.2.0
 DEF[MAJOR]=		${PORTVERSION:R:S|.|_|}
 DEF[MAJOR2]=		${MAJOR:S|_||}
-DEF[SOVERSION]=		30.11.1
+DEF[SOVERSION]=		31.3.2.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		openexr
@@ -28,7 +28,9 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		graphics/openexr
 
 BUILD_DEPENDS=		Imath:dev:standard
+			libdeflate:dev:standard
 BUILDRUN_DEPENDS=	Imath:primary:standard
+			libdeflate:primary:standard
 
 EXRUN[tools]=		openexr:primary:standard
 EXRUN[dev]=		Imath:dev:standard
@@ -39,7 +41,9 @@ CMAKE_ARGS=		-DCMAKE_INSTALL_PREFIX={{PREFIX}}
 			-DBUILD_SHARED_LIBS:BOOL=ON
 # LDFLAGS=		-lpthread
 PLIST_SUB=		MAJOR=${MAJOR}
-SOVERSION=		${SOVERSION}
+			SOVERSION=${SOVERSION}
+			SOMAJOR=${SOVERSION:R:R:R}
+# SOVERSION=		${SOVERSION}
 
 VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
 
