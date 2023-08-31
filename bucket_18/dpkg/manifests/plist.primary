@@ -1,6 +1,7 @@
 %%DAEMON-ON%%sbin/start-stop-daemon
 %%SITE_PERL%%/Dpkg.pm
 %%SITE_PERL%%/Dpkg/Arch.pm
+%%SITE_PERL%%/Dpkg/BuildAPI.pm
 %%SITE_PERL%%/Dpkg/BuildEnv.pm
 %%SITE_PERL%%/Dpkg/BuildFlags.pm
 %%SITE_PERL%%/Dpkg/BuildInfo.pm
@@ -26,7 +27,6 @@
 %%SITE_PERL%%/Dpkg/Path.pm
 %%SITE_PERL%%/Dpkg/Shlibs.pm
 %%SITE_PERL%%/Dpkg/Substvars.pm
-%%SITE_PERL%%/Dpkg/Vars.pm
 %%SITE_PERL%%/Dpkg/Vendor.pm
 %%SITE_PERL%%/Dpkg/Version.pm
 %%SITE_PERL%%/Dpkg/Build/Info.pm
@@ -44,6 +44,7 @@
 %%SITE_PERL%%/Dpkg/Control/Info.pm
 %%SITE_PERL%%/Dpkg/Control/Tests.pm
 %%SITE_PERL%%/Dpkg/Control/Types.pm
+%%SITE_PERL%%/Dpkg/Control/HashCore/Tie.pm
 %%SITE_PERL%%/Dpkg/Control/Tests/Entry.pm
 %%SITE_PERL%%/Dpkg/Deps/AND.pm
 %%SITE_PERL%%/Dpkg/Deps/KnownFacts.pm
@@ -63,6 +64,7 @@
 %%SITE_PERL%%/Dpkg/Shlibs/Objdump.pm
 %%SITE_PERL%%/Dpkg/Shlibs/Symbol.pm
 %%SITE_PERL%%/Dpkg/Shlibs/SymbolFile.pm
+%%SITE_PERL%%/Dpkg/Shlibs/Objdump/Object.pm
 %%SITE_PERL%%/Dpkg/Source/Archive.pm
 %%SITE_PERL%%/Dpkg/Source/BinaryFiles.pm
 %%SITE_PERL%%/Dpkg/Source/Format.pm
@@ -81,13 +83,15 @@
 %%SITE_PERL%%/Dpkg/Vendor/Default.pm
 %%SITE_PERL%%/Dpkg/Vendor/Devuan.pm
 %%SITE_PERL%%/Dpkg/Vendor/Ubuntu.pm
-%%SITE_PERL%%/Dselect/Ftp.pm
+%%SITE_PERL%%/Dselect/Method.pm
+%%SITE_PERL%%/Dselect/Method/Ftp.pm
 /var/db/dpkg/available.sample
 /var/db/dpkg/diversions.sample
 /var/db/dpkg/statoverride.sample
 /var/db/dpkg/status.sample
 bin/dpkg
 bin/dpkg-architecture
+bin/dpkg-buildapi
 bin/dpkg-buildflags
 bin/dpkg-buildpackage
 bin/dpkg-checkbuilddeps
@@ -116,6 +120,7 @@ bin/dselect
 bin/update-alternatives
 etc/alternatives/README
 libexec/dpkg/dpkg-db-backup
+libexec/dpkg/dpkg-db-keeper
 libexec/dpkg/methods/file/desc.file
 libexec/dpkg/methods/file/install
 libexec/dpkg/methods/file/names
@@ -145,6 +150,7 @@ share/aclocal/dpkg-types.m4
 share/aclocal/dpkg-unicode.m4
 share/dpkg/abitable
 share/dpkg/architecture.mk
+share/dpkg/buildapi.mk
 share/dpkg/buildflags.mk
 share/dpkg/buildopts.mk
 share/dpkg/buildtools.mk
