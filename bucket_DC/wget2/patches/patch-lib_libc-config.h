@@ -1,4 +1,4 @@
---- lib/libc-config.h.orig	2022-01-03 12:27:17 UTC
+--- lib/libc-config.h.orig	2023-08-03 15:37:29 UTC
 +++ lib/libc-config.h
 @@ -35,6 +35,11 @@
  

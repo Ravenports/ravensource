@@ -1,9 +1,9 @@
-DEF[PORTVERSION]=	2.0.1
+DEF[PORTVERSION]=	2.1.0
+DEF[SOVERSION]=		2.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		wget2
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		net ftp www
 VARIANTS=		standard
 SDESC[standard]=	File retrieval tool using HTTP, HTTPS, and FTP
@@ -14,12 +14,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/wget
 DISTFILE[1]=		wget2-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[standard]=	complete primary tools dev nls man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		www/wget2
+
+EXRUN[tools]=		primary
 
 BUILD_DEPENDS=		doxygen:single:standard
 			gnutls:dev:standard
@@ -52,6 +54,7 @@ CONFIGURE_ARGS=		--with-openssl=no
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 CFLAGS=			-Wno-attributes
+SOVERSION=		${SOVERSION}
 
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/bin/wget2_noinstall
