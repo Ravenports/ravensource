@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	1.0.9
+DEF[PORTVERSION]=	1.1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		brotli
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		archivers devel
 VARIANTS=		standard
 SDESC[standard]=	Generic-purpose lossless compression algorithm
@@ -29,15 +28,9 @@ BUILD_DEPENDS=		bc:single:standard
 
 EXRUN[tools]=		brotli:primary:standard
 
-USES=			cpe autoreconf:build libtool:build gmake pkgconfig
+USES=			cpe cmake pkgconfig
 CPE_VENDOR=		google
-MUST_CONFIGURE=		gnu
-INSTALL_TARGET=		install-strip
-INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${PORTVERSION}
-
-pre-configure:
-	(cd ${WRKSRC} && /bin/sh ./bootstrap)
 
 post-patch:
 	${REINPLACE_CMD} -e 's| -R| -Wl,-rpath,|' ${WRKSRC}/scripts/*.pc.in
