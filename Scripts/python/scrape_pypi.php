@@ -429,6 +429,9 @@ function skip_extras($var) {
    if (strpos($var, '"win32"') !== false) {
       return false;
    }
+   if (str_starts_with($var, "Requires-Dist: meson")) {
+      return false;
+   }
    $pos = strpos($var, "extra ==");
    return ($pos === false);
 }

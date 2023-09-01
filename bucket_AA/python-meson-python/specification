@@ -1,0 +1,80 @@
+DEF[PORTVERSION]=	0.13.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-meson-python
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 v11
+SDESC[py310]=		Meson Python build backend (PEP 517) (3.10)
+SDESC[v11]=		Meson Python build backend (PEP 517) (3.11)
+HOMEPAGE=		https://github.com/mesonbuild/meson-python
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/5e/ad/c51b346930e7050cae81bb9f360986da30e27e1bffd28a8495fcbe84ec73
+DISTFILE[1]=		meson_python-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[v11]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[v11]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# Copyright © 2022 the meson-python contributors Copyright © 2021
+# Quansight Labs and Filipe Laíns  Permission is hereby granted, free
+# of charge, to any person obtaining a copy of this software and
+# associated documentation files (the "Software"), to deal in the
+# Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or
+# sell copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following conditions:
+# The above copyright notice and this permission notice (including the
+# next paragraph) shall be included in all copies or substantial
+# portions of the Software.  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT
+# WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO
+# THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+# AND NONINFRINGEMENT.  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+# HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+# IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+# IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+GENERATED=		yes
+DISTNAME=		meson_python-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# colorama; os_name == "nt"
+# meson>=0.63.3
+# pyproject-metadata>=0.7.1
+# tomli>=1.0.0; python_version < "3.11"
+# setuptools>=60.0; python_version >= "3.12"
+# build; extra == "test"
+# pytest>=6.0; extra == "test"
+# pytest-cov[toml]; extra == "test"
+# pytest-mock; extra == "test"
+# auditwheel; extra == "test"
+# cython>=0.29.34; extra == "test"
+# wheel; extra == "test"
+# typing-extensions>=3.7.4; python_version < "3.10" and extra == "test"
+# furo>=2021.08.31; extra == "docs"
+# sphinx~=4.0; extra == "docs"
+# sphinx-autodoc-typehints>=1.10; extra == "docs"
+# sphinx-contributors>=0.2.2; extra == "docs"
+# sphinx-copybutton>=0.5.0; extra == "docs"
+# sphinx-design>=0.1.0; extra == "docs"
+# sphinx-autobuild; extra == "docs"
+# sphinxcontrib-spelling>=7.0.0; extra == "docs"
+# sphinxext-opengraph>=0.7.0; extra == "docs"
+
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-colorama:single:py310
+					python-pyproject-metadata:single:py310
+					python-tomli:single:py310
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-colorama:single:v11
+					python-pyproject-metadata:single:v11
+
+BUILDRUN_DEPENDS=	meson:single:standard

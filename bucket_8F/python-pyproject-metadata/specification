@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	0.7.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-pyproject-metadata
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		py310 v11
+SDESC[py310]=		PEP 621 metadata parsing (3.10)
+SDESC[v11]=		PEP 621 metadata parsing (3.11)
+HOMEPAGE=		https://github.com/FFY00/python-pyproject-metadata
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/c4/cb/4678dfd70cd2f2d8969e571cdc1bb1e9293c698f8d1cf428fadcf48d6e9f
+DISTFILE[1]=		pyproject_metadata-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[py310]=		single
+SPKGS[v11]=		single
+
+OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_STANDARD=	none
+VOPTS[py310]=		PY310=ON PY311=OFF
+VOPTS[v11]=		PY310=OFF PY311=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		pyproject_metadata-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# packaging (>=19.0)
+# furo (>=2020.11.19b18) ; extra == 'docs'
+# sphinx (~=3.0) ; extra == 'docs'
+# sphinx-autodoc-typehints (>=1.10.0) ; extra == 'docs'
+# Jinja2 (<3.1) ; extra == 'docs'
+# pytest (>=6.2.4) ; extra == 'test'
+# pytest-cov (>=2) ; extra == 'test'
+# tomli (>=1.0.0) ; (python_version < "3.11") and extra == 'test'
+
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-packaging:single:py310
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-packaging:single:v11
+
