@@ -1,4 +1,4 @@
-# DeepDiff v 6.3.1
+# DeepDiff v 6.4.0
 
 ![Downloads]
 ![Python Versions]
@@ -24,28 +24,14 @@ Tested on Python 3.7+ and PyPy3.
 
 Please check the [ChangeLog] file for the detailed information.
 
-DeepDiff 6-3-1
+DeepDiff 6-4-0
 
-This release includes many bug fixes.
-
-- Bugfix deephash for paths by [maggelus]
-- Bugfix deephash compiled regex [maggelus]
-- Fix tests dependent on toml by [martin-kokos]
-- Bugfix for `include_paths` for nested dictionaries by [kor4ik]
-- Use tomli and tomli-w for dealing with tomli files by [martin-kokos]
-- Bugfix for `datetime.date` by [Alex Sauer-Budge]
-
-DeepDiff 6-3-0
-
-- [`PrefixOrSuffixOperator`]: This operator will skip strings that are
-suffix or prefix of each other.
-- [`include_obj_callback`] and `include_obj_callback_strict` are added by
-[Håvard Thom].
-- Fixed a corner case where numpy's `np.float32` nans are not ignored when
-using `ignore_nan_equality` by [Noam Gottlieb]
-- `orjson` becomes optional again.
-- Fix for `ignore_type_in_groups` with numeric values so it does not report
-number changes when the number types are different.
+- [Add Ignore List Order Option to DeepHash] by 
+[Bobby Morck]
+- [pyyaml to 6.0.1 to fix cython build problems] by [Robert Bo Davis]
+- [Precompiled regex simple diff] by [cohml]
+- New flag: `zip_ordered_iterables` for forcing iterable items to be
+compared one by one. 
 
 ## Installation
 
@@ -98,3 +84,17 @@ flag.
 Or to see a more user friendly version, please run: `pytest --cov=deepdiff
 --cov-report term-missing --runslow`.
 
+Thank you!
+
+# Citing
+
+How to cite this library (APA style):
+
+    Dehpour, S. (2023). DeepDiff (Version 6.4.0) [Software]. Available from
+https://github.com/seperman/deepdiff.
+
+How to cite this library (Chicago style):
+
+    Dehpour, Sep. 2023. DeepDiff (version 6.4.0).
+
+# Authors
