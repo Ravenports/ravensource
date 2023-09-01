@@ -1,6 +1,6 @@
---- configure.orig	2023-06-06 22:00:27 UTC
+--- configure.orig	2023-08-24 12:09:18 UTC
 +++ configure
-@@ -866,6 +866,7 @@ LIBMPDEC_INTERNAL
+@@ -839,6 +839,7 @@ LIBMPDEC_INTERNAL
  LIBMPDEC_LDFLAGS
  LIBMPDEC_CFLAGS
  LIBFFI_INCLUDEDIR
@@ -8,7 +8,7 @@
  LIBEXPAT_INTERNAL
  LIBEXPAT_LDFLAGS
  LIBEXPAT_CFLAGS
-@@ -6842,7 +6843,7 @@ printf %s "checking for multiarch... " >
+@@ -6204,7 +6205,7 @@ $as_echo_n "checking for multiarch... "
  case $ac_sys_system in #(
    Darwin*) :
      MULTIARCH="" ;; #(
@@ -17,7 +17,7 @@
      MULTIARCH="" ;; #(
    *) :
      MULTIARCH=$($CC --print-multiarch 2>/dev/null)
-@@ -7389,7 +7390,7 @@ printf "%s\n" "#define Py_ENABLE_SHARED
+@@ -6743,7 +6744,7 @@ $as_echo "#define Py_ENABLE_SHARED 1" >>
  	      PY3LIBRARY=libpython3.so
  	  fi
            ;;
@@ -26,7 +26,7 @@
  	  LDLIBRARY='libpython$(LDVERSION).so'
  	  BLDLIBRARY='-L. -lpython$(LDVERSION)'
  	  RUNSHARED=LD_LIBRARY_PATH=`pwd`${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-@@ -12205,7 +12206,7 @@ then
+@@ -10970,7 +10971,7 @@ then
  				   ;;
  				esac
  		fi;;
@@ -35,7 +35,7 @@
  		LDSHARED='$(CC) -shared'
  		LDCXXSHARED='$(CXX) -shared';;
  	OpenUNIX*|UnixWare*)
-@@ -12272,7 +12273,7 @@ then :
+@@ -11035,7 +11036,7 @@ then
  			CCSHARED="-fPIC"
  
  fi;;
@@ -44,7 +44,7 @@
  	Haiku*) CCSHARED="-fPIC";;
  	OpenUNIX*|UnixWare*)
  		if test "$GCC" = "yes"
-@@ -12331,7 +12332,7 @@ printf "%s\n" "#define THREAD_STACK_SIZE
+@@ -11096,7 +11097,7 @@ _ACEOF
  	OpenUNIX*|UnixWare*) LINKFORSHARED="-Wl,-Bexport";;
  	SCO_SV*) LINKFORSHARED="-Wl,-Bexport";;
  	ReliantUNIX*) LINKFORSHARED="-W1 -Blargedynsym";;
@@ -53,7 +53,7 @@
  		if [ "`$CC -dM -E - </dev/null | grep __ELF__`" != "" ]
  		then
  			LINKFORSHARED="-Wl,--export-dynamic"
-@@ -14777,7 +14778,7 @@ then :
+@@ -13546,7 +13547,7 @@ if test "x$found_tcltk" = xno; then :
  fi
  
  case $ac_sys_system in #(
@@ -61,8 +61,8 @@
 +  FreeBSD*|MidnightBSD*) :
  
      if test -n "$PKG_CONFIG" && \
-     { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"x11\""; } >&5
-@@ -26302,7 +26303,7 @@ case $ac_sys_system in #(
+     { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"x11\""; } >&5
+@@ -23587,7 +23588,7 @@ case $ac_sys_system in #(
      py_cv_module__scproxy=n/a
      py_cv_module_nis=n/a
   ;; #(

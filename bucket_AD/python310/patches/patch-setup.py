@@ -1,4 +1,4 @@
---- setup.py.orig	2023-06-06 22:30:33 UTC
+--- setup.py.orig	2023-08-24 12:46:25 UTC
 +++ setup.py
 @@ -58,7 +58,10 @@ with warnings.catch_warnings():
  TEST_EXTENSIONS = (sysconfig.get_config_var('TEST_MODULES') == 'yes')
