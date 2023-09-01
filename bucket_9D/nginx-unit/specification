@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.30.0
+DEF[PORTVERSION]=	1.31.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		nginx-unit
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://unit.nginx.org/download/
 DISTFILE[1]=		unit-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete unitd python perl
+SPKGS[standard]=	complete unitd unitpython unitperl
 			php80 php81 php82
 
 OPTIONS_AVAILABLE=	none
@@ -34,11 +34,11 @@ BUILD_DEPENDS=		php82:primary:standard
 			php82:dev:standard
 			php81:dev:standard
 			php80:dev:standard
-EXRUN[perl]=		perl
+EXRUN[unitperl]=	perl
 EXRUN[php82]=		php82:primary:standard
 EXRUN[php81]=		php81:primary:standard
 EXRUN[php80]=		php80:primary:standard
-EXRUN[python]=		python
+EXRUN[unitpython]=	python
 
 USES=			cpe pcre2 gettext perl:build python:build
 CPE_VENDOR=		nginx
