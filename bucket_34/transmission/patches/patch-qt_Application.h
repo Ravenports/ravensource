@@ -1,4 +1,4 @@
---- qt/Application.h.orig	2023-04-14 02:22:25 UTC
+--- qt/Application.h.orig	2023-08-23 22:56:00 UTC
 +++ qt/Application.h
 @@ -16,6 +16,7 @@
  
