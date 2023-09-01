@@ -1,4 +1,4 @@
---- termcap.c.orig	2022-01-28 14:06:02 UTC
+--- termcap.c.orig	2023-08-16 00:29:26 UTC
 +++ termcap.c
 @@ -361,11 +361,7 @@ int he;
    if (D_CG0)

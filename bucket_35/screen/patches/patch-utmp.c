@@ -1,4 +1,4 @@
---- utmp.c.orig	2022-01-28 14:06:02 UTC
+--- utmp.c.orig	2023-08-16 00:29:26 UTC
 +++ utmp.c
 @@ -38,6 +38,9 @@
  #include <utempter.h>
@@ -53,7 +53,7 @@
      {
        Msg(errno,"Could not write %s", UtmpName);
        UT_CLOSE;
-@@ -598,7 +614,7 @@ makedead(u)
+@@ -607,7 +623,7 @@ makedead(u)
  struct utmp *u;
  {
    u->ut_type = DEAD_PROCESS;
@@ -62,7 +62,7 @@
    u->ut_exit.e_termination = 0;
    u->ut_exit.e_exit = 0;
  #endif
-@@ -631,7 +647,11 @@ int pid;
+@@ -640,7 +656,11 @@ int pid;
    /* must use temp variable because of NetBSD/sparc64, where
     * ut_xtime is long(64) but time_t is int(32) */
    (void)time(&now);
@@ -74,7 +74,7 @@
  }
  
  static slot_t
-@@ -743,7 +763,11 @@ int pid;
+@@ -752,7 +772,11 @@ int pid;
    strncpy(u->ut_line, line, sizeof(u->ut_line));
    strncpy(u->ut_name, user, sizeof(u->ut_name));
    (void)time(&now);

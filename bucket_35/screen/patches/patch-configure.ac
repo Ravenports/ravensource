@@ -1,12 +1,15 @@
---- configure.ac.orig	2022-01-28 14:06:02 UTC
+--- configure.ac.orig	2023-08-16 00:29:26 UTC
 +++ configure.ac
-@@ -626,20 +626,14 @@ dnl
- AC_CHECKING(for tgetent)
- AC_TRY_LINK(,tgetent((char *)0, (char *)0);,,
+@@ -669,28 +669,19 @@ AC_TRY_LINK([
+     tgetent((char *)0, (char *)0);
+ ],,
  olibs="$LIBS"
 -LIBS="-lcurses $olibs"
 -AC_CHECKING(libcurses)
--AC_TRY_LINK(,[
+-AC_TRY_LINK([
+-    #include <curses.h>
+-    #include <term.h>
+-],[
 -#ifdef __hpux
 -__sorry_hpux_libcurses_is_totally_broken_in_10_10();
 -#else
@@ -20,34 +23,29 @@
 +AC_TRY_LINK(,[ -tgetent((char *)0, (char *)0); ],,
 +LIBS="-lxxtermcap $olibs"
 +AC_CHECKING(libxxtermcap)
- AC_TRY_LINK(,tgetent((char *)0, (char *)0);,,
+ AC_TRY_LINK([
+     #include <curses.h>
+     #include <term.h>
+ ],[
+     tgetent((char *)0, (char *)0);
+ ],,
 -LIBS="-ltermlib $olibs"
 -AC_CHECKING(libtermlib)
 +LIBS="-lxxtermlib $olibs"
 +AC_CHECKING(libxxtermlib)
- AC_TRY_LINK(,tgetent((char *)0, (char *)0);,,
- LIBS="-lncursesw $olibs"
- AC_CHECKING(libncursesw)
-@@ -658,7 +652,8 @@ AC_MSG_ERROR(!!! no tgetent - no screen)
- AC_TRY_RUN([
- main()
- {
-- exit(strcmp(tgoto("%p1%d", 0, 1), "1") ? 0 : 1);
-+ char *tgoto(const char *, int, int);
-+ exit(strcmp(tgoto("%d%d", 0, 1), "1") ? 0 : 1);
- }], AC_NOTE(- you use the termcap database),
- AC_NOTE(- you use the terminfo database) AC_DEFINE(TERMINFO),
- AC_NOTE(- skipping check because we are cross compiling; assuming terminfo database is used) AC_DEFINE(TERMINFO))
-@@ -678,7 +673,7 @@ fi
+ AC_TRY_LINK([
+     #include <curses.h>
+     #include <term.h>
+@@ -759,7 +750,7 @@ fi
  if test "$cross_compiling" = no ; then
  AC_CHECKING(for SVR4 ptys)
  sysvr4ptys=
 -if test -c /dev/ptmx ; then
 +if test -c /nonexistent ; then
- AC_TRY_LINK([],[ptsname(0);grantpt(0);unlockpt(0);],[AC_DEFINE(HAVE_SVR4_PTYS)
- sysvr4ptys=1])
- fi
-@@ -710,12 +705,9 @@ dnl ptys=`echo /dev/ptyp??`
+ AC_TRY_LINK([
+     #include <stdlib.h>
+ ], [
+@@ -795,12 +786,9 @@ dnl ptys=`echo /dev/ptyp??`
  dnl else
  dnl ptys=`echo $pdir/pty??`
  dnl fi
@@ -63,33 +61,43 @@
  fi
  
  dnl    ****  pty mode/group handling ****
-@@ -815,9 +807,11 @@ AC_CHECKING(getutent)
+@@ -900,13 +888,17 @@ fi
+ dnl
+ dnl    ****  utmp handling  ****
+ dnl
+-AC_CHECKING(getutent)
++AC_CHECKING(getutxent)
  AC_TRY_LINK([
- #include <time.h> /* to get time_t on SCO */
- #include <sys/types.h>
+     #include <time.h> /* to get time_t on SCO */
+     #include <sys/types.h>
 -#if defined(SVR4) && !defined(DGUX)
 +#if (defined(SVR4) && !defined(DGUX)) || defined(__FreeBSD__) || defined(__DragonFly__)
- #include <utmpx.h>
+     #include <utmpx.h>
  #define utmp utmpx
++# if defined __DragonFly__
 +#define pututline pututxline
 +#define getutent getutxent
++# endif
  #else
- #include <utmp.h>
+     #include <utmp.h>
  #endif
-@@ -832,9 +826,11 @@ AC_CHECKING(getutent with -lgen)
+@@ -917,7 +909,7 @@ AC_TRY_LINK([
+ [int x = DEAD_PROCESS; pututline((struct utmp *)0); getutent();], AC_DEFINE(GETUTENT),
+ olibs="$LIBS"
+ LIBS="$LIBS -lgen"
+-AC_CHECKING(getutent with -lgen)
++AC_CHECKING(getutxent with -lgen)
  AC_TRY_LINK([
- #include <time.h>
- #include <sys/types.h>
--#if defined(SVR4) && !defined(DGUX)
-+#if (defined(SVR4) && !defined(DGUX)) || defined(__FreeBSD__)
- #include <utmpx.h>
- #define utmp utmpx
-+#define pututline pututxline
-+#define getutent getutxent
- #else
- #include <utmp.h>
+     #include <time.h>
+     #include <sys/types.h>
+@@ -931,15 +923,19 @@ AC_TRY_LINK([
+ #define pututline _pututline
  #endif
-@@ -848,7 +844,7 @@ AC_CHECKING(ut_host)
+ ],
+-[int x = DEAD_PROCESS; pututline((struct utmp *)0); getutent();], AC_DEFINE(GETUTENT), LIBS="$olibs")
++[int x = DEAD_PROCESS; pututxline((struct utmp *)0); getutxent();], AC_DEFINE(GETUTENT), LIBS="$olibs")
+ )
+ AC_CHECKING(ut_host)
  AC_TRY_COMPILE([
  #include <time.h>
  #include <sys/types.h>
@@ -97,4 +105,10 @@
 +#if (defined(SVR4) && !defined(DGUX)) || defined(__FreeBSD__) || defined(__DragonFly__)
  #include <utmpx.h>
  #define utmp utmpx
++# if defined __DragonFly__
++#define pututline pututxline
++#define getutent getutxent
++# endif
  #else
+ #include <utmp.h>
+ #endif

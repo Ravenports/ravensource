@@ -1,4 +1,4 @@
---- attacher.c.orig	2022-01-28 14:06:02 UTC
+--- attacher.c.orig	2023-08-16 00:29:26 UTC
 +++ attacher.c
 @@ -732,7 +732,7 @@ LockTerminal()
    printf("\n");

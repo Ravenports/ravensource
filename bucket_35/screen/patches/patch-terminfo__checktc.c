@@ -1,4 +1,4 @@
---- terminfo/checktc.c.orig	2022-01-28 14:05:57 UTC
+--- terminfo/checktc.c.orig	2023-08-16 00:29:26 UTC
 +++ terminfo/checktc.c
 @@ -171,6 +171,7 @@ char *s;
    fflush(stdout);

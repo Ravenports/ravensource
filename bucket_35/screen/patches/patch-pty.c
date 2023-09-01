@@ -1,4 +1,4 @@
---- pty.c.orig	2022-01-28 14:06:02 UTC
+--- pty.c.orig	2023-08-16 00:29:26 UTC
 +++ pty.c
 @@ -35,6 +35,13 @@
  #include <utils.h>  /* for openpty() */
