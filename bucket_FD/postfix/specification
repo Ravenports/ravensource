@@ -7,6 +7,7 @@ DEF[DYN_EXT]=		pcre mysql pgsql sqlite ldap cdb lmdb
 
 NAMEBASE=		postfix
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		mail
 VARIANTS=		standard
 SDESC[standard]=	Fast and robust mail transfer agent
@@ -19,7 +20,7 @@ SITES[main]=		https://de.postfix.org/ftpmirror/official/
 			http://mirror.lhsolutions.nl/postfix-release/official/
 DISTFILE[1]=		postfix-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary cdb ldap lmdb mysql pgsql test man docs
+SPKGS[standard]=	complete primary cdb ldap lmdb mysqlmod pgsqlmod test man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -48,8 +49,8 @@ BUILDRUN_DEPENDS=	icu:primary:standard
 EXRUN[cdb]=		tinycdb:primary:standard
 EXRUN[ldap]=		openldap:client:standard
 EXRUN[lmdb]=		lmdb:primary:standard
-EXRUN[pgsql]=		pgsql
-EXRUN[mysql]=		mysql
+EXRUN[pgsqlmod]=	pgsql
+EXRUN[mysqlmod]=	mysql
 			zlib:primary:standard
 
 # the "mail" group is blacklisted by every OPSYS (or at least should be)
