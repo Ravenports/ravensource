@@ -63,6 +63,8 @@ PLIST_SUB=		PMICONSOLE_SOVERSION=${PMICONSOLE_VER}
 			PMIDETECT_SOVERSION=${PMIDETECT_VER}
 			PMIDETECT_SOMAJOR=${PMIDETECT_VER:R:R}
 
+VAR_OPSYS[freebsd]=	CFLAGS=-D_WANT_SEMUN
+
 pre-configure:
 	${FIND} ${WRKSRC} -name '*.man' -o -name '*.pre.in' |\
 		 ${XARGS} -I % ${REINPLACE_CMD} -e '/^\.\\\"/ s|$$|"|' %
