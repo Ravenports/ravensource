@@ -13,7 +13,9 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.intra2net.com/en/developer/libftdi/download/
 DISTFILE[1]=		libftdi-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete
+			primary
+			dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,10 +27,10 @@ USES=			cmake pkgconfig
 CMAKE_ARGS=		-DDOCUMENTATION:BOOL=OFF
 			-DEXAMPLES:BOOL=OFF
 
-LICENSE=		GPLv2:single LGPL21:single
+LICENSE=		GPLv2:primary LGPL21:primary
 LICENSE_SCHEME=		dual
 LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING.GPL
 			LGPL21:{{WRKSRC}}/COPYING.LIB
-LICENSE_TERMS=		single:{{WRKSRC}}/TERMS
+LICENSE_TERMS=		primary:{{WRKSRC}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/ftdi.c
 LICENSE_AWK=		TERMS:"^$$"
