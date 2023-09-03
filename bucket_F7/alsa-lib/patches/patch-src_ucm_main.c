@@ -1,4 +1,4 @@
---- src/ucm/main.c.orig	2023-05-04 07:16:16 UTC
+--- src/ucm/main.c.orig	2023-09-01 15:35:48 UTC
 +++ src/ucm/main.c
 @@ -176,7 +176,11 @@ static int read_tlv_file(unsigned int **
  		err = -errno;
