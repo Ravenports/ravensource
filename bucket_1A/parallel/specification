@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	20230822
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		parallel
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	Shell tool for executing jobs in parallel
+HOMEPAGE=		https://www.gnu.org/software/parallel/
+CONTACT=		Todd_Martin[warfox@sdf.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://mirrors.ibiblio.org/gnu/parallel/
+DISTFILE[1]=		parallel-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete
+			primary
+			man
+			docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		sysutils/parallel
+
+USES=			gmake perl shebangfix
+
+MUST_CONFIGURE=		gnu
+
+SHEBANG_FILES=		src/sql
+			src/niceload
+			src/parcat
+			src/parsort
+
+LICENSE=		GPLv3:primary
+LICENSE_SCHEME=		solo
+LICENSE_FILE=		GPLv3:{{WRKSRC}}/LICENSES/GPL-3.0-or-later.txt
+LICENSE_TERMS=		primary:{{WRKSRC}}/CITATION
