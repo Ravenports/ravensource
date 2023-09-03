@@ -1,0 +1,26 @@
+DEF[PORTVERSION]=	7.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		avrdude
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	AVR Downloader Updater
+HOMEPAGE=		https://github.com/avrdudes/avrdude
+CONTACT=		Todd_Martin[warfox@sdf.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/avrdudes:avrdude:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete
+			primary
+			man
+			dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/avrdude
+
+USES=			cmake readline libtool ncurses
