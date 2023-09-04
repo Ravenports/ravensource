@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	2.14.5
+# Build after the tagged release to pick up bug fixes (v2.18.0)
+DEF[PORTVERSION]=	2.18.0
+DEF[BUILD_TAG]=		2c0696c
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		l-smash
@@ -10,19 +12,24 @@ HOMEPAGE=		https://l-smash.github.io/l-smash/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/l-smash:l-smash:v${PORTVERSION}
+SITES[main]=		GITHUB/vimeo:l-smash:${BUILD_TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		ISCL:single
+LICENSE=		ISCL:primary
 LICENSE_FILE=		ISCL:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		multimedia/l-smash
+
+EXRUN[tools]=		primary
+
+BUILD_DEPENDS=		obuparse:dev:standard
+BUILDRUN_DEPENDS=	obuparse:primary:standard
 
 USES=			gmake
 MUST_CONFIGURE=		yes
@@ -32,11 +39,13 @@ CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
 			--extra-ldflags="{{LDFLAGS}}"
 			--extra-libs="{{LIBS}}"
 			--enable-shared
-CPPFLAGS=		-Wno-pedantic
 MAKE_ARGS=		STRIP="{{STRIP_CMD}}"
 
 VAR_OPSYS[sunos]=	CPPFLAGS=-D_XOPEN_SOURCE=600
 
 post-patch:
+	${REINPLACE_CMD} -e 's/-Os //; /=.*-fexcess-precision/d' \
+		-e '/sed/{s/-i/& ""/; s/i \\/&\\"$$'"'\\\n'"'"/; s/%"/&$$'"'\\\012'"'/;}' \
+		${WRKSRC}/configure
 	${REINPLACE_CMD} -e '/SHARED/,/^$$/ { /STRIP/s/-x //; }' \
 		${WRKSRC}/${MAKEFILE}
