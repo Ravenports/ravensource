@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	3.1.0
-DEF[FILESTOPATCH]=	ex_angle.c ex_cut_round.c ex_raw.c extrude.c round_cap.c segment.c texgen.c
+DEF[PORTVERSION]=	3.1.2
+DEF[RELEASE_TAG]=	gle-${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gle
@@ -7,14 +7,14 @@ VERSION=		${PORTVERSION}
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	GL Tubing and Extrusion Library
-HOMEPAGE=		http://www.linas.org/gle
+HOMEPAGE=		https://github.com/linas/glextrusion
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://linas.org/gle/pub/
-DISTFILE[1]=		gle-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/linas:glextrusion:${RELEASE_TAG}
+DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -38,28 +38,16 @@ LICENSE_SCHEME=		multi
 BUILD_DEPENDS=		freeglut:dev:standard
 BUILDRUN_DEPENDS=	freeglut:primary:standard
 
-USES=			fbsd10fix libtool
+USES=			autoreconf libtool
 XORG_COMPONENTS=	ice xmu xt xi
 MUST_CONFIGURE=		gnu
 
 SOVERSION=		${PORTVERSION}
 
-post-patch-dragonfly:
-.for f in ${FILESTOPATCH}
-	${REINPLACE_CMD} -e "s/malloc.h/stdlib.h/g" ${WRKSRC}/src/${f}
-.endfor
-
-post-patch-freebsd:
-.for f in ${FILESTOPATCH}
-	${REINPLACE_CMD} -e "s/malloc.h/stdlib.h/g" ${WRKSRC}/src/${f}
-.endfor
-
-post-patch-midnightbsd:
-.for f in ${FILESTOPATCH}
-	${REINPLACE_CMD} -e "s/malloc.h/stdlib.h/g" ${WRKSRC}/src/${f}
-.endfor
-
 post-install:
+	# reload docs
 	${MV} ${STAGEDIR}${PREFIX}/share/doc/gle/html/* \
-		${STAGEDIR}${PREFIX}/share/doc/gle
+		${STAGEDIR}${STD_DOCDIR}
 	${RMDIR} ${STAGEDIR}${PREFIX}/share/doc/gle/html
+	# remove redundant license
+	${RM} ${STAGEDIR}${STD_DOCDIR}/COPYING*
