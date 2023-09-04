@@ -1,0 +1,53 @@
+DEF[PORTVERSION]=	1.5
+DEF[SOVERSION]=		2.5.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libftdi1
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Library (using libusb) to talk to FTDI chips
+HOMEPAGE=		https://www.intra2net.com/en/developer/libftdi/index.php
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.intra2net.com/en/developer/libftdi/download/
+DISTFILE[1]=		libftdi1-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary dev tools
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/libftdi1
+
+LICENSE=		GPLv2:primary LGPL21:primary
+LICENSE_SCHEME=		dual
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING.GPL
+			LGPL21:{{WRKSRC}}/COPYING.LIB
+LICENSE_TERMS=		primary:{{WRKSRC}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/ftdi.c
+LICENSE_AWK=		TERMS:"^$$"
+
+EXRUN[tools]=		primary
+
+BUILD_DEPENDS=		libconfuse:dev:standard
+BUILDRUN_DEPENDS=	libconfuse:primary:standard
+
+B_DEPS[linux]=		libusb:dev:standard
+B_DEPS[netbsd]=		libusb:dev:standard
+
+BR_DEPS[linux]=		libusb:primary:standard
+BR_DEPS[netbsd]=	libusb:primary:standard
+
+USES=			cmake pkgconfig gettext
+CMAKE_ARGS=		-DDOCUMENTATION:BOOL=OFF
+			-DEXAMPLES:BOOL=OFF
+SOVERSION=		${SOVERSION}
+
+post-install:
+	# remove installed example.conf
+	${RM} -rf ${STAGEDIR}${STD_DOCDIR}
+	# strip stuff
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ftdi_eeprom
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
