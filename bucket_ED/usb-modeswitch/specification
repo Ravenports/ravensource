@@ -30,9 +30,15 @@ FPC_EQUIVALENT=		sysutils/usb_modeswitch
 ONLY_FOR_OPSYS=		freebsd dragonfly
 # Everything except for FreeBSD is untested; Linux needs more work
 
-USES=			gmake
 RUN_DEPENDS=		usb-modeswitch-data:single:standard
-BR_DEPS[linux]=		libusb:single:standard
+
+B_DEPS[linux]=		libusb:dev:standard
+B_DEPS[netbsd]=		libusb:dev:standard
+
+BR_DEPS[linux]=		libusb:primary:standard
+BR_DEPS[netbsd]=	libusb:primary:standard
+
+USES=			gmake
 DISTNAME=		usb-modeswitch-${PORTVERSION}
 
 post-patch:
