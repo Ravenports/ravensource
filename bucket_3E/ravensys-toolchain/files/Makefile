@@ -33,6 +33,9 @@ install:
 	cp -a ${LOCALBASE:T}/toolchain/include      ${DESTDIR}${PREFIX}/
 	cp -a ${LOCALBASE:T}/toolchain/ravensys-gcc ${DESTDIR}${PREFIX}/
 	rm -rf ${DESTDIR}${PREFIX}/ravensys-gcc/share/licenses
+	# create dangling symlinks to ld.mold and ld.lld
+	ln -s ../../bin/mold ${DESTDIR}${PREFIX}/bin/ld.mold
+	ln -s ../../bin/lld  ${DESTDIR}${PREFIX}/bin/ld.lld
 
 .if "${OPSYS}" == "SunOS"
 	rm ${DESTDIR}${PREFIX}/bin/ld
