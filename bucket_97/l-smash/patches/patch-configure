@@ -1,4 +1,4 @@
---- configure.orig	2023-07-30 19:24:45 UTC
+--- configure.orig	2023-04-06 19:10:47 UTC
 +++ configure
 @@ -282,7 +282,7 @@ if test -n "$DEBUG"; then
      CFLAGS="$CFLAGS -g3 -O0"
@@ -9,3 +9,13 @@
  fi
  
  
+@@ -290,9 +290,6 @@ if ! cc_check "$CFLAGS" "$LDFLAGS"; then
+     error_exit "invalid CFLAGS/LDFLAGS"
+ fi
+ 
+-if cc_check "$CFLAGS -fexcess-precision=fast" "$LDFLAGS"; then
+-    CFLAGS="$CFLAGS -fexcess-precision=fast"
+-fi
+ 
+ if cc_check "$CFLAGS" "$LDFLAGS -Wl,--large-address-aware"; then
+     LDFLAGS="$LDFLAGS -Wl,--large-address-aware"
