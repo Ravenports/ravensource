@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	1.3.4
+DEF[SOVERSION]=		2.4.3
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libbluray
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		standard
+SDESC[standard]=	Blu-Ray discs playback library for media players
+HOMEPAGE=		https://www.videolan.org/developers/libbluray.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://downloads.videolan.org/pub/videolan/libbluray/${PORTVERSION}/
+DISTFILE[1]=		libbluray-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary tools dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/libbluray/bluray.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		multimedia/libbluray
+
+USES=			fontconfig freetype libtool pkgconfig
+GNOME_COMPONENTS=	libxml2
+
+# Building documentation not only requires doxygen, perl and graphviz but
+# also LaTeX! Since we only have the fat TeXLive distribution that's a
+# bit much.
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-bdjava-jar
+			--disable-doxygen-doc
+
+SOVERSION=		${SOVERSION}
+
+EXRUN[tools]=		libbluray:primary:standard
