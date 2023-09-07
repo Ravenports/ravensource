@@ -5,6 +5,7 @@ DEF[SOVERSION]=		1.1200.1
 
 NAMEBASE=		gtk4
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11_toolkits
 VARIANTS=		standard
 SDESC[standard]=	Gimp Toolkit for X11 GUI
@@ -18,8 +19,9 @@ DIST_SUBDIR=		gnome4
 
 SPKGS[standard]=	complete primary dev man nls icon_cache
 
-OPTIONS_AVAILABLE=	CUPS BROADWAY FFMPEG
-OPTIONS_STANDARD=	CUPS BROADWAY FFMPEG
+# introspection still segfaults, so keep it disabled for now
+OPTIONS_AVAILABLE=	CUPS BROADWAY FFMPEG INTROSPECTION
+OPTIONS_STANDARD=	CUPS BROADWAY FFMPEG INTROSPECTION
 OPT_ON[all]=		CUPS BROADWAY FFMPEG
 
 FPC_EQUIVALENT=		x11-toolkits/gtk40
@@ -37,7 +39,6 @@ EXRUN[icon_cache]=	gdk-pixbuf:primary:standard
 
 USES=			gmake pkgconfig cpe meson gtk-doc
 			jpeg tiff schemas:primary perl:build python:build
-# removed introspection
 GNOME_COMPONENTS=	atk cairo gdkpixbuf pango
 XORG_COMPONENTS=	xext x11 xinerama xi xrandr xcursor xfixes
 			xdamage xcomposite
@@ -52,8 +53,6 @@ MESON_ARGS=		-Dx11-backend=true
 			-Dmedia-gstreamer=disabled
 			-Dvulkan=disabled
 			-Dman-pages=true
-# #			introspection segfaults with gcc11
-			-Dintrospection=disabled
 # #			if gtk_doc is true, we need mandoc
 			-Dgtk_doc=false
 PLIST_SUB=		GTK_VERSION=${GTK_VERSION}
@@ -72,6 +71,7 @@ VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 
 [BROADWAY].DESCRIPTION=			Backend for HTML5 and websocket support
 [FFMPEG].DESCRIPTION=			Build the ffmpeg media backend
+[INTROSPECTION].DESCRIPTION=		Build with introspection files
 
 [FFMPEG].CONFIGURE_ARGS_ON=		-Dmedia-ffmpeg=enabled
 [FFMPEG].CONFIGURE_ARGS_OFF=		-Dmedia-ffmpeg=disabled
@@ -84,6 +84,10 @@ VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 
 [BROADWAY].CONFIGURE_ARGS_ON=		-Dbroadway-backend=true
 [BROADWAY].CONFIGURE_ARGS_OFF=		-Dbroadway-backend=false
+
+[INTROSPECTION].CONFIGURE_ARGS_ON=	-Dintrospection=enabled
+[INTROSPECTION].CONFIGURE_ARGS_OFF=	-Dintrospection=disabled
+[INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
 
 post-patch:
 	${REINPLACE_CMD} \
