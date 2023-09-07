@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.50.6
 
 NAMEBASE=		gvfs
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	GNOME virtual file system
@@ -15,8 +16,18 @@ DISTFILE[1]=		gvfs-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	complete primary dev nls
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	GUDEV GUDEV-DEVD NO-GUDEV
+OPTIONS_STANDARD=	GUDEV GUDEV-DEVD NO-GUDEV
+OPTGROUP_RADIO=		GUDEVS
+OPTDESCR[GUDEVS]=	Flavors of libudev gobject bindings
+OPTGROUP[GUDEVS]=	NO-GUDEV GUDEV GUDEV-DEVD
+
+OPT_ON[dragonfly]=	GUDEV-DEVD
+OPT_ON[midnightbsd]=	GUDEV-DEVD
+OPT_ON[freebsd]=	GUDEV-DEVD
+OPT_ON[netbsd]=		GUDEV-DEVD
+OPT_ON[linux]=		GUDEV
+OPT_ON[sunos]=		NO-GUDEV
 
 FPC_EQUIVALENT=		devel/gvfs
 
@@ -56,13 +67,11 @@ MESON_ARGS=		-Dsystemduserunitdir="no"
 			-Dadmin=false
 			-Dafc=false
 			-Dbluray=false
-			-Dcdda=false
 			-Ddnssd=false
 			-Dfuse=false
 			-Dgoa=false
 			-Dgoogle=false
 			-Dgphoto2=false
-			-Dgudev=false
 			-Dlibusb=false
 			-Dlogind=false
 			-Dmtp=false
@@ -71,5 +80,25 @@ MESON_ARGS=		-Dsystemduserunitdir="no"
 			-Dsmb=false
 			-Dudisks2=false
 LDFLAGS=		-Wl,-rpath,{{PREFIX}}/lib/gvfs
+
+[NO-GUDEV].DESCRIPTION=			Build without gudev support
+[NO-GUDEV].CONFIGURE_ARGS_ON=		-Dgudev=false
+					-Dcdda=false
+
+[GUDEV].DESCRIPTION=			Build with gudev library
+[GUDEV].USES_ON=			iconv
+[GUDEV].BUILD_DEPENDS_ON=		libgudev:dev:standard
+[GUDEV].BUILDRUN_DEPENDS_ON=		libcdio-paranoia:single:standard
+					libgudev:primary:standard
+[GUDEV].CONFIGURE_ARGS_ON=		-Dgudev=true
+					-Dcdda=true
+
+[GUDEV-DEVD].DESCRIPTION=		Build with gudev-devd library (BSD)
+[GUDEV-DEVD].USES_ON=			iconv
+[GUDEV-DEVD].BUILD_DEPENDS_ON=		libgudev-devd:dev:standard
+[GUDEV-DEVD].BUILDRUN_DEPENDS_ON=	libcdio-paranoia:single:standard
+					libgudev-devd:primary:standard
+[GUDEV-DEVD].CONFIGURE_ARGS_ON=		-Dgudev=true
+					-Dcdda=true
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
