@@ -1,0 +1,28 @@
+DEF[PORTVERSION]=	4.10.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xfwm4-themes
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_themes
+VARIANTS=		standard
+SDESC[standard]=	Additional themes for the Xfce window manager
+HOMEPAGE=		https://xfce.org
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://archive.xfce.org/src/art/xfwm4-themes/${PORTVERSION:R}/
+DISTFILE[1]=		xfwm4-themes-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xfce
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Licensing is weird. Some themes mention GPL in their README files (but no
+# version), some don't. There's a GPLv3 LICENSE file in the main directory
+# but no terms whatsoever.
+
+FPC_EQUIVALENT=		misc/xfce4-wm-themes
+
+MUST_CONFIGURE=		gnu
