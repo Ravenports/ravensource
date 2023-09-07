@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	4.18.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xfce4-dev-tools
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Xfce development tools
+HOMEPAGE=		https://docs.xfce.org/xfce/xfce4-dev-tools/start
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://archive.xfce.org/src/xfce/xfce4-dev-tools/${PORTVERSION:R}/
+DISTFILE[1]=		xfce4-dev-tools-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xfce
+
+SPKGS[standard]=	complete primary dev man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/xdt-csource/main.c
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/xfce4-dev-tools
+
+RUN_DEPENDS=		bash:primary:standard
+
+USES=			pkgconfig shebangfix
+GNOME_COMPONENTS=	glib
+
+SHEBANG_FILES=		helpers/xfce-build
+
+MUST_CONFIGURE=		gnu
