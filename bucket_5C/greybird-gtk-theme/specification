@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	3.23.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		greybird-gtk-theme
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_themes
+VARIANTS=		standard
+SDESC[standard]=	Desktop theme suite for Xfce and more
+HOMEPAGE=		https://github.com/shimmerproject/Greybird
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/shimmerproject:Greybird:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:single
+			CC_SA_30:single
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/LICENSE.GPL
+			CC_SA_30:{{WRKSRC}}/LICENSE.CC
+LICENSE_TERMS=		single:{{WRKSRC}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/dark/xfwm4/themerc
+LICENSE_AWK=		TERMS:"Date"
+LICENSE_SCHEME=		dual
+
+FPC_EQUIVALENT=		x11-themes/greybird-theme
+
+BUILD_DEPENDS=		librsvg:primary:standard
+			sassc:single:standard
+RUN_DEPENDS=		gtk-murrine-engine:single:standard
+
+USES=			gmake meson
