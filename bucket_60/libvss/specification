@@ -1,10 +1,12 @@
-# v23.0.0 is available but requires GCC 12
 DEF[PORTVERSION]=	23.0.0
-DEF[RELEASE]=		v${PORTVERSION}
+# DEF[RELEASE]=		v${PORTVERSION}
+# 16 JULY 2023
+DEF[RELEASE]=		c10eeb3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libvss
 VERSION=		${PORTVERSION}
+REVISION=		1
 EPOCH=			1
 KEYWORDS=		textproc devel ada
 VARIANTS=		standard
@@ -22,13 +24,13 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 LICENSE=		APACHE20:single
-LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE.txt
 LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/source/text/vss-strings.ads
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		xmlada:primary:standard
+BUILDRUN_DEPENDS=	xmlada:primary:standard
 
 USES=			gmake gprbuild
 MAKE_ARGS=		BUILD_MODE=prod
@@ -36,3 +38,4 @@ INSTALL_REQ_TOOLCHAIN=	yes
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
