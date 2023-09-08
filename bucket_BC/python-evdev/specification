@@ -30,8 +30,14 @@ DISTNAME=		evdev-${PORTVERSION}
 
 # install_requires extracted from setup.py
 
-
 [PY310].USES_ON=			python:py310,sutools
 [PY311].USES_ON=			python:v11,sutools
 
-BUILD_DEPENDS=		evdev-proto:single:standard
+ONLY_FOR_OPSYS=		dragonfly freebsd linux midnightbsd
+USES=			clang
+
+B_DEPS[dragonfly]=	evdev-proto:single:standard
+B_DEPS[freebsd]=	evdev-proto:single:standard
+B_DEPS[midnightbsd]=	evdev-proto:single:standard
+
+PYD_BUILD_TARGET=	build_ecodes
