@@ -1,4 +1,4 @@
---- share/plug-ins/dispatching.py.orig	2022-05-11 12:25:42 UTC
+--- share/plug-ins/dispatching.py.orig	2023-05-10 09:41:12 UTC
 +++ share/plug-ins/dispatching.py
 @@ -39,11 +39,8 @@ class Dispatching_Highlighter(Location_H
          GPS.Hook("file_edited").add(self.__on_file_edited)

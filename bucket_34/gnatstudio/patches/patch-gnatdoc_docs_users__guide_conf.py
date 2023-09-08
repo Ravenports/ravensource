@@ -1,4 +1,4 @@
---- gnatdoc/docs/users_guide/conf.py.orig	2022-05-11 12:25:42 UTC
+--- gnatdoc/docs/users_guide/conf.py.orig	2023-05-10 09:41:12 UTC
 +++ gnatdoc/docs/users_guide/conf.py
 @@ -53,7 +53,8 @@ def get_version():
      version_file = "../../../VERSION.txt"

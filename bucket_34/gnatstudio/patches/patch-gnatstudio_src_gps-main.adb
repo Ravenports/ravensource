@@ -1,6 +1,6 @@
---- gnatstudio/src/gps-main.adb.orig	2022-05-11 12:25:42 UTC
+--- gnatstudio/src/gps-main.adb.orig	2023-05-10 09:41:12 UTC
 +++ gnatstudio/src/gps-main.adb
-@@ -773,30 +773,6 @@ procedure GPS.Main is
+@@ -781,30 +781,6 @@ procedure GPS.Main is
           end if;
        end;
  
@@ -28,6 +28,6 @@
 -         Free (New_Val);
 -      end;
 -
-       for J of Env.Keys loop
-          Each_Environment_Variable (J, Env.Value (J));
-       end loop;
+       --  Temporary for DAP testing, to set gdb 13.x version
+       --  Will be removed when gdb v. 13.x is default
+       declare
