@@ -34,10 +34,8 @@ DISTNAME=		evdev-${PORTVERSION}
 [PY311].USES_ON=			python:v11,sutools
 
 ONLY_FOR_OPSYS=		dragonfly freebsd linux midnightbsd
-USES=			clang
 
-B_DEPS[dragonfly]=	evdev-proto:single:standard
-B_DEPS[freebsd]=	evdev-proto:single:standard
-B_DEPS[midnightbsd]=	evdev-proto:single:standard
+USES=			clang
+BUILD_DEPENDS=		evdev-proto:single:standard
 
 PYD_BUILD_TARGET=	build_ecodes
