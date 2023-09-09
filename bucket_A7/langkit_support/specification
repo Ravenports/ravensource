@@ -1,10 +1,14 @@
 DEF[PORTVERSION]=	23.0.0
-DEF[RELEASE]=		v${PORTVERSION}
+# DEF[RELEASE]=		v${PORTVERSION}
+# 6 JUL 2023
+DEF[RELEASE]=		53353ed
 DEF[BUILD_MODE]=	prod
+DEF[MYDISTNAME]=	langkit-${RELEASE}/langkit/support
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		langkit_support
 VERSION=		${PORTVERSION}
+REVISION=		1
 EPOCH=			1
 KEYWORDS=		ada devel
 VARIANTS=		standard
@@ -25,17 +29,18 @@ BUILDRUN_DEPENDS=	gnatcoll-core:primary:standard
 			gnatcoll-bindings:iconv:standard
 			gnatcoll-bindings:gmp:standard
 			xmlada:primary:standard
+			AdaSAT:single:standard
 
 LICENSE=		APACHE20:single
 LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
-LICENSE_FILE=		APACHE20:{{WRKDIR}}/langkit-${PORTVERSION}/LICENSE
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/../../LICENSE.txt
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/langkit_support.ads
 LICENSE_SCHEME=		solo
 
 USES=			gprbuild iconv:build
 INSTALL_REQ_TOOLCHAIN=	yes
-DISTNAME=		langkit-${PORTVERSION}/langkit/support
+DISTNAME=		${MYDISTNAME}
 
 do-build:
 .for LT in static-pic relocatable static

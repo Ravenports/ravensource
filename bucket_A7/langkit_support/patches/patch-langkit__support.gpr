@@ -1,18 +1,18 @@
---- langkit_support.gpr.orig	2022-09-01 10:45:19 UTC
+--- langkit_support.gpr.orig	2023-07-06 13:16:36 UTC
 +++ langkit_support.gpr
-@@ -14,7 +14,7 @@ library project Langkit_Support is
+@@ -19,7 +19,7 @@ library project Langkit_Support is
  
     for Languages use ("Ada");
     for Source_Dirs use (".");
 -   for Object_Dir use "obj/" & Build_Mode;
 +   for Object_Dir use "obj/" & Library_Kind_Param;
  
+    Library_Interface :=
+      ("Langkit_Support",
+@@ -76,7 +76,7 @@ library project Langkit_Support is
+ 
     for Library_Name use "langkit_support";
     for Library_Kind use Library_Kind_Param;
-@@ -63,7 +63,7 @@ library project Langkit_Support is
-       "Langkit_Support.Tree_Traversal_Iterator",
-       "Langkit_Support.Vectors");
- 
 -   for Library_Dir use "lib/" & Library_Kind_Param & "/" & Build_Mode;
 +   for Library_Dir use "lib/langkit_support." & Library_Kind_Param;
  
