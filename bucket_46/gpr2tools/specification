@@ -1,0 +1,48 @@
+DEF[PORTVERSION]=	23.0.0
+# DEF[RELEASE]=		v${PORTVERSION}
+# 5 JUL 2023
+DEF[RELEASE]=		4c2aacd
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gpr2tools
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel ada
+VARIANTS=		standard
+SDESC[standard]=	Tools based on GPR2 library
+HOMEPAGE=		https://github.com/AdaCore/gpr
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/AdaCore:gpr:${RELEASE}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/tools/src/gprtools.ads
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+BUILDRUN_DEPENDS=	libgpr2:single:standard
+			libadalang:single:standard
+
+USES=			gmake gprbuild iconv
+MAKE_ARGS=		prefix="{{STAGEDIR}}{{PREFIX}}"
+			GPR2KBDIR="{{LOCALBASE}}/share/gprconfig"
+BUILD_TARGET=		build-tools
+INSTALL_TARGET=		install-tools
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-extract:
+	${MV} ${WRKSRC}/gpr2.gpr ${WRKSRC}/gpr2.gpr.disabled
+
+post-install:
+	# remove manifests
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr
+	# strip binaries
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gpr*
