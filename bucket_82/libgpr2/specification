@@ -21,11 +21,12 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		APACHE20:single GPLv3+:single
+LICENSE=		APACHE20:single
 LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
-			GPLv3+:{{WRKSRC}}//COPYING3
 LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
-LICENSE_SCHEME=		multi
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/lib/gpr2.ads
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
 
 BUILDRUN_DEPENDS=	langkit:single:standard
 
@@ -38,9 +39,6 @@ BUILD_TARGET=		build-lib-static
 			build-lib-static-pic
 INSTALL_TARGET=		install-libs
 INSTALL_REQ_TOOLCHAIN=	yes
-
-post-extract:
-	${AWK} '/^LICENSE/,EOF' ${WRKSRC}/README.md > ${WRKDIR}/TERMS
 
 post-install:
 	# remove manifests
