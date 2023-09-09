@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	23.0.0
+# No releases yet, snap from 20 JAN 2023
+DEF[RELEASE_TAG]=	f948e22
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		AdaSAT
+VERSION=		${PORTVERSION}
+KEYWORDS=		math ada
+VARIANTS=		standard
+SDESC[standard]=	Implementation of a DPLL-based SAT solver in Ada
+HOMEPAGE=		https://github.com/AdaCore/AdaSAT
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/AdaCore:AdaSAT:${RELEASE_TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		APACHE20:single
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/adasat.ads
+LICENSE_SCHEME=		solo
+
+USES=			gprbuild gmake ada:single
+MAKE_ARGS=		BUILD_MODE=dev
+			PROCESSORS={{MAKE_JOBS_NUMBER}}
+			INSTALL_DIR={{STAGEDIR}}{{PREFIX}}
+BUILD_TARGET=		all-libs
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/adasat.relocatable/libadasat.so
