@@ -1,11 +1,13 @@
 DEF[PORTVERSION]=	23.0.0
-DEF[RELEASE]=		v${PORTVERSION}
+# DEF[RELEASE]=		v${PORTVERSION}
+# 12 JUL 2023
+DEF[RELEASE]=		a7a7369
 DEF[GNARL]=		"-lgnarl","-Wl,-rpath,{{PREFIX}}/lib"
 # ------------------------------------------------------------------------
 
 NAMEBASE=		libadalang
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 EPOCH=			1
 KEYWORDS=		lang devel
 VARIANTS=		standard
@@ -23,13 +25,14 @@ OPTIONS_AVAILABLE=	DEBUG
 OPTIONS_STANDARD=	DEBUG
 
 LICENSE=		APACHE20:single
-LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE.txt
 LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/extensions/src/libadalang-auto_provider.ads
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
 BUILDRUN_DEPENDS=	langkit:single:standard
+			libgpr2:single:standard
 			gnatcoll-bindings:gmp:standard
 
 USES=			gprbuild iconv:build python:build ada:single
@@ -39,6 +42,7 @@ MAKE_ARGS=		--build-mode dev
 			--library-types=static,static-pic,relocatable
 SET_DEBUGGING_ON=	yes
 
+VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=XTRALIB=,"-lutil"
 VAR_OPSYS[dragonfly]=	MAKEFILE_LINE=XTRALIB=,"-lutil"
 VAR_OPSYS[freebsd]=	MAKEFILE_LINE=XTRALIB=,"-lutil"
 
@@ -60,7 +64,7 @@ do-install:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${PYTHON_CMD} manage.py install\
 		${MAKE_ARGS:NDESTDIR=*} ${STAGEDIR}${PREFIX})
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/[gn]*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/[n]*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/lal_parse
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libadalang.relocatable/libadalang.so
 	${SED} -i'' -e 's|/usr/bin/env python|${PYTHON_CMD}|' \
@@ -68,5 +72,4 @@ do-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
 	${RM} -r ${STAGEDIR}${PREFIX}/share/examples/libadalang
 	${RM} ${STAGEDIR}${PREFIX}/python/setup.py
-	# override generated gpr with our own
-	${INSTALL_DATA} ${FILESDIR}/libadalang.gpr ${STAGEDIR}${PREFIX}/share/gpr
+	${RMDIR} ${STAGEDIR}${PREFIX}/lib/windows
