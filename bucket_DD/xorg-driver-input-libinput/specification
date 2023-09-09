@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	1.4.0
+DEF[XNAME]=		driver-input-libinput
+DEF[ALTNAME]=		xf86-input-libinput
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-${XNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_drivers
+VARIANTS=		standard
+SDESC[standard]=	X.Org libinput input driver
+HOMEPAGE=		https://www.x.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		XORG/individual/driver
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary dev man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11-drivers/xf86-input-libinput
+
+BUILD_DEPENDS=		evdev-proto:single:standard
+			libinput:dev:standard
+			xorg-server:dev:standard
+BUILDRUN_DEPENDS=	libinput:primary:standard
+			xorg-server:primary:standard
+USES=			libtool pkgconfig
+XORG_COMPONENTS=	xorgproto
+
+MUST_CONFIGURE=		gnu
+DISTNAME=		${ALTNAME}-${PORTVERSION}
+INSTALL_TARGET=		install-strip
+CONFIGURE_ENV=		DRIVER_MAN_SUFFIX=4
+
+B_DEPS[dragonfly]=	libudev-devd:dev:standard
+B_DEPS[freebsd]=	libudev-devd:dev:standard
+B_DEPS[midnightbsd]=	libudev-devd:dev:standard
