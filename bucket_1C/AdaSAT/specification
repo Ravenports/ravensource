@@ -35,4 +35,7 @@ BUILD_TARGET=		all-libs
 INSTALL_REQ_TOOLCHAIN=	yes
 
 post-install:
+	# remove manifests
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
+	# strip binaries
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/adasat.relocatable/libadasat.so
