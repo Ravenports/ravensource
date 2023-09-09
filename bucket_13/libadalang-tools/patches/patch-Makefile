@@ -1,19 +1,20 @@
---- Makefile.orig	2022-09-22 17:08:03 UTC
+--- Makefile.orig	2023-07-19 08:54:01 UTC
 +++ Makefile
-@@ -99,19 +99,19 @@ install-lib:
- 	    gprinstall \
- 	      -XLIBRARY_TYPE=$$kind \
- 	      -XBUILD_MODE=$(BUILD_MODE) \
--	      --prefix="$(DESTDIR)" \
-+	      --prefix="$(DESTDIR)$(PREFIX)" \
- 	      --sources-subdir=include/$$(basename $$proj | cut -d. -f1) \
- 	      --build-name=$$kind \
- 	      --build-var=LIBRARY_TYPE --build-var=LAL_TOOLS_BUILD \
--	      -P $$proj -p -f ; \
-+	      -P ../$$proj -p -f ; \
- 	  done ; \
+@@ -102,20 +102,20 @@ install-lib:
+ 			gprinstall \
+ 				-XLIBRARY_TYPE=$$kind \
+ 				-XLALTOOLS_BUILD_MODE=$(BUILD_MODE) \
+-				--prefix="$(DESTDIR)" \
++				--prefix="$(DESTDIR)$(PREFIX)" \
+ 				--sources-subdir=include/$$(basename $$proj | cut -d. -f1) \
+ 				--build-name=$$kind \
+ 				--build-var=LIBRARY_TYPE --build-var=LAL_TOOLS_BUILD \
+-				-P $$proj -p -f ; \
++				-P ../$$proj -p -f ; \
+ 		done ; \
  	done
  
+ .PHONY: install-bin-strip
  install-bin-strip:
 -	mkdir -p "$(DESTDIR)"
 -	cp -r bin "$(DESTDIR)/"
@@ -23,5 +24,5 @@
 -	test "$(BUILD_MODE)" = dev || strip "$(DESTDIR)/bin/"*
 +	test "$(BUILD_MODE)" = dev || strip "$(DESTDIR)$(PREFIX)/bin/"*
  
- 
- .PHONY: clean
+ .PHONY: install-tgen
+ install-tgen:
