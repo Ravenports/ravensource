@@ -1,9 +1,12 @@
 DEF[PORTVERSION]=	23.0.0
-DEF[RELEASE]=		v${PORTVERSION}
+# DEF[RELEASE]=		v${PORTVERSION}
+# 5 JUL 2023
+DEF[RELEASE]=		4c2aacd
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gpr
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc ada
 VARIANTS=		standard
 SDESC[standard]=	Parser for GPR Project files
@@ -26,12 +29,15 @@ LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		multi
 
 BUILDRUN_DEPENDS=	langkit:single:standard
-			libadalang:single:standard
 
 USES=			gmake gprbuild python:build iconv:build
 MAKE_ARGS=		prefix="{{STAGEDIR}}{{PREFIX}}"
 			GPR2KBDIR="{{LOCALBASE}}/share/gprconfig"
 			GPR2_EDGE_TOOLS_PREFIX="gpr"
+BUILD_TARGET=		build-lib-static
+			build-lib-relocatable
+			build-lib-static-pic
+INSTALL_TARGET=		install-libs
 INSTALL_REQ_TOOLCHAIN=	yes
 
 post-extract:
@@ -42,5 +48,4 @@ post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
 	${RM} -r ${STAGEDIR}${PREFIX}/gpr2/share
 	# strip binaries
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/gpr2/bin/*
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gpr2.relocatable/libgpr2.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/gpr2/lib/libgpr2.so
