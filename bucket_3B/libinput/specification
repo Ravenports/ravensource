@@ -1,0 +1,57 @@
+DEF[PORTVERSION]=	1.24.0
+DEF[SOVERSION]=		10.13.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libinput
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Generic input library
+HOMEPAGE=		https://www.freedesktop.org/wiki/Software/libinput/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://gitlab.freedesktop.org/libinput/libinput/-/archive/${PORTVERSION}/
+DISTFILE[1]=		libinput-${PORTVERSION}.tar.bz2:main
+
+SPKGS[standard]=	complete primary dev man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11/libinput
+
+BUILD_DEPENDS=		glib:dev:standard
+			harfbuzz:dev:standard
+			libevdev:dev:standard
+			libwacom:dev:standard
+BUILDRUN_DEPENDS=	libevdev:primary:standard
+			libwacom:primary:standard
+			mtdev:single:standard
+
+USES=			meson pkgconfig
+GNOME_COMPONENTS=	gtk3
+MESON_ARGS=		-Dtests=false
+SOVERSION=		${SOVERSION}
+
+B_DEPS[dragonfly]=	libepoll-shim:dev:standard
+			libgudev-devd:dev:standard
+			libudev-devd:dev:standard
+B_DEPS[freebsd]=	libepoll-shim:dev:standard
+			libgudev-devd:dev:standard
+			libudev-devd:dev:standard
+B_DEPS[midnightbsd]=	libepoll-shim:dev:standard
+			libgudev-devd:dev:standard
+			libudev-devd:dev:standard
+B_DEPS[linux]=		libgudev:dev:standard
+
+BR_DEPS[dragonfly]=	libepoll-shim:primary:standard
+			libudev-devd:primary:standard
+BR_DEPS[freebsd]=	libepoll-shim:primary:standard
+			libudev-devd:primary:standard
+BR_DEPS[midnightbsd]=	libepoll-shim:primary:standard
+			libudev-devd:primary:standard
