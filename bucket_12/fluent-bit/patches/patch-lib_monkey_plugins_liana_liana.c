@@ -1,4 +1,4 @@
---- lib/monkey/plugins/liana/liana.c.orig	2023-07-25 01:44:40 UTC
+--- lib/monkey/plugins/liana/liana.c.orig	2023-09-04 22:08:39 UTC
 +++ lib/monkey/plugins/liana/liana.c
 @@ -122,7 +122,7 @@ int mk_liana_send_file(struct mk_plugin
          return len;

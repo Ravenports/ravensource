@@ -1,4 +1,4 @@
---- lib/librdkafka-2.1.0/src/snappy_compat.h.orig	2023-07-25 01:44:40 UTC
+--- lib/librdkafka-2.1.0/src/snappy_compat.h.orig	2023-09-04 22:08:39 UTC
 +++ lib/librdkafka-2.1.0/src/snappy_compat.h
 @@ -33,7 +33,7 @@
  

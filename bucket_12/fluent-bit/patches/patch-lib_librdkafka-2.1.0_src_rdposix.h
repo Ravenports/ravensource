@@ -1,4 +1,4 @@
---- lib/librdkafka-2.1.0/src/rdposix.h.orig	2023-07-25 01:44:40 UTC
+--- lib/librdkafka-2.1.0/src/rdposix.h.orig	2023-09-04 22:08:39 UTC
 +++ lib/librdkafka-2.1.0/src/rdposix.h
 @@ -65,7 +65,7 @@
  /**
