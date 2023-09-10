@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.17.3
+DEF[PORTVERSION]=	0.18.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-httpcore
@@ -7,11 +7,11 @@ KEYWORDS=		python
 VARIANTS=		py310 v11
 SDESC[py310]=		Minimal low-level HTTP client (3.10)
 SDESC[v11]=		Minimal low-level HTTP client (3.11)
-HOMEPAGE=		https://github.com/encode/httpcore
+HOMEPAGE=		https://www.encode.io/httpcore/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/94/2c/2bde7ff8dd2064395555220cbf7cba79991172bf5315a07eb3ac7688d9f1
+SITES[main]=		PYPIWHL/ac/97/724afbb7925339f6214bf1fdb5714d1a462690466832bf8fb3fd497649f1
 DISTFILE[1]=		httpcore-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -23,27 +23,27 @@ VOPTS[py310]=		PY310=ON PY311=OFF
 VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
-# BSD
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		httpcore-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# h11 (<0.15,>=0.13)
-# sniffio (==1.*)
-# anyio (<5.0,>=3.0)
+# anyio<5.0,>=3.0
 # certifi
-# h2 (<5,>=3) ; extra == 'http2'
-# socksio (==1.*) ; extra == 'socks'
+# h11<0.15,>=0.13
+# sniffio==1.*
+# h2<5,>=3; extra == 'http2'
+# socksio==1.*; extra == 'socks'
 
 [PY310].USES_ON=			python:py310,wheel
-[PY310].RUN_DEPENDS_ON=			python-h11:single:py310
-					python-sniffio:single:py310
-					python-anyio:single:py310
+[PY310].RUN_DEPENDS_ON=			python-anyio:single:py310
 					python-certifi:single:py310
+					python-h11:single:py310
+					python-sniffio:single:py310
 [PY311].USES_ON=			python:v11,wheel
-[PY311].RUN_DEPENDS_ON=			python-h11:single:v11
-					python-sniffio:single:v11
-					python-anyio:single:v11
+[PY311].RUN_DEPENDS_ON=			python-anyio:single:v11
 					python-certifi:single:v11
+					python-h11:single:v11
+					python-sniffio:single:v11
 
