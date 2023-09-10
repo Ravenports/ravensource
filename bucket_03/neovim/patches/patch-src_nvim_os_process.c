@@ -1,4 +1,4 @@
---- src/nvim/os/process.c.orig	2023-04-07 11:26:29 UTC
+--- src/nvim/os/process.c.orig	2023-09-07 10:26:08 UTC
 +++ src/nvim/os/process.c
 @@ -23,13 +23,13 @@
  # include "nvim/api/private/helpers.h"

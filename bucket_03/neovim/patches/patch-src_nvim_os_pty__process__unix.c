@@ -1,4 +1,4 @@
---- src/nvim/os/pty_process_unix.c.orig	2023-04-07 11:26:29 UTC
+--- src/nvim/os/pty_process_unix.c.orig	2023-09-07 10:26:08 UTC
 +++ src/nvim/os/pty_process_unix.c
 @@ -23,6 +23,71 @@
  # include <sys/stream.h>
