@@ -1,6 +1,6 @@
---- src/test-main.adb.orig	2022-09-22 17:08:03 UTC
+--- src/test-main.adb.orig	2023-07-19 08:54:01 UTC
 +++ src/test-main.adb
-@@ -30,6 +30,8 @@ with Test.Common;
+@@ -31,6 +31,8 @@ with Test.Common;
  
  procedure Test.Main is
  

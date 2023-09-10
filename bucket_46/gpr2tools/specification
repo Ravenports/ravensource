@@ -1,12 +1,14 @@
 DEF[PORTVERSION]=	23.0.0
-DEF[RELEASE]=		v${PORTVERSION}
+# DEF[RELEASE]=		v${PORTVERSION}
+# 5 JUL 2023
+DEF[RELEASE]=		4c2aacd
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		gpr
+NAMEBASE=		gpr2tools
 VERSION=		${PORTVERSION}
-KEYWORDS=		textproc ada
+KEYWORDS=		devel ada
 VARIANTS=		standard
-SDESC[standard]=	Parser for GPR Project files
+SDESC[standard]=	Tools based on GPR2 library
 HOMEPAGE=		https://github.com/AdaCore/gpr
 CONTACT=		John_Marino[draco@marino.st]
 
@@ -19,28 +21,28 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		APACHE20:single GPLv3+:single
-LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
-			GPLv3+:{{WRKSRC}}//COPYING3
+LICENSE=		GPLv3+:single
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
 LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
-LICENSE_SCHEME=		multi
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/tools/src/gprtools.ads
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
 
-BUILDRUN_DEPENDS=	langkit:single:standard
+BUILDRUN_DEPENDS=	libgpr2:single:standard
 			libadalang:single:standard
 
-USES=			gmake gprbuild python:build iconv:build
+USES=			gmake gprbuild iconv
 MAKE_ARGS=		prefix="{{STAGEDIR}}{{PREFIX}}"
 			GPR2KBDIR="{{LOCALBASE}}/share/gprconfig"
-			GPR2_EDGE_TOOLS_PREFIX="gpr"
+BUILD_TARGET=		build-tools
+INSTALL_TARGET=		install-tools
 INSTALL_REQ_TOOLCHAIN=	yes
 
 post-extract:
-	${AWK} '/^LICENSE/,EOF' ${WRKSRC}/README.md > ${WRKDIR}/TERMS
+	${MV} ${WRKSRC}/gpr2.gpr ${WRKSRC}/gpr2.gpr.disabled
 
 post-install:
 	# remove manifests
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
-	${RM} -r ${STAGEDIR}${PREFIX}/gpr2/share
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr
 	# strip binaries
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/gpr2/bin/*
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gpr2.relocatable/libgpr2.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gpr*

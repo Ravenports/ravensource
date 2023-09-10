@@ -1,0 +1,48 @@
+DEF[PORTVERSION]=	23.0.0
+# DEF[RELEASE]=		v${PORTVERSION}
+# 5 JUL 2023
+DEF[RELEASE]=		4c2aacd
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libgpr2
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel ada
+VARIANTS=		standard
+SDESC[standard]=	Parser for GPR Project files
+HOMEPAGE=		https://github.com/AdaCore/gpr
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/AdaCore:gpr:${RELEASE}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/libgpr
+
+LICENSE=		APACHE20:single
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/lib/gpr2.ads
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+BUILDRUN_DEPENDS=	langkit:single:standard
+
+USES=			gmake gprbuild python:build iconv:build
+MAKE_ARGS=		prefix="{{STAGEDIR}}{{PREFIX}}"
+			GPR2KBDIR="{{LOCALBASE}}/share/gprconfig"
+BUILD_TARGET=		build-lib-static
+			build-lib-relocatable
+			build-lib-static-pic
+INSTALL_TARGET=		install-libs
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-install:
+	# remove manifests
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
+	# strip binaries
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgpr2.so

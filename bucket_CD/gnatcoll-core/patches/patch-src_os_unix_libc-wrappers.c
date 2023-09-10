@@ -1,6 +1,6 @@
---- src/os/unix/libc-wrappers.c.orig	2022-09-22 17:07:27 UTC
+--- src/os/unix/libc-wrappers.c.orig	2023-07-12 16:02:27 UTC
 +++ src/os/unix/libc-wrappers.c
-@@ -247,6 +247,23 @@ void __gnatcoll_readdir(DIR *dirp, struc
+@@ -347,6 +347,23 @@ void __gnatcoll_readdir(DIR *dirp, struc
  
    if (result != NULL)
    {
@@ -24,7 +24,7 @@
       buf->inode = (uint_64) result->d_ino;
  #if defined(__APPLE__)
       buf->offset = 0;
-@@ -257,6 +274,7 @@ void __gnatcoll_readdir(DIR *dirp, struc
+@@ -357,6 +374,7 @@ void __gnatcoll_readdir(DIR *dirp, struc
       buf->file_type = (unsigned char) result->d_type;
       strncpy(buf->name, result->d_name, GNATCOLL_DIRENT_NAME_MAX);
       buf->name[GNATCOLL_DIRENT_NAME_MAX - 1] = '\0';

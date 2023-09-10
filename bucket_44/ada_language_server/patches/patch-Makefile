@@ -1,31 +1,27 @@
---- Makefile.orig	2022-09-20 14:18:47 UTC
+--- Makefile.orig	2023-07-19 00:56:15 UTC
 +++ Makefile
-@@ -38,13 +38,12 @@ ifeq ($(OS),Windows_NT)
+@@ -56,12 +56,7 @@ ifeq ($(OS),Windows_NT)
+    PYTHON=python.exe
     EXE=.exe
  else
-    UNAME_S := $(shell uname -s)
+-   UNAME_S := $(shell uname -s)
 -   ifeq ($(UNAME_S),Linux)
--      PLATFORM=linux
--      OS=unix
+       OS=unix
+-   else ifeq ($(UNAME_S),Darwin)
+-      OS=osx
 -   endif
-    ifeq ($(UNAME_S),Darwin)
-       PLATFORM=darwin
-       OS=osx
-+   else
-+      PLATFORM=linux
-+      OS=unix
-    endif
     PYTHON=python3
     EXE=
-@@ -77,6 +76,7 @@ all: coverage-instrument
+ endif
+@@ -95,6 +90,7 @@ all: coverage-instrument
  	$(GPRBUILD) -P gnat/codec_test.gpr -p $(COVERAGE_BUILD_FLAGS)
  	$(GPRBUILD) -P gnat/lsp_client.gpr -p $(COVERAGE_BUILD_FLAGS) \
- 		-XVERSION=$(TRAVIS_TAG)
-+	$(GPRBUILD) -P gnat/lsp_client_glib.gpr -p $(COVERAGE_BUILD_FLAGS)
- 	mkdir -p integration/vscode/ada/$(PLATFORM)
- 	cp -f $(ALS)$(EXE) integration/vscode/ada/$(PLATFORM)
- 
-@@ -99,16 +99,18 @@ endif
+ 		-XVERSION=$(VERSION)
++	$(GPRBUILD) -P gnat/lsp_client_glib.gpr -p $(COVERAGE_BUILD_FLAGS) -XVERSION=$(VERSION)
+ ifdef NODE
+ 	mkdir -p integration/vscode/ada/$(NODE_ARCH)/$(NODE_PLATFORM)
+ 	cp -f $(ALS)$(EXE) integration/vscode/ada/$(NODE_ARCH)/$(NODE_PLATFORM)
+@@ -119,16 +115,18 @@ endif
  
  install:
  	gprinstall -f -P gnat/lsp_server.gpr -p -r --mode=usage \
