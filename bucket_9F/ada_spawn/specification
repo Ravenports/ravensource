@@ -45,7 +45,7 @@ post-extract:
 do-build:
 .for LT in relocatable static-pic static
 . for GPR in spawn.gpr spawn_glib.gpr
-	${SETENV} ${MAKE_ENV} gprbuild -p -j0 -XLIBRARY_TYPE=${LT} -P ${WRKSRC}/gnat/${GPR}
+	${SETENV} ${MAKE_ENV} gprbuild -p -j0 -XSPAWN_LIBRARY_TYP=${LT} -P ${WRKSRC}/gnat/${GPR}
 . endfor
 .endfor
 
@@ -60,10 +60,3 @@ do-install:
 . endfor
 .endfor
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
-	# override generated gpr with our own
-	${INSTALL_DATA} ${FILESDIR}/*.gpr ${STAGEDIR}${PREFIX}/share/gpr
-	# I don't know where these lines are coming from
-	${SED} -i'' -e '/spawn-processes__posix.adb/d' \
-		${STAGEDIR}${PREFIX}/share/gpr/spawn.gpr
-	${SED} -i'' -e '/spawn-processes__glib.adb/d' \
-		${STAGEDIR}${PREFIX}/share/gpr/spawn_glib.gpr
