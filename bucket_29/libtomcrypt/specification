@@ -4,6 +4,7 @@ DEF[SOVERSION]=		1.0.1
 
 NAMEBASE=		libtomcrypt
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Comprehensive, portable cryptographic toolkit
@@ -14,18 +15,19 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/libtom/libtomcrypt/releases/download/v${PORTVERSION}/
 DISTFILE[1]=		crypt-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		PUBDOM:single
+LICENSE=		PUBDOM:primary
 LICENSE_FILE=		PUBDOM:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/libtomcrypt
 
-BUILDRUN_DEPENDS=	libtommath:single:standard
+BUILD_DEPENDS=		libtommath:dev:standard
+BUILDRUN_DEPENDS=	libtommath:primary:standard
 
 USES=			cpe gmake libtool:build
 CPE_VENDOR=		libtom
