@@ -1,15 +1,15 @@
---- meson.build.orig	2023-08-31 11:08:59 UTC
+--- meson.build.orig	2023-09-08 13:42:18 UTC
 +++ meson.build
-@@ -2100,7 +2100,7 @@ if libintl.found()
+@@ -2147,7 +2147,7 @@ if libintl.found() and libintl.type_name
    #
    # Meson's builtin dependency lookup as of 0.60.0 doesn't check for
    # pthread, so we do this manually here.
--  if cc.has_function('ngettext', dependencies : libintl)
-+  if cc.has_function('ngettext', dependencies : libintl) and host_system != 'sunos'
+-  if cc.has_function('ngettext', dependencies : libintl, prefix: libintl_prefix)
++  if cc.has_function('ngettext', dependencies : libintl, prefix: libintl_prefix) and host_system != 'sunos'
      libintl_deps += [libintl]
    else
-     libintl_pthread = cc.find_library('pthread', required : false)
-@@ -2293,8 +2293,7 @@ env_program = find_program('env', requir
+     libintl_iconv = cc.find_library('iconv', required : false)
+@@ -2348,8 +2348,7 @@ env_program = find_program('env', requir
  
  # FIXME: How to detect Solaris? https://github.com/mesonbuild/meson/issues/1578
  if host_system == 'sunos'

@@ -1,6 +1,6 @@
 # Glib has even/odd releases (e.g 2.60, 2.62, 2.64 ... are stable)
-DEF[PORTVERSION]=	2.76.5
-DEF[LIBVERSION]=	0.7600.5
+DEF[PORTVERSION]=	2.78.0
+DEF[LIBVERSION]=	0.7800.0
 DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl/current/
 # ----------------------------------------------------------------------------
 
@@ -83,7 +83,6 @@ pre-configure:
 		${WRKSRC}/glib/tests/utils.c
 	${REINPLACE_CMD} \
 		-e "s|${CAT1}|file://${LOCALBASE}/share/xsl/docbook/|" \
-		-e "/-Werror=/d" \
 		${WRKSRC}/meson.build
 
 post-install:
