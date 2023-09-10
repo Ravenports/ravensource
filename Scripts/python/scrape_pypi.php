@@ -593,7 +593,6 @@ function set_buildrun (&$portdata, $PDUO) {
         case "pycairo":
         case "PyGObject":
         case "zipp":		// above -- not distutils script
-        case "pygit2":
         case "PyNaCl":		// above -- tries downloading
         case "ruamel.yaml":     // list index out of range
         case "ruamel.yaml.clib":// list index out of range
