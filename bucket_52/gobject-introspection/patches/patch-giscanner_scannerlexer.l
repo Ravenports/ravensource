@@ -3,7 +3,7 @@ Add missing TLS keyword - __thread (clang/gcc extension)
 To unbreak scanner on headers like <sys/errno.h> and <runetype.h>:
 /usr/include/runetype.h:94: syntax error, unexpected '{', expecting ',' or ';' in '{' at '{
 
---- giscanner/scannerlexer.l.orig	2022-09-17 18:52:38 UTC
+--- giscanner/scannerlexer.l.orig	2023-09-08 14:18:21 UTC
 +++ giscanner/scannerlexer.l
 @@ -178,6 +178,7 @@ stringtext				([^\\\"])|(\\.)
  "__pragma" 		                { if (!parse_ignored_macro()) REJECT; }
