@@ -1,0 +1,22 @@
+--- Makefile.orig	2023-07-13 00:56:25 UTC
++++ Makefile
+@@ -76,7 +76,8 @@ install-lib:
+ 			-XLAL_REFACTOR_LIBRARY_TYPE=$$library_type \
+ 			-XLIBRARY_TYPE=$$library_type \
+ 			-XLAL_REFACTOR_BUILD_MODE=$(BUILD_MODE) \
+-			--prefix="$(PREFIX)" \
++			--no-manifest \
++			--prefix="$(DESTDIR)$(PREFIX)" \
+ 			--sources-subdir=include/lal-refactor \
+ 			--build-name=$$library_type \
+ 			--build-var=LIBRARY_TYPE \
+@@ -89,7 +90,8 @@ install-bin:
+ 		-XLAL_REFACTOR_LIBRARY_TYPE=$(LIBRARY_TYPE) \
+ 		-XLIBRARY_TYPE=$(LIBRARY_TYPE) \
+ 		-XBUILD_MODE=$(BUILD_MODE) \
+-		--prefix="$(PREFIX)" \
++		--no-manifest \
++		--prefix="$(DISTDIR)$(PREFIX)" \
+ 		-P $(BIN_PROJECT) \
+ 		-p \
+ 		-f ;

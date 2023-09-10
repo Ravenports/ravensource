@@ -1,0 +1,39 @@
+# This repo is so new it's not versioned yet, assume year based version
+DEF[PORTVERSION]=	23.0.0
+DEF[RELEASE]=		441bfae
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		lal-refactor
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel ada
+VARIANTS=		standard
+SDESC[standard]=	Collection of Ada source code refactoring tools
+HOMEPAGE=		https://github.com/AdaCore/lal-refactor
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/AdaCore:lal-refactor:${RELEASE}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		APACHE20:single
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE.txt
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/lal_refactor.ads
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+BUILDRUN_DEPENDS=	libadalang-tools:single:standard
+
+USES=			gmake gprbuild iconv ada:single
+MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
+			BUILD_MODE=prod
+BUILD_TARGET=		lib bin
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lal_refactor.relocatable/liblal-refactor.so
