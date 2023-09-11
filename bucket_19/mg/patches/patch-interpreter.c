@@ -1,14 +1,14 @@
---- interpreter.c.orig	2020-02-15 14:33:45 UTC
+--- interpreter.c.orig	2023-05-01 15:27:50 UTC
 +++ interpreter.c
-@@ -304,7 +304,11 @@ foundlist(char *defstr)
- 	 * in a linked list. But first remove variable, if existing already.
- 	 */
+@@ -591,7 +591,11 @@ founddef(char *defstr, int blkid, int ex
+ 		return(dobeep_msgs("Variable/function name clash:", vnamep));
+ 
  	if (!SLIST_EMPTY(&varhead)) {
 +#ifdef __DragonFly__
-+		SLIST_FOREACH_MUTABLE(v1, &varhead, entry, vt) {
++                SLIST_FOREACH_MUTABLE(v1, &varhead, entry, vt) {
 +#else
  		SLIST_FOREACH_SAFE(v1, &varhead, entry, vt) {
 +#endif
- 			if (strcmp(vnamep, v1->name) == 0)
+ 			if (strcmp(vnamep, v1->v_name) == 0)
  				SLIST_REMOVE(&varhead, v1, varentry, entry);
  		}
