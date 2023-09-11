@@ -2,6 +2,8 @@ DEF[PORTVERSION]=	20230501
 # DEF[RELEASE]=		gnatstudio-cr-${PORTVERSION}
 # Need a later snapshot to work with later VSS (27 JUN 2023)
 DEF[RELEASE]=		105b842
+DEF[VERSION_TXT]=	Continuous Release ${PORTVERSION}
+DEF[DATE_TXT]=		27 June 2023
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnatstudio
@@ -73,6 +75,8 @@ SHEBANG_FILES=		share/support/core/gs_utils/internal/dialogs.py
 post-extract:
 	${FIND} ${WRKSRC} -type f -name ".cvsignore" -delete
 	${FIND} ${WRKSRC} -type d -empty -delete
+	echo "${DATE_TXT}" > ${WRKSRC}/DATE.txt
+	echo "${VERSION_TXT}" > ${WRKSRC}/VERSION.txt
 
 post-patch:
 	${ECHO} "GNAT_SOURCES=" > ${WRKSRC}/Makefile.gnat
