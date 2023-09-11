@@ -1,6 +1,6 @@
---- configure.orig	2023-08-23 12:00:35 UTC
+--- configure.orig	2023-09-06 15:40:21 UTC
 +++ configure
-@@ -5379,9 +5379,6 @@ if test -z "$host" -a -z "$build" -a "`w
+@@ -5898,9 +5898,6 @@ if test -z "$host" -a -z "$build" -a "`w
              if test -n "$opt_d" -o -n "$opt_s"; then
                  input=$($WSL_LO_HELPER --8.3 "$input")
              fi
@@ -10,7 +10,7 @@
              echo "$input"
          else
              # Print Unix path
-@@ -6486,6 +6483,14 @@ dragonfly*)
+@@ -6992,6 +6989,14 @@ dragonfly*)
      _os=DragonFly
      ;;
  
@@ -25,7 +25,7 @@
  linux-android*)
      # API exists, but seems not really usable since Android 7 AFAIK
      usable_dlapi=no
-@@ -13944,7 +13949,7 @@ dragonfly*)
+@@ -14691,7 +14696,7 @@ dragonfly*)
      esac
      ;;
  
@@ -34,7 +34,7 @@
      COM=GCC
      RTL_OS=FreeBSD
      OS=FREEBSD
-@@ -14714,7 +14719,7 @@ $as_echo_n "checking for BUILD platform
+@@ -15462,7 +15467,7 @@ printf %s "checking for BUILD platform c
          $with_build_platform_configure_options \
          --srcdir=$srcdir \
          2>&1 | sed -e 's/^/    /'
@@ -43,7 +43,7 @@
          as_fn_error $? "Running the configure script for BUILD side failed, see CONF-FOR-BUILD/config.log" "$LINENO" 5
      fi
  
-@@ -21722,7 +21727,7 @@ if test -n "$ENABLE_JAVA" -a -z "$JAVAIN
+@@ -22732,7 +22737,7 @@ if test -n "$ENABLE_JAVA" -a -z "$JAVAIN
          test -d "$JAVA_HOME/include/native_thread" && JAVAINC="$JAVAINC -I$JAVA_HOME/include/native_thread"
          ;;
  
@@ -52,7 +52,7 @@
          JAVAINC="-I$JAVA_HOME/include"
          JAVAINC="$JAVAINC -I$JAVA_HOME/include/freebsd"
          JAVAINC="$JAVAINC -I$JAVA_HOME/include/bsd"
-@@ -22656,7 +22661,7 @@ $as_echo_n "checking for object file for
+@@ -23706,7 +23711,7 @@ printf %s "checking for object file form
                      ;;
                  esac
                ;;
@@ -61,16 +61,16 @@
                  if echo __ELF__ | $CC -E - | grep __ELF__ > /dev/null; then
                    objfmt='BSD-a.out'
                  else
-@@ -37937,7 +37942,7 @@ elif $GNUCP --version 2>/dev/null | grep
- $as_echo "yes" >&6; }
+@@ -39616,7 +39621,7 @@ elif $GNUCP --version 2>/dev/null | grep
+ printf "%s\n" "yes" >&6; }
  else
      case "$build_os" in
 -    darwin*|netbsd*|openbsd*|freebsd*|dragonfly*)
 +    darwin*|netbsd*|openbsd*|freebsd*|dragonfly*|midnight*)
          x_GNUCP=\#
          GNUCP=''
-         { $as_echo "$as_me:${as_lineno-$LINENO}: result: no gnucp found - using the system's cp command" >&5
-@@ -41513,9 +41518,6 @@ $as_echo "$qt5_libdir" >&6; }
+         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no gnucp found - using the system's cp command" >&5
+@@ -43255,9 +43260,6 @@ printf "%s\n" "$qt5_libdir" >&6; }
      fi
  
      if test "$_os" = "Emscripten"; then
@@ -80,7 +80,7 @@
          if test ! -f "${qt5_platformsdir}"/libqwasm.a -o ! -f "$QT5_PLATFORMS_SRCDIR"/wasm_shell.html; then
              as_fn_error $? "No Qt5 WASM QPA plugin found in ${qt5_platformsdir} or ${QT5_PLATFORMS_SRCDIR}" "$LINENO" 5
          fi
-@@ -45378,7 +45380,7 @@ else
+@@ -47180,7 +47182,7 @@ else
  
      case "$host_os" in
  

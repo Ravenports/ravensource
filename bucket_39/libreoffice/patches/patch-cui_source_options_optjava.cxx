@@ -1,4 +1,4 @@
---- cui/source/options/optjava.cxx.orig	2023-08-23 11:52:34 UTC
+--- cui/source/options/optjava.cxx.orig	2023-09-06 15:37:46 UTC
 +++ cui/source/options/optjava.cxx
 @@ -940,6 +940,7 @@ void SvxJavaClassPathDlg::SetClassPath(
      if ( m_sOldPath.isEmpty() )

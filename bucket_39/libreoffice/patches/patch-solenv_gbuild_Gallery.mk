@@ -1,6 +1,6 @@
 Seems to be needed by NetBSD shell to get past the fact no files are generated.
 
---- solenv/gbuild/Gallery.mk.orig	2023-08-23 11:52:34 UTC
+--- solenv/gbuild/Gallery.mk.orig	2023-09-06 15:37:46 UTC
 +++ solenv/gbuild/Gallery.mk
 @@ -27,7 +27,7 @@ $(call gb_Helper_abbreviate_dirs,\
  			--filenames $(call gb_Helper_make_url,$$RESPONSEFILE) \

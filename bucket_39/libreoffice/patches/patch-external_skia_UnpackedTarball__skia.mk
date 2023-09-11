@@ -1,4 +1,4 @@
---- external/skia/UnpackedTarball_skia.mk.orig	2023-08-23 11:52:34 UTC
+--- external/skia/UnpackedTarball_skia.mk.orig	2023-09-06 15:37:46 UTC
 +++ external/skia/UnpackedTarball_skia.mk
 @@ -37,6 +37,9 @@ skia_patches := \
      vk_mem_alloc.patch.1 \
