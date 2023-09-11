@@ -1,4 +1,4 @@
---- src/util/build_config.h.orig	2021-12-17 12:22:18 UTC
+--- src/util/build_config.h.orig	2022-11-10 16:29:39 UTC
 +++ src/util/build_config.h
 @@ -40,6 +40,8 @@
  #define OS_WIN 1
