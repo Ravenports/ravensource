@@ -1,11 +1,11 @@
-DEF[PORTVERSION]=	20230808
+DEF[PORTVERSION]=	1.0
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		devcpu-data
+NAMEBASE=		cpu-microcode-rc
 VERSION=		${PORTVERSION}
 KEYWORDS=		sysutils
 VARIANTS=		standard
-SDESC[standard]=	AMD and Intel CPUs microcode updates
+SDESC[standard]=	RC script for CPU microcode updates
 HOMEPAGE=		none
 CONTACT=		nobody
 
@@ -16,10 +16,11 @@ SPKGS[standard]=	single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-FPC_EQUIVALENT=		sysutils/devcpu-data
+FPC_EQUIVALENT=		sysutils/cpu-microcode-rc
 
-RUN_DEPENDS=		devcpu-data-intel:single:standard
-			devcpu-data-amd:single:standard
+NOT_FOR_ARCH=		aarch64
+
+# BSD 2 CLAUSE license but no license file...
 
 RC_SUBR=		microcode_update:single
 SUB_FILES=		pkg-message-single
