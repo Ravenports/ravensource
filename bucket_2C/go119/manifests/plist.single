@@ -1,8 +1,8 @@
 %%ONLY-DRAGONFLY%%go119/pkg/%%opsys_ARCH%%/vendor/golang.org/x/net/route.a
 %%ONLY-FREEBSD%%go119/pkg/%%opsys_ARCH%%/vendor/golang.org/x/net/route.a
+%%ONLY-LINUX%%go119/pkg/%%opsys_ARCH%%/runtime/internal/syscall.a
 %%ONLY-MIDNIGHTBSD%%go119/pkg/%%opsys_ARCH%%/vendor/golang.org/x/net/route.a
 %%ONLY-NETBSD%%go119/pkg/%%opsys_ARCH%%/vendor/golang.org/x/net/route.a
-%%ONLY-LINUX%%go119/pkg/%%opsys_ARCH%%/runtime/internal/syscall.a
 go119/CONTRIBUTING.md
 go119/LICENSE
 go119/PATENTS
@@ -3933,6 +3933,7 @@ go119/src/mime/multipart/formdata.go
 go119/src/mime/multipart/formdata_test.go
 go119/src/mime/multipart/multipart.go
 go119/src/mime/multipart/multipart_test.go
+go119/src/mime/multipart/readmimeheader.go
 go119/src/mime/multipart/writer.go
 go119/src/mime/multipart/writer_test.go
 go119/src/mime/quotedprintable/example_test.go
@@ -4350,10 +4351,6 @@ go119/src/os/readfrom_stub.go
 go119/src/os/removeall_at.go
 go119/src/os/removeall_noat.go
 go119/src/os/removeall_test.go
-go119/src/os/rlimit.go
-go119/src/os/rlimit_darwin.go
-go119/src/os/rlimit_stub.go
-go119/src/os/rlimit_test.go
 go119/src/os/stat.go
 go119/src/os/stat_aix.go
 go119/src/os/stat_darwin.go
@@ -4672,7 +4669,6 @@ go119/src/runtime/export_linux_test.go
 go119/src/runtime/export_mmap_test.go
 go119/src/runtime/export_pipe2_test.go
 go119/src/runtime/export_pipe_test.go
-go119/src/runtime/export_solaris_test.go
 go119/src/runtime/export_test.go
 go119/src/runtime/export_unix_test.go
 go119/src/runtime/export_windows_test.go
@@ -4798,8 +4794,6 @@ go119/src/runtime/msize.go
 go119/src/runtime/mspanset.go
 go119/src/runtime/mstats.go
 go119/src/runtime/mwbbuf.go
-go119/src/runtime/nbpipe_fcntl_libc_test.go
-go119/src/runtime/nbpipe_fcntl_unix_test.go
 go119/src/runtime/nbpipe_pipe.go
 go119/src/runtime/nbpipe_pipe2.go
 go119/src/runtime/nbpipe_pipe_test.go
@@ -4962,6 +4956,12 @@ go119/src/runtime/runtime_test.go
 go119/src/runtime/runtime_unix_test.go
 go119/src/runtime/rwmutex.go
 go119/src/runtime/rwmutex_test.go
+go119/src/runtime/security_aix.go
+go119/src/runtime/security_issetugid.go
+go119/src/runtime/security_linux.go
+go119/src/runtime/security_nonunix.go
+go119/src/runtime/security_test.go
+go119/src/runtime/security_unix.go
 go119/src/runtime/select.go
 go119/src/runtime/sema.go
 go119/src/runtime/sema_test.go
@@ -5318,6 +5318,16 @@ go119/src/runtime/internal/syscall/asm_linux_mipsx.s
 go119/src/runtime/internal/syscall/asm_linux_ppc64x.s
 go119/src/runtime/internal/syscall/asm_linux_riscv64.s
 go119/src/runtime/internal/syscall/asm_linux_s390x.s
+go119/src/runtime/internal/syscall/defs_linux_386.go
+go119/src/runtime/internal/syscall/defs_linux_amd64.go
+go119/src/runtime/internal/syscall/defs_linux_arm.go
+go119/src/runtime/internal/syscall/defs_linux_arm64.go
+go119/src/runtime/internal/syscall/defs_linux_loong64.go
+go119/src/runtime/internal/syscall/defs_linux_mips64x.go
+go119/src/runtime/internal/syscall/defs_linux_mipsx.go
+go119/src/runtime/internal/syscall/defs_linux_ppc64x.go
+go119/src/runtime/internal/syscall/defs_linux_riscv64.go
+go119/src/runtime/internal/syscall/defs_linux_s390x.go
 go119/src/runtime/internal/syscall/syscall_linux.go
 go119/src/runtime/metrics/description.go
 go119/src/runtime/metrics/description_test.go
@@ -5532,6 +5542,7 @@ go119/src/syscall/exec_windows_test.go
 go119/src/syscall/export_darwin_test.go
 go119/src/syscall/export_freebsd_test.go
 go119/src/syscall/export_linux_test.go
+go119/src/syscall/export_rlimit_test.go
 go119/src/syscall/export_unix_test.go
 go119/src/syscall/export_windows_test.go
 go119/src/syscall/flock.go
@@ -5566,6 +5577,10 @@ go119/src/syscall/netlink_linux.go
 go119/src/syscall/ptrace_darwin.go
 go119/src/syscall/ptrace_ios.go
 go119/src/syscall/pwd_plan9.go
+go119/src/syscall/rlimit.go
+go119/src/syscall/rlimit_darwin.go
+go119/src/syscall/rlimit_stub.go
+go119/src/syscall/rlimit_test.go
 go119/src/syscall/route_bsd.go
 go119/src/syscall/route_darwin.go
 go119/src/syscall/route_dragonfly.go
