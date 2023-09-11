@@ -1,0 +1,29 @@
+DEF[PORTVERSION]=	20220527
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		autoconf-switch
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Wrapper script to switch between autoconf versions
+HOMEPAGE=		https://cgit.freebsd.org/ports/tree/devel/autoconf-switch
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	none
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/autoconf-switch
+
+# LICENSE is BSD2CLAUSE but there's no separate license file
+
+SKIP_BUILD=		yes
+
+do-install:
+	${INSTALL_SCRIPT} ${FILESDIR}/autoconf ${STAGEDIR}${PREFIX}/bin/
+.for l in autoheader autom4te autoreconf autoscan autoupdate ifnames
+	${LN} -s autoconf ${STAGEDIR}${PREFIX}/bin/${l}
+.endfor
