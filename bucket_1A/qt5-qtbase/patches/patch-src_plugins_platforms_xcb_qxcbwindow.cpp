@@ -1,4 +1,4 @@
---- src/plugins/platforms/xcb/qxcbwindow.cpp.orig	2022-06-24 10:42:02 UTC
+--- src/plugins/platforms/xcb/qxcbwindow.cpp.orig	2023-03-23 19:06:47 UTC
 +++ src/plugins/platforms/xcb/qxcbwindow.cpp
 @@ -706,7 +706,7 @@ void QXcbWindow::show()
          if (isTransient(window())) {
