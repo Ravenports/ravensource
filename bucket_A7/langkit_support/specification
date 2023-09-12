@@ -8,7 +8,7 @@ DEF[MYDISTNAME]=	langkit-${RELEASE}
 
 NAMEBASE=		langkit_support
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 EPOCH=			1
 KEYWORDS=		ada devel
 VARIANTS=		standard
@@ -20,7 +20,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/AdaCore:langkit:${RELEASE}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,14 +29,15 @@ BUILD_DEPENDS=		python311:single:standard
 			python-e3-core:single:v11
 			xmlada:dev:standard
 			gprbuild:dev:standard
+			AdaSAT:dev:standard
 BUILDRUN_DEPENDS=	gnatcoll-core:primary:standard
 			gnatcoll-bindings:iconv:standard
 			gnatcoll-bindings:gmp:standard
 			xmlada:primary:standard
-			AdaSAT:single:standard
+			AdaSAT:primary:standard
 
-LICENSE=		APACHE20:single
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE=		APACHE20:primary
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE.txt
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/langkit/support/langkit_support.ads
@@ -45,6 +46,11 @@ LICENSE_SCHEME=		solo
 USES=			gprbuild iconv:build
 INSTALL_REQ_TOOLCHAIN=	yes
 DISTNAME=		${MYDISTNAME}
+SOVERSION=		${PORTVERSION}
+
+pre-configure:
+	${REINPLACE_CMD} -e 's|%%SOVERSION%%|${PORTVERSION}|' \
+		${WRKSRC}/langkit/support/langkit_support.gpr
 
 do-build:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
