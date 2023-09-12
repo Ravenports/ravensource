@@ -10,7 +10,7 @@ DEF[UNDERSCORE]=	EXTRACT_INFO(SPHINX_UNDERSCORE)
 
 NAMEBASE=		gprbuild
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 EPOCH=			1
 KEYWORDS=		devel ada
 VARIANTS=		standard
@@ -27,7 +27,7 @@ DISTFILE[2]=		generated:xmlada
 DISTFILE[3]=		generated:kbase
 DF_INDEX=		1 2 3
 
-SPKGS[standard]=	complete primary gprlib examples
+SPKGS[standard]=	complete primary dev gprlib examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -39,8 +39,8 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/gprbuild.ads
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		xmlada:primary:standard
-EXRUN[gprlib]=		xmlada:primary:standard
+BUILD_DEPENDS=		xmlada:dev:standard
+BUILDRUN_DEPENDS=	xmlada:primary:standard
 
 USES=			gmake
 MAKE_ARGS=		prefix={{STAGEDIR}}{{PREFIX}}
@@ -51,9 +51,10 @@ MAKE_ARGS=		prefix={{STAGEDIR}}{{PREFIX}}
 INSTALL_REQ_TOOLCHAIN=	yes
 BUILD_TARGET=		all libgpr.build
 INSTALL_TARGET=		install libgpr.install
-INFO=			primary:gprbuild_ug
 PLIST_SUB=		JQUERY=${JQUERY}
 			UNDERSCORE=${UNDERSCORE}
+SOVERSION=		${PORTVERSION}
+# INFO=			primary:gprbuild_ug
 # SET_DEBUGGING_ON=	yes
 
 pre-configure:
@@ -61,6 +62,7 @@ pre-configure:
 	${FIND} ${WRKSRC}/examples -name '.cvsignore' -delete
 	${REINPLACE_CMD} -e 's|"-gnatwe", ||' ${WRKSRC}/gprbuild.gpr
 	${REINPLACE_CMD} -e 's|make -C|gmake -C|' ${WRKSRC}/Makefile
+	${REINPLACE_CMD} -e 's|%%SOVERSION%%|${PORTVERSION}|' ${WRKSRC}/gpr/gpr.gpr
 
 do-configure:
 	# create bootstrap version of gprbuild
