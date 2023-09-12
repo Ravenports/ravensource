@@ -6,7 +6,7 @@ DEF[RELEASE]=		c10eeb3
 
 NAMEBASE=		libvss
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 EPOCH=			1
 KEYWORDS=		textproc devel ada
 VARIANTS=		standard
@@ -18,14 +18,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/AdaCore:VSS:${RELEASE}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		APACHE20:single
+LICENSE=		APACHE20:primary
 LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE.txt
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/source/text/vss-strings.ads
 LICENSE_SCHEME=		solo
@@ -38,6 +38,11 @@ MAKE_ARGS=		BUILD_MODE=prod
 BUILD_TARGET=		build-all-libs
 INSTALL_TARGET=		install-all-libs
 INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${PORTVERSION}
+
+pre-configure:
+	# Set library versions
+	${REINPLACE_CMD} -e 's|%%SOVERSION%%|${PORTVERSION}|' ${WRKSRC}/gnat/vss*.gpr
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
