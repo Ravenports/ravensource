@@ -1,9 +1,11 @@
-DEF[PORTVERSION]=	20200304
-DEF[TAG]=		3b7b49e
+DEF[PORTVERSION]=	1
+DEF[TAG]=		tag${PORTVERSION}
+DEF[SOVERSION]=		1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		PragmARC
 VERSION=		${PORTVERSION}
+EPOCH=			1
 KEYWORDS=		devel ada
 VARIANTS=		standard
 SDESC[standard]=	PragmAda Reusable Components
@@ -14,32 +16,41 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/jrcarter:PragmARC:${TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GMGPL:single
+LICENSE=		GMGPL:primary
 LICENSE_FILE=		GMGPL:stock
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		solo
 
-USES=			gprbuild
+USES=			gprbuild ada:primary
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
 
 post-extract:
-	${CP} ${FILESDIR}/buildlib.gpr ${WRKSRC}/
+	${CP} ${FILESDIR}/pragmarc.gpr ${WRKSRC}/
+	${REINPLACE_CMD} -e 's/@SOVERSION@/${SOVERSION}/' ${WRKSRC}/pragmarc.gpr
 	${RM} ${WRKSRC}/compile_all.adb
 	${AWK} '/^-- / {print}' ${WRKSRC}/pragmarc.ads > ${WRKDIR}/TERMS
 
 do-build:
-	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gnatmake -p -Pbuildlib)
+.for libtype in static static-pic relocatable
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		gprbuild -p -P pragmarc -XLIBRARY_TYPE=${libtype})
+.endfor
 
 do-install:
-	${MKDIR} ${STAGEDIR}${PREFIX}/include/pragmarcs \
-		${STAGEDIR}${PREFIX}/lib/pragmarcs \
-		${STAGEDIR}${PREFIX}/share/gpr
-	${INSTALL_DATA} ${WRKSRC}/library/* ${STAGEDIR}${PREFIX}/lib/pragmarcs
-	${INSTALL_DATA} ${WRKSRC}/*.ad[bs] \
-		${STAGEDIR}${PREFIX}/include/pragmarcs
-	${INSTALL_DATA} ${FILESDIR}/pragmarcs.gpr \
-		${STAGEDIR}${PREFIX}/share/gpr
+.for libtype in static static-pic relocatable
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprinstall \
+	--build-var=LIBRARY_TYPE \
+	--prefix=${STAGEDIR}${PREFIX} \
+	--sources-subdir=${STAGEDIR}${PREFIX}/include/pragmarc/${libtype} \
+	--lib-subdir=${STAGEDIR}${PREFIX}/lib/pragmarc/${libtype} \
+	--link-lib-subdir=${STAGEDIR}${PREFIX}/lib \
+	--no-manifests \
+	-XLIBRARY_TYPE=${libtype} \
+	-p -P pragmarc)
+.endfor

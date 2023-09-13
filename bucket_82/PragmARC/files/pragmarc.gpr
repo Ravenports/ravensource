@@ -1,0 +1,11 @@
+library project PragmARC is
+   type Library_Kind is ("static", "static-pic", "relocatable");
+   Library_Type : Library_Kind :=
+      external ("PRAGMARC_LIBRARY_TYPE", external ("LIBRARY_TYPE", "static"));
+
+   for Library_Name     use "pragmarc";
+   for Library_Version  use "libpragmarc.so.@SOVERSION@";
+   for Object_Dir       use ".build/" & Library_Type;
+   for Library_Dir      use ".libs/" & Library_Type;
+   for Library_Kind     use Library_Type;
+end PragmARC;
