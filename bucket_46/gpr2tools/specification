@@ -28,8 +28,9 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/tools/src/gprtools.ads
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
-BUILDRUN_DEPENDS=	libgpr2:single:standard
-			libadalang:single:standard
+BUILD_DEPENDS=		libadalang:tools:standard
+			libgpr2:dev:standard
+BUILDRUN_DEPENDS=	libgpr2:primary:standard
 
 USES=			gmake gprbuild iconv
 MAKE_ARGS=		prefix="{{STAGEDIR}}{{PREFIX}}"
