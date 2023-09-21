@@ -9,7 +9,7 @@ DEF[UNDERSCORE]=	EXTRACT_INFO(SPHINX_UNDERSCORE)
 
 NAMEBASE=		gnatcoll-core
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 EPOCH=			1
 KEYWORDS=		devel
 VARIANTS=		standard
@@ -21,7 +21,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/AdaCore:gnatcoll-core:${RELEASE}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary docs examples
+SPKGS[standard]=	complete primary dev docs examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -39,6 +39,9 @@ BUILD_DEPENDS=		python-Sphinx:single:python_default
 			gprbuild:dev:standard
 BUILDRUN_DEPENDS=	xmlada:primary:standard
 			gprbuild:gprlib:standard
+
+EXRUN[dev]=		xmlada:dev:standard
+			gprbuild:dev:standard
 
 USES=			gprbuild gmake
 MAKE_ARGS=		prefix={{STAGEDIR}}{{PREFIX}}
