@@ -1,6 +1,6 @@
---- meson.build.orig	2022-11-21 21:05:30 UTC
+--- meson.build.orig	2023-09-12 14:02:00 UTC
 +++ meson.build
-@@ -43,11 +43,11 @@ use_asm = false
+@@ -47,11 +47,11 @@ use_asm = false
  if not with_asm.disabled()
    use_asm = true
    if (host_machine.cpu_family() == 'x86' and
@@ -14,7 +14,7 @@
           'netbsd'].contains(host_machine.system()))
      add_project_arguments('-DUSE_X86_64_ASM', language : 'c')
    elif host_machine.cpu_family() == 'arm'
-@@ -136,7 +136,7 @@ if use_asm
+@@ -146,7 +146,7 @@ if use_asm
    thread_type = 'tsd'
    if get_option('dispatch-tls')
      if have_tls
