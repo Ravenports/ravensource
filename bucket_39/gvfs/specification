@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	1.50.6
+DEF[PORTVERSION]=	1.52.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gvfs
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	GNOME virtual file system
@@ -50,10 +49,9 @@ BUILDRUN_DEPENDS=	dbus:primary:standard
 			libsecret:primary:standard
 			libsoup:primary:standard
 USES=			cpe meson
-			pkgconfig shebangfix ssl:build
+			pkgconfig ssl:build
 GNOME_COMPONENTS=	glib libxml2
 CPE_VENDOR=		gnome
-SHEBANG_FILES=		meson_post_install.py
 
 # LibUSB deactivated for now; FreeBSD has it built-in but for 11.1
 # the base system ships with a version too old for GVFS...
