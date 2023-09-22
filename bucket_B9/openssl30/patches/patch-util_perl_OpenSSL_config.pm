@@ -1,4 +1,4 @@
---- util/perl/OpenSSL/config.pm.orig	2023-05-30 12:13:24 UTC
+--- util/perl/OpenSSL/config.pm.orig	2023-09-19 13:01:49 UTC
 +++ util/perl/OpenSSL/config.pm
 @@ -132,6 +132,7 @@ my $guess_patterns = [
            return "${hw}-whatever-netbsd";
