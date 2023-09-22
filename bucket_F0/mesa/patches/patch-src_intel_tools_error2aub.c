@@ -1,4 +1,4 @@
---- src/intel/tools/error2aub.c.orig	2023-09-06 21:29:52 UTC
+--- src/intel/tools/error2aub.c.orig	2023-09-20 17:15:34 UTC
 +++ src/intel/tools/error2aub.c
 @@ -22,6 +22,9 @@
   *
