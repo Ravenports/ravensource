@@ -1,4 +1,4 @@
---- imtest/imtest.c.orig	2023-05-21 23:30:54 UTC
+--- imtest/imtest.c.orig	2023-09-11 01:23:52 UTC
 +++ imtest/imtest.c
 @@ -511,7 +511,9 @@ static int tls_init_clientengine(int ver
      off |= SSL_OP_ALL;            /* Work around all known bugs */
