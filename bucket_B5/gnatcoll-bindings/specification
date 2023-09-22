@@ -13,7 +13,7 @@ DEF[PY3_INCLUDEDIR]=	{{LOCALBASE}}/include/python${PY3DEFAULT}
 
 NAMEBASE=		gnatcoll-bindings
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 EPOCH=			1
 KEYWORDS=		devel
 VARIANTS=		standard
@@ -39,14 +39,12 @@ LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		gmp:static:standard
 			gmp:shared:standard
-			gprbuild:dev:standard
 			gprbuild:gprlib:standard
 			readline:dev:standard
 			readline:primary:standard
 			python${THIRD_SNAKE}:single:standard
-			xmlada:dev:standard
+			gnatcoll-core:dev:standard
 BUILDRUN_DEPENDS=	gnatcoll-core:primary:standard
-			xmlada:primary:standard
 
 EXRUN[gmp]=		gmp:shared:standard
 EXRUN[iconv]=		libiconv:primary:standard
