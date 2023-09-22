@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.02
+DEF[PORTVERSION]=	0.10
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Crypt-OpenSSL-AES
@@ -7,11 +7,11 @@ KEYWORDS=		perl
 VARIANTS=		536 538
 SDESC[536]=		Wrapper around OpenSSL's AES library (5.36)
 SDESC[538]=		Wrapper around OpenSSL's AES library (5.38)
-HOMEPAGE=		none
+HOMEPAGE=		https://github.com/perl-openssl/perl-Crypt-OpenSSL-AES
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		CPAN/ID:T/TT/TTAR
+SITES[main]=		CPAN/ID:T/TI/TIMLEGGE
 DISTFILE[1]=		Crypt-OpenSSL-AES-${PORTVERSION}.tar.gz:main
 
 SPKGS[536]=		single
@@ -23,18 +23,38 @@ VOPTS[536]=		PERL_536=ON PERL_538=OFF
 VOPTS[538]=		PERL_536=OFF PERL_538=ON
 
 # License listed in CPAN directory:
-# Not provided in META.yml
+# perl_5
 
 GENERATED=		yes
 SINGLE_JOB=		yes
 DISTNAME=		Crypt-OpenSSL-AES-${PORTVERSION}
 
-# ---------------------------------------------
-# |   Prerequisites extracted from META.yml
-# ---------------------------------------------
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : Exporter (perl 5.36 core) (perl 5.38 core)
+# |      runtime : XSLoader (perl 5.36 core) (perl 5.38 core)
+# |        build : Crypt::OpenSSL::Guess
+# |    configure : Crypt::OpenSSL::Guess
+# |    configure : ExtUtils::MakeMaker (perl 5.36 core) (perl 5.38 core)
+# |         test : Crypt::CBC
+# |         test : Crypt::Cipher::AES
+# |         test : Crypt::Digest::SHA512_256
+# |         test : Crypt::Mode::CBC
+# |         test : Crypt::Mode::CFB
+# |         test : Crypt::Mode::CTR
+# |         test : Crypt::Mode::ECB
+# |         test : Crypt::Mode::OFB
+# |         test : Crypt::OpenSSL::Guess
+# |         test : Crypt::PRNG
+# |         test : Digest::SHA (perl 5.36 core) (perl 5.38 core)
+# |         test : MIME::Base64 (perl 5.36 core) (perl 5.38 core)
+# |         test : Test::More (perl 5.36 core) (perl 5.38 core)
 
 [PERL_536].USES_ON=			perl:536,configure
+[PERL_536].BUILD_DEPENDS_ON=		perl-Crypt-OpenSSL-Guess:single:536
 [PERL_538].USES_ON=			perl:538,configure
+[PERL_538].BUILD_DEPENDS_ON=		perl-Crypt-OpenSSL-Guess:single:538
 
 USES=			ssl
 MAKE_ARGS=		OTHERLDFLAGS="{{LDFLAGS}}"
