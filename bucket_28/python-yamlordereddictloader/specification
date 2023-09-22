@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.4.0
+DEF[PORTVERSION]=	0.4.2
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-yamlordereddictloader
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/fmenabe/python-yamlordereddictloader
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/y/yamlordereddictloader
-DISTFILE[1]=		yamlordereddictloader-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/d3/b6/64e84e26c52343dc48e9ffefd7d5e82b986f3bc2bd6da753420f41645718
+DISTFILE[1]=		yamlordereddictloader-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
 SPKGS[v11]=		single
@@ -26,13 +26,13 @@ VOPTS[v11]=		PY310=OFF PY311=ON
 # MIT License
 
 GENERATED=		yes
-DISTNAME=		yamlordereddictloader-${PORTVERSION}
+DISTNAME=		yamlordereddictloader-${PORTVERSION}.dist-info
 
-# install_requires extracted from setup.py
+# Requires-Dist extracted from wheel metadata
 # pyyaml
 
-[PY310].USES_ON=			python:py310,sutools
-[PY310].BUILDRUN_DEPENDS_ON=		python-PyYAML:single:py310
-[PY311].USES_ON=			python:v11,sutools
-[PY311].BUILDRUN_DEPENDS_ON=		python-PyYAML:single:v11
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-PyYAML:single:py310
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-PyYAML:single:v11
 
