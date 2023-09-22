@@ -1,6 +1,6 @@
 Avoid GS conflict on older SunOS.
 
---- base/ttobjs.h.orig	2023-06-21 12:10:21 UTC
+--- base/ttobjs.h.orig	2023-09-13 06:45:01 UTC
 +++ base/ttobjs.h
 @@ -43,6 +43,10 @@
  #include "setjmp_.h"
