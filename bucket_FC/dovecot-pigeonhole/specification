@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.5.20
+DEF[PORTVERSION]=	0.5.21
 DEF[DOVECOT]=		2.3
 DEF[DISTNAME]=		dovecot-${DOVECOT}-pigeonhole-${PORTVERSION}
 DEF[SOVERSION]=		0.0.0
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://pigeonhole.dovecot.org/releases/${DOVECOT}/
 DISTFILE[1]=		${DISTNAME}.tar.gz:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,6 +29,7 @@ LICENSE_TERMS=		primary:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		krb5:dev:standard
+			dovecot:dev:standard
 BUILDRUN_DEPENDS=	dovecot:primary:standard
 			krb5:primary:standard
 
