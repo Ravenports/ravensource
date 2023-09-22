@@ -297,7 +297,9 @@ function inline_fix_setup ($namebase, $src) {
        "black"        => '/extensions/d',
        "soupsieve"    => false,
        "xml2rfc"      => false,
+       "psautohint"   => false,
        "django-colorful" => false,
+       "lazy-object-proxy" => false,
        "netbox-network-importer" => '/pyats\[full\]/d',
        "pyzmq"        => '/cythonize(/ s|, |, quiet=True, |; /packaging.version/d; s|if V(.*$|if False:|',
        "cffsubr"      => 's|"Linux"|platform.system()|',
@@ -367,6 +369,15 @@ function inline_fix_setup ($namebase, $src) {
            case "pycryptodome":
                $xf = $src . "/compiler_opt.py";
                shell_exec ("sed -i.bak -e \"s|print(.*|pass|\" $xf");
+               break;
+           case "cffsubr":
+           case "psautohint":
+           case "freetype-py":
+           case "lazy-object-proxy":
+               $xf = $src . "/pyproject.toml";
+               $filehandle = fopen($xf, "a");
+               fwrite ($filehandle, "[tool.setuptools_scm]\n");
+               fclose ($filehandle);
                break;
        }
    }
