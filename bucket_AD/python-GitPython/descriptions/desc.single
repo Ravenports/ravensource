@@ -65,36 +65,36 @@ The installer takes care of installing them for you.
 
 ### INSTALL
 
-If you have downloaded the source code:
+GitPython and its required package dependencies can be installed in any of
+the following ways, all of which should typically be done in a [virtual
+environment].
 
-```bash
-python setup.py install
-```
+#### From PyPI
 
-or if you want to obtain a copy from the Pypi repository:
+To obtain and install a copy [from PyPI], run:
 
 `bash
 pip install GitPython
 `
 
-Both commands will install the required package dependencies.
+(A distribution package can also be downloaded for manual installation at
+[the PyPI page].)
 
-A distribution package can be obtained for manual installation at:
-<http://pypi.python.org/pypi/GitPython>.
+#### From downloaded source code
 
-If you like to clone from source, you can do it like so:
+If you have downloaded the source code, run this from inside the unpacked
+`GitPython` directory:
+
+```bash
+pip install .
+```
+
+#### By cloning the source code repository
+
+To clone the [the GitHub repository] from source to work on the code, you
+can do it like so:
 
 ```bash
 git clone https://github.com/gitpython-developers/GitPython
-git submodule update --init --recursive
-./init-tests-after-clone.sh
-```
-
-### Limitations
-
-#### Leakage of System Resources
-
-GitPython is not suited for long-running processes (like daemons) as it
-tends to
-leak system resources. It was written in a time where destructors (as
-implemented
+cd GitPython
+git fetch --tags

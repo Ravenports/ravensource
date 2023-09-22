@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.8.3
+DEF[PORTVERSION]=	0.8.5
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pyocr
@@ -7,12 +7,12 @@ KEYWORDS=		python
 VARIANTS=		py310 v11
 SDESC[py310]=		Wrapper for OCR engines (Tesseract, etc) (3.10)
 SDESC[v11]=		Wrapper for OCR engines (Tesseract, etc) (3.11)
-HOMEPAGE=		https://gitlab.gnome.org/World/OpenPaperwork/pyocr
+HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/p/pyocr
-DISTFILE[1]=		pyocr-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/91/1c/3ef6485732685ad9c938c9ebb3fad0570f58bdc54e1242cdfa40040a630e
+DISTFILE[1]=		pyocr-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
 SPKGS[v11]=		single
@@ -23,24 +23,20 @@ VOPTS[py310]=		PY310=ON PY311=OFF
 VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
-# GPLv3+
+# GPL-3.0-or-later
 
 GENERATED=		yes
-DISTNAME=		pyocr-${PORTVERSION}
+DISTNAME=		pyocr-${PORTVERSION}.dist-info
 
-# install_requires extracted from setup.py
+# Requires-Dist extracted from wheel metadata
 # Pillow
-# setuptools_scm<7
-# setuptools_scm_git_archive
+# pytest ; extra == 'dev'
+# flake8 ; extra == 'lint'
 
-[PY310].USES_ON=			python:py310,sutools
-[PY310].BUILDRUN_DEPENDS_ON=		python-Pillow:single:py310
-					python-setuptools-scm:single:py310
-					python-setuptools-scm-git-archive:single:py310
-[PY311].USES_ON=			python:v11,sutools
-[PY311].BUILDRUN_DEPENDS_ON=		python-Pillow:single:v11
-					python-setuptools-scm:single:v11
-					python-setuptools-scm-git-archive:single:v11
+[PY310].USES_ON=			python:py310,wheel
+[PY310].RUN_DEPENDS_ON=			python-Pillow:single:py310
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-Pillow:single:v11
 
 RUN_DEPENDS=		tesseract:tools:standard
 

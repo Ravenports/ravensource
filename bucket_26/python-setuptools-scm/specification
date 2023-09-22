@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	7.1.0
+DEF[PORTVERSION]=	8.0.3
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-setuptools-scm
@@ -7,11 +7,11 @@ KEYWORDS=		python
 VARIANTS=		py310 v11
 SDESC[py310]=		Package to manage versions by scm tags (3.10)
 SDESC[v11]=		Package to manage versions by scm tags (3.11)
-HOMEPAGE=		https://github.com/pypa/setuptools_scm/
+HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/1d/66/8f42c941be949ef2b22fe905d850c794e7c170a526023612aad5f3a121ad
+SITES[main]=		PYPIWHL/ca/04/4ea91c627355ae6d976bf7f1fc2815372a96b1b87bf290c8d726d10a08a1
 DISTFILE[1]=		setuptools_scm-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -23,28 +23,48 @@ VOPTS[py310]=		PY310=ON PY311=OFF
 VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
-# MIT
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:  The above copyright notice and this
+# permission notice shall be included in all copies or substantial
+# portions of the Software.  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT
+# WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO
+# THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+# AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+# HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+# IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+# IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 
 GENERATED=		yes
 DISTNAME=		setuptools_scm-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# packaging (>=20.0)
+# packaging >=20
 # setuptools
-# typing-extensions
-# tomli (>=1.0.0) ; python_version < "3.11"
-# importlib-metadata ; python_version < "3.8"
-# pytest (>=6.2) ; extra == 'test'
-# virtualenv (>20) ; extra == 'test'
-# setuptools (>=42) ; extra == 'toml'
+# tomli >=1 ; python_version < "3.11"
+# typing-extensions ; python_version < "3.11"
+# entangled-cli[rich] ; extra == 'docs'
+# mkdocs ; extra == 'docs'
+# mkdocs-entangled-plugin ; extra == 'docs'
+# mkdocs-material ; extra == 'docs'
+# mkdocstrings[python] ; extra == 'docs'
+# pygments ; extra == 'docs'
+# rich ; extra == 'rich'
+# pytest ; extra == 'test'
+# rich ; extra == 'test'
+# virtualenv >20 ; extra == 'test'
 
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-packaging:single:py310
 					python-setuptools:single:py310
-					python-typing-extensions:single:py310
 					python-tomli:single:py310
+					python-typing-extensions:single:py310
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-packaging:single:v11
 					python-setuptools:single:v11
-					python-typing-extensions:single:v11
 
