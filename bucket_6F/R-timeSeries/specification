@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	4031.107
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-timeSeries
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		standard
+SDESC[standard]=	Financial Time Series Objects (Rmetrics)
+HOMEPAGE=		https://r-forge.r-project.org/scm/viewvc.php/pkg/timeSeries/?root=rmetrics
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+			https://loki.dragonflybsd.org/cranfiles/
+DISTFILE[1]=		timeSeries_4031.107.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => GPL-2 | GPL-3 [expanded from: GPL (>= 2)]
+
+USES=			cran gmake
+DISTNAME=		timeSeries
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-timeDate:single:standard
+
+
