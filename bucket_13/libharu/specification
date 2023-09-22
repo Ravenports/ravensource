@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.4.3
+DEF[PORTVERSION]=	2.4.4
 DEF[VERSION]=		${PORTVERSION:S/./_/g}
 # ----------------------------------------------------------------------------
 
@@ -14,12 +14,12 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/libharu:libharu:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		ZLIB:single
+LICENSE=		ZLIB:primary
 LICENSE_FILE=		ZLIB:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		solo
 
@@ -28,6 +28,7 @@ FPC_EQUIVALENT=		print/libharu
 USES=			cmake dos2unix libtool zlib png
 CMAKE_ARGS=		-DLIBHPDF_STATIC=OFF
 SOVERSION=		${PORTVERSION}
+PLIST_SUB=		MAJOR=${PORTVERSION:R}
 
 post-patch:
 	awk '/The license of Haru/{f=1;next} /Acknowledgment/{f=0} f' ${WRKSRC}/README.md > ${WRKDIR}/TERMS
