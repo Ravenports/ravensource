@@ -1,4 +1,4 @@
---- absl/base/config.h.orig	2023-08-07 18:40:00 UTC
+--- absl/base/config.h.orig	2023-09-18 14:40:01 UTC
 +++ absl/base/config.h
 @@ -408,6 +408,7 @@ static_assert(ABSL_INTERNAL_INLINE_NAMES
  #ifdef ABSL_HAVE_MMAP

@@ -1,4 +1,4 @@
---- absl/base/internal/sysinfo.cc.orig	2023-08-07 18:40:00 UTC
+--- absl/base/internal/sysinfo.cc.orig	2023-09-18 14:40:01 UTC
 +++ absl/base/internal/sysinfo.cc
 @@ -26,11 +26,19 @@
  #include <unistd.h>
@@ -22,9 +22,9 @@
  #include <sys/sysctl.h>
  #endif
  
-@@ -432,6 +440,24 @@ pid_t GetTID() {
-   return static_cast<pid_t>(tid);
- }
+@@ -452,6 +460,24 @@ pid_t GetTID() { return getthrid(); }
+ 
+ pid_t GetTID() { return static_cast<pid_t>(_lwp_self()); }
  
 +#elif defined(__DragonFly__)
 +
