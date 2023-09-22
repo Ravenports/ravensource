@@ -6,7 +6,7 @@ DEF[RELEASE]=		ececaf1
 
 NAMEBASE=		libadalang-tools
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 EPOCH=			1
 KEYWORDS=		python lang devel
 VARIANTS=		standard
@@ -18,23 +18,36 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/AdaCore:libadalang-tools:${RELEASE}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv3+:single
+LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/LICENSE
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/pp.ads
 LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		gmp:static:standard
-BUILDRUN_DEPENDS=	libadalang:single:standard
-			libvss:single:standard
-			templates-parser:single:standard
+			libvss:dev:standard
+			AdaSAT:dev:standard
+			libgpr2:dev:standard
+			libadalang:dev:standard
+			gnatcoll-core:dev:standard
+			gnatcoll-bindings:dev:standard
+			langkit_support:dev:standard
+			templates-parser:dev:standard
+BUILDRUN_DEPENDS=	libvss:primary:standard
+			AdaSAT:primary:standard
+			libgpr2:primary:standard
+			libadalang:primary:standard
+			templates-parser:primary:standard
 			gmp:shared:standard
+
+EXRUN[dev]=		templates-parser:dev:standard
+EXRUN[tools]=		primary
 
 USES=			gprbuild iconv
 INSTALL_REQ_TOOLCHAIN=	yes
@@ -42,7 +55,12 @@ BUILD_TARGET=		lib bin
 INSTALL_TARGET=		install-bin-strip install-lib
 MAKE_ARGS=		BUILD_MODE=prod
 			PROCESSORS={{MAKE_JOBS_NUMBER}}
-# SINGLE_JOB=		yes
+SOVERSION=		${PORTVERSION}
+
+pre-configure:
+	# support soname libraries
+	${REINPLACE_CMD} -e 's|@SOVERSION@|${PORTVERSION}|' \
+		${WRKSRC}/src/lal_tools.gpr
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests

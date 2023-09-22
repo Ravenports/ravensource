@@ -7,6 +7,7 @@ DEF[SOVERSION]=		0.0
 
 NAMEBASE=		gnatcoll-db
 VERSION=		${PORTVERSION}
+REVISION=		3
 EPOCH=			1
 KEYWORDS=		devel
 VARIANTS=		standard
@@ -18,7 +19,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/AdaCore:gnatcoll-db:${RELEASE}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary sqlite postgres sql xref
+SPKGS[standard]=	complete primary sqlite postgres sql xref dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,11 +31,17 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gnatcoll_db2ada/gnatcoll-db2ada-main.ads
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		gnatcoll-bindings:iconv:standard
-BUILDRUN_DEPENDS=	gnatcoll-core:primary:standard
-			xmlada:primary:standard
+BUILD_DEPENDS=		gnatcoll-bindings:dev:standard
+			gnatcoll-bindings:iconv:standard
+			gnatcoll-core:dev:standard
+			gnatcoll-core:primary:standard
+
+EXRUN[sqlite]=		gnatcoll-core:primary:standard
+EXRUN[sql]=		gnatcoll-core:primary:standard
 EXRUN[xref]=		gnatcoll-bindings:iconv:standard
+			gnatcoll-core:primary:standard
 EXRUN[postgres]=	pgsql
+			gnatcoll-core:primary:standard
 
 USES=			gprbuild gmake python:build shebangfix iconv:build
 			pgsql:client,build

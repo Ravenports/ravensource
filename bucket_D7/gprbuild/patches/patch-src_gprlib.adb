@@ -1,6 +1,6 @@
---- src/gprlib.adb.orig	2022-09-22 17:08:57 UTC
+--- src/gprlib.adb.orig	2023-07-13 10:29:21 UTC
 +++ src/gprlib.adb
-@@ -809,9 +809,6 @@ procedure Gprlib is
+@@ -721,9 +721,6 @@ procedure Gprlib is
  
        for Dir of Imported_Library_Directories loop
           Library_Switches_Table.Append ("-L" & Dir);
@@ -10,7 +10,7 @@
        end loop;
  
        for Libname of Imported_Library_Names loop
-@@ -913,12 +910,6 @@ procedure Gprlib is
+@@ -865,12 +862,6 @@ procedure Gprlib is
                Shared_Lib_Suffix.all);
        end if;
  
@@ -23,7 +23,7 @@
        if not Path_Option.Is_Empty and then not Rpath.Is_Empty then
           if Separate_Run_Path_Options then
              for J in 1 .. Rpath.Last_Index loop
-@@ -1455,7 +1446,7 @@ procedure Gprlib is
+@@ -1409,7 +1400,7 @@ procedure Gprlib is
              end if;
  
           elsif Partial_Linker_Path = null then
@@ -32,7 +32,7 @@
           else
              Trailing_PL_Options.Append (Opt);
           end if;
-@@ -2219,8 +2210,8 @@ procedure Gprlib is
+@@ -2250,8 +2241,8 @@ procedure Gprlib is
  
                       Free (Libgnat);
                       Free (Libgnarl);

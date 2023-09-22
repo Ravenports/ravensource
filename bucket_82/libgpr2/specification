@@ -6,6 +6,7 @@ DEF[RELEASE]=		4c2aacd
 
 NAMEBASE=		libgpr2
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel ada
 VARIANTS=		standard
 SDESC[standard]=	Parser for GPR Project files
@@ -16,21 +17,27 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/AdaCore:gpr:${RELEASE}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		devel/libgpr
 
-LICENSE=		APACHE20:single
+LICENSE=		APACHE20:primary
 LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/lib/gpr2.ads
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
-BUILDRUN_DEPENDS=	langkit:single:standard
+BUILD_DEPENDS=		langkit:single:standard
+			langkit_support:dev:standard
+			xmlada:dev:standard
+			gprbuild:dev:standard
+			gnatcoll-core:dev:standard
+			gnatcoll-bindings:dev:standard
+BUILDRUN_DEPENDS=	langkit_support:primary:standard
 
 USES=			gmake gprbuild python:build iconv:build
 MAKE_ARGS=		prefix="{{STAGEDIR}}{{PREFIX}}"
@@ -40,6 +47,10 @@ BUILD_TARGET=		build-lib-static
 			build-lib-static-pic
 INSTALL_TARGET=		install-libs
 INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${PORTVERSION}
+
+pre-configure:
+	${REINPLACE_CMD} -e 's|%%SOVERSION%%|${PORTVERSION}|' ${WRKSRC}/gpr2.gpr
 
 post-install:
 	# remove manifests

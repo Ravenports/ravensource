@@ -5,6 +5,7 @@ DEF[RELEASE]=		441bfae
 
 NAMEBASE=		lal-refactor
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel ada
 VARIANTS=		standard
 SDESC[standard]=	Collection of Ada source code refactoring tools
@@ -15,25 +16,38 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/AdaCore:lal-refactor:${RELEASE}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		APACHE20:single
+LICENSE=		APACHE20:primary
 LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE.txt
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/lal_refactor.ads
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
-BUILDRUN_DEPENDS=	libadalang-tools:single:standard
+BUILD_DEPENDS=		libadalang-tools:dev:standard
+			libvss:dev:standard
+			libgpr2:dev:standard
+			libadalang:dev:standard
+			gnatcoll-core:dev:standard
+			gnatcoll-bindings:dev:standard
+			langkit_support:dev:standard
+BUILDRUN_DEPENDS=	libadalang-tools:primary:standard
 
-USES=			gmake gprbuild iconv ada:single
+USES=			gmake gprbuild iconv ada:primary
 MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
 			BUILD_MODE=prod
 BUILD_TARGET=		lib bin
 INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${PORTVERSION}
+
+pre-configure:
+	# support soname libraries
+	${REINPLACE_CMD} -e 's|@SOVERSION@|${PORTVERSION}|' \
+		${WRKSRC}/gnat/lal_refactor.gpr
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lal_refactor.relocatable/liblal-refactor.so

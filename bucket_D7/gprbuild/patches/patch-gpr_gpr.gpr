@@ -1,4 +1,4 @@
---- gpr/gpr.gpr.orig	2022-09-22 17:08:57 UTC
+--- gpr/gpr.gpr.orig	2023-07-13 10:29:21 UTC
 +++ gpr/gpr.gpr
 @@ -16,7 +16,7 @@
  --                                                                          --
@@ -9,10 +9,11 @@
  
  library project GPR is
  
-@@ -41,6 +41,8 @@ library project GPR is
+@@ -42,6 +42,9 @@ library project GPR is
     for Object_Dir use "libobj/" & Bld & "/" & Gnat_Lib_Type;
     for Library_Dir use "lib/" & Bld & "/" & Gnat_Lib_Type;
  
++   for Library_Version use "libgpr.so.%%SOVERSION%%";
 +   for Library_Options use Xmlada_schema'Library_options;
 +
     --------------

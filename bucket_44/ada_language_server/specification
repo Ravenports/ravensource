@@ -4,6 +4,7 @@ DEF[RELEASE]=		${PORTVERSION}
 
 NAMEBASE=		ada_language_server
 VERSION=		${PORTVERSION}
+REVISION=		2
 EPOCH=			1
 KEYWORDS=		ada textproc
 VARIANTS=		standard
@@ -15,23 +16,30 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/AdaCore:ada_language_server:${RELEASE}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 BUILD_DEPENDS=		ada_libfswatch:single:standard
-			libvss:single:standard
+			libvss:dev:standard
+			gtkada:dev:standard
 			gnatdoc:single:standard
-BUILDRUN_DEPENDS=	libadalang:single:standard
-			libadalang-tools:single:standard
 			ada_spawn:single:standard
-			libgpr2:single:standard
-			lal-refactor:single:standard
+			lal-refactor:dev:standard
+			libadalang:dev:standard
+			libadalang-tools:dev:standard
+			libgpr2:dev:standard
+			gnatcoll-core:dev:standard
+			gnatcoll-bindings:dev:standard
+			langkit_support:dev:standard
+BUILDRUN_DEPENDS=	libadalang-tools:primary:standard
+			lal-refactor:primary:standard
+			libgpr2:primary:standard
 
-LICENSE=		GPLv3+:single
+LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/LICENSE
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/source/server/lsp-servers.ads
 LICENSE_SCHEME=		solo

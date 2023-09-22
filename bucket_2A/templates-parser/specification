@@ -1,9 +1,11 @@
 DEF[PORTVERSION]=	23.0.0
 DEF[RELEASE]=		v${PORTVERSION}
+DEF[SOVERSION]=		22.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		templates-parser
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		www ada
 VARIANTS=		standard
 SDESC[standard]=	Templated text stream library
@@ -14,21 +16,22 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/AdaCore:templates-parser:${RELEASE}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv3+:single
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE=		GPLv3+:primary
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/templates_parser.ads
 LICENSE_SCHEME=		solo
 
-USES=			gmake gprbuild ada:single
+USES=			gmake gprbuild ada:primary
 BUILD_TARGET=		build
 INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
 
 do-configure:
 	(cd ${BUILD_WRKSRC} && ${DO_MAKE_BUILD} \
