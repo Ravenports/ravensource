@@ -1,6 +1,6 @@
---- meson.build.orig	2023-01-10 23:31:12 UTC
+--- meson.build.orig	2023-09-16 23:27:22 UTC
 +++ meson.build
-@@ -129,6 +129,8 @@ if gtk_minor_version.to_int() % 2 == 1
+@@ -122,6 +122,8 @@ if gtk_minor_version.to_int() % 2 == 1
  endif
  
  deprecated_c_args = [
@@ -9,7 +9,7 @@
    '-DG_DISABLE_DEPRECATED',
    '-DGDK_DISABLE_DEPRECATED',
    '-DGTK_DISABLE_DEPRECATED',
-@@ -233,7 +235,6 @@ else
+@@ -226,7 +228,6 @@ else
      '-Werror=main',
      '-Werror=misleading-indentation',
      '-Werror=missing-braces',
@@ -17,7 +17,7 @@
      '-Werror=nonnull',
      '-Werror=overflow',
      '-Werror=parenthesis',
-@@ -252,7 +253,6 @@ else
+@@ -245,7 +246,6 @@ else
      '-Wimplicit-function-declaration',
      '-Wlogical-op',
      '-Wmissing-format-attribute',
@@ -25,7 +25,7 @@
      '-Wmissing-noreturn',
      '-Wnested-externs',
      '-Wno-cast-function-type',
-@@ -278,9 +278,6 @@ else
+@@ -271,9 +271,6 @@ else
      test_c_args += ['-Wno-incompatible-pointer-types-discards-qualifiers']
    endif
  
@@ -35,7 +35,7 @@
  endif
  
  foreach arg: test_c_args
-@@ -318,10 +315,6 @@ test_link_args = [
+@@ -311,10 +308,6 @@ test_link_args = [
    '-Wl,-z,relro',  # Read-only segments after relocation
  ]
  if not buildtype.startswith('debug')
