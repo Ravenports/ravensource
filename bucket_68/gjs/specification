@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	1.76.2
+DEF[PORTVERSION]=	1.78.0
 DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gjs
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		lang
 VARIANTS=		standard
 SDESC[standard]=	Javascript bindings for GNOME
@@ -32,14 +31,14 @@ LICENSE_SCHEME=		multi
 FPC_EQUIVALENT=		lang/gjs
 
 BUILD_DEPENDS=		dbus:dev:standard
-			mozjs102:dev:standard
+			spidermonkey:dev:standard
 			icu:dev:standard
 BUILDRUN_DEPENDS=	dbus:primary:standard
-			mozjs102:primary:standard
+			spidermonkey:primary:standard
 			libffi:single:standard
 RUN_DEPENDS=		gobject-introspection:primary:standard
 
-EXRUN[dev]=		mozjs102:dev:standard
+EXRUN[dev]=		spidermonkey:dev:standard
 			cairo:dev:standard
 			gobject-introspection:dev:standard
 
