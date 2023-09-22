@@ -13,7 +13,7 @@ DEF[PY3_INCLUDEDIR]=	{{LOCALBASE}}/include/python${PY3DEFAULT}
 
 NAMEBASE=		gnatcoll-bindings
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 EPOCH=			1
 KEYWORDS=		devel
 VARIANTS=		standard
@@ -25,7 +25,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/AdaCore:gnatcoll-bindings:${RELEASE}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete gmp iconv python3 readline syslog examples
+SPKGS[standard]=	complete gmp iconv python3 readline syslog examples dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -44,12 +44,16 @@ BUILD_DEPENDS=		gmp:static:standard
 			readline:primary:standard
 			python${THIRD_SNAKE}:single:standard
 			gnatcoll-core:dev:standard
-BUILDRUN_DEPENDS=	gnatcoll-core:primary:standard
+			gnatcoll-core:primary:standard
 
 EXRUN[gmp]=		gmp:shared:standard
+			gnatcoll-core:primary:standard
 EXRUN[iconv]=		libiconv:primary:standard
+			gnatcoll-core:primary:standard
 EXRUN[readline]=	readline:primary:standard
+			gnatcoll-core:primary:standard
 EXRUN[python3]=		python${THIRD_SNAKE}:single:standard
+			gnatcoll-core:primary:standard
 
 USES=			gprbuild gmake iconv:build python:build
 MAKE_ENV=		BUILD=PROD
