@@ -1,7 +1,7 @@
-DEF[PORTVERSION]=	2.1-20230410
+DEF[PORTVERSION]=	2.1-20230911
 DEF[TAG]=		v${PORTVERSION}
-DEF[SOVERSION]=		2.1.0
-DEF[LUAJIT_VERSION]=	2.1.0-beta3
+DEF[SOVERSION]=		2.1.1694357807
+DEF[LUAJIT_VERSION]=	2.1
 DEF[LIBNAME_VERSION]=	5.1
 DEF[LUAJIT_API]=	2.1
 # ----------------------------------------------------------------------------
@@ -43,7 +43,7 @@ PLIST_SUB=		VERSION=${LUAJIT_VERSION}
 VAR_OPSYS[dragonfly]=	MAKE_ARGS=XCFLAGS=-DLJ_TARGET_HAS_GETENTROPY=0
 
 post-install:
-	${LN} -sf luajit-${LUAJIT_VERSION} ${STAGEDIR}${PREFIX}/bin/luajit
+	${LN} -sf luajit-${SOVERSION} ${STAGEDIR}${PREFIX}/bin/luajit
 	${INSTALL_MAN} ${WRKSRC}/etc/luajit.1 ${STAGEDIR}${MAN1PREFIX}/man/man1
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/luajit
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libluajit-*.so

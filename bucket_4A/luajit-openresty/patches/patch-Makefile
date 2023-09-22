@@ -1,6 +1,6 @@
---- Makefile.orig	2022-04-05 12:12:47 UTC
+--- Makefile.orig	2023-09-10 14:56:47 UTC
 +++ Makefile
-@@ -25,7 +25,6 @@ ABIVER=  5.1
+@@ -30,7 +30,6 @@ VERSION= $(MMVERSION).$(RELVER)
  # Change the installation path as needed. This automatically adjusts
  # the paths in src/luaconf.h, too. Note: PREFIX must be an absolute path!
  #
@@ -8,7 +8,7 @@
  export MULTILIB= lib
  ##############################################################################
  
-@@ -63,8 +62,7 @@ INSTALL_T= $(INSTALL_BIN)/$(INSTALL_TNAM
+@@ -69,8 +68,7 @@ INSTALL_T= $(INSTALL_BIN)/$(INSTALL_TNAM
  INSTALL_TSYM= $(INSTALL_BIN)/$(INSTALL_TSYMNAME)
  INSTALL_PC= $(INSTALL_PKGCONFIG)/$(INSTALL_PCNAME)
  
@@ -18,7 +18,7 @@
  UNINSTALL_DIRS= $(INSTALL_JITLIB) $(INSTALL_LJLIBD) $(INSTALL_INC) \
    $(INSTALL_LMOD) $(INSTALL_LMODD) $(INSTALL_CMOD) $(INSTALL_CMODD)
  
-@@ -121,10 +119,8 @@ install: $(INSTALL_DEP)
+@@ -133,10 +131,8 @@ install: $(INSTALL_DEP)
  	$(RM) $(INSTALL_DYN) $(INSTALL_SHORT1) $(INSTALL_SHORT2)
  	cd src && test -f $(FILE_SO) && \
  	  $(INSTALL_X) $(FILE_SO) $(INSTALL_DYN) && \
@@ -29,7 +29,7 @@
  	cd etc && $(SED_PC) $(FILE_PC) > $(FILE_PC).tmp && \
  	  $(INSTALL_F) $(FILE_PC).tmp $(INSTALL_PC) && \
  	  $(RM) $(FILE_PC).tmp
-@@ -143,7 +139,6 @@ uninstall:
+@@ -154,7 +150,6 @@ uninstall:
  	for file in $(FILES_INC); do \
  	  $(UNINSTALL) $(INSTALL_INC)/$$file; \
  	  done
