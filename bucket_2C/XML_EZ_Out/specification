@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	1.06
 
 NAMEBASE=		XML_EZ_Out
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		textproc ada
 VARIANTS=		standard
 SDESC[standard]=	Library for emitting XML from Ada programs
@@ -30,27 +30,30 @@ LICENSE_SCHEME=		solo
 
 USES=			dos2unix gprbuild
 DISTNAME=		xmlezout-alr-1.6
+INSTALL_REQ_TOOLCHAIN=	yes
 
 post-extract:
-	${CP} ${FILESDIR}/xezo_bld.gpr ${WRKSRC}
-	${SED} -e "s,@PREFIX@,${LOCALBASE},g" ${FILESDIR}/runme.sh.in \
-		> ${WRKSRC}/runme.sh
+	# Effectively rename xml_ez_out.gpr and replace it
+	${CP} ${FILESDIR}/tmezrf.gpr ${WRKSRC}/
+	${CP} ${FILESDIR}/xml_ez_out.gpr ${WRKSRC}/
 
 do-build:
-	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -p -Pxezo_bld)
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -p -Pxml_ez_out)
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -p -Ptmezrf)
 
 do-install:
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/gpr \
-		${STAGEDIR}${PREFIX}/lib/xml_ez_out \
-		${STAGEDIR}${PREFIX}/include/xml_ez_out \
-		${STAGEDIR}${STD_EXAMPLESDIR} \
-		${STAGEDIR}${STD_DOCDIR}
-	${INSTALL_DATA} ${FILESDIR}/xml_ez_out.gpr \
-		${STAGEDIR}${PREFIX}/share/gpr
-	${INSTALL_DATA} ${BUILD_WRKSRC}/mckae* \
-		${STAGEDIR}${PREFIX}/include/xml_ez_out
-	${INSTALL_DATA} ${WRKSRC}/lib/* ${STAGEDIR}${PREFIX}/lib/xml_ez_out
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${SETENV} ${MAKE_ENV} gprinstall\
+		--no-manifests \
+		--prefix=${STAGEDIR}${PREFIX} \
+		--lib-subdir=lib/xml_ez_out \
+		--sources-subdir=include/xml_ez_out \
+		-p -P ${WRKSRC}/xml_ez_out
+	${SETENV} ${MAKE_ENV} gprinstall\
+		--no-manifests \
+		--prefix=${STAGEDIR}${PREFIX} \
+		-p -P ${WRKSRC}/tmezrf
+
+post-install:
 	${INSTALL_DATA} ${BUILD_WRKSRC}/README ${STAGEDIR}${STD_DOCDIR}
-	${INSTALL_SCRIPT} ${WRKSRC}/runme.sh ${STAGEDIR}${STD_EXAMPLESDIR}
-	${INSTALL_DATA} ${BUILD_WRKSRC}/tmeztf.adb \
-		${FILESDIR}/example.gpr ${STAGEDIR}${STD_EXAMPLESDIR}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/tmeztf
