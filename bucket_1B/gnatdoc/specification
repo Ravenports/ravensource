@@ -6,7 +6,7 @@ DEF[RELEASE]=		12b5610
 
 NAMEBASE=		gnatdoc
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		textproc ada
 VARIANTS=		standard
 SDESC[standard]=	GNAT Documentation Generation Tool
@@ -17,24 +17,22 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/AdaCore:gnatdoc:${RELEASE}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv3+:single
+LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:stock
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/source/gnatdoc.ads
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		libadalang:tools:standard
-			xmlada:dev:standard
-			libvss:dev:standard
-			libgpr2:single:standard
+BUILD_DEPENDS=		libvss:dev:standard
 			ada-markdown:single:standard
-			gpr-unit-provider:single:standard
+			gpr-unit-provider:dev:standard
+			gpr-unit-provider:primary:standard
 BUILDRUN_DEPENDS=	gmp:shared:standard
 
 USES=			gmake gprbuild iconv
