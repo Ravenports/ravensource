@@ -1,9 +1,9 @@
-DEF[PORTVERSION]=	06
+DEF[PORTVERSION]=	10
+DEF[FILEVERSION]=	0${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		generic_image_decoder
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		graphics ada
 VARIANTS=		standard
 SDESC[standard]=	Multi-format image decoder library for Ada
@@ -12,9 +12,9 @@ CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/gen-img-dec
-DISTFILE[1]=		gid-${PORTVERSION}.zip:main
+DISTFILE[1]=		gid_${FILEVERSION}.zip:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary dev docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,35 +25,33 @@ LICENSE_AWK=		MIT:"^with "
 LICENSE_SOURCE=		MIT:{{WRKSRC}}/gid.ads
 LICENSE_SCHEME=		solo
 
-USES=			dos2unix gprbuild
+USES=			gprbuild
 DISTNAME=		gid
 MAKE_ENV=		Build_Mode=Fast_but_checked
+INSTALL_REQ_TOOLCHAIN=	yes
 
 post-extract:
-	${CP} ${FILESDIR}/construct.gpr ${WRKSRC}
-	${MKDIR} ${WRKSRC}/src ${WRKDIR}/data
-	${MV} ${WRKSRC}/gid_work.xls ${WRKDIR}/data
-	(cd ${WRKSRC}; ${MV} *.ad[bs] src)
-
-post-patch:
-	${REINPLACE_CMD} -e "s|-j2|-j${MAKE_JOBS_NUMBER}|" \
-		${WRKSRC}/gid.gpr
+	${MKDIR} ${WRKSRC}/src
+	${MV} ${WRKSRC}/*.ad[bs] ${WRKSRC}/src
+	${CP} ${FILESDIR}/generic_image_decoder.gpr ${WRKSRC}/
 
 do-build:
-	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -p -P construct)
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -P gid)
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -P generic_image_decoder)
 
 do-install:
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/gpr \
-		${STAGEDIR}${PREFIX}/lib/generic_image_decoder \
-		${STAGEDIR}${PREFIX}/include/generic_image_decoder \
-		${STAGEDIR}${STD_DOCDIR}
-	${INSTALL_DATA} ${FILESDIR}/generic_image_decoder.gpr \
-		${STAGEDIR}${PREFIX}/share/gpr
-	${INSTALL_DATA} ${WRKSRC}/src/* \
-		${STAGEDIR}${PREFIX}/include/generic_image_decoder
-	${INSTALL_DATA} ${WRKSRC}/lib/*  \
-		${STAGEDIR}${PREFIX}/lib/generic_image_decoder
-	(cd ${WRKSRC}/test && ${INSTALL_PROGRAM} to_bmp mini \
-		${STAGEDIR}${PREFIX}/bin)
+	${SETENV} ${MAKE_ENV} gprinstall\
+		--no-manifests \
+		--prefix=${STAGEDIR}${PREFIX} \
+		-p -P ${WRKSRC}/gid.gpr
+	${SETENV} ${MAKE_ENV} gprinstall\
+		--no-manifests \
+		--prefix=${STAGEDIR}${PREFIX} \
+		--lib-subdir=lib/generic_image_decoder \
+		--sources-subdir=include/generic_image_decoder \
+		-p -P ${WRKSRC}/generic_image_decoder.gpr
+
+post-install:
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 	${INSTALL_DATA} ${WRKSRC}/gid.txt ${STAGEDIR}${STD_DOCDIR}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
