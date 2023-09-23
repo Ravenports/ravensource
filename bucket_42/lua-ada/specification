@@ -1,4 +1,3 @@
-# Version is made up; the source nor git reposition has any identified version
 DEF[PORTVERSION]=	0.1.0
 DEF[TAG]=		v${PORTVERSION}
 # not used anymore (was to build examples)
@@ -7,7 +6,7 @@ DEF[REPLACEMENT]=	"-L{{LOCALBASE}}/lib", "-Wl,-R,{{LOCALBASE}}/lib","-llua-{{LUA
 
 NAMEBASE=		lua-ada
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 EPOCH=			1
 KEYWORDS=		lang devel ada
 VARIANTS=		standard
@@ -33,20 +32,16 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/lua-ada_limited_types.ads
 LICENSE_SCHEME=		multi
 
 USES=			gprbuild lua:5.3
-
-MAKEFILE=		USE_64=1
-SUB_FILES=		lua.gpr
-SUB_LIST=		LUA_VER={{LUA_VER}}
+INSTALL_REQ_TOOLCHAIN=	yes
 
 do-build:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
-		gprbuild -Pada_lua --create-missing-dirs)
+		gprbuild -p -Pada_lua -XLIBRARY_TYPE=static-pic)
 
 do-install:
-	${MKDIR} ${STAGEDIR}${PREFIX}/lib/lua-ada \
-		${STAGEDIR}${PREFIX}/share/gpr \
-		${STAGEDIR}${PREFIX}/include/lua-ada
-	${INSTALL_DATA} ${WRKSRC}/lib/* ${STAGEDIR}${PREFIX}/lib/lua-ada
-	${INSTALL_DATA} ${WRKDIR}/lua.gpr ${STAGEDIR}${PREFIX}/share/gpr
-	${INSTALL_DATA} ${WRKSRC}/src/*.ad[bs] \
-		${STAGEDIR}${PREFIX}/include/lua-ada
+	${SETENV} ${MAKE_ENV} gprinstall\
+		--no-manifests \
+		--prefix=${STAGEDIR}${PREFIX} \
+		--lib-subdir=lib/lua-ada \
+		--sources-subdir=include/lua-ada \
+		-p -P ${WRKSRC}/ada_lua.gpr
