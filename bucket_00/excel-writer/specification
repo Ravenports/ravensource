@@ -1,10 +1,9 @@
-DEF[VERSION]=		17_r2
+DEF[VERSION]=		18
 DEF[PORTVERSION]=	${VERSION:S/_//g}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		excel-writer
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		misc ada
 VARIANTS=		standard
 SDESC[standard]=	Create Excel files with basic formats (Ada lib)
@@ -15,53 +14,43 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/excel-writer/excel-writer
 DISTFILE[1]=		excel_writer_${VERSION}.zip:main
 
-SPKGS[standard]=	complete primary docs examples
+SPKGS[standard]=	complete primary dev docs examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:primary
+LICENSE=		MIT:dev
 LICENSE_FILE=		MIT:{{WRKDIR}}/LICENSE
-LICENSE_AWK=		MIT:"^--  Follow"
-LICENSE_SOURCE=		MIT:{{WRKSRC}}/excel_out.ads
 LICENSE_SCHEME=		solo
 
 USES=			dos2unix gprbuild
 DISTNAME=		Excel_Writer
-
-post-extract:
-	${CP} ${FILESDIR}/construct.gpr ${FILESDIR}/biff_dump.gpr ${WRKSRC}
-	${MKDIR} ${WRKSRC}/src ${WRKDIR}/data
-	(cd ${WRKSRC}; ${MV} excel_out.ad[bs] ieee* extras/csv.* src)
-	${SED} -e "s,@PREFIX@,${LOCALBASE},g" ${FILESDIR}/runme.sh.in \
-		> ${WRKSRC}/runme.sh
+INSTALL_REQ_TOOLCHAIN=	yes
 
 post-patch:
-	${REINPLACE_CMD} -e 's/"\(.*\.xls\)"/"\/tmp\/\1"/g' \
-		${WRKSRC}/excel_out_demo.adb
+	# We can't use LICENSE_AWK because dos2unix hasn't run yet
+	${AWK} '/^--  Follow/ {exit}; {print}' ${WRKSRC}/excel_out.ads > ${WRKDIR}/LICENSE
+	# use our homegrown gpr file
+	${CP} ${FILESDIR}/excelwriter.gpr ${WRKSRC}/
 
 do-build:
-	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -p -Pconstruct)
-	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -p -Pbiff_dump)
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -p -Pexcel_out_gnat)
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -p -Pexcelwriter)
 
 do-install:
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/gpr \
-		${STAGEDIR}${PREFIX}/lib/excel_writer \
-		${STAGEDIR}${PREFIX}/include/excel_writer \
-		${STAGEDIR}${STD_DOCDIR} \
-		${STAGEDIR}${STD_EXAMPLESDIR}
-	${INSTALL_DATA} ${FILESDIR}/excel_writer.gpr \
-		${STAGEDIR}${PREFIX}/share/gpr
-	${INSTALL_DATA} ${WRKSRC}/src/* \
-		${STAGEDIR}${PREFIX}/include/excel_writer
-	${INSTALL_DATA} ${WRKSRC}/lib/*  \
-		${STAGEDIR}${PREFIX}/lib/excel_writer
-	${INSTALL_PROGRAM} ${WRKSRC}/bin/biff_dump \
-		${STAGEDIR}${PREFIX}/bin
+	${SETENV} ${MAKE_ENV} gprinstall\
+		--no-manifests \
+		--prefix=${STAGEDIR}${PREFIX} \
+		-p -P ${WRKSRC}/excel_out_gnat.gpr
+	${SETENV} ${MAKE_ENV} gprinstall\
+		--no-manifests \
+		--prefix=${STAGEDIR}${PREFIX} \
+		--lib-subdir=lib/excelwriter \
+		--sources-subdir=include/excelwriter \
+		-p -P ${WRKSRC}/excelwriter.gpr
+
+post-install:
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 	${INSTALL_DATA} ${WRKSRC}/excel_writer.txt \
 		${STAGEDIR}${STD_DOCDIR}
-	${INSTALL_SCRIPT} ${WRKSRC}/runme.sh \
-		${STAGEDIR}${STD_EXAMPLESDIR}
-	${INSTALL_DATA} ${WRKSRC}/excel_out_demo.adb \
-		${FILESDIR}/example.gpr \
-		${STAGEDIR}${STD_EXAMPLESDIR}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
