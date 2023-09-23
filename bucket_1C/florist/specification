@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	2017
 
 NAMEBASE=		florist
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		devel ada
 VARIANTS=		standard
 SDESC[standard]=	POSIX Ada binding, IEEE Standards 1003.5(b,c)
@@ -31,7 +31,8 @@ BROKEN[linux]=		missing various type definition headers
 USES=			gprbuild gmake
 DISTNAME=		florist-gpl-${PORTVERSION}-src
 MUST_CONFIGURE=		gnu
-SUB_FILES=		florist.gpr
+CONFIGURE_ARGS=		--enable-shared
+INSTALL_REQ_TOOLCHAIN=	yes
 
 post-extract:
 	if [ "${OPSYS}" != "FreeBSD" ]; then \

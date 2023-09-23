@@ -1,5 +1,14 @@
 --- configure.orig	2014-12-12 09:05:56 UTC
 +++ configure
+@@ -2712,7 +2712,7 @@ if test "${enable_shared+set}" = set; th
+ { $as_echo "$as_me:${as_lineno-$LINENO}: result: $enableval" >&5
+ $as_echo "$enableval" >&6; }
+ if test "$enableval" = "yes"; then
+-  LIBRARY_TYPE_OPTION="-XLIBRARY_TYPE=relocatable"
++  LIBRARY_TYPE_OPTION="-XLIBRARY_TYPE=static-pic"
+ fi
+ 
+ else
 @@ -2849,10 +2849,22 @@ case ${UNAME_SYSTEM} in
      echo "Using Configuration for" ${UNAME_SYSTEM} ${UNAME_RELEASE};
      cp ./configs/pconfig.LynxOS ./pconfig.h.in;
