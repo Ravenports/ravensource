@@ -6,7 +6,7 @@ DEF[RELEASE]=		4c2aacd
 
 NAMEBASE=		libgpr2
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		devel ada
 VARIANTS=		standard
 SDESC[standard]=	Parser for GPR Project files
@@ -33,11 +33,12 @@ LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		langkit:single:standard
 			langkit_support:dev:standard
-			xmlada:dev:standard
-			gprbuild:dev:standard
 			gnatcoll-core:dev:standard
 			gnatcoll-bindings:dev:standard
 BUILDRUN_DEPENDS=	langkit_support:primary:standard
+
+EXRUN[dev]=		gnatcoll-bindings:dev:standard
+			gnatcoll-core:dev:standard
 
 USES=			gmake gprbuild python:build iconv:build
 MAKE_ARGS=		prefix="{{STAGEDIR}}{{PREFIX}}"
