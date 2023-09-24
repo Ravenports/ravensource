@@ -1,4 +1,4 @@
---- Makefile.orig	2021-05-19 05:25:22 UTC
+--- Makefile.orig	2022-09-08 12:44:16 UTC
 +++ Makefile
 @@ -4,7 +4,7 @@ GPRBUILD  = gprbuild
  GPRCLEAN = gprclean
@@ -9,3 +9,11 @@
  
  ifeq ($(RTS),)
     RTS=full
+@@ -63,6 +63,7 @@ endif
+ 
+ install: install-clean
+ 	$(GPRINSTALL) $(GPROPTS) -p -f --prefix=$(INSTALL) \
++		--no-manifests \
+ 		--no-build-var lib/gnat/aunit.gpr
+ 
+ .PHONY: doc

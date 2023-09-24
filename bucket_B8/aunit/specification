@@ -34,9 +34,6 @@ INSTALL_REQ_TOOLCHAIN=	yes
 PLIST_SUB=		JQUERY=${JQUERY}
 			UNDERSCORE=${UNDERSCORE}
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e 's|LIBDIR|MYLIBDIR|' \
 		${WRKSRC}/lib/gnat/aunit_shared.gpr
-
-post-install:
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
