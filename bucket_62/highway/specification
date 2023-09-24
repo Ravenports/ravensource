@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	1.0.7
+DEF[SOVERSION]=		${PORTVERSION}
+DEF[RELEASE_TAG]=	${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		highway
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Efficient and performance-portable SIMD
+HOMEPAGE=		https://github.com/google/highway
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/google:highway:${RELEASE_TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:primary
+			APACHE20:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE-BSD3
+			APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^\#\# Why"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/README.md
+LICENSE_SCHEME=		dual
+
+FPC_EQUIVALENT=		devel/highway
+
+USES=			cmake c++:primary
+CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
+			-DHWY_SYSTEM_GTEST:BOOL=ON
+			-DBUILD_TESTING:BOOL=OFF
+SOVERSION=		${SOVERSION}
+
+# fixes link to missing __extendhfsf2 symbol
+LDFLAGS=		-fuse-ld=gold
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
