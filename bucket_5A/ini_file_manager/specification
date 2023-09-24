@@ -32,6 +32,8 @@ INSTALL_REQ_TOOLCHAIN=	yes
 post-patch:
 	# Done here because it comes with DOS endings
 	${AWK} '/^--  Change log/ {exit}; {print}' ${WRKSRC}/config.ads > ${WRKDIR}/LICENSE
+
+pre-configure:
 	# install our gpr build
 	${CP} ${FILESDIR}/construct.gpr ${WRKSRC}/ini_file_manager.gpr
 
@@ -39,8 +41,13 @@ do-build:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -v -p -Pini_file_manager)
 
 do-install:
-	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
-		gprinstall -v -p -Pini_file_manager --no-manifest \
-		--prefix=${STAGEDIR}${PREFIX})
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprinstall \
+		--prefix=${STAGEDIR}${PREFIX}\
+		--sources-subdir=include/ini_file_manager \
+		--lib-subdir=lib/ini_file_manager \
+		--no-manifest \
+		-p -Pini_file_manager)
+
+post-install:
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 	${INSTALL_DATA} ${WRKSRC}/README.md ${STAGEDIR}${STD_DOCDIR}/
