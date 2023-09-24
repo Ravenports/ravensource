@@ -1,5 +1,14 @@
 --- build/libsparkcrypto.gpr.orig	2019-09-24 19:43:33 UTC
 +++ build/libsparkcrypto.gpr
+@@ -2,7 +2,7 @@ project Libsparkcrypto
+ is
+    type IO_Type        		is ("textio", "nullio");
+    type Runtime_Type   		is ("native", "zfp");
+-   type Lib_Type      	   is ("static", "dynamic");
++   type Lib_Type      	   is ("static", "dynamic", "static-pic");
+ 
+    IO        	 : IO_Type := "textio";
+    Runtime   	 : Runtime_Type := external ("RTS", "native");
 @@ -17,8 +17,10 @@ is
  
     end case;

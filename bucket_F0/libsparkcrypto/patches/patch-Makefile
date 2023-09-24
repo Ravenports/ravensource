@@ -17,6 +17,15 @@
  INSTALL_DEPS   = install_files \
  
  # Feature: ARCH
+@@ -47,7 +46,7 @@ ifneq ($(SHARED),)
+    LIBTYPE = dynamic
+    LIBPREFIX = .so
+ else
+-   LIBTYPE = static
++   LIBTYPE = static-pic
+    LIBPREFIX = .a
+ endif
+ 
 @@ -124,22 +123,22 @@ $(OUTPUT_DIR)/proof/gnatprove.log:
  install: $(INSTALL_DEPS)
  
