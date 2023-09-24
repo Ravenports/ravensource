@@ -2,11 +2,12 @@ DEF[PORTVERSION]=	23.0.0
 # DEF[RELEASE]=		v${PORTVERSION}
 # 18 MAY 2023
 DEF[RELEASE]=		2642bd6
+DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ada_spawn
 VERSION=		${PORTVERSION}
-REVISION=		3
+REVISION=		4
 KEYWORDS=		devel ada
 VARIANTS=		standard
 SDESC[standard]=	Simple API to spawn communicating processes
@@ -17,14 +18,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/AdaCore:spawn:${RELEASE}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		APACHE20:single
+LICENSE=		APACHE20:primary
 LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE.txt
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/source/spawn/spawn.ads
 LICENSE_SCHEME=		solo
@@ -39,14 +40,18 @@ USES=			gmake gprbuild fontconfig zlib:build gettext:build
 GNOME_COMPONENTS=	gtk3
 INSTALL_REQ_TOOLCHAIN=	yes
 MAKE_ENV=		BUILD_MODE=prod
+SOVERSION=		${SOVERSION}
 
 post-extract:
 	${CP} ${FILESDIR}/ptsname_r.c ${WRKSRC}/source/spawn
 
+post-patch:
+	${REINPLACE_CMD} -e 's/@SOVERSION@/${SOVERSION}/' ${WRKSRC}/gnat/spawn*.gpr
+
 do-build:
 .for LT in relocatable static-pic static
 . for GPR in spawn.gpr spawn_glib.gpr
-	${SETENV} ${MAKE_ENV} gprbuild -p -j0 -XSPAWN_LIBRARY_TYP=${LT} -P ${WRKSRC}/gnat/${GPR}
+	${SETENV} ${MAKE_ENV} gprbuild -p -j0 -XSPAWN_LIBRARY_TYPE=${LT} -P ${WRKSRC}/gnat/${GPR}
 . endfor
 .endfor
 
@@ -54,10 +59,15 @@ do-install:
 .for LT in relocatable static-pic static
 . for GPR in spawn spawn_glib
 	${SETENV} ${MAKE_ENV} gprinstall\
+		--build-var=SPAWN_LIBRARY_TYPE\
+		--build-name=${LT}\
 		--prefix=${STAGEDIR}${PREFIX}\
 		--lib-subdir=lib/${GPR}.${LT}\
 		--sources-subdir=include/${GPR}\
+		--link-lib-subdir=lib \
+		--no-manifests\
+		-XSPAWN_LIBRARY_TYPE=${LT}\
 		-p -P ${WRKSRC}/gnat/${GPR}.gpr
 . endfor
 .endfor
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libspawn.so
