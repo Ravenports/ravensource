@@ -1,0 +1,75 @@
+DEF[PORTVERSION]=	0.8.2
+DEF[SOVERSION]=		${PORTVERSION}
+DEF[RELEASE_TAG]=	v${PORTVERSION}
+DEF[RELEASE_SKCMS]=	b25b07b
+DEF[RELEASE_SJPEG]=	e5ab130
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libjxl
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	JPEG XL image format reference implementation
+HOMEPAGE=		https://jpeg.org/jpegxl/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main skcms sjpeg
+SITES[main]=		GITHUB/libjxl:libjxl:${RELEASE_TAG}
+SITES[skcms]=		GITHUB/jbeich:skcms:${RELEASE_SKCMS}:third_party/skcms
+SITES[sjpeg]=		GITHUB/webmproject:sjpeg:${RELEASE_SJPEG}:third_party/sjpeg
+DISTFILE[1]=		generated:main
+DISTFILE[2]=		generated:skcms
+DISTFILE[3]=		generated:sjpeg
+DF_INDEX=		1 2 3
+
+SPKGS[standard]=	complete primary tools dev man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		graphics/libjxl
+
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		asciidoc:single:standard
+			openexr:dev:standard
+			brotli:dev:standard
+			highway:dev:standard
+			libavif:dev:standard
+			openexr:primary:standard
+			libavif:primary:standard
+			jpeg-turbo:primary:standard
+			zlib:primary:standard
+			png:primary:standard
+			giflib:primary:standard
+
+BUILDRUN_DEPENDS=	brotli:primary:standard
+			highway:primary:standard
+
+EXRUN[tools]=		primary
+			openexr:primary:standard
+			libavif:primary:standard
+			jpeg-turbo:primary:standard
+			zlib:primary:standard
+			png:primary:standard
+			giflib:primary:standard
+
+USES=			cpe cmake pkgconfig mime-info:primary
+			gif:build jpeg:build png:build zlib:build
+CPE_VENDOR=		libjxl_project
+SOVERSION=		${SOVERSION}
+CMAKE_ARGS=		-DJPEGXL_ENABLE_MANPAGES:BOOL=ON
+			-DJPEGXL_ENABLE_OPENEXR:BOOL=ON
+			-DJPEGXL_ENABLE_PLUGINS:BOOL=ON
+			-DJPEGXL_FORCE_SYSTEM_BROTLI:BOOL=ON
+			-DBUILD_TESTING:BOOL=OFF
+PLIST_SUB=		SOMAJMIN=${SOVERSION:R}
+
+# fixes link to missing __extendhfsf2 symbol
+LDFLAGS=		-fuse-ld=gold
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libjx*.so
