@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	1.16.0
-DEF[SOVERSION]=		2.11600.0
+DEF[PORTVERSION]=	1.18.0
+DEF[SOVERSION]=		2.11800.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		cairo
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Vector graphics library with cross-device support
@@ -41,49 +40,27 @@ EXRUN[dev]=		fontconfig:dev:standard
 			xorg-xext:dev:standard
 			xorg-x11:dev:standard
 
-USES=			cpe libtool fontconfig pkgconfig png mbsdfix
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-html-dir={{STD_DOCDIR}}
-			--disable-directfb
-			--disable-gallium
-			--disable-glesv2
-			--disable-wgl
-			--enable-tee
-			--enable-gobject
-			--enable-gl
-			--enable-egl
-			--enable-xlib
-			--enable-xcb
-CONFIGURE_ENV=		cairo_cv_atomic_primitives="libatomic-ops"
+USES=			cpe fontconfig pkgconfig png meson
+MESON_ARGS=		-Dpng=enabled
+			-Dtee=enabled
+			-Dxcb=enabled
+			-Dxlib=enabled
+			-Dglib=enabled
+			-Dfontconfig=enabled
+			-Dfreetype=enabled
+			-Dxlib-xcb=disabled
+			-Ddwrite=disabled
+			-Dquartz=disabled
+			-Dtests=disabled
+			-Dgtk_doc=false
 CPE_VENDOR=		cairographics
-XORG_COMPONENTS=	pixman x11 xext xrender xcb-render-util
+XORG_COMPONENTS=	pixman x11 xcb xext xrender xcb-render-util
 GNOME_COMPONENTS=	glib
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 
-VAR_OPSYS[sunos]=	CFLAGS=-D_XOPEN_SOURCE=600
-VAR_OPSYS[netbsd]=	CONFIGURE_ENV=ac_cv_lib_dl_dlsym=false
-
-post-patch:
-	${REINPLACE_CMD} \
-		-e '/strings/s/ - / -a /' \
-		-e '/test/s/==/=/g' \
-		-e '/LIBS/s|-ldld||' ${WRKSRC}/configure
+post-patch-linux:
 	${REINPLACE_CMD} -e 's|-lcairo|-lcairo -lpthread|' \
 		${WRKSRC}/src/*.pc.in
-	${REINPLACE_CMD} -e '/@CAIRO_HAS_PNG_FUNCTIONS_TRUE@.*=/d' \
-		${WRKSRC}/Makefile.in
 
-	# disable html docs (gnome referencehack)
-	${FIND} ${WRKSRC} -name "Makefile.in" -type f | ${XARGS} ${REINPLACE_CMD} -e \
-		"s|test \"\$$\$$installfiles\" = '\$$(srcdir)/html/\*'|:|"
-
-post-patch-dragonfly:
-	${REINPLACE_CMD} -e '/LIBS/s/-lrt//' ${WRKSRC}/configure
-
-post-patch-freebsd:
-	${REINPLACE_CMD} -e '/LIBS/s/-lrt//' ${WRKSRC}/configure
-
-post-patch-midnightbsd:
-	${REINPLACE_CMD} -e '/LIBS/s/-lrt//' ${WRKSRC}/configure
