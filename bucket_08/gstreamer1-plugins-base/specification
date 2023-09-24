@@ -1,19 +1,24 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(GSTREAMER1_VERSION)
 DEF[GST_VERSION]=	EXTRACT_INFO(GSTREAMER1_GST)
 DEF[SOVERSION]=		EXTRACT_INFO(GSTREAMER1_SOVERSION)
+DEF[GLHEAD_COMMIT]=	5c8c7c0d3ca1f0b783272dac0b95e09414e49bc8
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gstreamer1-plugins-base
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		standard
 SDESC[standard]=	GStreamer Multimedia Framework Base Plugins
 HOMEPAGE=		https://gstreamer.freedesktop.org/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main glhead
 SITES[main]=		https://gstreamer.freedesktop.org/src/gst-plugins-base/
+SITES[glhead]=		https://gitlab.freedesktop.org/gstreamer/meson-ports/gl-headers/-/archive/${GLHEAD_COMMIT}/
 DISTFILE[1]=		gst-plugins-base-${PORTVERSION}.tar.xz:main
+DISTFILE[2]=		gl-headers-${GLHEAD_COMMIT}.tar.gz:glhead
+DF_INDEX=		1 2
 
 SPKGS[standard]=	complete primary nls dev man
 
@@ -66,3 +71,7 @@ VAR_OPSYS[sunos]=	CFLAGS=-DHAVE_FIONREAD_IN_SYS_FILIO=1
 			LDFLAGS=-lintl
 			LDFLAGS=-lsocket
 
+post-extract:
+	# install gl-headers
+	${RM} ${WRKSRC}/subprojects/gl-headers.wrap
+	${LN} -s ${WRKDIR}/gl-headers-${GLHEAD_COMMIT} ${WRKSRC}/subprojects/gl-headers
