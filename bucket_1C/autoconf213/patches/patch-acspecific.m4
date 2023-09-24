@@ -1,6 +1,6 @@
---- acspecific.m4.orig	2017-11-13 13:29:43.063432000 +0100
-+++ acspecific.m4	2017-11-13 13:30:37.762988000 +0100
-@@ -2659,7 +2659,7 @@
+--- acspecific.m4.orig	1999-01-05 13:27:52 UTC
++++ acspecific.m4
+@@ -2659,7 +2659,7 @@ else
    if AC_TRY_EVAL(ac_link); then
      for file in conftest.*; do
        case $file in

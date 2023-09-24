@@ -1,6 +1,6 @@
---- autoupdate.sh.orig  Mon Nov 22 21:52:26 1999
-+++ autoupdate.sh       Mon Nov 22 21:54:30 1999
-@@ -26,7 +26,7 @@
+--- autoupdate.sh.orig	1999-01-05 13:28:42 UTC
++++ autoupdate.sh
+@@ -26,7 +26,7 @@ usage="\
  Usage: autoupdate [-h] [--help] [-m dir] [--macrodir=dir] 
         [--version] [template-file]" 
  
@@ -9,7 +9,7 @@
  # For debugging.
  #sedtmp=/tmp/acups
  show_version=no
-@@ -66,7 +66,7 @@
+@@ -66,7 +66,7 @@ fi
  
  : ${SIMPLE_BACKUP_SUFFIX='~'}
  

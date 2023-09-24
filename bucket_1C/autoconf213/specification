@@ -1,11 +1,9 @@
 DEF[PORTVERSION]=	2.13
-DEF[SHARED_FILES]=	acconfig.h acfunctions acheaders acidentifiers acmakevars acprograms config.guess config.sub install-sh
-DEF[BINARIES]=		autoreconf autoconf autoupdate autoscan autoheader ifnames
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		autoconf213
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Automatic config tool for *nix (legacy version)
@@ -34,24 +32,19 @@ LICENSE_SCHEME=		solo
 BUILDRUN_DEPENDS=	m4:primary:standard
 RUN_DEPENDS=		autoconf-switch:single:standard
 
-USES=			gmake makeinfo perl
+USES=			gmake perl
 PLIST_SUB=		ACVER=${PORTVERSION}
-INFO=			single:autoconf
 MUST_CONFIGURE=		gnu
 CONFIGURE_ENV=		M4={{LOCALBASE}}/bin/gm4
 			AWK={{AWK}}
-CONFIGURE_ARGS=		--program-suffix=-${PORTVERSION}
+CONFIGURE_ARGS=		--program-suffix=${PORTVERSION}
 
 DISTNAME=		autoconf-${PORTVERSION}
 
-do-install:
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/autoconf-${PORTVERSION}
-	${CP} ${WRKSRC}/*.info* ${STAGEDIR}${PREFIX}/share/info
-	${CP} ${WRKSRC}/*.m4 ${STAGEDIR}${PREFIX}/share/autoconf-${PORTVERSION}
-	${CP} ${WRKSRC}/*.m4f ${STAGEDIR}${PREFIX}/share/autoconf-${PORTVERSION}
-.for f in ${SHARED_FILES}
-	${CP} ${WRKSRC}/${f} ${STAGEDIR}${PREFIX}/share/autoconf-${PORTVERSION}
-.endfor
-.for f in ${BINARIES}
-	${CP} ${WRKSRC}/${f} ${STAGEDIR}${PREFIX}/bin/${f}-${PORTVERSION}
-.endfor
+post-patch:
+	${REINPLACE_CMD} \
+		-e '/^acdatadir =/s/autoconf/&${VERSION}/' \
+		-e '/^all:/s/ info//' \
+		-e '/^install:/s/ install-info//' \
+		${WRKSRC}/Makefile.in
+	${RM} ${WRKSRC}/standards.texi
