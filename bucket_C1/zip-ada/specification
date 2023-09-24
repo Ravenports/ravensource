@@ -1,11 +1,9 @@
-DEF[PORTVERSION]=	55
-DEF[ZTOOLS]=		bunzip bwt_dec bwt_enc comp_zip find_zip lzhuf lzma_dec lzma_enc rezip unzipada zipada
-DEF[DEMOS]=		bwt_demo demo_csv_into_zip demo_zip demo_unzip
+DEF[PORTVERSION]=	58
+DEF[SOVERSION]=		${PORTVERSION}.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		zip-ada
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		archivers ada
 VARIANTS=		standard
 SDESC[standard]=	Zip compression library written in Ada
@@ -16,44 +14,39 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/unzip-ada/
 DISTFILE[1]=		zipada${PORTVERSION}.zip:main
 
-SPKGS[standard]=	complete primary examples
+SPKGS[standard]=	complete primary tools tests dev examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 LICENSE=		MIT:primary
-LICENSE_FILE=		MIT:{{WRKSRC}}/zip_lib/zip.ads
+LICENSE_FILE=		MIT:{{WRKDIR}}/LICENSE
+LICENSE_SOURCE=		MIT:{{WRKSRC}}/zip_lib/zip.ads
+LICENSE_AWK=		MIT:"^with Zip_Streams"
 LICENSE_SCHEME=		solo
 
 USES=			ada:primary dos2unix gprbuild perl:build
 DISTNAME=		zip-ada
 MAKE_ENV=		Build_Mode=Fast
+SOVERSION=		${SOVERSION}
+INSTALL_REQ_TOOLCHAIN=	yes
+
+pre-configure:
+	${REINPLACE_CMD} -e "s/@SOVERSION@/${SOVERSION}/" ${WRKSRC}/zipada_lib.gpr
 
 do-build:
-	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -p -P zipada.gpr)
+.for project in zipada_lib zipada zipada_test
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -p -P ${project}.gpr)
+.endfor
 
 do-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/bin \
-		  ${STAGEDIR}${STD_EXAMPLESDIR} \
-		  ${STAGEDIR}${PREFIX}/include/zip-ada \
-		  ${STAGEDIR}${PREFIX}/lib/zip-ada \
-		  ${STAGEDIR}${PREFIX}/share/gpr
-	@${MKDIR} ${WRKSRC}/obj_tools ${WRKSRC}/obj_demos
-.for F in ${ZTOOLS}
-	${INSTALL_PROGRAM} ${WRKSRC}/${F} ${STAGEDIR}${PREFIX}/bin/
-	${MV} ${WRKSRC}/obj_opt/${F}.* ${WRKSRC}/obj_tools/
+.for project in zipada_lib zipada zipada_test
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprinstall \
+		--prefix=${STAGEDIR}${PREFIX} \
+		--no-manifests \
+		-p -P ${project}.gpr)
 .endfor
-.for F in ${DEMOS}
-	${INSTALL_PROGRAM} ${WRKSRC}/${F} ${STAGEDIR}${STD_EXAMPLESDIR}/
-	${MV} ${WRKSRC}/obj_opt/${F}.* ${WRKSRC}/obj_demos/
-.endfor
-	(cd ${WRKSRC}/obj_opt && ${AR} rcs libzip-ada.a *.o)
-	${MV} ${STAGEDIR}${PREFIX}/bin/bunzip \
-		${STAGEDIR}${PREFIX}/bin/debzip2
-	${INSTALL_DATA} ${WRKSRC}/zip_lib/*.ad[sb] \
-		${STAGEDIR}${PREFIX}/include/zip-ada/
-	${INSTALL_DATA} ${WRKSRC}/obj_opt/*.ali \
-		${STAGEDIR}${PREFIX}/lib/zip-ada/
-	${RM} ${STAGEDIR}${PREFIX}/lib/zip-ada/b__*.ali
-	${INSTALL_DATA} ${WRKSRC}/obj_opt/*.a ${STAGEDIR}${PREFIX}/lib/zip-ada/
-	${INSTALL_DATA} ${FILESDIR}/zip-ada.gpr ${STAGEDIR}${PREFIX}/share/gpr/
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libzipada.so
