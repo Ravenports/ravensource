@@ -10,9 +10,12 @@ SDESC[standard]=	Authoritative DNS server verified by SPARK/Ada
 HOMEPAGE=		http://ironsides.martincarlisle.com
 CONTACT=		John_Marino[draco@marino.st]
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main draco
 SITES[main]=		http://ironsides.martincarlisle.com/
+SITES[draco]=		http://downloads.dragonlace.net/src/
 DISTFILE[1]=		ironsides_authoritative-${PORTVERSION}.zip:main
+DISTFILE[2]=		libspark2012-2012.tar.bz2:main
+DF_INDEX=		1 2
 
 SPKGS[standard]=	complete primary man
 
@@ -24,12 +27,12 @@ LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/COPYRIGHT.txt
 LICENSE_NAME=		CUSTOM1:"IRONSIDES - Free software, unlimited redistribution"
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		libspark2012:single:standard
-
 USES=			dos2unix gprbuild
 DOS2UNIX_FILES=		dfcs.usafa.edu.zonefile
+			COPYRIGHT.txt
 			ironsides.1
 DISTNAME=		ironsides_authoritative-${PORTVERSION}
 
 post-extract:
 	${CP} ${FILESDIR}/ironsides.gpr ${FILESDIR}/Makefile ${WRKSRC}/
+	${CP} ${FILESDIR}/spark2012.gpr ${WRKSRC}/
