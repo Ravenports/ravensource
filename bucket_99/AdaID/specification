@@ -1,10 +1,11 @@
-DEF[PORTVERSION]=	0.0.1
+DEF[PORTVERSION]=	1.0.3
 DEF[LIB_VERSION]=	1.0.2
+DEF[RELEASE_TAG]=	${PORTVERSION}
+DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		AdaID
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel ada
 VARIANTS=		standard
 SDESC[standard]=	Simple Ada library for generating UUIDs
@@ -12,42 +13,32 @@ HOMEPAGE=		https://github.com/anthony-arnold/AdaID
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/anthony-arnold:AdaID:v0.0.1
+SITES[main]=		GITHUB/anthony-arnold:AdaID:${RELEASE_TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		BSD2CLAUSE:single
+LICENSE=		BSD2CLAUSE:primary
 LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		aunit:primary:standard
 
-USES=			gprbuild ada:single
-PLIST_SUB=		LIBVER=${LIB_VERSION}
-
-post-patch:
-	${SED} -e 's|"src"|"src", "include"|; s|%VERSION%|${LIB_VERSION}|' \
-		${WRKSRC}/adaid.gpr.in > ${WRKSRC}/adaid.gpr
-	${REINPLACE_CMD} -e 's|adaid_debug|adaid|' ${WRKSRC}/test.gpr
-
-do-build:
-	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${BUILD_ARGS} \
-		gprbuild -v -p -P adaid)
-
-do-test:
-	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${TEST_ARGS} gprbuild -p -P test)
-	${TEST_WRKSRC}/bin/test
+USES=			gprbuild gmake ada:primary
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
 
 do-install:
-	${MKDIR} ${STAGEDIR}${PREFIX}/include/adaid \
-		${STAGEDIR}${PREFIX}/lib/adaid \
-		${STAGEDIR}${PREFIX}/share/gpr
-	${INSTALL_LIB} ${WRKSRC}/lib/* ${STAGEDIR}${PREFIX}/lib/adaid
-	${INSTALL_DATA} ${WRKSRC}/ali/*.ali* ${STAGEDIR}${PREFIX}/lib/adaid
-	${INSTALL_DATA} ${WRKSRC}/src/*.adb ${WRKSRC}/include/*.ads \
-		${STAGEDIR}${PREFIX}/include/adaid
-	${INSTALL_DATA} ${FILESDIR}/adaid.gpr ${STAGEDIR}${PREFIX}/share/gpr
+	${SETENV} ${MAKE_ENV} gprinstall\
+		--prefix=${STAGEDIR}${PREFIX}\
+		--lib-subdir=lib/adaid\
+		--sources-subdir=include/adaid\
+		--link-lib-subdir=lib \
+		--no-manifests\
+		-p -P ${WRKSRC}/adaid.gpr
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libadaid.so
