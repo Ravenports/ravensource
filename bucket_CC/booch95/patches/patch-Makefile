@@ -9,3 +9,45 @@
  
  GPRBUILD ?= gprbuild
  GPRCLEAN ?= gprclean
+@@ -29,7 +29,7 @@ GPRCLEAN ?= gprclean
+ # 'make install' to install the BC libraries with your GNAT.
+ # 'make dist' to make the distribution.
+ 
+-libs: lib-static-stamp lib-relocatable-stamp
++libs: lib-static-stamp lib-relocatable-stamp lib-pic-stamp
+ 
+ lib-static-stamp: force
+ 	$(GPRBUILD) -p -Pbc -XLIBRARY_TYPE=static
+@@ -39,7 +39,11 @@ lib-relocatable-stamp: force
+ 	$(GPRBUILD) -p -Pbc -XLIBRARY_TYPE=relocatable
+ 	touch $@
+ 
+-install: install-static install-relocatable
++lib-pic-stamp: force
++	$(GPRBUILD) -p -Pbc -XLIBRARY_TYPE=static-pic
++	touch $@
++
++install: install-static install-relocatable install-pic
+ 
+ install-static: lib-static-stamp
+ 	gprinstall					\
+@@ -67,6 +71,19 @@ install-relocatable: lib-relocatable-sta
+ 	  --build-var=LIBRARY_TYPE			\
+ 	  --build-name=relocatable
+ 
++install-pic: lib-pic-stamp
++	gprinstall					\
++	  -f						\
++	  --prefix=$(prefix)				\
++	  -P bc.gpr					\
++	  --install-name=bc				\
++	  --project-subdir=$(GPR_INSTALL_SUBDIR)	\
++	  -XLIBRARY_TYPE=static-pic			\
++	  --mode=dev					\
++	  --create-missing-dirs				\
++	  --build-var=LIBRARY_TYPE			\
++	  --build-name=static-pic
++
+ # Distribution construction
+ 
+ SUBDIRS = src tests demos GNAT html contrib

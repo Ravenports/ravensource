@@ -1,0 +1,27 @@
+--- bc.gpr.orig	2019-04-12 16:38:21 UTC
++++ bc.gpr
+@@ -17,7 +17,7 @@ project BC is
+    type Language is ("gnat95", "gnat05", "gnat12");
+    Chosen_Language : Language := external ("LANGUAGE", "gnat95");
+ 
+-   type Library_T is ("static", "relocatable");
++   type Library_T is ("static", "relocatable", "static-pic");
+    Library_Type : Library_T := external ("LIBRARY_TYPE", "static");
+ 
+    Sources :=
+@@ -431,6 +431,7 @@ project BC is
+    for Library_Name use "bc";
+    for Library_Kind use Library_Type;
+    for Library_Dir use "./lib-" & Library_Type;
++   for Library_Version use "libbc.so.@SOVERSION@";
+    case Library_Type is
+       when "relocatable" =>
+          for Library_Src_Dir use "./include-relocatable";
+@@ -438,7 +439,6 @@ project BC is
+       when "static" =>
+          for Library_Src_Dir use "./include-static";
+    end case;
+-   for Library_Options use External_As_List ("LDFLAGS", " ");
+ 
+    for Languages use ("ada");
+ 
