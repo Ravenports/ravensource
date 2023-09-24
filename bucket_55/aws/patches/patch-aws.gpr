@@ -1,6 +1,14 @@
 --- aws.gpr.orig	2022-09-20 17:13:06 UTC
 +++ aws.gpr
-@@ -44,7 +44,7 @@ aggregate library project AWS is
+@@ -32,6 +32,7 @@ aggregate library project AWS is
+    end case;
+ 
+    for Library_Name use "aws";
++   for Library_Version use "libaws.so.@SOVERSION@";
+    for Library_Kind use Shared.Library_Type;
+    for Library_Dir use Shared'Library_Dir & "/aws";
+ 
+@@ -44,7 +45,7 @@ aggregate library project AWS is
              when "Windows_NT" =>
                 for Library_Options use ("-lwsock32", "-lws2_32");
              when others =>

@@ -2,11 +2,12 @@ DEF[PORTVERSION]=	23.0.0
 DEF[RELEASE_TAG]=	v${PORTVERSION}
 DEF[TPARSER_TAG]=	7b0d0f5
 DEF[ADDL_RPATH]=	{{LOCALBASE}}/lib:{{OPENSSLLIB}}
+DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		aws
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 EPOCH=			1
 KEYWORDS=		www ada
 VARIANTS=		standard
@@ -21,7 +22,7 @@ DISTFILE[1]=		generated:main
 DISTFILE[2]=		generated:tparser
 DF_INDEX=		1 2
 
-SPKGS[standard]=	complete primary examples docs
+SPKGS[standard]=	complete primary tools dev examples docs
 
 OPTIONS_AVAILABLE=	SHARED IPV6 DEBUG
 OPTIONS_STANDARD=	SHARED IPV6 DEBUG
@@ -41,11 +42,14 @@ BUILD_DEPENDS=		python-Sphinx:single:python_default
 			gnatcoll-core:dev:standard
 BUILDRUN_DEPENDS=	gnatcoll-core:primary:standard
 
-USES=			ada:primary gmake gprbuild python:py27,build shebangfix
-			ssl
+EXRUN[tools]=		ssl
+
+USES=			gmake gprbuild python:py27,build shebangfix
+			ssl ada:primary,tools
 SHEBANG_FILES=		tools/awsascb
 INSTALL_REQ_TOOLCHAIN=	yes
 MUST_CONFIGURE=		yes
+SOVERSION=		${SOVERSION}
 CONFIGURE_ARGS=		prefix={{PREFIX}}
 			DEFAULT_LIBRARY_TYPE=static
 			PROCESSORS={{MAKE_JOBS_NUMBER}}
@@ -72,9 +76,10 @@ CONFIGURE_ARGS=		prefix={{PREFIX}}
 [IPV6].MAKEFILE_OFF=			NAME_IP6=--
 					NAME_IP4=
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} \
 		-e 's|@ADDITIONAL_RPATH@|${ADDL_RPATH}|' \
+		-e 's|@SOVERSION@|${SOVERSION}|' \
 		${WRKSRC}/aws.gpr \
 		${WRKSRC}/src/src.gpr \
 		${WRKSRC}/include/include.gpr
