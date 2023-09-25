@@ -85,24 +85,28 @@ VAR_OPSYS[netbsd]=	CPPFLAGS=-D_OPENBSD_SOURCE
 					libepoxy:primary:standard
 					mesa:drivers:standard
 					xorg-xcvt:single:standard
+
 [XEPHYR].BUILD_DEPENDS_ON=		mesa:drivers:standard
 					mesa:dev:standard
 					libepoxy:dev:standard
+					libglvnd:dev:standard
 [XEPHYR].BUILDRUN_DEPENDS_ON=		libdrm:primary:standard
 					libepoxy:primary:standard
-					libglvnd:single:standard
-[VIRTUAL].BUILDRUN_DEPENDS_ON=		libglvnd:single:standard
+					libglvnd:primary:standard
+
 [VIRTUAL].BUILD_DEPENDS_ON=		libepoxy:primary:standard
 					libepoxy:dev:standard
 					mesa:drivers:standard
 					mesa:dev:standard
-					libglvnd:single:standard
-[NEST].BUILDRUN_DEPENDS_ON=		libglvnd:single:standard
+					libglvnd:dev:standard
+[VIRTUAL].BUILDRUN_DEPENDS_ON=		libglvnd:primary:standard
+
 [NEST].BUILD_DEPENDS_ON=		libepoxy:primary:standard
 					libepoxy:dev:standard
 					mesa:drivers:standard
 					mesa:dev:standard
-					libglvnd:single:standard
+					libglvnd:dev:standard
+[NEST].BUILDRUN_DEPENDS_ON=		libglvnd:primary:standard
 
 [NEST].CONFIGURE_ARGS_ON=		-Dxnest=true
 [NEST].CONFIGURE_ARGS_OFF=		-Dxnest=false
