@@ -97,3 +97,7 @@ post-extract:
 post-install:
 	# x11=disabled seems to be ignored, remove duplicate plugin
 	${RM} ${STAGEDIR}${PREFIX}/lib/gstreamer-1.0/libgstximagesink.so
+	# relocate gstglconfig.h
+	${MV} ${STAGEDIR}${PREFIX}/lib/gstreamer-${GST_VERSION}/include/gst/gl/gstglconfig.h\
+		${STAGEDIR}${PREFIX}/include/gstreamer-${GST_VERSION}/gst/gl/gstglconfig.h
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/gstreamer-${GST_VERSION}/include
