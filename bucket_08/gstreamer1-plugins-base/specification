@@ -6,7 +6,7 @@ DEF[GLHEAD_COMMIT]=	5c8c7c0d3ca1f0b783272dac0b95e09414e49bc8
 
 NAMEBASE=		gstreamer1-plugins-base
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		multimedia
 VARIANTS=		standard
 SDESC[standard]=	GStreamer Multimedia Framework Base Plugins
@@ -20,7 +20,7 @@ DISTFILE[1]=		gst-plugins-base-${PORTVERSION}.tar.xz:main
 DISTFILE[2]=		gl-headers-${GLHEAD_COMMIT}.tar.gz:glhead
 DF_INDEX=		1 2
 
-SPKGS[standard]=	complete primary nls dev man
+SPKGS[standard]=	complete primary plugin_gl nls dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -39,12 +39,24 @@ BUILD_DEPENDS=		git:primary:lite
 			orc:dev:standard
 			orc:tools:standard
 			libglvnd:dev:standard
+			harfbuzz:dev:standard
+			libdrm:dev:standard
+			evdev-proto:single:standard
+			graphene:complete:standard
+			xorg-x11:complete:standard
+			xorg-xcb:complete:standard
+			xorg-xext:complete:standard
 BUILDRUN_DEPENDS=	gstreamer1:primary:standard
 			iso-codes:primary:standard
 			orc:primary:standard
-			libglvnd:primary:standard
 
 EXRUN[dev]=		orc:dev:standard
+EXRUN[plugin_gl]=	primary
+			graphene:primary:standard
+			xorg-x11:primary:standard
+			xorg-xcb:primary:standard
+			xorg-xext:primary:standard
+			libglvnd:primary:standard
 
 USES=			gmake pkgconfig meson freetype
 GNOME_COMPONENTS=	glib
@@ -63,6 +75,11 @@ MESON_ARGS=		-Dalsa=disabled
 			-Dxvideo=disabled
 			-Ddoc=disabled
 			-Dnls=enabled
+			-Dgl=enabled
+			-Dgl_winsys=x11,egl
+			-Dgl_api=opengl,gles2
+			-Dgl_platform=glx,egl
+			-Dintrospection=disabled
 DISTNAME=		gst-plugins-base-${PORTVERSION}
 PLIST_SUB=		GSTVER=${GST_VERSION}
 SOVERSION=		${SOVERSION}
@@ -76,3 +93,7 @@ post-extract:
 	# install gl-headers
 	${RM} ${WRKSRC}/subprojects/gl-headers.wrap
 	${LN} -s ${WRKDIR}/gl-headers-${GLHEAD_COMMIT} ${WRKSRC}/subprojects/gl-headers
+
+post-install:
+	# x11=disabled seems to be ignored, remove duplicate plugin
+	${RM} ${STAGEDIR}${PREFIX}/lib/gstreamer-1.0/libgstximagesink.so
