@@ -1,4 +1,4 @@
---- Source/cmake/OptionsCommon.cmake.orig	2023-03-17 10:00:23 UTC
+--- Source/cmake/OptionsCommon.cmake.orig	2023-08-09 08:49:52 UTC
 +++ Source/cmake/OptionsCommon.cmake
 @@ -158,10 +158,10 @@ endif ()
  option(USE_THIN_ARCHIVES "Produce all static libraries as thin archives" ${USE_THIN_ARCHIVES_DEFAULT})

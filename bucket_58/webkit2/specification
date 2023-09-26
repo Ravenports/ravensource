@@ -1,10 +1,10 @@
-DEF[PORTVERSION]=	2.40.5
-DEF[SOVERSION40]=	37.63.5
-DEF[SOVERSION41]=	0.8.5
-DEF[SOVERSION60]=	4.0.5
-DEF[JSSOVERSION40]=	18.22.14
-DEF[JSSOVERSION41]=	0.3.14
-DEF[JSSOVERSION60]=	1.0.7
+DEF[PORTVERSION]=	2.42.0
+DEF[SOVERSION40]=	37.67.3
+DEF[SOVERSION41]=	0.12.3
+DEF[SOVERSION60]=	4.4.3
+DEF[JSSOVERSION40]=	18.23.9
+DEF[JSSOVERSION41]=	0.4.9
+DEF[JSSOVERSION60]=	1.1.9
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		webkit2
@@ -44,6 +44,8 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		www/webkit2-gtk3
 
+# due to __extendhfsf2 linking issue with ld-bfd on highway, mold linker used
+
 BUILD_DEPENDS=		geoclue:dev:standard
 			gnutls:dev:standard
 			gperf:primary:standard
@@ -54,12 +56,14 @@ BUILD_DEPENDS=		geoclue:dev:standard
 			libnotify:dev:standard
 			enchant:dev:standard
 			lcms2:dev:standard
-# #			libdrm:dev:standard
+			libdrm:dev:standard
 			libavif:dev:standard
 			libsecret:dev:standard
 			unifdef:primary:standard
 			icu:dev:standard
 			WebP:dev:standard
+			libjxl:dev:standard
+			mold:primary:standard
 BUILDRUN_DEPENDS=	enchant:primary:standard
 			WebP:primary:standard
 			libsecret:primary:standard
@@ -73,10 +77,12 @@ BUILDRUN_DEPENDS=	enchant:primary:standard
 			geoclue:primary:standard
 			woff2:single:standard
 			gstreamer1-plugins-base:primary:standard
+			gstreamer1-plugins-base:plugin_gl:standard
 			openjpeg:single:standard
 			lcms2:primary:standard
-# #			libdrm:primary:standard
+			libdrm:primary:standard
 			libavif:primary:standard
+			libjxl:primary:standard
 
 # required for ENABLE_GAMEPAD=ON
 # #			libmanette:single:standard
@@ -92,7 +98,6 @@ DISTNAME=		webkitgtk-${PORTVERSION}
 INSTALL_TARGET=		install
 CMAKE_ARGS=		-DPORT=GTK
 			-DENABLE_GEOLOCATION:BOOL=ON
-			-DENABLE_GLES2:BOOL=ON
 			-DENABLE_MINIBROWSER:BOOL=ON
 			-DENABLE_WAYLAND_TARGET:BOOL=OFF
 			-DENABLE_BUBBLEWRAP_SANDBOX:BOOL=OFF
@@ -100,14 +105,17 @@ CMAKE_ARGS=		-DPORT=GTK
 			-DENABLE_INTROSPECTION:BOOL=OFF
 			-DENABLE_JOURNALD_LOG:BOOL=OFF
 			-DSUPPRESS_ASSERT:BOOL=ON
-			-DUSE_SYSTEMD:BOOL=OFF
-			-DUSE_GSTREAMER_GL:BOOL=OFF
+			-DUSE_JPEGXL:BOOL=ON
+			-DUSE_GSTREAMER_GL:BOOL=ON
 			-DUSE_GSTREAMER_TRANSCODER:BOOL=OFF
+			-DUSE_OPENGL_OR_ES:BOOL=ON
 # only for Linux, freeBSD 13, and NetBSD 10 (requires eventfd)
-			-DUSE_GBM:BOOL=OFF
+# But it's required now since 2.42, so patched for rest
+			-DUSE_GBM:BOOL=ON
 CONFIGURE_ENV=		XDG_CACHE_HOME={{WRKDIR}}
 CXXFLAGS=		-DFIXED_EXECUTABLE_MEMORY_POOL_SIZE_IN_MB=32
 PLIST_SUB=		INTRO="@comment "
+LDFLAGS=		-fuse-ld=mold
 INSTALL_REQ_TOOLCHAIN=	yes
 
 [API40].DESCRIPTION=			Build WebKit2 API 4.0 variant
@@ -136,8 +144,10 @@ INSTALL_REQ_TOOLCHAIN=	yes
 [API60].DESCRIPTION=			Build WebKit2 API 6.0 variant
 [API60].BUILD_DEPENDS_ON=		libsoup:dev:standard
 					libepoxy:dev:standard
+					graphene:dev:standard
 [API60].BUILDRUN_DEPENDS_ON=		libsoup:primary:standard
 					libepoxy:dev:standard
+					graphene:primary:standard
 [API60].GNOME_COMPONENTS_ON=		gtk4
 [API60].CMAKE_ARGS_ON=			-DUSE_GTK4=ON
 [API60].PLIST_SUB_ON=			JSSOVERSION=${JSSOVERSION60}
@@ -146,8 +156,6 @@ INSTALL_REQ_TOOLCHAIN=	yes
 					SOMAJOR=${SOVERSION60:R:R}
 					WKAPI=6.0
 					WKAPIMAJOR=6
-
-VAR_OPSYS[sunos]=	CMAKE_ARGS=-DUSE_LD_GOLD:BOOL=OFF
 
 post-patch:
 	echo 'add_compile_definitions("U_DEFINE_FALSE_AND_TRUE=1")' \

@@ -1,6 +1,6 @@
---- Source/WTF/wtf/FastMalloc.cpp.orig	2023-02-20 09:22:13 UTC
+--- Source/WTF/wtf/FastMalloc.cpp.orig	2023-08-09 08:49:39 UTC
 +++ Source/WTF/wtf/FastMalloc.cpp
-@@ -205,7 +205,11 @@ void* fastAlignedMalloc(size_t alignment
+@@ -189,7 +189,11 @@ void* fastAlignedMalloc(size_t alignment
  {
      ASSERT_IS_WITHIN_LIMIT(size);
      void* p = nullptr;
@@ -12,7 +12,7 @@
      if (UNLIKELY(!p))
          CRASH();
      return p;
-@@ -215,7 +219,11 @@ void* tryFastAlignedMalloc(size_t alignm
+@@ -199,7 +203,11 @@ void* tryFastAlignedMalloc(size_t alignm
  {
      FAIL_IF_EXCEEDS_LIMIT(size);
      void* p = nullptr;

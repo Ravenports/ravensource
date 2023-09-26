@@ -1,4 +1,4 @@
---- Source/WebKit/UIProcess/Launcher/glib/ProcessLauncherGLib.cpp.orig	2023-05-29 07:59:44 UTC
+--- Source/WebKit/UIProcess/Launcher/glib/ProcessLauncherGLib.cpp.orig	2023-08-09 08:49:48 UTC
 +++ Source/WebKit/UIProcess/Launcher/glib/ProcessLauncherGLib.cpp
 @@ -47,9 +47,6 @@
  #include "ProcessProviderLibWPE.h"
