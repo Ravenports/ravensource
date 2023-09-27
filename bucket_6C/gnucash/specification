@@ -1,11 +1,9 @@
-DEF[BASEVER]=		5.3
-# DEF[DASH]=		-1
-# DEF[PORTVERSION]=	${BASEVER}${DASH:S/-/./}
-# DEF[DISTVERSION]=	${BASEVER}${DASH}
-# DEF[PORTVERSION]=	${BASEVER}b
-# DEF[DISTVERSION]=	${BASEVER}b
-DEF[PORTVERSION]=	${BASEVER}
-DEF[DISTVERSION]=	${BASEVER}
+DEF[BASEVER]=		5.4
+DEF[DASH]=		-1
+DEF[PORTVERSION]=	${BASEVER}${DASH:S/-/./}
+DEF[DISTVERSION]=	${BASEVER}${DASH}
+# DEF[PORTVERSION]=	${BASEVER}
+# DEF[DISTVERSION]=	${BASEVER}
 DEF[GUILE_SITE]=	3.0
 # ----------------------------------------------------------------------------
 
@@ -103,6 +101,8 @@ GLIB_SCHEMAS=		org.gnucash.GnuCash.dialogs.business.gschema.xml
 			org.gnucash.GnuCash.deprecated.gschema.xml
 MAKE_ENV=		XDG_CACHE_HOME={{WRKDIR}}/.cache
 PLIST_SUB=		GVER=${GUILE_SITE}
+# ld: /raven/lib/libhwy.so.1: undefined reference to `__extendhfdf2'
+LDFLAGS=		-fuse-ld=gold
 
 pre-configure:
 	# disable testing and fix XDG_DATA_DIRS
