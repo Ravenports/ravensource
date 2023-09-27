@@ -32,9 +32,6 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/qscintilla2-qt6
 
-BUILD_DEPENDS=		libglvnd:dev:standard
-BUILDRUN_DEPENDS=	libglvnd:primary:standard
-
 USES=			gmake
 
 DISTNAME=		QScintilla_src-${PORTVERSION}/src
@@ -45,6 +42,7 @@ SOVERSION=		${SOVERSION}
 [QT5].DESCRIPTION=			Qt5 variant
 [QT5].USES_ON=				qt5
 [QT5].MAKEFILE_ON=			VAR1=qt5
+[QT5].BUILD_DEPENDS_ON=			qt5-qtbase:dev:standard
 [QT5].BUILDRUN_DEPENDS_ON=		qt5-qtbase:primary:standard
 
 [QT6].DESCRIPTION=			Qt6 variant
@@ -52,6 +50,7 @@ SOVERSION=		${SOVERSION}
 [QT6].MAKEFILE_ON=			VAR1=qt6
 [QT6].BUILD_DEPENDS_ON=			qt6-qtbase:dev:standard
 [QT6].BUILDRUN_DEPENDS_ON=		qt6-qtbase:primary:standard
+					libglvnd:primary:standard
 
 post-install:
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}/html
