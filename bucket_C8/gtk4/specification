@@ -37,6 +37,12 @@ BUILDRUN_DEPENDS=	libepoxy:primary:standard
 
 EXRUN[icon_cache]=	gdk-pixbuf:primary:standard
 
+# dev also needs headers from gdk-pixbuf but currently dev subpackage isn't there
+EXRUN[dev]=		graphene:dev:standard
+			cairo:dev:standard
+			pango:dev:standard
+			glib:dev:standard
+
 USES=			gmake pkgconfig cpe meson gtk-doc
 			jpeg tiff schemas:primary perl:build python:build
 GNOME_COMPONENTS=	atk cairo gdkpixbuf pango
