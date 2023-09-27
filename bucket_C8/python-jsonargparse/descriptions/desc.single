@@ -17,7 +17,7 @@ coverage.
 Although jsonargparse might not be widely recognized yet, it already boasts
 a [substantial user base
 ]. Most notably,
-it serves as the engine behind [LightningCLI
+it serves as the framework behind pytorch-lightning's [LightningCLI
 ].
 
 Features
@@ -56,13 +56,17 @@ jsonargparse, while also combining advantages found in similar packages:
 
 Other notable features include:
 
-- **Extensive type hint support:** nested types (union, tuple, etc.),
-  containers (list, dict, etc.), restricted types (regex, numbers), paths,
-URLs,
-  types from stubs (``*.pyi``), future annotations (PEP [563
+- **Extensive type hint support:** nested types (union, optional),
+containers
+  (list, dict, etc.), user-defined generics, restricted types (regex,
+numbers),
+  paths, URLs, types from stubs (``*.pyi``), future annotations (PEP [563
  ]), and backports (PEPs [604
  ]/[585
  ]).
+
+- **Keyword arguments introspection:** resolving of parameters used via
+  ``**kwargs``.
 
 - **Dependency injection:** support types that expect a class instance and
   callables that return a class instance.
@@ -94,7 +98,3 @@ codebase,
   changes should make sense even without the CLI. No need to inherit from a
   special class, add decorators, or use CLI-specific type hints.
 
-- **Minimal boilerplate:**
-
-  A recommended practice is to write code with function/class parameters
-having
