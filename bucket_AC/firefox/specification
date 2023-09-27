@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	117.0
+DEF[PORTVERSION]=	118.0
 DEF[FOXVERSION]=	${PORTVERSION}
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 # ----------------------------------------------------------------------------
@@ -156,7 +156,7 @@ post-patch:
 		${ECHO_CMD} ".mozconfig <<  $$arg" ;\
 		${ECHO_CMD} ac_add_options $$arg >> ${WRKSRC}/.mozconfig ;\
 	done
-	@${ECHO_CMD} LDFLAGS=\"-Wl,-rpath,${PREFIX}/lib/firefox\" \
+	@${ECHO_CMD} LDFLAGS=\"-lm -Wl,-rpath,${PREFIX}/lib/firefox\" \
 		>> ${WRKSRC}/.mozconfig
 
 post-install:
