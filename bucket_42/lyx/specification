@@ -9,6 +9,7 @@ DEF[DISTVER]=		${PORTVERSION:R}-${PORTVERSION:S|.|/|g:T}
 
 NAMEBASE=		lyx
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		print editors
 VARIANTS=		standard
 SDESC[standard]=	Document Processor WYSIWYM Editor & Latex frontend
@@ -21,7 +22,7 @@ SITES[main]=		http://www-ftp.lip6.fr/ftp/pub/lyx/stable/${MAJORVER}.x/
 			ftp://ftp.lyx.org/pub/lyx/stable/${MAJORVER}.x/
 DISTFILE[1]=		lyx-${FILEVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary docs examples
+SPKGS[standard]=	complete primary man docs examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -41,12 +42,13 @@ BUILD_DEPENDS=		qt5-qttools:single:standard
 # #xvkbd		wmctrl:single:standard
 			boost-libraries:dev:standard
 			qt5-qtx11extras:dev:standard
+			qt5-qtsvg:dev:standard
 BUILDRUN_DEPENDS=	mythes:single:standard
 			enchant1:single:standard
 			hunspell:single:standard
 			boost-libraries:primary:standard
 			qt5-qtbase:primary:standard
-			qt5-qtsvg:single:standard
+			qt5-qtsvg:primary:standard
 			qt5-qtx11extras:primary:standard
 # #xvkbd		xvkbd:single:standard
 RUN_DEPENDS=		texlive-bin:primary:standard

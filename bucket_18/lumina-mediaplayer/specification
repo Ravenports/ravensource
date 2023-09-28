@@ -4,7 +4,7 @@ DEF[TAG]=		EXTRACT_INFO(LUMINA_RELEASE_TAG)
 
 NAMEBASE=		lumina-mediaplayer
 VERSION=		${PORTVERSION}
-EPOCH=			1
+EPOCH=			2
 KEYWORDS=		deskutils
 VARIANTS=		standard
 SDESC[standard]=	Streaming media player from the Lumina Desktop
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/lumina-desktop:lumina:v${TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[standard]=	complete primary nls man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,8 +28,9 @@ LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		qt5-qttools:single:standard
 			qt5-qtx11extras:dev:standard
+			qt5-qtsvg:dev:standard
 BUILDRUN_DEPENDS=	qt5-qtmultimedia:single:standard
-			qt5-qtsvg:single:standard
+			qt5-qtsvg:primary:standard
 			qt5-qtx11extras:primary:standard
 
 USES=			qt5 desktop-utils:primary

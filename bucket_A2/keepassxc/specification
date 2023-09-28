@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.7.6
 
 NAMEBASE=		keepassxc
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Community fork of the KeePassX password manager
@@ -13,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/keepassxreboot/keepassxc/releases/download/${PORTVERSION}/
 DISTFILE[1]=		keepassxc-${PORTVERSION}-src.tar.xz:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -50,11 +51,12 @@ BUILD_DEPENDS=		libsodium:dev:standard
 			botan2:dev:standard
 			qt5-qttools:single:standard
 			qt5-qtx11extras:dev:standard
+			qt5-qtsvg:dev:standard
 BUILDRUN_DEPENDS=	argon2:single:standard
 			libsodium:primary:standard
 			qrencode:single:standard
 			qt5-qtbase:primary:standard
-			qt5-qtsvg:single:standard
+			qt5-qtsvg:primary:standard
 			qt5-qtx11extras:primary:standard
 			quazip:single:standard
 			botan2:primary:standard
