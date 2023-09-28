@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	2.9.1
+# This port builds a very minimal version of gnustep-make which lacks support
+# for objc. The reason for this is to work around a mutual dependency with
+# libobjc2. Once the latter is available, too, this port should be modified
+# to feature a more complete standard as well as a bootstrap variant.
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gnustep-make
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	GNUstep Makefile package
+HOMEPAGE=		https://gnustep.github.io/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/gnustep/tools-make/archive/refs/tags/
+DISTFILE[1]=		make-${PORTVERSION:S/./_/g}.tar.gz:main
+
+SPKGS[standard]=	complete primary man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/gnustep-make
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/Master/tool.make
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+USES=			clang gmake pkgconfig shebangfix
+SHEBANG_FILES=		bake_debian_files.sh
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-layout=fhs
+
+DISTNAME=		tools-make-make-${PORTVERSION:S/./_/g}
+MAKEFILE=		GNUmakefile
+CONFIGURE_ENV=		INSTALL_PROGRAM="install -c"
+			INSTALL_DATA="install -c"
