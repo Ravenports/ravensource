@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	9.4p1
 
 NAMEBASE=		openssh
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Portable version of OpenBSD's OpenSSH
@@ -42,8 +43,9 @@ CONFIGURE_ARGS=		--with-md5-passwords
 			--disable-wtmp
 			--without-stackprotect
 
+BUILD_DEPENDS=		openpam:dev:standard
 BUILDRUN_DEPENDS=	libedit:single:standard
-			openpam:single:standard
+			openpam:primary:standard
 
 VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--disable-libutil
 
