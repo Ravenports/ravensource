@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	2.26
 
 NAMEBASE=		alpine
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		mail
 VARIANTS=		standard
 SDESC[standard]=	Powerful and easy to use text email/news client
@@ -28,7 +28,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		mail/alpine
 
-BUILDRUN_DEPENDS=	openpam:single:standard
+BUILD_DEPENDS=		openpam:dev:standard
+BUILDRUN_DEPENDS=	openpam:primary:standard
 
 USES=			cpe gettext libtool ncurses ssl:openssl30
 CPE_VENDOR=		alpine_project
