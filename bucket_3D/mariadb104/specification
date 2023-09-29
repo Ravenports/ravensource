@@ -4,6 +4,7 @@ DEF[PORTNAME]=		mariadb104
 
 NAMEBASE=		${PORTNAME}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		databases
 VARIANTS=		standard
 SDESC[standard]=	Fast SQL database server, derived from MySQL
@@ -40,7 +41,8 @@ BUILDRUN_DEPENDS=	boost-libraries:primary:standard
 # zeromq detected but not used (?)
 # #			zeromq:single:standard
 
-BR_DEPS[netbsd]=	openpam:single:standard
+B_DEPS[netbsd]=		openpam:dev:standard
+BR_DEPS[netbsd]=	openpam:primary:standard
 
 USERS=			mysql
 GROUPS=			mysql
