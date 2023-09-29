@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.6.6
 
 NAMEBASE=		openvpn
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Secure and highly configurable VPN solution
@@ -32,7 +33,8 @@ FPC_EQUIVALENT=		security/openvpn
 # Linux support means adding more packages
 NOT_FOR_OPSYS=		linux
 
-BUILDRUN_DEPENDS=	openpam:single:standard
+BUILD_DEPENDS=		openpam:dev:standard
+BUILDRUN_DEPENDS=	openpam:primary:standard
 
 # openvpn doesn't support libressl without patches
 USES=			autoreconf cpe libtool pkgconfig lz4 lzo ssl:openssl11
