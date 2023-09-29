@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	5.33.0
 
 NAMEBASE=		monit
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		standard
 SDESC[standard]=	Unix system management and proactive monitoring
@@ -27,7 +28,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		sysutils/monit
 
-BUILDRUN_DEPENDS=	openpam:single:standard
+BUILD_DEPENDS=		openpam:dev:standard
+BUILDRUN_DEPENDS=	openpam:primary:standard
 
 SUB_FILES=		pkg-message-primary
 RC_SUBR=		monit:primary
