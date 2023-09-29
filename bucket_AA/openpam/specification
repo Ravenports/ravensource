@@ -1,26 +1,25 @@
 DEF[PORTVERSION]=	20190224
 DEF[CODENAME]=		Tabebuia
+DEF[SOVERSION]=		2.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		openpam
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Open-source Pluggable Authentication Module
 HOMEPAGE=		https://www.openpam.org/
-CONTACT=		nobody
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/openpam/openpam/${CODENAME}
 DISTFILE[1]=		openpam-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
-
-# FPC_EQUIVALENT=	not in ports
 
 USES=			libtool pkgconfig mbsdfix
 MUST_CONFIGURE=		gnu
@@ -29,6 +28,7 @@ CONFIGURE_ARGS=		--with-pam-unix
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
 SET_DEBUGGING_ON=	yes
+SOVERSION=		${SOVERSION}
 
 VAR_OPSYS[dragonfly]=	VAR1="/usr/lib/security",
 VAR_OPSYS[freebsd]=	VAR1="/usr/lib/security",
