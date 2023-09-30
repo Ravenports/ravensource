@@ -1,0 +1,59 @@
+DEF[PORTVERSION]=	2.6.9
+DEF[LIBOATH]=		0.1.3
+DEF[LIBPSKC]=		0.0.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		oath-toolkit
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		standard
+SDESC[standard]=	Library and tools for OATH authentication
+HOMEPAGE=		https://www.nongnu.org/oath-toolkit/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.savannah.nongnu.org/releases/oath-toolkit/
+DISTFILE[1]=		oath-toolkit-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary library pam dev man docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		security/oath-toolkit
+
+LICENSE=		LGPL21+:library
+			GPLv3+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/liboath/COPYING
+			GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		library:{{WRKDIR}}/TERMS_LIB
+			primary:{{WRKDIR}}/TERMS_TOOLS
+LICENSE_SCHEME=		multi
+
+
+BUILD_DEPENDS=		libxml2:dev:standard
+			xmlsec:dev:standard
+			openpam:dev:standard
+BUILDRUN_DEPENDS=	libxml2:primary:standard
+			xmlsec:primary:standard
+			xmlsec:tools:standard
+			openpam:primary:standard
+
+USES=			gtk-doc libtool pkgconfig
+GNOME_COMPONENTS=	libxslt
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-gtk-doc
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+
+EXRUN[primary]=		oath-toolkit:library:standard
+
+PLIST_SUB=		OATH=${LIBOATH}
+			OATH_MAJ=${LIBOATH:R:R}
+			PSKC=${LIBPSKC}
+			PSKC_MAJ=${LIBPSKC:R:R}
+
+post-extract:
+	${SED} -n '/SECTION:/!p;//q' ${WRKSRC}/liboath/oath.h >> ${WRKDIR}/TERMS_LIB
+	${SED} -n '/config.h/!p;//q' ${WRKSRC}/oathtool/oathtool.c >> ${WRKDIR}/TERMS_TOOLS
