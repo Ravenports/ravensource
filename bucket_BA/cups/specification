@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.4.7
 
 NAMEBASE=		cups
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		print
 VARIANTS=		standard
 SDESC[standard]=	Common UNIX Printing System
@@ -13,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/OpenPrinting:cups:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary docs examples
+SPKGS[standard]=	complete primary dev tools man docs examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -35,9 +36,14 @@ USERGROUP_SPKG=		primary
 BUILD_DEPENDS=		dbus:dev:standard
 			gnutls:dev:standard
 			libpaper:dev:standard
-BUILDRUN_DEPENDS=	dbus:primary:standard
-			gnutls:primary:standard
 			libpaper:primary:standard
+			dbus:primary:standard
+BUILDRUN_DEPENDS=	gnutls:primary:standard
+
+EXRUN[dev]=		gnutls:dev:standard
+EXRUN[tools]=		primary
+			libpaper:primary:standard
+			dbus:primary:standard
 
 USES=			cpe gmake iconv pkgconfig
 CPE_VENDOR=		apple
