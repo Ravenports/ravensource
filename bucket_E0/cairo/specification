@@ -60,7 +60,3 @@ GNOME_COMPONENTS=	glib
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
-
-post-patch-linux:
-	${REINPLACE_CMD} -e 's|-lcairo|-lcairo -lpthread|' \
-		${WRKSRC}/src/*.pc.in
