@@ -238,6 +238,7 @@ headers_BSD=\
 	paths.h \
 	printf.h \
 	pthread_np.h \
+	proc_service.h \
 	readpassphrase.h \
 	res_update.h \
 	resolv.h \
