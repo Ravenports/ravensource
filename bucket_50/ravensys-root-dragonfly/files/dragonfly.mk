@@ -196,6 +196,7 @@ headers_BSD=\
 	bitstring.h \
 	bluetooth.h \
 	camlib.h \
+	db.h \
 	devinfo.h \
 	devstat.h \
 	efivar.h \
