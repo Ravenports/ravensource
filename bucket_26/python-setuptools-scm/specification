@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	8.0.3
+DEF[PORTVERSION]=	8.0.4
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-setuptools-scm
@@ -11,7 +11,7 @@ HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/ca/04/4ea91c627355ae6d976bf7f1fc2815372a96b1b87bf290c8d726d10a08a1
+SITES[main]=		PYPIWHL/0e/a3/b9a8b0adfe672bf0df5901707aa929d30a97ee390ba651910186776746d2
 DISTFILE[1]=		setuptools_scm-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -46,8 +46,8 @@ DISTNAME=		setuptools_scm-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 # packaging >=20
 # setuptools
+# typing-extensions
 # tomli >=1 ; python_version < "3.11"
-# typing-extensions ; python_version < "3.11"
 # entangled-cli[rich] ; extra == 'docs'
 # mkdocs ; extra == 'docs'
 # mkdocs-entangled-plugin ; extra == 'docs'
@@ -55,16 +55,18 @@ DISTNAME=		setuptools_scm-${PORTVERSION}.dist-info
 # mkdocstrings[python] ; extra == 'docs'
 # pygments ; extra == 'docs'
 # rich ; extra == 'rich'
+# build ; extra == 'test'
 # pytest ; extra == 'test'
 # rich ; extra == 'test'
-# virtualenv >20 ; extra == 'test'
+# wheel ; extra == 'test'
 
 [PY310].USES_ON=			python:py310,wheel
 [PY310].RUN_DEPENDS_ON=			python-packaging:single:py310
 					python-setuptools:single:py310
-					python-tomli:single:py310
 					python-typing-extensions:single:py310
+					python-tomli:single:py310
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-packaging:single:v11
 					python-setuptools:single:v11
+					python-typing-extensions:single:v11
 
