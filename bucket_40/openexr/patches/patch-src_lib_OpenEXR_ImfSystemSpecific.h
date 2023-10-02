@@ -1,8 +1,8 @@
---- src/lib/OpenEXR/ImfSystemSpecific.h.orig	2023-08-13 17:31:21 UTC
+--- src/lib/OpenEXR/ImfSystemSpecific.h.orig	2023-09-25 02:46:06 UTC
 +++ src/lib/OpenEXR/ImfSystemSpecific.h
-@@ -45,6 +45,8 @@ EXRAllocAligned (size_t size, size_t ali
-     return _aligned_malloc (size, alignment);
- #elif defined(__INTEL_COMPILER) || defined(__ICL) || defined(__ICC) || defined(__ECC)
+@@ -47,6 +47,8 @@ EXRAllocAligned (size_t size, size_t ali
+ #elif defined(__INTEL_COMPILER) || defined(__ICL) || defined(__ICC) ||         \
+     defined(__ECC)
      return _mm_malloc (size, alignment);
 +#elif defined(__sun)
 +    return memalign(alignment, size);
