@@ -1,6 +1,6 @@
 # Note: Version 1.12.1 used the directory name 1.12. Check DISTNAME when updating!
-DEF[PORTVERSION]=	1.13
-DEF[SOVERSION]=		1.13
+DEF[PORTVERSION]=	1.14
+DEF[SOVERSION]=		1.14
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		pugixml
@@ -15,12 +15,12 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/zeux/pugixml/releases/download/v${PORTVERSION}/
 DISTFILE[1]=		pugixml-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKDIR}}/LICENSE_MIT
 LICENSE_AWK=		MIT:"^$$"
 LICENSE_SOURCE=		MIT:{{WRKSRC}}/src/pugixml.hpp
@@ -28,7 +28,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		textproc/pugixml
 
-USES=			c++:single cmake
+USES=			c++:primary cmake
 
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS=ON
 			-DBUILD_STATIC_LIBS=ON
