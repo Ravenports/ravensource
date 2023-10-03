@@ -1,4 +1,4 @@
---- Source/JavaScriptCore/assembler/ARM64Assembler.h.orig	2023-08-09 08:49:29 UTC
+--- Source/JavaScriptCore/assembler/ARM64Assembler.h.orig	2023-09-19 08:27:45 UTC
 +++ Source/JavaScriptCore/assembler/ARM64Assembler.h
 @@ -3600,6 +3600,8 @@ public:
          sys_icache_invalidate(code, size);
