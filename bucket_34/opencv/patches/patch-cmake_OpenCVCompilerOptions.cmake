@@ -1,4 +1,4 @@
---- cmake/OpenCVCompilerOptions.cmake.orig	2023-06-28 11:53:33 UTC
+--- cmake/OpenCVCompilerOptions.cmake.orig	2023-09-27 10:18:31 UTC
 +++ cmake/OpenCVCompilerOptions.cmake
 @@ -374,7 +374,6 @@ endif()
  # Apply "-Wl,--no-undefined" linker flags: https://github.com/opencv/opencv/pull/21347
