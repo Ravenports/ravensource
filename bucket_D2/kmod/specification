@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	30
-DEF[SOVERSION]=		2.4.0
+DEF[PORTVERSION]=	31
+DEF[SOVERSION]=		2.4.1
 DEF[SOFTLINKS]=		depmod insmod lsmod modinfo modprobe rmmod
 # ----------------------------------------------------------------------------
 
@@ -21,9 +21,9 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 # Library is LGPL21, tools are GPLv2+
-LICENSE=		GPLv2+:single LGPL21:single
+LICENSE=		GPLv2+:single LGPL21+:single
 LICENSE_FILE=		GPLv2+:stock
-			LGPL21:{{WRKSRC}}/COPYING
+			LGPL21+:{{WRKSRC}}/COPYING
 LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/tools/kmod.h
@@ -40,4 +40,4 @@ post-install:
 .for s in ${SOFTLINKS}
 	ln -s ${PREFIX}/bin/kmod ${STAGEDIR}${PREFIX}/bin/${s}
 .endfor
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libkmod.so.${SOVERSION}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libkmod.so
