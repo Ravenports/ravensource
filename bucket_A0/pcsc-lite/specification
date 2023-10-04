@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.0.0
 
 NAMEBASE=		pcsc-lite
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel security
 VARIANTS=		standard
 SDESC[standard]=	Smartcard development library
@@ -13,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://pcsclite.apdu.fr/files/
 DISTFILE[1]=		pcsc-lite-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary tools dev man docs
 
 OPTIONS_AVAILABLE=	FILTER
 OPTIONS_STANDARD=	FILTER
@@ -23,6 +24,8 @@ LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/pcsc-lite
+
+EXRUN[tools]=		primary
 
 B_DEPS[linux]=		libusb:dev:standard
 B_DEPS[sunos]=		libusb:dev:standard
