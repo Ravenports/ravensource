@@ -4,8 +4,8 @@ ruamel.yaml
 
 ``ruamel.yaml`` is a YAML 1.2 loader/dumper package for Python.
 
-:version:       0.17.33
-:updated:       2023-09-28
+:version:       0.17.35
+:updated:       2023-10-04
 :documentation: http://yaml.readthedocs.io
 :repository:    https://sourceforge.net/projects/ruamel-yaml/
 :pypi:          https://pypi.org/project/ruamel.yaml/
@@ -50,6 +50,23 @@ ChangeLog
 .. should insert NEXT: at the beginning of line for next key (with empty
 line)
 
+0.17.35 (2023-10-04):
+  - support for loading dataclasses with InitVar variables (some
+    special coding was necessary to get the, unexecpected, default value
+    in the corresponding instance attribute ( example of usage in
+    [this question] )
+
+0.17.34 (2023-10-03):
+  - Python 3.12 also loads C version when using ``typ='safe'``
+  - initial support for loading invoking `__post_init__()` on dataclasses
+that have that method
+    after loading a registered dataclass
+(`@yaml.register_class\n@dataclass\nclass ...`).
+    (Originally [asked] on Stackoverflow by 
+    [nyanpasu64] and as 
+    [ticket]
+    by [Patrick Lehmann] 
+
 0.17.33 (2023-09-28):
   - added `flow_seq_start`, `flow_seq_end`, `flow_seq_separator`,
 `flow_map_start`, `flow_map_end`,
@@ -81,20 +98,3 @@ which allows
 0.17.28 (2023-05-26):
   - fix for issue 464: documents ending with document end marker without
 final newline
-    fail to load (reported by [Mariusz Rusiniak])
-
-0.17.27 (2023-05-25):
-  - fix issue with inline mappings as value for merge keys
-    (reported by Sirish on [StackOverflow])
-  - fix for 468, error inserting after accessing merge attribute on
-CommentedMap
-    (reported by [Bastien gerard])
-  - fix for issue 461 pop + insert on same `CommentedMap` key throwing
-error
-    (reported by [John Thorvald Wodder II]) 
-
-0.17.26 (2023-05-09):
-  - fix for error on edge cage for issue 459
-
-0.17.25 (2023-05-09):
-  - fix for regression while dumping wrapped strings with too many
