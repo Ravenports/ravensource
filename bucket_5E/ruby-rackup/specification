@@ -1,0 +1,53 @@
+DEF[PORTVERSION]=	2.1.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-rackup
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v30 v31 v32
+SDESC[v30]=		General server command for Rack applications (v30)
+SDESC[v31]=		General server command for Rack applications (v31)
+SDESC[v32]=		General server command for Rack applications (v32)
+HOMEPAGE=		https://github.com/rack/rackup
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		rackup-2.1.0.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v30]=		single
+SPKGS[v31]=		single
+SPKGS[v32]=		single
+
+OPTIONS_AVAILABLE=	RUBY30 RUBY31 RUBY32
+OPTIONS_STANDARD=	none
+VOPTS[v30]=		RUBY30=ON RUBY31=OFF RUBY32=OFF
+VOPTS[v31]=		RUBY30=OFF RUBY31=ON RUBY32=OFF
+VOPTS[v32]=		RUBY30=OFF RUBY31=OFF RUBY32=ON
+
+# License listed inside gem specification
+# => "MIT"
+
+# Requirements according to gem specification:
+#   rack (>= 3)
+#   webrick (~> 1.8)
+#   bundler (>= 0, development)
+#   minitest (~> 5.0, development)
+#   minitest-global_expectations (>= 0, development)
+#   minitest-sprint (>= 0, development)
+#   rake (>= 0, development)
+
+DISTNAME=		rackup-${PORTVERSION}
+GENERATED=		yes
+
+[RUBY30].USES_ON=			gem:v30
+[RUBY30].BUILDRUN_DEPENDS_ON=		ruby-rack:single:v30
+					ruby-webrick:single:v30
+[RUBY31].USES_ON=			gem:v31
+[RUBY31].BUILDRUN_DEPENDS_ON=		ruby-rack:single:v31
+					ruby-webrick:single:v31
+[RUBY32].USES_ON=			gem:v32
+[RUBY32].BUILDRUN_DEPENDS_ON=		ruby-rack:single:v32
+					ruby-webrick:single:v32
+
