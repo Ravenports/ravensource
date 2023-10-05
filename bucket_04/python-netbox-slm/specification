@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.4
+DEF[PORTVERSION]=	1.5
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-netbox-slm
@@ -11,8 +11,8 @@ HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/n/netbox-slm
-DISTFILE[1]=		netbox-slm-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/93/30/fe314446a869ce203c1b97922e9ff86d1c52a9889101f5c432144bf3d25b
+DISTFILE[1]=		netbox_slm-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
 SPKGS[v11]=		single
@@ -23,14 +23,18 @@ VOPTS[py310]=		PY310=ON PY311=OFF
 VOPTS[v11]=		PY310=OFF PY311=ON
 
 # License listed at PyPI
-# Apache 2.0
+# Apache-2.0
 
 GENERATED=		yes
-DISTNAME=		netbox-slm-${PORTVERSION}
+DISTNAME=		netbox_slm-${PORTVERSION}.dist-info
 
-# install_requires extracted from setup.py
+# Requires-Dist extracted from wheel metadata
+# build ==1.0.3 ; extra == 'build'
+# setuptools ==68.2.0 ; extra == 'build'
+# twine ==3.7.1 ; extra == 'build'
+# black ==23.3.0 ; extra == 'tools'
+# ruff ==0.0.275 ; extra == 'tools'
 
-
-[PY310].USES_ON=			python:py310,sutools
-[PY311].USES_ON=			python:v11,sutools
+[PY310].USES_ON=			python:py310,wheel
+[PY311].USES_ON=			python:v11,wheel
 
