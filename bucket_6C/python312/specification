@@ -20,11 +20,16 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.python.org/ftp/python/${PORTVERSION}/
 DISTFILE[1]=		Python-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man
 
 OPTIONS_AVAILABLE=	DEBUG PYMALLOC
 OPTIONS_STANDARD=	DEBUG PYMALLOC
 OPT_ON[all]=		PYMALLOC
+
+LICENSE=		CUSTOM1:primary
+LICENSE_NAME=		CUSTOM1:"Python Software Foundation License"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
 
 RUN_DEPENDS=		autoselect-python:single:standard
 BUILDRUN_DEPENDS=	libffi:single:standard
@@ -140,3 +145,5 @@ post-install:
 	done
 	${INSTALL_DATA} ${WRKSRC}/Tools/gdb/libpython.py \
 		${STAGEDIR}${PREFIX}/lib/libpython${PYTHON_VER}${ABIFLAGS}.so.1.0-gdb.py
+	# remove duplicate license
+	${RM} ${STAGEDIR}${PREFIX}/lib/python${PYTHON_VER}/LICENSE.txt
