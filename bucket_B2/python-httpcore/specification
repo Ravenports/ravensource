@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.18.0
+DEF[PORTVERSION]=	1.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-httpcore
@@ -11,7 +11,7 @@ HOMEPAGE=		https://www.encode.io/httpcore/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/ac/97/724afbb7925339f6214bf1fdb5714d1a462690466832bf8fb3fd497649f1
+SITES[main]=		PYPIWHL/ba/3c/a8d2514181ae7cd966f042a24aff0a2a637152fec6cb7193ff245f45f131
 DISTFILE[1]=		httpcore-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -29,21 +29,17 @@ GENERATED=		yes
 DISTNAME=		httpcore-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# anyio<5.0,>=3.0
 # certifi
 # h11<0.15,>=0.13
-# sniffio==1.*
+# anyio<5.0,>=4.0; extra == 'asyncio'
 # h2<5,>=3; extra == 'http2'
 # socksio==1.*; extra == 'socks'
+# trio<0.23.0,>=0.22.0; extra == 'trio'
 
 [PY310].USES_ON=			python:py310,wheel
-[PY310].RUN_DEPENDS_ON=			python-anyio:single:py310
-					python-certifi:single:py310
+[PY310].RUN_DEPENDS_ON=			python-certifi:single:py310
 					python-h11:single:py310
-					python-sniffio:single:py310
 [PY311].USES_ON=			python:v11,wheel
-[PY311].RUN_DEPENDS_ON=			python-anyio:single:v11
-					python-certifi:single:v11
+[PY311].RUN_DEPENDS_ON=			python-certifi:single:v11
 					python-h11:single:v11
-					python-sniffio:single:v11
 

@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.31.60
+DEF[PORTVERSION]=	1.31.62
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-botocore
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/boto/botocore
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/5d/fa/fb73dceac7f2fd4ad82020696e241315e1ed9525810900ca8e35b7cf9b74
+SITES[main]=		PYPIWHL/a8/3f/74138007b045447eac6141c8144efe8e1c9f377cf56c85edfe1111a22f97
 DISTFILE[1]=		botocore-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[py310]=		single
@@ -31,7 +31,8 @@ DISTNAME=		botocore-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 # jmespath (<2.0.0,>=0.7.1)
 # python-dateutil (<3.0.0,>=2.1)
-# urllib3 (<1.27,>=1.25.4)
+# urllib3 (<1.27,>=1.25.4) ; python_version < "3.10"
+# urllib3 (<2.1,>=1.25.4) ; python_version >= "3.10"
 # awscrt (==0.16.26) ; extra == 'crt'
 
 [PY310].USES_ON=			python:py310,wheel
