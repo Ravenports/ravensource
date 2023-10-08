@@ -3,7 +3,7 @@
 #
 # Feature:	python
 # Usage:	USES=python
-# Valid ARGS:	(py310 or v11), build, wheel
+# Valid ARGS:	(v11 or v12), build, wheel
 #
 # --------------------------------------
 # Variables which can be set by the port
@@ -76,10 +76,10 @@ _INCLUDE_USES_PYTHON_MK=	yes
 #                       python-pip:single:pyXX (if "wheel")
 # ------------------------------------------------------
 
-.  if !empty(python_ARGS:Mpy310)
-_PYTHON_VERSION=	3.10
-.  elif !empty(python_ARGS:Mv11)
+.  if !empty(python_ARGS:Mv11)
 _PYTHON_VERSION=	3.11
+.  elif !empty(python_ARGS:Mv12)
+_PYTHON_VERSION=	3.12
 .  else
 _PYTHON_VERSION=	${PYTHON3_DEFAULT}
 .  endif
