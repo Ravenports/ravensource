@@ -662,8 +662,6 @@ EOF;
                                    array ("\$lowversion", "", "", "", "&&"),
                                    $clause);
             $teststr = "\$required = " . $xformed . ";";
-            print($lowversion . "\n");
-            print($teststr . "\n");
             eval($teststr . "\n");
             if ($required) {
                array_push($clean_reqs2, substr($req, 0, $sc));
