@@ -119,6 +119,7 @@ function set_dependencies ($data, &$storage) {
         $parts = explode (" ", trim($line));
         if ($parts[0] == "bundler") { continue; }
         if ($parts[0] == "racc") { continue; }
+        if ($parts[0] == "rdoc") { continue; }
 
         if (!in_array($parts[0], $storage)) {
             array_push($storage, $parts[0]);
