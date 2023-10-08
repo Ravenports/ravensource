@@ -5,7 +5,7 @@ $PYTHON_CACHE = "/var/cache/python";
 $PYTHON_CACHE_JSON = $PYTHON_CACHE . "/json";
 $PYTHON_CACHE_ETAG = $PYTHON_CACHE . "/etag";
 $PYTHON_CACHE_DIST = $PYTHON_CACHE . "/distfiles";
-$PYTHONEXE = "/raven/bin/python3.10";
+$PYTHONEXE = "/raven/bin/python3.11";
 $EXTS    = array("tgz" => ".tar.gz",
                  "zip" => ".zip",
                  "tbz" => ".tar.bz2",
@@ -303,9 +303,13 @@ function inline_fix_setup ($namebase, $src) {
        "netbox-network-importer" => '/pyats\[full\]/d',
        "pyzmq"        => '/cythonize(/ s|, |, quiet=True, |; /packaging.version/d; s|if V(.*$|if False:|',
        "cffsubr"      => 's|"Linux"|platform.system()|',
+       "pycairo"      => false,
+       "msgpack"      => false,
+       "dulwich"      => false,
        "pygit2"       => false,
        "python-netbox" => '/install_requires=/ s|.ipaddress., ||',
        "netdoc"        => '/install_requires=/ s|.ipaddress., ||',
+       "PyGObject"     => false,
        "pycryptodome"  => false,
        "freetype-py"   => '/system-provided FreeType/d',
    );
@@ -354,22 +358,23 @@ function inline_fix_setup ($namebase, $src) {
                $xf = $src . "/setup.py";
                shell_exec ("sed -i.bak -e \"s|__version__|$bv|\" $xf");
                break;
-           case "xml2rfc":
-               $xf = $src . "/requirements.txt";
-               shell_exec ("sed -i.bak -e \"/#configargparse/d\" $xf");
-               break;
            case "tqdm":
                $xf = $src . "/setup.cfg";
                shell_exec ("sed -i.bak -e \"s|setuptools_scm\[toml\]|toml>=0.10; setuptools_scm|\" $xf");
-               break;
-           case "pygit2":
-               $xf = $src . "/requirements.txt";
-               shell_exec ("sed -i.bak -e \"/python_version < .3\.8/d\" $xf");
                break;
            case "pycryptodome":
                $xf = $src . "/compiler_opt.py";
                shell_exec ("sed -i.bak -e \"s|print(.*|pass|\" $xf");
                break;
+           case "cffi":
+           case "pygit2":
+           case "xml2rfc":
+           case "pycairo":
+           case "msgpack":
+           case "dulwich":
+           case "aiohttp":
+           case "PyGObject":
+           case "frozenlist":
            case "cffsubr":
            case "psautohint":
            case "freetype-py":
@@ -601,8 +606,6 @@ function set_buildrun (&$portdata, $PDUO) {
         case "protobuf":
         case "cryptography":
         case "compreffor":
-        case "pycairo":
-        case "PyGObject":
         case "zipp":		// above -- not distutils script
         case "PyNaCl":		// above -- tries downloading
         case "ruamel.yaml":     // list index out of range
