@@ -272,7 +272,6 @@ function inline_fix_setup ($namebase, $src) {
        'Markdown'     => '/install_requires=/ s|;.*[[:punct:]]"|"|',
        "borgbackup"   => '/Detected/d',
        "compreffor"   => '/print/d',
-       "cattrs"       => '/python_version/d',
        "netaddr"      => false,
        "Cython"       => '/Unable to find pgen/ s/sys[.].*$/pass/',
        "jsonpointer"  => '/pypandoc module not found/d; /Markdown to RST/d',
@@ -285,7 +284,6 @@ function inline_fix_setup ($namebase, $src) {
        "scipy"        => '/run_build = parse/ s|par.*ds[(][)]|False|',
        "ddt"          => '/enum34/d',
        "tqdm"         => '/== .make/ s|^if .*|if False:|',
-       "wcwidth"      => 's|.backports[.].*;.||; s|.python_version.*)|)|',
        "breathe"      => '/from breathe/d',
        "asn1"         => '/version_info.*3\.4/d; s/.enum-compat.//',
        "pycryptodomex"=> '/set_compiler_options/d',
@@ -650,8 +648,31 @@ EOF;
        $clean_reqs = array_filter($clean_reqs, "skip_bad_SU_requirements");
     }
     $comment_reqs = preg_replace('/^/', '# ', $clean_reqs);
+    $clean_reqs = preg_replace('/ /', '', $clean_reqs);
+    $clean_reqs2 = array();
+    $lowversion = $PDUO["VA"]["version"];
+    foreach ($clean_reqs as $req) {
+        if (strpos($req, "python_version") == false) {
+            array_push($clean_reqs2, $req);
+        } else {
+            // example: typing_extensions;python_version<="3.7"
+            $sc = strpos($req, ";");
+            $clause = substr($req, $sc + 1);
+            $xformed = str_replace(array ("python_version", '"', "'", ".", "and"),
+                                   array ("\$lowversion", "", "", "", "&&"),
+                                   $clause);
+            $teststr = "\$required = " . $xformed . ";";
+            print($lowversion . "\n");
+            print($teststr . "\n");
+            eval($teststr . "\n");
+            if ($required) {
+               array_push($clean_reqs2, substr($req, 0, $sc));
+            }
+        }
+    }
+
     $portdata["req_comment"] .= join("\n", $comment_reqs);
-    $stripped_reqs = preg_replace('/(.*)([><!=~].*)$/U', '\1', $clean_reqs);
+    $stripped_reqs = preg_replace('/(.*)([><!=~;].*)$/U', '\1', $clean_reqs2);
     foreach ($stripped_reqs as $req) {
         $req = trim($req);
         if (array_key_exists ($req, $data_corrections)) {
