@@ -6,8 +6,8 @@ DEF[SKIP_CRATE]=	rpds-py
 NAMEBASE=		python-rpds-py
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 v11
-SDESC[py310]=		Bindings to Rust persistent data structures (3.10)
+VARIANTS=		v12 v11
+SDESC[v12]=		Bindings to Rust persistent data structures (3.12)
 SDESC[v11]=		Bindings to Rust persistent data structures (3.11)
 HOMEPAGE=		https://github.com/crate-py/rpds
 CONTACT=		Python_Automaton[python@ironwolf.systems]
@@ -20,13 +20,13 @@ DISTFILE[1]=		rpds_py-${PORTVERSION}.tar.gz:main
 %%CR_DISTFILES%%
 %%DF_INDEX%%
 
-SPKGS[py310]=		single
+SPKGS[v12]=		single
 SPKGS[v11]=		single
 
-OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_AVAILABLE=	PY312 PY311
 OPTIONS_STANDARD=	none
-VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[v11]=		PY310=OFF PY311=ON
+VOPTS[v12]=		PY312=ON PY311=OFF
+VOPTS[v11]=		PY312=OFF PY311=ON
 
 # License listed at PyPI
 # MIT
@@ -41,9 +41,9 @@ DISTNAME=		rpds_py-${PORTVERSION}
 # install_requires extracted from setup.py
 
 
-[PY310].USES_ON=			python:py310
-[PY310].BUILD_DEPENDS_ON=		python-maturin:single:py310
-					python-pip:single:py310
+[PY312].USES_ON=			python:v12
+[PY312].BUILD_DEPENDS_ON=		python-maturin:single:v12
+					python-pip:single:v12
 
 [PY311].USES_ON=			python:v11
 [PY311].BUILD_DEPENDS_ON=		python-maturin:single:v11
