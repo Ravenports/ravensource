@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	2.2
+DEF[PORTVERSION]=	2.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		shared-mime-info
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		misc
 VARIANTS=		standard
 SDESC[standard]=	MIME types database from freedesktop.org project
@@ -14,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://gitlab.freedesktop.org/xdg/shared-mime-info/-/archive/${PORTVERSION}/
 DISTFILE[1]=		shared-mime-info-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[standard]=	complete primary dev nls man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,7 +27,7 @@ FPC_EQUIVALENT=		misc/shared-mime-info
 
 BUILD_DEPENDS=		xmlto:single:standard
 
-USES=			pkgconfig meson
+USES=			pkgconfig meson c++:primary
 GNOME_COMPONENTS=	glib libxml2 intltool
 MESON_ARGS=		-Dupdate-mimedb=false
 			-Dxdgmime-path="{{WRKSRC}}/src/xdgmime"
@@ -38,15 +37,16 @@ SUB_LIST=		MIMEDIRS="{{CLEAN_MIMEDIRS}}"
 
 post-extract:
 	${AWK} '/Copyright/,/file named COPYING/' \
-		${WRKSRC}/src/update-mime-database.c > ${WRKDIR}/TERMS
+		${WRKSRC}/src/update-mime-database.cpp > ${WRKDIR}/TERMS
 
 pre-configure:
 	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g' \
-		${WRKSRC}/src/update-mime-database.c
+		${WRKSRC}/src/update-mime-database.cpp
 	# Use local dtd
 	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
 		${WRKSRC}/data/shared-mime-info-spec.xml
 
 post-install:
-	${MV} ${STAGEDIR}${PREFIX}/share/pkgconfig \
-		${STAGEDIR}${PREFIX}/lib/
+.for DIR in XMLnamespaces aliases generic-icons globs globs2 icons magic mime.cache subclasses treemagic types version
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/mime/${DIR}
+.endfor
