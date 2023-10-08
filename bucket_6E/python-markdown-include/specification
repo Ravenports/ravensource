@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.8.1
 NAMEBASE=		python-markdown-include
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 v11
-SDESC[py310]=		Include extension for Markdown (3.10)
+VARIANTS=		v11 v12
 SDESC[v11]=		Include extension for Markdown (3.11)
+SDESC[v12]=		Include extension for Markdown (3.12)
 HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPIWHL/d7/e2/c4d20b21a05fe0fee571649cebc05f7f72e80b1a743f932e7326125e6c9e
 DISTFILE[1]=		markdown_include-${PORTVERSION}-py3-none-any.whl:main
 
-SPKGS[py310]=		single
 SPKGS[v11]=		single
+SPKGS[v12]=		single
 
-OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_AVAILABLE=	PY311 PY312
 OPTIONS_STANDARD=	none
-VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[v11]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY311=ON PY312=OFF
+VOPTS[v12]=		PY311=OFF PY312=ON
 
 # License listed at PyPI
 # GNU General Public License v3 (GPLv3)
@@ -32,8 +32,8 @@ DISTNAME=		markdown_include-${PORTVERSION}.dist-info
 # markdown (>=3.0)
 # pytest ; extra == 'tests'
 
-[PY310].USES_ON=			python:py310,wheel
-[PY310].RUN_DEPENDS_ON=			python-Markdown:single:py310
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-Markdown:single:v11
+[PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-Markdown:single:v12
 

@@ -1,26 +1,26 @@
-DEF[PORTVERSION]=	3.16.2
+DEF[PORTVERSION]=	3.16.3
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pypdf
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 v11
-SDESC[py310]=		PDF transformation library (3.10)
+VARIANTS=		v11 v12
 SDESC[v11]=		PDF transformation library (3.11)
+SDESC[v12]=		PDF transformation library (3.12)
 HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/bf/53/8840f93c5dcd108c02cac7343e194f9dc5d15ade6200ccc661ab4e1352b5
+SITES[main]=		PYPIWHL/f4/6d/112e138a3097641f30acc2cb802325ad94e1825495bfae3e1fe3f1d9001d
 DISTFILE[1]=		pypdf-${PORTVERSION}-py3-none-any.whl:main
 
-SPKGS[py310]=		single
 SPKGS[v11]=		single
+SPKGS[v12]=		single
 
-OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_AVAILABLE=	PY311 PY312
 OPTIONS_STANDARD=	none
-VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[v11]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY311=ON PY312=OFF
+VOPTS[v12]=		PY311=OFF PY312=ON
 
 # License listed at PyPI
 # Not provided.
@@ -49,6 +49,6 @@ DISTNAME=		pypdf-${PORTVERSION}.dist-info
 # Pillow>=8.0.0 ; extra == "full"
 # Pillow>=8.0.0 ; extra == "image"
 
-[PY310].USES_ON=			python:py310,wheel
 [PY311].USES_ON=			python:v11,wheel
+[PY312].USES_ON=			python:v12,wheel
 
