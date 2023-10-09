@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.3
 
 NAMEBASE=		shared-mime-info
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		misc
 VARIANTS=		standard
 SDESC[standard]=	MIME types database from freedesktop.org project
@@ -32,8 +33,8 @@ GNOME_COMPONENTS=	glib libxml2 intltool
 MESON_ARGS=		-Dupdate-mimedb=false
 			-Dxdgmime-path="{{WRKSRC}}/src/xdgmime"
 
-SUB_FILES=		pkg-install-single
-SUB_LIST=		MIMEDIRS="{{CLEAN_MIMEDIRS}}"
+SUB_FILES=		pkg-install-primary
+			pkg-deinstall-primary
 
 post-extract:
 	${AWK} '/Copyright/,/file named COPYING/' \
@@ -47,6 +48,7 @@ pre-configure:
 		${WRKSRC}/data/shared-mime-info-spec.xml
 
 post-install:
-.for DIR in XMLnamespaces aliases generic-icons globs globs2 icons magic mime.cache subclasses treemagic types version
+.for DIR in application audio image inode message model multipart packages text video x-epoc x-content font
+	# XMLnamespaces aliases generic-icons globs globs2 icons magic mime.cache subclasses treemagic types version
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/mime/${DIR}
 .endfor
