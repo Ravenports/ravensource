@@ -6,14 +6,16 @@ DEF[BASE_COMPONENTS]=	gmp iconv readline syslog
 DEF[COMPONENTS]=	${BASE_COMPONENTS} python
 DEF[SOVERSION]=		0.0
 DEF[LIBTYPES]=		static static-pic relocatable
-DEF[PY3DEFAULT]=	EXTRACT_VERSION(PYTHON3_DEFAULT)
+# When v11 replaced by v13, re-enable the default
+# DEF[PY3DEFAULT]=	EXTRACT_VERSION(PYTHON3_DEFAULT)
+DEF[PY3DEFAULT]=	3.12
 DEF[THIRD_SNAKE]=	${PY3DEFAULT:S|.||}
 DEF[PY3_INCLUDEDIR]=	{{LOCALBASE}}/include/python${PY3DEFAULT}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnatcoll-bindings
 VERSION=		${PORTVERSION}
-REVISION=		3
+REVISION=		4
 EPOCH=			1
 KEYWORDS=		devel
 VARIANTS=		standard
@@ -43,7 +45,7 @@ BUILD_DEPENDS=		gmp:static:standard
 			gprbuild:gprlib:standard
 			readline:dev:standard
 			readline:primary:standard
-			python${THIRD_SNAKE}:single:standard
+			python${THIRD_SNAKE}:dev:standard
 			gnatcoll-core:dev:standard
 			gnatcoll-core:primary:standard
 
@@ -56,7 +58,7 @@ EXRUN[readline]=	readline:primary:standard
 EXRUN[python3]=		python${THIRD_SNAKE}:single:standard
 			gnatcoll-core:primary:standard
 
-USES=			gprbuild gmake iconv:build python:build
+USES=			gprbuild gmake iconv:build
 MAKE_ENV=		BUILD=PROD
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
