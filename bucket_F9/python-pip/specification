@@ -1,3 +1,5 @@
+# Manually maintained because wheel files required pip to install
+# There are no distfiles because python's ensurepip bootstraps it.
 DEF[PORTVERSION]=	23.2.1
 # ------------------------------------------------------------------------
 
@@ -5,14 +7,12 @@ NAMEBASE=		python-pip
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		v11 v12
-SDESC[v11]=		PyPA tool for installing python packages (3.11)
-SDESC[v12]=		PyPA tool for installing python packages (3.12)
+SDESC[v11]=		Tool for installing python packages (3.11)
+SDESC[v12]=		Tool for installing python packages (3.12)
 HOMEPAGE=		https://pip.pypa.io/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
-DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/p/pip
-DISTFILE[1]=		pip-${PORTVERSION}.tar.gz:main
+DOWNLOAD_GROUPS=	none
 
 SPKGS[v11]=		single
 SPKGS[v12]=		single
@@ -26,14 +26,25 @@ VOPTS[v12]=		PY311=OFF PY312=ON
 # MIT
 
 GENERATED=		yes
-DISTNAME=		pip-${PORTVERSION}
 
 # install_requires extracted from setup.py
-
-
-[PY311].USES_ON=			python:v11,sutools
-[PY312].USES_ON=			python:v12,sutools
 
 USES=			cpe
 CPE_VENDOR=		pypa
 CPE_PRODUCT=		pip
+
+[PY311].USES_ON=			python:v11
+[PY311].MAKEFILE_ON=			POST_PLIST_TARGET+=setuptools-autolist
+[PY312].USES_ON=			python:v12
+[PY312].MAKEFILE_ON=			POST_PLIST_TARGET+=setuptools-autolist
+
+do-build:
+	# We can't use --root STAGEDIR because the paths are hardcoded
+	# So we install it in the proper place and relocate to the stagedir
+	# for packaging
+	${PYTHON_CMD} -m ensurepip
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PYTHON_SITELIBDIR}/
+	${MV} ${PYTHON_SITELIBDIR}/pip ${STAGEDIR}${PYTHON_SITELIBDIR}/
+	${MV} ${LOCALBASE}/bin/pip${PYTHON_VER} ${STAGEDIR}${PREFIX}/bin/
