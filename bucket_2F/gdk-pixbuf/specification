@@ -5,7 +5,7 @@ DEF[GTK_VERSION]=	EXTRACT_INFO(GTK2_VERSION)
 
 NAMEBASE=		gdk-pixbuf
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Graphic library for GIMP toolkit
@@ -36,6 +36,10 @@ BUILD_DEPENDS=		python-docutils:single:python_used
 			zstd:dev:standard
 
 EXRUN[dev]=		shared-mime-info:dev:standard
+
+SUB_FILES=		pkg-install-primary
+			pkg-deinstall-primary
+SUB_LIST=		GTK2_VERSION=${GTK_VERSION}
 
 USES=			cpe gmake jpeg png tiff pkgconfig libtool
 			meson shebangfix mime-info:primary
