@@ -40,16 +40,16 @@ CPE_PRODUCT=		numpy
 DISTNAME=		numpy-${PORTVERSION}
 PLIST_SUB=		EGGVER=${PORTVERSION}
 
-[PY311].BUILD_DEPENDS_ON=		python311:dev:standard
-					python-Cython:single:v11
+[PY311].BUILD_DEPENDS_ON=		python-Cython:single:v11
 					python-meson-python:single:v11
 					python-wheel:single:v11
 					python-spin:single:v11
 					python-pip:single:v11
-[PY311].BUILDRUN_DEPENDS_ON=		python311:primary:standard
+[PY311].BUILDRUN_DEPENDS_ON=		python311:single:standard
 [PY311].PLIST_SUB_ON=			SITEPKGS=lib/python3.11/site-packages/numpy
 					VER=3.11
 					XY=311
+					ONLY311=
 [PY312].BUILD_DEPENDS_ON=		python312:dev:standard
 					python-Cython:single:v12
 					python-meson-python:single:v12
@@ -60,6 +60,7 @@ PLIST_SUB=		EGGVER=${PORTVERSION}
 [PY312].PLIST_SUB_ON=			SITEPKGS=lib/python3.12/site-packages/numpy
 					VER=3.12
 					XY=312
+					ONLY311="@comment "
 
 do-configure:
 	# do nothing so meson.mk doesn't do anything
