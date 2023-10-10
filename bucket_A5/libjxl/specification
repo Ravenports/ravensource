@@ -56,7 +56,8 @@ EXRUN[tools]=		primary
 			png:primary:standard
 			giflib:primary:standard
 
-USES=			cpe cmake pkgconfig mime-info:primary
+# USES=gold fixes link to missing __extendhfsf2 symbol
+USES=			cpe cmake pkgconfig mime-info:primary gold
 			gif:build jpeg:build png:build zlib:build
 CPE_VENDOR=		libjxl_project
 SOVERSION=		${SOVERSION}
@@ -67,8 +68,6 @@ CMAKE_ARGS=		-DJPEGXL_ENABLE_MANPAGES:BOOL=ON
 			-DBUILD_TESTING:BOOL=OFF
 PLIST_SUB=		SOMAJMIN=${SOVERSION:R}
 
-# fixes link to missing __extendhfsf2 symbol
-LDFLAGS=		-fuse-ld=gold
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
