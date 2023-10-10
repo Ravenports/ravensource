@@ -81,12 +81,11 @@ TCL_8.6_VERSION=	8.6.13
 
 #-------------------------------------------------------------------------
 # PGSQL
-# Possible values: 11, 12, 13, 14, 15, 16
+# Possible values: 12, 13, 14, 15, 16
 #-------------------------------------------------------------------------
 
-PGSQL_DEFAULT?=		14
+PGSQL_DEFAULT?=		15
 
-PGSQL_11_VERSION=	11.21	# EOL 9 NOV 2023
 PGSQL_12_VERSION=	12.16
 PGSQL_13_VERSION=	13.12
 PGSQL_14_VERSION=	14.9
