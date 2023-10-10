@@ -280,7 +280,6 @@ function inline_fix_setup ($namebase, $src) {
        "ruamel.yaml"  => '/__name__.*__main__/ s|^.*$|if False:|; /print..sys[.]argv/d',
        "ruamel.yaml.clib"  => '/__name__.*__main__/ s|^.*$|if False:|; /print..sys[.]argv/d; /test compiling/d',
        "pandas"       => '/ext_modules=/d',
-       "numpy"        => 's|            generate_cython[(][)]|            pass|',
        "scipy"        => '/run_build = parse/ s|par.*ds[(][)]|False|',
        "ddt"          => '/enum34/d',
        "tqdm"         => '/== .make/ s|^if .*|if False:|',
@@ -341,10 +340,6 @@ function inline_fix_setup ($namebase, $src) {
            case "soupsieve":
                $xf = $src . "/requirements/project.txt";
                shell_exec ("sed -i.bak -e '/^backports/d' $xf");
-               break;
-           case "numpy":
-               $xf = $src . "/numpy/__init__.py";
-               shell_exec ("sed -i.bak -e '/Running from numpy/ s/sys.*[)]/pass/' $xf");
                break;
            case "ddt":
                $xf = $src . "/ddt.py";
@@ -594,7 +589,6 @@ function set_buildrun (&$portdata, $PDUO) {
         case "attrs":
         case "fonttools":
         case "netaddr":
-        case "numpy":
         case "pylint":
         case "pytest-runner":
         case "reportlab":
