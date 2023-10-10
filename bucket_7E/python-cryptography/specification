@@ -7,9 +7,9 @@ DEF[SKIP_CRATE]=	cryptography-rust
 NAMEBASE=		python-cryptography
 VERSION=		${PORTVERSION}
 KEYWORDS=		python rust
-VARIANTS=		py310 v11
+VARIANTS=		v12 v11
 SDESC[v11]=		Cryptographic recipes and primitives (3.11)
-SDESC[py310]=		Cryptographic recipes and primitives (3.10)
+SDESC[v12]=		Cryptographic recipes and primitives (3.12)
 HOMEPAGE=		https://github.com/pyca/cryptography
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -136,12 +136,12 @@ DF_INDEX=		1 2 3 4 5 6 7 8 9 10
 			51 52 53 54
 
 SPKGS[v11]=		single
-SPKGS[py310]=		single
+SPKGS[v12]=		single
 
-OPTIONS_AVAILABLE=	PY311 PY310
+OPTIONS_AVAILABLE=	PY311 PY312
 OPTIONS_STANDARD=	none
-VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[v11]=		PY310=OFF PY311=ON
+VOPTS[v12]=		PY312=ON PY311=OFF
+VOPTS[v11]=		PY312=OFF PY311=ON
 
 # License listed at PyPI
 # BSD or Apache License, Version 2.0
@@ -153,9 +153,9 @@ DISTNAME=		cryptography-${PORTVERSION}
 # cffi>=1.12
 # setuptools-rust>=0.11.4
 
-[PY310].USES_ON=			python:py310,sutools
-[PY310].BUILDRUN_DEPENDS_ON=		python-cffi:single:py310
-					python-setuptools-rust:single:py310
+[PY312].USES_ON=			python:v12,sutools
+[PY312].BUILDRUN_DEPENDS_ON=		python-cffi:single:v12
+					python-setuptools-rust:single:v12
 [PY311].USES_ON=			python:v11,sutools
 [PY311].BUILDRUN_DEPENDS_ON=		python-cffi:single:v11
 					python-setuptools-rust:single:v11

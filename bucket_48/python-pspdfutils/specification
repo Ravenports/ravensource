@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	3.3.2
 NAMEBASE=		python-pspdfutils
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 v11
-SDESC[py310]=		Manipulate PDF and PostScript documents (3.10)
+VARIANTS=		v11 v12
 SDESC[v11]=		Manipulate PDF and PostScript documents (3.11)
+SDESC[v12]=		Manipulate PDF and PostScript documents (3.12)
 HOMEPAGE=		https://github.com/rrthomas/psutils
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPIWHL/fa/59/c50e1c464bd9f54507db768ab94cc976cb8c546d4992be30ffb5a676cb1f
 DISTFILE[1]=		pspdfutils-${PORTVERSION}-py3-none-any.whl:main
 
-SPKGS[py310]=		single
 SPKGS[v11]=		single
+SPKGS[v12]=		single
 
-OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_AVAILABLE=	PY311 PY312
 OPTIONS_STANDARD=	none
-VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[v11]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY311=ON PY312=OFF
+VOPTS[v12]=		PY311=OFF PY312=ON
 
 # License listed at PyPI
 # GPL v3 or later
@@ -32,10 +32,10 @@ DISTNAME=		pspdfutils-${PORTVERSION}.dist-info
 # puremagic
 # pypdf >=3.15.0
 
-[PY310].USES_ON=			python:py310,wheel
-[PY310].RUN_DEPENDS_ON=			python-puremagic:single:py310
-					python-pypdf:single:py310
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-puremagic:single:v11
 					python-pypdf:single:v11
+[PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-puremagic:single:v12
+					python-pypdf:single:v12
 

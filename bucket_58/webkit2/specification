@@ -44,7 +44,6 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		www/webkit2-gtk3
 
-# due to __extendhfsf2 linking issue with ld-bfd on highway, mold linker used
 
 BUILD_DEPENDS=		geoclue:dev:standard
 			gnutls:dev:standard
@@ -63,7 +62,6 @@ BUILD_DEPENDS=		geoclue:dev:standard
 			icu:dev:standard
 			WebP:dev:standard
 			libjxl:dev:standard
-			mold:primary:standard
 BUILDRUN_DEPENDS=	enchant:primary:standard
 			WebP:primary:standard
 			libsecret:primary:standard
@@ -87,9 +85,10 @@ BUILDRUN_DEPENDS=	enchant:primary:standard
 # required for ENABLE_GAMEPAD=ON
 # #			libmanette:single:standard
 
+# due to __extendhfsf2 linking issue with ld-bfd on highway, mold linker used
 USES=			png mesa cmake pkgconfig sqlite bison
 			perl:build python:build ruby:build
-			fontconfig jpeg cpe
+			fontconfig jpeg cpe mold
 GNOME_COMPONENTS=	gdkpixbuf introspection libxslt
 XORG_COMPONENTS=	x11 xcomposite xdamage xext xrender xt ice xfixes
 CPE_VENDOR=		webkitgtk
@@ -115,7 +114,6 @@ CMAKE_ARGS=		-DPORT=GTK
 CONFIGURE_ENV=		XDG_CACHE_HOME={{WRKDIR}}
 CXXFLAGS=		-DFIXED_EXECUTABLE_MEMORY_POOL_SIZE_IN_MB=32
 PLIST_SUB=		INTRO="@comment "
-LDFLAGS=		-fuse-ld=mold
 INSTALL_REQ_TOOLCHAIN=	yes
 
 [API40].DESCRIPTION=			Build WebKit2 API 4.0 variant

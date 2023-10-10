@@ -33,12 +33,12 @@ BUILD_DEPENDS=		glib:dev:standard
 			webkit2:dev:api41
 BUILDRUN_DEPENDS=	webkit2:primary:api41
 
-USES=			desktop-utils:primary gmake pkgconfig zlib:build gettext
+USES=			desktop-utils:primary gmake pkgconfig zlib:build
+			gettext gold
 GNOME_COMPONENTS=	pango cairo gtk3
 CFLAGS=			-D_BSD_SOURCE
 MAKE_ENV=		V=1
 SINGLE_JOB=		yes
-LDFLAGS=		-fuse-ld=gold
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 			LDFLAGS=-lnsl

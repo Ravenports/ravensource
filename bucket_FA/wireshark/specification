@@ -64,7 +64,7 @@ BUILDRUN_DEPENDS=	libgcrypt:primary:standard
 # worked with libressl 2.7.x, but seeing floating point exception
 # (core dump) with libressl 2.8.x
 USES=			cpe gmake cmake ssl:openssl11 zlib lz4 qt5
-			zstd lua:5.2 perl:build pkgconfig
+			zstd lua:5.2 perl:build python:v11,build pkgconfig
 			mime-info:primary
 			desktop-utils:primary
 GNOME_COMPONENTS=	glib libxml2
@@ -92,6 +92,7 @@ CMAKE_ARGS=		-DBUILD_wireshark:BOOL=ON
 			-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
 			-DLUA_INCLUDEDIR:PATH="{{LUA_INCDIR}}"
 			-DLUA_LIBDIR:PATH="{{LUA_LIBDIR}}"
+			-DPython3_EXECUTABLE:PATH="{{PYTHON_CMD}}"
 INSTALL_REQ_TOOLCHAIN=	yes
 CPPFLAGS=		-I{{LUA_INCDIR}}
 SOVERSION=		${SOVERSION}

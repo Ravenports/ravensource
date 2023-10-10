@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.13.0
 NAMEBASE=		python-pipdeptree
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 v11
-SDESC[py310]=		Utility to show package dependency tree (3.10)
+VARIANTS=		v11 v12
 SDESC[v11]=		Utility to show package dependency tree (3.11)
+SDESC[v12]=		Utility to show package dependency tree (3.12)
 HOMEPAGE=		https://github.com/tox-dev/pipdeptree
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPIWHL/1a/16/dcf8dab5bde96006502d80c858676728364e307f23c3df210fc1f6f406ee
 DISTFILE[1]=		pipdeptree-${PORTVERSION}-py3-none-any.whl:main
 
-SPKGS[py310]=		single
 SPKGS[v11]=		single
+SPKGS[v12]=		single
 
-OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_AVAILABLE=	PY311 PY312
 OPTIONS_STANDARD=	none
-VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[v11]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY311=ON PY312=OFF
+VOPTS[v12]=		PY311=OFF PY312=ON
 
 # License listed at PyPI
 # Copyright (c) The pipdeptree developers  Permission is hereby granted,
@@ -53,6 +53,6 @@ DISTNAME=		pipdeptree-${PORTVERSION}.dist-info
 # pytest>=7.4; extra == 'test'
 # virtualenv<21,>=20.24; extra == 'test'
 
-[PY310].USES_ON=			python:py310,wheel
 [PY311].USES_ON=			python:v11,wheel
+[PY312].USES_ON=			python:v12,wheel
 

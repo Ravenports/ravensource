@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	4.25.0
 NAMEBASE=		python-jsonargparse
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 v11
-SDESC[py310]=		JSON argument and config file parser (3.10)
+VARIANTS=		v11 v12
 SDESC[v11]=		JSON argument and config file parser (3.11)
+SDESC[v12]=		JSON argument and config file parser (3.12)
 HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPIWHL/46/1a/1687c20b1c7aa9df40120b8faff067fce77bfdac215f9efbe3f39b7a6227
 DISTFILE[1]=		jsonargparse-${PORTVERSION}-py3-none-any.whl:main
 
-SPKGS[py310]=		single
 SPKGS[v11]=		single
+SPKGS[v12]=		single
 
-OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_AVAILABLE=	PY311 PY312
 OPTIONS_STANDARD=	none
-VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[v11]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY311=ON PY312=OFF
+VOPTS[v12]=		PY311=OFF PY312=ON
 
 # License listed at PyPI
 # The MIT License (MIT)  Copyright (c) 2019-present, Mauricio Villegas
@@ -96,8 +96,8 @@ DISTNAME=		jsonargparse-${PORTVERSION}.dist-info
 # typing-extensions >=3.10.0.0 ; (python_version < "3.10") and extra == 'typing-extensions'
 # requests >=2.18.4 ; extra == 'urls'
 
-[PY310].USES_ON=			python:py310,wheel
-[PY310].RUN_DEPENDS_ON=			python-PyYAML:single:py310
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-PyYAML:single:v11
+[PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-PyYAML:single:v12
 

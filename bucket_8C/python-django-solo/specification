@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.1.0
 NAMEBASE=		python-django-solo
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 v11
-SDESC[py310]=		Djanjo manipulator of database singletons (3.10)
+VARIANTS=		v11 v12
 SDESC[v11]=		Djanjo manipulator of database singletons (3.11)
+SDESC[v12]=		Djanjo manipulator of database singletons (3.12)
 HOMEPAGE=		https://github.com/lazybird/django-solo/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPIWHL/80/1a/ef5c1347a9a76d3217ebfb2a26c07ad9ae2a2517beaa95f88f2e74649817
 DISTFILE[1]=		django_solo-${PORTVERSION}-py3-none-any.whl:main
 
-SPKGS[py310]=		single
 SPKGS[v11]=		single
+SPKGS[v12]=		single
 
-OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_AVAILABLE=	PY311 PY312
 OPTIONS_STANDARD=	none
-VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[v11]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY311=ON PY312=OFF
+VOPTS[v12]=		PY311=OFF PY312=ON
 
 # License listed at PyPI
 # Creative Commons Attribution 3.0 Unported
@@ -31,8 +31,8 @@ DISTNAME=		django_solo-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 # django (>=3.2)
 
-[PY310].USES_ON=			python:py310,wheel
-[PY310].RUN_DEPENDS_ON=			python-Django:single:py310
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-Django:single:v11
+[PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-Django:single:v12
 

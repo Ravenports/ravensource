@@ -1,0 +1,62 @@
+DEF[PORTVERSION]=	0.3.24
+DEF[RELEASE_TAG]=	v${PORTVERSION}
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		openblas
+VERSION=		${PORTVERSION}
+KEYWORDS=		math
+VARIANTS=		standard
+SDESC[standard]=	Optimized BLAS library based on GotoBLAS2
+HOMEPAGE=		http://www.openblas.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main netlib
+SITES[main]=		GITHUB/OpenMathLib:OpenBLAS:${RELEASE_TAG}
+SITES[netlib]=		https://www.netlib.org/lapack/timing/
+DISTFILE[1]=		generated:main
+DISTFILE[2]=		timing.tgz:netlib
+DISTFILE[3]=		large.tgz:netlib
+DIST_SUBDIR=		openblas
+DF_INDEX=		1
+
+SPKGS[standard]=	complete primary dev
+
+OPTIONS_AVAILABLE=	OPENMP DYNAMIC_ARCH BIT64
+OPTIONS_STANDARD=	OPENMP DYNAMIC_ARCH BIT64
+OPT_ON[x86_64]=		OPENMP DYNAMIC_ARCH BIT64
+
+FPC_EQUIVALENT=		math/openblas
+
+USES=			cpe gmake pkgconfig perl:build fortran:primary
+CPE_VENDOR=		openblas_project
+SOVERSION=		${SOVERSION}
+
+[DYNAMIC_ARCH].DESCRIPTION=		Support multiple CPU types rather than host CPU
+[OPENMP].DESCRIPTION=			Use OpenMP for threading
+[BIT64].DESCRIPTION=			Build for 64-bit architecture rather than 32-bit
+
+post-extract:
+	${CP} ${DISTDIR}/${DIST_SUBDIR}/timing.tgz ${WRKSRC}/
+	${CP} ${DISTDIR}/${DIST_SUBDIR}/large.tgz ${WRKSRC}/
+
+pre-configure:
+	${ECHO_CMD} MAKE_NB_JOBS=-1 >> ${WRKSRC}/Makefile.rule
+	${ECHO_CMD} NUM_THREADS=64 >> ${WRKSRC}/Makefile.rule
+	${ECHO_CMD} USE_THREAD=1 >> ${WRKSRC}/Makefile.rule
+
+pre-configure-DYNAMIC_ARCH-ON:
+	${ECHO_CMD} DYNAMIC_ARCH=1 >> ${WRKSRC}/Makefile.rule
+	${ECHO_CMD} DYNAMIC_OLDER=1 >> ${WRKSRC}/Makefile.rule
+
+pre-configure-OPENMP-ON:
+	${ECHO_CMD} USE_OPENMP=1 >> ${WRKSRC}/Makefile.rule
+
+pre-configure-BIT64-ON:
+	${ECHO_CMD} BINARY=64 >> ${WRKSRC}/Makefile.rule
+
+pre-configure-BIT64-OFF:
+	${ECHO_CMD} BINARY=32 >> ${WRKSRC}/Makefile.rule
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libopenblasp*.so

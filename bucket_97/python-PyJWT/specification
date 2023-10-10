@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.8.0
 NAMEBASE=		python-PyJWT
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 v11
-SDESC[py310]=		JSON Web Token implementation in Python (3.10)
+VARIANTS=		v11 v12
 SDESC[v11]=		JSON Web Token implementation in Python (3.11)
+SDESC[v12]=		JSON Web Token implementation in Python (3.12)
 HOMEPAGE=		https://github.com/jpadilla/pyjwt
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPIWHL/2b/4f/e04a8067c7c96c364cef7ef73906504e2f40d690811c021e1a1901473a19
 DISTFILE[1]=		PyJWT-${PORTVERSION}-py3-none-any.whl:main
 
-SPKGS[py310]=		single
 SPKGS[v11]=		single
+SPKGS[v12]=		single
 
-OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_AVAILABLE=	PY311 PY312
 OPTIONS_STANDARD=	none
-VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[v11]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY311=ON PY312=OFF
+VOPTS[v12]=		PY311=OFF PY312=ON
 
 # License listed at PyPI
 # MIT
@@ -44,8 +44,8 @@ DISTNAME=		PyJWT-${PORTVERSION}.dist-info
 # pytest (<7.0.0,>=6.0.0) ; extra == 'tests'
 # coverage[toml] (==5.0.4) ; extra == 'tests'
 
-[PY310].USES_ON=			python:py310,wheel
 [PY311].USES_ON=			python:v11,wheel
+[PY312].USES_ON=			python:v12,wheel
 
 USES=			cpe
 CPE_VENDOR=		pyjwt_project

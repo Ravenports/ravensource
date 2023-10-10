@@ -31,14 +31,12 @@ LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		devel/highway
 
-USES=			cmake c++:primary
+# USES=gold fixes link to missing __extendhfsf2 symbol
+USES=			cmake gold c++:primary
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
 			-DHWY_SYSTEM_GTEST:BOOL=ON
 			-DBUILD_TESTING:BOOL=OFF
 SOVERSION=		${SOVERSION}
-
-# fixes link to missing __extendhfsf2 symbol
-LDFLAGS=		-fuse-ld=gold
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so

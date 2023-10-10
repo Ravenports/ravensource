@@ -64,8 +64,9 @@ RUN_DEPENDS=		hicolor-icon-theme:single:standard
 			perl-Finance-Quote:single:perl_default
 			perl-libwww-perl:single:perl_default
 
+# ld: /raven/lib/libhwy.so.1: undefined reference to `__extendhfdf2' (fix with USES=gold)
 USES=			cmake:insource desktop-utils:primary gnome-icons:primary
-			fontconfig pkgconfig libtool perl shebangfix
+			fontconfig pkgconfig libtool perl shebangfix gold
 			zlib cpe schemas:primary
 XORG_COMPONENTS=	x11
 GNOME_COMPONENTS=	gtk3 libxslt intltool
@@ -101,8 +102,6 @@ GLIB_SCHEMAS=		org.gnucash.GnuCash.dialogs.business.gschema.xml
 			org.gnucash.GnuCash.deprecated.gschema.xml
 MAKE_ENV=		XDG_CACHE_HOME={{WRKDIR}}/.cache
 PLIST_SUB=		GVER=${GUILE_SITE}
-# ld: /raven/lib/libhwy.so.1: undefined reference to `__extendhfdf2'
-LDFLAGS=		-fuse-ld=gold
 
 pre-configure:
 	# disable testing and fix XDG_DATA_DIRS

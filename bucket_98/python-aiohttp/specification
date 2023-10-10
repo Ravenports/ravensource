@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	3.8.6
 NAMEBASE=		python-aiohttp
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		py310 v11
-SDESC[py310]=		Async http client/server framework (3.10)
+VARIANTS=		v11 v12
 SDESC[v11]=		Async http client/server framework (3.11)
+SDESC[v12]=		Async http client/server framework (3.12)
 HOMEPAGE=		https://github.com/aio-libs/aiohttp
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/a/aiohttp
 DISTFILE[1]=		aiohttp-${PORTVERSION}.tar.gz:main
 
-SPKGS[py310]=		single
 SPKGS[v11]=		single
+SPKGS[v12]=		single
 
-OPTIONS_AVAILABLE=	PY310 PY311
+OPTIONS_AVAILABLE=	PY311 PY312
 OPTIONS_STANDARD=	none
-VOPTS[py310]=		PY310=ON PY311=OFF
-VOPTS[v11]=		PY310=OFF PY311=ON
+VOPTS[v11]=		PY311=ON PY312=OFF
+VOPTS[v12]=		PY311=OFF PY312=ON
 
 # License listed at PyPI
 # Apache 2
@@ -33,18 +33,13 @@ DISTNAME=		aiohttp-${PORTVERSION}
 # charset-normalizer<4.0,>=2.0
 # multidict<7.0,>=4.5
 # async_timeout<5.0,>=4.0.0a3
+# asynctest==0.13.0; python_version < "3.8"
 # yarl<2.0,>=1.0
+# idna-ssl>=1.0; python_version < "3.7"
+# typing_extensions>=3.7.4; python_version < "3.8"
 # frozenlist>=1.1.1
 # aiosignal>=1.1.2
 
-[PY310].USES_ON=			python:py310,sutools
-[PY310].BUILDRUN_DEPENDS_ON=		python-attrs:single:py310
-					python-charset-normalizer:single:py310
-					python-multidict:single:py310
-					python-async-timeout:single:py310
-					python-yarl:single:py310
-					python-frozenlist:single:py310
-					python-aiosignal:single:py310
 [PY311].USES_ON=			python:v11,sutools
 [PY311].BUILDRUN_DEPENDS_ON=		python-attrs:single:v11
 					python-charset-normalizer:single:v11
@@ -53,6 +48,14 @@ DISTNAME=		aiohttp-${PORTVERSION}
 					python-yarl:single:v11
 					python-frozenlist:single:v11
 					python-aiosignal:single:v11
+[PY312].USES_ON=			python:v12,sutools
+[PY312].BUILDRUN_DEPENDS_ON=		python-attrs:single:v12
+					python-charset-normalizer:single:v12
+					python-multidict:single:v12
+					python-async-timeout:single:v12
+					python-yarl:single:v12
+					python-frozenlist:single:v12
+					python-aiosignal:single:v12
 
 USES=			cpe
 CPE_VENDOR=		aiohttp_project
