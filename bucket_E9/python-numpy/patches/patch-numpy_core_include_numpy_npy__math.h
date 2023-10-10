@@ -1,6 +1,6 @@
---- numpy/core/include/numpy/npy_math.h.orig	2022-12-26 03:52:52 UTC
+--- numpy/core/include/numpy/npy_math.h.orig	1970-01-01 00:00:00 UTC
 +++ numpy/core/include/numpy/npy_math.h
-@@ -318,7 +318,11 @@ NPY_INPLACE npy_longdouble npy_tanl(npy_
+@@ -285,7 +285,11 @@ NPY_INPLACE npy_longdouble npy_tanl(npy_
  NPY_INPLACE npy_longdouble npy_expl(npy_longdouble x);
  NPY_INPLACE npy_longdouble npy_sqrtl(npy_longdouble x);
  NPY_INPLACE npy_longdouble npy_hypotl(npy_longdouble x, npy_longdouble y);
@@ -12,7 +12,7 @@
  NPY_INPLACE npy_longdouble npy_atan2l(npy_longdouble x, npy_longdouble y);
  NPY_INPLACE npy_longdouble npy_powl(npy_longdouble x, npy_longdouble y);
  NPY_INPLACE npy_longdouble npy_modfl(npy_longdouble x, npy_longdouble* y);
-@@ -336,14 +340,22 @@ NPY_INPLACE npy_longdouble npy_modfl(npy
+@@ -303,14 +307,22 @@ NPY_INPLACE npy_longdouble npy_modfl(npy
  #define npy_cbrtl cbrtl
  #define npy_log10l log10l
  #define npy_logl logl
