@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	4.3.4
-DEF[SOVERSION]=		5.2.4
+DEF[PORTVERSION]=	4.3.5
+DEF[SOVERSION]=		5.2.5
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		zeromq
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		net
 VARIANTS=		standard
 SDESC[standard]=	High-performance, asynchronous messaging library
@@ -15,16 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/zeromq/libzmq/releases/download/v${PORTVERSION}/
 DISTFILE[1]=		zeromq-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL3+:single
-LICENSE_FILE=		LGPL3+:{{WRKSRC}}/COPYING.LESSER
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
-LICENSE_AWK=		TERMS:"\#include"
-LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/zmq.cpp
+LICENSE=		MPL:primary
+LICENSE_FILE=		MPL:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net/libzmq4
