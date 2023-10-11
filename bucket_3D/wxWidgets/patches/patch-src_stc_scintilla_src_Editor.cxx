@@ -1,4 +1,4 @@
---- src/stc/scintilla/src/Editor.cxx.orig	2022-09-05 18:36:11 UTC
+--- src/stc/scintilla/src/Editor.cxx.orig	2023-02-13 14:45:39 UTC
 +++ src/stc/scintilla/src/Editor.cxx
 @@ -18,6 +18,7 @@
  #include <map>
