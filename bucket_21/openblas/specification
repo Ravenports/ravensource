@@ -18,7 +18,7 @@ DISTFILE[1]=		generated:main
 DISTFILE[2]=		timing.tgz:netlib
 DISTFILE[3]=		large.tgz:netlib
 DIST_SUBDIR=		openblas
-DF_INDEX=		1
+DF_INDEX=		3
 
 SPKGS[standard]=	complete primary dev
 
@@ -36,6 +36,9 @@ SOVERSION=		${SOVERSION}
 [OPENMP].DESCRIPTION=			Use OpenMP for threading
 [BIT64].DESCRIPTION=			Build for 64-bit architecture rather than 32-bit
 
+do-extract:
+	(cd ${WRKDIR} && \
+		tar -xzf ${DISTDIR}/${DIST_SUBDIR}/OpenMathLib-OpenBLAS-${PORTVERSION}.tar.gz)
 post-extract:
 	${CP} ${DISTDIR}/${DIST_SUBDIR}/timing.tgz ${WRKSRC}/
 	${CP} ${DISTDIR}/${DIST_SUBDIR}/large.tgz ${WRKSRC}/
