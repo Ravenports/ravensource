@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.4.1
+DEF[PORTVERSION]=	2.0.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-croniter
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/kiorky/croniter
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/f2/91/e5ae454da8200c6eb6cf94ca05d799b51e2cb2cc458a7737aebc0c5a21bb
+SITES[main]=		PYPIWHL/27/86/c1ce37af79385a106aacdd40b6e25ff25b2d888f2e64a05ee4e5b05f5768
 DISTFILE[1]=		croniter-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[v11]=		single
@@ -30,9 +30,12 @@ DISTNAME=		croniter-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # python-dateutil
+# pytz (>2021.1)
 
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-python-dateutil:single:v11
+					python-pytz:single:v11
 [PY312].USES_ON=			python:v12,wheel
 [PY312].RUN_DEPENDS_ON=			python-python-dateutil:single:v12
+					python-pytz:single:v12
 

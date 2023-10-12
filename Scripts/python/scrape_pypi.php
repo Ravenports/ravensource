@@ -306,6 +306,7 @@ function inline_fix_setup ($namebase, $src) {
        "pygit2"       => false,
        "python-netbox" => '/install_requires=/ s|.ipaddress., ||',
        "netdoc"        => '/install_requires=/ s|.ipaddress., ||',
+       "SQLAlchemy"    => false,
        "PyGObject"     => false,
        "pycryptodome"  => false,
        "freetype-py"   => '/system-provided FreeType/d',
@@ -371,6 +372,7 @@ function inline_fix_setup ($namebase, $src) {
            case "cffsubr":
            case "psautohint":
            case "freetype-py":
+           case "SQLAlchemy":
            case "lazy-object-proxy":
                $xf = $src . "/pyproject.toml";
                $filehandle = fopen($xf, "a");
