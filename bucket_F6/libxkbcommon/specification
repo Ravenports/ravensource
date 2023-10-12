@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.5.0
+DEF[PORTVERSION]=	1.6.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libxkbcommon
@@ -13,16 +13,18 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://xkbcommon.org/download/
 DISTFILE[1]=		libxkbcommon-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11/libxkbcommon
+
+EXRUN[tools]=		primary
 
 USES=			cpe bison meson solaris-funcs
 XORG_COMPONENTS=	xcb xorgproto
