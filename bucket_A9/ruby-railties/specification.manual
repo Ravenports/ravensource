@@ -1,0 +1,5 @@
+pre-configure:
+	# fix shebang on docker scripts
+	${REINPLACE_CMD} -e "s|/bin/bash|${LOCALBASE}/bin/bash|" \
+		${WRKSRC}/lib/rails/generators/rails/app/templates/Dockerfile.tt \
+		${WRKSRC}/lib/rails/generators/rails/app/templates/docker-entrypoint.tt
