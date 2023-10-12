@@ -1,4 +1,4 @@
---- utils.c.orig	2023-01-16 23:20:51 UTC
+--- utils.c.orig	2023-10-09 09:18:22 UTC
 +++ utils.c
 @@ -34,6 +34,10 @@
  #include <string.h>
