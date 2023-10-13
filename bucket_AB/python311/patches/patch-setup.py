@@ -1,4 +1,4 @@
---- setup.py.orig	2023-08-24 12:09:18 UTC
+--- setup.py.orig	2023-10-02 13:29:10 UTC
 +++ setup.py
 @@ -56,7 +56,10 @@ with warnings.catch_warnings():
  
