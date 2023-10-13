@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	1.72.1
-DEF[RUSTX_BOOT]=	1.71.1
+DEF[PORTVERSION]=	1.73.0
+DEF[RUSTX_BOOT]=	1.72.1
 DEF[CURL_VERSION]=	7.87.0
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 # ----------------------------------------------------------------------------
@@ -131,6 +131,7 @@ pre-configure:
 		 ${WRKSRC}/vendor/*/.cargo-checksum.json
 	# Enable rust to find certificates
 	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|' \
+		${WRKSRC}/vendor/curl-sys/build.rs \
 		${WRKSRC}/vendor/openssl-probe/src/lib.rs
 
 	# remove link to shared libressl, execinfo and zlib
@@ -146,10 +147,10 @@ pre-configure:
 		&& ${RM} libexecinfo.so \
 		&& ${RM} libz.so)
 
-	# build curl here.
-	${SETENV} ${CONFIGURE_ENV} ${SH} ${FILESDIR}/build_curl.sh "${PREFIX}" "${CONFIGURE_TARGET}"
-	(cd ${WRKDIR}/curl-* && ${SETENV} ${CONFIGURE_ENV} ${MAKE_CMD})
-	${INSTALL_DATA} ${WRKDIR}/curl-${CURL_VERSION}/lib/.libs/libcurl.a \
+	# build curl here (obsolete, rust forces bundled now)
+	# ${SETENV} ${CONFIGURE_ENV} ${SH} ${FILESDIR}/build_curl.sh "${PREFIX}" "${CONFIGURE_TARGET}"
+	# (cd ${WRKDIR}/curl-* && ${SETENV} ${CONFIGURE_ENV} ${MAKE_CMD})
+	# ${INSTALL_DATA} ${WRKDIR}/curl-${CURL_VERSION}/lib/.libs/libcurl.a \
 		${LOCALBASE}/lib/
 
 pre-build:
@@ -250,12 +251,13 @@ post-install:
 		${STAGEDIR}${PREFIX}/bin/cargo-clippy \
 		${STAGEDIR}${PREFIX}/bin/cargo-fmt \
 		${STAGEDIR}${PREFIX}/bin/clippy-driver \
+		${STAGEDIR}${PREFIX}/bin/rust-analyzer \
+		${STAGEDIR}${PREFIX}/bin/rust-demangler \
 		${STAGEDIR}${PREFIX}/bin/rustc \
 		${STAGEDIR}${PREFIX}/bin/rustdoc \
 		${STAGEDIR}${PREFIX}/bin/rustfmt \
-		${STAGEDIR}${PREFIX}/bin/rust-analyzer \
-		${STAGEDIR}${PREFIX}/bin/rust-demangler \
-		${STAGEDIR}${PREFIX}/libexec/cargo-credential-1password \
 		${STAGEDIR}${PREFIX}/libexec/rust-analyzer-proc-macro-srv \
 		${STAGEDIR}${PREFIX}/lib/*.so \
+		${STAGEDIR}${PREFIX}/lib/rustlib/*/bin/ll* \
+		${STAGEDIR}${PREFIX}/lib/rustlib/*/bin/opt \
 		${STAGEDIR}${PREFIX}/lib/rustlib/*/lib/*.so

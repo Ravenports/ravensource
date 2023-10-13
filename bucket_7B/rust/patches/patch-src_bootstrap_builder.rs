@@ -1,18 +1,18 @@
---- src/bootstrap/builder.rs.orig	2023-09-13 22:23:33 UTC
+--- src/bootstrap/builder.rs.orig	2023-10-03 02:52:17 UTC
 +++ src/bootstrap/builder.rs
-@@ -1612,12 +1612,13 @@ impl<'a> Builder<'a> {
-                 Some("-Wl,-rpath,@loader_path/../lib")
+@@ -1637,12 +1637,13 @@ impl<'a> Builder<'a> {
+                 Some(format!("-Wl,-rpath,@loader_path/../{libdir}"))
              } else if !target.contains("windows") && !target.contains("aix") {
                  rustflags.arg("-Clink-args=-Wl,-z,origin");
--                Some("-Wl,-rpath,$ORIGIN/../lib")
-+                Some("-Wl,-rpath,$ORIGIN/../lib:@OPENSSLLIB@")
+-                Some(format!("-Wl,-rpath,$ORIGIN/../{libdir}"))
++                Some(format!("-Wl,-rpath,$ORIGIN/../{libdir}:@OPENSSLLIB@"))
              } else {
                  None
              };
              if let Some(rpath) = rpath {
--                rustflags.arg(&format!("-Clink-args={}", rpath));
-+                rustflags.arg(&format!("-Clink-arg={}", "-Wl,-z,origin"));
-+                rustflags.arg(&format!("-Clink-arg={}", rpath));
+-                rustflags.arg(&format!("-Clink-args={rpath}"));
++                rustflags.arg(&format!("-Clink-arg=-Wl,-z,origin"));
++                rustflags.arg(&format!("-Clink-arg={rpath}"));
              }
          }
  
