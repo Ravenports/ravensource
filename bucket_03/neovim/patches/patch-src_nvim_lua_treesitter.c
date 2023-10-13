@@ -1,4 +1,4 @@
---- src/nvim/lua/treesitter.c.orig	2023-09-07 10:26:08 UTC
+--- src/nvim/lua/treesitter.c.orig	2023-10-09 20:38:17 UTC
 +++ src/nvim/lua/treesitter.c
 @@ -136,7 +136,11 @@ static PMap(cstr_t) langs = MAP_INIT;
  static void build_meta(lua_State *L, const char *tname, const luaL_Reg *meta)
