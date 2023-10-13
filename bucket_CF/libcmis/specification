@@ -1,6 +1,6 @@
-DEF[PORTVERSION]=	0.5.2
-DEF[SOVERSION]=		5.0.0
-DEF[CMIS_VER]=		0.5
+DEF[PORTVERSION]=	0.6.0
+DEF[SOVERSION]=		6.0.0
+DEF[CMIS_VER]=		0.6
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libcmis
@@ -18,7 +18,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://dev-www.libreoffice.org/src/
 DISTFILE[1]=		libcmis-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,6 +28,8 @@ FPC_EQUIVALENT=		net/libcmis
 BUILD_DEPENDS=		cppunit:single:standard
 			boost-libraries:dev:standard
 BUILDRUN_DEPENDS=	boost-libraries:primary:standard
+
+EXRUN[tools]=		primary
 
 USES=			gmake libtool pkgconfig curl mbsdfix
 GNOME_COMPONENTS=	libxml2
