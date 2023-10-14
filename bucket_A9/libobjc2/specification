@@ -5,7 +5,7 @@ DEF[SOVERSION]=		4.6
 
 NAMEBASE=		libobjc2
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		lang devel
 VARIANTS=		standard
 SDESC[standard]=	Replacement Obj-C runtime for modern lang features
@@ -17,7 +17,7 @@ SITES[main]=		GITHUB/gnustep:libobjc2:v${PORTVERSION}
 SITES[tessil]=		GITHUB/Tessil:robin-map:${TESSIL_HASH}
 DISTFILE[1]=		generated:main
 DISTFILE[2]=		generated:tessil
-DIST_SUBDIR=		libobjc2
+DIST_SUBDIR=		gnustep
 DF_INDEX=		1 2
 
 SPKGS[standard]=	complete primary dev
@@ -31,7 +31,7 @@ LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		gnustep-make:primary:standard
+BUILD_DEPENDS=		gnustep-make-bootstrap:primary:standard
 
 USES=			c++:primary clang cmake ninja
 
