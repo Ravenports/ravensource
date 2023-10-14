@@ -41,7 +41,7 @@ if [ ! -f ${RPKG} ]; then
    exit 1
 fi
 
-TARGET=$(ravensw info -F "${RPKG}" | awk '/^Architecture/ {n=split($3,t,":"); arch = length(t) == 4 ? t[3] "_" t[4] : t[3]; print t[1] "-" arch}')
+TARGET=$(/raven/sbin/ravensw info -F "${RPKG}" | awk '/^Architecture/ {n=split($3,t,":"); arch = length(t) == 4 ? t[3] "_" t[4] : t[3]; print t[1] "-" arch}')
 TPKG="bootstrap-openjdk-${1}-${TARGET}.tzst"
 
 mkdir -p ${ASSY}
@@ -51,6 +51,6 @@ echo "Bootstrap javac at ${ASSY}/raven/openjdk${MAJOR}/bin"
 sleep 2
 
 rm -f ${DISTDIR}/${RPKG}
-echo "Creating and relocating ${RPKG}."
+echo "Creating and relocating ${TPKG} to ${DISTDIR} directory"
 (cd ${ASSY}/raven && ${MYTAR} -c --zstd -f ${TPKG} openjdk${MAJOR}) && \
 mv ${ASSY}/raven/${TPKG} ${DISTDIR}/
