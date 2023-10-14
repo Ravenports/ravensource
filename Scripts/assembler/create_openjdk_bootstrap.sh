@@ -28,8 +28,9 @@ SCRIPTSDIR=$(cd ${THISDIR} && pwd -P)
 DISTDIR=$(/raven/bin/ravenadm dev info F)
 BBASE=$(/raven/bin/ravenadm dev info J)
 PKGDIR=$(/raven/bin/ravenadm dev info H)/All
-ASSY=${BBASE}/openjdk-assy
-MYTAR=/raven/share/raven/sysroot/DragonFly/usr/bin/tar
+ASSY="${BBASE}/openjdk-assy"
+OPSYS=$(uname -s)
+MYTAR="/raven/share/raven/sysroot/${OPSYS}/usr/bin/tar"
 MAJOR=$(echo "${1}" | awk -F'.' '{print $1}')
 RPKG="${PKGDIR}/openjdk${MAJOR}-primary-standard-${1}${REVEPOCH}.tzst"
 
