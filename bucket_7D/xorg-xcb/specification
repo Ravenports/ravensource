@@ -6,7 +6,7 @@ DEF[DRI3_SOVERSION]=	0.1.0
 
 NAMEBASE=		xorg-${XNAME}
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		x11
 VARIANTS=		standard
 SDESC[standard]=	X protocol C-language Binding (XCB) library
@@ -50,7 +50,7 @@ CONFIGURE_ARGS=		--disable-build-docs
 			XDMCP_CFLAGS="-I{{LOCALBASE}}/include"
 			XDMCP_LIBS="-L{{LOCALBASE}}/lib -lXdmcp"
 			NEEDED_CFLAGS="-I{{LOCALBASE}}/include"
-			NEEDED_LIBS="-L{{LOCALBASE}}/lib -lXau `pkg-config --libs pthread-stubs`"
+			NEEDED_LIBS="-L{{LOCALBASE}}/lib -lXau"
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 PLIST_SUB=		DRI3_SOVERSION=${DRI3_SOVERSION}
