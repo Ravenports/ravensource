@@ -9,7 +9,6 @@ Bin_NetBSD=\
 	/usr/bin/chflags \
 	/bin/chmod \
 	/bin/cp \
-	/bin/date \
 	/bin/echo \
 	/bin/expr \
 	/bin/hostname \
@@ -328,6 +327,11 @@ install-platform: install-common
 		ln -s libquota.so.1 libquota.so && \
 		ln -s libx86_64.so.0 libx86_64.so && \
 		ln -s libusbhid.so.1 libusbhid.so)
+
+	# use coreutils versions
+.  for item in date
+	cp ${CPA} ${LOCALBASE}/bin/${item} ${DESTDIR}${BASE}/bin/${item}
+.  endfor
 
 .for SCRIPT in lorder false true
 	${BSD_INSTALL_SCRIPT} ../${OPSYS:tl}/usr/bin/${SCRIPT} ${DESTDIR}${BASE}/usr/bin/
