@@ -1,0 +1,12 @@
+This OpenJDK implementation makes use of fdescfs(5) mounted on /dev/fd and
+procfs(5) mounted on /proc.
+
+For BSD users, if you have not done it yet, please do the following:
+
+	mount -t fdescfs fdesc /dev/fd
+	mount -t procfs proc /proc
+
+To make it permanent, you need the following lines in /etc/fstab:
+
+	fdesc	/dev/fd		fdescfs		rw	0	0
+	proc	/proc		procfs		rw	0	0

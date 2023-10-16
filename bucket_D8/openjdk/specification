@@ -1,0 +1,205 @@
+DEF[JDK_MAJOR_VER]=	20
+DEF[JDK_MINOR_VER]=	0
+DEF[JDK_PATCH_VER]=	2
+DEF[JDK_BUILD_NUM]=	9
+DEF[PORTVERSION]=	${JDK_MAJOR_VER}.${JDK_MINOR_VER}.${JDK_PATCH_VER}
+DEF[VERSION_STRING]=	${PORTVERSION}+${JDK_BUILD_NUM}-1
+DEF[RELEASE_TAG]=	937c4d1
+DEF[JDK_BUG_URL]=	https://github.com/Ravenports/ravensource/issues
+DEF[NAMEBASE]=		openjdk
+# NetBSD has date issues.  Give all platforms reproducible builds (18 JULY 23)
+DEF[COPYRIGHT_YEAR]=	2023
+DEF[SOURCE_DATE]=	1689706800
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		${NAMEBASE}
+VERSION=		${PORTVERSION}
+KEYWORDS=		java devel
+VARIANTS=		standard
+SDESC[standard]=	OpenJDK Java Development Kit (version ${JDK_MAJOR_VER})
+HOMEPAGE=		https://openjdk.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main ravendist
+SITES[main]=		GITHUB/jrmarino:jdk20u:${RELEASE_TAG}
+SITES[ravendist]=	https://leaf.dragonflybsd.org/~marino/raven-distfiles/
+DISTFILE[1]=		generated:main
+DISTFILE[2]=		bootstrap-openjdk-20.0.2-FreeBSD-amd64.tzst:ravendist
+DISTFILE[3]=		bootstrap-openjdk-20.0.2-dragonfly-x86_64.tzst:ravendist
+DISTFILE[4]=		bootstrap-openjdk-20.0.2-Linux-amd64.tzst:ravendist
+DISTFILE[5]=		bootstrap-openjdk-20.0.2-NetBSD-amd64.tzst:ravendist
+DF_INDEX=		1
+
+SPKGS[standard]=	complete primary legal man examples
+
+OPTIONS_AVAILABLE=	FREEBSD DRAGONFLY NETBSD LINUX UNSUPPORTED
+OPTIONS_STANDARD=	FREEBSD DRAGONFLY NETBSD LINUX UNSUPPORTED
+OPTGROUP_RADIO=		SYSTEM
+OPTDESCR[SYSTEM]=	System and architecture selection
+OPTGROUP[SYSTEM]=	FREEBSD DRAGONFLY NETBSD LINUX UNSUPPORTED
+
+OPT_ON[freebsd]=	FREEBSD
+OPT_ON[midnightbsd]=	FREEBSD
+OPT_ON[dragonfly]=	DRAGONFLY
+OPT_ON[netbsd]=		NETBSD
+OPT_ON[linux]=		LINUX
+OPT_ON[sunos]=		UNSUPPORTED
+
+LICENSE=		GPLv2:primary
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		java/openjdk20
+
+BUILD_DEPENDS=		alsa-lib:dev:standard
+			fontconfig:dev:standard
+			freetype:dev:standard
+			harfbuzz:dev:standard
+			lcms2:dev:standard
+			bash:primary:standard
+			zip:single:standard
+			cups:dev:standard
+			ccache:primary:standard
+BUILDRUN_DEPENDS=	alsa-lib:primary:standard
+			fontconfig:primary:standard
+			freetype:primary:standard
+			harfbuzz:primary:standard
+			lcms2:primary:standard
+			cups:primary:standard
+RUN_DEPENDS=		xorg-truetype-fonts:single:standard
+
+USES=			cpe jpeg gif png gmake pkgconfig zlib
+			autoreconf:build
+XORG_COMPONENTS=	x11 xext xi xrandr xrender xt xtst
+CPE_VENDOR=		oracle
+CPE_PRODUCT=		openjdk${JDK_MAJOR_VER}
+MUST_CONFIGURE=		yes
+SKIP_CCACHE=		yes
+LDFLAGS=		-Wl,-rpath,{{LOCALBASE}}/${NAMEBASE}/lib/server
+CONFIGURE_ARGS=		--prefix={{PREFIX}}
+			--openjdk-target={{CONFIGURE_TARGET}}
+			--disable-javac-server
+			--disable-warnings-as-errors
+			--with-alsa={{LOCALBASE}}
+			--with-cups={{LOCALBASE}}
+			--with-fontconfig={{LOCALBASE}}
+			--with-freetype=system
+			--with-freetype-include={{LOCALBASE}}/include
+			--with-freetype-lib={{LOCALBASE}}/lib
+			--with-libjpeg=system
+			--with-giflib=system
+			--with-giflib-include={{LOCALBASE}}/include
+			--with-giflib-lib={{LOCALBASE}}/lib
+			--with-harfbuzz=system
+			--with-libpng=system
+			--with-zlib=system
+			--with-lcms=system
+			--x-includes={{LOCALBASE}}/include
+			--x-libraries={{LOCALBASE}}/lib
+			--with-version-string=${VERSION_STRING}
+			--with-native-debug-symbols=none
+			--with-debug-level=release
+			--with-vendor-name="OpenJDK BSD Porting Team"
+			--with-vendor-url="https://github.com/battleblow/jdk20u/"
+			--with-vendor-bug-url="${JDK_BUG_URL}"
+			--with-vendor-vm-bug-url="${JDK_BUG_URL}"
+			--with-extra-cflags="{{CFLAGS}}"
+			--with-extra-cxxflags="{{CXXFLAGS}}"
+			--with-extra-ldflags="{{LDFLAGS}}"
+			--with-num-cores={{MAKE_JOBS_NUMBER}}
+			--with-default-make-target=product-images
+			--with-toolchain-type=gcc
+			--with-memory-size=8192
+			--with-copyright-year=${COPYRIGHT_YEAR}
+			--with-source-date=${SOURCE_DATE}
+PLIST_SUB=		SCTP={{SCTP}}
+			BASE=${NAMEBASE}
+			HOTSPOT_AGENT={{HOTSPOT_AGENT}}
+
+[UNSUPPORTED].DESCRIPTION=		Unsupported operating system / architecture
+[FREEBSD].DESCRIPTION=			Build on FreeBSD/AMD64
+[DRAGONFLY].DESCRIPTION=		Build on DragonFly/x86-64
+[NETBSD].DESCRIPTION=			Build on NetBSD/AMD64
+[LINUX].DESCRIPTION=			Build on Linux/x86-64
+
+[UNSUPPORTED].BROKEN_ON=		This operating system and/or architecture is not supported
+
+[FREEBSD].DF_INDEX_ON=			2
+[FREEBSD].USES_ON=			iconv
+[FREEBSD].CONFIGURE_ARGS_ON=		--with-boot-jdk={{WRKDIR}}/openjdk20
+					--disable-precompiled-headers
+[FREEBSD].MAKEFILE_ON=			JDK_OSARCH=bsd-x86_64
+					JDK_BUILDDIR={{WRKSRC}}/build/{{JDK_OSARCH}}-server-release
+
+[LINUX].DF_INDEX_ON=			4
+[LINUX].CONFIGURE_ARGS_ON=		--with-boot-jdk={{WRKDIR}}/openjdk20
+[LINUX].MAKEFILE_ON=			JDK_OSARCH=linux-x86_64
+					JDK_BUILDDIR={{WRKSRC}}/build/{{JDK_OSARCH}}-server-release
+
+[DRAGONFLY].DF_INDEX_ON=		3
+[DRAGONFLY].USES_ON=			iconv
+[DRAGONFLY].CONFIGURE_ARGS_ON=		--with-boot-jdk={{WRKDIR}}/openjdk20
+					--disable-precompiled-headers
+[DRAGONFLY].MAKEFILE_ON=		JDK_OSARCH=bsd-x86_64
+					JDK_BUILDDIR={{WRKSRC}}/build/{{JDK_OSARCH}}-server-release
+					SCTP="@comment "
+
+[NETBSD].DF_INDEX_ON=			5
+[NETBSD].USES_ON=			iconv
+[NETBSD].CONFIGURE_ARGS_ON=		--with-boot-jdk={{WRKDIR}}/openjdk20
+					--disable-precompiled-headers
+[NETBSD].MAKEFILE_ON=			JDK_OSARCH=bsd-x86_64
+					JDK_BUILDDIR={{WRKSRC}}/build/{{JDK_OSARCH}}-server-release
+					SCTP="@comment "
+					HOTSPOT_AGENT="@comment "
+
+post-extract:
+	${CAT} ${WRKSRC}/ASSEMBLY_EXCEPTION ${WRKSRC}/ADDITIONAL_LICENSE_INFO > ${WRKDIR}/TERMS
+
+pre-configure:
+	${FIND} ${WRKSRC} -name '*.orig' -delete
+	${CHMOD} 755 ${WRKSRC}/configure
+	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|' \
+		-e 's|/usr/pkg/lib|${LOCALBASE}/lib|' \
+		${WRKSRC}/src/hotspot/os/bsd/os_bsd.cpp
+	${REINPLACE_CMD} -e 's|%%ICONV_CFLAGS%%|-I${ICONV_INCLUDE_PATH}|' \
+		-e 's|%%ICONV_LDFLAGS%%|-L${ICONV_LIBRARY_PATH}|' \
+		-e 's|%%ICONV_LIBS%%|${ICONV_LIB}|' \
+		${WRKSRC}/make/autoconf/libraries.m4
+	# replace autoconf templates
+	${CP} ${MK_TEMPLATES}/config.guess ${WRKSRC}/make/autoconf/build-aux/autoconf-config.guess
+	${CP} ${MK_TEMPLATES}/config.sub   ${WRKSRC}/make/autoconf/build-aux/autoconf-config.sub
+
+pre-configure-NETBSD-ON:
+	# Until NetBSD 10, hash-style=gnu isn't supported
+	${REINPLACE_CMD} -e 's| -Wl,--hash-style=gnu||' ${WRKSRC}/make/autoconf/flags-ldflags.m4
+
+do-configure:
+	(cd ${CONFIGURE_WRKSRC} && ${SETENV} CC=${CC} CXX=${CXX} CPP=${CPP} CCACHE_DIR=${CCACHE_DIR} \
+		${LOCALBASE}/bin/bash ./configure ${CONFIGURE_ARGS})
+
+do-build:
+	(cd ${BUILD_WRKSRC} && ${SETENV} CC=${CC} CXX=${CXX} CPP=${CPP} CCACHE_DIR=${CCACHE_DIR} \
+		${MAKE_CMD} ${MAKE_FLAGS} ${MAKEFILE} ${MAKE_ARGS:C,^${DESTDIRNAME}=.*,,g})
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/${NAMEBASE}
+	(cd ${JDK_BUILDDIR}/images/jdk && ${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/${NAMEBASE})
+	${FIND} ${STAGEDIR}${PREFIX}/${NAMEBASE}/bin -type f -exec ${CHMOD} ${BINMODE} {} \;
+	${CHMOD} ${BINMODE} ${STAGEDIR}${PREFIX}/${NAMEBASE}/lib/jspawnhelper
+	# strip shared objects and executables
+	@if [ "${STRIP_CMD}" != "${TRUE}" ]; then \
+	${FIND} ${STAGEDIR}${PREFIX}/${NAMEBASE} -type f | while read f; \
+	do \
+		check=$$(file "$$f" | grep "dynamically linked,.*not stripped"); \
+		if [ -n "$$check" ]; then \
+			${ECHO_CMD} "Stripping symbols from $$f"; \
+			${STRIP_CMD} "$$f"; \
+		fi; \
+	done; \
+	fi
+
+post-install-DRAGONFLY-ON:
+	${CP} -a ${STAGEDIR}${PREFIX}/${NAMEBASE}/include/freebsd \
+		${STAGEDIR}${PREFIX}/${NAMEBASE}/include/dragonfly
