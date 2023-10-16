@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.12.1
 
 NAMEBASE=		cppcheck
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Static analysis tool for C/C++
@@ -28,10 +29,12 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		devel/cppcheck
 
 BUILD_DEPENDS=		docbook-xsl:primary:standard
-			qt5-qttools:complete:standard
+			qt5-qttools:dev:standard
+			qt5-qttools:primary:standard
 BUILDRUN_DEPENDS=	qt5-qtbase:primary:standard
 
 EXRUN[gui]=		cppcheck:tools:standard
+			qt5-qttools:primary:standard
 
 USES=			cmake shebangfix pcre python c++:tools,gui
 GNOME_COMPONENTS=	libxslt
