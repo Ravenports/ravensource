@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	8.2.1
-DEF[SOVERSION]=		0.60821.0
+DEF[PORTVERSION]=	8.2.2
+DEF[SOVERSION]=		0.60822.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		harfbuzz
@@ -35,7 +35,9 @@ EXRUN[icu]=		harfbuzz:primary:standard
 			icu:data:standard
 
 USES=			cpe meson zlib pkgconfig gtk-doc c++:primary
+			shebangfix python:build
 GNOME_COMPONENTS=	cairo glib introspection
+SHEBANG_FILES=		src/relative_to.py
 MESON_ARGS=		-Dgraphite=enabled
 			-Dbenchmark=disabled
 INSTALL_TARGET=		install-strip
