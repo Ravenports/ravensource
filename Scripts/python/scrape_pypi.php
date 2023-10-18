@@ -304,6 +304,7 @@ function inline_fix_setup ($namebase, $src) {
        "msgpack"      => false,
        "dulwich"      => false,
        "pygit2"       => false,
+       "dbus-python"  => false,
        "python-netbox" => '/install_requires=/ s|.ipaddress., ||',
        "netdoc"        => '/install_requires=/ s|.ipaddress., ||',
        "SQLAlchemy"    => false,
@@ -367,12 +368,13 @@ function inline_fix_setup ($namebase, $src) {
            case "msgpack":
            case "dulwich":
            case "aiohttp":
-           case "PyGObject":
-           case "frozenlist":
            case "cffsubr":
-           case "psautohint":
-           case "freetype-py":
+           case "PyGObject":
            case "SQLAlchemy":
+           case "frozenlist":
+           case "psautohint":
+           case "dbus-python":
+           case "freetype-py":
            case "lazy-object-proxy":
                $xf = $src . "/pyproject.toml";
                $filehandle = fopen($xf, "a");
