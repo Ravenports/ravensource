@@ -1,11 +1,10 @@
-DEF[PORTVERSION]=	1.26.2
+DEF[PORTVERSION]=	1.26.3
 DEF[SOVERSION]=		1.4.0
-DEF[DIST_BASEFILE]=	caja-glib-2.50-${PORTVERSION}
+DEF[DIST_BASEFILE]=	caja-${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		caja
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		x11_fm
 VARIANTS=		standard
 SDESC[standard]=	File manager for the MATE desktop
@@ -17,7 +16,7 @@ SITES[main]=		https://pub.mate-desktop.org/releases/${PORTVERSION:R}/
 DISTFILE[1]=		${DIST_BASEFILE}.tar.xz:main
 DIST_SUBDIR=		mate
 
-SPKGS[standard]=	complete primary nls docs
+SPKGS[standard]=	complete primary dev tools nls man docs
 
 OPTIONS_AVAILABLE=	INTROSPECTION
 OPTIONS_STANDARD=	INTROSPECTION
@@ -45,6 +44,8 @@ BUILDRUN_DEPENDS=	exempi:primary:standard
 			libnotify:primary:standard
 			mate-desktop:primary:standard
 
+EXRUN[tools]=		primary
+
 USES=			desktop-utils:primary gmake gtk-doc libtool
 			mime-info:primary pkgconfig schemas:primary
 			python:build,sutools
@@ -63,7 +64,6 @@ SOVERSION=		${SOVERSION}
 
 GLIB_SCHEMAS=		org.mate.caja.gschema.xml
 			org.mate.media-handling.gschema.xml
-PLIST_SUB=		NLS_SUFFIX=-glib-2.50
 
 [INTROSPECTION].DESCRIPTION=		Build with introspection
 [INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
