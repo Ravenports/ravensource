@@ -41,7 +41,10 @@ CONFIGURE_ARGS=		--program-suffix=${PORTVERSION}
 
 DISTNAME=		autoconf-${PORTVERSION}
 
-post-patch:
+# Makefile tries to script scripts, workaround to stop stripping
+SET_DEBUGGING_ON=	yes
+
+pre-configure:
 	${REINPLACE_CMD} \
 		-e '/^acdatadir =/s/autoconf/&${VERSION}/' \
 		-e '/^all:/s/ info//' \
