@@ -1,0 +1,52 @@
+# manually generated
+DEF[PORTVERSION]=	1.3.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-dbus-python
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v11 v12
+SDESC[v11]=		Python bindings for libdbus (3.11)
+SDESC[v12]=		Python bindings for libdbus (3.12)
+HOMEPAGE=		http://www.freedesktop.org/wiki/Software/DBusBindings/#python
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/d/dbus-python
+DISTFILE[1]=		dbus-python-${PORTVERSION}.tar.gz:main
+
+SPKGS[v11]=		single
+SPKGS[v12]=		single
+
+OPTIONS_AVAILABLE=	PY311 PY312
+OPTIONS_STANDARD=	none
+VOPTS[v11]=		PY311=ON PY312=OFF
+VOPTS[v12]=		PY311=OFF PY312=ON
+
+# License listed at PyPI
+# Expat (MIT/X11)
+
+GENERATED=		yes
+DISTNAME=		dbus-python-${PORTVERSION}
+
+# install_requires extracted from project.toml
+# 'meson-python>=0.8.1',
+# 'meson>=0.60.0',
+# 'ninja',
+# 'patchelf',
+# 'setuptools',
+# 'wheel',
+
+BUILD_DEPENDS=		dbus:dev:standard
+BUILDRUN_DEPENDS=	dbus:primary:standard
+
+USES=			meson pkgconfig
+GNOME_COMPONENTS=	glib
+BROKEN[all]=		WIP (may have to fall back to autotools)
+
+[PY311].BUILD_DEPENDS_ON=		python-wheel:single:v11
+[PY311].BUILDRUN_DEPENDS_ON=		python-meson-python:single:v11
+
+[PY312].BUILD_DEPENDS_ON=		python-wheel:single:v12
+					python-setuptools:single:v12
+[PY312].BUILDRUN_DEPENDS_ON=		python-meson-python:single:v12

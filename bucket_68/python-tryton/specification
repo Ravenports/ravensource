@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	6.8.4
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-tryton
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v11 v12
+SDESC[v11]=		Tryton desktop client (3.11)
+SDESC[v12]=		Tryton desktop client (3.12)
+HOMEPAGE=		http://www.tryton.org/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/ec/b5/9b22b8b821c0a1a279bf972d707fa21aa335e52bb52ede2a1594ebd3be79
+DISTFILE[1]=		tryton-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[v11]=		single
+SPKGS[v12]=		single
+
+OPTIONS_AVAILABLE=	PY311 PY312
+OPTIONS_STANDARD=	none
+VOPTS[v11]=		PY311=ON PY312=OFF
+VOPTS[v12]=		PY311=OFF PY312=ON
+
+# License listed at PyPI
+# GPL-3
+
+GENERATED=		yes
+DISTNAME=		tryton-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# pycairo
+# python-dateutil
+# PyGObject >=3.19
+# GooCalendar >=0.7 ; extra == 'calendar'
+
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-pycairo:single:v11
+					python-python-dateutil:single:v11
+					python-PyGObject:single:v11
+[PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-pycairo:single:v12
+					python-python-dateutil:single:v12
+					python-PyGObject:single:v12
+

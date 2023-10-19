@@ -1,0 +1,47 @@
+DEF[PORTVERSION]=	6.8.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-trytond-country
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v11 v12
+SDESC[v11]=		Tryton module with countries (3.11)
+SDESC[v12]=		Tryton module with countries (3.12)
+HOMEPAGE=		http://www.tryton.org/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/3e/af/aeae34217f16c9505d4444442ac1fd46c4da0eb628c5de9d5e7995e00e67
+DISTFILE[1]=		trytond_country-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[v11]=		single
+SPKGS[v12]=		single
+
+OPTIONS_AVAILABLE=	PY311 PY312
+OPTIONS_STANDARD=	none
+VOPTS[v11]=		PY311=ON PY312=OFF
+VOPTS[v12]=		PY311=OFF PY312=ON
+
+# License listed at PyPI
+# GPL-3
+
+GENERATED=		yes
+DISTNAME=		trytond_country-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# python-sql
+# trytond (<6.9,>=6.8)
+# proteus (<6.9,>=6.8) ; extra == 'geonames'
+# argcomplete ; extra == 'completion'
+# pycountry ; extra == 'data'
+# proteus (<6.9,>=6.8) ; extra == 'data'
+# proteus (<6.9,>=6.8) ; extra == 'test'
+# pycountry ; extra == 'test'
+
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-python-sql:single:v11
+					python-trytond:single:v11
+[PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-python-sql:single:v12
+					python-trytond:single:v12
+
