@@ -4,7 +4,7 @@
  
  static int iofread(void *chan, char *buf, int bufsize)
  {
-+#if defined(__FreeBSD__)
++#if defined(__FreeBSD__) || defined(__NetBSD__)
 +  return (int)read(fileno((FILE *)chan), buf, bufsize);
 +#else
    return (int)read(fileno(chan), buf, bufsize);
