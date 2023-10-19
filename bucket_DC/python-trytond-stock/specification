@@ -1,0 +1,58 @@
+DEF[PORTVERSION]=	6.8.4
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-trytond-stock
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v11 v12
+SDESC[v11]=		Tryton module for stock and inventory (3.11)
+SDESC[v12]=		Tryton module for stock and inventory (3.12)
+HOMEPAGE=		http://www.tryton.org/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/bc/56/89cec95c02f3e30e8bef41337615780e5a62c1e7676ee21a6dbe119a788d
+DISTFILE[1]=		trytond_stock-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[v11]=		single
+SPKGS[v12]=		single
+
+OPTIONS_AVAILABLE=	PY311 PY312
+OPTIONS_STANDARD=	none
+VOPTS[v11]=		PY311=ON PY312=OFF
+VOPTS[v12]=		PY311=OFF PY312=ON
+
+# License listed at PyPI
+# GPL-3
+
+GENERATED=		yes
+DISTNAME=		trytond_stock-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# python-sql >=1.3.0
+# simpleeval
+# trytond-company <6.9,>=6.8
+# trytond-currency <6.9,>=6.8
+# trytond-party <6.9,>=6.8
+# trytond-product <6.9,>=6.8
+# trytond <6.9,>=6.8
+# pygal ; extra == 'sparklines'
+# proteus <6.9,>=6.8 ; extra == 'test'
+
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-python-sql:single:v11
+					python-simpleeval:single:v11
+					python-trytond-company:single:v11
+					python-trytond-currency:single:v11
+					python-trytond-party:single:v11
+					python-trytond-product:single:v11
+					python-trytond:single:v11
+[PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-python-sql:single:v12
+					python-simpleeval:single:v12
+					python-trytond-company:single:v12
+					python-trytond-currency:single:v12
+					python-trytond-party:single:v12
+					python-trytond-product:single:v12
+					python-trytond:single:v12
+

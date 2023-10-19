@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	1.19
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-python-stdnum
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v11 v12
+SDESC[v11]=		Handles standardized numbers and codes (3.11)
+SDESC[v12]=		Handles standardized numbers and codes (3.12)
+HOMEPAGE=		https://arthurdejong.org/python-stdnum/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/e3/c3/6ce1809a33fb8d1a4cc5c118cc5cf423b8844ab80324ae76b7cd6bcf31b2
+DISTFILE[1]=		python_stdnum-${PORTVERSION}-py2.py3-none-any.whl:main
+
+SPKGS[v11]=		single
+SPKGS[v12]=		single
+
+OPTIONS_AVAILABLE=	PY311 PY312
+OPTIONS_STANDARD=	none
+VOPTS[v11]=		PY311=ON PY312=OFF
+VOPTS[v12]=		PY311=OFF PY312=ON
+
+# License listed at PyPI
+# LGPL
+
+GENERATED=		yes
+DISTNAME=		python_stdnum-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# zeep ; extra == 'soap'
+# suds ; extra == 'soap-alt'
+# PySimpleSOAP ; extra == 'soap-fallback'
+
+[PY311].USES_ON=			python:v11,wheel
+[PY312].USES_ON=			python:v12,wheel
+
