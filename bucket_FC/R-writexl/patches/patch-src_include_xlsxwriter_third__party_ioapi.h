@@ -5,7 +5,7 @@
  #define fseeko64 fseek
  #else
 -#if defined(__FreeBSD__) || defined(__OpenBSD__)
-+#if defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
++#if defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
  #define fopen64 fopen
  #define ftello64 ftello
  #define fseeko64 fseeko
