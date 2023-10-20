@@ -22,11 +22,6 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		devel/libftdi
 
-USES=			cmake pkgconfig
-
-CMAKE_ARGS=		-DDOCUMENTATION:BOOL=OFF
-			-DEXAMPLES:BOOL=OFF
-
 LICENSE=		GPLv2:primary LGPL21:primary
 LICENSE_SCHEME=		dual
 LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING.GPL
@@ -34,3 +29,13 @@ LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING.GPL
 LICENSE_TERMS=		primary:{{WRKSRC}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/ftdi.c
 LICENSE_AWK=		TERMS:"^$$"
+
+B_DEPS[netbsd]=		libusb-compat:dev:standard
+BR_DEPS[netbsd]=	libusb-compat:primary:standard
+
+USES=			cmake pkgconfig
+CMAKE_ARGS=		-DDOCUMENTATION:BOOL=OFF
+			-DEXAMPLES:BOOL=OFF
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
