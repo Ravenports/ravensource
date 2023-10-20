@@ -16,8 +16,15 @@ DISTFILE[1]=		libinput-${PORTVERSION}.tar.bz2:main
 
 SPKGS[standard]=	complete primary dev man
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	BSD
+OPTIONS_STANDARD=	BSD
+
+OPT_ON[midnightbsd]=	BSD
+OPT_ON[dragonfly]=	BSD
+OPT_ON[freebsd]=	BSD
+OPT_ON[netbsd]=		BSD
+
+BROKEN[netbsd]=		Does not build on NetBSD
 
 LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
@@ -38,20 +45,11 @@ GNOME_COMPONENTS=	gtk3
 MESON_ARGS=		-Dtests=false
 SOVERSION=		${SOVERSION}
 
-B_DEPS[dragonfly]=	libepoll-shim:dev:standard
-			libgudev-devd:dev:standard
-			libudev-devd:dev:standard
-B_DEPS[freebsd]=	libepoll-shim:dev:standard
-			libgudev-devd:dev:standard
-			libudev-devd:dev:standard
-B_DEPS[midnightbsd]=	libepoll-shim:dev:standard
-			libgudev-devd:dev:standard
-			libudev-devd:dev:standard
-B_DEPS[linux]=		libgudev:dev:standard
-
-BR_DEPS[dragonfly]=	libepoll-shim:primary:standard
-			libudev-devd:primary:standard
-BR_DEPS[freebsd]=	libepoll-shim:primary:standard
-			libudev-devd:primary:standard
-BR_DEPS[midnightbsd]=	libepoll-shim:primary:standard
-			libudev-devd:primary:standard
+[BSD].DESCRIPTION=			Support BSD platform
+[BSD].BUILD_DEPENDS_ON=			libepoll-shim:dev:standard
+					libgudev-devd:dev:standard
+					libudev-devd:dev:standard
+[BSD].BUILDRUN_DEPENDS_ON=		libepoll-shim:primary:standard
+					libudev-devd:primary:standard
+# linux
+[BSD].BUILD_DEPENDS_OFF=		libgudev:dev:standard
