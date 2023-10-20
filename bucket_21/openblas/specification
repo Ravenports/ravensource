@@ -28,10 +28,15 @@ OPT_ON[x86_64]=		OPENMP DYNAMIC_ARCH BIT64
 
 FPC_EQUIVALENT=		math/openblas
 
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
 USES=			cpe gmake pkgconfig perl:build fortran:primary
 CPE_VENDOR=		openblas_project
 SOVERSION=		${SOVERSION}
 EXTRACT_ONLY=		1
+INSTALL_REQ_TOOLCHAIN=	yes
 
 [DYNAMIC_ARCH].DESCRIPTION=		Support multiple CPU types rather than host CPU
 [OPENMP].DESCRIPTION=			Use OpenMP for threading
