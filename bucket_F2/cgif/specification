@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	0.3.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		cgif
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Fast and lightweight GIF encoder library
+HOMEPAGE=		https://github.com/dloebl/cgif
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/dloebl:cgif:V${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/cgif
+
+USES=			meson
+
+MESON_ARGS=		--default-library=both
+
+DISTNAME=		cgif-${PORTVERSION}
+SOVERSION=		${PORTVERSION}
