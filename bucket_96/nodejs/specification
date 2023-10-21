@@ -20,7 +20,12 @@ OPTIONS_STANDARD=	SYSTEM SMALL_EMBED NO_SUPPORT
 OPTGROUP_RADIO=		ICU_OPTIONS
 OPTDESCR[ICU_OPTIONS]=	Support for Unicode
 OPTGROUP[ICU_OPTIONS]=	SYSTEM SMALL_EMBED NO_SUPPORT
-OPT_ON[all]=		SMALL_EMBED
+OPT_ON[linux]=		SMALL_EMBED
+OPT_ON[sunos]=		SMALL_EMBED
+OPT_ON[midnightbsd]=	SMALL_EMBED
+OPT_ON[dragonfly]=	SMALL_EMBED
+OPT_ON[freebsd]=	SMALL_EMBED
+OPT_ON[netbsd]=		NO_SUPPORT
 
 LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
@@ -38,7 +43,7 @@ BUILDRUN_DEPENDS=	libuv:primary:standard
 			libnghttp2:primary:standard
 
 USES=			execinfo gmake pkgconfig shebangfix cpe zlib
-			python:v11,build
+			python:v11,build c++:primary
 CPE_VENDOR=		nodejs
 CPE_PRODUCT=		node.js
 DISTNAME=		node-v${PORTVERSION}
@@ -72,7 +77,6 @@ VAR_OPSYS[midnightbsd]=	CONFIGURE_ARGS=--dest-os=freebsd
 
 [SYSTEM].BUILD_DEPENDS_ON=		icu:dev:standard
 [SYSTEM].BUILDRUN_DEPENDS_ON=		icu:primary:standard
-[SMALL_EMBED].USES_ON=			c++:primary
 
 pre-configure:
 	${GREP} -rl "/usr/local" ${WRKSRC} | \
