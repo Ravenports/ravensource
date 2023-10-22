@@ -14,7 +14,7 @@
  #endif
  
 -#if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
-+#if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
++#if defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
  # define _INB(port)  inb (port)
  # define _OUTB(data, port)  outb (port, data)
  #elif defined(HAVE_INB) && defined(HAVE_OUTB)

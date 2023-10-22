@@ -4,7 +4,7 @@
  #define IPMI_OEM_H
  
  #include <freeipmi/freeipmi.h>
-+#if !defined(__linux__)
++#if defined(__FreeBSD__) || defined(__DragonFly__)
 +#include <sys/limits.h>
 +#endif
  
