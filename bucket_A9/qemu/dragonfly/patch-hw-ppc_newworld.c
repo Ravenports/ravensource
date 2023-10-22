@@ -1,4 +1,4 @@
---- hw/ppc/mac_newworld.c.orig	2023-09-21 20:20:52 UTC
+--- hw/ppc/mac_newworld.c.orig	2023-10-16 17:57:21 UTC
 +++ hw/ppc/mac_newworld.c
 @@ -75,6 +75,11 @@
  #include "hw/sysbus.h"
