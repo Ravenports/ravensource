@@ -1,4 +1,4 @@
---- kbfunc.c.orig	2022-04-30 15:11:23 UTC
+--- kbfunc.c.orig	2023-07-20 14:39:34 UTC
 +++ kbfunc.c
 @@ -29,7 +29,11 @@
  #include <err.h>
@@ -12,7 +12,7 @@
  #include <signal.h>
  #include <stdio.h>
  #include <stdlib.h>
-@@ -652,6 +656,9 @@ kbfunc_menu_exec(void *ctx, struct cargs
+@@ -654,6 +658,9 @@ kbfunc_menu_exec(void *ctx, struct cargs
  	struct menu_q		 menuq;
  	int			 l, i;
  	int			 mflags = (CWM_MENU_DUMMY | CWM_MENU_FILE);
@@ -22,7 +22,7 @@
  
  	TAILQ_INIT(&menuq);
  
-@@ -676,7 +683,12 @@ kbfunc_menu_exec(void *ctx, struct cargs
+@@ -678,7 +685,12 @@ kbfunc_menu_exec(void *ctx, struct cargs
  			if (l == -1 || l >= sizeof(tpath))
  				continue;
  			/* Skip everything but regular files and symlinks. */
