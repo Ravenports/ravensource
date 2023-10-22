@@ -1,4 +1,4 @@
-# manually generated
+# manually generated.  Unique non-single packaging for python port.
 DEF[PORTVERSION]=	1.3.2
 # ------------------------------------------------------------------------
 
@@ -15,8 +15,8 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/d/dbus-python
 DISTFILE[1]=		dbus-python-${PORTVERSION}.tar.gz:main
 
-SPKGS[v11]=		single
-SPKGS[v12]=		single
+SPKGS[v11]=		complete primary dev
+SPKGS[v12]=		complete primary dev
 
 OPTIONS_AVAILABLE=	PY311 PY312
 OPTIONS_STANDARD=	none
@@ -26,7 +26,7 @@ VOPTS[v12]=		PY311=OFF PY312=ON
 # License listed at PyPI
 # Expat (MIT/X11)
 
-GENERATED=		yes
+# GENERATED=		yes
 DISTNAME=		dbus-python-${PORTVERSION}
 
 # install_requires extracted from project.toml
@@ -42,11 +42,15 @@ BUILDRUN_DEPENDS=	dbus:primary:standard
 
 USES=			meson pkgconfig
 GNOME_COMPONENTS=	glib
-BROKEN[all]=		WIP (may have to fall back to autotools)
 
 [PY311].BUILD_DEPENDS_ON=		python-wheel:single:v11
 [PY311].BUILDRUN_DEPENDS_ON=		python-meson-python:single:v11
 
 [PY312].BUILD_DEPENDS_ON=		python-wheel:single:v12
-					python-setuptools:single:v12
 [PY312].BUILDRUN_DEPENDS_ON=		python-meson-python:single:v12
+
+do-build:
+	(cd ${BUILD_WRKSRC} && meson compile)
+
+do-install:
+	(cd ${BUILD_WRKSRC} && meson install --destdir "${STAGEDIR}")
