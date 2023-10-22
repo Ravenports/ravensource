@@ -1,4 +1,4 @@
---- deps/lua/src/lua_cjson.c.orig	2023-09-06 17:56:15 UTC
+--- deps/lua/src/lua_cjson.c.orig	2023-10-18 07:44:10 UTC
 +++ deps/lua/src/lua_cjson.c
 @@ -47,7 +47,9 @@
  #include "strbuf.h"
