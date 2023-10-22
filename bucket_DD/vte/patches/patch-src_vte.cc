@@ -1,4 +1,4 @@
---- src/vte.cc.orig	2023-09-12 21:06:50 UTC
+--- src/vte.cc.orig	2023-10-16 18:09:04 UTC
 +++ src/vte.cc
 @@ -34,6 +34,13 @@
  #if __has_include(<sys/stream.h>)
