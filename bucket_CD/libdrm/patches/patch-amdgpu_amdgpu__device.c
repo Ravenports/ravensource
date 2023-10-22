@@ -1,4 +1,4 @@
---- amdgpu/amdgpu_device.c.orig	2023-08-23 09:57:39 UTC
+--- amdgpu/amdgpu_device.c.orig	2023-10-20 05:24:54 UTC
 +++ amdgpu/amdgpu_device.c
 @@ -177,7 +177,12 @@ drm_public int amdgpu_device_initialize(
  			return r;

@@ -1,4 +1,4 @@
---- xf86drmMode.h.orig	2023-08-23 09:57:39 UTC
+--- xf86drmMode.h.orig	2023-10-20 05:24:54 UTC
 +++ xf86drmMode.h
 @@ -429,7 +429,7 @@ extern drmModePlaneResPtr drmModeGetPlan
  extern drmModePlanePtr drmModeGetPlane(int fd, uint32_t plane_id);

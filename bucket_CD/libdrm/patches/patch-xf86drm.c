@@ -1,4 +1,4 @@
---- xf86drm.c.orig	2023-08-23 09:57:39 UTC
+--- xf86drm.c.orig	2023-10-20 05:24:54 UTC
 +++ xf86drm.c
 @@ -63,7 +63,17 @@
  #include <math.h>
