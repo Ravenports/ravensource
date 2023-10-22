@@ -64,6 +64,9 @@ PLIST_SUB=		opsys_ARCH={{GOSYS}}_{{GOARCH}}
 post-extract-FREEBSD-ON:
 	(cd ${LOCALBASE} && ${LN} -s ${WRKDIR}/go119 go119)
 
+pre-configure-netbsd:
+	${REINPLACE_CMD} -i'' -e '/GOFLAGS=-trimpath/d' ${WRKSRC}/src/cmd/dist/build.go
+
 pre-configure:
 	${REINPLACE_CMD} -e 's|type -ap |type |' ${WRKSRC}/src/make.bash
 	${REINPLACE_CMD} -e 's|^if ulimit -T|false \&\& &|' ${WRKSRC}/src/run.bash
