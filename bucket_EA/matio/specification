@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	1.5.23
+DEF[SOVERSION]=		11.0.4
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		matio
+VERSION=		${PORTVERSION}
+KEYWORDS=		math
+VARIANTS=		standard
+SDESC[standard]=	C library for reading and writing Matlab MAT files
+HOMEPAGE=		https://sourceforge.net/projects/matio/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/matio/matio/${PORTVERSION}
+DISTFILE[1]=		matio-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary dev man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:primary
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		math/matio
+
+BUILD_DEPENDS=		hdf5:dev:standard
+BUILDRUN_DEPENDS=	hdf5:primary:standard
+
+USES=			libtool zlib
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-mat73=yes
+INSTALL_TARGET=		install-strip
+
+SOVERSION=		${SOVERSION}
