@@ -58,6 +58,9 @@ MANDIRS=		{{PREFIX}}/share/rubygems/{{RUBY_VER}}/man/man1
 [RUBY31].USES_ON=			ruby:v31
 [RUBY32].USES_ON=			ruby:v32
 
+pre-configure:
+	${FIND} ${WRKSRC} -type f -name "*.orig" -delete
+
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/${GEMS_BASE_DIR}/${RUBY_VER}
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/rubygems/${RUBY_VER}
