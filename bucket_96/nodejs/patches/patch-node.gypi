@@ -1,4 +1,4 @@
---- node.gypi.orig	2023-09-28 23:21:59 UTC
+--- node.gypi.orig	2023-10-17 05:31:04 UTC
 +++ node.gypi
 @@ -269,6 +269,7 @@
      [ 'OS=="solaris"', {
