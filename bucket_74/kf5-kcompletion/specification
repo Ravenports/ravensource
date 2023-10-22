@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
 DISTFILE[1]=		kcompletion-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[standard]=	complete primary dev nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,6 +28,8 @@ LICENSE_SCHEME=		multi
 FPC_EQUIVALENT=		x11-toolkits/kf5-kcompletion
 
 BUILD_DEPENDS=		kf5-extra-cmake-modules:primary:standard
+			kf5-kconfig:dev:standard
+			kf5-kwidgetsaddons:dev:standard
 BUILDRUN_DEPENDS=	kf5-kconfig:primary:standard
 			kf5-kwidgetsaddons:primary:standard
 

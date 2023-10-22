@@ -13,27 +13,32 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
 DISTFILE[1]=		kded-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL20:single
-			LGPL20+:single
+LICENSE=		LGPL20:primary
+			LGPL20+:primary
 LICENSE_FILE=		LGPL20:{{WRKSRC}}/LICENSES/LGPL-2.0-only.txt
 			LGPL20+:{{WRKSRC}}/LICENSES/LGPL-2.0-or-later.txt
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		x11/kf5-kded
 
 BUILD_DEPENDS=		kf5-extra-cmake-modules:primary:standard
+			kf5-kconfig:dev:standard
 			kf5-kdoctools:tools:standard
 			kf5-kdoctools:dev:standard
+			kf5-kcoreaddons:dev:standard
+			kf5-kcrash:dev:standard
+			kf5-kdbusaddons:dev:standard
+			kf5-kservice:dev:standard
 			icu:dev:standard
 BUILDRUN_DEPENDS=	kf5-kconfig:primary:standard
 			kf5-kcoreaddons:primary:standard
-			kf5-kcrash:single:standard
+			kf5-kcrash:primary:standard
 			kf5-kdbusaddons:primary:standard
 			kf5-kservice:primary:standard
 

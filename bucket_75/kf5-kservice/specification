@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
 DISTFILE[1]=		kservice-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[standard]=	complete primary tools dev man nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,14 +30,23 @@ LICENSE_SCHEME=		multi
 FPC_EQUIVALENT=		devel/kf5-kservice
 
 BUILD_DEPENDS=		kf5-extra-cmake-modules:primary:standard
+			kf5-karchive:dev:standard
+			kf5-kconfig:dev:standard
+			kf5-kcrash:dev:standard
+			kf5-kcoreaddons:dev:standard
+			kf5-kdbusaddons:dev:standard
+			kf5-ki18n:dev:standard
 			kf5-kdoctools:tools:standard
 			kf5-kdoctools:dev:standard
 			icu:dev:standard
 BUILDRUN_DEPENDS=	kf5-karchive:primary:standard
 			kf5-kconfig:primary:standard
-			kf5-kcrash:single:standard
+			kf5-kcrash:primary:standard
+			kf5-kcoreaddons:primary:standard
 			kf5-kdbusaddons:primary:standard
 			kf5-ki18n:primary:standard
+
+EXRUN[tools]=		primary
 
 USES=			bison cmake gettext
 

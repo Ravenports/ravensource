@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
 DISTFILE[1]=		kdbusaddons-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[standard]=	complete primary tools dev nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -32,6 +32,8 @@ FPC_EQUIVALENT=		devel/kf5-kdbusaddons
 BUILD_DEPENDS=		kf5-extra-cmake-modules:primary:standard
 			qt5-qtx11extras:dev:standard
 BUILDRUN_DEPENDS=	qt5-qtx11extras:primary:standard
+
+EXRUN[tools]=		qt5-qtbase:primary:standard
 
 USES=			cmake
 XORG_COMPONENTS=	xcb

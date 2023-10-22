@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
 DISTFILE[1]=		kcoreaddons-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[standard]=	complete primary tools dev nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -43,8 +43,6 @@ FPC_EQUIVALENT=		devel/kf5-kcoreaddons
 BUILD_DEPENDS=		kf5-extra-cmake-modules:primary:standard
 BUILDRUN_DEPENDS=	qt5-qtbase:primary:standard
 
-USES=			cmake mime-info:primary
-
 BR_DEPS[darwin]=	gamin:single:standard
 			libinotify:single:standard
 BR_DEPS[dragonfly]=	gamin:single:standard
@@ -55,6 +53,11 @@ BR_DEPS[netbsd]=	gamin:single:standard
 			libinotify:single:standard
 BR_DEPS[openbsd]=	gamin:single:standard
 			libinotify:single:standard
+
+EXRUN[dev]=		tools
+EXRUN[tools]=		qt5-qtbase:primary:standard
+
+USES=			cmake mime-info:primary
 
 DISTNAME=		kcoreaddons-${PORTVERSION}
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt5/cmake
@@ -77,3 +80,5 @@ post-extract:
 post-stage:
 	(cd ${STAGEDIR}${PREFIX} && ${STRIP_CMD} bin/desktoptojson \
 		lib/libKF5CoreAddons.so)
+	# remove redundant licenses (share/kf5/licenses)
+	${RM} -r ${STAGEDIR}${PREFIX}/share/kf5
