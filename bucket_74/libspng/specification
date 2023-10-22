@@ -1,0 +1,28 @@
+DEF[PORTVERSION]=	0.7.4
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libspng
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Simplified C library for PNG decoding / encoding
+HOMEPAGE=		https://libspng.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/randy408:libspng:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:primary
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/libspng
+
+USES=			meson pkgconfig zlib
+SOVERSION=		${PORTVERSION}
