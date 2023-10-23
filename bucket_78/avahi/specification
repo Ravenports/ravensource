@@ -1,0 +1,121 @@
+DEF[PORTVERSION]=	0.8
+DEF[DBUS_SOCKET]=	/var/run/dbus/system_bus_socket
+# A bare-bones port should suffice for now, if anybody wants the graphical UIs
+# those can be added later.
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		avahi
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		standard
+SDESC[standard]=	Service Discovery using mDNS/DNS-SD
+HOMEPAGE=		https://www.avahi.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://avahi.org/download/
+DISTFILE[1]=		avahi-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary tools dev nls man
+
+OPTIONS_AVAILABLE=	BSD LINUX SOLARIS
+OPTIONS_STANDARD=	BSD LINUX SOLARIS
+OPTGROUP_RADIO=		SYSTEM
+OPTDESCR[SYSTEM]=	System type selection
+OPTGROUP[SYSTEM]=	BSD LINUX SOLARIS
+
+OPT_ON[freebsd]=	BSD
+OPT_ON[midnightbsd]=	BSD
+OPT_ON[dragonfly]=	BSD
+OPT_ON[netbsd]=		BSD
+OPT_ON[linux]=		LINUX
+OPT_ON[sunos]=		SOLARIS
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/avahi-core/core.h
+LICENSE_AWK=		TERMS:"USA."
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net/avahi
+
+BUILD_DEPENDS=		dbus:dev:standard
+			expat:dev:standard
+			gdbm:dev:standard
+			libdaemon:dev:standard
+			libevent:dev:standard
+			harfbuzz:dev:standard
+BUILDRUN_DEPENDS=	dbus:primary:standard
+			expat:primary:standard
+			gdbm:primary:standard
+			libdaemon:primary:standard
+			libevent:primary:standard
+			python-PyGObject:single:python_used
+
+USERS=			avahi
+GROUPS=			avahi
+USERGROUP_SPKG=		tools
+
+USES=			cpe gettext gmake libtool mbsdfix pkgconfig
+GNOME_COMPONENTS=	glib introspection
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-mono
+			--disable-static
+			--disable-qt3
+			--disable-qt4
+			--disable-qt5
+			--disable-python
+			--disable-autoipd
+			--disable-gtk
+			--disable-gtk3
+			--disable-compat-libdns_sd
+			--disable-stack-protector
+			--disable-monodoc
+			--disable-doxygen-doc
+			--disable-doxygen-dot
+			--enable-introspection
+			--enable-compat-howl
+			--with-dbus-system-socket=unix:path=${DBUS_SOCKET}
+			--localstatedir=/var
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+
+VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--with-distro=freebsd
+VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-distro=freebsd
+VAR_OPSYS[midnightbsd]=	CONFIGURE_ARGS=--with-distro=freebsd
+VAR_OPSYS[linux]=	CONFIGURE_ARGS=--with-distro=debian
+
+[BSD].DESCRIPTION=			Build with BSD characteristics
+[LINUX].DESCRIPTION=			Build with Linux characteristics
+[SOLARIS].DESCRIPTION=			Build with Solaris characteristics
+
+[BSD].CPPFLAGS_ON=			-DHAVE_KQUEUE
+[BSD].LDFLAGS_ON=			-lintl
+
+pre-configure:
+	# This gnome.subr is not currently supported
+	${REINPLACE_CMD} -e 's|%%GNOME_SUBR%%|${LOCALBASE}/etc/gnome.subr|' \
+		${WRKSRC}/initscript/freebsd/avahi-dnsconfd.sh.in \
+		${WRKSRC}/initscript/freebsd/avahi-daemon.sh.in
+
+pre-configure-BSD-ON:
+	${REINPLACE_CMD} -e 's|avahi_runtime_dir="/run"|avahi_runtime_dir="/var/run"|' \
+		${WRKSRC}/configure
+	${REINPLACE_CMD} -e 's|-ldl||g ; s|netdev|network|g' \
+		${WRKSRC}/configure \
+		${WRKSRC}/avahi-client/Makefile.in \
+		${WRKSRC}/avahi-daemon/Makefile.in
+	${REINPLACE_CMD} -e 's|have_inotify=yes|have_inotify=no|' \
+		${WRKSRC}/configure
+
+post-install:
+	# convert provided configuration files to samples
+.for cfgfile in hosts avahi-daemon.conf
+	${MV} ${STAGEDIR}${PREFIX}/etc/avahi/${cfgfile} ${STAGEDIR}${PREFIX}/etc/avahi/${cfgfile}.sample
+.endfor
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/dbus-1/system-services
+	${INSTALL_DATA} ${WRKSRC}/avahi-daemon/org.freedesktop.Avahi.service \
+		${STAGEDIR}${PREFIX}/share/dbus-1/system-services
+	# avoid plist error
+	${RM} -r ${STAGEDIR}/var
