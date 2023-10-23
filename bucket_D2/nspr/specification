@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	4.35
 
 NAMEBASE=		nspr
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Platform-neutral API for system-like functions
@@ -13,12 +14,19 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		MOZILLA/nspr/releases/v${PORTVERSION}/src
 DISTFILE[1]=		nspr-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		devel/nspr
+
+LICENSE=		MPL:primary
+LICENSE_FILE=		MPL:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/pr/include/nspr.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
 
 USES=			cpe gmake
 DISTNAME=		nspr-${PORTVERSION}/nspr
