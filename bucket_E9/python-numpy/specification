@@ -39,6 +39,9 @@ CPE_VENDOR=		numpy
 CPE_PRODUCT=		numpy
 DISTNAME=		numpy-${PORTVERSION}
 PLIST_SUB=		EGGVER=${PORTVERSION}
+			SOEXTENSION={{SOEXTENSION}}
+
+VAR_OPSYS[linux]=	MAKEFILE_LINE=SOEXTENSION=-x86_64-linux-gnu
 
 [PY311].BUILD_DEPENDS_ON=		python-Cython:single:v11
 					python-meson-python:single:v11
