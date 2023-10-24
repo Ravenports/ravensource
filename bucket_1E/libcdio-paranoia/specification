@@ -4,6 +4,7 @@ DEF[SOVERSION]=		2.0.0
 
 NAMEBASE=		libcdio-paranoia
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel audio
 VARIANTS=		standard
 SDESC[standard]=	Accurately read audio from Compact Discs
@@ -14,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/rocky:libcdio-paranoia:release-${PORTVERSION:S/_/+/g}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary reader dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -22,15 +23,18 @@ OPTIONS_STANDARD=	none
 # confuses pkg version checker (FPC has this port though)
 # FPC_EQUIVALENT=		sysutils/libcdio-paranoia
 
-LICENSE=		GPLv3+:single
+LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/cdio/paranoia/paranoia.h
 LICENSE_AWK=		TERMS:"file"
 LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		libcdio:dev:standard
 BUILDRUN_DEPENDS=	libcdio:primary:standard
+
+EXRUN[reader]=		primary
+EXRUN[dev]=		libcdio:dev:standard
 
 USES=			autoreconf gmake iconv libtool pkgconfig
 MUST_CONFIGURE=		gnu
