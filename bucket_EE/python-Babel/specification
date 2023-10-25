@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.13.0
+DEF[PORTVERSION]=	2.13.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-Babel
@@ -11,7 +11,7 @@ HOMEPAGE=		https://babel.pocoo.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/ff/37/b0241795c3a320a3def948cd0d06daf70310e7fea1d8fda312629bc22ea9
+SITES[main]=		PYPIWHL/86/14/5dc2eb02b7cc87b2f95930310a2cc5229198414919a116b564832c747bc1
 DISTFILE[1]=		Babel-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
@@ -30,12 +30,14 @@ DISTNAME=		Babel-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # pytz >=2015.7 ; python_version < "3.9"
+# setuptools ; python_version >= "3.12"
 # pytest >=6.0 ; extra == 'dev'
 # pytest-cov ; extra == 'dev'
 # freezegun ~=1.0 ; extra == 'dev'
 
 [PY311].USES_ON=			python:v11,wheel
 [PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-setuptools:single:v12
 
 USES=			cpe
 CPE_VENDOR=		pocoo
