@@ -1,4 +1,4 @@
---- gmodule/gmodule-dl.c.orig	2023-09-08 13:42:18 UTC
+--- gmodule/gmodule-dl.c.orig	2023-10-25 11:33:59 UTC
 +++ gmodule/gmodule-dl.c
 @@ -153,6 +153,7 @@ _g_module_open (const gchar *file_name,
  static gpointer

@@ -1,6 +1,6 @@
 /usr/local value is replaced by post-patch target
 
---- glib/gutils.c.orig	2023-09-08 13:42:18 UTC
+--- glib/gutils.c.orig	2023-10-25 11:33:59 UTC
 +++ glib/gutils.c
 @@ -30,6 +30,10 @@
  
