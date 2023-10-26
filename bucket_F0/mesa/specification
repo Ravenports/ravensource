@@ -1,8 +1,11 @@
 DEF[PORTVERSION]=	23.1.9
+DEF[CLANGBASE]=		clang16
+DEF[LLVMBASE]=		llvm16
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mesa
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Mesa 3D Graphics Library
@@ -58,7 +61,7 @@ EXRUN[drivers]=		mesa:primary:standard
 
 USES=			cpe bison gettext:build gmake meson pkgconfig
 			zstd zlib expat shebangfix solaris-funcs
-			python:build c++:primary,drivers clang
+			python:build c++:primary,drivers
 XORG_COMPONENTS=	x11 xdamage xext xfixes xshmfence xxf86vm xv xrandr xcb
 CPE_VENDOR=		mesa3d
 SOL_FUNCTIONS=		dirfd:src/util/disk_cache.c
@@ -126,14 +129,14 @@ VAR_OPSYS[sunos]=	CPPFLAGS=-D__EXTENSIONS__=1
 [LLVMPIPE].DESCRIPTION=			Build LLVM-based drivers and libraries
 [WAYLAND].DESCRIPTION=			Build Vulkan drivers for Wayland platform
 
-[LLVMPIPE].USES_ON=			clang:keepcc
 [LLVMPIPE].BUILD_DEPENDS_ON=		libclc:single:standard
 					opencl-headers:single:standard
-					llvm:tools:standard
-					llvm:dev:standard
-[LLVMPIPE].BUILDRUN_DEPENDS_ON=		llvm:primary:standard
+					${LLVMBASE}:tools:standard
+					${LLVMBASE}:dev:standard
+					${CLANGBASE}:complete:standard
+[LLVMPIPE].BUILDRUN_DEPENDS_ON=		${LLVMBASE}:primary:standard
 					ocl-icd:primary:standard
-[LLVMPIPE].RUN_DEPENDS_ON=		clang:dynlibs:standard
+[LLVMPIPE].RUN_DEPENDS_ON=		${CLANGBASE}:dynlibs:standard
 [LLVMPIPE].MAKEFILE_ON=			GALLIUM_LLVM_DRIVERS+=R600
 					GALLIUM_LLVM_DRIVERS+=RADEONSI
 					GALLIUM_DRIVERS+={{GALLIUM_LLVM_DRIVERS}}
