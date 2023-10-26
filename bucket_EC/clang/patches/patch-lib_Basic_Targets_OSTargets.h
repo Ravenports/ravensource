@@ -1,7 +1,7 @@
---- lib/Basic/Targets/OSTargets.h.orig	2023-06-10 22:58:16 UTC
+--- lib/Basic/Targets/OSTargets.h.orig	2023-10-17 06:20:52 UTC
 +++ lib/Basic/Targets/OSTargets.h
-@@ -437,12 +437,22 @@ protected:
-     Builder.defineMacro("__ELF__");
+@@ -425,12 +425,22 @@ protected:
+     Builder.defineMacro("__unix__");
      if (Opts.POSIXThreads)
        Builder.defineMacro("_REENTRANT");
 +    if (this->HasFloat128)

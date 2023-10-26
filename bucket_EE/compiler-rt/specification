@@ -1,7 +1,9 @@
-DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM_VERSION)
+DEF[NAMEBASE]=		compiler-rt
+DEF[LLVMBASE]=		llvm
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM17_VERSION)
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		compiler-rt
+NAMEBASE=		${NAMEBASE}
 VERSION=		${LLVM_VERSION}
 KEYWORDS=		lang devel
 VARIANTS=		standard
@@ -28,21 +30,23 @@ LICENSE_SCHEME=		solo
 BROKEN[freebsd]=	Needs sha224.h header
 BROKEN[netbsd]=		missing headers from system root
 
-BUILD_DEPENDS=		llvm:dev:standard
-			llvm:tools:standard
-BUILDRUN_DEPENDS=	llvm:primary:standard
+BUILD_DEPENDS=		${LLVMBASE}:dev:standard
+			${LLVMBASE}:tools:standard
+			libxml2:dev:standard
+BUILDRUN_DEPENDS=	${LLVMBASE}:primary:standard
 
 B_DEPS[netbsd]=		libmd:dev:standard
 BR_DEPS[netbsd]=	libmd:primary:standard
 B_DEPS[freebsd]=	libmd:dev:standard
 BR_DEPS[freebsd]=	libmd:primary:standard
 
-USES=			cpe cmake ninja python:build c++:single
+USES=			cpe cmake ninja zlib:build ncurses:build
+			python:build c++:single
 CPE_VENDOR=		llvm
 CPE_PRODUCT=		llvm
 DISTNAME=		compiler-rt-${LLVM_VERSION}.src
 PLIST_SUB=		OPSYSLC={{OPSYS:tl}}
 
 post-extract:
-	${CP} ${WRKDIR}/cmake-${LLVM_VERSION}.src/Modules/* \
-		${WRKSRC}/cmake/Modules/
+	${MKDIR} ${WRKDIR}/cmake/Modules
+	${CP} ${WRKDIR}/cmake-${LLVM_VERSION}.src/Modules/* ${WRKDIR}/cmake/Modules/

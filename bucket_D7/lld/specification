@@ -1,7 +1,9 @@
-DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM_VERSION)
+DEF[NAMEBASE]=		lld
+DEF[LLVMBASE]=		llvm
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM17_VERSION)
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		lld
+NAMEBASE=		${NAMEBASE}
 VERSION=		${LLVM_VERSION}
 KEYWORDS=		lang sysutils
 VARIANTS=		standard
@@ -31,9 +33,9 @@ LICENSE_SCHEME=		solo
 # 1) it doesn't actually build any docs
 # 2) it pulls in shared ncurses, libz, etc.
 
-BUILD_DEPENDS=		llvm:dev:standard
-			llvm:tools:standard
-BUILDRUN_DEPENDS=	llvm:primary:standard
+BUILD_DEPENDS=		${LLVMBASE}:dev:standard
+			${LLVMBASE}:tools:standard
+BUILDRUN_DEPENDS=	${LLVMBASE}:primary:standard
 
 USES=			cpe cmake c++:primary solaris-funcs zlib:build
 CPE_VENDOR=		llvm

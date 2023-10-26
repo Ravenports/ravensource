@@ -1,6 +1,6 @@
---- cmake/modules/AddLLVM.cmake.orig	2023-06-10 22:58:16 UTC
+--- cmake/modules/AddLLVM.cmake.orig	2023-10-17 06:20:52 UTC
 +++ cmake/modules/AddLLVM.cmake
-@@ -239,14 +239,10 @@ if (NOT DEFINED LLVM_LINKER_DETECTED AND
+@@ -241,14 +241,10 @@ if (NOT DEFINED LLVM_LINKER_DETECTED AND
        set(LLVM_LINKER_DETECTED YES CACHE INTERNAL "")
        set(LLVM_LINKER_IS_GNULD YES CACHE INTERNAL "")
        message(STATUS "Linker detection: GNU ld")
@@ -16,7 +16,7 @@
      endif()
    endif()
  endif()
-@@ -2322,7 +2318,7 @@ function(llvm_setup_rpath name)
+@@ -2354,7 +2350,7 @@ function(llvm_setup_rpath name)
    elseif(UNIX)
      set(_build_rpath "\$ORIGIN/../lib${LLVM_LIBDIR_SUFFIX}" ${extra_libdir})
      set(_install_rpath "\$ORIGIN/../lib${LLVM_LIBDIR_SUFFIX}")

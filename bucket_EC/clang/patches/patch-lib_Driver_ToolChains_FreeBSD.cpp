@@ -1,6 +1,6 @@
---- lib/Driver/ToolChains/FreeBSD.cpp.orig	2023-06-10 22:58:16 UTC
+--- lib/Driver/ToolChains/FreeBSD.cpp.orig	2023-10-17 06:20:52 UTC
 +++ lib/Driver/ToolChains/FreeBSD.cpp
-@@ -286,6 +286,16 @@ void freebsd::Linker::ConstructJob(Compi
+@@ -285,6 +285,16 @@ void freebsd::Linker::ConstructJob(Compi
    addLinkerCompressDebugSectionsOption(ToolChain, Args, CmdArgs);
    AddLinkerInputs(ToolChain, Inputs, Args, CmdArgs, JA);
  
@@ -17,7 +17,7 @@
    unsigned Major = ToolChain.getTriple().getOSMajorVersion();
    bool Profiling = Args.hasArg(options::OPT_pg) && Major != 0 && Major < 14;
    if (!Args.hasArg(options::OPT_nostdlib, options::OPT_nodefaultlibs,
-@@ -383,6 +393,8 @@ FreeBSD::FreeBSD(const Driver &D, const
+@@ -381,6 +391,8 @@ FreeBSD::FreeBSD(const Driver &D, const
      getFilePaths().push_back(concat(getDriver().SysRoot, "/usr/lib32"));
    else
      getFilePaths().push_back(concat(getDriver().SysRoot, "/usr/lib"));
@@ -26,7 +26,7 @@
  }
  
  unsigned FreeBSD::GetDefaultDwarfVersion() const {
-@@ -426,22 +438,19 @@ void FreeBSD::AddClangSystemIncludeArgs(
+@@ -424,22 +436,19 @@ void FreeBSD::AddClangSystemIncludeArgs(
                            concat(D.SysRoot, "/usr/include"));
  }
  
@@ -55,4 +55,4 @@
 -
  void FreeBSD::AddCudaIncludeArgs(const ArgList &DriverArgs,
                                   ArgStringList &CC1Args) const {
-   CudaInstallation.AddCudaIncludeArgs(DriverArgs, CC1Args);
+   CudaInstallation->AddCudaIncludeArgs(DriverArgs, CC1Args);

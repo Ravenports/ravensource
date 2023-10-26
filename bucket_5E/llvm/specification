@@ -1,6 +1,7 @@
 # When updating this port also check 'libclc' which is set 'noscheme' in
 # Repology and is thus easily forgotten
-DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM_VERSION)
+DEF[NAMEBASE]=		llvm
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM17_VERSION)
 DEF[PORTREVISION]=	0
 DEF[PORTVERSION]=	${LLVM_VERSION}
 DEF[MAJORMIN]=		${PORTVERSION:R}
@@ -8,7 +9,7 @@ DEF[MAJOR]=		${PORTVERSION:R:R}
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		llvm
+NAMEBASE=		${NAMEBASE}
 VERSION=		${PORTVERSION}
 REVISION=		${PORTREVISION}
 KEYWORDS=		devel lang
@@ -36,7 +37,7 @@ LICENSE_NAME=		CUSTOM1:"University of Illinois/NCSA Open Source License"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.TXT
 LICENSE_SCHEME=		solo
 
-EXRUN[tools]=		llvm:primary:standard
+EXRUN[tools]=		primary
 
 USES=			cmake ninja python:build execinfo zlib ncurses:dev
 			cpe shebangfix c++:primary

@@ -1,8 +1,10 @@
-DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM_VERSION)
+DEF[NAMEBASE]=		llvm-libunwind
+DEF[LLVMBASE]=		llvm
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM17_VERSION)
 DEF[SOVERSION]=		1.0
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		llvm-libunwind
+NAMEBASE=		${NAMEBASE}
 VERSION=		${LLVM_VERSION}
 KEYWORDS=		lang devel
 VARIANTS=		standard
@@ -16,7 +18,8 @@ DISTFILE[1]=		libunwind-${LLVM_VERSION}.src.tar.xz:main
 DISTFILE[2]=		libcxx-${LLVM_VERSION}.src.tar.xz:main
 DISTFILE[3]=		llvm-${LLVM_VERSION}.src.tar.xz:main
 DISTFILE[4]=		cmake-${LLVM_VERSION}.src.tar.xz:main
-DF_INDEX=		1 2 3 4
+DISTFILE[5]=		runtimes-${LLVM_VERSION}.src.tar.xz:main
+DF_INDEX=		1 2 3 4 5
 
 SPKGS[standard]=	complete primary dev
 
@@ -28,7 +31,7 @@ LICENSE_NAME=		CUSTOM1:"University of Illinois/NCSA Open Source License"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.TXT
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		llvm:dev:standard
+BUILD_DEPENDS=		${LLVMBASE}:dev:standard
 
 USES=			cpe cmake cclibs:primary
 CPE_VENDOR=		llvm
@@ -45,6 +48,8 @@ post-extract:
 	${MV} ${WRKDIR}/llvm-${LLVM_VERSION}.src ${WRKDIR}/llvm
 	# Install more cmake functions
 	${CP} ${WRKDIR}/cmake-${LLVM_VERSION}.src/Modules/* \
+		${WRKSRC}/cmake/Modules/
+	${CP} ${WRKDIR}/runtimes-${LLVM_VERSION}.src/cmake/Modules/* \
 		${WRKSRC}/cmake/Modules/
 
 post-install:

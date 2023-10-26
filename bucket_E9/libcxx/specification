@@ -1,8 +1,11 @@
-# ICE on GCC 11.2.0, see https://gcc.gnu.org/bugzilla/show_bug.cgi?id=103703
-DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM_VERSION)
+DEF[NAMEBASE]=		libcxx
+DEF[LLVMBASE]=		llvm
+DEF[CLANGBASE]=		clang
+DEF[LLVMUNWIND]=	llvm-libunwind
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM17_VERSION)
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		libcxx
+NAMEBASE=		${NAMEBASE}
 VERSION=		${LLVM_VERSION}
 KEYWORDS=		lang
 VARIANTS=		standard
@@ -15,7 +18,8 @@ SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${L
 DISTFILE[1]=		libcxx-${LLVM_VERSION}.src.tar.xz:main
 DISTFILE[2]=		libcxxabi-${LLVM_VERSION}.src.tar.xz:main
 DISTFILE[3]=		cmake-${LLVM_VERSION}.src.tar.xz:main
-DF_INDEX=		1 2 3
+DISTFILE[4]=		runtimes-${LLVM_VERSION}.src.tar.xz:main
+DF_INDEX=		1 2 3 4
 
 SPKGS[standard]=	complete primary dev abi experimental
 
@@ -30,12 +34,13 @@ LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/projects/libcxx/LICENSE.TXT
 LICENSE_SCHEME=		multi
 
 BUILD_DEPENDS=		python-Sphinx:single:python_default
-			llvm:dev:standard
-			llvm:tools:standard
-			llvm-libunwind:dev:standard
-BUILDRUN_DEPENDS=	llvm-libunwind:primary:standard
+			${CLANGBASE}:complete:standard
+			${LLVMBASE}:dev:standard
+			${LLVMBASE}:tools:standard
+			${LLVMUNWIND}:dev:standard
+BUILDRUN_DEPENDS=	${LLVMUNWIND}:primary:standard
 
-USES=			cpe cmake cclibs:primary python:build clang
+USES=			cpe cmake cclibs:primary python:build
 CPE_VENDOR=		llvm
 CPE_PRODUCT=		llvm
 CMAKE_BUILD_TYPE=	Release
@@ -61,6 +66,10 @@ post-extract:
 	${CP} ${WRKDIR}/cmake-${LLVM_VERSION}.src/Modules/* \
 		${WRKSRC}/projects/libcxx/cmake/Modules/
 	${CP} ${WRKDIR}/cmake-${LLVM_VERSION}.src/Modules/* \
+		${WRKSRC}/projects/libcxxabi/cmake/Modules/
+	${CP} ${WRKDIR}/runtimes-${LLVM_VERSION}.src/cmake/Modules/* \
+		${WRKSRC}/projects/libcxx/cmake/Modules/
+	${CP} ${WRKDIR}/runtimes-${LLVM_VERSION}.src/cmake/Modules/* \
 		${WRKSRC}/projects/libcxxabi/cmake/Modules/
 
 post-install:
