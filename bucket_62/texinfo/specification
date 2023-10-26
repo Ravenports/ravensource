@@ -1,8 +1,8 @@
-DEF[PORTVERSION]=	7.0.3
-DEF[DLFOLDER]=		7.0
-DEF[DATE_HTMLXREF]=	20221008
-DEF[DATE_TEXI2DVI]=	20221107
-DEF[DATE_TEXINFO_TEX]=	20221112
+DEF[PORTVERSION]=	7.1
+DEF[DLFOLDER]=		7.1
+DEF[DATE_HTMLXREF]=	20230402
+DEF[DATE_TEXI2DVI]=	20231018
+DEF[DATE_TEXINFO_TEX]=	20230921
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		texinfo
@@ -76,9 +76,6 @@ pre-configure:
 	${REINPLACE_CMD} -e '/rm -f $$(DESTDIR)/ s|$$| $$(DESTDIR)$$(xsdir)/XSParagraph.*|' \
 		${WRKSRC}/tp/Texinfo/XS/Makefile.in
 	${REINPLACE_CMD} -e 's|free (.*)|Safe&|' ${WRKSRC}/tp/Texinfo/XS/misc.c
-	${REINPLACE_CMD} -e "s|'iconv|'iconv_pic|" \
-		${WRKSRC}/configure \
-		${WRKSRC}/tp/Texinfo/XS/configure
 
 pre-configure-darwin:
 	${REINPLACE_CMD} -e "s|'cr'|'Scr'|" ${WRKSRC}/configure
