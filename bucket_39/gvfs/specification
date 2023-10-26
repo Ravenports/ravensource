@@ -95,7 +95,8 @@ LDFLAGS=		-Wl,-rpath,{{PREFIX}}/lib/gvfs
 [GUDEV-DEVD].DESCRIPTION=		Build with gudev-devd library (BSD)
 [GUDEV-DEVD].USES_ON=			iconv
 [GUDEV-DEVD].BUILD_DEPENDS_ON=		libgudev-devd:dev:standard
-[GUDEV-DEVD].BUILDRUN_DEPENDS_ON=	libcdio-paranoia:single:standard
+					libcdio-paranoia:dev:standard
+[GUDEV-DEVD].BUILDRUN_DEPENDS_ON=	libcdio-paranoia:primary:standard
 					libgudev-devd:primary:standard
 [GUDEV-DEVD].CONFIGURE_ARGS_ON=		-Dgudev=true
 					-Dcdda=true
