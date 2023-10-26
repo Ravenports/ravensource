@@ -1,7 +1,7 @@
 * Skip the detection of root rights requirement, the assumption that presence
 * of KMS drivers removes the root requirement is only valid for Linux
 
---- hw/xfree86/xorg-wrapper.c.orig	2023-03-29 12:55:03 UTC
+--- hw/xfree86/xorg-wrapper.c.orig	2023-10-25 01:40:28 UTC
 +++ hw/xfree86/xorg-wrapper.c
 @@ -39,7 +39,7 @@
  #include <sys/sysmacros.h>

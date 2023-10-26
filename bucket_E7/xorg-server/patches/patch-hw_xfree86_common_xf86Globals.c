@@ -1,4 +1,4 @@
---- hw/xfree86/common/xf86Globals.c.orig	2023-03-29 12:55:03 UTC
+--- hw/xfree86/common/xf86Globals.c.orig	2023-10-25 01:40:28 UTC
 +++ hw/xfree86/common/xf86Globals.c
 @@ -118,7 +118,7 @@ xf86InfoRec xf86Info = {
      .miscModInDevEnabled = TRUE,

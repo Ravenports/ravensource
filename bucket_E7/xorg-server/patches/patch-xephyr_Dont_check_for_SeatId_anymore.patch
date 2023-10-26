@@ -12,7 +12,7 @@ not needed
  hw/kdrive/ephyr/ephyrinit.c | 34 ++++++++++++++++------------------
  1 file changed, 16 insertions(+), 18 deletions(-)
 
---- hw/kdrive/ephyr/ephyrinit.c.orig
+--- hw/kdrive/ephyr/ephyrinit.c.orig	2023-10-25 01:40:28 UTC
 +++ hw/kdrive/ephyr/ephyrinit.c
 @@ -70,25 +70,23 @@ InitInput(int argc, char **argv)
      KdKeyboardInfo *ki;
@@ -21,7 +21,9 @@ not needed
 -    if (!SeatId) {
 -        KdAddKeyboardDriver(&EphyrKeyboardDriver);
 -        KdAddPointerDriver(&EphyrMouseDriver);
--
++    KdAddKeyboardDriver(&EphyrKeyboardDriver);
++    KdAddPointerDriver(&EphyrMouseDriver);
+ 
 -        if (!kdHasKbd) {
 -            ki = KdNewKeyboard();
 -            if (!ki)
@@ -29,9 +31,6 @@ not needed
 -            ki->driver = &EphyrKeyboardDriver;
 -            KdAddKeyboard(ki);
 -        }
-+    KdAddKeyboardDriver(&EphyrKeyboardDriver);
-+    KdAddPointerDriver(&EphyrMouseDriver);
-+
 +    if (!kdHasKbd) {
 +        ki = KdNewKeyboard();
 +        if (!ki)
@@ -56,6 +55,3 @@ not needed
      }
  
      KdInitInput();
--- 
-GitLab
-
