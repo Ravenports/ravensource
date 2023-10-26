@@ -1,6 +1,6 @@
---- src/packer.h.orig	2023-08-08 08:38:12 UTC
+--- src/packer.h.orig	2023-10-26 09:09:48 UTC
 +++ src/packer.h
-@@ -221,7 +221,7 @@ protected:
+@@ -191,7 +191,7 @@ protected:
      void addLoader(C, C, C, C, C, C, C, C, C);
      void addLoader(C, C, C, C, C, C, C, C, C, C);
  #undef C
