@@ -1,6 +1,6 @@
 DEF[PORTVERSION]=	EXTRACT_VERSION(MYSQL_oracle-8.1_VERSION)
 DEF[MYSQL_RELEASE]=	${PORTVERSION:R}
-DEF[SUFFIX]=		${MYSQL_RELEASE:S/.//g}
+DEF[SUFFIX]=		81
 DEF[MY_DBDIR]=		/var/db/mysql
 DEF[MY_SECDIR]=		/var/db/mysql_secure
 DEF[MY_TMPDIR]=		/var/db/mysql_tmpdir
@@ -87,7 +87,7 @@ CMAKE_ARGS=		-DINSTALL_PKGCONFIGDIR="{{LOCALBASE}}/lib/pkgconfig"
 			-DWITH_ZLIB=bundled
 			-DWITH_ZSTD=system
 			-DWITH_ICU=system
-			-DWITH_SSL={{OPENSSLBASE}}
+			-DWITH_SSL_PATH={{OPENSSLBASE}}
 			-DINSTALL_MYSQLTESTDIR=0
 			-DWITH_UNIT_TESTS:BOOL=OFF
 CFLAGS=			-Wno-deprecated-declarations
@@ -145,7 +145,6 @@ post-extract:
 
 pre-configure:
 	${REINPLACE_CMD} -e 's|@LOCALBASE@|${LOCALBASE}|' \
-		-e 's|@OPENSSLLIB@|${OPENSSLLIB}|g' \
 		${WRKSRC}/scripts/CMakeLists.txt
 	${RM} ${WRKSRC}/cmake/os/FreeBSD.cmake
 	# current_path not supported by DragonFly

@@ -1,4 +1,4 @@
---- sql/locks/shared_spin_lock.cc.orig	2023-06-21 13:02:02 UTC
+--- sql/locks/shared_spin_lock.cc.orig	2023-10-11 11:42:50 UTC
 +++ sql/locks/shared_spin_lock.cc
 @@ -239,7 +239,7 @@ lock::Shared_spin_lock &lock::Shared_spi
    {

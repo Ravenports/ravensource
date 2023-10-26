@@ -1,4 +1,4 @@
---- router/cmake/set_rpath.cmake.orig	2023-06-21 07:52:10 UTC
+--- router/cmake/set_rpath.cmake.orig	2023-10-12 11:40:36 UTC
 +++ router/cmake/set_rpath.cmake
 @@ -27,8 +27,7 @@ ELSE()
  ENDIF()

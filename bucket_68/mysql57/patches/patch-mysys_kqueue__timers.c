@@ -2,7 +2,7 @@ $NetBSD: patch-mysys_kqueue__timers.c,v 1.2 2021/04/21 13:26:54 adam Exp $
 
 Fix for systems which do not define EVFILT_USER.
 
---- mysys/kqueue_timers.c.orig	2023-06-21 13:02:02 UTC
+--- mysys/kqueue_timers.c.orig	2023-10-11 11:42:50 UTC
 +++ mysys/kqueue_timers.c
 @@ -74,8 +74,10 @@ timer_notify_thread_func(void *arg MY_AT
        assert(timer->id == kev.ident);

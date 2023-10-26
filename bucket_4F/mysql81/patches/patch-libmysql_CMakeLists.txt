@@ -1,6 +1,6 @@
---- libmysql/CMakeLists.txt.orig	2023-06-21 07:52:10 UTC
+--- libmysql/CMakeLists.txt.orig	2023-10-12 11:40:36 UTC
 +++ libmysql/CMakeLists.txt
-@@ -255,7 +255,7 @@ IF(WIN32)
+@@ -262,7 +262,7 @@ IF(WIN32)
    SET(HAVE_WIN32_DNS_SRV 1 PARENT_SCOPE)
    SET(HAVE_DNS_SRV 1)
    MESSAGE(STATUS "Found Win32 DNS SRV APIs")
@@ -9,15 +9,15 @@
    SET(HAVE_DNS_SRV 1)
    SET(HAVE_UNIX_DNS_SRV 1 PARENT_SCOPE)
    MESSAGE(STATUS "BSD built in DNS SRV APIs")
-@@ -283,7 +283,6 @@ IF(WIN32)
+@@ -290,7 +290,6 @@ IF(WIN32)
  ENDIF()
  
  # LDAP authentication SASL client plug-in
 -ADD_SUBDIRECTORY(authentication_ldap)
  
- # FIDO authentication client plugin
- ADD_SUBDIRECTORY(authentication_fido)
-@@ -333,10 +332,6 @@ ENDIF()
+ # authentication kerberos client plug-in
+ ADD_SUBDIRECTORY(authentication_kerberos)
+@@ -340,10 +339,6 @@ ENDIF()
  
  IF(UNIX)
    SET(OS_SHARED_LIB_VERSION "${SHARED_LIB_MAJOR_VERSION}")
