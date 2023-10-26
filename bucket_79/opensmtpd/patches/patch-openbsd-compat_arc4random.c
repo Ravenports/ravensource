@@ -1,6 +1,6 @@
---- openbsd-compat/arc4random.c.orig	2023-06-27 14:04:38 UTC
+--- openbsd-compat/arc4random.c.orig	2023-09-29 15:10:20 UTC
 +++ openbsd-compat/arc4random.c
-@@ -161,6 +161,7 @@ _rs_random_u32(uint32_t *val)
+@@ -155,6 +155,7 @@ _rs_random_u32(uint32_t *val)
  	return;
  }
  
@@ -8,7 +8,7 @@
  void
  arc4random_stir(void)
  {
-@@ -168,6 +169,7 @@ arc4random_stir(void)
+@@ -162,6 +163,7 @@ arc4random_stir(void)
  	_rs_stir();
  	_ARC4_UNLOCK();
  }
