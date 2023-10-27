@@ -1,0 +1,21 @@
+--- src/Makevars.in.orig	2023-10-23 16:48:26 UTC
++++ src/Makevars.in
+@@ -15,6 +15,9 @@ endif
+ ifeq ($(UNAME), OpenBSD)
+ PKG_LIBS += -lkvm
+ endif
++ifeq ($(UNAME), NetBSD)
++PKG_LIBS += -lkvm
++endif
+ 
+ PKG_CFLAGS = $(C_VISIBILITY) -DSTRICT_R_HEADERS
+ PKG_CXXFLAGS = $(CXX_VISIBILITY) -DSTRICT_R_HEADERS
+@@ -30,7 +33,7 @@ CONFIGURE_FLAGS="--quiet"
+ 
+ #### Other flags ####
+ # Uncomment to suppress lots of warnings on Fedora 28
+-# PKG_CPPFLAGS += -Wno-deprecated-declarations -Wno-parentheses
++PKG_CPPFLAGS += -Wno-deprecated-declarations -Wno-parentheses
+ # Fedora 28 defines _GLIBCXX_ASSERTIONS, so we better define it everywhere
+ # to catch issues earlier.
+ # jcheng 2018-06-18: Disabling _GLIBCXX_ASSERTIONS for now, as it causes
