@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	118.0.2
+DEF[PORTVERSION]=	119.0
 DEF[FOXVERSION]=	${PORTVERSION}
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 # ----------------------------------------------------------------------------
@@ -170,6 +170,3 @@ post-install:
 	(cd ${STAGEDIR}${PREFIX}/bin &&\
 	${RM} firefox &&\
 	${LN} -s ../lib/firefox/firefox firefox)
-
-post-install-netbsd:
-	${PAXCTL} +m ${STAGEDIR}${PREFIX}/lib/firefox/plugin-container
