@@ -1,4 +1,6 @@
 DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM17_VERSION)
+DEF[LLVMBASE]=		llvm
+DEF[CLANGBASE]=		clang
 DEF[PORTVERSION]=	${LLVM_VERSION}
 # ----------------------------------------------------------------------------
 
@@ -27,13 +29,14 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		devel/libclc
 
 BUILD_DEPENDS=		libedit:single:standard
-			llvm:dev:standard
-			llvm:tools:standard
+			${LLVMBASE}:dev:standard
+			${LLVMBASE}:tools:standard
+			${CLANGBASE}:complete:standard
 			spirv-llvm-translator:primary:standard
 			spirv-llvm-translator:dev:standard
 # #			rocm-device-libs:single:standard
 
-USES=			python:build cmake clang:keepcc
+USES=			python:build cmake
 MAKE_ENV=		MAKE=make
 # Force ccache to work with clang
 			CCACHE_CPP2=yes
