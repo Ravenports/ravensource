@@ -1,0 +1,100 @@
+# humanize
+
+[PyPI version]
+[Supported Python versions]
+[Documentation Status]
+[PyPI downloads]
+[GitHub Actions status]
+[codecov]
+[MIT License]
+[Tidelift]
+
+This modest package contains various common humanization utilities, like
+turning
+a number into a fuzzy human-readable duration ("3 minutes ago") or into a
+human-readable size or throughput. It is localized to:
+
+- Arabic
+- Basque
+- Bengali
+- Brazilian Portuguese
+- Catalan
+- Danish
+- Dutch
+- Esperanto
+- European Portuguese
+- Finnish
+- French
+- German
+- Greek
+- Indonesian
+- Italian
+- Japanese
+- Korean
+- Persian
+- Polish
+- Russian
+- Simplified Chinese
+- Slovak
+- Slovenian
+- Spanish
+- Swedish
+- Turkish
+- Ukrainian
+- Vietnamese
+
+## API reference
+
+[https://humanize.readthedocs.io]
+
+<!-- usage-start -->
+
+## Installation
+
+### From PyPI
+
+```bash
+python3 -m pip install --upgrade humanize
+```
+
+### From source
+
+```bash
+git clone https://github.com/python-humanize/humanize
+cd humanize
+python3 -m pip install -e .
+```
+
+## Usage
+
+### Integer humanization
+
+```pycon
+>>> import humanize
+>>> humanize.intcomma(12345)
+'12,345'
+>>> humanize.intword(123455913)
+'123.5 million'
+>>> humanize.intword(12345591313)
+'12.3 billion'
+>>> humanize.apnumber(4)
+'four'
+>>> humanize.apnumber(41)
+'41'
+```
+
+### Date & time humanization
+
+```pycon
+>>> import humanize
+>>> import datetime as dt
+>>> humanize.naturalday(dt.datetime.now())
+'today'
+>>> humanize.naturaldelta(dt.timedelta(seconds=1001))
+'16 minutes'
+>>> humanize.naturalday(dt.datetime.now() - dt.timedelta(days=1))
+'yesterday'
+>>> humanize.naturalday(dt.date(2007, 6, 5))
+'Jun 05'
+>>> humanize.naturaldate(dt.date(2007, 6, 5))
+'Jun 05 2007'
