@@ -9,6 +9,7 @@ DEF[JSSOVERSION60]=	1.1.10
 
 NAMEBASE=		webkit2
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		www
 VARIANTS=		api40 api41 api60
 SDESC[api40]=		Opensource browser engine using GTK+3 (API 4.0)
@@ -82,16 +83,16 @@ BUILDRUN_DEPENDS=	enchant:primary:standard
 			libavif:primary:standard
 			libjxl:primary:standard
 
-C_USES[midnightbsd]=	gold
-C_USES[freebsd]=	gold
+# C_USES[midnightbsd]=	gold
+# C_USES[freebsd]=	gold
 
 # required for ENABLE_GAMEPAD=ON
 # #			libmanette:single:standard
 
-# due to __extendhfsf2 linking issue with ld-bfd on highway, mold linker used
-USES=			png mesa cmake pkgconfig sqlite bison
+# due to __extendhfsf2 linking issue with ld-bfd on highway, gold linker used
+USES=			png cmake pkgconfig sqlite bison
 			perl:build python:build ruby:build
-			fontconfig jpeg cpe mold
+			fontconfig jpeg cpe gold
 GNOME_COMPONENTS=	gdkpixbuf introspection libxslt
 XORG_COMPONENTS=	x11 xcomposite xdamage xext xrender xt ice xfixes
 CPE_VENDOR=		webkitgtk
@@ -112,8 +113,9 @@ CMAKE_ARGS=		-DPORT=GTK
 			-DUSE_GSTREAMER_TRANSCODER:BOOL=OFF
 			-DUSE_OPENGL_OR_ES:BOOL=ON
 # only for Linux, freeBSD 13, and NetBSD 10 (requires eventfd)
-# But it's required now since 2.42, so patched for rest
-			-DUSE_GBM:BOOL=ON
+# Required since 2.42, so patched for rest, but fixed on 2.42.1, so
+# turn GBM off again (and drop Mesa)
+			-DUSE_GBM:BOOL=OFF
 CONFIGURE_ENV=		XDG_CACHE_HOME={{WRKDIR}}
 CXXFLAGS=		-DFIXED_EXECUTABLE_MEMORY_POOL_SIZE_IN_MB=32
 PLIST_SUB=		INTRO="@comment "
