@@ -73,3 +73,9 @@ SOVERSION=		${SOVERSION}
 
 post-extract:
 	awk '/free software/,/USA/' ${WRKSRC}/libvips/include/vips/vips.h > ${WRKDIR}/TERMS
+
+pre-configure-freebsd:
+	${REINPLACE_CMD} -e 's|<malloc.h>|<sys/malloc.h>|' ${WRKSRC}/libvips/conversion/composite.cpp
+
+pre-configure-midnightbsd:
+	${REINPLACE_CMD} -e 's|<malloc.h>|<sys/malloc.h>|' ${WRKSRC}/libvips/conversion/composite.cpp
