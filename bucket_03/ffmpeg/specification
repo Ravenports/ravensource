@@ -35,13 +35,35 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		multimedia/ffmpeg
 
+EXRUN[dev]=		libdrm:dev:standard
+			libgcrypt:dev:standard
+			libvpx:dev:standard
+			libass:dev:standard
+			libva:dev:standard
+			libvorbis:dev:standard
+			libtheora:dev:standard
+			libvdpau:dev:standard
+			x264:dev:standard
+			x265:dev:standard
+			xvid:dev:standard
+			WebP:dev:standard
+			librsvg:dev:standard
+			libxml2:dev:standard
+			glib:dev:standard
+			zlib:dev:standard
+			sdl2:dev:standard
+			gnutls:dev:standard
+			rtmpdump:dev:standard
+			gdk-pixbuf:dev:standard
+			pango:dev:standard
+
 BUILD_DEPENDS=		libdrm:dev:standard
 			libvpx:dev:standard
 			gettext:solinks:standard
 			gmp:static:standard
 			gnutls:dev:standard
-			harfbuzz:dev:standard
 			nasm:primary:standard
+			x264:dev:standard
 			x265:dev:standard
 			libass:dev:standard
 			libva:dev:standard
@@ -49,16 +71,16 @@ BUILD_DEPENDS=		libdrm:dev:standard
 			libvorbis:dev:standard
 			WebP:dev:standard
 			frei0r:dev:standard
+			rtmpdump:dev:standard
 			xvid:dev:standard
 			libtheora:dev:standard
 			libvdpau:dev:standard
 BUILDRUN_DEPENDS=	gmp:shared:standard
 			libass:primary:standard
 			frei0r:primary:standard
-			fribidi:single:standard
 			libgcrypt:primary:standard
 			gnutls:primary:standard
-			rtmpdump:library:standard
+			rtmpdump:primary:standard
 			libtheora:primary:standard
 			libva:primary:standard
 			libvdpau:primary:standard
@@ -66,15 +88,15 @@ BUILDRUN_DEPENDS=	gmp:shared:standard
 			libvpx:primary:standard
 			libdrm:primary:standard
 			WebP:primary:standard
-			x264:library:standard
+			x264:primary:standard
 			x265:primary:standard
 			xvid:primary:standard
 
-EXRUN[tools]=		ffmpeg:primary:standard
+EXRUN[tools]=		primary
 
 # opencv support removed because version 3.x requires c++ compilation
 
-USES=			cpe gmake iconv zlib perl:build fontconfig pkgconfig
+USES=			cpe gmake iconv zlib perl:build pkgconfig
 			gettext:build shebangfix
 GNOME_COMPONENTS=	libxml2 librsvg
 SDL_COMPONENTS=		sdl2
