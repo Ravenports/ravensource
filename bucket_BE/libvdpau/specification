@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.5
 
 NAMEBASE=		libvdpau
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		standard
 SDESC[standard]=	VDPAU wrapper and tracing library
@@ -13,18 +14,18 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://gitlab.freedesktop.org/vdpau/libvdpau/-/archive/${PORTVERSION}/
 DISTFILE[1]=		libvdpau-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		multimedia/libvdpau
 
-USES=			cpe meson c++:single
+USES=			cpe meson c++:primary
 XORG_COMPONENTS=	xorgproto xext x11
 CPE_VENDOR=		libvdpau_project
 
