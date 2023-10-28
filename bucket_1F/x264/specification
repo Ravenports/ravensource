@@ -13,6 +13,7 @@ DEF[PORTVERSION]=	0.${X264_BUILD}.${X264_REV}
 
 NAMEBASE=		x264
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		standard
 SDESC[standard]=	H.264/MPEG-4 AVC Video Encoder
@@ -24,16 +25,16 @@ SITES[main]=		https://code.videolan.org/videolan/x264/-/archive/${X264_GITVER}/
 DISTFILE[1]=		${X264_GITVER}.tar.bz2:main
 DIST_SUBDIR=		x264
 
-SPKGS[standard]=	program library
+SPKGS[standard]=	complete primary dev tools
 
 OPTIONS_AVAILABLE=	H10P ASM
 OPTIONS_STANDARD=	H10P ASM
 OPT_ON[x86_64]=		ASM
 OPT_ON[i386]=		ASM
 
-LICENSE=		GPLv2+:library
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		library:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/x264.h
 LICENSE_SCHEME=		solo
