@@ -4,6 +4,7 @@ DEF[SOVERSION]=		6.6.3
 
 NAMEBASE=		libtasn1
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	ASN.1 structure parser library
@@ -14,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/libtasn1
 DISTFILE[1]=		libtasn1-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary tools dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,6 +28,8 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/lib/includes/libtasn1.h
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/libtasn1
+
+EXRUN[tools]=		primary
 
 USES=			cpe pkgconfig gmake libtool gtk-doc mbsdfix
 CPE_VENDOR=		gnu
