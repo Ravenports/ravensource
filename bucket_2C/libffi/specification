@@ -4,6 +4,7 @@ DEF[SOVERSION]=		8.1.2
 
 NAMEBASE=		libffi
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Foreign Function Interface
@@ -14,12 +15,12 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/libffi/libffi/releases/download/v${PORTVERSION}/
 DISTFILE[1]=		libffi-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
@@ -30,7 +31,7 @@ CPE_VENDOR=		libffi_project
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-multi-os-directory
 INSTALL_TARGET=		install-strip
-INFO=			single:libffi
+INFO=			man:libffi
 PLIST_SUB=		PORTVERSION=${PORTVERSION}
 MAKE_ARGS=		toolexeclibdir={{PREFIX}}/lib
 SOVERSION=		${SOVERSION}
