@@ -4,6 +4,7 @@ DEF[SOVERSION]=		8.0.0
 
 NAMEBASE=		libdvdread
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		standard
 SDESC[standard]=	Library to read DVD images
@@ -15,14 +16,14 @@ SITES[main]=		http://download.videolan.org/pub/videolan/libdvdread/${PORTVERSION
 			http://dvdnav.mplayerhq.hu/releases/
 DISTFILE[1]=		libdvdread-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/dvdread/dvd_reader.h
 LICENSE_SCHEME=		solo
@@ -30,7 +31,8 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		multimedia/libdvdread
 
 # DVDCSS version hardcoded in src/dvd_input.c (dlopen'ed)
-BUILDRUN_DEPENDS=	libdvdcss:single:standard
+BUILD_DEPENDS=		libdvdcss:dev:standard
+BUILDRUN_DEPENDS=	libdvdcss:primary:standard
 
 USES=			gmake libtool pkgconfig mbsdfix
 INSTALL_TARGET=		install-strip
