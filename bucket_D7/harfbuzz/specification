@@ -27,10 +27,15 @@ FPC_EQUIVALENT=		print/harfbuzz
 
 BUILD_DEPENDS=		icu:dev:standard
 			icu:primary:standard
-BUILDRUN_DEPENDS=	graphite:single:standard
-EXRUN[dev]=		glib:dev:standard
+			graphite:dev:standard
+BUILDRUN_DEPENDS=	graphite:primary:standard
+
+EXRUN[dev]=		icu:dev:standard
+			glib:dev:standard
+			graphite:dev:standard
 			freetype:dev:standard
-EXRUN[icu]=		harfbuzz:primary:standard
+
+EXRUN[icu]=		primary
 			icu:primary:standard
 			icu:data:standard
 
