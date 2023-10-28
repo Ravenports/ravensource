@@ -4,6 +4,7 @@ DEF[SOVERSION]=		3.2.1
 
 NAMEBASE=		graphite
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics print
 VARIANTS=		standard
 SDESC[standard]=	Rendering for complex non-Roman writing systems
@@ -14,15 +15,15 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/silnrsi:graphite:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL21+:single
-			GPLv2+:single
-			MPL:single
-LICENSE_TERMS=		single:{{WRKSRC}}/COPYING
+LICENSE=		LGPL21+:primary
+			GPLv2+:primary
+			MPL:primary
+LICENSE_TERMS=		primary:{{WRKSRC}}/COPYING
 LICENSE_FILE=		LGPL21+:stock
 			GPLv2+:stock
 			MPL:stock
@@ -30,7 +31,9 @@ LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		graphics/graphite2
 
-USES=			cpe cmake c++:single
+EXRUN[tools]=		primary
+
+USES=			cpe cmake c++:primary
 CPE_VENDOR=		sil
 CPE_PRODUCT=		graphite2
 SOVERSION=		${SOVERSION}
