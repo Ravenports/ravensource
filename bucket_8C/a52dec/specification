@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	0.8.0
 
 NAMEBASE=		a52dec
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		audio
 VARIANTS=		standard
 SDESC[standard]=	ATSC A/52 stream decoder and library
@@ -13,10 +14,17 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://distfiles.adelielinux.org/source/a52dec/
 DISTFILE[1]=		a52dec-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/a52dec.c
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		audio/liba52
 
