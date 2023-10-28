@@ -14,12 +14,12 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/rockdaboot:libpsl:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
@@ -30,6 +30,8 @@ BUILD_DEPENDS=		publicsuffix-list:single:standard
 			libidn2:dev:standard
 BUILDRUN_DEPENDS=	libidn2:primary:standard
 			libunistring:primary:standard
+
+EXRUN[tools]=		primary
 
 USES=			pkgconfig shebangfix iconv meson gettext
 GNOME_COMPONENTS=	libxslt
