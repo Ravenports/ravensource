@@ -5,6 +5,7 @@ DEF[SOVERSION]=		7.0.0
 
 NAMEBASE=		jasper
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Implementation JPEG-2000 standard codec
@@ -15,16 +16,23 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/mdadams:jasper:${HASH}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary tools dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		graphics/jasper
 
+LICENSE=		CUSTOM1:primary
+LICENSE_NAME=		CUSTOM1:"JasPer License Version 2.0"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.txt
+LICENSE_SCHEME=		solo
+
 BUILD_DEPENDS=		freeglut:dev:standard
 			libglvnd:dev:standard
 BUILDRUN_DEPENDS=	freeglut:primary:standard
+
+EXRUN[tools]=		primary
 
 USES=			cpe jpeg cmake
 CPE_VENDOR=		jasper_project
