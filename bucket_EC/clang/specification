@@ -175,6 +175,9 @@ pre-configure-midnightbsd:
 		-e '/ stdnoreturn.h/d' \
 		-e '/ varargs.h/d' \
 		${WRKSRC}/lib/Headers/CMakeLists.txt
+	# Activate __MidnightBSD__ macro
+	${REINPLACE_CMD} -e '/__MidnightBSD__/ s|//|  |' \
+		${WRKSRC}/lib/Basic/Targets/OSTargets.h
 
 post-install:
 	${RMDIR} ${STAGEDIR}${PREFIX}/include/clang-tidy/plugin
