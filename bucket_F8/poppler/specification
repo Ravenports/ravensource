@@ -22,6 +22,7 @@ SPKGS[standard]=	complete primary cpp glib qt5 utils man dev cppdev glibdev qt5d
 
 OPTIONS_AVAILABLE=	INTROSPECTION
 OPTIONS_STANDARD=	INTROSPECTION
+OPT_ON[all]=		INTROSPECTION
 
 LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
@@ -41,6 +42,7 @@ BUILD_DEPENDS=		cairo:dev:standard
 			poppler-data:dev:standard
 			lcms2:dev:standard
 			openjpeg:dev:standard
+			openjpeg:tools:standard
 BUILDRUN_DEPENDS=	lcms2:primary:standard
 			openjpeg:primary:standard
 			poppler-data:primary:standard
@@ -60,6 +62,7 @@ EXRUN[utils]=		poppler:primary:standard
 USES=			cmake:insource cpe png jpeg tiff libtool pkgconfig
 			fontconfig zlib python:build gettext:build
 			curl solaris-funcs
+GNOME_COMPONENTS=	gtk3 gdkpixbuf pango
 CPE_VENDOR=		freedesktop
 CMAKE_ARGS=		-DENABLE_GLIB=ON
 			-DENABLE_UTILS=ON
