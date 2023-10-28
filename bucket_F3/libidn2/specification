@@ -4,6 +4,7 @@ DEF[SOVERSION]=		0.3.8
 
 NAMEBASE=		libidn2
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		dns
 VARIANTS=		standard
 SDESC[standard]=	IDNA2008 internationalized domain names library
@@ -14,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/libidn
 DISTFILE[1]=		libidn2-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary tools dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -36,6 +37,8 @@ FPC_EQUIVALENT=		dns/libidn2
 BUILD_DEPENDS=		help2man:single:standard
 			libunistring:dev:standard
 BUILDRUN_DEPENDS=	libunistring:primary:standard
+
+EXRUN[tools]=		primary
 
 USES=			cpe charsetfix gmake iconv libtool mbsdfix
 			pkgconfig gtk-doc gettext:build makeinfo
