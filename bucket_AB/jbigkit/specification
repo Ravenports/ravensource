@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.1
 
 NAMEBASE=		jbigkit
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Lossless compression for bi-level images
@@ -13,16 +14,18 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://www.cl.cam.ac.uk/~mgk25/download/
 DISTFILE[1]=		jbigkit-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libjbig/jbig.c
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/jbigkit
+
+EXRUN[tools]=		primary
