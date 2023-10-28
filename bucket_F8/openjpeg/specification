@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.5.0
 
 NAMEBASE=		openjpeg
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Open-source implementation of JPEG2000 image codec
@@ -13,21 +14,27 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/uclouvain:openjpeg:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		BSD2CLAUSE:single
+LICENSE=		BSD2CLAUSE:primary
 LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/openjpeg
 
 BUILD_DEPENDS=		lcms2:dev:standard
+			tiff:dev:standard
+			tiff:primary:standard
 BUILDRUN_DEPENDS=	lcms2:primary:standard
 
-USES=			cpe png tiff cmake pkgconfig
+EXRUN[tools]=		primary
+			tiff:primary:standard
+
+USES=			cpe cmake pkgconfig
+# png:build
 CPE_VENDOR=		uclouvain
 PLIST_SUB=		VER=${PORTVERSION:R}
 SOVERSION=		${PORTVERSION}
