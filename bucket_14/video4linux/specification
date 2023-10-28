@@ -15,8 +15,13 @@ DISTFILE[1]=		v4l-utils-${PORTVERSION}.tar.bz2:main
 
 SPKGS[standard]=	complete primary nls
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	ARGP
+OPTIONS_STANDARD=	ARGP
+OPT_ON[midnightbsd]=	ARGP
+OPT_ON[dragonfly]=	ARGP
+OPT_ON[freebsd]=	ARGP
+OPT_ON[netbsd]=		ARGP
+OPT_ON[sunos]=		ARGP
 
 FPC_EQUIVALENT=		multimedia/libv4l
 
@@ -26,12 +31,6 @@ LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"__LIBV4L2_H"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/lib/include/libv4l2.h
 LICENSE_SCHEME=		solo
-
-BR_DEPS[midnightbsd]=	argp-standalone:single:standard
-BR_DEPS[dragonfly]=	argp-standalone:single:standard
-BR_DEPS[freebsd]=	argp-standalone:single:standard
-BR_DEPS[netbsd]=	argp-standalone:single:standard
-BR_DEPS[sunos]=		argp-standalone:single:standard
 
 BUILD_DEPENDS=		evdev-proto:single:standard
 			gettext:solinks:standard
@@ -46,6 +45,10 @@ CONFIGURE_ARGS=		--disable-doxygen-doc
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
 SHEBANG_GLOB=		*.pl
+
+[ARGP].DESCRIPTION=			Build with standalone version of argp from glibc
+[ARGP].BUILD_DEPENDS_ON=		argp-standalone:dev:standard
+[ARGP].BUILDRUN_DEPENDS_ON=		argp-standalone:primary:standard
 
 post-extract:
 	${REINPLACE_CMD} -e '/CPPFLAGS=.*freebsd/d' ${WRKSRC}/configure
