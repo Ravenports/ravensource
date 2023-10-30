@@ -20,8 +20,10 @@ for D1 in ${HEXRANGE}; do
     if [ -d ${BK} ]; then
       queue=$(find ${BK} -depth -maxdepth 1 -mindepth 1 -type d)
       for port in ${queue}; do
-         echo "=============  ${port}"
-         /raven/bin/ravenadm dev sort ${port}
+         if [ -d "${port}/manifests" ]; then
+	    echo "=============  ${port}"
+            /raven/bin/ravenadm dev sort ${port}
+         fi
       done
     fi
   done
