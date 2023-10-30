@@ -1,4 +1,4 @@
---- run_all.sh.orig	2021-10-15 01:25:33 UTC
+--- run_all.sh.orig	2023-09-15 08:28:55 UTC
 +++ run_all.sh
 @@ -72,6 +72,14 @@ log () {
    echo "$@" >> $dir/acats.log
@@ -41,7 +41,7 @@
    dir_support=$dir/support
  
    # Only build support if needed
-@@ -490,10 +490,20 @@ glob_countxf=0
+@@ -509,10 +509,20 @@ glob_countxf=0
  # number of unexpected passes
  glob_countxp=0
  
@@ -66,7 +66,7 @@
  
  for chapter in $chapters; do
     # Used to generate support once and finish after that.
-@@ -507,43 +517,12 @@ for chapter in $chapters; do
+@@ -526,43 +536,12 @@ for chapter in $chapters; do
        continue
     fi
  

@@ -1,4 +1,4 @@
---- run_acats.sh.orig	2021-09-04 17:49:32 UTC
+--- run_acats.sh.orig	2023-09-15 08:28:55 UTC
 +++ run_acats.sh
 @@ -5,21 +5,6 @@ if [ "$testdir" = "" ]; then
     exit 1
