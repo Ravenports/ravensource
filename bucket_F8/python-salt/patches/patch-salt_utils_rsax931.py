@@ -1,6 +1,6 @@
---- salt/utils/rsax931.py.orig	2023-08-09 12:08:57 UTC
+--- salt/utils/rsax931.py.orig	2023-10-16 17:32:52 UTC
 +++ salt/utils/rsax931.py
-@@ -68,7 +68,7 @@ def _find_libcrypto():
+@@ -74,7 +74,7 @@ def _find_libcrypto():
                  # This could be /opt/tools/lib (Global Zone) or
                  # /opt/local/lib (non-Global Zone), thus the two checks
                  # below

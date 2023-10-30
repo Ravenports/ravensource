@@ -1,5 +1,5 @@
 # manually maintained
-DEF[PORTVERSION]=	3006.3
+DEF[PORTVERSION]=	3006.4
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-salt
@@ -76,7 +76,7 @@ DISTNAME=		salt-${PORTVERSION}
 [PY312].RUN_DEPENDS_ON=			python-pycryptodomex:single:v12
 					python-distro:single:v12
 
-post-patch:
+pre-configure:
 .for file in conf/minion conf/master doc/man/salt-key.1 \
 	doc/man/salt-cp.1 doc/man/salt-minion.1 doc/man/salt-syndic.1 \
 	doc/man/salt-master.1 doc/man/salt-run.1 doc/man/salt.7 doc/man/salt.1 \
@@ -91,7 +91,7 @@ post-patch:
 	${REINPLACE_CMD} -e 's|__PREFIX__|${PREFIX}|' ${WRKSRC}/salt/utils/rsax931.py
 
 post-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/salt
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/salt
 	${INSTALL_DATA} ${WRKSRC}/conf/master \
 		${STAGEDIR}${PREFIX}/etc/salt/master.sample
 	${INSTALL_DATA} ${WRKSRC}/conf/minion \
