@@ -162,6 +162,8 @@ CMAKE_ARGS+=	-DPython_ADDITIONAL_VERSIONS=${PYTHON_VER}
 
 .  if !target(setuptools-autolist)
 setuptools-autolist:
+# For now, store man pages and bin files in the dev subpackage
+# The generator script doesn't support tools/man subpackages (yet)
 	@if [ "${SUBPACKAGES}" = "single" ]; then \
 		(cd ${STAGEDIR}${PREFIX} && \
 		${FIND} lib/pyth* bin share/man share/doc share/examples \
@@ -169,7 +171,7 @@ setuptools-autolist:
 		>> ${WRKDIR}/.manifest.single.mktmp; \
 	else \
 		(cd ${STAGEDIR}${PREFIX} && \
-		${FIND} include lib/pkgconfig -type f 2>/dev/null | ${SORT}) \
+		${FIND} include lib/pkgconfig bin share/man -type f 2>/dev/null | ${SORT}) \
 		>> ${WRKDIR}/.manifest.dev.mktmp; \
 		(cd ${STAGEDIR}${PREFIX} && \
 		${FIND} lib/pyth* \( -type f -o -type l \) 2>/dev/null | ${SORT}) \
