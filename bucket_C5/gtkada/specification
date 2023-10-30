@@ -21,8 +21,8 @@ DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete primary dev
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	DEBUG
+OPTIONS_STANDARD=	DEBUG
 
 LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
@@ -37,16 +37,17 @@ BUILD_DEPENDS=		python-Sphinx:single:python_default
 USES=			gmake perl:build pkgconfig gprbuild ada:primary
 GNOME_COMPONENTS=	gtk3 cairo gdkpixbuf
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-GL=no
-			--enable-shared
+CONFIGURE_ARGS=		--enable-shared
 			--enable-static
-			--enable-build=Production
 BUILD_TARGET=		tools static relocatable
 MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
 			PRJDIR=share/gpr
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
-# SET_DEBUGGING_ON=	yes
+
+[DEBUG].MAKEFILE_ON=			WITH_DEBUG=yes
+[DEBUG].CONFIGURE_ARGS_ON=		--enable-build=Debug
+[DEBUG].CONFIGURE_ARGS_OFF=		--enable-build=Production
 
 do-build:
 	# This target is recreated because -j cannot be set, but
