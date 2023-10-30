@@ -108,11 +108,6 @@ PYTHON_LIBDIR=		${LOCALBASE}/lib/python${PYTHON_VER}
 PYTHON_SITELIBDIR=	${PYTHON_LIBDIR}/site-packages
 PYTHON_PYOEXTENSION=	opt-1.pyc
 
-_USES_configure+=	428:mark_python
-
-mark_python:
-	${TOUCH} "${WRKDIR}/.python.exec"
-
 # --------------------------------------
 # distutils support
 # --------------------------------------
@@ -164,6 +159,7 @@ CMAKE_ARGS+=	-DPython_ADDITIONAL_VERSIONS=${PYTHON_VER}
 setuptools-autolist:
 # For now, store man pages and bin files in the dev subpackage
 # The generator script doesn't support tools/man subpackages (yet)
+	${TOUCH} "${WRKDIR}/.python.exec"
 	@if [ "${SUBPACKAGES}" = "single" ]; then \
 		(cd ${STAGEDIR}${PREFIX} && \
 		${FIND} lib/pyth* bin share/man share/doc share/examples \
