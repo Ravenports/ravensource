@@ -19,6 +19,7 @@ define ("TOPLEVEL_PORTS", "toplevel");
 define ("HTTP_REDIRECT", "redirect");
 define ("CORRECTIONS", "depfixes");
 define ("NEW_HOMEPAGES", "newhome");
+define ("PRIMARY_SPKGS", "primary");
 
 require_once $SCRIPTDIR . "/keyed-lists.php";
 require_once $SCRIPTDIR . "/scrape_pypi.php";
@@ -30,6 +31,7 @@ ingest_file (DEAD_HOMEPAGES, $SCRIPTDIR);
 ingest_file (NEW_HOMEPAGES, $SCRIPTDIR);
 ingest_file (HTTP_REDIRECT, $SCRIPTDIR);
 ingest_file (CORRECTIONS, $SCRIPTDIR);
+ingest_file (PRIMARY_SPKGS, $SCRIPTDIR);
 set_top_level_ports (TOPLEVEL_PORTS, $SCRIPTDIR);
 
 # global variables
@@ -280,7 +282,7 @@ function determine_variants($namebase, $requirements) {
 
 # Generate single port
 # creates: specification
-#          description/desc.single
+#          description/desc.(single|primary)
 # - The distinfo is created separately
 # - If specification.manual exists, it's concatenated to end of specification
 function generate_port($namebase) {
@@ -288,6 +290,7 @@ function generate_port($namebase) {
         $EXTS,
         $EXTPATS,
         $port_data,
+        $data_primary,
         $no_descriptions,
         $truncated_summaries,
         $ravensource_directory;
@@ -301,7 +304,7 @@ function generate_port($namebase) {
 
     # create desc.single file
     $descdir = $output_directory . "/descriptions";
-    $descfile = $descdir . "/desc.single";
+    $descfile = $descdir . (in_array($portname, $data_primary) ? "/desc.primary" : "/desc.single");
     if (!file_exists($descdir)) {
         mkdir ($descdir, 0755, true);
     }
@@ -391,12 +394,17 @@ function generate_port($namebase) {
     $available_options = "";
 
     foreach ($variants as $V) {
+        $num_split_pkg = 0;
         $prereturn = ($V == $primo) ? "" : "\n";
         $SV = variant_to_version($V);
         $SVT = strval($SV);
         $VX = substr($SVT, 0, 1) . "." . substr($SVT, 1);
         $comments_block    .= $prereturn . "SDESC[$V]=\t\t$comment ($VX)";
-        $subpackages_block .= "SPKGS[$V]=\t\tsingle\n";
+        if (in_array($portname, $data_primary)) {
+            $subpackages_block .= "SPKGS[$V]=\t\tcomplete primary dev\n";
+        } else {
+            $subpackages_block .= "SPKGS[$V]=\t\tsingle\n";
+        }
         $vopts_block       .= "VOPTS[$V]=\t\t";
         foreach ($variants as $Z) {
             $prespace = ($Z == $primo) ? "" : " ";
@@ -412,17 +420,29 @@ function generate_port($namebase) {
         $tabs = "\t\t\t";
         $buildrun_block .= "[PY" . $SV . "].USES_ON=" .$tabs . "python:" . $V . $arg . "\n";
         if (count($port_data[$namebase]["buildrun"])) {
+            foreach ($port_data[$namebase]["buildrun"] as $DEP) {
+                if (in_array($DEP, $data_primary)) {
+                    if (!$num_split_pkg) {
+                       $buildrun_block .= "[PY" . $SV . "].BUILD_DEPENDS_ON=\t\t";
+                    }
+                    $indent = $num_split_pkg ? "\t\t\t\t\t" : "";
+                    $buildrun_block .= $indent . $DEP . ":dev:" . $V . "\n";
+                    $num_split_pkg++;
+                }
+            }
             $buildrun_block .= "[PY" . $SV . "].BUILDRUN_DEPENDS_ON=\t\t";
             foreach ($port_data[$namebase]["buildrun"] as $DEP) {
                 $indent = ($DEP == $port_data[$namebase]["buildrun"][0]) ? "" : "\t\t\t\t\t";
-                $buildrun_block .= $indent . $DEP . ":single:" . $V . "\n";
+                $mainspkg = in_array($DEP, $data_primary) ? ":primary:" : ":single:";
+                $buildrun_block .= $indent . $DEP . $mainspkg . $V . "\n";
             }
         }
         if (count($port_data[$namebase]["justrun_" . $V])) {
             $buildrun_block .= "[PY" . $SV . "].RUN_DEPENDS_ON=\t\t\t";
             foreach ($port_data[$namebase]["justrun_" . $V] as $DEP) {
                 $indent = ($DEP == $port_data[$namebase]["justrun_" . $V][0]) ? "" : "\t\t\t\t\t";
-                $buildrun_block .= $indent . $DEP . ":single:" . $V . "\n";
+                $mainspkg = in_array($DEP, $data_primary) ? ":primary:" : ":single:";
+                $buildrun_block .= $indent . $DEP . $mainspkg . $V . "\n";
             }
         }
     }

@@ -8,6 +8,7 @@ $data_toplevel_ports = array();
 $data_https_redirect = array();
 $data_corrections = array();
 $data_homepage_redirect = array();
+$data_primary = array();
 
 
 # procedure to set global variables.
@@ -22,7 +23,8 @@ function ingest_file ($datatype, $scriptdir) {
         $data_homepage_redirect,
         $data_https_redirect,
         $data_toplevel_ports,
-        $data_corrections;
+        $data_corrections,
+        $data_primary;
 
     $filename = "";
     $varname = "";
@@ -56,9 +58,13 @@ function ingest_file ($datatype, $scriptdir) {
             $filename = "list.corrections";
             $varname = "data_corrections";
             break;
+        case "primary":
+            $filename = "list.primary";
+            $varname = "data_primary";
+            break;
         default:
             echo "illegal datatype: $datatype\n";
-            echo "Must be summary|description|deadhome|toplevel|depfixes\n";
+            echo "Must be summary|description|deadhome|toplevel|depfixes|primary\n";
             return;
     }
     $lines = file($scriptdir . "/" . $filename);
