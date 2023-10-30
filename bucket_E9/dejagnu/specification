@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.6.3
 
 NAMEBASE=		dejagnu
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		misc
 VARIANTS=		standard
 SDESC[standard]=	Framework for testing other programs
@@ -13,15 +14,15 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/dejagnu
 DISTFILE[1]=		dejagnu-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		misc/dejagnu
 
-BUILDRUN_DEPENDS=	expect:single:standard
+BUILD_DEPENDS=		expect:dev:standard
 
 USES=			gmake tcl
 MUST_CONFIGURE=		gnu
-INFO=			single:dejagnu
+INFO=			man:dejagnu
