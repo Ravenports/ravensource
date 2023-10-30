@@ -14,8 +14,8 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/P/PyGObject
 DISTFILE[1]=		PyGObject-${PORTVERSION}.tar.gz:main
 
-SPKGS[v11]=		single
-SPKGS[v12]=		single
+SPKGS[v11]=		complete primary dev
+SPKGS[v12]=		complete primary dev
 
 OPTIONS_AVAILABLE=	PY311 PY312
 OPTIONS_STANDARD=	none
@@ -32,18 +32,19 @@ DISTNAME=		PyGObject-${PORTVERSION}
 # pycairo>=1.16.0
 
 [PY311].USES_ON=			python:v11,sutools
-[PY311].BUILDRUN_DEPENDS_ON=		python-pycairo:single:v11
+[PY311].BUILD_DEPENDS_ON=		python-pycairo:dev:v11
+[PY311].BUILDRUN_DEPENDS_ON=		python-pycairo:primary:v11
 [PY312].USES_ON=			python:v12,sutools
-[PY312].BUILDRUN_DEPENDS_ON=		python-pycairo:single:v12
+[PY312].BUILD_DEPENDS_ON=		python-pycairo:dev:v12
+[PY312].BUILDRUN_DEPENDS_ON=		python-pycairo:primary:v12
 
-LICENSE=		LGPL21+:single
+LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/py-gobject3
 
-BUILDRUN_DEPENDS=	python-pycairo:single:python_used
 RUN_DEPENDS=		gobject-introspection:primary:standard
 
 USES=			gmake pkgconfig zlib
