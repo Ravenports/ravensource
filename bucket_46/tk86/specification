@@ -8,6 +8,7 @@ DEF[PORTVERSION]=	${TK_VERSION}
 
 NAMEBASE=		${NAMEBASE}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11_toolkits
 VARIANTS=		standard
 SDESC[standard]=	GUI toolkit for the Tcl ${TK_VER} scripting language
@@ -18,7 +19,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/tcl/Tcl/${FOLDER}
 DISTFILE[1]=		tk${TK_VERSION}-src.tar.gz:main
 
-SPKGS[standard]=	complete primary demos manpages
+SPKGS[standard]=	complete primary tools dev demos man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,7 +31,11 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11-toolkits/tk86
 
-USES=			tcl:${TK_VER},tea fontconfig
+EXRUN[dev]=		tcl86:dev:standard
+EXRUN[tools]=		tcl86:tools:standard
+			primary
+
+USES=			tcl:${TK_VER},build,tea fontconfig
 XORG_COMPONENTS=	x11 xext xft xrender xscrnsaver
 CONFIGURE_ARGS=		--enable-xss
 			--enable-xft
