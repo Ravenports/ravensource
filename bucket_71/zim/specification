@@ -49,9 +49,3 @@ post-patch:
 	${REINPLACE_CMD} -e "s|/usr/local|${LOCALBASE}|" \
 		${WRKSRC}/zim/config/basedirs.py \
 		${WRKSRC}/tests/config.py
-
-post-install:
-	# autoplist python files
-	${FIND} ${STAGEDIR}${PREFIX}/lib ! -type d | \
-		${SED} -e 's,^${STAGEDIR}${PREFIX}/,,' \
-		>> ${WRKDIR}/.manifest.primary.mktmp
