@@ -2,7 +2,7 @@ $NetBSD: patch-cmake_Config.cmake,v 1.1 2020/05/21 08:42:00 plunky Exp $
 
 add NetBSD support
 
---- cmake/Config.cmake.orig	2023-06-20 21:44:57 UTC
+--- cmake/Config.cmake.orig	2023-10-30 00:03:26 UTC
 +++ cmake/Config.cmake
 @@ -31,6 +31,10 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "^k?Fre
      set(SFML_OS_FREEBSD 1)

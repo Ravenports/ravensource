@@ -2,7 +2,7 @@ $NetBSD: patch-src_SFML_Window_FreeBSD_JoystickImpl.cpp,v 1.1 2020/05/21 08:42:0
 
 add NetBSD support
 
---- src/SFML/Window/FreeBSD/JoystickImpl.cpp.orig	2023-06-20 21:44:57 UTC
+--- src/SFML/Window/FreeBSD/JoystickImpl.cpp.orig	2023-10-30 00:03:26 UTC
 +++ src/SFML/Window/FreeBSD/JoystickImpl.cpp
 @@ -52,6 +52,16 @@ namespace
      std::map<unsigned int, std::string> plugged;
