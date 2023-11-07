@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2.9.3.0
-DEF[MANVERSION]=	2.9.3.0.2
+DEF[PORTVERSION]=	2.9.4.0
+DEF[MANVERSION]=	2.9.3.0.5
 # Upstream documentation is only available as HTML; converted manpages are
 # an external project (thanks a lot for maintaining, flexibeast!)
 # ----------------------------------------------------------------------------
@@ -14,9 +14,10 @@ CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main man
 SITES[main]=		https://www.skarnet.org/software/execline/
-SITES[man]=		GITHUB/flexibeast:execline-man-pages:v${MANVERSION}
+SITES[man]=		https://git.sr.ht/~flexibeast/execline-man-pages/archive/
 DISTFILE[1]=		execline-${PORTVERSION}.tar.gz:main
-DISTFILE[2]=		generated:man
+DISTFILE[2]=		v${MANVERSION}.tar.gz:man
+DIST_SUBDIR=		skarnet
 DF_INDEX=		1 2
 
 SPKGS[standard]=	complete primary dev man
@@ -30,7 +31,8 @@ LICENSE=		ISCL:primary
 LICENSE_FILE=		ISCL:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-BUILDRUN_DEPENDS=	skalibs:single:standard
+BUILD_DEPENDS=		skalibs:dev:standard
+BUILDRUN_DEPENDS=	skalibs:primary:standard
 USES=			gmake
 
 MUST_CONFIGURE=		gnu
@@ -45,10 +47,10 @@ PLIST_SUB=		SOVERSION=${PORTVERSION}
 			SOMAJOR=${PORTVERSION:R:R}
 
 post-patch:
-	${REINPLACE_CMD} -e "s|usr|${STAGEDIR}${PREFIX}|" ${WRKDIR}/execline-man-pages-${MANVERSION}/Makefile
+	${REINPLACE_CMD} -e "s|usr|${STAGEDIR}${PREFIX}|" ${WRKDIR}/execline-man-pages-v${MANVERSION}/Makefile
 
 post-build:
-	(cd ${WRKDIR}/execline-man-pages-${MANVERSION} && \
+	(cd ${WRKDIR}/execline-man-pages-v${MANVERSION} && \
 		make install)
 
 post-install:
