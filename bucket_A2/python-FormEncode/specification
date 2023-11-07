@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.0.1
+DEF[PORTVERSION]=	2.1.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-FormEncode
@@ -7,12 +7,12 @@ KEYWORDS=		python
 VARIANTS=		v11 v12
 SDESC[v11]=		HTML form validation and generation package (3.11)
 SDESC[v12]=		HTML form validation and generation package (3.12)
-HOMEPAGE=		http://formencode.org
+HOMEPAGE=		https://www.formencode.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/a2/d1/0561313170a9732ab7f461cd9f675a121d748f6dbb4e8331b0d689f8d812
-DISTFILE[1]=		FormEncode-${PORTVERSION}-py2.py3-none-any.whl:main
+SITES[main]=		PYPIWHL/a2/7b/f1215b9612432a097600271a8af57353bfa27d6ac05846027fce97283a6f
+DISTFILE[1]=		FormEncode-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
 SPKGS[v12]=		single
@@ -29,15 +29,12 @@ GENERATED=		yes
 DISTNAME=		FormEncode-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# six
 # pytest ; extra == 'testing'
-# dnspython (>=2.0.0) ; extra == 'testing'
+# dnspython >=2 ; extra == 'testing'
 # pycountry ; extra == 'testing'
 
 [PY311].USES_ON=			python:v11,wheel
-[PY311].RUN_DEPENDS_ON=			python-six:single:v11
 [PY312].USES_ON=			python:v12,wheel
-[PY312].RUN_DEPENDS_ON=			python-six:single:v12
 
 # Port drops a license in root, remove
 post-install:
