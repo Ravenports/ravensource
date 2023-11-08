@@ -1,6 +1,6 @@
---- utils/pxattr.cpp.orig	2023-05-12 08:19:26 UTC
+--- utils/pxattr.cpp.orig	2023-10-03 07:12:21 UTC
 +++ utils/pxattr.cpp
-@@ -46,7 +46,7 @@
+@@ -42,7 +42,7 @@
  
  // Not exactly true for win32, but makes my life easier by avoiding ifdefs in recoll (the calls just
  // fail, which is expected)

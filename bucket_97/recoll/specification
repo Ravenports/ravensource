@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.35.0
+DEF[PORTVERSION]=	1.36.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		recoll
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.lesbonscomptes.com/recoll/
 DISTFILE[1]=		recoll-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary lang man docs examples
+SPKGS[standard]=	complete primary tools dev lang man docs examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,16 +27,20 @@ LICENSE_AWK=		TERMS:"_PYRECOLL_H_INCLUDED_"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/python/recoll/pyrecoll.h
 LICENSE_SCHEME=		solo
 
+EXRUN[tools]=		primary
+			qt5-qttools:primary:standard
+
 BUILD_DEPENDS=		xapian-core:dev:standard
 			qt5-qttools:dev:standard
+			qt5-qttools:primary:standard
+			chmlib:dev:standard
 BUILDRUN_DEPENDS=	xapian-core:primary:standard
 			aspell:primary:standard
-			chmlib:single:standard
-			qt5-qttools:primary:standard
+			chmlib:primary:standard
 RUN_DEPENDS=		unrar:primary:standard
 			antiword:primary:standard
 			catdoc:primary:standard
-			libwpd:single:standard
+			libwpd:tools:standard
 			unrtf:single:standard
 			perl-Image-ExifTool:single:perl_default
 			poppler:utils:standard
@@ -82,7 +86,7 @@ post-patch:
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/recoll*/*.so \
-		${STAGEDIR}${PREFIX}/lib/recoll/*.so \
+		${STAGEDIR}${PREFIX}/lib/*.so \
 		${STAGEDIR}${PREFIX}/bin/recoll
 	# relocate examples
 	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
