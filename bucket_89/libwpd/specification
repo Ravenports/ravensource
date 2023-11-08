@@ -5,6 +5,7 @@ DEF[WPD_VER]=		0.10
 
 NAMEBASE=		libwpd
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		standard
 SDESC[standard]=	Import filter and tools for WordPerfect Documents
@@ -15,21 +16,23 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/libwpd/libwpd/libwpd-${PORTVERSION}
 DISTFILE[1]=		libwpd-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MPL:single
-			LGPL21+:single
+LICENSE=		MPL:primary
+			LGPL21+:primary
 LICENSE_FILE=		MPL:{{WRKSRC}}/COPYING.MPL
 			LGPL21+:{{WRKSRC}}/COPYING.LGPL
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/lib/libwpd_internal.h
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		textproc/libwpd010
+
+EXRUN[tools]=		primary
 
 BUILD_DEPENDS=		boost-libraries:dev:standard
 			librevenge:dev:standard
