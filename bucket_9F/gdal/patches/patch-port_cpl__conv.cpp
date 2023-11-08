@@ -1,6 +1,6 @@
 Avoid visibility define that masks usage that is apparently beyond XOPEN or C99.
 
---- port/cpl_conv.cpp.orig	2023-07-06 11:14:15 UTC
+--- port/cpl_conv.cpp.orig	2023-09-05 09:06:02 UTC
 +++ port/cpl_conv.cpp
 @@ -48,8 +48,6 @@
  #endif
