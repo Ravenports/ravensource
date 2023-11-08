@@ -1,4 +1,4 @@
-# DeepDiff v 6.6.1
+# DeepDiff v 6.7.0
 
 ![Downloads]
 ![Python Versions]
@@ -24,28 +24,20 @@ Tested on Python 3.7+ and PyPy3.
 
 Please check the [ChangeLog] file for the detailed information.
 
+DeepDiff v6-7-0
+
+- Delta can be subtracted from other objects now.
+- verify_symmetry is deprecated. Use bidirectional instead.
+- always_include_values flag in Delta can be enabled to include values in
+the delta for every change.
+- Fix for Delta.__add__ breaks with esoteric dict keys.
+- You can load a delta from the list of flat dictionaries.
+
 DeepDiff 6-6-1
+
 - Fix for [DeepDiff raises decimal exception when using significant digits]
 - Introducing group_by_sort_key
 - Adding group_by 2D. For example `group_by=['last_name', 'zip_code']`
-
-DeepDiff 6-6-0
-
-- [Serialize To Flat Dicts]
-- [NumPy 2.0 compatibility] by [William Jamieson]
-
-DeepDiff 6-5-0
-
-- [parse_path]
-
-DeepDiff 6-4-1
-
-- [Add Ignore List Order Option to DeepHash] by 
-[Bobby Morck]
-- [pyyaml to 6.0.1 to fix cython build problems] by [Robert Bo Davis]
-- [Precompiled regex simple diff] by [cohml]
-- New flag: `zip_ordered_iterables` for forcing iterable items to be
-compared one by one. 
 
 ## Installation
 
@@ -98,3 +90,11 @@ learn how & why you use DeepDiff, and what improvements we should make.
 Thank you! :dancers:
 
 # Contribute
+
+1. Please make your PR against the dev branch
+2. Please make sure that your PR has tests. Since DeepDiff is used in many
+sensitive data driven projects, we strive to maintain around 100% test
+coverage on the code.
+
+Please run `pytest --cov=deepdiff --runslow` to see the coverage report.
+Note that the `--runslow` flag will run some slow tests too. In most cases
