@@ -5,6 +5,7 @@ DEF[WPG_VER]=		0.3
 
 NAMEBASE=		libwpg
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Import filter and tools for WordPerfect graphics
@@ -15,27 +16,30 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/libwpg/libwpg/libwpg-${PORTVERSION}
 DISTFILE[1]=		libwpg-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MPL:single
-			LGPL21:single
+LICENSE=		MPL:primary
+			LGPL21:primary
 LICENSE_FILE=		MPL:{{WRKSRC}}/COPYING.MPL
 			LGPL21:{{WRKSRC}}/COPYING.LGPL
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/lib/libwpg_utils.h
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		graphics/libwpg03
 
+EXRUN[tools]=		primary
+
 BUILD_DEPENDS=		boost-libraries:dev:standard
 			librevenge:dev:standard
+			libwpd:dev:standard
 BUILDRUN_DEPENDS=	boost-libraries:primary:standard
 			librevenge:primary:standard
-			libwpd:single:standard
+			libwpd:primary:standard
 
 USES=			libtool pkgconfig shebangfix perl:build
 SHEBANG_FILES=		src/conv/svg/wpg2svgbatch.pl
