@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	1.4.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		lxqt-menu-data
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Freedesktop.org compliant menu files for LXQt
+HOMEPAGE=		https://github.com/lxqt/lxqt-menu-data
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/lxqt:lxqt-menu-data:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Package has invalid licensing; it's a bunch of .desktop and XML files,
+# none of which have licensing terms. It's meant to be LGPL21, though.
+# LICENSE=		LGPL21:single
+# LICENSE_FILE=		LGPL21:{{WRKSRC}}/LICENSE
+
+# Not in FPC, yet
+
+BUILD_DEPENDS=		lxqt-build-tools:single:standard
+			qt5-qttools:complete:standard
+
+USES=			cmake perl:build
+
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
