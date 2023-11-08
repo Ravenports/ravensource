@@ -1,4 +1,4 @@
---- src/pngxtern/pngxmem.c.orig	2018-01-06 23:22:33 UTC
+--- src/pngxtern/pngxmem.c.orig	2017-12-03 23:42:00 UTC
 +++ src/pngxtern/pngxmem.c
 @@ -35,7 +35,7 @@ pngx_malloc_rows_extended(png_structp pn
     row_size = png_get_rowbytes(png_ptr, info_ptr);
