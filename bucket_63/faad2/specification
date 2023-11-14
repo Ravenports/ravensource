@@ -1,5 +1,6 @@
-DEF[PORTVERSION]=	2.10.1
+DEF[PORTVERSION]=	2.11.1
 DEF[DASH]=		-1
+DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		faad2
@@ -14,32 +15,26 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://salsa.debian.org/multimedia-team/faad2/-/archive/debian/${PORTVERSION}${DASH}/
 DISTFILE[1]=		faad2-debian-${PORTVERSION}${DASH}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
-LICENSE_TERMS=		single:{{WRKSRC}}/README
+LICENSE=		GPLv2+:primary
+LICENSE_TERMS=		primary:{{WRKSRC}}/README
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		audio/faad
 
-USES=			autoreconf cpe gmake libtool
+EXRUN[tools]=		primary
+
+USES=			cpe cmake
 CPE_VENDOR=		audiocoding
-MUST_CONFIGURE=		gnu
-LDFLAGS=		-lpthread
-CFLAGS=			-D__GNU_LIBRARY__=1
 DISTNAME=		faad2-debian-${PORTVERSION}${DASH}
-
-post-extract:
-	${LN} -sf faad.man ${WRKSRC}/frontend/faad.1
-
-post-patch:
-	${REINPLACE_CMD} -e 's|faad.man|faad.1|g' \
-		${WRKSRC}/frontend/Makefile.am
+SOVERSION=		${SOVERSION}
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libfaad.${LIBEXT}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libfaad_drm.${LIBEXT}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/faad
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libfaad.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libfaad_drm.so
