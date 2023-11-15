@@ -1,5 +1,6 @@
-DEF[PORTVERSION]=	1.4.1
-DEF[SOVERSION]=		1.4.1
+DEF[PORTVERSION]=	1.5.0
+DEF[SOVERSION]=		1.5.0
+DEF[V]=			v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		sfcgal
@@ -11,17 +12,19 @@ HOMEPAGE=		http://www.sfcgal.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITLAB/Oslandia:SFCGAL:v${PORTVERSION}
-DISTFILE[1]=		generated:main
+# SITES[main]=		GITLAB/sfcgal:SFCGAL:v${PORTVERSION}
+# DISTFILE[1]=		generated:main
+SITES[main]=		https://gitlab.com/sfcgal/SFCGAL/-/archive/${V}/
+DISTFILE[1]=		SFCGAL-${V}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/LICENSE
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/Solid.h
 LICENSE_SCHEME=		solo
@@ -40,6 +43,7 @@ USES=			cmake libtool
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
 CXXFLAGS=		-Wno-deprecated-declarations
 SOVERSION=		${SOVERSION}
+DISTNAME=		SFCGAL-${V}
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libSFCGAL.so
