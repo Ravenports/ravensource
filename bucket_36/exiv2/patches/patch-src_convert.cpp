@@ -1,6 +1,6 @@
 Support NetBSD and SunOS iconv being special.
 
---- src/convert.cpp.orig	2023-05-08 16:01:13 UTC
+--- src/convert.cpp.orig	2023-11-06 12:17:09 UTC
 +++ src/convert.cpp
 @@ -1431,7 +1431,11 @@ bool convertStringCharsetIconv(std::stri
      char outbuf[256];
