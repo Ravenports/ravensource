@@ -57,7 +57,8 @@ PLIST_SUB=		VERSION=${PORTVERSION}
 
 [SFCGAL].DESCRIPTION=			Build with sfcgal support
 [SFCGAL].CONFIGURE_ARGS_ON=		--with-sfcgal={{LOCALBASE}}/bin/sfcgal-config
-[SFCGAL].BUILDRUN_DEPENDS_ON=		sfcgal:single:standard
+[SFCGAL].BUILDRUN_DEPENDS_ON=		sfcgal:primary:standard
+[SFCGAL].BUILD_DEPENDS_ON=		sfcgal:dev:standard
 
 post-patch:
 	${FIND} ${WRKSRC}/extras/tiger_geocoder ${WRKSRC}/utils \
