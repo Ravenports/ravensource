@@ -1,7 +1,7 @@
---- libavutil/common.h.orig	2023-02-27 20:43:45 UTC
+--- libavutil/common.h.orig	2023-11-11 00:25:17 UTC
 +++ libavutil/common.h
-@@ -42,6 +42,10 @@
- #include "attributes.h"
+@@ -43,6 +43,10 @@
+ #include "error.h"
  #include "macros.h"
  
 +#ifndef	UINT64_C
