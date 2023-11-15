@@ -1,5 +1,6 @@
-DEF[PORTVERSION]=	8.14.5
-DEF[SOVERSION]=		42.16.5
+DEF[PORTVERSION]=	8.15.0
+DEF[SOVERSION]=		42.17.0
+DEF[PLIST_VER]=		${PORTVERSION:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libvips
@@ -47,13 +48,15 @@ BUILDRUN_DEPENDS=	ImageMagick:primary:standard
 			orc:primary:standard
 			poppler:glib:standard
 			poppler:primary:standard
+			highway:primary:standard
 
 USES=			expat gettext jpeg meson pkgconfig
-			shebangfix tiff
+			shebangfix tiff gold
 GNOME_COMPONENTS=	glib introspection librsvg
 
 SHEBANG_FILES=		tools/vipsprofile
 SOVERSION=		${SOVERSION}
+PLIST_SUB=		VER=${PLIST_VER}
 
 [LOADED].DESCRIPTION=			Build with additional features and dependencies
 [LOADED].BUILD_DEPENDS_ON=		hdf5:dev:standard
