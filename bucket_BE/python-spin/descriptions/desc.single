@@ -2,9 +2,6 @@
 
 ## A developer tool for scientific Python libraries
 
-**NOTE:** If you are looking for `devpy`, this is it! We had to rename
-the package to publish it on PyPi.
-
 Developers need to memorize a whole bunch of magic command-line
 incantations.
 And these incantations change from time to time!
@@ -29,10 +26,12 @@ pip install spin
 
 ## Configuration
 
-Settings are in your project's `pyproject.toml`.
+Settings are stored in `.spin.toml`, `spin.toml`, or your project's
+`pyproject.toml`.
 As an example, see the `[tool.spin]` section of [an example
 `pyproject.toml`].
 
+The `[project]` section should contain `name`.
 The `[tool.spin]` section should contain:
 
 ```
@@ -92,9 +91,10 @@ python -m spin
 
 ### [Meson]
 
+Available as `spin.cmds.meson.*`.
+
 ```
   build    🔧 Build package with Meson/ninja and install to
 `build-install`
   ipython  💻 Launch IPython shell with PYTHONPATH set
   python   🐍 Launch Python shell with PYTHONPATH set
-  shell    💻 Launch shell with PYTHONPATH set

@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	23.1.2
+DEF[PORTVERSION]=	23.2.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-cattrs
@@ -7,11 +7,11 @@ KEYWORDS=		python
 VARIANTS=		v11 v12
 SDESC[v11]=		Composable complex class support for attrs (3.11)
 SDESC[v12]=		Composable complex class support for attrs (3.12)
-HOMEPAGE=		https://github.com/python-attrs/cattrs
+HOMEPAGE=		https://catt.rs
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/3a/ba/05df14efaa0624fac6b1510e87f5ce446208d2f6ce50270a89b6268aebfe
+SITES[main]=		PYPIWHL/19/29/f0b58e2dcdb2c2186a790410fabb66e3a0a70e0bea53b11bfa6ce7dca46c
 DISTFILE[1]=		cattrs-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
@@ -29,16 +29,16 @@ GENERATED=		yes
 DISTNAME=		cattrs-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# PyYAML (>=6.0,<7.0) ; extra == "pyyaml"
-# attrs (>=20)
-# cbor2 (>=5.4.6,<6.0.0) ; extra == "cbor2"
-# exceptiongroup ; python_version < "3.11"
-# msgpack (>=1.0.2,<2.0.0) ; extra == "msgpack"
-# orjson (>=3.5.2,<4.0.0) ; (implementation_name == "cpython") and (extra == "orjson")
-# pymongo (>=4.2.0,<5.0.0) ; extra == "bson"
-# tomlkit (>=0.11.4,<0.12.0) ; (python_version < "4") and (extra == "tomlkit")
-# typing_extensions (>=4.1.0) ; python_version < "3.11"
-# ujson (>=5.4.0,<6.0.0) ; extra == "ujson"
+# attrs>=23.1.0
+# exceptiongroup>=1.1.1; python_version < '3.11'
+# typing-extensions!=4.6.3,>=4.1.0; python_version < '3.11'
+# pymongo>=4.4.0; extra == 'bson'
+# cbor2>=5.4.6; extra == 'cbor2'
+# msgpack>=1.0.5; extra == 'msgpack'
+# orjson>=3.9.2; implementation_name == 'cpython' and extra == 'orjson'
+# pyyaml>=6.0; extra == 'pyyaml'
+# tomlkit>=0.11.8; extra == 'tomlkit'
+# ujson>=5.7.0; extra == 'ujson'
 
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-attrs:single:v11
