@@ -1,12 +1,9 @@
-DEF[PORTVERSION]=	23.0.0
+DEF[PORTVERSION]=	24.0.0
 DEF[RELEASE]=		v${PORTVERSION}
-DEF[JQUERY]=		EXTRACT_INFO(LATEST_JQUERY)
-DEF[UNDERSCORE]=	EXTRACT_INFO(SPHINX_UNDERSCORE)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xmlada
 VERSION=		${PORTVERSION}
-REVISION=		2
 EPOCH=			1
 KEYWORDS=		textproc ada
 VARIANTS=		standard
@@ -34,6 +31,7 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		textproc/xmlada
 
 BUILD_DEPENDS=		python-Sphinx:single:python_default
+			python-sphinx-rtd-theme:single:python_default
 
 USES=			cclibs:primary ada:primary
 BUILD_TARGET=		schema_libs gen-docs
@@ -41,8 +39,6 @@ MAKEFILE=		Makefile.bsd
 MAKE_ARGS=		LIBVER=${PORTVERSION}
 			PROCESSORS={{MAKE_JOBS_NUMBER}}
 PLIST_SUB=		LIBVER=${PORTVERSION}
-			JQUERY=${JQUERY}
-			UNDERSCORE=${UNDERSCORE}
 SINGLE_JOB=		yes
 
 post-patch:
