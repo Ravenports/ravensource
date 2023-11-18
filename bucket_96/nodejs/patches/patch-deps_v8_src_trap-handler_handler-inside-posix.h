@@ -1,4 +1,4 @@
---- deps/v8/src/trap-handler/handler-inside-posix.h.orig	2023-10-17 05:31:03 UTC
+--- deps/v8/src/trap-handler/handler-inside-posix.h.orig	2023-11-14 08:36:34 UTC
 +++ deps/v8/src/trap-handler/handler-inside-posix.h
 @@ -13,7 +13,7 @@ namespace v8 {
  namespace internal {

@@ -1,4 +1,4 @@
---- tools/gyp/pylib/gyp/xcode_emulation.py.orig	2023-10-17 05:31:05 UTC
+--- tools/gyp/pylib/gyp/xcode_emulation.py.orig	2023-11-14 08:36:36 UTC
 +++ tools/gyp/pylib/gyp/xcode_emulation.py
 @@ -607,7 +607,7 @@ class XcodeSettings:
  
@@ -9,7 +9,7 @@
              dbg_format = self._Settings().get("DEBUG_INFORMATION_FORMAT", "dwarf")
              if dbg_format == "dwarf":
                  cflags.append("-gdwarf-2")
-@@ -1099,7 +1099,7 @@ class XcodeSettings:
+@@ -1096,7 +1096,7 @@ class XcodeSettings:
          # For static libraries, no dSYMs are created.
          result = []
          if (
