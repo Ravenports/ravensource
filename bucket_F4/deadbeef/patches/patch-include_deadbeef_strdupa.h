@@ -1,5 +1,5 @@
---- strdupa.h.orig	2023-02-19 17:12:18 UTC
-+++ strdupa.h
+--- include/deadbeef/strdupa.h.orig	2023-11-07 18:15:17 UTC
++++ include/deadbeef/strdupa.h
 @@ -31,7 +31,7 @@
      ({									      \
        const char *old = (s);					      \
