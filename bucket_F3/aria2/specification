@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.36.0
+DEF[PORTVERSION]=	1.37.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		aria2
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/aria2/aria2/releases/download/release-${PORTVERSION}/
 DISTFILE[1]=		aria2-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary tools dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -26,6 +26,8 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/main.cc
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		www/aria2
+
+EXRUN[tools]=		primary
 
 RUN_DEPENDS=		nss:caroot:standard
 
