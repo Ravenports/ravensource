@@ -4,6 +4,7 @@ DEF[SOVERSION]=		1.0.0
 
 NAMEBASE=		minizip
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		archivers
 VARIANTS=		standard
 SDESC[standard]=	Simple zip utilities using zlib
@@ -14,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://www.zlib.net/
 DISTFILE[1]=		zlib-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary library
+SPKGS[standard]=	complete primary tools dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,6 +28,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		archivers/minizip
 
+EXRUN[tools]=		primary
+
 USES=			autoreconf cpe libtool zlib
 CPE_VENDOR=		gnu
 CPE_PRODUCT=		zlib
@@ -36,7 +39,6 @@ CONFIGURE_ARGS=		--enable-demos
 DISTNAME=		zlib-${PORTVERSION}/contrib/minizip
 
 SOVERSION=		${SOVERSION}
-EXRUN[primary]=		minizip:library:standard
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libminizip.so
