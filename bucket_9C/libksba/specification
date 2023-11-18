@@ -14,15 +14,15 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNUPG/libksba
 DISTFILE[1]=		libksba-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single LGPL3+:single
+LICENSE=		GPLv2+:primary LGPL3+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING.GPLv2
 			LGPL3+:{{WRKSRC}}/COPYING.LGPLv3
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/ksba.h
 LICENSE_SCHEME=		dual
@@ -39,4 +39,4 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-static
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
-INFO=			single:ksba
+INFO=			dev:ksba
