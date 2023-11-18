@@ -1,4 +1,4 @@
---- bootstrap.sh.orig	2023-07-13 10:29:21 UTC
+--- bootstrap.sh.orig	2023-10-09 18:31:11 UTC
 +++ bootstrap.sh
 @@ -1,6 +1,8 @@
  #!/bin/sh

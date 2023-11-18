@@ -1,4 +1,4 @@
---- src/gprlib.adb.orig	2023-07-13 10:29:21 UTC
+--- src/gprlib.adb.orig	2023-10-09 18:31:11 UTC
 +++ src/gprlib.adb
 @@ -721,9 +721,6 @@ procedure Gprlib is
  
