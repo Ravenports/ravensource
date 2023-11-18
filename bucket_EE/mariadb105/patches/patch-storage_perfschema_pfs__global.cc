@@ -1,4 +1,4 @@
---- storage/perfschema/pfs_global.cc.orig	2023-08-10 19:22:12 UTC
+--- storage/perfschema/pfs_global.cc.orig	2023-11-08 12:03:54 UTC
 +++ storage/perfschema/pfs_global.cc
 @@ -49,6 +49,9 @@
  #ifdef HAVE_MALLOC_H

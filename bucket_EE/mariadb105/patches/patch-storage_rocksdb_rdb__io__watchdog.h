@@ -1,6 +1,6 @@
 If timer_t is an integer type, setting it to nullptr fails.
 
---- storage/rocksdb/rdb_io_watchdog.h.orig	2023-08-10 19:22:12 UTC
+--- storage/rocksdb/rdb_io_watchdog.h.orig	2023-11-08 12:03:54 UTC
 +++ storage/rocksdb/rdb_io_watchdog.h
 @@ -32,6 +32,12 @@
  /* MyRocks header files */
