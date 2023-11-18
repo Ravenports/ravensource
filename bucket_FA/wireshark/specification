@@ -1,7 +1,7 @@
-DEF[PORTVERSION]=	4.0.10
-DEF[SOVERSION]=		16.0.10
-DEF[SO_WIRETAP]=	13.0.10
-DEF[SO_WSUTIL]=		14.0.0
+DEF[PORTVERSION]=	4.2.0
+DEF[SOVERSION]=		17.0.0
+DEF[SO_WIRETAP]=	14.0.0
+DEF[SO_WSUTIL]=		15.0.0
 DEF[PLUGIN_VER]=	${PORTVERSION:R}
 # ----------------------------------------------------------------------------
 
@@ -18,7 +18,7 @@ SITES[main]=		https://2.na.dl.wireshark.org/src/all-versions/
 			https://www.wireshark.org/download/src/
 DISTFILE[1]=		wireshark-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev docs man
+SPKGS[standard]=	complete primary docs man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -38,14 +38,16 @@ BUILD_DEPENDS=		bison:primary:standard
 			gnutls:dev:standard
 			libgcrypt:dev:standard
 			libnghttp2:dev:standard
-			qt5-qttools:complete:standard
+			qt6-qtbase:dev:standard
+			qt6-qttools:complete:standard
+			qt6-qt5compat:dev:standard
 			ruby-asciidoctor:single:ruby_default
 			snappy:dev:standard
 			libpcap:dev:standard
 			brotli:dev:standard
 			krb5:dev:standard
-			qt5-qtsvg:dev:standard
-			qt5-qtmultimedia:dev:standard
+			opus:dev:standard
+			minizip:dev:standard
 BUILDRUN_DEPENDS=	libgcrypt:primary:standard
 			libnghttp2:primary:standard
 			c-ares:primary:standard
@@ -55,15 +57,17 @@ BUILDRUN_DEPENDS=	libgcrypt:primary:standard
 			libsmi:library:standard
 			krb5:primary:standard
 			snappy:primary:standard
-			qt5-qtmultimedia:primary:standard
-			qt5-qtsvg:primary:standard
 			libmaxminddb:single:standard
 			brotli:primary:standard
 			speexdsp:primary:standard
+			opus:primary:standard
+			qt6-qtbase:primary:standard
+			qt6-qt5compat:primary:standard
+			minizip:primary:standard
 
 # worked with libressl 2.7.x, but seeing floating point exception
 # (core dump) with libressl 2.8.x
-USES=			cpe gmake cmake ssl:openssl11 zlib lz4 qt5
+USES=			cpe gmake cmake ssl:openssl11 zlib lz4 qt6
 			zstd lua:5.2 perl:build python:v11,build pkgconfig
 			mime-info:primary
 			desktop-utils:primary
@@ -82,19 +86,13 @@ CMAKE_ARGS=		-DBUILD_wireshark:BOOL=ON
 			-DENABLE_LUA:BOOL=ON
 			-DENABLE_SMI:BOOL=ON
 			-DENABLE_GNUTLS:BOOL=ON
-			-DENABLE_CAP:BOOL=ON
-			-DENABLE_CARES:BOOL=ON
 			-DENABLE_KERBEROS:BOOL=ON
 			-DENABLE_SBC:BOOL=OFF
 			-DENABLE_SPANDSP:BOOL=OFF
 			-DENABLE_BCG729:BOOL=OFF
-			-DENABLE_CAP:BOOL=OFF
-			-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
-			-DLUA_INCLUDEDIR:PATH="{{LUA_INCDIR}}"
-			-DLUA_LIBDIR:PATH="{{LUA_LIBDIR}}"
+			-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt6/cmake/"
 			-DPython3_EXECUTABLE:PATH="{{PYTHON_CMD}}"
 INSTALL_REQ_TOOLCHAIN=	yes
-CPPFLAGS=		-I{{LUA_INCDIR}}
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		SO_WIRETAP=${SO_WIRETAP}
 			SO_WSUTIL=${SO_WSUTIL}
@@ -102,7 +100,7 @@ PLIST_SUB=		SO_WIRETAP=${SO_WIRETAP}
 			MAJ_WSUTIL=${SO_WSUTIL:R:R}
 			PLUGIN_VER=${PLUGIN_VER}
 
-# USES=cmake + qt5 don't play nice together wrt DESTDIR
+# USES=cmake + qt6 don't play nice together wrt DESTDIR
 # manually set until a framework fix is found
 MAKE_ARGS=		DESTDIR={{STAGEDIR}}
 
@@ -114,17 +112,13 @@ post-extract:
 	${AWK} '/^Part III:$$/,/^---------------/' \
 		${WRKSRC}/COPYING > ${WRKDIR}/BSD_LICENSE
 
-post-patch:
-	${REINPLACE_CMD} -e '/NAMES lua/ s|lua52|lua-${LUA_VER}|' \
-		${WRKSRC}/cmake/modules/FindLUA.cmake
+pre-configure:
 	${REINPLACE_CMD} -e 's|libssh/libssh.h|libssh/libssh_version.h|' \
 		${WRKSRC}/cmake/modules/FindLIBSSH.cmake
 
 post-install:
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 	${MV} ${STAGEDIR}${PREFIX}/share/wireshark/*.html \
-		${STAGEDIR}${STD_DOCDIR}/
-	${MV} ${STAGEDIR}${PREFIX}/share/wireshark/AUTHORS-SHORT \
 		${STAGEDIR}${STD_DOCDIR}/
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
