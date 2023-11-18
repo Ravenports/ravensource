@@ -1,4 +1,4 @@
---- src/ui/widget/canvas/pixelstreamer.cpp.orig	2023-03-26 17:06:46 UTC
+--- src/ui/widget/canvas/pixelstreamer.cpp.orig	2023-11-16 19:05:21 UTC
 +++ src/ui/widget/canvas/pixelstreamer.cpp
 @@ -99,7 +99,7 @@ public:
          // Calculate image properties required by cairo.

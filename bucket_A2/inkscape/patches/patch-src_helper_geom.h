@@ -1,6 +1,6 @@
---- src/helper/geom.h.orig	2023-07-16 14:33:04 UTC
+--- src/helper/geom.h.orig	2023-11-16 19:05:21 UTC
 +++ src/helper/geom.h
-@@ -55,10 +55,10 @@ inline Geom::Coord triangle_area(Geom::P
+@@ -56,10 +56,10 @@ inline Geom::Coord triangle_area(Geom::P
      return p1[X] * p2[Y] + p1[Y] * p3[X] + p2[X] * p3[Y] - p2[Y] * p3[X] - p1[Y] * p2[X] - p1[X] * p3[Y];
  }
  

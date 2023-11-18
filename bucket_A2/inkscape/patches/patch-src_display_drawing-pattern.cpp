@@ -1,4 +1,4 @@
---- src/display/drawing-pattern.cpp.orig	2023-07-16 14:32:51 UTC
+--- src/display/drawing-pattern.cpp.orig	2023-11-16 19:05:21 UTC
 +++ src/display/drawing-pattern.cpp
 @@ -87,7 +87,7 @@ cairo_pattern_t *DrawingPattern::renderP
              if (rect.dimensions()[i] >= _pattern_resolution[i]) {
