@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	7.4.0p0
+DEF[PORTVERSION]=	7.4.0p1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		opensmtpd
@@ -42,13 +42,17 @@ CPE_VENDOR=		openbsd
 MUST_CONFIGURE=		gnu
 MAKE_ARGS=		mansubdir=man
 CONFIGURE_ARGS=		--without-table-db
-			--with-mantype=man
 			--with-libasr={{LOCALBASE}}
 			--with-libevent={{LOCALBASE}}
 			--with-libssl={{OPENSSLBASE}}
 			--sysconfdir={{PREFIX}}/etc/mail
 
-post-patch-dragonfly:
+pre-configure:
+	# --with-mantype fails for some reason
+	${REINPLACE_CMD} -e 's/MANTYPE=doc/MANTYPE=man/' \
+		${WRKSRC}/configure
+
+pre-configure-dragonfly:
 	${RM} -rf ${WRKSRC}/openbsd-compat/vis.h \
 		${WRKSRC}/openbsd-compat/sys
 	${REINPLACE_CMD} -e 's|TAILQ_FOREACH_SAFE|TAILQ_FOREACH_MUTABLE|' \
