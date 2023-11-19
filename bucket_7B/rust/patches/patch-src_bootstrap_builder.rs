@@ -1,8 +1,8 @@
---- src/bootstrap/builder.rs.orig	2023-10-03 02:52:17 UTC
+--- src/bootstrap/builder.rs.orig	2023-11-13 04:10:51 UTC
 +++ src/bootstrap/builder.rs
-@@ -1637,12 +1637,13 @@ impl<'a> Builder<'a> {
-                 Some(format!("-Wl,-rpath,@loader_path/../{libdir}"))
-             } else if !target.contains("windows") && !target.contains("aix") {
+@@ -1645,12 +1645,13 @@ impl<'a> Builder<'a> {
+                 && !target.contains("xous")
+             {
                  rustflags.arg("-Clink-args=-Wl,-z,origin");
 -                Some(format!("-Wl,-rpath,$ORIGIN/../{libdir}"))
 +                Some(format!("-Wl,-rpath,$ORIGIN/../{libdir}:@OPENSSLLIB@"))
