@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	0.25.0
+DEF[PORTVERSION]=	0.25.3
+DEF[SOVERSION]=		0.3.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		p11-kit
@@ -13,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/p11-glue/p11-kit/releases/download/${PORTVERSION}/
 DISTFILE[1]=		p11-kit-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev tools docs examples
+SPKGS[standard]=	complete primary dev tools docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -26,6 +27,7 @@ FPC_EQUIVALENT=		security/p11-kit
 
 BUILD_DEPENDS=		libffi:dev:standard
 			libtasn1:dev:standard
+			glib:dev:standard
 BUILDRUN_DEPENDS=	nss:caroot:standard
 			libtasn1:primary:standard
 			libffi:primary:standard
@@ -34,23 +36,12 @@ EXRUN[tools]=		p11-kit:primary:standard
 
 B_DEPS[sunos]=		libbsd4sol:single:standard
 
-USES=			cpe gmake libtool pkgconfig
+USES=			cpe meson pkgconfig gtk-doc
 CPE_VENDOR=		p11-kit_project
 INSTALL_TARGET=		install-strip
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-nls
-			--enable-debug=no
-			--with-trust-paths={{LOCALBASE}}/share/certs/ca-root-nss.crt
+MESON_ARGS=		-Dnls=false
+			-Dgtk_doc=true
+			-Dtrust_paths={{LOCALBASE}}/share/certs/ca-root-nss.crt
+SOVERSION=		${SOVERSION}
 
 VAR_OPSYS[sunos]=	CPPFLAGS=-I{{LOCALBASE}}/include/bsd
-
-pre-configure:
-	${REINPLACE_CMD} -e \
-	's|exampledir = $$(p11_system_config)|exampledir = ${STD_EXAMPLESDIR}|' \
-	${WRKSRC}/Makefile.in
-
-post-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/share/doc
-	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/p11-kit \
-		${STAGEDIR}${STD_DOCDIR}
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
