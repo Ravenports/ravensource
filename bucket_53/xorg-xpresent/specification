@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	1.0.1
+DEF[XNAME]=		xpresent
+DEF[ALTNAME]=		libXpresent
+DEF[SOVERSION]=		1.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorg-${XNAME}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	X Fixes extension library
+HOMEPAGE=		https://www.x.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		XORG/individual/lib
+DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		xorg
+
+SPKGS[standard]=	complete primary dev man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+EXRUN[dev]=		xorg-x11:dev:standard
+
+USES=			libtool
+XORG_COMPONENTS=	x11 xext xrandr xfixes
+DISTNAME=		${ALTNAME}-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+FPC_EQUIVALENT=		x11/libXpresent
+SOVERSION=		${SOVERSION}
