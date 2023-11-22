@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	1.3.270
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		vulkan-headers
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Headers for the Vulkan graphics API
+HOMEPAGE=		https://github.com/KhronosGroup/Vulkan-Headers
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/KhronosGroup:Vulkan-Headers:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		APACHE20:single MIT:single
+LICENSE_TERMS=		single:{{WRKSRC}}/LICENSE.md
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSES/Apache-2.0.txt
+			MIT:{{WRKSRC}}/LICENSES/MIT.txt
+LICENSE_SCHEME=		dual
+
+FPC_EQUIVALENT=		graphics/vulkan-headers
+
+USES=			cmake
+
+post-extract:
+	# genvk.py requires docgenerator.py from Vulkan-Docs, so drop useless shebang
+	${FIND} ${WRKSRC}/registry -name \*.py |\
+		${XARGS} ${SED} -i'' '/^#!/d'
