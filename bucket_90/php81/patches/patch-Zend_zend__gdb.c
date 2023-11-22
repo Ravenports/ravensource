@@ -1,4 +1,4 @@
---- Zend/zend_gdb.c.orig	2023-10-24 21:51:16 UTC
+--- Zend/zend_gdb.c.orig	2023-11-21 21:53:48 UTC
 +++ Zend/zend_gdb.c
 @@ -25,7 +25,9 @@
  #include <fcntl.h>
