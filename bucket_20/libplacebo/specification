@@ -1,0 +1,58 @@
+DEF[PORTVERSION]=	6.338.1
+DEF[VER]=		v${PORTVERSION}
+DEF[GLAD_TAG]=		v2.0.4
+DEF[SOVERSION]=		338
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libplacebo
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	GPU-accelerated video/image rendering library
+HOMEPAGE=		https://code.videolan.org/videolan/libplacebo
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main glad
+SITES[main]=		https://code.videolan.org/videolan/libplacebo/-/archive/${VER}/
+SITES[glad]=		GITHUB/Dav1dde:glad:${GLAD_TAG}:3rdparty/glad
+DISTFILE[1]=		libplacebo-${VER}.tar.bz2:main
+DISTFILE[2]=		generated:glad
+DF_INDEX=		1 2
+
+SPKGS[standard]=	complete primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"LIBPLACEBO_COMMON_H_"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/include/libplacebo/common.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/libplacebo
+
+BUILD_DEPENDS=		lcms2:dev:standard
+			xxhash:dev:standard
+			python-Jinja2:single:python_default
+			vulkan-headers:single:standard
+BUILDRUN_DEPENDS=	lcms2:primary:standard
+			xxhash:primary:standard
+
+USES=			meson pkgconfig
+MESON_ARGS=		-Dd3d11=disabled
+			-Dlibdovi=disabled
+			-Ddemos=false
+			-Dlcms=enabled
+			-Dxxhash=enabled
+			-Dvulkan=disabled
+DISTNAME=		libplacebo-${VER}
+SOVERSION=		${SOVERSION}
+
+pre-configure:
+	${REINPLACE_CMD} -e 's,/usr/share,${PREFIX}/share,' \
+		${WRKSRC}/src/vulkan/utils_gen.py
+	# https://github.com/mesonbuild/meson/issues/7746
+	${REINPLACE_CMD} "s,static:,dirs: '${LOCALBASE}/lib'\, &," \
+		${WRKSRC}/src/glsl/meson.build
