@@ -1,4 +1,4 @@
---- xf86drmMode.c.orig	2023-10-20 05:24:54 UTC
+--- xf86drmMode.c.orig	2023-11-20 13:03:51 UTC
 +++ xf86drmMode.c
 @@ -39,9 +39,7 @@
  #include <stdlib.h>
@@ -10,7 +10,7 @@
  #include <sys/sysctl.h>
  #endif
  #include <stdio.h>
-@@ -1119,7 +1117,7 @@ drm_public int drmModePageFlipTarget(int
+@@ -1129,7 +1127,7 @@ drm_public int drmModePageFlipTarget(int
  
  drm_public int drmModeSetPlane(int fd, uint32_t plane_id, uint32_t crtc_id,
  		    uint32_t fb_id, uint32_t flags,
