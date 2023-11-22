@@ -1,11 +1,10 @@
-DEF[PORTVERSION]=	0.36.0
+DEF[PORTVERSION]=	0.37.0
 DEF[WAF_TAG]=		2.0.24
-DEF[SOVERSION]=		2.1.0
+DEF[SOVERSION]=		2.2.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mpv
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		standard
 SDESC[standard]=	Advanced general-purpose multimedia player
@@ -19,7 +18,7 @@ DISTFILE[1]=		generated:main
 DISTFILE[2]=		waf-waf-${WAF_TAG}.tar.bz2:waf
 DF_INDEX=		1 2
 
-SPKGS[standard]=	complete primary examples docs
+SPKGS[standard]=	complete primary dev tools docs man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -32,58 +31,35 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		multimedia/mpv
 
+EXRUN[tools]=		primary
+
 BUILD_DEPENDS=		python-docutils:single:python_used
 			libarchive:dev:standard
 			ffmpeg:dev:standard
 			libdvdnav:dev:standard
+			libplacebo:dev:standard
+			xorg-xpresent:dev:standard
 BUILDRUN_DEPENDS=	ffmpeg:primary:standard
 			libarchive:primary:standard
 			libass:primary:standard
 			libdvdnav:primary:standard
 			libvdpau:primary:standard
 			libva:primary:standard
+			libplacebo:primary:standard
 			uchardet:single:standard
+			xorg-xpresent:primary:standard
 RUN_DEPENDS=		youtube-dl:single:standard
 
-USES=			cpe iconv jpeg lua:5.2 pkgconfig
+USES=			cpe iconv jpeg lua:5.2 pkgconfig meson
 			perl:build python:build,sutools ssl:build
 			desktop-utils:primary gnome-icons:primary
 SDL_COMPONENTS=		sdl2
-XORG_COMPONENTS=	x11 xext xinerama xrandr xscrnsaver xv xxf86vm
-BUILD_TARGET=		build
-DESTDIRNAME=		--destdir
-MUST_CONFIGURE=		yes
-CONFIGURE_ENV=		BIN_PYTHON="{{PYTHON_CMD}}"
-			BIN_PERL="{{PERL}}"
-CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
-			--docdir="{{STD_EXAMPLESDIR}}"
-			--htmldir="{{STD_DOCDIR}}/html"
-			--mandir="{{MANPREFIX}}/man"
-			--lua={{LUA_VER_STR}}fbsd
-			--enable-libmpv-shared
-			--enable-libarchive
-			--enable-html
-			--enable-dvdnav
-			--enable-sdl2
-			--disable-debug-build
-			--disable-optimize
-			--disable-pdf
-			--disable-rubberband
-			--disable-vaapi-wayland
-			--disable-vapoursynth
-			--disable-wayland
-			--disable-alsa
-			--disable-caca
-			--disable-jack
-			--disable-lcms2
-			--disable-libbluray
-			-j{{MAKE_JOBS_NUMBER}}
+XORG_COMPONENTS=	xinerama xscrnsaver xv xxf86vm
+MESON_ARGS=		-Dlua=lua-5.2
+			-Dx11=enabled
+			-Dlibmpv=true
 SOVERSION=		${SOVERSION}
 
 post-patch:
 	${FIND} ${WRKSRC}/DOCS/man -name '*.rst' | \
 		${XARGS} ${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|g'
-
-post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/mpv
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmpv.so
