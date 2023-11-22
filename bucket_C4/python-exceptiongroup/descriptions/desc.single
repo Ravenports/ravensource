@@ -28,6 +28,9 @@ or blocked by
   * ``traceback.format_exception_only()``
   * ``traceback.print_exception()``
   * ``traceback.print_exc()``
+* A backported version of ``contextlib.suppress()`` from Python 3.12.1
+which also
+  handles suppressing exceptions inside exception groups
 
 If this package is imported on Python 3.11 or later, the built-in
 implementations of the
@@ -95,6 +98,3 @@ would be written with this backport like this:
     }):
         ...
 
-**NOTE**: Just like with ``except*``, you cannot handle BaseExceptionGroup
-or
-ExceptionGroup with ``catch()``.
