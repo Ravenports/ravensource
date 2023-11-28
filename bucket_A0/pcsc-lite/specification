@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	2.0.0
+DEF[PORTVERSION]=	2.0.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		pcsc-lite
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel security
 VARIANTS=		standard
 SDESC[standard]=	Smartcard development library
@@ -33,7 +32,10 @@ B_DEPS[sunos]=		libusb:dev:standard
 BR_DEPS[linux]=		libusb:primary:standard
 BR_DEPS[sunos]=		libusb:primary:standard
 
-USES=			cpe libtool perl:build pkgconfig shebangfix python
+BUILDRUN_DEPENDS=	polkit:primary:standard
+
+USES=			cpe libtool perl:build pkgconfig python shebangfix
+GNOME_COMPONENTS=	glib
 CPE_VENDOR=		muscle
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-usbdropdir={{PREFIX}}/lib/pcsc/drivers/
