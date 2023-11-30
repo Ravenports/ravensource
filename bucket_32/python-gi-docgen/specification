@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2023.1
+DEF[PORTVERSION]=	2023.3
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-gi-docgen
@@ -11,7 +11,7 @@ HOMEPAGE=		https://gitlab.gnome.org/GNOME/gi-docgen
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/2c/57/9b927fab538fe9acc932411aaa54785e3911917291773b1a95b7cfcdd0be
+SITES[main]=		PYPIWHL/9a/9a/1221564e13c97af17ebf55da41267799b630d0258530152a75feffe99eec
 DISTFILE[1]=		gi_docgen-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[v11]=		complete primary dev
@@ -29,10 +29,11 @@ GENERATED=		yes
 DISTNAME=		gi_docgen-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# Markdown (>=3.2)
+# Markdown >=3.2
 # MarkupSafe
 # Pygments
 # jinja2
+# packaging
 # typogrify
 # tomli ; python_version < "3.11"
 
@@ -41,12 +42,14 @@ DISTNAME=		gi_docgen-${PORTVERSION}.dist-info
 					python-MarkupSafe:single:v11
 					python-Pygments:single:v11
 					python-Jinja2:single:v11
+					python-packaging:single:v11
 					python-typogrify:single:v11
 [PY312].USES_ON=			python:v12,wheel
 [PY312].RUN_DEPENDS_ON=			python-Markdown:single:v12
 					python-MarkupSafe:single:v12
 					python-Pygments:single:v12
 					python-Jinja2:single:v12
+					python-packaging:single:v12
 					python-typogrify:single:v12
 
 post-install:

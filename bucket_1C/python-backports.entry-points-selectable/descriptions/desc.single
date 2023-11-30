@@ -1,6 +1,7 @@
 
-
    :alt: tests
+
+    :alt: Ruff
 
    :alt: Code style: Black
 
@@ -18,11 +19,11 @@ those prior to 3.10a7). In some environments, a library may be constrained
 on which versions of importlib_metadata can be required, so this library
 bridges that gap.
 
-To use this shim, add ``backports.entry_points_selectable`` to your project
-requirements. It will require importlib_metadata automatically where needed
-(prior to Python 3.8) but be satisfied by older versions. Projects should
-still require importlib_metadata as appropriate for API uses other than for
-entry_points.
+To use this shim, add ``backports.entry_points_selectable`` to the affected
+project's requirements. It will require importlib_metadata automatically
+where needed (prior to Python 3.8) but be satisfied by older versions.
+Projects should still require importlib_metadata as appropriate for API
+uses other than for entry_points.
 
 Then in code, instead of ``from importlib.metadata import entry_points``,
 use::
@@ -34,4 +35,4 @@ entry_points or invoke ``.select()`` on the result).
 
 This backport has a very lenient dependency on `importlib_metadata` for
 older Pythons and is a single module implementation. If adding a dependency
-is a concern, this module may be vendored into the downstream project.
+is a concern, this module may be vendored into the affected project.

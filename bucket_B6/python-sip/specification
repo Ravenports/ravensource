@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.7.12
+DEF[PORTVERSION]=	6.8.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-sip
@@ -11,8 +11,8 @@ HOMEPAGE=		https://www.riverbankcomputing.com/software/sip/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/s/sip
-DISTFILE[1]=		sip-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/22/dd/55a69862572792e7725c11210ac42557e4f2898f101ed14dfbe6ce7872fd
+DISTFILE[1]=		sip-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
 SPKGS[v12]=		single
@@ -26,20 +26,17 @@ VOPTS[v12]=		PY311=OFF PY312=ON
 # SIP
 
 GENERATED=		yes
-DISTNAME=		sip-${PORTVERSION}
+DISTNAME=		sip-${PORTVERSION}.dist-info
 
-# install_requires extracted from setup.py
+# Requires-Dist extracted from wheel metadata
 # packaging
-# ply
 # setuptools
-# tomli; python_version < "3.11"
+# tomli ; python_version < "3.11"
 
-[PY311].USES_ON=			python:v11,sutools
-[PY311].BUILDRUN_DEPENDS_ON=		python-packaging:single:v11
-					python-ply:single:v11
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-packaging:single:v11
 					python-setuptools:single:v11
-[PY312].USES_ON=			python:v12,sutools
-[PY312].BUILDRUN_DEPENDS_ON=		python-packaging:single:v12
-					python-ply:single:v12
+[PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-packaging:single:v12
 					python-setuptools:single:v12
 
