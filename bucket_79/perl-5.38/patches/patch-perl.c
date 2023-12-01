@@ -1,4 +1,4 @@
---- perl.c.orig	2023-05-26 01:05:34 UTC
+--- perl.c.orig	2023-11-28 11:57:28 UTC
 +++ perl.c
 @@ -2098,23 +2098,8 @@ S_Internals_V(pTHX_ CV *cv)
      PUSHs(Perl_newSVpvn_flags(aTHX_ non_bincompat_options,
