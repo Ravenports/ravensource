@@ -1,0 +1,10 @@
+--- drawinglayer/source/tools/primitive2dxmldump.cxx.orig	2023-09-22 19:07:01 UTC
++++ drawinglayer/source/tools/primitive2dxmldump.cxx
+@@ -12,6 +12,7 @@
+ #include <rtl/string.hxx>
+ #include <tools/stream.hxx>
+ #include <tools/XmlWriter.hxx>
++#include <libxml/parser.h>
+ 
+ #include <math.h>
+ #include <memory>

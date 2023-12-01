@@ -231,6 +231,12 @@ pre-configure:
 	${REINPLACE_CMD} -e 's|/usr/include/gpgme++|${PREFIX}/include/gpgme++|' \
 		-e 's|{CCACHE/\*sccache\*/}|{CCACHE}|g' \
 		${WRKSRC}/configure
+	# more libxml2 2.12 fixes
+	${REINPLACE_CMD} -e 's|xmlErrorPtr|const _xmlError *|' \
+		${WRKSRC}/filter/source/xsltfilter/LibXSLTTransformer.cxx \
+		${WRKSRC}/helpcompiler/source/HelpLinker.cxx \
+		${WRKSRC}/sax/source/fastparser/fastparser.cxx \
+		${WRKSRC}/unoxml/source/xpath/xpathapi.cxx
 
 pre-configure-netbsd:
 	${REINPLACE_CMD} -e 's|#! /bin/sh|#!${LOCALBASE}/bin/bash|' ${WRKSRC}/configure
