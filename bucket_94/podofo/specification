@@ -48,3 +48,6 @@ SOVERSION=		${SOVERSION}
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/pod*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libpodofo.so
+
+pre-configure:
+	${FIND} ${WRKSRC} -name "*.orig" -delete
