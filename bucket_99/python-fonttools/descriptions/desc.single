@@ -29,6 +29,32 @@ install it with [pip]:
 Changelog
 ~~~~~~~~~
 
+4.46.0 (released 2023-12-02)
+----------------------------
+
+- [featureVars] Allow to register the same set of substitution rules to
+multiple features.
+  The addFeatureVariations function can now take a list of featureTags;
+similarly, the
+  lib key 'com.github.fonttools.varLib.featureVarsFeatureTag' can now take
+a
+  comma-separateed string of feature tags (e.g. "salt,ss01") instead of a
+single tag (#3360).
+- [featureVars] Don't overwrite GSUB FeatureVariations, but append new
+records to it
+  for features which are not already there. But raise VarLibError if the
+feature tag
+  already has feature variations associated with it (#3363).
+- [varLib] Added addGSUBFeatureVariations function to add GSUB Feature
+Variations
+  to an existing variable font from rules defined in a DesignSpace document
+(#3362).
+- [varLib.interpolatable] Various bugfixes and rendering improvements. In
+particular,
+  a new test for "underweight" glyphs. The new test reports quite a few
+false-positives
+  though. Please send feedback.
+
 4.45.1 (released 2023-11-23)
 ----------------------------
 
@@ -72,29 +98,3 @@ the existing
 - [feaLib] Ensure variable mark anchors are deep-copied while building
 since they
   get modified in-place and later reused (#3330).
-- [OS/2|subset] Added method to recalcCodePageRanges to OS/2 table class;
-added
-  ``--prune-codepage-ranges`` to `fonttools subset` command (#3328, #2607).
-
-4.44.0 (released 2023-11-03)
-----------------------------
-
-- [instancer] Recalc OS/2 AvgCharWidth after instancing if default changes
-(#3317).
-- [otlLib] Make ClassDefBuilder class order match varLib.merger's, i.e.
-large
-  classes first, then glyph lexicographic order (#3321, #3324).
-- [instancer] Allow not specifying any of min:default:max values and let be
-filled
-  up with fvar's values (#3322, #3323).
-- [instancer] When running --update-name-table ignore axes that have no
-STAT axis
-  values (#3318, #3319).
-- [Debg] When dumping to ttx, write the embedded JSON as multi-line string
-with
-  indentation (92cbfee0d).
-- [varStore] Handle > 65535 items per encoding by splitting VarData
-subtable (#3310).
-- [subset] Handle null-offsets in MarkLigPos subtables.
-- [subset] Keep East Asian spacing fatures vhal, halt, chws, vchw by
-default (#3305).
