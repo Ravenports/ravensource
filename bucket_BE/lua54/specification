@@ -95,4 +95,5 @@ post-install:
 		${STAGEDIR}${PREFIX}/lib/pkgconfig
 	(cd ${STAGEDIR}${PREFIX}/lib &&\
 		${MV} ${LIBRARY}.so ${LIBRARY}.so.${MAJOR} &&\
-		${LN} -s ${LIBRARY}.so.${MAJOR} ${LIBRARY}.so)
+		${LN} -s ${LIBRARY}.so.${MAJOR} ${LIBRARY}.so &&\
+		${LN} -s ${LIBRARY}.a ${LIBRARY}_pic.a)
