@@ -1,4 +1,4 @@
---- glib/glib-unix.c.orig	2023-10-25 11:33:59 UTC
+--- glib/glib-unix.c.orig	2023-12-06 18:03:55 UTC
 +++ glib/glib-unix.c
 @@ -29,6 +29,9 @@
  
