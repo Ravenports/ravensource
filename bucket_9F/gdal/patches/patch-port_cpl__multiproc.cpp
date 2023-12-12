@@ -1,4 +1,4 @@
---- port/cpl_multiproc.cpp.orig	2023-11-09 09:51:02 UTC
+--- port/cpl_multiproc.cpp.orig	2023-11-28 15:21:30 UTC
 +++ port/cpl_multiproc.cpp
 @@ -1423,7 +1423,11 @@ int CPLGetNumCPUs()
      nCPUs = 1;
