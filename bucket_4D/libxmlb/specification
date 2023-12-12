@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	0.3.14
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libxmlb
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	Library to help create and query binary XML blobs
+HOMEPAGE=		https://github.com/hughsie/libxmlb
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/hughsie:libxmlb:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	primary dev man docs tests
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/xmlb.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		textproc/libxmlb
+
+BUILD_DEPENDS=		gtk-doc:single:standard
+			snowball:dev:standard
+BUILDRUN_DEPENDS=	snowball:libstemmer_c:standard
+
+USES=			meson pkgconfig xz zstd
+GNOME_COMPONENTS=	glib introspection
+
+MESON_ARGS=		-Dstemmer=true
