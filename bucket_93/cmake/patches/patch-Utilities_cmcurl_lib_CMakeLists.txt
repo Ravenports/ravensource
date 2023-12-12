@@ -1,10 +1,10 @@
---- Utilities/cmcurl/lib/CMakeLists.txt.orig	2023-11-15 13:55:18 UTC
+--- Utilities/cmcurl/lib/CMakeLists.txt.orig	2023-12-06 13:57:42 UTC
 +++ Utilities/cmcurl/lib/CMakeLists.txt
 @@ -24,6 +24,7 @@
- set(LIB_NAME cmcurl)
- set(LIBCURL_OUTPUT_NAME cmcurl)
+ set(LIB_NAME libcurl)
+ set(LIBCURL_OUTPUT_NAME libcurl CACHE STRING "Basename of the curl library")
  add_definitions(-DBUILDING_LIBCURL)
 +add_definitions(-DCURL_CA_BUNDLE="@RAVEN_CERT@")
  
- if(BUILD_SHARED_LIBS)
-   set(CURL_STATICLIB NO)
+ configure_file(curl_config.h.cmake
+   ${CMAKE_CURRENT_BINARY_DIR}/curl_config.h)

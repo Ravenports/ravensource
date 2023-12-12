@@ -1,4 +1,3 @@
-%%ONLY-DARWIN%%bin/cmakexbuild
 bin/ccmake
 bin/cmake
 bin/cpack
@@ -46,6 +45,7 @@ share/cmake/Modules/CMakeCXXInformation.cmake
 share/cmake/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake
 share/cmake/Modules/CMakeCommonLanguageInclude.cmake
 share/cmake/Modules/CMakeCompilerABI.h
+share/cmake/Modules/CMakeCompilerCUDAArch.h
 share/cmake/Modules/CMakeCompilerIdDetection.cmake
 share/cmake/Modules/CMakeConfigurableFile.in
 share/cmake/Modules/CMakeDependentOption.cmake
@@ -438,7 +438,6 @@ share/cmake/Modules/readme.txt
 share/cmake/Modules/AndroidTestUtilities/PushToAndroidDevice.cmake
 share/cmake/Modules/CMakeAddFortranSubdirectory/build_mingw.cmake.in
 share/cmake/Modules/CMakeAddFortranSubdirectory/config_mingw.cmake.in
-share/cmake/Modules/CUDA/architectures.cmake
 share/cmake/Modules/CheckIPOSupported/CMakeLists-C.txt.in
 share/cmake/Modules/CheckIPOSupported/CMakeLists-CXX.txt.in
 share/cmake/Modules/CheckIPOSupported/CMakeLists-Fortran.txt.in
@@ -500,6 +499,10 @@ share/cmake/Modules/Compiler/Cray-CXX.cmake
 share/cmake/Modules/Compiler/Cray-DetermineCompiler.cmake
 share/cmake/Modules/Compiler/Cray-Fortran.cmake
 share/cmake/Modules/Compiler/Cray.cmake
+share/cmake/Modules/Compiler/CrayClang-C.cmake
+share/cmake/Modules/Compiler/CrayClang-CXX.cmake
+share/cmake/Modules/Compiler/CrayClang-DetermineCompiler.cmake
+share/cmake/Modules/Compiler/CrayClang.cmake
 share/cmake/Modules/Compiler/CrayPrgEnv-C.cmake
 share/cmake/Modules/Compiler/CrayPrgEnv-CXX.cmake
 share/cmake/Modules/Compiler/CrayPrgEnv-Fortran.cmake
@@ -594,10 +597,17 @@ share/cmake/Modules/Compiler/NVHPC-Fortran.cmake
 share/cmake/Modules/Compiler/NVHPC.cmake
 share/cmake/Modules/Compiler/NVIDIA-CUDA.cmake
 share/cmake/Modules/Compiler/NVIDIA-DetermineCompiler.cmake
+share/cmake/Modules/Compiler/NVIDIA-HIP.cmake
+share/cmake/Modules/Compiler/NVIDIA.cmake
 share/cmake/Modules/Compiler/OpenWatcom-C.cmake
 share/cmake/Modules/Compiler/OpenWatcom-CXX.cmake
 share/cmake/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake
 share/cmake/Modules/Compiler/OpenWatcom.cmake
+share/cmake/Modules/Compiler/OrangeC-ASM.cmake
+share/cmake/Modules/Compiler/OrangeC-C.cmake
+share/cmake/Modules/Compiler/OrangeC-CXX.cmake
+share/cmake/Modules/Compiler/OrangeC-DetermineCompiler.cmake
+share/cmake/Modules/Compiler/OrangeC.cmake
 share/cmake/Modules/Compiler/PGI-C.cmake
 share/cmake/Modules/Compiler/PGI-CXX.cmake
 share/cmake/Modules/Compiler/PGI-DetermineCompiler.cmake
@@ -722,6 +732,13 @@ share/cmake/Modules/FortranCInterface/Verify/main.c
 share/cmake/Modules/IntelVSImplicitPath/CMakeLists.txt
 share/cmake/Modules/IntelVSImplicitPath/detect.cmake
 share/cmake/Modules/IntelVSImplicitPath/hello.f
+share/cmake/Modules/Internal/CMakeCUDAArchitecturesAll.cmake
+share/cmake/Modules/Internal/CMakeCUDAArchitecturesNative.cmake
+share/cmake/Modules/Internal/CMakeCUDAArchitecturesValidate.cmake
+share/cmake/Modules/Internal/CMakeCUDAFilterImplicitLibs.cmake
+share/cmake/Modules/Internal/CMakeCUDAFindToolkit.cmake
+share/cmake/Modules/Internal/CMakeNVCCFilterImplicitInfo.cmake
+share/cmake/Modules/Internal/CMakeNVCCParseImplicitInfo.cmake
 share/cmake/Modules/Internal/CMakeTryCompilerOrLinkerFlag.cmake
 share/cmake/Modules/Internal/CheckCompilerFlag.cmake
 share/cmake/Modules/Internal/CheckFlagCommonConfig.cmake
@@ -1091,6 +1108,9 @@ share/cmake/Modules/Platform/Windows-NVIDIA-CUDA.cmake
 share/cmake/Modules/Platform/Windows-OpenWatcom-C.cmake
 share/cmake/Modules/Platform/Windows-OpenWatcom-CXX.cmake
 share/cmake/Modules/Platform/Windows-OpenWatcom.cmake
+share/cmake/Modules/Platform/Windows-OrangeC-C.cmake
+share/cmake/Modules/Platform/Windows-OrangeC-CXX.cmake
+share/cmake/Modules/Platform/Windows-OrangeC.cmake
 share/cmake/Modules/Platform/Windows-PGI-C.cmake
 share/cmake/Modules/Platform/Windows-PGI-Fortran.cmake
 share/cmake/Modules/Platform/Windows-PGI.cmake
@@ -1107,6 +1127,10 @@ share/cmake/Modules/Platform/WindowsCE-Initialize.cmake
 share/cmake/Modules/Platform/WindowsCE-MSVC-C.cmake
 share/cmake/Modules/Platform/WindowsCE-MSVC-CXX.cmake
 share/cmake/Modules/Platform/WindowsCE.cmake
+share/cmake/Modules/Platform/WindowsKernelModeDriver-Initialize.cmake
+share/cmake/Modules/Platform/WindowsKernelModeDriver-MSVC-C.cmake
+share/cmake/Modules/Platform/WindowsKernelModeDriver-MSVC-CXX.cmake
+share/cmake/Modules/Platform/WindowsKernelModeDriver.cmake
 share/cmake/Modules/Platform/WindowsPaths.cmake
 share/cmake/Modules/Platform/WindowsPhone-Clang-ASM.cmake
 share/cmake/Modules/Platform/WindowsPhone-Clang-C.cmake
@@ -1143,6 +1167,9 @@ share/cmake/Modules/Platform/syllable.cmake
 share/cmake/Modules/Platform/tvOS-Determine-CXX.cmake
 share/cmake/Modules/Platform/tvOS-Initialize.cmake
 share/cmake/Modules/Platform/tvOS.cmake
+share/cmake/Modules/Platform/visionOS-Determine-CXX.cmake
+share/cmake/Modules/Platform/visionOS-Initialize.cmake
+share/cmake/Modules/Platform/visionOS.cmake
 share/cmake/Modules/Platform/watchOS-Determine-CXX.cmake
 share/cmake/Modules/Platform/watchOS-Initialize.cmake
 share/cmake/Modules/Platform/watchOS.cmake

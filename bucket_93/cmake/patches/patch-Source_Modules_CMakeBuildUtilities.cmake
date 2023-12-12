@@ -1,4 +1,4 @@
---- Source/Modules/CMakeBuildUtilities.cmake.orig	2023-11-15 13:55:18 UTC
+--- Source/Modules/CMakeBuildUtilities.cmake.orig	2023-12-06 13:57:42 UTC
 +++ Source/Modules/CMakeBuildUtilities.cmake
 @@ -148,11 +148,7 @@ else()
    if(CMAKE_TESTS_CDASH_SERVER)
