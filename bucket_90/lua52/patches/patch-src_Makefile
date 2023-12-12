@@ -37,15 +37,12 @@
  ALL_A= $(LUA_A)
  
  # Targets start here.
-@@ -55,8 +56,14 @@ o:	$(ALL_O)
+@@ -55,8 +56,11 @@ o:	$(ALL_O)
  
  a:	$(ALL_A)
  
-+$(LUALIB).so: $(CORE_O) $(LIB_O)
++$(LUA_SO): $(CORE_O) $(LIB_O)
 +	$(CC) -o $@ $(CFLAGS) $(LDFLAGS) $(MYLDFLAGS) -shared -Wl,-soname=$(LUA_SONAME) $?
-+
-+$(LUALIB).dylib: $(CORE_O) $(LIB_O)
-+	$(CC) -o $@ $(CFLAGS) $(LDFLAGS) $(MYLDFLAGS) -dynamiclib -current_version 1.0 -install_name '$(PREFIX)/lib/$(LUA_SONAME)' $?
 +
  $(LUA_A): $(BASE_O)
 -	$(AR) $@ $(BASE_O)

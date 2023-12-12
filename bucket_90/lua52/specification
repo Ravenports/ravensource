@@ -1,10 +1,14 @@
 DEF[PORTVERSION]=	EXTRACT_VERSION(LUA_5.2_VERSION)
 DEF[LUA_VER]=		${PORTVERSION:R}
 DEF[SUFFIX]=		${LUA_VER:S/.//}
+DEF[RARY]=		lua-${LUA_VER}
+DEF[LIBRARY]=		lib${RARY}
+DEF[MAJOR]=		1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		lua${SUFFIX}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		lang
 VARIANTS=		standard
 SDESC[standard]=	Light, powerful language for app. extension
@@ -15,18 +19,20 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://www.lua.org/ftp/
 DISTFILE[1]=		lua-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKDIR}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		lang/lua52
 
-USES=			cpe readline
+EXRUN[tools]=		readline:primary:standard
+
+USES=			cpe readline:build
 CPE_VENDOR=		lua
 CPE_PRODUCT=		lua
 DISTNAME=		lua-${PORTVERSION}
@@ -40,10 +46,9 @@ MAKE_ARGS=		MYCFLAGS="{{CFLAGS}} {{CPPFLAGS}}"
 			CC="{{CC}}"
 			LUA_T=lua${SUFFIX}
 			LUAC_T=luac${SUFFIX}
-			LUA_A=liblua-${LUA_VER}.a
-			LUALIB=liblua-${LUA_VER}
-			LUA_SO=liblua-${LUA_VER}.{{LIBEXT}}
-			LUA_SONAME=liblua-${LUA_VER}.{{LIBEXT}}
+			LUA_A=${LIBRARY}.a
+			LUA_SO=${LIBRARY}.so
+			LUA_SONAME=${LIBRARY}.so.${MAJOR}
 			TO_BIN="lua${SUFFIX} luac${SUFFIX}"
 			TO_LIB="liblua-${LUA_VER}.a liblua-${LUA_VER}.{{LIBEXT}}"
 			INSTALL_TOP={{STAGEDIR}}{{PREFIX}}
@@ -55,7 +60,8 @@ SUB_FILES=		lua-${LUA_VER}.pc
 SUB_LIST=		version=${PORTVERSION}
 			includedir={{PREFIX}}/include/lua${SUFFIX}
 			libdir={{PREFIX}}/lib
-			soname=lua-${LUA_VER}
+			library=${RARY}
+SOVERSION=		${MAJOR}.0.0
 
 VAR_OPSYS[freebsd]=	MAKEFILE_LINE=BUILD_TARGET=freebsd
 VAR_OPSYS[dragonfly]=	MAKEFILE_LINE=BUILD_TARGET=bsd
@@ -70,7 +76,7 @@ post-extract:
 	${AWK} '/\/\*\*/ {start=1} /^$$/{start=0} {if (start) print}' \
 		${WRKSRC}/src/lua.h > ${WRKDIR}/LICENSE
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e 's,rand *(,random(,g' ${WRKSRC}/src/lmathlib.c
 	${REINPLACE_CMD} -e "/LUA_ROOT/s|/usr/local|${PREFIX}|" \
 		${WRKSRC}/src/luaconf.h ${WRKSRC}/src/lua.c
@@ -84,3 +90,7 @@ post-install:
 		${STAGEDIR}${MANPREFIX}/man/man1/luac${SUFFIX}.1
 	${INSTALL_DATA} ${WRKDIR}/lua-${LUA_VER}.pc \
 		${STAGEDIR}${PREFIX}/lib/pkgconfig
+	(cd ${STAGEDIR}${PREFIX}/lib &&\
+		${MV} ${LIBRARY}.so ${LIBRARY}.so.${MAJOR} &&\
+		${LN} -s ${LIBRARY}.so.${MAJOR} ${LIBRARY}.so &&\
+		${LN} -s ${LIBRARY}.a ${LIBRARY}_pic.a)
