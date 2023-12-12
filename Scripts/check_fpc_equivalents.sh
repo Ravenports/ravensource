@@ -166,7 +166,6 @@ while read ravenport version fpc_port; do
 	media-types) ;;
 	opencl-clhpp) ;;
 	rocm-device-libs) ;;
-	php80-json) ;;
 	b3sum) ;;
 	dosfstools) ;;
 	libvss) ;;
