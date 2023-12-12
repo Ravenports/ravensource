@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.0.7
+DEF[PORTVERSION]=	4.0.8
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-reportlab
@@ -11,7 +11,7 @@ HOMEPAGE=		https://www.reportlab.com/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/60/8b/fdd40ce4206bab7c8034f70925b8735c6fd57334d81e8aea9cfd0eb18603
+SITES[main]=		PYPIWHL/44/2c/f09a5abefa8f2b575acfc19ed4536a365ef0432ae3bce94a57a2de9b4f52
 DISTFILE[1]=		reportlab-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
@@ -31,6 +31,7 @@ DISTNAME=		reportlab-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # pillow >=9.0.0
+# chardet
 # rl-accel <1.1,>=0.9.0 ; extra == 'accel'
 # rlPyCairo <1,>=0.2.0 ; extra == 'pycairo'
 # freetype-py <2.4,>=2.3.0 ; extra == 'pycairo'
@@ -38,7 +39,9 @@ DISTNAME=		reportlab-${PORTVERSION}.dist-info
 
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-Pillow:single:v11
+					python-chardet:single:v11
 [PY312].USES_ON=			python:v12,wheel
 [PY312].RUN_DEPENDS_ON=			python-Pillow:single:v12
+					python-chardet:single:v12
 
 USES=			freetype

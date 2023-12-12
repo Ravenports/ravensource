@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	22.3.5
+DEF[PORTVERSION]=	23.12.11
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pycountry
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/flyingcircusio/pycountry
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/p/pycountry
-DISTFILE[1]=		pycountry-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/48/12/fdbcd29b5a243af2f1c1a83636a21e3837aeaa070c9212ebe657e39ce563
+DISTFILE[1]=		pycountry-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
 SPKGS[v12]=		single
@@ -26,13 +26,11 @@ VOPTS[v12]=		PY311=OFF PY312=ON
 # LGPL 2.1
 
 GENERATED=		yes
-DISTNAME=		pycountry-${PORTVERSION}
+DISTNAME=		pycountry-${PORTVERSION}.dist-info
 
-# install_requires extracted from setup.py
-# setuptools
+# Requires-Dist extracted from wheel metadata
+# importlib-resources (>=5.12.0,<6.0.0) ; python_version < "3.9"
 
-[PY311].USES_ON=			python:v11,sutools
-[PY311].BUILDRUN_DEPENDS_ON=		python-setuptools:single:v11
-[PY312].USES_ON=			python:v12,sutools
-[PY312].BUILDRUN_DEPENDS_ON=		python-setuptools:single:v12
+[PY311].USES_ON=			python:v11,wheel
+[PY312].USES_ON=			python:v12,wheel
 

@@ -7,7 +7,9 @@ https://travis-ci.org/flyingcircusio/pycountry.svg?branch=master
 pycountry provides the ISO databases for the standards:
 
 * `639-3 <https://en.wikipedia.org/wiki/ISO_639-3>`_ Languages
-* [3166] Countries
+* [3166] Codes for representation of names of countries and their
+subdivisions
+* `3166-1 <https://en.wikipedia.org/wiki/ISO_3166-1>`_ Countries
 * `3166-3 <https://en.wikipedia.org/wiki/ISO_3166-3>`_ Deleted countries
 * `3166-2 <https://en.wikipedia.org/wiki/ISO_3166-2>`_ Subdivisions of
 countries
@@ -46,8 +48,8 @@ Contributions
 The code lives in a [git repository on GitHub
 ], and issues must be reported in there as well.
 
-Countries (ISO 3166)
---------------------
+Countries (ISO 3166-1)
+----------------------
 
 Countries are accessible through a database object that is already
 configured
@@ -82,19 +84,17 @@ official_name='Federal Republic of Germany')
   >>> germany.official_name
   'Federal Republic of Germany'
 
-The `historic_countries` database contains former countries that have been
-removed from the standard and are now included in ISO 3166-3, excluding
-existing ones:
+There's also a "fuzzy" search to help people discover "proper" countries
+for
+names that might only actually be subdivisions. The fuzziness also includes
+normalizing unicode accents. There's also a bit of prioritization included
+to prefer matches on country names before subdivision names and have
+countries
+with more matches be listed before ones with fewer matches:
 
 .. code:: pycon
 
- >>> ussr = pycountry.historic_countries.get(alpha_3='SUN')
- >>> ussr
- Country(alpha_3='SUN', alpha_4='SUHH', withdrawal_date='1992-08-30',
-name='USSR, Union of Soviet Socialist Republics', numeric='810')
- >>> ussr.alpha_4
- 'SUHH'
- >>> ussr.alpha_3
- 'SUN'
- >>> ussr.name
- 'USSR, Union of Soviet Socialist Republics'
+  >>> pycountry.countries.search_fuzzy('England')
+  [Country(alpha_2='GB', alpha_3='GBR', name='United Kingdom',
+numeric='826', official_name='United Kingdom of Great Britain and Northern
+Ireland')]
