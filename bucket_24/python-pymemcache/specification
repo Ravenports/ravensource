@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	4.0.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-pymemcache
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v11 v12
+SDESC[v11]=		Pure Python memcached client (3.11)
+SDESC[v12]=		Pure Python memcached client (3.12)
+HOMEPAGE=		https://github.com/pinterest/pymemcache
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/41/ba/2f7b22d8135b51c4fefb041461f8431e1908778e6539ff5af6eeaaee367a
+DISTFILE[1]=		pymemcache-${PORTVERSION}-py2.py3-none-any.whl:main
+
+SPKGS[v11]=		single
+SPKGS[v12]=		single
+
+OPTIONS_AVAILABLE=	PY311 PY312
+OPTIONS_STANDARD=	none
+VOPTS[v11]=		PY311=ON PY312=OFF
+VOPTS[v12]=		PY311=OFF PY312=ON
+
+# License listed at PyPI
+# Apache License 2.0
+
+GENERATED=		yes
+DISTNAME=		pymemcache-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+
+
+[PY311].USES_ON=			python:v11,wheel
+[PY312].USES_ON=			python:v12,wheel
+
