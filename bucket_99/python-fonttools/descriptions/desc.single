@@ -29,6 +29,19 @@ install it with [pip]:
 Changelog
 ~~~~~~~~~
 
+4.47.0 (released 2023-12-18)
+----------------------------
+
+- [varLib.models] New API for VariationModel: getMasterScalars and
+  interpolateFromValuesAndScalars.
+- [varLib.interpolatable] Various bugfixes and rendering improvements. In
+particular,
+  add a Summary page in the front, and an Index and Table-of-Contents in
+the back.
+  Change the page size to Letter.
+- [Docs/designspaceLib] Defined a new ``public.fontInfo`` lib key, not used
+anywhere yet (#3358).
+
 4.46.0 (released 2023-12-02)
 ----------------------------
 
@@ -85,16 +98,3 @@ after instancing
 
 4.44.2 (released 2023-11-14)
 ----------------------------
-
-- [glyf] Have ``Glyph.recalcBounds`` skip empty components (base glyph with
-no contours)
-  when computing the bounding box of composite glyphs. This simply restores
-the existing
-  behavior before some changes were introduced in fonttools 4.44.0 (#3333).
-
-4.44.1 (released 2023-11-14)
-----------------------------
-
-- [feaLib] Ensure variable mark anchors are deep-copied while building
-since they
-  get modified in-place and later reused (#3330).
