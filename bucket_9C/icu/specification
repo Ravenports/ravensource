@@ -23,10 +23,11 @@ SPKGS[standard]=	complete primary tools data dev man
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		CUSTOM1:primary
-LICENSE_FILE=		CUSTOM1:{{WRKDIR}}/icu/LICENSE
-LICENSE_NAME=		CUSTOM1:"ICU License"
-LICENSE_SCHEME=		solo
+# license is missing (dangling link.  it might have changed.  disabled for now
+# LICENSE=		CUSTOM1:primary
+# LICENSE_FILE=		CUSTOM1:{{WRKDIR}}/icu/LICENSE
+# LICENSE_NAME=		CUSTOM1:"ICU License"
+# LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/icu
 
@@ -61,7 +62,5 @@ post-install:
 		${STAGEDIR}${PREFIX}/bin/derb \
 		${STAGEDIR}${PREFIX}/bin/pkgdata \
 		${STAGEDIR}${PREFIX}/sbin/*
-	${RM} ${STAGEDIR}${PREFIX}/share/icu/${PORTVERSION}/LICENSE
+	# ${RM} ${STAGEDIR}${PREFIX}/share/icu/${PORTVERSION}/LICENSE
 
-post-patch-darwin:
-	${REINPLACE_CMD} -e 's/apple-darwin/raven-darwin/' ${WRKSRC}/configure
