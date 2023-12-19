@@ -1,5 +1,6 @@
-DEF[PORTVERSION]=	7.8.0
+DEF[PORTVERSION]=	7.8.2
 DEF[SOVERSION]=		1.2.0
+DEF[GPL_SOVERSION]=	1.2.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libatomic_ops
@@ -30,6 +31,8 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-shared
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
+PLIST_SUB=		GPL_SOVERSION=${GPL_SOVERSION}
+			GPL_SOMAJOR=${GPL_SOVERSION:R:R}
 
 post-install:
 	${RM} ${STAGEDIR}${STD_DOCDIR}/COPYING
