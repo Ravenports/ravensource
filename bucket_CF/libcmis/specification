@@ -1,5 +1,6 @@
-DEF[PORTVERSION]=	0.6.0
-DEF[SOVERSION]=		6.0.0
+DEF[PORTVERSION]=	0.6.2
+DEF[SOVERSION]=		6.1.1
+DEF[C_SOVERSION]=	6.0.0
 DEF[CMIS_VER]=		0.6
 # ----------------------------------------------------------------------------
 
@@ -12,11 +13,8 @@ HOMEPAGE=		https://github.com/tdf/libcmis
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-# Use libreoffice fork of libcmis (for now)
-# SITES[main]=		GITHUB/tdf:libcmis:v${PORTVERSION}
-# DISTFILE[1]=		generated:main
-SITES[main]=		https://dev-www.libreoffice.org/src/
-DISTFILE[1]=		libcmis-${PORTVERSION}.tar.xz:main
+SITES[main]=		GITHUB/tdf:libcmis:v${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete primary dev tools
 
@@ -31,7 +29,7 @@ BUILDRUN_DEPENDS=	boost-libraries:primary:standard
 
 EXRUN[tools]=		primary
 
-USES=			gmake libtool pkgconfig curl
+USES=			gmake libtool pkgconfig curl autoreconf
 GNOME_COMPONENTS=	libxml2
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-werror
@@ -40,8 +38,6 @@ CONFIGURE_ARGS=		--disable-werror
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 PLIST_SUB=		VER=${CMIS_VER}
+			C_SOVERSION=${C_SOVERSION}
+			C_SOMAJOR=${C_SOVERSION:R:R}
 SOVERSION=		${SOVERSION}
-
-post-patch:
-	${REINPLACE_CMD} -e "s|@WITH_LIBCMIS_MAN_FALSE@|#|g" \
-	    ${WRKSRC}/Makefile.in
