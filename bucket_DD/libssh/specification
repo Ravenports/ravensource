@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	0.10.5
-DEF[SOVERSION]=		4.9.5
+DEF[PORTVERSION]=	0.10.6
+DEF[SOVERSION]=		4.9.6
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libssh
@@ -14,14 +14,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.libssh.org/files/${PORTVERSION:R}/
 DISTFILE[1]=		libssh-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL21+:single
+LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/libssh/libssh.h
 LICENSE_SCHEME=		solo
@@ -47,4 +47,4 @@ post-patch:
 		${WRKSRC}/cmake/Modules/DefineCompilerFlags.cmake
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libssh.${LIBEXT}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libssh.so
