@@ -1,4 +1,4 @@
---- config/udev.c.orig	2023-10-25 01:40:28 UTC
+--- config/udev.c.orig	2023-12-13 01:31:04 UTC
 +++ config/udev.c
 @@ -29,6 +29,7 @@
  
