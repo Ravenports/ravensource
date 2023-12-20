@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.4.4
+DEF[PORTVERSION]=	1.4.5
 DEF[SOVERSION]=		5.0.0
 # ----------------------------------------------------------------------------
 
@@ -14,14 +14,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://dl.matroska.org/downloads/libebml/
 DISTFILE[1]=		libebml-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL21+:single
+LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/LICENSE.LGPL
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/EbmlVersion.cpp
 LICENSE_SCHEME=		solo
@@ -30,7 +30,7 @@ FPC_EQUIVALENT=		textproc/libebml
 
 SOVERSION=		${SOVERSION}
 
-USES=			cpe cmake c++:single
+USES=			cpe cmake c++:primary
 CPE_VENDOR=		matroska
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
 
