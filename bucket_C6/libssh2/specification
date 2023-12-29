@@ -38,6 +38,9 @@ CMAKE_ARGS=		-DZLIB_USE_STATIC_LIBS:BOOL=ON
 [EMBED].CMAKE_ARGS_OFF=			-DOPENSSL_ROOT_DIR="{{OPENSSLBASE}}"
 [EMBED].BUILD_DEPENDS_ON=		mbedtls:dev:standard
 
+pre-configure-EMBED-ON:
+	${REINPLACE_CMD} -e 's/lssh2/lssh2_pic/' ${WRKSRC}/libssh2.pc.in
+
 post-build-EMBED-ON:
 	# assemble PIC library
 	cd ${BUILD_WRKSRC} &&\
