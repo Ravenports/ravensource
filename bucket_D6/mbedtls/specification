@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	3.5.1
 
 NAMEBASE=		mbedtls
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security devel
 VARIANTS=		standard
 SDESC[standard]=	Light-weight cryptographic and SSL/TLS library
@@ -20,12 +21,13 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		security/mbedtls
 
-LICENSE=		APACHE20:primary
-LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+LICENSE=		APACHE20:primary GPLv2+:primary
+LICENSE_FILE=		APACHE20:stock
+			GPLv2+:stock
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
-LICENSE_AWK=		TERMS:"MBEDTLS_SSL_H"
-LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/mbedtls/ssl.h
-LICENSE_SCHEME=		solo
+LICENSE_AWK=		TERMS:"^The full text of each"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		dual
 
 EXRUN[tools]=		mbedtls:primary:standard
 
