@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	1.4.15
+DEF[SOVERSION]=		8.7.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		wolfssh
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		standard
+SDESC[standard]=	Lightweight SSH Library
+HOMEPAGE=		https://www.wolfssl.com/products/wolfssh/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.wolfssl.com/
+DISTFILE[1]=		wolfssh-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		security/wolfssh
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:stock
+LICENSE_TERMS=		primary:{{WRKSRC}}/LICENSING
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		wolfssl:dev:standard
+BUILDRUN_DEPENDS=	wolfssl:primary:standard
+
+USES=			autoreconf libtool
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-fwd
+			--enable-keygen
+			--enable-scp
+			--enable-sftp
+			--enable-shared=yes
+			--enable-shell
+			--enable-static=yes
+			--disable-examples
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
