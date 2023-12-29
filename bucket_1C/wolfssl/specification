@@ -1,0 +1,58 @@
+DEF[PORTVERSION]=	5.6.6
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		wolfssl
+VERSION=		${PORTVERSION}
+KEYWORDS=		security devel
+VARIANTS=		standard
+SDESC[standard]=	Embedded SSL C-Library
+HOMEPAGE=		https://www.wolfssl.com/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.wolfssl.com/
+DISTFILE[1]=		wolfssl-${PORTVERSION}.zip:main
+
+SPKGS[standard]=	complete primary dev docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		security/wolfssl
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/wolfssl/ssl.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+USES=			cpe libtool
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-certgen
+			--enable-des3
+			--enable-dh
+			--enable-dsa
+			--enable-dtls
+			--enable-ecc
+			--enable-ipv6
+			--enable-keygen
+			--enable-opensslall
+			--enable-opensslextra
+			--enable-ripemd
+			--enable-sessioncerts
+			--enable-sha512
+			--enable-shared
+			--enable-sni
+			--enable-ssh
+			--enable-static
+			--enable-tls13
+			--enable-tls13-draft18
+CFLAGS=			-DWOLFSSL_ALT_NAMES
+INSTALL_TARGET=		install-strip
+
+post-configure:
+	${REINPLACE_CMD} \
+		-e 's|$${prefix}/cyassl/include|$${prefix}/include/cyassl|' \
+		-e 's|$${prefix}/cyassl/lib|$${prefix}/lib/cyassl|' \
+		${WRKSRC}/Makefile
