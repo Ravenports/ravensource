@@ -4,10 +4,11 @@ DEF[SOVERSION]=		1.0.1
 
 NAMEBASE=		libssh2
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		security devel
-VARIANTS=		standard
-SDESC[standard]=	SSH2 protocol library
+VARIANTS=		standard embed
+SDESC[standard]=	SSH2 protocol library with OpenSSL backend
+SDESC[embed]=		SSH2 protocol library with MBedTLS backend
 HOMEPAGE=		https://www.libssh2.org/
 CONTACT=		nobody
 
@@ -16,9 +17,11 @@ SITES[main]=		https://www.libssh2.org/download/
 DISTFILE[1]=		libssh2-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	complete primary dev man docs
+SPKGS[embed]=		complete primary dev man docs
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	EMBED
+OPTIONS_STANDARD=	EMBED
+VOPTS[embed]=		EMBED=ON
 
 LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
@@ -26,10 +29,24 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/libssh2
 
-USES=			cpe cmake ssl zlib:build
+USES=			cpe cmake zlib:build
 SOVERSION=		${SOVERSION}
-CMAKE_ARGS=		-DOPENSSL_ROOT_DIR="{{OPENSSLBASE}}"
-			-DZLIB_USE_STATIC_LIBS:BOOL=ON
+CMAKE_ARGS=		-DZLIB_USE_STATIC_LIBS:BOOL=ON
+
+[EMBED].DESCRIPTION=			Select MBedTLS for cryptography backend
+[EMBED].USES_OFF=			ssl
+[EMBED].CMAKE_ARGS_OFF=			-DOPENSSL_ROOT_DIR="{{OPENSSLBASE}}"
+[EMBED].BUILD_DEPENDS_ON=		mbedtls:dev:standard
+
+post-build-EMBED-ON:
+	# assemble PIC library
+	cd ${BUILD_WRKSRC} &&\
+		${AR} -crsv libssh2_pic.a \
+		src/CMakeFiles/libssh2_shared.dir/*.c.o \
+		&& ranlib libssh2_pic.a
+
+post-install-EMBED-ON:
+	${INSTALL_DATA} ${BUILD_WRKSRC}/libssh2_pic.a ${STAGEDIR}${PREFIX}/lib/
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libssh2.so
