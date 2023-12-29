@@ -26,9 +26,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/libssh2
 
-USES=			cpe ssl zlib cmake
+USES=			cpe cmake ssl zlib:build
 SOVERSION=		${SOVERSION}
 CMAKE_ARGS=		-DOPENSSL_ROOT_DIR="{{OPENSSLBASE}}"
+			-DZLIB_USE_STATIC_LIBS:BOOL=ON
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libssh2.so
