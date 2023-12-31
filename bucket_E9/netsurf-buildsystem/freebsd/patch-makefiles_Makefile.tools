@@ -1,6 +1,6 @@
---- makefiles/Makefile.tools.orig	2019-06-20 06:13:03.962897000 +0200
-+++ makefiles/Makefile.tools	2019-06-20 06:16:17.561816000 +0200
-@@ -130,7 +130,7 @@
+--- makefiles/Makefile.tools.orig	2020-05-24 16:15:42 UTC
++++ makefiles/Makefile.tools
+@@ -135,7 +135,7 @@ else
    endif
  
    # Search the path for the compiler
@@ -9,9 +9,9 @@
    ifeq ($(toolpath_),)
      toolpath_ := /opt/netsurf/$(HOST)/cross/bin/
      CC__  := $(toolpath_)$(HOST)-gcc
-@@ -141,7 +141,7 @@
+@@ -146,7 +146,7 @@ else
      toolpath_ := $(dir $(CC__))
-     toolprefix_ := $(subst :,/,$(dir $(subst -,/,$(subst /,:,$(CC__)))))
+     toolprefix_ := $(subst :,/,$(subst /,-,$(patsubst %/,%,$(dir $(subst -,/,$(subst /,:,$(CC__)))))))
      ifeq ($(origin AR),default)
 -      AR__ := $(toolprefix_)-ar
 +      AR__ := $(shell /usr/bin/which ar)
