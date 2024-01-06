@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	23.1.0
+DEF[PORTVERSION]=	23.2.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-attrs
@@ -11,7 +11,7 @@ HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/f0/eb/fcb708c7bf5056045e9e98f62b93bd7467eb718b0202e7698eb11d66416c
+SITES[main]=		PYPIWHL/e0/44/827b2a91a5816512fcaf3cc4ebc465ccd5d598c45cefa6703fcf4a79018f
 DISTFILE[1]=		attrs-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
@@ -32,7 +32,7 @@ DISTNAME=		attrs-${PORTVERSION}.dist-info
 # importlib-metadata; python_version < '3.8'
 # attrs[tests]; extra == 'cov'
 # coverage[toml]>=5.3; extra == 'cov'
-# attrs[docs,tests]; extra == 'dev'
+# attrs[tests]; extra == 'dev'
 # pre-commit; extra == 'dev'
 # furo; extra == 'docs'
 # myst-parser; extra == 'docs'
@@ -43,11 +43,12 @@ DISTNAME=		attrs-${PORTVERSION}.dist-info
 # zope-interface; extra == 'docs'
 # attrs[tests-no-zope]; extra == 'tests'
 # zope-interface; extra == 'tests'
-# cloudpickle; platform_python_implementation == 'CPython' and extra == 'tests-no-zope'
+# mypy>=1.6; (platform_python_implementation == 'CPython' and python_version >= '3.8') and extra == 'tests-mypy'
+# pytest-mypy-plugins; (platform_python_implementation == 'CPython' and python_version >= '3.8') and extra == 'tests-mypy'
+# attrs[tests-mypy]; extra == 'tests-no-zope'
+# cloudpickle; (platform_python_implementation == 'CPython') and extra == 'tests-no-zope'
 # hypothesis; extra == 'tests-no-zope'
-# mypy>=1.1.1; platform_python_implementation == 'CPython' and extra == 'tests-no-zope'
 # pympler; extra == 'tests-no-zope'
-# pytest-mypy-plugins; platform_python_implementation == 'CPython' and python_version < '3.11' and extra == 'tests-no-zope'
 # pytest-xdist[psutil]; extra == 'tests-no-zope'
 # pytest>=4.3.0; extra == 'tests-no-zope'
 
