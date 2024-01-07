@@ -1,8 +1,9 @@
-DEF[PORTVERSION]=	1.52.2
+DEF[PORTVERSION]=	1.50.6
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gvfs
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	GNOME virtual file system
@@ -43,20 +44,23 @@ BUILD_DEPENDS=		libgpg-error:dev:standard
 			libsoup:dev:standard
 			libsecret:dev:standard
 			gcr3:dev:standard
+			libbluray:dev:standard
+			freetype:dev:standard
+			fontconfig:dev:standard
 BUILDRUN_DEPENDS=	dbus:primary:standard
 			gcr3:primary:standard
 			libarchive:primary:standard
 			libsecret:primary:standard
 			libsoup:primary:standard
+			libbluray:primary:standard
 USES=			cpe meson
-			pkgconfig ssl:build
+			pkgconfig shebangfix ssl:build
 GNOME_COMPONENTS=	glib libxml2
 CPE_VENDOR=		gnome
+SHEBANG_FILES=		meson_post_install.py
 
 # LibUSB deactivated for now; FreeBSD has it built-in but for 11.1
 # the base system ships with a version too old for GVFS...
-# CDDA support cannot be added on *BSD currently. GVFS does not support
-# HAL anymore and thus eudev is required. However that's Linux-only.
 #
 # More backends can be added as more required libs become available.
 
@@ -64,7 +68,7 @@ MESON_ARGS=		-Dsystemduserunitdir="no"
 			-Dtmpfilesdir="no"
 			-Dadmin=false
 			-Dafc=false
-			-Dbluray=false
+			-Dbluray=true
 			-Ddnssd=false
 			-Dfuse=false
 			-Dgoa=false
@@ -85,9 +89,8 @@ LDFLAGS=		-Wl,-rpath,{{PREFIX}}/lib/gvfs
 
 [GUDEV].DESCRIPTION=			Build with gudev library
 [GUDEV].USES_ON=			iconv
-[GUDEV].BUILD_DEPENDS_ON=		libcdio-paranoia:dev:standard
-					libgudev:dev:standard
-[GUDEV].BUILDRUN_DEPENDS_ON=		libcdio-paranoia:primary:standard
+[GUDEV].BUILD_DEPENDS_ON=		libgudev:dev:standard
+[GUDEV].BUILDRUN_DEPENDS_ON=		libcdio-paranoia:single:standard
 					libgudev:primary:standard
 [GUDEV].CONFIGURE_ARGS_ON=		-Dgudev=true
 					-Dcdda=true
@@ -95,8 +98,7 @@ LDFLAGS=		-Wl,-rpath,{{PREFIX}}/lib/gvfs
 [GUDEV-DEVD].DESCRIPTION=		Build with gudev-devd library (BSD)
 [GUDEV-DEVD].USES_ON=			iconv
 [GUDEV-DEVD].BUILD_DEPENDS_ON=		libgudev-devd:dev:standard
-					libcdio-paranoia:dev:standard
-[GUDEV-DEVD].BUILDRUN_DEPENDS_ON=	libcdio-paranoia:primary:standard
+[GUDEV-DEVD].BUILDRUN_DEPENDS_ON=	libcdio-paranoia:single:standard
 					libgudev-devd:primary:standard
 [GUDEV-DEVD].CONFIGURE_ARGS_ON=		-Dgudev=true
 					-Dcdda=true
