@@ -1,4 +1,4 @@
---- modules/flann/include/opencv2/flann/defines.h.orig	2023-09-27 10:18:31 UTC
+--- modules/flann/include/opencv2/flann/defines.h.orig	2023-12-27 16:46:55 UTC
 +++ modules/flann/include/opencv2/flann/defines.h
 @@ -60,6 +60,9 @@
  #define FLANN_PLATFORM_32_BIT

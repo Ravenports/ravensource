@@ -1,4 +1,4 @@
---- 3rdparty/ittnotify/include/legacy/ittnotify.h.orig	2023-09-27 10:18:31 UTC
+--- 3rdparty/ittnotify/include/legacy/ittnotify.h.orig	2023-12-27 16:46:55 UTC
 +++ 3rdparty/ittnotify/include/legacy/ittnotify.h
 @@ -85,7 +85,7 @@
  #    define ITT_OS ITT_OS_WIN

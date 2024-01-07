@@ -1,11 +1,11 @@
---- modules/core/src/utils/filesystem.cpp.orig	2023-09-27 10:18:31 UTC
+--- modules/core/src/utils/filesystem.cpp.orig	2023-12-27 16:46:55 UTC
 +++ modules/core/src/utils/filesystem.cpp
 @@ -34,7 +34,7 @@
  #include <errno.h>
  #include <io.h>
  #include <stdio.h>
--#elif defined __linux__ || defined __APPLE__ || defined __HAIKU__ || defined __FreeBSD__
-+#elif defined __linux__ || defined __APPLE__ || defined __HAIKU__ || defined __FreeBSD__ || defined __DragonFly__ || defined __sun__ || defined __NetBSD__
+-#elif defined __linux__ || defined __APPLE__ || defined __HAIKU__ || defined __FreeBSD__ || defined __GNU__
++#elif defined __linux__ || defined __APPLE__ || defined __HAIKU__ || defined __FreeBSD__ || defined __GNU__  || defined __DragonFly__ || defined __sun__ || defined __NetBSD__
  #include <sys/types.h>
  #include <sys/stat.h>
  #include <fcntl.h>
@@ -31,8 +31,8 @@
      Impl& operator=(const Impl&); // disabled
  };
  
--#elif defined __linux__ || defined __APPLE__ || defined __HAIKU__ || defined __FreeBSD__
-+#elif defined __linux__ || defined __APPLE__ || defined __HAIKU__ || defined __FreeBSD__ || defined __DragonFly__ || defined __sun__ || defined __NetBSD__
+-#elif defined __linux__ || defined __APPLE__ || defined __HAIKU__ || defined __FreeBSD__ || defined __GNU__
++#elif defined __linux__ || defined __APPLE__ || defined __HAIKU__ || defined __FreeBSD__ || defined __GNU__  || defined __DragonFly__ || defined __sun__ || defined __NetBSD__
  
  struct FileLock::Impl
  {
