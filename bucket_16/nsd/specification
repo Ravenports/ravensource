@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.7.0
+DEF[PORTVERSION]=	4.8.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		nsd
@@ -66,6 +66,7 @@ VAR_OPSYS[netbsd]=	CPPFLAGS=-D_NETBSD_SOURCE
 [PACKED].CONFIGURE_ENABLE_BOTH=		packed
 
 post-install:
+	${MKDIR} ${STAGEDIR}/var/db/nsd
 	${INSTALL_DATA} ${WRKSRC}/nsd.conf.sample \
 		${STAGEDIR}${PREFIX}/etc/nsd/nsd.conf.sample
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/sbin/nsd \
