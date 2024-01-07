@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.6.9
+DEF[PORTVERSION]=	2.6.10
 DEF[LIBOATH]=		0.1.3
 DEF[LIBPSKC]=		0.0.1
 # ----------------------------------------------------------------------------
@@ -15,19 +15,19 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.savannah.nongnu.org/releases/oath-toolkit/
 DISTFILE[1]=		oath-toolkit-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary library pam dev man docs
+SPKGS[standard]=	complete primary tools pam dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		security/oath-toolkit
 
-LICENSE=		LGPL21+:library
-			GPLv3+:primary
+LICENSE=		LGPL21+:primary
+			GPLv3+:tools
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/liboath/COPYING
 			GPLv3+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		library:{{WRKDIR}}/TERMS_LIB
-			primary:{{WRKDIR}}/TERMS_TOOLS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS_LIB
+			tools:{{WRKDIR}}/TERMS_TOOLS
 LICENSE_SCHEME=		multi
 
 
@@ -39,6 +39,8 @@ BUILDRUN_DEPENDS=	libxml2:primary:standard
 			xmlsec:tools:standard
 			openpam:primary:standard
 
+EXRUN[tools]=		primary
+
 USES=			gtk-doc libtool pkgconfig perl:build autoreconf:build
 GNOME_COMPONENTS=	libxslt
 
@@ -46,8 +48,6 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-gtk-doc
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
-
-EXRUN[primary]=		oath-toolkit:library:standard
 
 PLIST_SUB=		OATH=${LIBOATH}
 			OATH_MAJ=${LIBOATH:R:R}
