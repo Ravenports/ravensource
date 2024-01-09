@@ -1,0 +1,48 @@
+DEF[PORTVERSION]=	42.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		yelp
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	Help browser for the GNOME desktop
+HOMEPAGE=		https://gitlab.gnome.org/GNOME/yelp
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/yelp/${PORTVERSION:R}/
+DISTFILE[1]=		yelp-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome4
+
+SPKGS[standard]=	complete primary dev nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/yelp.c
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11/yelp
+
+BUILD_DEPENDS=		appstream-glib:dev:standard
+			harfbuzz:dev:standard
+			hdf5:dev:standard
+			libhandy:dev:standard
+			libsoup:dev:standard
+			itstool:single:standard
+			webkit2:dev:api41
+BUILDRUN_DEPENDS=	hdf5:primary:standard
+			libhandy:primary:standard
+			webkit2:primary:api41
+			yelp-xsl:single:standard
+
+USES=			desktop-utils:primary gmake gold libtool pkgconfig sqlite
+GNOME_COMPONENTS=	glib gtk3 libxslt
+
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+GLIB_SCHEMAS=		org.gnome.yelp.gschema.xml
