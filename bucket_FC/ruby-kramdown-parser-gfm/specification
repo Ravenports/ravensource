@@ -1,19 +1,19 @@
-DEF[PORTVERSION]=	3.1.0
+DEF[PORTVERSION]=	1.1.0
 # ------------------------------------------------------------------------
 
-NAMEBASE=		ruby-faraday-net_http
+NAMEBASE=		ruby-kramdown-parser-gfm
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v30 v31 v32
-SDESC[v30]=		Faraday adapter for Net::HTTP (v30)
-SDESC[v31]=		Faraday adapter for Net::HTTP (v31)
-SDESC[v32]=		Faraday adapter for Net::HTTP (v32)
-HOMEPAGE=		https://github.com/lostisland/faraday-net_http
+SDESC[v30]=		Parser for the GFM dialect of Markdown (v30)
+SDESC[v31]=		Parser for the GFM dialect of Markdown (v31)
+SDESC[v32]=		Parser for the GFM dialect of Markdown (v32)
+HOMEPAGE=		https://github.com/kramdown/parser-gfm
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		faraday-net_http-3.1.0.gem:main
+DISTFILE[1]=		kramdown-parser-gfm-1.1.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v30]=		single
@@ -30,16 +30,15 @@ VOPTS[v32]=		RUBY30=OFF RUBY31=OFF RUBY32=ON
 # => "MIT"
 
 # Requirements according to gem specification:
-#   net-http (>= 0)
-#   faraday (>= 2.5, development)
+#   kramdown (~> 2.0)
 
-DISTNAME=		faraday-net_http-${PORTVERSION}
+DISTNAME=		kramdown-parser-gfm-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY30].USES_ON=			gem:v30
-[RUBY30].BUILDRUN_DEPENDS_ON=		ruby-net-http:single:v30
+[RUBY30].BUILDRUN_DEPENDS_ON=		ruby-kramdown:single:v30
 [RUBY31].USES_ON=			gem:v31
-[RUBY31].BUILDRUN_DEPENDS_ON=		ruby-net-http:single:v31
+[RUBY31].BUILDRUN_DEPENDS_ON=		ruby-kramdown:single:v31
 [RUBY32].USES_ON=			gem:v32
-[RUBY32].BUILDRUN_DEPENDS_ON=		ruby-net-http:single:v32
+[RUBY32].BUILDRUN_DEPENDS_ON=		ruby-kramdown:single:v32
 
