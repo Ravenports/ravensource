@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.14.0
+DEF[PORTVERSION]=	0.15.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pythran
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/serge-sans-paille/pythran
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/ee/4b/60484d3210b3d832d8be14513ff3e2539c10a223ab87a57bb4fd21a996a2
+SITES[main]=		PYPIWHL/05/f9/7b83b106557c98b26a4452c092416f521ede035d9f6f6fb6ffd9a4ec771b
 DISTFILE[1]=		pythran-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
@@ -23,28 +23,56 @@ VOPTS[v11]=		PY311=ON PY312=OFF
 VOPTS[v12]=		PY311=OFF PY312=ON
 
 # License listed at PyPI
-# BSD 3-Clause
+# Copyright (c) 2012, HPC Project and Serge Guelton All rights reserved.
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are
+# met:  Redistributions of source code must retain the above copyright
+# notice, this list of conditions and the following disclaimer.
+# Redistributions in binary form must reproduce the above copyright
+# notice, this list of conditions and the following disclaimer in the
+# documentation and/or other materials provided with the distribution.
+# Neither the name of HPCProject, Serge Guelton nor the names of its
+# contributors may be used to endorse or promote products derived from
+# this software without specific prior written permission.  THIS
+# SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+# THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+# PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+# PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+# LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+# NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+# SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 GENERATED=		yes
 DISTNAME=		pythran-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# ply (>=3.4)
-# gast (~=0.5.0)
+# ply >=3.4
+# setuptools
+# gast ~=0.5.0
 # numpy
-# beniget (~=0.4.0)
+# beniget ~=0.4.0
 # numpy ; extra == 'doc'
 # nbsphinx ; extra == 'doc'
 # scipy ; extra == 'doc'
 # guzzle-sphinx-theme ; extra == 'doc'
+# ipython ; extra == 'test'
+# nbval ; extra == 'test'
+# cython ; extra == 'test'
+# wheel ; extra == 'test'
 
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-ply:single:v11
+					python-setuptools:single:v11
 					python-gast:single:v11
 					python-numpy:single:v11
 					python-beniget:single:v11
 [PY312].USES_ON=			python:v12,wheel
 [PY312].RUN_DEPENDS_ON=			python-ply:single:v12
+					python-setuptools:single:v12
 					python-gast:single:v12
 					python-numpy:single:v12
 					python-beniget:single:v12

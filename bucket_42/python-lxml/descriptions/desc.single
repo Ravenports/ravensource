@@ -22,29 +22,34 @@ an appropriate version of Cython installed.
 
 After an official release of a new stable series, bug fixes may become
 available at
-https://github.com/lxml/lxml/tree/lxml-5.0 .
-Running ``easy_install lxml==5.0bugfix`` will install
+https://github.com/lxml/lxml/tree/lxml-5.1 .
+Running ``easy_install lxml==5.1bugfix`` will install
 the unreleased branch state from
-https://github.com/lxml/lxml/tarball/lxml-5.0#egg=lxml-5.0bugfix
+https://github.com/lxml/lxml/tarball/lxml-5.1#egg=lxml-5.1bugfix
 as soon as a maintenance branch has been established.  Note that this
 requires Cython to be installed at an appropriate version for the build.
 
-5.0.1 (2024-01-05)
+5.1.0 (2024-01-05)
 ==================
+
+Features added
+--------------
+
+* Parsing ASCII strings is slightly faster.
 
 Bugs fixed
 ----------
 
-* LP#2046208: Parsing non-BMP Python Unicode strings could fail on macOS.
+* GH#349: The HTML ``Cleaner() interpreted an accidentally provided string
+parameter
+  for the host_whitelist`` as list of characters and silently failed to
+reject any hosts.
+  Passing a non-collection is now rejected.
 
-* LP#2044225: When incrementally parsing broken HTML, reporting start
-events on
-  missing structural tags failed and could lead to subsequent exceptions.
+Other changes
+-------------
 
-* LP#2045435: Some (not all) issues with stricter C compilers were
-resolved.
+* Support for Python 2.7 and Python versions < 3.6 was removed.
 
-* The binary wheels in the 5.0.0 release did not validate cleanly (but
-installed ok).
-
-.. _latest_release:
+* The wheel build was migrated to use cibuildwheel.
+  Patch by Primož Godec.
