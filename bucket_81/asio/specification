@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	1.28.1
+DEF[PORTVERSION]=	1.29.0
+DEF[TAG]=		asio-${PORTVERSION:S|.|-|g}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		asio
@@ -10,8 +11,8 @@ HOMEPAGE=		https://think-async.com/Asio/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://downloads.sourceforge.net/asio/asio/
-DISTFILE[1]=		asio-${PORTVERSION}.tar.bz2:main
+SITES[main]=		GITHUB/chriskohlhoff:asio:${TAG}
+DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	single
 
@@ -25,6 +26,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net/asio
 
+USES=			autoreconf
+DISTNAME=		asio-${TAG}/asio
 MUST_CONFIGURE=		gnu
 SKIP_BUILD=		yes
 INSTALL_TARGET=		install-data
