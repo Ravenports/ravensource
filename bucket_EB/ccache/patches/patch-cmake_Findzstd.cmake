@@ -1,4 +1,4 @@
---- cmake/Findzstd.cmake.orig	2023-06-12 19:17:31 UTC
+--- cmake/Findzstd.cmake.orig	2023-12-30 15:08:02 UTC
 +++ cmake/Findzstd.cmake
 @@ -25,7 +25,7 @@ else()
    endif()
