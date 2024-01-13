@@ -14,7 +14,7 @@ Also,
    - Force use of just "gcc"
    - Recognize IMAKECPPFLAGS in the environment
 
---- imake.c.orig	2022-10-19 17:33:50 UTC
+--- imake.c.orig	2024-01-08 18:34:07 UTC
 +++ imake.c
 @@ -303,9 +303,9 @@ void KludgeOutputLine(char **), KludgeRe
  const char *cpp = NULL;

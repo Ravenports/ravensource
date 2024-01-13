@@ -14,7 +14,7 @@ reasonable thing to do.
 
  - Add support for __aarch64__
 
---- imakemdep.h.orig	2022-10-19 17:33:50 UTC
+--- imakemdep.h.orig	2024-01-08 18:34:07 UTC
 +++ imakemdep.h
 @@ -229,7 +229,7 @@ in this Software without prior written a
   *     all colons).  One way to tell if you need this is to see whether or not
