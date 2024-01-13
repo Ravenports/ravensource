@@ -1,4 +1,4 @@
---- modules/speller/default/affix.cpp.orig	2019-10-08 00:15:21 UTC
+--- modules/speller/default/affix.cpp.orig	2023-12-03 05:09:52 UTC
 +++ modules/speller/default/affix.cpp
 @@ -798,7 +798,10 @@ bool AffixMgr::suffix_check (const Looku
      if (se->check(linf, word, ci, gi, sfxopts, ppfx)) return true;
