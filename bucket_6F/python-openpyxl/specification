@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	3.1.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-openpyxl
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v11 v12
+SDESC[v11]=		Read/write Excel 2010 xlsx/xlsm files (3.11)
+SDESC[v12]=		Read/write Excel 2010 xlsx/xlsm files (3.12)
+HOMEPAGE=		https://openpyxl.readthedocs.io
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/6a/94/a59521de836ef0da54aaf50da6c4da8fb4072fb3053fa71f052fd9399e7a
+DISTFILE[1]=		openpyxl-${PORTVERSION}-py2.py3-none-any.whl:main
+
+SPKGS[v11]=		single
+SPKGS[v12]=		single
+
+OPTIONS_AVAILABLE=	PY311 PY312
+OPTIONS_STANDARD=	none
+VOPTS[v11]=		PY311=ON PY312=OFF
+VOPTS[v12]=		PY311=OFF PY312=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		openpyxl-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# et-xmlfile
+
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-et-xmlfile:single:v11
+[PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-et-xmlfile:single:v12
+
