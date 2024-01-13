@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	1.13
+DEF[PORTVERSION]=	1.14
+DEF[SOVERSION]=		1.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		adasockets
@@ -13,22 +14,23 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.rfc1149.net/download/adasockets/
 DISTFILE[1]=		adasockets-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete dev man
+SPKGS[standard]=	complete primary dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:dev GMGPL:dev
+LICENSE=		GPLv2+:primary GMGPL:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
 			GMGPL:{{WRKSRC}}/GMGPL
-LICENSE_TERMS=		dev:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/sockets.adb
 LICENSE_SCHEME=		multi
 
-USES=			gmake libtool
-INSTALL_REQ_TOOLCHAIN=	yes
+USES=			gmake libtool cclibs:primary
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-doc
-			--disable-shared
+SOVERSION=		${SOVERSION}
 SINGLE_JOB=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+INSTALL_TARGET=		install-strip
+INFO=			man:adasockets
