@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.3.2
+DEF[PORTVERSION]=	1.3.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xmlsec
@@ -71,3 +71,5 @@ pre-configure:
 	${REINPLACE_CMD} -e 's,^\(xmlsec1_LDADD = \)\\$$,\1 -L${LOCALBASE}/lib -lpthread\\,' \
 		${WRKSRC}/apps/Makefile.in
 
+post-install:
+	${RMDIR} ${STAGEDIR}${PREFIX}/share/doc/xmlsec1/css

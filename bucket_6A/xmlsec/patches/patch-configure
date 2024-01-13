@@ -1,15 +1,6 @@
---- configure.orig	2023-06-06 13:00:49 UTC
+--- configure.orig	2024-01-04 15:22:27 UTC
 +++ configure
-@@ -15558,7 +15558,7 @@ case $host in
-     *-*-osf5*)    OPENSSL_EXTRA_LIBS=;;
-     *-*-openbsd*) OPENSSL_EXTRA_LIBS=;;
-     *-*-netbsd*)  OPENSSL_EXTRA_LIBS=;;
--    *-*-freebsd*|*-*-dragonfly*) OPENSSL_EXTRA_LIBS=;;
-+    *-*-freebsd*|*-*-dragonfly*|*-*-midnight*) OPENSSL_EXTRA_LIBS=;;
-     *-*-darwin*) OPENSSL_EXTRA_LIBS=;;
-     #FIXME: check if lib "dl" is required
-     *)            OPENSSL_EXTRA_LIBS=-ldl;;
-@@ -15973,8 +15973,8 @@ NSS_PACKAGE=mozilla-nss
+@@ -15677,8 +15677,8 @@ NSS_PACKAGE=mozilla-nss
  NSPR_INCLUDE_MARKER="nspr/nspr.h"
  NSPR_LIB_MARKER="libnspr4$shrext"
  NSPR_LIBS_LIST="-lnspr4 -lplds4 -lplc4"
@@ -17,6 +8,6 @@
 -NSS_LIB_MARKER="libnss3$shrext"
 +NSS_INCLUDE_MARKER="nss/nss/nss.h"
 +NSS_LIB_MARKER="nss/libnss3$shrext"
- NSS_LIBS_LIST="-lnss3 -lsmime3"
+ NSS_LIBS_LIST="-lnss3 -lsmime3 -lnssutil3"
  
  XMLSEC_NO_NSS="1"
