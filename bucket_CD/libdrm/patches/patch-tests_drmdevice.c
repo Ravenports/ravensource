@@ -1,4 +1,4 @@
---- tests/drmdevice.c.orig	2023-11-20 13:03:51 UTC
+--- tests/drmdevice.c.orig	2024-01-13 09:37:07 UTC
 +++ tests/drmdevice.c
 @@ -31,6 +31,9 @@
  #include <unistd.h>

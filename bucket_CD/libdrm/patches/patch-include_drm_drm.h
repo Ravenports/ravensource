@@ -1,6 +1,6 @@
---- include/drm/drm.h.orig	2023-11-20 13:03:51 UTC
+--- include/drm/drm.h.orig	2024-01-13 09:37:07 UTC
 +++ include/drm/drm.h
-@@ -843,7 +843,11 @@ struct drm_set_client_cap {
+@@ -876,7 +876,11 @@ struct drm_set_client_cap {
  };
  
  #define DRM_RDWR O_RDWR
