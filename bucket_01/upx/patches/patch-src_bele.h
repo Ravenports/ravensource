@@ -1,4 +1,4 @@
---- src/bele.h.orig	2023-11-01 11:00:03 UTC
+--- src/bele.h.orig	2024-01-03 17:43:18 UTC
 +++ src/bele.h
 @@ -37,9 +37,6 @@
  #undef bswap16
