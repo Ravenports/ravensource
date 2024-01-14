@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.36.2
+DEF[PORTVERSION]=	1.37.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		recoll
@@ -67,6 +67,7 @@ CONFIGURE_ENV=		QMAKE="{{QMAKE_CMD}}"
 MAKE_ARGS=		DESTDIR={{STAGEDIR}}
 QMAKE_ARGS=		PREFIX={{PREFIX}}
 LDFLAGS=		-Wl,-rpath,{{PREFIX}}/lib/qt5
+CXXFLAGS=		-I{{PREFIX}}/include/qt5/QtNetwork
 
 pre-build:
 	cd ${WRKSRC}/qtgui && ${SETENV} ${QMAKE_ENV} ${QMAKE_CMD} \
