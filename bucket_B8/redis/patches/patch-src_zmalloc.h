@@ -1,4 +1,4 @@
---- src/zmalloc.h.orig	2023-11-01 12:38:13 UTC
+--- src/zmalloc.h.orig	2024-01-09 11:51:49 UTC
 +++ src/zmalloc.h
 @@ -78,7 +78,7 @@
       defined(USE_MALLOC_USABLE_SIZE))
