@@ -1,4 +1,4 @@
---- deps/v8/src/base/strings.h.orig	2023-12-05 07:32:16 UTC
+--- deps/v8/src/base/strings.h.orig	2023-12-19 00:26:59 UTC
 +++ deps/v8/src/base/strings.h
 @@ -5,6 +5,7 @@
  #ifndef V8_BASE_STRINGS_H_
