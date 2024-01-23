@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	21.1.11
 
 NAMEBASE=		xorg-server
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11_servers
 VARIANTS=		standard virtual xephyr nest
 SDESC[standard]=	X.Org X server and related programs
@@ -21,15 +22,23 @@ SPKGS[virtual]=		complete primary man
 SPKGS[nest]=		complete primary man
 SPKGS[xephyr]=		complete primary man
 
-OPTIONS_AVAILABLE=	XORG VIRTUAL XEPHYR NEST DEVD
-OPTIONS_STANDARD=	XORG DEVD
-VOPTS[virtual]=		XORG=OFF VIRTUAL=ON XEPHYR=OFF NEST=OFF DEVD=OFF
-VOPTS[xephyr]=		XORG=OFF VIRTUAL=OFF XEPHYR=ON NEST=OFF DEVD=OFF
-VOPTS[nest]=		XORG=OFF VIRTUAL=OFF XEPHYR=OFF NEST=ON DEVD=OFF
+OPTIONS_AVAILABLE=	XORG VIRTUAL XEPHYR NEST UDEV
+OPTIONS_STANDARD=	XORG UDEV
+VOPTS[virtual]=		XORG=OFF VIRTUAL=ON XEPHYR=OFF NEST=OFF UDEV=OFF
+VOPTS[xephyr]=		XORG=OFF VIRTUAL=OFF XEPHYR=ON NEST=OFF UDEV=OFF
+VOPTS[nest]=		XORG=OFF VIRTUAL=OFF XEPHYR=OFF NEST=ON UDEV=OFF
 OPT_ON[all]=		XORG
-# DEVD turned off for now, /dev/input/* not working on BSDs
-# Perhaps it can be turned on for Linux only for now
-# OPT_ON[all]=		XORG DEVD
+# OPT_ON[dragonfly]=	UDEV
+OPT_ON[freebsd]=	UDEV
+OPT_ON[linux]=		UDEV
+OPT_ON[midnightbsd]=	UDEV
+# UDEV (emulated or real) is required to make use of evdev-based drivers
+# (xorg-driver-input-evdev and xorg-driver-input-libinput). Only available
+# on platforms that support event devices (i. e. which expose /dev/input/*).
+#
+# Linux dropped support for classic input drivers (xorg-driver-input-keyboard
+# and xorg-driver-input-mouse). FreeBSD and MidnightBSD can use either.
+# NetBSD does not support evdev as of rel 9.3. DragonFly should, but untested.
 
 LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
@@ -74,7 +83,7 @@ VAR_OPSYS[netbsd]=	CPPFLAGS=-D_OPENBSD_SOURCE
 [VIRTUAL].DESCRIPTION=			Build as virtual framebuffer server
 [XEPHYR].DESCRIPTION=			Build as kdrive-base X server
 [NEST].DESCRIPTION=			Build as nesting X server
-[DEVD].DESCRIPTION=			Use devd for autoconfiguration of input devices
+[UDEV].DESCRIPTION=			Use udev for autoconfiguration of input devices
 
 [XORG].BUILD_DEPENDS_ON=		xmlto:single:standard
 					xorg-sgml-doctools:single:standard
@@ -128,10 +137,10 @@ VAR_OPSYS[netbsd]=	CPPFLAGS=-D_OPENBSD_SOURCE
 					xcb-util-wm xcb-util-keysyms xcb-render-util
 [XORG].XORG_COMPONENTS_ON=		pciaccess xfont2
 
-[DEVD].BUILD_DEPENDS_ON=		libudev-devd:dev:standard
-[DEVD].BUILDRUN_DEPENDS_ON=		libudev-devd:primary:standard
-[DEVD].CONFIGURE_ARGS_ON=		-Dudev=true
-[DEVD].CONFIGURE_ARGS_OFF=		-Dudev=false
+[UDEV].BUILD_DEPENDS_ON=		libudev-devd:dev:standard
+[UDEV].BUILDRUN_DEPENDS_ON=		libudev-devd:primary:standard
+[UDEV].CONFIGURE_ARGS_ON=		-Dudev=true
+[UDEV].CONFIGURE_ARGS_OFF=		-Dudev=false
 
 post-install-XORG-ON:
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
