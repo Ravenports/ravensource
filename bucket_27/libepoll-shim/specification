@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	0.0.20230411
 
 NAMEBASE=		libepoll-shim
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Small epoll implementation using kqueue
@@ -27,6 +28,10 @@ FPC_EQUIVALENT=		devel/libepoll-shim
 NOT_FOR_OPSYS=		linux sunos
 
 USES=			cmake
+
+post-extract:
+	${REINPLACE_CMD} 's|libdata/pkgconfig|lib/pkgconfig|' \
+		${WRKSRC}/CMakeLists.txt
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
