@@ -1,9 +1,10 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(XORG_VERSION)
-DEF[DRVLIST]=		AMDGPU ATI I740 INTEL JOYSTICK KEYBOARD MOUSE SCFB SYNAPTICS VESA VMVIDEO EVDEV
+DEF[DRVLIST]=		AMDGPU ATI I740 INTEL JOYSTICK KEYBOARD MOUSE SCFB SYNAPTICS VESA VMVIDEO EVDEV LIBINPUT
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xorg-drivers
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11_drivers
 VARIANTS=		standard
 SDESC[standard]=	X.Org drivers meta-port
@@ -19,14 +20,13 @@ OPTIONS_STANDARD=	${DRVLIST}
 OPTGROUP_RESTRICTED=	DRIVERS
 OPTDESCR[DRIVERS]=	Driver Selection
 OPTGROUP[DRIVERS]=	${DRVLIST}
-OPT_ON[all]=		MOUSE
-OPT_ON[midnightbsd]=	SCFB KEYBOARD
-OPT_ON[dragonfly]=	SCFB KEYBOARD
-OPT_ON[freebsd]=	SCFB KEYBOARD
-OPT_ON[netbsd]=		KEYBOARD
-OPT_ON[sunos]=		KEYBOARD
 OPT_ON[x86_64]=		VESA
-OPT_ON[linux]=		EVDEV
+OPT_ON[dragonfly]=	SCFB KEYBOARD MOUSE LIBINPUT
+OPT_ON[freebsd]=	SCFB KEYBOARD MOUSE LIBINPUT
+OPT_ON[linux]=		EVDEV LIBINPUT
+OPT_ON[midnightbsd]=	SCFB KEYBOARD MOUSE LIBINPUT
+OPT_ON[netbsd]=		KEYBOARD MOUSE
+OPT_ON[sunos]=		KEYBOARD MOUSE
 
 FPC_EQUIVALENT=		x11-drivers/xorg-drivers
 
@@ -44,7 +44,8 @@ SKIP_INSTALL=		yes
 [SYNAPTICS].DESCRIPTION=		Synaptics touchpad input driver
 [VESA].DESCRIPTION=			Generic VESA video driver
 [VMVIDEO].DESCRIPTION=			VMware video driver (x86)
-[EVDEV].DESCRIPTION=			Linux event interface driver
+[EVDEV].DESCRIPTION=			Event device input driver
+[LIBINPUT].DESCRIPTION=			Generic (evdev) input driver
 
 [AMDGPU].RUN_DEPENDS_ON=		xorg-driver-video-amdgpu:single:standard
 [ATI].RUN_DEPENDS_ON=			xorg-driver-video-ati:single:standard
@@ -58,3 +59,4 @@ SKIP_INSTALL=		yes
 [VESA].RUN_DEPENDS_ON=			xorg-driver-video-vesa:single:standard
 [VMVIDEO].RUN_DEPENDS_ON=		xorg-driver-video-vmware:single:standard
 [EVDEV].RUN_DEPENDS_ON=			xorg-driver-input-evdev:single:standard
+[LIBINPUT].RUN_DEPENDS_ON=		xorg-driver-input-libinput:primary:standard
