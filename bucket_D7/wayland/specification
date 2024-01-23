@@ -5,6 +5,7 @@ DEF[SOEGL]=		1.22.0
 
 NAMEBASE=		wayland
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Wayland Display Protocol implementation
@@ -19,8 +20,9 @@ SPKGS[standard]=	complete primary dev tools
 # manpages docs
 # disables docs subpackage until graphviz's dot fixed
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	EPOLLSHIM
+OPTIONS_STANDARD=	EPOLLSHIM
+OPT_ON[freebsd]=	EPOLLSHIM
 
 LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
@@ -28,8 +30,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/wayland
 
-# start with dragonfly
-ONLY_FOR_OPSYS=		dragonfly
+# Not buildable on MidnightBSD as of rel. 3.0
+ONLY_FOR_OPSYS=		dragonfly freebsd linux
 
 BUILD_DEPENDS=		libxslt:primary:standard
 			libffi:dev:standard
@@ -47,3 +49,7 @@ INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		EGLSOVERSION=${SOEGL}
 			EGLSOMAJOR=${SOEGL:R:R}
+
+[EPOLLSHIM].DESCRIPTION=		Platform depends on libepoll-shim
+[EPOLLSHIM].BUILDRUN_DEPENDS_ON=	libepoll-shim:primary:standard
+[EPOLLSHIM].BUILD_DEPENDS_ON=		libepoll-shim:dev:standard
