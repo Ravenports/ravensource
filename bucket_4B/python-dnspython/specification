@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.4.2
+DEF[PORTVERSION]=	2.5.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-dnspython
@@ -11,7 +11,7 @@ HOMEPAGE=		https://www.dnspython.org
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/f6/b4/0a9bee52c50f226a3cbfb54263d02bb421c7f2adc136520729c2c689c1e5
+SITES[main]=		PYPIWHL/b6/83/4a684a63d395007670bc95c1947c07045fe66141574e2f7e9e347df8499a
 DISTFILE[1]=		dnspython-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
@@ -23,20 +23,30 @@ VOPTS[v11]=		PY311=ON PY312=OFF
 VOPTS[v12]=		PY311=OFF PY312=ON
 
 # License listed at PyPI
-# ISC
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		dnspython-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# aioquic (>=0.9.20) ; extra == "doq"
-# cryptography (>=2.6,<42.0) ; extra == "dnssec"
-# h2 (>=4.1.0) ; extra == "doh"
-# httpcore (>=0.17.3) ; extra == "doh"
-# httpx (>=0.24.1) ; extra == "doh"
-# idna (>=2.1,<4.0) ; extra == "idna"
-# trio (>=0.14,<0.23) ; extra == "trio"
-# wmi (>=1.5.1,<2.0.0) ; extra == "wmi"
+# black>=23.1.0; extra == 'dev'
+# coverage>=7.0; extra == 'dev'
+# flake8>=5.0.3; extra == 'dev'
+# mypy>=1.0.1; extra == 'dev'
+# pylint>=2.7; extra == 'dev'
+# pytest-cov>=3.0.0; extra == 'dev'
+# pytest>=6.2.5; extra == 'dev'
+# sphinx>=7.0.0; extra == 'dev'
+# twine>=4.0.0; extra == 'dev'
+# wheel>=0.41.0; extra == 'dev'
+# cryptography>=41; extra == 'dnssec'
+# h2>=4.1.0; extra == 'doh'
+# httpcore>=0.17.3; extra == 'doh'
+# httpx>=0.25.1; extra == 'doh'
+# aioquic>=0.9.20; extra == 'doq'
+# idna>=2.1; extra == 'idna'
+# trio>=0.14; extra == 'trio'
+# wmi>=1.5.1; extra == 'wmi'
 
 [PY311].USES_ON=			python:v11,wheel
 [PY312].USES_ON=			python:v12,wheel

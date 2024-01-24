@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.5.0
+DEF[PORTVERSION]=	1.5.4
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-netbox-config-backup
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/dansheps/netbox-config-backup/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/66/0c/a9024d08589ab5ceeb2df1c4cdf5c5c505a4e71ed432afc52a66bd68a831
+SITES[main]=		PYPIWHL/ff/c7/9028143856c70f35cc57425a1b2890a323cce1f96c6b6e7186d7aec25f64
 DISTFILE[1]=		netbox_config_backup-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
@@ -29,6 +29,8 @@ GENERATED=		yes
 DISTNAME=		netbox_config_backup-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
+# netbox-napalm-plugin
+# netmiko >=4.0.0
 # napalm
 # uuid
 # dulwich
@@ -36,13 +38,17 @@ DISTNAME=		netbox_config_backup-${PORTVERSION}.dist-info
 # deepdiff
 
 [PY311].USES_ON=			python:v11,wheel
-[PY311].RUN_DEPENDS_ON=			python-napalm:single:v11
+[PY311].RUN_DEPENDS_ON=			python-netbox-napalm-plugin:single:v11
+					python-netmiko:single:v11
+					python-napalm:single:v11
 					python-uuid:single:v11
 					python-dulwich:single:v11
 					python-PyDriller:single:v11
 					python-deepdiff:single:v11
 [PY312].USES_ON=			python:v12,wheel
-[PY312].RUN_DEPENDS_ON=			python-napalm:single:v12
+[PY312].RUN_DEPENDS_ON=			python-netbox-napalm-plugin:single:v12
+					python-netmiko:single:v12
+					python-napalm:single:v12
 					python-uuid:single:v12
 					python-dulwich:single:v12
 					python-PyDriller:single:v12
