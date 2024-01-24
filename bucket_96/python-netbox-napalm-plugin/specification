@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	0.1.7
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-netbox-napalm-plugin
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v11 v12
+SDESC[v11]=		NetBox plugin for Napalm (3.11)
+SDESC[v12]=		NetBox plugin for Napalm (3.12)
+HOMEPAGE=		https://github.com/netbox-community/netbox-napalm
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/9c/20/e9aeefa60248e13fbc25e06c0f2f7f059657e7550fcad1c32320c6ced88e
+DISTFILE[1]=		netbox_napalm_plugin-${PORTVERSION}-py2.py3-none-any.whl:main
+
+SPKGS[v11]=		single
+SPKGS[v12]=		single
+
+OPTIONS_AVAILABLE=	PY311 PY312
+OPTIONS_STANDARD=	none
+VOPTS[v11]=		PY311=ON PY312=OFF
+VOPTS[v12]=		PY311=OFF PY312=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		netbox_napalm_plugin-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# napalm <5.0
+
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-napalm:single:v11
+[PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-napalm:single:v12
+
