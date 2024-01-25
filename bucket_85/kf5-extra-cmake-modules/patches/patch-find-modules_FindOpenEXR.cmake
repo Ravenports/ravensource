@@ -1,4 +1,4 @@
---- find-modules/FindOpenEXR.cmake.orig	2023-10-19 08:17:56 UTC
+--- find-modules/FindOpenEXR.cmake.orig	2023-12-23 00:45:39 UTC
 +++ find-modules/FindOpenEXR.cmake
 @@ -43,6 +43,13 @@ pkg_check_modules(PC_OpenEXR QUIET OpenE
  
