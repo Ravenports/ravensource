@@ -5,6 +5,7 @@ DEF[LUA_VARIANT]=	lua${SPEC_LUA:S/.//}
 
 NAMEBASE=		neovim
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		editors
 VARIANTS=		standard
 SDESC[standard]=	Next generation Vim
@@ -30,21 +31,22 @@ LICENSE_SCHEME=		multi
 FPC_EQUIVALENT=		editors/neovim
 
 BUILD_DEPENDS=		gperf:primary:standard
-			lua-lpeg:single:${LUA_VARIANT}
-			lua-bitop:single:${LUA_VARIANT}
-			lua-mpack:single:${LUA_VARIANT}
-			msgpack:dev:standard
-			luajit-openresty:dev:standard
+			libluv:dev:standard
 			libuv:dev:standard
 			libvterm:dev:standard
-			libluv:dev:standard
-BUILDRUN_DEPENDS=	msgpack:primary:standard
+			lua-bitop:single:${LUA_VARIANT}
+			lua-lpeg:single:${LUA_VARIANT}
+			lua-mpack:single:${LUA_VARIANT}
+			luajit-openresty:dev:standard
+			msgpack:dev:standard
+			tree-sitter:dev:standard
+BUILDRUN_DEPENDS=	libluv:primary:standard
 			libtermkey:single:standard
-			libvterm:primary:standard
 			libuv:primary:standard
-			libluv:primary:standard
-			tree-sitter:single:standard
+			libvterm:primary:standard
 			luajit-openresty:primary:standard
+			msgpack:primary:standard
+			tree-sitter:primary:standard
 
 USES=			cmake gmake libtool pkgconfig lua:${SPEC_LUA},tools
 			gettext desktop-utils:primary
