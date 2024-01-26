@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.2.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		basu
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	Sd-bus library, extracted from systemd
+HOMEPAGE=		https://sr.ht/~emersion/basu/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://git.sr.ht/~emersion/basu/refs/download/v${PORTVERSION}/
+DISTFILE[1]=		basu-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Licensing is probably invalid; there's no trace of an author and copyright statement,
+# just SPDX license identifiers claiming the code is licensed LGPL21+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/LICENSE.LGPL2.1
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/libsystemd/sd-bus/sd-bus.c
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/basu
+
+BUILD_DEPENDS=		gperf:primary:standard
+USES=			meson
+CONFIGURE_ARGS=		-Daudit=disabled
+			-Dlibcap=disabled
+
