@@ -1,4 +1,4 @@
---- contrib/backward-cpp/backward.hpp.orig	2023-12-15 15:32:54 UTC
+--- contrib/backward-cpp/backward.hpp.orig	2024-01-19 12:45:38 UTC
 +++ contrib/backward-cpp/backward.hpp
 @@ -415,6 +415,7 @@ extern "C" uintptr_t _Unwind_GetIPInfo(_
  #ifdef BACKWARD_ATLEAST_CXX11
