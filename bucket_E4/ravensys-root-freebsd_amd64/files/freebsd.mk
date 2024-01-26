@@ -37,6 +37,7 @@ Usr_Bin_FreeBSD=\
 	/usr/bin/dirname \
 	/usr/bin/env \
 	/usr/bin/false \
+	/usr/bin/getent \
 	/usr/bin/head \
 	/usr/bin/id \
 	/usr/bin/join \
