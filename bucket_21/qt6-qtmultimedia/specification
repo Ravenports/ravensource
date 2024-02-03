@@ -1,0 +1,62 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(QT6_VERSION)
+DEF[MINOR_VER]=		${PORTVERSION:R}
+DEF[COMPONENT]=		qtmultimedia
+DEF[COMPONENT_CASED]=	QtMultimedia
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		qt6-${COMPONENT}
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia devel
+VARIANTS=		standard
+SDESC[standard]=	Qt6 - ${COMPONENT_CASED} component
+HOMEPAGE=		https://www.qt.io/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://qt.mirror.constant.com/official_releases/qt/${MINOR_VER}/${PORTVERSION}/submodules/
+			https://download.qt.io/official_releases/qt/${MINOR_VER}/${PORTVERSION}/submodules/
+DISTFILE[1]=		${COMPONENT}-everywhere-src-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		multimedia/qt6-multimedia
+
+BUILD_DEPENDS=		qt6-qtbase:dev:standard
+			qt6-qttools:complete:standard
+			qt6-qtdeclarative:dev:standard
+			qt6-qtshadertools:dev:standard
+			ffmpeg:dev:standard
+			libglvnd:dev:standard
+			alsa-lib:dev:standard
+			gstreamer1-plugins-base:dev:standard
+			gstreamer1:dev:standard
+BUILDRUN_DEPENDS=	qt6-qtdeclarative:primary:standard
+			qt6-qtshadertools:primary:standard
+			ffmpeg:primary:standard
+			libglvnd:primary:standard
+			alsa-lib:primary:standard
+			gstreamer1:primary:standard
+			gstreamer1-plugins-base:plugin_gl:standard
+			gstreamer1-plugins-ugly:primary:standard
+			gstreamer1-plugins-good:primary:standard
+			gstreamer1-plugins-bad:primary:standard
+
+USES=			qt6 cmake pkgconfig perl:build gettext cpe
+XORG_COMPONENTS=	x11 xext xrandr
+CPE_VENDOR=		qt
+CPE_PRODUCT=		qt
+CMAKE_ARGS=		-DFEATURE_ffmpeg:BOOL=ON
+			-DFEATURE_alsa:BOOL=ON
+			-DFEATURE_gstreamer:BOOL=ON
+			-DFEATURE_xlib:BOOL=ON
+
+DISTNAME=		${COMPONENT}-everywhere-src-${PORTVERSION}
+PLIST_SUB=		QTVER=${PORTVERSION}
+			SOMAJORMIN=${PORTVERSION:R}
+SOVERSION=		${PORTVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/qml/QtMultimedia/libquickmultimediaplugin.so
