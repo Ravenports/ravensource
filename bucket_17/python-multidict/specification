@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.0.4
+DEF[PORTVERSION]=	6.0.5
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-multidict
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/aio-libs/multidict
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/m/multidict
-DISTFILE[1]=		multidict-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/fa/a2/17e1e23c6be0a916219c5292f509360c345b5fa6beeb50d743203c27532c
+DISTFILE[1]=		multidict-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
 SPKGS[v12]=		single
@@ -26,11 +26,11 @@ VOPTS[v12]=		PY311=OFF PY312=ON
 # Apache 2
 
 GENERATED=		yes
-DISTNAME=		multidict-${PORTVERSION}
+DISTNAME=		multidict-${PORTVERSION}.dist-info
 
-# install_requires extracted from setup.py
+# Requires-Dist extracted from wheel metadata
 
 
-[PY311].USES_ON=			python:v11,sutools
-[PY312].USES_ON=			python:v12,sutools
+[PY311].USES_ON=			python:v11,wheel
+[PY312].USES_ON=			python:v12,wheel
 
