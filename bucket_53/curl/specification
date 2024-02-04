@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	8.5.0
+DEF[PORTVERSION]=	8.6.0
 DEF[SOVERSION]=		4.8.0
 DEF[DOCS]=		FAQ INSTALL KNOWN_BUGS MAIL-ETIQUETTE THANKS TODO options-in-versions
 # MANUAL
@@ -6,7 +6,6 @@ DEF[DOCS]=		FAQ INSTALL KNOWN_BUGS MAIL-ETIQUETTE THANKS TODO options-in-version
 
 NAMEBASE=		curl
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		ftp net www
 VARIANTS=		standard embed
 SDESC[standard]=	Tool and library for transferring data with URLs
@@ -66,8 +65,6 @@ pre-configure:
 		${WRKSRC}/lib/curl_gssapi.h ${WRKSRC}/lib/urldata.h
 
 pre-configure-EMBED-ON:
-	# don't install the man pages
-	${REINPLACE_CMD} -e '/cd docs\/libcurl/d' ${WRKSRC}/Makefile.in
 	# copy pic library build script
 	${CP} ${FILESDIR}/build_curl_pic.sh ${WRKSRC}/
 
@@ -83,7 +80,7 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libcurl.so
 
 post-install-EMBED-ON:
-	${RM} ${STAGEDIR}${MANPREFIX}/man/man1/*
+	${RM} -r ${STAGEDIR}${MANPREFIX}/man/man*
 	${INSTALL_DATA} ${WRKSRC}/libcurl_pic.a ${STAGEDIR}${PREFIX}/lib/
 
 post-install-EMBED-OFF:
