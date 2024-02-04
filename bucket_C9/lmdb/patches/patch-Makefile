@@ -1,4 +1,4 @@
---- Makefile.orig	2023-07-10 16:09:21 UTC
+--- Makefile.orig	2024-01-29 18:20:26 UTC
 +++ Makefile
 @@ -23,11 +23,11 @@ AR	= ar
  W	= -W -Wall -Wno-unused-parameter -Wbad-function-cast -Wuninitialized
@@ -30,15 +30,12 @@
  
  clean:
  	rm -rf $(PROGS) *.[ao] *.[ls]o *~ testdb
-@@ -64,20 +64,30 @@ test:	all
- liblmdb.a:	mdb.o midl.o
+@@ -65,20 +65,30 @@ liblmdb.a:	mdb.o midl.o
  	$(AR) rs $@ mdb.o midl.o
  
--liblmdb$(SOEXT):	mdb.lo midl.lo
+ liblmdb$(SOEXT):	mdb.lo midl.lo
 -#	$(CC) $(LDFLAGS) -pthread -shared -Wl,-Bsymbolic -o $@ mdb.o midl.o $(SOLIBS)
 -	$(CC) $(LDFLAGS) -pthread -shared -o $@ mdb.lo midl.lo $(SOLIBS)
-+    liblmdb$(SOEXT):	mdb.lo midl.lo
-+    #	$(CC) $(LDFLAGS) -pthread -shared -Wl,-Bsymbolic -o $@ mdb.o midl.o $(SOLIBS)
 +	$(CC) $(LDFLAGS) -pthread -shared -Wl,-soname,$@ -o $@ mdb.lo midl.lo $(SOLIBS)
  
  mdb_stat: mdb_stat.o liblmdb.a
@@ -60,6 +57,8 @@
  mtest5:	mtest5.o liblmdb.a
 +	${CC} ${CFLAGS} ${LDFLAGS} -o ${.TARGET} ${.ALLSRC}
  mtest6:	mtest6.o liblmdb.a
++	${CC} ${CFLAGS} ${LDFLAGS} -o ${.TARGET} ${.ALLSRC}
+ mplay:	mplay.o liblmdb.a
 +	${CC} ${CFLAGS} ${LDFLAGS} -o ${.TARGET} ${.ALLSRC}
  
  mdb.o: mdb.c lmdb.h midl.h
