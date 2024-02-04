@@ -1,4 +1,4 @@
---- src/idn2.c.orig	2022-10-17 12:28:31 UTC
+--- src/idn2.c.orig	2024-01-26 10:17:26 UTC
 +++ src/idn2.c
 @@ -33,7 +33,7 @@
  #include <unistring/localcharset.h>
