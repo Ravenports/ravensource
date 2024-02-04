@@ -1,6 +1,6 @@
---- absl/time/internal/cctz/src/time_zone_lookup_test.cc.orig	2023-09-18 14:40:01 UTC
+--- absl/time/internal/cctz/src/time_zone_lookup_test.cc.orig	2024-01-22 17:59:25 UTC
 +++ absl/time/internal/cctz/src/time_zone_lookup_test.cc
-@@ -1039,7 +1039,7 @@ TEST(MakeTime, SysSecondsLimits) {
+@@ -927,7 +927,7 @@ TEST(MakeTime, SysSecondsLimits) {
      const time_zone cut = LoadZone("libc:UTC");
      const year_t max_tm_year = year_t{std::numeric_limits<int>::max()} + 1900;
      tp = convert(civil_second(max_tm_year, 12, 31, 23, 59, 59), cut);

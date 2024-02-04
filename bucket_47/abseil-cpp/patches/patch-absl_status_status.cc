@@ -1,4 +1,4 @@
---- absl/status/status.cc.orig	2023-09-18 14:40:01 UTC
+--- absl/status/status.cc.orig	2024-01-22 17:59:25 UTC
 +++ absl/status/status.cc
 @@ -13,7 +13,7 @@
  // limitations under the License.
@@ -7,9 +7,9 @@
 -#include <errno.h>
 +#include <sys/errno.h>
  
- #include <cassert>
- #include <utility>
-@@ -464,15 +464,19 @@ StatusCode ErrnoToStatusCode(int error_n
+ #include <atomic>
+ #include <cstddef>
+@@ -273,15 +273,19 @@ StatusCode ErrnoToStatusCode(int error_n
      case EFAULT:        // Bad address
      case EILSEQ:        // Illegal byte sequence
      case ENOPROTOOPT:   // Protocol not available
@@ -29,7 +29,7 @@
      case ENODEV:  // No such device
      case ENOENT:  // No such file or directory
  #ifdef ENOMEDIUM
-@@ -530,9 +534,13 @@ StatusCode ErrnoToStatusCode(int error_n
+@@ -339,9 +343,13 @@ StatusCode ErrnoToStatusCode(int error_n
      case EMLINK:   // Too many links
      case ENFILE:   // Too many open files in system
      case ENOBUFS:  // No buffer space available
