@@ -1,6 +1,6 @@
---- src/command.c.orig	2023-09-04 21:20:22 UTC
+--- src/command.c.orig	2023-12-20 23:46:06 UTC
 +++ src/command.c
-@@ -113,6 +113,9 @@ static int thread_rl_RetCode = -1; /* re
+@@ -109,6 +109,9 @@ static TBOOLEAN pause_internal;    /* fl
  
  #ifndef _WIN32
  # include "help.h"
