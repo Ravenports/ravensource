@@ -1,4 +1,4 @@
---- include/SDL_endian.h.orig	2023-11-02 17:00:33 UTC
+--- include/SDL_endian.h.orig	2024-02-02 00:02:20 UTC
 +++ include/SDL_endian.h
 @@ -59,10 +59,10 @@ _m_prefetch(void *__P)
  #ifdef __linux__
