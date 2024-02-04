@@ -1,6 +1,6 @@
 * for *BSD netgroup functions
 
---- src/polkitbackend/polkitbackendinteractiveauthority.c.orig	2022-10-26 12:12:24 UTC
+--- src/polkitbackend/polkitbackendinteractiveauthority.c.orig	2024-01-17 15:43:53 UTC
 +++ src/polkitbackend/polkitbackendinteractiveauthority.c
 @@ -26,8 +26,13 @@
  #ifdef HAVE_NETGROUP_H
@@ -16,7 +16,7 @@
  #include <string.h>
  #include <glib/gstdio.h>
  #include <locale.h>
-@@ -2251,7 +2256,7 @@ get_users_in_net_group (PolkitIdentity
+@@ -2257,7 +2262,7 @@ get_users_in_net_group (PolkitIdentity
  #ifdef HAVE_SETNETGRENT
    name = polkit_unix_netgroup_get_name (POLKIT_UNIX_NETGROUP (group));
  

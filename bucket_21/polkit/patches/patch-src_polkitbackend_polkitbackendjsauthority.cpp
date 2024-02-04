@@ -1,4 +1,4 @@
---- src/polkitbackend/polkitbackendjsauthority.cpp.orig	2022-10-26 12:12:24 UTC
+--- src/polkitbackend/polkitbackendjsauthority.cpp.orig	2024-01-17 15:43:53 UTC
 +++ src/polkitbackend/polkitbackendjsauthority.cpp
 @@ -40,6 +40,46 @@
  #error "This code is not safe in SpiderMonkey exact stack rooting configurations"
@@ -47,15 +47,3 @@
  /**
   * SECTION:polkitbackendjsauthority
   * @title: PolkitBackendJsAuthority
-@@ -639,7 +679,11 @@ subject_to_jsval (PolkitBackendJsAuthori
- 
-       if (getgrouplist (passwd->pw_name,
-                         passwd->pw_gid,
-+#ifdef __APPLE__
-+			(int *)gids,
-+#else
-                         gids,
-+#endif
-                         &num_gids) < 0)
-         {
-           g_warning ("Error looking up groups for uid %d: %m", (gint) uid);

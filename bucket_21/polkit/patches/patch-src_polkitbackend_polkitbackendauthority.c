@@ -1,4 +1,4 @@
---- src/polkitbackend/polkitbackendauthority.c.orig	2022-10-26 12:12:24 UTC
+--- src/polkitbackend/polkitbackendauthority.c.orig	2024-01-17 15:43:53 UTC
 +++ src/polkitbackend/polkitbackendauthority.c
 @@ -25,6 +25,9 @@
  #include <string.h>

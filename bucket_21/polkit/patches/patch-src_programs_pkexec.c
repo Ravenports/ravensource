@@ -1,7 +1,7 @@
 Avoid conflict with SunOS function.
 Provide solaris header for LOG_AUTHPRIV
 
---- src/programs/pkexec.c.orig	2022-10-26 12:12:24 UTC
+--- src/programs/pkexec.c.orig	2024-01-17 15:43:53 UTC
 +++ src/programs/pkexec.c
 @@ -45,6 +45,9 @@
  
@@ -13,7 +13,7 @@ Provide solaris header for LOG_AUTHPRIV
  
  #include <polkit/polkit.h>
  #define POLKIT_AGENT_I_KNOW_API_IS_SUBJECT_TO_CHANGE
-@@ -245,7 +248,7 @@ set_close_on_exec (gint     fd,
+@@ -246,7 +249,7 @@ set_close_on_exec (gint     fd,
  }
  
  static gboolean
@@ -22,7 +22,7 @@ Provide solaris header for LOG_AUTHPRIV
          gpointer   user_data)
  {
    gint fd;
-@@ -941,7 +944,7 @@ main (int argc, char *argv[])
+@@ -950,7 +953,7 @@ main (int argc, char *argv[])
      }
  
    /* set close_on_exec on all file descriptors except stdin, stdout, stderr */

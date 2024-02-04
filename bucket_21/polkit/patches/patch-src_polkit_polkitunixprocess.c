@@ -1,7 +1,7 @@
 Fix SunOS includes.
 Fix pid_t type.
 
---- src/polkit/polkitunixprocess.c.orig	2022-10-26 12:12:24 UTC
+--- src/polkit/polkitunixprocess.c.orig	2024-01-17 15:43:53 UTC
 +++ src/polkit/polkitunixprocess.c
 @@ -24,6 +24,11 @@
  #endif
@@ -15,7 +15,7 @@ Fix pid_t type.
  #ifdef HAVE_FREEBSD
  #include <sys/param.h>
  #include <sys/sysctl.h>
-@@ -164,7 +169,7 @@ enum
+@@ -179,7 +184,7 @@ enum
  
  static void subject_iface_init (PolkitSubjectIface *subject_iface);
  
