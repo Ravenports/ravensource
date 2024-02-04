@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	1.13.1
-DEF[SOVERSION]=		1.19.1
+DEF[PORTVERSION]=	2.0
+DEF[SOVERSION]=		2.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		taglib
@@ -30,12 +30,15 @@ LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		audio/taglib
 
-USES=			cmake cpe c++:primary
+BUILD_DEPENDS=		utf8cpp:single:standard
+
+USES=			cmake cpe c++:primary zlib
 CMAKE_ARGS=		-DWITH_ASF:BOOL=ON
 			-DWITH_MP4:BOOL=ON
 			-DBUILD_SHARED_LIBS:BOOL=ON
 CPE_VENDOR=		scott_wheeler
 SOVERSION=		${SOVERSION}
+CXXFLAGS=		-I{{LOCALBASE}}/include/utf8cpp
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
