@@ -1,4 +1,4 @@
---- lib/fmt/include/fmt/os.h.orig	2023-10-29 21:08:58 UTC
+--- lib/fmt/include/fmt/os.h.orig	2024-01-02 13:52:58 UTC
 +++ lib/fmt/include/fmt/os.h
 @@ -13,7 +13,7 @@
  #include <cstdio>
