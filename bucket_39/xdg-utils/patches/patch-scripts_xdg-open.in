@@ -1,4 +1,4 @@
---- scripts/xdg-open.in.orig	2022-11-06 12:27:56 UTC
+--- scripts/xdg-open.in.orig	2024-01-30 03:18:58 UTC
 +++ scripts/xdg-open.in
 @@ -15,6 +15,12 @@
  #
@@ -13,7 +13,7 @@
  manualpage()
  {
  cat << _MANUALPAGE
-@@ -93,7 +99,7 @@ file_url_to_path()
+@@ -116,7 +122,7 @@ file_url_to_path()
          if [ -x /usr/bin/printf ]; then
              printf=/usr/bin/printf
          fi
@@ -22,7 +22,7 @@
      fi
      echo "$file"
  }
-@@ -262,6 +268,17 @@ open_flatpak()
+@@ -305,6 +311,17 @@ open_flatpak()
      fi
  }
  
@@ -40,16 +40,16 @@
  #-----------------------------------------
  # Recursively search .desktop file
  
-@@ -342,7 +359,7 @@ open_generic_xdg_mime()
+@@ -398,7 +415,7 @@ open_generic_xdg_mime()
          [ -n "$xdg_user_dir" ] || xdg_user_dir="$HOME/.local/share"
  
          xdg_system_dirs="$XDG_DATA_DIRS"
 -        [ -n "$xdg_system_dirs" ] || xdg_system_dirs=/usr/local/share/:/usr/share/
 +        [ -n "$xdg_system_dirs" ] || xdg_system_dirs=%%LOCALBASE%%/share/:/usr/share/
  
- DEBUG 3 "$xdg_user_dir:$xdg_system_dirs"
-         for x in `echo "$xdg_user_dir:$xdg_system_dirs" | sed 's/:/ /g'`; do
-@@ -438,7 +455,7 @@ open_generic()
+         search_dirs="$xdg_user_dir:$xdg_system_dirs"
+         DEBUG 3 "$search_dirs"
+@@ -516,7 +533,7 @@ open_generic()
      if [ x"$BROWSER" = x"" ]; then
          BROWSER=www-browser:links2:elinks:links:lynx:w3m
          if has_display; then
@@ -58,7 +58,7 @@
          fi
      fi
  
-@@ -540,6 +557,10 @@ case "$DE" in
+@@ -629,6 +646,10 @@ case "$DE" in
      open_mate "$url"
      ;;
  

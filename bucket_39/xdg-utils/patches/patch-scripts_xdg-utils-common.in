@@ -1,24 +1,24 @@
---- scripts/xdg-utils-common.in.orig	2022-11-06 12:27:56 UTC
+--- scripts/xdg-utils-common.in.orig	2024-01-30 03:18:58 UTC
 +++ scripts/xdg-utils-common.in
-@@ -22,7 +22,7 @@ first_word()
+@@ -25,7 +25,7 @@ first_word()
  # map a binary to a .desktop file
  binary_to_desktop_file()
  {
 -    search="${XDG_DATA_HOME:-$HOME/.local/share}:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
 +    search="${XDG_DATA_HOME:-$HOME/.local/share}:${XDG_DATA_DIRS:-%%LOCALBASE%%/share:/usr/share}"
-     binary="`command -v "$1"`"
-     binary="`readlink -f "$binary"`"
-     base="`basename "$binary"`"
-@@ -52,7 +52,7 @@ binary_to_desktop_file()
+     binary="$(command -v "$1")"
+     binary="$(xdg_realpath "$binary")"
+     base="$(basename "$binary")"
+@@ -55,7 +55,7 @@ binary_to_desktop_file()
  # map a .desktop file to a binary
  desktop_file_to_binary()
  {
 -    search="${XDG_DATA_HOME:-$HOME/.local/share}:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
 +    search="${XDG_DATA_HOME:-$HOME/.local/share}:${XDG_DATA_DIRS:-%%LOCALBASE%%/share:/usr/share}"
-     desktop="`basename "$1"`"
+     desktop="$(basename "$1")"
      IFS=:
      for dir in $search; do
-@@ -303,6 +303,44 @@ detectDE()
+@@ -312,6 +312,44 @@ detectDE()
           XFCE)
             DE=xfce
             ;;
@@ -63,10 +63,10 @@
           X-Generic)
             DE=generic
             ;;
-@@ -319,6 +357,8 @@ detectDE()
+@@ -329,6 +367,8 @@ detectDE()
        elif xprop -root 2> /dev/null | grep -i '^xfce_desktop_window' >/dev/null 2>&1; then DE=xfce
-       elif echo $DESKTOP | grep -q '^Enlightenment'; then DE=enlightenment;
-       elif [ x"$LXQT_SESSION_CONFIG" != x"" ]; then DE=lxqt;
+       elif echo "$DESKTOP" | grep -q '^Enlightenment'; then DE=enlightenment;
+       elif [ -n "$LXQT_SESSION_CONFIG" ]; then DE=lxqt;
 +      #Simple fallback for non-XDG window managers if Lumina is installed in the normal place (no heavy runtime dependencies)
 +      elif [ -x "%%LOCALBASE%%/bin/lumina-open" ]; then DE=lumina;
        fi
