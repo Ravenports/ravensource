@@ -90,7 +90,7 @@ PGSQL_12_VERSION=	12.17
 PGSQL_13_VERSION=	13.13
 PGSQL_14_VERSION=	14.10
 PGSQL_15_VERSION=	15.5
-PGSQL_16_VERSION=	16.1
+PGSQL_16_VERSION=	16.2
 
 #-------------------------------------------------------------------------
 # MYSQL and derivatives
