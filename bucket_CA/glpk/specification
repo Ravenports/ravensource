@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	5.0
+DEF[SOVERSION]=		40.3.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		glpk
+VERSION=		${PORTVERSION}
+KEYWORDS=		math
+VARIANTS=		standard
+SDESC[standard]=	GNU Linear Programming Kit
+HOMEPAGE=		https://www.gnu.org/software/glpk/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNU/glpk
+DISTFILE[1]=		glpk-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/misc/misc.h
+LICENSE_AWK=		TERMS:"ifndef MISC_H"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		math/glpk
+
+BUILDRUN_DEPENDS=	gmp:shared:standard
+BUILD_DEPENDS=		gmp:static:standard
+			libtool:single:standard
+USES=			gmake libtool fbsd10fix
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-gmp
+INSTALL_TARGET=		install-strip
+
+SOVERSION=		${SOVERSION}
