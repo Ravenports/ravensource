@@ -24,7 +24,7 @@ OPTIONS_STANDARD=	none
 # License listed on https://cran.r-project.org/
 # => GPL-2 | GPL-3 [expanded from: GPL (>= 2)]
 
-USES=			cran gmake iconv
+USES=			cran gmake iconv zlib
 DISTNAME=		igraph
 GENERATED=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
@@ -35,6 +35,9 @@ BUILDRUN_DEPENDS=	R-cli:single:standard
 			R-pkgconfig:single:standard
 			R-rlang:single:standard
 			R-cpp11:single:standard
-
+			glpk:primary:standard
+			gmp:shared:standard
+BUILD_DEPENDS=		glpk:dev:standard
+			gmp:static:standard
 
 GNOME_COMPONENTS=	libxml2
