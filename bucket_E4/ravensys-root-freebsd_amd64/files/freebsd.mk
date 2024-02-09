@@ -35,9 +35,9 @@ Usr_Bin_FreeBSD=\
 	/usr/bin/comm \
 	/usr/bin/cut \
 	/usr/bin/dirname \
+	/usr/bin/elfctl \
 	/usr/bin/env \
 	/usr/bin/false \
-	/usr/bin/getent \
 	/usr/bin/head \
 	/usr/bin/id \
 	/usr/bin/join \
