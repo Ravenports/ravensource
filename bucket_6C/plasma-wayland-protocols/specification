@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	1.12.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		plasma-wayland-protocols
+VERSION=		${PORTVERSION}
+KEYWORDS=		wayland
+VARIANTS=		standard
+SDESC[standard]=	Plasma-specific protocols for Wayland
+HOMEPAGE=		https://invent.kde.org/libraries/plasma-wayland-protocols
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/plasma-wayland-protocols/
+DISTFILE[1]=		plasma-wayland-protocols-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		kde5
+
+SPKGS[standard]=	complete primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/LICENSES/LGPL-2.1-or-later.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/protocols/slide.xml
+LICENSE_AWK=		TERMS:"\/copyright"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11/plasma-wayland-protocols
+
+BUILD_DEPENDS=		kf5-extra-cmake-modules:primary:standard
+
+USES=			cmake
+
+# CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt5/cmake
