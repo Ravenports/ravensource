@@ -29,6 +29,41 @@ install it with [pip]:
 Changelog
 ~~~~~~~~~
 
+4.48.1 (released 2024-02-06)
+----------------------------
+
+- Fixed uploading wheels to PyPI, no code changes since v4.48.0.
+
+4.48.0 (released 2024-02-06)
+----------------------------
+
+- [varLib] Do not log when there are no OTL tables to be merged.
+- [setup.py] Do not restrict lxml<5 any more, tests pass just fine with
+lxml>=5.
+- [feaLib] Remove glyph and class names length restrictions in FEA (#3424).
+- [roundingPens] Added transformRoundFunc parameter to the rounding pens to
+allow
+  for custom rounding of the components' transforms (#3426).
+- [feaLib] Keep declaration order of ligature components within a ligature
+set, instead
+  of sorting by glyph name (#3429).
+- [feaLib] Fixed ordering of alternates in aalt lookups, following the
+declaration
+  order of feature references within the aalt feature block (#3430).
+- [varLib.instancer] Fixed a bug in the instancer's IUP optimization
+(#3432).
+- [sbix] Support sbix glyphs with new graphicType "flip" (#3433).
+- [svgPathPen] Added ``--glyphs`` option to dump the SVG paths for the
+named glyphs
+  in the font (0572f78).
+- [designspaceLib] Added "description" attribute to ``<mappings> and
+<mapping>``
+  elements, and allow multiple ``<mappings> elements to group <mapping>``
+elements
+  that are logically related (#3435, #3437).
+- [otlLib] Correctly choose the most compact GSUB contextual lookup format
+(#3439).
+
 4.47.2 (released 2024-01-11)
 ----------------------------
 
@@ -63,38 +98,3 @@ multiple features.
   The addFeatureVariations function can now take a list of featureTags;
 similarly, the
   lib key 'com.github.fonttools.varLib.featureVarsFeatureTag' can now take
-a
-  comma-separateed string of feature tags (e.g. "salt,ss01") instead of a
-single tag (#3360).
-- [featureVars] Don't overwrite GSUB FeatureVariations, but append new
-records to it
-  for features which are not already there. But raise VarLibError if the
-feature tag
-  already has feature variations associated with it (#3363).
-- [varLib] Added addGSUBFeatureVariations function to add GSUB Feature
-Variations
-  to an existing variable font from rules defined in a DesignSpace document
-(#3362).
-- [varLib.interpolatable] Various bugfixes and rendering improvements. In
-particular,
-  a new test for "underweight" glyphs. The new test reports quite a few
-false-positives
-  though. Please send feedback.
-
-4.45.1 (released 2023-11-23)
-----------------------------
-
-- [varLib.interpolatable] Various bugfixes and improvements, better
-reporting, reduced
-  false positives.
-- [ttGlyphSet] Added option to not recalculate glyf bounds (#3348).
-
-4.45.0 (released 2023-11-20)
-----------------------------
-
-- [varLib.interpolatable] Vastly improved algorithms. Also available now is
-``--pdf
-  and --html`` options to generate a PDF or HTML report of the
-interpolation issues.
-  The PDF/HTML report showcases the problematic masters, the interpolated
-broken
