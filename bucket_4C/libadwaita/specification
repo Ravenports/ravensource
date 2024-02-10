@@ -16,8 +16,8 @@ DIST_SUBDIR=		gnome4
 
 SPKGS[standard]=	complete primary dev nls docs demo
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	INTROSPECTION
+OPTIONS_STANDARD=	INTROSPECTION
 
 LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
@@ -35,7 +35,14 @@ BUILD_DEPENDS=		appstream:dev:standard
 			vala:single:standard
 BUILDRUN_DEPENDS=	appstream:primary:standard
 
-USES=			meson pkgconfig
-GNOME_COMPONENTS=	glib gtk4 introspection
+EXRUN[demo]=		primary
 
-MESON_ARGS=		-Dgtk_doc=true
+USES=			meson pkgconfig
+GNOME_COMPONENTS=	glib gtk4
+
+[INTROSPECTION].DESCRIPTION=		Build with introspection
+[INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
+[INTROSPECTION].CONFIGURE_ARGS_ON=	-Dgtk_doc=true
+					-Dintrospection=enabled
+[INTROSPECTION].CONFIGURE_ARGS_OFF=	-Dgtk_doc=false
+					-Dintrospection=disabled
