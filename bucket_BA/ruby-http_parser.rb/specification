@@ -1,19 +1,19 @@
-DEF[PORTVERSION]=	2.6.13
+DEF[PORTVERSION]=	0.8.0
 # ------------------------------------------------------------------------
 
-NAMEBASE=		ruby-zeitwerk
+NAMEBASE=		ruby-http_parser.rb
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v30 v31 v32
-SDESC[v30]=		Implements constant autoloading (v30)
-SDESC[v31]=		Implements constant autoloading (v31)
-SDESC[v32]=		Implements constant autoloading (v32)
-HOMEPAGE=		https://github.com/fxn/zeitwerk
+SDESC[v30]=		http-parser bindings (v30)
+SDESC[v31]=		http-parser bindings (v31)
+SDESC[v32]=		http-parser bindings (v32)
+HOMEPAGE=		https://github.com/tmm1/http_parser.rb
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		zeitwerk-2.6.13.gem:main
+DISTFILE[1]=		http_parser.rb-0.8.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v30]=		single
@@ -30,8 +30,14 @@ VOPTS[v32]=		RUBY30=OFF RUBY31=OFF RUBY32=ON
 # => "MIT"
 
 # Requirements according to gem specification:
+#   rake-compiler (~> 1.0, development)
+#   rspec (~> 3, development)
+#   json (~> 2.1, development)
+#   benchmark_suite (~> 1.0, development)
+#   ffi (~> 1.9, development)
+#   yajl-ruby (~> 1.3, development)
 
-DISTNAME=		zeitwerk-${PORTVERSION}
+DISTNAME=		http_parser.rb-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY30].USES_ON=			gem:v30

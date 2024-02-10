@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.0.0
+DEF[PORTVERSION]=	2.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-faraday-em_http
@@ -13,7 +13,7 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		faraday-em_http-1.0.0.gem:main
+DISTFILE[1]=		faraday-em_http-2.0.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v30]=		single
@@ -30,22 +30,25 @@ VOPTS[v32]=		RUBY30=OFF RUBY31=OFF RUBY32=ON
 # => "MIT"
 
 # Requirements according to gem specification:
-#   em-http-request (>= 1.1, development)
-#   faraday (~> 1.0, development)
+#   em-http-request (>= 1.1)
+#   faraday (~> 2.0)
 #   bundler (~> 2.0, development)
 #   rake (~> 13.0, development)
 #   rspec (~> 3.0, development)
 #   simplecov (~> 0.19.0, development)
 #   multipart-parser (~> 0.1.1, development)
 #   webmock (~> 3.4, development)
-#   rubocop (~> 0.91.1, development)
-#   rubocop-packaging (~> 0.5, development)
-#   rubocop-performance (~> 1.0, development)
 
 DISTNAME=		faraday-em_http-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY30].USES_ON=			gem:v30
+[RUBY30].BUILDRUN_DEPENDS_ON=		ruby-em-http-request:single:v30
+					ruby-faraday:single:v30
 [RUBY31].USES_ON=			gem:v31
+[RUBY31].BUILDRUN_DEPENDS_ON=		ruby-em-http-request:single:v31
+					ruby-faraday:single:v31
 [RUBY32].USES_ON=			gem:v32
+[RUBY32].BUILDRUN_DEPENDS_ON=		ruby-em-http-request:single:v32
+					ruby-faraday:single:v32
 
