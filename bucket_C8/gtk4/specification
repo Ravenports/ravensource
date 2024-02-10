@@ -5,6 +5,7 @@ DEF[SOVERSION]=		1.1200.5
 
 NAMEBASE=		gtk4
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11_toolkits
 VARIANTS=		standard
 SDESC[standard]=	Gimp Toolkit for X11 GUI
@@ -18,10 +19,11 @@ DIST_SUBDIR=		gnome4
 
 SPKGS[standard]=	complete primary dev man nls icon_cache
 
-# introspection still segfaults, so keep it disabled for now
+# introspection used to cause segfaults; the tk builds with it enabled now
+# but an actual gtk4 application needs to be runtime checked.
 OPTIONS_AVAILABLE=	CUPS BROADWAY FFMPEG INTROSPECTION
 OPTIONS_STANDARD=	CUPS BROADWAY FFMPEG INTROSPECTION
-OPT_ON[all]=		CUPS BROADWAY FFMPEG
+OPT_ON[all]=		CUPS BROADWAY FFMPEG INTROSPECTION
 
 FPC_EQUIVALENT=		x11-toolkits/gtk40
 
