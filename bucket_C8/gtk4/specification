@@ -19,11 +19,11 @@ DIST_SUBDIR=		gnome4
 
 SPKGS[standard]=	complete primary dev man nls icon_cache
 
-# introspection used to cause segfaults; the tk builds with it enabled now
-# but an actual gtk4 application needs to be runtime checked.
+# When introspection option is set, the build segfaults on DragonFly
+# Until this is understood and fixed, leave it off by default
 OPTIONS_AVAILABLE=	CUPS BROADWAY FFMPEG INTROSPECTION
 OPTIONS_STANDARD=	CUPS BROADWAY FFMPEG INTROSPECTION
-OPT_ON[all]=		CUPS BROADWAY FFMPEG INTROSPECTION
+OPT_ON[all]=		CUPS BROADWAY FFMPEG
 
 FPC_EQUIVALENT=		x11-toolkits/gtk40
 
