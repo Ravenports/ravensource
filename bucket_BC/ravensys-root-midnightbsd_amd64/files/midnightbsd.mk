@@ -35,6 +35,7 @@ Usr_Bin_MidnightBSD=\
 	/usr/bin/comm \
 	/usr/bin/cut \
 	/usr/bin/dirname \
+	/usr/bin/elfctl \
 	/usr/bin/env \
 	/usr/bin/false \
 	/usr/bin/head \
