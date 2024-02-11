@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.12.25
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-bottle
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v11 v12
+SDESC[v11]=		WSGI-framework for small web applications (3.11)
+SDESC[v12]=		WSGI-framework for small web applications (3.12)
+HOMEPAGE=		http://bottlepy.org/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/bb/1f/5977ea88c6a3df6199db97d320e5da816d415d1eb75a987a1f6823d5cc9d
+DISTFILE[1]=		bottle-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[v11]=		single
+SPKGS[v12]=		single
+
+OPTIONS_AVAILABLE=	PY311 PY312
+OPTIONS_STANDARD=	none
+VOPTS[v11]=		PY311=ON PY312=OFF
+VOPTS[v12]=		PY311=OFF PY312=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		bottle-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+
+
+[PY311].USES_ON=			python:v11,wheel
+[PY312].USES_ON=			python:v12,wheel
+

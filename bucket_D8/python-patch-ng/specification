@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	1.17.4
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-patch-ng
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v11 v12
+SDESC[v11]=		Library to parse and apply unified diffs (3.11)
+SDESC[v12]=		Library to parse and apply unified diffs (3.12)
+HOMEPAGE=		https://github.com/conan-io/python-patch
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/p/patch-ng
+DISTFILE[1]=		patch-ng-${PORTVERSION}.tar.gz:main
+
+SPKGS[v11]=		single
+SPKGS[v12]=		single
+
+OPTIONS_AVAILABLE=	PY311 PY312
+OPTIONS_STANDARD=	none
+VOPTS[v11]=		PY311=ON PY312=OFF
+VOPTS[v12]=		PY311=OFF PY312=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		patch-ng-${PORTVERSION}
+
+# install_requires extracted from setup.py
+
+
+[PY311].USES_ON=			python:v11,sutools
+[PY312].USES_ON=			python:v12,sutools
+
