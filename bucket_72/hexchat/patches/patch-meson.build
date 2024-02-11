@@ -1,4 +1,4 @@
---- meson.build.orig	2021-10-01 20:09:11 UTC
+--- meson.build.orig	2022-02-12 18:30:55 UTC
 +++ meson.build
 @@ -21,11 +21,21 @@ libcanberra_dep = dependency('libcanberr
  dbus_glib_dep = dependency('dbus-glib-1', required: get_option('dbus'))
@@ -22,7 +22,7 @@
  endif
  
  config_h = configuration_data()
-@@ -57,7 +67,7 @@ config_h.set_quoted('HEXCHATLIBDIR',
+@@ -58,7 +68,7 @@ config_h.set_quoted('HEXCHATLIBDIR',
    join_paths(get_option('prefix'), get_option('libdir'), 'hexchat/plugins')
  )
  
@@ -31,7 +31,7 @@
    config_h.set('HAVE_X509_GET_SIGNATURE_NID',
      cc.has_function('X509_get_signature_nid', dependencies: libssl_dep)
    )
-@@ -137,8 +147,6 @@ global_ldflags = []
+@@ -138,8 +148,6 @@ global_ldflags = []
  test_ldflags = [
    '-Wl,-z,relro',
    '-Wl,-z,now',
