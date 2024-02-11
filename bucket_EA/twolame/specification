@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	0.4.0
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		twolame
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		standard
+SDESC[standard]=	MPEG Audio Layer 2 encoder
+HOMEPAGE=		https://www.twolame.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/twolame/twolame/${PORTVERSION}
+DISTFILE[1]=		twolame-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary dev man docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libtwolame/twolame.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		audio/twolame
+
+BUILD_DEPENDS=		libsndfile:dev:standard
+BUILDRUN_DEPENDS=	libsndfile:primary:standard
+USES=			libtool pkgconfig
+
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
