@@ -6,6 +6,7 @@ DEF[SOVERSION]=		12.6.5
 
 NAMEBASE=		libidn
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		dns
 VARIANTS=		standard
 SDESC[standard]=	Internationalized Domain Name support library
@@ -16,7 +17,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/libidn
 DISTFILE[1]=		libidn-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[standard]=	complete primary dev nls man tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,13 +30,15 @@ LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		dns/libidn
 
+EXRUN[tools]=		primary
+
 USES=			gmake iconv libtool makeinfo perl:build pkgconfig
 			gettext cpe mbsdfix
 CPE_VENDOR=		gnu
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-nls
 INSTALL_TARGET=		install-strip
-INFO=			primary:libidn
+INFO=			man:libidn
 SOVERSION=		${SOVERSION}
 
 post-patch:
