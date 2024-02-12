@@ -1,6 +1,6 @@
---- makefile.in.orig	2018-07-08 10:56:19 UTC
+--- makefile.in.orig	2024-01-15 16:06:06 UTC
 +++ makefile.in
-@@ -311,19 +311,13 @@ install-doc : $(DOCDIR) $(HELPDIR)
+@@ -314,23 +314,13 @@ install-doc : $(DOCDIR) $(HELPDIR)
  	$(SHELL) -c '\
  		( umask 022; \
  		  cd $(srcdir) && \
@@ -8,59 +8,53 @@
 +		  $(TAR_UP) CH* PROBLEMS README docs samples test ) | \
  		( umask 022; \
  		  cd $(DOCDIR) && \
- 		  chmod -R u+w . && $(TAR_DOWN) )'
+ 		  chmod -R u+w . && $(TAR_DOWN) )';\
  	$(SHELL) -c 'if test "$(COMPRESS_PROG)" != "" ; then \
  		(cd $(DOCDIR) && $(COMPRESS_PROG) -f docs/CHANGES*.[0-9] docs/*.announce ) \
- 	fi'
--	$(SHELL) -c 'for name in COPYING COPYHEADER; do \
--		cd $(HELPDIR) && rm -f $$name ;\
--		r= ;\
--		test "$(LN_S)" = "ln -s" || r=`echo $(helpdir)|sed -e "s%[^/]\+%..%g" -e "s%^.%%"`; \
--		cd $(HELPDIR) && ( $(LN_S) $$r$(docdir)/$$name . || cp $(DOCDIR)/$$name . );\
--		done'
- 	-$(SHELL) -c 'case `id|sed -e "s/(.*//"` in uid=0) chown -R root $(DOCDIR);; esac'
- 
- # HPUX 'sed' does not seem to like '=' as pattern delimiter.
-@@ -391,14 +385,10 @@ install-help : $(CFG2HTML) help_files.se
+ 	fi';\
+-	echo "Copying copyright files";\
+-	$(SHELL) -c '\
+-		r="`$(SHELL) $(scripts_dir)/relpath.sh "$(docdir)" "$(helpdir)"`"; \
+-		echo ".. docdir:   $(docdir)"; \
+-		echo ".. helpdir:  $(helpdir)"; \
+-		echo ".. relative: $$r"; \
+-		for name in COPYING COPYHEADER; do \
+-		cd $(HELPDIR) && rm -f $$name;\
+-		cd $(HELPDIR) && ( $(LN_S) $$r/$$name $$name || cp $(DOCDIR)/$$name . );\
+-		done';\
+ 	$(SHELL) -c '\
+ 		i=`id|sed -e "s/(.*//"`; \
+ 		echo "Checking owner: $$i"; \
+@@ -409,7 +399,7 @@ install-help : htmlized_cfg help_files.s
  		if test "$(COMPRESS_PROG)" != "" ; then \
  			(cd $(HELPDIR) && $(COMPRESS_PROG) $$files ) \
  		fi'
--	@echo Updating $(sysconfdir)/lynx.cfg
--	@ECHO_CC@$(SHELL) -c \
--	'if test -f $(SYSCONFDIR)/lynx.cfg ; then \
--		mv $(SYSCONFDIR)/lynx.cfg $(SYSCONFDIR)/lynx.tmp ; \
--	else \
--		cp $(srcdir)/lynx.cfg $(SYSCONFDIR)/lynx.tmp ; \
--	fi'
--	@echo Updating $(sysconfdir)/lynx.cfg to point to installed help-files
-+	@echo Updating $(sysconfdir)/lynx.cfg.sample
-+	cp $(srcdir)/lynx.cfg $(SYSCONFDIR)/lynx.tmp
-+	rm -f $(SYSCONFDIR)/lynx.cfg.sample
-+	@echo Updating $(sysconfdir)/lynx.cfg.sample to point to installed help-files
- 	@ECHO_CC@sed	-e '/^HELPFILE:http/s!^!#!' \
- 		-e '/^#HELPFILE:file/s!#!!' \
- 		$(SYSCONFDIR)/lynx.tmp | \
-@@ -406,8 +396,8 @@ install-help : $(CFG2HTML) help_files.se
+-	@echo "Updating $(sysconfdir)/lynx.cfg"
++	@echo "Updating $(sysconfdir)/lynx.cfg.sample"
+ 	@ECHO_CC@$(SHELL) -c \
+ 	'if test -f $(SYSCONFDIR)/lynx.cfg ; then \
+ 		mv $(SYSCONFDIR)/lynx.cfg $(SYSCONFDIR)/lynx.tmp ; \
+@@ -424,8 +414,8 @@ install-help : htmlized_cfg help_files.s
  	$(SHELL) $(scripts_dir)/cfg_path.sh lynx_doc  $(helpdir) | \
  	sed	-e '/^HELPFILE:file/s!$$!$(COMPRESS_EXT)!' \
  		-e '/^HELPFILE:file/s!$(COMPRESS_EXT)$(COMPRESS_EXT)$$!$(COMPRESS_EXT)!' \
--		>$(SYSCONFDIR)/lynx.cfg
--	chmod 644 $(SYSCONFDIR)/lynx.cfg
-+		>$(SYSCONFDIR)/lynx.cfg.sample
-+	chmod 644 $(SYSCONFDIR)/lynx.cfg.sample
- 	-rm -f $(SYSCONFDIR)/lynx.tmp
+-		>$(SYSCONFDIR)/lynx.cfg ;\
+-	chmod 644 $(SYSCONFDIR)/lynx.cfg ;\
++		>$(SYSCONFDIR)/lynx.cfg.sample ;\
++	chmod 644 $(SYSCONFDIR)/lynx.cfg.sample ;\
+ 	rm -f $(SYSCONFDIR)/lynx.tmp
  
  LYHelp.h : help_files.sed $(srcdir)/LYHelp.hin
-@@ -430,10 +420,10 @@ cfg_defs.h : $(scripts_dir)/cfg_defs.sh
- 	$(SHELL) -c 'SHELL=$(SHELL) $(SHELL) $(scripts_dir)/cfg_defs.sh $(srcdir)'
+@@ -448,10 +438,10 @@ cfg_defs.h : $(scripts_dir)/cfg_defs.sh
+ 	@$(SHELL) -c 'SHELL=$(SHELL) FGREP="$(FGREP)" $(SHELL) $(scripts_dir)/cfg_defs.sh $(srcdir)'
  
  install-cfg : $(SYSCONFDIR)
--	@$(SHELL) $(scripts_dir)/install-cfg.sh "$(INSTALL_DATA)" $(srcdir)/lynx.cfg $(SYSCONFDIR)/lynx.cfg
-+	@$(SHELL) $(scripts_dir)/install-cfg.sh "$(INSTALL_DATA)" $(srcdir)/lynx.cfg $(SYSCONFDIR)/lynx.cfg.sample
+-	@$(SHELL) -c 'SHELL=$(SHELL) EGREP="$(EGREP)" FGREP="$(FGREP)" $(SHELL) $(scripts_dir)/install-cfg.sh "$(INSTALL_DATA)" $(srcdir)/lynx.cfg $(SYSCONFDIR)/lynx.cfg'
++	@$(SHELL) -c 'SHELL=$(SHELL) EGREP="$(EGREP)" FGREP="$(FGREP)" $(SHELL) $(scripts_dir)/install-cfg.sh "$(INSTALL_DATA)" $(srcdir)/lynx.cfg $(SYSCONFDIR)/lynx.cfg.sample'
  
  install-lss : $(SYSCONFDIR)
 -	@$(SHELL) $(scripts_dir)/install-lss.sh "$(INSTALL_DATA)" $(srcdir)/samples/lynx.lss $(SYSCONFDIR)/lynx.lss
 +	@$(SHELL) $(scripts_dir)/install-lss.sh "$(INSTALL_DATA)" $(srcdir)/samples/lynx.lss $(SYSCONFDIR)/lynx.lss.sample
  
  uninstall ::
- @MSG_DIR_MAKE@	cd $(PO_DIR) && $(MAKE_RECUR) uninstall
+ @MSG_DIR_MAKE@	( cd $(PO_DIR) && $(MAKE_RECUR) uninstall )
