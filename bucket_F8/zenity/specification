@@ -1,4 +1,7 @@
 DEF[PORTVERSION]=	4.0.1
+# disable man page for now due to this issue:
+# help2man: can't get `--help-all' info from /construction/zenity/zenity-4.0.1/_build/src/zenity
+# Try `--no-discard-stderr' if option outputs to stderr
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		zenity
@@ -14,7 +17,8 @@ SITES[main]=		GNOME/zenity/${PORTVERSION:R}/
 DISTFILE[1]=		zenity-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome4
 
-SPKGS[standard]=	complete primary nls man
+SPKGS[standard]=	complete primary nls
+# man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -31,7 +35,7 @@ FPC_EQUIVALENT=		x11/zenity
 
 BUILD_DEPENDS=		appstream:dev:standard
 			harfbuzz:dev:standard
-			help2man:single:standard
+# #			help2man:single:standard
 			itstool:single:standard
 			libadwaita:dev:standard
 			libsoup:dev:standard
@@ -41,5 +45,6 @@ BUILDRUN_DEPENDS=	libadwaita:primary:standard
 
 USES=			meson pkgconfig gold
 GNOME_COMPONENTS=	gdkpixbuf gtk4
-MESON_ARGS=		-Dmanpage=true
-			-Dwebkitgtk=true
+MESON_ARGS=		-Dwebkitgtk=true
+			-Dmanpage=false
+# #			-Dmanpage=true
