@@ -1,4 +1,4 @@
---- ipmipower/ipmipower_connection.c.orig	2023-06-07 23:20:36 UTC
+--- ipmipower/ipmipower_connection.c.orig	2024-01-27 21:42:42 UTC
 +++ ipmipower/ipmipower_connection.c
 @@ -297,8 +297,12 @@ _connection_setup (struct ipmipower_conn
  

@@ -1,4 +1,4 @@
---- ipmidetectd/ipmidetectd.c.orig	2023-06-07 23:20:36 UTC
+--- ipmidetectd/ipmidetectd.c.orig	2024-01-27 21:42:42 UTC
 +++ ipmidetectd/ipmidetectd.c
 @@ -263,12 +263,16 @@ _nodes_setup (void)
        ai_hints.ai_flags = (AI_V4MAPPED | AI_ADDRCONFIG);

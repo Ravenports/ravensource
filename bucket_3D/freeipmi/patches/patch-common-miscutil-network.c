@@ -1,4 +1,4 @@
---- common/miscutil/network.c.orig	2023-06-07 23:20:36 UTC
+--- common/miscutil/network.c.orig	2024-01-27 21:42:42 UTC
 +++ common/miscutil/network.c
 @@ -39,6 +39,8 @@
  #include <errno.h>
