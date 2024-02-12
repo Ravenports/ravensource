@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.4.3
+DEF[PORTVERSION]=	0.5.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		anet
@@ -51,4 +51,5 @@ pre-configure:
 	${REINPLACE_CMD} -e 's|"dynamic"|"static-pic"|' ${WRKSRC}/anet.gpr
 
 post-install:
-	(cd ${WRKSRC}/doc && ${COPYTREE_SHARE} html ${STAGEDIR}${STD_DOCDIR})
+	(cd ${WRKSRC}/obj && \
+		${COPYTREE_SHARE} html ${STAGEDIR}${STD_DOCDIR})
