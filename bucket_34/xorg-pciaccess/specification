@@ -1,11 +1,10 @@
-DEF[PORTVERSION]=	0.17
+DEF[PORTVERSION]=	0.18
 DEF[XNAME]=		pciaccess
 DEF[ALTNAME]=		libpciaccess
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xorg-${XNAME}
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		x11
 VARIANTS=		standard
 SDESC[standard]=	Generic PCI access library
@@ -16,8 +15,8 @@ DOWNLOAD_GROUPS=	main patch
 SITES[main]=		XORG/individual/lib
 SITES[patch]=		https://gitlab.freedesktop.org/xorg/lib/libpciaccess/-/commit/
 DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.xz:main
-DISTFILE[2]=		7f7d12445c3c.patch:patch
-DISTFILE[3]=		4ee437c98c2d.patch:patch
+# DISTFILE[2]=		7f7d12445c3c.patch:patch
+# DISTFILE[3]=		4ee437c98c2d.patch:patch
 DIST_SUBDIR=		xorg/pciaccess
 
 SPKGS[standard]=	complete primary dev
@@ -33,12 +32,11 @@ LICENSE_SCHEME=		solo
 
 BUILDRUN_DEPENDS=	pciids:single:standard
 
-PATCHFILES=		2 3
-PATCHFILES_STRIP=	-p1
+# PATCHFILES=		2 3
+# PATCHFILES_STRIP=	-p1
 
-USES=			libtool
+USES=			meson zlib
 DISTNAME=		${ALTNAME}-${PORTVERSION}
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-pciids-path={{LOCALBASE}}/share/pciids
+MESON_ARGS=		-Dpci-ids={{LOCALBASE}}/share/pciids
 INSTALL_TARGET=		install-strip
 FPC_EQUIVALENT=		devel/libpciaccess
