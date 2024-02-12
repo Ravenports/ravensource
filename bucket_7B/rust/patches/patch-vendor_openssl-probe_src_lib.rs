@@ -1,4 +1,4 @@
---- vendor/openssl-probe/src/lib.rs.orig	2023-11-13 05:29:17 UTC
+--- vendor/openssl-probe/src/lib.rs.orig	2023-12-21 18:27:08 UTC
 +++ vendor/openssl-probe/src/lib.rs
 @@ -26,10 +26,7 @@ fn cert_dirs_iter() -> impl Iterator<Ite
      [

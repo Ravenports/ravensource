@@ -1,6 +1,6 @@
---- src/bootstrap/builder.rs.orig	2023-11-13 04:10:51 UTC
-+++ src/bootstrap/builder.rs
-@@ -1645,12 +1645,13 @@ impl<'a> Builder<'a> {
+--- src/bootstrap/src/core/builder.rs.orig	2023-12-21 16:55:28 UTC
++++ src/bootstrap/src/core/builder.rs
+@@ -1678,12 +1678,13 @@ impl<'a> Builder<'a> {
                  && !target.contains("xous")
              {
                  rustflags.arg("-Clink-args=-Wl,-z,origin");

@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	1.74.1
-DEF[RUSTX_BOOT]=	1.73.0
+DEF[PORTVERSION]=	1.75.0
+DEF[RUSTX_BOOT]=	1.74.1
 DEF[CURL_VERSION]=	7.87.0
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 # ----------------------------------------------------------------------------
@@ -125,7 +125,7 @@ pre-configure:
 	# Use rpath suitable for libz et al.
 	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|g' \
 		-e 's|@OPENSSLLIB@|${OPENSSLLIB}|g' \
-		${WRKSRC}/src/bootstrap/builder.rs
+		${WRKSRC}/src/bootstrap/src/core/builder.rs
 	# Disable vendor checksums
 	${REINPLACE_CMD} -e 's/"files":{[^}]*}/"files":{}/' \
 		 ${WRKSRC}/vendor/*/.cargo-checksum.json
