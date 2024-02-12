@@ -1,11 +1,11 @@
---- makefile.orig	2023-02-06 10:31:30 UTC
+--- makefile.orig	2023-11-23 08:23:57 UTC
 +++ makefile
-@@ -2,14 +2,13 @@
+@@ -2,14 +2,14 @@
  # Makefile for UNIX - unrar
  
  # Linux using GCC
 -CXX=c++
--CXXFLAGS=-O2 -Wno-logical-op-parentheses -Wno-switch -Wno-dangling-else
+-CXXFLAGS=-march=native -O2 -std=c++11 -Wno-logical-op-parentheses -Wno-switch -Wno-dangling-else
 -LIBFLAGS=-fPIC
 -DEFINES=-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DRAR_SMP
 -STRIP=strip
@@ -13,16 +13,17 @@
 -LDFLAGS=-pthread
 -DESTDIR=/usr
 +CXX?=		c++
-+CXXFLAGS?=	-O2 -Wno-logical-op-parentheses -Wno-switch -Wno-dangling-else
++CXXFLAGS?=	-march=native -O2 -std=c++11 -Wno-logical-op-parentheses -Wno-switch -Wno-dangling-else
++LIBFLAGS=	-fPIC
 +DEFINES=	-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DRAR_SMP
 +STRIP?=		strip
 +AR?=		ar
 +LDFLAGS+=	-pthread
 +DESTDIR?=	/usr
  
- # Linux using LCC
- #CXX=lcc
-@@ -128,9 +127,16 @@ OBJECTS=rar.o strlist.o strfn.o pathfn.o
+ ##########################
+ 
+@@ -27,9 +27,16 @@ OBJECTS=rar.o strlist.o strfn.o pathfn.o
  	rijndael.o getbits.o sha1.o sha256.o blake2s.o hash.o extinfo.o extract.o volume.o \
  	list.o find.o unpack.o headers.o threadpool.o rs16.o cmddata.o ui.o
  
@@ -39,7 +40,7 @@
  all:	unrar
  
  install:	install-unrar
-@@ -156,12 +162,10 @@ sfx:	$(OBJECTS)
+@@ -55,12 +62,10 @@ sfx:	$(OBJECTS)
  	$(LINK) -o default.sfx $(LDFLAGS) $(OBJECTS)
  	$(STRIP) default.sfx
  
