@@ -1,4 +1,4 @@
---- deps/cares/cares.gyp.orig	2024-01-14 13:42:06 UTC
+--- deps/cares/cares.gyp.orig	2024-01-22 12:13:20 UTC
 +++ deps/cares/cares.gyp
 @@ -182,6 +182,10 @@
            'include_dirs': [ 'config/freebsd' ],

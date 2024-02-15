@@ -1,4 +1,4 @@
---- deps/v8/src/libsampler/sampler.cc.orig	2024-01-14 13:42:09 UTC
+--- deps/v8/src/libsampler/sampler.cc.orig	2024-01-22 12:13:23 UTC
 +++ deps/v8/src/libsampler/sampler.cc
 @@ -500,7 +500,7 @@ void SignalHandler::FillRegisterState(vo
    state->fp =
