@@ -1,4 +1,4 @@
---- cli/cppcheckexecutor.cpp.orig	2024-01-23 12:30:57 UTC
+--- cli/cppcheckexecutor.cpp.orig	2024-02-03 20:57:54 UTC
 +++ cli/cppcheckexecutor.cpp
 @@ -51,6 +51,7 @@
  #include <sstream> // IWYU pragma: keep
