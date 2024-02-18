@@ -26,6 +26,14 @@ https://zopeinterface.readthedocs.io/en/latest/
  Changes
 =========
 
+6.2 (2024-02-16)
+================
+
+- Add preliminary support for Python 3.13 as of 3.13a3.
+
+- Add support to use the pipe (``|``) syntax for ``typing.Union``.
+  (`#280 <https://github.com/zopefoundation/zope.interface/issues/280>`_)
+
 6.1 (2023-10-05)
 ================
 
@@ -90,11 +98,3 @@ https://zopeinterface.readthedocs.io/en/latest/
   was previously printed as ``<implementedBy builtins.list> is now
   shown as classImplements(list, IMutableSequence, IIterable)``. See
   [issue 236].
-
-- Make ``Declaration.__add__`` (as in ``implementedBy(Cls) +
-  ISomething``) try harder to preserve a consistent resolution order
-  when the two arguments share overlapping pieces of the interface
-  inheritance hierarchy. Previously, the right hand side was always
-  put at the end of the resolution order, which could easily produce
-  invalid orders. See [issue 193
- ].
