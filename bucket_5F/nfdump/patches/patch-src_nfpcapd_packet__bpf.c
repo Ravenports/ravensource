@@ -1,4 +1,4 @@
---- src/nfpcapd/packet_bpf.c.orig	2023-04-23 12:29:32 UTC
+--- src/nfpcapd/packet_bpf.c.orig	2023-09-02 11:27:28 UTC
 +++ src/nfpcapd/packet_bpf.c
 @@ -37,6 +37,7 @@
  #endif
