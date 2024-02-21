@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.20
+DEF[PORTVERSION]=	1.20.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ed
@@ -13,19 +13,20 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/ed
 DISTFILE[1]=		ed-${PORTVERSION}.tar.lz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"__cplusplus"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/ed.h
 LICENSE_SCHEME=		solo
 
-USES=			makeinfo
+USES=			makeinfo gmake
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip install-man
-INFO=			single:ed
+INFO=			man:ed
+SINGLE_JOB=		yes
