@@ -1,4 +1,4 @@
---- gcr/test-secure-memory.c.orig	2022-10-11 20:30:13 UTC
+--- gcr/test-secure-memory.c.orig	2024-01-06 09:47:26 UTC
 +++ gcr/test-secure-memory.c
 @@ -54,6 +54,10 @@ find_non_zero (gpointer mem, gsize len)
  static gsize
