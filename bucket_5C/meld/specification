@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.22.0
+DEF[PORTVERSION]=	3.22.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		meld
@@ -43,6 +43,7 @@ USES=			meson gettext:build shebangfix pkgconfig python
 GNOME_COMPONENTS=	pygobject intltool gtk3 gtksourceview4
 SHEBANG_FILES=		bin/meld
 GLIB_SCHEMAS=		org.gnome.meld.gschema.xml
+MESON_ARGS=		-Dbyte-compile=false
 
 post-extract:
 	# hide setup.py which triggers USES=python
@@ -57,6 +58,8 @@ pre-configure:
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/meld*
+	# manually compile (problems with stage paths when meson does it)
+	(cd ${STAGEDIR} && ${PYTHON_CMD} -m compileall -d / . ||:)
 	# autoplist python files
 	${FIND} ${STAGEDIR}${PREFIX}/lib ! -type d | \
 		${SED} -e 's,^${STAGEDIR}${PREFIX}/,,' \
