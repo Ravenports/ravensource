@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	5.2.1
+DEF[PORTVERSION]=	5.2.2
 DEF[SOVERSION]=		7.2.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		giflib
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	GIF image format library and tools
@@ -15,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/giflib
 DISTFILE[1]=		giflib-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev man
+SPKGS[standard]=	complete primary dev man tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -35,3 +34,7 @@ CPE_PRODUCT=		giflib
 SINGLE_JOB=		yes
 MAKE_ARGS=		PREFIX={{PREFIX}}
 SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/g*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgif.so
