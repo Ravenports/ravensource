@@ -1,4 +1,4 @@
---- src/lib/OpenEXR/ImfSystemSpecific.h.orig	2023-09-25 02:46:06 UTC
+--- src/lib/OpenEXR/ImfSystemSpecific.h.orig	2024-02-13 23:32:43 UTC
 +++ src/lib/OpenEXR/ImfSystemSpecific.h
 @@ -47,6 +47,8 @@ EXRAllocAligned (size_t size, size_t ali
  #elif defined(__INTEL_COMPILER) || defined(__ICL) || defined(__ICC) ||         \
