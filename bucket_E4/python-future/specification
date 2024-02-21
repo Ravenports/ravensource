@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.18.3
+DEF[PORTVERSION]=	1.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-future
@@ -11,8 +11,8 @@ HOMEPAGE=		https://python-future.org
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/f/future
-DISTFILE[1]=		future-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/da/71/ae30dadffc90b9006d77af76b393cb9dfbfc9629f339fc1574a1c52e6806
+DISTFILE[1]=		future-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
 SPKGS[v12]=		single
@@ -26,13 +26,13 @@ VOPTS[v12]=		PY311=OFF PY312=ON
 # MIT
 
 GENERATED=		yes
-DISTNAME=		future-${PORTVERSION}
+DISTNAME=		future-${PORTVERSION}.dist-info
 
-# install_requires extracted from setup.py
+# Requires-Dist extracted from wheel metadata
 
 
-[PY311].USES_ON=			python:v11,sutools
-[PY312].USES_ON=			python:v12,sutools
+[PY311].USES_ON=			python:v11,wheel
+[PY312].USES_ON=			python:v12,wheel
 
 USES=			cpe
 CPE_VENDOR=		pythoncharmers

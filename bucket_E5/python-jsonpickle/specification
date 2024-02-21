@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.0.2
+DEF[PORTVERSION]=	3.0.3
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-jsonpickle
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/jsonpickle/jsonpickle
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/d3/25/6e0a450430b7aa194b0f515f64820fc619314faa289458b7dfca4a026114
+SITES[main]=		PYPIWHL/d6/be/c11f919e02622f15b942c0f2867dff6c3836ce32cd617627dda73bc9e5b7
 DISTFILE[1]=		jsonpickle-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
@@ -31,23 +31,24 @@ DISTNAME=		jsonpickle-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 # importlib-metadata ; python_version < "3.8"
 # sphinx ; extra == 'docs'
-# jaraco.packaging (>=3.2) ; extra == 'docs'
-# rst.linker (>=1.9) ; extra == 'docs'
-# pytest (!=3.7.3,>=3.5) ; extra == 'testing'
-# pytest-checkdocs (>=1.2.3) ; extra == 'testing'
-# pytest-flake8 (>=1.1.1) ; extra == 'testing'
-# pytest-black-multipy ; extra == 'testing'
+# jaraco.packaging >=9 ; extra == 'docs'
+# rst.linker >=1.9 ; extra == 'docs'
+# furo ; extra == 'docs'
+# pytest !=3.7.3,>=3.5 ; extra == 'testing'
+# pytest-checkdocs >=1.2.3 ; extra == 'testing'
 # pytest-cov ; extra == 'testing'
+# pytest-enabler >=1.0.1 ; extra == 'testing'
+# pytest-ruff ; extra == 'testing'
 # ecdsa ; extra == 'testing'
 # feedparser ; extra == 'testing'
-# gmpy2 ; extra == 'testing'
 # numpy ; extra == 'testing'
 # pandas ; extra == 'testing'
 # pymongo ; extra == 'testing'
 # scikit-learn ; extra == 'testing'
+# simplejson ; extra == 'testing'
 # sqlalchemy ; extra == 'testing'
-# simplejson ; extra == 'testing.libs'
-# ujson ; extra == 'testing.libs'
+# ujson ; extra == 'testing'
+# gmpy2 ; (python_version < "3.12") and extra == 'testing'
 
 [PY311].USES_ON=			python:v11,wheel
 [PY312].USES_ON=			python:v12,wheel
