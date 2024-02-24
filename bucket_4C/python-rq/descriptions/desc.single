@@ -1,3 +1,100 @@
+RQ (_Redis Queue_) is a simple Python library for queueing jobs and
+processing
+them in the background with workers.  It is backed by Redis and it is
+designed
+to have a low barrier to entry.  It should be integrated in your web stack
+easily.
 
-rq is a simple, lightweight, library for creating background jobs, and
-processing them.
+RQ requires Redis >= 3.0.0.
+
+[Build status]
+[PyPI]
+[Coverage]
+[![Code style: black]](https://github.com/psf/black)
+
+Full documentation can be found [here][d].
+
+## Support RQ
+
+If you find RQ useful, please consider supporting this project via
+[Tidelift].
+
+## Getting started
+
+First, run a Redis server, of course:
+
+```console
+$ redis-server
+```
+
+To put jobs on queues, you don't have to do anything special, just define
+your typically lengthy or blocking function:
+
+```python
+import requests
+
+def count_words_at_url(url):
+    """Just an example function that's called async."""
+    resp = requests.get(url)
+    return len(resp.text.split())
+```
+
+You do use the excellent [requests][r] package, don't you?
+
+Then, create an RQ queue:
+
+```python
+from redis import Redis
+from rq import Queue
+
+queue = Queue(connection=Redis())
+```
+
+And enqueue the function call:
+
+```python
+from my_module import count_words_at_url
+job = queue.enqueue(count_words_at_url, 'http://nvie.com')
+```
+
+Scheduling jobs are also similarly easy:
+
+```python
+# Schedule job to run at 9:15, October 10th
+job = queue.enqueue_at(datetime(2019, 10, 10, 9, 15), say_hello)
+
+# Schedule job to run in 10 seconds
+job = queue.enqueue_in(timedelta(seconds=10), say_hello)
+```
+
+Retrying failed jobs is also supported:
+
+```python
+from rq import Retry
+
+# Retry up to 3 times, failed job will be requeued immediately
+queue.enqueue(say_hello, retry=Retry(max=3))
+
+# Retry up to 3 times, with configurable intervals between retries
+queue.enqueue(say_hello, retry=Retry(max=3, interval=[10, 30, 60]))
+```
+
+For a more complete example, refer to the [docs][d].  But this is the
+essence.
+
+### The worker
+
+To start executing enqueued function calls in the background, start a
+worker
+from your project's directory:
+
+```console
+$ rq worker --with-scheduler
+*** Listening for work on default
+Got count_words_at_url('http://nvie.com') from default
+Job result = 818
+*** Listening for work on default
+```
+
+That's about it.
+
