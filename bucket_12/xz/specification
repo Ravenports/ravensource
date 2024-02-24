@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.4.6
+DEF[PORTVERSION]=	5.6.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xz
@@ -10,7 +10,7 @@ HOMEPAGE=		https://tukaani.org/xz/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/lzmautils
+SITES[main]=		https://github.com/tukaani-project/xz/releases/download/v${PORTVERSION}/
 DISTFILE[1]=		xz-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	complete primary tools dev man docs examples
@@ -54,9 +54,7 @@ post-install:
 	${RM} ${STAGEDIR}${STD_DOCDIR}/COPYING*
 	# mv examples to their place
 	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}/new
-	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}/old
 	${MV} ${STAGEDIR}${STD_DOCDIR}/examples/* ${STAGEDIR}${STD_EXAMPLESDIR}/new
-	${MV} ${STAGEDIR}${STD_DOCDIR}/examples_old/*  ${STAGEDIR}${STD_EXAMPLESDIR}/old
 	${RMDIR} ${STAGEDIR}${STD_DOCDIR}/exam*
 
 do-test:
