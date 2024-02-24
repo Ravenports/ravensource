@@ -145,9 +145,6 @@ LIBXSLT_PYTHON_REVISION=	0
 # ruby
 # ------------------------------------------------------------------------
 
-RUBY_2.7_REVISION=		0
-RUBY_2.7_PATCHLEVEL=		0
-
 RUBY_3.0_REVISION=		0
 RUBY_3.0_PATCHLEVEL=		0
 
@@ -156,6 +153,9 @@ RUBY_3.1_PATCHLEVEL=		0
 
 RUBY_3.2_REVISION=		0
 RUBY_3.2_PATCHLEVEL=		0
+
+RUBY_3.3_REVISION=		0
+RUBY_3.3_PATCHLEVEL=		0
 
 # ------------------------------------------------------------------------
 # gnome
