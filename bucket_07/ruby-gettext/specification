@@ -4,10 +4,10 @@ DEF[PORTVERSION]=	3.4.9
 NAMEBASE=		ruby-gettext
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
-VARIANTS=		v30 v31 v32
-SDESC[v30]=		L10N localization library and tools (v30)
+VARIANTS=		v31 v32 v33
 SDESC[v31]=		L10N localization library and tools (v31)
 SDESC[v32]=		L10N localization library and tools (v32)
+SDESC[v33]=		L10N localization library and tools (v33)
 HOMEPAGE=		https://ruby-gettext.github.io/
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -16,15 +16,15 @@ SITES[main]=		RUBYGEMS/
 DISTFILE[1]=		gettext-3.4.9.gem:main
 DIST_SUBDIR=		ruby
 
-SPKGS[v30]=		single
 SPKGS[v31]=		single
 SPKGS[v32]=		single
+SPKGS[v33]=		single
 
-OPTIONS_AVAILABLE=	RUBY30 RUBY31 RUBY32
+OPTIONS_AVAILABLE=	RUBY31 RUBY32 RUBY33
 OPTIONS_STANDARD=	none
-VOPTS[v30]=		RUBY30=ON RUBY31=OFF RUBY32=OFF
-VOPTS[v31]=		RUBY30=OFF RUBY31=ON RUBY32=OFF
-VOPTS[v32]=		RUBY30=OFF RUBY31=OFF RUBY32=ON
+VOPTS[v31]=		RUBY31=ON RUBY32=OFF RUBY33=OFF
+VOPTS[v32]=		RUBY31=OFF RUBY32=ON RUBY33=OFF
+VOPTS[v33]=		RUBY31=OFF RUBY32=OFF RUBY33=ON
 
 # License listed inside gem specification
 # => "Ruby", "LGPL-3.0+"
@@ -45,11 +45,6 @@ VOPTS[v32]=		RUBY30=OFF RUBY31=OFF RUBY32=ON
 DISTNAME=		gettext-${PORTVERSION}
 GENERATED=		yes
 
-[RUBY30].USES_ON=			gem:v30
-[RUBY30].BUILDRUN_DEPENDS_ON=		ruby-erubi:single:v30
-					ruby-locale:single:v30
-					ruby-prime:single:v30
-					ruby-text:single:v30
 [RUBY31].USES_ON=			gem:v31
 [RUBY31].BUILDRUN_DEPENDS_ON=		ruby-erubi:single:v31
 					ruby-locale:single:v31
@@ -60,6 +55,11 @@ GENERATED=		yes
 					ruby-locale:single:v32
 					ruby-prime:single:v32
 					ruby-text:single:v32
+[RUBY33].USES_ON=			gem:v33
+[RUBY33].BUILDRUN_DEPENDS_ON=		ruby-erubi:single:v33
+					ruby-locale:single:v33
+					ruby-prime:single:v33
+					ruby-text:single:v33
 
 USES=			shebangfix
 SHEBANG_FILES=		samples/*.rb

@@ -29,9 +29,9 @@ $namebase_queue = array();
 $port_data = array();
 $truncated_summaries = array();
 $ravensource_directory = "";
-$VA = 30;	# single point of change when ruby
-$VB = 31;	# series are changed in ravenports
-$VC = 32;
+$VA = 31;	# single point of change when ruby
+$VB = 32;	# series are changed in ravenports
+$VC = 33;
 $RUBY_VERSION_A = -1;
 $RUBY_VERSION_B = -1;
 $RUBY_VERSION_C = -1;
@@ -215,9 +215,9 @@ function determine_variants($namebase, $minversion) {
 #        if (meets_minimum_version_requirement($V, $minversion)) {
 #            array_push($variants, "v" . $V);
 #        }
-# The lone exception is racc, which is needed for ruby26 only
+# The lone exception is racc, which is needed for ruby33+
          if ($namebase == "racc") {
-             if ($V == $VA) {
+             if ($V == "33") {
                  array_push($variants, "v" . $V);
              }
          } else {

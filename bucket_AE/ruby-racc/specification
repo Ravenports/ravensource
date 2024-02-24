@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	1.7.3
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-racc
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v33
+SDESC[v33]=		Racc is a LALR(1) parser generator (v33)
+HOMEPAGE=		https://github.com/ruby/racc
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		racc-1.7.3.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v33]=		single
+
+OPTIONS_AVAILABLE=	RUBY33
+OPTIONS_STANDARD=	none
+VOPTS[v33]=		RUBY33=ON
+
+# License listed inside gem specification
+# => "Ruby", "BSD-2-Clause"
+
+# Requirements according to gem specification:
+
+DISTNAME=		racc-${PORTVERSION}
+GENERATED=		yes
+
+[RUBY33].USES_ON=			gem:v33
+

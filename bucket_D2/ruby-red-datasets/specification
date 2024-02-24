@@ -4,10 +4,10 @@ DEF[PORTVERSION]=	0.1.7
 NAMEBASE=		ruby-red-datasets
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
-VARIANTS=		v30 v31 v32
-SDESC[v30]=		Common datasets such as Iris and CIFAR-100 (v30)
+VARIANTS=		v31 v32 v33
 SDESC[v31]=		Common datasets such as Iris and CIFAR-100 (v31)
 SDESC[v32]=		Common datasets such as Iris and CIFAR-100 (v32)
+SDESC[v33]=		Common datasets such as Iris and CIFAR-100 (v33)
 HOMEPAGE=		https://github.com/red-data-tools/red-datasets
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -16,15 +16,15 @@ SITES[main]=		RUBYGEMS/
 DISTFILE[1]=		red-datasets-0.1.7.gem:main
 DIST_SUBDIR=		ruby
 
-SPKGS[v30]=		single
 SPKGS[v31]=		single
 SPKGS[v32]=		single
+SPKGS[v33]=		single
 
-OPTIONS_AVAILABLE=	RUBY30 RUBY31 RUBY32
+OPTIONS_AVAILABLE=	RUBY31 RUBY32 RUBY33
 OPTIONS_STANDARD=	none
-VOPTS[v30]=		RUBY30=ON RUBY31=OFF RUBY32=OFF
-VOPTS[v31]=		RUBY30=OFF RUBY31=ON RUBY32=OFF
-VOPTS[v32]=		RUBY30=OFF RUBY31=OFF RUBY32=ON
+VOPTS[v31]=		RUBY31=ON RUBY32=OFF RUBY33=OFF
+VOPTS[v32]=		RUBY31=OFF RUBY32=ON RUBY33=OFF
+VOPTS[v33]=		RUBY31=OFF RUBY32=OFF RUBY33=ON
 
 # License listed inside gem specification
 # => "MIT"
@@ -42,10 +42,6 @@ VOPTS[v32]=		RUBY30=OFF RUBY31=OFF RUBY32=ON
 DISTNAME=		red-datasets-${PORTVERSION}
 GENERATED=		yes
 
-[RUBY30].USES_ON=			gem:v30
-[RUBY30].BUILDRUN_DEPENDS_ON=		ruby-csv:single:v30
-					ruby-rexml:single:v30
-					ruby-rubyzip:single:v30
 [RUBY31].USES_ON=			gem:v31
 [RUBY31].BUILDRUN_DEPENDS_ON=		ruby-csv:single:v31
 					ruby-rexml:single:v31
@@ -54,4 +50,8 @@ GENERATED=		yes
 [RUBY32].BUILDRUN_DEPENDS_ON=		ruby-csv:single:v32
 					ruby-rexml:single:v32
 					ruby-rubyzip:single:v32
+[RUBY33].USES_ON=			gem:v33
+[RUBY33].BUILDRUN_DEPENDS_ON=		ruby-csv:single:v33
+					ruby-rexml:single:v33
+					ruby-rubyzip:single:v33
 

@@ -4,10 +4,10 @@ DEF[PORTVERSION]=	6.3.0
 NAMEBASE=		ruby-haml
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
-VARIANTS=		v30 v31 v32
-SDESC[v30]=		HTML Abstraction Markup Language (v30)
+VARIANTS=		v31 v32 v33
 SDESC[v31]=		HTML Abstraction Markup Language (v31)
 SDESC[v32]=		HTML Abstraction Markup Language (v32)
+SDESC[v33]=		HTML Abstraction Markup Language (v33)
 HOMEPAGE=		https://haml.info
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -16,15 +16,15 @@ SITES[main]=		RUBYGEMS/
 DISTFILE[1]=		haml-6.3.0.gem:main
 DIST_SUBDIR=		ruby
 
-SPKGS[v30]=		single
 SPKGS[v31]=		single
 SPKGS[v32]=		single
+SPKGS[v33]=		single
 
-OPTIONS_AVAILABLE=	RUBY30 RUBY31 RUBY32
+OPTIONS_AVAILABLE=	RUBY31 RUBY32 RUBY33
 OPTIONS_STANDARD=	none
-VOPTS[v30]=		RUBY30=ON RUBY31=OFF RUBY32=OFF
-VOPTS[v31]=		RUBY30=OFF RUBY31=ON RUBY32=OFF
-VOPTS[v32]=		RUBY30=OFF RUBY31=OFF RUBY32=ON
+VOPTS[v31]=		RUBY31=ON RUBY32=OFF RUBY33=OFF
+VOPTS[v32]=		RUBY31=OFF RUBY32=ON RUBY33=OFF
+VOPTS[v33]=		RUBY31=OFF RUBY32=OFF RUBY33=ON
 
 # License listed inside gem specification
 # => "MIT"
@@ -50,10 +50,6 @@ VOPTS[v32]=		RUBY30=OFF RUBY31=OFF RUBY32=ON
 DISTNAME=		haml-${PORTVERSION}
 GENERATED=		yes
 
-[RUBY30].USES_ON=			gem:v30
-[RUBY30].BUILDRUN_DEPENDS_ON=		ruby-temple:single:v30
-					ruby-thor:single:v30
-					ruby-tilt:single:v30
 [RUBY31].USES_ON=			gem:v31
 [RUBY31].BUILDRUN_DEPENDS_ON=		ruby-temple:single:v31
 					ruby-thor:single:v31
@@ -62,6 +58,10 @@ GENERATED=		yes
 [RUBY32].BUILDRUN_DEPENDS_ON=		ruby-temple:single:v32
 					ruby-thor:single:v32
 					ruby-tilt:single:v32
+[RUBY33].USES_ON=			gem:v33
+[RUBY33].BUILDRUN_DEPENDS_ON=		ruby-temple:single:v33
+					ruby-thor:single:v33
+					ruby-tilt:single:v33
 
 USES=			cpe shebangfix
 CPE_VENDOR=		haml
