@@ -1167,8 +1167,6 @@ share/examples/swig/python/import_template/foo.i
 share/examples/swig/python/import_template/runme.py
 share/examples/swig/python/import_template/spam.h
 share/examples/swig/python/import_template/spam.i
-share/examples/swig/python/libffi/Makefile
-share/examples/swig/python/libffi/example.i
 share/examples/swig/python/multimap/Makefile
 share/examples/swig/python/multimap/example.c
 share/examples/swig/python/multimap/example.dsp
@@ -1659,6 +1657,7 @@ share/examples/swig/test-suite/cpp11_rvalue_reference2.i
 share/examples/swig/test-suite/cpp11_rvalue_reference3.i
 share/examples/swig/test-suite/cpp11_rvalue_reference_move.i
 share/examples/swig/test-suite/cpp11_shared_ptr_const.i
+share/examples/swig/test-suite/cpp11_shared_ptr_crtp_upcast.i
 share/examples/swig/test-suite/cpp11_shared_ptr_nullptr_in_containers.i
 share/examples/swig/test-suite/cpp11_shared_ptr_overload.i
 share/examples/swig/test-suite/cpp11_shared_ptr_template_upcast.i
@@ -1676,6 +1675,7 @@ share/examples/swig/test-suite/cpp11_strongly_typed_enumerations_simple.i
 share/examples/swig/test-suite/cpp11_template_double_brackets.i
 share/examples/swig/test-suite/cpp11_template_explicit.i
 share/examples/swig/test-suite/cpp11_template_parameters_decltype.i
+share/examples/swig/test-suite/cpp11_template_templated_methods.i
 share/examples/swig/test-suite/cpp11_template_typedefs.i
 share/examples/swig/test-suite/cpp11_thread_local.i
 share/examples/swig/test-suite/cpp11_type_aliasing.i
@@ -1852,6 +1852,7 @@ share/examples/swig/test-suite/file_test.i
 share/examples/swig/test-suite/final_c.i
 share/examples/swig/test-suite/fragments.i
 share/examples/swig/test-suite/friends.i
+share/examples/swig/test-suite/friends_operator_overloading.i
 share/examples/swig/test-suite/friends_template.i
 share/examples/swig/test-suite/funcptr.i
 share/examples/swig/test-suite/funcptr_cpp.i
@@ -2285,6 +2286,7 @@ share/examples/swig/test-suite/template_default_inherit.i
 share/examples/swig/test-suite/template_default_pointer.i
 share/examples/swig/test-suite/template_default_qualify.i
 share/examples/swig/test-suite/template_default_vw.i
+share/examples/swig/test-suite/template_duplicate.i
 share/examples/swig/test-suite/template_empty_inherit.i
 share/examples/swig/test-suite/template_enum.i
 share/examples/swig/test-suite/template_enum_ns_inherit.i
@@ -2722,14 +2724,20 @@ share/examples/swig/test-suite/errors/cpp_scope_bad.i
 share/examples/swig/test-suite/errors/cpp_scope_bad.stderr
 share/examples/swig/test-suite/errors/cpp_shared_ptr.i
 share/examples/swig/test-suite/errors/cpp_shared_ptr.stderr
+share/examples/swig/test-suite/errors/cpp_smartptr_feature.i
+share/examples/swig/test-suite/errors/cpp_smartptr_feature.stderr
 share/examples/swig/test-suite/errors/cpp_template_class_repeat.i
 share/examples/swig/test-suite/errors/cpp_template_class_repeat.stderr
+share/examples/swig/test-suite/errors/cpp_template_duplicate.i
+share/examples/swig/test-suite/errors/cpp_template_duplicate.stderr
 share/examples/swig/test-suite/errors/cpp_template_duplicate_names.i
 share/examples/swig/test-suite/errors/cpp_template_duplicate_names.stderr
 share/examples/swig/test-suite/errors/cpp_template_explicit_instantiation.i
 share/examples/swig/test-suite/errors/cpp_template_explicit_instantiation.stderr
 share/examples/swig/test-suite/errors/cpp_template_friend.i
 share/examples/swig/test-suite/errors/cpp_template_friend.stderr
+share/examples/swig/test-suite/errors/cpp_template_missing_base.i
+share/examples/swig/test-suite/errors/cpp_template_missing_base.stderr
 share/examples/swig/test-suite/errors/cpp_template_nargs.i
 share/examples/swig/test-suite/errors/cpp_template_nargs.stderr
 share/examples/swig/test-suite/errors/cpp_template_not.i
@@ -3121,6 +3129,7 @@ share/examples/swig/test-suite/java/cpp11_std_unordered_set_runme.java
 share/examples/swig/test-suite/java/cpp11_strongly_typed_enumerations_runme.java
 share/examples/swig/test-suite/java/cpp11_strongly_typed_enumerations_simple_runme.java
 share/examples/swig/test-suite/java/cpp11_template_parameters_decltype_runme.java
+share/examples/swig/test-suite/java/cpp11_template_templated_methods_runme.java
 share/examples/swig/test-suite/java/cpp11_template_typedefs_runme.java
 share/examples/swig/test-suite/java/cpp11_thread_local_runme.java
 share/examples/swig/test-suite/java/cpp11_type_aliasing_runme.java
@@ -4104,6 +4113,7 @@ share/examples/swig/test-suite/php/cpp17_director_string_view_runme.php
 share/examples/swig/test-suite/php/cpp17_string_view_runme.php
 share/examples/swig/test-suite/php/cpp20_spaceship_operator_runme.php
 share/examples/swig/test-suite/php/cpp_basic_runme.php
+share/examples/swig/test-suite/php/cpp_enum_runme.php
 share/examples/swig/test-suite/php/cpp_static_runme.php
 share/examples/swig/test-suite/php/default_args_runme.php
 share/examples/swig/test-suite/php/director_abstract_runme.php
@@ -4333,6 +4343,7 @@ share/examples/swig/test-suite/python/extend_variable_runme.py
 share/examples/swig/test-suite/python/extern_c_runme.py
 share/examples/swig/test-suite/python/file_test_runme.py
 share/examples/swig/test-suite/python/final_c_runme.py
+share/examples/swig/test-suite/python/friends_operator_overloading_runme.py
 share/examples/swig/test-suite/python/friends_runme.py
 share/examples/swig/test-suite/python/funcptr_cpp_runme.py
 share/examples/swig/test-suite/python/functors_runme.py
@@ -4685,6 +4696,7 @@ share/examples/swig/test-suite/ruby/li_cstring_runme.rb
 share/examples/swig/test-suite/ruby/li_factory_runme.rb
 share/examples/swig/test-suite/ruby/li_math_runme.rb
 share/examples/swig/test-suite/ruby/li_std_auto_ptr_runme.rb
+share/examples/swig/test-suite/ruby/li_std_containers_int_runme.rb
 share/examples/swig/test-suite/ruby/li_std_containers_overload_runme.rb
 share/examples/swig/test-suite/ruby/li_std_deque_runme.rb
 share/examples/swig/test-suite/ruby/li_std_functors_runme.rb
@@ -4960,6 +4972,7 @@ share/examples/swig/test-suite/tcl/enum_thorough_runme.tcl
 share/examples/swig/test-suite/tcl/import_nomodule_runme.tcl
 share/examples/swig/test-suite/tcl/imports_runme.tcl
 share/examples/swig/test-suite/tcl/integers_runme.tcl
+share/examples/swig/test-suite/tcl/li_carrays_runme.tcl
 share/examples/swig/test-suite/tcl/li_constraints_runme.tcl
 share/examples/swig/test-suite/tcl/li_std_auto_ptr_runme.tcl
 share/examples/swig/test-suite/tcl/li_std_string_runme.tcl
