@@ -29,15 +29,15 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		www/libmicrohttpd
 
 BUILD_DEPENDS=		gnutls:dev:standard
-			libgcrypt:dev:standard
 BUILDRUN_DEPENDS=	gnutls:primary:standard
-			libgcrypt:primary:standard
 
 USES=			cpe libtool makeinfo mbsdfix
 CPE_VENDOR=		gnu
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-https
 			--disable-examples
+			--disable-tools
+			--enable-https
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 INFO=			man:libmicrohttpd
