@@ -1,4 +1,4 @@
---- scribus/third_party/pgf/PGFplatform.h.orig	2022-01-23 16:16:18 UTC
+--- scribus/third_party/pgf/PGFplatform.h.orig	2024-01-07 17:07:05 UTC
 +++ scribus/third_party/pgf/PGFplatform.h
 @@ -336,7 +336,7 @@ inline OSError SetFPos(HANDLE hFile, int
  //-------------------------------------------------------------------------------
