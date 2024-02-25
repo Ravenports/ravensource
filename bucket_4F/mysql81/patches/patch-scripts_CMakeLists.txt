@@ -1,4 +1,4 @@
---- scripts/CMakeLists.txt.orig	2023-10-12 11:40:36 UTC
+--- scripts/CMakeLists.txt.orig	2023-12-14 14:52:51 UTC
 +++ scripts/CMakeLists.txt
 @@ -213,11 +213,7 @@ IF(MY_COMPILER_IS_GNU_OR_CLANG)
    STRING(REGEX REPLACE "-std=c..[0-9]+" "" CXXFLAGS "${CXXFLAGS}")
@@ -38,7 +38,7 @@
    SET(RPATH_OPTION " -R$pkglibdir")
  ENDIF()
  
-@@ -339,6 +330,8 @@ MACRO(EXTRACT_LINK_LIBRARIES target var)
+@@ -349,6 +340,8 @@ MACRO(EXTRACT_LINK_LIBRARIES target var)
            SET(${var} "${${var}}-L${dir} " )
          ENDIF()
          SET(${var} "${${var}}-l${lib} " )
@@ -47,7 +47,7 @@
        ELSE()
          SET(${var} "${${var}}-l${lib} " )
        ENDIF()
-@@ -365,17 +358,6 @@ SET(CONFIG_CLIENT_LIBS "${CLIENT_LIBS}")
+@@ -375,17 +368,6 @@ SET(CONFIG_CLIENT_LIBS "${CLIENT_LIBS}")
  SET(CONFIG_LIBS_PRIVATE "${CLIENT_LIBS}")
  SET(CONFIG_REQUIRES_PRIVATE "")
  
@@ -65,7 +65,7 @@
  
  MESSAGE(STATUS "CONFIG_CLIENT_LIBS ${CONFIG_CLIENT_LIBS}")
  MESSAGE(STATUS "CONFIG_LIBS_PRIVATE ${CONFIG_LIBS_PRIVATE}")
-@@ -441,7 +423,7 @@ ELSE()
+@@ -451,7 +433,7 @@ ELSE()
    FOREACH(file ${BIN_SCRIPTS})
      IF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${file}.sh)
        CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/${file}.sh

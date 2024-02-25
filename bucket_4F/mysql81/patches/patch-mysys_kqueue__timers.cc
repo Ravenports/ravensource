@@ -3,7 +3,7 @@ $NetBSD: patch-mysys_kqueue__timers.cc,v 1.1 2021/05/13 15:25:20 jdolecek Exp $
 * support pre NetBSD 10 __intptr_t udata type
 * Fix for systems whcich do not define EVFILT_USER
 
---- mysys/kqueue_timers.cc.orig	2023-10-12 11:40:36 UTC
+--- mysys/kqueue_timers.cc.orig	2023-12-14 14:52:51 UTC
 +++ mysys/kqueue_timers.cc
 @@ -40,6 +40,18 @@
  #include "mysys_err.h"
@@ -46,7 +46,7 @@ $NetBSD: patch-mysys_kqueue__timers.cc,v 1.1 2021/05/13 15:25:20 jdolecek Exp $
    EV_SET(&kev, 0, EVFILT_USER, EV_ADD, 0, 0, 0);
 +#endif
  
-   if (kevent(kq_fd, &kev, 1, NULL, 0, NULL) < 0) {
+   if (kevent(kq_fd, &kev, 1, nullptr, 0, nullptr) < 0) {
      my_message_local(ERROR_LEVEL, EE_FAILED_TO_CREATE_TIMER, errno);
 @@ -134,7 +150,9 @@ int my_timer_initialize(void) {
  void my_timer_deinitialize(void) {
@@ -56,7 +56,7 @@ $NetBSD: patch-mysys_kqueue__timers.cc,v 1.1 2021/05/13 15:25:20 jdolecek Exp $
    EV_SET(&kev, 0, EVFILT_USER, 0, NOTE_TRIGGER, 0, 0);
 +#endif
  
-   if (kevent(kq_fd, &kev, 1, NULL, 0, NULL) < 0)
+   if (kevent(kq_fd, &kev, 1, nullptr, 0, nullptr) < 0)
      my_message_local(ERROR_LEVEL,
 @@ -165,7 +183,7 @@ int my_timer_create(my_timer_t *timer) {
  int my_timer_set(my_timer_t *timer, unsigned long time) {
@@ -65,5 +65,5 @@ $NetBSD: patch-mysys_kqueue__timers.cc,v 1.1 2021/05/13 15:25:20 jdolecek Exp $
 -  EV_SET(&kev, timer->id, EVFILT_TIMER, EV_ADD | EV_ONESHOT, 0, time, timer);
 +  EV_SET(&kev, timer->id, EVFILT_TIMER, EV_ADD | EV_ONESHOT, 0, time,KEVENT_UDATA_TYPE_CAST timer);
  
-   return kevent(kq_fd, &kev, 1, NULL, 0, NULL);
+   return kevent(kq_fd, &kev, 1, nullptr, 0, nullptr);
  }
