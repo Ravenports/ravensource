@@ -1,6 +1,16 @@
---- lib/irrlichtmt/source/Irrlicht/CIrrDeviceLinux.cpp.orig	2023-04-18 01:34:38 UTC
+--- lib/irrlichtmt/source/Irrlicht/CIrrDeviceLinux.cpp.orig	2023-10-27 15:48:29 UTC
 +++ lib/irrlichtmt/source/Irrlicht/CIrrDeviceLinux.cpp
-@@ -686,7 +686,7 @@ EKEY_CODE CIrrDeviceLinux::getKeyCode(XE
+@@ -8,7 +8,9 @@
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <sys/types.h>
+ #include <sys/utsname.h>
++#include <unistd.h>
+ #include <time.h>
+ #include <locale.h>
+ #include "IEventReceiver.h"
+@@ -751,7 +753,7 @@ EKEY_CODE CIrrDeviceLinux::getKeyCode(XE
  	}
  	if (keyCode == 0)
  	{
