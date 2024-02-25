@@ -1,6 +1,7 @@
-DEF[PORTVERSION]=	1.8.2
+DEF[PORTVERSION]=	1.9.0
 DEF[GIT_TAG]=		znc-${PORTVERSION}
-DEF[CSOCKET_TAG]=	e8d9e0b
+DEF[CSOCKET_TAG]=	81d27e6
+DEF[CCTZ_TAG]=		49ba88f
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		znc
@@ -11,21 +12,23 @@ SDESC[standard]=	Advanced IRC bouncer
 HOMEPAGE=		https://wiki.znc.in/ZNC
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main csocket
+DOWNLOAD_GROUPS=	main csocket cctz
 SITES[main]=		GITHUB/znc:znc:${GIT_TAG}
 SITES[csocket]=		GITHUB/jimloco:Csocket:${CSOCKET_TAG}:third_party/Csocket
+SITES[cctz]=		GITHUB/google:cctz:${CCTZ_TAG}:third_party/cctz
 DISTFILE[1]=		generated:main
 DISTFILE[2]=		generated:csocket
-DF_INDEX=		1 2
+DISTFILE[3]=		generated:cctz
+DF_INDEX=		1 2 3
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		APACHE20:single
+LICENSE=		APACHE20:primary
 LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"ZNC_H"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/znc/znc.h
 LICENSE_SCHEME=		solo
@@ -39,27 +42,19 @@ BUILDRUN_DEPENDS=	icu:primary:standard
 
 USERS=			znc
 GROUPS=			znc
-USERGROUP_SPKG=		single
+USERGROUP_SPKG=		primary
 
-RC_SUBR=		znc:single
-SUB_FILES=		pkg-message-single
+RC_SUBR=		znc:primary
+SUB_FILES=		pkg-message-primary
 
-USES=			cpe gmake iconv pkgconfig ssl:openssl30 tcl perl python zlib
-			autoreconf:build
-MAKE_ENV=		V=1
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-cyrus
-			--enable-tcl
-			--enable-perl
-			--enable-python=python-{{PYTHON_VER}}
-			--with-tcl={{TCL_LIBDIR}}
-
-post-patch:
-	${REINPLACE_CMD} -e 's#/usr/local#${LOCALBASE}#' \
-		${WRKSRC}/configure.ac
-
-pre-configure:
-	(cd ${WRKSRC} && ${SH} ./autogen.sh)
+USES=			cpe cmake iconv pkgconfig ssl:openssl30 tcl perl python zlib
+CMAKE_ARGS=		-DCYRUS:BOOL=ON
+			-DZLIB:BOOL=ON
+			-DWANT_TCL:BOOL=TRUE
+			-DWANT_PERL:BOOL=TRUE
+			-DWANT_PYTHON:BOOL=TRUE
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/znc
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/znc
+	${FIND} ${STAGEDIR}${PREFIX}/lib -name "*.so" | ${XARGS} ${STRIP_CMD}
