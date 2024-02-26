@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.1.4
+DEF[PORTVERSION]=	3.2.1
 DEF[SOVERSION]=		3
 DEF[NAMEBASE]=		openssl30
 DEF[BASE]=		{{PREFIX}}/${NAMEBASE}
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.openssl.org/source/
 DISTFILE[1]=		openssl-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev man
+SPKGS[standard]=	complete primary dev man docs
 
 OPTIONS_AVAILABLE=	ASM EC SSE2 SSL3 I386 THREADS ZLIB
 OPTIONS_STANDARD=	ASM EC SSE2 SSL3 I386 THREADS ZLIB
@@ -100,3 +100,8 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${BASE}/lib/lib*.so
 	${STRIP_CMD} ${STAGEDIR}${BASE}/lib/engines-3/*.so
 	${STRIP_CMD} ${STAGEDIR}${BASE}/lib/ossl-modules/legacy.so
+
+	# Relocation documentation to standard
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/doc
+	${MV} ${STAGEDIR}${BASE}/share/doc/openssl ${STAGEDIR}${STD_DOCDIR}
+	${RM} -r ${STAGEDIR}${BASE}/share/doc

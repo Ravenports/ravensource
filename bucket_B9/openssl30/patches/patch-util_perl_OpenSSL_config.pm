@@ -1,6 +1,6 @@
---- util/perl/OpenSSL/config.pm.orig	2023-10-24 13:41:51 UTC
+--- util/perl/OpenSSL/config.pm.orig	2024-01-30 13:14:56 UTC
 +++ util/perl/OpenSSL/config.pm
-@@ -132,6 +132,7 @@ my $guess_patterns = [
+@@ -133,6 +133,7 @@ my $guess_patterns = [
            return "${hw}-whatever-netbsd";
        }
      ],
@@ -8,7 +8,7 @@
      [ 'NetBSD:.*',                  '${MACHINE}-whatever-netbsd' ],
      [ 'OpenBSD:.*',                 '${MACHINE}-whatever-openbsd' ],
      [ 'OpenUNIX:.*',                '${MACHINE}-unknown-OpenUNIX${VERSION}' ],
-@@ -756,20 +757,7 @@ EOF
+@@ -777,20 +778,7 @@ EOF
        [ 'sun4.*-.*-solaris2',     { target => "solaris-sparcv7" } ],
        [ '.*86.*-.*-solaris2',
          sub {
@@ -30,12 +30,12 @@
          }
        ],
        # We don't have any sunos target in Configurations/*.conf, so why here?
-@@ -786,6 +774,8 @@ EOF
-       [ 'sparc64-.*-.*bsd.*',     { target => "BSD-sparc64" } ],
+@@ -808,6 +796,8 @@ EOF
+       [ 'ia64-.*-openbsd.*',      { target => "BSD-nodef-ia64" } ],
        [ 'ia64-.*-.*bsd.*',        { target => "BSD-ia64" } ],
        [ 'x86_64-.*-dragonfly.*',  { target => "BSD-x86_64" } ],
 +      [ 'x86_64-.*-midnightbsd.*',{ target => "BSD-x86_64" } ],
 +      [ 'x86_64-.*-netbsd.*',     { target => "BSD-x86_64" } ],
+       [ 'amd64-.*-openbsd.*',     { target => "BSD-nodef-x86_64" } ],
        [ 'amd64-.*-.*bsd.*',       { target => "BSD-x86_64" } ],
        [ 'arm64-.*-.*bsd.*',       { target => "BSD-aarch64" } ],
-       [ 'armv6-.*-.*bsd.*',       { target => "BSD-armv4" } ],
