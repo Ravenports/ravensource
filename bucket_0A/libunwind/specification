@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.8.0
+DEF[PORTVERSION]=	1.8.1
 DEF[DISTVERSION]=	1.70
 DEF[ARCH]=		x86_64
 DEF[SOVERSION]=		8.1.0
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/libunwind:libunwind:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary dev man
+SPKGS[standard]=	complete primary dev man test
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -32,8 +32,9 @@ LICENSE_SCHEME=		solo
 ONLY_FOR_OPSYS=		freebsd linux
 # ONLY_FOR_ARCH=	amd64 i386
 
+EXRUN[test]=		primary
 
-USES=			autoreconf cpe libtool pkgconfig cclibs:primary
+USES=			autoreconf cpe libtool pkgconfig cclibs:primary c++:test
 CPE_VENDOR=		libunwind_project
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		ac_cv_path_LATEX2MAN=1
