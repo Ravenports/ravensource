@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	1.6
-DEF[SOVERSION]=		0.1.2
+DEF[PORTVERSION]=	1.7
+DEF[SOVERSION]=		0.2.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		npth
@@ -14,16 +14,16 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNUPG/npth
 DISTFILE[1]=		npth-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL21+:single
+LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING.LIB
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
-LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/npth.h
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/npth.h.in
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/npth
