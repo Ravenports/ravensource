@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.22.3
+DEF[PORTVERSION]=	1.22.5
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		dpkg
@@ -63,4 +63,4 @@ VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=amd64-raven-freebsd12
 post-install:
 	(cd ${STAGEDIR}/var/db/dpkg && ${TOUCH} available.sample \
 		diversions.sample statoverride.sample status.sample)
-	${FIND} ${STAGEDIR}${PREFIX}/share/man -type d -empty -delete
+	${FIND} ${STAGEDIR}${PREFIX}/share -type d -empty -delete
