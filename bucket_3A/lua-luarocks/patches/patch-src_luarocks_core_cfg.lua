@@ -1,6 +1,6 @@
---- src/luarocks/core/cfg.lua.orig	2022-12-08 20:13:08 UTC
+--- src/luarocks/core/cfg.lua.orig	2024-02-27 18:37:14 UTC
 +++ src/luarocks/core/cfg.lua
-@@ -36,6 +36,7 @@ local platform_order = {
+@@ -37,6 +37,7 @@ local platform_order = {
     "openbsd",
     "freebsd",
     "dragonfly",
@@ -8,7 +8,7 @@
     "linux",
     "macosx",
     "cygwin",
-@@ -151,6 +152,7 @@ local platform_sets = {
+@@ -156,6 +157,7 @@ local platform_sets = {
     freebsd = { unix = true, bsd = true, freebsd = true },
     openbsd = { unix = true, bsd = true, openbsd = true },
     dragonfly = { unix = true, bsd = true, dragonfly = true },
@@ -16,7 +16,7 @@
     solaris = { unix = true, solaris = true },
     windows = { windows = true, win32 = true },
     cygwin = { unix = true, cygwin = true },
-@@ -521,6 +523,8 @@ local function make_defaults(lua_version
+@@ -535,6 +537,8 @@ local function make_defaults(lua_version
        defaults.arch = "openbsd-"..target_cpu
     elseif platforms.netbsd then
        defaults.arch = "netbsd-"..target_cpu

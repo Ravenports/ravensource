@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.9.2
+DEF[PORTVERSION]=	3.10.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		lua-luarocks
@@ -59,9 +59,7 @@ post-build:
 		./build/config-${LUA_VER}.lua)
 
 post-install:
-	(cd ${WRKSRC} && make DESTDIR=${STAGEDIR} LUA_VERSION={{LUA_VER}} install-config)
-	${MV} ${STAGEDIR}${PREFIX}/etc/luarocks/config-\{\{LUA_VER\}\}.lua \
-		${STAGEDIR}${PREFIX}/etc/luarocks/config-${LUA_VER}.lua
+	(cd ${WRKSRC} && make DESTDIR=${STAGEDIR} LUA_VERSION=${LUA_VER} install-config)
 	${MV} ${STAGEDIR}${PREFIX}/bin/luarocks \
 		${STAGEDIR}${PREFIX}/bin/luarocks-${LUA_VER}
 	${MV} ${STAGEDIR}${PREFIX}/bin/luarocks-admin \
