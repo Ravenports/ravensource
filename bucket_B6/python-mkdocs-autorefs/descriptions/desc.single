@@ -12,6 +12,7 @@ Automatically link across pages in MkDocs.
 ## Installation
 
 With `pip`:
+
 ```bash
 python3 -m pip install mkdocs-autorefs
 ```
@@ -58,4 +59,42 @@ issue is somewhat exacerbated by the fact that [MkDocs supports only
 
 Note that this plugin's behavior is undefined when trying to link to a
 heading title that appears several times throughout the site. Currently it
-arbitrarily chooses one of the pages.
+arbitrarily chooses one of the pages. In such cases, use [Markdown anchors]
+to add unique aliases to your headings.
+
+### Markdown anchors
+
+The autorefs plugin offers a feature called "Markdown anchors". Such
+anchors can be added anywhere in a document, and linked to from any other
+place.
+
+The syntax is:
+
+```md
+[](){#id-of-the-anchor}
+```
+
+If you look closely, it starts with the usual syntax for a link, `[]
+extension. It sets an HTML id to the anchor element. The autorefs plugin
+simply gives a meaning to such anchors with ids. Note that raw HTML anchors
+like `<a id="foo"></a>` are not supported.
+
+The `attr_list` extension must be enabled for the Markdown anchors feature
+to work:
+
+```yaml
+# mkdocs.yml
+plugins:
+  - search
+  - autorefs
+
+markdown_extensions:
+  - attr_list
+```
+
+Now, you can add anchors to documents:
+
+```md
+Somewhere in a document.
+
+[](){#foobar-paragraph}

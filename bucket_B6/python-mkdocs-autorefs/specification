@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.5.0
+DEF[PORTVERSION]=	1.0.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-mkdocs-autorefs
@@ -11,7 +11,7 @@ HOMEPAGE=		https://mkdocstrings.github.io/autorefs
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/21/5f/fe501daf6f06b93d5d9dff4319c04ad6e74965348dff22465bdd53e5e2d9
+SITES[main]=		PYPIWHL/f6/01/d413c98335ed75d8c211afb91320811366d55fb0ef7f4b01b9ab19630eac
 DISTFILE[1]=		mkdocs_autorefs-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
@@ -30,12 +30,15 @@ DISTNAME=		mkdocs_autorefs-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # Markdown>=3.3
+# markupsafe>=2.0.1
 # mkdocs>=1.1
 
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-Markdown:single:v11
+					python-MarkupSafe:single:v11
 					python-mkdocs:single:v11
 [PY312].USES_ON=			python:v12,wheel
 [PY312].RUN_DEPENDS_ON=			python-Markdown:single:v12
+					python-MarkupSafe:single:v12
 					python-mkdocs:single:v12
 
