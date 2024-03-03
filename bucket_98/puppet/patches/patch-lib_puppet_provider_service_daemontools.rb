@@ -1,6 +1,6 @@
 Daemontools program locations
 
---- lib/puppet/provider/service/daemontools.rb.orig	2023-12-21 23:41:03 UTC
+--- lib/puppet/provider/service/daemontools.rb.orig	2024-02-22 01:02:28 UTC
 +++ lib/puppet/provider/service/daemontools.rb
 @@ -41,7 +41,7 @@ Puppet::Type.type(:service).provide :dae
  
@@ -15,8 +15,8 @@ Daemontools program locations
    # find the service dir on this node
    def servicedir
      unless @servicedir
--      ["/service", "/etc/service","/var/lib/svscan"].each do |path|
-+      ["/var/service", "/etc/service","/var/lib/svscan"].each do |path|
+-      ["/service", "/etc/service", "/var/lib/svscan"].each do |path|
++      ["/var/service", "/etc/service", "/var/lib/svscan"].each do |path|
          if Puppet::FileSystem.exist?(path)
            @servicedir = path
            break
