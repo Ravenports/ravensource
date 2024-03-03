@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.6.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-annotated-types
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v11 v12
+SDESC[v11]=		Reusable constraint types (3.11)
+SDESC[v12]=		Reusable constraint types (3.12)
+HOMEPAGE=		none
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/28/78/d31230046e58c207284c6b2c4e8d96e6d3cb4e52354721b944d3e1ee4aa5
+DISTFILE[1]=		annotated_types-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[v11]=		single
+SPKGS[v12]=		single
+
+OPTIONS_AVAILABLE=	PY311 PY312
+OPTIONS_STANDARD=	none
+VOPTS[v11]=		PY311=ON PY312=OFF
+VOPTS[v12]=		PY311=OFF PY312=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		annotated_types-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# typing-extensions>=4.0.0; python_version < '3.9'
+
+[PY311].USES_ON=			python:v11,wheel
+[PY312].USES_ON=			python:v12,wheel
+

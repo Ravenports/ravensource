@@ -1,0 +1,82 @@
+DEF[PORTVERSION]=	8.6.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-pywikibot
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v11 v12
+SDESC[v11]=		Python MediaWiki Bot Framework (3.11)
+SDESC[v12]=		Python MediaWiki Bot Framework (3.12)
+HOMEPAGE=		https://www.mediawiki.org/wiki/Manual:Pywikibot
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/27/2c/c99bdeec574f3a8d7f639c2cc3f8693399ede0266b306118c09c067dcc86
+DISTFILE[1]=		pywikibot-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[v11]=		single
+SPKGS[v12]=		single
+
+OPTIONS_AVAILABLE=	PY311 PY312
+OPTIONS_STANDARD=	none
+VOPTS[v11]=		PY311=ON PY312=OFF
+VOPTS[v12]=		PY311=OFF PY312=ON
+
+# License listed at PyPI
+# MIT License
+
+GENERATED=		yes
+DISTNAME=		pywikibot-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# mwparserfromhell >=0.5.2
+# requests <2.28.0,>=2.21.0 ; python_version < "3.7"
+# setuptools <59.7.0,>=40.8.0 ; python_version < "3.7"
+# setuptools >=48.0.0 ; python_version >= "3.10"
+# requests >=2.21.0 ; python_version >= "3.7"
+# setuptools >=40.8.0 ; python_version >= "3.7" and python_version < "3.10"
+# google >=1.7 ; extra == 'google'
+# pydot >=1.4.1 ; extra == 'graphviz'
+# Pillow >=8.1.2 ; (platform_machine != "AMD32") and extra == 'tkinter'
+# Pillow <10.0.0,>=8.1.2 ; (platform_machine == "AMD32") and extra == 'tkinter'
+# isbnlib ; extra == 'create_isbn_edition.py'
+# unidecode ; extra == 'create_isbn_edition.py'
+# sseclient <0.0.23,>=0.0.18 ; extra == 'eventstreams'
+# flake8 >=5.0.4 ; extra == 'flake8'
+# darglint ; extra == 'flake8'
+# pydocstyle >=6.2.3 ; extra == 'flake8'
+# flake8-bugbear !=23.1.14 ; extra == 'flake8'
+# flake8-coding ; extra == 'flake8'
+# flake8-comprehensions ; extra == 'flake8'
+# flake8-docstrings >=1.4.0 ; extra == 'flake8'
+# flake8-mock-x2 ; extra == 'flake8'
+# flake8-print >=4.0.1 ; extra == 'flake8'
+# flake8-quotes >=3.3.2 ; extra == 'flake8'
+# flake8-string-format ; extra == 'flake8'
+# flake8-tuple >=0.4.1 ; extra == 'flake8'
+# flake8-no-u-prefixed-strings >=0.2 ; extra == 'flake8'
+# pep8-naming <0.13.0,>=0.12.1 ; (python_version < "3.7") and extra == 'flake8'
+# pep8-naming >=0.13.3 ; (python_version >= "3.7") and extra == 'flake8'
+# hacking ; extra == 'hacking'
+# beautifulsoup4 >=4.7.1 ; extra == 'html'
+# fake-useragent <0.1.14 ; (python_version < "3.7") and extra == 'http'
+# fake-useragent >1.2.1 ; (python_version >= "3.7") and extra == 'http'
+# python-stdnum >=1.18 ; extra == 'isbn'
+# memento-client ==0.6.1 ; extra == 'memento'
+# mwoauth !=0.3.1,>=0.2.4 ; extra == 'mwoauth'
+# PyMySQL >=0.9.3 ; extra == 'mysql'
+# isbnlib ; extra == 'scripts'
+# unidecode ; extra == 'scripts'
+# memento-client ==0.6.1 ; extra == 'scripts'
+# memento-client ==0.6.1 ; extra == 'weblinkchecker.py'
+# wikitextparser >=0.47.0 ; extra == 'wikitextparser'
+
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-mwparserfromhell:single:v11
+					python-setuptools:single:v11
+					python-requests:single:v11
+[PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-mwparserfromhell:single:v12
+					python-setuptools:single:v12
+					python-requests:single:v12
+

@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	0.18.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-flake8-import-order
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v11 v12
+SDESC[v11]=		Import order validation tool (3.11)
+SDESC[v12]=		Import order validation tool (3.12)
+HOMEPAGE=		https://github.com/PyCQA/flake8-import-order
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/0c/52/9c5cb50a61f3d90f9d6c98ba67e3227f4057dc398cf664f3b56cb7c261f7
+DISTFILE[1]=		flake8_import_order-${PORTVERSION}-py2.py3-none-any.whl:main
+
+SPKGS[v11]=		single
+SPKGS[v12]=		single
+
+OPTIONS_AVAILABLE=	PY311 PY312
+OPTIONS_STANDARD=	none
+VOPTS[v11]=		PY311=ON PY312=OFF
+VOPTS[v12]=		PY311=OFF PY312=ON
+
+# License listed at PyPI
+# LGPLv3
+
+GENERATED=		yes
+DISTNAME=		flake8_import_order-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# pycodestyle
+# setuptools
+# enum34 ; python_version <= "2.7"
+
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-pycodestyle:single:v11
+					python-setuptools:single:v11
+[PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-pycodestyle:single:v12
+					python-setuptools:single:v12
+

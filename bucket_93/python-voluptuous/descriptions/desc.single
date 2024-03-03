@@ -1,0 +1,100 @@
+
+# CONTRIBUTIONS ONLY
+
+**What does this mean?** I do not have time to fix issues myself. The only
+way fixes or new features will be added is by people submitting PRs.
+
+**Current status:** Voluptuous is largely feature stable. There hasn't been
+a need to add new features in a while, but there are some bugs that should
+be fixed.
+
+**Why?** I no longer use Voluptuous personally (in fact I no longer
+regularly write Python code). Rather than leave the project in a limbo of
+people filing issues and wondering why they're not being worked on, I
+believe this notice will more clearly set expectations.
+
+# Voluptuous is a Python data validation library
+
+[image]
+[image]
+[image]
+[Test status]
+[Coverage status]
+[Gitter chat]
+
+Voluptuous, *despite* the name, is a Python data validation library. It
+is primarily intended for validating data coming into Python as JSON,
+YAML, etc.
+
+It has three goals:
+
+1. Simplicity.
+2. Support for complex data structures.
+3. Provide useful error messages.
+
+## Contact
+
+Voluptuous now has a mailing list! Send a mail to
+[<voluptuous@librelist.com>] to subscribe. Instructions
+will follow.
+
+You can also contact me directly via [email] or
+[Twitter].
+
+To file a bug, create a [new issue] on GitHub with a short example of how
+to replicate the issue.
+
+## Documentation
+
+The documentation is provided [here].
+
+## Contribution to Documentation
+
+Documentation is built using `Sphinx`. You can install it by
+
+    pip install -r requirements.txt
+
+For building `sphinx-apidoc` from scratch you need to set PYTHONPATH to
+`voluptuous/voluptuous` repository.
+
+The documentation is provided [here.]
+
+## Changelog
+
+See [CHANGELOG.md].
+
+## Why use Voluptuous over another validation library?
+
+**Validators are simple callables:**
+No need to subclass anything, just use a function.
+
+**Errors are simple exceptions:**
+A validator can just `raise Invalid(msg)` and expect the user to get
+useful messages.
+
+**Schemas are basic Python data structures:**
+Should your data be a dictionary of integer keys to strings?
+`{int: str}` does what you expect. List of integers, floats or
+strings? `[int, float, str]`.
+
+**Designed from the ground up for validating more than just forms:**
+Nested data structures are treated in the same way as any other
+type. Need a list of dictionaries? `[{}]`
+
+**Consistency:**
+Types in the schema are checked as types. Values are compared as
+values. Callables are called to validate. Simple.
+
+## Show me an example
+
+Twitter's [user search API] accepts
+query URLs like:
+
+```bash
+$ curl
+'https://api.twitter.com/1.1/users/search.json?q=python&per_page=20&page=1'
+```
+
+To validate this we might use a schema like:
+
+```pycon
