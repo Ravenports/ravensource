@@ -1,0 +1,69 @@
+DEF[PORTVERSION]=	1.1.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-build
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v11 v12
+SDESC[v11]=		Simple, correct Python build frontend (3.11)
+SDESC[v12]=		Simple, correct Python build frontend (3.12)
+HOMEPAGE=		https://build.pypa.io
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/4f/81/4849059526d02fcc9708e19346dd740e8b9edd2f0675ea7c38302d6729df
+DISTFILE[1]=		build-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[v11]=		single
+SPKGS[v12]=		single
+
+OPTIONS_AVAILABLE=	PY311 PY312
+OPTIONS_STANDARD=	none
+VOPTS[v11]=		PY311=ON PY312=OFF
+VOPTS[v12]=		PY311=OFF PY312=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		build-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# packaging >= 19.0
+# pyproject_hooks
+# colorama; os_name == "nt"
+# importlib-metadata >= 4.6; python_full_version < "3.10.2"
+# tomli >= 1.1.0; python_version < "3.11"
+# furo >= 2023.08.17 ; extra == "docs"
+# sphinx ~= 7.0 ; extra == "docs"
+# sphinx-argparse-cli >= 1.5 ; extra == "docs"
+# sphinx-autodoc-typehints >= 1.10 ; extra == "docs"
+# sphinx-issues >= 3.0.0 ; extra == "docs"
+# filelock >= 3 ; extra == "test"
+# pytest >= 6.2.4 ; extra == "test"
+# pytest-cov >= 2.12 ; extra == "test"
+# pytest-mock >= 2 ; extra == "test"
+# pytest-rerunfailures >= 9.1 ; extra == "test"
+# pytest-xdist >= 1.34 ; extra == "test"
+# wheel >= 0.36.0 ; extra == "test"
+# setuptools >= 42.0.0 ; extra == "test" and ( python_version < "3.10")
+# setuptools >= 56.0.0 ; extra == "test" and ( python_version == "3.10")
+# setuptools >= 56.0.0 ; extra == "test" and ( python_version == "3.11")
+# setuptools >= 67.8.0 ; extra == "test" and ( python_version >= "3.12")
+# importlib-metadata >= 5.1 ; extra == "typing"
+# mypy ~= 1.5.0 ; extra == "typing"
+# tomli ; extra == "typing"
+# typing-extensions >= 3.7.4.3 ; extra == "typing"
+# virtualenv >= 20.0.35 ; extra == "virtualenv"
+
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-packaging:single:v11
+					python-pyproject_hooks:single:v11
+					python-colorama:single:v11
+					python-importlib-metadata:single:v11
+[PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-packaging:single:v12
+					python-pyproject_hooks:single:v12
+					python-colorama:single:v12
+					python-importlib-metadata:single:v12
+
