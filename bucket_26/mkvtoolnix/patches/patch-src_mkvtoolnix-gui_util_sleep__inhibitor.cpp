@@ -5,7 +5,7 @@
  #elif defined(SYS_APPLE)
  # include "mkvtoolnix-gui/util/sleep_inhibitor/macos.h"
 -#elif defined(HAVE_QTDBUS)
-+#elif defined(SYS_LINUX)
++#elif defined(__linux__)
  # include "mkvtoolnix-gui/util/sleep_inhibitor/linux_logind.h"
  #endif
  
@@ -14,7 +14,7 @@
  #elif defined(SYS_APPLE)
    inhibitor->addInhibitor(std::make_shared<MacOSSleepInhibitor>());
 -#elif defined(HAVE_QTDBUS)
-+#elif defined(SYS_LINUX)
++#elif defined(__linux__)
    inhibitor->addInhibitor(std::make_shared<LogindSleepInhibitor>());
  #endif
  
