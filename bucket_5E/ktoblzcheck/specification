@@ -1,5 +1,7 @@
 DEF[PORTVERSION]=	1.57
 DEF[BANKDATE]=		20240108
+# %d.%m.%Y
+DEF[BANKDATE_FORM2]=	08.01.2024
 DEF[SOVERSION]=		1.5.26
 # ----------------------------------------------------------------------------
 
@@ -54,7 +56,7 @@ post-extract:
 .endfor
 
 pre-configure:
-	${REINPLACE_CMD} -e 's|%%BANKDATA_DATE%%|'"$$(date -j -f "%Y%m%d" "+%d.%m.%Y" ${BANKDATE})"'|' \
+	${REINPLACE_CMD} -e 's|%%BANKDATA_DATE%%|${BANKDATE_FORM2}|' \
 		${WRKSRC}/src/bankdata/CMakeLists.txt
 
 post-install:
