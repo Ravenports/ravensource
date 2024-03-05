@@ -1,0 +1,76 @@
+DEF[PORTVERSION]=	6.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kf6-kwindowsystem
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	KF6 library for accessing the windowing system
+HOMEPAGE=		https://api.kde.org/frameworks/kwindowsystem/html/index.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
+DISTFILE[1]=		kwindowsystem-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		kde6
+
+SPKGS[standard]=	complete primary dev nls
+
+OPTIONS_AVAILABLE=	EPOLLSHIM
+OPTIONS_STANDARD=	EPOLLSHIM
+OPT_ON[freebsd]=	EPOLLSHIM
+
+LICENSE=		LGPL21:primary
+			LGPL21+:primary
+			LGPL3:primary
+			MIT:primary
+LICENSE_FILE=		LGPL21:{{WRKSRC}}/LICENSES/LGPL-2.1-only.txt
+			LGPL21+:{{WRKSRC}}/LICENSES/LGPL-2.1-or-later.txt
+			LGPL3:{{WRKSRC}}/LICENSES/LGPL-3.0-only.txt
+			MIT:{{WRKSRC}}/LICENSES/MIT.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		x11/kf6-kwindowsystem
+
+BUILD_DEPENDS=		kf6-extra-cmake-modules:primary:standard
+			libffi:dev:standard
+			plasma-wayland-protocols:complete:standard
+			qt6-qtbase:dev:standard
+			qt6-qtdeclarative:dev:standard
+			qt6-qttools:dev:standard
+			qt6-qtwayland:dev:standard
+			wayland:dev:standard
+			wayland:tools:standard
+			wayland-protocols:single:standard
+BUILDRUN_DEPENDS=	libffi:primary:standard
+			qt6-qtbase:primary:standard
+			qt6-qtdeclarative:primary:standard
+			qt6-qttools:primary:standard
+			qt6-qtwayland:primary:standard
+			wayland:primary:standard
+
+USES=			cmake
+XORG_COMPONENTS=	x11 xcb xcb-util-keysyms xcb-util-wm xfixes
+DISTNAME=		kwindowsystem-${PORTVERSION}
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
+SOVERSION=		${PORTVERSION}
+
+[EPOLLSHIM].DESCRIPTION=		Platform depends on libepoll-shim
+[EPOLLSHIM].BUILDRUN_DEPENDS_ON=	libepoll-shim:primary:standard
+[EPOLLSHIM].BUILD_DEPENDS_ON=		libepoll-shim:dev:standard
+
+post-extract:
+	${ECHO} "Terms extracted from 'src/kwindowinfo.cpp':" > ${WRKDIR}/TERMS
+	${SED} -n '/include/!p;//q' ${WRKSRC}/src/kwindowinfo.cpp >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/kkeyserver.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/kkeyserver.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/platforms/xcb/netwm_p.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/platforms/xcb/netwm_p.h >> \
+		${WRKDIR}/TERMS
+
+post-stage:
+	(cd ${STAGEDIR}${PREFIX}/lib && ${STRIP_CMD} libKF6WindowSystem.so \
+		qt6/plugins/kf6/kwindowsystem/KF6WindowSystemX11Plugin.so \
+		qt6/plugins/kf6/kwindowsystem/KF6WindowSystemKWaylandPlugin.so \
+		qt6/qml/org/kde/kwindowsystem/libKWindowSystem.so)
