@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	4.2.0
+DEF[PORTVERSION]=	4.2.1
+DEF[SO_GCK]=		2.2.1
+DEF[SO_GCR]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gcr
@@ -73,6 +75,11 @@ VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 [INTROSPECTION].CONFIGURE_ARGS_OFF=	-Dintrospection=false
 					-Dgtk_doc=false
 					-Dvapi=false
+
+PLIST_SUB=		SO_GCK=${SO_GCK}
+			GCK_MAJOR=${SO_GCK:R:R}
+			SO_GCR=${SO_GCR}
+			GCR_MAJOR=${SO_GCR:R:R}
 
 pre-configure:
 	# timegm compat function untested by upstream in all cases
