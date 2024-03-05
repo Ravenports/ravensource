@@ -4,7 +4,7 @@ DEF[MINOR_VER]=		${PORTVERSION:R}
 
 NAMEBASE=		qt6-qtbase
 VERSION=		${PORTVERSION}
-REVISION=		3
+REVISION=		4
 KEYWORDS=		x11_toolkits devel
 VARIANTS=		standard
 SDESC[standard]=	Qt6 - QtBase component
@@ -18,8 +18,9 @@ DISTFILE[1]=		qtbase-everywhere-src-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	complete primary dev docs
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	X11
+OPTIONS_STANDARD=	X11
+OPT_ON[all]=		X11
 
 BUILD_DEPENDS=		evdev-proto:single:standard
 			elftoolchain:libraries:standard
@@ -50,7 +51,7 @@ USES=			qt6 zlib png sqlite jpeg pkgconfig execinfo
 			cpe cmake ninja zstd pcre2 freetype
 			clang
 XORG_COMPONENTS=	x11 xcb xcb-util xcb-util-image xcb-util-keysyms
-			xcb-util-wm xcb-render-util x11
+			xcb-util-wm xcb-render-util x11 xcb-util-cursor sm
 GNOME_COMPONENTS=	atk
 CPE_VENDOR=		qt
 CPE_PRODUCT=		qt
@@ -111,6 +112,10 @@ VAR_OPSYS[sunos]=	VAR1=solaris
 			VAR2=" /lib/64"
 VAR_OPSYS[linux]=	VAR1=linux
 			VAR2=" /usr/lib/x86_64-linux-gnu"
+
+[X11].DESCRIPTION=			Build with X11 support
+[X11].CMAKE_ARGS_OFF=			-DFEATURE_xcb=OFF
+					-DFEATURE_xlib=OFF
 
 post-patch:
 	${MKDIR} ${WRKSRC}/mkspecs/dragonfly-g++
