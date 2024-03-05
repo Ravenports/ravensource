@@ -1,5 +1,5 @@
 DEF[LIBVERSION]=	13.0.72
-DEF[PORTVERSION]=	0.13.72
+DEF[PORTVERSION]=	0.13.74
 DEF[LIBS]=		zzip zzipfseeko zzipmmapped zzipwrap
 DEF[TAG]=		v${PORTVERSION}
 # ----------------------------------------------------------------------------
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/gdraheim:zziplib:${TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary sdl docs
+SPKGS[standard]=	complete primary dev man docs tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -42,13 +42,15 @@ USES=			shebangfix pkgconfig zlib cmake gmake cpe
 SDL_COMPONENTS=		sdl2
 CPE_VENDOR=		zziplib_project
 SHEBANG_FILES=		docs/*.py
+			docs/tools/*.py
 # #			BUILD_STATIC_LIBS isn't accepted (why?)
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
 			-DZZIPSDL:BOOL=ON
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install install-man install-docs
 
-EXRUN[sdl]=		sdl1:primary:standard
+EXRUN[tools]=		primary
+
 SOVERSION=		${LIBVERSION}
 
 pre-configure:
@@ -58,5 +60,6 @@ pre-configure:
 
 post-install:
 .for l in ${LIBS}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib${l}-0.so.${LIBVERSION}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib${l}-0.so
 .endfor
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
