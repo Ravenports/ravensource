@@ -1,0 +1,69 @@
+DEF[PORTVERSION]=	6.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kf6-kdoctools
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	KF6 documentation generation from docbook
+HOMEPAGE=		https://api.kde.org/frameworks/kdoctools/html/index.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
+DISTFILE[1]=		kdoctools-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		kde6
+
+SPKGS[standard]=	complete primary tools dev nls man docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+			LGPL21:primary
+			LGPL21+:primary
+			LGPL3:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/LICENSES/GPL-2.0-or-later.txt
+			LGPL21:{{WRKSRC}}/LICENSES/LGPL-2.1-only.txt
+			LGPL21+:{{WRKSRC}}/LICENSES/LGPL-2.1-or-later.txt
+			LGPL3:{{WRKSRC}}/LICENSES/LGPL-3.0-only.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		devel/kf6-kdoctools
+
+BUILD_DEPENDS=		kf6-extra-cmake-modules:primary:standard
+			kf6-karchive:dev:standard
+			kf6-ki18n:dev:standard
+			perl-URI:single:perl_default
+			icu:dev:standard
+			qt6-qtbase:dev:standard
+BUILDRUN_DEPENDS=	docbook-xml:single:standard
+			docbook-xsl:primary:standard
+			kf6-karchive:primary:standard
+			kf6-ki18n:primary:standard
+			qt6-qtbase:primary:standard
+
+EXRUN[tools]=		kf6-kdoctools:primary:standard
+
+USES=			cmake gettext perl:build
+GNOME_COMPONENTS=	libxml2 libxslt
+
+DISTNAME=		kdoctools-${PORTVERSION}
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
+SOVERSION=		${PORTVERSION}
+
+post-extract:
+	${ECHO} "Terms extracted from 'src/customization/dtd/rdbhier2.elements':" > \
+		${WRKDIR}/TERMS
+	${SED} -n '/suggestions/!p;//q' ${WRKSRC}/src/customization/dtd/rdbhier2.elements >> \
+		${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/checkXML6.cpp':" >> ${WRKDIR}/TERMS
+	${SED} -n '/loggingcategory/!p;//q' ${WRKSRC}/src/checkXML6.cpp >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/docbookxslt.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/KDOCTOOLS/!p;//q' ${WRKSRC}/src/docbookxslt.h >> ${WRKDIR}/TERMS
+
+post-stage:
+	(cd ${STAGEDIR}${PREFIX} && ${STRIP_CMD} bin/checkXML6 \
+		bin/meinproc6 \
+		lib/libKF6DocTools.so)
