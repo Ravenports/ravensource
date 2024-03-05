@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	6.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kf6-extra-cmake-modules
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	KF6 Extra modules and scripts for CMake
+HOMEPAGE=		https://api.kde.org/frameworks/extra-cmake-modules/html/index.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
+DISTFILE[1]=		extra-cmake-modules-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		kde6
+
+SPKGS[standard]=	complete primary man docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING-CMAKE-SCRIPTS
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/kf6-extra-cmake-modules
+
+BUILD_DEPENDS=		python-Sphinx:single:python_default
+BUILDRUN_DEPENDS=	qt6-qtbase:primary:standard
+
+USES=			cmake shebangfix
+SHEBANG_FILES=		kde-modules/kde-git-commit-hooks/json-schema.py
+
+DISTNAME=		extra-cmake-modules-${PORTVERSION}
