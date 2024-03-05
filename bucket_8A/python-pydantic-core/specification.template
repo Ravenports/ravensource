@@ -1,0 +1,84 @@
+# Manually maintained
+DEF[PORTVERSION]=	%%VERSION%%
+DEF[SKIP_CRATE]=	pydantic-core
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-pydantic-core
+VERSION=		${PORTVERSION}
+KEYWORDS=		python rust
+VARIANTS=		v12 v11
+SDESC[v12]=		Core module for pydantic (3.12)
+SDESC[v11]=		Core module for pydantic (3.11)
+HOMEPAGE=		https://github.com/pydantic/pydantic-core
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		PYPI/p/pydantic-core
+%%CR_SITES%%
+
+DISTFILE[1]=		pydantic_core-${PORTVERSION}.tar.gz:main
+%%CR_DISTFILES%%
+%%DF_INDEX%%
+
+SPKGS[v12]=		single
+SPKGS[v11]=		single
+
+OPTIONS_AVAILABLE=	PY312 PY311
+OPTIONS_STANDARD=	none
+VOPTS[v12]=		PY312=ON PY311=OFF
+VOPTS[v11]=		PY312=OFF PY311=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		pydantic_core-${PORTVERSION}
+
+USES=			cargo cclibs:single
+CARGO_SKIP_CONFIGURE=	yes
+CARGO_SKIP_BUILD=	yes
+CARGO_SKIP_INSTALL=	yes
+
+PLIST_SUB=		VER=${PORTVERSION}
+			CPYTHON={{CPYTHON:U{{PYTHON_SUFFIX}}}}
+
+VAR_OPSYS[linux]=	MAKEFILE_LINE=CPYTHON={{PYTHON_SUFFIX}}-x86_64-linux-gnu
+
+[PY312].USES_ON=			python:v12
+[PY312].BUILD_DEPENDS_ON=		python-maturin:single:v12
+					python-pip:single:v12
+					python-typing-extensions:single:v12
+[PY311].USES_ON=			python:v11
+[PY311].BUILD_DEPENDS_ON=		python-maturin:single:v11
+					python-pip:single:v11
+					python-typing-extensions:single:v11
+
+post-patch:
+	${MKDIR} ${WRKSRC}/.cargo
+	${RM} ${WRKSRC}/.cargo/config.toml
+	echo "[source.cargo]" >> ${WRKSRC}/.cargo/config.toml
+	echo "directory = '${CARGO_VENDOR_DIR}'" >> ${WRKSRC}/.cargo/config.toml
+	echo "[source.crates-io]" >> ${WRKSRC}/.cargo/config.toml
+	echo "replace-with = 'cargo'" >> ${WRKSRC}/.cargo/config.toml
+
+do-build:
+	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} maturin build \
+		--release \
+		--interpreter ${PYTHON_CMD})
+
+do-install:
+	# Due to upstream not supplying a setup.py file or other way to install
+	# using pip command for now...
+	${SETENV} ${MAKE_ENV} pip install \
+		--verbose \
+		--no-index \
+		--no-compile \
+		--progress-bar off \
+		--root=${STAGEDIR} \
+		--root-user-action=ignore \
+		--disable-pip-version-check \
+		--no-deps ${INSTALL_WRKSRC}/target/wheels/*.whl
+	(cd ${STAGEDIR} && ${PYTHON_CMD} -m compileall -d / . ||:)
+	${INSTALL_LIB} ${WRKSRC}/target/release/lib_pydantic_core.so \
+		${STAGEDIR}${PYTHON_SITELIBDIR}/pydantic_core
+	${CHMOD} +x ${STAGEDIR}${PYTHON_SITELIBDIR}/pydantic_core/lib_pydantic_core.so
