@@ -1,0 +1,62 @@
+DEF[PORTVERSION]=	6.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kf6-sonnet
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	KF6 plugin-based spell checking library
+HOMEPAGE=		https://api.kde.org/frameworks/sonnet/html/index.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
+DISTFILE[1]=		sonnet-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		kde6
+
+SPKGS[standard]=	complete primary dev tools nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL20+:primary
+			LGPL21+:primary
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/LICENSES/LGPL-2.0-or-later.txt
+			LGPL21+:{{WRKSRC}}/LICENSES/LGPL-2.1-or-later.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		textproc/kf6-sonnet
+
+BUILD_DEPENDS=		kf6-extra-cmake-modules:primary:standard
+			qt6-qtbase:dev:standard
+			qt6-qtdeclarative:dev:standard
+			qt6-qttools:dev:standard
+BUILDRUN_DEPENDS=	aspell:primary:standard
+			hunspell:single:standard
+			qt6-qtbase:primary:standard
+			qt6-qtdeclarative:primary:standard
+			qt6-qttools:primary:standard
+
+EXRUN[tools]=		primary
+
+USES=			cmake pkgconfig
+
+DISTNAME=		sonnet-${PORTVERSION}
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
+SOVERSION=		${PORTVERSION}
+
+post-extract:
+	${ECHO} "Terms extracted from 'src/core/tokenizer_p.h':" > ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/core/tokenizer_p.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/ui/dialog.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/ui/dialog.h >> ${WRKDIR}/TERMS
+
+post-stage:
+	(cd ${STAGEDIR}${PREFIX} && ${STRIP_CMD} bin/parsetrigrams6 \
+		lib/libKF6SonnetCore.so \
+		lib/libKF6SonnetUi.so \
+		lib/qt6/plugins/designer/sonnet6widgets.so \
+		lib/qt6/plugins/kf6/sonnet/sonnet_aspell.so \
+		lib/qt6/plugins/kf6/sonnet/sonnet_hunspell.so \
+		lib/qt6/qml/org/kde/sonnet/libsonnetquickplugin.so)
