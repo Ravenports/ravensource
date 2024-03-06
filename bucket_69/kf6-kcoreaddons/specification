@@ -1,0 +1,91 @@
+DEF[PORTVERSION]=	6.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kf6-kcoreaddons
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	KF6 add-ons to QtCore
+HOMEPAGE=		https://api.kde.org/frameworks/kcoreaddons/html/index.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
+DISTFILE[1]=		kcoreaddons-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		kde6
+
+SPKGS[standard]=	complete primary dev nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+			LGPL20:primary
+			LGPL20+:primary
+			LGPL21:primary
+			LGPL21+:primary
+			LGPL3:primary
+			MPL:primary
+			CUSTOM1:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/LICENSES/GPL-2.0-or-later.txt
+			LGPL20:{{WRKSRC}}/LICENSES/LGPL-2.0-only.txt
+			LGPL20+:{{WRKSRC}}/LICENSES/LGPL-2.0-or-later.txt
+			LGPL21:{{WRKSRC}}/LICENSES/LGPL-2.1-only.txt
+			LGPL21+:{{WRKSRC}}/LICENSES/LGPL-2.1-or-later.txt
+			LGPL3:{{WRKSRC}}/LICENSES/LGPL-3.0-only.txt
+			MPL:{{WRKSRC}}/LICENSES/MPL-1.1.txt
+			CUSTOM1:{{WRKSRC}}/LICENSES/Qt-LGPL-exception-1.1.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_NAME=		CUSTOM1:"The Qt Company Qt LGPL Exception version 1.1"
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		devel/kf6-kcoreaddons
+
+BUILD_DEPENDS=		kf6-extra-cmake-modules:primary:standard
+			qt6-qtbase:dev:standard
+			qt6-qtdeclarative:dev:standard
+			qt6-qttools:dev:standard
+BUILDRUN_DEPENDS=	qt6-qtbase:primary:standard
+			qt6-qtdeclarative:primary:standard
+			qt6-qttools:primary:standard
+
+BR_DEPS[darwin]=	gamin:single:standard
+			libinotify:single:standard
+BR_DEPS[dragonfly]=	gamin:single:standard
+			libinotify:single:standard
+BR_DEPS[freebsd]=	gamin:single:standard
+			libinotify:single:standard
+BR_DEPS[netbsd]=	gamin:single:standard
+			libinotify:single:standard
+BR_DEPS[openbsd]=	gamin:single:standard
+			libinotify:single:standard
+
+# Evade PCH issue with GCC 13
+C_USES[freebsd]=	clang
+C_USES[midnightbsd]=	clang
+
+USES=			cmake mime-info:primary
+
+DISTNAME=		kcoreaddons-${PORTVERSION}
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
+SOVERSION=		${PORTVERSION}
+
+post-extract:
+	${ECHO} "Terms extracted from 'src/lib/io/kdirwatch.h':" > ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/lib/io/kdirwatch.h >> ${WKRDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/lib/caching/posix_fallocate_mac.h':" >> \
+		${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/lib/caching/posix_fallocate_mac.h >> \
+		${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/lib/util/klibexec.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/lib/util/klibexec.h >> \
+		${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/lib/util/kprocesslist.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/lib/util/kprocesslist.h >> \
+		${WRKDIR}/TERMS
+
+post-stage:
+	(cd ${STAGEDIR}${PREFIX}/lib && ${STRIP_CMD} libKF6CoreAddons.so \
+		qt6/qml/org/kde/coreaddons/libkcoreaddonsplugin.so)
+	# remove redundant licenses (share/kf6/licenses)
+	${RM} -r ${STAGEDIR}${PREFIX}/share/kf6
