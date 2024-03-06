@@ -4,9 +4,11 @@ DEF[SOVERSION]=		1.200.0
 
 NAMEBASE=		polkit-qt-1
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils
-VARIANTS=		standard
-SDESC[standard]=	Qt5 wrapper around polkit-1
+VARIANTS=		qt5 qt6
+SDESC[qt5]=		Qt5 wrapper around polkit-1
+SDESC[qt6]=		Qt6 wrapper around polkit-1
 HOMEPAGE=		https://api.kde.org/polkit-qt-1/html/index.html
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -14,31 +16,48 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.kde.org/stable/polkit-qt-1/
 DISTFILE[1]=		polkit-qt-1-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[qt5]=		complete primary dev
+SPKGS[qt6]=		complete primary dev
 
-OPTIONS_AVAILABLE=	none
+OPTIONS_AVAILABLE=	QT5 QT6
 OPTIONS_STANDARD=	none
+VOPTS[qt5]=		QT5=ON QT6=OFF
+VOPTS[qt6]=		QT5=OFF QT6=ON
 
-LICENSE=		LGPL20+:single
+LICENSE=		LGPL20+:primary
 LICENSE_FILE=		LGPL20+:{{WRKSRC}}/LICENSES/GPL-2.0-or-later.txt
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/core/polkitqt1-authority.h
 LICENSE_AWK=		TERMS:"ifndef POLKITQT1"
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		sysutils/polkit-qt
 
-BUILD_DEPENDS=		qt5-qtbase:dev:standard
 BUILDRUN_DEPENDS=	polkit:primary:standard
-			qt5-qtbase:primary:standard
 
 USES=			cmake pkgconfig zlib
 GNOME_COMPONENTS=	glib
 
-CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt5/cmake
 SOVERSION=		${SOVERSION}
 
-post-stage:
+[QT5].DESCRIPTION=			Built Qt5 variant
+[QT5].BUILD_DEPENDS_ON=			qt5-qtbase:dev:standard
+[QT5].BUILDRUN_DEPENDS_ON=		qt5-qtbase:primary:standard
+[QT5].CMAKE_ARGS_ON=			-DQT_MAJOR_VERSION=5
+					-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt5/cmake
+
+[QT6].DESCRIPTION=			Built Qt6 variant
+[QT6].BUILD_DEPENDS_ON=			qt6-qtbase:dev:standard
+[QT6].BUILDRUN_DEPENDS_ON=		qt6-qtbase:primary:standard
+[QT6].CMAKE_ARGS_ON=			-DQT_MAJOR_VERSION=6
+					-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
+
+post-stage-QT5-ON:
 	(cd ${STAGEDIR}${PREFIX}/lib && ${STRIP_CMD} libpolkit-qt5-agent-1.so \
 		libpolkit-qt5-core-1.so \
 		libpolkit-qt5-gui-1.so)
+
+post-stage-QT6-ON:
+	(cd ${STAGEDIR}${PREFIX}/lib && ${STRIP_CMD} libpolkit-qt6-agent-1.so \
+		libpolkit-qt6-core-1.so \
+		libpolkit-qt6-gui-1.so)
