@@ -1,0 +1,58 @@
+DEF[PORTVERSION]=	6.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kf6-kauth
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	KF6 abstraction for system policy / auth features
+HOMEPAGE=		https://api.kde.org/frameworks/kauth/html/index.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
+DISTFILE[1]=		kauth-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		kde6
+
+SPKGS[standard]=	complete primary dev nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/LICENSES/LGPL-2.1-or-later.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/kf6-kauth
+
+BUILD_DEPENDS=		kf6-kcoreaddons:dev:standard
+			kf6-extra-cmake-modules:primary:standard
+			kf6-kwindowsystem:dev:standard
+			polkit-qt-1:dev:qt6
+			qt6-qtbase:dev:standard
+			qt6-qttools:dev:standard
+BUILDRUN_DEPENDS=	kf6-kcoreaddons:primary:standard
+			kf6-kwindowsystem:primary:standard
+			polkit-qt-1:primary:qt6
+			qt6-qtbase:primary:standard
+			qt6-qttools:primary:standard
+
+XORG_COMPONENTS=	x11
+USES=			cmake cpe
+CPE_VENDOR=		kde
+CPE_PRODUCT=		kauth
+
+DISTNAME=		kauth-${PORTVERSION}
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
+SOVERSION=		${PORTVERSION}
+
+post-extract:
+	${ECHO} "Terms extracted from 'src/action.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/action.h >> ${WRKDIR}/TERMS
+
+post-stage:
+	(cd ${STAGEDIR}${PREFIX}/lib && ${STRIP_CMD} libKF6AuthCore.so \
+		libexec/kf6/kauth/kauth-policy-gen \
+		qt6/plugins/kf6/kauth/backend/kauth_backend_plugin.so \
+		qt6/plugins/kf6/kauth/helper/kauth_helper_plugin.so)
