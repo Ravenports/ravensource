@@ -1,0 +1,64 @@
+DEF[PORTVERSION]=	6.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kf6-kcodecs
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	KF6 library for string manipulation
+HOMEPAGE=		https://api.kde.org/frameworks/kcodecs/html/index.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
+DISTFILE[1]=		kcodecs-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		kde6
+
+SPKGS[standard]=	complete primary dev nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+			LGPL20:primary
+			LGPL20+:primary
+			LGPL21+:primary
+			MIT:primary
+			MPL:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/LICENSES/GPL-2.0-or-later.txt
+			LGPL20:{{WRKSRC}}/LICENSES/LGPL-2.0-only.txt
+			LGPL20+:{{WRKSRC}}/LICENSES/LGPL-2.0-or-later.txt
+			LGPL21+:{{WRKSRC}}/LICENSES/LGPL-2.1-or-later.txt
+			MIT:{{WRKSRC}}/LICENSES/MIT.txt
+			MPL:{{WRKSRC}}/LICENSES/MPL-1.1.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		textproc/kf6-kcodecs
+
+BUILD_DEPENDS=		gperf:primary:standard
+			kf6-extra-cmake-modules:primary:standard
+			qt6-qtbase:dev:standard
+			qt6-qttools:dev:standard
+BUILDRUN_DEPENDS=	qt6-qtbase:primary:standard
+			qt6-qttools:primary:standard
+
+USES=			cmake
+
+DISTNAME=		kcodecs-${PORTVERSION}
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
+SOVERSION=		${PORTVERSION}
+
+post-extract:
+	${ECHO} "Terms extracted from 'src/probers/nsSJISProber.h':" > ${WRKDIR}/TERMS
+	${SED} -n '/encoding/!p;//q' ${WRKSRC}/src/probers/nsSJISProber.h >> \
+		${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/kcodecs.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/kcodecs.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/kcharsets.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/kcharsets.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/probers/JpCntx.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/probers/JpCntx.h >> ${WRKDIR}/TERMS
+
+post-stage:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libKF6Codecs.so.6
