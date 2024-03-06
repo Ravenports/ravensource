@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	6.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kf6-kcrash
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	KF6 library for crash analysis and bug reports
+HOMEPAGE=		https://api.kde.org/frameworks/kcrash/html/index.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
+DISTFILE[1]=		kcrash-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		kde6
+
+SPKGS[standard]=	complete primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL20+:primary
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/LICENSES/LGPL-2.0-or-later.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/kcrash.h
+LICENSE_AWK=		TERMS:"ifndef KCRASH_H"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/kf6-kcrash
+
+BUILD_DEPENDS=		kf6-extra-cmake-modules:primary:standard
+			qt6-qtbase:dev:standard
+			kf6-kcoreaddons:dev:standard
+			kf6-kwindowsystem:dev:standard
+BUILDRUN_DEPENDS=	qt6-qtbase:primary:standard
+			kf6-kcoreaddons:primary:standard
+			kf6-kwindowsystem:primary:standard
+
+USES=			cmake
+XORG_COMPONENTS=	x11
+DISTNAME=		kcrash-${PORTVERSION}
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
+SOVERSION=		${PORTVERSION}
+
+post-stage:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libKF6Crash.so
