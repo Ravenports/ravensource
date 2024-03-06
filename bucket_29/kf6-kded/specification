@@ -1,0 +1,65 @@
+DEF[PORTVERSION]=	6.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kf6-kded
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		standard
+SDESC[standard]=	KF6 extensible daemon for system level services
+HOMEPAGE=		https://api.kde.org/frameworks/kded/html/index.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
+DISTFILE[1]=		kded-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		kde6
+
+SPKGS[standard]=	complete primary dev man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL20:primary
+			LGPL20+:primary
+LICENSE_FILE=		LGPL20:{{WRKSRC}}/LICENSES/LGPL-2.0-only.txt
+			LGPL20+:{{WRKSRC}}/LICENSES/LGPL-2.0-or-later.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		x11/kf6-kded
+
+BUILD_DEPENDS=		appstream:dev:standard
+			kf6-extra-cmake-modules:primary:standard
+			kf6-kconfig:dev:standard
+			kf6-kdoctools:tools:standard
+			kf6-kdoctools:dev:standard
+			kf6-kcoreaddons:dev:standard
+			kf6-kcrash:dev:standard
+			kf6-kdbusaddons:dev:standard
+			kf6-kservice:dev:standard
+			icu:dev:standard
+			qt6-qtbase:dev:standard
+			qt6-qtdeclarative:dev:standard
+BUILDRUN_DEPENDS=	appstream:primary:standard
+			kf6-kconfig:primary:standard
+			kf6-kcoreaddons:primary:standard
+			kf6-kcrash:primary:standard
+			kf6-kdbusaddons:primary:standard
+			kf6-kservice:primary:standard
+			qt6-qtbase:primary:standard
+			qt6-qtdeclarative:primary:standard
+
+USES=			cmake
+
+DISTNAME=		kded-${PORTVERSION}
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
+SOVERSION=		${PORTVERSION}
+
+post-extract:
+	${ECHO} "Terms extracted from 'src/kded.h':" > ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/kded.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/kdedadaptor.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/kdedadaptor.h >> ${WRKDIR}/TERMS
+
+post-stage:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/kded6
