@@ -1,0 +1,52 @@
+DEF[PORTVERSION]=	6.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kf6-kcolorscheme
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_themes
+VARIANTS=		standard
+SDESC[standard]=	KF6 classes to interact with KColorScheme
+HOMEPAGE=		https://api.kde.org/frameworks/kcolorscheme/html/index.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
+DISTFILE[1]=		kcolorscheme-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		kde6
+
+SPKGS[standard]=	complete primary dev nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL20+:primary
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/LICENSES/LGPL-2.0-or-later.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11-themes/kf6-kcolorscheme
+
+BUILD_DEPENDS=		kf6-extra-cmake-modules:primary:standard
+			kf6-kconfig:dev:standard
+			kf6-kguiaddons:dev:standard
+			kf6-ki18n:dev:standard
+			qt6-qtbase:dev:standard
+			qt6-qtdeclarative:dev:standard
+BUILDRUN_DEPENDS=	kf6-kconfig:primary:standard
+			kf6-kguiaddons:primary:standard
+			kf6-ki18n:primary:standard
+			qt6-qtbase:primary:standard
+			qt6-qtdeclarative:primary:standard
+
+USES=			cmake gettext
+
+DISTNAME=		kcolorscheme-${PORTVERSION}
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
+SOVERSION=		${PORTVERSION}
+
+post-extract:
+	${ECHO} "Terms extracted from 'src/kcolorscheme.h':" > ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/kcolorscheme.h >> ${WRKDIR}/TERMS
+
+post-stage:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libKF6ColorScheme.so
