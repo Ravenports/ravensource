@@ -46,10 +46,12 @@ BUILD_DEPENDS=		git:primary:lite
 			xorg-xcb:complete:standard
 			xorg-xext:complete:standard
 BUILDRUN_DEPENDS=	gstreamer1:primary:standard
+			libdrm:primary:standard
 			iso-codes:primary:standard
 			orc:primary:standard
 
 EXRUN[dev]=		orc:dev:standard
+			libdrm:dev:standard
 EXRUN[plugin_gl]=	primary
 			graphene:primary:standard
 			xorg-x11:primary:standard
@@ -72,6 +74,7 @@ MESON_ARGS=		-Dalsa=disabled
 			-Dx11=disabled
 			-Dxshm=disabled
 			-Dxvideo=disabled
+			-Ddsd=disabled
 			-Ddoc=disabled
 			-Dnls=enabled
 			-Dgl=enabled
