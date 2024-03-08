@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	0.6.1
+DEF[PORTVERSION]=	0.7.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rgbds
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Gameboy development system with assembler/linker
@@ -19,12 +18,15 @@ SPKGS[standard]=	complete primary man
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-USES=			bison c++:primary gmake png pkgconfig
-
 LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
-post-patch:
+BUILD_DEPENDS=		bash:primary:standard
+
+USES=			bison c++:primary gmake png pkgconfig zlib:build
+INSTALL_REQ_TOOLCHAIN=	yes
+
+pre-configure:
 	${REINPLACE_CMD} 's!__PREFIX__!${PREFIX}!g' \
 			 ${WRKSRC}/Makefile
