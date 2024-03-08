@@ -1,4 +1,4 @@
---- elf/mold-wrapper.c.orig	2023-11-29 08:58:00 UTC
+--- elf/mold-wrapper.c.orig	2024-03-01 02:30:05 UTC
 +++ elf/mold-wrapper.c
 @@ -1,6 +1,6 @@
  #define _GNU_SOURCE 1
