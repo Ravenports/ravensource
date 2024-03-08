@@ -32,3 +32,7 @@ USES=			cmake shebangfix
 SHEBANG_FILES=		kde-modules/kde-git-commit-hooks/json-schema.py
 
 DISTNAME=		extra-cmake-modules-${PORTVERSION}
+
+pre-configure:
+	# remove patch backups before they get installed
+	${FIND} ${WRKSRC} -name "*.orig" -delete
