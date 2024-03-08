@@ -18,17 +18,16 @@ Quick start
 
 .. code:: text
 
-    pip install requests
     git clone https://gerrit.wikimedia.org/r/pywikibot/core.git
     cd core
     git submodule update --init
-    python pwb.py script_name
+    pip install -r requirements.txt
+    python pwb.py <script_name>
 
 Or to install using PyPI (excluding scripts)
 
 .. code:: text
 
-    pip install -U setuptools
     pip install pywikibot
     pwb <scriptname>
 
@@ -98,3 +97,4 @@ Pywikibot provides bot classes to develop your own script easily:
         local_args = pywikibot.handle_args(args)  # global options
         local_args = gen_factory.handle_args(local_args)  # generators
 options
+        for arg in local_args:
