@@ -47,9 +47,5 @@ DISTNAME=		${KF6_COMPONENT}-${PORTVERSION}
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
 SOVERSION=		${PORTVERSION}
 
-# post-extract:
-# ${ECHO} "Terms extracted from 'src/kcolorscheme.h':" > ${WRKDIR}/TERMS
-# ${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/kcolorscheme.h >> ${WRKDIR}/TERMS
-
 post-stage:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libKF6ColorScheme.so
