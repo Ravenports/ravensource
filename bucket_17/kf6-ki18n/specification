@@ -1,17 +1,18 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(KDE6_FRAMEWORKS_VERSION)
+DEF[KF6_COMPONENT]=	ki18n
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		kf6-ki18n
+NAMEBASE=		kf6-${KF6_COMPONENT}
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	KF6 advanced internationalization framework
-HOMEPAGE=		https://api.kde.org/frameworks/ki18n/html/index.html
+HOMEPAGE=		https://api.kde.org/frameworks/${KF6_COMPONENT}/html/index.html
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
-DISTFILE[1]=		ki18n-${PORTVERSION}.tar.xz:main
+DISTFILE[1]=		${KF6_COMPONENT}-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		kde6
 
 SPKGS[standard]=	complete primary dev nls
@@ -28,7 +29,7 @@ LICENSE_FILE=		LGPL20+:{{WRKSRC}}/LICENSES/LGPL-2.0-or-later.txt
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		multi
 
-FPC_EQUIVALENT=		devel/kf6-ki18n
+FPC_EQUIVALENT=		devel/kf6-${KF6_COMPONENT}
 
 BUILD_DEPENDS=		kf6-extra-cmake-modules:primary:standard
 			qt6-qtbase:dev:standard
@@ -39,7 +40,7 @@ BUILDRUN_DEPENDS=	iso-codes:primary:standard
 
 USES=			cmake gettext python:build
 
-DISTNAME=		ki18n-${PORTVERSION}
+DISTNAME=		${KF6_COMPONENT}-${PORTVERSION}
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
 SOVERSION=		${PORTVERSION}
 

@@ -1,17 +1,18 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(KDE6_FRAMEWORKS_VERSION)
+DEF[KF6_COMPONENT]=	extra-cmake-modules
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		kf6-extra-cmake-modules
+NAMEBASE=		kf6-${KF6_COMPONENT}
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	KF6 Extra modules and scripts for CMake
-HOMEPAGE=		https://api.kde.org/frameworks/extra-cmake-modules/html/index.html
+HOMEPAGE=		https://api.kde.org/frameworks/${KF6_COMPONENT}/html/index.html
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
-DISTFILE[1]=		extra-cmake-modules-${PORTVERSION}.tar.xz:main
+DISTFILE[1]=		${KF6_COMPONENT}-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		kde6
 
 SPKGS[standard]=	complete primary man docs
@@ -23,7 +24,7 @@ LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING-CMAKE-SCRIPTS
 LICENSE_SCHEME=		solo
 
-FPC_EQUIVALENT=		devel/kf6-extra-cmake-modules
+FPC_EQUIVALENT=		devel/kf6-${KF6_COMPONENT}
 
 BUILD_DEPENDS=		python-Sphinx:single:python_default
 BUILDRUN_DEPENDS=	qt6-qtbase:primary:standard
@@ -31,7 +32,7 @@ BUILDRUN_DEPENDS=	qt6-qtbase:primary:standard
 USES=			cmake shebangfix
 SHEBANG_FILES=		kde-modules/kde-git-commit-hooks/json-schema.py
 
-DISTNAME=		extra-cmake-modules-${PORTVERSION}
+DISTNAME=		${KF6_COMPONENT}-${PORTVERSION}
 
 pre-configure:
 	# remove patch backups before they get installed

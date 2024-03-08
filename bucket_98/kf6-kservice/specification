@@ -1,17 +1,18 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(KDE6_FRAMEWORKS_VERSION)
+DEF[KF6_COMPONENT]=	kservice
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		kf6-kservice
+NAMEBASE=		kf6-${KF6_COMPONENT}
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	KF6 advanced plugin and service introspection
-HOMEPAGE=		https://api.kde.org/frameworks/kservice/html/index.html
+HOMEPAGE=		https://api.kde.org/frameworks/${KF6_COMPONENT}/html/index.html
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
-DISTFILE[1]=		kservice-${PORTVERSION}.tar.xz:main
+DISTFILE[1]=		${KF6_COMPONENT}-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		kde6
 
 SPKGS[standard]=	complete primary tools dev man nls
@@ -28,7 +29,7 @@ LICENSE_FILE=		LGPL20:{{WRKSRC}}/LICENSES/LGPL-2.0-only.txt
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		multi
 
-FPC_EQUIVALENT=		devel/kf6-kservice
+FPC_EQUIVALENT=		devel/kf6-${KF6_COMPONENT}
 
 BUILD_DEPENDS=		kf6-extra-cmake-modules:primary:standard
 			kf6-kconfig:dev:standard
@@ -50,7 +51,7 @@ EXRUN[tools]=		primary
 
 USES=			bison cmake gettext
 
-DISTNAME=		kservice-${PORTVERSION}
+DISTNAME=		${KF6_COMPONENT}-${PORTVERSION}
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
 SOVERSION=		${PORTVERSION}
 

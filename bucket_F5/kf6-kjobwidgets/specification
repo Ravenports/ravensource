@@ -1,17 +1,18 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(KDE6_FRAMEWORKS_VERSION)
+DEF[KF6_COMPONENT]=	kjobwidgets
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		kf6-kjobwidgets
+NAMEBASE=		kf6-${KF6_COMPONENT}
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11_toolkits
 VARIANTS=		standard
 SDESC[standard]=	KF6 widgets for tracking KJob instance
-HOMEPAGE=		https://api.kde.org/frameworks/kjobwidgets/html/index.html
+HOMEPAGE=		https://api.kde.org/frameworks/${KF6_COMPONENT}/html/index.html
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
-DISTFILE[1]=		kjobwidgets-${PORTVERSION}.tar.xz:main
+DISTFILE[1]=		${KF6_COMPONENT}-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		kde6
 
 SPKGS[standard]=	complete primary dev nls
@@ -26,7 +27,7 @@ LICENSE_FILE=		LGPL20:{{WRKSRC}}/LICENSES/LGPL-2.0-only.txt
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		multi
 
-FPC_EQUIVALENT=		x11-toolkits/kf6-kjobwidgets
+FPC_EQUIVALENT=		x11-toolkits/kf6-${KF6_COMPONENT}
 
 BUILD_DEPENDS=		kf6-extra-cmake-modules:primary:standard
 			kf6-kcoreaddons:dev:standard
@@ -43,7 +44,7 @@ BUILDRUN_DEPENDS=	kf6-kcoreaddons:primary:standard
 USES=			cmake
 XORG_COMPONENTS=	x11
 
-DISTNAME=		kjobwidgets-${PORTVERSION}
+DISTNAME=		${KF6_COMPONENT}-${PORTVERSION}
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
 SOVERSION=		${PORTVERSION}
 

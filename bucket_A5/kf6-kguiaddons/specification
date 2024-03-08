@@ -1,17 +1,18 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(KDE6_FRAMEWORKS_VERSION)
+DEF[KF6_COMPONENT]=	kguiaddons
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		kf6-kguiaddons
+NAMEBASE=		kf6-${KF6_COMPONENT}
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11_toolkits
 VARIANTS=		standard
 SDESC[standard]=	KF6 utilities for graphical user interfaces
-HOMEPAGE=		https://api.kde.org/frameworks/kguiaddons/html/index.html
+HOMEPAGE=		https://api.kde.org/frameworks/${KF6_COMPONENT}/html/index.html
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
-DISTFILE[1]=		kguiaddons-${PORTVERSION}.tar.xz:main
+DISTFILE[1]=		${KF6_COMPONENT}-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		kde6
 
 SPKGS[standard]=	complete primary dev
@@ -51,16 +52,16 @@ BUILDRUN_DEPENDS=	plasma-wayland-protocols:primary:standard
 USES=			cmake desktop-utils:primary
 XORG_COMPONENTS=	x11
 
-DISTNAME=		kguiaddons-${PORTVERSION}
+DISTNAME=		${KF6_COMPONENT}-${PORTVERSION}
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
 SOVERSION=		${PORTVERSION}
 
 post-extract:
 	${ECHO} "Terms extracted from 'src/util/kjobwindows.cpp':" > ${WRKDIR}/TERMS
 	${SED} -n '/include/!p;//q' ${WRKSRC}/src/util/kjobwindows.cpp >> ${WRKDIR}/TERMS
-	${ECHO} "Terms extracted from 'src/util/kimagecache.h':" > ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/util/kimagecache.h':" >> ${WRKDIR}/TERMS
 	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/util/kimagecache.h >> ${WRKDIR}/TERMS
-	${ECHO} "Terms extracted from 'src/util/kcursorsaver.h':" > ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/util/kcursorsaver.h':" >> ${WRKDIR}/TERMS
 	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/util/kcursorsaver.h >> ${WRKDIR}/TERMS
 
 post-stage:
