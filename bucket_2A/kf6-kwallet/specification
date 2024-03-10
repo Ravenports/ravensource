@@ -1,0 +1,85 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(KDE6_FRAMEWORKS_VERSION)
+DEF[KF6_COMPONENT]=	kwallet
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kf6-${KF6_COMPONENT}
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		standard
+SDESC[standard]=	KF6 safe desktop-wide storage for passwords
+HOMEPAGE=		https://api.kde.org/frameworks/${KF6_COMPONENT}/html/index.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
+DISTFILE[1]=		${KF6_COMPONENT}-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		kde6
+
+SPKGS[standard]=	complete primary dev man nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL20:primary
+			LGPL20+:primary
+			LGPL21+:primary
+LICENSE_FILE=		LGPL20:{{WRKSRC}}/LICENSES/LGPL-2.0-only.txt
+			LGPL20+:{{WRKSRC}}/LICENSES/LGPL-2.0-or-later.txt
+			LGPL21+:{{WRKSRC}}/LICENSES/LGPL-2.1-or-later.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		sysutils/kf6-${KF6_COMPONENT}
+
+BUILD_DEPENDS=		gpgme:cppdev:standard
+			gpgme:dev:standard
+			kf6-extra-cmake-modules:primary:standard
+			kf6-kcolorscheme:dev:standard
+			kf6-kconfig:dev:standard
+			kf6-kcoreaddons:dev:standard
+			kf6-kdbusaddons:dev:standard
+			kf6-kdoctools:primary:standard
+			kf6-kdoctools:dev:standard
+			kf6-ki18n:dev:standard
+			kf6-knotifications:dev:standard
+			kf6-kwidgetsaddons:dev:standard
+			kf6-kwindowsystem:dev:standard
+			libgcrypt:dev:standard
+			qca:dev:qt6
+			qt6-qtbase:dev:standard
+			qt6-qtdeclarative:dev:standard
+BUILDRUN_DEPENDS=	gpgme:cpp:standard
+			gpgme:primary:standard
+			kf6-kcolorscheme:primary:standard
+			kf6-kconfig:primary:standard
+			kf6-kcoreaddons:primary:standard
+			kf6-kdbusaddons:primary:standard
+			kf6-ki18n:primary:standard
+			kf6-knotifications:primary:standard
+			kf6-kwidgetsaddons:primary:standard
+			kf6-kwindowsystem:primary:standard
+			libgcrypt:primary:standard
+			qca:primary:qt6
+			qt6-qtbase:primary:standard
+			qt6-qtdeclarative:primary:standard
+
+USES=			cmake gettext
+XORG_COMPONENTS=	x11
+
+DISTNAME=		${KF6_COMPONENT}-${PORTVERSION}
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
+SOVERSION=		${PORTVERSION}
+
+post-extract:
+	${ECHO} "Terms extracted from 'src/runtime/kwalletd/main.cpp':" > ${WRKDIR}/TERMS
+	${SED} -n '/include/!p;//q' ${WRKSRC}/src/runtime/kwalletd/main.cpp >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/api/KWallet/kwallet.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/api/KWallet/kwallet.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/runtime/kwalletd/kwalletwizard.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/runtime/kwalletd/kwalletwizard.h >> ${WRKDIR}/TERMS
+
+post-stage:
+	(cd ${STAGEDIR}${PREFIX} && ${STRIP_CMD} bin/kwallet-query \
+		bin/kwalletd6 \
+		lib/libKF6Wallet.so \
+		lib/libKF6WalletBackend.so.${PORTVERSION})
