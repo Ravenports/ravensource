@@ -4,6 +4,7 @@ DEF[KF6_COMPONENT]=	kdoctools
 
 NAMEBASE=		kf6-${KF6_COMPONENT}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	KF6 documentation generation from docbook
@@ -15,7 +16,7 @@ SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
 DISTFILE[1]=		${KF6_COMPONENT}-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		kde6
 
-SPKGS[standard]=	complete primary tools dev nls man docs
+SPKGS[standard]=	complete primary dev nls man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -44,8 +45,6 @@ BUILDRUN_DEPENDS=	docbook-xml:single:standard
 			kf6-karchive:primary:standard
 			kf6-ki18n:primary:standard
 			qt6-qtbase:primary:standard
-
-EXRUN[tools]=		primary
 
 USES=			cmake gettext perl:build
 GNOME_COMPONENTS=	libxml2 libxslt
