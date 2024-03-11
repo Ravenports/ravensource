@@ -1,0 +1,65 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(KDE6_FRAMEWORKS_VERSION)
+DEF[KF6_COMPONENT]=	kirigami
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kf6-${KF6_COMPONENT}
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_toolkits
+VARIANTS=		standard
+SDESC[standard]=	KF6 components for building adaptable UIs
+HOMEPAGE=		https://api.kde.org/frameworks/${KF6_COMPONENT}/html/index.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
+DISTFILE[1]=		${KF6_COMPONENT}-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		kde6
+
+SPKGS[standard]=	complete primary dev nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL20+:primary
+			LGPL21:primary
+			LGPL3:primary
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/LICENSES/LGPL-2.0-or-later.txt
+			LGPL21:{{WRKSRC}}/LICENSES/LGPL-2.1-only.txt
+			LGPL3:{{WRKSRC}}/LICENSES/LGPL-3.0-only.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		x11-toolkits/kf6-${KF6_COMPONENT}
+
+BUILD_DEPENDS=		kf6-extra-cmake-modules:primary:standard
+			qt6-qtbase:dev:standard
+			qt6-qtdeclarative:dev:standard
+			qt6-qtshadertools:dev:standard
+			qt6-qtsvg:dev:standard
+			qt6-qttools:dev:standard
+BUILDRUN_DEPENDS=	qt6-qtbase:primary:standard
+			qt6-qtdeclarative:primary:standard
+			qt6-qtshadertools:primary:standard
+			qt6-qtsvg:primary:standard
+			qt6-qttools:primary:standard
+
+USES=			cmake fortran:primary gmake pkgconfig
+
+DISTNAME=		${KF6_COMPONENT}-${PORTVERSION}
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
+SOVERSION=		${PORTVERSION}
+
+post-extract:
+	${ECHO} "Terms extracted from 'src/toolbarlayout.h':" > ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/toolbarlayout.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/enums.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/enums.h >> ${WRKDIR}/TERMS
+
+post-stage:
+	(cd ${STAGEDIR}${PREFIX}/lib && ${STRIP_CMD} libKirigami.so \
+		libKirigamiDelegates.so \
+		libKirigamiPlatform.so \
+		qt6/qml/org/kde/kirigami/delegates/libKirigamiDelegatesplugin.so \
+		qt6/qml/org/kde/kirigami/libKirigamiplugin.so \
+		qt6/qml/org/kde/kirigami/platform/libKirigamiPlatformplugin.so \
+		qt6/qml/org/kde/kirigami/private/libKirigamiPrivatePlugin.so)
