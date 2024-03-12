@@ -1,0 +1,30 @@
+DEF[PORTVERSION]=	2.0.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libgrapheme
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		standard
+SDESC[standard]=	Simple C99 unicode string library
+HOMEPAGE=		https://libs.suckless.org/libgrapheme/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://dl.suckless.org/libgrapheme/
+DISTFILE[1]=		libgrapheme-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary dev man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		ISCL:primary
+LICENSE_FILE=		ISCL:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+MAKE_ARGS=		LDCONFIG=
+			PREFIX={{PREFIX}}
+
+PLIST_SUB=		SOVERSION=${PORTVERSION}
+			SOMAJMIN=${PORTVERSION:R}
+			SOMAJOR=${PORTVERSION:R:R}
