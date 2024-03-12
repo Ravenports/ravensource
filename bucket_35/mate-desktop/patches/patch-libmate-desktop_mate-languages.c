@@ -1,4 +1,4 @@
---- libmate-desktop/mate-languages.c.orig	2024-02-12 22:54:33 UTC
+--- libmate-desktop/mate-languages.c.orig	2024-02-16 21:03:55 UTC
 +++ libmate-desktop/mate-languages.c
 @@ -47,6 +47,10 @@
  #define ISO_CODES_DATADIR ISO_CODES_PREFIX "/share/xml/iso-codes"
