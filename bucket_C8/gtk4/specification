@@ -1,11 +1,10 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(GTK4_PORT_VERSION)
 DEF[GTK_VERSION]=	EXTRACT_INFO(GTK4_VERSION)
-DEF[SOVERSION]=		1.1200.5
+DEF[SOVERSION]=		1.1400.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gtk4
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		x11_toolkits
 VARIANTS=		standard
 SDESC[standard]=	Gimp Toolkit for X11 GUI
@@ -21,9 +20,9 @@ SPKGS[standard]=	complete primary dev man nls icon_cache
 
 # When introspection option is set, the build segfaults on DragonFly
 # Until this is understood and fixed, leave it off by default
-OPTIONS_AVAILABLE=	CUPS BROADWAY FFMPEG INTROSPECTION
-OPTIONS_STANDARD=	CUPS BROADWAY FFMPEG INTROSPECTION
-OPT_ON[all]=		CUPS BROADWAY FFMPEG
+OPTIONS_AVAILABLE=	CUPS BROADWAY INTROSPECTION
+OPTIONS_STANDARD=	CUPS BROADWAY INTROSPECTION
+OPT_ON[all]=		CUPS BROADWAY
 
 FPC_EQUIVALENT=		x11-toolkits/gtk40
 
@@ -81,13 +80,7 @@ VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 			CPPFLAGS=-DO_CLOEXEC=0
 
 [BROADWAY].DESCRIPTION=			Backend for HTML5 and websocket support
-[FFMPEG].DESCRIPTION=			Build the ffmpeg media backend
 [INTROSPECTION].DESCRIPTION=		Build with introspection files
-
-[FFMPEG].CONFIGURE_ARGS_ON=		-Dmedia-ffmpeg=enabled
-[FFMPEG].CONFIGURE_ARGS_OFF=		-Dmedia-ffmpeg=disabled
-[FFMPEG].BUILDRUN_DEPENDS_ON=		ffmpeg5:primary:standard
-[FFMPEG].BUILD_DEPENDS_ON=		ffmpeg5:dev:standard
 
 [CUPS].CONFIGURE_ARGS_ON=		-Dprint-cups=enabled
 [CUPS].CONFIGURE_ARGS_OFF=		-Dprint-cups=disabled
