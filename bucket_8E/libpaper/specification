@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.1.3
+DEF[PORTVERSION]=	2.2.5
 DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -21,10 +21,14 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		print/libpaper
 
-LICENSE=		LGPL3+:primary
-LICENSE_FILE=		LGPL3+:{{WRKSRC}}/COPYING
+LICENSE=		LGPL21+:primary
+			GPLv2:primary
+			GPLv3+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+			GPLv2:stock
+			GPLv3+:{{WRKSRC}}/COPYING-GPL-3
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
-LICENSE_SCHEME=		solo
+LICENSE_SCHEME=		multi
 
 BUILD_DEPENDS=		help2man:single:standard
 
@@ -41,8 +45,8 @@ post-extract:
 	${ECHO_CMD} a4 > ${WRKDIR}/papersize.a4
 	${ECHO_CMD} letter > ${WRKDIR}/papersize.letter
 	# extract terms
-	${AWK} '/^Libpaper is distrib/,/is in the public domain./' \
-		${WRKSRC}/README > ${WRKDIR}/TERMS
+	${AWK} '/^The libpaper package is/,/Public Licence version 2./' \
+		${WRKSRC}/README.md > ${WRKDIR}/TERMS
 
 post-configure:
 	${REINPLACE_CMD} -e 's|$${prefix}|${PREFIX}|g' ${WRKSRC}/config.h
