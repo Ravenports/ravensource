@@ -1,4 +1,4 @@
---- coreconf/SunOS5.mk.orig	2024-01-22 08:56:12 UTC
+--- coreconf/SunOS5.mk.orig	2024-02-15 21:40:35 UTC
 +++ coreconf/SunOS5.mk
 @@ -33,10 +33,10 @@ endif
  DEFAULT_COMPILER = cc
