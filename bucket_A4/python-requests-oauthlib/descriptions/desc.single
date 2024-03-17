@@ -15,10 +15,32 @@ Accessing protected resources using requests_oauthlib is as simple as:
 History
 -------
 
+v1.4.0 (27 Feb 2024)
+++++++++++++++++++++++++
+
+Full set of changes are in [github].
+
+Additions & changes:
+
+- OAuth2Session now correctly uses the ``self.verify value if verify
+  is not overridden in fetch_token and refresh_token``. Fixes `#404
+  <https://github.com/requests/requests-oauthlib/issues/404>`_.
+- OAuth2Session constructor now uses its ``client.scope when a client
+  is provided and scope`` is not overridden. Fixes `#408
+  <https://github.com/requests/requests-oauthlib/issues/408>`_
+- Add refresh_token_request and access_token_request compliance hooks
+- Add PKCE support and Auth0 example
+- Add support for Python 3.8-3.12
+- Remove support of Python 2.x, <3.7
+- Migrated to Github Action
+- Updated dependencies
+- Cleanup some docs and examples
+
 v1.3.1 (21 January 2022)
 ++++++++++++++++++++++++
 
 - Add initial support for OAuth Mutual TLS (draft-ietf-oauth-mtls)
+- Removed outdated LinkedIn Compliance Fixes
 - Add eBay compliance fix
 - Add Spotify OAuth 2 Tutorial
 - Add support for python 3.8, 3.9
@@ -76,25 +98,3 @@ v1.0.0 (4 June 2018)
   token property on OAuth2Session.
 
 v0.8.0 (14 February 2017)
-+++++++++++++++++++++++++
-
-- Added Fitbit compliance fix.
-- Fixed an issue where newlines in the response body for the access token
-  request would cause errors when trying to extract the token.
-- Fixed an issue introduced in v0.7.0 where users passing auth to several
-  methods would encounter conflicts with the client_id and
-  client_secret-derived auth. The user-supplied auth argument is now
-  used in preference to those options.
-
-v0.7.0 (22 September 2016)
-++++++++++++++++++++++++++
-
-- Allowed ``OAuth2Session.request to take the client_id and
-  client_secret`` parameters for the purposes of automatic token refresh,
-  which may need them.
-
-v0.6.2 (12 July 2016)
-+++++++++++++++++++++
-
-- Use client_id and client_secret for the Authorization header if
-  provided.
