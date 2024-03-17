@@ -1,18 +1,18 @@
-DEF[PORTVERSION]=	0.18
+DEF[PORTVERSION]=	0.15
 # ------------------------------------------------------------------------
 
-NAMEBASE=		perl-Spreadsheet-XLSX
+NAMEBASE=		perl-Alien-patch
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		536 538
-SDESC[536]=		Extension for reading MS Excel 2007 files (5.36)
-SDESC[538]=		Extension for reading MS Excel 2007 files (5.38)
-HOMEPAGE=		https://github.com/asb-capfan/Spreadsheet-XLSX
+SDESC[536]=		Find or build patch (5.36)
+SDESC[538]=		Find or build patch (5.38)
+HOMEPAGE=		https://github.com/Perl5-Alien/Alien-patch
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		CPAN/ID:A/AS/ASB
-DISTFILE[1]=		Spreadsheet-XLSX-${PORTVERSION}.tar.gz:main
+SITES[main]=		CPAN/ID:P/PL/PLICEASE
+DISTFILE[1]=		Alien-patch-${PORTVERSION}.tar.gz:main
 
 SPKGS[536]=		single
 SPKGS[538]=		single
@@ -27,23 +27,26 @@ VOPTS[538]=		PERL_536=OFF PERL_538=ON
 
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		Spreadsheet-XLSX-${PORTVERSION}
+DISTNAME=		Alien-patch-${PORTVERSION}
 
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Archive::Zip
-# |      runtime : Spreadsheet::ParseExcel
+# |      runtime : Alien::Base
+# |        build : Alien::Build
+# |        build : Alien::Build::MM
 # |        build : ExtUtils::MakeMaker (perl 5.36 core) (perl 5.38 core)
+# |    configure : Alien::Build
+# |    configure : Alien::Build::MM
 # |    configure : ExtUtils::MakeMaker (perl 5.36 core) (perl 5.38 core)
-# |         test : Test::More (perl 5.36 core) (perl 5.38 core)
-# |         test : Test::NoWarnings
-# |         test : Test::Warnings
+# |    configure : File::chdir
+# |         test : Test2::V0
+# |         test : Test::Alien
 
 [PERL_536].USES_ON=			perl:536,configure
-[PERL_536].BUILDRUN_DEPENDS_ON=		perl-Archive-Zip:single:536
-					perl-Spreadsheet-ParseExcel:single:536
+[PERL_536].BUILDRUN_DEPENDS_ON=		perl-Alien-Build:single:536
+[PERL_536].BUILD_DEPENDS_ON=		perl-File-chdir:single:536
 [PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Archive-Zip:single:538
-					perl-Spreadsheet-ParseExcel:single:538
+[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Alien-Build:single:538
+[PERL_538].BUILD_DEPENDS_ON=		perl-File-chdir:single:538
 
