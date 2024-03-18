@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.52.2
+DEF[PORTVERSION]=	1.54.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gvfs
@@ -12,6 +12,7 @@ CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 DOWNLOAD_GROUPS=	main
 SITES[main]=		GNOME/gvfs/${PORTVERSION:R}/
 DISTFILE[1]=		gvfs-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome4
 
 SPKGS[standard]=	complete primary dev nls
 
@@ -42,12 +43,14 @@ BUILD_DEPENDS=		libgpg-error:dev:standard
 			libarchive:dev:standard
 			libsoup:dev:standard
 			libsecret:dev:standard
-			gcr3:dev:standard
+			gcr:dev:standard
+			p11-kit:dev:standard
 BUILDRUN_DEPENDS=	dbus:primary:standard
-			gcr3:primary:standard
+			gcr:primary:standard
 			libarchive:primary:standard
 			libsecret:primary:standard
 			libsoup:primary:standard
+			p11-kit:primary:standard
 USES=			cpe meson
 			pkgconfig ssl:build
 GNOME_COMPONENTS=	glib libxml2
@@ -55,8 +58,6 @@ CPE_VENDOR=		gnome
 
 # LibUSB deactivated for now; FreeBSD has it built-in but for 11.1
 # the base system ships with a version too old for GVFS...
-# CDDA support cannot be added on *BSD currently. GVFS does not support
-# HAL anymore and thus eudev is required. However that's Linux-only.
 #
 # More backends can be added as more required libs become available.
 
@@ -74,6 +75,7 @@ MESON_ARGS=		-Dsystemduserunitdir="no"
 			-Dlogind=false
 			-Dmtp=false
 			-Dnfs=false
+			-Donedrive=false
 			-Dsftp=false
 			-Dsmb=false
 			-Dudisks2=false
