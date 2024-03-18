@@ -1,4 +1,4 @@
---- src/pty.cc.orig	2023-10-16 18:09:04 UTC
+--- src/pty.cc.orig	2023-12-14 16:30:32 UTC
 +++ src/pty.cc
 @@ -77,6 +77,10 @@
  
