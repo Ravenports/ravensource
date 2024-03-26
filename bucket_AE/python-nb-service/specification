@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.0.7
+DEF[PORTVERSION]=	2.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-nb-service
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/renatoalmeidaoliveira/nbservice
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/64/dc/d54c800e54a8dd7568ef4efdec8a13322a415f0f8952a6f6cb0354e69c9c
+SITES[main]=		PYPIWHL/73/1d/d0aaf28d6c964dbabd26ac075d7d7644b1a315f3e4b577d6f42e8f3b1d8f
 DISTFILE[1]=		nb_service-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
@@ -29,8 +29,10 @@ GENERATED=		yes
 DISTNAME=		nb_service-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-
+# drf-yasg
 
 [PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-drf-yasg:single:v11
 [PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-drf-yasg:single:v12
 
