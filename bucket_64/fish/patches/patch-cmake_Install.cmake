@@ -1,4 +1,4 @@
---- cmake/Install.cmake.orig	2023-12-05 14:16:18 UTC
+--- cmake/Install.cmake.orig	2024-01-01 15:15:17 UTC
 +++ cmake/Install.cmake
 @@ -104,7 +104,7 @@ install(FILES share/config.fish
  fish_create_dirs(${rel_datadir}/fish/vendor_completions.d ${rel_datadir}/fish/vendor_functions.d
