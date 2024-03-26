@@ -1,9 +1,9 @@
 emacs is trying to get cute with its --dired addition to ls(1)
 but fails to parse lt_LT dates having '-' as separators.
 
---- lisp/dired.el.orig	2023-07-08 09:38:40 UTC
+--- lisp/dired.el.orig	2024-01-06 12:56:30 UTC
 +++ lisp/dired.el
-@@ -1683,6 +1683,8 @@ see `dired-use-ls-dired' for more detail
+@@ -1692,6 +1692,8 @@ see `dired-use-ls-dired' for more detail
               ;; month names; but this should not be necessary any
               ;; more, with the new value of
               ;; `directory-listing-before-filename-regexp'.

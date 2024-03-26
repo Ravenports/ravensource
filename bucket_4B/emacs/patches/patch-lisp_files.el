@@ -1,6 +1,6 @@
---- lisp/files.el.orig	2023-07-09 08:54:39 UTC
+--- lisp/files.el.orig	2024-01-06 12:56:30 UTC
 +++ lisp/files.el
-@@ -7602,7 +7602,7 @@ need to be passed verbatim to shell comm
+@@ -7612,7 +7612,7 @@ need to be passed verbatim to shell comm
        pattern))))
  
  
