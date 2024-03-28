@@ -1,6 +1,6 @@
---- lib/Makefile.orig	2023-04-04 20:13:52 UTC
-+++ lib/Makefile
-@@ -48,6 +48,8 @@ endif
+--- lib/Makefile.orig	2024-03-28 21:04:19.313174000 +0100
++++ lib/Makefile	2024-03-28 21:08:06.354501000 +0100
+@@ -51,6 +51,8 @@
  ZSTD_LOCAL_SRC := $(notdir $(ZSTD_FILES))
  ZSTD_LOCAL_OBJ0 := $(ZSTD_LOCAL_SRC:.c=.o)
  ZSTD_LOCAL_OBJ := $(ZSTD_LOCAL_OBJ0:.S=.o)
@@ -9,7 +9,7 @@
  
  VERSION := $(ZSTD_VERSION)
  
-@@ -75,8 +77,8 @@ ifeq ($(UNAME), Darwin)
+@@ -77,8 +79,8 @@
    SHARED_EXT_VER = $(LIBVER).$(SHARED_EXT)
    SONAME_FLAGS = -install_name $(LIBDIR)/libzstd.$(SHARED_EXT_MAJOR) -compatibility_version $(LIBVER_MAJOR) -current_version $(LIBVER)
  else
@@ -20,7 +20,7 @@
    else
      SONAME_FLAGS = -Wl,-soname=libzstd.$(SHARED_EXT).$(LIBVER_MAJOR)
    endif
-@@ -126,6 +128,14 @@ libzstd.a: $(ZSTD_STATLIB)
+@@ -128,6 +130,14 @@
  
  endif
  
@@ -35,7 +35,7 @@
  ifneq (,$(filter Windows%,$(TARGET_SYSTEM)))
  
  LIBZSTD = dll/libzstd.dll
-@@ -175,7 +185,7 @@ endif  # if windows
+@@ -177,7 +187,7 @@
  libzstd : $(LIBZSTD)
  
  .PHONY: lib
@@ -44,16 +44,16 @@
  
  
  # note : do not define lib-mt or lib-release as .PHONY
-@@ -249,7 +259,7 @@ clean:
+@@ -261,7 +271,7 @@
  #-----------------------------------------------------------------------------
  # make install is validated only for below listed environments
  #-----------------------------------------------------------------------------
--ifneq (,$(filter $(UNAME),Linux Darwin GNU/kFreeBSD GNU OpenBSD FreeBSD NetBSD DragonFly SunOS Haiku AIX))
-+ifneq (,$(filter $(UNAME),Linux Darwin GNU/kFreeBSD GNU OpenBSD FreeBSD NetBSD DragonFly MidnightBSD SunOS Haiku AIX))
+-ifneq (,$(filter $(UNAME),Linux Darwin GNU/kFreeBSD GNU OpenBSD FreeBSD NetBSD DragonFly SunOS Haiku AIX MSYS_NT CYGWIN_NT))
++ifneq (,$(filter $(UNAME),Linux Darwin GNU/kFreeBSD GNU OpenBSD FreeBSD NetBSD DragonFly MidnightBSD SunOS Haiku AIX MSYS_NT CYGWIN_NT))
  
  lib: libzstd.pc
  
-@@ -323,6 +333,7 @@ install-static:
+@@ -335,6 +345,7 @@
  	[ -e $(DESTDIR)$(LIBDIR) ] || $(INSTALL) -d -m 755 $(DESTDIR)$(LIBDIR)/
  	@echo Installing static library
  	$(INSTALL_DATA) libzstd.a $(DESTDIR)$(LIBDIR)
