@@ -37,6 +37,7 @@ bin/ctanify
 bin/ctanupload
 bin/ctie
 bin/ctwill
+bin/ctwill-proofsort
 bin/ctwill-refsort
 bin/ctwill-twinx
 bin/cweave
@@ -79,6 +80,8 @@ bin/dvitype
 bin/e2pall
 bin/ebb
 bin/ebong
+bin/edtx2dtx
+bin/eolang
 bin/epsffit
 bin/eptex
 bin/euptex
@@ -131,6 +134,7 @@ bin/lily-rebuild-pdfs
 bin/listings-ext.sh
 bin/lollipop
 bin/ltx2crossrefxml
+bin/ltx2unitxt
 bin/ltxfileinfo
 bin/ltximg
 bin/luahbtex
@@ -146,6 +150,8 @@ bin/makeindex
 bin/makejvf
 bin/match_parens
 bin/mathspic
+bin/memoize-clean
+bin/memoize-extract
 bin/mendex
 bin/mf
 bin/mf-nowin
@@ -212,6 +218,7 @@ bin/psnup
 bin/psresize
 bin/psselect
 bin/pstops
+bin/ptekf
 bin/ptex
 bin/ptftopl
 bin/purifyeps
@@ -223,6 +230,7 @@ bin/r-upmpost
 bin/rubikrotation
 bin/rumakeindex
 bin/rungs
+bin/runtexshebang
 bin/sjisconv
 bin/spix
 bin/splitindex
@@ -241,6 +249,7 @@ bin/tex
 bin/tex4ebook
 bin/tex4ht
 bin/texaccents
+bin/texblend
 bin/texconfig
 bin/texconfig-dialog
 bin/texconfig-sys
@@ -249,6 +258,7 @@ bin/texdef
 bin/texdiff
 bin/texdirflatten
 bin/texdoc
+bin/texfindpkg
 bin/texfot
 bin/texhash
 bin/texlinks
@@ -273,6 +283,7 @@ bin/ttf2tfm
 bin/ttfdump
 bin/ttftotype42
 bin/twill
+bin/twill-refsort
 bin/typeoutfileinfo
 bin/ulqda
 bin/updmap
@@ -377,6 +388,7 @@ share/man/man1/chktex.1.gz
 share/man/man1/chkweb.1.gz
 share/man/man1/ctangle.1.gz
 share/man/man1/ctie.1.gz
+share/man/man1/ctwill-proofsort.1.gz
 share/man/man1/ctwill-refsort.1.gz
 share/man/man1/ctwill-twinx.1.gz
 share/man/man1/ctwill.1.gz
@@ -415,8 +427,6 @@ share/man/man1/dvitype.1.gz
 share/man/man1/e2pall.1.gz
 share/man/man1/ebb.1.gz
 share/man/man1/epsffit.1.gz
-share/man/man1/eptex.1.gz
-share/man/man1/euptex.1.gz
 share/man/man1/extconv.1.gz
 share/man/man1/extractbb.1.gz
 share/man/man1/extractres.1.gz
@@ -482,7 +492,6 @@ share/man/man1/pktype.1.gz
 share/man/man1/platex-dev.1.gz
 share/man/man1/pltotf.1.gz
 share/man/man1/pooltype.1.gz
-share/man/man1/ppltotf.1.gz
 share/man/man1/ps2frag.1.gz
 share/man/man1/ps2pk.1.gz
 share/man/man1/psbook.1.gz
@@ -492,8 +501,7 @@ share/man/man1/psresize.1.gz
 share/man/man1/psselect.1.gz
 share/man/man1/pstops.1.gz
 share/man/man1/psutils.1.gz
-share/man/man1/ptex.1.gz
-share/man/man1/ptftopl.1.gz
+share/man/man1/ptekf.1.gz
 share/man/man1/rumakeindex.1.gz
 share/man/man1/sjisconv.1.gz
 share/man/man1/t1dotlessj.1.gz
@@ -514,13 +522,11 @@ share/man/man1/ttf2pk.1.gz
 share/man/man1/ttf2tfm.1.gz
 share/man/man1/ttfdump.1.gz
 share/man/man1/ttftotype42.1.gz
+share/man/man1/twill-refsort.1.gz
 share/man/man1/twill.1.gz
 share/man/man1/updmap-sys.1.gz
 share/man/man1/updmap.1.gz
 share/man/man1/uplatex-dev.1.gz
-share/man/man1/uppltotf.1.gz
-share/man/man1/uptex.1.gz
-share/man/man1/uptftopl.1.gz
 share/man/man1/vftovp.1.gz
 share/man/man1/vptovf.1.gz
 share/man/man1/weave.1.gz
@@ -588,6 +594,7 @@ share/texmf-dist/scripts/arara/arara.sh
 share/texmf-dist/scripts/attachfile2/pdfatfi.pl
 share/texmf-dist/scripts/authorindex/authorindex
 share/texmf-dist/scripts/bibcop/bibcop.pl
+share/texmf-dist/scripts/bibtexperllibs/ltx2unitxt
 share/texmf-dist/scripts/bundledoc/arlatex
 share/texmf-dist/scripts/bundledoc/bundledoc
 share/texmf-dist/scripts/cachepic/cachepic.tlu
@@ -598,6 +605,7 @@ share/texmf-dist/scripts/chktex/deweb.pl
 share/texmf-dist/scripts/citation-style-language/citeproc-lua.lua
 share/texmf-dist/scripts/cjk-gs-integrate/cjk-gs-integrate.pl
 share/texmf-dist/scripts/clojure-pamphlet/pamphletangler
+share/texmf-dist/scripts/context/perl/mptopdf.pl
 share/texmf-dist/scripts/convbkmk/convbkmk.rb
 share/texmf-dist/scripts/crossrefware/ltx2crossrefxml.pl
 share/texmf-dist/scripts/ctan-o-mat/ctan-o-mat.pl
@@ -609,7 +617,9 @@ share/texmf-dist/scripts/dosepsbin/dosepsbin.pl
 share/texmf-dist/scripts/dtxgen/dtxgen
 share/texmf-dist/scripts/dviasm/dviasm.py
 share/texmf-dist/scripts/dviinfox/dviinfox.pl
+share/texmf-dist/scripts/easydtx/edtx2dtx.pl
 share/texmf-dist/scripts/ebong/ebong.py
+share/texmf-dist/scripts/eolang/eolang.pl
 share/texmf-dist/scripts/exceltex/exceltex
 share/texmf-dist/scripts/findhyph/findhyph
 share/texmf-dist/scripts/fontools/afm2afm
@@ -635,6 +645,10 @@ share/texmf-dist/scripts/make4ht/make4ht
 share/texmf-dist/scripts/makedtx/makedtx.pl
 share/texmf-dist/scripts/match_parens/match_parens
 share/texmf-dist/scripts/mathspic/mathspic.pl
+share/texmf-dist/scripts/memoize/memoize-clean.pl
+share/texmf-dist/scripts/memoize/memoize-clean.py
+share/texmf-dist/scripts/memoize/memoize-extract.pl
+share/texmf-dist/scripts/memoize/memoize-extract.py
 share/texmf-dist/scripts/mf2pt1/mf2pt1.pl
 share/texmf-dist/scripts/mkgrkindex/mkgrkindex
 share/texmf-dist/scripts/mkjobtexmf/mkjobtexmf.pl
@@ -660,6 +674,7 @@ share/texmf-dist/scripts/pygmentex/pygmentex.py
 share/texmf-dist/scripts/pythontex/depythontex.py
 share/texmf-dist/scripts/pythontex/pythontex.py
 share/texmf-dist/scripts/rubik/rubikrotation.pl
+share/texmf-dist/scripts/runtexshebang/runtexshebang.lua
 share/texmf-dist/scripts/spix/spix.py
 share/texmf-dist/scripts/splitindex/splitindex.pl
 share/texmf-dist/scripts/srcredact/srcredact.pl
@@ -672,11 +687,13 @@ share/texmf-dist/scripts/tex4ht/httex.sh
 share/texmf-dist/scripts/tex4ht/httexi.sh
 share/texmf-dist/scripts/tex4ht/mk4ht.pl
 share/texmf-dist/scripts/texaccents/texaccents.sno
+share/texmf-dist/scripts/texblend/texblend
 share/texmf-dist/scripts/texcount/texcount.pl
 share/texmf-dist/scripts/texdef/texdef.pl
 share/texmf-dist/scripts/texdiff/texdiff
 share/texmf-dist/scripts/texdirflatten/texdirflatten
 share/texmf-dist/scripts/texdoc/texdoc.tlu
+share/texmf-dist/scripts/texfindpkg/texfindpkg.lua
 share/texmf-dist/scripts/texfot/texfot.pl
 share/texmf-dist/scripts/texlive/fmtutil-sys.sh
 share/texmf-dist/scripts/texlive/fmtutil-user.sh

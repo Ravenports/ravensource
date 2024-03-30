@@ -1,8 +1,8 @@
 # Update together with texlive-texmf when the annual release happens
-DEF[YEAR]=		2023
-DEF[PORTVERSION]=	${YEAR}0313
-DEF[LIBKPATHSEA]=	6.3.5
-DEF[LIBPTEXENC]=	1.4.3
+DEF[YEAR]=		2024
+DEF[PORTVERSION]=	${YEAR}0312
+DEF[LIBKPATHSEA]=	6.4.0
+DEF[LIBPTEXENC]=	1.4.6
 DEF[LIBSYNCTEX]=	2.0.0
 DEF[LIBTEXLUA53]=	5.3.6
 DEF[LIBTEXLUAJIT]=	2.1.0
@@ -27,7 +27,7 @@ DISTFILE[4]=		lppl.txt:lppl
 DIST_SUBDIR=		texlive
 DF_INDEX=		1 2 3 4
 
-SPKGS[standard]=	complete primary docs bibtex context engine_hitex
+SPKGS[standard]=	complete primary docs bibtex engine_hitex
 			engine_luatex engine_pdftex engine_xetex
 			synctex tlmgr utils xindy
 
@@ -133,6 +133,7 @@ SHEBANG_FILES=		texk/texlive/linked_scripts/accfonts/mkt1font
 			texk/texlive/linked_scripts/de-macro/de-macro
 			texk/texlive/linked_scripts/dtxgen/dtxgen
 			texk/texlive/linked_scripts/ebong/ebong.py
+			texk/texlive/linked_scripts/eolang/eolang.pl
 			texk/texlive/linked_scripts/exceltex/exceltex
 			texk/texlive/linked_scripts/findhyph/findhyph
 			texk/texlive/linked_scripts/fragmaster/fragmaster.pl
@@ -146,6 +147,7 @@ SHEBANG_FILES=		texk/texlive/linked_scripts/accfonts/mkt1font
 			texk/texlive/linked_scripts/ltxfileinfo/ltxfileinfo
 			texk/texlive/linked_scripts/makedtx/makedtx.pl
 			texk/texlive/linked_scripts/mathspic/mathspic.pl
+			texk/texlive/linked_scripts/memoize/memoize-clean.py
 			texk/texlive/linked_scripts/mf2pt1/mf2pt1.pl
 			texk/texlive/linked_scripts/multibibliography/multibibliography.pl
 			texk/texlive/linked_scripts/pdfbook2/pdfbook2
@@ -202,7 +204,4 @@ post-install:
 	done
 	for p in ${PROGRAMS0} ${PROGRAMS1} ${PROGRAMS2}; do \
 	   ${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/$$p ;\
-	done
-	for s in ${STUBS}; do \
-	    ${INSTALL_SCRIPT} ${WRKSRC}/texk/texlive/linked_scripts/context/stubs/unix/$$s ${STAGEDIR}${PREFIX}/bin/$$s ;\
 	done
