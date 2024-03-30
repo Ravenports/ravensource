@@ -8,6 +8,7 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/doc/\*/examples \
 	texmf-dist/doc/\*/\*/example \
 	texmf-dist/doc/\*/\*/examples \
+	texmf-dist/doc/luatex/opbible/txs-gen/mod2tex \
 	texmf-dist/bibtex/csf/base/88591lat.csf \
 	texmf-dist/bibtex/csf/base/88591sca.csf \
 	texmf-dist/bibtex/csf/base/ascii.csf \
@@ -78,6 +79,7 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/scripts/bib2gls/convertgls2bib.sh \
 	texmf-dist/scripts/bibcop/bibcop.pl \
 	texmf-dist/scripts/bibexport/bibexport.sh \
+	texmf-dist/scripts/bibtexperllibs/ltx2unitxt \
 	texmf-dist/scripts/bundledoc/arlatex \
 	texmf-dist/scripts/bundledoc/bundledoc \
 	texmf-dist/scripts/cachepic/cachepic.tlu \
@@ -117,7 +119,9 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/scripts/dtxgen/dtxgen \
 	texmf-dist/scripts/dviasm/dviasm.py \
 	texmf-dist/scripts/dviinfox/dviinfox.pl \
+	texmf-dist/scripts/easydtx/edtx2dtx.pl \
 	texmf-dist/scripts/ebong/ebong.py \
+	texmf-dist/scripts/eolang/eolang.pl \
 	texmf-dist/scripts/epspdf/epspdf.tlu \
 	texmf-dist/scripts/epspdf/epspdftk.tcl \
 	texmf-dist/scripts/epstopdf/epstopdf.pl \
@@ -167,6 +171,10 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/scripts/makedtx/makedtx.pl \
 	texmf-dist/scripts/match_parens/match_parens \
 	texmf-dist/scripts/mathspic/mathspic.pl \
+	texmf-dist/scripts/memoize/memoize-clean.pl \
+	texmf-dist/scripts/memoize/memoize-clean.py \
+	texmf-dist/scripts/memoize/memoize-extract.pl \
+	texmf-dist/scripts/memoize/memoize-extract.py \
 	texmf-dist/scripts/mf2pt1/mf2pt1.pl \
 	texmf-dist/scripts/mkgrkindex/mkgrkindex \
 	texmf-dist/scripts/mkjobtexmf/mkjobtexmf.pl \
@@ -209,6 +217,7 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/scripts/pythontex/depythontex.py \
 	texmf-dist/scripts/pythontex/pythontex.py \
 	texmf-dist/scripts/rubik/rubikrotation.pl \
+	texmf-dist/scripts/runtexshebang/runtexshebang.lua \
 	texmf-dist/scripts/simpdftex/simpdftex \
 	texmf-dist/scripts/spix/spix.py \
 	texmf-dist/scripts/splitindex/splitindex.pl \
@@ -227,12 +236,14 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/scripts/tex4ht/mk4ht.pl \
 	texmf-dist/scripts/tex4ht/xhlatex.sh \
 	texmf-dist/scripts/texaccents/texaccents.sno \
+	texmf-dist/scripts/texblend/texblend \
 	texmf-dist/scripts/texcount/texcount.pl \
 	texmf-dist/scripts/texdef/texdef.pl \
 	texmf-dist/scripts/texdiff/texdiff \
 	texmf-dist/scripts/texdirflatten/texdirflatten \
 	texmf-dist/scripts/texdoc/texdoc.tlu \
 	texmf-dist/scripts/texdoctk/texdoctk.pl \
+	texmf-dist/scripts/texfindpkg/texfindpkg.lua \
 	texmf-dist/scripts/texfot/texfot.pl \
 	texmf-dist/scripts/texlive/fmtutil-sys.sh \
 	texmf-dist/scripts/texlive/fmtutil-user.sh \
@@ -329,5 +340,4 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/xindy/modules/rules/latin-exchange.xdy \
 	texmf-dist/xindy/modules/rules/latin-tolower.xdy \
 	texmf-dist/xindy/modules/styles/basic.xdy \
-	texmf-dist/xindy/modules/styles/makeidx.xdy \
-
+	texmf-dist/xindy/modules/styles/makeidx.xdy

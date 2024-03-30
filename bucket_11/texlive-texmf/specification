@@ -1,6 +1,6 @@
 # Update together with texlive-bin when the annual release happens
-DEF[YEAR]=		2023
-DEF[PORTVERSION]=	${YEAR}0313
+DEF[YEAR]=		2024
+DEF[PORTVERSION]=	${YEAR}0312
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		texlive-texmf
@@ -46,17 +46,24 @@ USES=			shebangfix
 SHEBANG_GLOB=		*.sh
 			*.py
 			*.pl
-SHEBANG_FILES=		texmf-dist/doc/latex/ucs/unsupported/u2ps
-			texmf-dist/doc/latex/tlc-article/bin/deploy
-			texmf-dist/doc/latex/ctable/inst
-			texmf-dist/doc/latex/hepnames/mkmacrotables
+SHEBANG_FILES=		texmf-dist/doc/cstex/cspsfonts-gen/mkf
 			texmf-dist/doc/cstex/cspsfonts-gen/mkfc
-			texmf-dist/doc/cstex/cspsfonts-gen/mkf
-			texmf-dist/doc/fonts/berenisadf/ff-ybd.pe
 			texmf-dist/doc/fonts/aesupp/genfonts.pe
+			texmf-dist/doc/fonts/berenisadf/ff-ybd.pe
 			texmf-dist/doc/fonts/phaistos/getglyphs
 			texmf-dist/doc/generic/m-tx/buildmtxdoc.lua
 			texmf-dist/doc/generic/e-french/bin/linux/makefrindex
+			texmf-dist/doc/latex/comprehensive/source/makefakeasapsym
+			texmf-dist/doc/latex/comprehensive/source/makefakefigchild
+			texmf-dist/doc/latex/comprehensive/source/makefakelualatex
+			texmf-dist/doc/latex/comprehensive/source/makefakeutfsym
+			texmf-dist/doc/latex/comprehensive/source/maketitlepage
+			texmf-dist/doc/latex/comprehensive/source/patch-idx
+			texmf-dist/doc/latex/comprehensive/source/prune-idx
+			texmf-dist/doc/latex/ctable/inst
+			texmf-dist/doc/latex/hepnames/mkmacrotables
+			texmf-dist/doc/latex/tlc-article/bin/deploy
+			texmf-dist/doc/latex/ucs/unsupported/u2ps
 			texmf-dist/doc/plain/transparent-io/TrIO.org
 			texmf-dist/doc/support/latexdiff/contrib/latexdiff-wrap
 			texmf-dist/scripts/logicpuzzle/createlpsudoku
@@ -69,8 +76,6 @@ post-patch:
 	${FIND} ${WRKSRC} -name '*.orig' -delete
 	${FIND} ${WRKSRC} -name '*.bak' -delete
 	${FIND} ${WRKSRC} -type d -empty -delete
-# texmf-dist/tex/generic/pgfplots/lua/prepcontour.lua
-# texmf-dist/tex/generic/pgfplots/lua/prepcontour_cli.lua
 
 do-install:
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
