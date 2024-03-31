@@ -1,0 +1,52 @@
+DEF[PORTVERSION]=	1.9.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		sword
+VERSION=		${PORTVERSION}
+KEYWORDS=		misc
+VARIANTS=		standard
+SDESC[standard]=	Framework for manipulating Bible texts
+HOMEPAGE=		https://crosswire.org/sword/index.jsp
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://crosswire.org/ftpmirror/pub/sword/source/v${PORTVERSION:R}/
+DISTFILE[1]=		sword-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:primary
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/modules/common/rawstr.cpp
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		misc/sword
+
+BUILDRUN_DEPENDS=	bzip2:primary:standard
+			clucene:single:standard
+			curl:primary:standard
+			icu:primary:standard
+			xapian-core:primary:standard
+BUILD_DEPENDS=		bzip2:dev:standard
+			curl:dev:standard
+			icu:dev:standard
+			xapian-core:dev:standard
+RUN_DEPENDS=		icu:data:standard
+USES=			gmake libtool pkgconfig xz zlib
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-tests
+			--enable-examples
+			--with-bzip2
+			--without-cxx11regex
+			--without-cxx11time
+			--with-icuregex
+			--with-xz
+
+INSTALL_TARGET=		install-strip
+SUB_FILES=		pkg-message-primary
