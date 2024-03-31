@@ -1,8 +1,9 @@
-DEF[PORTVERSION]=	5.6.1
+DEF[PORTVERSION]=	5.4.6
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xz
 VERSION=		${PORTVERSION}
+EPOCH=			1
 KEYWORDS=		archivers raven
 VARIANTS=		standard
 SDESC[standard]=	LZMA compression and decompression tools
@@ -10,7 +11,7 @@ HOMEPAGE=		https://tukaani.org/xz/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://github.com/tukaani-project/xz/releases/download/v${PORTVERSION}/
+SITES[main]=		SF/lzmautils
 DISTFILE[1]=		xz-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	complete primary tools dev man docs examples
@@ -28,7 +29,6 @@ USES=			cpe libtool
 CPE_VENDOR=		tukaani
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-nls
-			--enable-sandbox=no
 			{{SYMVER:U--enable-symbol-versions}}
 CONFIGURE_ENV=		gl_cv_posix_shell=/bin/sh
 INSTALL_TARGET=		install-strip
@@ -54,9 +54,9 @@ post-install:
 	# remove redundant license
 	${RM} ${STAGEDIR}${STD_DOCDIR}/COPYING*
 	# mv examples to their place
-	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}/new
-	${MV} ${STAGEDIR}${STD_DOCDIR}/examples/* ${STAGEDIR}${STD_EXAMPLESDIR}/new
-	${RMDIR} ${STAGEDIR}${STD_DOCDIR}/exam*
+	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+	${MV} ${STAGEDIR}${STD_DOCDIR}/examples/* ${STAGEDIR}${STD_EXAMPLESDIR}/
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}/exam*
 
 do-test:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE} check)
