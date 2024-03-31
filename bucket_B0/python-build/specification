@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.1.1
+DEF[PORTVERSION]=	1.2.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-build
@@ -11,7 +11,7 @@ HOMEPAGE=		https://build.pypa.io
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/4f/81/4849059526d02fcc9708e19346dd740e8b9edd2f0675ea7c38302d6729df
+SITES[main]=		PYPIWHL/e2/03/f3c8ba0a6b6e30d7d18c40faab90807c9bb5e9a1e3b2fe2008af624a9c97
 DISTFILE[1]=		build-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
@@ -29,7 +29,7 @@ GENERATED=		yes
 DISTNAME=		build-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# packaging >= 19.0
+# packaging >= 19.1
 # pyproject_hooks
 # colorama; os_name == "nt"
 # importlib-metadata >= 4.6; python_full_version < "3.10.2"
@@ -39,6 +39,7 @@ DISTNAME=		build-${PORTVERSION}.dist-info
 # sphinx-argparse-cli >= 1.5 ; extra == "docs"
 # sphinx-autodoc-typehints >= 1.10 ; extra == "docs"
 # sphinx-issues >= 3.0.0 ; extra == "docs"
+# build[uv, virtualenv] ; extra == "test"
 # filelock >= 3 ; extra == "test"
 # pytest >= 6.2.4 ; extra == "test"
 # pytest-cov >= 2.12 ; extra == "test"
@@ -50,10 +51,12 @@ DISTNAME=		build-${PORTVERSION}.dist-info
 # setuptools >= 56.0.0 ; extra == "test" and ( python_version == "3.10")
 # setuptools >= 56.0.0 ; extra == "test" and ( python_version == "3.11")
 # setuptools >= 67.8.0 ; extra == "test" and ( python_version >= "3.12")
+# build[uv] ; extra == "typing"
 # importlib-metadata >= 5.1 ; extra == "typing"
-# mypy ~= 1.5.0 ; extra == "typing"
+# mypy ~= 1.9.0 ; extra == "typing"
 # tomli ; extra == "typing"
 # typing-extensions >= 3.7.4.3 ; extra == "typing"
+# uv >= 0.1.18 ; extra == "uv"
 # virtualenv >= 20.0.35 ; extra == "virtualenv"
 
 [PY311].USES_ON=			python:v11,wheel

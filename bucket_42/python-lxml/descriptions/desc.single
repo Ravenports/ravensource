@@ -22,34 +22,38 @@ an appropriate version of Cython installed.
 
 After an official release of a new stable series, bug fixes may become
 available at
-https://github.com/lxml/lxml/tree/lxml-5.1 .
-Running ``easy_install lxml==5.1bugfix`` will install
+https://github.com/lxml/lxml/tree/lxml-5.2 .
+Running ``easy_install lxml==5.2bugfix`` will install
 the unreleased branch state from
-https://github.com/lxml/lxml/tarball/lxml-5.1#egg=lxml-5.1bugfix
+https://github.com/lxml/lxml/tarball/lxml-5.2#egg=lxml-5.2bugfix
 as soon as a maintenance branch has been established.  Note that this
 requires Cython to be installed at an appropriate version for the build.
 
-5.1.0 (2024-01-05)
+5.2.0 (2024-03-30)
 ==================
-
-Features added
---------------
-
-* Parsing ASCII strings is slightly faster.
-
-Bugs fixed
-----------
-
-* GH#349: The HTML ``Cleaner() interpreted an accidentally provided string
-parameter
-  for the host_whitelist`` as list of characters and silently failed to
-reject any hosts.
-  Passing a non-collection is now rejected.
 
 Other changes
 -------------
 
-* Support for Python 2.7 and Python versions < 3.6 was removed.
+* LP#1958539: The ``lxml.html.clean`` implementation suffered from several
+(only if used)
+  security issues in the past and was now extracted into a separate
+library:
 
-* The wheel build was migrated to use cibuildwheel.
-  Patch by Primož Godec.
+  https://github.com/fedora-python/lxml_html_clean
+
+  Projects that use lxml without "lxml.html.clean" will not notice any
+difference,
+  except that they won't have potentially vulnerable code installed.
+  The module is available as an "extra" setuptools dependency
+"lxml[html_clean]",
+  so that Projects that need "lxml.html.clean" will need to switch their
+requirements
+  from "lxml" to "lxml[html_clean]", or install the new library themselves.
+
+* The minimum CPU architecture for the Linux x86 binary wheels was upgraded
+to
+  "sandybridge" (launched 2011), and glibc 2.28 / gcc 12 (manylinux_2_28)
+wheels were added.
+
+* Built with Cython 3.0.10.
