@@ -37,6 +37,7 @@ USES=			bison meson pkgconfig shebangfix
 GNOME_COMPONENTS=	glib
 MESON_ARGS=		-Dpython={{PYTHON_CMD}}
 			-Ddoctool=disabled
+			-Dbuild_introspection_data=true
 INSTALL_TARGET=		install-strip
 
 [CAIRO].DESCRIPTION=			Include cairo for tests
@@ -51,3 +52,9 @@ post-install:
 	# remove artifacts from doctemplates fix
 	${FIND} ${STAGEDIR}${PREFIX}/lib/gobject-introspection/giscanner/doctemplates \
 		-type f -name "meson.build*" -delete
+.for base in GLib GModule GObject Gio
+	${INSTALL_DATA} ${WRKSRC}/${MESON_BUILD_DIR}/gir/${base}-2.0.typelib \
+		${STAGEDIR}${PREFIX}/lib/girepository-1.0/
+	${INSTALL_DATA} ${WRKSRC}/${MESON_BUILD_DIR}/gir/${base}-2.0.gir \
+		${STAGEDIR}${PREFIX}/share/gir-1.0/
+.endfor
