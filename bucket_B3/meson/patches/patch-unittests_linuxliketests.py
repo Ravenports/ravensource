@@ -1,8 +1,8 @@
 https://github.com/mesonbuild/meson/pull/4324
 
---- unittests/linuxliketests.py.orig	2023-11-12 18:41:00 UTC
+--- unittests/linuxliketests.py.orig	2024-02-26 20:51:28 UTC
 +++ unittests/linuxliketests.py
-@@ -1588,7 +1588,7 @@ class LinuxlikeTests(BasePlatformTests):
+@@ -1541,7 +1541,7 @@ class LinuxlikeTests(BasePlatformTests):
          # Test that installed libraries works
          self.new_builddir()
          self.prefix = oldprefix
