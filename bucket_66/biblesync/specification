@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	2.1.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		biblesync
+VERSION=		${PORTVERSION}
+KEYWORDS=		misc
+VARIANTS=		standard
+SDESC[standard]=	Multicast shared co-nav. lib for Bible programs
+HOMEPAGE=		https://github.com/karlkleinpaste/biblesync/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/karlkleinpaste:biblesync:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary dev man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		PUBDOM:primary
+LICENSE_FILE=		PUBDOM:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		misc/biblesync
+
+BUILD_DEPENDS=		libuuid:dev:standard
+BUILDRUN_DEPENDS=	libuuid:primary:standard
+
+USES=			c++:primary cmake gettext
+
+CMAKE_ARGS=		-DBUILD_SHARED_LIBS=on
+SOVERSION=		${PORTVERSION}
+
+post-stage:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libbiblesync.so
