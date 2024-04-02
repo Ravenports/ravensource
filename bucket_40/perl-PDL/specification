@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.085
+DEF[PORTVERSION]=	2.086
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-PDL
@@ -48,6 +48,7 @@ DISTNAME=		PDL-${PORTVERSION}
 # |      runtime : Inline::C
 # |      runtime : OpenGL
 # |      runtime : OpenGL::GLUT
+# |      runtime : PGPLOT
 # |      runtime : Term::ReadKey
 # |        build : ExtUtils::MakeMaker (perl 5.36 core) (perl 5.38 core)
 # |        build : ExtUtils::ParseXS (perl 5.36 core) (perl 5.38 core)
@@ -60,7 +61,6 @@ DISTNAME=		PDL-${PORTVERSION}
 # |    configure : File::Path (perl 5.36 core) (perl 5.38 core)
 # |    configure : File::Which
 # |    configure : ExtUtils::F77
-# |    configure : PGPLOT
 # |         test : CPAN::Meta (perl 5.36 core) (perl 5.38 core)
 # |         test : IPC::Cmd (perl 5.36 core) (perl 5.38 core)
 # |         test : Test::Exception
@@ -75,10 +75,10 @@ DISTNAME=		PDL-${PORTVERSION}
 					perl-Inline-C:single:536
 					perl-OpenGL:single:536
 					perl-OpenGL-GLUT:single:536
+					perl-PGPLOT:single:536
 					perl-TermReadKey:single:536
 [PERL_536].BUILD_DEPENDS_ON=		perl-Devel-CheckLib:single:536
 					perl-ExtUtils-Depends:single:536
-					perl-PGPLOT:single:536
 [PERL_538].USES_ON=			perl:538,configure
 [PERL_538].BUILDRUN_DEPENDS_ON=		perl-File-Map:single:538
 					perl-File-Which:single:538
@@ -88,10 +88,10 @@ DISTNAME=		PDL-${PORTVERSION}
 					perl-Inline-C:single:538
 					perl-OpenGL:single:538
 					perl-OpenGL-GLUT:single:538
+					perl-PGPLOT:single:538
 					perl-TermReadKey:single:538
 [PERL_538].BUILD_DEPENDS_ON=		perl-Devel-CheckLib:single:538
 					perl-ExtUtils-Depends:single:538
-					perl-PGPLOT:single:538
 
 BUILD_DEPENDS=		freeglut:dev:standard
 USES=			fortran:single
