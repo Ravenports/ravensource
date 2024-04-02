@@ -29,31 +29,19 @@ https://github.com/lxml/lxml/tarball/lxml-5.2#egg=lxml-5.2bugfix
 as soon as a maintenance branch has been established.  Note that this
 requires Cython to be installed at an appropriate version for the build.
 
-5.2.0 (2024-03-30)
+5.2.1 (2024-04-02)
 ==================
 
-Other changes
--------------
+Bugs fixed
+----------
 
-* LP#1958539: The ``lxml.html.clean`` implementation suffered from several
-(only if used)
-  security issues in the past and was now extracted into a separate
-library:
+* LP#2059910: The minimum CPU architecture for the Linux x86 binary wheels
+was set back to
+  "core2", but with SSE 4.2 enabled.
 
-  https://github.com/fedora-python/lxml_html_clean
+* LP#2059977: ``Element.iterfind("//absolute_path") failed with a
+SyntaxError``
+  where it should have issued a warning.
 
-  Projects that use lxml without "lxml.html.clean" will not notice any
-difference,
-  except that they won't have potentially vulnerable code installed.
-  The module is available as an "extra" setuptools dependency
-"lxml[html_clean]",
-  so that Projects that need "lxml.html.clean" will need to switch their
-requirements
-  from "lxml" to "lxml[html_clean]", or install the new library themselves.
-
-* The minimum CPU architecture for the Linux x86 binary wheels was upgraded
-to
-  "sandybridge" (launched 2011), and glibc 2.28 / gcc 12 (manylinux_2_28)
-wheels were added.
-
-* Built with Cython 3.0.10.
+* GH#416: The documentation build was using the non-standard which command.
+  Patch by Michał Górny.
