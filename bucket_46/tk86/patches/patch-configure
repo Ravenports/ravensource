@@ -1,12 +1,12 @@
---- configure.orig	2022-11-21 19:56:01 UTC
+--- configure.orig	2024-02-28 15:18:35 UTC
 +++ configure
-@@ -5202,9 +5202,13 @@ fi
+@@ -5199,9 +5199,13 @@ fi
  fi
  
  	    ;;
 -	Linux*|GNU*|NetBSD-Debian|DragonFly-*|FreeBSD-*)
 +	Linux*|GNU*|NetBSD-*|DragonFly-*|FreeBSD-*|SunOS-*|MidnightBSD-*)
- 	    SHLIB_CFLAGS="-fPIC"
+ 	    SHLIB_CFLAGS="-fPIC -fno-common"
  	    SHLIB_SUFFIX=".so"
 +	    TCL_TRIM_DOTS=`echo ${VERSION} | tr -d .`
 +	    UNSHARED_LIB_SUFFIX='${TCL_TRIM_DOTS}.a'
@@ -15,7 +15,7 @@
  
  	    CFLAGS_OPTIMIZE="-O2"
  	    # egcs-2.91.66 on Redhat Linux 6.0 generates lots of warnings
-@@ -5213,12 +5217,15 @@ fi
+@@ -5210,12 +5214,15 @@ fi
  	    #CFLAGS_OPTIMIZE="${CFLAGS_OPTIMIZE} -D__NO_STRING_INLINES -D__NO_MATH_INLINES"
  
  	    SHLIB_LD='${CC} ${CFLAGS} ${LDFLAGS} -shared'
@@ -33,7 +33,7 @@
  		if test "${TCL_THREADS}" = "1"; then
  
  		    # The -pthread needs to go in the LDFLAGS, not LIBS
-@@ -5394,7 +5401,7 @@ fi
+@@ -5391,7 +5398,7 @@ fi
  	    UNSHARED_LIB_SUFFIX='${TCL_TRIM_DOTS}.a'
  	    TCL_LIB_VERSIONS_OK=nodots
  	    ;;

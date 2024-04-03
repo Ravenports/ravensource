@@ -1,4 +1,4 @@
---- Makefile.in.orig	2022-11-21 19:56:01 UTC
+--- Makefile.in.orig	2024-02-28 15:18:35 UTC
 +++ Makefile.in
 @@ -65,6 +65,8 @@ SCRIPT_INSTALL_DIR	= $(INSTALL_ROOT)$(TK
  
@@ -51,8 +51,8 @@
  install: $(INSTALL_TARGETS)
  
 @@ -715,7 +724,7 @@ install-strip:
- 		INSTALL_PROGRAM="$(INSTALL_PROGRAM) ${INSTALL_STRIP_PROGRAM}" \
- 		INSTALL_LIBRARY="$(INSTALL_LIBRARY) ${INSTALL_STRIP_LIBRARY}"
+ 		INSTALL_PROGRAM="STRIPPROG='${INSTALL_STRIP_PROGRAM}' $(INSTALL_PROGRAM) -s" \
+ 		INSTALL_LIBRARY="STRIPPROG='${INSTALL_STRIP_LIBRARY}' $(INSTALL_LIBRARY) -s"
  
 -install-binaries: $(TK_STUB_LIB_FILE) $(TK_LIB_FILE) ${WISH_EXE}
 +install-binaries: $(TK_LIB_FILE) $(TK_STUB_LIB_FILE) libtk${SHORT_TK_VER}.a ${WISH_EXE}
@@ -70,7 +70,7 @@
  	@if test -f "tk${MAJOR_VERSION}${MINOR_VERSION}.dll"; then \
  	    $(INSTALL_LIBRARY) "tk${MAJOR_VERSION}${MINOR_VERSION}.dll" "$(DLL_INSTALL_DIR)";\
  	    chmod 555 "$(DLL_INSTALL_DIR)/tk${MAJOR_VERSION}${MINOR_VERSION}.dll";\
-@@ -763,7 +776,7 @@ install-binaries: $(TK_STUB_LIB_FILE) $(
+@@ -761,7 +774,7 @@ install-binaries: $(TK_STUB_LIB_FILE) $(
  	@EXTRA_INSTALL_BINARIES@
  	@echo "Installing pkg-config file to $(LIB_INSTALL_DIR)/pkgconfig/"
  	@$(INSTALL_DATA_DIR) "$(LIB_INSTALL_DIR)/pkgconfig"
@@ -79,7 +79,7 @@
  
  install-libraries: libraries
  	@for i in "$(SCRIPT_INSTALL_DIR)" "$(SCRIPT_INSTALL_DIR)/images" \
-@@ -861,7 +874,8 @@ install-doc:
+@@ -859,7 +872,8 @@ install-doc:
  install-headers:
  	@if test "$(@TK_WINDOWINGSYSTEM@_XLIB_HDRS)" != ""; then \
  	    XLIB_INCLUDE_INSTALL_DIR="$(INCLUDE_INSTALL_DIR)"/X11; fi; \
@@ -89,7 +89,7 @@
  	    do \
  	    if [ -n "$$i" -a ! -d "$$i" ] ; then \
  		echo "Making directory $$i"; \
-@@ -870,9 +884,12 @@ install-headers:
+@@ -868,9 +882,12 @@ install-headers:
  		fi; \
  	    done;
  	@echo "Installing header files to $(INCLUDE_INSTALL_DIR)/";
