@@ -1,4 +1,4 @@
---- os/backtrace.c.orig	2023-12-13 01:31:04 UTC
+--- os/backtrace.c.orig	2024-01-16 09:59:07 UTC
 +++ os/backtrace.c
 @@ -29,6 +29,7 @@
  #include "misc.h"
