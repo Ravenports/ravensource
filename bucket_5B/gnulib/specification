@@ -1,0 +1,69 @@
+# Gnulib does not provide releases anymore. It is meant to be embedded into
+# the code of projects using it. However some projects don't do that but
+# still depend on it ... As a result, packaged versions are arbitrary.
+# Let's just follow Debian's distfiles to not make things more messy.
+#
+DEF[PORTVERSION]=	20240117
+DEF[DIRECTORIES]=	build-aux config doc lib m4 modules tests top
+DEF[BINARIES]=		check-module gnulib-tool
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gnulib
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	GNU portability library
+HOMEPAGE=		https://www.gnu.org/software/gnulib/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://deb.debian.org/debian/pool/main/g/gnulib/
+DISTFILE[1]=		gnulib_${PORTVERSION}+stable.orig.tar.gz:main
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Multi-licensed, mostly GPL but also multiple other licenses.
+# Unless someone wants to do a license audit for > 11,000 files,
+# it is impractical to add license info for this package and pretend
+# that it was accurate.
+
+FPC_EQUIVALENT=		devel/gnulib
+
+BUILD_DEPENDS=		clisp:primary:standard
+			gperf:primary:standard
+			help2man:single:standard
+			texinfo:primary:standard
+USES=			autoreconf:build bison gettext libtool ncurses
+			perl:build shebangfix
+SHEBANG_FILES=		build-aux/vcs-to-changelog.py
+			check-module
+
+DISTNAME=		gnulib-${PORTVERSION}+stable
+
+post-extract:
+	${REINPLACE_CMD} -i'' 's!/usr/local/bin/clisp!${PREFIX}/bin/clisp!' \
+		${WRKSRC}/lib/uniname/gen-uninames.lisp
+
+do-configure:
+	( cd ${WRKSRC} && ./gnulib-tool --create-testdir --dir=build \
+		git-merge-changelog && cd build && \
+		./configure --prefix=${PREFIX} )
+
+do-build:
+	( cd ${WRKSRC}/build && make DESTDIR=${STAGEDIR} )
+
+do-install:
+	( cd ${WRKSRC}/build && make DESTDIR=${STAGEDIR} install )
+	${MKDIR} -p ${STAGEDIR}${PREFIX}/share/gnulib
+.for d in ${DIRECTORIES}
+	${CP} -r ${WRKSRC}/${d} ${STAGEDIR}${PREFIX}/share/gnulib/
+.endfor
+.for b in ${BINARIES}
+	${INSTALL_SCRIPT} ${WRKSRC}/${b} ${STAGEDIR}${PREFIX}/bin/
+.endfor
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/git-merge-changelog
