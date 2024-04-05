@@ -1,6 +1,6 @@
---- Makefile.install.orig	2024-01-02 21:25:05 UTC
-+++ Makefile.install
-@@ -104,14 +104,14 @@ endif
+--- Makefile.install.orig	2024-04-05 13:31:54.586494000 +0200
++++ Makefile.install	2024-04-05 13:32:15.793540000 +0200
+@@ -108,14 +108,14 @@
  #for install shared library
  ifneq ($(NO_SHARED),1)
  	@echo Copying the shared library to $(DESTDIR)$(OPENBLAS_LIBRARY_DIR)
@@ -8,12 +8,12 @@
 +ifeq ($(OSNAME), $(filter $(OSNAME),Linux SunOS Android Haiku FreeBSD NetBSD DragonFly))
  	@install -m755 $(LIBSONAME) "$(DESTDIR)$(OPENBLAS_LIBRARY_DIR)"
  	@cd "$(DESTDIR)$(OPENBLAS_LIBRARY_DIR)" ; \
- 	ln -fs $(LIBSONAME) $(LIBPREFIX).so ; \
- 	ln -fs $(LIBSONAME) $(LIBPREFIX).so.$(MAJOR_VERSION)
+ 	$(LNCMD) $(LIBSONAME) $(LIBPREFIX).so ; \
+ 	$(LNCMD) $(LIBSONAME) $(LIBPREFIX).so.$(MAJOR_VERSION)
  endif
  
 -ifeq ($(OSNAME), $(filter $(OSNAME),OpenBSD NetBSD))
 +ifeq ($(OSNAME), $(filter $(OSNAME),OpenBSD))
  	@cp $(LIBSONAME) "$(DESTDIR)$(OPENBLAS_LIBRARY_DIR)"
  	@cd "$(DESTDIR)$(OPENBLAS_LIBRARY_DIR)" ; \
- 	ln -fs $(LIBSONAME) $(LIBPREFIX).so
+ 	$(LNCMD) $(LIBSONAME) $(LIBPREFIX).so
