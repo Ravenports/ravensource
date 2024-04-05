@@ -1,4 +1,4 @@
---- lib/luajit-cmake/LuaJIT.cmake.orig	2024-01-14 16:05:30 UTC
+--- lib/luajit-cmake/LuaJIT.cmake.orig	2024-03-21 15:26:52 UTC
 +++ lib/luajit-cmake/LuaJIT.cmake
 @@ -329,6 +329,8 @@ elseif(${CMAKE_SYSTEM_NAME} STREQUAL Hai
    set(TARGET_OS_FLAGS ${TARGET_OS_FLAGS} -DLUAJIT_OS=LUAJIT_OS_POSIX)

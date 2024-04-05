@@ -1,4 +1,4 @@
---- include/fluent-bit/flb_output.h.orig	2024-01-14 16:05:30 UTC
+--- include/fluent-bit/flb_output.h.orig	2024-03-21 15:26:52 UTC
 +++ include/fluent-bit/flb_output.h
 @@ -20,10 +20,6 @@
  #ifndef FLB_OUTPUT_H

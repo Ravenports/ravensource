@@ -1,4 +1,4 @@
---- lib/librdkafka-2.3.0/src/rdendian.h.orig	2024-01-14 16:05:30 UTC
+--- lib/librdkafka-2.3.0/src/rdendian.h.orig	2024-03-21 15:26:52 UTC
 +++ lib/librdkafka-2.3.0/src/rdendian.h
 @@ -40,7 +40,7 @@
   *   le64toh()
