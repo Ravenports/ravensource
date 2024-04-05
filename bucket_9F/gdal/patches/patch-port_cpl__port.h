@@ -1,4 +1,4 @@
---- port/cpl_port.h.orig	2024-01-04 18:08:59 UTC
+--- port/cpl_port.h.orig	2024-02-08 19:16:25 UTC
 +++ port/cpl_port.h
 @@ -666,7 +666,7 @@ extern "C++"
  }
