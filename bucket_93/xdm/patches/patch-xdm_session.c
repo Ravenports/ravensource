@@ -1,6 +1,6 @@
---- xdm/session.c.orig	2022-12-03 21:38:28 UTC
+--- xdm/session.c.orig	2024-03-23 22:20:06 UTC
 +++ xdm/session.c
-@@ -590,6 +590,7 @@ StartClient (
+@@ -583,6 +583,7 @@ StartClient (
      pid_t	pid;
  #ifdef HAVE_SETUSERCONTEXT
      struct passwd* pwd;
@@ -8,7 +8,7 @@
  #endif
  #ifdef USE_PAM
      pam_handle_t *pamh = thepamh ();
-@@ -674,6 +675,8 @@ StartClient (
+@@ -665,6 +666,8 @@ StartClient (
  	 * Set the user's credentials: uid, gid, groups,
  	 * environment variables, resource limits, and umask.
  	 */
@@ -17,7 +17,7 @@
  	pwd = getpwnam(name);
  	if (pwd) {
  	    if (setusercontext(NULL, pwd, pwd->pw_uid, LOGIN_SETALL) < 0) {
-@@ -681,6 +684,7 @@ StartClient (
+@@ -672,6 +675,7 @@ StartClient (
  			  name, _SysErrorMsg (errno));
  		return (0);
  	    }
