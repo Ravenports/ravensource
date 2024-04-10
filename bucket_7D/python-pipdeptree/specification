@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.16.2
+DEF[PORTVERSION]=	2.18.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pipdeptree
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/tox-dev/pipdeptree
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/7e/32/a6cc741511061ad2304b19d969f822d7d4c1c4de98905f751d12676e2822
+SITES[main]=		PYPIWHL/87/4e/51a654c7bdba2917dadac155ff98da80b4e7e4e2125c53bb4c1116351ed3
 DISTFILE[1]=		pipdeptree-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
@@ -44,6 +44,7 @@ GENERATED=		yes
 DISTNAME=		pipdeptree-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
+# packaging>=23.1
 # pip>=23.1.2
 # graphviz>=0.20.1; extra == 'graphviz'
 # covdefaults>=2.3; extra == 'test'
@@ -54,7 +55,9 @@ DISTNAME=		pipdeptree-${PORTVERSION}.dist-info
 # virtualenv<21,>=20.25; extra == 'test'
 
 [PY311].USES_ON=			python:v11,wheel
-[PY311].RUN_DEPENDS_ON=			python-pip:single:v11
+[PY311].RUN_DEPENDS_ON=			python-packaging:single:v11
+					python-pip:single:v11
 [PY312].USES_ON=			python:v12,wheel
-[PY312].RUN_DEPENDS_ON=			python-pip:single:v12
+[PY312].RUN_DEPENDS_ON=			python-packaging:single:v12
+					python-pip:single:v12
 
