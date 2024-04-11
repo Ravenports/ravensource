@@ -1,6 +1,6 @@
---- modules/ssl/ssl_private.h.orig	2022-10-22 05:11:41 UTC
+--- modules/ssl/ssl_private.h.orig	2024-02-22 14:06:46 UTC
 +++ modules/ssl/ssl_private.h
-@@ -128,7 +128,7 @@
+@@ -136,7 +136,7 @@
  #define MODSSL_SSL_METHOD_CONST
  #endif
  
