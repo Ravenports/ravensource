@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.23.11
+DEF[PORTVERSION]=	1.24.1
 # known to re-roll distfiles
 # ----------------------------------------------------------------------------
 
@@ -67,7 +67,7 @@ post-extract:
 		${WRKSRC}/thirdparty/zlib
 	${AWK} '/^LICENSE/,/^REPORTING/' ${WRKSRC}/README > ${WRKDIR}/TERMS
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e "s|%%OPSYS%%|${OPSYS}|; s/-pipe -O2 //" \
 		${WRKSRC}/Makerules
 
