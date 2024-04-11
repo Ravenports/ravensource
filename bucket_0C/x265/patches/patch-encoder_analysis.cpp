@@ -1,4 +1,4 @@
---- encoder/analysis.cpp.orig	2021-03-16 12:53:00 UTC
+--- encoder/analysis.cpp.orig	2024-04-04 09:39:50 UTC
 +++ encoder/analysis.cpp
 @@ -3739,7 +3739,7 @@ void Analysis::normFactor(const pixel* s
  
