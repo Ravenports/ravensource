@@ -31,18 +31,19 @@ BUILD_DEPENDS=		qt6-qtbase:dev:standard
 			ffmpeg:dev:standard
 			libglvnd:dev:standard
 			alsa-lib:dev:standard
-			gstreamer1-plugins-base:dev:standard
-			gstreamer1:dev:standard
+# Needs gstreamer1 photography?
+# #			gstreamer1-plugins-base:dev:standard
+# #			gstreamer1:dev:standard
 BUILDRUN_DEPENDS=	qt6-qtdeclarative:primary:standard
 			qt6-qtshadertools:primary:standard
 			ffmpeg:primary:standard
 			libglvnd:primary:standard
 			alsa-lib:primary:standard
-			gstreamer1:primary:standard
-			gstreamer1-plugins-base:plugin_gl:standard
-			gstreamer1-plugins-ugly:primary:standard
-			gstreamer1-plugins-good:primary:standard
-			gstreamer1-plugins-bad:primary:standard
+# #			gstreamer1:primary:standard
+# #			gstreamer1-plugins-base:plugin_gl:standard
+# #			gstreamer1-plugins-ugly:primary:standard
+# #			gstreamer1-plugins-good:primary:standard
+# #			gstreamer1-plugins-bad:primary:standard
 
 USES=			qt6 cmake pkgconfig perl:build gettext cpe
 XORG_COMPONENTS=	x11 xext xrandr
@@ -50,12 +51,12 @@ CPE_VENDOR=		qt
 CPE_PRODUCT=		qt
 CMAKE_ARGS=		-DFEATURE_ffmpeg:BOOL=ON
 			-DFEATURE_alsa:BOOL=ON
-			-DFEATURE_gstreamer:BOOL=ON
-			-DFEATURE_xlib:BOOL=ON
+# #			-DFEATURE_gstreamer:BOOL=ON
 
 DISTNAME=		${COMPONENT}-everywhere-src-${PORTVERSION}
 PLIST_SUB=		QTVER=${PORTVERSION}
 			SOMAJORMIN=${PORTVERSION:R}
+			GSTREAMER="@comment "
 SOVERSION=		${PORTVERSION}
 
 post-install:

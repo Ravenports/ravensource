@@ -1,4 +1,4 @@
---- src/multimedia/configure.cmake.orig	2023-07-07 15:19:09 UTC
+--- src/multimedia/configure.cmake.orig	2024-03-25 10:03:22 UTC
 +++ src/multimedia/configure.cmake
 @@ -76,7 +76,7 @@ qt_feature("ffmpeg" PRIVATE
      LABEL "FFmpeg"
