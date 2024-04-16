@@ -1,7 +1,7 @@
---- src/3rdparty/forkfd/forkfd.c.orig	2023-07-06 10:02:03 UTC
+--- src/3rdparty/forkfd/forkfd.c.orig	2024-03-19 15:46:43 UTC
 +++ src/3rdparty/forkfd/forkfd.c
-@@ -74,9 +74,11 @@
- 
+@@ -78,9 +78,11 @@
+ #endif
  #if (defined(__FreeBSD__) && defined(__FreeBSD_version) && __FreeBSD_version >= 1000032) || \
      (defined(__OpenBSD__) && OpenBSD >= 201505) || \
 +    defined(__MidnightBSD__) || \
