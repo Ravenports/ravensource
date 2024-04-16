@@ -1,4 +1,4 @@
---- src/os/unix/ngx_freebsd_init.c.orig	2023-10-24 13:46:47 UTC
+--- src/os/unix/ngx_freebsd_init.c.orig	2024-04-16 14:29:59 UTC
 +++ src/os/unix/ngx_freebsd_init.c
 @@ -162,8 +162,7 @@ ngx_os_specific_init(ngx_log_t *log)
       * to allow an old binary to run correctly on an updated FreeBSD system.
