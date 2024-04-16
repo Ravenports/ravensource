@@ -1,11 +1,11 @@
---- misc/fts.c.orig	2024-04-07 15:01:05.748411000 +0200
-+++ misc/fts.c	2024-04-08 12:52:45.000296000 +0200
-@@ -37,12 +37,14 @@
+--- misc/fts.c.orig	2024-02-07 13:36:51 UTC
++++ misc/fts.c
+@@ -37,12 +37,14 @@ static char sccsid[] = "@(#)fts.c	8.6 (B
  #endif
  
  /* Conditional to set up proper fstat64 implementation */
 -#if defined(hpux) || defined(sun) || (defined(__APPLE__) && defined(_DARWIN_FEATURE_ONLY_64_BIT_INODE))
-+#if defined(hpux) || defined(sun) || defined(__FreeBSD__) || (defined(__APPLE__) && defined(_DARWIN_FEATURE_ONLY_64_BIT_INODE))
++#if defined(hpux) || defined(sun) || defined(__FreeBSD__) || defined(__DragonFly__) || (defined(__APPLE__) && defined(_DARWIN_FEATURE_ONLY_64_BIT_INODE))
  #   define FTS_FSTAT64(_fd, _sbp)   fstat((_fd), (_sbp))
  #else
  #   define FTS_FSTAT64(_fd, _sbp)   fstat64((_fd), (_sbp))
@@ -16,7 +16,7 @@
  #if defined(_LIBC)
  #include <sys/param.h>
  #include <include/sys/stat.h>
-@@ -56,7 +58,7 @@
+@@ -56,12 +58,16 @@ static char sccsid[] = "@(#)fts.c	8.6 (B
  #else
  
  /* Conditionals for working around non-GNU environments */
@@ -25,7 +25,16 @@
  #   define        _INCLUDE_POSIX_SOURCE
  #   define __errno_location() 	(&errno)
  #   define dirfd(dirp)		-1
-@@ -73,13 +75,11 @@
+ #   define stat64		stat
+ #endif
++#if defined(__DragonFly__)
++#   define dirfd(dirp)		-1
++#   define stat64		stat
++#endif
+ #if defined(sun)
+ #   define __errno_location()	(&errno)
+ #   define dirfd(dirp)		-1
+@@ -73,13 +79,11 @@ static char sccsid[] = "@(#)fts.c	8.6 (B
  #endif
  #endif
  

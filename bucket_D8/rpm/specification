@@ -7,6 +7,7 @@ DEF[PLUGINS]=		dbus_announce fapolicyd prioreset syslog systemd_inhibit
 
 NAMEBASE=		rpm
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		archivers
 VARIANTS=		standard
 SDESC[standard]=	RPM Package Manager
@@ -17,7 +18,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://ftp.rpm.org/releases/rpm-${PORTVERSION:R:R}.x/
 DISTFILE[1]=		rpm-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary library python dev man nls docs
+SPKGS[standard]=	complete primary tools python dev man nls docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -53,7 +54,10 @@ BUILDRUN_DEPENDS=	bzip2:primary:standard
 			xz:primary:standard
 			zstd:primary:standard
 
-USES=			cmake fortran:library gettext lua:5.4 pkgconfig python
+EXRUN[tools]=		primary
+EXRUN[python]=		primary
+
+USES=			cmake fortran:primary gettext lua:5.4 pkgconfig python
 			shebangfix sqlite ssl zlib
 SHEBANG_FILES=		scripts/brp-compress
 			scripts/check-rpaths-worker
@@ -77,9 +81,6 @@ CMAKE_ARGS=		-DWITH_CAP=OFF
 			-DENABLE_TESTSUITE=OFF
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		PORTVERSION=${PORTVERSION}
-
-EXRUN[primary]=		library
-EXRUN[python]=		library
 
 post-install:
 	${RM} -r ${STAGEDIR}/var
