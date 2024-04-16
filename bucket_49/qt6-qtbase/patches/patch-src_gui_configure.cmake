@@ -9,3 +9,12 @@
  qt_find_package(ATSPI2 PROVIDED_TARGETS PkgConfig::ATSPI2 MODULE_NAME gui QMAKE_LIB atspi)
  qt_find_package(DirectFB PROVIDED_TARGETS PkgConfig::DirectFB MODULE_NAME gui QMAKE_LIB directfb)
  qt_find_package(Libdrm PROVIDED_TARGETS Libdrm::Libdrm MODULE_NAME gui QMAKE_LIB drm)
+@@ -60,7 +60,7 @@ qt_find_package(GLESv2 PROVIDED_TARGETS
+ qt_find_package(Tslib PROVIDED_TARGETS PkgConfig::Tslib MODULE_NAME gui QMAKE_LIB tslib)
+ qt_find_package(WrapVulkanHeaders PROVIDED_TARGETS WrapVulkanHeaders::WrapVulkanHeaders
+     MODULE_NAME gui QMAKE_LIB vulkan MARK_OPTIONAL)
+-if((LINUX) OR QT_FIND_ALL_PACKAGES_ALWAYS)
++if((LINUX OR FREEBSD OR DRAGONFLY OR MIDNIGHT) OR QT_FIND_ALL_PACKAGES_ALWAYS)
+     qt_find_package(Wayland PROVIDED_TARGETS Wayland::Server MODULE_NAME gui QMAKE_LIB wayland_server)
+     qt_find_package(Wayland PROVIDED_TARGETS Wayland::Client MODULE_NAME gui QMAKE_LIB wayland_client)
+ endif()

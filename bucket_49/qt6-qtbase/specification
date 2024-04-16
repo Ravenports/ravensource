@@ -18,9 +18,13 @@ DISTFILE[1]=		qtbase-everywhere-src-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	complete primary dev docs
 
-OPTIONS_AVAILABLE=	X11
-OPTIONS_STANDARD=	X11
+OPTIONS_AVAILABLE=	X11 WAYLAND
+OPTIONS_STANDARD=	X11 WAYLAND
 OPT_ON[all]=		X11
+OPT_ON[dragonfly]=	WAYLAND
+OPT_ON[freebsd]=	WAYLAND
+OPT_ON[linux]=		WAYLAND
+OPT_ON[midnightbsd]=	WAYLAND
 
 BUILD_DEPENDS=		evdev-proto:single:standard
 			elftoolchain:libraries:standard
@@ -60,8 +64,6 @@ CMAKE_ARGS=		-DFEATURE_system_zlib=ON
 			-DFEATURE_system_harfbuzz=ON
 			-DFEATURE_system_sqlite=ON
 			-DFEATURE_system_freetype=ON
-			-DFEATURE_libpng=ON
-			-DFEATURE_libjpeg=ON
 			-DFEATURE_icu=ON
 # #			-DFEATURE_libproxy=ON
 			-DFEATURE_sql_sqlite=ON
@@ -115,6 +117,9 @@ VAR_OPSYS[linux]=	VAR1=linux
 [X11].DESCRIPTION=			Build with X11 support
 [X11].CMAKE_ARGS_OFF=			-DFEATURE_xcb=OFF
 					-DFEATURE_xlib=OFF
+[WAYLAND].DESCRIPTION=			Build with wayland support
+[WAYLAND].BUILD_DEPENDS_ON=		wayland:dev:standard
+[WAYLAND].BUILDRUN_DEPENDS_ON=		wayland:primary:standard
 
 post-patch:
 	${MKDIR} ${WRKSRC}/mkspecs/dragonfly-g++
