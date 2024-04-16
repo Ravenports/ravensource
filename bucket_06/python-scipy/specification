@@ -712,7 +712,7 @@ DISTNAME=		scipy-${PORTVERSION}
 [PY311].USES_ON=			python:v11,sutools
 [PY312].USES_ON=			python:v12,sutools
 
-BUILD_DEPENDS=		cython2:single:python_used
+BUILD_DEPENDS=		python-Cython:single:python_used
 BUILDRUN_DEPENDS=	lapack:lapack:standard
 			python-pybind11:single:python_used
 			python-pythran:single:python_used
@@ -727,6 +727,8 @@ MESON_ARGS=		-Duse-pythran=true
 			-Duse-g77-abi=false
 CONFIGURE_ENV=		AUTOPYTHON={{PYTHON_VER}}
 MAKE_ENV=		AUTOPYTHON={{PYTHON_VER}}
+
+[PY311].BROKEN_ON=			Scipy requires Python 3.12
 
 pre-configure:
 	${REINPLACE_CMD} -e 's/%%PYTHONCMD%%/python${PYTHON_VER}/' ${WRKSRC}/meson.build
