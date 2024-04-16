@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.1.7
+DEF[PORTVERSION]=	0.1.8
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-netbox-napalm-plugin
@@ -7,12 +7,12 @@ KEYWORDS=		python
 VARIANTS=		v11 v12
 SDESC[v11]=		NetBox plugin for Napalm (3.11)
 SDESC[v12]=		NetBox plugin for Napalm (3.12)
-HOMEPAGE=		https://github.com/netbox-community/netbox-napalm
+HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/9c/20/e9aeefa60248e13fbc25e06c0f2f7f059657e7550fcad1c32320c6ced88e
-DISTFILE[1]=		netbox_napalm_plugin-${PORTVERSION}-py2.py3-none-any.whl:main
+SITES[main]=		PYPIWHL/a2/0a/253b957f144670a4bcdc96569dfd16438bcd9514b952f1500b8d3a6ceab3
+DISTFILE[1]=		netbox_napalm_plugin-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
 SPKGS[v12]=		single
@@ -30,6 +30,12 @@ DISTNAME=		netbox_napalm_plugin-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # napalm <5.0
+# black ==24.3.0 ; extra == 'test'
+# check-manifest ==0.49 ; extra == 'test'
+# flake8 ; extra == 'test'
+# flake8-pyproject ; extra == 'test'
+# pre-commit ==3.7.0 ; extra == 'test'
+# pytest ==8.1.1 ; extra == 'test'
 
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-napalm:single:v11
