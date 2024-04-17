@@ -1,0 +1,100 @@
+# scikit-build-core
+
+[![Documentation Status][rtd-badge]][rtd-link]
+[![GitHub Discussion][github-discussions-badge]][github-discussions-link]
+[![Discord][discord-badge]][discord-link]
+
+[![Actions Status][actions-badge]][actions-link]
+[![codecov][codecov-badge]][codecov-link]
+
+[![PyPI version][pypi-version]][pypi-link]
+[![Conda-Forge][conda-badge]][conda-link]
+[![PyPI platforms][pypi-platforms]][pypi-link]
+
+> [!NOTE]
+>
+> We have a public Scikit-build community meeting every month!
+> [Join us on Google Meet] on the third
+> Friday of every month at 12:00 PM EST. We also have a developer's meeting
+on
+> the first Friday of every month at the same time. Our past meeting
+minutes are
+> [available here].
+
+<!-- SPHINX-START -->
+
+Scikit-build-core is a build backend for Python that uses CMake to build
+extension modules. It has a simple yet powerful static configuration system
+in
+pyproject.toml, and supports almost unlimited flexibility via CMake. It was
+initially developed to support the demanding needs of scientific users, but
+can
+build any sort of package that uses CMake.
+
+Scikit-build-core is a ground-up rewrite of the classic Scikit-build. The
+key
+features of scikit-build classic (which is setuptools based) are also
+present
+here:
+
+- Great support for or by most OSs, compilers, IDEs, and libraries
+- Support for C++ features and other languages like Fortran
+- Support for multithreaded builds
+- Simple CMakeFiles.txt instead of up to thousands of lines of fragile
+  setuptools/distutils code
+- Cross-compile support for Apple Silicon and Windows ARM
+
+Scikit-build-core was built using Python packaging standards developed
+after
+scikit-build (classic) was written. Using it directly provides the
+following
+features over classic Scikit-build:
+
+- Better warnings, errors, and logging
+- No warning about unused variables
+- Automatically adds Ninja and/or CMake only as required
+- No dependency on setuptools, distutils, or wheel
+- Powerful config system, including config options support
+- Automatic inclusion of site-packages in `CMAKE_PREFIX_PATH`
+- FindPython is backported if running on CMake < 3.26.1 (configurable),
+supports
+  PyPY SOABI & Limited API / Stable ABI
+- Limited API / Stable ABI and pythonless tags supported via config option
+- No slow generator search, ninja/make or MSVC used by default, respects
+  `CMAKE_GENERATOR`
+- SDists are reproducible by default (UNIX, Python 3.9+, uncompressed
+comparison
+  recommended)
+- Support for caching between builds (opt-in by setting `build-dir`)
+- Support for writing out to extra wheel folders (scripts, headers, data)
+- Support for selecting install components and build targets
+- Dedicated entrypoints for module and prefix directories
+- Several integrated dynamic metadata plugins (proposing standardized
+support
+  soon)
+- Experimental editable mode support, with optional experimental auto
+rebuilds
+  on import
+- Supports WebAssembly (Emscripten/Pyodide).
+
+The following limitations are present compared to classic scikit-build:
+
+- The minimum supported CMake is 3.15
+- The minimum supported Python is 3.7
+
+Some known missing features that will be developed soon:
+
+- Wheels are not fully reproducible yet (nor are they in most others
+systems,
+  including setuptools)
+- Several editable mode caveats (mentioned in the docs).
+
+Other backends are also planned:
+
+- Setuptools integration highly experimental
+- The extensionlib integration is missing
+- No hatchling plugin yet.
+
+The recommended interface is the native pyproject builder. There is also a
+WIP
+setuptools-based interface that is being developed to provide a transition
