@@ -1,3 +1,4 @@
+# Manually maintained since April 2024
 DEF[PORTVERSION]=	26.0.0
 # ------------------------------------------------------------------------
 
@@ -22,45 +23,43 @@ OPTIONS_STANDARD=	none
 VOPTS[v11]=		PY311=ON PY312=OFF
 VOPTS[v12]=		PY311=OFF PY312=ON
 
-# License listed at PyPI
-# BSD 3-Clause License  Copyright (c) 2009-2012, Brian Granger, Min
-# Ragan-Kelley  All rights reserved.  Redistribution and use in source
-# and binary forms, with or without modification, are permitted provided
-# that the following conditions are met:  1. Redistributions of source
-# code must retain the above copyright notice, this list of conditions
-# and the following disclaimer.  2. Redistributions in binary form must
-# reproduce the above copyright notice, this list of conditions and the
-# following disclaimer in the documentation and/or other materials
-# provided with the distribution.  3. Neither the name of the copyright
-# holder nor the names of its contributors may be used to endorse or
-# promote products derived from this software without specific prior
-# written permission.  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT
-# HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
-# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-# MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
-# IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
-# ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
-# GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
-# IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
-# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
-# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE.md
+LICENSE_SCHEME=		solo
 
-GENERATED=		yes
-DISTNAME=		pyzmq-${PORTVERSION}
+[PY311].USES_ON=			python:v11
+[PY312].USES_ON=			python:v12
 
-# install_requires extracted from setup.py
-
-
-[PY311].USES_ON=			python:v11,sutools
-[PY312].USES_ON=			python:v12,sutools
-
-BUILD_DEPENDS=		python-packaging:single:python_used
-			zeromq:dev:standard
+BUILD_DEPENDS=		zeromq:dev:standard
+			python-wheel:single:python_used
+			python-pip:single:python_used
+			python-Cython:single:python_used
+			python-packaging:single:python_used
+			python-scikit-build-core:single:python_used
+			python-pyproject-metadata:single:python_used
+			python-pathspec:single:python_used
+			cmake:primary:standard
 BUILDRUN_DEPENDS=	zeromq:primary:standard
-PYD_CONFIGUREARGS=	--zmq={{LOCALBASE}}
-INSTALL_REQ_TOOLCHAIN=	yes
 
-post-patch:
-	${ECHO_CMD} "Replace with dummy ASCII" > ${WRKSRC}/README.md
+DISTNAME=		pyzmq-${PORTVERSION}
+PLIST_SUB=		SOEXTENSION={{SOEXTENSION}}
+
+VAR_OPSYS[linux]=	MAKEFILE_LINE=SOEXTENSION=-x86_64-linux-gnu
+
+do-build:
+	(cd ${WRKSRC} && ${SETENV} ZQM_PREFIX=${LOCALBASE}\
+		pip install --no-build-isolation --verbose .)
+
+do-install:
+	whl=$$(find /root/.cache/pip/wheels -name "*.whl");\
+	pip install \
+		--verbose \
+		--no-index \
+		--no-compile \
+		--force-reinstall \
+		--progress-bar off \
+		--root=${STAGEDIR} \
+		--root-user-action=ignore \
+		--disable-pip-version-check \
+		--no-deps $$whl
+	${FIND} ${STAGEDIR}${PREFIX}/lib -name "*.so" | xargs ${STRIP_CMD}
