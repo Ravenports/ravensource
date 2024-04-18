@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.15.0
+DEF[PORTVERSION]=	0.16.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-meson-python
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/mesonbuild/meson-python
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/1f/60/b10b11ab470a690d5777310d6cfd1c9bdbbb0a1313a78c34a1e82e0b9d27
+SITES[main]=		PYPIWHL/91/c0/104cb6244c83fe6bc3886f144cc433db0c0c78efac5dc00e409a5a08c87d
 DISTFILE[1]=		meson_python-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
@@ -46,9 +46,9 @@ GENERATED=		yes
 DISTNAME=		meson_python-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# colorama; os_name == "nt"
 # meson>=0.63.3; python_version < "3.12"
 # meson>=1.2.3; python_version >= "3.12"
+# packaging>=19.0
 # pyproject-metadata>=0.7.1
 # tomli>=1.0.0; python_version < "3.11"
 # build; extra == "test"
@@ -58,17 +58,17 @@ DISTNAME=		meson_python-${PORTVERSION}.dist-info
 # cython>=3.0.3; extra == "test"
 # wheel; extra == "test"
 # typing-extensions>=3.7.4; python_version < "3.11" and extra == "test"
-# furo>=2021.08.31; extra == "docs"
-# sphinx~=4.0; extra == "docs"
+# furo>=2023.5.20; extra == "docs"
+# sphinx~=6.2; extra == "docs"
 # sphinx-copybutton>=0.5.0; extra == "docs"
 # sphinx-design>=0.1.0; extra == "docs"
 # sphinxext-opengraph>=0.7.0; extra == "docs"
 
 [PY311].USES_ON=			python:v11,wheel
-[PY311].RUN_DEPENDS_ON=			python-colorama:single:v11
+[PY311].RUN_DEPENDS_ON=			python-packaging:single:v11
 					python-pyproject-metadata:single:v11
 [PY312].USES_ON=			python:v12,wheel
-[PY312].RUN_DEPENDS_ON=			python-colorama:single:v12
+[PY312].RUN_DEPENDS_ON=			python-packaging:single:v12
 					python-pyproject-metadata:single:v12
 
 BUILDRUN_DEPENDS=	meson:single:standard

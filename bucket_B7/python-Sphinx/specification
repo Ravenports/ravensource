@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	7.2.6
+DEF[PORTVERSION]=	7.3.6
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-Sphinx
@@ -11,7 +11,7 @@ HOMEPAGE=		https://www.sphinx-doc.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/b2/b6/8ed35256aa530a9d3da15d20bdc0ba888d5364441bb50a5a83ee7827affe
+SITES[main]=		PYPIWHL/c1/73/f21afb23d46a7c39670dca465e5d6100a45e9241c034b1ad161d109f0e23
 DISTFILE[1]=		sphinx-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
@@ -37,29 +37,30 @@ DISTNAME=		sphinx-${PORTVERSION}.dist-info
 # sphinxcontrib-qthelp
 # Jinja2>=3.0
 # Pygments>=2.14
-# docutils>=0.18.1,<0.21
+# docutils>=0.18.1,<0.22
 # snowballstemmer>=2.0
 # babel>=2.9
-# alabaster>=0.7,<0.8
+# alabaster~=0.7.14
 # imagesize>=1.3
 # requests>=2.25.0
 # packaging>=21.0
 # importlib-metadata>=4.8; python_version < '3.10'
+# tomli>=2; python_version < '3.11'
 # colorama>=0.4.5; sys_platform == 'win32'
 # sphinxcontrib-websupport ; extra == "docs"
 # flake8>=3.5.0 ; extra == "lint"
-# flake8-simplify ; extra == "lint"
-# isort ; extra == "lint"
-# ruff ; extra == "lint"
-# mypy>=0.990 ; extra == "lint"
+# ruff==0.3.7 ; extra == "lint"
+# mypy==1.9.0 ; extra == "lint"
 # sphinx-lint ; extra == "lint"
-# docutils-stubs ; extra == "lint"
+# types-docutils ; extra == "lint"
 # types-requests ; extra == "lint"
-# pytest>=4.6 ; extra == "test"
-# html5lib ; extra == "test"
+# importlib_metadata ; extra == "lint"
+# tomli ; extra == "lint"
+# pytest>=6.0 ; extra == "lint"
+# pytest>=6.0 ; extra == "test"
+# defusedxml>=0.7.1 ; extra == "test"
 # cython>=3.0 ; extra == "test"
 # setuptools>=67.0 ; extra == "test"
-# filelock ; extra == "test"
 
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-sphinxcontrib-applehelp:single:v11

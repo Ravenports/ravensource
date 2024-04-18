@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.7.1
+DEF[PORTVERSION]=	0.8.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pyproject-metadata
@@ -7,11 +7,11 @@ KEYWORDS=		python
 VARIANTS=		v11 v12
 SDESC[v11]=		PEP 621 metadata parsing (3.11)
 SDESC[v12]=		PEP 621 metadata parsing (3.12)
-HOMEPAGE=		https://github.com/FFY00/python-pyproject-metadata
+HOMEPAGE=		https://github.com/pypa/pyproject-metadata
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/c4/cb/4678dfd70cd2f2d8969e571cdc1bb1e9293c698f8d1cf428fadcf48d6e9f
+SITES[main]=		PYPIWHL/aa/5f/bb5970d3d04173b46c9037109f7f05fc8904ff5be073ee49bb6ff00301bc
 DISTFILE[1]=		pyproject_metadata-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
@@ -23,20 +23,19 @@ VOPTS[v11]=		PY311=ON PY312=OFF
 VOPTS[v12]=		PY311=OFF PY312=ON
 
 # License listed at PyPI
-# MIT
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		pyproject_metadata-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# packaging (>=19.0)
-# furo (>=2020.11.19b18) ; extra == 'docs'
-# sphinx (~=3.0) ; extra == 'docs'
-# sphinx-autodoc-typehints (>=1.10.0) ; extra == 'docs'
-# Jinja2 (<3.1) ; extra == 'docs'
-# pytest (>=6.2.4) ; extra == 'test'
-# pytest-cov (>=2) ; extra == 'test'
-# tomli (>=1.0.0) ; (python_version < "3.11") and extra == 'test'
+# packaging>=19.0
+# furo>=2023.9.10 ; extra == "docs"
+# sphinx-autodoc-typehints>=1.10.0 ; extra == "docs"
+# sphinx~=7.0 ; extra == "docs"
+# pytest-cov[toml]>=2 ; extra == "test"
+# pytest>=6.2.4 ; extra == "test"
+# tomli>=1.0.0 ; extra == "test" and (python_version<"3.11")
 
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-packaging:single:v11
