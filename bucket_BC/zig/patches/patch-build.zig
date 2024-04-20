@@ -1,8 +1,8 @@
---- build.zig.orig	2023-08-03 18:22:03 UTC
+--- build.zig.orig	2024-04-19 21:00:35 UTC
 +++ build.zig
-@@ -646,25 +646,14 @@ fn addCmakeCfgOptionsToExe(
+@@ -723,25 +723,14 @@ fn addCmakeCfgOptionsToExe(
              .windows => {
-                 if (exe.target.getAbi() != .msvc) exe.linkLibCpp();
+                 if (exe.rootModuleTarget().abi != .msvc) exe.linkLibCpp();
              },
 -            .freebsd => {
 -                if (static) {
@@ -28,5 +28,5 @@
 +                exe.addObjectFile(.{ .cwd_relative = "@GCC_TARGET_LIBDIR@/libgcc_eh.a" });
 +                exe.addRPath(.{ .cwd_relative = "@LOCALBASE@/lib" });
              },
-             else => {},
-         }
+             .solaris, .illumos => {
+                 try addCxxKnownPath(b, cfg, exe, b.fmt("libstdc++.{s}", .{lib_suffix}), null, need_cpp_includes);

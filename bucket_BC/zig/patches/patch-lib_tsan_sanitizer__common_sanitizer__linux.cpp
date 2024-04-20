@@ -1,6 +1,6 @@
---- lib/tsan/sanitizer_common/sanitizer_linux.cpp.orig	2023-08-03 18:22:03 UTC
+--- lib/tsan/sanitizer_common/sanitizer_linux.cpp.orig	2024-04-19 21:00:35 UTC
 +++ lib/tsan/sanitizer_common/sanitizer_linux.cpp
-@@ -142,7 +142,7 @@ const int FUTEX_WAKE_PRIVATE = FUTEX_WAK
+@@ -148,7 +148,7 @@ const int FUTEX_WAKE_PRIVATE = FUTEX_WAK
  # define SANITIZER_USE_GETRANDOM 0
  #endif  // SANITIZER_LINUX && defined(__NR_getrandom)
  

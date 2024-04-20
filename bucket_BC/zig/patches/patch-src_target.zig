@@ -1,6 +1,6 @@
---- src/target.zig.orig	2023-08-03 18:22:03 UTC
+--- src/target.zig.orig	2024-04-19 21:00:35 UTC
 +++ src/target.zig
-@@ -466,7 +466,7 @@ pub fn libcFullLinkFlags(target: std.Tar
+@@ -288,7 +288,7 @@ pub fn libcFullLinkFlags(target: std.Tar
      // The linking order of these is significant and should match the order other
      // c compilers such as gcc or clang use.
      return switch (target.os.tag) {

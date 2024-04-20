@@ -1,8 +1,8 @@
---- src/link/Elf.zig.orig	2023-08-03 18:22:03 UTC
+--- src/link/Elf.zig.orig	2024-04-19 21:00:35 UTC
 +++ src/link/Elf.zig
-@@ -3409,19 +3409,22 @@ const CsuObjects = struct {
+@@ -5187,19 +5187,22 @@ const CsuObjects = struct {
              const crt_dir_path = lci.crt_dir orelse return error.LibCInstallationMissingCRTDir;
-             switch (link_options.target.os.tag) {
+             switch (target.os.tag) {
                  .dragonfly => {
 +                    const gcc_dir_path = "@GCC_TARGET_LIBDIR@";
                      if (result.crt0) |*obj| obj.* = try fs.path.join(arena, &[_][]const u8{ crt_dir_path, obj.* });
@@ -10,7 +10,7 @@
                      if (result.crtn) |*obj| obj.* = try fs.path.join(arena, &[_][]const u8{ crt_dir_path, obj.* });
  
 -                    var gccv: []const u8 = undefined;
--                    if (link_options.target.os.version_range.semver.isAtLeast(.{ .major = 5, .minor = 4, .patch = 0 }) orelse true) {
+-                    if (target.os.version_range.semver.isAtLeast(.{ .major = 5, .minor = 4, .patch = 0 }) orelse true) {
 -                        gccv = "gcc80";
 -                    } else {
 -                        gccv = "gcc54";

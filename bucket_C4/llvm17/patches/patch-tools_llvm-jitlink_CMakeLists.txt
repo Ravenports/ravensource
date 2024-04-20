@@ -1,0 +1,13 @@
+--- tools/llvm-jitlink/CMakeLists.txt.orig	2023-11-28 08:52:28 UTC
++++ tools/llvm-jitlink/CMakeLists.txt
+@@ -27,6 +27,10 @@ add_llvm_tool(llvm-jitlink
+   llvm-jitlink-statistics.cpp
+   )
+ 
++if (CMAKE_SYSTEM_NAME MATCHES "(Solaris|SunOS)")
++   target_link_libraries(llvm-jitlink PRIVATE socket nsl)
++endif()
++
+ if(${CMAKE_SYSTEM_NAME} MATCHES "Haiku")
+   target_link_libraries(llvm-jitlink PRIVATE network)
+ endif()

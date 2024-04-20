@@ -1,6 +1,6 @@
---- lib/tsan/sanitizer_common/sanitizer_linux_libcdep.cpp.orig	2023-08-03 18:22:03 UTC
+--- lib/tsan/sanitizer_common/sanitizer_linux_libcdep.cpp.orig	2024-04-19 21:00:35 UTC
 +++ lib/tsan/sanitizer_common/sanitizer_linux_libcdep.cpp
-@@ -577,7 +577,7 @@ void GetThreadStackAndTls(bool main, upt
+@@ -628,7 +628,7 @@ void GetThreadStackAndTls(bool main, upt
  
  #if !SANITIZER_FREEBSD
  typedef ElfW(Phdr) Elf_Phdr;
