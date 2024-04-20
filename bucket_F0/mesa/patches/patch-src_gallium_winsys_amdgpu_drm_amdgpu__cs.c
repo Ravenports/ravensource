@@ -1,6 +1,6 @@
---- src/gallium/winsys/amdgpu/drm/amdgpu_cs.c.orig	2023-10-04 13:53:02 UTC
+--- src/gallium/winsys/amdgpu/drm/amdgpu_cs.c.orig	2024-04-10 20:17:49 UTC
 +++ src/gallium/winsys/amdgpu/drm/amdgpu_cs.c
-@@ -33,6 +33,10 @@
+@@ -13,6 +13,10 @@
  
  #include "amd/common/sid.h"
  
