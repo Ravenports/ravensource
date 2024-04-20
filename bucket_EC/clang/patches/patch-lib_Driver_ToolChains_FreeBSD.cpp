@@ -1,6 +1,6 @@
---- lib/Driver/ToolChains/FreeBSD.cpp.orig	2023-11-28 08:52:28 UTC
+--- lib/Driver/ToolChains/FreeBSD.cpp.orig	2024-04-17 00:21:15 UTC
 +++ lib/Driver/ToolChains/FreeBSD.cpp
-@@ -285,6 +285,16 @@ void freebsd::Linker::ConstructJob(Compi
+@@ -283,6 +283,16 @@ void freebsd::Linker::ConstructJob(Compi
    addLinkerCompressDebugSectionsOption(ToolChain, Args, CmdArgs);
    AddLinkerInputs(ToolChain, Inputs, Args, CmdArgs, JA);
  
@@ -17,7 +17,7 @@
    unsigned Major = ToolChain.getTriple().getOSMajorVersion();
    bool Profiling = Args.hasArg(options::OPT_pg) && Major != 0 && Major < 14;
    if (!Args.hasArg(options::OPT_nostdlib, options::OPT_nodefaultlibs,
-@@ -381,6 +391,8 @@ FreeBSD::FreeBSD(const Driver &D, const
+@@ -398,6 +408,8 @@ FreeBSD::FreeBSD(const Driver &D, const
      getFilePaths().push_back(concat(getDriver().SysRoot, "/usr/lib32"));
    else
      getFilePaths().push_back(concat(getDriver().SysRoot, "/usr/lib"));
@@ -25,8 +25,8 @@
 +    getFilePaths().push_back("@RAVEN_GCC_TARGET@");
  }
  
- unsigned FreeBSD::GetDefaultDwarfVersion() const {
-@@ -424,22 +436,19 @@ void FreeBSD::AddClangSystemIncludeArgs(
+ void FreeBSD::AddClangSystemIncludeArgs(
+@@ -434,22 +446,19 @@ void FreeBSD::AddClangSystemIncludeArgs(
                            concat(D.SysRoot, "/usr/include"));
  }
  

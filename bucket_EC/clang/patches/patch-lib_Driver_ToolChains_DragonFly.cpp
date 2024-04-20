@@ -1,7 +1,7 @@
---- lib/Driver/ToolChains/DragonFly.cpp.orig	2023-11-28 08:52:28 UTC
+--- lib/Driver/ToolChains/DragonFly.cpp.orig	2024-04-17 00:21:15 UTC
 +++ lib/Driver/ToolChains/DragonFly.cpp
-@@ -71,7 +71,7 @@ void dragonfly::Linker::ConstructJob(Com
-       CmdArgs.push_back("-Bshareable");
+@@ -76,7 +76,7 @@ void dragonfly::Linker::ConstructJob(Com
+       CmdArgs.push_back("-shared");
      else if (!Args.hasArg(options::OPT_r)) {
        CmdArgs.push_back("-dynamic-linker");
 -      CmdArgs.push_back("/usr/libexec/ld-elf.so.2");
@@ -9,8 +9,8 @@
      }
      CmdArgs.push_back("--hash-style=gnu");
      CmdArgs.push_back("--enable-new-dtags");
-@@ -115,19 +115,29 @@ void dragonfly::Linker::ConstructJob(Com
-           Args.MakeArgString(getToolChain().GetFilePath("crtbegin.o")));
+@@ -121,18 +121,30 @@ void dragonfly::Linker::ConstructJob(Com
+     CmdArgs.push_back(Args.MakeArgString(ToolChain.GetFilePath(crtbegin)));
    }
  
 +  if (D.isUsingLTO()) {
@@ -19,10 +19,11 @@
 +                  D.getLTOMode() == LTOK_Thin);
 +  }
 +
-   Args.AddAllArgs(CmdArgs,
-                   {options::OPT_L, options::OPT_T_Group, options::OPT_e});
+   Args.addAllArgs(CmdArgs, {options::OPT_L, options::OPT_T_Group,
+                             options::OPT_s, options::OPT_t, options::OPT_r});
+   ToolChain.AddFilePathLibArgs(Args, CmdArgs);
  
-   AddLinkerInputs(getToolChain(), Inputs, Args, CmdArgs, JA);
+   AddLinkerInputs(ToolChain, Inputs, Args, CmdArgs, JA);
  
 +  CmdArgs.push_back("-L@RAVEN_GCC@");
 +  CmdArgs.push_back("-L@LOCALBASE@/lib");
@@ -36,22 +37,20 @@
 +
    if (!Args.hasArg(options::OPT_nostdlib, options::OPT_nodefaultlibs,
                     options::OPT_r)) {
--    CmdArgs.push_back("-L/usr/lib/gcc80");
--
--    if (!Args.hasArg(options::OPT_static)) {
+-    if (!Static) {
 -      CmdArgs.push_back("-rpath");
 -      CmdArgs.push_back("/usr/lib/gcc80");
 -    }
  
-     if (D.CCCIsCXX()) {
-       if (getToolChain().ShouldLinkCXXStdlib(Args))
-@@ -147,16 +157,7 @@ void dragonfly::Linker::ConstructJob(Com
+     // Use the static OpenMP runtime with -static-openmp
+     bool StaticOpenMP = Args.hasArg(options::OPT_static_openmp) && !Static;
+@@ -167,16 +179,7 @@ void dragonfly::Linker::ConstructJob(Com
          CmdArgs.push_back("-lgcc");
          CmdArgs.push_back("-lgcc_eh");
      } else {
 -      if (Args.hasArg(options::OPT_shared_libgcc)) {
 -          CmdArgs.push_back("-lgcc_pic");
--          if (!Args.hasArg(options::OPT_shared))
+-          if (!Shared)
 -            CmdArgs.push_back("-lgcc");
 -      } else {
 -          CmdArgs.push_back("-lgcc");
@@ -63,17 +62,17 @@
      }
    }
  
-@@ -192,7 +193,8 @@ DragonFly::DragonFly(const Driver &D, co
+@@ -213,7 +216,8 @@ DragonFly::DragonFly(const Driver &D, co
  
    getFilePaths().push_back(getDriver().Dir + "/../lib");
-   getFilePaths().push_back("/usr/lib");
--  getFilePaths().push_back("/usr/lib/gcc80");
-+  getFilePaths().push_back("@RAVEN_GCC@");
-+  getFilePaths().push_back("@RAVEN_GCC_TARGET@");
+   getFilePaths().push_back(concat(getDriver().SysRoot, "/usr/lib"));
+-  getFilePaths().push_back(concat(getDriver().SysRoot, "/usr/lib/gcc80"));
++  getFilePaths().push_back(concat(getDriver().SysRoot, "@RAVEN_GCC@"));
++  getFilePaths().push_back(concat(getDriver().SysRoot, "@RAVEN_GCC_TARGET@"));
  }
  
- Tool *DragonFly::buildAssembler() const {
-@@ -202,3 +204,5 @@ Tool *DragonFly::buildAssembler() const
+ void DragonFly::AddClangSystemIncludeArgs(
+@@ -250,3 +254,5 @@ Tool *DragonFly::buildAssembler() const
  Tool *DragonFly::buildLinker() const {
    return new tools::dragonfly::Linker(*this);
  }

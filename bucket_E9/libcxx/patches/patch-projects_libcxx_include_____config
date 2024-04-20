@@ -1,4 +1,4 @@
---- projects/libcxx/include/__config.orig	2023-10-17 06:20:52 UTC
+--- projects/libcxx/include/__config.orig	2024-04-17 00:21:15 UTC
 +++ projects/libcxx/include/__config
 @@ -12,6 +12,10 @@
  
@@ -8,37 +8,19 @@
 +#define __FreeDragon__
 +#endif
 +
- #if defined(_MSC_VER) && !defined(__clang__)
- #  if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
- #    define _LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER
-@@ -170,7 +174,7 @@
+ #ifndef _LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER
+ #  pragma GCC system_header
+ #endif
+@@ -188,7 +192,7 @@
  #    endif
  // Feature macros for disabling pre ABI v1 features. All of these options
  // are deprecated.
--#    if defined(__FreeBSD__)
-+#    if defined(__FreeDragon__)
+-#    if defined(__FreeBSD__) && __FreeBSD__ < 14
++#    if (defined(__FreeBSD__) && __FreeBSD__ < 14) || defined(__DragonFly__)
  #      define _LIBCPP_DEPRECATED_ABI_DISABLE_PAIR_TRIVIAL_COPY_CTOR
  #    endif
  // For XCOFF linkers, we have problems if we see a weak hidden version of a symbol
-@@ -459,7 +463,7 @@
- #    endif // __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
- #  endif   // __BYTE_ORDER__
- 
--#  ifdef __FreeBSD__
-+#  ifdef __FreeDragon__
- #    include <osreldate.h>
- #    include <sys/endian.h>
- #    if _BYTE_ORDER == _LITTLE_ENDIAN
-@@ -467,7 +471,7 @@
- #    else // _BYTE_ORDER == _LITTLE_ENDIAN
- #      define _LIBCPP_BIG_ENDIAN
- #    endif // _BYTE_ORDER == _LITTLE_ENDIAN
--#  endif   // __FreeBSD__
-+#  endif   // __FreeDragon__
- 
- #  if defined(__NetBSD__) || defined(__OpenBSD__)
- #    include <sys/endian.h>
-@@ -907,11 +911,11 @@ _LIBCPP_BEGIN_NAMESPACE_STD _LIBCPP_END_
+@@ -953,11 +957,11 @@ typedef __char32_t char32_t;
  #    define _LIBCPP_HAS_NO_C11_ALIGNED_ALLOC
  #  endif
  
@@ -52,7 +34,7 @@
  #    define _LIBCPP_WCTYPE_IS_MASK
  #  endif
  
-@@ -1078,7 +1082,7 @@ __sanitizer_verify_double_ended_contiguo
+@@ -1093,7 +1097,7 @@ __sanitizer_verify_double_ended_contiguo
        !defined(_LIBCPP_HAS_THREAD_API_WIN32) &&                                                                        \
        !defined(_LIBCPP_HAS_THREAD_API_EXTERNAL)
  

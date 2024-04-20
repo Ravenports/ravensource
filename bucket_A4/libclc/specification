@@ -1,10 +1,12 @@
-DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM17_VERSION)
+DEF[NAMEBASE]=		libclc
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM18_VERSION)
 DEF[LLVMBASE]=		llvm
 DEF[CLANGBASE]=		clang
+DEF[SPIRVBASE]=		spirv-llvm-translator
 DEF[PORTVERSION]=	${LLVM_VERSION}
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		libclc
+NAMEBASE=		${NAMEBASE}
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
 VARIANTS=		standard
@@ -32,8 +34,8 @@ BUILD_DEPENDS=		libedit:single:standard
 			${LLVMBASE}:dev:standard
 			${LLVMBASE}:tools:standard
 			${CLANGBASE}:complete:standard
-			spirv-llvm-translator:primary:standard
-			spirv-llvm-translator:dev:standard
+			${SPIRVBASE}:primary:standard
+			${SPIRVBASE}:dev:standard
 # #			rocm-device-libs:single:standard
 
 USES=			python:build cmake

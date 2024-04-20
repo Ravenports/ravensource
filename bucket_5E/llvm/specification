@@ -1,7 +1,7 @@
 # When updating this port also check 'libclc' which is set 'noscheme' in
 # Repology and is thus easily forgotten
 DEF[NAMEBASE]=		llvm
-DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM17_VERSION)
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM18_VERSION)
 DEF[PORTREVISION]=	0
 DEF[PORTVERSION]=	${LLVM_VERSION}
 DEF[MAJORMIN]=		${PORTVERSION:R}
@@ -64,6 +64,7 @@ CMAKE_ARGS=		-DLLVM_BUILD_LLVM_DYLIB=ON
 			-DLLVM_COMMON_CMAKE_UTILS={{WRKDIR}}/cmake-${LLVM_VERSION}.src
 CMAKE_BUILD_TYPE=	Release
 PLIST_SUB=		LLVM_RELEASE="${LLVM_VERSION}"
+			LLVM_MAJORMIN="${MAJORMIN}"
 			LLVM_MAJOR="${MAJOR}"
 SHEBANG_FILES=		utils/llvm-lit/llvm-lit.in
 			tools/opt-viewer/*.py
@@ -101,16 +102,16 @@ post-install:
 	llvm-profdata llvm-rc llvm-readobj llvm-rtdyld llvm-size \
 	llvm-split llvm-stress llvm-strings llvm-symbolizer llvm-tblgen \
 	llvm-undname llvm-xray llvm-jitlink llvm-lipo llvm-reduce \
-	llvm-otool llvm-sim llvm-tapi-diff llvm-windres llvm-debuginfod-find \
+	llvm-otool llvm-sim llvm-windres llvm-debuginfod-find \
 	llvm-gsymutil llvm-jitlink-executor llvm-libtool-darwin llvm-ml \
 	llvm-profgen llvm-tli-checker llvm-debuginfod llvm-dwarfutil \
-	llvm-PerfectShuffle llvm-remark-size-diff \
+	llvm-PerfectShuffle llvm-readtapi \
 	obj2yaml opt sancov sanstats split-file verify-uselistorder yaml2obj \
 	FileCheck count not yaml-bench lli-child-target \
 	UnicodeNameMappingGenerator llvm-debuginfo-analyzer llvm-remarkutil
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${F}
 .endfor
-.for F in libLLVM-${MAJOR}.so libLTO.so.${MAJOR} libRemarks.so.${MAJOR}
+.for F in libLLVM.so.${MAJORMIN} libLTO.so.${MAJORMIN} libRemarks.so.${MAJORMIN}
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/${F}
 .endfor
 

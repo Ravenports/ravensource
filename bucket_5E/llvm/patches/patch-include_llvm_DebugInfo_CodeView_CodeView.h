@@ -1,4 +1,4 @@
---- include/llvm/DebugInfo/CodeView/CodeView.h.orig	2023-11-28 08:52:28 UTC
+--- include/llvm/DebugInfo/CodeView/CodeView.h.orig	2024-04-17 00:21:15 UTC
 +++ include/llvm/DebugInfo/CodeView/CodeView.h
 @@ -16,6 +16,25 @@
  #include <cinttypes>
@@ -23,6 +23,6 @@
 +#undef SS
 +#endif
 +
+ #include "llvm/ADT/STLForwardCompat.h"
  #include "llvm/Support/Endian.h"
  
- namespace llvm {

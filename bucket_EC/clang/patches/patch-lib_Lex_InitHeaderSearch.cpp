@@ -1,13 +1,14 @@
---- lib/Lex/InitHeaderSearch.cpp.orig	2023-11-28 08:52:28 UTC
+--- lib/Lex/InitHeaderSearch.cpp.orig	2024-04-17 00:21:15 UTC
 +++ lib/Lex/InitHeaderSearch.cpp
-@@ -366,7 +366,9 @@ void InitHeaderSearch::AddDefaultCPlusPl
+@@ -280,6 +280,11 @@ void InitHeaderSearch::AddDefaultCPlusPl
+       break;
      }
      break;
-   case llvm::Triple::DragonFly:
--    AddPath("/usr/include/c++/5.0", CXXSystem, false);
++  case llvm::Triple::DragonFly:
 +    AddPath("@RAVEN_GXX_HEADERS_DIR@", CXXSystem, false);
 +    AddPath("@RAVEN_GXX_HEADERS_DIR@/backward", CXXSystem, false);
 +    AddPath("@RAVEN_GXX_HEADERS_DIR@/" + triple.getTriple(), CXXSystem, false);
++    break;
+   default:
      break;
-   case llvm::Triple::Minix:
-     AddGnuCPlusPlusIncludePaths("/usr/gnu/include/c++/4.4.3",
+   }

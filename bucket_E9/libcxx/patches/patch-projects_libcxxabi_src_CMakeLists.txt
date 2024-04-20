@@ -1,6 +1,6 @@
---- projects/libcxxabi/src/CMakeLists.txt.orig	2023-10-17 06:20:52 UTC
+--- projects/libcxxabi/src/CMakeLists.txt.orig	2024-04-17 00:21:15 UTC
 +++ projects/libcxxabi/src/CMakeLists.txt
-@@ -164,7 +164,7 @@ if (LIBCXXABI_USE_LLVM_UNWINDER)
+@@ -163,7 +163,7 @@ if (LIBCXXABI_USE_LLVM_UNWINDER)
      target_link_libraries(cxxabi_shared_objects PUBLIC unwind_shared_objects) # propagate usage requirements
      target_sources(cxxabi_shared_objects PUBLIC $<TARGET_OBJECTS:unwind_shared_objects>)
    else()
@@ -8,4 +8,4 @@
 +    target_link_libraries(cxxabi_shared_objects PUBLIC unwind)
    endif()
  endif()
- target_link_libraries(cxxabi_shared_objects PRIVATE cxx-headers ${LIBCXXABI_BUILTINS_LIBRARY} ${LIBCXXABI_SHARED_LIBRARIES} ${LIBCXXABI_LIBRARIES})
+ target_link_libraries(cxxabi_shared_objects PRIVATE cxx-headers ${LIBCXXABI_LIBRARIES})

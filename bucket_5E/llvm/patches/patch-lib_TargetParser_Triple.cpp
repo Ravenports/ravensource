@@ -1,6 +1,6 @@
---- lib/TargetParser/Triple.cpp.orig	2023-11-28 08:52:28 UTC
+--- lib/TargetParser/Triple.cpp.orig	2024-04-17 00:21:15 UTC
 +++ lib/TargetParser/Triple.cpp
-@@ -580,6 +580,7 @@ static Triple::OSType parseOS(StringRef
+@@ -610,6 +610,7 @@ static Triple::OSType parseOS(StringRef
      .StartsWith("darwin", Triple::Darwin)
      .StartsWith("dragonfly", Triple::DragonFly)
      .StartsWith("freebsd", Triple::FreeBSD)

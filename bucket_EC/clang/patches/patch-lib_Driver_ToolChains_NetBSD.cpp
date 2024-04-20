@@ -1,6 +1,6 @@
---- lib/Driver/ToolChains/NetBSD.cpp.orig	2023-11-28 08:52:28 UTC
+--- lib/Driver/ToolChains/NetBSD.cpp.orig	2024-04-17 00:21:15 UTC
 +++ lib/Driver/ToolChains/NetBSD.cpp
-@@ -265,10 +265,15 @@ void netbsd::Linker::ConstructJob(Compil
+@@ -275,10 +275,15 @@ void netbsd::Linker::ConstructJob(Compil
    bool NeedsXRayDeps = addXRayRuntime(ToolChain, Args, CmdArgs);
    AddLinkerInputs(ToolChain, Inputs, Args, CmdArgs, JA);
  
@@ -19,7 +19,7 @@
    }
  
    bool useLibgcc = true;
-@@ -286,7 +291,6 @@ void netbsd::Linker::ConstructJob(Compil
+@@ -298,7 +303,6 @@ void netbsd::Linker::ConstructJob(Compil
    case llvm::Triple::sparcv9:
    case llvm::Triple::x86:
    case llvm::Triple::x86_64:
@@ -27,8 +27,8 @@
      break;
    default:
      break;
-@@ -310,21 +314,20 @@ void netbsd::Linker::ConstructJob(Compil
-       linkXRayRuntimeDeps(ToolChain, CmdArgs);
+@@ -335,21 +339,19 @@ void netbsd::Linker::ConstructJob(Compil
+       linkXRayRuntimeDeps(ToolChain, Args, CmdArgs);
      if (Args.hasArg(options::OPT_pthread))
        CmdArgs.push_back("-lpthread");
 -    CmdArgs.push_back("-lc");
@@ -37,9 +37,8 @@
 +    }
  
      if (useLibgcc) {
--      if (Args.hasArg(options::OPT_static)) {
-+      if (Args.hasArg(options::OPT_static) ||
-+          Args.hasArg(options::OPT_static_libgcc)) {
+-      if (Static) {
++      if (Static || Args.hasArg(options::OPT_static_libgcc)) {
          // libgcc_eh depends on libc, so resolve as much as possible,
          // pull in any new requirements from libc and then get the rest
          // of libgcc.
@@ -55,7 +54,7 @@
        }
      }
    }
-@@ -408,24 +411,6 @@ Tool *NetBSD::buildAssembler() const {
+@@ -434,26 +436,6 @@ Tool *NetBSD::buildAssembler() const {
  Tool *NetBSD::buildLinker() const { return new tools::netbsd::Linker(*this); }
  
  ToolChain::CXXStdlibType NetBSD::GetDefaultCXXStdlibType() const {
@@ -69,6 +68,8 @@
 -  case llvm::Triple::ppc:
 -  case llvm::Triple::ppc64:
 -  case llvm::Triple::ppc64le:
+-  case llvm::Triple::riscv32:
+-  case llvm::Triple::riscv64:
 -  case llvm::Triple::sparc:
 -  case llvm::Triple::sparcv9:
 -  case llvm::Triple::x86:
@@ -80,11 +81,11 @@
    return ToolChain::CST_Libstdcxx;
  }
  
-@@ -486,8 +471,9 @@ void NetBSD::addLibCxxIncludePaths(const
+@@ -514,8 +496,9 @@ void NetBSD::addLibCxxIncludePaths(const
  
  void NetBSD::addLibStdCxxIncludePaths(const llvm::opt::ArgList &DriverArgs,
                                        llvm::opt::ArgStringList &CC1Args) const {
--  addLibStdCXXIncludePaths(getDriver().SysRoot + "/usr/include/g++", "", "",
+-  addLibStdCXXIncludePaths(concat(getDriver().SysRoot, "/usr/include/g++"), "", "",
 -                           DriverArgs, CC1Args);
 +  addSystemInclude(DriverArgs, CC1Args, "@RAVEN_GXX_HEADERS_DIR@");
 +  addSystemInclude(DriverArgs, CC1Args, "@RAVEN_GXX_HEADERS_DIR@/backward");

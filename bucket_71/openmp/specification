@@ -1,8 +1,9 @@
 DEF[NAMEBASE]=		openmp
 DEF[LLVMBASE]=		llvm
 DEF[CLANGBASE]=		clang
-DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM17_VERSION)
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM18_VERSION)
 DEF[PORTREVISION]=	0
+DEF[MAJORMIN]=		${LLVM_VERSION:R}
 DEF[MAJOR]=		${LLVM_VERSION:R:R}
 # ----------------------------------------------------------------------------
 
@@ -44,6 +45,7 @@ CMAKE_BUILD_TYPE=	Release
 DISTNAME=		openmp-${LLVM_VERSION}.src
 CMAKE_ARGS=		-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
 PLIST_SUB=		LLVM_MAJOR="${MAJOR}"
+			LLVM_MAJORMIN="${MAJORMIN}"
 
 post-extract:
 	${CP} ${WRKDIR}/cmake-${LLVM_VERSION}.src/Modules/* \

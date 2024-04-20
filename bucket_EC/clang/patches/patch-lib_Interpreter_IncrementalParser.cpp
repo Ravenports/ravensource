@@ -1,6 +1,6 @@
---- lib/Interpreter/IncrementalParser.cpp.orig	2023-11-28 08:52:28 UTC
+--- lib/Interpreter/IncrementalParser.cpp.orig	2024-04-17 00:21:15 UTC
 +++ lib/Interpreter/IncrementalParser.cpp
-@@ -125,7 +125,11 @@ public:
+@@ -126,7 +126,11 @@ public:
            switch (CI.getFrontendOpts().ProgramAction) {
            default:
              Err = llvm::createStringError(
