@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.8.2
+DEF[PORTVERSION]=	0.9.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-scikit-build-core
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/scikit-build/scikit-build-core
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/78/54/f56626c91bab3952f961495cfc60a8ff0fd4176bdbbcb646bed6a4da3bef
+SITES[main]=		PYPIWHL/33/71/b680dd37c14b75cf91aa94e10b72419f1843a622dc5125cf742d523733cb
 DISTFILE[1]=		scikit_build_core-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
@@ -29,35 +29,37 @@ GENERATED=		yes
 DISTNAME=		scikit_build_core-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# exceptiongroup; python_version < '3.11'
-# importlib-metadata; python_version < '3.8'
+# exceptiongroup>=1.0; python_version < '3.11'
+# importlib-metadata>=4.13; python_version < '3.8'
 # importlib-resources>=1.3; python_version < '3.9'
-# packaging>=20.9
-# tomli>=1.1; python_version < '3.11'
+# packaging>=21.3
+# pathspec>=0.10.1
+# tomli>=1.2.2; python_version < '3.11'
 # typing-extensions>=3.10.0; python_version < '3.9'
 # pytest-cov[toml]; extra == 'cov'
 # rich; extra == 'dev'
 # furo; extra == 'docs'
+# hatchling; extra == 'docs'
 # myst-parser>=0.13; extra == 'docs'
-# pathspec>=0.10.1; extra == 'docs'
-# pyproject-metadata>=0.5; extra == 'docs'
+# setuptools; extra == 'docs'
 # sphinx-autodoc-typehints; extra == 'docs'
 # sphinx-copybutton; extra == 'docs'
 # sphinx-inline-tabs; extra == 'docs'
 # sphinx-jsonschema; extra == 'docs'
-# sphinx<=7.1.2,>=7.0; extra == 'docs'
-# pathspec>=0.10.1; extra == 'pyproject'
-# pyproject-metadata>=0.5; extra == 'pyproject'
-# build[virtualenv]; extra == 'test'
+# sphinx>=7.0; extra == 'docs'
+# build>=0.8; extra == 'test'
 # cattrs>=22.2.0; extra == 'test'
-# pathspec>=0.10.1; extra == 'test'
-# pybind11; extra == 'test'
-# pyproject-metadata>=0.5; extra == 'test'
+# pip>=22; extra == 'test'
+# pybind11>=2.11; extra == 'test'
 # pytest-subprocess>=1.5; extra == 'test'
 # pytest>=7.0; extra == 'test'
-# setuptools; extra == 'test'
-# virtualenv; extra == 'test'
-# wheel; extra == 'test'
+# setuptools>=43; (python_version < '3.9') and extra == 'test'
+# setuptools>=45; (python_version == '3.9') and extra == 'test'
+# setuptools>=49; (python_version >= '3.10' and python_version < '3.12') and extra == 'test'
+# setuptools>=66.1; (python_version >= '3.12') and extra == 'test'
+# virtualenv>=20.0.28; extra == 'test'
+# wheel>=0.40; extra == 'test'
+# hatchling>=1.24.0; extra == 'test-hatchling'
 # hatch-fancy-pypi-readme>=22.3; extra == 'test-meta'
 # setuptools-scm; extra == 'test-meta'
 # numpy; (python_version < '3.12' and platform_python_implementation != 'PyPy') and extra == 'test-numpy'
@@ -71,6 +73,8 @@ DISTNAME=		scikit_build_core-${PORTVERSION}.dist-info
 
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-packaging:single:v11
+					python-pathspec:single:v11
 [PY312].USES_ON=			python:v12,wheel
 [PY312].RUN_DEPENDS_ON=			python-packaging:single:v12
+					python-pathspec:single:v12
 
