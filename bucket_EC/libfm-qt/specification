@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.4.0
+DEF[PORTVERSION]=	2.0.0
 DEF[SOVERSION]=		14.0.0
 # ----------------------------------------------------------------------------
 
@@ -28,23 +28,22 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/libfmqt.h
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		qt5-qttools:complete:standard
-			lxqt-build-tools:single:standard
-			qt5-qtx11extras:dev:standard
+BUILD_DEPENDS=		lxqt-build-tools:single:standard
+			qt6-qtbase:dev:standard
+			qt6-qttools:complete:standard
 BUILDRUN_DEPENDS=	libexif:primary:standard
 			lxqt-menu-data:single:standard
 			menu-cache:single:standard
-			qt5-qtbase:primary:standard
-			qt5-qtx11extras:primary:standard
+			qt6-qtbase:primary:standard
 
 USES=			cmake pkgconfig mime-info:primary perl:build
 XORG_COMPONENTS=	x11 xcb
 GNOME_COMPONENTS=	glib
 SOVERSION=		${SOVERSION}
-CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt6/cmake/"
 LDFLAGS=		-pthread
 
 post-install:
-	${RM} -r ${STAGEDIR}${PREFIX}/include/libfm-qt/tests
-	${RMDIR} ${STAGEDIR}${PREFIX}/include/libfm-qt/translations
+	${RM} -r ${STAGEDIR}${PREFIX}/include/libfm-qt6/tests
+	${RMDIR} ${STAGEDIR}${PREFIX}/include/libfm-qt6/translations
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
