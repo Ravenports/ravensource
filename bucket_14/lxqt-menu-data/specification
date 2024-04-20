@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.4.1
+DEF[PORTVERSION]=	2.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		lxqt-menu-data
@@ -23,11 +23,16 @@ OPTIONS_STANDARD=	none
 # LICENSE=		LGPL21:single
 # LICENSE_FILE=		LGPL21:{{WRKSRC}}/LICENSE
 
-# Not in FPC, yet
+FPC_EQUIVALENT=		x11/lxqt-menu-data
 
 BUILD_DEPENDS=		lxqt-build-tools:single:standard
-			qt5-qttools:complete:standard
+			qt6-qtbase:complete:standard
+			qt6-qttools:complete:standard
 
 USES=			cmake perl:build
 
-CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt6/cmake/"
+
+post-install:
+		${MV} ${STAGEDIR}/etc/xdg ${STAGEDIR}${PREFIX}/etc
+		${RMDIR} ${STAGEDIR}/etc
