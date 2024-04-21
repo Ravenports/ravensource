@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	0.2.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-mkdocs-get-deps
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v11 v12
+SDESC[v11]=		List dependencies from by mydocs.yml file (3.11)
+SDESC[v12]=		List dependencies from by mydocs.yml file (3.12)
+HOMEPAGE=		none
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/9f/d4/029f984e8d3f3b6b726bd33cafc473b75e9e44c0f7e80a5b29abc466bdea
+DISTFILE[1]=		mkdocs_get_deps-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[v11]=		single
+SPKGS[v12]=		single
+
+OPTIONS_AVAILABLE=	PY311 PY312
+OPTIONS_STANDARD=	none
+VOPTS[v11]=		PY311=ON PY312=OFF
+VOPTS[v12]=		PY311=OFF PY312=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		mkdocs_get_deps-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# importlib-metadata>=4.3; python_version < '3.10'
+# mergedeep>=1.3.4
+# platformdirs>=2.2.0
+# pyyaml>=5.1
+
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-mergedeep:single:v11
+					python-platformdirs:single:v11
+					python-PyYAML:single:v11
+[PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-mergedeep:single:v12
+					python-platformdirs:single:v12
+					python-PyYAML:single:v12
+
