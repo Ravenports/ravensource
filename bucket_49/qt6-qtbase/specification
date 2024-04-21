@@ -4,7 +4,7 @@ DEF[MINOR_VER]=		${PORTVERSION:R}
 
 NAMEBASE=		qt6-qtbase
 VERSION=		${PORTVERSION}
-REVISION=		4
+REVISION=		5
 KEYWORDS=		x11_toolkits devel
 VARIANTS=		standard
 SDESC[standard]=	Qt6 - QtBase component
@@ -48,12 +48,11 @@ EXRUN[dev]=		libglvnd:dev:standard
 # with gcc with no PCH: hidden symbol `__extendhfsf2' in
 # /raven/toolchain/ravensys-gcc/lib/gcc/x86_64-raven-freebsd13/13.2.0/libgcc.a(extendhfsf2.o)
 # is referenced by DSO
-# linker bug?  use clang for now.
+# linker bug?  use gold linker to avoid that issue
 
 USES=			qt6 zlib png sqlite jpeg pkgconfig execinfo
 			iconv perl:build shebangfix ssl:openssl11
-			cpe cmake ninja zstd pcre2 freetype
-			clang
+			cpe cmake ninja zstd pcre2 freetype gold
 XORG_COMPONENTS=	x11 xcb xcb-util xcb-util-image xcb-util-keysyms
 			xcb-util-wm xcb-render-util x11 xcb-util-cursor sm
 GNOME_COMPONENTS=	atk
