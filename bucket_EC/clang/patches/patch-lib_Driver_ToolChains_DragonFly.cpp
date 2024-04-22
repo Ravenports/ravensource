@@ -72,7 +72,19 @@
  }
  
  void DragonFly::AddClangSystemIncludeArgs(
-@@ -250,3 +254,5 @@ Tool *DragonFly::buildAssembler() const
+@@ -239,8 +243,9 @@ void DragonFly::AddClangSystemIncludeArg
+ 
+ void DragonFly::addLibStdCxxIncludePaths(const llvm::opt::ArgList &DriverArgs,
+                                          llvm::opt::ArgStringList &CC1Args) const {
+-  addLibStdCXXIncludePaths(concat(getDriver().SysRoot, "/usr/include/c++/8.0"), "", "",
+-                           DriverArgs, CC1Args);
++  addSystemInclude(DriverArgs, CC1Args, "@RAVEN_GXX_HEADERS_DIR@");
++  addSystemInclude(DriverArgs, CC1Args, "@RAVEN_GXX_HEADERS_DIR@/backward");
++  addSystemInclude(DriverArgs, CC1Args, "@RAVEN_GXX_HEADERS_DIR@/@RAVEN_TRIPLE@");
+ }
+ 
+ Tool *DragonFly::buildAssembler() const {
+@@ -250,3 +255,5 @@ Tool *DragonFly::buildAssembler() const
  Tool *DragonFly::buildLinker() const {
    return new tools::dragonfly::Linker(*this);
  }

@@ -8,3 +8,14 @@
  
    bool IsMathErrnoDefault() const override { return false; }
  
+@@ -63,6 +64,10 @@ public:
+       const llvm::opt::ArgList &DriverArgs,
+       llvm::opt::ArgStringList &CC1Args) const override;
+ 
++  CXXStdlibType GetDefaultCXXStdlibType() const override {
++    return ToolChain::CST_Libstdcxx;
++  }
++
+ protected:
+   Tool *buildAssembler() const override;
+   Tool *buildLinker() const override;
