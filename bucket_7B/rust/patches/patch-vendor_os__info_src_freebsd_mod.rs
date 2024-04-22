@@ -1,4 +1,4 @@
---- vendor/os_info/src/freebsd/mod.rs.orig	2024-02-04 14:52:05 UTC
+--- vendor/os_info/src/freebsd/mod.rs.orig	2024-04-09 18:57:21 UTC
 +++ vendor/os_info/src/freebsd/mod.rs
 @@ -30,17 +30,7 @@ fn get_os() -> Type {
          .expect("Failed to get OS");
