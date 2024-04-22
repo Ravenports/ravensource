@@ -1,4 +1,4 @@
---- drawinglayer/source/tools/primitive2dxmldump.cxx.orig	2023-09-22 19:07:01 UTC
+--- drawinglayer/source/tools/primitive2dxmldump.cxx.orig	2024-03-22 19:34:51 UTC
 +++ drawinglayer/source/tools/primitive2dxmldump.cxx
 @@ -12,6 +12,7 @@
  #include <rtl/string.hxx>

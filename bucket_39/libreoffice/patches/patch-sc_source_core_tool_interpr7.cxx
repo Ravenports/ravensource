@@ -1,4 +1,4 @@
---- sc/source/core/tool/interpr7.cxx.orig	2023-09-22 19:07:01 UTC
+--- sc/source/core/tool/interpr7.cxx.orig	2024-03-22 19:34:51 UTC
 +++ sc/source/core/tool/interpr7.cxx
 @@ -19,6 +19,7 @@
  #include <tools/urlobj.hxx>
