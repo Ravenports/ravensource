@@ -1,0 +1,29 @@
+DEF[PORTVERSION]=	2.5
+DEF[TAG]=		v${PORTVERSION}
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		zxcvbn-c
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		standard
+SDESC[standard]=	Password strength estimator
+HOMEPAGE=		https://github.com/tsyrogit/zxcvbn-c/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/tsyrogit:zxcvbn-c:${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE.txt
+LICENSE_SCHEME=		solo
+
+USES=			gmake
+MAKEFILE=		makefile
+SOVERSION=		${SOVERSION}
