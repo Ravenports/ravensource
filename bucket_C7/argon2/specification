@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	20190702
 
 NAMEBASE=		argon2
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	Reference C implementation of the Argon2 hash
@@ -13,16 +14,16 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/P-H-C/phc-winner-argon2/archive/
 DISTFILE[1]=		${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		CC0_10:single
-			APACHE20:single
+LICENSE=		CC0_10:primary
+			APACHE20:primary
 LICENSE_FILE=		CC0_10:stock
 			APACHE20:stock
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/core.h
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		dual
