@@ -45,5 +45,7 @@ XORG_COMPONENTS=	x11 xcb
 GNOME_COMPONENTS=	glib
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
 
+BROKEN[all]=		Requires update to v2.0.0, but that requires layer-shell-qt (wayland)
+
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/pcmanfm-qt
