@@ -1,0 +1,72 @@
+DEF[PORTVERSION]=	1.2.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-requests-cache
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v11 v12
+SDESC[v11]=		Persistent cache for python requests (3.11)
+SDESC[v12]=		Persistent cache for python requests (3.12)
+HOMEPAGE=		https://github.com/requests-cache/requests-cache
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/cc/23/863f517b5d74e297e669c88093ecd92e13a06c488e90acbd5507819049ac
+DISTFILE[1]=		requests_cache-${PORTVERSION}-py3-none-any.whl:main
+
+SPKGS[v11]=		single
+SPKGS[v12]=		single
+
+OPTIONS_AVAILABLE=	PY311 PY312
+OPTIONS_STANDARD=	none
+VOPTS[v11]=		PY311=ON PY312=OFF
+VOPTS[v12]=		PY311=OFF PY312=ON
+
+# License listed at PyPI
+# BSD-2-Clause
+
+GENERATED=		yes
+DISTNAME=		requests_cache-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# attrs (>=21.2)
+# boto3 (>=1.15) ; extra == "dynamodb" or extra == "all"
+# botocore (>=1.18) ; extra == "dynamodb" or extra == "all"
+# bson (>=0.5) ; extra == "bson"
+# cattrs (>=22.2)
+# furo (>=2023.3,<2024.0) ; extra == "docs"
+# itsdangerous (>=2.0) ; extra == "security" or extra == "all"
+# linkify-it-py (>=2.0,<3.0) ; extra == "docs"
+# myst-parser (>=1.0,<2.0) ; extra == "docs"
+# platformdirs (>=2.5)
+# pymongo (>=3) ; extra == "mongodb" or extra == "all"
+# pyyaml (>=6.0.1) ; extra == "yaml" or extra == "all"
+# redis (>=3) ; extra == "redis" or extra == "all"
+# requests (>=2.22)
+# sphinx (>=5.0.2,<6.0.0) ; extra == "docs"
+# sphinx-autodoc-typehints (>=1.19) ; extra == "docs"
+# sphinx-automodapi (>=0.14) ; extra == "docs"
+# sphinx-copybutton (>=0.5) ; extra == "docs"
+# sphinx-design (>=0.2) ; extra == "docs"
+# sphinx-notfound-page (>=0.8) ; extra == "docs"
+# sphinxcontrib-apidoc (>=0.3) ; extra == "docs"
+# sphinxext-opengraph (>=0.9) ; extra == "docs"
+# ujson (>=5.4) ; extra == "json" or extra == "all"
+# url-normalize (>=1.4)
+# urllib3 (>=1.25.5)
+
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-attrs:single:v11
+					python-cattrs:single:v11
+					python-platformdirs:single:v11
+					python-requests:single:v11
+					python-url-normalize:single:v11
+					python-urllib3:single:v11
+[PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-attrs:single:v12
+					python-cattrs:single:v12
+					python-platformdirs:single:v12
+					python-requests:single:v12
+					python-url-normalize:single:v12
+					python-urllib3:single:v12
+

@@ -1,9 +1,12 @@
-The `e3` Project 
+The `e3` Project
 ================
 
-[CII Best Practices]
+[Build Status]
+[Checked with mypy]
 [Documentation Status]
 [codecov]
+[![Code style: black]](https://github.com/psf/black)
+[CII Best Practices]
 
 This present project (`e3`) is a Python framework to ease the development
 of portable automated build systems (compilation, dependencies management,
@@ -12,14 +15,6 @@ binary code packaging, and automated testing).
 The `e3` framework is split across multiple Python packages named
 `e3-<name>`
 and sharing the same namespace: `e3`.
-
-Code status
-===========
-
-Platform | Status
----------|-------
-Linux    | [Build Status]
-Windows  | [Build status]
 
 `e3-core` content
 =================
@@ -33,6 +28,7 @@ Windows  | [Build status]
 - *collection*: generic collections, e.g. an implementation of Direct
 Acyclic
   Graphs
+- *cve*: small interface to NVD API to query CVE impacting a CPE
 - *decorator*: Python decorators, e.g. a memoize decorator
 - *diff*: functions to compute a diff or apply it
 - *electrolyt*: support for parsing build plans
@@ -59,6 +55,7 @@ time,...
 timezone
 - *platform*: generic interface for providing platform information
 - *platform_db*: knowledge base for computing platform information
+- *spdx*: simple interface for generating SPDX files
 - *store*: interface to download and store resources in a store
 - *sys*: `e3` information, sanity check, ...
 - *text*: text formatting and transformation
@@ -71,9 +68,15 @@ more details.
 Install
 =======
 
-requires: Python 2.7.x (experimental support of Python >=3.4)
+requires: Python >=3.9
 
-To install `e3`, run:
+e3-core releases are available on PyPI and can be installed by running:
+
+```bash
+pip install e3-core
+```
+
+To install from the source package, run:
 
 ```bash
 python setup.py install

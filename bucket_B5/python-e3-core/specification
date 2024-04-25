@@ -1,14 +1,15 @@
-# manually maintained
-DEF[PORTVERSION]=	22.3.1
+# manually maintained because rlimit MUST be generated
+DEF[PORTVERSION]=	22.5.0
 DEF[RELEASE_MARK]=	v${PORTVERSION}
+DEF[VER_DIST_INFO]=	${PORTVERSION:R}
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-e3-core
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v11
-SDESC[v12]=		E3 core. Tools and library for building and (3.12)
-SDESC[v11]=		E3 core. Tools and library for building and (3.11)
+VARIANTS=		v11 v12
+SDESC[v11]=		Adacore testing and building tools (3.11)
+SDESC[v12]=		Adacore testing and building tools (3.12)
 HOMEPAGE=		https://github.com/AdaCore/e3-core
 CONTACT=		John_Marino[draco@marino.st]
 
@@ -16,48 +17,86 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/AdaCore:e3-core:${RELEASE_MARK}
 DISTFILE[1]=		generated:main
 
-SPKGS[v12]=		single
 SPKGS[v11]=		single
+SPKGS[v12]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY311
+OPTIONS_AVAILABLE=	PY311 PY312
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY311=OFF
-VOPTS[v11]=		PY312=OFF PY311=ON
+VOPTS[v11]=		PY311=ON PY312=OFF
+VOPTS[v12]=		PY311=OFF PY312=ON
 
 # License listed at PyPI
 # GPLv3
 
-# install_requires extracted from setup.py
+# Requires-Dist extracted from wheel metadata
 # colorama
 # pyyaml
 # python-dateutil
 # requests
-# requests_toolbelt
+# requests-cache
+# requests-toolbelt
 # tqdm
-# stevedore>1.20.0
+# stevedore >1.20.0
+# setuptools
+# packaging
+# psutil ; sys_platform == "darwin"
+# psutil ; sys_platform == "linux"
+# ld ; sys_platform == "linux"
+# psutil ; sys_platform == "linux2"
+# ld ; sys_platform == "linux2"
+# psutil ; sys_platform == "win32"
+# mypy ==1.8.0 ; extra == 'check'
+# pytest ; extra == 'check'
+# bandit ; extra == 'check'
+# pip-audit ; extra == 'check'
+# types-colorama ; extra == 'check'
+# types-psutil ; extra == 'check'
+# types-python-dateutil ; extra == 'check'
+# types-PyYAML ; extra == 'check'
+# types-requests ; extra == 'check'
+# types-setuptools ; extra == 'check'
+# tomlkit ; extra == 'config'
+# typeguard <3.0.0 ; extra == 'config'
+# mock ; extra == 'test'
+# requests-mock ; extra == 'test'
+# pytest ; extra == 'test'
+# pytest-html ; extra == 'test'
+# pytest-socket ; extra == 'test'
+# ansi2html ; extra == 'test'
+# httpretty ; extra == 'test'
+# ptyprocess ; (sys_platform != "win32") and extra == 'test'
 
-# DISTNAME=		e3-core-${PORTVERSION}
-GENERATED=		yes
-
-[PY312].USES_ON=			python:v12,sutools
-[PY312].BUILDRUN_DEPENDS_ON=		python-colorama:single:v12
-					python-PyYAML:single:v12
-					python-python-dateutil:single:v12
-					python-requests:single:v12
-					python-requests-toolbelt:single:v12
-					python-tqdm:single:v12
-					python-stevedore:single:v12
-[PY311].USES_ON=			python:v11,sutools
+[PY311].USES_ON=			python:v11
 [PY311].BUILDRUN_DEPENDS_ON=		python-colorama:single:v11
 					python-PyYAML:single:v11
 					python-python-dateutil:single:v11
 					python-requests:single:v11
+					python-requests-cache:single:v11
 					python-requests-toolbelt:single:v11
 					python-tqdm:single:v11
 					python-stevedore:single:v11
+					python-packaging:single:v11
+[PY312].USES_ON=			python:v12
+[PY312].BUILDRUN_DEPENDS_ON=		python-colorama:single:v12
+					python-PyYAML:single:v12
+					python-python-dateutil:single:v12
+					python-requests:single:v12
+					python-requests-cache:single:v12
+					python-requests-toolbelt:single:v12
+					python-tqdm:single:v12
+					python-stevedore:single:v12
+					python-packaging:single:v12
+
+BR_DEPS[linux]=		python-ld:single:python_used
+BR_DEPS[linux]=		python-psutils:single:python_used
+
+BUILD_DEPENDS=		python-wheel:single:python_used
+			python-pip:single:python_used
+			python-setuptools:single:python_used
 
 SUB_FILES=		build_rlimit.sh
 SUB_LIST=		PYCMD="{{PYTHON_CMD}}"
+PLIST_SUB=		DIVER=${VER_DIST_INFO}
 
 post-extract:
 	# unbelievable.  prebuilt rlimit binaries for like 20 systems.
@@ -66,5 +105,21 @@ post-extract:
 
 pre-build:
 	${MV} ${WRKDIR}/build_rlimit.sh ${WRKSRC}/tools/rlimit
-	(cd ${WRKSRC}/tools/rlimit && ${SETENV} ${MAKE_ENV} ${SH} \
-		./build_rlimit.sh)
+	(cd ${WRKSRC}/tools/rlimit && ${SETENV} ${MAKE_ENV} ${SH} ./build_rlimit.sh)
+
+do-build:
+	(cd ${WRKSRC} && pip install --no-build-isolation --verbose .)
+
+do-install:
+	whl=$$(find /root/.cache/pip/wheels -name "*.whl");\
+	pip install \
+		--verbose \
+		--no-index \
+		--no-compile \
+		--force-reinstall \
+		--progress-bar off \
+		--root=${STAGEDIR} \
+		--root-user-action=ignore \
+		--disable-pip-version-check \
+		--no-deps $$whl
+	${FIND} ${STAGEDIR}${PREFIX}/lib -name "rlimit-*" | xargs ${STRIP_CMD}

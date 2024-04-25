@@ -429,6 +429,7 @@ function only_dists($var) {
 
 
 # Line doesn't contain "extras" or platform_system == "Windows" or "win32"
+# or sys_platform == "linux"  (ignore all system-specific dependencies)
 function skip_extras($var) {
    if (strpos($var, "enum-compat") !== false) {
       return false;
@@ -440,6 +441,9 @@ function skip_extras($var) {
       return false;
    }
    if (strpos($var, '"win32"') !== false) {
+      return false;
+   }
+   if (strpos($var, 'sys_platform ==') !== false) {
       return false;
    }
    if (str_starts_with($var, "Requires-Dist: meson")) {
