@@ -1,6 +1,6 @@
---- Makefile.orig	2023-07-19 00:56:15 UTC
+--- Makefile.orig	2023-10-20 00:56:01 UTC
 +++ Makefile
-@@ -56,12 +56,7 @@ ifeq ($(OS),Windows_NT)
+@@ -12,12 +12,7 @@ ifeq ($(OS),Windows_NT)
     PYTHON=python.exe
     EXE=.exe
  else
@@ -13,34 +13,34 @@
     PYTHON=python3
     EXE=
  endif
-@@ -95,6 +90,7 @@ all: coverage-instrument
- 	$(GPRBUILD) -P gnat/codec_test.gpr -p $(COVERAGE_BUILD_FLAGS)
- 	$(GPRBUILD) -P gnat/lsp_client.gpr -p $(COVERAGE_BUILD_FLAGS) \
- 		-XVERSION=$(VERSION)
-+	$(GPRBUILD) -P gnat/lsp_client_glib.gpr -p $(COVERAGE_BUILD_FLAGS) -XVERSION=$(VERSION)
+@@ -98,6 +93,8 @@ all: coverage-instrument
+ 	$(GPRBUILD) -P gnat/lsp_server.gpr -p $(COVERAGE_BUILD_FLAGS) \
+ 		-XVERSION=$(VERSION) -XBUILD_DATE=$(BUILD_DATE)
+ 	$(GPRBUILD) -P gnat/lsp_client.gpr -p $(COVERAGE_BUILD_FLAGS)
++	$(GPRBUILD) -P gnat/lsp_client_glib.gpr -p $(COVERAGE_BUILD_FLAGS) \
++		-XVERSION=$(VERSION) -XBUILD_DATE=$(BUILD_DATE)
  ifdef NODE
  	mkdir -p integration/vscode/ada/$(NODE_ARCH)/$(NODE_PLATFORM)
- 	cp -f $(ALS)$(EXE) integration/vscode/ada/$(NODE_ARCH)/$(NODE_PLATFORM)
-@@ -119,16 +115,18 @@ endif
+ 	cp -f $(ALS) integration/vscode/ada/$(NODE_ARCH)/$(NODE_PLATFORM)
+@@ -120,15 +117,17 @@ endif
  
  install:
  	gprinstall -f -P gnat/lsp_server.gpr -p -r --mode=usage \
 -		--prefix=$(DESTDIR) $(LIBRARY_FLAGS)
 -	gprinstall -f -P gnat/tester.gpr -p --prefix=$(DESTDIR) $(LIBRARY_FLAGS)
--	gprinstall -f -P gnat/codec_test.gpr -p --prefix=$(DESTDIR) $(LIBRARY_FLAGS)
 +		--prefix=$(DESTDIR)$(PREFIX) $(LIBRARY_FLAGS)
 +	gprinstall -f -P gnat/tester.gpr -p --prefix=$(DESTDIR)$(PREFIX) $(LIBRARY_FLAGS)
-+	gprinstall -f -P gnat/codec_test.gpr -p --prefix=$(DESTDIR)$(PREFIX) $(LIBRARY_FLAGS)
  	gprinstall -f -P gnat/lsp_client.gpr -p -r	\
  		--mode=dev				\
 -		--prefix=$(DESTDIR)			\
 +		--prefix=$(DESTDIR)$(PREFIX)		\
  		$(LIBRARY_FLAGS)
 +	gprinstall -f -P gnat/lsp_client_glib.gpr -p -r \
-+		--prefix=$(DESTDIR)$(PREFIX) $(LIBRARY_FLAGS)
++		--mode=dev --prefix=$(DESTDIR)$(PREFIX) $(LIBRARY_FLAGS)
  ifneq ($(COVERAGE),)
- 	mkdir -p $(DESTDIR)/share/als/sids || true
+-	mkdir -p $(DESTDIR)/share/als/sids || true
 -	cp .obj/*/*.sid $(DESTDIR)/share/als/sids/
++	mkdir -p $(DESTDIR)$(PREFIX)/share/als/sids || true
 +	cp .obj/*/*.sid $(DESTDIR)$(PREFIX)/share/als/sids/
  endif
  

@@ -1,4 +1,4 @@
---- src/core/aws-server.adb.orig	2022-09-20 17:13:06 UTC
+--- src/core/aws-server.adb.orig	2023-09-11 14:03:24 UTC
 +++ src/core/aws-server.adb
 @@ -970,7 +970,7 @@ package body AWS.Server is
  

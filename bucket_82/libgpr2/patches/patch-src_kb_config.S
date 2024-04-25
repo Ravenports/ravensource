@@ -1,4 +1,4 @@
---- src/kb/config.S.orig	2023-07-05 20:02:36 UTC
+--- src/kb/config.S.orig	2023-09-20 18:37:15 UTC
 +++ src/kb/config.S
 @@ -7,7 +7,10 @@
  #ifdef __APPLE__

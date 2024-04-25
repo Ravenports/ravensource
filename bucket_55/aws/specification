@@ -1,13 +1,12 @@
-DEF[PORTVERSION]=	23.0.0
+DEF[PORTVERSION]=	24.0.0
 DEF[RELEASE_TAG]=	v${PORTVERSION}
-DEF[TPARSER_TAG]=	7b0d0f5
+DEF[TPARSER_TAG]=	53cff2e
 DEF[ADDL_RPATH]=	{{LOCALBASE}}/lib:{{OPENSSLLIB}}
 DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		aws
 VERSION=		${PORTVERSION}
-REVISION=		2
 EPOCH=			1
 KEYWORDS=		www ada
 VARIANTS=		standard
@@ -38,20 +37,20 @@ LICENSE_SCHEME=		solo
 # removed from freebsd ports
 # FPC_EQUIVALENT=		www/aws
 
-BUILD_DEPENDS=		python-Sphinx:single:python_default
+BUILD_DEPENDS=		python-Sphinx:single:python_used
+			python-sphinx-rtd-theme:single:python_used
 			gnatcoll-core:dev:standard
 BUILDRUN_DEPENDS=	gnatcoll-core:primary:standard
 
 EXRUN[tools]=		ssl
 
-USES=			gmake gprbuild python:py27,build shebangfix
+USES=			gmake gprbuild python:build shebangfix
 			ssl ada:primary,tools
 SHEBANG_FILES=		tools/awsascb
 INSTALL_REQ_TOOLCHAIN=	yes
 MUST_CONFIGURE=		yes
 SOVERSION=		${SOVERSION}
 CONFIGURE_ARGS=		prefix={{PREFIX}}
-			DEFAULT_LIBRARY_TYPE=static
 			PROCESSORS={{MAKE_JOBS_NUMBER}}
 			GCC=ada
 			PYTHON=python{{PYTHON_VER}}
@@ -85,6 +84,9 @@ pre-configure:
 		${WRKSRC}/include/include.gpr
 	${REINPLACE_CMD} -e 's|latexpdf||' ${WRKSRC}/Makefile
 	${REINPLACE_CMD} -e 's|GPROPTS = |GPROPTS = -v |' ${WRKSRC}/Makefile
+	# Use system xmlada for templates parser
+	${REINPLACE_CMD} -e 's|tp_xmlada|xmlada|' \
+		${WRKSRC}/templates_parser/templates_parser.gpr
 
 do-configure:
 	(cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} \

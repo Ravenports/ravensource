@@ -1,4 +1,4 @@
---- config/src/aws-net-std__ipv4.adb.orig	2022-09-20 17:13:06 UTC
+--- config/src/aws-net-std__ipv4.adb.orig	2023-09-11 14:03:24 UTC
 +++ config/src/aws-net-std__ipv4.adb
 @@ -65,11 +65,6 @@ package body AWS.Net.Std is
     --  Set the socket to the non-blocking mode.

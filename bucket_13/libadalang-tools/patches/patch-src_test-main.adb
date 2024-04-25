@@ -1,4 +1,4 @@
---- src/test-main.adb.orig	2023-07-19 08:54:01 UTC
+--- src/test-main.adb.orig	2023-09-22 08:22:46 UTC
 +++ src/test-main.adb
 @@ -31,6 +31,8 @@ with Test.Common;
  
