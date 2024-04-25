@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.5
+DEF[PORTVERSION]=	3.6
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		dmidecode
@@ -13,14 +13,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://download.savannah.gnu.org/releases/dmidecode/
 DISTFILE[1]=		dmidecode-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/LICENSE
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/dmidecode.h
 LICENSE_SCHEME=		solo
@@ -31,10 +31,14 @@ NOT_FOR_ARCH=		aarch64
 SUB_FILES=		dmidecode
 
 MAKE_ARGS=		prefix={{PREFIX}}
+			compdir={{PREFIX}}/etc/bash_completion.d
+
+pre-install:
+	# dumb makefile check broken when DESTDIR used
+	${MKDIR} ${PREFIX}/etc/bash_completion.d
 
 post-install:
-	# documentation requires multiple subpackages
-	${RM} -r ${STAGEDIR}${STD_DOCDIR}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/sbin/*
 
 post-install-dragonfly:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/periodic/daily
