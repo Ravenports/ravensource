@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	7.94
+DEF[PORTVERSION]=	7.95
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		nmap
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://nmap.org/dist/
 DISTFILE[1]=		nmap-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,7 +25,7 @@ BUILD_DEPENDS=		libpcap:dev:standard
 BUILDRUN_DEPENDS=	libpcap:primary:standard
 			libssh2:primary:standard
 
-USES=			c++:single cpe gmake pcre ssl:openssl30
+USES=			c++:primary cpe gmake pcre2 ssl:openssl30
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-openssl={{OPENSSLBASE}}
 			--without-localdirs
