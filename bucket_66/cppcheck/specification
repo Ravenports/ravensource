@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.13.4
+DEF[PORTVERSION]=	2.14.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		cppcheck
@@ -28,22 +28,24 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		devel/cppcheck
 
 BUILD_DEPENDS=		docbook-xsl:primary:standard
-			qt5-qttools:dev:standard
-			qt5-qttools:primary:standard
-BUILDRUN_DEPENDS=	qt5-qtbase:primary:standard
+			qt6-qttools:dev:standard
+			qt6-qttools:primary:standard
+			qt6-qtbase:dev:standard
+BUILDRUN_DEPENDS=	qt6-qtbase:primary:standard
 
 EXRUN[gui]=		cppcheck:tools:standard
-			qt5-qttools:primary:standard
+			qt6-qttools:primary:standard
 
 USES=			cmake shebangfix pcre python c++:tools,gui
 GNOME_COMPONENTS=	libxslt
 SHEBANG_FILES=		htmlreport/cppcheck-htmlreport
 CMAKE_ARGS=		-DHAVE_RULES:BOOL=ON
-			-DUSE_MATCHCOMPILER:BOOL=ON
+			-DUSE_MATCHCOMPILER="On"
 			-DBUILD_GUI:BOOL=ON
-			-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
+			-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt6/cmake/"
 			-DNPROC="{{MAKE_JOBS_NUMBER}}"
 			-DCMAKE_DISABLE_PRECOMPILE_HEADERS:BOOL=ON
+			-DUSE_QT6:BOOL=ON
 CPPFLAGS=		-Wno-unused-function
 SINGLE_JOB=		yes
 
