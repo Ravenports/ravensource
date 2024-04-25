@@ -1,7 +1,7 @@
 # stable releases are even, e.g. 1.12.x, 1.14.x, etc
 # however, odd releases 1.13.x, 1.15.x, etc are called "mainline" and
 # considered more reliable
-DEF[PORTVERSION]=	1.25.5
+DEF[PORTVERSION]=	1.26.0
 DEF[REVISION]=		0
 DEF[NGINX_VARDIR]=	/var
 DEF[NGINX_LOGDIR]=	${NGINX_VARDIR}/log/nginx
@@ -15,20 +15,20 @@ DEF[TAG_NOTICE]=	3c95966
 DEF[TAG_PUSH]=		v1.3.1
 # 0.5.5 + patch
 DEF[TAG_PUSH_STREAM]=	8c02220
-DEF[TAG_SUBS_FILTER]=	e12e965
-DEF[TAG_AJP]=		a964a0b
+DEF[TAG_SUBS_FILTER]=	c6f825f
+DEF[TAG_AJP]=		fcbb2cc
 DEF[TAG_UPSTRM_CHECK]=	9aecf15
 DEF[TAG_ACCEPT_LANG]=	5683967
 DEF[TAG_AUTH_DIGEST]=	274490c
-DEF[TAG_AUTH_PAM]=	v1.5.1
+DEF[TAG_AUTH_PAM]=	v1.5.3
 DEF[TAG_AUTH_AWS]=	21931b2
 DEF[TAG_CERT_TRANS]=	93e9884
-DEF[TAG_ECHO]=		v0.62
-DEF[TAG_MOREHEAD]=	v0.34
+DEF[TAG_ECHO]=		v0.63
+DEF[TAG_MOREHEAD]=	v0.37
 DEF[TAG_EVAL]=		2016.06.10
-DEF[TAG_DRIZZLE]=	v0.1.11
+DEF[TAG_DRIZZLE]=	v0.1.12
 DEF[TAG_SESSCRYPT]=	v0.09
-DEF[TAG_LUA]=		v0.10.22
+DEF[TAG_LUA]=		v0.10.26
 DEF[TAG_MEMC]=		v0.19
 DEF[TAG_RDS_CSV]=	v0.09
 DEF[TAG_RDS_JSON]=	v0.15
@@ -38,22 +38,22 @@ DEF[TAG_SETMISC]=	v0.33
 DEF[TAG_SRCACHE]=	be22ac0
 DEF[TAG_XSS]=		v0.06
 DEF[TAG_ARRAYVAR]=	v0.05
-DEF[TAG_DEVEL_KIT]=	v0.3.1
-DEF[TAG_NJS]=		0.7.7
+DEF[TAG_DEVEL_KIT]=	v0.3.2
+DEF[TAG_NJS]=		0.8.0
 DEF[TAG_DAV_EXT]=	v3.0.0
 DEF[TAG_FOOTER]=	1.2.2
 DEF[TAG_STUB_JSON]=	0.1
 DEF[TAG_UPLOAD]=	643b4c1
 DEF[TAG_UP_PROGRESS]=	68b3ab3
 DEF[TAG_FAIR_LOAD]=	10ecdcf
-DEF[TAG_ZIP]=		5b2604b
-DEF[TAG_DYN_UPSTREAM]=	v0.1.6
+DEF[TAG_ZIP]=		39dc908
+DEF[TAG_DYN_UPSTREAM]=	2.3.3
 DEF[TAG_LET]=		v0.0.4
 DEF[TAG_RTMP]=		v1.2.2
-DEF[TAG_VOD]=		1.30
+DEF[TAG_VOD]=		1.31
 DEF[TAG_ICONV]=		v0.14
 DEF[TAG_FORMINPUT]=	v0.12
-DEF[TAG_CPURGE]=	2b977cf
+DEF[TAG_CPURGE]=	a84b0f3
 DEF[TAG_POSTGRESQL]=	8aa7359
 DEF[TAG_CSLOWFS]=	d011a18
 DEF[TAG_FANCYINDEX]=	v0.5.2
@@ -115,7 +115,7 @@ SITES[upload]=		GITHUB/Austinb:nginx-upload-module:${TAG_UPLOAD}
 SITES[upprogress]=	GITHUB/masterzen:nginx-upload-progress-module:${TAG_UP_PROGRESS}
 SITES[fairload]=	GITHUB/cryptofuture:nginx-upstream-fair:${TAG_FAIR_LOAD}
 SITES[zip]=		GITHUB/evanmiller:mod_zip:${TAG_ZIP}
-SITES[dynups]=		GITHUB/cubicdaiya:ngx_dynamic_upstream:${TAG_DYN_UPSTREAM}
+SITES[dynups]=		GITHUB/ZigzagAK:ngx_dynamic_upstream:${TAG_DYN_UPSTREAM}
 SITES[vod]=		GITHUB/kaltura:nginx-vod-module:${TAG_VOD}
 SITES[iconv]=		GITHUB/calio:iconv-nginx-module:${TAG_ICONV}
 SITES[forminput]=	GITHUB/calio:form-input-nginx-module:${TAG_FORMINPUT}
@@ -316,13 +316,16 @@ VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-file-aio
 [LOADED].BUILDRUN_DEPENDS_ON=		libmaxminddb:single:standard
 					libGD:single:standard
 [LOADED].EXTRA_PATCHES_ON=		extra-patch-ngx_http_notice_module.c
-					extra-patch-upstream-check-module
 					extra-patch-iconv
 					extra-patch-postgresql
 					extra-patch-naxsi
 					extra-patch-naxsi_runtime.c
-					extra-patch-njs-fsmodule
 					extra-patch-ngx_http_uploadprogress_module.c
+					extra-patch-src_http_modules_ngx__http__upstream__hash__module.c
+					extra-patch-src_http_modules_ngx__http__upstream__ip__hash__module.c
+					extra-patch-src_http_modules_ngx__http__upstream__least__conn__module.c
+					extra-patch-src_http_ngx__http__upstream__round__robin.c
+					extra-patch-src_http_ngx__http__upstream__round__robin.h
 # |extra-patch-nginx-ct
 [LOADED].KEYWORDS_ON=			perl
 [LOADED].USES_ON=			perl pgsql expat
