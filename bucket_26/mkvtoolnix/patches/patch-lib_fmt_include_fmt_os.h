@@ -1,11 +1,11 @@
---- lib/fmt/include/fmt/os.h.orig	2024-01-02 13:52:58 UTC
+--- lib/fmt/include/fmt/os.h.orig	2024-03-10 18:17:39 UTC
 +++ lib/fmt/include/fmt/os.h
-@@ -13,7 +13,7 @@
- #include <cstdio>
- #include <system_error>  // std::system_error
+@@ -15,7 +15,7 @@
+ 
+ #include "format.h"
  
 -#if defined __APPLE__ || defined(__FreeBSD__)
 +#if defined __APPLE__ || defined(__FreeBSD__) || defined(__DragonFly__)
- #  include <xlocale.h>  // for LC_NUMERIC_MASK on OS X
- #endif
- 
+ #  if FMT_HAS_INCLUDE(<xlocale.h>)
+ #    include <xlocale.h>  // for LC_NUMERIC_MASK on OS X
+ #  endif
