@@ -1,11 +1,12 @@
---- CMakeLists.txt.orig	2023-01-21 19:54:32 UTC
+--- CMakeLists.txt.orig	2024-01-12 17:07:53 UTC
 +++ CMakeLists.txt
-@@ -23,11 +23,12 @@ set(SLIM_VERSION_PATCH "0")
+@@ -23,12 +23,13 @@ set(SLIM_VERSION_PATCH "1")
  set(SLIM_VERSION "${SLIM_VERSION_MAJOR}.${SLIM_VERSION_MINOR}.${SLIM_VERSION_PATCH}")
  
  set(PKGDATADIR "${CMAKE_INSTALL_FULL_DATADIR}/slim")
 -set(SYSCONFDIR "/etc")
 +set(SYSCONFDIR "${CMAKE_INSTALL_FULL_SYSCONFDIR}")
+ set(SYSTEMDDIR "/lib/systemd")
  
  set(SLIM_DEFINITIONS)
  if(${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD" OR
@@ -14,7 +15,7 @@
  		${CMAKE_SYSTEM_NAME} MATCHES "OpenBSD"
  		)
  	set(SLIM_DEFINITIONS ${SLIM_DEFINITIONS} "-DNEEDS_BASENAME")
-@@ -178,6 +179,7 @@ target_link_libraries(libslim
+@@ -177,6 +178,7 @@ target_link_libraries(libslim
  	${X11_Xrandr_LIB}
  	${JPEG_LIBRARIES}
  	${PNG_LIBRARIES}
@@ -22,12 +23,12 @@
  )
  
  #Set up library with all found packages for slim
-@@ -235,7 +237,7 @@ endif (BUILD_SHARED_LIBS)
+@@ -234,7 +236,7 @@ endif (BUILD_SHARED_LIBS)
  install(FILES slim.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
  
  # configure - in theory we should use CMAKE_INSTALL_SYSCONFDIR but that doesn't work
 -install(FILES slim.conf DESTINATION ${SYSCONFDIR})
 +install(FILES slim.conf.sample DESTINATION ${SYSCONFDIR})
  
- # systemd service file - commented out as broken - not all Linux uses systemd!
- #if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+ # systemd service file - condition is wrong - not all Linux uses systemd!
+ if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
