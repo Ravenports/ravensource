@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	31
-DEF[SOVERSION]=		2.4.1
+DEF[PORTVERSION]=	32
+DEF[SOVERSION]=		2.4.2
 DEF[SOFTLINKS]=		depmod insmod lsmod modinfo modprobe rmmod
 # ----------------------------------------------------------------------------
 
@@ -15,16 +15,16 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://cdn.kernel.org/pub/linux/utils/kernel/kmod/
 DISTFILE[1]=		kmod-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 # Library is LGPL21, tools are GPLv2+
-LICENSE=		GPLv2+:single LGPL21+:single
+LICENSE=		GPLv2+:tools LGPL21+:primary
 LICENSE_FILE=		GPLv2+:stock
 			LGPL21+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		tools:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/tools/kmod.h
 LICENSE_SCHEME=		multi
@@ -37,7 +37,4 @@ MUST_CONFIGURE=		gnu
 SOVERSION=		${SOVERSION}
 
 post-install:
-.for s in ${SOFTLINKS}
-	ln -s ${PREFIX}/bin/kmod ${STAGEDIR}${PREFIX}/bin/${s}
-.endfor
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libkmod.so
