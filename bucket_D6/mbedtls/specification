@@ -1,4 +1,8 @@
-DEF[PORTVERSION]=	3.5.2
+DEF[PORTVERSION]=	3.6.0
+DEF[FRAMEWORK_TAG]=	750634d
+DEF[SO_TLS]=		21
+DEF[SO_509]=		7
+DEF[SO_CRYPTO]=		16
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mbedtls
@@ -9,9 +13,12 @@ SDESC[standard]=	Light-weight cryptographic and SSL/TLS library
 HOMEPAGE=		https://www.trustedfirmware.org/projects/mbed-tls/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main framework
 SITES[main]=		GITHUB/ARMmbed:mbedtls:v${PORTVERSION}
+SITES[framework]=	GITHUB/Mbed-TLS:mbedtls-framework:${FRAMEWORK_TAG}:framework
 DISTFILE[1]=		generated:main
+DISTFILE[2]=		generated:framework
+DF_INDEX=		1 2
 
 SPKGS[standard]=	complete primary tools dev
 
@@ -35,6 +42,9 @@ CPE_VENDOR=		arm
 CPE_PRODUCT=		mbed_tls
 MAKE_ENV=		SHARED=1
 BUILD_TARGET=		no_test
+PLIST_SUB=		SO_TLS=${SO_TLS}
+			SO_509=${SO_509}
+			SO_CRYPTO=${SO_CRYPTO}
 
 pre-build:
 	${FIND} ${WRKSRC} -name "*.orig" -delete
