@@ -1,8 +1,8 @@
 Define values if missing.
 
---- include/ttyutils.h.orig	2023-12-01 11:25:15 UTC
+--- include/ttyutils.h.orig	2024-03-20 14:32:17 UTC
 +++ include/ttyutils.h
-@@ -98,6 +98,18 @@ extern int get_terminal_name(const char
+@@ -99,6 +99,18 @@ extern int get_terminal_name(const char
  static inline void reset_virtual_console(struct termios *tp, int flags)
  {
  	/* Use defaults of <sys/ttydefaults.h> for base settings */
@@ -21,7 +21,7 @@ Define values if missing.
  	tp->c_iflag |= TTYDEF_IFLAG;
  	tp->c_oflag |= TTYDEF_OFLAG;
  	tp->c_lflag |= TTYDEF_LFLAG;
-@@ -158,6 +170,13 @@ static inline void reset_virtual_console
+@@ -159,6 +171,13 @@ static inline void reset_virtual_console
  # define TABDLY 0
  #endif
  
@@ -35,7 +35,7 @@ Define values if missing.
  	tp->c_iflag |=  (BRKINT | ICRNL | IMAXBEL);
  	tp->c_iflag &= ~(IGNBRK | INLCR | IGNCR | IXOFF | IUCLC | IXANY | ISTRIP);
  	tp->c_oflag |=  (OPOST | ONLCR | NL0 | CR0 | TAB0 | BS0 | VT0 | FF0);
-@@ -202,7 +221,13 @@ static inline void reset_virtual_console
+@@ -203,7 +222,13 @@ static inline void reset_virtual_console
  	tp->c_cc[VSTOP]    = CSTOP;
  	tp->c_cc[VSUSP]    = CSUSP;
  	tp->c_cc[VEOL]     = _POSIX_VDISABLE;

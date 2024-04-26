@@ -1,7 +1,7 @@
 fcntl is portable, flock is not.
 Solaris does not have ifr.ifr_hwaddr.
 
---- libuuid/src/gen_uuid.c.orig	2023-11-30 10:26:09 UTC
+--- libuuid/src/gen_uuid.c.orig	2024-03-20 14:32:17 UTC
 +++ libuuid/src/gen_uuid.c
 @@ -169,7 +169,7 @@ static int get_node_id(unsigned char *no
  	for (i = 0; i < n; i+= ifreq_size(*ifrp) ) {
@@ -12,25 +12,22 @@ Solaris does not have ifr.ifr_hwaddr.
  		if (ioctl(sd, SIOCGIFHWADDR, &ifr) < 0)
  			continue;
  		a = (unsigned char *) &ifr.ifr_hwaddr.sa_data;
-@@ -226,11 +226,16 @@ static int get_clock(uint32_t *clock_hig
- 	THREAD_LOCAL int		state_fd = -2;
+@@ -248,16 +248,22 @@ static int get_clock(uint32_t *clock_hig
+ 	THREAD_LOCAL int		state_fd = STATE_FD_INIT;
  	THREAD_LOCAL FILE		*state_f;
  	THREAD_LOCAL uint16_t		clock_seq;
 +	struct flock			lock;
  	struct timeval			tv;
  	uint64_t			clock_reg;
- 	mode_t				save_umask;
  	int				ret = 0;
  
 +	lock.l_whence = SEEK_SET;
 +	lock.l_start = 0;
 +	lock.l_len = 0;
 +
- 	if (state_fd == -1)
- 		ret = -1;
+ 	if (state_fd == STATE_FD_INIT)
+ 		state_fd = state_fd_init(LIBUUID_CLOCK_FILE, &state_f);
  
-@@ -251,7 +256,8 @@ static int get_clock(uint32_t *clock_hig
- 	}
  	if (state_fd >= 0) {
  		rewind(state_f);
 -		while (flock(state_fd, LOCK_EX) < 0) {
@@ -39,7 +36,7 @@ Solaris does not have ifr.ifr_hwaddr.
  			if ((errno == EAGAIN) || (errno == EINTR))
  				continue;
  			fclose(state_f);
-@@ -328,7 +334,8 @@ try_again:
+@@ -336,7 +342,8 @@ try_again:
  			      clock_seq, (long)last.tv_sec, (long)last.tv_usec, adjustment);
  		fflush(state_f);
  		rewind(state_f);
