@@ -1,7 +1,7 @@
---- src/extra/blas/Makefile.in.orig	2023-03-23 23:02:02 UTC
+--- src/extra/blas/Makefile.in.orig	2024-03-26 23:02:03 UTC
 +++ src/extra/blas/Makefile.in
-@@ -25,7 +25,7 @@ SOURCES = blas00.c blas.f cmplxblas.f bl
- @BUILD_LTO_CHECK_TRUE@Rblas_la = libRblas.a
+@@ -25,7 +25,7 @@ lsame.f newAccelerate.c zdotc.f zdotu.f
+ Rblas_la = libRblas$(R_DYLIB_EXT)
  ## @RBLAS_LDFLAGS@ is used on macOS
  ## first for internal BLAS
 -Rblas_la_LIBADD = @RBLAS_LDFLAGS@ $(FLIBS_IN_SO)
@@ -9,7 +9,7 @@
  ## then external one
  Rblas_la_LIBADD0 = @RBLAS_LDFLAGS@
  
-@@ -55,6 +55,7 @@ Rblas_install: $(Rblas_la)
+@@ -66,6 +66,7 @@ Rblas_install: $(Rblas_la)
  	@$(MKINSTALLDIRS) "$(DESTDIR)$(Rexeclibdir)"
  	@$(SHELL) $(top_srcdir)/tools/copy-if-change $(Rblas_la) \
  	  "$(DESTDIR)$(Rexeclibdir)/$(Rblas_la)"
@@ -17,7 +17,7 @@
  
  Rblas_install-strip: $(Rblas_la)
  	@$(MKINSTALLDIRS) "$(DESTDIR)$(Rexeclibdir)"
-@@ -62,6 +63,7 @@ Rblas_install-strip: $(Rblas_la)
+@@ -73,6 +74,7 @@ Rblas_install-strip: $(Rblas_la)
  	@if test -n "$(STRIP_SHARED_LIB)"; then \
  	  $(STRIP_SHARED_LIB) "$(DESTDIR)$(Rexeclibdir)/$(Rblas_la)" ;\
  	fi

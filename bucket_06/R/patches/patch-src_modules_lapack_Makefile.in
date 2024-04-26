@@ -1,12 +1,11 @@
---- src/modules/lapack/Makefile.in.orig	2023-03-23 23:02:05 UTC
+--- src/modules/lapack/Makefile.in.orig	2024-03-26 23:02:08 UTC
 +++ src/modules/lapack/Makefile.in
-@@ -104,17 +104,19 @@ $(lapack_la): $(lapack_la_OBJECTS)
- ## Include BLAS here, as with (static) ATLAS that pulls all the
+@@ -110,16 +110,18 @@ $(lapack_la): $(lapack_la_OBJECTS)
  ## BLAS routines into one place.
- $(Rlapack_la): $(LIBOBJECTS)
--	@BUILD_LTO_CHECK_FALSE@$(DYLIB_LINK) -o $@ $(LIBOBJECTS) @RLAPACK_LDFLAGS@ @BLAS_LIBS@ $(Rlapack_la_LIBADD)
-+	@BUILD_LTO_CHECK_FALSE@$(DYLIB_LINK) -o $@ $(LIBOBJECTS) -Wl,-soname,libRlapack.so.%%LIBVER%% @BLAS_LIBS@ $(Rlapack_la_LIBADD)
- 	@BUILD_LTO_CHECK_TRUE@$(AR) -cr $@ $(LIBOBJECTS)
+ ## FIXME:  @BLAS_LIBS@ is probably  not needed for newAccelerate.
+ $(Rlapack_la): $(Rlapack_la_OBJECTS)
+-	$(DYLIB_LINK) -o $@ $(Rlapack_la_OBJECTS) @RLAPACK_LDFLAGS@ @BLAS_LIBS@ $(Rlapack_la_LIBADD)
++	$(DYLIB_LINK) -o $@ $(Rlapack_la_OBJECTS) -Wl,-soname,libRlapack.so.%%LIBVER%% @BLAS_LIBS@ $(Rlapack_la_LIBADD)
  
  Rlapack_install: $(Rlapack_la) 
  	@$(MKINSTALLDIRS) "$(DESTDIR)$(Rexeclibdir)"
@@ -22,7 +21,7 @@
  installdirs:
  	@$(MKINSTALLDIRS) "$(DESTDIR)$(Rexecmodulesdir)"
  install-strip-Rlapack:
-@@ -127,6 +129,7 @@ install-strip: @USE_EXTERNAL_LAPACK_FALS
+@@ -132,6 +134,7 @@ install-strip: @USE_EXTERNAL_LAPACK_FALS
  	@if test -n "$(STRIP_SHARED_LIB)"; then \
  	  $(STRIP_SHARED_LIB) "$(DESTDIR)$(Rexecmodulesdir)/$(lapack_la)"; \
  	fi
