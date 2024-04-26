@@ -5,7 +5,7 @@ WebKit already uses shared memory to communicate the message body when
 the message is too large, so force it to always use this method to avoid
 encountering EMSGSIZE.
 
---- Source/WebKit/Platform/IPC/unix/ConnectionUnix.cpp.orig	2023-09-19 08:27:50 UTC
+--- Source/WebKit/Platform/IPC/unix/ConnectionUnix.cpp.orig	2024-03-16 06:45:50 UTC
 +++ Source/WebKit/Platform/IPC/unix/ConnectionUnix.cpp
 @@ -62,6 +62,10 @@
  #endif
@@ -18,7 +18,7 @@ encountering EMSGSIZE.
  namespace IPC {
  
  static const size_t messageMaxSize = 4096;
-@@ -403,8 +407,12 @@ bool Connection::sendOutgoingMessage(Uni
+@@ -406,8 +410,12 @@ bool Connection::sendOutgoingMessage(Uni
          return false;
      }
  
@@ -28,6 +28,6 @@ encountering EMSGSIZE.
 +#else
 +    {
 +#endif
-         RefPtr<WebKit::SharedMemory> oolMessageBody = WebKit::SharedMemory::allocate(outputMessage.bodySize());
+         RefPtr<WebCore::SharedMemory> oolMessageBody = WebCore::SharedMemory::allocate(outputMessage.bodySize());
          if (!oolMessageBody)
              return false;

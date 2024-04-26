@@ -1,4 +1,4 @@
---- Source/WTF/wtf/unix/MemoryPressureHandlerUnix.cpp.orig	2023-09-19 08:27:49 UTC
+--- Source/WTF/wtf/unix/MemoryPressureHandlerUnix.cpp.orig	2024-03-16 06:45:49 UTC
 +++ Source/WTF/wtf/unix/MemoryPressureHandlerUnix.cpp
 @@ -28,7 +28,11 @@
  #include "config.h"
@@ -21,7 +21,7 @@
  #include <sys/sysctl.h>
  #include <sys/types.h>
  #include <sys/user.h>
-@@ -112,7 +116,7 @@ static size_t processMemoryUsage()
+@@ -115,7 +119,7 @@ static size_t processMemoryUsage()
      ProcessMemoryStatus memoryStatus;
      currentProcessMemoryStatus(memoryStatus);
      return (memoryStatus.resident - memoryStatus.shared);
@@ -30,7 +30,7 @@
      static size_t pageSize = sysconf(_SC_PAGE_SIZE);
      struct kinfo_proc info;
      size_t infolen = sizeof(info);
-@@ -126,7 +130,11 @@ static size_t processMemoryUsage()
+@@ -129,7 +133,11 @@ static size_t processMemoryUsage()
      if (sysctl(mib, 4, &info, &infolen, nullptr, 0))
          return 0;
  
@@ -39,6 +39,6 @@
 +# else
      return static_cast<size_t>(info.ki_rssize - info.ki_tsize) * pageSize;
 +# endif
- #else
- #error "Missing a platform specific way of determining the memory usage"
- #endif
+ #elif OS(QNX)
+     int fd = open("/proc/self/ctl", O_RDONLY);
+     if (fd == -1)
