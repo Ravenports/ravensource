@@ -1,9 +1,12 @@
-DEF[PORTVERSION]=	1.7
-DEF[LO_VER]=		6.1.4.1
+DEF[PORTVERSION]=	1.8.1
 DEF[SUFFIX]=		hu
 DEF[LANGUAGE]=		Hungarian
 DEF[INSTLOC]=		{{STAGEDIR}}{{PREFIX}}/share/hunspell
-DEF[FILENAME]=		LibreOffice_${LO_VER}_Linux_x86-64_rpm_langpack_hu
+DEF[DICT_HASH]=		c5b2a36bde02841590b8ccc490ca88bfdb69f153
+
+# DEF[LO_VER]=		6.1.4.1
+# DEF[FILENAME]=	LibreOffice_${LO_VER}_Linux_x86-64_rpm_langpack_hu
+# SITES[libre]=		https://git.libreoffice.org/dictionaries/+/${DICT_HASH}/hu_HU/
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		hunspell-${SUFFIX}
@@ -14,9 +17,19 @@ SDESC[standard]=	Hunspell ${LANGUAGE} dictionary
 HOMEPAGE=		https://magyarispell.sourceforge.net/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main
-SITES[main]=		http://downloadarchive.documentfoundation.org/libreoffice/old/${LO_VER}/rpm/x86_64/
-DISTFILE[1]=		${FILENAME}.tar.gz:main
+DOWNLOAD_GROUPS=	main libre
+SITES[main]=		https://leaf.dragonflybsd.org/~marino/dports-src/
+SITES[libre]=		https://raw.githubusercontent.com/LibreOffice/dictionaries/${DICT_HASH}/hu_HU/
+DISTFILE[1]=		dummy-tarball.tar.gz:main
+DISTFILE[2]=		hu_HU.aff:libre
+DISTFILE[3]=		hu_HU.dic:libre
+DISTFILE[4]=		README_hu_HU.txt:libre
+DIST_SUBDIR=		hungarian
+DF_INDEX=		1 2 3 4
+
+
+# SITES[main]=		http://downloadarchive.documentfoundation.org/libreoffice/old/${LO_VER}/rpm/x86_64/
+# DISTFILE[1]=		${FILENAME}.tar.gz:main
 # SITES[main]=		SF/magyarispell/Magyar%20Ispell/${PORTVERSION}
 # DISTFILE[1]=		hu_HU-${PORTVERSION}.tar.gz:main
 
@@ -32,18 +45,14 @@ LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		hungarian/hunspell
 
+EXTRACT_ONLY=		1
 SKIP_BUILD=		yes
-DISTNAME=		${FILENAME}
 
 post-extract:
-	${TAR} -C ${WRKDIR}/ \
-	-xf ${WRKSRC}/RPMS/libreoffice6.1-dict-hu-${LO_VER}-1.x86_64.rpm
-	(cd ${WRKDIR} && \
-	${LN} -s opt/libreoffice6.1/share/extensions/dict-hu dict)
-	${AWK} '/License/,EOF' ${WRKDIR}/dict/README_hu_HU.txt \
+	${AWK} '/License/,EOF' ${DISTDIR}/${DIST_SUBDIR}/README_hu_HU.txt \
 		> ${WRKDIR}/TERMS
 
 do-install:
 	${MKDIR} ${INSTLOC}
-	${INSTALL_DATA} ${WRKDIR}/dict/hu_HU.aff ${INSTLOC}/hu_HU.aff
-	${INSTALL_DATA} ${WRKDIR}/dict/hu_HU.dic ${INSTLOC}/hu_HU.dic
+	${INSTALL_DATA} ${DISTDIR}/${DIST_SUBDIR}/hu_HU.aff ${INSTLOC}/hu_HU.aff
+	${INSTALL_DATA} ${DISTDIR}/${DIST_SUBDIR}/hu_HU.dic ${INSTLOC}/hu_HU.dic
