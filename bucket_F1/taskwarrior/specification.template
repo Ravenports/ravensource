@@ -1,6 +1,4 @@
 DEF[PORTVERSION]=	%%VERSION%%
-DEF[SKIP_CRATE]=	integration-tests
-# also taskchampion*, xtask
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		taskwarrior
@@ -19,7 +17,7 @@ DISTFILE[1]=		task-${PORTVERSION}.tar.gz:main
 %%CR_DISTFILES%%
 %%DF_INDEX%%
 
-SPKGS[standard]=	complete primary docs
+SPKGS[standard]=	complete primary docs man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -34,11 +32,15 @@ BUILD_DEPENDS=		libuuid:dev:standard
 			rust:single:standard
 BUILDRUN_DEPENDS=	libuuid:primary:standard
 
-USES=			cmake shebangfix execinfo cclibs:primary c++:primary
+USES=			cargo cmake shebangfix execinfo cclibs:primary c++:primary
 DISTNAME=		task-${PORTVERSION}
 CMAKE_ARGS=		-DTASK_DOCDIR:STRING=share/doc/taskwarrior
 SHEBANG_FILES=		scripts/*/*.pl
 			doc/rc/refresh
+
+CARGO_SKIP_CONFIGURE=	yes
+CARGO_SKIP_BUILD=	yes
+CARGO_SKIP_INSTALL=	yes
 
 pre-configure:
 	@${MKDIR} ${WRKDIR}/.cargo

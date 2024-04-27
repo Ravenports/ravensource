@@ -6,6 +6,9 @@
 /^version = / {
     split($3,v,"\"")
     version = v[2]
+    next
+}
+/^checksum = / {
     if (name == "") { next }
     if (name != target) {
        print name "-" version
