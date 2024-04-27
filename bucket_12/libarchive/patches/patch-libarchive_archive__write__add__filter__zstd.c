@@ -1,6 +1,6 @@
---- libarchive/archive_write_add_filter_zstd.c.orig	2022-12-09 13:38:31 UTC
+--- libarchive/archive_write_add_filter_zstd.c.orig	2024-04-26 09:22:59 UTC
 +++ libarchive/archive_write_add_filter_zstd.c
-@@ -63,7 +63,7 @@ struct private_data {
+@@ -84,7 +84,7 @@ struct private_data {
  /* If we don't have the library use default range values (zstdcli.c v1.4.0) */
  #define CLEVEL_MIN -99
  #define CLEVEL_STD_MIN 0 /* prior to 1.3.4 and more recent without using --fast */
