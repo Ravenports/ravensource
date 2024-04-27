@@ -1,5 +1,14 @@
 --- dragonflybsd/DragonFlyBSDProcessTable.c.orig	2024-01-10 09:54:15 UTC
 +++ dragonflybsd/DragonFlyBSDProcessTable.c
+@@ -37,7 +37,7 @@ ProcessTable* ProcessTable_new(Machine*
+ }
+ 
+ void ProcessTable_delete(Object* cast) {
+-   const DragonFlyBSDProcessTable* this = (DragonFlyBSDProcessTable*) cast;
++   DragonFlyBSDProcessTable* this = (DragonFlyBSDProcessTable*) cast;
+    ProcessTable_done(&this->super);
+    free(this);
+ }
 @@ -130,8 +130,8 @@ static void DragonFlyBSDProcessTable_upd
  }
  
@@ -25,7 +34,7 @@
  
        proc->percent_cpu = 100.0 * ((double)kproc->kp_lwp.kl_pctcpu / (double)dhost->kernelFScale);
 -      proc->percent_mem = 100.0 * proc->m_resident / (double)(super->totalMem);
-+      proc->percent_mem = 100.0 * proc->m_resident / (double)(host->totalMem);
++      proc->percent_mem = 100.0 * proc->m_resident / (double)(super->super.host->totalMem);
        Process_updateCPUFieldWidths(proc->percent_cpu);
  
        if (proc->percent_cpu > 0.1) {
