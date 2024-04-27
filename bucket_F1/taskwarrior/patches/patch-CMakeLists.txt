@@ -1,6 +1,6 @@
---- CMakeLists.txt.orig	2021-10-19 04:23:26 UTC
+--- CMakeLists.txt.orig	2024-04-23 00:20:01 UTC
 +++ CMakeLists.txt
-@@ -55,15 +55,15 @@ set (PACKAGE_TARNAME "${PACKAGE}")
+@@ -52,15 +52,15 @@ set (PACKAGE_TARNAME "${PACKAGE}")
  set (PACKAGE_VERSION "${VERSION}")
  set (PACKAGE_STRING "${PACKAGE} ${VERSION}")
  
@@ -19,8 +19,8 @@
 +SET (TASK_RCDIR "share/taskwarrior/rc" CACHE STRING "Installation directory for configuration files")
  SET (TASK_BINDIR  bin            CACHE STRING "Installation directory for the binary")
  
- if (USE_GNUTLS)
-@@ -88,10 +88,10 @@ check_struct_has_member ("struct tm" tm_
+ # rust libs require these
+@@ -74,10 +74,10 @@ check_struct_has_member ("struct tm" tm_
  check_struct_has_member ("struct stat" st_birthtime "sys/types.h;sys/stat.h" HAVE_ST_BIRTHTIME)
  
  message ("-- Looking for libuuid")
@@ -33,7 +33,7 @@
    find_path    (UUID_INCLUDE_DIR   uuid/uuid.h)
    find_library (UUID_LIBRARY NAMES uuid)
    if (UUID_INCLUDE_DIR AND UUID_LIBRARY)
-@@ -104,7 +104,7 @@ else (DARWIN OR FREEBSD OR OPENBSD)
+@@ -90,7 +90,7 @@ else (DARWIN OR FREEBSD OR OPENBSD)
    else (UUID_INCLUDE_DIR AND UUID_LIBRARY)
      message (FATAL_ERROR "-- libuuid not found.")
    endif (UUID_INCLUDE_DIR AND UUID_LIBRARY)

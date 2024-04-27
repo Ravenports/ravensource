@@ -1,0 +1,58 @@
+DEF[PORTVERSION]=	%%VERSION%%
+DEF[SKIP_CRATE]=	integration-tests
+# also taskchampion*, xtask
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		taskwarrior
+VERSION=		${PORTVERSION}
+KEYWORDS=		rust deskutils
+VARIANTS=		standard
+SDESC[standard]=	Feature-rich command-line todo list manager
+HOMEPAGE=		https://taskwarrior.org/
+CONTACT=		nobody
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		https://github.com/GothenburgBitFactory/taskwarrior/releases/download/v${PORTVERSION}/
+%%CR_SITES%%
+
+DISTFILE[1]=		task-${PORTVERSION}.tar.gz:main
+%%CR_DISTFILES%%
+%%DF_INDEX%%
+
+SPKGS[standard]=	complete primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		deskutils/taskwarrior
+
+BUILD_DEPENDS=		libuuid:dev:standard
+			rust:single:standard
+BUILDRUN_DEPENDS=	libuuid:primary:standard
+
+USES=			cmake shebangfix execinfo cclibs:primary c++:primary
+DISTNAME=		task-${PORTVERSION}
+CMAKE_ARGS=		-DTASK_DOCDIR:STRING=share/doc/taskwarrior
+SHEBANG_FILES=		scripts/*/*.pl
+			doc/rc/refresh
+
+pre-configure:
+	@${MKDIR} ${WRKDIR}/.cargo
+	@${ECHO_CMD} "[source.cargo]" > ${WRKDIR}/.cargo/config
+	@${ECHO_CMD} "directory = '${CARGO_VENDOR_DIR}'" >> ${WRKDIR}/.cargo/config
+	@${ECHO_CMD} "[source.crates-io]" >> ${WRKDIR}/.cargo/config
+	@${ECHO_CMD} "replace-with = 'cargo'" >> ${WRKDIR}/.cargo/config
+	@if ! ${GREP} -qF '[profile.release]' ${WRKSRC}/Cargo.toml; then \
+		${ECHO_CMD} "" >> ${WRKSRC}/Cargo.toml; \
+		${ECHO_CMD} "[profile.release]" >> ${WRKSRC}/Cargo.toml; \
+		${ECHO_CMD} "opt-level = 2" >> ${WRKSRC}/Cargo.toml; \
+		${ECHO_CMD} "debug = false" >> ${WRKSRC}/Cargo.toml; \
+	fi
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/task
+	# ${RM} ${STAGEDIR}${PREFIX}/.crates2.json
