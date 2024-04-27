@@ -1,0 +1,29 @@
+DEF[PORTVERSION]=	1.2.0
+DEF[TAG]=		v${PORTVERSION}
+DEF[SOVERSION]=		9.2.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		nghttp3
+VERSION=		${PORTVERSION}
+KEYWORDS=		www net
+VARIANTS=		standard
+SDESC[standard]=	HTTP/3 library written in C
+HOMEPAGE=		https://nghttp2.org/nghttp3/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/ngtcp2/nghttp3/releases/download/${TAG}/
+DISTFILE[1]=		nghttp3-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary dev docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		www/libnghttp3
+
+USES=			cmake pkgconfig
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libnghttp3.so
