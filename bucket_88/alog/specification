@@ -1,9 +1,9 @@
-DEF[PORTVERSION]=	0.6.1
+DEF[PORTVERSION]=	0.6.2
+DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		alog
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Stackable logging framework for Ada
@@ -22,6 +22,7 @@ OPTIONS_STANDARD=	TESTED
 DISTNAME=		libalog-${PORTVERSION}
 
 BUILD_DEPENDS=		ruby-asciidoctor:single:ruby_default
+			python-scour:single:python_default
 
 LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/LICENSE
@@ -30,29 +31,27 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/alog.ads
 LICENSE_SCHEME=		solo
 
-USES=			gprbuild gmake
-BUILD_TARGET=		all doc
+USES=			gprbuild gmake ada:primary
+BUILD_TARGET=		all build-doc
 SINGLE_JOB=		yes
 MAKE_ARGS=		NUM_CPUS={{MAKE_JOBS_NUMBER}}
-			LIBRARY_KIND=static
+# Setting VERSION to blank changes from dynamic to static
+			VERSION=
+SOVERSION=		${SOVERSION}
+INSTALL_REQ_TOOLCHAIN=	yes
 
 [TESTED].DESCRIPTION=			Run unit test suite before installation
 [TESTED].BUILD_DEPENDS_ON=		ahven:complete:standard
 [TESTED].BUILD_TARGET_ON=		tests
 
-post-patch:
-	${REINPLACE_CMD} -e '/^NUM_CPUS/d' ${WRKSRC}/Makefile
+pre-configure:
+	${REINPLACE_CMD} \
+		-e '/^NUM_CPUS/d' \
+		-e 's|lib/gnat|share/gpr|' \
+		${WRKSRC}/Makefile
 	${REINPLACE_CMD} -e 's/\(not-allowed\)/NONEXISTENT\/\1/' \
 		${WRKSRC}/tests/facility_tests-fd.adb
 
-do-install:
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/gpr \
-		${STAGEDIR}${PREFIX}/lib/alog \
-		${STAGEDIR}${PREFIX}/include/alog \
-		${STAGEDIR}${STD_DOCDIR}
-	${INSTALL_DATA} ${WRKSRC}/src/*.ad[bs] ${STAGEDIR}${PREFIX}/include/alog
-	${INSTALL_DATA} ${WRKSRC}/src/*.c ${STAGEDIR}${PREFIX}/include/alog
-	${INSTALL_DATA} ${WRKSRC}/lib/*/*.ali ${STAGEDIR}${PREFIX}/lib/alog
-	${INSTALL_DATA} ${WRKSRC}/gnat/alog.gpr ${STAGEDIR}${PREFIX}/share/gpr
-	${INSTALL_DATA} ${WRKSRC}/lib/*/libalog.a ${STAGEDIR}${PREFIX}/lib/alog
+post-install:
 	(cd ${WRKSRC}/doc && ${COPYTREE_SHARE} html ${STAGEDIR}${STD_DOCDIR})
+	# ${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libalog.so
