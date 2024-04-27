@@ -15,6 +15,7 @@ set (prog15 elf_tables)
 set (prog16 fmagic)
 set (prog17 pwcrypt)
 set (prog18 sqlcli)
+set (prog19 cbsd_md5)
 
 set (fbsd1 next-vale-port)
 
@@ -50,6 +51,11 @@ set (srcs16 src/fmagic.c)
 set (srcs17 src/pwcrypt.c)
 set (srcs18 src/sqlcli.c)
 
+set (srcs19
+  src/cbsd_md5/md5.c
+  src/cbsd_md5/main.c
+)
+
 set (freesrcs1 src/next-vale-port.c)
 
 add_executable(${prog1} ${srcs1})
@@ -68,6 +74,7 @@ add_executable(${prog15} ${srcs15})
 add_executable(${prog16} ${srcs16})
 add_executable(${prog17} ${srcs17})
 add_executable(${prog18} ${srcs18})
+add_executable(${prog19} ${srcs19})
 
 target_include_directories(${prog1} PUBLIC
     ${CMAKE_SOURCE_DIR}/lib/simplexml
@@ -89,7 +96,7 @@ install(TARGETS
     ${prog5} ${prog6} ${prog7}
     ${prog10} ${prog11} ${prog12} ${prog13}
     ${prog14} ${prog15} ${prog16} ${prog17}
-    ${prog18}
+    ${prog18} ${prog19}
     DESTINATION cbsd/misc
 )
 
