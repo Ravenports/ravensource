@@ -1,6 +1,23 @@
---- dragonflybsd/Platform.c.orig	2022-06-03 00:54:39 UTC
+--- dragonflybsd/Platform.c.orig	2024-01-10 09:54:15 UTC
 +++ dragonflybsd/Platform.c
-@@ -223,9 +223,23 @@ void Platform_setSwapValues(Meter* this)
+@@ -36,6 +36,7 @@ in the source distribution for its full
+ #include "XUtils.h"
+ #include "dragonflybsd/DragonFlyBSDProcess.h"
+ #include "dragonflybsd/DragonFlyBSDProcessTable.h"
++#include "dragonflybsd/DragonFlyBSDMachine.h"
+ #include "generic/fdstat_sysctl.h"
+ 
+ 
+@@ -193,7 +194,7 @@ double Platform_setCPUValues(Meter* this
+ 
+    v[CPU_METER_NICE]   = cpuData->nicePercent;
+    v[CPU_METER_NORMAL] = cpuData->userPercent;
+-   if (super->settings->detailedCPUTime) {
++   if (host->settings->detailedCPUTime) {
+       v[CPU_METER_KERNEL]  = cpuData->systemPercent;
+       v[CPU_METER_IRQ]     = cpuData->irqPercent;
+       this->curItems = 4;
+@@ -232,9 +233,33 @@ void Platform_setSwapValues(Meter* this)
  }
  
  char* Platform_getProcessEnv(pid_t pid) {
@@ -9,8 +26,18 @@
 -   return NULL;
 +   char *env = NULL, **fenv = NULL, *ptr = NULL;
 +   size_t size = 0;
++   kvm_t *kd;
++   struct kinfo_proc *kp;
++   char errbuf[_POSIX2_LINE_MAX];
++   int count;
 +
-+   fenv = DragonFlyBSDGet_env(pid);
++   kd = kvm_openfiles(NULL, "/dev/null", NULL, 0, errbuf);
++   if (kd == NULL)
++      return NULL;
++
++   kp = kvm_getprocs(kd, KERN_PROC_PID, pid, &count);
++   fenv = kvm_getenvv(kd, kp, 0);
++   kvm_close(kd);
 +
 +   if (fenv) {
 +      ptr = fenv[0];
@@ -26,4 +53,4 @@
 +   return env;
  }
  
- char* Platform_getInodeFilename(pid_t pid, ino_t inode) {
+ FileLocks_ProcessData* Platform_getProcessLocks(pid_t pid) {
