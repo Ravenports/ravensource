@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	21.6.2
+DEF[PORTVERSION]=	22.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		nodejs
@@ -38,9 +38,11 @@ BROKEN[sunos]=		The ld.sun linker does not support required options
 # system-icu causes segfault on all systems, don't use it until further notice
 
 BUILD_DEPENDS=		libnghttp2:dev:standard
+			nghttp3:dev:standard
 			libuv:dev:standard
 BUILDRUN_DEPENDS=	libuv:primary:standard
 			libnghttp2:primary:standard
+			nghttp3:primary:standard
 
 USES=			execinfo gmake pkgconfig shebangfix cpe zlib
 			python:v11,build c++:primary
@@ -53,6 +55,7 @@ CONFIGURE_ARGS=		--prefix={{PREFIX}}
 			--shared-libuv
 			--shared-zlib
 			--shared-nghttp2
+			--shared-nghttp3
 # #			--debug
 SHEBANG_FILES=		tools/specialize_node_d.py
 MAKE_ENV=		CC.host={{CC}}
