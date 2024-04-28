@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.047
+DEF[PORTVERSION]=	0.048
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Module-Build-Tiny
@@ -33,6 +33,7 @@ DISTNAME=		Module-Build-Tiny-${PORTVERSION}
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
 # |      runtime : CPAN::Meta (perl 5.36 core) (perl 5.38 core)
+# |      runtime : CPAN::Requirements::Dynamic
 # |      runtime : DynaLoader (perl 5.36 core) (perl 5.38 core)
 # |      runtime : Exporter (perl 5.36 core) (perl 5.38 core)
 # |      runtime : ExtUtils::CBuilder (perl 5.36 core) (perl 5.38 core)
@@ -52,6 +53,7 @@ DISTNAME=		Module-Build-Tiny-${PORTVERSION}
 # |      runtime : strict (perl 5.36 core) (perl 5.38 core)
 # |      runtime : warnings (perl 5.36 core) (perl 5.38 core)
 # |    configure : CPAN::Meta (perl 5.36 core) (perl 5.38 core)
+# |    configure : CPAN::Requirements::Dynamic
 # |    configure : DynaLoader (perl 5.36 core) (perl 5.38 core)
 # |    configure : Exporter (perl 5.36 core) (perl 5.38 core)
 # |    configure : ExtUtils::CBuilder (perl 5.36 core) (perl 5.38 core)
@@ -83,11 +85,13 @@ DISTNAME=		Module-Build-Tiny-${PORTVERSION}
 # |         test : lib (perl 5.36 core) (perl 5.38 core)
 
 [PERL_536].USES_ON=			perl:536,buildmodtiny,run
-[PERL_536].BUILDRUN_DEPENDS_ON=		perl-ExtUtils-Config:single:536
+[PERL_536].BUILDRUN_DEPENDS_ON=		perl-CPAN-Requirements-Dynamic:single:536
+					perl-ExtUtils-Config:single:536
 					perl-ExtUtils-Helpers:single:536
 					perl-ExtUtils-InstallPaths:single:536
 [PERL_538].USES_ON=			perl:538,buildmodtiny,run
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-ExtUtils-Config:single:538
+[PERL_538].BUILDRUN_DEPENDS_ON=		perl-CPAN-Requirements-Dynamic:single:538
+					perl-ExtUtils-Config:single:538
 					perl-ExtUtils-Helpers:single:538
 					perl-ExtUtils-InstallPaths:single:538
 
