@@ -1,5 +1,4 @@
-DEF[PORTVERSION]=	2.4.2
-DEF[BOOTVSN]=		1.2.7
+DEF[PORTVERSION]=	2.4.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		sbcl
@@ -12,12 +11,7 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main boot
 SITES[main]=		SF/sbcl/sbcl/${PORTVERSION}
-SITES[boot]=		SF/sbcl/sbcl/${BOOTVSN}
 DISTFILE[1]=		sbcl-${PORTVERSION}-source.tar.bz2:main
-DISTFILE[2]=		sbcl-${BOOTVSN}-x86-64-dragonfly-binary.tar.bz2:boot
-DISTFILE[3]=		sbcl-${BOOTVSN}-x86-64-freebsd-binary.tar.bz2:boot
-DISTFILE[4]=		sbcl-${BOOTVSN}-x86-64-linux-binary.tar.bz2:boot
-DISTFILE[5]=		sbcl-${BOOTVSN}-x86-solaris-binary.tar.bz2:boot
 DF_INDEX=		1
 
 SPKGS[standard]=	single
@@ -53,32 +47,21 @@ NOT_FOR_OPSYS=		darwin
 RUN_DEPENDS=		asdf:primary:standard
 BUILD_DEPENDS=		gmp:static:standard
 			mpfr:static:standard
+			clisp:primary:standard
 BUILDRUN_DEPENDS=	gmp:shared:standard
 			mpfr:shared:standard
-
-B_DEPS[midnightbsd]=	clisp:primary:standard
-B_DEPS[netbsd]=		clisp:primary:standard
 
 USES=			gmake makeinfo zlib zstd
 SUB_FILES=		sbclrc
 CMAKE_ARGS=		--prefix="{{PREFIX}}"
-			--xc-host="{{WRKDIR}}/bootstrap/src/runtime/sbcl --core {{WRKDIR}}/bootstrap/output/sbcl.core --noinform --disable-debugger --no-sysinit --no-userinit"
+			--xc-host=clisp
 			--without-sb-thread
-			--without-restore-fs-segment-register-from-tls
 			--with-sb-unicode
 			--with-sb-core-compression
-			--without-sb-qshow
 			--without-sb-xref-for-internals
 			--without-sb-safepoint
-			--without-sb-thruption
-			--without-sb-wtimer
 
-VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CMAKE_ARGS:={{CMAKE_ARGS:N--xc-host=*}}
-			MAKEFILE_LINE=CMAKE_ARGS+=--xc-host=clisp
-
-VAR_OPSYS[netbsd]=	MAKEFILE_LINE=CMAKE_ARGS:={{CMAKE_ARGS:N--xc-host=*}}
-			MAKEFILE_LINE=CMAKE_ARGS+=--xc-host=clisp
-			MAKE_ENV=SBCL_PAXCTL="{{PAXCTL}} +m"
+VAR_OPSYS[netbsd]=	MAKE_ENV=SBCL_PAXCTL="{{PAXCTL}} +m"
 
 # CMAKE_ARGS were repurposed
 # On DragonFly, the self-tests fail on concurrency module, so disable
@@ -94,22 +77,12 @@ VAR_OPSYS[netbsd]=	MAKEFILE_LINE=CMAKE_ARGS:={{CMAKE_ARGS:N--xc-host=*}}
 [CONCURRENCY].DESCRIPTION=		Enable thread support
 [SIMD].DESCRIPTION=			Enable SB-SIMD (requires AVX2 CPU)
 
-[DRAGONFLY].DF_INDEX_ON=		2
-[FREEBSD].DF_INDEX_ON=			3
-[LINUX].DF_INDEX_ON=			4
-[SUNOS].DF_INDEX_ON=			5
-
 [CONCURRENCY].CMAKE_ARGS_OFF=		--without-sb-thread
-					--without-restore-fs-segment-register-from-tls
 [CONCURRENCY].CMAKE_ARGS_ON=		--with-sb-thread
-					--with-restore-fs-segment-register-from-tls
 [SIMD].CMAKE_ARGS_ON=			--with-sb-simd
 [SIMD].CMAKE_ARGS_OFF=			--without-sb-simd
 
 post-extract:
-	if [ ! -f "${LOCALBASE}/bin/clisp" ]; then \
-		${MV} ${WRKDIR}/sbcl-${BOOTVSN}-* ${WRKDIR}/bootstrap ;\
-	fi
 	# Extract licenses into separate files
 	${AWK} '/^;;;; Portions of LOOP/,/;;;; specification/' \
 		${WRKSRC}/COPYING > ${WRKDIR}/LICENSE_PUBDOM

@@ -1,6 +1,6 @@
 Linux LARGEFILE option does not seem to build.
 
---- make-config.sh.orig	2024-01-28 10:36:18 UTC
+--- make-config.sh.orig	2024-03-29 17:02:12 UTC
 +++ make-config.sh
 @@ -301,7 +301,7 @@ case `uname` in
          ;;
@@ -11,7 +11,7 @@ Linux LARGEFILE option does not seem to build.
                  sbcl_os="freebsd"
                  ;;
              GNU/kFreeBSD)
-@@ -574,7 +574,6 @@ case "$sbcl_os" in
+@@ -577,7 +577,6 @@ case "$sbcl_os" in
          # src/runtime/Config.foo-linux too.
          case "$sbcl_arch" in
  	    mips | arm | x86 | x86-64)
