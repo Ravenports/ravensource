@@ -1,6 +1,24 @@
---- configure.orig	2022-11-05 21:13:26 UTC
-+++ configure
-@@ -6027,14 +6027,14 @@ echo $ECHO_N "checking for an rpath opti
+--- configure.orig	2024-04-28 13:16:56.914659000 +0200
++++ configure	2024-04-28 13:23:06.643138000 +0200
+@@ -1689,7 +1689,7 @@
+ if test "x$prefix" = "xNONE" ; then
+ 	case "$cf_cv_system_name" in
+ 		# non-vendor systems don't have a conflict
+-	(openbsd*|freebsd*|mirbsd*|linux*|cygwin*|msys*|k*bsd*-gnu|mingw*)
++	(openbsd*|freebsd*|midnight*|mirbsd*|linux*|cygwin*|msys*|k*bsd*-gnu|mingw*)
+ 		prefix=/usr
+ 		;;
+ 	(*)	prefix=$ac_default_prefix
+@@ -3147,7 +3147,7 @@
+ 	LDCONFIG=:
+ else
+ 	case "$cf_cv_system_name" in
+-	(dragonfly*|mirbsd*|freebsd*)
++	(dragonfly*|mirbsd*|freebsd*|midnight*)
+ 		test -z "$LDCONFIG" && LDCONFIG="/sbin/ldconfig -R"
+ 		;;
+ 	(*) LDPATH=$PATH:/sbin:/usr/sbin
+@@ -6442,14 +6442,14 @@
  			LD_RPATH_OPT="-rpath "
  		fi
  		;;
@@ -17,7 +35,7 @@
  		;;
  	(netbsd*)
  		LD_RPATH_OPT="-Wl,-rpath,"
-@@ -6043,7 +6043,7 @@ echo $ECHO_N "checking for an rpath opti
+@@ -6458,7 +6458,7 @@
  		LD_RPATH_OPT="-rpath "
  		;;
  	(solaris2*)
@@ -26,7 +44,13 @@
  		;;
  	(*)
  		;;
-@@ -6569,7 +6569,7 @@ CF_EOF
+@@ -6979,12 +6979,12 @@
+ 		CC_SHARED_OPTS=
+ 		MK_SHARED_LIB='${LD} -Wshared -Wxld=-export_all -o $@'
+ 		;;
+-	(nto-qnx*|openbsd*|freebsd[12].*)
++	(nto-qnx*|openbsd*|freebsd[12].*|midnight3*)
+ 		CC_SHARED_OPTS="$CC_SHARED_OPTS -DPIC"
  		MK_SHARED_LIB='${LD} ${LDFLAGS} -Bshareable -o $@'
  		test "$cf_cv_shlib_version" = auto && cf_cv_shlib_version=rel
  		;;
@@ -35,29 +59,26 @@
  		CC_SHARED_OPTS="$CC_SHARED_OPTS -DPIC"
  		if test "$DFT_LWR_MODEL" = "shared" && test "$cf_cv_enable_rpath" = yes ; then
  			LOCAL_LDFLAGS="${cf_ld_rpath_opt}\$(LOCAL_LIBDIR)"
-@@ -6655,11 +6655,11 @@ CF_EOF
+@@ -7070,11 +7070,11 @@
  		# tested with SunOS 5.5.1 (solaris 2.5.1) and gcc 2.7.2
  		# tested with SunOS 5.10 (solaris 10) and gcc 3.4.3
  		if test "$DFT_LWR_MODEL" = "shared" ; then
--			LOCAL_LDFLAGS="-R \$(LOCAL_LIBDIR):\${libdir}"
+-			LOCAL_LDFLAGS="-R\$(LOCAL_LIBDIR):\${libdir}"
 +			LOCAL_LDFLAGS="-Wl,-R\$(LOCAL_LIBDIR):\${libdir}"
  			LOCAL_LDFLAGS2="$LOCAL_LDFLAGS"
  		fi
  		if test "$cf_cv_enable_rpath" = yes ; then
--			EXTRA_LDFLAGS="-R \${libdir} $EXTRA_LDFLAGS"
+-			EXTRA_LDFLAGS="-R\${libdir} $EXTRA_LDFLAGS"
 +			EXTRA_LDFLAGS="-Wl,-R\${libdir} $EXTRA_LDFLAGS"
  		fi
  
  	test "$cf_cv_shlib_version" = auto && cf_cv_shlib_version=rel
-@@ -9972,7 +9972,10 @@ case "$host_os" in
+@@ -10400,7 +10400,7 @@
  	cf_xopen_source="-D_DARWIN_C_SOURCE"
  	cf_XOPEN_SOURCE=
  	;;
 -(freebsd*|dragonfly*|midnightbsd*)
-+(freebsd*|midnightbsd*)
-+	cf_XOPEN_SOURCE=
-+	;;
-+(dragonfly*)
++(freebsd*|dragonfly*|midnight*)
  	# 5.x headers associate
  	#	_XOPEN_SOURCE=600 with _POSIX_C_SOURCE=200112L
  	#	_XOPEN_SOURCE=500 with _POSIX_C_SOURCE=199506L
