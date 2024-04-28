@@ -8,6 +8,7 @@ DEF[BASE]=		{{PREFIX}}/${NAMEBASE}
 
 NAMEBASE=		${NAMEBASE}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security devel
 VARIANTS=		standard
 SDESC[standard]=	OpenBSD fork of the OpenSSL SSL/TLS protocol
@@ -86,6 +87,3 @@ post-configure:
 	# fix libtool for libtls.la
 	${SED} -i.tls -e '/lnkscript/ s|.output_objdir/||' \
 		${WRKSRC}/libtool
-
-post-install-dragonfly:
-	${INSTALL_SCRIPT} ${WRKSRC}/apps/nc/nc ${STAGEDIR}${BASE}/bin/nc
