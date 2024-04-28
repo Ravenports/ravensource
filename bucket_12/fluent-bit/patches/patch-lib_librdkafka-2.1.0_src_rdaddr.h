@@ -1,4 +1,4 @@
---- lib/librdkafka-2.3.0/src/rdaddr.h.orig	2024-04-12 03:19:42 UTC
+--- lib/librdkafka-2.3.0/src/rdaddr.h.orig	2024-04-27 14:05:20 UTC
 +++ lib/librdkafka-2.3.0/src/rdaddr.h
 @@ -39,7 +39,7 @@
  #include <ws2ipdef.h>
