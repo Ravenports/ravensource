@@ -1,6 +1,6 @@
---- src/aaprintf.c.orig	Thu Apr 26 23:37:31 2001
-+++ src/aaprintf.c	Sat Mar  2 22:54:56 2002
-@@ -7,7 +7,7 @@
+--- src/aaprintf.c.orig	2001-04-26 14:37:31 UTC
++++ src/aaprintf.c
+@@ -7,7 +7,7 @@ int aa_printf(aa_context *c, int x, int
    char buf[1025];
    int i;
    va_start(args,fmt);

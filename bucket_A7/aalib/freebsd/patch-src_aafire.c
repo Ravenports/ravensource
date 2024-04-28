@@ -1,6 +1,6 @@
---- src/aafire.c.orig	Fri Apr 27 00:30:03 2001
-+++ src/aafire.c	Sat Mar  2 22:51:46 2002
-@@ -48,6 +48,7 @@
+--- src/aafire.c.orig	2001-04-26 15:30:03 UTC
++++ src/aafire.c
+@@ -48,6 +48,7 @@ static void
  initialize (void)
  {
    int i;
@@ -8,7 +8,7 @@
    context = aa_autoinit (&aa_defparams);
    if (context == NULL)
      {
-@@ -114,20 +115,20 @@
+@@ -114,20 +115,20 @@ drawfire (void)
    height++;
    loop--;
    if (loop < 0)

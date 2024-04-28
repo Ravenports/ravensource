@@ -1,6 +1,6 @@
---- src/aarender.c.orig	Thu Apr 26 23:37:31 2001
-+++ src/aarender.c	Sat Mar  2 23:02:04 2002
-@@ -27,11 +27,11 @@
+--- src/aarender.c.orig	2001-04-26 14:37:31 UTC
++++ src/aarender.c
+@@ -27,11 +27,11 @@ aa_renderparams *aa_getrenderparams(void
      return (p);
  }
  #define MYLONG_MAX 0xffffffffU     /*this is enought for me. */
@@ -14,7 +14,7 @@
      int x, y;
      int val;
      int wi = c->imgwidth;
-@@ -47,6 +47,11 @@
+@@ -47,6 +47,11 @@ void aa_renderpalette(aa_context * c, __
      int randomval = p->randomval;
      int dither = p->dither;
      aa_palette table;
