@@ -1,0 +1,64 @@
+DEF[PORTVERSION]=	23.9.9
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ecl
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		standard
+SDESC[standard]=	ANSI Common Lisp implementation
+HOMEPAGE=		https://common-lisp.net/project/ecl/main.html
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://common-lisp.net/project/ecl/static/files/release/
+DISTFILE[1]=		ecl-${PORTVERSION}.tgz:main
+
+SPKGS[standard]=	complete primary dev man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		lang/ecl
+
+LICENSE=		LGPL20+:primary
+LICENSE_TERMS=		primary:{{WRKSRC}}/LICENSE
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		libatomic_ops:dev:standard
+			libffi:dev:standard
+			gmp:static:standard
+			boehm_garbage_collector:dev:threaded
+BUILDRUN_DEPENDS=	libatomic_ops:primary:standard
+			libffi:primary:standard
+			gmp:shared:standard
+			boehm_garbage_collector:primary:threaded
+
+USES=			autoreconf gmake makeinfo perl:build
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-boehm=system
+			--enable-libatomic=system
+			--enable-threads=yes
+			--with-gmp-prefix={{LOCALBASE}}
+			--with-system-gmp
+			--with-asdf=yes
+			--with-dffi=system
+			--with-tcp=yes
+			--with-x=no
+INFO=			primary:ecl
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		VERSION=${PORTVERSION}
+			SOMAJMIN=${SOVERSION:R}
+
+post-install:
+	# remove duplicate license info
+.for dupe in COPYING LICENSE TAGS build-stamp
+	${RM} ${STAGEDIR}${PREFIX}/lib/ecl-${PORTVERSION}/${dupe}
+.endfor
+	# remove empty directories
+	${RMDIR} ${STAGEDIR}${PREFIX}/include/ecl/gc/private
+	${RMDIR} ${STAGEDIR}${PREFIX}/include/ecl/gc
+
+	# strip
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libecl.so
