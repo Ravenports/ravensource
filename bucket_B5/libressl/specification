@@ -1,7 +1,7 @@
-DEF[PORTVERSION]=	3.7.3
-DEF[SOVERSION]=		53.0.2
-DEF[TLS_SOVERSION]=	26.0.2
-DEF[CRY_SOVERSION]=	50.0.2
+DEF[PORTVERSION]=	3.8.4
+DEF[SOVERSION]=		55.0.0
+DEF[TLS_SOVERSION]=	28.0.0
+DEF[CRY_SOVERSION]=	52.0.0
 DEF[NAMEBASE]=		libressl
 DEF[BASE]=		{{PREFIX}}/${NAMEBASE}
 # ----------------------------------------------------------------------------
@@ -86,6 +86,3 @@ post-configure:
 	# fix libtool for libtls.la
 	${SED} -i.tls -e '/lnkscript/ s|.output_objdir/||' \
 		${WRKSRC}/libtool
-
-post-install-dragonfly:
-	${INSTALL_SCRIPT} ${WRKSRC}/apps/nc/nc ${STAGEDIR}${BASE}/bin/nc
