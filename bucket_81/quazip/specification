@@ -4,6 +4,7 @@ DEF[SOVERSION]=		1.4.0
 
 NAMEBASE=		quazip
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		archivers
 VARIANTS=		standard
 SDESC[standard]=	Qt/C++ wrapper for Minizip
@@ -14,19 +15,19 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/stachenov:quazip:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 # Main program is under LGPLv21 with static linking exception
 # Minizip bits are ZLIB licensed
-LICENSE=		CUSTOM1:single
-			ZLIB:single
+LICENSE=		CUSTOM1:primary
+			ZLIB:primary
 LICENSE_NAME=		CUSTOM1:"LGPLv21 with static linking exception"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/COPYING
 			ZLIB:{{WRKDIR}}/ZLIB-LICENSE
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/quazip/quazip.h
 			ZLIB:{{WRKSRC}}/quazip/zip.h
 LICENSE_AWK=		TERMS:"include <QString>"
@@ -35,18 +36,20 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		archivers/quazip
 
-BUILD_DEPENDS=		qt5-qtbase:dev:standard
-BUILDRUN_DEPENDS=	qt5-qtbase:primary:standard
+BUILD_DEPENDS=		qt6-qtbase:dev:standard
+			qt6-qt5compat:dev:standard
+BUILDRUN_DEPENDS=	qt6-qtbase:primary:standard
+			qt6-qt5compat:primary:standard
 
-USES=			cmake qt5 zlib
+USES=			cmake qt6 zlib bz2
 
-CMAKE_ARGS=		-DBUILD_WITH_QT4:BOOL=OFF
-			-DCMAKE_INSTALL_PREFIX={{STAGEDIR}}{{PREFIX}}
-			-DQt5Core_DIR={{PREFIX}}/lib/qt5/cmake/Qt5Core
-			-DCMAKE_PREFIX_PATH={{PREFIX}}/lib/qt5/cmake
+CMAKE_ARGS=		-DCMAKE_INSTALL_PREFIX={{STAGEDIR}}{{PREFIX}}
+			-DCMAKE_PREFIX_PATH={{PREFIX}}/lib/qt6/cmake
+			-DQUAZIP_QT_MAJOR_VERSION=6
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		API=${PORTVERSION}
+			QTMAJOR=6
 
 do-install:
 	(cd ${BUILD_WRKSRC} && make DESTDIR=${STAGEDIR} install)
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libquazip1-qt5.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libquazip1-qt?.so
