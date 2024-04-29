@@ -17,19 +17,18 @@ DISTFILE[1]=		generated:main
 %%CR_DISTFILES%%
 %%DF_INDEX%%
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		devel/git-lfs
 
-LICENSE=		MIT:single
+LICENSE=		MIT:complete
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE.md
 LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		golang:single:standard
-			nss:caroot:standard
 			ruby-ronn-ng:single:ruby_default
 			ruby-asciidoctor:single:ruby_default
 BUILDRUN_DEPENDS=	git:primary:standard
@@ -41,8 +40,7 @@ MAKE_ENV=		GOFLAGS="-trimpath -mod=vendor -modcacherw -ldflags=-linkmode=externa
 SUB_FILES=		pkg-message-single
 
 post-patch:
-	${MKDIR} /etc/ssl
-	${LN} -s /raven/etc/openssl/cert.pem /etc/ssl/cert.pem
+	${CP} ${FILESDIR}/modules.txt ${WRKSRC}/vendor/
 
 do-build:
 	cd ${WRKSRC} && \
