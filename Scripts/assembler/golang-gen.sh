@@ -31,6 +31,7 @@ LOCATE=$(/raven/bin/ravenadm locate "$NAMEBASE")
 FOLDER="${RAVENSRC}/bucket_${LOCATE#*bucket_}"
 FILE_SPTEMP="${FOLDER}/specification.template"
 TARGET="${FOLDER}/specification"
+TARGET_FILESDIR="${FOLDER}/files"
 FILE_GO_MOD="${MOD_DIR}/go.mod"
 FILE_GO_SUM="${MOD_DIR}/go.sum"
 TEMP_GRAPH="/tmp/raven.graph"
@@ -50,7 +51,7 @@ if [ ! -f "$FILE_SPTEMP" ]; then
    exit 1
 fi
 
-(cd "$MOD_DIR" && ${GOPROG} mod graph > "$TEMP_GRAPH")
+(cd "$MOD_DIR" && ${GOPROG} mod vendor -v 2> "$TEMP_GRAPH")
 
 # How to interpret graph
 # Abridged example:
@@ -79,5 +80,6 @@ sed -e "s|%%VERSION%%|${VERSION}|" "${FILE_SPTEMP}" > /tmp/spec.1
 awk -vnamebase="$NAMEBASE" -f "${SCRIPTSDIR}/assembler/_golang.awk" "$TEMP_GRAPH" /tmp/spec.1 > "$TARGET"
 echo "file written: ${TARGET}"
 
+mkdir -p "${TARGET_FILESDIR}"
 rm -f /tmp/spec.1
-rm -f "$TEMP_GRAPH"
+mv "$TEMP_GRAPH" "${TARGET_FILESDIR}/modules.txt"

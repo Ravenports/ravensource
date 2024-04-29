@@ -1,28 +1,26 @@
 # first file is mod-generated graph, second file is template
+# Skip "## explicit" lines
+# Skip lines that do not start with "#"
 
 FNR==NR {
-  # split graph line to first 2 components
-  split($0,item," ")
+  if ($0 == "## explicit") { next }
+  if (length($0) == 0) { next }
+  if (substr($0, 1, 1) != "#") { next }
 
-  # Check first component to see if is on the forbidden list
-  # If it is, skip.
-  if (item[1] in forbidden) { next }
-
-  # split module into 2 components on "@" delimiter
-  # When second part in form "XXX-20210315154721-298b63a54430", it
-  # represents a commit hash (298b63a54430).  Otherwise it's
-  # a tag (e.g. "v3.0.1")
-  # Note: I've seen a case where first hyphen was a dot, so only check last part
-  split(item[2], dep, "@")
-  tag = dep[2]
-  if (index(dep[2], "-")) {
-     p=split(dep[2],parts,"-")
-     if (p > 1) {
-        len3 = length(parts[p])
-        if (len3 == 12) {
-            tag = parts[p]
-        }
-     }
+  # split graph line to first 3 components
+  # example: # github.com/alexbrainman/sspi v0.0.0-20210105120005-909beea2cc74
+  # example: # github.com/davecgh/go-spew v1.1.1
+  split($0, dep, " ")
+  tag = dep[3]
+  if (index(tag, "-")) {
+    p = split (tag, parts, "-")
+    if (p > 1) {
+      len3 = length(parts[p])
+      if (len3 == 12) {
+        # git hash is 12 chars
+        tag = parts[p]
+      }
+    }
   }
   # remove "+incompatible" from the end of tags
   original_tag = tag
@@ -33,34 +31,31 @@ FNR==NR {
      tag = substr(tag, 1, lent - lenbt)
   }
 
-  # Determine org, project, and install location
-  # Example: github.com/git-lfs/wildmatch/v2@v2.0.1
-  #      org = git-lfs
-  #  project = wildmatch
-  # location = vendor/github.com/git-lfs/wildmatch/v2 (drop v2 on final)
-  q=split(dep[1],mylist,"/")
-  
-  # sanity check
-  if (q < 3) { next }
-
+  # Determine org, project and install location
+  q = split (dep[2], mylist, "/")
   domain = mylist[1]  
-  org = mylist[2]
-  project = mylist[3]
-  location = "vendor/" dep[1]
 
-  # These orgs already have the V's embedded, use short locs
-  if (org == "jcmturner") {
-     reloc = "vendor/" domain "/" org "/" project
+  # gopkg.in/a.vx mirrored at github.com/go-a/a/vx
+  if (domain == "gopkg.in") {
+     domain = "github.com"
+     split(mylist[2], orgpart,".")
+     org = "go-" orgpart[1]
+     project = orgpart[1]
+     reloc = "vendor/gopkg.in/" mylist[2]
   } else {
-     reloc = location
+    # sanity check.  There has to be at least 2 slashes (except for gopkg.in)
+    if (q < 3) { next }
+
+    org = mylist[2]
+    project = mylist[3]
+    # These ords already have the V's embedded, use short locs
+    if (org == "jcmturner") {
+      reloc = "vendor/" domain "/" org "/" project
+    } else {
+      reloc = "vendor/" dep[2]
+    }
   }
 
-  # Check if we've seen this location before.
-  # If so, put it on the forbidden list and skip.
-  if (location in loc) {
-     forbidden[item[2]] = 1
-     next
-  }
 
   # golang.org/x/ is mirrored at github.com/golang/
   if ((domain == "golang.org") && (org == "x")) {
@@ -68,13 +63,6 @@ FNR==NR {
      org = "golang"
   }
 
-  # gopkg.in/a.vx mirrored at github.com/go-a/a/vx
-  if (domain == "gopkg.in") {
-     domain = "github.com"
-     split(org,orgpart,".")
-     org = "go-" orgpart[1]
-     project = orgpart[1]
-  }
 
   # Store crates
   ll++  
