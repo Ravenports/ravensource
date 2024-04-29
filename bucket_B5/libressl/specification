@@ -8,6 +8,7 @@ DEF[BASE]=		{{PREFIX}}/${NAMEBASE}
 
 NAMEBASE=		${NAMEBASE}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security devel
 VARIANTS=		standard
 SDESC[standard]=	OpenBSD fork of the OpenSSL SSL/TLS protocol
@@ -38,8 +39,10 @@ CPE_VENDOR=		openbsd
 CPE_PRODUCT=		libressl
 MUST_CONFIGURE=		gnu
 GNU_CONFIGURE_PREFIX=	${BASE}
+# disable-asm is because libcrypto_pic had hidden references to bn_* functions
 CONFIGURE_ARGS=		--enable-nc
 			--disable-hardening
+			--disable-asm
 			--with-openssldir={{PREFIX}}/etc/${NAMEBASE}
 			--build={{CONFIGURE_TARGET}}
 INSTALL_TARGET=		install-strip
