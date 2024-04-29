@@ -6,8 +6,9 @@ NAMEBASE=		quazip
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		archivers
-VARIANTS=		standard
-SDESC[standard]=	Qt/C++ wrapper for Minizip
+VARIANTS=		qt5 qt6
+SDESC[qt5]=		Qt/C++ wrapper for Minizip (Qt5)
+SDESC[qt6]=		Qt/C++ wrapper for Minizip (Qt6)
 HOMEPAGE=		https://github.com/stachenov/quazip
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -15,10 +16,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/stachenov:quazip:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[qt5]=		complete primary dev
+SPKGS[qt6]=		complete primary dev
 
-OPTIONS_AVAILABLE=	none
+OPTIONS_AVAILABLE=	QT5 QT6
 OPTIONS_STANDARD=	none
+VOPTS[qt5]=		QT5=ON QT6=OFF
+VOPTS[qt6]=		QT5=OFF QT6=ON
 
 # Main program is under LGPLv21 with static linking exception
 # Minizip bits are ZLIB licensed
@@ -36,19 +40,29 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		archivers/quazip
 
-BUILD_DEPENDS=		qt6-qtbase:dev:standard
-			qt6-qt5compat:dev:standard
-BUILDRUN_DEPENDS=	qt6-qtbase:primary:standard
-			qt6-qt5compat:primary:standard
-
-USES=			cmake qt6 zlib bz2
+USES=			cmake zlib bz2
 
 CMAKE_ARGS=		-DCMAKE_INSTALL_PREFIX={{STAGEDIR}}{{PREFIX}}
-			-DCMAKE_PREFIX_PATH={{PREFIX}}/lib/qt6/cmake
-			-DQUAZIP_QT_MAJOR_VERSION=6
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		API=${PORTVERSION}
-			QTMAJOR=6
+
+[QT5].DESCRIPTION=			Built Qt5 variant
+[QT5].BUILD_DEPENDS_ON=			qt5-qtbase:dev:standard
+[QT5].BUILDRUN_DEPENDS_ON=		qt5-qtbase:primary:standard
+[QT5].USES_ON=				qt5
+[QT5].CMAKE_ARGS_ON=			-DQt5Core_DIR={{PREFIX}}/lib/qt5/cmake/Qt5Core
+					-DCMAKE_PREFIX_PATH={{PREFIX}}/lib/qt5/cmake
+[QT5].PLIST_SUB_ON=			QTMAJOR=5
+
+[QT6].DESCRIPTION=			Built Qt6 variant
+[QT6].BUILD_DEPENDS_ON=			qt6-qtbase:dev:standard
+					qt6-qt5compat:dev:standard
+[QT6].BUILDRUN_DEPENDS_ON=		qt6-qtbase:primary:standard
+					qt6-qt5compat:primary:standard
+[QT6].USES_ON=				qt6
+[QT6].CMAKE_ARGS_ON=			-DCMAKE_PREFIX_PATH={{PREFIX}}/lib/qt6/cmake
+					-DQUAZIP_QT_MAJOR_VERSION=6
+[QT6].PLIST_SUB_ON=			QTMAJOR=6
 
 do-install:
 	(cd ${BUILD_WRKSRC} && make DESTDIR=${STAGEDIR} install)
