@@ -44,6 +44,7 @@ CONFIGURE_ARGS=		--enable-instrument
 			--enable-cxx
 			--enable-fortran
 			--enable-build-mode=production
+			--disable-tests
 			--with-examplesdir={{STD_EXAMPLESDIR}}
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		HL_SOVER=${HL_SOVER}
@@ -58,6 +59,7 @@ INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 SINGLE_JOB=		yes
 DISTNAME=		hdf5-${DISTFILE_VER}
+CFLAGS=			-Wno-missing-include-dirs
 
 post-patch:
 	${REINPLACE_CMD} -e 's|-O3||g' ${WRKSRC}/config/gnu-flags
