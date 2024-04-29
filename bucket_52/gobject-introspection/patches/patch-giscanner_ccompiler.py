@@ -1,4 +1,4 @@
---- giscanner/ccompiler.py.orig	2024-03-09 18:23:06 UTC
+--- giscanner/ccompiler.py.orig	2024-04-01 13:21:25 UTC
 +++ giscanner/ccompiler.py
 @@ -232,7 +232,7 @@ class CCompiler(object):
  
