@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(KDE6_FRAMEWORKS_VERSION)
+DEF[KF6_COMPONENT]=	kstatusnotifieritem
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kf6-${KF6_COMPONENT}
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	KF6 Implementation of Status Notifier Items
+HOMEPAGE=		https://api.kde.org/frameworks/${KF6_COMPONENT}/html/index.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
+DISTFILE[1]=		${KF6_COMPONENT}-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		kde6
+
+SPKGS[standard]=	complete primary dev nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		deskutils/kf6-kstatusnotifieritem
+
+BUILD_DEPENDS=		kf6-extra-cmake-modules:primary:standard
+			kf6-kwindowsystem:dev:standard
+			qt6-qtbase:dev:standard
+			qt6-qttools:complete:standard
+BUILDRUN_DEPENDS=	qt6-qtbase:primary:standard
+			kf6-kwindowsystem:primary:standard
+
+USES=			cmake
+XORG_COMPONENTS=	x11
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
+DISTNAME=		${KF6_COMPONENT}-${PORTVERSION}
+SOVERSION=		${PORTVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libKF6StatusNotifierItem.so
