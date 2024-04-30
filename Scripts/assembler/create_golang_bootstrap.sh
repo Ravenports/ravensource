@@ -60,8 +60,9 @@ sleep 2
 
 rm -f ${DISTDIR}/${RPKG}
 echo "Creating and relocating ${TPKG} to ${DISTDIR} directory"
-(cd ${ASSY}/raven && ${MYTAR} -c --zstd -f ${TPKG} bin go) && \
-mv ${ASSY}/raven/${TPKG} ${DISTDIR}/
+mv ${ASSY}/raven ${ASSY}/bootstrap
+(cd ${ASSY} && ${MYTAR} -c --zstd -f ${TPKG} bootstrap) && \
+mv ${ASSY}/${TPKG} ${DISTDIR}/
 
 echo "cleaning everything up."
 rm -rf ${RASSY}
