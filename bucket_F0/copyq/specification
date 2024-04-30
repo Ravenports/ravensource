@@ -1,0 +1,62 @@
+DEF[PORTVERSION]=	8.0.0
+DEF[TAG]=		v${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		copyq
+VERSION=		${PORTVERSION}
+KEYWORDS=		deskutils
+VARIANTS=		standard
+SDESC[standard]=	Qt6-based clipboard manager
+HOMEPAGE=		https://github.com/hluk/CopyQ
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/hluk/CopyQ/releases/download/${TAG}/
+DISTFILE[1]=		CopyQ-${PORTVERSION}.tar.gz:main
+
+SPKGS[standard]=	complete primary man nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/main.cpp
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		deskutils/copyq
+
+BUILD_DEPENDS=		wayland:dev:standard
+			wayland:tools:standard
+			libxkbcommon:dev:standard
+			qt6-qtbase:dev:standard
+			qt6-qtwayland:dev:standard
+			qt6-qtdeclarative:dev:standard
+			qt6-qtsvg:dev:standard
+			qt6-qttranslations:single:standard
+			qt6-qttools:dev:standard
+			kf6-extra-cmake-modules:primary:standard
+			kf6-knotifications:dev:standard
+			kf6-kstatusnotifieritem:dev:standard
+BUILDRUN_DEPENDS=	wayland:primary:standard
+			libxkbcommon:primary:standard
+			qt6-qtbase:primary:standard
+			qt6-qtwayland:primary:standard
+			qt6-qtdeclarative:primary:standard
+			qt6-qtsvg:primary:standard
+			qt6-qttools:primary:standard
+			kf6-knotifications:primary:standard
+			kf6-kstatusnotifieritem:primary:standard
+
+USES=			cmake pkgconfig
+XORG_COMPONENTS=	ice sm x11 xext xfixes xtst
+CMAKE_ARGS=		-DWITH_PLUGINS:BOOL=TRUE
+			-DWITH_QT6:BOOL=TRUE
+			-DCMAKE_PREFIX_PATH={{PREFIX}}/lib/qt6/cmake
+DISTNAME=		CopyQ-${PORTVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/copyq
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/copyq/plugins/*.so
