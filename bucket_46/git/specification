@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.44.0
+DEF[PORTVERSION]=	2.45.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		git
@@ -59,7 +59,6 @@ SHEBANG_FILES=		*.perl
 			t/Git-SVN/Utils/*.t
 			t/t7519/fsmonitor-watchman
 			git-p4.py
-			contrib/hg-to-git/hg-to-git.py
 			contrib/hooks/update-paranoid
 			contrib/fast-import/import-zips.py
 			contrib/remote-helpers/git-remote-bzr
@@ -93,7 +92,7 @@ RC_SUBR=		git_daemon:primary
 [SVN].RUN_DEPENDS_ON=			perl-TermReadKey:single:perl_default
 					perl-subversion:single:perl_default
 
-post-patch-LITE-ON:
+pre-configure-LITE-ON:
 .for FILE in git-citool.1 git-gui.1 gitk.1 git-cvsimport.1 \
 	git-cvsexportcommit.1 git-cvsserver.1
 	${RM} ${WRKDIR}/man1/${FILE}
@@ -111,11 +110,11 @@ post-patch-LITE-ON:
 	${REINPLACE_CMD} -e 's|/bin/bash|/bin/sh|' \
 		${WRKSRC}/contrib/subtree/git-subtree.sh
 
-post-patch-LITE-OFF:
+pre-configure-LITE-OFF:
 	${REINPLACE_CMD} -e "s,/usr/bin/perl,${PERL}," \
 		${WRKSRC}/contrib/diff-highlight/Makefile
 
-post-patch-SVN-OFF:
+pre-configure-SVN-OFF:
 	${RM} ${WRKDIR}/man1/git-svn.1
 	${REINPLACE_CMD} -e '/git-svn.perl/d' ${WRKSRC}/Makefile
 
