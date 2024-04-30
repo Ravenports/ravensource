@@ -1,4 +1,4 @@
---- src/java.base/unix/native/libjava/path_util.c.orig	2023-10-15 00:46:12 UTC
+--- src/java.base/unix/native/libjava/path_util.c.orig	2024-04-29 14:34:19 UTC
 +++ src/java.base/unix/native/libjava/path_util.c
 @@ -122,7 +122,7 @@ collapse(char *path)
  

@@ -1,4 +1,4 @@
---- make/autoconf/flags-cflags.m4.orig	2023-10-15 00:46:12 UTC
+--- make/autoconf/flags-cflags.m4.orig	2024-04-29 14:34:19 UTC
 +++ make/autoconf/flags-cflags.m4
 @@ -37,7 +37,7 @@ AC_DEFUN([FLAGS_SETUP_SHARED_LIBS],
    if test "x$TOOLCHAIN_TYPE" = xgcc; then

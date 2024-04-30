@@ -1,4 +1,4 @@
---- src/java.desktop/share/native/libfontmanager/freetypeScaler.c.orig	2023-10-15 00:46:12 UTC
+--- src/java.desktop/share/native/libfontmanager/freetypeScaler.c.orig	2024-04-29 14:34:19 UTC
 +++ src/java.desktop/share/native/libfontmanager/freetypeScaler.c
 @@ -43,6 +43,7 @@
  #include FT_SYNTHESIS_H
@@ -142,7 +142,7 @@
  #ifdef DEBUG
  /* These are referenced in the freetype sources if DEBUG macro is defined.
     To simplify work with debugging version of freetype we define
-@@ -945,29 +1073,12 @@ static jlong
+@@ -946,29 +1074,12 @@ static jlong
           renderFlags |= FT_LOAD_NO_HINTING;
       }
  
@@ -177,7 +177,7 @@
      if (error) {
          //do not destroy scaler yet.
          //this can be problem of particular context (e.g. with bad transform)
-@@ -992,10 +1103,10 @@ static jlong
+@@ -993,10 +1104,10 @@ static jlong
              glyphInfo = getNullGlyphImage();
              return ptr_to_jlong(glyphInfo);
          }
@@ -192,7 +192,7 @@
      }
  
      if (renderImage) {
-@@ -1216,9 +1327,11 @@ static FT_Outline* getFTOutline(JNIEnv*
+@@ -1217,9 +1328,11 @@ static FT_Outline* getFTOutline(JNIEnv*
          return NULL;
      }
  
