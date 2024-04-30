@@ -1,11 +1,9 @@
-DEF[PORTVERSION]=	2.1
-DEF[TESSIL_HASH]=	757de82
+DEF[PORTVERSION]=	2.2.1
 DEF[SOVERSION]=		4.6
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libobjc2
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		lang devel
 VARIANTS=		standard
 SDESC[standard]=	Replacement Obj-C runtime for modern lang features
@@ -14,11 +12,9 @@ CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main tessil
 SITES[main]=		GITHUB/gnustep:libobjc2:v${PORTVERSION}
-SITES[tessil]=		GITHUB/Tessil:robin-map:${TESSIL_HASH}
 DISTFILE[1]=		generated:main
-DISTFILE[2]=		generated:tessil
 DIST_SUBDIR=		gnustep
-DF_INDEX=		1 2
+DF_INDEX=		1
 
 SPKGS[standard]=	complete primary dev
 
@@ -32,8 +28,9 @@ LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		gnustep-make-bootstrap:primary:standard
+			robin-map:single:standard
 
-USES=			c++:primary clang cmake ninja
+USES=			c++:primary cmake clang
 
 # For some reason the objective-c++ part won't compile.
 # Disable for now.
@@ -41,14 +38,9 @@ CMAKE_ARGS=		-DLIB_INSTALL_PATH=lib
 			-DLLVM_OPTS:BOOL=ON
 			-DGNUSTEP_INSTALL_TYPE=SYSTEM
 			-DTESTS=OFF
-			-G Ninja
 
 LDFLAGS=		-lm
-SINGLE_JOB=		yes
 SOVERSION=		${SOVERSION}
-
-post-extract:
-	${MV} ${WRKDIR}/robin-map-${TESSIL_HASH}/* ${WRKSRC}/third_party/robin-map
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libobjc.so
