@@ -3,39 +3,42 @@ DEF[PORTVERSION]=	2.4.4
 
 NAMEBASE=		sbcl
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		lang
 VARIANTS=		standard
 SDESC[standard]=	Steel Bank Common Lisp
 HOMEPAGE=		http://www.sbcl.org/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main boot
+DOWNLOAD_GROUPS=	main boot ravdist
 SITES[main]=		SF/sbcl/sbcl/${PORTVERSION}
+SITES[ravdist]=		https://leaf.dragonflybsd.org/~marino/raven-distfiles/sbcl
 DISTFILE[1]=		sbcl-${PORTVERSION}-source.tar.bz2:main
+DISTFILE[2]=		bootstrap-sbcl-2.4.4-dragonfly-x86_64.tzst:ravdist
 DF_INDEX=		1
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary man
 
-OPTIONS_AVAILABLE=	DRAGONFLY FREEBSD LINUX SUNOS NETBSD MIDNIGHT MACOS CONCURRENCY SIMD
-OPTIONS_STANDARD=	DRAGONFLY FREEBSD LINUX SUNOS NETBSD MIDNIGHT MACOS CONCURRENCY SIMD
+OPTIONS_AVAILABLE=	DRAGONFLY FREEBSD LINUX SUNOS NETBSD MIDNIGHT MACOS CONCURRENCY SIMD CLISP
+OPTIONS_STANDARD=	DRAGONFLY FREEBSD LINUX SUNOS NETBSD MIDNIGHT MACOS CONCURRENCY SIMD CLISP
 OPTGROUP_RADIO=		SYSTEM
 OPTDESCR[SYSTEM]=	Operating System
 OPTGROUP[SYSTEM]=	DRAGONFLY FREEBSD LINUX SUNOS MACOS NETBSD MIDNIGHT
 OPT_ON[dragonfly]=	DRAGONFLY
-OPT_ON[freebsd]=	FREEBSD CONCURRENCY
-OPT_ON[linux]=		LINUX CONCURRENCY
-OPT_ON[sunos]=		SUNOS
-OPT_ON[darwin]=		MACOS
-OPT_ON[netbsd]=		NETBSD
-OPT_ON[midnightbsd]=	MIDNIGHT CONCURRENCY
+OPT_ON[freebsd]=	FREEBSD CONCURRENCY CLISP
+OPT_ON[linux]=		LINUX CONCURRENCY CLISP
+OPT_ON[sunos]=		SUNOS CLISP
+OPT_ON[darwin]=		MACOS CLISP
+OPT_ON[netbsd]=		NETBSD CLISP
+OPT_ON[midnightbsd]=	MIDNIGHT CONCURRENCY CLISP
 
-LICENSE=		PUBDOM:single
-			BSD3CLAUSE:single
-			MIT:single
+LICENSE=		PUBDOM:primary
+			BSD3CLAUSE:primary
+			MIT:primary
 LICENSE_FILE=		PUBDOM:{{WRKDIR}}/LICENSE_PUBDOM
 			BSD3CLAUSE:{{WRKDIR}}/LICENSE_BSD
 			MIT:{{FILESDIR}}/city.cc.license
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^===="
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		multi
@@ -47,14 +50,12 @@ NOT_FOR_OPSYS=		darwin
 RUN_DEPENDS=		asdf:primary:standard
 BUILD_DEPENDS=		gmp:static:standard
 			mpfr:static:standard
-			clisp:primary:standard
 BUILDRUN_DEPENDS=	gmp:shared:standard
 			mpfr:shared:standard
 
 USES=			gmake makeinfo zlib zstd
 SUB_FILES=		sbclrc
 CMAKE_ARGS=		--prefix="{{PREFIX}}"
-			--xc-host=clisp
 			--without-sb-thread
 			--with-sb-unicode
 			--with-sb-core-compression
@@ -76,11 +77,19 @@ VAR_OPSYS[netbsd]=	MAKE_ENV=SBCL_PAXCTL="{{PAXCTL}} +m"
 [MIDNIGHT].DESCRIPTION=			build for MidnightBSD
 [CONCURRENCY].DESCRIPTION=		Enable thread support
 [SIMD].DESCRIPTION=			Enable SB-SIMD (requires AVX2 CPU)
+[CLISP].DESCRIPTION=			Bootstrap SBCL with Clisp
 
 [CONCURRENCY].CMAKE_ARGS_OFF=		--without-sb-thread
 [CONCURRENCY].CMAKE_ARGS_ON=		--with-sb-thread
+
 [SIMD].CMAKE_ARGS_ON=			--with-sb-simd
 [SIMD].CMAKE_ARGS_OFF=			--without-sb-simd
+
+[CLISP].BUILD_DEPENDS_ON=		clisp:primary:standard
+[CLISP].CMAKE_ARGS_ON=			--xc-host=clisp
+[CLISP].CMAKE_ARGS_OFF=			--xc-host={{WRKDIR}}/bootstrap/bin/sbcl
+
+[DRAGONFLY].DF_INDEX_ON=		2
 
 post-extract:
 	# Extract licenses into separate files
