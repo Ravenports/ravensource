@@ -591,7 +591,6 @@ function set_buildrun (&$portdata, $PDUO) {
     inline_fix_setup ($portdata["name"], $src);
     $mockfile = $src . "/obtain-req.py";
     switch ($portdata["name"]) {
-        case "anyjson":
         case "PyYAML":
         case "Twisted":
         case "attrs":
