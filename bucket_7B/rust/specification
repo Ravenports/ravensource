@@ -181,9 +181,12 @@ pre-build-midnightbsd:
 pre-build-netbsd:
 	${LN} -s ${LOCALBASE}/toolchain/ravensys-gcc/lib/libgcc_s.so.1 \
 	${WRKDIR}/bootstrap/lib/libgcc_s.so.1
+	# copy libz.so.1 because it's deleted in pre-configure
+	${CP} ${LOCALBASE}/lib/libz.so.1 ${WRKDIR}/bootstrap/lib
 
 pre-build-linux:
-	${LN} -s ${LOCALBASE}/lib/libz.so.1 ${WRKDIR}/bootstrap/lib
+	# copy libz.so.1 because it's deleted in pre-configure
+	${CP} ${LOCALBASE}/lib/libz.so.1 ${WRKDIR}/bootstrap/lib
 
 post-build-freebsd:
 	${RM} ${LOCALBASE}/lib/libc++.so
