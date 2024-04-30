@@ -3,9 +3,9 @@ $NetBSD: patch-mysys_kqueue__timers.cc,v 1.1 2021/05/13 15:25:20 jdolecek Exp $
 * support pre NetBSD 10 __intptr_t udata type
 * Fix for systems whcich do not define EVFILT_USER
 
---- mysys/kqueue_timers.cc.orig	2023-10-12 11:45:01 UTC
+--- mysys/kqueue_timers.cc.orig	2024-03-27 19:22:56 UTC
 +++ mysys/kqueue_timers.cc
-@@ -40,6 +40,18 @@
+@@ -41,6 +41,18 @@
  #include "mysys_err.h"
  #include "mysys_priv.h" /* key_thread_timer_notifier */
  
@@ -24,7 +24,7 @@ $NetBSD: patch-mysys_kqueue__timers.cc,v 1.1 2021/05/13 15:25:20 jdolecek Exp $
  /* Kernel event queue file descriptor. */
  static int kq_fd = -1;
  
-@@ -69,10 +81,12 @@ static void *timer_notify_thread_func(vo
+@@ -70,10 +82,12 @@ static void *timer_notify_thread_func(vo
      }
  
      if (kev.filter == EVFILT_TIMER) {
@@ -38,7 +38,7 @@ $NetBSD: patch-mysys_kqueue__timers.cc,v 1.1 2021/05/13 15:25:20 jdolecek Exp $
        break;
    }
  
-@@ -91,7 +105,9 @@ static void *timer_notify_thread_func(vo
+@@ -92,7 +106,9 @@ static void *timer_notify_thread_func(vo
  static int start_helper_thread(void) {
    struct kevent kev;
  
@@ -48,7 +48,7 @@ $NetBSD: patch-mysys_kqueue__timers.cc,v 1.1 2021/05/13 15:25:20 jdolecek Exp $
  
    if (kevent(kq_fd, &kev, 1, NULL, 0, NULL) < 0) {
      my_message_local(ERROR_LEVEL, EE_FAILED_TO_CREATE_TIMER, errno);
-@@ -134,7 +150,9 @@ int my_timer_initialize(void) {
+@@ -135,7 +151,9 @@ int my_timer_initialize(void) {
  void my_timer_deinitialize(void) {
    struct kevent kev;
  
@@ -58,7 +58,7 @@ $NetBSD: patch-mysys_kqueue__timers.cc,v 1.1 2021/05/13 15:25:20 jdolecek Exp $
  
    if (kevent(kq_fd, &kev, 1, NULL, 0, NULL) < 0)
      my_message_local(ERROR_LEVEL,
-@@ -165,7 +183,7 @@ int my_timer_create(my_timer_t *timer) {
+@@ -166,7 +184,7 @@ int my_timer_create(my_timer_t *timer) {
  int my_timer_set(my_timer_t *timer, unsigned long time) {
    struct kevent kev;
  

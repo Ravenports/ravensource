@@ -1,6 +1,6 @@
---- router/src/harness/include/mysql/harness/net_ts/internet.h.orig	2023-10-12 11:45:01 UTC
+--- router/src/harness/include/mysql/harness/net_ts/internet.h.orig	2024-03-27 19:22:56 UTC
 +++ router/src/harness/include/mysql/harness/net_ts/internet.h
-@@ -43,6 +43,7 @@
+@@ -44,6 +44,7 @@
  #include <arpa/inet.h>    // inet_ntop
  #include <netdb.h>        // getaddrinfo
  #include <netinet/in.h>   // in_addr_t
@@ -8,7 +8,7 @@
  #include <netinet/ip6.h>  // in6_addr_t
  #include <netinet/tcp.h>  // TCP_NODELAY
  #include <sys/ioctl.h>    // ioctl
-@@ -598,8 +599,12 @@ class resolver_base {
+@@ -599,8 +600,12 @@ class resolver_base {
    static constexpr flags canonical_name = AI_CANONNAME;
    static constexpr flags numeric_host = AI_NUMERICHOST;
    static constexpr flags numeric_service = AI_NUMERICSERV;

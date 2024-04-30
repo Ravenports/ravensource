@@ -1,6 +1,6 @@
---- include/my_thread_os_id.h.orig	2023-10-12 11:45:01 UTC
+--- include/my_thread_os_id.h.orig	2024-03-27 19:22:56 UTC
 +++ include/my_thread_os_id.h
-@@ -36,6 +36,10 @@
+@@ -37,6 +37,10 @@
  #include <unistd.h>
  #endif
  
@@ -11,7 +11,7 @@
  #ifdef HAVE_PTHREAD_GETTHREADID_NP
  #include <pthread_np.h> /* pthread_getthreadid_np() */
  #endif                  /* HAVE_PTHREAD_GETTHREADID_NP */
-@@ -83,17 +87,25 @@ static inline my_thread_os_id_t my_threa
+@@ -84,17 +88,25 @@ static inline my_thread_os_id_t my_threa
    /* FreeBSD 10.2 */
    return pthread_getthreadid_np();
  #else

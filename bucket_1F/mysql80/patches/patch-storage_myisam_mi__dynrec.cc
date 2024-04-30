@@ -1,6 +1,6 @@
---- storage/myisam/mi_dynrec.cc.orig	2023-10-12 11:45:01 UTC
+--- storage/myisam/mi_dynrec.cc.orig	2024-03-27 19:22:56 UTC
 +++ storage/myisam/mi_dynrec.cc
-@@ -92,6 +92,9 @@ bool mi_dynmap_file(MI_INFO *info, my_of
+@@ -93,6 +93,9 @@ bool mi_dynmap_file(MI_INFO *info, my_of
        mapping. When swap space is not reserved one might get SIGSEGV
        upon a write if no physical memory is available.
    */

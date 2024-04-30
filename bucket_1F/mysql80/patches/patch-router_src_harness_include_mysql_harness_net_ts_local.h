@@ -2,9 +2,9 @@ $NetBSD: patch-router_src_harness_include_mysql_harness_net_ts_local.h,v 1.1 202
 
 NetBSD has uucred, not sockpeercred.
 
---- router/src/harness/include/mysql/harness/net_ts/local.h.orig	2023-10-12 11:45:01 UTC
+--- router/src/harness/include/mysql/harness/net_ts/local.h.orig	2024-03-27 19:22:56 UTC
 +++ router/src/harness/include/mysql/harness/net_ts/local.h
-@@ -44,7 +44,7 @@
+@@ -45,7 +45,7 @@
  
  #ifdef NET_TS_HAS_UNIX_SOCKET
  
@@ -13,7 +13,7 @@ NetBSD has uucred, not sockpeercred.
  #include <sys/ucred.h>
  #endif
  
-@@ -228,7 +228,7 @@ class cred {
+@@ -229,7 +229,7 @@ class cred {
  #elif defined(__FreeBSD__) || defined(__APPLE__)
    using value_type = struct xucred;
  #elif defined(__NetBSD__)

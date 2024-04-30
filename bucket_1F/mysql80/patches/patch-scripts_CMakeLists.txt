@@ -1,6 +1,6 @@
---- scripts/CMakeLists.txt.orig	2023-10-12 11:45:01 UTC
+--- scripts/CMakeLists.txt.orig	2024-03-27 19:22:56 UTC
 +++ scripts/CMakeLists.txt
-@@ -214,11 +214,7 @@ IF(MY_COMPILER_IS_GNU_OR_CLANG)
+@@ -215,11 +215,7 @@ IF(MY_COMPILER_IS_GNU_OR_CLANG)
    STRING(REGEX REPLACE "-std=c..[0-9]+" "" CXXFLAGS "${CXXFLAGS}")
  ENDIF()
  
@@ -13,7 +13,7 @@
  
  IF(UNIX)
    # SHELL_PATH, FIND_PROC, CHECK_PID are used by mysqld_safe
-@@ -237,14 +233,9 @@ IF(UNIX)
+@@ -238,14 +234,9 @@ IF(UNIX)
        "ps -p $PID | grep -v mysqld_safe | grep -- $MYSQLD > /dev/null")
    ENDIF()
  
@@ -29,7 +29,7 @@
    ENDIF()
  
    IF(NOT FIND_PROC)
-@@ -280,7 +271,7 @@ SET(pkglibdir ${prefix}/${INSTALL_LIBDIR
+@@ -281,7 +272,7 @@ SET(pkglibdir ${prefix}/${INSTALL_LIBDIR
  SET(pkgplugindir ${prefix}/${INSTALL_PLUGINDIR})
  SET(localstatedir ${MYSQL_DATADIR})
  
@@ -38,7 +38,7 @@
    SET(RPATH_OPTION " -R$pkglibdir")
  ENDIF()
  
-@@ -336,6 +327,8 @@ MACRO(EXTRACT_LINK_LIBRARIES target var)
+@@ -347,6 +338,8 @@ MACRO(EXTRACT_LINK_LIBRARIES target var)
            SET(${var} "${${var}}-L${dir} " )
          ENDIF()
          SET(${var} "${${var}}-l${lib} " )
@@ -47,7 +47,7 @@
        ELSE()
          SET(${var} "${${var}}-l${lib} " )
        ENDIF()
-@@ -358,21 +351,10 @@ ELSE()
+@@ -369,21 +362,10 @@ ELSE()
    GET_TARGET_PROPERTY(LIBMYSQL_OS_OUTPUT_NAME libmysql OUTPUT_NAME)
  ENDIF()
  
@@ -70,7 +70,7 @@
  
  MESSAGE(STATUS "CONFIG_CLIENT_LIBS ${CONFIG_CLIENT_LIBS}")
  MESSAGE(STATUS "CONFIG_LIBS_PRIVATE ${CONFIG_LIBS_PRIVATE}")
-@@ -438,7 +420,7 @@ ELSE()
+@@ -449,7 +431,7 @@ ELSE()
    FOREACH(file ${BIN_SCRIPTS})
      IF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${file}.sh)
        CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/${file}.sh

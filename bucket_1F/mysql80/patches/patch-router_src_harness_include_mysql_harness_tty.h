@@ -1,6 +1,6 @@
---- router/src/harness/include/mysql/harness/tty.h.orig	2023-10-12 11:45:01 UTC
+--- router/src/harness/include/mysql/harness/tty.h.orig	2024-03-27 19:22:56 UTC
 +++ router/src/harness/include/mysql/harness/tty.h
-@@ -38,6 +38,10 @@
+@@ -39,6 +39,10 @@
  #include <unistd.h>
  #endif
  

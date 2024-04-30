@@ -1,6 +1,6 @@
---- CMakeLists.txt.orig	2023-10-12 11:45:01 UTC
+--- CMakeLists.txt.orig	2024-03-27 19:22:56 UTC
 +++ CMakeLists.txt
-@@ -2211,7 +2211,6 @@ ADD_SUBDIRECTORY(share)
+@@ -2225,7 +2225,6 @@ ADD_SUBDIRECTORY(share)
  ADD_SUBDIRECTORY(libservices)
  
  IF(NOT WITHOUT_SERVER)
@@ -8,7 +8,7 @@
    ADD_SUBDIRECTORY(sql)
  ENDIF()
  
-@@ -2279,8 +2278,6 @@ ENDIF()
+@@ -2296,8 +2295,6 @@ ENDIF()
  ADD_SUBDIRECTORY(scripts)
  
  IF(NOT WITHOUT_SERVER)
@@ -17,7 +17,7 @@
    ADD_SUBDIRECTORY(support-files)
    IF(WITH_INTERNAL)
      ADD_SUBDIRECTORY(internal)
-@@ -2466,6 +2463,7 @@ ENDIF()
+@@ -2483,6 +2480,7 @@ ENDIF()
  #
  # RPM installs documentation directly from the source tree
  #
@@ -25,11 +25,11 @@
  IF(NOT INSTALL_LAYOUT MATCHES "RPM")
    INSTALL(FILES
      README
-@@ -2492,6 +2490,7 @@ IF(NOT INSTALL_LAYOUT MATCHES "RPM")
-     PATTERN "README.build" EXCLUDE
-   )
+@@ -2509,6 +2507,7 @@ IF(HAVE_ASAN AND WIN32_CLANG)
+   STRING_APPEND(CMAKE_CXX_FLAGS
+     " -fsanitize=address -fsanitize-address-use-after-scope")
  ENDIF()
 +ENDIF()
  
- # Now that we're done with all ADD_SUBDIRECTORY and thus all feature tests,
- # we can safely enable ASan on Clang/Win32 if needed.
+ IF(UNIX)
+   EXECUTE_PROCESS(

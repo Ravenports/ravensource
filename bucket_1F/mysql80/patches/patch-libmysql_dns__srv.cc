@@ -1,6 +1,6 @@
---- libmysql/dns_srv.cc.orig	2023-10-12 11:45:01 UTC
+--- libmysql/dns_srv.cc.orig	2024-03-27 19:22:56 UTC
 +++ libmysql/dns_srv.cc
-@@ -31,7 +31,7 @@
+@@ -32,7 +32,7 @@
  
  #ifdef HAVE_UNIX_DNS_SRV
  

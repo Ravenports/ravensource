@@ -1,6 +1,6 @@
---- plugin/x/src/interface/ssl_session_options.h.orig	2023-10-12 11:45:01 UTC
+--- plugin/x/src/interface/ssl_session_options.h.orig	2024-03-27 19:22:56 UTC
 +++ plugin/x/src/interface/ssl_session_options.h
-@@ -25,6 +25,7 @@
+@@ -26,6 +26,7 @@
  #ifndef PLUGIN_X_SRC_INTERFACE_SSL_SESSION_OPTIONS_H_
  #define PLUGIN_X_SRC_INTERFACE_SSL_SESSION_OPTIONS_H_
  
