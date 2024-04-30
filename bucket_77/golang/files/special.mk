@@ -11,5 +11,3 @@ GOSYS=freebsd
 .else
 GOSYS=${OPSYS:tl}
 .endif
-
-PREPEND_PATH=	${LOCALBASE}/go119/bin
