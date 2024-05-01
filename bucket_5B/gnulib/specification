@@ -45,6 +45,8 @@ SHEBANG_FILES=		build-aux/vcs-to-changelog.py
 			check-module
 DISTNAME=		gnulib-${PORTVERSION}+stable
 
+BROKEN[all]=		Apparent version ${PORTVERSION} was yanked (no distfile)
+
 post-extract:
 	${REINPLACE_CMD} -i'' 's!/usr/local/bin/clisp!${PREFIX}/bin/clisp!' \
 		${WRKSRC}/lib/uniname/gen-uninames.lisp
