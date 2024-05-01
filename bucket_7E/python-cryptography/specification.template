@@ -1,7 +1,5 @@
 # manually updated rust-based port
-# Since v0.1.0, we need to skip four: cryptography-(rust|cffi|openssl|x509)
 DEF[PORTVERSION]=	%%VERSION%%
-DEF[SKIP_CRATE]=	cryptography-rust
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-cryptography
@@ -33,18 +31,23 @@ VOPTS[v11]=		PY312=OFF PY311=ON
 # BSD or Apache License, Version 2.0
 
 DISTNAME=		cryptography-${PORTVERSION}
+PLIST_SUB=		VERSION=${PORTVERSION}
 
 # install_requires extracted from setup.py
 # cffi>=1.12
-# cffi>=1.12
 # setuptools-rust>=0.11.4
 
-[PY312].USES_ON=			python:v12,sutools
-[PY312].BUILDRUN_DEPENDS_ON=		python-cffi:single:v12
+[PY312].USES_ON=			python:v12
+[PY312].BUILD_DEPENDS_ON=		python-pip:single:v12
+					python-wheel:single:v12
 					python-setuptools-rust:single:v12
-[PY311].USES_ON=			python:v11,sutools
-[PY311].BUILDRUN_DEPENDS_ON=		python-cffi:single:v11
+[PY312].BUILDRUN_DEPENDS_ON=		python-cffi:single:v12
+
+[PY311].USES_ON=			python:v11
+[PY311].BUILD_DEPENDS_ON=		python-pip:single:v11
+					python-wheel:single:v11
 					python-setuptools-rust:single:v11
+[PY311].BUILDRUN_DEPENDS_ON=		python-cffi:single:v11
 
 USES=			cpe cargo ssl pkgconfig cclibs:single
 CPE_VENDOR=		python-cryptography_project
@@ -52,11 +55,7 @@ CPE_PRODUCT=		python-cryptography
 MAKE_ENV=		OPENSSL_STATIC=1
 INSTALL_REQ_TOOLCHAIN=	yes
 
-CARGO_CARGOTOML=	{{WRKSRC}}/src/rust/Cargo.toml
-CARGO_CARGOLOCK=	{{WRKSRC}}/src/rust/Cargo.lock
 CARGO_SKIP_CONFIGURE=	yes
-CARGO_SKIP_BUILD=	yes
-CARGO_SKIP_INSTALL=	yes
 
 post-patch:
 	${MKDIR} ${WRKSRC}/.cargo
@@ -64,3 +63,21 @@ post-patch:
 	echo "directory = '${CARGO_VENDOR_DIR}'" >> ${WRKSRC}/.cargo/config.toml
 	echo "[source.crates-io]" >> ${WRKSRC}/.cargo/config.toml
 	echo "replace-with = 'cargo'" >> ${WRKSRC}/.cargo/config.toml
+
+do-build:
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		pip install --no-build-isolation --verbose .)
+
+do-install:
+	whl=$$(find /root/.cache/pip/wheels -name "*.whl");\
+	pip install \
+		--verbose \
+		--no-index \
+		--no-compile \
+		--force-reinstall \
+		--progress-bar off \
+		--root=${STAGEDIR} \
+		--root-user-action=ignore \
+		--disable-pip-version-check \
+		--no-deps $$whl
+	${FIND} ${STAGEDIR}${PREFIX}/lib -name "*.so" | xargs ${STRIP_CMD}
