@@ -1,0 +1,60 @@
+DEF[PORTVERSION]=	2.0.0
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libcupsfilters
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel print
+VARIANTS=		standard
+SDESC[standard]=	Library for developing printing filters
+HOMEPAGE=		https://github.com/OpenPrinting/libcupsfilters
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/OpenPrinting/libcupsfilters/releases/download/${PORTVERSION}/
+DISTFILE[1]=		libcupsfilters-${PORTVERSION}.tar.xz:main
+
+SPKGS[standard]=	complete primary data dev docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		APACHE20:primary
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		primary:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		brotli:dev:standard
+			libexif:dev:standard
+			qpdf:dev:standard
+			poppler:dev:standard
+			poppler:cppdev:standard
+			lcms2:dev:standard
+			dbus:dev:standard
+			cups:dev:standard
+			gmp:static:standard
+			ghostscript:primary:standard
+			fonts-dejavu:single:standard
+BUILDRUN_DEPENDS=	brotli:primary:standard
+			libexif:primary:standard
+			qpdf:primary:standard
+			poppler:primary:standard
+			poppler:cpp:standard
+			poppler:utils:standard
+			lcms2:primary:standard
+			dbus:primary:standard
+			cups:primary:standard
+			gmp:shared:standard
+
+EXRUN[dev]=		tiff:dev:standard
+			png:dev:standard
+			qpdf:dev:standard
+			cups:dev:standard
+
+USES=			gmake expat fontconfig zstd zlib ssl jpeg tiff png
+			iconv pkgconfig libtool
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-test-font-path="{{LOCALBASE}}/share/fonts/dejavu/DejaVuSans.ttf"
+			--disable-mutool
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
