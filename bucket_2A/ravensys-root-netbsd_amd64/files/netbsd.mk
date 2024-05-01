@@ -101,6 +101,7 @@ ONLY_SO=\
 	/usr/lib/libedit.so.3 \
 	/usr/lib/libterminfo.so.1 \
 	/usr/lib/libexecinfo.so.0 \
+	/usr/lib/libelf.so.2 \
 	# end
 
 dynamic_lib_NetBSD=\
