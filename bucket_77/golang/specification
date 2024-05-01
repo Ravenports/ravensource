@@ -12,9 +12,10 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main ravdist
 SITES[main]=		http://golang.org/dl/
-SITES[ravdist]=		https://leaf.dragonflybsd.org/~marino/raven-distfiles/golang
+SITES[ravdist]=		https://leaf.dragonflybsd.org/~marino/raven-distfiles/golang/
 DISTFILE[1]=		go${PORTVERSION}.src.tar.gz:main
 DISTFILE[2]=		bootstrap-golang-1.22.2-dragonfly-x86_64.tzst:ravdist
+DISTFILE[3]=		bootstrap-golang-1.22.2-Linux-amd64.tzst:ravdist
 DF_INDEX=		1
 
 SPKGS[standard]=	single
@@ -26,7 +27,7 @@ OPTDESCR[SYSTEM]=	Operating System
 OPTGROUP[SYSTEM]=	DRAGONFLY FREEBSD LINUX SUNOS MACOS NETBSD MIDNIGHT
 
 OPT_ON[dragonfly]=	DRAGONFLY
-OPT_ON[linux]=		LINUX PORTBOOT
+OPT_ON[linux]=		LINUX
 OPT_ON[freebsd]=	FREEBSD PORTBOOT
 OPT_ON[midnightbsd]=	MIDNIGHT PORTBOOT
 OPT_ON[netbsd]=		NETBSD PORTBOOT
@@ -74,6 +75,7 @@ PLIST_SUB=		opsys_ARCH={{GOSYS}}_{{GOARCH}}
 [PORTBOOT].DESCRIPTION=			Bootstrap with older golang in Ravenports
 
 [DRAGONFLY].DF_INDEX_ON=		2
+[LINUX].DF_INDEX_ON=			3
 
 [PORTBOOT].MAKEFILE_ON=			BOOTSTRAP_DIR={{LOCALBASE}}/go121
 					PREPEND_PATH={{LOCALBASE}}/go121/bin
