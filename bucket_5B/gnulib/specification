@@ -17,7 +17,7 @@ HOMEPAGE=		https://www.gnu.org/software/gnulib/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://deb.debian.org/debian/pool/main/g/gnulib/
+SITES[main]=		http://ravenports.elderlinux.org/distcache/
 DISTFILE[1]=		gnulib_${PORTVERSION}+stable.orig.tar.gz:main
 
 SPKGS[standard]=	single
@@ -44,8 +44,6 @@ CPE_PRODUCT=		gnulib
 SHEBANG_FILES=		build-aux/vcs-to-changelog.py
 			check-module
 DISTNAME=		gnulib-${PORTVERSION}+stable
-
-BROKEN[all]=		Apparent version ${PORTVERSION} was yanked (no distfile)
 
 post-extract:
 	${REINPLACE_CMD} -i'' 's!/usr/local/bin/clisp!${PREFIX}/bin/clisp!' \
