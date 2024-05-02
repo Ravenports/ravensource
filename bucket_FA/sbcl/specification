@@ -12,9 +12,10 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main boot ravdist
 SITES[main]=		SF/sbcl/sbcl/${PORTVERSION}
-SITES[ravdist]=		https://leaf.dragonflybsd.org/~marino/raven-distfiles/sbcl
+SITES[ravdist]=		https://leaf.dragonflybsd.org/~marino/raven-distfiles/sbcl/
 DISTFILE[1]=		sbcl-${PORTVERSION}-source.tar.bz2:main
 DISTFILE[2]=		bootstrap-sbcl-2.4.4-dragonfly-x86_64.tzst:ravdist
+DISTFILE[3]=		bootstrap-sbcl-2.4.4-Linux-amd64.tzst:ravdist
 DF_INDEX=		1
 
 SPKGS[standard]=	complete primary man
@@ -26,7 +27,7 @@ OPTDESCR[SYSTEM]=	Operating System
 OPTGROUP[SYSTEM]=	DRAGONFLY FREEBSD LINUX SUNOS MACOS NETBSD MIDNIGHT
 OPT_ON[dragonfly]=	DRAGONFLY
 OPT_ON[freebsd]=	FREEBSD CONCURRENCY CLISP
-OPT_ON[linux]=		LINUX CONCURRENCY CLISP
+OPT_ON[linux]=		LINUX CONCURRENCY
 OPT_ON[sunos]=		SUNOS CLISP
 OPT_ON[darwin]=		MACOS CLISP
 OPT_ON[netbsd]=		NETBSD CLISP
@@ -90,6 +91,7 @@ VAR_OPSYS[netbsd]=	MAKE_ENV=SBCL_PAXCTL="{{PAXCTL}} +m"
 [CLISP].CMAKE_ARGS_OFF=			--xc-host={{WRKDIR}}/bootstrap/bin/sbcl
 
 [DRAGONFLY].DF_INDEX_ON=		2
+[LINUX].DF_INDEX_ON=			3
 
 post-extract:
 	# Extract licenses into separate files
