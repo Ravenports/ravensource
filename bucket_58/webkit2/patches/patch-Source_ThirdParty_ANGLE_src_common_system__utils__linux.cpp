@@ -4,7 +4,7 @@
  {
      // There's a 15-character (16 including '\0') limit.  If the name is too big (and ERANGE is
      // returned), just ignore the name.
-+if defined(__NetBSD__)
++#if defined(__NetBSD__)
 +    pthread_setname_np(pthread_self(), "%s", (void *)name);
 +#else
      pthread_setname_np(pthread_self(), name);
