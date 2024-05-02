@@ -32,7 +32,7 @@ PKGDIR=$(/raven/bin/ravenadm dev info H)/All
 ASSY="${BBASE}/sbcl-assy"
 OPSYS=$(uname -s)
 MYTAR="/raven/share/raven/sysroot/${OPSYS}/usr/bin/tar"
-RPKG="${PKGDIR}/sbcl-single-standard-${1}${REVEPOCH}.tzst"
+RPKG="${PKGDIR}/sbcl-primary-standard-${1}${REVEPOCH}.tzst"
 
 rm -rf ${ASSY}
 
