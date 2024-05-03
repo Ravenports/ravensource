@@ -1,0 +1,75 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(KDE6_FRAMEWORKS_VERSION)
+DEF[KF6_COMPONENT]=	kimageformats
+DEF[PLUGINS]=		ani avif eps exr hdr jxl kra ora pcx pic psd qoi ras raw rgb tga xcf
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kf6-${KF6_COMPONENT}
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	KF6 plugins for QImage extra file formats support
+HOMEPAGE=		https://api.kde.org/frameworks/${KF6_COMPONENT}/html/index.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
+DISTFILE[1]=		${KF6_COMPONENT}-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		kde6
+
+SPKGS[standard]=	single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:single
+			BSD3CLAUSE:single
+			LGPL20+:single
+			LGPL21+:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSES/BSD-2-Clause.txt
+			BSD3CLAUSE:{{WRKSRC}}/LICENSES/BSD-3-Clause.txt
+			LGPL20+:{{WRKSRC}}/LICENSES/LGPL-2.0-or-later.txt
+			LGPL21+:{{WRKSRC}}/LICENSES/LGPL-2.1-or-later.txt
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		graphics/kf6-${KF6_COMPONENT}
+
+BUILD_DEPENDS=		brotli:dev:standard
+			highway:dev:standard
+			kf6-extra-cmake-modules:primary:standard
+			kf6-karchive:dev:standard
+			libavif:dev:standard
+			libheif:dev:standard
+			libjxl:dev:standard
+			libraw:dev:standard
+			openexr:dev:standard
+			qt6-qtbase:dev:standard
+BUILDRUN_DEPENDS=	kf6-kconfig:primary:standard
+			kf6-karchive:primary:standard
+			libavif:primary:standard
+			libheif:primary:standard
+			libjxl:primary:standard
+			libraw:primary:standard
+			openexr:primary:standard
+			qt6-qtbase:primary:standard
+
+USES=			clang cmake pkgconfig
+
+DISTNAME=		${KF6_COMPONENT}-${PORTVERSION}
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
+SOVERSION=		${PORTVERSION}
+
+post-extract:
+	${ECHO} "Terms extracted from 'src/imageformats/jxl.cpp':" > ${WRKDIR}/TERMS
+	${SED} -n '/include/!p;//q' ${WRKSRC}/src/imageformats/jxl.cpp >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/imageformats/fastmath_p.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/imageformats/fastmath_p.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/imageformats/pic_p.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/imageformats/pic_p.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/imageformats/gimp_p.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/imageformats/gimp_p.h >> ${WRKDIR}/TERMS
+
+post-stage:
+.for p in ${PLUGINS}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/plugins/imageformats/kimg_${p}.so
+.endfor
