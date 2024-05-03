@@ -1,4 +1,4 @@
---- doas.c.orig	2022-09-14 13:09:45 UTC
+--- doas.c.orig	2024-05-01 14:22:55 UTC
 +++ doas.c
 @@ -200,7 +200,7 @@ checkconfig(const char *confpath, int ar
  	struct rule *rule;
@@ -9,7 +9,7 @@
  	status = setresuid(uid, uid, uid);
  	#else
  	status = setreuid(uid, uid);
-@@ -530,13 +530,16 @@ main(int argc, char **argv)
+@@ -529,13 +529,16 @@ main(int argc, char **argv)
  
          
  #if defined(HAVE_LOGIN_CAP_H)
@@ -27,7 +27,7 @@
  	if (setresgid(target_pw->pw_gid, target_pw->pw_gid, target_pw->pw_gid) == -1)
  		err(1, "setresgid");
  	#else
-@@ -545,7 +548,7 @@ main(int argc, char **argv)
+@@ -544,7 +547,7 @@ main(int argc, char **argv)
  	#endif
  	if (initgroups(target_pw->pw_name, target_pw->pw_gid) == -1)
  		err(1, "initgroups");
