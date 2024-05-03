@@ -4,13 +4,17 @@ DEF[SOVERSION]=		137.0.0
 DEF[CPP_SOVERSION]=	1.0.0
 DEF[GLIB_SOVERSION]=	8.26.0
 DEF[QT5_SOVERSION]=	1.34.0
+DEF[QT6_SOVERSION]=	3.5.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		poppler
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics print
-VARIANTS=		standard
-SDESC[standard]=	PDF rendering library
+VARIANTS=		standard qt5 qt6
+SDESC[standard]=	PDF rendering library (w/o Qt)
+SDESC[qt5]=		PDF rendering library (Qt5)
+SDESC[qt6]=		PDF rendering library (Qt6)
 HOMEPAGE=		https://poppler.freedesktop.org/
 CONTACT=		nobody
 
@@ -18,11 +22,15 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://poppler.freedesktop.org/
 DISTFILE[1]=		poppler-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary cpp glib qt5 utils man dev cppdev glibdev qt5dev
+SPKGS[standard]=	complete primary cpp glib utils man dev cppdev glibdev
+SPKGS[qt5]=		complete primary cpp glib qt utils man dev cppdev glibdev qtdev
+SPKGS[qt6]=		complete primary cpp glib qt utils man dev cppdev glibdev qtdev
 
-OPTIONS_AVAILABLE=	INTROSPECTION
+OPTIONS_AVAILABLE=	INTROSPECTION QT5 QT6
 OPTIONS_STANDARD=	INTROSPECTION
 OPT_ON[all]=		INTROSPECTION
+VOPTS[qt5]=		INTROSPECTION=ON QT5=ON QT6=OFF
+VOPTS[qt6]=		INTROSPECTION=ON QT5=OFF QT6=ON
 
 LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
@@ -35,7 +43,6 @@ FPC_EQUIVALENT=		graphics/poppler
 
 BUILD_DEPENDS=		cairo:dev:standard
 			cairo:primary:standard
-			qt5-qttools:complete:standard
 			boost-libraries:dev:standard
 			glib:dev:standard
 			gettext:solinks:standard
@@ -53,12 +60,11 @@ BUILDRUN_DEPENDS=	lcms2:primary:standard
 # B_DEPS[linux]=		nspr:dev:standard
 # BR_DEPS[linux]=		nspr:primary:standard
 
-EXRUN[cpp]=		poppler:primary:standard
-EXRUN[glib]=		poppler:primary:standard
+EXRUN[cpp]=		primary
+EXRUN[glib]=		primary
 			cairo:primary:standard
-EXRUN[qt5]=		poppler:primary:standard
-			qt5-qtbase:primary:standard
-EXRUN[utils]=		poppler:primary:standard
+EXRUN[qt]=		primary
+EXRUN[utils]=		primary
 			cairo:primary:standard
 			lcms2:primary:standard
 
@@ -69,13 +75,12 @@ GNOME_COMPONENTS=	gtk3 gdkpixbuf pango
 CPE_VENDOR=		freedesktop
 CMAKE_ARGS=		-DENABLE_GLIB=ON
 			-DENABLE_UTILS=ON
-			-DENABLE_QT5=ON
+			-DENABLE_QT5=OFF
 			-DENABLE_QT6=OFF
 			-DENABLE_LIBCURL=ON
 			-DBUILD_GTK_TESTS=OFF
 			-DENABLE_GTK_DOC=OFF
 			-DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE
-			-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
 			-DENABLE_UNSTABLE_API_ABI_HEADERS=ON
 			-DENABLE_GPGME:BOOL=FALSE
 			-DENABLE_NSS3:BOOL={{NSS3:UFALSE}}
@@ -83,6 +88,8 @@ PLIST_SUB=		CPP_SOVERSION=${CPP_SOVERSION}
 			CPP_SOMAJOR=${CPP_SOVERSION:R:R}
 			QT5_SOVERSION=${QT5_SOVERSION}
 			QT5_SOMAJOR=${QT5_SOVERSION:R:R}
+			QT6_SOVERSION=${QT6_SOVERSION}
+			QT6_SOMAJOR=${QT6_SOVERSION:R:R}
 			GLIB_SOVERSION=${GLIB_SOVERSION}
 			GLIB_SOMAJOR=${GLIB_SOVERSION:R:R}
 			NSS3={{NSS:U"@comment "}}
@@ -94,6 +101,18 @@ SOL_FUNCTIONS=		strndup:poppler/GlobalParams.cc
 
 [INTROSPECTION].DESCRIPTION=		Build with introspection
 [INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
+
+[QT5].DESCRIPTION=			Built Qt5 variant
+[QT5].BUILD_DEPENDS_ON=			qt5-qttools:complete:standard
+[QT5].BUILDRUN_DEPENDS_ON=		qt5-qtbase:primary:standard
+[QT5].CMAKE_ARGS_ON=			-DENABLE_QT5=ON
+					-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
+
+[QT6].DESCRIPTION=			Built Qt6 variant
+[QT6].BUILD_DEPENDS_ON=			qt6-qtbase:dev:standard
+[QT6].BUILDRUN_DEPENDS_ON=		qt6-qtbase:primary:standard
+[QT6].CMAKE_ARGS_ON=			-DENABLE_QT6=ON
+					-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt6/cmake/"
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libpop*.so
