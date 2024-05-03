@@ -17,6 +17,7 @@ DISTFILE[1]=		sbcl-${PORTVERSION}-source.tar.bz2:main
 DISTFILE[2]=		bootstrap-sbcl-2.4.4-dragonfly-x86_64.tzst:ravdist
 DISTFILE[3]=		bootstrap-sbcl-2.4.4-Linux-amd64.tzst:ravdist
 DISTFILE[4]=		bootstrap-sbcl-2.4.4-MidnightBSD-amd64.tzst:ravdist
+DISTFILE[5]=		bootstrap-sbcl-2.4.4-NetBSD-amd64.tzst:ravdist
 DF_INDEX=		1
 
 SPKGS[standard]=	complete primary man
@@ -31,7 +32,7 @@ OPT_ON[freebsd]=	FREEBSD CONCURRENCY CLISP
 OPT_ON[linux]=		LINUX CONCURRENCY
 OPT_ON[sunos]=		SUNOS CLISP
 OPT_ON[darwin]=		MACOS CLISP
-OPT_ON[netbsd]=		NETBSD CLISP
+OPT_ON[netbsd]=		NETBSD
 OPT_ON[midnightbsd]=	MIDNIGHT CONCURRENCY
 
 LICENSE=		PUBDOM:primary
@@ -94,6 +95,7 @@ VAR_OPSYS[netbsd]=	MAKE_ENV=SBCL_PAXCTL="{{PAXCTL}} +m"
 [DRAGONFLY].DF_INDEX_ON=		2
 [LINUX].DF_INDEX_ON=			3
 [MIDNIGHT].DF_INDEX_ON=			4
+[NETBSD].DF_INDEX_ON=			5
 
 post-extract:
 	# Extract licenses into separate files
