@@ -42,6 +42,8 @@ SUB_FILES=		status-ipmi.sh
 
 EXTRACT_DIRTY=		2
 
+VAR_OPSYS[netbsd]=	CFLAGS=-D_NETBSD_SOURCE
+
 post-install:
 	# remove duplicate license
 	${RM} ${STAGEDIR}${STD_DOCDIR}/COPYING
