@@ -4,11 +4,11 @@
 
 Developers need to memorize a whole bunch of magic command-line
 incantations.
-And these incantations change from time to time!
-Typically, their lives are made simpler by a Makefile, but Makefiles can be
+These incantations may also change over time.
+Often, Makefiles are used to provide aliases, but Makefiles can be
 convoluted, are not written in Python, and are hard to extend.
-The rationale behind `spin` is therefore to provide a simple interface for
-common development tasks.
+The goal of `spin` is therefore to provide a simple, user-friendly,
+extendable interface for common development tasks.
 It comes with a few common build commands out the box, but can easily be
 customized per project.
 
@@ -17,6 +17,10 @@ migration of scientific Python libraries (SciPy, scikit-image, and NumPy,
 etc.) to Meson, after distutils was deprecated.
 When many of the build and installation commands changed, it made sense to
 abstract away the nuisance of having to re-learn them.
+
+_Note:_ We now have experimental builds for editable installs.
+Most of the Meson commands listed below should work "out of the box" for
+those.
 
 ## Installation
 
@@ -94,7 +98,3 @@ python -m spin
 Available as `spin.cmds.meson.*`.
 
 ```
-  build    🔧 Build package with Meson/ninja and install to
-`build-install`
-  ipython  💻 Launch IPython shell with PYTHONPATH set
-  python   🐍 Launch Python shell with PYTHONPATH set

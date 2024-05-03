@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.8
+DEF[PORTVERSION]=	0.9
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-spin
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/scientific-python/spin
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/c9/ec/e7d790f26097ddfd441af8a2ab26bfd2ca9609ded7e571b982661771ff9f
+SITES[main]=		PYPIWHL/8b/0b/062b036df2c1f8f098f7fa04352ead215c659637de02e591e31956da4909
 DISTFILE[1]=		spin-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
@@ -23,7 +23,7 @@ VOPTS[v11]=		PY311=ON PY312=OFF
 VOPTS[v12]=		PY311=OFF PY312=ON
 
 # License listed at PyPI
-# BSD 3-Clause License  Copyright (c) 2021--2022, Scientific Python
+# BSD 3-Clause License  Copyright (c) 2021--2024, Scientific Python
 # project All rights reserved.  Redistribution and use in source and
 # binary forms, with or without modification, are permitted provided
 # that the following conditions are met:  1. Redistributions of source
@@ -52,13 +52,16 @@ DISTNAME=		spin-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # click
+# importlib-metadata >=7
 # colorama ; platform_system == "Windows"
 # tomli ; python_version < "3.11"
-# changelist ==0.4 ; extra == 'dev'
-# pre-commit ==3.5.0 ; extra == 'lint'
+# changelist ==0.5 ; extra == 'dev'
+# pre-commit ==3.7.0 ; extra == 'lint'
 
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-click:single:v11
+					python-importlib-metadata:single:v11
 [PY312].USES_ON=			python:v12,wheel
 [PY312].RUN_DEPENDS_ON=			python-click:single:v12
+					python-importlib-metadata:single:v12
 
