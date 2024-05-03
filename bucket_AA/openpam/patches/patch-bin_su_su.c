@@ -1,6 +1,6 @@
---- bin/su/su.c.orig	2019-02-24 20:15:19 UTC
+--- bin/su/su.c.orig	2022-10-02 14:45:45 UTC
 +++ bin/su/su.c
-@@ -54,6 +54,10 @@
+@@ -52,6 +52,10 @@
  #include <security/pam_appl.h>
  #include <security/openpam.h>	/* for openpam_ttyconv() */
  

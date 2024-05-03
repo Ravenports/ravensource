@@ -1,6 +1,6 @@
---- lib/libpam/openpam_dynamic.c.orig	2019-02-24 20:15:19 UTC
+--- lib/libpam/openpam_dynamic.c.orig	2022-10-02 14:45:45 UTC
 +++ lib/libpam/openpam_dynamic.c
-@@ -48,6 +48,7 @@
+@@ -46,6 +46,7 @@
  #include <stdlib.h>
  #include <string.h>
  #include <unistd.h>

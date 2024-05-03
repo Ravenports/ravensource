@@ -1,6 +1,6 @@
---- lib/libpam/openpam_configure.c.orig	2019-02-24 20:15:19 UTC
+--- lib/libpam/openpam_configure.c.orig	2022-10-02 14:45:45 UTC
 +++ lib/libpam/openpam_configure.c
-@@ -45,6 +45,7 @@
+@@ -43,6 +43,7 @@
  #include <stdio.h>
  #include <stdlib.h>
  #include <string.h>

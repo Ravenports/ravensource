@@ -1,6 +1,6 @@
---- lib/libpam/openpam_ttyconv.c.orig	2019-02-24 20:15:19 UTC
+--- lib/libpam/openpam_ttyconv.c.orig	2022-10-02 14:45:45 UTC
 +++ lib/libpam/openpam_ttyconv.c
-@@ -57,6 +57,30 @@
+@@ -55,6 +55,30 @@
  #include "openpam_impl.h"
  #include "openpam_strlset.h"
  
