@@ -1,6 +1,7 @@
-DEF[PORTVERSION]=	11.2
+DEF[PORTVERSION]=	13.2
 DEF[SUFFIX]=		${PORTVERSION:S/.//g}
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
+DEF[PATCH_TAG]=		gdb_13.2-rev1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gdb
@@ -11,18 +12,23 @@ SDESC[standard]=	GNU debugger
 HOMEPAGE=		http://www.gnu.org/software/gdb/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main patchsite
 SITES[main]=		GNU/gdb
+SITES[patchsite]=	https://raw.githubusercontent.com/jrmarino/gnu_debugger_difference/${PATCH_TAG}/generated/patches-${PORTVERSION}/
 DISTFILE[1]=		gdb-${PORTVERSION}.tar.xz:main
+DISTFILE[2]=		patch-diff-gdb:patchsite
+DISTFILE[3]=		patch-diff-rest:patchsite
+DIST_SUBDIR=		${PATCH_TAG}
+DF_INDEX=		1
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv3+:single
+LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^\#include"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gdb/gdb.c
 LICENSE_SCHEME=		solo
@@ -32,12 +38,13 @@ FPC_EQUIVALENT=		devel/gdb
 NOT_FOR_ARCH=		aarch64
 
 BUILD_DEPENDS=		gmp:static:standard
-			boost-libraries:dev:standard
 BUILDRUN_DEPENDS=	gmp:shared:standard
-			source-highlight:tools:standard
+			source-highlight:primary:standard
+
+PATCHFILES=		2 3
 
 USES=			cpe iconv gmake libtool readline pkgconfig
-			makeinfo expat ncurses gettext python:sutools
+			makeinfo python expat ncurses gettext zstd
 CPE_VENDOR=		gnu
 MUST_CONFIGURE=		gnu
 CONFIGURE_OUTSOURCE=	yes
@@ -73,12 +80,6 @@ post-patch:
 	# remove leftover readline removed garbage
 	${REINPLACE_CMD} -e 's|..READLINE.*user.texi||' \
 		${WRKSRC}/gdb/doc/Makefile.in
-
-post-patch-dragonfly:
-	${CP} ${OPSYSDIR}/dfly-tdep.* ${WRKSRC}/gdb/
-	${CP} ${OPSYSDIR}/dfly-nat.*  ${WRKSRC}/gdb/
-	${CP} ${OPSYSDIR}/i386*       ${WRKSRC}/gdb/
-	${CP} ${OPSYSDIR}/amd64*      ${WRKSRC}/gdb/
 
 do-install:
 	${INSTALL_PROGRAM} ${INSTALL_WRKSRC}/gdb/gdb \
