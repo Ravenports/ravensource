@@ -5,7 +5,7 @@
  
  /* Conditional to set up proper fstat64 implementation */
 -#if defined(hpux) || defined(sun) || (defined(__APPLE__) && defined(_DARWIN_FEATURE_ONLY_64_BIT_INODE))
-+#if defined(hpux) || defined(sun) || defined(__FreeBSD__) || defined(__DragonFly__) || (defined(__APPLE__) && defined(_DARWIN_FEATURE_ONLY_64_BIT_INODE))
++#if defined(hpux) || defined(sun) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
  #   define FTS_FSTAT64(_fd, _sbp)   fstat((_fd), (_sbp))
  #else
  #   define FTS_FSTAT64(_fd, _sbp)   fstat64((_fd), (_sbp))
@@ -34,9 +34,15 @@
  #if defined(sun)
  #   define __errno_location()	(&errno)
  #   define dirfd(dirp)		-1
-@@ -73,13 +79,11 @@ static char sccsid[] = "@(#)fts.c	8.6 (B
+@@ -72,14 +78,17 @@ static char sccsid[] = "@(#)fts.c	8.6 (B
+ #		define stat64	stat
  #endif
  #endif
++#if defined(__NetBSD__)
++#   define __errno_location()  (&errno)
++#   define stat64              stat
++#   define __fxstat64(_stat_ver, _fd, _sbp)    fstat((_fd), (_sbp))
++#endif
  
 -#include "system.h"
  #include <fcntl.h>
