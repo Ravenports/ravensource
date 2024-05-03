@@ -1,4 +1,4 @@
---- lib/fmt/include/fmt/os.h.orig	2024-03-10 18:17:39 UTC
+--- lib/fmt/include/fmt/os.h.orig	2024-04-28 10:37:24 UTC
 +++ lib/fmt/include/fmt/os.h
 @@ -15,7 +15,7 @@
  
