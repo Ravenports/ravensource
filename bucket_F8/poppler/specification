@@ -4,10 +4,12 @@ DEF[SOVERSION]=		136.0.0
 DEF[CPP_SOVERSION]=	0.11.0
 DEF[GLIB_SOVERSION]=	8.26.0
 DEF[QT5_SOVERSION]=	1.33.0
+DEF[QT6_SOVERSION]=	3.4.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		poppler
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics print
 VARIANTS=		standard
 SDESC[standard]=	PDF rendering library
@@ -18,7 +20,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://poppler.freedesktop.org/
 DISTFILE[1]=		poppler-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary cpp glib qt5 utils man dev cppdev glibdev qt5dev
+SPKGS[standard]=	complete primary cpp glib qt5 qt6 utils man dev cppdev glibdev qt5dev qt6dev
 
 OPTIONS_AVAILABLE=	INTROSPECTION
 OPTIONS_STANDARD=	INTROSPECTION
@@ -36,6 +38,7 @@ FPC_EQUIVALENT=		graphics/poppler
 BUILD_DEPENDS=		cairo:dev:standard
 			cairo:primary:standard
 			qt5-qttools:complete:standard
+			qt6-qttools:complete:standard
 			boost-libraries:dev:standard
 			glib:dev:standard
 			gettext:solinks:standard
@@ -58,6 +61,8 @@ EXRUN[glib]=		poppler:primary:standard
 			cairo:primary:standard
 EXRUN[qt5]=		poppler:primary:standard
 			qt5-qtbase:primary:standard
+EXRUN[qt6]=		poppler:primary:standard
+			qt6-qtbase:primary:standard
 EXRUN[utils]=		poppler:primary:standard
 			cairo:primary:standard
 			lcms2:primary:standard
@@ -70,12 +75,12 @@ CPE_VENDOR=		freedesktop
 CMAKE_ARGS=		-DENABLE_GLIB=ON
 			-DENABLE_UTILS=ON
 			-DENABLE_QT5=ON
-			-DENABLE_QT6=OFF
+			-DENABLE_QT6=ON
 			-DENABLE_LIBCURL=ON
 			-DBUILD_GTK_TESTS=OFF
 			-DENABLE_GTK_DOC=OFF
 			-DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE
-			-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
+			-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt5/cmake
 			-DENABLE_UNSTABLE_API_ABI_HEADERS=ON
 			-DENABLE_GPGME:BOOL=FALSE
 			-DENABLE_NSS3:BOOL={{NSS3:UFALSE}}
@@ -83,11 +88,17 @@ PLIST_SUB=		CPP_SOVERSION=${CPP_SOVERSION}
 			CPP_SOMAJOR=${CPP_SOVERSION:R:R}
 			QT5_SOVERSION=${QT5_SOVERSION}
 			QT5_SOMAJOR=${QT5_SOVERSION:R:R}
+			QT6_SOVERSION=${QT6_SOVERSION}
+			QT6_SOMAJOR=${QT6_SOVERSION:R:R}
 			GLIB_SOVERSION=${GLIB_SOVERSION}
 			GLIB_SOMAJOR=${GLIB_SOVERSION:R:R}
 			NSS3={{NSS:U"@comment "}}
 SOVERSION=		${SOVERSION}
 SOL_FUNCTIONS=		strndup:poppler/GlobalParams.cc
+
+# Work around semicolon delimiter bug with CMAKE_ARGS/CMAKE_PREFIX_PATH
+# Add second path through the environment variable
+CONFIGURE_ENV=		CMAKE_PREFIX_PATH={{PREFIX}}/lib/qt6/cmake
 
 # VAR_OPSYS[linux]=	MAKEFILE_LINE=NSS3=TRUE
 # #			MAKEFILE_LINE=NSS3=
