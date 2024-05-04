@@ -46,7 +46,6 @@ FPC_EQUIVALENT=		lang/go
 NOT_FOR_ARCH=		aarch64
 
 BUILD_DEPENDS=		bash:primary:standard
-			go121:single:standard
 BUILDRUN_DEPENDS=	nss:caroot:standard
 
 USES=			cpe shebangfix
@@ -83,6 +82,7 @@ PLIST_SUB=		opsys_ARCH={{GOSYS}}_{{GOARCH}}
 [NETBSD].DF_INDEX_ON=			5
 [FREEBSD].DF_INDEX_ON=			6
 
+[PORTBOOT].BUILD_DEPENDS_ON=		go121:single:standard
 [PORTBOOT].MAKEFILE_ON=			BOOTSTRAP_DIR={{LOCALBASE}}/go121
 					PREPEND_PATH={{LOCALBASE}}/go121/bin
 [PORTBOOT].MAKEFILE_OFF=		BOOTSTRAP_DIR={{WRKDIR}}/bootstrap/go
