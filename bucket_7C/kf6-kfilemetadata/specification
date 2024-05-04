@@ -1,0 +1,77 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(KDE6_FRAMEWORKS_VERSION)
+DEF[KF6_COMPONENT]=	kfilemetadata
+DEF[PLUGINS]=		exiv2 fb2 ffmpeg odf office2007 office plaintext png po postscriptdsc taglib xml
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kf6-${KF6_COMPONENT}
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		standard
+SDESC[standard]=	KF6 library for extracting metadata from files
+HOMEPAGE=		https://api.kde.org/frameworks/${KF6_COMPONENT}/html/index.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
+DISTFILE[1]=		${KF6_COMPONENT}-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		kde6
+
+SPKGS[standard]=	complete primary dev nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21:primary
+			LGPL21+:primary
+			LGPL3:primary
+LICENSE_FILE=		LGPL21:{{WRKSRC}}/LICENSES/LGPL-2.1-only.txt
+			LGPL21+:{{WRKSRC}}/LICENSES/LGPL-2.1-or-later.txt
+			LGPL3:{{WRKSRC}}/LICENSES/LGPL-3.0-only.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		devel/kf6-${KF6_COMPONENT}
+
+# Poppler should be added as soon as we have a poppler:qt6 SPKG available
+BUILD_DEPENDS=		exiv2:dev:standard
+			ffmpeg:dev:standard
+			kf6-karchive:dev:standard
+			kf6-kcodecs:dev:standard
+			kf6-kconfig:dev:standard
+			kf6-kcoreaddons:dev:standard
+			kf6-extra-cmake-modules:primary:standard
+			kf6-ki18n:dev:standard
+			qt6-qtbase:dev:standard
+			qt6-qtdeclarative:dev:standard
+			taglib:dev:standard
+BUILDRUN_DEPENDS=	exiv2:primary:standard
+			ffmpeg:primary:standard
+			kf6-karchive:primary:standard
+			kf6-kcodecs:primary:standard
+			kf6-kconfig:primary:standard
+			kf6-kcoreaddons:primary:standard
+			kf6-ki18n:primary:standard
+			qt6-qtbase:primary:standard
+			qt6-qtdeclarative:primary:standard
+			taglib:primary:standard
+RUN_DEPENDS=		catdoc:primary:standard
+
+USES=			cmake gettext pkgconfig
+
+DISTNAME=		${KF6_COMPONENT}-${PORTVERSION}
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
+SOVERSION=		${PORTVERSION}
+
+post-extract:
+	${ECHO} "Terms extracted from 'src/writedata.h':" > ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/writedata.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/mimeutils.cpp':" >> ${WRKDIR}/TERMS
+	${SED} -n '/include/!p;//q' ${WRKSRC}/src/mimeutils.cpp >> ${WRKDIR}/TERMS
+
+post-stage:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libKF6FileMetaData.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/plugins/kf6/kfilemetadata/kfilemetadata_krita.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/plugins/kf6/kfilemetadata/writers/kfilemetadata_taglibwriter.so
+.for p in ${PLUGINS}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/plugins/kf6/kfilemetadata/kfilemetadata_${p}extractor.so
+.endfor
