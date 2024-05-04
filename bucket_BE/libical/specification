@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	3.0.18
 
 NAMEBASE=		libical
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Reference implementation of the iCalendar format
@@ -13,14 +14,16 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/libical/libical/releases/download/v${PORTVERSION}/
 DISTFILE[1]=		libical-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MPL:single LGPL21:single
-LICENSE_TERMS=		single:{{WRKSRC}}/COPYING
-LICENSE_FILE=		MPL:stock LGPL21:stock
+LICENSE=		MPL:primary
+			LGPL21:primary
+LICENSE_TERMS=		primary:{{WRKSRC}}/COPYING
+LICENSE_FILE=		MPL:stock
+			LGPL21:stock
 LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		devel/libical
