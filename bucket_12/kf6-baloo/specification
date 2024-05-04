@@ -1,0 +1,122 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(KDE6_FRAMEWORKS_VERSION)
+DEF[KF6_COMPONENT]=	baloo
+DEF[BINARIES]=		ctl search show
+DEF[PLUGINS]=		kded/baloosearchmodule kio/baloosearch kio/tags kio/timeline
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kf6-${KF6_COMPONENT}
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		standard
+SDESC[standard]=	KF6 file indexing and file search framework
+HOMEPAGE=		https://api.kde.org/frameworks/${KF6_COMPONENT}/html/index.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
+DISTFILE[1]=		${KF6_COMPONENT}-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		kde6
+
+SPKGS[standard]=	complete primary dev nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:primary
+			LGPL20+:primary
+			LGPL21:primary
+			LGPL21+:primary
+			LGPL3:primary
+			GPLv2:primary
+			GPLv2+:primary
+			GPLv3:primary
+			CUSTOM1:primary
+LICENSE_NAME=		CUSTOM1:"Bzip2 license"
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSES/BSD-3-Clause.txt
+			LGPL20+:{{WRKSRC}}/LICENSES/LGPL-2.0-or-later.txt
+			LGPL21:{{WRKSRC}}/LICENSES/LGPL-2.1-only.txt
+			LGPL21+:{{WRKSRC}}/LICENSES/LGPL-2.1-or-later.txt
+			LGPL3:{{WRKSRC}}/LICENSES/LGPL-3.0-only.txt
+			GPLv2:{{WRKSRC}}/LICENSES/GPL-2.0-only.txt
+			GPLv2+:{{WRKSRC}}/LICENSES/GPL-2.0-or-later.txt
+			GPLv3:{{WRKSRC}}/LICENSES/GPL-3.0-only.txt
+			CUSTOM1:{{WRKSRC}}/LICENSES/bzip2-1.0.6.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		sysutils/kf6-${KF6_COMPONENT}
+
+BUILD_DEPENDS=		kf6-extra-cmake-modules:primary:standard
+			kf6-kbookmarks:dev:standard
+			kf6-kcompletion:dev:standard
+			kf6-kconfig:dev:standard
+			kf6-kcoreaddons:dev:standard
+			kf6-kcrash:dev:standard
+			kf6-kdbusaddons:dev:standard
+			kf6-kfilemetadata:dev:standard
+			kf6-ki18n:dev:standard
+			kf6-kidletime:dev:standard
+			kf6-kio:dev:standard
+			kf6-kitemviews:dev:standard
+			kf6-kjobwidgets:dev:standard
+			kf6-kservice:dev:standard
+			kf6-kwidgetsaddons:dev:standard
+			kf6-kwindowsystem:dev:standard
+			kf6-solid:dev:standard
+			lmdb:dev:standard
+			qt6-qtbase:dev:standard
+			qt6-qtdeclarative:dev:standard
+BUILDRUN_DEPENDS=	kf6-kbookmarks:primary:standard
+			kf6-kcompletion:primary:standard
+			kf6-kconfig:primary:standard
+			kf6-kcoreaddons:primary:standard
+			kf6-kcrash:primary:standard
+			kf6-kdbusaddons:primary:standard
+			kf6-kfilemetadata:primary:standard
+			kf6-ki18n:primary:standard
+			kf6-kidletime:primary:standard
+			kf6-kio:primary:standard
+			kf6-kitemviews:primary:standard
+			kf6-kjobwidgets:primary:standard
+			kf6-kservice:primary:standard
+			kf6-kwidgetsaddons:primary:standard
+			kf6-kwindowsystem:primary:standard
+			kf6-solid:primary:standard
+			lmdb:primary:standard
+			qt6-qtbase:primary:standard
+			qt6-qtdeclarative:primary:standard
+
+USES=			cmake gettext
+XORG_COMPONENTS=	x11
+
+DISTNAME=		${KF6_COMPONENT}-${PORTVERSION}
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
+SOVERSION=		${PORTVERSION}
+
+post-extract:
+	${ECHO} "Terms extracted from 'src/codecs/coding.h':" > ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/codecs/coding.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/file/filewatch.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/file/filewatch.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/lib/file.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/lib/file.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/engine/valgrind.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/engine/valgrind.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/kioworkers/search/kio_search.cpp':" >> ${WRKDIR}/TERMS
+	${SED} -n '/include/!p;//q' ${WRKSRC}/src/kioworkers/search/kio_search.cpp >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/kioworkers/timeline/kio_timeline.cpp':" >> ${WRKDIR}/TERMS
+	${SED} -n '/include/!p;//q' ${WRKSRC}/src/kioworkers/timeline/kio_timeline.cpp >> ${WRKDIR}/TERMS
+
+post-stage:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libKF6Baloo.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libKF6BalooEngine.so.${PORTVERSION}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libexec/kf6/baloo_file
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libexec/kf6/baloo_file_extractor
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/qml/org/kde/baloo/experimental/libbaloomonitorplugin.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/qml/org/kde/baloo/libbalooplugin.so
+.for b in ${BINARIES}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/baloo${b}6
+.endfor
+.for p in ${PLUGINS}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/plugins/kf6/${p}.so
+.endfor
