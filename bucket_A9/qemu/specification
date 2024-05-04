@@ -88,6 +88,8 @@ VAR_OPSYS[linux]=	CONFIGURE_ARGS=--disable-netmap
 # linux-user requires newer linux base, remove when that comes
 			CONFIGURE_ARGS=--disable-linux-user
 
+B_DEPS[freebsd]=	elftoolchain:dev:standard
+
 post-patch:
 	# silence some include warnings
 	${MKDIR} ${WRKSRC}/bsd-user/dragonfly
