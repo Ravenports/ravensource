@@ -1,29 +1,28 @@
 # manually maintained due to server support
 # The users won't be able to install version from both pythons due to
 # common files and directories
-DEF[PORTVERSION]=	3.1.9
+DEF[PORTVERSION]=	3.2.0
+DEF[TAG]=		v${PORTVERSION}
 # ------------------------------------------------------------------------
 
 NAMEBASE=		radicale
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v11
-SDESC[v12]=		CalDAV and CardDAV Server (3.12)
-SDESC[v11]=		CalDAV and CardDAV Server (3.11)
+VARIANTS=		standard
+SDESC[standard]=	CalDAV and CardDAV Server
 HOMEPAGE=		https://radicale.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/R/Radicale
-DISTFILE[1]=		Radicale-${PORTVERSION}.tar.gz:main
+# SITES[main]=		PYPI/R/Radicale
+# DISTFILE[1]=		Radicale-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/Kozea:Radicale:${TAG}
+DISTFILE[1]=		generated:main
 
-SPKGS[v12]=		single
-SPKGS[v11]=		single
+SPKGS[standard]=	single
 
-OPTIONS_AVAILABLE=	PY312 PY311
+OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY311=OFF
-VOPTS[v11]=		PY312=OFF PY311=ON
 
 # License listed at PyPI
 # GNU GPL v3
@@ -48,24 +47,19 @@ USERS=			radicale
 GROUPS=			radicale
 USERGROUP_SPKG=		single
 
+BUILDRUN_DEPENDS=	python-defusedxml:single:python_used
+			python-passlib:single:python_used
+			python-vobject:single:python_used
+			python-python-dateutil:single:python_used
+			python-pika:single:python_used
+
 RC_SUBR=		radicale:single
 SUB_LIST=		USERS="radicale"
 			GROUPS="radicale"
 			PYTHON_CMD="{{PYTHON_CMD}}"
 
-USES=			cpe shebangfix
+USES=			cpe shebangfix python:sutools
 SHEBANG_FILES=		radicale.wsgi
-
-[PY312].USES_ON=			python:v12,sutools
-[PY312].BUILDRUN_DEPENDS_ON=		python-defusedxml:single:v12
-					python-passlib:single:v12
-					python-vobject:single:v12
-					python-python-dateutil:single:v12
-[PY311].USES_ON=			python:v11,sutools
-[PY311].BUILDRUN_DEPENDS_ON=		python-defusedxml:single:v11
-					python-passlib:single:v11
-					python-vobject:single:v11
-					python-python-dateutil:single:v11
 
 post-patch:
 	${REINPLACE_CMD} \
