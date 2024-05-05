@@ -1,12 +1,11 @@
-DEF[PORTVERSION]=	1.77.2
-DEF[RUSTX_BOOT]=	1.76.0
+DEF[PORTVERSION]=	1.78.0
+DEF[RUSTX_BOOT]=	1.77.2
 DEF[CURL_VERSION]=	7.87.0
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rust
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		lang
 VARIANTS=		standard
 SDESC[standard]=	Systems programming language from Mozilla
@@ -207,7 +206,7 @@ do-install:
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/lib/rustlib/install.log
 	${RM} ${STAGEDIR}${PREFIX}/lib/rustlib/uninstall.sh
-	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/rust
+	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/rust*
 	# Remove cargo-fmt.old, rustfmt.old, cargo-clippy.old, clippy-driver.old
 	${RM} ${STAGEDIR}${PREFIX}/bin/*.old
 

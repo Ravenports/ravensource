@@ -1,18 +1,18 @@
---- src/bootstrap/src/core/builder.rs.orig	2024-04-09 17:20:09 UTC
+--- src/bootstrap/src/core/builder.rs.orig	2024-04-29 14:03:23 UTC
 +++ src/bootstrap/src/core/builder.rs
-@@ -1684,12 +1684,13 @@ impl<'a> Builder<'a> {
+@@ -2416,12 +2416,13 @@ impl Cargo {
                  Some(format!("-Wl,-rpath,@loader_path/../{libdir}"))
              } else if !target.is_windows() && !target.contains("aix") && !target.contains("xous") {
-                 rustflags.arg("-Clink-args=-Wl,-z,origin");
+                 self.rustflags.arg("-Clink-args=-Wl,-z,origin");
 -                Some(format!("-Wl,-rpath,$ORIGIN/../{libdir}"))
 +                Some(format!("-Wl,-rpath,$ORIGIN/../{libdir}:@OPENSSLLIB@"))
              } else {
                  None
              };
              if let Some(rpath) = rpath {
--                rustflags.arg(&format!("-Clink-args={rpath}"));
-+                rustflags.arg(&format!("-Clink-arg=-Wl,-z,origin"));
-+                rustflags.arg(&format!("-Clink-arg={rpath}"));
+-                self.rustflags.arg(&format!("-Clink-args={rpath}"));
++                self.rustflags.arg(&format!("-Clink-arg=-Wl,-z,origin"));
++                self.rustflags.arg(&format!("-Clink-arg={rpath}"));
              }
          }
  
