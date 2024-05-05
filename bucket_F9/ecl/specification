@@ -16,8 +16,9 @@ DISTFILE[1]=		ecl-${PORTVERSION}.tgz:main
 
 SPKGS[standard]=	complete primary dev man
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	THREADS
+OPTIONS_STANDARD=	THREADS
+OPT_ON[freebsd]=	THREADS
 
 FPC_EQUIVALENT=		lang/ecl
 
@@ -26,7 +27,6 @@ LICENSE_TERMS=		primary:{{WRKSRC}}/LICENSE
 LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-BROKEN[dragonfly]=	locks up during build (same as dports)
 BROKEN[midnightbsd]=	undefined reference to symbol 'pthread_condattr_init@@FBSD_1.0'
 
 BUILD_DEPENDS=		libatomic_ops:dev:standard
@@ -42,7 +42,6 @@ USES=			autoreconf gmake makeinfo perl:build
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-boehm=system
 			--enable-libatomic=system
-			--enable-threads=yes
 			--with-gmp-prefix={{LOCALBASE}}
 			--with-system-gmp
 			--with-asdf=yes
@@ -53,6 +52,9 @@ INFO=			primary:ecl
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		VERSION=${PORTVERSION}
 			SOMAJMIN=${SOVERSION:R}
+
+[THREADS].CONFIGURE_ARGS_ON=		--enable-threads=yes
+[THREADS].CONFIGURE_ARGS_OFF=		--enable-threads=no
 
 post-install:
 	# remove duplicate license info
