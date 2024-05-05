@@ -1,8 +1,8 @@
---- libavutil/common.h.orig	2023-11-11 00:25:17 UTC
+--- libavutil/common.h.orig	2024-04-04 23:23:00 UTC
 +++ libavutil/common.h
-@@ -43,6 +43,10 @@
- #include "error.h"
- #include "macros.h"
+@@ -50,6 +50,10 @@
+ #   include "internal.h"
+ #endif /* HAVE_AV_CONFIG_H */
  
 +#ifndef	UINT64_C
 +#define	UINT64_C(c)	(c ## UL)
