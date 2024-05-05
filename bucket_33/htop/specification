@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	3.3.0
+DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		htop
@@ -29,6 +30,8 @@ USES=			autoreconf libtool ncurses pkgconfig
 			execinfo bdb:5 python:build
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-unicode
+
+VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
 
 post-extract:
 	${AWK} '/## License/ { x=1 } {if (x) print $$0;}' \
