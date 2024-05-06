@@ -23,6 +23,7 @@ SPKGS[standard]=	complete primary dev tools
 OPTIONS_AVAILABLE=	EPOLLSHIM
 OPTIONS_STANDARD=	EPOLLSHIM
 OPT_ON[freebsd]=	EPOLLSHIM
+OPT_ON[midnightbsd]=	EPOLLSHIM
 
 LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
@@ -30,8 +31,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/wayland
 
-# Not buildable on MidnightBSD as of rel. 3.0
-ONLY_FOR_OPSYS=		dragonfly freebsd linux
+ONLY_FOR_OPSYS=		dragonfly freebsd linux midnightbsd
 
 BUILD_DEPENDS=		libxslt:primary:standard
 			libffi:dev:standard
