@@ -28,7 +28,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		lang/gawk
 
-BUILD_DEPENDS=		libsigsegv:static:standard
+BUILD_DEPENDS=		libsigsegv:dev:standard
 
 USES=			makeinfo libtool readline gettext
 MUST_CONFIGURE=		gnu
@@ -48,3 +48,7 @@ INFO=			primary:gawk
 [MPFR].BUILDRUN_DEPENDS_ON=		mpfr:shared:standard
 [MPFR].CONFIGURE_ARGS_OFF=		--without-gmp
 					--without-mpfr
+
+post-extract:
+	# ensure static build
+	${RM} ${LOCALBASE}/lib/libsigsegv.so
