@@ -1,4 +1,4 @@
---- src/intel/compiler/brw_fs_bank_conflicts.cpp.orig	2024-04-24 18:00:13 UTC
+--- src/intel/compiler/brw_fs_bank_conflicts.cpp.orig	2024-05-08 13:28:59 UTC
 +++ src/intel/compiler/brw_fs_bank_conflicts.cpp
 @@ -309,8 +309,13 @@ namespace {
           const unsigned align = MAX2(sizeof(void *), __alignof__(vector_type));

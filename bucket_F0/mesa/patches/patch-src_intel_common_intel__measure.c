@@ -1,4 +1,4 @@
---- src/intel/common/intel_measure.c.orig	2024-04-24 18:00:13 UTC
+--- src/intel/common/intel_measure.c.orig	2024-05-08 13:28:59 UTC
 +++ src/intel/common/intel_measure.c
 @@ -42,6 +42,46 @@
  #include "util/u_debug.h"
