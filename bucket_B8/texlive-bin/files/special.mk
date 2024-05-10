@@ -10,7 +10,7 @@ PROGRAMS0=	afm2pl afm2tfm aleph autosp axohelp bbox bg5conv \
 		dvidvi dvilj dvilj2p dvilj4 dvilj4l dvipng dvipos \
 		dvips dviselect dvispc dvisvgm dvitodvi dvitype \
 		epsffit eptex euptex extconv gftodvi gftopk gftype \
-		gregorio gsftopk
+		gregorio gsftopk ptekf
 
 PROGRAMS1=	hbf2gf hishrink histretch hitex kpseaccess kpsereadlink \
 		kpsestat kpsewhich lacheck luajittex luatex mag \

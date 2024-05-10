@@ -10,6 +10,7 @@ DEF[LIBTEXLUAJIT]=	2.1.0
 
 NAMEBASE=		texlive-bin
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		print
 VARIANTS=		standard
 SDESC[standard]=	Binary and input files for TeXlive
@@ -53,6 +54,8 @@ EXRUN[engine_xetex]=	icu:data:standard
 EXRUN[synctex]=		primary
 # from xindy.run, copy of clisp's base/lisp.run
 EXRUN[utils]=		primary
+			libsigsegv:primary:standard
+			libffcall:primary:standard
 
 BUILD_DEPENDS=		gmp:static:standard
 			mpfr:static:standard
@@ -73,9 +76,7 @@ BUILDRUN_DEPENDS=	gmp:shared:standard
 			poppler:primary:standard
 			potrace:library:standard
 			zziplib:primary:standard
-RUN_DEPENDS=		libffcall:single:standard
-			libsigsegv:shared:standard
-			texlive-texmf:primary:standard
+RUN_DEPENDS=		texlive-texmf:primary:standard
 
 USES=			cpe freetype gmake libtool ncurses perl png readline
 			shebangfix zlib mbsdfix
