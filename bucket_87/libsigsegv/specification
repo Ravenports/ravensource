@@ -4,6 +4,7 @@ DEF[SOVERSION]=		2.0.7
 
 NAMEBASE=		libsigsegv
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Handling page faults in user mode
@@ -14,14 +15,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/libsigsegv
 DISTFILE[1]=		libsigsegv-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete static shared
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:static
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		static:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"_SIGSEGV_H"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/sigsegv.h.in
 LICENSE_SCHEME=		solo
