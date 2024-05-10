@@ -33,7 +33,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		textproc/diffutils
 
-BUILD_DEPENDS=		libsigsegv:static:standard
+BUILD_DEPENDS=		libsigsegv:dev:standard
 
 USES=			charsetfix gmake iconv:build
 MUST_CONFIGURE=		gnu
@@ -48,6 +48,10 @@ INFO=			primary:diffutils
 [RAVENSYS].USES_OFF=			gettext
 [RAVENSYS].CONFIGURE_ARGS_OFF=		--enable-nls
 [RAVENSYS].CONFIGURE_ARGS_ON=		--disable-nls
+
+post-extract:
+	# ensure static linkage
+	${RM} ${LOCALBASE}/lib/libsigsegv.so
 
 post-patch:
 	${REINPLACE_CMD} -e '/^mkdir/s:@mkdir_p@:${MKDIR}:' \
