@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.1.0
+DEF[PORTVERSION]=	2.2.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		pcsc-lite
@@ -11,7 +11,7 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://pcsclite.apdu.fr/files/
-DISTFILE[1]=		pcsc-lite-${PORTVERSION}.tar.bz2:main
+DISTFILE[1]=		pcsc-lite-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	complete primary tools dev man docs
 
@@ -34,28 +34,26 @@ BR_DEPS[sunos]=		libusb:primary:standard
 
 BUILDRUN_DEPENDS=	polkit:primary:standard
 
-USES=			cpe libtool perl:build pkgconfig python shebangfix
-GNOME_COMPONENTS=	glib
-CPE_VENDOR=		muscle
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-usbdropdir={{PREFIX}}/lib/pcsc/drivers/
-			--disable-libsystemd
-INSTALL_TARGET=		install-strip
 RC_SUBR=		pcscd:primary
 SUB_FILES=		pkg-message-primary
+
+USES=			cpe meson perl:build pkgconfig python shebangfix
+GNOME_COMPONENTS=	glib
+CPE_VENDOR=		muscle
+MESON_ARGS=		-Dlibsystemd=false
+			-Dlibudev=false
+			-Dusbdropdir={{PREFIX}}/lib/pcsc/drivers/
 SHEBANG_FILES=		src/spy/pcsc-spy
 
-VAR_OPSYS[netbsd]=	CONFIGURE_ARGS=--disable-usb
+VAR_OPSYS[netbsd]=	CONFIGURE_ARGS=-Dusb=false
 
 [FILTER].DESCRIPTION=			Control reader names reported by PCSC
-[FILTER].CONFIGURE_ENABLE_BOTH=		filter
+[FILTER].CONFIGURE_ARGS_ON=		-Dfilter_names=true
+[FILTER].CONFIGURE_ARGS_OFF=		-Dfilter_names=false
 
 post-patch:
-	${REINPLACE_CMD} -e "s,^datadir,#datadir,; s,^data_DATA,#data_DATA," \
-		${WRKSRC}/doc/Makefile.in
 	${REINPLACE_CMD} -e "s,libusb-1.0/libusb.h,libusb.h,; \
-		s,libusb_strerror(ret),ret," ${WRKSRC}/configure \
-			${WRKSRC}/src/hotplug_libusb.c
+		s,libusb_strerror(ret),ret," ${WRKSRC}/src/hotplug_libusb.c
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pcsc/drivers
