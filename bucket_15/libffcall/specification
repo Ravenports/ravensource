@@ -7,6 +7,7 @@ DEF[TRAMPOLINE]=	1.0.3
 
 NAMEBASE=		libffcall
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Foreign funct call ifaces for embed interpreters
@@ -17,14 +18,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://ftp.gnu.org/gnu/libffcall/
 DISTFILE[1]=		libffcall-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/ffcall-abi.h
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
@@ -52,3 +53,7 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libcallback.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libffcall.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libtrampoline.so
+	# relocate docs
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${MV} ${STAGEDIR}${PREFIX}/share/html/* ${STAGEDIR}${STD_DOCDIR}/
+	${RMDIR} ${STAGEDIR}${PREFIX}/share/html
