@@ -40,9 +40,10 @@ CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
 			--disable-nls
 
 # The FreeBSD port has a lot of options that could be added here, too.
-BUILD_DEPENDS=		libsigsegv:static:standard
-BUILDRUN_DEPENDS=	libsigsegv:shared:standard
-			libffcall:single:standard
+BUILD_DEPENDS=		libsigsegv:dev:standard
+			libffcall:dev:standard
+BUILDRUN_DEPENDS=	libsigsegv:primary:standard
+			libffcall:primary:standard
 
 DISTNAME=		clisp-clisp-${INTERNAL_VERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
@@ -56,3 +57,6 @@ post-extract:
 
 do-build:
 	( cd ${WRKSRC}/src && make )
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/clisp
