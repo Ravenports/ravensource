@@ -1,0 +1,51 @@
+DEF[PORTVERSION]=	1.1.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-process_executer
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v31 v32 v33
+SDESC[v31]=		API for executing commands in a subprocess (v31)
+SDESC[v32]=		API for executing commands in a subprocess (v32)
+SDESC[v33]=		API for executing commands in a subprocess (v33)
+HOMEPAGE=		https://github.com/main-branch/process_executer
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		process_executer-1.1.0.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v31]=		single
+SPKGS[v32]=		single
+SPKGS[v33]=		single
+
+OPTIONS_AVAILABLE=	RUBY31 RUBY32 RUBY33
+OPTIONS_STANDARD=	none
+VOPTS[v31]=		RUBY31=ON RUBY32=OFF RUBY33=OFF
+VOPTS[v32]=		RUBY31=OFF RUBY32=ON RUBY33=OFF
+VOPTS[v33]=		RUBY31=OFF RUBY32=OFF RUBY33=ON
+
+# License listed inside gem specification
+# => "MIT"
+
+# Requirements according to gem specification:
+#   bundler-audit (~> 0.9, development)
+#   create_github_release (~> 1.1, development)
+#   rake (~> 13.1, development)
+#   rspec (~> 3.12, development)
+#   rubocop (~> 1.59, development)
+#   semverify (~> 0.3, development)
+#   simplecov (~> 0.22, development)
+#   simplecov-lcov (~> 0.8, development)
+#   redcarpet (~> 3.6, development)
+#   yard (~> 0.9, >= 0.9.28, development)
+#   yardstick (~> 0.9, development)
+
+DISTNAME=		process_executer-${PORTVERSION}
+GENERATED=		yes
+
+[RUBY31].USES_ON=			gem:v31
+[RUBY32].USES_ON=			gem:v32
+[RUBY33].USES_ON=			gem:v33
+

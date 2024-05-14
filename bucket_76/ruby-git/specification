@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.19.1
+DEF[PORTVERSION]=	2.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-git
@@ -13,7 +13,7 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		git-1.19.1.gem:main
+DISTFILE[1]=		git-2.0.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v31]=		single
@@ -30,15 +30,16 @@ VOPTS[v33]=		RUBY31=OFF RUBY32=OFF RUBY33=ON
 # => "MIT"
 
 # Requirements according to gem specification:
+#   activesupport (>= 5.0)
 #   addressable (~> 2.8)
+#   process_executer (~> 1.1)
 #   rchardet (~> 1.8)
-#   bump (~> 0.10, development)
-#   create_github_release (~> 0.2, development)
+#   create_github_release (~> 1.4, development)
 #   minitar (~> 0.9, development)
 #   mocha (~> 2.1, development)
-#   rake (~> 13.0, development)
-#   test-unit (~> 3.3, development)
-#   redcarpet (~> 3.5, development)
+#   rake (~> 13.1, development)
+#   test-unit (~> 3.6, development)
+#   redcarpet (~> 3.6, development)
 #   yard (~> 0.9, >= 0.9.28, development)
 #   yardstick (~> 0.9, development)
 
@@ -46,13 +47,19 @@ DISTNAME=		git-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY31].USES_ON=			gem:v31
-[RUBY31].BUILDRUN_DEPENDS_ON=		ruby-addressable:single:v31
+[RUBY31].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v31
+					ruby-addressable:single:v31
+					ruby-process_executer:single:v31
 					ruby-rchardet:single:v31
 [RUBY32].USES_ON=			gem:v32
-[RUBY32].BUILDRUN_DEPENDS_ON=		ruby-addressable:single:v32
+[RUBY32].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v32
+					ruby-addressable:single:v32
+					ruby-process_executer:single:v32
 					ruby-rchardet:single:v32
 [RUBY33].USES_ON=			gem:v33
-[RUBY33].BUILDRUN_DEPENDS_ON=		ruby-addressable:single:v33
+[RUBY33].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v33
+					ruby-addressable:single:v33
+					ruby-process_executer:single:v33
 					ruby-rchardet:single:v33
 
 USES=			cpe
