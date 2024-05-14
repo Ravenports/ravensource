@@ -1,14 +1,5 @@
---- meson.build.orig	2023-04-04 07:58:31 UTC
+--- meson.build.orig	2024-05-14 20:49:33 UTC
 +++ meson.build
-@@ -16,7 +16,7 @@ config_h.set_quoted('PACKAGE', meson.pro
- config_h.set_quoted('PACKAGE_VERSION', meson.project_version())
- 
- cc_args = []
--if host_machine.system() != 'freebsd'
-+if host_machine.system() != 'dragonfly'
- 	cc_args += ['-D_POSIX_C_SOURCE=200809L']
- endif
- add_project_arguments(cc_args, language: 'c')
 @@ -43,7 +43,6 @@ have_funcs = [
  	'mkostemp',
  	'posix_fallocate',
