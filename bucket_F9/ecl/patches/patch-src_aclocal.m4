@@ -1,4 +1,4 @@
---- src/aclocal.m4.orig	2023-09-08 16:55:48 UTC
+--- src/aclocal.m4.orig	2024-05-10 11:13:55 UTC
 +++ src/aclocal.m4
 @@ -335,7 +335,7 @@ case "${host_os}" in
                  SONAME="${SHAREDPREFIX}ecl.${SHAREDEXT}.SOVERSION"
