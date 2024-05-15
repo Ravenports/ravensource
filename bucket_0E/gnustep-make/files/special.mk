@@ -1,0 +1,1 @@
+CPP=	clang-cpp
