@@ -1,6 +1,6 @@
 $NetBSD: patch-include_comphelper_errcode.hxx,v 1.1 2024/02/11 15:31:58 ryoon Exp $
 
---- include/comphelper/errcode.hxx.orig	2024-03-22 19:34:51 UTC
+--- include/comphelper/errcode.hxx.orig	2024-04-29 18:46:10 UTC
 +++ include/comphelper/errcode.hxx
 @@ -23,6 +23,7 @@
  #include <ostream>

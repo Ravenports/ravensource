@@ -1,4 +1,4 @@
---- unoxml/source/dom/document.cxx.orig	2024-03-22 19:34:51 UTC
+--- unoxml/source/dom/document.cxx.orig	2024-04-29 18:46:10 UTC
 +++ unoxml/source/dom/document.cxx
 @@ -33,6 +33,7 @@
  #include "domimplementation.hxx"
