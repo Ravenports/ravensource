@@ -26,6 +26,14 @@ https://zopeinterface.readthedocs.io/en/latest/
  Changes
 =========
 
+6.4 (2024-05-15)
+================
+
+- Adjust for incompatible changes in Python 3.13b1.
+  (`#292 <https://github.com/zopefoundation/zope.interface/issues/292>`)
+
+- Build windows wheels on GHA.
+
 6.3 (2024-04-12)
 ================
 
@@ -90,11 +98,3 @@ https://zopeinterface.readthedocs.io/en/latest/
 5.4.0 (2021-04-15)
 ==================
 
-- Make the C implementation of the __providedBy__ descriptor stop
-  ignoring all errors raised when accessing the instance's
-  __provides__. Now it behaves like the Python version and only
-  catches AttributeError. The previous behaviour could lead to
-  crashing the interpreter in cases of recursion and errors. See
-  [issue 239].
-
-- Update the ``repr() and str()`` of various objects to be shorter
