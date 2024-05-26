@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.07
 
 NAMEBASE=		perl-Alien-GSL
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		perl
 VARIANTS=		536 538
 SDESC[536]=		Easy installation of GNU Scientific Library (5.36)
@@ -51,5 +52,6 @@ DISTNAME=		Alien-GSL-${PORTVERSION}
 [PERL_538].BUILDRUN_DEPENDS_ON=		perl-Alien-Build:single:538
 
 USES=			libtool
-BUILD_DEPENDS=		perl-PkgConfig:single:perl_default
-BUILDRUN_DEPENDS=	gsl:single:standard
+BUILD_DEPENDS=		gsl:dev:standard
+			perl-PkgConfig:single:perl_default
+BUILDRUN_DEPENDS=	gsl:primary:standard
