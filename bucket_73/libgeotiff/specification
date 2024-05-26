@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	1.7.1
-DEF[SOVERSION]=		5.2.0
+DEF[PORTVERSION]=	1.7.3
+DEF[SOVERSION]=		5.2.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libgeotiff
@@ -14,12 +14,12 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.osgeo.org/geotiff/libgeotiff/
 DISTFILE[1]=		libgeotiff-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools man dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
@@ -42,3 +42,5 @@ CONFIGURE_ARGS=		--datadir={{PREFIX}}/share/libgeotiff
 INSTALL_TARGET=		install-strip
 CPPFLAGS=		-fPIC
 SOVERSION=		${SOVERSION}
+
+EXRUN[tools]=		primary
