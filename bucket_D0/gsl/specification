@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2.7.1
-DEF[SOMAJOR]=		27
+DEF[PORTVERSION]=	2.8
+DEF[SOMAJOR]=		28
 DEF[SOMINOR]=		0.0
 # ----------------------------------------------------------------------------
 
@@ -15,10 +15,17 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/gsl
 DISTFILE[1]=		gsl-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary tools man dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gsl_types.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		math/gsl
 
@@ -26,6 +33,8 @@ USES=			libtool makeinfo mbsdfix
 MUST_CONFIGURE=		gnu
 CONFIGURE_ENV=		MAKEINFO='makeinfo --no-split'
 INSTALL_TARGET=		install-strip
-INFO=			single:gsl-ref
+INFO=			man:gsl-ref
 PLIST_SUB=		SOMAJOR=${SOMAJOR}
 			SOMINOR=${SOMINOR}
+
+EXRUN[tools]=		primary
