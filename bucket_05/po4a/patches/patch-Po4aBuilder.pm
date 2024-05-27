@@ -1,4 +1,4 @@
---- Po4aBuilder.pm.orig	2024-01-28 23:33:27 UTC
+--- Po4aBuilder.pm.orig	2024-05-25 22:38:09 UTC
 +++ Po4aBuilder.pm
 @@ -125,8 +125,8 @@ sub ACTION_install {
      $mandir =~ s,/man3$,,;
