@@ -22,6 +22,8 @@ OPTIONS_STANDARD=	none
 VOPTS[536]=		PERL_536=ON PERL_538=OFF
 VOPTS[538]=		PERL_536=OFF PERL_538=ON
 
+BROKEN[all]=		"Unsupported GSL version!!! : 2.8 at ./Build.PL line 85."
+
 # License listed in CPAN directory:
 # gpl_1
 
@@ -63,7 +65,9 @@ DISTNAME=		Math-GSL-${PORTVERSION}
 					perl-PkgConfig:single:538
 
 USES=			cclibs:single
-BUILDRUN_DEPENDS=	gsl:single:standard
+BUILD_DEPENDS=		gsl:dev:standard
+			gsl:tools:standard
+BUILDRUN_DEPENDS=	gsl:primary:standard
 INSTALL_REQ_TOOLCHAIN=	yes
 
 post-patch:
