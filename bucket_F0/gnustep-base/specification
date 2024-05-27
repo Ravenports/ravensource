@@ -1,0 +1,86 @@
+DEF[PORTVERSION]=	1.29.0
+DEF[FOLDER]=		base-${PORTVERSION:S/./_/g}
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gnustep-base
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		standard
+SDESC[standard]=	GNUstep Base Library
+HOMEPAGE=		https://github.com/gnustep/libs-base/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main patchsite
+SITES[main]=		https://github.com/gnustep/libs-base/releases/download/${FOLDER}/
+SITES[patchsite]=	https://github.com/gnustep/libs-base/commit/
+DISTFILE[1]=		gnustep-base-1.29.0.tar.gz:main
+DISTFILE[2]=		37913d006d96a6bdcb963f4ca4889888dcce6094.patch:patchsite
+DIST_SUBDIR=		gnustep
+DF_INDEX=		1 2
+
+SPKGS[standard]=	complete primary tools dev man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Library is LGPL, tools are GPL
+LICENSE=		GPLv3+:primary
+			LGPL21+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYINGv3
+			LGPL21+:{{WRKSRC}}/COPYING.LIB
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		lang/gnustep-base
+
+EXTRACT_ONLY=		1
+PATCHFILES=		2
+PATCHFILES_STRIP=	-p1
+
+BUILD_DEPENDS=		avahi:dev:standard
+			curl:dev:standard
+			gmp:static:standard
+			gnustep-make:primary:standard
+			gnutls:dev:standard
+			icu:dev:standard
+			libffi:dev:standard
+			libobjc2:dev:standard
+BUILDRUN_DEPENDS=	avahi:primary:standard
+			curl:primary:standard
+			gmp:shared:standard
+			gnutls:primary:standard
+			icu:primary:standard
+			libffi:primary:standard
+			libobjc2:primary:standard
+
+EXRUN[tools]=		primary
+
+USES=			clang gmake iconv pkgconfig zlib
+GNOME_COMPONENTS=	libxml2 libxslt
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-installation-domain=SYSTEM
+			--disable-procfs
+			--enable-tls
+			--enable-icu
+			--enable-fake-main
+			--enable-zeroconf
+CONFIGURE_ENV=		ac_cv_header_bfd_h=no
+			ac_cv_lib_bfd_bfd_openr=no
+			LIBS=-lobjc
+			OBJCFLAGS='-fobjc-runtime=gnustep-2.0 -fblocks'
+SOVERSION=		${SOVERSION}
+
+# see special.mk.  That code needs to be in USES=gnustep extension
+MAKEFILE=		GNUmakefile
+
+post-extract:
+	${ECHO} "Terms extracted from 'Source/GSArray.m':" > ${WRKDIR}/TERMS
+	${SED} -n '/import/!p;//q' ${WRKSRC}/Source/GSArray.m >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'Tools/defaults.m':" >> ${WRKDIR}/TERMS
+	${SED} -n '/include/!p;//q' ${WRKSRC}/Tools/defaults.m >> ${WRKDIR}/TERMS
+
+post-install:
+	${INSTALL_DATA} ${FILESDIR}/gdomap_if ${STAGEDIR}${PREFIX}/etc/gdomap_if
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgnustep-base.so
