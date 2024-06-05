@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.10.5
+DEF[PORTVERSION]=	1.10.6
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xfce4-screenshooter
@@ -28,13 +28,14 @@ LICENSE_TERMS=		complete:{{WRKSRC}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/lib/libscreenshooter.h
 
-BUILD_DEPENDS=		harfbuzz:dev:standard
+BUILD_DEPENDS=		appstream-glib:dev:standard
+			harfbuzz:dev:standard
 			libsoup:dev:standard
-			xfce4-panel:dev:standard
 			libxfce4ui:dev:standard
+			xfce4-panel:dev:standard
 BUILDRUN_DEPENDS=	libsoup:primary:standard
-			xfce4-panel:primary:standard
 			libxfce4ui:primary:standard
+			xfce4-panel:primary:standard
 
 USES=			gmake libtool pkgconfig mbsdfix
 XORG_COMPONENTS=	ice sm x11 xfixes xext
