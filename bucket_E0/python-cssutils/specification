@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.11.0
+DEF[PORTVERSION]=	2.11.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-cssutils
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/jaraco/cssutils
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/97/67/9a7e56eedd2177f468efe17cfb96eda89aa65daabb472d77f4040e585cb9
+SITES[main]=		PYPIWHL/a7/ec/bb273b7208c606890dc36540fe667d06ce840a6f62f9fae7e658fcdc90fb
 DISTFILE[1]=		cssutils-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
@@ -29,23 +29,26 @@ GENERATED=		yes
 DISTNAME=		cssutils-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# sphinx >=3.5 ; extra == 'docs'
-# jaraco.packaging >=9.3 ; extra == 'docs'
-# rst.linker >=1.9 ; extra == 'docs'
-# furo ; extra == 'docs'
-# sphinx-lint ; extra == 'docs'
-# jaraco.tidelift >=1.4 ; extra == 'docs'
-# pytest !=8.1.*,>=6 ; extra == 'testing'
-# pytest-checkdocs >=2.4 ; extra == 'testing'
-# pytest-cov ; extra == 'testing'
-# pytest-mypy ; extra == 'testing'
-# pytest-enabler >=2.2 ; extra == 'testing'
-# pytest-ruff >=0.2.1 ; extra == 'testing'
-# cssselect ; extra == 'testing'
-# jaraco.test >=5.1 ; extra == 'testing'
-# lxml ; (python_version < "3.11") and extra == 'testing'
-# importlib-resources ; (python_version < "3.9") and extra == 'testing'
+# more-itertools
+# sphinx >=3.5 ; extra == 'doc'
+# jaraco.packaging >=9.3 ; extra == 'doc'
+# rst.linker >=1.9 ; extra == 'doc'
+# furo ; extra == 'doc'
+# sphinx-lint ; extra == 'doc'
+# jaraco.tidelift >=1.4 ; extra == 'doc'
+# pytest !=8.1.*,>=6 ; extra == 'test'
+# pytest-checkdocs >=2.4 ; extra == 'test'
+# pytest-cov ; extra == 'test'
+# pytest-mypy ; extra == 'test'
+# pytest-enabler >=2.2 ; extra == 'test'
+# pytest-ruff >=0.2.1 ; extra == 'test'
+# cssselect ; extra == 'test'
+# jaraco.test >=5.1 ; extra == 'test'
+# lxml ; (python_version < "3.11") and extra == 'test'
+# importlib-resources ; (python_version < "3.9") and extra == 'test'
 
 [PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-more-itertools:single:v11
 [PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-more-itertools:single:v12
 

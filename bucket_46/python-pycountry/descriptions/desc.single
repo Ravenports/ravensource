@@ -1,20 +1,23 @@
-pycountry
-=========
+###########
+ pycountry
+###########
 
-.. image:g:
+..
+   image:g:
 https://travis-ci.org/flyingcircusio/pycountry.svg?branch=master
 
 pycountry provides the ISO databases for the standards:
 
-* `639-3 <https://en.wikipedia.org/wiki/ISO_639-3>`_ Languages
-* [3166] Codes for representation of names of countries and their
-subdivisions
-* `3166-1 <https://en.wikipedia.org/wiki/ISO_3166-1>`_ Countries
-* `3166-3 <https://en.wikipedia.org/wiki/ISO_3166-3>`_ Deleted countries
-* `3166-2 <https://en.wikipedia.org/wiki/ISO_3166-2>`_ Subdivisions of
-countries
-* [4217] Currencies
-* [15924] Scripts
+-  `639-3 <https://en.wikipedia.org/wiki/ISO_639-3>`_ Languages
+-  [3166] Codes for
+   representation of names of countries and their subdivisions
+-  `3166-1 <https://en.wikipedia.org/wiki/ISO_3166-1>`_ Countries
+-  `3166-3 <https://en.wikipedia.org/wiki/ISO_3166-3>`_ Deleted
+   countries
+-  `3166-2 <https://en.wikipedia.org/wiki/ISO_3166-2>`_ Subdivisions of
+   countries
+-  [4217] Currencies
+-  [15924] Scripts
 
 The package includes a copy from Debian's `pkg-isocodes
 <https://salsa.debian.org/iso-codes-team/iso-codes>`_ and makes the data
@@ -22,79 +25,76 @@ accessible through a Python API.
 
 Translation files for the various strings are included as well.
 
-Data update policy
-------------------
+********************
+ Data update policy
+********************
 
 No changes to the data will be accepted into pycountry. This is a pure
-wrapper
-around the ISO standard using the `pkg-isocodes` database from Debian *as
-is*.
-If you need changes to the political situation in the world, please talk to
-the ISO or Debian people, not me.
+wrapper around the ISO standard using the ``pkg-isocodes`` database from
+Debian *as is*. If you need changes to the political situation in the
+world, please talk to the ISO or Debian people, not me.
 
-Donations / Monetary Support
-----------------------------
+******************************
+ Donations / Monetary Support
+******************************
 
 This is a small project that I maintain in my personal time. I am not
 interested in personal financial gain. However, if you would like to
-support
-the project then I would love if you would donate to [Feminist Frequency
-] instead. Also, let the world know you
-did so, so that others can follow your path.
+support the project then I would love if you would donate to [Feminist
+Frequency] instead. Also, let
+the world know you did so, so that others can follow your path.
 
-Contributions
--------------
+***************
+ Contributions
+***************
 
 The code lives in a [git repository on GitHub
-], and issues must be reported in there as well.
+], and issues must be reported
+in there as well.
 
-Countries (ISO 3166-1)
-----------------------
+************************
+ Countries (ISO 3166-1)
+************************
 
 Countries are accessible through a database object that is already
-configured
-upon import of pycountry and works as an iterable:
+configured upon import of pycountry and works as an iterable:
 
 .. code:: pycon
 
-  >>> import pycountry
-  >>> len(pycountry.countries)
-  249
-  >>> list(pycountry.countries)[0]
-  Country(alpha_2='AF', alpha_3='AFG', name='Afghanistan', numeric='004',
+   >>> import pycountry
+   >>> len(pycountry.countries)
+   249
+   >>> list(pycountry.countries)[0]
+   Country(alpha_2='AF', alpha_3='AFG', name='Afghanistan', numeric='004',
 official_name='Islamic Republic of Afghanistan')
 
-Specific countries can be looked up by their various codes and provide the
-information included in the standard as attributes:
+Specific countries can be looked up by their various codes and provide
+the information included in the standard as attributes:
 
 .. code:: pycon
 
-  >>> germany = pycountry.countries.get(alpha_2='DE')
-  >>> germany
-  Country(alpha_2='DE', alpha_3='DEU', name='Germany', numeric='276',
+   >>> germany = pycountry.countries.get(alpha_2='DE')
+   >>> germany
+   Country(alpha_2='DE', alpha_3='DEU', name='Germany', numeric='276',
 official_name='Federal Republic of Germany')
-  >>> germany.alpha_2
-  'DE'
-  >>> germany.alpha_3
-  'DEU'
-  >>> germany.numeric
-  '276'
-  >>> germany.name
-  'Germany'
-  >>> germany.official_name
-  'Federal Republic of Germany'
+   >>> germany.alpha_2
+   'DE'
+   >>> germany.alpha_3
+   'DEU'
+   >>> germany.numeric
+   '276'
+   >>> germany.name
+   'Germany'
+   >>> germany.official_name
+   'Federal Republic of Germany'
 
 There's also a "fuzzy" search to help people discover "proper" countries
-for
-names that might only actually be subdivisions. The fuzziness also includes
-normalizing unicode accents. There's also a bit of prioritization included
-to prefer matches on country names before subdivision names and have
-countries
-with more matches be listed before ones with fewer matches:
+for names that might only actually be subdivisions. The fuzziness also
+includes normalizing unicode accents. There's also a bit of
+prioritization included to prefer matches on country names before
+subdivision names and have countries with more matches be listed before
+ones with fewer matches:
 
 .. code:: pycon
 
-  >>> pycountry.countries.search_fuzzy('England')
-  [Country(alpha_2='GB', alpha_3='GBR', name='United Kingdom',
-numeric='826', official_name='United Kingdom of Great Britain and Northern
-Ireland')]
+   >>> pycountry.countries.search_fuzzy('England')
