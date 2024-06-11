@@ -1,8 +1,8 @@
 Add NetBSD backend detection.
 
---- configure.orig	2023-03-28 16:58:15 UTC
+--- configure.orig	2023-05-29 15:39:33 UTC
 +++ configure
-@@ -18470,6 +18470,8 @@ if test x$with_backend = x; then
+@@ -18464,6 +18464,8 @@ if test x$with_backend = x; then
      with_backend=freebsd ;; #(
    *-*dragonfly*) :
      with_backend=freebsd ;; #(
@@ -10,9 +10,9 @@ Add NetBSD backend detection.
 +    with_backend=netbsd ;; #(
    *-openbsd*) :
      with_backend=openbsd ;; #(
-   *) :
-@@ -18497,6 +18499,11 @@ if test x$with_backend = xopenbsd; then
- printf "%s\n" "#define BACKEND_TYPE_OPENBSD 1" >>confdefs.h
+   *-solaris*) :
+@@ -18498,6 +18500,11 @@ if test x$with_backend = xsolaris; then
+ printf "%s\n" "#define BACKEND_TYPE_SOLARIS 1" >>confdefs.h
  
  fi
 +if test x$with_backend = xnetbsd; then
