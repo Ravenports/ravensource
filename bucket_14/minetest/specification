@@ -4,6 +4,7 @@ DEF[IRRLICHT_VER]=	1.9.0mt13
 
 NAMEBASE=		minetest
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		games
 VARIANTS=		standard
 SDESC[standard]=	Infinite-world block sandbox game
@@ -37,23 +38,24 @@ LICENSE_SCHEME=		multi
 FPC_EQUIVALENT=		games/minetest
 
 BUILD_DEPENDS=		doxygen:primary:standard
-			gmp:static:standard
-			leveldb:dev:standard
 			evdev-proto:single:standard
-			openal:dev:standard
-			libvorbis:dev:standard
+			gmp:static:standard
 			hiredis:dev:standard
+			leveldb:dev:standard
 			libGLU:dev:standard
+			libvorbis:dev:standard
+			openal:dev:standard
+			spatialindex:dev:standard
 BUILDRUN_DEPENDS=	gmp:shared:standard
 			hiredis:primary:standard
 			irrlicht:single:standard
 			jsoncpp:single:standard
 			leveldb:primary:standard
+			libGLU:primary:standard
 			libvorbis:primary:standard
 			luajit:single:standard
 			openal:primary:standard
-			spatialindex:single:standard
-			libGLU:primary:standard
+			spatialindex:primary:standard
 EXRUN[client]=		minetest:data:standard
 EXRUN[server]=		minetest:data:standard
 
