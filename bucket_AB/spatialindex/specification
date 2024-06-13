@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	1.9.3
-DEF[SOVERSION]=		6.1.1
+DEF[PORTVERSION]=	2.0.0
+DEF[SOVERSION]=		7.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		spatialindex
@@ -14,18 +14,18 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/libspatialindex:libspatialindex:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/spatialindex
 
-USES=			c++:single cclibs:single cmake
+USES=			c++:primary cclibs:primary cmake
 SOVERSION=		${SOVERSION}
 
 post-install:
