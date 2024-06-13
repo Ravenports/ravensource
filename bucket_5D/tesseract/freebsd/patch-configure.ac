@@ -3,7 +3,7 @@ libpthread. Look for a symbol that causes us to load it.
 libtesseract.so is not linked against libomp if openmp is enabled,
 which makes dependent ports fail. This adds a workaround by linking
 directly against libomp.
---- configure.ac.orig	2022-07-06 20:15:49 UTC
+--- configure.ac.orig	2024-01-18 07:48:04 UTC
 +++ configure.ac
 @@ -463,6 +463,9 @@ esac
  # ----------------------------------------
@@ -13,5 +13,5 @@ directly against libomp.
 +  AC_SEARCH_LIBS([omp_get_thread_num ], [omp])
 +fi
  
- # Set PKG_CONFIG_PATH for MacOS with Homebrew unless it is already set.
+ # Set PKG_CONFIG_PATH for macOS with Homebrew unless it is already set.
  AC_CHECK_PROG([have_brew], brew, true, false)
