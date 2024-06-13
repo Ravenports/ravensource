@@ -49,7 +49,7 @@ RUBY_3.3_VERSION=	3.3.3
 PYTHON3_DEFAULT?=	3.12
 
 PYTHON_3.11_VERSION=	3.11.9
-PYTHON_3.12_VERSION=	3.12.3
+PYTHON_3.12_VERSION=	3.12.4
 
 #-------------------------------------------------------------------------
 # SSL
