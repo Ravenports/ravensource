@@ -1,4 +1,4 @@
---- deps/v8/src/base/utils/random-number-generator.cc.orig	2024-05-02 12:49:12 UTC
+--- deps/v8/src/base/utils/random-number-generator.cc.orig	2024-05-15 12:35:02 UTC
 +++ deps/v8/src/base/utils/random-number-generator.cc
 @@ -56,7 +56,7 @@ RandomNumberGenerator::RandomNumberGener
    DCHECK_EQ(0, result);

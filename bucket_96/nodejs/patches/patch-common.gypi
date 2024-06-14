@@ -1,7 +1,7 @@
---- common.gypi.orig	2024-05-02 12:49:10 UTC
+--- common.gypi.orig	2024-05-15 12:34:59 UTC
 +++ common.gypi
-@@ -460,11 +460,11 @@
-           'BUILDING_UV_SHARED=1',
+@@ -482,11 +482,11 @@
+           'NOMINMAX',
          ],
        }],
 -      [ 'OS in "linux freebsd openbsd solaris aix os400"', {
