@@ -1,4 +1,4 @@
---- lib/byteorder.h.orig	2023-08-30 01:28:01 UTC
+--- lib/byteorder.h.orig	2024-03-13 02:47:27 UTC
 +++ lib/byteorder.h
 @@ -49,7 +49,7 @@
  

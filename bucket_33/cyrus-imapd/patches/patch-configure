@@ -1,17 +1,17 @@
 Index: configure
 diff -u configure.orig configure
---- configure.orig	2023-09-11 02:33:23 UTC
+--- configure.orig	2024-03-13 02:50:24 UTC
 +++ configure
-@@ -26032,7 +26032,7 @@ if ${ac_cv_lib_gssapi_gss_unwrap+:} fals
-   $as_echo_n "(cached) " >&6
- else
+@@ -27926,7 +27926,7 @@ then :
+   printf %s "(cached) " >&6
+ else $as_nop
    ac_check_lib_save_LIBS=$LIBS
 -LIBS="-lgssapi ${GSSAPIBASE_LIBS} -lgssapi -lkrb5 -lasn1 -lroken ${LIB_CRYPT} ${LIB_DES} -lcom_err ${LIB_SOCKET} $LIBS"
 +LIBS="-lgssapi ${GSSAPIBASE_LIBS} -lgssapi -lkrb5 -lasn1 -lroken ${LIB_CRYPT} ${LIB_DES} -lcom_err ${LIB_SOCKET} -lhx509 $LIBS"
  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
  
-@@ -26334,7 +26334,7 @@ fi
+@@ -28227,7 +28227,7 @@ fi
      GSSAPIBASE_STATIC_LIBS="$GSSAPIBASE_LIBS $gssapi_dir/libgssapi_krb5.a $gssapi_dir/libkrb5.a $gssapi_dir/libk5crypto.a $gssapi_dir/libcom_err.a ${K5SUPSTATIC}"
    elif test "$gss_impl" = "heimdal"; then
      CPPFLAGS="$CPPFLAGS -DKRB5_HEIMDAL"
