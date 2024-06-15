@@ -1,6 +1,6 @@
---- scheduler/subscriptions.c.orig	2023-09-20 13:25:54 UTC
+--- scheduler/subscriptions.c.orig	2024-04-26 11:38:21 UTC
 +++ scheduler/subscriptions.c
-@@ -1520,8 +1520,8 @@ cupsd_start_notifier(
+@@ -1521,8 +1521,8 @@ cupsd_start_notifier(
    * Create the notifier process...
    */
  
