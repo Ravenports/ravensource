@@ -1,4 +1,4 @@
---- lib/snappy-fef67ac/compat.h.orig	2024-04-27 14:05:20 UTC
+--- lib/snappy-fef67ac/compat.h.orig	2024-05-23 21:56:33 UTC
 +++ lib/snappy-fef67ac/compat.h
 @@ -4,6 +4,8 @@
  
