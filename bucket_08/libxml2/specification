@@ -27,10 +27,11 @@ FPC_EQUIVALENT=		textproc/libxml2
 
 USES=			cpe gmake libtool pkgconfig shebangfix mbsdfix
 MUST_CONFIGURE=		gnu
+# http deprecated with 2.13.0 (needed by libgsf)
 CONFIGURE_ARGS=		--with-schemas
 			--with-threads
+			--with-http
 			--without-icu
-			--with-lzma=/usr
 			--without-python
 			--enable-static
 INSTALL_TARGET=		install-strip
