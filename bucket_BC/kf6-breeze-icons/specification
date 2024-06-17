@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(KDE6_FRAMEWORKS_VERSION)
 DEF[KF6_COMPONENT]=	breeze-icons
+DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		kf6-${KF6_COMPONENT}
@@ -38,6 +39,7 @@ USES=			cmake pkgconfig python:build
 
 DISTNAME=		${KF6_COMPONENT}-${PORTVERSION}
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
+SOVERSION=		${SOVERSION}
 
 post-install:
 	(cd ${STAGEDIR}${PREFIX}/share/icons && ${RMDIR} breeze-dark/animations/24 \

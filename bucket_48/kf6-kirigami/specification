@@ -1,5 +1,4 @@
-# DEF[PORTVERSION]=	EXTRACT_INFO(KDE6_FRAMEWORKS_VERSION)
-DEF[PORTVERSION]=	6.2.1
+DEF[PORTVERSION]=	EXTRACT_INFO(KDE6_FRAMEWORKS_VERSION)
 DEF[KF6_COMPONENT]=	kirigami
 # ----------------------------------------------------------------------------
 
@@ -51,8 +50,8 @@ CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
 SOVERSION=		${PORTVERSION}
 
 post-extract:
-	${ECHO} "Terms extracted from 'src/toolbarlayout.h':" > ${WRKDIR}/TERMS
-	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/toolbarlayout.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/layouts/toolbarlayout.h':" > ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/layouts/toolbarlayout.h >> ${WRKDIR}/TERMS
 	${ECHO} "Terms extracted from 'src/enums.h':" >> ${WRKDIR}/TERMS
 	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/enums.h >> ${WRKDIR}/TERMS
 
