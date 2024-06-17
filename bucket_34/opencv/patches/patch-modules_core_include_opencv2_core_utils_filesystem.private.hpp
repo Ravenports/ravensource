@@ -1,4 +1,4 @@
---- modules/core/include/opencv2/core/utils/filesystem.private.hpp.orig	2023-12-27 16:46:55 UTC
+--- modules/core/include/opencv2/core/utils/filesystem.private.hpp.orig	2024-06-02 11:41:07 UTC
 +++ modules/core/include/opencv2/core/utils/filesystem.private.hpp
 @@ -13,6 +13,7 @@
       /* not supported */
