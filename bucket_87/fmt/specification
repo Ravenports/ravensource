@@ -4,6 +4,7 @@ DEF[SOVERSION]=		${PORTVERSION}
 
 NAMEBASE=		fmt
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Open-source formatting library for C++
@@ -14,22 +15,19 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/fmtlib/fmt/releases/download/${PORTVERSION}/
 DISTFILE[1]=		fmt-${PORTVERSION}.zip:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[standard]=	single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:primary
+LICENSE=		MIT:single
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libfmt
 
-USES=			cpe cmake ninja c++:primary
-CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
+USES=			cpe cmake ninja
+CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=OFF
 			-DFMT_DOC:BOOL=OFF
 			-DFMT_TEST:BOOL=OFF
 SOVERSION=		${SOVERSION}
-
-post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libfmt.so
