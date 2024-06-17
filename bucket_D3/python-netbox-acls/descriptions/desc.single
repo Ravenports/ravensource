@@ -40,6 +40,7 @@ NetBox Version.
 
 | NetBox Version | Plugin Version |
 |:--------------:|:--------------:|
+|   >= 4.0.2     |     1.6.1      |
 |      3.7       |     1.5.0      |
 |      3.6       |     1.4.0      |
 |      3.5       |     1.3.0      |
@@ -84,17 +85,16 @@ item under the Plugins menu item.  Default is set to True.
 }
 ```
 
+To add the required `netbox-acls` tables to your NetBox database, run the
+`migrate` manager subcommand in the NetBox virtual environment:
+```
+cd /opt/netbox
+sudo ./venv/bin/python3 netbox/manage.py migrate
+```
+
 ## Developing
 
 ### VSCode + Docker + Dev Containers
 
 To develop this plugin further one can use the included .devcontainer
 configuration. This configuration creates a docker container which includes
-a fully working netbox installation. Currently it should work when using
-WSL 2. For this to work make sure you have Docker Desktop installed and the
-WSL 2 integrations activated.
-
-1. In the WSL terminal, enter `code` to run Visual studio code.
-2. Install the devcontainer extension "ms-vscode-remote.remote-containers"
-3. Press Ctrl+Shift+P and use the "Dev Container: Clone Repository in
-Container Volume" function to clone this repository. This will take a while

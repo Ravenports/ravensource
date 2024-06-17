@@ -4,9 +4,16 @@
 
 This plugin depends on [qrcode] and [Pillow] python library
 
+[Downloads]
+[Downloads]
+[Downloads]
+
 ## Compatibility
 
-This plugin in compatible with [NetBox] 2.8 and later.
+| Plugin Version | NetBox Version | Tested on                      |
+| ------------- |:-------------| :-----:|
+| 0.0.11          | >= 3.7.0        | 3.7.x |
+| 0.0.13          | >= 4.0.2        | v4.0.2                   |
 
 ## Installation
 
@@ -85,16 +92,9 @@ PLUGINS_CONFIG = {
         'with_text': True,
         'text_fields': ['name', 'serial'],
         'font': 'ArialMT',
+        'font_size': 12, # If the value is 0 or the line does not exist,
+then the text is automatically adjusted
         'custom_text': 'Property of SomeCompany\ntel.8.800333554-CALL',
         'text_location': 'up',
         'qr_version': 1,
         'qr_error_correction': 0,
-        'qr_box_size': 4,
-        'qr_border': 4,
-        # per object options
-        'cable': None,  # disable QR code for Cable object
-        'rack': {
-            'text_fields': [
-                'site',
-                'name',
-                'facility_id',
