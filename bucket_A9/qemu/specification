@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	9.0.0
+DEF[PORTVERSION]=	9.0.1
 DEF[JQUERY]=		EXTRACT_INFO(LATEST_JQUERY)
 DEF[UNDERSCORE]=	EXTRACT_INFO(SPHINX_UNDERSCORE)
 # ----------------------------------------------------------------------------
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.qemu.org/
 DISTFILE[1]=		qemu-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev docs nls man
+SPKGS[standard]=	complete primary docs nls man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -59,6 +59,8 @@ CONFIGURE_ARGS=		--disable-usb-redir
 			--disable-kvm
 			--disable-xen
 			--disable-vde
+# dtc/fdt
+			--disable-tcg
 			--enable-docs
 # #			--enable-debug
 # #			--enable-debug-info
