@@ -1,6 +1,6 @@
---- target.make.orig	2022-12-28 10:18:03 UTC
+--- target.make.orig	2024-05-26 14:39:18 UTC
 +++ target.make
-@@ -652,15 +652,31 @@ endif
+@@ -660,15 +660,31 @@ endif
  #
  ifeq ($(findstring dragonfly, $(GNUSTEP_TARGET_OS)), dragonfly)
  HAVE_SHARED_LIBS    = yes
@@ -35,7 +35,7 @@
  OBJ_MERGE_CMD		= \
  	$(LD) -nostdlib $(OBJ_MERGE_CMD_FLAG) $(CORE_LDFLAGS) -o $(GNUSTEP_OBJ_DIR)/$(SUBPROJECT_PRODUCT) $^ ;
  
-@@ -670,9 +686,7 @@ SHARED_LIBEXT	= .so
+@@ -678,9 +694,7 @@ SHARED_LIBEXT	= .so
  HAVE_BUNDLES	= yes
  BUNDLE_LD	= $(LD)
  BUNDLE_LDFLAGS	+= -shared
