@@ -5,6 +5,7 @@ DEF[UNDERSCORE]=	EXTRACT_INFO(SPHINX_UNDERSCORE)
 
 NAMEBASE=		qemu
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		emulators
 VARIANTS=		standard
 SDESC[standard]=	Fast CPU emulator and virtualizer for x86 platform
@@ -15,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.qemu.org/
 DISTFILE[1]=		qemu-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary docs nls man
+SPKGS[standard]=	complete primary dev docs nls man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -38,12 +39,14 @@ BUILD_DEPENDS=		gnutls:dev:standard
 			meson:single:standard
 			xorg-xkeyboard-config:primary:standard
 			libxkbcommon:dev:standard
+			dtc:dev:standard
 BUILDRUN_DEPENDS=	cyrus-sasl:primary:standard
 			gnutls:primary:standard
 			libepoxy:primary:standard
 			nettle:primary:standard
 			snappy:primary:standard
 			vde2:single:standard
+			dtc:primary:standard
 
 USES=			cpe gmake pkgconfig bison perl:build python:build
 			jpeg png ncurses makeinfo ninja curl
@@ -59,8 +62,6 @@ CONFIGURE_ARGS=		--disable-usb-redir
 			--disable-kvm
 			--disable-xen
 			--disable-vde
-# dtc/fdt
-			--disable-tcg
 			--enable-docs
 # #			--enable-debug
 # #			--enable-debug-info
