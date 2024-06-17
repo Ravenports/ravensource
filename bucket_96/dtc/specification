@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	1.7.0
+DEF[TAG]=		v${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		dtc
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils devel
+VARIANTS=		standard
+SDESC[standard]=	Device Tree Compiler
+HOMEPAGE=		https://www.devicetree.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/dgibson:dtc:${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[standard]=	complete primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		sysutils/dtc
+
+LICENSE=		BSD2CLAUSE:primary GPLv2:primary
+LICENSE_TERMS=		primary:{{WRKSRC}}/README.license
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/BSD-2-Clause
+			GPLv2:{{WRKSRC}}/GPL
+LICENSE_SCHEME=		dual
+
+USES=			bison gmake pkgconfig shebangfix
+SHEBANG_FILES=		dtdiff
+MAKE_ARGS=		NO_PYTHON=yes
+			PREFIX={{PREFIX}}
+			INSTALL_PROGRAM="{{INSTALL_PROGRAM}}"
+			INSTALL_LIB="{{INSTALL_LIB}}"
+SOVERSION=		${PORTVERSION}
